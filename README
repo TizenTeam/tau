@@ -1,0 +1,8 @@
+
+
+Source directory hierarchy
+
+./
+    src/              Source code
+    installer/        Support tools
+    test/             Test code
