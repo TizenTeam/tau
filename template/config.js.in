@@ -2,7 +2,8 @@
 // object (e.g. called CONFIG) and assign a "deps" property to it; then
 // load each of the files in the deps property inside bootstrap.js
 S.load(
-  'app/file1.js',
-  'app/file2.js',
-  'app/main.js'
+  'src/template.js',
+  'src/template.css',
+  'src/file1.js',
+  'src/file2.js'
 );

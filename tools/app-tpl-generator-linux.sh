@@ -37,16 +37,16 @@ function check_argv
 }
 
 
-### Copy src to installation directory ###
-function copy_src
+### Copy template to installation directory ###
+function copy_template
 {
 	echo "Copying template files into $DESTDIR..."
-	cp -a src $DESTDIR ||  usage "ERROR: Failed to copy files" ;
+	cp -a template $DESTDIR ||  usage "ERROR: Failed to copy files" ;
 }
 
 
 ### Replace filename & keywords ###
-function replace_src
+function replace_template
 {
 	echo "Replacing template files..."
 
@@ -65,6 +65,6 @@ function replace_src
 
 ### main ###
 check_argv
-copy_src
-replace_src
+copy_template
+replace_template
 

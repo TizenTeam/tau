@@ -72,7 +72,7 @@ S = {
 
   // default root path to the framework; could be an absolute file:// URI
   defaultFrameworkRoot: 's_framework',
-
+  
   // default framework version to load
   defaultFrameworkVersion: '1.0',
 
@@ -89,7 +89,6 @@ S = {
     var scriptElements,
         i,
         frameworkVersionValue,
-        frameworkRootValue,
         frameworkThemeValue,
         head,
         body,
@@ -140,7 +139,6 @@ S = {
 
     // construct base paths etc.
     basePath = frameworkRoot + '/' + frameworkVersion + '/';
-
     // load stylesheet for the theme;
     // NB this could also be customised with a data- attribute
     head = document.getElementsByTagName('head')[0];
@@ -157,7 +155,7 @@ S = {
     // with known names
     S.loaderChain
     .script(basePath + 'underscore.js')
-    .script(basePath + 'jquery-1.6.1.js').wait()
+    .script(basePath + 'jquery-1.6.2.js').wait()
     .script(basePath + 'jquery.mobile-1.0b1.js').wait()
     .script('config.js').wait(function () {
       body.style.visibility = 'visible';
