@@ -109,6 +109,7 @@ S = {
     scriptElements = document.getElementsByTagName('script');
 
     for (i = 0; i < scriptElements.length; i++) {
+      if (!scriptElements[i] || !scriptElements[i].getAttribute('src')) { continue; }
       if (scriptElements[i].getAttribute('src').match(/bootstrap\.js/)) {
         frameworkVersionValue = scriptElements[i].getAttribute('data-framework-version');
         if (frameworkVersionValue) {
