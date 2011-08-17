@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>template</title>
+<!-- NB the data- attributes can be given defaults in bootstrap.js -->
+<!-- theme : default / slp -->
+<script src="s_framework/bootstrap.js"
+        data-framework-version="1.0"
+        data-framework-theme="default">
+
+</script>
+	<link rel="stylesheet" href="src/app_manage.css" />
+</head>
+<body>
+
+<!-- Main Page -->
+<section data-role="page"  id="main_page" data-theme="c">	
+	<header data-role="header">
+		<h4>WebApp FW Sample</h4>
+	</header>
+	<content data-role"content">
+
+
+	<label><h4>Choose a button : </h4></label>
+		<div data-role="fieldcontain">
+		    <fieldset data-role="controlgroup" data-type="horizontal" >
+	         	<input type="radio" name="radio-choice-1" id="radio-choice-1" value="choice-1" checked="checked" />
+	         	<label for="radio-choice-1">jQuery Mobile</label>
+	
+	         	<input type="radio" name="radio-choice-1" id="radio-choice-2" value="choice-2"  />
+	         	<label for="radio-choice-2">SLP NBeat</label>	
+		    </fieldset>
+		</div>	
+
+		<br>
+		<a href="#" id="go_to_btn" data-role="button" data-inline="true">Go to stylePage</a>		
+<!--		<a href="#slp_page" id="slp_btn" data-role="button" data-inline="true">SLP</a>-->				
+		<br>
+	</content>
+	<footer>
+		<div data-role="navbar">
+			<ul>
+				<li><a href="#jqm_page" data-icon="arrow-l">jQM Page</a></li>
+				<li><a href="#main_page" class="ui-btn-active" data-icon="home">Home</a></li>
+				<li><a href="#slp_page" data-icon="arrow-r">SLP Page</a></li>				
+			</ul>
+		</div>
+	</footer>
+</section>	
+<!-- Main Page -->
+
+<!-- jQM Page -->	
+<section data-role="page"  id="jqm_page">	
+	<header data-role="header">
+		<h4>jQuery Mobile Style Sample</h4>
+	</header>
+	<content data-role="content">	
+		<div data-role="fieldcontain" >
+			<label for="select-choice-1" class="select"><h3>Select popup list :</h3></label>
+			<select name="select-choice-1" id="select-choice-1" data-native-menu="false">
+				<option value="a">popup list a</option>
+				<option value="b">popup list b</option>
+				<option value="c">popup list c</option>
+				<option value="d">popup list d</option>
+				<option value="e">popup list e</option>				
+			</select>
+		</div>	
+		<br>
+		<div data-role="fieldcontain">
+		 	<fieldset data-role="controlgroup">
+				<legend><h3>Select a item:</h3></legend>
+				<input type="checkbox" name="checkbox-1" id="checkbox-1" class="custom" />
+				<label for="checkbox-1">CheckItem_1</label>
+				<input type="checkbox" name="checkbox-2" id="checkbox-2" class="custom" />
+				<label for="checkbox-2">CheckItem_2</label>
+				<input type="checkbox" name="checkbox-3" id="checkbox-3" class="custom" />
+				<label for="checkbox-3">CheckItem_3</label>
+				<input type="checkbox" name="checkbox-4" id="checkbox-4" class="custom" />
+				<label for="checkbox-4">CheckItem_4</label>
+		    </fieldset>
+		</div>
+		<br>
+		
+		<a href="#slp_page" id="test_btn" data-role="button" data-inline="true" data-theme="b">Go to SLP</a>
+		<a href="#" id="reset_btn" data-role="button" data-icon = "refresh" data-inline="true">Reset</a>
+
+	</content>
+	<footer data-role="footer">
+
+		<div data-role="navbar">
+			<ul>
+				<li><a href="#jqm_page" data-icon="arrow-l">jQM Page</a></li>
+				<li><a href="#main_page" class="ui-btn-active" data-icon="home">Home</a></li>
+				<li><a href="#slp_page" data-icon="arrow-r">SLP Page</a></li>		
+			</ul>
+		</div>
+	</footer>	
+</section>
+<!-- jQM Page -->
+
+
+<!-- SLP Page -->
+<section id="slp_page" data-role="page" data-theme="d">
+	<header data-role="header">
+		<h4>SLP NBeat Style Sample</h4>
+	</header>
+	<content data-role="content">
+		<h3>duplicate border because of non existing data-icon tag</h3>
+		<div class="ui-grid-b">
+			<div class="ui-block-a">
+				<p style="color:gray"><strong>Expand button:</strong></p>
+				<a href="#" id="revealbutton" data-role="button" ></a>
+			</div>
+			<div class="ui-block-b">
+				<p style="color:gray"><strong>Info button:</strong></p>
+				<a href="#" id="infobutton" data-role="button" onclick="alert('Info is pressed');"></a>				
+			</div>
+			<div class="ui-block-c">
+				<p style="color:gray"><strong>Call button:</strong></p>
+				<a href="#" id="callbutton" data-role="button" onclick="alert('call is pressed');"></a>				
+			</div>
+		</div><br><br><br>
+
+
+		<h3>Simple Image link </h3>
+		<div class="ui-grid-b">
+			<div class="ui-block-a">
+				<p style="color:gray"><strong>Add button:</strong></p>
+				<a href="#" onclick="alert('add button clicked')"><img src="src/slp/button/00_button_add_02.png"></a>
+			</div>
+			<div class="ui-block-b">
+				<p style="color:gray"><strong>Call Press</strong></p>
+				<a href="#" ><img src="src/slp/button/00_button_call_press.png"></a>
+			</div>
+			<div class="ui-block-c">
+				<p style="color:gray"><strong>Call Press</strong></p>
+				<a href="#" ><img id="check_image" src="src/slp/button/00_check_checkedS.png" onclick="checkvalue()"></a>
+			</div>			
+		</div>
+
+		<a href="#main_page" data-role="button" data-inline="true" data-rel="back">Back</a>
+	</content>
+	<footer data-role="footer">
+		<div data-role="navbar">
+			<ul>
+				<li><a href="#jqm_page" data-icon="arrow-l">jQM Page</a></li>
+				<li><a href="#main_page" class="ui-btn-active" data-icon="home">Home</a></li>
+				<li><a href="#slp_page" data-icon="arrow-r">SLP Page</a></li>				
+			</ul>
+		</div>
+	</footer>	
+</section>	
+<!-- SLP Page -->
+
+
+</body>
+</html>
