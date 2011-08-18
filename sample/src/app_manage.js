@@ -17,17 +17,17 @@ function checkvalue(){
 
 	
 	Obj_Test_btn = $("#test_btn")
-		.click(function(){
+		.mousedown(function(){
 //			alert("Test - Reset button clicked");
 		});
 		
 	Obj_Reset_btn = $("#reset_btn")
-		.click(function(){
+		.mousedown(function(){
 			$(".custom").attr("checked", false).checkboxradio("refresh");			
 		});	
 		
 	$("#go_to_btn")
-		.click(function(){
+		.mousedown(function(){
 
 			if($("#radio-choice-1").attr("checked") =="checked")
 				$("#go_to_btn").attr("href", "#jqm_page");
