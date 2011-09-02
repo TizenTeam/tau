@@ -1,6 +1,10 @@
 
+	* Usage
 
-Source directory hierarchy
+Run tools/app-tpl-generator-linux.sh <app-name> <install-dir>.
+
+
+	* Source directory hierarchy
 
 ./
     src/              Source code

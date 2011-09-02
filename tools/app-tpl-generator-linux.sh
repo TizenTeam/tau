@@ -22,6 +22,7 @@ function usage
 		echo ""
 		echo "       app-name : Your application name. If whitespace is contained, wrap it by quote mark."
 		echo "       install-dir : Directory which the template code directory with name of app-name is created in."
+		echo "                     <install-dir>/<app-name>/ directory will be created."
 		echo ""
 	fi
 
@@ -41,7 +42,7 @@ function check_argv
 function copy_template
 {
 	echo "Copying template files into $DESTDIR..."
-	cp -a template $DESTDIR ||  usage "ERROR: Failed to copy files" ;
+	cp -a $SRC_ROOT/template $DESTDIR ||  usage "ERROR: Failed to copy files" ;
 }
 
 
