@@ -2,3 +2,5 @@
 *.swo
 build
 *.less.css
+*-stamp
+debian

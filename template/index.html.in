@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>template</title>
+<title>@APP_NAME@</title>
 <!-- NB the data- attributes can be given defaults in bootstrap.js -->
 <!-- theme : default / slp -->
-<script src="s_framework/bootstrap.js"
+<script src="@LIBDIR@/bootstrap.js"
         data-framework-version="1.0"
-        data-framework-theme="default">
+        data-framework-theme="default" @DATA_FRAMEWORK_ROOT@>
 </script>
 </head>
 <body>

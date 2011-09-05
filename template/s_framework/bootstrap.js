@@ -71,8 +71,8 @@ S = {
   },
 
   // default root path to the framework; could be an absolute file:// URI
-  defaultFrameworkRoot: 's_framework',
-  
+  defaultFrameworkRoot: 'file:///usr/share/slp-web-fw',
+
   // default framework version to load
   defaultFrameworkVersion: '1.0',
 

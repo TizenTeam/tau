@@ -13,6 +13,10 @@ PROTOTYPE_HTML_OUTPUT_DIR = ${OUTPUT_ROOT}/${PROJECT_NAME}/${VERSION}/proto-html
 CODE_DIR = src/widgets
 LIBS_DIR = libs
 
+DESTDIR ?= 
+PREFIX ?= /usr
+INSTALL_DIR = ${DESTDIR}${PREFIX}
+
 FW_JS = ${JS_OUTPUT_ROOT}/${PROJECT_NAME}.js
 FW_JS_THEME = ${JS_OUTPUT_ROOT}/${PROJECT_NAME}-${THEME_NAME}-theme.js
 FW_CSS = ${CSS_OUTPUT_ROOT}/${PROJECT_NAME}-${THEME_NAME}-theme.css
@@ -91,6 +95,11 @@ widgets: init
 	            cp $$f ${PROTOTYPE_HTML_OUTPUT_DIR}; \
 	        done; \
 	    done
+
+install: all
+	mkdir -p ${INSTALL_DIR}/share/slp-web-fw ${INSTALL_DIR}/bin
+	cp -av ${OUTPUT_ROOT}/* src/template ${INSTALL_DIR}/share/slp-web-fw/
+	cp -av tools/* ${INSTALL_DIR}/bin
 
 clean:
 	# Removing destination directory...
