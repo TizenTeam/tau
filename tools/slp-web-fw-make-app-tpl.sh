@@ -69,7 +69,7 @@ function parseopt
 	argc=${#argv[@]}
 }
 
-option_list=( "--copylib" )
+option_list=( "--copylib" "--type=" )
 parseopt $@
 
 APP_NAME=${argv[0]}
@@ -97,6 +97,9 @@ function usage
 		echo "       --copylib : When this option is used, all libs and resources will be "
 		echo "                  copied into template directory, and all templates will refer"
 		echo "                  those copied libs."
+		echo "       --type=[w3c|wac]"
+		echo "                  Set type of application template. If no --type= option is given,"
+		echo "                  only default app template files will be copied."
 		echo ""
 	fi
 
@@ -125,7 +128,11 @@ function copy_template
 	fi
 
 	echo "Copying template files into $DESTDIR..."
-	cp -a $tplpath $DESTDIR ||  usage "ERROR: Failed to copy templates" ;
+	mkdir -p $DESTDIR || usage "ERROR: Failed to create directory: $DESTDIR"
+	find $tplpath/ -maxdepth 1 -type f | xargs -i cp -a {} $DESTDIR/ ||  usage "ERROR: Failed to copy templates" ;
+	if [[ -n "$type" && -d "$tplpath/$type" ]]; then	# Copy type-specific files
+		cp -a $tplpath/$type/* $DESTDIR/ || usage "ERROR: Failed to copy templates"
+	fi
 
 	# copy lib if --copylib option is given
 	if [ -n "$copylib" ]; then

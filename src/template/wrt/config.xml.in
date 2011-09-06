@@ -6,7 +6,7 @@
             width="480"
             height="800" >
     <!-- automatically generated name -->
-    <name>AppFW Sample</name>
+    <name>@APP_NAME@</name>
  
     <!-- icon resource -->
     <icon src="icon.png"/>
