@@ -1,6 +1,7 @@
 DEBUG = yes
 PROJECT_NAME = web-ui-fw
 VERSION = 0.1
+VERSION_COMPAT =
 THEME_NAME = default
 
 OUTPUT_ROOT = build
@@ -49,7 +50,8 @@ LIBS_CSS_FILES +=
     $(NULL)
 endif
 
-all: third_party widgets
+all: third_party widgets version_compat
+
 
 third_party: init
 	# Building third party components...
@@ -95,6 +97,17 @@ widgets: init
 	            cp $$f ${PROTOTYPE_HTML_OUTPUT_DIR}; \
 	        done; \
 	    done
+
+version_compat: third_party widgets
+	# Creating compatible version dirs...
+	for v_compat in ${VERSION_COMPAT}; do \
+		ln -sf ${VERSION} ${FRAMEWORK_ROOT}/../$$v_compat; \
+	done;
+
+demo: widgets 
+	mkdir -p ${OUTPUT_ROOT}/demos
+	cp -av demos/* ${OUTPUT_ROOT}/demos/
+	cp -f src/template/bootstrap.js ${OUTPUT_ROOT}/demos/gallery/
 
 install: all
 	mkdir -p ${INSTALL_DIR}/share/slp-web-fw ${INSTALL_DIR}/bin
