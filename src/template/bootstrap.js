@@ -166,28 +166,6 @@ S.css = {
     }
 };
 
-/* Create custom user stylesheet */
-S.css = {
- load: function () {
-	head = document.getElementsByTagName('head')[0];
-    basePath = 'src/';
-
-    for (var i = 0; i < arguments.length; i++) {
-		S.css.link_style(arguments[i]);
-    }
-  },
-  
- link_style : function(e){
-	customstylesheetPath = basePath + e;
-	customstylesheetLink = document.createElement('link');
-    customstylesheetLink.setAttribute('rel', 'stylesheet');
-    customstylesheetLink.setAttribute('href', customstylesheetPath);
-
-    head.appendChild(customstylesheetLink);
- } 
-};
-/* Create custom user stylesheet */
-
 // auto-run function which loads the framework
 (function () {
     domReady(function () {
@@ -252,7 +230,7 @@ S.css = {
         S.basePath = frameworkRoot + '/' + frameworkVersion + '/';
 
         // load stylesheet for the theme
-        stylesheetPath = S.basePath + 'css/web-ui-fw-default-theme.css';
+        stylesheetPath = S.basePath + 'themes/' + frameworkTheme + '/web-ui-fw-theme.css';
         S.css.load(stylesheetPath);
 
         // load jquery and our config.js file, turning off jqm's page init until
