@@ -1,132 +1,277 @@
+/*!
+ * jQuery Mobile Widget @VERSION
+ *
+ * Copyright (C) TODO
+ * License: TODO
+ * Authors: Gabriel Schulhof, Elliot Smith
+ */
+
+/*
+ * Shows other elements inside a popup window.
+ *
+ * To apply, add the attribute data-role="popupwindow" to a <div>
+ * element inside a page. Alternatively, call popupwindow() 
+ * on an element, eg :
+ *
+ *     $("#mypopupwindowContent").popupwindow();
+ * where the html might be :
+ *     <div id="mypopupwindowContent"></div>
+ *
+ * To trigger the popupwindow to appear, it is necessary to make a
+ * call to it's 'open()' method. This is typically done by binding
+ * a function to an event emitted by an input element, such as a the
+ * clicked event emitted by a button element.
+ * The open() method takes two arguments, specifying the origin of
+ * window. For example, this opens the popupwindow with id 
+ * 'popupContent' when the button with id 'popupwindowDemoButton'
+ * is clicked :
+ *
+ *     $('#popupwindowDemoButton').bind("vclick", function (e) {
+ *         var btn = $('#popupwindowDemoButton');
+ *         $('#popupContent').popupwindow("open",
+ *         btn.offset().left + btn.outerWidth()  / 2,
+ *         btn.offset().top  + btn.outerHeight() / 2);
+ *     });
+ *
+ * The html might be something like :
+ *
+ *      <a href="#" id="mypopupwindowDemoButton" data-role="button" data-inline="true">Show popup</a>
+ *
+ *      <div id="mypopupContent" style="display: table;">
+ *          <table>
+ *              <tr> <td>Eenie</td>   <td>Meenie</td>  <td>Mynie</td>   <td>Mo</td>  </tr>
+ *              <tr> <td>Catch-a</td> <td>Tiger</td>   <td>By-the</td>  <td>Toe</td> </tr>
+ *              <tr> <td>If-he</td>   <td>Hollers</td> <td>Let-him</td> <td>Go</td>  </tr>
+ *              <tr> <td>Eenie</td>   <td>Meenie</td>  <td>Mynie</td>   <td>Mo</td>  </tr>
+ *          </table>
+ *      </div>
+ *
+ * The window can be closed with the close() method.
+ *
+ * Options:
+ *
+ *     disabled: Boolean; disable the popup
+ *               Default: false
+ *
+ *     overlayTheme: String; the theme for the popupwindow
+ *                   Default: "c"
+ *
+ *     shadow: Boolean; display a shadow around the popupwindow
+ *             Default: true
+ *
+ *     fade: Boolean; fades the opening and closing of the popupwindow
+ *
+ *     transition: String; the transition to use when opening or closing
+ *                 a popupwindow
+ *                 Default: $.mobile.defaultDialogTransition
+ *
+ * Events:
+ *     close: Emitted when the popupwindow is closed.
+ *
+ */
 (function( $, undefined ) {
 
-$.widget( "mobile.popupwindow", $.mobile.widget, {
-  options: {
-    disabled: false,
-    initSelector: ":jqmData(role='popupwindow')",
-    overlayTheme: "a"
-  },
+$.widget( "todons.popupwindow", $.mobile.widget, {
+    options: {
+        disabled: false,
+        initSelector: ":jqmData(role='popupwindow')",
+        overlayTheme: "c",
+        shadow: true,
+        fade: true,
+        transition: $.mobile.defaultDialogTransition,
+    },
 
   _create: function() {
     var self = this,
-        o = this.options,
-        elem = this.element,
         thisPage = this.element.closest(".ui-page"),
-        screen = $("<div>", {"class": "ui-selectmenu-screen ui-screen-hidden"})
-          .appendTo(thisPage),
-        container = $("<div>", {
-            "class": "ui-popupwindow " + 
-                     "ui-selectmenu-hidden " + 
-                     "ui-overlay-shadow " + 
-                     "ui-corner-all ui-body-" + o.overlayTheme + " " +
-                     $.mobile.defaultDialogTransition})
-          .insertAfter(screen);
+        ui = {
+          screen:    "#popupwindow-screen",
+          container: "#popupwindow-container"
+        };
 
-    elem.appendTo(container);
+    ui = $.mobile.todons.loadPrototype("popupwindow", ui);
+    thisPage.append(ui.screen);
+    ui.container.insertAfter(ui.screen);
+    ui.container.append(this.element);
 
     $.extend( self, {
-      elem: elem,
+      transition: undefined,
       isOpen: false,
       thisPage: thisPage,
-      screen: screen,
-      container: container
+      ui: ui
     });
 
+    $.mobile.todons.parseOptions(this, true);
+
     // Events on "screen" overlay
-    screen.bind( "vclick", function( event ) {
-      self.close();
+    ui.screen.bind( "vclick", function( event ) {
+        self.close();
     });
+
+    $("[aria-haspopup='true'][aria-owns='" + this.element.attr("id") + "']").bind("vclick", function(e) {
+      self.open(
+        $(this).offset().left + $(this).outerWidth()  / 2,
+        $(this).offset().top  + $(this).outerHeight() / 2);
+    });
+  },
+
+  _setOverlayTheme: function(newTheme) {
+    var classes = this.ui.container.attr("class").split(" "),
+        alreadyAdded = false;
+
+    for (var Nix in classes) {
+      if (classes[Nix].substring(0, 8) === "ui-body-") {
+        if (classes[Nix] != newTheme)
+          this.ui.container.removeClass(classes[Nix]);
+        else
+          alreadyAdded = true;
+      }
+    }
+
+    if (!(alreadyAdded || undefined === newTheme))
+      this.ui.container.addClass(newTheme);
+
+    this.options.overlayTheme = newTheme;
+  },
+
+  _setShadow: function(value) {
+    if (value) {
+      if (!this.ui.container.hasClass("ui-overlay-shadow"))
+        this.ui.container.addClass("ui-overlay-shadow");
+    }
+    else
+    if (this.ui.container.hasClass("ui-overlay-shadow"))
+      this.ui.container.removeClass("ui-overlay-shadow");
+
+    this.options.shadow = value;
+  },
+
+  _setTransition: function(value) {
+    if (this.transition != undefined)
+      this.ui.container.removeClass(this.transition);
+    this.ui.container.addClass(value);
+    this.transition = value;
+  },
+
+  _setOption: function(key, value) {
+    if (key === "overlayTheme") {
+      if (value.match(/[a-z]/))
+        this._setOverlayTheme("ui-body-" + value);
+      else
+      if (value === "")
+        this._setOverlayTheme();
+    }
+    else
+    if (key === "shadow")
+      this._setShadow(value);
+    else
+    if (key === "fade")
+      this.options.fade = value;
+    else
+    if (key === "transition")
+      this._setTransition(value);
   },
 
   open: function(x_where, y_where) {
-    console.log("popupwindow.open: Entering with (" + x_where + ", " + y_where + ")");
-    if ( this.options.disabled || this.isOpen)
-      return;
+      if ( this.options.disabled || this.isOpen)
+          return;
 
-    var self = this,
-        x = (undefined === x_where ? 0 : x_where),
-        y = (undefined === y_where ? 0 : y_where);
+      var self = this,
+          x = (undefined === x_where ? window.innerWidth  / 2 : x_where),
+          y = (undefined === y_where ? window.innerHeight / 2 : y_where);
 
-    console.log("self.elem is [" + self.elem.outerWidth() + " x " + self.elem.outerHeight() + "]");
+      this.ui.container.css("min-width", this.element.outerWidth(true));
+      this.ui.container.css("min-height", this.element.outerHeight(true));
 
-    self.container.css("max-width",  self.elem.outerWidth());
-    self.container.css("max-height", self.elem.outerHeight());
+      var menuHeight = this.ui.container.outerHeight(true),
+          menuWidth = this.ui.container.outerWidth(true),
+          scrollTop = $( window ).scrollTop(),
+          screenHeight = window.innerHeight,
+          screenWidth = window.innerWidth;
 
-    var menuHeight = self.container.outerHeight(),
-	menuWidth = self.container.outerWidth(),
-	scrollTop = $( window ).scrollTop(),
-	screenHeight = window.innerHeight,
-	screenWidth = window.innerWidth;
+      this.ui.screen
+          .height($(document).height())
+          .removeClass("ui-screen-hidden");
 
-    self.screen
-      .height($(document).height())
-      .removeClass("ui-screen-hidden");
+      if (this.options.fade)
+          this.ui.screen.animate({opacity: 0.5}, "fast");
 
-    // Try and center the overlay over the given coordinates
-    var roomtop = y - scrollTop,
-	roombot = scrollTop + screenHeight - y,
-	halfheight = menuHeight / 2,
-	maxwidth = parseFloat( self.container.css( "max-width" ) ),
-	newtop, newleft;
+      // Try and center the overlay over the given coordinates
+      var roomtop = y - scrollTop,
+          roombot = scrollTop + screenHeight - y,
+          halfheight = menuHeight / 2,
+          maxwidth = parseFloat( this.ui.container.css( "max-width" ) ),
+          newtop, newleft;
 
-    if ( roomtop > menuHeight / 2 && roombot > menuHeight / 2 ) {
-      newtop = y - halfheight;
-    }
-    else {
-      // 30px tolerance off the edges
-      newtop = roomtop > roombot ? scrollTop + screenHeight - menuHeight - 30 : scrollTop + 30;
-    }
-
-    // If the menuwidth is smaller than the screen center is
-    if ( menuWidth < maxwidth ) {
-      newleft = ( screenWidth - menuWidth ) / 2;
-    } 
-    else {
-
-      //otherwise insure a >= 30px offset from the left
-      newleft = x - menuWidth / 2;
-
-      // 30px tolerance off the edges
-      if ( newleft < 30 ) {
-	newleft = 30;
+      if ( roomtop > menuHeight / 2 && roombot > menuHeight / 2 ) {
+          newtop = y - halfheight;
       }
-      else
-      if ( ( newleft + menuWidth ) > screenWidth ) {
-	newleft = screenWidth - menuWidth - 30;
+      else {
+          // 30px tolerance off the edges
+          newtop = roomtop > roombot ? scrollTop + screenHeight - menuHeight - 30 : scrollTop + 30;
       }
-    }
 
-    self.container
-      .removeClass("us-selectmenu-hidden")
-      .css({
-        top: newtop,
-        left: newleft
-      })
-      .addClass("in");
+      // If the menuwidth is smaller than the screen center is
+      if ( menuWidth < maxwidth ) {
+          newleft = ( screenWidth - menuWidth ) / 2;
+      }
+      else {
+          //otherwise insure a >= 30px offset from the left
+          newleft = x - menuWidth / 2;
 
-    self.isOpen = true;
+          // 30px tolerance off the edges
+          if ( newleft < 30 ) {
+              newleft = 30;
+          }
+          else if ( ( newleft + menuWidth ) > screenWidth ) {
+              newleft = screenWidth - menuWidth - 30;
+          }
+      }
+
+      this.ui.container
+          .removeClass("ui-selectmenu-hidden")
+          .css({
+              top: newtop,
+              left: newleft
+          })
+          .addClass("in")
+          .animationComplete(function() {
+            self.ui.screen.height($(document).height());
+          });
+
+      this.isOpen = true;
   },
 
   close: function() {
-    if (this.options.disabled || !this.isOpen)
-      return;
+      if (this.options.disabled || !this.isOpen)
+        return;
 
-    var self = this;
+      var self = this,
+          hideScreen = function() {
+              self.ui.screen.addClass("ui-screen-hidden");
+              self.isOpen = false;
+              self.element.trigger("closed");
+          };
 
-    self.screen .addClass("ui-screen-hidden");
-    self.container
-      .addClass("ui-selectmenu-hidden")
-      .removeAttr("style")
-      .removeClass("in");
+      this.ui.container
+        .removeClass("in")
+        .addClass("reverse out")
+        .animationComplete(function() {
+          self.ui.container
+            .removeClass("reverse out")
+            .addClass("ui-selectmenu-hidden")
+            .removeAttr("style");
+        });
 
-    this.isOpen = false;
-
-    this.element.trigger("closed");
+      if (this.options.fade)
+          this.ui.screen.animate({opacity: 0.0}, "fast", hideScreen);
+      else
+          hideScreen();
   }
 });
 
 $(document).bind("pagecreate create", function(e) {
-  $($.mobile.popupwindow.prototype.options.initSelector, e.target)
+    $($.todons.popupwindow.prototype.options.initSelector, e.target)
     .not(":jqmData(role='none'), :jqmData(role='nojs')")
     .popupwindow();
 });

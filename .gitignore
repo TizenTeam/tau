@@ -4,3 +4,4 @@ build
 *.less.css
 *-stamp
 debian
+*.js.compiled

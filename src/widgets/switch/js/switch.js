@@ -6,71 +6,127 @@
  * Authors: Gabriel Schulhof <gabriel.schulhof@intel.com>
  */
 
-(function($, window, undefined) {
-    $.widget("mobile.switch", $.mobile.widget, {
-        options: {
-            animationDuration: 500
-        },
+/*
+ * Displays a simple two-state switch.
+ *
+ * To apply, add the attribute data-role="switch" to a <div>
+ * element inside a page. Alternatively, call switch() 
+ * on an element, like this :
+ *
+ *     $("#myswitch").switch();
+ * where the html might be :
+ *     <div id="myswitch"></div>
+ *
+ * Options:
+ *     checked: Boolean; the state of the switch
+ *     Default: true (up)
+ *
+ * Events:
+ *     changed: Emitted when the switch is changed
+ */
 
-        data: {
-            uuid: 0,
-            precompute: {
-              needed: true,
-              slideFrom: -1,
-              slideTo: -1
-            },
-            instanceData: new Array()
-        },
+(function($, undefined) {
 
-        _buttonClicked: function(myUUID, obj) {
-          if (0 == obj.data.instanceData[myUUID].toggled)
-            obj.data.instanceData[myUUID].toggled = 1;
-          else
-            obj.data.instanceData[myUUID].toggled = 0;
+$.widget("todons.switch", $.mobile.widget, {
 
-          if (1 == obj.data.instanceData[myUUID].toggled)
-            $('#ui-switch-button-' + myUUID).animate({top: obj.data.precompute.slideTo},   {duration: obj.options.animationDuration});
-          else
-            $('#ui-switch-button-' + myUUID).animate({top: obj.data.precompute.slideFrom}, {duration: obj.options.animationDuration});
+  options: {
+    checked: true,
+    initSelector: ":jqmData(role='switch')"
+  },
 
-          //$(obj).trigger('toggled');
-        },
+  _create: function() {
+    var self = this,
+        dstAttr = this.element.is("input") ? "checked" : "data-checked",
+        ui = {
+          outer:            "#switch",
+          normalBackground: "#switch-inner-normal",
+          activeBackground: "#switch-inner-active",
+          tButton:          "#switch-button-t",
+          fButton:          "#switch-button-f",
+          realButton:       "#switch-button-outside-real",
+          refButton:        "#switch-button-outside-ref"
+        };
 
-        _create: function() {
-            var container = this.element;
-            var obj = this;
+    ui = $.mobile.todons.loadPrototype("switch", ui);
+    this.element.append(ui.outer);
+    ui.outer.find("a").buttonMarkup({inline: true, corners: true});
 
-            /* Give unique id to allow more instances in one page. */
-            this.data.uuid += 1;
+    $.extend(this, {
+      realized: false,
+      ui: ui,
+      dstAttr: dstAttr
+    });
 
-            var myUUID = this.data.uuid;
+    $.mobile.todons.parseOptions(self, true);
 
-            container.attr("id", "ui-switch-" + this.data.uuid);
+    if (this.element.closest(".ui-page").is(":visible"))
+      self._realize();
+    else
+      this.element.closest(".ui-page").bind("pageshow", function() { self._realize(); });
 
-            var innerContainer = $.createSwitchInnerContainer();
-            innerContainer.attr("id", "ui-switch-inner-container-" + this.data.uuid);
+    ui.realButton.bind("vclick", function(e) {
+      self._toggle();
+      e.stopPropagation();
+    });
 
-            var theButton = $.createSwitchButton();
-            theButton.attr("id", "ui-switch-button-" + this.data.uuid);
+    ui.normalBackground.bind("vclick", function(e) {
+      self._toggle();
+      e.stopPropagation();
+    });
+  },
 
-            innerContainer.append(theButton);
-            container.append(innerContainer);
+  _toggle: function() {
+    this._setChecked(!(this.options.checked));
+  },
 
-            obj.data.instanceData[myUUID] = { toggled: 0 };
+  _setOption: function(key, value, unconditional) {
+    if (undefined === unconditional)
+      unconditional = false;
+    if (key === "checked")
+      this._setChecked(value, unconditional);
+  },
 
-            if (obj.data.precompute.needed) {
-              obj.data.precompute.needed = false;
-              obj.data.precompute.slideFrom = parseInt(theButton.css('top'));
-              obj.data.precompute.slideTo = innerContainer.height() - parseInt(theButton.css('top')) - theButton.height();
-            }
+  _realize: function() {
+    this.ui.realButton
+      .position({
+        my: "center center",
+        at: "center center",
+        of: this.ui[(this.options.checked ? "t" : "f") + "Button"]
+      })
+      .removeClass("switch-button-transparent");
+    this.ui.activeBackground.find("a").addClass("switch-button-transparent");
+    this.ui.normalBackground.find("a").addClass("switch-button-transparent");
+    this.ui.normalBackground.css({"opacity": this.options.checked ? 0.0 : 1.0});
+    this.ui.activeBackground.css({"opacity": this.options.checked ? 1.0 : 0.0});
 
-            innerContainer.click(function() {
-              obj._buttonClicked(myUUID, obj);
-            });
-        }
-    }); /* End of widget */
+    this.rendered = true;
+  },
 
-    var now = new Date();
-    $($.mobile.switch.prototype.data.uuid = now.getTime());
-})(jQuery, this);
+  _setChecked: function(checked, unconditional) {
+    if (this.options.checked != checked || unconditional) {
+      if (this.rendered) {
+        this.ui.refButton.position({
+          my: "center center", 
+          at: "center center",
+          of: this.ui[(checked ? "t" : "f") + "Button"]
+        });
+        this.ui.realButton.animate({"top": this.ui.refButton.position().top});
+      }
 
+      this.ui.normalBackground.animate({"opacity": checked ? 0.0 : 1.0});
+      this.ui.activeBackground.animate({"opacity": checked ? 1.0 : 0.0});
+
+      this.options.checked = checked;
+      this.element.attr(this.dstAttr, checked ? "true" : "false");
+      this.element.triggerHandler("changed", checked);
+    }
+  },
+});
+
+$(document).bind("pagecreate create", function(e) {
+  $($.todons.switch.prototype.options.initSelector, e.target)
+    .not(":jqmData(role='none'), :jqmData(role='nojs')")
+    .switch();
+});
+
+})(jQuery);

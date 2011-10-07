@@ -1,370 +1,186 @@
+/*!
+ * jQuery Mobile Widget @VERSION
+ *
+ * Copyright (C) TODO
+ * License: TODO
+ * Authors: Gabriel Schulhof
+ */
+
+/**
+ * Displays a 2D hue/saturation spectrum and a lightness slider.
+ *
+ * To apply, add the attribute data-role="colorpicker" to a <div>
+ * element inside a page. Alternatively, call colorpicker() 
+ * on an element (see below).
+ *
+ * Options:
+ *     color: String; can be specified in html using the
+ *            data-color="#ff00ff" attribute or when constructed
+ *                $("#mycolorpicker").colorpicker({ color: "#ff00ff" });
+ *            where the html might be :
+ *                <div id="mycolorpicker"/>
+ */
 (function( $, undefined ) {
 
-$.widget( "mobile.colorpicker", $.mobile.widget, {
+$.widget( "todons.colorpicker", $.todons.colorwidget, {
   options: {
-    color: "#1a8039",
-    initSelector: ":jqmData(role='colorpicker')"
+      initSelector: ":jqmData(role='colorpicker')"
   },
 
   _create: function() {
     var self = this,
+        ui = {
+            clrpicker: "#colorpicker",
+            hs: {
+                eventSource: "[data-event-source='hs']",
+                valMask:   "#colorpicker-hs-val-mask",
+                selector:  "#colorpicker-hs-selector"
+            },
+            l: {
+                eventSource: "[data-event-source='l']",
+                selector:  "#colorpicker-l-selector"
+            }
+        },
+        stopDragging = function(event) {
+          self.dragging = false;
+          event.stopPropagation();
+          event.preventDefault();
+        };
 
-        o = this.options,
-
-        elem = this.element.wrap("<div>")
-          .addClass("ui-colorpicker"),
-
-        elemID = elem.attr("id"),
-
-        canvas = $("<canvas>", {"class" : "ui-colorpicker-canvas" })
-          .text("colorpicker canvas")
-          .appendTo(elem),
-
-        hsSelector = $("<div>", {"class": "ui-colorpicker-canvas-selector ui-corner-all" })
-          .appendTo(elem),
-
-        lSelector =  $("<div>", {"class": "ui-colorpicker-canvas-selector ui-corner-all" })
-          .appendTo(elem),
-
-        scale = Math.min(parseInt(canvas.css("width")), parseInt(canvas.css("height"))) / 256.0,
-
-        hsl = this.getHSL(o.color);
-
-      hsl[1] = 1.0 - hsl[1];
-
-      canvas[0].width  = parseInt(canvas.css("width"));
-      canvas[0].height = parseInt(canvas.css("height"));
+    ui = $.mobile.todons.loadPrototype("colorpicker", ui);
+    this.element.append(ui.clrpicker);
 
     $.extend( self, {
-      scale: scale,
-      colour: o.color,
-      elem: elem,
-      canvas: canvas,
-      hsSelector: hsSelector,
-      lSelector: lSelector,
+      ui: ui,
       dragging: false,
       draggingHS: false,
       selectorDraggingOffset: {
-        x : -1,
-        y : -1
+          x : -1,
+          y : -1
       },
-      dragging_hsl: hsl
+      dragging_hsl: undefined
     });
 
-    self.refresh();
+    $.todons.colorwidget.prototype._create.call(this);
 
-    $( document ).bind( "vmousemove", function( event ) {
-      if ( self.dragging ) {
-//            self.refresh( event );
-        return false;
-      }
-    });
-
-    $( document ).bind( "vmouseup", function( event ) {
-      if ( self.dragging ) {
-        self.dragging = false;
-//            self.refresh( event );
-        return false;
-      }
-    });
-
-    
-    canvas.bind( "vmousedown", function (event) {
-      if (event.offsetY >= 0 && event.offsetY <= 256 * scale) {
-        if (event.offsetX >= 0 && event.offsetX <= 256 * scale) {
-          self.dragging = true;
-          self.draggingHS = true;
+    $( document )
+      .bind( "vmousemove", function( event ) {
+        if ( self.dragging ) {
+          event.stopPropagation();
+          event.preventDefault();
         }
-        else
-        if (event.offsetX >= parseInt(canvas.attr("width")) - 16 && 
-            event.offsetX <= parseInt(canvas.attr("width"))) {
-          self.dragging = true;
-          self.draggingHS = false;
-        }
-      }
-      return self._canvasDownAndMove(self, event);
-    });
+      })
+      .bind( "vmouseup", function( event ) {
+        if ( self.dragging )
+          self.dragging = false;
+      });
 
-    canvas.bind( "vmousemove", function (event) {
-      if (self.dragging)
-        return self._canvasDownAndMove(self, event);
-      return false;
-    });
+    ui.hs.eventSource
+      .bind( "vmousedown mousedown", function (event) { self._handleMouseDown(event, "hs", false); })
+      .bind( "vmousemove"          , function (event) { self._handleMouseMove(event, "hs", false); })
+      .bind( "vmouseup"            , stopDragging);
 
-    hsSelector.bind( "vmousedown", function (event) {
-      self.dragging = true;
-      self.draggingHS = true;
-      self.selectorDraggingOffset.x = event.offsetX;
-      self.selectorDraggingOffset.y = event.offsetY;
+    ui.l.eventSource
+      .bind( "vmousedown mousedown", function (event) { self._handleMouseDown(event, "l",  false); })
+      .bind( "vmousemove"          , function (event) { self._handleMouseMove(event, "l",  false); })
+      .bind( "vmouseup"            , stopDragging);
 
-      return true;
-    });
+    ui.hs.selector
+      .bind( "vmousedown mousedown", function (event) { self._handleMouseDown(event, "hs", true); })
+      .bind( "touchmove vmousemove", function (event) { self._handleMouseMove(event, "hs", true); })
+      .bind( "vmouseup"            , stopDragging);
 
-    lSelector.bind( "vmousedown", function (event) {
-      self.dragging = true;
-      self.draggingHS = false;
-      self.selectorDraggingOffset.x = event.offsetX;
-      self.selectorDraggingOffset.y = event.offsetY;
-
-      return true;
-    });
-
-    hsSelector.bind( "vmousemove", function (event) {
-      var eventHandled = false,
-          potential_h = self.dragging_hsl[0] + (event.offsetX - self.selectorDraggingOffset.x) / (self.scale * 255.0),
-          potential_s = self.dragging_hsl[1] + (event.offsetY - self.selectorDraggingOffset.y) / (self.scale * 255.0);
-
-      if (self.dragging) {
-        if (potential_h >= 0.0 && potential_h <= 1.0) {
-          self.dragging_hsl[0] = potential_h;
-          eventHandled = true;
-        }
-        if (potential_s >= 0.0 && potential_s <= 1.0) {
-          self.dragging_hsl[1] = potential_s;
-          eventHandled = true;
-        }
-      }
-
-      if (eventHandled)
-        self.updateSelectors(self.dragging_hsl, true);
-
-      return eventHandled;
-    });
-
-    lSelector.bind( "vmousemove", function (event) {
-      var eventHandled = false,
-          potential_l = self.dragging_hsl[2] + (event.offsetY - self.selectorDraggingOffset.y) / (self.scale * 255.0);
-
-      if (self.dragging && !self.draggingHS) {
-        if (potential_l >= 0.0 && potential_l <= 1.0) {
-          self.dragging_hsl[2] = potential_l;
-          eventHandled = true;
-        }
-      }
-
-      if (eventHandled) {
-        self.paintCanvas(self.dragging_hsl);
-        self.updateSelectors(self.dragging_hsl);
-      }
-
-      return eventHandled;
-    });
-
-    canvas.bind( "vmouseup", function (event) {
-      self.dragging = false;
-      return true;
-    });
-
-    hsSelector.bind( "vmouseup", function (event) {
-      self.dragging = false;
-      return true;
-    });
-
+    ui.l.selector
+      .bind( "vmousedown mousedown", function (event) { self._handleMouseDown(event, "l",  true); })
+      .bind( "touchmove vmousemove", function (event) { self._handleMouseMove(event, "l",  true); })
+      .bind( "vmouseup"            , stopDragging);
   },
 
-  _canvasDownAndMove: function(self, event) {
-    var eventHandled = false;
+  _handleMouseDown: function(event, containerStr, isSelector) {
+    var coords = $.mobile.targetRelativeCoordsFromEvent(event),
+        widgetStr = isSelector ? "selector" : "eventSource";
+    if ((coords.x >= 0 && coords.x <= this.ui[containerStr][widgetStr].width() &&
+         coords.y >= 0 && coords.y <= this.ui[containerStr][widgetStr].height()) || isSelector) {
+      this.dragging = true;
+      this.draggingHS = ("hs" === containerStr);
 
-    if (self.dragging) {
-      if (self.draggingHS) {
-        var potential_h = event.offsetX / (self.scale * 255.0),
-            potential_s = event.offsetY / (self.scale * 255.0),
-            hsl;
+      if (isSelector) {
+        this.selectorDraggingOffset.x = coords.x;
+        this.selectorDraggingOffset.y = coords.y;
+      }
 
-        if (potential_h >= 0.0 && potential_h <= 1.0) {
-          self.dragging_hsl[0] = potential_h;
-          eventHandled = true;
-        }
+      this._handleMouseMove(event, containerStr, isSelector, coords);
+    }
+  },
 
-        if (potential_s >= 0.0 && potential_s <= 1.0) {
-          self.dragging_hsl[1] = potential_s;
-          eventHandled = true;
-        }
+  _handleMouseMove: function(event, containerStr, isSelector, coords) {
+    if (this.dragging) {
+      if (coords === undefined)
+        var coords = $.mobile.targetRelativeCoordsFromEvent(event);
+      if (this.draggingHS) {
+        var potential_h = isSelector
+              ? this.dragging_hsl[0] / 360 + (coords.x - this.selectorDraggingOffset.x) / this.ui[containerStr].eventSource.width()
+              : coords.x / this.ui[containerStr].eventSource.width(),
+            potential_s = isSelector
+              ? this.dragging_hsl[1]       + (coords.y - this.selectorDraggingOffset.y) / this.ui[containerStr].eventSource.height()
+              : coords.y / this.ui[containerStr].eventSource.height();
 
-        if (eventHandled) {
-          self.updateSelectors(self.dragging_hsl, true);
-          self.selectorDraggingOffset.x = Math.ceil(parseInt(self.hsSelector.css("width"))  / 2.0);
-          self.selectorDraggingOffset.y = Math.ceil(parseInt(self.hsSelector.css("height")) / 2.0);
-        }
+        this.dragging_hsl[0] = Math.min(1.0, Math.max(0.0, potential_h)) * 360;
+        this.dragging_hsl[1] = Math.min(1.0, Math.max(0.0, potential_s));
       }
       else {
-        var potential_l = event.offsetY / (self.scale * 255.0);
+        var potential_l = isSelector
+              ? this.dragging_hsl[2]       + (coords.y - this.selectorDraggingOffset.y) / this.ui[containerStr].eventSource.height()
+              : coords.y / this.ui[containerStr].eventSource.height();
 
-        if (potential_l >= 0.0 && potential_l <= 1.0) {
-          self.dragging_hsl[2] = potential_l;
-          eventHandled = true;
-        }
-
-        if (eventHandled) {
-          self.paintCanvas(self.dragging_hsl);
-          self.updateSelectors(self.dragging_hsl);
-          self.selectorDraggingOffset.x = Math.ceil(parseInt(self.lSelector.css("width"))  / 2.0);
-          self.selectorDraggingOffset.y = Math.ceil(parseInt(self.lSelector.css("height")) / 2.0);
-        }
-      }
-    }
-
-    return eventHandled;
-  },
-
-  getHSL: function(str) {
-    var rgb_str = (('#' == str.charAt(0)) ? str.substring(1) : str),
-        rgb = [ rgb_str.substring(0, 2), rgb_str.substring(2, 4), rgb_str.substring(4, 6)]
-          .map(function(val) { return parseInt(val, 16) / 255.0; });
-
-    return this.RGBToHSL(rgb[0], rgb[1], rgb[2]);
-  },
-
-  paintCanvas: function(hsl) {
-    var Nix, Nix1, g,
-        context = this.canvas[0].getContext("2d"),
-        n_x_steps = 64, n_y_steps = 64,
-        x_step = 256.0 / n_x_steps, y_step = 256.0 / n_y_steps;
-
-    context.mozImageSmoothingEnabled = false;
-
-    context.save();
-
-    context.scale(this.scale, this.scale);
-
-    for (Nix = 0 ; Nix < n_y_steps ; Nix++)
-      for (Nix1 = 0 ; Nix1 < n_x_steps ; Nix1++) {
-        h = Nix1 / (n_x_steps - 1);
-        s = 1.0 - Nix / (n_y_steps - 1);
-
-        rgb = this.HSLToRGB(h, s, hsl[2]).map(this.normalizeValue);
-
-        context.fillStyle = "rgba(" + rgb[0] + ", " + rgb[1] + ", " + rgb[2] + ", 1.0)";
-        context.fillRect(Nix1 * x_step, Nix * y_step, x_step, y_step);
+        this.dragging_hsl[2] = Math.min(1.0, Math.max(0.0, potential_l));
       }
 
-    for (Nix = 0 ; Nix < n_y_steps ; Nix++) {
-      g = this.normalizeValue(Nix / (n_y_steps - 1));
-      context.fillStyle = "rgba(" + g + ", " + g + ", " + g + ", 1.0)";
-      context.strokeStyle = "rgba(" + g + ", " + g + ", " + g + ", 1.0)";
-      context.fillRect((this.canvas[0].width - 16) / this.scale, Nix * y_step, 16, y_step);
-      context.strokeRect((this.canvas[0].width - 16) / this.scale, Nix * y_step, 16, y_step);
-    }
-
-    context.restore();
-  },
-
-  makeClrChannel: function(val) {
-    return (val < 16 ? "0" : "") + (val & 0xff).toString(16);
-  },
-
-  updateSelectors: function(hsl, updateHS) {
-    var clr = "#" +
-          this.HSLToRGB(hsl[0], 1.0 - hsl[1], hsl[2])
-            .map(this.normalizeValue)
-            .map(this.makeClrChannel)
-            .join(""),
-        gray = this.makeClrChannel(this.normalizeValue(hsl[2]));
-
-    this.hsSelector.css("left", hsl[0] * this.scale * 256.0);
-    this.hsSelector.css("top",  hsl[1] * this.scale * 256.0);
-    this.hsSelector.css("background", clr);
-
-    this.lSelector.css("left",  this.canvas[0].width - 8);
-    this.lSelector.css("top",   hsl[2] * this.scale * 256.0);
-    this.lSelector.css("background",  "#" + gray + gray + gray);
-
-    this.element.attr("data-color", clr);
-    this.element.triggerHandler('colorchanged', clr);
-  },
-
-  refresh: function() {
-    this.paintCanvas(this.dragging_hsl);
-    this.updateSelectors(this.dragging_hsl);
-  },
-
-  setColor: function(clr) {
-    if (clr.match(/#[0-9A-Fa-f]{6}/)) {
-      var newHSL = this.getHSL(clr);
-
-      if (!(newHSL[0] == this.dragging_hsl[0] &&
-            newHSL[1] == this.dragging_hsl[1] &&
-            newHSL[2] == this.dragging_hsl[2])) {
-
-        this.dragging_hsl = newHSL;
-        this.dragging_hsl[1] = 1.0 - this.dragging_hsl[1];
-        this.refresh();
+      if (!isSelector) {
+        this.selectorDraggingOffset.x = Math.ceil(this.ui[containerStr].selector.outerWidth()  / 2.0);
+        this.selectorDraggingOffset.y = Math.ceil(this.ui[containerStr].selector.outerHeight() / 2.0);
       }
+
+      this._updateSelectors(this.dragging_hsl);
+      event.stopPropagation();
+      event.preventDefault();
     }
   },
 
-  normalizeValue: function (val) {
-    var
-      ret = val * 255.0,
-      ret_floor = Math.floor(ret);
+  _updateSelectors: function(hsl) {
+    var clr = $.mobile.todons.clrlib.RGBToHTML($.mobile.todons.clrlib.HSLToRGB([hsl[0], 1.0 - hsl[1], hsl[2]])),
+        gray = $.mobile.todons.clrlib.RGBToHTML([hsl[2], hsl[2], hsl[2]]);
 
-    if (ret - ret_floor > 0.5) ret_floor++;
-
-    return ret_floor;
-  },
-
-  HSLToRGB: function(h, s, l) {
-    var PI = 3.141592653589793115997963468544;
-    var r, g, b;
-
-    r = 0.0 + Math.max (0.0, Math.min (1.0, (0.5 + Math.cos (PI / 180.0 * ( 0.0 + h * 360.0))))) ;
-    g = 1.0 - Math.max (0.0, Math.min (1.0, (0.5 + Math.cos (PI / 180.0 * (60.0 + h * 360.0))))) ;
-    b = 1.0 - Math.max (0.0, Math.min (1.0, (0.5 + Math.cos (PI / 180.0 * (60.0 - h * 360.0))))) ;
-
-    r = l + (r - l) * s ;
-    g = l + (g - l) * s ;
-    b = l + (b - l) * s ;
-
-    r += (l - 0.5) * 2.0 * (l < 0.5 ? r : (1.0 - r)) ;
-    g += (l - 0.5) * 2.0 * (l < 0.5 ? g : (1.0 - g)) ;
-    b += (l - 0.5) * 2.0 * (l < 0.5 ? b : (1.0 - b)) ;
-
-    return [ r, g, b ];
-  },
-
-  RGBToHSL: function(r, g, b) {
-    var
-      h = 0, s = 1.0, l = 0.5,
-      r_dist, g_dist, b_dist,
-      fMax, fMin;
-
-    fMax = Math.max (r, Math.max (g, b)) ;
-    fMin = Math.min (r, Math.min (g, b)) ;
-
-    l = (fMax + fMin) / 2 ;
-    if (fMax - fMin <= 0.00001) {
-      h = 0 ;
-      s = 0 ;
+    if (hsl[2] < 0.5) {
+      this.ui.hs.valMask.css("background", "#000000");
+      this.ui.hs.valMask.css("opacity", 1.0 - hsl[2] * 2.0);
     }
     else {
-      s = (fMax - fMin) / ((l < 0.5) ? (fMax + fMin) : (2 - fMax - fMin)) ;
-
-      r_dist = (fMax - r) / (fMax - fMin) ;
-      g_dist = (fMax - g) / (fMax - fMin) ;
-      b_dist = (fMax - b) / (fMax - fMin) ;
-
-      if (r == fMax)
-        h = b_dist - g_dist ;
-      else
-      if (g == fMax)
-        h = 2 + r_dist - b_dist ;
-      else
-      if (b == fMax)
-        h = 4 + g_dist - r_dist ;
-
-      h *= 60 ;
-
-      if (h < 0)
-        h += 360 ;
+      this.ui.hs.valMask.css("background", "#ffffff");
+      this.ui.hs.valMask.css("opacity", (hsl[2] - 0.5) * 2.0);
     }
 
-    return [ h / 360.0, s, l ];
-  }
+    this.ui.hs.selector.css("left", hsl[0] / 360 * this.ui.hs.eventSource.width());
+    this.ui.hs.selector.css("top",  hsl[1] * this.ui.hs.eventSource.height());
+    this.ui.hs.selector.css("background", clr);
 
+    this.ui.l.selector.css("top",   hsl[2] * this.ui.l.eventSource.height());
+    this.ui.l.selector.css("background",  gray);
+
+    $.todons.colorwidget.prototype._setColor.call(this, clr);
+  },
+
+  _setColor: function(clr, unconditional) {
+    if ($.todons.colorwidget.prototype._setColor.call(this, clr, unconditional)) {
+      this.dragging_hsl = $.mobile.todons.clrlib.RGBToHSL($.mobile.todons.clrlib.HTMLToRGB(clr));
+      this.dragging_hsl[1] = 1.0 - this.dragging_hsl[1];
+      this._updateSelectors(this.dragging_hsl);
+    }
+  }
 });
 
 $(document).bind("pagecreate create", function(e) {
-  $($.mobile.colorpicker.prototype.options.initSelector, e.target)
+  $($.todons.colorpicker.prototype.options.initSelector, e.target)
     .not(":jqmData(role='none'), :jqmData(role='nojs')")
     .colorpicker();
 });
