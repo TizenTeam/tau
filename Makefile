@@ -5,9 +5,10 @@ VERSION_COMPAT =
 THEME_NAME = default
 
 INLINE_PROTO = 1
-OUTPUT_ROOT = build
+OUTPUT_ROOT = $(CURDIR)/build
 FRAMEWORK_ROOT = ${OUTPUT_ROOT}/${PROJECT_NAME}/${VERSION}
 JS_OUTPUT_ROOT = ${FRAMEWORK_ROOT}/js
+export THEME_OUTPUT_ROOT = ${FRAMEWORK_ROOT}/themes
 #CSS_OUTPUT_ROOT = ${FRAMEWORK_ROOT}/css
 CSS_OUTPUT_ROOT = ${FRAMEWORK_ROOT}/themes/${THEME_NAME}
 CSS_IMAGES_OUTPUT_DIR = ${CSS_OUTPUT_ROOT}/images
@@ -52,23 +53,23 @@ LIBS_CSS_FILES +=\
     $(NULL)
 endif
 
-all: third_party widgets version_compat
+all: third_party widgets themes version_compat
 
 
 third_party: init
 	# Building third party components...
-	@@cd $(CURDIR)/${LIBS_DIR}/js; \
+	@@cd ${LIBS_DIR}/js; \
 	    for f in ${LIBS_JS_FILES}; do \
-	        cat $$f >> $(CURDIR)/${FW_LIBS_JS}; \
+	        cat $$f >> ${FW_LIBS_JS}; \
 	    done
-	    cp $(CURDIR)/${LIBS_DIR}/js/${JQUERY} $(CURDIR)/${JS_OUTPUT_ROOT}/jquery.js
-	@@cd $(CURDIR)/${LIBS_DIR}/css; \
+	    cp ${LIBS_DIR}/js/${JQUERY} ${JS_OUTPUT_ROOT}/jquery.js
+	@@cd ${LIBS_DIR}/css; \
 	    for f in ${LIBS_CSS_FILES}; do \
-	        cat $$f >> $(CURDIR)/${FW_CSS}; \
+	        cat $$f >> ${FW_CSS}; \
 	    done; \
-	    cp -r images/* $(CURDIR)/${CSS_IMAGES_OUTPUT_DIR}
+	    cp -r images/* ${CSS_IMAGES_OUTPUT_DIR}
 
-	@@cp -a $(CURDIR)/${LIBS_DIR}/images $(CURDIR)/${FRAMEWORK_ROOT}/
+	@@cp -a ${LIBS_DIR}/images ${FRAMEWORK_ROOT}/
 
 widgets: init
 	# Building widgets...
@@ -108,6 +109,9 @@ widgets: init
                 fi; \
 	    done
 
+themes:
+	make -C src/themes || exit $?
+
 version_compat: third_party widgets
 	# Creating compatible version dirs...
 	for v_compat in ${VERSION_COMPAT}; do \
@@ -134,6 +138,7 @@ clean:
 init: clean
 	# Initializing...
 	@@mkdir -p ${JS_OUTPUT_ROOT}
+	@@mkdir -p ${THEME_OUTPUT_ROOT}
 	@@mkdir -p ${CSS_OUTPUT_ROOT}
 	@@mkdir -p ${CSS_IMAGES_OUTPUT_DIR}
 	@@mkdir -p ${PROTOTYPE_HTML_OUTPUT_DIR}
