@@ -847,6 +847,20 @@
 	text-decoration: none;
 }
 
+/* listview */
+.ui-listview li.ui-btn-up-s,
+.ui-listview li.ui-btn-hover-s,
+.ui-listview li.ui-btn-down-s {
+	background: #000;
+	color:		#f9f9f9;
+}
+.ui-listview li.ui-btn-up-s > .ui-li > .ui-btn-text > a.ui-link-inherit,
+.ui-listview li.ui-btn-hover-s > .ui-li > .ui-btn-text > a.ui-link-inherit,
+.ui-listview li.ui-btn-down-s > .ui-li > .ui-btn-text > a.ui-link-inherit {
+	color:		#f9f9f9;
+	font-weight: normal;
+}
+
 
 /* Structure */
 
