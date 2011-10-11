@@ -28,15 +28,16 @@ FW_CSS = ${CSS_OUTPUT_ROOT}/${PROJECT_NAME}-theme.css
 FW_LIBS_JS = ${JS_OUTPUT_ROOT}/${PROJECT_NAME}-libs.js
 
 LIBS_JS_FILES = underscore.js
+
 ifeq (${DEBUG},yes)
 LIBS_JS_FILES +=\
-    jquery.mobile-1.0rc1.js \
+    $(CURDIR)/src/jqm/compiled/jquery.mobile-1.0rc2pre.js \
     jquery.ui.position.git+dfe75e1.js \
     $(NULL)
 JQUERY = jquery-1.6.4.js
 else
 LIBS_JS_FILES +=\
-    jquery.mobile-1.0rc1.min.js \
+    $(CURDIR)/src/jqm/compiled/jquery.mobile-1.0rc2pre.min.js \
     jquery.ui.position.git+dfe75e1.min.js \
     $(NULL)
 JQUERY = jquery-1.6.4.min.js
@@ -45,18 +46,22 @@ endif
 LIBS_CSS_FILES =
 ifeq (${DEBUG},yes)
 LIBS_CSS_FILES +=\
-    jquery.mobile-1.0rc1.css \
+    $(CURDIR)/src/jqm/compiled/jquery.mobile-1.0rc2pre.css \
     $(NULL)
 else
 LIBS_CSS_FILES +=\
-    jquery.mobile-1.0rc1.min.css \
+    $(CURDIR)/src/jqm/compiled/jquery.mobile-1.0rc2pre.min.css \
     $(NULL)
 endif
 
 all: third_party widgets themes version_compat
 
+# NOTE: This jqm target is temporary.
+jqm: init
+	# Building jQuery Mobile...
+	@@cd src/jqm && make all
 
-third_party: init
+third_party: init jqm
 	# Building third party components...
 	@@cd ${LIBS_DIR}/js; \
 	    for f in ${LIBS_JS_FILES}; do \

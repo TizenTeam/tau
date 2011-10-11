@@ -5,3 +5,4 @@ build
 *-stamp
 debian
 *.js.compiled
+compiled
