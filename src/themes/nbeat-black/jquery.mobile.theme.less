@@ -10,7 +10,6 @@
 
 /* S
 -----------------------------------------------------------------------------------------------------------*/
-
 .ui-bar-s {
 	border: 1px solid 		@bordercolor;
 	background: 			@headercolor; /*{a-bar-background-color}*/
@@ -65,7 +64,7 @@
 }
 .ui-btn-up-s {
 	border: 1px solid 		#222; 
-	background: 			@bgcolor;
+	background: 			@buttoncolor_normal;
 	font-weight: bold;
 	color: 					#fff;
 	text-shadow: 0 -1px 1px #000;
@@ -74,6 +73,8 @@
 	a.ui-link-inherit {
 		color: #fff;
 	}
+	
+	.LESSbutton_text1_style; //wongi_button
 }
 .ui-btn-hover-s {
 	border: 1px solid 		#000;
@@ -87,11 +88,12 @@
 		color: #fff;
 	}
 
+	.LESSbutton_text1_style; //wongi_button
 }
 
 .ui-btn-down-s {
 	border: 1px solid 		#000;
-	background: 			#3d3d3d;
+	background: 			@buttoncolor_press;	//wongi_button
 	font-weight: bold;
 	color: 					#fff;
 	text-shadow: 0 -1px 1px #000;
@@ -100,6 +102,8 @@
 	a.ui-link-inherit {
 		color: #fff;
 	}
+	
+	.LESSbutton_text1_style; //wongi_button
 }
 .ui-btn-up-s,
 .ui-btn-hover-s,
