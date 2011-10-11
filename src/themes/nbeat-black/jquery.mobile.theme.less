@@ -10,11 +10,15 @@
 -----------------------------------------------------------------------------------------------------------*/
 ////////////////////////////////////////////////////////////////////////////////////////
 //less definition
-@bgcolor: #000; 
+@bgcolor: #000;
 @headercolor: #44444a;
-@bordercolor: #2A2A2A; 
+@bordercolor: #2A2A2A;
 @buttoncolor_normal: #3A3A3A;
 @buttoncolor_press: #008CD2;
+	/* NOTE: colors below are came from listview. Refactor me if needed. */
+@textcolor: #f9f9f9;
+@subtextcolor: #646464;
+@subtextfocuscolor: #f9f9f9;
 
  
 .LESSbackground-img-with-gradient(@from: top, @startcolor: #3c3c3c, @endcolor: #111) {
@@ -173,6 +177,28 @@
 	font-family: Helvetica, Arial, sans-serif;
 	text-decoration: none;
 }
+
+.ui-listview li.ui-btn-up-s {
+	font-weight: normal;
+}
+.ui-listview li.ui-btn-hover-s,
+.ui-listview li.ui-btn-down-s {
+	background: #32414a;
+	font-weight: normal;
+}
+/* listview: fonts for li with a link */
+.ui-listview li.ui-btn-up-s > .ui-li > .ui-btn-text > a.ui-link-inherit,
+.ui-listview li.ui-btn-hover-s > .ui-li > .ui-btn-text > a.ui-link-inherit,
+.ui-listview li.ui-btn-down-s > .ui-li > .ui-btn-text > a.ui-link-inherit {
+	font-weight: normal;
+}
+/* listview divider (*/
+/* NOTE: this divider has no swatch tag! */
+.ui-listview li.ui-li-divider {
+	background: #242424;
+	color:		#666666;
+}
+
 
 /* Structure */
 /* links within "buttons" 
