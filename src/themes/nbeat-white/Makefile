@@ -19,7 +19,9 @@ CSS_SRCS=	jquery.mobile.theme.css \
 		jquery.mobile.forms.select.css \
 		jquery.mobile.forms.textinput.css \
 		jquery.mobile.listview.css \
-		jquery.mobile.forms.slider.css
+		jquery.mobile.forms.slider.css \
+		jquery.mobile.hsvpicker.less.css \
+		jquery.mobile.colorpalette.less.css
 
 
 all: prepare css images
@@ -27,7 +29,15 @@ all: prepare css images
 prepare:
 	-mkdir -p ${OUTPUT_DIR}
 
-css: prepare
+less: prepare
+	# Compiling less to css...
+	@for f in `find . -iname '*.less' | sort`; do \
+		if test "./config.less" = "$$f" ; then continue; fi; \
+		echo "	build $$f"; \
+		lessc $$f > $$f.css; \
+		done;
+
+css: prepare less
 	# Creating nbeat-white theme...
 	@rm -f $(CSS_OUTPUT)
 	@for src in $(CSS_SRCS); do \
@@ -41,4 +51,5 @@ images: prepare
 clean:
 	# Cleaning nbeat-white theme...
 	-rm -rf $(OUTPUT_DIR)
+	-rm -f *.less.css
 

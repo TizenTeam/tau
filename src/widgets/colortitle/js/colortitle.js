@@ -51,8 +51,10 @@ $.widget( "todons.colortitle", $.todons.colorwidget, {
   },
 
   _setColor: function(clr, unconditional) {
-    if ($.todons.colorwidget.prototype._setColor.call(this, clr, unconditional))
+    if ($.todons.colorwidget.prototype._setColor.call(this, clr, unconditional)) {
       this.ui.header.text(clr);
+      this.ui.header.css("color", clr);
+	}
   }
 });
 

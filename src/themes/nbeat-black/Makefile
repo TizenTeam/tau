@@ -23,7 +23,9 @@ CSS_SRCS=	jquery.mobile.theme.less.css \
 		jquery.mobile.listview.css \
 		jquery.mobile.forms.slider.css \
 		jquery.mobile.popupwindow.css \
-		jquery.mobile.segmentctrl.css
+		jquery.mobile.segmentctrl.css \
+		jquery.mobile.hsvpicker.less.css \
+		jquery.mobile.colorpalette.less.css
 
 
 all: prepare css images
