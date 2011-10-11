@@ -4,75 +4,12 @@
 * Dual licensed under the MIT (MIT-LICENSE.txt) and GPL (GPL-LICENSE.txt) licenses.
 */
 
+@import "config.less";
+
 /* Swatches */
 
 /* S
 -----------------------------------------------------------------------------------------------------------*/
-////////////////////////////////////////////////////////////////////////////////////////
-//less definition
-@bgcolor: #000; 
-@headercolor: #44444a;
-@bordercolor: #2A2A2A; 
-.LESSbackground-img-with-gradient(@from: top, @startcolor: #3c3c3c, @endcolor: #111) {
-	background-image: -webkit-gradient(linear, left top, left bottom, from(@startcolor), to(@endcolor)); /* Saf4+, Chrome */
-	background-image: -webkit-linear-gradient(@from, @startcolor, @endcolor);
-	background-image:    -moz-linear-gradient(@from, @startcolor, @endcolor);
-	background-image:     -ms-linear-gradient(@from, @startcolor, @endcolor);
-	background-image:      -o-linear-gradient(@from, @startcolor, @endcolor);
-	background-image:         linear-gradient(@from, @startcolor, @endcolor);
-}
-
-.LESSborder-radius-topleft(@radius) {
-	-moz-border-radius-topleft: 		@radius; 
-	-webkit-border-top-left-radius: 	@radius;
-	border-top-left-radius: 			@radius;
-}
-
-.LESSborder-radius-topright(@radius) {
-	-moz-border-radius-topright: 		@radius; 
-	-webkit-border-top-right-radius: 	@radius;
-	border-top-right-radius: 			@radius;
-}
-
-.LESSborder-radius-bottomleft(@radius) {
-	-moz-border-radius-bottomleft: 		@radius; 
-	-webkit-border-bottom-left-radius: 	@radius;
-	border-bottom-left-radius: 			@radius;
-}
-.LESSborder-radius-bottomright(@radius) {
-	-moz-border-radius-bottomright: 		@radius; 
-	-webkit-border-bottom-right-radius: 	@radius;
-	border-bottom-right-radius: 			@radius;
-}
-
-.LESSborder-radius-all(@radius) {
-	-moz-border-radius: 		@radius; 
-	-webkit-border-radius: 	@radius;
-	bordert-radius: 			@radius;
-}
-
-.LESSbackground-size(@width, @height) {
-	-moz-background-size: @width @height;
-	-o-background-size: @width @height;
-	-webkit-background-size: @width @height;
-	background-size: @width @height;
-}
-
-.LESSbox-shadow(@hshadow, @vshadow, @blur, @color) {
-	-moz-box-shadow: @hshadow @vshadow @blur @color;
-	-webkit-box-shadow: @hshadow @vshadow @blur @color;
-	box-shadow: @hshadow @vshadow @blur @color;
-}
-/*
-.LESSbox-shadow-inset(@inset @hshadow, @vshadow, @blur, @color) {
-	-moz-box-shadow: @inset @hshadow @vshadow @blur @color;
-	-webkit-box-shadow: @inset @hshadow @vshadow @blur @color;
-	box-shadow: @inset @hshadow @vshadow @blur @color;
-}
-*/
-
-////////////////////////////////////////////////////////////////////////////////////////
-
 .ui-bar-s {
 	border: 1px solid 		@bordercolor;
 	background: 			@headercolor; /*{a-bar-background-color}*/
@@ -127,7 +64,7 @@
 }
 .ui-btn-up-s {
 	border: 1px solid 		#222; 
-	background: 			@bgcolor;
+	background: 			@buttoncolor_normal;
 	font-weight: bold;
 	color: 					#fff;
 	text-shadow: 0 -1px 1px #000;
@@ -136,6 +73,8 @@
 	a.ui-link-inherit {
 		color: #fff;
 	}
+	
+	.LESSbutton_text1_style; //wongi_button
 }
 .ui-btn-hover-s {
 	border: 1px solid 		#000;
@@ -149,11 +88,12 @@
 		color: #fff;
 	}
 
+	.LESSbutton_text1_style; //wongi_button
 }
 
 .ui-btn-down-s {
 	border: 1px solid 		#000;
-	background: 			#3d3d3d;
+	background: 			@buttoncolor_press;	//wongi_button
 	font-weight: bold;
 	color: 					#fff;
 	text-shadow: 0 -1px 1px #000;
@@ -162,6 +102,8 @@
 	a.ui-link-inherit {
 		color: #fff;
 	}
+	
+	.LESSbutton_text1_style; //wongi_button
 }
 .ui-btn-up-s,
 .ui-btn-hover-s,
@@ -169,6 +111,26 @@
 	font-family: Helvetica, Arial, sans-serif;
 	text-decoration: none;
 }
+
+.ui-listview li.ui-btn-up-s {
+}
+.ui-listview li.ui-btn-hover-s,
+.ui-listview li.ui-btn-down-s {
+	background: #32414a;
+}
+/* listview: fonts for li with a link */
+.ui-listview li.ui-btn-up-s > .ui-li > .ui-btn-text > a.ui-link-inherit,
+.ui-listview li.ui-btn-hover-s > .ui-li > .ui-btn-text > a.ui-link-inherit,
+.ui-listview li.ui-btn-down-s > .ui-li > .ui-btn-text > a.ui-link-inherit {
+	font-weight: normal;
+}
+/* listview divider (*/
+/* NOTE: this divider has no swatch tag! */
+.ui-listview li.ui-li-divider {
+	background: #242424;
+	color:		#666666;
+}
+
 
 /* Structure */
 /* links within "buttons" 
