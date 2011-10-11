@@ -13,7 +13,8 @@ $.fn.buttonMarkup = function( options ) {
 				icon: el.jqmData( "icon" ),
 				iconpos: el.jqmData( "iconpos" ),
 				theme: el.jqmData( "theme" ),
-				inline: el.jqmData( "inline" )
+				inline: el.jqmData( "inline" ),
+				style: el.jqmData("slpstyle")
 			}, options ),
 
 			// Classes Defined
