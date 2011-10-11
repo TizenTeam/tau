@@ -13,3 +13,32 @@
 .ui-checkbox .ui-btn-icon-right .ui-icon, .ui-radio .ui-btn-icon-right .ui-icon {right: 15px; }
 /* input, label positioning */
 .ui-checkbox input,.ui-radio input { position:absolute; left:20px; top:50%; width: 10px; height: 10px;  margin:-5px 0 0 0; outline: 0 !important; z-index: 1; }
+
+/* koeun : for changing default checkbox */
+.ui-icon-checkbox-off {
+	/* background-color: #bac7cb; */
+	background-image: url(images/00_check_bg.png);
+	background-size: 100% 100%;
+}
+.ui-icon-checkbox-on {
+	background-color: #bac7cb;
+	background-image: url(images/00_check_checking.png);
+	background-size: 100% 100%;
+}
+.ui-icon-checkbox-off.favorite {
+	background-color: white;	/* koeun TODO: change this color to background color */
+	background-image: url(images/00_winset_icon_favorite_off.png);
+	background-size: 100% 100%;
+}
+.ui-icon-checkbox-on.favorite {
+	background-color: white;	/* koeun TODO: change this color to background color */
+	background-image: url(images/00_winset_icon_favorite_on.png);
+	background-size: 100% 100%;
+	/*
+		-moz-background-size: 18px 18px;
+		-o-background-size: 18px 18px;
+		-webkit-background-size: 18px 18px;
+		background-size: 18px 18px;
+*/
+}
+/* koeun : checkbox end */
