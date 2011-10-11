@@ -1,0 +1,75 @@
+/*
+ * Common definition for theme
+ */
+
+@bgcolor: #000;
+@headercolor: #44444a;
+@bordercolor: #2A2A2A;
+@buttoncolor_normal: #3A3A3A;
+@buttoncolor_press: #008CD2;
+	/* NOTE: colors below are came from listview. Refactor me if needed. */
+@textcolor: #f9f9f9;
+@subtextcolor: #646464;
+@subtextfocuscolor: #f9f9f9;
+
+
+.LESSbackground-img-with-gradient(@from: top, @startcolor: #3c3c3c, @endcolor: #111) {
+	background-image: -webkit-gradient(linear, left top, left bottom, from(@startcolor), to(@endcolor)); /* Saf4+, Chrome */
+	background-image: -webkit-linear-gradient(@from, @startcolor, @endcolor);
+	background-image:    -moz-linear-gradient(@from, @startcolor, @endcolor);
+	background-image:     -ms-linear-gradient(@from, @startcolor, @endcolor);
+	background-image:      -o-linear-gradient(@from, @startcolor, @endcolor);
+	background-image:         linear-gradient(@from, @startcolor, @endcolor);
+}
+
+.LESSborder-radius-topleft(@radius) {
+	-moz-border-radius-topleft: 		@radius; 
+	-webkit-border-top-left-radius: 	@radius;
+	border-top-left-radius: 			@radius;
+}
+
+.LESSborder-radius-topright(@radius) {
+	-moz-border-radius-topright: 		@radius; 
+	-webkit-border-top-right-radius: 	@radius;
+	border-top-right-radius: 			@radius;
+}
+
+.LESSborder-radius-bottomleft(@radius) {
+	-moz-border-radius-bottomleft: 		@radius; 
+	-webkit-border-bottom-left-radius: 	@radius;
+	border-bottom-left-radius: 			@radius;
+}
+.LESSborder-radius-bottomright(@radius) {
+	-moz-border-radius-bottomright: 		@radius; 
+	-webkit-border-bottom-right-radius: 	@radius;
+	border-bottom-right-radius: 			@radius;
+}
+
+.LESSborder-radius-all(@radius) {
+	-moz-border-radius: 		@radius; 
+	-webkit-border-radius: 	@radius;
+	bordert-radius: 			@radius;
+}
+
+.LESSbackground-size(@width, @height) {
+	-moz-background-size: @width @height;
+	-o-background-size: @width @height;
+	-webkit-background-size: @width @height;
+	background-size: @width @height;
+}
+
+.LESSbox-shadow(@hshadow, @vshadow, @blur, @color) {
+	-moz-box-shadow: @hshadow @vshadow @blur @color;
+	-webkit-box-shadow: @hshadow @vshadow @blur @color;
+	box-shadow: @hshadow @vshadow @blur @color;
+}
+/*
+.LESSbox-shadow-inset(@inset @hshadow, @vshadow, @blur, @color) {
+	-moz-box-shadow: @inset @hshadow @vshadow @blur @color;
+	-webkit-box-shadow: @inset @hshadow @vshadow @blur @color;
+	box-shadow: @inset @hshadow @vshadow @blur @color;
+}
+*/
+
+////////////////////////////////////////////////////////////////////////////////////////
+

@@ -31,8 +31,10 @@ prepare:
 	-mkdir -p ${OUTPUT_DIR}
 
 less: prepare
-	for f in `find . -iname '*.less' | sort`; do \
-		echo "		$$f"; \
+	# Compiling less to css...
+	@for f in `find . -iname '*.less' | sort`; do \
+		if test "./config.less" = "$$f" ; then continue; fi; \
+		echo "	build $$f"; \
 		lessc $$f > $$f.css; \
 		done;
 
