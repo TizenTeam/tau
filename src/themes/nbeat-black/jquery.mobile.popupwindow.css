@@ -2,16 +2,31 @@
   display: inline-block;
   position: absolute;
   margin: 1px;
-  padding: 6px;
+  padding: 0px;
   z-index: 100 !important;
-  width: 300px !important;
+  width: 400px !important;
   vertical-align: top;
   background: #536771;
   color: white;
 }
-.ui-popupwindow .titletext .popup-text {
+.ui-popupwindow .titletext {
+  vertical-align: middle;
+}
+.ui-popupwindow .titletext .popup-title {
+  margin: 2px 2px 0px 2px;
+  height: 50px;
+}
+.ui-popupwindow .titletext .popup-title p {
   margin: 0 0 0 0;
+  padding: 0 0 0 0;
+}
+.ui-popupwindow .titletext .popup-text {
+  margin: 2px 2px 0px 2px;
   background: #213c49;
+}
+.ui-popupwindow .titletext .popup-text p {
+  margin: 0 0 0 0;
+  padding: 0 0 0 0;
 }
 .ui-popupwindow-corner-all {
   -moz-border-radius: 0em;

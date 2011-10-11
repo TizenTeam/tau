@@ -1,26 +1,37 @@
 
 .ui-popupwindow {
-  display: inline-block;
-  position: absolute;
-  margin: 1px;
-  padding: 6px;
-  z-index: 100 !important;
-  width: 300px !important; //for test 
-  vertical-align: top;  
-  background: #536771; //recheck color and change it to var
-  color: white; //recheck color and change it to var
-  .titletext {
-    .popup-title {
-	}
-	.popup-text {
-		margin: 0 0 0 0;
-		background: #213c49;
-	}
-  }
+	display: inline-block;
+	position: absolute;
+	margin: 1px;
+	padding: 0px;
+	z-index: 100 !important;
+	width: 400px !important; //for test 
+	vertical-align: top;  
+	background: #536771; //recheck color and change it to var
+	color: white; //recheck color and change it to var
+	.titletext {
+    	vertical-align: middle;
+		.popup-title {
+			margin: 2px 2px 0px 2px; 
+			height: 50px;
+			p { 
+				margin: 0 0 0 0;
+				padding: 0 0 0 0;
+			}
+		}
+		.popup-text {
+			margin: 2px 2px 0px 2px; 
+			background: #213c49;
+			p { 
+				margin: 0 0 0 0;
+				padding: 0 0 0 0;
+			}
+		}
+  	}
 }
 
 .ui-popupwindow-corner-all {
--moz-border-radius: 0em; 
--webkit-border-radius: 0em; 
-border-radius: 0em;
+	-moz-border-radius: 0em; 
+	-webkit-border-radius: 0em; 
+	border-radius: 0em;
 }

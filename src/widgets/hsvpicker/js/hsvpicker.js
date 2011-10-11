@@ -75,9 +75,9 @@ $.widget( "todons.hsvpicker", $.todons.colorwidget, {
 
     $.todons.colorwidget.prototype._create.call(this);
 
-    ui.container.find(".hsvpicker-arrow-btn")
+    ui.container.find($("img[class^=hsvpicker-arrow-btn]"))
       .bind("mousedown vmousedown", function(e) {
-        self._setArrowImg($(this), "_press");
+        self._setArrowImg($(this), "-down");
       })
       .bind("vmouseup", function(e) {
         var chan = $(this).attr("data-target"),
@@ -86,6 +86,7 @@ $.widget( "todons.hsvpicker", $.todons.colorwidget, {
             max = (0 == hsvIdx ? 360 : 1),
             step = 0.05 * max;
 
+        self.dragging = -1;
         self._setArrowImg($(this), "");
         self.dragging_hsv[hsvIdx] = self.dragging_hsv[hsvIdx] + step * ("left" === $(this).attr("data-location") ? -1 : 1);
         self.dragging_hsv[hsvIdx] = Math.min(max, Math.max(0.0, self.dragging_hsv[hsvIdx]));
@@ -99,10 +100,6 @@ $.widget( "todons.hsvpicker", $.todons.colorwidget, {
           event.preventDefault();
         }
       })
-      .bind( "vmouseup", function( event ) {
-        self.dragging = -1;
-        ui.container.find(".hsvpicker-arrow-btn").each(function() {self._setArrowImg($(this), "");});
-      });
 
     this._bindElements("hue", 0);
     this._bindElements("sat", 1);
@@ -122,10 +119,7 @@ $.widget( "todons.hsvpicker", $.todons.colorwidget, {
   },
 
   _setArrowImg: function(arrowImg, suffix) {
-    arrowImg.attr("src",
-      this.ui.container.attr("data-arrow-btn-imageTemplate")
-        .replace("%1", arrowImg.attr("data-location"))
-        .replace("%2", suffix));
+	arrowImg.removeClass().addClass("hsvpicker-arrow-btn-" + arrowImg.attr("data-location") + suffix);
   },
 
   _handleMouseDown: function(chan, idx, e, isSelector) {

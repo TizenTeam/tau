@@ -59,7 +59,7 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
 		
 		//SLP --start - checkbox style : favorite
 		var style = input.attr( "data-style" );
-		if( style == "favorite" )
+		if( style === "favorite" )
 			label.find( ".ui-icon" )
 			.addClass( "favorite" )
 			.end();

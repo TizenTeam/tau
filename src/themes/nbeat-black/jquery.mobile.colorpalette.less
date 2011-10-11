@@ -1,0 +1,69 @@
+@colorpalette-choice-total-width:  5.375em;
+@colorpalette-choice-total-height: 5.375em;
+@colorpalette-item-border-width:  0.25em;
+@colorpalette-item-border-color: #c0c0c0;
+@colorpalette-preview-total-width:  30.375em;
+@colorpalette-preview-total-height: 10.875em;
+
+@colorpalette-choice-actual-width:  @colorpalette-choice-total-width  - 2 * @colorpalette-item-border-width;
+@colorpalette-choice-actual-height: @colorpalette-choice-total-height - 2 * @colorpalette-item-border-width;
+@colorpalette-preview-actual-width:  @colorpalette-preview-total-width  - 2 * @colorpalette-item-border-width;
+@colorpalette-preview-actual-height: @colorpalette-preview-total-height - 2 * @colorpalette-item-border-width;
+
+.ui-colorpalette {
+  display: table;
+  padding-left:   2.313em;
+  padding-right:  2.313em;
+  padding-top:    1.5em;
+  padding-bottom: 1.5em;
+
+  .colorpalette-preview-container {
+    padding-top: 4.688em;
+    padding-bottom: 3.876em;
+    display: table;
+    margin: auto;
+
+    .colorpalette-preview {
+      display: table;
+      margin: auto;
+      width:  @colorpalette-preview-actual-width;
+      height: @colorpalette-preview-actual-height;
+      border: @colorpalette-item-border-color @colorpalette-item-border-width solid;
+    }
+  }
+
+  .colorpalette-table {
+    .colorpalette-bottom-row {
+      display: table-row;
+    }
+
+    .colorpalette-normal-row {
+      .colorpalette-bottom-row;
+    }
+
+    .colorpalette-choice-container-left {
+      display: table-cell;
+    }
+
+    .colorpalette-choice-container-rest {
+      .colorpalette-choice-container-left;
+      padding-left: 3.125em;
+    }
+
+    .colorpalette-normal-row .colorpalette-choice-container-left {
+      padding-bottom: 1.625em;
+    }
+
+    .colorpalette-choice {
+      width:      @colorpalette-choice-actual-width;
+      height:     @colorpalette-choice-actual-width;
+      border-width: @colorpalette-item-border-width;
+      border-style: solid;
+      border-color: @colorpalette-item-border-color;
+    }
+
+    .colorpalette-choice-active {
+      border-color: #ff8400;
+    }
+  }
+}

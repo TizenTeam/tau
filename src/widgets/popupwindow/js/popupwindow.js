@@ -115,13 +115,12 @@ $.widget( "todons.popupwindow", $.mobile.widget, {
 	switch( o.style ) {
 		case "textonly":
 		case "titletext":
+		case "titletextbutton":
 			//commonly add class for all elements... we will use structured css. 
 			popup.find( ":jqmData(role='title')" )
-				 //.wrapAll( "<div class='popup-title'></div>" );
-				 .addClass( "popup-title" );
+				 .wrapAll( "<div class='popup-title'></div>" );
 			popup.find( ":jqmData(role='text')" )
-				 //.wrapAll( "<div class='popup-text'></div>" );
-				 .addClass( "popup-text" );
+				 .wrapAll( "<div class='popup-text'></div>" );
 			break;
 	}
 	

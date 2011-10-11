@@ -13,6 +13,9 @@ $.mobile.listview.prototype.options.headerTheme = null;
 $.mobile.listview.prototype.options.dividerTheme = null;
 $.mobile.listview.prototype.options.splitTheme = null;
 
+//clear button theme
+$.mobile.button.prototype.options.theme ="s";
+
 // Default theme swatch
 $.mobile.page.prototype.options.theme = "s";
 
