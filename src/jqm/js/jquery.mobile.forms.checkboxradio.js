@@ -27,13 +27,6 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
 			uncheckedClass = "ui-" + uncheckedState,
 			checkedicon = "ui-icon-" + checkedState,
 			uncheckedicon = "ui-icon-" + uncheckedState;
-		//SLP --start - checkbox style : favorite
-		var style = input.attr( "data-style" );
-		if( style == "favorite" )
-			label.find( ".ui-icon" )
-			.addClass( "favorite" )
-			.end();
-		//SLP --end
 
 		if ( inputtype !== "checkbox" && inputtype !== "radio" ) {
 			return;
@@ -63,6 +56,14 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
 		// Wrap the input + label in a div
 		input.add( label )
 			.wrapAll( "<div class='ui-" + inputtype + "'></div>" );
+		
+		//SLP --start - checkbox style : favorite
+		var style = input.attr( "data-style" );
+		if( style == "favorite" )
+			label.find( ".ui-icon" )
+			.addClass( "favorite" )
+			.end();
+		//SLP --end
 
 		label.bind({
 			vmouseover: function() {
