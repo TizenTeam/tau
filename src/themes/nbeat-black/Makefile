@@ -4,7 +4,9 @@ THEME_OUTPUT_ROOT ?= .
 OUTPUT_DIR = ${THEME_OUTPUT_ROOT}/${THEME_NAME}
 
 CSS_OUTPUT = ${OUTPUT_DIR}/web-ui-fw-theme.css
-CSS_SRCS=	jquery.mobile.theme.css \
+
+
+CSS_SRCS=	jquery.mobile.theme.less.css \
 		jquery.mobile.core.css \
 		jquery.mobile.transitions.css \
 		jquery.mobile.grids.css \
@@ -27,7 +29,13 @@ all: prepare css images
 prepare:
 	-mkdir -p ${OUTPUT_DIR}
 
-css: prepare
+less: prepare
+	for f in `find . -iname '*.less' | sort`; do \
+		echo "		$$f"; \
+		lessc $$f > $$f.css; \
+		done;
+
+css: prepare less
 	# Creating nbeat-black theme...
 	@rm -f $(CSS_OUTPUT)
 	@for src in $(CSS_SRCS); do \
@@ -41,4 +49,5 @@ images: prepare
 clean:
 	# Cleaning nbeat-black theme...
 	-rm -rf $(OUTPUT_DIR)
+	-rm -f *.less.css
 
