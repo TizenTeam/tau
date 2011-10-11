@@ -6,6 +6,8 @@
 		<ul data-role="listview" data-icon="1line-textonly">
 			<li><a href="#" data-inline="true" aria-haspopup="true" aria-owns="popupContent">Center popup only text</a></li>
 			<li><a href="#" data-inline="true" aria-haspopup="true" aria-owns="popupContent2">Center popup selector</a></li>
+			<li><a href="#" data-inline="true" aria-haspopup="true" aria-owns="textonly">Center popup text only</a></li>
+			<li><a href="#" data-inline="true" aria-haspopup="true" aria-owns="titletext">Center popup title with text</a></li>
 		</ul>
 		<!-- The following div will be ripped out of here and placed into a popup -->
 		<div id="popupContent" data-role="popupwindow" style="display: table;">
@@ -44,6 +46,25 @@
 				</fieldset>
 			</div>
 		</div>
+
+		<!-- text only -->
+		<div id="textonly" data-role="popupwindow" data-style="textonly">
+			<p>Pop-up dialog box, a child 
+					window that blocks user inter
+					act to the parent windowsdfsdfsdfsdfsdf
+			</p>
+		</div>
+
+		<!-- popup title-text -->
+		<div id="titletext" data-role="popupwindow" data-style="titletext">
+			<p data-role="title">
+				This is title		
+			</p>
+			<p data-role="text">
+				This is textsdfsdfsdfsdfsdfsdfsdfsdfsdfffffffff
+			</p>
+		</div>
+
 	</div> <!-- /content -->
 
 	<div data-role="footer">

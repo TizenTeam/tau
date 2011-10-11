@@ -75,7 +75,8 @@ $.widget( "todons.popupwindow", $.mobile.widget, {
     options: {
         disabled: false,
         initSelector: ":jqmData(role='popupwindow')",
-        overlayTheme: "c",
+        overlayTheme: "s",
+        style: "custom",
         shadow: true,
         fade: true,
         transition: $.mobile.defaultDialogTransition,
@@ -83,7 +84,9 @@ $.widget( "todons.popupwindow", $.mobile.widget, {
 
   _create: function() {
     var self = this,
-        thisPage = this.element.closest(".ui-page"),
+		popup = this.element,
+		o = this.options,
+        thisPage = popup.closest(".ui-page"),
         ui = {
           screen:    "#popupwindow-screen",
           container: "#popupwindow-container"
@@ -92,7 +95,7 @@ $.widget( "todons.popupwindow", $.mobile.widget, {
     ui = $.mobile.todons.loadPrototype("popupwindow", ui);
     thisPage.append(ui.screen);
     ui.container.insertAfter(ui.screen);
-    ui.container.append(this.element);
+    ui.container.append( popup );
 
     $.extend( self, {
       transition: undefined,
@@ -103,12 +106,33 @@ $.widget( "todons.popupwindow", $.mobile.widget, {
 
     $.mobile.todons.parseOptions(this, true);
 
+	//check style
+	var style = popup.attr( 'data-style' );
+	o.style =  style ? style : o.style;
+	
+	popup.addClass( o.style );
+	
+	switch( o.style ) {
+		case "textonly":
+		case "titletext":
+			//commonly add class for all elements... we will use structured css. 
+			popup.find( ":jqmData(role='title')" )
+				 //.wrapAll( "<div class='popup-title'></div>" );
+				 .addClass( "popup-title" );
+			popup.find( ":jqmData(role='text')" )
+				 //.wrapAll( "<div class='popup-text'></div>" );
+				 .addClass( "popup-text" );
+			break;
+	}
+	
+
+
     // Events on "screen" overlay
     ui.screen.bind( "vclick", function( event ) {
         self.close();
     });
 
-    $("[aria-haspopup='true'][aria-owns='" + this.element.attr("id") + "']").bind("vclick", function(e) {
+    $("[aria-haspopup='true'][aria-owns='" + popup.attr("id") + "']").bind("vclick", function(e) {
       self.open(
         $(this).offset().left + $(this).outerWidth()  / 2,
         $(this).offset().top  + $(this).outerHeight() / 2);
@@ -153,23 +177,26 @@ $.widget( "todons.popupwindow", $.mobile.widget, {
     this.transition = value;
   },
 
+  _setStyle: function(value) {
+    	this.options.style = value;
+  },
+
+
   _setOption: function(key, value) {
     if (key === "overlayTheme") {
       if (value.match(/[a-z]/))
         this._setOverlayTheme("ui-body-" + value);
-      else
-      if (value === "")
+      else if (value === "")
         this._setOverlayTheme();
     }
-    else
-    if (key === "shadow")
+    else  if (key === "shadow")
       this._setShadow(value);
-    else
-    if (key === "fade")
+    else if (key === "fade")
       this.options.fade = value;
-    else
-    if (key === "transition")
+    else if (key === "transition")
       this._setTransition(value);
+	else if (key === "style")
+      this._setStyle(value);
   },
 
   open: function(x_where, y_where) {

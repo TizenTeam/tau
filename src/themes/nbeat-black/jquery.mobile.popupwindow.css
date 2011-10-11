@@ -1,14 +1,20 @@
 .ui-popupwindow {
   display: inline-block;
   position: absolute;
-  padding: 0;
-  z-index: 100 !important;
+  margin: 1px;
   padding: 6px;
-  background: blue !important;
+  z-index: 100 !important;
+  width: 300px !important;
+  vertical-align: top;
+  background: #536771;
+  color: white;
 }
-
+.ui-popupwindow .titletext .popup-text {
+  margin: 0 0 0 0;
+  background: #213c49;
+}
 .ui-popupwindow-corner-all {
--moz-border-radius: 0em /*{global-radii-blocks}*/;
--webkit-border-radius: 0em /*{global-radii-blocks}*/;
-border-radius: 0em /*{global-radii-blocks}*/;
+  -moz-border-radius: 0em;
+  -webkit-border-radius: 0em;
+  border-radius: 0em;
 }
