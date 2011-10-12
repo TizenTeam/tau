@@ -122,8 +122,8 @@ $.widget( "todons.popupwindow", $.mobile.widget, {
 				 .wrapAll( "<div class='popup-title'></div>" );
 			popup.find( ":jqmData(role='text')" )
 				 .wrapAll( "<div class='popup-text'></div>" );
-			popup.find( ":jqmData(role='button')" )
-				 .wrapAll( "<div class='popup-button'></div>" );
+			popup.find( ":jqmData(role='button-bg')" )
+				 .wrapAll( "<div class='popup-button-bg'></div>" );
 			break;
 		//case "newStyle":
 	  		//this.options.widthRatio = 0.XXXX;
