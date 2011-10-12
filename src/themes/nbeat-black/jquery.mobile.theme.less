@@ -11,9 +11,9 @@
 /* S
 -----------------------------------------------------------------------------------------------------------*/
 .ui-bar-s {
-	border: 1px solid 		@bordercolor;
-	background: 			@headercolor; /*{a-bar-background-color}*/
-	color: 					#ffffff; /*{a-bar-color}*/
+	border: 0;
+	background: 			@color_header;
+	color: 					@color_text;
 	font-family: Helvetica, Arial, sans-serif;
 	font-weight: bold;
 	/* a-bar-shadow-x, a-bar-shadow-y, a-bar-shadow-radius, a-bar-shadow-color */
@@ -36,9 +36,9 @@
 
 .ui-body-s {
 	/* a-body- */
-	border: 1px solid 		@bordercolor; 
-	background: 			@bgcolor; 
-	color: 					#fff;
+	border: 0; 
+	background: 			@color_bg; 
+	color: 					@color_text;
 	font-weight: normal;
 	
 	font-family: Helvetica, Arial, sans-serif; 
@@ -104,31 +104,36 @@
 	text-decoration: none;
 }
 
+.ui-listview > .ui-li { 
+	border-bottom-color: #444444;	// 68 68 68 
+}
+.ui-listview > .ui-li-static {
+	background-color: transparent;
+}
 .ui-listview li.ui-btn-up-s {
-	background: #000;
-	color:		#f9f9f9;
+	background-color: @color_bg;
+	color:		@color_text;
 }
 .ui-listview li.ui-btn-hover-s,
 .ui-listview li.ui-btn-down-s {
 	background: #32414a;	// 50 65 74
-	color:		#f9f9f9;
+	color:		@color_text;
 }
 /* listview: fonts for li with a link */
 .ui-listview li.ui-btn-up-s > .ui-li > .ui-btn-text > a.ui-link-inherit,
 .ui-listview li.ui-btn-hover-s > .ui-li > .ui-btn-text > a.ui-link-inherit,
 .ui-listview li.ui-btn-down-s > .ui-li > .ui-btn-text > a.ui-link-inherit {
-	color:		#f9f9f9;
+	color:		@color_text;
 }
 /* listview divider */
 /* NOTE: this divider has no swatch tag! */
 .ui-listview li.ui-li-divider {
-	background: #242424;	// 36 36 36
-	color:		#666666;	// 102 102 102
+	background: @color_bg_sub;	// 36 36 36
+	color:		@color_text_sub;	// 102 102 102
 }
 /* subitem */
-.ui-li-sub {
-	color: #666666;		// 100 100 100
-}
+.ui-li-sub { color: @color_text_sub; }
+.ui-li-sub-setting { color: @color_text_setting; }
 
 /* Structure */
 /* links within "buttons" 
