@@ -2,6 +2,14 @@
 @selector-height: 3.32em;
 @container-height: 3.44em;
 
+@selector-color: rgb(42,109,140);
+@selector-text-color: rgb(105,151,173);
+@selector-text-dim-color: rgb(249,249,249);
+@data-color: rgb(249,249,249);
+@data-ampm-button-color: rgb(33,60,73);
+@data-ampm-border-color: rgb(66,82,90);
+@title-color: rgb(100,100,100);
+
 .ui-datetimepicker {
     width: 100%;
 
@@ -14,7 +22,7 @@
         display: block;
         height: 1.5em;
         font-size: 1em;
-        color: #666;
+        color: @title-color;
         padding: 0 0 0 0.75em;
     }
 
@@ -23,6 +31,7 @@
     }
     
     .data {
+        color: @data-color;
         padding: 0 0.31em 0 0;
         display: inline-block;
         height: 1.81em;
@@ -32,11 +41,11 @@
     }
     
     .data-selected {
-        color: @color_02;
+        color: @selector-text-color;
     }
 
     .data-line {
-        padding: 0 0 0 0.6em;
+        padding: 0 0 0 0.75em;
     }
 
     .data-last {
@@ -58,11 +67,12 @@
 
     div.ampm {
         .data;
+        padding: 0;
         width: 3.2em;
-        color: #666;
+        color: @data-color;
         display: inline-block;
-        border: 1px solid hsl(0, 0%, 90%);
-        background-color: hsl(0, 0%, 95%);
+        border: 1px solid @data-ampm-border-color;
+        background-color: @data-ampm-button-color;
         border-radius: 0.15em;
         -webkit-border-radius: 0.15em;
         -moz-border-radius: 0.15em;
@@ -91,7 +101,7 @@
         left: 0;
         display: none;
         z-index: 9999;
-        background: @color_02;
+        background: @selector-color;
         color: white;
         height: @selector-height;
         font-size: 1.4em;
@@ -109,11 +119,11 @@
                 float: left;
                 a {
                     text-decoration: none;
-                    color: @color_14;
+                    color: @selector-text-color;
                     height: @selector-height;
                 }
                 a.current {
-                    color: @color_36;
+                    color: @selector-text-dim-color;
                 }
             }
 
