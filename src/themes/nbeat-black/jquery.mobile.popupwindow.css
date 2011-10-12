@@ -1,11 +1,15 @@
 .ui-popupwindow {
-  display: inline-block;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-pack: center;
+  -moz-box-align: center;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-pack: center;
+  -webkit-box-align: center;
   position: absolute;
-  margin: 1px;
-  padding: 0px;
   z-index: 100 !important;
   width: 620px !important;
-  vertical-align: top;
   background: #536771;
   color: white;
 }
@@ -55,13 +59,30 @@
   padding: 13px 0px;
 }
 .ui-popupwindow .titletext1btn .popup-text {
-  margin: 2px 2px;
+  margin: 2px 2px 0px 2px;
   background: #213c49;
   font-size: 42px;
 }
 .ui-popupwindow .titletext1btn .popup-text p {
   margin: 0px 0px;
   padding: 22px 16px;
+}
+.ui-popupwindow .titletext1btn .popup-button {
+  margin: 0px 2px 2px 2px;
+  padding: 11px 109px;
+  background: #ff0000;
+  font-size: 32px;
+}
+.ui-popupwindow .titletext1btn .popup-button p {
+  width: 402px;
+  height: 74px;
+  margin: 0px 0px;
+  padding: 0px 0px;
+}
+.ui-popupwindow .titletext1btn .popup-button .ui-btn-corner-all {
+  -moz-border-radius: 0em;
+  -webkit-border-radius: 0em;
+  border-radius: 0em;
 }
 .ui-popupwindow-corner-all {
   -moz-border-radius: 0em;
