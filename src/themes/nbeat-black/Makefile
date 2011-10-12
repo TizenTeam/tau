@@ -22,7 +22,7 @@ CSS_SRCS=	jquery.mobile.theme.less.css \
 		jquery.mobile.forms.textinput.css \
 		jquery.mobile.listview.less.css \
 		jquery.mobile.forms.slider.css \
-		jquery.mobile.popupwindow.css \
+		jquery.mobile.popupwindow.less.css \
 		jquery.mobile.segmentctrl.css \
 		jquery.mobile.hsvpicker.less.css \
 		jquery.mobile.colorpalette.less.css \
