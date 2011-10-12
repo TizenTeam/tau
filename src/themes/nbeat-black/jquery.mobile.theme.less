@@ -11,9 +11,9 @@
 /* S
 -----------------------------------------------------------------------------------------------------------*/
 .ui-bar-s {
-	border: 1px solid 		@bordercolor;
-	background: 			@headercolor; /*{a-bar-background-color}*/
-	color: 					#ffffff; /*{a-bar-color}*/
+	border: 0;
+	background: 			@color_header;
+	color: 					@color_text;
 	font-family: Helvetica, Arial, sans-serif;
 	font-weight: bold;
 	/* a-bar-shadow-x, a-bar-shadow-y, a-bar-shadow-radius, a-bar-shadow-color */
@@ -36,9 +36,9 @@
 
 .ui-body-s {
 	/* a-body- */
-	border: 1px solid 		@bordercolor; 
-	background: 			@bgcolor; 
-	color: 					#fff;
+	border: 0; 
+	background: 			@color_bg; 
+	color: 					@color_text;
 	font-weight: normal;
 	
 	font-family: Helvetica, Arial, sans-serif; 
@@ -104,6 +104,10 @@
 	text-decoration: none;
 }
 
+.ui-listview > li.ui-li { 
+	border-bottom-color: #444444;	// 68 68 68 
+}
+
 .ui-listview li.ui-btn-up-s {
 	background: #000;
 	color:		#f9f9f9;
@@ -127,7 +131,7 @@
 }
 /* subitem */
 .ui-li-sub {
-	color: #666666;		// 100 100 100
+	color: @color_text_sub;
 }
 
 /* Structure */
