@@ -1,9 +1,11 @@
-@colorpalette-choice-total-width:  5.375em;
-@colorpalette-choice-total-height: 5.375em;
-@colorpalette-item-border-width:  0.25em;
+@import "config.less";
+
+@colorpalette-choice-total-width:  (86*@em_base);
+@colorpalette-choice-total-height: (86*@em_base);
+@colorpalette-item-border-width:  (4*@em_base);
 @colorpalette-item-border-color: #c0c0c0;
-@colorpalette-preview-total-width:  30.375em;
-@colorpalette-preview-total-height: 10.875em;
+@colorpalette-preview-total-width:  (486*@em_base);
+@colorpalette-preview-total-height: (174*@em_base);
 
 @colorpalette-choice-actual-width:  @colorpalette-choice-total-width  - 2 * @colorpalette-item-border-width;
 @colorpalette-choice-actual-height: @colorpalette-choice-total-height - 2 * @colorpalette-item-border-width;
@@ -12,14 +14,14 @@
 
 .ui-colorpalette {
   display: table;
-  padding-left:   2.313em;
-  padding-right:  2.313em;
-  padding-top:    1.5em;
-  padding-bottom: 1.5em;
+  padding-left:   (8*@em_base);
+  padding-right:  (8*@em_base);
+  padding-top:    (24*@em_base);
+  padding-bottom: (42*@em_base);
 
   .colorpalette-preview-container {
-    padding-top: 4.688em;
-    padding-bottom: 3.876em;
+    padding-top: (51*@em_base);
+    padding-bottom: (38*@em_base);
     display: table;
     margin: auto;
 
@@ -47,11 +49,11 @@
 
     .colorpalette-choice-container-rest {
       .colorpalette-choice-container-left;
-      padding-left: 3.125em;
+      padding-left: (37*@em_base);
     }
 
     .colorpalette-normal-row .colorpalette-choice-container-left {
-      padding-bottom: 1.625em;
+      padding-bottom: (37*@em_base);
     }
 
     .colorpalette-choice {

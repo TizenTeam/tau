@@ -1,12 +1,20 @@
-@hsvpicker-arrow-btn-width: 4.625em;
-@hsvpicker-arrow-btn-height: 4.625em;
-@hsvpicker-clrchannel-masks-width: 28.25em;
-@hsvpicker-clrchannel-masks-height: 3.75em;
-@hsvpicker-clrchannel-selector-width: 0.75em;
-@hsvpicker-clrchannel-selector-height: 4.375em;
-@hsvpicker-clrchannel-selector-border-width: 0.313em;
-@hsvpicker-clrchannel-masks-container-hpadding: 1.25em;
-@hsvpicker-clrchannel-masks-container-vpadding: 1.188em;
+@import "config.less";
+
+@hsvpicker-arrow-btn-width: (74*@em_base);
+@hsvpicker-arrow-btn-height: (74*@em_base);
+@hsvpicker-clrchannel-masks-width: (432*@em_base);
+@hsvpicker-clrchannel-masks-height: (60*@em_base);
+@hsvpicker-clrchannel-selector-width: (16*@em_base);
+@hsvpicker-clrchannel-selector-height: (80*@em_base);
+@hsvpicker-clrchannel-selector-border-width: (4*@em_base);
+@hsvpicker-clrchannel-masks-container-hpadding: (20*@em_base);
+@hsvpicker-clrchannel-masks-container-vpadding: (19*@em_base);
+
+@hsvpicker-clrchannel-selector-actual-height: @hsvpicker-clrchannel-selector-height -
+  2 * @hsvpicker-clrchannel-selector-border-width;
+
+@hsvpicker-clrchannel-selector-actual-width: @hsvpicker-clrchannel-selector-width -
+  2 * @hsvpicker-clrchannel-selector-border-width;
 
 @hsvpicker-clrchannel-masks-container-actual-hpadding:
   @hsvpicker-clrchannel-selector-width / 2
@@ -26,17 +34,14 @@
 .ui-hsvpicker {
   .hsvpicker-clrchannel-container {
     display: table;
-    padding-left: 2.625em;
-    padding-right: 2.625em;
+    padding-left: (42*@em_base);
+    padding-right: (42*@em_base);
 
     .hsvpicker-arrow-btn-container {
-	  border: 0 px;
       display: table-cell;
       vertical-align: middle;
 
 		.hsvpicker-arrow-btn {
-			border: 0 px;
-			background-image: url(images/00_color_picker_btn_left.png);
 			width: @hsvpicker-arrow-btn-width;
 			height: @hsvpicker-arrow-btn-height;
 		}
@@ -53,7 +58,7 @@
 			height: @hsvpicker-arrow-btn-height;
 		}
 
-		.hsvpicker-arrow-btn-left-hover {
+		.hsvpicker-arrow-btn-left-dim {
 			background-image: url(images/00_color_picker_btn_left_dim.png);
 			width: @hsvpicker-arrow-btn-width;
 			height: @hsvpicker-arrow-btn-height;
@@ -77,7 +82,7 @@
 			height: @hsvpicker-arrow-btn-height;
 		}
 
-		.hsvpicker-arrow-btn-right-hover {
+		.hsvpicker-arrow-btn-right-dim {
 			background-image: url(images/00_color_picker_btn_right_dim.png);
 			width: @hsvpicker-arrow-btn-width;
 			height: @hsvpicker-arrow-btn-height;
@@ -117,10 +122,63 @@
         position: absolute;
         left: 0px;
         top: 0px;
-        width: @hsvpicker-clrchannel-selector-width;
-        height: @hsvpicker-clrchannel-selector-height;
+        width: @hsvpicker-clrchannel-selector-actual-width;
+        height: @hsvpicker-clrchannel-selector-actual-height;
         border: @hsvpicker-clrchannel-selector-border-width solid black;
       }
+
+	/*FIXME: use jquery.mobile.clrlib.css*/
+	.hue-gradient {
+	  background: rgb(255,0,0); /* Old browsers */
+	  background: -webkit-gradient(linear, left top, right top,
+		color-stop(  0%          ,rgba(255,  0,  0,1)),
+		color-stop( 16.666666667%,rgba(255,255,  0,1)),
+		color-stop( 33.333333333%,rgba(0  ,255,  0,1)),
+		color-stop( 50%          ,rgba(0  ,255,255,1)),
+		color-stop( 66.666666667%,rgba(0  ,  0,255,1)),
+		color-stop( 83.333333333%,rgba(255,  0,255,1)),
+		color-stop(100%          ,rgba(255,  0,  0,1))); /* Chrome,Safari4+ */
+	  background: -moz-linear-gradient(left, 
+		rgba(255,  0,  0,1)   0%, 
+		rgba(255,255,  0,1)  16.666666667%,
+		rgba(  0,255,  0,1)  33.333333333%,
+		rgba(  0,255,255,1)  50%,
+		rgba(  0,  0,255,1)  66.666666667%,
+		rgba(255,  0,255,1)  83.333333333%,
+		rgba(255,  0,  0,1) 100%);
+	  background: -webkit-linear-gradient(left,
+		rgba(255,  0,  0,1)   0%, 
+		rgba(255,255,  0,1)  16.666666667%,
+		rgba(  0,255,  0,1)  33.333333333%,
+		rgba(  0,255,255,1)  50%,
+		rgba(  0,  0,255,1)  66.666666667%,
+		rgba(255,  0,255,1)  83.333333333%,
+		rgba(255,  0,  0,1) 100%);
+	  background: -o-linear-gradient(left,
+		rgba(255,  0,  0,1)   0%, 
+		rgba(255,255,  0,1)  16.666666667%,
+		rgba(  0,255,  0,1)  33.333333333%,
+		rgba(  0,255,255,1)  50%,
+		rgba(  0,  0,255,1)  66.666666667%,
+		rgba(255,  0,255,1)  83.333333333%,
+		rgba(255,  0,  0,1) 100%);
+	  background: -ms-linear-gradient(left,
+		rgba(255,  0,  0,1)   0%, 
+		rgba(255,255,  0,1)  16.666666667%,
+		rgba(  0,255,  0,1)  33.333333333%,
+		rgba(  0,255,255,1)  50%,
+		rgba(  0,  0,255,1)  66.666666667%,
+		rgba(255,  0,255,1)  83.333333333%,
+		rgba(255,  0,  0,1) 100%);
+	  background: linear-gradient(left,
+		rgba(255,  0,  0,1)   0%, 
+		rgba(255,255,  0,1)  16.666666667%,
+		rgba(  0,255,  0,1)  33.333333333%,
+		rgba(  0,255,255,1)  50%,
+		rgba(  0,  0,255,1)  66.666666667%,
+		rgba(255,  0,255,1)  83.333333333%,
+		rgba(255,  0,  0,1) 100%);
+	}
 
       .sat-gradient {
         background: rgb(255,0,0); /* Old browsers */
