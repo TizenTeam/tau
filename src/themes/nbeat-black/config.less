@@ -129,19 +129,38 @@
 	background-size: @width @height;
 }
 
+
 .LESSbox-shadow(@hshadow, @vshadow, @blur, @color) {
 	-moz-box-shadow: @hshadow @vshadow @blur @color;
 	-webkit-box-shadow: @hshadow @vshadow @blur @color;
 	box-shadow: @hshadow @vshadow @blur @color;
 }
-/*
-.LESSbox-shadow-inset(@inset @hshadow, @vshadow, @blur, @color) {
-	-moz-box-shadow: @inset @hshadow @vshadow @blur @color;
-	-webkit-box-shadow: @inset @hshadow @vshadow @blur @color;
-	box-shadow: @inset @hshadow @vshadow @blur @color;
+.LESSdisplaybox() {
+	display:-moz-box;
+	display:-webkit-box;
+	display:box;
 }
-*/
+//position: vertical, horizental
+.LESSbox-orient(@position) {
+	-moz-box-orient: @position;
+	-webkit-box-orient: @position;
+	box-orient: @position;
+}
 
+//position: start, center, end
+.LESSbox-pack(@position) {
+	-moz-box-pack: @position;
+	-webkit-box-pack: @position;
+	box-pack: @position;
+}
+
+//position: start, center, end
+.LESSbox-align(@position) {
+	-moz-box-align: @position;
+	-webkit-box-align: @position;
+	box-align: @position;
+}	
+	
 //wongi_button //name from GUI guideline
 .LESSbutton_text1_style{
 	font-family: Helvetica, Arial, sans-serif;
