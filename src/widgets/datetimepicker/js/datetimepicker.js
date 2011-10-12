@@ -49,7 +49,7 @@
             am: "AM",
             pm: "PM",
             twentyfourHours: false,
-            animationDuration: 500,
+            animationDuration: 0,
             initSelector: "input[type='date'], :jqmData(type='date'), :jqmData(role='datetimepicker')"
         },
 
@@ -142,6 +142,7 @@
             var numItems = 0;
             var selectorResult = undefined;
 
+
             if (klass.search("year") > 0) {
                 var values = range(1900, 2100);
                 numItems = values.length;
@@ -192,6 +193,7 @@
             } else if (klass.search("ampm") > 0) {
                 var values = [this.options.am, this.options.pm];
                 numItems = values.length;
+                
                 selectorResult = obj._populateSelector(selector, owner,
                     "ampm", values,
                     function (val) {
@@ -212,9 +214,18 @@
             }
 
             if (selectorResult !== undefined) {
+                //by kilio
+                $(".data-selected").each(function() {
+                     $(this).removeClass("data-selected");
+                });
+                owner.addClass("data-selected");
+                ui.tail.removeClass("tail-hidden");
+                var newLeft = owner.position().left + owner.width() / 2;
+                ui.tail.css("background-position-x", newLeft);
+                
                 selector.slideDown(obj.options.animationDuration);
                 obj.state.selectorOut = true;
-
+                
                 /* Now that all the items have been added to the DOM, let's compute
                  * the size of the selector.
                  */
@@ -248,12 +259,38 @@
                     'scrollTo', x, 0);
             }
         },
+        
+        // by kilio
+        _switchAmPm: function(owner, ui) {
+            var val = owner.text().trim();
+            if ( this.options.am == val ) {
+                this.data["pm"] = true;
+                owner.text(this.options.pm);
+            } else {
+                this.data["pm"] = false;
+                owner.text(this.options.am);
+            }
+        },
+
+        // by kilio
+        _createHiddenView: function(ui) {
+            ui.screen
+            .height($(document).height())
+            .removeClass("ui-screen-hidden");
+
+        },
+
+        // by kilio
+        _removeHiddenView: function(ui) {
+            ui.screen.addClass("ui-screen-hidden");
+            ui.tail.addClass("tail-hidden");
+        },
 
         _hideDataSelector: function(selector) {
             if (this.state.selectorOut) {
                 selector.slideUp(this.options.animationDuration);
                 this.state.selectorOut = false;
-            }
+           }
         },
 
         _createScrollableView: function(selectorProto) {
@@ -262,7 +299,11 @@
                 view = container.find("#datetimepicker-selector-view").removeAttr("id");
 
             container
-              .scrollview({direction: "x"})
+              .scrollview({
+                  direction: "x", 
+                  showScrollBars: false, 
+                  scrollMethod: "translate"
+              })
               .bind("vclick", function(event) {
                 if (self.panning) {
                   event.preventDefault();
@@ -300,7 +341,15 @@
             var destValue = (parseToFunc !== null ?
                                 parseToFunc(dest[prop]) :
                                 dest[prop]);
-
+           
+            // by kilio start
+            var otop = $(ui.container).offset().top,
+                oheight = $(ui.container).height();
+            selector.css("top",otop + oheight);
+            selector.css("width", ui.screen.width() );
+            obj._createHiddenView(ui);
+            // end
+            
             var i = 0;
             for (; i < values.length; i++) {
                 var item = obj._createSelectorItem(ui.itemProto.clone(), klass);
@@ -315,6 +364,9 @@
                         $(this).toggleClass("current");
                         obj._hideDataSelector(selector);
                         $(obj.data.parentInput).trigger("date-changed", obj.getValue());
+                        // by kilio
+                        obj._removeHiddenView(ui);
+                        owner.removeClass("data-selected");
                     }
                 }).text(values[i]);
                 if (values[i] == destValue) {
@@ -324,7 +376,9 @@
                 scrollable.view.append(item.container);
             }
             selector.html(scrollable.container);
-
+            
+            ui.screen.height($(document).height()); // by kilio
+           
             return {scrollable: scrollable, currentIndex: currentIndex};
         },
 
@@ -349,16 +403,19 @@
                 separator: "#datetimepicker-time-separator",
                 minutes: "#datetimepicker-time-minutes"
               },
-              ampm: "#datetimepicker-ampm-span"
+              ampm: "#datetimepicker-ampm-span",
+              screen: "#datetimepicker-screen", // by kilio
+              tail: "#datetimepicker-tail" // by kilio
             };
 
             ui = $.mobile.todons.loadPrototype("datetimepicker", ui);
             ui.selectorProto.remove();
             ui.itemProto.remove();
-
+           
             $.extend ( this, {
               panning: false,
               ui: ui,
+              isOpen: false, // by kilio
               data : {
                 now: new Date(),
                 parentInput: 0,
@@ -396,6 +453,10 @@
             $(input).after(ui.container);
             this.data.parentInput = input;
 
+            // by kilio
+            var thisPage = this.element.closest(".ui-page");
+            thisPage.append(ui.screen);
+ 
             /* We must display either time or date: if the user set both to
              * false, we override that.
              */
@@ -408,9 +469,16 @@
             ui.header.text(this.options.header);
 
             this._initDateTimeDivs(ui);
-
-            ui.container.bind("vclick", function () {
-                obj._hideDataSelector(ui.selector);
+            
+            // by kilio 
+            ui.screen.bind( "vclick", function( event ) {
+                if (!ui.panning) {
+                    $(".data-selected").each(function() {
+                        $(this).removeClass("data-selected");
+                    });
+                    obj._removeHiddenView(ui);
+                    obj._hideDataSelector(ui.selector);
+                }
             });
 
             ui.main.find(".data").each(function() {
@@ -419,6 +487,14 @@
                     e.stopPropagation();
                 });
             });
+
+            ui.main.find("div.ampm").each(function() {
+                $(this).bind("vclick", function(e) {
+                    obj._switchAmPm($(this), ui);
+                    e.stopPropagation();
+                });
+            });
+
         },
 
         getValue: function() {

@@ -1,0 +1,135 @@
+@import "config.less";
+@selector-height: 3.32em;
+@container-height: 3.44em;
+
+.ui-datetimepicker {
+    width: 100%;
+
+    .datetimepicker-inner-container {
+        padding: 0.31em 0;
+        min-height: @container-height;
+    }
+
+    .datetimepicker-header {
+        display: block;
+        height: 1.5em;
+        font-size: 1em;
+        color: #666;
+        padding: 0 0 0 0.75em;
+    }
+
+    .datetimepicker-main {
+        display: inline;
+    }
+    
+    .data {
+        padding: 0 0.31em 0 0;
+        display: inline-block;
+        height: 1.81em;
+        line-height: 1.81em;
+        font-size: 1.4em;
+        text-align: center;
+    }
+    
+    .data-selected {
+        color: @color_02;
+    }
+
+    .data-line {
+        padding: 0 0 0 0.6em;
+    }
+
+    .data-last {
+        .data;
+        padding: 0 0 0 0.6em;
+    }
+
+    .date {
+        width: 10em;
+        margin-right: 1.8px;
+        display: inline;
+    }
+
+    .time {
+        width: 4.7em;
+        margin-right: 1.5em;
+        display: inline;
+    }
+
+    div.ampm {
+        .data;
+        width: 3.2em;
+        color: #666;
+        display: inline-block;
+        border: 1px solid hsl(0, 0%, 90%);
+        background-color: hsl(0, 0%, 95%);
+        border-radius: 0.15em;
+        -webkit-border-radius: 0.15em;
+        -moz-border-radius: 0.15em;
+    }
+
+    span.ampm {
+        width: 100%;
+    }
+
+    .tail-hidden {
+        display: none;
+    }
+
+    .tail {
+        background: url('images/00_timepicker_tail.png') no-repeat;
+        margin: 0.25em 0 0 -0.8em;
+        padding: 0;
+        position: fixed;
+        height: 0.7em;
+        width: 100%;
+    }
+
+    .selector {
+        position: fixed;
+        top: 4.7em;
+        left: 0;
+        display: none;
+        z-index: 9999;
+        background: @color_02;
+        color: white;
+        height: @selector-height;
+        font-size: 1.4em;
+        padding: 0;
+        margin: 0.7em 0 0 0;
+        text-align: center;
+
+        .container {
+            > .view {
+                height: @selector-height;
+            }
+
+            .item {
+                padding: 0.95em 0.25em 0 0.25em;
+                float: left;
+                a {
+                    text-decoration: none;
+                    color: @color_14;
+                    height: @selector-height;
+                }
+                a.current {
+                    color: @color_36;
+                }
+            }
+
+            .year {
+                min-width: 2.7em;
+            }
+
+            .month {
+                min-width: 2.2em
+            }
+
+            .day, .hours, .minutes {
+                min-width: 1.6em;
+            }
+            
+        }
+    }
+}
+
