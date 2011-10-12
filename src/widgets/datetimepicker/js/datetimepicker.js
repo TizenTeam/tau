@@ -70,7 +70,7 @@
             this.data.day = this.data.initial.day;
             this.data.hours = this.data.initial.hours;
             this.data.minutes = this.data.initial.minutes;
-            this.data.pm = this.data.initial.hours;
+            this.data.pm = this.data.initial.pm;
         },
 
         _initDate: function(ui) {
@@ -191,6 +191,7 @@
                     "minutes", values, parseInt, null, obj.data,
                     "minutes", ui);
             } else if (klass.search("ampm") > 0) {
+                /* unreachable code. by kilio*/
                 var values = [this.options.am, this.options.pm];
                 numItems = values.length;
                 
@@ -261,7 +262,8 @@
         },
         
         // by kilio
-        _switchAmPm: function(owner, ui) {
+        _switchAmPm: function(obj, owner, ui) {
+            console.log( this.data["pm"] );
             var val = owner.text().trim();
             if ( this.options.am == val ) {
                 this.data["pm"] = true;
@@ -270,6 +272,7 @@
                 this.data["pm"] = false;
                 owner.text(this.options.am);
             }
+            $(obj.data.parentInput).trigger("date-changed", obj.getValue());
         },
 
         // by kilio
@@ -427,7 +430,7 @@
 
                     hours: 0,
                     minutes: 0,
-                    pm: false
+                    pm: false,
                 },
 
                 year: 0,
@@ -436,7 +439,7 @@
 
                 hours: 0,
                 minutes: 0,
-                pm: false
+                pm: false,
             },
 
             state : {
@@ -490,7 +493,7 @@
 
             ui.main.find("div.ampm").each(function() {
                 $(this).bind("vclick", function(e) {
-                    obj._switchAmPm($(this), ui);
+                    obj._switchAmPm(obj, $(this), ui);
                     e.stopPropagation();
                 });
             });
