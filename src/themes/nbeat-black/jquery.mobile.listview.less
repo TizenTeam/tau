@@ -23,12 +23,14 @@
 .ui-content .ui-listview { margin: -15px; }
 .ui-content .ui-listview-inset { margin: 1em 0;  }
 .ui-listview, .ui-li { list-style:none; padding:0; }
-.ui-li, .ui-li.ui-field-contain { display: block; margin:0; position: relative; overflow: visible; text-align: left; border-width: 0; border-top-width: 1px; }
+.ui-li, .ui-li.ui-field-contain { display: block; margin:0; position: relative; overflow: visible; text-align: left;  }
 .ui-li .ui-btn-text { position: relative; z-index: 1; }
 .ui-li .ui-btn-text a.ui-link-inherit { text-overflow: ellipsis; overflow: hidden; white-space: nowrap;  }
 .ui-li-divider, .ui-li-static {  font-weight: @list-font-weight;  }
 .ui-li-static { font-size: @list-main-font-size;  padding: .773em 16px;}
 .ui-li-divider { counter-reset: listnumbering;  font-size: @list-divider-font-size;  padding: .5em 16px;}
+.ui-listview > li.ui-li { border-width: 0; border-bottom-width: 1px; }
+
 /* listitem with link(button) */
 .ui-listview li.ui-btn-up-s > .ui-li > .ui-btn-text > a.ui-link-inherit,
 .ui-listview li.ui-btn-hover-s > .ui-li > .ui-btn-text > a.ui-link-inherit,
