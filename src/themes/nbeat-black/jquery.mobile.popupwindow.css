@@ -1,11 +1,15 @@
 .ui-popupwindow {
-  display: inline-block;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-pack: center;
+  -moz-box-align: center;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-pack: center;
+  -webkit-box-align: center;
   position: absolute;
-  margin: 1px;
-  padding: 0px;
   z-index: 100 !important;
   width: 620px !important;
-  vertical-align: top;
   background: #536771;
   color: white;
 }
