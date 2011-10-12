@@ -7,7 +7,7 @@ CSS_OUTPUT = ${OUTPUT_DIR}/web-ui-fw-theme.css
 
 
 CSS_SRCS=	jquery.mobile.theme.less.css \
-		jquery.mobile.core.css \
+		jquery.mobile.core.less.css \
 		jquery.mobile.transitions.css \
 		jquery.mobile.grids.css \
 		jquery.mobile.headerfooter.css \
@@ -20,9 +20,9 @@ CSS_SRCS=	jquery.mobile.theme.less.css \
 		jquery.mobile.forms.fieldcontain.css \
 		jquery.mobile.forms.select.css \
 		jquery.mobile.forms.textinput.css \
-		jquery.mobile.listview.css \
+		jquery.mobile.listview.less.css \
 		jquery.mobile.forms.slider.css \
-		jquery.mobile.popupwindow.css \
+		jquery.mobile.popupwindow.less.css \
 		jquery.mobile.segmentctrl.css \
 		jquery.mobile.hsvpicker.less.css \
 		jquery.mobile.colorpalette.less.css \
