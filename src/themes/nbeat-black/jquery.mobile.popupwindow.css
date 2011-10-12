@@ -4,29 +4,46 @@
   margin: 1px;
   padding: 0px;
   z-index: 100 !important;
-  width: 400px !important;
+  width: 720px !important;
   vertical-align: top;
   background: #536771;
   color: white;
 }
+.ui-popupwindow .textonly {
+  vertical-align: middle;
+  text-align: center;
+}
+.ui-popupwindow .textonly .popup-text {
+  margin: 2px 2px;
+  background: #213c49;
+}
+.ui-popupwindow .textonly .popup-text p {
+  margin: 0px 0px;
+  padding: 22px 16px;
+}
 .ui-popupwindow .titletext {
   vertical-align: middle;
+  text-align: center;
 }
 .ui-popupwindow .titletext .popup-title {
-  margin: 2px 2px 0px 2px;
-  height: 50px;
+  margin: 2px 2px;
+  height: 30px;
 }
 .ui-popupwindow .titletext .popup-title p {
   margin: 0 0 0 0;
   padding: 0 0 0 0;
 }
 .ui-popupwindow .titletext .popup-text {
-  margin: 2px 2px 0px 2px;
+  margin: 2px 2px;
   background: #213c49;
 }
 .ui-popupwindow .titletext .popup-text p {
-  margin: 0 0 0 0;
-  padding: 0 0 0 0;
+  margin: 0px 0px;
+  padding: 10px 10px;
+}
+.ui-popupwindow .titletextbutton {
+  vertical-align: middle;
+  text-align: center;
 }
 .ui-popupwindow-corner-all {
   -moz-border-radius: 0em;

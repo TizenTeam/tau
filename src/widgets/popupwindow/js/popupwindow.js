@@ -121,6 +121,8 @@ $.widget( "todons.popupwindow", $.mobile.widget, {
 				 .wrapAll( "<div class='popup-title'></div>" );
 			popup.find( ":jqmData(role='text')" )
 				 .wrapAll( "<div class='popup-text'></div>" );
+			popup.find( ":jqmData(role='button')" )
+				 .wrapAll( "<div class='popup-button'></div>" );
 			break;
 	}
 	
