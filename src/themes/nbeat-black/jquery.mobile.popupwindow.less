@@ -1,5 +1,7 @@
 @import "config.less";
 
+@button_height: 96px;
+
 .ui-popupwindow {
 
 	position: absolute;
@@ -85,12 +87,16 @@
 		.popup-button-bg {
 			font-size: 32px;
 			background: #565d60;
-			height: 96px;
+			height: @button_height;
 			width: 100%;
+			padding-top: @button_height * (1-0.771)/2;
+			padding-bottom: @button_height * (1-0.771)/2;
 			
 			.ui-btn {
 				width: 402px;
-				height: 74px;
+				height: @button_height * 0.771;
+				margin:auto;
+				
 			}
 		}
 	}
