@@ -86,7 +86,6 @@ $.widget( "todons.hsvpicker", $.todons.colorwidget, {
             max = (0 == hsvIdx ? 360 : 1),
             step = 0.05 * max;
 
-        self.dragging = -1;
         self._setArrowImg($(this), "");
         self.dragging_hsv[hsvIdx] = self.dragging_hsv[hsvIdx] + step * ("left" === $(this).attr("data-location") ? -1 : 1);
         self.dragging_hsv[hsvIdx] = Math.min(max, Math.max(0.0, self.dragging_hsv[hsvIdx]));
@@ -100,6 +99,10 @@ $.widget( "todons.hsvpicker", $.todons.colorwidget, {
           event.preventDefault();
         }
       })
+      .bind( "vmouseup", function( event ) {
+        self.dragging = -1;
+        ui.container.find($("img[class^=hsvpicker-arrow-btn]")).each(function() {self._setArrowImg($(this), "");});
+      });
 
     this._bindElements("hue", 0);
     this._bindElements("sat", 1);
@@ -123,7 +126,7 @@ $.widget( "todons.hsvpicker", $.todons.colorwidget, {
   },
 
   _handleMouseDown: function(chan, idx, e, isSelector) {
-    var coords = $.mobile.targetRelativeCoordsFromEvent(e),
+    var coords = jQuery.mobile.targetRelativeCoordsFromEvent(e),
         widgetStr = (isSelector ? "selector" : "eventSource");
 
     if (coords.x >= 0 && coords.x <= this.ui[chan][widgetStr].outerWidth() &&
@@ -169,17 +172,17 @@ $.widget( "todons.hsvpicker", $.todons.colorwidget, {
         vclr = $.mobile.todons.clrlib.RGBToHTML($.mobile.todons.clrlib.HSVToRGB([hsv[0], hsv[1], 1.0]));
 
     this.ui.hue.selector.css("left", this.ui.hue.eventSource.width() * hsv[0] / 360);
-    this.ui.hue.selector.css("background", clr);
+    //this.ui.hue.selector.css("background", clr);
     this.ui.hue.hue.css("opacity", hsv[1]);
     this.ui.hue.valMask.css("opacity", 1.0 - hsv[2]);
 
     this.ui.sat.selector.css("left", this.ui.sat.eventSource.width() * hsv[1]);
-    this.ui.sat.selector.css("background", clr);
+    //this.ui.sat.selector.css("background", clr);
     this.ui.sat.hue.css("background", hclr);
     this.ui.sat.valMask.css("opacity", 1.0 - hsv[2]);
 
     this.ui.val.selector.css("left", this.ui.val.eventSource.width() * hsv[2]);
-    this.ui.val.selector.css("background", clr);
+    //this.ui.val.selector.css("background", clr);
     this.ui.val.hue.css("background", vclr);
 
     $.todons.colorwidget.prototype._setColor.call(this, clr);

@@ -79,6 +79,7 @@ $.widget( "todons.popupwindow", $.mobile.widget, {
         style: "custom",
         shadow: true,
         fade: true,
+		widthRatio: 0.8612,
         transition: $.mobile.defaultDialogTransition,
     },
 
@@ -121,9 +122,11 @@ $.widget( "todons.popupwindow", $.mobile.widget, {
 				 .wrapAll( "<div class='popup-title'></div>" );
 			popup.find( ":jqmData(role='text')" )
 				 .wrapAll( "<div class='popup-text'></div>" );
-			popup.find( ":jqmData(role='button')" )
-				 .wrapAll( "<div class='popup-button'></div>" );
+			popup.find( ":jqmData(role='button-bg')" )
+				 .wrapAll( "<div class='popup-button-bg'></div>" );
 			break;
+		//case "newStyle":
+	  		//this.options.widthRatio = 0.XXXX;
 	}
 	
 
@@ -207,12 +210,14 @@ $.widget( "todons.popupwindow", $.mobile.widget, {
       var self = this,
           x = (undefined === x_where ? window.innerWidth  / 2 : x_where),
           y = (undefined === y_where ? window.innerHeight / 2 : y_where);
-
-      this.ui.container.css("min-width", this.element.outerWidth(true));
+	
+	  //calculate default popup width
+	  var popupWidth = window.innerWidth * this.options.widthRatio;
+      this.ui.container.css("width", popupWidth);
       this.ui.container.css("min-height", this.element.outerHeight(true));
 
-      var menuHeight = this.ui.container.outerHeight(true),
-          menuWidth = this.ui.container.outerWidth(true),
+      var menuHeight = this.ui.container.innerHeight(true),
+          menuWidth = this.ui.container.innerWidth(true),
           scrollTop = $( window ).scrollTop(),
           screenHeight = window.innerHeight,
           screenWidth = window.innerWidth;
