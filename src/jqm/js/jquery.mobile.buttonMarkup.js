@@ -56,11 +56,12 @@ $.fn.buttonMarkup = function( options ) {
 			}
 			else if (o.slpstyle == "slp_text")
 			{
-				wrap = ( "<D class='" + innerClass + "'><D class='ui-btn-text'></D>" + "</D>" ).replace( /D/g, o.wrapperEls );
+				wrap = ( "<D class='" + innerClass + "'><D class='ui-slp-btn-text'></D>" + "</D>" ).replace( /D/g, o.wrapperEls );
 			}
 			else if (o.slpstyle == "slp_text_icon")
 			{
-				wrap = ( "<D class='" + innerClass + "'><D class='ui-btn-text'></D>" + "</D>" ).replace( /D/g, o.wrapperEls );
+				innerClass += " ui-slp-btn-text-icon";
+				wrap = ( "<D class='" + innerClass + "'><D class='ui-slp-btn-text'></D>" + "<D class='ui-slp-icon'></D>" + "</D>" ).replace( /D/g, o.wrapperEls );
 			}
 
 			/* Container : button div */
@@ -69,7 +70,7 @@ $.fn.buttonMarkup = function( options ) {
 			/* Inside container */
 			el.wrapInner( wrap );
 		}
-		else
+		else /* Original JQM case */
 		{
 		// if not, try to find closest theme container
 		if ( !o.theme ) {
