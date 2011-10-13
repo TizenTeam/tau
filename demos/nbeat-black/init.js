@@ -105,11 +105,17 @@ $(document).bind("pagecreate", function () {
             $scrollBar.css('visibility',scrollBarVisible?"hidden":"visible");
         })
     });
+    
+    $("#demo-date").bind("date-changed", function(e, newDate) { 
+        $("#selected-date1").text(newDate.toString());
+    });    
+    $("#demo-date2").bind("date-changed", function(e, newDate) { 
+        $("#selected-date2").text(newDate.toString());
+    });
+    $("#demo-date3").bind("date-changed", function(e, newDate) { 
+        $("#selected-date3").text(newDate.toString());
+    });
 
-    var updateDate = function(e, newDate) {
-        $("#datetimepicker-demo .selected-date").text(newDate.toString());
-    };
-    $("#demo-date").bind("date-changed", updateDate);
 
 	$("#colorpicker-demo").bind("pagebeforeshow", function() {
 	  $("#hsvpicker").bind("colorchanged", function(e, clr) {

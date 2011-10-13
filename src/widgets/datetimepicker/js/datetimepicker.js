@@ -50,7 +50,7 @@
             pm: "PM",
             twentyfourHours: false,
             animationDuration: 0,
-            initSelector: "input[type='date'], :jqmData(type='date'), :jqmData(role='datetimepicker')"
+            initSelector: "input[type='date'], input[type='datetime'], input[type='time'], :jqmData(type='date'), :jqmData(role='datetimepicker')"
         },
 
         _initDateTime: function() {
@@ -91,16 +91,21 @@
         },
 
         _initTime: function(ui) {
-            /* TODO: the order should depend on locale and
-             * configurable in the options. */
-            var dataItems = {
-                0: ["hours", this._normalizeHour(this._makeTwoDigitValue(this.data.initial.hours))],
-                1: ["separator", this.options.timeSeparator],
-                2: ["minutes", this._makeTwoDigitValue(this.data.initial.minutes)],
-            };
+            if (!this.options.showTime) {
+                ui.time.main.remove();
+                ui.button.remove();
+            } else {
+                /* TODO: the order should depend on locale and
+                 * configurable in the options. */
+                var dataItems = {
+                    0: ["hours", this._normalizeHour(this._makeTwoDigitValue(this.data.initial.hours))],
+                    1: ["separator", this.options.timeSeparator],
+                    2: ["minutes", this._makeTwoDigitValue(this.data.initial.minutes)],
+                };
 
-            for (var data in dataItems)
-              ui.time[dataItems[data][0]].text(dataItems[data][1]);
+                for (var data in dataItems)
+                    ui.time[dataItems[data][0]].text(dataItems[data][1]);
+            }
         },
 
         _initDateTimeDivs: function(ui) {
@@ -190,8 +195,11 @@
                 selectorResult = obj._populateSelector(selector, owner,
                     "minutes", values, parseInt, null, obj.data,
                     "minutes", ui);
-            } else if (klass.search("ampm") > 0) {
-                /* unreachable code. by kilio*/
+            } 
+            
+            /* unreachable code. by kilio*/
+            /*
+            else if (klass.search("ampm") > 0) {
                 var values = [this.options.am, this.options.pm];
                 numItems = values.length;
                 
@@ -213,6 +221,7 @@
                     },
                     obj.data, "pm", ui);
             }
+            */
 
             if (selectorResult !== undefined) {
                 //by kilio
@@ -347,8 +356,10 @@
            
             // by kilio start
             var otop = $(ui.container).offset().top,
+                otopOffset = (document.all ? document.scrollTop : window.pageYOffset), // need to test upon jQM scroll
                 oheight = $(ui.container).height();
-            selector.css("top",otop + oheight);
+            ui.tail.css("top",otop + oheight - otopOffset);
+            selector.css("top",otop + oheight - otopOffset);
             selector.css("width", ui.screen.width() );
             obj._createHiddenView(ui);
             // end
@@ -407,6 +418,7 @@
                 minutes: "#datetimepicker-time-minutes"
               },
               ampm: "#datetimepicker-ampm-span",
+              button: "#datetimepicker-ampm-div",
               screen: "#datetimepicker-screen", // by kilio
               tail: "#datetimepicker-tail" // by kilio
             };
@@ -455,6 +467,12 @@
             $(input).css("display", "none");
             $(input).after(ui.container);
             this.data.parentInput = input;
+
+            var inputType = $(input).attr("type");
+            console.log("type=" + inputType);
+            this.options.showDate = (inputType == "date") || (inputType == "datetime");
+            this.options.showTime = (inputType == "time") || (inputType == "datetime");
+            console.log( this.options.showDate + "," + this.options.showTime );
 
             // by kilio
             var thisPage = this.element.closest(".ui-page");
