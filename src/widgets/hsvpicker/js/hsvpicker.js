@@ -122,7 +122,7 @@ $.widget( "todons.hsvpicker", $.todons.colorwidget, {
   },
 
   _setArrowImg: function(arrowImg, suffix) {
-	arrowImg.removeClass().addClass("hsvpicker-arrow-btn-" + arrowImg.attr("data-location") + suffix);
+	arrowImg.removeClass().addClass("hsvpicker-arrow-btn hsvpicker-arrow-btn-" + arrowImg.attr("data-location") + suffix);
   },
 
   _handleMouseDown: function(chan, idx, e, isSelector) {
