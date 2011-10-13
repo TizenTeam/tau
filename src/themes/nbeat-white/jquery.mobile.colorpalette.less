@@ -3,7 +3,7 @@
 @colorpalette-choice-total-width:  (86*@em_base);
 @colorpalette-choice-total-height: (86*@em_base);
 @colorpalette-item-border-width:  (4*@em_base);
-@colorpalette-item-border-color: #c0c0c0;
+@colorpalette-item-border-color: white;
 @colorpalette-preview-total-width:  (486*@em_base);
 @colorpalette-preview-total-height: (174*@em_base);
 
@@ -35,6 +35,13 @@
   }
 
   .colorpalette-table {
+	align: center;
+	vertical-align: middle;
+
+	.ui-corner-all {
+		.LESSborder-radius-all(.6em);
+	}
+
     .colorpalette-bottom-row {
       display: table-row;
     }
@@ -53,7 +60,7 @@
     }
 
     .colorpalette-normal-row .colorpalette-choice-container-left {
-      padding-bottom: (37*@em_base);
+      padding-bottom: (26*@em_base);
     }
 
     .colorpalette-choice {

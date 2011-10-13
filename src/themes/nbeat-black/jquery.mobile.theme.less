@@ -173,6 +173,117 @@ a.ui-link-inherit {
 	border-color: 			rgba(255,255,255,.3);
 }
 
+/* Jinhyuk : Add new footer style */
+.ui-controlbar-s {
+	border: 1px solid 		@bordercolor;
+	background: 			@footercolor; /*{a-bar-background-color}*/
+	color: 					#ffffff; /*{a-bar-color}*/
+	font-family: Helvetica, Arial, sans-serif;
+	font-weight: bold;
+	/* a-bar-shadow-x, a-bar-shadow-y, a-bar-shadow-radius, a-bar-shadow-color */
+	/* no shadow : text-shadow: 0 -1px 1px #000000; */
+	/* a-bar-background-start, a-bar-background-end */
+	/* no shadow .LESSbackground-img-with-gradient(top, #3c3c3c, #111); */
+		
+	.ui-link-inherit {
+		color: #fff; /*{a-bar-color}*/
+		font-weight: bold;		
+	}
+	.ui-link {
+		/* ui-bar-link */
+		color: #fff; /*{a-bar-color}*/ 
+		font-weight: bold;
+
+	}
+	
+	.ui-btn-text {
+		color: #fff; /*{a-bar-color}*/	
+		font-weight: bold;
+		text-decoration : none;
+	}
+
+	.ui-btn {
+		color: #fff; /*{a-bar-color}*/	
+		background: @footercolor; /*{a-bar-background-color}*/
+		font-weight: bold;
+		text-decoration : none;
+	}
+	
+	.ui-btn-hover-s, .ui-btn-down-s, .ui-btn-active {
+		color: #fff; /*{a-bar-color}*/	
+		background: @color_02; /*{a-bar-background-color}*/
+	}
+}
+
+.ui-toolbar-s {
+	.ui-btn-hover-s, .ui-btn-down-s, .ui-btn-up-s, .ui-btn-active{
+		background: @footercolor; /*{a-bar-background-color}*/
+	}	
+}
+
+/* Jinhyuk : Add new footer style */
+/*  Jinhyuk_Controlbar	*/
+.ui-controlbar-left, .ui-controlbar-right {
+	position : fixed;					
+	top : 42px; /* Need to less for header height*/
+	border: 1px solid 		@bordercolor;
+	background: 			@footercolor; /*{a-bar-background-color}*/
+	color: 					#ffffff; /*{a-bar-color}*/
+	font-family: Helvetica, Arial, sans-serif;
+	font-weight: bold;
+	z-index: 100;
+	/* a-bar-shadow-x, a-bar-shadow-y, a-bar-shadow-radius, a-bar-shadow-color */
+	/* no shadow : text-shadow: 0 -1px 1px #000000; */
+	/* a-bar-background-start, a-bar-background-end */
+	/* no shadow .LESSbackground-img-with-gradient(top, #3c3c3c, #111); */
+		
+	.ui-link-inherit {
+		color: #fff; /*{a-bar-color}*/
+		font-weight: bold;	
+			
+	}
+	.ui-link {
+		/* ui-bar-link */
+		color: #fff; /*{a-bar-color}*/ 
+		font-weight: bold;
+
+	}
+	
+	.ui-btn-text {
+		color: #fff; /*{a-bar-color}*/	
+		font-weight: bold;
+		text-decoration : none;
+	}
+
+	.ui-btn {
+		color: #fff; /*{a-bar-color}*/	
+		background: 			@footercolor; /*{a-bar-background-color}*/
+		font-weight: bold;
+		text-decoration : none;
+		width : 100%;
+		margin :0px 0em;			
+	}
+	
+	.ui-btn-hover-s, .ui-btn-down-s  .ui-btn-active{
+		color: #fff; /*{a-bar-color}*/	
+		background: @color_02; /*{a-bar-background-color}*/
+	}
+}
+
+/*  Jinhyuk_Controlbar_Left 	*/
+.ui-controlbar-left {
+	left : 0px;
+	float : left;
+	
+}
+
+/*  Jinhyuk_Controlbar_Right	*/
+.ui-controlbar-right {
+	right : 0px;
+	float :right;
+}
+
+
 
 /* corner rounding classes
 -----------------------------------------------------------------------------------------------------------*/
@@ -356,6 +467,55 @@ a.ui-link-inherit {
 	.LESSborder-radius-all(20px); 
 }
 
+/* Jinhyuk : Add ctrl bar */
+	.ui-icon-ctrlbar-contact, .ui-icon-ctrlbar-favorites, .ui-icon-ctrlbar-group,
+	.ui-icon-ctrlbar-message, .ui-icon-ctrlbar-search, .ui-icon-ctrlbar-setting,
+	.ui-icon-ctrlbar-song	 {
+		background-color : transparent;
+
+		-moz-border-radius: 0px;
+		-webkit-border-radius: 0px;
+		border-radius: 0px;
+		background-size:  100% 100%;
+		
+		-moz-box-shadow: 0px 0px 0 				rgba(255,255,255,.4);
+		-webkit-box-shadow: 0px 0px 0 			rgba(255,255,255,.4);
+		box-shadow: 0px 0px 0 					rgba(255,255,255,.4);			
+	}
+
+	.ui-icon-ctrlbar-contact {
+		background-image: url(images/01_tabbar_icon_contact.png);
+		}
+	.ui-icon-ctrlbar-favorites {
+		background-image: url(images/01_tabbar_icon_favorites.png);
+		}
+	.ui-icon-ctrlbar-group {
+		background-image: url(images/01_tabbar_icon_group.png);
+		}
+	.ui-icon-ctrlbar-message {
+		background-image: url(images/01_tabbar_icon_message.png);
+		}
+	.ui-icon-ctrlbar-search {
+		background-image: url(images/01_tabbar_icon_search.png);
+		}
+	.ui-icon-ctrlbar-setting {
+		background-image: url(images/01_tabbar_icon_setting.png);
+		}
+	.ui-icon-ctrlbar-song {
+		background-image: url(images/01_tabbar_icon_song.png);
+		}
+		
+		
+
+
+/* Jinhyuk : Add ctrl bar */
+
+
+
+
+
+
+
 
 /* Button corner classes
 -----------------------------------------------------------------------------------------------------------*/
@@ -389,7 +549,7 @@ a.ui-link-inherit {
 	.LESSborder-radius-bottomleft(1em);
 }
 .ui-btn-corner-all {
-	.LESSborder-radius-all(1em); 
+	.LESSborder-radius-all(0.2em);	//wongi_1013 
 }
 
 /* radius clip workaround for cleaning up corner trapping */
