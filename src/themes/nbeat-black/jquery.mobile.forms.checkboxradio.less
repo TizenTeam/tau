@@ -1,0 +1,115 @@
+/*
+* jQuery Mobile Framework
+* Copyright (c) jQuery Project
+* Dual licensed under the MIT (MIT-LICENSE.txt) or GPL (GPL-LICENSE.txt) licenses.
+*/
+@import "config.less";
+
+
+@font_size_default: 32px;	// Default unit font size
+@em_base: 1em/@font_size_default;
+
+//.ui-checkbox, .ui-radio { position:relative;  margin: .2em 0 .5em; z-index: 1;  }
+//.ui-checkbox .ui-btn, .ui-radio .ui-btn { margin: 0; text-align: left; z-index: 2; }
+.ui-checkbox .ui-btn-inner, .ui-radio .ui-btn-inner { white-space: normal; }
+/* Label position will be 16+42+16 = 74px */
+.ui-checkbox .ui-btn-icon-left .ui-btn-inner,.ui-radio .ui-btn-icon-left .ui-btn-inner { padding-left: 2.313em; }
+.ui-checkbox .ui-btn-icon-right .ui-btn-inner, .ui-radio .ui-btn-icon-right .ui-btn-inner { padding-right: 2.313em; }
+.ui-checkbox .ui-icon, .ui-radio .ui-icon { top: 1.1em; }
+.ui-checkbox .ui-btn-icon-left .ui-icon, .ui-radio .ui-btn-icon-left .ui-icon {left: 15px; }
+.ui-checkbox .ui-btn-icon-right .ui-icon, .ui-radio .ui-btn-icon-right .ui-icon {right: 15px; }
+/* input, label positioning */
+//.ui-checkbox input,.ui-radio input { position:absolute; left:20px; top:50%; width: 10px; height: 10px;  margin:-5px 0 0 0; outline: 0 !important; z-index: 1; }
+
+/* checks,radios */
+//.ui-icon-checkbox-off,
+.ui-icon-radio-off {
+	background-color: transparent;	
+}
+.ui-checkbox-on .ui-icon,
+.ui-radio-on .ui-icon {
+  /*koeun we don't need bg color for icons..
+	background-color: #4596ce;*/ /* NOTE: this hex should match the active state color. It's repeated here for cascade */
+}
+
+//font size: 42....
+@checkbox-label-left: (74*@em_base);	//16+42+16
+@checkbox-icon-left: (16*@em_base);	//16
+@checkbox-radio-all-height: (80*@em_base);	//on-off style is the biggest.
+@checkbox-radio-label-internal-top: (38*@em_base); //label, icon position (80-42)
+@checkbox-radio-icon-internal-bottom: (-19*@em_base); //label, icon position ((80-42)/2)
+@checkbox-size-width: (42*@em_base);
+@checkbox-size-height: (42*@em_base);
+
+.ui-checkbox, .ui-radio {
+	height: @checkbox-radio-all-height; 
+	position: relative;
+	margin: 0;
+	z-index: 1;
+	input {
+		position: absolute; 
+		left: @checkbox-icon-left;
+	  	height: 100%; 
+		outline: 0 !important; 
+		z-index: 1;
+	}
+	.ui-btn { 
+		height: 100%;
+		margin: 0; 
+		text-align: left; 
+		z-index: 2; 
+	}
+	.ui-btn.ui-btn-icon-left { 
+		display: block;
+		.ui-btn-inner {
+			display: inline-block;
+			height: 100%;
+			padding-top: 0 0 0 0;
+			.ui-btn-text {
+				margin-top: @checkbox-radio-label-internal-top; 
+				//margin-left: @checkbox-label-left;
+				height: 100%;
+			}
+			.ui-icon {
+				width: @checkbox-size-width; 
+				height: @checkbox-size-height;
+				margin-top: @checkbox-radio-icon-internal-bottom; 
+			}
+		}
+	}
+}
+
+
+/* koeun : for changing default checkbox */
+/* TODO : LESS var !!! for colors.. */
+
+.ui-icon-checkbox-off, .ui-icon-checkbox-on, .ui-icon-checkbox-off.favorite, .ui-icon-checkbox-on.favorite,
+.ui-icon-radio-off, .ui-icon-radio-on {
+	width: 42px;
+	height: 42px;
+	background-size: 100% 100%;
+	background-color: transparent;
+}
+.ui-icon-checkbox-off {
+	background-image: url(images/00_check_bg.png);
+}
+.ui-icon-checkbox-on {
+	background-image: url(images/00_check_checking.png), url(images/00_check_bg.png);
+	background-repeat: no-repeat;
+}
+.ui-icon-checkbox-off.favorite {
+	background-image: url(images/00_winset_icon_favorite_off.png);
+}
+.ui-icon-checkbox-on.favorite {
+	background-image: url(images/00_winset_icon_favorite_on.png);
+}
+
+.ui-icon-radio-off {
+	background-image: url(images/00_button_radio_normal2.png);
+}
+.ui-icon-radio-on {
+	background-image: url(images/00_button_radio_normal1.png);
+}
+
+
+/* koeun : checkbox end */

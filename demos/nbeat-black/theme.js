@@ -19,4 +19,12 @@ $.mobile.button.prototype.options.theme ="s";
 // Default theme swatch
 $.mobile.page.prototype.options.theme = "s";
 
+$( document ).bind( "pagecreate", function( e ){
+	$.mobile.listview.prototype.options.theme = "s";
+	footer = $(document).find( ":jqmData(role='footer')" );
+	footer.removeClass( "ui-bar-" + $.mobile.listview.prototype.options.theme  );
+	footer.addClass( "ui-controlbar-" + $.mobile.listview.prototype.options.theme  );
+});
+
+
 })(jQuery);

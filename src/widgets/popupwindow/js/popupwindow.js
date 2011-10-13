@@ -117,6 +117,8 @@ $.widget( "todons.popupwindow", $.mobile.widget, {
 		case "textonly":
 		case "titletext":
 		case "titletext1btn":
+		case "titletext2btn":
+		case "titletext3btn":
 			//commonly add class for all elements... we will use structured css. 
 			popup.find( ":jqmData(role='title')" )
 				 .wrapAll( "<div class='popup-title'></div>" );
@@ -214,7 +216,7 @@ $.widget( "todons.popupwindow", $.mobile.widget, {
 	  //calculate default popup width
 	  var popupWidth = window.innerWidth * this.options.widthRatio;
       this.ui.container.css("width", popupWidth);
-      this.ui.container.css("min-height", this.element.outerHeight(true));
+      //this.ui.container.css("min-height", this.element.innerHeight(true));
 
       var menuHeight = this.ui.container.innerHeight(true),
           menuWidth = this.ui.container.innerWidth(true),

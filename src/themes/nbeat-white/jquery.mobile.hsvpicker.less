@@ -5,7 +5,7 @@
 @hsvpicker-clrchannel-masks-width: (432*@em_base);
 @hsvpicker-clrchannel-masks-height: (60*@em_base);
 @hsvpicker-clrchannel-selector-width: (16*@em_base);
-@hsvpicker-clrchannel-selector-height: (80*@em_base);
+@hsvpicker-clrchannel-selector-height: (20*@em_base) + @hsvpicker-clrchannel-masks-height;
 @hsvpicker-clrchannel-selector-border-width: (4*@em_base);
 @hsvpicker-clrchannel-masks-container-hpadding: (20*@em_base);
 @hsvpicker-clrchannel-masks-container-vpadding: (19*@em_base);
@@ -16,79 +16,76 @@
 @hsvpicker-clrchannel-selector-actual-width: @hsvpicker-clrchannel-selector-width -
   2 * @hsvpicker-clrchannel-selector-border-width;
 
-@hsvpicker-clrchannel-masks-container-actual-hpadding:
-  @hsvpicker-clrchannel-selector-width / 2
-    + @hsvpicker-clrchannel-selector-border-width;
-@hsvpicker-clrchannel-masks-container-actual-vpadding:
-  (@hsvpicker-clrchannel-selector-height - @hsvpicker-clrchannel-masks-height) / 2
-    + @hsvpicker-clrchannel-selector-border-width;
-@hsvpicker-clrchannel-masks-container-hmargin:
-  ~`Math.max(0,
-      (parseFloat("@{hsvpicker-clrchannel-masks-container-hpadding}") -
-       parseFloat("@{hsvpicker-clrchannel-masks-container-actual-hpadding}"))) + "em"`;
-@hsvpicker-clrchannel-masks-container-vmargin:
-  ~`Math.max(0,
-      (parseFloat("@{hsvpicker-clrchannel-masks-container-vpadding}") -
-       parseFloat("@{hsvpicker-clrchannel-masks-container-actual-vpadding}"))) + "em"`;
-
 .ui-hsvpicker {
   .hsvpicker-clrchannel-container {
     display: table;
+    vertical-align: middle;
     padding-left: (42*@em_base);
     padding-right: (42*@em_base);
 
     .hsvpicker-arrow-btn-container {
       display: table-cell;
       vertical-align: middle;
+      padding-top: (19*@em_base);
+      padding-bottom: (19*@em_base);
 
 		.hsvpicker-arrow-btn {
+			border: 0;
 			width: @hsvpicker-arrow-btn-width;
 			height: @hsvpicker-arrow-btn-height;
 		}
 
 		.hsvpicker-arrow-btn-left {
+			border: 0;
 			background-image: url(images/00_color_picker_btn_left.png);
 			width: @hsvpicker-arrow-btn-width;
 			height: @hsvpicker-arrow-btn-height;
 		}
 
 		.hsvpicker-arrow-btn-left-up {
+			border: 0;
 			background-image: url(images/00_color_picker_btn_left.png);
 			width: @hsvpicker-arrow-btn-width;
 			height: @hsvpicker-arrow-btn-height;
 		}
 
 		.hsvpicker-arrow-btn-left-dim {
+			border: 0;
 			background-image: url(images/00_color_picker_btn_left_dim.png);
 			width: @hsvpicker-arrow-btn-width;
 			height: @hsvpicker-arrow-btn-height;
 		}
 
 		.hsvpicker-arrow-btn-left-down {
+			border: 0;
 			background-image: url(images/00_color_picker_btn_left_press.png);
 			width: @hsvpicker-arrow-btn-width;
 			height: @hsvpicker-arrow-btn-height;
 		}
 
 		.hsvpicker-arrow-btn-right {
+			border: 0;
 			background-image: url(images/00_color_picker_btn_right.png);
 			width: @hsvpicker-arrow-btn-width;
 			height: @hsvpicker-arrow-btn-height;
 		}
 
 		.hsvpicker-arrow-btn-right-up {
+			border: 0;
 			background-image: url(images/00_color_picker_btn_right.png);
 			width: @hsvpicker-arrow-btn-width;
 			height: @hsvpicker-arrow-btn-height;
 		}
 
 		.hsvpicker-arrow-btn-right-dim {
+			border: 0;
 			background-image: url(images/00_color_picker_btn_right_dim.png);
 			width: @hsvpicker-arrow-btn-width;
 			height: @hsvpicker-arrow-btn-height;
 		}
 
 		.hsvpicker-arrow-btn-right-down {
+			border: 0;
 			background-image: url(images/00_color_picker_btn_right_press.png);
 			width: @hsvpicker-arrow-btn-width;
 			height: @hsvpicker-arrow-btn-height;
@@ -99,18 +96,13 @@
     .hsvpicker-clrchannel-masks-container {
       float: left;
       position: relative;
+      vertical-align: middle;
+      padding-top: (26*@em_base);
+      padding-bottom: (26*@em_base);
+      padding-left: (20*@em_base);
+      padding-right: (20*@em_base);
       width: @hsvpicker-clrchannel-masks-width;
       height: @hsvpicker-clrchannel-masks-height;
-
-      margin-left:   @hsvpicker-clrchannel-masks-container-hmargin;
-      margin-right:  @hsvpicker-clrchannel-masks-container-hmargin;
-      margin-top:    @hsvpicker-clrchannel-masks-container-vmargin;
-      margin-bottom: @hsvpicker-clrchannel-masks-container-vmargin;
-
-      padding-left:   @hsvpicker-clrchannel-masks-container-actual-hpadding;
-      padding-right:  @hsvpicker-clrchannel-masks-container-actual-hpadding;
-      padding-top:    @hsvpicker-clrchannel-masks-container-actual-vpadding;
-      padding-bottom: @hsvpicker-clrchannel-masks-container-actual-vpadding;
 
       .hsvpicker-clrchannel-mask {
         position: absolute;
@@ -122,6 +114,8 @@
         position: absolute;
         left: 0px;
         top: 0px;
+        margin-top: (16*@em_base);
+        margin-bottom: (16*@em_base);
         width: @hsvpicker-clrchannel-selector-actual-width;
         height: @hsvpicker-clrchannel-selector-actual-height;
         border: @hsvpicker-clrchannel-selector-border-width solid black;
