@@ -272,7 +272,6 @@
         
         // by kilio
         _switchAmPm: function(obj, owner, ui) {
-            console.log( this.data["pm"] );
             var val = owner.text().trim();
             if ( this.options.am == val ) {
                 this.data["pm"] = true;
@@ -469,10 +468,8 @@
             this.data.parentInput = input;
 
             var inputType = $(input).attr("type");
-            console.log("type=" + inputType);
             this.options.showDate = (inputType == "date") || (inputType == "datetime");
             this.options.showTime = (inputType == "time") || (inputType == "datetime");
-            console.log( this.options.showDate + "," + this.options.showTime );
 
             // by kilio
             var thisPage = this.element.closest(".ui-page");
