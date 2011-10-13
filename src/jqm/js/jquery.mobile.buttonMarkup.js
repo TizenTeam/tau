@@ -14,7 +14,7 @@ $.fn.buttonMarkup = function( options ) {
 				iconpos: el.jqmData( "iconpos" ),
 				theme: el.jqmData( "theme" ),
 				inline: el.jqmData( "inline" ),
-				style: el.jqmData("slpstyle")
+				slpstyle: el.jqmData("slpstyle")
 			}, options ),
 
 			// Classes Defined
@@ -26,6 +26,51 @@ $.fn.buttonMarkup = function( options ) {
 			attachEvents();
 		}
 
+		/* wongi_1013 - Totally new button */
+		if (o.slpstyle == "slp_icon" || o.slpstyle == "slp_text" || o.slpstyle == "slp_text_icon")
+		{
+			/* Default */
+			o.shadow = false;
+			o.iconshadow = false;
+			o.inline = true;
+			o.wrapperEls = "span";
+			
+			/* Theme : use 's' */
+			o.theme = 's';
+			
+			/* Set class : throw away original classes. It makes everything sucks. */
+			buttonClass = "ui-slp-btn ui-btn-up-" + o.theme;			/* Button container's style */
+
+			innerClass = "ui-slp-btn-inner";	/* Button container's inner position : Set as center of a Button */
+
+			/* Round corner */
+			if ( o.corners ) {
+				buttonClass += " ui-btn-corner-all";
+			}
+			
+			/* Make inner tags of Button Div */
+			if (o.slpstyle == "slp_icon")
+			{
+				innerClass += " ui-slp-btn-icon-only";
+				wrap = ( "<D class='" + innerClass + "'>" + "</D>" ).replace( /D/g, o.wrapperEls );
+			}
+			else if (o.slpstyle == "slp_text")
+			{
+				wrap = ( "<D class='" + innerClass + "'><D class='ui-btn-text'></D>" + "</D>" ).replace( /D/g, o.wrapperEls );
+			}
+			else if (o.slpstyle == "slp_text_icon")
+			{
+				wrap = ( "<D class='" + innerClass + "'><D class='ui-btn-text'></D>" + "</D>" ).replace( /D/g, o.wrapperEls );
+			}
+
+			/* Container : button div */
+			el.attr( "data-" + $.mobile.ns + "theme", o.theme ).addClass( buttonClass );
+			
+			/* Inside container */
+			el.wrapInner( wrap );
+		}
+		else
+		{
 		// if not, try to find closest theme container
 		if ( !o.theme ) {
 			themedParent = el.closest( "[class*='ui-bar-'],[class*='ui-body-']" );
@@ -76,6 +121,7 @@ $.fn.buttonMarkup = function( options ) {
 			"</D>" ).replace( /D/g, o.wrapperEls );
 
 		el.wrapInner( wrap );
+		}
 	});
 };
 
@@ -91,6 +137,10 @@ function closestEnabledButton( element ) {
 	while ( element ) {
 		var $ele = $( element );
 		if ( $ele.hasClass( "ui-btn" ) && !$ele.hasClass( "ui-disabled" ) ) {
+			break;
+		}
+		/* wongi_1013 : SLP Button */
+		else if( $ele.hasClass( "ui-slp-btn" ) && !$ele.hasClass( "ui-disabled" ) ) {
 			break;
 		}
 		element = element.parentNode;

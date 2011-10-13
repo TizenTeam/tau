@@ -55,3 +55,60 @@
 
 /*hiding native button,inputs */
 .ui-btn-hidden { position: absolute; top: 0; left: 0; width: 100%; height: 100%; -webkit-appearance: button; opacity: .1; cursor: pointer; background: transparent; font-size: 1px; border: none; line-height: 999px; }
+
+/* wongi_1013 : totally new Buttons Style */
+.ui-slp-btn
+{
+	text-align: center; 
+	cursor:pointer;  
+	position: relative; 
+	margin: 0; 
+	padding: 0;
+	text-overflow: ellipsis; 
+	overflow: visible;
+	
+	&:hover {outline: none;}
+	
+	width : 12em;
+	height : 2em;
+	
+	display : inline-block;
+	
+	/* Box Display */	
+	/* Safari and Chrome */
+	display:-webkit-box;
+	-webkit-box-orient:horizontal;
+	-webkit-box-pack:center;
+	-webkit-box-align:center;
+	
+	/* W3C */
+	display:box;
+	box-orient:vertical;
+	box-pack:center;
+	box-align:center;		
+}
+
+.ui-slp-btn-inner
+{
+	top: 0%;
+	height: 100%;
+}
+
+.ui-slp-btn-icon-only
+{
+	position: absolute;
+	top: 0%;
+	left: 40%;
+	background-image: url(images/calllog/logs_sweep_icon_call_36.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	width: 20%;
+	height: 100%;	
+}
+
+.ui-btn-text
+{
+	top: 0%;
+	height: 100%;
+}
+
