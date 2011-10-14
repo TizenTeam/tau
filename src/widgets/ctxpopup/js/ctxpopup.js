@@ -57,7 +57,10 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
                                 window.pageYOffset,
                                 window.innerWidth,
                                 window.innerHeight);
-        console.log( self );
+        this.ui.screen
+            .height($(document).height())
+            .removeClass("ui-screen-hidden");
+
         if (this.options.maxWidth < containerRect.w) 
             containerRect.w = this.options.maxWidth;
         if (this.options.minWidth > containerRect.w)
@@ -69,7 +72,7 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
         
         // get entire box location and direction
         
-                console.log( arrowRect );
+        console.log( arrowRect );
         console.log( containerRect );
         console.log( screenRect );
 
@@ -173,20 +176,25 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
         // adjust container location
 
         // adjust arrow location
-        
+
 
         console.log( tX + "," + tY + "," + tW + "," + tH );
         box.removeClass("ui-selectmenu-hidden");
+        container.removeClass("ui-selectmenu-hidden");
+        arrow.removeClass("ui-selectmenu-hidden");
         box.css("left", tX);
         box.css("top", tY);
-
-
+        
+        this.ui.screen.height($(document).height());
 
     },
 
     close: function() {
-        
-
+        console.log("re close");
+        $(this.ui.screen).addClass("ui-screen-hidden");
+        $(this.ui.box).addClass("ui-selectmenu-hidden");
+        $(this.ui.container).addClass("ui-selectmenu-hidden");
+        $(this.ui.arrow).addClass("ui-selectmenu-hidden");
     },
 
     _create: function() {
@@ -208,6 +216,7 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
         $.mobile.todons.parseOptions(this, true);
 
         ui.screen.bind("vclick", function(e) {
+            console.log("request close");
             self.close();
         });
 
