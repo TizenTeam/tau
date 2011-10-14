@@ -67,6 +67,23 @@ $.widget( "mobile.textinput", $.mobile.widget, {
 					corners: true,
 					shadow: true
 				});
+			//SLP --start search bar with cancel button
+			focusedEl.wrapAll( "<div class='input-search-bar'></div>" );
+			var cancelbtn = $( "<a href='#' class='ui-input-cancel' title='clear text'>Cancel</a>" )
+				.tap(function( event ) {
+					input.val( "" ).focus();
+					input.trigger( "change" );
+					event.preventDefault();
+				})
+				.appendTo( focusedEl.parent() )
+				.buttonMarkup({
+					//icon: "delete",
+					iconpos: "cancel",
+					corners: true,
+					shadow: true
+				});
+			//SLP --end
+
 
 			function toggleClear() {
 				if ( !input.val() ) {
