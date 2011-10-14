@@ -16,6 +16,13 @@
 	color: 					@color_text;
 	font-family: Helvetica, Arial, sans-serif;
 	font-weight: bold;
+	font-size : @font_size_default;
+	height : 2.82em;
+
+	border-bottom-style: solid;
+	border-bottom-color: 	@color_02; 	
+	border-bottom-width: 	0.17em;
+
 	/* a-bar-shadow-x, a-bar-shadow-y, a-bar-shadow-radius, a-bar-shadow-color */
 	/* no shadow : text-shadow: 0 -1px 1px #000000; */
 	/* a-bar-background-start, a-bar-background-end */
@@ -32,6 +39,19 @@
 		&:active { color: #2489CE; }
 		&:visited {	color: #2489CE; }
 	}
+}
+
+.ui-header.ui-bar-s .ui-title {
+	min-height: 1.1em; 
+	text-align: center; 
+	font-size : @font_size_08; 
+	display: block; 
+	margin: .6em 90px .8em;  
+	padding: 0;  
+	text-overflow: ellipsis; 
+	overflow: hidden; 
+	white-space: nowrap; 
+	outline: 0 !important; 
 }
 
 // NOTE: This class is applied to almost all JQM widgets!
@@ -235,14 +255,13 @@ a.ui-link-inherit {
 		.ui-btn .ui-icon {
 			left : 50%;
 			top : 0.5em;
-			margin-left : -1.8em
+			margin-left : -1.8em;
 		}
 	}
 }
 
 .ui-toolbar-s {
 	.ui-btn-hover-s, .ui-btn-down-s, .ui-btn-up-s, .ui-btn-active{
-		border: 1px solid 		@bordercolor;
 		background: @footercolor; /*{a-bar-background-color}*/
 	}	
 }
@@ -256,7 +275,7 @@ a.ui-link-inherit {
 		margin :0px 0em;			
 	}
 	
-	.ui-btn-hover-s, .ui-btn-down-s  .ui-btn-active{
+	.ui-btn-hover-s, .ui-btn-down-s,  .ui-btn-active{
 		color: @color_36; /*{a-bar-color}*/	
 		background: @color_02; /*{a-bar-background-color}*/
 	}
