@@ -185,7 +185,34 @@
 	-webkit-box-align: @position;
 	box-align: @position;
 }	
-	
+
+//CAUTION!!! - you MUST call this function inside of your winset structure. 
+//DO NOT CALL GLOBALLY!!
+.LESSclear-btn-basic-setting() {
+	.ui-btn-corner-all {
+		.LESSborder-radius-all(0);
+	}
+	.ui-btn-inner {
+		border-top: 0;
+	}
+	.ui-btn-up-s {
+		border: 0;
+		background: transparent;
+		font-weight: normal;
+	}
+	.ui-btn-hover-s {
+		border: 0;
+		background: transparent;
+		font-weight: normal;
+	}
+	.ui-btn-down-s {
+		border: 0;
+		background: transparent;
+		font-weight: normal;
+	}
+}
+
+
 //wongi_button //name from GUI guideline
 .LESSbutton_text1_style{
 	font-family: @font_family;

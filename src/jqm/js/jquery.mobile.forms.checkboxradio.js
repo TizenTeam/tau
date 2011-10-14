@@ -26,11 +26,25 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
 			checkedClass = "ui-" + checkedState + activeBtn,
 			uncheckedClass = "ui-" + uncheckedState,
 			checkedicon = "ui-icon-" + checkedState,
-			uncheckedicon = "ui-icon-" + uncheckedState;
+			uncheckedicon = "ui-icon-" + uncheckedState,
+			//SLP -- start onoff text for on-off icons
+			checkedTextOnOff = "onoff-text-" + checkedState,
+			uncheckedTextOnOff = "onoff-text-" + uncheckedState;
+			//SLP -- end onoff text for on-off icons
 
 		if ( inputtype !== "checkbox" && inputtype !== "radio" ) {
 			return;
 		}
+		//SLP --start - checkbox style : favorite, onoff
+		if ( label.length == 0 ) {
+			//fake label
+			label = $("<label for='" + input[ 0 ].id  + "' style='display:block;width:1px;height:1px;'></label>");
+		}
+		//SLP --end 
+
+		// Wrap the input + label in a div
+		input.add( label )
+			.wrapAll( "<div class='ui-" + inputtype + "'></div>" );
 
 		// Expose for other methods
 		$.extend( this, {
@@ -39,7 +53,11 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
 			checkedClass: checkedClass,
 			uncheckedClass: uncheckedClass,
 			checkedicon: checkedicon,
-			uncheckedicon: uncheckedicon
+			uncheckedicon: uncheckedicon,
+			//SLP -- start onoff text for on-off icons
+			checkedTextOnOff: checkedTextOnOff,
+			uncheckedTextOnOff: uncheckedTextOnOff
+			//SLP -- end onoff text for on-off icons
 		});
 
 		// If there's no selected theme...
@@ -53,14 +71,15 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
 			shadow: false
 		});
 
-		// Wrap the input + label in a div
-		input.add( label )
-			.wrapAll( "<div class='ui-" + inputtype + "'></div>" );
-		
 		//SLP --start - checkbox style : favorite, onoff
-		var style = input.attr( "data-style" );
-		if ( style ) 
-			label.addClass( style ).end();
+		var style = input.jqmData( "style" );
+		switch ( style ) {
+			case "onoff":
+				label.find( ".ui-icon" ).append("<span class='onoff-text'></span>");
+			default:
+			//for all styles..
+			input.parent().addClass( style ).end();
+		}
 		//SLP --end
 
 		label.bind({
@@ -167,11 +186,23 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
 
 			label.addClass( this.checkedClass ).removeClass( this.uncheckedClass );
 			icon.addClass( this.checkedicon ).removeClass( this.uncheckedicon );
+			//SLP - start : for onoff text on icon
+			if ( icon.find( ".onoff" ) )
+				var textOnOff = icon.find( ".onoff-text" );
+				textOnOff.text( "On" );
+				textOnOff.addClass( this.checkedTextOnOff ).removeClass( this.uncheckedTextOnOff );
+			//SLP - end
 
 		} else {
 
 			label.removeClass( this.checkedClass ).addClass( this.uncheckedClass );
 			icon.removeClass( this.checkedicon ).addClass( this.uncheckedicon );
+			//SLP - start : for onoff text on icon
+			if ( label.find( ".onoff" ) )
+				var textOnOff = icon.find( ".onoff-text" );
+				textOnOff.text( "Off" );
+				textOnOff.removeClass( this.checkedTextOnOff ).addClass( this.uncheckedTextOnOff );
+			//SLP - end
 		}
 
 		if ( input.is( ":disabled" ) ) {
