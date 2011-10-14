@@ -27,7 +27,7 @@ $.fn.buttonMarkup = function( options ) {
 		}
 
 		/* wongi_1013 - Totally new button */
-		if (o.slpstyle == "slp_icon" || o.slpstyle == "slp_text" || o.slpstyle == "slp_text_icon")
+		if (o.slpstyle == "slp_icon" || o.slpstyle == "slp_text" || o.slpstyle == "slp_text_icon" || o.slpstyle == "slp-btn-circle")
 		{
 			/* Default */
 			o.shadow = false;
@@ -38,21 +38,22 @@ $.fn.buttonMarkup = function( options ) {
 			/* Theme : use 's' */
 			o.theme = 's';
 			
+			/* Icon Set */
+			if ( o.icon ) {
+				o.icon = "ui-slp-icon-" + o.icon;
+				iconClass = " ui-slp-icon " + o.icon;
+			}
+			
 			/* Set class : throw away original classes. It makes everything sucks. */
 			buttonClass = "ui-slp-btn ui-btn-up-" + o.theme;			/* Button container's style */
 
 			innerClass = "ui-slp-btn-inner";	/* Button container's inner position : Set as center of a Button */
 
-			/* Round corner */
-			if ( o.corners ) {
-				buttonClass += " ui-btn-corner-all";
-			}
-			
 			/* Make inner tags of Button Div */
 			if (o.slpstyle == "slp_icon")
 			{
 				innerClass += " ui-slp-btn-icon-only";
-				wrap = ( "<D class='" + innerClass + "'>" + "</D>" ).replace( /D/g, o.wrapperEls );
+				wrap = ( "<D class='" + innerClass + iconClass + "'>" + "</D>" ).replace( /D/g, o.wrapperEls );
 			}
 			else if (o.slpstyle == "slp_text")
 			{
@@ -61,7 +62,17 @@ $.fn.buttonMarkup = function( options ) {
 			else if (o.slpstyle == "slp_text_icon")
 			{
 				innerClass += " ui-slp-btn-text-icon";
-				wrap = ( "<D class='" + innerClass + "'><D class='ui-slp-btn-text'></D>" + "<D class='ui-slp-icon'></D>" + "</D>" ).replace( /D/g, o.wrapperEls );
+				wrap = ( "<D class='" + innerClass + "'><D class='ui-slp-btn-text'></D>" + "<D class='" + iconClass + "'></D>" + "</D>" ).replace( /D/g, o.wrapperEls );
+			}
+			else if (o.slpstyle == "slp-btn-circle")
+			{
+				innerClass = " ui-slp-btn-circle";
+				o.corners = false;
+			}
+			
+			/* Round corner */
+			if ( o.corners ) {
+				buttonClass += " ui-btn-corner-all";
 			}
 
 			/* Container : button div */

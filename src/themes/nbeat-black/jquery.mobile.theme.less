@@ -16,6 +16,13 @@
 	color: 					@color_text;
 	font-family: Helvetica, Arial, sans-serif;
 	font-weight: bold;
+	font-size : @font_size_default;
+	height : 2.82em;
+
+	border-bottom-style: solid;
+	border-bottom-color: 	@color_02; 	
+	border-bottom-width: 	0.17em;
+
 	/* a-bar-shadow-x, a-bar-shadow-y, a-bar-shadow-radius, a-bar-shadow-color */
 	/* no shadow : text-shadow: 0 -1px 1px #000000; */
 	/* a-bar-background-start, a-bar-background-end */
@@ -32,6 +39,19 @@
 		&:active { color: #2489CE; }
 		&:visited {	color: #2489CE; }
 	}
+}
+
+.ui-header.ui-bar-s .ui-title {
+	min-height: 1.1em; 
+	text-align: center; 
+	font-size : @font_size_08; 
+	display: block; 
+	margin: .6em 90px .8em;  
+	padding: 0;  
+	text-overflow: ellipsis; 
+	overflow: hidden; 
+	white-space: nowrap; 
+	outline: 0 !important; 
 }
 
 // NOTE: This class is applied to almost all JQM widgets!
@@ -173,74 +193,72 @@ a.ui-link-inherit {
 	border-color: 			rgba(255,255,255,.3);
 }
 
-/* Jinhyuk : Add new footer style */
-.ui-controlbar-s {
+/*  Jinhyuk_Controlbar	*/
+.ui-controlbar-s, .ui-controlbar-left, .ui-controlbar-right {
 	border: 1px solid 		@bordercolor;
 	background: 			@footercolor; /*{a-bar-background-color}*/
-	color: 					#ffffff; /*{a-bar-color}*/
+	color: 					@color_36; /*{a-bar-color}*/
 	font-family: Helvetica, Arial, sans-serif;
 	font-weight: bold;
-	font-size : @font_size_default; 
+	font-size : @font_size_default; /* Jinhyuk : ControlBar size modification */
+
 	/* a-bar-shadow-x, a-bar-shadow-y, a-bar-shadow-radius, a-bar-shadow-color */
 	/* no shadow : text-shadow: 0 -1px 1px #000000; */
 	/* a-bar-background-start, a-bar-background-end */
 	/* no shadow .LESSbackground-img-with-gradient(top, #3c3c3c, #111); */
 		
 	.ui-link-inherit {
-		color: #fff; /*{a-bar-color}*/
-		font-weight: bold;		
+		color: @color_36; /*{a-bar-color}*/
+		font-weight: bold;
 	}
 	.ui-link {
 		/* ui-bar-link */
-		color: #fff; /*{a-bar-color}*/ 
+		color: @color_36; /*{a-bar-color}*/ 
 		font-weight: bold;
-
 	}
 	
 	.ui-btn-text {
-		color: #fff; /*{a-bar-color}*/	
+		color: @color_36; /*{a-bar-color}*/	
 		font-weight: bold;
 		text-decoration : none;
 	}
 
 	.ui-btn {
-		color: #fff; /*{a-bar-color}*/	
+		color: @color_36; /*{a-bar-color}*/	
 		background: @footercolor; /*{a-bar-background-color}*/
 		font-weight: bold;
 		text-decoration : none;
 	}
 	
 	.ui-btn-hover-s, .ui-btn-down-s, .ui-btn-active {
-		color: #fff; /*{a-bar-color}*/	
+		color: @color_36; /*{a-bar-color}*/	
 		background: @color_02; /*{a-bar-background-color}*/
 	}
 	
+
+}
+
+.ui-controlbar-s {
 	.ui-navbar {
 		li .ui-btn, .ui-navbar-toggle .ui-btn{
 			font-size : @font_size_02;
 		}
 
-		.ui-btn .ui-btn-inner, .ui-btn-icon-top .ui-btn-inner, .ui-btn-hover-s .ui-btn-inner, 
-		.ui-btn-active .ui-btn-inner, .ui-btn-up-s .ui-btn-inner{
-			padding-top : 90px;
-			
-			
+		.ui-btn , .ui-btn-icon-top, .ui-btn-hover-s, .ui-btn-active, .ui-btn-up-s{
+			.ui-btn-inner{
+				padding-top : 4.7em;
+			}			
 		} 	
 		.ui-btn .ui-icon {
 			left : 50%;
 			top : 0.5em;
-			margin-left : -1.8em
+			margin-left : -1.8em;
 		}
+		.ui-icon {
+			width : 70px;
+			height: 70px;
+		}			
 	}
-	
-	/* Jinhyuk : ControlBar size modification */
-	.ui-icon {
-		width : 70px;
-		height: 70px;
-	}
-	
-
-	
 }
 
 .ui-toolbar-s {
@@ -249,73 +267,35 @@ a.ui-link-inherit {
 	}	
 }
 
-/* Jinhyuk : Add new footer style */
-/*  Jinhyuk_Controlbar	*/
 .ui-controlbar-left, .ui-controlbar-right {
-	position : fixed;					
-	top : 42px; /* Need to less for header height*/
-	border: 1px solid 		@bordercolor;
-	background: 			@footercolor; /*{a-bar-background-color}*/
-	color: 					#ffffff; /*{a-bar-color}*/
-	font-family: Helvetica, Arial, sans-serif;
-	font-weight: bold;
-	font-size : @font_size_default;
+	position : fixed;						
 	z-index: 100;
-	/* a-bar-shadow-x, a-bar-shadow-y, a-bar-shadow-radius, a-bar-shadow-color */
-	/* no shadow : text-shadow: 0 -1px 1px #000000; */
-	/* a-bar-background-start, a-bar-background-end */
-	/* no shadow .LESSbackground-img-with-gradient(top, #3c3c3c, #111); */
-		
-	.ui-link-inherit {
-		color: #fff; /*{a-bar-color}*/
-		font-weight: bold;	
-			
-	}
-	.ui-link {
-		/* ui-bar-link */
-		color: #fff; /*{a-bar-color}*/ 
-		font-weight: bold;
-
-	}
-	
-	.ui-btn-text {
-		color: #fff; /*{a-bar-color}*/	
-		font-weight: bold;
-		text-decoration : none;
-	}
 
 	.ui-btn {
-		color: #fff; /*{a-bar-color}*/	
-		background: 			@footercolor; /*{a-bar-background-color}*/
-		font-weight: bold;
-		text-decoration : none;
 		width : 100%;
 		margin :0px 0em;			
 	}
 	
-	.ui-btn-hover-s, .ui-btn-down-s  .ui-btn-active{
-		color: #fff; /*{a-bar-color}*/	
+	.ui-btn-hover-s, .ui-btn-down-s,  .ui-btn-active{
+		color: @color_36; /*{a-bar-color}*/	
 		background: @color_02; /*{a-bar-background-color}*/
 	}
 
-		li .ui-btn, .ui-navbar-toggle .ui-btn{
-			font-size : @font_size_02;
-		}
-
-		
-		.ui-btn .ui-btn-inner, .ui-btn-icon-top .ui-btn-inner, .ui-btn-hover-s .ui-btn-inner, 
-		.ui-btn-active .ui-btn-inner, .ui-btn-up-s .ui-btn-inner{
-			padding-top : 90px;
-		} 	
+	li .ui-btn, .ui-navbar-toggle .ui-btn{
+		font-size : @font_size_02;
+	}
 	
-		.ui-btn .ui-icon {
-			left : 23%;
-		}	
-	/* Jinhyuk : ControlBar size modification */
+	.ui-btn .ui-btn-inner, .ui-btn-icon-top .ui-btn-inner, .ui-btn-hover-s .ui-btn-inner, 
+	.ui-btn-active .ui-btn-inner, .ui-btn-up-s .ui-btn-inner{
+		padding-top : 90px;
+	} 	
+
+	.ui-btn .ui-icon {
+		left : 23%;
+	}
 	.ui-icon {
 		width : 70px;
 		height: 70px;
-
 	}	
 }
 
@@ -326,7 +306,6 @@ a.ui-link-inherit {
 	
 }
 
-/*  Jinhyuk_Controlbar_Right	*/
 .ui-controlbar-right {
 	right : 0px;
 	float :right;
@@ -557,10 +536,6 @@ a.ui-link-inherit {
 	.ui-icon-ctrlbar-song {
 		background-image: url(images/01_tabbar_icon_song.png);
 		}
-		
-		
-
-
 /* Jinhyuk : Add ctrl bar */
 
 

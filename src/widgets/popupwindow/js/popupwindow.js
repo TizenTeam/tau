@@ -114,12 +114,19 @@ $.widget( "todons.popupwindow", $.mobile.widget, {
 	popup.addClass( o.style );
 	
 	switch( o.style ) {
-		case "textonly":
-		case "titletext":
-		case "titletext1btn":
-		case "titletext2btn":
-		case "titletext3btn":
+		case "center_info":
+		case "center_title":
+		case "center_basic_1btn":
+		case "center_basic_2btn":
+		case "center_basic_3btn":
+		case "center_title_1btn":
+		case "center_title_2btn":
+		case "center_title_3btn":
 		case "center_button_vertical":
+		case "center_checkbox":
+		case "center_liststyle_1btn":
+		case "center_liststyle_2btn":
+		case "center_liststyle_3btn":
 			//commonly add class for all elements... we will use structured css. 
 			popup.find( ":jqmData(role='title')" )
 				 .wrapAll( "<div class='popup-title'></div>" );
@@ -127,6 +134,10 @@ $.widget( "todons.popupwindow", $.mobile.widget, {
 				 .wrapAll( "<div class='popup-text'></div>" );
 			popup.find( ":jqmData(role='button-bg')" )
 				 .wrapAll( "<div class='popup-button-bg'></div>" );
+			popup.find( ":jqmData(role='check-bg')" )
+				 .wrapAll( "<div class='popup-check-bg'></div>" );
+			popup.find( ":jqmData(role='scroller-bg')" )
+				 .wrapAll( "<div class='popup-scroller-bg'></div>" );
 			break;
 		//case "newStyle":
 	  		//this.options.widthRatio = 0.XXXX;
