@@ -38,8 +38,9 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
             arrow = $(this.ui.arrow),
             owner = $(this.owner),
             container = $(this.ui.container);
-
-        var arrowRect = new SLPRect( 
+        
+        var boxRect = new SLPRect(),
+            arrowRect = new SLPRect(
                                 0, 0, 
                                 arrow.outerWidth(true),
                                 arrow.outerWidth(true)),
@@ -50,12 +51,13 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
             ownerOffset = owner.offset(),
             ownerRect = new SLPRect( ownerOffset.x, ownerOffset.y,
                                 owner.innerWidth(true),
-                                owner.innerHeight(true));
-        console.log(ownerRect);
-        console.log(containerRect);
-        console.log(arrowRect);
-                                
-
+                                owner.innerHeight(true)),
+            screenRect = new SLPRect( 
+                                window.pageXOffset,
+                                window.pageYOffset,
+                                window.innerWidth,
+                                window.innerHeight);
+        console.log( self );
         if (this.options.maxWidth < containerRect.w) 
             containerRect.w = this.options.maxWidth;
         if (this.options.minWidth > containerRect.w)
@@ -65,8 +67,118 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
         if (this.options.minHeight > containerRect.h)
             containerRect.h = this.options.minHeight;
         
-//        for (idx = 0; idx < 4; idx++) {
+        // get entire box location and direction
+        
+                console.log( arrowRect );
+        console.log( containerRect );
+        console.log( screenRect );
 
+
+        var tX, tY, tW, tH, idx;
+        var priority = ['up', 'down', 'left', 'right'];
+        for (idx = 0; idx < 4; idx++) {
+            switch (priority[idx]) {
+            case 'up':
+                tW = containerRect.w;
+                tH = containerRect.h + arrowRect.h;
+                tX = x_where - tW / 2;
+                tY = y_where;
+                if (tY + tH > screenRect.y + screenRect.h) 
+                    continue;
+                while (tX + tW > screenRect.x + screenRect.w) {
+                    tX--;
+                }
+                while (tX < screenRect.x ) {
+                    tX++;
+                }
+                console.log("UP!");
+                break;
+            case 'down':
+                tW = containerRect.w;
+                tH = containerRect.h + arrowRect.h;
+                tX = x_where - tW / 2;
+                tY = y_where - tH;
+                if (tY < screenRect.y)
+                    continue;
+                while (tX + tW > screenRect.x + screenRect.w) {
+                    tX--;
+                }
+                while (tX < screenRect.x ) {
+                    tX++;
+                }
+                console.log("DOWN");
+                break;
+            case 'left':
+                tW = containerRect.w + arrowRect.w;
+                tH = containerRect.h;
+                tX = x_where;
+                tY = y_where - tH / 2;
+                if (tX + tW > screenRect.x + screenRect.w )
+                    continue;
+                while (tY + tH > screenRect.y + screenRect.h ) {
+                    tY--;
+                }
+                while (tY < screenRect.y ) {
+                    tY++;
+                }
+                console.log("LEFT");
+                break;
+            case 'right':
+                tW = containerRect.w + arrowRect.w;
+                tH = containerRect.h;
+                tX = x_where - tW;
+                tY = y_where - tH / 2;
+                if (tX < screenRect.x) 
+                    continue;
+                while (tY + tH > screenRect.y + screenRect.h ) {
+                    tY--;
+                }
+                while (tY < screenRect.y ) {
+                    tY++;
+                }
+                console.log("RIGHT");
+                break;
+            default:
+                break;
+            }
+            break;
+        }
+        
+        // setting up arrow direction
+        switch (priority[idx]) {
+        case 'up':
+            arrow.css("left", x_where - tX - arrowRect.w / 2);
+            arrow.addClass("arrow-top");
+            break;
+        case 'down':
+            container.css("top", -arrowRect.h);
+            arrow.css("top", containerRect.h);
+            arrow.css("left", x_where - tX - arrowRect.w / 2);
+            arrow.addClass("arrow-bottom");
+            break;
+        case 'left':
+            container.css("left",arrowRect.w);
+            container.css("top",-arrowRect.h);
+            arrow.css("top", y_where - tY - arrowRect.h / 2);
+            arrow.addClass("arrow-left");
+            break;
+        case 'right':
+            container.css("left",-arrowRect.w);
+            container.css("top",-arrowRect.h);
+            arrow.css("left",containerRect.w);
+            arrow.css("top", y_where - tY - arrowRect.h / 2);
+            arrow.addClass("arrow-right");
+            break;
+        }
+        // adjust container location
+
+        // adjust arrow location
+        
+
+        console.log( tX + "," + tY + "," + tW + "," + tH );
+        box.removeClass("ui-selectmenu-hidden");
+        box.css("left", tX);
+        box.css("top", tY);
 
 
 
