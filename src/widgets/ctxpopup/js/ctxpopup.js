@@ -15,7 +15,7 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
            popupHeight = $(this.ui.container).outerHeight(true);
 
        console.log("Ive got the signals from :" + x_where + "," + y_where);
-       console.log("Desired popup dimension is :" + popupWidth "x" + popupHeight);
+       console.log("Desired popup dimension is :" + popupWidth + "x" + popupHeight);
 
        
     },
