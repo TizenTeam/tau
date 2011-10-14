@@ -101,6 +101,12 @@ $(document).bind( "pagebeforeshow", function( e, ui ){
 				.css("padding-bottom","1.8em");
 		}
 	}
+	else if(direction == "left"){
+		$("#"+linkid).find(".ui-content").css("padding-"+direction, "105px");
+	}
+	else if(direction == "right"){
+		$("#"+linkid).find(".ui-content").css("padding-"+direction, "80px");
+	}
 
 	var nav_Top = $(document).find(".ui-page-active").find(".ui-header").height();
 	var nav_Height = ($(document).find(".ui-page-active").height() - nav_Top);
