@@ -3,7 +3,7 @@
 		<h1>Popup window</h1>
 	</div>
 	<div class="content" data-role="content">
-		<ul data-role="listview" data-icon="1line-textonly">
+		<ul data-role="listview" data-icon="1line-textonly" data-scroll="y">
 			<li><a href="#" data-inline="true" aria-haspopup="true" aria-owns="center_info">Center info popup</a></li>
 			<li><a href="#" data-inline="true" aria-haspopup="true" aria-owns="center_title">Center title popup</a></li>
 			<li><a href="#" data-inline="true" aria-haspopup="true" aria-owns="center_basic_1btn">Center basic 1 button popup</a></li>
@@ -14,6 +14,7 @@
 			<li><a href="#" data-inline="true" aria-haspopup="true" aria-owns="center_title_3btn">Center title 3 button popup</a></li>
 			<li><a href="#" data-inline="true" aria-haspopup="true" aria-owns="center_button_vertical">Center_button vertical</a></li>
 			<li><a href="#" data-inline="true" aria-haspopup="true" aria-owns="center_checkbox">Center_checkbox</a></li>
+			<li><a href="#" data-inline="true" aria-haspopup="true" aria-owns="center_liststyle_1btn">Center_list style 1 button popup</a></li>
 		</ul>
 
 		<!-- text only -->
@@ -136,6 +137,7 @@
 					<input type="button" value="Cancel" />
 			</div>
 		</div>
+
 		<!-- popup checkbox  -->
 		<div id="center_checkbox" data-role="popupwindow" data-style="center_checkbox">
 			<p data-role="text">
@@ -153,6 +155,28 @@
 					<input type="button" value="Text" />
 			</div>
 		</div>
+
+		<!-- popup liststyle 1 button -->
+		<div id="center_liststyle_1btn" data-role="popupwindow" data-style="center_liststyle_1btn">
+			<p data-role="title">
+				Popup title
+			</p>
+				<ul data-role="listview" data-icon="1line-textonly">
+					<li><a href="#">List item 1</a></li>
+					<li><a href="#">List item 2</a></li>
+					<li><a href="#">List item 3</a></li>
+					<li><a href="#">List item 4</a></li>
+					<li><a href="#">List item 5</a></li>
+					<li><a href="#">List item 6</a></li>
+					<li><a href="#">List item 7</a></li>
+					<li><a href="#">List item 8</a></li>
+					<li><a href="#">List item 9</a></li>
+				</ul>
+			<div data-role="button-bg">
+					<input type="button" value="Text Button" />
+			</div>
+		</div>
+
 
 
 	</div> <!-- /content -->

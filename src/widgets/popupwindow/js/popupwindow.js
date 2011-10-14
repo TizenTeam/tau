@@ -124,6 +124,7 @@ $.widget( "todons.popupwindow", $.mobile.widget, {
 		case "center_title_3btn":
 		case "center_button_vertical":
 		case "center_checkbox":
+		case "center_liststyle_1btn":
 			//commonly add class for all elements... we will use structured css. 
 			popup.find( ":jqmData(role='title')" )
 				 .wrapAll( "<div class='popup-title'></div>" );
