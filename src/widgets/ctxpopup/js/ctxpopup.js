@@ -29,6 +29,11 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
 
 
 
+<<<<<<< HEAD
+=======
+       console.log("Ive got the signals from :" + x_where + "," + y_where);
+       console.log("Desired popup dimension is :" + popupWidth + "x" + popupHeight);
+>>>>>>> origin/master
 
     },
 
