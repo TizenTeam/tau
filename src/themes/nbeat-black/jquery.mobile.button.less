@@ -132,7 +132,7 @@
 .ui-slp-icon-send				{.slp-icon-circle-common;	background-image: url(images/00_button_send.png);	 }
 
 /* Pressed images */
-.ui-btn-down-s  .ui-slp-icon-bg				{.slp-icon-circle-common;	background-image: url(images/00_btn_circle_bg_normal_press.png); z-index:0;	 }
+.ui-btn-down-s  .ui-slp-icon-bg, .ui-btn-down-s.ui-slp-icon-bg	{.slp-icon-circle-common;	background-image: url(images/00_btn_circle_bg_press.png); z-index:0;	 }
 .ui-btn-down-s  .ui-slp-icon-reveal			{.slp-icon-circle-common;	background-image: url(images/00_button_reveal_press.png);	 }
 .ui-btn-down-s  .ui-slp-icon-closed			{.slp-icon-circle-common;	background-image: url(images/00_button_expand_closed_press.png);	 }
 .ui-btn-down-s  .ui-slp-icon-opened			{.slp-icon-circle-common;	background-image: url(images/00_button_expand_opened_press.png);	 }
@@ -145,3 +145,24 @@
 .ui-btn-down-s  .ui-slp-icon-cancel			{.slp-icon-circle-common;	background-image: url(images/00_button_cancel_press.png);	 }
 .ui-btn-down-s  .ui-slp-icon-send			{.slp-icon-circle-common;	background-image: url(images/00_button_send_press.png);	 }
 
+/* Circle Button */
+.ui-slp-btn.ui-slp-btn-circle
+{
+	text-align: center; 
+	cursor:pointer;  
+	position: absolute; 
+	margin-top: 50%;
+	top : -32px;
+	left : 20%;
+	
+	background-color: rgba(0, 0, 0, 0);
+	border: none;	
+	
+	&:hover {outline: none;}
+	
+	width : 64px;
+	height : 64px;
+	
+	display : inline-block;
+	vertical-align:middle;
+}
