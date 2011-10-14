@@ -86,23 +86,32 @@ $( document ).bind( "pagecreate create", function( e ){
 
 $(document).bind( "pagebeforeshow", function( e, ui ){
 	var linkURL = this.URL.split("#");
-	var linkid = linkURL[1];
-	var direction = ""; 
-	var	element_count = $("#"+linkid).find(":jqmData(role='navbar')").find('li').length;	
+	var linkid = linkURL[1]; 
+	var	element_count = $("#"+linkid).find(":jqmData(role='navbar')").find('li').length;
+
+	var navbar_filter = $("#"+linkid).find(":jqmData(role='navbar')");
+	var direction = navbar_filter.jqmData( "style" );
 	
-	if($("#"+linkid).find(":jqmData(role='navbar')").is(":jqmData(style='left')"))
-		direction = "left";	
-	else if($("#"+linkid).find(":jqmData(role='navbar')").is(":jqmData(style='right')"))
-		direction = "right";
+	if(direction == "toolbar" || direction == "tabbar")
+	{
+		if(!(navbar_filter.find(".ui-btn-inner").children().is(".ui-icon")))
+		{
+			navbar_filter.find(".ui-btn-inner")
+				.css("padding-top","1.8em")
+				.css("padding-bottom","1.8em");
+		}
+	}
 
 	var nav_Top = $(document).find(".ui-page-active").find(".ui-header").height();
 	var nav_Height = ($(document).find(".ui-page-active").height() - nav_Top);
 	var list_Height = nav_Height/element_count;
 	
-	$(document).find(".ui-controlbar-"+direction).css('top', nav_Top);
-	$(document).find(".ui-controlbar-"+direction).css('height', nav_Height);
-	$(document).find(".ui-controlbar-"+direction).find("ul").css('height', nav_Height);
-	$(".ui-controlbar-"+direction).find('li').css('height',list_Height );
-	$(".ui-controlbar-"+direction).find('li').find('.ui-btn').css('height',list_Height );
+	$(document).find(".ui-controlbar-"+direction)
+		.css('top', nav_Top)
+		.css('height', nav_Height)
+		.find("ul").css('height', nav_Height);
+	$(".ui-controlbar-"+direction).find('li')
+		.css('height',list_Height )
+		.find('.ui-btn').css('height',list_Height );
 });
 })( jQuery );
