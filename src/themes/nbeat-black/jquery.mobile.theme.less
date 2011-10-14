@@ -180,6 +180,7 @@ a.ui-link-inherit {
 	color: 					#ffffff; /*{a-bar-color}*/
 	font-family: Helvetica, Arial, sans-serif;
 	font-weight: bold;
+	font-size : @font_size_default; 
 	/* a-bar-shadow-x, a-bar-shadow-y, a-bar-shadow-radius, a-bar-shadow-color */
 	/* no shadow : text-shadow: 0 -1px 1px #000000; */
 	/* a-bar-background-start, a-bar-background-end */
@@ -213,6 +214,33 @@ a.ui-link-inherit {
 		color: #fff; /*{a-bar-color}*/	
 		background: @color_02; /*{a-bar-background-color}*/
 	}
+	
+	.ui-navbar {
+		li .ui-btn, .ui-navbar-toggle .ui-btn{
+			font-size : @font_size_02;
+		}
+
+		.ui-btn .ui-btn-inner, .ui-btn-icon-top .ui-btn-inner, .ui-btn-hover-s .ui-btn-inner, 
+		.ui-btn-active .ui-btn-inner, .ui-btn-up-s .ui-btn-inner{
+			padding-top : 90px;
+			
+			
+		} 	
+		.ui-btn .ui-icon {
+			left : 50%;
+			top : 0.5em;
+			margin-left : -1.8em
+		}
+	}
+	
+	/* Jinhyuk : ControlBar size modification */
+	.ui-icon {
+		width : 70px;
+		height: 70px;
+	}
+	
+
+	
 }
 
 .ui-toolbar-s {
@@ -231,6 +259,7 @@ a.ui-link-inherit {
 	color: 					#ffffff; /*{a-bar-color}*/
 	font-family: Helvetica, Arial, sans-serif;
 	font-weight: bold;
+	font-size : @font_size_default;
 	z-index: 100;
 	/* a-bar-shadow-x, a-bar-shadow-y, a-bar-shadow-radius, a-bar-shadow-color */
 	/* no shadow : text-shadow: 0 -1px 1px #000000; */
@@ -268,6 +297,26 @@ a.ui-link-inherit {
 		color: #fff; /*{a-bar-color}*/	
 		background: @color_02; /*{a-bar-background-color}*/
 	}
+
+		li .ui-btn, .ui-navbar-toggle .ui-btn{
+			font-size : @font_size_02;
+		}
+
+		
+		.ui-btn .ui-btn-inner, .ui-btn-icon-top .ui-btn-inner, .ui-btn-hover-s .ui-btn-inner, 
+		.ui-btn-active .ui-btn-inner, .ui-btn-up-s .ui-btn-inner{
+			padding-top : 90px;
+		} 	
+	
+		.ui-btn .ui-icon {
+			left : 23%;
+		}	
+	/* Jinhyuk : ControlBar size modification */
+	.ui-icon {
+		width : 70px;
+		height: 70px;
+
+	}	
 }
 
 /*  Jinhyuk_Controlbar_Left 	*/
@@ -283,7 +332,11 @@ a.ui-link-inherit {
 	float :right;
 }
 
-
+.ui-controlbar-left.ui-navbar, .ui-controlbar-right.ui-navbar   {
+		li .ui-btn, .ui-navbar-toggle .ui-btn{
+			font-size : @font_size_02;
+		}
+}
 
 /* corner rounding classes
 -----------------------------------------------------------------------------------------------------------*/
