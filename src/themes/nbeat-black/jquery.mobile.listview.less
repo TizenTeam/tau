@@ -8,6 +8,7 @@
 
 @import "config.less";
 
+// Basic
 @list-main-font-size:	44px; // @font_size_12;
 @list-sub-font-size:	32px; // @font_size_07;
 @list-divider-font-size: 28px;	// NOTE: defined in dialogue group
@@ -19,7 +20,11 @@
 @list-li-divider-height: 32px;
 @list-li-padding-horizontal: 16px;
 
-@list-li-bubble-corner-radius: 0.6em;	// TODO: fit to 9px (picked from bg images)
+// Bubble
+@list-li-bubble-font-size: 38px;
+@list-li-bubble-time-font-size: 26px;
+@list-li-bubble-date-font-size: @list-li-bubble-time-font-size;
+@list-li-bubble-corner-radius: 0.3em;	// TODO: fit to 9px (picked from bg images)
 
 /************************/
 
@@ -302,25 +307,33 @@ ol.ui-listview {
 // bubble li
 .ui-listview {
 	.ui-li-bubble-left {
+		word-wrap: break-word;
 		.LESSborder-radius-topright(@list-li-bubble-corner-radius);
 		.LESSborder-radius-bottomright(@list-li-bubble-corner-radius);
-		margin-right: 20%;
-		margin-bottom: 24px;
+		font-size: @list-li-bubble-font-size;
+		margin: 12px 20% 12px 0%;
+		padding: 16px 22px 16px 16px;
 	}
 	.ui-li-bubble-right {
+		word-wrap: break-word;
 		.LESSborder-radius-topleft(@list-li-bubble-corner-radius);
 		.LESSborder-radius-bottomleft(@list-li-bubble-corner-radius);
-		margin-left: 20%;
-		margin-bottom: 24px;
-	}
-	.ui-li-bubble-divider {
+		margin: 12px 0% 12px 20%;
+		padding: 16px 16px 16px 22px;
 	}
 	.ui-li-bubble-sos {
 	}
+	.ui-li-bubble-date {
+		height: 40px;
+		font-size: @list-li-bubble-date-font-size;
+		margin: 12px 0%;	// no horizontal margin
+		padding: 0% 16px;
+		padding-top: 15px;
+	}
 	span.ui-li-bubble-time {
 		margin-left: 12px;
-		margin-right: 12px;
-		font-size: 0.5em;
+		font-size: @list-li-bubble-time-font-size;
+		display: inline-block;
 	}
 }
 /* Odd iPad positioning issue. */
