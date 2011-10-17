@@ -9,6 +9,8 @@ function SLPRect(x,y,w,h) {
 
 $.widget( "todons.ctxpopup", $.mobile.widget, {
     options: {
+        horizontal: false,
+        directionPriority: ['left', 'right', 'up', 'down'],
         maxWidth: 720,
         minWidth: 10,
         maxHeight: 1280,
@@ -33,6 +35,10 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
     },
 
     pop: function(x_where, y_where) {
+        if ( this.isOpen ) return;
+
+        this.isOpen = true;
+
         var ui = $(this.ui),
             box = $(this.ui.box),
             arrow = $(this.ui.arrow),
@@ -78,14 +84,14 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
 
 
         var tX, tY, tW, tH, idx;
-        var priority = ['up', 'down', 'left', 'right'];
+        var priority = this.options.directionPriority;
         for (idx = 0; idx < 4; idx++) {
             switch (priority[idx]) {
             case 'up':
                 tW = containerRect.w;
                 tH = containerRect.h + arrowRect.h;
-                tX = x_where - tW / 2;
-                tY = y_where;
+                tX = x_where - tW / 2 + screenRect.x;
+                tY = y_where + screenRect.y;
                 if (tY + tH > screenRect.y + screenRect.h) 
                     continue;
                 while (tX + tW > screenRect.x + screenRect.w) {
@@ -99,8 +105,8 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
             case 'down':
                 tW = containerRect.w;
                 tH = containerRect.h + arrowRect.h;
-                tX = x_where - tW / 2;
-                tY = y_where - tH;
+                tX = x_where - tW / 2 + screenRect.x;
+                tY = y_where - tH + screenRect.y;
                 if (tY < screenRect.y)
                     continue;
                 while (tX + tW > screenRect.x + screenRect.w) {
@@ -109,13 +115,14 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
                 while (tX < screenRect.x ) {
                     tX++;
                 }
+
                 console.log("DOWN");
                 break;
             case 'left':
                 tW = containerRect.w + arrowRect.w;
                 tH = containerRect.h;
-                tX = x_where;
-                tY = y_where - tH / 2;
+                tX = x_where + screenRect.x;
+                tY = y_where - tH / 2 + screenRect.y;
                 if (tX + tW > screenRect.x + screenRect.w )
                     continue;
                 while (tY + tH > screenRect.y + screenRect.h ) {
@@ -129,8 +136,8 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
             case 'right':
                 tW = containerRect.w + arrowRect.w;
                 tH = containerRect.h;
-                tX = x_where - tW;
-                tY = y_where - tH / 2;
+                tX = x_where - tW + screenRect.x;
+                tY = y_where - tH / 2 + screenRect.y;
                 if (tX < screenRect.x) 
                     continue;
                 while (tY + tH > screenRect.y + screenRect.h ) {
@@ -139,6 +146,7 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
                 while (tY < screenRect.y ) {
                     tY++;
                 }
+                 
                 console.log("RIGHT");
                 break;
             default:
@@ -147,7 +155,7 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
             break;
         }
         
-        // setting up arrow direction
+        // setting up arrow direction and container location
         switch (priority[idx]) {
         case 'up':
             arrow.css("left", x_where - tX - arrowRect.w / 2);
@@ -173,28 +181,29 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
             arrow.addClass("arrow-right");
             break;
         }
-        // adjust container location
-
-        // adjust arrow location
-
 
         console.log( tX + "," + tY + "," + tW + "," + tH );
+        
         box.removeClass("ui-selectmenu-hidden");
-        container.removeClass("ui-selectmenu-hidden");
-        arrow.removeClass("ui-selectmenu-hidden");
+        
         box.css("left", tX);
         box.css("top", tY);
-        
-        this.ui.screen.height($(document).height());
+       
+    },
 
+    _setArrow: function(direction) {
+        
     },
 
     close: function() {
-        console.log("re close");
-        $(this.ui.screen).addClass("ui-screen-hidden");
-        $(this.ui.box).addClass("ui-selectmenu-hidden");
-        $(this.ui.container).addClass("ui-selectmenu-hidden");
-        $(this.ui.arrow).addClass("ui-selectmenu-hidden");
+        if ( !this.isOpen ) return;
+
+        console.log("close");
+        var self = this;
+        this.ui.screen.addClass("ui-screen-hidden");
+
+        this.ui.box.addClass("ui-selectmenu-hidden").removeAttr("style");
+        this.isOpen = false;
     },
 
     _create: function() {
@@ -229,6 +238,7 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
         }
  
         $.extend( self, {
+            isOpen: false,
             ui: ui,
             thisPage: thisPage,
             owner: owner
