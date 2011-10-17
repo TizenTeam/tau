@@ -1,13 +1,22 @@
 @import "config.less";
 
 .ui-ctxpopup {
+    position: absolute;
+    z-index: 9999;
     
     .container {
+        position: relative;
         background: rgb(115,137,147); 
-        .LESSborder-radius-all(0.3em);
+        .LESSborder-radius-all(6px);
+    }
+
+    .icon {
+        background-size: 30px 30px;
+        repeat: no-repeat;
     }
 
     .arrow {
+        position: relative;
         width: 30px;
         height: 30px;
     }
