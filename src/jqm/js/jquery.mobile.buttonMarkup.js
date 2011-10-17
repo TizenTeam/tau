@@ -66,7 +66,8 @@ $.fn.buttonMarkup = function( options ) {
 			}
 			else if (o.slpstyle == "slp-btn-circle")
 			{
-				innerClass = " ui-slp-btn-circle";
+				buttonClass += " ui-slp-btn-circle ui-slp-icon-bg";
+				wrap = ( "<D class='" + iconClass + "'>" + "</D>" ).replace( /D/g, o.wrapperEls );
 				o.corners = false;
 			}
 			
