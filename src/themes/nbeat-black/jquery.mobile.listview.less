@@ -19,6 +19,8 @@
 @list-li-divider-height: 32px;
 @list-li-padding-horizontal: 16px;
 
+@list-li-bubble-corner-radius: 0.6em;	// TODO: fit to 9px (picked from bg images)
+
 /************************/
 
 .ui-listview { 
@@ -120,6 +122,8 @@ ol.ui-listview {
 		content: "" !important; /* to avoid chance of duplication */
 	}
 }
+
+// Detailed li styles
 
 .ui-listview-inset {
 	.ui-li { 
@@ -295,6 +299,30 @@ ol.ui-listview {
 	margin: .3em 0; 
 }
 
+// bubble li
+.ui-listview {
+	.ui-li-bubble-left {
+		.LESSborder-radius-topright(@list-li-bubble-corner-radius);
+		.LESSborder-radius-bottomright(@list-li-bubble-corner-radius);
+		margin-right: 20%;
+		margin-bottom: 24px;
+	}
+	.ui-li-bubble-right {
+		.LESSborder-radius-topleft(@list-li-bubble-corner-radius);
+		.LESSborder-radius-bottomleft(@list-li-bubble-corner-radius);
+		margin-left: 20%;
+		margin-bottom: 24px;
+	}
+	.ui-li-bubble-divider {
+	}
+	.ui-li-bubble-sos {
+	}
+	span.ui-li-bubble-time {
+		margin-left: 12px;
+		margin-right: 12px;
+		font-size: 0.5em;
+	}
+}
 /* Odd iPad positioning issue. */
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
     .ui-li .ui-btn-text { 

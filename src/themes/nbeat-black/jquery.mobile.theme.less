@@ -136,7 +136,7 @@
 }
 .ui-listview li.ui-btn-hover-s,
 .ui-listview li.ui-btn-down-s {
-	background: #32414a;	// 50 65 74
+	background-color: #32414a;	// 50 65 74
 	color:		@color_text;
 }
 /* listview: fonts for li with a link */
@@ -154,6 +154,27 @@
 /* subitem */
 .ui-li-sub { color: @color_text_sub; }
 .ui-li-sub-setting { color: @color_text_setting; }
+// bubble
+.ui-listview {
+	.ui-li-bubble-left.ui-li-static {
+		// picked from 00_MessageBubble_BG_receive.png
+		background-color: #ddce7a;	
+		color: #000000;
+		.LESSbox-shadow(1px, 1px, 1px, #4d3a17);
+	}
+	.ui-li-bubble-right.ui-li-static {
+		// picked from 00_MessageBubble_BG_sent.png
+		background-color: #c2d1da;
+		color: #606060;
+		.LESSbox-shadow(0px, 1px, 1px, #4d3a17);
+	}
+	.ui-li-bubble-sos.ui-li-static {
+		color: #d30000;
+	}
+	span.ui-li-bubble-time {
+		color: #39a6d7;
+	}
+}
 
 /* Structure */
 /* links within "buttons" 
