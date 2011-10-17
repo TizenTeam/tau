@@ -27,7 +27,7 @@ $.fn.buttonMarkup = function( options ) {
 		}
 
 		/* wongi_1013 - Totally new button */
-		if (o.slpstyle == "slp_icon" || o.slpstyle == "slp_text" || o.slpstyle == "slp_text_icon" || o.slpstyle == "slp-btn-circle")
+		if (o.slpstyle == "slp_icon" || o.slpstyle == "slp_text" || o.slpstyle == "slp_text_icon" || o.slpstyle == "slp-btn-circle" || o.slpstyle == "slp_icon_text")
 		{
 			/* Default */
 			o.shadow = false;
@@ -64,6 +64,11 @@ $.fn.buttonMarkup = function( options ) {
 				innerClass += " ui-slp-btn-text-icon";
 				wrap = ( "<D class='" + innerClass + "'><D class='ui-slp-btn-text'></D>" + "<D class='" + iconClass + "'></D>" + "</D>" ).replace( /D/g, o.wrapperEls );
 			}
+			else if (o.slpstyle == "slp_icon_text")
+			{
+				innerClass += " ui-slp-btn-text-icon";
+				wrap = ( "<D class='" + innerClass + "'><D class='ui-slp-btn-text'></D>" + "<D class='" + iconClass + "'></D>" + "</D>" ).replace( /D/g, o.wrapperEls );
+			}			
 			else if (o.slpstyle == "slp-btn-circle")
 			{
 				buttonClass += " ui-slp-btn-circle ui-slp-icon-bg";
@@ -172,7 +177,7 @@ $.fn.buttonRearrange= function(options)
 		}
 		
 		/* Get current width of a text */
-		if (o.slpstyle == "slp_text" || o.slpstyle == "slp_text_icon")
+		if (o.slpstyle == "slp_text" || o.slpstyle == "slp_text_icon" || o.slpstyle == "slp_icon_text")
 		{
 			textWidth = $(el).outerWidth();
 		}
@@ -182,7 +187,7 @@ $.fn.buttonRearrange= function(options)
 		}
 		
 		/* Get current width of an icon */
-		if (o.slpstyle == "slp_icon" || o.slpstyle == "slp_text_icon" || o.slpstyle == "slp-btn-circle")
+		if (o.slpstyle == "slp_icon" || o.slpstyle == "slp_text_icon" || o.slpstyle == "slp_icon_text" ||o.slpstyle == "slp-btn-circle")
 		{
 			iconWidth = 64;
 		}
@@ -198,6 +203,12 @@ $.fn.buttonRearrange= function(options)
 			{
 				$(el).width(left_margin + iconWidth + textWidth + right_margin);
 				$(el).find(".ui-slp-btn-text").css("margin-left", "-32px");
+			}
+			else if (o.slpstyle == "slp_icon_text")
+			{
+				$(el).width(left_margin + iconWidth + textWidth + right_margin);
+				$(el).find(".ui-slp-icon").css("left", "0px");
+				$(el).find(".ui-slp-btn-text").css("margin-left", "48px");
 			}
 			else
 			{
