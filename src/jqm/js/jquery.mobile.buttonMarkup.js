@@ -146,6 +146,75 @@ $.fn.buttonMarkup.defaults = {
 	wrapperEls: "span"
 };
 
+/* Button width rearrange */
+$.fn.buttonRearrange= function(options)
+{
+	return this.each( function() {
+		/* Get Current Text & rearrange width of each button */
+		var el = $( this ),
+		o = $.extend( {}, $.fn.buttonMarkup.defaults, {
+			icon: el.jqmData( "icon" ),
+			iconpos: el.jqmData( "iconpos" ),
+			theme: el.jqmData( "theme" ),
+			inline: el.jqmData( "inline" ),
+			slpstyle: el.jqmData("slpstyle")
+		}, options );
+		
+		var textWidth = 0;
+		var iconWidth = 0;
+		var gap = 16;
+		var left_margin = 16;
+		var right_margin = 16;
+		
+		/* Icon */
+		if ( o.icon ) {
+			o.icon = "ui-slp-icon-" + o.icon;
+		}
+		
+		/* Get current width of a text */
+		if (o.slpstyle == "slp_text" || o.slpstyle == "slp_text_icon")
+		{
+			textWidth = $(el).outerWidth();
+		}
+		else if (o.slpstyle == "slp_icon" || o.slpstyle == "slp-btn-circle")
+		{
+			textWidth = 0;
+		}
+		
+		/* Get current width of an icon */
+		if (o.slpstyle == "slp_icon" || o.slpstyle == "slp_text_icon" || o.slpstyle == "slp-btn-circle")
+		{
+			iconWidth = 64;
+		}
+		else if (o.slpstyle == "slp_text")
+		{
+			iconWidth = 0;
+		}
+		
+		/* Set Text width & Icon Width for each style */
+		if (iconWidth > 0 && textWidth > 0)
+		{
+			if (o.slpstyle == "slp_text_icon")
+			{
+				$(el).width(left_margin + iconWidth + textWidth + right_margin);
+				$(el).find(".ui-slp-btn-text").css("margin-left", "-32px");
+			}
+			else
+			{
+				$(el).width(left_margin + iconWidth + textWidth + right_margin);
+			}
+		}
+		else if (o.slpstyle == "slp-btn-circle")
+		{
+			/* Do nothing : Just draw circle icon image */
+		}
+		else
+		{
+			$(el).width(left_margin + iconWidth + textWidth + right_margin);
+		}
+	});
+};
+
 function closestEnabledButton( element ) {
 	while ( element ) {
 		var $ele = $( element );
@@ -215,6 +284,11 @@ $( document ).bind( "pagecreate create", function( e ){
 	$( ":jqmData(role='button'), .ui-bar > a, .ui-header > a, .ui-footer > a, .ui-bar > :jqmData(role='controlgroup') > a", e.target )
 		.not( ".ui-btn, :jqmData(role='none'), :jqmData(role='nojs')" )
 		.buttonMarkup();
+});
+
+/* wongi_1017 : Text Width auto applied */
+$(document ).bind( "pageshow", function( e ){
+	$(":jqmData(role='slpstyle'), .ui-slp-btn", e.target ).buttonRearrange();
 });
 
 })( jQuery );
