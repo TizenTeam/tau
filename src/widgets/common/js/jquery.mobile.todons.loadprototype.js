@@ -61,9 +61,11 @@ jQuery.extend( jQuery.mobile.todons,
         theScriptTag = $("script[data-framework-version][data-framework-root][data-framework-theme]"),
         frameworkRootPath = theScriptTag.attr("data-framework-root")    + "/" +
                             theScriptTag.attr("data-framework-version") + "/";
+	themeName = theScriptTag.attr("data-framework-theme") + "/";
 
     function replaceVariables(s) {
-      return s.replace(/\$\{FRAMEWORK_ROOT\}/g, frameworkRootPath);
+	s = s.replace(/\$\{FRAMEWORK_ROOT\}/g, frameworkRootPath);
+      return s.replace(/\$\{THEME_NAME\}/g, themeName);
     }
 
     function fillObj(obj, uiProto) {
