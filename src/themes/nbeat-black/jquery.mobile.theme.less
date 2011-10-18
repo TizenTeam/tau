@@ -393,8 +393,7 @@ a.ui-link-inherit {
 /* Icons
 -----------------------------------------------------------------------------------------------------------*/
 
-.ui-icon,
-.ui-icon-searchfield:after {
+.ui-icon {
 	/* global-icon */
 /* koeun: for checkbox
 	background: 						#666;
@@ -404,6 +403,16 @@ a.ui-link-inherit {
 	background-repeat: no-repeat;
 	// koeun : no radius for checkbox
 	//.LESSborder-radius-all(9px); 
+}
+
+.ui-icon-search, .ui-icon-searchfield:after {
+	background-image: url(images/00_search_icon.png);
+	background-repeat: no-repeat;
+}
+
+.ui-icon-delete {
+	background-image: url(images/00_field_btn_Clear.png);
+	background-repeat: no-repeat;
 }
 
 
@@ -443,11 +452,6 @@ a.ui-link-inherit {
 }
 .ui-icon-minus {
 	/*background-position: 	-36px 50%;*/	/* wongi_1018: Same name make problem. Later, origianl icons will be removed.  */
-}
-
-/* delete/close */
-.ui-icon-delete {
-	background-position: 	-72px 50%;
 }
 
 /* arrows */
@@ -494,10 +498,6 @@ a.ui-link-inherit {
 }
 .ui-icon-home {
 	background-position: 	-576px 50%;
-}
-.ui-icon-search,
-.ui-icon-searchfield:after {
-	background-position: 	-612px 50%;
 }
 
 /* checks,radios */

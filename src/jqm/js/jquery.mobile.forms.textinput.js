@@ -52,7 +52,7 @@ $.widget( "mobile.textinput", $.mobile.widget, {
 		//"search" input widget
 		if ( input.is( "[type='search'],:jqmData(type='search')" ) ) {
 
-			focusedEl = input.wrap( "<div class='ui-input-search ui-shadow-inset ui-btn-corner-all ui-btn-shadow ui-icon-searchfield" + themeclass + "'></div>" ).parent();
+			focusedEl = input.wrap( "<div class='ui-input-search ui-shadow-inset ui-corner-all ui-btn-shadow ui-icon-searchfield" + themeclass + "'></div>" ).parent();
 			clearbtn = $( "<a href='#' class='ui-input-clear' title='clear text'>clear text</a>" )
 				.tap(function( event ) {
 					input.val( "" ).focus();
@@ -72,18 +72,32 @@ $.widget( "mobile.textinput", $.mobile.widget, {
 			var cancelbtn = $( "<a href='#' class='ui-input-cancel' title='clear text'>Cancel</a>" )
 				.tap(function( event ) {
 					input.val( "" ).focus();
+					hideCancel();
 					input.trigger( "change" );
 					event.preventDefault();
 				})
 				.appendTo( focusedEl.parent() )
 				.buttonMarkup({
-					//icon: "delete",
 					iconpos: "cancel",
 					corners: true,
 					shadow: true
 				});
+			function showCancel() {
+				if ( input.val() ) {
+					focusedEl.addClass( "ui-input-search-default" )
+						.removeClass( "ui-input-search-wide" );
+					cancelbtn.addClass( "ui-btn-cancel-show" )
+						.removeClass( "ui-btn-cancel-hide" );
+				}
+			}
+			function hideCancel() {
+				focusedEl.addClass( "ui-input-search-wide" )
+					.removeClass( "ui-input-search-default" );
+				cancelbtn.addClass( "ui-btn-cancel-hide" )
+					.removeClass( "ui-btn-cancel-show" );
+			}
+			input.keyup( showCancel );
 			//SLP --end
-
 
 			function toggleClear() {
 				if ( !input.val() ) {
