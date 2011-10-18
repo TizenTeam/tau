@@ -74,7 +74,7 @@ third_party: init jqm
 	    done; \
 	    cp -r images/* ${CSS_IMAGES_OUTPUT_DIR}
 
-	@@cp -a ${LIBS_DIR}/images ${FRAMEWORK_ROOT}/
+	#@@cp -a ${LIBS_DIR}/images ${FRAMEWORK_ROOT}/
 
 widgets: init
 	# Building widgets...
