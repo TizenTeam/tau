@@ -6,7 +6,7 @@
 
 @import "config.less";
 
-.ui-btn { display: block; text-align: center; cursor:pointer;  position: relative; margin: .5em 5px; padding: 0; }
+.ui-btn { display: block; text-align: center; cursor:pointer;  position: relative; /*margin: .5em 5px;*/ padding: 0; vertical-align: middle; } /* wongi_1018 : For button align. */
 .ui-btn:focus, .ui-btn:active { outline: none; }
 .ui-header .ui-btn, .ui-footer .ui-btn, .ui-bar .ui-btn { display: inline-block; font-size: 13px; margin: 0; }
 .ui-btn-inline { display: inline-block; }
@@ -35,10 +35,12 @@
 /*btn icon positioning*/
 .ui-btn-icon-notext .ui-icon { display: block; }
 
-.ui-btn-icon-left .ui-icon, .ui-btn-icon-right .ui-icon { position: absolute; /*top: 50%; margin-top: -9px;*/ } /* wongi_1018 : do not use. No more use 18px default icons. */
+.ui-btn-icon-left .ui-icon, .ui-btn-icon-right .ui-icon, .ui-btn-icon-circle .ui-icon { position: absolute; /*top: 50%; margin-top: -9px;*/ } /* wongi_1018 : do not use. No more use 18px default icons. */
+
 
 .ui-btn-icon-top .ui-icon, .ui-btn-icon-bottom .ui-icon { position: absolute; left: 50%;  margin-left: -9px; }
 .ui-btn-icon-left .ui-icon { left: /*10px;*/ 0px; } /* wongi_1018 : with 64px icon, left 10 -> 0 for good looking. */
+.ui-btn-icon-circle .ui-icon {left: 0px;} /* wongi_1018 : for circle icon center positioning. */
 .ui-btn-icon-right .ui-icon { right: 10px; }
 .ui-btn-icon-top .ui-icon { top: 10px; }
 .ui-btn-icon-bottom .ui-icon { bottom: 10px; }
@@ -119,7 +121,7 @@
 .slp-icon-common
 {
 	/* Overlap original property */
-	background-position:0% 0% 	
+	background-position:0% 0%; 	
 
 	width: 64px; height: 64px;
 	background-repeat: no-repeat;
@@ -157,26 +159,22 @@
 .ui-btn-down-s .ui-icon-minus			{.slp-icon-common;	background-image: url(images/00_button_minus_press.png);	 }
 .ui-btn-down-s .ui-icon-cancel			{.slp-icon-common;	background-image: url(images/00_button_cancel_press.png);	 }
 .ui-btn-down-s .ui-icon-send			{.slp-icon-common;	background-image: url(images/00_button_send_press.png);	 }
-.ui-btn-down-s .ui-icon-favorite		{.slp-icon-common;	background-image: url(images/00_winset_icon_favorite_off);	 }
+.ui-btn-down-s .ui-icon-favorite		{.slp-icon-common;	background-image: url(images/00_winset_icon_favorite_off.png);	 }
 
-/* Circle Button */
-.ui-slp-btn.ui-slp-btn-circle
+.ui-btn-inner.ui-btn-icon-only
 {
-	text-align: center; 
-	cursor:pointer;  
-	position: absolute; 
-	margin-top: 50%;
-	top : -32px;
-	left : 20%;
+	padding: 32px 32px;
+}
+
+/* Circle Icon BG : data-iconbg = "circle" */
+.ui-btn-corner-all.ui-btn-corner-circle
+{
+	.LESSborder-radius-all(1.0em);	//wongi_1018	
+}
 	
-	background-color: rgba(0, 0, 0, 0);
+/* No BG button : data-iconbg = "nobg" */
+.ui-btn.ui-btn-icon-nobg, .ui-btn .ui-btn-icon-nobg
+{
+	background-color: transparent;	
 	border: none;	
-	
-	&:hover {outline: none;}
-	
-	width : 64px;
-	height : 64px;
-	
-	display : inline-block;
-	vertical-align:middle;
 }
