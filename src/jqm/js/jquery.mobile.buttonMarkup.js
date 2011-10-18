@@ -14,12 +14,13 @@ $.fn.buttonMarkup = function( options ) {
 				iconpos: el.jqmData( "iconpos" ),
 				theme: el.jqmData( "theme" ),
 				inline: el.jqmData( "inline" ),
-				slpstyle: el.jqmData("slpstyle")
+				slpstyle: "NO"	/* Temp blocking code */
 			}, options ),
 
 			// Classes Defined
 			innerClass = "ui-btn-inner",
 			buttonClass, iconClass,
+			textClass,	/* wongi_1018 : For text positioning with Icon */
 			themedParent, wrap;
 
 		if ( attachEvents ) {
@@ -134,7 +135,19 @@ $.fn.buttonMarkup = function( options ) {
 		el.attr( "data-" + $.mobile.ns + "theme", o.theme )
 			.addClass( buttonClass );
 
-		wrap = ( "<D class='" + innerClass + "' aria-hidden='true'><D class='ui-btn-text'></D>" +
+			/* wongi_1018 : Text Class for text positioning with icon. */
+			textClass = "ui-btn-text";
+			
+			if (o.icon)
+			{
+				(o.iconpos == "right" ? textClass += " ui-btn-text-padding-right" : textClass += " ui-btn-text-padding-left");
+			}
+			else	/* Text Only */
+			{
+				/* Do nothing */
+			}
+			
+			wrap = ( "<D class='" + innerClass + "' aria-hidden='true'><D class='" + textClass + "'></D>" +
 			( o.icon ? "<span class='" + iconClass + "'></span>" : "" ) +
 			"</D>" ).replace( /D/g, o.wrapperEls );
 

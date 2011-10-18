@@ -34,9 +34,11 @@
 
 /*btn icon positioning*/
 .ui-btn-icon-notext .ui-icon { display: block; }
-.ui-btn-icon-left .ui-icon, .ui-btn-icon-right .ui-icon { position: absolute; top: 50%; margin-top: -9px; }
+
+.ui-btn-icon-left .ui-icon, .ui-btn-icon-right .ui-icon { position: absolute; /*top: 50%; margin-top: -9px;*/ } /* wongi_1018 : do not use. No more use 18px default icons. */
+
 .ui-btn-icon-top .ui-icon, .ui-btn-icon-bottom .ui-icon { position: absolute; left: 50%;  margin-left: -9px; }
-.ui-btn-icon-left .ui-icon { left: 10px; }
+.ui-btn-icon-left .ui-icon { left: /*10px;*/ 0px; } /* wongi_1018 : with 64px icon, left 10 -> 0 for good looking. */
 .ui-btn-icon-right .ui-icon { right: 10px; }
 .ui-btn-icon-top .ui-icon { top: 10px; }
 .ui-btn-icon-bottom .ui-icon { bottom: 10px; }
@@ -86,8 +88,9 @@
 	left : -32px;
 }
 
-.ui-slp-btn-text
+.ui-btn-text
 {
+	/*padding-left : 80px;*/	//wongi_1017
     margin-left: auto;
     margin-right: auto;	
 }
@@ -105,9 +108,19 @@
 	vertical-align:middle;
 }
 	
-/* Circle Icon List */
-.slp-icon-circle-common
+/* wongi_1017 : Icons */
+/* icons sizing */
+.ui-btn .ui-icon { width: 64px; height: 64px; }
+
+/* Padding for Icon with text */
+.ui-btn .ui-btn-text.ui-btn-text-padding-left {padding-left: 32px;}
+.ui-btn .ui-btn-text.ui-btn-text-padding-right {padding-right: 48px;}
+
+.slp-icon-common
 {
+	/* Overlap original property */
+	background-position:0% 0% 	
+
 	width: 64px; height: 64px;
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
@@ -117,32 +130,34 @@
 	vertical-align:middle;
 }
 
-.ui-slp-icon-bg				{.slp-icon-circle-common;	background-image: url(images/00_btn_circle_bg_normal.png);	z-index:0; }
-.ui-slp-icon-reveal			{.slp-icon-circle-common;	background-image: url(images/00_button_reveal.png);	 }
-.ui-slp-icon-closed			{.slp-icon-circle-common;	background-image: url(images/00_button_expand_closed.png);	 }
-.ui-slp-icon-opened			{.slp-icon-circle-common;	background-image: url(images/00_button_expand_opened.png);	 }
-.ui-slp-icon-info				{.slp-icon-circle-common;	background-image: url(images/00_button_info.png);	 }
-.ui-slp-icon-rename			{.slp-icon-circle-common;	background-image: url(images/00_button_rename.png);	 }
-.ui-slp-icon-call				{.slp-icon-circle-common;	background-image: url(images/00_button_call.png);	 }
-.ui-slp-icon-warning			{.slp-icon-circle-common;	background-image: url(images/00_button_warning.png);	 }
-.ui-slp-icon-plus				{.slp-icon-circle-common;	background-image: url(images/00_button_plus.png);	 }
-.ui-slp-icon-minus			{.slp-icon-circle-common;	background-image: url(images/00_button_minus.png);	 }
-.ui-slp-icon-cancel			{.slp-icon-circle-common;	background-image: url(images/00_button_cancel.png);	 }
-.ui-slp-icon-send				{.slp-icon-circle-common;	background-image: url(images/00_button_send.png);	 }
+.ui-icon-bg				{.slp-icon-common;	background-image: url(images/00_btn_circle_bg_normal.png);	z-index:0; }
+.ui-icon-reveal			{.slp-icon-common;	background-image: url(images/00_button_reveal.png);	 }
+.ui-icon-closed			{.slp-icon-common;	background-image: url(images/00_button_expand_closed.png);	 }
+.ui-icon-opened			{.slp-icon-common;	background-image: url(images/00_button_expand_opened.png);	 }
+.ui-icon-info			{.slp-icon-common;	background-image: url(images/00_button_info.png);	 }
+.ui-icon-rename			{.slp-icon-common;	background-image: url(images/00_button_rename.png);	 }
+.ui-icon-call			{.slp-icon-common;	background-image: url(images/00_button_call.png);	 }
+.ui-icon-warning		{.slp-icon-common;	background-image: url(images/00_button_warning.png);	 }
+.ui-icon-plus			{.slp-icon-common;	background-image: url(images/00_button_plus.png);	 }
+.ui-icon-minus			{.slp-icon-common;	background-image: url(images/00_button_minus.png);	 }
+.ui-icon-cancel			{.slp-icon-common;	background-image: url(images/00_button_cancel.png);	 }
+.ui-icon-send			{.slp-icon-common;	background-image: url(images/00_button_send.png);	 }
+.ui-icon-favorite		{.slp-icon-common;	background-image: url(images/00_winset_icon_favorite_on.png);	 }
 
 /* Pressed images */
-.ui-btn-down-s  .ui-slp-icon-bg, .ui-btn-down-s.ui-slp-icon-bg	{.slp-icon-circle-common;	background-image: url(images/00_btn_circle_bg_press.png); z-index:0;	 }
-.ui-btn-down-s  .ui-slp-icon-reveal			{.slp-icon-circle-common;	background-image: url(images/00_button_reveal_press.png);	 }
-.ui-btn-down-s  .ui-slp-icon-closed			{.slp-icon-circle-common;	background-image: url(images/00_button_expand_closed_press.png);	 }
-.ui-btn-down-s  .ui-slp-icon-opened			{.slp-icon-circle-common;	background-image: url(images/00_button_expand_opened_press.png);	 }
-.ui-btn-down-s  .ui-slp-icon-info				{.slp-icon-circle-common;	background-image: url(images/00_button_info_press.png);	 }
-.ui-btn-down-s  .ui-slp-icon-rename			{.slp-icon-circle-common;	background-image: url(images/00_button_rename_press.png);	 }
-.ui-btn-down-s  .ui-slp-icon-call				{.slp-icon-circle-common;	background-image: url(images/00_button_call_press.png);	 }
-.ui-btn-down-s  .ui-slp-icon-warning			{.slp-icon-circle-common;	background-image: url(images/00_button_warning_press.png);	 }
-.ui-btn-down-s  .ui-slp-icon-plus			{.slp-icon-circle-common;	background-image: url(images/00_button_plus_press.png);	 }
-.ui-btn-down-s  .ui-slp-icon-minus			{.slp-icon-circle-common;	background-image: url(images/00_button_minus_press.png);	 }
-.ui-btn-down-s  .ui-slp-icon-cancel			{.slp-icon-circle-common;	background-image: url(images/00_button_cancel_press.png);	 }
-.ui-btn-down-s  .ui-slp-icon-send			{.slp-icon-circle-common;	background-image: url(images/00_button_send_press.png);	 }
+.ui-btn-down-s .ui-icon-bg, .ui-btn-down-s.ui-slp-icon-bg	{.slp-icon-common;	background-image: url(images/00_btn_circle_bg_press.png); z-index:0;	 }
+.ui-btn-down-s .ui-icon-reveal			{.slp-icon-common;	background-image: url(images/00_button_reveal_press.png);	 }
+.ui-btn-down-s .ui-icon-closed			{.slp-icon-common;	background-image: url(images/00_button_expand_closed_press.png);	 }
+.ui-btn-down-s .ui-icon-opened			{.slp-icon-common;	background-image: url(images/00_button_expand_opened_press.png);	 }
+.ui-btn-down-s .ui-icon-info				{.slp-icon-common;	background-image: url(images/00_button_info_press.png);	 }
+.ui-btn-down-s .ui-icon-rename			{.slp-icon-common;	background-image: url(images/00_button_rename_press.png);	 }
+.ui-btn-down-s .ui-icon-call				{.slp-icon-common;	background-image: url(images/00_button_call_press.png);	 }
+.ui-btn-down-s .ui-icon-warning			{.slp-icon-common;	background-image: url(images/00_button_warning_press.png);	 }
+.ui-btn-down-s .ui-icon-plus			{.slp-icon-common;	background-image: url(images/00_button_plus_press.png);	 }
+.ui-btn-down-s .ui-icon-minus			{.slp-icon-common;	background-image: url(images/00_button_minus_press.png);	 }
+.ui-btn-down-s .ui-icon-cancel			{.slp-icon-common;	background-image: url(images/00_button_cancel_press.png);	 }
+.ui-btn-down-s .ui-icon-send			{.slp-icon-common;	background-image: url(images/00_button_send_press.png);	 }
+.ui-btn-down-s .ui-icon-favorite		{.slp-icon-common;	background-image: url(images/00_winset_icon_favorite_off);	 }
 
 /* Circle Button */
 .ui-slp-btn.ui-slp-btn-circle
