@@ -108,7 +108,14 @@
 @buttontextcolor_normal:	#F9F9F9;	//wongi_button
 @buttontextcolor_press: 	#F9F9F9;	//wongi_button
 @footercolor: #213c49;  // Jinhyuk_Controlbar
- 
+
+.LESSborder-image(@url:url, @width:width, @height:height, @repeat:repeat) {
+    -moz-border-image:  url(@url) @width @height @repeat;
+    -webkit-border-image: url(@url) @width @height @repeat;
+    -o-border-image: url(@url) @width @height @repeat;
+    border-image: url(@url) @width @height @repeat;
+}
+
 .LESSbackground-img-with-gradient(@from: top, @startcolor: #3c3c3c, @endcolor: #111) {
 	background-image: -webkit-gradient(linear, left top, left bottom, from(@startcolor), to(@endcolor)); /* Saf4+, Chrome */
 	background-image: -webkit-linear-gradient(@from, @startcolor, @endcolor);
