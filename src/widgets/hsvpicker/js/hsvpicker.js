@@ -112,12 +112,12 @@ $.widget( "todons.hsvpicker", $.todons.colorwidget, {
   _bindElements: function(chan, idx) {
     var self = this;
     this.ui[chan].selector
-      .bind("mousedown vmousedown", function(e) { self._handleMouseDown(chan,  idx, e, true); })
-      .bind("vmousemove touchmove", function(e) { self._handleMouseMove(chan,  idx, e, true); })
+      .bind("vmousedown", function(e) { self._handleMouseDown(chan,  idx, e, true); })
+      .bind("vmousemove", function(e) { self._handleMouseMove(chan,  idx, e, true); })
       .bind("vmouseup",             function(e) { self.dragging = -1; });
     this.ui[chan].eventSource
-      .bind("mousedown vmousedown", function(e) { self._handleMouseDown(chan, idx, e, false); })
-      .bind("vmousemove touchmove", function(e) { self._handleMouseMove(chan, idx, e, false); })
+      .bind("vmousedown", function(e) { self._handleMouseDown(chan, idx, e, false); })
+      .bind("vmousemove", function(e) { self._handleMouseMove(chan, idx, e, false); })
       .bind("vmouseup",             function(e) { self.dragging = -1; });
   },
 
