@@ -27,8 +27,9 @@ CSS_SRCS=	jquery.mobile.theme.less.css \
 		jquery.mobile.hsvpicker.less.css \
 		jquery.mobile.colorpalette.less.css \
 		jquery.mobile.colortitle.less.css \
-        jquery.mobile.datetimepicker.less.css \
-        jquery.mobile.ctxpopup.less.css
+		jquery.mobile.datetimepicker.less.css \
+		jquery.mobile.ctxpopup.less.css \
+		jquery.mobile.progressbar.less.css
 
 
 all: prepare css images
