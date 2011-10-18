@@ -1,7 +1,8 @@
 <!DOCTYPE html> 
 <html> 
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+		<meta name="viewport" content="width=720, initial-scale=1">
 
         <script src="bootstrap.js"
                 data-framework-version="0.1"
@@ -24,6 +25,8 @@
 			<li><a href="widgets/radio.html">Radio</a></li>
 			<li><a href="widgets/colorpicker.html">Color picker</a></li>
 			<li><a href="widgets/datefield.html">Time picker</a></li>
+			<li><a href="#progressbar-demo">Progressbar</a></li>
+			<li><a href="widgets/searchbar.html">Searchbar</a></li>			
 
 			<li data-role="list-divider">ControlBar</li>
 			<li><a href="widgets/controlbar.html" rel="external">ControlBar</a></li>
@@ -62,8 +65,6 @@
 
 			<li data-role="list-divider">Not Implemented</li>
 			<li><a href="#notImplemented">Calendar</a></li>
-			<li><a href="#notImplemented">Progressbar</a></li>
-			<li><a href="#notImplemented">Searchbar</a></li>			
 			<li><a href="#notImplemented">NavigationBar</a></li>
 			<li><a href="#notImplemented" data-rel="dialog">Slider</a></li>
 			<li><a href="#notImplemented" data-rel="dialog">ImageSlider</a></li>
@@ -102,21 +103,34 @@
 	</div>
 	<div data-role="content">
 		<ul data-role = "listview">
-			<li>List item 1<div data-role="button" data-slpstyle="slp_text" data-inline="true">Text Button TesT</div></li>
-			<li>List item 2<div data-role="button" data-slpstyle="slp_text_icon" data-inline="true" data-icon="reveal" >Call Icon</div></li>
-			<li>List item 3<div data-role="button" data-slpstyle="slp_text_icon" data-inline="true" data-icon="reveal" >Longer Call Icon</div></li>
-			<li>List item 4<div data-role="button" data-slpstyle="slp_icon_text" data-inline="true" data-icon="call" data-iconpos="left">Icon Text</div></li>
-			<li>List item 5<div data-role="button" data-slpstyle="slp_icon" data-icon="reveal"></div></li>
-			<li>List item 6<div  data-role="button" data-slpstyle="slp-btn-circle" data-icon="plus"></div></li>
-			<li>List item 7<div  data-role="button" data-slpstyle="slp-btn-circle" data-icon="minus"></div></li>
-			<li>List item 8<div  data-role="button" data-slpstyle="slp-btn-circle" data-icon="send"></div></li>
-			<li>List item 9<div  data-role="button" data-slpstyle="slp-btn-circle" data-icon="call"></div></li>
+			<li>List item 1<div data-role="button" data-inline="true">Text Button TesT</div></li>
+			<li>List item 2<div data-role="button" data-inline="true" data-icon="reveal" >Call Icon</div></li>
+			<li>List item 3<div data-role="button" data-inline="true" data-icon="reveal" >Longer Call Icon</div></li>
+			<li>List item 4<div data-role="button" data-inline="true" data-icon="call" data-iconpos="right">Icon Text</div></li>
+			<li>List item 5<div data-role="button" data-inline="true" data-icon="reveal"></div></li>
+			<li>List item 6<div  data-role="button" data-inline="true" data-icon="plus" data-iconbg="circle"></div></li>
+			<li>List item 7<div  data-role="button" data-inline="true" data-icon="minus" data-iconbg="circle"></div></li>
+			<li>List item 8<div  data-role="button" data-inline="true" data-icon="send" data-iconbg="circle"></div></li>
+			<li>List item 9<div  data-role="button" data-inline="true" data-icon="call" data-iconbg="circle"></div></li>
+			<li>List item 10<div  data-role="button" data-inline="true" data-icon="favorite" data-iconbg="nobg"></div></li>
 		</ul>
 		
 		
 	</div>
 </div>
 
+<div data-role="page" id="progressbar-demo" data-add-back-btn="true">
+	<div data-role="header">
+		<h1>Progress bar</h1>
+	</div>
+	<div data-role="content">
+		<ul data-role="listview">
+			<li><div data-role="progressbar" id="progressbar1"></div></li>
+			<li><div data-role="progressbar" id="progressbar2"></div></li>
+			<li><div data-role="progressbar" id="progressbar3"></div></li>
+		</ul>
+	</div> <!-- /content -->
+</div> <!-- /page -->
 
 </body>
 </html>

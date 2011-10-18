@@ -81,7 +81,8 @@
 	border-bottom-style: solid;
 }
 .ui-btn-up-s {
-	border: 1px solid 		#222; 
+	/* border: 1px solid 		#222; */ 
+	border: none;
 	background: 			@buttoncolor_normal;
 	font-weight: bold;
 	color: 					#fff;
@@ -93,7 +94,8 @@
 	.LESSbutton_text1_style; //wongi_button
 }
 .ui-btn-hover-s {
-	border: 1px solid 		#000;
+	/* bborder: 1px solid 		#000; */
+	border: none;
 	background: 			#444444;
 	font-weight: bold;
 	color: 					#fff;
@@ -106,7 +108,8 @@
 }
 
 .ui-btn-down-s {
-	border: 1px solid 		#000;
+	/* border: 1px solid 		#000; */
+	border: none;
 	background: 			@buttoncolor_press;	//wongi_button
 	font-weight: bold;
 	color: 					#fff;
@@ -214,8 +217,9 @@ a.ui-link-inherit {
 -----------------------------------------------------------------------------------------------------------*/
 
 .ui-btn-inner {
-	border-top: 1px solid 	#fff;
-	border-color: 			rgba(255,255,255,.3);
+	/* border-top: 1px solid 	#fff;*/
+	/* border-color: 			rgba(255,255,255,.3); */
+	border : none;
 }
 
 /*  Jinhyuk_Controlbar	*/
@@ -393,8 +397,7 @@ a.ui-link-inherit {
 /* Icons
 -----------------------------------------------------------------------------------------------------------*/
 
-.ui-icon,
-.ui-icon-searchfield:after {
+.ui-icon {
 	/* global-icon */
 /* koeun: for checkbox
 	background: 						#666;
@@ -404,6 +407,16 @@ a.ui-link-inherit {
 	background-repeat: no-repeat;
 	// koeun : no radius for checkbox
 	//.LESSborder-radius-all(9px); 
+}
+
+.ui-icon-search, .ui-icon-searchfield:after {
+	background-image: url(images/00_search_icon.png);
+	background-repeat: no-repeat;
+}
+
+.ui-icon-delete {
+	background-image: url(images/00_field_btn_Clear.png);
+	background-repeat: no-repeat;
 }
 
 
@@ -442,12 +455,7 @@ a.ui-link-inherit {
 	background-position: 	-0 50%;
 }
 .ui-icon-minus {
-	background-position: 	-36px 50%;
-}
-
-/* delete/close */
-.ui-icon-delete {
-	background-position: 	-72px 50%;
+	/*background-position: 	-36px 50%;*/	/* wongi_1018: Same name make problem. Later, origianl icons will be removed.  */
 }
 
 /* arrows */
@@ -494,10 +502,6 @@ a.ui-link-inherit {
 }
 .ui-icon-home {
 	background-position: 	-576px 50%;
-}
-.ui-icon-search,
-.ui-icon-searchfield:after {
-	background-position: 	-612px 50%;
 }
 
 /* checks,radios */

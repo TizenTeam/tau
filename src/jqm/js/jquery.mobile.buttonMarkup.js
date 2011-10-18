@@ -12,83 +12,21 @@ $.fn.buttonMarkup = function( options ) {
 			o = $.extend( {}, $.fn.buttonMarkup.defaults, {
 				icon: el.jqmData( "icon" ),
 				iconpos: el.jqmData( "iconpos" ),
+				iconbg: el.jqmData( "iconbg"),	/* wongi_1018 : icon BG : default : block. Add circle & nobg */
 				theme: el.jqmData( "theme" ),
-				inline: el.jqmData( "inline" ),
-				slpstyle: el.jqmData("slpstyle")
+				inline: el.jqmData( "inline" )
 			}, options ),
 
 			// Classes Defined
 			innerClass = "ui-btn-inner",
 			buttonClass, iconClass,
+			textClass,	/* wongi_1018 : For text positioning with Icon */
 			themedParent, wrap;
 
 		if ( attachEvents ) {
 			attachEvents();
 		}
-
-		/* wongi_1013 - Totally new button */
-		if (o.slpstyle == "slp_icon" || o.slpstyle == "slp_text" || o.slpstyle == "slp_text_icon" || o.slpstyle == "slp-btn-circle" || o.slpstyle == "slp_icon_text")
-		{
-			/* Default */
-			o.shadow = false;
-			o.iconshadow = false;
-			o.inline = true;
-			o.wrapperEls = "span";
-			
-			/* Theme : use 's' */
-			o.theme = 's';
-			
-			/* Icon Set */
-			if ( o.icon ) {
-				o.icon = "ui-slp-icon-" + o.icon;
-				iconClass = " ui-slp-icon " + o.icon;
-			}
-			
-			/* Set class : throw away original classes. It makes everything sucks. */
-			buttonClass = "ui-slp-btn ui-btn-up-" + o.theme;			/* Button container's style */
-
-			innerClass = "ui-slp-btn-inner";	/* Button container's inner position : Set as center of a Button */
-
-			/* Make inner tags of Button Div */
-			if (o.slpstyle == "slp_icon")
-			{
-				innerClass += " ui-slp-btn-icon-only";
-				wrap = ( "<D class='" + innerClass + iconClass + "'>" + "</D>" ).replace( /D/g, o.wrapperEls );
-			}
-			else if (o.slpstyle == "slp_text")
-			{
-				wrap = ( "<D class='" + innerClass + "'><D class='ui-slp-btn-text'></D>" + "</D>" ).replace( /D/g, o.wrapperEls );
-			}
-			else if (o.slpstyle == "slp_text_icon")
-			{
-				innerClass += " ui-slp-btn-text-icon";
-				wrap = ( "<D class='" + innerClass + "'><D class='ui-slp-btn-text'></D>" + "<D class='" + iconClass + "'></D>" + "</D>" ).replace( /D/g, o.wrapperEls );
-			}
-			else if (o.slpstyle == "slp_icon_text")
-			{
-				innerClass += " ui-slp-btn-text-icon";
-				wrap = ( "<D class='" + innerClass + "'><D class='ui-slp-btn-text'></D>" + "<D class='" + iconClass + "'></D>" + "</D>" ).replace( /D/g, o.wrapperEls );
-			}			
-			else if (o.slpstyle == "slp-btn-circle")
-			{
-				buttonClass += " ui-slp-btn-circle ui-slp-icon-bg";
-				wrap = ( "<D class='" + iconClass + "'>" + "</D>" ).replace( /D/g, o.wrapperEls );
-				o.corners = false;
-			}
-			
-			/* Round corner */
-			if ( o.corners ) {
-				buttonClass += " ui-btn-corner-all";
-			}
-
-			/* Container : button div */
-			el.attr( "data-" + $.mobile.ns + "theme", o.theme ).addClass( buttonClass );
-			
-			/* Inside container */
-			el.wrapInner( wrap );
-		}
-		else /* Original JQM case */
-		{
+		
 		// if not, try to find closest theme container
 		if ( !o.theme ) {
 			themedParent = el.closest( "[class*='ui-bar-'],[class*='ui-body-']" );
@@ -131,15 +69,58 @@ $.fn.buttonMarkup = function( options ) {
 			buttonClass += " ui-shadow";
 		}
 
+		/* Set Button class for Icon BG */
+		if (o.iconbg == "circle")	/* Circle BG Button. */
+		{
+			/* wongi_1018 : Icon pos : no text, Icon only */
+			buttonClass += " ui-btn-corner-circle";
+		}
+		else if (o.iconbg == "nobg")
+		{
+			/* wongi_1018 : Icon pos : no text, Icon only, no bg */
+			buttonClass += " ui-btn-icon-nobg";
+		}		
+		
 		el.attr( "data-" + $.mobile.ns + "theme", o.theme )
 			.addClass( buttonClass );
 
-		wrap = ( "<D class='" + innerClass + "' aria-hidden='true'><D class='ui-btn-text'></D>" +
+		/* wongi_1018 : Text Class for text positioning with icon. */
+		textClass = "ui-btn-text";
+		
+		if (o.icon)
+		{
+			if ($(el).text().length > 0)
+			{
+				(o.iconpos == "right" ? textClass += " ui-btn-text-padding-right" : textClass += " ui-btn-text-padding-left");
+			}
+			else
+			{
+				if (o.iconbg == "circle")	/* Circle BG Button. */
+				{
+					/* wongi_1018 : Icon pos : no text, Icon only */
+					innerClass += " ui-btn-corner-circle";
+				}
+				else if (o.iconbg == "nobg")
+				{
+					/* wongi_1018 : Icon pos : no text, Icon only, no bg */
+					innerClass += " ui-btn-icon-nobg";
+				}
+
+				/* wongi_1018 : Icon Only : No padding on button-inner. */
+				innerClass += " ui-btn-icon-only";
+			}
+		}
+		else	/* Text Only */
+		{
+			/* Do nothing */
+		}
+		
+		
+		wrap = ( "<D class='" + innerClass + "' aria-hidden='true'><D class='" + textClass + "'></D>" +
 			( o.icon ? "<span class='" + iconClass + "'></span>" : "" ) +
 			"</D>" ).replace( /D/g, o.wrapperEls );
 
 		el.wrapInner( wrap );
-		}
 	});
 };
 
@@ -149,81 +130,6 @@ $.fn.buttonMarkup.defaults = {
 	iconshadow: true,
 	inline: false,
 	wrapperEls: "span"
-};
-
-/* Button width rearrange */
-$.fn.buttonRearrange= function(options)
-{
-	return this.each( function() {
-		/* Get Current Text & rearrange width of each button */
-		var el = $( this ),
-		o = $.extend( {}, $.fn.buttonMarkup.defaults, {
-			icon: el.jqmData( "icon" ),
-			iconpos: el.jqmData( "iconpos" ),
-			theme: el.jqmData( "theme" ),
-			inline: el.jqmData( "inline" ),
-			slpstyle: el.jqmData("slpstyle")
-		}, options );
-		
-		var textWidth = 0;
-		var iconWidth = 0;
-		var gap = 16;
-		var left_margin = 16;
-		var right_margin = 16;
-		
-		/* Icon */
-		if ( o.icon ) {
-			o.icon = "ui-slp-icon-" + o.icon;
-		}
-		
-		/* Get current width of a text */
-		if (o.slpstyle == "slp_text" || o.slpstyle == "slp_text_icon" || o.slpstyle == "slp_icon_text")
-		{
-			textWidth = $(el).outerWidth();
-		}
-		else if (o.slpstyle == "slp_icon" || o.slpstyle == "slp-btn-circle")
-		{
-			textWidth = 0;
-		}
-		
-		/* Get current width of an icon */
-		if (o.slpstyle == "slp_icon" || o.slpstyle == "slp_text_icon" || o.slpstyle == "slp_icon_text" ||o.slpstyle == "slp-btn-circle")
-		{
-			iconWidth = 64;
-		}
-		else if (o.slpstyle == "slp_text")
-		{
-			iconWidth = 0;
-		}
-		
-		/* Set Text width & Icon Width for each style */
-		if (iconWidth > 0 && textWidth > 0)
-		{
-			if (o.slpstyle == "slp_text_icon")
-			{
-				$(el).width(left_margin + iconWidth + textWidth + right_margin);
-				$(el).find(".ui-slp-btn-text").css("margin-left", "-32px");
-			}
-			else if (o.slpstyle == "slp_icon_text")
-			{
-				$(el).width(left_margin + iconWidth + textWidth + right_margin);
-				$(el).find(".ui-slp-icon").css("left", "0px");
-				$(el).find(".ui-slp-btn-text").css("margin-left", "48px");
-			}
-			else
-			{
-				$(el).width(left_margin + iconWidth + textWidth + right_margin);
-			}
-		}
-		else if (o.slpstyle == "slp-btn-circle")
-		{
-			/* Do nothing : Just draw circle icon image */
-		}
-		else
-		{
-			$(el).width(left_margin + iconWidth + textWidth + right_margin);
-		}
-	});
 };
 
 function closestEnabledButton( element ) {
@@ -296,10 +202,4 @@ $( document ).bind( "pagecreate create", function( e ){
 		.not( ".ui-btn, :jqmData(role='none'), :jqmData(role='nojs')" )
 		.buttonMarkup();
 });
-
-/* wongi_1017 : Text Width auto applied */
-$(document ).bind( "pageshow", function( e ){
-	$(":jqmData(role='slpstyle'), .ui-slp-btn", e.target ).buttonRearrange();
-});
-
 })( jQuery );
