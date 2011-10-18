@@ -146,9 +146,6 @@ $.widget( "todons.popupwindow", $.mobile.widget, {
 	}
 */
 
-	if (this.element.hasClass("ui-volumecontrol"))
-		this.ui.container.css("background", "rgba(0, 0, 0, 0)");
-
     // Events on "screen" overlay
     ui.screen.bind( "vclick", function( event ) {
         self.close();
@@ -224,6 +221,10 @@ $.widget( "todons.popupwindow", $.mobile.widget, {
   open: function(x_where, y_where) {
       if ( this.options.disabled || this.isOpen)
           return;
+
+	//Set background as transparent when volume control is opened
+	if (this.element.hasClass("ui-volumecontrol"))
+		this.ui.container.css("background", "rgba(0, 0, 0, 0)");
 
       var self = this,
           x = (undefined === x_where ? window.innerWidth  / 2 : x_where),
