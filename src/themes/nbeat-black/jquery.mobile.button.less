@@ -6,6 +6,17 @@
 
 @import "config.less";
 
+/* Color set for Button */
+@color_buttonEditText:		@color_29;
+@color_buttonEditTextPress:	@color_36;
+@color_buttonEditBG:		@color_37;
+@color_buttonEditBGPress:	@color_38;
+
+/* Edit button size */
+/* Original size is 74px, but, for good looking, set size 48px. */
+@height_buttonEdit:	48px;
+@width_buttonEdit:	@height_buttonEdit;
+
 .ui-btn { display: block; text-align: center; cursor:pointer;  position: relative; /*margin: .5em 5px;*/ padding: 0; vertical-align: middle; } /* wongi_1018 : For button align. */
 .ui-btn:focus, .ui-btn:active { outline: none; }
 .ui-header .ui-btn, .ui-footer .ui-btn, .ui-bar .ui-btn { display: inline-block; font-size: 13px; margin: 0; }
@@ -60,36 +71,6 @@
 /*hiding native button,inputs */
 .ui-btn-hidden { position: absolute; top: 0; left: 0; width: 100%; height: 100%; -webkit-appearance: button; opacity: .1; cursor: pointer; background: transparent; font-size: 1px; border: none; line-height: 999px; }
 
-/* wongi_1013 : totally new Buttons Style */
-.ui-slp-btn
-{
-	text-align: center; 
-	cursor:pointer;  
-	position: relative; 
-	padding-top: 14px;	/* on the List */
-	text-overflow: ellipsis; 
-	overflow: visible;
-	
-	&:hover {outline: none;}
-	
-	/*width : 10em;*/
-	height : 1.6em;
-	
-	display : inline-block;
-	vertical-align:middle;
-}
-
-.ui-slp-btn-inner
-{
-}
-
-.ui-slp-btn-icon-only
-{
-	position: absolute;
-	margin-left : 50%;
-	left : -32px;
-}
-
 .ui-btn-text
 {
 	/*padding-left : 80px;*/	//wongi_1017
@@ -97,22 +78,24 @@
     margin-right: auto;	
 }
 
-.ui-slp-btn-text-icon .ui-slp-btn-text
-{
-	left: 20%;
-	width: 40%;
-}
-
-.ui-slp-icon
+/* wongi_1019 : Button position in List : for Demo */
+.ui-li .ui-btn
 {
 	position: absolute;
-	padding: 0;
-	vertical-align:middle;
+	right: 10px;
+	top: 50%;
+	margin-top:  -0.8em;	
+}
+
+.ui-li .ui-btn .ui-btn-inner.ui-btn-hastxt
+{
+	padding: 0.2em 0.5em;
 }
 	
 /* wongi_1017 : Icons */
 /* icons sizing */
 .ui-btn .ui-icon { width: 64px; height: 64px; }
+.ui-btn.ui-btn-edit .ui-icon { width: @width_buttonEdit; height: @height_buttonEdit; }
 
 /* Padding for Icon with text */
 .ui-btn .ui-btn-text.ui-btn-text-padding-left {padding-left: 32px;}
@@ -145,7 +128,21 @@
 .ui-icon-cancel			{.slp-icon-common;	background-image: url(images/00_button_cancel.png);	 }
 .ui-icon-send			{.slp-icon-common;	background-image: url(images/00_button_send.png);	 }
 .ui-icon-favorite		{.slp-icon-common;	background-image: url(images/00_winset_icon_favorite_on.png);	 }
+.ui-icon-editexpand		{.slp-icon-common;	background-image: url(images/00_button_icon_expand.png); top : -@height_buttonEdit/2; }
+.ui-icon-editminus		{.slp-icon-common;	background-image: url(images/00_button_icon_minus.png); top : -@height_buttonEdit/2;}
+.ui-icon-editplus		{.slp-icon-common;	background-image: url(images/00_button_icon_plus.png); top : -@height_buttonEdit/2;}
 
+/* Header back btn : Jinjyuk */
+.ui-btn-up-s .ui-icon-header-back-btn{	background-image: url(images/00_winset_btn_prev.png);}
+.ui-btn-down-s, .ui-btn-hover-s {
+	.ui-icon-header-back-btn{ background-image: url(images/00_winset_btn_prev_press.png);}
+}
+
+.ui-icon-header-back-btn{
+	.LESSbackground-size(48px, 38px);
+	width: 48px;
+	height: 38px;	
+}
 /* Pressed images */
 .ui-btn-down-s .ui-icon-bg, .ui-btn-down-s.ui-slp-icon-bg	{.slp-icon-common;	background-image: url(images/00_btn_circle_bg_press.png); z-index:0;	 }
 .ui-btn-down-s .ui-icon-reveal			{.slp-icon-common;	background-image: url(images/00_button_reveal_press.png);	 }
@@ -160,10 +157,18 @@
 .ui-btn-down-s .ui-icon-cancel			{.slp-icon-common;	background-image: url(images/00_button_cancel_press.png);	 }
 .ui-btn-down-s .ui-icon-send			{.slp-icon-common;	background-image: url(images/00_button_send_press.png);	 }
 .ui-btn-down-s .ui-icon-favorite		{.slp-icon-common;	background-image: url(images/00_winset_icon_favorite_off.png);	 }
+.ui-btn-down-s .ui-icon-editexpand		{.slp-icon-common;	background-image: url(images/00_button_icon_expand_press.png); top : -@height_buttonEdit/2;}
+.ui-btn-down-s .ui-icon-editminus		{.slp-icon-common;	background-image: url(images/00_button_icon_minus_press.png); top : -@height_buttonEdit/2;}
+.ui-btn-down-s .ui-icon-editplus		{.slp-icon-common;	background-image: url(images/00_button_icon_plus_press.png); top : -@height_buttonEdit/2;}
 
 .ui-btn-inner.ui-btn-icon-only
 {
 	padding: 32px 32px;
+}
+
+.ui-btn-edit .ui-btn-inner.ui-btn-icon-only
+{
+	padding: @width_buttonEdit/2 @height_buttonEdit/2;
 }
 
 /* Circle Icon BG : data-iconbg = "circle" */
@@ -177,4 +182,32 @@
 {
 	background-color: transparent;	
 	border: none;	
+}
+
+/* Contact Edit Style */
+.ui-btn.ui-btn-edit .ui-btn-text 
+{
+	color: @color_buttonEditText;
+}
+
+.ui-btn.ui-btn-edit.ui-btn-hover-s, .ui-btn.ui-btn-edit.ui-btn-up-s, .ui-btn.ui-btn-edit.ui-btn-down-s
+{	font-size: 0.6em;	}
+
+.ui-btn.ui-btn-edit.ui-btn-down-s .ui-btn-text 
+{
+	color: @color_buttonEditTextPress;
+}
+
+.ui-btn.ui-btn-edit
+{
+	background-color: @color_buttonEditBG;
+	position: absolute;
+	top: 0px;
+	margin-top: 0px;
+	right: @width_buttonEdit/2;
+}
+
+.ui-btn.ui-btn-edit.ui-btn-down-s
+{
+	background-color: @color_buttonEditBGPress;
 }

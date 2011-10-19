@@ -6,3 +6,4 @@ build
 debian
 *.js.compiled
 compiled
+*.patch

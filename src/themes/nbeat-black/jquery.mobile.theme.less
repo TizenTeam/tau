@@ -41,18 +41,56 @@
 	}
 }
 
-.ui-header.ui-bar-s .ui-title {
-	min-height: 1.1em; 
-	text-align: center; 
-	font-size : @font_size_08; 
-	display: block; 
-	margin: .6em 90px .8em;  
-	padding: 0;  
-	text-overflow: ellipsis; 
-	overflow: hidden; 
-	white-space: nowrap; 
-	outline: 0 !important; 
+.ui-header.ui-bar-s{
+	font-size : @font_size_default; 
+	
+	.ui-title {
+		min-height: 1.1em; 
+		text-align: center; 
+		font-size : @font_size_08; 
+		display: block; 
+		margin: .6em 90px .8em;  
+		padding: 0;  
+		text-overflow: ellipsis; 
+		overflow: hidden; 
+		white-space: nowrap; 
+		outline: 0 !important; 
+	}
+
+	.ui-btn-left{
+		font-size : @font_size_default;
+		width : 2.8em;
+		height : 2.8em;
+		top : 0px;
+		left : 0px;
+
+		.ui-btn-inner.ui-btn-icon-only {
+			padding : 0;
+			
+			width : 2.2em;
+			height : 1.2em;
+			left : 0.5em;
+			top : 0.83em;
+			 
+			border-top : none;
+			
+			border-right-style :  groove;
+			border-right-width : 1px;
+			border-top-right-radius : 0px;
+			border-bottom-right-radius : 0px;
+		
+		}
+	}
+
+	.ui-btn-down-s {
+		/* Need to change arrow color */
+	}
+	
+	.ui-btn-up-s, .ui-btn-down-s, .ui-btn-hover-s {		
+		background: @color_header;
+	}
 }
+
 
 // NOTE: This class is applied to almost all JQM widgets!
 .ui-body-s {
@@ -261,7 +299,7 @@ a.ui-link-inherit {
 		text-decoration : none;
 	}
 	
-	.ui-btn-hover-s, .ui-btn-down-s, .ui-btn-active {
+	.ui-btn-down-s, .ui-btn-active {
 		color: @color_36; /*{a-bar-color}*/	
 		background: @color_02; /*{a-bar-background-color}*/
 	}
@@ -280,36 +318,74 @@ a.ui-link-inherit {
 				padding-top : 4.7em;
 			}			
 		} 	
-		.ui-btn .ui-icon {
-			left : 50%;
-			top : 0.5em;
-			margin-left : -1.8em;
+		.ui-btn {
+			.ui-icon {
+				left : 50%;
+				top : 0.5em;
+				margin-left : -1.8em;
+			}
+			.ui-btn-text {
+				padding-left : 0;
+			}
 		}
 		.ui-icon {
 			width : 70px;
 			height: 70px;
 		}			
+		.ui-btn-inner {
+			z-index : 20;
+		}
+		.ui-btn-inner.ui-navbar-textonly {
+			padding-top : 1.8em;
+			padding-bottom : 1.8em;		
+		}
 	}
 }
 
-.ui-toolbar-s {
-	.ui-btn-hover-s, .ui-btn-down-s, .ui-btn-up-s, .ui-btn-active{
-		background: @footercolor; /*{a-bar-background-color}*/
+.ui-tabbar-s {
+	.ui-btn {
+		background: @footercolor;
+	}
+
+	.ui-btn-animation {
+		background: @color_02;
+		border-left-style:  solid;
+		border-right-style: solid;		
+		border-left-color: 	@color_bg; 	
+		border-right-color: @color_bg;
+		border-left-width: 	1px;				
+		border-right-width: 1px;
+		
+		position : fixed;
+		top : 0px;
+		z-index : 10;		
 	}	
+}
+
+.ui-toolbar-s {
+	.ui-btn {
+		background: @footercolor;
+	}
 }
 
 .ui-controlbar-left, .ui-controlbar-right {
 	position : fixed;						
-	z-index: 100;
+	z-index: 5;
 
 	.ui-btn {
 		width : 100%;
-		margin :0px 0em;			
-	}
+		margin :0px 0em;					
+
+		background: @footercolor;
+		
+		.ui-btn-inner .ui-btn-text {
+			padding-left : 0;
+		}	
 	
-	.ui-btn-hover-s, .ui-btn-down-s,  .ui-btn-active{
+	}
+		
+	.ui-btn-down-s,  .ui-btn-active{
 		color: @color_36; /*{a-bar-color}*/	
-		background: @color_02; /*{a-bar-background-color}*/
 	}
 
 	li .ui-btn, .ui-navbar-toggle .ui-btn{
@@ -327,14 +403,31 @@ a.ui-link-inherit {
 	.ui-icon {
 		width : 70px;
 		height: 70px;
+	}
+	
+	.ui-btn-inner {
+		z-index : 20;
+	}
+			
+	.ui-btn-animation {
+		position : fixed;
+			
+		background: @color_02;
+		border-bottom-style:  solid;
+		border-top-style: solid;		
+		border-bottom-color: 	@color_bg; 	
+		border-top-color: @color_bg;
+		border-bottom-width: 	1px;				
+		border-top-width: 1px;
+
+		z-index : 10;		
 	}	
 }
 
 /*  Jinhyuk_Controlbar_Left 	*/
 .ui-controlbar-left {
-	left : 0px;
+	left  : 0px;
 	float : left;
-	
 }
 
 .ui-controlbar-right {
@@ -343,10 +436,27 @@ a.ui-link-inherit {
 }
 
 .ui-controlbar-left.ui-navbar, .ui-controlbar-right.ui-navbar   {
-		li .ui-btn, .ui-navbar-toggle .ui-btn{
-			font-size : @font_size_02;
-		}
+	li .ui-btn, .ui-navbar-toggle .ui-btn{
+		font-size : @font_size_02;
+	}
 }
+
+.ui-btn-ani-startposition {
+}
+
+.ui-btn-ani-endposition {
+	-webkit-transition-property : left;
+	-webkit-transition: all 0.3s ease-in-out;
+}
+
+.ui-btn-ani-verticalstartposition {
+}
+
+.ui-btn-ani-verticalendposition {
+	-webkit-transition-property : top;
+	-webkit-transition: all 0.3s ease-in-out;
+}
+
 
 /* corner rounding classes
 -----------------------------------------------------------------------------------------------------------*/
@@ -411,7 +521,7 @@ a.ui-link-inherit {
 	//.LESSborder-radius-all(9px); 
 }
 
-.ui-icon-search, .ui-icon-searchfield:after {
+.ui-icon-search {
 	background-image: url(images/00_search_icon.png);
 	background-repeat: no-repeat;
 }

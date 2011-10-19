@@ -2,67 +2,54 @@
 @search-bar-padding: (16*@em_base);
 
 label.ui-input-text {
-	font-size: @font_size_default; 
-	line-height: 1.4; 
-	display: block; 
-	font-weight: normal; 
-	margin: 0 0 .3em; 
+	font-size: @font_size_default;
+	line-height: 1.4;
+	display: block;
+	font-weight: normal;
+	margin: 0 0 .3em;
 }
-input.ui-input-text, textarea.ui-input-text { 
-	background-image: none; 
-	padding: .4em; 
-	line-height: 1.4; 
-	font-size: @font_size_default; 
-	display: block; 
-	width: 95%; 
+input.ui-input-text, textarea.ui-input-text {
+	background-image: none;
+	padding: .4em;
+	line-height: 1.4;
+	font-size: @font_size_default;
+	display: block;
+	width: 95%;
 }
 input.ui-input-text { -webkit-appearance: none; }
-textarea.ui-input-text { 
-	height: 50*@em_base; 
-	-webkit-transition: height 200ms linear; 
-	-moz-transition: height 200ms linear; 
-	-o-transition: height 200ms linear; 
-	transition: height 200ms linear; 
+textarea.ui-input-text {
+	height: 50*@em_base;
+	-webkit-transition: height 200ms linear;
+	-moz-transition: height 200ms linear;
+	-o-transition: height 200ms linear;
+	transition: height 200ms linear;
 }
-.ui-input-search { 
-	padding: 0 0; 
-	//width: 77%; 
-	background-image: none; 
-	position: relative; 
-	input.ui-input-text { 
-		border: none; 
-		//width: 98%; 
-		//padding: .4em 74*@em_base; 
-		background: transparent none; 
-		outline: 0 !important; 
-	}
 
-	.ui-icon-search, .ui-icon-searchfield:after {
-		position: absolute; 
-		left: 0; 
-		top: 0;
-		vertical-align: middle;
-		margin: 16*@em_base;
-		width: 42*@em_base; 
-		height: 42*@em_base; 
+.ui-input-search {
+	padding: 0 0;
+	position: relative;
+	input.ui-input-text {
+		border: none;
+		background: transparent none;
+		outline: 0 !important;
 	}
 	.ui-btn-down-s, .ui-btn-up-s, .ui-btn-hover-s {
 		border: none;
 		background: transparent none;
 	}
-	.ui-btn-icon-notext { 
-		width: 38*@em_base; 
-		height: 38*@em_base; 
+	.ui-btn-icon-notext {
+		width: 38*@em_base;
+		height: 38*@em_base;
 		.ui-btn-inner { padding: 0; }
 	}
 	.ui-icon-delete {
-		width: 38*@em_base; 
-		height: 38*@em_base; 
+		width: 38*@em_base;
+		height: 38*@em_base;
 	}
 
-	.ui-input-clear { 
-		position: absolute; 
-		right: 0; 
+	.ui-input-clear {
+		position: absolute;
+		right: 0;
 		top: 0;
 		vertical-align: middle;
 		margin: 16*@em_base;
@@ -70,27 +57,30 @@ textarea.ui-input-text {
 	.ui-input-clear-hidden { display: none; }
 }
 
-.ui-icon-searchfield:after { 
-	position: absolute; 
-	left: 7*@em_base; 
-	top: 50%; 
-	margin-top: -9*@em_base; 
-	content: ""; 
-	opacity: .5; 
+.ui-icon-search {
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin: 16*@em_base;
+}
+
+.ui-icon-searchfield:after {
+	margin-left: 58*@em_base;
+	content: "Search";
+	color: rgba(130, 130, 130, 1);
 }
 
 /* orientation adjustments - incomplete!*/
-@media all and (min-width: 450*@em_base){
-	label.ui-input-text  { 
-		vertical-align: top; 
-		display: inline-block;  
-		width: 20%;  
-		margin: 0 2% 0 0 
+@media all and (min-width: 720*@em_base){
+	label.ui-input-text  {
+		vertical-align: top;
+		display: inline-block;
+		width: 20%;
+		margin: 0 2% 0 0
 	}
-	input.ui-input-text, 
-	textarea.ui-input-text, 
-	.ui-input-search { width: 60%; display: inline-block; } 
-	//.ui-input-search { width: 50%; }
+	input.ui-input-text,
+	textarea.ui-input-text,
+	.ui-input-search { width: 60%; display: inline-block; }
 	.ui-input-search input.ui-input-text { width: 98%; /*echos rule from above*/ }
 }
 
@@ -114,19 +104,19 @@ textarea.ui-input-text {
 	}
 	.ui-input-search-default {
 		width: 70%;
-		-webkit-transition: width 400ms linear; 
-		-moz-transition: width 400ms linear; 
-		-o-transition: width 400ms linear; 
-		transition: width 400ms linear; 
+		-webkit-transition: width 400ms linear;
+		-moz-transition: width 400ms linear;
+		-o-transition: width 400ms linear;
+		transition: width 400ms linear;
 	}
 	.ui-input-search-wide {
 		width: 100%;
-		-webkit-transition: width 400ms linear; 
-		-moz-transition: width 400ms linear; 
-		-o-transition: width 400ms linear; 
-		transition: width 400ms linear; 
+		-webkit-transition: width 400ms linear;
+		-moz-transition: width 400ms linear;
+		-o-transition: width 400ms linear;
+		transition: width 400ms linear;
 	}
-	.ui-btn-icon-cancel { 
+	.ui-btn-icon-cancel {
 		display: inline-block;
 		position: absolute;
 		left: 70%;
@@ -139,16 +129,16 @@ textarea.ui-input-text {
 	}
 	.ui-btn-cancel-hide {
 		left: 100%;
-		-webkit-transition: left 400ms linear; 
-		-moz-transition: left 400ms linear; 
-		-o-transition: left 400ms linear; 
-		transition: left 400ms linear; 
+		-webkit-transition: left 400ms linear;
+		-moz-transition: left 400ms linear;
+		-o-transition: left 400ms linear;
+		transition: left 400ms linear;
 	}
 	.ui-btn-cancel-show {
 		left: 70%;
-		-webkit-transition: left 400ms linear; 
-		-moz-transition: left 400ms linear; 
-		-o-transition: left 400ms linear; 
-		transition: left 400ms linear; 
+		-webkit-transition: left 400ms linear;
+		-moz-transition: left 400ms linear;
+		-o-transition: left 400ms linear;
+		transition: left 400ms linear;
 	}
 }

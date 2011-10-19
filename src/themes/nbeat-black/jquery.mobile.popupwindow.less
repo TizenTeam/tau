@@ -547,13 +547,42 @@
 	    	text-align: center;
 
 		.popup-text {
-			font-size: 42px;
+			font-size: 26px;
+			font-color: rgb(153, 153, 153);
 			background: #213c49;
 			width: 100%;
+			height: 70px;
 			p {
+				height: 100%;
 				text-align: center;
-				padding: 22px 16px;
+				padding: 22px 16px 0px 16px;
 			}
+		}
+
+		.popup-text-bottom-bg {
+			font-size: 26px;
+			font-color: rgb(153, 153, 153); 
+			background: #213c49;
+			width: 100%;
+			vertical-align: middle;
+
+			.text-left {
+				width: 40%;
+				height: 48px;
+				padding: 0px 16px 0px 16px;
+				text-align: left;
+		
+				display: inline-block;
+			}
+			.text-right {
+				width: 40%;
+				height: 48px;
+				padding: 0px 16px 0px 16px;
+				text-align: right;
+
+				display: inline-block;
+			}
+
 		}
 
 		.popup-button-bg {
@@ -572,7 +601,99 @@
 			}
 		}
 	}
+	
+	.centertext_progressbar {
+
+		.LESSdisplaybox();
+		.LESSbox-orient(vertical);
+		.LESSbox-align(center);
+		.LESSbox-pack(center);
+
+	    	text-align: center;
+
+		.popup-text {
+			font-size: 26px;
+			font-color: rgb(153, 153, 153);
+			background: #213c49;
+			width: 100%;
+			padding-top: 22px;
+			padding-bottom: 16px;
+			p {
+				text-align: center;
+			}
+		}
+
+		.popup-text-bottom-bg {
+			font-size: 26px;
+			font-color: rgb(153, 153, 153); 
+			background: #213c49;
+			width: 100%;
+			vertical-align: middle;
+
+			.text-left {
+				width: 40%;
+				height: 40px;
+				padding: 16px 16px 22px 16px;
+				text-align: left;
+		
+				display: inline-block;
+			}
+			.text-right {
+				width: 40%;
+				height: 40px;
+				padding: 16px 16px 22px 16px;
+				text-align: right;
+
+				display: inline-block;
+			}
+
+		}
+
+		.popup-button-bg {
+			font-size: 32px;
+			background: #565d60;
+			width: 100%;
+			padding-top: 11px;
+			padding-bottom: 11px;
+			vertical-align: middle;
+			
+			.ui-btn {
+				width: 402px;
+				height: 74px;
+				margin:auto;
+
+			}
+		}
+	}
+	
+
+
 }
+	.ui-progressbar {
+		position: relative;
+		margin-left: 10px;
+		margin-right: 10px;
+		margin-top: 24px;
+		margin-bottom: 24px;
+		height: 10px;
+		background: white;
+	}
+
+	.ui-boxImg {	
+		position: relative;
+		top: 0;
+		background: gray;
+		width: 100%;
+		height: 10px;
+	}
+
+	.ui-barImg {
+		position: relative;
+		top: -10px;
+		background: orange;
+		height: 10px;
+		width: 0;	
+	}
 
 .ui-popupwindow > .ui-volumecontrol {
 
@@ -614,6 +735,9 @@
 		border-radius: 0.3em !important;
 	}
 }
+
+
+
 
 
 .ui-popupwindow-corner-all {

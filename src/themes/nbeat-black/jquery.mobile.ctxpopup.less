@@ -19,41 +19,120 @@
         height: 74px;
         width: 172px;
     }
+
+    .picker {
+        background: rgb(42,109,140);
+        height: 106px;
+        text-align: center;
+        padding: 0;
+         
+        ul {
+            padding: 0;
+            display: inline;
+            list-style: none;
+            vertical-align: middle;
+            margin: 0;
+        }
+
+        li {
+            float: left;
+            padding: 30px 8px 0 8px;
+            max-width: 100px;
+            min-width: 100px;
+            a.ui-link {
+                text-decoration: none;
+                color: rgb(249,249,249);
+            }
+        }
+
+    }
   
     .hlist {
+        
+        a.ui-link {
+            color: rgb(249,249,249);
+            text-decoration: none;
+        }
+
+        ul {
+            padding: 0;
+            display: inline-block;
+            list-style: none;
+            vertical-align: middle;
+            margin: 0;
+        }
+
+        li {
+            background: rgb(0,0,0);
+            display: inline-block;
+            border-right: 1px solid #444444;
+            text-align: center;
+            margin-right: -9px;
+            padding: 20px;
+        }
+        
+        li:last-of-type {
+            border-right: none;
+            margin-right: 0;
+        }             
+    }
+
+    .hlist.icon {
+        background: none;
+        
+        li:last-of-type {
+            border-right: none;
+        }
+
+        li {
+            background: none;
+            display: inline;
+            border-right: 1px solid rgb(71,82,87);
+            float: left;
+            margin-right:0;
+        }
+
+        .ui-btn {
+            width: 64px;
+            height: 64px;
+        }
+
+        .ui-btn-up-s {
+            background: none;
+        }
+  
         .h3-list {
             width: 163px;
             height: 118px;
+
+            .ui-btn {
+                left: 50px;
+                top: 27px;
+            }
         }
 
         .h4-list {
             width: 122px;
             height: 118px;
+
+            .ui-btn {
+                left: 29px;
+                top: 27px;
+            }
         }
 
         .h5-list {
             width: 96px;
             height: 118px;
+
+            .ui-btn {
+                left: 12px;
+                top: 27px;
+            }
         }
     }
 
-    .hlist div div {
-        display: inline-block;
-        text-align: center;
-        border-right: 1px solid rgb(71,82,87);
-    }
-
-    .hlist div div:last-child {
-        border-right: none;
-    }
-
-    .hlist img {
-        width: 64px;
-        height: 64px;
-        padding: 0;
-        margin-top: 27px;
-    }
-
+   
     .title-line {
         background: rgba(0,0,0,0.6);
         border-top-left-radius:8px;
@@ -107,6 +186,7 @@
 
     .arrow-right {
         background-image: url('images/timepicker_right_arrow.png');
+        margin-left: -10px;
     }
 
     .arrow-top {

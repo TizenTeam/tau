@@ -19,6 +19,7 @@
 			<li><a href="#" data-inline="true" aria-haspopup="true" aria-owns="center_liststyle_3btn">Center_list style 3 button popup</a></li>
 			<li><a href="#" data-inline="true" id="showVolumeButton">Volume popup</a></li>
 			<li><a href="#" data-inline="true" aria-haspopup="true" aria-owns="center_progressbar">Center progressbar popup</a></li>
+			<li><a href="#" data-inline="true" aria-haspopup="true" aria-owns="centertext_progressbar">Center text progressbar popup</a></li>
 		</ul>
 
 		<!-- text only -->
@@ -238,15 +239,43 @@
 		<!-- popup center progressbar -->
 		<div id="center_progressbar" data-role="popupwindow" data-style="center_progressbar">
 			<p data-role="text">
-				Pop-up dialog box, a child
-				window that blocks user interact
-				to the parent windows
+				Text Text...
+			</p>
+			<div data-role="progressbar" id="progressbar1"></div>
+			<p data-role="text-bottom-bg">
+				<span class="text-left">
+					Left Text
+				</span>
+				<span class="text-right">
+					Right Text
+				</span>
 			</p>
 			<div data-role="button-bg">
 					<input type="button" value="Text Button" />
 			</div>
 		</div>
 
+		<!-- popup center text progressbar -->
+		<div id="centertext_progressbar" data-role="popupwindow" data-style="centertext_progressbar">
+			<p data-role="text">
+				Text Text...
+				Pop-up dialog box, a child
+				window that blocks user interact
+				to the parent windows
+			</p>
+			<div data-role="progressbar" id="progressbar1"></div>
+			<p data-role="text-bottom-bg">
+				<span class="text-left">
+					Left Text
+				</span>
+				<span class="text-right">
+					Right Text
+				</span>
+			</p>
+			<div data-role="button-bg">
+					<input type="button" value="Text Button" />
+			</div>
+		</div>
 
 	</div> <!-- /content -->
 
