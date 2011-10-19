@@ -139,6 +139,13 @@ $.widget( "todons.popupwindow", $.mobile.widget, {
 				 .wrapAll( "<div class='popup-check-bg'></div>" );
 			popup.find( ":jqmData(role='scroller-bg')" )
 				 .wrapAll( "<div class='popup-scroller-bg'></div>" );
+			popup.find( ":jqmData(role='text-bottom-bg')" )
+				 .wrapAll( "<div class='popup-text-bottom-bg'></div>" );
+
+			popup.find( ":jqmData(role='text-left')" )
+				 .wrapAll( "<div class='popup-text-left'></div>" );
+			popup.find( ":jqmData(role='text-right')" )
+				 .wrapAll( "<div class='popup-text-right'></div>" );
 /*
 			break;
 		//case "newStyle":
