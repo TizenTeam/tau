@@ -302,10 +302,15 @@ a.ui-link-inherit {
 				padding-top : 4.7em;
 			}			
 		} 	
-		.ui-btn .ui-icon {
-			left : 50%;
-			top : 0.5em;
-			margin-left : -1.8em;
+		.ui-btn {
+			.ui-icon {
+				left : 50%;
+				top : 0.5em;
+				margin-left : -1.8em;
+			}
+			.ui-btn-text {
+				padding-left : 0;
+			}
 		}
 		.ui-icon {
 			width : 70px;
@@ -356,6 +361,11 @@ a.ui-link-inherit {
 		margin :0px 0em;					
 
 		background: @footercolor;
+		
+		.ui-btn-inner .ui-btn-text {
+			padding-left : 0;
+		}	
+	
 	}
 		
 	.ui-btn-down-s,  .ui-btn-active{
