@@ -156,24 +156,26 @@
 .ui-li-sub-setting { color: @color_text_setting; }
 // bubble
 .ui-listview {
-	.ui-li-bubble-left.ui-li-static {
-		// picked from 00_MessageBubble_BG_receive.png
-		background-color: #ddce7a;	
-		.LESSbox-shadow(2px, 3px, 3px, #4d3a17);
-		color: #000000;	// 0 0 0
-	}
-	.ui-li-bubble-right.ui-li-static {
-		// picked from 00_MessageBubble_BG_sent.png
-		background-color: #c2d1da;
-		.LESSbox-shadow(2px, 3px, 3px, #4d3a17);
-		color: #606060;	// 96 96 96
-	}
-	.ui-li-bubble-sos.ui-li-static {
-		color: #d30000;	// 211 0 0
-	}
-	.ui-li-bubble-date.ui-li-static {
-		background-color: #242b2c;	// 36 43 44
-		color: #39a6d7;	// 57 166 215
+	.ui-li-static {
+		&.ui-li-bubble-left {
+			// picked from 00_MessageBubble_BG_receive.png
+			background-color: #ddce7a;	
+			.LESSbox-shadow(2px, 3px, 3px, #4d3a17);
+			color: #000000;	// 0 0 0
+		}
+		&.ui-li-bubble-right {
+			// picked from 00_MessageBubble_BG_sent.png
+			background-color: #c2d1da;
+			.LESSbox-shadow(2px, 3px, 3px, #4d3a17);
+			color: #606060;	// 96 96 96
+		}
+		&.ui-li-bubble-sos {
+			color: #d30000;	// 211 0 0
+		}
+		&.ui-li-bubble-date {
+			background-color: #242b2c;	// 36 43 44
+			color: #39a6d7;	// 57 166 215
+		}
 	}
 	span.ui-li-bubble-time {
 		color: #39a6d7; // 57 166 215
