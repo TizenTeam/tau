@@ -537,60 +537,60 @@
 		}
 	}	
 
-	.ui-volumecontrol {
+	.center_progressbar {
 
-		display: table;
-		margin: auto;
-		background: rgba(0, 0, 0, 0.666667);
-		width: 416px;
-		height: 676px;
-		padding-top: 22px;
+		.LESSdisplaybox();
+		.LESSbox-orient(vertical);
+		.LESSbox-align(center);
+		.LESSbox-pack(center);
 
-	    h1 {
-		font-size: 42px;
-		display: table;
-		margin: auto;
-		color: #c0c0c0;
-	    }
+	    	text-align: center;
 
-	    .ui-volumecontrol-icon {
-		display: table;
-		width: 100%;
-		height: 128px;
-		padding-top: 21px;
-		padding-bottom: 21px;
-		padding-left: 165px;
-		padding-right: 165px;
-	    }
+		.popup-text {
+			font-size: 42px;
+			background: #213c49;
+			width: 100%;
+			p {
+				text-align: center;
+				padding: 22px 16px;
+			}
+		}
 
-	    .ui-volumecontrol-indicator {
-		display: table;
-		width: 100%;
-		height: 420px;
-		padding-left: 68px;
-		padding-right: 68px;
-	    }
+		.popup-button-bg {
+			font-size: 32px;
+			background: #565d60;
+			width: 100%;
+			padding-top: 11px;
+			padding-bottom: 11px;
+			vertical-align: middle;
+			
+			.ui-btn {
+				width: 402px;
+				height: 74px;
+				margin:auto;
+
+			}
+		}
 	}
-
 }
 
 .ui-popupwindow > .ui-volumecontrol {
 
-		display: table;
-		margin: auto;
-		background: rgba(0, 0, 0, 0.666667);
-		width: 416px;
-		height: 676px;
-		padding-top: 22px;
+	display: table;
+	margin: auto;
+	background: rgba(0, 0, 0, 0.666667);
+	width: 416px;
+	height: 676px;
+	padding-top: 22px;
 
-	    h1 {
+	h1 {
 		font-size: 42px;
 		display: table;
 		margin: auto;
 		color: #c0c0c0;
-	    }
+	}
 
-	    .ui-volumecontrol-icon {
+	.ui-volumecontrol-icon {
 		display: table;
 		width: 100%;
 		height: 128px;
@@ -598,15 +598,21 @@
 		padding-bottom: 21px;
 		padding-left: 165px;
 		padding-right: 165px;
-	    }
+	}
 
-	    .ui-volumecontrol-indicator {
+	.ui-volumecontrol-indicator {
 		display: table;
 		width: 100%;
 		height: 420px;
 		padding-left: 68px;
 		padding-right: 68px;
-	    }
+	}
+
+	.ui-corner-all {
+		-moz-border-radius: 0.3em !important; 
+		-webkit-border-radius: 0.3em !important; 
+		border-radius: 0.3em !important;
+	}
 }
 
 

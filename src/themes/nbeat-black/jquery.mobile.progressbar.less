@@ -1,0 +1,30 @@
+@import "config.less";
+
+@bar-height: 16px;
+@bar-margin: 16px;
+
+.ui-progressbar {
+  position: relative;
+  margin-left: @bar-margin;
+  margin-right: @bar-margin;
+  margin-top: @bar-margin;
+  margin-bottom: @bar-margin;
+  height: @bar-height;
+  background: black;
+}
+
+.ui-boxImg {
+	position: relative;
+	top: 0;
+	background: rgb(55,55,55);
+	width: 100%;
+	height: @bar-height;
+}
+
+.ui-barImg {
+	position: relative;
+	top: -@bar-height;
+	background: rgb(42,109,140);
+	width: 0;
+	height: @bar-height;
+}
