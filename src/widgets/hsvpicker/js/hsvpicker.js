@@ -113,12 +113,12 @@ $.widget( "todons.hsvpicker", $.todons.colorwidget, {
   _bindElements: function(chan, idx) {
     var self = this;
     this.ui[chan].selector
-      .bind("vmousedown", function(e) { self._handleMouseDown(chan,  idx, e, true); })
-      .bind("vmousemove", function(e) { self._handleMouseMove(chan,  idx, e, true); })
+      .bind("mousedown vmousedown", function(e) { self._handleMouseDown(chan,  idx, e, true); })
+      .bind("mousemove vmousemove", function(e) { self._handleMouseMove(chan,  idx, e, true); })
       .bind("vmouseup",             function(e) { self.dragging = -1; });
     this.ui[chan].eventSource
-      .bind("vmousedown", function(e) { self._handleMouseDown(chan, idx, e, false); })
-      .bind("vmousemove", function(e) { self._handleMouseMove(chan, idx, e, false); })
+      .bind("mousedown vmousedown", function(e) { self._handleMouseDown(chan, idx, e, false); })
+      .bind("mousemove vmousemove", function(e) { self._handleMouseMove(chan, idx, e, false); })
       .bind("vmouseup",             function(e) { self.dragging = -1; });
   },
 
@@ -173,18 +173,15 @@ $.widget( "todons.hsvpicker", $.todons.colorwidget, {
         hclr = $.mobile.todons.clrlib.RGBToHTML($.mobile.todons.clrlib.HSVToRGB([hsv[0], 1.0, 1.0])),
         vclr = $.mobile.todons.clrlib.RGBToHTML($.mobile.todons.clrlib.HSVToRGB([hsv[0], hsv[1], 1.0]));
 
-    this.ui.hue.selector.css("left", this.ui.hue.eventSource.width() * hsv[0] / 360);
-    //this.ui.hue.selector.css("background", clr);
+    this.ui.hue.selector.css("left", (this.ui.hue.eventSource.width() * hsv[0] / 360) - (this.ui.hue.selector.outerWidth()  / 2.0));
     this.ui.hue.hue.css("opacity", hsv[1]);
     this.ui.hue.valMask.css("opacity", 1.0 - hsv[2]);
 
-    this.ui.sat.selector.css("left", this.ui.sat.eventSource.width() * hsv[1]);
-    //this.ui.sat.selector.css("background", clr);
+    this.ui.sat.selector.css("left", (this.ui.sat.eventSource.width() * hsv[1]) - (this.ui.sat.selector.outerWidth()  / 2.0));
     this.ui.sat.hue.css("background", hclr);
     this.ui.sat.valMask.css("opacity", 1.0 - hsv[2]);
 
-    this.ui.val.selector.css("left", this.ui.val.eventSource.width() * hsv[2]);
-    //this.ui.val.selector.css("background", clr);
+    this.ui.val.selector.css("left", (this.ui.val.eventSource.width() * hsv[2]) - (this.ui.val.selector.outerWidth()  / 2.0));
     this.ui.val.hue.css("background", vclr);
 
     $.todons.colorwidget.prototype._setColor.call(this, clr);

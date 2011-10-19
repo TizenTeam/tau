@@ -1,40 +1,62 @@
 // tracks progressbar update intervals to ensure each is not
 // added more than once to any single progress bar
 var progressbarAnimator = {
-    intervals: {},
-    justIntervals: [], // retained to make it easier to clear the intervals
+	intervals: {},
+	justIntervals: [], // retained to make it easier to clear the intervals
 
-    // pause: pause in ms between updates
-    updateProgressBar: function (progressbarToUpdate, pause) {
-        var id = progressbarToUpdate.attr('id');
+	// pause: pause in ms between updates
+	updateProgressBar: function (progressbarToUpdate, pause) {
+		var id = progressbarToUpdate.attr('id');
 
-        if (this.intervals[id]) {
-            return;
-        }
+		if (this.intervals[id]) {
+			return;
+		}
 
-        var interval = setInterval(function () {
-            var now = (new Date()).getTime();
+		var interval = setInterval(function () {
+			var now = (new Date()).getTime();
 
-            var progress = progressbarToUpdate.progressbar('value');
-            progress++;
+			var progress = progressbarToUpdate.progressbar('value');
+			progress++;
 
-            if (progress > 100) {
-                progress = 0;
-            }
-            progressbarToUpdate.progressbar('value', progress);
-        }, pause);
+			if (progress > 100) {
+				progress = 0;
+			}
+			progressbarToUpdate.progressbar('value', progress);
+		}, pause);
 
-        this.intervals[id] = interval;
-        this.justIntervals.push(interval);
-    },
+		this.intervals[id] = interval;
+		this.justIntervals.push(interval);
+	   },
 
-    clearIntervals: function () {
-        for (var i = 0; i < this.justIntervals.length; i++) {
-            clearInterval(this.justIntervals[i]);
-        }
+	updateProgressPending: function (progressbarToUpdate, pause) {
+	       var id = progressbarToUpdate.attr('id');
 
-        this.intervals = {};
-    }
+	       if (this.intervals[id]) {
+		       return;
+	       }
+
+	       progressbarToUpdate.progress_pending('start');
+
+	       var pending_cb = function () {
+		       progressbarToUpdate.progress_pending('hide');
+		       progressbarToUpdate.progress_pending('increase');
+		       progressbarToUpdate.progress_pending('show');
+	       };
+
+	       var interval = setInterval(pending_cb, pause);
+
+	       this.intervals[id] = interval;
+	       this.justIntervals.push(interval);
+       },
+
+
+	clearIntervals: function () {
+		for (var i = 0; i < this.justIntervals.length; i++) {
+			clearInterval(this.justIntervals[i]);
+		}
+
+		this.intervals = {};
+	}
 };
 
 $(document).bind("pagecreate", function () {
@@ -134,20 +156,11 @@ $(document).bind("pagecreate", function () {
 	});
 
     $('#progressbar-demo').bind('pageshow', function (e) {
-        progressbarAnimator.updateProgressBar($(this).find('#progressbar1'), 200);
-        progressbarAnimator.updateProgressBar($(this).find('#progressbar2'), 500);
-        progressbarAnimator.updateProgressBar($(this).find('#progressbar3'), 1000);
+        progressbarAnimator.updateProgressBar($(this).find('#progressbar'), 200);
+        progressbarAnimator.updateProgressPending($(this).find('#pending'), 500);
     });
 
     $('#progressbar-demo').bind('pagehide', function (e) {
-        progressbarAnimator.clearIntervals();
-    });
-
-    $('#progressbar-dialog-demo').bind('pageshow', function (e) {
-        progressbarAnimator.updateProgressBar($(this).find('#progressbarDialog1'), 200);
-    });
-
-    $('#progressbar-dialog-demo').bind('pagehide', function (e) {
         progressbarAnimator.clearIntervals();
     });
 

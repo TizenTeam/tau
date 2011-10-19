@@ -1,0 +1,26 @@
+@import "config.less";
+
+@bar-height: 16px;
+@bar-margin: 16px;
+
+.ui-progress_pending {
+	position: relative;
+	margin-left: @bar-margin;
+	margin-right: @bar-margin;
+	margin-top: @bar-margin;
+	margin-bottom: @bar-margin;
+	height: @bar-height;
+	background: black;
+}
+
+.ui-pendingImg_1,
+.ui-pendingImg_2 {
+	position: relative;
+	top: 0;
+	background: url(images/00_winset_progress_pending_01.png) no-repeat;
+	width: 100%;
+}
+
+.ui-pendingImg_2 {
+	background: url(images/00_winset_progress_pending_02.png) no-repeat;
+}
