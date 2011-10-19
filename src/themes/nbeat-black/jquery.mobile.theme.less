@@ -42,7 +42,8 @@
 }
 
 .ui-header.ui-bar-s{
-
+	font-size : @font_size_default; 
+	
 	.ui-title {
 		min-height: 1.1em; 
 		text-align: center; 
@@ -57,26 +58,39 @@
 	}
 
 	.ui-btn-left{
-		height : 38px;
-		top : 28px;
-		left : 28px;
-		background-color : @color_header;
-		border-color :  @color_header;
-		
+		font-size : @font_size_default;
+		width : 2.8em;
+		height : 2.8em;
+		top : 0px;
+		left : 0px;
+
 		.ui-btn-inner.ui-btn-icon-only {
-			padding : 0px 32px 38px;
+			padding : 0;
+			
+			width : 2.2em;
+			height : 1.2em;
+			left : 0.5em;
+			top : 0.83em;
+			 
 			border-top : none;
+			
+			border-right-style :  groove;
+			border-right-width : 1px;
+			border-top-right-radius : 0px;
+			border-bottom-right-radius : 0px;
+		
 		}
 	}
-	.ui-btn-up-s {		
+
+	.ui-btn-down-s {
+		/* Need to change arrow color */
+	}
+	
+	.ui-btn-up-s, .ui-btn-down-s, .ui-btn-hover-s {		
 		background: @color_header;
 	}
-	.ui-btn .ui-icon {			
-		width : 48px;
-		height : 38px;
-	}	
-
 }
+
 
 // NOTE: This class is applied to almost all JQM widgets!
 .ui-body-s {
