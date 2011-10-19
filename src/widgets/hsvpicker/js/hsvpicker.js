@@ -76,7 +76,7 @@ $.widget( "todons.hsvpicker", $.todons.colorwidget, {
     $.todons.colorwidget.prototype._create.call(this);
 
     ui.container.find($("img[class^=hsvpicker-arrow-btn]"))
-      .bind("mousedown vmousedown", function(e) {
+      .bind("vmousedown", function(e) {
         self._setArrowImg($(this), "-down");
       })
       .bind("vmouseup", function(e) {
@@ -97,6 +97,7 @@ $.widget( "todons.hsvpicker", $.todons.colorwidget, {
         if ( self.dragging != -1 ) {
           event.stopPropagation();
           event.preventDefault();
+		;
         }
       })
       .bind( "vmouseup", function( event ) {
