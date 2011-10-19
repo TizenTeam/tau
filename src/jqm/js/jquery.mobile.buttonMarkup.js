@@ -12,7 +12,7 @@ $.fn.buttonMarkup = function( options ) {
 			o = $.extend( {}, $.fn.buttonMarkup.defaults, {
 				icon: el.jqmData( "icon" ),
 				iconpos: el.jqmData( "iconpos" ),
-				iconbg: el.jqmData( "iconbg"),	/* wongi_1018 : icon BG : default : block. Add circle & nobg */
+				style: el.jqmData( "style"),	/* wongi_1018 : style : default : block. Add circle & nobg */
 				theme: el.jqmData( "theme" ),
 				inline: el.jqmData( "inline" )
 			}, options ),
@@ -70,14 +70,14 @@ $.fn.buttonMarkup = function( options ) {
 		}
 
 		/* Set Button class for Icon BG */
-		if (o.iconbg == "circle")	/* Circle BG Button. */
+		if (o.style == "circle")	/* Circle BG Button. */
 		{
-			/* wongi_1018 : Icon pos : no text, Icon only */
+			/* wongi_1018 : style : no text, Icon only */
 			buttonClass += " ui-btn-corner-circle";
 		}
-		else if (o.iconbg == "nobg")
+		else if (o.style == "nobg")
 		{
-			/* wongi_1018 : Icon pos : no text, Icon only, no bg */
+			/* wongi_1018 : style : no text, Icon only, no bg */
 			buttonClass += " ui-btn-icon-nobg";
 		}		
 		
@@ -95,14 +95,14 @@ $.fn.buttonMarkup = function( options ) {
 			}
 			else
 			{
-				if (o.iconbg == "circle")	/* Circle BG Button. */
+				if (o.style == "circle")	/* Circle BG Button. */
 				{
-					/* wongi_1018 : Icon pos : no text, Icon only */
+					/* wongi_1018 : style : no text, Icon only */
 					innerClass += " ui-btn-corner-circle";
 				}
-				else if (o.iconbg == "nobg")
+				else if (o.style == "nobg")
 				{
-					/* wongi_1018 : Icon pos : no text, Icon only, no bg */
+					/* wongi_1018 : style : no text, Icon only, no bg */
 					innerClass += " ui-btn-icon-nobg";
 				}
 
