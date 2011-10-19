@@ -3,28 +3,30 @@
  */
 
 @font_size_default: 32px;	// Default unit font size
-@em_base: 1em/@font_size_default;
+@rem_base: 1rem / @font_size_default;	// Use this base!
+
+@em_base: 1em/@font_size_default;	// WARNING: Don't use em unit!	This value is to be removed.
 
 @font_family: Helvetica, Arial, sans-serif;
 
 // Font Size index
-@font_size_00:	0.5em;	/* 16px */
-@font_size_01:	0.6em;	/* 18px */
-@font_size_02:	0.6em;	/* 20px */
-@font_size_03:	0.7em;	/* 22px */
-@font_size_04:	0.8em;	/* 24px */
-@font_size_05:	0.8em;	/* 26px */
-@font_size_06:	0.9em;	/* 28px */
-@font_size_07:	1.0em;	/* 32px */
-@font_size_08:	1.125em;	/* 36px */
-@font_size_09:	1.2em;	/* 38px */
-@font_size_10:	1.3em;	/* 40px */
-@font_size_11:	1.3125em;	/* 42px */
-@font_size_12:	1.375em;	/* 44px */
-@font_size_13:	1.5em;	/* 48px */
-@font_size_14:	1.8em;	/* 58px */
-@font_size_15:	2.6em;	/* 84px */
-@font_size_16:  2.8em;  /* Header Height */
+@font_size_00:	0.5rem;	/* 16px */
+@font_size_01:	0.6rem;	/* 18px */
+@font_size_02:	0.6rem;	/* 20px */
+@font_size_03:	0.7rem;	/* 22px */
+@font_size_04:	0.8rem;	/* 24px */
+@font_size_05:	0.8rem;	/* 26px */
+@font_size_06:	0.9rem;	/* 28px */
+@font_size_07:	1.0rem;	/* 32px */
+@font_size_08:	1.125rem;	/* 36px */
+@font_size_09:	1.2rem;	/* 38px */
+@font_size_10:	1.3rem;	/* 40px */
+@font_size_11:	1.3125rem;	/* 42px */
+@font_size_12:	1.375rem;	/* 44px */
+@font_size_13:	1.5rem;	/* 48px */
+@font_size_14:	1.8rem;	/* 58px */
+@font_size_15:	2.6rem;	/* 84px */
+@font_size_16:  2.8rem;  /* Header Height */
 
 // Basic color set
 @color_bg: 				#000000;	// 0 0 0
@@ -84,19 +86,19 @@
 @color_36: #F9F9F9;        /* 249, 249, 249 */
 
 // Pixel to em index
-@linewidth_00: 0em;    	 /* 0px */
-@linewidth_01: 0.03em;   /* 1px */
-@linewidth_02: 0.06em;   /* 2px */
-@linewidth_03: 0.09em;   /* 3px */
-@linewidth_04: 0.13em;   /* 4px */
-@linewidth_05: 0.16em;   /* 5px */
-@linewidth_06: 0.19em;   /* 6px */
-@linewidth_07: 0.22em;   /* 7px */
-@linewidth_08: 0.25em;   /* 8px */
-@linewidth_09: 0.28em;   /* 9px */
-@linewidth_10:0.31em;   /* 10px */
-@linewidth_11:0.34em;   /* 11px */
-@linewidth_12:0.38em;   /* 12px */
+@linewidth_00: 0rem;    	 /* 0px */
+@linewidth_01: 0.03rem;   /* 1px */
+@linewidth_02: 0.06rem;   /* 2px */
+@linewidth_03: 0.09rem;   /* 3px */
+@linewidth_04: 0.13rem;   /* 4px */
+@linewidth_05: 0.16rem;   /* 5px */
+@linewidth_06: 0.19rem;   /* 6px */
+@linewidth_07: 0.22rem;   /* 7px */
+@linewidth_08: 0.25rem;   /* 8px */
+@linewidth_09: 0.28rem;   /* 9px */
+@linewidth_10:0.31rem;   /* 10px */
+@linewidth_11:0.34rem;   /* 11px */
+@linewidth_12:0.38rem;   /* 12px */
 
 
 // REFACTORME
@@ -224,7 +226,7 @@
 .LESSbutton_text1_style{
 	font-family: @font_family;
 	font-weight: normal;
-	font-size: 1.0em;
+	font-size: 1.0rem;
 	font-style:normal;
 	color: @buttontextcolor_normal;
 	&:hover{color: @buttontextcolor_press;}
