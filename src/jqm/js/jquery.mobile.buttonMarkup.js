@@ -80,6 +80,10 @@ $.fn.buttonMarkup = function( options ) {
 			/* wongi_1018 : style : no text, Icon only, no bg */
 			buttonClass += " ui-btn-icon-nobg";
 		}		
+		else if (o.style == "edit") /* wongi_1019 : Contact Edit style */
+		{
+			buttonClass += " ui-btn-edit";
+		}
 		
 		el.attr( "data-" + $.mobile.ns + "theme", o.theme )
 			.addClass( buttonClass );
@@ -92,6 +96,8 @@ $.fn.buttonMarkup = function( options ) {
 			if ($(el).text().length > 0)
 			{
 				(o.iconpos == "right" ? textClass += " ui-btn-text-padding-right" : textClass += " ui-btn-text-padding-left");
+				
+				innerClass += " ui-btn-hastxt";
 			}
 			else
 			{
@@ -112,9 +118,11 @@ $.fn.buttonMarkup = function( options ) {
 		}
 		else	/* Text Only */
 		{
-			/* Do nothing */
+			if ($(el).text().length > 0)
+			{
+				innerClass += " ui-btn-hastxt";
+			}
 		}
-		
 		
 		wrap = ( "<D class='" + innerClass + "' aria-hidden='true'><D class='" + textClass + "'></D>" +
 			( o.icon ? "<span class='" + iconClass + "'></span>" : "" ) +
@@ -138,10 +146,7 @@ function closestEnabledButton( element ) {
 		if ( $ele.hasClass( "ui-btn" ) && !$ele.hasClass( "ui-disabled" ) ) {
 			break;
 		}
-		/* wongi_1013 : SLP Button */
-		else if( $ele.hasClass( "ui-slp-btn" ) && !$ele.hasClass( "ui-disabled" ) ) {
-			break;
-		}
+
 		element = element.parentNode;
 	}
 	return element;
