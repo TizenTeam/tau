@@ -41,17 +41,40 @@
 	}
 }
 
-.ui-header.ui-bar-s .ui-title {
-	min-height: 1.1em; 
-	text-align: center; 
-	font-size : @font_size_08; 
-	display: block; 
-	margin: .6em 90px .8em;  
-	padding: 0;  
-	text-overflow: ellipsis; 
-	overflow: hidden; 
-	white-space: nowrap; 
-	outline: 0 !important; 
+.ui-header.ui-bar-s{
+
+	.ui-title {
+		min-height: 1.1em; 
+		text-align: center; 
+		font-size : @font_size_08; 
+		display: block; 
+		margin: .6em 90px .8em;  
+		padding: 0;  
+		text-overflow: ellipsis; 
+		overflow: hidden; 
+		white-space: nowrap; 
+		outline: 0 !important; 
+	}
+
+	.ui-btn-left{
+		height : 38px;
+		top : 28px;
+		background-color : @color_header;
+		border-color :  @color_header;
+		
+		.ui-btn-inner.ui-btn-icon-only {
+			padding : 0px 32px 38px;
+			border-top : none;
+		}
+	}
+	.ui-btn-up-s {		
+		background: @color_header;
+	}
+	.ui-btn .ui-icon {			
+		width : 48px;
+		height : 38px;
+	}	
+
 }
 
 // NOTE: This class is applied to almost all JQM widgets!
