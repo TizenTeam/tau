@@ -57,8 +57,9 @@
 				img += text;
 			}
 
-			var html = $('<div class="ui-progressing">' +
-					img + '</div>');
+			var html = $('<div class="ui-progressing-bg">' +
+					'<div class="ui-progressing">' +
+					img + '</div></div>');
 
 			$(this.element).append(html);
 

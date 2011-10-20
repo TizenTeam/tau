@@ -5,14 +5,21 @@
 @bar-vmargin: 16px;
 @bar-hmargin: 1px;
 
+.ui-progressing-bg {
+	position: relative;
+	margin-top: @bar-hmargin;
+	margin-bottom: @bar-hmargin;
+	width: 100%;
+	height: @img-height;
+}
+
 .ui-progressing {
 	position: relative;
 	margin-left: @bar-vmargin;
 	margin-right: @bar-vmargin;
-	margin-top: @bar-hmargin;
-	margin-bottom: @bar-hmargin;
 	height: @img-height;
-	width: 100%;
+	width: @img-width;
+	float: right;
 	vertical-align: middle;
 }
 
