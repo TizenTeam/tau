@@ -94,7 +94,7 @@ $.widget( "mobile.navbar", $.mobile.widget, {
 					$(".ui-page-active").find(".ui-btn-animation").addClass("ui-btn-ani-endposition");
 				}					
 				else if(style == "left" || style == "right" ){
-					var list_height = (screen.availHeight - $(document).find(".ui-page-active").find(".ui-header").height())/element_count;
+					var list_height = (window.innerHeight - $(document).find(".ui-page-active").find(".ui-header").height())/element_count;
 
 					$(".ui-page-active").find(".ui-btn-animation")
 						.css("width", "92px" ) /* Need to change guideline */
@@ -143,12 +143,12 @@ $(document).bind( "pageshow", function( e, ui ){
 				.css("width", $("#"+linkid).find('.ui-navbar').width()/element_count )
 				.css("height",$("#"+linkid).find(".ui-navbar").css("height"))
 				.css("left", 0 * $("#"+linkid).find('.ui-navbar').width()/element_count )
-				.css("top", screen.availHeight-$("#"+linkid).find(".ui-navbar").height() );
+				.css("top", window.innerHeight-$("#"+linkid).find(".ui-navbar").height() );
 		}
 		else {
 			$("#"+linkid).find(".ui-navbar").find("div")						
 				.css("width", "92px" )   /* Need to change for guideline */
-				.css("height",(screen.availHeight - $(document).find(".ui-header").height())/element_count )
+				.css("height",(window.innerHeight - $(document).find(".ui-header").height())/element_count )
 				.css("top", $(document).find(".ui-header").height() )
 				.css(style, "0px");
 		}
@@ -170,12 +170,12 @@ $(document).bind( "pagebeforeshow", function( e, ui ){
 			$("#"+linkid).find(".ui-controlbar-s").css("height", "99px"); 
 			/* Need to change guide line */
 		}
-		$("#"+linkid).find(".ui-controlbar-s").css("top",screen.availHeight - $("#"+linkid).find(".ui-controlbar-s").height());			
+		$("#"+linkid).find(".ui-controlbar-s").css("top",window.innerHeight - $("#"+linkid).find(".ui-controlbar-s").height());			
 			
 	}
 	else if(style == "left" || style == "right"){
 		var nav_Top = $(document).find(".ui-page-active").find(".ui-header").height();
-		var nav_Height = (screen.availHeight - nav_Top);
+		var nav_Height = (window.innerHeight - nav_Top);
 		var list_Height = nav_Height/element_count;		
 
 		/* list overflow prevent */

@@ -262,7 +262,7 @@ a.ui-link-inherit {
 	color: 					@color_36; /*{a-bar-color}*/
 	font-family: Helvetica, Arial, sans-serif;
 	font-weight: bold;
-	font-size : @font_size_default; /* Jinhyuk : ControlBar size modification */
+	font-size : 36 * @unit_base; /* Jinhyuk : ControlBar size modification */
 
 	/* a-bar-shadow-x, a-bar-shadow-y, a-bar-shadow-radius, a-bar-shadow-color */
 	/* no shadow : text-shadow: 0 -1px 1px #000000; */
@@ -301,41 +301,40 @@ a.ui-link-inherit {
 .ui-controlbar-s.ui-navbar {
 	position : fixed;
 	
-	height : 122px;  /* temporary value */
+	height : 122 * @unit_base;  /* temporary value */
 	width : 100%;
 	left : 0px;
 	
 	z-index: 50;
 	
 	li .ui-btn, .ui-navbar-toggle .ui-btn{
-		font-size : @font_size_02;
+		font-size : 20 * @unit_base;
 	}
 
 	.ui-btn , .ui-btn-icon-top, .ui-btn-hover-s, .ui-btn-active, .ui-btn-up-s{
 		.ui-btn-inner{
-			padding-top : 4.7em;
+			padding-top : 82 * @unit_base;
 		}			
 	} 	
 	.ui-btn {
 		.ui-icon {
 			left : 50%;
-			top : 0.9em;
+			top : 7 * @unit_base;
 			margin-left : -1.8em;
+			
+			width : 70 * @unit_base;
+			height: 70 * @unit_base;			
 		}
 		.ui-btn-text {
 			padding-left : 0px;
 		}
 	}
-	.ui-icon {
-		width : 70px;
-		height: 70px;
-	}			
 	.ui-btn-inner {
 		z-index : 200;
 	}
 	.ui-btn-inner.ui-navbar-textonly {
-		padding-top : 1.8em;
-		padding-bottom : 1.8em;		
+		padding-top : 36 * @unit_base;
+		padding-bottom : 36 * @unit_base;
 	}
 }
 
@@ -365,10 +364,13 @@ a.ui-link-inherit {
 	}
 }
 
-.ui-controlbar-left, .ui-controlbar-right {
+.ui-controlbar-left.ui-navbar, .ui-controlbar-right.ui-navbar {
 	position : fixed;						
 	z-index: 50;
 
+	li .ui-btn, .ui-navbar-toggle .ui-btn{
+		font-size : 20 * @unit_base;
+	}	
 	.ui-btn {
 		width : 100%;
 		margin :0px 0em;					
@@ -381,22 +383,18 @@ a.ui-link-inherit {
 	}
 
 	li .ui-btn, .ui-navbar-toggle .ui-btn{
-		font-size : @font_size_02;
+		font-size : 20 * @unit_base;
 	}
 	
-	.ui-btn .ui-btn-inner, .ui-btn-icon-top .ui-btn-inner, .ui-btn-hover-s .ui-btn-inner, 
-	.ui-btn-active .ui-btn-inner, .ui-btn-up-s .ui-btn-inner{
-		padding-top : 7em;
-}
-
 	.ui-btn-inner {
 		z-index : 200;
 		
+		padding-top : 126 * @unit_base;
 		.ui-icon {
 			left : 23%;
-			top : 2em;
-			width : 70px;
-			height: 70px;					
+			top : 35 * @unit_base;
+			width : 70 * @unit_base;
+			height: 70 * @unit_base;					
 		}		
 		.ui-btn-text.ui-btn-text-padding-left {
 			padding-left : 0px;
@@ -427,12 +425,6 @@ a.ui-link-inherit {
 .ui-controlbar-right {
 	right : 0px;
 	float :right;
-}
-
-.ui-controlbar-left.ui-navbar, .ui-controlbar-right.ui-navbar   {
-	li .ui-btn, .ui-navbar-toggle .ui-btn{
-		font-size : @font_size_02;
-	}
 }
 
 .ui-btn-ani-startposition {
