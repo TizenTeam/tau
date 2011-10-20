@@ -96,8 +96,4 @@
         $(e.target).find(":jqmData(role='progressbar')").progressbar();
     });
 
-    $(document).bind("pagehide", function (e) {
-        $(e.target).find(":jqmData(role='progressbar')").progressbar('reset');
-    });
-
 })(jQuery, this);

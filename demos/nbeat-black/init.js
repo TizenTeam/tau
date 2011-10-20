@@ -12,6 +12,8 @@ var progressbarAnimator = {
 			return;
 		}
 
+		progressbarToUpdate.progressbar('reset');
+
 		var interval = setInterval(function () {
 			var progress = progressbarToUpdate.progressbar('value');
 			progress++;
@@ -55,6 +57,9 @@ var progressbarAnimator = {
 
 		for (var i = 0; i < length; i++) {
 			clearInterval(this.justIntervals[i]);
+		}
+
+		for (var i = 0; i < length; i++) {
 			this.justIntervals.pop();
 		}
 
