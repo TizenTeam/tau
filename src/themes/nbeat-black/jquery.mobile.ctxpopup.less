@@ -3,29 +3,96 @@
 .ui-ctxpopup {
     position: absolute;
     z-index: 9999;
-    
-    .container {
-       position: relative; /* do not modify */
-    }
 
-    .border {
-        border-width: 16px;
+    .container {
+        position: relative; /* do not modify */
+        border-width: 16 * @em_base;
         .LESSborder-image( 'images/00_popup_bubble_bg.png', 16, 16, round );
     }
 
-    table .ui-btn {
-        margin: 8px;
-        padding: 0;
-        height: 74px;
-        width: 172px;
+    .arrow {
+        position: relative; /* do not modify */
+        width: 30 * @em_base;
+        height: 30 * @em_base;
     }
 
-    .picker {
+    .arrow-left {
+        background-image: url('images/timepicker_left_arrow.png');
+    }
+
+    .arrow-right {
+        background-image: url('images/timepicker_right_arrow.png');
+        margin-left: -10 * @em_base;
+    }
+
+    .arrow-top {
+        background-image: url('images/timepicker_top_arrow.png');
+    }
+
+    .arrow-bottom {
+        background-image: url('images/timepicker_bottom_arrow.png');
+    }   
+
+    .vlist.container {
+
+    }
+
+
+    .vlist.arrow-bottom {
+        background-image: url('images/00_popup_bubble_tail_bottom.png');
+        width: 48 * @em_base;
+        height: 30 * @em_base;
+    }
+
+    .vlist.arrow-top {
+        background-image: url('images/00_popup_bubble_tail_top.png');
+        width: 48 * @em_base;
+        height: 30 * @em_base;
+    }
+
+    .vlist.arrow-left {
+        .vlist.arrow-bottom;
+        .LESStransform( rotate( 90deg ) );
+    }
+
+    .vlist.arrow-right {
+        .vlist.arrow-top;
+        .LESStransform( rotate( 90deg ) );
+    }
+    
+    .button.container {
+        table .ui-btn {
+            margin: 8 * @em_base;
+            padding: 0;
+            height: 74 * @em_base;
+            width: 172 * @em_base;
+        }
+    }
+
+    .button.arrow-top {
+        .vlist.arrow-top;
+    }
+
+    .button.arrow-bottom {
+        .vlist.arrow-bottom;
+    }
+
+    .button.arrow-left {
+        .vlist.arrow-left;
+    }
+
+    .button.arrow-right {
+        .vlist.arrow-right;
+    }
+
+    .picker.container {
+        border-width: 0;         
         background: rgb(42,109,140);
-        height: 106px;
+        height: 106 * @em_base;
         text-align: center;
         padding: 0;
-         
+        width: 100%;
+
         ul {
             padding: 0;
             display: inline;
@@ -36,19 +103,19 @@
 
         li {
             float: left;
-            padding: 30px 8px 0 8px;
-            max-width: 100px;
-            min-width: 100px;
+            padding: 30 * @em_base 8 * @em_base 0 8 * @em_base;
+            max-width: 100 * @em_base;
+            min-width: 100 * @em_base;
+          
             a.ui-link {
                 text-decoration: none;
                 color: rgb(249,249,249);
             }
         }
-
-    }
+    }        
+    
   
-    .hlist {
-        
+    .hlist.container {
         a.ui-link {
             color: rgb(249,249,249);
             text-decoration: none;
@@ -61,156 +128,178 @@
             vertical-align: middle;
             margin: 0;
         }
-
+    
         li {
+            float: left;
             background: rgb(0,0,0);
             display: inline-block;
-            border-right: 1px solid #444444;
+            border-right: 1 * @em_base solid #444444;
             text-align: center;
-            margin-right: -9px;
-            padding: 20px;
+            padding: 20 * @em_base;
         }
-        
+            
         li:last-of-type {
             border-right: none;
             margin-right: 0;
         }             
     }
 
-    .hlist.icon {
+    .hlist.arrow-top {
+        .vlist.arrow-top;
+    }
+
+    .hlist.arrow-bottom {
+        .vlist.arrow-bottom;
+    }
+
+    .hlist.arrow-left {
+        .vlist.arrow-left;
+    }
+
+    .hlist.arrow-right {
+        .vlist.arrow-right;
+    }
+    
+
+    .icon.container {
         background: none;
-        
+        height: 118 * @em_base;
+
+        ul {
+            padding: 0;
+            list-style: none;
+            vertical-align: middle;
+            margin: 0;
+        }
+
         li:last-of-type {
             border-right: none;
         }
-
+    
         li {
             background: none;
             display: inline;
-            border-right: 1px solid rgb(71,82,87);
+            border-right: 1 * @em_base solid rgb(71,82,87);
             float: left;
             margin-right:0;
+            padding: 0;
         }
-
+    
         .ui-btn {
-            width: 64px;
-            height: 64px;
+            width: 64 * @em_base;
+            height: 64 * @em_base;
         }
-
+    
         .ui-btn-up-s {
             background: none;
         }
-  
-        .h3-list {
-            width: 163px;
-            height: 118px;
+     
+        .ico-3-list {
+            width: 163 * @em_base;
+            height: 118 * @em_base;
 
             .ui-btn {
-                left: 50px;
-                top: 27px;
+                left: 50 * @em_base;
+                top: 27 * @em_base;
             }
-        }
+         }
 
-        .h4-list {
-            width: 122px;
-            height: 118px;
+        .ico-4-list {
+            width: 122 * @em_base;
+            height: 118 * @em_base;
+    
+            .ui-btn {
+                left: 29 * @em_base;
+                top: 27 * @em_base;
+            }
+        }   
+
+        .ico-5-list {
+            width: 96 * @em_base;
+            height: 118 * @em_base;
 
             .ui-btn {
-                left: 29px;
-                top: 27px;
-            }
-        }
-
-        .h5-list {
-            width: 96px;
-            height: 118px;
-
-            .ui-btn {
-                left: 12px;
-                top: 27px;
+                left: 12 * @em_base;
+                top: 27 * @em_base;
             }
         }
     }
-
-   
-    .title-line {
-        background: rgba(0,0,0,0.6);
-        border-top-left-radius:8px;
-        border-top-right-radius:8px;
-        margin-left: -7px;
-        margin-right: -7px;
-        margin-top: -7px;
-        text-align: center;
-        padding-top: 4px;
-        line-height: 58px;
+    
+    .icon.arrow-top {
+        .vlist.arrow-top;
     }
 
-    .transparency {
-
+    .icon.arrow-bottom {
+        .vlist.arrow-bottom;
     }
 
-    .transparency ul {
-        -webkit-margin-before: 0;
-        -webkit-margin-after: 0;
-        -webkit-padding-start: 0;
-        list-style-type: none;
+    .icon.arrow-left {
+        .vlist.arrow-left;
     }
 
-    .transparency ul li {
-        line-height: 82px;
-        border-bottom: 1px solid rgb(120,120,120);
-        margin-left: -8px;
-        margin-right: -8px;
-        padding-left: 8px;
-        padding-right: 8px;
+    .icon.arrow-right {
+        .vlist.arrow-right;
     }
 
-    .transparency ul li:last-child {
-        border-bottom: none;
-    }
-
-    .transparency.border {
-        border-width: 9px;
+    .image.container {
+        border-width: 9 * @em_base;
         .LESSborder-image( 'images/popup/00_popup_bubble_bg_01.png', 9, 9, round );
+      ul {
+          margin: 0;
+          padding: 0;
+          list-style-type: none;
+       }
+
+       ul li {
+           line-height: 82 * @em_base;
+           border-bottom: 1 * @em_base solid rgb(120,120,120);
+           margin-left: -8 * @em_base;
+           margin-right: -8 * @em_base;
+           padding-left: 8 * @em_base;
+           padding-right: 8 * @em_base;
+       }
+
+       ul li:last-child {
+           border-bottom: none;
+       }
+
+       .title-line {
+           background: rgba(0,0,0,0.6);
+           border-top-left-radius:8 * @em_base;
+           border-top-right-radius:8 * @em_base;
+           margin-left: -7 * @em_base;
+           margin-right: -7 * @em_base;
+           margin-top: -7 * @em_base;
+           text-align: center;
+           padding-top: 4 * @em_base;
+           line-height: 58 * @em_base;
+       }
+    }
+    .image.arrow-left {
+       background-image: url('images/popup/00_popup_arrow_ver.png');
+       width: 26 * @em_base;
+       height: 42 * @em_base;
+       margin-left: -3 * @em_base;
     }
 
-    .arrow {
-        position: relative; /* do not modify */
-        width: 30px;
-        height: 30px;
+    .image.arrow-right {
+       .image.arrow-left;
+       .LESStransform( rotate(180deg) );
+       margin-left: -12 * @em_base;
     }
 
-    .arrow-left {
-        background-image: url('images/timepicker_left_arrow.png');
+    .image.arrow-bottom {
+       background-image: url('images/popup/00_popup_arrow_bottom.png');
+       width: 42 * @em_base;
+       height: 26 * @em_base;
+       margin-bottom: -12 * @em_base;
     }
 
-    .arrow-right {
-        background-image: url('images/timepicker_right_arrow.png');
-        margin-left: -10px;
+    .image.arrow-top {
+       .image.arrow-bottom; 
+       .LESStransform( rotate(180deg) );
+       margin-bottom: 9 * @em_base;
     }
 
-    .arrow-top {
-        background-image: url('images/timepicker_top_arrow.png');
-    }
-
-    .arrow-bottom {
-        background-image: url('images/timepicker_bottom_arrow.png');
-    }   
-
-    .transparency.arrow-left {
-        background-image: url('images/popup/00_popup_arrow_ver.png');
-        width: 26px;
-        height: 42px;
-        margin-left: -3px;
-    }
-
-    .transparency.arrow-bottom {
-        background-image: url('images/popup/00_popup_arrow_bottom.png');
-        width: 42px;
-        height: 26px;
-        margin-top: -3px;
-    }
-
+    
 }
-
-
