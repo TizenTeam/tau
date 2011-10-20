@@ -18,7 +18,7 @@
 			this.bar[this.index].height('100%');
 		},
 
-		hide: function (i) {
+		hide: function () {
 			this.bar[this.index].height('0%');
 		},
 

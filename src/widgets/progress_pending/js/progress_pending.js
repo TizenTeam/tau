@@ -18,7 +18,7 @@
 			this.bar[this.index].height('100%');
 		},
 
-		hide: function (i) {
+		hide: function () {
 			this.bar[this.index].height('0%');
 		},
 
@@ -26,7 +26,7 @@
 			this.index++;
 
 			if (this.index == 2)
-				this.index= 0;
+				this.index = 0;
 		},
 
 		start: function () {
@@ -45,10 +45,6 @@
 			this.running = false;
 		},
 
-		/*
-		 * function: loads the html divs from progressbar.prototype.html
-		 * and sets the value to the initial value specified in options
-		 */
 		_create: function () {
 			var container;
 			var html = $('<div class="ui-progress_pending">' +
