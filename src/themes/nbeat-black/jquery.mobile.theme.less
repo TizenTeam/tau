@@ -16,12 +16,12 @@
 	color: 					@color_text;
 	font-family: Helvetica, Arial, sans-serif;
 	font-weight: bold;
-	font-size : @font_size_default;
-	height : 2.82em;
+	font-size : 36 * @unit_base;
+	height : 100 * @unit_base;
 
 	border-bottom-style: solid;
 	border-bottom-color: 	@color_02; 	
-	border-bottom-width: 	0.17em;
+	border-bottom-width: 	3 * @unit_base;
 
 	/* a-bar-shadow-x, a-bar-shadow-y, a-bar-shadow-radius, a-bar-shadow-color */
 	/* no shadow : text-shadow: 0 -1px 1px #000000; */
@@ -41,15 +41,13 @@
 	}
 }
 
-.ui-header.ui-bar-s{
-	font-size : @font_size_default; 
-	
+.ui-header.ui-bar-s{ 
 	.ui-title {
-		min-height: 1.1em; 
+		min-height: 36 * @unit_base; 
 		text-align: center; 
-		font-size : @font_size_08; 
+		font-size : 36 * @unit_base; 
 		display: block; 
-		margin: .6em 90px .8em;  
+		margin: 28*@unit_base 90*@unit_base 28*@unit_base;  
 		padding: 0;  
 		text-overflow: ellipsis; 
 		overflow: hidden; 
@@ -59,18 +57,18 @@
 
 	.ui-btn-left{
 		font-size : @font_size_default;
-		width : 2.8em;
-		height : 2.8em;
+		width : 48 * @unit_base;
+		height : 38 * @unit_base;
 		top : 0px;
 		left : 0px;
 
 		.ui-btn-inner.ui-btn-icon-only {
 			padding : 0;
 			
-			width : 2.2em;
-			height : 1.2em;
-			left : 0.5em;
-			top : 0.83em;
+			width : 76 * @unit_base;
+			height : 38 * @unit_base;
+			left : 28 * @unit_base;
+			top : 30 * @unit_base;
 			 
 			border-top : none;
 			
@@ -81,11 +79,6 @@
 		
 		}
 	}
-
-	.ui-btn-down-s {
-		/* Need to change arrow color */
-	}
-	
 	.ui-btn-up-s, .ui-btn-down-s, .ui-btn-hover-s {		
 		background: @color_header;
 	}
