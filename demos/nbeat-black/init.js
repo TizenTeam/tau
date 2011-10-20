@@ -12,6 +12,8 @@ var progressbarAnimator = {
 			return;
 		}
 
+		progressbarToUpdate.progressbar('reset');
+
 		var interval = setInterval(function () {
 			var progress = progressbarToUpdate.progressbar('value');
 			progress++;
@@ -47,6 +49,27 @@ var progressbarAnimator = {
 	       this.justIntervals.push(interval);
 	},
 
+	updateProgressing: function (progressbarToUpdate, pause) {
+	       var id = progressbarToUpdate.attr('id');
+
+	       if (this.intervals[id]) {
+		       return;
+	       }
+
+	       progressbarToUpdate.progressing('start');
+
+	       var progressing_cb = function () {
+		       progressbarToUpdate.progressing('hide');
+		       progressbarToUpdate.progressing('increase');
+		       progressbarToUpdate.progressing('show');
+	       };
+
+	       var interval = setInterval(progressing_cb, pause);
+
+	       this.intervals[id] = interval;
+	       this.justIntervals.push(interval);
+       },
+
 	clearIntervals: function () {
 		var length = this.justIntervals.length;
 
@@ -55,6 +78,9 @@ var progressbarAnimator = {
 
 		for (var i = 0; i < length; i++) {
 			clearInterval(this.justIntervals[i]);
+		}
+
+		for (var i = 0; i < length; i++) {
 			this.justIntervals.pop();
 		}
 
@@ -141,7 +167,6 @@ $(document).bind("pagecreate", function () {
         $("#selected-date3").text(newDate.toString());
     });
 
-
 	$("#colorpicker-demo").bind("pagebeforeshow", function() {
 	  $("#hsvpicker").bind("colorchanged", function(e, clr) {
 		$("#colortitle").colortitle("option", "color", clr);
@@ -159,8 +184,9 @@ $(document).bind("pagecreate", function () {
 	});
 
     $('#progressbar-demo').bind('pageshow', function (e) {
-        progressbarAnimator.updateProgressBar($(this).find('#progressbar'), 200);
+        progressbarAnimator.updateProgressBar($(this).find('#progressbar'), 100);
         progressbarAnimator.updateProgressPending($(this).find('#pending'), 500);
+        progressbarAnimator.updateProgressing($(this).find('#progressing'), 50);
     });
 
     $('#progressbar-demo').bind('pagehide', function (e) {

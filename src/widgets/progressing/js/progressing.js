@@ -7,7 +7,7 @@
  */
 
 (function ($, window, undefined) {
-	$.widget("todons.progress_pending", $.mobile.widget, {
+	$.widget("todons.progressing", $.mobile.widget, {
 
 		bar: [],
 		index: 0,
@@ -25,7 +25,7 @@
 		increase: function () {
 			this.index++;
 
-			if (this.index == 2)
+			if (this.index == 30)
 				this.index = 0;
 		},
 
@@ -47,24 +47,36 @@
 
 		_create: function () {
 			var container;
-			var html = $('<div class="ui-progress_pending">' +
-					'<div class="ui-pendingImg_1"></div>' +
-					'<div class="ui-pendingImg_2"></div>' +
-					'</div>');
+			var img = '';
+
+			for (var i = 0; i < 30; i++) {
+				var text;
+
+				text = '<div class="ui-progressingImg_' + (i + 1)
+					+ '"></div>';
+				img += text;
+			}
+
+			var html = $('<div class="ui-progressing-bg">' +
+					'<div class="ui-progressing">' +
+					img + '</div></div>');
 
 			$(this.element).append(html);
 
-			container = $(this.element).find(".ui-progress_pending");
-			this.bar[0] = container.find("div.ui-pendingImg_1");
-			this.bar[1] = container.find("div.ui-pendingImg_2");
+			container = $(this.element).find(".ui-progressing");
+
+			for (var i = 0; i < 30; i++) {
+				var elm = 'div.ui-progressingImg_' + (i + 1);
+				this.bar[i] = container.find(elm);
+				this.bar[i].height('0%');
+			}
 
 			this.bar[0].height('100%');
-			this.bar[1].height('0%');
 		},
 	}); /* End of widget */
 
 	// auto self-init widgets
 	$(document).bind("pagecreate", function (e) {
-		$(e.target).find(":jqmData(role='progress_pending')").progress_pending();
+		$(e.target).find(":jqmData(role='progressing')").progressing();
 	});
 })(jQuery, this);
