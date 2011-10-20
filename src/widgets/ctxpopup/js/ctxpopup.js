@@ -147,28 +147,57 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
         default:
         case 'image':
         case 'vlist':
-        case 'button':
-            if ( this.elem.height() > this.ui.screen.height() * 2 / 3 ) {
-                this.elem.scrollview( {
-                    showScrollBars: false,
-                    direction: "y",
-                } );
-                container.height( this.ui.screen.height() * 2 / 3 );
-                containerRect.h = container.outerHeight(true);
-                container.css("overflow","hidden");
+        case 'button': {
+            var ul = this.elem.find("li");
+            var lH = 0;
+            var isScroll = false;
+            for ( var idx = 0; idx < ul.length; idx++ ) {
+                var tH = $(ul[idx]).outerHeight(true);
+                console.log( lH + "," + tH + "," + screenRect.h );
+                console.log( ( lH + tH ) + ">" + ( screenRect.h * 0.7 ) );
+                if ( lH + tH > screenRect.h * 0.7 && !isScroll ) {
+                    this.elem.scrollview( {
+                        showScrollBars: false,
+                        direction: "y",
+                    } );
+                    container.height( lH );
+                    containerRect.h = container.outerHeight(true);
+                    this.elem.height( lH );
+                    isScroll = true;
+                }
+                lH += tH;
+            }
+            
+            if ( isScroll ) {
+                this.elem.children().first().height( lH );
+            }
+            
             }
             break;
         case 'hlist':
-        case 'icon':
-            if ( this.elem.width() > this.ui.screen.width() * 2 / 3 ) {
-                this.elem.scrollview( {
-                    showScrollBars: false,
-                    direction: "x",
-                });
-                container.width( this.ui.screen.width() * 2 / 3 );
-                containerRect.w = container.outerWidth(true);
-                container.css("overflow", "hidden");
+        case 'icon': {
+            var ul = this.elem.find("li");
+            var lW = 0;
+            var isScroll = false;
+            for ( var idx = 0; idx < ul.length; idx++ ) {
+                var tW = $(ul[idx]).outerWidth(true);
+                if ( lW + tW > screenRect.w * 0.7 && !isScroll ) {
+                    this.elem.scrollview( {
+                        showScrollBars: false,
+                        direction: "x",
+                    } );
+                    container.width( lW );
+                    containerRect.w = container.outerWidth(true);
+                    this.elem.width( lW );
+                    isScroll = true;
+                }
+                lW += tW;
             }
+            
+            if ( isScroll ) {
+                this.elem.children().first().width( lW );
+            }
+        }
             break;
         case 'picker': //already processed - never reach code.
 
