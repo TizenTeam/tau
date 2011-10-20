@@ -9,76 +9,72 @@ function SLPRect( x, y, w, h ) {
 
 $.widget( "todons.ctxpopup", $.mobile.widget, {
     options: {
-        horizontal: false,
         title: undefined,
-        transparency: false,
-        icon: false,
-        verticalPriority: [ 'left', 'right', 'up', 'down'],
-        horizontalPriority: [ 'up', 'down', 'left', 'right'],
+        supportedStyle: [ 'vlist', 'hlist', 'image', 'image-title', 'icon', 'button', 'picker' ],
+        style: 'vlist',
+        horizontalPriority: [ 'up', 'down', 'left', 'right' ],
         directionPriority: [ 'left', 'right', 'up', 'down'],
-        maxWidth: 720,
-        minWidth: 100,
-        maxHeight: 1280,
-        minHeight: 100,
-        picker: false,
-        scroll: false,
         initSelector: ":jqmData(role='ctxpopup')",
     },
-        
+    
+    getSupportedStyle: function() {
+        return this.options.supportedStyle;
+    },
+
+    setDirectionPriority: function( priority ) {
+        this.options.directionPriority = priority;
+    },
+
     _setTheme: function() {
-        this.ui.container.addClass( "border" );
-
-        if ( this.options.transparency ) {
-            this.ui.container.addClass( "transparency" );
-            this.ui.arrow.addClass( "transparency" );
-        }
         
-        if ( this.options.icon ) {
-            this.ui.container.addClass( "icon" );
-        }
-
-        if ( this.options.picker ) {
-            this.ui.container.addClass( "picker" );
-            this.ui.container.removeClass( "border" );
+        switch (this.options.style) {
+        case 'vlist':
+            this.ui.container.addClass("vlist");       
+            this.ui.arrow.addClass("vlist");
+        break;
+        case 'hlist':
+            this.ui.container.addClass("hlist");
+            this.ui.arrow.addClass("hlist");
             this.options.directionPriority = this.options.horizontalPriority;
-            this.ui.container.css("width", "100%");
-        }
-
-        if ( this.options.horizontal ) {
+        break;
+        case 'image': // 'image-title' also use this
+            this.ui.container.addClass("image");
+            this.ui.arrow.addClass("image");
+        break;
+        case 'icon':
+            this.ui.container.addClass("icon");
+            this.ui.arrow.addClass("icon");
             this.options.directionPriority = this.options.horizontalPriority;
-            this.ui.container.addClass( "hlist" );
-            
             /* 
-             * followings are nbeat theme depdency.
+             * followings are highly dependent to nbeat-theme.
              * need to find other way 
              */
-            if ( this.options.icon ) {
             var div = this.ui.container.find( "li" );
             switch ( div.length ) {
+            case 0:
+            case 1:
+            case 2:
             case 3:
-                div.addClass( "h3-list" );
+                div.addClass( "ico-3-list" );
             break;
             case 4:
-                div.addClass( "h4-list" );
+                div.addClass( "ico-4-list" );
             break;
             default:
-                if ( div.length > 4 ) {
-                    div.addClass( "h5-list" );
-
-//                  this.options.scroll = true;
-//                  var w = this.elem.width();
-//                  var scroll = this.ui.container.scrollview( {
-//                      direction: "x",
-//                      showScrollBars: false,
-//                  });
-//                  
-//                  scroll.width(div.outerWidth(true) * 5);
-//                  this.elem.width(w);
-//                  console.log(scroll);
-                }
+                div.addClass( "ico-5-list" );
             break;
-            } 
             }
+        break;
+        case 'picker':
+            this.ui.container.addClass("picker");
+            this.ui.arrow.addClass("picker");
+            this.options.directionPriority = this.options.horizontalPriority;
+        break;
+        case 'button':
+            this.ui.container.addClass("button");
+            this.ui.arrow.addClass("button");
+            this.options.directionPriority = this.options.horizontalPriority;
+        break;
         }
 
     },
@@ -93,7 +89,6 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
         var ui = $(this.ui),
             box = $(this.ui.box),
             arrow = $(this.ui.arrow),
-//          owner = $(this.owner),
             container = $(this.ui.container);
         
         var arrowRect = new SLPRect(
@@ -104,10 +99,6 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
                                 0, 0, 
                                 container.outerWidth( true ),
                                 container.outerHeight( true )),
-//          ownerOffset = owner.offset(),
-//          ownerRect = new SLPRect( ownerOffset.x, ownerOffset.y,
-//                              owner.innerWidth(true),
-//                              owner.innerHeight(true)),
             screenRect = new SLPRect( 
                                 window.pageXOffset,
                                 window.pageYOffset,
@@ -116,34 +107,14 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
         this.ui.screen
             .height( $(document).height() )
             .removeClass( "ui-screen-hidden" );
-
-        if ( this.options.maxWidth < containerRect.w ) { 
-            containerRect.w = this.options.maxWidth;
-            container.width( containerRect.w );
-            //@TODO ADD SCROLL HERE
-        }
-        if ( this.options.minWidth > containerRect.w ) {
-            containerRect.w = this.options.minWidth;
-            container.width( containerRect.w );
-        }
-        if ( this.options.maxHeight < containerRect.h ) {
-            containerRect.h = this.options.maxHeight;
-            container.height( containerRect.h );
-        }
-        if ( this.options.minHeight > containerRect.h ) {
-            containerRect.h = this.options.minHeight;
-            container.height( containerRect.h );
-        }
         
         /* XXX: NEED TO REFACTOR THIS */
-        if ( this.options.picker ) {
+        if ( this.options.style == "picker" ) {
             container.scrollview( {
                 direction: "x",
                 showScrollBars: false,
             });
             
-            this.options.scroll = true;
-
             var itemWidth = container.find("li").outerWidth();
             
             this.elem.width( itemWidth * container.find("li").length );
@@ -171,6 +142,32 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
            return;
         }
 
+        // set box size
+        switch (this.options.style) {
+        default:
+        case 'image':
+        case 'vlist':
+        case 'button':
+            if ( this.elem.height() > container.height() ) {
+                this.elem.scrollview( {
+                    showScrollBars: false,
+                    direction: "y",
+                } );
+            }
+            break;
+        case 'hlist':
+        case 'icon':
+            if ( this.elem.width() > container.width() ) {
+                this.elem.scrollview( {
+                    showScrollBars: false,
+                    direction: "x",
+                });
+            }
+            break;
+        case 'picker': //already processed - never reach code.
+
+            break;
+        }
 
         // get entire box location and direction
 
@@ -352,22 +349,36 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
             owner: owner
         });
         
-        var picker = $(elem).attr( "data-picker" );
-        this.options.picker = ( picker == "true" || picker == "True" );
-
-        var icon = $(elem).attr("data-icon");
-        this.options.icon = ( icon == "true" || icon == "True" );
-
-        var horizontal = $(elem).attr( "data-horizontal" );
-        this.options.horizontal = ( horizontal == "true" || horizontal == "True" );
-        var transparency = $(elem).attr( "data-transparency" );
-        this.options.transparency = ( transparency == "true" || transparency == "True" );
-        var title = $(elem).attr( "data-title" );
-        if (title) {
-            this.options.title = title;
-            if ( this.options.transparency ) {
-                this.ui.container.prepend( '<div class="title-line">' + this.options.title + '</div>' );
-            }
+        var style = $(elem).attr("data-style");
+        switch (style) {
+        case 'picker':
+            this.options.style = 'picker';
+        break;
+        case 'vlist':
+            this.options.style = 'vlist';
+        break;
+        case 'hlist':
+            this.options.style = 'hlist';
+        break;
+        case 'image':
+            this.options.style = 'image';
+        break;
+        case 'image-title':
+            this.options.style = 'image';
+            this.ui.container.prepend( 
+                '<div class="title-line">' + 
+                $(elem).attr( "title" ) + 
+                '</div');
+        break;
+        case 'button':
+            this.options.style = 'button';
+        break;
+        case 'icon':
+            this.options.style = 'icon';
+        break;
+        default:
+            this.options.style = 'vlist';
+        break;
         }
 
    },
