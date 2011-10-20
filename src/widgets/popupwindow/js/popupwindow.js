@@ -146,6 +146,9 @@ $.widget( "todons.popupwindow", $.mobile.widget, {
 				 .wrapAll( "<div class='popup-text-left'></div>" );
 			popup.find( ":jqmData(role='text-right')" )
 				 .wrapAll( "<div class='popup-text-right'></div>" );
+
+			popup.find( ":jqmData(role='progress-bg')" )
+				 .wrapAll( "<div class='popup-progress-bg'></div>" );
 /*
 			break;
 		//case "newStyle":

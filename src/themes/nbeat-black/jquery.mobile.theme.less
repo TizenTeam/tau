@@ -303,42 +303,46 @@ a.ui-link-inherit {
 		color: @color_36; /*{a-bar-color}*/	
 		background: @color_02; /*{a-bar-background-color}*/
 	}
-	
-
 }
 
-.ui-controlbar-s {
-	.ui-navbar {
-		li .ui-btn, .ui-navbar-toggle .ui-btn{
-			font-size : @font_size_02;
-		}
+.ui-controlbar-s.ui-navbar {
+	position : fixed;
+	
+	height : 122px;  /* temporary value */
+	width : 100%;
+	left : 0px;
+	
+	z-index: 50;
+	
+	li .ui-btn, .ui-navbar-toggle .ui-btn{
+		font-size : @font_size_02;
+	}
 
-		.ui-btn , .ui-btn-icon-top, .ui-btn-hover-s, .ui-btn-active, .ui-btn-up-s{
-			.ui-btn-inner{
-				padding-top : 4.7em;
-			}			
-		} 	
-		.ui-btn {
-			.ui-icon {
-				left : 50%;
-				top : 0.5em;
-				margin-left : -1.8em;
-			}
-			.ui-btn-text {
-				padding-left : 0;
-			}
-		}
-		.ui-icon {
-			width : 70px;
-			height: 70px;
+	.ui-btn , .ui-btn-icon-top, .ui-btn-hover-s, .ui-btn-active, .ui-btn-up-s{
+		.ui-btn-inner{
+			padding-top : 4.7em;
 		}			
-		.ui-btn-inner {
-			z-index : 20;
+	} 	
+	.ui-btn {
+		.ui-icon {
+			left : 50%;
+			top : 0.9em;
+			margin-left : -1.8em;
 		}
-		.ui-btn-inner.ui-navbar-textonly {
-			padding-top : 1.8em;
-			padding-bottom : 1.8em;		
+		.ui-btn-text {
+			padding-left : 0px;
 		}
+	}
+	.ui-icon {
+		width : 70px;
+		height: 70px;
+	}			
+	.ui-btn-inner {
+		z-index : 200;
+	}
+	.ui-btn-inner.ui-navbar-textonly {
+		padding-top : 1.8em;
+		padding-bottom : 1.8em;		
 	}
 }
 
@@ -358,7 +362,7 @@ a.ui-link-inherit {
 		
 		position : fixed;
 		top : 0px;
-		z-index : 10;		
+		z-index : 100;		
 	}	
 }
 
@@ -370,18 +374,13 @@ a.ui-link-inherit {
 
 .ui-controlbar-left, .ui-controlbar-right {
 	position : fixed;						
-	z-index: 5;
+	z-index: 50;
 
 	.ui-btn {
 		width : 100%;
 		margin :0px 0em;					
 
-		background: @footercolor;
-		
-		.ui-btn-inner .ui-btn-text {
-			padding-left : 0;
-		}	
-	
+		background: @footercolor;	
 	}
 		
 	.ui-btn-down-s,  .ui-btn-active{
@@ -394,19 +393,21 @@ a.ui-link-inherit {
 	
 	.ui-btn .ui-btn-inner, .ui-btn-icon-top .ui-btn-inner, .ui-btn-hover-s .ui-btn-inner, 
 	.ui-btn-active .ui-btn-inner, .ui-btn-up-s .ui-btn-inner{
-		padding-top : 90px;
-	} 	
+		padding-top : 7em;
+}
 
-	.ui-btn .ui-icon {
-		left : 23%;
-	}
-	.ui-icon {
-		width : 70px;
-		height: 70px;
-	}
-	
 	.ui-btn-inner {
-		z-index : 20;
+		z-index : 200;
+		
+		.ui-icon {
+			left : 23%;
+			top : 2em;
+			width : 70px;
+			height: 70px;					
+		}		
+		.ui-btn-text.ui-btn-text-padding-left {
+			padding-left : 0px;
+		}
 	}
 			
 	.ui-btn-animation {
@@ -420,7 +421,7 @@ a.ui-link-inherit {
 		border-bottom-width: 	1px;				
 		border-top-width: 1px;
 
-		z-index : 10;		
+		z-index : 100;		
 	}	
 }
 

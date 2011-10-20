@@ -12,9 +12,9 @@ var progressbarAnimator = {
 			return;
 		}
 
-		var interval = setInterval(function () {
-			var now = (new Date()).getTime();
+		progressbarToUpdate.progressbar('reset');
 
+		var interval = setInterval(function () {
 			var progress = progressbarToUpdate.progressbar('value');
 			progress++;
 
@@ -26,7 +26,7 @@ var progressbarAnimator = {
 
 		this.intervals[id] = interval;
 		this.justIntervals.push(interval);
-	   },
+	},
 
 	updateProgressPending: function (progressbarToUpdate, pause) {
 	       var id = progressbarToUpdate.attr('id');
@@ -47,12 +47,20 @@ var progressbarAnimator = {
 
 	       this.intervals[id] = interval;
 	       this.justIntervals.push(interval);
-       },
-
+	},
 
 	clearIntervals: function () {
-		for (var i = 0; i < this.justIntervals.length; i++) {
+		var length = this.justIntervals.length;
+
+		if (!length)
+			return;
+
+		for (var i = 0; i < length; i++) {
 			clearInterval(this.justIntervals[i]);
+		}
+
+		for (var i = 0; i < length; i++) {
+			this.justIntervals.pop();
 		}
 
 		this.intervals = {};
@@ -171,7 +179,14 @@ $(document).bind("pagecreate", function () {
       $('#popupwindow-demo-transition-' + $("#popupContent2").popupwindow("option", "transition"))
         .attr("checked", "true")
         .checkboxradio("refresh");
+
+        progressbarAnimator.updateProgressBar($(this).find('#progressbar'), 200);
     });
+
+    $('#popupwindow-demo').bind('pagehide', function (e) {
+        progressbarAnimator.clearIntervals();
+    });
+
     $('input[name=popupwindow-demo-transition-choice]').bind("change", function(e) {
       $("#popupContent2").popupwindow("option", "transition", $(this).attr("id").split("-").pop());
     });

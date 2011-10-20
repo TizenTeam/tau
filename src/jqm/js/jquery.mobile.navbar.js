@@ -47,19 +47,17 @@ $.widget( "mobile.navbar", $.mobile.widget, {
 
 		if( style === "tabbar" )
 		{
-			footer = this.element.closest( ":jqmData(role='footer')" );
-			footer.removeClass( "ui-toolbar-" + $.mobile.listview.prototype.options.theme  );
-			footer.removeClass( "ui-bar-" + $.mobile.listview.prototype.options.theme  );
-			footer.addClass( "ui-controlbar-" + $.mobile.listview.prototype.options.theme  );
-			footer.addClass( "ui-tabbar-" + $.mobile.listview.prototype.options.theme  );	
+			this.element.removeClass( "ui-toolbar-" + $.mobile.listview.prototype.options.theme  );
+			this.element.removeClass( "ui-bar-" + $.mobile.listview.prototype.options.theme  );
+			this.element.addClass( "ui-controlbar-" + $.mobile.listview.prototype.options.theme  );
+			this.element.addClass( "ui-tabbar-" + $.mobile.listview.prototype.options.theme  );	
 		}
 		else if( style === "toolbar" )
 		{
-			footer = this.element.closest( ":jqmData(role='footer')" );
-			footer.removeClass( "ui-tabbar-" + $.mobile.listview.prototype.options.theme  );
-			footer.removeClass( "ui-bar-" + $.mobile.listview.prototype.options.theme  );
-			footer.addClass( "ui-controlbar-" + $.mobile.listview.prototype.options.theme  );	
-			footer.addClass( "ui-toolbar-" + $.mobile.listview.prototype.options.theme  );			
+			this.element.removeClass( "ui-tabbar-" + $.mobile.listview.prototype.options.theme  );
+			this.element.removeClass( "ui-bar-" + $.mobile.listview.prototype.options.theme  );
+			this.element.addClass( "ui-controlbar-" + $.mobile.listview.prototype.options.theme  );	
+			this.element.addClass( "ui-toolbar-" + $.mobile.listview.prototype.options.theme  );			
 		}		
 		else  /* Style left or right */
 		{
@@ -83,10 +81,8 @@ $.widget( "mobile.navbar", $.mobile.widget, {
 					$(".ui-page-active").find(".ui-btn-animation")
 						.css("width", list_width )
 						.css("height","123px" )
-						.css("top", "0px")
+						.css("bottom", "0px")
 						.css("left", Nextlist_index *list_width );
-					$(".ui-btn-active").children().css("z-index", "20");
-	
 
 					$(".ui-btn-ani-startposition").css("-webkit-transform","translateX("+Prevlist_index *list_width+")");
 					$(".ui-page-active").find(".ui-btn-animation").addClass("ui-btn-ani-startposition");
@@ -98,10 +94,10 @@ $.widget( "mobile.navbar", $.mobile.widget, {
 					$(".ui-page-active").find(".ui-btn-animation").addClass("ui-btn-ani-endposition");
 				}					
 				else if(style == "left" || style == "right" ){
-					var list_height = $(".ui-page-active").find('.ui-navbar').height()/element_count;
+					var list_height = (screen.availHeight - $(document).find(".ui-page-active").find(".ui-header").height())/element_count;
 
 					$(".ui-page-active").find(".ui-btn-animation")
-						.css("width", "92px" )
+						.css("width", "92px" ) /* Need to change guideline */
 						.css("height",list_height )
 						.css("top", Nextlist_index *list_height + $(document).find(".ui-page-active").find(".ui-header").height() )
 						.css(style, "0px");
@@ -145,14 +141,14 @@ $(document).bind( "pageshow", function( e, ui ){
 		if(style =="tabbar"){		
 			$("#"+linkid).find(".ui-navbar").find("div")						
 				.css("width", $("#"+linkid).find('.ui-navbar').width()/element_count )
-				.css("height","123px" )
+				.css("height",$("#"+linkid).find(".ui-navbar").css("height"))
 				.css("left", 0 * $("#"+linkid).find('.ui-navbar').width()/element_count )
-				.css("top", "0px");
+				.css("top", screen.availHeight-$("#"+linkid).find(".ui-navbar").height() );
 		}
 		else {
 			$("#"+linkid).find(".ui-navbar").find("div")						
-				.css("width", "92px" )
-				.css("height",$("#"+linkid).find('.ui-navbar').height()/element_count )
+				.css("width", "92px" )   /* Need to change for guideline */
+				.css("height",(screen.availHeight - $(document).find(".ui-header").height())/element_count )
 				.css("top", $(document).find(".ui-header").height() )
 				.css(style, "0px");
 		}
@@ -169,12 +165,17 @@ $(document).bind( "pagebeforeshow", function( e, ui ){
 	
 	if(style == "toolbar" || style == "tabbar")
 	{
-		if(!(navbar_filter.find(".ui-btn-inner").children().is(".ui-icon")))
+		if(!(navbar_filter.find(".ui-btn-inner").children().is(".ui-icon"))){
 			navbar_filter.find(".ui-btn-inner").addClass("ui-navbar-textonly");
+			$("#"+linkid).find(".ui-controlbar-s").css("height", "99px"); 
+			/* Need to change guide line */
+		}
+		$("#"+linkid).find(".ui-controlbar-s").css("top",screen.availHeight - $("#"+linkid).find(".ui-controlbar-s").height());			
+			
 	}
 	else if(style == "left" || style == "right"){
 		var nav_Top = $(document).find(".ui-page-active").find(".ui-header").height();
-		var nav_Height = ($(document).find(".ui-page-active").height() - nav_Top);
+		var nav_Height = (screen.availHeight - nav_Top);
 		var list_Height = nav_Height/element_count;		
 
 		/* list overflow prevent */
