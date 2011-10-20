@@ -26,7 +26,6 @@
 (function ($, window, undefined) {
     $.widget("todons.progressbar", $.mobile.widget, {
         options: {
-            value: 0,
             max: 100
         },
 
@@ -68,7 +67,7 @@
          * and sets the value to the initial value specified in options
          */
         _create: function () {
-            var startValue, container;
+            var container;
             var html = $('<div class="ui-progressbar">' +
                          '<div class="ui-boxImg"></div>' +
                          '<div class="ui-barImg"></div>' +
@@ -80,14 +79,25 @@
             this.box = container.find("div.ui-boxImg");
             this.bar = container.find("div.ui-barImg");
 
-            startValue = this.options.value ? this.options.value : 0;
-            this.value(startValue);
+            this.value(0);
         },
+
+	reset: function () {
+		this.oldValue = 0;
+		this.currentValue = 0;
+		this.delta = 0;
+		this.bar.width('0%');
+	},
+
     }); /* End of widget */
 
     // auto self-init widgets
     $(document).bind("pagecreate", function (e) {
         $(e.target).find(":jqmData(role='progressbar')").progressbar();
+    });
+
+    $(document).bind("pagehide", function (e) {
+        $(e.target).find(":jqmData(role='progressbar')").progressbar('reset');
     });
 
 })(jQuery, this);
