@@ -171,6 +171,8 @@ $(document).bind("pagecreate", function () {
       $('#popupwindow-demo-transition-' + $("#popupContent2").popupwindow("option", "transition"))
         .attr("checked", "true")
         .checkboxradio("refresh");
+
+        progressbarAnimator.updateProgressBar($(this).find('#progressbar'), 200);
     });
     $('input[name=popupwindow-demo-transition-choice]').bind("change", function(e) {
       $("#popupContent2").popupwindow("option", "transition", $(this).attr("id").split("-").pop());
