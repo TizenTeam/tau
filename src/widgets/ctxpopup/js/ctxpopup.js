@@ -148,20 +148,26 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
         case 'image':
         case 'vlist':
         case 'button':
-            if ( this.elem.height() > container.height() ) {
+            if ( this.elem.height() > this.ui.screen.height() * 2 / 3 ) {
                 this.elem.scrollview( {
                     showScrollBars: false,
                     direction: "y",
                 } );
+                container.height( this.ui.screen.height() * 2 / 3 );
+                containerRect.h = container.outerHeight(true);
+                container.css("overflow","hidden");
             }
             break;
         case 'hlist':
         case 'icon':
-            if ( this.elem.width() > container.width() ) {
+            if ( this.elem.width() > this.ui.screen.width() * 2 / 3 ) {
                 this.elem.scrollview( {
                     showScrollBars: false,
                     direction: "x",
                 });
+                container.width( this.ui.screen.width() * 2 / 3 );
+                containerRect.w = container.outerWidth(true);
+                container.css("overflow", "hidden");
             }
             break;
         case 'picker': //already processed - never reach code.
