@@ -1,51 +1,3 @@
-// tracks progressbar update intervals to ensure each is not
-// added more than once to any single progress bar
-var progressbarAnimator = {
-	intervals: {},
-	justIntervals: [], // retained to make it easier to clear the intervals
-
-	// pause: pause in ms between updates
-	updateProgressBar: function (progressbarToUpdate, pause) {
-		var id = progressbarToUpdate.attr('id');
-
-		if (this.intervals[id]) {
-			return;
-		}
-
-		progressbarToUpdate.progressbar('reset');
-
-		var interval = setInterval(function () {
-			var progress = progressbarToUpdate.progressbar('value');
-			progress++;
-
-			if (progress > 100) {
-				progress = 0;
-			}
-			progressbarToUpdate.progressbar('value', progress);
-		}, pause);
-
-		this.intervals[id] = interval;
-		this.justIntervals.push(interval);
-	},
-
-	clearIntervals: function () {
-		var length = this.justIntervals.length;
-
-		if (!length)
-			return;
-
-		for (var i = 0; i < length; i++) {
-			clearInterval(this.justIntervals[i]);
-		}
-
-		for (var i = 0; i < length; i++) {
-			this.justIntervals.pop();
-		}
-
-		this.intervals = {};
-	}
-};
-
 $(document).bind("pagecreate", function () {
     $('#spinner-demo').bind('pageshow', function (e) {
         $(this).find('li').each(function (index, element) {
@@ -142,13 +94,15 @@ $(document).bind("pagecreate", function () {
 	});
 
 	$('#progressbar-demo').bind('pageshow', function (e) {
-		progressbarAnimator.updateProgressBar($(this).find('#progressbar'), 100);
+		$(this).find('#progressbar').progressbar('start');
 		$(this).find('#pending').progress_pending('start');
 		$(this).find('#progressing').progressing('start');
 	});
 
 	$('#progressbar-demo').bind('pagehide', function (e) {
-		progressbarAnimator.clearIntervals();
+		$(this).find('#progressbar').progressbar('stop');
+		$(this).find('#pending').progress_pending('stop');
+		$(this).find('#progressing').progressing('stop');
 	});
 
     $('#groupindex-demo').bind('pageshow', function () {
@@ -159,11 +113,7 @@ $(document).bind("pagecreate", function () {
         .attr("checked", "true")
         .checkboxradio("refresh");
 
-        progressbarAnimator.updateProgressBar($(this).find('#progressbar'), 200);
-    });
-
-    $('#popupwindow-demo').bind('pagehide', function (e) {
-        progressbarAnimator.clearIntervals();
+	$(this).find('#progressbar').progressbar('start');
     });
 
     $('input[name=popupwindow-demo-transition-choice]').bind("change", function(e) {

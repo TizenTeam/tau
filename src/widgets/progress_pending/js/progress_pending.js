@@ -9,17 +9,16 @@
 (function ($, window, undefined) {
 	$.widget("todons.progress_pending", $.mobile.widget, {
 
-		bar: null,
 		running: false,
-		height: 0,
 
 		_show: function () {
-			this.bar.height(this.height);
+			this.html_hide.detach();
+			$(this.element).append(this.html);
 		},
 
 		_hide: function () {
-			this.height = this.bar.height();
-			this.bar.height(0);
+			this.html.detach();
+			$(this.element).append(this.html_hide);
 		},
 
 		start: function () {
@@ -41,17 +40,12 @@
 		},
 
 		_create: function () {
-			var container;
-			var html = $('<div class="ui-pending">' +
+			this.html = $('<div class="ui-pending">' +
 					'<div class="ui-pending-bar"></div>' +
 					'</div>');
-
-			$(this.element).append(html);
-
-			container = $(this.element).find(".ui-pending");
-			this.bar = container.find("div.ui-pending-bar");
-
-			this.height = this.bar.height();
+			this.html_hide = $('<div class="ui-pending">' +
+					'<div class="ui-pending-bar-stop"></div>' +
+					'</div>');
 		},
 	}); /* End of widget */
 
