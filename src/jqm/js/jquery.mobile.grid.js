@@ -11,9 +11,9 @@ $.fn.grid = function( options ) {
 	return this.each(function() {
 
 
-		if($(this).closest(":jqmData(role='navbar')").is(":jqmData(style='left')") ||
-		  $(this).closest(":jqmData(role='navbar')").is(":jqmData(style='right')") ){
-			var navPage = $(this).closest( ".ui-content" );
+		if($(this).parents(":jqmData(role='navbar')").is(":jqmData(style='left')") ||
+		  $(this).parents(":jqmData(role='navbar')").is(":jqmData(style='right')") ){
+			var navPage = $(this).parents( ".ui-content" );
 			navPage.css('padding', '0');
 
 		}
