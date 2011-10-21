@@ -227,21 +227,29 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
             break;
         }
 
-        if( idx > priority.length - 1 ) {
-            alert( "Can\'t open popup: (Out of space)" );
-            isOpen = false;
-            return;
-        }
-         
-        this._alignContainerArrow( priority[idx], 
-            container, arrow, 
-            containerRect, arrowRect, boxRect, 
-            x_where, y_where );
+        if( idx < priority.length ) { // normaly located
+            this._alignContainerArrow( priority[idx], 
+                container, arrow, 
+                containerRect, arrowRect, boxRect, 
+                x_where, y_where );
 
+            arrowRect.applyTo( arrow );
+
+        } else { // can't locate position. bring to center of screen 
+            boxRect.w = containerRect.w; // remove tail
+            boxRect.h = containerRect.h; 
+            boxRect.x = x_where - boxRect.w / 2 + screenRect.x;
+            boxRect.y = y_where - boxRect.h / 2 + screenRect.y;
+           
+            arrow.addClass("ui-selectmenu-hidden");
+            this._arrowReset = function(arrow) {
+                arrow.removeClass("ui-selectmenu-hidden");
+            }
+        }
+ 
         box.removeClass( "ui-selectmenu-hidden" );
-        boxRect.applyTo( box ); 
+        boxRect.applyTo( box );
         containerRect.applyTo( container );
-        arrowRect.applyTo( arrow );
     },
 
     _checkHScroll: function( ul, container, containerRect, screenWidth ) {
