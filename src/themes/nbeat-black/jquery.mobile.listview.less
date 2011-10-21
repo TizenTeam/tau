@@ -20,6 +20,8 @@
 @list-li-divider-height: 32 * @unit_base;
 @list-li-padding-horizontal: 16 * @unit_base;
 
+@list-bigicon-size: 80 * @unit_base;
+
 // Bubble
 @list-li-bubble-font-size: 38 * @unit_base;
 @list-li-bubble-time-font-size: 26 * @unit_base;
@@ -318,6 +320,7 @@ ol.ui-listview {
 // =======================
 // nbeat-black normal list
 // =======================
+
 .LESSli-reset-position(@height: @list-li-height) {
 	margin: 0;
 	padding: 0 16*@unit_base;
@@ -388,6 +391,21 @@ ol.ui-listview {
 		*/
 	}
 }
+.LESSimg-bigicon() {
+	img {
+		width: @list-bigicon-size;
+		height: @list-bigicon-size;
+	}
+}
+.LESSimg-bigicon-left(@left:16*@unit_base) {
+	.LESSimg-bigicon;
+	img {
+		position: absolute;
+		top: 50%;
+		margin-top: -(@list-bigicon-size/2);
+		left: @left;
+	}
+}
 
 ul.ui-listview {
 	&> li.ui-li-3-1-1,
@@ -426,6 +444,13 @@ ul.ui-listview {
 	&> li.ui-li-3-2-10,
 	&> li.ui-li-3-2-11 {
 		.LESStext-sub-setting;
+	}
+	&> li.ui-li-3-2-13 {
+		.LESSli-reset-position;
+		.LESStext-main-2line(2 * @list-li-padding-horizontal + @list-bigicon-size, 10*@unit_base);
+		.LESStext-sub-2line-left(2 * @list-li-padding-horizontal + @list-bigicon-size, 70*@unit_base);
+		.LESScheckbox-right;
+		.LESSimg-bigicon-left;
 	}
 }
 
