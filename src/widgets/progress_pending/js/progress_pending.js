@@ -9,24 +9,17 @@
 (function ($, window, undefined) {
 	$.widget("todons.progress_pending", $.mobile.widget, {
 
-		bar: [],
-		index: 0,
-		interval: 0,
+		bar: null,
 		running: false,
+		height: 0,
 
-		show: function () {
-			this.bar[this.index].height('100%');
+		_show: function () {
+			this.bar.height(this.height);
 		},
 
-		hide: function () {
-			this.bar[this.index].height('0%');
-		},
-
-		increase: function () {
-			this.index++;
-
-			if (this.index == 2)
-				this.index = 0;
+		_hide: function () {
+			this.height = this.bar.height();
+			this.bar.height(0);
 		},
 
 		start: function () {
@@ -35,6 +28,7 @@
 			}
 
 			this.running = true;
+			this._show();
 		},
 
 		stop: function () {
@@ -43,23 +37,21 @@
 			}
 
 			this.running = false;
+			this._hide();
 		},
 
 		_create: function () {
 			var container;
-			var html = $('<div class="ui-progress_pending">' +
-					'<div class="ui-pendingImg_1"></div>' +
-					'<div class="ui-pendingImg_2"></div>' +
+			var html = $('<div class="ui-pending">' +
+					'<div class="ui-pending-bar"></div>' +
 					'</div>');
 
 			$(this.element).append(html);
 
-			container = $(this.element).find(".ui-progress_pending");
-			this.bar[0] = container.find("div.ui-pendingImg_1");
-			this.bar[1] = container.find("div.ui-pendingImg_2");
+			container = $(this.element).find(".ui-pending");
+			this.bar = container.find("div.ui-pending-bar");
 
-			this.bar[0].height('100%');
-			this.bar[1].height('0%');
+			this.height = this.bar.height();
 		},
 	}); /* End of widget */
 

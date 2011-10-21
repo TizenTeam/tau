@@ -28,27 +28,6 @@ var progressbarAnimator = {
 		this.justIntervals.push(interval);
 	},
 
-	updateProgressPending: function (progressbarToUpdate, pause) {
-	       var id = progressbarToUpdate.attr('id');
-
-	       if (this.intervals[id]) {
-		       return;
-	       }
-
-	       progressbarToUpdate.progress_pending('start');
-
-	       var pending_cb = function () {
-		       progressbarToUpdate.progress_pending('hide');
-		       progressbarToUpdate.progress_pending('increase');
-		       progressbarToUpdate.progress_pending('show');
-	       };
-
-	       var interval = setInterval(pending_cb, pause);
-
-	       this.intervals[id] = interval;
-	       this.justIntervals.push(interval);
-	},
-
 	clearIntervals: function () {
 		var length = this.justIntervals.length;
 
@@ -164,7 +143,7 @@ $(document).bind("pagecreate", function () {
 
 	$('#progressbar-demo').bind('pageshow', function (e) {
 		progressbarAnimator.updateProgressBar($(this).find('#progressbar'), 100);
-		progressbarAnimator.updateProgressPending($(this).find('#pending'), 500);
+		$(this).find('#pending').progress_pending('start');
 		$(this).find('#progressing').progressing('start');
 	});
 

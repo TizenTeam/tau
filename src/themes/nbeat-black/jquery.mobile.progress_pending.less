@@ -2,22 +2,55 @@
 
 @bar-height: 16px;
 @bar-margin: 16px;
+@bar-color0: rgb(55, 55, 55);
+@bar-color1: rgb(42, 109, 140);
 
-.ui-progress_pending {
+@-webkit-keyframes ui-move-animation {
+	from {
+		-webkit-transform: translateY(-@bar-height * 2);
+	} to {
+		-webkit-transform: translateY(0);
+	}
+}
+
+.ui-pending {
 	position: relative;
 	margin-left: @bar-margin;
 	margin-right: @bar-margin;
 	height: @bar-height;
+	overflow: hidden;
 }
 
-.ui-pendingImg_1,
-.ui-pendingImg_2 {
+.ui-pending-bar {
 	position: relative;
 	top: 0;
-	background: url(images/00_winset_progress_pending_01.png) no-repeat;
 	width: 100%;
-}
+	height: @bar-height * 3;
+	padding-top: 0;
+	padding-bottom: 0;
 
-.ui-pendingImg_2 {
-	background: url(images/00_winset_progress_pending_02.png) no-repeat;
+	background: -webkit-linear-gradient(-45deg,
+				transparent,
+				transparent 25%,
+				@bar-color1 25%,
+				@bar-color1 50%,
+				transparent 50%,
+				transparent 75%,
+				@bar-color1 75%);
+
+	background: -webkit-gradient(linear,
+				left top,
+				right bottom,
+				color-stop(0%,  rgba(0,0,0,0)),
+				color-stop(25%, rgba(0,0,0,0)),
+				color-stop(25%, @bar-color1),
+				color-stop(50%, @bar-color1),
+				color-stop(50%, rgba(0,0,0,0)),
+				color-stop(75%, rgba(0,0,0,0)),
+				color-stop(75%, @bar-color1));
+
+	background-color: @bar-color0;
+
+	-webkit-background-size: @bar-height * 2 @bar-height * 2;
+	-webkit-animation: ui-move-animation 0.5s infinite linear;
 }

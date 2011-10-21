@@ -14,7 +14,6 @@ CSS_SRCS=	jquery.mobile.theme.less.css \
 		jquery.mobile.navbar.css \
 		jquery.mobile.button.less.css \
 		jquery.mobile.collapsible.css \
-		jquery.mobile.controlgroup.css \
 		jquery.mobile.dialog.css \
 		jquery.mobile.forms.checkboxradio.less.css \
 		jquery.mobile.forms.fieldcontain.css \

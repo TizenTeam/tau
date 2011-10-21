@@ -370,6 +370,13 @@ ol.ui-listview {
 	}
 }
 
+.LESSbtn-main() {
+	.ui-li-btn-main {
+		float: right; 
+		top: 50%;
+	}
+}
+
 ul.ui-listview {
 	&> li.ui-li-3-1-1,
 	&> li.ui-li-3-1-2,
@@ -379,6 +386,10 @@ ul.ui-listview {
 	}
 	&> li.ui-li-3-1-3 {
 		.LESStext-sub-setting;
+	}
+	&> li.ui-li-3-1-4 {
+		.LESStext-main-1line;
+		.LESSbtn-main;
 	}
 
 	// === 2 line ===
@@ -395,8 +406,6 @@ ul.ui-listview {
 		.LESStext-main-2line(@list-li-padding-horizontal, 58*@unit_base);
 		.LESStext-sub-2line-left(@list-li-padding-horizontal, 10*@unit_base);
 	}
-	
-
 }
 
 // =========
