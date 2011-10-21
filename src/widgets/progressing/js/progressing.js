@@ -9,24 +9,17 @@
 (function ($, window, undefined) {
 	$.widget("todons.progressing", $.mobile.widget, {
 
-		bar: [],
-		index: 0,
-		interval: 0,
+		bar: null,
 		running: false,
+		height: 0,
 
-		show: function () {
-			this.bar[this.index].height('100%');
+		_show: function () {
+			this.bar.height(this.height);
 		},
 
-		hide: function () {
-			this.bar[this.index].height('0%');
-		},
-
-		increase: function () {
-			this.index++;
-
-			if (this.index == 30)
-				this.index = 0;
+		_hide: function () {
+			this.height = this.bar.height;
+			this.bar.height(0);
 		},
 
 		start: function () {
@@ -35,6 +28,7 @@
 			}
 
 			this.running = true;
+			this._show();
 		},
 
 		stop: function () {
@@ -43,35 +37,23 @@
 			}
 
 			this.running = false;
+			this._hide();
 		},
 
 		_create: function () {
 			var container;
-			var img = '';
 
-			for (var i = 0; i < 30; i++) {
-				var text;
-
-				text = '<div class="ui-progressingImg_' + (i + 1)
-					+ '"></div>';
-				img += text;
-			}
-
-			var html = $('<div class="ui-progressing-bg">' +
-					'<div class="ui-progressing">' +
-					img + '</div></div>');
+			 var html = $('<div class="ui-progressing-bg">' +
+					 '<div class="ui-progressing">' +
+					 '<div class="ui-progressingImg"></div>' +
+					 '</div></div>');
 
 			$(this.element).append(html);
 
 			container = $(this.element).find(".ui-progressing");
+			this.bar = container.find(".ui-progressingImg");
 
-			for (var i = 0; i < 30; i++) {
-				var elm = 'div.ui-progressingImg_' + (i + 1);
-				this.bar[i] = container.find(elm);
-				this.bar[i].height('0%');
-			}
-
-			this.bar[0].height('100%');
+			this.height = this.bar.height;
 		},
 	}); /* End of widget */
 
