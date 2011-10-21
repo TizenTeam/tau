@@ -67,10 +67,13 @@ $.mobile.fixedToolbars = (function() {
 		// callbacks for the plugin will fire off a show when the scrolling has stopped.
 		if ( !autoHideMode && currentstate === "overlay" ) {
 			if ( !delayTimer ) {
-				$.mobile.fixedToolbars.hide( true );
+				/* Fixed header modify for theme-s : Jinhyuk */
+				if(!($( event.target).find( ":jqmData(role='header')" ).is(".ui-header-fixed")&&
+				$( event.target).find( ":jqmData(role='header')" ).is(".ui-bar-s")))				
+					$.mobile.fixedToolbars.hide( true );
 			}
 
-			$.mobile.fixedToolbars.startShowTimer();
+			$.mobile.fixedToolbars.startShowTimer(); 
 		}
 	}
 
@@ -110,31 +113,40 @@ $.mobile.fixedToolbars = (function() {
 
 		( ( $document.scrollTop() === 0 ) ? $window : $document )
 			.bind( "scrollstart", function( event ) {
-
-				scrollTriggered = true;
-
-				if ( stateBefore === null ) {
-					stateBefore = currentstate;
-				}
-
-				// We only enter autoHideMode if the headers/footers are in
-				// an overlay state or the show timer was started. If the
-				// show timer is set, clear it so the headers/footers don't
-				// show up until after we're done scrolling.
-				var isOverlayState = stateBefore == "overlay";
-
-				autoHideMode = isOverlayState || !!delayTimer;
-
-				if ( autoHideMode ) {
-					$.mobile.fixedToolbars.clearShowTimer();
-
-					if ( isOverlayState ) {
-						$.mobile.fixedToolbars.hide( true );
+				/* Fixed header modify for theme-s : Jinhyuk */
+				if(!($( event.target).find( ":jqmData(role='header')" ).is(".ui-header-fixed") &&
+					$( event.target).find( ":jqmData(role='header')" ).is(".ui-bar-s"))){
+					scrollTriggered = true;
+	
+					if ( stateBefore === null ) {
+						stateBefore = currentstate;
 					}
+	
+					// We only enter autoHideMode if the headers/footers are in
+					// an overlay state or the show timer was started. If the
+					// show timer is set, clear it so the headers/footers don't
+					// show up until after we're done scrolling.
+					var isOverlayState = stateBefore == "overlay";
+	
+					autoHideMode = isOverlayState || !!delayTimer;
+	
+					if ( autoHideMode ) {
+						$.mobile.fixedToolbars.clearShowTimer();
+	
+						if ( isOverlayState ) {
+							if(!($( event.target).find( ":jqmData(role='header')" ).is(".ui-header-fixed") &&
+							$( event.target).find( ":jqmData(role='header')" ).is(".ui-bar-s")))							
+								$.mobile.fixedToolbars.hide( true );
+							else
+							$( event.target ).find( ":jqmData(role='header')" )
+								.css("position", "fixed")
+								.css("top", "0px");															
+						}
+					}	 		
 				}
 			})
-			.bind( "scrollstop", function( event ) {
 
+			.bind( "scrollstop", function( event ) {
 				if ( $( event.target ).closest( ignoreTargets ).length ) {
 					return;
 				}
@@ -153,34 +165,57 @@ $.mobile.fixedToolbars = (function() {
 
 	// 1. Before page is shown, check for duplicate footer
 	// 2. After page is shown, append footer to new page
-	$( ".ui-page" )
+	$( ".ui-page" )  /* Fixed header modify for theme-s : Jinhyuk */
 		.live( "pagebeforeshow", function( event, ui ) {
-
-			var page = $( event.target ),
+			if(($( event.target ).find( ":jqmData(role='header')" ).is(".ui-header-fixed")&&
+			$( event.target ).find( ":jqmData(role='header')" ).is(".ui-bar-s"))){
+				$( event.target ).find( ":jqmData(role='header')" )
+					.css("position", "fixed")
+					.css("top", "0px");
+				$( event.target ).find(".ui-content")
+					.css("position", "relative")
+					.css("top", $( event.target ).find( ":jqmData(role='header')" ).height());
+			}	
+			else{
+				var page = $( event.target ),
 				footer = page.find( ":jqmData(role='footer')" ),
 				id = footer.data( "id" ),
 				prevPage = ui.prevPage,
 				prevFooter = prevPage && prevPage.find( ":jqmData(role='footer')" ),
 				prevFooterMatches = prevFooter.length && prevFooter.jqmData( "id" ) === id;
 
-			if ( id && prevFooterMatches ) {
-				stickyFooter = footer;
-				setTop( stickyFooter.removeClass( "fade in out" ).appendTo( $.mobile.pageContainer ) );
-			}
+				if ( id && prevFooterMatches ) {
+					stickyFooter = footer;
+					setTop( stickyFooter.removeClass( "fade in out" ).appendTo( $.mobile.pageContainer ) );
+				}				
+			}		
 		})
 		.live( "pageshow", function( event, ui ) {
-
-			var $this = $( this );
-
-			if ( stickyFooter && stickyFooter.length ) {
-
-				setTimeout(function() {
-					setTop( stickyFooter.appendTo( $this ).addClass( "fade" ) );
-					stickyFooter = null;
-				}, 500);
+			/* Fixed header modify for theme-s : Jinhyuk */
+			if(($( event.target ).find( ":jqmData(role='header')" ).is(".ui-header-fixed")&&
+			$( event.target ).find( ":jqmData(role='header')" ).is(".ui-bar-s"))){	
+				 (( $( document ).scrollTop() === 0 ) ? $( window ) : $( document ) )
+					.unbind( "scrollstart")
+					.unbind( "silentscroll")
+					.unbind( "scrollstop");
+				$( event.target ).find( ":jqmData(role='header')" )
+					.css("position", "fixed")
+					.css("top", "0px");
 			}
+			else{
+				var $this = $( this );
 
-			$.mobile.fixedToolbars.show( true, this );
+				if ( stickyFooter && stickyFooter.length ) {
+	
+					setTimeout(function() {
+						setTop( stickyFooter.appendTo( $this ).addClass( "fade" ) );
+						stickyFooter = null;
+					}, 500);
+				}
+
+				$.mobile.fixedToolbars.show( true, this );					
+			}
+				
 		});
 
 	// When a collapsiable is hidden or shown we need to trigger the fixed toolbar to reposition itself (#1635)
@@ -218,30 +253,34 @@ $.mobile.fixedToolbars = (function() {
 	}
 
 	function setTop( el ) {
-		var fromTop = $(window).scrollTop(),
-			thisTop = getOffsetTop( el[ 0 ] ), // el.offset().top returns the wrong value on iPad iOS 3.2.1, call our workaround instead.
-			thisCSStop = el.css( "top" ) == "auto" ? 0 : parseFloat(el.css( "top" )),
-			screenHeight = window.innerHeight,
-			thisHeight = el.outerHeight(),
-			useRelative = el.parents( ".ui-page:not(.ui-page-fullscreen)" ).length,
-			relval;
-
-		if ( el.is( ".ui-header-fixed" ) ) {
-
-			relval = fromTop - thisTop + thisCSStop;
-
-			if ( relval < thisTop ) {
-				relval = 0;
+		if(!(el.parents(".ui-page").find( ":jqmData(role='header')" ).is(".ui-header-fixed")&&
+		el.parents(".ui-page").find( ":jqmData(role='header')" ).is(".ui-bar-s"))){				
+			var fromTop = $(window).scrollTop(),
+				thisTop = getOffsetTop( el[ 0 ] ), // el.offset().top returns the wrong value on iPad iOS 3.2.1, call our workaround instead.
+				thisCSStop = el.css( "top" ) == "auto" ? 0 : parseFloat(el.css( "top" )),
+				screenHeight = window.innerHeight,
+				thisHeight = el.outerHeight(),
+				useRelative = el.parents( ".ui-page:not(.ui-page-fullscreen)" ).length,
+				relval;
+	
+			if ( el.is( ".ui-header-fixed" ) ) {
+	
+				relval = fromTop - thisTop + thisCSStop;
+	
+				if ( relval < thisTop ) {
+					relval = 0;
+				}
+	
+				return el.css( "top", useRelative ? relval : fromTop );
+			} else {
+				// relval = -1 * (thisTop - (fromTop + screenHeight) + thisCSStop + thisHeight);
+				// if ( relval > thisTop ) { relval = 0; }
+				relval = fromTop + screenHeight - thisHeight - (thisTop - thisCSStop );
+	
+				return el.css( "top", useRelative ? relval : fromTop + screenHeight - thisHeight );
 			}
-
-			return el.css( "top", useRelative ? relval : fromTop );
-		} else {
-			// relval = -1 * (thisTop - (fromTop + screenHeight) + thisCSStop + thisHeight);
-			// if ( relval > thisTop ) { relval = 0; }
-			relval = fromTop + screenHeight - thisHeight - (thisTop - thisCSStop );
-
-			return el.css( "top", useRelative ? relval : fromTop + screenHeight - thisHeight );
 		}
+
 	}
 
 	// Exposed methods
