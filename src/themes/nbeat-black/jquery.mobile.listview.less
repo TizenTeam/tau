@@ -369,11 +369,23 @@ ol.ui-listview {
 		//margin-top: -0.5em;
 	}
 }
-
 .LESSbtn-main() {
 	.ui-li-btn-main {
 		float: right; 
 		top: 50%;
+	}
+}
+.LESScheckbox-right() {	// NOTE: This can be changed according to checkbox implementation!
+	&> .ui-checkbox.onoff {
+		position: absolute;
+		left: auto;
+		right: 60*@unit_base;
+		top: 50%;
+		margin-top: -1.1em;
+		/*
+		float: right;
+		margin-right: @list-li-padding-horizontal;
+		*/
 	}
 }
 
@@ -397,17 +409,20 @@ ul.ui-listview {
 	&> li.ui-li-3-2-1,
 	&> li.ui-li-3-2-4,
 	&> li.ui-li-3-2-5,
-	&> li.ui-li-3-2-9 {
+	&> li.ui-li-3-2-9,
+	&> li.ui-li-3-2-10 {
 		.LESSli-reset-position;
 		.LESStext-main-2line;
 		.LESStext-sub-2line-left;
+		.LESScheckbox-right;
 	}
 	&> li.ui-li-3-2-2 {
 		.LESSli-reset-position;
 		.LESStext-main-2line(@list-li-padding-horizontal, 58*@unit_base);
 		.LESStext-sub-2line-left(@list-li-padding-horizontal, 10*@unit_base);
 	}
-	&> li.ui-li-3-2-9 {
+	&> li.ui-li-3-2-9,
+	&> li.ui-li-3-2-10 {
 		.LESStext-sub-setting;
 	}
 }
