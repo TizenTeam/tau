@@ -50,6 +50,11 @@ $.fn.buttonMarkup = function( options ) {
 			if ( o.iconshadow ) {
 				iconClass += " ui-icon-shadow";
 			}
+			
+			if ($(el).text().length == 0) /* No text */
+			{
+				buttonClass += " ui-btn-icon_only";
+			}
 		}
 
 		if ( o.iconpos ) {
@@ -74,11 +79,13 @@ $.fn.buttonMarkup = function( options ) {
 		{
 			/* wongi_1018 : style : no text, Icon only */
 			buttonClass += " ui-btn-corner-circle";
+			buttonClass += " ui-btn-icon_only";
 		}
 		else if (o.style == "nobg")
 		{
 			/* wongi_1018 : style : no text, Icon only, no bg */
 			buttonClass += " ui-btn-icon-nobg";
+			buttonClass += " ui-btn-icon_only";
 		}		
 		else if (o.style == "edit") /* wongi_1019 : Contact Edit style */
 		{
