@@ -32,7 +32,7 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
         this.options.directionPriority = priority;
     },
 
-    _setTheme: function() {
+    _initStyle: function() {
         
         switch (this.options.style) {
         case 'vlist':
@@ -91,7 +91,7 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
 
         this.isOpen = true;
         
-        this._setTheme();
+        this._initStyle();
 
         var ui = $(this.ui),
             box = $(this.ui.box),
