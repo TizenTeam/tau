@@ -68,6 +68,14 @@
 	text-align: left;  
 }
 .ui-li {
+	.ui-btn {
+		// NOTE: position(:absolute), right(:16px) is defined in jquery.mobile.button.less
+		//       Have to cross-check with Wongi!
+		
+		// vertical center
+		top: 50%;
+		margin-top: -0.7em;	// TODO: guessed value. Fix this with Wongi.
+	}
 	.ui-btn-text { 
 		position: relative; 
 		z-index: 1; 
@@ -310,6 +318,12 @@ ol.ui-listview {
 // =======================
 // nbeat-black normal list
 // =======================
+.LESSli-reset-position(@height: @list-li-height) {
+	margin: 0;
+	padding: 0 16*@unit_base;
+	height: @height;
+	min-height: @height;
+}
 .LESStext-main-1line(@left:0px) {
 	.ui-li-text-main {
 		font-size: @list-font-size-main;
@@ -324,14 +338,35 @@ ol.ui-listview {
 		text-align: right; 
 		font-size: @list-font-size-sub; 
 		color: @color_text_sub;
-		// Vertical center
 		top: 50%;
-		margin-top: .5em;
+		margin-top: -0.5em;
 	}
 }
 .LESStext-sub-setting() {
 	.ui-li-text-sub {
 		color: @color_text_setting;
+	}
+}
+
+.LESStext-main-2line(@left:@list-li-padding-horizontal, @top: 10*@unit_base) {
+	.ui-li-text-main {
+		position: absolute;
+		font-size: @list-font-size-main;
+		line-height: @list-font-size-main;
+		left: @left;
+		top: @top;
+		//margin-top: -0.5em;
+	}
+}
+.LESStext-sub-2line-left(@left:@list-li-padding-horizontal, @top: 70*@unit_base) {
+	.ui-li-text-sub {
+		position: absolute;
+		font-size: @list-font-size-sub; 
+		line-height: @list-font-size-sub;
+		color: @color_text_sub;
+		left: @left;
+		top: @top;
+		//margin-top: -0.5em;
 	}
 }
 
@@ -342,10 +377,26 @@ ul.ui-listview {
 		.LESStext-main-1line;
 		.LESStext-sub-1line;
 	}
-
 	&> li.ui-li-3-1-3 {
 		.LESStext-sub-setting;
 	}
+
+	// === 2 line ===
+	// text align
+	&> li.ui-li-3-2-1,
+	&> li.ui-li-3-2-4,
+	&> li.ui-li-3-2-5 {
+		.LESSli-reset-position;
+		.LESStext-main-2line;
+		.LESStext-sub-2line-left;
+	}
+	&> li.ui-li-3-2-2 {
+		.LESSli-reset-position;
+		.LESStext-main-2line(@list-li-padding-horizontal, 58*@unit_base);
+		.LESStext-sub-2line-left(@list-li-padding-horizontal, 10*@unit_base);
+	}
+	
+
 }
 
 // =========
