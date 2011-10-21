@@ -18,7 +18,7 @@
 		},
 
 		_hide: function () {
-			this.height = this.bar.height;
+			this.height = this.bar.height();
 			this.bar.height(0);
 		},
 
@@ -51,7 +51,7 @@
 			container = $(this.element).find(".ui-pending");
 			this.bar = container.find("div.ui-pending-bar");
 
-			this.height = this.bar.height;
+			this.height = this.bar.height();
 		},
 	}); /* End of widget */
 

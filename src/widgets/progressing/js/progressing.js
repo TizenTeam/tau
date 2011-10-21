@@ -18,7 +18,7 @@
 		},
 
 		_hide: function () {
-			this.height = this.bar.height;
+			this.height = this.bar.height();
 			this.bar.height(0);
 		},
 
@@ -53,7 +53,7 @@
 			container = $(this.element).find(".ui-progressing");
 			this.bar = container.find(".ui-progressingImg");
 
-			this.height = this.bar.height;
+			this.height = this.bar.height();
 		},
 	}); /* End of widget */
 
