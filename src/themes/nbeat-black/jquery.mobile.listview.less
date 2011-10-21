@@ -396,7 +396,8 @@ ul.ui-listview {
 	// text align
 	&> li.ui-li-3-2-1,
 	&> li.ui-li-3-2-4,
-	&> li.ui-li-3-2-5 {
+	&> li.ui-li-3-2-5,
+	&> li.ui-li-3-2-9 {
 		.LESSli-reset-position;
 		.LESStext-main-2line;
 		.LESStext-sub-2line-left;
@@ -405,6 +406,9 @@ ul.ui-listview {
 		.LESSli-reset-position;
 		.LESStext-main-2line(@list-li-padding-horizontal, 58*@unit_base);
 		.LESStext-sub-2line-left(@list-li-padding-horizontal, 10*@unit_base);
+	}
+	&> li.ui-li-3-2-9 {
+		.LESStext-sub-setting;
 	}
 }
 
