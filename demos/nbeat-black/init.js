@@ -49,27 +49,6 @@ var progressbarAnimator = {
 	       this.justIntervals.push(interval);
 	},
 
-	updateProgressing: function (progressbarToUpdate, pause) {
-	       var id = progressbarToUpdate.attr('id');
-
-	       if (this.intervals[id]) {
-		       return;
-	       }
-
-	       progressbarToUpdate.progressing('start');
-
-	       var progressing_cb = function () {
-		       progressbarToUpdate.progressing('hide');
-		       progressbarToUpdate.progressing('increase');
-		       progressbarToUpdate.progressing('show');
-	       };
-
-	       var interval = setInterval(progressing_cb, pause);
-
-	       this.intervals[id] = interval;
-	       this.justIntervals.push(interval);
-       },
-
 	clearIntervals: function () {
 		var length = this.justIntervals.length;
 
@@ -183,15 +162,15 @@ $(document).bind("pagecreate", function () {
 	  $("#colortitle").colortitle("option", "color", "#54a12d");
 	});
 
-    $('#progressbar-demo').bind('pageshow', function (e) {
-        progressbarAnimator.updateProgressBar($(this).find('#progressbar'), 100);
-        progressbarAnimator.updateProgressPending($(this).find('#pending'), 500);
-        progressbarAnimator.updateProgressing($(this).find('#progressing'), 50);
-    });
+	$('#progressbar-demo').bind('pageshow', function (e) {
+		progressbarAnimator.updateProgressBar($(this).find('#progressbar'), 100);
+		progressbarAnimator.updateProgressPending($(this).find('#pending'), 500);
+		$(this).find('#progressing').progressing('start');
+	});
 
-    $('#progressbar-demo').bind('pagehide', function (e) {
-        progressbarAnimator.clearIntervals();
-    });
+	$('#progressbar-demo').bind('pagehide', function (e) {
+		progressbarAnimator.clearIntervals();
+	});
 
     $('#groupindex-demo').bind('pageshow', function () {
         $('#groupindex').scrolllistview();
