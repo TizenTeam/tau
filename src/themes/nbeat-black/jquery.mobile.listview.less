@@ -392,14 +392,15 @@ ol.ui-listview {
 	}
 }
 .LESSimg-bigicon() {
-	img {
+	img.ui-li-bigicon {
 		width: @list-bigicon-size;
 		height: @list-bigicon-size;
 	}
 }
 .LESSimg-bigicon-left(@left:16*@unit_base) {
 	.LESSimg-bigicon;
-	img {
+	img.ui-li-bigicon {
+		display: block;
 		position: absolute;
 		top: 50%;
 		margin-top: -(@list-bigicon-size/2);
@@ -445,7 +446,8 @@ ul.ui-listview {
 	&> li.ui-li-3-2-11 {
 		.LESStext-sub-setting;
 	}
-	&> li.ui-li-3-2-13 {
+	&> li.ui-li-3-2-13,
+	&> li.ui-li-3-2-17 {
 		.LESSli-reset-position;
 		.LESStext-main-2line(2 * @list-li-padding-horizontal + @list-bigicon-size, 10*@unit_base);
 		.LESStext-sub-2line-left(2 * @list-li-padding-horizontal + @list-bigicon-size, 70*@unit_base);
