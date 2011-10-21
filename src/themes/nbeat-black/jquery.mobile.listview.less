@@ -9,22 +9,22 @@
 @import "config.less";
 
 // Basic
-@list-main-font-size:	44 * @em_base;
-@list-sub-font-size:	32 * @em_base;
-@list-divider-font-size: 28 * @em_base;	// NOTE: defined in dialogue group
+@list-font-size-main:	44 * @unit_base;
+@list-font-size-sub:	32 * @unit_base;
+@list-font-size-divider: 28 * @unit_base;	// NOTE: defined in dialogue group
 
 @list-font-weight:		normal;
 
-@list-li-height: 112 * @em_base;
-@list-li-padding-horizontal: 16 * @em_base;
-@list-li-divider-height: 32 * @em_base;
-@list-li-padding-horizontal: 16 * @em_base;
+@list-li-height: 112 * @unit_base;
+@list-li-padding-horizontal: 16 * @unit_base;
+@list-li-divider-height: 32 * @unit_base;
+@list-li-padding-horizontal: 16 * @unit_base;
 
 // Bubble
-@list-li-bubble-font-size: 38 * @em_base;
-@list-li-bubble-time-font-size: 26 * @em_base;
+@list-li-bubble-font-size: 38 * @unit_base;
+@list-li-bubble-time-font-size: 26 * @unit_base;
 @list-li-bubble-date-font-size: @list-li-bubble-time-font-size;
-@list-li-bubble-corner-radius: 9 * @em_base;	// TODO: fit to 9px (picked from bg images)
+@list-li-bubble-corner-radius: 9 * @unit_base;	// TODO: fit to 9px (picked from bg images)
 
 /************************/
 
@@ -36,10 +36,16 @@
 	li.ui-btn-up-s > .ui-li > .ui-btn-text > a.ui-link-inherit,
 	li.ui-btn-hover-s > .ui-li > .ui-btn-text > a.ui-link-inherit,
 	li.ui-btn-down-s > .ui-li > .ui-btn-text > a.ui-link-inherit {
-		font-size: @list-main-font-size;
+		font-size: @list-font-size-main;
 	}
-
+	
+	&> .ui-li { 
+		// list item separator line
+		border-bottom-width: 1px; 
+		border-bottom-style: solid; 
+	}
 }
+
 .ui-content {
 	.ui-listview { 
 		margin: -15px; 
@@ -53,12 +59,8 @@
 	list-style:none; 
 	padding:0; 
 }
-.ui-listview > .ui-li { 
-	// list item separator line
-	border-bottom-width: 1px; 
-	border-bottom-style: solid; 
-}
-.ui-li, .ui-li.ui-field-contain { 
+.ui-li, 
+.ui-li.ui-field-contain { 
 	display: block; 
 	margin:0; 
 	position: relative; 
@@ -95,18 +97,18 @@
 .ui-li-divider, 
 .ui-li-static {  
 	font-weight: @list-font-weight;  
+	padding: 0px @list-li-padding-horizontal;
 }
 .ui-li-static { 
-	font-size: @list-main-font-size;  
-	padding: .773em 16px;
+	font-size: @list-font-size-main;  
 }
 .ui-li-divider { 
 	counter-reset: listnumbering;  
-	font-size: @list-divider-font-size;
+	font-size: @list-font-size-divider;
 	// text align: bottom
-	padding: @list-divider-font-size @list-li-padding-horizontal 0  @list-li-padding-horizontal;
+	padding-top: @list-font-size-divider;
 	&.ui-bar-s {
-		height : @list-divider-font-size;
+		height : @list-font-size-divider;
 	}
 }
 
@@ -300,11 +302,55 @@ ol.ui-listview {
 .ui-li-sub-setting { 
 	float: right; 
 	text-align: right; 
-	font-size: @list-sub-font-size; 
+	font-size: @list-font-size-sub; 
 	margin: .3em 0; 
 }
 
+
+// =======================
+// nbeat-black normal list
+// =======================
+.LESStext-main-1line(@left:0px) {
+	.ui-li-text-main {
+		font-size: @list-font-size-main;
+		top: 50%;
+		left: @left;
+		margin-top: -0.5em;
+	}
+}
+.LESStext-sub-1line() {
+	.ui-li-text-sub {
+		float: right; 
+		text-align: right; 
+		font-size: @list-font-size-sub; 
+		color: @color_text_sub;
+		// Vertical center
+		top: 50%;
+		margin-top: .5em;
+	}
+}
+.LESStext-sub-setting() {
+	.ui-li-text-sub {
+		color: @color_text_setting;
+	}
+}
+
+ul.ui-listview {
+	&> li.ui-li-3-1-1,
+	&> li.ui-li-3-1-2,
+	&> li.ui-li-3-1-3 {
+		.LESStext-main-1line;
+		.LESStext-sub-1line;
+	}
+
+	&> li.ui-li-3-1-3 {
+		.LESStext-sub-setting;
+	}
+}
+
+// =========
 // bubble li
+// =========
 .ui-listview {
 	.ui-li-bubble-left {
 		word-wrap: break-word;
