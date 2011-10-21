@@ -9,17 +9,16 @@
 (function ($, window, undefined) {
 	$.widget("todons.progressing", $.mobile.widget, {
 
-		bar: null,
 		running: false,
-		height: 0,
 
 		_show: function () {
-			this.bar.height(this.height);
+			this.html_hide.detach();
+			$(this.element).append(this.html);
 		},
 
 		_hide: function () {
-			this.height = this.bar.height();
-			this.bar.height(0);
+			this.html.detach();
+			$(this.element).append(this.html_hide);
 		},
 
 		start: function () {
@@ -41,19 +40,14 @@
 		},
 
 		_create: function () {
-			var container;
-
-			 var html = $('<div class="ui-progressing-bg">' +
+			this.html = $('<div class="ui-progressing-bg">' +
 					 '<div class="ui-progressing">' +
 					 '<div class="ui-progressingImg"></div>' +
 					 '</div></div>');
-
-			$(this.element).append(html);
-
-			container = $(this.element).find(".ui-progressing");
-			this.bar = container.find(".ui-progressingImg");
-
-			this.height = this.bar.height();
+			this.html_hide = $('<div class="ui-progressing-bg">' +
+					 '<div class="ui-progressing">' +
+					 '<div class="ui-progressingImg-stop"></div>' +
+					 '</div></div>');
 		},
 	}); /* End of widget */
 
