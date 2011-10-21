@@ -3,6 +3,11 @@ function SLPRect( x, y, w, h ) {
         this.y = y || 0;
         this.w = w || 0;
         this.h = h || 0;
+
+        this.applyTo = function( target ) {
+            target.css( "left", this.x );
+            target.css( "top", this.y );
+        }
 }
 
 (function( $, undefined ) {
@@ -12,6 +17,8 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
         title: undefined,
         supportedStyle: [ 'vlist', 'hlist', 'image', 'image-title', 'icon', 'button', 'picker' ],
         style: 'vlist',
+        vscrollPoint: 0.7,
+        hscrollPoint: 0.7,
         horizontalPriority: [ 'up', 'down', 'left', 'right' ],
         directionPriority: [ 'left', 'right', 'up', 'down'],
         initSelector: ":jqmData(role='ctxpopup')",
@@ -78,7 +85,7 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
         }
 
     },
-
+ 
     pop: function(x_where, y_where) {
         if ( this.isOpen ) return;
 
@@ -91,7 +98,8 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
             arrow = $(this.ui.arrow),
             container = $(this.ui.container);
         
-        var arrowRect = new SLPRect(
+        var boxRect = new SLPRect(),
+            arrowRect = new SLPRect(
                                 0, 0, 
                                 arrow.outerWidth( true ),
                                 arrow.outerWidth( true )),
@@ -124,6 +132,7 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
             
             // top
             if ( y_where + containerRect.h + arrowRect.h < screenRect.h ) {
+                
                 box.css( "top", y_where + screenRect.y );
                 box.css( "left", 0 );
 
@@ -142,62 +151,18 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
            return;
         }
 
+        var ul = this.elem.find("li"); 
         // set box size
         switch (this.options.style) {
         default:
         case 'image':
         case 'vlist':
-        case 'button': {
-            var ul = this.elem.find("li");
-            var lH = 0;
-            var isScroll = false;
-            for ( var idx = 0; idx < ul.length; idx++ ) {
-                var tH = $(ul[idx]).outerHeight(true);
-                console.log( lH + "," + tH + "," + screenRect.h );
-                console.log( ( lH + tH ) + ">" + ( screenRect.h * 0.7 ) );
-                if ( lH + tH > screenRect.h * 0.7 && !isScroll ) {
-                    this.elem.scrollview( {
-                        showScrollBars: false,
-                        direction: "y",
-                    } );
-                    container.height( lH );
-                    containerRect.h = container.outerHeight(true);
-                    this.elem.height( lH );
-                    isScroll = true;
-                }
-                lH += tH;
-            }
-            
-            if ( isScroll ) {
-                this.elem.children().first().height( lH );
-            }
-            
-            }
+        case 'button': 
+            this._checkVScroll( ul, container, containerRect, screenRect.h );
             break;
         case 'hlist':
-        case 'icon': {
-            var ul = this.elem.find("li");
-            var lW = 0;
-            var isScroll = false;
-            for ( var idx = 0; idx < ul.length; idx++ ) {
-                var tW = $(ul[idx]).outerWidth(true);
-                if ( lW + tW > screenRect.w * 0.7 && !isScroll ) {
-                    this.elem.scrollview( {
-                        showScrollBars: false,
-                        direction: "x",
-                    } );
-                    container.width( lW );
-                    containerRect.w = container.outerWidth(true);
-                    this.elem.width( lW );
-                    isScroll = true;
-                }
-                lW += tW;
-            }
-            
-            if ( isScroll ) {
-                this.elem.children().first().width( lW );
-            }
-        }
+        case 'icon': 
+            this._checkHScroll( ul, container, containerRect, screenRect.w );
             break;
         case 'picker': //already processed - never reach code.
 
@@ -205,68 +170,56 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
         }
 
         // get entire box location and direction
-
-        var tX, tY, tW, tH, idx;
+        var idx;
         var priority = this.options.directionPriority;
         for ( idx = 0; idx < 4; idx++ ) {
             switch ( priority[ idx ] ) {
             case 'up':
-                tW = containerRect.w;
-                tH = containerRect.h + arrowRect.h;
-                tX = x_where - tW / 2 + screenRect.x;
-                tY = y_where + screenRect.y;
-                if ( tY + tH > screenRect.y + screenRect.h )
-                    continue;
-                while ( tX + tW > screenRect.x + screenRect.w ) {
-                    tX--;
-                }
-                while ( tX < screenRect.x ) {
-                    tX++;
-                }
-                break;
             case 'down':
-                tW = containerRect.w;
-                tH = containerRect.h + arrowRect.h;
-                tX = x_where - tW / 2 + screenRect.x;
-                tY = y_where - tH + screenRect.y;
-                if ( tY < screenRect.y )
-                    continue;
-                while ( tX + tW > screenRect.x + screenRect.w ) {
-                    tX--;
+                boxRect.w = containerRect.w;
+                boxRect.h = containerRect.h + arrowRect.h;
+                boxRect.x = x_where - boxRect.w / 2 + screenRect.x;
+                if ( priority[idx] == 'up' ) {
+                    boxRect.y = y_where + screenRect.y;
+                    if ( boxRect.y + boxRect.h > screenRect.y + screenRect.h ) {
+                        continue;
+                    }
+                } else { // 'down'
+                    boxRect.y = y_where - boxRect.h + screenRect.y;
+                    if ( boxRect.y < screenRect.y ) {
+                        continue;
+                    }
                 }
-                while ( tX < screenRect.x ) {
-                    tX++;
+                
+                if ( boxRect.x + boxRect.w > screenRect.x + screenRect.w ) {
+                    boxRect.x = screenRect.x + screenRect.w - boxRect.w;
                 }
-
+                if ( boxRect.x < screenRect.x ) {
+                    boxRect.x = screenRect.x;
+                }
                 break;
             case 'left':
-                tW = containerRect.w + arrowRect.w;
-                tH = containerRect.h;
-                tX = x_where + screenRect.x;
-                tY = y_where - tH / 2 + screenRect.y;
-                if ( tX + tW > screenRect.x + screenRect.w )
-                    continue;
-                while ( tY + tH > screenRect.y + screenRect.h ) {
-                    tY--;
-                }
-                while ( tY < screenRect.y ) {
-                    tY++;
-                }
-                break;
             case 'right':
-                tW = containerRect.w + arrowRect.w;
-                tH = containerRect.h;
-                tX = x_where - tW + screenRect.x;
-                tY = y_where - tH / 2 + screenRect.y;
-                if ( tX < screenRect.x )
-                    continue;
-                while ( tY + tH > screenRect.y + screenRect.h ) {
-                    tY--;
+                boxRect.w = containerRect.w + arrowRect.w;
+                boxRect.h = containerRect.h;
+                boxRect.y = y_where - boxRect.h / 2 + screenRect.y;
+                if ( priority[ idx ] == 'left' ) {
+                    boxRect.x = x_where + screenRect.x;
+                    if ( boxRect.x + boxRect.w > screenRect.x + screenRect.w ) {
+                        continue;
+                    }
+                } else { // 'right'
+                    boxRect.x = x_where - boxRect.w + screenRect.x;
+                    if ( boxRect.x < screenRect.x ) {
+                        continue;
+                    }
                 }
-                while (tY < screenRect.y ) {
-                    tY++;
+                if ( boxRect.y + boxRect.h > screenRect.y + screenRect.h ) {
+                    boxRect.y = screenRect.y + screenRect.h - boxRect.h;
                 }
-                 
+                if ( boxRect.y < screenRect.y ) {
+                    boxRect.y = screenRect.y;
+                }
                 break;
             default:
                 break;
@@ -274,72 +227,124 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
             break;
         }
 
-        if( idx > 3 ) {
+        if( idx > priority.length - 1 ) {
             alert( "Can\'t open popup: (Out of space)" );
             isOpen = false;
             return;
         }
-        
-        // setting up arrow direction and container location
-        
-        var border_width = container.outerWidth( true ) - container.innerWidth( true );
+         
+        this._alignContainerArrow( priority[idx], 
+            container, arrow, 
+            containerRect, arrowRect, boxRect, 
+            x_where, y_where );
 
-        switch (priority[idx]) {
+        box.removeClass( "ui-selectmenu-hidden" );
+        boxRect.applyTo( box ); 
+        containerRect.applyTo( container );
+        arrowRect.applyTo( arrow );
+    },
+
+    _checkHScroll: function( ul, container, containerRect, screenWidth ) {
+        var isScroll = false,
+            length = 0;
+
+        for ( var idx = 0; idx < ul.length; idx++ ) {
+            var tW = $(ul[idx]).outerWidth(true);
+            if ( length + tW > screenWidth * this.options.hscrollPoint && !isScroll ) {
+                this.elem.scrollview( {
+                    showScrollBars: false,
+                    direction: "x",
+                } );
+                container.width( length );
+                containerRect.w = container.outerWidth(true);
+                this.elem.width( length );
+                isScroll = true;
+            }
+            length += tW;
+        }
+            
+        if ( isScroll ) {
+            this.elem.children().first().width( length );
+        }
+    },
+
+    _checkVScroll: function( ul, container, containerRect, screenHeight ) {
+        var isScroll = false,
+            length = 0;
+
+        for ( var idx = 0; idx < ul.length; idx++ ) {
+            var tH = $(ul[idx]).outerHeight( true );
+            if ( length + tH > screenHeight * this.options.vscrollPoint && !isScroll ) {
+                this.elem.scrollview( {
+                    showScrollBars: false,
+                    direction: "y"
+                } );
+                container.height( length );
+                containerRect.h = container.outerHeight( true );
+                this.elem.height( length );
+                isScroll = true;
+            }
+            length += tH;
+        }
+
+        if ( isScroll ) {
+            this.elem.children().first().height( length );
+        }
+    },
+
+
+    _alignContainerArrow: function( direction, container, arrow, 
+            containerRect, arrowRect, boxRect, x, y) {
+         // setting up arrow direction and container location        
+        var border_width = container.outerWidth( true ) - container.innerWidth( true );
+        switch (direction) {
         case 'up':
-            container.css( "top", -border_width / 2 );
-            arrow.css( "left", x_where - tX - arrowRect.w / 2 );
+            containerRect.y = -border_width / 2;
+            arrowRect.x = x - boxRect.x - arrowRect.w / 2;
             arrow.addClass("arrow-top");
-            this.arrowReset = function( arrow ) { 
+            this._arrowReset = function( arrow ) { 
                 arrow.removeClass( "arrow-top" );  
             };
             break;
         case 'down':
-            container.css( "top", -arrowRect.h + border_width );
-            arrow.css( "top", containerRect.h);
-            arrow.css( "left", x_where - tX - arrowRect.w / 2 );
+            containerRect.y = -arrowRect.h + border_width;
+            arrowRect.y = containerRect.h
+            arrowRect.x = x - boxRect.x - arrowRect.w / 2;
             arrow.addClass( "arrow-bottom" );
-            this.arrowReset = function( arrow ) {
+            this._arrowReset = function( arrow ) {
                 arrow.removeClass( "arrow-bottom" );
             };
             break;
         case 'left':
-            container.css( "left",arrowRect.w - border_width / 2 );
-            container.css( "top",-arrowRect.h );
-            arrow.css( "top", y_where - tY - arrowRect.h / 2 );
+            containerRect.x = arrowRect.w - border_width / 2;
+            containerRect.y = -arrowRect.h;
+            arrowRect.y = y - boxRect.y - arrowRect.h / 2;
             arrow.addClass( "arrow-left" );
-            this.arrowReset = function( arrow ) { 
+            this._arrowReset = function( arrow ) { 
                 arrow.removeClass( "arrow-left" );
             };
             break;
         case 'right':
-            container.css( "left", -arrowRect.w + border_width );
-            container.css( "top", -arrowRect.h );
-            arrow.css( "left", containerRect.w );
-            arrow.css( "top", y_where - tY - arrowRect.h / 2 );
+            containerRect.x = -arrowRect.w + border_width;
+            containerRect.y = -arrowRect.h;
+            arrowRect.x = containerRect.w;
+            arrowRect.y = y - boxRect.y - arrowRect.h / 2;
             arrow.addClass( "arrow-right" );
-            this.arrowReset = function( arrow ) {
+            this._arrowReset = function( arrow ) {
                 arrow.removeClass( "arrow-right" );
             };
             break;
         }
-
-        
-        box.removeClass( "ui-selectmenu-hidden" );
-        
-        box.css( "left", tX );
-        box.css( "top", tY );
-       
     },
 
-    arrowReset: function() { },
+    _arrowReset: function() { },
 
     close: function() {
         if ( !this.isOpen ) return;
 
-        var self = this;
         this.ui.screen.addClass( "ui-screen-hidden" );
         this.ui.box.addClass( "ui-selectmenu-hidden" ).removeAttr( "style" );
-        this.arrowReset( this.ui.arrow );
+        this._arrowReset( this.ui.arrow );
         this.ui.container.removeAttr( "style" );
         this.ui.arrow.removeAttr( "style" );
         this.isOpen = false;

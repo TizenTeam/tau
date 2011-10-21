@@ -14,34 +14,34 @@
 
 /* Edit button size */
 /* Original size is 74px, but, for good looking, set size 48px. */
-@height_buttonEdit:	48px;
+@height_buttonEdit:	48 * @unit_base;
 @width_buttonEdit:	@height_buttonEdit;
 
 .ui-btn { display: block; text-align: center; cursor:pointer;  position: relative; /*margin: .5em 5px;*/ padding: 0; vertical-align: middle; } /* wongi_1018 : For button align. */
 .ui-btn:focus, .ui-btn:active { outline: none; }
-.ui-header .ui-btn, .ui-footer .ui-btn, .ui-bar .ui-btn { display: inline-block; font-size: 13px; margin: 0; }
+.ui-header .ui-btn, .ui-footer .ui-btn, .ui-bar .ui-btn { display: inline-block; font-size: 13 * @unit_base; margin: 0; }
 .ui-btn-inline { display: inline-block; }
-.ui-btn-inner { padding: .6em 25px; display: block; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; position: relative; zoom: 1; }
-.ui-header .ui-btn-inner, .ui-footer .ui-btn-inner, .ui-bar .ui-btn-inner { padding: .4em 8px .5em; }
-.ui-btn-icon-notext { width: 24px; height: 24px; }
-.ui-btn-icon-notext .ui-btn-inner { padding: 2px 1px 2px 3px; }
-.ui-btn-icon-notext .ui-btn-text { position: absolute; left: -999px; }
-.ui-btn-icon-left .ui-btn-inner { padding-left: 33px; }
+.ui-btn-inner { padding: .6em 25 * @unit_base; display: block; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; position: relative; zoom: 1; }
+.ui-header .ui-btn-inner, .ui-footer .ui-btn-inner, .ui-bar .ui-btn-inner { padding: .4em 8 * @unit_base .5em; }
+.ui-btn-icon-notext { width: 24 * @unit_base; height: 24 * @unit_base; }
+.ui-btn-icon-notext .ui-btn-inner { padding: 2 * @unit_base 1 * @unit_base 2 * @unit_base 3 * @unit_base; }
+.ui-btn-icon-notext .ui-btn-text { position: absolute; left: -999 * @unit_base; }
+.ui-btn-icon-left .ui-btn-inner { padding-left: 33 * @unit_base; }
 .ui-header .ui-btn-icon-left .ui-btn-inner,
 .ui-footer .ui-btn-icon-left .ui-btn-inner,
-.ui-bar .ui-btn-icon-left .ui-btn-inner { padding-left: 27px; }
-.ui-btn-icon-right .ui-btn-inner { padding-right: 33px; }
+.ui-bar .ui-btn-icon-left .ui-btn-inner { padding-left: 27 * @unit_base; }
+.ui-btn-icon-right .ui-btn-inner { padding-right: 33 * @unit_base; }
 .ui-header .ui-btn-icon-right .ui-btn-inner,
 .ui-footer .ui-btn-icon-right .ui-btn-inner,
-.ui-bar .ui-btn-icon-right .ui-btn-inner { padding-right: 27px; }
-.ui-btn-icon-top .ui-btn-inner { padding-top: 33px; }
+.ui-bar .ui-btn-icon-right .ui-btn-inner { padding-right: 27 * @unit_base; }
+.ui-btn-icon-top .ui-btn-inner { padding-top: 33 * @unit_base; }
 .ui-header .ui-btn-icon-top .ui-btn-inner,
 .ui-footer .ui-btn-icon-top .ui-btn-inner,
-.ui-bar .ui-btn-icon-top .ui-btn-inner { padding-top: 27px; }
-.ui-btn-icon-bottom .ui-btn-inner { padding-bottom: 33px; }
+.ui-bar .ui-btn-icon-top .ui-btn-inner { padding-top: 27 * @unit_base; }
+.ui-btn-icon-bottom .ui-btn-inner { padding-bottom: 33 * @unit_base; }
 .ui-header .ui-btn-icon-bottom .ui-btn-inner,
 .ui-footer .ui-btn-icon-bottom .ui-btn-inner,
-.ui-bar .ui-btn-icon-bottom .ui-btn-inner { padding-bottom: 27px; }
+.ui-bar .ui-btn-icon-bottom .ui-btn-inner { padding-bottom: 27 * @unit_base; }
 
 /*btn icon positioning*/
 .ui-btn-icon-notext .ui-icon { display: block; }
@@ -50,26 +50,26 @@
 
 
 .ui-btn-icon-top .ui-icon, .ui-btn-icon-bottom .ui-icon { position: absolute; left: 50%;  margin-left: -9px; }
-.ui-btn-icon-left .ui-icon { left: /*10px;*/ 0px; } /* wongi_1018 : with 64px icon, left 10 -> 0 for good looking. */
-.ui-btn-icon-circle .ui-icon {left: 0px;} /* wongi_1018 : for circle icon center positioning. */
-.ui-btn-icon-right .ui-icon { right: 10px; }
-.ui-btn-icon-top .ui-icon { top: 10px; }
-.ui-btn-icon-bottom .ui-icon { bottom: 10px; }
+.ui-btn-icon-left .ui-icon { left: /*10px;*/ 0 * @unit_base; } /* wongi_1018 : with 64px icon, left 10 -> 0 for good looking. */
+.ui-btn-icon-circle .ui-icon {left: 0 * @unit_base;} /* wongi_1018 : for circle icon center positioning. */
+.ui-btn-icon-right .ui-icon { right: 10 * @unit_base; }
+.ui-btn-icon-top .ui-icon { top: 10 * @unit_base; }
+.ui-btn-icon-bottom .ui-icon { bottom: 10 * @unit_base; }
 .ui-header .ui-btn-icon-left .ui-icon,
 .ui-footer .ui-btn-icon-left .ui-icon,
-.ui-bar .ui-btn-icon-left .ui-icon { left: 4px; }
+.ui-bar .ui-btn-icon-left .ui-icon { left: 4 * @unit_base; }
 .ui-header .ui-btn-icon-right .ui-icon,
 .ui-footer .ui-btn-icon-right .ui-icon,
-.ui-bar .ui-btn-icon-right .ui-icon { right: 4px; }
+.ui-bar .ui-btn-icon-right .ui-icon { right: 4 * @unit_base; }
 .ui-header .ui-btn-icon-top .ui-icon,
 .ui-footer .ui-btn-icon-top .ui-icon,
-.ui-bar .ui-btn-icon-top .ui-icon { top: 4px; }
+.ui-bar .ui-btn-icon-top .ui-icon { top: 4 * @unit_base; }
 .ui-header .ui-btn-icon-bottom .ui-icon,
 .ui-footer .ui-btn-icon-bottom .ui-icon,
-.ui-bar .ui-btn-icon-bottom .ui-icon { bottom: 4px; }
+.ui-bar .ui-btn-icon-bottom .ui-icon { bottom: 4 * @unit_base; }
 
 /*hiding native button,inputs */
-.ui-btn-hidden { position: absolute; top: 0; left: 0; width: 100%; height: 100%; -webkit-appearance: button; opacity: .1; cursor: pointer; background: transparent; font-size: 1px; border: none; line-height: 999px; }
+.ui-btn-hidden { position: absolute; top: 0; left: 0; width: 100%; height: 100%; -webkit-appearance: button; opacity: .1; cursor: pointer; background: transparent; font-size: 1 * @unit_base; border: none; line-height: 999 * @unit_base; }
 
 .ui-btn-text
 {
@@ -82,9 +82,13 @@
 .ui-li .ui-btn
 {
 	position: absolute;
-	right: 10px;
+	right: 10 * @unit_base;
+}
+
+.ui-li .ui-btn.ui-btn-icon_only
+{
 	top: 50%;
-	margin-top:  -0.8em;	
+	margin-top:  -32  * @unit_base;
 }
 
 .ui-li .ui-btn .ui-btn-inner.ui-btn-hastxt
@@ -94,23 +98,23 @@
 	
 /* wongi_1017 : Icons */
 /* icons sizing */
-.ui-btn .ui-icon { width: 64px; height: 64px; }
+.ui-btn .ui-icon { width: 64 * @unit_base; height: 64 * @unit_base; }
 .ui-btn.ui-btn-edit .ui-icon { width: @width_buttonEdit; height: @height_buttonEdit; }
 
 /* Padding for Icon with text */
-.ui-btn .ui-btn-text.ui-btn-text-padding-left {padding-left: 32px;}
-.ui-btn .ui-btn-text.ui-btn-text-padding-right {padding-right: 48px;}
+.ui-btn .ui-btn-text.ui-btn-text-padding-left {padding-left: 32 * @unit_base;}
+.ui-btn .ui-btn-text.ui-btn-text-padding-right {padding-right: 48 * @unit_base;}
 
 .slp-icon-common
 {
 	/* Overlap original property */
 	background-position:0% 0%; 	
 
-	width: 64px; height: 64px;
+	width: 64 * @unit_base; height: 64 * @unit_base;
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 	margin-top : 50%;
-	top : -32px;
+	top : -32 * @unit_base;
 	z-index : 10;
 	vertical-align:middle;
 }
@@ -139,9 +143,9 @@
 }
 
 .ui-icon-header-back-btn{
-	.LESSbackground-size(48px, 38px);
-	width: 48px;
-	height: 38px;	
+	.LESSbackground-size(48 * @unit_base, 38 * @unit_base);
+	width: 48 * @unit_base;
+	height: 38 * @unit_base;	
 }
 /* Pressed images */
 .ui-btn-down-s .ui-icon-bg, .ui-btn-down-s.ui-slp-icon-bg	{.slp-icon-common;	background-image: url(images/00_btn_circle_bg_press.png); z-index:0;	 }
@@ -163,7 +167,7 @@
 
 .ui-btn-inner.ui-btn-icon-only
 {
-	padding: 32px 32px;
+	padding: 32 * @unit_base 32 * @unit_base;
 }
 
 .ui-btn-edit .ui-btn-inner.ui-btn-icon-only
@@ -202,8 +206,8 @@
 {
 	background-color: @color_buttonEditBG;
 	position: absolute;
-	top: 0px;
-	margin-top: 0px;
+	top: 0 * @unit_base;
+	margin-top: 0 * @unit_base;
 	right: @width_buttonEdit/2;
 }
 

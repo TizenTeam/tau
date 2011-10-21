@@ -5,39 +5,35 @@
 */
 @import "config.less";
 
-
-@font_size_default: 32px;	// Default unit font size
-@em_base: 1em/@font_size_default;
-
 .ui-checkbox .ui-btn-inner, .ui-radio .ui-btn-inner { white-space: normal; }
-.ui-checkbox .ui-btn-icon-left .ui-btn-inner,.ui-radio .ui-btn-icon-left .ui-btn-inner { padding-left: 2.313em; }
-.ui-checkbox .ui-btn-icon-right .ui-btn-inner, .ui-radio .ui-btn-icon-right .ui-btn-inner { padding-right: 2.313em; }
-.ui-checkbox .ui-btn-icon-left .ui-icon, .ui-radio .ui-btn-icon-left .ui-icon {left: 15px; }
-.ui-checkbox .ui-btn-icon-right .ui-icon, .ui-radio .ui-btn-icon-right .ui-icon {right: 15px; }
+//.ui-checkbox .ui-btn-icon-left .ui-btn-inner,.ui-radio .ui-btn-icon-left .ui-btn-inner { padding-left: 2.313em; }
+//.ui-checkbox .ui-btn-icon-right .ui-btn-inner, .ui-radio .ui-btn-icon-right .ui-btn-inner { padding-right: 2.313em; }
+//.ui-checkbox .ui-btn-icon-left .ui-icon, .ui-radio .ui-btn-icon-left .ui-icon {left: 15px; }
+//.ui-checkbox .ui-btn-icon-right .ui-icon, .ui-radio .ui-btn-icon-right .ui-icon {right: 15px; }
 
 .ui-icon-radio-off {
 	background-color: transparent;	
 }
 
 //font size: 42....
-@checkbox-icon-left: (16*@em_base);	//16
+@checkbox-icon-left: (16*@unit_base);	//16
 
-@checkbox-radio-all-height: (80*@em_base);	//on-off style is the biggest.
+@checkbox-radio-all-height: (80*@unit_base);	//on-off style is the biggest.
 
-@checkbox-radio-size-width: (42*@em_base);
-@checkbox-radio-size-height: (42*@em_base);
+@checkbox-radio-size-width: (42*@unit_base);
+@checkbox-radio-size-height: (42*@unit_base);
 
-@favorite-size-width: (64*@em_base);
-@favorite-size-height: (64*@em_base);
+@favorite-size-width: (64*@unit_base);
+@favorite-size-height: (64*@unit_base);
 
-@onoff-size-width: (60*@em_base);
-@onoff-size-height: (80*@em_base);
+@onoff-size-width: (60*@unit_base);
+@onoff-size-height: (80*@unit_base);
 
 @checkbox-radio-icon-internal-bottom: (-@checkbox-radio-size-height/2); //-icon size/2 (42/2)
 @favorite-icon-internal-bottom: (-@favorite-size-height/2); //-icon size/2 (64/2)
 @onoff-icon-internal-bottom: (-@onoff-size-height/2); //-icon size/2 ((40/2)
 
-@icon-left-margin: (16*@em_base);
+@icon-left-margin: (16*@unit_base);
 @checkbox-radio-label-left: (@checkbox-radio-size-width + 2*@icon-left-margin);	//16+42+16
 @favorite-label-left: (@favorite-size-width + 2*@icon-left-margin);	//16+64+16
 @onoff-label-left: (@onoff-size-width + 2*@icon-left-margin);	//16+60+16
@@ -52,10 +48,10 @@
 	.LESSclear-btn-basic-setting();
 	input {
 		position: absolute; 
-		margin-left: @checkbox-icon-left + (@checkbox-radio-size-width/2);
+		margin-left: (@checkbox-radio-size-width/2);
 	  	height: 100%; 
 		outline: 0 !important; 
-		z-index: 1;
+		z-index: 0;
 	}
 	.ui-btn { 
 		height: 100%;
@@ -87,7 +83,7 @@
 .ui-checkbox.favorite {
 	input {
 		position: absolute; 
-		margin-left: @checkbox-icon-left + @favorite-size-width;
+		margin-left: (@favorite-size-width/2);
 	  	height: 100%; 
 		outline: 0 !important; 
 		z-index: 1;
@@ -117,7 +113,7 @@
 .ui-checkbox.onoff {
 	input {
 		position: absolute; 
-		margin-left: @checkbox-icon-left + (@onoff-size-width/2);
+		margin-left: (@onoff-size-width/2);
 	  	height: 100%; 
 		outline: 0 !important; 
 		z-index: 1;
@@ -145,14 +141,14 @@
 					top: 25%;
 					left: 12.5%;
 					height: @onoff-size-height/2;
-					font-size: 32* @em_base;
+					font-size: 32* @unit_base;
 					margin-top: - @onoff-size-height/2;
 				}
 				.onoff-text-checkbox-off {
 					position: absolute;	
 					top: -25%;
 					left: 12.5%;
-					font-size: 32* @em_base;
+					font-size: 32* @unit_base;
 					height: @onoff-size-height/2;
 					//margin-top: - @onoff-size-height/2;
 				}
@@ -164,14 +160,14 @@
 
 
 /* put img inside of checkbox(normal, favorite, on&off style) */
-@checkbox-radio-size-width: (42*@em_base);
-@checkbox-radio-size-height: (42*@em_base);
+@checkbox-radio-size-width: (42*@unit_base);
+@checkbox-radio-size-height: (42*@unit_base);
 
-@favorite-size-width: (64*@em_base);
-@favorite-size-height: (64*@em_base);
+@favorite-size-width: (64*@unit_base);
+@favorite-size-height: (64*@unit_base);
 
-@onoff-size-width: (60*@em_base);
-@onoff-size-height: (80*@em_base);
+@onoff-size-width: (60*@unit_base);
+@onoff-size-height: (80*@unit_base);
 
 
 .ui-icon-checkbox-off, .ui-icon-checkbox-on, 
