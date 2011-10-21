@@ -1,8 +1,7 @@
 @import "config.less";
 
-@em_font_12: 1em/44px; /*@TODO need to find other way */
-@selector-height: 106*@em_font_12;
-@container-height: 110*@em_base;
+@selector-height: 106*@unit_base;
+@container-height: 110*@unit_base;
 
 @selector-color: rgb(42,109,140);
 @selector-text-color: rgb(105,151,173);
@@ -16,16 +15,16 @@
     width: 100%;
 
     .datetimepicker-inner-container {
-        padding: 10*@em_base 0;
+        padding: 10*@unit_base 0;
         min-height: @container-height;
     }
 
     .datetimepicker-header {
         display: block;
-        height: 48*@em_base;
-        font-size: @font_size_07;
+        height: 48*@unit_base;
+        font-size: 32 * @unit_base;
         color: @title-color;
-        padding: 0 0 0 24*@em_base;
+        padding: 0 0 0 24*@unit_base;
     }
 
     .datetimepicker-main {
@@ -34,11 +33,11 @@
     
     .data {
         color: @data-color;
-        padding: 0 10*@em_font_12 0 0;
+        padding: 0 10*@unit_base 0 0;
         display: inline-block;
-        height: 58*@em_font_12;
-        line-height: 58*@em_font_12;
-        font-size: @font_size_12;
+        height: 58*@unit_base;
+        line-height: 58*@unit_base;
+        font-size: 44 * @unit_base;
         text-align: center;
     }
     
@@ -47,35 +46,35 @@
     }
 
     .data-line {
-        padding: 0 0 0 24*@em_base;
+        padding: 0 0 0 24*@unit_base;
     }
 
     .data-last {
         .data;
-        padding: 0 0 0 20*@em_base;
+        padding: 0 0 0 20*@unit_base;
     }
 
     .date {
-        width: 314*@em_base;
-        margin-right: 58*@em_base;
+        width: 314*@unit_base;
+        margin-right: 58*@unit_base;
         display: inline;
     }
 
     .time {
-        width: 150*@em_base;
-        margin-right: 48*@em_base;
+        width: 150*@unit_base;
+        margin-right: 48*@unit_base;
         display: inline;
     }
 
     div.ampm {
         .data;
         padding: 0;
-        width: 102*@em_font_12;
+        width: 102*@unit_base;
         color: @data-color;
         display: inline-block;
         border: 1px solid @data-ampm-border-color;
         background-color: @data-ampm-button-color;
-        .LESSborder-radius-all(5*@em_base);
+        .LESSborder-radius-all(5*@unit_base);
     }
 
     span.ampm {
@@ -89,10 +88,10 @@
     .tail {
         background: url('images/00_timepicker_tail.png') no-repeat;
         background-size: 1em;
-        margin: 8*@em_base 0 0 -8*@em_base;
+        margin: 8*@unit_base 0 0 -8*@unit_base;
         padding: 0;
         position: fixed;
-        height: 16*@em_base;
+        height: 16*@unit_base;
         width: 100%;
     }
 
@@ -103,9 +102,9 @@
         z-index: 9999;
         background: @selector-color;
         height: @selector-height;
-        font-size: @font_size_12;
+        font-size: 44 * @unit_base;
         padding: 0;
-        margin: 22*@em_font_12 0 0 0;
+        margin: 22*@unit_base 0 0 0;
         text-align: center;
 
         .container {
@@ -114,28 +113,29 @@
             }
 
             .item {
-                padding: 30*@em_font_12 8*@em_font_12 0 8*@em_font_12;
+                padding: 30*@unit_base 8*@unit_base 0 8*@unit_base;
                 float: left;
                 a {
                     text-decoration: none;
                     color: @selector-text-color;
                     height: @selector-height;
                 }
+
                 a.current {
                     color: @selector-text-dim-color;
                 }
             }
 
             .year {
-                min-width: @font_size_12*1.5*4/2;
+                min-width: 44*1.5*4/2*@unit_base;
             }
 
             .month {
-                min-width: @font_size_12*1.5*3/2; /* need to fix for locales */
+                min-width: 44*1.5*3/2*@unit_base; /* need to fix for locales */
             }
 
             .day, .hours, .minutes {
-                min-width: @font_size_12*1.5;
+                min-width: 44*1.5*@unit_base;
             }
             
         }
