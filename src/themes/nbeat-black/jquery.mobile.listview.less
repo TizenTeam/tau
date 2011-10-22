@@ -392,10 +392,13 @@ ol.ui-listview {
 		*/
 	}
 }
-.LESScheckbox-left() {
+.LESScheckbox-left() {	// checkbox + radio
 	.ui-checkbox,
 	.ui-icon-checkbox-off,
-	.ui-icon-checkbox-on {
+	.ui-icon-checkbox-on,
+	.ui-radio,
+	.ui-icon-radio-off,
+	.ui-icon-radio-on {
 		position: absolute;
 		right: auto;
 		left: @list-li-padding-horizontal;
@@ -467,7 +470,8 @@ ul.ui-listview {
 		.LESSimg-bigicon-left;
 	}
 	&> li.ui-li-3-2-18,
-	&> li.ui-li-3-2-19 {
+	&> li.ui-li-3-2-19,
+	&> li.ui-li-3-2-21 {
 		.LESSli-reset-position;
 		.LESScheckbox-left;
 		.LESStext-main-2line(2 * @list-li-padding-horizontal + @list-checkbox-size, 10*@unit_base);
