@@ -373,12 +373,38 @@ ol.ui-listview {
 		//margin-top: -0.5em;
 	}
 }
-.LESScheckbox-right() {	// NOTE: This can be changed according to checkbox implementation!
+
+.LESStext-sub-2line-right(@right:@list-li-padding-horizontal, @top: 10*@unit_base) {
+	.ui-li-text-sub2 {
+		position: absolute;
+		font-size: @list-font-size-sub; 
+		line-height: @list-font-size-main;
+		color: @color_text_sub;
+		right: @right;
+		top: @top;
+		//margin-top: -0.5em;
+	}
+}
+
+.LESSsubicon-right(@right:@list-li-padding-horizontal, @top: 10*@unit_base) {	// NOTE: This can be changed according to checkbox implementation!
+	&> .ui-li-icon-sub {
+		position: absolute;
+		left: auto;
+		right: @right;
+		top: @top;
+		width: 32*@unit_base;
+		height: 32*@unit_base;
+		margin: 0 0;
+	}
+}
+
+
+.LESScheckbox-right(@right:60*@unit_base, @top: 50%) {	// NOTE: This can be changed according to checkbox implementation!
 	&> .ui-checkbox.onoff {
 		position: absolute;
 		left: auto;
-		right: 60*@unit_base;
-		top: 50%;
+		right: @right;
+		top: @top;
 		margin-top: -1.1em;
 		/*
 		float: right;
@@ -452,6 +478,20 @@ ul.ui-listview {
 		.LESStext-main-2line(@list-li-padding-horizontal, 58*@unit_base);
 		.LESStext-sub-2line-left(@list-li-padding-horizontal, 10*@unit_base);
 	}
+	&> li.ui-li-3-2-3 {
+		.LESSli-reset-position;
+		.LESStext-main-2line;
+		.LESStext-sub-2line-left;
+		.LESStext-sub-2line-right;
+	}
+	&> li.ui-li-3-2-7 {
+		.LESSli-reset-position;
+		.LESStext-main-2line;
+		.LESStext-sub-2line-left;
+		.LESSsubicon-right(@list-li-padding-horizontal, 10*@unit_base);
+		.LESStext-sub-2line-right(@list-li-padding-horizontal, 70*@unit_base);
+	}
+
 	&> li.ui-li-3-2-9,
 	&> li.ui-li-3-2-10,
 	&> li.ui-li-3-2-11 {
