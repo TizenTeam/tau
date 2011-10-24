@@ -66,24 +66,22 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 	_initList: function() {
 		for (i = 0; i < INIT_LIST_NUM; i++)
 		{
-			$('#virtual_list_container').append($("<li></li>").text('<' + i + '> ' + demo_names[(i % (demo_names.length))]).attr('id', 'li_'+i));
+			$('ul.ui-virtual-list-container').append($("<li></li>").text('<' + i + '> ' + demo_names[(i % (demo_names.length))]).attr('id', 'li_'+i));
 
 			j++;
 		}
 		
-		/*$('#virtual_list_container').listview("refresh");*/
+		TITLE_H = $('ul.ui-virtual-list-container li:eq(0)').position().top;
+		LINE_H = $('ul.ui-virtual-list-container li:eq(1)').position().top - TITLE_H;
 
-		TITLE_H = $('#virtual_list_container li:eq(0)').position().top;
-		LINE_H = $('#virtual_list_container li:eq(1)').position().top - TITLE_H;
+		$("ul.ui-virtual-list-container li").addClass("position_absolute");
 
-		$("#virtual_list_container li").addClass("position_absolute");
-		
-		$('#virtual_list_container li').each(function(index){
+		$('ul.ui-virtual-list-container li').each(function(index){
 			$(this).css("top", TITLE_H + LINE_H*index + 'px');
 		});
 
 		/* Set Max List Height */
-		$('#virtual_list_container').height(TOTAL_ITEMS * LINE_H);
+		$('ul.ui-virtual-list-container').height(TOTAL_ITEMS * LINE_H);
 	},
 	
 	_create: function() {
@@ -91,7 +89,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		
 		// create listview markup
 		t.element.addClass(function( i, orig ) {
-			return orig + " ui-listview " + ( t.options.inset ? " ui-listview-inset ui-corner-all ui-shadow " : "" );
+			return orig + " ui-listview ui-virtual-list-container" + ( t.options.inset ? " ui-listview-inset ui-corner-all ui-shadow " : "" );
 		});
 
         var $el = this.element,
@@ -154,8 +152,8 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 			}
 		};
 		
-	    $('#virtuallist-demo').bind("pagehide", function(e){
-			$('#virtual_list_container').empty();
+	    $('ul.ui-virtual-list-container').bind("pagehide", function(e){
+			$('ul.ui-virtual-list-container').empty();
 		});
 
 		$(window).bind("scrollstop", function() {
