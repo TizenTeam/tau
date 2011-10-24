@@ -51,159 +51,164 @@
 (function ($, window, undefined) {
 	$.widget("todons.todonsslider", $.mobile.widget, {
 		options: {
-            theme: 'c',
-            popupEnabled: true,
-        },
+			theme: 'c',
+			popupEnabled: true,
+		},
 
-        popup: null,
-        handle: null,
-        handleText: null,
+		popup: null,
+		handle: null,
+		handleText: null,
 
-        _create: function() {
-            this.currentValue = null;
-            this.popupVisible = false;
+		_create: function() {
+			this.currentValue = null;
+			this.popupVisible = false;
 
-            var self = this,
-                inputElement = $(this.element),
-                themeClass,
-                slider,
-                showPopup,
-                hidePopup,
-                positionPopup,
-                updateSlider;
+			var self = this,
+			inputElement = $(this.element),
+			themeClass,
+			slider,
+			showPopup,
+			hidePopup,
+			positionPopup,
+			updateSlider;
 
-            // apply jqm slider
-            inputElement.slider();
+			// apply jqm slider
+			inputElement.slider();
 
-            // hide the slider input element proper
-            inputElement.hide();
+			// hide the slider input element proper
+			inputElement.hide();
 
-            // theming; override default with the slider's theme if present
-            this.options.theme = this.element.data('theme') || this.options.theme;
-            themeClass = 'ui-body-' + this.options.theme;
-            self.popup = $('<div class="' + themeClass + ' ui-slider-popup ui-shadow"></div>');
+			// theming; override default with the slider's theme if present
+			this.options.theme = this.element.data('theme') ||
+				this.options.theme;
 
-            // set the popupEnabled according to the html attribute
-            var popupEnabledAttr = inputElement.attr('data-popupenabled');
-            if ( popupEnabledAttr !== undefined ) {
-                self.options.popupEnabled = popupEnabledAttr==='true';
-            }
+			themeClass = 'ui-body-' + this.options.theme;
+			 self.popup = $('<div class="' + themeClass +
+					 ' ui-slider-popup ui-shadow"></div>');
 
-            // get the actual slider added by jqm
-            slider = inputElement.next('.ui-slider');
+			// set the popupEnabled according to the html attribute
+			var popupEnabledAttr = inputElement.attr('data-popupenabled');
+			if ( popupEnabledAttr !== undefined ) {
+				self.options.popupEnabled = popupEnabledAttr==='true';
+			}
 
-            // get the handle
-            self.handle = slider.find('.ui-slider-handle');
+			// get the actual slider added by jqm
+			slider = inputElement.next('.ui-slider');
 
-            // remove the rounded corners from the slider and its children
-            slider.removeClass('ui-btn-corner-all');
-            slider.find('*').removeClass('ui-btn-corner-all');
+			// get the handle
+			self.handle = slider.find('.ui-slider-handle');
 
-            // add a popup element (hidden initially)
-            slider.before(self.popup);
-            self.popup.hide();
+			// remove the rounded corners from the slider and its children
+			slider.removeClass('ui-btn-corner-all');
+			slider.find('*').removeClass('ui-btn-corner-all');
 
-            // get the element where value can be displayed
-            self.handleText = slider.find('.ui-btn-text');
+			// add a popup element (hidden initially)
+			slider.before(self.popup);
+			self.popup.hide();
 
-            // set initial value
-            self.updateSlider();
+			// get the element where value can be displayed
+			self.handleText = slider.find('.ui-btn-text');
 
-            // bind to changes in the slider's value to update handle text
-            this.element.bind('change', function () {
-                self.updateSlider();
-            });
+			// set initial value
+			self.updateSlider();
 
-            // bind clicks on the handle to show the popup
-            self.handle.bind('vmousedown', function () {
-                self.showPopup();
-            });
+			// bind to changes in the slider's value to update handle text
+			this.element.bind('change', function () {
+				self.updateSlider();
+			});
 
-            // watch events on the document to turn off the slider popup
-            slider.add(document).bind('vmouseup', function () {
-                self.hidePopup();
-            });
-        },
+			// bind clicks on the handle to show the popup
+			self.handle.bind('vmousedown', function () {
+				self.showPopup();
+			});
 
-        // position the popup
-        positionPopup: function () {
-            this.popup.position({my: 'center bottom',
-                                 at: 'center top',
-                                 offset: '0 -5px',
-                                 of: this.handle});
-        },
+			// watch events on the document to turn off the slider popup
+			slider.add(document).bind('vmouseup', function () {
+				self.hidePopup();
+			});
+		},
 
-        // show value on the handle and in popup
-        updateSlider: function () {
-            this.positionPopup();
+		// position the popup
+		positionPopup: function () {
+			this.popup.position({my: 'center bottom',
+				at: 'center top',
+				offset: '0 -5px',
+				of: this.handle});
+	       },
 
-            // remove the title attribute from the handle (which is
-            // responsible for the annoying tooltip); NB we have
-            // to do it here as the jqm slider sets it every time
-            // the slider's value changes :(
-            this.handle.removeAttr('title');
+		// show value on the handle and in popup
+		updateSlider: function () {
+			this.positionPopup();
 
-            var newValue = this.element.val();
+			// remove the title attribute from the handle (which is
+			// responsible for the annoying tooltip); NB we have
+			// to do it here as the jqm slider sets it every time
+			// the slider's value changes :(
+			this.handle.removeAttr('title');
 
-            if (newValue !== this.currentValue) {
-                this.currentValue = newValue;
-                this.handleText.html(newValue);
-                this.popup.html(newValue);
-                this.element.trigger('update', newValue);
-            }
-        },
+			var newValue = this.element.val();
 
-        // show the popup
-        showPopup: function () {
-            var needToShow = (this.options.popupEnabled && !this.popupVisible);
-            if (needToShow) {
-                this.handleText.hide();
-                this.popup.show();
-                this.popupVisible = true;
-            }
-        },
+			if (newValue !== this.currentValue) {
+				this.currentValue = newValue;
+				this.handleText.html(newValue);
+				this.popup.html(newValue);
+				this.element.trigger('update', newValue);
+			}
+		},
 
-        // hide the popup
-        hidePopup: function () {
-            var needToHide = (this.options.popupEnabled && this.popupVisible);
-            if (needToHide) {
-                this.handleText.show();
-                this.popup.hide();
-                this.popupVisible = false;
-            }
-        },
+		// show the popup
+		showPopup: function () {
+			var needToShow = (this.options.popupEnabled && !this.popupVisible);
 
-        _setOption: function(key, value) {
-            var needToChange = value !== this.options[key];
-            switch (key) {
-            case 'popupEnabled':
-                if (needToChange) {
-                    this.options.popupEnabled = value;
-                    if (this.options.popupEnabled) {
-                        this.updateSlider();
-                    } else {
-                        this.hidePopup();
-                    }
-                }
-                break;
-            }
-        },
+			if (needToShow) {
+				this.handleText.hide();
+				this.popup.show();
+				this.popupVisible = true;
+			}
+		},
 
-    });
+		// hide the popup
+		hidePopup: function () {
+			var needToHide = (this.options.popupEnabled && this.popupVisible);
+			if (needToHide) {
+				this.handleText.show();
+				this.popup.hide();
+				this.popupVisible = false;
+			}
+		},
 
-    // stop jqm from initialising sliders
-    $(document).bind("pagebeforecreate", function (e) {
-        if ($.data(window, "jqmSliderInitSelector") === undefined ) {
-            $.data(window,"jqmSliderInitSelector", $.mobile.slider.prototype.options.initSelector);
-            $.mobile.slider.prototype.options.initSelector = null;
-        }
-    });
+		_setOption: function(key, value) {
+			var needToChange = value !== this.options[key];
+			switch (key) {
+			case 'popupEnabled':
+				if (needToChange) {
+					this.options.popupEnabled = value;
 
-    // initialise sliders with our own slider
-    $(document).bind("pagecreate", function(e) {
-        var jqmSliderInitSelector = $.data(window,"jqmSliderInitSelector");
-        $(e.target).find(jqmSliderInitSelector).not('select').todonsslider();
-        $(e.target).find(jqmSliderInitSelector).filter('select').slider();
-    });
+					if (this.options.popupEnabled) {
+						this.updateSlider();
+					} else {
+						this.hidePopup();
+					}
+				}
+				break;
+			}
+		},
+	});
+
+	// stop jqm from initialising sliders
+	$(document).bind("pagebeforecreate", function (e) {
+		if ($.data(window, "jqmSliderInitSelector") === undefined ) {
+			$.data(window,"jqmSliderInitSelector",
+				$.mobile.slider.prototype.options.initSelector);
+			$.mobile.slider.prototype.options.initSelector = null;
+		}
+	});
+
+	// initialise sliders with our own slider
+	$(document).bind("pagecreate", function(e) {
+		var jqmSliderInitSelector = $.data(window,"jqmSliderInitSelector");
+		$(e.target).find(jqmSliderInitSelector).not('select').todonsslider();
+		$(e.target).find(jqmSliderInitSelector).filter('select').slider();
+	});
 
 })(jQuery, this);
