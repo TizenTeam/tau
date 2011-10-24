@@ -30,6 +30,54 @@
  *
  *     colorchanged: Fired when the color is changed.
  */
+
+function documentRelativeCoordsFromEvent(ev) {
+  var e = ev ? ev : window.event,
+      client = { x: e.clientX, y: e.clientY },
+      page   = { x: e.pageX,   y: e.pageY   },
+      posx = 0,
+      posy = 0;
+
+  /* Grab useful coordinates from touch events */
+  if (e.type.match(/^touch/)) {
+    page = { 
+      x: e.originalEvent.targetTouches[0].pageX,
+      y: e.originalEvent.targetTouches[0].pageY
+    };
+    client = {
+      x: e.originalEvent.targetTouches[0].clientX,
+      y: e.originalEvent.targetTouches[0].clientY
+    };
+  }
+
+  if (page.x || page.y) {
+    posx = page.x;
+    posy = page.y;
+  }
+  else
+  if (client.x || client.y) {
+    posx = client.x + document.body.scrollLeft + document.documentElement.scrollLeft;
+    posy = client.y + document.body.scrollTop  + document.documentElement.scrollTop;
+  }
+
+  return { x: posx, y: posy };
+}
+
+function targetRelativeCoordsFromEvent(e) {
+  var coords = { x: e.offsetX, y: e.offsetY };
+
+  if (coords.x === undefined || isNaN(coords.x) || 
+      coords.y === undefined || isNaN(coords.y)) {
+    var offset = $(e.target).offset();
+
+    coords = documentRelativeCoordsFromEvent(e);
+    coords.x -= offset.left;
+    coords.y -= offset.top;
+  }
+
+  return coords;
+}
+
 (function( $, undefined ) {
 
 $.widget( "todons.hsvpicker", $.todons.colorwidget, {
@@ -114,11 +162,11 @@ $.widget( "todons.hsvpicker", $.todons.colorwidget, {
     var self = this;
     this.ui[chan].selector
       .bind("mousedown vmousedown", function(e) { self._handleMouseDown(chan,  idx, e, true); })
-      .bind("mousemove vmousemove", function(e) { self._handleMouseMove(chan,  idx, e, true); })
+      .bind("touchmove vmousemove", function(e) { self._handleMouseMove(chan,  idx, e, true); })
       .bind("vmouseup",             function(e) { self.dragging = -1; });
     this.ui[chan].eventSource
       .bind("mousedown vmousedown", function(e) { self._handleMouseDown(chan, idx, e, false); })
-      .bind("mousemove vmousemove", function(e) { self._handleMouseMove(chan, idx, e, false); })
+      .bind("touchmove vmousemove", function(e) { self._handleMouseMove(chan, idx, e, false); })
       .bind("vmouseup",             function(e) { self.dragging = -1; });
   },
 
@@ -127,7 +175,7 @@ $.widget( "todons.hsvpicker", $.todons.colorwidget, {
   },
 
   _handleMouseDown: function(chan, idx, e, isSelector) {
-    var coords = { x: e.offsetX, y: e.offsetY },
+    var coords = targetRelativeCoordsFromEvent(e),
 		widgetStr = (isSelector ? "selector" : "eventSource");
 
     if (coords.x >= 0 && coords.x <= this.ui[chan][widgetStr].outerWidth() &&
@@ -147,7 +195,7 @@ $.widget( "todons.hsvpicker", $.todons.colorwidget, {
   _handleMouseMove: function(chan, idx, e, isSelector, coords) {
     if (this.dragging === idx) {
       if (coords === undefined)
-        var coords = { x: e.offsetX, y: e.offsetY };
+        var coords = targetRelativeCoordsFromEvent(e);
 
       var factor = ((0 === idx) ? 360 : 1),
           potential = (isSelector
