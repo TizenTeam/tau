@@ -56,6 +56,7 @@ JSFILES = 	  js/jquery.ui.widget.js \
 			  js/jquery.mobile.navbar.js \
 			  js/jquery.mobile.listview.js \
 			  js/jquery.mobile.listview.filter.js \
+			  js/jquery.mobile.virtuallistview.js \
 			  js/jquery.mobile.nojs.js \
 			  js/jquery.mobile.forms.checkboxradio.js \
 			  js/jquery.mobile.forms.button.js \

@@ -21,6 +21,7 @@ CSS_SRCS=	jquery.mobile.theme.less.css \
 		jquery.mobile.forms.textinput.less.css \
 		jquery.mobile.controlgroup.less.css \
 		jquery.mobile.listview.less.css \
+		jquery.mobile.virtuallistview.less.css \
 		jquery.mobile.forms.slider.css \
 		jquery.mobile.popupwindow.less.css \
 		jquery.mobile.segmentctrl.css \
