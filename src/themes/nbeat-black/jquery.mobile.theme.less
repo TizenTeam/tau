@@ -59,7 +59,7 @@
 
 	.ui-btn-left{
 		font-size : @font_size_default;
-		width : 48 * @unit_base;
+		/* width : 48 * @unit_base; */ /* wongi_1024 */
 		height : 38 * @unit_base;
 		top : 0px;
 		left : 0px;
@@ -69,6 +69,7 @@
 			
 			width : 76 * @unit_base;
 			height : 38 * @unit_base;
+/*			
 			left : 28 * @unit_base;
 			top : 30 * @unit_base;
 			 
@@ -78,14 +79,41 @@
 			border-right-width : 1px;
 			border-top-right-radius : 0px;
 			border-bottom-right-radius : 0px;
-		
+*/			
 		}
 	}
-	.ui-btn-up-s, .ui-btn-down-s, .ui-btn-hover-s {		
-		background: @color_header;
+	
+	/* wongi_1024 */
+	.ui-btn-left.ui-btn-icon-only{
+		width : 48 * @unit_base;
 	}
-}
+	
+	/* wongi_1024 */
+	.ui-btn-up-s{		
+		background: @buttoncolor_normal;
+	}
 
+	.ui-btn-down-s, .ui-btn-hover-s.ui-btn-down-s{		
+		background: @buttoncolor_press;
+	}
+
+	.ui-btn-hover-s {		
+		background: #444444;
+	}
+		
+	.ui-btn{
+		top : 50%;
+		margin-top : -0.7em;
+		font-size : @font_size_default;
+		height : 38 * @unit_base;
+		}
+	}
+
+/* wongi_1024 : For image only : original back button */
+.ui-header.ui-bar-s .ui-btn.ui-btn-icon-only{
+		top : 0px;
+		margin-top : 0px;
+}
 
 // NOTE: This class is applied to almost all JQM widgets!
 .ui-body-s {
