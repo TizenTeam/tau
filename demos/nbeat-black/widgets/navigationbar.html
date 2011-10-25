@@ -1,0 +1,82 @@
+<!DOCTYPE html> 
+<html> 
+	<head>
+	<meta charset="utf-8">
+	<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+	<meta name="viewport" content="width=720, initial-scale=1">
+	<title>jQM Test Example</title> 
+  
+	<script src="../../../src/jqm/js/jquery.js"></script>
+	<script src="../../../src/jqm/js/"></script>
+	<script src="../../../src/jqm/theme.js"></script>
+	<link rel="stylesheet"  href="../../../build/web-ui-fw/0.1/themes/nbeat-black/web-ui-fw-theme.css" />
+	</head> 
+<body> 
+
+<div data-role="page" >
+	<div data-role="header" >
+		<h1>ControlBar</h1>
+	</div>
+	
+	<div data-role="content">
+		<div class="content-primary"> 
+			<ul data-role="listview"> 
+				<li><a href="#normalstyle">Normal</a></li> 
+				<li><a href="#expendedstyle">Expended</a></li>
+				<li><a href="#">Optional Header</a></li>
+   
+			</ul> 
+		</div><!--/content-primary -->	
+	</div>
+</div>
+
+<!-- ControlBar Tabbar Style -->
+<div data-role="page" id="normalstyle">
+	<div data-role="header" data-position="fixed">
+		<a>Text</a>
+		<h1>Title Area</h1>		
+	</div>
+	
+	<div data-role="content">
+		<div class="content-primary"> 
+			<ul data-role="listview"> 
+				<li><a href="#">Test</a></li>
+				<li><a href="#">Test</a></li>
+				<li><a href="#">Test</a></li>
+				<li><a href="#">Test</a></li>
+				<li><a href="#">Test</a></li>
+				<li><a href="#">Test</a></li>				
+				<li><a href="#">Test</a></li>												
+				<div data-role="button" data-inline="true">Text Button TesT</div>
+			</ul> 
+		</div><!--/content-primary -->
+	</div>				
+</div>
+
+<!-- ControlBar Tabbar Style -->
+<div data-role="page" id="expendedstyle">
+	<div data-role="header" data-position="fixed">
+		<a>Text</a>	
+		<h1>Title AArea</h1>
+		<a>Text</a>		
+		<a>Text</a>		
+		<a>Text</a>			
+<!-- <div data-role="button" data-inline="true">Text</div>-->
+	</div>
+	
+	<div data-role="content">
+		<div class="content-primary"> 
+			<ul data-role="listview"> 
+				<li><a href="#">Test</a></li>
+				<li><a href="#">Test</a></li>
+				<li><a href="#">Test</a></li>
+				<li><a href="#">Test</a></li>
+				<li><a href="#">Test</a></li>
+				<li><a href="#">Test</a></li>				
+				<li><a href="#">Test</a></li>												
+				<div data-role="button" data-inline="true">Text Button TesT</div>
+			</ul> 
+		</div><!--/content-primary -->
+	</div>				
+</div>
+

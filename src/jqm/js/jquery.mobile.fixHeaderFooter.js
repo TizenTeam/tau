@@ -167,16 +167,31 @@ $.mobile.fixedToolbars = (function() {
 	// 2. After page is shown, append footer to new page
 	$( ".ui-page" )  /* Fixed header modify for theme-s : Jinhyuk */
 		.live( "pagebeforeshow", function( event, ui ) {
-			if(($( event.target ).find( ":jqmData(role='header')" ).is(".ui-header-fixed")&&
-			$( event.target ).find( ":jqmData(role='header')" ).is(".ui-bar-s"))){
-				$( event.target ).find( ":jqmData(role='header')" )
+			var s_theme_header = $( event.target ).find(":jqmData(role='header')");
+
+			if(s_theme_header.is(".ui-header-fixed") && s_theme_header.is(".ui-bar-s")){
+//				s_theme_header.find(".ui-title").css("width", window.innerWidth);
+
+				s_theme_header
 					.css("position", "fixed")
 					.css("top", "0px");
+					
 				$( event.target ).find(".ui-content")
 					.css("position", "relative")
-					.css("top", $( event.target ).find( ":jqmData(role='header')" ).height());
+					.css("top", s_theme_header.height());
+				/* Align <a> element */
+				if(s_theme_header.find("a").length == 1 || s_theme_header.find("a").length == 2){										
+					s_theme_header.find(".ui-btn").addClass("ui-title-normal");
+					
+//					s_theme_header.find(".ui-title").css("left", "144px");					
+//					s_theme_header.find(".ui-title").css("width", window.innerWidth - s_theme_header.find("a").eq(0).width());
+//					alert(s_theme_header.find("a").eq(0).width());
+				}
+				else if(s_theme_header.find("a").length > 2){
+					s_theme_header.find(".ui-btn").addClass("ui-title-extended");
+				}
 			}	
-			else{
+		else{
 				var page = $( event.target ),
 				footer = page.find( ":jqmData(role='footer')" ),
 				id = footer.data( "id" ),
