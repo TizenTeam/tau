@@ -133,6 +133,10 @@
 			// get the element where value can be displayed
 			self.handleText = slider.find('.ui-btn-text');
 
+			// fix offset
+			var handle_btn = slider.find('.ui-btn');
+			handle_btn.css('top', '0.15em');
+
 			// set initial value
 			self.updateSlider();
 
