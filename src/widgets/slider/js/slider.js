@@ -51,7 +51,6 @@
 (function ($, window, undefined) {
 	$.widget("todons.todonsslider", $.mobile.widget, {
 		options: {
-			theme: 'c',
 			popupEnabled: true,
 		},
 
@@ -65,12 +64,14 @@
 
 			var self = this,
 			inputElement = $(this.element),
-			themeClass,
 			slider,
 			showPopup,
 			hidePopup,
 			positionPopup,
-			updateSlider;
+			updateSlider,
+			slider_bar,
+			max_value,
+			handle_press;
 
 			// apply jqm slider
 			inputElement.slider();
@@ -78,17 +79,11 @@
 			// hide the slider input element proper
 			inputElement.hide();
 
-			// theming; override default with the slider's theme if present
-			this.options.theme = this.element.data('theme') ||
-				this.options.theme;
-
-			themeClass = 'ui-body-' + this.options.theme;
-			 self.popup = $('<div class="' + themeClass +
-					 ' ui-slider-popup ui-shadow"></div>');
+			self.popup = $('<div class="ui-slider-popup"></div>');
 
 			// set the popupEnabled according to the html attribute
 			var popupEnabledAttr = inputElement.attr('data-popupenabled');
-			if ( popupEnabledAttr !== undefined ) {
+			if (popupEnabledAttr !== undefined) {
 				self.options.popupEnabled = popupEnabledAttr==='true';
 			}
 
@@ -101,6 +96,35 @@
 			// remove the rounded corners from the slider and its children
 			slider.removeClass('ui-btn-corner-all');
 			slider.find('*').removeClass('ui-btn-corner-all');
+
+			// add icon
+			var icon = inputElement.attr('data-icon');
+			if (icon == 'bright') {
+				slider.before($('<div class="ui-slider-left-bright"></div>'));
+				slider.after($('<div class="ui-slider-right-bright"></div>'));
+			} else if (icon == 'volume') {
+				slider.before($('<div class="ui-slider-left-volume"></div>'));
+				slider.after($('<div class="ui-slider-right-volume"></div>'));
+			} else if (icon == 'text') {
+				slider.before($('<div class="ui-slider-left-text">' +
+					'<span style="position:relative;top:0.4em;">' +
+					inputElement.attr('data-text-left') +
+					'</span></div>'));
+				slider.after($('<div class="ui-slider-right-text">' +
+					'<span style="position:relative;top:0.4em;">' +
+					inputElement.attr('data-text-right') +
+					'</span></div>'));
+			}
+
+			// slider bar
+			slider.append($('<div class="ui-slider-bar"></div>'));
+			self.slider_bar = slider.find('.ui-slider-bar');
+
+			// handle press
+			slider.append($('<div class="ui-slider-handle-press"></div>'));
+			self.handle_press = slider.find('.ui-slider-handle-press');
+
+			self.max_value = inputElement.attr('max') - inputElement.attr('min');
 
 			// add a popup element (hidden initially)
 			slider.before(self.popup);
@@ -128,11 +152,19 @@
 			});
 		},
 
+		_handle_press_show: function () {
+			this.handle_press.css('z-index', 15);
+		},
+
+		_handle_press_hide: function () {
+			this.handle_press.css('z-index', 5);
+		},
+
 		// position the popup
 		positionPopup: function () {
 			this.popup.position({my: 'center bottom',
 				at: 'center top',
-				offset: '0 -5px',
+				offset: '0 20px',
 				of: this.handle});
 	       },
 
@@ -153,6 +185,10 @@
 				this.handleText.html(newValue);
 				this.popup.html(newValue);
 				this.element.trigger('update', newValue);
+
+				var bar_size = 100 * newValue / this.max_value;
+				this.slider_bar.width(bar_size + '%');
+				this.handle_press.css('left', bar_size + '%');
 			}
 		},
 
@@ -164,6 +200,7 @@
 				this.handleText.hide();
 				this.popup.show();
 				this.popupVisible = true;
+				this._handle_press_show();
 			}
 		},
 
@@ -174,6 +211,7 @@
 				this.handleText.show();
 				this.popup.hide();
 				this.popupVisible = false;
+				this._handle_press_hide();
 			}
 		},
 
