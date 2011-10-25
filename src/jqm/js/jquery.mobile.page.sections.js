@@ -61,7 +61,7 @@ $( ":jqmData(role='page'), :jqmData(role='dialog')" ).live( "pagecreate", functi
 					$this.jqmData( "url" ) !== $.mobile.path.stripHash( location.hash ) &&
 					!leftbtn ) {
 				/* Header back btn : Jinjyuk */
-				backBtn = $( "<a href='#' class='ui-btn-left' data-"+ $.mobile.ns +"rel='back' data-"+ $.mobile.ns +"icon='header-back-btn'>"+ "</a>" ).prependTo( $this );
+				backBtn = $( "<a href='#' class='ui-btn-back' data-"+ $.mobile.ns +"rel='back' data-"+ $.mobile.ns +"icon='header-back-btn'>"+ "</a>" ).prependTo( $this );
 
 				// If theme is provided, override default inheritance
 				backBtn.attr( "data-"+ $.mobile.ns +"theme", o.backBtnTheme || thisTheme );
