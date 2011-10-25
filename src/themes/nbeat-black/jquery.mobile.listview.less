@@ -77,7 +77,7 @@
 		
 		// vertical center
 		top: 50%;
-		margin-top: -0.7em;	// TODO: guessed value. Fix this with Wongi.
+		margin-top: -0.8em;	// TODO: guessed value. Fix this with Wongi.
 	}
 	.ui-btn-text { 
 		position: relative; 
@@ -398,7 +398,16 @@ ol.ui-listview {
 }
 
 
-.LESScheckbox-right(@right:60*@unit_base, @top: 50%) {	// NOTE: This can be changed according to checkbox implementation!
+.LESScheckbox-right(@right:@list-li-padding-horizontal, @top: 50%) {	// NOTE: This can be changed according to checkbox implementation!
+	.ui-checkbox, 
+	.ui-btn {
+		position: absolute;
+		right: @right;
+		top: @top;
+	}
+	.ui-checkbox {
+		margin: -1.1em 46*@unit_base auto @list-li-padding-horizontal;
+	}
 	&> .ui-checkbox.onoff {
 		position: absolute;
 		left: auto;
@@ -622,6 +631,12 @@ ul.ui-listview {
 				margin: 8*@unit_base 0 0 16*@unit_base;
 			}
 		}
+	}
+	&> li.ui-li-3-2-26 {
+		.LESSli-reset-position;
+		.LESStext-main-2line;
+		.LESStext-sub-2line-left;
+		.LESSsubicon-right(@list-li-padding-horizontal, 78*@unit_base);
 	}
 }
 
