@@ -146,7 +146,37 @@ S = {
     defaultFrameworkTheme: 'default',
 
     frameworkVersions: ['0.1'],
-    frameworkThemes: ['default','nbeat-black','nbeat-white']
+    frameworkThemes: ['default','nbeat-black','nbeat-white'],
+
+
+	/* Set view port for supported devices. */
+	setViewport: function () {
+		var meta;
+		if ( meta = document.createElement( "meta" )) {
+
+			//set meta tags for view port
+			meta.name = "viewport";
+
+			//TODO: Modify after browser view port policy is created.
+			var supportedRatio = 9/16;
+
+			if ( supportedRatio != screen.width/screen.height ) {
+				//TODO : support high, medium, low resolution
+				//meta.content = "width=720; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;";
+				meta.content = "width=device-width; initial-scale=0.6; maximum-scale=0.6; user-scalable=0; target-densitydpi=device-dpi;";
+				alert("screen size: (" + screen.width + ", " + screen.height + "), ratio["
+						+ ( screen.width/screen.height ) + "]is not supported properly.");
+			}
+			//supported aspect-ratio : 720 X 1280 ---> 9/16
+			else
+				meta.content = "width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0; target-densitydpi=device-dpi;";
+
+			var head = document.getElementsByTagName('head').item(0);
+			head.insertBefore(meta, head.firstChild);
+		}
+	}
+
+
 };
 
 /* Create custom user stylesheet */
@@ -232,6 +262,9 @@ S.css = {
         // load stylesheet for the theme
         stylesheetPath = S.basePath + 'themes/' + frameworkTheme + '/web-ui-fw-theme.css';
         S.css.load(stylesheetPath);
+
+		//set viewport -- by koeun
+		S.setViewport();
 
         // load jquery and our config.js file, turning off jqm's page init until
         // all our js is loaded; the S.load() method should be called from
