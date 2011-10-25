@@ -236,7 +236,7 @@ $.widget( "mobile.listview", $.mobile.widget, {
 
 		parentListId = parentListId || ++listCountPerPage[ parentId ];
 
-		$( parentList.find( "li>ul, li>ol" ).toArray().reverse() ).each(function( i ) {
+		$( parentList.find( "li>ul, li>ol" ).not(":jqmData(expanded='true')").toArray().reverse() ).each(function( i ) {
 			var self = this,
 				list = $( this ),
 				listId = list.attr( "id" ) || parentListId + "-" + i,
