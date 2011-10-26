@@ -12,7 +12,7 @@
 -----------------------------------------------------------------------------------------------------------*/
 .ui-bar-s {
 	border: 0;
-	background: 			@color_header;
+	background: 			#32414a;
 	color: 					@color_text;
 	font-family: Helvetica, Arial, sans-serif;
 	font-weight: bold;
@@ -45,8 +45,6 @@
 	position : fixed;
 	top : 0px;
 	.ui-title {
-	
-//		position :absolute;
 		top : 0px;
 		min-height: 36 * @unit_base; 
 		text-align: center; 
@@ -66,14 +64,17 @@
 		font-size : 30 * @unit_base;
 		height : 74 * @unit_base;
 		
+		background: #32414a;
+		color 		:#767676;
+			
 		border-style: solid;
-		border-color: 	@color_08; 	
+		border-color: 	#213c49; 	
 		border-width: 	1 * @unit_base;
-
+			
 		.ui-btn-inner {
-			width : 124  * @unit_base;
-		}		
-	}	
+			width : 108  * @unit_base; /* Need to add 8x2 padding -> 124 px */
+		}
+	}
 	.ui-btn-back{
 		position : fixed;
 		font-size : @font_size_default;
@@ -82,66 +83,114 @@
 		top : 28 * @unit_base;
 		left : 34 * @unit_base;
 
-		background : @color_header;
+		border : none;
+		background : #32414a;
 		
 		.ui-btn-inner.ui-btn-icon-only {
 			padding : 0;
 			
 			width : 76 * @unit_base;
 			height : 38 * @unit_base;	
-//			left : 28 * @unit_base;
-//			top : 30 * @unit_base;
 		 			 
-			background: 			@color_header;			 
-			border-top : none;
+			background: 			#32414a;			 
+			border-top : none;			
 			
 			border-right-style :  groove;
 			border-right-width : 1px;
 			border-top-right-radius : 0px;
 			border-bottom-right-radius : 0px;
 			
-		}
 	}
-	.ui-btn-left{
-/*		font-size : @font_size_default;
-		height : 38 * @unit_base;
-		top : 0px;
-		left : 28 * @unit_base;
+	}
 
-		background : @color_header;
-		
-		.ui-btn-inner.ui-btn-icon-only {
-			padding : 0;
-			
-			width : 76 * @unit_base;
-			height : 38 * @unit_base;	
-			left : 0 * @unit_base;
-		 			 
-			background: 			@color_header;			 
-			border-top : none;			
-		}*/
-	}
+	.ui-field-contain {		
+		.ui-title-extended-controlgroup {
+			position : absolute;
+			top : 0  * @unit_base;
 	
-	/* wongi_1024 */
-	.ui-btn-up-s, .ui-btn-down-s, .ui-btn-hover-s{
-		background: @buttoncolor_normal;
+			margin-top : 0 * @unit_base;
+			margin-bottom : 0 * @unit_base;
+			
+			.ui-radio {
+				height : 90 * @unit_base;
+				.ui-btn-inner {
+					width : 100%;
+					.ui-btn-text {
+						text-align : center;
+					}
 	}
 
-/*
-	.ui-btn-up-s{		
-		background: #444444;
-	}*/
-		
+				.ui-radio-off {
+					background: #434343;
+					.ui-btn-text{
+						color 		:#767676;
+					}
+				}			
+				.ui-radio-on{
+					background : #F9F9F9;
+					.ui-btn-text{											
+						color : #000000;		
+					}
+				}	
+			}
+		}	
+		.ui-title-extended-controlgroup-3btn {
+			left  : 5%;
+			width : 90%;
+			height : 74  * @unit_base;
+		}
+		.ui-title-extended-controlgroup-2btn {
+			left  : 21%;
+			width : 69%;
+			height : 74  * @unit_base;
+		}		
 
+	}
 }
 
 .ui-title-normal {
 	height : 74  * @unit_base;
 }
 
-.ui-title-extended{
+
+
+.ui-header.ui-bar-s.ui-title-extended-height {
 	height : 136  * @unit_base;
+	
+	a {
+		top : 50  * @unit_base;
+	}
+	
+	.ui-title {
+		font-size : 28  * @unit_base;
+		top : 0  * @unit_base;
+		
+		padding-top : 11 * @unit_base;		
+		margin-top : 0 * @unit_base;
+		margin-bottom : 0 * @unit_base;
+	}
+	
 }
+
+.ui-title-extended-segment-style {
+	margin-top : 0 * @unit_base;
+	margin-bottom : 0 * @unit_base;
+
+	width : 80%;
+	left : 20%;
+	top : -35%;
+}
+
+
+.ui-header{
+	.ui-title-normal-3btn {
+		position : absolute;
+		right : 144 * @unit_base;
+		
+		display : block
+	}	
+}
+
 
 // NOTE: This class is applied to almost all JQM widgets!
 .ui-body-s {

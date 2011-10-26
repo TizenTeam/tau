@@ -13,8 +13,8 @@
 	</head> 
 <body> 
 
-<div data-role="page" >
-	<div data-role="header" >
+<div data-role="page" data-add-back-btn="true">
+	<div data-role="header" data-position="fixed">
 		<h1>ControlBar</h1>
 	</div>
 	
@@ -30,18 +30,105 @@
 	</div>
 </div>
 
-<!-- ControlBar Tabbar Style -->
-<div data-role="page" id="normalstyle">
+<div data-role="page" id="normalstyle" data-add-back-btn="true">
 	<div data-role="header" data-position="fixed">
-		<a>Text</a>
 		<h1>Title Area</h1>		
 	</div>
 	
 	<div data-role="content">
 		<div class="content-primary"> 
 			<ul data-role="listview"> 
+				<li><a href="#normal1btn">Title 1 button</a></li>
+				<li><a href="#normal2btn">Title 2 button</a></li>
+				<li><a href="#normal3btn">Title 3 button</a></li>
 				<li><a href="#">Test</a></li>
 				<li><a href="#">Test</a></li>
+				<li><a href="#">Test</a></li>
+				<li><a href="#">Test</a></li>
+			</ul> 
+		</div><!--/content-primary -->
+	</div>				
+</div>
+
+<div data-role="page" id="normal1btn">
+	<div data-role="header" data-position="fixed">
+		<a>Text1</a>
+		<h1>Title Area</h1>			
+	</div>
+	
+	<div data-role="content">
+		<div class="content-primary"> 
+			<ul data-role="listview"> 
+				<li><a href="#normal1btn">Title 1 button</a></li>
+				<li><a href="#normal2btn">Title 2 button</a></li>
+				<li><a href="#normal3btn">Title 3 button</a></li>
+				<li><a href="#">Test</a></li>
+				<li><a href="#">Test</a></li>
+				<li><a href="#">Test</a></li>				
+				<li><a href="#">Test</a></li>												
+				<div data-role="button" data-inline="true">Text Button TesT</div>
+			</ul> 
+		</div><!--/content-primary -->
+	</div>				
+</div>
+
+<div data-role="page" id="normal2btn">
+	<div data-role="header" data-position="fixed">
+		<a>Text1</a>
+		<h1>Title Area</h1>
+		<a>Text2</a>					
+	</div>
+	
+	<div data-role="content">
+		<div class="content-primary"> 
+			<ul data-role="listview"> 
+				<li><a href="#normal1btn">Title 1 button</a></li>
+				<li><a href="#normal2btn">Title 2 button</a></li>
+				<li><a href="#normal3btn">Title 3 button</a></li>
+				<li><a href="#">Test</a></li>
+				<li><a href="#">Test</a></li>
+				<li><a href="#">Test</a></li>				
+				<li><a href="#">Test</a></li>												
+				<div data-role="button" data-inline="true">Text Button TesT</div>
+			</ul> 
+		</div><!--/content-primary -->
+	</div>				
+</div>
+
+<div data-role="page" id="normal3btn" data-add-back-btn="true">
+	<div data-role="header" data-position="fixed">
+		<a>Text1</a>
+		<h1>Title Area</h1>
+		<a>Text2</a>
+		<a>Text3</a>							
+	</div>
+	
+	<div data-role="content">
+		<div class="content-primary"> 
+			<ul data-role="listview"> 
+				<li><a href="#normal1btn">Title 1 button</a></li>
+				<li><a href="#normal2btn">Title 2 button</a></li>
+				<li><a href="#normal3btn">Title 3 button</a></li>
+				<li><a href="#">Test</a></li>
+				<li><a href="#">Test</a></li>
+				<li><a href="#">Test</a></li>				
+				<li><a href="#">Test</a></li>												
+				<div data-role="button" data-inline="true">Text Button TesT</div>
+			</ul> 
+		</div><!--/content-primary -->
+	</div>				
+</div>
+
+<div data-role="page" id="expendedstyle"  data-add-back-btn="true">
+	<div data-role="header" data-position="fixed">
+		<h1>Title Extend</h1>
+	</div>
+	
+	<div data-role="content">
+		<div class="content-primary"> 
+			<ul data-role="listview"> 
+				<li><a href="#expendedstyle2btn">2 Button</a></li>
+				<li><a href="#expendedstyle3btn">3 Button</a></li>
 				<li><a href="#">Test</a></li>
 				<li><a href="#">Test</a></li>
 				<li><a href="#">Test</a></li>
@@ -53,30 +140,4 @@
 	</div>				
 </div>
 
-<!-- ControlBar Tabbar Style -->
-<div data-role="page" id="expendedstyle">
-	<div data-role="header" data-position="fixed">
-		<a>Text</a>	
-		<h1>Title AArea</h1>
-		<a>Text</a>		
-		<a>Text</a>		
-		<a>Text</a>			
-<!-- <div data-role="button" data-inline="true">Text</div>-->
-	</div>
-	
-	<div data-role="content">
-		<div class="content-primary"> 
-			<ul data-role="listview"> 
-				<li><a href="#">Test</a></li>
-				<li><a href="#">Test</a></li>
-				<li><a href="#">Test</a></li>
-				<li><a href="#">Test</a></li>
-				<li><a href="#">Test</a></li>
-				<li><a href="#">Test</a></li>				
-				<li><a href="#">Test</a></li>												
-				<div data-role="button" data-inline="true">Text Button TesT</div>
-			</ul> 
-		</div><!--/content-primary -->
-	</div>				
-</div>
 
