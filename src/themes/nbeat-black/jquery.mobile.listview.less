@@ -516,11 +516,20 @@ ul.ui-listview {
 		.LESScheckbox-left;
 		.LESStext-main-1line;
 	}
+	&> li.ui-li-3-1-18,
+	&> li.ui-li-3-1-19 {
+		.LESSli-reset-position-1line(@list-li-main-line-height, 3 * @list-li-padding-horizontal + @list-checkbox-size + @list-bigicon-size);
+		.LESScheckbox-left;
+		.LESSimg-bigicon-left(74 * @unit_base);
+		.LESStext-main-1line;
+	}
 	&> li.ui-li-3-1-13,
 	&> li.ui-li-3-1-14,
-	&> li.ui-li-3-1-17 {
+	&> li.ui-li-3-1-17,
+	&> li.ui-li-3-1-19 {
 		.LESSbtn-right;
 	}
+
 
 
 	// === 2 line ===
