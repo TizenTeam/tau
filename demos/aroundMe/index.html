@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+	<meta name="viewport" content="width=720, initial-scale=1">
+	<title>aroundMe</title>
+	
+	<script src="bootstrap.js"
+            data-framework-root="../../build/web-ui-fw"
+            data-framework-version="0.1"
+            data-framework-theme="nbeat-black">
+    </script>	
+</head>
+
+<body>
+	<div id="firstPage" data-role="page">
+
+		<div data-role="header" data-position="fixed">
+			<h1>aroundMe</h1>
+		</div><!-- /header -->
+
+		<!--content start-->
+		<div data-role="content">
+			<!--aroundmeListView-->
+			<div id="aroundmeListView">
+				<div id="aroundmeListPlace">
+					<ul id="aroundmeList" data-role="listview">
+						
+					</ul>
+				</div>
+			</div>
+		</div><!--content end-->
+
+		<div data-role="footer" data-id="foo1">
+			<div data-role="navbar" data-style="tabbar">
+				<ul>
+					<li><a href="#" data-icon="ctrlbar-song" class="ui-btn-active">aroundMe</a></li>
+					<li><a href="#" data-icon="ctrlbar-search">Search</a></li>
+					<li><a href="#" data-icon="ctrlbar-favorites">Favorites</a></li>
+				</ul>
+			</div>
+		</div><!--footer end-->
+
+	</div><!--page end-->
+	<div id="mapPage" data-role="page">
+		<div data-role="content">
+			<div id="aroundMapView">
+				<div id="map">
+				</div>
+			</div>
+		</div>
+	</div>
+</body> 
+</html>

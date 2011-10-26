@@ -66,13 +66,13 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 	_initList: function() {
 		for (i = 0; i < INIT_LIST_NUM; i++)
 		{
-			$('ul.ui-virtual-list-container').append($("<li></li>").text('<' + i + '> ' + demo_names[(i % (demo_names.length))]).attr('id', 'li_'+i));
+			$('ul.ui-virtual-list-container').append($("<li class='ui-li-3-1-1'></li>").text('<' + i + '> ' + demo_names[(i % (demo_names.length))]).attr('id', 'li_'+i));
 
 			j++;
 		}
 		
 		TITLE_H = $('ul.ui-virtual-list-container li:eq(0)').position().top;
-		LINE_H = $('ul.ui-virtual-list-container li:eq(1)').position().top - TITLE_H;
+		LINE_H = $('ul.ui-virtual-list-container li:eq(1)').position().top - TITLE_H + 7; /* 7 is margine for border line. later, it should be removed. */
 
 		$("ul.ui-virtual-list-container li").addClass("position_absolute");
 

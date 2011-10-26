@@ -170,26 +170,44 @@ $.mobile.fixedToolbars = (function() {
 			var s_theme_header = $( event.target ).find(":jqmData(role='header')");
 
 			if(s_theme_header.is(".ui-header-fixed") && s_theme_header.is(".ui-bar-s")){
-//				s_theme_header.find(".ui-title").css("width", window.innerWidth);
-
 				s_theme_header
 					.css("position", "fixed")
 					.css("top", "0px");
+				
+				if(s_theme_header.find(":jqmData(role='fieldcontain')").length == 0){				
+					if(s_theme_header.find("a").length == 1 || s_theme_header.find("a").length == 2){										
+						s_theme_header.find(".ui-btn").addClass("ui-title-normal");
+					}
+					else if(s_theme_header.find("a").length == 3){
+						s_theme_header.find("a").eq(1).removeClass("ui-btn-right");
+						s_theme_header.find("a").eq(1).addClass("ui-title-normal-3btn");					
+						s_theme_header.find("a").eq(2).addClass("ui-btn-right");
+					}
+					else {
+						/* Need to implement new layout */
+					}
+				}
+				else{
+					var group_length = s_theme_header.find(":jqmData(role='fieldcontain')").find(".ui-radio").length;
 					
+					s_theme_header.addClass("ui-title-extended-height");
+					s_theme_header.find(":jqmData(role='fieldcontain')").find(".ui-controlgroup")
+						.addClass("ui-title-extended-controlgroup");
+						
+					s_theme_header.find(":jqmData(role='fieldcontain')")						
+						.addClass("ui-title-extended-segment-style");
+
+					if(group_length == 2){
+						s_theme_header.find(":jqmData(role='fieldcontain')").find(".ui-controlgroup").addClass("ui-title-extended-controlgroup-2btn");
+					}
+					else if(group_length == 3){
+						s_theme_header.find(":jqmData(role='fieldcontain')").find(".ui-controlgroup").addClass("ui-title-extended-controlgroup-3btn");
+					}
+					else { /* Need to implement new layout */}
+				}
 				$( event.target ).find(".ui-content")
 					.css("position", "relative")
-					.css("top", s_theme_header.height());
-				/* Align <a> element */
-				if(s_theme_header.find("a").length == 1 || s_theme_header.find("a").length == 2){										
-					s_theme_header.find(".ui-btn").addClass("ui-title-normal");
-					
-//					s_theme_header.find(".ui-title").css("left", "144px");					
-//					s_theme_header.find(".ui-title").css("width", window.innerWidth - s_theme_header.find("a").eq(0).width());
-//					alert(s_theme_header.find("a").eq(0).width());
-				}
-				else if(s_theme_header.find("a").length > 2){
-					s_theme_header.find(".ui-btn").addClass("ui-title-extended");
-				}
+					.css("top", s_theme_header.height());				
 			}	
 		else{
 				var page = $( event.target ),
