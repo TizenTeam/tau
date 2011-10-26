@@ -335,18 +335,17 @@ a.ui-link-inherit {
 /* Active class used as the "on" state across all themes
 -----------------------------------------------------------------------------------------------------------*/
 
+/* button default color for active state */
 .ui-btn-active {
 	/* global-active */
-	border: 1px solid 		#155678;
-	background: 			#4596ce; 
-	font-weight: bold;
-	color: 					#fff; 
+	//border: 1px solid 		#155678;
+	//font-weight: bold;
+	color: 					#fff;
 	cursor: pointer;
 	text-decoration: none;
-	.LESSbackground-img-with-gradient(top, #85bae4, #5393c5);
-
+	background: 			@buttoncolor_press;
   	outline: none;
-	font-family: Helvetica, Arial, sans-serif;
+	//font-family: Helvetica, Arial, sans-serif;
 
 	a.ui-link-inherit {
 		color: 					#fff;
