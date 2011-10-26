@@ -325,6 +325,12 @@ ol.ui-listview {
 // nbeat-black normal list
 // =======================
 
+.LESSli-reset-position-1line(@height: @list-li-main-line-height, @padding-left: @list-li-padding-horizontal) {
+	margin: 0;
+	height: @height;
+	min-height: @height;
+	padding-left: @padding-left;
+}
 .LESSli-reset-position(@height: @list-li-2line-height) {
 	margin: 0;
 	padding: 0 @list-li-padding-horizontal;
@@ -501,12 +507,19 @@ ul.ui-listview {
 	&> li.ui-li-3-1-11 {
 		.LESStext-sub-1line;
 	}
-	&> li.ui-li-3-1-13,
-	&> li.ui-li-3-1-14 {
-		.LESSbtn-right;
-	}
 	&> li.ui-li-3-1-15 {
 		.LESScheckbox-right;
+	}
+	&> li.ui-li-3-1-16,
+	&> li.ui-li-3-1-17 {
+		.LESSli-reset-position-1line(@list-li-main-line-height, 2 * @list-li-padding-horizontal + @list-checkbox-size);
+		.LESScheckbox-left;
+		.LESStext-main-1line;
+	}
+	&> li.ui-li-3-1-13,
+	&> li.ui-li-3-1-14,
+	&> li.ui-li-3-1-17 {
+		.LESSbtn-right;
 	}
 
 
