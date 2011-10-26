@@ -513,7 +513,8 @@ ul.ui-listview {
 	&> li.ui-li-3-1-16,
 	&> li.ui-li-3-1-17,
 	&> li.ui-li-3-1-20,
-	&> li.ui-li-3-1-22 {
+	&> li.ui-li-3-1-22,
+	&> li.ui-li-3-1-24 {
 		.LESSli-reset-position-1line(@list-li-main-line-height, 2 * @list-li-padding-horizontal + @list-checkbox-size);
 		.LESScheckbox-left;
 		.LESStext-main-1line;
@@ -532,8 +533,12 @@ ul.ui-listview {
 	&> li.ui-li-3-1-17,
 	&> li.ui-li-3-1-19,
 	&> li.ui-li-3-1-22,
+	&> li.ui-li-3-1-24,
 	&> li.ui-li-3-1-25 {
 		.LESSbtn-right;
+	}
+	&> li.ui-li-3-1-24 {
+		.LESSimg-bigicon-right(96 * @unit_base);
 	}
 
 
