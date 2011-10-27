@@ -19,7 +19,6 @@ var	PAGE_BUF = (INIT_LIST_NUM/2);
 var	NO_SCROLL = 0;
 var	SCROLL_DOWN = 1;
 var	SCROLL_UP = -1;
-var	MARGIN = 0;
 var LINE_H = 0;
 var TITLE_H = 0;	
 
@@ -59,8 +58,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		splitIcon: "arrow-r",
 		splitTheme: "b",
 		inset: false,
-		initSelector: ":jqmData(role='virtuallistview')",
-		scrollview: null
+		initSelector: ":jqmData(role='virtuallistview')"
 	},
 
 	_initList: function() {
@@ -72,7 +70,8 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		}
 		
 		TITLE_H = $('ul.ui-virtual-list-container li:eq(0)').position().top;
-		LINE_H = $('ul.ui-virtual-list-container li:eq(1)').position().top - TITLE_H + 7; /* 7 is margine for border line. later, it should be removed. */
+		LINE_H = $('ul.ui-virtual-list-container li:eq(1)').position().top - TITLE_H + 7; /* 7 is margin for border line. later, it should be removed. */
+		/* LINE_H = $('ul.ui-virtual-list-container li:first').outerHeight(); */
 
 		$("ul.ui-virtual-list-container li").addClass("position_absolute");
 
@@ -165,12 +164,12 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 			if (ex_windowTop < windowTop)
 			{
 				direction = SCROLL_DOWN;
-				velocity = Math.ceil((Math.abs(ex_windowTop - windowTop + MARGIN))/ LINE_H);
+				velocity = Math.ceil((Math.abs(ex_windowTop - windowTop))/ LINE_H);
 			}
 			else if (ex_windowTop > windowTop)
 			{
 				direction = SCROLL_UP;
-				velocity = Math.ceil((Math.abs(ex_windowTop - windowTop) + MARGIN)/ LINE_H);
+				velocity = Math.ceil((Math.abs(ex_windowTop - windowTop))/ LINE_H);
 			}
 			else
 			{
@@ -181,7 +180,6 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 			ex_windowTop = windowTop;
 	
 			//Calculate first index on screen
-	
 			if(direction == SCROLL_DOWN)
 			{
 				start_index += velocity;
@@ -220,7 +218,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 					last_index -= velocity;
 				}
 			}
-		});	// windows.bind();	        
+		});	// End of windows.bind();	        
 		
 		t.refresh( true );
 	},
@@ -496,19 +494,17 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 });
 
 //auto self-init widgets
+/*	//Virtual list is made on pageshow.
 $( document ).bind( "pagecreate create", function( e ){
-	/*$( $.mobile.virtuallistview.prototype.options.initSelector, e.target ).virtuallistview();*/
+	$( $.mobile.virtuallistview.prototype.options.initSelector, e.target ).virtuallistview();
 });
+*/
 
 $(document).bind( "pageshow", function (e) {
-	/*$.mobile.pageLoading();*/
-
 	// auto self-init widgets
 	$($.mobile.virtuallistview.prototype.options.initSelector, e.target)
     	.not(":jqmData(role='none'), :jqmData(role='nojs')")
     	.virtuallistview();
-	
-	/*$.mobile.pageLoading(true);*/
 });
 
 })( jQuery );
