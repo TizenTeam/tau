@@ -1,5 +1,6 @@
 /*
  * expandable
+ * By Youmin Ha <youmin.ha@samsung.com>
  */
 
 (function ($, undefined) {
@@ -22,7 +23,8 @@ $.widget("todons.expandablelist", $.mobile.widget, {
 			var 
 			_toggle = function(e) {
 				e.toggle('fast', 'swing');
-				},
+			},
+
 			toggleChildren = function(expanded) {
 				if(expanded[0]) {
 					// If current status is visible, this toggle is hiding.
