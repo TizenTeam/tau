@@ -141,9 +141,19 @@ CustomMarker.prototype.draw =
         {
             var markerPointer = 0;
             var markerPointerHeight = 0;
-
-            markerPointer = 14;
-            markerPointerHeight = 42;
+            if (gSource == 'google')
+            {
+                markerPointer = 14;
+                markerPointerHeight = 42;
+            }
+            else if (gSource == 'foursquare')
+            {
+                markerPointer = 14;
+                markerPointerHeight = 42;
+            }
+            else
+            {
+            }
             div.style.left = point.x - markerPointer + 'px';
             div.style.top = point.y - markerPointerHeight + 'px';			
         }		

@@ -13,42 +13,117 @@
 </head>
 
 <body>
-	<div id="firstPage" data-role="page">
 
-		<div data-role="header" data-position="fixed">
-			<h1>aroundMe</h1>
-		</div><!-- /header -->
+<div id="firstPage" data-role="page">
+	<div data-role="header" data-position="fixed" >
+		<h1>aroundMe</h1>
+	</div><!-- /header -->
 
-		<!--content start-->
-		<div data-role="content">
-			<!--aroundmeListView-->
-			<div id="aroundmeListView">
-				<div id="aroundmeListPlace">
-					<ul id="aroundmeList" data-role="listview">
-						
-					</ul>
-				</div>
-			</div>
-		</div><!--content end-->
-
-		<div data-role="footer" data-id="foo1">
-			<div data-role="navbar" data-style="tabbar">
-				<ul>
-					<li><a href="#" data-icon="ctrlbar-song" class="ui-btn-active">aroundMe</a></li>
-					<li><a href="#" data-icon="ctrlbar-search">Search</a></li>
-					<li><a href="#" data-icon="ctrlbar-favorites">Favorites</a></li>
+	<!--content start-->
+	<div data-role="content">
+		<!--aroundmeListView-->
+		<div id="aroundmeListView">
+			<div id="aroundmeListPlace">
+				<ul id="aroundmeList" data-role="listview">
+					
 				</ul>
 			</div>
-		</div><!--footer end-->
+		</div>
+	</div><!--content end-->
 
-	</div><!--page end-->
-	<div id="mapPage" data-role="page">
-		<div data-role="content">
-			<div id="aroundMapView">
-				<div id="map">
-				</div>
+	<div data-role="footer" id="foo1" data-position="fixed">
+		<div data-role="navbar" data-style="tabbar">
+			<ul>
+				<li><a href="#firstPage" data-icon="ctrlbar-song" class="ui-btn-active">aroundMe</a></li>
+				<li><a href="#searchPage" data-icon="ctrlbar-search">Search</a></li>
+				<li><a href="#favoritePage" data-icon="ctrlbar-favorites">Favorites</a></li>
+			</ul>
+		</div>
+	</div><!--footer end-->
+</div><!--page end-->
+
+<div id="mapPage" data-role="page">
+	<div data-role="header" data-position="fixed" data-add-back-btn="true">
+		<h1>map</h1>
+	</div>
+	<div data-role="content">
+		<div id="aroundMapView">
+			<div id="map">
 			</div>
 		</div>
 	</div>
+</div>
+
+<div id="searchPage" data-role="page">
+	<div data-role="header">
+		<h1>Search</h1>
+	</div>
+	<div data-role="content">
+		<div id="searchBarDiv">
+			<div data-role="fieldcontain" id="SearchDiv">
+				<input type="search" name="password" id="queryInput" value=""/>
+			</div>
+		</div>
+		<div id="searchListCategory">
+			<ul id="searchCategoryList" data-role="listview">
+			</ul>		
+		</div>		
+	</div>
+
+	<div data-role="footer" id="foo1" data-position="fixed">
+		<div data-role="navbar" data-style="tabbar">
+			<ul>
+				<li><a href="#firstPage" data-icon="ctrlbar-song">aroundMe</a></li>
+				<li><a href="#searchPage" data-icon="ctrlbar-search" class="ui-btn-active">Search</a></li>
+				<li><a href="#favoritePage" data-icon="ctrlbar-favorites">Favorites</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div id="searchResultPage" data-role="page" data-add-back-btn="true">
+	<div data-role="header">
+		<h1>Results</h1>
+	</div>
+	<div data-role="content">
+		<div id="searchListPlace">
+			<ul id="searchList" data-role="listview">
+			</ul>
+		</div>
+	</div>
+	<div data-role="footer" id="foo1" data-position="fixed">
+		<div data-role="navbar" data-style="tabbar">
+			<ul>
+				<li><a href="#firstPage" data-icon="ctrlbar-song">aroundMe</a></li>
+				<li><a href="#searchPage" data-icon="ctrlbar-search" class="ui-btn-active">Search</a></li>
+				<li><a href="#favoritePage" data-icon="ctrlbar-favorites">Favorites</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div id="favoritePage" data-role="page">
+	<div data-role="header">
+		<h1>Favorites</h1>
+	</div>
+	<div data-role="content">
+		<div id="favoriteListPlace">
+			<ul id="favoriteList" data-role="listview">
+			</ul>
+		</div>
+	</div>
+
+	<div data-role="footer" id="foo1" data-position="fixed">
+		<div data-role="navbar" data-style="tabbar">
+				<ul>
+				<li><a href="#firstPage" data-icon="ctrlbar-song">aroundMe</a></li>
+				<li><a href="#searchPage" data-icon="ctrlbar-search">Search</a><li>
+				<li><a href="#favoritePage" data-icon="ctrlbar-favorites" class="ui-btn-active">Favorites</a></li>
+			</ul>
+		</div>
+	</div>
+
+</div>
+
 </body> 
 </html>

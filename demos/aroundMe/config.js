@@ -3,10 +3,10 @@
 // load each of the files in the deps property inside bootstrap.js
 S.load(
     'theme.js',
-    'init.js'	
+    'init.js'
 );
 
 /* link custom stylesheet */
 S.css.load(
-    
+    'css/aroundme.css'
 );

@@ -40,7 +40,6 @@ var gMeInfoWindow;
 var contactInfo=new Object();
 
 ////////
-var gSource = "google";
 var gFqSearch = [];
 
 ////////
@@ -91,19 +90,30 @@ function googlePreload() {
                             		null);
 	getCurrentLocation( firstSearch, noLocationInfo );	
 	$.mobile.hidePageLoadingMsg();
-	console.log("Done");
+
+	$("#queryInput").bind( "change", function(event, ui) {
+		console.log("AAA");
+		console.log( $("#queryInput").val() );
+	});
+
+	console.log( $("#queryInput") );
+
+
 }
 
 function firstSearch( lat, lng ) {
 	meLocation = new google.maps.LatLng( lat, lng );
-	initGoogleMap();
 	initLocalSearch();
+			
 	if ( gLocalSearch.results != undefined ) {
 		gLocalSearch.clearResults();
 	}
+
 	gLocalSearch.setCenterPoint(meLocation);
+	gLocalSearch.setSearchCompleteCallback( null, OnFirstSearch );
 	gLocalSearch.execute("category:restaurants");
-	setSearchCategoryList();
+
+	initSearchCategoryList();
 }
 
 
@@ -114,15 +124,13 @@ function noLocationInfo() {
 }
 
 function initLocalSearch() {
-	gSource = "google";
-
 	gLocalSearch = new GlocalSearch();
 	gLocalSearch.setResultSetSize( GSearch.LARGE_RESULTSET );
-	gLocalSearch.setSearchCompleteCallback( null, OnLocalSearch );
 }
 
 
-function OnLocalSearch() {
+function OnFirstSearch() {
+
 	if ( !gLocalSearch.results || gLocalSearch.results.length == 0 ) {
 		alert("No search result");
 	} else {
@@ -131,22 +139,42 @@ function OnLocalSearch() {
 			gIsFavoriteBtnOn_google[ i ] = false;
 			gIsFavoriteBtnOn_4s[ i ] = false;
 		}
-    
-		setGoogleAroundmeList();
-//		setGoogleSearchList();
-		
-		
+    	setListFromLocalSearch( $("#aroundmeList"), true );
 	}
 }
 
-function setSearchCategoryList() {
-		
+
+function initSearchCategoryList() {
 	
+	var searchCategoryList = $("#searchCategoryList");
+	searchCategoryList.children().remove();
+		
+	for ( var i = 0; i < gGoogleCategory.length; i++ ) {
+		var listContent = {
+			id: "searchListCategoryId" + i,
+			href: "#",
+			title: gGoogleCategory[i],
+			imgSrc: "image/" + gGoogleCategoryImage[i]
+		};
+		
+		var item = '<li class="ul-li-3-1-10" id="' + listContent.id + '">' +
+				'<span class="ui-li-text-main">' + listContent.title + '</span>' + 
+				'<img src="' + listContent.imgSrc + '" class="ui-li-bigicon">' + '</li>';
+		searchCategoryList.append( item );
+
+		$(searchCategoryList).find('li').last().bind("vclick", function() {
+			var tIndex = parseInt($(this).attr("id").substr(20, 1));
+			var query = gGoogleCategoryQuery[tIndex];
+			
+			executeSearch( query );
+		});
+	}
 }
 
-function setGoogleAroundmeList() {
-	var aroundmeList = $("#aroundmeList");
+function setListFromLocalSearch( list, refresh ) { 
 	
+	list.children().remove();
+
 	for ( var i = 0; i < gLocalSearch.results.length; i++ ) {
 		var address = (( gLocalSearch.results[i].streetAddress.length > 0 ) ? (gLocalSearch.results[i].streetAddress + ",") : "")
 			+ ((gLocalSearch.results[i].city.length > 0 ) ? (gLocalSearch.results[i].city + ", " ) : "" )
@@ -156,119 +184,66 @@ function setGoogleAroundmeList() {
 			address = address.substr( 0, address.length - 2 );
 		}
 		var listContent = {
-				id: "aroundmeListPlaceId" + i,
+				id: "listItemId-" + i,
 				href: "#",
 				title: gLocalSearch.results[i].title,
 				info: gDistance[i],
 				subTitle: address,
 				imgSrc: "image/" + gGoogleCategoryImage[i % 6]
 			};
+		
+		// is this only option for these things? can we make it these to better way?
 		var item = '<li class="ui-li-3-2-14" id="' + listContent.id + '">' + 
 				'<span class="ui-li-text-main">' + listContent.title + '</span>' + 
 				'<span class="ui-li-text-sub">' + listContent.subTitle + '</span>' +
 				'<img src="' + listContent.imgSrc + '" class="ui-li-bigicon">' + 
 				'<span class="ui-li-text-sub2">' + listContent.info + '</span>' + '</li>';
 
-		aroundmeList.append( item  );
+		list.append( item  );
 		
-		$(aroundmeList).find('li').last().click(function() {
-			var tIndex = parseInt($(this).attr("id").substr(19,1 ));
+		$(list).find('li').last().bind("vclick", function() {
+			var tIndex = parseInt($(this).attr("id").substr(11,1));
 			gIndex = tIndex;
-			
+			$.mobile.changePage("#mapPage");
 			showMapInfo();
-//			showView("aroundmeMapView");
 			});
 	}
-
-	aroundmeList.listview('refresh');
-}
-
-function showMapInfo() {
-
-}
-
-function initGoogleMap() {
-	if ( mapIsOk ) {
-		return;
+	if ( refresh ) {
+		list.listview('refresh');
 	}
+}
 
-	var zoomLevel;
-	if ( gSource == "google" ) {
-		zoomLevel = 13;
+function OnSearch() {
+
+	$.mobile.changePage("#searchResultPage");
+
+	if ( !gLocalSearch.results || gLocalSearch.results.length == 0 ) {
+		alert("No search result");
 	} else {
-		zoomLevel = 13;
+		for ( var i = 0; i < gLocalSearch.results.length; i++ ) {
+			gDistance[ i ] = calcDistance( gLocalSearch.results[i].lat, gLocalSearch.results[i].lng );
+			gIsFavoriteBtnOn_google[ i ] = false;
+			gIsFavoriteBtnOn_4s[ i ] = false;
+		}
+    	setListFromLocalSearch( $("#searchList"), true );
 	}
-	
-	gMap = new google.maps.Map( document.getElementById("map"), {
-								center: meLocation,
-								zoom: zoomLevel,
-								disableDefaultUI: true,
-								scrollwheel: false,
-								mapTypeId: google.maps.MapTypeId.ROADMAP
-							});
-	
-	var homeControlDiv = document.createElement( 'DIV' );
-	$(homeControlDiv).addClass( "me_button" );
-	var homeControl = new HomeControl( homeControlDiv, gMap );
-
-	homeControlDiv.index = 1;
-	gMap.controls[ google.maps.ControlPosition.BOTTOM_LEFT].push( homeControlDiv );
-
-	mapIsOk = true;
 }
 
-function HomeControl( controlDiv, map ) {
+function executeSearch( query ) {
+	//showLoading
+	function realSearch( lat, lng ) {
+		meLocation = new google.maps.LatLng( lat, lng );
+		
+		if ( gLocalSearch.results != undefined ) {
+			gLocalSearch.clearResults();
+		}
+		gLocalSearch.setSearchCompleteCallback( null, OnSearch );
+		gLocalSearch.setCenterPoint( meLocation );
+		gLocalSearch.execute( query );
+	}
 	
-	// Set CSS styles for the DIV containing the control
-	// Setting padding to 8 px will offset the control
-	// from the edge of the map
-
-	// Set CSS for the control interior
-	var controlText = document.createElement('DIV');
-	controlText.style.fontFamily = 'Helvetica Neue, sans-serif';
-	controlText.style.textAlign = 'left';
-	controlText.style.color = 'white';
-	controlText.style.fontSize = '34px';
-	controlText.style.paddingLeft = '4px';
-	controlText.style.paddingRight = '4px';
-	// Set me image and location info
-	controlText.innerHTML = '<div id="meBG" style="width:100%;height:32px;border-width: 12px 11px 16px 11px; -webkit-border-image: url(image/00_list_alert_popup_bg.png) 12 11 16 11 repeat stretch;">' + 
-				'<img id="meImage" style="position:relative;top:-5px;padding-left:2px;padding-right:10px;display:inline-block;" src="image/Aroundme_icon_refresh.png">' + 
-				'<label id="meAddress"></label></div>';
-	
-	controlDiv.appendChild(controlText);
-
-	// Setup the click event listeners: simply set the map to meButton
-	google.maps.event.addDomListener(controlText, 'click', function()
-    {
-        function setMeLocation(lat,lng)
-        {
-            var currentLatLng = new google.maps.LatLng(lat, lng);
-
-            if(gMeMarker)
-            {
-                gMeMarker.setMap(null);
-                gMeMarker = null;
-            }
-
-            gMeMarker = new google.maps.Marker({
-                            		position: currentLatLng,
-                            		icon: gMeIcon, 
-                            		map: gMap
-                        		});
-
-            gMeSearch = new GlocalSearch();
-        	gMeSearch.setSearchCompleteCallback(null, OnMeAddress);
-        	gMeSearch.execute(lat +", "+ lng);
-
-        	setTimeout("hideMeInfo()",ME_DISPLAY_TIME);
-            gMap.setCenter(currentLatLng);
-        }
-
-        getCurrentLocation(setMeLocation, null);
-        
-    });
-}	
+	getCurrentLocation( realSearch, null );
+}
 
 // me button
 function hideMeInfo()
@@ -292,6 +267,9 @@ function calcDistance( lat, lng ) {
 }
 
 function getCurrentLocation( successcb, errorcb ) {
+		
+	successcb( ME_LOCATION_LAT, ME_LOCATION_LNG );	//@FIXME FOR TEST
+	return;//@FIXME for test
 	console.log("ahahaha");
 	if ( navigator.geolocation ) {
 		function successCallback( position ) {
@@ -309,7 +287,7 @@ function getCurrentLocation( successcb, errorcb ) {
 			}
 		}
 		console.log("getCurrent");
-		navigator.geolocation.getCurrentPosition( successCallback, errorCallback, {timeout: 1000} );
+		navigator.geolocation.getCurrentPosition( successCallback, errorCallback );
 	} else {
 		errorcb();
 	}	
