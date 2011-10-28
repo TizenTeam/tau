@@ -91,11 +91,14 @@ function googlePreload() {
 	getCurrentLocation( firstSearch, noLocationInfo );	
 	$.mobile.hidePageLoadingMsg();
 
-	$("#queryInput").bind( "change", function(events, ui) {
+	$("#queryInput").bind( "vclick", function(events, ui) {
+		console.log("search typed");
 		console.log( $("#queryInput").val() );
 	});
-
-
+	
+	$("#mapBtn").bind( "vclick", function(events, ui) {
+		
+	});
 }
 
 function firstSearch( lat, lng ) {
@@ -145,7 +148,7 @@ function initSearchCategoryList() {
 	
 	var searchCategoryList = $("#searchCategoryList");
 	searchCategoryList.children().remove();
-		
+	
 	for ( var i = 0; i < gGoogleCategory.length; i++ ) {
 		var listContent = {
 			id: "searchListCategoryId" + i,

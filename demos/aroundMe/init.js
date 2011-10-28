@@ -91,11 +91,18 @@ function googlePreload() {
 	getCurrentLocation( firstSearch, noLocationInfo );	
 	$.mobile.hidePageLoadingMsg();
 
-	$("#queryInput").bind( "change", function(events, ui) {
+	$("#queryInput").bind( "vclick", function(events, ui) {
+		console.log("search typed");
 		console.log( $("#queryInput").val() );
 	});
+	
+	$("#mapBtn").bind( "vclick", function(events, ui) {
+		
+	});
 
+	$("#mapDetailBtn").bind( "vclick", function(events, ui) {
 
+	});
 }
 
 function firstSearch( lat, lng ) {
