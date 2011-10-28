@@ -32,7 +32,8 @@ CSS_SRCS=	jquery.mobile.theme.less.css \
 		jquery.mobile.progressbar.less.css \
 		jquery.mobile.progress_pending.less.css \
 		jquery.mobile.progressing.less.css \
-		jquery.mobile.slider.less.css
+		jquery.mobile.slider.less.css \
+		jquery.mobile.optionheader.less.css
 
 
 all: prepare css images

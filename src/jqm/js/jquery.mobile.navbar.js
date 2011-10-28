@@ -149,7 +149,7 @@ $(document).bind( "pageshow", function( e, ui ){
 			$("#"+linkid).find(".ui-navbar").find("div")						
 				.css("width", "92px" )   /* Need to change for guideline */
 				.css("height",(window.innerHeight - $(document).find(".ui-header").height())/element_count )
-				.css("top", $(document).find(".ui-header").height() )
+				.css("top", $(document).find(".ui-page-active").find(".ui-header").height() )
 				.css(style, "0px");
 		}
 	}

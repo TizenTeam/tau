@@ -168,60 +168,56 @@ $.mobile.fixedToolbars = (function() {
 	$( ".ui-page" )  /* Fixed header modify for theme-s : Jinhyuk */
 		.live( "pagebeforeshow", function( event, ui ) {
 			var s_theme_header = $( event.target ).find(":jqmData(role='header')");
-
-			if(s_theme_header.is(".ui-header-fixed") && s_theme_header.is(".ui-bar-s")){
-				s_theme_header
-					.css("position", "fixed")
-					.css("top", "0px");
-				
-				if(s_theme_header.find(":jqmData(role='fieldcontain')").length == 0){				
-					if(s_theme_header.find("a").length == 1 || s_theme_header.find("a").length == 2){										
-						s_theme_header.find(".ui-btn").addClass("ui-title-normal");
-					}
-					else if(s_theme_header.find("a").length == 3){
-						s_theme_header.find("a").eq(1).removeClass("ui-btn-right");
-						s_theme_header.find("a").eq(1).addClass("ui-title-normal-3btn");					
-						s_theme_header.find("a").eq(2).addClass("ui-btn-right");
-					}
-					else {
-						/* Need to implement new layout */
-					}
-				}
-				else{
-					var group_length = s_theme_header.find(":jqmData(role='fieldcontain')").find(".ui-radio").length;
-					
-					s_theme_header.addClass("ui-title-extended-height");
-					s_theme_header.find(":jqmData(role='fieldcontain')").find(".ui-controlgroup")
-						.addClass("ui-title-extended-controlgroup");
+			
+				if(s_theme_header.find(".ui-option-header").length == 0 && s_theme_header.is(".ui-header-fixed") && s_theme_header.is(".ui-bar-s")){
+					s_theme_header
+						.css("position", "fixed")
+						.css("top", "0px");
+					if(s_theme_header.find(":jqmData(role='fieldcontain')").length == 0){				
+						if(s_theme_header.find("a").length == 1 || s_theme_header.find("a").length == 2){}
+						else if(s_theme_header.find("a").length == 3){
+							s_theme_header.find("a").eq(1).removeClass("ui-btn-right");
+							s_theme_header.find("a").eq(1).addClass("ui-title-normal-3btn");					
+							s_theme_header.find("a").eq(2).addClass("ui-btn-right");
+						} else {/* Need to implement new layout */}
 						
-					s_theme_header.find(":jqmData(role='fieldcontain')")						
-						.addClass("ui-title-extended-segment-style");
-
-					if(group_length == 2){
-						s_theme_header.find(":jqmData(role='fieldcontain')").find(".ui-controlgroup").addClass("ui-title-extended-controlgroup-2btn");
+						$( event.target ).find(".ui-content").addClass("ui-title-content-normal-height");
+						
 					}
-					else if(group_length == 3){
-						s_theme_header.find(":jqmData(role='fieldcontain')").find(".ui-controlgroup").addClass("ui-title-extended-controlgroup-3btn");
-					}
-					else { /* Need to implement new layout */}
+					else{
+						var group_length = s_theme_header.find(":jqmData(role='fieldcontain')").find(".ui-radio").length;
+						
+						s_theme_header.addClass("ui-title-extended-height");
+						s_theme_header.find(":jqmData(role='fieldcontain')").find(".ui-controlgroup")
+							.addClass("ui-title-extended-controlgroup");
+							
+						s_theme_header.find(":jqmData(role='fieldcontain')")						
+							.addClass("ui-title-extended-segment-style");
+	
+						if(group_length == 2)
+							s_theme_header.find(":jqmData(role='fieldcontain')").find(".ui-controlgroup").addClass("ui-title-extended-controlgroup-2btn");
+						else if(group_length == 3)
+							s_theme_header.find(":jqmData(role='fieldcontain')").find(".ui-controlgroup").addClass("ui-title-extended-controlgroup-3btn");
+						else { /* Need to implement new layout */}
+						
+						$( event.target ).find(".ui-content").addClass("ui-title-content-extended-height");
+					}		
+				}	
+				else{
+					var page = $( event.target ),
+					footer = page.find( ":jqmData(role='footer')" ),
+					id = footer.data( "id" ),
+					prevPage = ui.prevPage,
+					prevFooter = prevPage && prevPage.find( ":jqmData(role='footer')" ),
+					prevFooterMatches = prevFooter.length && prevFooter.jqmData( "id" ) === id;
+	
+					if ( id && prevFooterMatches ) {
+						stickyFooter = footer;
+						setTop( stickyFooter.removeClass( "fade in out" ).appendTo( $.mobile.pageContainer ) );
+					}				
 				}
-				$( event.target ).find(".ui-content")
-					.css("position", "relative")
-					.css("top", s_theme_header.height());				
-			}	
-		else{
-				var page = $( event.target ),
-				footer = page.find( ":jqmData(role='footer')" ),
-				id = footer.data( "id" ),
-				prevPage = ui.prevPage,
-				prevFooter = prevPage && prevPage.find( ":jqmData(role='footer')" ),
-				prevFooterMatches = prevFooter.length && prevFooter.jqmData( "id" ) === id;
 
-				if ( id && prevFooterMatches ) {
-					stickyFooter = footer;
-					setTop( stickyFooter.removeClass( "fade in out" ).appendTo( $.mobile.pageContainer ) );
-				}				
-			}		
+					
 		})
 		.live( "pageshow", function( event, ui ) {
 			/* Fixed header modify for theme-s : Jinhyuk */
@@ -231,7 +227,7 @@ $.mobile.fixedToolbars = (function() {
 					.unbind( "scrollstart")
 					.unbind( "silentscroll")
 					.unbind( "scrollstop");
-				$( event.target ).find( ":jqmData(role='header')" )
+			$( event.target ).find( ":jqmData(role='header')" )
 					.css("position", "fixed")
 					.css("top", "0px");
 			}
