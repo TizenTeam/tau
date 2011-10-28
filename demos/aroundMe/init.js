@@ -92,11 +92,8 @@ function googlePreload() {
 	$.mobile.hidePageLoadingMsg();
 
 	$("#queryInput").bind( "change", function(events, ui) {
-		console.log("AAA");
 		console.log( $("#queryInput").val() );
 	});
-
-	console.log( $("#queryInput") );
 
 
 }
@@ -148,7 +145,7 @@ function initSearchCategoryList() {
 	
 	var searchCategoryList = $("#searchCategoryList");
 	searchCategoryList.children().remove();
-		
+	
 	for ( var i = 0; i < gGoogleCategory.length; i++ ) {
 		var listContent = {
 			id: "searchListCategoryId" + i,
@@ -172,7 +169,7 @@ function initSearchCategoryList() {
 }
 
 function setListFromLocalSearch( list, refresh ) { 
-	
+	console.log( gLocalSearch.results );
 	list.children().remove();
 
 	for ( var i = 0; i < gLocalSearch.results.length; i++ ) {
@@ -204,13 +201,20 @@ function setListFromLocalSearch( list, refresh ) {
 		$(list).find('li').last().bind("vclick", function() {
 			var tIndex = parseInt($(this).attr("id").substr(11,1));
 			gIndex = tIndex;
-			$.mobile.changePage("#mapPage");
-			showMapInfo();
+			showDetailPage();
+		
 			});
 	}
 	if ( refresh ) {
 		list.listview('refresh');
 	}
+}
+
+function showDetailPage() {
+	$("#detailTitle").text( gLocalSearch.results[gIndex].title );
+	$("#detailAddress").text( gLocalSearch.results[gIndex].addressLines[0] );
+	$("#detailTel").text( gLocalSearch.results[gIndex].phoneNumbers[0].number );
+	$.mobile.changePage("#detailPage");
 }
 
 function OnSearch() {
