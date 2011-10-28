@@ -63,6 +63,7 @@ initGoogle();
 
 function initGoogle() {
 	$.mobile.showPageLoadingMsg();
+//	googlePreload();
 	loadMapScript();
 }
 
@@ -78,31 +79,40 @@ function loadMapScript() {
 function loadSearchScript() {
 	var script = document.createElement( "script" );
 	script.type = "text/javascript";
-	script.src = "http://www.google.com/uds/api?file=uds.js&v=1.0&callback=googlePreload";
+	script.src = "http://www.google.com/uds/api?file=uds.js&v=1.0&callback=loadJQueryUIMapScript";
 	document.head.appendChild( script );
 }
 
+function loadJQueryUIMapScript() {
+	S.loadScriptsWithCallback( '../../limbo/maps/ui/jquery.ui.map.js', googlePreload );
+}
+
 function googlePreload() {
-	gMeIcon = new google.maps.MarkerImage(
-                            		"image/maps_marker.png",
-                            		new google.maps.Size(60, 60),
-                            		new google.maps.Point(-11, 0),
-                            		null);
 	getCurrentLocation( firstSearch, noLocationInfo );	
 	$.mobile.hidePageLoadingMsg();
 
-	$("#queryInput").bind( "vclick", function(events, ui) {
+	$("#queryInput").bind( "change", function(events, ui) {
 		console.log("search typed");
 		console.log( $("#queryInput").val() );
 	});
 	
 	$("#mapBtn").bind( "vclick", function(events, ui) {
-		
+		showListMap();
 	});
 
 	$("#mapDetailBtn").bind( "vclick", function(events, ui) {
-
+		showDetailMap();
 	});
+}
+
+function showListMap() {
+	console.log("ShowListMap Called");
+	$.mobile.changePage("#mapPage");
+	$("#map").gmap();
+}
+
+function showDetailMap() {
+	console.log("ShowDetailMap Called");
 }
 
 function firstSearch( lat, lng ) {
