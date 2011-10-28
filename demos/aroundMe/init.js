@@ -91,10 +91,13 @@ function googlePreload() {
 	getCurrentLocation( firstSearch, noLocationInfo );	
 	$.mobile.hidePageLoadingMsg();
 
-	$("#queryInput").bind( "change", function(events, ui) {
-		console.log("search typed");
-		console.log( $("#queryInput").val() );
-	});
+	$("#queryInput")
+		.live( "change", function(events, ui) {
+			console.log( "change + " + $("#queryInput").val() );
+		})
+		.live( "keyup" , function() {
+			console.log( "keyup + " + $("#queryInput").val() );
+		});
 	
 	$("#mapBtn").bind( "vclick", function(events, ui) {
 		showListMap();
