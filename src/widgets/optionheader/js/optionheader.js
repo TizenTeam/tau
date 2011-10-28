@@ -98,7 +98,7 @@ $.widget("todons.optionheader", $.mobile.widget, {
     options: {
         initSelector: ":jqmData(role='optionheader')",
         showIndicator: true,
-        theme: 'b',
+        theme: 's',
         startCollapsed: false,
         expandable: true,
         duration: 0.25
@@ -173,11 +173,33 @@ $.widget("todons.optionheader", $.mobile.widget, {
             rowsClass,
             themeClass;
 
+			var $this = $( this ),
+				o = $.extend({
+					grid: null
+				}),
+				$kids = el.find("div").eq(0).children().children(),
+				gridCols = {solo:1, a:2, b:3, c:4, d:5},
+				grid = o.grid,
+				iterator;
+	
+				if ( !grid ) {
+					if ( $kids.length <= 5 ) {
+						for ( var letter in gridCols ) {
+							if ( gridCols[ letter ] === $kids.length ) {
+								grid = letter;
+							}
+						}
+						numRows = $kids.length/ gridCols[grid];
+					} else {
+						numRows = 2;
+					}
+				}
+
         // count ui-grid-* elements to get number of rows
-        numRows = el.find(gridRowSelector).length;
+//        numRows = el.find(gridRowSelector).length;
 
         // ...at least one row
-        numRows = Math.max(1, numRows);
+//        numRows = Math.max(1, numRows);
 
         // add classes to outer div:
         //   ui-option-header-N-row, where N = options.rows
@@ -214,10 +236,14 @@ $.widget("todons.optionheader", $.mobile.widget, {
 
         // for each ui-grid-a element, add a class ui-option-header-row-M
         // to it, where M is the xpath position() of the div
-        el.find(gridRowSelector).each(function (index) {
+/*        el.find(gridRowSelector).each(function (index) {
             var klass = 'ui-option-header-row-' + (index + 1);
             $(this).removeClass(klass).addClass(klass);
-        });
+        });*/
+        var klass = 'ui-option-header-row-' + (numRows);
+        el.find("div").eq(0).removeClass(klass).addClass(klass);
+    
+        
 
         // redraw the buttons (now that the optionheader has the right
         // swatch)
