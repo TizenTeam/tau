@@ -477,8 +477,26 @@ ol.ui-listview {
 	}
 }
 
+.LESSimg-expandicon-right(@right:@list-li-padding-horizontal, @size:@list-bigicon-size) {
+	.LESSimg-bigicon(@size);
+	img.ui-li-bigicon {
+		background-image: url(images/00_winset_icon_favorite_on.png);
+		display: block;
+		position: absolute;
+		top: 50%;
+		margin-top: -(@size/2);
+		left: auto;
+		right: @right;
+	}
+}
+
 
 ul.ui-listview {
+
+	&> li.ui-li-expanded-icon {
+		.LESSimg-expandicon-right;
+	}
+
 	&> li.ui-li-3-1-1,
 	&> li.ui-li-3-1-2,
 	&> li.ui-li-3-1-3 {
