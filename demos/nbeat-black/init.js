@@ -105,6 +105,10 @@ $(document).bind("pagecreate", function () {
 		$(this).find('#progressing').progressing('stop');
 	});
 
+	$('#tickernoti').bind('vmouseup', function (e) {
+		$(this).find('#tickernoti').tickernoti('show');
+	});
+
     $('#groupindex-demo').bind('pageshow', function () {
         $('#groupindex').scrolllistview();
     });
