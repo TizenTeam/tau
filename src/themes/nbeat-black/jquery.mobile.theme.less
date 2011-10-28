@@ -17,11 +17,7 @@
 	font-family: Helvetica, Arial, sans-serif;
 	font-weight: bold;
 	font-size : 36 * @unit_base;
-	height : 100 * @unit_base;
-
-	border-bottom-style: solid;
-	border-bottom-color: 	@color_02; 	
-	border-bottom-width: 	3 * @unit_base;
+/*	height : 100 * @unit_base;*/
 
 	/* a-bar-shadow-x, a-bar-shadow-y, a-bar-shadow-radius, a-bar-shadow-color */
 	/* no shadow : text-shadow: 0 -1px 1px #000000; */
@@ -44,13 +40,17 @@
 .ui-header.ui-bar-s{ 
 	position : fixed;
 	top : 0px;
+	
+	border-bottom-style: solid;
+	border-bottom-color: 	@color_02; 	
+	border-bottom-width: 	10 * @unit_base;	
 	.ui-title {
 		top : 0px;
 		min-height: 36 * @unit_base; 
 		text-align: center; 
 		font-size : 36 * @unit_base; 
 		display: block; 
-		margin: 28*@unit_base 90*@unit_base 28*@unit_base;  
+		margin: 23*@unit_base 90*@unit_base 23*@unit_base;  
 		padding: 0;  
 		text-overflow: ellipsis; 
 		overflow: hidden; 
@@ -72,13 +72,13 @@
 		border-width: 	1 * @unit_base;
 			
 		.ui-btn-inner {
-			width : 108  * @unit_base; /* Need to add 8x2 padding -> 124 px */
+			width : 108  * @unit_base;
 		}
 	}
 	.ui-btn-back{
 		position : absolute;
 		font-size : @font_size_default;
-		/* width : 48 * @unit_base; */ /* wongi_1024 */
+
 		height : 38 * @unit_base;
 		top : 28 * @unit_base;
 		left : 34 * @unit_base;
@@ -148,12 +148,15 @@
 	}
 }
 
-.ui-title-normal {
-	height : 74  * @unit_base;
+.ui-title-content-normal-height {
+	position : relative;
+	top : 100  * @unit_base;	
 }
 
-
-
+.ui-title-content-extended-height {
+	position : relative;
+	top : 136  * @unit_base;	
+}
 .ui-header.ui-bar-s.ui-title-extended-height {
 	height : 136  * @unit_base;
 	
