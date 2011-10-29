@@ -13,8 +13,8 @@
 var listCountPerPage = {};
 
 /* Code for Virtual List Demo */
-var	INIT_LIST_NUM = 100;
-var	TOTAL_ITEMS = 1000;
+var	INIT_LIST_NUM = 50;
+var	TOTAL_ITEMS = 500;
 var	PAGE_BUF = (INIT_LIST_NUM/2);
 var	NO_SCROLL = 0;
 var	SCROLL_DOWN = 1;
@@ -51,60 +51,86 @@ var demo_names = [
 
 $.widget( "mobile.virtuallistview", $.mobile.widget, {
 	options: {
-		theme: "c",
+		theme: "s",
 		countTheme: "c",
 		headerTheme: "b",
 		dividerTheme: "b",
 		splitIcon: "arrow-r",
 		splitTheme: "b",
 		inset: false,
+		liststyle: "3-1-1",	/* Default : 3-1-1 */
 		initSelector: ":jqmData(role='virtuallistview')"
 	},
 
 	_initList: function() {
+		var o = this.options;
+		
 		for (i = 0; i < INIT_LIST_NUM; i++)
 		{
-			$('ul.ui-virtual-list-container').append($("<li class='ui-li-3-1-1'></li>").text('<' + i + '> ' + demo_names[(i % (demo_names.length))]).attr('id', 'li_'+i));
+			/* For list style demo */
+			if (o.liststyle == "3-1-1")	/* Default */
+			{
+				$('ul.ui-virtual-list-container').append($("<li class='ui-li-" + o.liststyle +"'></li>").text('<' + i + '> ' + demo_names[(i % (demo_names.length))]).attr('id', 'li_'+i));			
+			}
+			else if (o.liststyle == "3-1-4")
+			{
+				$('ul.ui-virtual-list-container')
+				.append($("<li class='ui-li-" + o.liststyle +"'><span class='ui-li-text-main'>"+('<' + i + '> ' + demo_names[(i % (demo_names.length))]) +"</span><div data-role='button' data-inline='true'>Text Button</div></li>")
+				/*.text('<' + i + '> ' + demo_names[(i % (demo_names.length))])*/
+				.attr('id', 'li_'+i));				
+				
+				/*<span class="ui-li-text-main">3.1.4</span>
+				<div data-role="button" data-inline="true">Text Button</div>*/			
+			}
+			else if (o.liststyle == "3-1-6")
+			{
+				/*<span class="ui-li-text-main">3.1.6</span>
+				<form><input type="checkbox" data-style="onoff"/></form>*/
+			}
+			else if (o.liststyle == "3-1-14")
+			{
+				/*<span class="ui-li-text-main">3.1.14</span>
+				<img src="thumbnail.jpg" class="ui-li-bigicon">
+				<div data-role="button" data-inline="true" data-icon="plus" data-style="circle"></div>*/
+			}
+			else if (o.liststyle == "3-2-7")
+			{
+				/*<span class="ui-li-text-main">3.2.7</span>
+				<img src="00_winset_icon_favorite_on.png" class="ui-li-icon-sub">
+				<span class="ui-li-text-sub">Subtext</span>
+				<span class="ui-li-text-sub2">Subtext2</span>*/
+			}
 
 			j++;
 		}
 		
+		this.refresh(true);
+	},
+
+	_reposition: function(){
 		TITLE_H = $('ul.ui-virtual-list-container li:eq(0)').position().top;
-		LINE_H = $('ul.ui-virtual-list-container li:eq(1)').position().top - TITLE_H + 7; /* 7 is margin for border line. later, it should be removed. */
-		/* LINE_H = $('ul.ui-virtual-list-container li:first').outerHeight(); */
+		/*LINE_H = $('ul.ui-virtual-list-container li:eq(1)').position().top - TITLE_H + 7;*/ /* 7 is margin for border line. later, it should be removed. */
+		/*LINE_H = $('ul.ui-virtual-list-container li:first').outerHeight();*/ 
+		LINE_H = $('ul.ui-virtual-list-container li:first').innerHeight();
 
 		$("ul.ui-virtual-list-container li").addClass("position_absolute");
 
 		$('ul.ui-virtual-list-container li').each(function(index){
-			$(this).css("top", TITLE_H + LINE_H*index + 'px');
+			$(this).css("top", TITLE_H + LINE_H*index + 'px')
+			.css("width", "99%");	/* Later, need solution to findout real width. */
 		});
 
 		/* Set Max List Height */
 		$('ul.ui-virtual-list-container').height(TOTAL_ITEMS * LINE_H);
 	},
 	
-	_create: function() {
-		var t = this;
+	_scrollmove: function(){
+		var windowTop = Math.floor($(document).scrollTop());
+		var windowHeight = Math.floor($(window).height());
+		var velocity = 0;
 		
-		// create listview markup
-		t.element.addClass(function( i, orig ) {
-			return orig + " ui-listview ui-virtual-list-container" + ( t.options.inset ? " ui-listview-inset ui-corner-all ui-shadow " : "" );
-		});
-
-        var $el = this.element,
-        o = this.options,
-        shortcutsContainer = $('<div class="ui-virtuallist"/>'),
-        shortcutsList = $('<ul></ul>'),
-        dividers = $el.find(':jqmData(role="virtuallistview")'),
-        lastListItem = null,
-        shortcutscroll = this;
-
-		ex_windowTop = Math.floor($(document).scrollTop());
-	    
-		this._initList(); //Initialize Widget
-	
 		//Move older item to bottom
-		var _moveTopBottom = function(v_firstIndex, v_lastIndex, num)
+		var _moveTopBottom= function(v_firstIndex, v_lastIndex, num)
 		{
 			if (v_firstIndex < 0)
 				return;
@@ -120,7 +146,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 				{
 					$(cur_item).attr('id', 'li_'+ (v_lastIndex+1+i));
 					$(cur_item).css('top', TITLE_H + LINE_H*(v_lastIndex+i));
-					$(cur_item).text('<' + (v_lastIndex+i) + '> ' + demo_names[((v_lastIndex+i) % (demo_names.length))]);
+					$(cur_item).find(".ui-li-text-main").text('<' + (v_lastIndex+i) + '> ' + demo_names[((v_lastIndex+i) % (demo_names.length))]);
 				}
 				else
 					break;
@@ -128,7 +154,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		};
 
 		// Move older item to bottom
-		var _moveBottomTop = function(v_firstIndex, v_lastIndex, num)
+		var _moveBottomTop= function(v_firstIndex, v_lastIndex, num)
 		{
 			if (v_firstIndex < 0)
 				return;
@@ -136,7 +162,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 			for (i=0; i<num; i++)
 			{
 				var cur_item = $('#li_' + (v_lastIndex - i));
-	
+
 				if (cur_item)
 				{
 					if (v_firstIndex-1-i < 0)
@@ -144,85 +170,115 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 					
 					$(cur_item).attr('id', 'li_'+ (v_firstIndex -1-i));
 					$(cur_item).css('top', TITLE_H + LINE_H*(v_firstIndex-1-i));
-					$(cur_item).text('<' + (v_firstIndex-1-i) + '> ' + demo_names[((v_firstIndex-1-i) % (demo_names.length))]);
+					$(cur_item).find(".ui-li-text-main").text('<' + (v_firstIndex-1-i) + '> ' + demo_names[((v_firstIndex-1-i) % (demo_names.length))]);
 				}
 				else
 					break;
 			}
 		};
+
+		// Get scroll direction and velocity
+		if (ex_windowTop < windowTop)
+		{
+			direction = SCROLL_DOWN;
+			velocity = Math.ceil((Math.abs(ex_windowTop - windowTop))/ LINE_H);
+		}
+		else if (ex_windowTop > windowTop)
+		{
+			direction = SCROLL_UP;
+			velocity = Math.ceil((Math.abs(ex_windowTop - windowTop))/ LINE_H);
+		}
+		else
+		{
+			direction = NO_SCROLL;
+			return;
+		}
+
+		ex_windowTop = windowTop;
+
+		//Calculate first index on screen
+		if(direction == SCROLL_DOWN)
+		{
+			start_index += velocity;
+		}
+		else if(direction == SCROLL_UP)
+		{
+			start_index -= velocity;
+			
+			if (start_index < 0)
+				start_index = 0;
+		}
+
+		// Move items
+		if (direction == SCROLL_DOWN && start_index < PAGE_BUF)
+		{
+			//Don't move	
+		}
+		else if(direction == SCROLL_UP && start_index < PAGE_BUF)	//Fill full all buffers
+		{
+			_moveBottomTop(first_index, last_index, first_index+1);
+			last_index -= first_index;
+			first_index -= first_index;
+		}
+		else
+		{
+			if(direction == SCROLL_DOWN)
+			{
+				_moveTopBottom(first_index, last_index, velocity);
+				first_index += velocity;
+				last_index += velocity;
+			}
+			else if(direction == SCROLL_UP)
+			{
+				_moveBottomTop(first_index, last_index, velocity);
+				first_index -= velocity;
+				last_index -= velocity;
+			}
+		}
+		
+	},
+
+	_create: function(event) {
+		var t = this;
+		
+		// create listview markup
+		t.element.addClass(function( i, orig ) {
+			return orig + " ui-listview ui-virtual-list-container" + ( t.options.inset ? " ui-listview-inset ui-corner-all ui-shadow " : "" );
+		});
+
+        var $el = this.element,
+        o = this.options,
+        shortcutsContainer = $('<div class="ui-virtuallist"/>'),
+        shortcutsList = $('<ul></ul>'),
+        dividers = $el.find(':jqmData(role="virtuallistview")'),
+        lastListItem = null,
+        shortcutscroll = this;
+
+        /* Get Style */
+        if (this.element.data('style'))
+        {
+        	o.liststyle = t.element.data('style');
+        }
+        
+		ex_windowTop = Math.floor($(document).scrollTop());
+	    
+		t._initList(); //Initialize Widget
 		
 	    $('ul.ui-virtual-list-container').bind("pagehide", function(e){
 			$('ul.ui-virtual-list-container').empty();
 		});
-
-		$(window).bind("scrollstop", function() {
-			var windowTop = Math.floor($(document).scrollTop());
-			var windowHeight = Math.floor($(window).height());
-			var velocity = 0;
-	
-			// Get scroll direction and velocity
-			if (ex_windowTop < windowTop)
-			{
-				direction = SCROLL_DOWN;
-				velocity = Math.ceil((Math.abs(ex_windowTop - windowTop))/ LINE_H);
-			}
-			else if (ex_windowTop > windowTop)
-			{
-				direction = SCROLL_UP;
-				velocity = Math.ceil((Math.abs(ex_windowTop - windowTop))/ LINE_H);
-			}
-			else
-			{
-				direction = NO_SCROLL;
-				return;
-			}
-	
-			ex_windowTop = windowTop;
-	
-			//Calculate first index on screen
-			if(direction == SCROLL_DOWN)
-			{
-				start_index += velocity;
-			}
-			else if(direction == SCROLL_UP)
-			{
-				start_index -= velocity;
-				
-				if (start_index < 0)
-					start_index = 0;
-			}
-	
-			// Move items
-			if (direction == SCROLL_DOWN && start_index < PAGE_BUF)
-			{
-				//Don't move	
-			}
-			else if(direction == SCROLL_UP && start_index < PAGE_BUF)	//Fill full all buffers
-			{
-				_moveBottomTop(first_index, last_index, first_index+1);
-				last_index -= first_index;
-				first_index -= first_index;
-			}
-			else
-			{
-				if(direction == SCROLL_DOWN)
-				{
-					_moveTopBottom(first_index, last_index, velocity);
-					first_index += velocity;
-					last_index += velocity;
-				}
-				else if(direction == SCROLL_UP)
-				{
-					_moveBottomTop(first_index, last_index, velocity);
-					first_index -= velocity;
-					last_index -= velocity;
-				}
-			}
-		});	// End of windows.bind();	        
+	    
+	    $(document).bind("pageshow", t._reposition);
+	    $(document).bind('scrollstop', t._scrollmove);
 		
 		t.refresh( true );
 	},
-
+	
+	destroy : function(){
+		$(window).unbind("pageshow");
+		$(window).unbind("scrollstop");
+	},
+	
 	_itemApply: function( $list, item ) {
 		var $countli = item.find( ".ui-li-count" );
 		if ( $countli.length ) {
@@ -494,17 +550,17 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 });
 
 //auto self-init widgets
-/*	//Virtual list is made on pageshow.
+//Virtual list is made on pageshow.
 $( document ).bind( "pagecreate create", function( e ){
 	$( $.mobile.virtuallistview.prototype.options.initSelector, e.target ).virtuallistview();
 });
-*/
 
-$(document).bind( "pageshow", function (e) {
+
+/*$(document).bind( "pageshow", function (e) {
 	// auto self-init widgets
 	$($.mobile.virtuallistview.prototype.options.initSelector, e.target)
     	.not(":jqmData(role='none'), :jqmData(role='nojs')")
     	.virtuallistview();
 });
-
+*/
 })( jQuery );
