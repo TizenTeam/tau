@@ -11,6 +11,8 @@
 
 		btn: null,
 		param: null,
+		interval: null,
+		seconds: null,
 		running: false,
 
 		show: function () {
@@ -57,6 +59,12 @@
 			bg_container.bind('vmouseup', function () {
 				self.element.trigger('tapped', self.param);
 			});
+
+			if (this.seconds !== undefined && this.second != 0) {
+				this.interval = setInterval(function () {
+					self.hide();
+				}, this.seconds);
+			}
 		},
 
 		_del_event: function () {
@@ -65,6 +73,7 @@
 
 			this.btn.unbind('vmouseup');
 			bg_container.unbind('vmouseup');
+			clearInterval(this.interval);
 		},
 
 		_create: function () {
@@ -73,6 +82,7 @@
 			text[0] = $(this.element).attr('data-text1');
 			text[1] = $(this.element).attr('data-text2');
 			this.param = $(this.element).attr('data-param');
+			this.seconds = $(this.element).attr('data-interval');
 
 			this.btn = $("<a href='#' class='ui-input-cancel' title='close' data-theme='s'>Close</a>")
 			.tap(function(event) {
