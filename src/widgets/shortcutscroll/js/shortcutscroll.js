@@ -80,7 +80,7 @@ $.widget( "todons.shortcutscroll", $.mobile.widget, {
             // apply the scroll
 			clearTimeout( timer );
 			timer = setTimeout(function() {
-					self.scrollview.scrollview('scrollTo', 0, -dividerY);
+					self.scrollview.scrollview('scrollTo', 0, -dividerY, 1000);
 			}, 500 );
 
             $popup.text($(divider).text())
