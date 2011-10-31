@@ -109,6 +109,12 @@ $(document).bind("pagecreate", function () {
 		$(this).find('#tickernoti').tickernoti('show');
 	});
 
+	$('#tickernoti').bind('tapped', function (e, m) {
+		/* DO SOMETHING */
+		alert('ticker noti is tapped\nparameter:"' + m + '"');
+		$(this).find('#tickernoti').tickernoti('hide');
+	});
+
     $('#groupindex-demo').bind('pageshow', function () {
         $('#groupindex').scrolllistview();
     });

@@ -10,6 +10,7 @@
 	$.widget("todons.tickernoti", $.mobile.widget, {
 
 		btn: null,
+		param: null,
 		running: false,
 
 		show: function () {
@@ -21,7 +22,7 @@
 			this.html_hide.detach();
 
 			$(this.element).append(this.html);
-			this._add_btn();
+			this._add_event();
 
 			this.running = true;
 		},
@@ -31,6 +32,8 @@
 				return;
 			}
 
+			this._del_event();
+
 			this.html_none.detach();
 			this.html.detach();
 
@@ -39,9 +42,10 @@
 			this.running = false;
 		},
 
-		_add_btn: function () {
+		_add_event: function () {
 			var self = this;
 			var container = $(this.element).find(".ui-ticker");
+			var bg_container = container.find(".ui-ticker-body");
 			var btn_container = container.find(".ui-ticker-btn");
 
 			btn_container.append(this.btn);
@@ -49,6 +53,18 @@
 			this.btn.bind('vmouseup', function () {
 				self.hide();
 			});
+
+			bg_container.bind('vmouseup', function () {
+				self.element.trigger('tapped', self.param);
+			});
+		},
+
+		_del_event: function () {
+			var container = $(this.element).find(".ui-ticker");
+			var bg_container = container.find(".ui-ticker-body");
+
+			this.btn.unbind('vmouseup');
+			bg_container.unbind('vmouseup');
 		},
 
 		_create: function () {
@@ -56,6 +72,7 @@
 
 			text[0] = $(this.element).attr('data-text1');
 			text[1] = $(this.element).attr('data-text2');
+			this.param = $(this.element).attr('data-param');
 
 			this.btn = $("<a href='#' class='ui-input-cancel' title='close' data-theme='s'>Close</a>")
 			.tap(function(event) {
@@ -74,6 +91,7 @@
 					text[0] + '</div>' +
 					'<div class="ui-ticker-text2-bg">' +
 					text[1] + '</div>' +
+					'<div class="ui-ticker-body"></div>' +
 					'<div class="ui-ticker-btn"></div>' +
 					'</div>' +
 					'</div>');
