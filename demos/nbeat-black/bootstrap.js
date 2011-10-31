@@ -164,7 +164,7 @@ S = {
 				//TODO : support high, medium, low resolution
 				//meta.content = "width=720; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;";
 				meta.content = "width=device-width; initial-scale=0.6; maximum-scale=0.6; user-scalable=0; target-densitydpi=device-dpi;";
-				alert("screen size: (" + screen.width + ", " + screen.height + "), ratio["
+				console.log("screen size: (" + screen.width + ", " + screen.height + "), ratio["
 						+ ( screen.width/screen.height ) + "]is not supported properly.");
 			}
 			//supported aspect-ratio : 720 X 1280 ---> 9/16
