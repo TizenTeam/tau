@@ -152,6 +152,17 @@ $(document).bind("pagecreate", function () {
     $("#myoptionheader").bind('expand', function () {
         console.log('option header was expanded');
     });
+
+	//day-selector codes...
+	$( "#day-selector-check-all" ).live('vclick', function () {
+		$("#dayselector1").dayselector('selectAll');
+	});
+
+	$( "#day-selector-get-days" ).live('vclick', function () {
+		var valuesStr = $("#dayselector1").dayselector('value').join(', ');
+		$(".selectedDay").text(valuesStr);
+	});
+
 });
 
 $(document).bind("pagecreate", function() {
