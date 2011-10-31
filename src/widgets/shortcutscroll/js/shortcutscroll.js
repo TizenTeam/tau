@@ -36,6 +36,7 @@ $.widget( "todons.shortcutscroll", $.mobile.widget, {
         var $el = this.element,
             self = this,
             $popup,
+			timer,
             page = $el.closest(':jqmData(role="page")');
 
         this.scrollview = $el.closest('.ui-scrollview-clip');
@@ -77,7 +78,10 @@ $.widget( "todons.shortcutscroll", $.mobile.widget, {
             dividerY = Math.max(dividerY, 0);
 
             // apply the scroll
-            self.scrollview.scrollview('scrollTo', 0, -dividerY);
+			clearTimeout( timer );
+			timer = setTimeout(function() {
+					self.scrollview.scrollview('scrollTo', 0, -dividerY);
+			}, 500 );
 
             $popup.text($(divider).text())
                   .position({my: 'center center',
