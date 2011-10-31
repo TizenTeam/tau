@@ -68,28 +68,40 @@ $.widget( "mobile.navbar", $.mobile.widget, {
 	
 		var Prevlist_index = 100;
 
+		$(".ui-navbar li").bind({
+			vclick: function(event, ui) {
+				$(event.target).parents("a").addClass("ui-btn-active");
+			}
+		});
 		
 		$( document ).bind( "pageshow", function( e, ui ){
-			var element_count = $(".ui-page-active").find(":jqmData(role='navbar')").find('li').length;			
-			var navbar_filter = $(".ui-page-active").find(":jqmData(role='navbar')");
+			var navbar_filter = $(".ui-page-active").find(":jqmData(role='footer')").find(":jqmData(role='navbar')");
+			var element_count = navbar_filter.find('li').length;					
 			
 			var style = navbar_filter.jqmData( "style" );
 		
-			if(!($(".ui-page-active").find(".ui-navbar div").is("ui-btn-animation")) && style != "toolbar"){					
-				$(".ui-page-active").find(".ui-navbar").children().append("<div></div>")
+			if(!(navbar_filter.find("div").is("ui-btn-animation")) && style != "toolbar"){					
+				navbar_filter.children().append("<div></div>")
 					.find("div").addClass("ui-btn-animation")	
 					.removeClass("ui-btn-ani-verticalendposition")
 					.removeClass("ui-btn-ani-endposition");
 		
-				if(style =="tabbar"){		
-					$(".ui-page-active").find(".ui-navbar").find("div")						
-						.css("width", $(".ui-page-active").find('.ui-navbar').width()/element_count )
-						.css("height",$(".ui-page-active").find(".ui-navbar").css("height"))
-						.css("left", 0 * $(".ui-page").find('.ui-navbar').width()/element_count )
-						.css("top", document.documentElement.clientHeight -$(".ui-page-active").find(".ui-navbar").height() );
+				if(style =="tabbar"){
+					
+							
+					navbar_filter.find("div")						
+						.css("width", navbar_filter.width()/element_count )
+						.css("height",navbar_filter.css("height"))
+						.css("top", "0px" );
+
+					if(navbar_filter.find(".ui-btn-active").length ==0)
+						navbar_filter.find("div").css("left","0px" );			
+					else	
+						navbar_filter.find("div").css("left",navbar_filter.find(".ui-btn-active").parent("li").index() * $(".ui-page").find('.ui-navbar').width()/element_count )
+						
 				}
 				else {
-					$(".ui-page-active").find(".ui-navbar").find("div")						
+					navbar_filter.find("div")						
 						.css("width", "92px" )   /* Need to change for guideline */
 						.css("height",(document.documentElement.clientHeight  - $(".ui-page-active").find(".ui-header").height())/element_count )
 						.css("top", $(".ui-page-active").find(".ui-header").height() )
@@ -99,17 +111,23 @@ $.widget( "mobile.navbar", $.mobile.widget, {
 		});
 		
 		$( document ).bind( "pagebeforeshow", function( event, ui ) {  /* Fixed header modify for theme-s : Jinhyuk */
-			var element_count = $("#"+event.target.id).find(":jqmData(role='navbar')").find('li').length;			
-			var navbar_filter = $("#"+event.target.id).find(":jqmData(role='navbar')");
+			var footer_filter = $(event.target).find(":jqmData(role='footer')");
+			var navbar_filter = footer_filter.find(":jqmData(role='navbar')");
+
+			var element_count = navbar_filter.find('li').length;			
+			
 			var style = navbar_filter.jqmData( "style" );
 			
 			if(style == "toolbar" || style == "tabbar")
 			{
 				if(!(navbar_filter.find(".ui-btn-inner").children().is(".ui-icon"))){
 					navbar_filter.find(".ui-btn-inner").addClass("ui-navbar-textonly");
-					$("#"+event.target.id).find(".ui-controlbar-s").css("height", "99px"); 
+					navbar_filter.css("height", "99px"); 
 				}			
-				$("#"+event.target.id).find(".ui-controlbar-s").css("top",document.documentElement.clientHeight  - $("#"+event.target.id).find(".ui-controlbar-s").height());			
+				footer_filter
+					.css("position", "fixed")
+					.css("height", navbar_filter.height())
+					.css("top",document.documentElement.clientHeight  - footer_filter.height());			
 			}
 			else if(style == "left" || style == "right"){	
 				var nav_Top = $(".ui-page-active").find(".ui-header").height();
@@ -117,11 +135,11 @@ $.widget( "mobile.navbar", $.mobile.widget, {
 				var list_Height = nav_Height/element_count;		
 			
 				if(style == "left")
-					$("#"+event.target.id).find(".ui-content").css("padding-"+style, "105px");
+					$(event.target).find(".ui-content").css("padding-"+style, "105px");
 				else
-					$("#"+event.target.id).find(".ui-content").css("padding-"+style, "80px");		
+					$(event.target).find(".ui-content").css("padding-"+style, "80px");		
 				
-				$("#"+event.target.id).find(".ui-controlbar-"+style)
+				$(event.target).find(".ui-controlbar-"+style)
 					.css('top', nav_Top)
 					.css('height', nav_Height)
 					.find("ul").css('height', nav_Height);
@@ -131,13 +149,14 @@ $.widget( "mobile.navbar", $.mobile.widget, {
 			}
 			
 			/* initialize animation class */
-			if($("#"+event.target.id).find("div").is(".ui-btn-animation")){
+			if(navbar_filter.find("div").is(".ui-btn-animation")){
 				$(".ui-btn-animation")
 				.removeClass("ui-btn-ani-verticalendposition")
 				.removeClass("ui-btn-ani-endposition");				
-				$("#"+event.target.id).find(".ui-btn-animation").remove();
+				navbar_filter.find(".ui-btn-animation").remove();
 			}		
 		});	
+
 		 $(".ui-navbar").bind({
 			vclick: function() {	
 				var	element_count = $(".ui-page-active").find('.ui-navbar').find('li').length;
@@ -152,7 +171,7 @@ $.widget( "mobile.navbar", $.mobile.widget, {
 						.css("width", list_width )
 						.css("height","123px" )
 						.css("bottom", "0px")
-						.css("left", Nextlist_index *list_width );
+					.css("left", Nextlist_index *list_width );
 
 					$(".ui-btn-ani-startposition").css("-webkit-transform","translateX("+Prevlist_index *list_width+")");
 					$(".ui-page-active").find(".ui-btn-animation").addClass("ui-btn-ani-startposition");
