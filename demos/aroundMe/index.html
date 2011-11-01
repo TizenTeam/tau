@@ -38,18 +38,25 @@
 			<li><a href="#favoritePage" data-icon="ctrlbar-favorites">Favorites</a></li>
 		</ul>
 	</div>
-
 </div><!--page end-->
 
 <div id="mapPage" data-role="page">
-	<div data-role="header" data-position="fixed" data-add-back-btn="true">
-		<h1>map</h1>
+	<div data-role="header" data-position="fixed">
+		<h1 id="mapTitle">map</h1>
+		<a href="#" id="listBtn" class="ui-btn-right" data-role="btn">List</a>
 	</div>
-	<div data-role="content">
+	<div data-role="content" style="padding:0">
 		<div id="aroundMapView">
 			<div id="map">
 			</div>
 		</div>
+	</div>
+	<div data-role="navbar" data-style="tabbar" data-position="fixed">
+		<ul>
+			<li><a href="#firstPage" data-icon="ctrlbar-song">aroundMe</a></li>
+			<li><a href="#searchPage" data-icon="ctrlbar-search">Search</a></li>
+			<li><a href="#favoritePage" data-icon="ctrlbar-favorites">Favorites</a></li>
+		</ul>
 	</div>
 </div>
 
@@ -92,7 +99,7 @@
 <div id="searchResultPage" data-role="page" data-add-back-btn="true">
 	<div data-role="header">
 		<h1>Results</h1>
-		<a href="#" id="mapBtn" class="ui-btn-right" data-role="btn">Map</a>
+		<a href="#" id="mapSearchBtn" class="ui-btn-right" data-role="btn">Map</a>
 	</div>
 	<div data-role="content">
 		<div id="searchListPlace">

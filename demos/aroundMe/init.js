@@ -88,18 +88,23 @@ function loadJQueryUIMapScript() {
 }
 
 function googlePreload() {
-	getCurrentLocation( firstSearch, noLocationInfo );	
+	getCurrentLocation( firstSearch, noLocationInfo );
 	$.mobile.hidePageLoadingMsg();
 
 	$("#queryInput")
 		.live( "change", function(events, ui) {
-			console.log( "change + " + $("#queryInput").val() );
+			executeSearch( $("#queryInput").val() );
 		})
-		.live( "keyup" , function() {
-			console.log( "keyup + " + $("#queryInput").val() );
-		});
 	
+	$("#listBtn").bind( "vclick", function(events, ui) {
+		window.history.back();
+	});
+
 	$("#mapBtn").bind( "vclick", function(events, ui) {
+		showListMap();
+	});
+	
+	$("#mapSearchBtn").bind( "vclick", function(events, ui) {
 		showListMap();
 	});
 
@@ -109,9 +114,17 @@ function googlePreload() {
 }
 
 function showListMap() {
-	console.log("ShowListMap Called");
+	var title = $.mobile.activePage.find(".ui-title").text();
+	$("#mapTitle").text( title );
 	$.mobile.changePage("#mapPage");
 	$("#map").gmap();
+	for ( var i = 0; i < gLocalSearch.results.length; i++ ) {	
+		var ll = new google.maps.LatLng( gLocalSearch.results[i].lat, gLocalSearch.results[i].lng );
+		$("#map").gmap( 'addMarker', { 
+			'position': ll 
+		} );
+		$("#map").gmap( 'addBounds', ll );
+	}
 }
 
 function showDetailMap() {
@@ -144,7 +157,6 @@ function initLocalSearch() {
 	gLocalSearch = new GlocalSearch();
 	gLocalSearch.setResultSetSize( GSearch.LARGE_RESULTSET );
 }
-
 
 function OnFirstSearch() {
 
