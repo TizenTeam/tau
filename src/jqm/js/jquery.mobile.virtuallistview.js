@@ -135,21 +135,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 
 		CONTAINER_W = $('ul.ui-virtual-list-container').innerWidth();
 		
-		var padding = 0;
-		
-		if ($("ul.ui-virtual-list-container li").hasClass("ui-li-has-thumb"))
-		{
-			padding = 100;	/* For image */
-			padding += parseInt($("ul.ui-virtual-list-container li").css("padding-right")); 
-			padding += parseInt($("ul.ui-virtual-list-container li").css("border-left-width"));
-		}
-		else
-		{
-			padding = parseInt($("ul.ui-virtual-list-container li").css("padding-right")); 
-		padding += parseInt($("ul.ui-virtual-list-container li").css("border-left-width"));
-			padding = padding * 2;	/* both side */
-		}
-		
+		var padding = parseInt($("ul.ui-virtual-list-container li").css("padding-left")) + parseInt($("ul.ui-virtual-list-container li").css("padding-right"));
 		
 		$("ul.ui-virtual-list-container li").addClass("position_absolute");
 
