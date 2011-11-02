@@ -18,8 +18,8 @@ $.widget("todons.expandablelist", $.mobile.widget, {
 
 		expanded.hide();	// Initially hidden
 
-		e.find( ":jqmData(expandable='true')" )
-			 .wrapInner( '<img src="thumbnail.jpg" class="ui-li-expanded-icon">' );
+//		e.find( ":jqmData(expandable='true')" )
+//			 .wrapInner( '<img src="thumbnail.jpg" class="ui-li-expanded-icon">' );
 
 
 		// For every expandable, bind event
