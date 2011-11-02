@@ -13,8 +13,7 @@ $.widget("todons.expandablelist", $.mobile.widget, {
 	_create: function () {
 		var e = this.element,
 			self = this,
-			expanded = e.nextAll(":jqmData(expanded='true')")
-				.filter("[data-for='" + e[0].id + "']");
+			expanded = e.nextAll(":jqmData(expanded-by='" + e[0].id + "')");
 
 		expanded.hide();	// Initially hidden
 
@@ -38,9 +37,7 @@ $.widget("todons.expandablelist", $.mobile.widget, {
 
 							var elem = $(e);
 							if ('' == elem[0].id) return true;	// continue
-							var children = elem.nextAll(":jqmData(expanded='true')")
-								.filter("[data-for='" + elem[0].id + "']")
-								.filter(":visible");
+							var children = elem.nextAll(":jqmData(expanded-by='"+elem[0].id +"')").filter(":visible");
 
 							_toggle(children);
 							toggleChildren(children);

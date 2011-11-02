@@ -954,6 +954,38 @@ ul.ui-listview {
 		display: inline-block;
 	}
 }
+
+// Expandable list animation
+.ui-listview {
+	.ui-li-expandable {
+	}
+	.ui-li-expandable.ui-li-expandable-shown {
+		// Right arrow
+	}
+	.ui-li-expandable.ui-li-expandable-hidden {
+		// Down arrow
+	}
+	.ui-li-expanded {
+	}
+	.ui-li-expand-transition-show {
+		visibility: visible;
+		height: 100%;
+		// Transition
+		-webkit-transition: all .5s ease;
+		-moz-transition:  all .5s ease;
+		-o-transition: all .5s ease;
+		transition: all .5s ease;
+	}
+	.ui-li-expand-transition-hide {
+		visibility: hidden;
+		height: 0%;
+		-webkit-transition: all .5s ease;
+		-moz-transition:  all .5s ease;
+		-o-transition: all .5s ease;
+		transition: all .5s ease;
+	}
+}
+
 /* Odd iPad positioning issue. */
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
     .ui-li .ui-btn-text { 
