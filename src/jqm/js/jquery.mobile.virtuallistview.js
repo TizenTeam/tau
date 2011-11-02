@@ -275,8 +275,8 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 	},
 	
 	destroy : function(){
-		$(window).unbind("pageshow");
-		$(window).unbind("scrollstop");
+		$(document).unbind("pageshow");
+		$(document).unbind("scrollstop");
 	},
 	
 	_itemApply: function( $list, item ) {
