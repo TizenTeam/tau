@@ -115,6 +115,16 @@ $(document).bind("pagecreate", function () {
 		$(this).find('#tickernoti').tickernoti('hide');
 	});
 
+	$('#smallpopup').bind('vmouseup', function (e) {
+		$(this).find('#smallpopup').smallpopup('show');
+	});
+
+	$('#smallpopup').bind('tapped', function (e, m) {
+		/* DO SOMETHING */
+		alert('smallpopup is tapped\nparameter:"' + m + '"');
+		$(this).find('#smallpopup').smallpopup('hide');
+	});
+
     $('#groupindex-demo').bind('pageshow', function () {
         $('#groupindex').scrolllistview();
     });
