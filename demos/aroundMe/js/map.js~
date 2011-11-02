@@ -60,6 +60,27 @@ function showMapInfo() {
 	gMap.setCenter( new google.maps.LatLng( parseFloat( selected.lat ), parseFloat( selected.lng ) ) );
 }
 
+// set search results in the map
+function setAutoZoom(map,markers) {
+	var i = markers.length;
+	var bounds = new google.maps.LatLngBounds();
+
+	if (gSource == "google") {
+		while(i--) {
+			bounds.extend(new google.maps.LatLng(markers[i].lat,markers[i].lng));
+		}
+	} else {
+		while(i--) {
+			bounds.extend(new google.maps.LatLng(markers[i].geolat,markers[i].geolong));
+		}
+	}
+    gMap.fitBounds(bounds);
+
+    if(gMap.getZoom() == 20) {
+        gMap.setZoom(19);
+    }   
+}
+
 function initGoogleMap() {
 	if ( mapIsOk ) {
 		return;

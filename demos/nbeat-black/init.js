@@ -105,6 +105,16 @@ $(document).bind("pagecreate", function () {
 		$(this).find('#progressing').progressing('stop');
 	});
 
+	$('#tickernoti').bind('vmouseup', function (e) {
+		$(this).find('#tickernoti').tickernoti('show');
+	});
+
+	$('#tickernoti').bind('tapped', function (e, m) {
+		/* DO SOMETHING */
+		alert('ticker noti is tapped\nparameter:"' + m + '"');
+		$(this).find('#tickernoti').tickernoti('hide');
+	});
+
     $('#groupindex-demo').bind('pageshow', function () {
         $('#groupindex').scrolllistview();
     });
@@ -142,6 +152,17 @@ $(document).bind("pagecreate", function () {
     $("#myoptionheader").bind('expand', function () {
         console.log('option header was expanded');
     });
+
+	//day-selector codes...
+	$( "#day-selector-check-all" ).live('vclick', function () {
+		$("#dayselector1").dayselector('selectAll');
+	});
+
+	$( "#day-selector-get-days" ).live('vclick', function () {
+		var valuesStr = $("#dayselector1").dayselector('value').join(', ');
+		$(".selectedDay").text(valuesStr);
+	});
+
 });
 
 $(document).bind("pagecreate", function() {

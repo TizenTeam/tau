@@ -63,6 +63,7 @@ initGoogle();
 
 function initGoogle() {
 	$.mobile.showPageLoadingMsg();
+//	googlePreload();
 	loadMapScript();
 }
 
@@ -78,27 +79,40 @@ function loadMapScript() {
 function loadSearchScript() {
 	var script = document.createElement( "script" );
 	script.type = "text/javascript";
-	script.src = "http://www.google.com/uds/api?file=uds.js&v=1.0&callback=googlePreload";
+	script.src = "http://www.google.com/uds/api?file=uds.js&v=1.0&callback=loadJQueryUIMapScript";
 	document.head.appendChild( script );
 }
 
+function loadJQueryUIMapScript() {
+	S.loadScriptsWithCallback( '../../limbo/maps/ui/jquery.ui.map.js', googlePreload );
+}
+
 function googlePreload() {
-	gMeIcon = new google.maps.MarkerImage(
-                            		"image/maps_marker.png",
-                            		new google.maps.Size(60, 60),
-                            		new google.maps.Point(-11, 0),
-                            		null);
 	getCurrentLocation( firstSearch, noLocationInfo );	
 	$.mobile.hidePageLoadingMsg();
 
-	$("#queryInput").bind( "change", function(event, ui) {
-		console.log("AAA");
+	$("#queryInput").bind( "change", function(events, ui) {
+		console.log("search typed");
 		console.log( $("#queryInput").val() );
 	});
+	
+	$("#mapBtn").bind( "vclick", function(events, ui) {
+		showListMap();
+	});
 
-	console.log( $("#queryInput") );
+	$("#mapDetailBtn").bind( "vclick", function(events, ui) {
+		showDetailMap();
+	});
+}
 
+function showListMap() {
+	console.log("ShowListMap Called");
+	$.mobile.changePage("#mapPage");
+	$("#map").gmap();
+}
 
+function showDetailMap() {
+	console.log("ShowDetailMap Called");
 }
 
 function firstSearch( lat, lng ) {
@@ -148,7 +162,7 @@ function initSearchCategoryList() {
 	
 	var searchCategoryList = $("#searchCategoryList");
 	searchCategoryList.children().remove();
-		
+	
 	for ( var i = 0; i < gGoogleCategory.length; i++ ) {
 		var listContent = {
 			id: "searchListCategoryId" + i,
@@ -172,7 +186,7 @@ function initSearchCategoryList() {
 }
 
 function setListFromLocalSearch( list, refresh ) { 
-	
+	console.log( gLocalSearch.results );
 	list.children().remove();
 
 	for ( var i = 0; i < gLocalSearch.results.length; i++ ) {
@@ -204,13 +218,20 @@ function setListFromLocalSearch( list, refresh ) {
 		$(list).find('li').last().bind("vclick", function() {
 			var tIndex = parseInt($(this).attr("id").substr(11,1));
 			gIndex = tIndex;
-			$.mobile.changePage("#mapPage");
-			showMapInfo();
+			showDetailPage();
+		
 			});
 	}
 	if ( refresh ) {
 		list.listview('refresh');
 	}
+}
+
+function showDetailPage() {
+	$("#detailTitle").text( gLocalSearch.results[gIndex].title );
+	$("#detailAddress").text( gLocalSearch.results[gIndex].addressLines[0] );
+	$("#detailTel").text( gLocalSearch.results[gIndex].phoneNumbers[0].number );
+	$.mobile.changePage("#detailPage");
 }
 
 function OnSearch() {

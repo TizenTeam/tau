@@ -3,6 +3,7 @@
 * Copyright (c) 2010 Adobe Systems Incorporated - Kin Blas (jblas@adobe.com)
 * Dual licensed under the MIT (MIT-LICENSE.txt) and GPL (GPL-LICENSE.txt) licenses.
 * Note: Code is in draft form and is subject to change
+* Modified by koeun.choi@samsung.com
 */
 (function($,window,document,undefined){
 
@@ -165,7 +166,7 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 			this._stopMScroll();
 	},
 
-	_setScrollPosition: function(x, y)
+	_setScrollPosition: function(x, y, duration)
 	{
 		this._sx = x;
 		this._sy = y;
@@ -177,7 +178,7 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 		switch (sm)
 		{
 			case "translate":
-				setElementTransform($v, x + "px", y + "px");
+				setElementTransform($v, x + "px", y + "px", duration);
 				break;
 			case "position":
 				$v.css({left: x + "px", top: y + "px"});
@@ -196,7 +197,7 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 		{
 			var $sbt = $vsb.find(".ui-scrollbar-thumb");
 			if (sm === "translate")
-				setElementTransform($sbt, "0px", -y/$v.height() * $sbt.parent().height() + "px");
+				setElementTransform($sbt, "0px", -y/$v.height() * $sbt.parent().height() + "px", duration);
 			else
 				$sbt.css("top", -y/$v.height()*100 + "%");
 		}
@@ -205,7 +206,7 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 		{
 			var $sbt = $hsb.find(".ui-scrollbar-thumb");
 			if (sm === "translate")
-				setElementTransform($sbt,  -x/$v.width() * $sbt.parent().width() + "px", "0px");
+				setElementTransform($sbt,  -x/$v.width() * $sbt.parent().width() + "px", "0px", duration);
 			else
 				$sbt.css("left", -x/$v.width()*100 + "%");
 		}
@@ -214,8 +215,14 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 	scrollTo: function(x, y, duration)
 	{
 		this._stopMScroll();
-		if (!duration)
-			return this._setScrollPosition(x, y);
+		var sm = this.options.scrollMethod;
+
+		//currently support only animation for translate
+		//Don't want to use setTimeout algorithm for animation.
+		if (!duration || (duration && sm === "translate") )
+			return this._setScrollPosition(x, y, duration);
+
+		//follow jqm default animation when the scrollmethod is not translate. 
 
 		x = -x;
 		y = -y;
@@ -337,10 +344,20 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 		// generation of "click" events.
 		//
 		// XXX: We should test if this has an effect on links! - kin
+		// XXX: It does affect links, and other input elements, if they
+		//      occur inside a scrollview; so make sure the event
+		//      occurred on something other than an input element or a link
+		//      before preventing its default and stopping its propagation
+		if (this.options.eventType == "mouse" || this.options.delayedClickEnabled) {
+			var shouldBlockEvent = !($(e.target).is('a, :input') ||
+                               $(e.target).parents('a, :input').length > 0);
 
-		if (this.options.eventType == "mouse" || this.options.delayedClickEnabled)
-			e.preventDefault();
-		e.stopPropagation();
+			if (shouldBlockEvent) {
+				e.preventDefault();
+				e.stopPropagation();
+			}
+		}
+
 	},
 
 	_propagateDragMove: function(sv, e, ex, ey, dir)
@@ -609,15 +626,22 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 	}
 });
 
-function setElementTransform($ele, x, y)
+function setElementTransform($ele, x, y, duration)
 {
 	var v = "translate3d(" + x + "," + y + ", 0px)";
+	var transition;
+	if(!duration)
+		transition = "none";
+	else
+		transition =  "-webkit-transform " + duration/1000 + "s";
+
 	$ele.css({
 		"-moz-transform": v,
 		"-webkit-transform": v,
-		"transform": v
+		"transform": v,
+		"-webkit-transition": transition
 	});
-}
+ }
 
 
 function MomentumTracker(options)
