@@ -84,7 +84,7 @@ function loadSearchScript() {
 }
 
 function loadJQueryUIMapScript() {
-	S.loadScriptsWithCallback( '../../limbo/maps/ui/jquery.ui.map.js', googlePreload );
+	S.loadScriptsWithCallback( 'lib/jquery.ui.map.full.min.js', googlePreload );
 }
 
 function googlePreload() {
@@ -117,7 +117,12 @@ function showListMap() {
 	var title = $.mobile.activePage.find(".ui-title").text();
 	$("#mapTitle").text( title );
 	$.mobile.changePage("#mapPage");
-	$("#map").gmap();
+	if ( gMap ) {
+		gMap.gmap('refresh');
+	} else {
+		gMap = $("#map").gmap();	
+	}
+
 	for ( var i = 0; i < gLocalSearch.results.length; i++ ) {	
 		var ll = new google.maps.LatLng( gLocalSearch.results[i].lat, gLocalSearch.results[i].lng );
 		$("#map").gmap( 'addMarker', { 
