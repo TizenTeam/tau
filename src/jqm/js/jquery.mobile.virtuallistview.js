@@ -21,6 +21,7 @@ var	SCROLL_DOWN = 1;
 var	SCROLL_UP = -1;
 var LINE_H = 0;
 var TITLE_H = 0;	
+var CONTAINER_W = 0;
 
 var i =0, j=0, k=0;
 var ex_windowTop = 0;
@@ -113,11 +114,16 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		/*LINE_H = $('ul.ui-virtual-list-container li:first').outerHeight();*/ 
 		LINE_H = $('ul.ui-virtual-list-container li:first').innerHeight();
 
+		CONTAINER_W = $('ul.ui-virtual-list-container').innerWidth();
+		
+		var padding = parseInt($("ul.ui-virtual-list-container li").css("padding-right")); 
+		padding += parseInt($("ul.ui-virtual-list-container li").css("border-left-width"));
+		
 		$("ul.ui-virtual-list-container li").addClass("position_absolute");
 
 		$('ul.ui-virtual-list-container li').each(function(index){
 			$(this).css("top", TITLE_H + LINE_H*index + 'px')
-			.css("width", "99%");	/* Later, need solution to findout real width. */
+			.css("width", CONTAINER_W - padding*2);
 		});
 
 		/* Set Max List Height */
