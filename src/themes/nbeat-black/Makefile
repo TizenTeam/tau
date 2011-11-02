@@ -34,6 +34,7 @@ CSS_SRCS=	jquery.mobile.theme.less.css \
 		jquery.mobile.progressing.less.css \
 		jquery.mobile.slider.less.css \
 		jquery.mobile.tickernoti.less.css \
+		jquery.mobile.smallpopup.less.css \
 		jquery.mobile.optionheader.less.css \
 		shortcutscroll.less.css \
 		dayselector.less.css
