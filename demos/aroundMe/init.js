@@ -3,13 +3,6 @@
 var gIndex=0;
 var gDetailViewData;
 
-var gGoogleCategory = ["All", "Art", "Education", "Restaurants", "Travel", "Bar"];
-var gfqCategory = ["", "Art", "Education", "Restaurants", "Travel", "Bar"];
-var gGoogleCategoryImage = ["Aroundme_icon_Art.png", "Aroundme_icon_Art.png", "Aroundme_icon_College.png", "Aroundme_icon_Food.png", "Aroundme_icon_Home.png", "Aroundme_icon_Nightlife.png"];
-var gGoogleCategoryQuery = ["category:all", "category:art", "category:education", "category:restaurants", "category:travel", "category:bar"];
-
-var gDistance = new Array();
-
 var searchMarker = new Array();
 var searchInfoWindow = new Array();
 var curmarker = null;
@@ -18,7 +11,6 @@ var gCustomInfoWindow;
 var ME_LOCATION_LAT = 37.257762;
 var ME_LOCATION_LNG = 127.053022;
 
-var gLocalSearch;
 var gMap;
 var gInfoWindow;
 var gSelectedResults = [];
@@ -63,55 +55,59 @@ initGoogle();
 
 function initGoogle() {
 	$.mobile.showPageLoadingMsg();
-//	googlePreload();
-	loadMapScript();
-}
-
-// Loader for google map v3 api
-function loadMapScript() {
-	var script = document.createElement( "script" );
-	script.type = "text/javascript";
-	script.src = "http://maps.google.com/maps/api/js?sensor=true&language=en&region=GB&libraries=geometry&callback=loadSearchScript";
-	document.head.appendChild( script );
-}
-
-// Callback for google loader
-function loadSearchScript() {
-	var script = document.createElement( "script" );
-	script.type = "text/javascript";
-	script.src = "http://www.google.com/uds/api?file=uds.js&v=1.0&callback=loadJQueryUIMapScript";
-	document.head.appendChild( script );
-}
-
-function loadJQueryUIMapScript() {
-	S.loadScriptsWithCallback( '../../limbo/maps/ui/jquery.ui.map.js', googlePreload );
+	gMap = $("#map").gmap();
+	googlePreload();
 }
 
 function googlePreload() {
-	getCurrentLocation( firstSearch, noLocationInfo );	
+	getCurrentLocation( firstSearch, noLocationInfo );
+	initSearchCategoryList();	
 	$.mobile.hidePageLoadingMsg();
-
+	
 	$("#queryInput")
 		.live( "change", function(events, ui) {
-			console.log( "change + " + $("#queryInput").val() );
+			executeSearch( $("#queryInput").val() );
 		})
-		.live( "keyup" , function() {
-			console.log( "keyup + " + $("#queryInput").val() );
-		});
 	
+	$("#listBtn").bind( "vclick", function(events, ui) {
+		window.history.back();
+	});
+
+	$("#mapSearchBtn").bind( "vclick", function(events, ui) {
+		showListMap( $("#searchList") );
+	});
+
 	$("#mapBtn").bind( "vclick", function(events, ui) {
-		showListMap();
+		showListMap( $("#aroundmeList") );
 	});
 
 	$("#mapDetailBtn").bind( "vclick", function(events, ui) {
 		showDetailMap();
-	});
+	});	
 }
 
-function showListMap() {
-	console.log("ShowListMap Called");
+function showListMap( list ) {
+	// because jquery data stores its data into $.cache, 
+	// save somewhere else before change pages
+	console.log( list );
+	var li = list.find('li');
+	var ll = new Array();
+	for ( var i = 0; i < li.length; i++ ) {
+		ll.push( $(list).data( $( li[i] ).attr("id") ) );
+	}
+
+	var title = $.mobile.activePage.find(".ui-title").text();
+	$("#mapTitle").text( title );
 	$.mobile.changePage("#mapPage");
-	$("#map").gmap();
+	gMap.gmap('clear', 'markers' );
+	gMap.gmap('set', 'bounds', undefined );
+	gMap.gmap('refresh');
+	for ( var i = 0; i < ll.length; i++ ) {
+		$("#map").gmap( 'addMarker', {
+			'position' : ll[i].geometry.location
+		} );
+		$("#map").gmap( 'addBounds', ll[i].geometry.location );
+	}
 }
 
 function showDetailMap() {
@@ -120,17 +116,12 @@ function showDetailMap() {
 
 function firstSearch( lat, lng ) {
 	meLocation = new google.maps.LatLng( lat, lng );
-	initLocalSearch();
-			
-	if ( gLocalSearch.results != undefined ) {
-		gLocalSearch.clearResults();
-	}
-
-	gLocalSearch.setCenterPoint(meLocation);
-	gLocalSearch.setSearchCompleteCallback( null, OnFirstSearch );
-	gLocalSearch.execute("category:restaurants");
-
-	initSearchCategoryList();
+	
+	gMap.gmap( 'placesSearch', { 
+		location: meLocation,
+		radius: 5000,
+		types: ['store']
+		}, onFirstSearch );	
 }
 
 
@@ -140,73 +131,45 @@ function noLocationInfo() {
 	firstSearch( ME_LOCATION_LAT, ME_LOCATION_LNG );	
 }
 
-function initLocalSearch() {
-	gLocalSearch = new GlocalSearch();
-	gLocalSearch.setResultSetSize( GSearch.LARGE_RESULTSET );
-}
 
-
-function OnFirstSearch() {
-
-	if ( !gLocalSearch.results || gLocalSearch.results.length == 0 ) {
-		alert("No search result");
+function onFirstSearch(results, status) {
+	if ( status == google.maps.places.PlacesServiceStatus.OK ) {
+		setListFromPlacesSearch( $("#aroundmeList"), results, true );
+	
+		
+	} else if ( status == google.maps.places.PlacesServiceStatus.ZERO_RESULTS ) {
+		$("#aroundmeList").append("<li>No Results</li>");
+		popSmallPopup( "Error", "No Results" );
 	} else {
-		for ( var i = 0; i < gLocalSearch.results.length; i++ ) {
-			gDistance[ i ] = calcDistance( gLocalSearch.results[i].lat, gLocalSearch.results[i].lng );
-			gIsFavoriteBtnOn_google[ i ] = false;
-			gIsFavoriteBtnOn_4s[ i ] = false;
-		}
-    	setListFromLocalSearch( $("#aroundmeList"), true );
+		console.log( "Exception on PlacesSearch" );
 	}
+//    	setListFromLocalSearch( $("#aroundmeList"), true );
 }
 
 
 function initSearchCategoryList() {
 	
-	var searchCategoryList = $("#searchCategoryList");
-	searchCategoryList.children().remove();
+	var li = $("#searchCategoryList").find('li');
 	
-	for ( var i = 0; i < gGoogleCategory.length; i++ ) {
-		var listContent = {
-			id: "searchListCategoryId" + i,
-			href: "#",
-			title: gGoogleCategory[i],
-			imgSrc: "image/" + gGoogleCategoryImage[i]
-		};
-		
-		var item = '<li class="ul-li-3-1-10" id="' + listContent.id + '">' +
-				'<span class="ui-li-text-main">' + listContent.title + '</span>' + 
-				'<img src="' + listContent.imgSrc + '" class="ui-li-bigicon">' + '</li>';
-		searchCategoryList.append( item );
-
-		$(searchCategoryList).find('li').last().bind("vclick", function() {
-			var tIndex = parseInt($(this).attr("id").substr(20, 1));
-			var query = gGoogleCategoryQuery[tIndex];
-			
-			executeSearch( query );
+	for ( var i = 0; i < li.length; i++ ) {
+		$(li[i]).bind("vclick", function() {
+			executeSearch( $(this).attr("data-query") );
 		});
 	}
 }
 
-function setListFromLocalSearch( list, refresh ) { 
-	console.log( gLocalSearch.results );
+function setListFromPlacesSearch( list, results, refresh ) { 
 	list.children().remove();
 
-	for ( var i = 0; i < gLocalSearch.results.length; i++ ) {
-		var address = (( gLocalSearch.results[i].streetAddress.length > 0 ) ? (gLocalSearch.results[i].streetAddress + ",") : "")
-			+ ((gLocalSearch.results[i].city.length > 0 ) ? (gLocalSearch.results[i].city + ", " ) : "" )
-			+ ((gLocalSearch.results[i].region.length > 0 ) ? (gLocalSearch.results[i].region + ", " ) : "" ) 
-			+ ((gLocalSearch.results[i].country.length > 0 ) ? (gLocalSearch.results[i].country) : "" );
-		if ( address.lastIndexOf(",") == address.length - 2 ) {
-			address = address.substr( 0, address.length - 2 );
-		}
+	for ( var i = 0; i < results.length; i++ ) {
+		console.log( results[i] );
 		var listContent = {
 				id: "listItemId-" + i,
 				href: "#",
-				title: gLocalSearch.results[i].title,
-				info: gDistance[i],
-				subTitle: address,
-				imgSrc: "image/" + gGoogleCategoryImage[i % 6]
+				title: results[i].name,
+				info: calcDistance(results[i].geometry.location),
+				subTitle: results[i].vicinity,
+				imgSrc: results[i].icon
 			};
 		
 		// is this only option for these things? can we make it these to better way?
@@ -217,39 +180,77 @@ function setListFromLocalSearch( list, refresh ) {
 				'<span class="ui-li-text-sub2">' + listContent.info + '</span>' + '</li>';
 
 		list.append( item  );
-		
+
+		$(list).data( listContent.id, results[i] );
+
 		$(list).find('li').last().bind("vclick", function() {
-			var tIndex = parseInt($(this).attr("id").substr(11,1));
-			gIndex = tIndex;
-			showDetailPage();
-		
-			});
+			getDetailPage( $(list).data( $(this).attr("id") ).reference );
+		});
 	}
 	if ( refresh ) {
 		list.listview('refresh');
 	}
 }
 
-function showDetailPage() {
-	$("#detailTitle").text( gLocalSearch.results[gIndex].title );
-	$("#detailAddress").text( gLocalSearch.results[gIndex].addressLines[0] );
-	$("#detailTel").text( gLocalSearch.results[gIndex].phoneNumbers[0].number );
-	$.mobile.changePage("#detailPage");
+function test() {
+	for ( var i = 0; i < gLocalSearch.results.length; i++ ) {
+		var temp = new FavoriteItem( gLocalSearch.results[i] );
+		console.log( temp.toSaveString() );
+		console.log( temp.toHTMLString() );
+	}
 }
 
-function OnSearch() {
+function getDetailPage( reference ) {
+	gMap.gmap( 'placesDetail', { 'reference': reference }, showDetailPage );
+}
 
-	$.mobile.changePage("#searchResultPage");
-
-	if ( !gLocalSearch.results || gLocalSearch.results.length == 0 ) {
-		alert("No search result");
-	} else {
-		for ( var i = 0; i < gLocalSearch.results.length; i++ ) {
-			gDistance[ i ] = calcDistance( gLocalSearch.results[i].lat, gLocalSearch.results[i].lng );
-			gIsFavoriteBtnOn_google[ i ] = false;
-			gIsFavoriteBtnOn_4s[ i ] = false;
+function showDetailPage( place, status ) {
+	if ( status == google.maps.places.PlacesServiceStatus.OK ) {
+		$("#detailTitle").text( place.name );
+		if ( place.website ) { 
+			$("#detailWeb").text( place.website ); 
 		}
-    	setListFromLocalSearch( $("#searchList"), true );
+		if ( place.formatted_address ) {
+			$("#detailAddress").text( place.formatted_address );
+		}
+		if ( place.types.length > 0 ) {
+			var category = "";
+			for ( var i = 0; i < place.types.length; i++ ) {
+				category += place.types[i] + " ";
+			}
+			$("#detailCategory").text( category );
+		}
+		if ( place.formatted_phone_number ) {
+			$("#detailTel").text( place.formatted_phone_number );
+		}
+		if ( place.rating ) {
+			$("#detailRating").text( place.rating );
+		}
+		$.mobile.changePage("#detailPage");
+		console.log( place );
+	} else {
+		alert( 'no results' );
+	}
+}
+
+function popSmallPopup( message1, message2 ) {
+	var popupdiv = '<div data-role="smallpopup" id="resultPopup" data-text1="denis" data-text2="hello" data-param="aaaaa"></div>';
+	$.mobile.activePage.find('[data-role="content"]').append( popupdiv );
+	var popup = $("#resultPopup");		
+	popup.smallpopup();
+	popup.smallpopup('show');
+}
+
+function onSearch(results, status) {	
+	if ( status == google.maps.places.PlacesServiceStatus.OK ) {
+		$.mobile.changePage("#searchResultPage");
+		setListFromPlacesSearch( $("#searchList"), results, true );
+
+	} else if ( status == google.maps.places.PlacesServiceStatus.ZERO_RESULTS ) {
+		popSmallPopup( "Error", "No Results" );
+		console.log( "No Results" );
+	} else {
+		console.log( "Exception on PlacesSearch" );
 	}
 }
 
@@ -257,13 +258,12 @@ function executeSearch( query ) {
 	//showLoading
 	function realSearch( lat, lng ) {
 		meLocation = new google.maps.LatLng( lat, lng );
-		
-		if ( gLocalSearch.results != undefined ) {
-			gLocalSearch.clearResults();
-		}
-		gLocalSearch.setSearchCompleteCallback( null, OnSearch );
-		gLocalSearch.setCenterPoint( meLocation );
-		gLocalSearch.execute( query );
+	
+		gMap.gmap( 'placesSearch', { 
+			location: meLocation,
+			radius: 5000,
+			keyword: query
+		}, onSearch );			
 	}
 	
 	getCurrentLocation( realSearch, null );
@@ -279,8 +279,8 @@ function hideMeInfo()
 }
 
 
-function calcDistance( lat, lng ) {
-	var distance = google.maps.geometry.spherical.computeDistanceBetween( meLocation, new google.maps.LatLng( lat, lng ) );
+function calcDistance( latlng ) {
+	var distance = google.maps.geometry.spherical.computeDistanceBetween( meLocation, latlng );
 	distance = Math.floor( distance );
 	if ( distance > 999 ) { 
 		distance = Math.round( distance / 1000 );
