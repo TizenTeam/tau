@@ -1,8 +1,10 @@
 /*
 * jQuery Mobile Framework : "Virtual listview" plugin
-* Copyright (c) Lee, Wongi (wongi11.lee@samsung.com)
+* Copyright (c) Samsung Electronics co.
 * Dual licensed under the MIT or GPL Version 2 licenses.
 * http://jquery.org/license
+* author: wongi11.lee@samsung.com
+* author: koeun.choi@samsung.com
 */
 
 (function( $, undefined ) {
@@ -30,26 +32,6 @@ var start_index = 0; 				//first item's index on screen.
 var first_index = 0;				//first id of <li> element.
 var last_index = INIT_LIST_NUM -1;	//last id of <li> element.
 
-var demo_names = [
-		"Aaliyah","Aamir","Aaralyn","Aaron","Abagail","Babitha","Bahuratna","Bandana",
-		"Bulbul","Cade","Caldwell","CaptainFantasticFasterThanSuperman",
-		"Chandan", "Caster", "Dagan ", "Daulat", "Dag", "Earl", "Ebenzer",
-		"Ellison", "Elizabeth", "Filbert", "Fitzpatrick", "Florian",
-		"Fulton", "Frazer", "Gabriel", "Gage", "Galen", "Garland",
-		"Gauhar", "Hadden", "Hafiz", "Hakon", "Haleem", "Hank", "Hanuman",
-		"Jabali ", "Jaimini", "Jayadev", "Jake", "Jayatsena", "Jonathan",
-		"Kamaal", "Jeirk", "Jasper", "Jack", "Mac", "Macy", "Marlon",
-		"Milson", "Aaliyah", "Aamir", "Aaralyn", "Aaron", "Abagail",
-		"Babitha", "Bahuratna", "Bandana", "Bulbul", "Cade", "Caldwell",
-		"Chandan", "Caster", "Dagan ", "Daulat", "Dag", "Earl", "Ebenzer",
-		"Ellison", "Elizabeth", "Filbert", "Fitzpatrick", "Florian",
-		"Fulton", "Frazer", "Gabriel", "Gage", "Galen", "Garland",
-		"Gauhar", "Hadden", "Hafiz", "Hakon", "Haleem", "Hank", "Hanuman",
-		"Jabali ", "Jaimini", "Jayadev", "Jake", "Jayatsena", "Jonathan",
-		"Kamaal", "Jeirk", "Jasper", "Jack", "Mac", "Macy", "Marlon",
-		"Milson" ];		
-
-
 $.widget( "mobile.virtuallistview", $.mobile.widget, {
 	options: {
 		theme: "s",
@@ -59,72 +41,21 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		splitIcon: "arrow-r",
 		splitTheme: "b",
 		inset: false,
-		liststyle: "3-1-1",	/* Default : 3-1-1 */
 		initSelector: ":jqmData(role='virtuallistview')"
 	},
 
-	_initList: function() {
-		var o = this.options;
-		
-		for (i = 0; i < INIT_LIST_NUM; i++)
-		{
-			/* For list style demo */
-			if (o.liststyle == "3-1-1")	/* Default */
-			{
-				$('ul.ui-virtual-list-container').append($("<li class='ui-li-" + o.liststyle +"'></li>").text('<' + i + '> ' + demo_names[(i % (demo_names.length))]).attr('id', 'li_'+i));			
-			}
-			else if (o.liststyle == "3-1-4")
-			{
-				$('ul.ui-virtual-list-container')
-				.append($("<li class='ui-li-" + o.liststyle +"'><span class='ui-li-text-main'>"+('<' + i + '> ' + demo_names[(i % (demo_names.length))]) +"</span><div data-role='button' data-inline='true'>Text Button</div></li>")
-				.attr('id', 'li_'+i));				
-				
-				/*<span class="ui-li-text-main">3.1.4</span>
-				<div data-role="button" data-inline="true">Text Button</div>*/			
-			}
-			else if (o.liststyle == "3-1-6")
-			{
-				$('ul.ui-virtual-list-container')
-				.append($("<li class='ui-li-" + o.liststyle +"'><span class='ui-li-text-main'>"+('<' + i + '> ' + demo_names[(i % (demo_names.length))]) 
-						+ "</span><form><input type='checkbox' data-style='onoff'/></form></li>")
-				.attr('id', 'li_'+i));				
-				
-				/*<span class="ui-li-text-main">3.1.6</span>
-				<form><input type="checkbox" data-style="onoff"/></form>*/
-			}
-			else if (o.liststyle == "3-1-14")
-			{
-				$('ul.ui-virtual-list-container')
-				.append($("<li class='ui-li-" + o.liststyle +"'><span class='ui-li-text-main'>"+('<' + i + '> ' + demo_names[(i % (demo_names.length))]) 
-						+ "</span><img src='thumbnail.jpg' class='ui-li-bigicon'>" 
-						+ "<div data-role='button' data-inline='true' data-icon='plus' data-style='circle'></div>" 
-						+ "</li>")
-				.attr('id', 'li_'+i));		
-				
-				/*<span class="ui-li-text-main">3.1.14</span>
-				<img src="thumbnail.jpg" class="ui-li-bigicon">
-				<div data-role="button" data-inline="true" data-icon="plus" data-style="circle"></div>*/
-			}
-			else if (o.liststyle == "3-2-7")
-			{
-				$('ul.ui-virtual-list-container')
-				.append($("<li class='ui-li-" + o.liststyle +"'><span class='ui-li-text-main'>"+('<' + i + '> ' + demo_names[(i % (demo_names.length))]) 
-						+ "</span><img src='00_winset_icon_favorite_on.png' class='ui-li-icon-sub'>" 
-						+ "<span class='ui-li-text-sub'>Subtext</span>" 
-						+ "<span class='ui-li-text-sub2'>Subtext2</span>"
-						+ "</li>")
-				.attr('id', 'li_'+i));		
+	pushData: function ( template, data ) {
+		this.data = data;
 
-				/*<span class="ui-li-text-main">3.2.7</span>
-				<img src="00_winset_icon_favorite_on.png" class="ui-li-icon-sub">
-				<span class="ui-li-text-sub">Subtext</span>
-				<span class="ui-li-text-sub2">Subtext2</span>*/
-			}
+		for (i = 0; i < INIT_LIST_NUM; i++) {
+			var htmlData = template.tmpl( data[(i % (data.length))] );
+			$('ul.ui-virtual-list-container').append( ( htmlData ).attr( 'id', 'li_'+i ) );
 
-			j++;
 		}
-		
 		this.refresh(true);
+	}, 
+
+	_initList: function() {
 	},
 
 	_reposition: function(){
@@ -168,9 +99,10 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 				
 				if (cur_item)
 				{
+
 					$(cur_item).attr('id', 'li_'+ (v_lastIndex+1+i));
 					$(cur_item).css('top', TITLE_H + LINE_H*(v_lastIndex+i));
-					$(cur_item).find(".ui-li-text-main").text('<' + (v_lastIndex+i) + '> ' + demo_names[((v_lastIndex+i) % (demo_names.length))]);
+					$(cur_item).find(".ui-li-text-main").text('<' + (v_lastIndex+i) + '> ' + this.data[((v_lastIndex+i) % (demo_names.length))]);
 				}
 				else
 					break;
@@ -277,22 +209,16 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
         dividers = $el.find(':jqmData(role="virtuallistview")'),
         lastListItem = null,
         shortcutscroll = this;
-
-        /* Get Style */
-        if (this.element.data('style'))
-        {
-        	o.liststyle = t.element.data('style');
-        }
         
 		ex_windowTop = Math.floor($(document).scrollTop());
 	    
-		t._initList(); //Initialize Widget
+		//t._initList(); //Initialize Widget
 		
 	    $('ul.ui-virtual-list-container').bind("pagehide", function(e){
 			$('ul.ui-virtual-list-container').empty();
 		});
 	    
-	    $(document).bind("pageshow", t._reposition);
+	    //$(document).bind("pageshow", t._reposition);
 	    $(document).bind('scrollstop', t._scrollmove);
 		
 		t.refresh( true );
