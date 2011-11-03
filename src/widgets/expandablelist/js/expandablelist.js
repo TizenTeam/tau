@@ -59,8 +59,8 @@ $.widget("todons.expandablelist", $.mobile.widget, {
 
 		expanded.addClass("ui-li-expanded");
 
-		e.find( ":jqmData(expandable='true')" )
-			 .wrapInner( '<img src="thumbnail.jpg" class="ui-li-expanded-icon">' );
+//		e.find( ":jqmData(expandable='true')" )
+//			 .wrapInner( '<img src="thumbnail.jpg" class="ui-li-expanded-icon">' );
 
 		// For every expandable, bind event
 		e.bind('vclick', function() {
