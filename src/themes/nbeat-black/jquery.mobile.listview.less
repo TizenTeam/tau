@@ -966,23 +966,23 @@ ul.ui-listview {
 		// Down arrow
 	}
 	.ui-li-expanded {
+		overflow: hidden;
+
+		// Transition
+		-webkit-transition: all 0.3s ease;
+		-moz-transition:  all 0.3s ease;
+		-o-transition: all 0.3s ease;
+		transition: all 0.3s ease;
 	}
 	.ui-li-expand-transition-show {
 		visibility: visible;
-		height: 100%;
-		// Transition
-		-webkit-transition: all .5s ease;
-		-moz-transition:  all .5s ease;
-		-o-transition: all .5s ease;
-		transition: all .5s ease;
 	}
 	.ui-li-expand-transition-hide {
 		visibility: hidden;
-		height: 0%;
-		-webkit-transition: all .5s ease;
-		-moz-transition:  all .5s ease;
-		-o-transition: all .5s ease;
-		transition: all .5s ease;
+		height: 0px;
+		padding-top: 0px;
+		padding-bottom: 0px;
+
 	}
 }
 
