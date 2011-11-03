@@ -21,6 +21,7 @@ var	SCROLL_DOWN = 1;
 var	SCROLL_UP = -1;
 var LINE_H = 0;
 var TITLE_H = 0;	
+var CONTAINER_W = 0;
 
 var i =0, j=0, k=0;
 var ex_windowTop = 0;
@@ -76,7 +77,6 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 			{
 				$('ul.ui-virtual-list-container')
 				.append($("<li class='ui-li-" + o.liststyle +"'><span class='ui-li-text-main'>"+('<' + i + '> ' + demo_names[(i % (demo_names.length))]) +"</span><div data-role='button' data-inline='true'>Text Button</div></li>")
-				/*.text('<' + i + '> ' + demo_names[(i % (demo_names.length))])*/
 				.attr('id', 'li_'+i));				
 				
 				/*<span class="ui-li-text-main">3.1.4</span>
@@ -84,17 +84,37 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 			}
 			else if (o.liststyle == "3-1-6")
 			{
+				$('ul.ui-virtual-list-container')
+				.append($("<li class='ui-li-" + o.liststyle +"'><span class='ui-li-text-main'>"+('<' + i + '> ' + demo_names[(i % (demo_names.length))]) 
+						+ "</span><form><input type='checkbox' data-style='onoff'/></form></li>")
+				.attr('id', 'li_'+i));				
+				
 				/*<span class="ui-li-text-main">3.1.6</span>
 				<form><input type="checkbox" data-style="onoff"/></form>*/
 			}
 			else if (o.liststyle == "3-1-14")
 			{
+				$('ul.ui-virtual-list-container')
+				.append($("<li class='ui-li-" + o.liststyle +"'><span class='ui-li-text-main'>"+('<' + i + '> ' + demo_names[(i % (demo_names.length))]) 
+						+ "</span><img src='thumbnail.jpg' class='ui-li-bigicon'>" 
+						+ "<div data-role='button' data-inline='true' data-icon='plus' data-style='circle'></div>" 
+						+ "</li>")
+				.attr('id', 'li_'+i));		
+				
 				/*<span class="ui-li-text-main">3.1.14</span>
 				<img src="thumbnail.jpg" class="ui-li-bigicon">
 				<div data-role="button" data-inline="true" data-icon="plus" data-style="circle"></div>*/
 			}
 			else if (o.liststyle == "3-2-7")
 			{
+				$('ul.ui-virtual-list-container')
+				.append($("<li class='ui-li-" + o.liststyle +"'><span class='ui-li-text-main'>"+('<' + i + '> ' + demo_names[(i % (demo_names.length))]) 
+						+ "</span><img src='00_winset_icon_favorite_on.png' class='ui-li-icon-sub'>" 
+						+ "<span class='ui-li-text-sub'>Subtext</span>" 
+						+ "<span class='ui-li-text-sub2'>Subtext2</span>"
+						+ "</li>")
+				.attr('id', 'li_'+i));		
+
 				/*<span class="ui-li-text-main">3.2.7</span>
 				<img src="00_winset_icon_favorite_on.png" class="ui-li-icon-sub">
 				<span class="ui-li-text-sub">Subtext</span>
@@ -108,20 +128,35 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 	},
 
 	_reposition: function(){
-		TITLE_H = $('ul.ui-virtual-list-container li:eq(0)').position().top;
+		TITLE_H = $('ul.ui-virtual-list-container li:first').position().top;
 		/*LINE_H = $('ul.ui-virtual-list-container li:eq(1)').position().top - TITLE_H + 7;*/ /* 7 is margin for border line. later, it should be removed. */
 		/*LINE_H = $('ul.ui-virtual-list-container li:first').outerHeight();*/ 
 		LINE_H = $('ul.ui-virtual-list-container li:first').innerHeight();
 
+		CONTAINER_W = $('ul.ui-virtual-list-container').innerWidth();
+		
+		var padding = parseInt($("ul.ui-virtual-list-container li").css("padding-left")) + parseInt($("ul.ui-virtual-list-container li").css("padding-right"));
+		
 		$("ul.ui-virtual-list-container li").addClass("position_absolute");
 
 		$('ul.ui-virtual-list-container li').each(function(index){
 			$(this).css("top", TITLE_H + LINE_H*index + 'px')
-			.css("width", "99%");	/* Later, need solution to findout real width. */
+			.css("width", CONTAINER_W - padding);
 		});
 
 		/* Set Max List Height */
 		$('ul.ui-virtual-list-container').height(TOTAL_ITEMS * LINE_H);
+	},
+	
+	_resize: function()
+	{
+		CONTAINER_W = $('ul.ui-virtual-list-container').innerWidth();
+		
+		var padding = parseInt($("ul.ui-virtual-list-container li").css("padding-left")) + parseInt($("ul.ui-virtual-list-container li").css("padding-right"));
+		
+		$('ul.ui-virtual-list-container li').each(function(index){
+			$(this).css("width", CONTAINER_W - padding);
+		});
 	},
 	
 	_scrollmove: function(){
@@ -270,6 +305,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 	    
 	    $(document).bind("pageshow", t._reposition);
 	    $(document).bind('scrollstop', t._scrollmove);
+	    $(window).resize(t._resize);
 		
 		t.refresh( true );
 	},
@@ -277,6 +313,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 	destroy : function(){
 		$(document).unbind("pageshow");
 		$(document).unbind("scrollstop");
+		$(window).unbind("resize");
 	},
 	
 	_itemApply: function( $list, item ) {
