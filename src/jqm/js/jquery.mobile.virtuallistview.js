@@ -128,7 +128,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 	},
 
 	_reposition: function(){
-		TITLE_H = $('ul.ui-virtual-list-container li:eq(0)').position().top;
+		TITLE_H = $('ul.ui-virtual-list-container li:first').position().top;
 		/*LINE_H = $('ul.ui-virtual-list-container li:eq(1)').position().top - TITLE_H + 7;*/ /* 7 is margin for border line. later, it should be removed. */
 		/*LINE_H = $('ul.ui-virtual-list-container li:first').outerHeight();*/ 
 		LINE_H = $('ul.ui-virtual-list-container li:first').innerHeight();
@@ -146,6 +146,17 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 
 		/* Set Max List Height */
 		$('ul.ui-virtual-list-container').height(TOTAL_ITEMS * LINE_H);
+	},
+	
+	_resize: function()
+	{
+		CONTAINER_W = $('ul.ui-virtual-list-container').innerWidth();
+		
+		var padding = parseInt($("ul.ui-virtual-list-container li").css("padding-left")) + parseInt($("ul.ui-virtual-list-container li").css("padding-right"));
+		
+		$('ul.ui-virtual-list-container li').each(function(index){
+			$(this).css("width", CONTAINER_W - padding);
+		});
 	},
 	
 	_scrollmove: function(){
@@ -294,6 +305,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 	    
 	    $(document).bind("pageshow", t._reposition);
 	    $(document).bind('scrollstop', t._scrollmove);
+	    $(window).resize(t._resize);
 		
 		t.refresh( true );
 	},
@@ -301,6 +313,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 	destroy : function(){
 		$(document).unbind("pageshow");
 		$(document).unbind("scrollstop");
+		$(window).unbind("resize");
 	},
 	
 	_itemApply: function( $list, item ) {
