@@ -68,11 +68,10 @@ $.mobile.fixedToolbars = (function() {
 		if ( !autoHideMode && currentstate === "overlay" ) {
 			if ( !delayTimer ) {
 				/* Fixed header modify for theme-s : Jinhyuk */
-				if(!($( event.target).find( ":jqmData(role='header')" ).is(".ui-header-fixed")&&
+				if(!($( event.target).find( ":jqmData(role='header')" ).is(":jqmData(position='fixed')")&&
 				$( event.target).find( ":jqmData(role='header')" ).is(".ui-bar-s")))				
 					$.mobile.fixedToolbars.hide( true );
 			}
-
 			$.mobile.fixedToolbars.startShowTimer(); 
 		}
 	}
@@ -114,8 +113,8 @@ $.mobile.fixedToolbars = (function() {
 		( ( $document.scrollTop() === 0 ) ? $window : $document )
 			.bind( "scrollstart", function( event ) {
 				/* Fixed header modify for theme-s : Jinhyuk */
-				if(!($( event.target).find( ":jqmData(role='header')" ).is(".ui-header-fixed") &&
-					$( event.target).find( ":jqmData(role='header')" ).is(".ui-bar-s"))){
+				if(!$( event.target).find( ":jqmData(role='header')" ).is(":jqmData(position='fixed')"))
+				{
 					scrollTriggered = true;
 	
 					if ( stateBefore === null ) {
@@ -134,13 +133,7 @@ $.mobile.fixedToolbars = (function() {
 						$.mobile.fixedToolbars.clearShowTimer();
 	
 						if ( isOverlayState ) {
-							if(!($( event.target).find( ":jqmData(role='header')" ).is(".ui-header-fixed") &&
-							$( event.target).find( ":jqmData(role='header')" ).is(".ui-bar-s")))							
 								$.mobile.fixedToolbars.hide( true );
-							else
-							$( event.target ).find( ":jqmData(role='header')" )
-								.css("position", "fixed")
-								.css("top", "0px");															
 						}
 					}	 		
 				}
@@ -226,13 +219,13 @@ $.mobile.fixedToolbars = (function() {
 			/* Fixed header modify for theme-s : Jinhyuk */
 			if(($( event.target ).find( ":jqmData(role='header')" ).is(".ui-header-fixed")&&
 			$( event.target ).find( ":jqmData(role='header')" ).is(".ui-bar-s"))){	
+				$( event.target ).find( ":jqmData(role='header')" )
+					.css("position", "fixed")
+					.css("top", "0px");
 				 (( $( document ).scrollTop() === 0 ) ? $( window ) : $( document ) )
 					.unbind( "scrollstart")
 					.unbind( "silentscroll")
 					.unbind( "scrollstop");
-			$( event.target ).find( ":jqmData(role='header')" )
-					.css("position", "fixed")
-					.css("top", "0px");
 			}
 
 			var $this = $( this );
