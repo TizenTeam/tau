@@ -90,34 +90,35 @@ S = {
         this.loadScriptsWithCallback(scriptsToLoad, callback);
     },
 
+	// extract duplicated code
+	_loadScript: function (firstScripts, secondScripts, callback) {
+        var scriptsToLoad = firstScripts ? firstScripts : [];
+
+        for (var i = 0; i < secondScripts.length; i++) {
+            scriptsToLoad.push(secondScripts[i]);
+        }
+
+        this.loadScriptsWithCallback(scriptsToLoad, callback);
+	}
+
     // call this from config.js to load js specific to the app,
     // followed by the rest of the framework (except jQuery itself)
     // NB all scripts are loaded serially, but we could use a dependency
     // graph here instead
     load: function () {
-        var scriptsToLoad = this.addBasePath(this.scriptsToLoadPostConfig);
-
-        for (var i = 0; i < arguments.length; i++) {
-            scriptsToLoad.push(arguments[i]);
-        }
-
         var callback = function () {
             $.mobile.initializePage();
             $('body').css('visibility', 'visible');
         };
-
-        this.loadScriptsWithCallback(scriptsToLoad, callback);
+		this._loadScript(
+			this.addBasePath(this.scriptsToLoadPostConfig),
+			arguments,
+			callback);
     },
 
 	// For loading user scripts before load() call.
 	preLoad: function() {
-        var scriptsToLoad = [];
-
-        for (var i = 0; i < arguments.length; i++) {
-            scriptsToLoad.push(arguments[i]);
-        }
-
-        this.loadScriptsWithCallback(scriptsToLoad, null);
+		this._loadScript([], arguments, null);
 	}
 
     // utility function to load an array of script paths, appending
