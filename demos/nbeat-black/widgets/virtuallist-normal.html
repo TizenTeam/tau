@@ -3,11 +3,11 @@
 			<h1>Virtual List - Normal Style 3.1.1</h1>
 		</div>
 		<div data-role="content">
-			<script id="3-1-1" type="text/x-jquery-tmpl">
-				<li class="ui-li-3-1-1"> ${text} </li>
+			<script id="tmp-3-1-1" type="text/x-jquery-tmpl">
+				<li class="ui-li-3-1-1"> ${NAME} </li>
 			</script>
 			
-			<ul id="virtuallist1" data-role="virtuallistview" data-style="3-1-1">
+			<ul data-role="virtuallistview" data-template="tmp-3-1-1" data-src="JSON_DATA">
 			</ul>
 		</div>
 	</div>
