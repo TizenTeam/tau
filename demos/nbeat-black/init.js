@@ -105,24 +105,24 @@ $(document).bind("pagecreate", function () {
 		$(this).find('#progressing').progressing('stop');
 	});
 
-	$('#tickernoti').bind('vmouseup', function (e) {
-		$(this).find('#tickernoti').tickernoti('show');
+	$('#tickernoti-demo').bind('vmouseup', function (e) {
+		$('#tickernoti').tickernoti('show');
 	});
 
-	$('#tickernoti').bind('tapped', function (e, m) {
+	$('#tickernoti-demo').bind('tapped', function (e, m) {
 		/* DO SOMETHING */
 		alert('ticker noti is tapped\nparameter:"' + m + '"');
-		$(this).find('#tickernoti').tickernoti('hide');
+		$('#tickernoti').tickernoti('hide');
 	});
 
-	$('#smallpopup').bind('vmouseup', function (e) {
-		$(this).find('#smallpopup').smallpopup('show');
+	$('#smallpopup-demo').bind('vmouseup', function (e) {
+		$('#smallpopup').smallpopup('show');
 	});
 
-	$('#smallpopup').bind('tapped', function (e, m) {
+	$('#smallpopup-demo').bind('tapped', function (e, m) {
 		/* DO SOMETHING */
 		alert('smallpopup is tapped\nparameter:"' + m + '"');
-		$(this).find('#smallpopup').smallpopup('hide');
+		$('#smallpopup').smallpopup('hide');
 	});
 
     $('#groupindex-demo').bind('pageshow', function () {
