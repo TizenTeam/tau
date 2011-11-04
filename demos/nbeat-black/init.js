@@ -132,6 +132,10 @@ $(document).bind("pagecreate", function () {
 		$('#smallpopup').smallpopup('hide');
 	});
 
+	$('#imageslider').bind('pageshow', function (e) {
+		$(this).find('#imageslider').imageslider('align', 'middle');
+	});
+
     $('#groupindex-demo').bind('pageshow', function () {
         $('#groupindex').scrolllistview();
     });
