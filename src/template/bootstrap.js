@@ -109,6 +109,17 @@ S = {
         this.loadScriptsWithCallback(scriptsToLoad, callback);
     },
 
+	// For loading user scripts before load() call.
+	preLoad: function() {
+        var scriptsToLoad = [];
+
+        for (var i = 0; i < arguments.length; i++) {
+            scriptsToLoad.push(arguments[i]);
+        }
+
+        this.loadScriptsWithCallback(scriptsToLoad, null);
+	}
+
     // utility function to load an array of script paths, appending
     // S.cacheBust to each; finally, invoke callback when all scripts
     // have finished loading
