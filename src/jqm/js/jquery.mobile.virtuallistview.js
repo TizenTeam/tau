@@ -16,8 +16,8 @@ var listCountPerPage = {};
 
 /* Code for Virtual List Demo */
 var	INIT_LIST_NUM = 50;
-var	TOTAL_ITEMS = 500;
 var	PAGE_BUF = (INIT_LIST_NUM/2);
+var	TOTAL_ITEMS = 0;
 var	NO_SCROLL = 0;
 var	SCROLL_DOWN = 1;
 var	SCROLL_UP = -1;
@@ -41,27 +41,27 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		splitIcon: "arrow-r",
 		splitTheme: "b",
 		inset: false,
+		dbsrc: "",
+		template : "",
 		initSelector: ":jqmData(role='virtuallistview')"
 	},
 
-	pushData: function ( template, data ) {
+	_pushData: function ( template, data ) {
 		this.data = data;
-
-		for (i = 0; i < INIT_LIST_NUM; i++) {
-			var htmlData = template.tmpl( data[(i % (data.length))] );
+		
+		var myTemplate = $("#" + template);
+		
+		for (i = 0; i < INIT_LIST_NUM; i++) 
+		{
+			var htmlData = myTemplate.tmpl( data[(i % (data.length))] );
 			$('ul.ui-virtual-list-container').append( ( htmlData ).attr( 'id', 'li_'+i ) );
-
 		}
+		
 		this.refresh(true);
 	}, 
 
-	_initList: function() {
-	},
-
 	_reposition: function(){
 		TITLE_H = $('ul.ui-virtual-list-container li:first').position().top;
-		/*LINE_H = $('ul.ui-virtual-list-container li:eq(1)').position().top - TITLE_H + 7;*/ /* 7 is margin for border line. later, it should be removed. */
-		/*LINE_H = $('ul.ui-virtual-list-container li:first').outerHeight();*/ 
 		LINE_H = $('ul.ui-virtual-list-container li:first').innerHeight();
 
 		CONTAINER_W = $('ul.ui-virtual-list-container').innerWidth();
@@ -90,10 +90,12 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		});
 	},
 	
-	_scrollmove: function(){
+	_scrollmove: function(event){
 		var windowTop = Math.floor($(document).scrollTop());
 		var windowHeight = Math.floor($(window).height());
 		var velocity = 0;
+		var o = event.data;
+		var dataList = window[o.dbsrc];
 		
 		//Move older item to bottom
 		var _moveTopBottom= function(v_firstIndex, v_lastIndex, num)
@@ -110,10 +112,28 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 				
 				if (cur_item)
 				{
-
-					$(cur_item).attr('id', 'li_'+ (v_lastIndex+1+i));
-					$(cur_item).css('top', TITLE_H + LINE_H*(v_lastIndex+i));
-					$(cur_item).find(".ui-li-text-main").text('<' + (v_lastIndex+i) + '> ' + this.data[((v_lastIndex+i) % (demo_names.length))]);
+					/* Make New <LI> element from template. */
+					var myTemplate = $("#" + o.template);
+					var htmlData = myTemplate.tmpl(dataList[v_lastIndex + i]);
+					
+					/* Copy all data to current item. */
+					$(cur_item).contents().filter(function(){return $(this).text().trim().length>0;}).each(function(index)
+					{
+						var oldObj = $(this);
+						var newText = $(htmlData).contents().filter(function(){return $(this).text().trim().length > 0;}).eq(index).text();
+						
+						if ($(this).is("span"))
+						{
+							$(oldObj).text(newText);
+						}
+						else  /* write directly */ 
+						{
+							$(oldObj).find("span").text(newText);
+						}
+					});
+					
+					/* Set New Position */
+					(cur_item).css('top', TITLE_H + LINE_H*(v_lastIndex + i)).attr( 'id', 'li_' +(v_lastIndex + 1+ i));
 				}
 				else
 					break;
@@ -134,10 +154,29 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 				{
 					if (v_firstIndex-1-i < 0)
 						break;
+				
+					/* Make New <LI> element from template. */
+					var myTemplate = $("#" + o.template);
+					var htmlData = myTemplate.tmpl(dataList[v_firstIndex-1-i]);
 					
-					$(cur_item).attr('id', 'li_'+ (v_firstIndex -1-i));
-					$(cur_item).css('top', TITLE_H + LINE_H*(v_firstIndex-1-i));
-					$(cur_item).find(".ui-li-text-main").text('<' + (v_firstIndex-1-i) + '> ' + demo_names[((v_firstIndex-1-i) % (demo_names.length))]);
+					/* Copy all data to current item. */
+					$(cur_item).contents().filter(function(){return $(this).text().trim().length>0;}).each(function(index)
+					{
+						var oldObj = $(this);
+						var newText = $(htmlData).contents().filter(function(){return $(this).text().trim().length > 0;}).eq(index).text();
+						
+						if ($(this).is("span"))
+						{
+							$(oldObj).text(newText);
+						}
+						else  /* write directly */ 
+						{
+							$(oldObj).find("span").text(newText);
+						}
+					});
+
+					/* Set New Position */
+					$(cur_item).css('top', TITLE_H + LINE_H*(v_firstIndex-1-i)).attr( 'id', 'li_' +(v_firstIndex-1-i));
 				}
 				else
 					break;
@@ -207,6 +246,32 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 
 	_create: function(event) {
 		var t = this;
+		var o = this.options; 
+		
+		if (t.element.data("src"))
+		{
+			o.dbsrc = t.element.data("src");
+			
+			/* Now, getJSON api does not work at all. Later, it will be chage like below. */
+			/* Currently, data-src mean's JSON Data arrary's name. */
+
+			/* wongi_1103 - Loading dummy Jason Data for test */ 
+/*			var script = document.createElement('script'); 
+			script.type = 'text/javascript'; 
+			script.src = o.dbsrc;
+			document.getElementsByTagName('head')[0].appendChild(script);
+		
+			$.getJSON(o.dbsrc"http://issues.tauren.com/testjson/data.json", function(json){
+				playerlist = json;
+			});
+*/
+			TOTAL_ITEMS = $(window[o.dbsrc]).size();
+		}	
+		
+		if (t.element.data("template"))
+		{
+			o.template = t.element.data("template");
+		}
 		
 		// create listview markup
 		t.element.addClass(function( i, orig ) {
@@ -220,17 +285,18 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
         dividers = $el.find(':jqmData(role="virtuallistview")'),
         lastListItem = null,
         shortcutscroll = this;
+
+        /* Make Gen list by template */
+    	t._pushData((o.template), window[o.dbsrc]);
         
 		ex_windowTop = Math.floor($(document).scrollTop());
-	    
-		//t._initList(); //Initialize Widget
 		
 	    $('ul.ui-virtual-list-container').bind("pagehide", function(e){
 			$('ul.ui-virtual-list-container').empty();
 		});
 	    
-	    //$(document).bind("pageshow", t._reposition);
-	    $(document).bind('scrollstop', t._scrollmove);
+	    $(document).bind("pageshow", t._reposition);
+	    $(document).bind('scrollstop', t.options, t._scrollmove);
 	    $(window).resize(t._resize);
 		
 		t.refresh( true );
@@ -240,6 +306,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		$(document).unbind("pageshow");
 		$(document).unbind("scrollstop");
 		$(window).unbind("resize");
+		$('ul.ui-virtual-list-container').empty();
 	},
 	
 	_itemApply: function( $list, item ) {
@@ -518,12 +585,4 @@ $( document ).bind( "pagecreate create", function( e ){
 	$( $.mobile.virtuallistview.prototype.options.initSelector, e.target ).virtuallistview();
 });
 
-
-/*$(document).bind( "pageshow", function (e) {
-	// auto self-init widgets
-	$($.mobile.virtuallistview.prototype.options.initSelector, e.target)
-    	.not(":jqmData(role='none'), :jqmData(role='nojs')")
-    	.virtuallistview();
-});
-*/
 })( jQuery );

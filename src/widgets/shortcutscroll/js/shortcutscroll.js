@@ -4,6 +4,7 @@
  * Copyright (C) TODO
  * License: TODO
  * Authors: Elliot Smith <elliot.smith@intel.com>
+ * Authors: Koeun Choi  <koeun.choi@samsung.com>
  */
 
 /**
@@ -37,7 +38,12 @@ $.widget( "todons.shortcutscroll", $.mobile.widget, {
             self = this,
             $popup,
 			timer,
+			dragging = 0,
             page = $el.closest(':jqmData(role="page")');
+
+		$.extend( this, {
+			dividertext: ""
+		});
 
         this.scrollview = $el.closest('.ui-scrollview-clip');
         this.shortcutsContainer = $('<div class="ui-shortcutscroll"/>');
@@ -81,59 +87,67 @@ $.widget( "todons.shortcutscroll", $.mobile.widget, {
 			clearTimeout( timer );
 			timer = setTimeout(function() {
 					self.scrollview.scrollview('scrollTo', 0, -dividerY, 1000);
-			}, 500 );
+			}, 300 );
 
             $popup.text($(divider).text())
                   .position({my: 'center center',
                              at: 'center center',
                              of: self.scrollview})
                   .show();
+			self.dividertext = $(divider).text();
         };
 
         this.shortcutsList
         // bind mouse over so it moves the scroller to the divider
-        .bind('touchstart mousedown vmousedown touchmove vmousemove vmouseover', function (e) {
-            // Get coords relative to the element
-            var coords = $.mobile.todons.targetRelativeCoordsFromEvent(e);
-            var shortcutsListOffset = self.shortcutsList.offset();
+        .bind('touchstart mousedown vmousedown touchmove vmousemove ', function (e) {
+			if (e.type === 'touchstart' || e.type === 'mousedown' || e.type === 'vmousedown' ) {
+				console.log("shourtcutslist down");
+				dragging = 1;
+			}
+			if ( dragging == 1 ) {
+				// Get coords relative to the element
+				var coords = $.mobile.todons.targetRelativeCoordsFromEvent(e);
+				var shortcutsListOffset = self.shortcutsList.offset();
 
-            // If the element is a list item, get coordinates relative to the shortcuts list
-            if (e.target.tagName.toLowerCase() === "li") {
-                coords.x += $(e.target).offset().left - shortcutsListOffset.left;
-                coords.y += $(e.target).offset().top  - shortcutsListOffset.top;
-            }
+				// If the element is a list item, get coordinates relative to the shortcuts list
+				if (e.target.tagName.toLowerCase() === "li") {
+					coords.x += $(e.target).offset().left - shortcutsListOffset.left;
+					coords.y += $(e.target).offset().top  - shortcutsListOffset.top;
+				}
+				// Hit test each list item
+				self.shortcutsList.find('li').each(function() {
+					var listItem = $(this),
+						l = listItem.offset().left - shortcutsListOffset.left,
+						t = listItem.offset().top  - shortcutsListOffset.top,
+						r = l + Math.abs(listItem.outerWidth(true)),
+						b = t + Math.abs(listItem.outerHeight(true));
 
-            // Hit test each list item
-            self.shortcutsList.find('li').each(function() {
-                var listItem = $(this),
-                    l = listItem.offset().left - shortcutsListOffset.left,
-                    t = listItem.offset().top  - shortcutsListOffset.top,
-                    r = l + Math.abs(listItem.outerWidth(true)),
-                    b = t + Math.abs(listItem.outerHeight(true));
+					if (coords.x >= l && coords.x <= r && coords.y >= t && coords.y <= b) {
+						jumpToDivider($(listItem.data('divider')));
+						return false;
+					}
+					return true;
+				});
 
-                if (coords.x >= l && coords.x <= r && coords.y >= t && coords.y <= b) {
-                    jumpToDivider($(listItem.data('divider')));
-                    return false;
-                }
-                return true;
-            });
+				e.preventDefault();
+				e.stopPropagation();
+			}
+		});
 
-            e.preventDefault();
-            e.stopPropagation();
-        })
-        // bind mouseout of the shortcutscroll container to remove popup
-        .bind('touchend mouseup vmouseup vmouseout', function () {
-            $popup.hide();
-        });
+		//hide when touch up..
+		$(document).bind( 'touchend mouseup vmouseup', function (e) {
+            dragging = 0;
+			$popup.hide();
+		});
 
-        if (page && !(page.is(':visible'))) {
+		if (page && !(page.is(':visible'))) {
             page.bind('pageshow', function () { self.refresh(); });
         }
         else {
             this.refresh();
         }
 
-        // refresh the list when the dividers change
+		// refresh the list when the dividers change
         $el.bind('listChanged', function () {
             self.refresh();
         });
