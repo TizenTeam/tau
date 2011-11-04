@@ -3,5 +3,10 @@
 // load each of the files in the deps property inside bootstrap.js
 S.load(
 	'theme.js',
-    'init.js'
+	'init.js',
+	'widgets/checkbox/checkbox.js'
+);
+//TODO : fix load syntax....
+S.css.load(
+	'custom.css'
 );
