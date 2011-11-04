@@ -203,22 +203,25 @@ $.mobile.fixedToolbars = (function() {
 						$( event.target ).find(".ui-content").addClass("ui-title-content-extended-height");
 					}		
 				}	
-				else{
-					var page = $( event.target ),
-					footer = page.find( ":jqmData(role='footer')" ),
-					id = footer.data( "id" ),
-					prevPage = ui.prevPage,
-					prevFooter = prevPage && prevPage.find( ":jqmData(role='footer')" ),
-					prevFooterMatches = prevFooter.length && prevFooter.jqmData( "id" ) === id;
-	
-					if ( id && prevFooterMatches ) {
-						stickyFooter = footer;
-						setTop( stickyFooter.removeClass( "fade in out" ).appendTo( $.mobile.pageContainer ) );
-					}				
-				}
 
+				var page = $( event.target ),
+				footer = page.find( ":jqmData(role='footer')" ),
+				id = footer.data( "id" ),
+				prevPage = ui.prevPage,
+				prevFooter = prevPage && prevPage.find( ":jqmData(role='footer')" ),
+				prevFooterMatches = prevFooter.length && prevFooter.jqmData( "id" ) === id;
+
+				if ( id && prevFooterMatches ) {
+					stickyFooter = footer;
+//					setTop( stickyFooter.removeClass( "fade in out" ).appendTo( $.mobile.pageContainer ) );
+					stickyFooter.removeClass( "fade in out" ).appendTo( $.mobile.pageContainer );
+					stickyFooter
+						.css("position", "fixed")
+						.css("top", $(".ui-page").find(":jqmData(role='footer')").eq(0).css("top"));
 					
+				}									
 		})
+
 		.live( "pageshow", function( event, ui ) {
 			/* Fixed header modify for theme-s : Jinhyuk */
 			if(($( event.target ).find( ":jqmData(role='header')" ).is(".ui-header-fixed")&&
@@ -231,21 +234,61 @@ $.mobile.fixedToolbars = (function() {
 					.css("position", "fixed")
 					.css("top", "0px");
 			}
-			else{
-				var $this = $( this );
 
-				if ( stickyFooter && stickyFooter.length ) {
-	
-					setTimeout(function() {
-						setTop( stickyFooter.appendTo( $this ).addClass( "fade" ) );
-						stickyFooter = null;
-					}, 500);
-				}
+			var $this = $( this );
 
-				$.mobile.fixedToolbars.show( true, this );					
+			if ( stickyFooter && stickyFooter.length ) {
+
+				setTimeout(function() {
+					setTop( stickyFooter.appendTo( $this ).addClass( "fade" ) );
+					stickyFooter = null;
+				}, 500);
 			}
+
+			$.mobile.fixedToolbars.show( true, this );					
+
 				
+		})
+
+		.live( "vclick", function( event, ui ) {
+/*
+			var previous_index = $(".ui-page-active").find(":jqmData(role='footer')" ).find(".ui-state-persist").parents("li").index();
+			var active_index = $(event.target).parents("li").index();
+			var navbar_filter = $(".ui-page-active").find(":jqmData(role='footer')" ).find(":jqmData(role='navbar')");
+			var element_count = navbar_filter.find('li').length;
+			var style = navbar_filter.jqmData( "style" );
+			var list_width = $(".ui-page-active").find('.ui-navbar').width()/element_count;
+			
+			var next_link = $(event.target).parents("a").attr("href");
+			
+			
+			$(".ui-page-active").addClass("ui-btn-hide-style");
+
+
+			if(navbar_filter.find(".ui-btn-animation").length == 0 && style != "toolbar"){					
+				$('<div class="ani-focus"></div>').appendTo(navbar_filter.children());
+				$(".ani-focus")
+					.addClass("ui-btn-animation")	
+					.removeClass("ui-btn-ani-verticalendposition")
+					.removeClass("ui-btn-ani-endposition");
+
+			}					
+				$(".ani-focus")				
+					.css("width", navbar_filter.width()/element_count )
+					.css("height",navbar_filter.css("height"))	
+					.css("left", previous_index * list_width);
+
+
+				$(".ui-btn-ani-startposition").css("-webkit-transform","translateX("+previous_index *list_width+")");
+				$(".ani-focus").addClass("ui-btn-ani-startposition");
+				
+				var t=setTimeout("",10);
+				$(".ui-btn-ani-endposition").css("-webkit-transform","translateX("+active_index *list_width+")");
+				$(".ani-focus").removeClass("ui-btn-ani-startposition");
+				$(".ani-focus").addClass("ui-btn-ani-endposition");
+*/
 		});
+		
 
 	// When a collapsiable is hidden or shown we need to trigger the fixed toolbar to reposition itself (#1635)
 	$( ".ui-collapsible-contain" ).live( "collapse expand", showEventCallback );

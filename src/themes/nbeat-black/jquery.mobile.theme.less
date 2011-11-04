@@ -146,6 +146,10 @@
 		}		
 
 	}
+	
+	.ui-footer {
+		position : fixed;
+	}
 }
 
 .ui-title-content-normal-height {
@@ -193,6 +197,16 @@
 		display : block
 	}	
 }
+
+.ui-footer {
+	height : 124 * @unit_base;		
+}
+
+.ui-persist-footer {
+	position : fixed;	
+	
+}
+
 
 
 // NOTE: This class is applied to almost all JQM widgets!
@@ -452,6 +466,17 @@ a.ui-link-inherit {
 		background: @footercolor;
 	}
 
+	.ui-btn-active, .ui-btn-show-style {
+		background: @color_02;
+		border-left-style:  solid;
+		border-right-style: solid;		
+		border-left-color: 	@color_bg; 	
+		border-right-color: @color_bg;
+		border-left-width: 	1px;				
+		border-right-width: 1px;	
+
+	}
+
 	.ui-btn-animation {
 		background: @color_02;
 		border-left-style:  solid;
@@ -463,8 +488,19 @@ a.ui-link-inherit {
 		
 		position : absolute;
 		top : 0px;
+		height : 123 * @unit_base;
 		z-index : 100;		
 	}	
+	
+	
+	.ui-btn-hide-style {
+		background: @footercolor;
+		border : none;		
+	}
+	
+	
+	
+	
 }
 
 .ui-toolbar-s {
