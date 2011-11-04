@@ -13,49 +13,50 @@ $.widget("todons.expandablelist", $.mobile.widget, {
 	_hide: function(e) {
 		$(e).removeClass('ui-li-expand-transition-show')
 			.addClass('ui-li-expand-transition-hide');
-		},
+	},
 	_show: function(e) {
 		$(e).removeClass('ui-li-expand-transition-hide')
 			.addClass('ui-li-expand-transition-show');
-		},
-	_toggle: function(self, e) {
-		if (self._is_hidden(e)) self._show(e);
-		else self._hide(e);
-		},
+	},
+	_toggle: function(self, e, parent_is_expanded) {
+		if (! parent_is_expanded) self._show(e);
+		else {
+			self._hide(e);
+			// If current node is also an expandable node, hide its children!
+			if($(e).data("expandable") && e.is_expanded == true) { 
+				var children = $(e).nextAll(":jqmData(expanded-by='"+$(e).attr('id')+"')");
+				children.each(function(idx, child) {
+					self._toggle(self, child, e.is_expanded);
+				});
+				e.is_expanded = false;
+			}
+		}
+	},
 	_is_hidden: function(e) {
 		return ( $(e).height() == 0);
-		},
-
-	_toggle_children: function(self, is_hidden, expanded) {
-		if(is_hidden) return;
-		$.each(expanded, function(idx, e) {
-			var elem = $(e);
-			if ('' == elem[0].id) return true;	// continue
-			var children = elem.nextAll(":jqmData(expanded-by='"+elem[0].id +"')").filter(":visible");	// Only 
-			children.each(function(i, e) { 
-				self._toggle(self, e);
-				});
-			self._toggle_children(self, is_hidden, children);
-			});
-		},
-
+	},
 
 	_create: function () {
 		var e = this.element,
 			self = this,
 			expanded = e.nextAll(":jqmData(expanded-by='" + e[0].id + "')"),
 			initial_expansion = e.data("initial-expansion");
-
-		// Set initial status
-		if(initial_expansion == true) {
-			expanded.each(function(i, e) { 
-				self._show(e); 
-				});
-		} else {
-			expanded.each(function(i, e) { 
-				self._hide(e); 
-				});
+			is_expanded = false;
+		
+		// Save status in expandable object
+		if(initial_expansion == true ) {
+			var parent_id = e.data("expanded-by");
+			if(parent_id) {
+				if($("#"+parent_id).is_expanded == true)  is_expanded = true; // check parent's is_expanded var
+			} else {
+				is_expanded = true;
+			}
 		}
+		e[0].is_expanded = is_expanded;
+		
+		// Show/hide expanded objects
+		if(e[0].is_expanded) expanded.each(function(i, e) { self._show(e); });
+		else expanded.each(function(i, e) { self._hide(e); });
 
 		expanded.addClass("ui-li-expanded");
 
@@ -63,13 +64,10 @@ $.widget("todons.expandablelist", $.mobile.widget, {
 //			 .wrapInner( '<img src="thumbnail.jpg" class="ui-li-expanded-icon">' );
 
 		// For every expandable, bind event
-		e.bind('vclick', function() {
-			var is_hidden = self._is_hidden(expanded[0]);
-
-			expanded.each(function(i, e) { 
-				self._toggle(self, e); 
-				});
-			if(! is_hidden) self._toggle_children(self, is_hidden, expanded);
+		e.bind('vclick', function() {	
+			var _is_expanded = e[0].is_expanded;
+			expanded.each(function(i, e) { self._toggle(self, e, _is_expanded); });
+			e[0].is_expanded = ! e[0].is_expanded;	// toggle true/false
 		});
 	},
 
