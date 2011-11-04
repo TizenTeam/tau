@@ -17,6 +17,7 @@ loadLocalScripts = function() {
     // object (e.g. called CONFIG) and assign a "deps" property to it; then
     // load each of the files in the deps property inside bootstrap.js
     S.load(
+		'lib/json2.js',
         'lib/jquery.ui.map.full.min.js',
 		'lib/jquery.ui.map.extensions.js',
         'js/favorite.js',

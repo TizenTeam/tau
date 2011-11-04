@@ -1,95 +1,78 @@
-var ITEM_KEY_PREFIX = "AMF_";
-var ITEM_SP = ":::";
+Favorite = {
+	LIST_KEY: "arf_list_key",
 
-function saveFavoriteList( list ) {
-	try {
-		for ( var i = 0; i < list.length; i++ ) {
-			var keyString = ITEM_KEY_PREFIX + i;
-			var toSaveString = list.toSaveString();
-			widget.preferences.setItem( keyString, toSaveString );
+	_inMemoryList: undefined,
+	
+	create: function() {
+		this._load();
+	},
+
+	store: function() {
+		var saveString = JSON.stringify( this._inMemoryList );
+		if ( window.localStorage ) {
+			window.localStorage.setItem( this.LIST_KEY, saveString );
+		} else {
+			alert('Not Supported');
 		}
-		
-		var keyString = ITEM_KEY_PREFIX + "LENGTH";
-		widget.preferences.setItem( keyString, list.length );
-		
-	} catch ( e ) {
-		alert( "Cannot save favorite list. " + e );	
+	},
+
+	_load: function() {
+		if ( window.localStorage ) {
+			var savedString = window.localStorage.getItem( this.LIST_KEY );
+			if ( savedString ) {
+				this._inMemoryList = JSON.parse( savedString );		
+			} else {
+				this._inMemoryList = new Array();
+			}
+		} else {
+			alert('Not Supported');
+		}
+	},
+
+	remove: function() {
+		for( var i = 0; i < arguments.length; i++ ) {
+			if ( this.isAlreadyStored( arguments[i] ) ) {
+				if ( window.localStorage ) {
+					window.localStorage.removeItem( arguments[i] );
+					this._inMemoryList.splice( this._inMemoryList.indexOf( arguments[i] ), 1 );
+					console.log( arguments[i] + " deleted" );
+				} else {
+					alert('error');
+				}	
+			} 
+		}
+		this.store();
+	},
+	
+	add: function( key, jsonStringifiedObject ) {
+		if ( !this.isAlreadyStored( key ) ) {
+			if ( window.localStorage ) {
+				window.localStorage.setItem( key, jsonStringifiedObject );
+				this._inMemoryList.push( key );
+			} else {
+				alert('error');
+			}
+		}
+		this.store();
+	},
+
+	getWholeList: function() {
+		var list = new Array();
+		for( var i = 0; i < this._inMemoryList.length; i++ ) {
+			list.push( JSON.parse( this.get( this._inMemoryList[i] ) ) );
+		}		
+		return list;
+	},
+
+	get: function( key ) {
+		if ( this.isAlreadyStored( key ) ) {
+			return window.localStorage.getItem( key );
+		} else {
+			return undefined;
+		}
+	},
+
+	isAlreadyStored: function( key ) {
+		return $.inArray( key, this._inMemoryList ) > -1;
 	}
-}
-
-function loadFavoriteList() {
-	var keyString = ITEM_KEY_PREFIX = "LENGTH";
-	var listLength = widget.preferences.getItem( keyString );
-	
-	var list = new FavoriteItem[ listLength ];
-
-	for ( var i = 0; i < list.length; i++ ) {
-		var contentString = widget.preferences.getItem( ITEM_KEY_PREFIX + i );
-		var temp = new FavoriteItem( contentString );
-		list.push( temp );
-	} 			
-	
-	return list;
-}
-
-var FavoriteItem = function( object ) {
-
-	if ( object instanceof String ) {
-		var splitContent = object.split( ITEM_SP );
-		this.id = splitContent[0];
-		this.title = splitConent[1];
-		this.phoneNumbers = splitContent[2];
-		this.lat = splitContent[3];
-		this.lng = splitContent[4];
-		this.url = splitContent[5];
-		this.staticMapUrl = splitContent[6];
-		this.streetAddress = splitContent[7];
-		this.city = splitContent[8];
-		this.region = splitContent[9];
-		this.country = splitContent[10];
-	} else if ( object.title ) {
-		this.title = object.title;
-		this.phoneNumbers = object.phoneNumbers.length > 0 ? object.phoneNumbers[0].numbers : " ";
-		this.lat = object.lat.length > 0 ? object.lat.length : " ";
-		this.lng = object.lng.length > 0 ? object.lng.length : " ";
-		this.url = object.url.length > 0 ? object.url.length : " ";
-		this.staticMapUrl = object.staticMapUrl.length > 0 ? object.staticMapUrl : " ";
-		this.streetAddress = object.streetAddress.length > 0 ? object.streetAddress : " ";
-		this.city = object.city.length > 0 ? object.city : " ";
-		this.region = object.region.length > 0 ? object.region : " ";
-		this.country = object.country.length > 0 ? object.country : " ";
-	}			
-}
-
-FavoriteItem.prototype.toHTMLString = function( id ) {
-		var item = '<li class="ui-li-3-2-13"' + ( this.id ? (' id="' + this.id + '"' ) : "" ) + '>' + 
-				'<span class="ui-li-text-main">' + this.title + '</span>' + 
-				'<span class="ui-li-text-sub">' + this.streetAddress + ", " + this.city + ", " + this.region + ", " + this.country + '</span>' +
-				'<img src="' + "" + '" class="ui-li-bigicon">' + '</li>';
-		return item;
-	}
-	
-FavoriteItem.prototype.toSaveString = function() {
-	var id = this.id || " ";
-	var title = this.title || " ";
-	var phoneNumbers = this.phoneNumbers || " ";
-	var lat = this.lat || " ";
-	var lng = this.lng || " ";
-	var url = this.url || " ";
-	var staticMapUrl = this.staticMapUrl || " ";
-	var streetAddress = this.streetAddress || " ";
-	var city = this.city || " ";
-	var region = this.region || " ";
-	var country = this.country || " ";
-	
-	return title + ITEM_SP + 
-			phoneNumbers + ITEM_SP + 
-			lat + ITEM_SP + 
-			lng + ITEM_SP + 
-			url + ITEM_SP + 
-			staticMapUrl + ITEM_SP + 
-			streetAddress + ITEM_SP + 
-			city + ITEM_SP + 
-			region + ITEM_SP + 
-			country;					
 }

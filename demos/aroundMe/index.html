@@ -70,20 +70,27 @@
 <div id="detailPage" data-role="page" data-add-back-btn="true">
 	<div data-role="header">
 		<h1 id="detailTitle">untitled</h1>
-		<a href="#" id="mapDetailBtn" class="ui-btn-right" data-role="btn">Map</a>
+		<form><input type="checkbox" name="checkFavorite" id="checkFavorite" data-style="favorite" /></form>
+		<div id="telWebHeader" data-role="optionheader">
+			<div class="ui-grid-a ">
+				<div class="ui-block-a"><a id="detailTelBtn" data-role="button">Call</a></div>
+				<div class="ui-block-b"><a id="detailWebBtn" data-role="button">Website</a></div>
+			</div>
+		</div>
 	</div>
 	<div data-role="content">
-		<div id="detailAddress"></div>
-		<div id="detailWeb"></div>
-		<div id="detailCategory"></div>
-		<div id="detailTel"></div>
-		<div id="detailRating"></div>
+		<div>Address<span id="detailAddress"></span></div>
+		<div>Website<span id="detailWeb"></span></div>
+		<div>Category<span id="detailCategory"></span></div>
+		<div>Phone<span id="detailTel"></span></div>
+		<div>Rating<span id="detailRating"></span></div>
 	</div>
 </div>
 
 <div id="searchPage" data-role="page">
 	<div data-role="header">
 		<h1>Search</h1>
+		<a href="#" id="searchSettingBtn" class="ui-btn-right" data-inline="true" data-role="btn" data-icon="gear" aria-haspopup="true" aria-owns="searchSettingPopup">Settings</a>
 	</div>
 	<div data-role="content">
 		<div id="searchBarDiv">
@@ -91,11 +98,12 @@
 				<input type="search" id="queryInput" value=""/>
 			</div>
 		</div>
+
 		<div id="searchListCategory">
 			<ul id="searchCategoryList" data-role="listview">
 				<li class="ul-li-3-1-10" data-query="category:all">
 					<span class="ui-li-text-main">All</span>
-					<img src='image/Aroundme_icon_Art.png' class="ui-li-bigicon">
+					<img src='image/Aroundme_icon_All.png' class="ui-li-bigicon">
 				</li>
 				<li class="ul-li-3-1-10" data-query="category:art">
 					<span class="ui-li-text-main">Art</span>
@@ -119,6 +127,46 @@
 				</li>
 			</ul>		
 		</div>		
+		
+		<div id="searchSettingPopup" data-role="popupwindow" data-style="center_liststyle_2btn">
+			<p data-role="title">Search Settings</p>
+			<p data-role="text">
+				<div data-role="scroller-bg">
+					<ul data-role="listview" data-icon="1line-textonly">
+						<li>
+							<legend>Radius</legend>
+							<div class="ui-slider-icon-bg">
+								<input id="searchRadius" name="Search Radius" type="range" value="5000" min="50" max="5000" />
+							</div>		
+						</li>
+						<li>
+							<legend>Category</legend>
+							<div data-role="fieldcontain">
+								<fieldset id="searchCategory" data-role="controlgroup" data-type="horizontal">
+									<input type="radio" name="radio-view-9" data-icon="segment-titlestyle-segonly" id="segmentAll" value="off" />
+									<label for="segmentAll">All</label>
+									<input type="radio" name="radio-view-9" data-icon="segment-titlestyle-segonly" id="segmentArt" value="off" />
+									<label for="segmentArt">Art</label>
+									<input type="radio" name="radio-view-9" data-icon="segment-titlestyle-segonly" id="segmentEducation" value="off" />
+									<label for="segmentEducation">Education</label>
+									<input type="radio" name="radio-view-9" data-icon="segment-titlestyle-segonly" id="segmentRestaurants" value="off" />
+									<label for="segmentRestaurants">Restaurants</label>
+									<input type="radio" name="radio-view-9" data-icon="segment-titlestyle-segonly" id="segmentTravel" value="off" />
+									<label for="segmentTravel">Travel</label>
+									<input type="radio" name="radio-view-9" data-icon="segment-titlestyle-segonly" id="segmentBar" value="off" />
+									<label for="segmentBar">Bar</label>									
+								</fieldset>
+							</div>
+						</li>
+					</ul>
+				</div>
+
+			</p>
+			<div data-role="button-bg">
+				<input id="searchSettingsConfirmBtn" type="button" value="Confirm" />
+				<input id="searchSettingsCancelBtn" type="button" value="Cancel" />
+			</div>
+		</div>
 	</div>
 	<div data-role="footer" id="aroundme_footer" data-position="fixed">	
 		<div data-role="navbar" data-style="tabbar" data-position="fixed">
@@ -157,6 +205,13 @@
 <div id="favoritePage" data-role="page">
 	<div data-role="header">
 		<h1>Favorites</h1>
+		<a href="#" id="toggleEditBtn" class="ui-btn-right" data-role="btn">Edit</a>
+		<div id="editFavoriteHeader" data-role="optionheader">
+			<div class="ui-grid-a ">
+				<div class="ui-block-a"><a id="editSelectAllBtn" data-role="button">All</a></div>
+				<div class="ui-block-b"><a id="editDeleteBtn" data-role="button">Delete</a></div>
+			</div>
+		</div>
 	</div>
 	<div data-role="content">
 		<div id="favoriteListPlace">
