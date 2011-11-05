@@ -202,16 +202,27 @@ function showListMap( list ) {
 	gMap.gmap('clear', 'markers' );
 	gMap.gmap('set', 'bounds', undefined );	
 	gMap.gmap('refresh');
+	
+
 	for ( var i = 0; i < ll.length; i++ ) {
-		$("#map").gmap( 'addMarker', {
-			'position' : ll[i].geometry.location
+		var marker = new google.maps.Marker( {
+			'icon': 'image/maps_marker.png',
+			'title': ll[i].name,
+			'position' : ll[i].geometry.location,
+			'detailReference' : ll[i].reference // custom
+		});
+		google.maps.event.addListener( marker, 'click', function() {
+			getDetailPage( this.detailReference );
 		} );
+		$("#map").gmap( 'addMarker', marker );
 		$("#map").gmap( 'addBounds', ll[i].geometry.location );
 	}
-}
 
-function showDetailMap() {
-	console.log("ShowDetailMap Called");
+
+	gMap.gmap( 'addMarker', {
+		'position' : new google.maps.LatLng( ME_LOCATION_LAT, ME_LOCATION_LNG ),
+		'icon' : 'image/11Aroundme_icon_refresh.png'
+	});
 }
 
 function firstSearch( lat, lng ) {
@@ -314,7 +325,7 @@ function toggleList( list ) {
 }
 
 function switchFavorite() {
-	if ( $("#checkFavorite").attr("checked") ) {
+	if ( $("#checkFavorite").attr("checked") == 'true' ) {
 		// remove favorite 
 		Favorite.remove( $("#checkFavorite").attr("data-key") );
 		popSmallPopup( "Info", $("#detailTitle").text() + ' is removed from favorites.' );
@@ -340,7 +351,7 @@ function showDetailPage( place, status ) {
 		$("#checkFavorite").attr("data-key", place.id );
 		$("#checkFavorite").attr("data-store", JSON.stringify( place ) );
 		$("#checkFavorite").attr("checked", Favorite.isAlreadyStored( place.id ) );
-
+		
 		if ( place.website ) { 
 			$("#detailWeb").text( place.website ); 
 			$("#detailWebBtn").attr("href", place.website );

@@ -3,7 +3,6 @@
 	<head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
-	<title>jQM Test Example</title> 
 	<link rel="stylesheet"  href="themes/default/" />  
 	<script src="js/jquery.js"></script>
 	<script src="js/"></script>
@@ -12,15 +11,24 @@
 	</head> 
 <body> 
 
-<div data-role="page">
+<div data-role="page" id="checkbox-demo">
 	
-		<div data-role="header">
-			<h1>Check</h1>
+	<div data-role="header">
+		<h1>Check</h1>
+	</div>
 
-		</div>
+	<div data-role="content">
+		<div class="content-primary"> 
+			<div class="my-check-button-style"><a id="check-1" data-role="button" data-inline="true">Check/UnCheck First checkbox</a></div>
+			<div class="my-check-button-style my-check-inline-style"><a id="get-check-value" data-role="button" data-inline="true">Get Check Value</a></div>
+			<p class="my-check-inline-style">First checkbox check value :
+				<span class="checked-value">
+					<em>(click the button! )</em>
+				</span>
+			</p>
+	
+			<hr/>
 
-		<div data-role="content">
-			<div class="content-primary"> 
 			<fieldset data-role="controlgroup"> 
 			<input type="checkbox" name="checkbox-1" id="checkbox-1"/> 
 			<label for="checkbox-1">Normal</label> 

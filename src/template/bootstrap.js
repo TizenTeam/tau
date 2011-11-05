@@ -168,23 +168,23 @@ S = {
 	setViewport: function () {
 		var meta;
 		if ( meta = document.createElement( "meta" )) {
-
 			//set meta tags for view port
 			meta.name = "viewport";
 
 			//TODO: Modify after browser view port policy is created.
 			var supportedRatio = 9/16;
+			var screenRatio = new Number (screen.width/screen.height);
 
-			if ( supportedRatio != screen.width/screen.height ) {
+			if ( supportedRatio != screenRatio.toFixed(4) ) {
 				//TODO : support high, medium, low resolution
-				//meta.content = "width=720; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;";
-				meta.content = "width=device-width; initial-scale=0.6; maximum-scale=0.6; user-scalable=0; target-densitydpi=device-dpi;";
+				//meta.content = "width=720, initial-scale=1.0, maximum-scale=1.0, user-scalable=0";
+				meta.content = "width=device-width, initial-scale=0.6, maximum-scale=0.6, user-scalable=0, target-densityDpi=device-dpi";
 				console.log("screen size: (" + screen.width + ", " + screen.height + "), ratio["
-						+ ( screen.width/screen.height ) + "]is not supported properly.");
+						+ screenRatio.toFixed(4) + "]is not supported properly.");
 			}
 			//supported aspect-ratio : 720 X 1280 ---> 9/16
 			else
-				meta.content = "width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0; target-densitydpi=device-dpi;";
+				meta.content = "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, target-densityDpi=device-dpi";
 
 			var head = document.getElementsByTagName('head').item(0);
 			head.insertBefore(meta, head.firstChild);
