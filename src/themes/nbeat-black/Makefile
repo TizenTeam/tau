@@ -40,7 +40,7 @@ CSS_SRCS=	jquery.mobile.theme.less.css \
 		shortcutscroll.less.css \
 		dayselector.less.css
 
-all: prepare css images
+all: prepare css images js
 
 prepare:
 	-mkdir -p ${OUTPUT_DIR}
@@ -63,6 +63,9 @@ css: prepare less
 images: prepare
 	# Copying nbeat-black theme images...
 	@cp -a images/ ${OUTPUT_DIR}/
+
+js: prepare
+	@cp -a theme.js ${OUTPUT_DIR}
 
 clean:
 	# Cleaning nbeat-black theme...

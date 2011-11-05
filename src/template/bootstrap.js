@@ -99,27 +99,30 @@ S = {
         }
 
         this.loadScriptsWithCallback(scriptsToLoad, callback);
-	}
+	},
 
     // call this from config.js to load js specific to the app,
     // followed by the rest of the framework (except jQuery itself)
     // NB all scripts are loaded serially, but we could use a dependency
     // graph here instead
     load: function () {
+		var scriptsToLoad = this.addBasePath(this.scriptsToLoadPostConfig);
+		// Load theme.js in theme directory
+		if(this.themePath) scriptsToLoad.push(this.themePath + "/theme.js");
         var callback = function () {
             $.mobile.initializePage();
             $('body').css('visibility', 'visible');
         };
 		this._loadScript(
-			this.addBasePath(this.scriptsToLoadPostConfig),
+			scriptsToLoad,
 			arguments,
 			callback);
     },
 
 	// For loading user scripts before load() call.
 	preLoad: function() {
-		this._loadScript([], arguments, null);
-	}
+		this._loadScript(null, arguments, null);
+	},
 
     // utility function to load an array of script paths, appending
     // S.cacheBust to each; finally, invoke callback when all scripts
@@ -186,9 +189,7 @@ S = {
 			var head = document.getElementsByTagName('head').item(0);
 			head.insertBefore(meta, head.firstChild);
 		}
-	}
-
-
+	},
 };
 
 /* Create custom user stylesheet */
@@ -222,7 +223,7 @@ S.css = {
             frameworkRootValue,
             frameworkThemeValue,
             basePath,
-            stylesheetPath;
+            themePath;
 
         // set some defaults
         var frameworkRoot = S.defaultFrameworkRoot;
@@ -272,8 +273,9 @@ S.css = {
         S.basePath = frameworkRoot + '/' + frameworkVersion + '/';
 
         // load stylesheet for the theme
-        stylesheetPath = S.basePath + 'themes/' + frameworkTheme + '/web-ui-fw-theme.css';
-        S.css.load(stylesheetPath);
+        themePath = S.basePath + 'themes/' + frameworkTheme;
+        S.css.load(themePath + '/web-ui-fw-theme.css');
+		S.themePath = themePath;
 
 		//set viewport -- by koeun
 		S.setViewport();
@@ -288,5 +290,6 @@ S.css = {
         // NB application should call S.load() to finish loading the framework;
         // optionally, pass S.load() any paths to app scripts: they will
         // get loaded before the rest of the framework
+
     });
 })();
