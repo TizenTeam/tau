@@ -213,6 +213,10 @@ $.mobile.fixedToolbars = (function() {
 						.css("top", $(".ui-page").find(":jqmData(role='footer')").eq(0).css("top"));
 					
 				}									
+			/* Header position fix : Jinhyuk */
+			var next_id = $( event.target).attr("id");
+			$("#"+next_id).find(":jqmData(role='header')").removeClass( "fade in out" ).appendTo($.mobile.pageContainer);
+											
 		})
 
 		.live( "pageshow", function( event, ui ) {
@@ -240,7 +244,8 @@ $.mobile.fixedToolbars = (function() {
 
 			$.mobile.fixedToolbars.show( true, this );					
 
-				
+			/* Header position fix : Jinhyuk */
+			$("body").children(":jqmData(role='header')").insertBefore($(event.target).find(":jqmData(role='content')").eq(0));
 		})
 
 		.live( "vclick", function( event, ui ) {

@@ -74,8 +74,14 @@ $.widget( "mobile.navbar", $.mobile.widget, {
 			{
 				/* Need to add text only style */
 				if(!(navbar_filter.find(".ui-btn-inner").children().is(".ui-icon"))){
-//					navbar_filter.find(".ui-btn-inner").addClass("ui-navbar-textonly");
-//					navbar_filter.css("height", "99px"); 
+					navbar_filter.find(".ui-btn-inner").addClass("ui-navbar-textonly");
+					navbar_filter.css("height", "99px"); 
+				}
+				else {
+					if(navbar_filter.find(".ui-btn-text").text() == "")
+					{
+						navbar_filter.find(".ui-btn").css("padding-top", "20px");
+					}
 				}
 				footer_filter
 					.css("position", "fixed")
@@ -83,7 +89,6 @@ $.widget( "mobile.navbar", $.mobile.widget, {
 					.css("top",document.documentElement.clientHeight  - footer_filter.height());		
 				
 			}
-
 			/* initialize animation class */
 /*			if(navbar_filter.find("div").is(".ui-btn-animation")){
 				$(".ui-btn-animation")
@@ -113,13 +118,6 @@ $.widget( "mobile.navbar", $.mobile.widget, {
 					.css("height", navbar_filter.height());		
 			}			
 		});		
-
-		 $(".ui-persist-footer").live({
-			vclick: function( e, ui) {	
-//				$(e.target).parents("a").addClass("ui-btn-active");
-			}
-		 });	
-		
 	}
 });
 
@@ -127,7 +125,4 @@ $.widget( "mobile.navbar", $.mobile.widget, {
 $( document ).bind( "pagecreate create", function( e ){
 	$( $.mobile.navbar.prototype.options.initSelector, e.target ).navbar();
 });
-
-
-			
 })( jQuery );
