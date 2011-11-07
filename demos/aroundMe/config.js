@@ -21,7 +21,6 @@ loadLocalScripts = function() {
         'lib/jquery.ui.map.full.min.js',
 		'lib/jquery.ui.map.extensions.js',
         'js/favorite.js',
-        'theme.js',
         'init.js'
     );
 

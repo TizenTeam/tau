@@ -135,24 +135,24 @@
 				width: @onoff-size-width; 
 				height: @onoff-size-height;
 				margin-top: @onoff-icon-internal-bottom;
-			
-				.onoff-text-checkbox-on {
-					position: absolute;	
-					top: 25%;
-					left: 12.5%;
-					height: @onoff-size-height/2;
-					font-size: 32* @unit_base;
-					margin-top: - @onoff-size-height/2;
-				}
-				.onoff-text-checkbox-off {
-					position: absolute;	
-					top: -25%;
-					left: 12.5%;
-					font-size: 32* @unit_base;
-					height: @onoff-size-height/2;
-					//margin-top: - @onoff-size-height/2;
-				}
-
+			}
+		}
+		.ui-icon-checkbox-on {
+			.onoff-text {
+				position: absolute;
+				top: 25%;
+				left: 12.5%;
+				height: @onoff-size-height/2;
+				font-size: 32* @unit_base;
+			}
+		}
+		.ui-icon-checkbox-off {
+			.onoff-text {
+				position: absolute;
+				top: -25%;
+				left: 12.5%;
+				font-size: 32* @unit_base;
+				height: @onoff-size-height/2;
 			}
 		}
 	}
