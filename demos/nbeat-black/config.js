@@ -5,6 +5,7 @@ S.load(
 	'theme.js',
 	'init.js',
 	'widgets/checkbox/checkbox.js',
+	'widgets/radio/radio.js',
 	'widgets/popupwindow/popupwindow.js'
 );
 //TODO : fix load syntax....
