@@ -126,7 +126,8 @@ $(document).bind("pagecreate", function () {
 	});
 
 	$('#imageslider').bind('pageshow', function (e) {
-		$(this).find('#imageslider').imageslider('align', 'middle');
+		var start_index = 3;	/* to set start page */
+		$(this).find('#imageslider').imageslider('show', 'middle', start_index);
 	});
 
     $('#groupindex-demo').bind('pageshow', function () {
