@@ -1,10 +1,11 @@
-/*
-* jQuery Mobile Framework : "core" - The base file for jQm
-* Copyright (c) jQuery Project
-* Dual licensed under the MIT or GPL Version 2 licenses.
-* http://jquery.org/license
-*/
-
+/*!
+ * jQuery Mobile v@VERSION
+ * http://jquerymobile.com/
+ *
+ * Copyright 2010, jQuery Project
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ */
 
 (function( $, window, undefined ) {
 
@@ -30,9 +31,6 @@
 
 		// Automatically load and show pages based on location.hash
 		hashListeningEnabled: true,
-
-		// disable to prevent jquery from bothering with links
-		linkBindingEnabled: true,
 
 		// Set default page transition - 'none' for no transitions
 		defaultPageTransition: "slide",
@@ -127,34 +125,6 @@
 			}
 
 			return $.camelCase( $.mobile.ns + prop );
-		},
-
-		getInheritedTheme: function( el, defaultTheme ) {
-
-			// Find the closest parent with a theme class on it. Note that
-			// we are not using $.fn.closest() on purpose here because this
-			// method gets called quite a bit and we need it to be as fast
-			// as possible.
-
-			var e = el[ 0 ],
-				ltr = "",
-				re = /ui-(bar|body)-([a-z])\b/,
-				c, m;
-
-			while ( e ) {
-				var c = e.className || "";
-				if ( ( m = re.exec( c ) ) && ( ltr = m[ 2 ] ) ) {
-					// We found a parent with a theme class
-					// on it so bail from this loop.
-					break;
-				}
-				e = e.parentNode;
-			}
-			
-			// Return the theme letter we found, if none, return the
-			// specified default.
-
-			return ltr || defaultTheme || "a";
 		}
 	});
 

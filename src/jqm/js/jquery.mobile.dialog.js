@@ -9,15 +9,20 @@
 $.widget( "mobile.dialog", $.mobile.widget, {
 	options: {
 		closeBtnText 	: "Close",
-		overlayTheme	: "a",
+		theme			: "a",
 		initSelector	: ":jqmData(role='dialog')"
 	},
 	_create: function() {
 		var self = this,
 			$el = this.element,
+			pageTheme = $el.attr( "class" ).match( /ui-body-[a-z]/ ),
 			headerCloseButton = $( "<a href='#' data-" + $.mobile.ns + "icon='delete' data-" + $.mobile.ns + "iconpos='notext'>"+ this.options.closeBtnText + "</a>" );
 
-		$el.addClass( "ui-overlay-" + this.options.overlayTheme );
+		if( pageTheme.length ){
+			$el.removeClass( pageTheme[ 0 ] );
+		}
+
+		$el.addClass( "ui-body-" + this.options.theme );
 
 		// Class the markup for dialog styling
 		// Set aria role
@@ -28,9 +33,8 @@ $.widget( "mobile.dialog", $.mobile.widget, {
 				.prepend( headerCloseButton )
 			.end()
 			.find( ":jqmData(role='content'),:jqmData(role='footer')" )
-				.addClass( "ui-overlay-shadow" )
 				.last()
-				.addClass( "ui-corner-bottom" );
+				.addClass( "ui-corner-bottom ui-overlay-shadow" );
 
 		// this must be an anonymous function so that select menu dialogs can replace
 		// the close method. This is a change from previously just defining data-rel=back

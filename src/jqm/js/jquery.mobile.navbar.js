@@ -41,7 +41,6 @@ $.widget( "mobile.navbar", $.mobile.widget, {
 			$( this ).addClass( $.mobile.activeBtnClass );
 		});
 
-		//SLP --start for tabbar
 		var style = this.element.attr( "data-style" );
 
 		if( style === "tabbar" )
@@ -119,7 +118,6 @@ $.widget( "mobile.navbar", $.mobile.widget, {
 					.css("height", navbar_filter.height());		
 			}			
 		});		
-	//SLP --end
 	}
 });
 

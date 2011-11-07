@@ -13,7 +13,6 @@
  *
  * Date: Mon Sep 12 18:54:48 2011 -0400
  */
-
 (function( window, undefined ) {
 
 // Use the correct document accordingly with window argument (sandbox)

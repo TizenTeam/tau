@@ -83,9 +83,9 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
 		//SLP --end
 
 		label.bind({
-			vmouseover: function( event ) {
+			vmouseover: function() {
 				if ( $( this ).parent().is( ".ui-disabled" ) ) {
-					event.stopPropagation();
+					return false;
 				}
 			},
 
@@ -98,13 +98,6 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
 				self._cacheVals();
 
 				input.prop( "checked", inputtype === "radio" && true || !input.prop( "checked" ) );
-
-				// trigger click handler's bound directly to the input as a substitute for
-				// how label clicks behave normally in the browsers
-				// TODO: it would be nice to let the browser's handle the clicks and pass them
-				//       through to the associate input. we can swallow that click at the parent
-				//       wrapper element level
-				input.triggerHandler( 'click' );
 
 				// Input set for common radio buttons will contain all the radio
 				// buttons, but will not for checkboxes. clearing the checked status
@@ -120,10 +113,11 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
 		input
 			.bind({
 				vmousedown: function() {
-					self._cacheVals();
+					this._cacheVals();
 				},
 
 				vclick: function() {
+
 					var $this = $(this);
 
 					// Adds checked attribute to checked input when keyboard is used
@@ -161,12 +155,11 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
 
 	//returns either a set of radios with the same name attribute, or a single checkbox
 	_getInputSet: function(){
-		if(this.inputtype == "checkbox") {
-			return this.element;
-		}
-
-		return this.element.closest( "form,fieldset,:jqmData(role='page')" )
-			.find( "input[name='"+ this.element.attr( "name" ) +"'][type='"+ this.inputtype +"']" );
+        if(this.inputtype == "checkbox") {
+            return this.element;
+        }
+        return this.element.closest( "form,fieldset,:jqmData(role='page')" )
+				.find( "input[name='"+ this.element.attr( "name" ) +"'][type='"+ this.inputtype +"']" );
 	},
 
 	_updateAll: function() {
@@ -228,7 +221,9 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
 
 //auto self-init widgets
 $( document ).bind( "pagecreate create", function( e ){
-	$.mobile.checkboxradio.prototype.enhanceWithin( e.target );
+	$( $.mobile.checkboxradio.prototype.options.initSelector, e.target )
+		.not( ":jqmData(role='none'), :jqmData(role='nojs')" )
+		.checkboxradio();
 });
 
 })( jQuery );

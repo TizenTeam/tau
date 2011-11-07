@@ -29,6 +29,22 @@ $.widget( "mobile.selectmenu", $.mobile.widget, {
 		return $( "<div/>" );
 	},
 
+	_theme: function(){
+		if ( this.options.theme ){
+			return this.options.theme;
+		}
+
+		var themedParent, theme;
+		// if no theme is defined, try to find closest theme container
+		// TODO move to core as something like findCurrentTheme
+		themedParent = this.select.closest( "[class*='ui-bar-'], [class*='ui-body-']" );
+		theme = themedParent.length ?
+			/ui-(bar|body)-([a-z])/.exec( themedParent.attr( "class" ) )[2] :
+			"c";
+
+		return theme;
+	},
+
 	_setDisabled: function( value ) {
 		this.element.attr( "disabled", value );
 		this.button.attr( "aria-disabled", value );
@@ -53,9 +69,7 @@ $.widget( "mobile.selectmenu", $.mobile.widget, {
 		this.selectID  = this.select.attr( "id" );
 		this.label = $( "label[for='"+ this.selectID +"']" ).addClass( "ui-select" );
 		this.isMultiple = this.select[ 0 ].multiple;
-		if ( !this.options.theme ) {
-			this.options.theme = $.mobile.getInheritedTheme( this.select, "c" );
-		}
+		this.options.theme = this._theme();
 	},
 
 	_create: function() {
@@ -108,7 +122,7 @@ $.widget( "mobile.selectmenu", $.mobile.widget, {
 		}
 
 		// Disable if specified
-		if ( options.disabled || this.element.attr('disabled')) {
+		if ( options.disabled ) {
 			this.disable();
 		}
 
@@ -203,6 +217,8 @@ $.widget( "mobile.selectmenu", $.mobile.widget, {
 
 //auto self-init widgets
 $( document ).bind( "pagecreate create", function( e ){
-	$.mobile.selectmenu.prototype.enhanceWithin( e.target );
+	$( $.mobile.selectmenu.prototype.options.initSelector, e.target )
+		.not( ":jqmData(role='none'), :jqmData(role='nojs')" )
+		.selectmenu();
 });
 })( jQuery );

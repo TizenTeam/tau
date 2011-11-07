@@ -4,7 +4,6 @@
 * Dual licensed under the MIT or GPL Version 2 licenses.
 * http://jquery.org/license
 */
-
 ( function( $, window ) {
 	// For now, let's Monkeypatch this onto the end of $.mobile._registerInternalEvents
 	// Scope self to pushStateHandler so we can reference it sanely within the
@@ -66,15 +65,14 @@
 			
 			var href, state,
 				hash = location.hash,
-				isPath = $.mobile.path.isPath( hash ),
-				resolutionUrl = isPath ? location.href : $.mobile.getDocumentUrl();
+				isPath = $.mobile.path.isPath( hash );
 			hash = isPath ? hash.replace( "#", "" ) : hash;
 
 			// propulate the hash when its not available
 			state = self.state();
 
 			// make the hash abolute with the current href
-			href = $.mobile.path.makeUrlAbsolute( hash, resolutionUrl );
+			href = $.mobile.path.makeUrlAbsolute( hash, location.href );
 
 			if ( isPath ) {
 				href = self.resetUIKeys( href );
