@@ -39,18 +39,12 @@ $.widget( "mobile.listview", $.mobile.widget, {
 		var $countli = item.find( ".ui-li-count" );
 		if ( $countli.length ) {
 			item.addClass( "ui-li-has-count" );
+			$countli.addClass( "ui-btn-up-" + ( $list.jqmData( "counttheme" ) || this.options.countTheme ) + " ui-btn-corner-all" );
 		}
-		$countli.addClass( "ui-btn-up-" + ( $list.jqmData( "counttheme" ) || this.options.countTheme ) + " ui-btn-corner-all" );
 
 		// TODO class has to be defined in markup
-		item.find( "h1, h2, h3, h4, h5, h6" ).addClass( "ui-li-heading" ).end()
-			.find( "p, dl" ).addClass( "ui-li-desc" ).end()
-			.find( ">img:eq(0), .ui-link-inherit>img:eq(0)" ).addClass( "ui-li-thumb" ).each(function() {
+		item.find( ">img:eq(0), .ui-link-inherit>img:eq(0)" ).addClass( "ui-li-thumb" ).each(function() {
 				item.addClass( $(this).is( ".ui-li-icon" ) ? "ui-li-has-icon" : "ui-li-has-thumb" );
-			}).end()
-			.find( ".ui-li-aside" ).each(function() {
-				var $this = $(this);
-				$this.prependTo( $this.parent() ); //shift aside to front for css float
 			});
 	},
 
@@ -86,8 +80,11 @@ $.widget( "mobile.listview", $.mobile.widget, {
 			$topli = $visibleli.first()
 				.addClass( "ui-corner-top" );
 
-			$topli.add( $topli.find( ".ui-btn-inner" ) )
-				.find( ".ui-li-link-alt" )
+			$topli.add( $topli.find( ".ui-btn-inner" )
+					.not( ".ui-li-link-alt span:first-child" ) )
+                                .addClass( "ui-corner-top" )
+                                .end()
+				.find( ".ui-li-link-alt, .ui-li-link-alt span:first-child" )
 					.addClass( "ui-corner-tr" )
 				.end()
 				.find( ".ui-li-thumb" )
@@ -105,6 +102,9 @@ $.widget( "mobile.listview", $.mobile.widget, {
 				.find( ".ui-li-thumb" )
 					.not(".ui-li-icon")
 					.addClass( "ui-corner-bl" );
+		}
+		if ( !create ) {
+			this.element.trigger( "updatelayout" );
 		}
 	},
 
@@ -144,8 +144,7 @@ $.widget( "mobile.listview", $.mobile.widget, {
 						shadow: false,
 						corners: false,
 						iconpos: "right",
-						/* icon: a.length > 1 || icon === false ? false : icon || "arrow-r",*/
-						icon: false,	/* Remove unnecessary arrow icon */
+						icon: a.length > 1 || icon === false ? false : icon || "arrow-r",
 						theme: itemTheme
 					});
 
@@ -210,6 +209,14 @@ $.widget( "mobile.listview", $.mobile.widget, {
 			self._itemApply( $list, item );
 		}
 
+		$list.find( "h1, h2, h3, h4, h5, h6" ).addClass( "ui-li-heading" ).end()
+			.find( "p, dl" ).addClass( "ui-li-desc" ).end()
+			.find( ".ui-li-aside" ).each(function() {
+				var $this = $(this);
+				$this.prependTo( $this.parent() ); //shift aside to front for css float
+			});
+
+
 		this._refreshCorners( create );
 	},
 
@@ -236,7 +243,7 @@ $.widget( "mobile.listview", $.mobile.widget, {
 
 		parentListId = parentListId || ++listCountPerPage[ parentId ];
 
-		$( parentList.find( "li>ul, li>ol" ).not(":jqmData(expanded='true')").toArray().reverse() ).each(function( i ) {
+		$( parentList.find( "li>ul, li>ol" ).toArray().reverse() ).each(function( i ) {
 			var self = this,
 				list = $( this ),
 				listId = list.attr( "id" ) || parentListId + "-" + i,
