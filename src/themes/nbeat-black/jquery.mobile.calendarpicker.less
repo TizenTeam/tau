@@ -1,0 +1,126 @@
+
+@import "config.less";
+
+
+.ui-cp-headercontainer 
+{ 
+    text-align: center;
+    .ui-cp-month {
+    	padding-top : 30 * @unit_base;
+	}
+}
+
+.ui-cp-headercontainer h4 
+{ 
+    display: inline-block;
+    height:53px;
+    zoom:1; 
+    *display: inline;
+}
+
+.ui-cp-next 
+{ 
+    float: right; 
+    top : 14 * @unit_base;
+    height: 66 * @unit_base; 
+    width: 74 * @unit_base;
+    background:url(images/00_color_picker_btn_right.png);
+}
+
+.ui-cp-previous 
+{ 
+    float: left;
+    top : 14 * @unit_base;    
+    height: 66 * @unit_base; 
+    width: 74 * @unit_base;
+    background:url(images/00_color_picker_btn_left.png);
+}
+
+.ui-cp-weekday 
+{ 
+    clear: both; 
+    padding-bottom: 2px;
+    padding-top: 4px;
+    .ui-cp-row .ui-cp-date.ui-cp-month {
+		font-size : 24 * @unit_base;
+		padding-top : 10 * @unit_base;
+	}
+}
+
+.ui-cp-date 
+{ 
+    width: 13.7%; 
+    height: 65  * @unit_base;
+    display: inline-block; 
+    vertical-align: middle; 
+    text-align: center; 
+    line-height: 30px; 
+    zoom:1; 
+    margin:0px;
+    padding:1px;
+    *display: inline;
+    font-size : 24 * @unit_base;
+}
+
+.ui-cp-date-disabled 
+{ 
+//    border: 1px solid transparent; 
+//    color:#888;
+    border: 1px solid #B0B0B0; 
+
+}
+
+.ui-cp-month 
+{ 
+    height: 25px !important; 
+    line-height: 25px !important;
+//	padding-top : 0.9em;
+    padding-bottom: 2px;
+    background-color:#171717;
+    color:#f9f9f9;
+    font-size : 38 * @unit_base;
+    border: 1px solid transparent;
+}
+
+.ui-cp-container { 
+    border: 0px; 
+//    width: 692 * @unit_base;
+	width : 96.2%;
+    height: 537 * @unit_base;
+    padding-bottom: 3px;
+    padding-left: 14 * @unit_base;
+    padding-right: 14 * @unit_base;
+    padding-top: 13px; 
+    background-color:#171717;
+    z-index: 400; 
+}
+
+.ui-cpcontainer-hidden { display: none; }
+
+.ui-calendarbtncommon {
+    border: 1px solid #B0B0B0;
+    font-weight: bold;
+    color: #F9F9F9;
+    text-shadow: 0 1px 1px #f6f6f6; 
+    font-size : 32 * @unit_base;
+}
+
+.ui-btn-up-calendarbutton {
+    background: ##171717;
+}
+
+.ui-btn-up-lastdaybutton {
+    color: #2f78dc;
+}
+
+.ui-btn-up-firstdaybutton {
+    color: #e21414;
+}
+
+.ui-popup-calendarbox{
+	width : 720 * @unit_base;
+	height : 560 * @unit_base;
+	color : #171717;
+	
+}
+
