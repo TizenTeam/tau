@@ -42,24 +42,22 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		splitTheme: "b",
 		inset: false,
 		dbsrc: "",
-		dbtable: "",
 		template : "",
 		initSelector: ":jqmData(role='virtuallistview')"
 	},
 
 	_pushData: function ( template, data ) {
-		var dataTable = window[data];
+		this.data = data;
 		
 		var myTemplate = $("#" + template);
 		
 		for (i = 0; i < INIT_LIST_NUM; i++) 
 		{
-			var htmlData = myTemplate.tmpl( dataTable[(i % (data.length))] );
+			var htmlData = myTemplate.tmpl( data[(i % (data.length))] );
 			$('ul.ui-virtual-list-container').append( ( htmlData ).attr( 'id', 'li_'+i ) );
 		}
 		
-		/* After push data, re-style virtuallist widget */
-		$('ul.ui-virtual-list-container').trigger( "create" );
+		this.refresh(true);
 	}, 
 
 	_reposition: function(){
@@ -97,7 +95,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		var windowHeight = Math.floor($(window).height());
 		var velocity = 0;
 		var o = event.data;
-		var dataList = window[o.dbtable];
+		var dataList = window[o.dbsrc];
 		
 		//Move older item to bottom
 		var _moveTopBottom= function(v_firstIndex, v_lastIndex, num)
@@ -250,6 +248,31 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		var t = this;
 		var o = this.options; 
 		
+		if (t.element.data("src"))
+		{
+			o.dbsrc = t.element.data("src");
+			
+			/* Now, getJSON api does not work at all. Later, it will be chage like below. */
+			/* Currently, data-src mean's JSON Data arrary's name. */
+
+			/* wongi_1103 - Loading dummy Jason Data for test */ 
+/*			var script = document.createElement('script'); 
+			script.type = 'text/javascript'; 
+			script.src = o.dbsrc;
+			document.getElementsByTagName('head')[0].appendChild(script);
+		
+			$.getJSON(o.dbsrc"http://issues.tauren.com/testjson/data.json", function(json){
+				playerlist = json;
+			});
+*/
+			TOTAL_ITEMS = $(window[o.dbsrc]).size();
+		}	
+		
+		if (t.element.data("template"))
+		{
+			o.template = t.element.data("template");
+		}
+		
 		// create listview markup
 		t.element.addClass(function( i, orig ) {
 			return orig + " ui-listview ui-virtual-list-container" + ( t.options.inset ? " ui-listview-inset ui-corner-all ui-shadow " : "" );
@@ -262,43 +285,21 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
         dividers = $el.find(':jqmData(role="virtuallistview")'),
         lastListItem = null,
         shortcutscroll = this;
+
+        /* Make Gen list by template */
+    	t._pushData((o.template), window[o.dbsrc]);
+        
+		ex_windowTop = Math.floor($(document).scrollTop());
 		
 	    $('ul.ui-virtual-list-container').bind("pagehide", function(e){
 			$('ul.ui-virtual-list-container').empty();
 		});
-
-	    /* Get DB via AJAX */
-	    if (t.element.data("template"))
-		{
-			o.template = t.element.data("template");
-		}
-
-		if (t.element.data("src"))
-		{
-			o.dbsrc = t.element.data("src");
-			
-			/* ?_=ts code for no cache mechanism */
-			$.getScript(o.dbsrc + "?_=ts2477874287", function(data, textStatus) {
-
-				/* After AJAX loading success */
-				o.dbtable = t.element.data("dbtable");
-				
-				TOTAL_ITEMS = $(JSON_DATA).size();
-				
-		        /* Make Gen list by template */
-		    	t._pushData((o.template), o.dbtable);
-		        
-				ex_windowTop = Math.floor($(document).scrollTop());
 	    
 	    $(document).bind("pageshow", t._reposition);
 	    $(document).bind('scrollstop', t.options, t._scrollmove);
 	    $(window).resize(t._resize);
 		
-				$('ul.ui-virtual-list-container').listview();
-
 		t.refresh( true );
-			});
-		}	
 	},
 	
 	destroy : function(){
@@ -579,6 +580,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 });
 
 //auto self-init widgets
+//Virtual list is made on pageshow.
 $( document ).bind( "pagecreate create", function( e ){
 	$( $.mobile.virtuallistview.prototype.options.initSelector, e.target ).virtuallistview();
 });
