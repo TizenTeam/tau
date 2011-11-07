@@ -4,7 +4,8 @@
 S.load(
 	'theme.js',
 	'init.js',
-	'widgets/checkbox/checkbox.js'
+	'widgets/checkbox/checkbox.js',
+	'widgets/popupwindow/popupwindow.js'
 );
 //TODO : fix load syntax....
 S.css.load(
