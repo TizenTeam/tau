@@ -1,0 +1,18 @@
+
+<div data-role="page" id="virtuallist-normal_3_1_14"
+	data-add-back-btn="true">
+	<div data-role="header">
+		<h1>Virtual List - Normal Style 3.1.14</h1>
+	</div>
+	<div data-role="content">
+		<script id="tmp-3-1-14" type="text/x-jquery-tmpl">
+			<li class="ui-li-3-1-14">	
+				<span class="ui-li-text-main">${NAME}</span>
+				<img src="/virtual/" + ${TEAM_LOGO} class="ui-li-bigicon">
+				<div data-role="button" data-inline="true" data-icon="plus" data-style="circle"></div>
+			</li>
+		</script>
+		<ul data-role="virtuallistview" data-template="tmp-3-1-14" data-src="JSON_DATA">
+		</ul>
+	</div>
+</div>
