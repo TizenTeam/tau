@@ -1,11 +1,4 @@
 $(document).bind("pagecreate", function () {
-	
-	/* for virtual list demo's dummy data. */
-	var script = document.createElement('script'); 
-	script.type = 'text/javascript'; 
-	script.src = "./virtuallist-db-demo.js";
-	document.getElementsByTagName('head')[0].appendChild(script);
-	
     $('#spinner-demo').bind('pageshow', function (e) {
         $(this).find('li').each(function (index, element) {
             var randomWait = 500 * (Math.floor(Math.random() * 6) + 4);
@@ -28,7 +21,7 @@ $(document).bind("pagecreate", function () {
         $(this).find(':jqmData(processing="spinnerbar")').each(function (index, element) {
             var randomWait = 500 * (Math.floor(Math.random() * 6) + 4);
 
-            $(element).text("")
+            $(element).text("");
 
             $(element).bind('stopped', function () {
                 $(element).text("I am done!");
