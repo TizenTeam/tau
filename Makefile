@@ -139,6 +139,7 @@ clean:
 	# Remove generated files...
 	@@rm -f `find . -iname *.less.css`
 	@@rm -f `find . -iname *.js.compiled`
+	@@cd src/jqm && make clean
 
 init: clean
 	# Initializing...

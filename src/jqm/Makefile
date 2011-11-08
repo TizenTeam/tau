@@ -207,3 +207,6 @@ deploy: zip
 	# Clean up the local files
 	@@rm -rf ${VER}
 	@@echo "All Done"
+
+clean:
+	@@rm -rf ${CURDIR}/compiled
