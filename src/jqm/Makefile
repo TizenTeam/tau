@@ -93,6 +93,8 @@ CSSFILES =    themes/default/jquery.mobile.theme.css \
 # Min and un-min CSS and JS files are the only things built
 all: init js min css cssmin notify
 
+all-but-min: init js css notify
+
 # Build the normal CSS file.
 css: init
 	# Build the CSS file
