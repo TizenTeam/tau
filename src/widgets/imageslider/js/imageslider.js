@@ -21,6 +21,20 @@
 		index: 0,
 		align_type: null,
 
+		_resize: function (obj) {
+			var width;
+			var height;
+			var margin = 40;
+
+			height = obj.height();
+			width = obj.width();
+
+			if (width >= height)
+				obj.width(this.max_width - margin);
+			else
+				obj.height(this.max_height - margin);
+		},
+
 		_detach: function (image_index, obj) {
 			if (!obj.length)
 				return;
@@ -43,6 +57,7 @@
 
 			obj.css("display", "");
 			obj.append(this.images[image_index]);
+			this._resize(this.images[image_index]);
 			this._align(obj);
 		},
 
