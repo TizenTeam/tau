@@ -1,6 +1,4 @@
 Detail = {
-
-
 	getDetailPage : function( reference ) {
 		Map.getDetail( reference, this.pushDetailPage );
 	},
@@ -15,6 +13,7 @@ Detail = {
 	},
 
 	showDetailPage : function( place ) {
+		
 		var category = "";
 	
 		var detail = {
@@ -23,7 +22,10 @@ Detail = {
 			Website: place.website,
 			Category: place.types.join(", "),
 			Phone: place.formatted_phone_number,
-			Rating: place.rating
+			Rating: place.rating,
+			toString : function() {
+				return this.Name + ", " + this.Address + ", " + this.Website + ", " + this.Category + ", " + this.Phone;
+			}
 		};
 
 		var tpl = $.template( null, $("#detailViewTemplate") );
@@ -33,32 +35,36 @@ Detail = {
 		$("#detailTelBtn").attr('href',"callto:" + place.formatted_phone_number );
 		$("#detailWebBtn").attr('href', place.website );
 
-		var favoriteBtnDiv = '<form><input type="checkbox" data-style="favorite" /></form>';
-		$("#detailView").find("div span:first-child").first().append(favoriteBtnDiv);
-		var favoriteBtn = $("#detailView").find("input");
+		var favoriteBtnDiv = '<form><input id="detailFavoriteBtn" type="checkbox" data-style="favorite" /></form>';
+		$("#detailView").find("div span:nth-child(2)").first().after(favoriteBtnDiv);
+		var favoriteBtn = $("#detailFavoriteBtn");
 		favoriteBtn.attr("data-key", place.id );
 		favoriteBtn.attr("data-store", JSON.stringify( place ) );
-		favoriteBtn.attr("checked", Favorite.isAlreadyStored( place.id ) );
 		favoriteBtn.checkboxradio();
+		favoriteBtn.prop("checked", Favorite.isAlreadyStored( place.id ) );
+		favoriteBtn.checkboxradio('refresh');
 		favoriteBtn.bind("change", function(events, ui) {
-			Detail.toggleFavorite($("#detailView").find("input"));
+			Detail.toggleFavorite($(this));
 		});
-		console.log("ch2ef");
+
+		$("#sendPage").bind('pagebeforeshow', function() {
+			Send.init( detail.Name, detail.toString() );
+		});
 	},
 
 	toggleFavorite : function(btn) {
-		console.log("toggle");
-		console.log(btn);
-		if ( btn.attr("checked") == 'true' ) {
+		if ( btn.prop("checked") ) {
 			// remove favorite 
 			Favorite.remove( $(btn).attr("data-key") );
 			popSmallPopup( "Info", $("#detailTitle").text() + ' is removed from favorites.' );
-			btn.attr("checked", false ).checkboxradio('refresh');
+			btn.prop("checked", false );
+			btn.checkboxradio('refresh');
 		} else {
 			// add favorite
 			Favorite.add( $(btn).attr("data-key"), $(btn).attr("data-store") );
-			btn.attr("checked", true ).checkboxradio('refresh');
 			popSmallPopup( "Info", $("#detailTitle").text() + ' is added to favorites.' );
+			btn.prop("checked", true );
+			btn.checkboxradio('refresh');
 		}
 	}
 }
