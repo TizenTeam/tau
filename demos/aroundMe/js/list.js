@@ -35,8 +35,10 @@ List = {
 	},
 
 	toggleList : function( list ) {
+		$("#editFavoriteHeader").toggle(); // bug
 		$( list ).find(".ui-li-text-sub2").toggle();
 		li = list.find('li');
+
 		for ( var i = 0; i < li.length; i++ ) {
 			$( li[i] ).toggleClass("ui-li-3-2-14").toggleClass("ui-li-3-2-20");
 

@@ -135,6 +135,16 @@
 				self._move(e.pageX);
 				self.moving = false;
 			});
+
+			container.bind('vmouseout', function (e) {
+				if (!self.moving)
+					return;
+
+				if ((e.pageX <= 0) || (e.pageX >= self.max_width)) {
+					self._move(e.pageX);
+					self.moving = false;
+				}
+			});
 		},
 
 		_del_event: function () {
@@ -143,6 +153,7 @@
 			container.unbind('vmousemove');
 			container.unbind('vmousedown');
 			container.unbind('vmouseup');
+			container.unbind('vmouseout');
 		},
 
 		_align: function (obj) {

@@ -71,7 +71,14 @@
 <div id="detailPage" data-role="page" data-add-back-btn="true">
 	<div data-role="header">
 		<h1 id="detailTitle">untitled</h1>
-
+		<a href="#" id="moreBtn" class="ui-btn-right" data-role="btn">More</a>
+		<div id="sendPopup" data-role="ctxpopup" data-ctxid="moreBtn" data-style="icon">
+			<ul>
+				<li><a href="#sendPage" data-role="button" data-icon="send"></a></li>
+				<li><a href="#mapPage" data-role="button" data-icon="search"></a></li>
+				<li><a href="#" data-role="button" data-icon="info"></a></li>
+			</ul>
+		</div>
 		<div id="telWebHeader" data-role="optionheader">
 			<div class="ui-grid-a ">
 				<div class="ui-block-a"><a id="detailTelBtn" data-role="button">Call</a></div>
@@ -81,15 +88,45 @@
 	</div>
 	<div data-role="content">
 		<div id="detailViewTemplate" style="display: none">
-			<div>Name<span>{{=Name}}</span></div>
-			<div>Address<span>{{=Address}}</span></div>
-			<div>Website<span>{{=Website}}</span></div>
-			<div>Category<span>{{=Category}}</span></div>
-			<div>Phone<span>{{=Phone}}</span></div>
-			<div>Rating<span>{{=Rating}}</span></div>
+			<div><label for="name">Name:</label><span name="name">{{=Name}}</span></div>
+			<div><label for="address">Address:</label><span name="address">{{=Address}}</span></div>
+			<div><label for="website">Website:</label><span name="website">{{=Website}}</span></div>
+			<div><label for="category">Category:</label><span name="category">{{=Category}}</span></div>
+			<div><label for="phone">Phone:</label><span name="phone">{{=Phone}}</span></div>
+			<div><label for="rating">Rating:</label><span name="rating">{{=Rating}}</span></div>
 		</div>
 		<div id="detailView">
+		
+		</div>
+	</div>
+</div>
 
+<div id="sendPage" data-role="page" data-add-back-btn="true">
+	<div data-role="header">
+		<h1>Send to friend</h1>		
+		<a href="#" id="sendBtn" class="ui-btn-right" data-role="btn">Send</a>
+	</div>
+	<div data-role="content">
+		<div class="content-primary">
+			<fieldset data-role="controlgorup">
+				<legend>Choose method:</legend>
+				<input type="radio" name="radio-mail" id="radio-mail" value="choice-1" checked="checked" />
+				<label for="radio-mail">Mail</label>
+				<input type="radio" name="radio-mms" id="radio-mms" value="choice-2" />
+				<label for="radio-mms">MMS</label>
+			</fieldset>
+			<form action="#" method="get">
+				<div data-role="fieldcontain">
+					<label for="to">To:</label><input type="text" name="to" value="" />
+				</div>
+				<div data-role="fieldcontain">
+					<label for="subject">Subject:</label><input type="text" name="subject" value"" />
+				</div>
+				<div data-role="fieldcontain">
+					<label for="body">Body:</label><textarea cols="40" rows="8" name="body"></textarea>
+				</div>			
+			</form>
+			<div data-role="button">
 		</div>
 	</div>
 </div>
@@ -97,7 +134,7 @@
 <div id="searchPage" data-role="page">
 	<div data-role="header">
 		<h1>Search</h1>
-		<a href="#" id="searchSettingBtn" class="ui-btn-right" data-inline="true" data-role="btn" data-icon="gear" aria-haspopup="true" aria-owns="searchSettingPopup">Settings</a>
+		<a href="#" id="searchSettingBtn" class="ui-btn-right" data-inline="true" data-role="btn" data-icon="info" aria-haspopup="true" aria-owns="searchSettingPopup">Settings</a>
 	</div>
 	<div data-role="content">
 		<div id="searchBarDiv">

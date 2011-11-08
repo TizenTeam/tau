@@ -18,7 +18,19 @@ AroundMe = {
 				$("#favoriteList").append("<li>No Results</li>");
 				popSmallPopup( "Error", "No favorite locations added." );
 			}			
+			console.log("show");
+
 		});	
+		
+		$("#sendBtn").bind( 'vclick', function() {
+			console.log(Send.toWACHref());
+			$(this).attr("href", Send.toWACHref());
+		});
+
+		$("#favoriePage").bind( 'pagebeforehide', function() {
+			console.log("hide;");
+			$("#editFavoriteHeader").hide();
+		});
 		
 		$("#queryInput")
 			.live( "change", function(events, ui) {
@@ -39,8 +51,7 @@ AroundMe = {
 
 		$("#editFavoriteHeader").hide();
 		$("#toggleEditBtn").bind( "vclick", function(events, ui) {
-			List.toggleList( $("#favoriteList") );
-			$("#editFavoriteHeader").toggle(); // bug
+			List.toggleList( $("#favoriteList") );			
 		});
 	
 		$("#editSelectAllBtn").bind( "vclick", function(events, ui) {
