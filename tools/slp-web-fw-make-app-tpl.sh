@@ -87,7 +87,7 @@ function usage
 	if [ -n "$1" ]; then EXITCODE=1; echo "ERROR: $ERRMSG"; echo ""; fi
 
 	if [ ! -n "$2" ]; then 
-		echo "Usage: $0 <--copylib> <app-name> <install-dir>"
+		echo "Usage: $0 <--copylib> <--type=[w3c|wac]> <app-name> <install-dir>"
 		echo ""
 		echo "       app-name : Your application name. If whitespace is contained, wrap it "
 		echo "                  by quote mark."
