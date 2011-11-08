@@ -125,11 +125,6 @@ $(document).bind("pagecreate", function () {
 		$('#smallpopup').smallpopup('hide');
 	});
 
-	$('#imageslider').bind('pageshow', function (e) {
-		var start_index = 3;	/* to set start page */
-		$(this).find('#imageslider').imageslider('show', 'middle', start_index);
-	});
-
     $('#groupindex-demo').bind('pageshow', function () {
         $('#groupindex').scrolllistview();
     });
