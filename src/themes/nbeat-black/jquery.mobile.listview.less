@@ -489,19 +489,6 @@ ol.ui-listview {
 	}
 }
 
-.LESSimg-expandicon-right(@right:@list-li-padding-horizontal, @size:@list-bigicon-size) {
-	.LESSimg-bigicon(@size);
-	img.ui-li-bigicon {
-		background-image: url(images/00_winset_icon_favorite_on.png);
-		display: block;
-		position: absolute;
-		top: 50%;
-		margin-top: -(@size/2);
-		left: auto;
-		right: @right;
-	}
-}
-
 .LESSimg-expand-icon(@right:@list-li-padding-horizontal, @size:@list-bigicon-size) {
 	.LESSimg-bigicon(@size);
 	img.ui-li-bigicon {
@@ -530,10 +517,6 @@ ol.ui-listview {
 
 
 ul.ui-listview {
-
-	&> li.ui-li-expanded-icon {
-		.LESSimg-expandicon-right;
-	}
 
 	&> li.ui-li-expand {
 		.LESSli-reset-position-1line(@list-li-main-line-height, @list-li-padding-horizontal);
