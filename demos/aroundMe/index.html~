@@ -24,50 +24,80 @@
 	<div data-role="content">
 		<!--aroundmeListView-->
 		<div id="aroundmeListView">
+	
 			<div id="aroundmeListPlace">
-				<ul id="aroundmeList" data-role="listview">
+				<ul id="aroundmeList" data-role="listview" data-filter="true">
 					
 				</ul>
 			</div>
 		</div>
 	</div><!--content end-->
-	<div data-role="navbar" data-style="tabbar" data-position="fixed">
-		<ul>
-			<li><a href="#firstPage" data-icon="ctrlbar-song">aroundMe</a></li>
-			<li><a href="#searchPage" data-icon="ctrlbar-search">Search</a></li>
-			<li><a href="#favoritePage" data-icon="ctrlbar-favorites">Favorites</a></li>
-		</ul>
+
+	<div data-role="footer" data-id="aroundme_footer" data-position="fixed">
+		<div data-role="navbar" data-style="tabbar">
+			<ul>
+				<li><a href="#firstPage" data-icon="ctrlbar-song" class="ui-btn-active ui-state-persist">aroundMe</a></li>
+				<li><a href="#searchPage" data-icon="ctrlbar-search">Search</a></li>
+				<li><a href="#favoritePage" data-icon="ctrlbar-favorites">Favorites</a></li>
+			</ul>
+		</div>
 	</div>
 
 </div><!--page end-->
 
 <div id="mapPage" data-role="page">
-	<div data-role="header" data-position="fixed" data-add-back-btn="true">
-		<h1>map</h1>
+	<div data-role="header" data-position="fixed">
+		<h1 id="mapTitle">map</h1>
+		<a href="#" id="listBtn" class="ui-btn-right" data-role="btn">List</a>
 	</div>
-	<div data-role="content">
+	<div data-role="content" style="padding:0">
 		<div id="aroundMapView">
 			<div id="map">
 			</div>
 		</div>
 	</div>
+    
+    <div data-role="footer" data-id="aroundme_footer" data-position="fixed">
+    	<div data-role="navbar" data-style="tabbar" data-position="fixed">
+	    	<ul>
+		    	<li><a href="#firstPage" data-icon="ctrlbar-song"  class="ui-btn-active ui-state-persist">aroundMe</a></li>
+			    <li><a href="#searchPage" data-icon="ctrlbar-search">Search</a></li>
+    			<li><a href="#favoritePage" data-icon="ctrlbar-favorites">Favorites</a></li>
+	    	</ul>
+    	</div>
+    </div>
 </div>
 
 <div id="detailPage" data-role="page" data-add-back-btn="true">
 	<div data-role="header">
 		<h1 id="detailTitle">untitled</h1>
-		<a href="#" id="mapDetailBtn" class="ui-btn-right" data-role="btn">Map</a>
+
+		<div id="telWebHeader" data-role="optionheader">
+			<div class="ui-grid-a ">
+				<div class="ui-block-a"><a id="detailTelBtn" data-role="button">Call</a></div>
+				<div class="ui-block-b"><a id="detailWebBtn" data-role="button">Website</a></div>
+			</div>
+		</div>
 	</div>
 	<div data-role="content">
-		<div id="detailAddress"></div>
-		<div id="detailTel"></div>
-		<div id="detailToHere"></div>
+		<div id="detailViewTemplate" style="display: none">
+			<div>Name<span>{{=Name}}</span></div>
+			<div>Address<span>{{=Address}}</span></div>
+			<div>Website<span>{{=Website}}</span></div>
+			<div>Category<span>{{=Category}}</span></div>
+			<div>Phone<span>{{=Phone}}</span></div>
+			<div>Rating<span>{{=Rating}}</span></div>
+		</div>
+		<div id="detailView">
+
+		</div>
 	</div>
 </div>
 
 <div id="searchPage" data-role="page">
 	<div data-role="header">
 		<h1>Search</h1>
+		<a href="#" id="searchSettingBtn" class="ui-btn-right" data-inline="true" data-role="btn" data-icon="gear" aria-haspopup="true" aria-owns="searchSettingPopup">Settings</a>
 	</div>
 	<div data-role="content">
 		<div id="searchBarDiv">
@@ -75,43 +105,120 @@
 				<input type="search" id="queryInput" value=""/>
 			</div>
 		</div>
+
 		<div id="searchListCategory">
 			<ul id="searchCategoryList" data-role="listview">
+				<li class="ul-li-3-1-10" data-query="category:all">
+					<span class="ui-li-text-main">All</span>
+					<img src='image/Aroundme_icon_All.png' class="ui-li-bigicon">
+				</li>
+				<li class="ul-li-3-1-10" data-query="category:art">
+					<span class="ui-li-text-main">Art</span>
+					<img src='image/Aroundme_icon_Art.png' class="ui-li-bigicon">
+				</li>
+				<li class="ul-li-3-1-10" data-query="category:education">
+					<span class="ui-li-text-main">Education</span>
+					<img src='image/Aroundme_icon_College.png' class="ui-li-bigicon">
+				</li>
+				<li class="ul-li-3-1-10" data-query="category:restaurants">
+					<span class="ui-li-text-main">Restaurants</span>
+					<img src='image/Aroundme_icon_Food.png' class="ui-li-bigicon">
+				</li>
+				<li class="ul-li-3-1-10" data-query="category:travel">
+					<span class="ui-li-text-main">Travel</span>
+					<img src='image/Aroundme_icon_Home.png' class="ui-li-bigicon">
+				</li>
+				<li class="ul-li-3-1-10" data-query="category:bar">
+					<span class="ui-li-text-main">Bar</span>
+					<img src='image/Aroundme_icon_Nightlife.png' class="ui-li-bigicon">
+				</li>
 			</ul>		
 		</div>		
+		
+		<div id="searchSettingPopup" data-role="popupwindow" data-style="center_liststyle_2btn">
+			<p data-role="title">Search Settings</p>
+			<p data-role="text">
+				<div data-role="scroller-bg">
+					<ul data-role="listview" data-icon="1line-textonly">
+						<li>
+							<legend>Radius</legend>
+							<div class="ui-slider-icon-bg">
+								<input id="searchRadius" name="Search Radius" type="range" value="5000" min="50" max="5000" />
+							</div>		
+						</li>
+						<li>
+							<legend>Category</legend>
+							<div data-role="fieldcontain">
+								<fieldset id="searchCategory" data-role="controlgroup" data-type="horizontal">
+									<input type="radio" name="radio-view-9" data-icon="segment-titlestyle-segonly" id="segmentAll" value="off" />
+									<label for="segmentAll">All</label>
+									<input type="radio" name="radio-view-9" data-icon="segment-titlestyle-segonly" id="segmentArt" value="off" />
+									<label for="segmentArt">Art</label>
+									<input type="radio" name="radio-view-9" data-icon="segment-titlestyle-segonly" id="segmentEducation" value="off" />
+									<label for="segmentEducation">Education</label>
+									<input type="radio" name="radio-view-9" data-icon="segment-titlestyle-segonly" id="segmentRestaurants" value="off" />
+									<label for="segmentRestaurants">Restaurants</label>
+									<input type="radio" name="radio-view-9" data-icon="segment-titlestyle-segonly" id="segmentTravel" value="off" />
+									<label for="segmentTravel">Travel</label>
+									<input type="radio" name="radio-view-9" data-icon="segment-titlestyle-segonly" id="segmentBar" value="off" />
+									<label for="segmentBar">Bar</label>									
+								</fieldset>
+							</div>
+						</li>
+					</ul>
+				</div>
+
+			</p>
+			<div data-role="button-bg">
+				<input id="searchSettingsConfirmBtn" type="button" value="Confirm" />
+				<input id="searchSettingsCancelBtn" type="button" value="Cancel" />
+			</div>
+		</div>
 	</div>
-	<div data-role="navbar" data-style="tabbar" data-position="fixed">
-		<ul>
-			<li><a href="#firstPage" data-icon="ctrlbar-song">aroundMe</a></li>
-			<li><a href="#searchPage" data-icon="ctrlbar-search">Search</a></li>
-			<li><a href="#favoritePage" data-icon="ctrlbar-favorites">Favorites</a></li>
-		</ul>
+	<div data-role="footer" data-id="aroundme_footer" data-position="fixed" >	
+		<div data-role="navbar" data-style="tabbar">
+			<ul>
+				<li><a href="#firstPage" data-icon="ctrlbar-song">aroundMe</a></li>
+				<li><a href="#searchPage" data-icon="ctrlbar-search" class="ui-btn-active ui-state-persist">Search</a></li>
+				<li><a href="#favoritePage" data-icon="ctrlbar-favorites">Favorites</a></li>
+			</ul>
+		</div>
 	</div>	
 </div>
 
 <div id="searchResultPage" data-role="page" data-add-back-btn="true">
 	<div data-role="header">
 		<h1>Results</h1>
-		<a href="#" id="mapBtn" class="ui-btn-right" data-role="btn">Map</a>
+		<a href="#" id="mapSearchBtn" class="ui-btn-right" data-role="btn">Map</a>
 	</div>
 	<div data-role="content">
 		<div id="searchListPlace">
 			<ul id="searchList" data-role="listview">
+				
 			</ul>
 		</div>
 	</div>
-	<div data-role="navbar" data-style="tabbar" data-position="fixed">
-		<ul>
-			<li><a href="#firstPage" data-icon="ctrlbar-song">aroundMe</a></li>
-			<li><a href="#searchPage" data-icon="ctrlbar-search">Search</a></li>
-			<li><a href="#favoritePage" data-icon="ctrlbar-favorites">Favorites</a></li>
-		</ul>
+	<div data-role="footer" data-id="aroundme_footer" data-position="fixed">
+		<div data-role="navbar" data-style="tabbar">
+			<ul>
+				<li><a href="#firstPage" data-icon="ctrlbar-song">aroundMe</a></li>
+				<li><a href="#searchPage" data-icon="ctrlbar-search" class="ui-btn-active ui-state-persist">Search</a></li>
+				<li><a href="#favoritePage" data-icon="ctrlbar-favorites">Favorites</a></li>
+			</ul>
+		</div>
 	</div>
 </div>
 
 <div id="favoritePage" data-role="page">
 	<div data-role="header">
 		<h1>Favorites</h1>
+		<a href="#" id="toggleEditBtn" class="ui-btn-right" data-role="btn">Edit</a>
+		<div id="editFavoriteHeader" data-role="optionheader">
+			<div class="ui-grid-a ">
+				<div class="ui-block-a"><a id="editSelectAllBtn" data-role="button">All</a></div>
+				<div class="ui-block-b"><a id="editDeleteBtn" data-role="button">Delete</a></div>
+			</div>
+		</div>
 	</div>
 	<div data-role="content">
 		<div id="favoriteListPlace">
@@ -120,12 +227,14 @@
 		</div>
 	</div>
 
-	<div data-role="navbar" data-style="tabbar" data-position="fixed">
+	<div data-role="footer" data-id="aroundme_footer" data-position="fixed">
+		<div data-role="navbar" data-style="tabbar">
 			<ul>
-			<li><a href="#firstPage" data-icon="ctrlbar-song">aroundMe</a></li>
-			<li><a href="#searchPage" data-icon="ctrlbar-search">Search</a><li>
-			<li><a href="#favoritePage" data-icon="ctrlbar-favorites">Favorites</a></li>
-		</ul>
+				<li><a href="#firstPage" data-icon="ctrlbar-song">aroundMe</a></li>
+				<li><a href="#searchPage" data-icon="ctrlbar-search">Search</a></li>
+				<li><a href="#favoritePage" data-icon="ctrlbar-favorites" class="ui-btn-active ui-state-persist">Favorites</a></li>
+			</ul>
+		</div>
 	</div>
 
 
