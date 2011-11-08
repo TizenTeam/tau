@@ -122,7 +122,7 @@ function copy_template
 	local tplpath=$libpath/template
 
 	# Check if this script is in src script
-	if [ -f "${SCRIPTDIR}/../src/template/bootstrap.js" ]; then
+	if [ -e "${SCRIPTDIR}/../build/web-ui-fw" ]; then
 		libpath="${SCRIPTDIR}/../build"
 		tplpath=${SCRIPTDIR}/../src/template
 	fi

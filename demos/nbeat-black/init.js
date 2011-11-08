@@ -1,11 +1,4 @@
 $(document).bind("pagecreate", function () {
-	
-	/* for virtual list demo's dummy data. */
-	var script = document.createElement('script'); 
-	script.type = 'text/javascript'; 
-	script.src = "./virtuallist-db-demo.js";
-	document.getElementsByTagName('head')[0].appendChild(script);
-	
     $('#spinner-demo').bind('pageshow', function (e) {
         $(this).find('li').each(function (index, element) {
             var randomWait = 500 * (Math.floor(Math.random() * 6) + 4);
@@ -28,7 +21,7 @@ $(document).bind("pagecreate", function () {
         $(this).find(':jqmData(processing="spinnerbar")').each(function (index, element) {
             var randomWait = 500 * (Math.floor(Math.random() * 6) + 4);
 
-            $(element).text("")
+            $(element).text("");
 
             $(element).bind('stopped', function () {
                 $(element).text("I am done!");
@@ -133,22 +126,12 @@ $(document).bind("pagecreate", function () {
 	});
 
 	$('#imageslider').bind('pageshow', function (e) {
-		$(this).find('#imageslider').imageslider('align', 'middle');
+		var start_index = 3;	/* to set start page */
+		$(this).find('#imageslider').imageslider('show', 'middle', start_index);
 	});
 
     $('#groupindex-demo').bind('pageshow', function () {
         $('#groupindex').scrolllistview();
-    });
-    $("#popupwindow-demo").bind("pageshow", function() {
-      $('#popupwindow-demo-transition-' + $("#popupContent2").popupwindow("option", "transition"))
-        .attr("checked", "true")
-        .checkboxradio("refresh");
-
-	$(this).find('#progressbar').progressbar('start');
-    });
-
-    $('input[name=popupwindow-demo-transition-choice]').bind("change", function(e) {
-      $("#popupContent2").popupwindow("option", "transition", $(this).attr("id").split("-").pop());
     });
 
     $("#showVolumeButton").bind("vclick", function (e) {

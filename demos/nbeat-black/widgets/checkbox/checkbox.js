@@ -12,6 +12,11 @@ $( "#checkbox-demo" ).live("pagecreate", function () {
 	$( "#get-check-value" ).bind('vclick', function () {
 		$( ".checked-value" ).text( $( "#checkbox-1" ).prop( "checked" ) );
 	});
+
+	$("input[type='checkbox']").bind( "change", function(event, ui) {
+		$( ".triggered-check" ).text( this.id + " is " + this.checked );
+	});
+
 });
 
 

@@ -19,7 +19,7 @@
 			<li data-role="list-divider">Controls</li>
 			<li><a href="widgets/button/button.html">Button</a></li>
 			<li><a href="widgets/checkbox/checkbox.html">Check</a></li>
-			<li><a href="widgets/radio.html">Radio</a></li>
+			<li><a href="widgets/radio/radio.html">Radio</a></li>
 			<li><a href="widgets/colorpicker.html">Color picker</a></li>
 			<li><a href="widgets/datefield.html">Time picker</a></li>
 			<li><a href="#progressbar-demo">Progressbar</a></li>
@@ -29,12 +29,12 @@
 			<li><a href="widgets/day-selector.html" >Day Selector</a></li>
 			<li><a href="widgets/navigationbar.html" rel="external">Navigation Bar</a></li>
 			<li><a href="#imageslider">ImageSlider</a></li>
-
+			<li><a href="#calendarDemo">Calendar</a></li>			
 			<li data-role="list-divider">ControlBar</li>
 			<li><a href="widgets/controlbar.html" rel="external">ControlBar</a></li>
 
 			<li data-role="list-divider">List</li>
-			<li><a href="widgets/genlist.html">Genlist</a></li>
+			<li><a href="widgets/genlist/genlist.html">Genlist</a></li>
 			<li><a href="widgets/auto-dividers.html">Auto-Dividers</a></li>
 			<li><a href="widgets/fast-scroll.html">Short cut scroll (aka fast-scroll)</a></li>
 
@@ -44,7 +44,7 @@
 			<li><a href="widgets/segmentctrl.html">Segment Control</a></li>
 
 			<li data-role="list-divider">Popup</li>
-			<li><a href="widgets/popup.html">Popup</a></li>
+			<li><a href="widgets/popupwindow/popup.html">Popup</a></li>
 			<li><a href="widgets/ctxpopup.html">CxtPopup</a></li>
 
 			<li data-role="list-divider">Notification (ticker)</li>
@@ -68,7 +68,8 @@
 			<li data-role="list-divider">Spilit view</li>
 
 			<li data-role="list-divider">Etc.</li>
-
+			<li data-role="list-divider">Programming Tips</li>
+			<li><a href="tips/generate-elements-dynamically.html">Generate Elements by JS</a></li>
 			<li data-role="list-divider">Not Implemented</li>
 			<li><a href="#notImplemented">Calendar</a></li>
 			<li><a href="#option-header-demo">Optional Header</a></li>
@@ -91,6 +92,18 @@
 		</ul>	
 	</div>
 </div>
+
+<div data-role="page" id="calendarDemo" data-add-back-btn="true">
+    <div data-role="header">
+        <h1>TODONS - Calendar Picker. Click Button to launch Calendar Picker</h1>
+    </div>
+    <div class="content" data-role="content" id="calendarinputcontainer">
+        <label id="label">Selected Date</label><input type="text" name = "calendardate" id="selectedCalendarDate" value="Select Date"/>
+        <input type="button" data-role="calendarpicker" data-icon="grid" data-iconpos="notext" data-options='{"calStartDay": 0}' id = "calendarbutton">
+   </div>
+
+</div>
+
 
 <div data-role="page" id="notImplemented">
 	<div data-role="header">
