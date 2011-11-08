@@ -18,6 +18,15 @@ $.widget("todons.expandablelist", $.mobile.widget, {
 		$(e).removeClass('ui-li-expand-transition-hide')
 			.addClass('ui-li-expand-transition-show');
 	},
+	_hide_expand_img: function(e) {
+		$(e).removeClass('ui-li-expand')
+			.addClass('ui-li-expanded');
+	},
+	_show_expand_img: function(e) {
+		$(e).removeClass('ui-li-expanded')
+			.addClass('ui-li-expand');
+	},
+
 	_toggle: function(self, e, parent_is_expanded) {
 		if (! parent_is_expanded) {
 			self._show(e);
@@ -68,12 +77,9 @@ $.widget("todons.expandablelist", $.mobile.widget, {
 			expanded.each(function(i, e) { self._toggle(self, e, _is_expanded); });
 			e[0].is_expanded = ! e[0].is_expanded;	// toggle true/false
 			if (e[0].is_expanded) {
-				console.log("Show");
-
-				$(e[0]).find( ":jqmData(expandable='true')" )
-					 .wrapInner( '<img src="thumbnail.jpg" class="ui-li-expanded-icon">' );
+				self._hide_expand_img(e);
 			} else {
-				console.log("Hide");
+				self._show_expand_img(e);
 			}
 
 		});
