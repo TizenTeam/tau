@@ -119,19 +119,23 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 					var htmlData = myTemplate.tmpl(dataList[v_lastIndex + i]);
 					
 					/* Copy all data to current item. */
-					$(cur_item).contents().filter(function(){return $(this).text().trim().length>0;}).each(function(index)
+					/*$(cur_item).contents().filter(function(){return $(this).text().trim().length>0;}).each(function(index)*/ /* Have some bugs */
+					$(cur_item).find(".ui-li-text-main",".ui-li-text-sub","ui-btn-text").each(function(index)
 					{
 						var oldObj = $(this);
-						var newText = $(htmlData).contents().filter(function(){return $(this).text().trim().length > 0;}).eq(index).text();
+						/*var newText = $(htmlData).contents().filter(function(){return $(this).text().trim().length > 0;}).eq(index).text();*/ /* Have some bugs */
+						var newText = $(htmlData).find(".ui-li-text-main",".ui-li-text-sub","ui-btn-text").eq(index).text();
 						
-						if ($(this).is("span"))
-						{
-							$(oldObj).text(newText);
-						}
-						else  /* write directly */ 
-						{
-							$(oldObj).find("span").text(newText);
-						}
+						$(oldObj).text(newText);
+					});
+					
+					$(cur_item).find("img").each(function(index)
+					{
+						var oldObj = $(this);
+
+						var newImg = $(htmlData).find("img").eq(index).attr("src");
+						
+						$(oldObj).attr("src", newImg);
 					});
 					
 					/* Set New Position */
@@ -162,19 +166,22 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 					var htmlData = myTemplate.tmpl(dataList[v_firstIndex-1-i]);
 					
 					/* Copy all data to current item. */
-					$(cur_item).contents().filter(function(){return $(this).text().trim().length>0;}).each(function(index)
+					$(cur_item).find(".ui-li-text-main",".ui-li-text-sub","ui-btn-text").each(function(index)
 					{
 						var oldObj = $(this);
-						var newText = $(htmlData).contents().filter(function(){return $(this).text().trim().length > 0;}).eq(index).text();
-						
-						if ($(this).is("span"))
-						{
-							$(oldObj).text(newText);
-						}
-						else  /* write directly */ 
-						{
-							$(oldObj).find("span").text(newText);
-						}
+						/*var newText = $(htmlData).contents().filter(function(){return $(this).text().trim().length > 0;}).eq(index).text();*/ /* Have some bugs */
+						var newText = $(htmlData).find(".ui-li-text-main",".ui-li-text-sub","ui-btn-text").eq(index).text();
+								
+						$(oldObj).text(newText);
+					});
+							
+					$(cur_item).find("img").each(function(index)
+					{
+						var oldObj = $(this);
+
+						var newImg = $(htmlData).find("img").eq(index).attr("src");
+								
+						$(oldObj).attr("src", newImg);
 					});
 
 					/* Set New Position */
