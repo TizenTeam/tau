@@ -283,7 +283,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 				/* After AJAX loading success */
 				o.dbtable = t.element.data("dbtable");
 				
-				TOTAL_ITEMS = $(JSON_DATA).size();
+				TOTAL_ITEMS = $(window[o.dbtable]).size();
 				
 		        /* Make Gen list by template */
 		    	t._pushData((o.template), o.dbtable);
