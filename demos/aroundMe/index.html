@@ -71,7 +71,7 @@
 <div id="detailPage" data-role="page" data-add-back-btn="true">
 	<div data-role="header">
 		<h1 id="detailTitle">untitled</h1>
-		<form><input type="checkbox" name="checkFavorite" id="checkFavorite" data-style="favorite" /></form>
+
 		<div id="telWebHeader" data-role="optionheader">
 			<div class="ui-grid-a ">
 				<div class="ui-block-a"><a id="detailTelBtn" data-role="button">Call</a></div>
@@ -80,11 +80,17 @@
 		</div>
 	</div>
 	<div data-role="content">
-		<div>Address<span id="detailAddress"></span></div>
-		<div>Website<span id="detailWeb"></span></div>
-		<div>Category<span id="detailCategory"></span></div>
-		<div>Phone<span id="detailTel"></span></div>
-		<div>Rating<span id="detailRating"></span></div>
+		<div id="detailViewTemplate" style="display: none">
+			<div>Name<span>{{=Name}}</span></div>
+			<div>Address<span>{{=Address}}</span></div>
+			<div>Website<span>{{=Website}}</span></div>
+			<div>Category<span>{{=Category}}</span></div>
+			<div>Phone<span>{{=Phone}}</span></div>
+			<div>Rating<span>{{=Rating}}</span></div>
+		</div>
+		<div id="detailView">
+
+		</div>
 	</div>
 </div>
 
