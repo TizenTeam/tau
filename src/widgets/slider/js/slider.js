@@ -71,6 +71,7 @@
 			updateSlider,
 			slider_bar,
 			max_value,
+			min_value,
 			handle_press;
 
 			// apply jqm slider
@@ -123,8 +124,10 @@
 			// handle press
 			slider.append($('<div class="ui-slider-handle-press"></div>'));
 			self.handle_press = slider.find('.ui-slider-handle-press');
+			self.handle_press.css('display', 'none');
 
-			self.max_value = inputElement.attr('max') - inputElement.attr('min');
+			self.max_value = inputElement.attr('max');
+			self.min_value = inputElement.attr('min');
 
 			// add a popup element (hidden initially)
 			slider.before(self.popup);
@@ -161,10 +164,12 @@
 		},
 
 		_handle_press_show: function () {
+			this.handle_press.css('display', '');
 			this.handle_press.css('z-index', 15);
 		},
 
 		_handle_press_hide: function () {
+			this.handle_press.css('display', 'none');
 			this.handle_press.css('z-index', 5);
 		},
 
@@ -174,6 +179,11 @@
 				at: 'center top',
 				offset: '0 20px',
 				of: this.handle});
+
+			this.handle_press.position({my: 'left top',
+					at: 'left top',
+					offset: '0 0',
+					of: this.handle});
 	       },
 
 		// show value on the handle and in popup
@@ -194,9 +204,9 @@
 				this.popup.html(newValue);
 				this.element.trigger('update', newValue);
 
-				var bar_size = 100 * newValue / this.max_value;
+				var bar_size = 100 * (newValue - this.min_value) /
+						(this.max_value - this.min_value);
 				this.slider_bar.width(bar_size + '%');
-				this.handle_press.css('left', bar_size + '%');
 			}
 		},
 

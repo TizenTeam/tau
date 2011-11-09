@@ -17,7 +17,7 @@
 <div id="firstPage" data-role="page">
 	<div data-role="header" data-position="fixed" >
 		<h1>aroundMe</h1>
-		<a href="#" id="mapBtn" class="ui-btn-right" data-role="btn">Map</a>
+		<a data-transition="flip" href="#" id="mapBtn" class="ui-btn-right" data-role="btn">Map</a>
 	</div><!-- /header -->
 
 	<!--content start-->
@@ -26,8 +26,8 @@
 		<div id="aroundmeListView">
 	
 			<div id="aroundmeListPlace">
-				<ul id="aroundmeList" data-role="listview" data-filter="true">
-					
+				<ul id="aroundmeList" data-role="listview">
+					<li><center>Loading...</center></li>
 				</ul>
 			</div>
 		</div>
@@ -48,7 +48,7 @@
 <div id="mapPage" data-role="page">
 	<div data-role="header" data-position="fixed">
 		<h1 id="mapTitle">map</h1>
-		<a href="#" id="listBtn" class="ui-btn-right" data-role="btn">List</a>
+		<a data-transition="flip" href="#" id="listBtn" class="ui-btn-right" data-role="btn">List</a>
 	</div>
 	<div data-role="content" style="padding:0">
 		<div id="aroundMapView">
@@ -71,7 +71,14 @@
 <div id="detailPage" data-role="page" data-add-back-btn="true">
 	<div data-role="header">
 		<h1 id="detailTitle">untitled</h1>
-		<form><input type="checkbox" name="checkFavorite" id="checkFavorite" data-style="favorite" /></form>
+		<a href="#" id="moreBtn" class="ui-btn-right" data-role="btn">More</a>
+		<div id="sendPopup" data-role="ctxpopup" data-ctxid="moreBtn" data-style="icon">
+			<ul>
+				<li><a href="#sendPage" data-role="button" data-icon="send"></a></li>
+				<li><a id="detailSearchBtn" rel="external" href="#" data-role="button" data-icon="search"></a></li>
+				<li><a id="detailMapBtn" href="#" data-role="button" data-icon="info"></a></li>
+			</ul>
+		</div>
 		<div id="telWebHeader" data-role="optionheader">
 			<div class="ui-grid-a ">
 				<div class="ui-block-a"><a id="detailTelBtn" data-role="button">Call</a></div>
@@ -80,18 +87,53 @@
 		</div>
 	</div>
 	<div data-role="content">
-		<div>Address<span id="detailAddress"></span></div>
-		<div>Website<span id="detailWeb"></span></div>
-		<div>Category<span id="detailCategory"></span></div>
-		<div>Phone<span id="detailTel"></span></div>
-		<div>Rating<span id="detailRating"></span></div>
+		<div id="detailViewTemplate" style="display: none">
+			<div class="detail-name"><span name="name">{{=Name}}</span></div>
+			<div class="detail-address"><span name="address">{{=Address}}</span></div>
+			<div class="detail-website"><a href="{{=Website}}" name="website">{{=Website}}</a></div>
+			<div class="detail-category"><span name="category">{{=Category}}</span></div>
+			<div class="detail-phone"><a href="callto:{{=Phone}}" name="phone">{{=Phone}}</a></div>
+			<div class="detail-rating"><span name="rating"></span></div>
+		</div>
+		<div id="detailView">
+		
+		</div>
+	</div>
+</div>
+
+<div id="sendPage" data-role="page" data-add-back-btn="true">
+	<div data-role="header">
+		<h1>Send to friend</h1>		
+		<a href="#" id="sendBtn" rel="external" class="ui-btn-right" data-role="btn">Send</a>
+	</div>
+	<div data-role="content">
+		<div class="content-primary">
+			<fieldset id="sendMailMMS" data-role="controlgroup">
+				<legend>Choose method:</legend>
+				<input type="radio" name="radio-mailmms" id="radio-mail" value="mail" checked="checked" />
+				<label for="radio-mail">Mail</label>
+				<input type="radio" name="radio-mailmms" id="radio-mms" value="mms" />
+				<label for="radio-mms">MMS</label>
+			</fieldset>
+			<form action="#" method="get">
+				<div data-role="fieldcontain">
+					<label for="to">To:</label><input type="text" name="to" value="" />
+				</div>
+				<div data-role="fieldcontain">
+					<label for="subject">Subject:</label><input type="text" name="subject" value"" />
+				</div>
+				<div data-role="fieldcontain">
+					<label for="body">Body:</label><textarea cols="40" rows="8" name="body"></textarea>
+				</div>			
+			</form>
+		</div>
 	</div>
 </div>
 
 <div id="searchPage" data-role="page">
 	<div data-role="header">
 		<h1>Search</h1>
-		<a href="#" id="searchSettingBtn" class="ui-btn-right" data-inline="true" data-role="btn" data-icon="gear" aria-haspopup="true" aria-owns="searchSettingPopup">Settings</a>
+		<a href="#" id="searchSettingBtn" class="ui-btn-right" data-inline="true" data-role="btn" data-icon="info" aria-haspopup="true" aria-owns="searchSettingPopup">Settings</a>
 	</div>
 	<div data-role="content">
 		<div id="searchBarDiv">
@@ -102,27 +144,27 @@
 
 		<div id="searchListCategory">
 			<ul id="searchCategoryList" data-role="listview">
-				<li class="ul-li-3-1-10" data-query="category:all">
+				<li class="ui-li-3-1-10" data-query="">
 					<span class="ui-li-text-main">All</span>
-					<img src='image/Aroundme_icon_All.png' class="ui-li-bigicon">
+					<img src='image/Aroundme_icon_Art.png' class="ui-li-bigicon">
 				</li>
-				<li class="ul-li-3-1-10" data-query="category:art">
+				<li class="ui-li-3-1-10" data-query="category:art">
 					<span class="ui-li-text-main">Art</span>
 					<img src='image/Aroundme_icon_Art.png' class="ui-li-bigicon">
 				</li>
-				<li class="ul-li-3-1-10" data-query="category:education">
+				<li class="ui-li-3-1-10" data-query="category:education">
 					<span class="ui-li-text-main">Education</span>
 					<img src='image/Aroundme_icon_College.png' class="ui-li-bigicon">
 				</li>
-				<li class="ul-li-3-1-10" data-query="category:restaurants">
+				<li class="ui-li-3-1-10" data-query="category:restaurants">
 					<span class="ui-li-text-main">Restaurants</span>
 					<img src='image/Aroundme_icon_Food.png' class="ui-li-bigicon">
 				</li>
-				<li class="ul-li-3-1-10" data-query="category:travel">
+				<li class="ui-li-3-1-10" data-query="category:travel">
 					<span class="ui-li-text-main">Travel</span>
 					<img src='image/Aroundme_icon_Home.png' class="ui-li-bigicon">
 				</li>
-				<li class="ul-li-3-1-10" data-query="category:bar">
+				<li class="ui-li-3-1-10" data-query="category:bar">
 					<span class="ui-li-text-main">Bar</span>
 					<img src='image/Aroundme_icon_Nightlife.png' class="ui-li-bigicon">
 				</li>
@@ -188,7 +230,7 @@
 	<div data-role="content">
 		<div id="searchListPlace">
 			<ul id="searchList" data-role="listview">
-				
+				<li><center>No results</center></li>
 			</ul>
 		</div>
 	</div>
@@ -217,6 +259,7 @@
 	<div data-role="content">
 		<div id="favoriteListPlace">
 			<ul id="favoriteList" data-role="listview">
+				<li><center>No results</center></li>
 			</ul>
 		</div>
 	</div>

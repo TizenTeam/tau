@@ -6,7 +6,7 @@
         <script src="@LIBDIR@/bootstrap.js"
                 @DATA_FRAMEWORK_ROOT@
                 data-framework-version="0.1"
-                data-framework-theme="default">
+                data-framework-theme="nbeat-black">
         </script>
     </head>
 

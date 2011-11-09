@@ -5,7 +5,9 @@ S.load(
 	'theme.js',
 	'init.js',
 	'widgets/checkbox/checkbox.js',
-	'widgets/popupwindow/popupwindow.js'
+	'widgets/radio/radio.js',
+	'widgets/popupwindow/popupwindow.js',
+	'tips/generate-elements-dynamically.js'
 );
 //TODO : fix load syntax....
 S.css.load(

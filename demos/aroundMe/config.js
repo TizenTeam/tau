@@ -20,7 +20,13 @@ loadLocalScripts = function() {
 		'lib/json2.js',
         'lib/jquery.ui.map.full.min.js',
 		'lib/jquery.ui.map.extensions.js',
+        'lib/jsrender.js',
         'js/favorite.js',
+        'js/detail.js',
+		'js/list.js',
+		'js/map.js',
+		'js/send.js',
+		'js/aroundme.js',
         'init.js'
     );
 

@@ -42,7 +42,7 @@
 	top : 0px;
 	
 	border-bottom-style: solid;
-	border-bottom-color: 	@color_02; 	
+	border-bottom-color: 	#484848; 	
 	border-bottom-width: 	10 * @unit_base;	
 	.ui-title {
 		top : 0px;
@@ -59,13 +59,13 @@
 	}
 	
 	.ui-btn{
-		top : 13 * @unit_base;
+		top : 8 * @unit_base;
 		margin-top : 0px;
-		font-size : 30 * @unit_base;
+		font-size : 28 * @unit_base;
 		height : 74 * @unit_base;
 		
 		background: #32414a;
-		color 		:#767676;
+		color 		:#f9f9f9;
 			
 		border-style: solid;
 		border-color: 	#213c49; 	
@@ -74,6 +74,11 @@
 		.ui-btn-inner {
 			width : 108  * @unit_base;
 		}
+	}
+	
+	.ui-btn.ui-btn-down-s {
+		background 		:#213c49;
+		color : #767676;
 	}
 	.ui-btn-back{
 		position : absolute;
@@ -100,7 +105,7 @@
 			border-top-right-radius : 0px;
 			border-bottom-right-radius : 0px;
 			
-	}
+		}
 	}
 
 	.ui-field-contain {		
@@ -118,7 +123,7 @@
 					.ui-btn-text {
 						text-align : center;
 					}
-	}
+				}
 
 				.ui-radio-off {
 					background: #434343;
@@ -199,7 +204,7 @@
 }
 
 .ui-footer {
-	height : 124 * @unit_base;		
+	height : 114 * @unit_base;
 }
 
 
@@ -418,9 +423,12 @@ a.ui-link-inherit {
 .ui-controlbar-s.ui-navbar {
 	position : absolute;
 	
-	height : 122 * @unit_base;  /* temporary value */
+	height : 114 * @unit_base;  /* temporary value */
 	width : 100%;
 	left : 0px;
+	
+	border-top : none;
+	border-bottom : none;
 	
 	z-index: 50;
 	
@@ -430,17 +438,17 @@ a.ui-link-inherit {
 
 	.ui-btn , .ui-btn-icon-top, .ui-btn-hover-s, .ui-btn-active, .ui-btn-up-s{
 		.ui-btn-inner{
-			padding-top : 88 * @unit_base;
+			padding-top : 79 * @unit_base;
 		}			
 	} 	
 	.ui-btn {
 		.ui-icon {
 			left : 50%;
-			top : 7 * @unit_base;
-			margin-left : -1.8em;
+			top : 12 * @unit_base;
+			margin-left : -1.3em;
 			
-			width : 70 * @unit_base;
-			height: 70 * @unit_base;			
+			width : 56 * @unit_base;
+			height: 56 * @unit_base;			
 		}
 		.ui-btn-text {
 			padding-left : 0px;
@@ -457,11 +465,11 @@ a.ui-link-inherit {
 
 .ui-tabbar-s {
 	.ui-btn {
-		background: @footercolor;
+		background: #1f1f1f
 	}
 
 	.ui-btn-active, .ui-btn-show-style {
-		background: @color_02;
+		background: #4c4c4c;
 		border-left-style:  solid;
 		border-right-style: solid;		
 		border-left-color: 	@color_bg; 	
@@ -472,7 +480,7 @@ a.ui-link-inherit {
 	}
 
 	.ui-btn-animation {
-		background: @color_02;
+		background: #4c4c4c;
 		border-left-style:  solid;
 		border-right-style: solid;		
 		border-left-color: 	@color_bg; 	
@@ -514,7 +522,7 @@ a.ui-link-inherit {
 		width : 100%;
 		margin :0px 0em;					
 
-		background: @footercolor;	
+		background: #1f1f1f;	
 	}
 		
 	.ui-btn-down-s,  .ui-btn-active{
@@ -907,6 +915,7 @@ a.ui-link-inherit {
 .ui-focus {
 	/* global-active-background-color */
 	//.LESSbox-shadow(0px, 1px, 12px, #387bbe);
+	outline-color : #008cd2;
 }
 
 /* unset box shadow in browsers that don't do it right

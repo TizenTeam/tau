@@ -1,127 +1,129 @@
-function HomeControl( controlDiv, map ) {
-	
-	// Set CSS styles for the DIV containing the control
-	// Setting padding to 8 px will offset the control
-	// from the edge of the map
+Map = {
+	map : undefined,
 
-	// Set CSS for the control interior
-	var controlText = document.createElement('DIV');
-	controlText.style.fontFamily = 'Helvetica Neue, sans-serif';
-	controlText.style.textAlign = 'left';
-	controlText.style.color = 'white';
-	controlText.style.fontSize = '34px';
-	controlText.style.paddingLeft = '4px';
-	controlText.style.paddingRight = '4px';
-	// Set me image and location info
-	controlText.innerHTML = '<div id="meBG" style="width:100%;height:32px;border-width: 12px 11px 16px 11px; -webkit-border-image: url(image/00_list_alert_popup_bg.png) 12 11 16 11 repeat stretch;">' + 
-				'<img id="meImage" style="position:relative;top:-5px;padding-left:2px;padding-right:10px;display:inline-block;" src="image/Aroundme_icon_refresh.png">' + 
-				'<label id="meAddress"></label></div>';
-	
-	controlDiv.appendChild(controlText);
+	init : function( base ) {
+		this.map = $(base).gmap();
+		$("#mapPage").bind( 'pageshow', function() {
+			Map.map.gmap('refresh');
+		});
+	},
 
-	// Setup the click event listeners: simply set the map to meButton
-	google.maps.event.addDomListener(controlText, 'click', function()
-    {
-        function setMeLocation(lat,lng)
-        {
-            var currentLatLng = new google.maps.LatLng(lat, lng);
+	setCenter : function( lat, lng ) {
+		Map.map.gmap( 'setCenter', lat, lng );
+	},
 
-            if(gMeMarker)
-            {
-                gMeMarker.setMap(null);
-                gMeMarker = null;
-            }
+	showDetailMap: function( detail ) {
+		console.log(detail);
+		var title = $.mobile.activePage.find( ".ui-title" ).text();
+		$("#mapTitle").text( title );
 
-            gMeMarker = new google.maps.Marker({
-                            		position: currentLatLng,
-                            		icon: gMeIcon, 
-                            		map: gMap
-                        		});
+		$.mobile.changePage("#mapPage", { 
+			'transition': 'flip' 
+		});
 
-            gMeSearch = new GlocalSearch();
-        	gMeSearch.setSearchCompleteCallback(null, OnMeAddress);
-        	gMeSearch.execute(lat +", "+ lng);
+		this.map.gmap( 'clear', 'markers' ); // reset marker
+		this.map.gmap( 'set', 'bounds', undefined );	// reset bounds
+		var marker = new google.maps.Marker( {
+			'icon': 'image/maps_marker.png',
+			'title': detail.name,
+			'position' : new google.maps.LatLng(detail.geometry.location.Oa, detail.geometry.location.Pa),
+			'detailReference' : detail.reference // custom
+		});
 
-        	setTimeout("hideMeInfo()",ME_DISPLAY_TIME);
-            gMap.setCenter(currentLatLng);
-        }
+		google.maps.event.addListener( marker, 'click', function() {
+			Detail.getDetailPage( this.detailReference );
+		} );
+		
+		this.map.gmap( 'addMarker', marker );
+		this.map.gmap( 'addBounds', marker.position );
 
-        getCurrentLocation(setMeLocation, null);
-        
-    });
-}	
-function showMapInfo() {
-	if ( gMap == undefined ) {
-		initGoogleMap();
-	}
-	setAutoZoom( gMap, gLocalSearch.results );
-	setSearchLocation( gLocalSearch.results, gIndex );
-	var selected = gLocalSearch.results[gIndex];
-	gMap.setCenter( new google.maps.LatLng( parseFloat( selected.lat ), parseFloat( selected.lng ) ) );
-}
+		
+		this.map.gmap( 'addMarker', {
+			'position' : meLocation,
+			'icon' : 'image/11Aroundme_icon_refresh.png'
+		});
+		this.map.gmap( 'addBounds', meLocation );
 
-// set search results in the map
-function setAutoZoom(map,markers) {
-	var i = markers.length;
-	var bounds = new google.maps.LatLngBounds();
+	},
 
-	if (gSource == "google") {
-		while(i--) {
-			bounds.extend(new google.maps.LatLng(markers[i].lat,markers[i].lng));
+	showListMap : function( list ) {
+		// because jquery data stores its data into $.cache, 
+		// save somewhere else before change pages
+		var li = list.find('li');
+		var ll = new Array();
+		for ( var i = 0; i < li.length; i++ ) {
+			ll.push( $(list).data( $( li[i] ).attr("id") ) );
 		}
-	} else {
-		while(i--) {
-			bounds.extend(new google.maps.LatLng(markers[i].geolat,markers[i].geolong));
+
+		var title = $.mobile.activePage.find( ".ui-title" ).text();
+		$("#mapTitle").text( title );
+
+		$.mobile.changePage("#mapPage", { 
+			'transition' : 'flip'
+		});
+		
+		this.map.gmap( 'clear', 'markers' ); // reset marker
+		this.map.gmap( 'set', 'bounds', undefined );	// reset bounds
+		for ( var i = 0; i < ll.length; i++ ) {
+			var marker = new google.maps.Marker( {
+				'icon': 'image/maps_marker.png',
+				'title': ll[i].name,
+				'position' : ll[i].geometry.location,
+				'detailReference' : ll[i].reference // custom
+			});
+
+			google.maps.event.addListener( marker, 'click', function() {
+				Detail.getDetailPage( this.detailReference );
+			} );
+
+			this.map.gmap( 'addMarker', marker );
+			this.map.gmap( 'addBounds', ll[i].geometry.location );
+		}
+
+
+		this.map.gmap( 'addMarker', {
+			'position' : meLocation,
+			'icon' : 'image/11Aroundme_icon_refresh.png'
+		});
+		this.map.gmap( 'addBounds', meLocation );
+	}, 
+
+	getDetail : function( reference, callback ) {
+		this.map.gmap( 'placesDetail', { 'reference': reference }, callback );
+	}, 
+
+	placesSearch : function( query, callback ) {
+		if ( query.location ) {
+			this.map.gmap( 'placesSearch', query, callback );
+		} else {
+			function realSearch( lat, lng ) {
+				meLocation = new google.maps.LatLng( lat, lng );
+				query.location = meLocation;
+				Map.map.gmap( 'placesSearch', query, callback );
+			}
+			Map.getCurrentLocation( realSearch );
+		}
+	},
+
+	getCurrentLocation : function( successcb, options ) {
+		if ( document.location.href.match(/debug=true/) ) {
+			successcb( ME_LOCATION_LAT, ME_LOCATION_LNG );	// FOR TEST.
+			return;
+		}
+		console.log("Warn: location api called, if you are at behind firewall, this won't be working correctly.");
+		console.log("Warn: to solve above problem, add '?debug=true' after aroundMe's address.");
+		this.map.gmap( 'getCurrentPosition', successcb, options );
+	},
+
+	calcDistance : function( from, to ) {
+		var distance = google.maps.geometry.spherical.computeDistanceBetween( from, to );
+		distance = Math.floor( distance );
+		if ( distance > 999 ) { 
+			distance = Math.round( distance / 1000 );
+			return distance + "km";
+		} else {
+			return distance + "m";
 		}
 	}
-    gMap.fitBounds(bounds);
 
-    if(gMap.getZoom() == 20) {
-        gMap.setZoom(19);
-    }   
 }
-
-function initGoogleMap() {
-	if ( mapIsOk ) {
-		return;
-	}
-
-	var zoomLevel = 13;
-	
-	gMap = new google.maps.Map( document.getElementById("map"), {
-								center: meLocation,
-								zoom: zoomLevel,
-								disableDefaultUI: true,
-								scrollwheel: false,
-								mapTypeId: google.maps.MapTypeId.ROADMAP
-							});
-	
-	var homeControlDiv = document.createElement( 'DIV' );
-	$(homeControlDiv).addClass( "me_button" );
-	var homeControl = new HomeControl( homeControlDiv, gMap );
-
-	homeControlDiv.index = 1;
-	gMap.controls[ google.maps.ControlPosition.BOTTOM_LEFT ].push( homeControlDiv );
-
-	mapIsOk = true;
-}
-
-function OnMeAddress() {
-	if (!gMeSearch.results) {   
-        return;
-    }
-    var meStr = ((gMeSearch.results[0].streetAddress.length > 0) ? (gMeSearch.results[0].streetAddress + ", ") : "")
-            + ((gMeSearch.results[0].city.length > 0) ? (gMeSearch.results[0].city + ", ") : "")
-            + ((gMeSearch.results[0].region.length > 0) ? (gMeSearch.results[0].region + ", ") : "")
-            + ((gMeSearch.results[0].country.length > 0) ? (gMeSearch.results[0].country) : "");
-
-    if(meStr.lastIndexOf(",") == meStr.length - 2) {
-        meStr = meStr.substr(0, meStr.length - 2);
-    }
-    
-	var meName = gMeSearch.results[0].title;
-
-	$("#meAddress").addClass("me_Address_info");
-	$("#meAddress").text(meStr);
-}
-

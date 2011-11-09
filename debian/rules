@@ -38,8 +38,6 @@ endif
 CFLAGS += -fvisibility=hidden -fPIC
 LDFLAGS += -Wl,--rpath=$(PREFIX)/lib -Wl,--as-needed
 
-CMAKE_TMP_DIR = $(CURDIR)/cmake_tmp
-
 config.status: 
 
 configure: configure-stamp
@@ -66,8 +64,6 @@ clean:
 	dh_testroot
 	rm -f *-stamp 
 	
-	rm -rf $(CMAKE_TMP_DIR)
-
 	for f in `find $(CURDIR)/debian/ -name "*.in"`; do \
 		rm -f $${f%.in}; \
 	done
