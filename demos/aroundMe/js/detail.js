@@ -43,6 +43,9 @@ Detail = {
 		favoriteBtn.checkboxradio();
 		favoriteBtn.prop("checked", Favorite.isAlreadyStored( place.id ) );
 		favoriteBtn.checkboxradio('refresh');
+		console.log("bbbb");
+		console.log(favoriteBtn.prop("checked"));
+		console.log(favoriteBtn);
 		favoriteBtn.bind("change", function(events, ui) {
 			Detail.toggleFavorite($(this));
 		});
@@ -53,6 +56,9 @@ Detail = {
 	},
 
 	toggleFavorite : function(btn) {
+		console.log(btn);
+		console.log("aaaaaa2");
+		console.log(btn.prop("checked"));
 		if ( btn.prop("checked") ) {
 			// remove favorite 
 			Favorite.remove( $(btn).attr("data-key") );
