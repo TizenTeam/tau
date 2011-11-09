@@ -9,15 +9,24 @@ div.pagecontrol {
 	.LESSpagecontrolIconCommonProperties(@imgUrl) {
 		background-image: url(@imgUrl);
 	}
+	.LESSpagecontrolIconMargin(@l, @r) {
+		margin-left: @l * @unit_base;
+		margin-right: @r * @unit_base;
+	}
+
 	&> div.page_n {
 		display: inline-block;
-		margin-left: 22 * @unit_base;
-		margin-right: 22 * @unit_base;
 		background-size: 52 * @unit_base;
 		border: 0;
 		width: 52 * @unit_base;
 		height: 52 * @unit_base;
 	}
+
+	&> div.page_n_margin_44 { .LESSpagecontrolIconMargin(22, 22); }
+	&> div.page_n_margin_35 { .LESSpagecontrolIconMargin(18, 17; }
+	&> div.page_n_margin_26 { .LESSpagecontrolIconMargin(13, 13); }
+	&> div.page_n_margin_19 { .LESSpagecontrolIconMargin(10, 9); }
+
 
 	&> div.page_n_dot {
 		.LESSpagecontrolIconCommonProperties('images/00_mainmenu_page_bar_001.png');

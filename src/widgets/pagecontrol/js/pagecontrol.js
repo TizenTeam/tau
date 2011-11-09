@@ -19,7 +19,8 @@ $.widget("todons.pagecontrol", $.mobile.widget, {
 			currentVal = e.data("current"),
 			i = 0,
 			btn = null,
-			buf = null;
+			buf = null,
+			page_margin_class = 'page_n_margin_44';
 		
 		// Set default values
 		if(!maxVal) {
@@ -38,10 +39,19 @@ $.widget("todons.pagecontrol", $.mobile.widget, {
 		e.addClass('pagecontrol');
 
 		// Calculate left/right margin
+		if(maxVal <= 7) {
+			page_margin_class = 'page_n_margin_44';
+		} else if(maxVal == 8) {
+			page_margin_class = 'page_n_margin_35';
+		} else if(maxVal == 9) {
+			page_margin_class = 'page_n_margin_26';
+		} else {
+			page_margin_class = 'page_n_margin_19';
+		}
 
 		// Add dot icons
 		for(i=1; i<=maxVal; i++) {
-			btn = $('<div class="page_n page_n_dot"></div>');
+			btn = $('<div class="page_n page_n_dot ' + page_margin_class + '"></div>');
 			e.append(btn);
 			if(i == currentVal) {
 				btn.removeClass('page_n_dot').
