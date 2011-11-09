@@ -64,7 +64,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 
 	_reposition: function(){
 		TITLE_H = $('ul.ui-virtual-list-container li:first').position().top;
-		LINE_H = $('ul.ui-virtual-list-container li:first').innerHeight();
+		LINE_H = $('ul.ui-virtual-list-container li:first').outerHeight();
 
 		CONTAINER_W = $('ul.ui-virtual-list-container').innerWidth();
 		
@@ -302,6 +302,8 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 	    $(window).resize(t._resize);
 		
 				$('ul.ui-virtual-list-container').listview();
+
+				t._reposition();	//wongi_1109
 
 		t.refresh( true );
 			});
