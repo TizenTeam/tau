@@ -1,21 +1,25 @@
 AroundMe = {
 	init : function() {
+		$.mobile.showPageLoadingMsg();
+		Favorite.create();
+
 		this.initUi();
 		this.initSearchSettings();
 		this.initGoogle();
-		this.start();
+		$.mobile.hidePageLoadingMsg();
 	},
 	
 	initUi : function() {
-		Favorite.create();
-		$.mobile.showPageLoadingMsg();
-		
+		$("#firstPage").bind('pagebeforeshow', function() {
+			console.log("a");
+			Map.getCurrentLocation( AroundMe.firstSearch );
+		});
+
 		$("#favoritePage").bind( 'pagebeforeshow', function() {
 			var list = Favorite.getWholeList();
 			if ( list.length > 0 ) {
 				List.setListFromPlacesSearch( $("#favoriteList"), Favorite.getWholeList(), true );	
 			} else {
-				$("#favoriteList").append("<li>No Results</li>");
 				popSmallPopup( "Error", "No favorite locations added." );
 			}			
 		});	
@@ -75,7 +79,6 @@ AroundMe = {
 			List.setListFromPlacesSearch( $("#favoriteList"), Favorite.getWholeList(), true );
 		});
 	
-
 		this.initSearchCategoryList();
 	},
 	
@@ -150,12 +153,6 @@ AroundMe = {
 
 	initGoogle : function() {
 		Map.init($("#map"));	
-	},
-
-	start : function() {
-		Map.getCurrentLocation( this.firstSearch );
-
-		$.mobile.hidePageLoadingMsg();	
 	},
 
 	firstSearch : function( lat, lng ) {

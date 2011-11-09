@@ -17,7 +17,7 @@
 <div id="firstPage" data-role="page">
 	<div data-role="header" data-position="fixed" >
 		<h1>aroundMe</h1>
-		<a href="#" id="mapBtn" class="ui-btn-right" data-role="btn">Map</a>
+		<a data-transition="flip" href="#" id="mapBtn" class="ui-btn-right" data-role="btn">Map</a>
 	</div><!-- /header -->
 
 	<!--content start-->
@@ -26,8 +26,8 @@
 		<div id="aroundmeListView">
 	
 			<div id="aroundmeListPlace">
-				<ul id="aroundmeList" data-role="listview" data-filter="true">
-					
+				<ul id="aroundmeList" data-role="listview">
+					<li><center>Loading...</center></li>
 				</ul>
 			</div>
 		</div>
@@ -48,7 +48,7 @@
 <div id="mapPage" data-role="page">
 	<div data-role="header" data-position="fixed">
 		<h1 id="mapTitle">map</h1>
-		<a href="#" id="listBtn" class="ui-btn-right" data-role="btn">List</a>
+		<a data-transition="flip" href="#" id="listBtn" class="ui-btn-right" data-role="btn">List</a>
 	</div>
 	<div data-role="content" style="padding:0">
 		<div id="aroundMapView">
@@ -230,7 +230,7 @@
 	<div data-role="content">
 		<div id="searchListPlace">
 			<ul id="searchList" data-role="listview">
-				
+				<li><center>No results</center></li>
 			</ul>
 		</div>
 	</div>
@@ -259,6 +259,7 @@
 	<div data-role="content">
 		<div id="favoriteListPlace">
 			<ul id="favoriteList" data-role="listview">
+				<li><center>No results</center></li>
 			</ul>
 		</div>
 	</div>

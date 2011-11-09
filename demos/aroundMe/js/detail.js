@@ -62,11 +62,11 @@ Detail = {
 	getRatingStar : function( point ) {
 		var divStart = '<div class="star" ';
 		var divEnd = '></div>';
-		var str = "";		
+		var str = "";
 		for ( var rating = parseFloat( point ); rating > 0; rating-=1 ) {
 			str += divStart;
 			if ( rating < 1 ) {
-				str += 'style="width:' + (50 * rating) + 'px;"';
+				str += 'style="width:' + (50 * rating) + 'px;"'; // suppose star width is 50px
 			}
 			str += divEnd;
 		}

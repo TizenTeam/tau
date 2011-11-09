@@ -108,7 +108,7 @@
 
         setCenter: function(a, b) {
             console.log( a,b );
-            this.get('map').setCenter( new google.maps.LatLng(a, b) );
+            this.get('map').panTo( new google.maps.LatLng(a, b) );
         }
 
 	});

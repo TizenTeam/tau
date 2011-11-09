@@ -17,7 +17,9 @@ Map = {
 		var title = $.mobile.activePage.find( ".ui-title" ).text();
 		$("#mapTitle").text( title );
 
-		$.mobile.changePage("#mapPage");
+		$.mobile.changePage("#mapPage", { 
+			'transition': 'flip' 
+		});
 
 		this.map.gmap( 'clear', 'markers' ); // reset marker
 		this.map.gmap( 'set', 'bounds', undefined );	// reset bounds
@@ -56,7 +58,9 @@ Map = {
 		var title = $.mobile.activePage.find( ".ui-title" ).text();
 		$("#mapTitle").text( title );
 
-		$.mobile.changePage("#mapPage");
+		$.mobile.changePage("#mapPage", { 
+			'transition' : 'flip'
+		});
 		
 		this.map.gmap( 'clear', 'markers' ); // reset marker
 		this.map.gmap( 'set', 'bounds', undefined );	// reset bounds
@@ -81,7 +85,7 @@ Map = {
 			'position' : meLocation,
 			'icon' : 'image/11Aroundme_icon_refresh.png'
 		});
-
+		this.map.gmap( 'addBounds', meLocation );
 	}, 
 
 	getDetail : function( reference, callback ) {
