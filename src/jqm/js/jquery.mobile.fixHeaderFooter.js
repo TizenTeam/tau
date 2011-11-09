@@ -68,7 +68,7 @@ $.mobile.fixedToolbars = (function() {
 
 
 		/* resize test : Jinhyuk    */
-		var footer_filter = $(document).find(":jqmData(role='footer')");		
+		var footer_filter = $(document).find(".ui-page-active").find(":jqmData(role='footer')");		
 		
 		footer_filter
 			.css("top",document.documentElement.clientHeight  - footer_filter.height())
@@ -170,6 +170,14 @@ $.mobile.fixedToolbars = (function() {
 	// 2. After page is shown, append footer to new page
 	$( ".ui-page" )  /* Fixed header modify for theme-s : Jinhyuk */
 		.live( "pagebeforeshow", function( event, ui ) {
+			/* resize footer : Jinhyuk    */
+			var footer_filter = $(document).find(":jqmData(role='footer')");		
+			
+			footer_filter
+				.css("top",document.documentElement.clientHeight  - footer_filter.height())
+				.show();		
+			/* resize footer : Jinhyuk    */
+			
 			var s_theme_header = $( event.target ).find(":jqmData(role='header')");
 			
 				if(s_theme_header.find(".ui-option-header").length == 0 && s_theme_header.is(".ui-header-fixed") && s_theme_header.is(".ui-bar-s")){
