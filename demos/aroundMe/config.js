@@ -27,7 +27,6 @@ loadLocalScripts = function() {
 		'js/map.js',
 		'js/send.js',
 		'js/aroundme.js',
-        'theme.js',
         'init.js'
     );
 
