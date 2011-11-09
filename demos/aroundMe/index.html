@@ -75,8 +75,8 @@
 		<div id="sendPopup" data-role="ctxpopup" data-ctxid="moreBtn" data-style="icon">
 			<ul>
 				<li><a href="#sendPage" data-role="button" data-icon="send"></a></li>
-				<li><a href="#mapPage" data-role="button" data-icon="search"></a></li>
-				<li><a href="#" data-role="button" data-icon="info"></a></li>
+				<li><a id="detailSearchBtn" rel="external" href="#" data-role="button" data-icon="search"></a></li>
+				<li><a id="detailMapBtn" href="#" data-role="button" data-icon="info"></a></li>
 			</ul>
 		</div>
 		<div id="telWebHeader" data-role="optionheader">
@@ -88,12 +88,12 @@
 	</div>
 	<div data-role="content">
 		<div id="detailViewTemplate" style="display: none">
-			<div><label for="name">Name:</label><span name="name">{{=Name}}</span></div>
-			<div><label for="address">Address:</label><span name="address">{{=Address}}</span></div>
-			<div><label for="website">Website:</label><span name="website">{{=Website}}</span></div>
-			<div><label for="category">Category:</label><span name="category">{{=Category}}</span></div>
-			<div><label for="phone">Phone:</label><span name="phone">{{=Phone}}</span></div>
-			<div><label for="rating">Rating:</label><span name="rating">{{=Rating}}</span></div>
+			<div class="detail-name"><span name="name">{{=Name}}</span></div>
+			<div class="detail-address"><span name="address">{{=Address}}</span></div>
+			<div class="detail-website"><a href="{{=Website}}" name="website">{{=Website}}</a></div>
+			<div class="detail-category"><span name="category">{{=Category}}</span></div>
+			<div class="detail-phone"><a href="callto:{{=Phone}}" name="phone">{{=Phone}}</a></div>
+			<div class="detail-rating"><span name="rating"></span></div>
 		</div>
 		<div id="detailView">
 		
@@ -104,15 +104,15 @@
 <div id="sendPage" data-role="page" data-add-back-btn="true">
 	<div data-role="header">
 		<h1>Send to friend</h1>		
-		<a href="#" id="sendBtn" class="ui-btn-right" data-role="btn">Send</a>
+		<a href="#" id="sendBtn" rel="external" class="ui-btn-right" data-role="btn">Send</a>
 	</div>
 	<div data-role="content">
 		<div class="content-primary">
-			<fieldset data-role="controlgroup">
+			<fieldset id="sendMailMMS" data-role="controlgroup">
 				<legend>Choose method:</legend>
-				<input type="radio" name="radio-mail" id="radio-mail" value="mail" checked="checked" />
+				<input type="radio" name="radio-mailmms" id="radio-mail" value="mail" checked="checked" />
 				<label for="radio-mail">Mail</label>
-				<input type="radio" name="radio-mms" id="radio-mms" value="mms" />
+				<input type="radio" name="radio-mailmms" id="radio-mms" value="mms" />
 				<label for="radio-mms">MMS</label>
 			</fieldset>
 			<form action="#" method="get">

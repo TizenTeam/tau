@@ -125,6 +125,19 @@ $(document).bind("pagecreate", function () {
 		$('#smallpopup').smallpopup('hide');
 	});
 
+	$('#selectioninfo-demo').bind('vmouseup', function (e) {
+		$('#smallpopup_selectioninfo').attr("data-text1", $("#dayselector1").find(".ui-checkbox-on").length);		
+		$('#smallpopup_selectioninfo').smallpopup('show');
+	});
+
+	$('#selectioninfo-demo').bind('tapped', function (e, m) {
+		/* DO SOMETHING */
+		alert('smallpopup is tapped\nparameter:"' + m + '"');
+		$('#smallpopup_selectioninfo').smallpopup('hide');
+	});
+
+
+
     $('#groupindex-demo').bind('pageshow', function () {
         $('#groupindex').scrolllistview();
     });

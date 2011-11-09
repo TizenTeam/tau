@@ -15,12 +15,13 @@
 		running: false,
 
 		show: function () {
-			if (this.running) {
-				return;
-			}
+			if (this.running)
+				this.hide();
 
 			this.html_none.detach();
 			this.html_hide.detach();
+
+			this._update();
 
 			this._append_show();
 			this._add_event();
@@ -29,9 +30,8 @@
 		},
 
 		hide: function () {
-			if (!this.running) {
+			if (!this.running)
 				return;
-			}
 
 			this._del_event();
 
@@ -65,6 +65,7 @@
 
 			container.bind('vmouseup', function () {
 				self.element.trigger('tapped', self.param);
+				self.hide();
 			});
 
 			if (this.seconds !== undefined && this.second != 0) {
@@ -81,7 +82,7 @@
 			clearInterval(this.interval);
 		},
 
-		_create: function () {
+		_update: function () {
 			var text = new Array(2);
 			var msg;
 
@@ -102,6 +103,10 @@
 					'</div>');
 			this.html_none = $('<div class="ui-smallpopup-none ">' +
 					'</div>');
+		},
+
+		_create: function () {
+			this._update();
 
 			$(this.element).append(this.html_none);
 			this.running = false;

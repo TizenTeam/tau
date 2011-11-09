@@ -99,11 +99,16 @@
 		 * @param b:function(result:google.maps.places.PlaceResult, status:google.maps.places.PlacesServiceStatus), http://code.google.com/apis/maps/documentation/javascript/reference.html#PlaceResult
 		 */
 		placesSearch: function(a, b) {
-            this.get('services > PlacesService', new google.maps.places.PlacesService(this.get('map'))).search(a, b);
+			this.get('services > PlacesService', new google.maps.places.PlacesService(this.get('map'))).search(a, b);
 		},
         
         placesDetail: function(a, b) {
             this.get('services > PlacesService', new google.maps.places.PlacesService(this.get('map'))).getDetails(a, b);
+        },
+
+        setCenter: function(a, b) {
+            console.log( a,b );
+            this.get('map').setCenter( new google.maps.LatLng(a, b) );
         }
 
 	});

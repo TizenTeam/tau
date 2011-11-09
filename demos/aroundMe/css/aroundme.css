@@ -1,12 +1,3 @@
-.me_button{
-	position:absolute;
-	padding-bottom:28px;
-	width:420px;
-	height:44px;
-	left:20px !important;
-	z-index:100 !important;
-}
-
 #aroundMapView {
 	width: 100%;
 	height: 720px;
@@ -17,6 +8,27 @@
 	height: 100%;
 }
 
+div.detail-name>form{
+    position: absolute;
+    top: 195px;
+    left: 20px;
+}
 
+div.detail-name>span{
+    font-size: 50px;
+    position: relative;
+    left: 80px;
+}
+
+div.detail-rating {
+	display:inline;
+}
+
+.star {
+	float: left;
+	width: 50px;
+	height: 50px;
+	background: url('../image/00_winset_icon_favorite_off.png');
+}
 
 

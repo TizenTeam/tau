@@ -77,6 +77,10 @@ $( ":jqmData(role='page'), :jqmData(role='dialog')" ).live( "pagecreate", functi
 					"role": "heading",
 					"aria-level": "1"
 				});
+			//SLP -- start
+			// prevent winset selection for header & footer
+			$this.preventDefaultBehaviour();
+			//SLP -- end
 
 		} else if ( role === "content" ) {
 			if ( contentTheme ) {

@@ -18,17 +18,17 @@ AroundMe = {
 				$("#favoriteList").append("<li>No Results</li>");
 				popSmallPopup( "Error", "No favorite locations added." );
 			}			
-			console.log("show");
-
 		});	
 		
+		$("#detailSearchBtn").bind( 'vclick', function() {
+			$(this).attr("href", "http://www.google.com/?q=" + $("#detailTitle").text() );
+		});
+
 		$("#sendBtn").bind( 'vclick', function() {
-			console.log(Send.toWACHref());
 			$(this).attr("href", Send.toWACHref());
 		});
 
 		$("#favoriePage").bind( 'pagebeforehide', function() {
-			console.log("hide;");
 			$("#editFavoriteHeader").hide();
 		});
 		
@@ -47,6 +47,7 @@ AroundMe = {
 
 		$("#mapBtn").bind( "vclick", function(events, ui) {
 			Map.showListMap( $("#aroundmeList") );
+			Map.getCurrentLocation( Map.setCenter );
 		});
 
 		$("#editFavoriteHeader").hide();
@@ -64,10 +65,10 @@ AroundMe = {
 
 		$("#editDeleteBtn").bind( "vclick", function(events, ui) {
 			var dels = new Array();
-			var checks = $("#favoriteList").find('input');
+			var checks = $("#favoriteList").find('input[type="checkbox"]');
 			for ( var i = 0; i < checks.length; i++ ) {
 				if( $(checks[i]).prop("checked") ) {
-					dels.push( $(checks[i]).parent().parent().attr("data-id") );
+					dels.push( $(checks[i]).parent().parent().parent().attr("data-id") );
 				}
 			}
 			Favorite.remove.apply( Favorite, dels );
@@ -102,26 +103,26 @@ AroundMe = {
 				switch ( category ) {
 				default:
 				case 'all':
-					$("#segmentAll").val("on").attr("checked", "checked");
+					$("#segmentAll").prop("checked", true);
 					break;
 				case 'art':
-					$("#segmentArt").val("on").attr("checked", "checked");
+					$("#segmentArt").prop("checked", true);
 					break;
 				case 'education':
-					$("#segmentEducation").val("on").attr("checked", "checked");
+					$("#segmentEducation").prop("checked", true);
 					break;
 				case 'travel':
-					$("#segmentTravel").val("on").attr("checked", "checked");
+					$("#segmentTravel").prop("checked", true);
 					break;
 				case 'restaurants':
-					$("#segmentRestaurants").val("on").attr("checked", "checked");
+					$("#segmentRestaurants").prop("checked", true);
 					break;
 				case 'bar':
-					$("#segmentBar").val("on").attr("checked", "checked");
+					$("#segmentBar").prop("checked", true);
 					break;
 				}
 			} else {
-				$("#segmentAll").val("on").attr("checked", "checked");
+				$("#segmentAll").prop("checked", true);
 			}
 			$("#searchSettingsConfirmBtn").live( 'vclick', function() {
 				window.localStorage.setItem( "searchRadius", $("#searchRadius").val() );
@@ -152,7 +153,7 @@ AroundMe = {
 	},
 
 	start : function() {
-		Map.getCurrentLocation( this.firstSearch, this.noLocationInfo );
+		Map.getCurrentLocation( this.firstSearch );
 
 		$.mobile.hidePageLoadingMsg();	
 	},
