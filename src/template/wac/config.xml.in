@@ -4,7 +4,8 @@
             version="0.1" 
             id="http://www.samsung.com/app/templateID"
             width="480"
-            height="800" >
+            height="800"
+            viewmodes="fullscreen">
     <!-- automatically generated name -->
     <name>@APP_NAME@</name>
  
