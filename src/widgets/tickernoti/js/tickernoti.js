@@ -16,9 +16,8 @@
 		running: false,
 
 		show: function () {
-			if (this.running) {
-				return;
-			}
+			if (this.running)
+				this.hide();
 
 			this.html_none.detach();
 			this.html_hide.detach();
@@ -30,9 +29,8 @@
 		},
 
 		hide: function () {
-			if (!this.running) {
+			if (!this.running)
 				return;
-			}
 
 			this._del_event();
 
@@ -58,6 +56,7 @@
 
 			bg_container.bind('vmouseup', function () {
 				self.element.trigger('tapped', self.param);
+				self.hide();
 			});
 
 			if (this.seconds !== undefined && this.second != 0) {
@@ -76,23 +75,13 @@
 			clearInterval(this.interval);
 		},
 
-		_create: function () {
+		_update: function () {
 			var text = new Array(2);
 
 			text[0] = $(this.element).attr('data-text1');
 			text[1] = $(this.element).attr('data-text2');
 			this.param = $(this.element).attr('data-param');
 			this.seconds = $(this.element).attr('data-interval');
-
-			this.btn = $("<a href='#' class='ui-input-cancel' title='close' data-theme='s'>Close</a>")
-			.tap(function(event) {
-				event.preventDefault();
-			})
-			.buttonMarkup({
-				inline: true,
-				corners: true,
-				shadow: true
-			});
 
 			this.html = $('<div class="ui-ticker">' +
 					'<div class="ui-ticker-bg">' +
@@ -119,6 +108,20 @@
 					'<div class="ui-ticker-bg">' +
 					'</div>' +
 					'</div>');
+		},
+
+		_create: function () {
+			this.btn = $("<a href='#' class='ui-input-cancel' title='close' data-theme='s'>Close</a>")
+			.tap(function(event) {
+				event.preventDefault();
+			})
+			.buttonMarkup({
+				inline: true,
+				corners: true,
+				shadow: true
+			});
+
+			this._update();
 
 			$(this.element).append(this.html_none);
 			this.running = false;
