@@ -27,7 +27,6 @@ var CONTAINER_W = 0;
 
 var i =0, j=0, k=0;
 var direction = NO_SCROLL;
-var start_index = 0; 				//first item's index on screen.
 var first_index = 0;				//first id of <li> element.
 var last_index = INIT_LIST_NUM -1;	//last id of <li> element.
 
@@ -187,62 +186,51 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		{
 			direction = SCROLL_DOWN;
 			velocity = cur_num_top_itmes - num_top_items;
+			num_top_items = cur_num_top_itmes;
 		}
 		else if (num_top_items > cur_num_top_itmes)
 		{
 			direction = SCROLL_UP;
 			velocity = num_top_items - cur_num_top_itmes;
-		}
-		else
-		{
-			direction = NO_SCROLL;
-			return;
-		}
-		
-		num_top_items = cur_num_top_itmes;
-
-		//Calculate first index on screen
-		if(direction == SCROLL_DOWN)
-		{
-			start_index += velocity;
-		}
-		else if(direction == SCROLL_UP)
-		{
-			start_index -= velocity;
-			
-			if (start_index < 0)
-				start_index = 0;
+			num_top_items = cur_num_top_itmes;
 		}
 
 		// Move items
-		if (direction == SCROLL_DOWN && start_index < PAGE_BUF)
+		if(direction == SCROLL_DOWN)
 		{
-			//Don't move	
-		}
-		else if(direction == SCROLL_UP && start_index < PAGE_BUF)	//Fill full all buffers
-		{
-			_moveBottomTop(first_index, last_index, first_index+1);
-			last_index -= first_index;
-			first_index -= first_index;
-		}
-		else
-		{
-			if(direction == SCROLL_DOWN)
+			if (cur_num_top_itmes > PAGE_BUF)
 			{
+				if (last_index + velocity > TOTAL_ITEMS)
+				{
+					velocity = TOTAL_ITEMS - last_index -1;
+				}
+				
 				_moveTopBottom(first_index, last_index, velocity);
 				first_index += velocity;
 				last_index += velocity;
 				num_top_items -= velocity;
 			}
-			else if(direction == SCROLL_UP)
+		}
+		else if(direction == SCROLL_UP)
+		{
+			if (cur_num_top_itmes <= PAGE_BUF)
 			{
+				if (first_index < velocity)
+				{
+					velocity = first_index;
+				}
+				
 				_moveBottomTop(first_index, last_index, velocity);
 				first_index -= velocity;
 				last_index -= velocity;
 				num_top_items += velocity;
 			}
+			
+			if (first_index < PAGE_BUF)
+			{
+				num_top_items = first_index;
+			}
 		}
-		
 	},
 
 	_create: function(event) {
