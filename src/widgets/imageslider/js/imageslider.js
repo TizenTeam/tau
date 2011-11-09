@@ -12,7 +12,6 @@
 		moving: false,
 		max_width: 0,
 		max_height: 0,
-		rel_x: 0,
 		org_x: 0,
 		cur_img: null,
 		prev_img: null,
@@ -20,6 +19,20 @@
 		images: null,
 		index: 0,
 		align_type: null,
+
+		_resize: function (obj) {
+			var width;
+			var height;
+			var margin = 40;
+
+			height = obj.height();
+			width = obj.width();
+
+			if (width >= height)
+				obj.width(this.max_width - margin);
+			else
+				obj.height(this.max_height - margin);
+		},
 
 		_detach: function (image_index, obj) {
 			if (!obj.length)
@@ -43,6 +56,7 @@
 
 			obj.css("display", "");
 			obj.append(this.images[image_index]);
+			this._resize(this.images[image_index]);
 			this._align(obj);
 		},
 
@@ -50,7 +64,7 @@
 			if (!this.moving)
 				return;
 
-			var coord_x = _x - rel_x;
+			var coord_x = _x - org_x;
 
 			this.cur_img.css('left', coord_x + 'px');
 			if (this.next_img.length)
@@ -124,8 +138,6 @@
 			container.bind('vmousedown', function (e) {
 				self.moving = true;
 
-				var c = targetRelativeCoordsFromEvent(e);
-				rel_x = c.x;
 				org_x = e.pageX;
 
 				e.preventDefault();
@@ -140,7 +152,7 @@
 				if (!self.moving)
 					return;
 
-				if ((e.pageX <= 0) || (e.pageX >= self.max_width)) {
+				if ((e.pageX < 20) || (e.pageX > (self.max_width - 20))) {
 					self._move(e.pageX);
 					self.moving = false;
 				}
