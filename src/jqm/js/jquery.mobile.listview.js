@@ -144,7 +144,8 @@ $.widget( "mobile.listview", $.mobile.widget, {
 						shadow: false,
 						corners: false,
 						iconpos: "right",
-						icon: a.length > 1 || icon === false ? false : icon || "arrow-r",
+						/* icon: a.length > 1 || icon === false ? false : icon || "arrow-r",*/
+						icon: false,	/* Remove unnecessary arrow icon */
 						theme: itemTheme
 					});
 
