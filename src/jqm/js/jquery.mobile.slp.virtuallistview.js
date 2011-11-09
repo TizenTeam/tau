@@ -55,7 +55,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		
 		for (i = 0; i < INIT_LIST_NUM; i++) 
 		{
-			var htmlData = myTemplate.tmpl( dataTable[(i % (data.length))] );
+			var htmlData = myTemplate.tmpl( dataTable[i]);
 			$('ul.ui-virtual-list-container').append( ( htmlData ).attr( 'id', 'li_'+i ) );
 		}
 		
@@ -98,6 +98,27 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		var o = event.data;
 		var dataList = window[o.dbtable];
 		
+		/* Text & image src replace function */
+		var _replace= function(oldItem, newItem)
+		{
+			$(oldItem).find(".ui-li-text-main",".ui-li-text-sub","ui-btn-text").each(function(index)
+			{
+				var oldObj = $(this);
+				var newText = $(newItem).find(".ui-li-text-main",".ui-li-text-sub","ui-btn-text").eq(index).text();
+				
+	            $(oldObj).contents().filter(function(){ return(this.nodeType == 3);}).get(0).data = newText;
+			});
+			
+			$(oldItem).find("img").each(function(imgIndex)
+			{
+				var oldObj = $(this);
+
+				var newImg = $(newItem).find("img").eq(imgIndex).attr("src");
+				
+				$(oldObj).attr("src", newImg);
+			});			
+	    };
+		
 		//Move older item to bottom
 		var _moveTopBottom= function(v_firstIndex, v_lastIndex, num)
 		{
@@ -118,24 +139,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 					var htmlData = myTemplate.tmpl(dataList[v_lastIndex + i]);
 					
 					/* Copy all data to current item. */
-					/*$(cur_item).contents().filter(function(){return $(this).text().trim().length>0;}).each(function(index)*/ /* Have some bugs */
-					$(cur_item).find(".ui-li-text-main",".ui-li-text-sub","ui-btn-text").each(function(index)
-					{
-						var oldObj = $(this);
-						/*var newText = $(htmlData).contents().filter(function(){return $(this).text().trim().length > 0;}).eq(index).text();*/ /* Have some bugs */
-						var newText = $(htmlData).find(".ui-li-text-main",".ui-li-text-sub","ui-btn-text").eq(index).text();
-						
-						$(oldObj).text(newText);
-					});
-					
-					$(cur_item).find("img").each(function(index)
-					{
-						var oldObj = $(this);
-
-						var newImg = $(htmlData).find("img").eq(index).attr("src");
-						
-						$(oldObj).attr("src", newImg);
-					});
+					_replace(cur_item, htmlData);
 					
 					/* Set New Position */
 					(cur_item).css('top', TITLE_H + LINE_H*(v_lastIndex + 1 + i)).attr( 'id', 'li_' +(v_lastIndex + 1+ i));
@@ -165,23 +169,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 					var htmlData = myTemplate.tmpl(dataList[v_firstIndex-1-i]);
 					
 					/* Copy all data to current item. */
-					$(cur_item).find(".ui-li-text-main",".ui-li-text-sub","ui-btn-text").each(function(index)
-					{
-						var oldObj = $(this);
-						/*var newText = $(htmlData).contents().filter(function(){return $(this).text().trim().length > 0;}).eq(index).text();*/ /* Have some bugs */
-						var newText = $(htmlData).find(".ui-li-text-main",".ui-li-text-sub","ui-btn-text").eq(index).text();
-								
-						$(oldObj).text(newText);
-					});
-							
-					$(cur_item).find("img").each(function(index)
-					{
-						var oldObj = $(this);
-
-						var newImg = $(htmlData).find("img").eq(index).attr("src");
-								
-						$(oldObj).attr("src", newImg);
-					});
+					_replace(cur_item, htmlData);
 
 					/* Set New Position */
 					$(cur_item).css('top', TITLE_H + LINE_H*(v_firstIndex-1-i)).attr( 'id', 'li_' +(v_firstIndex-1-i));
