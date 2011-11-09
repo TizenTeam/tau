@@ -3,6 +3,45 @@ Map = {
 
 	init : function( base ) {
 		this.map = $(base).gmap();
+		$("#mapPage").bind( 'pageshow', function() {
+			Map.map.gmap('refresh');
+		});
+	},
+
+	setCenter : function( lat, lng ) {
+		Map.map.gmap( 'setCenter', lat, lng );
+	},
+
+	showDetailMap: function( detail ) {
+		console.log(detail);
+		var title = $.mobile.activePage.find( ".ui-title" ).text();
+		$("#mapTitle").text( title );
+
+		$.mobile.changePage("#mapPage");
+
+		this.map.gmap( 'clear', 'markers' ); // reset marker
+		this.map.gmap( 'set', 'bounds', undefined );	// reset bounds
+		var marker = new google.maps.Marker( {
+			'icon': 'image/maps_marker.png',
+			'title': detail.name,
+			'position' : new google.maps.LatLng(detail.geometry.location.Oa, detail.geometry.location.Pa),
+			'detailReference' : detail.reference // custom
+		});
+
+		google.maps.event.addListener( marker, 'click', function() {
+			Detail.getDetailPage( this.detailReference );
+		} );
+		
+		this.map.gmap( 'addMarker', marker );
+		this.map.gmap( 'addBounds', marker.position );
+
+		
+		this.map.gmap( 'addMarker', {
+			'position' : meLocation,
+			'icon' : 'image/11Aroundme_icon_refresh.png'
+		});
+		this.map.gmap( 'addBounds', meLocation );
+
 	},
 
 	showListMap : function( list ) {
@@ -21,8 +60,6 @@ Map = {
 		
 		this.map.gmap( 'clear', 'markers' ); // reset marker
 		this.map.gmap( 'set', 'bounds', undefined );	// reset bounds
-		this.map.gmap( 'refresh' );
-	
 		for ( var i = 0; i < ll.length; i++ ) {
 			var marker = new google.maps.Marker( {
 				'icon': 'image/maps_marker.png',
@@ -41,9 +78,10 @@ Map = {
 
 
 		this.map.gmap( 'addMarker', {
-			'position' : new google.maps.LatLng( ME_LOCATION_LAT, ME_LOCATION_LNG ),
+			'position' : meLocation,
 			'icon' : 'image/11Aroundme_icon_refresh.png'
 		});
+
 	}, 
 
 	getDetail : function( reference, callback ) {
@@ -59,35 +97,18 @@ Map = {
 				query.location = meLocation;
 				Map.map.gmap( 'placesSearch', query, callback );
 			}
-			Map.getCurrentLocation( realSearch, null );
+			Map.getCurrentLocation( realSearch );
 		}
 	},
 
-	getCurrentLocation : function( successcb, errorcb ) {
-		
-		successcb( ME_LOCATION_LAT, ME_LOCATION_LNG );	//@FIXME FOR TEST
-		return;//@FIXME for test
-		console.log("ahahaha");
-		if ( navigator.geolocation ) {
-			function successCallback( position ) {
-				console.log("succeed");
-				if ( successcb ) {
-					successcb( position.coords.latitude, position.coords.longitude );
-				}
-			}
-		
-			function errorCallback() {
-				console.log("failed");
-				//alert("[Location]Response Error");
-				if ( errorcb ) {
-					errorcb();
-				}
-			}
-			console.log("getCurrent");
-			navigator.geolocation.getCurrentPosition( successCallback, errorCallback );
-		} else {
-			errorcb();
-		}	
+	getCurrentLocation : function( successcb, options ) {
+		if ( document.location.href.match(/debug=true/) ) {
+			successcb( ME_LOCATION_LAT, ME_LOCATION_LNG );	// FOR TEST.
+			return;
+		}
+		console.log("Warn: location api called, if you are at behind firewall, this won't be working correctly.");
+		console.log("Warn: to solve above problem, add '?debug=true' after aroundMe's address.");
+		this.map.gmap( 'getCurrentPosition', successcb, options );
 	},
 
 	calcDistance : function( from, to ) {
