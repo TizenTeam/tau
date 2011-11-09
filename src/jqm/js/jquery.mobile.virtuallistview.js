@@ -15,7 +15,7 @@
 var listCountPerPage = {};
 
 /* Code for Virtual List Demo */
-var	INIT_LIST_NUM = 50;
+var	INIT_LIST_NUM = 100;
 var	PAGE_BUF = (INIT_LIST_NUM/2);
 var	TOTAL_ITEMS = 0;
 var	NO_SCROLL = 0;
@@ -26,11 +26,12 @@ var TITLE_H = 0;
 var CONTAINER_W = 0;
 
 var i =0, j=0, k=0;
-var ex_windowTop = 0;
 var direction = NO_SCROLL;
 var start_index = 0; 				//first item's index on screen.
 var first_index = 0;				//first id of <li> element.
 var last_index = INIT_LIST_NUM -1;	//last id of <li> element.
+
+var num_top_items = 0;	//By scroll move, hided elements.
 
 $.widget( "mobile.virtuallistview", $.mobile.widget, {
 	options: {
@@ -93,8 +94,6 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 	},
 	
 	_scrollmove: function(event){
-		var windowTop = Math.floor($(document).scrollTop());
-		var windowHeight = Math.floor($(window).height());
 		var velocity = 0;
 		var o = event.data;
 		var dataList = window[o.dbtable];
@@ -139,7 +138,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 					});
 					
 					/* Set New Position */
-					(cur_item).css('top', TITLE_H + LINE_H*(v_lastIndex + i)).attr( 'id', 'li_' +(v_lastIndex + 1+ i));
+					(cur_item).css('top', TITLE_H + LINE_H*(v_lastIndex + 1 + i)).attr( 'id', 'li_' +(v_lastIndex + 1+ i));
 				}
 				else
 					break;
@@ -193,23 +192,26 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		};
 
 		// Get scroll direction and velocity
-		if (ex_windowTop < windowTop)
+		var curWindowTop = $(window).scrollTop() - LINE_H;
+		var cur_num_top_itmes = $("ul.ui-virtual-list-container li").filter(function(){return (parseInt($(this).css("top")) < curWindowTop);}).size(); 
+		
+		if (num_top_items < cur_num_top_itmes)
 		{
 			direction = SCROLL_DOWN;
-			velocity = Math.ceil((Math.abs(ex_windowTop - windowTop))/ LINE_H);
+			velocity = cur_num_top_itmes - num_top_items;
 		}
-		else if (ex_windowTop > windowTop)
+		else if (num_top_items > cur_num_top_itmes)
 		{
 			direction = SCROLL_UP;
-			velocity = Math.ceil((Math.abs(ex_windowTop - windowTop))/ LINE_H);
+			velocity = num_top_items - cur_num_top_itmes;
 		}
 		else
 		{
 			direction = NO_SCROLL;
 			return;
 		}
-
-		ex_windowTop = windowTop;
+		
+		num_top_items = cur_num_top_itmes;
 
 		//Calculate first index on screen
 		if(direction == SCROLL_DOWN)
@@ -242,12 +244,14 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 				_moveTopBottom(first_index, last_index, velocity);
 				first_index += velocity;
 				last_index += velocity;
+				num_top_items -= velocity;
 			}
 			else if(direction == SCROLL_UP)
 			{
 				_moveBottomTop(first_index, last_index, velocity);
 				first_index -= velocity;
 				last_index -= velocity;
+				num_top_items += velocity;
 			}
 		}
 		
@@ -294,12 +298,10 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 				
 		        /* Make Gen list by template */
 		    	t._pushData((o.template), o.dbtable);
-		        
-				ex_windowTop = Math.floor($(document).scrollTop());
 	    
-	    $(document).bind("pageshow", t._reposition);
-	    $(document).bind('scrollstop', t.options, t._scrollmove);
-	    $(window).resize(t._resize);
+			    $(document).bind("pageshow", t._reposition);
+			    $(document).bind('scrollstop', t.options, t._scrollmove);
+			    $(window).resize(t._resize);
 		
 				$('ul.ui-virtual-list-container').listview();
 
