@@ -65,6 +65,16 @@ $.mobile.fixedToolbars = (function() {
 		//
 		// If we are in autoHideMode, we don't do anything because we know the scroll
 		// callbacks for the plugin will fire off a show when the scrolling has stopped.
+
+
+		/* resize test : Jinhyuk    */
+		var footer_filter = $(document).find(":jqmData(role='footer')");		
+		
+		footer_filter
+			.css("top",document.documentElement.clientHeight  - footer_filter.height())
+			.show();		
+		/* resize test : Jinhyuk    */
+
 		if ( !autoHideMode && currentstate === "overlay" ) {
 			if ( !delayTimer ) {
 				/* Fixed header modify for theme-s : Jinhyuk */
