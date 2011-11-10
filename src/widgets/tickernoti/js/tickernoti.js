@@ -21,7 +21,6 @@
 
 			this._update();
 
-			$(this.element).append(this.html);
 			this._add_event();
 
 			this.running = true;
@@ -79,6 +78,9 @@
 			this.param = $(this.element).attr('data-param');
 			this.seconds = $(this.element).attr('data-interval');
 
+			if (this.html)
+				this.html.detach();
+
 			this.html = $('<div class="ui-ticker">' +
 					'<div class="ui-ticker-bg">' +
 					'<div class="ui-ticker-icon"></div>' +
@@ -90,6 +92,8 @@
 					'<div class="ui-ticker-btn"></div>' +
 					'</div>' +
 					'</div>');
+
+			$(this.element).append(this.html);
 		},
 
 		_create: function () {
