@@ -47,6 +47,28 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		initSelector: ":jqmData(role='virtuallistview')"
 	},
 
+	_stylerMouseUp: function()
+	{
+		$(this).addClass("ui-btn-up-s");
+		$(this).removeClass("ui-btn-down-s");
+	},
+
+	_stylerMouseDown: function()
+	{
+		$(this).addClass("ui-btn-down-s");
+		$(this).removeClass("ui-btn-up-s");
+	},
+	
+	_stylerMouseOver: function()
+	{
+		$(this).toggleClass("ui-btn-hover-s");		
+	},
+	
+	_stylerMouseOut: function()
+	{
+		$(this).toggleClass("ui-btn-hover-s");
+	},
+
 	_pushData: function ( template, data ) {
 		var dataTable = data;
 		
@@ -65,6 +87,8 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 	}, 
 
 	_reposition: function(){
+		var t = this;
+		
 		TITLE_H = $('ul.ui-virtual-list-container li:first').position().top;
 		LINE_H = $('ul.ui-virtual-list-container li:first').outerHeight();
 
@@ -72,7 +96,14 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		
 		var padding = parseInt($("ul.ui-virtual-list-container li").css("padding-left")) + parseInt($("ul.ui-virtual-list-container li").css("padding-right"));
 		
-		$("ul.ui-virtual-list-container li").addClass("position_absolute");
+		/* wongi_1110 : Add style */
+		$("ul.ui-virtual-list-container li").addClass("position_absolute").addClass("ui-btn-up-s")
+											.bind("mouseup", t._stylerMouseUp)
+											.bind("mousedown", t._stylerMouseDown)		
+											.bind("mouseover", t._stylerMouseOver)
+											.bind("mouseout", t._stylerMouseOut);
+		
+		
 
 		$('ul.ui-virtual-list-container li').each(function(index){
 			$(this).css("top", TITLE_H + LINE_H*index + 'px')
