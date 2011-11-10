@@ -19,7 +19,8 @@ $.widget( "mobile.navbar", $.mobile.widget, {
 		var $navbar = this.element,
 			$navbtns = $navbar.find( "a" ),
 			iconpos = $navbtns.filter( ":jqmData(icon)" ).length ?
-									this.options.iconpos : undefined;
+									this.options.iconpos : undefined,
+			theme = $.mobile.listview.prototype.options.theme;	/* Get current theme : Jinhyuk */					
 
 		$navbar.addClass( "ui-navbar" )
 			.attr( "role","navigation" )
@@ -42,35 +43,28 @@ $.widget( "mobile.navbar", $.mobile.widget, {
 		});
 
 		//SLP --start for tabbar
-		var style = this.element.attr( "data-style" );
+		var style = $navbar.attr( "data-style" );
 
-		if( style === "tabbar" )
+		if( style === "tabbar" || style === "toolbar")
 		{
-			this.element.addClass( "ui-controlbar-" + $.mobile.listview.prototype.options.theme  );
-			this.element.addClass( "ui-tabbar-" + $.mobile.listview.prototype.options.theme  );	
-		}
-		else if( style === "toolbar" )
-		{
-			this.element.addClass( "ui-controlbar-" + $.mobile.listview.prototype.options.theme  );	
-			this.element.addClass( "ui-toolbar-" + $.mobile.listview.prototype.options.theme  );			
+			$navbar
+				.addClass( "ui-controlbar-" + theme)	
+				.addClass( "ui-"+style+"-" + theme);			
 		}		
 		else  /* Style left or right */
 		{
-			this.element		
-			.addClass( "ui-controlbar-" + style )
-			.end();
+			$navbar		
+				.addClass( "ui-controlbar-" + style )
+				.end();
 		}
-	
-		var Prevlist_index = 100;
 
   		/* Fixed controlbar modify for theme-s : Jinhyuk */
 		$( document ).bind( "pagebeforeshow", function( event, ui ) {
 			var footer_filter = $(event.target).find(":jqmData(role='footer')");
 			var navbar_filter = footer_filter.find(":jqmData(role='navbar')");
-
 			var element_count = navbar_filter.find('li').length;			
 			var style = navbar_filter.jqmData( "style" );
-			
+	
 			if(style == "toolbar" || style == "tabbar")
 			{
 				/* Need to add text only style */
@@ -112,7 +106,8 @@ $.widget( "mobile.navbar", $.mobile.widget, {
 				navbar_filter.find("div").css("left",navbar_filter.find(".ui-btn-active").parent("li").index() * navbar_filter.width()/element_count );						
 
 			/* Increase Content size with dummy <div> because of footer height */
-			if(navbar_filter.length != 0 && $(".ui-page-active").find(".dummy-div").length == 0){
+			if(navbar_filter.length != 0 && $(".ui-page-active").find(".dummy-div").length == 0
+			&& $(".ui-page-active").find(":jqmData(role='footer')").find(":jqmData(role='navbar')").length != 0	){
 				$(".ui-page-active").find(":jqmData(role='content')").append('<div class="dummy-div"></div>');
 				$(".ui-page-active").find(".dummy-div")	
 					.css("width", navbar_filter.width())
