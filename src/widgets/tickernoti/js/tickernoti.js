@@ -19,6 +19,8 @@
 			if (this.running)
 				this.hide();
 
+			this._update();
+
 			$(this.element).append(this.html);
 			this._add_event();
 
