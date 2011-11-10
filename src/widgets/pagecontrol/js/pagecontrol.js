@@ -51,18 +51,28 @@ $.widget("todons.pagecontrol", $.mobile.widget, {
 
 		// Add dot icons
 		for(i=1; i<=maxVal; i++) {
-			btn = $('<div class="page_n page_n_dot ' + page_margin_class + '"></div>');
+			btn = $('<div class="page_n page_n_dot ' + page_margin_class + '" data-value="' + i + '"></div>');
 			e.append(btn);
 			if(i == currentVal) {
 				btn.removeClass('page_n_dot').
 					addClass('page_n_'+i);
 			}
+			// bind vclick event to each icon
+			btn.bind('vclick', function(event) {
+				var newBtn = $(this),
+					oldCurrentBtn = e.children(":jqmData(value='" + e.data('current') + "')");
+				oldCurrentBtn.removeClass('page_n_' + e.data('current'))
+					.addClass('page_n_dot');
+
+				// Change clicked button to number
+				if(newBtn.hasClass('page_n_dot')) {
+					newBtn.removeClass('page_n_dot')
+						.addClass('page_n_' + newBtn.data('value'));
+				}
+				e.attr('data-current', newBtn.data('value'));
+				e.data('current', newBtn.data('value'))
+			});
 		}
-
-		e.bind('vclick', function() {
-			
-		});
-
 	},
 	
 	setChangeCallback: function( callback ) {
