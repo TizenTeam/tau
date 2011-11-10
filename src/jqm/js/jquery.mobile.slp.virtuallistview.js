@@ -48,11 +48,13 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 	},
 
 	_pushData: function ( template, data ) {
-		var dataTable = window[data];
+		var dataTable = data;
 		
 		var myTemplate = $("#" + template);
 		
-		for (i = 0; i < INIT_LIST_NUM; i++) 
+		var lastIndex = (INIT_LIST_NUM > data.length ? data.length : INIT_LIST_NUM); 
+		
+		for (i = 0; i < lastIndex; i++) 
 		{
 			var htmlData = myTemplate.tmpl( dataTable[i]);
 			$('ul.ui-virtual-list-container').append( ( htmlData ).attr( 'id', 'li_'+i ) );
@@ -232,6 +234,26 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 			}
 		}
 	},
+	
+	recreate: function(newArray){
+		var t = this;
+		var o = this.options;
+		
+		$('ul.ui-virtual-list-container').empty();
+		
+		TOTAL_ITEMS = newArray.length;
+		direction = NO_SCROLL;
+		first_index = 0;
+		last_index = INIT_LIST_NUM -1;		
+		
+		t._pushData((o.template), newArray);
+		
+		$('ul.ui-virtual-list-container').listview();
+
+		t._reposition();
+		
+		t.refresh( true );
+	},
 
 	_create: function(event) {
 		var t = this;
@@ -273,7 +295,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 				TOTAL_ITEMS = $(window[o.dbtable]).size();
 				
 		        /* Make Gen list by template */
-		    	t._pushData((o.template), o.dbtable);
+		    	t._pushData((o.template), window[o.dbtable]);
 	    
 			    $(document).bind("pageshow", t._reposition);
 			    $(document).bind('scrollstop', t.options, t._scrollmove);
@@ -283,7 +305,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 
 				t._reposition();	//wongi_1109
 
-		t.refresh( true );
+				t.refresh( true );
 			});
 		}	
 	},
