@@ -255,6 +255,29 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		t.refresh( true );
 	},
 
+	_initList: function(){
+		var t = this;
+		var o = this.options;
+		
+		/* After AJAX loading success */
+		o.dbtable = t.element.data("dbtable");
+		
+		TOTAL_ITEMS = $(window[o.dbtable]).size();
+		
+        /* Make Gen list by template */
+    	t._pushData((o.template), window[o.dbtable]);
+
+	    $(document).bind("pageshow", t._reposition);
+	    $(document).bind('scrollstop', t.options, t._scrollmove);
+	    $(window).resize(t._resize);
+
+		$('ul.ui-virtual-list-container').listview();
+
+		t._reposition();	//wongi_1109
+
+		t.refresh( true );
+	},
+	
 	_create: function(event) {
 		var t = this;
 		var o = this.options; 
@@ -285,29 +308,19 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		if (t.element.data("src"))
 		{
 			o.dbsrc = t.element.data("src");
-			
-			/* ?_=ts code for no cache mechanism */
-			$.getScript(o.dbsrc + "?_=ts2477874287", function(data, textStatus) {
 
-				/* After AJAX loading success */
-				o.dbtable = t.element.data("dbtable");
-				
-				TOTAL_ITEMS = $(window[o.dbtable]).size();
-				
-		        /* Make Gen list by template */
-		    	t._pushData((o.template), window[o.dbtable]);
-	    
-			    $(document).bind("pageshow", t._reposition);
-			    $(document).bind('scrollstop', t.options, t._scrollmove);
-			    $(window).resize(t._resize);
-		
-				$('ul.ui-virtual-list-container').listview();
-
-				t._reposition();	//wongi_1109
-
-				t.refresh( true );
-			});
-		}	
+			if ($('ul.ui-virtual-list-container').hasClass("vlLoadSucess"))
+			{
+				t.initList();
+			}
+			else
+			{
+				/* ?_=ts code for no cache mechanism */
+				$.getScript(o.dbsrc + "?_=ts2477874287", function(data, textStatus) {
+					t._initList();
+				});
+			}
+		}
 	},
 	
 	destroy : function(){
