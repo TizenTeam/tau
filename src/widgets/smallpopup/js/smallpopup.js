@@ -18,7 +18,6 @@
 			if (this.running)
 				this.hide();
 
-			this.html_none.detach();
 			this.html_hide.detach();
 
 			this._update();
@@ -34,10 +33,7 @@
 				return;
 
 			this._del_event();
-
-			this.html_none.detach();
 			this.html.detach();
-
 			this._append_hide();
 
 			this.running = false;
@@ -101,14 +97,11 @@
 					'<div class="ui-smallpopup-text-bg">' +
 					msg + '</div>' +
 					'</div>');
-			this.html_none = $('<div class="ui-smallpopup-none ">' +
-					'</div>');
 		},
 
 		_create: function () {
 			this._update();
 
-			$(this.element).append(this.html_none);
 			this.running = false;
 		},
 	}); /* End of widget */
