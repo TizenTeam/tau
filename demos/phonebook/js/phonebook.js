@@ -20,16 +20,28 @@ Phonebook = {
 	
 	getDetailview: function(dbArray, pbid)
 	{
-		var selectedContact;
-		
+		/* Currently use linear search. Later or Real DB may support SQL query. */ 
 		$.each(dbArray, function(i, v) {
 	        if (v.Luid == pbid) {
-	        	alert("Find : " + v.Luid + " : " + v.name_first);
 	        	
-	        	selectedContact = v;
+	        	/* Find and make detail view page.*/
+	        	Phonebook.makeDetailview(v);
 	        	
 	            return;
 	        }
 		});
+	},
+	
+	makeDetailview: function(contact)
+	{
+		var myTemplate = $("#contacts_detailview_tmpl");
+		
+		var htmlData = myTemplate.tmpl(contact);
+		
+		$("#contact_detailview_content").empty();
+		
+		$("#contact_detailview_content").append((htmlData).data('pbid', contact.Luid));
+		
+		$.mobile.changePage("#contact_detilaview");
 	}
 } ;
