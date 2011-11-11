@@ -85,6 +85,11 @@ textarea.ui-input-text {
 }
 
 /* search bar */
+.ui-body-s > div > .ui-field-contain > .input-search-bar,
+.ui-body-s > .ui-field-contain > .input-search-bar {
+	margin : -48*@em_base -15*@em_base -32*@em_base -15*@em_base;
+} /* Need to confirm exact concept : Jinhyuk */
+
 .input-search-bar {
 	background-color: rgba(36, 36, 36, 1);
 	padding: @search-bar-padding;
@@ -99,7 +104,8 @@ textarea.ui-input-text {
 		padding: 0;
 		background-color: rgba(255, 255, 255, 1);
 		.ui-input-text {
-			height: 74@em_base;
+			height: 74 * @em_base;
+			padding : 0px;
 		}
 	}
 	.ui-input-search-default {
@@ -120,10 +126,13 @@ textarea.ui-input-text {
 		display: inline-block;
 		position: absolute;
 		left: 70%;
+		top : 0px;
+
 		bottom: 0;
 		vertical-align: middle;
 		margin: @search-bar-padding;
-		height: 74@em_base;
+		height: 74 * @em_base;
+		padding : 0px;
 		width: 22%;
 		background: transparent none;
 	}
