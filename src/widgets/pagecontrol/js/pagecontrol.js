@@ -1,6 +1,15 @@
 /*
  * pagecontrol
  * by Youmin Ha <youmin.ha@samsung.com>
+ *
+ * This widget shows number bullets, receives touch event for each bullet,
+ * and runs your callback for each touch event.
+ *
+ * RESTRICTIONS
+ * This widget can only handle maximum bullets from 1 to 10, according to
+ * winset UI design.
+ *
+ * USAGE
  */
 
 (function ($, undefined) {
@@ -14,14 +23,16 @@ $.widget("todons.pagecontrol", $.mobile.widget, {
 	},
 
 	_init: function() {
-		var e = this.element,
+		var self = this,
+			e = this.element,
 			maxVal = e.data("max"),
-			currentVal = e.data("current"),
+			currentVal = e.attr("data-initVal"),
 			i = 0,
 			btn = null,
 			buf = null,
 			page_margin_class = 'page_n_margin_44';
-		
+
+
 		// Set default values
 		if(!maxVal) {
 			maxVal = 1;
@@ -35,8 +46,11 @@ $.widget("todons.pagecontrol", $.mobile.widget, {
 		}
 		e.data("current", currentVal);
 
-		// Set class
+		// Set pagecontrol class
 		e.addClass('pagecontrol');
+
+		// Set empty callback variable
+		self.changeCallback = null;
 
 		// Calculate left/right margin
 		if(maxVal <= 7) {
@@ -69,14 +83,20 @@ $.widget("todons.pagecontrol", $.mobile.widget, {
 					newBtn.removeClass('page_n_dot')
 						.addClass('page_n_' + newBtn.data('value'));
 				}
-				e.attr('data-current', newBtn.data('value'));
 				e.data('current', newBtn.data('value'))
+
+				// Call change callback
+				if(self.changeCallback) {
+					console.log('changeCallback exists!');
+					self.changeCallback(newBtn.data('value'));
+				}
 			});
 		}
 	},
 	
 	setChangeCallback: function( callback ) {
-
+		alert('setChangeCallback');
+		this.changeCallback = callback;
 	},
 });	// end: $.widget()
 
