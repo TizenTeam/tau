@@ -10,6 +10,19 @@
  * winset UI design.
  *
  * USAGE
+ *
+ *	<div id="foo" data-role="pagecontrol" data-max="10"><div>
+ *	...
+ *	<script language="text/javascript">
+ *
+ *	// Bind callback to value change
+ *	$('foo').bind('change', function(event, value) {
+ *		// event: 'change'
+ *		// value: changed value
+ *	});
+ *
+ *	// Set a value
+ *	</script>
  */
 
 (function ($, undefined) {
@@ -85,18 +98,10 @@ $.widget("todons.pagecontrol", $.mobile.widget, {
 				}
 				e.data('current', newBtn.data('value'))
 
-				// Call change callback
-				if(self.changeCallback) {
-					console.log('changeCallback exists!');
-					self.changeCallback(newBtn.data('value'));
-				}
+				// Trigger change event
+				e.trigger('change', e.data('current'));
 			});
 		}
-	},
-	
-	setChangeCallback: function( callback ) {
-		alert('setChangeCallback');
-		this.changeCallback = callback;
 	},
 });	// end: $.widget()
 
