@@ -21,7 +21,8 @@
  *		// value: changed value
  *	});
  *
- *	// Set a value
+ *	// Set a value to 3
+ *	$('foo').trigger('change', 3);
  *	</script>
  */
 
@@ -76,6 +77,25 @@ $.widget("todons.pagecontrol", $.mobile.widget, {
 			page_margin_class = 'page_n_margin_19';
 		}
 
+		// subroutine: find a child by value
+		function getBtn(value) {
+			return e.children(":jqmData(value='" + value + "')");
+		}
+
+		// subroutine: change active button by value
+		function changeActiveBtn(newNum) {
+			// Check value
+			if(newNum < 1 || newNum > e.max) return false;
+
+			// get old and new btns
+			var oldNum = e.data('current');
+
+			getBtn(oldNum).removeClass('page_n_' + oldNum)
+					.addClass('page_n_dot');
+			getBtn(newNum).removeClass('page_n_dot')
+					.addClass('page_n_' + newNum);
+		}
+
 		// Add dot icons
 		for(i=1; i<=maxVal; i++) {
 			btn = $('<div class="page_n page_n_dot ' + page_margin_class + '" data-value="' + i + '"></div>');
@@ -86,22 +106,20 @@ $.widget("todons.pagecontrol", $.mobile.widget, {
 			}
 			// bind vclick event to each icon
 			btn.bind('vclick', function(event) {
-				var newBtn = $(this),
-					oldCurrentBtn = e.children(":jqmData(value='" + e.data('current') + "')");
-				oldCurrentBtn.removeClass('page_n_' + e.data('current'))
-					.addClass('page_n_dot');
-
-				// Change clicked button to number
-				if(newBtn.hasClass('page_n_dot')) {
-					newBtn.removeClass('page_n_dot')
-						.addClass('page_n_' + newBtn.data('value'));
-				}
-				e.data('current', newBtn.data('value'))
-
 				// Trigger change event
-				e.trigger('change', e.data('current'));
+				e.trigger('change', $(this).data('value'));
 			});
 		}
+
+		// pagecontrol element's change event
+		e.bind('change', function(event, value) {
+			// 1. Change activated button
+			changeActiveBtn(value);
+
+			// 2. Store new value (DO NOT change this order!)
+			e.data('current', value);
+			
+		});
 	},
 });	// end: $.widget()
 
