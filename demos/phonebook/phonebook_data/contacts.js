@@ -1,6 +1,6 @@
 var phonebookDB = [ {
 	Luid : 0,
-	photoid : "phonebook_data/profile08.jpg",
+	photoid : "phonebook_data/profile21.jpg",
 	name_first : "Abdelnaby",
 	name_last : "Alaa",
 	name_middle : "",
@@ -13,7 +13,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "982-823",
+	addr_pcode : "531-340",
 	addr_country : "France",
 	addr_province : "Washington",
 	addr_city : "Rome",
@@ -23,10 +23,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1968-01-01",
 	webaddr : "www.yahoo.com",
-	note : "  "
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 1,
-	photoid : "phonebook_data/profile19.jpg",
+	photoid : "phonebook_data/profile11.jpg",
 	name_first : "Abdul-Aziz",
 	name_last : "Zaid",
 	name_middle : "",
@@ -39,7 +40,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "637-987",
+	addr_pcode : "251-008",
 	addr_country : "Swiss",
 	addr_province : "Nebraska",
 	addr_city : "L.A.",
@@ -49,10 +50,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1973-05-24",
 	webaddr : "www.google.com",
-	note : "  "
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 2,
-	photoid : "phonebook_data/profile22.jpg",
+	photoid : "phonebook_data/profile29.jpg",
 	name_first : "Abdul-Jabbar",
 	name_last : "Kareem",
 	name_middle : "",
@@ -65,7 +67,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "721-590",
+	addr_pcode : "400-167",
 	addr_country : "Rep.Korea",
 	addr_province : "Taxas",
 	addr_city : "Bangkok",
@@ -75,7 +77,8 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1960-12-30",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 3,
 	photoid : "phonebook_data/profile20.jpg",
@@ -91,7 +94,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "285-544",
+	addr_pcode : "493-446",
 	addr_country : "Sweden",
 	addr_province : "Washington",
 	addr_city : "Denver",
@@ -101,10 +104,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1951-05-05",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 4,
-	photoid : "phonebook_data/profile39.jpg",
+	photoid : "phonebook_data/profile07.jpg",
 	name_first : "Abdul-Wahad",
 	name_last : "Tariq",
 	name_middle : "",
@@ -117,7 +121,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "623-796",
+	addr_pcode : "420-850",
 	addr_country : "Ghana",
 	addr_province : "Nebraska",
 	addr_city : "L.A.",
@@ -127,10 +131,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1956-10-05",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 5,
-	photoid : "phonebook_data/profile22.jpg",
+	photoid : "phonebook_data/profile11.jpg",
 	name_first : "Abdur-Rahim",
 	name_last : "Shareef",
 	name_middle : "",
@@ -143,7 +148,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "302-858",
+	addr_pcode : "652-553",
 	addr_country : "France",
 	addr_province : "Dacota",
 	addr_city : "Kwangju",
@@ -153,10 +158,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1976-11-03",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 6,
-	photoid : "phonebook_data/profile12.jpg",
+	photoid : "phonebook_data/profile02.jpg",
 	name_first : "Abernethy",
 	name_last : "Tom",
 	name_middle : "",
@@ -169,7 +175,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "278-298",
+	addr_pcode : "821-656",
 	addr_country : "Swiss",
 	addr_province : "Taxas",
 	addr_city : "Cebu",
@@ -179,10 +185,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1955-01-02",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 7,
-	photoid : "phonebook_data/profile37.jpg",
+	photoid : "phonebook_data/profile25.jpg",
 	name_first : "Able",
 	name_last : "Forest Edward",
 	name_middle : "",
@@ -195,7 +202,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "874-430",
+	addr_pcode : "949-816",
 	addr_country : "Swiss",
 	addr_province : "Georgia",
 	addr_city : "Laite",
@@ -205,10 +212,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1964-12-05",
 	webaddr : "www.google.com",
-	note : "  "
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 8,
-	photoid : "phonebook_data/profile01.jpg",
+	photoid : "phonebook_data/profile22.jpg",
 	name_first : "Abramovic",
 	name_last : "John",
 	name_middle : "",
@@ -221,7 +229,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "200-848",
+	addr_pcode : "779-410",
 	addr_country : "U.S.A",
 	addr_province : "Alaska",
 	addr_city : "Sanghai",
@@ -231,10 +239,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1953-07-19",
 	webaddr : "www.naver.com",
-	note : "  "
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 9,
-	photoid : "phonebook_data/profile28.jpg",
+	photoid : "phonebook_data/profile33.jpg",
 	name_first : "Acker",
 	name_last : "Alex",
 	name_middle : "",
@@ -247,7 +256,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "676-006",
+	addr_pcode : "757-300",
 	addr_country : "Brazil",
 	addr_province : "Kangwon",
 	addr_city : "Newyork",
@@ -257,10 +266,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1953-01-02",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 10,
-	photoid : "phonebook_data/profile14.jpg",
+	photoid : "phonebook_data/profile11.jpg",
 	name_first : "Ackerman",
 	name_last : "Donald",
 	name_middle : "D.",
@@ -273,7 +283,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "913-469",
+	addr_pcode : "323-245",
 	addr_country : "Swiss",
 	addr_province : "Kangwon",
 	addr_city : "Wonju",
@@ -283,10 +293,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1973-11-07",
 	webaddr : "www.naver.com",
-	note : "  "
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 11,
-	photoid : "phonebook_data/profile03.jpg",
+	photoid : "phonebook_data/profile31.jpg",
 	name_first : "Acres",
 	name_last : "Mark",
 	name_middle : "",
@@ -299,7 +310,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "204-101",
+	addr_pcode : "300-596",
 	addr_country : "Sweden",
 	addr_province : "Florida",
 	addr_city : "L.A.",
@@ -309,10 +320,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1956-02-16",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 12,
-	photoid : "phonebook_data/profile30.jpg",
+	photoid : "phonebook_data/profile11.jpg",
 	name_first : "Acton",
 	name_last : "Charles ",
 	name_middle : "R.",
@@ -325,7 +337,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "338-299",
+	addr_pcode : "938-198",
 	addr_country : "U.S.A",
 	addr_province : "Georgia",
 	addr_city : "Kwangju",
@@ -335,10 +347,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1950-01-12",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 13,
-	photoid : "phonebook_data/profile16.jpg",
+	photoid : "phonebook_data/profile37.jpg",
 	name_first : "Adams",
 	name_last : "Alvan",
 	name_middle : "",
@@ -351,7 +364,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "285-260",
+	addr_pcode : "867-001",
 	addr_country : "Brazil",
 	addr_province : "Alaska",
 	addr_city : "Paris",
@@ -361,10 +374,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1964-04-19",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 14,
-	photoid : "phonebook_data/profile17.jpg",
+	photoid : "phonebook_data/profile34.jpg",
 	name_first : "Adams",
 	name_last : "Donald",
 	name_middle : "L.",
@@ -377,7 +391,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "992-766",
+	addr_pcode : "427-810",
 	addr_country : "Brazil",
 	addr_province : "Georgia",
 	addr_city : "Newyork",
@@ -387,10 +401,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1958-04-30",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 15,
-	photoid : "phonebook_data/profile08.jpg",
+	photoid : "phonebook_data/profile17.jpg",
 	name_first : "Adams",
 	name_last : "Hassan",
 	name_middle : "",
@@ -403,7 +418,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "347-838",
+	addr_pcode : "305-456",
 	addr_country : "Rep.Korea",
 	addr_province : "Idaho",
 	addr_city : "Laite",
@@ -413,10 +428,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1969-11-15",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 16,
-	photoid : "phonebook_data/profile21.jpg",
+	photoid : "phonebook_data/profile26.jpg",
 	name_first : "Adams",
 	name_last : "Michael",
 	name_middle : "",
@@ -429,7 +445,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "489-110",
+	addr_pcode : "241-289",
 	addr_country : "China",
 	addr_province : "Califonia",
 	addr_city : "Sanghai",
@@ -439,10 +455,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1960-03-24",
 	webaddr : "www.naver.com",
-	note : "  "
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 17,
-	photoid : "phonebook_data/profile36.jpg",
+	photoid : "phonebook_data/profile25.jpg",
 	name_first : "Addison",
 	name_last : "Rafael",
 	name_middle : "",
@@ -455,7 +472,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "760-798",
+	addr_pcode : "778-115",
 	addr_country : "Rep.Korea",
 	addr_province : "Nebraska",
 	addr_city : "Cleveland",
@@ -465,10 +482,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1970-06-08",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 18,
-	photoid : "phonebook_data/profile27.jpg",
+	photoid : "phonebook_data/profile17.jpg",
 	name_first : "Adelman",
 	name_last : "Rick",
 	name_middle : "",
@@ -481,7 +499,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "724-456",
+	addr_pcode : "980-474",
 	addr_country : "Brazil",
 	addr_province : "Washington",
 	addr_city : "Huston",
@@ -491,10 +509,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1973-11-26",
 	webaddr : "www.samsungmobile.com",
-	note : "  "
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 19,
-	photoid : "phonebook_data/profile31.jpg",
+	photoid : "phonebook_data/profile07.jpg",
 	name_first : "Adrien",
 	name_last : "Jeff",
 	name_middle : "",
@@ -507,7 +526,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "530-337",
+	addr_pcode : "645-959",
 	addr_country : "Gaum",
 	addr_province : "Taxas",
 	addr_city : "Wonju",
@@ -517,10 +536,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1965-09-10",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 20,
-	photoid : "phonebook_data/profile30.jpg",
+	photoid : "phonebook_data/profile39.jpg",
 	name_first : "Afflalo",
 	name_last : "Arron",
 	name_middle : "",
@@ -533,7 +553,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "897-988",
+	addr_pcode : "944-570",
 	addr_country : "Canada",
 	addr_province : "Taxas",
 	addr_city : "Busan",
@@ -543,10 +563,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1975-02-10",
 	webaddr : "www.naver.com",
-	note : "  "
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 21,
-	photoid : "phonebook_data/profile25.jpg",
+	photoid : "phonebook_data/profile01.jpg",
 	name_first : "Ager",
 	name_last : "Maurice",
 	name_middle : "",
@@ -559,7 +580,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "719-725",
+	addr_pcode : "745-354",
 	addr_country : "Brazil",
 	addr_province : "Nevada",
 	addr_city : "Paris",
@@ -569,10 +590,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1965-03-06",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 22,
-	photoid : "phonebook_data/profile32.jpg",
+	photoid : "phonebook_data/profile09.jpg",
 	name_first : "Aguirre",
 	name_last : "Mark",
 	name_middle : "",
@@ -585,7 +607,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "138-856",
+	addr_pcode : "174-870",
 	addr_country : "Sweden",
 	addr_province : "Arizona",
 	addr_city : "Cleveland",
@@ -595,10 +617,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1963-06-16",
 	webaddr : "www.samsungmobile.com",
-	note : "  "
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 23,
-	photoid : "phonebook_data/profile12.jpg",
+	photoid : "phonebook_data/profile23.jpg",
 	name_first : "Ahearn",
 	name_last : "Blake",
 	name_middle : "",
@@ -611,7 +634,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "512-204",
+	addr_pcode : "382-631",
 	addr_country : "U.S.A",
 	addr_province : "Pennsylvania",
 	addr_city : "Laite",
@@ -621,10 +644,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1951-12-31",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 24,
-	photoid : "phonebook_data/profile36.jpg",
+	photoid : "phonebook_data/profile14.jpg",
 	name_first : "Ainge",
 	name_last : "Danny",
 	name_middle : "",
@@ -637,7 +661,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "372-568",
+	addr_pcode : "178-664",
 	addr_country : "Swiss",
 	addr_province : "Idaho",
 	addr_city : "Bangkok",
@@ -647,10 +671,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1954-07-09",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 25,
-	photoid : "phonebook_data/profile21.jpg",
+	photoid : "phonebook_data/profile12.jpg",
 	name_first : "Ajinca",
 	name_last : "Alexis",
 	name_middle : "",
@@ -663,7 +688,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "479-879",
+	addr_pcode : "591-608",
 	addr_country : "Rep.Korea",
 	addr_province : "Alaska",
 	addr_city : "Busan",
@@ -673,10 +698,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1970-05-10",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 26,
-	photoid : "phonebook_data/profile15.jpg",
+	photoid : "phonebook_data/profile20.jpg",
 	name_first : "Akin",
 	name_last : "Henry",
 	name_middle : "T.",
@@ -689,7 +715,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "508-178",
+	addr_pcode : "113-364",
 	addr_country : "Japan",
 	addr_province : "Kangwon",
 	addr_city : "Laite",
@@ -699,10 +725,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1973-05-08",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 27,
-	photoid : "phonebook_data/profile10.jpg",
+	photoid : "phonebook_data/profile15.jpg",
 	name_first : "Alabi",
 	name_last : "Solomon",
 	name_middle : "",
@@ -715,7 +742,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "933-406",
+	addr_pcode : "549-658",
 	addr_country : "U.S.A",
 	addr_province : "Washington",
 	addr_city : "Daegu",
@@ -725,10 +752,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1959-01-20",
 	webaddr : "www.daum.net",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 28,
-	photoid : "phonebook_data/profile20.jpg",
+	photoid : "phonebook_data/profile26.jpg",
 	name_first : "Alarie",
 	name_last : "Mark",
 	name_middle : "",
@@ -741,7 +769,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "395-877",
+	addr_pcode : "492-435",
 	addr_country : "U.S.A",
 	addr_province : "Dacota",
 	addr_city : "Sanghai",
@@ -751,10 +779,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1967-06-21",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 29,
-	photoid : "phonebook_data/profile08.jpg",
+	photoid : "phonebook_data/profile31.jpg",
 	name_first : "Alcorn",
 	name_last : "Gary",
 	name_middle : "R.",
@@ -767,7 +796,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "101-204",
+	addr_pcode : "917-377",
 	addr_country : "Swiss",
 	addr_province : "Georgia",
 	addr_city : "L.A.",
@@ -777,10 +806,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1950-02-11",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 30,
-	photoid : "phonebook_data/profile19.jpg",
+	photoid : "phonebook_data/profile39.jpg",
 	name_first : "Aldrich",
 	name_last : "Cole",
 	name_middle : "",
@@ -793,7 +823,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "707-039",
+	addr_pcode : "365-920",
 	addr_country : "U.S.A",
 	addr_province : "Califonia",
 	addr_city : "Wonju",
@@ -803,10 +833,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1969-09-20",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 31,
-	photoid : "phonebook_data/profile17.jpg",
+	photoid : "phonebook_data/profile38.jpg",
 	name_first : "Aldridge",
 	name_last : "LaMarcus",
 	name_middle : "",
@@ -819,7 +850,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "565-411",
+	addr_pcode : "158-262",
 	addr_country : "Sweden",
 	addr_province : "Califonia",
 	addr_city : "Wonju",
@@ -829,10 +860,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1967-09-21",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 32,
-	photoid : "phonebook_data/profile14.jpg",
+	photoid : "phonebook_data/profile22.jpg",
 	name_first : "Aleksinas",
 	name_last : "Chuck",
 	name_middle : "",
@@ -845,7 +877,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "807-239",
+	addr_pcode : "910-913",
 	addr_country : "Brazil",
 	addr_province : "Kangwon",
 	addr_city : "Laite",
@@ -855,10 +887,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1960-09-03",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 33,
-	photoid : "phonebook_data/profile32.jpg",
+	photoid : "phonebook_data/profile27.jpg",
 	name_first : "Alexander",
 	name_last : "Cory",
 	name_middle : "",
@@ -871,7 +904,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "291-060",
+	addr_pcode : "886-711",
 	addr_country : "Gaum",
 	addr_province : "Dacota",
 	addr_city : "Paris",
@@ -881,10 +914,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1969-01-03",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 34,
-	photoid : "phonebook_data/profile01.jpg",
+	photoid : "phonebook_data/profile14.jpg",
 	name_first : "Alexander",
 	name_last : "Courtney",
 	name_middle : "",
@@ -897,7 +931,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "207-588",
+	addr_pcode : "441-532",
 	addr_country : "Canada",
 	addr_province : "Georgia",
 	addr_city : "Huston",
@@ -907,10 +941,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1976-06-20",
 	webaddr : "www.naver.com",
-	note : "  "
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 35,
-	photoid : "phonebook_data/profile10.jpg",
+	photoid : "phonebook_data/profile16.jpg",
 	name_first : "Alexander",
 	name_last : "Gary",
 	name_middle : "",
@@ -923,7 +958,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "348-379",
+	addr_pcode : "647-342",
 	addr_country : "Sweden",
 	addr_province : "Nebraska",
 	addr_city : "Daegu",
@@ -933,10 +968,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1967-11-01",
 	webaddr : "www.naver.com",
-	note : "  "
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 36,
-	photoid : "phonebook_data/profile26.jpg",
+	photoid : "phonebook_data/profile07.jpg",
 	name_first : "Alexander",
 	name_last : "Joe",
 	name_middle : "",
@@ -949,7 +985,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "743-660",
+	addr_pcode : "473-681",
 	addr_country : "Sweden",
 	addr_province : "Pennsylvania",
 	addr_city : "Bangkok",
@@ -959,10 +995,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1955-11-15",
 	webaddr : "www.samsungmobile.com",
-	note : "  "
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 37,
-	photoid : "phonebook_data/profile40.jpg",
+	photoid : "phonebook_data/profile23.jpg",
 	name_first : "Alexander",
 	name_last : "Victor",
 	name_middle : "",
@@ -975,7 +1012,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "504-931",
+	addr_pcode : "489-011",
 	addr_country : "Rep.Korea",
 	addr_province : "Taxas",
 	addr_city : "Wonju",
@@ -985,10 +1022,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1961-06-03",
 	webaddr : "www.google.com",
-	note : "  "
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 38,
-	photoid : "phonebook_data/profile08.jpg",
+	photoid : "phonebook_data/profile17.jpg",
 	name_first : "Alford",
 	name_last : "Steve",
 	name_middle : "",
@@ -1001,7 +1039,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "173-842",
+	addr_pcode : "172-582",
 	addr_country : "Sweden",
 	addr_province : "Kangwon",
 	addr_city : "Frankfruit",
@@ -1011,10 +1049,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1960-04-25",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 39,
-	photoid : "phonebook_data/profile34.jpg",
+	photoid : "phonebook_data/profile40.jpg",
 	name_first : "Allen",
 	name_last : "Jerome",
 	name_middle : "",
@@ -1027,7 +1066,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "175-982",
+	addr_pcode : "160-757",
 	addr_country : "Gaum",
 	addr_province : "Nebraska",
 	addr_city : "Cleveland",
@@ -1037,10 +1076,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1976-10-03",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 40,
-	photoid : "phonebook_data/profile09.jpg",
+	photoid : "phonebook_data/profile08.jpg",
 	name_first : "Allen",
 	name_last : "Lucius",
 	name_middle : "",
@@ -1053,7 +1093,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "308-634",
+	addr_pcode : "996-569",
 	addr_country : "U.S.A",
 	addr_province : "Nevada",
 	addr_city : "Daegu",
@@ -1063,10 +1103,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1952-12-13",
 	webaddr : "www.naver.com",
-	note : "  "
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 41,
-	photoid : "phonebook_data/profile33.jpg",
+	photoid : "phonebook_data/profile22.jpg",
 	name_first : "Allen",
 	name_last : "Malik",
 	name_middle : "",
@@ -1079,7 +1120,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "852-497",
+	addr_pcode : "562-674",
 	addr_country : "Rep.Korea",
 	addr_province : "Kangwon",
 	addr_city : "Wonju",
@@ -1089,10 +1130,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1973-08-05",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 42,
-	photoid : "phonebook_data/profile11.jpg",
+	photoid : "phonebook_data/profile40.jpg",
 	name_first : "Allen",
 	name_last : "Randy",
 	name_middle : "",
@@ -1105,7 +1147,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "771-048",
+	addr_pcode : "854-961",
 	addr_country : "China",
 	addr_province : "Califonia",
 	addr_city : "Kwangju",
@@ -1115,10 +1157,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1976-07-26",
 	webaddr : "www.sec.co.kr",
-	note : "  "
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 43,
-	photoid : "phonebook_data/profile33.jpg",
+	photoid : "phonebook_data/profile35.jpg",
 	name_first : "Allen",
 	name_last : "Ray",
 	name_middle : "",
@@ -1131,7 +1174,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "765-651",
+	addr_pcode : "101-453",
 	addr_country : "China",
 	addr_province : "Pennsylvania",
 	addr_city : "Busan",
@@ -1141,10 +1184,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1955-01-25",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 44,
-	photoid : "phonebook_data/profile02.jpg",
+	photoid : "phonebook_data/profile25.jpg",
 	name_first : "Allen",
 	name_last : "Robert",
 	name_middle : "J.",
@@ -1157,7 +1201,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "115-360",
+	addr_pcode : "700-133",
 	addr_country : "China",
 	addr_province : "Kyunggi",
 	addr_city : "Kwangju",
@@ -1167,10 +1211,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1958-03-20",
 	webaddr : "www.daum.net",
-	note : "  "
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 45,
-	photoid : "phonebook_data/profile15.jpg",
+	photoid : "phonebook_data/profile11.jpg",
 	name_first : "Allen",
 	name_last : "Tony",
 	name_middle : "",
@@ -1183,7 +1228,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "160-918",
+	addr_pcode : "433-852",
 	addr_country : "China",
 	addr_province : "Hawaii",
 	addr_city : "Daegu",
@@ -1193,10 +1238,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1970-01-11",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 46,
-	photoid : "phonebook_data/profile21.jpg",
+	photoid : "phonebook_data/profile09.jpg",
 	name_first : "Allison",
 	name_last : "Odis",
 	name_middle : "",
@@ -1209,7 +1255,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "839-798",
+	addr_pcode : "545-338",
 	addr_country : "Japan",
 	addr_province : "Pennsylvania",
 	addr_city : "Rome",
@@ -1219,10 +1265,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1971-04-27",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 47,
-	photoid : "phonebook_data/profile22.jpg",
+	photoid : "phonebook_data/profile17.jpg",
 	name_first : "Allred",
 	name_last : "Lance",
 	name_middle : "",
@@ -1235,7 +1282,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "194-895",
+	addr_pcode : "875-722",
 	addr_country : "Brazil",
 	addr_province : "Washington",
 	addr_city : "Sanghai",
@@ -1245,10 +1292,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1967-03-16",
 	webaddr : "www.daum.net",
-	note : "  "
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 48,
-	photoid : "phonebook_data/profile27.jpg",
+	photoid : "phonebook_data/profile20.jpg",
 	name_first : "Allums",
 	name_last : "Darrell",
 	name_middle : "",
@@ -1261,7 +1309,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "592-970",
+	addr_pcode : "691-150",
 	addr_country : "Swiss",
 	addr_province : "Nevada",
 	addr_city : "Kwangju",
@@ -1271,10 +1319,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1960-03-06",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 49,
-	photoid : "phonebook_data/profile10.jpg",
+	photoid : "phonebook_data/profile25.jpg",
 	name_first : "Almond",
 	name_last : "Morris",
 	name_middle : "",
@@ -1287,7 +1336,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "616-843",
+	addr_pcode : "962-896",
 	addr_country : "Canada",
 	addr_province : "Kyunggi",
 	addr_city : "Wonju",
@@ -1297,10 +1346,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1959-03-24",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 50,
-	photoid : "phonebook_data/profile35.jpg",
+	photoid : "phonebook_data/profile37.jpg",
 	name_first : "Babbitt",
 	name_last : "Luke",
 	name_middle : "",
@@ -1313,7 +1363,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "866-962",
+	addr_pcode : "402-944",
 	addr_country : "Ghana",
 	addr_province : "Nebraska",
 	addr_city : "Cebu",
@@ -1323,10 +1373,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1971-03-27",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 51,
-	photoid : "phonebook_data/profile05.jpg",
+	photoid : "phonebook_data/profile23.jpg",
 	name_first : "Babic",
 	name_last : "Milos",
 	name_middle : "",
@@ -1339,7 +1390,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "998-545",
+	addr_pcode : "496-508",
 	addr_country : "Ghana",
 	addr_province : "Taxas",
 	addr_city : "Rome",
@@ -1349,10 +1400,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1973-09-11",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 52,
-	photoid : "phonebook_data/profile05.jpg",
+	photoid : "phonebook_data/profile06.jpg",
 	name_first : "Bach",
 	name_last : "John",
 	name_middle : "William ",
@@ -1365,7 +1417,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "726-396",
+	addr_pcode : "933-355",
 	addr_country : "Gaum",
 	addr_province : "Califonia",
 	addr_city : "L.A.",
@@ -1375,10 +1427,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1965-06-23",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 53,
-	photoid : "phonebook_data/profile04.jpg",
+	photoid : "phonebook_data/profile13.jpg",
 	name_first : "Baechtold",
 	name_last : "James",
 	name_middle : "E.",
@@ -1391,7 +1444,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "986-390",
+	addr_pcode : "363-753",
 	addr_country : "Sweden",
 	addr_province : "Pennsylvania",
 	addr_city : "Frankfruit",
@@ -1401,10 +1454,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1954-06-11",
 	webaddr : "www.samsungmobile.com",
-	note : "  "
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 54,
-	photoid : "phonebook_data/profile12.jpg",
+	photoid : "phonebook_data/profile06.jpg",
 	name_first : "Bagaric",
 	name_last : "Dalibor",
 	name_middle : "",
@@ -1417,7 +1471,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "287-907",
+	addr_pcode : "818-768",
 	addr_country : "Brazil",
 	addr_province : "Dacota",
 	addr_city : "L.A.",
@@ -1427,10 +1481,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1973-06-21",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 55,
-	photoid : "phonebook_data/profile12.jpg",
+	photoid : "phonebook_data/profile34.jpg",
 	name_first : "Bagley",
 	name_last : "John",
 	name_middle : "",
@@ -1443,7 +1498,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "734-445",
+	addr_pcode : "472-554",
 	addr_country : "Swiss",
 	addr_province : "Oregon",
 	addr_city : "Bangkok",
@@ -1453,10 +1508,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1967-03-17",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 56,
-	photoid : "phonebook_data/profile33.jpg",
+	photoid : "phonebook_data/profile36.jpg",
 	name_first : "Bailey",
 	name_last : "Augustus",
 	name_middle : "",
@@ -1469,7 +1525,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "221-018",
+	addr_pcode : "615-107",
 	addr_country : "Rep.Korea",
 	addr_province : "Califonia",
 	addr_city : "Sanghai",
@@ -1479,10 +1535,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1964-04-04",
 	webaddr : "www.naver.com",
-	note : "  "
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 57,
-	photoid : "phonebook_data/profile14.jpg",
+	photoid : "phonebook_data/profile35.jpg",
 	name_first : "Bailey",
 	name_last : "Carl",
 	name_middle : "",
@@ -1495,7 +1552,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "944-123",
+	addr_pcode : "902-887",
 	addr_country : "U.S.A",
 	addr_province : "Taxas",
 	addr_city : "Sanghai",
@@ -1505,10 +1562,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1953-12-19",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 58,
-	photoid : "phonebook_data/profile14.jpg",
+	photoid : "phonebook_data/profile05.jpg",
 	name_first : "Bailey",
 	name_last : "James",
 	name_middle : "",
@@ -1521,7 +1579,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "622-820",
+	addr_pcode : "802-530",
 	addr_country : "Swiss",
 	addr_province : "Taxas",
 	addr_city : "Wonju",
@@ -1531,7 +1589,8 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1967-07-06",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 59,
 	photoid : "phonebook_data/profile12.jpg",
@@ -1547,7 +1606,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "368-911",
+	addr_pcode : "810-183",
 	addr_country : "Sweden",
 	addr_province : "Oregon",
 	addr_city : "Laite",
@@ -1557,10 +1616,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1961-02-04",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 60,
-	photoid : "phonebook_data/profile06.jpg",
+	photoid : "phonebook_data/profile35.jpg",
 	name_first : "Bailey",
 	name_last : "Toby",
 	name_middle : "",
@@ -1573,7 +1633,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "325-806",
+	addr_pcode : "901-627",
 	addr_country : "Swiss",
 	addr_province : "Florida",
 	addr_city : "Paris",
@@ -1583,10 +1643,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1964-05-05",
 	webaddr : "www.naver.com",
-	note : "  "
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 61,
-	photoid : "phonebook_data/profile13.jpg",
+	photoid : "phonebook_data/profile12.jpg",
 	name_first : "Baker",
 	name_last : "Mark",
 	name_middle : "",
@@ -1599,7 +1660,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "962-711",
+	addr_pcode : "662-673",
 	addr_country : "Canada",
 	addr_province : "Hawaii",
 	addr_city : "Bangkok",
@@ -1609,10 +1670,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1953-04-04",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 62,
-	photoid : "phonebook_data/profile08.jpg",
+	photoid : "phonebook_data/profile12.jpg",
 	name_first : "Baker",
 	name_last : "Maurice",
 	name_middle : "",
@@ -1625,7 +1687,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "442-537",
+	addr_pcode : "571-504",
 	addr_country : "China",
 	addr_province : "Nebraska",
 	addr_city : "Cebu",
@@ -1635,10 +1697,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1958-07-11",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 63,
-	photoid : "phonebook_data/profile30.jpg",
+	photoid : "phonebook_data/profile34.jpg",
 	name_first : "Baker",
 	name_last : "Henry",
 	name_middle : "Norman",
@@ -1651,7 +1714,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "959-122",
+	addr_pcode : "436-546",
 	addr_country : "France",
 	addr_province : "Pennsylvania",
 	addr_city : "Paris",
@@ -1661,10 +1724,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1963-01-31",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 64,
-	photoid : "phonebook_data/profile30.jpg",
+	photoid : "phonebook_data/profile21.jpg",
 	name_first : "Baker",
 	name_last : "Vin",
 	name_middle : "",
@@ -1677,7 +1741,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "432-568",
+	addr_pcode : "623-390",
 	addr_country : "China",
 	addr_province : "Idaho",
 	addr_city : "Newyork",
@@ -1687,10 +1751,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1970-03-05",
 	webaddr : "www.sec.co.kr",
-	note : "  "
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 65,
-	photoid : "phonebook_data/profile10.jpg",
+	photoid : "phonebook_data/profile31.jpg",
 	name_first : "Balkman",
 	name_last : "Renaldo",
 	name_middle : "",
@@ -1703,7 +1768,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "923-285",
+	addr_pcode : "420-040",
 	addr_country : "Brazil",
 	addr_province : "Washington",
 	addr_city : "Frankfruit",
@@ -1713,10 +1778,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1953-01-27",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 66,
-	photoid : "phonebook_data/profile06.jpg",
+	photoid : "phonebook_data/profile25.jpg",
 	name_first : "Ball",
 	name_last : "Cedric",
 	name_middle : "",
@@ -1729,7 +1795,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "430-281",
+	addr_pcode : "965-969",
 	addr_country : "Canada",
 	addr_province : "Georgia",
 	addr_city : "L.A.",
@@ -1739,10 +1805,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1956-09-13",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 67,
-	photoid : "phonebook_data/profile32.jpg",
+	photoid : "phonebook_data/profile04.jpg",
 	name_first : "Ballard",
 	name_last : "Greg",
 	name_middle : "",
@@ -1755,7 +1822,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "326-825",
+	addr_pcode : "846-478",
 	addr_country : "Rep.Korea",
 	addr_province : "Alaska",
 	addr_city : "Paris",
@@ -1765,10 +1832,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1966-10-25",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 68,
-	photoid : "phonebook_data/profile09.jpg",
+	photoid : "phonebook_data/profile21.jpg",
 	name_first : "Baltimore",
 	name_last : "Herschel",
 	name_middle : "David",
@@ -1781,7 +1849,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "892-842",
+	addr_pcode : "440-945",
 	addr_country : "France",
 	addr_province : "Taxas",
 	addr_city : "Bangkok",
@@ -1791,10 +1859,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1961-02-11",
 	webaddr : "www.google.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 69,
-	photoid : "phonebook_data/profile05.jpg",
+	photoid : "phonebook_data/profile40.jpg",
 	name_first : "Banks",
 	name_last : "Gene",
 	name_middle : "",
@@ -1807,7 +1876,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "885-602",
+	addr_pcode : "598-428",
 	addr_country : "U.S.A",
 	addr_province : "Nevada",
 	addr_city : "Rome",
@@ -1817,10 +1886,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1964-01-30",
 	webaddr : "www.samsungmobile.com",
-	note : "  "
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 70,
-	photoid : "phonebook_data/profile22.jpg",
+	photoid : "phonebook_data/profile07.jpg",
 	name_first : "Banks",
 	name_last : "Marcus",
 	name_middle : "",
@@ -1833,7 +1903,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "560-656",
+	addr_pcode : "325-520",
 	addr_country : "Gaum",
 	addr_province : "Florida",
 	addr_city : "Kwangju",
@@ -1843,10 +1913,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1956-11-06",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 71,
-	photoid : "phonebook_data/profile27.jpg",
+	photoid : "phonebook_data/profile35.jpg",
 	name_first : "Bannister",
 	name_last : "Ken",
 	name_middle : "",
@@ -1859,7 +1930,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "750-088",
+	addr_pcode : "785-494",
 	addr_country : "U.S.A",
 	addr_province : "Idaho",
 	addr_city : "Denver",
@@ -1869,10 +1940,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1954-08-12",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 72,
-	photoid : "phonebook_data/profile03.jpg",
+	photoid : "phonebook_data/profile28.jpg",
 	name_first : "Bantom",
 	name_last : "Mike",
 	name_middle : "",
@@ -1885,7 +1957,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "410-291",
+	addr_pcode : "764-614",
 	addr_country : "Brazil",
 	addr_province : "Washington",
 	addr_city : "Cleveland",
@@ -1895,10 +1967,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1977-01-02",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 73,
-	photoid : "phonebook_data/profile23.jpg",
+	photoid : "phonebook_data/profile16.jpg",
 	name_first : "Barber",
 	name_last : "John",
 	name_middle : "",
@@ -1911,7 +1984,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "630-768",
+	addr_pcode : "793-345",
 	addr_country : "Rep.Korea",
 	addr_province : "Georgia",
 	addr_city : "Frankfruit",
@@ -1921,10 +1994,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1976-10-15",
 	webaddr : "www.sec.co.kr",
-	note : "  "
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 74,
-	photoid : "phonebook_data/profile10.jpg",
+	photoid : "phonebook_data/profile38.jpg",
 	name_first : "Barbosa",
 	name_last : "Leandro",
 	name_middle : "",
@@ -1937,7 +2011,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "306-138",
+	addr_pcode : "528-491",
 	addr_country : "France",
 	addr_province : "Oregon",
 	addr_city : "Kwangju",
@@ -1947,10 +2021,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1973-02-11",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFG"
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 75,
-	photoid : "phonebook_data/profile33.jpg",
+	photoid : "phonebook_data/profile14.jpg",
 	name_first : "Bardo",
 	name_last : "Stephen",
 	name_middle : "",
@@ -1963,7 +2038,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "691-960",
+	addr_pcode : "878-629",
 	addr_country : "Ghana",
 	addr_province : "Califonia",
 	addr_city : "Sanghai",
@@ -1973,10 +2048,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1961-07-24",
 	webaddr : "www.daum.net",
-	note : "  "
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 76,
-	photoid : "phonebook_data/profile16.jpg",
+	photoid : "phonebook_data/profile28.jpg",
 	name_first : "Barea",
 	name_last : "Jose",
 	name_middle : "",
@@ -1989,7 +2065,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "209-711",
+	addr_pcode : "290-330",
 	addr_country : "Japan",
 	addr_province : "Oregon",
 	addr_city : "Busan",
@@ -1999,10 +2075,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1954-02-22",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 77,
-	photoid : "phonebook_data/profile40.jpg",
+	photoid : "phonebook_data/profile02.jpg",
 	name_first : "Bargnani",
 	name_last : "Andrea",
 	name_middle : "",
@@ -2015,7 +2092,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "831-456",
+	addr_pcode : "574-827",
 	addr_country : "Rep.Korea",
 	addr_province : "Georgia",
 	addr_city : "Laite",
@@ -2025,10 +2102,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1966-08-30",
 	webaddr : "www.yahoo.com",
-	note : "  "
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 78,
-	photoid : "phonebook_data/profile26.jpg",
+	photoid : "phonebook_data/profile30.jpg",
 	name_first : "Barker",
 	name_last : "Clifford",
 	name_middle : "E.",
@@ -2041,7 +2119,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "329-231",
+	addr_pcode : "128-999",
 	addr_country : "Canada",
 	addr_province : "Washington",
 	addr_city : "Newyork",
@@ -2051,7 +2129,8 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1971-12-28",
 	webaddr : "www.daum.net",
-	note : "  "
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 79,
 	photoid : "phonebook_data/profile37.jpg",
@@ -2067,7 +2146,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "578-695",
+	addr_pcode : "428-733",
 	addr_country : "Ghana",
 	addr_province : "Dacota",
 	addr_city : "Cebu",
@@ -2077,10 +2156,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1962-09-16",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 80,
-	photoid : "phonebook_data/profile17.jpg",
+	photoid : "phonebook_data/profile13.jpg",
 	name_first : "Barkley",
 	name_last : "Charles",
 	name_middle : "",
@@ -2093,7 +2173,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "446-971",
+	addr_pcode : "709-219",
 	addr_country : "U.S.A",
 	addr_province : "Taxas",
 	addr_city : "Paris",
@@ -2103,10 +2183,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1969-09-24",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 81,
-	photoid : "phonebook_data/profile26.jpg",
+	photoid : "phonebook_data/profile22.jpg",
 	name_first : "Barkley",
 	name_last : "Erick",
 	name_middle : "",
@@ -2119,7 +2200,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "965-593",
+	addr_pcode : "988-165",
 	addr_country : "Brazil",
 	addr_province : "Dacota",
 	addr_city : "Sanghai",
@@ -2129,10 +2210,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1970-02-25",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 82,
-	photoid : "phonebook_data/profile11.jpg",
+	photoid : "phonebook_data/profile27.jpg",
 	name_first : "Barksdale",
 	name_last : "Don Angelo",
 	name_middle : "",
@@ -2145,7 +2227,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "388-299",
+	addr_pcode : "398-506",
 	addr_country : "Japan",
 	addr_province : "Dacota",
 	addr_city : "Wonju",
@@ -2155,10 +2237,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1968-02-11",
 	webaddr : "www.intel.com",
-	note : "  "
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 83,
-	photoid : "phonebook_data/profile16.jpg",
+	photoid : "phonebook_data/profile26.jpg",
 	name_first : "Barnes",
 	name_last : "Harry",
 	name_middle : "J.",
@@ -2171,7 +2254,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "702-555",
+	addr_pcode : "114-718",
 	addr_country : "Swiss",
 	addr_province : "Idaho",
 	addr_city : "Bangkok",
@@ -2181,10 +2264,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1956-03-08",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 84,
-	photoid : "phonebook_data/profile20.jpg",
+	photoid : "phonebook_data/profile21.jpg",
 	name_first : "Barnes",
 	name_last : "Marvin Jerome",
 	name_middle : "",
@@ -2197,7 +2281,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "977-484",
+	addr_pcode : "919-159",
 	addr_country : "Rep.Korea",
 	addr_province : "Pennsylvania",
 	addr_city : "Huston",
@@ -2207,10 +2291,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1959-04-20",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 85,
-	photoid : "phonebook_data/profile39.jpg",
+	photoid : "phonebook_data/profile09.jpg",
 	name_first : "Barnes",
 	name_last : "Matt",
 	name_middle : "",
@@ -2223,7 +2308,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "827-323",
+	addr_pcode : "228-388",
 	addr_country : "Swiss",
 	addr_province : "Alaska",
 	addr_city : "Frankfruit",
@@ -2233,10 +2318,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1962-12-16",
 	webaddr : "www.intel.com",
-	note : "  "
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 86,
-	photoid : "phonebook_data/profile38.jpg",
+	photoid : "phonebook_data/profile32.jpg",
 	name_first : "Barnes",
 	name_last : "James",
 	name_middle : "V.",
@@ -2249,7 +2335,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "875-889",
+	addr_pcode : "979-835",
 	addr_country : "Swiss",
 	addr_province : "Kangwon",
 	addr_city : "Paris",
@@ -2259,10 +2345,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1964-06-05",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 87,
-	photoid : "phonebook_data/profile24.jpg",
+	photoid : "phonebook_data/profile11.jpg",
 	name_first : "Barnett",
 	name_last : "Dick",
 	name_middle : "",
@@ -2275,7 +2362,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "661-872",
+	addr_pcode : "745-215",
 	addr_country : "Canada",
 	addr_province : "Kyunggi",
 	addr_city : "Wonju",
@@ -2285,10 +2372,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1970-07-16",
 	webaddr : "www.naver.com",
-	note : "  "
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 88,
-	photoid : "phonebook_data/profile34.jpg",
+	photoid : "phonebook_data/profile17.jpg",
 	name_first : "Barnett",
 	name_last : "Franklin",
 	name_middle : "James",
@@ -2301,7 +2389,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "868-518",
+	addr_pcode : "511-925",
 	addr_country : "Ghana",
 	addr_province : "Oregon",
 	addr_city : "Busan",
@@ -2311,10 +2399,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1952-07-04",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 89,
-	photoid : "phonebook_data/profile17.jpg",
+	photoid : "phonebook_data/profile15.jpg",
 	name_first : "Barnhill",
 	name_last : "Anthony",
 	name_middle : "John",
@@ -2327,7 +2416,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "550-857",
+	addr_pcode : "164-070",
 	addr_country : "U.S.A",
 	addr_province : "Idaho",
 	addr_city : "Frankfruit",
@@ -2337,10 +2426,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1976-03-24",
 	webaddr : "www.intel.com",
-	note : "  "
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 90,
-	photoid : "phonebook_data/profile18.jpg",
+	photoid : "phonebook_data/profile26.jpg",
 	name_first : "Barnhill",
 	name_last : "Norton",
 	name_middle : "",
@@ -2353,7 +2443,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "814-176",
+	addr_pcode : "454-429",
 	addr_country : "Brazil",
 	addr_province : "Idaho",
 	addr_city : "Rome",
@@ -2363,10 +2453,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1958-10-21",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 91,
-	photoid : "phonebook_data/profile36.jpg",
+	photoid : "phonebook_data/profile05.jpg",
 	name_first : "Barnhorst",
 	name_last : "Leo",
 	name_middle : "A.",
@@ -2379,7 +2470,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "795-467",
+	addr_pcode : "481-983",
 	addr_country : "Japan",
 	addr_province : "Nevada",
 	addr_city : "Paris",
@@ -2389,10 +2480,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1967-05-29",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 92,
-	photoid : "phonebook_data/profile35.jpg",
+	photoid : "phonebook_data/profile38.jpg",
 	name_first : "Barr",
 	name_last : "John E.",
 	name_middle : "",
@@ -2405,7 +2497,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "506-850",
+	addr_pcode : "598-345",
 	addr_country : "Sweden",
 	addr_province : "Taxas",
 	addr_city : "Cleveland",
@@ -2415,10 +2507,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1959-08-25",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 93,
-	photoid : "phonebook_data/profile38.jpg",
+	photoid : "phonebook_data/profile14.jpg",
 	name_first : "Barr",
 	name_last : "Michael",
 	name_middle : "J.",
@@ -2431,7 +2524,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "324-803",
+	addr_pcode : "817-147",
 	addr_country : "Sweden",
 	addr_province : "Kangwon",
 	addr_city : "Laite",
@@ -2441,10 +2534,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1965-11-13",
 	webaddr : "www.daum.net",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 94,
-	photoid : "phonebook_data/profile10.jpg",
+	photoid : "phonebook_data/profile33.jpg",
 	name_first : "Barr",
 	name_last : "Thomas",
 	name_middle : "L.",
@@ -2457,7 +2551,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "715-171",
+	addr_pcode : "881-855",
 	addr_country : "Brazil",
 	addr_province : "Hawaii",
 	addr_city : "Cebu",
@@ -2467,10 +2561,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1968-02-05",
 	webaddr : "www.google.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 95,
-	photoid : "phonebook_data/profile17.jpg",
+	photoid : "phonebook_data/profile32.jpg",
 	name_first : "Barrett",
 	name_last : "Andre",
 	name_middle : "",
@@ -2483,7 +2578,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "799-373",
+	addr_pcode : "406-760",
 	addr_country : "Gaum",
 	addr_province : "Georgia",
 	addr_city : "Cebu",
@@ -2493,10 +2588,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1962-05-05",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 96,
-	photoid : "phonebook_data/profile31.jpg",
+	photoid : "phonebook_data/profile37.jpg",
 	name_first : "Barrett",
 	name_last : "Ernie Drew",
 	name_middle : "",
@@ -2509,7 +2605,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "286-405",
+	addr_pcode : "267-179",
 	addr_country : "Gaum",
 	addr_province : "Taxas",
 	addr_city : "Paris",
@@ -2519,10 +2615,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1973-09-11",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 97,
-	photoid : "phonebook_data/profile32.jpg",
+	photoid : "phonebook_data/profile05.jpg",
 	name_first : "Barron",
 	name_last : "Earl",
 	name_middle : "",
@@ -2535,7 +2632,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "336-694",
+	addr_pcode : "154-620",
 	addr_country : "France",
 	addr_province : "Nevada",
 	addr_city : "Frankfruit",
@@ -2545,10 +2642,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1956-11-10",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 98,
-	photoid : "phonebook_data/profile13.jpg",
+	photoid : "phonebook_data/profile36.jpg",
 	name_first : "Barros",
 	name_last : "Dana",
 	name_middle : "",
@@ -2561,7 +2659,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "171-356",
+	addr_pcode : "399-702",
 	addr_country : "Japan",
 	addr_province : "Kangwon",
 	addr_city : "Paris",
@@ -2571,10 +2669,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1970-01-13",
 	webaddr : "www.naver.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 99,
-	photoid : "phonebook_data/profile33.jpg",
+	photoid : "phonebook_data/profile07.jpg",
 	name_first : "Barry",
 	name_last : "Brent",
 	name_middle : "",
@@ -2587,7 +2686,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "632-387",
+	addr_pcode : "408-495",
 	addr_country : "Ghana",
 	addr_province : "Pennsylvania",
 	addr_city : "Newyork",
@@ -2597,10 +2696,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1962-08-10",
 	webaddr : "www.daum.net",
-	note : "  "
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 100,
-	photoid : "phonebook_data/profile29.jpg",
+	photoid : "phonebook_data/profile38.jpg",
 	name_first : "Cabarkapa",
 	name_last : "Zarko",
 	name_middle : "",
@@ -2613,7 +2713,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "899-474",
+	addr_pcode : "940-589",
 	addr_country : "Ghana",
 	addr_province : "Califonia",
 	addr_city : "Cebu",
@@ -2623,10 +2723,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1966-04-25",
 	webaddr : "www.sec.co.kr",
-	note : "  "
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 101,
-	photoid : "phonebook_data/profile04.jpg",
+	photoid : "phonebook_data/profile10.jpg",
 	name_first : "Cable",
 	name_last : "Byrum",
 	name_middle : "William",
@@ -2639,7 +2740,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "248-233",
+	addr_pcode : "611-369",
 	addr_country : "Brazil",
 	addr_province : "Taxas",
 	addr_city : "Denver",
@@ -2649,10 +2750,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1950-11-09",
 	webaddr : "www.naver.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 102,
-	photoid : "phonebook_data/profile36.jpg",
+	photoid : "phonebook_data/profile39.jpg",
 	name_first : "Caffey",
 	name_last : "Jason",
 	name_middle : "",
@@ -2665,7 +2767,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "500-667",
+	addr_pcode : "161-339",
 	addr_country : "Swiss",
 	addr_province : "Hawaii",
 	addr_city : "Wonju",
@@ -2675,10 +2777,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1975-10-03",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 103,
-	photoid : "phonebook_data/profile27.jpg",
+	photoid : "phonebook_data/profile19.jpg",
 	name_first : "Cage",
 	name_last : "Michael",
 	name_middle : "",
@@ -2691,7 +2794,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "617-387",
+	addr_pcode : "641-056",
 	addr_country : "Gaum",
 	addr_province : "Alaska",
 	addr_city : "Frankfruit",
@@ -2701,10 +2804,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1964-07-09",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 104,
-	photoid : "phonebook_data/profile14.jpg",
+	photoid : "phonebook_data/profile38.jpg",
 	name_first : "Calabrese",
 	name_last : "Gerald",
 	name_middle : "A.",
@@ -2717,7 +2821,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "245-668",
+	addr_pcode : "750-858",
 	addr_country : "Ghana",
 	addr_province : "Florida",
 	addr_city : "Denver",
@@ -2727,10 +2831,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1953-09-09",
 	webaddr : "www.naver.com",
-	note : "  "
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 105,
-	photoid : "phonebook_data/profile31.jpg",
+	photoid : "phonebook_data/profile36.jpg",
 	name_first : "Calderon",
 	name_last : "Jose",
 	name_middle : "",
@@ -2743,7 +2848,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "308-311",
+	addr_pcode : "483-001",
 	addr_country : "Brazil",
 	addr_province : "Washington",
 	addr_city : "Wonju",
@@ -2753,10 +2858,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1958-07-07",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 106,
-	photoid : "phonebook_data/profile28.jpg",
+	photoid : "phonebook_data/profile23.jpg",
 	name_first : "Caldwell",
 	name_last : "Adrian",
 	name_middle : "",
@@ -2769,7 +2875,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "850-267",
+	addr_pcode : "633-614",
 	addr_country : "Ghana",
 	addr_province : "Pennsylvania",
 	addr_city : "Rome",
@@ -2779,10 +2885,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1965-05-08",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 107,
-	photoid : "phonebook_data/profile16.jpg",
+	photoid : "phonebook_data/profile11.jpg",
 	name_first : "Caldwell",
 	name_last : "James",
 	name_middle : "W. Jr.",
@@ -2795,7 +2902,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "977-458",
+	addr_pcode : "986-032",
 	addr_country : "China",
 	addr_province : "Alaska",
 	addr_city : "Paris",
@@ -2805,10 +2912,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1961-08-18",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 108,
-	photoid : "phonebook_data/profile27.jpg",
+	photoid : "phonebook_data/profile04.jpg",
 	name_first : "Caldwell",
 	name_last : "Joe",
 	name_middle : "",
@@ -2821,7 +2929,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "306-109",
+	addr_pcode : "870-154",
 	addr_country : "China",
 	addr_province : "Nebraska",
 	addr_city : "Huston",
@@ -2831,10 +2939,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1971-10-18",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 109,
-	photoid : "phonebook_data/profile30.jpg",
+	photoid : "phonebook_data/profile19.jpg",
 	name_first : "Calhoun",
 	name_last : "David",
 	name_middle : "L.",
@@ -2847,7 +2956,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "260-533",
+	addr_pcode : "873-725",
 	addr_country : "Ghana",
 	addr_province : "Hawaii",
 	addr_city : "L.A.",
@@ -2857,10 +2966,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1967-12-14",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 110,
-	photoid : "phonebook_data/profile19.jpg",
+	photoid : "phonebook_data/profile34.jpg",
 	name_first : "Calhoun",
 	name_last : "William",
 	name_middle : "C.",
@@ -2873,7 +2983,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "530-632",
+	addr_pcode : "962-326",
 	addr_country : "Canada",
 	addr_province : "Taxas",
 	addr_city : "Kwangju",
@@ -2883,10 +2993,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1974-04-04",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 111,
-	photoid : "phonebook_data/profile14.jpg",
+	photoid : "phonebook_data/profile08.jpg",
 	name_first : "Calip",
 	name_last : "Demetrius",
 	name_middle : "",
@@ -2899,7 +3010,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "664-447",
+	addr_pcode : "858-825",
 	addr_country : "Japan",
 	addr_province : "Califonia",
 	addr_city : "Cebu",
@@ -2909,10 +3020,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1971-05-22",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 112,
-	photoid : "phonebook_data/profile26.jpg",
+	photoid : "phonebook_data/profile23.jpg",
 	name_first : "Callahan",
 	name_last : "Thomas",
 	name_middle : "Francis",
@@ -2925,7 +3037,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "342-995",
+	addr_pcode : "639-594",
 	addr_country : "Gaum",
 	addr_province : "Florida",
 	addr_city : "Paris",
@@ -2935,10 +3047,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1970-08-06",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 113,
-	photoid : "phonebook_data/profile02.jpg",
+	photoid : "phonebook_data/profile15.jpg",
 	name_first : "Calloway",
 	name_last : "Rick",
 	name_middle : "",
@@ -2951,7 +3064,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "766-272",
+	addr_pcode : "570-319",
 	addr_country : "Ghana",
 	addr_province : "Washington",
 	addr_city : "Newyork",
@@ -2961,10 +3074,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1954-03-03",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 114,
-	photoid : "phonebook_data/profile12.jpg",
+	photoid : "phonebook_data/profile40.jpg",
 	name_first : "Calverley",
 	name_last : "Ernest",
 	name_middle : "A.",
@@ -2977,7 +3091,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "174-340",
+	addr_pcode : "189-972",
 	addr_country : "Japan",
 	addr_province : "Nebraska",
 	addr_city : "Huston",
@@ -2987,7 +3101,8 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1976-03-13",
 	webaddr : "www.intel.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 115,
 	photoid : "phonebook_data/profile01.jpg",
@@ -3003,7 +3118,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "884-373",
+	addr_pcode : "502-711",
 	addr_country : "Canada",
 	addr_province : "Taxas",
 	addr_city : "Frankfruit",
@@ -3013,10 +3128,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1974-10-16",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 116,
-	photoid : "phonebook_data/profile07.jpg",
+	photoid : "phonebook_data/profile23.jpg",
 	name_first : "Cambridge",
 	name_last : "Dexter",
 	name_middle : "",
@@ -3029,7 +3145,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "325-939",
+	addr_pcode : "638-687",
 	addr_country : "China",
 	addr_province : "Pennsylvania",
 	addr_city : "Daegu",
@@ -3039,10 +3155,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1966-05-02",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 117,
-	photoid : "phonebook_data/profile03.jpg",
+	photoid : "phonebook_data/profile10.jpg",
 	name_first : "Camby",
 	name_last : "Marcus",
 	name_middle : "",
@@ -3055,7 +3172,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "627-393",
+	addr_pcode : "365-041",
 	addr_country : "Ghana",
 	addr_province : "Florida",
 	addr_city : "Cleveland",
@@ -3065,10 +3182,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1950-08-27",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 118,
-	photoid : "phonebook_data/profile12.jpg",
+	photoid : "phonebook_data/profile21.jpg",
 	name_first : "Campbell",
 	name_last : "Elden",
 	name_middle : "",
@@ -3081,7 +3199,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "875-381",
+	addr_pcode : "797-505",
 	addr_country : "U.S.A",
 	addr_province : "Georgia",
 	addr_city : "Huston",
@@ -3091,10 +3209,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1967-10-19",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 119,
-	photoid : "phonebook_data/profile35.jpg",
+	photoid : "phonebook_data/profile25.jpg",
 	name_first : "Campbell",
 	name_last : "Tony",
 	name_middle : "",
@@ -3107,7 +3226,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "104-027",
+	addr_pcode : "696-868",
 	addr_country : "Japan",
 	addr_province : "Kyunggi",
 	addr_city : "Busan",
@@ -3117,10 +3236,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1960-07-07",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 120,
-	photoid : "phonebook_data/profile04.jpg",
+	photoid : "phonebook_data/profile15.jpg",
 	name_first : "Cannon",
 	name_last : "Lawrence",
 	name_middle : "T.",
@@ -3133,7 +3253,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "891-949",
+	addr_pcode : "406-182",
 	addr_country : "Gaum",
 	addr_province : "Arizona",
 	addr_city : "Frankfruit",
@@ -3143,10 +3263,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1950-08-25",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 121,
-	photoid : "phonebook_data/profile07.jpg",
+	photoid : "phonebook_data/profile33.jpg",
 	name_first : "Caracter",
 	name_last : "Derrick",
 	name_middle : "",
@@ -3159,7 +3280,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "147-370",
+	addr_pcode : "395-533",
 	addr_country : "Canada",
 	addr_province : "Califonia",
 	addr_city : "Huston",
@@ -3169,10 +3290,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1950-03-14",
 	webaddr : "www.daum.net",
-	note : "  "
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 122,
-	photoid : "phonebook_data/profile36.jpg",
+	photoid : "phonebook_data/profile08.jpg",
 	name_first : "Cardinal",
 	name_last : "Brian",
 	name_middle : "",
@@ -3185,7 +3307,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "120-870",
+	addr_pcode : "732-825",
 	addr_country : "Gaum",
 	addr_province : "Nebraska",
 	addr_city : "Frankfruit",
@@ -3195,10 +3317,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1962-07-31",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 123,
-	photoid : "phonebook_data/profile21.jpg",
+	photoid : "phonebook_data/profile31.jpg",
 	name_first : "Carl",
 	name_last : "Howard",
 	name_middle : "Hershey",
@@ -3211,7 +3334,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "364-546",
+	addr_pcode : "260-286",
 	addr_country : "Canada",
 	addr_province : "Idaho",
 	addr_city : "Kwangju",
@@ -3221,10 +3344,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1975-04-04",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 124,
-	photoid : "phonebook_data/profile33.jpg",
+	photoid : "phonebook_data/profile15.jpg",
 	name_first : "Carlisle",
 	name_last : "Chester",
 	name_middle : "G.",
@@ -3237,7 +3361,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "179-497",
+	addr_pcode : "649-425",
 	addr_country : "Swiss",
 	addr_province : "Alaska",
 	addr_city : "Newyork",
@@ -3247,10 +3371,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1953-11-13",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 125,
-	photoid : "phonebook_data/profile07.jpg",
+	photoid : "phonebook_data/profile24.jpg",
 	name_first : "Carlisle",
 	name_last : "Geno",
 	name_middle : "",
@@ -3263,7 +3388,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "831-966",
+	addr_pcode : "602-455",
 	addr_country : "China",
 	addr_province : "Oregon",
 	addr_city : "L.A.",
@@ -3273,10 +3398,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1974-10-05",
 	webaddr : "www.sec.co.kr",
-	note : "  "
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 126,
-	photoid : "phonebook_data/profile25.jpg",
+	photoid : "phonebook_data/profile26.jpg",
 	name_first : "Carlisle",
 	name_last : "Rick",
 	name_middle : "",
@@ -3289,7 +3415,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "433-441",
+	addr_pcode : "367-555",
 	addr_country : "China",
 	addr_province : "Califonia",
 	addr_city : "Newyork",
@@ -3299,10 +3425,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1952-10-25",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 127,
-	photoid : "phonebook_data/profile20.jpg",
+	photoid : "phonebook_data/profile12.jpg",
 	name_first : "Carlson",
 	name_last : "Alvin",
 	name_middle : "Harold",
@@ -3315,7 +3442,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "165-326",
+	addr_pcode : "612-541",
 	addr_country : "France",
 	addr_province : "Taxas",
 	addr_city : "Rome",
@@ -3325,10 +3452,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1956-06-20",
 	webaddr : "www.naver.com",
-	note : "  "
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 128,
-	photoid : "phonebook_data/profile32.jpg",
+	photoid : "phonebook_data/profile35.jpg",
 	name_first : "Carlson",
 	name_last : "Vernon",
 	name_middle : "Don",
@@ -3341,7 +3469,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "634-161",
+	addr_pcode : "690-419",
 	addr_country : "Gaum",
 	addr_province : "Kyunggi",
 	addr_city : "Bangkok",
@@ -3351,10 +3479,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1958-11-02",
 	webaddr : "www.daum.net",
-	note : "  "
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 129,
-	photoid : "phonebook_data/profile39.jpg",
+	photoid : "phonebook_data/profile14.jpg",
 	name_first : "Carney",
 	name_last : "Robert",
 	name_middle : "Lee",
@@ -3367,7 +3496,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "211-761",
+	addr_pcode : "497-845",
 	addr_country : "France",
 	addr_province : "Pennsylvania",
 	addr_city : "Sanghai",
@@ -3377,10 +3506,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1955-05-04",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 130,
-	photoid : "phonebook_data/profile22.jpg",
+	photoid : "phonebook_data/profile32.jpg",
 	name_first : "Carney",
 	name_last : "Rodney",
 	name_middle : "",
@@ -3393,7 +3523,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "862-507",
+	addr_pcode : "469-881",
 	addr_country : "Canada",
 	addr_province : "Alaska",
 	addr_city : "L.A.",
@@ -3403,10 +3533,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1962-01-14",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 131,
-	photoid : "phonebook_data/profile09.jpg",
+	photoid : "phonebook_data/profile12.jpg",
 	name_first : "Carpenter",
 	name_last : "Robert",
 	name_middle : "H.",
@@ -3419,7 +3550,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "254-378",
+	addr_pcode : "835-502",
 	addr_country : "Japan",
 	addr_province : "Oregon",
 	addr_city : "L.A.",
@@ -3429,10 +3560,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1960-07-18",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 132,
-	photoid : "phonebook_data/profile01.jpg",
+	photoid : "phonebook_data/profile13.jpg",
 	name_first : "Carr",
 	name_last : "Antoine",
 	name_middle : "",
@@ -3445,7 +3577,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "690-851",
+	addr_pcode : "323-745",
 	addr_country : "Gaum",
 	addr_province : "Kangwon",
 	addr_city : "Denver",
@@ -3455,10 +3587,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1973-08-21",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 133,
-	photoid : "phonebook_data/profile36.jpg",
+	photoid : "phonebook_data/profile34.jpg",
 	name_first : "Carr",
 	name_last : "Austin",
 	name_middle : "George",
@@ -3471,7 +3604,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "203-133",
+	addr_pcode : "651-496",
 	addr_country : "Swiss",
 	addr_province : "Nevada",
 	addr_city : "Laite",
@@ -3481,10 +3614,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1965-07-16",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 134,
-	photoid : "phonebook_data/profile39.jpg",
+	photoid : "phonebook_data/profile15.jpg",
 	name_first : "Carr",
 	name_last : "Chris",
 	name_middle : "",
@@ -3497,7 +3631,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "885-824",
+	addr_pcode : "795-892",
 	addr_country : "Sweden",
 	addr_province : "Hawaii",
 	addr_city : "L.A.",
@@ -3507,10 +3641,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1965-02-19",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 135,
-	photoid : "phonebook_data/profile23.jpg",
+	photoid : "phonebook_data/profile03.jpg",
 	name_first : "Carr",
 	name_last : "Cory",
 	name_middle : "",
@@ -3523,7 +3658,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "624-716",
+	addr_pcode : "680-712",
 	addr_country : "Sweden",
 	addr_province : "Nevada",
 	addr_city : "Laite",
@@ -3533,10 +3668,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1951-01-21",
 	webaddr : "www.naver.com",
-	note : "  "
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 136,
-	photoid : "phonebook_data/profile22.jpg",
+	photoid : "phonebook_data/profile24.jpg",
 	name_first : "Carr",
 	name_last : "Kenny",
 	name_middle : "",
@@ -3549,7 +3685,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "535-166",
+	addr_pcode : "613-077",
 	addr_country : "Ghana",
 	addr_province : "Taxas",
 	addr_city : "Wonju",
@@ -3559,10 +3695,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1965-10-05",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 137,
-	photoid : "phonebook_data/profile32.jpg",
+	photoid : "phonebook_data/profile13.jpg",
 	name_first : "Carr",
 	name_last : "M.L.",
 	name_middle : "",
@@ -3575,7 +3712,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "199-796",
+	addr_pcode : "778-341",
 	addr_country : "Sweden",
 	addr_province : "Nebraska",
 	addr_city : "Frankfruit",
@@ -3585,10 +3722,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1955-05-27",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 138,
-	photoid : "phonebook_data/profile20.jpg",
+	photoid : "phonebook_data/profile14.jpg",
 	name_first : "Carrington",
 	name_last : "Robert",
 	name_middle : "Frederick",
@@ -3601,7 +3739,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "889-415",
+	addr_pcode : "556-291",
 	addr_country : "Sweden",
 	addr_province : "Arizona",
 	addr_city : "Rome",
@@ -3611,10 +3749,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1956-08-19",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 139,
-	photoid : "phonebook_data/profile31.jpg",
+	photoid : "phonebook_data/profile16.jpg",
 	name_first : "Carroll",
 	name_last : "DeMarre",
 	name_middle : "",
@@ -3627,7 +3766,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "373-528",
+	addr_pcode : "377-110",
 	addr_country : "Swiss",
 	addr_province : "Alaska",
 	addr_city : "Paris",
@@ -3637,10 +3776,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1962-05-24",
 	webaddr : "www.samsungmobile.com",
-	note : "  "
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 140,
-	photoid : "phonebook_data/profile15.jpg",
+	photoid : "phonebook_data/profile20.jpg",
 	name_first : "Carroll",
 	name_last : "Joe Barry",
 	name_middle : "",
@@ -3653,7 +3793,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "664-425",
+	addr_pcode : "857-901",
 	addr_country : "U.S.A",
 	addr_province : "Washington",
 	addr_city : "Kwangju",
@@ -3663,10 +3803,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1961-07-10",
 	webaddr : "www.yahoo.com",
-	note : "  "
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 141,
-	photoid : "phonebook_data/profile28.jpg",
+	photoid : "phonebook_data/profile23.jpg",
 	name_first : "Carroll",
 	name_last : "Matt",
 	name_middle : "",
@@ -3679,7 +3820,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "149-396",
+	addr_pcode : "983-293",
 	addr_country : "France",
 	addr_province : "Hawaii",
 	addr_city : "Rome",
@@ -3689,10 +3830,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1954-09-03",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 142,
-	photoid : "phonebook_data/profile33.jpg",
+	photoid : "phonebook_data/profile09.jpg",
 	name_first : "Carruth",
 	name_last : "Jimmy",
 	name_middle : "",
@@ -3705,7 +3847,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "487-161",
+	addr_pcode : "279-572",
 	addr_country : "Swiss",
 	addr_province : "Taxas",
 	addr_city : "Denver",
@@ -3715,10 +3857,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1970-02-23",
 	webaddr : "www.naver.com",
-	note : "  "
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 143,
-	photoid : "phonebook_data/profile02.jpg",
+	photoid : "phonebook_data/profile06.jpg",
 	name_first : "Carter",
 	name_last : "Anthony",
 	name_middle : "",
@@ -3731,7 +3874,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "506-461",
+	addr_pcode : "974-668",
 	addr_country : "China",
 	addr_province : "Taxas",
 	addr_city : "Daegu",
@@ -3741,10 +3884,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1975-03-09",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 144,
-	photoid : "phonebook_data/profile01.jpg",
+	photoid : "phonebook_data/profile09.jpg",
 	name_first : "Carter",
 	name_last : "Butch",
 	name_middle : "",
@@ -3757,7 +3901,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "165-230",
+	addr_pcode : "120-606",
 	addr_country : "France",
 	addr_province : "Kyunggi",
 	addr_city : "Laite",
@@ -3767,10 +3911,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1973-05-09",
 	webaddr : "www.naver.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 145,
-	photoid : "phonebook_data/profile14.jpg",
+	photoid : "phonebook_data/profile04.jpg",
 	name_first : "Carter",
 	name_last : "Frederick",
 	name_middle : "James",
@@ -3783,7 +3928,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "425-245",
+	addr_pcode : "604-537",
 	addr_country : "Brazil",
 	addr_province : "Oregon",
 	addr_city : "Daegu",
@@ -3793,10 +3938,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1953-04-30",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 146,
-	photoid : "phonebook_data/profile32.jpg",
+	photoid : "phonebook_data/profile07.jpg",
 	name_first : "Carter",
 	name_last : "George",
 	name_middle : "",
@@ -3809,7 +3955,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "793-861",
+	addr_pcode : "486-199",
 	addr_country : "Japan",
 	addr_province : "Hawaii",
 	addr_city : "Kwangju",
@@ -3819,10 +3965,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1964-11-07",
 	webaddr : "www.sec.co.kr",
-	note : "  "
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 147,
-	photoid : "phonebook_data/profile39.jpg",
+	photoid : "phonebook_data/profile23.jpg",
 	name_first : "Carter",
 	name_last : "Howard",
 	name_middle : "",
@@ -3835,7 +3982,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "205-912",
+	addr_pcode : "487-947",
 	addr_country : "France",
 	addr_province : "Nebraska",
 	addr_city : "Huston",
@@ -3845,10 +3992,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1964-01-01",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 148,
-	photoid : "phonebook_data/profile36.jpg",
+	photoid : "phonebook_data/profile19.jpg",
 	name_first : "Carter",
 	name_last : "John",
 	name_middle : "D.",
@@ -3861,7 +4009,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "474-839",
+	addr_pcode : "200-253",
 	addr_country : "Ghana",
 	addr_province : "Idaho",
 	addr_city : "Laite",
@@ -3871,10 +4019,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1975-01-09",
 	webaddr : "www.google.com",
-	note : "  "
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 149,
-	photoid : "phonebook_data/profile35.jpg",
+	photoid : "phonebook_data/profile21.jpg",
 	name_first : "Carter",
 	name_last : "Maurice",
 	name_middle : "",
@@ -3887,7 +4036,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "693-667",
+	addr_pcode : "527-267",
 	addr_country : "Rep.Korea",
 	addr_province : "Nebraska",
 	addr_city : "Paris",
@@ -3897,10 +4046,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1957-06-25",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 150,
-	photoid : "phonebook_data/profile11.jpg",
+	photoid : "phonebook_data/profile02.jpg",
 	name_first : "D'Antoni",
 	name_last : "Michael",
 	name_middle : "Andrew",
@@ -3913,7 +4063,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "456-286",
+	addr_pcode : "415-428",
 	addr_country : "Ghana",
 	addr_province : "Alaska",
 	addr_city : "L.A.",
@@ -3923,10 +4073,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1971-11-17",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 151,
-	photoid : "phonebook_data/profile09.jpg",
+	photoid : "phonebook_data/profile16.jpg",
 	name_first : "Dahler",
 	name_last : "Edward",
 	name_middle : "",
@@ -3939,7 +4090,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "217-654",
+	addr_pcode : "197-484",
 	addr_country : "Swiss",
 	addr_province : "Kangwon",
 	addr_city : "Cebu",
@@ -3949,10 +4100,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1956-01-22",
 	webaddr : "www.sec.co.kr",
-	note : "  "
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 152,
-	photoid : "phonebook_data/profile10.jpg",
+	photoid : "phonebook_data/profile28.jpg",
 	name_first : "Dailey",
 	name_last : "Quintin",
 	name_middle : "",
@@ -3965,7 +4117,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "343-910",
+	addr_pcode : "199-950",
 	addr_country : "Rep.Korea",
 	addr_province : "Kangwon",
 	addr_city : "Rome",
@@ -3975,10 +4127,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1976-09-02",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 153,
-	photoid : "phonebook_data/profile04.jpg",
+	photoid : "phonebook_data/profile28.jpg",
 	name_first : "Dalembert",
 	name_last : "Samuel",
 	name_middle : "",
@@ -3991,7 +4144,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "572-916",
+	addr_pcode : "853-722",
 	addr_country : "Canada",
 	addr_province : "Oregon",
 	addr_city : "Cebu",
@@ -4001,10 +4154,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1958-08-03",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 154,
-	photoid : "phonebook_data/profile01.jpg",
+	photoid : "phonebook_data/profile24.jpg",
 	name_first : "Dallmar",
 	name_last : "Howard",
 	name_middle : "",
@@ -4017,7 +4171,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "177-571",
+	addr_pcode : "733-905",
 	addr_country : "Gaum",
 	addr_province : "Georgia",
 	addr_city : "Kwangju",
@@ -4027,10 +4181,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1953-05-08",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 155,
-	photoid : "phonebook_data/profile09.jpg",
+	photoid : "phonebook_data/profile38.jpg",
 	name_first : "Dampier",
 	name_last : "Erick",
 	name_middle : "",
@@ -4043,7 +4198,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "574-273",
+	addr_pcode : "443-194",
 	addr_country : "Sweden",
 	addr_province : "Pennsylvania",
 	addr_city : "Bangkok",
@@ -4053,10 +4208,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1972-05-08",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 156,
-	photoid : "phonebook_data/profile39.jpg",
+	photoid : "phonebook_data/profile31.jpg",
 	name_first : "Dampier",
 	name_last : "Louie",
 	name_middle : "",
@@ -4069,7 +4225,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "709-652",
+	addr_pcode : "638-567",
 	addr_country : "Gaum",
 	addr_province : "Idaho",
 	addr_city : "Wonju",
@@ -4079,10 +4235,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1956-01-30",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 157,
-	photoid : "phonebook_data/profile29.jpg",
+	photoid : "phonebook_data/profile37.jpg",
 	name_first : "Dandridge",
 	name_last : "Robert",
 	name_middle : "L.",
@@ -4095,7 +4252,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "117-864",
+	addr_pcode : "501-345",
 	addr_country : "Swiss",
 	addr_province : "Arizona",
 	addr_city : "Rome",
@@ -4105,10 +4262,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1971-11-26",
 	webaddr : "www.intel.com",
-	note : "  "
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 158,
-	photoid : "phonebook_data/profile06.jpg",
+	photoid : "phonebook_data/profile30.jpg",
 	name_first : "Daniels",
 	name_last : "Antonio",
 	name_middle : "",
@@ -4121,7 +4279,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "268-459",
+	addr_pcode : "356-070",
 	addr_country : "Swiss",
 	addr_province : "Florida",
 	addr_city : "Cleveland",
@@ -4131,10 +4289,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1964-09-21",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 159,
-	photoid : "phonebook_data/profile15.jpg",
+	photoid : "phonebook_data/profile01.jpg",
 	name_first : "Daniels",
 	name_last : "Erik",
 	name_middle : "",
@@ -4147,7 +4306,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "485-782",
+	addr_pcode : "384-136",
 	addr_country : "France",
 	addr_province : "Washington",
 	addr_city : "Laite",
@@ -4157,10 +4316,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1956-06-09",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 160,
-	photoid : "phonebook_data/profile20.jpg",
+	photoid : "phonebook_data/profile34.jpg",
 	name_first : "Daniels",
 	name_last : "Lloyd",
 	name_middle : "",
@@ -4173,7 +4333,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "878-539",
+	addr_pcode : "703-262",
 	addr_country : "U.S.A",
 	addr_province : "Califonia",
 	addr_city : "Huston",
@@ -4183,10 +4343,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1968-01-25",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 161,
-	photoid : "phonebook_data/profile19.jpg",
+	photoid : "phonebook_data/profile15.jpg",
 	name_first : "Daniels",
 	name_last : "Marquis",
 	name_middle : "",
@@ -4199,7 +4360,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "297-637",
+	addr_pcode : "105-852",
 	addr_country : "France",
 	addr_province : "Florida",
 	addr_city : "Paris",
@@ -4209,10 +4370,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1969-03-25",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 162,
-	photoid : "phonebook_data/profile28.jpg",
+	photoid : "phonebook_data/profile18.jpg",
 	name_first : "Daniels",
 	name_last : "Mel",
 	name_middle : "",
@@ -4225,7 +4387,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "168-333",
+	addr_pcode : "962-738",
 	addr_country : "Ghana",
 	addr_province : "Pennsylvania",
 	addr_city : "Daegu",
@@ -4235,10 +4397,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1959-07-10",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 163,
-	photoid : "phonebook_data/profile13.jpg",
+	photoid : "phonebook_data/profile39.jpg",
 	name_first : "Danilovic",
 	name_last : "Sasha",
 	name_middle : "",
@@ -4251,7 +4414,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "924-878",
+	addr_pcode : "924-338",
 	addr_country : "Swiss",
 	addr_province : "Kangwon",
 	addr_city : "Wonju",
@@ -4261,10 +4424,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1972-02-19",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 164,
-	photoid : "phonebook_data/profile30.jpg",
+	photoid : "phonebook_data/profile15.jpg",
 	name_first : "Dantley",
 	name_last : "Adrian",
 	name_middle : "",
@@ -4277,7 +4441,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "470-167",
+	addr_pcode : "144-179",
 	addr_country : "China",
 	addr_province : "Florida",
 	addr_city : "Laite",
@@ -4287,10 +4451,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1964-08-09",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 165,
-	photoid : "phonebook_data/profile31.jpg",
+	photoid : "phonebook_data/profile23.jpg",
 	name_first : "Darcey",
 	name_last : "Henry",
 	name_middle : "J.",
@@ -4303,7 +4468,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "566-621",
+	addr_pcode : "139-029",
 	addr_country : "Swiss",
 	addr_province : "Washington",
 	addr_city : "Cleveland",
@@ -4313,10 +4478,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1971-10-11",
 	webaddr : "www.daum.net",
-	note : "  "
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 166,
-	photoid : "phonebook_data/profile04.jpg",
+	photoid : "phonebook_data/profile27.jpg",
 	name_first : "Darden",
 	name_last : "James",
 	name_middle : "W.",
@@ -4329,7 +4495,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "306-027",
+	addr_pcode : "726-227",
 	addr_country : "Japan",
 	addr_province : "Alaska",
 	addr_city : "Cleveland",
@@ -4339,10 +4505,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1955-12-23",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 167,
-	photoid : "phonebook_data/profile23.jpg",
+	photoid : "phonebook_data/profile18.jpg",
 	name_first : "Dare",
 	name_last : "Yinka",
 	name_middle : "",
@@ -4355,7 +4522,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "786-516",
+	addr_pcode : "846-866",
 	addr_country : "Japan",
 	addr_province : "Nebraska",
 	addr_city : "Newyork",
@@ -4365,10 +4532,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1959-06-27",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 168,
-	photoid : "phonebook_data/profile13.jpg",
+	photoid : "phonebook_data/profile10.jpg",
 	name_first : "Dark",
 	name_last : "Jesse",
 	name_middle : "L.",
@@ -4381,7 +4549,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "793-860",
+	addr_pcode : "605-138",
 	addr_country : "France",
 	addr_province : "Califonia",
 	addr_city : "L.A.",
@@ -4391,10 +4559,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1958-11-02",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 169,
-	photoid : "phonebook_data/profile22.jpg",
+	photoid : "phonebook_data/profile02.jpg",
 	name_first : "Darrow",
 	name_last : "James",
 	name_middle : "K.",
@@ -4407,7 +4576,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "355-197",
+	addr_pcode : "745-826",
 	addr_country : "China",
 	addr_province : "Hawaii",
 	addr_city : "Wonju",
@@ -4417,10 +4586,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1957-12-25",
 	webaddr : "www.daum.net",
-	note : "  "
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 170,
-	photoid : "phonebook_data/profile17.jpg",
+	photoid : "phonebook_data/profile23.jpg",
 	name_first : "Daugherty",
 	name_last : "Brad",
 	name_middle : "",
@@ -4433,7 +4603,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "188-535",
+	addr_pcode : "223-618",
 	addr_country : "Sweden",
 	addr_province : "Nebraska",
 	addr_city : "Newyork",
@@ -4443,10 +4613,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1965-08-03",
 	webaddr : "www.sec.co.kr",
-	note : "  "
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 171,
-	photoid : "phonebook_data/profile12.jpg",
+	photoid : "phonebook_data/profile14.jpg",
 	name_first : "David",
 	name_last : "Kornel",
 	name_middle : "",
@@ -4459,7 +4630,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "251-365",
+	addr_pcode : "919-083",
 	addr_country : "Swiss",
 	addr_province : "Hawaii",
 	addr_city : "Cleveland",
@@ -4469,10 +4640,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1967-08-10",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 172,
-	photoid : "phonebook_data/profile20.jpg",
+	photoid : "phonebook_data/profile02.jpg",
 	name_first : "Davidson",
 	name_last : "Jermareo",
 	name_middle : "",
@@ -4485,7 +4657,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "593-424",
+	addr_pcode : "395-851",
 	addr_country : "Canada",
 	addr_province : "Oregon",
 	addr_city : "L.A.",
@@ -4495,10 +4667,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1972-04-22",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 173,
-	photoid : "phonebook_data/profile16.jpg",
+	photoid : "phonebook_data/profile17.jpg",
 	name_first : "Davies",
 	name_last : "Robert",
 	name_middle : "Edris",
@@ -4511,7 +4684,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "736-716",
+	addr_pcode : "841-103",
 	addr_country : "China",
 	addr_province : "Washington",
 	addr_city : "Denver",
@@ -4521,10 +4694,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1971-11-04",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 174,
-	photoid : "phonebook_data/profile10.jpg",
+	photoid : "phonebook_data/profile14.jpg",
 	name_first : "Davis",
 	name_last : "Antonio",
 	name_middle : "",
@@ -4537,7 +4711,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "267-493",
+	addr_pcode : "567-635",
 	addr_country : "Gaum",
 	addr_province : "Califonia",
 	addr_city : "Rome",
@@ -4547,10 +4721,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1961-11-06",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 175,
-	photoid : "phonebook_data/profile34.jpg",
+	photoid : "phonebook_data/profile22.jpg",
 	name_first : "Davis",
 	name_last : "Aubrey",
 	name_middle : "D.",
@@ -4563,7 +4738,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "117-338",
+	addr_pcode : "499-272",
 	addr_country : "China",
 	addr_province : "Florida",
 	addr_city : "Cleveland",
@@ -4573,10 +4748,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1956-06-15",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 176,
-	photoid : "phonebook_data/profile31.jpg",
+	photoid : "phonebook_data/profile25.jpg",
 	name_first : "Davis",
 	name_last : "Baron",
 	name_middle : "",
@@ -4589,7 +4765,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "662-296",
+	addr_pcode : "617-861",
 	addr_country : "Japan",
 	addr_province : "Dacota",
 	addr_city : "Bangkok",
@@ -4599,10 +4775,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1961-01-02",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 177,
-	photoid : "phonebook_data/profile09.jpg",
+	photoid : "phonebook_data/profile39.jpg",
 	name_first : "Davis",
 	name_last : "Ben",
 	name_middle : "",
@@ -4615,7 +4792,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "693-004",
+	addr_pcode : "374-739",
 	addr_country : "China",
 	addr_province : "Taxas",
 	addr_city : "Cebu",
@@ -4625,10 +4802,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1966-11-18",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 178,
-	photoid : "phonebook_data/profile10.jpg",
+	photoid : "phonebook_data/profile27.jpg",
 	name_first : "Davis",
 	name_last : "Brad",
 	name_middle : "",
@@ -4641,7 +4819,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "713-902",
+	addr_pcode : "503-565",
 	addr_country : "Gaum",
 	addr_province : "Alaska",
 	addr_city : "Busan",
@@ -4651,10 +4829,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1976-10-25",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 179,
-	photoid : "phonebook_data/profile34.jpg",
+	photoid : "phonebook_data/profile31.jpg",
 	name_first : "Davis",
 	name_last : "Brian",
 	name_middle : "",
@@ -4667,7 +4846,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "467-920",
+	addr_pcode : "552-574",
 	addr_country : "Gaum",
 	addr_province : "Kangwon",
 	addr_city : "Busan",
@@ -4677,10 +4856,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1961-09-14",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 180,
-	photoid : "phonebook_data/profile35.jpg",
+	photoid : "phonebook_data/profile02.jpg",
 	name_first : "Davis",
 	name_last : "Charles",
 	name_middle : "Lawrence",
@@ -4693,7 +4873,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "927-814",
+	addr_pcode : "500-519",
 	addr_country : "Ghana",
 	addr_province : "Washington",
 	addr_city : "Cleveland",
@@ -4703,10 +4883,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1951-02-13",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFG"
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 181,
-	photoid : "phonebook_data/profile09.jpg",
+	photoid : "phonebook_data/profile33.jpg",
 	name_first : "Davis",
 	name_last : "Charlie",
 	name_middle : "E.",
@@ -4719,7 +4900,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "366-215",
+	addr_pcode : "105-334",
 	addr_country : "Canada",
 	addr_province : "Califonia",
 	addr_city : "Wonju",
@@ -4729,10 +4910,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1974-11-11",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 182,
-	photoid : "phonebook_data/profile10.jpg",
+	photoid : "phonebook_data/profile25.jpg",
 	name_first : "Davis",
 	name_last : "Dale",
 	name_middle : "",
@@ -4745,7 +4927,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "374-542",
+	addr_pcode : "183-877",
 	addr_country : "Swiss",
 	addr_province : "Oregon",
 	addr_city : "Daegu",
@@ -4755,10 +4937,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1956-05-27",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 183,
-	photoid : "phonebook_data/profile33.jpg",
+	photoid : "phonebook_data/profile23.jpg",
 	name_first : "Davis",
 	name_last : "Damon",
 	name_middle : "William",
@@ -4771,7 +4954,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "976-685",
+	addr_pcode : "401-352",
 	addr_country : "France",
 	addr_province : "Hawaii",
 	addr_city : "Cleveland",
@@ -4781,10 +4964,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1974-10-11",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 184,
-	photoid : "phonebook_data/profile11.jpg",
+	photoid : "phonebook_data/profile29.jpg",
 	name_first : "Davis",
 	name_last : "Dwight",
 	name_middle : "E.",
@@ -4797,7 +4981,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "968-949",
+	addr_pcode : "179-755",
 	addr_country : "Gaum",
 	addr_province : "Califonia",
 	addr_city : "Bangkok",
@@ -4807,10 +4991,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1959-10-14",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 185,
-	photoid : "phonebook_data/profile37.jpg",
+	photoid : "phonebook_data/profile13.jpg",
 	name_first : "Davis",
 	name_last : "Ed",
 	name_middle : "",
@@ -4823,7 +5008,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "871-627",
+	addr_pcode : "555-663",
 	addr_country : "Swiss",
 	addr_province : "Alaska",
 	addr_city : "Denver",
@@ -4833,10 +5018,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1957-11-08",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 186,
-	photoid : "phonebook_data/profile16.jpg",
+	photoid : "phonebook_data/profile20.jpg",
 	name_first : "Davis",
 	name_last : "Edward",
 	name_middle : "J.",
@@ -4849,7 +5035,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "533-442",
+	addr_pcode : "974-445",
 	addr_country : "China",
 	addr_province : "Washington",
 	addr_city : "Paris",
@@ -4859,10 +5045,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1974-02-19",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 187,
-	photoid : "phonebook_data/profile37.jpg",
+	photoid : "phonebook_data/profile28.jpg",
 	name_first : "Davis",
 	name_last : "Emanual",
 	name_middle : "",
@@ -4875,7 +5062,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "690-706",
+	addr_pcode : "688-358",
 	addr_country : "China",
 	addr_province : "Arizona",
 	addr_city : "Bangkok",
@@ -4885,10 +5072,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1964-05-21",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 188,
-	photoid : "phonebook_data/profile01.jpg",
+	photoid : "phonebook_data/profile18.jpg",
 	name_first : "Davis",
 	name_last : "Glen",
 	name_middle : "",
@@ -4901,7 +5089,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "634-380",
+	addr_pcode : "590-325",
 	addr_country : "Canada",
 	addr_province : "Washington",
 	addr_city : "Rome",
@@ -4911,10 +5099,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1971-09-17",
 	webaddr : "www.intel.com",
-	note : "  "
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 189,
-	photoid : "phonebook_data/profile28.jpg",
+	photoid : "phonebook_data/profile05.jpg",
 	name_first : "Davis",
 	name_last : "Harry",
 	name_middle : "A.",
@@ -4927,7 +5116,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "567-317",
+	addr_pcode : "337-647",
 	addr_country : "Swiss",
 	addr_province : "Dacota",
 	addr_city : "Paris",
@@ -4937,10 +5126,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1974-07-11",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 190,
-	photoid : "phonebook_data/profile30.jpg",
+	photoid : "phonebook_data/profile17.jpg",
 	name_first : "Davis",
 	name_last : "Hubert",
 	name_middle : "",
@@ -4953,7 +5143,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "947-961",
+	addr_pcode : "881-844",
 	addr_country : "China",
 	addr_province : "Taxas",
 	addr_city : "Cleveland",
@@ -4963,10 +5153,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1976-09-17",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 191,
-	photoid : "phonebook_data/profile13.jpg",
+	photoid : "phonebook_data/profile18.jpg",
 	name_first : "Davis",
 	name_last : "James",
 	name_middle : "R.",
@@ -4979,7 +5170,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "593-431",
+	addr_pcode : "103-472",
 	addr_country : "Sweden",
 	addr_province : "Nevada",
 	addr_city : "Bangkok",
@@ -4989,10 +5180,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1968-08-29",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 192,
-	photoid : "phonebook_data/profile34.jpg",
+	photoid : "phonebook_data/profile17.jpg",
 	name_first : "Davis",
 	name_last : "James",
 	name_middle : "W.",
@@ -5005,7 +5197,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "181-606",
+	addr_pcode : "120-580",
 	addr_country : "Canada",
 	addr_province : "Kyunggi",
 	addr_city : "Kwangju",
@@ -5015,10 +5207,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1976-06-26",
 	webaddr : "www.daum.net",
-	note : "  "
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 193,
-	photoid : "phonebook_data/profile28.jpg",
+	photoid : "phonebook_data/profile10.jpg",
 	name_first : "Davis",
 	name_last : "Johnny",
 	name_middle : "",
@@ -5031,7 +5224,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "282-127",
+	addr_pcode : "194-755",
 	addr_country : "Japan",
 	addr_province : "Nebraska",
 	addr_city : "Busan",
@@ -5041,10 +5234,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1952-10-18",
 	webaddr : "www.intel.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 194,
-	photoid : "phonebook_data/profile19.jpg",
+	photoid : "phonebook_data/profile14.jpg",
 	name_first : "Davis",
 	name_last : "Josh",
 	name_middle : "",
@@ -5057,7 +5251,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "795-075",
+	addr_pcode : "367-834",
 	addr_country : "Gaum",
 	addr_province : "Dacota",
 	addr_city : "Laite",
@@ -5067,10 +5261,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1959-07-30",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 195,
-	photoid : "phonebook_data/profile10.jpg",
+	photoid : "phonebook_data/profile25.jpg",
 	name_first : "Davis",
 	name_last : "Mark",
 	name_middle : "",
@@ -5083,7 +5278,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "416-570",
+	addr_pcode : "467-198",
 	addr_country : "Canada",
 	addr_province : "Califonia",
 	addr_city : "Cebu",
@@ -5093,10 +5288,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1960-05-13",
 	webaddr : "www.daum.net",
-	note : "  "
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 196,
-	photoid : "phonebook_data/profile14.jpg",
+	photoid : "phonebook_data/profile02.jpg",
 	name_first : "Davis",
 	name_last : "Mark",
 	name_middle : "",
@@ -5109,7 +5305,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "333-837",
+	addr_pcode : "267-953",
 	addr_country : "Brazil",
 	addr_province : "Nebraska",
 	addr_city : "Daegu",
@@ -5119,10 +5315,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1963-04-08",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 197,
-	photoid : "phonebook_data/profile04.jpg",
+	photoid : "phonebook_data/profile23.jpg",
 	name_first : "Davis",
 	name_last : "Melvyn",
 	name_middle : "Jerome",
@@ -5135,7 +5332,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "596-219",
+	addr_pcode : "175-335",
 	addr_country : "France",
 	addr_province : "Nevada",
 	addr_city : "Kwangju",
@@ -5145,10 +5342,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1953-02-16",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 198,
-	photoid : "phonebook_data/profile13.jpg",
+	photoid : "phonebook_data/profile01.jpg",
 	name_first : "Davis",
 	name_last : "Michael",
 	name_middle : "",
@@ -5161,7 +5359,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "170-613",
+	addr_pcode : "509-267",
 	addr_country : "France",
 	addr_province : "Pennsylvania",
 	addr_city : "Paris",
@@ -5171,10 +5369,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1972-11-01",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 199,
-	photoid : "phonebook_data/profile22.jpg",
+	photoid : "phonebook_data/profile30.jpg",
 	name_first : "Davis",
 	name_last : "Michael",
 	name_middle : "A.",
@@ -5187,7 +5386,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "110-835",
+	addr_pcode : "472-926",
 	addr_country : "Japan",
 	addr_province : "Georgia",
 	addr_city : "Frankfruit",
@@ -5197,10 +5396,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1967-09-06",
 	webaddr : "www.daum.net",
-	note : "  "
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 200,
-	photoid : "phonebook_data/profile14.jpg",
+	photoid : "phonebook_data/profile06.jpg",
 	name_first : "Eackles",
 	name_last : "Ledell",
 	name_middle : "",
@@ -5213,7 +5413,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "350-311",
+	addr_pcode : "283-038",
 	addr_country : "Canada",
 	addr_province : "Georgia",
 	addr_city : "Kwangju",
@@ -5223,10 +5423,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1960-03-01",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 201,
-	photoid : "phonebook_data/profile23.jpg",
+	photoid : "phonebook_data/profile09.jpg",
 	name_first : "Eakins",
 	name_last : "James",
 	name_middle : "Scott",
@@ -5239,7 +5440,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "581-375",
+	addr_pcode : "397-621",
 	addr_country : "China",
 	addr_province : "Idaho",
 	addr_city : "Laite",
@@ -5249,10 +5450,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1960-03-13",
 	webaddr : "www.intel.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 202,
-	photoid : "phonebook_data/profile21.jpg",
+	photoid : "phonebook_data/profile34.jpg",
 	name_first : "Earl",
 	name_last : "Acie",
 	name_middle : "",
@@ -5265,7 +5467,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "933-106",
+	addr_pcode : "546-074",
 	addr_country : "Brazil",
 	addr_province : "Washington",
 	addr_city : "Denver",
@@ -5275,10 +5477,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1963-06-29",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 203,
-	photoid : "phonebook_data/profile18.jpg",
+	photoid : "phonebook_data/profile14.jpg",
 	name_first : "Earle",
 	name_last : "Edwin",
 	name_middle : "",
@@ -5291,7 +5494,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "793-876",
+	addr_pcode : "162-220",
 	addr_country : "Rep.Korea",
 	addr_province : "Idaho",
 	addr_city : "Sanghai",
@@ -5301,10 +5504,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1950-04-03",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 204,
-	photoid : "phonebook_data/profile07.jpg",
+	photoid : "phonebook_data/profile22.jpg",
 	name_first : "Eaton",
 	name_last : "Mark",
 	name_middle : "",
@@ -5317,7 +5521,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "904-827",
+	addr_pcode : "895-434",
 	addr_country : "Japan",
 	addr_province : "Florida",
 	addr_city : "Huston",
@@ -5327,10 +5531,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1951-11-07",
 	webaddr : "www.yahoo.com",
-	note : "  "
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 205,
-	photoid : "phonebook_data/profile33.jpg",
+	photoid : "phonebook_data/profile28.jpg",
 	name_first : "Eaves",
 	name_last : "Jerry",
 	name_middle : "",
@@ -5343,7 +5548,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "429-623",
+	addr_pcode : "866-358",
 	addr_country : "Sweden",
 	addr_province : "Kyunggi",
 	addr_city : "Cleveland",
@@ -5353,10 +5558,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1950-06-18",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 206,
-	photoid : "phonebook_data/profile40.jpg",
+	photoid : "phonebook_data/profile24.jpg",
 	name_first : "Ebanks",
 	name_last : "Devin",
 	name_middle : "",
@@ -5369,7 +5575,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "690-250",
+	addr_pcode : "381-365",
 	addr_country : "China",
 	addr_province : "Kangwon",
 	addr_city : "Cleveland",
@@ -5379,10 +5585,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1950-01-15",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 207,
-	photoid : "phonebook_data/profile28.jpg",
+	photoid : "phonebook_data/profile32.jpg",
 	name_first : "Ebben",
 	name_last : "William",
 	name_middle : "Edward",
@@ -5395,7 +5602,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "514-271",
+	addr_pcode : "763-396",
 	addr_country : "U.S.A",
 	addr_province : "Oregon",
 	addr_city : "Paris",
@@ -5405,10 +5612,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1975-07-29",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 208,
-	photoid : "phonebook_data/profile36.jpg",
+	photoid : "phonebook_data/profile38.jpg",
 	name_first : "Eberhard",
 	name_last : "Allen",
 	name_middle : "Dean",
@@ -5421,7 +5629,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "857-334",
+	addr_pcode : "535-567",
 	addr_country : "Gaum",
 	addr_province : "Nebraska",
 	addr_city : "Laite",
@@ -5431,10 +5639,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1953-03-25",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 209,
-	photoid : "phonebook_data/profile20.jpg",
+	photoid : "phonebook_data/profile12.jpg",
 	name_first : "Ebi",
 	name_last : "Ndudi",
 	name_middle : "",
@@ -5447,7 +5656,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "448-204",
+	addr_pcode : "703-077",
 	addr_country : "Brazil",
 	addr_province : "Hawaii",
 	addr_city : "Cebu",
@@ -5457,10 +5666,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1972-06-04",
 	webaddr : "www.samsungmobile.com",
-	note : "  "
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 210,
-	photoid : "phonebook_data/profile33.jpg",
+	photoid : "phonebook_data/profile01.jpg",
 	name_first : "Eddie",
 	name_last : "Patrick",
 	name_middle : "",
@@ -5473,7 +5683,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "688-896",
+	addr_pcode : "433-436",
 	addr_country : "Canada",
 	addr_province : "Oregon",
 	addr_city : "Bangkok",
@@ -5483,10 +5693,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1951-07-01",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 211,
-	photoid : "phonebook_data/profile24.jpg",
+	photoid : "phonebook_data/profile09.jpg",
 	name_first : "Eddleman",
 	name_last : "Thomas",
 	name_middle : "Dwight",
@@ -5499,7 +5710,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "216-348",
+	addr_pcode : "532-839",
 	addr_country : "France",
 	addr_province : "Pennsylvania",
 	addr_city : "Rome",
@@ -5509,10 +5720,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1951-05-09",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 212,
-	photoid : "phonebook_data/profile18.jpg",
+	photoid : "phonebook_data/profile33.jpg",
 	name_first : "Edelin",
 	name_last : "Kenton",
 	name_middle : "Scott",
@@ -5525,7 +5737,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "506-165",
+	addr_pcode : "659-480",
 	addr_country : "Canada",
 	addr_province : "Washington",
 	addr_city : "Sanghai",
@@ -5535,10 +5747,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1975-03-05",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 213,
-	photoid : "phonebook_data/profile25.jpg",
+	photoid : "phonebook_data/profile34.jpg",
 	name_first : "Edmonson",
 	name_last : "Keith",
 	name_middle : "",
@@ -5551,7 +5764,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "794-300",
+	addr_pcode : "995-596",
 	addr_country : "Brazil",
 	addr_province : "Taxas",
 	addr_city : "Sanghai",
@@ -5561,7 +5774,8 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1968-04-19",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 214,
 	photoid : "phonebook_data/profile25.jpg",
@@ -5577,7 +5791,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "277-982",
+	addr_pcode : "526-694",
 	addr_country : "Swiss",
 	addr_province : "Kangwon",
 	addr_city : "Huston",
@@ -5587,10 +5801,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1952-01-25",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 215,
-	photoid : "phonebook_data/profile22.jpg",
+	photoid : "phonebook_data/profile13.jpg",
 	name_first : "Edwards",
 	name_last : "Bill",
 	name_middle : "",
@@ -5603,7 +5818,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "905-457",
+	addr_pcode : "711-722",
 	addr_country : "Canada",
 	addr_province : "Washington",
 	addr_city : "Denver",
@@ -5613,10 +5828,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1963-07-21",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 216,
-	photoid : "phonebook_data/profile05.jpg",
+	photoid : "phonebook_data/profile32.jpg",
 	name_first : "Edwards",
 	name_last : "Blue",
 	name_middle : "",
@@ -5629,7 +5845,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "842-042",
+	addr_pcode : "441-849",
 	addr_country : "Gaum",
 	addr_province : "Hawaii",
 	addr_city : "Cleveland",
@@ -5639,7 +5855,8 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1962-10-24",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 217,
 	photoid : "phonebook_data/profile33.jpg",
@@ -5655,7 +5872,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "385-866",
+	addr_pcode : "713-583",
 	addr_country : "Sweden",
 	addr_province : "Idaho",
 	addr_city : "Laite",
@@ -5665,10 +5882,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1957-02-26",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 218,
-	photoid : "phonebook_data/profile27.jpg",
+	photoid : "phonebook_data/profile32.jpg",
 	name_first : "Edwards",
 	name_last : "Doug",
 	name_middle : "",
@@ -5681,7 +5899,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "672-511",
+	addr_pcode : "965-893",
 	addr_country : "Japan",
 	addr_province : "Taxas",
 	addr_city : "Cebu",
@@ -5691,10 +5909,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1959-05-13",
 	webaddr : "www.intel.com",
-	note : "  "
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 219,
-	photoid : "phonebook_data/profile02.jpg",
+	photoid : "phonebook_data/profile11.jpg",
 	name_first : "Edwards",
 	name_last : "Franklin",
 	name_middle : "",
@@ -5707,7 +5926,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "393-799",
+	addr_pcode : "466-114",
 	addr_country : "Brazil",
 	addr_province : "Oregon",
 	addr_city : "Cebu",
@@ -5717,10 +5936,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1952-10-26",
 	webaddr : "www.sec.co.kr",
-	note : "  "
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 220,
-	photoid : "phonebook_data/profile23.jpg",
+	photoid : "phonebook_data/profile17.jpg",
 	name_first : "Edwards",
 	name_last : "James",
 	name_middle : "",
@@ -5733,7 +5953,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "743-554",
+	addr_pcode : "773-291",
 	addr_country : "Gaum",
 	addr_province : "Arizona",
 	addr_city : "Cleveland",
@@ -5743,10 +5963,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1954-06-08",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 221,
-	photoid : "phonebook_data/profile29.jpg",
+	photoid : "phonebook_data/profile09.jpg",
 	name_first : "Edwards",
 	name_last : "Jay",
 	name_middle : "",
@@ -5759,7 +5980,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "797-768",
+	addr_pcode : "157-163",
 	addr_country : "Sweden",
 	addr_province : "Kangwon",
 	addr_city : "Newyork",
@@ -5769,10 +5990,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1962-08-02",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 222,
-	photoid : "phonebook_data/profile17.jpg",
+	photoid : "phonebook_data/profile31.jpg",
 	name_first : "Edwards",
 	name_last : "John",
 	name_middle : "",
@@ -5785,7 +6007,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "354-334",
+	addr_pcode : "758-698",
 	addr_country : "France",
 	addr_province : "Dacota",
 	addr_city : "Sanghai",
@@ -5795,10 +6017,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1970-05-27",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 223,
-	photoid : "phonebook_data/profile21.jpg",
+	photoid : "phonebook_data/profile32.jpg",
 	name_first : "Edwards",
 	name_last : "Kevin",
 	name_middle : "",
@@ -5811,7 +6034,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "893-020",
+	addr_pcode : "364-605",
 	addr_country : "Gaum",
 	addr_province : "Nebraska",
 	addr_city : "Paris",
@@ -5821,10 +6044,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1967-02-20",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 224,
-	photoid : "phonebook_data/profile24.jpg",
+	photoid : "phonebook_data/profile33.jpg",
 	name_first : "Egan",
 	name_last : "John Francis (Johnny)",
 	name_middle : "",
@@ -5837,7 +6061,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "860-709",
+	addr_pcode : "148-508",
 	addr_country : "U.S.A",
 	addr_province : "Washington",
 	addr_city : "Paris",
@@ -5847,10 +6071,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1963-11-08",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 225,
-	photoid : "phonebook_data/profile18.jpg",
+	photoid : "phonebook_data/profile27.jpg",
 	name_first : "Eggleston",
 	name_last : "Lonnie J.",
 	name_middle : "",
@@ -5863,7 +6088,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "833-512",
+	addr_pcode : "188-615",
 	addr_country : "Swiss",
 	addr_province : "Idaho",
 	addr_city : "Rome",
@@ -5873,10 +6098,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1961-01-28",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 226,
-	photoid : "phonebook_data/profile03.jpg",
+	photoid : "phonebook_data/profile04.jpg",
 	name_first : "Ehlers",
 	name_last : "Edwin S. (Eddie, Bulbs)",
 	name_middle : "",
@@ -5889,7 +6115,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "957-030",
+	addr_pcode : "234-193",
 	addr_country : "Rep.Korea",
 	addr_province : "Dacota",
 	addr_city : "Newyork",
@@ -5899,10 +6125,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1974-05-29",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 227,
-	photoid : "phonebook_data/profile11.jpg",
+	photoid : "phonebook_data/profile07.jpg",
 	name_first : "Ehlo",
 	name_last : "Craig",
 	name_middle : "",
@@ -5915,7 +6142,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "664-602",
+	addr_pcode : "262-042",
 	addr_country : "Japan",
 	addr_province : "Idaho",
 	addr_city : "Wonju",
@@ -5925,10 +6152,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1951-02-23",
 	webaddr : "www.naver.com",
-	note : "  "
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 228,
-	photoid : "phonebook_data/profile16.jpg",
+	photoid : "phonebook_data/profile20.jpg",
 	name_first : "Eichhorst",
 	name_last : "Richard A. (Dick)",
 	name_middle : "",
@@ -5941,7 +6169,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "873-614",
+	addr_pcode : "180-185",
 	addr_country : "Ghana",
 	addr_province : "Kyunggi",
 	addr_city : "Bangkok",
@@ -5951,10 +6179,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1968-02-08",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 229,
-	photoid : "phonebook_data/profile26.jpg",
+	photoid : "phonebook_data/profile34.jpg",
 	name_first : "Eisley",
 	name_last : "Howard",
 	name_middle : "",
@@ -5967,7 +6196,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "871-802",
+	addr_pcode : "526-372",
 	addr_country : "China",
 	addr_province : "Nevada",
 	addr_city : "Denver",
@@ -5977,10 +6206,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1958-07-20",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 230,
-	photoid : "phonebook_data/profile09.jpg",
+	photoid : "phonebook_data/profile05.jpg",
 	name_first : "Ekezie",
 	name_last : "Obinna",
 	name_middle : "",
@@ -5993,7 +6223,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "646-487",
+	addr_pcode : "432-283",
 	addr_country : "Gaum",
 	addr_province : "Nebraska",
 	addr_city : "Kwangju",
@@ -6003,10 +6233,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1970-07-17",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 231,
-	photoid : "phonebook_data/profile03.jpg",
+	photoid : "phonebook_data/profile11.jpg",
 	name_first : "El-Amin",
 	name_last : "Khalid",
 	name_middle : "",
@@ -6019,7 +6250,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "255-106",
+	addr_pcode : "512-457",
 	addr_country : "Sweden",
 	addr_province : "Georgia",
 	addr_city : "Bangkok",
@@ -6029,10 +6260,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1957-01-26",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 232,
-	photoid : "phonebook_data/profile33.jpg",
+	photoid : "phonebook_data/profile08.jpg",
 	name_first : "Eliason",
 	name_last : "Donald Carlton (Don)",
 	name_middle : "",
@@ -6045,7 +6277,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "387-199",
+	addr_pcode : "718-829",
 	addr_country : "China",
 	addr_province : "Alaska",
 	addr_city : "L.A.",
@@ -6055,10 +6287,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1961-08-01",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 233,
-	photoid : "phonebook_data/profile39.jpg",
+	photoid : "phonebook_data/profile09.jpg",
 	name_first : "Elie",
 	name_last : "Mario",
 	name_middle : "",
@@ -6071,7 +6304,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "257-813",
+	addr_pcode : "165-402",
 	addr_country : "France",
 	addr_province : "Hawaii",
 	addr_city : "Denver",
@@ -6081,10 +6314,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1952-05-07",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 234,
-	photoid : "phonebook_data/profile33.jpg",
+	photoid : "phonebook_data/profile23.jpg",
 	name_first : "Ellefson",
 	name_last : "E. Ray (Ray)",
 	name_middle : "",
@@ -6097,7 +6331,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "701-720",
+	addr_pcode : "533-843",
 	addr_country : "China",
 	addr_province : "Califonia",
 	addr_city : "Cleveland",
@@ -6107,10 +6341,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1953-08-06",
 	webaddr : "www.google.com",
-	note : "  "
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 235,
-	photoid : "phonebook_data/profile12.jpg",
+	photoid : "phonebook_data/profile07.jpg",
 	name_first : "Ellington",
 	name_last : "Wayne",
 	name_middle : "",
@@ -6123,7 +6358,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "906-073",
+	addr_pcode : "222-277",
 	addr_country : "Canada",
 	addr_province : "Alaska",
 	addr_city : "Cebu",
@@ -6133,10 +6368,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1959-08-07",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 236,
-	photoid : "phonebook_data/profile30.jpg",
+	photoid : "phonebook_data/profile31.jpg",
 	name_first : "Elliott",
 	name_last : "Robert Alan (Bob)",
 	name_middle : "",
@@ -6149,7 +6385,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "754-767",
+	addr_pcode : "151-473",
 	addr_country : "Swiss",
 	addr_province : "Alaska",
 	addr_city : "Rome",
@@ -6159,10 +6395,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1962-06-03",
 	webaddr : "www.daum.net",
-	note : "  "
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 237,
-	photoid : "phonebook_data/profile06.jpg",
+	photoid : "phonebook_data/profile35.jpg",
 	name_first : "Elliott",
 	name_last : "Sean",
 	name_middle : "",
@@ -6175,7 +6412,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "324-889",
+	addr_pcode : "891-977",
 	addr_country : "France",
 	addr_province : "Washington",
 	addr_city : "Newyork",
@@ -6185,10 +6422,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1976-07-11",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 238,
-	photoid : "phonebook_data/profile21.jpg",
+	photoid : "phonebook_data/profile12.jpg",
 	name_first : "Ellis",
 	name_last : "Alexander (Boo)",
 	name_middle : "",
@@ -6201,7 +6439,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "785-330",
+	addr_pcode : "258-340",
 	addr_country : "U.S.A",
 	addr_province : "Pennsylvania",
 	addr_city : "Wonju",
@@ -6211,10 +6449,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1956-12-29",
 	webaddr : "www.sec.co.kr",
-	note : "  "
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 239,
-	photoid : "phonebook_data/profile36.jpg",
+	photoid : "phonebook_data/profile31.jpg",
 	name_first : "Ellis",
 	name_last : "Dale",
 	name_middle : "",
@@ -6227,7 +6466,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "464-303",
+	addr_pcode : "238-180",
 	addr_country : "China",
 	addr_province : "Taxas",
 	addr_city : "Rome",
@@ -6237,10 +6476,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1976-10-17",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 240,
-	photoid : "phonebook_data/profile39.jpg",
+	photoid : "phonebook_data/profile07.jpg",
 	name_first : "Ellis",
 	name_last : "Harold",
 	name_middle : "",
@@ -6253,7 +6493,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "397-789",
+	addr_pcode : "228-479",
 	addr_country : "Canada",
 	addr_province : "Arizona",
 	addr_city : "Denver",
@@ -6263,10 +6503,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1967-10-08",
 	webaddr : "www.google.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 241,
-	photoid : "phonebook_data/profile20.jpg",
+	photoid : "phonebook_data/profile23.jpg",
 	name_first : "Ellis",
 	name_last : "Joe",
 	name_middle : "",
@@ -6279,7 +6520,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "696-625",
+	addr_pcode : "479-239",
 	addr_country : "Canada",
 	addr_province : "Oregon",
 	addr_city : "Busan",
@@ -6289,10 +6530,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1973-07-13",
 	webaddr : "www.naver.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 242,
-	photoid : "phonebook_data/profile06.jpg",
+	photoid : "phonebook_data/profile09.jpg",
 	name_first : "Ellis",
 	name_last : "LaPhonso",
 	name_middle : "",
@@ -6305,7 +6547,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "578-763",
+	addr_pcode : "747-326",
 	addr_country : "Rep.Korea",
 	addr_province : "Florida",
 	addr_city : "Cebu",
@@ -6315,10 +6557,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1950-04-30",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 243,
-	photoid : "phonebook_data/profile08.jpg",
+	photoid : "phonebook_data/profile31.jpg",
 	name_first : "Ellis",
 	name_last : "LeRon",
 	name_middle : "",
@@ -6331,7 +6574,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "199-551",
+	addr_pcode : "128-313",
 	addr_country : "Gaum",
 	addr_province : "Washington",
 	addr_city : "Denver",
@@ -6341,10 +6584,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1969-05-08",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 244,
-	photoid : "phonebook_data/profile26.jpg",
+	photoid : "phonebook_data/profile03.jpg",
 	name_first : "Ellis",
 	name_last : "Leroy",
 	name_middle : "",
@@ -6357,7 +6601,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "984-889",
+	addr_pcode : "184-543",
 	addr_country : "Brazil",
 	addr_province : "Califonia",
 	addr_city : "Paris",
@@ -6367,10 +6611,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1963-06-23",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 245,
-	photoid : "phonebook_data/profile04.jpg",
+	photoid : "phonebook_data/profile02.jpg",
 	name_first : "Ellis",
 	name_last : "Maurice H. (Bo)",
 	name_middle : "",
@@ -6383,7 +6628,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "605-585",
+	addr_pcode : "591-086",
 	addr_country : "Brazil",
 	addr_province : "Florida",
 	addr_city : "Cebu",
@@ -6393,10 +6638,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1968-08-17",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 246,
-	photoid : "phonebook_data/profile08.jpg",
+	photoid : "phonebook_data/profile26.jpg",
 	name_first : "Ellis",
 	name_last : "Monta",
 	name_middle : "",
@@ -6409,7 +6655,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "371-384",
+	addr_pcode : "131-986",
 	addr_country : "Ghana",
 	addr_province : "Taxas",
 	addr_city : "Laite",
@@ -6419,10 +6665,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1960-04-09",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 247,
-	photoid : "phonebook_data/profile13.jpg",
+	photoid : "phonebook_data/profile28.jpg",
 	name_first : "Ellison",
 	name_last : "Pervis",
 	name_middle : "",
@@ -6435,7 +6682,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "537-247",
+	addr_pcode : "761-051",
 	addr_country : "Sweden",
 	addr_province : "Oregon",
 	addr_city : "Busan",
@@ -6445,10 +6692,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1955-10-03",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 248,
-	photoid : "phonebook_data/profile38.jpg",
+	photoid : "phonebook_data/profile07.jpg",
 	name_first : "Elmore",
 	name_last : "Len",
 	name_middle : "",
@@ -6461,7 +6709,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "383-036",
+	addr_pcode : "987-147",
 	addr_country : "U.S.A",
 	addr_province : "Arizona",
 	addr_city : "Rome",
@@ -6471,10 +6719,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1954-07-18",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 249,
-	photoid : "phonebook_data/profile01.jpg",
+	photoid : "phonebook_data/profile07.jpg",
 	name_first : "Elson",
 	name_last : "Francisco",
 	name_middle : "",
@@ -6487,7 +6736,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "301-466",
+	addr_pcode : "875-789",
 	addr_country : "France",
 	addr_province : "Dacota",
 	addr_city : "Busan",
@@ -6497,10 +6746,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1958-08-28",
 	webaddr : "www.sec.co.kr",
-	note : "  "
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 250,
-	photoid : "phonebook_data/profile23.jpg",
+	photoid : "phonebook_data/profile28.jpg",
 	name_first : "Fabel",
 	name_last : "Joseph (Joe)",
 	name_middle : "",
@@ -6513,7 +6763,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "464-964",
+	addr_pcode : "102-224",
 	addr_country : "China",
 	addr_province : "Florida",
 	addr_city : "Rome",
@@ -6523,10 +6773,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1952-07-26",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 251,
-	photoid : "phonebook_data/profile28.jpg",
+	photoid : "phonebook_data/profile06.jpg",
 	name_first : "Fairchild",
 	name_last : "John Russell",
 	name_middle : "",
@@ -6539,7 +6790,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "215-620",
+	addr_pcode : "250-957",
 	addr_country : "Rep.Korea",
 	addr_province : "Nebraska",
 	addr_city : "Kwangju",
@@ -6549,10 +6800,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1959-05-26",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 252,
-	photoid : "phonebook_data/profile27.jpg",
+	photoid : "phonebook_data/profile15.jpg",
 	name_first : "Farbman",
 	name_last : "Philip M. (Phil)",
 	name_middle : "",
@@ -6565,7 +6817,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "784-445",
+	addr_pcode : "640-520",
 	addr_country : "Gaum",
 	addr_province : "Kyunggi",
 	addr_city : "Paris",
@@ -6575,10 +6827,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1956-05-05",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 253,
-	photoid : "phonebook_data/profile33.jpg",
+	photoid : "phonebook_data/profile31.jpg",
 	name_first : "Farley",
 	name_last : "Richard L. (Dick)",
 	name_middle : "",
@@ -6591,7 +6844,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "603-401",
+	addr_pcode : "438-759",
 	addr_country : "China",
 	addr_province : "Kyunggi",
 	addr_city : "Cebu",
@@ -6601,10 +6854,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1967-02-27",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 254,
-	photoid : "phonebook_data/profile09.jpg",
+	photoid : "phonebook_data/profile37.jpg",
 	name_first : "Farmar",
 	name_last : "Jordan",
 	name_middle : "",
@@ -6617,7 +6871,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "340-130",
+	addr_pcode : "789-317",
 	addr_country : "France",
 	addr_province : "Idaho",
 	addr_city : "Sanghai",
@@ -6627,10 +6881,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1954-12-27",
 	webaddr : "www.yahoo.com",
-	note : "  "
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 255,
-	photoid : "phonebook_data/profile05.jpg",
+	photoid : "phonebook_data/profile36.jpg",
 	name_first : "Farmer",
 	name_last : "Desmon",
 	name_middle : "",
@@ -6643,7 +6898,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "612-051",
+	addr_pcode : "785-801",
 	addr_country : "Brazil",
 	addr_province : "Arizona",
 	addr_city : "L.A.",
@@ -6653,10 +6908,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1973-08-17",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 256,
-	photoid : "phonebook_data/profile06.jpg",
+	photoid : "phonebook_data/profile30.jpg",
 	name_first : "Farmer",
 	name_last : "Don Michael (Mike)",
 	name_middle : "",
@@ -6669,7 +6925,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "186-288",
+	addr_pcode : "910-834",
 	addr_country : "Canada",
 	addr_province : "Hawaii",
 	addr_city : "Daegu",
@@ -6679,10 +6935,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1951-08-16",
 	webaddr : "www.samsungmobile.com",
-	note : "  "
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 257,
-	photoid : "phonebook_data/profile36.jpg",
+	photoid : "phonebook_data/profile20.jpg",
 	name_first : "Farmer",
 	name_last : "Jim",
 	name_middle : "",
@@ -6695,7 +6952,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "903-210",
+	addr_pcode : "662-776",
 	addr_country : "Canada",
 	addr_province : "Alaska",
 	addr_city : "Kwangju",
@@ -6705,10 +6962,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1956-10-02",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 258,
-	photoid : "phonebook_data/profile09.jpg",
+	photoid : "phonebook_data/profile16.jpg",
 	name_first : "Farmer",
 	name_last : "Tony",
 	name_middle : "",
@@ -6721,7 +6979,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "189-001",
+	addr_pcode : "987-437",
 	addr_country : "Sweden",
 	addr_province : "Georgia",
 	addr_city : "Huston",
@@ -6731,10 +6989,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1952-12-29",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 259,
-	photoid : "phonebook_data/profile18.jpg",
+	photoid : "phonebook_data/profile05.jpg",
 	name_first : "Faught",
 	name_last : "Robert Edward (Bob)",
 	name_middle : "",
@@ -6747,7 +7006,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "751-166",
+	addr_pcode : "663-223",
 	addr_country : "Japan",
 	addr_province : "Dacota",
 	addr_city : "Rome",
@@ -6757,10 +7016,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1955-03-03",
 	webaddr : "www.daum.net",
-	note : "  "
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 260,
-	photoid : "phonebook_data/profile15.jpg",
+	photoid : "phonebook_data/profile24.jpg",
 	name_first : "Favors",
 	name_last : "Derrick",
 	name_middle : "",
@@ -6773,7 +7033,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "560-324",
+	addr_pcode : "138-100",
 	addr_country : "France",
 	addr_province : "Washington",
 	addr_city : "Kwangju",
@@ -6783,10 +7043,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1973-02-12",
 	webaddr : "www.intel.com",
-	note : "  "
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 261,
-	photoid : "phonebook_data/profile34.jpg",
+	photoid : "phonebook_data/profile26.jpg",
 	name_first : "Fazekas",
 	name_last : "Nick",
 	name_middle : "",
@@ -6799,7 +7060,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "742-004",
+	addr_pcode : "986-192",
 	addr_country : "Brazil",
 	addr_province : "Hawaii",
 	addr_city : "Huston",
@@ -6809,10 +7070,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1961-09-05",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 262,
-	photoid : "phonebook_data/profile19.jpg",
+	photoid : "phonebook_data/profile20.jpg",
 	name_first : "Fedor",
 	name_last : "Samuel David (Dave)",
 	name_middle : "",
@@ -6825,7 +7087,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "360-338",
+	addr_pcode : "427-761",
 	addr_country : "Canada",
 	addr_province : "Nevada",
 	addr_city : "Huston",
@@ -6835,10 +7097,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1954-09-13",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 263,
-	photoid : "phonebook_data/profile32.jpg",
+	photoid : "phonebook_data/profile14.jpg",
 	name_first : "Feerick",
 	name_last : "Robert Joseph (Bob)",
 	name_middle : "",
@@ -6851,7 +7114,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "744-190",
+	addr_pcode : "732-818",
 	addr_country : "China",
 	addr_province : "Pennsylvania",
 	addr_city : "Busan",
@@ -6861,10 +7124,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1950-07-05",
 	webaddr : "www.yahoo.com",
-	note : "  "
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 264,
-	photoid : "phonebook_data/profile31.jpg",
+	photoid : "phonebook_data/profile33.jpg",
 	name_first : "Feher",
 	name_last : "Raymond G. (Butch)",
 	name_middle : "",
@@ -6877,7 +7141,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "837-795",
+	addr_pcode : "666-896",
 	addr_country : "Canada",
 	addr_province : "Florida",
 	addr_city : "Frankfruit",
@@ -6887,10 +7151,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1977-04-01",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 265,
-	photoid : "phonebook_data/profile06.jpg",
+	photoid : "phonebook_data/profile39.jpg",
 	name_first : "Feick",
 	name_last : "Jamie",
 	name_middle : "",
@@ -6903,7 +7168,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "567-156",
+	addr_pcode : "170-232",
 	addr_country : "Brazil",
 	addr_province : "Florida",
 	addr_city : "Bangkok",
@@ -6913,10 +7178,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1954-01-19",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 266,
-	photoid : "phonebook_data/profile02.jpg",
+	photoid : "phonebook_data/profile29.jpg",
 	name_first : "Feiereisel",
 	name_last : "Ronald E. (Ron)",
 	name_middle : "",
@@ -6929,7 +7195,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "664-076",
+	addr_pcode : "576-709",
 	addr_country : "Sweden",
 	addr_province : "Kangwon",
 	addr_city : "Wonju",
@@ -6939,10 +7205,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1955-08-28",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 267,
-	photoid : "phonebook_data/profile25.jpg",
+	photoid : "phonebook_data/profile26.jpg",
 	name_first : "Feigenbaum",
 	name_last : "George",
 	name_middle : "",
@@ -6955,7 +7222,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "519-733",
+	addr_pcode : "916-978",
 	addr_country : "Ghana",
 	addr_province : "Taxas",
 	addr_city : "Laite",
@@ -6965,10 +7232,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1973-02-04",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 268,
-	photoid : "phonebook_data/profile05.jpg",
+	photoid : "phonebook_data/profile15.jpg",
 	name_first : "Feitl",
 	name_last : "Dave",
 	name_middle : "",
@@ -6981,7 +7249,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "535-302",
+	addr_pcode : "317-069",
 	addr_country : "Brazil",
 	addr_province : "Hawaii",
 	addr_city : "Busan",
@@ -6991,10 +7259,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1953-03-04",
 	webaddr : "www.daum.net",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 269,
-	photoid : "phonebook_data/profile10.jpg",
+	photoid : "phonebook_data/profile37.jpg",
 	name_first : "Felix",
 	name_last : "Noel",
 	name_middle : "",
@@ -7007,7 +7276,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "903-892",
+	addr_pcode : "693-768",
 	addr_country : "Rep.Korea",
 	addr_province : "Idaho",
 	addr_city : "Cebu",
@@ -7017,10 +7286,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1969-05-25",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 270,
-	photoid : "phonebook_data/profile05.jpg",
+	photoid : "phonebook_data/profile10.jpg",
 	name_first : "Felix",
 	name_last : "Ray",
 	name_middle : "",
@@ -7033,7 +7303,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "584-369",
+	addr_pcode : "957-221",
 	addr_country : "Canada",
 	addr_province : "Califonia",
 	addr_city : "Daegu",
@@ -7043,10 +7313,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1959-08-24",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 271,
-	photoid : "phonebook_data/profile36.jpg",
+	photoid : "phonebook_data/profile02.jpg",
 	name_first : "Felton",
 	name_last : "Raymond",
 	name_middle : "",
@@ -7059,7 +7330,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "277-949",
+	addr_pcode : "972-140",
 	addr_country : "Gaum",
 	addr_province : "Taxas",
 	addr_city : "Laite",
@@ -7069,10 +7340,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1968-02-27",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 272,
-	photoid : "phonebook_data/profile24.jpg",
+	photoid : "phonebook_data/profile28.jpg",
 	name_first : "Fendley",
 	name_last : "John Phillip (Jake)",
 	name_middle : "",
@@ -7085,7 +7357,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "746-880",
+	addr_pcode : "679-861",
 	addr_country : "Canada",
 	addr_province : "Califonia",
 	addr_city : "Kwangju",
@@ -7095,10 +7367,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1977-01-05",
 	webaddr : "www.intel.com",
-	note : "  "
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 273,
-	photoid : "phonebook_data/profile24.jpg",
+	photoid : "phonebook_data/profile18.jpg",
 	name_first : "Fenley",
 	name_last : "William Warren (Bill)",
 	name_middle : "",
@@ -7111,7 +7384,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "111-987",
+	addr_pcode : "974-177",
 	addr_country : "U.S.A",
 	addr_province : "Califonia",
 	addr_city : "Newyork",
@@ -7121,10 +7394,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1951-02-26",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 274,
-	photoid : "phonebook_data/profile32.jpg",
+	photoid : "phonebook_data/profile27.jpg",
 	name_first : "Ferguson",
 	name_last : "Desmond",
 	name_middle : "",
@@ -7137,7 +7411,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "468-905",
+	addr_pcode : "762-762",
 	addr_country : "China",
 	addr_province : "Pennsylvania",
 	addr_city : "Paris",
@@ -7147,10 +7421,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1967-09-27",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 275,
-	photoid : "phonebook_data/profile39.jpg",
+	photoid : "phonebook_data/profile16.jpg",
 	name_first : "Fernandez",
 	name_last : "Rudy",
 	name_middle : "",
@@ -7163,7 +7438,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "586-022",
+	addr_pcode : "644-714",
 	addr_country : "Gaum",
 	addr_province : "Washington",
 	addr_city : "Laite",
@@ -7173,10 +7448,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1956-02-24",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 276,
-	photoid : "phonebook_data/profile02.jpg",
+	photoid : "phonebook_data/profile13.jpg",
 	name_first : "Fernsten",
 	name_last : "Eric",
 	name_middle : "",
@@ -7189,7 +7465,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "518-187",
+	addr_pcode : "878-900",
 	addr_country : "Sweden",
 	addr_province : "Idaho",
 	addr_city : "Daegu",
@@ -7199,10 +7475,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1975-10-09",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 277,
-	photoid : "phonebook_data/profile23.jpg",
+	photoid : "phonebook_data/profile21.jpg",
 	name_first : "Ferrari",
 	name_last : "Albert R. (Al)",
 	name_middle : "",
@@ -7215,7 +7492,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "638-919",
+	addr_pcode : "187-792",
 	addr_country : "Swiss",
 	addr_province : "Nevada",
 	addr_city : "Laite",
@@ -7225,10 +7502,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1968-03-08",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 278,
-	photoid : "phonebook_data/profile29.jpg",
+	photoid : "phonebook_data/profile13.jpg",
 	name_first : "Ferreira",
 	name_last : "Rolando",
 	name_middle : "",
@@ -7241,7 +7519,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "681-245",
+	addr_pcode : "834-693",
 	addr_country : "Rep.Korea",
 	addr_province : "Florida",
 	addr_city : "Laite",
@@ -7251,10 +7529,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1969-12-03",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 279,
-	photoid : "phonebook_data/profile27.jpg",
+	photoid : "phonebook_data/profile12.jpg",
 	name_first : "Ferrell",
 	name_last : "Duane",
 	name_middle : "",
@@ -7267,7 +7546,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "502-419",
+	addr_pcode : "476-811",
 	addr_country : "Japan",
 	addr_province : "Kyunggi",
 	addr_city : "Daegu",
@@ -7277,10 +7556,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1951-04-22",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 280,
-	photoid : "phonebook_data/profile32.jpg",
+	photoid : "phonebook_data/profile20.jpg",
 	name_first : "Ferrin",
 	name_last : "C. Arnold Jr. (Arnie)",
 	name_middle : "",
@@ -7293,7 +7573,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "798-030",
+	addr_pcode : "894-106",
 	addr_country : "Sweden",
 	addr_province : "Nebraska",
 	addr_city : "Bangkok",
@@ -7303,10 +7583,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1958-10-01",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 281,
-	photoid : "phonebook_data/profile29.jpg",
+	photoid : "phonebook_data/profile09.jpg",
 	name_first : "Ferry",
 	name_last : "Danny",
 	name_middle : "",
@@ -7319,7 +7600,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "104-116",
+	addr_pcode : "771-079",
 	addr_country : "Sweden",
 	addr_province : "Kyunggi",
 	addr_city : "Kwangju",
@@ -7329,10 +7610,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1959-08-26",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 282,
-	photoid : "phonebook_data/profile26.jpg",
+	photoid : "phonebook_data/profile07.jpg",
 	name_first : "Ferry",
 	name_last : "Robert Dean (Bob)",
 	name_middle : "",
@@ -7345,7 +7627,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "130-387",
+	addr_pcode : "902-007",
 	addr_country : "Rep.Korea",
 	addr_province : "Idaho",
 	addr_city : "Laite",
@@ -7355,10 +7637,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1973-12-28",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 283,
-	photoid : "phonebook_data/profile31.jpg",
+	photoid : "phonebook_data/profile33.jpg",
 	name_first : "Fesenko",
 	name_last : "Kyrylo",
 	name_middle : "",
@@ -7371,7 +7654,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "612-980",
+	addr_pcode : "838-608",
 	addr_country : "Gaum",
 	addr_province : "Georgia",
 	addr_city : "Laite",
@@ -7381,10 +7664,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1958-05-06",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 284,
-	photoid : "phonebook_data/profile26.jpg",
+	photoid : "phonebook_data/profile36.jpg",
 	name_first : "Fields",
 	name_last : "Kenny",
 	name_middle : "",
@@ -7397,7 +7681,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "660-852",
+	addr_pcode : "214-647",
 	addr_country : "China",
 	addr_province : "Hawaii",
 	addr_city : "Busan",
@@ -7407,10 +7691,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1958-07-29",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 285,
-	photoid : "phonebook_data/profile35.jpg",
+	photoid : "phonebook_data/profile28.jpg",
 	name_first : "Fields",
 	name_last : "Landry",
 	name_middle : "",
@@ -7423,7 +7708,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "977-980",
+	addr_pcode : "234-523",
 	addr_country : "Brazil",
 	addr_province : "Idaho",
 	addr_city : "Newyork",
@@ -7433,10 +7718,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1958-11-12",
 	webaddr : "www.daum.net",
-	note : "  "
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 286,
-	photoid : "phonebook_data/profile03.jpg",
+	photoid : "phonebook_data/profile12.jpg",
 	name_first : "Filipek",
 	name_last : "Ronald Stanley (Ron)",
 	name_middle : "",
@@ -7449,7 +7735,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "597-237",
+	addr_pcode : "443-098",
 	addr_country : "U.S.A",
 	addr_province : "Nebraska",
 	addr_city : "Wonju",
@@ -7459,10 +7745,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1952-10-13",
 	webaddr : "www.intel.com",
-	note : "  "
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 287,
-	photoid : "phonebook_data/profile17.jpg",
+	photoid : "phonebook_data/profile19.jpg",
 	name_first : "Fillmore",
 	name_last : "Gregory Paul (Greg)",
 	name_middle : "",
@@ -7475,7 +7762,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "698-532",
+	addr_pcode : "932-024",
 	addr_country : "U.S.A",
 	addr_province : "Kyunggi",
 	addr_city : "Huston",
@@ -7485,10 +7772,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1953-08-23",
 	webaddr : "www.daum.net",
-	note : "  "
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 288,
-	photoid : "phonebook_data/profile15.jpg",
+	photoid : "phonebook_data/profile39.jpg",
 	name_first : "Finkel",
 	name_last : "Henry J. (Hank)",
 	name_middle : "",
@@ -7501,7 +7789,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "944-881",
+	addr_pcode : "653-399",
 	addr_country : "Sweden",
 	addr_province : "Arizona",
 	addr_city : "Frankfruit",
@@ -7511,10 +7799,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1967-01-08",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 289,
-	photoid : "phonebook_data/profile33.jpg",
+	photoid : "phonebook_data/profile20.jpg",
 	name_first : "Finley",
 	name_last : "Michael",
 	name_middle : "",
@@ -7527,7 +7816,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "190-157",
+	addr_pcode : "991-885",
 	addr_country : "Canada",
 	addr_province : "Pennsylvania",
 	addr_city : "Cebu",
@@ -7537,10 +7826,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1974-08-24",
 	webaddr : "www.google.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 290,
-	photoid : "phonebook_data/profile34.jpg",
+	photoid : "phonebook_data/profile24.jpg",
 	name_first : "Finn",
 	name_last : "Daniel Lawrence Jr. (Danny)",
 	name_middle : "",
@@ -7553,7 +7843,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "507-475",
+	addr_pcode : "801-769",
 	addr_country : "Canada",
 	addr_province : "Hawaii",
 	addr_city : "Cebu",
@@ -7563,10 +7853,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1977-03-05",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 291,
-	photoid : "phonebook_data/profile10.jpg",
+	photoid : "phonebook_data/profile09.jpg",
 	name_first : "Fish",
 	name_last : "Matt",
 	name_middle : "",
@@ -7579,7 +7870,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "515-534",
+	addr_pcode : "914-914",
 	addr_country : "Brazil",
 	addr_province : "Oregon",
 	addr_city : "Busan",
@@ -7589,10 +7880,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1959-09-13",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 292,
-	photoid : "phonebook_data/profile32.jpg",
+	photoid : "phonebook_data/profile33.jpg",
 	name_first : "Fisher",
 	name_last : "Derek",
 	name_middle : "",
@@ -7605,7 +7897,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "905-100",
+	addr_pcode : "946-988",
 	addr_country : "Sweden",
 	addr_province : "Georgia",
 	addr_city : "Bangkok",
@@ -7615,10 +7907,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1975-06-09",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 293,
-	photoid : "phonebook_data/profile25.jpg",
+	photoid : "phonebook_data/profile33.jpg",
 	name_first : "Fitch",
 	name_last : "Gerald",
 	name_middle : "",
@@ -7631,7 +7924,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "432-290",
+	addr_pcode : "616-995",
 	addr_country : "Swiss",
 	addr_province : "Nevada",
 	addr_city : "Sanghai",
@@ -7641,10 +7934,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1970-03-24",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 294,
-	photoid : "phonebook_data/profile07.jpg",
+	photoid : "phonebook_data/profile16.jpg",
 	name_first : "Fitzgerald",
 	name_last : "Richard (Dick)",
 	name_middle : "",
@@ -7657,7 +7951,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "587-848",
+	addr_pcode : "433-839",
 	addr_country : "Swiss",
 	addr_province : "Georgia",
 	addr_city : "Frankfruit",
@@ -7667,10 +7961,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1957-04-01",
 	webaddr : "www.sec.co.kr",
-	note : "  "
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 295,
-	photoid : "phonebook_data/profile16.jpg",
+	photoid : "phonebook_data/profile13.jpg",
 	name_first : "Fitzgerald",
 	name_last : "Robert (Bob)",
 	name_middle : "",
@@ -7683,7 +7978,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "444-210",
+	addr_pcode : "627-962",
 	addr_country : "Canada",
 	addr_province : "Oregon",
 	addr_city : "Kwangju",
@@ -7693,10 +7988,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1974-04-08",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 296,
-	photoid : "phonebook_data/profile03.jpg",
+	photoid : "phonebook_data/profile27.jpg",
 	name_first : "Fizer",
 	name_last : "Marcus",
 	name_middle : "",
@@ -7709,7 +8005,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "410-703",
+	addr_pcode : "740-124",
 	addr_country : "Brazil",
 	addr_province : "Nebraska",
 	addr_city : "Rome",
@@ -7719,10 +8015,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1968-06-04",
 	webaddr : "www.google.com",
-	note : "  "
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 297,
-	photoid : "phonebook_data/profile12.jpg",
+	photoid : "phonebook_data/profile36.jpg",
 	name_first : "Fleishman",
 	name_last : "Jerome (Jerry)",
 	name_middle : "",
@@ -7735,7 +8032,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "896-849",
+	addr_pcode : "365-745",
 	addr_country : "Brazil",
 	addr_province : "Georgia",
 	addr_city : "Busan",
@@ -7745,10 +8042,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1956-09-22",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 298,
-	photoid : "phonebook_data/profile34.jpg",
+	photoid : "phonebook_data/profile12.jpg",
 	name_first : "Fleming",
 	name_last : "Albert Jr. (Al)",
 	name_middle : "",
@@ -7761,7 +8059,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "143-507",
+	addr_pcode : "626-881",
 	addr_country : "Canada",
 	addr_province : "Califonia",
 	addr_city : "Wonju",
@@ -7771,10 +8069,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1973-01-22",
 	webaddr : "www.intel.com",
-	note : "  "
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 299,
-	photoid : "phonebook_data/profile39.jpg",
+	photoid : "phonebook_data/profile22.jpg",
 	name_first : "Fleming",
 	name_last : "Edward R. (Ed)",
 	name_middle : "",
@@ -7787,7 +8086,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "619-274",
+	addr_pcode : "639-640",
 	addr_country : "Japan",
 	addr_province : "Dacota",
 	addr_city : "Frankfruit",
@@ -7797,10 +8096,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1953-05-30",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 300,
-	photoid : "phonebook_data/profile11.jpg",
+	photoid : "phonebook_data/profile28.jpg",
 	name_first : "Gabor",
 	name_last : "William A. (Billy, The Human Projectile)",
 	name_middle : "",
@@ -7813,7 +8113,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "359-316",
+	addr_pcode : "601-652",
 	addr_country : "France",
 	addr_province : "Nevada",
 	addr_city : "Cebu",
@@ -7823,10 +8123,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1952-02-06",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 301,
-	photoid : "phonebook_data/profile22.jpg",
+	photoid : "phonebook_data/profile17.jpg",
 	name_first : "Gadzuric",
 	name_last : "Dan",
 	name_middle : "",
@@ -7839,7 +8140,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "402-120",
+	addr_pcode : "942-204",
 	addr_country : "Swiss",
 	addr_province : "Idaho",
 	addr_city : "Frankfruit",
@@ -7849,10 +8150,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1967-04-02",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 302,
-	photoid : "phonebook_data/profile09.jpg",
+	photoid : "phonebook_data/profile14.jpg",
 	name_first : "Gai",
 	name_last : "Deng",
 	name_middle : "",
@@ -7865,7 +8167,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "820-051",
+	addr_pcode : "986-847",
 	addr_country : "Ghana",
 	addr_province : "Nevada",
 	addr_city : "L.A.",
@@ -7875,10 +8177,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1959-04-09",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 303,
-	photoid : "phonebook_data/profile19.jpg",
+	photoid : "phonebook_data/profile03.jpg",
 	name_first : "Gainer",
 	name_last : "Elmer R.",
 	name_middle : "",
@@ -7891,7 +8194,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "521-625",
+	addr_pcode : "416-110",
 	addr_country : "Swiss",
 	addr_province : "Pennsylvania",
 	addr_city : "Bangkok",
@@ -7901,10 +8204,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1954-08-02",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 304,
-	photoid : "phonebook_data/profile13.jpg",
+	photoid : "phonebook_data/profile15.jpg",
 	name_first : "Gaines",
 	name_last : "Corey",
 	name_middle : "",
@@ -7917,7 +8221,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "729-687",
+	addr_pcode : "123-043",
 	addr_country : "China",
 	addr_province : "Alaska",
 	addr_city : "Laite",
@@ -7927,10 +8231,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1958-01-20",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 305,
-	photoid : "phonebook_data/profile10.jpg",
+	photoid : "phonebook_data/profile28.jpg",
 	name_first : "Gaines",
 	name_last : "Reece",
 	name_middle : "",
@@ -7943,7 +8248,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "215-331",
+	addr_pcode : "920-925",
 	addr_country : "Japan",
 	addr_province : "Arizona",
 	addr_city : "Cebu",
@@ -7953,10 +8258,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1968-05-03",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 306,
-	photoid : "phonebook_data/profile29.jpg",
+	photoid : "phonebook_data/profile01.jpg",
 	name_first : "Gaines",
 	name_last : "Sundiata",
 	name_middle : "",
@@ -7969,7 +8275,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "843-849",
+	addr_pcode : "861-291",
 	addr_country : "U.S.A",
 	addr_province : "Pennsylvania",
 	addr_city : "Rome",
@@ -7979,10 +8285,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1967-09-10",
 	webaddr : "www.sec.co.kr",
-	note : "  "
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 307,
-	photoid : "phonebook_data/profile40.jpg",
+	photoid : "phonebook_data/profile26.jpg",
 	name_first : "Gale",
 	name_last : "Mike",
 	name_middle : "",
@@ -7995,7 +8302,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "502-417",
+	addr_pcode : "466-003",
 	addr_country : "Brazil",
 	addr_province : "Florida",
 	addr_city : "Frankfruit",
@@ -8005,10 +8312,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1959-10-31",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 308,
-	photoid : "phonebook_data/profile30.jpg",
+	photoid : "phonebook_data/profile26.jpg",
 	name_first : "Gallagher",
 	name_last : "Chad",
 	name_middle : "",
@@ -8021,7 +8329,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "347-319",
+	addr_pcode : "500-130",
 	addr_country : "France",
 	addr_province : "Arizona",
 	addr_city : "Laite",
@@ -8031,10 +8339,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1961-05-13",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 309,
-	photoid : "phonebook_data/profile21.jpg",
+	photoid : "phonebook_data/profile33.jpg",
 	name_first : "Gallatin",
 	name_last : "Harry",
 	name_middle : "",
@@ -8047,7 +8356,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "545-057",
+	addr_pcode : "856-049",
 	addr_country : "Sweden",
 	addr_province : "Idaho",
 	addr_city : "Cebu",
@@ -8057,10 +8366,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1963-05-03",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 310,
-	photoid : "phonebook_data/profile28.jpg",
+	photoid : "phonebook_data/profile33.jpg",
 	name_first : "Gallinari",
 	name_last : "Danilo",
 	name_middle : "",
@@ -8073,7 +8383,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "982-939",
+	addr_pcode : "513-011",
 	addr_country : "Rep.Korea",
 	addr_province : "Nebraska",
 	addr_city : "Rome",
@@ -8083,10 +8393,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1955-08-08",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 311,
-	photoid : "phonebook_data/profile07.jpg",
+	photoid : "phonebook_data/profile09.jpg",
 	name_first : "Gambee",
 	name_last : "Dave",
 	name_middle : "",
@@ -8099,7 +8410,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "118-186",
+	addr_pcode : "953-326",
 	addr_country : "Swiss",
 	addr_province : "Nebraska",
 	addr_city : "Cebu",
@@ -8109,10 +8420,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1956-01-03",
 	webaddr : "www.yahoo.com",
-	note : "  "
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 312,
-	photoid : "phonebook_data/profile29.jpg",
+	photoid : "phonebook_data/profile18.jpg",
 	name_first : "Gamble",
 	name_last : "Kevin",
 	name_middle : "",
@@ -8125,7 +8437,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "746-077",
+	addr_pcode : "842-118",
 	addr_country : "Swiss",
 	addr_province : "Pennsylvania",
 	addr_city : "Daegu",
@@ -8135,10 +8447,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1956-12-06",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 313,
-	photoid : "phonebook_data/profile38.jpg",
+	photoid : "phonebook_data/profile02.jpg",
 	name_first : "Gantt",
 	name_last : "Robert M. Jr. (Bob)",
 	name_middle : "",
@@ -8151,7 +8464,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "126-246",
+	addr_pcode : "976-468",
 	addr_country : "France",
 	addr_province : "Nevada",
 	addr_city : "Laite",
@@ -8161,10 +8474,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1968-01-15",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 314,
-	photoid : "phonebook_data/profile21.jpg",
+	photoid : "phonebook_data/profile27.jpg",
 	name_first : "Garbajosa",
 	name_last : "Jorge",
 	name_middle : "",
@@ -8177,7 +8491,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "175-058",
+	addr_pcode : "668-964",
 	addr_country : "France",
 	addr_province : "Nebraska",
 	addr_city : "Sanghai",
@@ -8187,10 +8501,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1960-04-08",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 315,
-	photoid : "phonebook_data/profile33.jpg",
+	photoid : "phonebook_data/profile17.jpg",
 	name_first : "Garces",
 	name_last : "Ruben",
 	name_middle : "",
@@ -8203,7 +8518,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "249-835",
+	addr_pcode : "546-691",
 	addr_country : "Gaum",
 	addr_province : "Califonia",
 	addr_city : "Frankfruit",
@@ -8213,10 +8528,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1964-06-08",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 316,
-	photoid : "phonebook_data/profile39.jpg",
+	photoid : "phonebook_data/profile20.jpg",
 	name_first : "Garcia",
 	name_last : "Alex",
 	name_middle : "",
@@ -8229,7 +8545,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "417-949",
+	addr_pcode : "435-155",
 	addr_country : "Rep.Korea",
 	addr_province : "Alaska",
 	addr_city : "Cebu",
@@ -8239,10 +8555,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1950-02-27",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 317,
-	photoid : "phonebook_data/profile30.jpg",
+	photoid : "phonebook_data/profile12.jpg",
 	name_first : "Garcia",
 	name_last : "Francisco",
 	name_middle : "",
@@ -8255,7 +8572,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "910-227",
+	addr_pcode : "460-374",
 	addr_country : "Sweden",
 	addr_province : "Kangwon",
 	addr_city : "Cebu",
@@ -8265,10 +8582,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1972-10-21",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFG"
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 318,
-	photoid : "phonebook_data/profile33.jpg",
+	photoid : "phonebook_data/profile27.jpg",
 	name_first : "Gardner",
 	name_last : "Earl Baker (Red)",
 	name_middle : "",
@@ -8281,7 +8599,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "194-709",
+	addr_pcode : "173-922",
 	addr_country : "U.S.A",
 	addr_province : "Taxas",
 	addr_city : "Busan",
@@ -8291,10 +8609,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1973-03-08",
 	webaddr : "www.naver.com",
-	note : "  "
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 319,
-	photoid : "phonebook_data/profile03.jpg",
+	photoid : "phonebook_data/profile18.jpg",
 	name_first : "Gardner",
 	name_last : "Thomas",
 	name_middle : "",
@@ -8307,7 +8626,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "235-525",
+	addr_pcode : "304-450",
 	addr_country : "China",
 	addr_province : "Florida",
 	addr_city : "Cleveland",
@@ -8317,10 +8636,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1964-03-09",
 	webaddr : "www.yahoo.com",
-	note : "  "
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 320,
-	photoid : "phonebook_data/profile37.jpg",
+	photoid : "phonebook_data/profile06.jpg",
 	name_first : "Gardner",
 	name_last : "Vern B.",
 	name_middle : "",
@@ -8333,7 +8653,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "105-507",
+	addr_pcode : "796-740",
 	addr_country : "Swiss",
 	addr_province : "Washington",
 	addr_city : "Denver",
@@ -8343,10 +8663,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1953-01-31",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 321,
-	photoid : "phonebook_data/profile28.jpg",
+	photoid : "phonebook_data/profile07.jpg",
 	name_first : "Garfinkel",
 	name_last : "Jack (Dutch)",
 	name_middle : "",
@@ -8359,7 +8680,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "101-311",
+	addr_pcode : "965-160",
 	addr_country : "Canada",
 	addr_province : "Idaho",
 	addr_city : "Cebu",
@@ -8369,10 +8690,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1974-02-05",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 322,
-	photoid : "phonebook_data/profile07.jpg",
+	photoid : "phonebook_data/profile18.jpg",
 	name_first : "Garland",
 	name_last : "Gary J.",
 	name_middle : "",
@@ -8385,7 +8707,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "662-653",
+	addr_pcode : "200-977",
 	addr_country : "Japan",
 	addr_province : "Alaska",
 	addr_city : "Frankfruit",
@@ -8395,10 +8717,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1958-03-03",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 323,
-	photoid : "phonebook_data/profile02.jpg",
+	photoid : "phonebook_data/profile11.jpg",
 	name_first : "Garland",
 	name_last : "Winston",
 	name_middle : "",
@@ -8411,7 +8734,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "880-683",
+	addr_pcode : "704-588",
 	addr_country : "Canada",
 	addr_province : "Nebraska",
 	addr_city : "Sanghai",
@@ -8421,10 +8744,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1964-05-22",
 	webaddr : "www.naver.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 324,
-	photoid : "phonebook_data/profile05.jpg",
+	photoid : "phonebook_data/profile01.jpg",
 	name_first : "Garmaker",
 	name_last : "Richard Eugene (Dick)",
 	name_middle : "",
@@ -8437,7 +8761,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "571-774",
+	addr_pcode : "722-129",
 	addr_country : "France",
 	addr_province : "Arizona",
 	addr_city : "Bangkok",
@@ -8447,10 +8771,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1966-04-12",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 325,
-	photoid : "phonebook_data/profile21.jpg",
+	photoid : "phonebook_data/profile25.jpg",
 	name_first : "Garner",
 	name_last : "Chris",
 	name_middle : "",
@@ -8463,7 +8788,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "940-496",
+	addr_pcode : "884-162",
 	addr_country : "Gaum",
 	addr_province : "Kyunggi",
 	addr_city : "L.A.",
@@ -8473,10 +8798,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1970-12-29",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 326,
-	photoid : "phonebook_data/profile28.jpg",
+	photoid : "phonebook_data/profile22.jpg",
 	name_first : "Garnett",
 	name_last : "Bill",
 	name_middle : "",
@@ -8489,7 +8815,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "547-655",
+	addr_pcode : "565-629",
 	addr_country : "Japan",
 	addr_province : "Pennsylvania",
 	addr_city : "Wonju",
@@ -8499,10 +8825,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1963-12-05",
 	webaddr : "www.intel.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 327,
-	photoid : "phonebook_data/profile16.jpg",
+	photoid : "phonebook_data/profile03.jpg",
 	name_first : "Garnett",
 	name_last : "Kevin",
 	name_middle : "",
@@ -8515,7 +8842,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "480-293",
+	addr_pcode : "281-518",
 	addr_country : "Gaum",
 	addr_province : "Pennsylvania",
 	addr_city : "Rome",
@@ -8525,10 +8852,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1973-02-18",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 328,
-	photoid : "phonebook_data/profile25.jpg",
+	photoid : "phonebook_data/profile09.jpg",
 	name_first : "Garnett",
 	name_last : "Marlon",
 	name_middle : "",
@@ -8541,7 +8869,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "472-621",
+	addr_pcode : "827-756",
 	addr_country : "Gaum",
 	addr_province : "Kyunggi",
 	addr_city : "Wonju",
@@ -8551,10 +8879,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1972-05-19",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 329,
-	photoid : "phonebook_data/profile14.jpg",
+	photoid : "phonebook_data/profile21.jpg",
 	name_first : "Garrett",
 	name_last : "Calvin",
 	name_middle : "",
@@ -8567,7 +8896,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "315-871",
+	addr_pcode : "999-052",
 	addr_country : "Canada",
 	addr_province : "Dacota",
 	addr_city : "Laite",
@@ -8577,10 +8906,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1971-10-06",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 330,
-	photoid : "phonebook_data/profile06.jpg",
+	photoid : "phonebook_data/profile13.jpg",
 	name_first : "Garrett",
 	name_last : "Dean",
 	name_middle : "",
@@ -8593,7 +8923,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "151-859",
+	addr_pcode : "687-927",
 	addr_country : "Rep.Korea",
 	addr_province : "Kyunggi",
 	addr_city : "Rome",
@@ -8603,10 +8933,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1952-12-25",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 331,
-	photoid : "phonebook_data/profile22.jpg",
+	photoid : "phonebook_data/profile36.jpg",
 	name_first : "Garrett",
 	name_last : "Eldo (Dick)",
 	name_middle : "",
@@ -8619,7 +8950,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "493-782",
+	addr_pcode : "905-422",
 	addr_country : "Rep.Korea",
 	addr_province : "Nebraska",
 	addr_city : "Frankfruit",
@@ -8629,10 +8960,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1958-01-24",
 	webaddr : "www.intel.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 332,
-	photoid : "phonebook_data/profile01.jpg",
+	photoid : "phonebook_data/profile32.jpg",
 	name_first : "Garrett",
 	name_last : "Rowland G.",
 	name_middle : "",
@@ -8645,7 +8977,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "554-877",
+	addr_pcode : "936-776",
 	addr_country : "Gaum",
 	addr_province : "Kangwon",
 	addr_city : "Newyork",
@@ -8655,10 +8987,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1952-04-26",
 	webaddr : "www.yahoo.com",
-	note : "  "
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 333,
-	photoid : "phonebook_data/profile29.jpg",
+	photoid : "phonebook_data/profile22.jpg",
 	name_first : "Garrick",
 	name_last : "Tom",
 	name_middle : "",
@@ -8671,7 +9004,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "353-301",
+	addr_pcode : "283-007",
 	addr_country : "U.S.A",
 	addr_province : "Nevada",
 	addr_city : "Wonju",
@@ -8681,10 +9014,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1972-09-09",
 	webaddr : "www.samsungmobile.com",
-	note : "  "
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 334,
-	photoid : "phonebook_data/profile19.jpg",
+	photoid : "phonebook_data/profile17.jpg",
 	name_first : "Garris",
 	name_last : "John",
 	name_middle : "",
@@ -8697,7 +9031,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "360-480",
+	addr_pcode : "980-269",
 	addr_country : "Sweden",
 	addr_province : "Pennsylvania",
 	addr_city : "Paris",
@@ -8707,10 +9041,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1961-08-10",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 335,
-	photoid : "phonebook_data/profile13.jpg",
+	photoid : "phonebook_data/profile29.jpg",
 	name_first : "Garris",
 	name_last : "Kiwane",
 	name_middle : "",
@@ -8723,7 +9058,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "867-362",
+	addr_pcode : "652-077",
 	addr_country : "U.S.A",
 	addr_province : "Alaska",
 	addr_city : "Laite",
@@ -8733,10 +9068,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1970-09-01",
 	webaddr : "www.google.com",
-	note : "  "
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 336,
-	photoid : "phonebook_data/profile11.jpg",
+	photoid : "phonebook_data/profile18.jpg",
 	name_first : "Garrity",
 	name_last : "Pat",
 	name_middle : "",
@@ -8749,7 +9085,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "546-226",
+	addr_pcode : "435-492",
 	addr_country : "Canada",
 	addr_province : "Washington",
 	addr_city : "Laite",
@@ -8759,7 +9095,8 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1966-04-11",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 337,
 	photoid : "phonebook_data/profile37.jpg",
@@ -8775,7 +9112,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "997-265",
+	addr_pcode : "893-201",
 	addr_country : "Swiss",
 	addr_province : "Alaska",
 	addr_city : "Kwangju",
@@ -8785,10 +9122,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1970-07-14",
 	webaddr : "www.sec.co.kr",
-	note : "  "
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 338,
-	photoid : "phonebook_data/profile29.jpg",
+	photoid : "phonebook_data/profile02.jpg",
 	name_first : "Gasol",
 	name_last : "Marc",
 	name_middle : "",
@@ -8801,7 +9139,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "272-138",
+	addr_pcode : "634-047",
 	addr_country : "China",
 	addr_province : "Idaho",
 	addr_city : "Wonju",
@@ -8811,10 +9149,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1959-04-12",
 	webaddr : "www.yahoo.com",
-	note : "  "
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 339,
-	photoid : "phonebook_data/profile23.jpg",
+	photoid : "phonebook_data/profile07.jpg",
 	name_first : "Gasol",
 	name_last : "Pau",
 	name_middle : "",
@@ -8827,7 +9166,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "780-432",
+	addr_pcode : "374-127",
 	addr_country : "Sweden",
 	addr_province : "Califonia",
 	addr_city : "Bangkok",
@@ -8837,10 +9176,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1970-01-14",
 	webaddr : "www.intel.com",
-	note : "  "
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 340,
-	photoid : "phonebook_data/profile32.jpg",
+	photoid : "phonebook_data/profile18.jpg",
 	name_first : "Gates",
 	name_last : "Ben Frank (Frank, Needle)",
 	name_middle : "",
@@ -8853,7 +9193,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "686-677",
+	addr_pcode : "782-779",
 	addr_country : "France",
 	addr_province : "Oregon",
 	addr_city : "Sanghai",
@@ -8863,10 +9203,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1955-11-05",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 341,
-	photoid : "phonebook_data/profile03.jpg",
+	photoid : "phonebook_data/profile33.jpg",
 	name_first : "Gatling",
 	name_last : "Chris",
 	name_middle : "",
@@ -8879,7 +9220,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "357-878",
+	addr_pcode : "179-111",
 	addr_country : "Rep.Korea",
 	addr_province : "Oregon",
 	addr_city : "Sanghai",
@@ -8889,10 +9230,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1975-12-30",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 342,
-	photoid : "phonebook_data/profile40.jpg",
+	photoid : "phonebook_data/profile05.jpg",
 	name_first : "Gattison",
 	name_last : "Kenny",
 	name_middle : "",
@@ -8905,7 +9247,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "930-064",
+	addr_pcode : "485-598",
 	addr_country : "Sweden",
 	addr_province : "Dacota",
 	addr_city : "Rome",
@@ -8915,10 +9257,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1951-02-03",
 	webaddr : "www.google.com",
-	note : "  "
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 343,
-	photoid : "phonebook_data/profile39.jpg",
+	photoid : "phonebook_data/profile04.jpg",
 	name_first : "Gay",
 	name_last : "Rudy",
 	name_middle : "",
@@ -8931,7 +9274,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "723-502",
+	addr_pcode : "967-349",
 	addr_country : "Canada",
 	addr_province : "Taxas",
 	addr_city : "Sanghai",
@@ -8941,10 +9284,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1970-09-01",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 344,
-	photoid : "phonebook_data/profile04.jpg",
+	photoid : "phonebook_data/profile25.jpg",
 	name_first : "Gayda",
 	name_last : "Edward C. (Ed)",
 	name_middle : "",
@@ -8957,7 +9301,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "436-603",
+	addr_pcode : "470-936",
 	addr_country : "Swiss",
 	addr_province : "Taxas",
 	addr_city : "Cleveland",
@@ -8967,10 +9311,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1951-11-08",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 345,
-	photoid : "phonebook_data/profile27.jpg",
+	photoid : "phonebook_data/profile03.jpg",
 	name_first : "Gaze",
 	name_last : "Andrew",
 	name_middle : "",
@@ -8983,7 +9328,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "398-002",
+	addr_pcode : "795-227",
 	addr_country : "Swiss",
 	addr_province : "Hawaii",
 	addr_city : "Sanghai",
@@ -8993,10 +9338,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1962-02-07",
 	webaddr : "www.daum.net",
-	note : "  "
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 346,
-	photoid : "phonebook_data/profile04.jpg",
+	photoid : "phonebook_data/profile02.jpg",
 	name_first : "Geary",
 	name_last : "Reggie",
 	name_middle : "",
@@ -9009,7 +9355,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "493-019",
+	addr_pcode : "890-520",
 	addr_country : "Rep.Korea",
 	addr_province : "Pennsylvania",
 	addr_city : "Newyork",
@@ -9019,7 +9365,8 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1957-07-25",
 	webaddr : "www.intel.com",
-	note : "  "
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 347,
 	photoid : "phonebook_data/profile04.jpg",
@@ -9035,7 +9382,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "385-617",
+	addr_pcode : "967-111",
 	addr_country : "France",
 	addr_province : "Kangwon",
 	addr_city : "Laite",
@@ -9045,10 +9392,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1976-05-17",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 348,
-	photoid : "phonebook_data/profile38.jpg",
+	photoid : "phonebook_data/profile05.jpg",
 	name_first : "Geiger",
 	name_last : "Matt",
 	name_middle : "",
@@ -9061,7 +9409,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "844-568",
+	addr_pcode : "686-981",
 	addr_country : "Ghana",
 	addr_province : "Dacota",
 	addr_city : "Busan",
@@ -9071,10 +9419,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1969-05-02",
 	webaddr : "www.naver.com",
-	note : "  "
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 349,
-	photoid : "phonebook_data/profile02.jpg",
+	photoid : "phonebook_data/profile15.jpg",
 	name_first : "Gelabale",
 	name_last : "Mickael",
 	name_middle : "",
@@ -9087,7 +9436,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "216-804",
+	addr_pcode : "937-593",
 	addr_country : "France",
 	addr_province : "Dacota",
 	addr_city : "Paris",
@@ -9097,10 +9446,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1965-01-18",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 350,
-	photoid : "phonebook_data/profile21.jpg",
+	photoid : "phonebook_data/profile19.jpg",
 	name_first : "Hackett",
 	name_last : "Rudolph (Rudy)",
 	name_middle : "",
@@ -9113,7 +9463,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "853-082",
+	addr_pcode : "914-308",
 	addr_country : "France",
 	addr_province : "Kangwon",
 	addr_city : "Denver",
@@ -9123,10 +9473,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1965-08-22",
 	webaddr : "www.intel.com",
-	note : "  "
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 351,
-	photoid : "phonebook_data/profile11.jpg",
+	photoid : "phonebook_data/profile24.jpg",
 	name_first : "Haddadi",
 	name_last : "Hamed",
 	name_middle : "",
@@ -9139,7 +9490,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "373-521",
+	addr_pcode : "912-621",
 	addr_country : "Sweden",
 	addr_province : "Kyunggi",
 	addr_city : "Kwangju",
@@ -9149,10 +9500,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1963-05-25",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 352,
-	photoid : "phonebook_data/profile13.jpg",
+	photoid : "phonebook_data/profile38.jpg",
 	name_first : "Haffner",
 	name_last : "Scott",
 	name_middle : "",
@@ -9165,7 +9517,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "888-324",
+	addr_pcode : "324-216",
 	addr_country : "Ghana",
 	addr_province : "Florida",
 	addr_city : "Kwangju",
@@ -9175,10 +9527,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1957-01-30",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 353,
-	photoid : "phonebook_data/profile19.jpg",
+	photoid : "phonebook_data/profile33.jpg",
 	name_first : "Hagan",
 	name_last : "Cliff",
 	name_middle : "",
@@ -9191,7 +9544,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "603-093",
+	addr_pcode : "867-969",
 	addr_country : "Swiss",
 	addr_province : "Kangwon",
 	addr_city : "Cebu",
@@ -9201,10 +9554,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1961-10-14",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 354,
-	photoid : "phonebook_data/profile28.jpg",
+	photoid : "phonebook_data/profile24.jpg",
 	name_first : "Hagan",
 	name_last : "Glenn Kassabin",
 	name_middle : "",
@@ -9217,7 +9571,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "770-936",
+	addr_pcode : "953-999",
 	addr_country : "Japan",
 	addr_province : "Idaho",
 	addr_city : "Busan",
@@ -9227,10 +9581,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1956-09-09",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 355,
-	photoid : "phonebook_data/profile25.jpg",
+	photoid : "phonebook_data/profile10.jpg",
 	name_first : "Hahn",
 	name_last : "Robert B. (Bob)",
 	name_middle : "",
@@ -9243,7 +9598,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "147-126",
+	addr_pcode : "961-929",
 	addr_country : "Japan",
 	addr_province : "Taxas",
 	addr_city : "Daegu",
@@ -9253,10 +9608,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1971-08-17",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 356,
-	photoid : "phonebook_data/profile14.jpg",
+	photoid : "phonebook_data/profile02.jpg",
 	name_first : "Hairston",
 	name_last : "Alan Leroy (Al)",
 	name_middle : "",
@@ -9269,7 +9625,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "997-705",
+	addr_pcode : "567-542",
 	addr_country : "U.S.A",
 	addr_province : "Kangwon",
 	addr_city : "L.A.",
@@ -9279,10 +9635,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1965-01-08",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 357,
-	photoid : "phonebook_data/profile35.jpg",
+	photoid : "phonebook_data/profile13.jpg",
 	name_first : "Hairston",
 	name_last : "Happy",
 	name_middle : "",
@@ -9295,7 +9652,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "820-200",
+	addr_pcode : "162-713",
 	addr_country : "Rep.Korea",
 	addr_province : "Califonia",
 	addr_city : "Bangkok",
@@ -9305,10 +9662,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1951-02-19",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 358,
-	photoid : "phonebook_data/profile33.jpg",
+	photoid : "phonebook_data/profile06.jpg",
 	name_first : "Hairston",
 	name_last : "Lindsay (Spider)",
 	name_middle : "",
@@ -9321,7 +9679,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "738-475",
+	addr_pcode : "210-144",
 	addr_country : "Swiss",
 	addr_province : "Oregon",
 	addr_city : "Rome",
@@ -9331,10 +9689,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1973-03-05",
 	webaddr : "www.intel.com",
-	note : "  "
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 359,
-	photoid : "phonebook_data/profile19.jpg",
+	photoid : "phonebook_data/profile31.jpg",
 	name_first : "Hairston",
 	name_last : "Malik",
 	name_middle : "",
@@ -9347,7 +9706,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "916-960",
+	addr_pcode : "764-640",
 	addr_country : "Swiss",
 	addr_province : "Nevada",
 	addr_city : "Frankfruit",
@@ -9357,10 +9716,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1961-02-20",
 	webaddr : "www.yahoo.com",
-	note : "  "
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 360,
-	photoid : "phonebook_data/profile09.jpg",
+	photoid : "phonebook_data/profile02.jpg",
 	name_first : "Haislip",
 	name_last : "Marcus",
 	name_middle : "",
@@ -9373,7 +9733,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "927-739",
+	addr_pcode : "407-249",
 	addr_country : "Gaum",
 	addr_province : "Georgia",
 	addr_city : "Wonju",
@@ -9383,10 +9743,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1951-12-24",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 361,
-	photoid : "phonebook_data/profile07.jpg",
+	photoid : "phonebook_data/profile27.jpg",
 	name_first : "Halbert",
 	name_last : "Charles P. (Chuck)",
 	name_middle : "",
@@ -9399,7 +9760,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "315-885",
+	addr_pcode : "277-712",
 	addr_country : "Ghana",
 	addr_province : "Califonia",
 	addr_city : "Rome",
@@ -9409,10 +9770,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1964-07-15",
 	webaddr : "www.naver.com",
-	note : "  "
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 362,
-	photoid : "phonebook_data/profile14.jpg",
+	photoid : "phonebook_data/profile23.jpg",
 	name_first : "Halbrook",
 	name_last : "Harvey Wade (Swede)",
 	name_middle : "",
@@ -9425,7 +9787,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "320-236",
+	addr_pcode : "405-322",
 	addr_country : "Canada",
 	addr_province : "Dacota",
 	addr_city : "Laite",
@@ -9435,10 +9797,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1959-10-12",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 363,
-	photoid : "phonebook_data/profile16.jpg",
+	photoid : "phonebook_data/profile27.jpg",
 	name_first : "Hale",
 	name_last : "William Bruce (Bruce)",
 	name_middle : "",
@@ -9451,7 +9814,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "335-522",
+	addr_pcode : "196-398",
 	addr_country : "Swiss",
 	addr_province : "Florida",
 	addr_city : "Cebu",
@@ -9461,10 +9824,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1961-11-23",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 364,
-	photoid : "phonebook_data/profile37.jpg",
+	photoid : "phonebook_data/profile15.jpg",
 	name_first : "Haley",
 	name_last : "Jack",
 	name_middle : "",
@@ -9477,7 +9841,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "503-493",
+	addr_pcode : "288-911",
 	addr_country : "Gaum",
 	addr_province : "Nebraska",
 	addr_city : "Busan",
@@ -9487,10 +9851,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1970-07-07",
 	webaddr : "www.google.com",
-	note : "  "
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 365,
-	photoid : "phonebook_data/profile18.jpg",
+	photoid : "phonebook_data/profile25.jpg",
 	name_first : "Halimon",
 	name_last : "Shaler Jr.",
 	name_middle : "",
@@ -9503,7 +9868,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "758-605",
+	addr_pcode : "983-605",
 	addr_country : "Japan",
 	addr_province : "Hawaii",
 	addr_city : "L.A.",
@@ -9513,10 +9878,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1974-07-17",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 366,
-	photoid : "phonebook_data/profile06.jpg",
+	photoid : "phonebook_data/profile08.jpg",
 	name_first : "Hall",
 	name_last : "Mike",
 	name_middle : "",
@@ -9529,7 +9895,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "798-032",
+	addr_pcode : "381-236",
 	addr_country : "Swiss",
 	addr_province : "Idaho",
 	addr_city : "Wonju",
@@ -9539,10 +9905,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1956-11-08",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 367,
-	photoid : "phonebook_data/profile34.jpg",
+	photoid : "phonebook_data/profile40.jpg",
 	name_first : "Halliburton",
 	name_last : "Jeffrey (Jeff)",
 	name_middle : "",
@@ -9555,7 +9922,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "794-180",
+	addr_pcode : "508-405",
 	addr_country : "Gaum",
 	addr_province : "Hawaii",
 	addr_city : "Paris",
@@ -9565,10 +9932,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1960-05-18",
 	webaddr : "www.naver.com",
-	note : "  "
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 368,
-	photoid : "phonebook_data/profile06.jpg",
+	photoid : "phonebook_data/profile13.jpg",
 	name_first : "Ham",
 	name_last : "Darvin",
 	name_middle : "",
@@ -9581,7 +9949,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "142-585",
+	addr_pcode : "466-375",
 	addr_country : "Sweden",
 	addr_province : "Oregon",
 	addr_city : "Paris",
@@ -9591,10 +9959,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1955-02-06",
 	webaddr : "www.intel.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 369,
-	photoid : "phonebook_data/profile16.jpg",
+	photoid : "phonebook_data/profile28.jpg",
 	name_first : "Hamer",
 	name_last : "Steve",
 	name_middle : "",
@@ -9607,7 +9976,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "922-720",
+	addr_pcode : "590-739",
 	addr_country : "Rep.Korea",
 	addr_province : "Nebraska",
 	addr_city : "Rome",
@@ -9617,10 +9986,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1959-12-13",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 370,
-	photoid : "phonebook_data/profile32.jpg",
+	photoid : "phonebook_data/profile03.jpg",
 	name_first : "Hamilton",
 	name_last : "Dale B.",
 	name_middle : "",
@@ -9633,7 +10003,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "816-869",
+	addr_pcode : "251-918",
 	addr_country : "U.S.A",
 	addr_province : "Oregon",
 	addr_city : "Denver",
@@ -9643,10 +10013,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1966-05-09",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 371,
-	photoid : "phonebook_data/profile13.jpg",
+	photoid : "phonebook_data/profile22.jpg",
 	name_first : "Hamilton",
 	name_last : "Dennis Eugene",
 	name_middle : "",
@@ -9659,7 +10030,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "959-849",
+	addr_pcode : "993-924",
 	addr_country : "Ghana",
 	addr_province : "Florida",
 	addr_city : "Sanghai",
@@ -9669,10 +10040,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1968-04-23",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 372,
-	photoid : "phonebook_data/profile25.jpg",
+	photoid : "phonebook_data/profile22.jpg",
 	name_first : "Hamilton",
 	name_last : "Ralph Albert (Ham)",
 	name_middle : "",
@@ -9685,7 +10057,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "725-557",
+	addr_pcode : "784-657",
 	addr_country : "Brazil",
 	addr_province : "Pennsylvania",
 	addr_city : "Daegu",
@@ -9695,10 +10067,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1973-03-30",
 	webaddr : "www.naver.com",
-	note : "  "
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 373,
-	photoid : "phonebook_data/profile18.jpg",
+	photoid : "phonebook_data/profile07.jpg",
 	name_first : "Hamilton",
 	name_last : "Richard",
 	name_middle : "",
@@ -9711,7 +10084,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "128-031",
+	addr_pcode : "952-486",
 	addr_country : "Brazil",
 	addr_province : "Washington",
 	addr_city : "Bangkok",
@@ -9721,10 +10094,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1960-12-15",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 374,
-	photoid : "phonebook_data/profile06.jpg",
+	photoid : "phonebook_data/profile11.jpg",
 	name_first : "Hamilton",
 	name_last : "Roy Lee",
 	name_middle : "",
@@ -9737,7 +10111,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "961-161",
+	addr_pcode : "927-788",
 	addr_country : "Rep.Korea",
 	addr_province : "Pennsylvania",
 	addr_city : "Wonju",
@@ -9747,10 +10121,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1965-10-01",
 	webaddr : "www.naver.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 375,
-	photoid : "phonebook_data/profile11.jpg",
+	photoid : "phonebook_data/profile02.jpg",
 	name_first : "Hamilton",
 	name_last : "Steve Absher",
 	name_middle : "",
@@ -9763,7 +10138,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "783-469",
+	addr_pcode : "845-289",
 	addr_country : "Rep.Korea",
 	addr_province : "Califonia",
 	addr_city : "L.A.",
@@ -9773,10 +10148,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1952-02-17",
 	webaddr : "www.sec.co.kr",
-	note : "  "
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 376,
-	photoid : "phonebook_data/profile33.jpg",
+	photoid : "phonebook_data/profile02.jpg",
 	name_first : "Hamilton",
 	name_last : "Tang",
 	name_middle : "",
@@ -9789,7 +10165,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "140-418",
+	addr_pcode : "471-636",
 	addr_country : "Sweden",
 	addr_province : "Georgia",
 	addr_city : "Cleveland",
@@ -9799,10 +10175,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1964-11-15",
 	webaddr : "www.intel.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 377,
-	photoid : "phonebook_data/profile27.jpg",
+	photoid : "phonebook_data/profile37.jpg",
 	name_first : "Hamilton",
 	name_last : "Thomas",
 	name_middle : "",
@@ -9815,7 +10192,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "505-304",
+	addr_pcode : "952-923",
 	addr_country : "Canada",
 	addr_province : "Oregon",
 	addr_city : "Frankfruit",
@@ -9825,10 +10202,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1967-09-26",
 	webaddr : "www.intel.com",
-	note : "  "
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 378,
-	photoid : "phonebook_data/profile17.jpg",
+	photoid : "phonebook_data/profile20.jpg",
 	name_first : "Hamilton",
 	name_last : "Zendon",
 	name_middle : "",
@@ -9841,7 +10219,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "921-093",
+	addr_pcode : "544-323",
 	addr_country : "Japan",
 	addr_province : "Taxas",
 	addr_city : "Wonju",
@@ -9851,10 +10229,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1955-06-19",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 379,
-	photoid : "phonebook_data/profile07.jpg",
+	photoid : "phonebook_data/profile29.jpg",
 	name_first : "Hammink",
 	name_last : "Geert",
 	name_middle : "",
@@ -9867,7 +10246,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "254-008",
+	addr_pcode : "557-789",
 	addr_country : "Ghana",
 	addr_province : "Arizona",
 	addr_city : "Kwangju",
@@ -9877,10 +10256,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1963-09-08",
 	webaddr : "www.naver.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 380,
-	photoid : "phonebook_data/profile03.jpg",
+	photoid : "phonebook_data/profile14.jpg",
 	name_first : "Hammonds",
 	name_last : "Tom",
 	name_middle : "",
@@ -9893,7 +10273,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "401-996",
+	addr_pcode : "370-928",
 	addr_country : "U.S.A",
 	addr_province : "Dacota",
 	addr_city : "Bangkok",
@@ -9903,10 +10283,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1964-02-08",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 381,
-	photoid : "phonebook_data/profile14.jpg",
+	photoid : "phonebook_data/profile15.jpg",
 	name_first : "Hancock",
 	name_last : "Darrin",
 	name_middle : "",
@@ -9919,7 +10300,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "720-532",
+	addr_pcode : "495-720",
 	addr_country : "Brazil",
 	addr_province : "Kyunggi",
 	addr_city : "Laite",
@@ -9929,10 +10310,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1975-01-07",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 382,
-	photoid : "phonebook_data/profile08.jpg",
+	photoid : "phonebook_data/profile12.jpg",
 	name_first : "Handlogten",
 	name_last : "Ben",
 	name_middle : "",
@@ -9945,7 +10327,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "715-319",
+	addr_pcode : "322-057",
 	addr_country : "Brazil",
 	addr_province : "Nevada",
 	addr_city : "Wonju",
@@ -9955,10 +10337,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1956-09-21",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 383,
-	photoid : "phonebook_data/profile29.jpg",
+	photoid : "phonebook_data/profile08.jpg",
 	name_first : "Hankins",
 	name_last : "Cecil O.",
 	name_middle : "",
@@ -9971,7 +10354,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "112-694",
+	addr_pcode : "966-693",
 	addr_country : "Swiss",
 	addr_province : "Taxas",
 	addr_city : "Paris",
@@ -9981,10 +10364,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1973-06-24",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 384,
-	photoid : "phonebook_data/profile05.jpg",
+	photoid : "phonebook_data/profile18.jpg",
 	name_first : "Hankinson",
 	name_last : "Phil",
 	name_middle : "",
@@ -9997,7 +10381,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "602-986",
+	addr_pcode : "107-373",
 	addr_country : "France",
 	addr_province : "Pennsylvania",
 	addr_city : "Paris",
@@ -10007,10 +10391,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1974-01-09",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 385,
-	photoid : "phonebook_data/profile01.jpg",
+	photoid : "phonebook_data/profile23.jpg",
 	name_first : "Hannum",
 	name_last : "Alexander Murray (Alex)",
 	name_middle : "",
@@ -10023,7 +10408,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "980-600",
+	addr_pcode : "548-398",
 	addr_country : "Rep.Korea",
 	addr_province : "Califonia",
 	addr_city : "Sanghai",
@@ -10033,10 +10418,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1958-07-21",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 386,
-	photoid : "phonebook_data/profile04.jpg",
+	photoid : "phonebook_data/profile02.jpg",
 	name_first : "Hanrahan",
 	name_last : "Donald (Don)",
 	name_middle : "",
@@ -10049,7 +10435,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "598-032",
+	addr_pcode : "442-102",
 	addr_country : "Sweden",
 	addr_province : "Oregon",
 	addr_city : "Paris",
@@ -10059,7 +10445,8 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1964-11-28",
 	webaddr : "www.samsungmobile.com",
-	note : "  "
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 387,
 	photoid : "phonebook_data/profile17.jpg",
@@ -10075,7 +10462,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "283-210",
+	addr_pcode : "445-156",
 	addr_country : "U.S.A",
 	addr_province : "Dacota",
 	addr_city : "Rome",
@@ -10085,10 +10472,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1957-02-09",
 	webaddr : "www.samsungmobile.com",
-	note : "  "
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 388,
-	photoid : "phonebook_data/profile04.jpg",
+	photoid : "phonebook_data/profile33.jpg",
 	name_first : "Hansbrough",
 	name_last : "Tyler",
 	name_middle : "",
@@ -10101,7 +10489,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "528-571",
+	addr_pcode : "968-399",
 	addr_country : "France",
 	addr_province : "Georgia",
 	addr_city : "Kwangju",
@@ -10111,10 +10499,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1968-06-26",
 	webaddr : "www.sec.co.kr",
-	note : "  "
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 389,
-	photoid : "phonebook_data/profile14.jpg",
+	photoid : "phonebook_data/profile10.jpg",
 	name_first : "Hansen",
 	name_last : "Bob",
 	name_middle : "",
@@ -10127,7 +10516,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "791-398",
+	addr_pcode : "455-532",
 	addr_country : "Japan",
 	addr_province : "Oregon",
 	addr_city : "Cleveland",
@@ -10137,10 +10526,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1954-05-13",
 	webaddr : "www.samsungmobile.com",
-	note : "  "
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 390,
-	photoid : "phonebook_data/profile16.jpg",
+	photoid : "phonebook_data/profile32.jpg",
 	name_first : "Hansen",
 	name_last : "Glenn R.",
 	name_middle : "",
@@ -10153,7 +10543,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "307-563",
+	addr_pcode : "752-221",
 	addr_country : "Gaum",
 	addr_province : "Alaska",
 	addr_city : "Bangkok",
@@ -10163,10 +10553,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1963-05-20",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 391,
-	photoid : "phonebook_data/profile40.jpg",
+	photoid : "phonebook_data/profile12.jpg",
 	name_first : "Hansen",
 	name_last : "Lars",
 	name_middle : "",
@@ -10179,7 +10570,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "447-665",
+	addr_pcode : "201-561",
 	addr_country : "Ghana",
 	addr_province : "Nebraska",
 	addr_city : "Huston",
@@ -10189,10 +10580,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1950-01-18",
 	webaddr : "www.yahoo.com",
-	note : "  "
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 392,
-	photoid : "phonebook_data/profile33.jpg",
+	photoid : "phonebook_data/profile37.jpg",
 	name_first : "Hansen",
 	name_last : "Travis",
 	name_middle : "",
@@ -10205,7 +10597,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "992-433",
+	addr_pcode : "372-307",
 	addr_country : "China",
 	addr_province : "Califonia",
 	addr_city : "Bangkok",
@@ -10215,10 +10607,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1952-01-18",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 393,
-	photoid : "phonebook_data/profile40.jpg",
+	photoid : "phonebook_data/profile37.jpg",
 	name_first : "Hanson",
 	name_last : "Reggie",
 	name_middle : "",
@@ -10231,7 +10624,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "293-004",
+	addr_pcode : "487-957",
 	addr_country : "Japan",
 	addr_province : "Idaho",
 	addr_city : "Denver",
@@ -10241,10 +10634,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1971-05-30",
 	webaddr : "www.samsungmobile.com",
-	note : "  "
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 394,
-	photoid : "phonebook_data/profile15.jpg",
+	photoid : "phonebook_data/profile17.jpg",
 	name_first : "Hanzlik",
 	name_last : "Bill",
 	name_middle : "",
@@ -10257,7 +10651,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "848-537",
+	addr_pcode : "853-710",
 	addr_country : "Gaum",
 	addr_province : "Pennsylvania",
 	addr_city : "Bangkok",
@@ -10267,10 +10661,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1971-05-08",
 	webaddr : "www.intel.com",
-	note : "  "
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 395,
-	photoid : "phonebook_data/profile15.jpg",
+	photoid : "phonebook_data/profile29.jpg",
 	name_first : "Harangody",
 	name_last : "Luke",
 	name_middle : "",
@@ -10283,7 +10678,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "520-849",
+	addr_pcode : "616-037",
 	addr_country : "China",
 	addr_province : "Nebraska",
 	addr_city : "Rome",
@@ -10293,10 +10688,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1958-01-12",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 396,
-	photoid : "phonebook_data/profile14.jpg",
+	photoid : "phonebook_data/profile09.jpg",
 	name_first : "Hardaway",
 	name_last : "Anfernee",
 	name_middle : "",
@@ -10309,7 +10705,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "531-974",
+	addr_pcode : "232-469",
 	addr_country : "Brazil",
 	addr_province : "Hawaii",
 	addr_city : "L.A.",
@@ -10319,10 +10715,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1966-05-14",
 	webaddr : "www.google.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 397,
-	photoid : "phonebook_data/profile07.jpg",
+	photoid : "phonebook_data/profile13.jpg",
 	name_first : "Hardaway",
 	name_last : "Tim",
 	name_middle : "",
@@ -10335,7 +10732,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "159-147",
+	addr_pcode : "663-058",
 	addr_country : "France",
 	addr_province : "Oregon",
 	addr_city : "Wonju",
@@ -10345,10 +10742,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1971-08-15",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 398,
-	photoid : "phonebook_data/profile12.jpg",
+	photoid : "phonebook_data/profile27.jpg",
 	name_first : "Harden",
 	name_last : "James",
 	name_middle : "",
@@ -10361,7 +10759,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "250-291",
+	addr_pcode : "745-815",
 	addr_country : "Ghana",
 	addr_province : "Pennsylvania",
 	addr_city : "Frankfruit",
@@ -10371,10 +10769,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1968-06-24",
 	webaddr : "www.samsungmobile.com",
-	note : "  "
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 399,
-	photoid : "phonebook_data/profile18.jpg",
+	photoid : "phonebook_data/profile06.jpg",
 	name_first : "Harding",
 	name_last : "Reginald (Reggie)",
 	name_middle : "",
@@ -10387,7 +10786,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "225-274",
+	addr_pcode : "957-632",
 	addr_country : "Canada",
 	addr_province : "Pennsylvania",
 	addr_city : "Newyork",
@@ -10397,10 +10796,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1959-05-22",
 	webaddr : "www.daum.net",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 400,
-	photoid : "phonebook_data/profile36.jpg",
+	photoid : "phonebook_data/profile11.jpg",
 	name_first : "Iavaroni",
 	name_last : "Marc",
 	name_middle : "",
@@ -10413,7 +10813,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "885-458",
+	addr_pcode : "977-020",
 	addr_country : "Rep.Korea",
 	addr_province : "Dacota",
 	addr_city : "Huston",
@@ -10423,10 +10823,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1969-04-02",
 	webaddr : "www.naver.com",
-	note : "  "
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 401,
-	photoid : "phonebook_data/profile02.jpg",
+	photoid : "phonebook_data/profile07.jpg",
 	name_first : "Ibaka",
 	name_last : "Serge",
 	name_middle : "",
@@ -10439,7 +10840,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "774-160",
+	addr_pcode : "636-293",
 	addr_country : "Gaum",
 	addr_province : "Alaska",
 	addr_city : "Huston",
@@ -10449,10 +10850,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1962-04-04",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 402,
-	photoid : "phonebook_data/profile38.jpg",
+	photoid : "phonebook_data/profile36.jpg",
 	name_first : "Iguodala",
 	name_last : "Andre",
 	name_middle : "",
@@ -10465,7 +10867,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "998-789",
+	addr_pcode : "619-644",
 	addr_country : "Brazil",
 	addr_province : "Alaska",
 	addr_city : "Paris",
@@ -10475,10 +10877,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1974-11-01",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 403,
-	photoid : "phonebook_data/profile03.jpg",
+	photoid : "phonebook_data/profile14.jpg",
 	name_first : "Ilgauskas",
 	name_last : "Zydrunas",
 	name_middle : "",
@@ -10491,7 +10894,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "843-764",
+	addr_pcode : "571-735",
 	addr_country : "Ghana",
 	addr_province : "Kangwon",
 	addr_city : "Newyork",
@@ -10501,10 +10904,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1962-05-20",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 404,
-	photoid : "phonebook_data/profile17.jpg",
+	photoid : "phonebook_data/profile08.jpg",
 	name_first : "Ilic",
 	name_last : "Mile",
 	name_middle : "",
@@ -10517,7 +10921,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "217-389",
+	addr_pcode : "849-450",
 	addr_country : "Canada",
 	addr_province : "Arizona",
 	addr_city : "Rome",
@@ -10527,10 +10931,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1965-10-03",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 405,
-	photoid : "phonebook_data/profile32.jpg",
+	photoid : "phonebook_data/profile03.jpg",
 	name_first : "Ilunga-Mbenga",
 	name_last : "Didier",
 	name_middle : "",
@@ -10543,7 +10948,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "819-896",
+	addr_pcode : "981-307",
 	addr_country : "Swiss",
 	addr_province : "Idaho",
 	addr_city : "Frankfruit",
@@ -10553,10 +10958,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1962-08-22",
 	webaddr : "www.google.com",
-	note : "  "
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 406,
-	photoid : "phonebook_data/profile20.jpg",
+	photoid : "phonebook_data/profile19.jpg",
 	name_first : "Ilyasova",
 	name_last : "Ersan",
 	name_middle : "",
@@ -10569,7 +10975,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "558-905",
+	addr_pcode : "476-178",
 	addr_country : "Rep.Korea",
 	addr_province : "Oregon",
 	addr_city : "Laite",
@@ -10579,10 +10985,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1972-06-02",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 407,
-	photoid : "phonebook_data/profile40.jpg",
+	photoid : "phonebook_data/profile28.jpg",
 	name_first : "Imhoff",
 	name_last : "Darrall Tucker (Big D)",
 	name_middle : "",
@@ -10595,7 +11002,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "618-803",
+	addr_pcode : "306-035",
 	addr_country : "Brazil",
 	addr_province : "Pennsylvania",
 	addr_city : "Huston",
@@ -10605,10 +11012,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1950-11-19",
 	webaddr : "www.google.com",
-	note : "  "
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 408,
-	photoid : "phonebook_data/profile08.jpg",
+	photoid : "phonebook_data/profile31.jpg",
 	name_first : "Ingelsby",
 	name_last : "Tom",
 	name_middle : "",
@@ -10621,7 +11029,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "988-582",
+	addr_pcode : "600-062",
 	addr_country : "Ghana",
 	addr_province : "Kyunggi",
 	addr_city : "Cleveland",
@@ -10631,10 +11039,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1958-10-03",
 	webaddr : "www.google.com",
-	note : "  "
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 409,
-	photoid : "phonebook_data/profile04.jpg",
+	photoid : "phonebook_data/profile24.jpg",
 	name_first : "Ingram",
 	name_last : "Joel McCoy (McCoy)",
 	name_middle : "",
@@ -10647,7 +11056,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "423-549",
+	addr_pcode : "116-852",
 	addr_country : "Canada",
 	addr_province : "Taxas",
 	addr_city : "Wonju",
@@ -10657,10 +11066,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1971-09-17",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 410,
-	photoid : "phonebook_data/profile07.jpg",
+	photoid : "phonebook_data/profile04.jpg",
 	name_first : "Irvin",
 	name_last : "Byron",
 	name_middle : "",
@@ -10673,7 +11083,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "162-747",
+	addr_pcode : "105-697",
 	addr_country : "Gaum",
 	addr_province : "Alaska",
 	addr_city : "Paris",
@@ -10683,10 +11093,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1962-12-21",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 411,
-	photoid : "phonebook_data/profile20.jpg",
+	photoid : "phonebook_data/profile24.jpg",
 	name_first : "Issel",
 	name_last : "Dan",
 	name_middle : "",
@@ -10699,7 +11110,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "364-946",
+	addr_pcode : "782-657",
 	addr_country : "Brazil",
 	addr_province : "Georgia",
 	addr_city : "Laite",
@@ -10709,10 +11120,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1969-04-24",
 	webaddr : "www.samsungmobile.com",
-	note : "  "
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 412,
-	photoid : "phonebook_data/profile09.jpg",
+	photoid : "phonebook_data/profile31.jpg",
 	name_first : "Iuzzolino",
 	name_last : "Mike",
 	name_middle : "",
@@ -10725,7 +11137,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "507-012",
+	addr_pcode : "144-257",
 	addr_country : "Gaum",
 	addr_province : "Kyunggi",
 	addr_city : "Frankfruit",
@@ -10735,10 +11147,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1970-02-28",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 413,
-	photoid : "phonebook_data/profile17.jpg",
+	photoid : "phonebook_data/profile28.jpg",
 	name_first : "Iverson",
 	name_last : "Allen",
 	name_middle : "",
@@ -10751,7 +11164,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "372-604",
+	addr_pcode : "975-433",
 	addr_country : "U.S.A",
 	addr_province : "Washington",
 	addr_city : "Daegu",
@@ -10761,7 +11174,8 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1955-08-15",
 	webaddr : "www.samsungmobile.com",
-	note : "  "
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 414,
 	photoid : "phonebook_data/profile23.jpg",
@@ -10777,7 +11191,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "436-443",
+	addr_pcode : "149-363",
 	addr_country : "Rep.Korea",
 	addr_province : "Oregon",
 	addr_city : "Bangkok",
@@ -10787,10 +11201,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1951-04-08",
 	webaddr : "www.intel.com",
-	note : "  "
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 415,
-	photoid : "phonebook_data/profile15.jpg",
+	photoid : "phonebook_data/profile24.jpg",
 	name_first : "Jack",
 	name_last : "Jarrett",
 	name_middle : "",
@@ -10803,7 +11218,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "447-784",
+	addr_pcode : "190-907",
 	addr_country : "Japan",
 	addr_province : "Arizona",
 	addr_city : "Denver",
@@ -10813,10 +11228,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1953-04-23",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 416,
-	photoid : "phonebook_data/profile02.jpg",
+	photoid : "phonebook_data/profile31.jpg",
 	name_first : "Jackson",
 	name_last : "Alvin (Al)",
 	name_middle : "",
@@ -10829,7 +11245,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "291-933",
+	addr_pcode : "602-284",
 	addr_country : "Swiss",
 	addr_province : "Kyunggi",
 	addr_city : "Cebu",
@@ -10839,10 +11255,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1970-03-18",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 417,
-	photoid : "phonebook_data/profile27.jpg",
+	photoid : "phonebook_data/profile13.jpg",
 	name_first : "Jackson",
 	name_last : "Anthony Eugene (Tony)",
 	name_middle : "",
@@ -10855,7 +11272,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "679-144",
+	addr_pcode : "218-544",
 	addr_country : "France",
 	addr_province : "Florida",
 	addr_city : "Sanghai",
@@ -10865,10 +11282,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1956-04-28",
 	webaddr : "www.google.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 418,
-	photoid : "phonebook_data/profile25.jpg",
+	photoid : "phonebook_data/profile02.jpg",
 	name_first : "Jackson",
 	name_last : "Bobby",
 	name_middle : "",
@@ -10881,7 +11299,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "613-630",
+	addr_pcode : "800-850",
 	addr_country : "China",
 	addr_province : "Nebraska",
 	addr_city : "Cleveland",
@@ -10891,10 +11309,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1970-12-01",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 419,
-	photoid : "phonebook_data/profile12.jpg",
+	photoid : "phonebook_data/profile08.jpg",
 	name_first : "Jackson",
 	name_last : "Cedric",
 	name_middle : "",
@@ -10907,7 +11326,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "250-228",
+	addr_pcode : "440-097",
 	addr_country : "Swiss",
 	addr_province : "Washington",
 	addr_city : "Busan",
@@ -10917,10 +11336,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1964-12-07",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 420,
-	photoid : "phonebook_data/profile25.jpg",
+	photoid : "phonebook_data/profile04.jpg",
 	name_first : "Jackson",
 	name_last : "Darnell",
 	name_middle : "",
@@ -10933,7 +11353,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "218-739",
+	addr_pcode : "611-949",
 	addr_country : "U.S.A",
 	addr_province : "Califonia",
 	addr_city : "Laite",
@@ -10943,10 +11363,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1969-07-29",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 421,
-	photoid : "phonebook_data/profile31.jpg",
+	photoid : "phonebook_data/profile21.jpg",
 	name_first : "Jackson",
 	name_last : "Gregory (Greg)",
 	name_middle : "",
@@ -10959,7 +11380,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "628-395",
+	addr_pcode : "247-477",
 	addr_country : "Swiss",
 	addr_province : "Florida",
 	addr_city : "Denver",
@@ -10969,10 +11390,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1950-02-14",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 422,
-	photoid : "phonebook_data/profile06.jpg",
+	photoid : "phonebook_data/profile29.jpg",
 	name_first : "Jackson",
 	name_last : "Jaren",
 	name_middle : "",
@@ -10985,7 +11407,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "163-460",
+	addr_pcode : "891-715",
 	addr_country : "Swiss",
 	addr_province : "Kyunggi",
 	addr_city : "Wonju",
@@ -10995,10 +11417,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1970-09-15",
 	webaddr : "www.naver.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 423,
-	photoid : "phonebook_data/profile17.jpg",
+	photoid : "phonebook_data/profile38.jpg",
 	name_first : "Jackson",
 	name_last : "Jermaine",
 	name_middle : "",
@@ -11011,7 +11434,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "160-741",
+	addr_pcode : "802-120",
 	addr_country : "U.S.A",
 	addr_province : "Oregon",
 	addr_city : "Frankfruit",
@@ -11021,10 +11444,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1963-10-22",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 424,
-	photoid : "phonebook_data/profile04.jpg",
+	photoid : "phonebook_data/profile11.jpg",
 	name_first : "Jackson",
 	name_last : "Jim",
 	name_middle : "",
@@ -11037,7 +11461,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "956-749",
+	addr_pcode : "846-218",
 	addr_country : "Swiss",
 	addr_province : "Califonia",
 	addr_city : "Laite",
@@ -11047,10 +11471,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1956-06-18",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 425,
-	photoid : "phonebook_data/profile33.jpg",
+	photoid : "phonebook_data/profile29.jpg",
 	name_first : "Jackson",
 	name_last : "Lucious B. (Luke)",
 	name_middle : "",
@@ -11063,7 +11488,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "967-503",
+	addr_pcode : "152-702",
 	addr_country : "Rep.Korea",
 	addr_province : "Califonia",
 	addr_city : "Frankfruit",
@@ -11073,10 +11498,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1951-06-22",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 426,
-	photoid : "phonebook_data/profile33.jpg",
+	photoid : "phonebook_data/profile38.jpg",
 	name_first : "Jackson",
 	name_last : "Luke",
 	name_middle : "",
@@ -11089,7 +11515,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "691-373",
+	addr_pcode : "502-470",
 	addr_country : "Rep.Korea",
 	addr_province : "Nevada",
 	addr_city : "Newyork",
@@ -11099,10 +11525,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1966-08-11",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 427,
-	photoid : "phonebook_data/profile20.jpg",
+	photoid : "phonebook_data/profile03.jpg",
 	name_first : "Jackson",
 	name_last : "Marc",
 	name_middle : "",
@@ -11115,7 +11542,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "896-901",
+	addr_pcode : "913-469",
 	addr_country : "Brazil",
 	addr_province : "Pennsylvania",
 	addr_city : "Huston",
@@ -11125,10 +11552,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1955-07-07",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 428,
-	photoid : "phonebook_data/profile31.jpg",
+	photoid : "phonebook_data/profile37.jpg",
 	name_first : "Jackson",
 	name_last : "Mark",
 	name_middle : "",
@@ -11141,7 +11569,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "581-288",
+	addr_pcode : "415-200",
 	addr_country : "U.S.A",
 	addr_province : "Florida",
 	addr_city : "Denver",
@@ -11151,10 +11579,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1969-09-14",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 429,
-	photoid : "phonebook_data/profile04.jpg",
+	photoid : "phonebook_data/profile20.jpg",
 	name_first : "Jackson",
 	name_last : "Michael",
 	name_middle : "",
@@ -11167,7 +11596,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "764-040",
+	addr_pcode : "279-040",
 	addr_country : "Rep.Korea",
 	addr_province : "Oregon",
 	addr_city : "Cebu",
@@ -11177,10 +11606,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1960-02-14",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 430,
-	photoid : "phonebook_data/profile21.jpg",
+	photoid : "phonebook_data/profile40.jpg",
 	name_first : "Jackson",
 	name_last : "Myron",
 	name_middle : "",
@@ -11193,7 +11623,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "658-369",
+	addr_pcode : "217-661",
 	addr_country : "Japan",
 	addr_province : "Hawaii",
 	addr_city : "Wonju",
@@ -11203,10 +11633,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1965-01-25",
 	webaddr : "www.naver.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 431,
-	photoid : "phonebook_data/profile12.jpg",
+	photoid : "phonebook_data/profile14.jpg",
 	name_first : "Jackson",
 	name_last : "Philip D. (Phil, Action)",
 	name_middle : "",
@@ -11219,7 +11650,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "185-585",
+	addr_pcode : "802-728",
 	addr_country : "Sweden",
 	addr_province : "Arizona",
 	addr_city : "Daegu",
@@ -11229,10 +11660,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1974-04-20",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 432,
-	photoid : "phonebook_data/profile31.jpg",
+	photoid : "phonebook_data/profile17.jpg",
 	name_first : "Jackson",
 	name_last : "Ralph A. III",
 	name_middle : "",
@@ -11245,7 +11677,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "524-660",
+	addr_pcode : "862-171",
 	addr_country : "Canada",
 	addr_province : "Idaho",
 	addr_city : "Daegu",
@@ -11255,10 +11687,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1963-04-26",
 	webaddr : "www.intel.com",
-	note : "  "
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 433,
-	photoid : "phonebook_data/profile06.jpg",
+	photoid : "phonebook_data/profile10.jpg",
 	name_first : "Jackson",
 	name_last : "Randell",
 	name_middle : "",
@@ -11271,7 +11704,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "507-372",
+	addr_pcode : "256-207",
 	addr_country : "Rep.Korea",
 	addr_province : "Idaho",
 	addr_city : "Daegu",
@@ -11281,10 +11714,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1972-11-23",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 434,
-	photoid : "phonebook_data/profile15.jpg",
+	photoid : "phonebook_data/profile02.jpg",
 	name_first : "Jackson",
 	name_last : "Stanley",
 	name_middle : "",
@@ -11297,7 +11731,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "763-013",
+	addr_pcode : "333-358",
 	addr_country : "China",
 	addr_province : "Alaska",
 	addr_city : "Laite",
@@ -11307,10 +11741,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1970-02-01",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 435,
-	photoid : "phonebook_data/profile31.jpg",
+	photoid : "phonebook_data/profile06.jpg",
 	name_first : "Jackson",
 	name_last : "Stephen",
 	name_middle : "",
@@ -11323,7 +11758,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "268-006",
+	addr_pcode : "765-303",
 	addr_country : "Brazil",
 	addr_province : "Florida",
 	addr_city : "Laite",
@@ -11333,10 +11768,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1958-10-30",
 	webaddr : "www.daum.net",
-	note : "  "
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 436,
-	photoid : "phonebook_data/profile28.jpg",
+	photoid : "phonebook_data/profile07.jpg",
 	name_first : "Jackson",
 	name_last : "Tracy",
 	name_middle : "",
@@ -11349,7 +11785,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "760-596",
+	addr_pcode : "162-354",
 	addr_country : "Rep.Korea",
 	addr_province : "Hawaii",
 	addr_city : "Kwangju",
@@ -11359,10 +11795,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1965-12-30",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 437,
-	photoid : "phonebook_data/profile24.jpg",
+	photoid : "phonebook_data/profile33.jpg",
 	name_first : "Jackson",
 	name_last : "Wardell",
 	name_middle : "",
@@ -11375,7 +11812,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "274-740",
+	addr_pcode : "414-364",
 	addr_country : "Ghana",
 	addr_province : "Arizona",
 	addr_city : "Laite",
@@ -11385,10 +11822,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1961-05-28",
 	webaddr : "www.naver.com",
-	note : "  "
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 438,
-	photoid : "phonebook_data/profile32.jpg",
+	photoid : "phonebook_data/profile10.jpg",
 	name_first : "Jacobs",
 	name_last : "Winfred O. (Fred)",
 	name_middle : "",
@@ -11401,7 +11839,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "502-216",
+	addr_pcode : "732-819",
 	addr_country : "France",
 	addr_province : "Alaska",
 	addr_city : "Daegu",
@@ -11411,10 +11849,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1961-02-27",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 439,
-	photoid : "phonebook_data/profile10.jpg",
+	photoid : "phonebook_data/profile08.jpg",
 	name_first : "Jacobsen",
 	name_last : "Casey",
 	name_middle : "",
@@ -11427,7 +11866,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "901-535",
+	addr_pcode : "231-374",
 	addr_country : "China",
 	addr_province : "Arizona",
 	addr_city : "Huston",
@@ -11437,10 +11876,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1976-04-13",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 440,
-	photoid : "phonebook_data/profile06.jpg",
+	photoid : "phonebook_data/profile17.jpg",
 	name_first : "Jacobson",
 	name_last : "Sam",
 	name_middle : "",
@@ -11453,7 +11893,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "855-831",
+	addr_pcode : "440-697",
 	addr_country : "Canada",
 	addr_province : "Washington",
 	addr_city : "Bangkok",
@@ -11463,10 +11903,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1973-04-19",
 	webaddr : "www.yahoo.com",
-	note : "  "
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 441,
-	photoid : "phonebook_data/profile35.jpg",
+	photoid : "phonebook_data/profile32.jpg",
 	name_first : "Jamerson",
 	name_last : "Dave",
 	name_middle : "",
@@ -11479,7 +11920,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "807-409",
+	addr_pcode : "578-507",
 	addr_country : "Swiss",
 	addr_province : "Georgia",
 	addr_city : "Sanghai",
@@ -11489,10 +11930,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1969-12-06",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 442,
-	photoid : "phonebook_data/profile05.jpg",
+	photoid : "phonebook_data/profile25.jpg",
 	name_first : "James",
 	name_last : "Aaron (A.J.)",
 	name_middle : "",
@@ -11505,7 +11947,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "916-698",
+	addr_pcode : "624-442",
 	addr_country : "Gaum",
 	addr_province : "Oregon",
 	addr_city : "Frankfruit",
@@ -11515,10 +11957,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1962-03-30",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 443,
-	photoid : "phonebook_data/profile12.jpg",
+	photoid : "phonebook_data/profile17.jpg",
 	name_first : "James",
 	name_last : "Damion",
 	name_middle : "",
@@ -11531,7 +11974,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "943-287",
+	addr_pcode : "175-160",
 	addr_country : "Japan",
 	addr_province : "Georgia",
 	addr_city : "Paris",
@@ -11541,10 +11984,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1969-04-20",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 444,
-	photoid : "phonebook_data/profile09.jpg",
+	photoid : "phonebook_data/profile23.jpg",
 	name_first : "James",
 	name_last : "Harold Gene (Gene, Goose)",
 	name_middle : "",
@@ -11557,7 +12001,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "392-421",
+	addr_pcode : "331-022",
 	addr_country : "Sweden",
 	addr_province : "Georgia",
 	addr_city : "Frankfruit",
@@ -11567,10 +12011,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1967-04-30",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 445,
-	photoid : "phonebook_data/profile19.jpg",
+	photoid : "phonebook_data/profile32.jpg",
 	name_first : "James",
 	name_last : "Henry",
 	name_middle : "",
@@ -11583,7 +12028,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "370-126",
+	addr_pcode : "137-572",
 	addr_country : "Canada",
 	addr_province : "Oregon",
 	addr_city : "Cebu",
@@ -11593,10 +12038,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1976-08-02",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 446,
-	photoid : "phonebook_data/profile06.jpg",
+	photoid : "phonebook_data/profile05.jpg",
 	name_first : "James",
 	name_last : "Jerome",
 	name_middle : "",
@@ -11609,7 +12055,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "562-787",
+	addr_pcode : "417-283",
 	addr_country : "Brazil",
 	addr_province : "Georgia",
 	addr_city : "Denver",
@@ -11619,10 +12065,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1952-09-02",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 447,
-	photoid : "phonebook_data/profile30.jpg",
+	photoid : "phonebook_data/profile19.jpg",
 	name_first : "James",
 	name_last : "LeBron",
 	name_middle : "",
@@ -11635,7 +12082,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "197-226",
+	addr_pcode : "950-262",
 	addr_country : "China",
 	addr_province : "Kyunggi",
 	addr_city : "Daegu",
@@ -11645,10 +12092,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1951-12-04",
 	webaddr : "www.samsungmobile.com",
-	note : "  "
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 448,
-	photoid : "phonebook_data/profile01.jpg",
+	photoid : "phonebook_data/profile06.jpg",
 	name_first : "James",
 	name_last : "Mike",
 	name_middle : "",
@@ -11661,7 +12109,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "866-580",
+	addr_pcode : "715-873",
 	addr_country : "Japan",
 	addr_province : "Kyunggi",
 	addr_city : "L.A.",
@@ -11671,10 +12119,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1973-02-24",
 	webaddr : "www.naver.com",
-	note : "  "
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 449,
-	photoid : "phonebook_data/profile34.jpg",
+	photoid : "phonebook_data/profile18.jpg",
 	name_first : "James",
 	name_last : "Tim",
 	name_middle : "",
@@ -11687,7 +12136,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "881-089",
+	addr_pcode : "199-944",
 	addr_country : "Japan",
 	addr_province : "Kangwon",
 	addr_city : "Sanghai",
@@ -11697,10 +12146,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1957-02-06",
 	webaddr : "www.google.com",
-	note : "  "
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 450,
-	photoid : "phonebook_data/profile06.jpg",
+	photoid : "phonebook_data/profile35.jpg",
 	name_first : "Jamison",
 	name_last : "Antawn",
 	name_middle : "",
@@ -11713,7 +12163,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "375-963",
+	addr_pcode : "864-106",
 	addr_country : "U.S.A",
 	addr_province : "Georgia",
 	addr_city : "L.A.",
@@ -11723,10 +12173,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1975-02-04",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 451,
-	photoid : "phonebook_data/profile02.jpg",
+	photoid : "phonebook_data/profile32.jpg",
 	name_first : "Jamison",
 	name_last : "Harold",
 	name_middle : "",
@@ -11739,7 +12190,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "152-932",
+	addr_pcode : "933-435",
 	addr_country : "Swiss",
 	addr_province : "Arizona",
 	addr_city : "Denver",
@@ -11749,10 +12200,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1972-05-07",
 	webaddr : "www.sec.co.kr",
-	note : "  "
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 452,
-	photoid : "phonebook_data/profile09.jpg",
+	photoid : "phonebook_data/profile18.jpg",
 	name_first : "Janisch",
 	name_last : "John Albert",
 	name_middle : "",
@@ -11765,7 +12217,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "430-697",
+	addr_pcode : "368-930",
 	addr_country : "Canada",
 	addr_province : "Kyunggi",
 	addr_city : "Huston",
@@ -11775,10 +12227,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1968-01-10",
 	webaddr : "www.daum.net",
-	note : "  "
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 453,
-	photoid : "phonebook_data/profile28.jpg",
+	photoid : "phonebook_data/profile02.jpg",
 	name_first : "Janotta",
 	name_last : "Howard (Howie)",
 	name_middle : "",
@@ -11791,7 +12244,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "419-370",
+	addr_pcode : "596-456",
 	addr_country : "Sweden",
 	addr_province : "Georgia",
 	addr_city : "Sanghai",
@@ -11801,10 +12254,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1963-01-27",
 	webaddr : "www.intel.com",
-	note : "  "
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 454,
-	photoid : "phonebook_data/profile16.jpg",
+	photoid : "phonebook_data/profile37.jpg",
 	name_first : "Jaric",
 	name_last : "Marko",
 	name_middle : "",
@@ -11817,7 +12271,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "175-790",
+	addr_pcode : "218-135",
 	addr_country : "Sweden",
 	addr_province : "Nebraska",
 	addr_city : "Cleveland",
@@ -11827,10 +12281,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1959-10-26",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 455,
-	photoid : "phonebook_data/profile08.jpg",
+	photoid : "phonebook_data/profile37.jpg",
 	name_first : "Jaros",
 	name_last : "Anthony Joseph (Tony)",
 	name_middle : "",
@@ -11843,7 +12298,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "548-604",
+	addr_pcode : "398-979",
 	addr_country : "France",
 	addr_province : "Nebraska",
 	addr_city : "Paris",
@@ -11853,10 +12308,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1975-04-30",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 456,
-	photoid : "phonebook_data/profile32.jpg",
+	photoid : "phonebook_data/profile38.jpg",
 	name_first : "Jasikevicius",
 	name_last : "Sarunas",
 	name_middle : "",
@@ -11869,7 +12325,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "705-159",
+	addr_pcode : "438-664",
 	addr_country : "Japan",
 	addr_province : "Idaho",
 	addr_city : "L.A.",
@@ -11879,10 +12335,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1976-03-26",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 457,
-	photoid : "phonebook_data/profile22.jpg",
+	photoid : "phonebook_data/profile30.jpg",
 	name_first : "Jawai",
 	name_last : "Nathan",
 	name_middle : "",
@@ -11895,7 +12352,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "805-918",
+	addr_pcode : "259-853",
 	addr_country : "Japan",
 	addr_province : "Kangwon",
 	addr_city : "Busan",
@@ -11905,10 +12362,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1952-09-13",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 458,
-	photoid : "phonebook_data/profile19.jpg",
+	photoid : "phonebook_data/profile26.jpg",
 	name_first : "Jeannette",
 	name_last : "Harry Edward (Buddy)",
 	name_middle : "",
@@ -11921,7 +12379,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "953-668",
+	addr_pcode : "196-811",
 	addr_country : "Gaum",
 	addr_province : "Florida",
 	addr_city : "Sanghai",
@@ -11931,10 +12389,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1960-11-17",
 	webaddr : "www.intel.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 459,
-	photoid : "phonebook_data/profile24.jpg",
+	photoid : "phonebook_data/profile02.jpg",
 	name_first : "Jeelani",
 	name_last : "Abdul Qadir (formerly Gary Cole)",
 	name_middle : "",
@@ -11947,7 +12406,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "761-432",
+	addr_pcode : "871-554",
 	addr_country : "Sweden",
 	addr_province : "Alaska",
 	addr_city : "Cebu",
@@ -11957,10 +12416,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1975-03-02",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 460,
-	photoid : "phonebook_data/profile12.jpg",
+	photoid : "phonebook_data/profile13.jpg",
 	name_first : "Jefferies",
 	name_last : "Chris",
 	name_middle : "",
@@ -11973,7 +12433,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "507-389",
+	addr_pcode : "514-794",
 	addr_country : "Japan",
 	addr_province : "Kangwon",
 	addr_city : "L.A.",
@@ -11983,10 +12443,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1970-08-22",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 461,
-	photoid : "phonebook_data/profile18.jpg",
+	photoid : "phonebook_data/profile25.jpg",
 	name_first : "Jeffers",
 	name_last : "Othyus",
 	name_middle : "",
@@ -11999,7 +12460,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "494-466",
+	addr_pcode : "328-220",
 	addr_country : "Gaum",
 	addr_province : "Kangwon",
 	addr_city : "Newyork",
@@ -12009,10 +12470,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1963-07-03",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 462,
-	photoid : "phonebook_data/profile32.jpg",
+	photoid : "phonebook_data/profile27.jpg",
 	name_first : "Jefferson",
 	name_last : "Al",
 	name_middle : "",
@@ -12025,7 +12487,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "671-461",
+	addr_pcode : "461-859",
 	addr_country : "Japan",
 	addr_province : "Florida",
 	addr_city : "Huston",
@@ -12035,10 +12497,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1974-11-30",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 463,
-	photoid : "phonebook_data/profile39.jpg",
+	photoid : "phonebook_data/profile01.jpg",
 	name_first : "Jefferson",
 	name_last : "Dontell",
 	name_middle : "",
@@ -12051,7 +12514,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "116-325",
+	addr_pcode : "149-701",
 	addr_country : "Japan",
 	addr_province : "Idaho",
 	addr_city : "Cleveland",
@@ -12061,10 +12524,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1973-07-22",
 	webaddr : "www.naver.com",
-	note : "  "
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 464,
-	photoid : "phonebook_data/profile24.jpg",
+	photoid : "phonebook_data/profile18.jpg",
 	name_first : "Jefferson",
 	name_last : "Richard",
 	name_middle : "",
@@ -12077,7 +12541,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "592-983",
+	addr_pcode : "184-027",
 	addr_country : "France",
 	addr_province : "Florida",
 	addr_city : "Wonju",
@@ -12087,10 +12551,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1973-03-22",
 	webaddr : "www.google.com",
-	note : "  "
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 465,
-	photoid : "phonebook_data/profile08.jpg",
+	photoid : "phonebook_data/profile01.jpg",
 	name_first : "Kachan",
 	name_last : "Edwin John (Whitey)",
 	name_middle : "",
@@ -12103,7 +12568,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "865-457",
+	addr_pcode : "852-120",
 	addr_country : "Gaum",
 	addr_province : "Hawaii",
 	addr_city : "Kwangju",
@@ -12113,10 +12578,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1957-02-26",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 466,
-	photoid : "phonebook_data/profile01.jpg",
+	photoid : "phonebook_data/profile20.jpg",
 	name_first : "Kaftan",
 	name_last : "George A. (The Golden Greek)",
 	name_middle : "",
@@ -12129,7 +12595,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "153-215",
+	addr_pcode : "572-033",
 	addr_country : "China",
 	addr_province : "Florida",
 	addr_city : "Cebu",
@@ -12139,10 +12605,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1962-11-18",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 467,
-	photoid : "phonebook_data/profile14.jpg",
+	photoid : "phonebook_data/profile26.jpg",
 	name_first : "Kalafat",
 	name_last : "Edward L. (Ed)",
 	name_middle : "",
@@ -12155,7 +12622,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "189-171",
+	addr_pcode : "335-006",
 	addr_country : "U.S.A",
 	addr_province : "Georgia",
 	addr_city : "Newyork",
@@ -12165,10 +12632,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1963-09-04",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 468,
-	photoid : "phonebook_data/profile18.jpg",
+	photoid : "phonebook_data/profile14.jpg",
 	name_first : "Kaman",
 	name_last : "Chris",
 	name_middle : "",
@@ -12181,7 +12649,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "241-373",
+	addr_pcode : "996-549",
 	addr_country : "Japan",
 	addr_province : "Taxas",
 	addr_city : "L.A.",
@@ -12191,10 +12659,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1963-10-09",
 	webaddr : "www.naver.com",
-	note : "  "
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 469,
-	photoid : "phonebook_data/profile10.jpg",
+	photoid : "phonebook_data/profile14.jpg",
 	name_first : "Kaplowitz",
 	name_last : "Ralph (Kappy)",
 	name_middle : "",
@@ -12207,7 +12676,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "934-697",
+	addr_pcode : "152-556",
 	addr_country : "Swiss",
 	addr_province : "Idaho",
 	addr_city : "Huston",
@@ -12217,10 +12686,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1952-08-29",
 	webaddr : "www.daum.net",
-	note : "  "
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 470,
-	photoid : "phonebook_data/profile28.jpg",
+	photoid : "phonebook_data/profile26.jpg",
 	name_first : "Kapono",
 	name_last : "Jason",
 	name_middle : "",
@@ -12233,7 +12703,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "363-371",
+	addr_pcode : "338-014",
 	addr_country : "Swiss",
 	addr_province : "Alaska",
 	addr_city : "Paris",
@@ -12243,10 +12713,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1965-11-18",
 	webaddr : "www.daum.net",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 471,
-	photoid : "phonebook_data/profile29.jpg",
+	photoid : "phonebook_data/profile38.jpg",
 	name_first : "Kappen",
 	name_last : "Anthony George (Tony)",
 	name_middle : "",
@@ -12259,7 +12730,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "836-666",
+	addr_pcode : "773-476",
 	addr_country : "France",
 	addr_province : "Califonia",
 	addr_city : "Cleveland",
@@ -12269,10 +12740,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1959-02-11",
 	webaddr : "www.sec.co.kr",
-	note : "  "
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 472,
-	photoid : "phonebook_data/profile36.jpg",
+	photoid : "phonebook_data/profile01.jpg",
 	name_first : "Karl",
 	name_last : "Coby",
 	name_middle : "",
@@ -12285,7 +12757,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "541-917",
+	addr_pcode : "315-327",
 	addr_country : "Ghana",
 	addr_province : "Washington",
 	addr_city : "Newyork",
@@ -12295,10 +12767,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1956-06-02",
 	webaddr : "www.intel.com",
-	note : "  "
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 473,
-	photoid : "phonebook_data/profile07.jpg",
+	photoid : "phonebook_data/profile29.jpg",
 	name_first : "Karl",
 	name_last : "George Matthew",
 	name_middle : "",
@@ -12311,7 +12784,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "247-767",
+	addr_pcode : "882-927",
 	addr_country : "China",
 	addr_province : "Nebraska",
 	addr_city : "Sanghai",
@@ -12321,10 +12794,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1950-10-14",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 474,
-	photoid : "phonebook_data/profile22.jpg",
+	photoid : "phonebook_data/profile03.jpg",
 	name_first : "Kasid",
 	name_last : "Edward (Ed)",
 	name_middle : "",
@@ -12337,7 +12811,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "424-179",
+	addr_pcode : "855-293",
 	addr_country : "Ghana",
 	addr_province : "Nevada",
 	addr_city : "Sanghai",
@@ -12347,10 +12821,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1974-08-31",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 475,
-	photoid : "phonebook_data/profile09.jpg",
+	photoid : "phonebook_data/profile08.jpg",
 	name_first : "Kasun",
 	name_last : "Mario",
 	name_middle : "",
@@ -12363,7 +12838,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "324-998",
+	addr_pcode : "264-155",
 	addr_country : "Ghana",
 	addr_province : "Idaho",
 	addr_city : "Rome",
@@ -12373,10 +12848,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1964-12-19",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 476,
-	photoid : "phonebook_data/profile18.jpg",
+	photoid : "phonebook_data/profile37.jpg",
 	name_first : "Katkaveck",
 	name_last : "Leo Frank",
 	name_middle : "",
@@ -12389,7 +12865,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "852-598",
+	addr_pcode : "979-595",
 	addr_country : "Gaum",
 	addr_province : "Califonia",
 	addr_city : "Busan",
@@ -12399,10 +12875,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1950-06-18",
 	webaddr : "www.sec.co.kr",
-	note : "  "
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 477,
-	photoid : "phonebook_data/profile07.jpg",
+	photoid : "phonebook_data/profile28.jpg",
 	name_first : "Kauffman",
 	name_last : "Robert (Bob, Horse)",
 	name_middle : "",
@@ -12415,7 +12892,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "754-119",
+	addr_pcode : "838-605",
 	addr_country : "France",
 	addr_province : "Idaho",
 	addr_city : "Frankfruit",
@@ -12425,10 +12902,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1971-08-11",
 	webaddr : "www.samsungmobile.com",
-	note : "  "
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 478,
-	photoid : "phonebook_data/profile06.jpg",
+	photoid : "phonebook_data/profile26.jpg",
 	name_first : "Kautz",
 	name_last : "Wilbert (Wibs)",
 	name_middle : "",
@@ -12441,7 +12919,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "273-594",
+	addr_pcode : "654-033",
 	addr_country : "Canada",
 	addr_province : "Idaho",
 	addr_city : "Frankfruit",
@@ -12451,10 +12929,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1954-03-29",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 479,
-	photoid : "phonebook_data/profile31.jpg",
+	photoid : "phonebook_data/profile13.jpg",
 	name_first : "Kea",
 	name_last : "Clarence Leroy",
 	name_middle : "",
@@ -12467,7 +12946,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "440-052",
+	addr_pcode : "928-840",
 	addr_country : "U.S.A",
 	addr_province : "Oregon",
 	addr_city : "Rome",
@@ -12477,10 +12956,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1965-12-30",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 480,
-	photoid : "phonebook_data/profile01.jpg",
+	photoid : "phonebook_data/profile16.jpg",
 	name_first : "Kearns",
 	name_last : "Michael Joseph",
 	name_middle : "",
@@ -12493,7 +12973,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "492-938",
+	addr_pcode : "657-831",
 	addr_country : "Ghana",
 	addr_province : "Pennsylvania",
 	addr_city : "Paris",
@@ -12503,10 +12983,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1969-02-01",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 481,
-	photoid : "phonebook_data/profile18.jpg",
+	photoid : "phonebook_data/profile02.jpg",
 	name_first : "Kearns",
 	name_last : "Thomas Francis Jr. (Tommy)",
 	name_middle : "",
@@ -12519,7 +13000,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "526-855",
+	addr_pcode : "293-186",
 	addr_country : "U.S.A",
 	addr_province : "Arizona",
 	addr_city : "Sanghai",
@@ -12529,10 +13010,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1954-01-19",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 482,
-	photoid : "phonebook_data/profile08.jpg",
+	photoid : "phonebook_data/profile11.jpg",
 	name_first : "Keefe",
 	name_last : "Adam",
 	name_middle : "",
@@ -12545,7 +13027,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "828-396",
+	addr_pcode : "605-916",
 	addr_country : "Sweden",
 	addr_province : "Dacota",
 	addr_city : "Wonju",
@@ -12555,10 +13037,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1957-07-05",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 483,
-	photoid : "phonebook_data/profile24.jpg",
+	photoid : "phonebook_data/profile08.jpg",
 	name_first : "Keeling",
 	name_last : "Harold A.",
 	name_middle : "",
@@ -12571,7 +13054,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "619-637",
+	addr_pcode : "386-053",
 	addr_country : "France",
 	addr_province : "Pennsylvania",
 	addr_city : "Kwangju",
@@ -12581,10 +13064,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1951-10-10",
 	webaddr : "www.daum.net",
-	note : "  "
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 484,
-	photoid : "phonebook_data/profile40.jpg",
+	photoid : "phonebook_data/profile24.jpg",
 	name_first : "Keller",
 	name_last : "Kenneth W. (Ken)",
 	name_middle : "",
@@ -12597,7 +13081,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "325-094",
+	addr_pcode : "405-987",
 	addr_country : "U.S.A",
 	addr_province : "Alaska",
 	addr_city : "Wonju",
@@ -12607,10 +13091,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1955-06-12",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 485,
-	photoid : "phonebook_data/profile21.jpg",
+	photoid : "phonebook_data/profile32.jpg",
 	name_first : "Kelley",
 	name_last : "Rich",
 	name_middle : "",
@@ -12623,7 +13108,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "501-258",
+	addr_pcode : "270-476",
 	addr_country : "Brazil",
 	addr_province : "Taxas",
 	addr_city : "Cleveland",
@@ -12633,10 +13118,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1954-08-20",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 486,
-	photoid : "phonebook_data/profile21.jpg",
+	photoid : "phonebook_data/profile30.jpg",
 	name_first : "Kellogg",
 	name_last : "Clark",
 	name_middle : "",
@@ -12649,7 +13135,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "564-018",
+	addr_pcode : "447-310",
 	addr_country : "Rep.Korea",
 	addr_province : "Kangwon",
 	addr_city : "L.A.",
@@ -12659,10 +13145,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1960-06-29",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 487,
-	photoid : "phonebook_data/profile19.jpg",
+	photoid : "phonebook_data/profile23.jpg",
 	name_first : "Kelly",
 	name_last : "Gerard Allan (Jerry)",
 	name_middle : "",
@@ -12675,7 +13162,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "886-014",
+	addr_pcode : "460-216",
 	addr_country : "Sweden",
 	addr_province : "Dacota",
 	addr_city : "Cebu",
@@ -12685,10 +13172,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1964-05-31",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 488,
-	photoid : "phonebook_data/profile15.jpg",
+	photoid : "phonebook_data/profile17.jpg",
 	name_first : "Kelly",
 	name_last : "Thomas Edward (Tom)",
 	name_middle : "",
@@ -12701,7 +13189,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "187-531",
+	addr_pcode : "564-666",
 	addr_country : "France",
 	addr_province : "Pennsylvania",
 	addr_city : "Paris",
@@ -12711,10 +13199,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1976-12-27",
 	webaddr : "www.intel.com",
-	note : "  "
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 489,
-	photoid : "phonebook_data/profile33.jpg",
+	photoid : "phonebook_data/profile03.jpg",
 	name_first : "Kelser",
 	name_last : "Greg",
 	name_middle : "",
@@ -12727,7 +13216,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "349-050",
+	addr_pcode : "234-431",
 	addr_country : "France",
 	addr_province : "Taxas",
 	addr_city : "Frankfruit",
@@ -12737,10 +13226,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1968-04-23",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 490,
-	photoid : "phonebook_data/profile40.jpg",
+	photoid : "phonebook_data/profile34.jpg",
 	name_first : "Kelso",
 	name_last : "Ben",
 	name_middle : "",
@@ -12753,7 +13243,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "836-829",
+	addr_pcode : "989-702",
 	addr_country : "Sweden",
 	addr_province : "Kyunggi",
 	addr_city : "Cebu",
@@ -12763,10 +13253,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1960-09-05",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 491,
-	photoid : "phonebook_data/profile07.jpg",
+	photoid : "phonebook_data/profile08.jpg",
 	name_first : "Kemp",
 	name_last : "Shawn",
 	name_middle : "",
@@ -12779,7 +13270,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "592-149",
+	addr_pcode : "595-442",
 	addr_country : "U.S.A",
 	addr_province : "Kyunggi",
 	addr_city : "L.A.",
@@ -12789,10 +13280,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1967-06-27",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 492,
-	photoid : "phonebook_data/profile30.jpg",
+	photoid : "phonebook_data/profile38.jpg",
 	name_first : "Kempton",
 	name_last : "Tim",
 	name_middle : "",
@@ -12805,7 +13297,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "117-175",
+	addr_pcode : "800-401",
 	addr_country : "Brazil",
 	addr_province : "Pennsylvania",
 	addr_city : "Daegu",
@@ -12815,10 +13307,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1960-12-04",
 	webaddr : "www.sec.co.kr",
-	note : "  "
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 493,
-	photoid : "phonebook_data/profile17.jpg",
+	photoid : "phonebook_data/profile15.jpg",
 	name_first : "Kendrick",
 	name_last : "Frank Edward",
 	name_middle : "",
@@ -12831,7 +13324,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "844-826",
+	addr_pcode : "923-773",
 	addr_country : "Sweden",
 	addr_province : "Kyunggi",
 	addr_city : "Newyork",
@@ -12841,10 +13334,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1961-09-07",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 494,
-	photoid : "phonebook_data/profile12.jpg",
+	photoid : "phonebook_data/profile18.jpg",
 	name_first : "Kennedy",
 	name_last : "Eugene (Goo)",
 	name_middle : "",
@@ -12857,7 +13351,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "445-231",
+	addr_pcode : "323-322",
 	addr_country : "Swiss",
 	addr_province : "Washington",
 	addr_city : "Bangkok",
@@ -12867,10 +13361,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1971-10-25",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 495,
-	photoid : "phonebook_data/profile29.jpg",
+	photoid : "phonebook_data/profile02.jpg",
 	name_first : "Kennedy",
 	name_last : "Joseph A. (Joe)",
 	name_middle : "",
@@ -12883,7 +13378,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "391-383",
+	addr_pcode : "130-153",
 	addr_country : "Ghana",
 	addr_province : "Oregon",
 	addr_city : "Daegu",
@@ -12893,10 +13388,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1969-10-11",
 	webaddr : "www.google.com",
-	note : "  "
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 496,
-	photoid : "phonebook_data/profile22.jpg",
+	photoid : "phonebook_data/profile34.jpg",
 	name_first : "Kennedy",
 	name_last : "William F. (Pickles)",
 	name_middle : "",
@@ -12909,7 +13405,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "113-967",
+	addr_pcode : "916-276",
 	addr_country : "Swiss",
 	addr_province : "Kyunggi",
 	addr_city : "Cleveland",
@@ -12919,10 +13415,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1951-09-10",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 497,
-	photoid : "phonebook_data/profile37.jpg",
+	photoid : "phonebook_data/profile14.jpg",
 	name_first : "Kenon",
 	name_last : "Larry",
 	name_middle : "",
@@ -12935,7 +13432,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "362-954",
+	addr_pcode : "556-608",
 	addr_country : "Japan",
 	addr_province : "Arizona",
 	addr_city : "Huston",
@@ -12945,10 +13442,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1973-01-02",
 	webaddr : "www.google.com",
-	note : "  "
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 498,
-	photoid : "phonebook_data/profile35.jpg",
+	photoid : "phonebook_data/profile22.jpg",
 	name_first : "Kenville",
 	name_last : "William McGill (Billy, The Kid)",
 	name_middle : "",
@@ -12961,7 +13459,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "609-753",
+	addr_pcode : "718-297",
 	addr_country : "U.S.A",
 	addr_province : "Florida",
 	addr_city : "Bangkok",
@@ -12971,10 +13469,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1960-12-18",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 499,
-	photoid : "phonebook_data/profile10.jpg",
+	photoid : "phonebook_data/profile09.jpg",
 	name_first : "Kerner",
 	name_last : "Jonathan",
 	name_middle : "",
@@ -12987,7 +13486,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "440-888",
+	addr_pcode : "998-927",
 	addr_country : "Swiss",
 	addr_province : "Pennsylvania",
 	addr_city : "Sanghai",
@@ -12997,10 +13496,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1952-02-28",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 500,
-	photoid : "phonebook_data/profile19.jpg",
+	photoid : "phonebook_data/profile29.jpg",
 	name_first : "Kerr",
 	name_last : "Johnny",
 	name_middle : "",
@@ -13013,7 +13513,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "157-576",
+	addr_pcode : "704-155",
 	addr_country : "Canada",
 	addr_province : "Florida",
 	addr_city : "Frankfruit",
@@ -13023,10 +13523,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1976-09-18",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 501,
-	photoid : "phonebook_data/profile09.jpg",
+	photoid : "phonebook_data/profile40.jpg",
 	name_first : "Kerr",
 	name_last : "Steve",
 	name_middle : "",
@@ -13039,7 +13540,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "633-702",
+	addr_pcode : "904-805",
 	addr_country : "Ghana",
 	addr_province : "Arizona",
 	addr_city : "Kwangju",
@@ -13049,10 +13550,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1972-01-04",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 502,
-	photoid : "phonebook_data/profile33.jpg",
+	photoid : "phonebook_data/profile11.jpg",
 	name_first : "Kerris",
 	name_last : "John E. (Jack)",
 	name_middle : "",
@@ -13065,7 +13567,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "880-571",
+	addr_pcode : "814-817",
 	addr_country : "Rep.Korea",
 	addr_province : "Hawaii",
 	addr_city : "Frankfruit",
@@ -13075,10 +13577,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1954-01-16",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 503,
-	photoid : "phonebook_data/profile28.jpg",
+	photoid : "phonebook_data/profile25.jpg",
 	name_first : "Kersey",
 	name_last : "Jerome",
 	name_middle : "",
@@ -13091,7 +13594,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "412-853",
+	addr_pcode : "934-555",
 	addr_country : "Gaum",
 	addr_province : "Georgia",
 	addr_city : "Laite",
@@ -13101,10 +13604,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1969-05-22",
 	webaddr : "www.intel.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 504,
-	photoid : "phonebook_data/profile21.jpg",
+	photoid : "phonebook_data/profile07.jpg",
 	name_first : "Kessler",
 	name_last : "Alec",
 	name_middle : "",
@@ -13117,7 +13621,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "567-736",
+	addr_pcode : "534-276",
 	addr_country : "Rep.Korea",
 	addr_province : "Florida",
 	addr_city : "Huston",
@@ -13127,10 +13631,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1953-08-17",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 505,
-	photoid : "phonebook_data/profile29.jpg",
+	photoid : "phonebook_data/profile30.jpg",
 	name_first : "Ketner",
 	name_last : "Lari",
 	name_middle : "",
@@ -13143,7 +13648,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "889-404",
+	addr_pcode : "647-665",
 	addr_country : "Swiss",
 	addr_province : "Oregon",
 	addr_city : "Cleveland",
@@ -13153,10 +13658,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1962-04-21",
 	webaddr : "www.naver.com",
-	note : "  "
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 506,
-	photoid : "phonebook_data/profile20.jpg",
+	photoid : "phonebook_data/profile19.jpg",
 	name_first : "Keys",
 	name_last : "Randolph",
 	name_middle : "",
@@ -13169,7 +13675,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "243-019",
+	addr_pcode : "149-676",
 	addr_country : "China",
 	addr_province : "Pennsylvania",
 	addr_city : "Kwangju",
@@ -13179,10 +13685,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1970-05-10",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 507,
-	photoid : "phonebook_data/profile15.jpg",
+	photoid : "phonebook_data/profile29.jpg",
 	name_first : "Khryapa",
 	name_last : "Viktor",
 	name_middle : "",
@@ -13195,7 +13702,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "625-817",
+	addr_pcode : "649-000",
 	addr_country : "Swiss",
 	addr_province : "Dacota",
 	addr_city : "Daegu",
@@ -13205,10 +13712,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1961-03-04",
 	webaddr : "www.sec.co.kr",
-	note : "  "
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 508,
-	photoid : "phonebook_data/profile24.jpg",
+	photoid : "phonebook_data/profile30.jpg",
 	name_first : "Kidd",
 	name_last : "Jason",
 	name_middle : "",
@@ -13221,7 +13729,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "159-925",
+	addr_pcode : "323-478",
 	addr_country : "Ghana",
 	addr_province : "Oregon",
 	addr_city : "Daegu",
@@ -13231,10 +13739,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1962-10-04",
 	webaddr : "www.daum.net",
-	note : "  "
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 509,
-	photoid : "phonebook_data/profile12.jpg",
+	photoid : "phonebook_data/profile21.jpg",
 	name_first : "Kidd",
 	name_last : "Warren",
 	name_middle : "",
@@ -13247,7 +13756,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "153-510",
+	addr_pcode : "551-460",
 	addr_country : "France",
 	addr_province : "Dacota",
 	addr_city : "Wonju",
@@ -13257,10 +13766,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1950-10-17",
 	webaddr : "www.daum.net",
-	note : "  "
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 510,
-	photoid : "phonebook_data/profile30.jpg",
+	photoid : "phonebook_data/profile29.jpg",
 	name_first : "Kiffin",
 	name_last : "Irvin A. Jr.",
 	name_middle : "",
@@ -13273,7 +13783,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "813-501",
+	addr_pcode : "478-440",
 	addr_country : "Canada",
 	addr_province : "Nevada",
 	addr_city : "Rome",
@@ -13283,10 +13793,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1970-06-07",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 511,
-	photoid : "phonebook_data/profile32.jpg",
+	photoid : "phonebook_data/profile25.jpg",
 	name_first : "Kiley",
 	name_last : "John F. (Jack)",
 	name_middle : "",
@@ -13299,7 +13810,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "241-752",
+	addr_pcode : "997-568",
 	addr_country : "Ghana",
 	addr_province : "Kangwon",
 	addr_city : "Laite",
@@ -13309,10 +13820,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1955-11-15",
 	webaddr : "www.yahoo.com",
-	note : "  "
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 512,
-	photoid : "phonebook_data/profile04.jpg",
+	photoid : "phonebook_data/profile14.jpg",
 	name_first : "Killum",
 	name_last : "Earnest (Ernie)",
 	name_middle : "",
@@ -13325,7 +13837,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "198-864",
+	addr_pcode : "624-013",
 	addr_country : "Swiss",
 	addr_province : "Kangwon",
 	addr_city : "Wonju",
@@ -13335,10 +13847,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1952-02-01",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 513,
-	photoid : "phonebook_data/profile05.jpg",
+	photoid : "phonebook_data/profile24.jpg",
 	name_first : "Kilpatrick",
 	name_last : "Carl",
 	name_middle : "",
@@ -13351,7 +13864,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "302-880",
+	addr_pcode : "408-071",
 	addr_country : "Rep.Korea",
 	addr_province : "Hawaii",
 	addr_city : "Newyork",
@@ -13361,10 +13874,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1954-06-25",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 514,
-	photoid : "phonebook_data/profile12.jpg",
+	photoid : "phonebook_data/profile35.jpg",
 	name_first : "Kimball",
 	name_last : "Toby",
 	name_middle : "",
@@ -13377,7 +13891,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "157-861",
+	addr_pcode : "220-997",
 	addr_country : "Gaum",
 	addr_province : "Washington",
 	addr_city : "Denver",
@@ -13387,10 +13901,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1958-01-14",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 515,
-	photoid : "phonebook_data/profile07.jpg",
+	photoid : "phonebook_data/profile13.jpg",
 	name_first : "Lacey",
 	name_last : "Sam",
 	name_middle : "",
@@ -13403,7 +13918,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "543-071",
+	addr_pcode : "851-441",
 	addr_country : "Gaum",
 	addr_province : "Arizona",
 	addr_city : "Bangkok",
@@ -13413,10 +13928,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1964-04-16",
 	webaddr : "www.sec.co.kr",
-	note : "  "
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 516,
-	photoid : "phonebook_data/profile20.jpg",
+	photoid : "phonebook_data/profile15.jpg",
 	name_first : "LaCour",
 	name_last : "Fred",
 	name_middle : "",
@@ -13429,7 +13945,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "675-567",
+	addr_pcode : "306-367",
 	addr_country : "Swiss",
 	addr_province : "Nevada",
 	addr_city : "Sanghai",
@@ -13439,10 +13955,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1961-10-08",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 517,
-	photoid : "phonebook_data/profile20.jpg",
+	photoid : "phonebook_data/profile36.jpg",
 	name_first : "Laettner",
 	name_last : "Christian",
 	name_middle : "",
@@ -13455,7 +13972,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "852-875",
+	addr_pcode : "192-943",
 	addr_country : "Swiss",
 	addr_province : "Nevada",
 	addr_city : "Wonju",
@@ -13465,10 +13982,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1970-03-04",
 	webaddr : "www.yahoo.com",
-	note : "  "
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 518,
-	photoid : "phonebook_data/profile25.jpg",
+	photoid : "phonebook_data/profile24.jpg",
 	name_first : "Lafayette",
 	name_last : "Oliver",
 	name_middle : "",
@@ -13481,7 +13999,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "744-435",
+	addr_pcode : "667-646",
 	addr_country : "Canada",
 	addr_province : "Taxas",
 	addr_city : "Huston",
@@ -13491,10 +14009,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1962-12-28",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 519,
-	photoid : "phonebook_data/profile22.jpg",
+	photoid : "phonebook_data/profile35.jpg",
 	name_first : "LaFrentz",
 	name_last : "Raef",
 	name_middle : "",
@@ -13507,7 +14026,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "154-381",
+	addr_pcode : "558-407",
 	addr_country : "Gaum",
 	addr_province : "Hawaii",
 	addr_city : "Denver",
@@ -13517,10 +14036,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1962-02-18",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 520,
-	photoid : "phonebook_data/profile37.jpg",
+	photoid : "phonebook_data/profile15.jpg",
 	name_first : "LaGarde",
 	name_last : "Thomas Joseph (Tom)",
 	name_middle : "",
@@ -13533,7 +14053,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "408-491",
+	addr_pcode : "978-775",
 	addr_country : "Canada",
 	addr_province : "Hawaii",
 	addr_city : "Cleveland",
@@ -13543,10 +14063,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1950-07-17",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 521,
-	photoid : "phonebook_data/profile01.jpg",
+	photoid : "phonebook_data/profile12.jpg",
 	name_first : "Laimbeer",
 	name_last : "Bill",
 	name_middle : "",
@@ -13559,7 +14080,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "810-472",
+	addr_pcode : "910-479",
 	addr_country : "Swiss",
 	addr_province : "Florida",
 	addr_city : "Kwangju",
@@ -13569,10 +14090,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1975-05-09",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 522,
-	photoid : "phonebook_data/profile05.jpg",
+	photoid : "phonebook_data/profile29.jpg",
 	name_first : "Lalich",
 	name_last : "Peter T. (Pete)",
 	name_middle : "",
@@ -13585,7 +14107,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "168-588",
+	addr_pcode : "267-420",
 	addr_country : "Brazil",
 	addr_province : "Hawaii",
 	addr_city : "Denver",
@@ -13595,10 +14117,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1973-11-17",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 523,
-	photoid : "phonebook_data/profile23.jpg",
+	photoid : "phonebook_data/profile25.jpg",
 	name_first : "Lamar",
 	name_last : "Dwight (Bo)",
 	name_middle : "",
@@ -13611,7 +14134,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "820-185",
+	addr_pcode : "516-340",
 	addr_country : "Swiss",
 	addr_province : "Georgia",
 	addr_city : "L.A.",
@@ -13621,10 +14144,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1957-05-18",
 	webaddr : "www.naver.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 524,
-	photoid : "phonebook_data/profile04.jpg",
+	photoid : "phonebook_data/profile06.jpg",
 	name_first : "Lambert",
 	name_last : "John Edward",
 	name_middle : "",
@@ -13637,7 +14161,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "297-387",
+	addr_pcode : "592-237",
 	addr_country : "France",
 	addr_province : "Taxas",
 	addr_city : "Denver",
@@ -13647,10 +14171,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1950-02-12",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 525,
-	photoid : "phonebook_data/profile01.jpg",
+	photoid : "phonebook_data/profile10.jpg",
 	name_first : "Lamp",
 	name_last : "Jeff",
 	name_middle : "",
@@ -13663,7 +14188,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "294-355",
+	addr_pcode : "834-147",
 	addr_country : "Sweden",
 	addr_province : "Pennsylvania",
 	addr_city : "Huston",
@@ -13673,10 +14198,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1954-11-11",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 526,
-	photoid : "phonebook_data/profile06.jpg",
+	photoid : "phonebook_data/profile13.jpg",
 	name_first : "Lampe",
 	name_last : "Maciej",
 	name_middle : "",
@@ -13689,7 +14215,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "276-774",
+	addr_pcode : "596-176",
 	addr_country : "Japan",
 	addr_province : "Kyunggi",
 	addr_city : "Paris",
@@ -13699,10 +14225,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1950-11-25",
 	webaddr : "www.yahoo.com",
-	note : "  "
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 527,
-	photoid : "phonebook_data/profile24.jpg",
+	photoid : "phonebook_data/profile37.jpg",
 	name_first : "Lampley",
 	name_last : "Jimmy",
 	name_middle : "",
@@ -13715,7 +14242,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "795-633",
+	addr_pcode : "571-862",
 	addr_country : "Canada",
 	addr_province : "Taxas",
 	addr_city : "Wonju",
@@ -13725,10 +14252,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1964-12-21",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 528,
-	photoid : "phonebook_data/profile21.jpg",
+	photoid : "phonebook_data/profile16.jpg",
 	name_first : "Lampley",
 	name_last : "Sean",
 	name_middle : "",
@@ -13741,7 +14269,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "444-676",
+	addr_pcode : "422-670",
 	addr_country : "Sweden",
 	addr_province : "Arizona",
 	addr_city : "Laite",
@@ -13751,10 +14279,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1951-02-22",
 	webaddr : "www.google.com",
-	note : "  "
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 529,
-	photoid : "phonebook_data/profile37.jpg",
+	photoid : "phonebook_data/profile18.jpg",
 	name_first : "Landry",
 	name_last : "Carl",
 	name_middle : "",
@@ -13767,7 +14296,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "180-482",
+	addr_pcode : "625-246",
 	addr_country : "Swiss",
 	addr_province : "Oregon",
 	addr_city : "Kwangju",
@@ -13777,10 +14306,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1961-01-10",
 	webaddr : "www.sec.co.kr",
-	note : "  "
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 530,
-	photoid : "phonebook_data/profile27.jpg",
+	photoid : "phonebook_data/profile15.jpg",
 	name_first : "Landry",
 	name_last : "Marcus",
 	name_middle : "",
@@ -13793,7 +14323,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "375-454",
+	addr_pcode : "111-303",
 	addr_country : "Swiss",
 	addr_province : "Kyunggi",
 	addr_city : "Paris",
@@ -13803,10 +14333,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1950-08-05",
 	webaddr : "www.google.com",
-	note : "  "
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 531,
-	photoid : "phonebook_data/profile19.jpg",
+	photoid : "phonebook_data/profile32.jpg",
 	name_first : "Landsberger",
 	name_last : "Mark",
 	name_middle : "",
@@ -13819,7 +14350,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "161-595",
+	addr_pcode : "901-804",
 	addr_country : "Gaum",
 	addr_province : "Califonia",
 	addr_city : "Newyork",
@@ -13829,10 +14360,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1955-04-02",
 	webaddr : "www.samsungmobile.com",
-	note : "  "
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 532,
-	photoid : "phonebook_data/profile08.jpg",
+	photoid : "phonebook_data/profile14.jpg",
 	name_first : "Lane",
 	name_last : "Jerome",
 	name_middle : "",
@@ -13845,7 +14377,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "872-198",
+	addr_pcode : "619-180",
 	addr_country : "Swiss",
 	addr_province : "Oregon",
 	addr_city : "Daegu",
@@ -13855,10 +14387,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1967-11-19",
 	webaddr : "www.intel.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 533,
-	photoid : "phonebook_data/profile03.jpg",
+	photoid : "phonebook_data/profile38.jpg",
 	name_first : "Lang",
 	name_last : "Andrew",
 	name_middle : "",
@@ -13871,7 +14404,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "657-597",
+	addr_pcode : "483-442",
 	addr_country : "Canada",
 	addr_province : "Nevada",
 	addr_city : "Denver",
@@ -13881,10 +14414,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1965-07-25",
 	webaddr : "www.naver.com",
-	note : "  "
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 534,
-	photoid : "phonebook_data/profile34.jpg",
+	photoid : "phonebook_data/profile35.jpg",
 	name_first : "Lang",
 	name_last : "Antonio",
 	name_middle : "",
@@ -13897,7 +14431,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "944-957",
+	addr_pcode : "558-413",
 	addr_country : "Ghana",
 	addr_province : "Dacota",
 	addr_city : "Cebu",
@@ -13907,10 +14441,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1972-10-13",
 	webaddr : "www.google.com",
-	note : "  "
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 535,
-	photoid : "phonebook_data/profile23.jpg",
+	photoid : "phonebook_data/profile37.jpg",
 	name_first : "Lang",
 	name_last : "James",
 	name_middle : "",
@@ -13923,7 +14458,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "169-504",
+	addr_pcode : "199-284",
 	addr_country : "Brazil",
 	addr_province : "Georgia",
 	addr_city : "Cleveland",
@@ -13933,10 +14468,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1950-08-08",
 	webaddr : "www.yahoo.com",
-	note : "  "
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 536,
-	photoid : "phonebook_data/profile29.jpg",
+	photoid : "phonebook_data/profile34.jpg",
 	name_first : "Langdon",
 	name_last : "Trajan",
 	name_middle : "",
@@ -13949,7 +14485,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "291-402",
+	addr_pcode : "911-955",
 	addr_country : "U.S.A",
 	addr_province : "Alaska",
 	addr_city : "Kwangju",
@@ -13959,10 +14495,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1959-11-28",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 537,
-	photoid : "phonebook_data/profile30.jpg",
+	photoid : "phonebook_data/profile31.jpg",
 	name_first : "Langford",
 	name_last : "Keith",
 	name_middle : "",
@@ -13975,7 +14512,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "686-297",
+	addr_pcode : "712-138",
 	addr_country : "Brazil",
 	addr_province : "Pennsylvania",
 	addr_city : "Kwangju",
@@ -13985,10 +14522,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1961-05-19",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 538,
-	photoid : "phonebook_data/profile03.jpg",
+	photoid : "phonebook_data/profile09.jpg",
 	name_first : "Langhi",
 	name_last : "Dan",
 	name_middle : "",
@@ -14001,7 +14539,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "953-872",
+	addr_pcode : "552-950",
 	addr_country : "Japan",
 	addr_province : "Florida",
 	addr_city : "Cleveland",
@@ -14011,10 +14549,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1955-01-26",
 	webaddr : "www.google.com",
-	note : "  "
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 539,
-	photoid : "phonebook_data/profile21.jpg",
+	photoid : "phonebook_data/profile30.jpg",
 	name_first : "Lanier",
 	name_last : "Bob",
 	name_middle : "",
@@ -14027,7 +14566,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "354-595",
+	addr_pcode : "834-706",
 	addr_country : "U.S.A",
 	addr_province : "Nevada",
 	addr_city : "Daegu",
@@ -14037,10 +14576,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1974-06-08",
 	webaddr : "www.naver.com",
-	note : "  "
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 540,
-	photoid : "phonebook_data/profile30.jpg",
+	photoid : "phonebook_data/profile22.jpg",
 	name_first : "Lantz",
 	name_last : "Stuart Burrell (Stu)",
 	name_middle : "",
@@ -14053,7 +14593,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "861-893",
+	addr_pcode : "336-916",
 	addr_country : "Ghana",
 	addr_province : "Pennsylvania",
 	addr_city : "Sanghai",
@@ -14063,10 +14603,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1968-11-18",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 541,
-	photoid : "phonebook_data/profile18.jpg",
+	photoid : "phonebook_data/profile23.jpg",
 	name_first : "Larese",
 	name_last : "York Bruno",
 	name_middle : "",
@@ -14079,7 +14620,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "778-165",
+	addr_pcode : "933-524",
 	addr_country : "Canada",
 	addr_province : "Kangwon",
 	addr_city : "Daegu",
@@ -14089,10 +14630,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1959-05-29",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 542,
-	photoid : "phonebook_data/profile25.jpg",
+	photoid : "phonebook_data/profile15.jpg",
 	name_first : "LaRue",
 	name_last : "Rusty",
 	name_middle : "",
@@ -14105,7 +14647,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "865-458",
+	addr_pcode : "466-382",
 	addr_country : "Japan",
 	addr_province : "Pennsylvania",
 	addr_city : "Cleveland",
@@ -14115,10 +14657,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1950-08-20",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 543,
-	photoid : "phonebook_data/profile12.jpg",
+	photoid : "phonebook_data/profile39.jpg",
 	name_first : "LaRusso",
 	name_last : "Rudolph A. (Rudy)",
 	name_middle : "",
@@ -14131,7 +14674,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "685-062",
+	addr_pcode : "852-977",
 	addr_country : "Rep.Korea",
 	addr_province : "Nebraska",
 	addr_city : "Paris",
@@ -14141,10 +14684,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1972-07-10",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 544,
-	photoid : "phonebook_data/profile18.jpg",
+	photoid : "phonebook_data/profile08.jpg",
 	name_first : "Laskowski",
 	name_last : "John",
 	name_middle : "",
@@ -14157,7 +14701,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "548-784",
+	addr_pcode : "713-534",
 	addr_country : "Rep.Korea",
 	addr_province : "Kangwon",
 	addr_city : "Rome",
@@ -14167,10 +14711,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1951-05-13",
 	webaddr : "www.google.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 545,
-	photoid : "phonebook_data/profile28.jpg",
+	photoid : "phonebook_data/profile33.jpg",
 	name_first : "Lasme",
 	name_last : "Stephane",
 	name_middle : "",
@@ -14183,7 +14728,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "750-810",
+	addr_pcode : "168-311",
 	addr_country : "China",
 	addr_province : "Hawaii",
 	addr_city : "Paris",
@@ -14193,10 +14738,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1967-12-31",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 546,
-	photoid : "phonebook_data/profile09.jpg",
+	photoid : "phonebook_data/profile15.jpg",
 	name_first : "Lattin",
 	name_last : "David (Dave, Big Daddy)",
 	name_middle : "",
@@ -14209,7 +14755,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "933-441",
+	addr_pcode : "364-537",
 	addr_country : "China",
 	addr_province : "Pennsylvania",
 	addr_city : "Cleveland",
@@ -14219,10 +14765,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1950-05-16",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 547,
-	photoid : "phonebook_data/profile11.jpg",
+	photoid : "phonebook_data/profile23.jpg",
 	name_first : "Lauderdale",
 	name_last : "Priest",
 	name_middle : "",
@@ -14235,7 +14782,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "873-474",
+	addr_pcode : "172-713",
 	addr_country : "Brazil",
 	addr_province : "Kyunggi",
 	addr_city : "Paris",
@@ -14245,10 +14792,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1971-03-20",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 548,
-	photoid : "phonebook_data/profile15.jpg",
+	photoid : "phonebook_data/profile26.jpg",
 	name_first : "Laurel",
 	name_last : "Richard",
 	name_middle : "",
@@ -14261,7 +14809,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "550-964",
+	addr_pcode : "575-098",
 	addr_country : "Japan",
 	addr_province : "Califonia",
 	addr_city : "L.A.",
@@ -14271,10 +14819,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1968-10-22",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 549,
-	photoid : "phonebook_data/profile27.jpg",
+	photoid : "phonebook_data/profile11.jpg",
 	name_first : "Lautenbach",
 	name_last : "Walter Henry (Walt)",
 	name_middle : "",
@@ -14287,7 +14836,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "346-410",
+	addr_pcode : "768-916",
 	addr_country : "Gaum",
 	addr_province : "Dacota",
 	addr_city : "Denver",
@@ -14297,10 +14846,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1951-06-24",
 	webaddr : "www.intel.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 550,
-	photoid : "phonebook_data/profile02.jpg",
+	photoid : "phonebook_data/profile17.jpg",
 	name_first : "Lavelli",
 	name_last : "Anthony (Tony)",
 	name_middle : "",
@@ -14313,7 +14863,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "676-391",
+	addr_pcode : "332-591",
 	addr_country : "Rep.Korea",
 	addr_province : "Georgia",
 	addr_city : "Kwangju",
@@ -14323,10 +14873,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1962-05-01",
 	webaddr : "www.google.com",
-	note : "  "
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 551,
-	photoid : "phonebook_data/profile31.jpg",
+	photoid : "phonebook_data/profile23.jpg",
 	name_first : "Lavoy",
 	name_last : "Robert William (Bob)",
 	name_middle : "",
@@ -14339,7 +14890,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "855-448",
+	addr_pcode : "809-035",
 	addr_country : "Gaum",
 	addr_province : "Alaska",
 	addr_city : "Newyork",
@@ -14349,10 +14900,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1959-08-23",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 552,
-	photoid : "phonebook_data/profile36.jpg",
+	photoid : "phonebook_data/profile02.jpg",
 	name_first : "Law",
 	name_last : "Acie",
 	name_middle : "",
@@ -14365,7 +14917,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "901-344",
+	addr_pcode : "796-114",
 	addr_country : "Sweden",
 	addr_province : "Washington",
 	addr_city : "Cleveland",
@@ -14375,10 +14927,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1959-08-17",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 553,
-	photoid : "phonebook_data/profile06.jpg",
+	photoid : "phonebook_data/profile29.jpg",
 	name_first : "Lawal",
 	name_last : "Gani",
 	name_middle : "",
@@ -14391,7 +14944,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "794-035",
+	addr_pcode : "613-589",
 	addr_country : "China",
 	addr_province : "Kyunggi",
 	addr_city : "Wonju",
@@ -14401,10 +14954,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1965-06-12",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 554,
-	photoid : "phonebook_data/profile25.jpg",
+	photoid : "phonebook_data/profile36.jpg",
 	name_first : "Lawrence",
 	name_last : "Edmund (Ed)",
 	name_middle : "",
@@ -14417,7 +14971,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "331-926",
+	addr_pcode : "720-926",
 	addr_country : "Brazil",
 	addr_province : "Kyunggi",
 	addr_city : "Cleveland",
@@ -14427,10 +14981,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1959-02-26",
 	webaddr : "www.daum.net",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 555,
-	photoid : "phonebook_data/profile34.jpg",
+	photoid : "phonebook_data/profile29.jpg",
 	name_first : "Lawson",
 	name_last : "Jason",
 	name_middle : "",
@@ -14443,7 +14998,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "306-386",
+	addr_pcode : "356-071",
 	addr_country : "Japan",
 	addr_province : "Arizona",
 	addr_city : "L.A.",
@@ -14453,10 +15008,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1959-07-09",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 556,
-	photoid : "phonebook_data/profile22.jpg",
+	photoid : "phonebook_data/profile33.jpg",
 	name_first : "Lawson",
 	name_last : "Ty",
 	name_middle : "",
@@ -14469,7 +15025,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "145-787",
+	addr_pcode : "903-783",
 	addr_country : "Rep.Korea",
 	addr_province : "Nebraska",
 	addr_city : "Newyork",
@@ -14479,10 +15035,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1956-02-01",
 	webaddr : "www.yahoo.com",
-	note : "  "
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 557,
-	photoid : "phonebook_data/profile16.jpg",
+	photoid : "phonebook_data/profile32.jpg",
 	name_first : "Layton",
 	name_last : "Dennis (Mo)",
 	name_middle : "",
@@ -14495,7 +15052,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "104-150",
+	addr_pcode : "680-144",
 	addr_country : "China",
 	addr_province : "Taxas",
 	addr_city : "Cebu",
@@ -14505,10 +15062,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1950-05-03",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 558,
-	photoid : "phonebook_data/profile27.jpg",
+	photoid : "phonebook_data/profile19.jpg",
 	name_first : "Leaks",
 	name_last : "Emanuel (Manny)",
 	name_middle : "",
@@ -14521,7 +15079,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "314-765",
+	addr_pcode : "860-628",
 	addr_country : "China",
 	addr_province : "Taxas",
 	addr_city : "Paris",
@@ -14531,10 +15089,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1972-05-19",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 559,
-	photoid : "phonebook_data/profile32.jpg",
+	photoid : "phonebook_data/profile13.jpg",
 	name_first : "Lear",
 	name_last : "Harold C. Jr. (Hal, King)",
 	name_middle : "",
@@ -14547,7 +15106,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "592-720",
+	addr_pcode : "560-228",
 	addr_country : "U.S.A",
 	addr_province : "Oregon",
 	addr_city : "Huston",
@@ -14557,10 +15116,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1959-09-21",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 560,
-	photoid : "phonebook_data/profile26.jpg",
+	photoid : "phonebook_data/profile03.jpg",
 	name_first : "Leavell",
 	name_last : "Allen",
 	name_middle : "",
@@ -14573,7 +15133,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "736-442",
+	addr_pcode : "116-062",
 	addr_country : "Japan",
 	addr_province : "Hawaii",
 	addr_city : "Cleveland",
@@ -14583,10 +15143,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1969-09-04",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 561,
-	photoid : "phonebook_data/profile26.jpg",
+	photoid : "phonebook_data/profile08.jpg",
 	name_first : "Lebo",
 	name_last : "Jeff",
 	name_middle : "",
@@ -14599,7 +15160,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "546-898",
+	addr_pcode : "858-341",
 	addr_country : "Canada",
 	addr_province : "Georgia",
 	addr_city : "Cleveland",
@@ -14609,10 +15170,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1964-05-22",
 	webaddr : "www.yahoo.com",
-	note : "  "
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 562,
-	photoid : "phonebook_data/profile07.jpg",
+	photoid : "phonebook_data/profile18.jpg",
 	name_first : "Leckner",
 	name_last : "Eric",
 	name_middle : "",
@@ -14625,7 +15187,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "997-659",
+	addr_pcode : "312-541",
 	addr_country : "Rep.Korea",
 	addr_province : "Washington",
 	addr_city : "Newyork",
@@ -14635,10 +15197,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1958-09-25",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 563,
-	photoid : "phonebook_data/profile15.jpg",
+	photoid : "phonebook_data/profile20.jpg",
 	name_first : "Lee",
 	name_last : "Alfred (Butch)",
 	name_middle : "",
@@ -14651,7 +15214,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "786-875",
+	addr_pcode : "441-543",
 	addr_country : "Swiss",
 	addr_province : "Kyunggi",
 	addr_city : "Rome",
@@ -14661,10 +15224,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1974-11-21",
 	webaddr : "www.sec.co.kr",
-	note : "  "
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 564,
-	photoid : "phonebook_data/profile36.jpg",
+	photoid : "phonebook_data/profile06.jpg",
 	name_first : "Lee",
 	name_last : "Clyde",
 	name_middle : "",
@@ -14677,7 +15241,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "259-649",
+	addr_pcode : "512-879",
 	addr_country : "U.S.A",
 	addr_province : "Arizona",
 	addr_city : "Kwangju",
@@ -14687,10 +15251,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1970-06-12",
 	webaddr : "www.daum.net",
-	note : "  "
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 565,
-	photoid : "phonebook_data/profile23.jpg",
+	photoid : "phonebook_data/profile19.jpg",
 	name_first : "Macaluso",
 	name_last : "Michael Emelius (Mike)",
 	name_middle : "",
@@ -14703,7 +15268,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "414-613",
+	addr_pcode : "462-788",
 	addr_country : "Japan",
 	addr_province : "Kangwon",
 	addr_city : "L.A.",
@@ -14713,10 +15278,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1953-05-15",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 566,
-	photoid : "phonebook_data/profile06.jpg",
+	photoid : "phonebook_data/profile17.jpg",
 	name_first : "Macauley",
 	name_last : "Ed",
 	name_middle : "",
@@ -14729,7 +15295,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "620-363",
+	addr_pcode : "756-718",
 	addr_country : "China",
 	addr_province : "Florida",
 	addr_city : "Kwangju",
@@ -14739,10 +15305,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1967-06-19",
 	webaddr : "www.daum.net",
-	note : "ABCDEFG"
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 567,
-	photoid : "phonebook_data/profile12.jpg",
+	photoid : "phonebook_data/profile15.jpg",
 	name_first : "MacCulloch",
 	name_last : "Todd",
 	name_middle : "",
@@ -14755,7 +15322,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "120-935",
+	addr_pcode : "644-796",
 	addr_country : "Japan",
 	addr_province : "Nebraska",
 	addr_city : "Cleveland",
@@ -14765,10 +15332,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1953-06-04",
 	webaddr : "www.google.com",
-	note : "  "
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 568,
-	photoid : "phonebook_data/profile07.jpg",
+	photoid : "phonebook_data/profile35.jpg",
 	name_first : "MacGilvray",
 	name_last : "Ronald (Ronnie)",
 	name_middle : "",
@@ -14781,7 +15349,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "141-741",
+	addr_pcode : "167-595",
 	addr_country : "Canada",
 	addr_province : "Florida",
 	addr_city : "Paris",
@@ -14791,10 +15359,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1962-08-23",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 569,
-	photoid : "phonebook_data/profile08.jpg",
+	photoid : "phonebook_data/profile26.jpg",
 	name_first : "Macijauskas",
 	name_last : "Arvydas",
 	name_middle : "",
@@ -14807,7 +15376,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "423-932",
+	addr_pcode : "268-424",
 	addr_country : "Swiss",
 	addr_province : "Dacota",
 	addr_city : "Rome",
@@ -14817,10 +15386,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1963-11-07",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 570,
-	photoid : "phonebook_data/profile33.jpg",
+	photoid : "phonebook_data/profile39.jpg",
 	name_first : "Mack",
 	name_last : "Oliver (Ollie)",
 	name_middle : "",
@@ -14833,7 +15403,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "393-551",
+	addr_pcode : "449-020",
 	addr_country : "Canada",
 	addr_province : "Washington",
 	addr_city : "Sanghai",
@@ -14843,7 +15413,8 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1959-01-16",
 	webaddr : "www.google.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 571,
 	photoid : "phonebook_data/profile26.jpg",
@@ -14859,7 +15430,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "511-536",
+	addr_pcode : "314-665",
 	addr_country : "Rep.Korea",
 	addr_province : "Washington",
 	addr_city : "Rome",
@@ -14869,7 +15440,8 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1969-10-23",
 	webaddr : "www.google.com",
-	note : "  "
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 572,
 	photoid : "phonebook_data/profile33.jpg",
@@ -14885,7 +15457,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "796-169",
+	addr_pcode : "189-972",
 	addr_country : "U.S.A",
 	addr_province : "Kangwon",
 	addr_city : "Sanghai",
@@ -14895,10 +15467,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1970-02-04",
 	webaddr : "www.intel.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 573,
-	photoid : "phonebook_data/profile27.jpg",
+	photoid : "phonebook_data/profile07.jpg",
 	name_first : "Macklin",
 	name_last : "Rudy",
 	name_middle : "",
@@ -14911,7 +15484,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "998-302",
+	addr_pcode : "397-936",
 	addr_country : "Ghana",
 	addr_province : "Idaho",
 	addr_city : "Cleveland",
@@ -14921,10 +15494,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1956-11-12",
 	webaddr : "www.naver.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 574,
-	photoid : "phonebook_data/profile39.jpg",
+	photoid : "phonebook_data/profile27.jpg",
 	name_first : "Macknowski",
 	name_last : "John Andrew (Johnny, Whitey)",
 	name_middle : "",
@@ -14937,7 +15511,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "850-367",
+	addr_pcode : "553-253",
 	addr_country : "U.S.A",
 	addr_province : "Califonia",
 	addr_city : "Frankfruit",
@@ -14947,10 +15521,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1951-11-22",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 575,
-	photoid : "phonebook_data/profile03.jpg",
+	photoid : "phonebook_data/profile38.jpg",
 	name_first : "MacLean",
 	name_last : "Don",
 	name_middle : "",
@@ -14963,7 +15538,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "266-056",
+	addr_pcode : "636-187",
 	addr_country : "Swiss",
 	addr_province : "Pennsylvania",
 	addr_city : "Denver",
@@ -14973,10 +15548,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1974-05-04",
 	webaddr : "www.intel.com",
-	note : "  "
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 576,
-	photoid : "phonebook_data/profile02.jpg",
+	photoid : "phonebook_data/profile20.jpg",
 	name_first : "Macon",
 	name_last : "Mark",
 	name_middle : "",
@@ -14989,7 +15565,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "445-605",
+	addr_pcode : "779-971",
 	addr_country : "Rep.Korea",
 	addr_province : "Arizona",
 	addr_city : "Newyork",
@@ -14999,10 +15575,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1965-03-28",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 577,
-	photoid : "phonebook_data/profile14.jpg",
+	photoid : "phonebook_data/profile37.jpg",
 	name_first : "Macy",
 	name_last : "Kyle",
 	name_middle : "",
@@ -15015,7 +15592,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "241-497",
+	addr_pcode : "847-827",
 	addr_country : "Sweden",
 	addr_province : "Arizona",
 	addr_city : "Cebu",
@@ -15025,10 +15602,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1961-09-20",
 	webaddr : "www.samsungmobile.com",
-	note : "  "
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 578,
-	photoid : "phonebook_data/profile24.jpg",
+	photoid : "phonebook_data/profile29.jpg",
 	name_first : "Maddox",
 	name_last : "Jack C.",
 	name_middle : "",
@@ -15041,7 +15619,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "124-837",
+	addr_pcode : "436-750",
 	addr_country : "China",
 	addr_province : "Kyunggi",
 	addr_city : "Bangkok",
@@ -15051,10 +15629,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1975-08-20",
 	webaddr : "www.sec.co.kr",
-	note : "  "
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 579,
-	photoid : "phonebook_data/profile40.jpg",
+	photoid : "phonebook_data/profile05.jpg",
 	name_first : "Maddox",
 	name_last : "Tito",
 	name_middle : "",
@@ -15067,7 +15646,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "264-038",
+	addr_pcode : "938-327",
 	addr_country : "Ghana",
 	addr_province : "Nebraska",
 	addr_city : "Laite",
@@ -15077,10 +15656,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1955-02-23",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 580,
-	photoid : "phonebook_data/profile27.jpg",
+	photoid : "phonebook_data/profile21.jpg",
 	name_first : "Madkins",
 	name_last : "Gerald",
 	name_middle : "",
@@ -15093,7 +15673,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "106-722",
+	addr_pcode : "526-329",
 	addr_country : "Ghana",
 	addr_province : "Kangwon",
 	addr_city : "Frankfruit",
@@ -15103,10 +15683,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1968-01-03",
 	webaddr : "www.intel.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 581,
-	photoid : "phonebook_data/profile09.jpg",
+	photoid : "phonebook_data/profile30.jpg",
 	name_first : "Madsen",
 	name_last : "Mark",
 	name_middle : "",
@@ -15119,7 +15700,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "842-459",
+	addr_pcode : "896-859",
 	addr_country : "France",
 	addr_province : "Nebraska",
 	addr_city : "Cebu",
@@ -15129,10 +15710,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1966-12-12",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 582,
-	photoid : "phonebook_data/profile10.jpg",
+	photoid : "phonebook_data/profile17.jpg",
 	name_first : "Mager",
 	name_last : "Norman Clifford (Norm)",
 	name_middle : "",
@@ -15145,7 +15727,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "245-167",
+	addr_pcode : "228-868",
 	addr_country : "Ghana",
 	addr_province : "Kyunggi",
 	addr_city : "Frankfruit",
@@ -15155,10 +15737,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1971-07-08",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 583,
-	photoid : "phonebook_data/profile19.jpg",
+	photoid : "phonebook_data/profile06.jpg",
 	name_first : "Maggette",
 	name_last : "Corey",
 	name_middle : "",
@@ -15171,7 +15754,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "632-428",
+	addr_pcode : "994-356",
 	addr_country : "Swiss",
 	addr_province : "Dacota",
 	addr_city : "Daegu",
@@ -15181,10 +15764,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1963-04-04",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 584,
-	photoid : "phonebook_data/profile34.jpg",
+	photoid : "phonebook_data/profile14.jpg",
 	name_first : "Magley",
 	name_last : "Dave",
 	name_middle : "",
@@ -15197,7 +15781,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "297-027",
+	addr_pcode : "176-300",
 	addr_country : "Canada",
 	addr_province : "Oregon",
 	addr_city : "Denver",
@@ -15207,10 +15791,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1967-12-16",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 585,
-	photoid : "phonebook_data/profile12.jpg",
+	photoid : "phonebook_data/profile03.jpg",
 	name_first : "Magloire",
 	name_last : "Jamaal",
 	name_middle : "",
@@ -15223,7 +15808,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "792-779",
+	addr_pcode : "137-910",
 	addr_country : "Ghana",
 	addr_province : "Nebraska",
 	addr_city : "Wonju",
@@ -15233,7 +15818,8 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1951-10-18",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 586,
 	photoid : "phonebook_data/profile26.jpg",
@@ -15249,7 +15835,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "346-519",
+	addr_pcode : "754-448",
 	addr_country : "Brazil",
 	addr_province : "Califonia",
 	addr_city : "Cebu",
@@ -15259,10 +15845,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1965-01-18",
 	webaddr : "www.google.com",
-	note : "  "
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 587,
-	photoid : "phonebook_data/profile30.jpg",
+	photoid : "phonebook_data/profile13.jpg",
 	name_first : "Mahnken",
 	name_last : "John E. (Long John; Stretch)",
 	name_middle : "",
@@ -15275,7 +15862,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "461-511",
+	addr_pcode : "546-179",
 	addr_country : "Sweden",
 	addr_province : "Florida",
 	addr_city : "Sanghai",
@@ -15285,10 +15872,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1959-11-28",
 	webaddr : "www.yahoo.com",
-	note : "  "
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 588,
-	photoid : "phonebook_data/profile32.jpg",
+	photoid : "phonebook_data/profile02.jpg",
 	name_first : "Mahoney",
 	name_last : "Francis H. (Mo)",
 	name_middle : "",
@@ -15301,7 +15889,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "132-612",
+	addr_pcode : "219-951",
 	addr_country : "Canada",
 	addr_province : "Taxas",
 	addr_city : "Daegu",
@@ -15311,10 +15899,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1967-08-16",
 	webaddr : "www.sec.co.kr",
-	note : "  "
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 589,
-	photoid : "phonebook_data/profile05.jpg",
+	photoid : "phonebook_data/profile19.jpg",
 	name_first : "Mahorn",
 	name_last : "Rick",
 	name_middle : "",
@@ -15327,7 +15916,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "933-246",
+	addr_pcode : "917-962",
 	addr_country : "Gaum",
 	addr_province : "Georgia",
 	addr_city : "Busan",
@@ -15337,10 +15926,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1954-06-06",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 590,
-	photoid : "phonebook_data/profile13.jpg",
+	photoid : "phonebook_data/profile17.jpg",
 	name_first : "Majerle",
 	name_last : "Dan",
 	name_middle : "",
@@ -15353,7 +15943,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "856-013",
+	addr_pcode : "652-495",
 	addr_country : "Rep.Korea",
 	addr_province : "Florida",
 	addr_city : "Sanghai",
@@ -15363,10 +15953,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1958-10-06",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 591,
-	photoid : "phonebook_data/profile29.jpg",
+	photoid : "phonebook_data/profile36.jpg",
 	name_first : "Major",
 	name_last : "Renaldo",
 	name_middle : "",
@@ -15379,7 +15970,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "335-733",
+	addr_pcode : "184-631",
 	addr_country : "U.S.A",
 	addr_province : "Alaska",
 	addr_city : "Kwangju",
@@ -15389,10 +15980,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1950-08-31",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 592,
-	photoid : "phonebook_data/profile23.jpg",
+	photoid : "phonebook_data/profile37.jpg",
 	name_first : "Malamed",
 	name_last : "Lionel",
 	name_middle : "",
@@ -15405,7 +15997,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "663-482",
+	addr_pcode : "295-550",
 	addr_country : "France",
 	addr_province : "Georgia",
 	addr_city : "Newyork",
@@ -15415,10 +16007,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1961-03-07",
 	webaddr : "www.intel.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 593,
-	photoid : "phonebook_data/profile17.jpg",
+	photoid : "phonebook_data/profile26.jpg",
 	name_first : "Malone",
 	name_last : "Jeff",
 	name_middle : "",
@@ -15431,7 +16024,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "558-865",
+	addr_pcode : "215-841",
 	addr_country : "Rep.Korea",
 	addr_province : "Florida",
 	addr_city : "Daegu",
@@ -15441,10 +16034,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1952-10-10",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 594,
-	photoid : "phonebook_data/profile03.jpg",
+	photoid : "phonebook_data/profile40.jpg",
 	name_first : "Malone",
 	name_last : "Karl",
 	name_middle : "",
@@ -15457,7 +16051,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "645-456",
+	addr_pcode : "495-324",
 	addr_country : "Swiss",
 	addr_province : "Arizona",
 	addr_city : "Busan",
@@ -15467,10 +16061,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1974-08-07",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 595,
-	photoid : "phonebook_data/profile28.jpg",
+	photoid : "phonebook_data/profile35.jpg",
 	name_first : "Malone",
 	name_last : "Moses",
 	name_middle : "",
@@ -15483,7 +16078,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "945-424",
+	addr_pcode : "904-223",
 	addr_country : "U.S.A",
 	addr_province : "Alaska",
 	addr_city : "Busan",
@@ -15493,10 +16088,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1960-07-22",
 	webaddr : "www.daum.net",
-	note : "  "
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 596,
-	photoid : "phonebook_data/profile14.jpg",
+	photoid : "phonebook_data/profile04.jpg",
 	name_first : "Maloney",
 	name_last : "Matt",
 	name_middle : "",
@@ -15509,7 +16105,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "928-620",
+	addr_pcode : "777-932",
 	addr_country : "Brazil",
 	addr_province : "Arizona",
 	addr_city : "L.A.",
@@ -15519,10 +16115,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1968-06-27",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 597,
-	photoid : "phonebook_data/profile28.jpg",
+	photoid : "phonebook_data/profile19.jpg",
 	name_first : "Malovic",
 	name_last : "Stephen L.",
 	name_middle : "",
@@ -15535,7 +16132,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "242-971",
+	addr_pcode : "783-874",
 	addr_country : "Ghana",
 	addr_province : "Arizona",
 	addr_city : "Kwangju",
@@ -15545,10 +16142,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1975-02-20",
 	webaddr : "www.samsungmobile.com",
-	note : "  "
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 598,
-	photoid : "phonebook_data/profile15.jpg",
+	photoid : "phonebook_data/profile08.jpg",
 	name_first : "Manakas",
 	name_last : "Theodore (Ted)",
 	name_middle : "",
@@ -15561,7 +16159,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "496-609",
+	addr_pcode : "838-163",
 	addr_country : "Sweden",
 	addr_province : "Hawaii",
 	addr_city : "Busan",
@@ -15571,10 +16169,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1960-05-08",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 599,
-	photoid : "phonebook_data/profile33.jpg",
+	photoid : "phonebook_data/profile15.jpg",
 	name_first : "Mandic",
 	name_last : "John J.",
 	name_middle : "",
@@ -15587,7 +16186,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "771-497",
+	addr_pcode : "153-032",
 	addr_country : "France",
 	addr_province : "Georgia",
 	addr_city : "Paris",
@@ -15597,10 +16196,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1952-02-07",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 600,
-	photoid : "phonebook_data/profile40.jpg",
+	photoid : "phonebook_data/profile26.jpg",
 	name_first : "Mangiapane",
 	name_last : "Francis E. (Frank)",
 	name_middle : "",
@@ -15613,7 +16213,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "273-410",
+	addr_pcode : "887-675",
 	addr_country : "China",
 	addr_province : "Pennsylvania",
 	addr_city : "L.A.",
@@ -15623,10 +16223,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1968-12-13",
 	webaddr : "www.yahoo.com",
-	note : "  "
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 601,
-	photoid : "phonebook_data/profile16.jpg",
+	photoid : "phonebook_data/profile31.jpg",
 	name_first : "Manning",
 	name_last : "Danny",
 	name_middle : "",
@@ -15639,7 +16240,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "373-006",
+	addr_pcode : "169-789",
 	addr_country : "Japan",
 	addr_province : "Florida",
 	addr_city : "Bangkok",
@@ -15649,10 +16250,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1960-09-17",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 602,
-	photoid : "phonebook_data/profile02.jpg",
+	photoid : "phonebook_data/profile12.jpg",
 	name_first : "Manning",
 	name_last : "Edward R. (Ed)",
 	name_middle : "",
@@ -15665,7 +16267,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "169-831",
+	addr_pcode : "540-161",
 	addr_country : "Rep.Korea",
 	addr_province : "Taxas",
 	addr_city : "Frankfruit",
@@ -15675,10 +16277,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1956-08-28",
 	webaddr : "www.google.com",
-	note : "  "
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 603,
-	photoid : "phonebook_data/profile21.jpg",
+	photoid : "phonebook_data/profile09.jpg",
 	name_first : "Manning",
 	name_last : "Rich",
 	name_middle : "",
@@ -15691,7 +16294,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "893-495",
+	addr_pcode : "817-925",
 	addr_country : "Brazil",
 	addr_province : "Idaho",
 	addr_city : "Wonju",
@@ -15701,10 +16304,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1975-04-05",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 604,
-	photoid : "phonebook_data/profile40.jpg",
+	photoid : "phonebook_data/profile11.jpg",
 	name_first : "Mannion",
 	name_last : "Pace",
 	name_middle : "",
@@ -15717,7 +16321,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "912-477",
+	addr_pcode : "791-604",
 	addr_country : "U.S.A",
 	addr_province : "Hawaii",
 	addr_city : "Rome",
@@ -15727,10 +16331,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1972-07-14",
 	webaddr : "www.daum.net",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 605,
-	photoid : "phonebook_data/profile13.jpg",
+	photoid : "phonebook_data/profile10.jpg",
 	name_first : "Mantis",
 	name_last : "Nicholas (Nick)",
 	name_middle : "",
@@ -15743,7 +16348,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "214-847",
+	addr_pcode : "177-276",
 	addr_country : "Ghana",
 	addr_province : "Hawaii",
 	addr_city : "Denver",
@@ -15753,7 +16358,8 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1959-10-24",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 606,
 	photoid : "phonebook_data/profile03.jpg",
@@ -15769,7 +16375,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "364-360",
+	addr_pcode : "851-808",
 	addr_country : "Canada",
 	addr_province : "Nebraska",
 	addr_city : "Cebu",
@@ -15779,10 +16385,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1962-02-06",
 	webaddr : "www.daum.net",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 607,
-	photoid : "phonebook_data/profile27.jpg",
+	photoid : "phonebook_data/profile11.jpg",
 	name_first : "Maravich",
 	name_last : "Peter (Press)",
 	name_middle : "",
@@ -15795,7 +16402,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "401-555",
+	addr_pcode : "326-326",
 	addr_country : "Brazil",
 	addr_province : "Nevada",
 	addr_city : "Busan",
@@ -15805,10 +16412,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1972-07-25",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 608,
-	photoid : "phonebook_data/profile02.jpg",
+	photoid : "phonebook_data/profile13.jpg",
 	name_first : "Marble",
 	name_last : "Roy",
 	name_middle : "",
@@ -15821,7 +16429,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "705-973",
+	addr_pcode : "266-107",
 	addr_country : "Sweden",
 	addr_province : "Georgia",
 	addr_city : "Busan",
@@ -15831,10 +16439,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1959-03-06",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 609,
-	photoid : "phonebook_data/profile10.jpg",
+	photoid : "phonebook_data/profile39.jpg",
 	name_first : "Marbury",
 	name_last : "Stephon",
 	name_middle : "",
@@ -15847,7 +16456,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "710-257",
+	addr_pcode : "730-437",
 	addr_country : "Gaum",
 	addr_province : "Pennsylvania",
 	addr_city : "Laite",
@@ -15857,10 +16466,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1968-04-24",
 	webaddr : "www.google.com",
-	note : "  "
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 610,
-	photoid : "phonebook_data/profile30.jpg",
+	photoid : "phonebook_data/profile37.jpg",
 	name_first : "Marciulionis",
 	name_last : "Sarunas",
 	name_middle : "",
@@ -15873,7 +16483,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "638-215",
+	addr_pcode : "570-090",
 	addr_country : "Japan",
 	addr_province : "Washington",
 	addr_city : "Daegu",
@@ -15883,10 +16493,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1962-01-27",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 611,
-	photoid : "phonebook_data/profile11.jpg",
+	photoid : "phonebook_data/profile01.jpg",
 	name_first : "Mariaschin",
 	name_last : "Saul George",
 	name_middle : "",
@@ -15899,7 +16510,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "436-532",
+	addr_pcode : "602-746",
 	addr_country : "Canada",
 	addr_province : "Califonia",
 	addr_city : "Paris",
@@ -15909,10 +16520,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1955-01-10",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 612,
-	photoid : "phonebook_data/profile17.jpg",
+	photoid : "phonebook_data/profile22.jpg",
 	name_first : "Marin",
 	name_last : "John Warren (Jack)",
 	name_middle : "",
@@ -15925,7 +16537,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "121-694",
+	addr_pcode : "341-426",
 	addr_country : "U.S.A",
 	addr_province : "Idaho",
 	addr_city : "Rome",
@@ -15935,10 +16547,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1954-12-07",
 	webaddr : "www.naver.com",
-	note : "  "
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 613,
-	photoid : "phonebook_data/profile06.jpg",
+	photoid : "phonebook_data/profile16.jpg",
 	name_first : "Marion",
 	name_last : "Shawn",
 	name_middle : "",
@@ -15951,7 +16564,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "235-117",
+	addr_pcode : "219-379",
 	addr_country : "Sweden",
 	addr_province : "Oregon",
 	addr_city : "Cleveland",
@@ -15961,10 +16574,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1968-05-28",
 	webaddr : "www.google.com",
-	note : "  "
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 614,
-	photoid : "phonebook_data/profile18.jpg",
+	photoid : "phonebook_data/profile06.jpg",
 	name_first : "Markota",
 	name_last : "Damir",
 	name_middle : "",
@@ -15977,7 +16591,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "164-287",
+	addr_pcode : "400-691",
 	addr_country : "Swiss",
 	addr_province : "Hawaii",
 	addr_city : "Paris",
@@ -15987,10 +16601,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1958-09-21",
 	webaddr : "www.samsungmobile.com",
-	note : "  "
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 615,
-	photoid : "phonebook_data/profile14.jpg",
+	photoid : "phonebook_data/profile21.jpg",
 	name_first : "N'diaye",
 	name_last : "Mamadou",
 	name_middle : "",
@@ -16003,7 +16618,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "912-747",
+	addr_pcode : "484-532",
 	addr_country : "China",
 	addr_province : "Dacota",
 	addr_city : "Bangkok",
@@ -16013,10 +16628,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1960-06-27",
 	webaddr : "www.sec.co.kr",
-	note : "  "
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 616,
-	photoid : "phonebook_data/profile11.jpg",
+	photoid : "phonebook_data/profile18.jpg",
 	name_first : "Naber",
 	name_last : "Robert E. (Bob)",
 	name_middle : "",
@@ -16029,7 +16645,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "915-301",
+	addr_pcode : "821-607",
 	addr_country : "China",
 	addr_province : "Dacota",
 	addr_city : "Wonju",
@@ -16039,10 +16655,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1975-10-20",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 617,
-	photoid : "phonebook_data/profile30.jpg",
+	photoid : "phonebook_data/profile18.jpg",
 	name_first : "Nachamkin",
 	name_last : "Boris Alexander",
 	name_middle : "",
@@ -16055,7 +16672,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "890-994",
+	addr_pcode : "247-316",
 	addr_country : "Gaum",
 	addr_province : "Alaska",
 	addr_city : "Wonju",
@@ -16065,10 +16682,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1955-12-10",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 618,
-	photoid : "phonebook_data/profile40.jpg",
+	photoid : "phonebook_data/profile06.jpg",
 	name_first : "Nachbar",
 	name_last : "Bostjan",
 	name_middle : "",
@@ -16081,7 +16699,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "226-264",
+	addr_pcode : "209-338",
 	addr_country : "Brazil",
 	addr_province : "Alaska",
 	addr_city : "Busan",
@@ -16091,10 +16709,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1971-08-24",
 	webaddr : "www.sec.co.kr",
-	note : "  "
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 619,
-	photoid : "phonebook_data/profile22.jpg",
+	photoid : "phonebook_data/profile06.jpg",
 	name_first : "Nagel",
 	name_last : "Gerald R. (Jerry)",
 	name_middle : "",
@@ -16107,7 +16726,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "266-132",
+	addr_pcode : "656-604",
 	addr_country : "Gaum",
 	addr_province : "Washington",
 	addr_city : "Newyork",
@@ -16117,10 +16736,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1957-10-11",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 620,
-	photoid : "phonebook_data/profile33.jpg",
+	photoid : "phonebook_data/profile34.jpg",
 	name_first : "Nagy",
 	name_last : "Frederick Karl (Fritz)",
 	name_middle : "",
@@ -16133,7 +16753,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "846-054",
+	addr_pcode : "673-981",
 	addr_country : "Rep.Korea",
 	addr_province : "Califonia",
 	addr_city : "Wonju",
@@ -16143,10 +16763,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1975-10-22",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 621,
-	photoid : "phonebook_data/profile23.jpg",
+	photoid : "phonebook_data/profile21.jpg",
 	name_first : "Nailon",
 	name_last : "Lee",
 	name_middle : "",
@@ -16159,7 +16780,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "482-348",
+	addr_pcode : "197-953",
 	addr_country : "Swiss",
 	addr_province : "Nevada",
 	addr_city : "Denver",
@@ -16169,10 +16790,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1976-10-23",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 622,
-	photoid : "phonebook_data/profile23.jpg",
+	photoid : "phonebook_data/profile02.jpg",
 	name_first : "Najera",
 	name_last : "Eduardo",
 	name_middle : "",
@@ -16185,7 +16807,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "316-551",
+	addr_pcode : "149-048",
 	addr_country : "China",
 	addr_province : "Oregon",
 	addr_city : "Bangkok",
@@ -16195,10 +16817,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1972-02-26",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 623,
-	photoid : "phonebook_data/profile25.jpg",
+	photoid : "phonebook_data/profile07.jpg",
 	name_first : "Nance",
 	name_last : "Larry",
 	name_middle : "",
@@ -16211,7 +16834,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "554-351",
+	addr_pcode : "194-567",
 	addr_country : "Brazil",
 	addr_province : "Kyunggi",
 	addr_city : "Cebu",
@@ -16221,10 +16844,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1966-09-21",
 	webaddr : "www.yahoo.com",
-	note : "  "
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 624,
-	photoid : "phonebook_data/profile31.jpg",
+	photoid : "phonebook_data/profile04.jpg",
 	name_first : "Napolitano",
 	name_last : "Paul Wally",
 	name_middle : "",
@@ -16237,7 +16861,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "102-184",
+	addr_pcode : "810-385",
 	addr_country : "Japan",
 	addr_province : "Washington",
 	addr_city : "Busan",
@@ -16247,10 +16871,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1958-02-26",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 625,
-	photoid : "phonebook_data/profile36.jpg",
+	photoid : "phonebook_data/profile03.jpg",
 	name_first : "Nash",
 	name_last : "Charles Francis (Cotton)",
 	name_middle : "",
@@ -16263,7 +16888,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "681-307",
+	addr_pcode : "278-131",
 	addr_country : "Canada",
 	addr_province : "Arizona",
 	addr_city : "Kwangju",
@@ -16273,10 +16898,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1951-12-21",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 626,
-	photoid : "phonebook_data/profile39.jpg",
+	photoid : "phonebook_data/profile37.jpg",
 	name_first : "Nash",
 	name_last : "Robert Lee Jr. (Bob)",
 	name_middle : "",
@@ -16289,7 +16915,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "757-896",
+	addr_pcode : "209-808",
 	addr_country : "U.S.A",
 	addr_province : "Pennsylvania",
 	addr_city : "Frankfruit",
@@ -16299,10 +16925,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1951-12-29",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 627,
-	photoid : "phonebook_data/profile34.jpg",
+	photoid : "phonebook_data/profile37.jpg",
 	name_first : "Nash",
 	name_last : "Steve",
 	name_middle : "",
@@ -16315,7 +16942,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "389-436",
+	addr_pcode : "454-699",
 	addr_country : "U.S.A",
 	addr_province : "Idaho",
 	addr_city : "Paris",
@@ -16325,10 +16952,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1956-06-03",
 	webaddr : "www.naver.com",
-	note : "  "
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 628,
-	photoid : "phonebook_data/profile34.jpg",
+	photoid : "phonebook_data/profile30.jpg",
 	name_first : "Nater",
 	name_last : "Swen",
 	name_middle : "",
@@ -16341,7 +16969,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "956-318",
+	addr_pcode : "994-943",
 	addr_country : "Gaum",
 	addr_province : "Georgia",
 	addr_city : "Kwangju",
@@ -16351,10 +16979,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1960-09-01",
 	webaddr : "www.google.com",
-	note : "  "
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 629,
-	photoid : "phonebook_data/profile39.jpg",
+	photoid : "phonebook_data/profile28.jpg",
 	name_first : "Nathan",
 	name_last : "Howard",
 	name_middle : "",
@@ -16367,7 +16996,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "794-767",
+	addr_pcode : "553-188",
 	addr_country : "Canada",
 	addr_province : "Kangwon",
 	addr_city : "Laite",
@@ -16377,10 +17006,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1966-03-28",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 630,
-	photoid : "phonebook_data/profile05.jpg",
+	photoid : "phonebook_data/profile14.jpg",
 	name_first : "Natt",
 	name_last : "Calvin",
 	name_middle : "",
@@ -16393,7 +17023,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "157-744",
+	addr_pcode : "224-398",
 	addr_country : "Sweden",
 	addr_province : "Oregon",
 	addr_city : "Paris",
@@ -16403,10 +17033,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1964-09-15",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 631,
-	photoid : "phonebook_data/profile25.jpg",
+	photoid : "phonebook_data/profile37.jpg",
 	name_first : "Natt",
 	name_last : "Kenny",
 	name_middle : "",
@@ -16419,7 +17050,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "789-465",
+	addr_pcode : "150-155",
 	addr_country : "U.S.A",
 	addr_province : "Oregon",
 	addr_city : "L.A.",
@@ -16429,10 +17060,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1967-08-04",
 	webaddr : "www.naver.com",
-	note : "  "
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 632,
-	photoid : "phonebook_data/profile31.jpg",
+	photoid : "phonebook_data/profile15.jpg",
 	name_first : "Naulls",
 	name_last : "Willie",
 	name_middle : "",
@@ -16445,7 +17077,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "542-577",
+	addr_pcode : "270-527",
 	addr_country : "France",
 	addr_province : "Oregon",
 	addr_city : "Cleveland",
@@ -16455,10 +17087,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1960-06-07",
 	webaddr : "www.naver.com",
-	note : "  "
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 633,
-	photoid : "phonebook_data/profile03.jpg",
+	photoid : "phonebook_data/profile38.jpg",
 	name_first : "Navarro",
 	name_last : "Juan Carlos",
 	name_middle : "",
@@ -16471,7 +17104,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "827-554",
+	addr_pcode : "382-712",
 	addr_country : "Brazil",
 	addr_province : "Alaska",
 	addr_city : "Busan",
@@ -16481,10 +17114,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1968-07-31",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 634,
-	photoid : "phonebook_data/profile31.jpg",
+	photoid : "phonebook_data/profile28.jpg",
 	name_first : "Ndiaye",
 	name_last : "Hamady",
 	name_middle : "",
@@ -16497,7 +17131,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "437-500",
+	addr_pcode : "850-886",
 	addr_country : "Canada",
 	addr_province : "Califonia",
 	addr_city : "Huston",
@@ -16507,10 +17141,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1959-01-15",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 635,
-	photoid : "phonebook_data/profile32.jpg",
+	photoid : "phonebook_data/profile11.jpg",
 	name_first : "Ndiaye",
 	name_last : "Makhtar",
 	name_middle : "",
@@ -16523,7 +17158,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "887-867",
+	addr_pcode : "930-291",
 	addr_country : "Swiss",
 	addr_province : "Kyunggi",
 	addr_city : "Busan",
@@ -16533,10 +17168,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1976-06-09",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 636,
-	photoid : "phonebook_data/profile33.jpg",
+	photoid : "phonebook_data/profile29.jpg",
 	name_first : "Ndong",
 	name_last : "Boniface",
 	name_middle : "",
@@ -16549,7 +17185,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "646-515",
+	addr_pcode : "436-602",
 	addr_country : "U.S.A",
 	addr_province : "Pennsylvania",
 	addr_city : "Laite",
@@ -16559,10 +17195,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1964-02-25",
 	webaddr : "www.intel.com",
-	note : "  "
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 637,
-	photoid : "phonebook_data/profile26.jpg",
+	photoid : "phonebook_data/profile06.jpg",
 	name_first : "Neal",
 	name_last : "Craig",
 	name_middle : "",
@@ -16575,7 +17212,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "461-310",
+	addr_pcode : "866-880",
 	addr_country : "Rep.Korea",
 	addr_province : "Pennsylvania",
 	addr_city : "Bangkok",
@@ -16585,10 +17222,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1952-11-24",
 	webaddr : "www.intel.com",
-	note : "  "
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 638,
-	photoid : "phonebook_data/profile06.jpg",
+	photoid : "phonebook_data/profile17.jpg",
 	name_first : "Neal",
 	name_last : "Gary",
 	name_middle : "",
@@ -16601,7 +17239,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "197-750",
+	addr_pcode : "882-795",
 	addr_country : "Rep.Korea",
 	addr_province : "Kyunggi",
 	addr_city : "Sanghai",
@@ -16611,10 +17249,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1971-07-16",
 	webaddr : "www.sec.co.kr",
-	note : "  "
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 639,
-	photoid : "phonebook_data/profile12.jpg",
+	photoid : "phonebook_data/profile29.jpg",
 	name_first : "Neal",
 	name_last : "James Ellerbe (Jim)",
 	name_middle : "",
@@ -16627,7 +17266,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "299-156",
+	addr_pcode : "140-666",
 	addr_country : "France",
 	addr_province : "Pennsylvania",
 	addr_city : "Wonju",
@@ -16637,10 +17276,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1951-08-03",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 640,
-	photoid : "phonebook_data/profile27.jpg",
+	photoid : "phonebook_data/profile23.jpg",
 	name_first : "Neal",
 	name_last : "Lloyd",
 	name_middle : "",
@@ -16653,7 +17293,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "442-351",
+	addr_pcode : "663-624",
 	addr_country : "Ghana",
 	addr_province : "Florida",
 	addr_city : "Wonju",
@@ -16663,10 +17303,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1969-05-26",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 641,
-	photoid : "phonebook_data/profile38.jpg",
+	photoid : "phonebook_data/profile17.jpg",
 	name_first : "Nealy",
 	name_last : "Ed",
 	name_middle : "",
@@ -16679,7 +17320,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "431-139",
+	addr_pcode : "610-657",
 	addr_country : "China",
 	addr_province : "Alaska",
 	addr_city : "Denver",
@@ -16689,10 +17330,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1952-12-03",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 642,
-	photoid : "phonebook_data/profile17.jpg",
+	photoid : "phonebook_data/profile34.jpg",
 	name_first : "Negratti",
 	name_last : "Albert Edward (Al)",
 	name_middle : "",
@@ -16705,7 +17347,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "924-029",
+	addr_pcode : "942-156",
 	addr_country : "Brazil",
 	addr_province : "Washington",
 	addr_city : "Busan",
@@ -16715,7 +17357,8 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1965-05-21",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 643,
 	photoid : "phonebook_data/profile18.jpg",
@@ -16731,7 +17374,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "540-259",
+	addr_pcode : "694-267",
 	addr_country : "China",
 	addr_province : "Kangwon",
 	addr_city : "Laite",
@@ -16741,10 +17384,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1958-04-29",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 644,
-	photoid : "phonebook_data/profile29.jpg",
+	photoid : "phonebook_data/profile03.jpg",
 	name_first : "Nelson",
 	name_last : "DeMarcus",
 	name_middle : "",
@@ -16757,7 +17401,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "227-402",
+	addr_pcode : "197-865",
 	addr_country : "U.S.A",
 	addr_province : "Califonia",
 	addr_city : "Cebu",
@@ -16767,10 +17411,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1959-04-01",
 	webaddr : "www.naver.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 645,
-	photoid : "phonebook_data/profile33.jpg",
+	photoid : "phonebook_data/profile24.jpg",
 	name_first : "Nelson",
 	name_last : "Donald Arvid (Don, Nellie)",
 	name_middle : "",
@@ -16783,7 +17428,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "652-950",
+	addr_pcode : "486-595",
 	addr_country : "France",
 	addr_province : "Kangwon",
 	addr_city : "Laite",
@@ -16793,10 +17438,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1953-10-12",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 646,
-	photoid : "phonebook_data/profile02.jpg",
+	photoid : "phonebook_data/profile34.jpg",
 	name_first : "Nelson",
 	name_last : "Jameer",
 	name_middle : "",
@@ -16809,7 +17455,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "115-246",
+	addr_pcode : "883-319",
 	addr_country : "U.S.A",
 	addr_province : "Arizona",
 	addr_city : "Huston",
@@ -16819,10 +17465,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1961-08-19",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 647,
-	photoid : "phonebook_data/profile09.jpg",
+	photoid : "phonebook_data/profile05.jpg",
 	name_first : "Nelson",
 	name_last : "Louis (Louie, Sweets)",
 	name_middle : "",
@@ -16835,7 +17482,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "993-661",
+	addr_pcode : "617-369",
 	addr_country : "U.S.A",
 	addr_province : "Califonia",
 	addr_city : "Frankfruit",
@@ -16845,10 +17492,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1962-02-07",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 648,
-	photoid : "phonebook_data/profile25.jpg",
+	photoid : "phonebook_data/profile36.jpg",
 	name_first : "Nembhard",
 	name_last : "Ruben",
 	name_middle : "",
@@ -16861,7 +17509,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "963-461",
+	addr_pcode : "732-729",
 	addr_country : "Gaum",
 	addr_province : "Arizona",
 	addr_city : "Newyork",
@@ -16871,10 +17519,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1967-02-28",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 649,
-	photoid : "phonebook_data/profile24.jpg",
+	photoid : "phonebook_data/profile35.jpg",
 	name_first : "Nene",
 	name_last : "Hilario",
 	name_middle : "",
@@ -16887,7 +17536,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "672-805",
+	addr_pcode : "683-744",
 	addr_country : "Ghana",
 	addr_province : "Kangwon",
 	addr_city : "Rome",
@@ -16897,10 +17546,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1968-12-19",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 650,
-	photoid : "phonebook_data/profile29.jpg",
+	photoid : "phonebook_data/profile04.jpg",
 	name_first : "Nesby",
 	name_last : "Tyrone",
 	name_middle : "",
@@ -16913,7 +17563,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "293-380",
+	addr_pcode : "569-786",
 	addr_country : "Canada",
 	addr_province : "Alaska",
 	addr_city : "Busan",
@@ -16923,10 +17573,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1951-03-23",
 	webaddr : "www.intel.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 651,
-	photoid : "phonebook_data/profile22.jpg",
+	photoid : "phonebook_data/profile05.jpg",
 	name_first : "Nessley",
 	name_last : "Martin",
 	name_middle : "",
@@ -16939,7 +17590,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "492-504",
+	addr_pcode : "718-850",
 	addr_country : "Brazil",
 	addr_province : "Oregon",
 	addr_city : "Cebu",
@@ -16949,10 +17600,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1957-12-02",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 652,
-	photoid : "phonebook_data/profile39.jpg",
+	photoid : "phonebook_data/profile28.jpg",
 	name_first : "Nesterovic",
 	name_last : "Rasho",
 	name_middle : "",
@@ -16965,7 +17617,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "736-063",
+	addr_pcode : "558-237",
 	addr_country : "Sweden",
 	addr_province : "Alaska",
 	addr_city : "Busan",
@@ -16975,10 +17627,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1975-02-11",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 653,
-	photoid : "phonebook_data/profile29.jpg",
+	photoid : "phonebook_data/profile38.jpg",
 	name_first : "Neumann",
 	name_last : "Johnny",
 	name_middle : "",
@@ -16991,7 +17644,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "285-048",
+	addr_pcode : "244-547",
 	addr_country : "Japan",
 	addr_province : "Oregon",
 	addr_city : "Cleveland",
@@ -17001,10 +17654,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1967-02-13",
 	webaddr : "www.sec.co.kr",
-	note : "  "
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 654,
-	photoid : "phonebook_data/profile25.jpg",
+	photoid : "phonebook_data/profile07.jpg",
 	name_first : "Neumann",
 	name_last : "Paul R.",
 	name_middle : "",
@@ -17017,7 +17671,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "293-989",
+	addr_pcode : "731-976",
 	addr_country : "Gaum",
 	addr_province : "Pennsylvania",
 	addr_city : "Cleveland",
@@ -17027,10 +17681,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1966-12-26",
 	webaddr : "www.intel.com",
-	note : "  "
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 655,
-	photoid : "phonebook_data/profile06.jpg",
+	photoid : "phonebook_data/profile20.jpg",
 	name_first : "Nevitt",
 	name_last : "Chuck",
 	name_middle : "",
@@ -17043,7 +17698,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "113-568",
+	addr_pcode : "928-921",
 	addr_country : "Canada",
 	addr_province : "Taxas",
 	addr_city : "Kwangju",
@@ -17053,10 +17708,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1968-10-27",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 656,
-	photoid : "phonebook_data/profile19.jpg",
+	photoid : "phonebook_data/profile15.jpg",
 	name_first : "Newbern",
 	name_last : "Melvin",
 	name_middle : "",
@@ -17069,7 +17725,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "843-505",
+	addr_pcode : "619-821",
 	addr_country : "Swiss",
 	addr_province : "Nebraska",
 	addr_city : "Sanghai",
@@ -17079,10 +17735,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1972-11-23",
 	webaddr : "www.naver.com",
-	note : "  "
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 657,
-	photoid : "phonebook_data/profile15.jpg",
+	photoid : "phonebook_data/profile25.jpg",
 	name_first : "Newbill",
 	name_last : "Ivano",
 	name_middle : "",
@@ -17095,7 +17752,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "196-672",
+	addr_pcode : "199-248",
 	addr_country : "Brazil",
 	addr_province : "Kangwon",
 	addr_city : "Denver",
@@ -17105,10 +17762,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1958-07-01",
 	webaddr : "www.google.com",
-	note : "  "
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 658,
-	photoid : "phonebook_data/profile01.jpg",
+	photoid : "phonebook_data/profile08.jpg",
 	name_first : "Newble",
 	name_last : "Ira",
 	name_middle : "",
@@ -17121,7 +17779,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "539-702",
+	addr_pcode : "336-657",
 	addr_country : "U.S.A",
 	addr_province : "Washington",
 	addr_city : "Busan",
@@ -17131,10 +17789,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1967-08-24",
 	webaddr : "www.daum.net",
-	note : "  "
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 659,
-	photoid : "phonebook_data/profile26.jpg",
+	photoid : "phonebook_data/profile30.jpg",
 	name_first : "Newlin",
 	name_last : "Mike",
 	name_middle : "",
@@ -17147,7 +17806,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "969-040",
+	addr_pcode : "336-697",
 	addr_country : "China",
 	addr_province : "Taxas",
 	addr_city : "Busan",
@@ -17157,10 +17816,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1959-08-24",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 660,
-	photoid : "phonebook_data/profile18.jpg",
+	photoid : "phonebook_data/profile19.jpg",
 	name_first : "Newman",
 	name_last : "Johnny",
 	name_middle : "",
@@ -17173,7 +17833,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "563-948",
+	addr_pcode : "179-709",
 	addr_country : "Japan",
 	addr_province : "Taxas",
 	addr_city : "L.A.",
@@ -17183,10 +17843,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1953-08-21",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 661,
-	photoid : "phonebook_data/profile32.jpg",
+	photoid : "phonebook_data/profile20.jpg",
 	name_first : "Newmark",
 	name_last : "David L. (Dave)",
 	name_middle : "",
@@ -17199,7 +17860,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "271-494",
+	addr_pcode : "988-178",
 	addr_country : "Swiss",
 	addr_province : "Pennsylvania",
 	addr_city : "Newyork",
@@ -17209,10 +17870,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1965-03-10",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 662,
-	photoid : "phonebook_data/profile18.jpg",
+	photoid : "phonebook_data/profile39.jpg",
 	name_first : "Nichols",
 	name_last : "Demetris",
 	name_middle : "",
@@ -17225,7 +17887,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "591-177",
+	addr_pcode : "619-164",
 	addr_country : "Rep.Korea",
 	addr_province : "Califonia",
 	addr_city : "Laite",
@@ -17235,10 +17897,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1966-06-12",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 663,
-	photoid : "phonebook_data/profile20.jpg",
+	photoid : "phonebook_data/profile02.jpg",
 	name_first : "Nichols",
 	name_last : "Jack Edward",
 	name_middle : "",
@@ -17251,7 +17914,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "349-209",
+	addr_pcode : "727-384",
 	addr_country : "Rep.Korea",
 	addr_province : "Pennsylvania",
 	addr_city : "Sanghai",
@@ -17261,10 +17924,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1962-06-10",
 	webaddr : "www.yahoo.com",
-	note : "  "
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 664,
-	photoid : "phonebook_data/profile28.jpg",
+	photoid : "phonebook_data/profile27.jpg",
 	name_first : "Nickerson",
 	name_last : "Gaylon",
 	name_middle : "",
@@ -17277,7 +17941,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "877-902",
+	addr_pcode : "517-531",
 	addr_country : "Brazil",
 	addr_province : "Taxas",
 	addr_city : "Cebu",
@@ -17287,10 +17951,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1952-08-23",
 	webaddr : "www.samsungmobile.com",
-	note : "  "
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 665,
-	photoid : "phonebook_data/profile07.jpg",
+	photoid : "phonebook_data/profile12.jpg",
 	name_first : "O'Bannon",
 	name_last : "Charles",
 	name_middle : "",
@@ -17303,7 +17968,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "499-198",
+	addr_pcode : "938-216",
 	addr_country : "China",
 	addr_province : "Oregon",
 	addr_city : "Cleveland",
@@ -17313,10 +17978,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1974-04-04",
 	webaddr : "www.daum.net",
-	note : "  "
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 666,
-	photoid : "phonebook_data/profile29.jpg",
+	photoid : "phonebook_data/profile10.jpg",
 	name_first : "O'Bannon",
 	name_last : "Ed",
 	name_middle : "",
@@ -17329,7 +17995,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "619-078",
+	addr_pcode : "594-078",
 	addr_country : "Brazil",
 	addr_province : "Taxas",
 	addr_city : "Cebu",
@@ -17339,10 +18005,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1964-09-22",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 667,
-	photoid : "phonebook_data/profile29.jpg",
+	photoid : "phonebook_data/profile07.jpg",
 	name_first : "O'Koren",
 	name_last : "Mike",
 	name_middle : "",
@@ -17355,7 +18022,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "680-063",
+	addr_pcode : "658-309",
 	addr_country : "Swiss",
 	addr_province : "Pennsylvania",
 	addr_city : "Wonju",
@@ -17365,10 +18032,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1968-08-12",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 668,
-	photoid : "phonebook_data/profile32.jpg",
+	photoid : "phonebook_data/profile31.jpg",
 	name_first : "O'Sullivan",
 	name_last : "Dan",
 	name_middle : "",
@@ -17381,7 +18049,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "802-660",
+	addr_pcode : "346-433",
 	addr_country : "Brazil",
 	addr_province : "Pennsylvania",
 	addr_city : "Bangkok",
@@ -17391,10 +18059,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1972-09-13",
 	webaddr : "www.sec.co.kr",
-	note : "  "
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 669,
-	photoid : "phonebook_data/profile30.jpg",
+	photoid : "phonebook_data/profile36.jpg",
 	name_first : "O'Boyle",
 	name_last : "John W.",
 	name_middle : "",
@@ -17407,7 +18076,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "239-402",
+	addr_pcode : "912-607",
 	addr_country : "Japan",
 	addr_province : "Arizona",
 	addr_city : "Daegu",
@@ -17417,10 +18086,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1958-07-25",
 	webaddr : "www.naver.com",
-	note : "  "
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 670,
-	photoid : "phonebook_data/profile40.jpg",
+	photoid : "phonebook_data/profile39.jpg",
 	name_first : "O'Brien",
 	name_last : "Ralph E. (Buckshot)",
 	name_middle : "",
@@ -17433,7 +18103,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "766-663",
+	addr_pcode : "166-149",
 	addr_country : "Rep.Korea",
 	addr_province : "Alaska",
 	addr_city : "Newyork",
@@ -17443,10 +18113,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1973-11-21",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 671,
-	photoid : "phonebook_data/profile19.jpg",
+	photoid : "phonebook_data/profile07.jpg",
 	name_first : "O'Brien",
 	name_last : "Robert (Bob)",
 	name_middle : "",
@@ -17459,7 +18130,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "430-691",
+	addr_pcode : "175-168",
 	addr_country : "Canada",
 	addr_province : "Washington",
 	addr_city : "Busan",
@@ -17469,10 +18140,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1968-08-14",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 672,
-	photoid : "phonebook_data/profile40.jpg",
+	photoid : "phonebook_data/profile14.jpg",
 	name_first : "O'Bryant",
 	name_last : "Patrick",
 	name_middle : "",
@@ -17485,7 +18157,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "288-580",
+	addr_pcode : "224-089",
 	addr_country : "Japan",
 	addr_province : "Oregon",
 	addr_city : "Denver",
@@ -17495,10 +18167,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1950-11-10",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 673,
-	photoid : "phonebook_data/profile37.jpg",
+	photoid : "phonebook_data/profile05.jpg",
 	name_first : "O'Connell",
 	name_last : "Dermott F. (Dermie)",
 	name_middle : "",
@@ -17511,7 +18184,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "427-416",
+	addr_pcode : "929-067",
 	addr_country : "U.S.A",
 	addr_province : "Kyunggi",
 	addr_city : "L.A.",
@@ -17521,10 +18194,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1965-07-12",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 674,
-	photoid : "phonebook_data/profile40.jpg",
+	photoid : "phonebook_data/profile35.jpg",
 	name_first : "O'Donnell",
 	name_last : "Andrew J. (Andy)",
 	name_middle : "",
@@ -17537,7 +18211,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "545-737",
+	addr_pcode : "576-892",
 	addr_country : "Ghana",
 	addr_province : "Kangwon",
 	addr_city : "Cleveland",
@@ -17547,10 +18221,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1953-03-10",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 675,
-	photoid : "phonebook_data/profile23.jpg",
+	photoid : "phonebook_data/profile11.jpg",
 	name_first : "O'Grady",
 	name_last : "Francis David (Buddy)",
 	name_middle : "",
@@ -17563,7 +18238,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "642-259",
+	addr_pcode : "390-659",
 	addr_country : "Sweden",
 	addr_province : "Georgia",
 	addr_city : "Paris",
@@ -17573,10 +18248,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1960-05-29",
 	webaddr : "www.intel.com",
-	note : "  "
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 676,
-	photoid : "phonebook_data/profile20.jpg",
+	photoid : "phonebook_data/profile30.jpg",
 	name_first : "O'Keefe",
 	name_last : "Richard T. (Dick)",
 	name_middle : "",
@@ -17589,7 +18265,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "737-016",
+	addr_pcode : "411-108",
 	addr_country : "Japan",
 	addr_province : "Nevada",
 	addr_city : "Paris",
@@ -17599,10 +18275,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1971-12-18",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 677,
-	photoid : "phonebook_data/profile16.jpg",
+	photoid : "phonebook_data/profile39.jpg",
 	name_first : "O'Keefe",
 	name_last : "Thomas V. (Tommy)",
 	name_middle : "",
@@ -17615,7 +18292,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "598-039",
+	addr_pcode : "289-714",
 	addr_country : "Canada",
 	addr_province : "Nevada",
 	addr_city : "Sanghai",
@@ -17625,10 +18302,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1974-03-14",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 678,
-	photoid : "phonebook_data/profile04.jpg",
+	photoid : "phonebook_data/profile05.jpg",
 	name_first : "O'Malley",
 	name_last : "V. Grady (Grady)",
 	name_middle : "",
@@ -17641,7 +18319,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "116-306",
+	addr_pcode : "167-447",
 	addr_country : "Sweden",
 	addr_province : "Nevada",
 	addr_city : "Kwangju",
@@ -17651,10 +18329,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1957-04-15",
 	webaddr : "www.samsungmobile.com",
-	note : "  "
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 679,
-	photoid : "phonebook_data/profile19.jpg",
+	photoid : "phonebook_data/profile39.jpg",
 	name_first : "O'Neal",
 	name_last : "Jermaine",
 	name_middle : "",
@@ -17667,7 +18346,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "316-079",
+	addr_pcode : "492-334",
 	addr_country : "Japan",
 	addr_province : "Washington",
 	addr_city : "Rome",
@@ -17677,10 +18356,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1957-06-30",
 	webaddr : "www.naver.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 680,
-	photoid : "phonebook_data/profile05.jpg",
+	photoid : "phonebook_data/profile03.jpg",
 	name_first : "O'Neal",
 	name_last : "Shaquille",
 	name_middle : "",
@@ -17693,7 +18373,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "376-156",
+	addr_pcode : "672-409",
 	addr_country : "Japan",
 	addr_province : "Hawaii",
 	addr_city : "Paris",
@@ -17703,10 +18383,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1963-02-27",
 	webaddr : "www.intel.com",
-	note : "  "
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 681,
-	photoid : "phonebook_data/profile06.jpg",
+	photoid : "phonebook_data/profile24.jpg",
 	name_first : "O'Neill",
 	name_last : "Mike",
 	name_middle : "",
@@ -17719,7 +18400,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "234-598",
+	addr_pcode : "403-010",
 	addr_country : "Sweden",
 	addr_province : "Oregon",
 	addr_city : "Sanghai",
@@ -17729,10 +18410,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1957-09-30",
 	webaddr : "www.naver.com",
-	note : "  "
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 682,
-	photoid : "phonebook_data/profile27.jpg",
+	photoid : "phonebook_data/profile05.jpg",
 	name_first : "O'Shea",
 	name_last : "Kevin Christopher",
 	name_middle : "",
@@ -17745,7 +18427,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "160-421",
+	addr_pcode : "884-337",
 	addr_country : "Ghana",
 	addr_province : "Kyunggi",
 	addr_city : "Daegu",
@@ -17755,10 +18437,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1957-03-28",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 683,
-	photoid : "phonebook_data/profile33.jpg",
+	photoid : "phonebook_data/profile23.jpg",
 	name_first : "O'Shields",
 	name_last : "Garland L. (Mule)",
 	name_middle : "",
@@ -17771,7 +18454,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "941-052",
+	addr_pcode : "793-902",
 	addr_country : "Rep.Korea",
 	addr_province : "Alaska",
 	addr_city : "Daegu",
@@ -17781,10 +18464,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1968-12-12",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 684,
-	photoid : "phonebook_data/profile17.jpg",
+	photoid : "phonebook_data/profile07.jpg",
 	name_first : "Oakley",
 	name_last : "Charles",
 	name_middle : "",
@@ -17797,7 +18481,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "240-442",
+	addr_pcode : "905-251",
 	addr_country : "Gaum",
 	addr_province : "Alaska",
 	addr_city : "L.A.",
@@ -17807,10 +18491,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1966-04-05",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 685,
-	photoid : "phonebook_data/profile14.jpg",
+	photoid : "phonebook_data/profile05.jpg",
 	name_first : "Oberto",
 	name_last : "Fabricio",
 	name_middle : "",
@@ -17823,7 +18508,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "661-661",
+	addr_pcode : "603-503",
 	addr_country : "Brazil",
 	addr_province : "Georgia",
 	addr_city : "Newyork",
@@ -17833,10 +18518,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1967-10-16",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 686,
-	photoid : "phonebook_data/profile13.jpg",
+	photoid : "phonebook_data/profile03.jpg",
 	name_first : "Oden",
 	name_last : "Greg",
 	name_middle : "",
@@ -17849,7 +18535,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "778-982",
+	addr_pcode : "568-670",
 	addr_country : "Canada",
 	addr_province : "Alaska",
 	addr_city : "Paris",
@@ -17859,10 +18545,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1965-05-23",
 	webaddr : "www.sec.co.kr",
-	note : "  "
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 687,
-	photoid : "phonebook_data/profile13.jpg",
+	photoid : "phonebook_data/profile22.jpg",
 	name_first : "Odom",
 	name_last : "Lamar",
 	name_middle : "",
@@ -17875,7 +18562,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "617-030",
+	addr_pcode : "625-905",
 	addr_country : "Gaum",
 	addr_province : "Florida",
 	addr_city : "Busan",
@@ -17885,10 +18572,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1950-09-07",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 688,
-	photoid : "phonebook_data/profile02.jpg",
+	photoid : "phonebook_data/profile31.jpg",
 	name_first : "Ogden",
 	name_last : "Carlos (Bud)",
 	name_middle : "",
@@ -17901,7 +18589,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "567-391",
+	addr_pcode : "717-655",
 	addr_country : "Canada",
 	addr_province : "Hawaii",
 	addr_city : "Wonju",
@@ -17911,10 +18599,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1962-06-19",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 689,
-	photoid : "phonebook_data/profile14.jpg",
+	photoid : "phonebook_data/profile25.jpg",
 	name_first : "Ogden",
 	name_last : "Ralph",
 	name_middle : "",
@@ -17927,7 +18616,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "372-275",
+	addr_pcode : "181-020",
 	addr_country : "Sweden",
 	addr_province : "Florida",
 	addr_city : "Denver",
@@ -17937,10 +18626,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1973-08-21",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 690,
-	photoid : "phonebook_data/profile38.jpg",
+	photoid : "phonebook_data/profile37.jpg",
 	name_first : "Ogg",
 	name_last : "Alan",
 	name_middle : "",
@@ -17953,7 +18643,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "597-602",
+	addr_pcode : "291-555",
 	addr_country : "Ghana",
 	addr_province : "Nevada",
 	addr_city : "Denver",
@@ -17963,10 +18653,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1957-05-25",
 	webaddr : "www.samsungmobile.com",
-	note : "  "
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 691,
-	photoid : "phonebook_data/profile05.jpg",
+	photoid : "phonebook_data/profile27.jpg",
 	name_first : "Ohl",
 	name_last : "Donald Jay (Don)",
 	name_middle : "",
@@ -17979,7 +18670,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "162-869",
+	addr_pcode : "586-680",
 	addr_country : "Ghana",
 	addr_province : "Florida",
 	addr_city : "Paris",
@@ -17989,10 +18680,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1975-04-14",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 692,
-	photoid : "phonebook_data/profile15.jpg",
+	photoid : "phonebook_data/profile26.jpg",
 	name_first : "Okafor",
 	name_last : "Emeka",
 	name_middle : "",
@@ -18005,7 +18697,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "452-682",
+	addr_pcode : "163-244",
 	addr_country : "Sweden",
 	addr_province : "Dacota",
 	addr_city : "Kwangju",
@@ -18015,10 +18707,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1970-05-16",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 693,
-	photoid : "phonebook_data/profile24.jpg",
+	photoid : "phonebook_data/profile04.jpg",
 	name_first : "Okur",
 	name_last : "Mehmet",
 	name_middle : "",
@@ -18031,7 +18724,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "360-973",
+	addr_pcode : "404-179",
 	addr_country : "Sweden",
 	addr_province : "Taxas",
 	addr_city : "Sanghai",
@@ -18041,10 +18734,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1975-03-17",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 694,
-	photoid : "phonebook_data/profile32.jpg",
+	photoid : "phonebook_data/profile06.jpg",
 	name_first : "Olajuwon",
 	name_last : "Hakeem",
 	name_middle : "",
@@ -18057,7 +18751,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "644-766",
+	addr_pcode : "859-022",
 	addr_country : "Rep.Korea",
 	addr_province : "Kangwon",
 	addr_city : "Cebu",
@@ -18067,10 +18761,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1962-08-26",
 	webaddr : "www.google.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 695,
-	photoid : "phonebook_data/profile37.jpg",
+	photoid : "phonebook_data/profile08.jpg",
 	name_first : "Olberding",
 	name_last : "Mark",
 	name_middle : "",
@@ -18083,7 +18778,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "281-702",
+	addr_pcode : "249-764",
 	addr_country : "Gaum",
 	addr_province : "Dacota",
 	addr_city : "Sanghai",
@@ -18093,10 +18788,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1973-12-11",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 696,
-	photoid : "phonebook_data/profile16.jpg",
+	photoid : "phonebook_data/profile38.jpg",
 	name_first : "Oldham",
 	name_last : "Jawann",
 	name_middle : "",
@@ -18109,7 +18805,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "383-692",
+	addr_pcode : "870-514",
 	addr_country : "Swiss",
 	addr_province : "Califonia",
 	addr_city : "Kwangju",
@@ -18119,10 +18815,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1966-06-03",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 697,
-	photoid : "phonebook_data/profile17.jpg",
+	photoid : "phonebook_data/profile20.jpg",
 	name_first : "Oldham",
 	name_last : "John O. (Johnny)",
 	name_middle : "",
@@ -18135,7 +18832,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "550-096",
+	addr_pcode : "869-433",
 	addr_country : "Canada",
 	addr_province : "Oregon",
 	addr_city : "Newyork",
@@ -18145,10 +18842,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1960-03-29",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 698,
-	photoid : "phonebook_data/profile35.jpg",
+	photoid : "phonebook_data/profile39.jpg",
 	name_first : "Oleynick",
 	name_last : "Frank (Magic)",
 	name_middle : "",
@@ -18161,7 +18859,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "420-698",
+	addr_pcode : "726-398",
 	addr_country : "Gaum",
 	addr_province : "Hawaii",
 	addr_city : "Denver",
@@ -18171,10 +18869,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1951-06-29",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 699,
-	photoid : "phonebook_data/profile32.jpg",
+	photoid : "phonebook_data/profile01.jpg",
 	name_first : "Olive",
 	name_last : "John",
 	name_middle : "",
@@ -18187,7 +18886,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "786-903",
+	addr_pcode : "893-135",
 	addr_country : "U.S.A",
 	addr_province : "Idaho",
 	addr_city : "Bangkok",
@@ -18197,10 +18896,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1957-06-05",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 700,
-	photoid : "phonebook_data/profile26.jpg",
+	photoid : "phonebook_data/profile03.jpg",
 	name_first : "Oliver",
 	name_last : "Brian",
 	name_middle : "",
@@ -18213,7 +18913,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "868-601",
+	addr_pcode : "724-231",
 	addr_country : "France",
 	addr_province : "Pennsylvania",
 	addr_city : "L.A.",
@@ -18223,10 +18923,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1960-06-13",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 701,
-	photoid : "phonebook_data/profile35.jpg",
+	photoid : "phonebook_data/profile40.jpg",
 	name_first : "Oliver",
 	name_last : "Dean",
 	name_middle : "",
@@ -18239,7 +18940,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "400-160",
+	addr_pcode : "596-753",
 	addr_country : "Sweden",
 	addr_province : "Dacota",
 	addr_city : "Laite",
@@ -18249,10 +18950,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1970-12-03",
 	webaddr : "www.samsungmobile.com",
-	note : "  "
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 702,
-	photoid : "phonebook_data/profile39.jpg",
+	photoid : "phonebook_data/profile32.jpg",
 	name_first : "Oliver",
 	name_last : "Jimmy",
 	name_middle : "",
@@ -18265,7 +18967,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "526-475",
+	addr_pcode : "463-552",
 	addr_country : "Rep.Korea",
 	addr_province : "Nevada",
 	addr_city : "Kwangju",
@@ -18275,10 +18977,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1973-10-23",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 703,
-	photoid : "phonebook_data/profile07.jpg",
+	photoid : "phonebook_data/profile35.jpg",
 	name_first : "Ollie",
 	name_last : "Kevin",
 	name_middle : "",
@@ -18291,7 +18994,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "327-218",
+	addr_pcode : "276-300",
 	addr_country : "Rep.Korea",
 	addr_province : "Georgia",
 	addr_city : "Frankfruit",
@@ -18301,10 +19004,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1955-02-18",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 704,
-	photoid : "phonebook_data/profile15.jpg",
+	photoid : "phonebook_data/profile32.jpg",
 	name_first : "Ollrich",
 	name_last : "Gene W. (Moe)",
 	name_middle : "",
@@ -18317,7 +19021,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "600-647",
+	addr_pcode : "937-958",
 	addr_country : "Canada",
 	addr_province : "Nevada",
 	addr_city : "Bangkok",
@@ -18327,10 +19031,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1961-03-01",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 705,
-	photoid : "phonebook_data/profile01.jpg",
+	photoid : "phonebook_data/profile03.jpg",
 	name_first : "Olowokandi",
 	name_last : "Michael",
 	name_middle : "",
@@ -18343,7 +19048,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "175-015",
+	addr_pcode : "978-006",
 	addr_country : "France",
 	addr_province : "Washington",
 	addr_city : "Huston",
@@ -18353,10 +19058,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1961-01-05",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 706,
-	photoid : "phonebook_data/profile05.jpg",
+	photoid : "phonebook_data/profile17.jpg",
 	name_first : "Olsen",
 	name_last : "Enoch Eli III (Bud)",
 	name_middle : "",
@@ -18369,7 +19075,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "673-835",
+	addr_pcode : "939-298",
 	addr_country : "Japan",
 	addr_province : "Kyunggi",
 	addr_city : "Bangkok",
@@ -18379,7 +19085,8 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1950-08-02",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 707,
 	photoid : "phonebook_data/profile08.jpg",
@@ -18395,7 +19102,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "606-401",
+	addr_pcode : "833-183",
 	addr_country : "France",
 	addr_province : "Washington",
 	addr_city : "Newyork",
@@ -18405,10 +19112,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1974-07-22",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 708,
-	photoid : "phonebook_data/profile35.jpg",
+	photoid : "phonebook_data/profile39.jpg",
 	name_first : "Orr",
 	name_last : "John M. (Johnny)",
 	name_middle : "",
@@ -18421,7 +19129,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "497-366",
+	addr_pcode : "524-433",
 	addr_country : "U.S.A",
 	addr_province : "Nevada",
 	addr_city : "Paris",
@@ -18431,10 +19139,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1971-04-23",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 709,
-	photoid : "phonebook_data/profile07.jpg",
+	photoid : "phonebook_data/profile20.jpg",
 	name_first : "Orr",
 	name_last : "Louis",
 	name_middle : "",
@@ -18447,7 +19156,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "430-746",
+	addr_pcode : "414-264",
 	addr_country : "Japan",
 	addr_province : "Califonia",
 	addr_city : "Daegu",
@@ -18457,10 +19166,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1953-04-08",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 710,
-	photoid : "phonebook_data/profile02.jpg",
+	photoid : "phonebook_data/profile18.jpg",
 	name_first : "Ortiz",
 	name_last : "Jose",
 	name_middle : "",
@@ -18473,7 +19183,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "564-480",
+	addr_pcode : "169-507",
 	addr_country : "Swiss",
 	addr_province : "Alaska",
 	addr_city : "Rome",
@@ -18483,10 +19193,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1967-04-05",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 711,
-	photoid : "phonebook_data/profile40.jpg",
+	photoid : "phonebook_data/profile22.jpg",
 	name_first : "Osborne",
 	name_last : "Charles H. (Chuck)",
 	name_middle : "",
@@ -18499,7 +19210,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "895-624",
+	addr_pcode : "532-924",
 	addr_country : "Rep.Korea",
 	addr_province : "Washington",
 	addr_city : "Paris",
@@ -18509,10 +19220,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1962-05-30",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 712,
-	photoid : "phonebook_data/profile26.jpg",
+	photoid : "phonebook_data/profile10.jpg",
 	name_first : "Osterkorn",
 	name_last : "Walter Raymond (Wally)",
 	name_middle : "",
@@ -18525,7 +19237,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "368-766",
+	addr_pcode : "603-074",
 	addr_country : "Ghana",
 	addr_province : "Washington",
 	addr_city : "Cleveland",
@@ -18535,10 +19247,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1955-12-26",
 	webaddr : "www.sec.co.kr",
-	note : "  "
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 713,
-	photoid : "phonebook_data/profile07.jpg",
+	photoid : "phonebook_data/profile05.jpg",
 	name_first : "Ostertag",
 	name_last : "Greg",
 	name_middle : "",
@@ -18551,7 +19264,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "303-297",
+	addr_pcode : "173-782",
 	addr_country : "Brazil",
 	addr_province : "Washington",
 	addr_city : "Sanghai",
@@ -18561,10 +19274,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1951-02-08",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFG"
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 714,
-	photoid : "phonebook_data/profile13.jpg",
+	photoid : "phonebook_data/profile23.jpg",
 	name_first : "Othick",
 	name_last : "Matt",
 	name_middle : "",
@@ -18577,7 +19291,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "595-742",
+	addr_pcode : "527-205",
 	addr_country : "Japan",
 	addr_province : "Kyunggi",
 	addr_city : "Denver",
@@ -18587,10 +19301,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1953-05-10",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 715,
-	photoid : "phonebook_data/profile22.jpg",
+	photoid : "phonebook_data/profile37.jpg",
 	name_first : "Pace",
 	name_last : "Joseph (Joe)",
 	name_middle : "",
@@ -18603,7 +19318,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "651-104",
+	addr_pcode : "786-006",
 	addr_country : "Ghana",
 	addr_province : "Pennsylvania",
 	addr_city : "Kwangju",
@@ -18613,10 +19328,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1954-03-28",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 716,
-	photoid : "phonebook_data/profile30.jpg",
+	photoid : "phonebook_data/profile02.jpg",
 	name_first : "Pachulia",
 	name_last : "Zaza",
 	name_middle : "",
@@ -18629,7 +19345,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "655-007",
+	addr_pcode : "510-579",
 	addr_country : "Brazil",
 	addr_province : "Califonia",
 	addr_city : "Cleveland",
@@ -18639,7 +19355,8 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1952-03-06",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 717,
 	photoid : "phonebook_data/profile04.jpg",
@@ -18655,7 +19372,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "805-928",
+	addr_pcode : "834-221",
 	addr_country : "Sweden",
 	addr_province : "Kangwon",
 	addr_city : "Newyork",
@@ -18665,10 +19382,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1977-01-28",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 718,
-	photoid : "phonebook_data/profile17.jpg",
+	photoid : "phonebook_data/profile29.jpg",
 	name_first : "Paddio",
 	name_last : "Gerald",
 	name_middle : "",
@@ -18681,7 +19399,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "312-528",
+	addr_pcode : "822-308",
 	addr_country : "Swiss",
 	addr_province : "Idaho",
 	addr_city : "Rome",
@@ -18691,10 +19409,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1959-07-18",
 	webaddr : "www.sec.co.kr",
-	note : "  "
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 719,
-	photoid : "phonebook_data/profile40.jpg",
+	photoid : "phonebook_data/profile10.jpg",
 	name_first : "Padgett",
 	name_last : "Scott",
 	name_middle : "",
@@ -18707,7 +19426,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "695-478",
+	addr_pcode : "278-451",
 	addr_country : "Canada",
 	addr_province : "Pennsylvania",
 	addr_city : "Rome",
@@ -18717,10 +19436,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1954-01-22",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 720,
-	photoid : "phonebook_data/profile13.jpg",
+	photoid : "phonebook_data/profile34.jpg",
 	name_first : "Paine",
 	name_last : "Frederick Vincent Jr. (Fred)",
 	name_middle : "",
@@ -18733,7 +19453,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "708-963",
+	addr_pcode : "293-745",
 	addr_country : "Gaum",
 	addr_province : "Hawaii",
 	addr_city : "L.A.",
@@ -18743,10 +19463,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1971-02-22",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 721,
-	photoid : "phonebook_data/profile08.jpg",
+	photoid : "phonebook_data/profile28.jpg",
 	name_first : "Palacio",
 	name_last : "Milt",
 	name_middle : "",
@@ -18759,7 +19480,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "245-015",
+	addr_pcode : "109-893",
 	addr_country : "Gaum",
 	addr_province : "Califonia",
 	addr_city : "Wonju",
@@ -18769,10 +19490,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1957-04-17",
 	webaddr : "www.yahoo.com",
-	note : "  "
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 722,
-	photoid : "phonebook_data/profile06.jpg",
+	photoid : "phonebook_data/profile32.jpg",
 	name_first : "Palazzi",
 	name_last : "Togo Anthony",
 	name_middle : "",
@@ -18785,7 +19507,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "961-653",
+	addr_pcode : "206-261",
 	addr_country : "China",
 	addr_province : "Alaska",
 	addr_city : "Sanghai",
@@ -18795,10 +19517,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1951-04-30",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 723,
-	photoid : "phonebook_data/profile32.jpg",
+	photoid : "phonebook_data/profile25.jpg",
 	name_first : "Palmer",
 	name_last : "James G. (Jim)",
 	name_middle : "",
@@ -18811,7 +19534,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "422-760",
+	addr_pcode : "255-472",
 	addr_country : "Swiss",
 	addr_province : "Taxas",
 	addr_city : "Rome",
@@ -18821,10 +19544,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1954-01-27",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 724,
-	photoid : "phonebook_data/profile31.jpg",
+	photoid : "phonebook_data/profile16.jpg",
 	name_first : "Palmer",
 	name_last : "John S. (Bud)",
 	name_middle : "",
@@ -18837,7 +19561,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "394-739",
+	addr_pcode : "608-612",
 	addr_country : "France",
 	addr_province : "Taxas",
 	addr_city : "Frankfruit",
@@ -18847,10 +19571,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1963-12-23",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 725,
-	photoid : "phonebook_data/profile01.jpg",
+	photoid : "phonebook_data/profile14.jpg",
 	name_first : "Palmer",
 	name_last : "Walter",
 	name_middle : "",
@@ -18863,7 +19588,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "261-176",
+	addr_pcode : "775-349",
 	addr_country : "Gaum",
 	addr_province : "Kyunggi",
 	addr_city : "Denver",
@@ -18873,10 +19598,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1972-07-07",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFG"
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 726,
-	photoid : "phonebook_data/profile08.jpg",
+	photoid : "phonebook_data/profile04.jpg",
 	name_first : "Panko",
 	name_last : "Andy",
 	name_middle : "",
@@ -18889,7 +19615,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "327-600",
+	addr_pcode : "393-667",
 	addr_country : "China",
 	addr_province : "Georgia",
 	addr_city : "Cebu",
@@ -18899,10 +19625,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1964-07-19",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 727,
-	photoid : "phonebook_data/profile34.jpg",
+	photoid : "phonebook_data/profile23.jpg",
 	name_first : "Pargo",
 	name_last : "Jannero",
 	name_middle : "",
@@ -18915,7 +19642,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "525-175",
+	addr_pcode : "157-264",
 	addr_country : "Swiss",
 	addr_province : "Idaho",
 	addr_city : "Sanghai",
@@ -18925,10 +19652,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1965-11-13",
 	webaddr : "www.yahoo.com",
-	note : "  "
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 728,
-	photoid : "phonebook_data/profile15.jpg",
+	photoid : "phonebook_data/profile17.jpg",
 	name_first : "Parham",
 	name_last : "Estes Foster (Easy)",
 	name_middle : "",
@@ -18941,7 +19669,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "300-877",
+	addr_pcode : "324-911",
 	addr_country : "Sweden",
 	addr_province : "Florida",
 	addr_city : "Busan",
@@ -18951,10 +19679,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1957-02-01",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 729,
-	photoid : "phonebook_data/profile28.jpg",
+	photoid : "phonebook_data/profile30.jpg",
 	name_first : "Parish",
 	name_last : "Robert",
 	name_middle : "",
@@ -18967,7 +19696,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "669-885",
+	addr_pcode : "519-820",
 	addr_country : "Swiss",
 	addr_province : "Kangwon",
 	addr_city : "Denver",
@@ -18977,10 +19706,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1954-01-17",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 730,
-	photoid : "phonebook_data/profile15.jpg",
+	photoid : "phonebook_data/profile03.jpg",
 	name_first : "Park",
 	name_last : "Medford R. (Med)",
 	name_middle : "",
@@ -18993,7 +19723,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "951-962",
+	addr_pcode : "842-068",
 	addr_country : "Brazil",
 	addr_province : "Kyunggi",
 	addr_city : "Paris",
@@ -19003,10 +19733,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1953-04-20",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 731,
-	photoid : "phonebook_data/profile01.jpg",
+	photoid : "phonebook_data/profile21.jpg",
 	name_first : "Parker",
 	name_last : "Anthony",
 	name_middle : "",
@@ -19019,7 +19750,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "246-600",
+	addr_pcode : "516-503",
 	addr_country : "Ghana",
 	addr_province : "Oregon",
 	addr_city : "Frankfruit",
@@ -19029,7 +19760,8 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1972-01-20",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 732,
 	photoid : "phonebook_data/profile37.jpg",
@@ -19045,7 +19777,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "185-868",
+	addr_pcode : "441-391",
 	addr_country : "U.S.A",
 	addr_province : "Oregon",
 	addr_city : "Denver",
@@ -19055,10 +19787,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1965-06-04",
 	webaddr : "www.google.com",
-	note : "  "
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 733,
-	photoid : "phonebook_data/profile10.jpg",
+	photoid : "phonebook_data/profile24.jpg",
 	name_first : "Parker",
 	name_last : "Smush",
 	name_middle : "",
@@ -19071,7 +19804,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "477-931",
+	addr_pcode : "351-270",
 	addr_country : "France",
 	addr_province : "Arizona",
 	addr_city : "Huston",
@@ -19081,10 +19814,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1950-08-28",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 734,
-	photoid : "phonebook_data/profile04.jpg",
+	photoid : "phonebook_data/profile17.jpg",
 	name_first : "Parker",
 	name_last : "Tony",
 	name_middle : "",
@@ -19097,7 +19831,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "956-179",
+	addr_pcode : "844-591",
 	addr_country : "Canada",
 	addr_province : "Oregon",
 	addr_city : "Cleveland",
@@ -19107,10 +19841,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1975-12-06",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 735,
-	photoid : "phonebook_data/profile12.jpg",
+	photoid : "phonebook_data/profile13.jpg",
 	name_first : "Parkinson",
 	name_last : "Jack Gordon",
 	name_middle : "",
@@ -19123,7 +19858,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "143-090",
+	addr_pcode : "953-312",
 	addr_country : "U.S.A",
 	addr_province : "Arizona",
 	addr_city : "Sanghai",
@@ -19133,10 +19868,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1952-05-29",
 	webaddr : "www.samsungmobile.com",
-	note : "  "
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 736,
-	photoid : "phonebook_data/profile17.jpg",
+	photoid : "phonebook_data/profile05.jpg",
 	name_first : "Parks",
 	name_last : "Cherokee",
 	name_middle : "",
@@ -19149,7 +19885,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "436-023",
+	addr_pcode : "696-310",
 	addr_country : "China",
 	addr_province : "Califonia",
 	addr_city : "Paris",
@@ -19159,10 +19895,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1971-01-25",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 737,
-	photoid : "phonebook_data/profile30.jpg",
+	photoid : "phonebook_data/profile16.jpg",
 	name_first : "Parr",
 	name_last : "Jack",
 	name_middle : "",
@@ -19175,7 +19912,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "753-413",
+	addr_pcode : "112-584",
 	addr_country : "U.S.A",
 	addr_province : "Nevada",
 	addr_city : "Busan",
@@ -19185,10 +19922,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1963-04-26",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 738,
-	photoid : "phonebook_data/profile14.jpg",
+	photoid : "phonebook_data/profile36.jpg",
 	name_first : "Parrack",
 	name_last : "Doyle Kenneth",
 	name_middle : "",
@@ -19201,7 +19939,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "553-889",
+	addr_pcode : "527-532",
 	addr_country : "Sweden",
 	addr_province : "Hawaii",
 	addr_city : "Newyork",
@@ -19211,10 +19949,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1963-08-06",
 	webaddr : "www.google.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 739,
-	photoid : "phonebook_data/profile25.jpg",
+	photoid : "phonebook_data/profile32.jpg",
 	name_first : "Parsley",
 	name_last : "Charles H. (Charlie)",
 	name_middle : "",
@@ -19227,7 +19966,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "775-771",
+	addr_pcode : "828-665",
 	addr_country : "Sweden",
 	addr_province : "Idaho",
 	addr_city : "Bangkok",
@@ -19237,10 +19976,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1975-10-07",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 740,
-	photoid : "phonebook_data/profile26.jpg",
+	photoid : "phonebook_data/profile37.jpg",
 	name_first : "Paspalj",
 	name_last : "Zarko",
 	name_middle : "",
@@ -19253,7 +19993,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "718-778",
+	addr_pcode : "856-245",
 	addr_country : "Rep.Korea",
 	addr_province : "Hawaii",
 	addr_city : "Rome",
@@ -19263,10 +20003,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1952-05-18",
 	webaddr : "www.sec.co.kr",
-	note : "  "
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 741,
-	photoid : "phonebook_data/profile09.jpg",
+	photoid : "phonebook_data/profile39.jpg",
 	name_first : "Passaglia",
 	name_last : "Martin Harold (Marty)",
 	name_middle : "",
@@ -19279,7 +20020,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "388-512",
+	addr_pcode : "706-036",
 	addr_country : "Ghana",
 	addr_province : "Hawaii",
 	addr_city : "Bangkok",
@@ -19289,10 +20030,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1968-09-23",
 	webaddr : "www.yahoo.com",
-	note : "  "
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 742,
-	photoid : "phonebook_data/profile06.jpg",
+	photoid : "phonebook_data/profile32.jpg",
 	name_first : "Pastushok",
 	name_last : "George A.",
 	name_middle : "",
@@ -19305,7 +20047,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "494-237",
+	addr_pcode : "677-095",
 	addr_country : "Ghana",
 	addr_province : "Nebraska",
 	addr_city : "L.A.",
@@ -19315,10 +20057,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1973-09-21",
 	webaddr : "www.samsungmobile.com",
-	note : "  "
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 743,
-	photoid : "phonebook_data/profile19.jpg",
+	photoid : "phonebook_data/profile12.jpg",
 	name_first : "Patrick",
 	name_last : "Myles",
 	name_middle : "",
@@ -19331,7 +20074,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "613-684",
+	addr_pcode : "891-663",
 	addr_country : "U.S.A",
 	addr_province : "Florida",
 	addr_city : "Rome",
@@ -19341,10 +20084,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1963-07-30",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 744,
-	photoid : "phonebook_data/profile06.jpg",
+	photoid : "phonebook_data/profile13.jpg",
 	name_first : "Patrick",
 	name_last : "Stanley A. (Stan)",
 	name_middle : "",
@@ -19357,7 +20101,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "610-988",
+	addr_pcode : "762-703",
 	addr_country : "Ghana",
 	addr_province : "Arizona",
 	addr_city : "Rome",
@@ -19367,10 +20111,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1952-11-08",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 745,
-	photoid : "phonebook_data/profile23.jpg",
+	photoid : "phonebook_data/profile04.jpg",
 	name_first : "Patterson",
 	name_last : "Andrae",
 	name_middle : "",
@@ -19383,7 +20128,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "195-093",
+	addr_pcode : "304-918",
 	addr_country : "U.S.A",
 	addr_province : "Idaho",
 	addr_city : "Laite",
@@ -19393,10 +20138,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1975-03-28",
 	webaddr : "www.samsungmobile.com",
-	note : "  "
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 746,
-	photoid : "phonebook_data/profile18.jpg",
+	photoid : "phonebook_data/profile19.jpg",
 	name_first : "Patterson",
 	name_last : "George",
 	name_middle : "",
@@ -19409,7 +20155,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "938-675",
+	addr_pcode : "186-494",
 	addr_country : "U.S.A",
 	addr_province : "Califonia",
 	addr_city : "Paris",
@@ -19419,10 +20165,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1966-03-19",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 747,
-	photoid : "phonebook_data/profile13.jpg",
+	photoid : "phonebook_data/profile04.jpg",
 	name_first : "Patterson",
 	name_last : "Patrick",
 	name_middle : "",
@@ -19435,7 +20182,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "376-695",
+	addr_pcode : "835-791",
 	addr_country : "Gaum",
 	addr_province : "Kangwon",
 	addr_city : "Bangkok",
@@ -19445,10 +20192,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1955-05-25",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 748,
-	photoid : "phonebook_data/profile31.jpg",
+	photoid : "phonebook_data/profile32.jpg",
 	name_first : "Patterson",
 	name_last : "Ruben",
 	name_middle : "",
@@ -19461,7 +20209,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "867-951",
+	addr_pcode : "311-950",
 	addr_country : "Gaum",
 	addr_province : "Kyunggi",
 	addr_city : "Paris",
@@ -19471,10 +20219,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1962-01-08",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 749,
-	photoid : "phonebook_data/profile28.jpg",
+	photoid : "phonebook_data/profile07.jpg",
 	name_first : "Patterson",
 	name_last : "Steven J. (Steve)",
 	name_middle : "",
@@ -19487,7 +20236,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "650-755",
+	addr_pcode : "747-890",
 	addr_country : "Swiss",
 	addr_province : "Hawaii",
 	addr_city : "Wonju",
@@ -19497,10 +20246,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1968-10-08",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 750,
-	photoid : "phonebook_data/profile02.jpg",
+	photoid : "phonebook_data/profile13.jpg",
 	name_first : "Patterson",
 	name_last : "Tommie J. (Tommy)",
 	name_middle : "",
@@ -19513,7 +20263,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "480-015",
+	addr_pcode : "749-932",
 	addr_country : "Canada",
 	addr_province : "Idaho",
 	addr_city : "Busan",
@@ -19523,10 +20273,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1965-10-19",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 751,
-	photoid : "phonebook_data/profile01.jpg",
+	photoid : "phonebook_data/profile38.jpg",
 	name_first : "Patterson",
 	name_last : "Worthington R. (Worthy)",
 	name_middle : "",
@@ -19539,7 +20290,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "808-415",
+	addr_pcode : "173-703",
 	addr_country : "Swiss",
 	addr_province : "Pennsylvania",
 	addr_city : "Wonju",
@@ -19549,10 +20300,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1968-05-02",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 752,
-	photoid : "phonebook_data/profile29.jpg",
+	photoid : "phonebook_data/profile32.jpg",
 	name_first : "Paul",
 	name_last : "Chris",
 	name_middle : "",
@@ -19565,7 +20317,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "915-549",
+	addr_pcode : "368-273",
 	addr_country : "U.S.A",
 	addr_province : "Idaho",
 	addr_city : "Laite",
@@ -19575,10 +20327,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1956-10-26",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 753,
-	photoid : "phonebook_data/profile19.jpg",
+	photoid : "phonebook_data/profile30.jpg",
 	name_first : "Paulk",
 	name_last : "Charles (Charlie)",
 	name_middle : "",
@@ -19591,7 +20344,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "797-003",
+	addr_pcode : "433-660",
 	addr_country : "Rep.Korea",
 	addr_province : "Taxas",
 	addr_city : "Rome",
@@ -19601,10 +20354,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1952-05-07",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 754,
-	photoid : "phonebook_data/profile21.jpg",
+	photoid : "phonebook_data/profile04.jpg",
 	name_first : "Paulson",
 	name_last : "Gerald Arthur (Jerry)",
 	name_middle : "",
@@ -19617,7 +20371,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "809-715",
+	addr_pcode : "908-316",
 	addr_country : "Swiss",
 	addr_province : "Arizona",
 	addr_city : "Bangkok",
@@ -19627,10 +20381,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1952-06-06",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 755,
-	photoid : "phonebook_data/profile28.jpg",
+	photoid : "phonebook_data/profile01.jpg",
 	name_first : "Paultz",
 	name_last : "Billy",
 	name_middle : "",
@@ -19643,7 +20398,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "550-143",
+	addr_pcode : "261-871",
 	addr_country : "China",
 	addr_province : "Alaska",
 	addr_city : "Rome",
@@ -19653,10 +20408,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1952-08-14",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 756,
-	photoid : "phonebook_data/profile19.jpg",
+	photoid : "phonebook_data/profile31.jpg",
 	name_first : "Pavlovic",
 	name_last : "Aleksandar",
 	name_middle : "",
@@ -19669,7 +20425,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "305-600",
+	addr_pcode : "117-195",
 	addr_country : "Canada",
 	addr_province : "Hawaii",
 	addr_city : "Laite",
@@ -19679,10 +20435,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1970-01-07",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 757,
-	photoid : "phonebook_data/profile04.jpg",
+	photoid : "phonebook_data/profile03.jpg",
 	name_first : "Paxson",
 	name_last : "James Edward Sr. (Jim)",
 	name_middle : "",
@@ -19695,7 +20452,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "369-367",
+	addr_pcode : "223-668",
 	addr_country : "France",
 	addr_province : "Hawaii",
 	addr_city : "Cleveland",
@@ -19705,10 +20462,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1968-07-15",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 758,
-	photoid : "phonebook_data/profile39.jpg",
+	photoid : "phonebook_data/profile40.jpg",
 	name_first : "Paxson",
 	name_last : "Jim",
 	name_middle : "",
@@ -19721,7 +20479,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "449-958",
+	addr_pcode : "144-691",
 	addr_country : "France",
 	addr_province : "Idaho",
 	addr_city : "Rome",
@@ -19731,7 +20489,8 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1970-09-05",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 759,
 	photoid : "phonebook_data/profile14.jpg",
@@ -19747,7 +20506,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "784-635",
+	addr_pcode : "738-374",
 	addr_country : "China",
 	addr_province : "Florida",
 	addr_city : "Daegu",
@@ -19757,10 +20516,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1950-10-19",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 760,
-	photoid : "phonebook_data/profile03.jpg",
+	photoid : "phonebook_data/profile05.jpg",
 	name_first : "Payak",
 	name_last : "John Jr. (Johnny)",
 	name_middle : "",
@@ -19773,7 +20533,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "458-422",
+	addr_pcode : "793-622",
 	addr_country : "Japan",
 	addr_province : "Washington",
 	addr_city : "Rome",
@@ -19783,10 +20543,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1969-09-25",
 	webaddr : "www.daum.net",
-	note : "  "
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 761,
-	photoid : "phonebook_data/profile39.jpg",
+	photoid : "phonebook_data/profile15.jpg",
 	name_first : "Payne",
 	name_last : "Kenny",
 	name_middle : "",
@@ -19799,7 +20560,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "353-709",
+	addr_pcode : "908-882",
 	addr_country : "Japan",
 	addr_province : "Oregon",
 	addr_city : "Cleveland",
@@ -19809,10 +20570,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1968-11-01",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 762,
-	photoid : "phonebook_data/profile13.jpg",
+	photoid : "phonebook_data/profile25.jpg",
 	name_first : "Payne",
 	name_last : "Tom",
 	name_middle : "",
@@ -19825,7 +20587,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "109-868",
+	addr_pcode : "321-886",
 	addr_country : "Japan",
 	addr_province : "Nevada",
 	addr_city : "Rome",
@@ -19835,10 +20597,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1961-01-20",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 763,
-	photoid : "phonebook_data/profile09.jpg",
+	photoid : "phonebook_data/profile28.jpg",
 	name_first : "Payton",
 	name_last : "Gary",
 	name_middle : "",
@@ -19851,7 +20614,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "965-501",
+	addr_pcode : "850-441",
 	addr_country : "U.S.A",
 	addr_province : "Taxas",
 	addr_city : "L.A.",
@@ -19861,10 +20624,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1964-03-12",
 	webaddr : "www.daum.net",
-	note : "  "
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 764,
-	photoid : "phonebook_data/profile23.jpg",
+	photoid : "phonebook_data/profile06.jpg",
 	name_first : "Payton",
 	name_last : "Melvin E. (Mel)",
 	name_middle : "",
@@ -19877,7 +20641,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "789-780",
+	addr_pcode : "835-015",
 	addr_country : "Ghana",
 	addr_province : "Washington",
 	addr_city : "L.A.",
@@ -19887,10 +20651,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1961-02-19",
 	webaddr : "www.google.com",
-	note : "  "
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 765,
-	photoid : "phonebook_data/profile06.jpg",
+	photoid : "phonebook_data/profile19.jpg",
 	name_first : "Quick",
 	name_last : "Robert L. (Bob)",
 	name_middle : "",
@@ -19903,7 +20668,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "591-565",
+	addr_pcode : "772-820",
 	addr_country : "France",
 	addr_province : "Pennsylvania",
 	addr_city : "Paris",
@@ -19913,10 +20678,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1960-03-13",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 766,
-	photoid : "phonebook_data/profile02.jpg",
+	photoid : "phonebook_data/profile24.jpg",
 	name_first : "Quinn",
 	name_last : "Chris",
 	name_middle : "",
@@ -19929,7 +20695,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "154-529",
+	addr_pcode : "791-893",
 	addr_country : "Rep.Korea",
 	addr_province : "Washington",
 	addr_city : "Kwangju",
@@ -19939,10 +20705,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1956-10-28",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 767,
-	photoid : "phonebook_data/profile06.jpg",
+	photoid : "phonebook_data/profile12.jpg",
 	name_first : "Quinnett",
 	name_last : "Brian",
 	name_middle : "",
@@ -19955,7 +20722,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "699-339",
+	addr_pcode : "758-379",
 	addr_country : "China",
 	addr_province : "Pennsylvania",
 	addr_city : "Daegu",
@@ -19965,10 +20732,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1969-11-25",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 768,
-	photoid : "phonebook_data/profile11.jpg",
+	photoid : "phonebook_data/profile32.jpg",
 	name_first : "Rackley",
 	name_last : "Luther Jr. (Luke)",
 	name_middle : "",
@@ -19981,7 +20749,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "838-722",
+	addr_pcode : "201-537",
 	addr_country : "U.S.A",
 	addr_province : "Arizona",
 	addr_city : "Denver",
@@ -19991,10 +20759,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1958-07-08",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 769,
-	photoid : "phonebook_data/profile06.jpg",
+	photoid : "phonebook_data/profile04.jpg",
 	name_first : "Rader",
 	name_last : "Howard (Howie)",
 	name_middle : "",
@@ -20007,7 +20776,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "902-668",
+	addr_pcode : "156-489",
 	addr_country : "Swiss",
 	addr_province : "Pennsylvania",
 	addr_city : "Busan",
@@ -20017,10 +20786,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1970-03-01",
 	webaddr : "www.daum.net",
-	note : "  "
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 770,
-	photoid : "phonebook_data/profile36.jpg",
+	photoid : "phonebook_data/profile40.jpg",
 	name_first : "Radford",
 	name_last : "Mark",
 	name_middle : "",
@@ -20033,7 +20803,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "408-915",
+	addr_pcode : "950-491",
 	addr_country : "Rep.Korea",
 	addr_province : "Georgia",
 	addr_city : "Busan",
@@ -20043,10 +20813,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1962-05-24",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 771,
-	photoid : "phonebook_data/profile28.jpg",
+	photoid : "phonebook_data/profile35.jpg",
 	name_first : "Radford",
 	name_last : "Wayne",
 	name_middle : "",
@@ -20059,7 +20830,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "102-520",
+	addr_pcode : "579-765",
 	addr_country : "China",
 	addr_province : "Idaho",
 	addr_city : "Kwangju",
@@ -20069,10 +20840,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1976-12-08",
 	webaddr : "www.intel.com",
-	note : "  "
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 772,
-	photoid : "phonebook_data/profile27.jpg",
+	photoid : "phonebook_data/profile15.jpg",
 	name_first : "Radja",
 	name_last : "Dino",
 	name_middle : "",
@@ -20085,7 +20857,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "255-994",
+	addr_pcode : "397-898",
 	addr_country : "U.S.A",
 	addr_province : "Kyunggi",
 	addr_city : "Daegu",
@@ -20095,10 +20867,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1973-03-08",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 773,
-	photoid : "phonebook_data/profile13.jpg",
+	photoid : "phonebook_data/profile32.jpg",
 	name_first : "Radmanovic",
 	name_last : "Vladimir",
 	name_middle : "",
@@ -20111,7 +20884,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "394-705",
+	addr_pcode : "117-496",
 	addr_country : "China",
 	addr_province : "Arizona",
 	addr_city : "Wonju",
@@ -20121,10 +20894,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1974-06-02",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 774,
-	photoid : "phonebook_data/profile04.jpg",
+	photoid : "phonebook_data/profile19.jpg",
 	name_first : "Radojevic",
 	name_last : "Aleksandar",
 	name_middle : "",
@@ -20137,7 +20911,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "662-484",
+	addr_pcode : "781-746",
 	addr_country : "Swiss",
 	addr_province : "Georgia",
 	addr_city : "Paris",
@@ -20147,10 +20921,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1966-04-28",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 775,
-	photoid : "phonebook_data/profile09.jpg",
+	photoid : "phonebook_data/profile39.jpg",
 	name_first : "Radovich",
 	name_last : "Frank Raymond",
 	name_middle : "",
@@ -20163,7 +20938,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "747-487",
+	addr_pcode : "127-799",
 	addr_country : "U.S.A",
 	addr_province : "Arizona",
 	addr_city : "Huston",
@@ -20173,10 +20948,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1974-08-29",
 	webaddr : "www.yahoo.com",
-	note : "  "
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 776,
-	photoid : "phonebook_data/profile29.jpg",
+	photoid : "phonebook_data/profile12.jpg",
 	name_first : "Radovich",
 	name_last : "George Lewis (Moe)",
 	name_middle : "",
@@ -20189,7 +20965,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "142-056",
+	addr_pcode : "330-919",
 	addr_country : "China",
 	addr_province : "Kangwon",
 	addr_city : "Wonju",
@@ -20199,10 +20975,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1970-04-19",
 	webaddr : "www.google.com",
-	note : "  "
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 777,
-	photoid : "phonebook_data/profile36.jpg",
+	photoid : "phonebook_data/profile35.jpg",
 	name_first : "Radziszewski",
 	name_last : "Raymond A. (Ray)",
 	name_middle : "",
@@ -20215,7 +20992,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "826-946",
+	addr_pcode : "282-405",
 	addr_country : "Rep.Korea",
 	addr_province : "Kyunggi",
 	addr_city : "Cebu",
@@ -20225,10 +21002,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1958-06-23",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 778,
-	photoid : "phonebook_data/profile19.jpg",
+	photoid : "phonebook_data/profile07.jpg",
 	name_first : "Ragelis",
 	name_last : "Raymond Ernest (Ray)",
 	name_middle : "",
@@ -20241,7 +21019,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "533-894",
+	addr_pcode : "622-963",
 	addr_country : "Ghana",
 	addr_province : "Kyunggi",
 	addr_city : "Cebu",
@@ -20251,10 +21029,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1957-06-08",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 779,
-	photoid : "phonebook_data/profile37.jpg",
+	photoid : "phonebook_data/profile24.jpg",
 	name_first : "Raiken",
 	name_last : "Sherwin H.",
 	name_middle : "",
@@ -20267,7 +21046,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "362-478",
+	addr_pcode : "282-703",
 	addr_country : "Brazil",
 	addr_province : "Nevada",
 	addr_city : "Cebu",
@@ -20277,10 +21056,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1954-08-09",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 780,
-	photoid : "phonebook_data/profile24.jpg",
+	photoid : "phonebook_data/profile20.jpg",
 	name_first : "Rains",
 	name_last : "Ed",
 	name_middle : "",
@@ -20293,7 +21073,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "722-762",
+	addr_pcode : "342-763",
 	addr_country : "Canada",
 	addr_province : "Hawaii",
 	addr_city : "Huston",
@@ -20303,10 +21083,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1960-03-06",
 	webaddr : "www.daum.net",
-	note : "  "
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 781,
-	photoid : "phonebook_data/profile21.jpg",
+	photoid : "phonebook_data/profile17.jpg",
 	name_first : "Rakocevic",
 	name_last : "Igor",
 	name_middle : "",
@@ -20319,7 +21100,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "435-601",
+	addr_pcode : "565-924",
 	addr_country : "China",
 	addr_province : "Taxas",
 	addr_city : "Wonju",
@@ -20329,10 +21110,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1967-09-02",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 782,
-	photoid : "phonebook_data/profile12.jpg",
+	photoid : "phonebook_data/profile28.jpg",
 	name_first : "Rambis",
 	name_last : "Kurt",
 	name_middle : "",
@@ -20345,7 +21127,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "580-895",
+	addr_pcode : "897-455",
 	addr_country : "Sweden",
 	addr_province : "Idaho",
 	addr_city : "Rome",
@@ -20355,10 +21137,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1952-03-10",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 783,
-	photoid : "phonebook_data/profile13.jpg",
+	photoid : "phonebook_data/profile27.jpg",
 	name_first : "Ramos",
 	name_last : "Peter",
 	name_middle : "",
@@ -20371,7 +21154,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "280-343",
+	addr_pcode : "582-327",
 	addr_country : "Gaum",
 	addr_province : "Nebraska",
 	addr_city : "Sanghai",
@@ -20381,10 +21164,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1961-08-27",
 	webaddr : "www.google.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 784,
-	photoid : "phonebook_data/profile06.jpg",
+	photoid : "phonebook_data/profile37.jpg",
 	name_first : "Ramsey",
 	name_last : "Calvin (Cal)",
 	name_middle : "",
@@ -20397,7 +21181,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "764-735",
+	addr_pcode : "298-847",
 	addr_country : "Brazil",
 	addr_province : "Georgia",
 	addr_city : "Cleveland",
@@ -20407,10 +21191,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1961-11-24",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 785,
-	photoid : "phonebook_data/profile22.jpg",
+	photoid : "phonebook_data/profile02.jpg",
 	name_first : "Ramsey",
 	name_last : "Frank",
 	name_middle : "",
@@ -20423,7 +21208,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "322-133",
+	addr_pcode : "919-633",
 	addr_country : "Japan",
 	addr_province : "Nevada",
 	addr_city : "Newyork",
@@ -20433,10 +21218,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1970-07-21",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 786,
-	photoid : "phonebook_data/profile27.jpg",
+	photoid : "phonebook_data/profile12.jpg",
 	name_first : "Ramsey",
 	name_last : "Raymond Leroy (Ray)",
 	name_middle : "",
@@ -20449,7 +21235,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "694-611",
+	addr_pcode : "944-672",
 	addr_country : "France",
 	addr_province : "Nebraska",
 	addr_city : "Denver",
@@ -20459,7 +21245,8 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1969-02-26",
 	webaddr : "www.sec.co.kr",
-	note : "  "
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 787,
 	photoid : "phonebook_data/profile07.jpg",
@@ -20475,7 +21262,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "478-394",
+	addr_pcode : "478-552",
 	addr_country : "Brazil",
 	addr_province : "Pennsylvania",
 	addr_city : "Busan",
@@ -20485,10 +21272,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1961-12-26",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 788,
-	photoid : "phonebook_data/profile14.jpg",
+	photoid : "phonebook_data/profile01.jpg",
 	name_first : "Randolph",
 	name_last : "Anthony",
 	name_middle : "",
@@ -20501,7 +21289,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "708-176",
+	addr_pcode : "415-525",
 	addr_country : "France",
 	addr_province : "Nevada",
 	addr_city : "L.A.",
@@ -20511,10 +21299,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1958-04-17",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 789,
-	photoid : "phonebook_data/profile33.jpg",
+	photoid : "phonebook_data/profile39.jpg",
 	name_first : "Randolph",
 	name_last : "Shavlik",
 	name_middle : "",
@@ -20527,7 +21316,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "536-492",
+	addr_pcode : "583-847",
 	addr_country : "U.S.A",
 	addr_province : "Kangwon",
 	addr_city : "Cleveland",
@@ -20537,10 +21326,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1970-09-01",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 790,
-	photoid : "phonebook_data/profile36.jpg",
+	photoid : "phonebook_data/profile20.jpg",
 	name_first : "Randolph",
 	name_last : "Zach",
 	name_middle : "",
@@ -20553,7 +21343,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "575-735",
+	addr_pcode : "753-819",
 	addr_country : "Gaum",
 	addr_province : "Nevada",
 	addr_city : "Frankfruit",
@@ -20563,10 +21353,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1974-10-12",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 791,
-	photoid : "phonebook_data/profile31.jpg",
+	photoid : "phonebook_data/profile38.jpg",
 	name_first : "Rank",
 	name_last : "Wallace Aliifua (Wally)",
 	name_middle : "",
@@ -20579,7 +21370,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "129-883",
+	addr_pcode : "946-594",
 	addr_country : "Gaum",
 	addr_province : "Washington",
 	addr_city : "Sanghai",
@@ -20589,10 +21380,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1959-12-26",
 	webaddr : "www.daum.net",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 792,
-	photoid : "phonebook_data/profile32.jpg",
+	photoid : "phonebook_data/profile39.jpg",
 	name_first : "Ransey",
 	name_last : "Kelvin",
 	name_middle : "",
@@ -20605,7 +21397,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "612-075",
+	addr_pcode : "165-920",
 	addr_country : "Ghana",
 	addr_province : "Pennsylvania",
 	addr_city : "Rome",
@@ -20615,10 +21407,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1956-04-06",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 793,
-	photoid : "phonebook_data/profile10.jpg",
+	photoid : "phonebook_data/profile31.jpg",
 	name_first : "Ranzino",
 	name_last : "Samuel Salvadore (Sam)",
 	name_middle : "",
@@ -20631,7 +21424,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "917-283",
+	addr_pcode : "405-112",
 	addr_country : "Rep.Korea",
 	addr_province : "Kyunggi",
 	addr_city : "Bangkok",
@@ -20641,10 +21434,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1965-05-12",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 794,
-	photoid : "phonebook_data/profile26.jpg",
+	photoid : "phonebook_data/profile40.jpg",
 	name_first : "Rasmussen",
 	name_last : "Blair",
 	name_middle : "",
@@ -20657,7 +21451,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "158-682",
+	addr_pcode : "835-472",
 	addr_country : "Sweden",
 	addr_province : "Kangwon",
 	addr_city : "L.A.",
@@ -20667,10 +21461,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1960-03-01",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 795,
-	photoid : "phonebook_data/profile07.jpg",
+	photoid : "phonebook_data/profile15.jpg",
 	name_first : "Ratkovicz",
 	name_last : "George",
 	name_middle : "",
@@ -20683,7 +21478,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "647-467",
+	addr_pcode : "626-856",
 	addr_country : "Sweden",
 	addr_province : "Nebraska",
 	addr_city : "Cleveland",
@@ -20693,10 +21488,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1954-04-04",
 	webaddr : "www.daum.net",
-	note : "  "
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 796,
-	photoid : "phonebook_data/profile23.jpg",
+	photoid : "phonebook_data/profile02.jpg",
 	name_first : "Ratleff",
 	name_last : "Ed",
 	name_middle : "",
@@ -20709,7 +21505,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "464-499",
+	addr_pcode : "711-591",
 	addr_country : "U.S.A",
 	addr_province : "Hawaii",
 	addr_city : "Busan",
@@ -20719,10 +21515,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1974-01-01",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 797,
-	photoid : "phonebook_data/profile32.jpg",
+	photoid : "phonebook_data/profile11.jpg",
 	name_first : "Ratliff",
 	name_last : "Michael D. (Mike)",
 	name_middle : "",
@@ -20735,7 +21532,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "186-445",
+	addr_pcode : "581-332",
 	addr_country : "Sweden",
 	addr_province : "Washington",
 	addr_city : "Daegu",
@@ -20745,10 +21542,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1957-08-29",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 798,
-	photoid : "phonebook_data/profile37.jpg",
+	photoid : "phonebook_data/profile14.jpg",
 	name_first : "Ratliff",
 	name_last : "Theo",
 	name_middle : "",
@@ -20761,7 +21559,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "609-164",
+	addr_pcode : "342-465",
 	addr_country : "Ghana",
 	addr_province : "Georgia",
 	addr_city : "L.A.",
@@ -20771,10 +21569,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1961-06-24",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 799,
-	photoid : "phonebook_data/profile02.jpg",
+	photoid : "phonebook_data/profile22.jpg",
 	name_first : "Rautins",
 	name_last : "Andy",
 	name_middle : "",
@@ -20787,7 +21586,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "308-263",
+	addr_pcode : "868-720",
 	addr_country : "Swiss",
 	addr_province : "Arizona",
 	addr_city : "Cebu",
@@ -20797,10 +21596,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1967-06-05",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 800,
-	photoid : "phonebook_data/profile06.jpg",
+	photoid : "phonebook_data/profile05.jpg",
 	name_first : "Rautins",
 	name_last : "Leo",
 	name_middle : "",
@@ -20813,7 +21613,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "176-399",
+	addr_pcode : "294-030",
 	addr_country : "China",
 	addr_province : "Florida",
 	addr_city : "Bangkok",
@@ -20823,10 +21623,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1956-06-05",
 	webaddr : "www.google.com",
-	note : "  "
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 801,
-	photoid : "phonebook_data/profile22.jpg",
+	photoid : "phonebook_data/profile09.jpg",
 	name_first : "Ray",
 	name_last : "Allan",
 	name_middle : "",
@@ -20839,7 +21640,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "280-051",
+	addr_pcode : "224-801",
 	addr_country : "Sweden",
 	addr_province : "Dacota",
 	addr_city : "Frankfruit",
@@ -20849,10 +21650,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1966-04-15",
 	webaddr : "www.sec.co.kr",
-	note : "  "
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 802,
-	photoid : "phonebook_data/profile09.jpg",
+	photoid : "phonebook_data/profile15.jpg",
 	name_first : "Ray",
 	name_last : "Clifford",
 	name_middle : "",
@@ -20865,7 +21667,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "415-464",
+	addr_pcode : "305-031",
 	addr_country : "Japan",
 	addr_province : "Dacota",
 	addr_city : "Laite",
@@ -20875,10 +21677,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1962-09-01",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 803,
-	photoid : "phonebook_data/profile05.jpg",
+	photoid : "phonebook_data/profile37.jpg",
 	name_first : "Ray",
 	name_last : "Donald L. (Don, Duck)",
 	name_middle : "",
@@ -20891,7 +21694,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "990-547",
+	addr_pcode : "557-301",
 	addr_country : "France",
 	addr_province : "Washington",
 	addr_city : "Rome",
@@ -20901,10 +21704,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1964-12-10",
 	webaddr : "www.yahoo.com",
-	note : "  "
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 804,
-	photoid : "phonebook_data/profile11.jpg",
+	photoid : "phonebook_data/profile18.jpg",
 	name_first : "Ray",
 	name_last : "James E. (Jim)",
 	name_middle : "",
@@ -20917,7 +21721,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "564-309",
+	addr_pcode : "363-823",
 	addr_country : "France",
 	addr_province : "Kangwon",
 	addr_city : "Huston",
@@ -20927,10 +21731,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1969-09-08",
 	webaddr : "www.sec.co.kr",
-	note : "  "
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 805,
-	photoid : "phonebook_data/profile20.jpg",
+	photoid : "phonebook_data/profile09.jpg",
 	name_first : "Ray",
 	name_last : "James Earl",
 	name_middle : "",
@@ -20943,7 +21748,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "420-119",
+	addr_pcode : "612-475",
 	addr_country : "Rep.Korea",
 	addr_province : "Califonia",
 	addr_city : "Sanghai",
@@ -20953,10 +21758,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1966-07-16",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 806,
-	photoid : "phonebook_data/profile23.jpg",
+	photoid : "phonebook_data/profile22.jpg",
 	name_first : "Raymond",
 	name_last : "Craig Milford",
 	name_middle : "",
@@ -20969,7 +21775,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "945-130",
+	addr_pcode : "175-330",
 	addr_country : "U.S.A",
 	addr_province : "Califonia",
 	addr_city : "Paris",
@@ -20979,10 +21785,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1952-07-09",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 807,
-	photoid : "phonebook_data/profile08.jpg",
+	photoid : "phonebook_data/profile34.jpg",
 	name_first : "Rea",
 	name_last : "Connie Mack",
 	name_middle : "",
@@ -20995,7 +21802,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "799-507",
+	addr_pcode : "561-880",
 	addr_country : "Gaum",
 	addr_province : "Califonia",
 	addr_city : "Paris",
@@ -21005,10 +21812,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1957-09-26",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 808,
-	photoid : "phonebook_data/profile38.jpg",
+	photoid : "phonebook_data/profile18.jpg",
 	name_first : "Reaves",
 	name_last : "Joe L.",
 	name_middle : "",
@@ -21021,7 +21829,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "259-422",
+	addr_pcode : "333-404",
 	addr_country : "Swiss",
 	addr_province : "Washington",
 	addr_city : "Paris",
@@ -21031,10 +21839,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1972-09-05",
 	webaddr : "www.naver.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 809,
-	photoid : "phonebook_data/profile40.jpg",
+	photoid : "phonebook_data/profile03.jpg",
 	name_first : "Rebraca",
 	name_last : "Zeljko",
 	name_middle : "",
@@ -21047,7 +21856,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "277-635",
+	addr_pcode : "516-832",
 	addr_country : "Gaum",
 	addr_province : "Kyunggi",
 	addr_city : "Wonju",
@@ -21057,10 +21866,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1953-09-08",
 	webaddr : "www.yahoo.com",
-	note : "  "
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 810,
-	photoid : "phonebook_data/profile19.jpg",
+	photoid : "phonebook_data/profile31.jpg",
 	name_first : "Recasner",
 	name_last : "Eldridge",
 	name_middle : "",
@@ -21073,7 +21883,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "874-110",
+	addr_pcode : "738-880",
 	addr_country : "Sweden",
 	addr_province : "Georgia",
 	addr_city : "Kwangju",
@@ -21083,10 +21893,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1961-06-12",
 	webaddr : "www.daum.net",
-	note : "  "
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 811,
-	photoid : "phonebook_data/profile20.jpg",
+	photoid : "phonebook_data/profile37.jpg",
 	name_first : "Redd",
 	name_last : "Michael",
 	name_middle : "",
@@ -21099,7 +21910,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "584-969",
+	addr_pcode : "996-416",
 	addr_country : "Canada",
 	addr_province : "Washington",
 	addr_city : "Rome",
@@ -21109,10 +21920,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1957-02-21",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 812,
-	photoid : "phonebook_data/profile31.jpg",
+	photoid : "phonebook_data/profile08.jpg",
 	name_first : "Reddout",
 	name_last : "Franklin P. (Frank)",
 	name_middle : "",
@@ -21125,7 +21937,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "577-717",
+	addr_pcode : "651-226",
 	addr_country : "Rep.Korea",
 	addr_province : "Florida",
 	addr_city : "Daegu",
@@ -21135,10 +21947,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1972-09-29",
 	webaddr : "www.samsungmobile.com",
-	note : "  "
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 813,
-	photoid : "phonebook_data/profile22.jpg",
+	photoid : "phonebook_data/profile30.jpg",
 	name_first : "Redick",
 	name_last : "J.J.",
 	name_middle : "",
@@ -21151,7 +21964,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "147-963",
+	addr_pcode : "184-050",
 	addr_country : "China",
 	addr_province : "Nebraska",
 	addr_city : "Cleveland",
@@ -21161,10 +21974,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1959-04-24",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 814,
-	photoid : "phonebook_data/profile09.jpg",
+	photoid : "phonebook_data/profile06.jpg",
 	name_first : "Redmond",
 	name_last : "Marlon Bernard",
 	name_middle : "",
@@ -21177,7 +21991,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "226-722",
+	addr_pcode : "646-889",
 	addr_country : "Japan",
 	addr_province : "Idaho",
 	addr_city : "Laite",
@@ -21187,10 +22001,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1963-07-10",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 815,
-	photoid : "phonebook_data/profile22.jpg",
+	photoid : "phonebook_data/profile37.jpg",
 	name_first : "Reed",
 	name_last : "Hubert F. (Hub)",
 	name_middle : "",
@@ -21203,7 +22018,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "634-365",
+	addr_pcode : "885-318",
 	addr_country : "Gaum",
 	addr_province : "Kangwon",
 	addr_city : "Wonju",
@@ -21213,10 +22028,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1969-08-06",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 816,
-	photoid : "phonebook_data/profile40.jpg",
+	photoid : "phonebook_data/profile27.jpg",
 	name_first : "Reed",
 	name_last : "Justin",
 	name_middle : "",
@@ -21229,7 +22045,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "151-906",
+	addr_pcode : "985-305",
 	addr_country : "U.S.A",
 	addr_province : "Hawaii",
 	addr_city : "Daegu",
@@ -21239,10 +22055,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1972-07-29",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 817,
-	photoid : "phonebook_data/profile33.jpg",
+	photoid : "phonebook_data/profile26.jpg",
 	name_first : "Reed",
 	name_last : "Ronald Lee (Ron)",
 	name_middle : "",
@@ -21255,7 +22072,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "422-751",
+	addr_pcode : "400-930",
 	addr_country : "Rep.Korea",
 	addr_province : "Florida",
 	addr_city : "Busan",
@@ -21265,10 +22082,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1976-07-04",
 	webaddr : "www.intel.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 818,
-	photoid : "phonebook_data/profile34.jpg",
+	photoid : "phonebook_data/profile20.jpg",
 	name_first : "Sabonis",
 	name_last : "Arvydas",
 	name_middle : "",
@@ -21281,7 +22099,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "163-720",
+	addr_pcode : "686-855",
 	addr_country : "China",
 	addr_province : "Dacota",
 	addr_city : "Kwangju",
@@ -21291,10 +22109,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1961-10-24",
 	webaddr : "www.daum.net",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 819,
-	photoid : "phonebook_data/profile21.jpg",
+	photoid : "phonebook_data/profile05.jpg",
 	name_first : "Sadowski",
 	name_last : "Edward Frank (Ed, Big Ed)",
 	name_middle : "",
@@ -21307,7 +22126,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "903-560",
+	addr_pcode : "974-343",
 	addr_country : "Canada",
 	addr_province : "Hawaii",
 	addr_city : "Frankfruit",
@@ -21317,10 +22136,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1961-04-10",
 	webaddr : "www.samsungmobile.com",
-	note : "  "
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 820,
-	photoid : "phonebook_data/profile28.jpg",
+	photoid : "phonebook_data/profile29.jpg",
 	name_first : "Sailors",
 	name_last : "Kenneth L. (Kenny)",
 	name_middle : "",
@@ -21333,7 +22153,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "235-350",
+	addr_pcode : "109-357",
 	addr_country : "Japan",
 	addr_province : "Califonia",
 	addr_city : "Frankfruit",
@@ -21343,10 +22163,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1975-01-20",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 821,
-	photoid : "phonebook_data/profile27.jpg",
+	photoid : "phonebook_data/profile20.jpg",
 	name_first : "Salley",
 	name_last : "John",
 	name_middle : "",
@@ -21359,7 +22180,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "731-477",
+	addr_pcode : "100-660",
 	addr_country : "France",
 	addr_province : "Arizona",
 	addr_city : "Cleveland",
@@ -21369,10 +22190,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1956-04-24",
 	webaddr : "www.google.com",
-	note : "  "
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 822,
-	photoid : "phonebook_data/profile14.jpg",
+	photoid : "phonebook_data/profile03.jpg",
 	name_first : "Salmons",
 	name_last : "John",
 	name_middle : "",
@@ -21385,7 +22207,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "189-740",
+	addr_pcode : "457-412",
 	addr_country : "Gaum",
 	addr_province : "Kyunggi",
 	addr_city : "Sanghai",
@@ -21395,10 +22217,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1959-10-24",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 823,
-	photoid : "phonebook_data/profile23.jpg",
+	photoid : "phonebook_data/profile19.jpg",
 	name_first : "Salvadori",
 	name_last : "Kevin",
 	name_middle : "",
@@ -21411,7 +22234,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "791-359",
+	addr_pcode : "951-231",
 	addr_country : "Swiss",
 	addr_province : "Califonia",
 	addr_city : "L.A.",
@@ -21421,10 +22244,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1973-04-04",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 824,
-	photoid : "phonebook_data/profile32.jpg",
+	photoid : "phonebook_data/profile33.jpg",
 	name_first : "Samake",
 	name_last : "Soumaila",
 	name_middle : "",
@@ -21437,7 +22261,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "288-380",
+	addr_pcode : "358-442",
 	addr_country : "France",
 	addr_province : "Dacota",
 	addr_city : "Busan",
@@ -21447,10 +22271,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1965-11-16",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 825,
-	photoid : "phonebook_data/profile34.jpg",
+	photoid : "phonebook_data/profile20.jpg",
 	name_first : "Samb",
 	name_last : "Cheikh",
 	name_middle : "",
@@ -21463,7 +22288,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "247-516",
+	addr_pcode : "448-907",
 	addr_country : "Japan",
 	addr_province : "Taxas",
 	addr_city : "Laite",
@@ -21473,10 +22298,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1973-01-01",
 	webaddr : "www.intel.com",
-	note : "  "
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 826,
-	photoid : "phonebook_data/profile03.jpg",
+	photoid : "phonebook_data/profile23.jpg",
 	name_first : "Sampson",
 	name_last : "Jamal",
 	name_middle : "",
@@ -21489,7 +22315,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "864-919",
+	addr_pcode : "828-374",
 	addr_country : "Canada",
 	addr_province : "Kyunggi",
 	addr_city : "Laite",
@@ -21499,10 +22325,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1966-07-24",
 	webaddr : "www.sec.co.kr",
-	note : "  "
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 827,
-	photoid : "phonebook_data/profile23.jpg",
+	photoid : "phonebook_data/profile31.jpg",
 	name_first : "Sampson",
 	name_last : "Ralph",
 	name_middle : "",
@@ -21515,7 +22342,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "908-537",
+	addr_pcode : "219-137",
 	addr_country : "China",
 	addr_province : "Idaho",
 	addr_city : "Bangkok",
@@ -21525,10 +22352,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1959-08-18",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 828,
-	photoid : "phonebook_data/profile22.jpg",
+	photoid : "phonebook_data/profile02.jpg",
 	name_first : "Samuels",
 	name_last : "Samardo",
 	name_middle : "",
@@ -21541,7 +22369,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "429-950",
+	addr_pcode : "324-333",
 	addr_country : "China",
 	addr_province : "Pennsylvania",
 	addr_city : "Cebu",
@@ -21551,10 +22379,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1955-09-16",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 829,
-	photoid : "phonebook_data/profile24.jpg",
+	photoid : "phonebook_data/profile27.jpg",
 	name_first : "Sanchez",
 	name_last : "Pepe",
 	name_middle : "",
@@ -21567,7 +22396,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "969-260",
+	addr_pcode : "311-048",
 	addr_country : "Brazil",
 	addr_province : "Kangwon",
 	addr_city : "Huston",
@@ -21577,10 +22406,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1970-11-23",
 	webaddr : "www.samsungmobile.com",
-	note : "  "
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 830,
-	photoid : "phonebook_data/profile35.jpg",
+	photoid : "phonebook_data/profile36.jpg",
 	name_first : "Sanders",
 	name_last : "Frankie J. (Frankie J.)",
 	name_middle : "",
@@ -21593,7 +22423,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "527-163",
+	addr_pcode : "808-731",
 	addr_country : "U.S.A",
 	addr_province : "Idaho",
 	addr_city : "Denver",
@@ -21603,10 +22433,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1958-11-13",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 831,
-	photoid : "phonebook_data/profile35.jpg",
+	photoid : "phonebook_data/profile04.jpg",
 	name_first : "Sanders",
 	name_last : "Jeff",
 	name_middle : "",
@@ -21619,7 +22450,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "811-961",
+	addr_pcode : "684-145",
 	addr_country : "France",
 	addr_province : "Georgia",
 	addr_city : "Rome",
@@ -21629,10 +22460,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1956-12-28",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 832,
-	photoid : "phonebook_data/profile09.jpg",
+	photoid : "phonebook_data/profile38.jpg",
 	name_first : "Sanders",
 	name_last : "Larry",
 	name_middle : "",
@@ -21645,7 +22477,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "320-342",
+	addr_pcode : "431-521",
 	addr_country : "Sweden",
 	addr_province : "Arizona",
 	addr_city : "Laite",
@@ -21655,10 +22487,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1950-10-14",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 833,
-	photoid : "phonebook_data/profile06.jpg",
+	photoid : "phonebook_data/profile17.jpg",
 	name_first : "Sanders",
 	name_last : "Melvin",
 	name_middle : "",
@@ -21671,7 +22504,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "337-309",
+	addr_pcode : "979-564",
 	addr_country : "Sweden",
 	addr_province : "Kyunggi",
 	addr_city : "Wonju",
@@ -21681,10 +22514,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1966-04-23",
 	webaddr : "www.sec.co.kr",
-	note : "  "
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 834,
-	photoid : "phonebook_data/profile34.jpg",
+	photoid : "phonebook_data/profile20.jpg",
 	name_first : "Sanders",
 	name_last : "Mike",
 	name_middle : "",
@@ -21697,7 +22531,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "424-236",
+	addr_pcode : "596-933",
 	addr_country : "Japan",
 	addr_province : "Nevada",
 	addr_city : "Bangkok",
@@ -21707,10 +22541,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1975-01-14",
 	webaddr : "www.google.com",
-	note : "  "
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 835,
-	photoid : "phonebook_data/profile36.jpg",
+	photoid : "phonebook_data/profile09.jpg",
 	name_first : "Sanders",
 	name_last : "Thomas Ernest (Satch)",
 	name_middle : "",
@@ -21723,7 +22558,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "774-000",
+	addr_pcode : "375-730",
 	addr_country : "France",
 	addr_province : "Kangwon",
 	addr_city : "Newyork",
@@ -21733,10 +22568,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1957-08-28",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 836,
-	photoid : "phonebook_data/profile29.jpg",
+	photoid : "phonebook_data/profile21.jpg",
 	name_first : "Santiago",
 	name_last : "Daniel",
 	name_middle : "",
@@ -21749,7 +22585,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "750-443",
+	addr_pcode : "923-285",
 	addr_country : "Gaum",
 	addr_province : "Dacota",
 	addr_city : "Wonju",
@@ -21759,10 +22595,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1951-03-09",
 	webaddr : "www.naver.com",
-	note : "  "
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 837,
-	photoid : "phonebook_data/profile29.jpg",
+	photoid : "phonebook_data/profile07.jpg",
 	name_first : "Santini",
 	name_last : "Robert (Bob)",
 	name_middle : "",
@@ -21775,7 +22612,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "120-405",
+	addr_pcode : "375-564",
 	addr_country : "Swiss",
 	addr_province : "Nevada",
 	addr_city : "Newyork",
@@ -21785,10 +22622,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1962-05-21",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 838,
-	photoid : "phonebook_data/profile24.jpg",
+	photoid : "phonebook_data/profile22.jpg",
 	name_first : "Sappleton",
 	name_last : "Wayne B.",
 	name_middle : "",
@@ -21801,7 +22639,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "188-054",
+	addr_pcode : "124-000",
 	addr_country : "Canada",
 	addr_province : "Idaho",
 	addr_city : "Huston",
@@ -21811,10 +22649,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1964-06-26",
 	webaddr : "www.daum.net",
-	note : "  "
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 839,
-	photoid : "phonebook_data/profile09.jpg",
+	photoid : "phonebook_data/profile14.jpg",
 	name_first : "Sasser",
 	name_last : "Jason",
 	name_middle : "",
@@ -21827,7 +22666,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "383-535",
+	addr_pcode : "777-243",
 	addr_country : "Gaum",
 	addr_province : "Califonia",
 	addr_city : "Kwangju",
@@ -21837,10 +22676,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1961-07-17",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 840,
-	photoid : "phonebook_data/profile03.jpg",
+	photoid : "phonebook_data/profile33.jpg",
 	name_first : "Sasser",
 	name_last : "Jeryl",
 	name_middle : "",
@@ -21853,7 +22693,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "798-345",
+	addr_pcode : "760-885",
 	addr_country : "Rep.Korea",
 	addr_province : "Oregon",
 	addr_city : "Laite",
@@ -21863,10 +22703,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1974-02-11",
 	webaddr : "www.daum.net",
-	note : "  "
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 841,
-	photoid : "phonebook_data/profile39.jpg",
+	photoid : "phonebook_data/profile22.jpg",
 	name_first : "Satterfield",
 	name_last : "Kenny",
 	name_middle : "",
@@ -21879,7 +22720,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "388-176",
+	addr_pcode : "824-149",
 	addr_country : "China",
 	addr_province : "Arizona",
 	addr_city : "Wonju",
@@ -21889,10 +22730,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1973-04-01",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 842,
-	photoid : "phonebook_data/profile16.jpg",
+	photoid : "phonebook_data/profile12.jpg",
 	name_first : "Saul",
 	name_last : "Frank Benjamin Jr. (Pep)",
 	name_middle : "",
@@ -21905,7 +22747,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "184-176",
+	addr_pcode : "367-541",
 	addr_country : "China",
 	addr_province : "Oregon",
 	addr_city : "L.A.",
@@ -21915,10 +22757,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1972-01-21",
 	webaddr : "www.intel.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 843,
-	photoid : "phonebook_data/profile14.jpg",
+	photoid : "phonebook_data/profile16.jpg",
 	name_first : "Sauldsberry",
 	name_last : "Woodrow Jr. (Woody)",
 	name_middle : "",
@@ -21931,7 +22774,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "372-319",
+	addr_pcode : "741-667",
 	addr_country : "Rep.Korea",
 	addr_province : "Nevada",
 	addr_city : "Paris",
@@ -21941,10 +22784,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1967-08-28",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 844,
-	photoid : "phonebook_data/profile08.jpg",
+	photoid : "phonebook_data/profile26.jpg",
 	name_first : "Saunders",
 	name_last : "James Frederick (Fred)",
 	name_middle : "",
@@ -21957,7 +22801,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "745-576",
+	addr_pcode : "347-035",
 	addr_country : "U.S.A",
 	addr_province : "Florida",
 	addr_city : "Kwangju",
@@ -21967,10 +22811,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1950-10-21",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 845,
-	photoid : "phonebook_data/profile01.jpg",
+	photoid : "phonebook_data/profile13.jpg",
 	name_first : "Savage",
 	name_last : "Donald Joseph (Don)",
 	name_middle : "",
@@ -21983,7 +22828,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "812-040",
+	addr_pcode : "907-696",
 	addr_country : "Ghana",
 	addr_province : "Arizona",
 	addr_city : "Laite",
@@ -21993,10 +22838,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1977-04-13",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 846,
-	photoid : "phonebook_data/profile10.jpg",
+	photoid : "phonebook_data/profile11.jpg",
 	name_first : "Savovic",
 	name_last : "Predrag",
 	name_middle : "",
@@ -22009,7 +22855,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "741-490",
+	addr_pcode : "105-673",
 	addr_country : "Rep.Korea",
 	addr_province : "Washington",
 	addr_city : "Frankfruit",
@@ -22019,10 +22865,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1969-07-23",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 847,
-	photoid : "phonebook_data/profile24.jpg",
+	photoid : "phonebook_data/profile05.jpg",
 	name_first : "Sawyer",
 	name_last : "Alan Leigh",
 	name_middle : "",
@@ -22035,7 +22882,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "213-781",
+	addr_pcode : "748-108",
 	addr_country : "Sweden",
 	addr_province : "Kyunggi",
 	addr_city : "Rome",
@@ -22045,10 +22892,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1973-04-13",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 848,
-	photoid : "phonebook_data/profile38.jpg",
+	photoid : "phonebook_data/profile39.jpg",
 	name_first : "Scalabrine",
 	name_last : "Brian",
 	name_middle : "",
@@ -22061,7 +22909,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "414-495",
+	addr_pcode : "422-602",
 	addr_country : "Japan",
 	addr_province : "Idaho",
 	addr_city : "Paris",
@@ -22071,10 +22919,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1965-01-01",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 849,
-	photoid : "phonebook_data/profile24.jpg",
+	photoid : "phonebook_data/profile14.jpg",
 	name_first : "Scales",
 	name_last : "Alex",
 	name_middle : "",
@@ -22087,7 +22936,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "129-237",
+	addr_pcode : "626-175",
 	addr_country : "China",
 	addr_province : "Nevada",
 	addr_city : "Sanghai",
@@ -22097,7 +22946,8 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1954-09-11",
 	webaddr : "www.daum.net",
-	note : "  "
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 850,
 	photoid : "phonebook_data/profile18.jpg",
@@ -22113,7 +22963,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "644-469",
+	addr_pcode : "196-877",
 	addr_country : "Ghana",
 	addr_province : "Oregon",
 	addr_city : "Bangkok",
@@ -22123,10 +22973,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1968-11-19",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 851,
-	photoid : "phonebook_data/profile36.jpg",
+	photoid : "phonebook_data/profile18.jpg",
 	name_first : "Schade",
 	name_last : "Frank",
 	name_middle : "",
@@ -22139,7 +22990,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "965-098",
+	addr_pcode : "868-372",
 	addr_country : "Swiss",
 	addr_province : "Kyunggi",
 	addr_city : "L.A.",
@@ -22149,10 +23000,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1954-11-16",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 852,
-	photoid : "phonebook_data/profile22.jpg",
+	photoid : "phonebook_data/profile27.jpg",
 	name_first : "Schadler",
 	name_last : "Bernard R. (Ben)",
 	name_middle : "",
@@ -22165,7 +23017,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "644-225",
+	addr_pcode : "643-854",
 	addr_country : "Sweden",
 	addr_province : "Pennsylvania",
 	addr_city : "Sanghai",
@@ -22175,10 +23027,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1952-12-19",
 	webaddr : "www.intel.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 853,
-	photoid : "phonebook_data/profile19.jpg",
+	photoid : "phonebook_data/profile30.jpg",
 	name_first : "Schaefer",
 	name_last : "Herman H. (Herm)",
 	name_middle : "",
@@ -22191,7 +23044,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "550-770",
+	addr_pcode : "320-868",
 	addr_country : "Swiss",
 	addr_province : "Idaho",
 	addr_city : "Sanghai",
@@ -22201,10 +23054,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1970-12-13",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 854,
-	photoid : "phonebook_data/profile27.jpg",
+	photoid : "phonebook_data/profile35.jpg",
 	name_first : "Schafer",
 	name_last : "Robert Thomas (Bob)",
 	name_middle : "",
@@ -22217,7 +23071,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "137-782",
+	addr_pcode : "938-399",
 	addr_country : "Brazil",
 	addr_province : "Dacota",
 	addr_city : "Paris",
@@ -22227,10 +23081,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1960-07-14",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 855,
-	photoid : "phonebook_data/profile32.jpg",
+	photoid : "phonebook_data/profile23.jpg",
 	name_first : "Scharnus",
 	name_last : "Benedict Michael (Ben, Whitey)",
 	name_middle : "",
@@ -22243,7 +23098,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "265-269",
+	addr_pcode : "757-149",
 	addr_country : "Brazil",
 	addr_province : "Idaho",
 	addr_city : "Denver",
@@ -22253,10 +23108,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1970-05-16",
 	webaddr : "www.yahoo.com",
-	note : "  "
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 856,
-	photoid : "phonebook_data/profile21.jpg",
+	photoid : "phonebook_data/profile09.jpg",
 	name_first : "Schatzman",
 	name_last : "Marvin J. (Marv)",
 	name_middle : "",
@@ -22269,7 +23125,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "287-260",
+	addr_pcode : "269-943",
 	addr_country : "Brazil",
 	addr_province : "Dacota",
 	addr_city : "Denver",
@@ -22279,10 +23135,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1970-06-20",
 	webaddr : "www.google.com",
-	note : "  "
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 857,
-	photoid : "phonebook_data/profile18.jpg",
+	photoid : "phonebook_data/profile30.jpg",
 	name_first : "Schaus",
 	name_last : "Frederick Appleton (Fred)",
 	name_middle : "",
@@ -22295,7 +23152,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "600-886",
+	addr_pcode : "617-834",
 	addr_country : "U.S.A",
 	addr_province : "Taxas",
 	addr_city : "Busan",
@@ -22305,10 +23162,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1972-09-14",
 	webaddr : "www.intel.com",
-	note : "  "
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 858,
-	photoid : "phonebook_data/profile11.jpg",
+	photoid : "phonebook_data/profile24.jpg",
 	name_first : "Schayes",
 	name_last : "Danny",
 	name_middle : "",
@@ -22321,7 +23179,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "399-285",
+	addr_pcode : "935-165",
 	addr_country : "France",
 	addr_province : "Washington",
 	addr_city : "Rome",
@@ -22331,10 +23189,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1971-03-29",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 859,
-	photoid : "phonebook_data/profile36.jpg",
+	photoid : "phonebook_data/profile31.jpg",
 	name_first : "Schayes",
 	name_last : "Dolph",
 	name_middle : "",
@@ -22347,7 +23206,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "308-426",
+	addr_pcode : "108-911",
 	addr_country : "Canada",
 	addr_province : "Kyunggi",
 	addr_city : "Rome",
@@ -22357,10 +23216,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1954-01-16",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 860,
-	photoid : "phonebook_data/profile06.jpg",
+	photoid : "phonebook_data/profile39.jpg",
 	name_first : "Schectman",
 	name_last : "Oscar B. (Ossie)",
 	name_middle : "",
@@ -22373,7 +23233,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "723-199",
+	addr_pcode : "533-531",
 	addr_country : "China",
 	addr_province : "Georgia",
 	addr_city : "Rome",
@@ -22383,10 +23243,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1976-11-04",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 861,
-	photoid : "phonebook_data/profile25.jpg",
+	photoid : "phonebook_data/profile01.jpg",
 	name_first : "Scheffler",
 	name_last : "Steve",
 	name_middle : "",
@@ -22399,7 +23260,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "468-181",
+	addr_pcode : "177-117",
 	addr_country : "Ghana",
 	addr_province : "Pennsylvania",
 	addr_city : "Kwangju",
@@ -22409,10 +23270,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1970-06-16",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 862,
-	photoid : "phonebook_data/profile28.jpg",
+	photoid : "phonebook_data/profile38.jpg",
 	name_first : "Scheffler",
 	name_last : "Thomas Mark (Tom)",
 	name_middle : "",
@@ -22425,7 +23287,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "281-490",
+	addr_pcode : "264-032",
 	addr_country : "Rep.Korea",
 	addr_province : "Alaska",
 	addr_city : "Paris",
@@ -22435,10 +23297,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1964-08-08",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 863,
-	photoid : "phonebook_data/profile29.jpg",
+	photoid : "phonebook_data/profile22.jpg",
 	name_first : "Schellhase",
 	name_last : "David Gene Jr. (Dave)",
 	name_middle : "",
@@ -22451,7 +23314,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "795-811",
+	addr_pcode : "561-635",
 	addr_country : "U.S.A",
 	addr_province : "Hawaii",
 	addr_city : "Newyork",
@@ -22461,10 +23324,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1961-05-15",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 864,
-	photoid : "phonebook_data/profile38.jpg",
+	photoid : "phonebook_data/profile19.jpg",
 	name_first : "Schenscher",
 	name_last : "Luke",
 	name_middle : "",
@@ -22477,7 +23341,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "549-830",
+	addr_pcode : "654-533",
 	addr_country : "U.S.A",
 	addr_province : "Washington",
 	addr_city : "Denver",
@@ -22487,10 +23351,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1964-09-25",
 	webaddr : "www.google.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 865,
-	photoid : "phonebook_data/profile18.jpg",
+	photoid : "phonebook_data/profile09.jpg",
 	name_first : "Scherer",
 	name_last : "Herbert Frederick (Herb)",
 	name_middle : "",
@@ -22503,7 +23368,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "738-509",
+	addr_pcode : "762-547",
 	addr_country : "Japan",
 	addr_province : "Alaska",
 	addr_city : "Daegu",
@@ -22513,10 +23378,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1959-09-22",
 	webaddr : "www.yahoo.com",
-	note : "  "
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 866,
-	photoid : "phonebook_data/profile20.jpg",
+	photoid : "phonebook_data/profile19.jpg",
 	name_first : "Schintzius",
 	name_last : "Dwayne",
 	name_middle : "",
@@ -22529,7 +23395,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "308-890",
+	addr_pcode : "237-029",
 	addr_country : "Canada",
 	addr_province : "Arizona",
 	addr_city : "Newyork",
@@ -22539,10 +23405,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1972-07-08",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 867,
-	photoid : "phonebook_data/profile19.jpg",
+	photoid : "phonebook_data/profile25.jpg",
 	name_first : "Schlueter",
 	name_last : "Dale Wayne",
 	name_middle : "",
@@ -22555,7 +23422,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "692-175",
+	addr_pcode : "826-739",
 	addr_country : "Canada",
 	addr_province : "Florida",
 	addr_city : "Paris",
@@ -22565,10 +23432,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1976-05-11",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 868,
-	photoid : "phonebook_data/profile22.jpg",
+	photoid : "phonebook_data/profile35.jpg",
 	name_first : "Tabak",
 	name_last : "Zan",
 	name_middle : "",
@@ -22581,7 +23449,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "343-506",
+	addr_pcode : "427-561",
 	addr_country : "China",
 	addr_province : "Georgia",
 	addr_city : "Newyork",
@@ -22591,10 +23459,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1953-03-05",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 869,
-	photoid : "phonebook_data/profile04.jpg",
+	photoid : "phonebook_data/profile08.jpg",
 	name_first : "Tabuse",
 	name_last : "Yuta",
 	name_middle : "",
@@ -22607,7 +23476,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "659-235",
+	addr_pcode : "523-283",
 	addr_country : "Sweden",
 	addr_province : "Nebraska",
 	addr_city : "Wonju",
@@ -22617,10 +23486,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1958-08-03",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 870,
-	photoid : "phonebook_data/profile25.jpg",
+	photoid : "phonebook_data/profile15.jpg",
 	name_first : "Taft",
 	name_last : "Chris",
 	name_middle : "",
@@ -22633,7 +23503,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "990-885",
+	addr_pcode : "607-517",
 	addr_country : "Canada",
 	addr_province : "Georgia",
 	addr_city : "Busan",
@@ -22643,10 +23513,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1956-04-17",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 871,
-	photoid : "phonebook_data/profile15.jpg",
+	photoid : "phonebook_data/profile01.jpg",
 	name_first : "Tannenbaum",
 	name_last : "Sidney (Sid)",
 	name_middle : "",
@@ -22659,7 +23530,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "199-975",
+	addr_pcode : "662-415",
 	addr_country : "Gaum",
 	addr_province : "Califonia",
 	addr_city : "Daegu",
@@ -22669,10 +23540,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1961-06-15",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 872,
-	photoid : "phonebook_data/profile29.jpg",
+	photoid : "phonebook_data/profile08.jpg",
 	name_first : "Tarlac",
 	name_last : "Dragan",
 	name_middle : "",
@@ -22685,7 +23557,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "782-479",
+	addr_pcode : "981-205",
 	addr_country : "Ghana",
 	addr_province : "Califonia",
 	addr_city : "Frankfruit",
@@ -22695,10 +23567,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1955-03-11",
 	webaddr : "www.daum.net",
-	note : "  "
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 873,
-	photoid : "phonebook_data/profile01.jpg",
+	photoid : "phonebook_data/profile16.jpg",
 	name_first : "Tarpley",
 	name_last : "Roy",
 	name_middle : "",
@@ -22711,7 +23584,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "961-424",
+	addr_pcode : "418-670",
 	addr_country : "China",
 	addr_province : "Taxas",
 	addr_city : "Denver",
@@ -22721,10 +23594,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1966-03-24",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 874,
-	photoid : "phonebook_data/profile28.jpg",
+	photoid : "phonebook_data/profile16.jpg",
 	name_first : "Tatum",
 	name_last : "William Earl (Earl)",
 	name_middle : "",
@@ -22737,7 +23611,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "234-079",
+	addr_pcode : "821-784",
 	addr_country : "Brazil",
 	addr_province : "Kyunggi",
 	addr_city : "Wonju",
@@ -22747,10 +23621,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1963-03-28",
 	webaddr : "www.naver.com",
-	note : "  "
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 875,
-	photoid : "phonebook_data/profile20.jpg",
+	photoid : "phonebook_data/profile32.jpg",
 	name_first : "Taylor",
 	name_last : "Anthony",
 	name_middle : "",
@@ -22763,7 +23638,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "905-531",
+	addr_pcode : "627-375",
 	addr_country : "Ghana",
 	addr_province : "Califonia",
 	addr_city : "Cebu",
@@ -22773,10 +23648,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1958-11-24",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 876,
-	photoid : "phonebook_data/profile30.jpg",
+	photoid : "phonebook_data/profile19.jpg",
 	name_first : "Taylor",
 	name_last : "Brian Dw.",
 	name_middle : "",
@@ -22789,7 +23665,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "870-074",
+	addr_pcode : "628-563",
 	addr_country : "Gaum",
 	addr_province : "Nevada",
 	addr_city : "Busan",
@@ -22799,10 +23675,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1959-10-27",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 877,
-	photoid : "phonebook_data/profile12.jpg",
+	photoid : "phonebook_data/profile19.jpg",
 	name_first : "Taylor",
 	name_last : "Donell",
 	name_middle : "",
@@ -22815,7 +23692,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "241-312",
+	addr_pcode : "261-890",
 	addr_country : "U.S.A",
 	addr_province : "Idaho",
 	addr_city : "Denver",
@@ -22825,10 +23702,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1967-06-13",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 878,
-	photoid : "phonebook_data/profile13.jpg",
+	photoid : "phonebook_data/profile26.jpg",
 	name_first : "Taylor",
 	name_last : "Fredrick Ollie (Fred)",
 	name_middle : "",
@@ -22841,7 +23719,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "525-543",
+	addr_pcode : "142-342",
 	addr_country : "Japan",
 	addr_province : "Dacota",
 	addr_city : "Wonju",
@@ -22851,10 +23729,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1965-11-01",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 879,
-	photoid : "phonebook_data/profile27.jpg",
+	photoid : "phonebook_data/profile23.jpg",
 	name_first : "Taylor",
 	name_last : "Jay",
 	name_middle : "",
@@ -22867,7 +23746,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "555-907",
+	addr_pcode : "726-493",
 	addr_country : "Japan",
 	addr_province : "Florida",
 	addr_city : "Daegu",
@@ -22877,10 +23756,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1964-01-07",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 880,
-	photoid : "phonebook_data/profile11.jpg",
+	photoid : "phonebook_data/profile38.jpg",
 	name_first : "Taylor",
 	name_last : "Jeff",
 	name_middle : "",
@@ -22893,7 +23773,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "895-775",
+	addr_pcode : "318-671",
 	addr_country : "Ghana",
 	addr_province : "Florida",
 	addr_city : "Cleveland",
@@ -22903,10 +23783,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1964-11-12",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 881,
-	photoid : "phonebook_data/profile17.jpg",
+	photoid : "phonebook_data/profile01.jpg",
 	name_first : "Taylor",
 	name_last : "Jermaine",
 	name_middle : "",
@@ -22919,7 +23800,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "505-282",
+	addr_pcode : "668-840",
 	addr_country : "Sweden",
 	addr_province : "Washington",
 	addr_city : "L.A.",
@@ -22929,10 +23810,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1974-11-19",
 	webaddr : "www.naver.com",
-	note : "  "
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 882,
-	photoid : "phonebook_data/profile26.jpg",
+	photoid : "phonebook_data/profile08.jpg",
 	name_first : "Taylor",
 	name_last : "Johnny",
 	name_middle : "",
@@ -22945,7 +23827,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "637-627",
+	addr_pcode : "274-706",
 	addr_country : "China",
 	addr_province : "Pennsylvania",
 	addr_city : "Cebu",
@@ -22955,10 +23837,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1958-03-25",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 883,
-	photoid : "phonebook_data/profile30.jpg",
+	photoid : "phonebook_data/profile25.jpg",
 	name_first : "Taylor",
 	name_last : "Leonard",
 	name_middle : "",
@@ -22971,7 +23854,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "820-286",
+	addr_pcode : "114-523",
 	addr_country : "Ghana",
 	addr_province : "Pennsylvania",
 	addr_city : "Newyork",
@@ -22981,10 +23864,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1962-12-07",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 884,
-	photoid : "phonebook_data/profile05.jpg",
+	photoid : "phonebook_data/profile26.jpg",
 	name_first : "Taylor",
 	name_last : "Maurice",
 	name_middle : "",
@@ -22997,7 +23881,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "573-720",
+	addr_pcode : "462-673",
 	addr_country : "Swiss",
 	addr_province : "Oregon",
 	addr_city : "Rome",
@@ -23007,10 +23891,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1950-07-13",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 885,
-	photoid : "phonebook_data/profile03.jpg",
+	photoid : "phonebook_data/profile24.jpg",
 	name_first : "Taylor",
 	name_last : "Mike",
 	name_middle : "",
@@ -23023,7 +23908,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "657-534",
+	addr_pcode : "377-385",
 	addr_country : "France",
 	addr_province : "Washington",
 	addr_city : "Huston",
@@ -23033,10 +23918,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1971-12-02",
 	webaddr : "www.samsungmobile.com",
-	note : "  "
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 886,
-	photoid : "phonebook_data/profile25.jpg",
+	photoid : "phonebook_data/profile24.jpg",
 	name_first : "Taylor",
 	name_last : "Roland Morris (Fatty)",
 	name_middle : "",
@@ -23049,7 +23935,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "122-475",
+	addr_pcode : "472-746",
 	addr_country : "Brazil",
 	addr_province : "Nebraska",
 	addr_city : "Bangkok",
@@ -23059,10 +23945,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1966-05-10",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 887,
-	photoid : "phonebook_data/profile23.jpg",
+	photoid : "phonebook_data/profile22.jpg",
 	name_first : "Taylor",
 	name_last : "Vince",
 	name_middle : "",
@@ -23075,7 +23962,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "544-032",
+	addr_pcode : "925-393",
 	addr_country : "Japan",
 	addr_province : "Hawaii",
 	addr_city : "Bangkok",
@@ -23085,10 +23972,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1961-08-06",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 888,
-	photoid : "phonebook_data/profile29.jpg",
+	photoid : "phonebook_data/profile02.jpg",
 	name_first : "Teagle",
 	name_last : "Terry",
 	name_middle : "",
@@ -23101,7 +23989,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "554-250",
+	addr_pcode : "453-870",
 	addr_country : "Canada",
 	addr_province : "Washington",
 	addr_city : "Paris",
@@ -23111,10 +23999,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1955-12-13",
 	webaddr : "www.google.com",
-	note : "  "
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 889,
-	photoid : "phonebook_data/profile22.jpg",
+	photoid : "phonebook_data/profile12.jpg",
 	name_first : "Teague",
 	name_last : "Jeff",
 	name_middle : "",
@@ -23127,7 +24016,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "733-510",
+	addr_pcode : "976-650",
 	addr_country : "Ghana",
 	addr_province : "Califonia",
 	addr_city : "Rome",
@@ -23137,10 +24026,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1975-10-23",
 	webaddr : "www.sec.co.kr",
-	note : "  "
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 890,
-	photoid : "phonebook_data/profile38.jpg",
+	photoid : "phonebook_data/profile06.jpg",
 	name_first : "Telfair",
 	name_last : "Sebastian",
 	name_middle : "",
@@ -23153,7 +24043,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "835-056",
+	addr_pcode : "574-894",
 	addr_country : "Brazil",
 	addr_province : "Washington",
 	addr_city : "Wonju",
@@ -23163,10 +24053,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1970-05-12",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 891,
-	photoid : "phonebook_data/profile27.jpg",
+	photoid : "phonebook_data/profile26.jpg",
 	name_first : "Temple",
 	name_last : "Garrett",
 	name_middle : "",
@@ -23179,7 +24070,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "108-406",
+	addr_pcode : "785-036",
 	addr_country : "Ghana",
 	addr_province : "Nebraska",
 	addr_city : "Sanghai",
@@ -23189,10 +24080,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1971-09-06",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 892,
-	photoid : "phonebook_data/profile21.jpg",
+	photoid : "phonebook_data/profile02.jpg",
 	name_first : "Terrell",
 	name_last : "Ira Edmondson",
 	name_middle : "",
@@ -23205,7 +24097,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "449-157",
+	addr_pcode : "660-829",
 	addr_country : "Brazil",
 	addr_province : "Arizona",
 	addr_city : "L.A.",
@@ -23215,10 +24107,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1965-07-23",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 893,
-	photoid : "phonebook_data/profile25.jpg",
+	photoid : "phonebook_data/profile22.jpg",
 	name_first : "Terry",
 	name_last : "Allen Charles (Chuck)",
 	name_middle : "",
@@ -23231,7 +24124,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "212-217",
+	addr_pcode : "464-813",
 	addr_country : "Ghana",
 	addr_province : "Pennsylvania",
 	addr_city : "Denver",
@@ -23241,10 +24134,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1953-01-24",
 	webaddr : "www.samsungmobile.com",
-	note : "  "
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 894,
-	photoid : "phonebook_data/profile11.jpg",
+	photoid : "phonebook_data/profile28.jpg",
 	name_first : "Terry",
 	name_last : "Carlos",
 	name_middle : "",
@@ -23257,7 +24151,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "684-418",
+	addr_pcode : "948-430",
 	addr_country : "France",
 	addr_province : "Dacota",
 	addr_city : "Frankfruit",
@@ -23267,10 +24161,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1952-04-02",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 895,
-	photoid : "phonebook_data/profile12.jpg",
+	photoid : "phonebook_data/profile15.jpg",
 	name_first : "Terry",
 	name_last : "Claude Lewis",
 	name_middle : "",
@@ -23283,7 +24178,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "113-505",
+	addr_pcode : "953-823",
 	addr_country : "Canada",
 	addr_province : "Oregon",
 	addr_city : "Wonju",
@@ -23293,10 +24188,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1955-04-03",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 896,
-	photoid : "phonebook_data/profile26.jpg",
+	photoid : "phonebook_data/profile34.jpg",
 	name_first : "Terry",
 	name_last : "Jason",
 	name_middle : "",
@@ -23309,7 +24205,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "859-968",
+	addr_pcode : "960-526",
 	addr_country : "France",
 	addr_province : "Taxas",
 	addr_city : "Kwangju",
@@ -23319,10 +24215,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1969-12-03",
 	webaddr : "www.yahoo.com",
-	note : "  "
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 897,
-	photoid : "phonebook_data/profile39.jpg",
+	photoid : "phonebook_data/profile20.jpg",
 	name_first : "Thabeet",
 	name_last : "Hasheem",
 	name_middle : "",
@@ -23335,7 +24232,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "864-122",
+	addr_pcode : "877-594",
 	addr_country : "Ghana",
 	addr_province : "Alaska",
 	addr_city : "Cebu",
@@ -23345,10 +24242,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1967-07-14",
 	webaddr : "www.naver.com",
-	note : "  "
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 898,
-	photoid : "phonebook_data/profile13.jpg",
+	photoid : "phonebook_data/profile22.jpg",
 	name_first : "Thacker",
 	name_last : "Thomas Porter (Tom, Tack)",
 	name_middle : "",
@@ -23361,7 +24259,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "773-381",
+	addr_pcode : "606-767",
 	addr_country : "Gaum",
 	addr_province : "Nebraska",
 	addr_city : "Sanghai",
@@ -23371,10 +24269,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1952-02-10",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 899,
-	photoid : "phonebook_data/profile19.jpg",
+	photoid : "phonebook_data/profile36.jpg",
 	name_first : "Theus",
 	name_last : "Reggie",
 	name_middle : "",
@@ -23387,7 +24286,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "712-999",
+	addr_pcode : "618-229",
 	addr_country : "Sweden",
 	addr_province : "Alaska",
 	addr_city : "Huston",
@@ -23397,10 +24296,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1963-11-29",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 900,
-	photoid : "phonebook_data/profile22.jpg",
+	photoid : "phonebook_data/profile04.jpg",
 	name_first : "Thibeaux",
 	name_last : "Peter C.",
 	name_middle : "",
@@ -23413,7 +24313,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "431-202",
+	addr_pcode : "466-501",
 	addr_country : "Japan",
 	addr_province : "Pennsylvania",
 	addr_city : "Denver",
@@ -23423,10 +24323,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1963-01-16",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 901,
-	photoid : "phonebook_data/profile29.jpg",
+	photoid : "phonebook_data/profile06.jpg",
 	name_first : "Thieben",
 	name_last : "William Bernard (Bill)",
 	name_middle : "",
@@ -23439,7 +24340,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "697-210",
+	addr_pcode : "745-535",
 	addr_country : "Gaum",
 	addr_province : "Washington",
 	addr_city : "Kwangju",
@@ -23449,10 +24350,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1962-09-23",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 902,
-	photoid : "phonebook_data/profile10.jpg",
+	photoid : "phonebook_data/profile03.jpg",
 	name_first : "Thigpen",
 	name_last : "Justus",
 	name_middle : "",
@@ -23465,7 +24367,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "560-384",
+	addr_pcode : "469-082",
 	addr_country : "Canada",
 	addr_province : "Arizona",
 	addr_city : "Sanghai",
@@ -23475,10 +24377,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1967-01-27",
 	webaddr : "www.yahoo.com",
-	note : "  "
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 903,
-	photoid : "phonebook_data/profile14.jpg",
+	photoid : "phonebook_data/profile16.jpg",
 	name_first : "Thirdkill",
 	name_last : "David",
 	name_middle : "",
@@ -23491,7 +24394,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "625-088",
+	addr_pcode : "449-127",
 	addr_country : "Gaum",
 	addr_province : "Georgia",
 	addr_city : "Denver",
@@ -23501,10 +24404,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1976-11-30",
 	webaddr : "www.google.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 904,
-	photoid : "phonebook_data/profile19.jpg",
+	photoid : "phonebook_data/profile38.jpg",
 	name_first : "Thomas",
 	name_last : "Billy",
 	name_middle : "",
@@ -23517,7 +24421,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "997-031",
+	addr_pcode : "665-269",
 	addr_country : "Ghana",
 	addr_province : "Kyunggi",
 	addr_city : "Newyork",
@@ -23527,10 +24431,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1973-02-01",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 905,
-	photoid : "phonebook_data/profile16.jpg",
+	photoid : "phonebook_data/profile25.jpg",
 	name_first : "Thomas",
 	name_last : "Carl",
 	name_middle : "",
@@ -23543,7 +24448,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "230-530",
+	addr_pcode : "270-975",
 	addr_country : "Sweden",
 	addr_province : "Arizona",
 	addr_city : "Laite",
@@ -23553,10 +24458,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1962-03-20",
 	webaddr : "www.naver.com",
-	note : "  "
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 906,
-	photoid : "phonebook_data/profile22.jpg",
+	photoid : "phonebook_data/profile26.jpg",
 	name_first : "Thomas",
 	name_last : "Charles",
 	name_middle : "",
@@ -23569,7 +24475,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "785-851",
+	addr_pcode : "324-884",
 	addr_country : "Gaum",
 	addr_province : "Alaska",
 	addr_city : "Huston",
@@ -23579,10 +24485,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1976-03-06",
 	webaddr : "www.naver.com",
-	note : "  "
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 907,
-	photoid : "phonebook_data/profile17.jpg",
+	photoid : "phonebook_data/profile33.jpg",
 	name_first : "Thomas",
 	name_last : "Etan",
 	name_middle : "",
@@ -23595,7 +24502,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "572-541",
+	addr_pcode : "438-505",
 	addr_country : "Sweden",
 	addr_province : "Dacota",
 	addr_city : "Rome",
@@ -23605,10 +24512,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1956-08-23",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 908,
-	photoid : "phonebook_data/profile24.jpg",
+	photoid : "phonebook_data/profile23.jpg",
 	name_first : "Thomas",
 	name_last : "Irving",
 	name_middle : "",
@@ -23621,7 +24529,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "900-677",
+	addr_pcode : "936-975",
 	addr_country : "Brazil",
 	addr_province : "Kyunggi",
 	addr_city : "Newyork",
@@ -23631,10 +24539,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1977-05-03",
 	webaddr : "www.google.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 909,
-	photoid : "phonebook_data/profile31.jpg",
+	photoid : "phonebook_data/profile13.jpg",
 	name_first : "Thomas",
 	name_last : "Isiah",
 	name_middle : "",
@@ -23647,7 +24556,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "812-748",
+	addr_pcode : "406-515",
 	addr_country : "Canada",
 	addr_province : "Hawaii",
 	addr_city : "L.A.",
@@ -23657,10 +24566,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1974-01-10",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 910,
-	photoid : "phonebook_data/profile19.jpg",
+	photoid : "phonebook_data/profile27.jpg",
 	name_first : "Thomas",
 	name_last : "Jamel",
 	name_middle : "",
@@ -23673,7 +24583,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "597-016",
+	addr_pcode : "109-973",
 	addr_country : "Sweden",
 	addr_province : "Nebraska",
 	addr_city : "Busan",
@@ -23683,10 +24593,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1966-05-12",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 911,
-	photoid : "phonebook_data/profile06.jpg",
+	photoid : "phonebook_data/profile19.jpg",
 	name_first : "Thomas",
 	name_last : "Jamel",
 	name_middle : "",
@@ -23699,7 +24610,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "451-729",
+	addr_pcode : "813-177",
 	addr_country : "U.S.A",
 	addr_province : "Oregon",
 	addr_city : "Daegu",
@@ -23709,10 +24620,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1973-04-30",
 	webaddr : "www.daum.net",
-	note : "  "
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 912,
-	photoid : "phonebook_data/profile23.jpg",
+	photoid : "phonebook_data/profile27.jpg",
 	name_first : "Thomas",
 	name_last : "James",
 	name_middle : "",
@@ -23725,7 +24637,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "954-847",
+	addr_pcode : "993-412",
 	addr_country : "Swiss",
 	addr_province : "Nevada",
 	addr_city : "Daegu",
@@ -23735,10 +24647,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1970-07-11",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 913,
-	photoid : "phonebook_data/profile17.jpg",
+	photoid : "phonebook_data/profile06.jpg",
 	name_first : "Thomas",
 	name_last : "Jim",
 	name_middle : "",
@@ -23751,7 +24664,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "324-766",
+	addr_pcode : "193-663",
 	addr_country : "Rep.Korea",
 	addr_province : "Kangwon",
 	addr_city : "Cleveland",
@@ -23761,10 +24674,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1956-05-27",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 914,
-	photoid : "phonebook_data/profile39.jpg",
+	photoid : "phonebook_data/profile12.jpg",
 	name_first : "Thomas",
 	name_last : "John",
 	name_middle : "",
@@ -23777,7 +24691,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "787-609",
+	addr_pcode : "266-331",
 	addr_country : "Rep.Korea",
 	addr_province : "Dacota",
 	addr_city : "Paris",
@@ -23787,10 +24701,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1963-05-17",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 915,
-	photoid : "phonebook_data/profile24.jpg",
+	photoid : "phonebook_data/profile20.jpg",
 	name_first : "Thomas",
 	name_last : "Joseph Randle (Joe)",
 	name_middle : "",
@@ -23803,7 +24718,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "760-455",
+	addr_pcode : "166-009",
 	addr_country : "Japan",
 	addr_province : "Kangwon",
 	addr_city : "Laite",
@@ -23813,10 +24728,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1966-01-31",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 916,
-	photoid : "phonebook_data/profile02.jpg",
+	photoid : "phonebook_data/profile15.jpg",
 	name_first : "Thomas",
 	name_last : "Kenny",
 	name_middle : "",
@@ -23829,7 +24745,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "567-028",
+	addr_pcode : "497-166",
 	addr_country : "U.S.A",
 	addr_province : "Nebraska",
 	addr_city : "Cleveland",
@@ -23839,10 +24755,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1972-09-24",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 917,
-	photoid : "phonebook_data/profile12.jpg",
+	photoid : "phonebook_data/profile14.jpg",
 	name_first : "Thomas",
 	name_last : "Kurt",
 	name_middle : "",
@@ -23855,7 +24772,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "950-313",
+	addr_pcode : "201-412",
 	addr_country : "Brazil",
 	addr_province : "Nevada",
 	addr_city : "Laite",
@@ -23865,10 +24782,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1960-11-28",
 	webaddr : "www.intel.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 918,
-	photoid : "phonebook_data/profile39.jpg",
+	photoid : "phonebook_data/profile24.jpg",
 	name_first : "Udoh",
 	name_last : "Ekpe",
 	name_middle : "",
@@ -23881,7 +24799,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "365-694",
+	addr_pcode : "262-040",
 	addr_country : "Brazil",
 	addr_province : "Taxas",
 	addr_city : "Denver",
@@ -23891,10 +24809,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1954-07-29",
 	webaddr : "www.google.com",
-	note : "  "
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 919,
-	photoid : "phonebook_data/profile18.jpg",
+	photoid : "phonebook_data/profile33.jpg",
 	name_first : "Udoka",
 	name_last : "Ime",
 	name_middle : "",
@@ -23907,7 +24826,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "809-642",
+	addr_pcode : "728-779",
 	addr_country : "France",
 	addr_province : "Taxas",
 	addr_city : "Kwangju",
@@ -23917,10 +24836,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1959-11-05",
 	webaddr : "www.intel.com",
-	note : "  "
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 920,
-	photoid : "phonebook_data/profile18.jpg",
+	photoid : "phonebook_data/profile17.jpg",
 	name_first : "Udrih",
 	name_last : "Beno",
 	name_middle : "",
@@ -23933,7 +24853,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "147-427",
+	addr_pcode : "984-476",
 	addr_country : "Japan",
 	addr_province : "Kyunggi",
 	addr_city : "Paris",
@@ -23943,10 +24863,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1975-05-16",
 	webaddr : "www.sec.co.kr",
-	note : "  "
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 921,
-	photoid : "phonebook_data/profile38.jpg",
+	photoid : "phonebook_data/profile11.jpg",
 	name_first : "Ukic",
 	name_last : "Roko",
 	name_middle : "",
@@ -23959,7 +24880,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "829-702",
+	addr_pcode : "645-095",
 	addr_country : "U.S.A",
 	addr_province : "Hawaii",
 	addr_city : "Rome",
@@ -23969,10 +24890,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1975-12-07",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 922,
-	photoid : "phonebook_data/profile16.jpg",
+	photoid : "phonebook_data/profile06.jpg",
 	name_first : "Unseld",
 	name_last : "Wes",
 	name_middle : "",
@@ -23985,7 +24907,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "407-110",
+	addr_pcode : "125-926",
 	addr_country : "China",
 	addr_province : "Washington",
 	addr_city : "Kwangju",
@@ -23995,10 +24917,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1962-06-21",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 923,
-	photoid : "phonebook_data/profile01.jpg",
+	photoid : "phonebook_data/profile14.jpg",
 	name_first : "Uplinger",
 	name_last : "Harold F. (Hal)",
 	name_middle : "",
@@ -24011,7 +24934,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "944-809",
+	addr_pcode : "824-206",
 	addr_country : "Canada",
 	addr_province : "Taxas",
 	addr_city : "Busan",
@@ -24021,10 +24944,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1956-10-26",
 	webaddr : "www.naver.com",
-	note : "  "
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 924,
-	photoid : "phonebook_data/profile11.jpg",
+	photoid : "phonebook_data/profile18.jpg",
 	name_first : "Upshaw",
 	name_last : "Kelvin",
 	name_middle : "",
@@ -24037,7 +24961,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "629-043",
+	addr_pcode : "955-908",
 	addr_country : "China",
 	addr_province : "Oregon",
 	addr_city : "Frankfruit",
@@ -24047,10 +24971,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1973-02-01",
 	webaddr : "www.google.com",
-	note : "  "
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 925,
-	photoid : "phonebook_data/profile36.jpg",
+	photoid : "phonebook_data/profile25.jpg",
 	name_first : "Uzoh",
 	name_last : "Ben",
 	name_middle : "",
@@ -24063,7 +24988,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "133-114",
+	addr_pcode : "396-112",
 	addr_country : "Rep.Korea",
 	addr_province : "Oregon",
 	addr_city : "Newyork",
@@ -24073,7 +24998,8 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1971-03-27",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 926,
 	photoid : "phonebook_data/profile09.jpg",
@@ -24089,7 +25015,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "539-352",
+	addr_pcode : "281-892",
 	addr_country : "Brazil",
 	addr_province : "Arizona",
 	addr_city : "Huston",
@@ -24099,10 +25025,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1968-03-23",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 927,
-	photoid : "phonebook_data/profile21.jpg",
+	photoid : "phonebook_data/profile02.jpg",
 	name_first : "Valentine",
 	name_last : "Ronnie L. (Ron)",
 	name_middle : "",
@@ -24115,7 +25042,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "449-329",
+	addr_pcode : "948-815",
 	addr_country : "Canada",
 	addr_province : "Idaho",
 	addr_city : "Bangkok",
@@ -24125,7 +25052,8 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1971-04-10",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 928,
 	photoid : "phonebook_data/profile09.jpg",
@@ -24141,7 +25069,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "929-359",
+	addr_pcode : "427-928",
 	addr_country : "U.S.A",
 	addr_province : "Kangwon",
 	addr_city : "Kwangju",
@@ -24151,10 +25079,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1956-12-12",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 929,
-	photoid : "phonebook_data/profile06.jpg",
+	photoid : "phonebook_data/profile19.jpg",
 	name_first : "Van Arsdale",
 	name_last : "Dick",
 	name_middle : "",
@@ -24167,7 +25096,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "278-191",
+	addr_pcode : "919-173",
 	addr_country : "Sweden",
 	addr_province : "Arizona",
 	addr_city : "Denver",
@@ -24177,10 +25106,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1961-05-02",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 930,
-	photoid : "phonebook_data/profile03.jpg",
+	photoid : "phonebook_data/profile26.jpg",
 	name_first : "Van Arsdale",
 	name_last : "Thomas Arthur (Tom)",
 	name_middle : "",
@@ -24193,7 +25123,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "147-827",
+	addr_pcode : "705-761",
 	addr_country : "Ghana",
 	addr_province : "Taxas",
 	addr_city : "Denver",
@@ -24203,10 +25133,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1968-09-02",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 931,
-	photoid : "phonebook_data/profile07.jpg",
+	photoid : "phonebook_data/profile27.jpg",
 	name_first : "Van Breda Kolff",
 	name_last : "Jan",
 	name_middle : "",
@@ -24219,7 +25150,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "895-531",
+	addr_pcode : "451-087",
 	addr_country : "Gaum",
 	addr_province : "Kangwon",
 	addr_city : "Rome",
@@ -24229,10 +25160,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1960-11-06",
 	webaddr : "www.google.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 932,
-	photoid : "phonebook_data/profile39.jpg",
+	photoid : "phonebook_data/profile29.jpg",
 	name_first : "Van Breda Kolff",
 	name_last : "Willem H. (Butch)",
 	name_middle : "",
@@ -24245,7 +25177,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "411-313",
+	addr_pcode : "227-398",
 	addr_country : "Canada",
 	addr_province : "Nevada",
 	addr_city : "Rome",
@@ -24255,10 +25187,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1968-01-29",
 	webaddr : "www.yahoo.com",
-	note : "  "
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 933,
-	photoid : "phonebook_data/profile26.jpg",
+	photoid : "phonebook_data/profile25.jpg",
 	name_first : "Van Exel",
 	name_last : "Nick",
 	name_middle : "",
@@ -24271,7 +25204,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "237-812",
+	addr_pcode : "806-419",
 	addr_country : "Gaum",
 	addr_province : "Florida",
 	addr_city : "Huston",
@@ -24281,10 +25214,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1961-11-19",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 934,
-	photoid : "phonebook_data/profile21.jpg",
+	photoid : "phonebook_data/profile20.jpg",
 	name_first : "Van Horn",
 	name_last : "Keith",
 	name_middle : "",
@@ -24297,7 +25231,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "693-748",
+	addr_pcode : "994-222",
 	addr_country : "Canada",
 	addr_province : "Florida",
 	addr_city : "Kwangju",
@@ -24307,7 +25241,8 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1976-12-12",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 935,
 	photoid : "phonebook_data/profile01.jpg",
@@ -24323,7 +25258,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "362-234",
+	addr_pcode : "863-453",
 	addr_country : "Sweden",
 	addr_province : "Alaska",
 	addr_city : "Newyork",
@@ -24333,10 +25268,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1957-02-20",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 936,
-	photoid : "phonebook_data/profile26.jpg",
+	photoid : "phonebook_data/profile28.jpg",
 	name_first : "Vance",
 	name_last : "Ellis Eugene (Gene)",
 	name_middle : "",
@@ -24349,7 +25285,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "761-199",
+	addr_pcode : "422-563",
 	addr_country : "Gaum",
 	addr_province : "Hawaii",
 	addr_city : "Bangkok",
@@ -24359,10 +25295,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1959-12-09",
 	webaddr : "www.daum.net",
-	note : "  "
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 937,
-	photoid : "phonebook_data/profile14.jpg",
+	photoid : "phonebook_data/profile27.jpg",
 	name_first : "Vander Velden",
 	name_last : "Logan",
 	name_middle : "",
@@ -24375,7 +25312,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "468-956",
+	addr_pcode : "343-467",
 	addr_country : "France",
 	addr_province : "Alaska",
 	addr_city : "Newyork",
@@ -24385,10 +25322,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1962-10-26",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 938,
-	photoid : "phonebook_data/profile30.jpg",
+	photoid : "phonebook_data/profile39.jpg",
 	name_first : "Vandeweghe",
 	name_last : "Ernest Maurice Jr. (Ernie, Doc)",
 	name_middle : "",
@@ -24401,7 +25339,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "763-356",
+	addr_pcode : "321-594",
 	addr_country : "Japan",
 	addr_province : "Washington",
 	addr_city : "Denver",
@@ -24411,10 +25349,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1974-08-30",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 939,
-	photoid : "phonebook_data/profile28.jpg",
+	photoid : "phonebook_data/profile27.jpg",
 	name_first : "Vandeweghe",
 	name_last : "Kiki",
 	name_middle : "",
@@ -24427,7 +25366,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "843-324",
+	addr_pcode : "629-151",
 	addr_country : "Gaum",
 	addr_province : "Florida",
 	addr_city : "Frankfruit",
@@ -24437,7 +25376,8 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1961-03-22",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 940,
 	photoid : "phonebook_data/profile29.jpg",
@@ -24453,7 +25393,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "751-778",
+	addr_pcode : "130-580",
 	addr_country : "China",
 	addr_province : "Dacota",
 	addr_city : "Laite",
@@ -24463,10 +25403,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1960-12-22",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 941,
-	photoid : "phonebook_data/profile18.jpg",
+	photoid : "phonebook_data/profile35.jpg",
 	name_first : "Vanterpool",
 	name_last : "David",
 	name_middle : "",
@@ -24479,7 +25420,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "753-213",
+	addr_pcode : "519-975",
 	addr_country : "Canada",
 	addr_province : "Washington",
 	addr_city : "Laite",
@@ -24489,10 +25430,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1954-02-17",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 942,
-	photoid : "phonebook_data/profile27.jpg",
+	photoid : "phonebook_data/profile37.jpg",
 	name_first : "Varda",
 	name_last : "Ratko",
 	name_middle : "",
@@ -24505,7 +25447,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "626-995",
+	addr_pcode : "653-956",
 	addr_country : "Japan",
 	addr_province : "Washington",
 	addr_city : "Paris",
@@ -24515,10 +25457,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1958-03-29",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 943,
-	photoid : "phonebook_data/profile07.jpg",
+	photoid : "phonebook_data/profile04.jpg",
 	name_first : "Varejao",
 	name_last : "Anderson",
 	name_middle : "",
@@ -24531,7 +25474,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "317-271",
+	addr_pcode : "341-806",
 	addr_country : "U.S.A",
 	addr_province : "Hawaii",
 	addr_city : "Wonju",
@@ -24541,10 +25484,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1955-10-06",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 944,
-	photoid : "phonebook_data/profile30.jpg",
+	photoid : "phonebook_data/profile02.jpg",
 	name_first : "Vasquez",
 	name_last : "Greivis",
 	name_middle : "",
@@ -24557,7 +25501,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "328-013",
+	addr_pcode : "542-563",
 	addr_country : "Sweden",
 	addr_province : "Califonia",
 	addr_city : "Rome",
@@ -24567,10 +25511,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1955-07-21",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 945,
-	photoid : "phonebook_data/profile37.jpg",
+	photoid : "phonebook_data/profile36.jpg",
 	name_first : "Vaughn",
 	name_last : "Charles (Chico)",
 	name_middle : "",
@@ -24583,7 +25528,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "321-580",
+	addr_pcode : "109-626",
 	addr_country : "Japan",
 	addr_province : "Taxas",
 	addr_city : "Paris",
@@ -24593,10 +25538,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1968-03-28",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 946,
-	photoid : "phonebook_data/profile36.jpg",
+	photoid : "phonebook_data/profile27.jpg",
 	name_first : "Vaughn",
 	name_last : "David",
 	name_middle : "",
@@ -24609,7 +25555,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "342-517",
+	addr_pcode : "342-015",
 	addr_country : "Ghana",
 	addr_province : "Nevada",
 	addr_city : "Busan",
@@ -24619,10 +25565,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1970-08-12",
 	webaddr : "www.daum.net",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 947,
-	photoid : "phonebook_data/profile15.jpg",
+	photoid : "phonebook_data/profile02.jpg",
 	name_first : "Vaughn",
 	name_last : "Jacque",
 	name_middle : "",
@@ -24635,7 +25582,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "297-310",
+	addr_pcode : "735-091",
 	addr_country : "France",
 	addr_province : "Hawaii",
 	addr_city : "Cleveland",
@@ -24645,10 +25592,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1959-11-28",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 948,
-	photoid : "phonebook_data/profile13.jpg",
+	photoid : "phonebook_data/profile28.jpg",
 	name_first : "Vaughn",
 	name_last : "Virgil V.",
 	name_middle : "",
@@ -24661,7 +25609,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "758-032",
+	addr_pcode : "934-517",
 	addr_country : "France",
 	addr_province : "Pennsylvania",
 	addr_city : "Sanghai",
@@ -24671,10 +25619,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1971-07-27",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 949,
-	photoid : "phonebook_data/profile33.jpg",
+	photoid : "phonebook_data/profile12.jpg",
 	name_first : "Vaught",
 	name_last : "Loy",
 	name_middle : "",
@@ -24687,7 +25636,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "840-516",
+	addr_pcode : "847-365",
 	addr_country : "France",
 	addr_province : "Taxas",
 	addr_city : "Busan",
@@ -24697,10 +25646,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1975-11-15",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 950,
-	photoid : "phonebook_data/profile31.jpg",
+	photoid : "phonebook_data/profile09.jpg",
 	name_first : "Verga",
 	name_last : "Robert Bruce (Bob)",
 	name_middle : "",
@@ -24713,7 +25663,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "460-532",
+	addr_pcode : "140-661",
 	addr_country : "Japan",
 	addr_province : "Nebraska",
 	addr_city : "Cleveland",
@@ -24723,10 +25673,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1962-12-27",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 951,
-	photoid : "phonebook_data/profile10.jpg",
+	photoid : "phonebook_data/profile39.jpg",
 	name_first : "Verhoeven",
 	name_last : "Peter",
 	name_middle : "",
@@ -24739,7 +25690,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "824-868",
+	addr_pcode : "599-391",
 	addr_country : "Swiss",
 	addr_province : "Alaska",
 	addr_city : "Busan",
@@ -24749,10 +25700,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1957-11-30",
 	webaddr : "www.samsungmobile.com",
-	note : "  "
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 952,
-	photoid : "phonebook_data/profile09.jpg",
+	photoid : "phonebook_data/profile24.jpg",
 	name_first : "Vetra",
 	name_last : "Gundars",
 	name_middle : "",
@@ -24765,7 +25717,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "204-596",
+	addr_pcode : "435-464",
 	addr_country : "U.S.A",
 	addr_province : "Taxas",
 	addr_city : "Cebu",
@@ -24775,10 +25727,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1971-12-22",
 	webaddr : "www.intel.com",
-	note : "  "
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 953,
-	photoid : "phonebook_data/profile26.jpg",
+	photoid : "phonebook_data/profile11.jpg",
 	name_first : "Vianna",
 	name_last : "Joao",
 	name_middle : "",
@@ -24791,7 +25744,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "604-656",
+	addr_pcode : "500-108",
 	addr_country : "Canada",
 	addr_province : "Oregon",
 	addr_city : "Daegu",
@@ -24801,10 +25754,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1950-02-02",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 954,
-	photoid : "phonebook_data/profile30.jpg",
+	photoid : "phonebook_data/profile25.jpg",
 	name_first : "Villanueva",
 	name_last : "Charlie",
 	name_middle : "",
@@ -24817,7 +25771,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "381-913",
+	addr_pcode : "635-335",
 	addr_country : "China",
 	addr_province : "Dacota",
 	addr_city : "Newyork",
@@ -24827,10 +25781,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1972-08-09",
 	webaddr : "www.yahoo.com",
-	note : "  "
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 955,
-	photoid : "phonebook_data/profile16.jpg",
+	photoid : "phonebook_data/profile35.jpg",
 	name_first : "Vincent",
 	name_last : "Jay",
 	name_middle : "",
@@ -24843,7 +25798,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "870-912",
+	addr_pcode : "756-368",
 	addr_country : "Rep.Korea",
 	addr_province : "Califonia",
 	addr_city : "Frankfruit",
@@ -24853,10 +25808,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1953-12-10",
 	webaddr : "www.sec.co.kr",
-	note : "  "
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 956,
-	photoid : "phonebook_data/profile32.jpg",
+	photoid : "phonebook_data/profile28.jpg",
 	name_first : "Vincent",
 	name_last : "Sam",
 	name_middle : "",
@@ -24869,7 +25825,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "565-826",
+	addr_pcode : "448-010",
 	addr_country : "China",
 	addr_province : "Florida",
 	addr_city : "L.A.",
@@ -24879,10 +25835,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1963-08-13",
 	webaddr : "www.intel.com",
-	note : "  "
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 957,
-	photoid : "phonebook_data/profile34.jpg",
+	photoid : "phonebook_data/profile27.jpg",
 	name_first : "Vinicius",
 	name_last : "Marcus",
 	name_middle : "",
@@ -24895,7 +25852,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "206-169",
+	addr_pcode : "212-639",
 	addr_country : "Sweden",
 	addr_province : "Hawaii",
 	addr_city : "Wonju",
@@ -24905,10 +25862,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1969-07-31",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 958,
-	photoid : "phonebook_data/profile04.jpg",
+	photoid : "phonebook_data/profile39.jpg",
 	name_first : "Vinson",
 	name_last : "Fred",
 	name_middle : "",
@@ -24921,7 +25879,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "403-714",
+	addr_pcode : "408-561",
 	addr_country : "Japan",
 	addr_province : "Idaho",
 	addr_city : "Laite",
@@ -24931,10 +25889,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1953-07-30",
 	webaddr : "www.naver.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 959,
-	photoid : "phonebook_data/profile26.jpg",
+	photoid : "phonebook_data/profile17.jpg",
 	name_first : "Voce",
 	name_last : "Gary",
 	name_middle : "",
@@ -24947,7 +25906,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "306-513",
+	addr_pcode : "572-028",
 	addr_country : "Swiss",
 	addr_province : "Califonia",
 	addr_city : "L.A.",
@@ -24957,10 +25916,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1964-04-24",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 960,
-	photoid : "phonebook_data/profile05.jpg",
+	photoid : "phonebook_data/profile23.jpg",
 	name_first : "Volker",
 	name_last : "Floyd W.",
 	name_middle : "",
@@ -24973,7 +25933,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "846-426",
+	addr_pcode : "270-343",
 	addr_country : "Rep.Korea",
 	addr_province : "Pennsylvania",
 	addr_city : "Wonju",
@@ -24983,10 +25943,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1953-06-06",
 	webaddr : "www.daum.net",
-	note : "  "
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 961,
-	photoid : "phonebook_data/profile29.jpg",
+	photoid : "phonebook_data/profile25.jpg",
 	name_first : "Volkov",
 	name_last : "Alexander",
 	name_middle : "",
@@ -24999,7 +25960,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "461-605",
+	addr_pcode : "106-274",
 	addr_country : "Sweden",
 	addr_province : "Taxas",
 	addr_city : "Cleveland",
@@ -25009,10 +25970,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1962-04-14",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 962,
-	photoid : "phonebook_data/profile03.jpg",
+	photoid : "phonebook_data/profile14.jpg",
 	name_first : "Von Nieda",
 	name_last : "Stanley L. Jr. (Whitey)",
 	name_middle : "",
@@ -25025,7 +25987,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "691-107",
+	addr_pcode : "987-767",
 	addr_country : "Ghana",
 	addr_province : "Arizona",
 	addr_city : "Wonju",
@@ -25035,10 +25997,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1975-04-30",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 963,
-	photoid : "phonebook_data/profile38.jpg",
+	photoid : "phonebook_data/profile34.jpg",
 	name_first : "Voskuhl",
 	name_last : "Jake",
 	name_middle : "",
@@ -25051,7 +26014,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "503-012",
+	addr_pcode : "947-881",
 	addr_country : "Swiss",
 	addr_province : "Oregon",
 	addr_city : "Rome",
@@ -25061,10 +26024,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1971-07-30",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 964,
-	photoid : "phonebook_data/profile34.jpg",
+	photoid : "phonebook_data/profile37.jpg",
 	name_first : "Vranes",
 	name_last : "Danny",
 	name_middle : "",
@@ -25077,7 +26041,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "979-194",
+	addr_pcode : "623-395",
 	addr_country : "France",
 	addr_province : "Kyunggi",
 	addr_city : "Busan",
@@ -25087,10 +26051,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1952-07-09",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 965,
-	photoid : "phonebook_data/profile33.jpg",
+	photoid : "phonebook_data/profile24.jpg",
 	name_first : "Vranes",
 	name_last : "Slavko",
 	name_middle : "",
@@ -25103,7 +26068,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "466-618",
+	addr_pcode : "685-233",
 	addr_country : "Canada",
 	addr_province : "Nebraska",
 	addr_city : "Kwangju",
@@ -25113,10 +26078,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1962-07-02",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 966,
-	photoid : "phonebook_data/profile23.jpg",
+	photoid : "phonebook_data/profile06.jpg",
 	name_first : "Vrankovic",
 	name_last : "Stojko",
 	name_middle : "",
@@ -25129,7 +26095,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "677-985",
+	addr_pcode : "113-259",
 	addr_country : "Sweden",
 	addr_province : "Idaho",
 	addr_city : "L.A.",
@@ -25139,10 +26105,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1972-05-12",
 	webaddr : "www.sec.co.kr",
-	note : "  "
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 967,
-	photoid : "phonebook_data/profile40.jpg",
+	photoid : "phonebook_data/profile26.jpg",
 	name_first : "Vroman",
 	name_last : "Brett Grant",
 	name_middle : "",
@@ -25155,7 +26122,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "407-492",
+	addr_pcode : "261-662",
 	addr_country : "Japan",
 	addr_province : "Pennsylvania",
 	addr_city : "Denver",
@@ -25165,10 +26132,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1956-06-03",
 	webaddr : "www.daum.net",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 968,
-	photoid : "phonebook_data/profile02.jpg",
+	photoid : "phonebook_data/profile37.jpg",
 	name_first : "Vroman",
 	name_last : "Jackson",
 	name_middle : "",
@@ -25181,7 +26149,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "611-639",
+	addr_pcode : "194-097",
 	addr_country : "Canada",
 	addr_province : "Florida",
 	addr_city : "Wonju",
@@ -25191,10 +26159,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1964-07-26",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 969,
-	photoid : "phonebook_data/profile40.jpg",
+	photoid : "phonebook_data/profile29.jpg",
 	name_first : "Vujacic",
 	name_last : "Sasha",
 	name_middle : "",
@@ -25207,7 +26176,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "873-550",
+	addr_pcode : "475-514",
 	addr_country : "France",
 	addr_province : "Dacota",
 	addr_city : "Wonju",
@@ -25217,10 +26186,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1972-03-21",
 	webaddr : "www.daum.net",
-	note : "  "
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 970,
-	photoid : "phonebook_data/profile40.jpg",
+	photoid : "phonebook_data/profile19.jpg",
 	name_first : "Wade",
 	name_last : "Dwyane",
 	name_middle : "",
@@ -25233,7 +26203,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "310-916",
+	addr_pcode : "737-125",
 	addr_country : "Rep.Korea",
 	addr_province : "Florida",
 	addr_city : "Cebu",
@@ -25243,10 +26213,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1952-07-07",
 	webaddr : "www.intel.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 971,
-	photoid : "phonebook_data/profile14.jpg",
+	photoid : "phonebook_data/profile20.jpg",
 	name_first : "Wade",
 	name_last : "Mark",
 	name_middle : "",
@@ -25259,7 +26230,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "363-028",
+	addr_pcode : "277-234",
 	addr_country : "Japan",
 	addr_province : "Kyunggi",
 	addr_city : "Newyork",
@@ -25269,10 +26240,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1954-12-21",
 	webaddr : "www.yahoo.com",
-	note : "  "
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 972,
-	photoid : "phonebook_data/profile26.jpg",
+	photoid : "phonebook_data/profile14.jpg",
 	name_first : "Wafer",
 	name_last : "Von",
 	name_middle : "",
@@ -25285,7 +26257,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "785-036",
+	addr_pcode : "617-182",
 	addr_country : "China",
 	addr_province : "Dacota",
 	addr_city : "Bangkok",
@@ -25295,10 +26267,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1960-01-24",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 973,
-	photoid : "phonebook_data/profile18.jpg",
+	photoid : "phonebook_data/profile13.jpg",
 	name_first : "Wager",
 	name_last : "Clinton B. (Clint)",
 	name_middle : "",
@@ -25311,7 +26284,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "744-689",
+	addr_pcode : "664-297",
 	addr_country : "China",
 	addr_province : "Dacota",
 	addr_city : "Rome",
@@ -25321,10 +26294,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1956-01-30",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 974,
-	photoid : "phonebook_data/profile17.jpg",
+	photoid : "phonebook_data/profile08.jpg",
 	name_first : "Wagner",
 	name_last : "Dajuan",
 	name_middle : "",
@@ -25337,7 +26311,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "924-251",
+	addr_pcode : "790-956",
 	addr_country : "Rep.Korea",
 	addr_province : "Taxas",
 	addr_city : "Laite",
@@ -25347,10 +26321,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1956-06-12",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 975,
-	photoid : "phonebook_data/profile28.jpg",
+	photoid : "phonebook_data/profile27.jpg",
 	name_first : "Wagner",
 	name_last : "Daniel Earnest (Danny)",
 	name_middle : "",
@@ -25363,7 +26338,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "337-023",
+	addr_pcode : "300-872",
 	addr_country : "Sweden",
 	addr_province : "Idaho",
 	addr_city : "L.A.",
@@ -25373,10 +26348,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1954-02-04",
 	webaddr : "www.naver.com",
-	note : "  "
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 976,
-	photoid : "phonebook_data/profile26.jpg",
+	photoid : "phonebook_data/profile10.jpg",
 	name_first : "Wagner",
 	name_last : "Milt",
 	name_middle : "",
@@ -25389,7 +26365,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "970-248",
+	addr_pcode : "116-762",
 	addr_country : "Brazil",
 	addr_province : "Kangwon",
 	addr_city : "Daegu",
@@ -25399,10 +26375,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1955-03-09",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 977,
-	photoid : "phonebook_data/profile08.jpg",
+	photoid : "phonebook_data/profile05.jpg",
 	name_first : "Waiters",
 	name_last : "Granville",
 	name_middle : "",
@@ -25415,7 +26392,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "743-745",
+	addr_pcode : "997-322",
 	addr_country : "France",
 	addr_province : "Kyunggi",
 	addr_city : "Rome",
@@ -25425,10 +26402,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1964-07-27",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 978,
-	photoid : "phonebook_data/profile30.jpg",
+	photoid : "phonebook_data/profile20.jpg",
 	name_first : "Wakefield",
 	name_last : "Andre",
 	name_middle : "",
@@ -25441,7 +26419,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "454-299",
+	addr_pcode : "402-929",
 	addr_country : "China",
 	addr_province : "Idaho",
 	addr_city : "L.A.",
@@ -25451,10 +26429,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1952-05-09",
 	webaddr : "www.naver.com",
-	note : "  "
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 979,
-	photoid : "phonebook_data/profile33.jpg",
+	photoid : "phonebook_data/profile07.jpg",
 	name_first : "Walk",
 	name_last : "Neal",
 	name_middle : "",
@@ -25467,7 +26446,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "494-279",
+	addr_pcode : "594-970",
 	addr_country : "Sweden",
 	addr_province : "Dacota",
 	addr_city : "Daegu",
@@ -25477,10 +26456,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1954-02-18",
 	webaddr : "www.samsungmobile.com",
-	note : "  "
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 980,
-	photoid : "phonebook_data/profile12.jpg",
+	photoid : "phonebook_data/profile03.jpg",
 	name_first : "Walker",
 	name_last : "Andrew Martin (Andy)",
 	name_middle : "",
@@ -25493,7 +26473,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "444-466",
+	addr_pcode : "323-275",
 	addr_country : "U.S.A",
 	addr_province : "Nebraska",
 	addr_city : "Sanghai",
@@ -25503,10 +26483,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1953-05-22",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 981,
-	photoid : "phonebook_data/profile32.jpg",
+	photoid : "phonebook_data/profile34.jpg",
 	name_first : "Walker",
 	name_last : "Antoine",
 	name_middle : "",
@@ -25519,7 +26500,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "826-821",
+	addr_pcode : "580-157",
 	addr_country : "Canada",
 	addr_province : "Hawaii",
 	addr_city : "Kwangju",
@@ -25529,10 +26510,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1962-04-26",
 	webaddr : "www.google.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 982,
-	photoid : "phonebook_data/profile24.jpg",
+	photoid : "phonebook_data/profile35.jpg",
 	name_first : "Walker",
 	name_last : "Bill",
 	name_middle : "",
@@ -25545,7 +26527,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "497-456",
+	addr_pcode : "522-214",
 	addr_country : "Gaum",
 	addr_province : "Taxas",
 	addr_city : "Kwangju",
@@ -25555,10 +26537,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1963-03-19",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 983,
-	photoid : "phonebook_data/profile04.jpg",
+	photoid : "phonebook_data/profile16.jpg",
 	name_first : "Walker",
 	name_last : "Brady W.",
 	name_middle : "",
@@ -25571,7 +26554,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "908-565",
+	addr_pcode : "248-944",
 	addr_country : "Japan",
 	addr_province : "Washington",
 	addr_city : "Newyork",
@@ -25581,10 +26564,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1976-02-02",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 984,
-	photoid : "phonebook_data/profile17.jpg",
+	photoid : "phonebook_data/profile36.jpg",
 	name_first : "Walker",
 	name_last : "Chet",
 	name_middle : "",
@@ -25597,7 +26581,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "427-510",
+	addr_pcode : "123-278",
 	addr_country : "Gaum",
 	addr_province : "Califonia",
 	addr_city : "Denver",
@@ -25607,10 +26591,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1956-10-08",
 	webaddr : "www.naver.com",
-	note : "  "
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 985,
-	photoid : "phonebook_data/profile10.jpg",
+	photoid : "phonebook_data/profile20.jpg",
 	name_first : "Walker",
 	name_last : "Darrell",
 	name_middle : "",
@@ -25623,7 +26608,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "129-625",
+	addr_pcode : "120-732",
 	addr_country : "Brazil",
 	addr_province : "Nevada",
 	addr_city : "Sanghai",
@@ -25633,10 +26618,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1963-10-03",
 	webaddr : "www.sec.co.kr",
-	note : "  "
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 986,
-	photoid : "phonebook_data/profile28.jpg",
+	photoid : "phonebook_data/profile12.jpg",
 	name_first : "Walker",
 	name_last : "Foots",
 	name_middle : "",
@@ -25649,7 +26635,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "258-497",
+	addr_pcode : "835-728",
 	addr_country : "Sweden",
 	addr_province : "Georgia",
 	addr_city : "Huston",
@@ -25659,10 +26645,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1958-11-15",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 987,
-	photoid : "phonebook_data/profile27.jpg",
+	photoid : "phonebook_data/profile18.jpg",
 	name_first : "Walker",
 	name_last : "Horace",
 	name_middle : "",
@@ -25675,7 +26662,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "117-502",
+	addr_pcode : "457-042",
 	addr_country : "Rep.Korea",
 	addr_province : "Taxas",
 	addr_city : "Sanghai",
@@ -25685,10 +26672,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1976-03-14",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 988,
-	photoid : "phonebook_data/profile27.jpg",
+	photoid : "phonebook_data/profile08.jpg",
 	name_first : "Walker",
 	name_last : "James (Jimmy)",
 	name_middle : "",
@@ -25701,7 +26689,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "864-454",
+	addr_pcode : "504-859",
 	addr_country : "Brazil",
 	addr_province : "Nevada",
 	addr_city : "Sanghai",
@@ -25711,10 +26699,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1962-05-30",
 	webaddr : "www.naver.com",
-	note : "  "
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 989,
-	photoid : "phonebook_data/profile25.jpg",
+	photoid : "phonebook_data/profile29.jpg",
 	name_first : "Walker",
 	name_last : "Kenny",
 	name_middle : "",
@@ -25727,7 +26716,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "216-210",
+	addr_pcode : "994-684",
 	addr_country : "Canada",
 	addr_province : "Dacota",
 	addr_city : "Huston",
@@ -25737,10 +26726,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1957-07-07",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 990,
-	photoid : "phonebook_data/profile22.jpg",
+	photoid : "phonebook_data/profile31.jpg",
 	name_first : "Walker",
 	name_last : "Phillip B. (Phil)",
 	name_middle : "",
@@ -25753,7 +26743,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "219-558",
+	addr_pcode : "502-551",
 	addr_country : "China",
 	addr_province : "Nebraska",
 	addr_city : "Bangkok",
@@ -25763,10 +26753,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1974-08-15",
 	webaddr : "www.google.com",
-	note : "  "
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 991,
-	photoid : "phonebook_data/profile22.jpg",
+	photoid : "phonebook_data/profile21.jpg",
 	name_first : "Walker",
 	name_last : "Samaki",
 	name_middle : "",
@@ -25779,7 +26770,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "547-818",
+	addr_pcode : "700-410",
 	addr_country : "Japan",
 	addr_province : "Oregon",
 	addr_city : "Newyork",
@@ -25789,10 +26780,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1956-10-14",
 	webaddr : "www.samsungmobile.com",
-	note : "  "
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 992,
-	photoid : "phonebook_data/profile13.jpg",
+	photoid : "phonebook_data/profile35.jpg",
 	name_first : "Walker",
 	name_last : "Wally",
 	name_middle : "",
@@ -25805,7 +26797,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "985-794",
+	addr_pcode : "982-889",
 	addr_country : "Brazil",
 	addr_province : "Alaska",
 	addr_city : "Huston",
@@ -25815,10 +26807,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1963-11-11",
 	webaddr : "www.naver.com",
-	note : "  "
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 993,
-	photoid : "phonebook_data/profile12.jpg",
+	photoid : "phonebook_data/profile04.jpg",
 	name_first : "Wall",
 	name_last : "John",
 	name_middle : "",
@@ -25831,7 +26824,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "579-825",
+	addr_pcode : "228-633",
 	addr_country : "Japan",
 	addr_province : "Hawaii",
 	addr_city : "L.A.",
@@ -25841,10 +26834,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1953-12-01",
 	webaddr : "www.google.com",
-	note : "  "
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 994,
-	photoid : "phonebook_data/profile08.jpg",
+	photoid : "phonebook_data/profile06.jpg",
 	name_first : "Wallace",
 	name_last : "Ben",
 	name_middle : "",
@@ -25857,7 +26851,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "729-915",
+	addr_pcode : "754-546",
 	addr_country : "U.S.A",
 	addr_province : "Kyunggi",
 	addr_city : "Frankfruit",
@@ -25867,10 +26861,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1977-01-31",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 995,
-	photoid : "phonebook_data/profile24.jpg",
+	photoid : "phonebook_data/profile27.jpg",
 	name_first : "Wallace",
 	name_last : "Gerald",
 	name_middle : "",
@@ -25883,7 +26878,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "612-544",
+	addr_pcode : "951-569",
 	addr_country : "Brazil",
 	addr_province : "Nebraska",
 	addr_city : "Sanghai",
@@ -25893,10 +26888,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1963-08-29",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 996,
-	photoid : "phonebook_data/profile32.jpg",
+	photoid : "phonebook_data/profile33.jpg",
 	name_first : "Wallace",
 	name_last : "John",
 	name_middle : "",
@@ -25909,7 +26905,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "845-049",
+	addr_pcode : "524-706",
 	addr_country : "China",
 	addr_province : "Alaska",
 	addr_city : "Cebu",
@@ -25919,10 +26915,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1969-09-05",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 997,
-	photoid : "phonebook_data/profile14.jpg",
+	photoid : "phonebook_data/profile12.jpg",
 	name_first : "Wallace",
 	name_last : "Michael John (Red)",
 	name_middle : "",
@@ -25935,7 +26932,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "708-568",
+	addr_pcode : "301-519",
 	addr_country : "Gaum",
 	addr_province : "Taxas",
 	addr_city : "Kwangju",
@@ -25945,10 +26942,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1965-05-01",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 998,
-	photoid : "phonebook_data/profile13.jpg",
+	photoid : "phonebook_data/profile39.jpg",
 	name_first : "Wallace",
 	name_last : "Rasheed",
 	name_middle : "",
@@ -25961,7 +26959,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "382-597",
+	addr_pcode : "599-184",
 	addr_country : "Gaum",
 	addr_province : "Taxas",
 	addr_city : "Bangkok",
@@ -25971,10 +26969,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1975-09-01",
 	webaddr : "www.intel.com",
-	note : "  "
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 999,
-	photoid : "phonebook_data/profile31.jpg",
+	photoid : "phonebook_data/profile38.jpg",
 	name_first : "Waller",
 	name_last : "Dwight",
 	name_middle : "",
@@ -25987,7 +26986,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "101-452",
+	addr_pcode : "380-282",
 	addr_country : "China",
 	addr_province : "Kyunggi",
 	addr_city : "Daegu",
@@ -25997,10 +26996,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1973-09-05",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 1000,
-	photoid : "phonebook_data/profile30.jpg",
+	photoid : "phonebook_data/profile08.jpg",
 	name_first : "Waller",
 	name_last : "Jamie",
 	name_middle : "",
@@ -26013,7 +27013,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "955-785",
+	addr_pcode : "749-202",
 	addr_country : "Ghana",
 	addr_province : "Califonia",
 	addr_city : "Denver",
@@ -26023,10 +27023,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1972-04-23",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Google"
 }, {
 	Luid : 1001,
-	photoid : "phonebook_data/profile05.jpg",
+	photoid : "phonebook_data/profile11.jpg",
 	name_first : "Walsh",
 	name_last : "James Patrick (Jim)",
 	name_middle : "",
@@ -26039,7 +27040,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "836-191",
+	addr_pcode : "200-692",
 	addr_country : "Sweden",
 	addr_province : "Taxas",
 	addr_city : "Paris",
@@ -26049,10 +27050,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1959-10-04",
 	webaddr : "www.daum.net",
-	note : "  "
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 1002,
-	photoid : "phonebook_data/profile04.jpg",
+	photoid : "phonebook_data/profile39.jpg",
 	name_first : "Walsh",
 	name_last : "Matt",
 	name_middle : "",
@@ -26065,7 +27067,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "787-784",
+	addr_pcode : "584-980",
 	addr_country : "Rep.Korea",
 	addr_province : "Taxas",
 	addr_city : "Wonju",
@@ -26075,10 +27077,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1963-09-07",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 1003,
-	photoid : "phonebook_data/profile18.jpg",
+	photoid : "phonebook_data/profile17.jpg",
 	name_first : "Walters",
 	name_last : "Rex",
 	name_middle : "",
@@ -26091,7 +27094,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "196-753",
+	addr_pcode : "463-192",
 	addr_country : "U.S.A",
 	addr_province : "Georgia",
 	addr_city : "Paris",
@@ -26101,10 +27104,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1972-11-21",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 1004,
-	photoid : "phonebook_data/profile18.jpg",
+	photoid : "phonebook_data/profile22.jpg",
 	name_first : "Walther",
 	name_last : "Paul P. (Lefty)",
 	name_middle : "",
@@ -26117,7 +27121,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "184-282",
+	addr_pcode : "587-579",
 	addr_country : "Sweden",
 	addr_province : "Alaska",
 	addr_city : "Kwangju",
@@ -26127,10 +27131,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1955-08-13",
 	webaddr : "www.yahoo.com",
-	note : "  "
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 1005,
-	photoid : "phonebook_data/profile25.jpg",
+	photoid : "phonebook_data/profile01.jpg",
 	name_first : "Walthour",
 	name_last : "Isaac (Rabbit)",
 	name_middle : "",
@@ -26143,7 +27148,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "694-380",
+	addr_pcode : "603-554",
 	addr_country : "Gaum",
 	addr_province : "Kangwon",
 	addr_city : "Cebu",
@@ -26153,10 +27158,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1952-10-30",
 	webaddr : "www.yahoo.com",
-	note : "  "
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 1006,
-	photoid : "phonebook_data/profile23.jpg",
+	photoid : "phonebook_data/profile29.jpg",
 	name_first : "Walton",
 	name_last : "Bill",
 	name_middle : "",
@@ -26169,7 +27175,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "358-107",
+	addr_pcode : "659-743",
 	addr_country : "Rep.Korea",
 	addr_province : "Georgia",
 	addr_city : "Frankfruit",
@@ -26179,10 +27185,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1974-05-20",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 1007,
-	photoid : "phonebook_data/profile09.jpg",
+	photoid : "phonebook_data/profile07.jpg",
 	name_first : "Walton",
 	name_last : "Lloyd",
 	name_middle : "",
@@ -26195,7 +27202,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "272-463",
+	addr_pcode : "567-914",
 	addr_country : "Swiss",
 	addr_province : "Kangwon",
 	addr_city : "Busan",
@@ -26205,10 +27212,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1955-10-19",
 	webaddr : "www.samsungmobile.com",
-	note : "  "
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 1008,
-	photoid : "phonebook_data/profile23.jpg",
+	photoid : "phonebook_data/profile17.jpg",
 	name_first : "Walton",
 	name_last : "Luke",
 	name_middle : "",
@@ -26221,7 +27229,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "457-190",
+	addr_pcode : "300-651",
 	addr_country : "Rep.Korea",
 	addr_province : "Nevada",
 	addr_city : "Bangkok",
@@ -26231,10 +27239,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1975-07-30",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 1009,
-	photoid : "phonebook_data/profile04.jpg",
+	photoid : "phonebook_data/profile32.jpg",
 	name_first : "Wang",
 	name_last : "Zhizhi",
 	name_middle : "",
@@ -26247,7 +27256,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "764-211",
+	addr_pcode : "359-303",
 	addr_country : "Swiss",
 	addr_province : "Nebraska",
 	addr_city : "Daegu",
@@ -26257,10 +27266,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1965-06-02",
 	webaddr : "www.yahoo.com",
-	note : "  "
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 1010,
-	photoid : "phonebook_data/profile05.jpg",
+	photoid : "phonebook_data/profile14.jpg",
 	name_first : "Wanzer",
 	name_last : "Robert Francis (Bobby)",
 	name_middle : "",
@@ -26273,7 +27283,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "351-410",
+	addr_pcode : "652-634",
 	addr_country : "Canada",
 	addr_province : "Washington",
 	addr_city : "Laite",
@@ -26283,10 +27293,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1973-07-11",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 1011,
-	photoid : "phonebook_data/profile37.jpg",
+	photoid : "phonebook_data/profile13.jpg",
 	name_first : "Warbington",
 	name_last : "Perry",
 	name_middle : "",
@@ -26299,7 +27310,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "498-692",
+	addr_pcode : "887-398",
 	addr_country : "Swiss",
 	addr_province : "Califonia",
 	addr_city : "Cleveland",
@@ -26309,10 +27320,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1963-05-10",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 1012,
-	photoid : "phonebook_data/profile04.jpg",
+	photoid : "phonebook_data/profile06.jpg",
 	name_first : "Ward",
 	name_last : "Charlie",
 	name_middle : "",
@@ -26325,7 +27337,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "498-433",
+	addr_pcode : "676-876",
 	addr_country : "China",
 	addr_province : "Pennsylvania",
 	addr_city : "Daegu",
@@ -26335,10 +27347,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1967-02-05",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 1013,
-	photoid : "phonebook_data/profile20.jpg",
+	photoid : "phonebook_data/profile32.jpg",
 	name_first : "Ward",
 	name_last : "Gerald W. (Gerry)",
 	name_middle : "",
@@ -26351,7 +27364,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "238-842",
+	addr_pcode : "582-889",
 	addr_country : "Rep.Korea",
 	addr_province : "Kyunggi",
 	addr_city : "L.A.",
@@ -26361,10 +27374,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1952-08-22",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 1014,
-	photoid : "phonebook_data/profile15.jpg",
+	photoid : "phonebook_data/profile01.jpg",
 	name_first : "Ward",
 	name_last : "Henry Lorette",
 	name_middle : "",
@@ -26377,7 +27391,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "983-852",
+	addr_pcode : "992-706",
 	addr_country : "Ghana",
 	addr_province : "Florida",
 	addr_city : "Cebu",
@@ -26387,10 +27401,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1970-01-02",
 	webaddr : "www.daum.net",
-	note : "  "
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 1015,
-	photoid : "phonebook_data/profile22.jpg",
+	photoid : "phonebook_data/profile08.jpg",
 	name_first : "Ware",
 	name_last : "James Edward (Jim)",
 	name_middle : "",
@@ -26403,7 +27418,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "921-846",
+	addr_pcode : "239-725",
 	addr_country : "Canada",
 	addr_province : "Alaska",
 	addr_city : "Laite",
@@ -26413,10 +27428,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1971-10-12",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 1016,
-	photoid : "phonebook_data/profile16.jpg",
+	photoid : "phonebook_data/profile23.jpg",
 	name_first : "Warley",
 	name_last : "Benjamin Vallintina (Ben)",
 	name_middle : "",
@@ -26429,7 +27445,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "198-444",
+	addr_pcode : "186-862",
 	addr_country : "Japan",
 	addr_province : "Georgia",
 	addr_city : "Busan",
@@ -26439,10 +27455,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1965-05-10",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 1017,
-	photoid : "phonebook_data/profile02.jpg",
+	photoid : "phonebook_data/profile10.jpg",
 	name_first : "Warlick",
 	name_last : "Robert Lee (Bob)",
 	name_middle : "",
@@ -26455,7 +27472,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "141-075",
+	addr_pcode : "531-745",
 	addr_country : "Sweden",
 	addr_province : "Dacota",
 	addr_city : "Denver",
@@ -26465,10 +27482,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1957-10-08",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 1018,
-	photoid : "phonebook_data/profile23.jpg",
+	photoid : "phonebook_data/profile39.jpg",
 	name_first : "Warner",
 	name_last : "Cornell",
 	name_middle : "",
@@ -26481,7 +27499,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "560-606",
+	addr_pcode : "365-526",
 	addr_country : "U.S.A",
 	addr_province : "Idaho",
 	addr_city : "Newyork",
@@ -26491,10 +27509,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1952-11-21",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 1019,
-	photoid : "phonebook_data/profile18.jpg",
+	photoid : "phonebook_data/profile12.jpg",
 	name_first : "Warren",
 	name_last : "John II (Johnny)",
 	name_middle : "",
@@ -26507,7 +27526,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "195-821",
+	addr_pcode : "445-449",
 	addr_country : "Canada",
 	addr_province : "Kangwon",
 	addr_city : "Kwangju",
@@ -26517,10 +27536,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1961-10-11",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "UCLA"
 }, {
 	Luid : 1020,
-	photoid : "phonebook_data/profile10.jpg",
+	photoid : "phonebook_data/profile35.jpg",
 	name_first : "Yarbrough",
 	name_last : "Vincent",
 	name_middle : "",
@@ -26533,7 +27553,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "566-367",
+	addr_pcode : "364-075",
 	addr_country : "Japan",
 	addr_province : "Kyunggi",
 	addr_city : "L.A.",
@@ -26543,10 +27563,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1969-01-17",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 1021,
-	photoid : "phonebook_data/profile02.jpg",
+	photoid : "phonebook_data/profile28.jpg",
 	name_first : "Yardley",
 	name_last : "George",
 	name_middle : "",
@@ -26559,7 +27580,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "204-141",
+	addr_pcode : "599-473",
 	addr_country : "Rep.Korea",
 	addr_province : "Washington",
 	addr_city : "Paris",
@@ -26569,10 +27590,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1955-11-19",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 1022,
-	photoid : "phonebook_data/profile01.jpg",
+	photoid : "phonebook_data/profile14.jpg",
 	name_first : "Yates",
 	name_last : "Barry",
 	name_middle : "",
@@ -26585,7 +27607,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "453-769",
+	addr_pcode : "492-186",
 	addr_country : "U.S.A",
 	addr_province : "Florida",
 	addr_city : "Wonju",
@@ -26595,10 +27617,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1973-08-12",
 	webaddr : "www.samsungmobile.com",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 1023,
-	photoid : "phonebook_data/profile20.jpg",
+	photoid : "phonebook_data/profile19.jpg",
 	name_first : "Yates",
 	name_last : "Wayne E.",
 	name_middle : "",
@@ -26611,7 +27634,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "851-714",
+	addr_pcode : "980-687",
 	addr_country : "Brazil",
 	addr_province : "Georgia",
 	addr_city : "Cleveland",
@@ -26621,10 +27644,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1956-10-28",
 	webaddr : "www.google.com",
-	note : "  "
+	note : "",
+	Company : "Hyundai"
 }, {
 	Luid : 1024,
-	photoid : "phonebook_data/profile21.jpg",
+	photoid : "phonebook_data/profile08.jpg",
 	name_first : "Yelverton",
 	name_last : "Charles W. (Charlie)",
 	name_middle : "",
@@ -26637,7 +27661,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "124-906",
+	addr_pcode : "185-196",
 	addr_country : "France",
 	addr_province : "Georgia",
 	addr_city : "Newyork",
@@ -26647,7 +27671,8 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1954-01-24",
 	webaddr : "www.daum.net",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 1025,
 	photoid : "phonebook_data/profile23.jpg",
@@ -26663,7 +27688,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "353-181",
+	addr_pcode : "745-801",
 	addr_country : "China",
 	addr_province : "Dacota",
 	addr_city : "Kwangju",
@@ -26673,10 +27698,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1960-12-22",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 1026,
-	photoid : "phonebook_data/profile36.jpg",
+	photoid : "phonebook_data/profile34.jpg",
 	name_first : "Young",
 	name_last : "Danny",
 	name_middle : "",
@@ -26689,7 +27715,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "870-078",
+	addr_pcode : "158-411",
 	addr_country : "U.S.A",
 	addr_province : "Dacota",
 	addr_city : "Cebu",
@@ -26699,10 +27725,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1959-05-11",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 1027,
-	photoid : "phonebook_data/profile12.jpg",
+	photoid : "phonebook_data/profile04.jpg",
 	name_first : "Young",
 	name_last : "Korleone",
 	name_middle : "",
@@ -26715,7 +27742,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "608-891",
+	addr_pcode : "825-957",
 	addr_country : "France",
 	addr_province : "Kyunggi",
 	addr_city : "Sanghai",
@@ -26725,10 +27752,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1961-02-01",
 	webaddr : "www.yahoo.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 1028,
-	photoid : "phonebook_data/profile12.jpg",
+	photoid : "phonebook_data/profile19.jpg",
 	name_first : "Young",
 	name_last : "Michael",
 	name_middle : "",
@@ -26741,7 +27769,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "568-792",
+	addr_pcode : "714-106",
 	addr_country : "France",
 	addr_province : "Taxas",
 	addr_city : "Daegu",
@@ -26751,10 +27779,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1952-05-20",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 1029,
-	photoid : "phonebook_data/profile29.jpg",
+	photoid : "phonebook_data/profile07.jpg",
 	name_first : "Young",
 	name_last : "Nick",
 	name_middle : "",
@@ -26767,7 +27796,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "370-429",
+	addr_pcode : "165-750",
 	addr_country : "Sweden",
 	addr_province : "Califonia",
 	addr_city : "Bangkok",
@@ -26777,10 +27806,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1955-10-12",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 1030,
-	photoid : "phonebook_data/profile03.jpg",
+	photoid : "phonebook_data/profile15.jpg",
 	name_first : "Young",
 	name_last : "Perry",
 	name_middle : "",
@@ -26793,7 +27823,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "927-040",
+	addr_pcode : "639-165",
 	addr_country : "Sweden",
 	addr_province : "Nevada",
 	addr_city : "Cebu",
@@ -26803,10 +27833,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1953-06-28",
 	webaddr : "www.google.com",
-	note : "  "
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 1031,
-	photoid : "phonebook_data/profile06.jpg",
+	photoid : "phonebook_data/profile24.jpg",
 	name_first : "Young",
 	name_last : "Sam",
 	name_middle : "",
@@ -26819,7 +27850,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "633-263",
+	addr_pcode : "819-742",
 	addr_country : "Swiss",
 	addr_province : "Taxas",
 	addr_city : "Cebu",
@@ -26829,10 +27860,11 @@ var phonebookDB = [ {
 	savedlocation : "Samsung",
 	birthday : "1958-11-20",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "WAC"
 }, {
 	Luid : 1032,
-	photoid : "phonebook_data/profile01.jpg",
+	photoid : "phonebook_data/profile22.jpg",
 	name_first : "Young",
 	name_last : "Thaddeus",
 	name_middle : "",
@@ -26845,7 +27877,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "581-158",
+	addr_pcode : "144-212",
 	addr_country : "Ghana",
 	addr_province : "Taxas",
 	addr_city : "Denver",
@@ -26855,10 +27887,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1974-11-23",
 	webaddr : "www.sec.co.kr",
-	note : "  "
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 1033,
-	photoid : "phonebook_data/profile13.jpg",
+	photoid : "phonebook_data/profile31.jpg",
 	name_first : "Young",
 	name_last : "Tim",
 	name_middle : "",
@@ -26871,7 +27904,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "597-199",
+	addr_pcode : "869-918",
 	addr_country : "Sweden",
 	addr_province : "Hawaii",
 	addr_city : "Frankfruit",
@@ -26881,10 +27914,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1955-11-11",
 	webaddr : "www.google.com",
-	note : "  "
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 1034,
-	photoid : "phonebook_data/profile06.jpg",
+	photoid : "phonebook_data/profile17.jpg",
 	name_first : "Yue",
 	name_last : "Sun",
 	name_middle : "",
@@ -26897,7 +27931,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "105-025",
+	addr_pcode : "579-628",
 	addr_country : "Gaum",
 	addr_province : "Georgia",
 	addr_city : "L.A.",
@@ -26907,7 +27941,8 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1964-09-14",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "POSTEC"
 }, {
 	Luid : 1035,
 	photoid : "phonebook_data/profile22.jpg",
@@ -26923,7 +27958,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "166-200",
+	addr_pcode : "127-000",
 	addr_country : "Japan",
 	addr_province : "Florida",
 	addr_city : "Cleveland",
@@ -26933,10 +27968,11 @@ var phonebookDB = [ {
 	savedlocation : "Google",
 	birthday : "1965-12-03",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Intel"
 }, {
 	Luid : 1036,
-	photoid : "phonebook_data/profile37.jpg",
+	photoid : "phonebook_data/profile33.jpg",
 	name_first : "Zawoluk",
 	name_last : "Robert Michael (Zeke)",
 	name_middle : "",
@@ -26949,7 +27985,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "499-300",
+	addr_pcode : "499-994",
 	addr_country : "France",
 	addr_province : "Pennsylvania",
 	addr_city : "Denver",
@@ -26959,10 +27995,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1957-11-27",
 	webaddr : "www.intel.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Nespresso"
 }, {
 	Luid : 1037,
-	photoid : "phonebook_data/profile23.jpg",
+	photoid : "phonebook_data/profile16.jpg",
 	name_first : "Zeller",
 	name_last : "David A. (Dave)",
 	name_middle : "",
@@ -26975,7 +28012,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "272-849",
+	addr_pcode : "883-175",
 	addr_country : "U.S.A",
 	addr_province : "Nebraska",
 	addr_city : "Bangkok",
@@ -26985,10 +28022,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1966-06-17",
 	webaddr : "www.naver.com",
-	note : "ABCDEFG"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 1038,
-	photoid : "phonebook_data/profile37.jpg",
+	photoid : "phonebook_data/profile25.jpg",
 	name_first : "Zeller",
 	name_last : "Gary Lynn",
 	name_middle : "",
@@ -27001,7 +28039,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "806-910",
+	addr_pcode : "169-628",
 	addr_country : "Sweden",
 	addr_province : "Taxas",
 	addr_city : "Busan",
@@ -27011,10 +28049,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1956-08-08",
 	webaddr : "www.sec.co.kr",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Samsung Electronics"
 }, {
 	Luid : 1039,
-	photoid : "phonebook_data/profile01.jpg",
+	photoid : "phonebook_data/profile34.jpg",
 	name_first : "Zeller",
 	name_last : "Harry Raymond (Hank)",
 	name_middle : "",
@@ -27027,7 +28066,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "389-217",
+	addr_pcode : "349-858",
 	addr_country : "Swiss",
 	addr_province : "Kangwon",
 	addr_city : "Laite",
@@ -27037,10 +28076,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1969-06-17",
 	webaddr : "www.samsungmobile.com",
-	note : "  "
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 1040,
-	photoid : "phonebook_data/profile27.jpg",
+	photoid : "phonebook_data/profile39.jpg",
 	name_first : "Zeno",
 	name_last : "Anthony Michael (Tony)",
 	name_middle : "",
@@ -27053,7 +28093,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "126-759",
+	addr_pcode : "482-190",
 	addr_country : "China",
 	addr_province : "Georgia",
 	addr_city : "Paris",
@@ -27063,10 +28103,11 @@ var phonebookDB = [ {
 	savedlocation : "Yahoo",
 	birthday : "1951-09-20",
 	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Sony"
 }, {
 	Luid : 1041,
-	photoid : "phonebook_data/profile28.jpg",
+	photoid : "phonebook_data/profile08.jpg",
 	name_first : "Zevenbergen",
 	name_last : "Phil",
 	name_middle : "",
@@ -27079,7 +28120,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "857-261",
+	addr_pcode : "343-989",
 	addr_country : "U.S.A",
 	addr_province : "Idaho",
 	addr_city : "Sanghai",
@@ -27089,10 +28130,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1957-11-27",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "Dell"
 }, {
 	Luid : 1042,
-	photoid : "phonebook_data/profile03.jpg",
+	photoid : "phonebook_data/profile02.jpg",
 	name_first : "Zidek",
 	name_last : "George",
 	name_middle : "",
@@ -27105,7 +28147,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "814-884",
+	addr_pcode : "196-254",
 	addr_country : "Sweden",
 	addr_province : "Oregon",
 	addr_city : "Rome",
@@ -27115,10 +28157,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1965-10-18",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	note : "",
+	Company : "W3C"
 }, {
 	Luid : 1043,
-	photoid : "phonebook_data/profile01.jpg",
+	photoid : "phonebook_data/profile22.jpg",
 	name_first : "Zimmerman",
 	name_last : "Derrick",
 	name_middle : "",
@@ -27131,7 +28174,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "819-731",
+	addr_pcode : "138-250",
 	addr_country : "Gaum",
 	addr_province : "Washington",
 	addr_city : "L.A.",
@@ -27141,10 +28184,11 @@ var phonebookDB = [ {
 	savedlocation : "Facebook",
 	birthday : "1959-03-12",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLM"
+	note : "",
+	Company : "Linux"
 }, {
 	Luid : 1044,
-	photoid : "phonebook_data/profile24.jpg",
+	photoid : "phonebook_data/profile29.jpg",
 	name_first : "Zoet",
 	name_last : "Jim",
 	name_middle : "",
@@ -27157,7 +28201,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "561-679",
+	addr_pcode : "256-406",
 	addr_country : "U.S.A",
 	addr_province : "Califonia",
 	addr_city : "Paris",
@@ -27167,10 +28211,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1975-05-02",
 	webaddr : "www.naver.com",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Korean Air"
 }, {
 	Luid : 1045,
-	photoid : "phonebook_data/profile09.jpg",
+	photoid : "phonebook_data/profile31.jpg",
 	name_first : "Zopf",
 	name_last : "William Charles Jr. (Bill, Zip)",
 	name_middle : "",
@@ -27183,7 +28228,7 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "650-534",
+	addr_pcode : "963-762",
 	addr_country : "Rep.Korea",
 	addr_province : "Oregon",
 	addr_city : "Huston",
@@ -27193,10 +28238,11 @@ var phonebookDB = [ {
 	savedlocation : " ",
 	birthday : "1953-03-24",
 	webaddr : "www.daum.net",
-	note : "ABCDEFGHIJKLMNOPQRST"
+	note : "",
+	Company : "Daum"
 }, {
 	Luid : 1046,
-	photoid : "phonebook_data/profile14.jpg",
+	photoid : "phonebook_data/profile22.jpg",
 	name_first : "Zunic",
 	name_last : "Matthew (Matt, Mad Matt)",
 	name_middle : "",
@@ -27209,17 +28255,18 @@ var phonebookDB = [ {
 	em_home : "samsung@sec.co.kr",
 	em_work : "samsung_work@sec.co.kr",
 	em_other : "samsung_other@sec.co.kr",
-	addr_pcode : "157-638",
+	addr_pcode : "153-839",
 	addr_country : "France",
-	addr_province : "Washington",
+	addr_province : "Arizona",
 	addr_city : "Laite",
 	addr_street : "15-95",
 	groups : "No group",
 	ringtone : "11. Be My Baby (Ra.D Mix).mp3",
 	savedlocation : "Facebook",
 	birthday : "1957-09-11",
-	webaddr : "www.google.com",
-	note : "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	webaddr : "www.sec.co.kr",
+	note : "",
+	Company : "Dell"
 }
 
 ];

@@ -6,12 +6,17 @@ function initDB(){
 	});
 };
 
-$("#queryInput").live( "input", function(events, ui) {
+$("#queryInput").live( "input", function(events) {
 	
 	var query = "";
 	query = ".*" + $("#queryInput").val();
 
-	search(window[pb_dbtable], pb_searchField, query);
+	Phonebook.search(window[pb_dbtable], pb_searchField, query);
+});
+
+$("#all_contacts_list li").live("click", function()
+{
+	Phonebook.getDetailview(window[pb_dbtable], $(this).data("pbid"));
 });
 
 /* Start Phonebook App initialization */
