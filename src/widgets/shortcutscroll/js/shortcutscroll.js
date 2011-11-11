@@ -26,181 +26,183 @@
  * If a listview has no dividers or a single divider, the widget won't
  * display.
  */
-(function( $, undefined ) {
+(function($, undefined) {
+	$.widget( "todons.shortcutscroll", $.mobile.widget, {
+		options: {
+			initSelector: ":jqmData(shortcutscroll)"
+		},
 
-$.widget( "todons.shortcutscroll", $.mobile.widget, {
-    options: {
-        initSelector: ":jqmData(shortcutscroll)"
-    },
-
-    _create: function () {
-        var $el = this.element,
-            self = this,
-            $popup,
+		_create: function () {
+			var $el = this.element,
+			self = this,
+			$popup,
 			timer,
 			dragging = 0,
-            page = $el.closest(':jqmData(role="page")');
+			page = $el.closest(':jqmData(role="page")');
 
-		$.extend( this, {
-			dividertext: ""
-		});
+			$.extend(this, {
+				dividertext: ""
+			});
 
-        this.scrollview = $el.closest('.ui-scrollview-clip');
-        this.shortcutsContainer = $('<div class="ui-shortcutscroll"/>');
-        this.shortcutsList = $('<ul></ul>');
+			this.scrollview = $el.closest('.ui-scrollview-clip');
+			this.shortcutsContainer = $('<div class="ui-shortcutscroll"/>');
+			this.shortcutsList = $('<ul></ul>');
 
-        // popup for the hovering character
-        this.shortcutsContainer.append($('<div class="ui-shortcutscroll-popup"></div>'));
-        $popup = this.shortcutsContainer.find('.ui-shortcutscroll-popup');
+			// popup for the hovering character
+			this.shortcutsContainer.append($('<div class="ui-shortcutscroll-popup"></div>'));
+			$popup = this.shortcutsContainer.find('.ui-shortcutscroll-popup');
 
-        this.shortcutsContainer.append(this.shortcutsList);
-        this.scrollview.append(this.shortcutsContainer);
+			this.shortcutsContainer.append(this.shortcutsList);
+			this.scrollview.append(this.shortcutsContainer);
 
-        // find the bottom of the last item in the listview
-        this.lastListItem = $el.children().last();
+			// find the bottom of the last item in the listview
+			this.lastListItem = $el.children().last();
 
-        // remove scrollbars from scrollview
-        this.scrollview.find('.ui-scrollbar').hide();
+			// remove scrollbars from scrollview
+			this.scrollview.find('.ui-scrollbar').hide();
 
-        var jumpToDivider = function(divider) {
-            // get the vertical position of the divider (so we can
-            // scroll to it)
-            var dividerY = $(divider).position().top;
+			var jumpToDivider = function(divider) {
+				// get the vertical position of the divider (so we can
+				// scroll to it)
+				var dividerY = $(divider).position().top;
 
-            // find the bottom of the last list item
-            var bottomOffset = self.lastListItem.outerHeight(true) +
-                               self.lastListItem.position().top;
+				// find the bottom of the last list item
+				var bottomOffset = self.lastListItem.outerHeight(true) +
+							self.lastListItem.position().top;
 
-            var scrollviewHeight = self.scrollview.height();
+				var scrollviewHeight = self.scrollview.height();
 
-            // check that after the candidate scroll, the bottom of the
-            // last item will still be at the bottom of the scroll view
-            // and not some way up the page
-            var maxScroll = bottomOffset - scrollviewHeight;
-            dividerY = (dividerY > maxScroll ? maxScroll : dividerY);
+				// check that after the candidate scroll, the bottom of the
+				// last item will still be at the bottom of the scroll view
+				// and not some way up the page
+				var maxScroll = bottomOffset - scrollviewHeight;
+				dividerY = (dividerY > maxScroll ? maxScroll : dividerY);
 
-            // don't apply a negative scroll, as this means the
-            // divider should already be visible
-            dividerY = Math.max(dividerY, 0);
+				// don't apply a negative scroll, as this means the
+				// divider should already be visible
+				dividerY = Math.max(dividerY, 0);
 
-            // apply the scroll
-			clearTimeout( timer );
-			timer = setTimeout(function() {
+				// apply the scroll
+				clearTimeout(timer);
+				timer = setTimeout(function() {
 					self.scrollview.scrollview('scrollTo', 0, -dividerY, 1000);
-			}, 300 );
+				}, 300);
 
-            $popup.text($(divider).text())
-                  .position({my: 'center center',
-                             at: 'center center',
-                             of: self.scrollview})
-                  .show();
-			self.dividertext = $(divider).text();
-        };
+				$popup.text($(divider).text()).position({
+					my: 'center center',
+					at: 'center center',
+					of: self.scrollview
+				}).show();
 
-        this.shortcutsList
-        // bind mouse over so it moves the scroller to the divider
-        .bind('touchstart mousedown vmousedown touchmove vmousemove ', function (e) {
-			if (e.type === 'touchstart' || e.type === 'mousedown' || e.type === 'vmousedown' ) {
-				console.log("shourtcutslist down");
-				dragging = 1;
-			}
-			if ( dragging == 1 ) {
-				// Get coords relative to the element
-				var coords = $.mobile.todons.targetRelativeCoordsFromEvent(e);
-				var shortcutsListOffset = self.shortcutsList.offset();
+				self.dividertext = $(divider).text();
+			};
 
-				// If the element is a list item, get coordinates relative to the shortcuts list
-				if (e.target.tagName.toLowerCase() === "li") {
-					coords.x += $(e.target).offset().left - shortcutsListOffset.left;
-					coords.y += $(e.target).offset().top  - shortcutsListOffset.top;
+			// bind mouse over so it moves the scroller to the divider
+			this.shortcutsList.bind('touchstart mousedown vmousedown touchmove vmousemove', function (e) {
+				if (e.type === 'touchstart' || e.type === 'mousedown' || e.type === 'vmousedown') {
+					console.log("shourtcutslist down");
+					dragging = 1;
 				}
-				// Hit test each list item
-				self.shortcutsList.find('li').each(function() {
-					var listItem = $(this),
+
+				if (dragging == 1) {
+					// Get coords relative to the element
+					var coords = $.mobile.todons.targetRelativeCoordsFromEvent(e);
+					var shortcutsListOffset = self.shortcutsList.offset();
+
+					// If the element is a list item, get coordinates relative to the shortcuts list
+					if (e.target.tagName.toLowerCase() === "li") {
+						coords.x += $(e.target).offset().left - shortcutsListOffset.left;
+						coords.y += $(e.target).offset().top - shortcutsListOffset.top;
+					}
+
+					// Hit test each list item
+					self.shortcutsList.find('li').each(function() {
+						var listItem = $(this),
 						l = listItem.offset().left - shortcutsListOffset.left,
-						t = listItem.offset().top  - shortcutsListOffset.top,
+						t = listItem.offset().top - shortcutsListOffset.top,
 						r = l + Math.abs(listItem.outerWidth(true)),
 						b = t + Math.abs(listItem.outerHeight(true));
 
-					if (coords.x >= l && coords.x <= r && coords.y >= t && coords.y <= b) {
-						jumpToDivider($(listItem.data('divider')));
-						return false;
-					}
-					return true;
+						if (coords.x >= l && coords.x <= r && coords.y >= t && coords.y <= b) {
+							jumpToDivider($(listItem.data('divider')));
+							return false;
+						}
+						return true;
+					});
+
+					e.preventDefault();
+					e.stopPropagation();
+				}
+			});
+
+			//hide when touch up..
+			$(document).bind('touchend mouseup vmouseup', function (e) {
+				dragging = 0;
+				$popup.hide();
+			});
+
+			if (page && !(page.is(':visible'))) {
+				page.bind('pageshow', function () {
+					self.refresh();
 				});
-
-				e.preventDefault();
-				e.stopPropagation();
+			} else {
+				this.refresh();
 			}
-		});
 
-		//hide when touch up..
-		$(document).bind( 'touchend mouseup vmouseup', function (e) {
-            dragging = 0;
-			$popup.hide();
-		});
+			// refresh the list when the dividers change
+			$el.bind('listChanged', function () {
+				self.refresh();
+			});
 
-		if (page && !(page.is(':visible'))) {
-            page.bind('pageshow', function () { self.refresh(); });
-        }
-        else {
-            this.refresh();
-        }
+			// refresh the list when dividers are filtered out
+			$el.bind('listFiltered', function () {
+				self.refresh(true);
+			});
+		},
 
-		// refresh the list when the dividers change
-        $el.bind('listChanged', function () {
-            self.refresh();
-        });
+		refresh: function (visibleOnly) {
+			var self = this,
+			shortcutsTop;
 
-        // refresh the list when dividers are filtered out
-        $el.bind('listFiltered', function () {
-            self.refresh(true);
-        });
-    },
+			this.shortcutsList.find('li').remove();
 
-    refresh: function (visibleOnly) {
-        var self = this,
-            shortcutsTop;
+			// get all the dividers from the list and turn them into
+			// shortcuts
+			var dividers = this.element.find(':jqmData(role="list-divider")');
 
-        this.shortcutsList.find('li').remove();
+			// get all the list items
+			var listItems = this.element.find('li:not(:jqmData(role="list-divider"))');
 
-        // get all the dividers from the list and turn them into
-        // shortcuts
-        var dividers = this.element.find(':jqmData(role="list-divider")');
+			if (visibleOnly) {
+				dividers = dividers.filter(':visible');
+				listItems = listItems.filter(':visible');
+			}
 
-        // get all the list items
-        var listItems = this.element.find('li:not(:jqmData(role="list-divider"))');
+			if (dividers.length < 2) {
+				this.shortcutsList.hide();
+				return;
+			}
 
-        if (visibleOnly) {
-            dividers = dividers.filter(':visible');
-            listItems = listItems.filter(':visible');
-        }
+			this.shortcutsList.show();
 
-        if (dividers.length < 2) {
-            this.shortcutsList.hide();
-            return;
-        }
+			this.lastListItem = listItems.last();
 
-        this.shortcutsList.show();
+			dividers.each(function (index, divider) {
+				self.shortcutsList.append($('<li>' + $(divider).text() + '</li>')
+								.data('divider', divider));
+			});
 
-        this.lastListItem = listItems.last();
+			// position the shortcut flush with the top of the first
+			// list divider
+			shortcutsTop = dividers.first().position().top;
+			this.shortcutsContainer.css('top', shortcutsTop);
+		}
+	});
 
-        dividers.each(function (index, divider) {
-            self.shortcutsList.append($('<li>' + $(divider).text() + '</li>')
-                              .data('divider', divider));
-        });
+	$(document).bind( "pagecreate create", function (e) {
+		$($.todons.shortcutscroll.prototype.options.initSelector, e.target)
+			.not(":jqmData(role='none'), :jqmData(role='nojs')")
+			.shortcutscroll();
+	});
 
-        // position the shortcut flush with the top of the first
-        // list divider
-        shortcutsTop = dividers.first().position().top;
-        this.shortcutsContainer.css('top', shortcutsTop);
-    }
-});
-
-$(document).bind( "pagecreate create", function (e) {
-    $($.todons.shortcutscroll.prototype.options.initSelector, e.target)
-    .not(":jqmData(role='none'), :jqmData(role='nojs')")
-    .shortcutscroll();
-});
-
-})( jQuery );
+})(jQuery);

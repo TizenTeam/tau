@@ -47,12 +47,36 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		initSelector: ":jqmData(role='virtuallistview')"
 	},
 
+	_stylerMouseUp: function()
+	{
+		$(this).addClass("ui-btn-up-s");
+		$(this).removeClass("ui-btn-down-s");
+	},
+
+	_stylerMouseDown: function()
+	{
+		$(this).addClass("ui-btn-down-s");
+		$(this).removeClass("ui-btn-up-s");
+	},
+	
+	_stylerMouseOver: function()
+	{
+		$(this).toggleClass("ui-btn-hover-s");		
+	},
+	
+	_stylerMouseOut: function()
+	{
+		$(this).toggleClass("ui-btn-hover-s");
+	},
+
 	_pushData: function ( template, data ) {
-		var dataTable = window[data];
+		var dataTable = data;
 		
 		var myTemplate = $("#" + template);
 		
-		for (i = 0; i < INIT_LIST_NUM; i++) 
+		var lastIndex = (INIT_LIST_NUM > data.length ? data.length : INIT_LIST_NUM); 
+		
+		for (i = 0; i < lastIndex; i++) 
 		{
 			var htmlData = myTemplate.tmpl( dataTable[i]);
 			$('ul.ui-virtual-list-container').append( ( htmlData ).attr( 'id', 'li_'+i ) );
@@ -63,6 +87,8 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 	}, 
 
 	_reposition: function(){
+		var t = this;
+		
 		TITLE_H = $('ul.ui-virtual-list-container li:first').position().top;
 		LINE_H = $('ul.ui-virtual-list-container li:first').outerHeight();
 
@@ -70,7 +96,14 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		
 		var padding = parseInt($("ul.ui-virtual-list-container li").css("padding-left")) + parseInt($("ul.ui-virtual-list-container li").css("padding-right"));
 		
-		$("ul.ui-virtual-list-container li").addClass("position_absolute");
+		/* wongi_1110 : Add style */
+		$("ul.ui-virtual-list-container li").addClass("position_absolute").addClass("ui-btn-up-s")
+											.bind("mouseup", t._stylerMouseUp)
+											.bind("mousedown", t._stylerMouseDown)		
+											.bind("mouseover", t._stylerMouseOver)
+											.bind("mouseout", t._stylerMouseOut);
+		
+		
 
 		$('ul.ui-virtual-list-container li').each(function(index){
 			$(this).css("top", TITLE_H + LINE_H*index + 'px')
@@ -232,7 +265,50 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 			}
 		}
 	},
+	
+	recreate: function(newArray){
+		var t = this;
+		var o = this.options;
+		
+		$('ul.ui-virtual-list-container').empty();
+		
+		TOTAL_ITEMS = newArray.length;
+		direction = NO_SCROLL;
+		first_index = 0;
+		last_index = INIT_LIST_NUM -1;		
+		
+		t._pushData((o.template), newArray);
+		
+		$('ul.ui-virtual-list-container').listview();
 
+		t._reposition();
+		
+		t.refresh( true );
+	},
+
+	_initList: function(){
+		var t = this;
+		var o = this.options;
+		
+		/* After AJAX loading success */
+		o.dbtable = t.element.data("dbtable");
+		
+		TOTAL_ITEMS = $(window[o.dbtable]).size();
+		
+        /* Make Gen list by template */
+    	t._pushData((o.template), window[o.dbtable]);
+
+	    $(document).bind("pageshow", t._reposition);
+	    $(document).bind('scrollstop', t.options, t._scrollmove);
+	    $(window).resize(t._resize);
+
+		$('ul.ui-virtual-list-container').listview();
+
+		t._reposition();	//wongi_1109
+
+		t.refresh( true );
+	},
+	
 	_create: function(event) {
 		var t = this;
 		var o = this.options; 
@@ -263,29 +339,19 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		if (t.element.data("src"))
 		{
 			o.dbsrc = t.element.data("src");
-			
-			/* ?_=ts code for no cache mechanism */
-			$.getScript(o.dbsrc + "?_=ts2477874287", function(data, textStatus) {
 
-				/* After AJAX loading success */
-				o.dbtable = t.element.data("dbtable");
-				
-				TOTAL_ITEMS = $(window[o.dbtable]).size();
-				
-		        /* Make Gen list by template */
-		    	t._pushData((o.template), o.dbtable);
-	    
-			    $(document).bind("pageshow", t._reposition);
-			    $(document).bind('scrollstop', t.options, t._scrollmove);
-			    $(window).resize(t._resize);
-		
-				$('ul.ui-virtual-list-container').listview();
-
-				t._reposition();	//wongi_1109
-
-		t.refresh( true );
-			});
-		}	
+			if ($('ul.ui-virtual-list-container').hasClass("vlLoadSucess"))
+			{
+				t.initList();
+			}
+			else
+			{
+				/* ?_=ts code for no cache mechanism */
+				$.getScript(o.dbsrc + "?_=ts2477874287", function(data, textStatus) {
+					t._initList();
+				});
+			}
+		}
 	},
 	
 	destroy : function(){

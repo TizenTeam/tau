@@ -4,11 +4,11 @@
  * Copyright (C) TODO
  * License: TODO
  * Authors: Minkyu Kang <mk7.kang@samsung.com>
+ *          Koeun Choi <koeun.choi@samsung.com>
  */
 
 (function ($, window, undefined) {
 	$.widget("todons.tickernoti", $.mobile.widget, {
-
 		btn: null,
 		param: null,
 		interval: null,
@@ -19,25 +19,20 @@
 			if (this.running)
 				this.hide();
 
-			this.html_none.detach();
-			this.html_hide.detach();
+			this._update();
 
-			$(this.element).append(this.html);
 			this._add_event();
 
 			this.running = true;
+			$(this.html).addClass( "show" ).removeClass( "hide" );
 		},
 
 		hide: function () {
 			if (!this.running)
 				return;
 
+			$(this.html).addClass( "hide" ).removeClass( "show" );
 			this._del_event();
-
-			this.html_none.detach();
-			this.html.detach();
-
-			$(this.element).append(this.html_hide);
 
 			this.running = false;
 		},
@@ -83,6 +78,9 @@
 			this.param = $(this.element).attr('data-param');
 			this.seconds = $(this.element).attr('data-interval');
 
+			if (this.html)
+				this.html.detach();
+
 			this.html = $('<div class="ui-ticker">' +
 					'<div class="ui-ticker-bg">' +
 					'<div class="ui-ticker-icon"></div>' +
@@ -94,20 +92,8 @@
 					'<div class="ui-ticker-btn"></div>' +
 					'</div>' +
 					'</div>');
-			this.html_hide = $('<div class="ui-ticker-hide">' +
-					'<div class="ui-ticker-bg">' +
-					'<div class="ui-ticker-icon"></div>' +
-					'<div class="ui-ticker-text1-bg">' +
-					text[0] + '</div>' +
-					'<div class="ui-ticker-text2-bg">' +
-					text[1] + '</div>' +
-					'<div class="ui-ticker-btn"></div>' +
-					'</div>' +
-					'</div>');
-			this.html_none = $('<div class="ui-ticker-none ">' +
-					'<div class="ui-ticker-bg">' +
-					'</div>' +
-					'</div>');
+
+			$(this.element).append(this.html);
 		},
 
 		_create: function () {
@@ -123,13 +109,12 @@
 
 			this._update();
 
-			$(this.element).append(this.html_none);
 			this.running = false;
 		},
 	}); /* End of widget */
 
 	// auto self-init widgets
-	$(document).bind("pagecreate", function (e) {
+	$(document).bind("pagecreate create", function (e) {
 		$(e.target).find(":jqmData(role='tickernoti')").tickernoti();
 	});
 })(jQuery, this);

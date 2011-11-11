@@ -69,10 +69,13 @@ $.mobile.fixedToolbars = (function() {
 
 		/* resize test : Jinhyuk    */
 		var footer_filter = $(document).find(".ui-page-active").find(":jqmData(role='footer')");		
-		
-		footer_filter
-			.css("top",document.documentElement.clientHeight  - footer_filter.height())
-			.show();		
+		if(footer_filter.find(".ui-navbar").is(".ui-controlbar-s")){		
+			footer_filter
+				.css("top",document.documentElement.clientHeight  - footer_filter.height())
+				.show();		
+		}
+		else
+			footer_filter.css("top","0px");
 		/* resize test : Jinhyuk    */
 
 		if ( !autoHideMode && currentstate === "overlay" ) {
@@ -172,47 +175,48 @@ $.mobile.fixedToolbars = (function() {
 		.live( "pagebeforeshow", function( event, ui ) {
 			/* resize footer : Jinhyuk    */
 			var footer_filter = $(document).find(":jqmData(role='footer')");		
-			
-			footer_filter
-				.css("top",document.documentElement.clientHeight  - footer_filter.height())
-				.show();		
+			if(footer_filter.find(".ui-navbar").is(".ui-controlbar-s")){			
+				footer_filter
+					.css("top",document.documentElement.clientHeight  - footer_filter.height())
+					.show();
+			}		
 			/* resize footer : Jinhyuk    */
 			
 			var s_theme_header = $( event.target ).find(":jqmData(role='header')");
+			var s_theme_fieldcontain = s_theme_header.find(":jqmData(role='fieldcontain')");
+			var title_style = "normal";
+			if(s_theme_fieldcontain.length != 0) 
+				title_style = "extended";
 			
 				if(s_theme_header.find(".ui-option-header").length == 0 && s_theme_header.is(".ui-header-fixed") && s_theme_header.is(".ui-bar-s")){
 					s_theme_header
 						.css("position", "fixed")
 						.css("top", "0px");
-					if(s_theme_header.find(":jqmData(role='fieldcontain')").length == 0){				
+					if(title_style == "normal"){				
 						if(s_theme_header.find("a").length == 1 || s_theme_header.find("a").length == 2){}
 						else if(s_theme_header.find("a").length == 3){
-							s_theme_header.find("a").eq(1).removeClass("ui-btn-right");
-							s_theme_header.find("a").eq(1).addClass("ui-title-normal-3btn");					
-							s_theme_header.find("a").eq(2).addClass("ui-btn-right");
+							s_theme_header.find("a").eq(1)
+								.removeClass("ui-btn-right")
+								.addClass("ui-title-normal-3btn");					
+							s_theme_header.find("a").eq(2)
+								.addClass("ui-btn-right");
 						} else {/* Need to implement new layout */}
-						
-						$( event.target ).find(".ui-content").addClass("ui-title-content-normal-height");
-						
 					}
 					else{
-						var group_length = s_theme_header.find(":jqmData(role='fieldcontain')").find(".ui-radio").length;
+						var group_length = s_theme_fieldcontain.find(".ui-radio").length;
 						
 						s_theme_header.addClass("ui-title-extended-height");
-						s_theme_header.find(":jqmData(role='fieldcontain')").find(".ui-controlgroup")
+						s_theme_fieldcontain.find(".ui-controlgroup")
 							.addClass("ui-title-extended-controlgroup");
 							
-						s_theme_header.find(":jqmData(role='fieldcontain')")						
+						s_theme_fieldcontain						
 							.addClass("ui-title-extended-segment-style");
 	
-						if(group_length == 2)
-							s_theme_header.find(":jqmData(role='fieldcontain')").find(".ui-controlgroup").addClass("ui-title-extended-controlgroup-2btn");
-						else if(group_length == 3)
-							s_theme_header.find(":jqmData(role='fieldcontain')").find(".ui-controlgroup").addClass("ui-title-extended-controlgroup-3btn");
+						if(group_length == 2 || group_length == 3)
+							s_theme_fieldcontain.find(".ui-controlgroup").addClass("ui-title-extended-controlgroup-" + group_length + "btn");
 						else { /* Need to implement new layout */}
-						
-						$( event.target ).find(".ui-content").addClass("ui-title-content-extended-height");
-					}		
+					}	
+					$( event.target ).find(".ui-content").addClass("ui-title-content-" + title_style + "-height");	
 				}	
 
 				var page = $( event.target ),
@@ -231,7 +235,7 @@ $.mobile.fixedToolbars = (function() {
 						.css("top", $(".ui-page").find(":jqmData(role='footer')").eq(0).css("top"));
 					
 				}									
-			/* Header position fix : Jinhyuk */
+			/* Header position fix(remove transition) : Jinhyuk */
 			var next_id = $( event.target).attr("id");
 			$("#"+next_id).find(":jqmData(role='header')").removeClass( "fade in out" ).appendTo($.mobile.pageContainer);
 											
@@ -239,8 +243,9 @@ $.mobile.fixedToolbars = (function() {
 
 		.live( "pageshow", function( event, ui ) {
 			/* Fixed header modify for theme-s : Jinhyuk */
-			if(($( event.target ).find( ":jqmData(role='header')" ).is(".ui-header-fixed")&&
-			$( event.target ).find( ":jqmData(role='header')" ).is(".ui-bar-s"))){	
+			var s_theme_header = $( event.target ).find( ":jqmData(role='header')" );
+			if((s_theme_header.is(".ui-header-fixed")&&
+			 s_theme_header.is(".ui-bar-s"))){	
 				$( event.target ).find( ":jqmData(role='header')" )
 					.css("position", "fixed")
 					.css("top", "0px");
@@ -262,7 +267,7 @@ $.mobile.fixedToolbars = (function() {
 
 			$.mobile.fixedToolbars.show( true, this );					
 
-			/* Header position fix : Jinhyuk */
+			/* Header position fix(remove transition) : Jinhyuk */
 			$("body").children(":jqmData(role='header')").insertBefore($(event.target).find(":jqmData(role='content')").eq(0));
 		})
 

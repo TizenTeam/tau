@@ -12,10 +12,10 @@
     </script>	
 </head>
 
-<body>
+<body id="phonebook_body">
 
 	<script id="contacts_normal" type="text/x-jquery-tmpl">
-			<li class="ui-li-3-1-25">
+			<li class="ui-li-3-1-25" data-pbid=${Luid}>
 				<span class="ui-li-text-main">
 				{{if name_first}}
         			${name_first}
@@ -32,7 +32,6 @@
 				{{if name_nick}}
         			 <b class="nick-name">${name_nick}</b>
     			{{/if}}
-
 				{{if savedlocation=="Google"}}
 					<img src="image/C02_account_01.png">
 				{{else savedlocation=="Facebook"}}
@@ -49,7 +48,7 @@
 			</li>
 	</script>
 
-	<div id="firstPage" data-role="page">
+	<div id="all_contacts_page" data-role="page">
 	<div data-role="header" data-position="fixed" >
 		<h1>All contacts</h1>
 		<div id="all_contacts_header" data-role="optionheader">
@@ -69,12 +68,10 @@
 
 	<!--content start-->
 	<div data-role="content">
-<!-- 		<form action="#" method="get">
-			<div data-role="fieldcontain">
-				<input type="search" name="search" id="search" value=""  />
+			<div data-role="fieldcontain" id="SearchDiv">
+				<input type="search" id="queryInput" value=""/>
 			</div>
-		</form>
- -->		<ul data-role="virtuallistview" data-template="contacts_normal" data-src="phonebook_data/contacts.js" data-dbtable="phonebookDB">
+		<ul data-role="virtuallistview" data-template="contacts_normal" data-src="phonebook_data/contacts.js" data-dbtable="phonebookDB">
 		</ul>
 	</div><!--content end-->
 </div><!--page end-->

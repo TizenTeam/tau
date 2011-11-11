@@ -330,21 +330,22 @@ ol.ui-listview {
 	margin: .3em 0; 
 }
 
+/* listview: size for li with a link */
+/*
+.ui-listview li.ui-btn-up-s > .ui-li > .ui-btn-text > a.ui-link-inherit,
+.ui-listview li.ui-btn-hover-s > .ui-li > .ui-btn-text > a.ui-link-inherit,
+.ui-listview li.ui-btn-down-s > .ui-li > .ui-btn-text > a.ui-link-inherit {
+	margin: 0;
+//	height: @height;
+	min-height: @height;
+	padding-left: 0;
+}
+*/
 
 // =======================
 // nbeat-black normal list
 // =======================
 
-.LESSli-dialogue-bg() {
-	.ui-li-dialogue-bg {
-		position: absolute;
-		left: 0;
-		top: 0;
-		width: @list-li-dialogue-width;
-		height: 100%;
-		background-color: rgba(68, 68, 68, 255);
-	}
-}
 .LESSli-reset-position-1line(@height: @list-li-main-line-height, @padding-left: @list-li-padding-horizontal) {
 	margin: 0;
 	height: @height;
@@ -963,8 +964,8 @@ ul.ui-listview {
 	&> li.ui-li-3-1-4-dialogue,
 	&> li.ui-li-3-1-5-dialogue, 
 	&> li.ui-li-3-1-6-dialogue {
-		.LESSli-reset-position-1line(@list-li-main-line-height, 2 * @list-li-dialogue-width);
-		.LESSli-dialogue-bg;
+		border-left: @list-li-dialogue-width rgba(68, 68, 68, 255) solid;
+//		.LESSli-reset-position-1line(@list-li-main-line-height, 2 * @list-li-dialogue-width);
 		.LESStext-main-1line;
 	}
 
@@ -986,9 +987,8 @@ ul.ui-listview {
 	&> li.ui-li-3-1-13-dialogue,
 	&> li.ui-li-3-1-14-dialogue,
 	&> li.ui-li-3-1-15-dialogue {
-		.LESSli-reset-position-1line(@list-li-main-line-height, 2 * @list-li-dialogue-width + @list-bigicon-size + @list-li-padding-horizontal);
-		.LESSli-dialogue-bg;
-		.LESSimg-bigicon-left(2 * @list-li-dialogue-width);
+		border-left: @list-li-dialogue-width rgba(68, 68, 68, 255) solid;
+		.LESSimg-bigicon-left(@list-li-dialogue-width);
 		.LESStext-main-1line;
 	}
 	&> li.ui-li-3-1-11-dialogue {
@@ -1003,15 +1003,15 @@ ul.ui-listview {
 	&> li.ui-li-3-1-20-dialogue,
 	&> li.ui-li-3-1-22-dialogue,
 	&> li.ui-li-3-1-24-dialogue {
-		.LESSli-reset-position-1line(@list-li-main-line-height, 2 * @list-li-dialogue-width + @list-checkbox-size + @list-li-padding-horizontal);
+		.LESSli-reset-position-1line(@list-li-main-line-height, @list-li-dialogue-width + @list-checkbox-size + @list-li-padding-horizontal);
 	}
 
 	&> li.ui-li-3-1-18-dialogue,
 	&> li.ui-li-3-1-19-dialogue,
 	&> li.ui-li-3-1-23-dialogue,
 	&> li.ui-li-3-1-25-dialogue {
-		.LESSli-reset-position-1line(@list-li-main-line-height, 2 * @list-li-dialogue-width + @list-checkbox-size + @list-li-padding-horizontal + @list-bigicon-size + @list-li-padding-horizontal);
-		.LESSimg-bigicon-left(2*@list-li-dialogue-width + @list-checkbox-size + @list-li-padding-horizontal);
+		.LESSli-reset-position-1line(@list-li-main-line-height, @list-li-dialogue-width + @list-checkbox-size + @list-li-padding-horizontal + @list-bigicon-size + @list-li-padding-horizontal);
+		.LESSimg-bigicon-left(@list-li-dialogue-width + @list-checkbox-size + @list-li-padding-horizontal);
 	}
 
 	&> li.ui-li-3-1-16-dialogue,
@@ -1023,8 +1023,8 @@ ul.ui-listview {
 	&> li.ui-li-3-1-23-dialogue,
 	&> li.ui-li-3-1-24-dialogue,
 	&> li.ui-li-3-1-25-dialogue {
-		.LESSli-dialogue-bg;
-		.LESScheckbox-left(1.5*@list-li-dialogue-width);
+		border-left: @list-li-dialogue-width rgba(68, 68, 68, 255) solid;
+		.LESScheckbox-left(@list-li-dialogue-width);
 		.LESStext-main-1line;
 	}
 

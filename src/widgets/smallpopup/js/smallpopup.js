@@ -18,45 +18,22 @@
 			if (this.running)
 				this.hide();
 
-			this.html_none.detach();
-			this.html_hide.detach();
-
 			this._update();
 
-			this._append_show();
 			this._add_event();
 
 			this.running = true;
+			$(this.html).addClass("show").removeClass("hide");
 		},
 
 		hide: function () {
 			if (!this.running)
 				return;
 
+			$(this.html).addClass("hide").removeClass("show");
 			this._del_event();
 
-			this.html_none.detach();
-			this.html.detach();
-
-			this._append_hide();
-
 			this.running = false;
-		},
-
-		_append_show: function () {
-			$(this.element).append(this.html);
-
-			var container = $(this.element).find(".ui-smallpopup");
-			container.css('top',
-				window.innerHeight - parseInt(container.css('height')));
-		},
-
-		_append_hide: function () {
-			$(this.element).append(this.html_hide);
-
-			var container = $(this.element).find(".ui-smallpopup-hide");
-			container.css('top',
-				window.innerHeight - parseInt(container.css('height')));
 		},
 
 		_add_event: function () {
@@ -85,6 +62,7 @@
 		_update: function () {
 			var text = new Array(2);
 			var msg;
+			var container;
 
 			text[0] = $(this.element).attr('data-text1');
 			text[1] = $(this.element).attr('data-text2');
@@ -93,22 +71,24 @@
 
 			msg = text[0] + ': ' + text[1];
 
+			if (this.html)
+				this.html.detach();
+
 			this.html = $('<div class="ui-smallpopup">' +
 					'<div class="ui-smallpopup-text-bg">' +
 					msg + '</div>' +
 					'</div>');
-			this.html_hide = $('<div class="ui-smallpopup-hide">' +
-					'<div class="ui-smallpopup-text-bg">' +
-					msg + '</div>' +
-					'</div>');
-			this.html_none = $('<div class="ui-smallpopup-none ">' +
-					'</div>');
+
+			$(this.element).append(this.html);
+
+			container = $(this.element).find(".ui-smallpopup");
+			container.css('top',
+				window.innerHeight - parseInt(container.css('height')));
 		},
 
 		_create: function () {
 			this._update();
 
-			$(this.element).append(this.html_none);
 			this.running = false;
 		},
 	}); /* End of widget */
