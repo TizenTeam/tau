@@ -3,6 +3,12 @@ function initDB(){
 	$.getScript(pb_dbsrc + "?_=ts2477874287", function(data, textStatus)
 	{
 		$("ul").filter(function(){return $(this).data("role")=="virtuallistview";}).addClass("vlLoadSucess");
+	
+		/* Set counts */
+		nb_contacts = window[pb_dbtable].length;
+		nb_groups = 0;
+	
+		Phonebook.pushContactsTitle("#all_contacts_header h1", "tmpl_contacts_title", nb_contacts);
 	});
 };
 

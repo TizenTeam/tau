@@ -15,6 +15,8 @@ Phonebook = {
 		
 		$("ul.ui-virtual-list-container").virtuallistview("recreate", search_result);
 		
+		$(".titleWithCount").text($(".titleWithCount").text().split("(")[0] + "(" + nb_contacts + ")");
+
 		return search_result;
 	},
 	
@@ -43,5 +45,13 @@ Phonebook = {
 		$("#contact_detailview_content").append((htmlData).data('pbid', contact.Luid));
 		
 		$.mobile.changePage("#contact_detilaview");
+	},
+	
+	pushContactsTitle: function(titleSelector, template, nb_items)
+	{
+		var myTemplate = $("#" + template);
+		var htmlData = myTemplate.tmpl({counts:nb_items});
+		
+		$(titleSelector).empty().text($(htmlData).text());
 	}
 } ;
