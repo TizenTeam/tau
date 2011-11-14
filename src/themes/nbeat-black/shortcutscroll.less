@@ -6,7 +6,7 @@
 	width: 30*@unit_base;
 	-webkit-user-select: none;
 	margin:0;
-	padding:0;
+	padding-right: 0.08em;
 	opacity: 1;
 	ul {
 		list-style-type: none;
@@ -17,9 +17,39 @@
 		cursor: pointer;
 		color:rgba(0,0,0,0.6);
 		padding: 2*@unit_base 2*@unit_base 2*@unit_base 2*@unit_base;
-		text-align: center;
+		text-align: right;
 	}
 }
+
+.ui-shortcutscroll2 {
+	position: absolute;
+	right: 0*@unit_base;
+	-webkit-user-select: none;
+	margin:0;
+	padding-right: 0.08em;
+	opacity: 1;
+	ul {
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+	}
+	li {
+		cursor: pointer;
+		color:rgba(0,0,0,0.6);
+		padding: 2*@unit_base 2*@unit_base 2*@unit_base 2*@unit_base;
+		text-align: right;
+	}
+}
+
+.ui-shortcutscroll-bg {
+	position: absolute;
+	right: 0*@unit_base;
+	background-color: rgba(225, 221, 215,0.5);
+	width: 30*@unit_base;
+	z-index: 10;
+	top: 0;
+}
+
 .ui-shortcutscroll-popup {
 	position: absolute;
 	background: rgba(255,255,255,1);
