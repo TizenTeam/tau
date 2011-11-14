@@ -15,7 +15,7 @@
 var listCountPerPage = {};
 
 /* Code for Virtual List Demo */
-var	INIT_LIST_NUM = 100;
+var	INIT_LIST_NUM = 200;
 var	PAGE_BUF = (INIT_LIST_NUM/2);
 var	TOTAL_ITEMS = 0;
 var	NO_SCROLL = 0;
@@ -44,6 +44,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		dbsrc: "",
 		dbtable: "",
 		template : "",
+		dbkey: false,			/* Data's unique Key */
 		initSelector: ":jqmData(role='virtuallistview')"
 	},
 
@@ -79,7 +80,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		for (i = 0; i < lastIndex; i++) 
 		{
 			var htmlData = myTemplate.tmpl( dataTable[i]);
-			$('ul.ui-virtual-list-container').append( ( htmlData ).attr( 'id', 'li_'+i ) );
+			$('ul.ui-virtual-list-container').append($(htmlData).attr( 'id', 'li_'+i ));
 		}
 		
 		/* After push data, re-style virtuallist widget */
@@ -131,7 +132,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		var dataList = window[o.dbtable];
 		
 		/* Text & image src replace function */
-		var _replace= function(oldItem, newItem)
+		var _replace= function(oldItem, newItem, key)
 		{
 			$(oldItem).find(".ui-li-text-main",".ui-li-text-sub","ui-btn-text").each(function(index)
 			{
@@ -148,11 +149,16 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 				var newImg = $(newItem).find("img").eq(imgIndex).attr("src");
 				
 				$(oldObj).attr("src", newImg);
-			});			
+			});
+			
+			if (key)
+			{
+				$(oldItem).data(key, $(newItem).data(key));
+			}
 	    };
 		
 		//Move older item to bottom
-		var _moveTopBottom= function(v_firstIndex, v_lastIndex, num)
+		var _moveTopBottom= function(v_firstIndex, v_lastIndex, num, key)
 		{
 			if (v_firstIndex < 0)
 				return;
@@ -171,7 +177,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 					var htmlData = myTemplate.tmpl(dataList[v_lastIndex + i]);
 					
 					/* Copy all data to current item. */
-					_replace(cur_item, htmlData);
+					_replace(cur_item, htmlData, key);
 					
 					/* Set New Position */
 					(cur_item).css('top', TITLE_H + LINE_H*(v_lastIndex + 1 + i)).attr( 'id', 'li_' +(v_lastIndex + 1+ i));
@@ -182,7 +188,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		};
 
 		// Move older item to bottom
-		var _moveBottomTop= function(v_firstIndex, v_lastIndex, num)
+		var _moveBottomTop= function(v_firstIndex, v_lastIndex, num, key)
 		{
 			if (v_firstIndex < 0)
 				return;
@@ -201,7 +207,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 					var htmlData = myTemplate.tmpl(dataList[v_firstIndex-1-i]);
 					
 					/* Copy all data to current item. */
-					_replace(cur_item, htmlData);
+					_replace(cur_item, htmlData, key);
 
 					/* Set New Position */
 					$(cur_item).css('top', TITLE_H + LINE_H*(v_firstIndex-1-i)).attr( 'id', 'li_' +(v_firstIndex-1-i));
@@ -238,7 +244,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 					velocity = TOTAL_ITEMS - last_index -1;
 				}
 				
-				_moveTopBottom(first_index, last_index, velocity);
+				_moveTopBottom(first_index, last_index, velocity, o.dbkey);
 				first_index += velocity;
 				last_index += velocity;
 				num_top_items -= velocity;
@@ -253,7 +259,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 					velocity = first_index;
 				}
 				
-				_moveBottomTop(first_index, last_index, velocity);
+				_moveBottomTop(first_index, last_index, velocity, o.dbkey);
 				first_index -= velocity;
 				last_index -= velocity;
 				num_top_items += velocity;
@@ -298,7 +304,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
         /* Make Gen list by template */
     	t._pushData((o.template), window[o.dbtable]);
 
-	    $(document).bind("pageshow", t._reposition);
+	    /*$(document)*/$('ul.ui-virtual-list-container').bind("pageshow", t._reposition);
 	    $(document).bind('scrollstop', t.options, t._scrollmove);
 	    $(window).resize(t._resize);
 
@@ -351,6 +357,12 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 					t._initList();
 				});
 			}
+		}
+		
+		/* Set data's unique key */
+		if (t.element.data("dbkey"))
+		{
+			o.datakey = t.element.data("dbkey");
 		}
 	},
 	

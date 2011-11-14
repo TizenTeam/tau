@@ -10,6 +10,13 @@ div.pagecontrol {
 
 	.LESSpagecontrolIconCommonProperties(@imgUrl) {
 		background-image: url(@imgUrl);
+		background-size: 52 * @unit_base;
+
+		// Transition
+		-webkit-transition: background 0.5s ease;
+		-moz-transition:  background 0.5s ease;
+		-o-transition: background 0.5s ease;
+		transition: background 0.5s ease;
 	}
 	.LESSpagecontrolIconMargin(@l, @r) {
 		margin-left: @l * @unit_base;
@@ -18,7 +25,6 @@ div.pagecontrol {
 
 	&> div.page_n {
 		display: inline-block;
-		background-size: 52 * @unit_base;
 		border: 0;
 		width: 52 * @unit_base;
 		height: 52 * @unit_base;

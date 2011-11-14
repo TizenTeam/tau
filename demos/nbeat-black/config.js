@@ -7,7 +7,8 @@ S.load(
 	'widgets/checkbox/checkbox.js',
 	'widgets/radio/radio.js',
 	'widgets/popupwindow/popupwindow.js',
-	'tips/generate-elements-dynamically.js'
+	'tips/generate-elements-dynamically.js',
+	'widgets/pagecontrol/pagecontrol-demo.js'
 );
 //TODO : fix load syntax....
 S.css.load(
