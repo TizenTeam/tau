@@ -101,7 +101,8 @@ $.widget("todons.optionheader", $.mobile.widget, {
         theme: 's',
         startCollapsed: false,
         expandable: true,
-        duration: 0.25
+        duration: 0.25,
+        collapseOnInit : true /* Add SLP theme for optional header : Jinhyuk_Jun */
     },
 
     _create: function () {
@@ -145,7 +146,7 @@ $.widget("todons.optionheader", $.mobile.widget, {
         else {
             self.refresh();
 
-            page.bind("pageshow", function () {
+            page.bind("pagebeforeshow", function () {
                 self._realize();
             });
         }
@@ -331,13 +332,49 @@ $.widget("todons.optionheader", $.mobile.widget, {
      * defaults to this.options.duration
      * {Function} options.callback Function to call after toggle completes
      */
-    toggle: function (options) {
+
+    toggle: function (options) {/* Option header reposition : Jinhyuk */
+    	var toggle_header = this.element.parents(":jqmData(role='header')");
+    	var toggle_content = this.element.parents(":jqmData(role='page')").find(".ui-content");
+    	var CollapsedTop = 100,
+    		ExpandedTop = 195; 
+    	
+    	if($(window).scrollTop() <= CollapsedTop){
+			toggle_header.css("position", "relative");
+			toggle_content.css("top", "0px");
+    	}    	
+
         if (this.isCollapsed) {
             this.expand(options);
+            		
+        	if($(window).scrollTop() <= ExpandedTop){
+        		
+	        	var t = setTimeout(function(){  
+							toggle_header.css('position', 'fixed');
+							toggle_content.css('top', ExpandedTop + "px");
+						}, 500);
+        	}
+        	else {
+							//   Need to move scroll top      		
+							toggle_header.css('position', 'fixed');
+							toggle_content.css('top', ExpandedTop + "px");
+        	}
+        	this.options.collapseOnInit = false;
         }
         else {
             this.collapse(options);
+        	if($(window).scrollTop() <= ExpandedTop){			
+	            var t = setTimeout(function(){		
+							toggle_header.css('position', 'fixed');
+							toggle_content.css('top', CollapsedTop + "px");
+			            }, 500);
+        	}	
+        	else{      		
+							toggle_header.css('position', 'fixed');
+							toggle_content.css('top', CollapsedTop + "px");
+        	}
         }
+        	this.options.collapseOnInit = true;        
     },
 
     /**
