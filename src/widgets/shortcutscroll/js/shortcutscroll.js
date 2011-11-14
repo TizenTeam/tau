@@ -5,6 +5,7 @@
  * License: TODO
  * Authors: Elliot Smith <elliot.smith@intel.com>
  * Authors: Koeun Choi  <koeun.choi@samsung.com>
+ * Authors: Minkyu Kang <mk7.kang@samsung.com>
  */
 
 /**
@@ -249,6 +250,7 @@
 				if (!dragging)
 					return;
 
+				var pop_y;
 				var c = targetRelativeCoordsFromEvent(e);
 
 				if (c.x > 0)
@@ -256,8 +258,10 @@
 
 				var shortcutsListOffset = self.shortcutsList.offset();
 
-				if (e.target.tagName.toLowerCase() === "li")
-					c.y += $(e.target).offset().top - shortcutsListOffset.top;
+				if (e.target.tagName.toLowerCase() === "li") {
+					pop_y = $(e.target).offset().top -
+							shortcutsListOffset.top;
+				}
 
 				self._show_second_popup(shortcut_width, c.y);
 			});
