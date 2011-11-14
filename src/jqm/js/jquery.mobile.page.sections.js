@@ -65,7 +65,15 @@ $( ":jqmData(role='page'), :jqmData(role='dialog')" ).live( "pagecreate", functi
 				// SLP --end
 					// If theme is provided, override default inheritance
 					.attr( "data-"+ $.mobile.ns +"theme", o.backBtnTheme || thisTheme )
-					.prependTo( $this );				
+					.prependTo( $this );
+
+				// SLP --start back btn : 11/14 jqm back btn has a bug.... temporary fix.
+				backBtn.bind( "vclick", function( event ) {
+					window.history.back();
+					return false;
+				});
+				// SLP --end
+
 			}
 
 			// Page title
