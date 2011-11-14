@@ -263,7 +263,7 @@
 							shortcutsListOffset.top;
 				}
 
-				self._show_second_popup(shortcut_width, c.y);
+				self._show_second_popup(shortcut_width, pop_y);
 			});
 
 			this.shortcutsList2.bind('vmouseout', function (e) {
