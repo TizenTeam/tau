@@ -54,7 +54,7 @@
 			if (image_index >= this.images.length)
 				return;
 
-			obj.css("display", "");
+			obj.css("display", "block");
 			obj.append(this.images[image_index]);
 			this._resize(this.images[image_index]);
 			this._align(obj);
@@ -244,7 +244,6 @@
 				if (!temp_img.length)
 					break;
 
-				temp_img.css("display", "none");
 				this.images[i] = temp_img.find('img');
 
 				temp_img = temp_img.next();
