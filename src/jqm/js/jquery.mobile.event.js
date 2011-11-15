@@ -27,6 +27,13 @@ var supportTouch = $.support.touch,
 function triggerCustomEvent( obj, eventType, event ) {
 	var originalType = event.type;
 	event.type = eventType;
+
+	// NOTE : by Youmin Ha <youmin.ha@samsung.com>
+	//     event.liveFired is already set by basic events e.g. vclick, 
+	//     which is fired already.
+	//     To fire this custom event, event.liveFired must be cleared.
+	event.liveFired = undefined;
+
 	$.event.handle.call( obj, event );
 	event.type = originalType;
 }
