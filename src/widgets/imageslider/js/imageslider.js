@@ -80,6 +80,9 @@
 			var delta = org_x - _x;
 			var flip = 0;
 
+			if (delta == 0)
+				return;
+
 			if (delta > 0)
 				flip = delta < (this.max_width * 0.45) ? 0 : 1;
 			else
@@ -120,11 +123,11 @@
 				}
 			}
 
-			this.cur_img.animate({left: 0}, 400);
+			this.cur_img.animate({left: 0}, Math.abs(delta));
 			if (this.next_img.length)
-				this.next_img.animate({left: this.max_width}, 400);
+				this.next_img.animate({left: this.max_width}, Math.abs(delta));
 			if (this.prev_img.length)
-				this.prev_img.animate({left: -this.max_width}, 400);
+				this.prev_img.animate({left: -this.max_width}, Math.abs(delta));
 		},
 
 		_add_event: function () {
