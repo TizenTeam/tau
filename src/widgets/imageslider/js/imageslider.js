@@ -177,7 +177,7 @@
 			if (this.align_type == "middle")
 				img_top = (this.max_height - obj.height()) / 2;
 			else if (this.align_type == "bottom")
-				img_top = this.max_height - temp_img.height();
+				img_top = this.max_height - obj.height();
 			else
 				img_top = 0;
 
@@ -210,6 +210,22 @@
 			this._del_event();
 		},
 
+		_get_height: function () {
+			var $page = $('.ui-page');
+			var $content = $page.children('.ui-content');
+			var $header = $page.children('.ui-header');
+			var $footer = $page.children('.ui-footer');
+
+			var header_h = $header.outerHeight();
+			var footer_h = $footer.outerHeight();
+			var padding = parseFloat($content.css('padding-top')) +
+					parseFloat($content.css('padding-bottom'));
+
+			var content_h = window.innerHeight - header_h - footer_h - padding;
+
+			return content_h;
+		},
+
 		_create: function () {
 			this.images = new Array();
 
@@ -219,7 +235,7 @@
 			var container = $(this.element).find('.ui-imageslider');
 
 			this.max_width = window.innerWidth;
-			this.max_height = window.innerHeight - 100 - 30;
+			this.max_height = this._get_height();
 			container.css('height', this.max_height);
 
 			var temp_img = $('div').find('.ui-imageslider-bg:first');
