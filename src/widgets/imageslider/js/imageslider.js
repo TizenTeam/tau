@@ -54,7 +54,7 @@
 			if (image_index >= this.images.length)
 				return;
 
-			obj.css("display", "");
+			obj.css("display", "block");
 			obj.append(this.images[image_index]);
 			this._resize(this.images[image_index]);
 			this._align(obj);
@@ -80,6 +80,9 @@
 			var delta = org_x - _x;
 			var flip = 0;
 
+			if (delta == 0)
+				return;
+
 			if (delta > 0)
 				flip = delta < (this.max_width * 0.45) ? 0 : 1;
 			else
@@ -95,10 +98,13 @@
 					this.next_img = this.next_img.next();
 
 					this.index++;
-					this._attach(this.index + 1, this.next_img);
 
-					if (this.next_img.length)
-						this.next_img.css('left', this.max_width + 'px');
+					if (this.next_img.length) {
+						this.next_img.css('left',
+								this.max_width + 'px');
+						this._attach(this.index + 1, this.next_img);
+					}
+
 				} else if (delta < 0 && this.prev_img.length) {
 					/* prev */
 					this._detach(this.index + 1, this.next_img);
@@ -108,18 +114,20 @@
 					this.prev_img = this.prev_img.prev();
 
 					this.index--;
-					this._attach(this.index - 1, this.prev_img);
 
-					if (this.prev_img.length)
-						this.prev_img.css('left', -this.max_width + 'px');
+					if (this.prev_img.length) {
+						this.prev_img.css('left',
+								-this.max_width + 'px');
+						this._attach(this.index - 1, this.prev_img);
+					}
 				}
 			}
 
-			this.cur_img.animate({left: 0}, 400);
+			this.cur_img.animate({left: 0}, Math.abs(delta));
 			if (this.next_img.length)
-				this.next_img.animate({left: this.max_width}, 400);
+				this.next_img.animate({left: this.max_width}, Math.abs(delta));
 			if (this.prev_img.length)
-				this.prev_img.animate({left: -this.max_width}, 400);
+				this.prev_img.animate({left: -this.max_width}, Math.abs(delta));
 		},
 
 		_add_event: function () {
@@ -177,7 +185,7 @@
 			if (this.align_type == "middle")
 				img_top = (this.max_height - obj.height()) / 2;
 			else if (this.align_type == "bottom")
-				img_top = this.max_height - temp_img.height();
+				img_top = this.max_height - obj.height();
 			else
 				img_top = 0;
 
@@ -210,6 +218,22 @@
 			this._del_event();
 		},
 
+		_get_height: function () {
+			var $page = $('.ui-page');
+			var $content = $page.children('.ui-content');
+			var $header = $page.children('.ui-header');
+			var $footer = $page.children('.ui-footer');
+
+			var header_h = $header.outerHeight();
+			var footer_h = $footer.outerHeight();
+			var padding = parseFloat($content.css('padding-top')) +
+					parseFloat($content.css('padding-bottom'));
+
+			var content_h = window.innerHeight - header_h - footer_h - padding;
+
+			return content_h;
+		},
+
 		_create: function () {
 			this.images = new Array();
 
@@ -219,7 +243,7 @@
 			var container = $(this.element).find('.ui-imageslider');
 
 			this.max_width = window.innerWidth;
-			this.max_height = window.innerHeight - 100 - 30;
+			this.max_height = this._get_height();
 			container.css('height', this.max_height);
 
 			var temp_img = $('div').find('.ui-imageslider-bg:first');
@@ -228,7 +252,6 @@
 				if (!temp_img.length)
 					break;
 
-				temp_img.css("display", "none");
 				this.images[i] = temp_img.find('img');
 
 				temp_img = temp_img.next();

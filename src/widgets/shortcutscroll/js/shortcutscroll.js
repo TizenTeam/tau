@@ -5,6 +5,7 @@
  * License: TODO
  * Authors: Elliot Smith <elliot.smith@intel.com>
  * Authors: Koeun Choi  <koeun.choi@samsung.com>
+ * Authors: Minkyu Kang <mk7.kang@samsung.com>
  */
 
 /**
@@ -38,11 +39,17 @@
 			this.shortcutsContainer2.css('top', to_y);
 			this.shortcutsContainer2.animate({right: to_x}, 300);
 			this.second_popup = 1;
+
+			this.shortcutsList2Bg.height(this.shortcutsContainer2.height());
+			this.shortcutsList2Bg.css('top', to_y);
+			this.shortcutsList2Bg.animate({right: to_x}, 300);
 		},
 
 		_hide_second_popup: function (to_x) {
 			this.shortcutsContainer2.animate({right: to_x}, 300);
 			this.second_popup = 0;
+
+			this.shortcutsList2Bg.animate({right: to_x}, 300);
 		},
 
 		_create: function () {
@@ -70,11 +77,19 @@
 			this.scrollview.append(this.shortcutsContainer);
 
 			// second popup
-			this.shortcutsList2 = $('<ul></ul>');
-			this.shortcutsContainer2= $('<div class="ui-shortcutscroll"/>');
-			this.shortcutsContainer2.append(this.shortcutsList2);
 			shortcut_width = this.shortcutsContainer.width() + 10;
+
+			this.scrollview.append($('<div class="ui-shortcutscroll-bg"></div>'));
+			this.shortcutsList2Bg = this.scrollview.find('.ui-shortcutscroll-bg');
+			this.shortcutsList2Bg.css('right', -shortcut_width);
+
+			this.shortcutsList2 = $('<ul></ul>');
+			this.shortcutsContainer2 = $('<div class="ui-shortcutscroll2"/>');
+			this.shortcutsContainer2.append(this.shortcutsList2);
+
 			this.shortcutsContainer2.css('right', -shortcut_width);
+			this.shortcutsContainer2.css('width', window.innerWidth - shortcut_width);
+
 			this.scrollview.append(this.shortcutsContainer2);
 
 			// adjust z-index
@@ -249,6 +264,7 @@
 				if (!dragging)
 					return;
 
+				var pop_y;
 				var c = targetRelativeCoordsFromEvent(e);
 
 				if (c.x > 0)
@@ -256,10 +272,12 @@
 
 				var shortcutsListOffset = self.shortcutsList.offset();
 
-				if (e.target.tagName.toLowerCase() === "li")
-					c.y += $(e.target).offset().top - shortcutsListOffset.top;
+				if (e.target.tagName.toLowerCase() === "li") {
+					pop_y = $(e.target).offset().top -
+							shortcutsListOffset.top;
+				}
 
-				self._show_second_popup(shortcut_width, c.y);
+				self._show_second_popup(shortcut_width, pop_y);
 			});
 
 			this.shortcutsList2.bind('vmouseout', function (e) {

@@ -13,8 +13,8 @@
 </head>
 
 <body id="phonebook_body">
-	<script id="contacts_normal" type="text/x-jquery-tmpl">
-			<li class="ui-li-3-1-25" data-pbid=${Luid}>
+	<script id="tmpl_contacts_normal" type="text/x-jquery-tmpl">
+			<li class="ui-li-3-1-25" data-luid=${Luid}>
 				<span class="ui-li-text-main">
 				{{if name_first}}
         			${name_first}
@@ -46,33 +46,33 @@
 				<img src=${photoid} class="ui-li-bigicon">
 			</li>
 	</script>
+	<script id="tmpl_contacts_title" type="text/x-jquery-tmpl">
+		All contacts (${counts})
+	</script>
 
 	<div id="all_contacts_page" data-role="page">
-		<div data-role="header" data-position="fixed" >
+		<div data-role="header" data-position="fixed" id="all_contacts_header">
 			<h1>All contacts</h1>
-			<div id="all_contacts_header" data-role="optionheader">
-				<div class="ui-grid-b ">
-					<div class="ui-block-a">
-						<a data-role="button">Groups</a>
-					</div>
-					<div class="ui-block-b">
-						<a data-role="button">Edit</a>
-					</div>
-					<div class="ui-block-c">
-						<a data-role="button">New</a>
-					</div>
-				</div>
-			</div>
 		</div><!-- /header -->
 	
 		<!--content start-->
-		<div data-role="content">
-				<div data-role="fieldcontain" id="SearchDiv">
-					<input type="search" id="queryInput" value=""/>
-				</div>
-			<ul id="all_contacts_list" data-role="virtuallistview" data-template="contacts_normal" data-src="phonebook_data/contacts.js" data-dbtable="phonebookDB" data-dbkey = "pbid">
+		<div data-role="content" style="top:100px; position:relative">
+			<div data-role="fieldcontain" data-position="fixed" id="SearchDiv">
+				<input type="search" id="queryInput" value=""/>
+			</div>
+			<ul id="all_contacts_list" data-role="virtuallistview" data-template="tmpl_contacts_normal" data-dbtable="phonebookDB" data-dbkey = "luid">
 			</ul>
 		</div><!--content end-->
+		<div data-role="footer"data-position ="fixed" id="all_contacts_footer">
+			<div data-role="navbar" data-style="toolbar" >
+				<ul>
+					<li><a href="#">Back</a></li>
+					<li><a href="#">Edit</a></li>
+					<li><a href="#all_groups_page">Groups</a></li>
+					<li><a href="#">Create</a></li>
+				</ul>
+			</div>				
+		</div>				
 	</div><!--page end-->
 
 	<div id="contact_detilaview" data-role="page">
@@ -107,8 +107,8 @@
 	</script>
 	
 	<div data-role="header" data-position="fixed" >
-		<h1>Detilas</h1>
-		<div id="contact_detilaview_header" data-role="optionheader">
+		<h1>Details</h1>
+		<div id="contact_detailview_header" data-role="optionheader">
 			<div class="ui-grid-a ">
 				<div class="ui-block-a">
 					<a data-role="button">Delete</a>
@@ -121,8 +121,37 @@
 	</div><!-- /header -->
 
 	<!--content start-->
-	<div id="contact_detailview_content" data-role="content">
+	<div id="contact_detailview_content" data-role="content" style="top:100px; position:relative">
 	</div><!--content end-->
 	</div><!--page end-->
+	
+	<div id="all_groups_page" data-role="page">
+	<script id="tmpl_groups_normal" type="text/x-jquery-tmpl">
+			<li class="ui-li-3-1-1">
+				<span class="ui-li-text-main">${groupName}</span>
+			</li>
+	</script>
+		<div data-role="header" data-position="fixed" id="all_groups_header">
+			<h1>Groups</h1>
+		</div><!-- /header -->
+	
+		<!--content start-->
+		<div data-role="content" style="top:100px; position:relative">
+			<ul id="all_groups_list" data-role="virtuallistview" data-template="tmpl_groups_normal" data-dbtable="phonebookGroupsDB" data-dbkey = "luid">
+			</ul>
+		</div><!--content end-->
+		<div data-role="footer"data-position ="fixed" id="all_groups_footer">
+			<div data-role="navbar" data-style="toolbar" >
+				<ul>
+					<li><a href="#all_contacts_page">Back</a></li>
+					<li><a href="#">Edit</a></li>
+					<li><a href="#all_groups_page">Groups</a></li>
+					<li><a href="#">Create</a></li>
+				</ul>
+			</div>				
+		</div>				
+	</div><!--page end-->	
+	
+	
 </body> 
 </html>

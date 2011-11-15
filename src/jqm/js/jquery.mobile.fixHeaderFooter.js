@@ -218,7 +218,14 @@ $.mobile.fixedToolbars = (function() {
 					}	
 					$( event.target ).find(".ui-content").addClass("ui-title-content-" + title_style + "-height");	
 				}	
-
+				else{/* Option header reposition : Jinhyuk */
+					if($.todons.optionheader.prototype.options.collapseOnInit == true)					
+						$( event.target ).find(".ui-content")
+							.addClass("ui-title-content-option-header-collapsed-1line-height");
+					else 
+						$( event.target ).find(".ui-content")
+							.addClass("ui-title-content-option-header-expanded-1line-height");					
+				}
 				var page = $( event.target ),
 				footer = page.find( ":jqmData(role='footer')" ),
 				id = footer.data( "id" ),

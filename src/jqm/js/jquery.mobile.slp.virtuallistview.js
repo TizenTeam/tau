@@ -15,7 +15,7 @@
 var listCountPerPage = {};
 
 /* Code for Virtual List Demo */
-var	INIT_LIST_NUM = 200;
+var	INIT_LIST_NUM = 100;
 var	PAGE_BUF = (INIT_LIST_NUM/2);
 var	TOTAL_ITEMS = 0;
 var	NO_SCROLL = 0;
@@ -41,7 +41,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		splitIcon: "arrow-r",
 		splitTheme: "b",
 		inset: false,
-		dbsrc: "",
+		id:	"",			/* Virtual list UL elemet's ID */
 		dbtable: "",
 		template : "",
 		dbkey: false,			/* Data's unique Key */
@@ -71,6 +71,8 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 	},
 
 	_pushData: function ( template, data ) {
+		var o = this.options;
+		
 		var dataTable = data;
 		
 		var myTemplate = $("#" + template);
@@ -80,25 +82,34 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		for (i = 0; i < lastIndex; i++) 
 		{
 			var htmlData = myTemplate.tmpl( dataTable[i]);
-			$('ul.ui-virtual-list-container').append($(htmlData).attr( 'id', 'li_'+i ));
+			$(o.id).append($(htmlData).attr( 'id', 'li_'+i ));
 		}
 		
 		/* After push data, re-style virtuallist widget */
-		$('ul.ui-virtual-list-container').trigger( "create" );
+		$(o.id).trigger( "create" );
 	}, 
 
-	_reposition: function(){
+	_reposition: function(event){
+		var selector;
+		
+		if (event.data) {
+			selector = event.data;
+		}
+		else {
+			selector = event;
+		}
+		
 		var t = this;
 		
-		TITLE_H = $('ul.ui-virtual-list-container li:first').position().top;
-		LINE_H = $('ul.ui-virtual-list-container li:first').outerHeight();
+		TITLE_H = $(selector + ' li:first').position().top;
+		LINE_H = $(selector + ' li:first').outerHeight();
 
-		CONTAINER_W = $('ul.ui-virtual-list-container').innerWidth();
+		CONTAINER_W = $(selector).innerWidth();
 		
-		var padding = parseInt($("ul.ui-virtual-list-container li").css("padding-left")) + parseInt($("ul.ui-virtual-list-container li").css("padding-right"));
+		var padding = parseInt($(selector + " li").css("padding-left")) + parseInt($(selector + " li").css("padding-right"));
 		
-		/* wongi_1110 : Add style */
-		$("ul.ui-virtual-list-container li").addClass("position_absolute").addClass("ui-btn-up-s")
+		/* Add style */
+		$(selector + " li").addClass("position_absolute").addClass("ui-btn-up-s")
 											.bind("mouseup", t._stylerMouseUp)
 											.bind("mousedown", t._stylerMouseDown)		
 											.bind("mouseover", t._stylerMouseOver)
@@ -106,22 +117,32 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		
 		
 
-		$('ul.ui-virtual-list-container li').each(function(index){
+		$(selector + " li").each(function(index){
 			$(this).css("top", TITLE_H + LINE_H*index + 'px')
 			.css("width", CONTAINER_W - padding);
 		});
 
 		/* Set Max List Height */
-		$('ul.ui-virtual-list-container').height(TOTAL_ITEMS * LINE_H);
+		$(selector).height(TOTAL_ITEMS * LINE_H);
 	},
 	
-	_resize: function()
+	_resize: function(event)
 	{
-		CONTAINER_W = $('ul.ui-virtual-list-container').innerWidth();
+		var selector;
 		
-		var padding = parseInt($("ul.ui-virtual-list-container li").css("padding-left")) + parseInt($("ul.ui-virtual-list-container li").css("padding-right"));
+		if (event.data) {
+			selector = event.data;
+		}
+		else {
+			selector = event;
+		}
 		
-		$('ul.ui-virtual-list-container li').each(function(index){
+		var t = this;		
+		CONTAINER_W = $(selector).innerWidth();
+		
+		var padding = parseInt($(selector + " li").css("padding-left")) + parseInt($(selector + " li").css("padding-right"));
+		
+		$(selector + ' li').each(function(index){
 			$(this).css("width", CONTAINER_W - padding);
 		});
 	},
@@ -219,7 +240,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 
 		// Get scroll direction and velocity
 		var curWindowTop = $(window).scrollTop() - LINE_H;
-		var cur_num_top_itmes = $("ul.ui-virtual-list-container li").filter(function(){return (parseInt($(this).css("top")) < curWindowTop);}).size(); 
+		var cur_num_top_itmes = $(o.id + " li").filter(function(){return (parseInt($(this).css("top")) < curWindowTop);}).size(); 
 		
 		if (num_top_items < cur_num_top_itmes)
 		{
@@ -276,7 +297,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		var t = this;
 		var o = this.options;
 		
-		$('ul.ui-virtual-list-container').empty();
+		$(o.id).empty();
 		
 		TOTAL_ITEMS = newArray.length;
 		direction = NO_SCROLL;
@@ -285,9 +306,9 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		
 		t._pushData((o.template), newArray);
 		
-		$('ul.ui-virtual-list-container').listview();
+		$(o.id).listview();
 
-		t._reposition();
+		t._reposition(o.id);
 		
 		t.refresh( true );
 	},
@@ -303,16 +324,24 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		
         /* Make Gen list by template */
     	t._pushData((o.template), window[o.dbtable]);
+    	
+    	$(o.id).parentsUntil(".ui-page").parent().bind("pageshow", o.id, t._reposition);
 
-	    /*$(document)*/$('ul.ui-virtual-list-container').bind("pageshow", t._reposition);
 	    $(document).bind('scrollstop', t.options, t._scrollmove);
-	    $(window).resize(t._resize);
+	    $(window).resize(o.id, t._resize);
 
-		$('ul.ui-virtual-list-container').listview();
-
-		t._reposition();	//wongi_1109
+		$(o.id).listview();
 
 		t.refresh( true );
+	},
+	
+	create: function()
+	{
+		var o = this.options;
+		/* external API for AJAX callback */
+		this._create("create");
+		
+		this._reposition(o.id);
 	},
 	
 	_create: function(event) {
@@ -325,52 +354,46 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		});
 
         var $el = this.element,
-        o = this.options,
         shortcutsContainer = $('<div class="ui-virtuallist"/>'),
         shortcutsList = $('<ul></ul>'),
         dividers = $el.find(':jqmData(role="virtuallistview")'),
         lastListItem = null,
         shortcutscroll = this;
 		
-	    $('ul.ui-virtual-list-container').bind("pagehide", function(e){
-			$('ul.ui-virtual-list-container').empty();
+        o.id = "#" + $el.attr("id");
+        
+	    $(o.id).bind("pagehide", function(e){
+			$(o.id).empty();
 		});
 
-	    /* Get DB via AJAX */
-	    if (t.element.data("template"))
-		{
-			o.template = t.element.data("template");
-		}
-
-		if (t.element.data("src"))
-		{
-			o.dbsrc = t.element.data("src");
-
-			if ($('ul.ui-virtual-list-container').hasClass("vlLoadSucess"))
+	    /* After DB Load complete, Init Vritual list */
+	    if ($(o.id).hasClass("vlLoadSucess"))
+	    {
+	    	$(o.id).empty();	    	
+	    	
+		    if ($el.data("template"))
 			{
-				t.initList();
+				o.template = $el.data("template");
 			}
-			else
+			
+			/* Set data's unique key */
+			if ($el.data("dbkey"))
 			{
-				/* ?_=ts code for no cache mechanism */
-				$.getScript(o.dbsrc + "?_=ts2477874287", function(data, textStatus) {
-					t._initList();
-				});
+				o.datakey = $el.data("dbkey");
 			}
-		}
-		
-		/* Set data's unique key */
-		if (t.element.data("dbkey"))
-		{
-			o.datakey = t.element.data("dbkey");
-		}
+
+			t._initList();
+	    }
 	},
 	
 	destroy : function(){
-		$(document).unbind("pageshow");
+		var o = this.options;
+		
+		/*$(o.id).parentsUntil(".ui-page").parent().unbind("pageshow");*/
+		/*$(document).unbind("pageshow");*/
 		$(document).unbind("scrollstop");
 		$(window).unbind("resize");
-		$('ul.ui-virtual-list-container').empty();
+		$(o.id).empty();
 	},
 	
 	_itemApply: function( $list, item ) {
