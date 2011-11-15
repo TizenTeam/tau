@@ -17,6 +17,7 @@
 
 @list-li-height: 112 * @unit_base;
 @list-li-2line-height: 128 * @unit_base;
+@list-li-3line-height: 178 * @unit_base;
 @list-li-top-padding: 10 * @unit_base;
 @list-li-main-line-height: 60 * @unit_base;
 @list-li-sub-line-height: 48 * @unit_base;
@@ -37,6 +38,9 @@
 @list-li-bubble-corner-radius: 9 * @unit_base;	// TODO: fit to 9px (picked from bg images)
 
 @list-li-dialogue-width: 16 * @unit_base;
+
+@list-li-sub-left-width: 187 * @unit_base;
+@list-li-main-right-padding: 187 * @unit_base;
 
 /************************/
 
@@ -358,6 +362,12 @@ ol.ui-listview {
 	height: @height;
 	min-height: @height;
 }
+.LESSli-reset-position-3line(@height: @list-li-3line-height) {
+	margin: 0;
+	padding: 0 @list-li-padding-horizontal;
+	height: @height;
+	min-height: @height;
+}
 .LESStext-main-1line(@left:@list-li-padding-horizontal) {
 	.ui-li-text-main {
 		font-size: @list-font-size-main;
@@ -366,6 +376,7 @@ ol.ui-listview {
 		margin-top: -0.5em;
 	}
 }
+
 .LESStext-sub-1line() {
 	.ui-li-text-sub {
 		float: right; 
@@ -381,6 +392,33 @@ ol.ui-listview {
 		color: @color_text_setting;
 	}
 }
+
+.LESStext-sub-1line-left(@left:@list-li-padding-horizontal) {
+	.ui-li-text-sub-left {
+		font-size: @list-font-size-sub;
+		top: 50%;
+		left: @left;
+		width: @list-li-sub-left-width;
+		line-height: @list-li-main-line-height;
+		margin-top: -0.5em;
+		border-right: 1px rgba(68, 68, 68, 255) solid;
+	}
+
+}
+.LESStext-main-1line-right(@left:@list-li-main-right-padding+@list-li-padding-horizontal) {
+	.ui-li-text-main-right {
+		font-size: @list-font-size-main;
+		top: 50%;
+		left: @left;
+		margin-top: -0.5em;
+	}
+}
+.LESStext-main-1line-right-setting() {
+	.ui-li-text-main-right {
+		color: @color_text_setting;
+	}
+}
+
 
 .LESStext-main-2line(@left:@list-li-padding-horizontal, @top: @list-li-top-padding) {
 	.ui-li-text-main {
@@ -424,6 +462,49 @@ ol.ui-listview {
 		max-width: 30%;
 	}
 }
+
+.LESStext-main-3line(@left:@list-li-padding-horizontal, @top: @list-li-top-padding) {
+	.ui-li-text-main {
+		position: absolute;
+		font-size: @list-font-size-main;
+		line-height: @list-li-sub-line-height;
+		left: @left;
+		top: @top;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		white-space: nowrap;
+		max-width: 90%;
+	}
+}
+.LESStext-sub-3line-left1(@left:@list-li-padding-horizontal, @top: @list-li-top-padding+@list-li-main-line-height) {
+	.ui-li-text-sub1 {
+		position: absolute;
+		font-size: @list-font-size-sub; 
+		line-height: @list-li-sub-line-height;
+		color: @color_text_sub;
+		left: @left;
+		top: @top;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		white-space: nowrap;
+		max-width: 90%;
+	}
+}
+.LESStext-sub-3line-left2(@left:@list-li-padding-horizontal, @top: @list-li-top-padding+@list-li-main-line-height) {
+	.ui-li-text-sub2 {
+		position: absolute;
+		font-size: @list-font-size-sub; 
+		line-height: @list-li-sub-line-height;
+		color: @color_text_sub;
+		left: @left;
+		top: @top;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		white-space: nowrap;
+		max-width: 90%;
+	}
+}
+
 
 .LESSsubicon-right(@right:@list-li-padding-horizontal, @top: @list-li-top-padding) {	// NOTE: This can be changed according to checkbox implementation!
 	img.ui-li-icon-sub {
@@ -515,7 +596,8 @@ ol.ui-listview {
 		top: 50%;
 		margin-top: -(@size/2);
 		left: auto;
-		right: @right;
+//		right: @right;
+		right: 96 * @unit_base;
 	}
 }
 
@@ -528,7 +610,8 @@ ol.ui-listview {
 		top: 50%;
 		margin-top: -(@size/2);
 		left: auto;
-		right: @right;
+//		right: @right;
+		right: 96 * @unit_base;
 	}
 }
 
@@ -945,61 +1028,46 @@ ul.ui-listview {
 		}
 	}
 
-	// Dialogue 
-	&> li.ui-li-3-1-1-dialogue,
-	&> li.ui-li-3-1-2-dialogue,
-	&> li.ui-li-3-1-3-dialogue,
-	&> li.ui-li-3-1-4-dialogue,
-	&> li.ui-li-3-1-5-dialogue, 
-	&> li.ui-li-3-1-6-dialogue,
-	&> li.ui-li-3-1-10-dialogue,
-	&> li.ui-li-3-1-11-dialogue,
-	&> li.ui-li-3-1-13-dialogue,
-	&> li.ui-li-3-1-14-dialogue,
-	&> li.ui-li-3-1-15-dialogue,
-	&> li.ui-li-3-1-16-dialogue,
-	&> li.ui-li-3-1-17-dialogue,
-	&> li.ui-li-3-1-18-dialogue,
-	&> li.ui-li-3-1-19-dialogue,
-	&> li.ui-li-3-1-20-dialogue,
-	&> li.ui-li-3-1-22-dialogue,
-	&> li.ui-li-3-1-23-dialogue,
-	&> li.ui-li-3-1-24-dialogue {
-		border-left: @list-li-dialogue-width rgba(68, 68, 68, 255) solid;
+	&> li.ui-li-4-1-12 {
+		.LESStext-sub-1line-left;
+		.LESStext-main-1line-right;
+	}
+	&> li.ui-li-4-1-13 { 
+		.LESSli-reset-position-1line;
+		.LESStext-sub-1line-left;
+		.LESStext-main-1line-right;
+		.LESSimg-bigicon-right(16 * @unit_base);
+	}
+	&> li.ui-li-4-2-3 { 
+		.LESSli-reset-position;
+		.LESStext-main-2line;
+		.LESStext-sub-2line-left;
+		.LESStext-sub-setting;
+		.ui-li-text-main,
+		.ui-li-text-sub {
+			max-width: 95%;
+		}
+	}
+	&> li.ui-li-4-2-10 { 
+		.LESSli-reset-position;
+		.LESStext-main-2line(@list-li-padding-horizontal, @list-li-top-padding + @list-li-sub-line-height);
+		.LESStext-sub-2line-left(@list-li-padding-horizontal, @list-li-top-padding);
+		.ui-li-text-main,
+		.ui-li-text-sub {
+			max-width: 80%;
+		}
+		.LESScheckbox-right;
+	}
+	&> li.ui-li-4-2-18 { 
+		.LESSli-reset-position-3line;
+		.LESStext-main-3line(@list-li-padding-horizontal, @list-li-top-padding);
+		.LESStext-sub-3line-left1(@list-li-padding-horizontal, @list-li-top-padding + @list-li-sub-line-height);
+		.LESStext-sub-3line-left2(@list-li-padding-horizontal, @list-li-top-padding + 2 * @list-li-sub-line-height);
 	}
 
-	&> li.ui-li-3-2-1-dialogue,
-	&> li.ui-li-3-2-2-dialogue,
-	&> li.ui-li-3-2-3-dialogue,
-	&> li.ui-li-3-2-4-dialogue,
-	&> li.ui-li-3-2-5-dialogue, 
-	&> li.ui-li-3-2-7-dialogue,
-	&> li.ui-li-3-2-8-dialogue,
-	&> li.ui-li-3-2-9-dialogue,
-	&> li.ui-li-3-2-10-dialogue,
-	&> li.ui-li-3-2-11-dialogue,
-	&> li.ui-li-3-2-12-dialogue,
-	&> li.ui-li-3-2-13-dialogue,
-	&> li.ui-li-3-2-14-dialogue,
-	&> li.ui-li-3-2-15-dialogue,
-	&> li.ui-li-3-2-17-dialogue,
-	&> li.ui-li-3-2-18-dialogue,
-	&> li.ui-li-3-2-19-dialogue,
-	&> li.ui-li-3-2-20-dialogue,
-	&> li.ui-li-3-2-21-dialogue,
-	&> li.ui-li-3-2-22-dialogue,
-	&> li.ui-li-3-2-23-dialogue,
-	&> li.ui-li-3-2-24-dialogue,
-	&> li.ui-li-3-2-25-dialogue,
-	&> li.ui-li-3-2-26-dialogue,
-	&> li.ui-li-3-2-27-dialogue,
-	&> li.ui-li-3-2-28-dialogue,
-	&> li.ui-li-3-2-29-dialogue,
-	&> li.ui-li-3-2-30-dialogue,
-	&> li.ui-li-3-2-31-dialogue,
-	&> li.ui-li-3-2-32-dialogue,
-	&> li.ui-li-3-2-33-dialogue,
-	&> li.ui-li-3-2-34-dialogue {
+
+	// Dialogue 
+	&> li.ui-li-dialogue {
 		border-left: @list-li-dialogue-width rgba(68, 68, 68, 255) solid;
 	}
 
@@ -1075,7 +1143,6 @@ ul.ui-listview {
 		height: 0px;
 		padding-top: 0px;
 		padding-bottom: 0px;
-
 	}
 }
 
