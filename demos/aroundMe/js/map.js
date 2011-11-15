@@ -26,7 +26,7 @@ Map = {
 		var marker = new google.maps.Marker( {
 			'icon': 'image/maps_marker.png',
 			'title': detail.name,
-			'position' : new google.maps.LatLng(detail.geometry.location.Oa, detail.geometry.location.Pa),
+			'position' : new google.maps.LatLng( detail.geometry.location.lat(), detail.geometry.location.lng() ),
 			'detailReference' : detail.reference // custom
 		});
 
@@ -96,8 +96,8 @@ Map = {
 		if ( query.location ) {
 			this.map.gmap( 'placesSearch', query, callback );
 		} else {
-			function realSearch( lat, lng ) {
-				meLocation = new google.maps.LatLng( lat, lng );
+			function realSearch( location, status ) {
+				meLocation = new google.maps.LatLng( location.coords.latitude, location.coords.longitude );
 				query.location = meLocation;
 				Map.map.gmap( 'placesSearch', query, callback );
 			}
@@ -106,12 +106,6 @@ Map = {
 	},
 
 	getCurrentLocation : function( successcb, options ) {
-		if ( document.location.href.match(/debug=true/) ) {
-			successcb( ME_LOCATION_LAT, ME_LOCATION_LNG );	// FOR TEST.
-			return;
-		}
-		console.log("Warn: location api called, if you are at behind firewall, this won't be working correctly.");
-		console.log("Warn: to solve above problem, add '?debug=true' after aroundMe's address.");
 		this.map.gmap( 'getCurrentPosition', successcb, options );
 	},
 

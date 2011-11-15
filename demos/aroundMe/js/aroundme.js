@@ -11,14 +11,13 @@ AroundMe = {
 	
 	initUi : function() {
 		$("#firstPage").bind('pagebeforeshow', function() {
-			console.log("a");
 			Map.getCurrentLocation( AroundMe.firstSearch );
 		});
 
 		$("#favoritePage").bind( 'pagebeforeshow', function() {
 			var list = Favorite.getWholeList();
 			if ( list.length > 0 ) {
-				List.setListFromPlacesSearch( $("#favoriteList"), Favorite.getWholeList(), true );	
+				List.setListFromPlacesSearch( $("#favoriteList"), list, true );	
 			} else {
 				popSmallPopup( "Error", "No favorite locations added." );
 			}			
@@ -82,14 +81,15 @@ AroundMe = {
 		this.initSearchCategoryList();
 	},
 	
-	initSearchCategoryList : function() {
-		var li = $("#searchCategoryList").find('li');
-	
-		for ( var i = 0; i < li.length; i++ ) {
-			$(li[i]).bind("vclick", function() {
-				AroundMe.executeSearch( $(this).attr("data-query") );
-			});
-		}
+	initSearchCategoryList : function() {		
+		console.log("applied");
+		$("#searchCategoryList").bind("vclick", function(e) {
+			if ( $(e.target).parent("li") ) {
+				AroundMe.executeSearch( $(e.target).parent("li").attr("data-query") );
+			} else if ( $(e.target).is("li") ) {
+				AroundMe.executeSearch( $(e.target).attr("data-query") );
+			}
+		});		
 	}, 
 
 	initSearchSettings : function() {
@@ -97,7 +97,7 @@ AroundMe = {
 			var radius = window.localStorage.getItem( "searchRadius" );
 			if ( radius ) {
 				console.log("searchRadius:" + radius);
-				$("#searchRadius").attr("value",radius);
+				$("#searchRadius").attr( "value", radius );
 			} else {
 				console.log("SearchRadius not found");
 			}
@@ -106,7 +106,7 @@ AroundMe = {
 				switch ( category ) {
 				default:
 				case 'all':
-					$("#segmentAll").prop("checked", true);
+					$("#segmentAll").prop("checked", true); 
 					break;
 				case 'art':
 					$("#segmentArt").prop("checked", true);
@@ -130,8 +130,10 @@ AroundMe = {
 			$("#searchSettingsConfirmBtn").live( 'vclick', function() {
 				window.localStorage.setItem( "searchRadius", $("#searchRadius").val() );
 	//@FIXME FINDOUT HOW TO GET RADIO OR CHECKED VALUES
-				var on = $("#searchCategory").find('[value="on"]');
-				console.log( on );
+				var on = $("#searchCategory").find('[type="radio"]');
+				for ( var i = 0; i < on.length; i++ ) {
+					console.log( on + "," + on.prop("checked") );
+				}
 
 				$("#searchSettingPopup").popupwindow('close');
 			});
@@ -155,9 +157,11 @@ AroundMe = {
 		Map.init($("#map"));	
 	},
 
-	firstSearch : function( lat, lng ) {
-		meLocation = new google.maps.LatLng( lat, lng );
-	
+	firstSearch : function( geolocation, status ) {
+		meLocation = new google.maps.LatLng( geolocation.coords.latitude, geolocation.coords.longitude );
+		
+		console.log( "---------------My Location---------------" );
+		console.log( meLocation );
 		var parm = { 
 			location: meLocation,
 			radius: 5000,

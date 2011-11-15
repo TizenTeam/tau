@@ -83,7 +83,6 @@ Detail = {
 			// add favorite
 			Favorite.add( $(btn).attr("data-key"), $(btn).attr("data-store") );
 			popSmallPopup( "Info", $("#detailTitle").text() + ' is added to favorites.' );
-
 		}
 	}
 }
