@@ -14,7 +14,7 @@
 
 <body id="phonebook_body">
 	<script id="tmpl_contacts_normal" type="text/x-jquery-tmpl">
-			<li class="ui-li-3-1-25" data-pbid=${Luid}>
+			<li class="ui-li-3-1-25" data-luid=${Luid}>
 				<span class="ui-li-text-main">
 				{{if name_first}}
         			${name_first}
@@ -60,7 +60,7 @@
 			<div data-role="fieldcontain" data-position="fixed" id="SearchDiv">
 				<input type="search" id="queryInput" value=""/>
 			</div>
-			<ul id="all_contacts_list" data-role="virtuallistview" data-template="tmpl_contacts_normal" data-src="phonebook_data/contacts.js" data-dbtable="phonebookDB" data-dbkey = "pbid">
+			<ul id="all_contacts_list" data-role="virtuallistview" data-template="tmpl_contacts_normal" data-dbtable="phonebookDB" data-dbkey = "luid">
 			</ul>
 		</div><!--content end-->
 		<div data-role="footer"data-position ="fixed" id="all_contacts_footer">
@@ -68,7 +68,7 @@
 				<ul>
 					<li><a href="#">Back</a></li>
 					<li><a href="#">Edit</a></li>
-					<li><a href="#">Groups</a></li>
+					<li><a href="#all_groups_page">Groups</a></li>
 					<li><a href="#">Create</a></li>
 				</ul>
 			</div>				
@@ -124,5 +124,34 @@
 	<div id="contact_detailview_content" data-role="content" style="top:100px; position:relative">
 	</div><!--content end-->
 	</div><!--page end-->
+	
+	<div id="all_groups_page" data-role="page">
+	<script id="tmpl_groups_normal" type="text/x-jquery-tmpl">
+			<div>
+				<span class="ui-li-text-main">${groupName}</span>
+			</div>
+	</script>
+		<div data-role="header" data-position="fixed" id="all_groups_header">
+			<h1>Groups</h1>
+		</div><!-- /header -->
+	
+		<!--content start-->
+		<div data-role="content" style="top:100px; position:relative">
+			<ul id="all_groups_list" data-role="virtuallistview" data-template="tmpl_groups_normal" data-dbtable="phonebookGroupsDB" data-dbkey = "luid">
+			</ul>
+		</div><!--content end-->
+		<div data-role="footer"data-position ="fixed" id="all_groups_footer">
+			<div data-role="navbar" data-style="toolbar" >
+				<ul>
+					<li><a href="#all_contacts_page">Back</a></li>
+					<li><a href="#">Edit</a></li>
+					<li><a href="#all_groups_page">Groups</a></li>
+					<li><a href="#">Create</a></li>
+				</ul>
+			</div>				
+		</div>				
+	</div><!--page end-->	
+	
+	
 </body> 
 </html>

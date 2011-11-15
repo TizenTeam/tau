@@ -15,7 +15,7 @@
 var listCountPerPage = {};
 
 /* Code for Virtual List Demo */
-var	INIT_LIST_NUM = 200;
+var	INIT_LIST_NUM = 100;
 var	PAGE_BUF = (INIT_LIST_NUM/2);
 var	TOTAL_ITEMS = 0;
 var	NO_SCROLL = 0;
@@ -41,7 +41,6 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		splitIcon: "arrow-r",
 		splitTheme: "b",
 		inset: false,
-		dbsrc: "",
 		dbtable: "",
 		template : "",
 		dbkey: false,			/* Data's unique Key */
@@ -315,6 +314,12 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		t.refresh( true );
 	},
 	
+	create: function()
+	{
+		/* external API for AJAX callback */
+		this._create("create");
+	},
+	
 	_create: function(event) {
 		var t = this;
 		var o = this.options; 
@@ -336,34 +341,22 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 			$('ul.ui-virtual-list-container').empty();
 		});
 
-	    /* Get DB via AJAX */
-	    if (t.element.data("template"))
-		{
-			o.template = t.element.data("template");
-		}
-
-		if (t.element.data("src"))
-		{
-			o.dbsrc = t.element.data("src");
-
-			if ($('ul.ui-virtual-list-container').hasClass("vlLoadSucess"))
+	    /* After DB Load complete, Init Vritual list */
+	    if ($('ul.ui-virtual-list-container').hasClass("vlLoadSucess"))
+	    {
+		    if (t.element.data("template"))
 			{
-				t.initList();
+				o.template = t.element.data("template");
 			}
-			else
+			
+			/* Set data's unique key */
+			if (t.element.data("dbkey"))
 			{
-				/* ?_=ts code for no cache mechanism */
-				$.getScript(o.dbsrc + "?_=ts2477874287", function(data, textStatus) {
-					t._initList();
-				});
+				o.datakey = t.element.data("dbkey");
 			}
-		}
-		
-		/* Set data's unique key */
-		if (t.element.data("dbkey"))
-		{
-			o.datakey = t.element.data("dbkey");
-		}
+			
+			t._initList();
+	    }
 	},
 	
 	destroy : function(){

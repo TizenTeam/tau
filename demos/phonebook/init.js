@@ -9,6 +9,8 @@ function initDB(){
 		nb_groups = 0;
 	
 		Phonebook.pushContactsTitle("#all_contacts_header h1", "tmpl_contacts_title", nb_contacts);
+		
+		$("ul.ui-virtual-list-container").virtuallistview("create");
 	});
 };
 

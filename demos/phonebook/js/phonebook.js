@@ -20,11 +20,11 @@ Phonebook = {
 		return search_result;
 	},
 	
-	getDetailview: function(dbArray, pbid)
+	getDetailview: function(dbArray, luid)
 	{
 		/* Currently use linear search. Later or Real DB may support SQL query. */ 
 		$.each(dbArray, function(i, v) {
-	        if (v.Luid == pbid) {
+	        if (v.Luid == luid) {
 	        	
 	        	/* Find and make detail view page.*/
 	        	Phonebook.makeDetailview(v);
@@ -42,7 +42,7 @@ Phonebook = {
 		
 		$("#contact_detailview_content").empty();
 		
-		$("#contact_detailview_content").append((htmlData).data('pbid', contact.Luid));
+		$("#contact_detailview_content").append((htmlData).data('luid', contact.Luid));
 		
 		$.mobile.changePage("#contact_detilaview");
 	},
