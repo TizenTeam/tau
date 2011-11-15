@@ -95,10 +95,13 @@
 					this.next_img = this.next_img.next();
 
 					this.index++;
-					this._attach(this.index + 1, this.next_img);
 
-					if (this.next_img.length)
-						this.next_img.css('left', this.max_width + 'px');
+					if (this.next_img.length) {
+						this.next_img.css('left',
+								this.max_width + 'px');
+						this._attach(this.index + 1, this.next_img);
+					}
+
 				} else if (delta < 0 && this.prev_img.length) {
 					/* prev */
 					this._detach(this.index + 1, this.next_img);
@@ -108,10 +111,12 @@
 					this.prev_img = this.prev_img.prev();
 
 					this.index--;
-					this._attach(this.index - 1, this.prev_img);
 
-					if (this.prev_img.length)
-						this.prev_img.css('left', -this.max_width + 'px');
+					if (this.prev_img.length) {
+						this.prev_img.css('left',
+								-this.max_width + 'px');
+						this._attach(this.index - 1, this.prev_img);
+					}
 				}
 			}
 
