@@ -20,6 +20,7 @@
 		index: 0,
 		align_type: null,
 		direction: 1,
+		container: null,
 
 		_resize: function (obj) {
 			var width;
@@ -137,9 +138,8 @@
 
 		_add_event: function () {
 			var self = this;
-			var container = $(this.element).find(".ui-imageslider");
 
-			container.bind('vmousemove', function (e) {
+			this.container.bind('vmousemove', function (e) {
 				if (!self.moving)
 					return;
 
@@ -148,7 +148,7 @@
 				e.preventDefault();
 			});
 
-			container.bind('vmousedown', function (e) {
+			this.container.bind('vmousedown', function (e) {
 				self.moving = true;
 
 				org_x = e.pageX;
@@ -156,12 +156,12 @@
 				e.preventDefault();
 			});
 
-			container.bind('vmouseup', function (e) {
+			this.container.bind('vmouseup', function (e) {
 				self._move(e.pageX);
 				self.moving = false;
 			});
 
-			container.bind('vmouseout', function (e) {
+			this.container.bind('vmouseout', function (e) {
 				if (!self.moving)
 					return;
 
@@ -173,12 +173,10 @@
 		},
 
 		_del_event: function () {
-			var container = $(this.element).find(".ui-imageslider");
-
-			container.unbind('vmousemove');
-			container.unbind('vmousedown');
-			container.unbind('vmouseup');
-			container.unbind('vmouseout');
+			this.container.unbind('vmousemove');
+			this.container.unbind('vmousedown');
+			this.container.unbind('vmouseup');
+			this.container.unbind('vmouseout');
 		},
 
 		_align: function (obj) {
@@ -245,11 +243,11 @@
 			$(this.element).wrapInner('<div class="ui-imageslider"></div>');
 			$('img').wrap('<div class="ui-imageslider-bg"></div>');
 
-			var container = $(this.element).find('.ui-imageslider');
+			this.container = $(this.element).find('.ui-imageslider');
 
 			this.max_width = window.innerWidth;
 			this.max_height = this._get_height();
-			container.css('height', this.max_height);
+			this.container.css('height', this.max_height);
 
 			var temp_img = $('div').find('.ui-imageslider-bg:first');
 
