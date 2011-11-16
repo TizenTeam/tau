@@ -131,9 +131,14 @@
 	
 	<!-- Page: All Groups List -->
 	<div id="all_groups_page" data-role="page">
-	<script id="tmpl_groups_normal" type="text/x-jquery-tmpl">
-			<li class="ui-li-3-1-1">
-				<span class="ui-li-text-main">${groupName}</span>
+	<script id = "tmpl_groups_expandable_groupName" type="text/x-jquery-tmpl">
+		<li data-expandable="true" id=${groupName} data-initial-expansion="false" class="ui-li-3-1-1 ui-li-3-1-1-dialogue">
+			<span class="ui-li-text-main">${groupName} (${groupCount})</span>
+		</li>
+	</script>
+	<script id="tmpl_groups_expandable_groupItem" type="text/x-jquery-tmpl">
+			<li class="ui-li-3-1-1 ui-li-3-1-1-dialogue" data-expanded-by=${groupName} data-luid=${Luid}>
+				<span class="ui-li-text-main">${contactName}</span>
 			</li>
 	</script>
 		<div data-role="header" data-position="fixed" id="all_groups_header">
@@ -142,7 +147,10 @@
 	
 		<!--content start-->
 		<div data-role="content" style="top:100px; position:relative">
-			<ul id="all_groups_list" data-role="virtuallistview" data-template="tmpl_groups_normal" data-dbtable="phonebookGroupsDB" data-dbkey = "luid">
+			<ul id="all_groups_list" data-role="listview" data-dbtable="phonebookGroupsDB" data-dbkey = "luid">
+				<li class="ui-li-3-1-1 ui-li-3-1-1-dialogue" id="All_contacts_on_groups_list">
+					<a href="#all_contacts_page"><span class="ui-li-text-main"></span></a>	<!-- Reuse tmpl_contacts_title -->
+				</li>
 			</ul>
 		</div><!--content end-->
 		<div data-role="footer"data-position ="fixed" id="all_groups_footer">

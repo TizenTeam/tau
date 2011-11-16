@@ -28,8 +28,6 @@ Phonebook = {
 	        	
 	        	/* Find and make detail view page.*/
 	        	Phonebook.makeDetailview(v);
-	        	
-	            return;
 	        }
 		});
 	},
@@ -49,7 +47,7 @@ Phonebook = {
 	
 	pushContactsTitle: function(titleSelector, template, nb_items)
 	{
-		var myTemplate = $("#" + template);
+		var myTemplate = $(template);
 		var htmlData = myTemplate.tmpl({counts:nb_items});
 		
 		$(titleSelector).empty().text($(htmlData).text());
@@ -78,22 +76,51 @@ Phonebook = {
 		return groupedList;
 	},
 	
-	pushGourpedList: function(listSelector, expandableTitleTmpl, expandableItemTmpl, data)
+	pushGourpedList: function(listSelector, expandableTitleTmpl, expandableItemTmpl, GroupDataset, ContactsDataset)
 	{
-		var groupedList = data;
-		var $titleTemplate = $("#" + expandableTitleTmpl);
-		var $itemTemplate = $("#" + expandableItemTmpl);
-		
-		var frag = document.createDocumentFragment();
+		var groupedList = GroupDataset;
+		var contactsList = ContactsDataset;
+		var $titleTemplate = $(expandableTitleTmpl);
+		var $itemTemplate = $(expandableItemTmpl);
+		var clonedList = $(listSelector).clone();
 		
 		/* Traverse Grouped list */
-		$.each(groupedList, function(groupName, items){
-			var titleHtmlData = $titleTemplate.tmpl({counts:nb_items});
+		$.each(groupedList, function(myGroupName, items){
+			var groupNameData = {groupName:myGroupName, groupCount:items.length};
+			var titleHtmlData = $titleTemplate.tmpl(groupNameData);
 			
-			$(titleSelector).empty().text($(htmlData).text());
+			$(clonedList).append(titleHtmlData);
+			
+			/* Append each group's items */
+			$.each(items, function(){
+				var contactData = Phonebook.searchByLuid(window[pb_dbtable], this.Luid);
+				var shownName = contactData.name_first + contactData.name_last;
+				var itemData = {groupName:myGroupName, Luid:contactData.Luid, contactName:shownName};
+				
+				var itemHtmlData = $itemTemplate.tmpl(itemData);
+				
+				$(clonedList).append(itemHtmlData);
+			});
 		});
 		
-		$(listSelector).append(frag);
+		$(listSelector).replaceWith(clonedList);
+		
+		/*$(listSelector).listview();*/
+	},
+	
+	searchByLuid: function(dbArray, search_id)
+	{
+		var find_item;
+		
+		$.each(dbArray, function(i, v) {
+	        if (v.Luid == search_id) {
+	        	find_item = this;
+	        	
+	        	return false;
+	        }
+		});
+		
+		return find_item;
 	}
 } ;
 
