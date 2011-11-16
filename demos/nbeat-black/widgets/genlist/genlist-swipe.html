@@ -3,33 +3,37 @@
 		<h1>Swipe lists</h1>
 	</div>
 	<div class="content" data-role="content">
-		 <ul data-role="swipelist">
-		    <li class="ui-li-dialogue">
-			<div data-role="button" data-inline="true">Twitter</div>
-                        <div data-role="ui-list-cover">
-				<span class="ui-li-text-main">Jack</span>
-			</div>
-                    </li>
-		    <li class="ui-li-dialogue">
-			<div data-role="button" data-inline="true">Twitter</div>
-                         <!-- THIS IS NOT RECOMMENDED WAY, IT IS HERE FOR TESTING PURPOSE ONLY -->
-                        <div data-role="ui-list-cover">Barry</div>
-			<div data-role="button" data-inline="true">Facebook</div>
-                    </li>
-		    <li class="ui-li-dialogue">
-			<div data-role="button" data-inline="true">Facebook</div>
-			<div data-role="button" data-inline="true">Facebook</div>
-			<div data-role="button" data-inline="true">Facebook</div>
-                        <div data-role="ui-list-cover">Jane</div>
-                    </li>
-		    <li class="ui-li-dialogue">
-			<div data-role="button" data-inline="true">Facebook</div>
-			<div data-role="button" data-inline="true">Facebook</div>
-			<div data-role="button" data-inline="true">Facebook</div>
-			<div data-role="button" data-inline="true">Facebook</div>
-                        <div data-role="ui-list-cover">Nigel</div>
-                    </li>
-                </ul>
+		<ul data-role="listview">
+			<li class="ui-li-3-1-1">
+				<span class="ui-li-text-main">3.1.1</span>
+			</li>
+			<li class="ui-li-3-1-1">
+				<a><span class="ui-li-text-main">3.1.1 (with link)</span></a>
+			</li>
+			<li class="ui-li-3-1-2">
+				<span class="ui-li-text-main">3.1.2</span>
+				<span class="ui-li-text-sub">subtext</sub>
+			</li>
+			<ul data-role="swipelist">
+			    <li class="ui-li-3-1-2">
+				<div data-role="button" data-inline="true">Twitter</div>
+		                <div data-role="ui-list-cover">
+					<span class="ui-li-text-main">3.1.1</span>
+					<span class="ui-li-text-sub">subtext</sub>
+				</div>
+			    </li>
+			</ul>
+			<ul data-role="swipelist">
+			    <li class="ui-li-3-1-2">
+				<div data-role="button" data-inline="true">Twitter</div>
+		                <div data-role="ui-list-cover">
+					<span class="ui-li-text-main">3.1.1</span>
+					<span class="ui-li-text-sub">subtext</sub>
+				</div>
+			    </li>
+			</ul>
+
+		</ul>
 	</div>
 </div>
 
