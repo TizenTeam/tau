@@ -125,6 +125,10 @@ $(document).bind("pagecreate", function () {
 		$('#smallpopup').smallpopup('hide');
 	});
 
+	$('#imageslider-del').bind('vmouseup', function (e) {
+		$('#imageslider').imageslider('del');
+	});
+
 	$('#selectioninfo-demo').bind('vmouseup', function (e) {
 		$('#smallpopup_selectioninfo').attr("data-text1", $("#dayselector1").find(".ui-checkbox-on").length);		
 		$('#smallpopup_selectioninfo').smallpopup('show');
