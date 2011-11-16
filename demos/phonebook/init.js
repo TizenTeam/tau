@@ -2,7 +2,7 @@ function initDB(){
 	/* ?_=ts code for no cache mechanism */
 	$.getScript(pb_dbsrc + "?_=ts2477874287", function(data, textStatus)
 	{
-		$("ul").filter(function(){return $(this).data("role")=="virtuallistview";}).addClass("vlLoadSucess");
+		$("ul").filter(function(){return $(this).data("role")=="virtuallistview";}).addClass("vlLoadSuccess");
 	
 		/* Set counts */
 		nb_contacts = window[pb_dbtable].length;

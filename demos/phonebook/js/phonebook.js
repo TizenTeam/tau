@@ -53,5 +53,68 @@ Phonebook = {
 		var htmlData = myTemplate.tmpl({counts:nb_items});
 		
 		$(titleSelector).empty().text($(htmlData).text());
+	},
+	
+	makeGroupList: function(groups)
+	{
+		/* Get Group list and remove duplicated items. */
+		var groupedList = {};
+		
+		$.each(groups, function() {
+			var vName = this.groupName;
+			
+			if (vName.length > 0)
+			{
+				if($(groupedList[vName]).size() <= 0)
+				{
+					/* Make 2 dimension array */
+					groupedList[vName] = new Array();
+				}
+				
+				groupedList[vName].push(this);
+			}
+		});
+		
+		return groupedList;
+	},
+	
+	pushGourpedList: function(listSelector, expandableTitleTmpl, expandableItemTmpl, data)
+	{
+		var groupedList = data;
+		var $titleTemplate = $("#" + expandableTitleTmpl);
+		var $itemTemplate = $("#" + expandableItemTmpl);
+		
+		var frag = document.createDocumentFragment();
+		
+		/* Traverse Grouped list */
+		$.each(groupedList, function(groupName, items){
+			var titleHtmlData = $titleTemplate.tmpl({counts:nb_items});
+			
+			$(titleSelector).empty().text($(htmlData).text());
+		});
+		
+		$(listSelector).append(frag);
 	}
 } ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

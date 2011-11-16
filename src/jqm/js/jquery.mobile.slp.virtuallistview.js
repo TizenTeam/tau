@@ -367,7 +367,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		});
 
 	    /* After DB Load complete, Init Vritual list */
-	    if ($(o.id).hasClass("vlLoadSucess"))
+	    if ($(o.id).hasClass("vlLoadSuccess"))
 	    {
 	    	$(o.id).empty();	    	
 	    	
