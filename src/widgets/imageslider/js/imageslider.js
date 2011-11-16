@@ -13,6 +13,7 @@
 		max_width: 0,
 		max_height: 0,
 		org_x: 0,
+		org_time: null,
 		cur_img: null,
 		prev_img: null,
 		next_img: null,
@@ -66,7 +67,7 @@
 			if (!this.moving)
 				return;
 
-			var coord_x = _x - org_x;
+			var coord_x = _x - this.org_x;
 
 			this.cur_img.css('left', coord_x + 'px');
 			if (this.next_img.length)
@@ -79,7 +80,7 @@
 			if (!this.moving)
 				return;
 
-			var delta = org_x - _x;
+			var delta = this.org_x - _x;
 			var flip = 0;
 
 			if (delta == 0)
@@ -89,6 +90,14 @@
 				flip = delta < (this.max_width * 0.45) ? 0 : 1;
 			else
 				flip = -delta < (this.max_width * 0.45) ? 0 : 1;
+
+			if (!flip) {
+				var date = new Date();
+				var drag_time = date.getTime() - this.org_time;
+
+				if (Math.abs(delta) / drag_time > 1)
+					flip = 1;
+			}
 
 			if (flip) {
 				if (delta > 0 && this.next_img.length) {
@@ -129,11 +138,18 @@
 				}
 			}
 
-			this.cur_img.animate({left: 0}, Math.abs(delta));
+			var interval = Math.abs(delta);
+
+			if (interval < 100)
+				interval = 100;
+
+			this.cur_img.animate({left: 0}, interval);
 			if (this.next_img.length)
-				this.next_img.animate({left: this.max_width}, Math.abs(delta));
+				this.next_img.animate({left: this.max_width}, interval);
 			if (this.prev_img.length)
-				this.prev_img.animate({left: -this.max_width}, Math.abs(delta));
+				this.prev_img.animate({left: -this.max_width}, interval);
+
+			this.moving = false;
 		},
 
 		_add_event: function () {
@@ -149,16 +165,21 @@
 			});
 
 			this.container.bind('vmousedown', function (e) {
+				if (self.moving)
+					return;
+
 				self.moving = true;
 
-				org_x = e.pageX;
+				self.org_x = e.pageX;
+
+				var date = new Date();
+				self.org_time = date.getTime();
 
 				e.preventDefault();
 			});
 
 			this.container.bind('vmouseup', function (e) {
 				self._move(e.pageX);
-				self.moving = false;
 			});
 
 			this.container.bind('vmouseout', function (e) {
@@ -167,7 +188,6 @@
 
 				if ((e.pageX < 20) || (e.pageX > (self.max_width - 20))) {
 					self._move(e.pageX);
-					self.moving = false;
 				}
 			});
 		},
