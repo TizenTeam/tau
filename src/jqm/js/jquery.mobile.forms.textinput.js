@@ -106,6 +106,7 @@ $.widget( "mobile.textinput", $.mobile.widget, {
 					.removeClass( "ui-btn-cancel-show" );
 					searchicon.show();
 					toggleClear();
+					input.blur();					
 				}
 				input.focus( showCancel );
 				//SLP --end

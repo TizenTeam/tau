@@ -7,7 +7,7 @@
 }
 
 .ui-option-header-1-row {
-    height: 100px;
+    height: 106px;
     border: none;
 }
 .ui-option-header-2-row {
@@ -33,6 +33,11 @@
     display: block;
     margin: 3px 5px 5px 5px;
 }
+
+.ui-option-header .ui-input-search .ui-btn {
+	display : none;
+}	
+	
 .ui-option-header .ui-btn-text {
     line-height: 34px;
 }
@@ -69,8 +74,6 @@
 }
 
 .ui-header.ui-option-header-resizing {
-	border-bottom-width: 	5 * @unit_base;
-
 	.ui-option-header {
 		.ui-btn {
 			background : transparent;
@@ -82,6 +85,9 @@
 				padding : 0.66em 0px 0.66em;
 				margin : 0px auto;
 			}
+		}
+		.input-search-bar .ui-btn {
+			width : 28%; /* 134  * @unit_base; */
 		}
 	}
 }

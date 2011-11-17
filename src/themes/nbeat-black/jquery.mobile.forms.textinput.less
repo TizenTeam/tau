@@ -38,13 +38,13 @@ textarea.ui-input-text {
 		background: transparent none;
 	}
 	.ui-btn-icon-notext {
-		width: 38*@em_base;
-		height: 38*@em_base;
+		width: 38 * @unit_base;
+		height: 38 * @unit_base;
 		.ui-btn-inner { padding: 0; }
 	}
 	.ui-icon-delete {
-		width: 38*@em_base;
-		height: 38*@em_base;
+		width: 38 * @unit_base;
+		height: 38 * @unit_base;
 	}
 
 	.ui-input-clear {
@@ -52,7 +52,7 @@ textarea.ui-input-text {
 		right: 0;
 		top: 0;
 		vertical-align: middle;
-		margin: 16*@em_base;
+		margin: 16 * @unit_base;
 	}
 	.ui-input-clear-hidden { display: none; }
 }
@@ -61,11 +61,12 @@ textarea.ui-input-text {
 	position: absolute;
 	top: 0;
 	left: 0;
-	margin: 16*@em_base;
+	width : 100%;
+	margin: 16 * @unit_base;
 }
 
 .ui-icon-searchfield:after {
-	margin-left: 58*@em_base;
+	margin-left: 58 * @unit_base;
 	content: "Search";
 	color: rgba(130, 130, 130, 1);
 }
@@ -87,10 +88,12 @@ textarea.ui-input-text {
 /* search bar */
 .ui-body-s > div > .ui-field-contain > .input-search-bar,
 .ui-body-s > .ui-field-contain > .input-search-bar {
-	margin : -48*@em_base -15*@em_base -32*@em_base -15*@em_base;
+	margin : -48*@unit_base -15*@unit_base -32*@unit_base -15*@unit_base;
 } /* Need to confirm exact concept : Jinhyuk */
 
 .input-search-bar {
+	position : relative;  /* In case searchbar in header : Jinhyuk */
+	
 	background-color: rgba(36, 36, 36, 1);
 	padding: @search-bar-padding;
 	vertical-align: middle;
@@ -98,14 +101,16 @@ textarea.ui-input-text {
 		.LESSborder-radius-all(.3em);
 	}
 	.ui-input-search {
+		font-size : 32 * @unit_base;
 		display: inline-block;
 		position: relative;
 		width: 70%;
 		padding: 0;
-		background-color: rgba(255, 255, 255, 1);
+		background-color: black;
 		.ui-input-text {
-			height: 74 * @em_base;
+			height: 74 * @unit_base;
 			padding : 0px;
+			margin-left : 10 * @unit_base;
 		}
 	}
 	.ui-input-search-default {
@@ -126,15 +131,23 @@ textarea.ui-input-text {
 		display: inline-block;
 		position: absolute;
 		left: 70%;
-		top : 0px;
 
-		bottom: 0;
 		vertical-align: middle;
-		margin: @search-bar-padding;
-		height: 74 * @em_base;
+		margin-left : 10 * @unit_base;
+		margin-right : 10 * @unit_base;
 		padding : 0px;
-		width: 22%;
-		background: transparent none;
+		width: 26%;
+		background : black;
+		height : 74 * @unit_base;
+		
+		border-color : none;
+		.ui-btn-text{
+			font-size : 32 * @unit_base;
+		}	
+		.ui-btn-inner {
+			padding-top : 18 * @unit_base;
+			padding-bottom : 18 * @unit_base;
+		}	
 	}
 	.ui-btn-cancel-hide {
 		left: 100%;
@@ -151,3 +164,12 @@ textarea.ui-input-text {
 		transition: left 400ms linear;
 	}
 }
+
+.ui-header .input-search-bar {
+	padding-top : 16 * @unit_base;
+	padding-bottom : 16 * @unit_base;
+	.ui-input-cancel .ui-btn-inner {
+		width : 100%;
+	}
+}
+

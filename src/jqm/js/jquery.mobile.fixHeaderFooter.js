@@ -188,7 +188,27 @@ $.mobile.fixedToolbars = (function() {
 			if(s_theme_fieldcontain.length != 0) 
 				title_style = "extended";
 			
-				if(s_theme_header.find(".ui-option-header").length == 0 && s_theme_header.is(".ui-header-fixed") && s_theme_header.is(".ui-bar-s")){
+				if(s_theme_header.children().is(".ui-option-header")){	
+					if(s_theme_header.children().is(".input-search-bar")){
+						$( event.target ).find(".ui-content")
+							.css("position", "relative")
+							.css("top","216px" );	
+					}
+					else{
+						if($.todons.optionheader.prototype.options.collapseOnInit == true)					
+							$( event.target ).find(".ui-content")
+								.addClass("ui-title-content-option-header-collapsed-1line-height");
+						else 
+							$( event.target ).find(".ui-content")
+								.addClass("ui-title-content-option-header-expanded-1line-height");	
+					}
+				}
+				else if(s_theme_header.find("input").jqmData("type") == "search"){ /* In case searchbar in header : Jinhyuk */
+					$( event.target ).find(".ui-content")
+						.css("position", "relative")
+						.css("top","206px" );										
+				}				
+				else {
 					s_theme_header
 						.css("position", "fixed")
 						.css("top", "0px");
@@ -218,14 +238,7 @@ $.mobile.fixedToolbars = (function() {
 					}	
 					$( event.target ).find(".ui-content").addClass("ui-title-content-" + title_style + "-height");	
 				}	
-				else{/* Option header reposition : Jinhyuk */
-					if($.todons.optionheader.prototype.options.collapseOnInit == true)					
-						$( event.target ).find(".ui-content")
-							.addClass("ui-title-content-option-header-collapsed-1line-height");
-					else 
-						$( event.target ).find(".ui-content")
-							.addClass("ui-title-content-option-header-expanded-1line-height");					
-				}
+				
 				var page = $( event.target ),
 				footer = page.find( ":jqmData(role='footer')" ),
 				id = footer.data( "id" ),

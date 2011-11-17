@@ -336,8 +336,13 @@ $.widget("todons.optionheader", $.mobile.widget, {
     toggle: function (options) {/* Option header reposition : Jinhyuk */
     	var toggle_header = this.element.parents(":jqmData(role='header')");
     	var toggle_content = this.element.parents(":jqmData(role='page')").find(".ui-content");
-    	var CollapsedTop = 100,
-    		ExpandedTop = 195; 
+    	var CollapsedTop = 110,
+    		ExpandedTop = 206; 
+    		
+ 		if(toggle_header.children().is(".input-search-bar")){
+ 			CollapsedTop = 218;
+ 			ExpandedTop = 314;
+ 		}
     	
     	if($(window).scrollTop() <= CollapsedTop){
 			toggle_header.css("position", "relative");
@@ -381,7 +386,7 @@ $.widget("todons.optionheader", $.mobile.widget, {
      * Takes the same options as toggle()
      */
     collapse: function (options) {
-        this._setHeight('5px', true, options);
+        this._setHeight('10px', true, options);
     },
 
     /**
