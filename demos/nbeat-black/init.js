@@ -163,6 +163,12 @@ $(document).bind("pagecreate", function () {
 		$('#smallpopup').smallpopup('hide');
 	});
 
+	$('#imageslider-add').bind('vmouseup', function (e) {
+		$('#imageslider').imageslider('add', './test/10.jpg');
+		$('#imageslider').imageslider('add', './test/11.jpg');
+		$('#imageslider').imageslider('refresh');
+	});
+
 	$('#imageslider-del').bind('vmouseup', function (e) {
 		$('#imageslider').imageslider('del');
 	});
