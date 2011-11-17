@@ -1,57 +1,109 @@
-/*!
- * jQuery Mobile Widget @VERSION
+/*
+ * jQuery UI Progressbar @VERSION
  *
- * Copyright (C) TODO
- * License: TODO
- * Authors: Minkyu Kang <mk7.kang@samsung.com>
+ * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Progressbar
+ *
+ * Depends:
+ *   jquery.ui.core.js
+ *   jquery.ui.widget.js
  */
+/* This is from jquery ui plugin - progressbar 11/16/2011 */
 
-(function ($, window, undefined) {
-	$.widget("todons.progressbar", $.mobile.widget, {
+(function( $, window, undefined ) {
 
-		running: false,
+$.widget( "todons.progressbar", $.mobile.widget, {
+	options: {
+		value: 0,
+		max: 100
+	},
 
-		_show: function () {
-			this.html_hide.detach();
-			$(this.element).append(this.html);
-		},
+	min: 0,
 
-		_hide: function () {
-			this.html.detach();
-			$(this.element).append(this.html_hide);
-		},
+	_create: function() {
+		this.element
+			.addClass( "ui-progressbar" )
+			.attr({
+				role: "progressbar",
+				"aria-valuemin": this.min,
+				"aria-valuemax": this.options.max,
+				"aria-valuenow": this._value()
+			});
 
-		start: function () {
-			if (this.running) {
-				return;
+		this.valueDiv = $( "<div class='ui-progressbar-value'></div>" )
+			.appendTo( this.element );
+
+		this.oldValue = this._value();
+		this._refreshValue();
+	},
+
+	_destroy: function() {
+		this.element
+			.removeClass( "ui-progressbar" )
+			.removeAttr( "role" )
+			.removeAttr( "aria-valuemin" )
+			.removeAttr( "aria-valuemax" )
+			.removeAttr( "aria-valuenow" );
+
+		this.valueDiv.remove();
+	},
+
+	value: function( newValue ) {
+		if ( newValue === undefined ) {
+			return this._value();
+		}
+
+		this._setOption( "value", newValue );
+		return this;
+	},
+
+	_setOption: function( key, value ) {
+		if ( key === "value" ) {
+			this.options.value = value;
+			this._refreshValue();
+			if ( this._value() === this.options.max ) {
+				this._trigger( "complete" );
 			}
+		}
+		// jquery.ui.widget.js MUST be updated to new version!
+		//this._super( "_setOption", key, value );
+	},
 
-			this.running = true;
-			this._show();
-		},
+	_value: function() {
+		var val = this.options.value;
+		// normalize invalid value
+		if ( typeof val !== "number" ) {
+			val = 0;
+		}
+		return Math.min( this.options.max, Math.max( this.min, val ) );
+	},
 
-		stop: function () {
-			if (!this.running) {
-				return;
-			}
+	_percentage: function() {
+		return 100 * this._value() / this.options.max;
+	},
 
-			this.running = false;
-			this._hide();
-		},
+	_refreshValue: function() {
+		var value = this.value();
+		var percentage = this._percentage();
 
-		_create: function () {
-			this.html = $('<div class="ui-progressbar">' +
-					'<div class="ui-progress-bg"></div>' +
-					'<div class="ui-progress-bar"></div>' +
-					'</div>');
-			this.html_hide = $('<div class="ui-progressbar">' +
-					'<div class="ui-progress-bg"></div>' +
-					'</div>');
-		},
-	}); /* End of widget */
+		if ( this.oldValue !== value ) {
+			this.oldValue = value;
+			this._trigger( "change" );
+		}
 
-	// auto self-init widgets
-	$(document).bind("pagecreate", function (e) {
-		$(e.target).find(":jqmData(role='progressbar')").progressbar();
-	});
-})(jQuery, this);
+		this.valueDiv
+			.toggle( value > this.min )
+			.width( percentage.toFixed(0) + "%" );
+		this.element.attr( "aria-valuenow", value );
+	}
+});
+
+// auto self-init widgets
+$(document).bind("pagecreate", function (e) {
+	$(e.target).find(":jqmData(role='progressbar')").progressbar();
+});
+
+})( jQuery, this );
