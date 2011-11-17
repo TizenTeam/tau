@@ -1,0 +1,107 @@
+@import "config.less";
+
+@swipelistitem-width:480 * @unit_base;
+@swipelistitem-height:80 * @unit_base;
+@onelinelist-height:70 * @unit_base;
+@border-radius:8 * @unit_base;
+@margin:10 * @unit_base;
+@list-li-height: 112 * @unit_base;
+
+@list-font-size-main:	44 * @unit_base;
+@list-font-size-sub:	32 * @unit_base;
+@list-li-sub-left-width: 187 * @unit_base;
+@list-li-main-line-height: 60 * @unit_base;
+@list-li-padding-horizontal: 16 * @unit_base;
+@list-li-main-right-padding: 187 * @unit_base;
+
+.ui-swipelist {
+    list-style-type: none;
+}
+
+.ui-swipelistitem {
+    height:@list-li-height;
+}
+
+.ui-swipelistitemcontainer {
+    overflow:hidden;
+    position:relative;
+    height:@list-li-height;
+
+    .ui-swipelistitemcover {
+        position: absolute;
+        top:0;
+        left:0;
+  	background-color: black;
+        width:100%;
+        height:100%;
+        text-align: left;
+	border-left-width: 16px;
+	
+	.ui-li-text-main {
+		margin-top: 0.6em !important;
+		margin-left: @list-li-padding-horizontal !important;
+	}
+	.ui-li-text-sub-left {
+		margin-top: 0.6em !important;
+		margin-left: @list-li-padding-horizontal !important;
+	}
+	.ui-li-text-main-right {
+		margin-top: 0.6em !important;
+	}
+
+    }
+
+    .ui-swipelistitemcontent{
+        text-align: center;
+        position: absolute;
+        width:100%;
+        height:100%;
+
+        .ui-buttonlayout{
+            margin-right:@margin;
+            margin-top:-1.2em;
+            border:0px;
+//            height:38px;
+            width:215px;
+            text-align: center;
+            border-radius:@border-radius;
+            -webkit-border-radius:@border-radius;
+        }
+
+//        .ui-swipebuttonlast{
+//          width:225px;
+//          margin-right:0px;
+//        }
+
+//        .ui-threebuttonlayout{
+//          width:137px;
+//            .ui-swipebuttonlast{
+//              width:147px;
+//            }
+//        }
+
+//        .ui-centrebutton{
+//            width:136px;
+//        }
+
+//        .ui-fourbuttonlayout{
+//            width:101px;
+//          margin-right:8px;
+//            .ui-swipebuttonlast{
+//              width:109px;
+//            }
+//        }
+    }
+}
+
+//.ui-onelinelist {
+//    height:@onelinelist-height;
+//    .ui-swipelistitemcontainer{
+//        height:@onelinelist-height;
+//    }
+//    .ui-swipelistitemcontent{
+//        margin-top:28px;
+//        margin-bottom:4px;
+//    }
+//}
+

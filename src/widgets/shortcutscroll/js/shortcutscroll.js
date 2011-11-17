@@ -4,6 +4,8 @@
  * Copyright (C) TODO
  * License: TODO
  * Authors: Elliot Smith <elliot.smith@intel.com>
+ * Authors: Koeun Choi  <koeun.choi@samsung.com>
+ * Authors: Minkyu Kang <mk7.kang@samsung.com>
  */
 
 /**
@@ -17,124 +19,345 @@
  *
  * To apply, add the attribute data-shortcutscroll="true" to a listview
  * (a <ul> or <ol> element inside a page). Alternatively, call
- * shortcutscroll() on an element (this allows configuration of
- * the scrollview to be controlled).
+ * shortcutscroll() on an element.
  *
- * If a scrollview is not passed as an option to the widget, the parent
- * of the listview is assumed to be the scrollview under control.
+ * The closest element with class ui-scrollview-clip is used as the
+ * scrollview to be controlled.
  *
  * If a listview has no dividers or a single divider, the widget won't
  * display.
  */
-(function( $, undefined ) {
+(function($, undefined) {
+	$.widget( "todons.shortcutscroll", $.mobile.widget, {
+		options: {
+			initSelector: ":jqmData(shortcutscroll)"
+		},
 
-$.widget( "todons.shortcutscroll", $.mobile.widget, {
-    options: {
-        initSelector: ":jqmData(shortcutscroll)",
-        scrollview: null
-    },
+		second_popup: 0,
 
-    _create: function () {
-        var $el = this.element,
-            o = this.options,
-            shortcutsContainer = $('<div class="ui-shortcutscroll"/>'),
-            shortcutsList = $('<ul></ul>'),
-            dividers = $el.find(':jqmData(role="list-divider")'),
-            lastListItem = null,
-            shortcutscroll = this;
+		_show_second_popup: function (to_x, to_y) {
+			this.shortcutsContainer2.css('top', to_y);
+			this.shortcutsContainer2.animate({right: to_x}, 300);
+			this.second_popup = 1;
 
-        if (dividers.length < 2) {
-          return;
-        }
+			this.shortcutsList2Bg.height(this.shortcutsContainer2.height());
+			this.shortcutsList2Bg.css('top', to_y);
+			this.shortcutsList2Bg.animate({right: to_x}, 300);
+		},
 
-        // popup for the hovering character
-        var popup = null;
+		_hide_second_popup: function (to_x) {
+			this.shortcutsContainer2.animate({right: to_x}, 300);
+			this.second_popup = 0;
 
-        var removePopup = function () {
-            if (popup) {
-                popup.text('');
-                popup.remove();
-                popup = null;
-            }
-        };
+			this.shortcutsList2Bg.animate({right: to_x}, 300);
+		},
 
-        // if no scrollview has been specified, use the parent of the listview
-        if (o.scrollview === null) {
-            o.scrollview = $el.parent();
-        }
+		_create: function () {
+			var $el = this.element,
+			self = this,
+			$popup,
+			timer,
+			dragging = 0,
+			shortcut_width = 0,
+			page = $el.closest(':jqmData(role="page")');
 
-        // find the bottom of the last item in the listview
-        lastListItem = $el.children().last();
+			$.extend(this, {
+				dividertext: ""
+			});
 
-        // get all the dividers from the list and turn them into
-        // shortcuts
-        dividers.each(function (index, divider) {
-            var text = $(divider).text();
-            var listItem = $('<li>' + text + '</li>');
+			this.scrollview = $el.closest('.ui-scrollview-clip');
+			this.shortcutsContainer = $('<div class="ui-shortcutscroll"/>');
+			this.shortcutsList = $('<ul></ul>');
 
-            // bind mouse over so it moves the scroller to the divider
-            listItem.bind('touchstart mousedown vmousedown vmouseover', function (e) {
-                // get the vertical position of the divider (so we can
-                // scroll to it)
-                var dividerY = $(divider).position().top;
+			// popup for the hovering character
+			this.shortcutsContainer.append($('<div class="ui-shortcutscroll-popup"></div>'));
+			$popup = this.shortcutsContainer.find('.ui-shortcutscroll-popup');
 
-                // find the bottom of the last list item
-                var bottomOffset = lastListItem.outerHeight(true) +
-                                   lastListItem.position().top;
+			this.shortcutsContainer.append(this.shortcutsList);
+			this.scrollview.append(this.shortcutsContainer);
 
-                var scrollviewHeight = o.scrollview.height();
+			// second popup
+			shortcut_width = this.shortcutsContainer.width() + 10;
 
-                // check that after the candidate scroll, the bottom of the
-                // last item will still be at the bottom of the scroll view
-                // and not some way up the page
-                var maxScroll = bottomOffset - scrollviewHeight;
-                dividerY = (dividerY > maxScroll ? maxScroll : dividerY);
+			this.scrollview.append($('<div class="ui-shortcutscroll-bg"></div>'));
+			this.shortcutsList2Bg = this.scrollview.find('.ui-shortcutscroll-bg');
+			this.shortcutsList2Bg.css('right', -shortcut_width);
 
-                // apply the scroll
-                o.scrollview.scrollview('scrollTo', 0, -dividerY);
+			this.shortcutsList2 = $('<ul></ul>');
+			this.shortcutsContainer2 = $('<div class="ui-shortcutscroll2"/>');
+			this.shortcutsContainer2.append(this.shortcutsList2);
 
-                removePopup();
+			this.shortcutsContainer2.css('right', -shortcut_width);
+			this.shortcutsContainer2.css('width', window.innerWidth - shortcut_width);
 
-                // show the popup
-                popup = $('<div class="ui-shortcutscroll-popup">' +
-                          '<div></div>' +
-                          '</div>');
+			this.scrollview.append(this.shortcutsContainer2);
 
-                o.scrollview.after(popup);
+			// adjust z-index
+			this.shortcutsContainer.css('z-index', 100);
+			this.shortcutsContainer2.css('z-index', 90);
 
-                popup.find('div').text(text)
-                                 .position({my: 'center center',
-                                            at: 'center center',
-                                            of: popup});
+			// find the bottom of the last item in the listview
+			this.lastListItem = $el.children().last();
 
-                popup.position({my: 'center center',
-                                at: 'center center',
-                                of: o.scrollview});
+			// remove scrollbars from scrollview
+			this.scrollview.find('.ui-scrollbar').hide();
 
-                e.preventDefault();
-            });
+			var jumpToItem = function(list_item) {
+				// get the vertical position of the list item (so we can
+				// scroll to it)
+				var dividerY = $(list_item).position().top;
 
-            // bind mouseout of the shortcutscroll container to remove popup
-            listItem.bind('touchend mouseup vmouseup vmouseout', function () {
-                removePopup();
-            });
+				// find the bottom of the last list item
+				var bottomOffset = self.lastListItem.outerHeight(true) +
+							self.lastListItem.position().top;
 
-            shortcutsList.append(listItem);
-        });
+				var scrollviewHeight = self.scrollview.height();
 
-        shortcutsContainer.bind('vmousemove', function (e) {
-            e.preventDefault();
-        });
+				// check that after the candidate scroll, the bottom of the
+				// last item will still be at the bottom of the scroll view
+				// and not some way up the page
+				var maxScroll = bottomOffset - scrollviewHeight;
+				dividerY = (dividerY > maxScroll ? maxScroll : dividerY);
 
-        shortcutsContainer.append(shortcutsList);
-        o.scrollview.append(shortcutsContainer);
-    }
-});
+				// don't apply a negative scroll, as this means the
+				// list item should already be visible
+				dividerY = Math.max(dividerY, 0);
 
-$(document).bind( "pagecreate create", function (e) {
-    $($.todons.shortcutscroll.prototype.options.initSelector, e.target)
-    .not(":jqmData(role='none'), :jqmData(role='nojs')")
-    .shortcutscroll();
-});
+				// apply the scroll
+				clearTimeout(timer);
+				timer = setTimeout(function() {
+					self.scrollview.scrollview('scrollTo', 0, -dividerY, 1000);
+				}, 300);
 
-})( jQuery );
+				var popup_text = $(list_item).text();
+
+				if (popup_text.length > 1)
+					popup_text = popup_text.substr(0, 2).toUpperCase();
+
+				$popup.text(popup_text).position({
+					my: 'center center',
+					at: 'center center',
+					of: self.scrollview
+				}).show();
+
+				self.dividertext = $(list_item).text();
+			};
+
+			var set_second_list = function(divider) {
+				var div_char = $(divider).text();
+
+				var listItems =
+					self.element.find('li:contains("' + div_char + '"):not(:jqmData(role="list-divider"))');
+
+				self.shortcutsList2.find('li').remove();
+
+				var list_text;
+				var list_char;
+
+				listItems.each(function(index, second_list) {
+					list_text = $(second_list).text();
+
+					if (list_text.charAt(1) !== list_char) {
+						list_char = list_text.charAt(1);
+						self.shortcutsList2.append($('<li>' +
+								list_char.toUpperCase() + '</li>')
+								.data('second_list', second_list));
+					}
+				});
+			};
+
+			// bind mouse over so it moves the scroller to the divider
+			this.shortcutsList.bind('touchstart mousedown vmousedown touchmove vmousemove', function (e) {
+				e.preventDefault();
+				e.stopPropagation();
+
+				if (e.type === 'touchstart' || e.type === 'mousedown' || e.type === 'vmousedown') {
+					console.log("shourtcutslist down");
+					dragging = 1;
+				}
+
+				if (!dragging)
+					return;
+
+				// Get coords relative to the element
+				var coords = $.mobile.todons.targetRelativeCoordsFromEvent(e);
+				var shortcutsListOffset = self.shortcutsList.offset();
+
+				// If the element is a list item, get coordinates relative to the shortcuts list
+				if (e.target.tagName.toLowerCase() === "li") {
+					coords.x += $(e.target).offset().left -
+							shortcutsListOffset.left;
+					coords.y += $(e.target).offset().top -
+							shortcutsListOffset.top;
+				}
+
+				// Hit test each list item
+				self.shortcutsList.find('li').each(function() {
+					var listItem = $(this),
+					l = listItem.offset().left - shortcutsListOffset.left,
+					t = listItem.offset().top - shortcutsListOffset.top,
+					r = l + Math.abs(listItem.outerWidth(true)),
+					b = t + Math.abs(listItem.outerHeight(true));
+
+					if (coords.x >= l && coords.x <= r &&
+						coords.y >= t && coords.y <= b) {
+						if (self.second_popup)
+							self._hide_second_popup(-shortcut_width);
+						jumpToItem($(listItem.data('divider')));
+						set_second_list($(listItem.data('divider')));
+
+						return false;
+					}
+					return true;
+				});
+			});
+
+			this.shortcutsList2.bind('vmousemove', function (e) {
+				e.preventDefault();
+				e.stopPropagation();
+
+				if (!dragging)
+					return;
+
+				if (!self.second_popup)
+					return;
+
+				// Get coords relative to the element
+				var coords = $.mobile.todons.targetRelativeCoordsFromEvent(e);
+				var shortcutsListOffset = self.shortcutsList2.offset();
+
+				// If the element is a list item, get coordinates relative to the shortcuts list
+				if (e.target.tagName.toLowerCase() === "li") {
+					coords.x += $(e.target).offset().left -
+							shortcutsListOffset.left;
+					coords.y += $(e.target).offset().top -
+							shortcutsListOffset.top;
+				}
+
+				// Hit test each list item
+				self.shortcutsList2.find('li').each(function() {
+					var listItem = $(this),
+					l = listItem.offset().left - shortcutsListOffset.left,
+					t = listItem.offset().top - shortcutsListOffset.top,
+					r = l + Math.abs(listItem.outerWidth(true)),
+					b = t + Math.abs(listItem.outerHeight(true));
+
+					if (coords.x >= l && coords.x <= r &&
+						coords.y >= t && coords.y <= b) {
+						jumpToItem($(listItem.data('second_list')));
+						return false;
+					}
+					return true;
+				});
+			});
+
+			//hide when touch up..
+			$(document).bind('touchend mouseup vmouseup', function (e) {
+				dragging = 0;
+				$popup.hide();
+
+				if (self.second_popup)
+					self._hide_second_popup(-shortcut_width);
+			});
+
+			this.shortcutsList.bind('vmouseout', function (e) {
+				if (!dragging)
+					return;
+
+				var pop_y;
+				var c = targetRelativeCoordsFromEvent(e);
+
+				if (c.x > 0)
+					return;
+
+				var shortcutsListOffset = self.shortcutsList.offset();
+
+				if (e.target.tagName.toLowerCase() === "li") {
+					pop_y = $(e.target).offset().top -
+							shortcutsListOffset.top;
+				}
+
+				self._show_second_popup(shortcut_width, pop_y);
+			});
+
+			this.shortcutsList2.bind('vmouseout', function (e) {
+				if (!dragging)
+					return;
+
+				if (!self.second_popup)
+					return;
+
+				var c = targetRelativeCoordsFromEvent(e);
+
+				if (c.x < self.shortcutsList2.width())
+					return;
+
+				self._hide_second_popup(-shortcut_width);
+			});
+
+
+			if (page && !(page.is(':visible'))) {
+				page.bind('pageshow', function () {
+					self.refresh();
+				});
+			} else {
+				this.refresh();
+			}
+
+			// refresh the list when the dividers change
+			$el.bind('listChanged', function () {
+				self.refresh();
+			});
+
+			// refresh the list when dividers are filtered out
+			$el.bind('listFiltered', function () {
+				self.refresh(true);
+			});
+		},
+
+		refresh: function (visibleOnly) {
+			var self = this,
+			shortcutsTop;
+
+			this.shortcutsList.find('li').remove();
+
+			// get all the dividers from the list and turn them into
+			// shortcuts
+			var dividers = this.element.find(':jqmData(role="list-divider")');
+
+			// get all the list items
+			var listItems = this.element.find('li:not(:jqmData(role="list-divider"))');
+
+			if (visibleOnly) {
+				dividers = dividers.filter(':visible');
+				listItems = listItems.filter(':visible');
+			}
+
+			if (dividers.length < 2) {
+				this.shortcutsList.hide();
+				return;
+			}
+
+			this.shortcutsList.show();
+
+			this.lastListItem = listItems.last();
+
+			dividers.each(function (index, divider) {
+				self.shortcutsList.append($('<li>' + $(divider).text() + '</li>')
+								.data('divider', divider));
+			});
+
+			// position the shortcut flush with the top of the first
+			// list divider
+			shortcutsTop = dividers.first().position().top;
+			this.shortcutsContainer.css('top', shortcutsTop);
+		}
+	});
+
+	$(document).bind( "pagecreate create", function (e) {
+		$($.todons.shortcutscroll.prototype.options.initSelector, e.target)
+			.not(":jqmData(role='none'), :jqmData(role='nojs')")
+			.shortcutscroll();
+	});
+
+})(jQuery);

@@ -141,8 +141,13 @@
                 listItems = self.element.children("li"),
                 $li = null;
             self.element.addClass("ui-swipelist");
+            self.element.addClass("ui-listview");
             listItems.each(function (idx, li) {
                 $li = $(li);
+                $li.addClass("ui-li");
+//                $li.addClass("ui-li-static");
+                $li.addClass("ui-body-s");
+
                 coverContent = $li.find(":jqmData(role='ui-list-cover')");
                 if (coverContent.length !== 0) {
                     $li.addClass("ui-swipelistitem");
@@ -160,9 +165,9 @@
                     $contentDiv.html($li.find(":jqmData(role!='ui-list-cover')").parent().html());
                     $li.find(":jqmData(role!='ui-list-cover')").remove();
                     $contentDiv.addClass("ui-swipelistitemcontent");
-                    $contentDiv.attr('data-role','controlgroup');
-                    $contentDiv.attr('data-type','horizontal');
-                    $contentDiv.controlgroup( {direction: "horizontal"});
+//                    $contentDiv.attr('data-role','controlgroup');
+//                    $contentDiv.attr('data-type','horizontal');
+//                    $contentDiv.controlgroup( {direction: "horizontal"});
 
                     //Create appropriate layout for buttons.
                     var temp = $contentDiv.find(".ui-btn-inner").parent(),

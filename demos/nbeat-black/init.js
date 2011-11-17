@@ -21,7 +21,7 @@ $(document).bind("pagecreate", function () {
         $(this).find(':jqmData(processing="spinnerbar")').each(function (index, element) {
             var randomWait = 500 * (Math.floor(Math.random() * 6) + 4);
 
-            $(element).text("")
+            $(element).text("");
 
             $(element).bind('stopped', function () {
                 $(element).text("I am done!");
@@ -94,30 +94,100 @@ $(document).bind("pagecreate", function () {
 	});
 
 	$('#progressbar-demo').bind('pageshow', function (e) {
-		$(this).find('#progressbar').progressbar('start');
+
+		// set progressbar value...
+		$('#progressbar').progressbar("option", "value", 37);
+
+		// how to update progressbar..
+		$('#progressbarTest').bind('vclick', function (e) {
+
+			// request animation frame
+			window.requestAnimFrame = (function(){
+				return  window.requestAnimationFrame       ||
+				window.webkitRequestAnimationFrame ||
+				window.mozRequestAnimationFrame    ||
+				window.oRequestAnimationFrame      ||
+				window.msRequestAnimationFrame     ||
+				function(animloop){
+				return window.setTimeout(animloop, 1000 / 60);
+				};
+			})();
+			window.cancelRequestAnimFrame = ( function() {
+				return window.cancelAnimationFrame          ||
+				window.webkitCancelRequestAnimationFrame    ||
+				window.mozCancelRequestAnimationFrame       ||
+				window.oCancelRequestAnimationFrame     ||
+				window.msCancelRequestAnimationFrame        ||
+				clearTimeout
+			})();
+
+			// to store the request
+			var request;
+			// progress value
+			var i = 0;
+
+			// start and run the animloop
+			(function animloop(){
+				$('#progressbar').progressbar("option", "value", i++);
+				request = requestAnimFrame(animloop);
+				if ( i > 100 )
+					cancelRequestAnimFrame(request);
+			})();
+		});
 		$(this).find('#pending').progress_pending('start');
 		$(this).find('#progressing').progressing('start');
 	});
 
 	$('#progressbar-demo').bind('pagehide', function (e) {
-		$(this).find('#progressbar').progressbar('stop');
 		$(this).find('#pending').progress_pending('stop');
 		$(this).find('#progressing').progressing('stop');
 	});
 
+	$('#tickernoti-demo').bind('vmouseup', function (e) {
+		$('#tickernoti').tickernoti('show');
+	});
+
+	$('#tickernoti-demo').bind('tapped', function (e, m) {
+		/* DO SOMETHING */
+		alert('ticker noti is tapped\nparameter:"' + m + '"');
+		$('#tickernoti').tickernoti('hide');
+	});
+
+	$('#smallpopup-demo').bind('vmouseup', function (e) {
+		$('#smallpopup').smallpopup('show');
+	});
+
+	$('#smallpopup-demo').bind('tapped', function (e, m) {
+		/* DO SOMETHING */
+		alert('smallpopup is tapped\nparameter:"' + m + '"');
+		$('#smallpopup').smallpopup('hide');
+	});
+
+	$('#imageslider-add').bind('vmouseup', function (e) {
+		$('#imageslider').imageslider('add', './test/10.jpg');
+		$('#imageslider').imageslider('add', './test/11.jpg');
+		$('#imageslider').imageslider('refresh');
+	});
+
+	$('#imageslider-del').bind('vmouseup', function (e) {
+		$('#imageslider').imageslider('del');
+	});
+
+	$('#selectioninfo-demo').bind('vmouseup', function (e) {
+		$('#smallpopup_selectioninfo').attr("data-text1", $("#dayselector1").find(".ui-checkbox-on").length);		
+		$('#smallpopup_selectioninfo').smallpopup('show');
+	});
+
+	$('#selectioninfo-demo').bind('tapped', function (e, m) {
+		/* DO SOMETHING */
+		alert('smallpopup is tapped\nparameter:"' + m + '"');
+		$('#smallpopup_selectioninfo').smallpopup('hide');
+	});
+
+
+
     $('#groupindex-demo').bind('pageshow', function () {
         $('#groupindex').scrolllistview();
-    });
-    $("#popupwindow-demo").bind("pageshow", function() {
-      $('#popupwindow-demo-transition-' + $("#popupContent2").popupwindow("option", "transition"))
-        .attr("checked", "true")
-        .checkboxradio("refresh");
-
-	$(this).find('#progressbar').progressbar('start');
-    });
-
-    $('input[name=popupwindow-demo-transition-choice]').bind("change", function(e) {
-      $("#popupContent2").popupwindow("option", "transition", $(this).attr("id").split("-").pop());
     });
 
     $("#showVolumeButton").bind("vclick", function (e) {
@@ -142,6 +212,26 @@ $(document).bind("pagecreate", function () {
     $("#myoptionheader").bind('expand', function () {
         console.log('option header was expanded');
     });
+
+	//day-selector codes...
+	$( "#day-selector-check-all" ).live('vclick', function () {
+		$("#dayselector1").dayselector('selectAll');
+	});
+
+	$( "#day-selector-get-days" ).live('vclick', function () {
+		var valuesStr = $("#dayselector1").dayselector('value').join(', ');
+		$(".selectedDay").text(valuesStr);
+	});
+	
+	/* Gen list : Dummy DB load */
+	$(".virtuallist_demo_page").live("pagecreate", function(){
+		/* ?_=ts code for no cache mechanism */
+		$.getScript( "./virtuallist-db-demo.js", function(data, textStatus)
+		{
+			$("ul").filter(function(){return $(this).data("role")=="virtuallistview";}).addClass("vlLoadSuccess");
+			$("ul.ui-virtual-list-container").virtuallistview("create");
+		});
+	});
 });
 
 $(document).bind("pagecreate", function() {

@@ -7,3 +7,4 @@ debian
 *.js.compiled
 compiled
 *.patch
+*~

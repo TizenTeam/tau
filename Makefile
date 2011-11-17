@@ -59,7 +59,7 @@ all: third_party widgets themes version_compat
 # NOTE: This jqm target is temporary.
 jqm: init
 	# Building jQuery Mobile...
-	@@cd src/jqm && make all
+	@@cd src/jqm && make all-but-min
 
 third_party: init jqm
 	# Building third party components...
@@ -128,7 +128,7 @@ demo: widgets
 	cp -av demos/* ${OUTPUT_ROOT}/demos/
 	cp -f src/template/bootstrap.js ${OUTPUT_ROOT}/demos/gallery/
 
-install: all
+install:
 	mkdir -p ${INSTALL_DIR}/share/slp-web-fw ${INSTALL_DIR}/bin
 	cp -av ${OUTPUT_ROOT}/* src/template ${INSTALL_DIR}/share/slp-web-fw/
 	cp -av tools/* ${INSTALL_DIR}/bin
@@ -139,6 +139,7 @@ clean:
 	# Remove generated files...
 	@@rm -f `find . -iname *.less.css`
 	@@rm -f `find . -iname *.js.compiled`
+	@@cd src/jqm && make clean
 
 init: clean
 	# Initializing...

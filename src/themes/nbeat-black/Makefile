@@ -33,10 +33,18 @@ CSS_SRCS=	jquery.mobile.theme.less.css \
 		jquery.mobile.progress_pending.less.css \
 		jquery.mobile.progressing.less.css \
 		jquery.mobile.slider.less.css \
-		jquery.mobile.optionheader.less.css
+		jquery.mobile.imageslider.less.css \
+		jquery.mobile.tickernoti.less.css \
+		jquery.mobile.smallpopup.less.css \
+		jquery.mobile.optionheader.less.css \
+		jquery.mobile.pagecontrol.less.css \
+		jquery.mobile.calendarpicker.less.css \
+		jquery.mobile.swipelist.less.css \
+		jquery.mobile.nocontents.less.css \
+		shortcutscroll.less.css \
+		dayselector.less.css
 
-
-all: prepare css images
+all: prepare css images js
 
 prepare:
 	-mkdir -p ${OUTPUT_DIR}
@@ -59,6 +67,9 @@ css: prepare less
 images: prepare
 	# Copying nbeat-black theme images...
 	@cp -a images/ ${OUTPUT_DIR}/
+
+js: prepare
+	@cp -a theme.js ${OUTPUT_DIR}
 
 clean:
 	# Cleaning nbeat-black theme...

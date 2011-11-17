@@ -8,7 +8,8 @@ JSFILES = \
     js/jquery.easing.1.3.js \
     js/jquery.mobile.scrollview.js \
     js/todons.core.js \
-    $(NULL)
+	js/jquery.tmpl.js \
+	$(NULL)
 
 JS_THEME_FILES = \
     $(NULL)

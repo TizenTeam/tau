@@ -44,6 +44,7 @@ JSFILES = 	  js/jquery.ui.widget.js \
 			  js/jquery.mobile.hashchange.js \
 			  js/jquery.mobile.page.js \
 			  js/jquery.mobile.core.js \
+			  js/jquery.mobile.slp.extension.js \
 			  js/jquery.mobile.navigation.js \
 			  js/jquery.mobile.navigation.pushstate.js \
 			  js/jquery.mobile.transition.js \
@@ -56,7 +57,7 @@ JSFILES = 	  js/jquery.ui.widget.js \
 			  js/jquery.mobile.navbar.js \
 			  js/jquery.mobile.listview.js \
 			  js/jquery.mobile.listview.filter.js \
-			  js/jquery.mobile.virtuallistview.js \
+			  js/jquery.mobile.slp.virtuallistview.js \
 			  js/jquery.mobile.nojs.js \
 			  js/jquery.mobile.forms.checkboxradio.js \
 			  js/jquery.mobile.forms.button.js \
@@ -92,6 +93,8 @@ CSSFILES =    themes/default/jquery.mobile.theme.css \
 # By default, this is what get runs when make is called without any arguments.
 # Min and un-min CSS and JS files are the only things built
 all: init js min css cssmin notify
+
+all-but-min: init js css notify
 
 # Build the normal CSS file.
 css: init
@@ -205,3 +208,6 @@ deploy: zip
 	# Clean up the local files
 	@@rm -rf ${VER}
 	@@echo "All Done"
+
+clean:
+	@@rm -rf ${CURDIR}/compiled

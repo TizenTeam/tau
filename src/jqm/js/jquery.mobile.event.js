@@ -1,9 +1,10 @@
 /*
-* jQuery Mobile Framework : events
+* jQuery Mobile Framework : "events" plugin - Handles events
 * Copyright (c) jQuery Project
 * Dual licensed under the MIT or GPL Version 2 licenses.
 * http://jquery.org/license
 */
+
 (function( $, window, undefined ) {
 
 // add new event shortcuts
@@ -26,6 +27,13 @@ var supportTouch = $.support.touch,
 function triggerCustomEvent( obj, eventType, event ) {
 	var originalType = event.type;
 	event.type = eventType;
+
+	// NOTE : by Youmin Ha <youmin.ha@samsung.com>
+	//     event.liveFired is already set by basic events e.g. vclick, 
+	//     which is fired already.
+	//     To fire this custom event, event.liveFired must be cleared.
+	event.liveFired = undefined;
+
 	$.event.handle.call( obj, event );
 	event.type = originalType;
 }
@@ -238,7 +246,7 @@ $.event.special.swipe = {
 			last_orientation = orientation;
 			win.trigger( "orientationchange" );
 		}
-	};
+	}
 
 	// Get the current page orientation. This method is exposed publicly, should it
 	// be needed, as jQuery.event.special.orientationchange.orientation()

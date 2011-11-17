@@ -1,0 +1,63 @@
+
+@import "config.less";
+
+/* dayselector CSS */
+.ui-dayselector label {
+    height: 56px;
+    width: 64px;
+}
+
+.ui-dayselector  {
+	
+	.ui-btn {
+		border-color : #42525a;
+		border-style : solid;
+		border-width : 1 * @unit_base;
+		.ui-btn-inner {
+			text-align :center;
+			
+			padding : 0.8em 0px;
+		}
+	}
+	
+    .ui-checkbox-off {
+		background : #213c49;
+		.ui-btn-text {
+			color : #4e4945;
+		}	
+	}
+    .ui-checkbox-on {
+		background : #008cd2;
+		.ui-btn-text {
+			color : #FFFFFF;	
+	   	}	
+	}
+.ui-dayselector-label-saturday {
+		.ui-btn-text {	
+	    	color: #0860aa;
+		}
+	}
+	.ui-dayselector-label-sunday {
+		.ui-btn-text {
+		    color: #e13108;
+		}
+	}
+	.ui-checkbox {
+	
+		height : 90 * @unit_base;
+		
+		.ui-btn {
+			width : 94 * @unit_base;
+		}
+		.ui-btn.ui-corner-left	{
+			border-top-left-radius : 5 * @unit_base;
+			border-bottom-left-radius : 5 * @unit_base;
+		} 
+		.ui-btn.ui-corner-right	{
+			border-top-right-radius : 5 * @unit_base;
+			border-bottom-right-radius : 5 * @unit_base;
+		}			 
+}
+
+}
+

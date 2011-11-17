@@ -3,5 +3,14 @@
 // load each of the files in the deps property inside bootstrap.js
 S.load(
 	'theme.js',
-    'init.js'
+	'init.js',
+	'widgets/checkbox/checkbox.js',
+	'widgets/radio/radio.js',
+	'widgets/popupwindow/popupwindow.js',
+	'tips/generate-elements-dynamically.js',
+	'widgets/pagecontrol/pagecontrol-demo.js'
+);
+//TODO : fix load syntax....
+S.css.load(
+	'custom.css'
 );

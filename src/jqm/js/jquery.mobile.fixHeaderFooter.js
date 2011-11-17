@@ -65,14 +65,26 @@ $.mobile.fixedToolbars = (function() {
 		//
 		// If we are in autoHideMode, we don't do anything because we know the scroll
 		// callbacks for the plugin will fire off a show when the scrolling has stopped.
+
+
+		/* resize test : Jinhyuk    */
+		var footer_filter = $(document).find(".ui-page-active").find(":jqmData(role='footer')");		
+		if(footer_filter.find(".ui-navbar").is(".ui-controlbar-s")){		
+			footer_filter
+				.css("top",document.documentElement.clientHeight  - footer_filter.height())
+				.show();		
+		}
+		else
+			footer_filter.css("top","0px");
+		/* resize test : Jinhyuk    */
+
 		if ( !autoHideMode && currentstate === "overlay" ) {
 			if ( !delayTimer ) {
 				/* Fixed header modify for theme-s : Jinhyuk */
-				if(!($( event.target).find( ":jqmData(role='header')" ).is(".ui-header-fixed")&&
+				if(!($( event.target).find( ":jqmData(role='header')" ).is(":jqmData(position='fixed')")&&
 				$( event.target).find( ":jqmData(role='header')" ).is(".ui-bar-s")))				
 					$.mobile.fixedToolbars.hide( true );
 			}
-
 			$.mobile.fixedToolbars.startShowTimer(); 
 		}
 	}
@@ -114,8 +126,8 @@ $.mobile.fixedToolbars = (function() {
 		( ( $document.scrollTop() === 0 ) ? $window : $document )
 			.bind( "scrollstart", function( event ) {
 				/* Fixed header modify for theme-s : Jinhyuk */
-				if(!($( event.target).find( ":jqmData(role='header')" ).is(".ui-header-fixed") &&
-					$( event.target).find( ":jqmData(role='header')" ).is(".ui-bar-s"))){
+				if(!$( event.target).find( ":jqmData(role='header')" ).is(":jqmData(position='fixed')"))
+				{
 					scrollTriggered = true;
 	
 					if ( stateBefore === null ) {
@@ -134,13 +146,7 @@ $.mobile.fixedToolbars = (function() {
 						$.mobile.fixedToolbars.clearShowTimer();
 	
 						if ( isOverlayState ) {
-							if(!($( event.target).find( ":jqmData(role='header')" ).is(".ui-header-fixed") &&
-							$( event.target).find( ":jqmData(role='header')" ).is(".ui-bar-s")))							
 								$.mobile.fixedToolbars.hide( true );
-							else
-							$( event.target ).find( ":jqmData(role='header')" )
-								.css("position", "fixed")
-								.css("top", "0px");															
 						}
 					}	 		
 				}
@@ -167,85 +173,166 @@ $.mobile.fixedToolbars = (function() {
 	// 2. After page is shown, append footer to new page
 	$( ".ui-page" )  /* Fixed header modify for theme-s : Jinhyuk */
 		.live( "pagebeforeshow", function( event, ui ) {
-			var s_theme_header = $( event.target ).find(":jqmData(role='header')");
+			/* resize footer : Jinhyuk    */
+			var footer_filter = $(document).find(":jqmData(role='footer')");		
+			if(footer_filter.find(".ui-navbar").is(".ui-controlbar-s")){			
+				footer_filter
+					.css("top",document.documentElement.clientHeight  - footer_filter.height())
+					.show();
+			}		
+			/* resize footer : Jinhyuk    */
 			
-				if(s_theme_header.find(".ui-option-header").length == 0 && s_theme_header.is(".ui-header-fixed") && s_theme_header.is(".ui-bar-s")){
-					s_theme_header
-						.css("position", "fixed")
-						.css("top", "0px");
-					if(s_theme_header.find(":jqmData(role='fieldcontain')").length == 0){				
-						if(s_theme_header.find("a").length == 1 || s_theme_header.find("a").length == 2){}
-						else if(s_theme_header.find("a").length == 3){
-							s_theme_header.find("a").eq(1).removeClass("ui-btn-right");
-							s_theme_header.find("a").eq(1).addClass("ui-title-normal-3btn");					
-							s_theme_header.find("a").eq(2).addClass("ui-btn-right");
-						} else {/* Need to implement new layout */}
-						
-						$( event.target ).find(".ui-content").addClass("ui-title-content-normal-height");
-						
+			var s_theme_header = $( event.target ).find(":jqmData(role='header')");
+			var s_theme_fieldcontain = s_theme_header.find(":jqmData(role='fieldcontain')");
+			var title_style = "normal";
+			if(s_theme_fieldcontain.length != 0) 
+				title_style = "extended";
+			
+				if(s_theme_header.children().is(".ui-option-header")){	
+					if(s_theme_header.children().is(".input-search-bar")){
+						$( event.target ).find(".ui-content")
+							.css("position", "relative")
+							.css("top","216px" );	
 					}
 					else{
-						var group_length = s_theme_header.find(":jqmData(role='fieldcontain')").find(".ui-radio").length;
+						if($.todons.optionheader.prototype.options.collapseOnInit == true)					
+							$( event.target ).find(".ui-content")
+								.addClass("ui-title-content-option-header-collapsed-1line-height");
+						else 
+							$( event.target ).find(".ui-content")
+								.addClass("ui-title-content-option-header-expanded-1line-height");	
+					}
+				}
+				else if(s_theme_header.find("input").jqmData("type") == "search"){ /* In case searchbar in header : Jinhyuk */
+					$( event.target ).find(".ui-content")
+						.css("position", "relative")
+						.css("top","206px" );										
+				}				
+				else {
+					if(s_theme_header.parent().is(".ui-dialog"))
+						s_theme_header.css("position", "relative");
+					else {
+						s_theme_header
+							.css("position", "fixed")
+							.css("top", "0px");
+					}
+					if(title_style == "normal"){				
+						if(s_theme_header.find("a").length == 1 || s_theme_header.find("a").length == 2){}
+						else if(s_theme_header.find("a").length == 3){
+							s_theme_header.find("a").eq(1)
+								.removeClass("ui-btn-right")
+					.addClass("ui-title-normal-3btn");					
+							s_theme_header.find("a").eq(2)
+								.addClass("ui-btn-right");
+						} else {/* Need to implement new layout */}
+					}
+					else{
+						var group_length = s_theme_fieldcontain.find(".ui-radio").length;
 						
 						s_theme_header.addClass("ui-title-extended-height");
-						s_theme_header.find(":jqmData(role='fieldcontain')").find(".ui-controlgroup")
+						s_theme_fieldcontain.find(".ui-controlgroup")
 							.addClass("ui-title-extended-controlgroup");
 							
-						s_theme_header.find(":jqmData(role='fieldcontain')")						
+						s_theme_fieldcontain						
 							.addClass("ui-title-extended-segment-style");
 	
-						if(group_length == 2)
-							s_theme_header.find(":jqmData(role='fieldcontain')").find(".ui-controlgroup").addClass("ui-title-extended-controlgroup-2btn");
-						else if(group_length == 3)
-							s_theme_header.find(":jqmData(role='fieldcontain')").find(".ui-controlgroup").addClass("ui-title-extended-controlgroup-3btn");
+						if(group_length == 2 || group_length == 3)
+							s_theme_fieldcontain.find(".ui-controlgroup").addClass("ui-title-extended-controlgroup-" + group_length + "btn");
 						else { /* Need to implement new layout */}
-						
-						$( event.target ).find(".ui-content").addClass("ui-title-content-extended-height");
-					}		
+					}	
+					$( event.target ).find(".ui-content").addClass("ui-title-content-" + title_style + "-height");	
 				}	
-				else{
-					var page = $( event.target ),
-					footer = page.find( ":jqmData(role='footer')" ),
-					id = footer.data( "id" ),
-					prevPage = ui.prevPage,
-					prevFooter = prevPage && prevPage.find( ":jqmData(role='footer')" ),
-					prevFooterMatches = prevFooter.length && prevFooter.jqmData( "id" ) === id;
-	
-					if ( id && prevFooterMatches ) {
-						stickyFooter = footer;
-						setTop( stickyFooter.removeClass( "fade in out" ).appendTo( $.mobile.pageContainer ) );
-					}				
-				}
+				
+				var page = $( event.target ),
+				footer = page.find( ":jqmData(role='footer')" ),
+				id = footer.data( "id" ),
+				prevPage = ui.prevPage,
+				prevFooter = prevPage && prevPage.find( ":jqmData(role='footer')" ),
+				prevFooterMatches = prevFooter.length && prevFooter.jqmData( "id" ) === id;
 
+				if ( id && prevFooterMatches ) {
+					stickyFooter = footer;
+					stickyFooter.removeClass( "fade in out" ).appendTo( $.mobile.pageContainer );
+					stickyFooter
+						.css("position", "fixed")
+						.css("top", $(".ui-page").find(":jqmData(role='footer')").eq(0).css("top"));
 					
+				}									
+			/* Header position fix(remove transition) : Jinhyuk */
+			var next_id = $( event.target).attr("id");
+			$("#"+next_id).find(":jqmData(role='header')").removeClass( "fade in out" ).appendTo($.mobile.pageContainer);
+											
 		})
+
 		.live( "pageshow", function( event, ui ) {
 			/* Fixed header modify for theme-s : Jinhyuk */
-			if(($( event.target ).find( ":jqmData(role='header')" ).is(".ui-header-fixed")&&
-			$( event.target ).find( ":jqmData(role='header')" ).is(".ui-bar-s"))){	
+			var s_theme_header = $( event.target ).find( ":jqmData(role='header')" );
+			if((s_theme_header.is(".ui-header-fixed")&&
+			 s_theme_header.is(".ui-bar-s"))){	
+				$( event.target ).find( ":jqmData(role='header')" )
+					.css("position", "fixed")
+					.css("top", "0px");
 				 (( $( document ).scrollTop() === 0 ) ? $( window ) : $( document ) )
 					.unbind( "scrollstart")
 					.unbind( "silentscroll")
 					.unbind( "scrollstop");
-			$( event.target ).find( ":jqmData(role='header')" )
-					.css("position", "fixed")
-					.css("top", "0px");
 			}
-			else{
-				var $this = $( this );
 
-				if ( stickyFooter && stickyFooter.length ) {
-	
-					setTimeout(function() {
-						setTop( stickyFooter.appendTo( $this ).addClass( "fade" ) );
-						stickyFooter = null;
-					}, 500);
-				}
+			var $this = $( this );
 
-				$.mobile.fixedToolbars.show( true, this );					
+			if ( stickyFooter && stickyFooter.length ) {
+
+				setTimeout(function() {
+					setTop( stickyFooter.appendTo( $this ).addClass( "fade" ) );
+					stickyFooter = null;
+				}, 500);
 			}
+
+			$.mobile.fixedToolbars.show( true, this );					
+
+			/* Header position fix(remove transition) : Jinhyuk */
+			$("body").children(":jqmData(role='header')").insertBefore($(event.target).find(":jqmData(role='content')").eq(0));
+		})
+
+		.live( "vclick", function( event, ui ) {
+/*
+			var previous_index = $(".ui-page-active").find(":jqmData(role='footer')" ).find(".ui-state-persist").parents("li").index();
+			var active_index = $(event.target).parents("li").index();
+			var navbar_filter = $(".ui-page-active").find(":jqmData(role='footer')" ).find(":jqmData(role='navbar')");
+			var element_count = navbar_filter.find('li').length;
+			var style = navbar_filter.jqmData( "style" );
+			var list_width = $(".ui-page-active").find('.ui-navbar').width()/element_count;
+			
+			var next_link = $(event.target).parents("a").attr("href");
+			
+			
+			$(".ui-page-active").addClass("ui-btn-hide-style");
+
+
+			if(navbar_filter.find(".ui-btn-animation").length == 0 && style != "toolbar"){					
+				$('<div class="ani-focus"></div>').appendTo(navbar_filter.children());
+				$(".ani-focus")
+					.addClass("ui-btn-animation")	
+					.removeClass("ui-btn-ani-verticalendposition")
+					.removeClass("ui-btn-ani-endposition");
+
+			}					
+				$(".ani-focus")				
+					.css("width", navbar_filter.width()/element_count )
+					.css("height",navbar_filter.css("height"))	
+					.css("left", previous_index * list_width);
+
+
+				$(".ui-btn-ani-startposition").css("-webkit-transform","translateX("+previous_index *list_width+")");
+				$(".ani-focus").addClass("ui-btn-ani-startposition");
 				
+				var t=setTimeout("",10);
+				$(".ui-btn-ani-endposition").css("-webkit-transform","translateX("+active_index *list_width+")");
+				$(".ani-focus").removeClass("ui-btn-ani-startposition");
+				$(".ani-focus").addClass("ui-btn-ani-endposition");
+*/
 		});
+		
 
 	// When a collapsiable is hidden or shown we need to trigger the fixed toolbar to reposition itself (#1635)
 	$( ".ui-collapsible-contain" ).live( "collapse expand", showEventCallback );

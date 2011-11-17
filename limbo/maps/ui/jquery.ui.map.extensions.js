@@ -100,8 +100,15 @@
 		 */
 		placesSearch: function(a, b) {
 			this.get('services > PlacesService', new google.maps.places.PlacesService(this.get('map'))).search(a, b);
-		}
+		},
+        
+        placesDetail: function(a, b) {
+            this.get('services > PlacesService', new google.maps.places.PlacesService(this.get('map'))).getDetails(a, b);
+        },
 
+        setCenter: function(a) {
+            this.get('map').setCenter(a);
+        }
 
 	});
 

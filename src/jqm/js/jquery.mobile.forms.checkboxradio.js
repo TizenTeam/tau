@@ -26,16 +26,12 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
 			checkedClass = "ui-" + checkedState + activeBtn,
 			uncheckedClass = "ui-" + uncheckedState,
 			checkedicon = "ui-icon-" + checkedState,
-			uncheckedicon = "ui-icon-" + uncheckedState,
-			//SLP -- start onoff text for on-off icons
-			checkedTextOnOff = "onoff-text-" + checkedState,
-			uncheckedTextOnOff = "onoff-text-" + uncheckedState;
-			//SLP -- end onoff text for on-off icons
+			uncheckedicon = "ui-icon-" + uncheckedState;
 
 		if ( inputtype !== "checkbox" && inputtype !== "radio" ) {
 			return;
 		}
-		//SLP --start - checkbox style : favorite, onoff
+		//SLP --start - fake label
 		if ( label.length == 0 ) {
 			//fake label
 			label = $("<label for='" + input[ 0 ].id  + "' style='display:block;width:1px;height:1px;'></label>");
@@ -53,11 +49,7 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
 			checkedClass: checkedClass,
 			uncheckedClass: uncheckedClass,
 			checkedicon: checkedicon,
-			uncheckedicon: uncheckedicon,
-			//SLP -- start onoff text for on-off icons
-			checkedTextOnOff: checkedTextOnOff,
-			uncheckedTextOnOff: uncheckedTextOnOff
-			//SLP -- end onoff text for on-off icons
+			uncheckedicon: uncheckedicon
 		});
 
 		// If there's no selected theme...
@@ -72,20 +64,28 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
 		});
 
 		//SLP --start - checkbox style : favorite, onoff
-		var style = input.jqmData( "style" );
+		var style = "";
+		// support data-style & class... 
+		// TODO : support either data-style or class...
+		style = input.jqmData( "style" );
+		if ( input.hasClass( "favorite" ) ) {
+			style = "favorite";
+		}
+		else if ( input.hasClass( "onoff" ) ) {
+			style = "onoff";
+		}
 		switch ( style ) {
 			case "onoff":
 				label.find( ".ui-icon" ).append("<span class='onoff-text'></span>");
-			default:
-			//for all styles..
-			input.parent().addClass( style ).end();
 		}
+		//for all styles..
+		input.parent().addClass( style ).end();
 		//SLP --end
 
 		label.bind({
-			vmouseover: function() {
+			vmouseover: function( event ) {
 				if ( $( this ).parent().is( ".ui-disabled" ) ) {
-					return false;
+					event.stopPropagation();
 				}
 			},
 
@@ -98,6 +98,13 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
 				self._cacheVals();
 
 				input.prop( "checked", inputtype === "radio" && true || !input.prop( "checked" ) );
+
+				// trigger click handler's bound directly to the input as a substitute for
+				// how label clicks behave normally in the browsers
+				// TODO: it would be nice to let the browser's handle the clicks and pass them
+				//       through to the associate input. we can swallow that click at the parent
+				//       wrapper element level
+				input.triggerHandler( 'click' );
 
 				// Input set for common radio buttons will contain all the radio
 				// buttons, but will not for checkboxes. clearing the checked status
@@ -113,11 +120,10 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
 		input
 			.bind({
 				vmousedown: function() {
-					this._cacheVals();
+					self._cacheVals();
 				},
 
 				vclick: function() {
-
 					var $this = $(this);
 
 					// Adds checked attribute to checked input when keyboard is used
@@ -155,11 +161,12 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
 
 	//returns either a set of radios with the same name attribute, or a single checkbox
 	_getInputSet: function(){
-        if(this.inputtype == "checkbox") {
-            return this.element;
-        }
-        return this.element.closest( "form,fieldset,:jqmData(role='page')" )
-				.find( "input[name='"+ this.element.attr( "name" ) +"'][type='"+ this.inputtype +"']" );
+		if(this.inputtype == "checkbox") {
+			return this.element;
+		}
+
+		return this.element.closest( "form,fieldset,:jqmData(role='page')" )
+			.find( "input[name='"+ this.element.attr( "name" ) +"'][type='"+ this.inputtype +"']" );
 	},
 
 	_updateAll: function() {
@@ -190,7 +197,6 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
 			if ( icon.find( ".onoff" ) )
 				var textOnOff = icon.find( ".onoff-text" );
 				textOnOff.text( "On" );
-				textOnOff.addClass( this.checkedTextOnOff ).removeClass( this.uncheckedTextOnOff );
 			//SLP - end
 
 		} else {
@@ -201,7 +207,6 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
 			if ( label.find( ".onoff" ) )
 				var textOnOff = icon.find( ".onoff-text" );
 				textOnOff.text( "Off" );
-				textOnOff.removeClass( this.checkedTextOnOff ).addClass( this.uncheckedTextOnOff );
 			//SLP - end
 		}
 
@@ -223,9 +228,7 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
 
 //auto self-init widgets
 $( document ).bind( "pagecreate create", function( e ){
-	$( $.mobile.checkboxradio.prototype.options.initSelector, e.target )
-		.not( ":jqmData(role='none'), :jqmData(role='nojs')" )
-		.checkboxradio();
+	$.mobile.checkboxradio.prototype.enhanceWithin( e.target );
 });
 
 })( jQuery );

@@ -40,18 +40,17 @@
 .ui-header.ui-bar-s{ 
 	position : fixed;
 	top : 0px;
+	background : #6c6c6c;
 	
-	border-bottom-style: solid;
-	border-bottom-color: 	@color_02; 	
-	border-bottom-width: 	10 * @unit_base;	
 	.ui-title {
+		color : #F9F9F9;
+
 		top : 0px;
 		min-height: 36 * @unit_base; 
 		text-align: center; 
 		font-size : 36 * @unit_base; 
 		display: block; 
-		margin: 23*@unit_base 90*@unit_base 23*@unit_base;  
-		padding: 0;  
+		margin: 28*@unit_base 0*@unit_base 28*@unit_base;  
 		text-overflow: ellipsis; 
 		overflow: hidden; 
 		white-space: nowrap; 
@@ -59,40 +58,63 @@
 	}
 	
 	.ui-btn{
-		top : 13 * @unit_base;
+		font-size : 28 * @unit_base;
+		height : 74 * @unit_base;
+			
+			
+		.ui-btn-inner {
+			width : 108  * @unit_base;
+		}	
+	}
+
+
+	> .ui-btn{
+		top : 12 * @unit_base;
 		margin-top : 0px;
-		font-size : 30 * @unit_base;
+		font-size : 28 * @unit_base;
 		height : 74 * @unit_base;
 		
-		background: #32414a;
-		color 		:#767676;
+		background: #6c6c6c;
+		color 		:#f9f9f9;
 			
 		border-style: solid;
-		border-color: 	#213c49; 	
+		border-color: 	#4c4c4c; 	
 		border-width: 	1 * @unit_base;
 			
 		.ui-btn-inner {
 			width : 108  * @unit_base;
 		}
 	}
+	
+	> .ui-btn.ui-btn-down-s {
+		background 		:#213c49;
+		color : #767676;
+	}
+	
+	.ui-btn-back.ui-btn-down-s{
+		background : transparent;
+	}
 	.ui-btn-back{
 		position : absolute;
 		font-size : @font_size_default;
 
-		height : 38 * @unit_base;
-		top : 28 * @unit_base;
-		left : 34 * @unit_base;
+		width : 100 * @unit_base;
+		height : 90 * @unit_base;
+		top : 0 * @unit_base;
+		left : 0 * @unit_base;
 
 		border : none;
-		background : #32414a;
+		background : #6c6c6c;
 		
 		.ui-btn-inner.ui-btn-icon-only {
 			padding : 0;
 			
 			width : 76 * @unit_base;
 			height : 38 * @unit_base;	
+			top : 28 * @unit_base;
+			left : 34 * @unit_base;			
 		 			 
-			background: 			#32414a;			 
+			background: 			#6c6c6c;			 
 			border-top : none;			
 			
 			border-right-style :  groove;
@@ -100,13 +122,13 @@
 			border-top-right-radius : 0px;
 			border-bottom-right-radius : 0px;
 			
-	}
+		}
 	}
 
 	.ui-field-contain {		
 		.ui-title-extended-controlgroup {
 			position : absolute;
-			top : 0  * @unit_base;
+			top : 15  * @unit_base;
 	
 			margin-top : 0 * @unit_base;
 			margin-bottom : 0 * @unit_base;
@@ -118,7 +140,7 @@
 					.ui-btn-text {
 						text-align : center;
 					}
-	}
+				}
 
 				.ui-radio-off {
 					background: #434343;
@@ -146,9 +168,14 @@
 		}		
 
 	}
+	
+	.ui-footer {
+		position : fixed;
+	}
 }
 
-.ui-title-content-normal-height {
+.ui-title-content-normal-height,
+.ui-title-content-option-header-collapsed-1line-height  {
 	position : relative;
 	top : 100  * @unit_base;	
 }
@@ -157,6 +184,12 @@
 	position : relative;
 	top : 136  * @unit_base;	
 }
+
+.ui-title-content-option-header-expanded-1line-height {
+	position : relative;
+	top : 195  * @unit_base; 	
+}
+
 .ui-header.ui-bar-s.ui-title-extended-height {
 	height : 136  * @unit_base;
 	
@@ -185,13 +218,17 @@
 }
 
 
-.ui-header{
+.ui-header.ui-bar-s{
 	.ui-title-normal-3btn {
 		position : absolute;
 		right : 144 * @unit_base;
 		
 		display : block
 	}	
+}
+
+.ui-footer.ui-bar-s.ui-footer-fixed {
+	height : 114 * @unit_base;
 }
 
 
@@ -408,11 +445,14 @@ a.ui-link-inherit {
 }
 
 .ui-controlbar-s.ui-navbar {
-	position : fixed;
+	position : absolute;
 	
-	height : 122 * @unit_base;  /* temporary value */
+	height : 114 * @unit_base;  /* temporary value */
 	width : 100%;
 	left : 0px;
+	
+	border-top : none;
+	border-bottom : none;
 	
 	z-index: 50;
 	
@@ -422,17 +462,17 @@ a.ui-link-inherit {
 
 	.ui-btn , .ui-btn-icon-top, .ui-btn-hover-s, .ui-btn-active, .ui-btn-up-s{
 		.ui-btn-inner{
-			padding-top : 82 * @unit_base;
+			padding-top : 79 * @unit_base;
 		}			
 	} 	
 	.ui-btn {
 		.ui-icon {
 			left : 50%;
-			top : 7 * @unit_base;
-			margin-left : -1.8em;
+			top : 12 * @unit_base;
+			margin-left : -1.3em;
 			
-			width : 70 * @unit_base;
-			height: 70 * @unit_base;			
+			width : 56 * @unit_base;
+			height: 56 * @unit_base;			
 		}
 		.ui-btn-text {
 			padding-left : 0px;
@@ -442,18 +482,29 @@ a.ui-link-inherit {
 		z-index : 200;
 	}
 	.ui-btn-inner.ui-navbar-textonly {
-		padding-top : 36 * @unit_base;
-		padding-bottom : 36 * @unit_base;
+		padding-top : 44 * @unit_base;
+		padding-bottom : 45 * @unit_base;
 	}
 }
 
 .ui-tabbar-s {
 	.ui-btn {
-		background: @footercolor;
+		background: #1f1f1f
+	}
+
+	.ui-btn-active, .ui-btn-show-style {
+		background: #4c4c4c;
+		border-left-style:  solid;
+		border-right-style: solid;		
+		border-left-color: 	@color_bg; 	
+		border-right-color: @color_bg;
+		border-left-width: 	1px;				
+		border-right-width: 1px;	
+
 	}
 
 	.ui-btn-animation {
-		background: @color_02;
+		background: #4c4c4c;
 		border-left-style:  solid;
 		border-right-style: solid;		
 		border-left-color: 	@color_bg; 	
@@ -461,10 +512,21 @@ a.ui-link-inherit {
 		border-left-width: 	1px;				
 		border-right-width: 1px;
 		
-		position : fixed;
+		position : absolute;
 		top : 0px;
+		height : 123 * @unit_base;
 		z-index : 100;		
 	}	
+	
+	
+	.ui-btn-hide-style {
+		background: @footercolor;
+		border : none;		
+	}
+	
+	
+	
+	
 }
 
 .ui-toolbar-s {
@@ -484,7 +546,7 @@ a.ui-link-inherit {
 		width : 100%;
 		margin :0px 0em;					
 
-		background: @footercolor;	
+		background: #1f1f1f;	
 	}
 		
 	.ui-btn-down-s,  .ui-btn-active{
@@ -877,6 +939,7 @@ a.ui-link-inherit {
 .ui-focus {
 	/* global-active-background-color */
 	//.LESSbox-shadow(0px, 1px, 12px, #387bbe);
+	outline-color : #008cd2;
 }
 
 /* unset box shadow in browsers that don't do it right

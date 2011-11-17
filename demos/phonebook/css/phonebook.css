@@ -1,0 +1,14 @@
+b.nick-name
+{
+	color: red;	
+}
+
+#phonebook_body li.ui-btn-hover-s
+{
+	background-color: #26424f;
+}
+
+#phonebook_body li.ui-btn-down-s
+{
+	background-color: #2a6d8c;
+}

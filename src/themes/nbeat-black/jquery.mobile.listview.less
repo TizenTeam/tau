@@ -17,6 +17,7 @@
 
 @list-li-height: 112 * @unit_base;
 @list-li-2line-height: 128 * @unit_base;
+@list-li-3line-height: 178 * @unit_base;
 @list-li-top-padding: 10 * @unit_base;
 @list-li-main-line-height: 60 * @unit_base;
 @list-li-sub-line-height: 48 * @unit_base;
@@ -36,6 +37,11 @@
 @list-li-bubble-date-font-size: @list-li-bubble-time-font-size;
 @list-li-bubble-corner-radius: 9 * @unit_base;	// TODO: fit to 9px (picked from bg images)
 
+@list-li-dialogue-width: 16 * @unit_base;
+
+@list-li-sub-left-width: 187 * @unit_base;
+@list-li-main-right-padding: 187 * @unit_base;
+
 /************************/
 
 .ui-listview { 
@@ -49,6 +55,10 @@
 		font-size: @list-font-size-main;
 	}
 	
+	li.ui-btn > .ui-btn-hastxt > .ui-btn-text.ui-btn-text-padding-right {
+		padding-right: 0 * @unit_base;	// Clear default button padding-right
+	}
+	
 	&> .ui-li { 
 		// list item separator line
 		border-bottom-width: 1px; 
@@ -59,6 +69,11 @@
 .ui-content {
 	.ui-listview { 
 		margin: -15px; 
+
+		.ui-listview { 
+			margin: 0; 
+		}
+
 	}
 	.ui-listview-inset { 
 		margin: 1em 0;  
@@ -88,7 +103,7 @@
 	}
 	.ui-btn-text { 
 		position: relative; 
-		z-index: 1; 
+	//	z-index: 1; 
 
 		a.ui-link-inherit { 
 			text-overflow: ellipsis; 
@@ -324,6 +339,17 @@ ol.ui-listview {
 	margin: .3em 0; 
 }
 
+/* listview: size for li with a link */
+/*
+.ui-listview li.ui-btn-up-s > .ui-li > .ui-btn-text > a.ui-link-inherit,
+.ui-listview li.ui-btn-hover-s > .ui-li > .ui-btn-text > a.ui-link-inherit,
+.ui-listview li.ui-btn-down-s > .ui-li > .ui-btn-text > a.ui-link-inherit {
+	margin: 0;
+//	height: @height;
+	min-height: @height;
+	padding-left: 0;
+}
+*/
 
 // =======================
 // nbeat-black normal list
@@ -341,6 +367,12 @@ ol.ui-listview {
 	height: @height;
 	min-height: @height;
 }
+.LESSli-reset-position-3line(@height: @list-li-3line-height) {
+	margin: 0;
+	padding: 0 @list-li-padding-horizontal;
+	height: @height;
+	min-height: @height;
+}
 .LESStext-main-1line(@left:@list-li-padding-horizontal) {
 	.ui-li-text-main {
 		font-size: @list-font-size-main;
@@ -349,6 +381,7 @@ ol.ui-listview {
 		margin-top: -0.5em;
 	}
 }
+
 .LESStext-sub-1line() {
 	.ui-li-text-sub {
 		float: right; 
@@ -365,6 +398,33 @@ ol.ui-listview {
 	}
 }
 
+.LESStext-sub-1line-left(@left:@list-li-padding-horizontal) {
+	.ui-li-text-sub-left {
+		font-size: @list-font-size-sub;
+		top: 50%;
+		left: @left;
+		width: @list-li-sub-left-width;
+		line-height: @list-li-main-line-height;
+		margin-top: -0.5em;
+		border-right: 1px rgba(68, 68, 68, 255) solid;
+	}
+
+}
+.LESStext-main-1line-right(@left:@list-li-main-right-padding+@list-li-padding-horizontal) {
+	.ui-li-text-main-right {
+		font-size: @list-font-size-main;
+		top: 50%;
+		left: @left;
+		margin-top: -0.5em;
+	}
+}
+.LESStext-main-1line-right-setting() {
+	.ui-li-text-main-right {
+		color: @color_text_setting;
+	}
+}
+
+
 .LESStext-main-2line(@left:@list-li-padding-horizontal, @top: @list-li-top-padding) {
 	.ui-li-text-main {
 		position: absolute;
@@ -372,6 +432,10 @@ ol.ui-listview {
 		line-height: @list-li-main-line-height;
 		left: @left;
 		top: @top;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		white-space: nowrap;
+		max-width: 90%;
 	}
 }
 .LESStext-sub-2line-left(@left:@list-li-padding-horizontal, @top: @list-li-top-padding+@list-li-main-line-height) {
@@ -382,6 +446,10 @@ ol.ui-listview {
 		color: @color_text_sub;
 		left: @left;
 		top: @top;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		white-space: nowrap;
+		max-width: 90%;
 	}
 }
 
@@ -393,8 +461,55 @@ ol.ui-listview {
 		color: @color_text_sub;
 		right: @right;
 		top: @top;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		white-space: nowrap;
+		max-width: 30%;
 	}
 }
+
+.LESStext-main-3line(@left:@list-li-padding-horizontal, @top: @list-li-top-padding) {
+	.ui-li-text-main {
+		position: absolute;
+		font-size: @list-font-size-main;
+		line-height: @list-li-sub-line-height;
+		left: @left;
+		top: @top;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		white-space: nowrap;
+		max-width: 90%;
+	}
+}
+.LESStext-sub-3line-left1(@left:@list-li-padding-horizontal, @top: @list-li-top-padding+@list-li-main-line-height) {
+	.ui-li-text-sub1 {
+		position: absolute;
+		font-size: @list-font-size-sub; 
+		line-height: @list-li-sub-line-height;
+		color: @color_text_sub;
+		left: @left;
+		top: @top;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		white-space: nowrap;
+		max-width: 90%;
+	}
+}
+.LESStext-sub-3line-left2(@left:@list-li-padding-horizontal, @top: @list-li-top-padding+@list-li-main-line-height) {
+	.ui-li-text-sub2 {
+		position: absolute;
+		font-size: @list-font-size-sub; 
+		line-height: @list-li-sub-line-height;
+		color: @color_text_sub;
+		left: @left;
+		top: @top;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		white-space: nowrap;
+		max-width: 90%;
+	}
+}
+
 
 .LESSsubicon-right(@right:@list-li-padding-horizontal, @top: @list-li-top-padding) {	// NOTE: This can be changed according to checkbox implementation!
 	img.ui-li-icon-sub {
@@ -477,25 +592,36 @@ ol.ui-listview {
 	}
 }
 
-.LESSimg-expandicon-right(@right:@list-li-padding-horizontal, @size:@list-bigicon-size) {
+.LESSimg-expand-icon(@right:@list-li-padding-horizontal, @size:@list-bigicon-size) {
 	.LESSimg-bigicon(@size);
 	img.ui-li-bigicon {
-		background-image: url(images/00_winset_icon_favorite_on.png);
+		background-image: url(images/icon_arrow_right.png);
 		display: block;
 		position: absolute;
 		top: 50%;
 		margin-top: -(@size/2);
 		left: auto;
-		right: @right;
+//		right: @right;
+		right: 96 * @unit_base;
+	}
+}
+
+.LESSimg-expanded-icon(@right:@list-li-padding-horizontal, @size:@list-bigicon-size) {
+	.LESSimg-bigicon(@size);
+	img.ui-li-bigicon {
+		background-image: url(images/icon_arrow_down.png);
+		display: block;
+		position: absolute;
+		top: 50%;
+		margin-top: -(@size/2);
+		left: auto;
+//		right: @right;
+		right: 96 * @unit_base;
 	}
 }
 
 
 ul.ui-listview {
-
-	&> li.ui-li-expanded-icon {
-		.LESSimg-expandicon-right;
-	}
 
 	&> li.ui-li-3-1-1,
 	&> li.ui-li-3-1-2,
@@ -530,6 +656,7 @@ ul.ui-listview {
 	&> li.ui-li-3-1-15 {
 		.LESScheckbox-right;
 	}
+
 	&> li.ui-li-3-1-16,
 	&> li.ui-li-3-1-17,
 	&> li.ui-li-3-1-20,
@@ -541,8 +668,7 @@ ul.ui-listview {
 	}
 	&> li.ui-li-3-1-18,
 	&> li.ui-li-3-1-19,
-	&> li.ui-li-3-1-23,
-	&> li.ui-li-3-1-25 {
+	&> li.ui-li-3-1-23 {
 		.LESSli-reset-position-1line(@list-li-main-line-height, 3 * @list-li-padding-horizontal + @list-checkbox-size + @list-bigicon-size);
 		.LESScheckbox-left;
 		.LESSimg-bigicon-left(74 * @unit_base);
@@ -553,14 +679,18 @@ ul.ui-listview {
 	&> li.ui-li-3-1-17,
 	&> li.ui-li-3-1-19,
 	&> li.ui-li-3-1-22,
-	&> li.ui-li-3-1-24,
-	&> li.ui-li-3-1-25 {
+	&> li.ui-li-3-1-24 {
 		.LESSbtn-right;
 	}
 	&> li.ui-li-3-1-24 {
 		.LESSimg-bigicon-right(96 * @unit_base);
 	}
 
+	/* For Contacts list : wongi_1108 */
+	&> li.ui-li-3-1-25 {
+		.LESStext-main-1line;
+		.LESSimg-bigicon-right(16 * @unit_base);
+	}
 
 
 	// === 2 line ===
@@ -769,6 +899,193 @@ ul.ui-listview {
 			height: @list-progressbar-height;
 		}
 	}
+	&> li.ui-li-3-2-1,
+	&> li.ui-li-3-2-2,
+	&> li.ui-li-3-2-9 {
+		.ui-li-text-main,
+		.ui-li-text-sub {
+			max-width: 95%;
+		}
+	}
+	&> li.ui-li-3-2-3,
+	&> li.ui-li-3-2-6 {
+		.ui-li-text-main {
+			max-width: 65%;
+		}
+		.ui-li-text-sub {
+			max-width: 95%;
+		}
+		.ui-li-text-sub2 {
+			max-width: 30%;
+		}
+	}
+	&> li.ui-li-3-2-4,
+	&> li.ui-li-3-2-24,
+	&> li.ui-li-3-2-27,
+	&> li.ui-li-3-2-28 {
+		.ui-li-text-main,
+		.ui-li-text-sub {
+			max-width: 65%;
+		}
+		.ui-btn {
+			max-width: 30%;
+		}
+	}
+	&> li.ui-li-3-2-5,
+	&> li.ui-li-3-2-10,
+	&> li.ui-li-3-2-11,
+	&> li.ui-li-3-2-12,
+	&> li.ui-li-3-2-13,
+	&> li.ui-li-3-2-15,
+	&> li.ui-li-3-2-18,
+	&> li.ui-li-3-2-21,
+	&> li.ui-li-3-2-29 {
+		.ui-li-text-main,
+		.ui-li-text-sub {
+			max-width: 80%;
+		}
+	}
+	&> li.ui-li-3-2-7,
+	&> li.ui-li-3-2-23 {
+		.ui-li-text-main {
+			max-width: 85%;
+		}
+		.ui-li-text-sub {
+			max-width: 65%;
+		}
+		.ui-li-text-sub2 {
+			max-width: 30%;
+		}
+	}
+	&> li.ui-li-3-2-8 {
+		.ui-li-text-main {
+			max-width: 85%;
+		}
+		.ui-li-text-sub {
+			max-width: 95%;
+		}
+	}
+	&> li.ui-li-3-2-14 {
+		.ui-li-text-main {
+			max-width: 55%;
+		}
+		.ui-li-text-sub {
+			max-width: 80%;
+		}
+		.ui-li-text-sub2 {
+			max-width: 20%;
+		}
+	}
+	&> li.ui-li-3-2-17,
+	&> li.ui-li-3-2-19,
+	&> li.ui-li-3-2-20,
+	&> li.ui-li-3-2-22,
+	&> li.ui-li-3-2-25,
+	&> li.ui-li-3-2-33 {
+		.ui-li-text-main,
+		.ui-li-text-sub {
+			max-width: 65%;
+		}
+	}
+	&> li.ui-li-3-2-26 {
+		.ui-li-text-main {
+			max-width: 75%;
+		}
+		.ui-li-text-sub {
+			max-width: 70%;
+		}
+	}
+	&> li.ui-li-3-2-30 {
+		.ui-li-text-main {
+			max-width: 60%;
+		}
+		.ui-li-text-sub {
+			max-width: 40%;
+		}
+		.ui-li-text-sub2 {
+			max-width: 20%;
+		}
+	}
+	&> li.ui-li-3-2-31 {
+		.ui-li-text-main,
+		.ui-li-text-sub {
+			max-width: 55%;
+		}
+	}
+	&> li.ui-li-3-2-32 {
+		.ui-li-text-main {
+			max-width: 80%;
+		}
+		.ui-li-text-sub {
+			max-width: 60%;
+		}
+		.ui-li-text-sub2 {
+			max-width: 20%;
+		}
+	}
+	&> li.ui-li-3-2-34 {
+		.ui-li-text-main,
+		.ui-li-text-sub {
+			max-width: 75%;
+		}
+	}
+
+	// Multiline
+	&> li.ui-li-3-4-1 {
+		font-size: 36 * @unit_base;
+		padding: 16 * @unit_base;
+
+		h1.ui-li-heading { 
+			font-size: 48 * @unit_base;
+			margin-top: 0 * @unit_base;
+			margin-bottom: 0 * @unit_base;
+		}
+	}
+
+
+	// Dialogue list
+	&> li.ui-li-4-1-12 {
+		.LESStext-sub-1line-left;
+		.LESStext-main-1line-right;
+	}
+	&> li.ui-li-4-1-13 { 
+		.LESSli-reset-position-1line;
+		.LESStext-sub-1line-left;
+		.LESStext-main-1line-right;
+		.LESSimg-bigicon-right(16 * @unit_base);
+	}
+	&> li.ui-li-4-2-3 { 
+		.LESSli-reset-position;
+		.LESStext-main-2line;
+		.LESStext-sub-2line-left;
+		.LESStext-sub-setting;
+		.ui-li-text-main,
+		.ui-li-text-sub {
+			max-width: 95%;
+		}
+	}
+	&> li.ui-li-4-2-10 { 
+		.LESSli-reset-position;
+		.LESStext-main-2line(@list-li-padding-horizontal, @list-li-top-padding + @list-li-sub-line-height);
+		.LESStext-sub-2line-left(@list-li-padding-horizontal, @list-li-top-padding);
+		.ui-li-text-main,
+		.ui-li-text-sub {
+			max-width: 80%;
+		}
+		.LESScheckbox-right;
+	}
+	&> li.ui-li-4-2-18 { 
+		.LESSli-reset-position-3line;
+		.LESStext-main-3line(@list-li-padding-horizontal, @list-li-top-padding);
+		.LESStext-sub-3line-left1(@list-li-padding-horizontal, @list-li-top-padding + @list-li-sub-line-height);
+		.LESStext-sub-3line-left2(@list-li-padding-horizontal, @list-li-top-padding + 2 * @list-li-sub-line-height);
+	}
+
+
+	// Dialogue 
+	&> li.ui-li-dialogue {
+		border-left: @list-li-dialogue-width rgba(68, 68, 68, 255) solid;
+	}
 
 }
 
@@ -812,6 +1129,40 @@ ul.ui-listview {
 		display: inline-block;
 	}
 }
+
+// Expandable list animation
+.ui-listview {
+	.ui-li-expandable {
+	}
+	.ui-li-expandable.ui-li-expandable-shown {
+		// Right arrow
+		.LESSimg-expand-icon;
+	}
+	.ui-li-expandable.ui-li-expandable-hidden {
+		// Down arrow
+		.LESSimg-expanded-icon;
+	}
+	.ui-li-expanded {
+		overflow: hidden;
+
+		// Transition
+		-webkit-transition: all 0.2s ease;
+		-moz-transition:  all 0.2s ease;
+		-o-transition: all 0.2s ease;
+		transition: all 0.2s ease;
+	}
+	.ui-li-expand-transition-show {
+		visibility: visible;
+	}
+	.ui-li-expand-transition-hide {
+		visibility: hidden;
+		height: 0px;
+		padding-top: 0px;
+		padding-bottom: 0px;
+		border: 0px;
+	}
+}
+
 /* Odd iPad positioning issue. */
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
     .ui-li .ui-btn-text { 
