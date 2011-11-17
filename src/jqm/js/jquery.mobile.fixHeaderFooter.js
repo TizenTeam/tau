@@ -209,15 +209,19 @@ $.mobile.fixedToolbars = (function() {
 						.css("top","206px" );										
 				}				
 				else {
-					s_theme_header
-						.css("position", "fixed")
-						.css("top", "0px");
+					if(s_theme_header.parent().is(".ui-dialog"))
+						s_theme_header.css("position", "relative");
+					else {
+						s_theme_header
+							.css("position", "fixed")
+							.css("top", "0px");
+					}
 					if(title_style == "normal"){				
 						if(s_theme_header.find("a").length == 1 || s_theme_header.find("a").length == 2){}
 						else if(s_theme_header.find("a").length == 3){
 							s_theme_header.find("a").eq(1)
 								.removeClass("ui-btn-right")
-								.addClass("ui-title-normal-3btn");					
+					.addClass("ui-title-normal-3btn");					
 							s_theme_header.find("a").eq(2)
 								.addClass("ui-btn-right");
 						} else {/* Need to implement new layout */}
@@ -248,7 +252,6 @@ $.mobile.fixedToolbars = (function() {
 
 				if ( id && prevFooterMatches ) {
 					stickyFooter = footer;
-//					setTop( stickyFooter.removeClass( "fade in out" ).appendTo( $.mobile.pageContainer ) );
 					stickyFooter.removeClass( "fade in out" ).appendTo( $.mobile.pageContainer );
 					stickyFooter
 						.css("position", "fixed")
