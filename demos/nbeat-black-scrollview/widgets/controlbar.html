@@ -1,0 +1,556 @@
+<!DOCTYPE html> 
+<html> 
+	<head>
+	<meta charset="utf-8">
+	<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+	<meta name="viewport" content="width=720, initial-scale=1">
+	<title>jQM Test Example</title> 
+  
+	<script src="../../../src/jqm/js/jquery.js"></script>
+	<script src="../../../src/jqm/js/"></script>
+	<script src="../../../src/jqm/theme.js"></script>
+	<script src="../../../src/jqm/js/jquery.mobile.navbar.js"></script>
+	<link rel="stylesheet"  href="../../../build/web-ui-fw/0.1/themes/nbeat-black/web-ui-fw-theme.css" />
+	</head> 
+<body> 
+
+<div data-role="page" >
+	<div data-role="header">
+		<h1>ControlBar</h1>
+	</div>
+	
+	<div data-role="content">
+		<div class="content-primary"> 
+			<ul data-role="listview"> 
+				<li><a href="#Tabbar_Main">Tabbar Style</a></li> 
+				<li><a href="#Toolbar">Toolbar Style</a></li>
+				<li><a href="#Mixed">Mixed Style</a></li>
+				<li><a href="#ControlBarVerticalLeft">Left Vertical Style</a></li> 
+				<li><a href="#ControlBarVerticalRight">Right Vertical Style</a></li> 
+				<li><a href="#ControlBarAnimation">Animation Style</a></li>   
+			</ul> 
+		</div><!--/content-primary -->	
+	</div>
+</div>
+
+<!-- ControlBar Tabbar Style -->
+<div data-role="page" id="Tabbar_Main">
+	<div data-role="header">
+		<h1>Tabbar</h1>
+	</div>
+	
+	<div data-role="content">
+		<div class="content-primary"> 
+			<ul data-role="listview"> 
+				<li><a href="#Tabbar2Items">2 Items Style</a></li>
+				<li><a href="#Tabbar3Items">3 Items Style</a></li>
+				<li><a href="#Tabbar4Items">4 Items Style</a></li>
+				<li><a href="#Tabbar5Items">5 Items Style</a></li>
+				<li><a href="#TabbarText">Only Text Style</a></li>
+				<li><a href="#TabbarIcon">Only Icon Style</a></li>								   															
+				
+			</ul> 
+		</div><!--/content-primary -->
+	</div>
+
+    <div data-role="footer"data-position ="fixed">
+		<div data-role="navbar" data-style="tabbar" >
+			<ul>
+				<li><a href="#" data-icon="ctrlbar-song" class="ui-btn-active">Songs</a></li>
+				<li><a href="#" data-icon="ctrlbar-favorites" >Favorites</a></li>
+				<li><a href="#" data-icon="ctrlbar-group" >Group</a></li>
+				<li><a href="#" data-icon="ctrlbar-message" >Message</a></li>
+				<li><a href="#" data-icon="ctrlbar-contact" >Contact</a></li>			
+			</ul>
+		</div>				
+	</div>		
+</div>
+
+<div data-role="page" id="Tabbar2Items">
+	<div data-role="header">
+		<h1>Tabbar</h1>
+	</div>
+	
+	<div data-role="content">
+		<div class="content-primary"> 
+			<ul data-role="listview"> 
+				<li><a href="#">2 Items Style List</a></li>
+				<li><a href="#">2 Items Style List</a></li>
+				<li><a href="#">2 Items Style List</a></li>
+				<li><a href="#">2 Items Style List</a></li>								   
+			</ul> 
+		</div><!--/content-primary -->
+	</div>
+				
+    <div data-role="footer"data-position ="fixed">					
+		<div data-role="navbar" data-style="tabbar" >
+			<ul>
+				<li><a href="#" data-icon="ctrlbar-song" class="ui-btn-active">Songs</a></li>
+				<li><a href="#" data-icon="ctrlbar-contact" >Contact</a></li>			
+			</ul>
+		</div><!-- /navbar -->
+	</div>				
+</div>
+
+<div data-role="page" id="Tabbar3Items">
+	<div data-role="header">
+		<h1>Tabbar</h1>
+	</div>
+	
+	<div data-role="content">
+		<div class="content-primary"> 
+			<ul data-role="listview"> 
+				<li><a href="#">3 Items Style List</a></li>
+				<li><a href="#">3 Items Style List</a></li>
+				<li><a href="#">3 Items Style List</a></li>
+				<li><a href="#">3 Items Style List</a></li>
+				<li><a href="#">3 Items Style List</a></li>								   
+			</ul> 
+		</div><!--/content-primary -->
+	</div>			
+					
+    <div data-role="footer"data-position ="fixed">
+		<div data-role="navbar" data-style="tabbar" >
+			<ul>
+				<li><a href="#" data-icon="ctrlbar-song" class="ui-btn-active">Songs</a></li>
+				<li><a href="#" data-icon="ctrlbar-message" >Message</a></li>
+				<li><a href="#" data-icon="ctrlbar-contact" >Contact</a></li>			
+			</ul>
+		</div><!-- /navbar -->
+	</div>							
+</div>
+
+<div data-role="page" id="Tabbar4Items">
+	<div data-role="header">
+		<h1>Tabbar</h1>
+	</div>
+	
+	<div data-role="content">
+		<div class="content-primary"> 
+			<ul data-role="listview"> 
+				<li><a href="#">4 Items Style List</a></li>
+				<li><a href="#">4 Items Style List</a></li>
+				<li><a href="#">4 Items Style List</a></li>
+				<li><a href="#">4 Items Style List</a></li>
+				<li><a href="#">4 Items Style List</a></li>								   
+			</ul> 
+		</div><!--/content-primary -->
+	</div>			
+
+    <div data-role="footer"data-position ="fixed">						
+		<div data-role="navbar" data-style="tabbar" >
+			<ul>
+				<li><a href="#" data-icon="ctrlbar-song" class="ui-btn-active">Songs</a></li>
+				<li><a href="#" data-icon="ctrlbar-message" >Message</a></li>
+				<li><a href="#" data-icon="ctrlbar-contact" >Contact</a></li>
+				<li><a href="#" data-icon="ctrlbar-group" >Group</a></li>							
+			</ul>
+		</div><!-- /navbar -->				
+	</div>
+</div>
+
+<div data-role="page" id="Tabbar5Items">
+	<div data-role="header">
+		<h1>Tabbar</h1>
+	</div>
+	
+	<div data-role="content">
+		<div class="content-primary"> 
+			<ul data-role="listview"> 
+				<li><a href="#">5 Items Style List</a></li>
+				<li><a href="#">5 Items Style List</a></li>
+				<li><a href="#">5 Items Style List</a></li>
+				<li><a href="#">5 Items Style List</a></li>
+				<li><a href="#">5 Items Style List</a></li>								   
+			</ul> 
+		</div><!--/content-primary -->
+	</div>			
+
+    <div data-role="footer"data-position ="fixed">					
+		<div data-role="navbar" data-style="tabbar" >
+			<ul>
+				<li><a href="#" data-icon="ctrlbar-song" class="ui-btn-active">Songs</a></li>
+				<li><a href="#" data-icon="ctrlbar-favorites" >Favorites</a></li>
+				<li><a href="#" data-icon="ctrlbar-group" >Group</a></li>
+				<li><a href="#" data-icon="ctrlbar-message" >Message</a></li>
+				<li><a href="#" data-icon="ctrlbar-contact" >Contact</a></li>								
+			</ul>
+		</div><!-- /navbar -->
+	</div>							
+</div>
+
+<div data-role="page" id="TabbarText">
+	<div data-role="header">
+		<h1>Tabbar</h1>
+	</div>
+	
+	<div data-role="content">
+		<div class="content-primary"> 
+			<ul data-role="listview"> 
+				<li><a href="#">Text Style List</a></li>
+				<li><a href="#">Text Style List</a></li>
+				<li><a href="#">Text Style List</a></li>
+				<li><a href="#">Text Style List</a></li>
+				<li><a href="#">Text Style List</a></li>																				   
+			</ul> 
+		</div><!--/content-primary -->
+	</div>			
+				
+    <div data-role="footer"data-position ="fixed">						
+		<div data-role="navbar" data-style="tabbar" >
+			<ul>
+				<li><a href="#" class="ui-btn-active">Songs</a></li>
+				<li><a href="#">Favorites</a></li>
+				<li><a href="#">Group</a></li>
+				<li><a href="#">Message</a></li>
+				<li><a href="#">Contact</a></li>								
+			</ul>
+		</div><!-- /navbar -->
+	</div>							
+</div>
+
+<div data-role="page" id="TabbarIcon">
+	<div data-role="header">
+		<h1>Tabbar</h1>
+	</div>
+	
+	<div data-role="content">
+		<div class="content-primary"> 
+			<ul data-role="listview"> 
+				<li><a href="#">Icon Style List</a></li>
+				<li><a href="#">Icon Style List</a></li>
+				<li><a href="#">Icon Style List</a></li>
+				<li><a href="#">Icon Style List</a></li>
+				<li><a href="#">Icon Style List</a></li>																				   
+			</ul> 
+		</div><!--/content-primary -->
+	</div>			
+
+    <div data-role="footer"data-position ="fixed">					
+		<div data-role="navbar" data-style="tabbar" >
+			<ul>
+				<li><a href="#" data-icon="ctrlbar-song" class="ui-btn-active"></a></li>
+				<li><a href="#" data-icon="ctrlbar-favorites" ></a></li>
+				<li><a href="#" data-icon="ctrlbar-group" ></a></li>
+				<li><a href="#" data-icon="ctrlbar-message" ></a></li>
+				<li><a href="#" data-icon="ctrlbar-contact" ></a></li>								
+			</ul>
+		</div><!-- /navbar -->
+	</div>							
+</div>
+
+<!-- Toolbar Style -->
+<div data-role="page" id="Toolbar">
+	<div data-role="header">
+		<h1>Toolbar</h1>
+	</div>
+	
+	<div data-role="content">
+		<div class="content-primary"> 
+			<ul data-role="listview"> 
+				<li><a href="#Toolbar2Items">2 Items Style</a></li>
+				<li><a href="#Toolbar3Items">3 Items Style</a></li>
+				<li><a href="#Toolbar4Items">4 Items Style</a></li>
+				<li><a href="#Toolbar5Items">5 Items Style</a></li>
+				<li><a href="#ToolbarText">Only Text Style</a></li>
+				<li><a href="#ToolbarIcon">Only Icon Style</a></li>								   
+			</ul> 
+		</div><!--/content-primary -->
+	</div>				
+
+    <div data-role="footer"data-position ="fixed">					
+		<div data-role="navbar" data-style="toolbar" >
+			<ul>
+				<li><a href="#" data-icon="ctrlbar-song" class="ui-btn-active">Songs</a></li>
+				<li><a href="#" data-icon="ctrlbar-favorites" >Favorites</a></li>
+				<li><a href="#" data-icon="ctrlbar-group" >Group</a></li>
+				<li><a href="#" data-icon="ctrlbar-message" >Message</a></li>
+				<li><a href="#" data-icon="ctrlbar-contact" >Contact</a></li>			
+			</ul>
+		</div><!-- /navbar -->
+	</div>							
+</div>
+
+
+<div data-role="page" id="Toolbar2Items">
+	<div data-role="header">
+		<h1>Toolbar</h1>
+	</div>
+	
+	<div data-role="content">
+		<div class="content-primary"> 
+			<ul data-role="listview"> 
+				<li><a href="#">2 Items Style</a></li>
+				<li><a href="#">2 Items Style</a></li>
+				<li><a href="#">2 Items Style</a></li>
+				<li><a href="#">2 Items Style</a></li>
+				<li><a href="#">2 Items Style</a></li>																				   
+			</ul> 
+		</div><!--/content-primary -->
+	</div>
+
+    <div data-role="footer"data-position ="fixed">					
+		<div data-role="navbar" data-style="toolbar" >
+			<ul>
+				<li><a href="#" data-icon="ctrlbar-song" class="ui-btn-active">Songs</a></li>
+				<li><a href="#" data-icon="ctrlbar-favorites" >Favorites</a></li>		
+			</ul>
+		</div><!-- /navbar -->
+	</div>									
+</div>
+
+<div data-role="page" id="Toolbar3Items">
+	<div data-role="header">
+		<h1>Toolbar</h1>
+	</div>
+	
+	<div data-role="content">
+		<div class="content-primary"> 
+			<ul data-role="listview"> 
+				<li><a href="#">3 Items Style</a></li>
+				<li><a href="#">3 Items Style</a></li>
+				<li><a href="#">3 Items Style</a></li>
+				<li><a href="#">3 Items Style</a></li>
+				<li><a href="#">3 Items Style</a></li>
+				<li><a href="#">3 Items Style</a></li>																				   
+			</ul> 
+		</div><!--/content-primary -->
+	</div>
+										
+    <div data-role="footer"data-position ="fixed">
+		<div data-role="navbar" data-style="toolbar" >
+			<ul>
+				<li><a href="#" data-icon="ctrlbar-song" class="ui-btn-active">Songs</a></li>
+				<li><a href="#" data-icon="ctrlbar-favorites" >Favorites</a></li>
+				<li><a href="#" data-icon="ctrlbar-group" >Group</a></li>			
+			</ul>
+		</div><!-- /navbar -->
+	</div>							
+</div>
+
+<div data-role="page" id="Toolbar4Items">
+	<div data-role="header">
+		<h1>Toolbar</h1>
+	</div>
+	
+	<div data-role="content">
+		<div class="content-primary"> 
+			<ul data-role="listview"> 
+				<li><a href="#">4 Items Style</a></li>
+				<li><a href="#">4 Items Style</a></li>
+				<li><a href="#">4 Items Style</a></li>
+				<li><a href="#">4 Items Style</a></li>
+				<li><a href="#">4 Items Style</a></li>
+				<li><a href="#">4 Items Style</a></li>								   
+			</ul> 
+		</div><!--/content-primary -->
+	</div>
+
+    <div data-role="footer"data-position ="fixed">					
+		<div data-role="navbar" data-style="toolbar" >
+			<ul>
+				<li><a href="#" data-icon="ctrlbar-favorites" >Favorites</a></li>
+				<li><a href="#" data-icon="ctrlbar-group" >Group</a></li>
+				<li><a href="#" data-icon="ctrlbar-message" >Message</a></li>
+				<li><a href="#" data-icon="ctrlbar-contact" >Contact</a></li>			
+			</ul>
+		</div><!-- /navbar -->							
+	</div>
+</div>
+
+<div data-role="page" id="Toolbar5Items">
+	<div data-role="header">
+		<h1>Toolbar</h1>
+	</div>
+	
+	<div data-role="content">
+		<div class="content-primary"> 
+			<ul data-role="listview"> 
+				<li><a href="#">5 Items Style</a></li>
+				<li><a href="#">5 Items Style</a></li>
+				<li><a href="#">5 Items Style</a></li>
+				<li><a href="#">5 Items Style</a></li>
+				<li><a href="#">5 Items Style</a></li>
+				<li><a href="#">5 Items Style</a></li>									   
+			</ul> 
+		</div><!--/content-primary -->
+	</div>
+
+    <div data-role="footer"data-position ="fixed">
+		<div data-role="navbar" data-style="toolbar" >
+			<ul>
+				<li><a href="#" data-icon="ctrlbar-song" class="ui-btn-active">Songs</a></li>
+				<li><a href="#" data-icon="ctrlbar-favorites" >Favorites</a></li>
+				<li><a href="#" data-icon="ctrlbar-group" >Group</a></li>
+				<li><a href="#" data-icon="ctrlbar-message" >Message</a></li>
+				<li><a href="#" data-icon="ctrlbar-contact" >Contact</a></li>			
+			</ul>
+		</div><!-- /navbar -->
+	</div>				
+</div>
+
+<div data-role="page" id="ToolbarText">
+	<div data-role="header">
+		<h1>Toolbar</h1>
+	</div>
+	
+	<div data-role="content">
+		<div class="content-primary"> 
+			<ul data-role="listview"> 
+				<li><a href="#">Text Style</a></li>
+				<li><a href="#">Text Style</a></li>
+				<li><a href="#">Text Style</a></li>
+				<li><a href="#">Text Style</a></li>
+				<li><a href="#">Text Style</a></li>
+				<li><a href="#">Text Style</a></li>																									   
+			</ul> 
+		</div><!--/content-primary -->
+	</div>				
+				
+    <div data-role="footer"data-position ="fixed">				
+		<div data-role="navbar" data-style="toolbar" >
+			<ul>
+				<li><a href="#" class="ui-btn-active">Songs</a></li>
+				<li><a href="#">Favorites</a></li>
+				<li><a href="#">Group</a></li>
+				<li><a href="#">Message</a></li>
+				<li><a href="#">Contact</a></li>			
+			</ul>
+		</div><!-- /navbar -->
+	</div>			
+</div>
+
+<div data-role="page" id="ToolbarIcon">
+	<div data-role="header">
+		<h1>Toolbar</h1>
+	</div>
+	
+	<div data-role="content">
+		<div class="content-primary"> 
+			<ul data-role="listview"> 
+				<li><a href="#">Only Icon Style</a></li>
+				<li><a href="#">Only Icon Style</a></li>
+				<li><a href="#">Only Icon Style</a></li>
+				<li><a href="#">Only Icon Style</a></li>
+				<li><a href="#">Only Icon Style</a></li>																
+				<li><a href="#">Only Icon Style</a></li>								   
+			</ul> 
+		</div><!--/content-primary -->
+	</div>
+
+    <div data-role="footer"data-position ="fixed">									
+		<div data-role="navbar" data-style="toolbar" >
+			<ul>
+				<li><a href="#" data-icon="ctrlbar-song" class="ui-btn-active"></a></li>
+				<li><a href="#" data-icon="ctrlbar-favorites" ></a></li>
+				<li><a href="#" data-icon="ctrlbar-group" ></a></li>
+				<li><a href="#" data-icon="ctrlbar-message" ></a></li>
+				<li><a href="#" data-icon="ctrlbar-contact" ></a></li>			
+			</ul>
+		</div><!-- /navbar -->
+	</div>			
+</div>
+<!-- Toolbar Style -->
+
+<!-- Mixed Style -->
+
+<div data-role="page" id="Mixed" >
+	<div data-role="header">
+		<h1>Mixed Toolbar</h1>
+	</div>
+	<div data-role="content">
+		<p>Not Supported for winset</p>
+	</div>
+
+</div>
+<!-- Mixed Style -->
+
+<!-- ControlBar Left Style -->
+<div data-role="page" id="ControlBarVerticalLeft" >
+	<div data-role="header"  data-position="fixed">
+		<h1>Vertical Toolbar</h1>
+	</div>
+
+	<div data-role="content">		
+       	<ul data-role="listview" data-icon="1line-textonly">
+			<li><a href="#notImplemented" data-rel="dialog">AutoScroll</a></li>
+			<li><a href="#notImplemented">Button</a></li>
+			<li><a href="#notImplemented">Check</a></li>
+			<li><a href="#notImplemented">ColorPicker</a></li>
+			<li><a href="#notImplemented">Radio</a></li>
+			<li><a href="#notImplemented">Form</a></li>
+			<li><a href="#notImplemented">Form</a></li>
+			<li><a href="#notImplemented">Form</a></li>						
+			<li><a href="#notImplemented">Form</a></li>
+			<li><a href="#notImplemented">Form</a></li>
+			<li><a href="#notImplemented">Form</a></li>									
+		</ul>
+	
+		<div data-role="navbar" data-style="left">
+			<ul>
+				<li><a href="#" data-icon="ctrlbar-song" class="ui-btn-active">Songs</a></li>
+				<li><a href="#" data-icon="ctrlbar-favorites" >Favorites</a></li>
+				<li><a href="#" data-icon="ctrlbar-group" >Group</a></li>
+				<li><a href="#" data-icon="ctrlbar-message" >Message</a></li>
+				<li><a href="#" data-icon="ctrlbar-contact" >Contact</a></li>		
+			</ul>
+		</div><!-- /navbar -->
+	</div>	
+</div>
+<!-- ControlBar Left Style -->
+
+<!-- ControlBar Right Style -->
+<div data-role="page" id="ControlBarVerticalRight" >
+	<div data-role="header"  data-position="fixed">
+		<h1>Vertical Toolbar</h1>
+	</div>
+
+	<div data-role="content">
+       	<ul data-role="listview" data-icon="1line-textonly">
+			<li><a href="#notImplemented" data-rel="dialog">AutoScroll</a></li>
+			<li><a href="#notImplemented">Button</a></li>
+			<li><a href="#notImplemented">Check</a></li>
+			<li><a href="#notImplemented">ColorPicker</a></li>
+			<li><a href="#notImplemented">Radio</a></li>
+			<li><a href="#notImplemented">Form</a></li>
+			<li><a href="#notImplemented">Form</a></li>
+			<li><a href="#notImplemented">Form</a></li>						
+			<li><a href="#notImplemented">Form</a></li>
+			<li><a href="#notImplemented">Form</a></li>
+			<li><a href="#notImplemented">Form</a></li>									
+		</ul>					
+		<div data-role="navbar" data-style="right">
+			<ul>
+				<li><a href="#" data-icon="ctrlbar-song" class="ui-btn-active">Songs</a></li>
+				<li><a href="#" data-icon="ctrlbar-favorites" >Favorites</a></li>
+				<li><a href="#" data-icon="ctrlbar-group" >Group</a></li>
+				<li><a href="#" data-icon="ctrlbar-message" >Message</a></li>
+				<li><a href="#" data-icon="ctrlbar-contact" >Contact</a></li>		
+			</ul>
+		</div><!-- /navbar -->
+	</div>	
+</div>
+<!-- ControlBar Right Style -->
+
+<!-- ControlBar Animation -->
+<div data-role="page" id="ControlBarAnimation" >
+	<div data-role="header">
+		<h1>Vertical Toolbar</h1>
+	</div>
+
+	<div data-role="content">			
+
+	</div>
+    <div data-role="footer"data-position ="fixed">	
+		<div data-role="navbar" data-style="tabbar">
+			<ul>
+				<li><a href="#" data-icon="ctrlbar-song" class="ui-btn-active">Songs</a></li>
+				<li><a href="#" data-icon="ctrlbar-favorites" >Favorites</a></li>
+				<li><a href="#" data-icon="ctrlbar-group" >Group</a></li>
+				<li><a href="#" data-icon="ctrlbar-message" >Message</a></li>
+				<li><a href="#" data-icon="ctrlbar-contact" >Contact</a></li>		
+			</ul>
+		</div><!-- /navbar --></div>
+	</div>
+<!-- ControlBar Animation -->
+
