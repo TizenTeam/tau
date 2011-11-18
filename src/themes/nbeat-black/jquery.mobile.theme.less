@@ -335,6 +335,21 @@
 /* subitem */
 .ui-li-sub { color: @color_text_sub; }
 .ui-li-sub-setting { color: @color_text_setting; }
+
+// expandable list
+.ui-li-expandable {
+
+}
+
+.ui-listview {
+	&> .ui-li-expanded {
+		background-color: rgb(31, 31, 31);
+	}
+	&> .ui-li-expanded .ui-li-expanded {
+		background-color: rgb(46, 46, 46);
+	}
+}
+
 // bubble
 .ui-listview {
 	.ui-li-static {
@@ -518,21 +533,27 @@ a.ui-link-inherit {
 		z-index : 100;		
 	}	
 	
-	
 	.ui-btn-hide-style {
 		background: @footercolor;
 		border : none;		
 	}
-	
-	
-	
-	
 }
 
 .ui-toolbar-s {
-	.ui-btn {
-		background: @footercolor;
+	.ui-btn, .ui-btn-up-s {
+		background: #161616;
+		
+		border-left-width : 1px;
+		border-right-width : 1px;
+		border-color : #2A2A2A;
+		border-style : solid;
+		
 	}
+	
+	.ui-btn-down-s {
+		background : #4c4c4c;
+	}
+
 }
 
 .ui-controlbar-left.ui-navbar, .ui-controlbar-right.ui-navbar {
