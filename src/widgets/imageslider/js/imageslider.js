@@ -9,6 +9,7 @@
 (function ($, window, undefined) {
 	$.widget("todons.imageslider", $.mobile.widget, {
 
+		dragging: false,
 		moving: false,
 		max_width: 0,
 		max_height: 0,
@@ -23,6 +24,7 @@
 		align_type: null,
 		direction: 1,
 		container: null,
+		interval: null,
 
 		_resize: function (obj) {
 			var width;
@@ -81,7 +83,7 @@
 		},
 
 		_drag: function (_x) {
-			if (!this.moving)
+			if (!this.dragging)
 				return;
 
 			var coord_x = _x - this.org_x;
@@ -94,9 +96,6 @@
 		},
 
 		_move: function (_x) {
-			if (!this.moving)
-				return;
-
 			var delta = this.org_x - _x;
 			var flip = 0;
 
@@ -155,56 +154,69 @@
 				}
 			}
 
-			var interval = Math.abs(delta);
+			var sec = 500;
+			var self = this;
 
-			if (interval < 100)
-				interval = 100;
+			this.moving = true;
 
-			this.cur_img.animate({left: 0}, interval);
+			this.interval = setInterval(function () {
+				self.moving = false;
+				clearInterval(self.interval);
+			}, sec - 50);
+
+			this.cur_img.animate({left: 0}, sec);
 			if (this.next_img.length)
-				this.next_img.animate({left: this.max_width}, interval);
+				this.next_img.animate({left: this.max_width}, sec);
 			if (this.prev_img.length)
-				this.prev_img.animate({left: -this.max_width}, interval);
+				this.prev_img.animate({left: -this.max_width}, sec);
 		},
 
 		_add_event: function () {
 			var self = this;
 
 			this.container.bind('vmousemove', function (e) {
-				if (!self.moving)
+				e.preventDefault();
+
+				if (self.moving)
+					return;
+				if (!self.dragging)
 					return;
 
 				self._drag(e.pageX);
-
-				e.preventDefault();
 			});
 
 			this.container.bind('vmousedown', function (e) {
+				e.preventDefault();
+
 				if (self.moving)
 					return;
 
-				self.moving = true;
+				self.dragging = true;
 
 				self.org_x = e.pageX;
 
 				var date = new Date();
 				self.org_time = date.getTime();
-
-				e.preventDefault();
 			});
 
 			this.container.bind('vmouseup', function (e) {
+				if (self.moving)
+					return;
+
+				self.dragging = false;
+
 				self._move(e.pageX);
-				self.moving = false;
 			});
 
 			this.container.bind('vmouseout', function (e) {
-				if (!self.moving)
+				if (self.moving)
+					return;
+				if (!self.dragging)
 					return;
 
 				if ((e.pageX < 20) || (e.pageX > (self.max_width - 20))) {
 					self._move(e.pageX);
-					self.moving = false;
+					self.dragging = false;
 				}
 			});
 		},
@@ -375,7 +387,7 @@
 					}
 				}
 
-				this.cur_img.animate({left: 0}, 400);
+				this.cur_img.animate({left: 0}, 500);
 
 			} else if (image_index == this.index - 1) {
 				temp_img = this.prev_img;
