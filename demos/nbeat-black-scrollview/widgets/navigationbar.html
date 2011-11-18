@@ -1,0 +1,206 @@
+<!DOCTYPE html> 
+<html> 
+	<head>
+	<meta charset="utf-8">
+	<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+	<meta name="viewport" content="width=720, initial-scale=1">
+	<title>jQM Test Example</title> 
+  
+	<script src="../../../src/jqm/js/jquery.js"></script>
+	<script src="../../../src/jqm/js/"></script>
+	<script src="../../../src/jqm/theme.js"></script>
+	<link rel="stylesheet"  href="../../../build/web-ui-fw/0.1/themes/nbeat-black/web-ui-fw-theme.css" />
+	</head> 
+<body> 
+
+<div data-role="page" data-add-back-btn="true">
+	<div data-role="header" data-position="fixed">
+		<h1>ControlBar</h1>
+	</div>
+	
+	<div data-role="content">
+		<div class="content-primary"> 
+			<ul data-role="listview"> 
+				<li><a href="#normalstyle">Normal</a></li> 
+				<li><a href="#expendedstyle">Expended</a></li>
+   
+			</ul> 
+		</div><!--/content-primary -->	
+	</div>
+</div>
+
+<div data-role="page" id="normalstyle" data-add-back-btn="true">
+	<div data-role="header" data-position="fixed">
+		<h1>Title Area</h1>		
+	</div>
+	
+	<div data-role="content">
+		<div class="content-primary"> 
+			<ul data-role="listview"> 
+				<li><a href="#normal1btn">Title 1 button</a></li>
+				<li><a href="#normal2btn">Title 2 button</a></li>
+				<li><a href="#normal3btn">Title 3 button</a></li>
+				<li><a href="#">Test</a></li>
+				<li><a href="#">Test</a></li>
+				<li><a href="#">Test</a></li>
+				<li><a href="#">Test</a></li>
+			</ul> 
+		</div><!--/content-primary -->
+	</div>				
+</div>
+
+<div data-role="page" id="normal1btn">
+	<div data-role="header" data-position="fixed">
+		<a>Text1</a>
+		<h1>Title Area</h1>			
+	</div>
+	
+	<div data-role="content">
+		<div class="content-primary"> 
+			<ul data-role="listview"> 
+				<li><a href="#normal1btn">Title 1 button</a></li>
+				<li><a href="#normal2btn">Title 2 button</a></li>
+				<li><a href="#normal3btn">Title 3 button</a></li>
+				<li><a href="#">Test</a></li>
+				<li><a href="#">Test</a></li>
+				<li><a href="#">Test</a></li>				
+				<li><a href="#">Test</a></li>												
+				<div data-role="button" data-inline="true">Text Button TesT</div>
+			</ul> 
+		</div><!--/content-primary -->
+	</div>				
+</div>
+
+<div data-role="page" id="normal2btn">
+	<div data-role="header" data-position="fixed">
+		<a>Text1</a>
+		<h1>Title Area</h1>
+		<a>Text2</a>					
+	</div>
+	
+	<div data-role="content">
+		<div class="content-primary"> 
+			<ul data-role="listview"> 
+				<li><a href="#normal1btn">Title 1 button</a></li>
+				<li><a href="#normal2btn">Title 2 button</a></li>
+				<li><a href="#normal3btn">Title 3 button</a></li>
+				<li><a href="#">Test</a></li>
+				<li><a href="#">Test</a></li>
+				<li><a href="#">Test</a></li>				
+				<li><a href="#">Test</a></li>												
+				<div data-role="button" data-inline="true">Text Button TesT</div>
+			</ul> 
+		</div><!--/content-primary -->
+	</div>				
+</div>
+
+<div data-role="page" id="normal3btn" data-add-back-btn="true">
+	<div data-role="header" data-position="fixed">
+		<a>Text1</a>
+		<h1>Title Area</h1>
+		<a>Text2</a>
+		<a>Text3</a>							
+	</div>
+	
+	<div data-role="content">
+		<div class="content-primary"> 
+			<ul data-role="listview"> 
+				<li><a href="#normal1btn">Title 1 button</a></li>
+				<li><a href="#normal2btn">Title 2 button</a></li>
+				<li><a href="#normal3btn">Title 3 button</a></li>
+				<li><a href="#">Test</a></li>
+				<li><a href="#">Test</a></li>
+				<li><a href="#">Test</a></li>				
+				<li><a href="#">Test</a></li>												
+				<div data-role="button" data-inline="true">Text Button TesT</div>
+			</ul> 
+		</div><!--/content-primary -->
+	</div>				
+</div>
+
+<div data-role="page" id="expendedstyle"  data-add-back-btn="true">
+	<div data-role="header" data-position="fixed">
+		<h1>Title Extend</h1>
+	</div>
+	
+	<div data-role="content">
+		<div class="content-primary"> 
+			<ul data-role="listview"> 
+				<li><a href="#expendedstyle2btn">2 Button</a></li>
+				<li><a href="#expendedstyle3btn">3 Button</a></li>
+				<li><a href="#">Test</a></li>
+				<li><a href="#">Test</a></li>
+				<li><a href="#">Test</a></li>
+				<li><a href="#">Test</a></li>				
+				<li><a href="#">Test</a></li>												
+				<div data-role="button" data-inline="true">Text Button TesT</div>
+			</ul> 
+		</div><!--/content-primary -->
+	</div>				
+</div>
+
+<div data-role="page" id="expendedstyle2btn">
+	<div data-role="header" data-position="fixed">
+		<a>Text</a>	
+		<h1>Title Extend 2 Button </h1>
+		<a>Text</a>		
+		<div data-role="fieldcontain">
+			<fieldset data-role="controlgroup" data-type="horizontal">
+				<input type="radio" name="radio-view-8" data-icon="segment-titlestyle-segonly" id="segment1" value="on" checked="checked" />
+				<label for="segment1">All</label>
+				<input type="radio" name="radio-view-8" data-icon="segment-titlestyle-segonly" id="segment2" value="off" />
+				<label for="segment2">Call</label>
+			</fieldset>
+		</div>			
+<!-- <div data-role="button" data-inline="true">Text</div>-->
+	</div>
+	
+	<div data-role="content">
+		<div class="content-primary"> 
+			<ul data-role="listview"> 
+				<li><a href="#expendedstyle2btn">2 Button</a></li>
+				<li><a href="#expendedstyle3btn">3 Button</a></li>
+				<li><a href="#">Test</a></li>
+				<li><a href="#">Test</a></li>
+				<li><a href="#">Test</a></li>
+				<li><a href="#">Test</a></li>				
+				<li><a href="#">Test</a></li>												
+				<div data-role="button" data-inline="true">Text Button TesT</div>
+			</ul> 
+		</div><!--/content-primary -->
+	</div>				
+</div>
+
+<div data-role="page" id="expendedstyle3btn">
+	<div data-role="header" data-position="fixed">
+		<a>Text</a>	
+		<h1>Title Extend 3 Button </h1>
+		<a>Text</a>	
+		<div data-role="fieldcontain">
+			<fieldset data-role="controlgroup" data-type="horizontal">
+				<input type="radio" name="radio-view-8" data-icon="segment-titlestyle-segonly" id="segment71" value="on" checked="checked" />
+				<label for="segment71">All</label>
+				<input type="radio" name="radio-view-8" data-icon="segment-titlestyle-segonly" id="segment72" value="off" />
+				<label for="segment72">Call</label>
+				<input type="radio" name="radio-view-8" data-icon="segment-titlestyle-segonly" id="segment73" value="off" />
+				<label for="segment73">Message</label>
+			</fieldset>
+		</div>			
+<!-- <div data-role="button" data-inline="true">Text</div>-->
+	</div>
+	
+	<div data-role="content">
+		<div class="content-primary"> 
+			<ul data-role="listview"> 
+				<li><a href="#expendedstyle2btn">2 Button</a></li>
+				<li><a href="#expendedstyle3btn">3 Button</a></li>
+				<li><a href="#">Test</a></li>
+				<li><a href="#">Test</a></li>
+				<li><a href="#">Test</a></li>
+				<li><a href="#">Test</a></li>				
+				<li><a href="#">Test</a></li>												
+				<div data-role="button" data-inline="true">Text Button TesT</div>
+			</ul> 
+		</div><!--/content-primary -->
+	</div>				
+</div>

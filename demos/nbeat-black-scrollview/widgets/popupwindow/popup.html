@@ -1,0 +1,302 @@
+<!DOCTYPE html> 
+<html> 
+	<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<link rel="stylesheet"  href="themes/default/" />  
+	<script src="js/jquery.js"></script>
+	<script src="js/"></script>
+	<script src="theme.js"></script>
+	<script src="js/jquery.mobile.forms.checkboxradio.extension.js"></script>
+	</head> 
+<body> 
+
+<div data-role="page" id="popupwindow-demo" data-add-back-btn="true">
+	<div data-role="header" data-position="fixed">
+		<h1>Popup window</h1>
+	</div>
+	<div class="content" data-role="content">
+		<ul data-role="listview" data-icon="1line-textonly">
+			<li><a href="#" data-inline="true" aria-haspopup="true" aria-owns="center_info">Center info popup</a></li>
+			<li><a href="#" data-inline="true" aria-haspopup="true" aria-owns="center_title">Center title popup</a></li>
+			<li><a href="#" data-inline="true" aria-haspopup="true" aria-owns="center_basic_1btn">Center basic 1 button popup</a></li>
+			<li><a href="#" data-inline="true" aria-haspopup="true" aria-owns="center_basic_2btn">Center basic 2 button popup</a></li>
+			<li><a href="#" data-inline="true" aria-haspopup="true" aria-owns="center_basic_3btn">Center basic 3 button popup</a></li>
+			<li><a href="#" data-inline="true" aria-haspopup="true" aria-owns="center_title_1btn">Center title 1 button popup</a></li>
+			<li><a href="#" data-inline="true" aria-haspopup="true" aria-owns="center_title_2btn">Center title 2 button popup</a></li>
+			<li><a href="#" data-inline="true" aria-haspopup="true" aria-owns="center_title_3btn">Center title 3 button popup</a></li>
+			<li><a href="#" data-inline="true" aria-haspopup="true" aria-owns="center_button_vertical">Center_button vertical</a></li>
+			<li><a href="#" data-inline="true" aria-haspopup="true" aria-owns="center_checkbox">Center_checkbox</a></li>
+			<li><a href="#" data-inline="true" aria-haspopup="true" aria-owns="center_liststyle_1btn">Center_list style 1 button popup</a></li>
+			<li><a href="#" data-inline="true" aria-haspopup="true" aria-owns="center_liststyle_2btn">Center_list style 2 button popup</a></li>
+			<li><a href="#" data-inline="true" aria-haspopup="true" aria-owns="center_liststyle_3btn">Center_list style 3 button popup</a></li>
+			<li><a href="#" data-inline="true" id="showVolumeButton">Volume popup</a></li>
+			<li><a href="#" data-inline="true" aria-haspopup="true" aria-owns="center_progressbar">Center progressbar popup</a></li>
+			<li><a href="#" data-inline="true" aria-haspopup="true" aria-owns="centertext_progressbar">Center text progressbar popup</a></li>
+		</ul>
+
+		<!-- text only -->
+		<div id="center_info" data-role="popupwindow" data-style="center_info">
+			<div data-role="text"> <p>
+				Pop-up dialog box, a child
+				window that blocks user inter-
+				act to the parent windows
+			</p></div>
+		</div>
+
+		<!-- popup title-text -->
+		<div id="center_title" data-role="popupwindow" data-style="center_title">
+			<p data-role="title">
+				Popup title
+			</p>
+			<p data-role="text">
+				Pop-up dialog box, a child
+				window that blocks user interact
+				to the parent windows
+			</p>
+		</div>
+
+		<!-- popup basic+text+1button -->
+		<div id="center_basic_1btn" data-role="popupwindow" data-style="center_basic_1btn">
+			<p data-role="text">
+				Pop-up dialog box, a child
+				window that blocks user interact
+				to the parent windows
+			</p>
+			<div data-role="button-bg">
+					<input type="button" value="Text Button" />
+			</div>
+		</div>
+
+		<!-- popup basic+text+2button -->
+		<div id="center_basic_2btn" data-role="popupwindow" data-style="center_basic_2btn">
+			<p data-role="text">
+				Pop-up dialog box, a child
+				window that blocks user interact
+				to the parent windows
+			</p>
+			<div data-role="button-bg">
+					<input type="button" value="Text Button" />
+					<input type="button" value="Text Button" />
+			</div>
+		</div>
+
+		<!-- popup basic+text+3button -->
+		<div id="center_basic_3btn" data-role="popupwindow" data-style="center_basic_3btn">
+			<p data-role="text">
+				Pop-up dialog box, a child
+				window that blocks user interact
+				to the parent windows
+			</p>
+			<div data-role="button-bg">
+					<input type="button" value="Button1" />
+					<input type="button" value="Button2" />
+					<input type="button" value="Button3" />
+			</div>
+		</div>
+
+		<!-- popup title+text+1button -->
+		<div id="center_title_1btn" data-role="popupwindow" data-style="center_title_1btn">
+			<p data-role="title">
+				Popup title
+			</p>
+			<p data-role="text">
+				Pop-up dialog box, a child
+				window that blocks user interact
+				to the parent windows
+			</p>
+			<div data-role="button-bg">
+					<input type="button" value="Text Button" />
+			</div>
+		</div>
+
+		<!-- popup title+text+2button -->
+		<div id="center_title_2btn" data-role="popupwindow" data-style="center_title_2btn">
+			<p data-role="title">
+				Popup title
+			</p>
+			<p data-role="text">
+				Pop-up dialog box, a child
+				window that blocks user interact
+				to the parent windows
+			</p>
+			<div data-role="button-bg">
+					<input type="button" value="Text Button" />
+					<input type="button" value="Text Button" />
+			</div>
+		</div>
+
+		<!-- popup title+text+3button -->
+		<div id="center_title_3btn" data-role="popupwindow" data-style="center_title_3btn">
+			<p data-role="title">
+				Popup title
+			</p>
+			<p data-role="text">
+				Pop-up dialog box, a child
+				window that blocks user interact
+				to the parent windows
+			</p>
+			<div data-role="button-bg">
+					<input type="button" value="Button1" />
+					<input type="button" value="Button2" />
+					<input type="button" value="Button3" />
+			</div>
+		</div>
+
+		<!-- popup center_button_vertical -->
+		<div id="center_button_vertical" data-role="popupwindow" data-style="center_button_vertical">
+			<p data-role="text">
+				File 01.jpg
+				already in use
+			</p>
+			<div data-role="button-bg">
+					<input type="button" value="Replace" />
+					<input type="button" value="Rename" />
+					<input type="button" value="Cancel" />
+			</div>
+		</div>
+
+		<!-- popup checkbox  -->
+		<div id="center_checkbox" data-role="popupwindow" data-style="center_checkbox">
+			<p data-role="text">
+				Use packet data must
+				be enabled to access
+				data service.
+				Change settings?
+			</p>
+			<div data-role="check-bg">
+				<input type="checkbox" name="checkbox-1" id="checkbox-1" class="custom" />
+				<label for="checkbox-1">Don't ask again</label>
+			</div>
+			<div data-role="button-bg">
+					<input type="button" value="Text" />
+					<input type="button" value="Text" />
+			</div>
+		</div>
+
+		<!-- popup liststyle 1 button -->
+		<div id="center_liststyle_1btn" data-role="popupwindow" data-style="center_liststyle_1btn">
+			<p data-role="title">
+				Popup title
+			</p>
+			<div data-role="scroller-bg">
+				<ul data-role="listview" data-icon="1line-textonly" data-scroll="y">
+					<li><a href="#">List item 1</a></li>
+					<li><a href="#">List item 2</a></li>
+					<li><a href="#">List item 3</a></li>
+					<li><a href="#">List item 4</a></li>
+					<li><a href="#">List item 5</a></li>
+					<li><a href="#">List item 6</a></li>
+					<li><a href="#">List item 7</a></li>
+					<li><a href="#">List item 8</a></li>
+					<li><a href="#">List item 9</a></li>
+				</ul>
+			</div>
+			<div data-role="button-bg">
+					<input type="button" value="Text Button" />
+			</div>
+		</div>
+
+		<!-- popup liststyle 2 button -->
+		<div id="center_liststyle_2btn" data-role="popupwindow" data-style="center_liststyle_2btn">
+			<p data-role="title">
+				Popup title
+			</p>
+			<div data-role="scroller-bg">
+				<ul data-role="listview" data-icon="1line-textonly" data-scroll="y">
+					<li><a href="#">List item 1</a></li>
+					<li><a href="#">List item 2</a></li>
+					<li><a href="#">List item 3</a></li>
+					<li><a href="#">List item 4</a></li>
+					<li><a href="#">List item 5</a></li>
+					<li><a href="#">List item 6</a></li>
+					<li><a href="#">List item 7</a></li>
+					<li><a href="#">List item 8</a></li>
+					<li><a href="#">List item 9</a></li>
+				</ul>
+			</div>
+			<div data-role="button-bg">
+					<input type="button" value="Text Button" />
+					<input type="button" value="Text Button" />
+			</div>
+		</div>
+
+		<!-- popup liststyle 3 button -->
+		<div id="center_liststyle_3btn" data-role="popupwindow" data-style="center_liststyle_3btn">
+			<p data-role="title">
+				Popup title
+			</p>
+			<div data-role="scroller-bg">
+				<ul data-role="listview" data-icon="1line-textonly" data-scroll="y">
+					<li><a href="#">List item 1</a></li>
+					<li><a href="#">List item 2</a></li>
+					<li><a href="#">List item 3</a></li>
+					<li><a href="#">List item 4</a></li>
+					<li><a href="#">List item 5</a></li>
+					<li><a href="#">List item 6</a></li>
+					<li><a href="#">List item 7</a></li>
+					<li><a href="#">List item 8</a></li>
+					<li><a href="#">List item 9</a></li>
+				</ul>
+			</div>
+			<div data-role="button-bg">
+					<input type="button" value="Button" />
+					<input type="button" value="Button" />
+					<input type="button" value="Button" />
+			</div>
+		</div>
+
+		<!-- popup liststyle 3 button -->
+		<div data-role="volumecontrol" id="myVolumeControl" data-style="volumepopup"></div>
+
+		<!-- popup center progressbar -->
+		<div id="center_progressbar" data-role="popupwindow" data-style="center_progressbar">
+			<p data-role="text">
+				Text Text...
+			</p>
+			<div data-role="progress-bg">
+				<div data-role="progressbar" id="progressbar"></div>
+			</div>
+			<p data-role="text-bottom-bg">
+				<span class="text-left">
+					Left Text
+				</span>
+				<span class="text-right">
+					Right Text
+				</span>
+			</p>
+			<div data-role="button-bg">
+					<input type="button" value="Text Button" />
+			</div>
+		</div>
+
+		<!-- popup center text progressbar -->
+		<div id="centertext_progressbar" data-role="popupwindow" data-style="centertext_progressbar">
+			<p data-role="text">
+				Text Text...
+				Pop-up dialog box, a child
+				window that blocks user interact
+				to the parent windows
+			</p>
+			<div data-role="progress-bg">
+				<div data-role="progressbar" id="progressbar"></div>
+			</div>
+			<p data-role="text-bottom-bg">
+				<span class="text-left">
+					Left Text
+				</span>
+				<span class="text-right">
+					Right Text
+				</span>
+			</p>
+			<div data-role="button-bg">
+					<input type="button" value="Text Button" />
+			</div>
+		</div>
+
+	</div> <!-- /content -->
+
+</div> <!-- /page -->
+
+</body>
+</html>
