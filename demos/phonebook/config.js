@@ -7,6 +7,12 @@ var pb_searchField = "name_first";
 var nb_contacts = 0;
 var nb_groups = 0;
 
+/* String for items that has no group */
+var allContacts = "All contacts";
+var noGroup = "Not assigned";
+
+/* Saved Location : Defaults support list */ 
+var savedLocationListDB = ["Phone", "Samsung", "Google", "Facebook", "Yahoo", "Service numbers"];
 
 function loadLocalScripts() {
 	

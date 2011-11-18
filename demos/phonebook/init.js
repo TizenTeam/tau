@@ -37,7 +37,7 @@ $("#all_groups_page").bind("pagebeforecreate", function(){
 	/* Make Group list data structure */
 	var groupedList = Phonebook.makeGroupList(window[pb_groupdbtable]);
 	
-	Phonebook.pushGourpedList("#all_groups_list", "#tmpl_groups_expandable_groupName", "#tmpl_groups_expandable_groupItem", groupedList, pb_dbtable);
+	Phonebook.pushGourpedList("#all_groups_list", "#tmpl_groups_expandable_savedLocationName", "#tmpl_groups_expandable_groupName", groupedList);
 });
 
 /* Start Phonebook App initialization */
