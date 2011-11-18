@@ -18,13 +18,20 @@ $.widget("todons.expandablelist", $.mobile.widget, {
 		$(e).removeClass('ui-li-expand-transition-hide')
 			.addClass('ui-li-expand-transition-show');
 	},
+	_removeFromField: function(id) {
+		$(id).remove();
+	},
 	_hide_expand_img: function(e) {
 		$(e).removeClass('ui-li-expandable-hidden')
 			.addClass('ui-li-expandable-shown');
+
+		$(e).append("<div class='ui-li-expand-icon'></div>");
 	},
 	_show_expand_img: function(e) {
 		$(e).removeClass('ui-li-expandable-shown')
 			.addClass('ui-li-expandable-hidden');
+
+		$(e).append("<div class='ui-li-expanded-icon'></div>");
 	},
 
 	_toggle: function(self, e, parent_is_expanded) {
@@ -77,8 +84,14 @@ $.widget("todons.expandablelist", $.mobile.widget, {
 			expanded.each(function(i, e) { self._toggle(self, e, _is_expanded); });
 			e[0].is_expanded = ! e[0].is_expanded;	// toggle true/false
 			if (e[0].is_expanded) {
+				var id = document.getElementsByClassName("ui-li-expanded-icon");
+				console.log("id = " + id);
+				self._removeFromField(id);
 				self._hide_expand_img(e);
 			} else {
+				var id = document.getElementsByClassName("ui-li-expand-icon");
+				console.log("id = " + id);
+				self._removeFromField(id);
 				self._show_expand_img(e);
 			}
 
