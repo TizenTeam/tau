@@ -70,7 +70,6 @@ $.widget( "mobile.navbar", $.mobile.widget, {
 				/* Need to add text only style */
 				if(!(navbar_filter.find(".ui-btn-inner").children().is(".ui-icon"))){
 					navbar_filter.find(".ui-btn-inner").addClass("ui-navbar-textonly");
-					navbar_filter.css("height", "99px"); 
 				}
 				else {
 					if(navbar_filter.find(".ui-btn-text").text() == "")

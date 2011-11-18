@@ -188,16 +188,40 @@ $.mobile.fixedToolbars = (function() {
 			if(s_theme_fieldcontain.length != 0) 
 				title_style = "extended";
 			
-				if(s_theme_header.find(".ui-option-header").length == 0 && s_theme_header.is(".ui-header-fixed") && s_theme_header.is(".ui-bar-s")){
-					s_theme_header
-						.css("position", "fixed")
-						.css("top", "0px");
+				if(s_theme_header.children().is(".ui-option-header")){	
+					if(s_theme_header.children().is(".input-search-bar")){
+						$( event.target ).find(".ui-content")
+							.css("position", "relative")
+							.css("top","216px" );	
+					}
+					else{
+						if($.todons.optionheader.prototype.options.collapseOnInit == true)					
+							$( event.target ).find(".ui-content")
+								.addClass("ui-title-content-option-header-collapsed-1line-height");
+						else 
+							$( event.target ).find(".ui-content")
+								.addClass("ui-title-content-option-header-expanded-1line-height");	
+					}
+				}
+				else if(s_theme_header.find("input").jqmData("type") == "search"){ /* In case searchbar in header : Jinhyuk */
+					$( event.target ).find(".ui-content")
+						.css("position", "relative")
+						.css("top","206px" );										
+				}				
+				else {
+					if(s_theme_header.parent().is(".ui-dialog"))
+						s_theme_header.css("position", "relative");
+					else {
+						s_theme_header
+							.css("position", "fixed")
+							.css("top", "0px");
+					}
 					if(title_style == "normal"){				
 						if(s_theme_header.find("a").length == 1 || s_theme_header.find("a").length == 2){}
 						else if(s_theme_header.find("a").length == 3){
 							s_theme_header.find("a").eq(1)
 								.removeClass("ui-btn-right")
-								.addClass("ui-title-normal-3btn");					
+					.addClass("ui-title-normal-3btn");					
 							s_theme_header.find("a").eq(2)
 								.addClass("ui-btn-right");
 						} else {/* Need to implement new layout */}
@@ -218,14 +242,7 @@ $.mobile.fixedToolbars = (function() {
 					}	
 					$( event.target ).find(".ui-content").addClass("ui-title-content-" + title_style + "-height");	
 				}	
-				else{/* Option header reposition : Jinhyuk */
-					if($.todons.optionheader.prototype.options.collapseOnInit == true)					
-						$( event.target ).find(".ui-content")
-							.addClass("ui-title-content-option-header-collapsed-1line-height");
-					else 
-						$( event.target ).find(".ui-content")
-							.addClass("ui-title-content-option-header-expanded-1line-height");					
-				}
+				
 				var page = $( event.target ),
 				footer = page.find( ":jqmData(role='footer')" ),
 				id = footer.data( "id" ),
@@ -235,7 +252,6 @@ $.mobile.fixedToolbars = (function() {
 
 				if ( id && prevFooterMatches ) {
 					stickyFooter = footer;
-//					setTop( stickyFooter.removeClass( "fade in out" ).appendTo( $.mobile.pageContainer ) );
 					stickyFooter.removeClass( "fade in out" ).appendTo( $.mobile.pageContainer );
 					stickyFooter
 						.css("position", "fixed")

@@ -40,10 +40,8 @@
 .ui-header.ui-bar-s{ 
 	position : fixed;
 	top : 0px;
+	background : #6c6c6c;
 	
-	border-bottom-style: solid;
-	border-bottom-color: 	#484848; 	
-	border-bottom-width: 	10 * @unit_base;	
 	.ui-title {
 		color : #F9F9F9;
 
@@ -52,8 +50,7 @@
 		text-align: center; 
 		font-size : 36 * @unit_base; 
 		display: block; 
-		margin: 23*@unit_base 90*@unit_base 23*@unit_base;  
-		padding: 0;  
+		margin: 28*@unit_base 0*@unit_base 28*@unit_base;  
 		text-overflow: ellipsis; 
 		overflow: hidden; 
 		white-space: nowrap; 
@@ -61,16 +58,27 @@
 	}
 	
 	.ui-btn{
-		top : 8 * @unit_base;
+		font-size : 28 * @unit_base;
+		height : 74 * @unit_base;
+			
+			
+		.ui-btn-inner {
+			width : 108  * @unit_base;
+		}	
+	}
+
+
+	> .ui-btn{
+		top : 12 * @unit_base;
 		margin-top : 0px;
 		font-size : 28 * @unit_base;
 		height : 74 * @unit_base;
 		
-		background: #32414a;
+		background: #6c6c6c;
 		color 		:#f9f9f9;
 			
 		border-style: solid;
-		border-color: 	#213c49; 	
+		border-color: 	#4c4c4c; 	
 		border-width: 	1 * @unit_base;
 			
 		.ui-btn-inner {
@@ -78,7 +86,7 @@
 		}
 	}
 	
-	.ui-btn.ui-btn-down-s {
+	> .ui-btn.ui-btn-down-s {
 		background 		:#213c49;
 		color : #767676;
 	}
@@ -96,7 +104,7 @@
 		left : 0 * @unit_base;
 
 		border : none;
-		background : #32414a;
+		background : #6c6c6c;
 		
 		.ui-btn-inner.ui-btn-icon-only {
 			padding : 0;
@@ -106,7 +114,7 @@
 			top : 28 * @unit_base;
 			left : 34 * @unit_base;			
 		 			 
-			background: 			#32414a;			 
+			background: 			#6c6c6c;			 
 			border-top : none;			
 			
 			border-right-style :  groove;
@@ -120,7 +128,7 @@
 	.ui-field-contain {		
 		.ui-title-extended-controlgroup {
 			position : absolute;
-			top : 0  * @unit_base;
+			top : 15  * @unit_base;
 	
 			margin-top : 0 * @unit_base;
 			margin-bottom : 0 * @unit_base;
@@ -488,8 +496,8 @@ a.ui-link-inherit {
 		z-index : 200;
 	}
 	.ui-btn-inner.ui-navbar-textonly {
-		padding-top : 36 * @unit_base;
-		padding-bottom : 36 * @unit_base;
+		padding-top : 44 * @unit_base;
+		padding-bottom : 45 * @unit_base;
 	}
 }
 
@@ -524,21 +532,27 @@ a.ui-link-inherit {
 		z-index : 100;		
 	}	
 	
-	
 	.ui-btn-hide-style {
 		background: @footercolor;
 		border : none;		
 	}
-	
-	
-	
-	
 }
 
 .ui-toolbar-s {
-	.ui-btn {
-		background: @footercolor;
+	.ui-btn, .ui-btn-up-s {
+		background: #161616;
+		
+		border-left-width : 1px;
+		border-right-width : 1px;
+		border-color : #2A2A2A;
+		border-style : solid;
+		
 	}
+	
+	.ui-btn-down-s {
+		background : #4c4c4c;
+	}
+
 }
 
 .ui-controlbar-left.ui-navbar, .ui-controlbar-right.ui-navbar {

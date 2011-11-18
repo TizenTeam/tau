@@ -10,7 +10,7 @@
 		var $elem = $( elem );
 		$elem.bind( "mousedown touchstart vmousedown ", function (e) {
 			if ( e.type == 'touchstart' || e.type == 'mousedown' || e.type == 'vmousdown' ) {
-				console.log("preventDefaultBehavior test...");
+				//console.log("preventDefaultBehavior test...");
 				e.preventDefault();
 			}
 		});
