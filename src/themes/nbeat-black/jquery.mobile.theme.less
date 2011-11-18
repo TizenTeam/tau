@@ -518,21 +518,27 @@ a.ui-link-inherit {
 		z-index : 100;		
 	}	
 	
-	
 	.ui-btn-hide-style {
 		background: @footercolor;
 		border : none;		
 	}
-	
-	
-	
-	
 }
 
 .ui-toolbar-s {
-	.ui-btn {
-		background: @footercolor;
+	.ui-btn, .ui-btn-up-s {
+		background: #161616;
+		
+		border-left-width : 1px;
+		border-right-width : 1px;
+		border-color : #2A2A2A;
+		border-style : solid;
+		
 	}
+	
+	.ui-btn-down-s {
+		background : #4c4c4c;
+	}
+
 }
 
 .ui-controlbar-left.ui-navbar, .ui-controlbar-right.ui-navbar {
