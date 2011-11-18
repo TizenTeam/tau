@@ -237,7 +237,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 					break;
 			}
 		};
-
+		
 		// Get scroll direction and velocity
 		var curWindowTop = $(window).scrollTop() - LINE_H;
 		var cur_num_top_itmes = $(o.id + " li").filter(function(){return (parseInt($(this).css("top")) < curWindowTop);}).size(); 
@@ -265,10 +265,19 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 					velocity = TOTAL_ITEMS - last_index -1;
 				}
 				
+				
+				/* Prevent scroll touch event while DOM access */
+				$(document).bind("touchstart", function(event) {
+					  event.preventDefault();
+				});				
+				
 				_moveTopBottom(first_index, last_index, velocity, o.dbkey);
 				first_index += velocity;
 				last_index += velocity;
 				num_top_items -= velocity;
+				
+				/* Unset prevent touch event */
+				$(document).unbind("touchstart");
 			}
 		}
 		else if(direction == SCROLL_UP)
@@ -279,11 +288,19 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 				{
 					velocity = first_index;
 				}
+
+				/* Prevent scroll touch event while DOM access */
+				$(document).bind("touchstart", function(event) {
+					  event.preventDefault();
+				});		
 				
 				_moveBottomTop(first_index, last_index, velocity, o.dbkey);
 				first_index -= velocity;
 				last_index -= velocity;
 				num_top_items += velocity;
+				
+				/* Unset prevent touch event */
+				$(document).unbind("touchstart");				
 			}
 			
 			if (first_index < PAGE_BUF)
@@ -291,6 +308,8 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 				num_top_items = first_index;
 			}
 		}
+		
+		$(document).unbind("touchstart");
 	},
 	
 	recreate: function(newArray){
@@ -330,6 +349,13 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 	    $(document).bind('scrollstop', t.options, t._scrollmove);
 	    $(window).resize(o.id, t._resize);
 
+	    /* Prevent scroll touch event while DOM access */
+	    $(document).bind("scrollstart", function(){
+			$(document).bind("touchstart", function(event) {
+				  event.preventDefault();
+			});
+	    });
+	    
 		$(o.id).listview();
 
 		t.refresh( true );
@@ -393,6 +419,9 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		/*$(document).unbind("pageshow");*/
 		$(document).unbind("scrollstop");
 		$(window).unbind("resize");
+		/* Unset prevent touch event */
+		$(document).unbind("touchstart");
+		
 		$(o.id).empty();
 	},
 	
