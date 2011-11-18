@@ -85,12 +85,10 @@ $.widget("todons.expandablelist", $.mobile.widget, {
 			e[0].is_expanded = ! e[0].is_expanded;	// toggle true/false
 			if (e[0].is_expanded) {
 				var id = document.getElementsByClassName("ui-li-expanded-icon");
-				console.log("id = " + id);
 				self._removeFromField(id);
 				self._hide_expand_img(e);
 			} else {
 				var id = document.getElementsByClassName("ui-li-expand-icon");
-				console.log("id = " + id);
 				self._removeFromField(id);
 				self._show_expand_img(e);
 			}
