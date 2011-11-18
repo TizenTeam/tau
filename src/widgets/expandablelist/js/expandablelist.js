@@ -19,12 +19,12 @@ $.widget("todons.expandablelist", $.mobile.widget, {
 			.addClass('ui-li-expand-transition-show');
 	},
 	_hide_expand_img: function(e) {
-		$(e).removeClass('ui-li-expand')
-			.addClass('ui-li-expanded');
+		$(e).removeClass('ui-li-expandable-hidden')
+			.addClass('ui-li-expandable-shown');
 	},
 	_show_expand_img: function(e) {
-		$(e).removeClass('ui-li-expanded')
-			.addClass('ui-li-expand');
+		$(e).removeClass('ui-li-expandable-shown')
+			.addClass('ui-li-expandable-hidden');
 	},
 
 	_toggle: function(self, e, parent_is_expanded) {
