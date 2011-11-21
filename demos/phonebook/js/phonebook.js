@@ -56,56 +56,78 @@ Phonebook = {
 	makeGroupList: function(groups)
 	{
 		/* Get Group list and remove duplicated items. */
+		var savedLocationList = {};
 		var groupedList = {};
 		
+		/* Make 2 dimension associated array */
+		$.each(savedLocationListDB, function(){
+			savedLocationList[this] = {};
+		});
+		
 		$.each(groups, function() {
-			var vName = this.groupName;
-			
-			if (vName.length > 0)
-			{
-				if($(groupedList[vName]).size() <= 0)
-				{
-					/* Make 2 dimension array */
-					groupedList[vName] = new Array();
-				}
-				
-				groupedList[vName].push(this);
+			var vSavedLocation = this.savedlocation;
+			var vName = this.group;
+
+			if (savedLocationList[vSavedLocation][vName])	{
+				savedLocationList[vSavedLocation][vName].count++;
+			}
+			else {
+				savedLocationList[vSavedLocation][vName] = {count: 1};
 			}
 		});
 		
-		return groupedList;
+		return savedLocationList;
 	},
 	
-	pushGourpedList: function(listSelector, expandableTitleTmpl, expandableItemTmpl, GroupDataset, ContactsDataset)
+	pushGourpedList: function(listSelector, expandableTitleTmpl, expandableItemTmpl, LocationGroupData)
 	{
-		var groupedList = GroupDataset;
-		var contactsList = ContactsDataset;
+		var LocationGroup = LocationGroupData;
 		var $titleTemplate = $(expandableTitleTmpl);
 		var $itemTemplate = $(expandableItemTmpl);
 		var clonedList = $(listSelector).clone();
 		
 		/* Traverse Grouped list */
-		$.each(groupedList, function(myGroupName, items){
-			var groupNameData = {groupName:myGroupName, groupCount:items.length};
-			var titleHtmlData = $titleTemplate.tmpl(groupNameData);
+		$.each(savedLocationListDB, function(){
+			var Nb_items_in_location = 0;
+			$.each(LocationGroup[this], function(){
+				Nb_items_in_location +=this.count;
+			});
+				
+			var locationData = {savedLocation:this, savedLocationCount:Nb_items_in_location};
+			var titleHtmlData = $titleTemplate.tmpl(locationData);
 			
 			$(clonedList).append(titleHtmlData);
 			
-			/* Append each group's items */
-			$.each(items, function(){
-				var contactData = Phonebook.searchByLuid(window[pb_dbtable], this.Luid);
-				var shownName = contactData.name_first + contactData.name_last;
-				var itemData = {groupName:myGroupName, Luid:contactData.Luid, contactName:shownName};
-				
+			var groupList = LocationGroup[this];
+			
+			/* Add "All contacts at first */
+			var itemData = {groupName:allContacts, savedLocation:locationData.savedLocation,groupCount:Nb_items_in_location};
+			var itemHtmlData = $itemTemplate.tmpl(itemData);
+			$(clonedList).append(itemHtmlData);
+			
+			/* Append each Saved Location's groups */
+			$.each(groupList, function(myGroupName, data){
+				var thisGroupName = (myGroupName.length<=0)?noGroup:myGroupName;
+				var itemData = {groupName:thisGroupName, savedLocation:locationData.savedLocation,groupCount:data.count};
 				var itemHtmlData = $itemTemplate.tmpl(itemData);
 				
-				$(clonedList).append(itemHtmlData);
+				/* Find "Not assigned" and mark it */
+				if (thisGroupName == noGroup)
+				{
+					$(itemHtmlData).addClass("noGroup");
+				}
+
+				$(clonedList).append(itemHtmlData);		
 			});
+			
+			/* Find "Not assigned" and move it to the last */
+			var move2last = $(clonedList).find(".noGroup").detach();
+			move2last.removeClass("noGroup");
+			$(clonedList).append(move2last);
 		});
 		
+		/* Update grouped list */
 		$(listSelector).replaceWith(clonedList);
-		
-		/*$(listSelector).listview();*/
 	},
 	
 	searchByLuid: function(dbArray, search_id)

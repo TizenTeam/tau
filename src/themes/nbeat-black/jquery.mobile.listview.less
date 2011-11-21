@@ -593,29 +593,25 @@ ol.ui-listview {
 }
 
 .LESSimg-expand-icon(@right:@list-li-padding-horizontal, @size:@list-bigicon-size) {
-	.LESSimg-bigicon(@size);
-	img.ui-li-bigicon {
+	.ui-li-expand-icon {
 		background-image: url(images/icon_arrow_right.png);
-		display: block;
 		position: absolute;
 		top: 50%;
+		width: 64 * @unit_base;
+		height: 64 * @unit_base;
 		margin-top: -(@size/2);
-		left: auto;
-//		right: @right;
 		right: 96 * @unit_base;
 	}
 }
 
 .LESSimg-expanded-icon(@right:@list-li-padding-horizontal, @size:@list-bigicon-size) {
-	.LESSimg-bigicon(@size);
-	img.ui-li-bigicon {
+	.ui-li-expanded-icon {
 		background-image: url(images/icon_arrow_down.png);
-		display: block;
 		position: absolute;
 		top: 50%;
+		width: 64 * @unit_base;
+		height: 64 * @unit_base;
 		margin-top: -(@size/2);
-		left: auto;
-//		right: @right;
 		right: 96 * @unit_base;
 	}
 }
@@ -1142,13 +1138,13 @@ ul.ui-listview {
 .ui-listview {
 	.ui-li-expandable {
 	}
-	.ui-li-expandable.ui-li-expandable-shown {
-		// Right arrow
-		.LESSimg-expand-icon;
-	}
-	.ui-li-expandable.ui-li-expandable-hidden {
+	.ui-li-expandable-shown {
 		// Down arrow
 		.LESSimg-expanded-icon;
+	}
+	.ui-li-expandable-hidden {
+		// Right arrow
+		.LESSimg-expand-icon;
 	}
 	.ui-li-expanded {
 		overflow: hidden;
