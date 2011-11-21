@@ -71,6 +71,16 @@ $.widget("todons.expandablelist", $.mobile.widget, {
 			}
 		}
 		e[0].is_expanded = is_expanded;
+		if (e[0].is_expanded) {
+			var id = e[0].getElementsByClassName("ui-li-expanded-icon");
+			self._removeFromField(id);
+			self._hide_expand_img(e);
+		} else {
+			var id = e[0].getElementsByClassName("ui-li-expand-icon");
+			self._removeFromField(id);
+			self._show_expand_img(e);
+		}
+
 
 		// Show/hide expanded objects
 		if(e[0].is_expanded) expanded.each(function(i, e) { self._show(e); });
