@@ -45,6 +45,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		dbtable: "",
 		template : "",
 		dbkey: false,			/* Data's unique Key */
+		scrollview: false,
 		initSelector: ":jqmData(role='virtuallistview')"
 	},
 
@@ -238,8 +239,28 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 			}
 		};
 		
+		/* Matrix to Array function written by Blender@stackoverflow. nnikishi@emich.edu*/
+		var matrixToArray = function(matrix) {
+		    var contents = matrix.substr(7);
+		    contents = contents.substr(0, contents.length - 1);
+
+		    return contents.split(', ');
+		};		
+		
 		// Get scroll direction and velocity
-		var curWindowTop = $(window).scrollTop() - LINE_H;
+		/* with Scroll view */
+		if (o.scrollview)
+		{
+			var $el = $(o.id).parentsUntil(".ui-page").find(".ui-scrollview-view");
+			var transformValue = matrixToArray($el.css("-webkit-transform"));
+			
+			var curWindowTop = Math.abs(transformValue[5]);	/* Y vector */
+		}
+    	else
+    	{
+    		var curWindowTop = $(window).scrollTop() - LINE_H;
+    	}
+		
 		var cur_num_top_itmes = $(o.id + " li").filter(function(){return (parseInt($(this).css("top")) < curWindowTop);}).size(); 
 		
 		if (num_top_items < cur_num_top_itmes)
@@ -346,7 +367,15 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
     	
     	$(o.id).parentsUntil(".ui-page").parent().bind("pageshow", o.id, t._reposition);
 
-	    $(document).bind('scrollstop', t.options, t._scrollmove);
+    	/* Scrollview */
+    	if (o.scrollview) {
+    		$(o.id).parentsUntil(".ui-page").parent().bind("vmouseup", t.options, t._scrollmove);
+    		$(o.id).parentsUntil(".ui-page").parent().bind("touchend", t.options, t._scrollmove);
+    	}
+    	else {
+    		$(document).bind('scrollstop', t.options, t._scrollmove);
+    	}
+	    
 	    $(window).resize(o.id, t._resize);
 
 	    /* Prevent scroll touch event while DOM access */
@@ -391,6 +420,9 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 	    $(o.id).bind("pagehide", function(e){
 			$(o.id).empty();
 		});
+	    
+	    /* Scroll view */
+	    ($(".ui-scrollview-clip").size()>0)?o.scrollview=true:o.scrollview=false;
 
 	    /* After DB Load complete, Init Vritual list */
 	    if ($(o.id).hasClass("vlLoadSuccess"))
@@ -415,10 +447,14 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 	destroy : function(){
 		var o = this.options;
 		
-		/*$(o.id).parentsUntil(".ui-page").parent().unbind("pageshow");*/
-		/*$(document).unbind("pageshow");*/
 		$(document).unbind("scrollstop");
+		
+		if (o.scrollview) {
+			$(o.id).parentsUntil(".ui-page").parent().unbind("vmouseup");
+    		$(o.id).parentsUntil(".ui-page").parent().unbind("touchend");
+		}
 		$(window).unbind("resize");
+
 		/* Unset prevent touch event */
 		$(document).unbind("touchstart");
 		
