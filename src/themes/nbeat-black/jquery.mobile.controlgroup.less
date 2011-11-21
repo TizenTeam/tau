@@ -1,3 +1,5 @@
+@import "config.less";
+
 .ui-controlgroup,
 fieldset.ui-controlgroup {
 	padding: 0;
@@ -15,7 +17,6 @@ fieldset.ui-controlgroup {
 
 .ui-controlgroup-controls {
 	display: block;
-	width: 95%;
 }
 .ui-controlgroup {
 	li {
@@ -69,8 +70,8 @@ fieldset.ui-controlgroup {
 	.ui-radio label {
 		text-align :left;
 		.ui-btn-inner {
-			margin-left : 1em;
-		
+			margin-left : 16 * @unit_base;
+			margin-right : 16 * @unit_base;
 		}
 	}
 }
@@ -97,7 +98,6 @@ fieldset.ui-controlgroup {
 		margin: 0 2% 0 0;
 	}
 	.ui-controlgroup-controls {
-		width: 60%;
 		display: inline-block;
 	} 
 }
