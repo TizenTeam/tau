@@ -431,7 +431,7 @@ $.mobile.fixedToolbars = (function() {
 						el.removeClass( "in" );
 					}).addClass( "in" );
 				}
-				setTop(el);
+//				setTop(el);
 			});
 		},
 
