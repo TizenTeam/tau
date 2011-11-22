@@ -18,19 +18,21 @@ var listCountPerPage = {};
 var	INIT_LIST_NUM = 100;
 var	PAGE_BUF = (INIT_LIST_NUM/2);
 var	TOTAL_ITEMS = 0;
-var	NO_SCROLL = 0;
-var	SCROLL_DOWN = 1;
-var	SCROLL_UP = -1;
 var LINE_H = 0;
 var TITLE_H = 0;	
 var CONTAINER_W = 0;
 
-var i =0, j=0, k=0;
+/* ENUM */
+var	NO_SCROLL = 0;	
+var	SCROLL_DOWN = 1;
+var	SCROLL_UP = -1;
+
+var i =0;
 var direction = NO_SCROLL;
 var first_index = 0;				//first id of <li> element.
 var last_index = INIT_LIST_NUM -1;	//last id of <li> element.
 
-var num_top_items = 0;	//By scroll move, hided elements.
+var num_top_items = 0;				//By scroll move, number of hidden elements.
 
 $.widget( "mobile.virtuallistview", $.mobile.widget, {
 	options: {

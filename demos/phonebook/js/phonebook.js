@@ -1,3 +1,20 @@
+domReady(function(){
+    /* For phonebook demo, Load dummy data via AJAX */
+    pb_dbsrc ="phonebook_data/contacts.js";
+    pb_dbtable = $("#all_contacts_page ul").data("dbtable");
+    pb_groupdbtable = $("#all_groups_page ul").data("dbtable");
+    	
+    pb_searchField = "name_first";
+    nb_contacts = 0;
+    nb_groups = 0;
+    		
+    /* String for items that has no group */
+    allContacts = "All contacts";
+    noGroup = "Not assigned";
+    		
+    /* Saved Location : Defaults support list */ 
+    savedLocationListDB = ["Phone", "Samsung", "Google", "Facebook", "Yahoo", "Service numbers"];
+
 Phonebook = {
 	search: function(dbArray, fields, regEx)
 	{
@@ -148,22 +165,4 @@ Phonebook = {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}); //End of Dom Ready
