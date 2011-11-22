@@ -8,8 +8,8 @@ Map = {
 		});
 	},
 
-	setCenter : function( lat, lng ) {
-		Map.map.gmap( 'setCenter', lat, lng );
+	setCenter : function( location, status ) {
+		Map.map.gmap( 'setCenter', location.coords.latitude, location.coords.longitude );
 	},
 
 	showDetailMap: function( detail ) {
