@@ -4,7 +4,7 @@
         <title>@APP_NAME@</title>
 
 		<script src="@LIBDIR@/jquery.js"></script>
-		<script src="@LIBDIR@/web-ui-fw.js" 
+		<script src="@LIBDIR@/web-ui-fw.js" @DATA_FRAMEWORK_ROOT@
 			data-framework-version="0.1" 
 			data-framework-theme="nbeat-black"></script>
     </head>
