@@ -66,11 +66,9 @@ S = {
                '',
 
 	util : {
-		addElementToHead : function() {
+		addElementToHead : function(elem) {
 			var head = document.getElementsByTagName('head')[0];
-			for (var idx in arguments) {
-				head.appendChild(arguments[idx]);
-			}
+			head.appendChild(elem);
 		},
 		loadScriptSync : function(scriptPath) {
 			$.ajax({
@@ -176,12 +174,11 @@ S = {
 	},
 };
 
-
 // Loader's jobs
 (function (S, $, undefined) {
 	S.beforeAct(S, $);
+	S.getParams();
 	domReady(function() {
-		S.getParams();
 		S.loadTheme();
 		S.setViewport();
 		S.startAct(S, $);
