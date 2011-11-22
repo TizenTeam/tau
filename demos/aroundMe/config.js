@@ -13,11 +13,8 @@ loadGooglePlacesScripts = function() {
 };
 
 loadLocalScripts = function() {
-    // instead of calling a function here, we could set up a global
-    // object (e.g. called CONFIG) and assign a "deps" property to it; then
-    // load each of the files in the deps property inside bootstrap.js
-    S.load(
-		'lib/json2.js',
+    var scripts = new Array(
+        'lib/json2.js',
         'lib/jquery.ui.map.full.min.js',
 		'lib/jquery.ui.map.extensions.js',
         'lib/jsrender.js',
@@ -30,10 +27,12 @@ loadLocalScripts = function() {
         'init.js'
     );
 
-    /* link custom stylesheet */
-    S.css.load(
-        'css/aroundme.css'
-    );
+    $(scripts).each( function( i, e ) {
+        var script = document.createElement( "script" );
+        script.type = 'text/javascript';
+        script.src = e;
+        document.head.appendChild( script );
+    });
 }
 
 loadGoogleMapScripts();
