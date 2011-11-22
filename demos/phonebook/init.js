@@ -1,3 +1,6 @@
+domReady(function(){
+	
+
 function initDB(){
 	/* ?_=ts code for no cache mechanism */
 	$.getScript(pb_dbsrc + "?_=ts2477874287", function(data, textStatus)
@@ -42,3 +45,5 @@ $("#all_groups_page").bind("pagebeforecreate", function(){
 
 /* Start Phonebook App initialization */
 initDB();
+
+}); //End of Dom Ready
