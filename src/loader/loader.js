@@ -72,6 +72,22 @@ S = {
 				head.appendChild(arguments[idx]);
 			}
 		},
+		loadScriptSync : function(scriptPath) {
+			$.ajax({
+				url: scriptPath,
+				dataType: 'script',
+				async: false,
+				success: null,
+				error: function(jqXHR, textStatus, errorThrown) {
+					var ignoreStatusList = [
+						404,	// not found
+						];
+					if(-1 == $.inArray(jqXHR.status, ignoreStatusList)) {
+						alert('Error while loading ' + scriptPath + '\n' + jqXHR.status + ':' + jqXHR.statusText);
+					}
+				},
+			});
+		},
 	},
 
 	css : {
@@ -112,29 +128,16 @@ S = {
 
 	loadTheme: function() {
 		var themePath = [
-			this.frameworkData.rootDir, 
-			this.frameworkData.version,
-			'themes',
-			this.frameworkData.theme
-				].join('/');
-		this.css.load([themePath, 'web-ui-fw-theme.css'].join('/'));
+				this.frameworkData.rootDir, 
+				this.frameworkData.version,
+				'themes',
+				this.frameworkData.theme
+					].join('/'),
+			cssPath = [themePath, 'web-ui-fw-theme.css'].join('/'),
+			jsPath = [themePath, 'theme.js'].join('/');
 
-		// Run theme.js script
-		var themejsPath = [themePath, 'theme.js'].join('/');
-		$.ajax({
-			url: themejsPath,
-			dataType: 'script',
-			async: false,
-			success: null,
-			error: function(jqXHR, textStatus, errorThrown) {
-				var ignoreStatusList = [
-					404,	// not found
-					];
-				if(-1 == $.inArray(jqXHR.status, ignoreStatusList)) {
-					alert('Error while loading theme.js!\n' + jqXHR.status + ':' + jqXHR.statusText);
-				}
-			},
-		});
+		this.css.load(cssPath);
+		this.util.loadScriptSync(jsPath);
 	},
 
 	setViewport: function () {
