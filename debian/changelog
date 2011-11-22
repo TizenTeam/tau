@@ -1,3 +1,11 @@
+slp-web-fw (0.1.1) unstable; urgency=low
+
+  * Restructuring
+  * Git: 165.213.180.234:slp/pkgs/w/web-app-fw
+  * Tag: slp-web-fw_0.1.1
+
+ -- Youmin Ha <youmin.ha@samsung.com>  Tue, 22 Nov 2011 15:54:49 +0900
+
 slp-web-fw (0.1.0) unstable; urgency=low
 
   * Init
