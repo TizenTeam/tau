@@ -75,7 +75,7 @@ $.mobile.fixedToolbars = (function() {
 				.show();		
 		}
 		else
-			footer_filter.css("top","0px");
+//			footer_filter.css("top","0px");
 		/* resize test : Jinhyuk    */
 
 		if ( !autoHideMode && currentstate === "overlay" ) {
@@ -431,7 +431,7 @@ $.mobile.fixedToolbars = (function() {
 						el.removeClass( "in" );
 					}).addClass( "in" );
 				}
-				setTop(el);
+//				setTop(el);
 			});
 		},
 
