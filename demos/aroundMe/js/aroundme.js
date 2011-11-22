@@ -82,7 +82,6 @@ AroundMe = {
 	},
 	
 	initSearchCategoryList : function() {		
-		console.log("applied");
 		$("#searchCategoryList").bind("vclick", function(e) {
 			if ( $(e.target).parent("li") ) {
 				AroundMe.executeSearch( $(e.target).parent("li").attr("data-query") );
