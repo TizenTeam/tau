@@ -115,7 +115,7 @@ S = {
 			var elem = scriptElems[idx],
 				src = elem.getAttribute('src');
 			if(src && src.match(this.libFileName)) {
-				// Set version and theme, only when they are given.
+				// Set framework data, only when they are given.
 				this.frameworkData.rootDir = elem.getAttribute('data-framework-root') || this.frameworkData.rootDir;
 				this.frameworkData.version = elem.getAttribute('data-framework-version') || this.frameworkData.version;
 				this.frameworkData.theme = elem.getAttribute('data-framework-theme') || this.frameworkData.theme;

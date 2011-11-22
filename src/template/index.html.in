@@ -2,11 +2,28 @@
 <html>
     <head>
         <title>@APP_NAME@</title>
-
+		<!--NOTE:
+			jquery.js and web-ui-fw.js must be included.
+			DO NOT REMOVE below code!
+		-->
 		<script src="@LIBDIR@/jquery.js"></script>
 		<script src="@LIBDIR@/web-ui-fw.js" @DATA_FRAMEWORK_ROOT@
 			data-framework-version="0.1" 
 			data-framework-theme="nbeat-black"></script>
+
+		<!--NOTE:
+			Additional scripts and css files are to be placed here.
+			You can use jQuery namespace($) and all functionalities in jQuery
+			in your script.  For example:
+
+				<script src="main.js"></script>
+				<link rel="stylesheet" href="my.css">
+
+			When you want to manipulate elements in your code, you have to
+			use domReady for your code to work properly, like this;
+
+				domReady(function(){ ... });
+		-->
     </head>
 
     <body>
@@ -17,9 +34,6 @@
             <div data-role="content">
                 <p>This application is an empty starting point.</p>
             </div> <!-- /content -->
-            <div data-role="footer">
-                <p>Web UI Framework - Template application</p>
-            </div>
         </div> <!-- /page -->
     </body>
 </html>
