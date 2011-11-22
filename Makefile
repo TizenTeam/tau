@@ -54,7 +54,7 @@ LIBS_CSS_FILES +=\
     $(NULL)
 endif
 
-all: third_party widgets themes version_compat
+all: third_party widgets loader themes version_compat
 
 # NOTE: This jqm target is temporary.
 jqm: init
@@ -65,7 +65,7 @@ third_party: init jqm
 	# Building third party components...
 	@@cd ${LIBS_DIR}/js; \
 	    for f in ${LIBS_JS_FILES}; do \
-	        cat $$f >> ${FW_LIBS_JS}; \
+	        cat $$f >> ${FW_JS}; \
 	    done
 	    cp ${LIBS_DIR}/js/${JQUERY} ${JS_OUTPUT_ROOT}/jquery.js
 	@@cd ${LIBS_DIR}/css; \
@@ -76,7 +76,7 @@ third_party: init jqm
 
 	#@@cp -a ${LIBS_DIR}/images ${FRAMEWORK_ROOT}/
 
-widgets: init
+widgets: init third_party
 	# Building widgets...
 	@@ls -l ${CODE_DIR} | grep '^d' | awk '{print $$NF;}' | \
 	    while read REPLY; do \
@@ -113,6 +113,9 @@ widgets: init
 	          done; \
                 fi; \
 	    done
+
+loader: widgets
+	cat 'src/loader/loader.js' >> ${FW_JS}
 
 themes:
 	make -C src/themes || exit $?

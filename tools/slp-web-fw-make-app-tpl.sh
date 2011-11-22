@@ -138,7 +138,7 @@ function copy_template
 	if [ -n "$copylib" ]; then
 		echo "Copying libs into $DESTDIR..."
 		cp -a ${libpath}/web-ui-fw ${DESTDIR}/	|| usage "ERROR: Failed to copy libs"
-		LIBDIR="."	# This new value is used by replace_template()
+		LIBDIR="web-ui-fw/0.1/js"	# This new value is used by replace_template()
 	else   # otherwise, just set framework-root
 		DATA_FRAMEWORK_ROOT="data-framework-root=\"file://$LIBDIR/web-ui-fw\""
 		LIBDIR="file://$LIBDIR/template"

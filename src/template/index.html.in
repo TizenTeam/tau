@@ -3,11 +3,10 @@
     <head>
         <title>@APP_NAME@</title>
 
-        <script src="@LIBDIR@/bootstrap.js"
-                @DATA_FRAMEWORK_ROOT@
-                data-framework-version="0.1"
-                data-framework-theme="nbeat-black">
-        </script>
+		<script src="@LIBDIR@/jquery.js"></script>
+		<script src="@LIBDIR@/web-ui-fw.js" 
+			data-framework-version="0.1" 
+			data-framework-theme="nbeat-black"></script>
     </head>
 
     <body>
@@ -19,7 +18,7 @@
                 <p>This application is an empty starting point.</p>
             </div> <!-- /content -->
             <div data-role="footer">
-                <h4>Web UI Framework - Template application</h4>
+                <p>Web UI Framework - Template application</p>
             </div>
         </div> <!-- /page -->
     </body>
