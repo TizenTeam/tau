@@ -20,12 +20,20 @@ $.widget( "mobile.navbar", $.mobile.widget, {
 			$navbtns = $navbar.find( "a" ),
 			iconpos = $navbtns.filter( ":jqmData(icon)" ).length ?
 									this.options.iconpos : undefined,
-			theme = $.mobile.listview.prototype.options.theme;	/* Get current theme : Jinhyuk */					
-
-		$navbar.addClass( "ui-navbar" )
-			.attr( "role","navigation" )
-			.find( "ul" )
-				.grid({ grid: this.options.grid });
+			theme = $.mobile.listview.prototype.options.theme,	/* Get current theme : Jinhyuk */					
+			style = $navbar.attr( "data-style" );
+		
+		if(style === "left" || style === "right")
+		{
+			$navbar.parents( ".ui-content" )
+				.css('padding', '0');			
+		}
+		else {
+			$navbar.addClass( "ui-navbar" )
+				.attr( "role","navigation" )
+				.find( "ul" )
+					.grid({ grid: this.options.grid });
+		}
 
 		if ( !iconpos ) {
 			$navbar.addClass( "ui-navbar-noicons" );
@@ -34,7 +42,7 @@ $.widget( "mobile.navbar", $.mobile.widget, {
 		$navbtns.buttonMarkup({
 			corners:	false,
 			shadow:		false,
-			iconpos:	iconpos
+		iconpos:	iconpos
 		});
 
 		$navbar.delegate( "a", "vclick", function( event ) {
@@ -43,7 +51,7 @@ $.widget( "mobile.navbar", $.mobile.widget, {
 		});
 
 		//SLP --start for tabbar
-		var style = $navbar.attr( "data-style" );
+		
 
 		if( style === "tabbar" || style === "toolbar")
 		{
