@@ -118,9 +118,9 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
         
         /* XXX: NEED TO REFACTOR THIS */
         if ( this.options.style == "picker" ) {
-            container.scrollview( {
-                direction: "x",
-                showScrollBars: false,
+            container.circularview( {
+            //   direction: "x",
+            //    showScrollBars: false,
             });
             
             var itemWidth = container.find("li").outerWidth();

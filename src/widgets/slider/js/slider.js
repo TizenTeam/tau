@@ -4,6 +4,7 @@
  * Copyright (C) TODO
  * License: TODO
  * Authors: Max Waterman <max.waterman@intel.com>
+ *          Minkyu Kang <mk7.kang@samsung.com>
  */
 
 /**
@@ -58,7 +59,7 @@
 		handle: null,
 		handleText: null,
 
-		_create: function() {
+		_create: function () {
 			this.currentValue = null;
 			this.popupVisible = false;
 
@@ -85,7 +86,7 @@
 			// set the popupEnabled according to the html attribute
 			var popupEnabledAttr = inputElement.attr('data-popupenabled');
 			if (popupEnabledAttr !== undefined) {
-				self.options.popupEnabled = popupEnabledAttr==='true';
+				self.options.popupEnabled = (popupEnabledAttr === 'true');
 			}
 
 			// get the actual slider added by jqm
@@ -100,13 +101,15 @@
 
 			// add icon
 			var icon = inputElement.attr('data-icon');
-			if (icon == 'bright') {
-				slider.before($('<div class="ui-slider-left-bright"></div>'));
-				slider.after($('<div class="ui-slider-right-bright"></div>'));
-			} else if (icon == 'volume') {
-				slider.before($('<div class="ui-slider-left-volume"></div>'));
-				slider.after($('<div class="ui-slider-right-volume"></div>'));
-			} else if (icon == 'text') {
+
+			switch (icon) {
+			case 'bright':
+			case 'volume':
+				slider.before($('<div class="ui-slider-left-' + icon + '"></div>'));
+				slider.after($('<div class="ui-slider-right-' + icon + '"></div>'));
+				break;
+
+			case 'text':
 				slider.before($('<div class="ui-slider-left-text">' +
 					'<span style="position:relative;top:0.4em;">' +
 					inputElement.attr('data-text-left') +
@@ -115,6 +118,7 @@
 					'<span style="position:relative;top:0.4em;">' +
 					inputElement.attr('data-text-right') +
 					'</span></div>'));
+				break;
 			}
 
 			// slider bar
@@ -167,20 +171,18 @@
 
 		_handle_press_show: function () {
 			this.handle_press.css('display', '');
-			this.handle_press.css('z-index', 15);
 		},
 
 		_handle_press_hide: function () {
 			this.handle_press.css('display', 'none');
-			this.handle_press.css('z-index', 5);
 		},
 
 		// position the popup
 		positionPopup: function () {
 			this.popup.position({my: 'center bottom',
-				at: 'center top',
-				offset: '0 20px',
-				of: this.handle});
+					at: 'center top',
+					offset: '0 20px',
+					of: this.handle});
 
 			this.handle_press.position({my: 'left top',
 					at: 'left top',
@@ -190,7 +192,8 @@
 
 		// show value on the handle and in popup
 		updateSlider: function () {
-			this.positionPopup();
+			if (this.popupVisible)
+				this.positionPopup();
 
 			// remove the title attribute from the handle (which is
 			// responsible for the annoying tooltip); NB we have
@@ -198,56 +201,59 @@
 			// the slider's value changes :(
 			this.handle.removeAttr('title');
 
+			this.slider_bar.width(this.handle.css('left'));
+
 			var newValue = this.element.val();
 
-			if (newValue !== this.currentValue) {
-				this.currentValue = newValue;
-				this.handleText.html(newValue);
-				this.popup.html(newValue);
-				this.element.trigger('update', newValue);
+			if (newValue === this.currentValue)
+				return;
 
-				var bar_size = 100 * (newValue - this.min_value) /
-						(this.max_value - this.min_value);
-				this.slider_bar.width(bar_size + '%');
-			}
+			this.currentValue = newValue;
+			this.handleText.html(newValue);
+			this.popup.html(newValue);
+			this.element.trigger('update', newValue);
 		},
 
 		// show the popup
 		showPopup: function () {
 			var needToShow = (this.options.popupEnabled && !this.popupVisible);
 
-			if (needToShow) {
-				this.handleText.hide();
-				this.popup.show();
-				this.popupVisible = true;
-				this._handle_press_show();
-			}
+			if (!needToShow)
+				return;
+
+			this.handleText.hide();
+			this.popup.show();
+			this.popupVisible = true;
+			this._handle_press_show();
 		},
 
 		// hide the popup
 		hidePopup: function () {
 			var needToHide = (this.options.popupEnabled && this.popupVisible);
-			if (needToHide) {
-				this.handleText.show();
-				this.popup.hide();
-				this.popupVisible = false;
-				this._handle_press_hide();
-			}
+
+			if (!needToHide)
+				return;
+
+			this.handleText.show();
+			this.popup.hide();
+			this.popupVisible = false;
+			this._handle_press_hide();
 		},
 
-		_setOption: function(key, value) {
-			var needToChange = value !== this.options[key];
+		_setOption: function (key, value) {
+			var needToChange = (value !== this.options[key]);
+
+			if (!needToChange)
+				return;
+
 			switch (key) {
 			case 'popupEnabled':
-				if (needToChange) {
-					this.options.popupEnabled = value;
+				this.options.popupEnabled = value;
 
-					if (this.options.popupEnabled) {
-						this.updateSlider();
-					} else {
-						this.hidePopup();
-					}
-				}
+				if (this.options.popupEnabled)
+					this.updateSlider();
+				else
+					this.hidePopup();
 				break;
 			}
 		},
