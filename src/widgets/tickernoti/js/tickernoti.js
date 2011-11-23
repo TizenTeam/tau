@@ -45,6 +45,9 @@
 
 			btn_container.append(this.btn);
 
+			var btn_inner = btn_container.find('.ui-btn-inner');
+			btn_inner.css('padding', '0.3em 0.7em');
+
 			this.btn.bind('vmouseup', function () {
 				self.hide();
 			});
@@ -82,7 +85,6 @@
 				this.html.detach();
 
 			this.html = $('<div class="ui-ticker">' +
-					'<div class="ui-ticker-bg">' +
 					'<div class="ui-ticker-icon"></div>' +
 					'<div class="ui-ticker-text1-bg">' +
 					text[0] + '</div>' +

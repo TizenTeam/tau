@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Tizen Web UI Framework Programming Guide</title>
+		<!--NOTE:
+			jquery.js and web-ui-fw.js must be included.
+			DO NOT REMOVE below code!
+		-->
+		<script src="../../build/web-ui-fw/0.1/js/jquery.js"></script>
+		<script src="../../build/web-ui-fw/0.1/js/web-ui-fw.js" 
+			data-framework-root="../../build/web-ui-fw"
+			data-framework-version="0.1" 
+			data-framework-theme="nbeat-black"></script>
+
+		<!--NOTE:
+			Additional scripts and css files are to be placed here.
+			You can use jQuery namespace($) and all functionalities in jQuery
+			in your script.  For example:
+
+				<script src="main.js"></script>
+				<link rel="stylesheet" href="my.css">
+
+			When you want to manipulate elements in your code, you have to
+			use domReady for your code to work properly, like this;
+
+				domReady(function(){ ... });
+		-->
+    </head>
+
+    <body>
+        <div data-role="page" id="template-page">
+            <div data-role="header">
+                <h1>Tizen Web Programming Guide</h1>
+            </div>
+            <div data-role="content">
+				<ul data-role="listview">
+					<li>Getting started</li>
+					<li><a href="widgets.html">Widgets</a></li>
+				</ul>
+            </div> <!-- /content -->
+        </div> <!-- /page -->
+    </body>
+</html>

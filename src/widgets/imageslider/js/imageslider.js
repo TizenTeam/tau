@@ -30,14 +30,26 @@
 			var width;
 			var height;
 			var margin = 40;
+			var ratio;
+			var img_max_width = this.max_width - margin;
+			var img_max_height = this.max_height - margin;
 
 			height = obj.height();
 			width = obj.width();
 
-			if (width >= height)
-				obj.width(this.max_width - margin);
-			else
-				obj.height(this.max_height - margin);
+			ratio = height / width;
+
+			if (width > img_max_width) {
+				obj.width(img_max_width);
+				obj.height(img_max_width * ratio);
+			}
+
+			height = obj.height();
+
+			if (height > img_max_height) {
+				obj.height(img_max_height);
+				obj.width(img_max_height / ratio);
+			}
 		},
 
 		_align: function (obj, img) {
