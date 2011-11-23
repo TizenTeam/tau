@@ -83,7 +83,7 @@ jQuery.widget( "mobile.circularview", jQuery.mobile.widget, {
 		} else {
 			this._stopMScroll();
 		}
-		console.log("startmscroll" + this._rx + "," + this._sx );
+		//console.log("startmscroll" + this._rx + "," + this._sx );
 	},
 
 	_stopMScroll: function() {
@@ -97,7 +97,7 @@ jQuery.widget( "mobile.circularview", jQuery.mobile.widget, {
 		if ( this._tracker ) {
 			this._tracker.reset();
 		}
-		console.log("stopmscroll" + this._rx + "," + this._sx );
+		//console.log("stopmscroll" + this._rx + "," + this._sx );
 	},
 
 	_handleMomentumScroll: function() {
@@ -146,7 +146,7 @@ jQuery.widget( "mobile.circularview", jQuery.mobile.widget, {
 				var idx = -parseInt( ( sx / this._itemWidth ) + i + 3 );
 				var $item = this._$items[ circularNum( idx, this._$items.length ) ];
 				this._$list.prepend( $item );
-				console.log( "di > 0 : " + idx );
+				//console.log( "di > 0 : " + idx );
 			}
 		} else if ( di < 0   ) {
 			for ( var i = 0; i > di; i-- ) {  
@@ -154,7 +154,7 @@ jQuery.widget( "mobile.circularview", jQuery.mobile.widget, {
 				var idx = this._itemsPerView - parseInt( ( sx / this._itemWidth ) + i );
 				var $item = this._$items[ circularNum( idx, this._$items.length ) ];
 				this._$list.append( $item );
-				console.log( "di < 0 : " + idx );
+				//console.log( "di < 0 : " + idx );
 			}
 		}
 		
@@ -164,7 +164,7 @@ jQuery.widget( "mobile.circularview", jQuery.mobile.widget, {
 
 		setElementTransform( this._$view, ( x - this._sx - this._itemWidth ) + "px", 0 );
 
-		console.log( "rx " + this._rx + "sx " + this._sx );
+		//console.log( "rx " + this._rx + "sx " + this._sx );
 	},
 
 	_enableTracking: function() {
@@ -244,7 +244,7 @@ jQuery.widget( "mobile.circularview", jQuery.mobile.widget, {
 		if ( this.options.eventType == "mouse" || this.options.delayedClickEnabled ) {
 			e.preventDefault();
 		}
-		console.log("scrollstart" + this._rx + "," + this._sx );
+		//console.log("scrollstart" + this._rx + "," + this._sx );
 		e.stopPropagation();
 	},
 
@@ -266,7 +266,7 @@ jQuery.widget( "mobile.circularview", jQuery.mobile.widget, {
 		
 		this._setScrollPosition( this._nx + this._mx, 0 );
 
-		console.log("scrollmove" + this._rx + "," + this._sx );
+		//console.log("scrollmove" + this._rx + "," + this._sx );
 		return false;
 	},
 
@@ -284,7 +284,7 @@ jQuery.widget( "mobile.circularview", jQuery.mobile.widget, {
 			this._startMScroll( sx, sy );
 		}
 
-		console.log("scrollstop" + this._rx + "," + this._sx );
+		//console.log("scrollstop" + this._rx + "," + this._sx );
 		
 
 		this._disableTracking();
