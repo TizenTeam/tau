@@ -265,7 +265,7 @@
                 }
 
                 selector.find(".view").width(itemWidth * numItems);
-                selectorResult.scrollable.container.scrollview(
+                selectorResult.scrollable.container.circularview(
                     'scrollTo', x, 0);
             }
         },
@@ -310,7 +310,7 @@
                 view = container.find("#datetimepicker-selector-view").removeAttr("id");
 
             container
-              .scrollview({
+              .circularview({
                   direction: "x", 
                   showScrollBars: false, 
                   scrollMethod: "translate"
