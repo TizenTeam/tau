@@ -127,7 +127,7 @@
 				clearTimeout(timer);
 				timer = setTimeout(function() {
 					self.scrollview.scrollview('scrollTo', 0, -dividerY, 1000);
-				}, 300);
+				}, 100);
 
 				var popup_text = $(list_item).text();
 
