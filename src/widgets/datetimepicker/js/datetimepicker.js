@@ -254,8 +254,6 @@
 				$(list).append( li );
             }
 
-			
-			
 			$(list).bind( "vclick", function(e) {
 				if ( $(e.target).is('a') ) {
 					var value = $(e.target).text();
@@ -271,7 +269,7 @@
 					if ( obj.ctx ) {
 						obj.ctx.ctxpopup('close');
 					}
-				}				
+				}
 			});
 
             return {list: list, currentIndex: currentIndex};
