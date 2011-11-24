@@ -10,6 +10,8 @@
  * Depends:
  *   jquery.ui.core.js
  *   jquery.ui.widget.js
+ * Original file:
+ *   jquery.ui.progressbar.js
  */
 /* This is from jquery ui plugin - progressbar 11/16/2011 */
 
