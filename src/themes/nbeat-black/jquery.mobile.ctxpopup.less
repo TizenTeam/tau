@@ -6,31 +6,33 @@
 
     .container {
         position: relative; /* do not modify */
-        border-width: 16 * @em_base;
-        .LESSborder-image( 'images/00_popup_bubble_bg.png', 16, 16, round );
+        border-width: 16 * @px_base;
+        .LESSborder-image( 'images/00_popup_bubble_bg.png', 19, 19, round );
     }
 
     .arrow {
         position: relative; /* do not modify */
-        width: 30 * @em_base;
-        height: 30 * @em_base;
+        width: 42 * @px_base;
+        height: 28 * @px_base;
     }
 
     .arrow-left {
-        background-image: url('images/timepicker_left_arrow.png');
+        background-image: url('images/00_popup_bubble_tail_bottom.png');
+        .LESStransform( rotate(90deg) );
     }
 
     .arrow-right {
-        background-image: url('images/timepicker_right_arrow.png');
-        margin-left: -10 * @em_base;
+        background-image: url('images/00_popup_bubble_tail_top.png');
+        .LESStransform( rotate(90deg) );
+        margin-left: -10 * @px_base;
     }
 
     .arrow-top {
-        background-image: url('images/timepicker_top_arrow.png');
+        background-image: url('images/00_popup_bubble_tail_top.png');
     }
 
     .arrow-bottom {
-        background-image: url('images/timepicker_bottom_arrow.png');
+        background-image: url('images/00_popup_bubble_tail_bottom.png');
     }   
 
     .vlist.container {
@@ -39,26 +41,26 @@
 
     .vlist-arrow-bottom {
         background-image: url('images/00_popup_bubble_tail_bottom.png');
-        width: 48 * @em_base;
-        height: 30 * @em_base;
+        width: 48 * @px_base;
+        height: 30 * @px_base;
     }
 
     .vlist-arrow-top {
         background-image: url('images/00_popup_bubble_tail_top.png');
-        width: 48 * @em_base;
-        height: 30 * @em_base;
+        width: 48 * @px_base;
+        height: 30 * @px_base;
     }
 
     .vlist-arrow-left {
         .vlist-arrow-bottom;
         .LESStransform( rotate( 90deg ) );
-        margin-left: -12 * @em_base;
+        margin-left: -12 * @px_base;
     }
 
     .vlist-arrow-right {
         .vlist-arrow-top;
         .LESStransform( rotate( 90deg ) );
-        margin-left: -20 * @em_base;
+        margin-left: -20 * @px_base;
     }
     
     .vlist.arrow-bottom {
@@ -79,10 +81,10 @@
     
     .button.container {
         table .ui-btn {
-            margin: 8 * @em_base;
+            margin: 8 * @px_base;
             padding: 0;
-            height: 74 * @em_base;
-            width: 172 * @em_base;
+            height: 74 * @px_base;
+            width: 172 * @px_base;
         }
     }
 
@@ -102,13 +104,26 @@
         .vlist-arrow-right;
     }
 
+    .picker.arrow-top {
+        border-width: 0;
+        width: 24 * @px_base;
+        height: 16 * @px_base;
+        background-image: url('images/00_timepicker_tail.png');    
+    }
+
+    .picker.arrow-bottom {
+        .picker.arrow-top;
+        .LESStransform( rotate(180deg) );
+    }
+
     .picker.container {
         border-width: 0;         
-        background: rgb(42,109,140);
-        height: 106 * @em_base;
+        background-image: url('images/00_timepicker_number_bg.png');
+        height: 106 * @px_base;
         text-align: center;
         padding: 0;
         width: 100%;
+        font-size: 44 * @px_base;
 
         ul {
             padding: 0;
@@ -120,13 +135,19 @@
 
         li {
             float: left;
-            padding: 30 * @em_base 8 * @em_base 0 8 * @em_base;
-            max-width: 100 * @em_base;
-            min-width: 100 * @em_base;
-          
+            padding: 30 * @px_base 8 * @em_base 0 8 * @em_base;
+            max-width: 200 * @px_base;
+            min-width: 200 * @px_base;
+            
             a.ui-link {
                 text-decoration: none;
-                color: rgb(249,249,249);
+                color: rgb(105,151,173);
+            }       
+        }
+
+        li.current {
+            a.ui-link {
+                color: rgb(249, 249, 249);
             }
         }
     }        
@@ -150,9 +171,9 @@
             float: left;
             background: rgb(0,0,0);
             display: inline-block;
-            border-right: 1 * @em_base solid #444444;
+            border-right: 1 * @px_base solid #444444;
             text-align: center;
-            padding: 20 * @em_base;
+            padding: 20 * @px_base;
         }
             
         li:last-of-type {
@@ -196,15 +217,15 @@
         li {
             background: none;
             display: inline;
-            border-right: 1 * @em_base solid rgb(71,82,87);
+            border-right: 1 * @px_base solid rgb(71,82,87);
             float: left;
             margin-right:0;
             padding: 0;
         }
     
         .ui-btn {
-            width: 64 * @em_base;
-            height: 64 * @em_base;
+            width: 64 * @px_base;
+            height: 64 * @px_base;
         }
     
         .ui-btn-up-s {
@@ -222,22 +243,22 @@
          }
 
         .ico-4-list {
-            width: 122 * @em_base;
-            height: 118 * @em_base;
+            width: 122 * @px_base;
+            height: 118 * @px_base;
     
             .ui-btn {
-                left: 29 * @em_base;
-                top: 27 * @em_base;
+                left: 29 * @px_base;
+                top: 27 * @px_base;
             }
         }   
 
         .ico-5-list {
-            width: 96 * @em_base;
-            height: 118 * @em_base;
+            width: 96 * @px_base;
+            height: 118 * @px_base;
 
             .ui-btn {
-                left: 12 * @em_base;
-                top: 27 * @em_base;
+                left: 12 * @px_base;
+                top: 27 * @px_base;
             }
         }
     }
@@ -259,7 +280,7 @@
     }
 
     .image.container {
-        border-width: 9 * @em_base;
+        border-width: 9 * @px_base;
         .LESSborder-image( 'images/popup/00_popup_bubble_bg_01.png', 9, 9, round );
       ul {
           margin: 0;
@@ -268,10 +289,10 @@
        }
 
        ul li {
-           line-height: 82 * @em_base;
-           border-bottom: 1 * @em_base solid rgb(120,120,120);
-           margin-left: -8 * @em_base;
-           margin-right: -8 * @em_base;
+           line-height: 82 * @px_base;
+           border-bottom: 1 * @px_base solid rgb(120,120,120);
+           margin-left: -8 * @px_base;
+           margin-right: -8 * @px_base;
            padding-left: 16 * @unit_base;
            padding-right: 16 * @unit_base;
        }
@@ -282,22 +303,22 @@
 
        .title-line {
            background: rgba(0,0,0,0.6);
-           border-top-left-radius:8 * @em_base;
-           border-top-right-radius:8 * @em_base;
-           margin-left: -7 * @em_base;
-           margin-right: -7 * @em_base;
-           margin-top: -7 * @em_base;
+           border-top-left-radius:8 * @px_base;
+           border-top-right-radius:8 * @px_base;
+           margin-left: -7 * @px_base;
+           margin-right: -7 * @px_base;
+           margin-top: -7 * @px_base;
            text-align: center;
-           padding-top: 4 * @em_base;
-           line-height: 54 * @em_base;
+           padding-top: 4 * @px_base;
+           line-height: 54 * @px_base;
        }
     }
  
     .image-arrow-left {
         background-image: url('images/popup/00_popup_arrow_ver.png');
-        width: 26 * @em_base;
-        height: 42 * @em_base;
-        margin-left: -3 * @em_base;
+        width: 26 * @px_base;
+        height: 42 * @px_base;
+        margin-left: -3 * @px_base;
     }
    
     .image.arrow-left {
@@ -308,14 +329,14 @@
     .image.arrow-right {
        .image-arrow-left;
        .LESStransform( rotate(180deg) );
-       margin-left: -12 * @em_base;
+       margin-left: -12 * @px_base;
     }
 
     .image-arrow-bottom {
        background-image: url('images/popup/00_popup_arrow_bottom.png');
-       width: 42 * @em_base;
-       height: 26 * @em_base;
-       margin-bottom: -12 * @em_base;
+       width: 42 * @px_base;
+       height: 26 * @px_base;
+       margin-bottom: -12 * @px_base;
     }
 
     .image.arrow-bottom {
@@ -325,7 +346,7 @@
     .image.arrow-top {
        .image-arrow-bottom; 
        .LESStransform( rotate(180deg) );
-       margin-bottom: 9 * @em_base;
+       margin-bottom: 9 * @px_base;
     }
 
     

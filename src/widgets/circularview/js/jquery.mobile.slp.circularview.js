@@ -39,19 +39,6 @@ jQuery.widget( "mobile.circularview", jQuery.mobile.widget, {
 		this._makePositioned( this._$clip );
 
 		this._$view.css( "overflow", "hidden" );
-
-		this._viewWidth = this._$view.width();
-		this._clipWidth = window.innerWidth;
-		this._$items = this._$list.children().detach();
-
-		this._itemWidth = this._viewWidth / this._$items.length;
-		var itemsPerView = this._clipWidth / this._itemWidth;
-		itemsPerView = Math.ceil( itemsPerView * 10 ) / 10;
-		this._itemsPerView = parseInt( itemsPerView );
-
-		this._rx = -this._itemWidth;
-		this._sx = -this._itemWidth;
-
 		this._tracker = new MomentumTracker( this.options );
 
 		this._timerInterval = 1000/ this.options.fps;
@@ -59,10 +46,25 @@ jQuery.widget( "mobile.circularview", jQuery.mobile.widget, {
 
 		var self = this;
 		this._timerCB = function() { self._handleMomentumScroll(); };
+        
+        this.refresh();
 
-		this._setItems();
 		this._addBehaviors();
 	},
+
+    refresh: function() {
+ 		this._viewWidth = this._$view.width();
+		this._clipWidth = window.innerWidth;
+		this._itemWidth = this._$list.children().first().outerWidth();
+		this._$items = this._$list.children().detach();
+		var itemsPerView = this._clipWidth / this._itemWidth;
+		itemsPerView = Math.ceil( itemsPerView * 10 ) / 10;
+		this._itemsPerView = parseInt( itemsPerView );
+
+		this._rx = -this._itemWidth;
+		this._sx = -this._itemWidth;
+		this._setItems();
+    },
 
 	_startMScroll: function( speedX, speedY ) {
 		this._stopMScroll();
@@ -133,6 +135,8 @@ jQuery.widget( "mobile.circularview", jQuery.mobile.widget, {
 			this._$list.append( $item );
 		}
 		setElementTransform( this._$view, this._sx + "px", 0 );
+        this._$view.width( this._itemWidth * ( this._itemsPerView + 2 ) );
+        this._viewWidth = this._$view.width();
 	},
 	
 	_setScrollPosition: function( x, y ) {
@@ -185,11 +189,24 @@ jQuery.widget( "mobile.circularview", jQuery.mobile.widget, {
 		});
 		return svh;
 	},
- 
+    
+    centerTo: function( selector ) {
+        for ( var i = 0; i < this._$items.length; i++ ) {
+            if ( $(this._$items[i]).is( selector ) ) {
+               var newX = -( i * this._itemWidth - this._clipWidth / 2 + this._itemWidth * 2 );
+               this.scrollTo( newX, 0 );
+               console.log( i + "," + newX );
+               return;
+            }
+        }
+    },
+
 	scrollTo: function(x, y, duration) {
 		this._stopMScroll();
 		if ( !duration ) {
-			return this._setScrollPosition( x, y );
+			this._setScrollPosition( x, y );
+            this._rx = x;
+            return;
 		}
 
 		x = -x;
@@ -244,7 +261,7 @@ jQuery.widget( "mobile.circularview", jQuery.mobile.widget, {
 		if ( this.options.eventType == "mouse" || this.options.delayedClickEnabled ) {
 			e.preventDefault();
 		}
-		//console.log("scrollstart" + this._rx + "," + this._sx );
+		console.log("scrollstart" + this._rx + "," + this._sx );
 		e.stopPropagation();
 	},
 
@@ -266,7 +283,7 @@ jQuery.widget( "mobile.circularview", jQuery.mobile.widget, {
 		
 		this._setScrollPosition( this._nx + this._mx, 0 );
 
-		//console.log("scrollmove" + this._rx + "," + this._sx );
+		console.log("scrollmove" + this._rx + "," + this._sx );
 		return false;
 	},
 
@@ -284,7 +301,7 @@ jQuery.widget( "mobile.circularview", jQuery.mobile.widget, {
 			this._startMScroll( sx, sy );
 		}
 
-		//console.log("scrollstop" + this._rx + "," + this._sx );
+		console.log("scrollstop" + this._rx + "," + this._sx );
 		
 
 		this._disableTracking();

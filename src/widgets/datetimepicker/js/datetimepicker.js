@@ -139,7 +139,7 @@
             return pm ? this.options.pm : this.options.am;
         },
 
-        _showDataSelector: function(selector, owner, ui) {
+        _showDataSelector: function( owner, ui, e ) {
             /* TODO: find out if it'd be better to prepopulate this, or
              * do some caching at least. */
             var obj = this;
@@ -147,16 +147,19 @@
             var numItems = 0;
             var selectorResult = undefined;
 
+            $(".data-selected").each(function() {
+                $(this).removeClass("data-selected");
+            });
+            owner.addClass("data-selected");
 
             if (klass.search("year") > 0) {
                 var values = range(1900, 2100);
                 numItems = values.length;
-                selectorResult = obj._populateSelector(selector, owner,
-                    "year", values, parseInt, null, obj.data, "year", ui);
+                selectorResult = obj._populateSelector( owner,
+                    values, parseInt, null, obj.data, "year" );
             } else if (klass.search("month") > 0) {
                 numItems = obj.options.months.length;
-                selectorResult = obj._populateSelector(selector, owner,
-                    "month", obj.options.months,
+                selectorResult = obj._populateSelector( owner, obj.options.months,
                     function (month) {
                         var i = 0;
                         for (; obj.options.months[i] != month; i++);
@@ -165,14 +168,13 @@
                     function (index) {
                         return obj.options.months[index];
                     },
-                    obj.data, "month", ui);
+                    obj.data, "month" );
             } else if (klass.search("day") > 0) {
                 var day = new Date(
                     obj.data.year, obj.data.month, 0).getDate();
                 numItems = day;
-                selectorResult = obj._populateSelector(selector, owner,
-                    "day", range(1, day), parseInt, null, obj.data,
-                    "day", ui);
+                selectorResult = obj._populateSelector( owner,
+                    range(1, day), parseInt, null, obj.data, "day");
             } else if (klass.search("hours") > 0) {
                 var values =
                     range(this.options.twentyfourHours ? 0 : 1,
@@ -180,93 +182,39 @@
                         .map(this._makeTwoDigitValue);
                 numItems = values.length;
                 /* TODO: 12/24 settings should come from the locale */
-                selectorResult = obj._populateSelector(selector, owner,
-                    "hours", values, parseInt, function(val) {
+                selectorResult = obj._populateSelector( owner,
+					 values, parseInt, function(val) {
                       if (!(obj.options.twentyfourHours))
                         val = ((val + 11) % 12) + 1;
                       return val;
                     },
-                    obj.data, "hours", ui);
+                    obj.data, "hours" );
             } else if (klass.search("separator") > 0) {
               console.log("datetimepicker: no dropdown for time separator");
             } else if (klass.search("minutes") > 0) {
                 var values = range(0, 59).map(this._makeTwoDigitValue);
                 numItems = values.length;
-                selectorResult = obj._populateSelector(selector, owner,
-                    "minutes", values, parseInt, null, obj.data,
-                    "minutes", ui);
+                selectorResult = obj._populateSelector( owner, values, 
+					parseInt, null, obj.data, "minutes" );
             } 
             
-            /* unreachable code. by kilio*/
-            /*
-            else if (klass.search("ampm") > 0) {
-                var values = [this.options.am, this.options.pm];
-                numItems = values.length;
-                
-                selectorResult = obj._populateSelector(selector, owner,
-                    "ampm", values,
-                    function (val) {
-                        if (val == obj.options.am) {
-                            return 0;
-                        } else {
-                            return 1;
-                        }
-                    },
-                    function (index) {
-                        if (index == 0) {
-                            return obj.options.am;
-                        } else {
-                            return obj.options.pm;
-                        }
-                    },
-                    obj.data, "pm", ui);
-            }
-            */
-
             if (selectorResult !== undefined) {
-                //by kilio
-                $(".data-selected").each(function() {
-                     $(this).removeClass("data-selected");
-                });
-                owner.addClass("data-selected");
-                ui.tail.removeClass("tail-hidden");
-                var newLeft = owner.position().left + owner.width() / 2;
-                ui.tail.css("background-position-x", newLeft);
-                
-                selector.slideDown(obj.options.animationDuration);
-                obj.state.selectorOut = true;
-                
                 /* Now that all the items have been added to the DOM, let's compute
                  * the size of the selector.
                  */
-                itemWidth = selector.find(".item").outerWidth();
-                selectorWidth = selector.find(".container").outerWidth();
-                var totalWidth = itemWidth * numItems;
-                var widthAtItem = itemWidth * selectorResult.currentIndex;
-                var halfWidth = selectorWidth / 2.0;
-                var x = 0;
-                /* The following code deals with the case of the item
-                 * selected being one of the first ones in the list
-                 */
-                if (widthAtItem > selectorWidth / 2.0) {
-                    x = -((widthAtItem) - (halfWidth - itemWidth / 2.0));
-                }
-                /* And here we're dealing with the case of the item
-                 * selected being one of the last ones in the list.
-                 */
-                if (totalWidth - widthAtItem < halfWidth) {
-                    x = -totalWidth + selectorWidth;
-                }
-                /* There's also a third option: the values are so few
-                 * that we should always center them.
-                 */
-                if (totalWidth < halfWidth) {
-                    x = totalWidth / 2.0 + itemWidth * numItems / 2.0;
-                }
 
-                selector.find(".view").width(itemWidth * numItems);
-                selectorResult.scrollable.container.circularview(
-                    'scrollTo', x, 0);
+				var $div = $(document.createElement('div'));
+				$div.attr("data-style", "picker").append( selectorResult.list ).appendTo( ui.container );
+				var ctx = $div.ctxpopup();
+//				var px = owner.offset().left + owner.width() / 2;
+//				var py = owner.offset().top + owner.height() / 2;
+				ctx.ctxpopup( 'pop', e.clientX, e.clientY ).bind( 'close', function() {
+					$(".data-selected").each(function() {
+						$(selectorResult.list).unbind('vclick');
+		                $(this).removeClass("data-selected");
+		            });
+				});
+				obj.ctx = ctx;
             }
         },
         
@@ -283,125 +231,56 @@
             $(obj.data.parentInput).trigger("date-changed", obj.getValue());
         },
 
-        // by kilio
-        _createHiddenView: function(ui) {
-            ui.screen
-            .height($(document).height())
-            .removeClass("ui-screen-hidden");
-
-        },
-
-        // by kilio
-        _removeHiddenView: function(ui) {
-            ui.screen.addClass("ui-screen-hidden");
-            ui.tail.addClass("tail-hidden");
-        },
-
-        _hideDataSelector: function(selector) {
-            if (this.state.selectorOut) {
-                selector.slideUp(this.options.animationDuration);
-                this.state.selectorOut = false;
-           }
-        },
-
-        _createScrollableView: function(selectorProto) {
-            var container = selectorProto.clone(),
-                self = this,
-                view = container.find("#datetimepicker-selector-view").removeAttr("id");
-
-            container
-              .circularview({
-                  direction: "x", 
-                  showScrollBars: false, 
-                  scrollMethod: "translate"
-              })
-              .bind("vclick", function(event) {
-                if (self.panning) {
-                  event.preventDefault();
-                  event.stopPropagation();
-                }
-              })
-              .bind("scrollstart", function(event) {
-                self.panning = true;
-              })
-              .bind("scrollstop", function(event) {
-                self.panning = false;
-              });
-
-            return {container: container, view: view};
-        },
-
-        _createSelectorItem: function(itemProto, klass) {
-            var selector = itemProto.attr("data-selector");
-
-            itemProto
-              .removeAttr("data-selector")
-              .removeAttr("id")
-              .addClass(klass);
-
-            return {container: itemProto, link: itemProto.find("a"), selector: selector};
-        },
-
-        _populateSelector: function(selector, owner, klass, values,
+        _populateSelector: function( owner, values,
                                     parseFromFunc, parseToFunc,
-                                    dest, prop, ui) {
+                                    dest, prop ) {
+
             var self = this;
             var obj = this;
-            var scrollable = obj._createScrollableView(ui.selectorProto);
-            var currentIndex = 0;
             var destValue = (parseToFunc !== null ?
                                 parseToFunc(dest[prop]) :
                                 dest[prop]);
-           
-            // by kilio start
-            var otop = $(ui.container).offset().top,
-                otopOffset = (document.all ? document.scrollTop : window.pageYOffset), // need to test upon jQM scroll
-                oheight = $(ui.container).height();
-            ui.tail.css("top",otop + oheight - otopOffset);
-            selector.css("top",otop + oheight - otopOffset);
-            selector.css("width", ui.screen.width() );
-            obj._createHiddenView(ui);
-            // end
-            
+			var list = document.createElement('ul');        
             var i = 0;
             for (; i < values.length; i++) {
-                var item = obj._createSelectorItem(ui.itemProto.clone(), klass);
-                item.link.bind("vclick", function(e) {
-                    if (!self.panning) {
-                        var newValue = parseFromFunc(this.text);
-                        dest[prop] = newValue;
-                        owner.text(this.text);
-                        scrollable.view.find(item.selector).each(function() {
-                            $(this).removeClass("current");
-                        });
-                        $(this).toggleClass("current");
-                        obj._hideDataSelector(selector);
-                        $(obj.data.parentInput).trigger("date-changed", obj.getValue());
-                        // by kilio
-                        obj._removeHiddenView(ui);
-                        owner.removeClass("data-selected");
-                    }
-                }).text(values[i]);
-                if (values[i] == destValue) {
-                    item.link.addClass("current");
-                    currentIndex = i;
-                }
-                scrollable.view.append(item.container);
+                var li = document.createElement('li');
+				var item = document.createElement('a');
+				$(li).append( item );
+				$(item).text( values[i] ).attr('href','#').addClass("ui-link");
+				if ( values[i] == destValue ) {
+					$(li).addClass('current');
+					currentIndex = i;
+				}
+				$(list).append( li );
             }
-            selector.html(scrollable.container);
-            
-            ui.screen.height($(document).height()); // by kilio
-           
-            return {scrollable: scrollable, currentIndex: currentIndex};
+
+			
+			
+			$(list).bind( "vclick", function(e) {
+				if ( $(e.target).is('a') ) {
+					var value = $(e.target).text();
+					var newValue = parseFromFunc( value );
+					dest[prop] = newValue;
+					owner.text( value );
+					$(list).children().each( function() {
+						$(this).parent().removeClass("current");
+					});
+					$(e.target).parent().addClass("current");
+
+					$(obj.data.parentInput).trigger("date-changed", obj.getValue());
+					if ( obj.ctx ) {
+						obj.ctx.ctxpopup('close');
+					}
+				}				
+			});
+
+            return {list: list, currentIndex: currentIndex};
         },
 
         _create: function() {
 
             var ui = {
               container: "#datetimepicker",
-              selector: "#datetimepicker-selector",
-              selectorProto: "#datetimepicker-selector-container",
-              itemProto: "#datetimepicker-item",
               header: "#datetimepicker-header",
               main: "#datetimepicker-main",
               date: {
@@ -417,14 +296,10 @@
                 minutes: "#datetimepicker-time-minutes"
               },
               ampm: "#datetimepicker-ampm-span",
-              button: "#datetimepicker-ampm-div",
-              screen: "#datetimepicker-screen", // by kilio
-              tail: "#datetimepicker-tail" // by kilio
+              button: "#datetimepicker-ampm-div",             
             };
 
             ui = $.mobile.todons.loadPrototype("datetimepicker", ui);
-            ui.selectorProto.remove();
-            ui.itemProto.remove();
            
             $.extend ( this, {
               panning: false,
@@ -451,12 +326,7 @@
                 hours: 0,
                 minutes: 0,
                 pm: false,
-            },
-
-            state : {
-                selectorOut: false
-            }
-            });
+            } } );
 
             var obj = this;
             var input = this.element;
@@ -471,10 +341,6 @@
             this.options.showDate = (inputType == "date") || (inputType == "datetime");
             this.options.showTime = (inputType == "time") || (inputType == "datetime");
 
-            // by kilio
-            var thisPage = this.element.closest(".ui-page");
-            thisPage.append(ui.screen);
- 
             /* We must display either time or date: if the user set both to
              * false, we override that.
              */
@@ -488,20 +354,9 @@
 
             this._initDateTimeDivs(ui);
             
-            // by kilio 
-            ui.screen.bind( "vclick", function( event ) {
-                if (!ui.panning) {
-                    $(".data-selected").each(function() {
-                        $(this).removeClass("data-selected");
-                    });
-                    obj._removeHiddenView(ui);
-                    obj._hideDataSelector(ui.selector);
-                }
-            });
-
             ui.main.find(".data").each(function() {
                 $(this).bind("vclick", function(e) {
-                    obj._showDataSelector(ui.selector, $(this), ui);
+					obj._showDataSelector( $(this), ui, e );
                     e.stopPropagation();
                 });
             });
