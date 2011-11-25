@@ -316,53 +316,50 @@
 	text-decoration: none;
 }
 
-.ui-listview > .ui-li { 
-	border-bottom-color: #444444;	// 68 68 68 
-}
-.ui-listview > .ui-li-static {
-	background-color: @color_bg;
-}
-.ui-listview li.ui-btn-up-s {
-	background-color: @color_bg;
-	color:		@color_text;
-}
-.ui-listview li.ui-btn-hover-s,
-.ui-listview li.ui-btn-down-s {
-	background-color: #32414a;	// 50 65 74
-	color:		@color_text;
-}
-/* listview: fonts for li with a link */
-.ui-listview li.ui-btn-up-s > .ui-li > .ui-btn-text > a.ui-link-inherit,
-.ui-listview li.ui-btn-hover-s > .ui-li > .ui-btn-text > a.ui-link-inherit,
-.ui-listview li.ui-btn-down-s > .ui-li > .ui-btn-text > a.ui-link-inherit {
-	color:		@color_text;
-}
-/* listview divider */
-/* NOTE: this divider has no swatch tag! */
-.ui-listview li.ui-li-divider {
-	background: @color_bg_sub;	// 36 36 36
-	color:		@color_text_sub;	// 102 102 102
-}
-/* subitem */
-.ui-li-sub { color: @color_text_sub; }
-.ui-li-sub-setting { color: @color_text_setting; }
-
-// expandable list
-.ui-li-expandable {
-
-}
-
 .ui-listview {
+	border-top-color: #444444;
+	&> .ui-li { 
+		border-bottom-color: #444444;	// 68 68 68 
+	}
+	& > .ui-li-static {
+		background-color: @color_bg;
+	}
+	li.ui-btn-up-s {
+		background-color: @color_bg;
+		color:		@color_text;
+	}
+	li.ui-btn-hover-s, li.ui-btn-down-s {
+		background-color: #32414a;	// 50 65 74
+		color:		@color_text;
+	}
+	/* listview: fonts for li with a link */
+	li.ui-btn-up-s > .ui-li > .ui-btn-text > a.ui-link-inherit,
+	li.ui-btn-hover-s > .ui-li > .ui-btn-text > a.ui-link-inherit,
+	li.ui-btn-down-s > .ui-li > .ui-btn-text > a.ui-link-inherit {
+		color:		@color_text;
+	}
+	/* listview divider */
+	/* NOTE: this divider has no swatch tag! */
+	li.ui-li-divider {
+		background: @color_bg_sub;	// 36 36 36
+		color:		@color_text_sub;	// 102 102 102
+	}
+	/* subitem */
+	.ui-li-sub { color: @color_text_sub; }
+	.ui-li-sub-setting { color: @color_text_setting; }
+
+	// expandable list
+	.ui-li-expandable {
+
+	}
 	&> .ui-li-expanded {
 		background-color: rgb(31, 31, 31);
 	}
 	&> .ui-li-expanded .ui-li-expanded {
 		background-color: rgb(46, 46, 46);
 	}
-}
 
-// bubble
-.ui-listview {
+	// bubble
 	.ui-li-static {
 		&.ui-li-bubble-left {
 			// picked from 00_MessageBubble_BG_receive.png

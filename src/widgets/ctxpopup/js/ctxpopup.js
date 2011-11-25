@@ -119,7 +119,24 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
         
         /* XXX: NEED TO REFACTOR THIS */
         if ( this.options.style == "picker" ) {
-            container.circularview();
+            container.pannig = false;
+            container.circularview()
+                .bind('vclick', function(e) {
+                    //console.log("vclick");
+                    if ( this.panning ) {
+                        //console.log("prevent" );
+                        e.preventDefault();
+                        e.stopPropagation();
+                    }
+                })
+                .bind('scrollstart', function(e) {
+                    this.panning = true;
+                    //console.log('scrollstart');
+                })
+                .bind('scrollstop', function() {
+                    this.panning = false;
+                    //console.log('scrollstop');
+                });
             var current = container.find( this.options.pickerCenterSelector );
             if ( current ) {
                 container.circularview( 'centerTo', this.options.pickerCenterSelector );
@@ -382,9 +399,10 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
         var ctxid = $(elem).attr( "data-ctxid" ); 
         if ( ctxid ) {
             owner = $(document).find( "#" + ctxid );
-            owner.bind( "vclick", function( e ) {
-                self.pop( e.clientX, e.clientY );
-            });
+            owner
+                .bind( "vclick", function( e ) {
+                    self.pop( e.clientX, e.clientY );
+                });
         }
         
         $.extend( self, {

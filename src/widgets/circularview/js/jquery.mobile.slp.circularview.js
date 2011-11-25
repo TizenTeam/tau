@@ -17,7 +17,7 @@ jQuery.widget( "mobile.circularview", jQuery.mobile.widget, {
 		eventType:			$.support.touch	? "touch" : "mouse",
 
 		delayedClickSelector: "a, .ui-btn",
-		delayedClickEnabled: false
+		delayedClickEnabled: true
 	},
  
 	_makePositioned: function($ele) {
@@ -261,7 +261,7 @@ jQuery.widget( "mobile.circularview", jQuery.mobile.widget, {
 		if ( this.options.eventType == "mouse" || this.options.delayedClickEnabled ) {
 			e.preventDefault();
 		}
-		console.log("scrollstart" + this._rx + "," + this._sx );
+		//console.log("scrollstart" + this._rx + "," + this._sx );
 		e.stopPropagation();
 	},
 
@@ -283,7 +283,7 @@ jQuery.widget( "mobile.circularview", jQuery.mobile.widget, {
 		
 		this._setScrollPosition( this._nx + this._mx, 0 );
 
-		console.log("scrollmove" + this._rx + "," + this._sx );
+		//console.log("scrollmove" + this._rx + "," + this._sx );
 		return false;
 	},
 
@@ -301,7 +301,7 @@ jQuery.widget( "mobile.circularview", jQuery.mobile.widget, {
 			this._startMScroll( sx, sy );
 		}
 
-		console.log("scrollstop" + this._rx + "," + this._sx );
+		//console.log("scrollstop" + this._rx + "," + this._sx );
 		
 
 		this._disableTracking();
@@ -312,6 +312,11 @@ jQuery.widget( "mobile.circularview", jQuery.mobile.widget, {
 				.trigger("mouseup")
 				.trigger("click");
 		}
+        
+        if ( this._didDrag ) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
 
 		return this._didDrag ? false : undefined;
 	},
