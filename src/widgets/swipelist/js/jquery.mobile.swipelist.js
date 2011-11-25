@@ -28,6 +28,7 @@
             var yThreshold = 2,
                 swipeThreshold = 30,
                 $currentSwipeItem = null,
+                $swipeContainer = null,
                 $animatedItem = null,
                 $previousAnimatedItem = null,
                 maxSwipeItemLeft = 0,
@@ -41,39 +42,45 @@
             _self._mouseDownCB = function(e) {
                 $currentSwipeItem = $(this);
                 e.preventDefault();
-                return _TouchStart(e,e.pageX,e.pageY);
+                _self.dragging = _TouchStart(e,e.pageX,e.pageY);
             };
 
-            var _mouseMoveCB = function(e) {
+            _self._mouseMoveCB = function(e) {
+                if (!_self.dragging)
+			return;
+
                 e.preventDefault();
                 return _TouchMove(e.pageX,e.pageY);
             };
 
-            var _mouseUpCB = function(e) {
+            _self._mouseUpCB = function(e) {
+                if (!_self.dragging)
+			return;
+
+	        _self.dragging = false;
+
                 return _TouchEnd(e.pageX,e.pageY);
             };
 
             var _TouchStart =  function(e,X,Y) {
-                var targetName = e.target.className;
-                if (targetName.length >0 && targetName.indexOf('ui-swipelistitemcover') < 0
-                    && targetName.indexOf('ui-swipelistitemcontent') < 0
-                    && targetName.indexOf('ui-swipelistitemcontainer') < 0) {
+                if ($previousAnimatedItem) {
                         _swipeBack();
-                        return $(e.target).trigger('click');
-                }
-                var temp = $currentSwipeItem.children('.ui-swipelistitemcontainer');
-                $animatedItem = temp.children('.ui-swipelistitemcover');
+			return false;
+		}
+
+                $animatedItem = $currentSwipeItem.children('.ui-swipelistitemcover');
                 maxSwipeItemLeft = $animatedItem.outerWidth();
+
                 var date = new Date();
                 startData.time = date.getTime();
                 startData.point.setX(X);
                 startData.point.setY(Y);
                 if ($currentSwipeItem.width()/2 < swipeThreshold)
                     swipeThreshold = $currentSwipeItem.outerWidth()/2;
-                $currentSwipeItem.bind("vmousemove", _mouseMoveCB);
-                $currentSwipeItem.bind("vmouseup", _mouseUpCB);
                 resetNeeded = true;
                 delete date;
+
+                return true;
             };
 
             var _swipeBack = function() {
@@ -96,15 +103,13 @@
                 startData.time = null;
                 startData.point.setX(0);
                 startData.point.setY(0);
-                $currentSwipeItem.unbind("vmousemove vmouseup", _mouseMoveCB);
-                $currentSwipeItem = null;
                 $animatedItem = null;
                 maxSwipeItemLeft = null;
                 resetNeeded = false;
             };
             
             var _validSweep = function(X,Y) {
-                return X>startData.point.x() && Math.abs(Y-startData.point.y()) <= 20 && X-startData.point.x() >0;
+                return X>startData.point.x() && Math.abs(Y-startData.point.y()) <= 20 && X-startData.point.x() > 20;
             };
 
             var _validReverseSweep = function(X,Y) {
@@ -196,7 +201,9 @@
 
                     //append top level container to listitem
                     $li.append($containerDiv);
-                    $li.bind("vmousedown", self._mouseDownCB);
+                    $containerDiv.bind("vmousedown", self._mouseDownCB);
+                    $containerDiv.bind("vmousemove", self._mouseMoveCB);
+                    $containerDiv.bind("vmouseup", self._mouseUpCB);
                 }
             });
             if (listItems.length === 1)
