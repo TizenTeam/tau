@@ -350,7 +350,9 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		
 		$(o.id).listview();
 
-		t._reposition(o.id);
+		$(document).one("pageshow", function(){
+			t._reposition(o.id);
+		});
 		
 		t.refresh( true );
 	},
