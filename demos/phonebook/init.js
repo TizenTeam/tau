@@ -35,7 +35,7 @@ $("#all_contacts_queryInput").live( "input", function(events) {
 	Phonebook.search(window[pb_dbtable], query, "#all_contacts_list");
 });
 
-$("#all_contacts_list li").live("click", function()
+$("#all_contacts_list li, #contacts_list_main li").live("click", function()
 {
 	Phonebook.getDetailview(window[pb_dbtable], $(this).data("luid"));
 });

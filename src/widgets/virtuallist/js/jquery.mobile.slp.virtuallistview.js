@@ -94,6 +94,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 
 	_reposition: function(event){
 		var selector;
+		var childSelector = " li";
 		
 		if (event.data) {
 			selector = event.data;
@@ -104,15 +105,23 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		
 		var t = this;
 		
-		TITLE_H = $(selector + ' li:first').position().top;
-		LINE_H = $(selector + ' li:first').outerHeight();
+		/* to support swipe list, <li> or <ul> can be main node of virtual list. */
+		if ($(selector).children().find("ul").data("role") == "swipelist"){
+			childSelector = " ul";
+		}
+		else{
+			childSelector = " li";
+		}
+		
+		TITLE_H = $(selector + childSelector + ':first').position().top;
+		LINE_H = $(selector + childSelector + ':first').outerHeight();
 
 		CONTAINER_W = $(selector).innerWidth();
 		
-		var padding = parseInt($(selector + " li").css("padding-left")) + parseInt($(selector + " li").css("padding-right"));
+		var padding = parseInt($(selector + childSelector).css("padding-left")) + parseInt($(selector + childSelector).css("padding-right"));
 		
 		/* Add style */
-		$(selector + " li").addClass("position_absolute").addClass("ui-btn-up-s")
+		$(selector + childSelector).addClass("position_absolute").addClass("ui-btn-up-s")
 											.bind("mouseup", t._stylerMouseUp)
 											.bind("mousedown", t._stylerMouseDown)		
 											.bind("mouseover", t._stylerMouseOver)
@@ -120,7 +129,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		
 		
 
-		$(selector + " li").each(function(index){
+		$(selector + childSelector).each(function(index){
 			$(this).css("top", TITLE_H + LINE_H*index + 'px')
 			.css("width", CONTAINER_W - padding);
 		});
