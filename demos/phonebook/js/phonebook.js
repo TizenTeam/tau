@@ -116,14 +116,14 @@ Phonebook = {
 			var groupList = LocationGroup[this];
 			
 			/* Add "All contacts at first */
-			var itemData = {groupName:allContacts.replace(/\s+/g, ''), savedLocation:locationData.savedLocation,groupCount:Nb_items_in_location};
+			var itemData = {groupNameId:allContacts.replace(/\s+/g, ''), groupName:allContacts, savedLocation:locationData.savedLocation,groupCount:Nb_items_in_location};
 			var itemHtmlData = $itemTemplate.tmpl(itemData);
 			$(clonedList).append(itemHtmlData);
 			
 			/* Append each Saved Location's groups */
 			$.each(groupList, function(myGroupName, data){
 				var thisGroupName = (myGroupName.length<=0)?noGroup:myGroupName;
-				var itemData = {groupName:thisGroupName.replace(/\s+/g, ''), savedLocation:locationData.savedLocation,groupCount:data.count};
+				var itemData = {groupNameId:thisGroupName.replace(/\s+/g, ''), groupName:thisGroupName, savedLocation:locationData.savedLocation,groupCount:data.count};
 				var itemHtmlData = $itemTemplate.tmpl(itemData);
 
 				/* Find "Not assigned" and mark it */
@@ -167,9 +167,17 @@ Phonebook = {
 		
 		$.each(groupArray, function(i, v) {
 	        if (v.savedlocation.replace(/\s+/g, '') == savedLocationId) {
-	        	if (v.group.replace(/\s+/g, '') == groupId)
+	        	/* All contas of selecte saved location */
+	        	if (groupId == allContacts.replace(/\s+/g, ''))
 	        	{
 	        		contacts_in_group_list.push(contactsArray[v.id]);
+	        	}
+	        	else
+	        	{
+		        	if (v.group.replace(/\s+/g, '') == groupId)
+		        	{
+		        		contacts_in_group_list.push(contactsArray[v.id]);
+		        	}
 	        	}
 	        }
 	    });
@@ -183,7 +191,7 @@ Phonebook = {
 		
 		$(headerSelector).text(TitleString);
 		
-		$(pageSelector).bind("pageshow", function(){
+		$(pageSelector).bind("pagebeforeshow", function(){
 			$(vlistSelector).virtuallistview("recreate", contactList);
 			
 		});
