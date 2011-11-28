@@ -44,7 +44,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		splitTheme: "b",
 		inset: false,
 		id:	"",			/* Virtual list UL elemet's ID */
-		childSelector: " > li",	/* To support swipe list */
+		childSelector: " li",	/* To support swipe list */
 		dbtable: "",
 		template : "",
 		dbkey: false,			/* Data's unique Key */
@@ -94,38 +94,38 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 	}, 
 
 	_reposition: function(event){
-		o = this.options;
+		var o;
 		
 		if (event.data) {
-			selector = event.data;
+			o = event.data;
 		}
 		else {
-			selector = event;
+			o = event;
 		}
 		
 		var t = this;
 		
-		TITLE_H = $(selector + o.childSelector + ':first').position().top;
-		LINE_H = $(selector + o.childSelector + ':first').outerHeight();
-
-		CONTAINER_W = $(selector).innerWidth();
+		TITLE_H = $(o.id + o.childSelector + ':first').position().top;
+		LINE_H = $(o.id + o.childSelector + ':first').outerHeight();
 		
-		var padding = parseInt($(selector + o.childSelector).css("padding-left")) + parseInt($(selector + o.childSelector).css("padding-right"));
+		CONTAINER_W = $(o.id).innerWidth();
+		
+		var padding = parseInt($(o.id + o.childSelector).css("padding-left")) + parseInt($(o.id + o.childSelector).css("padding-right"));
 		
 		/* Add style */
-		$(selector + o.childSelector).addClass("position_absolute").addClass("ui-btn-up-s")
+		$(o.id + ">" + o.childSelector).addClass("position_absolute").addClass("ui-btn-up-s")
 											.bind("mouseup", t._stylerMouseUp)
 											.bind("mousedown", t._stylerMouseDown)		
 											.bind("mouseover", t._stylerMouseOver)
 											.bind("mouseout", t._stylerMouseOut);
 
-		$(selector + o.childSelector).each(function(index){
+		$(o.id + ">" + o.childSelector).each(function(index){
 			$(this).css("top", TITLE_H + LINE_H*index + 'px')
 			.css("width", CONTAINER_W - padding);
 		});
 
 		/* Set Max List Height */
-		$(selector).height(TOTAL_ITEMS * LINE_H);
+		$(o.id).height(TOTAL_ITEMS * LINE_H);
 	},
 	
 	_resize: function(event)
@@ -287,7 +287,6 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 					velocity = TOTAL_ITEMS - last_index -1;
 				}
 				
-				
 				/* Prevent scroll touch event while DOM access */
 				$(document).bind("touchstart", function(event) {
 					  event.preventDefault();
@@ -347,16 +346,14 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		
 		t._pushData((o.template), newArray);
 		
-		if (o.childSelector == " > ul")
+		if (o.childSelector == " ul")
 		{
 			$(o.id + " ul").swipelist();	
 		}
 		
 		$(o.id).virtuallistview();
-
-		$(document).one("pageshow", function(){
-			t._reposition(o.id);
-		});
+		
+		t._reposition(o);
 		
 		t.refresh( true );
 	},
@@ -373,7 +370,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
         /* Make Gen list by template */
     	t._pushData((o.template), window[o.dbtable]);
     	
-    	$(o.id).parentsUntil(".ui-page").parent().bind("pageshow", o.id, t._reposition);
+    	$(o.id).parentsUntil(".ui-page").parent().one("pageshow", o, t._reposition);
 
     	/* Scrollview */
     	if (o.scrollview) {
@@ -387,18 +384,18 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 	    $(window).resize(o.id, t._resize);
 
 	    /* Prevent scroll touch event while DOM access */
-	    $(document).bind("scrollstart", function(){
+/*	    $(document).bind("scrollstart", function(){
 			$(document).bind("touchstart", function(event) {
 				  event.preventDefault();
 			});
 	    });
-	    
-	    if (o.childSelector == " > ul")
+*/	    
+	    if (o.childSelector == " ul")
 		{
 			$(o.id + " ul").swipelist();
 		}
 	    
-		$(o.id).virtuallistview();
+		/*$(o.id).virtuallistview();*/
 
 		t.refresh( true );
 	},
@@ -409,7 +406,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		/* external API for AJAX callback */
 		this._create("create");
 		
-		this._reposition(o.id);
+		this._reposition(o);
 	},
 	
 	_create: function(event) {
@@ -449,11 +446,11 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		        /* to support swipe list, <li> or <ul> can be main node of virtual list. */
 				if ($el.data("swipelist") == true)
 				{
-					o.childSelector = " > ul";
+					o.childSelector = " ul";
 				}
 				else
 				{
-					o.shildSelector = " > li";
+					o.shildSelector = " li";
 				}
 			}
 			
@@ -479,7 +476,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		$(window).unbind("resize");
 
 		/* Unset prevent touch event */
-		$(document).unbind("touchstart");
+		/*$(document).unbind("touchstart");*/
 		
 		$(o.id).empty();
 	},
