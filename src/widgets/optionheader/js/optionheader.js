@@ -172,7 +172,10 @@ $.widget("todons.optionheader", $.mobile.widget, {
             theme = this.options.theme,
             numRows,
             rowsClass,
-            themeClass;
+            themeClass,
+			matchingBtn = $(this.element).jqmData("for"),
+			btn2Position = 10,
+			btn3Position = 144;
 
 			var $this = $( this ),
 				o = $.extend({
@@ -224,6 +227,23 @@ $.widget("todons.optionheader", $.mobile.widget, {
             el.before(arrow);
             arrow.triangle({"color": el.css('background-color'), offset: "50%"});
         }
+		if($(this.element).parents(".ui-page").find("#"+matchingBtn).length != 0)
+		{
+			matchBtn = $(this.element).parents(".ui-page").find("#"+matchingBtn);
+	        if (this.options.expandable) {
+	            matchBtn.bind('vclick', this.clickHandler);
+	        }
+	        else {
+	            matchBtn.unbind('vclick', this.clickHandler);
+	        }			
+	        if(matchBtn.css("left") && matchBtn.css("left") != "auto")
+	        	arrow.triangle({offset: matchBtn.width()/2+ parseInt(matchBtn.css("left"))+"px"});
+	        else if(matchBtn.css("right")){
+	        	buttonRight = matchBtn.nextAll().is("a") ? btn3Position : btn2Position;
+        		arrow.triangle({offset: document.documentElement.clientWidth -matchBtn.width()/2 - buttonRight+"px"});
+	        } /* Button position : Jinhyuk */
+	        	
+		}
 
         // if expandable, bind clicks to the toggle() method
         if (this.options.expandable) {
