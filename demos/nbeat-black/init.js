@@ -77,22 +77,6 @@ $(document).bind("pagecreate", function () {
         $("#selected-date3").text(newDate.toString());
     });
 
-	$("#colorpicker-demo").bind("pagebeforeshow", function() {
-	  $("#hsvpicker").bind("colorchanged", function(e, clr) {
-		$("#colortitle").colortitle("option", "color", clr);
-		$("#colorpalette").colorpalette("option", "color", clr);
-	  });
-	  $("#colortitle").bind("colorchanged", function(e, clr) {
-		$("#hsvpicker").hsvpicker("option", "color", clr);
-		$("#colorpalette").colorpalette("option", "color", clr);
-	  });
-	  $("#colorpalette").bind("colorchanged", function(e, clr) {
-		$("#hsvpicker").hsvpicker("option", "color", clr);
-		$("#colortitle").colortitle("option", "color", clr);
-	  });
-	  $("#colortitle").colortitle("option", "color", "#54a12d");
-	});
-
 	$('#progressbar-demo').bind('pageshow', function (e) {
 
 		// set progressbar value...
