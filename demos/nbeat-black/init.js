@@ -174,7 +174,7 @@ $(document).bind("pagecreate", function () {
 	});
 
 	$('#selectioninfo-demo').bind('vmouseup', function (e) {
-		$('#smallpopup_selectioninfo').attr("data-text1", $("#dayselector1").find(".ui-checkbox-on").length);		
+		$('#smallpopup_selectioninfo').attr("data-text1", $("#dayselector1").find(".ui-checkbox-on").length);
 		$('#smallpopup_selectioninfo').smallpopup('show');
 	});
 
