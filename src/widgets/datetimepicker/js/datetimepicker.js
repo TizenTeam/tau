@@ -206,14 +206,15 @@
 				var $div = $(document.createElement('div'));
 				$div.attr("data-style", "picker").append( selectorResult.list ).appendTo( ui.container );
 				var ctx = $div.ctxpopup();
-//				var px = owner.offset().left + owner.width() / 2;
-//				var py = owner.offset().top + owner.height() / 2;
-				ctx.ctxpopup( 'pop', e.clientX, e.clientY ).bind( 'close', function() {
-					$(".data-selected").each(function() {
-						$(selectorResult.list).unbind('vclick');
-		                $(this).removeClass("data-selected");
-		            });
-				});
+				ctx.ctxpopup( 'pop', owner.offset().left + owner.width() / 2 - window.pageXOffset, 
+                    owner.offset().top + owner.height() / 2 - window.pageYOffset,
+                    owner )
+                    .bind( 'close', function() {
+					    $(".data-selected").each(function() {
+						    $(selectorResult.list).unbind('vclick');
+    		                $(this).removeClass("data-selected");
+	    	            });
+		   		});
 				obj.ctx = ctx;
             }
         },

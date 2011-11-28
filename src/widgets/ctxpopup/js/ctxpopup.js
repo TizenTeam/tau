@@ -87,7 +87,7 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
 
     },
  
-    pop: function(x_where, y_where) {
+    pop: function(x_where, y_where, owner) {
         if ( this.isOpen ) return;
 
         this.isOpen = true;
@@ -144,25 +144,30 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
  
             box.removeClass( "ui-selectmenu-hidden" ); 
             
+            ownerHeight = 0;
+            if ( owner ) {
+                ownerHeight = owner.height();
+            }
+
             // top
-            if ( y_where + containerRect.h + arrowRect.h < screenRect.h ) {
+            if ( y_where + containerRect.h + arrowRect.h + ownerHeight < screenRect.h ) {
                 
-                box.css( "top", y_where + screenRect.y );
+                box.css( "top", y_where + screenRect.y + ownerHeight );
                 box.css( "left", 0 );
 
-                arrow.css( "left", x_where - arrowRect.w / 2 );
+                arrow.css( "left", x_where - arrowRect.w / 2);
                 arrow.css( "top", 0 );
                 arrow.addClass("arrow-top");
             } else { // bottom
-                box.css( "top", y_where - containerRect.h - arrowRect.h + screenRect.y );
+                box.css( "top", y_where - containerRect.h - arrowRect.h + screenRect.y - ownerHeight );
                 box.css( "left", 0 );
                 
-                arrow.css( "left", x_where - arrowRect.w / 2 );
+                arrow.css( "left", x_where - arrowRect.w / 2);
                 arrow.addClass( "arrow-bottom" );
                 arrow.css( "top", containerRect.h );
                 container.css( "top", -arrowRect.h );
             }
-           return;
+            return;
         }
 
         var ul = this.elem.find("li"); 
