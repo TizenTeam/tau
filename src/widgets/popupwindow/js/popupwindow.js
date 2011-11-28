@@ -264,7 +264,7 @@ $.widget( "todons.popupwindow", $.mobile.widget, {
           halfheight = menuHeight / 2,
           maxwidth = parseFloat( this.ui.container.css( "max-width" ) ),
           newtop, newleft;
-
+/*
       if ( roomtop > menuHeight / 2 && roombot > menuHeight / 2 ) {
           newtop = y - halfheight;
       }
@@ -272,15 +272,17 @@ $.widget( "todons.popupwindow", $.mobile.widget, {
           // 30px tolerance off the edges
           newtop = roomtop > roombot ? scrollTop + screenHeight - menuHeight - 30 : scrollTop + 30;
       }
+*/
+	newtop = (screenHeight - menuHeight) / 2 + scrollTop;
 
-	/*
+/*
 	console.log("Y = " + y);
 	console.log("menuHeight = " + menuHeight);
 	console.log("scrollTop = " + scrollTop);
 	console.log("screenHeight = " + screenHeight);
 	console.log("newtop = " + newtop);
 	console.log("roomtop = " + roomtop);
-	*/
+*/
 
       // If the menuwidth is smaller than the screen center is
       if ( menuWidth < maxwidth ) {
