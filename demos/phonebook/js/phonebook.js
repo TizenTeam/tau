@@ -191,9 +191,8 @@ Phonebook = {
 		
 		$(headerSelector).text(TitleString);
 		
-		$(pageSelector).bind("pagebeforeshow", function(){
+		$(pageSelector).bind("pageshow", function(){
 			$(vlistSelector).virtuallistview("recreate", contactList);
-			
 		});
 		
 		$.mobile.changePage(pageSelector);
