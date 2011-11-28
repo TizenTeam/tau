@@ -208,19 +208,13 @@ $.mobile.fixedToolbars = (function() {
 						.css("position", "relative")
 						.css("top","206px" );										
 				}				
-				else {
-					if(s_theme_header.parent().is(".ui-dialog"))
-						s_theme_header.css("position", "relative");
-					else {
-						s_theme_header
-							.css("position", "fixed")
-							.css("top", "0px");
-					}
+
+				if(s_theme_header.children().is("a")){
 					if(title_style == "normal"){				
-						if(s_theme_header.find("a").length == 1 || s_theme_header.find("a").length == 2){}
-						else if(s_theme_header.find("a").length == 3){
+						if(s_theme_header.children("a").length == 1 || s_theme_header.children("a").length == 2){}
+						else if(s_theme_header.children("a").length == 3){
 							s_theme_header.find("a").eq(1)
-								.removeClass("ui-btn-right")
+							.removeClass("ui-btn-right")
 					.addClass("ui-title-normal-3btn");					
 							s_theme_header.find("a").eq(2)
 								.addClass("ui-btn-right");
@@ -230,11 +224,8 @@ $.mobile.fixedToolbars = (function() {
 						var group_length = s_theme_fieldcontain.find(".ui-radio").length;
 						
 						s_theme_header.addClass("ui-title-extended-height");
-						s_theme_fieldcontain.find(".ui-controlgroup")
-							.addClass("ui-title-extended-controlgroup");
-							
-						s_theme_fieldcontain						
-							.addClass("ui-title-extended-segment-style");
+						s_theme_fieldcontain.find(".ui-controlgroup").addClass("ui-title-extended-controlgroup");						
+						s_theme_fieldcontain.addClass("ui-title-extended-segment-style");
 	
 						if(group_length == 2 || group_length == 3)
 							s_theme_fieldcontain.find(".ui-controlgroup").addClass("ui-title-extended-controlgroup-" + group_length + "btn");
@@ -242,6 +233,13 @@ $.mobile.fixedToolbars = (function() {
 					}	
 					$( event.target ).find(".ui-content").addClass("ui-title-content-" + title_style + "-height");	
 				}	
+
+				if(s_theme_header.jqmData("position") == "fixed"){
+					s_theme_header
+						.css("position", "fixed")
+						.css("top", "0px");
+					$( event.target ).find(".ui-content").addClass("ui-title-content-" + title_style + "-height");							
+				}				
 				
 				var page = $( event.target ),
 				footer = page.find( ":jqmData(role='footer')" ),
