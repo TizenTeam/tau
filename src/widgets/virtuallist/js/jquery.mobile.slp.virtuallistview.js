@@ -44,6 +44,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		splitTheme: "b",
 		inset: false,
 		id:	"",			/* Virtual list UL elemet's ID */
+		childSelector: " > li",	/* To support swipe list */
 		dbtable: "",
 		template : "",
 		dbkey: false,			/* Data's unique Key */
@@ -93,8 +94,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 	}, 
 
 	_reposition: function(event){
-		var selector;
-		var childSelector = " li";
+		o = this.options;
 		
 		if (event.data) {
 			selector = event.data;
@@ -105,31 +105,21 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		
 		var t = this;
 		
-		/* to support swipe list, <li> or <ul> can be main node of virtual list. */
-		if ($(selector).children().find("ul").data("role") == "swipelist"){
-			childSelector = " ul";
-		}
-		else{
-			childSelector = " li";
-		}
-		
-		TITLE_H = $(selector + childSelector + ':first').position().top;
-		LINE_H = $(selector + childSelector + ':first').outerHeight();
+		TITLE_H = $(selector + o.childSelector + ':first').position().top;
+		LINE_H = $(selector + o.childSelector + ':first').outerHeight();
 
 		CONTAINER_W = $(selector).innerWidth();
 		
-		var padding = parseInt($(selector + childSelector).css("padding-left")) + parseInt($(selector + childSelector).css("padding-right"));
+		var padding = parseInt($(selector + o.childSelector).css("padding-left")) + parseInt($(selector + o.childSelector).css("padding-right"));
 		
 		/* Add style */
-		$(selector + childSelector).addClass("position_absolute").addClass("ui-btn-up-s")
+		$(selector + o.childSelector).addClass("position_absolute").addClass("ui-btn-up-s")
 											.bind("mouseup", t._stylerMouseUp)
 											.bind("mousedown", t._stylerMouseDown)		
 											.bind("mouseover", t._stylerMouseOver)
 											.bind("mouseout", t._stylerMouseOut);
-		
-		
 
-		$(selector + childSelector).each(function(index){
+		$(selector + o.childSelector).each(function(index){
 			$(this).css("top", TITLE_H + LINE_H*index + 'px')
 			.css("width", CONTAINER_W - padding);
 		});
@@ -152,9 +142,9 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		var t = this;		
 		CONTAINER_W = $(selector).innerWidth();
 		
-		var padding = parseInt($(selector + " li").css("padding-left")) + parseInt($(selector + " li").css("padding-right"));
+		var padding = parseInt($(selector).css("padding-left")) + parseInt($(selector).css("padding-right"));
 		
-		$(selector + ' li').each(function(index){
+		$(selector).each(function(index){
 			$(this).css("width", CONTAINER_W - padding);
 		});
 	},
@@ -272,7 +262,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
     		var curWindowTop = $(window).scrollTop() - LINE_H;
     	}
 		
-		var cur_num_top_itmes = $(o.id + " li").filter(function(){return (parseInt($(this).css("top")) < curWindowTop);}).size(); 
+		var cur_num_top_itmes = $(o.id + o.childSelector).filter(function(){return (parseInt($(this).css("top")) < curWindowTop);}).size(); 
 		
 		if (num_top_items < cur_num_top_itmes)
 		{
@@ -357,7 +347,12 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		
 		t._pushData((o.template), newArray);
 		
-		$(o.id).listview();
+		if (o.childSelector == " > ul")
+		{
+			$(o.id + " ul").swipelist();	
+		}
+		
+		$(o.id).virtuallistview();
 
 		$(document).one("pageshow", function(){
 			t._reposition(o.id);
@@ -398,7 +393,12 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 			});
 	    });
 	    
-		$(o.id).listview();
+	    if (o.childSelector == " > ul")
+		{
+			$(o.id + " ul").swipelist();
+		}
+	    
+		$(o.id).virtuallistview();
 
 		t.refresh( true );
 	},
@@ -445,6 +445,16 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		    if ($el.data("template"))
 			{
 				o.template = $el.data("template");
+				
+		        /* to support swipe list, <li> or <ul> can be main node of virtual list. */
+				if ($el.data("swipelist") == true)
+				{
+					o.childSelector = " > ul";
+				}
+				else
+				{
+					o.shildSelector = " > li";
+				}
 			}
 			
 			/* Set data's unique key */

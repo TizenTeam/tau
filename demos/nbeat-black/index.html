@@ -96,7 +96,6 @@
 			<li><a href="#notImplemented" data-rel="dialog">Transit</a></li>
 			<li><a href="#notImplemented">Grid View</a></li>
 			<li><a href="#notImplemented">Background Text</a></li>
-			<li><a href="#notImplemented">NoContents</a></li>
 		
 		</ul>	
 	</div>
@@ -246,8 +245,13 @@
 
 <div data-role="page" id="optionheader1line2btn" data-add-back-btn="true">
     <div data-role="header" data-position="fixed">
+		<a id="123">TestBtn</a>
         <h1>Option header - 2 buttons</h1>
-        <div id="myoptionheader1" data-role="optionheader">
+		<a id="opt_text">TestBtn</a>		
+		<a id="1234">TestBtn</a>		
+		
+        <div id="myoptionheader1" data-role="optionheader" data-for="opt_text">
+
             <div class="ui-grid-a ">
                 <div class="ui-block-a"><a data-role="button">Save</a></div>
                 <div class="ui-block-b"><a data-role="button">Next</a></div>
