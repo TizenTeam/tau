@@ -21,37 +21,49 @@
 	<div id="all_contacts_page" data-role="page">
 	
 		<script id="tmpl_contacts_normal" type="text/x-jquery-tmpl">
-			<li class="ui-li-3-1-25" data-luid=${Luid}>
-				<span class="ui-li-text-main">
-				{{if name_first}}
-        			${name_first}
-    			{{/if}}
-				{{if name_middle}}
-        			 ${name_middle}
-    			{{/if}}
-				{{if name_last}}
-        			 ${name_last}
-    			{{/if}}
-				{{if name_suffix}}
-        			 ${name_suffix}	
-    			{{/if}}
-				{{if name_nick}}
-        			 <b class="nick-name">${name_nick}</b>
-    			{{/if}}
-				{{if savedlocation=="Google"}}
-					<img src="image/C02_account_01.png">
-				{{else savedlocation=="Facebook"}}
-					<img src="image/C02_account_02.png">
- 				{{else savedlocation=="Facebook"}}
-					<img src="image/C02_account_03.png">
-				{{else savedlocation=="Facebook"}}
-					<img src="image/C02_account_04.png">
-				{{else}}
-					<img src="image/C02_account_05.png">
-				{{/if}}
-				</span>
-				<img src=${photoid} class="ui-li-bigicon">
-			</li>
+			<ul data-role="listview"> 
+				<ul data-role="swipelist">
+					<li class="ui-li-3-1-25" data-luid=${Luid}>
+						<div data-role="button" data-inline="true">Call</div>
+						<div data-role="button" data-inline="true">Message</div>
+						<div data-role="button" data-inline="true">Video call</div>
+						<div data-role="button" data-inline="true">Delete</div>
+						<div data-role="ui-list-cover">
+						<div>
+							<span class="ui-li-text-main">
+								{{if name_first}}
+        							${name_first}
+    							{{/if}}
+								{{if name_middle}}
+        			 				 ${name_middle}
+    							{{/if}}
+								{{if name_last}}
+        			 				 ${name_last}
+    							{{/if}}
+								{{if name_suffix}}
+        			 				 ${name_suffix}	
+    							{{/if}}
+								{{if name_nick}}
+        			 				<b class="nick-name"> ${name_nick}</b>
+    							{{/if}}
+								{{if savedlocation=="Google"}}
+									<img src="image/C02_account_01.png">
+								{{else savedlocation=="Facebook"}}
+									<img src="image/C02_account_02.png">
+ 								{{else savedlocation=="Facebook"}}
+									<img src="image/C02_account_03.png">
+								{{else savedlocation=="Facebook"}}
+									<img src="image/C02_account_04.png">
+								{{else}}
+									<img src="image/C02_account_05.png">
+								{{/if}}
+							</span>
+							<img src=${photoid} class="ui-li-bigicon">
+						</div>
+						</div>
+				    </li>
+				</ul>
+			</ul>			
 		</script>
 		
 		<script id="tmpl_contacts_title" type="text/x-jquery-tmpl">
@@ -67,7 +79,7 @@
 			<div data-role="fieldcontain" data-position="fixed">
 				<input id="all_contacts_queryInput" type="search" value=""/>
 			</div>
-			<ul id="all_contacts_list" data-role="virtuallistview" data-template="tmpl_contacts_normal" data-dbtable="phonebookDB" data-dbkey = "luid">
+			<ul id="all_contacts_list" data-role="virtuallistview" data-template="tmpl_contacts_normal" data-swipelist="true" data-dbtable="phonebookDB" data-dbkey = "luid">
 			</ul>
 		</div><!--content end-->
 		<div id="all_contacts_footer" data-role="footer"data-position ="fixed">
