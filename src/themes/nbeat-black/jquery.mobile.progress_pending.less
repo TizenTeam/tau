@@ -13,7 +13,7 @@
 	}
 }
 
-.ui-pending {
+.ui-progressing-container-pending {
 	position: relative;
 	margin-left: @bar-margin;
 	margin-right: @bar-margin;
@@ -21,7 +21,7 @@
 	overflow: hidden;
 }
 
-.ui-pending-bar {
+.ui-progressing-pending {
 	position: relative;
 	top: 0;
 	width: 100%;
@@ -52,38 +52,8 @@
 	background-color: @bar-color0;
 
 	-webkit-background-size: @bar-height * 2 @bar-height * 2;
+}
+.ui-progressing-pending-running {
 	-webkit-animation: ui-move-animation 0.5s infinite linear;
 }
 
-.ui-pending-bar-stop {
-	position: relative;
-	top: 0;
-	width: 100%;
-	height: @bar-height * 3;
-	padding-top: 0;
-	padding-bottom: 0;
-
-	background: -webkit-linear-gradient(-45deg,
-				transparent,
-				transparent 25%,
-				@bar-color1 25%,
-				@bar-color1 50%,
-				transparent 50%,
-				transparent 75%,
-				@bar-color1 75%);
-
-	background: -webkit-gradient(linear,
-				left top,
-				right bottom,
-				color-stop(0%,  rgba(0,0,0,0)),
-				color-stop(25%, rgba(0,0,0,0)),
-				color-stop(25%, @bar-color1),
-				color-stop(50%, @bar-color1),
-				color-stop(50%, rgba(0,0,0,0)),
-				color-stop(75%, rgba(0,0,0,0)),
-				color-stop(75%, @bar-color1));
-
-	background-color: @bar-color0;
-
-	-webkit-background-size: @bar-height * 2 @bar-height * 2;
-}

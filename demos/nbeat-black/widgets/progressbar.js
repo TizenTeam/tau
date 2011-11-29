@@ -39,13 +39,27 @@
 					cancelRequestAnimFrame(request);
 			})();
 		});
-		$(this).find('#pending').progress_pending('start');
-		$(this).find('#progressing').progressing('start');
+		$(this).find('#pending').progressing({ running: true });
+		$(this).find('#progressing').progressing({ running: true });
+
+		$('#pendingTest').bind('vclick', function (e) {
+			var running = $('#pending').progressing( "option", "running" );
+			// start/stop progressing animation
+			if ( running );
+				$('#pending').progressing( "option", "running", !running );
+		});
+
+		$('#progressingTest').bind('vclick', function (e) {
+			var running = $('#progressing').progressing( "option", "running" );
+			// start/stop progressing animation
+			if ( running );
+				$('#progressing').progressing( "option", "running", !running );
+		});
 	});
 
 	$('#progressbar-demo').bind('pagehide', function (e) {
-		$(this).find('#pending').progress_pending('stop');
-		$(this).find('#progressing').progressing('stop');
+		$(this).find('#pending').progressing( "option", "running", false );
+		$(this).find('#progressing').progressing( "option", "running", false );
 	});
 
 

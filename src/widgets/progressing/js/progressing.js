@@ -4,50 +4,80 @@
  * Copyright (C) TODO
  * License: TODO
  * Authors: Minkyu Kang <mk7.kang@samsung.com>
+ *          Koeun Choi <koeun.choi@samsung.com>
  */
 
 (function ($, window, undefined) {
 	$.widget("todons.progressing", $.mobile.widget, {
-
-		running: false,
+		options: {
+			style: "circle",
+			running: false
+		},
 
 		_show: function () {
-			this.html_hide.detach();
-			$(this.element).append(this.html);
+			if ( !this.init ) {
+				$(this.element).append(this.html);
+				this.init = true;
+			}
+			var style = this.options.style;
+			$(this.element).addClass("ui-progressing-container-" + style+ "-bg");
+			$(this.element).find(".ui-progressing-"+style )
+				.addClass( this.runningClass );
 		},
 
 		_hide: function () {
-			this.html.detach();
-			$(this.element).append(this.html_hide);
+			$(this.element).find(".ui-progressing-"+ this.options.style )
+				.removeClass( this.runningClass );
 		},
 
-		start: function () {
-			if (this.running) {
-				return;
+		running: function( newRunning ) {
+			// get value
+			if ( newRunning === undefined ) {
+				return this.options.running;
 			}
 
-			this.running = true;
-			this._show();
+			// set value
+			this._setOption( "running", newRunning );
+			return this;
 		},
 
-		stop: function () {
-			if (!this.running) {
-				return;
+		_setOption: function( key, value ) {
+			if ( key === "running" ) {
+				// normalize invalid value
+				if ( typeof value !== "boolean" ) {
+					alert("running value MUST be boolean type!");
+					return;
+				}
+				this.options.running = value;
+				this._refresh();
 			}
+		},
 
-			this.running = false;
-			this._hide();
+		_refresh: function() {
+			if ( this.options.running )
+				this._show();
+			else
+				this._hide();
 		},
 
 		_create: function () {
-			this.html = $('<div class="ui-progressing-bg">' +
-					 '<div class="ui-progressing">' +
-					 '<div class="ui-progressingImg"></div>' +
-					 '</div></div>');
-			this.html_hide = $('<div class="ui-progressing-bg">' +
-					 '<div class="ui-progressing">' +
-					 '<div class="ui-progressingImg-stop"></div>' +
-					 '</div></div>');
+			var self = this,
+			element = this.element,
+			style = element.jqmData( "style" );
+
+			if ( style )
+				this.options.style = style;
+
+			this.html = $('<div class="ui-progressing-container-'+ style + '">' +
+					'<div class="ui-progressing-' + style + '"></div>' +
+					'</div>');
+			var runningClass = "ui-progressing-" + style + "-running";
+
+			$.extend( this, {
+				init: false,
+				runningClass: runningClass
+			});
+			this._refresh();
 		},
 	}); /* End of widget */
 
