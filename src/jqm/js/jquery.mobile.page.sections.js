@@ -13,6 +13,7 @@ $.mobile.page.prototype.options.backBtnTheme = null;
 $.mobile.page.prototype.options.headerTheme  = "a";
 $.mobile.page.prototype.options.footerTheme  = "a";
 $.mobile.page.prototype.options.contentTheme = null;
+$.mobile.page.prototype.options.footerExist = true; /* SLP Default Footer : Jinhyuk */
 
 $( ":jqmData(role='page'), :jqmData(role='dialog')" ).live( "pagecreate", function( e ) {
 	
@@ -28,6 +29,7 @@ $( ":jqmData(role='page'), :jqmData(role='dialog')" ).live( "pagecreate", functi
 			$headeranchors,
 			leftbtn,
 			rightbtn,
+			normalFooter, /* SLP Default Footer : Jinhyuk */
 			backBtn;
 			
 		$this.addClass( "ui-" + role );	
@@ -52,9 +54,12 @@ $( ":jqmData(role='page'), :jqmData(role='dialog')" ).live( "pagecreate", functi
 			
 			rightbtn = rightbtn || $headeranchors.eq( 1 ).addClass( "ui-btn-right" ).length;
 			
+			
 			// Auto-add back btn on pages beyond first view
 			if ( o.addBackBtn && 
-				role === "header" &&
+				o.footerExist && /* SLP Default Footer : Jinhyuk */
+//				(role === "header" || role === "footer"  ) &&
+				(role === "footer"  ) &&
 				$( ".ui-page" ).length > 1 &&
 				$this.jqmData( "url" ) !== $.mobile.path.stripHash( location.hash ) &&
 				!leftbtn ) {
@@ -97,6 +102,34 @@ $( ":jqmData(role='page'), :jqmData(role='dialog')" ).live( "pagecreate", functi
 
 			// Add ARIA role
 			$this.attr( "role", "main" );
+
+			
+			/* Add default footer to add backbtn */
+			thisTheme = "s";
+			if(	o.footerExist &&
+				$( ".ui-page" ).length > 1){
+				normalFooter = $("<div data-role='footer' class='ui-footer ui-bar-s ui-footer-fixed fade ui-fixed-overlay' data-position='fixed'></div>")
+					.insertAfter($page.find( ".ui-content" ));
+
+				backBtn = $( "<a href='#' class='ui-btn-back' data-"+ $.mobile.ns +"rel='back' data-"+ $.mobile.ns +"icon='header-back-btn'></a>" )
+					.attr( "data-"+ $.mobile.ns +"theme", o.backBtnTheme || thisTheme );
+
+				if($page.find("div:jqmData(role='footer')").length != 0){
+					if(!$page.find("div:jqmData(role='footer')").find("jqmData(role='navbar')").is("jqmData(style='tabbar')")){				
+						backBtn.appendTo($page.find("div:jqmData(role='footer')"));	
+					}
+				}
+				else{
+						backBtn.appendTo(normalFooter);					
+				}	
+				if(backBtn){
+					backBtn.bind( "vclick", function( event ) {
+						window.history.back();
+						return false;
+					});			
+				}		
+			}
+
 		}
 	});
 });

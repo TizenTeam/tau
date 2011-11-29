@@ -87,40 +87,6 @@
 		color : #767676;
 	}
 	
-	.ui-btn-back.ui-btn-down-s{
-		background : #6c6c6c;
-	}
-	.ui-btn-back{
-		position : absolute;
-		font-size : @font_size_default;
-
-		width : 110 * @unit_base;
-		height : 90 * @unit_base;
-		top : 0 * @unit_base;
-		left : 0 * @unit_base;
-
-		border : none;
-		background : #6c6c6c;
-		
-		.ui-btn-inner.ui-btn-icon-only {
-			padding : 0;
-			
-			width : 76 * @unit_base;
-			height : 38 * @unit_base;	
-			top : 28 * @unit_base;
-			left : 34 * @unit_base;			
-		 			 
-			background: 			#6c6c6c;			 
-			border-top : none;			
-			
-			border-right-style :  groove;
-			border-right-width : 1px;
-			border-top-right-radius : 0px;
-			border-bottom-right-radius : 0px;
-			
-		}
-	}
-
 	.ui-field-contain {		
 		.ui-title-extended-controlgroup {
 			position : absolute;
@@ -239,9 +205,52 @@
 }
 
 .ui-footer.ui-bar-s.ui-footer-fixed {
+	background : #1f1f1f;
+
 	height : 114 * @unit_base;
+	.ui-title{
+		font-size : 32 * @unit_base;
+	}
+
 }
 
+.ui-header.ui-bar-s, .ui-footer.ui-bar-s {
+	.ui-btn-back.ui-btn-down-s{
+		.ui-btn-inner.ui-btn-icon-only {
+			background : #353535;
+		}
+	}
+	.ui-btn-back{
+		position : absolute;
+		font-size : @font_size_default;
+
+		width : 144 * @unit_base;
+		height : 114 * @unit_base;
+		top : 0 * @unit_base;
+		left : 0 * @unit_base;
+
+		border-style : none;
+		border-width : 0px;
+		background : #1f1f1f;
+		
+		.ui-btn-inner.ui-btn-icon-only {
+			padding : 0;
+
+			width : 104 * @unit_base;
+			height : 74 * @unit_base;	
+			top : 20 * @unit_base;
+			left : 20 * @unit_base;			
+
+			background: 			#353535;			 		
+
+			border-color : black; 
+			border-width : 2 * @unit_base;
+			border-style :  groove;			
+		}
+	}
+
+
+}
 
 // NOTE: This class is applied to almost all JQM widgets!
 .ui-body-s {
@@ -427,7 +436,7 @@ a.ui-link-inherit {
 /*  Jinhyuk_Controlbar	*/
 .ui-controlbar-s, .ui-controlbar-left, .ui-controlbar-right {
 	border: 1px solid 		@bordercolor;
-	background: 			@footercolor; /*{a-bar-background-color}*/
+	background: 			#1f1f1f;
 	color: 					@color_36; /*{a-bar-color}*/
 	font-family: Helvetica, Arial, sans-serif;
 	font-weight: bold;
@@ -549,7 +558,7 @@ a.ui-link-inherit {
 
 .ui-toolbar-s {
 	.ui-btn, .ui-btn-up-s {
-		background: #161616;
+		background: #1f1f1f;
 		
 		border-left-width : 1px;
 		border-right-width : 1px;

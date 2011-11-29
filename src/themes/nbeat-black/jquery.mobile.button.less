@@ -58,7 +58,7 @@
 .ui-btn-icon-bottom .ui-icon { bottom: 10 * @unit_base; }
 .ui-header .ui-btn-icon-left .ui-icon,
 .ui-footer .ui-btn-icon-left .ui-icon,
-.ui-bar .ui-btn-icon-left .ui-icon { left: 4 * @unit_base; }
+.ui-bar .ui-btn-icon-left .ui-icon { left: 24 * @unit_base; } /* SLP Default Footer : Jinhyuk */
 .ui-header .ui-btn-icon-right .ui-icon,
 .ui-footer .ui-btn-icon-right .ui-icon,
 .ui-bar .ui-btn-icon-right .ui-icon { right: 4 * @unit_base; }
@@ -131,9 +131,22 @@
 .ui-icon-editplus		{.slp-icon-common;	background-image: url(images/00_button_icon_plus.png); top : -@height_buttonEdit/2;}
 
 /* Header back btn : Jinjyuk */
-.ui-btn-up-s .ui-icon-header-back-btn{	background-image: url(images/00_winset_btn_prev.png);}
+.ui-btn-up-s .ui-icon-header-back-btn{	
+	width: 56 * @unit_base; 
+	height: 56 * @unit_base;
+	left : 24 * @unit_base;
+	top : 10 * @unit_base;
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+background-image: url(images/00_winset_Back.png);}
 .ui-btn-down-s, .ui-btn-hover-s {
-	.ui-icon-header-back-btn{ background-image: url(images/00_winset_btn_prev_press.png);}
+	.ui-icon-header-back-btn{ 
+		width: 56 * @unit_base; height: 56 * @unit_base;
+	left : 24 * @unit_base;
+	top : 10 * @unit_base;		
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	background-image: url(images/00_winset_Back.png);}
 }
 
 .ui-icon-header-back-btn{

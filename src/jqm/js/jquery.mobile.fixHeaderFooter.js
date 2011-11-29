@@ -69,12 +69,17 @@ $.mobile.fixedToolbars = (function() {
 
 		/* resize test : Jinhyuk    */
 		var footer_filter = $(document).find(".ui-page-active").find(":jqmData(role='footer')");		
-		if(footer_filter.find(".ui-navbar").is(".ui-controlbar-s")){		
+//		if(footer_filter.find(".ui-navbar").is(".ui-controlbar-s")){		
 			footer_filter
 				.css("top",document.documentElement.clientHeight  - footer_filter.height())
 				.show();		
+			if(footer_filter.find(".ui-navbar").jqmData("style") == "toolbar"){
+				footer_filter.find(".ui-navbar")
+					.css("left", "144px")
+					.css("width", document.documentElement.clientWidth- footer_filter.find(".ui-navbar").siblings(".ui-btn").width());		
 		}
-		else
+//		}
+//		else
 //			footer_filter.css("top","0px");
 		/* resize test : Jinhyuk    */
 
@@ -256,6 +261,12 @@ $.mobile.fixedToolbars = (function() {
 						.css("top", $(".ui-page").find(":jqmData(role='footer')").eq(0).css("top"));
 					
 				}									
+				if(footer.is(".ui-footer-fixed")){
+					footer.css("top",document.documentElement.clientHeight-footer.height());
+				}
+				
+				
+												
 			/* Header position fix(remove transition) : Jinhyuk */
 			var next_id = $( event.target).attr("id");
 			$("#"+next_id).find(":jqmData(role='header')").removeClass( "fade in out" ).appendTo($.mobile.pageContainer);
