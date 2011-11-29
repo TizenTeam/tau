@@ -4,10 +4,7 @@
 	</div>
 	<div data-role="content">
 		<ul data-role="listview">
-			<li data-expandable="true" id="exp1" data-initial-expansion="true" class="ui-li-3-1-1 ui-li-dialogue">
-				3.1.1
-				<img class="ui-li-bigicon">
-			</li>
+			<li class="ui-li-3-1-1 ui-li-dialogue" data-expandable="true" id="exp1" data-initial-expansion="true">3.1.1</li>
 			<li class="ui-li-3-1-1 ui-li-dialogue" data-expanded-by="exp1">exp1-sub 1</li>
 			<li class="ui-li-3-1-1 ui-li-dialogue" data-expanded-by="exp1">exp1-sub 2</li>
 			<li class="ui-li-3-1-1 ui-li-dialogue" data-expanded-by="exp1">exp1-sub 3</li>
@@ -15,28 +12,32 @@
 			<li class="ui-li-3-1-1 ui-li-dialogue" data-expanded-by="exp1">exp1-sub 5</li>
 			<li class="ui-li-3-1-1 ui-li-dialogue" data-expanded-by="exp1">exp1-sub 6</li>
 			<li class="ui-li-3-1-1 ui-li-dialogue" data-expanded-by="exp1">exp1-sub 7</li>
-			<li data-expanded-by="exp1" data-expandable="true" id="exp2">
-				exp1-sub 2 (exp2) initially expanded
-				<img class="ui-li-bigicon">
+			<li data-expanded-by="exp1" data-expandable="true" id="exp2">exp1-sub 2 (exp2)</li>
+			<li class="ui-li-3-1-1" data-expanded-by="exp2">exp2-sub 1</li>
+			<li class="ui-li-3-1-1" data-expanded-by="exp2">exp2-sub 2</li>
+			<li class="ui-li-3-1-1" data-expanded-by="exp2">exp2-sub 3</li>
+			<li class="ui-li-3-2-1 ui-li-dialogue" data-expandable="true" id="exp3">
+				<span class="ui-li-text-main">3.2.1</span>
+				<span class="ui-li-text-sub">Subtext</span>
 			</li>
-<!--
-			<li data-expandable="true" id="exp1" data-initial-expansion="true">
-				exp1 (Initially expanded)
-				<img class="ui-li-bigicon">
+			<li class="ui-li-3-2-2 ui-li-dialogue" data-expandable="true" id="exp4">
+				<span class="ui-li-text-main">3.2.2</span>
+				<span class="ui-li-text-sub">Subtext</span>
 			</li>
-			<li data-expanded-by="exp1">exp1-sub 1</li>
-			<li data-expanded-by="exp1" data-expandable="true" id="exp2">
-				exp1-sub 2 (exp2) initially expanded
-				<img class="ui-li-bigicon">
+			<li class="ui-li-3-2-21 ui-li-dialogue" data-expandable="true" id="exp5">
+				<span class="ui-li-text-main">3.2.21</span>
+				<span class="ui-li-text-sub">Subtext</span>
+				<form><input type="radio" /></form>
 			</li>
-			<li data-expanded-by="exp2">exp2-sub 1</li>
-			<li data-expanded-by="exp2" data-expandable="true" id="exp3" data-initial-expansion="true">
-				exp2-sub 2 (exp3) initially expanded
-				<img class="ui-li-bigicon">
+			<li class="ui-li-3-2-25" data-expandable="true" id="exp6">
+				<span class="ui-li-color-bar" style="background-color:rgba(72, 136, 42, 1);"></span>
+				<span class="ui-li-text-main">3.2.25</span>
+				<span class="ui-li-text-sub">Subtext</span>
+<!--				<div data-role="button" data-inline="true" data-icon="call" data-style="circle"></div> -->
+				<img src="thumbnail.jpg" class="ui-li-bigicon">
 			</li>
-			<li data-expanded-by="exp3">exp3-sub 1</li>
-			<li data-expanded-by="exp3">exp3-sub 2</li>
--->
+
+
 		</ul>
 	</div>
 	<div data-role="footer">
