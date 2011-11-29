@@ -194,9 +194,9 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
 			label.addClass( this.checkedClass ).removeClass( this.uncheckedClass );
 			icon.addClass( this.checkedicon ).removeClass( this.uncheckedicon );
 			//SLP - start : for onoff text on icon
-			if ( icon.find( ".onoff" ) )
-				var textOnOff = icon.find( ".onoff-text" );
-				textOnOff.text( "On" );
+//			if ( icon.find( ".onoff" ) )
+//				var textOnOff = icon.find( ".onoff-text" );
+//				textOnOff.text( "On" );
 			//SLP - end
 
 		} else {
@@ -204,9 +204,9 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
 			label.removeClass( this.checkedClass ).addClass( this.uncheckedClass );
 			icon.removeClass( this.checkedicon ).addClass( this.uncheckedicon );
 			//SLP - start : for onoff text on icon
-			if ( label.find( ".onoff" ) )
-				var textOnOff = icon.find( ".onoff-text" );
-				textOnOff.text( "Off" );
+//			if ( label.find( ".onoff" ) )
+//				var textOnOff = icon.find( ".onoff-text" );
+//				textOnOff.text( "Off" );
 			//SLP - end
 		}
 
