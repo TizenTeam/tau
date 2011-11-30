@@ -163,9 +163,21 @@ $(document).bind("pagecreate", function () {
 		$.getScript( "./virtuallist-db-demo.js", function(data, textStatus)
 		{
 			$("ul").filter(function(){return $(this).data("role")=="virtuallistview";}).addClass("vlLoadSuccess");
+			$(".virtuallist_demo_page").die();
 			$("ul.ui-virtual-list-container").virtuallistview("create");
 		});
 	});
+	
+	/*Expandable list : Dummy DB load*/
+	$("#genlist_extendable_page").live("pagecreate", function(){
+		/*?_=ts code for no cache mechanism*/ 
+		$.getScript( "./virtuallist-db-demo.js", function(data, textStatus)
+		{
+			$("ul").filter(function(){return $(this).data("role")=="extendablelist";}).addClass("vlLoadSuccess");
+			$("#genlist-extendable-page").die();
+			$("ul.ui-extendable-list-container").extendablelist("create");
+		});
+	});	
 });
 
 $(document).bind("pagecreate", function() {
