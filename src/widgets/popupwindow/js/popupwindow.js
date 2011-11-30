@@ -158,12 +158,12 @@ $.widget( "todons.popupwindow", $.mobile.widget, {
 
     // Events on "screen" overlay
     ui.screen.bind( "vclick", function( event ) {
-	    console.log("Popup Close");
+//	    console.log("Popup Close");
         self.close();
     });
 
     $("[aria-haspopup='true'][aria-owns='" + popup.attr("id") + "']").bind("vclick", function(e) {
-	    console.log("Popup Open");
+//	    console.log("Popup Open");
       self.open(
         $(this).offset().left + $(this).outerWidth()  / 2,
         $(this).offset().top  + $(this).outerHeight() / 2);
