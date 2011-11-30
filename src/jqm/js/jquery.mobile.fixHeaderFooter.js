@@ -69,18 +69,15 @@ $.mobile.fixedToolbars = (function() {
 
 		/* resize test : Jinhyuk    */
 		var footer_filter = $(document).find(".ui-page-active").find(":jqmData(role='footer')");		
-//		if(footer_filter.find(".ui-navbar").is(".ui-controlbar-s")){		
-			footer_filter
-				.css("top",document.documentElement.clientHeight  - footer_filter.height())
-				.show();		
-			if(footer_filter.find(".ui-navbar").jqmData("style") == "toolbar"){
-				footer_filter.find(".ui-navbar")
-					.css("left", "144px")
-					.css("width", document.documentElement.clientWidth- footer_filter.find(".ui-navbar").siblings(".ui-btn").width());		
-		}
-//		}
-//		else
-//			footer_filter.css("top","0px");
+		
+		footer_filter
+			.css("top",document.documentElement.clientHeight  - footer_filter.height())
+			.show();	
+		if(footer_filter.find(".ui-navbar").jqmData("style") == "toolbar"){
+			footer_filter.find(".ui-navbar")
+				.css("left", "144px")
+				.css("width", document.documentElement.clientWidth- footer_filter.find(".ui-navbar").siblings(".ui-btn").width());		
+		}					
 		/* resize test : Jinhyuk    */
 
 		if ( !autoHideMode && currentstate === "overlay" ) {
@@ -265,7 +262,13 @@ $.mobile.fixedToolbars = (function() {
 					footer.css("top",document.documentElement.clientHeight-footer.height());
 				}
 				
-				
+			/* Increase Content size with dummy <div> because of footer height */
+			if(footer.length != 0 && $(".ui-page-active").find(".dummy-div").length == 0){
+				$( event.target ).find(":jqmData(role='content')").append('<div class="dummy-div"></div>');
+				$(".dummy-div")	
+					.css("width", footer.width())
+					.css("height", footer.height());		
+			}					
 												
 			/* Header position fix(remove transition) : Jinhyuk */
 			var next_id = $( event.target).attr("id");
