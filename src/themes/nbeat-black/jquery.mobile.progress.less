@@ -1,5 +1,52 @@
 @import "config.less";
 
+/* Progress - circle style */
+@img-height: 64px;
+@img-width: 64px;
+@bar-vmargin: 16px;
+@bar-hmargin: 1px;
+
+@-webkit-keyframes ui-rotate-animation {
+	from {
+		-webkit-transform: rotate(0deg);
+	} to {
+		-webkit-transform: rotate(360deg);
+	}
+}
+
+.ui-progress-container-circle-bg {
+	position: relative;
+	margin-top: @bar-hmargin;
+	margin-bottom: @bar-hmargin;
+	width: 100%;
+	height: @img-height;
+}
+
+.ui-progress-container-circle {
+	position: relative;
+	margin-left: @bar-vmargin;
+	margin-right: @bar-vmargin;
+	height: @img-height;
+	width: @img-width;
+	float: right;
+	vertical-align: middle;
+}
+
+.ui-progress-circle {
+	position: relative;
+	top: 0;
+
+	/* FIXME: image is unbalanced - expanded it forced */
+	height: @img-height + 1;
+	width: @img-width + 1;
+
+	background: url(images/process/00_winset_list_process_01.png) no-repeat;
+}
+.ui-progress-circle-running {
+	-webkit-animation: ui-rotate-animation 1.5s infinite linear;
+}
+
+/* Progress - pending style */
 @bar-height: 16px;
 @bar-margin: 16px;
 @bar-color0: rgb(55, 55, 55);
@@ -13,7 +60,7 @@
 	}
 }
 
-.ui-progressing-container-pending {
+.ui-progress-container-pending {
 	position: relative;
 	margin-left: @bar-margin;
 	margin-right: @bar-margin;
@@ -21,7 +68,7 @@
 	overflow: hidden;
 }
 
-.ui-progressing-pending {
+.ui-progress-pending {
 	position: relative;
 	top: 0;
 	width: 100%;
@@ -53,7 +100,7 @@
 
 	-webkit-background-size: @bar-height * 2 @bar-height * 2;
 }
-.ui-progressing-pending-running {
+.ui-progress-pending-running {
 	-webkit-animation: ui-move-animation 0.5s infinite linear;
 }
 

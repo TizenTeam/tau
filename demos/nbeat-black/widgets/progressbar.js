@@ -39,27 +39,27 @@
 					cancelRequestAnimFrame(request);
 			})();
 		});
-		$(this).find('#pending').progressing({ running: true });
-		$(this).find('#progressing').progressing({ running: true });
+		$(this).find('#pending').progress({ running: true });
+		$(this).find('#progressing').progress({ running: true });
 
 		$('#pendingTest').bind('vclick', function (e) {
-			var running = $('#pending').progressing( "option", "running" );
+			var running = $('#pending').progress( "option", "running" );
 			// start/stop progressing animation
 			if ( running );
-				$('#pending').progressing( "option", "running", !running );
+				$('#pending').progress( "option", "running", !running );
 		});
 
 		$('#progressingTest').bind('vclick', function (e) {
-			var running = $('#progressing').progressing( "option", "running" );
+			var running = $('#progressing').progress( "option", "running" );
 			// start/stop progressing animation
 			if ( running );
-				$('#progressing').progressing( "option", "running", !running );
+				$('#progressing').progress( "option", "running", !running );
 		});
 	});
 
 	$('#progressbar-demo').bind('pagehide', function (e) {
-		$(this).find('#pending').progressing( "option", "running", false );
-		$(this).find('#progressing').progressing( "option", "running", false );
+		$(this).find('#pending').progress( "option", "running", false );
+		$(this).find('#progressing').progress( "option", "running", false );
 	});
 
 

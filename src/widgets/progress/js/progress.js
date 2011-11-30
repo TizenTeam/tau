@@ -8,7 +8,7 @@
  */
 
 (function ($, window, undefined) {
-	$.widget("todons.progressing", $.mobile.widget, {
+	$.widget("todons.progress", $.mobile.widget, {
 		options: {
 			style: "circle",
 			running: false
@@ -20,13 +20,13 @@
 				this.init = true;
 			}
 			var style = this.options.style;
-			$(this.element).addClass("ui-progressing-container-" + style+ "-bg");
-			$(this.element).find(".ui-progressing-"+style )
+			$(this.element).addClass("ui-progress-container-" + style+ "-bg");
+			$(this.element).find(".ui-progress-"+style )
 				.addClass( this.runningClass );
 		},
 
 		_hide: function () {
-			$(this.element).find(".ui-progressing-"+ this.options.style )
+			$(this.element).find(".ui-progress-"+ this.options.style )
 				.removeClass( this.runningClass );
 		},
 
@@ -68,10 +68,10 @@
 			if ( style )
 				this.options.style = style;
 
-			this.html = $('<div class="ui-progressing-container-'+ style + '">' +
-					'<div class="ui-progressing-' + style + '"></div>' +
+			this.html = $('<div class="ui-progress-container-'+ style + '">' +
+					'<div class="ui-progress-' + style + '"></div>' +
 					'</div>');
-			var runningClass = "ui-progressing-" + style + "-running";
+			var runningClass = "ui-progress-" + style + "-running";
 
 			$.extend( this, {
 				init: false,
@@ -83,6 +83,6 @@
 
 	// auto self-init widgets
 	$(document).bind("pagecreate", function (e) {
-		$(e.target).find(":jqmData(role='progressing')").progressing();
+		$(e.target).find(":jqmData(role='progress')").progress();
 	});
 })(jQuery, this);

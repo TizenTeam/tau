@@ -30,8 +30,7 @@ CSS_SRCS=	jquery.mobile.theme.less.css \
 		jquery.mobile.datetimepicker.less.css \
 		jquery.mobile.ctxpopup.less.css \
 		jquery.mobile.progressbar.less.css \
-		jquery.mobile.progress_pending.less.css \
-		jquery.mobile.progressing.less.css \
+		jquery.mobile.progress.less.css \
 		jquery.mobile.slider.less.css \
 		jquery.mobile.imageslider.less.css \
 		jquery.mobile.tickernoti.less.css \
