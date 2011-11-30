@@ -61,7 +61,6 @@ $( ":jqmData(role='page'), :jqmData(role='dialog')" ).live( "pagecreate", functi
 			// Auto-add back btn on pages beyond first view
 			if ( o.addBackBtn && 
 				o.footerExist && /* SLP Default Footer : Jinhyuk */
-//				(role === "header" || role === "footer"  ) &&
 				(role === "footer"  ) &&
 				$( ".ui-page" ).length > 1 &&
 				$this.jqmData( "url" ) !== $.mobile.path.stripHash( location.hash ) &&
@@ -109,10 +108,9 @@ $( ":jqmData(role='page'), :jqmData(role='dialog')" ).live( "pagecreate", functi
 			
 			/* Add default footer to add backbtn */
 			thisTheme = "s";
-			if(	o.footerExist && !$.mobile.page.prototype.options.footerUserControl &&
+			if(	o.footerExist && 
 				$( ".ui-page" ).length > 1){
-				normalFooter = $("<div data-role='footer' class='ui-footer ui-bar-s ui-footer-fixed fade ui-fixed-overlay' data-position='fixed'></div>")
-					.insertAfter($page.find( ".ui-content" ));
+
 
 				backBtn = $( "<a href='#' class='ui-btn-back' data-"+ $.mobile.ns +"rel='back' data-"+ $.mobile.ns +"icon='header-back-btn'></a>" )
 					.attr( "data-"+ $.mobile.ns +"theme", o.backBtnTheme || thisTheme );
@@ -123,7 +121,12 @@ $( ":jqmData(role='page'), :jqmData(role='dialog')" ).live( "pagecreate", functi
 					}
 				}
 				else{
-						backBtn.appendTo(normalFooter);					
+					if(!$.mobile.page.prototype.options.footerUserControl) {
+						normalFooter = $("<div data-role='footer' class='ui-footer ui-bar-s ui-footer-fixed fade ui-fixed-overlay' data-position='fixed'></div>")
+							.insertAfter($page.find( ".ui-content" ));
+						backBtn.appendTo(normalFooter);						
+					}
+											
 				}	
 				if(backBtn){
 					backBtn.bind( "vclick", function( event ) {
