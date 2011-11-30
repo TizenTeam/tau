@@ -87,40 +87,6 @@
 		color : #767676;
 	}
 	
-	.ui-btn-back.ui-btn-down-s{
-		background : #6c6c6c;
-	}
-	.ui-btn-back{
-		position : absolute;
-		font-size : @font_size_default;
-
-		width : 110 * @unit_base;
-		height : 90 * @unit_base;
-		top : 0 * @unit_base;
-		left : 0 * @unit_base;
-
-		border : none;
-		background : #6c6c6c;
-		
-		.ui-btn-inner.ui-btn-icon-only {
-			padding : 0;
-			
-			width : 76 * @unit_base;
-			height : 38 * @unit_base;	
-			top : 28 * @unit_base;
-			left : 34 * @unit_base;			
-		 			 
-			background: 			#6c6c6c;			 
-			border-top : none;			
-			
-			border-right-style :  groove;
-			border-right-width : 1px;
-			border-top-right-radius : 0px;
-			border-bottom-right-radius : 0px;
-			
-		}
-	}
-
 	.ui-field-contain {		
 		.ui-title-extended-controlgroup {
 			position : absolute;
@@ -239,9 +205,52 @@
 }
 
 .ui-footer.ui-bar-s.ui-footer-fixed {
+	background : #1f1f1f;
+
 	height : 114 * @unit_base;
+	.ui-title{
+		font-size : 32 * @unit_base;
+	}
+
 }
 
+.ui-header.ui-bar-s, .ui-footer.ui-bar-s {
+	.ui-btn-back.ui-btn-down-s{
+		.ui-btn-inner.ui-btn-icon-only {
+			background : #353535;
+		}
+	}
+	.ui-btn-back{
+		position : absolute;
+		font-size : @font_size_default;
+
+		width : 144 * @unit_base;
+		height : 114 * @unit_base;
+		top : 0 * @unit_base;
+		left : 0 * @unit_base;
+
+		border-style : none;
+		border-width : 0px;
+		background : #1f1f1f;
+		
+		.ui-btn-inner.ui-btn-icon-only {
+			padding : 0;
+
+			width : 104 * @unit_base;
+			height : 74 * @unit_base;	
+			top : 20 * @unit_base;
+			left : 20 * @unit_base;			
+
+			background: 			#353535;			 		
+
+			border-color : black; 
+			border-width : 2 * @unit_base;
+			border-style :  groove;			
+		}
+	}
+
+
+}
 
 // NOTE: This class is applied to almost all JQM widgets!
 .ui-body-s {
@@ -316,53 +325,50 @@
 	text-decoration: none;
 }
 
-.ui-listview > .ui-li { 
-	border-bottom-color: #444444;	// 68 68 68 
-}
-.ui-listview > .ui-li-static {
-	background-color: @color_bg;
-}
-.ui-listview li.ui-btn-up-s {
-	background-color: @color_bg;
-	color:		@color_text;
-}
-.ui-listview li.ui-btn-hover-s,
-.ui-listview li.ui-btn-down-s {
-	background-color: #32414a;	// 50 65 74
-	color:		@color_text;
-}
-/* listview: fonts for li with a link */
-.ui-listview li.ui-btn-up-s > .ui-li > .ui-btn-text > a.ui-link-inherit,
-.ui-listview li.ui-btn-hover-s > .ui-li > .ui-btn-text > a.ui-link-inherit,
-.ui-listview li.ui-btn-down-s > .ui-li > .ui-btn-text > a.ui-link-inherit {
-	color:		@color_text;
-}
-/* listview divider */
-/* NOTE: this divider has no swatch tag! */
-.ui-listview li.ui-li-divider {
-	background: @color_bg_sub;	// 36 36 36
-	color:		@color_text_sub;	// 102 102 102
-}
-/* subitem */
-.ui-li-sub { color: @color_text_sub; }
-.ui-li-sub-setting { color: @color_text_setting; }
-
-// expandable list
-.ui-li-expandable {
-
-}
-
 .ui-listview {
+	border-top-color: #444444;
+	&> .ui-li { 
+		border-bottom-color: #444444;	// 68 68 68 
+	}
+	& > .ui-li-static {
+		background-color: @color_bg;
+	}
+	li.ui-btn-up-s {
+		background-color: @color_bg;
+		color:		@color_text;
+	}
+	li.ui-btn-hover-s, li.ui-btn-down-s {
+		background-color: #32414a;	// 50 65 74
+		color:		@color_text;
+	}
+	/* listview: fonts for li with a link */
+	li.ui-btn-up-s > .ui-li > .ui-btn-text > a.ui-link-inherit,
+	li.ui-btn-hover-s > .ui-li > .ui-btn-text > a.ui-link-inherit,
+	li.ui-btn-down-s > .ui-li > .ui-btn-text > a.ui-link-inherit {
+		color:		@color_text;
+	}
+	/* listview divider */
+	/* NOTE: this divider has no swatch tag! */
+	li.ui-li-divider {
+		background: @color_bg_sub;	// 36 36 36
+		color:		@color_text_sub;	// 102 102 102
+	}
+	/* subitem */
+	.ui-li-sub { color: @color_text_sub; }
+	.ui-li-sub-setting { color: @color_text_setting; }
+
+	// expandable list
+	.ui-li-expandable {
+
+	}
 	&> .ui-li-expanded {
 		background-color: rgb(31, 31, 31);
 	}
 	&> .ui-li-expanded .ui-li-expanded {
 		background-color: rgb(46, 46, 46);
 	}
-}
 
-// bubble
-.ui-listview {
+	// bubble
 	.ui-li-static {
 		&.ui-li-bubble-left {
 			// picked from 00_MessageBubble_BG_receive.png
@@ -380,7 +386,7 @@
 			color: #d30000;	// 211 0 0
 		}
 		&.ui-li-bubble-date {
-			background-color: #242b2c;	// 36 43 44
+			background-color: #424242;	// 66 66 66
 			color: #39a6d7;	// 57 166 215
 		}
 	}
@@ -430,7 +436,7 @@ a.ui-link-inherit {
 /*  Jinhyuk_Controlbar	*/
 .ui-controlbar-s, .ui-controlbar-left, .ui-controlbar-right {
 	border: 1px solid 		@bordercolor;
-	background: 			@footercolor; /*{a-bar-background-color}*/
+	background: 			#1f1f1f;
 	color: 					@color_36; /*{a-bar-color}*/
 	font-family: Helvetica, Arial, sans-serif;
 	font-weight: bold;
@@ -552,7 +558,7 @@ a.ui-link-inherit {
 
 .ui-toolbar-s {
 	.ui-btn, .ui-btn-up-s {
-		background: #161616;
+		background: #1f1f1f;
 		
 		border-left-width : 1px;
 		border-right-width : 1px;
@@ -829,10 +835,28 @@ a.ui-link-inherit {
 	.LESSborder-radius-all(20px); 
 }
 
-/* Jinhyuk : Add ctrl bar */
-	.ui-icon-ctrlbar-contact, .ui-icon-ctrlbar-favorites, .ui-icon-ctrlbar-group,
-	.ui-icon-ctrlbar-message, .ui-icon-ctrlbar-search, .ui-icon-ctrlbar-setting,
-	.ui-icon-ctrlbar-song	 {
+/* Jinhyuk : Add ctrl bar *//* SLP Default Footer : Jinhyuk */
+	.ui-icon-ctrlbar-account_sign-up, .ui-icon-ctrlbar-accounts, .ui-icon-ctrlbar-add-to-bookmarks, .ui-icon-ctrlbar-add-to-calendar, .ui-icon-ctrlbar-alarm, 
+	.ui-icon-ctrlbar-albums, .ui-icon-ctrlbar-area, .ui-icon-ctrlbar-artist, .ui-icon-ctrlbar-attach, .ui-icon-ctrlbar-back,
+	.ui-icon-ctrlbar-backward, .ui-icon-ctrlbar-bluetooth_preview, .ui-icon-ctrlbar-bookmarks, .ui-icon-ctrlbar-brightness, .ui-icon-ctrlbar-calendar,
+	.ui-icon-ctrlbar-call, .ui-icon-ctrlbar-camera, .ui-icon-ctrlbar-category, .ui-icon-ctrlbar-change_group, .ui-icon-ctrlbar-chat,	 
+	.ui-icon-ctrlbar-check, .ui-icon-ctrlbar-compose, .ui-icon-ctrlbar-composer, .ui-icon-ctrlbar-contacts, .ui-icon-ctrlbar-copy,	
+	.ui-icon-ctrlbar-create, .ui-icon-ctrlbar-create_folder, .ui-icon-ctrlbar-delete, .ui-icon-ctrlbar-dialer, .ui-icon-ctrlbar-DM,	
+	.ui-icon-ctrlbar-edit, .ui-icon-ctrlbar-editor, .ui-icon-ctrlbar-eng_eng_result, .ui-icon-ctrlbar-exchangs_register, .ui-icon-ctrlbar-Externalstorage,
+	.ui-icon-ctrlbar-favorite, .ui-icon-ctrlbar-features, .ui-icon-ctrlbar-forward, .ui-icon-ctrlbar-genre, .ui-icon-ctrlbar-help,		
+	.ui-icon-ctrlbar-home, .ui-icon-ctrlbar-info, .ui-icon-ctrlbar-length, .ui-icon-ctrlbar-list_by, .ui-icon-ctrlbar-logs,	
+	.ui-icon-ctrlbar-map, .ui-icon-ctrlbar-memolist, .ui-icon-ctrlbar-MemoryCard, .ui-icon-ctrlbar-mention, .ui-icon-ctrlbar-menu,	
+	.ui-icon-ctrlbar-more, .ui-icon-ctrlbar-move, .ui-icon-ctrlbar-multiview, .ui-icon-ctrlbar-multiview_02, .ui-icon-ctrlbar-multiview_03,	
+	.ui-icon-ctrlbar-multiview_04, .ui-icon-ctrlbar-multiview_05, .ui-icon-ctrlbar-multiview_06, .ui-icon-ctrlbar-multiview_07, .ui-icon-ctrlbar-multiview_08,
+	.ui-icon-ctrlbar-multiview_09, .ui-icon-ctrlbar-music_albums, .ui-icon-ctrlbar-pause, .ui-icon-ctrlbar-phone, .ui-icon-ctrlbar-Play,		
+	.ui-icon-ctrlbar-playlists, .ui-icon-ctrlbar-receive, .ui-icon-ctrlbar-reply, .ui-icon-ctrlbar-save, .ui-icon-ctrlbar-save_to_calender,	
+	.ui-icon-ctrlbar-scrap, .ui-icon-ctrlbar-search, .ui-icon-ctrlbar-send, .ui-icon-ctrlbar-set_as, .ui-icon-ctrlbar-settings,	
+	.ui-icon-ctrlbar-setup_wizard_previous, .ui-icon-ctrlbar-share, .ui-icon-ctrlbar-songs, .ui-icon-ctrlbar-stop_watch, .ui-icon-ctrlbar-store,	
+	.ui-icon-ctrlbar-synchronise_start_sync, .ui-icon-ctrlbar-synchronise_stop_01, .ui-icon-ctrlbar-synchronise_stop_02, .ui-icon-ctrlbar-synchronise_stop_03, .ui-icon-ctrlbar-view_result,	
+	.ui-icon-ctrlbar-tag, .ui-icon-ctrlbar-temp, .ui-icon-ctrlbar-timeline, .ui-icon-ctrlbar-timer, .ui-icon-ctrlbar-today,
+	.ui-icon-ctrlbar-top, .ui-icon-ctrlbar-trim, .ui-icon-ctrlbar-TTS, .ui-icon-ctrlbar-update, .ui-icon-ctrlbar-upload_export,	
+	.ui-icon-ctrlbar-volume, .ui-icon-ctrlbar-world_clock, .ui-icon-ctrlbar-year, .ui-icon-ctrlbar-add_tag, .ui-icon-ctrlbar-add_to_contact,	
+	.ui-icon-ctrlbar-close, .ui-icon-ctrlbar-groups, .ui-icon-ctrlbar-year, .ui-icon-ctrlbar-unread_message, .ui-icon-ctrlbar-weight {
 		background-color : transparent;
 
 		-moz-border-radius: 0px;
@@ -845,27 +869,323 @@ a.ui-link-inherit {
 		box-shadow: 0px 0px 0 					rgba(255,255,255,.4);			
 	}
 
-	.ui-icon-ctrlbar-contact {
-		background-image: url(images/01_tabbar_icon_contact.png);
+	.ui-icon-ctrlbar-account_sign-up {
+		background-image: url(images/controlbar/01_controlbar_icon_account_sign-up.png);
+	}
+	.ui-icon-ctrlbar-accounts {
+		background-image: url(images/controlbar/01_controlbar_icon_accounts.png);
+	}
+	.ui-icon-ctrlbar-add-to-bookmarks {
+		background-image: url(images/controlbar/01_controlbar_icon_add-to-bookmarks.png);
+	}
+	.ui-icon-ctrlbar-add-to-calendar {
+		background-image: url(images/controlbar/01_controlbar_icon_add-to-calendar.png);
+	}
+	.ui-icon-ctrlbar-alarm {
+		background-image: url(images/controlbar/01_controlbar_icon_alarm.png);
+	}
+	.ui-icon-ctrlbar-albums {
+		background-image: url(images/controlbar/01_controlbar_icon_albums.png);
+	}
+	.ui-icon-ctrlbar-area {
+		background-image: url(images/controlbar/01_controlbar_icon_area.png);
+	}
+	.ui-icon-ctrlbar-artist {
+		background-image: url(images/controlbar/01_controlbar_icon_artist.png);
+	}		
+	.ui-icon-ctrlbar-attach {
+		background-image: url(images/controlbar/01_controlbar_icon_attach.png);
+	}			
+	.ui-icon-ctrlbar-back {
+		background-image: url(images/controlbar/01_controlbar_icon_back.png);
+	}			
+	.ui-icon-ctrlbar-backward {
+		background-image: url(images/controlbar/01_controlbar_icon_backward.png);
+	}			
+	.ui-icon-ctrlbar-bluetooth_preview {
+		background-image: url(images/controlbar/01_controlbar_icon_bluetooth_preview.png);
+	}
+	.ui-icon-ctrlbar-bookmarks {
+		background-image: url(images/controlbar/01_controlbar_icon_bookmarks.png);
+	}		
+	.ui-icon-ctrlbar-brightness {
+		background-image: url(images/controlbar/01_controlbar_icon_brightness.png);
+	}		
+	.ui-icon-ctrlbar-calendar {
+		background-image: url(images/controlbar/01_controlbar_icon_calendar.png);
+	}			
+	.ui-icon-ctrlbar-call {
+		background-image: url(images/controlbar/01_controlbar_icon_call.png);
+	}
+	.ui-icon-ctrlbar-camera {
+		background-image: url(images/controlbar/01_controlbar_icon_camera.png);
+	}
+	.ui-icon-ctrlbar-category {
+		background-image: url(images/controlbar/01_controlbar_icon_category.png);
+	}
+	.ui-icon-ctrlbar-change_group {
+		background-image: url(images/controlbar/01_controlbar_icon_change_group.png);
+	}
+	.ui-icon-ctrlbar-chat {
+		background-image: url(images/controlbar/01_controlbar_icon_chat.png);
+	}
+	.ui-icon-ctrlbar-check {
+		background-image: url(images/controlbar/01_controlbar_icon_check.png);
+	}
+	.ui-icon-ctrlbar-compose {
+		background-image: url(images/controlbar/01_controlbar_icon_compose.png);
+	}
+	.ui-icon-ctrlbar-composer {
+		background-image: url(images/controlbar/01_controlbar_icon_composer.png);
+	}	
+	.ui-icon-ctrlbar-contacts {
+		background-image: url(images/controlbar/01_controlbar_icon_contacts.png);
 		}
-	.ui-icon-ctrlbar-favorites {
-		background-image: url(images/01_tabbar_icon_favorites.png);
+	.ui-icon-ctrlbar-copy {
+		background-image: url(images/controlbar/01_controlbar_icon_copy.png);
+	}	
+	.ui-icon-ctrlbar-create {
+		background-image: url(images/controlbar/01_controlbar_icon_create.png);
+	}	
+	.ui-icon-ctrlbar-create_folder {
+		background-image: url(images/controlbar/01_controlbar_icon_create_folder.png);
+	}		
+	.ui-icon-ctrlbar-delete {
+		background-image: url(images/controlbar/01_controlbar_icon_delete.png);
+	}	
+	.ui-icon-ctrlbar-dialer {
+		background-image: url(images/controlbar/01_controlbar_icon_dialer.png);
+	}		
+	.ui-icon-ctrlbar-DM {
+		background-image: url(images/controlbar/01_controlbar_icon_DM.png);
+	}	
+	.ui-icon-ctrlbar-edit {
+		background-image: url(images/controlbar/01_controlbar_icon_edit.png);
+	}		
+	.ui-icon-ctrlbar-editor {
+		background-image: url(images/controlbar/01_controlbar_icon_editor.png);
+	}			
+	.ui-icon-ctrlbar-eng_eng_result {
+		background-image: url(images/controlbar/01_controlbar_icon_eng_eng_result.png);
+	}		
+	.ui-icon-ctrlbar-exchangs_register {
+		background-image: url(images/controlbar/01_controlbar_icon_exchangs_register.png);
+	}	
+	.ui-icon-ctrlbar-Externalstorage {
+		background-image: url(images/controlbar/01_controlbar_icon_Externalstorage.png);
+	}					
+	.ui-icon-ctrlbar-favorite {
+		background-image: url(images/controlbar/01_controlbar_icon_favorite.png);
 		}
-	.ui-icon-ctrlbar-group {
-		background-image: url(images/01_tabbar_icon_group.png);
+	.ui-icon-ctrlbar-features {
+		background-image: url(images/controlbar/01_controlbar_icon_features.png);
+	}	
+	.ui-icon-ctrlbar-forward {
+		background-image: url(images/controlbar/01_controlbar_icon_forward.png);
+	}		
+	.ui-icon-ctrlbar-genre {
+		background-image: url(images/controlbar/01_controlbar_icon_genre.png);
+	}	
+	.ui-icon-ctrlbar-help {
+		background-image: url(images/controlbar/01_controlbar_icon_help.png);
+	}	
+	.ui-icon-ctrlbar-home {
+		background-image: url(images/controlbar/01_controlbar_icon_home.png);
+	}	
+	.ui-icon-ctrlbar-info {
+		background-image: url(images/controlbar/01_controlbar_icon_info.png);
+	}	
+	.ui-icon-ctrlbar-length {
+		background-image: url(images/controlbar/01_controlbar_icon_length.png);
 		}
-	.ui-icon-ctrlbar-message {
-		background-image: url(images/01_tabbar_icon_message.png);
+	.ui-icon-ctrlbar-list_by {
+		background-image: url(images/controlbar/01_controlbar_icon_list_by.png);
+	}		
+	.ui-icon-ctrlbar-logs {
+		background-image: url(images/controlbar/01_controlbar_icon_logs.png);
+	}
+	.ui-icon-ctrlbar-map {
+		background-image: url(images/controlbar/01_controlbar_icon_map.png);
+	}	
+	.ui-icon-ctrlbar-memolist {
+		background-image: url(images/controlbar/01_controlbar_icon_memolist.png);
+	}		
+	.ui-icon-ctrlbar-MemoryCard {
+		background-image: url(images/controlbar/01_controlbar_icon_MemoryCard.png);
+	}		
+	.ui-icon-ctrlbar-mention {
+		background-image: url(images/controlbar/01_controlbar_icon_mention.png);
+	}		
+	.ui-icon-ctrlbar-menu {
+		background-image: url(images/controlbar/01_controlbar_icon_menu.png);
+	}		
+	.ui-icon-ctrlbar-more {
+		background-image: url(images/controlbar/01_controlbar_icon_more.png);
+	}			
+	.ui-icon-ctrlbar-move {
+		background-image: url(images/controlbar/01_controlbar_icon_move.png);
+	}	
+	.ui-icon-ctrlbar-multiview {
+		background-image: url(images/controlbar/01_controlbar_icon_multiview.png);
+	}	
+	.ui-icon-ctrlbar-multiview_02 {
+		background-image: url(images/controlbar/01_controlbar_icon_multiview_02.png);
+	}
+	.ui-icon-ctrlbar-multiview_03 {
+		background-image: url(images/controlbar/01_controlbar_icon_multiview_03.png);
+	}
+	.ui-icon-ctrlbar-multiview_04 {
+		background-image: url(images/controlbar/01_controlbar_icon_multiview_04.png);
+	}
+	.ui-icon-ctrlbar-multiview_05 {
+		background-image: url(images/controlbar/01_controlbar_icon_multiview_05.png);
+	}
+	.ui-icon-ctrlbar-multiview_06 {
+		background-image: url(images/controlbar/01_controlbar_icon_multiview_06.png);
+	}	
+	.ui-icon-ctrlbar-multiview_07 {
+		background-image: url(images/controlbar/01_controlbar_icon_multiview_07.png);
+	}	
+	.ui-icon-ctrlbar-multiview_08 {
+		background-image: url(images/controlbar/01_controlbar_icon_multiview_08.png);
+	}	
+	.ui-icon-ctrlbar-multiview_09 {
+		background-image: url(images/controlbar/01_controlbar_icon_multiview_09.png);
+	}	
+	.ui-icon-ctrlbar-music_albums {
+		background-image: url(images/controlbar/01_controlbar_icon_music_albums.png);
+	}	
+	.ui-icon-ctrlbar-pause {
+		background-image: url(images/controlbar/01_controlbar_icon_pause.png);
+	}		
+	.ui-icon-ctrlbar-phone {
+		background-image: url(images/controlbar/01_controlbar_icon_phone.png);
+	}
+	.ui-icon-ctrlbar-Play {
+		background-image: url(images/controlbar/01_controlbar_icon_Play.png);
+	}
+	.ui-icon-ctrlbar-playlists {
+		background-image: url(images/controlbar/01_controlbar_icon_playlists.png);
+	}	
+	.ui-icon-ctrlbar-receive {
+		background-image: url(images/controlbar/01_controlbar_icon_receive.png);
+	}	
+	.ui-icon-ctrlbar-reply {
+		background-image: url(images/controlbar/01_controlbar_icon_reply.png);
+	}	
+	.ui-icon-ctrlbar-save {
+		background-image: url(images/controlbar/01_controlbar_icon_save.png);
+	}		
+	.ui-icon-ctrlbar-save_to_calender {
+		background-image: url(images/controlbar/01_controlbar_icon_save_to_calender.png);
+	}		
+	.ui-icon-ctrlbar-scrap {
+		background-image: url(images/controlbar/01_controlbar_icon_scrap.png);
 		}
 	.ui-icon-ctrlbar-search {
-		background-image: url(images/01_tabbar_icon_search.png);
+		background-image: url(images/controlbar/01_controlbar_icon_search.png);
+	}			
+	.ui-icon-ctrlbar-send {
+		background-image: url(images/controlbar/01_controlbar_icon_send.png);
+	}		
+	.ui-icon-ctrlbar-set_as {
+		background-image: url(images/controlbar/01_controlbar_icon_set_as.png);
+	}		
+	.ui-icon-ctrlbar-settings {
+		background-image: url(images/controlbar/01_controlbar_icon_settings.png);
+	}	
+	.ui-icon-ctrlbar-setup_wizard_previous {
+		background-image: url(images/controlbar/01_controlbar_icon_setup_wizard_previous.png);
+	}		
+	.ui-icon-ctrlbar-share {
+		background-image: url(images/controlbar/01_controlbar_icon_share.png);
+	}		
+	.ui-icon-ctrlbar-songs {
+		background-image: url(images/controlbar/01_controlbar_icon_songs.png);
+	}			
+	.ui-icon-ctrlbar-stop_watch {
+		background-image: url(images/controlbar/01_controlbar_icon_stop_watch.png);
+	}					
+	.ui-icon-ctrlbar-store {
+		background-image: url(images/controlbar/01_controlbar_icon_store.png);
+	}	
+	.ui-icon-ctrlbar-synchronise_start_sync {
+		background-image: url(images/controlbar/01_controlbar_icon_synchronise_start_sync.png);
+	}
+	.ui-icon-ctrlbar-synchronise_stop_01 {
+		background-image: url(images/controlbar/01_controlbar_icon_synchronise_stop_01.png);
+	}
+	.ui-icon-ctrlbar-synchronise_stop_02 {
+		background-image: url(images/controlbar/01_controlbar_icon_synchronise_stop_02.png);
+	}
+	.ui-icon-ctrlbar-synchronise_stop_03 {
+		background-image: url(images/controlbar/01_controlbar_icon_synchronise_stop_03.png);
 		}
-	.ui-icon-ctrlbar-setting {
-		background-image: url(images/01_tabbar_icon_setting.png);
+	.ui-icon-ctrlbar-synchronise_view_result {
+		background-image: url(images/controlbar/01_controlbar_icon_synchronise_view_result.png);
+	}
+	.ui-icon-ctrlbar-tag {
+		background-image: url(images/controlbar/01_controlbar_icon_tag.png);
+	}	
+	.ui-icon-ctrlbar-temp {
+		background-image: url(images/controlbar/01_controlbar_icon_temp.png);
+	}	
+	.ui-icon-ctrlbar-timeline {
+		background-image: url(images/controlbar/01_controlbar_icon_timeline.png);
 		}
-	.ui-icon-ctrlbar-song {
-		background-image: url(images/01_tabbar_icon_song.png);
+	.ui-icon-ctrlbar-timer {
+		background-image: url(images/controlbar/01_controlbar_icon_timer.png);
 		}
+	.ui-icon-ctrlbar-today {
+		background-image: url(images/controlbar/01_controlbar_icon_today.png);
+	}		
+	.ui-icon-ctrlbar-top {
+		background-image: url(images/controlbar/01_controlbar_icon_top.png);
+	}	
+	.ui-icon-ctrlbar-trim {
+		background-image: url(images/controlbar/01_controlbar_icon_trim.png);
+	}		
+	.ui-icon-ctrlbar-TTS {
+		background-image: url(images/controlbar/01_controlbar_icon_TTS.png);
+	}		
+	.ui-icon-ctrlbar-update {
+		background-image: url(images/controlbar/01_controlbar_icon_update.png);
+	}	
+	.ui-icon-ctrlbar-upload_export {
+		background-image: url(images/controlbar/01_controlbar_icon_upload_export.png);
+	}		
+	.ui-icon-ctrlbar-volume {
+		background-image: url(images/controlbar/01_controlbar_icon_volume.png);
+	}	
+	.ui-icon-ctrlbar-world_clock {
+		background-image: url(images/controlbar/01_controlbar_icon_world_clock.png);
+	}
+	.ui-icon-ctrlbar-year {
+		background-image: url(images/controlbar/01_controlbar_icon_year.png);
+	}
+	.ui-icon-ctrlbar-add_tag {
+		background-image: url(images/controlbar/01_controlbar_icon_add_tag.png);
+	}
+	.ui-icon-ctrlbar-add_to_contact {
+		background-image: url(images/controlbar/01_controlbar_icon_add_to_contact.png);
+	}
+	.ui-icon-ctrlbar-close {
+		background-image: url(images/controlbar/01_controlbar_icon_close.png);
+	}
+	.ui-icon-ctrlbar-groups {
+		background-image: url(images/controlbar/01_controlbar_icon_groups.png);
+	}
+	
+	.ui-icon-ctrlbar-unread_message {
+		background-image: url(images/controlbar/01_controlbar_icon_unread_message.png);
+	}
+	.ui-icon-ctrlbar-weight {
+		background-image: url(images/controlbar/01_controlbar_icon_weight.png);
+	}								
+	
+			
+				
+
 /* Jinhyuk : Add ctrl bar */
 
 

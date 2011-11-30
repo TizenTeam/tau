@@ -6,7 +6,16 @@ function initDB(){
 	$.getScript(pb_dbsrc + "?_=ts2477874287", function(data, textStatus)
 	{
 		$("ul").filter(function(){return $(this).data("role")=="virtuallistview";}).addClass("vlLoadSuccess");
-	
+		
+		/* DB Outer Join */
+		/* It's just sample app that use not real DB, but JSON Array. */
+		/* Later, real db system can support DB join by simple SQL query. */
+		$(window[pb_dbtable]).each(function(index)
+		{
+			this.group = window[pb_groupdbtable].group;
+			this.savedlocation = window[pb_groupdbtable][index].savedlocation;
+		});
+
 		/* Set counts */
 		nb_contacts = window[pb_dbtable].length;
 		nb_groups = 0;
@@ -17,19 +26,43 @@ function initDB(){
 	});
 };
 
-$("#queryInput").live( "input", function(events) {
+/* All contacts list */
+$("#all_contacts_queryInput").live( "input", function(events) {
 	
 	var query = "";
-	query = ".*" + $("#queryInput").val();
+	query = ".*" + $(this).val();
 
-	Phonebook.search(window[pb_dbtable], pb_searchField, query);
+	Phonebook.search(window[pb_dbtable], query, "#all_contacts_list");
 });
 
-$("#all_contacts_list li").live("click", function()
+$("#all_contacts_list li, #contacts_list_main li").live("click", function()
 {
-	Phonebook.getDetailview(window[pb_dbtable], $(this).data("pbid"));
+	Phonebook.getDetailview(window[pb_dbtable], $(this).data("luid"));
 });
 
+/* Contacts list */
+$("#contacts_list_queryInput").live( "input", function(events) {
+	
+	var query = "";
+	query = ".*" + $(this).val();
+
+	Phonebook.search(window[pb_dbtable], query, "#contacts_list_main");
+});
+
+/* Selected group's contacts list */
+$("#all_groups_list li.ui-li-expanded.ui-li-expand-transition-show").live("click", function(event)
+{
+	/* Get Title and count */
+	var titleString = $(this).text();
+	var selectedGroup = $(this).attr("id");
+	var selectedSaveLocation = $(this).data("expanded-by");
+	
+	/* Make selected group's contacts list */
+	var contacts_in_group = Phonebook.makeContactlist(window[pb_dbtable], window[pb_groupdbtable], selectedSaveLocation, selectedGroup);
+	
+	/* Push data and page transition */
+	Phonebook.pushContactList("#contacts_list_page", "#contacts_list_header h1", "#contacts_list_main", titleString, contacts_in_group);
+}); 
 
 /* Groups page : Get group list */
 $("#all_groups_page").bind("pagebeforecreate", function(){

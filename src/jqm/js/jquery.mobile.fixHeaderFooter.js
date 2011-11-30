@@ -69,13 +69,15 @@ $.mobile.fixedToolbars = (function() {
 
 		/* resize test : Jinhyuk    */
 		var footer_filter = $(document).find(".ui-page-active").find(":jqmData(role='footer')");		
-		if(footer_filter.find(".ui-navbar").is(".ui-controlbar-s")){		
-			footer_filter
-				.css("top",document.documentElement.clientHeight  - footer_filter.height())
-				.show();		
-		}
-		else
-//			footer_filter.css("top","0px");
+		
+		footer_filter
+			.css("top",document.documentElement.clientHeight  - footer_filter.height())
+			.show();	
+		if(footer_filter.find(".ui-navbar").jqmData("style") == "toolbar"){
+			footer_filter.find(".ui-navbar")
+				.css("left", "144px")
+				.css("width", document.documentElement.clientWidth- footer_filter.find(".ui-navbar").siblings(".ui-btn").width());		
+		}					
 		/* resize test : Jinhyuk    */
 
 		if ( !autoHideMode && currentstate === "overlay" ) {
@@ -208,19 +210,13 @@ $.mobile.fixedToolbars = (function() {
 						.css("position", "relative")
 						.css("top","206px" );										
 				}				
-				else {
-					if(s_theme_header.parent().is(".ui-dialog"))
-						s_theme_header.css("position", "relative");
-					else {
-						s_theme_header
-							.css("position", "fixed")
-							.css("top", "0px");
-					}
+
+				if(s_theme_header.children().is("a")){
 					if(title_style == "normal"){				
-						if(s_theme_header.find("a").length == 1 || s_theme_header.find("a").length == 2){}
-						else if(s_theme_header.find("a").length == 3){
+						if(s_theme_header.children("a").length == 1 || s_theme_header.children("a").length == 2){}
+						else if(s_theme_header.children("a").length == 3){
 							s_theme_header.find("a").eq(1)
-								.removeClass("ui-btn-right")
+							.removeClass("ui-btn-right")
 					.addClass("ui-title-normal-3btn");					
 							s_theme_header.find("a").eq(2)
 								.addClass("ui-btn-right");
@@ -230,11 +226,8 @@ $.mobile.fixedToolbars = (function() {
 						var group_length = s_theme_fieldcontain.find(".ui-radio").length;
 						
 						s_theme_header.addClass("ui-title-extended-height");
-						s_theme_fieldcontain.find(".ui-controlgroup")
-							.addClass("ui-title-extended-controlgroup");
-							
-						s_theme_fieldcontain						
-							.addClass("ui-title-extended-segment-style");
+						s_theme_fieldcontain.find(".ui-controlgroup").addClass("ui-title-extended-controlgroup");						
+						s_theme_fieldcontain.addClass("ui-title-extended-segment-style");
 	
 						if(group_length == 2 || group_length == 3)
 							s_theme_fieldcontain.find(".ui-controlgroup").addClass("ui-title-extended-controlgroup-" + group_length + "btn");
@@ -242,6 +235,13 @@ $.mobile.fixedToolbars = (function() {
 					}	
 					$( event.target ).find(".ui-content").addClass("ui-title-content-" + title_style + "-height");	
 				}	
+
+				if(s_theme_header.jqmData("position") == "fixed"){
+					s_theme_header
+						.css("position", "fixed")
+						.css("top", "0px");
+					$( event.target ).find(".ui-content").addClass("ui-title-content-" + title_style + "-height");							
+				}				
 				
 				var page = $( event.target ),
 				footer = page.find( ":jqmData(role='footer')" ),
@@ -258,6 +258,18 @@ $.mobile.fixedToolbars = (function() {
 						.css("top", $(".ui-page").find(":jqmData(role='footer')").eq(0).css("top"));
 					
 				}									
+				if(footer.is(".ui-footer-fixed")){
+					footer.css("top",document.documentElement.clientHeight-footer.height());
+				}
+				
+			/* Increase Content size with dummy <div> because of footer height */
+			if(footer.length != 0 && $(".ui-page-active").find(".dummy-div").length == 0){
+				$( event.target ).find(":jqmData(role='content')").append('<div class="dummy-div"></div>');
+				$(".dummy-div")	
+					.css("width", footer.width())
+					.css("height", footer.height());		
+			}					
+												
 			/* Header position fix(remove transition) : Jinhyuk */
 			var next_id = $( event.target).attr("id");
 			$("#"+next_id).find(":jqmData(role='header')").removeClass( "fade in out" ).appendTo($.mobile.pageContainer);

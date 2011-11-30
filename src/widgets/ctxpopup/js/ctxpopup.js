@@ -21,6 +21,7 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
         hscrollPoint: 0.7,
         horizontalPriority: [ 'up', 'down', 'left', 'right' ],
         directionPriority: [ 'left', 'right', 'up', 'down'],
+        pickerCenterSelector: '.current',
         initSelector: ":jqmData(role='ctxpopup')",
     },
     
@@ -86,7 +87,7 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
 
     },
  
-    pop: function(x_where, y_where) {
+    pop: function(x_where, y_where, owner) {
         if ( this.isOpen ) return;
 
         this.isOpen = true;
@@ -102,7 +103,7 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
             arrowRect = new SLPRect(
                                 0, 0, 
                                 arrow.outerWidth( true ),
-                                arrow.outerWidth( true )),
+                                arrow.outerHeight( true )),
             containerRect = new SLPRect(
                                 0, 0, 
                                 container.outerWidth( true ),
@@ -118,37 +119,55 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
         
         /* XXX: NEED TO REFACTOR THIS */
         if ( this.options.style == "picker" ) {
-            container.circularview( {
-            //   direction: "x",
-            //    showScrollBars: false,
-            });
-            
-            var itemWidth = container.find("li").outerWidth();
-            
-            this.elem.width( itemWidth * container.find("li").length );
-            
-            container.width( screenRect.w );
+            container.pannig = false;
+            container.circularview()
+                .bind('vclick', function(e) {
+                    //console.log("vclick");
+                    if ( this.panning ) {
+                        //console.log("prevent" );
+                        e.preventDefault();
+                        e.stopPropagation();
+                    }
+                })
+                .bind('scrollstart', function(e) {
+                    this.panning = true;
+                    //console.log('scrollstart');
+                })
+                .bind('scrollstop', function() {
+                    this.panning = false;
+                    //console.log('scrollstop');
+                });
+            var current = container.find( this.options.pickerCenterSelector );
+            if ( current ) {
+                container.circularview( 'centerTo', this.options.pickerCenterSelector );
+            }
+ 
             box.removeClass( "ui-selectmenu-hidden" ); 
             
+            ownerHeight = 0;
+            if ( owner ) {
+                ownerHeight = owner.height();
+            }
+
             // top
-            if ( y_where + containerRect.h + arrowRect.h < screenRect.h ) {
+            if ( y_where + containerRect.h + arrowRect.h + ownerHeight < screenRect.h ) {
                 
-                box.css( "top", y_where + screenRect.y );
+                box.css( "top", y_where + screenRect.y + ownerHeight );
                 box.css( "left", 0 );
 
-                arrow.css( "left", x_where - arrowRect.w / 2 );
+                arrow.css( "left", x_where - arrowRect.w / 2);
+                arrow.css( "top", 0 );
                 arrow.addClass("arrow-top");
             } else { // bottom
-                box.css( "top", y_where - containerRect.h - arrowRect.h + screenRect.y );
+                box.css( "top", y_where - containerRect.h - arrowRect.h + screenRect.y - ownerHeight );
                 box.css( "left", 0 );
-
-                arrow.css( "left", x_where - arrowRect.w / 2 );
+                
+                arrow.css( "left", x_where - arrowRect.w / 2);
                 arrow.addClass( "arrow-bottom" );
                 arrow.css( "top", containerRect.h );
-
                 container.css( "top", -arrowRect.h );
             }
-           return;
+            return;
         }
 
         var ul = this.elem.find("li"); 
@@ -356,6 +375,7 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
         this.ui.container.removeAttr( "style" );
         this.ui.arrow.removeAttr( "style" );
         this.isOpen = false;
+        $(this.elem).trigger('close');
     },
 
     _create: function() {
@@ -384,9 +404,10 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
         var ctxid = $(elem).attr( "data-ctxid" ); 
         if ( ctxid ) {
             owner = $(document).find( "#" + ctxid );
-            owner.bind( "vclick", function( e ) {
-                self.pop( e.clientX, e.clientY );
-            });
+            owner
+                .bind( "vclick", function( e ) {
+                    self.pop( e.clientX, e.clientY );
+                });
         }
         
         $.extend( self, {

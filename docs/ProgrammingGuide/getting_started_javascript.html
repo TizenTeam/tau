@@ -1,0 +1,17 @@
+<div data-role="page" id="getting_started_javascript" data-add-back-btn="true">
+	<div data-role="header">
+		<h1>Running your javascript code</h1>
+	</div>
+	<div data-role="content" class="guide">
+
+	<p>To load your javascript code, you can include your scripts by using &lt;script src="YOUR_SCRIPT_PATH"&gt;&lt;/script&gt; in the header section in your index.html. As jQuery and jQueryMobile are already loaded, you can any jQuery and jQueryMobile APIs in your script. </p>
+	<p>One thing you have to consider is that, your script can be run before all DOM nodes are loaded, which means that your DOM manipulation code cannot work. Therefore if you want to make sure that your script should be run after all DOM nodes are loaded, use domReady() function which is an opensource and included in web-ui-fw.js, like below;</p>
+	<pre class="guide"><code>
+	domReady(function() {
+		// Put your code in here... 
+	});
+	</code></pre>
+<p>Now your code will be run after DOM tree is ready.</p>
+	</div>
+</div>
+

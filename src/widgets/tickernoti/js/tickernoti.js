@@ -37,6 +37,13 @@
 			this.running = false;
 		},
 
+		close: function () {
+			$(this.html).removeClass( "show" ).removeClass( "hide" );
+			this._del_event();
+
+			this.running = false;
+		},
+
 		_add_event: function () {
 			var self = this;
 			var container = $(this.element).find(".ui-ticker");
@@ -119,4 +126,9 @@
 	$(document).bind("pagecreate create", function (e) {
 		$(e.target).find(":jqmData(role='tickernoti')").tickernoti();
 	});
+
+	$(document).bind("pagebeforehide", function (e) {
+		$(e.target).find(":jqmData(role='tickernoti')").tickernoti('close');
+	});
+
 })(jQuery, this);

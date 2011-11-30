@@ -17,60 +17,73 @@
 </head>
 
 <body id="phonebook_body">
-	<script id="tmpl_contacts_normal" type="text/x-jquery-tmpl">
-			<li class="ui-li-3-1-25" data-luid=${Luid}>
-				<span class="ui-li-text-main">
-				{{if name_first}}
-        			${name_first}
-    			{{/if}}
-				{{if name_middle}}
-        			 ${name_middle}
-    			{{/if}}
-				{{if name_last}}
-        			 ${name_last}
-    			{{/if}}
-				{{if name_suffix}}
-        			 ${name_suffix}	
-    			{{/if}}
-				{{if name_nick}}
-        			 <b class="nick-name">${name_nick}</b>
-    			{{/if}}
-				{{if savedlocation=="Google"}}
-					<img src="image/C02_account_01.png">
-				{{else savedlocation=="Facebook"}}
-					<img src="image/C02_account_02.png">
- 				{{else savedlocation=="Facebook"}}
-					<img src="image/C02_account_03.png">
-				{{else savedlocation=="Facebook"}}
-					<img src="image/C02_account_04.png">
-				{{else}}
-					<img src="image/C02_account_05.png">
-				{{/if}}
-				</span>
-				<img src=${photoid} class="ui-li-bigicon">
-			</li>
-	</script>
-	<script id="tmpl_contacts_title" type="text/x-jquery-tmpl">
-		All contacts (${counts})
-	</script>
-
-
 	<!-- Page: All Contacts -->
 	<div id="all_contacts_page" data-role="page">
-		<div data-role="header" data-position="fixed" id="all_contacts_header">
+	
+		<script id="tmpl_contacts_normal" type="text/x-jquery-tmpl">
+			<ul data-role="listview"> 
+				<ul data-role="swipelist">
+					<li class="ui-li-3-1-25" data-luid=${Luid}>
+						<div data-role="button" data-inline="true">Call</div>
+						<div data-role="button" data-inline="true">Message</div>
+						<div data-role="button" data-inline="true">Video call</div>
+						<div data-role="button" data-inline="true">Delete</div>
+						<div data-role="ui-list-cover">
+						<div>
+							<span class="ui-li-text-main">
+								{{if name_first}}
+        							${name_first}
+    							{{/if}}
+								{{if name_middle}}
+        			 				 ${name_middle}
+    							{{/if}}
+								{{if name_last}}
+        			 				 ${name_last}
+    							{{/if}}
+								{{if name_suffix}}
+        			 				 ${name_suffix}	
+    							{{/if}}
+								{{if name_nick}}
+        			 				<b class="nick-name"> ${name_nick}</b>
+    							{{/if}}
+								{{if savedlocation=="Google"}}
+									<img src="image/C02_account_01.png">
+								{{else savedlocation=="Facebook"}}
+									<img src="image/C02_account_02.png">
+ 								{{else savedlocation=="Facebook"}}
+									<img src="image/C02_account_03.png">
+								{{else savedlocation=="Facebook"}}
+									<img src="image/C02_account_04.png">
+								{{else}}
+									<img src="image/C02_account_05.png">
+								{{/if}}
+							</span>
+							<img src=${photoid} class="ui-li-bigicon">
+						</div>
+						</div>
+				    </li>
+				</ul>
+			</ul>			
+		</script>
+		
+		<script id="tmpl_contacts_title" type="text/x-jquery-tmpl">
+			All contacts (${counts})
+		</script>  
+			
+		<div id="all_contacts_header" data-role="header" data-position="fixed">
 			<h1>All contacts</h1>
 		</div><!-- /header -->
 	
 		<!--content start-->
 		<div data-role="content" style="top:100px; position:relative">
-			<div data-role="fieldcontain" data-position="fixed" id="SearchDiv">
-				<input type="search" id="queryInput" value=""/>
+			<div data-role="fieldcontain" data-position="fixed">
+				<input id="all_contacts_queryInput" type="search" value=""/>
 			</div>
-			<ul id="all_contacts_list" data-role="virtuallistview" data-template="tmpl_contacts_normal" data-dbtable="phonebookDB" data-dbkey = "luid">
+			<ul id="all_contacts_list" data-role="virtuallistview" data-template="tmpl_contacts_normal" data-swipelist="true" data-dbtable="phonebookDB" data-dbkey = "luid">
 			</ul>
 		</div><!--content end-->
-		<div data-role="footer"data-position ="fixed" id="all_contacts_footer">
-			<div data-role="navbar" data-style="toolbar" >
+		<div id="all_contacts_footer" data-role="footer"data-position ="fixed">
+			<div data-role="navbar" data-style="tabbar" >
 				<ul>
 					<li><a href="#">Back</a></li>
 					<li><a href="#">Edit</a></li>
@@ -79,6 +92,32 @@
 				</ul>
 			</div>				
 		</div>				
+	</div><!--page end-->
+
+	<!-- Page: Contacts List -->
+	<div id="contacts_list_page" data-role="page">
+		<div id="contacts_list_header" data-role="header" data-position="fixed">
+			<h1></h1>
+		</div><!-- /header -->
+	
+		<!--content start-->
+		<div data-role="content" style="top:100px; position:relative">
+			<div data-role="fieldcontain" data-position="fixed">
+				<input id="contacts_list_queryInput" type="search" value=""/>
+			</div>
+			<ul id="contacts_list_main" data-role="virtuallistview" data-template="tmpl_contacts_normal" data-swipelist="true" data-dbtable="phonebookDB" data-dbkey = "luid">
+			</ul>
+		</div><!--content end-->
+		<div id="contacts_list_footer" data-role="footer" data-position ="fixed">
+			<div data-role="navbar" data-style="toolbar" >
+				<ul>
+					<li><a href="#all_groups_page">Back</a></li>
+					<li><a href="#">Edit</a></li>
+					<li><a href="#all_groups_page">Groups</a></li>
+					<li><a href="#">Create</a></li>
+				</ul>
+			</div>				
+		</div>			
 	</div><!--page end-->
 
 	<!-- Page: Detail view -->
@@ -141,24 +180,24 @@
 			</li>
 		</script>
 		<script id = "tmpl_groups_expandable_groupName" type="text/x-jquery-tmpl">
-			<li id=${groupName} data-expanded-by=${savedLocation} class="ui-li-3-1-1 ui-li-3-1-1-dialogue">
+			<li id=${groupNameId} data-expanded-by=${savedLocation} class="ui-li-3-1-1 ui-li-3-1-1-dialogue">
 				<span class="ui-li-text-main">${groupName} (${groupCount})</span>
 			</li>
 		</script>
 		
-		<div data-role="header" data-position="fixed" id="all_groups_header">
+		<div id="all_groups_header" data-role="header" data-position="fixed">
 			<h1>Groups</h1>
 		</div><!-- /header -->
 	
 		<!--content start-->
 		<div data-role="content" style="top:100px; position:relative">
 			<ul id="all_groups_list" data-role="listview" data-dbtable="phonebookGroupsDB" data-dbkey = "luid">
-				<li class="ui-li-3-1-1 ui-li-3-1-1-dialogue" id="All_contacts_on_groups_list">
+				<li id="All_contacts_on_groups_list" class="ui-li-3-1-1 ui-li-3-1-1-dialogue">
 					<a href="#all_contacts_page"><span class="ui-li-text-main"></span></a>	<!-- Reuse tmpl_contacts_title -->
 				</li>
 			</ul>
 		</div><!--content end-->
-		<div data-role="footer"data-position ="fixed" id="all_groups_footer">
+		<div id="all_groups_footer" data-role="footer"data-position ="fixed">
 			<div data-role="navbar" data-style="toolbar" >
 				<ul>
 					<li><a href="#all_contacts_page">Back</a></li>
@@ -168,6 +207,6 @@
 				</ul>
 			</div>				
 		</div>				
-	</div><!--page end-->	
+	</div><!--page end-->
 </body> 
 </html>

@@ -183,7 +183,7 @@ $(document).bind("pagecreate", function () {
     $('#groupindex-demo').bind('pageshow', function () {
         $('#groupindex').scrolllistview();
     });
-
+/*
     $("#showVolumeButton").bind("vclick", function (e) {
         $("#myVolumeControl").volumecontrol("open");
     });
@@ -199,6 +199,7 @@ $(document).bind("pagecreate", function () {
         $("#myVolumeControl").volumecontrol("option", "title", "Volume");
       }
     });
+*/
     $("#myoptionheader").bind('collapse', function () {
         console.log('option header was collapsed');
     });

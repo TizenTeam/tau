@@ -48,6 +48,7 @@ $.widget( "mobile.textinput", $.mobile.widget, {
 				.tap(function( event ) {
 					input.val( "" ).focus();
 					input.trigger( "change" );
+					input.trigger( "input" );	//wongi_1124
 					clearbtn.addClass( "ui-input-clear-hidden" );
 					event.preventDefault();
 				})
