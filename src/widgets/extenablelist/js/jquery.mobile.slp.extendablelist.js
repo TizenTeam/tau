@@ -113,7 +113,7 @@ $.widget( "mobile.extendablelist", $.mobile.widget, {
 	    }
 	    
 	    $(o.id).trigger("create");
-	    $(o.id).extendablelist("create");
+	    $(o.id).extendablelist("refresh");
 	},
 	
 	recreate: function(newArray){

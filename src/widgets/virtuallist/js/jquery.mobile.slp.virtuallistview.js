@@ -383,20 +383,11 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 	    
 	    $(window).resize(o.id, t._resize);
 
-	    /* Prevent scroll touch event while DOM access */
-/*	    $(document).bind("scrollstart", function(){
-			$(document).bind("touchstart", function(event) {
-				  event.preventDefault();
-			});
-	    });
-*/	    
 	    if (o.childSelector == " ul")
 		{
 			$(o.id + " ul").swipelist();
 		}
 	    
-		/*$(o.id).virtuallistview();*/
-
 		t.refresh( true );
 	},
 	
