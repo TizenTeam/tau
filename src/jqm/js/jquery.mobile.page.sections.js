@@ -14,6 +14,7 @@ $.mobile.page.prototype.options.headerTheme  = "a";
 $.mobile.page.prototype.options.footerTheme  = "a";
 $.mobile.page.prototype.options.contentTheme = null;
 $.mobile.page.prototype.options.footerExist = true; /* SLP Default Footer : Jinhyuk */
+$.mobile.page.prototype.options.footerUserControl = false; /* SLP Default Footer : Jinhyuk */
 
 $( ":jqmData(role='page'), :jqmData(role='dialog')" ).live( "pagecreate", function( e ) {
 	
@@ -54,6 +55,8 @@ $( ":jqmData(role='page'), :jqmData(role='dialog')" ).live( "pagecreate", functi
 			
 			rightbtn = rightbtn || $headeranchors.eq( 1 ).addClass( "ui-btn-right" ).length;
 			
+			if(o.footerUserControl)
+				$.mobile.page.prototype.options.footerUserControl = "true";
 			
 			// Auto-add back btn on pages beyond first view
 			if ( o.addBackBtn && 
@@ -106,7 +109,7 @@ $( ":jqmData(role='page'), :jqmData(role='dialog')" ).live( "pagecreate", functi
 			
 			/* Add default footer to add backbtn */
 			thisTheme = "s";
-			if(	o.footerExist &&
+			if(	o.footerExist && !$.mobile.page.prototype.options.footerUserControl &&
 				$( ".ui-page" ).length > 1){
 				normalFooter = $("<div data-role='footer' class='ui-footer ui-bar-s ui-footer-fixed fade ui-fixed-overlay' data-position='fixed'></div>")
 					.insertAfter($page.find( ".ui-content" ));
