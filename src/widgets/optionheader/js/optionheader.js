@@ -109,7 +109,6 @@ $.widget("todons.optionheader", $.mobile.widget, {
         var options,
             theme,
             self = this,
-	    elementDefaultHeight = 54,
 	    elementHeight = 106,            
             parentPage;
 
@@ -135,7 +134,7 @@ $.widget("todons.optionheader", $.mobile.widget, {
             self.toggle();
         };
 
-    	if(this.element.height()==elementDefaultHeight || this.element.height() ==0)
+    	if(this.element.height()< elementHeight)
     	{
     		this.element.css("height", elementHeight);
     	}
