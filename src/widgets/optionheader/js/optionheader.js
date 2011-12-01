@@ -109,6 +109,8 @@ $.widget("todons.optionheader", $.mobile.widget, {
         var options,
             theme,
             self = this,
+	    elementDefaultHeight = 54,
+	    elementHeight = 106,            
             parentPage;
 
         // parse data-options
@@ -132,6 +134,11 @@ $.widget("todons.optionheader", $.mobile.widget, {
         this.clickHandler = function () {
             self.toggle();
         };
+
+    	if(this.element.height()==elementDefaultHeight || this.element.height() ==0)
+    	{
+    		this.element.css("height", elementHeight);
+    	}
 
         // get the element's dimensions
         // and to set its initial collapse state;

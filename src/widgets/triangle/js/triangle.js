@@ -31,6 +31,8 @@ $.widget( "todons.triangle", $.mobile.widget, {
 
   /* The widget needs to be realized for this function */
   _setBorders: function() {
+    var triangleDefaultHeight = 10;
+    if(this.element.height() == 0) this.element.css("height", triangleDefaultHeight);
     if (this.options.location === "top") {
       this.triangle.css("border-left-width",   this.element.height());
       this.triangle.css("border-top-width",    0);
@@ -72,6 +74,8 @@ $.widget( "todons.triangle", $.mobile.widget, {
   },
 
   _setColor: function(value, unconditional) {
+    if(value == "rgba(0, 0, 0, 0)") 
+      value = "#484848";
     if (value != this.options.color || unconditional)
       if (value != undefined)
         this.triangle.css("border-bottom-color", value);
