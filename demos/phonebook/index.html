@@ -123,17 +123,17 @@
 	<!-- Page: Detail view -->
 	<div id="contact_detilaview" data-role="page">
 	<script id="contacts_detailview_tmpl" type="text/x-jquery-tmpl">
-			<div>
-				<img src=${photoid} style="float:left">
-				<div class="contact_name_field">
+			<li class="ui-li-4-3-2">
+				<img src=${photoid}>
+				<span class="contact_name_field">
 				{{if name_first}}
         			${name_first}
     			{{/if}}
 				{{if name_last}}
         			 ${name_last}
     			{{/if}}
-				</div>
-				<div class="contact_subname_field">
+				</span>
+				<span class="contact_subname_field">
 				{{if name_middle}}
         			 ${name_middle}
     			{{/if}}
@@ -143,13 +143,13 @@
 				{{if name_nick}}
         			 ${name_nick}
     			{{/if}}
-				</div>
-				<div class="companyname_field">
-				{{if company}}
-					${company}
+				</span>
+				<span class="companyname_field">
+				{{if Company}}
+					${Company}
 				{{/if}}
-				</div>
-			<div>
+				</span>
+			</li>
 	</script>
 	
 	<div data-role="header" data-position="fixed" >
@@ -168,6 +168,8 @@
 
 	<!--content start-->
 	<div id="contact_detailview_content" data-role="content" style="top:100px; position:relative">
+		<ul id="contact_detailview_dialog_list" data-role="listview">
+		</ul>
 	</div><!--content end-->
 	</div><!--page end-->
 	

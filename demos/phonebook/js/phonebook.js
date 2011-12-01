@@ -53,9 +53,16 @@ Phonebook = {
 		
 		var htmlData = myTemplate.tmpl(contact);
 		
-		$("#contact_detailview_content").empty();
+		$("#contact_detailview_dialog_list").empty();
 		
-		$("#contact_detailview_content").append((htmlData).data('luid', contact.Luid));
+		$("#contact_detailview_dialog_list").append((htmlData).data('luid', contact.Luid));
+		
+		$("#contact_detilaview").bind("pagebeforeshow", function(){
+			
+			$("#contact_detailview_dialog_list").trigger("create");
+			
+			$("#contact_detailview_dialog_list").listview('refresh');
+		});
 		
 		$.mobile.changePage("#contact_detilaview");
 	},

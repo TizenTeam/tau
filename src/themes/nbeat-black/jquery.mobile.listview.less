@@ -1091,6 +1091,44 @@ ul.ui-listview {
 		.LESStext-sub-3line-left2(@list-li-padding-horizontal, @list-li-top-padding + 2 * @list-li-sub-line-height);
 	}
 
+	// Special dialogue for Phonebook
+	&> li.ui-li-4-3-2 {
+		height : 190px;
+		padding : 0px;
+	
+		.ui-li-thumb {
+			float : left;
+			height : 128px;
+			max-height: 128px;
+			width : 128px;
+			max-width: 128px;
+			left: 32px;
+			top: 28px;			
+		}
+		
+		span.contact_name_field {
+			position : absolute;
+			font-size : @list-font-size-main;
+			left : 184px;
+			top : 32px;
+			height : 54px;
+		}
+		
+		span.contact_subname_field {
+			position : absolute;
+			font-size : @list-font-size-sub;
+			left : 184px;
+			top : 94px;
+		}
+		
+		span.companyname_field {
+			position : absolute;
+			font-size : @list-font-size-sub;
+			left : 184px;
+			top : 126px;
+		}
+	}
+
 
 	// Dialogue 
 	&> li.ui-li-dialogue {
