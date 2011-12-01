@@ -53,7 +53,8 @@ $.mobile.fixedToolbars = (function() {
 		touchStopEvent = supportTouch ? "touchend" : "mouseup",
 		stateBefore = null,
 		scrollTriggered = false,
-		touchToggleEnabled = true;
+		touchToggleEnabled = true,
+		defaultFooterHeight = 114;
 
 	function showEventCallback( event ) {
 		// An event that affects the dimensions of the visual viewport has
@@ -68,8 +69,13 @@ $.mobile.fixedToolbars = (function() {
 
 
 		/* resize test : Jinhyuk    */
+		if($(document).find(".ui-page-active").length)
 		var footer_filter = $(document).find(".ui-page-active").find(":jqmData(role='footer')");		
-		
+		else {
+			var footer_filter = $(document).find(":jqmData(role='footer')").eq(0); 	
+		}
+		if(footer_filter.height()< defaultFooterHeight)
+			footer_filter.css("height", defaultFooterHeight);
 		footer_filter
 			.css("top",document.documentElement.clientHeight  - footer_filter.height())
 			.show();	
@@ -263,11 +269,13 @@ $.mobile.fixedToolbars = (function() {
 				}
 				
 			/* Increase Content size with dummy <div> because of footer height */
-			if(footer.length != 0 && $(".ui-page-active").find(".dummy-div").length == 0){
+			if(footer.length != 0 && $( event.target ).find(".dummy-div").length == 0){
 				$( event.target ).find(":jqmData(role='content')").append('<div class="dummy-div"></div>');
 				$(".dummy-div")	
 					.css("width", footer.width())
 					.css("height", footer.height());		
+				if($(".dummy-div").height() < defaultFooterHeight)
+					$(".dummy-div").css("height", defaultFooterHeight);
 			}					
 												
 			/* Header position fix(remove transition) : Jinhyuk */

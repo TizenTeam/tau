@@ -62,7 +62,7 @@ $( ":jqmData(role='page'), :jqmData(role='dialog')" ).live( "pagecreate", functi
 			if ( o.addBackBtn && 
 				o.footerExist && /* SLP Default Footer : Jinhyuk */
 				(role === "footer"  ) &&
-				$( ".ui-page" ).length > 1 &&
+//				$( ".ui-page" ).length > 1 &&
 				$this.jqmData( "url" ) !== $.mobile.path.stripHash( location.hash ) &&
 				!leftbtn ) {
 
@@ -105,13 +105,9 @@ $( ":jqmData(role='page'), :jqmData(role='dialog')" ).live( "pagecreate", functi
 			// Add ARIA role
 			$this.attr( "role", "main" );
 
-			
 			/* Add default footer to add backbtn */
 			thisTheme = "s";
-			if(	o.footerExist && 
-				$( ".ui-page" ).length > 1){
-
-
+			if(o.footerExist){
 				backBtn = $( "<a href='#' class='ui-btn-back' data-"+ $.mobile.ns +"rel='back' data-"+ $.mobile.ns +"icon='header-back-btn'></a>" )
 					.attr( "data-"+ $.mobile.ns +"theme", o.backBtnTheme || thisTheme );
 
@@ -123,19 +119,17 @@ $( ":jqmData(role='page'), :jqmData(role='dialog')" ).live( "pagecreate", functi
 				else{
 					if(!$.mobile.page.prototype.options.footerUserControl) {
 						normalFooter = $("<div data-role='footer' class='ui-footer ui-bar-s ui-footer-fixed fade ui-fixed-overlay' data-position='fixed'></div>")
-							.insertAfter($page.find( ".ui-content" ));
+						.insertAfter($page.find( ".ui-content" ));
 						backBtn.appendTo(normalFooter);						
-					}
-											
+					}											
 				}	
 				if(backBtn){
 					backBtn.bind( "vclick", function( event ) {
-						window.history.back();
-						return false;
+							window.history.back();
+							return false;
 					});			
 				}		
 			}
-
 		}
 	});
 });
