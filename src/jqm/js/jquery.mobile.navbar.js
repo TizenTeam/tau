@@ -42,7 +42,7 @@ $.widget( "mobile.navbar", $.mobile.widget, {
 		$navbtns.buttonMarkup({
 			corners:	false,
 			shadow:		false,
-			iconpos:	iconpos
+		iconpos:	iconpos
 		});
 
 		$navbar.delegate( "a", "vclick", function( event ) {
