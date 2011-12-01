@@ -202,10 +202,18 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
 
 		// input[0].checked expando doesn't always report the proper value
 		// for checked='checked'
-		if ( $( input[ 0 ] ).prop( "checked" ) ) {
-			icon.addClass( this.checkedpressedicon ).removeClass( this.checkedicon );
+		if ( $( input[ 0 ] ).is( ":disabled" ) ) {
+			if ( $( input[ 0 ] ).prop( "checked" ) ) {
+				icon.addClass( this.checkedpressedicon ).removeClass( this.checkedicon );
+			} else {
+				icon.removeClass( this.uncheckedicon ).addClass( this.uncheckedpressedicon );
+			}
 		} else {
-			icon.removeClass( this.uncheckedicon ).addClass( this.uncheckedpressedicon );
+			if ( $( input[ 0 ] ).prop( "checked" ) ) {
+				icon.addClass( this.uncheckedpressedicon ).removeClass( this.checkedicon );
+			} else {
+				icon.removeClass( this.uncheckedicon ).addClass( this.checkedpressedicon );
+			}
 		}
 	},
 
@@ -216,10 +224,18 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
 
 		// input[0].checked expando doesn't always report the proper value
 		// for checked='checked'
-		if ( $( input[ 0 ] ).prop( "checked" ) ) {
-			icon.removeClass( this.checkedpressedicon ).addClass( this.checkedicon );
+		if ( $( input[ 0 ] ).is( ":disabled" ) ) {
+			if ( $( input[ 0 ] ).prop( "checked" ) ) {
+				icon.removeClass( this.checkedpressedicon ).addClass( this.checkedicon );
+			} else {
+				icon.addClass( this.uncheckedicon ).removeClass( this.uncheckedpressedicon );
+			}
 		} else {
-			icon.addClass( this.uncheckedicon ).removeClass( this.uncheckedpressedicon );
+			if ( $( input[ 0 ] ).prop( "checked" ) ) {
+				icon.removeClass( this.uncheckedpressedicon ).addClass( this.checkedicon );
+			} else {
+				icon.addClass( this.uncheckedicon ).removeClass( this.checkedpressedicon );
+			}
 		}
 	},
 
