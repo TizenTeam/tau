@@ -2,7 +2,8 @@
 * jQuery Mobile Framework : scrollview plugin
 * Copyright (c) 2010 Adobe Systems Incorporated - Kin Blas (jblas@adobe.com)
 * Dual licensed under the MIT (MIT-LICENSE.txt) and GPL (GPL-LICENSE.txt) licenses.
-* Note: Code is in draft form and is subject to change 
+* Note: Code is in draft form and is subject to change
+* Modified by koeun.choi@samsung.com
 */
 (function($,window,document,undefined){
 
@@ -10,79 +11,74 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 	options: {
 		fps:               60,    // Frames per second in msecs.
 		direction:         null,  // "x", "y", or null for both.
-	
+
 		scrollDuration:    2000,  // Duration of the scrolling animation in msecs.
 		overshootDuration: 250,   // Duration of the overshoot animation in msecs.
 		snapbackDuration:  500,   // Duration of the snapback animation in msecs.
-	
+
 		moveThreshold:     10,   // User must move this many pixels in any direction to trigger a scroll.
 		moveIntervalThreshold:     150,   // Time between mousemoves must not exceed this threshold.
-	
+
 		scrollMethod:      "translate",  // "translate", "position", "scroll"
-	
+
 		startEventName:    "scrollstart",
 		updateEventName:   "scrollupdate",
 		stopEventName:     "scrollstop",
-	
+
 		eventType:         $.support.touch ? "touch" : "mouse",
-	
+
 		showScrollBars:    true,
-		
+
 		pagingEnabled:     false,
 		delayedClickSelector: "a,input,textarea,select,button,.ui-btn",
 		delayedClickEnabled: false
 	},
 
-	_makePositioned: function($ele)
-	{
+	_makePositioned: function($ele)	{
 		if ($ele.css("position") == "static")
 			$ele.css("position", "relative");
 	},
 
-	_create: function()
-	{ 
+	_create: function() {
 		this._$clip = $(this.element).addClass("ui-scrollview-clip");
+
 		var $child = this._$clip.children();
-		if ($child.length > 1) {
+		if ($child.length > 1)
 			$child = this._$clip.wrapInner("<div></div>").children();
-		}
+
 		this._$view = $child.addClass("ui-scrollview-view");
 
 		this._$clip.css("overflow", this.options.scrollMethod === "scroll" ? "scroll" : "hidden");
 		this._makePositioned(this._$clip);
 
-		this._$view.css("overflow", "hidden");
-
 		// Turn off our faux scrollbars if we are using native scrolling
 		// to position the view.
-
-		this.options.showScrollBars = this.options.scrollMethod === "scroll" ? false : this.options.showScrollBars;
+		if (this.options.scrollMethod === "scroll")
+			this.options.showScrollBars = false;
 
 		// We really don't need this if we are using a translate transformation
 		// for scrolling. We set it just in case the user wants to switch methods
 		// on the fly.
-
 		this._makePositioned(this._$view);
 		this._$view.css({ left: 0, top: 0 });
 
 		this._sx = 0;
 		this._sy = 0;
-	
+
 		var direction = this.options.direction;
-		this._hTracker = (direction !== "y")   ? new MomentumTracker(this.options) : null;
+		this._hTracker = (direction !== "y") ? new MomentumTracker(this.options) : null;
 		this._vTracker = (direction !== "x") ? new MomentumTracker(this.options) : null;
-	
-		this._timerInterval = 1000/this.options.fps;
+
+		this._timerInterval = 1000 / this.options.fps;
 		this._timerID = 0;
-	
+
 		var self = this;
-		this._timerCB = function(){ self._handleMomentumScroll(); };
-	
+		this._timerCB = function() { self._handleMomentumScroll(); };
+
 		this._addBehaviors();
 	},
 
-	_startMScroll: function(speedX, speedY)
-	{
+	_startMScroll: function(speedX, speedY) {
 		this._stopMScroll();
 		this._showScrollBars();
 
@@ -92,8 +88,7 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 		this._$clip.trigger(this.options.startEventName);
 
 		var ht = this._hTracker;
-		if (ht)
-		{
+		if (ht) {
 			var c = this._$clip.width();
 			var v = this._$view.width();
 			ht.start(this._sx, speedX, duration, (v > c) ? -(v - c) : 0, 0);
@@ -101,8 +96,7 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 		}
 
 		var vt = this._vTracker;
-		if (vt)
-		{
+		if (vt) {
 			var c = this._$clip.height();
 			var v = this._$view.height();
 			vt.start(this._sy, speedY, duration, (v > c) ? -(v - c) : 0, 0);
@@ -115,10 +109,8 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 			this._stopMScroll();
 	},
 
-	_stopMScroll: function()
-	{
-		if (this._timerID)
-		{
+	_stopMScroll: function() {
+		if (this._timerID) {
 			this._$clip.trigger(this.options.stopEventName);
 			clearTimeout(this._timerID);
 		}
@@ -133,24 +125,21 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 		this._hideScrollBars();
 	},
 
-	_handleMomentumScroll: function()
-	{
+	_handleMomentumScroll: function() {
 		var keepGoing = false;
 		var v = this._$view;
 
 		var x = 0, y = 0;
 
 		var vt = this._vTracker;
-		if (vt)
-		{
+		if (vt) {
 			vt.update();
 			y = vt.getPosition();
 			keepGoing = !vt.done();
 		}
 
 		var ht = this._hTracker;
-		if (ht)
-		{
+		if (ht) {
 			ht.update();
 			x = ht.getPosition();
 			keepGoing = keepGoing || !ht.done();
@@ -160,13 +149,12 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 		this._$clip.trigger(this.options.updateEventName, [ { x: x, y: y } ]);
 
 		if (keepGoing)
-			this._timerID = setTimeout(this._timerCB, this._timerInterval);	
+			this._timerID = setTimeout(this._timerCB, this._timerInterval);
 		else
 			this._stopMScroll();
 	},
 
-	_setScrollPosition: function(x, y)
-	{
+	_setScrollPosition: function(x, y, duration) {
 		this._sx = x;
 		this._sy = y;
 
@@ -174,48 +162,54 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 
 		var sm = this.options.scrollMethod;
 
-		switch (sm)
-		{
-			case "translate":
-				setElementTransform($v, x + "px", y + "px");
-				break;
-			case "position":
-				$v.css({left: x + "px", top: y + "px"});
-				break;
-			case "scroll":
-				var c = this._$clip[0];
-				c.scrollLeft = -x;
-				c.scrollTop = -y;
-				break;
+		switch (sm) {
+		case "translate":
+			setElementTransform($v, x + "px", y + "px", duration);
+			break;
+		case "position":
+			$v.css({left: x + "px", top: y + "px"});
+			break;
+		case "scroll":
+			var c = this._$clip[0];
+			c.scrollLeft = -x;
+			c.scrollTop = -y;
+			break;
 		}
 
 		var $vsb = this._$vScrollBar;
 		var $hsb = this._$hScrollBar;
 
-		if ($vsb)
-		{
+		if ($vsb) {
 			var $sbt = $vsb.find(".ui-scrollbar-thumb");
-			if (sm === "translate")
-				setElementTransform($sbt, "0px", -y/$v.height() * $sbt.parent().height() + "px");
-			else
-				$sbt.css("top", -y/$v.height()*100 + "%");
+			if (sm === "translate") {
+				setElementTransform($sbt, "0px",
+					-y / $v.height() * $sbt.parent().height() + "px", duration);
+			} else {
+				$sbt.css("top", -y / $v.height() * 100 + "%");
+			}
 		}
 
-		if ($hsb)
-		{
+		if ($hsb) {
 			var $sbt = $hsb.find(".ui-scrollbar-thumb");
-			if (sm === "translate")
-				setElementTransform($sbt,  -x/$v.width() * $sbt.parent().width() + "px", "0px");
-			else
+			if (sm === "translate") {
+				setElementTransform($sbt,
+					-x / $v.width() * $sbt.parent().width() + "px", "0px", duration);
+			} else {
 				$sbt.css("left", -x/$v.width()*100 + "%");
+			}
 		}
 	},
 
-	scrollTo: function(x, y, duration)
-	{
+	scrollTo: function(x, y, duration) {
 		this._stopMScroll();
-		if (!duration)
-			return this._setScrollPosition(x, y);
+		var sm = this.options.scrollMethod;
+
+		//currently support only animation for translate
+		//Don't want to use setTimeout algorithm for animation.
+		if (!duration || (duration && sm === "translate") )
+			return this._setScrollPosition(x, y, duration);
+
+		//follow jqm default animation when the scrollmethod is not translate. 
 
 		x = -x;
 		y = -y;
@@ -227,16 +221,13 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 		var sy = this._sy;
 		var dx = x - sx;
 		var dy = y - sy;
-		var tfunc = function(){
+		var tfunc = function() {
 			var elapsed = getCurrentTime() - start;
-			if (elapsed >= duration)
-			{
+			if (elapsed >= duration) {
 				self._timerID = 0;
 				self._setScrollPosition(x, y);
-			}
-			else
-			{
-				var ec = efunc(elapsed/duration, elapsed, 0, 1, duration);
+			} else {
+				var ec = efunc(elapsed / duration, elapsed, 0, 1, duration);
 				self._setScrollPosition(sx + (dx * ec), sy + (dy * ec));
 				self._timerID = setTimeout(tfunc, self._timerInterval);
 			}
@@ -245,27 +236,25 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 		this._timerID = setTimeout(tfunc, this._timerInterval);
 	},
 
-	getScrollPosition: function()
-	{
+	getScrollPosition: function() {
 		return { x: -this._sx, y: -this._sy };
 	},
 
-	_getScrollHierarchy: function()
-	{
+	_getScrollHierarchy: function() {
 		var svh = [];
-		this._$clip.parents(".ui-scrollview-clip").each(function(){
+		this._$clip.parents(".ui-scrollview-clip").each(function() {
 			var d = $(this).jqmData("scrollview");
-			if (d) svh.unshift(d);
+			if (d)
+				svh.unshift(d);
 		});
 		return svh;
 	},
 
-	_getAncestorByDirection: function(dir)
-	{
+	_getAncestorByDirection: function(dir) {
 		var svh = this._getScrollHierarchy();
 		var n = svh.length;
-		while (0 < n--)
-		{
+
+		while (0 < n--) {
 			var sv = svh[n];
 			var svdir = sv.options.direction;
 
@@ -275,18 +264,17 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 		return null;
 	},
 
-	_handleDragStart: function(e, ex, ey)
-	{
+	_handleDragStart: function(e, ex, ey) {
 		// Stop any scrolling of elements in our parent hierarcy.
-		$.each(this._getScrollHierarchy(),function(i,sv){ sv._stopMScroll(); });
+		$.each(this._getScrollHierarchy(), function(i, sv) { sv._stopMScroll(); });
 		this._stopMScroll();
 
 		var c = this._$clip;
 		var v = this._$view;
 
-		if (this.options.delayedClickEnabled) {
+		if (this.options.delayedClickEnabled)
 			this._$clickEle = $(e.target).closest(this.options.delayedClickSelector);
-		}
+
 		this._lastX = ex;
 		this._lastY = ey;
 		this._doSnapBackX = false;
@@ -296,38 +284,40 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 		this._directionLock = "";
 		this._didDrag = false;
 
-		if (this._hTracker)
-		{
+		if (this._hTracker) {
 			var cw = parseInt(c.css("width"), 10);
 			var vw = parseInt(v.css("width"), 10);
 			this._maxX = cw - vw;
-			if (this._maxX > 0) this._maxX = 0;
+
+			if (this._maxX > 0)
+				this._maxX = 0;
 			if (this._$hScrollBar)
-				this._$hScrollBar.find(".ui-scrollbar-thumb").css("width", (cw >= vw ? "100%" : Math.floor(cw/vw*100)+ "%"));
+				this._$hScrollBar.find(".ui-scrollbar-thumb").css("width", (cw >= vw ? "100%" : Math.floor(cw / vw * 100) + "%"));
 		}
 
-		if (this._vTracker)
-		{
+		if (this._vTracker) {
 			var ch = parseInt(c.css("height"), 10);
 			var vh = parseInt(v.css("height"), 10);
 			this._maxY = ch - vh;
-			if (this._maxY > 0) this._maxY = 0;
+
+			if (this._maxY > 0)
+				this._maxY = 0;
 			if (this._$vScrollBar)
-				this._$vScrollBar.find(".ui-scrollbar-thumb").css("height", (ch >= vh ? "100%" : Math.floor(ch/vh*100)+ "%"));
+				this._$vScrollBar.find(".ui-scrollbar-thumb").css("height", (ch >= vh ? "100%" : Math.floor(ch / vh * 100)+ "%"));
 		}
 
 		var svdir = this.options.direction;
 
 		this._pageDelta = 0;
 		this._pageSize = 0;
-		this._pagePos = 0; 
+		this._pagePos = 0;
 
-		if (this.options.pagingEnabled && (svdir === "x" || svdir === "y"))
-		{
+		if (this.options.pagingEnabled && (svdir === "x" || svdir === "y")) {
 			this._pageSize = svdir === "x" ? cw : ch;
 			this._pagePos = svdir === "x" ? this._sx : this._sy;
 			this._pagePos -= this._pagePos % this._pageSize;
 		}
+
 		this._lastMove = 0;
 		this._enableTracking();
 
@@ -337,14 +327,22 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 		// generation of "click" events.
 		//
 		// XXX: We should test if this has an effect on links! - kin
+		// XXX: It does affect links, and other input elements, if they
+		//      occur inside a scrollview; so make sure the event
+		//      occurred on something other than an input element or a link
+		//      before preventing its default and stopping its propagation
+		if (this.options.eventType == "mouse" || this.options.delayedClickEnabled) {
+			var shouldBlockEvent = !($(e.target).is('a, :input') ||
+                               $(e.target).parents('a, :input').length > 0);
 
-		if (this.options.eventType == "mouse" || this.options.delayedClickEnabled)
-			e.preventDefault();
-		e.stopPropagation();
+			if (shouldBlockEvent) {
+				e.stopPropagation();
+				e.preventDefault();
+			}
+		}
 	},
 
-	_propagateDragMove: function(sv, e, ex, ey, dir)
-	{
+	_propagateDragMove: function(sv, e, ex, ey, dir) {
 		this._hideScrollBars();
 		this._disableTracking();
 		sv._handleDragStart(e,ex,ey);
@@ -354,6 +352,9 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 
 	_handleDragMove: function(e, ex, ey)
 	{
+		if (!this._dragging)
+			return;
+
 		this._lastMove = getCurrentTime();
 
 		var v = this._$view;
@@ -362,34 +363,27 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 		var dy = ey - this._lastY;
 		var svdir = this.options.direction;
 
-		if (!this._directionLock)
-		{
+		if (!this._directionLock) {
 			var x = Math.abs(dx);
 			var y = Math.abs(dy);
 			var mt = this.options.moveThreshold;
 
-			if (x < mt && y < mt) {
+			if (x < mt && y < mt)
 				return false;
-			}
 
 			var dir = null;
-			var r = 0;
-			if (x < y && (x/y) < 0.5) {
+			if (x < y && (x / y) < 0.5)
 				dir = "y";
-			}
-			else if (x > y && (y/x) < 0.5) {
+			else if (x > y && (y / x) < 0.5)
 				dir = "x";
-			}
 
-			if (svdir && dir && svdir != dir)
-			{
+			if (svdir && dir && svdir != dir) {
 				// This scrollview can't handle the direction the user
 				// is attempting to scroll. Find an ancestor scrollview
 				// that can handle the request.
 
 				var sv = this._getAncestorByDirection(dir);
-				if (sv)
-				{
+				if (sv) {
 					this._propagateDragMove(sv, e, ex, ey, dir);
 					return false;
 				}
@@ -401,8 +395,7 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 		var newX = this._sx;
 		var newY = this._sy;
 
-		if (this._directionLock !== "y" && this._hTracker)
-		{
+		if (this._directionLock !== "y" && this._hTracker) {
 			var x = this._sx;
 			this._speedX = dx;
 			newX = x + dx;
@@ -410,25 +403,21 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 			// Simulate resistance.
 
 			this._doSnapBackX = false;
-			if (newX > 0 || newX < this._maxX)
-			{
-				if (this._directionLock === "x")
-				{
+			if (newX > 0 || newX < this._maxX) {
+				if (this._directionLock === "x") {
 					var sv = this._getAncestorByDirection("x");
-					if (sv)
-					{
+					if (sv) {
 						this._setScrollPosition(newX > 0 ? 0 : this._maxX, newY);
 						this._propagateDragMove(sv, e, ex, ey, dir);
 						return false;
 					}
 				}
-				newX = x + (dx/2);
+				newX = x + (dx / 2);
 				this._doSnapBackX = true;
 			}
 		}
 
-		if (this._directionLock !== "x" && this._vTracker)
-		{
+		if (this._directionLock !== "x" && this._vTracker) {
 			var y = this._sy;
 			this._speedY = dy;
 			newY = y + dy;
@@ -436,13 +425,10 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 			// Simulate resistance.
 
 			this._doSnapBackY = false;
-			if (newY > 0 || newY < this._maxY)
-			{
-				if (this._directionLock === "y")
-				{
+			if (newY > 0 || newY < this._maxY) {
+				if (this._directionLock === "y") {
 					var sv = this._getAncestorByDirection("y");
-					if (sv)
-					{
+					if (sv) {
 						this._setScrollPosition(newX, newY > 0 ? 0 : this._maxY);
 						this._propagateDragMove(sv, e, ex, ey, dir);
 						return false;
@@ -455,17 +441,20 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 
 		}
 
-		if (this.options.pagingEnabled && (svdir === "x" || svdir === "y"))
-		{
-			if (this._doSnapBackX || this._doSnapBackY)
+		if (this.options.pagingEnabled && (svdir === "x" || svdir === "y")) {
+			if (this._doSnapBackX || this._doSnapBackY) {
 				this._pageDelta = 0;
-			else
-			{
+			} else {
 				var opos = this._pagePos;
 				var cpos = svdir === "x" ? newX : newY;
 				var delta = svdir === "x" ? dx : dy;
 
-				this._pageDelta = (opos > cpos && delta < 0) ? this._pageSize : ((opos < cpos && delta > 0) ? -this._pageSize : 0);
+				if (opos > cpos && delta < 0)
+					this._pageDelta = this._pageSize;
+				else if (opos < cpos && delta > 0)
+					this._pageDelta = -this.pageSize;
+				else
+					this._pageDelta = 0;
 			}
 		}
 
@@ -477,11 +466,6 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 
 		this._showScrollBars();
 
-		// Call preventDefault() to prevent touch devices from
-		// scrolling the main window.
-
-		// e.preventDefault();
-		
 		return false;
 	},
 
@@ -491,25 +475,28 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 		var t = getCurrentTime();
 		var doScroll = l && (t - l) <= this.options.moveIntervalThreshold;
 
-		var sx = (this._hTracker && this._speedX && doScroll) ? this._speedX : (this._doSnapBackX ? 1 : 0);
-		var sy = (this._vTracker && this._speedY && doScroll) ? this._speedY : (this._doSnapBackY ? 1 : 0);
+		var sx = (this._hTracker && this._speedX && doScroll) ?
+				this._speedX : (this._doSnapBackX ? 1 : 0);
+		var sy = (this._vTracker && this._speedY && doScroll) ?
+			this._speedY : (this._doSnapBackY ? 1 : 0);
 
 		var svdir = this.options.direction;
-		if (this.options.pagingEnabled && (svdir === "x" || svdir === "y") && !this._doSnapBackX && !this._doSnapBackY)
-		{
+		if (this.options.pagingEnabled && (svdir === "x" || svdir === "y") &&
+				!this._doSnapBackX && !this._doSnapBackY) {
 			var x = this._sx;
 			var y = this._sy;
+
 			if (svdir === "x")
 				x = -this._pagePos + this._pageDelta;
 			else
 				y = -this._pagePos + this._pageDelta;
 
 			this.scrollTo(x, y, this.options.snapbackDuration);
-		}
-		else if (sx || sy)
+		} else if (sx || sy) {
 			this._startMScroll(sx, sy);
-		else
+		} else {
 			this._hideScrollBars();
+		}
 
 		this._disableTracking();
 
@@ -528,80 +515,68 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 		return this._didDrag ? false : undefined;
 	},
 
-	_enableTracking: function()
-	{
-		$(document).bind(this._dragMoveEvt, this._dragMoveCB);
-		$(document).bind(this._dragStopEvt, this._dragStopCB);
+	_enableTracking: function() {
+		this._dragging = true;
 	},
 
-	_disableTracking: function()
-	{
-		$(document).unbind(this._dragMoveEvt, this._dragMoveCB);
-		$(document).unbind(this._dragStopEvt, this._dragStopCB);
+	_disableTracking: function() {
+		this._dragging = false;
 	},
 
-	_showScrollBars: function()
-	{
+	_showScrollBars: function() {
 		var vclass = "ui-scrollbar-visible";
 		if (this._$vScrollBar) this._$vScrollBar.addClass(vclass);
 		if (this._$hScrollBar) this._$hScrollBar.addClass(vclass);
 	},
 
-	_hideScrollBars: function()
-	{
+	_hideScrollBars: function() {
 		var vclass = "ui-scrollbar-visible";
 		if (this._$vScrollBar) this._$vScrollBar.removeClass(vclass);
 		if (this._$hScrollBar) this._$hScrollBar.removeClass(vclass);
 	},
 
-	_addBehaviors: function()
-	{
+	_addBehaviors: function() {
 		var self = this;
-		if (this.options.eventType === "mouse")
-		{
-			this._dragStartEvt = "mousedown";
-			this._dragStartCB = function(e){ return self._handleDragStart(e, e.clientX, e.clientY); };
 
-			this._dragMoveEvt = "mousemove";
-			this._dragMoveCB = function(e){ return self._handleDragMove(e, e.clientX, e.clientY); };
-
-			this._dragStopEvt = "mouseup";
-			this._dragStopCB = function(e){ return self._handleDragStop(e); };
-		}
-		else // "touch"
-		{
-			this._dragStartEvt = "touchstart";
-			this._dragStartCB = function(e)
-			{
-				var t = e.originalEvent.targetTouches[0];
-				return self._handleDragStart(e, t.pageX, t.pageY);
+		if (this.options.eventType === "mouse") {
+			this._dragEvt = "mousedown mousemove mouseup";
+			this._dragCB = function (e) {
+				switch (e.type) {
+				case "mousedown":
+					return self._handleDragStart(e, e.clientX, e.clientY);
+				case "mousemove":
+					return self._handleDragMove(e, e.clientX, e.clientY);
+				case "mouseup":
+					return self._handleDragStop(e);
+				}
 			};
-
-			this._dragMoveEvt = "touchmove";
-			this._dragMoveCB = function(e)
-			{
-				var t = e.originalEvent.targetTouches[0];
-				return self._handleDragMove(e, t.pageX, t.pageY);
-			};
-
-			this._dragStopEvt = "touchend";
-			this._dragStopCB = function(e){ return self._handleDragStop(e); };
+		} else {
+			this._dragEvt = "touchstart touchmove touchend";
+			this._dragCB = function (e) {
+				switch (e.type) {
+				case "touchstart":
+					var t = e.originalEvent.targetTouches[0];
+					return self._handleDragStart(e, t.pageX, t.pageY);
+				case "touchmove":
+					var t = e.originalEvent.targetTouches[0];
+					return self._handleDragMove(e, t.pageX, t.pageY);
+				case "touchend":
+					return self._handleDragStop(e);
+				}
+			}
 		}
 
-		this._$view.bind(this._dragStartEvt, this._dragStartCB);
+		this._$view.bind(this._dragEvt, this._dragCB);
 
-		if (this.options.showScrollBars)
-		{
+		if (this.options.showScrollBars) {
 			var $c = this._$clip;
 			var prefix = "<div class=\"ui-scrollbar ui-scrollbar-";
 			var suffix = "\"><div class=\"ui-scrollbar-track\"><div class=\"ui-scrollbar-thumb\"></div></div></div>";
-			if (this._vTracker)
-			{
+			if (this._vTracker) {
 				$c.append(prefix + "y" + suffix);
 				this._$vScrollBar = $c.children(".ui-scrollbar-y");
 			}
-			if (this._hTracker)
-			{
+			if (this._hTracker) {
 				$c.append(prefix + "x" + suffix);
 				this._$hScrollBar = $c.children(".ui-scrollbar-x");
 			}
@@ -609,19 +584,25 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 	}
 });
 
-function setElementTransform($ele, x, y)
-{
+function setElementTransform($ele, x, y, duration) {
 	var v = "translate3d(" + x + "," + y + ", 0px)";
+	var transition;
+
+	if (!duration || duration === undefined)
+		transition = "none";
+	else
+		transition =  "-webkit-transform " + duration / 1000 + "s";
+
 	$ele.css({
 		"-moz-transform": v,
 		"-webkit-transform": v,
-		"transform": v
+		"transform": v,
+		"-webkit-transition": transition
 	});
-}
+ }
 
 
-function MomentumTracker(options)
-{
+function MomentumTracker(options) {
 	this.options = $.extend({}, options);
 	this.easing = "easeOutQuad";
 	this.reset();
@@ -675,15 +656,15 @@ $.extend(MomentumTracker.prototype, {
 		if (state == tstates.scrolling || state == tstates.overshot)
 		{
 			var dx = this.speed * (1 - $.easing[this.easing](elapsed/duration, elapsed, 0, 1, duration));
-	
+
 			var x = this.pos + dx;
-	
+
 			var didOverShoot = (state == tstates.scrolling) && (x < this.minPos || x > this.maxPos);
 			if (didOverShoot)
 				x = (x < this.minPos) ? this.minPos : this.maxPos;
-		
+
 			this.pos = x;
-	
+
 			if (state == tstates.overshot)
 			{
 				if (elapsed >= duration)
@@ -714,7 +695,7 @@ $.extend(MomentumTracker.prototype, {
 			if (elapsed >= duration)
 			{
 				this.pos = this.toPos;
-				this.state = tstates.done;		
+				this.state = tstates.done;
 			}
 			else
 				this.pos = this.fromPos + ((this.toPos - this.fromPos) * $.easing[this.easing](elapsed/duration, elapsed, 0, 1, duration));
@@ -734,21 +715,20 @@ jQuery.widget( "mobile.scrolllistview", jQuery.mobile.scrollview, {
 
 	_create: function() {
 		$.mobile.scrollview.prototype._create.call(this);
-	
+
 		// Cache the dividers so we don't have to search for them everytime the
 		// view is scrolled.
 		//
 		// XXX: Note that we need to update this cache if we ever support lists
 		//      that can dynamically update their content.
-	
+
 		this._$dividers = this._$view.find(":jqmData(role='list-divider')");
 		this._lastDivider = null;
 	},
 
-	_setScrollPosition: function(x, y)
-	{
+	_setScrollPosition: function(x, y) {
 		// Let the view scroll like it normally does.
-	
+
 		$.mobile.scrollview.prototype._setScrollPosition.call(this, x, y);
 
 		y = -y;
@@ -761,42 +741,70 @@ jQuery.widget( "mobile.scrolllistview", jQuery.mobile.scrollview, {
 		var dy = 0;
 		var nd = null;
 
-		for (var i = 0; i < cnt; i++)
-		{
+		for (var i = 0; i < cnt; i++) {
 			nd = $divs.get(i);
 			var t = nd.offsetTop;
-			if (y >= t)
-			{
+			if (y >= t) {
 				d = nd;
 				dy = t;
 			}
-			else if (d)
+
+			if (d)
 				break;
 		}
 
 		// If we found a divider to move position it at the top of the
 		// clip view.
 
-		if (d)
-		{
-			var h = d.offsetHeight;
-			var mxy = (d != nd) ? nd.offsetTop : (this._$view.get(0).offsetHeight);
-			if (y + h >= mxy)
-				y = (mxy - h) - dy;
-			else
-				y = y - dy;
+		if (!d)
+			return;
 
-			// XXX: Need to convert this over to using $().css() and supporting the non-transform case.
+		var h = d.offsetHeight;
+		var mxy = (d != nd) ? nd.offsetTop : (this._$view.get(0).offsetHeight);
 
-			var ld = this._lastDivider;
-			if (ld && d != ld) {
-				setElementTransform($(ld), 0, 0);
-			}
-			setElementTransform($(d), 0, y + "px");
-			this._lastDivider = d;
+		if (y + h >= mxy)
+			y = (mxy - h) - dy;
+		else
+			y = y - dy;
 
-		}
+		// XXX: Need to convert this over to using $().css() and supporting the non-transform case.
+
+		var ld = this._lastDivider;
+		if (ld && d != ld)
+			setElementTransform($(ld), 0, 0);
+
+		setElementTransform($(d), 0, y + "px");
+		this._lastDivider = d;
 	}
+});
+
+// auto-init scrollview and scrolllistview widgets
+$(document).bind('pagecreate create', function (e) {
+    $page = $(e.target);
+
+    $page.find(":jqmData(scroll):not(.ui-scrollview-clip)").each(function () {
+        var $this = $(this);
+
+        if ($this.hasClass("ui-scrolllistview")) {
+            $this.scrolllistview();
+        } else {
+            var st = $this.jqmData("scroll") + "";
+            var paging = st && st.search(/^[xy]p$/) != -1;
+            var dir = st && st.search(/^[xy]/) != -1 ? st.charAt(0) : null;
+
+            var opts = {};
+            if (dir)
+                opts.direction = dir;
+            if (paging)
+                opts.pagingEnabled = true;
+
+            var method = $this.jqmData("scroll-method");
+            if (method)
+                opts.scrollMethod = method;
+
+            $this.scrollview(opts);
+        }
+    });
 });
 
 })(jQuery,window,document); // End Component
