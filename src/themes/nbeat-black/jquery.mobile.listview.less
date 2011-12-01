@@ -13,6 +13,10 @@
 @list-font-size-sub:	32 * @unit_base;
 @list-font-size-divider: 28 * @unit_base;	// NOTE: defined in dialogue group
 
+@list-dialogue-font-size-main:	38 * @unit_base;
+@list-dialogue-font-size-sub:	32 * @unit_base;
+
+
 @list-font-weight:		normal;
 
 @list-li-height: 112 * @unit_base;
@@ -1108,7 +1112,8 @@ ul.ui-listview {
 		
 		span.contact_name_field {
 			position : absolute;
-			font-size : @list-font-size-main;
+			font-size : @list-dialogue-font-size-main;
+			color : @color_text_dialogue_main;
 			left : 184px;
 			top : 32px;
 			height : 54px;
@@ -1116,14 +1121,16 @@ ul.ui-listview {
 		
 		span.contact_subname_field {
 			position : absolute;
-			font-size : @list-font-size-sub;
+			font-size : @list-dialogue-font-size-sub;
+			color : @color_text_dialogue_sub;
 			left : 184px;
 			top : 94px;
 		}
 		
 		span.companyname_field {
 			position : absolute;
-			font-size : @list-font-size-sub;
+			font-size : @list-dialogue-font-size-sub;
+			color : @color_text_dialogue_sub;
 			left : 184px;
 			top : 126px;
 		}
@@ -1133,6 +1140,12 @@ ul.ui-listview {
 	// Dialogue 
 	&> li.ui-li-dialogue {
 		border-left: @list-li-dialogue-width rgba(68, 68, 68, 255) solid;
+		border-top-width: 0px;	//wongi_1201 //for phonebook
+	}
+	
+	&> li.ui-li-dialogue.ui-li-divider {
+		height: 32px;
+		padding : 0px;
 	}
 
 }
