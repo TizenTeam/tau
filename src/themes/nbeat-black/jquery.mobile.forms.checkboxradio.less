@@ -173,7 +173,9 @@
 .ui-icon-checkbox-off, .ui-icon-checkbox-on, 
 .favorite .ui-icon-checkbox-off, .favorite .ui-icon-checkbox-on, 
 .onoff .ui-icon-checkbox-off, .onoff .ui-icon-checkbox-on, 
-.ui-icon-radio-off, .ui-icon-radio-on {
+.ui-icon-checkbox-on-press, .ui-icon-checkbox-off-press,
+.ui-icon-radio-off, .ui-icon-radio-on,
+.ui-icon-radio-on-press, .ui-icon-radio-off-press {
 	background-size: 100% 100%;
 	background-color: transparent;
 }
@@ -186,6 +188,17 @@
 	width: @checkbox-radio-size-width;
 	height: @checkbox-radio-size-height;
 	background-image: url(images/00_check_checking.png), url(images/00_check_bg.png);
+	background-repeat: no-repeat;
+}
+.ui-icon-checkbox-off-press {
+	width: @checkbox-radio-size-width;
+	height: @checkbox-radio-size-height;
+	background-image: url(images/00_check_bg_press.png);
+}
+.ui-icon-checkbox-on-press {
+	width: @checkbox-radio-size-width;
+	height: @checkbox-radio-size-height;
+	background-image: url(images/00_check_checking.png), url(images/00_check_bg_press.png);
 	background-repeat: no-repeat;
 }
 .favorite .ui-icon-checkbox-off {
@@ -220,5 +233,13 @@
 	height: @checkbox-radio-size-height;
 	background-image: url(images/00_button_radio_normal1.png);
 }
-
-
+.ui-icon-radio-on-press {
+	width: @checkbox-radio-size-width;
+	height: @checkbox-radio-size-height;
+	background-image: url(images/00_button_radio_press2.png);
+}
+.ui-icon-radio-off-press {
+	width: @checkbox-radio-size-width;
+	height: @checkbox-radio-size-height;
+	background-image: url(images/00_button_radio_press1.png);
+}

@@ -26,7 +26,9 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
 			checkedClass = "ui-" + checkedState + activeBtn,
 			uncheckedClass = "ui-" + uncheckedState,
 			checkedicon = "ui-icon-" + checkedState,
-			uncheckedicon = "ui-icon-" + uncheckedState;
+			uncheckedicon = "ui-icon-" + uncheckedState,
+			checkedpressedicon = checkedicon + "-press",
+			uncheckedpressedicon = uncheckedicon + "-press";
 
 		if ( inputtype !== "checkbox" && inputtype !== "radio" ) {
 			return;
@@ -49,7 +51,9 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
 			checkedClass: checkedClass,
 			uncheckedClass: uncheckedClass,
 			checkedicon: checkedicon,
-			uncheckedicon: uncheckedicon
+			uncheckedicon: uncheckedicon,
+			checkedpressedicon: checkedpressedicon,
+			uncheckedpressedicon: uncheckedpressedicon
 		});
 
 		// If there's no selected theme...
@@ -83,6 +87,14 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
 		//SLP --end
 
 		label.bind({
+			vmousedown: function() {
+				self.press();
+			},
+			vmouseup: function() {
+				self.unpress();
+			},
+
+
 			vmouseover: function( event ) {
 				if ( $( this ).parent().is( ".ui-disabled" ) ) {
 					event.stopPropagation();
@@ -90,6 +102,7 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
 			},
 
 			vclick: function( event ) {
+				console.log("Label Mouse Click");
 				if ( input.is( ":disabled" ) ) {
 					event.preventDefault();
 					return;
@@ -180,6 +193,34 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
 			}
 		})
 		.checkboxradio( "refresh" );
+	},
+
+	press: function() {
+		var input = this.element,
+			label = this.label,
+			icon = label.find( ".ui-icon" );
+
+		// input[0].checked expando doesn't always report the proper value
+		// for checked='checked'
+		if ( $( input[ 0 ] ).prop( "checked" ) ) {
+			icon.addClass( this.checkedpressedicon ).removeClass( this.checkedicon );
+		} else {
+			icon.removeClass( this.uncheckedicon ).addClass( this.uncheckedpressedicon );
+		}
+	},
+
+	unpress: function() {
+		var input = this.element,
+			label = this.label,
+			icon = label.find( ".ui-icon" );
+
+		// input[0].checked expando doesn't always report the proper value
+		// for checked='checked'
+		if ( $( input[ 0 ] ).prop( "checked" ) ) {
+			icon.removeClass( this.checkedpressedicon ).addClass( this.checkedicon );
+		} else {
+			icon.addClass( this.uncheckedicon ).removeClass( this.uncheckedpressedicon );
+		}
 	},
 
 	refresh: function() {
