@@ -210,7 +210,7 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
 			}
 		} else {
 			if ( $( input[ 0 ] ).prop( "checked" ) ) {
-				icon.addClass( this.uncheckedpressedicon ).removeClass( this.checkedicon );
+				icon.addClass( this.checkedpressedicon ).removeClass( this.checkedicon );
 			} else {
 				icon.removeClass( this.uncheckedicon ).addClass( this.checkedpressedicon );
 			}
@@ -232,7 +232,7 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
 			}
 		} else {
 			if ( $( input[ 0 ] ).prop( "checked" ) ) {
-				icon.removeClass( this.uncheckedpressedicon ).addClass( this.checkedicon );
+				icon.removeClass( this.checkedpressedicon ).addClass( this.checkedicon );
 			} else {
 				icon.addClass( this.uncheckedicon ).removeClass( this.checkedpressedicon );
 			}
