@@ -45,7 +45,7 @@
 (function ($, window, undefined) {
 $.widget("todons.dayselector", $.mobile.widget, {
 	options: {
-		theme: null,
+		theme: 's',
 		type: 'horizontal'
 	},
 
@@ -66,7 +66,7 @@ $.widget("todons.dayselector", $.mobile.widget, {
 		this.options.theme = this.options.theme ||
 			this.element.data('theme') ||
 			this.element.closest(':jqmData(theme)').attr('data-theme') ||
-			'c';
+			's';
 
 		var parentId = this.element.attr('id') ||
 			'dayselector' + (new Date()).getTime();
