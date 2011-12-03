@@ -137,21 +137,22 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 	
 	_resize: function(event)
 	{
-		var selector;
+		var o;
 		
 		if (event.data) {
-			selector = event.data;
+			o = event.data;
 		}
 		else {
-			selector = event;
+			o = event;
 		}
 		
 		var t = this;		
-		CONTAINER_W = $(selector).innerWidth();
 		
-		var padding = parseInt($(selector).css("padding-left")) + parseInt($(selector).css("padding-right"));
+		CONTAINER_W = $(o.id).innerWidth();
 		
-		$(selector).each(function(index){
+		var padding = parseInt($(o.id + o.childSelector).css("padding-left")) + parseInt($(o.id + o.childSelector).css("padding-right"));
+		
+		$(o.id + o.childSelector).each(function(index){
 			$(this).css("width", CONTAINER_W - padding);
 		});
 	},
@@ -388,7 +389,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
     		$(document).bind('scrollstop', t.options, t._scrollmove);
     	}
 	    
-	    $(window).resize(o.id, t._resize);
+	    $(window).resize(o, t._resize);
 
 	    if (o.childSelector == " ul")
 		{
