@@ -242,7 +242,7 @@ $.mobile.fixedToolbars = (function() {
 					$( event.target ).find(".ui-content").addClass("ui-title-content-" + title_style + "-height");	
 				}	
 
-				if(s_theme_header.jqmData("position") == "fixed"){
+				if(s_theme_header.jqmData("position") == "fixed" || s_theme_header.css("position") == "fixed"){
 					s_theme_header
 						.css("position", "fixed")
 						.css("top", "0px");
