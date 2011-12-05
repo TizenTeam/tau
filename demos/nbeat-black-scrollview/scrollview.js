@@ -16,11 +16,7 @@ $( ":jqmData(role='page')" ).live( "pageshow", function(event) {
 	// For the demos that use this script, we want the content area of each
 	// page to be scrollable in the 'y' direction.
 
-	//$page.find( ".ui-content" ).attr( "data-" + $.mobile.ns + "scroll", "y" );
-	var scroll = $page.find( ".ui-content" ).attr( "data-" + $.mobile.ns + "scroll" );
-
-	if (scroll === undefined)
-		return;
+	$page.find( ".ui-content" ).attr( "data-" + $.mobile.ns + "scroll", "y" );
 
 	// This code that looks for [data-scroll] will eventually be folded
 	// into the jqm page processing code when scrollview support is "official"

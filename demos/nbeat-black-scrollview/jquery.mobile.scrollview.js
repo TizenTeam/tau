@@ -269,21 +269,6 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 		$.each(this._getScrollHierarchy(), function(i, sv) { sv._stopMScroll(); });
 		this._stopMScroll();
 
-		// If we're using mouse events, we need to prevent the default
-		// behavior to suppress accidental selection of text, etc. We
-		// can't do this on touch devices because it will disable the
-		// generation of "click" events.
-		if (this.options.eventType == "mouse")
-			e.preventDefault();
-
-		console.log($(e.target));
-		 // should skip the dragging when click the button
-		this._skip_dragging = $(e.target).is('.ui-btn-text') ||
-				$(e.target).is('.ui-btn-inner');
-
-		if (this._skip_dragging)
-			return;
-
 		var c = this._$clip;
 		var v = this._$view;
 
@@ -335,6 +320,26 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 
 		this._lastMove = 0;
 		this._enableTracking();
+
+		// If we're using mouse events, we need to prevent the default
+		// behavior to suppress accidental selection of text, etc. We
+		// can't do this on touch devices because it will disable the
+		// generation of "click" events.
+		//
+		// XXX: We should test if this has an effect on links! - kin
+		// XXX: It does affect links, and other input elements, if they
+		//      occur inside a scrollview; so make sure the event
+		//      occurred on something other than an input element or a link
+		//      before preventing its default and stopping its propagation
+		if (this.options.eventType == "mouse" || this.options.delayedClickEnabled) {
+			var shouldBlockEvent = !($(e.target).is('a, :input') ||
+                               $(e.target).parents('a, :input').length > 0);
+
+			if (shouldBlockEvent) {
+				e.stopPropagation();
+				e.preventDefault();
+			}
+		}
 	},
 
 	_propagateDragMove: function(sv, e, ex, ey, dir) {
@@ -345,10 +350,8 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 		sv._didDrag = this._didDrag;
 	},
 
-	_handleDragMove: function(e, ex, ey) {
-		if (this._skip_dragging)
-			return;
-
+	_handleDragMove: function(e, ex, ey)
+	{
 		if (!this._dragging)
 			return;
 
@@ -463,14 +466,11 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 
 		this._showScrollBars();
 
-		return true;
+		return false;
 	},
 
 	_handleDragStop: function(e)
 	{
-		if (this._skip_dragging)
-			return;
-
 		var l = this._lastMove;
 		var t = getCurrentTime();
 		var doScroll = l && (t - l) <= this.options.moveIntervalThreshold;
