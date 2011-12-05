@@ -191,7 +191,8 @@
                     },
                     obj.data, "hours" );
             } else if (klass.search("separator") > 0) {
-              console.log("datetimepicker: no dropdown for time separator");
+                owner.removeClass("data-selected");
+                console.log("datetimepicker: no dropdown for time separator");
             } else if (klass.search("minutes") > 0) {
                 var values = range(0, 59).map(this._makeTwoDigitValue);
                 numItems = values.length;
