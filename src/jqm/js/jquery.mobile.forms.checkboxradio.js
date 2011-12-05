@@ -27,8 +27,10 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
 			uncheckedClass = "ui-" + uncheckedState,
 			checkedicon = "ui-icon-" + checkedState,
 			uncheckedicon = "ui-icon-" + uncheckedState,
+			//SLP --start - press state
 			checkedpressedicon = checkedicon + "-press",
 			uncheckedpressedicon = uncheckedicon + "-press";
+			//SLP --end
 
 		if ( inputtype !== "checkbox" && inputtype !== "radio" ) {
 			return;
@@ -52,8 +54,10 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
 			uncheckedClass: uncheckedClass,
 			checkedicon: checkedicon,
 			uncheckedicon: uncheckedicon,
+			//SLP --start - press state
 			checkedpressedicon: checkedpressedicon,
 			uncheckedpressedicon: uncheckedpressedicon
+			//SLP --end
 		});
 
 		// If there's no selected theme...
@@ -195,22 +199,15 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
 		.checkboxradio( "refresh" );
 	},
 
+	//SLP --start - press state
 	press: function() {
 		var input = this.element,
 			label = this.label,
 			icon = label.find( ".ui-icon" );
 
-		// input[0].checked expando doesn't always report the proper value
-		// for checked='checked'
-		if ( $( input[ 0 ] ).is( ":disabled" ) ) {
+		if ( !$( input[ 0 ] ).is( ":disabled" ) ) {
 			if ( $( input[ 0 ] ).prop( "checked" ) ) {
-				icon.addClass( this.checkedpressedicon ).removeClass( this.checkedicon );
-			} else {
-				icon.removeClass( this.uncheckedicon ).addClass( this.uncheckedpressedicon );
-			}
-		} else {
-			if ( $( input[ 0 ] ).prop( "checked" ) ) {
-				icon.addClass( this.checkedpressedicon ).removeClass( this.checkedicon );
+				icon.addClass( this.uncheckedpressedicon ).removeClass( this.checkedicon );
 			} else {
 				icon.removeClass( this.uncheckedicon ).addClass( this.checkedpressedicon );
 			}
@@ -222,22 +219,15 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
 			label = this.label,
 			icon = label.find( ".ui-icon" );
 
-		// input[0].checked expando doesn't always report the proper value
-		// for checked='checked'
-		if ( $( input[ 0 ] ).is( ":disabled" ) ) {
+		if ( !$( input[ 0 ] ).is( ":disabled" ) ) {
 			if ( $( input[ 0 ] ).prop( "checked" ) ) {
-				icon.removeClass( this.checkedpressedicon ).addClass( this.checkedicon );
+				icon.removeClass( this.uncheckedpressedicon ).addClass( this.uncheckedicon );
 			} else {
-				icon.addClass( this.uncheckedicon ).removeClass( this.uncheckedpressedicon );
-			}
-		} else {
-			if ( $( input[ 0 ] ).prop( "checked" ) ) {
-				icon.removeClass( this.checkedpressedicon ).addClass( this.checkedicon );
-			} else {
-				icon.addClass( this.uncheckedicon ).removeClass( this.checkedpressedicon );
+				icon.addClass( this.checkedicon ).removeClass( this.checkedpressedicon );
 			}
 		}
 	},
+	//SLP --end
 
 	refresh: function() {
 		var input = this.element,
