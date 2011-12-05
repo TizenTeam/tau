@@ -266,7 +266,7 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
             this._alignContainerArrow( priority[idx], 
                 container, arrow, 
                 containerRect, arrowRect, boxRect, 
-                x_where, y_where );
+                x_where + screenRect.x, y_where + screenRect.y );
 
             arrowRect.applyTo( arrow );
 
