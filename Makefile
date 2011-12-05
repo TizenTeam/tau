@@ -132,8 +132,8 @@ demo: widgets
 	cp -f src/template/bootstrap.js ${OUTPUT_ROOT}/demos/gallery/
 
 install:
-	mkdir -p ${INSTALL_DIR}/share/slp-web-fw ${INSTALL_DIR}/bin
-	cp -av ${OUTPUT_ROOT}/* src/template ${INSTALL_DIR}/share/slp-web-fw/
+	mkdir -p ${INSTALL_DIR}/share/web-ui-fw ${INSTALL_DIR}/bin
+	cp -av ${OUTPUT_ROOT}/* src/template ${INSTALL_DIR}/share/web-ui-fw/
 	cp -av tools/* ${INSTALL_DIR}/bin
 
 clean:

@@ -56,7 +56,7 @@ S = {
 	libFileName : "web-ui-fw.js",
 
 	frameworkData : {
-		rootDir: 'web-ui-fw',
+		rootDir: '/usr/share/web-ui-fw',
 		version: '0.1',
 		theme: "default",
 		},

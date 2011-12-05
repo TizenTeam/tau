@@ -3,7 +3,7 @@
 ### Prepare: set global variables ###
 CWD=`pwd`
 SCRIPTDIR="`cd \`dirname $0\`/; pwd`"
-LIBDIR=/usr/share/slp-web-fw
+LIBDIR=/usr/share/web-ui-fw
 DATA_FRAMEWORK_ROOT=
 
 
@@ -138,10 +138,11 @@ function copy_template
 	if [ -n "$copylib" ]; then
 		echo "Copying libs into $DESTDIR..."
 		cp -a ${libpath}/web-ui-fw ${DESTDIR}/	|| usage "ERROR: Failed to copy libs"
+		DATA_FRAMEWORK_ROOT="data-framework-root=\"web-ui-fw\""
 		LIBDIR="web-ui-fw/0.1/js"	# This new value is used by replace_template()
-	else   # otherwise, just set framework-root
-		DATA_FRAMEWORK_ROOT="data-framework-root=\"file://$LIBDIR/web-ui-fw\""
-		LIBDIR="file://$LIBDIR/template"
+	else   # otherwise, just set libdir
+		echo;
+		#LIBDIR="file://$LIBDIR/template"
 	fi
 }
 
