@@ -269,7 +269,12 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 		$.each(this._getScrollHierarchy(), function(i, sv) { sv._stopMScroll(); });
 		this._stopMScroll();
 
-		e.preventDefault();
+		// If we're using mouse events, we need to prevent the default
+		// behavior to suppress accidental selection of text, etc. We
+		// can't do this on touch devices because it will disable the
+		// generation of "click" events.
+		if (this.options.eventType == "mouse")
+			e.preventDefault();
 
 		console.log($(e.target));
 		 // should skip the dragging when click the button
@@ -346,8 +351,6 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 
 		if (!this._dragging)
 			return;
-
-		e.preventDefault();
 
 		this._lastMove = getCurrentTime();
 
