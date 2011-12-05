@@ -33,9 +33,16 @@ $.fn.buttonMarkup = function( options ) {
 			buttonText = document.createElement( o.wrapperEls ),
 			buttonIcon = o.icon ? document.createElement( "span" ) : null;
 
+		//SLP --start -- attach slp events...
+		if ( attachSLPEvents ) {
+			attachSLPEvents();
+		}
+		/*
 		if ( attachEvents ) {
 			attachEvents();
 		}
+		*/
+		//SLP --end
 
 		// if not, try to find closest theme container
 		if ( !o.theme ) {
@@ -186,6 +193,54 @@ function closestEnabledButton( element ) {
     return element;
 }
 
+//SLP --start -- attach slp events...
+var selectedButton = null;
+var useScrollview = false;
+var attachSLPEvents = function() {
+	$( document ).bind( {
+		"vmousedown": function( event ) {
+			var $btn, theme;
+			//console.log( event.type );
+			if ( selectedButton ) {
+				$btn = $( selectedButton );
+				theme = $btn.attr( "data-" + $.mobile.ns + "theme" );
+				$btn.removeClass( "ui-btn-down-" + theme ).addClass( "ui-btn-up-" + theme );
+			}
+
+			var btn = closestEnabledButton( event.target );
+
+			if ( btn ) {
+				selectedButton = btn;
+				$btn = $( btn );
+				theme = $btn.attr( "data-" + $.mobile.ns + "theme" );
+				$btn.removeClass( "ui-btn-up-" + theme ).addClass( "ui-btn-down-" + theme );
+			}
+		},
+		"vmousecancel vmouseup vmouseout blur": function( event ) {
+			//console.log( event.type );
+			if ( selectedButton ) {
+				$btn = $( selectedButton );
+				theme = $btn.attr( "data-" + $.mobile.ns + "theme" );
+				$btn.removeClass( "ui-btn-down-" + theme ).addClass( "ui-btn-up-" + theme );
+
+				if ( event.type === "vmousecancel" && useScrollview ) {
+					event.preventDefault();
+				}
+				selectedButton = null;
+			}
+		},
+		"scrollstart scrollview_scroll": function( event ) {
+			//console.log( event.type );
+			if ( event.type === "scrollview_scroll" )
+				useScrollview = true;
+			$(this).trigger("vmousecancel");
+		}
+	});
+
+	attachSLPEvents = null;
+};
+//SLP --end
+/*
 var attachEvents = function() {
 	$( document ).bind( {
 		"vmousedown": function( event ) {
@@ -232,7 +287,7 @@ var attachEvents = function() {
 
 	attachEvents = null;
 };
-
+*/
 //links in bars, or those with  data-role become buttons
 //auto self-init widgets
 $( document ).bind( "pagecreate create", function( e ){

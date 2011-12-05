@@ -86,6 +86,7 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 		var duration = this.options.scrollDuration;
 
 		this._$clip.trigger(this.options.startEventName);
+		$(document).trigger("scrollview_scroll");
 
 		var ht = this._hTracker;
 		if (ht) {
@@ -457,7 +458,6 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 					this._pageDelta = 0;
 			}
 		}
-
 		this._didDrag = true;
 		this._lastX = ex;
 		this._lastY = ey;
