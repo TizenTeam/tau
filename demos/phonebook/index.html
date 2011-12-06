@@ -160,6 +160,7 @@
 				<div data-role="button">Message</div>
 				<div data-role="button">Video Call</div>
 			</li>
+
 			<li data-role="list-divider"></li>
 			<li class="ui-li-4-1-12 ui-li-dialogue">
 				<div style="display: inline-block;" class="ui-li-text-sub-left">Telephone</div>
@@ -173,6 +174,7 @@
 				<div style="display: inline-block;" class="ui-li-text-sub-left">Other</div>
 				<div style="display: inline-block;" class="ui-li-text-main-right">${ln_other}</div>
 			</li>
+
 			<li data-role="list-divider"></li>
 			<li class="ui-li-4-1-12 ui-li-dialogue">
 				<div style="display: inline-block;" class="ui-li-text-sub-left">Home</div>
@@ -187,6 +189,17 @@
 				<div style="display: inline-block;" class="ui-li-text-main-right">${em_other}</div>
 			</li>
 
+			{{if group}}
+			<li class="ui-li-4-2-3 ui-li-dialogue">
+				<span class="ui-li-text-main">Group</span>
+				<span class="ui-li-text-sub">${group}</span>
+			</li>
+			{{/if}}
+			<li class="ui-li-4-2-3 ui-li-dialogue">
+				<span class="ui-li-text-main">Ringtone</span>
+				<span class="ui-li-text-sub">${ringtone}</span>
+			</li>
+			<li data-role="list-divider" class="ui-li-group-title"><span>Saved in ${savedlocation}</span></li>
 	</script>
 	
 	<div data-role="header" data-position="fixed" >

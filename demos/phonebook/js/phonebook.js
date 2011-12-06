@@ -40,7 +40,6 @@ Phonebook = {
 		/* Currently use linear search. Later or Real DB may support SQL query. */ 
 		$.each(dbArray, function(i, v) {
 	        if (v.Luid == luid) {
-	        	
 	        	/* Find and make detail view page.*/
 	        	Phonebook.makeDetailview(v);
 	        }
