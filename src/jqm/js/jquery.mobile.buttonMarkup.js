@@ -198,26 +198,49 @@ var selectedButton = null;
 var useScrollview = false;
 var attachSLPEvents = function() {
 	$( document ).bind( {
-		"vmousedown": function( event ) {
+		// button click event comes this order : vmouseover -> vmousedown -> vmouseup -> vmouseout
+		"vmouseover focus": function( event ) {
+			console.log( event.type );
 			var $btn, theme;
-			//console.log( event.type );
+			// check if there is selected button... if so, make it to "btn-up" state. 
 			if ( selectedButton ) {
 				$btn = $( selectedButton );
 				theme = $btn.attr( "data-" + $.mobile.ns + "theme" );
-				$btn.removeClass( "ui-btn-down-" + theme ).addClass( "ui-btn-up-" + theme );
+				$btn.removeClass( "ui-btn-down-" + theme ).removeClass( "ui-btn-hover-" + theme )
+					.addClass( "ui-btn-up-" + theme );
 			}
 
-			var btn = closestEnabledButton( event.target );
-
-			if ( btn ) {
-				selectedButton = btn;
-				$btn = $( btn );
+			// new button
+			selectedButton = closestEnabledButton( event.target );
+			if ( selectedButton ) {
+				$btn = $( selectedButton );
 				theme = $btn.attr( "data-" + $.mobile.ns + "theme" );
-				$btn.removeClass( "ui-btn-up-" + theme ).addClass( "ui-btn-down-" + theme );
+				$btn.removeClass( "ui-btn-up-" + theme ).addClass( "ui-btn-hover-" + theme );
 			}
 		},
-		"vmousecancel vmouseup vmouseout blur": function( event ) {
+		"vmouseout blur": function( event ) {
 			//console.log( event.type );
+			var $btn, theme;
+			if ( selectedButton ) {
+				$btn = $( selectedButton );
+				theme = $btn.attr( "data-" + $.mobile.ns + "theme" );
+				$btn.removeClass( "ui-btn-hover-" + theme ).removeClass( "ui-btn-down-" + theme ).eddClass( "ui-btn-up-" + theme );
+			}
+		},
+		"vmousedown": function( event ) {
+			//console.log( event.type );
+			var $btn, theme;
+
+			if ( selectedButton ) {
+				$btn = $( selectedButton );
+				theme = $btn.attr( "data-" + $.mobile.ns + "theme" );
+				//$btn.removeClass( "ui-btn-up-" + theme ).addClass( "ui-btn-down-" + theme );
+				$btn.addClass( "ui-btn-down-" + theme );
+			}
+		},
+		"vmousecancel vmouseup": function( event ) {
+			//console.log( event.type );
+			var $btn, theme;
 			if ( selectedButton ) {
 				$btn = $( selectedButton );
 				theme = $btn.attr( "data-" + $.mobile.ns + "theme" );
