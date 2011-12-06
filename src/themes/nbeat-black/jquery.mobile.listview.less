@@ -418,16 +418,20 @@ ol.ui-listview {
 		width: @list-li-sub-left-width;
 		line-height: @list-li-main-line-height;
 		margin-top: -0.5em;
-		border-right: 1px rgba(68, 68, 68, 255) solid;
+	//	border-right: 1px rgba(68, 68, 68, 255) solid;
+		vertical-align: top;
 	}
 
 }
-.LESStext-main-1line-right(@left:@list-li-main-right-padding+@list-li-padding-horizontal) {
+//.LESStext-main-1line-right(@left:@list-li-main-right-padding+@list-li-padding-horizontal) {
+.LESStext-main-1line-right(@left:@list-li-main-right-padding) {
 	.ui-li-text-main-right {
 		font-size: @list-font-size-main;
 		top: 50%;
 		left: @left;
 		margin-top: -0.5em;
+		padding-left: @list-li-padding-horizontal;
+		border-left: 1px rgba(68, 68, 68, 255) solid;
 	}
 }
 .LESStext-main-1line-right-setting() {
