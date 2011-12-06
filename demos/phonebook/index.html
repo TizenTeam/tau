@@ -125,7 +125,7 @@
 	<script id="contacts_detailview_tmpl" type="text/x-jquery-tmpl">
 			<li class="ui-li-4-3-2">
 				<img src=${photoid}>
-				<span class="contact_name_field">
+				<span class="contact_name_field ui-li-long-text phonebook-name">
 				{{if name_first}}
         			${name_first}
     			{{/if}}
@@ -178,15 +178,15 @@
 			<li data-role="list-divider"></li>
 			<li class="ui-li-4-1-12 ui-li-dialogue">
 				<div style="display: inline-block;" class="ui-li-text-sub-left">Home</div>
-				<div style="display: inline-block;" class="ui-li-text-main-right">${em_home}</div>
+				<div style="display: inline-block;" class="ui-li-text-main-right ui-li-long-text phonebook-email">${em_home}</div>
 			</li>
 			<li class="ui-li-4-1-12 ui-li-dialogue">
 				<div style="display: inline-block;" class="ui-li-text-sub-left">Work</div>
-				<div style="display: inline-block;" class="ui-li-text-main-right">${em_work}</div>
+				<div style="display: inline-block;" class="ui-li-text-main-right ui-li-long-text phonebook-email">${em_work}</div>
 			</li>
 			<li class="ui-li-4-1-12 ui-li-dialogue">
 				<div style="display: inline-block;" class="ui-li-text-sub-left">Other</div>
-				<div style="display: inline-block;" class="ui-li-text-main-right">${em_other}</div>
+				<div style="display: inline-block;" class="ui-li-text-main-right ui-li-long-text phonebook-email">${em_other}</div>
 			</li>
 
 			{{if group}}

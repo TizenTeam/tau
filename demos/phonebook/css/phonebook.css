@@ -12,3 +12,13 @@ b.nick-name
 {
 	background-color: #2a6d8c;
 }
+
+.phonebook-name
+{
+	width : 550px;	
+}
+
+.phonebook-email
+{
+	width : 470px;	
+}
