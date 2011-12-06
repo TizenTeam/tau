@@ -186,6 +186,8 @@ S = {
 			globalizeCulturePath = [
 				this.frameworkData.rootDir, 
 				this.frameworkData.version,
+				'js',
+				'cultures',
 				globalizeCultureFile,
 			].join('/');
 		this.util.loadScriptSync(globalizeCulturePath);
