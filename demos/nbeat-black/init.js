@@ -178,6 +178,7 @@ $(document).bind("pagecreate", function () {
 			$("ul.ui-extendable-list-container").extendablelist("create");
 		});
 	});	
+
 });
 
 $(document).bind("pagecreate", function() {
@@ -188,4 +189,10 @@ $(document).bind("pagecreate", function() {
             $('#selectedCalendarDate').attr('value',val);
         });
     });
+});
+
+domReady(function() {
+	// add current datetime with browser language format
+	// NOTE: Globalize.* functions must be run after domReady.
+	$('#current_date').html(Globalize.culture().name + " -- " + Globalize.format(new Date(), "F"));
 });

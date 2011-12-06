@@ -83,6 +83,9 @@ S = {
 					if(-1 == $.inArray(jqXHR.status, ignoreStatusList)) {
 						alert('Error while loading ' + scriptPath + '\n' + jqXHR.status + ':' + jqXHR.statusText);
 					}
+					else {
+						console.log('Error while loading ' + scriptPath + '\n' + jqXHR.status + ':' + jqXHR.statusText);
+					}
 				},
 			});
 		},
@@ -190,9 +193,9 @@ S = {
 				'cultures',
 				globalizeCultureFile,
 			].join('/');
+		//alert('set language: ' + globalizeCulturePath);
 		this.util.loadScriptSync(globalizeCulturePath);
-		Globalize.culture(language);
-		//alert('set language to ' + language);
+		Globalize.culture(language);	// Set culture
 	},
 };
 
