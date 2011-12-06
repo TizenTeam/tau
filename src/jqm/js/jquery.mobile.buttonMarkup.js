@@ -224,7 +224,7 @@ var attachSLPEvents = function() {
 			if ( selectedButton ) {
 				$btn = $( selectedButton );
 				theme = $btn.attr( "data-" + $.mobile.ns + "theme" );
-				$btn.removeClass( "ui-btn-hover-" + theme ).removeClass( "ui-btn-down-" + theme ).eddClass( "ui-btn-up-" + theme );
+				$btn.removeClass( "ui-btn-hover-" + theme ).removeClass( "ui-btn-down-" + theme ).addClass( "ui-btn-up-" + theme );
 			}
 		},
 		"vmousedown": function( event ) {
