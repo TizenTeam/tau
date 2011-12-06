@@ -114,8 +114,14 @@ widgets: init third_party
                 fi; \
 	    done
 
-loader: widgets
+loader: widgets globalize
 	cat 'src/loader/loader.js' >> ${FW_JS}
+
+globalize: widgets
+	cat 'src/globalize/lib/globalize.js' >> ${FW_JS}
+	# copy globalize libs...
+	cp -a src/globalize/lib/cultures ${FRAMEWORK_ROOT}/js/
+
 
 themes:
 	make -C src/themes || exit $?
