@@ -189,6 +189,14 @@
 				<div style="display: inline-block;" class="ui-li-text-main-right ui-li-long-text phonebook-email">${em_other}</div>
 			</li>
 
+			<li data-role="list-divider"></li>
+			<li class="ui-li-4-2-11 ui-li-dialogue">
+				<div style="display: inline-block;" class="ui-li-text-sub-left">Home</div>
+				<div style="display: inline-block;" class="ui-li-text-main-right phonebook-address">${addr_pcode}, ${addr_country}, ${addr_province}, ${addr_city}, ${addr_street}</div>
+			</li>
+
+			<li data-role="list-divider" class="ui-li-group-title"><span>Saved in ${savedlocation}</span></li>
+
 			{{if group}}
 			<li class="ui-li-4-2-3 ui-li-dialogue">
 				<span class="ui-li-text-main">Group</span>
@@ -199,7 +207,7 @@
 				<span class="ui-li-text-main">Ringtone</span>
 				<span class="ui-li-text-sub">${ringtone}</span>
 			</li>
-			<li data-role="list-divider" class="ui-li-group-title"><span>Saved in ${savedlocation}</span></li>
+
 	</script>
 	
 	<div data-role="header" data-position="fixed" >
