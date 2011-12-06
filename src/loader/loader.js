@@ -184,18 +184,39 @@ S = {
 	},
 
 	setGlobalize: function() {
-		var language = window.navigator.language,
-			globalizeCultureFile = ['globalize.culture.', language, '.js'].join(''),
-			globalizeCulturePath = [
-				this.frameworkData.rootDir, 
-				this.frameworkData.version,
+		function getGlobalizeCultureFile(lang) {
+			return ['globalize.culture.', lang, '.js'].join('');
+		};
+		function getGlobalizeCulturePath(self, file) {
+			return [
+				self.frameworkData.rootDir, 
+				self.frameworkData.version,
 				'js',
 				'cultures',
-				globalizeCultureFile,
+				file,
 			].join('/');
-		//alert('set language: ' + globalizeCulturePath);
+		}
+
+		var lang = window.navigator.language,
+			globalizeCultureFile = getGlobalizeCultureFile(lang),
+			globalizeCulturePath = getGlobalizeCulturePath(this, globalizeCultureFile),
+			neutralLangIndex = lang.lastIndexOf('-');
+
+		console.log('Run globalize culture: ' + globalizeCulturePath);
 		this.util.loadScriptSync(globalizeCulturePath);
-		Globalize.culture(language);	// Set culture
+
+		// Run neutral language culture. (e.g. en-US --> en)
+		if(neutralLangIndex != -1) {
+			var neutralLang = lang.substr(0, neutralLangIndex),
+				neutralCultureFile = getGlobalizeCultureFile(neutralLang),
+				neutralCulturePath = getGlobalizeCulturePath(this, neutralCultureFile);
+			console.log('Run globalize culture of neutral lang: ' + neutralCulturePath);
+			this.util.loadScriptSync(neutralCulturePath);
+		}
+
+		// Set culture
+		// NOTE: Don't need to set with neutral lang. globalize util automatically deals with it.
+		Globalize.culture(lang);
 	},
 };
 

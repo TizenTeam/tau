@@ -122,7 +122,6 @@ globalize: widgets
 	# copy globalize libs...
 	cp -a src/globalize/lib/cultures ${FRAMEWORK_ROOT}/js/
 
-
 themes:
 	make -C src/themes || exit $?
 
