@@ -190,7 +190,7 @@ S = {
 			].join('/');
 		this.util.loadScriptSync(globalizeCulturePath);
 		Globalize.culture(language);
-		alert('set language to ' + language);
+		//alert('set language to ' + language);
 	},
 };
 
