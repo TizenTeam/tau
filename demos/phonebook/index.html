@@ -208,6 +208,28 @@
 				<span class="ui-li-text-sub">${ringtone}</span>
 			</li>
 
+			<li data-role="list-divider"></li>
+			{{if birthday}}
+				<li class="ui-li-4-1-12 ui-li-dialogue">
+					<div style="display: inline-block;" class="ui-li-text-sub-left">Birthday</div>
+					<div style="display: inline-block;" class="ui-li-text-main-right">${birthday}</div>
+				</li>
+			<li data-role="list-divider"></li>
+			{{/if}}
+
+			{{if webaddr}}
+				<li class="ui-li-4-1-12 ui-li-dialogue">
+					<div style="display: inline-block;" class="ui-li-text-sub-left">Website</div>
+					<div style="display: inline-block;" class="ui-li-text-main-right">${webaddr}</div>
+				</li>
+			{{/if}}
+			{{if note}}
+				<li class="ui-li-4-2-11 ui-li-dialogue">
+					<div style="display: inline-block;" class="ui-li-text-sub-left">Note</div>
+					<div style="display: inline-block;" class="ui-li-text-main-right phonebook-note">${note}</div>
+				</li>
+			{{/if}}
+			<li data-role="list-divider"></li>
 	</script>
 	
 	<div data-role="header" data-position="fixed" >
