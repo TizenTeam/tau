@@ -1,3 +1,0 @@
-[submodule "src/globalize"]
-	path = src/globalize
-	url = https://github.com/jquery/globalize.git
