@@ -168,6 +168,7 @@ S = {
         var body = document.getElementsByTagName('body')[0];
         body.style.visibility = 'hidden';
 	},
+
 	startAct: function(S, $) {
 		// Turn on JQM initialize
 		$.mobile.initializePage();
@@ -178,7 +179,21 @@ S = {
 			$('body').css('visibility', 'visible');
 		});
 	},
+
+	setGlobalize: function() {
+		var language = window.navigator.language,
+			globalizeCultureFile = ['globalize.culture.', language, '.js'].join(''),
+			globalizeCulturePath = [
+				this.frameworkData.rootDir, 
+				this.frameworkData.version,
+				globalizeCultureFile,
+			].join('/');
+		this.util.loadScriptSync(globalizeCulturePath);
+		Globalize.culture(language);
+		alert('set language to ' + language);
+	},
 };
+
 
 // Loader's jobs
 (function (S, $, undefined) {
@@ -193,5 +208,6 @@ S = {
 		S.loadTheme();
 		S.setViewport();
 		S.startAct(S, $);
+		S.setGlobalize();
 	});
  })(S, jQuery);
