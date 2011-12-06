@@ -360,6 +360,12 @@ ol.ui-listview {
 // =======================
 // nbeat-black normal list
 // =======================
+.ui-li-long-text {
+	display: inline-block;
+	text-overflow: ellipsis;
+	overflow-x: hidden;
+	white-space: nowrap;
+}
 
 .LESSli-reset-position-1line(@height: @list-li-main-line-height, @padding-left: @list-li-padding-horizontal) {
 	margin: 0;
@@ -1088,6 +1094,18 @@ ul.ui-listview {
 		}
 		.LESScheckbox-right;
 	}
+	
+	&> li.ui-li-4-2-11 {
+		.LESStext-sub-1line-left;
+		.LESStext-main-1line-right;
+		
+		.ui-li-text-main-right	
+		{
+			display: inline-block;
+			word-wrap:normal;
+		}
+	}
+	
 	&> li.ui-li-4-2-18 { 
 		.LESSli-reset-position-3line;
 		.LESStext-main-3line(@list-li-padding-horizontal, @list-li-top-padding);
@@ -1146,6 +1164,19 @@ ul.ui-listview {
 	&> li.ui-li-dialogue.ui-li-divider {
 		height: 32px;
 		padding : 0px;
+	}
+
+	&> li.ui-li-divider {
+		height: 32px;	/* wongi_1206 */
+		padding : 0px;
+	}
+
+	&> li.ui-li-group-title {	/* wongi_1206 */
+		padding-top : 32px;
+	}
+		
+	&> li.ui-li-group-title span {	/* wongi_1206 */
+		padding-left : 16px;
 	}
 
 	&> li.ui-li-3-button {

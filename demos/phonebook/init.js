@@ -12,7 +12,7 @@ function initDB(){
 		/* Later, real db system can support DB join by simple SQL query. */
 		$(window[pb_dbtable]).each(function(index)
 		{
-			this.group = window[pb_groupdbtable].group;
+			this.group = window[pb_groupdbtable][index].group;
 			this.savedlocation = window[pb_groupdbtable][index].savedlocation;
 		});
 
