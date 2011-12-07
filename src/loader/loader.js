@@ -70,21 +70,24 @@ S = {
 			var head = document.getElementsByTagName('head')[0];
 			head.appendChild(elem);
 		},
-		loadScriptSync : function(scriptPath) {
+		loadScriptSync : function(scriptPath, successCB, errorCB) {
 			$.ajax({
 				url: scriptPath,
 				dataType: 'script',
 				async: false,
-				success: null,
+				success: successCB,
 				error: function(jqXHR, textStatus, errorThrown) {
-					var ignoreStatusList = [
-						404,	// not found
-						];
-					if(-1 == $.inArray(jqXHR.status, ignoreStatusList)) {
-						alert('Error while loading ' + scriptPath + '\n' + jqXHR.status + ':' + jqXHR.statusText);
-					}
+					if(errorCB) errorCB(jqXHR, textStatus, errorThrown);
 					else {
-						console.log('Error while loading ' + scriptPath + '\n' + jqXHR.status + ':' + jqXHR.statusText);
+						var ignoreStatusList = [
+							404,	// not found
+							];
+						if(-1 == $.inArray(jqXHR.status, ignoreStatusList)) {
+							alert('Error while loading ' + scriptPath + '\n' + jqXHR.status + ':' + jqXHR.statusText);
+						}
+						else {
+							console.log('Error while loading ' + scriptPath + '\n' + jqXHR.status + ':' + jqXHR.statusText);
+						}
 					}
 				},
 			});
@@ -197,25 +200,50 @@ S = {
 			].join('/');
 		}
 
+		// Get lang, and change country code to uppercase chars.
 		var lang = window.navigator.language,
-			globalizeCultureFile = getGlobalizeCultureFile(lang),
-			globalizeCulturePath = getGlobalizeCulturePath(this, globalizeCultureFile),
-			neutralLangIndex = lang.lastIndexOf('-');
+			countryCodeIdx = lang.lastIndexOf('-'),
+			ignoreCodes = ['Cyrl', 'Latn', 'Mong'];	// Not country code!
 
-		console.log('Run globalize culture: ' + globalizeCulturePath);
-		this.util.loadScriptSync(globalizeCulturePath);
-
-		// Run neutral language culture. (e.g. en-US --> en)
-		if(neutralLangIndex != -1) {
-			var neutralLang = lang.substr(0, neutralLangIndex),
-				neutralCultureFile = getGlobalizeCultureFile(neutralLang),
-				neutralCulturePath = getGlobalizeCulturePath(this, neutralCultureFile);
-			console.log('Run globalize culture of neutral lang: ' + neutralCulturePath);
-			this.util.loadScriptSync(neutralCulturePath);
+		if(countryCodeIdx != -1) {	// Found country code!
+			var countryCode = lang.substr(countryCodeIdx + 1);
+			if(ignoreCodes.join('-').indexOf(countryCode) < 0) { // countryCode is not found from ignoreCodes
+				// Make countryCode to uppercase
+				lang = [ lang.substr(0, countryCodeIdx), countryCode.toUpperCase() ].join('-');
+			}
 		}
 
+		var self = this,
+			globalizeCultureFile = getGlobalizeCultureFile(lang),
+			globalizeCulturePath = getGlobalizeCulturePath(self, globalizeCultureFile),
+			neutralLangIndex = lang.lastIndexOf('-');
+
+		// Run culture script
+		console.log('Run globalize culture: ' + globalizeCulturePath);
+		this.util.loadScriptSync(
+			globalizeCulturePath, 
+			null, 
+			function(jqXHR, textStatus, errorThrown) {	// Failed to load!
+				if(jqXHR.status == 404) {
+					// If culture file is not found, run neutral language culture. 
+					// (e.g. en-US --> en)
+					if(neutralLangIndex != -1) {
+						var neutralLang = lang.substr(0, neutralLangIndex),
+							neutralCultureFile = getGlobalizeCultureFile(neutralLang),
+							neutralCulturePath = getGlobalizeCulturePath(self, neutralCultureFile);
+						console.log('Run globalize culture of neutral lang: ' + neutralCulturePath);
+						self.util.loadScriptSync(neutralCulturePath);
+					}
+				}
+				else {
+					alert('Error while loading ' + scriptPath + '\n' + jqXHR.status + ':' + jqXHR.statusText);
+				}
+			}
+		);
+
 		// Set culture
-		// NOTE: Don't need to set with neutral lang. globalize util automatically deals with it.
+		// NOTE: It is not needed to set with neutral lang. 
+		//       globalize util automatically deals with it.
 		Globalize.culture(lang);
 	},
 };
