@@ -232,7 +232,8 @@ $.widget("todons.optionheader", $.mobile.widget, {
         // optionheader div to show the header has hidden content
         if (this.options.showIndicator) {
             el.before(arrow);
-            arrow.triangle({"color": el.css('background-color'), offset: "50%"});
+            arrow.append("<div class='ui-triangle-image'></div>");
+//            arrow.triangle({"color": el.css('background-color'), offset: "50%"});
         }
 		if($(this.element).parents(".ui-page").find("#"+matchingBtn).length != 0)
 		{
@@ -244,10 +245,13 @@ $.widget("todons.optionheader", $.mobile.widget, {
 	            matchBtn.unbind('vclick', this.clickHandler);
 	        }			
 	        if(matchBtn.css("left") && matchBtn.css("left") != "auto")
-	        	arrow.triangle({offset: matchBtn.width()/2+ parseInt(matchBtn.css("left"))+"px"});
+			{	$(".ui-triangle-image").css("left", matchBtn.width()/2+ parseInt(matchBtn.css("left"))+"px");}
+//	        	arrow.triangle({offset: matchBtn.width()/2+ parseInt(matchBtn.css("left"))+"px"});
 	        else if(matchBtn.css("right")){
+//	        	buttonRight = matchBtn.nextAll().is("a") ? btn3Position : btn2Position;
+//        		arrow.triangle({offset: document.documentElement.clientWidth -matchBtn.width()/2 - buttonRight+"px"});
 	        	buttonRight = matchBtn.nextAll().is("a") ? btn3Position : btn2Position;
-        		arrow.triangle({offset: document.documentElement.clientWidth -matchBtn.width()/2 - buttonRight+"px"});
+				$(".ui-triangle-image").css("left", document.documentElement.clientWidth -matchBtn.width()/2 - buttonRight+"px");
 	        } /* Button position : Jinhyuk */
 	        	
 		}
