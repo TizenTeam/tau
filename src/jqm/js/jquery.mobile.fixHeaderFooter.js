@@ -442,15 +442,15 @@ $.mobile.fixedToolbars = (function() {
 					thisHeight = el.outerHeight(),
 					alreadyVisible = ( el.is( ".ui-header-fixed" ) && fromTop <= thisTop + thisHeight ) ||
 														( el.is( ".ui-footer-fixed" ) && thisTop <= fromTop + screenHeight );
-
+// block blink code in title : Jinhyuk
 				// Add state class
-				el.addClass( "ui-fixed-overlay" ).removeClass( "ui-fixed-inline" );
+//				el.addClass( "ui-fixed-overlay" ).removeClass( "ui-fixed-inline" );
 
-				if ( !alreadyVisible && !immediately ) {
+/*				if ( !alreadyVisible && !immediately ) {
 					el.animationComplete(function() {
 						el.removeClass( "in" );
 					}).addClass( "in" );
-				}
+				}*/
 //				setTop(el);
 			});
 		},
