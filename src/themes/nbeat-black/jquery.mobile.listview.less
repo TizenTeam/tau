@@ -636,6 +636,33 @@ ol.ui-listview {
 
 
 ul.ui-listview {
+	/* 1.11 Hidden style with 2 button */
+	&> li.ui-li-1-11 {
+		height : 96px;
+		padding : 0px;
+		padding-left : 16px;
+		padding-right : 16px;
+		
+		&> div.ui-btn {
+			position : absolute;
+			padding : 0px;
+			margin-top : 0px;
+			width : 336px;
+			top : 18px;
+			
+			&> span.ui-btn-hastxt {
+				padding-top : 0.4em;
+			}
+		}
+
+		&> div.ui-btn:nth-child(1) {
+			left : 16px;
+		}
+		
+		&> div.ui-btn:nth-child(2) {
+			left : 372px;
+		}
+	}
 
 	&> li.ui-li-3-1-1,
 	&> li.ui-li-3-1-2,
