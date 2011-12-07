@@ -83,12 +83,12 @@
 			</ul>
 		</div><!--content end-->
 		<div id="all_contacts_footer" data-role="footer"data-position ="fixed">
-			<div data-role="navbar" data-style="tabbar" >
+			<div data-role="navbar" data-style="toolbar" >
 				<ul>
 					<li><a href="#">Back</a></li>
-					<li><a href="#">Edit</a></li>
-					<li><a href="#all_groups_page">Groups</a></li>
-					<li><a href="#">Create</a></li>
+					<li><a href="#" data-icon="ctrlbar-edit">Edit</a></li>
+					<li><a href="#all_groups_page" data-icon="ctrlbar-groups">Groups</a></li>
+					<li><a href="#" data-icon="ctrlbar-create">Create</a></li>
 				</ul>
 			</div>				
 		</div>				
@@ -111,10 +111,10 @@
 		<div id="contacts_list_footer" data-role="footer" data-position ="fixed">
 			<div data-role="navbar" data-style="toolbar" >
 				<ul>
-					<li><a href="#all_groups_page">Back</a></li>
-					<li><a href="#">Edit</a></li>
-					<li><a href="#all_groups_page">Groups</a></li>
-					<li><a href="#">Create</a></li>
+					<li><a href="#">Back</a></li>
+					<li><a href="#" data-icon="ctrlbar-edit">Edit</a></li>
+					<li><a href="#all_groups_page" data-icon="ctrlbar-groups">Groups</a></li>
+					<li><a href="#" data-icon="ctrlbar-create">Create</a></li>
 				</ul>
 			</div>				
 		</div>			
@@ -246,6 +246,14 @@
 		<ul id="contact_detailview_dialog_list" data-role="listview">
 		</ul>
 	</div><!--content end-->
+ 	<div data-role="footer"data-position ="fixed">					
+		<div data-role="navbar" data-style="toolbar" >
+			<ul>
+				<li><a href="#" data-icon="ctrlbar-delete" >Delete</a></li>
+				<li><a href="#" data-icon="ctrlbar-edit" >Edit</a></li>	
+			</ul>
+		</div><!-- /navbar -->
+	</div>					
 	</div><!--page end-->
 	
 	
@@ -277,10 +285,8 @@
 		<div id="all_groups_footer" data-role="footer"data-position ="fixed">
 			<div data-role="navbar" data-style="toolbar" >
 				<ul>
-					<li><a href="#all_contacts_page">Back</a></li>
-					<li><a href="#">Edit</a></li>
-					<li><a href="#all_groups_page">Groups</a></li>
-					<li><a href="#">Create</a></li>
+					<li><a href="#" data-icon="ctrlbar-edit">Edit</a></li>
+					<li><a href="#" data-icon="ctrlbar-accounts">Accounts</a></li>
 				</ul>
 			</div>				
 		</div>				
