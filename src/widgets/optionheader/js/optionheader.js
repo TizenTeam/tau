@@ -157,6 +157,7 @@ $.widget("todons.optionheader", $.mobile.widget, {
                 self._realize();
             });
         }
+        self._setArrowLeft();
     },
 
     _realize: function () {
@@ -169,6 +170,34 @@ $.widget("todons.optionheader", $.mobile.widget, {
         }
     },
 
+	_setArrowLeft: function () {
+		var matchingBtn = $(this.element).jqmData("for"),
+			arrowCenter = 14,
+			btn2Position = 10,
+			btn3Position = 144;
+			
+		
+		if($(this.element).parents(".ui-page").find("#"+matchingBtn).length != 0)
+		{
+			matchBtn = $(this.element).parents(".ui-page").find("#"+matchingBtn);
+	        if (this.options.expandable) {
+	            matchBtn.bind('vclick', this.clickHandler);
+	        }
+	        else {
+	            matchBtn.unbind('vclick', this.clickHandler);
+	        }			
+	        if(matchBtn.css("left") && matchBtn.css("left") != "auto")
+			{	$(".ui-triangle-image").css("left", matchBtn.width()/2+ parseInt(matchBtn.css("left"))- arrowCenter+"px");}
+	        else if(matchBtn.css("right")){
+				buttonRight = matchBtn.nextAll().is("a") ? btn3Position : btn2Position;
+				$(".ui-triangle-image").css("left", document.documentElement.clientWidth -matchBtn.width()/2 - buttonRight - arrowCenter+"px");
+	        } /* Button position : Jinhyuk */
+		}
+		else {
+			$(".ui-triangle-image").css("left", document.documentElement.clientWidth/2 - arrowCenter+"px");	
+		}
+		
+	},
     // Draw the option header, according to current options
     refresh: function () {
         var el = this.element,
@@ -179,10 +208,7 @@ $.widget("todons.optionheader", $.mobile.widget, {
             theme = this.options.theme,
             numRows,
             rowsClass,
-            themeClass,
-			matchingBtn = $(this.element).jqmData("for"),
-			btn2Position = 10,
-			btn3Position = 144;
+            themeClass;
 
 			var $this = $( this ),
 				o = $.extend({
@@ -233,27 +259,6 @@ $.widget("todons.optionheader", $.mobile.widget, {
         if (this.options.showIndicator) {
             el.before(arrow);
             arrow.append("<div class='ui-triangle-image'></div>");
-//            arrow.triangle({"color": el.css('background-color'), offset: "50%"});
-        }
-		if($(this.element).parents(".ui-page").find("#"+matchingBtn).length != 0)
-		{
-			matchBtn = $(this.element).parents(".ui-page").find("#"+matchingBtn);
-	        if (this.options.expandable) {
-	            matchBtn.bind('vclick', this.clickHandler);
-	        }
-	        else {
-	            matchBtn.unbind('vclick', this.clickHandler);
-	        }			
-	        if(matchBtn.css("left") && matchBtn.css("left") != "auto")
-			{	$(".ui-triangle-image").css("left", matchBtn.width()/2+ parseInt(matchBtn.css("left"))+"px");}
-//	        	arrow.triangle({offset: matchBtn.width()/2+ parseInt(matchBtn.css("left"))+"px"});
-	        else if(matchBtn.css("right")){
-//	        	buttonRight = matchBtn.nextAll().is("a") ? btn3Position : btn2Position;
-//        		arrow.triangle({offset: document.documentElement.clientWidth -matchBtn.width()/2 - buttonRight+"px"});
-	        	buttonRight = matchBtn.nextAll().is("a") ? btn3Position : btn2Position;
-				$(".ui-triangle-image").css("left", document.documentElement.clientWidth -matchBtn.width()/2 - buttonRight+"px");
-	        } /* Button position : Jinhyuk */
-	        	
 		}
 
         // if expandable, bind clicks to the toggle() method
