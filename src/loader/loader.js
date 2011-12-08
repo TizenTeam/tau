@@ -146,6 +146,14 @@ S = {
 
 	setViewport: function () {
 		var meta;
+		$("meta").each( function() {
+			if ( $(this).attr("name") === "viewport" ) {
+				console.log("user set viewport... framework viewport will not be applied.");
+				meta = this;
+			}
+		});
+		if ( meta )
+			return;
 		if ( meta = document.createElement( "meta" )) {
 			//set meta tags for view port
 			meta.name = "viewport";
