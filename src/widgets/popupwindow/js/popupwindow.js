@@ -163,6 +163,12 @@ $.widget( "todons.popupwindow", $.mobile.widget, {
         self.close();
     });
 
+    /* Events on "Cancel button : ui-popup-cancel" */
+    /* wongi_1208 : Add class = "ui-btn-cancel" for popup window's cancel button */
+    $(".ui-popupwindow .ui-btn-cancel").live("vclick", function(){
+    	self.close();
+    });
+
     $("[aria-haspopup='true'][aria-owns='" + popup.attr("id") + "']").bind("vclick", function(e) {
 //	    console.log("Popup Open");
       self.open(

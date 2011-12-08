@@ -247,11 +247,21 @@
  	<div data-role="footer"data-position ="fixed">					
 		<div data-role="navbar" data-style="toolbar" >
 			<ul>
-				<li><a href="#" data-icon="ctrlbar-delete" >Delete</a></li>
-				<li><a href="#" data-icon="ctrlbar-edit" >Edit</a></li>	
+				<li><a href="#" data-icon="ctrlbar-delete" data-inline="true" aria-haspopup="true" aria-owns="detail_view_delete_popup">Delete</a></li>
+				<li><a href="#" id="detailview_edit" data-icon="ctrlbar-edit" >Edit</a></li>	
 			</ul>
 		</div><!-- /navbar -->
 	</div>					
+	
+	<!-- Delete Yes no Pop-up -->
+	<div id="detail_view_delete_popup" data-role="popupwindow" data-style="center_basic_2btn">
+		<p data-role="text">This contact will be deleted.</p>
+		<div data-role="button-bg">
+				<input type="button" value="OK" />
+				<input type="button" value="Cancel" class="ui-btn-cancel" />
+		</div>
+	</div>
+		
 	</div><!--page end-->
 	
 	
