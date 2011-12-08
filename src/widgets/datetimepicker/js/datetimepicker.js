@@ -218,6 +218,8 @@
 	    	            });
 		   		});
 				obj.ctx = ctx;
+                e.stopPropagation();
+                e.preventDefault();
             }
         },
         

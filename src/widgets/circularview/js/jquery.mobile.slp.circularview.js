@@ -33,7 +33,7 @@ jQuery.widget( "mobile.circularview", jQuery.mobile.widget, {
 		eventType:			$.support.touch	? "touch" : "mouse",
 
 		delayedClickSelector: "a, .ui-btn",
-		delayedClickEnabled: true
+		delayedClickEnabled: false 
 	},
  
 	_makePositioned: function($ele) {
