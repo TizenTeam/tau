@@ -200,7 +200,7 @@ var attachSLPEvents = function() {
 	$( document ).bind( {
 		// button click event comes this order : vmouseover -> vmousedown -> vmouseup -> vmouseout
 		"vmouseover focus": function( event ) {
-			console.log( event.type );
+			//console.log( event.type );
 			var $btn, theme;
 			// check if there is selected button... if so, make it to "btn-up" state. 
 			if ( selectedButton ) {
