@@ -209,7 +209,7 @@ S = {
 		}
 
 		// Get lang, and change country code to uppercase chars.
-		var lang = window.navigator.language,
+		var lang = $('html').attr('lang') || window.navigator.language,
 			countryCodeIdx = lang.lastIndexOf('-'),
 			ignoreCodes = ['Cyrl', 'Latn', 'Mong'];	// Not country code!
 
@@ -251,7 +251,7 @@ S = {
 
 		// Set culture
 		// NOTE: It is not needed to set with neutral lang. 
-		//       globalize util automatically deals with it.
+		//       Globalize automatically deals with it.
 		Globalize.culture(lang);
 	},
 };
