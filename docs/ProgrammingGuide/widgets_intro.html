@@ -1,0 +1,44 @@
+<div data-role="page" id="widgets_intro" data-add-back-btn="true">
+	<div data-role="header">
+		<h1>Introduction for using widgets</h1>
+	</div>
+	<div data-role="content" class="guide">
+		<h1>What is widget?</h1>
+		<p>Widgets are predefined components consisting web application for developers to use. Widgets have their own shapes, themes, and behaviors.</p>
+		<h1>Putting widgets in your html code</h1>
+		<p>To use widgets in your app, simply add widget element code into your html code. For example, if you want to put a listview into content area, just add following code,
+			<pre data-lang="html" class="guide"><code>
+&lt;ul data-role="listview"&gt;
+	&lt;li&gt;listitem 1&lt;/li&gt;
+	&lt;li&gt;listitem 2&lt;/li&gt;
+&lt;/ul&gt;
+			</code></pre>
+		and the output will contain listview widget, like below.<br><br>
+		 <ul data-role="listview" style="width:80%; margin: 0 auto;">
+			<li>listitem 1</li>
+			<li>listitem 2</li>
+		</ul>
+		</p>
+
+		<h1>Putting widgets in your javascript code</h1>
+		<p>Dynamically putting widgets in your javascript code is somewhat different from putting them in html code.  Widget tags in html code are parsed when current page is created('pagecreate' event). This means that all tags which do not exist at page creating time will not be parsed to widget elements by default.</p>
+		<p>For example, when you try to put a listview by following code,
+			<pre data-lang="javascript" class="guide"><code>
+var container = $('#listview_container');
+container.append($('&lt;ul data-role="listview"&gt;&lt;li&gt;listitem 1&lt;/li&gt;&lt;/ul&gt;'));
+			</code></pre>
+		although you wished that a listview is added as a child of content, you will see plain &lt;ul&gt; element instead, like below.
+		<div id="widgets_intro_listview_container1"></div>
+		<script>
+		(function() {
+			var container = $('#widgets_intro_listview_container1');
+			container.append($('<ul data-role="listview"><li>listitem 1</li></ul>'));
+		})();
+		</script>
+		This is because the &lt;ul&gt; element added by javascript code still does not exist at page creation. To parse this tag to make it a widget, trigger 'create' event to container like below;
+			<pre data-lang="javascript" class="guide"><code>
+			</code></pre>
+
+		</p>
+	</div>
+</div>
