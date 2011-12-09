@@ -21,7 +21,7 @@
 
 @list-li-height: 112 * @unit_base;
 @list-li-2line-height: 128 * @unit_base;
-@list-li-3line-height: 178 * @unit_base;
+@list-li-3line-height: 160 * @unit_base;
 @list-li-top-padding: 10 * @unit_base;
 @list-li-main-line-height: 60 * @unit_base;
 @list-li-sub-line-height: 48 * @unit_base;
@@ -45,6 +45,14 @@
 
 @list-li-sub-left-width: 187 * @unit_base;
 @list-li-main-right-padding: 187 * @unit_base;
+
+//Email
+@list-li-email-top-padding: 8 * @unit_base;
+@list-li-email-subline-top-padding: 4 * @unit_base;
+@list-li-email-sub-line-height: 40 * @unit_base;
+@list-email-icon-width: 56 * @unit_base;
+@list-email-icon-height: 60 * @unit_base;
+
 
 /************************/
 
@@ -410,6 +418,12 @@ ol.ui-listview {
 	}
 }
 
+.LESStext-email-sub1-setting() {
+	.ui-li-text-sub1 {
+		color: @color_text_setting;
+	}
+}
+
 .LESStext-sub-1line-left(@left:@list-li-padding-horizontal) {
 	.ui-li-text-sub-left {
 		font-size: @list-font-size-sub;
@@ -497,6 +511,20 @@ ol.ui-listview {
 		max-width: 90%;
 	}
 }
+
+.LESStext-email-main-3line(@left:2 * @list-li-padding-horizontal + @list-checkbox-size, @top: @list-li-email-top-padding) {
+	.ui-li-text-main {
+		position: absolute;
+		font-size: @list-font-size-main;
+		line-height: @list-li-main-line-height;
+		left: @left;
+		top: @top;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		white-space: nowrap;
+		max-width: 90%;
+	}
+}
 .LESStext-sub-3line-left1(@left:@list-li-padding-horizontal, @top: @list-li-top-padding+@list-li-main-line-height) {
 	.ui-li-text-sub1 {
 		position: absolute;
@@ -526,6 +554,50 @@ ol.ui-listview {
 	}
 }
 
+.LESStext-email-sub-3line-sub1(@left:2 * @list-li-padding-horizontal + @list-checkbox-size, @top:@list-li-email-top-padding + @list-li-main-line-height + @list-li-email-subline-top-padding) {
+	.ui-li-text-sub1 {
+		position: absolute;
+		font-size: @list-font-size-sub; 
+		line-height: @list-li-email-sub-line-height;
+		color: @color_text_sub;
+		left: @left;
+		top: @top;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		white-space: nowrap;
+		max-width: 90%;
+	}
+}
+.LESStext-email-sub-3line-sub2(@left:2 * @list-li-padding-horizontal + @list-checkbox-size, @top:@list-li-email-top-padding + @list-li-main-line-height + @list-li-email-sub-line-height) {
+	.ui-li-text-sub2 {
+		position: absolute;
+		font-size: @list-font-size-sub; 
+		line-height: @list-li-email-sub-line-height;
+		color: @color_text_sub;
+		left: @left;
+		top: @top;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		white-space: nowrap;
+		max-width: 90%;
+	}
+}
+.LESStext-email-sub-3line-sub3(@right:@list-li-padding-horizontal, @top: @list-li-email-top-padding + @list-li-main-line-height + @list-li-email-sub-line-height) {
+	.ui-li-text-sub3 {
+		position: absolute;
+		font-size: @list-font-size-sub; 
+		line-height: @list-li-email-sub-line-height;
+		color: @color_text_sub;
+		right: @right;
+		top: @top;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		white-space: nowrap;
+		max-width: 30%;
+	}
+}
+
+
 
 .LESSsubicon-right(@right:@list-li-padding-horizontal, @top: @list-li-top-padding) {	// NOTE: This can be changed according to checkbox implementation!
 	img.ui-li-icon-sub {
@@ -539,7 +611,27 @@ ol.ui-listview {
 	}
 }
 
+.LESSsubicon-right-resize(@right:@list-li-padding-horizontal, @top: @list-li-top-padding, @width:@list-smallicon-size, @height:@list-smallicon-size ) {	// NOTE: This can be changed according to checkbox implementation!
+	img.ui-li-icon-sub {
+		position: absolute;
+		left: auto;
+		right: @right;
+		top: @top;
+		width: @width;
+		height: @height;
+		margin: 0 0;
+	}
+}
+
 .LESSbtn-right(@right:@list-li-padding-horizontal, @top: 50%) {
+	&>.ui-btn {
+		position: absolute;
+		right: @right;
+		top: @top;
+	}
+}
+
+.LESSbtn-email(@right:@list-li-padding-horizontal, @top: 24%) {
 	&>.ui-btn {
 		position: absolute;
 		right: @right;
@@ -1093,6 +1185,35 @@ ul.ui-listview {
 		}
 	}
 
+	// Email
+	&> li.ui-li-3-4-10,
+	&> li.ui-li-3-4-11,
+	&> li.ui-li-3-4-12,
+	&> li.ui-li-3-4-13 {
+		.ui-li-color-bar {
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 10 * @unit_base;
+			height: 20 * @unit_base;
+			background-color: rgba(80, 107, 207, 1);
+		}
+		.LESSli-reset-position-3line;
+		.LESScheckbox-left;
+		.LESStext-email-main-3line(2 * @list-li-padding-horizontal + @list-checkbox-size, @list-li-email-top-padding);
+		.LESSsubicon-right-resize(@list-li-padding-horizontal, @list-li-email-top-padding, @list-email-icon-width, @list-email-icon-height);
+		.LESStext-email-sub-3line-sub1(2 * @list-li-padding-horizontal + @list-checkbox-size, @list-li-email-top-padding + @list-li-main-line-height + @list-li-email-subline-top-padding);
+		.LESStext-email-sub-3line-sub2(2 * @list-li-padding-horizontal + @list-checkbox-size, @list-li-email-top-padding + @list-li-main-line-height + @list-li-email-sub-line-height);
+		.LESStext-email-sub-3line-sub3(@list-li-padding-horizontal, @list-li-email-top-padding + @list-li-main-line-height + @list-li-email-sub-line-height);
+	}
+	&> li.ui-li-3-4-10,
+	&> li.ui-li-3-4-11 {
+		.LESSbtn-email(2 * @list-li-padding-horizontal + @list-email-icon-width);
+	}
+	&> li.ui-li-3-4-10,
+	&> li.ui-li-3-4-12 {
+		.LESStext-email-sub1-setting;
+	}	
 
 	// Dialogue list
 	&> li.ui-li-4-1-12 {
