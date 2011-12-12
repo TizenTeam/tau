@@ -217,7 +217,7 @@ $.mobile.fixedToolbars = (function() {
 						.css("top","206px" );										
 				}				
 
-				if(s_theme_header.children().is("a")){
+				if(s_theme_header.children().is("a") || s_theme_header.children().find(".ui-radio").length != 0){
 					if(title_style == "normal"){				
 						if(s_theme_header.children("a").length == 1 || s_theme_header.children("a").length == 2){}
 						else if(s_theme_header.children("a").length == 3){
@@ -235,7 +235,7 @@ $.mobile.fixedToolbars = (function() {
 						s_theme_fieldcontain.find(".ui-controlgroup").addClass("ui-title-extended-controlgroup");						
 						s_theme_fieldcontain.addClass("ui-title-extended-segment-style");
 	
-						if(group_length == 2 || group_length == 3)
+						if(group_length == 2 || group_length == 3 || group_length == 4)
 							s_theme_fieldcontain.find(".ui-controlgroup").addClass("ui-title-extended-controlgroup-" + group_length + "btn");
 						else { /* Need to implement new layout */}
 					}	
