@@ -33,6 +33,7 @@
 			$previousAnimatedItem = null,
 			maxSwipeItemLeft = 0,
 			resetNeeded = false,
+			dragging = false,
 			_self = this,
 			startData = {
 				point: new $.mobile.todons.Point(0,0)
@@ -41,11 +42,12 @@
 			_self._mouseDownCB = function(e) {
 				$currentSwipeItem = $(this);
 				e.preventDefault();
-				_self.dragging = _TouchStart(e,e.pageX, e.pageY);
+				_TouchStart(e,e.pageX, e.pageY);
+				dragging = true;
 			};
 
 			_self._mouseMoveCB = function(e) {
-				if (!_self.dragging)
+				if (!dragging)
 					return;
 
 				e.preventDefault();
@@ -53,10 +55,7 @@
 			};
 
 			_self._mouseUpCB = function(e) {
-				if (!_self.dragging)
-					return;
-
-				_self.dragging = false;
+				dragging = false;
 			};
 
 			var _TouchStart =  function(e, X, Y) {
@@ -70,6 +69,7 @@
 					swipeThreshold = $currentSwipeItem.outerWidth() / 2;
 
 				resetNeeded = true;
+				dragging = true;
 
 				return true;
 			};
@@ -80,6 +80,9 @@
 
 				$previousAnimatedItem.stop().animate({"left": 0}, 500);
 				$previousAnimatedItem = null;
+
+				dragging = false;
+
 				return 1;
 			};
 
@@ -87,6 +90,8 @@
 				_swipeBack();
 				$animatedItem.stop().animate({"left": maxSwipeItemLeft}, 600);
 				$previousAnimatedItem = $animatedItem;
+
+				dragging = false;
 			};
 
 			var _reset = function() {
@@ -99,12 +104,13 @@
 				$animatedItem = null;
 				maxSwipeItemLeft = null;
 				resetNeeded = false;
-				dragging = false;
 			};
 
 			var _checkSwipe = function(X, Y) {
-				if (Math.abs(Y - startData.point.y()) > 20)
+				if (Math.abs(Y - startData.point.y()) > 20) {
+					_reset();
 					return;
+				}
 
 				var delta = X - startData.point.x();
 

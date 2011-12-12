@@ -337,8 +337,6 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 				num_top_items = first_index;
 			}
 		}
-		
-		$(document).unbind("touchstart");
 	},
 	
 	recreate: function(newArray){

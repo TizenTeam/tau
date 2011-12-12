@@ -73,7 +73,7 @@
 (function( $, undefined ) {
 
 $.widget( "todons.popupwindow", $.mobile.widget, {
-    options: {
+	options: {
         disabled: false,
         initSelector: ":jqmData(role='popupwindow')",
         overlayTheme: "s",
@@ -159,21 +159,23 @@ $.widget( "todons.popupwindow", $.mobile.widget, {
 
     // Events on "screen" overlay
     ui.screen.bind( "vclick", function( event ) {
-//	    console.log("Popup Close");
         self.close();
+		return false;
     });
 
     /* Events on "Cancel button : ui-popup-cancel" */
     /* wongi_1208 : Add class = "ui-btn-cancel" for popup window's cancel button */
     $(".ui-popupwindow .ui-btn-cancel").live("vclick", function(){
-    	self.close();
+		console.log("Popup Cancel");
+		self.close();
+		return false;
     });
 
     $("[aria-haspopup='true'][aria-owns='" + popup.attr("id") + "']").bind("vclick", function(e) {
-//	    console.log("Popup Open");
       self.open(
         $(this).offset().left + $(this).outerWidth()  / 2,
         $(this).offset().top  + $(this).outerHeight() / 2);
+	  return false;
     });
   },
 
@@ -261,7 +263,7 @@ $.widget( "todons.popupwindow", $.mobile.widget, {
           screenWidth = window.innerWidth;
 
       this.ui.screen
-          .height($(document).height())
+          .height( $(document).height() )
           .removeClass("ui-screen-hidden");
 
       if (this.options.fade)
@@ -318,7 +320,7 @@ $.widget( "todons.popupwindow", $.mobile.widget, {
           })
           .addClass("in")
           .animationComplete(function() {
-            self.ui.screen.height($(document).height());
+            self.ui.screen.height( $(document).height() );
           });
 
       this.isOpen = true;
