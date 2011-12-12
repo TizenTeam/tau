@@ -9,7 +9,7 @@
             data-framework-root="../../build/web-ui-fw"
             data-framework-version="0.1"
             data-framework-theme="nbeat-black">
-    </script>
+    </script> 
     <script src="config.js"></script>
     <link rel="stylesheet" href="css/aroundme.css" />
 </head>
@@ -38,9 +38,9 @@
 	<div data-role="footer" data-id="aroundme_footer" data-position="fixed">
 		<div data-role="navbar" data-style="tabbar">
 			<ul>
-				<li><a href="#firstPage" data-icon="ctrlbar-song" class="ui-btn-active ui-state-persist">aroundMe</a></li>
+				<li><a href="#firstPage" data-icon="ctrlbar-composer" class="ui-btn-active ui-state-persist">aroundMe</a></li>
 				<li><a href="#searchPage" data-icon="ctrlbar-search">Search</a></li>
-				<li><a href="#favoritePage" data-icon="ctrlbar-favorites">Favorites</a></li>
+				<li><a href="#favoritePage" data-icon="ctrlbar-favorite">Favorites</a></li>
 			</ul>
 		</div>
 	</div>
@@ -62,9 +62,9 @@
     <div data-role="footer" data-id="aroundme_footer" data-position="fixed">
     	<div data-role="navbar" data-style="tabbar" data-position="fixed">
 	    	<ul>
-		    	<li><a href="#firstPage" data-icon="ctrlbar-song"  class="ui-btn-active ui-state-persist">aroundMe</a></li>
+		    	<li><a href="#firstPage" data-icon="ctrlbar-composer"  class="ui-btn-active ui-state-persist">aroundMe</a></li>
 			    <li><a href="#searchPage" data-icon="ctrlbar-search">Search</a></li>
-    			<li><a href="#favoritePage" data-icon="ctrlbar-favorites">Favorites</a></li>
+    			<li><a href="#favoritePage" data-icon="ctrlbar-favorite">Favorites</a></li>
 	    	</ul>
     	</div>
     </div>
@@ -135,7 +135,7 @@
 <div id="searchPage" data-role="page">
 	<div data-role="header" data-position="fixed">
 		<h1>Search</h1>
-		<a href="#" id="searchSettingBtn" class="ui-btn-right" data-inline="true" data-role="btn" data-icon="info" aria-haspopup="true" aria-owns="searchSettingPopup">Settings</a>
+		<a href="#" id="searchSettingBtn" class="ui-btn-right" data-inline="true" data-role="btn" aria-haspopup="true" aria-owns="searchSettingPopup">Settings</a>
 	</div>
 	<div data-role="content">
 		<div id="searchBarDiv">
@@ -216,9 +216,9 @@
 	<div data-role="footer" data-id="aroundme_footer" data-position="fixed" >	
 		<div data-role="navbar" data-style="tabbar">
 			<ul>
-				<li><a href="#firstPage" data-icon="ctrlbar-song">aroundMe</a></li>
+				<li><a href="#firstPage" data-icon="ctrlbar-composer">aroundMe</a></li>
 				<li><a href="#searchPage" data-icon="ctrlbar-search" class="ui-btn-active ui-state-persist">Search</a></li>
-				<li><a href="#favoritePage" data-icon="ctrlbar-favorites">Favorites</a></li>
+				<li><a href="#favoritePage" data-icon="ctrlbar-favorite">Favorites</a></li>
 			</ul>
 		</div>
 	</div>	
@@ -239,9 +239,9 @@
 	<div data-role="footer" data-id="aroundme_footer" data-position="fixed">
 		<div data-role="navbar" data-style="tabbar">
 			<ul>
-				<li><a href="#firstPage" data-icon="ctrlbar-song">aroundMe</a></li>
+				<li><a href="#firstPage" data-icon="ctrlbar-composer">aroundMe</a></li>
 				<li><a href="#searchPage" data-icon="ctrlbar-search" class="ui-btn-active ui-state-persist">Search</a></li>
-				<li><a href="#favoritePage" data-icon="ctrlbar-favorites">Favorites</a></li>
+				<li><a href="#favoritePage" data-icon="ctrlbar-favorite">Favorites</a></li>
 			</ul>
 		</div>
 	</div>
@@ -251,7 +251,7 @@
 	<div data-role="header" data-position="fixed">
 		<h1>Favorites</h1>
 		<a href="#" id="toggleEditBtn" class="ui-btn-right" data-role="btn">Edit</a>
-		<div id="editFavoriteHeader" data-role="optionheader">
+		<div id="editFavoriteHeader" data-role="optionheader" data-for="toggleEditBtn">
 			<div class="ui-grid-a ">
 				<div class="ui-block-a"><a id="editSelectAllBtn" data-role="button">All</a></div>
 				<div class="ui-block-b"><a id="editDeleteBtn" data-role="button">Delete</a></div>
@@ -269,9 +269,9 @@
 	<div data-role="footer" data-id="aroundme_footer" data-position="fixed">
 		<div data-role="navbar" data-style="tabbar">
 			<ul>
-				<li><a href="#firstPage" data-icon="ctrlbar-song">aroundMe</a></li>
+				<li><a href="#firstPage" data-icon="ctrlbar-composer">aroundMe</a></li>
 				<li><a href="#searchPage" data-icon="ctrlbar-search">Search</a></li>
-				<li><a href="#favoritePage" data-icon="ctrlbar-favorites" class="ui-btn-active ui-state-persist">Favorites</a></li>
+				<li><a href="#favoritePage" data-icon="ctrlbar-favorite" class="ui-btn-active ui-state-persist">Favorites</a></li>
 			</ul>
 		</div>
 	</div>

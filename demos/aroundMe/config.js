@@ -18,12 +18,12 @@ loadLocalScripts = function() {
         'lib/jquery.ui.map.full.min.js',
 		'lib/jquery.ui.map.extensions.js',
         'lib/jsrender.js',
+		'js/aroundme.js',
         'js/favorite.js',
         'js/detail.js',
 		'js/list.js',
 		'js/map.js',
 		'js/send.js',
-		'js/aroundme.js',
         'init.js'
     );
 
@@ -34,5 +34,4 @@ loadLocalScripts = function() {
         document.head.appendChild( script );
     });
 }
-
 loadGoogleMapScripts();

@@ -26,7 +26,7 @@ Map = {
 		var marker = new google.maps.Marker( {
 			'icon': 'image/maps_marker.png',
 			'title': detail.name,
-			'position' : new google.maps.LatLng( detail.geometry.location.lat(), detail.geometry.location.lng() ),
+			'position' : new google.maps.LatLng( detail.geometry.location[0], detail.geometry.location[1] ),
 			'detailReference' : detail.reference // custom
 		});
 

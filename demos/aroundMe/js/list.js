@@ -41,7 +41,7 @@ List = {
 	},
 
 	toggleList : function( list ) {
-		$("#editFavoriteHeader").toggle(); // bug
+		//$("#editFavoriteHeader").toggle(); // bug
 		var parent = $(list).parent();
 
 

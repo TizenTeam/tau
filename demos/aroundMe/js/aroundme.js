@@ -7,6 +7,7 @@ AroundMe = {
 		this.initSearchSettings();
 		this.initGoogle();
 		$.mobile.hidePageLoadingMsg();
+		Map.getCurrentLocation( AroundMe.firstSearch );
 	},
 	
 	initUi : function() {
@@ -31,9 +32,9 @@ AroundMe = {
 			$(this).attr("href", Send.toWACHref());
 		});
 
-		$("#favoriePage").bind( 'pagebeforehide', function() {
-			$("#editFavoriteHeader").hide();
-		});
+//		$("#favoriePage").bind( 'pagebeforehide', function() {
+//			$("#editFavoriteHeader").hide();
+//		});
 		
 		$("#queryInput")
 			.live( "change", function(events, ui) {
@@ -53,7 +54,7 @@ AroundMe = {
 			Map.getCurrentLocation( Map.setCenter );
 		});
 
-		$("#editFavoriteHeader").hide();
+//		$("#editFavoriteHeader").hide();
 		$("#toggleEditBtn").bind( "vclick", function(events, ui) {
 			List.toggleList( $("#favoriteList") );			
 		});
@@ -153,7 +154,7 @@ AroundMe = {
 	}, 
 
 	initGoogle : function() {
-		Map.init($("#map"));	
+		Map.init($("#map"));
 	},
 
 	firstSearch : function( geolocation, status ) {
