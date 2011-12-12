@@ -1,0 +1,10 @@
+<div data-role="page">
+<div data-role="header">
+	<h1>Pages</h1>
+</div>
+
+<div data-role="content">
+    <div data-role="cite" data-ref-url="../../../src/jqm/docs/pages/index.html" data-ref-sel="[data-role='content']" />
+</div>
+
+</div>
