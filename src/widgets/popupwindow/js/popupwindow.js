@@ -164,9 +164,8 @@ $.widget( "todons.popupwindow", $.mobile.widget, {
     });
 
     /* Events on "Cancel button : ui-popup-cancel" */
-    /* wongi_1208 : Add class = "ui-btn-cancel" for popup window's cancel button */
-    $(".ui-popupwindow .ui-btn-cancel").live("vclick", function(){
-		console.log("Popup Cancel");
+    /* wongi_1212 : Add class = "ui-btn-pop-close" to close pop-up when it't button clicked. */
+    $(".ui-popupwindow .ui-btn-popup-close").live("vclick", function(){
 		self.close();
 		return false;
     });

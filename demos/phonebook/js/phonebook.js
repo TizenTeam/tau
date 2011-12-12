@@ -14,6 +14,9 @@ domReady(function(){
     		
     /* Saved Location : Defaults support list */ 
     savedLocationListDB = ["Phone", "Samsung", "Google", "Facebook", "Yahoo", "Service numbers"];
+    
+    /* DB change flag */
+    db_changed = false;
 
 Phonebook = {
 	search: function(dbArray, regEx, vlist_selector)
@@ -35,6 +38,20 @@ Phonebook = {
 		return search_result;
 	},
 	
+	delete_one_contact: function(dbArray, target_id)
+	{
+		$.each(dbArray, function(i, v) {
+	        if (v.Luid == target_id) {
+	        	/* Find and make detail view page.*/
+	        	dbArray.splice(i,1);
+	        	
+	        	db_changed = true;
+	        	
+	        	return false;
+	        }
+		});		
+	},
+	
 	getDetailview: function(dbArray, luid)
 	{
 		/* Currently use linear search. Later or Real DB may support SQL query. */ 
@@ -54,7 +71,9 @@ Phonebook = {
 		
 		$("#contact_detailview_dialog_list").empty();
 		
-		$("#contact_detailview_dialog_list").append((htmlData).data('luid', contact.Luid));
+		$("#contact_detailview_dialog_list").append(htmlData);
+		
+		$("#contact_detailview_dialog_list").data('luid', contact.Luid);
 		
 		$("#contact_detilaview").bind("pagebeforeshow", function(){
 			
@@ -64,6 +83,16 @@ Phonebook = {
 		});
 		
 		$.mobile.changePage("#contact_detilaview");
+		
+		/* Delete current detail view */
+		$("#detailview_delete_ok").bind("click", function(){
+			var target_id = $("#contact_detailview_dialog_list").data('luid');
+			
+			Phonebook.delete_one_contact(window[pb_dbtable], target_id);
+			Phonebook.delete_one_contact(window[pb_groupdbtable], target_id);
+			
+			window.history.back();
+		});
 	},
 	
 	pushContactsTitle: function(titleSelector, template, nb_items)
@@ -193,8 +222,6 @@ Phonebook = {
 	
 	pushContactList: function(pageSelector, headerSelector, vlistSelector, TitleString, contactList)
 	{
-		var k = $(vlistSelector);
-		
 		$(headerSelector).text(TitleString);
 		
 		$(pageSelector).bind("pageshow", function(){

@@ -40,6 +40,42 @@ $("#all_contacts_list li, #contacts_list_main li").live("click", function()
 	Phonebook.getDetailview(window[pb_dbtable], $(this).data("luid"));
 });
 
+/* After Create / Delete */
+$("#all_contacts_page").live("pagebeforeshow", function(){
+	if (db_changed == true)
+	{
+		/* Refresh Title */
+		var nb_contacts = window[pb_dbtable].length;
+		
+		Phonebook.pushContactsTitle("#all_contacts_header h1", ".tmpl_title_with_count", nb_contacts);
+		
+		/* Refresh virtual list */
+		$("#all_contacts_list").virtuallistview("create");
+		
+		/* clear flag */
+		db_changed = false;
+	}
+});
+
+
+/*$("#contacts_list_page").live("pagebeforeshow", function(){
+	if (db_changed == true)
+	{
+		 Refresh Title 
+		var nb_contacts = window[pb_dbtable].length;
+		
+		Phonebook.pushContactsTitle("#all_contacts_header h1", ".tmpl_title_with_count", nb_contacts);
+		
+		 Refresh virtual list 
+		$(this).find("ul.ui-virtual-list-container").virtuallistview("create");
+		
+		
+		 clear flag 
+		db_changed = false;
+	}
+});
+*/
+
 /* Contacts list */
 $("#contacts_list_queryInput").live( "input", function(events) {
 	

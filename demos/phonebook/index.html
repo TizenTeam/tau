@@ -64,7 +64,7 @@
 			</ul>			
 		</script>
 		
-		<script id="tmpl_contacts_title" type="text/x-jquery-tmpl">
+		<script id="tmpl_contacts_title" class="tmpl_title_with_count" type="text/x-jquery-tmpl">
 			All contacts (${counts})
 		</script>  
 			
@@ -255,8 +255,8 @@
 	<div id="detail_view_delete_popup" data-role="popupwindow" data-style="center_basic_2btn">
 		<p data-role="text">This contact will be deleted.</p>
 		<div data-role="button-bg">
-				<input type="button" value="OK" />
-				<input type="button" value="Cancel" class="ui-btn-cancel" />
+				<input type="button" value="OK" id = "detailview_delete_ok" class="ui-btn-popup-close"/>
+				<input type="button" value="Cancel" class="ui-btn-popup-close" />
 		</div>
 	</div>
 		
