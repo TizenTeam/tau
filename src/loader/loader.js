@@ -194,7 +194,11 @@ S = {
 		});
 	},
 
-	setGlobalize: function() {
+	/** Load Globalize culture file, and set default culture.
+	 *  @param[in]  language  Language code. ex) en-US, en, ko-KR, ko
+	 *                        If language is not given, read language from html 'lang' attribute, or from system setting.
+	 */
+	loadGlobalizeCulture: function(language) {
 		function getGlobalizeCultureFile(lang) {
 			return ['globalize.culture.', lang, '.js'].join('');
 		};
@@ -209,7 +213,7 @@ S = {
 		}
 
 		// Get lang, and change country code to uppercase chars.
-		var lang = $('html').attr('lang') || window.navigator.language,
+		var lang = language || $('html').attr('lang') || window.navigator.language,
 			countryCodeIdx = lang.lastIndexOf('-'),
 			ignoreCodes = ['Cyrl', 'Latn', 'Mong'];	// Not country code!
 
@@ -248,6 +252,10 @@ S = {
 				}
 			}
 		);
+		return lang;
+	},
+	setGlobalize: function() {
+		var lang = this.loadGlobalizeCulture();
 
 		// Set culture
 		// NOTE: It is not needed to set with neutral lang. 
