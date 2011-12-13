@@ -154,6 +154,7 @@ $.widget("todons.optionheader", $.mobile.widget, {
             self.refresh();
 
             page.bind("pagebeforeshow", function () {
+                self._setArrowLeft();
                 self._realize();
             });
         }

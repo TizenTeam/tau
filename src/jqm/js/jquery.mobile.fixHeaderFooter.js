@@ -69,20 +69,20 @@ $.mobile.fixedToolbars = (function() {
 
 
 		/* resize test : Jinhyuk    */
-		if($(document).find(".ui-page-active").length)
-		var footer_filter = $(document).find(".ui-page-active").find(":jqmData(role='footer')");		
-		else {
-			var footer_filter = $(document).find(":jqmData(role='footer')").eq(0); 	
-		}
+		if($(document).find(".ui-page-active").length) var footer_filter = $(document).find(".ui-page-active").find(":jqmData(role='footer')");		
+		else var footer_filter = $(document).find(":jqmData(role='footer')").eq(0); 	
+
+		var footerNavbar = footer_filter.find(".ui-navbar");
+
 		if(footer_filter.height()< defaultFooterHeight)
 			footer_filter.css("height", defaultFooterHeight);
 		footer_filter
 			.css("top",document.documentElement.clientHeight  - footer_filter.height())
 			.show();	
-		if(footer_filter.find(".ui-navbar").jqmData("style") == "toolbar"){
-			footer_filter.find(".ui-navbar")
+		if(footerNavbar.jqmData("style") == "toolbar"){
+			footerNavbar
 				.css("left", "144px")
-				.css("width", document.documentElement.clientWidth- footer_filter.find(".ui-navbar").siblings(".ui-btn").width());		
+				.css("width", document.documentElement.clientWidth- footerNavbar.siblings(".ui-btn").width());		
 		}					
 		/* resize test : Jinhyuk    */
 
