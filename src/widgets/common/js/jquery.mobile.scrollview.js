@@ -271,6 +271,8 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 		$.each(this._getScrollHierarchy(), function(i, sv) { sv._stopMScroll(); });
 		this._stopMScroll();
 
+		this._didDrag = false;
+
 		// should skip the dragging when click the button
 		this._skip_dragging = $(e.target).is('.ui-btn-text') ||
 				$(e.target).is('.ui-btn-inner');
@@ -311,7 +313,6 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 		this._speedX = 0;
 		this._speedY = 0;
 		this._directionLock = "";
-		this._didDrag = false;
 
 		if (this._hTracker) {
 			var cw = parseInt(c.css("width"), 10);
