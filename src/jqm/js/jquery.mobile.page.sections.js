@@ -31,7 +31,14 @@ $( ":jqmData(role='page'), :jqmData(role='dialog')" ).live( "pagecreate", functi
 			leftbtn,
 			rightbtn,
 			normalFooter, /* SLP Default Footer : Jinhyuk */
-			backBtn;
+			backBtn,
+			footerExist = $this.jqmData("footerexist");  /* Footer on / off option : Wongi */
+		
+		if (footerExist != undefined && (footerExist == true || footerExist == false))
+		{
+			/*$.mobile.page.prototype.options.footerExist = footerExist;*/
+			o.footerExist = footerExist;
+		}
 			
 		$this.addClass( "ui-" + role );	
 
