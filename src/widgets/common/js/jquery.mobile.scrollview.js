@@ -283,15 +283,19 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 		// can't do this on touch devices because it will disable the
 		// generation of "click" events.
 
+		var shouldBlockEvent = 1;
+
 		if (this.options.eventType === "mouse") {
-			e.preventDefault();
+			shouldBlockEvent = !($(e.target).is(':input') ||
+				$(e.target).parents(':input').length > 0);
 		} else if (this.options.eventType === "touch") {
-			var shouldBlockEvent = !($(e.target).is('a, :input') ||
+			shouldBlockEvent = !($(e.target).is('a, :input') ||
 				$(e.target).parents('a, :input').length > 0);
 
-			if (shouldBlockEvent)
-				e.preventDefault();
 		}
+
+		if (shouldBlockEvent)
+			e.preventDefault();
 
 		var c = this._$clip;
 		var v = this._$view;
