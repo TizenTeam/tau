@@ -487,9 +487,6 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 		if (this._skip_dragging)
 			return;
 
-		var res = !this._didDrag;
-		this._didDrag = false;
-
 		var l = this._lastMove;
 		var t = getCurrentTime();
 		var doScroll = l && (t - l) <= this.options.moveIntervalThreshold;
@@ -519,7 +516,7 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 
 		this._disableTracking();
 
-		if (res && this.options.delayedClickEnabled && this._$clickEle.length) {
+		if (!this._didDrag && this.options.delayedClickEnabled && this._$clickEle.length) {
 			this._$clickEle
 				.trigger("mousedown")
 				//.trigger("focus")
@@ -531,7 +528,7 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 		// the event so that links etc, underneath our
 		// cursor/finger don't fire.
 
-		return res;
+		return !this._didDrag;
 	},
 
 	_enableTracking: function() {
