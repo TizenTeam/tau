@@ -21,6 +21,44 @@ $.widget( "mobile.textinput", $.mobile.widget, {
 			themeclass  = " ui-body-" + theme,
 			focusedEl, clearbtn;
 
+		/* wongi_1215 : default text */
+		var defaultText = input.jqmData("default-text");
+		
+		if ((defaultText != undefined) && (defaultText.length > 0))
+		{
+			var defaultTextClass = "ui-input-default-text";
+			var trimedText = defaultText.replace(/\s/g, "");
+
+			/* Make new class for default text string */
+			var newClassName = defaultTextClass + "-" + trimedText;
+			var newStyle = $("<style>" + '.' + newClassName + ":after" + "{content:" + "'" + defaultText + "'"+ "}" + "</style>");
+			$('html > head').append(newStyle);
+
+			/* Make new empty <DIV> for default text */
+			var newDiv = $("<div></div>");			
+			
+			/* Add class and append new div */
+			newDiv.addClass(defaultTextClass);
+			newDiv.addClass(newClassName);
+			
+			input.parent().append(newDiv);
+			
+			/* When focus, default text will be hide. */
+			input.focus(function() {
+				input.parent().find("div.ui-input-default-text").addClass( "ui-input-default-hidden" );
+			})
+			.blur(function(){
+				var inputedText = input.val();
+				if (inputedText.length > 0)	{
+					input.parent().find("div.ui-input-default-text").addClass( "ui-input-default-hidden" );
+				}
+				else {
+					input.parent().find("div.ui-input-default-text").removeClass( "ui-input-default-hidden" );
+				}
+			});			
+		}
+		
+		
 		$( "label[for='" + input.attr( "id" ) + "']" ).addClass( "ui-input-text" );
 
 		focusedEl = input.addClass("ui-input-text ui-body-"+ theme );
