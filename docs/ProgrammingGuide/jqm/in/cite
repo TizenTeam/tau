@@ -23,7 +23,6 @@ var sandbox = {
     console:console,
     util:util
 };
-
 parse = function( input ) {
     jsdom.env( input, [JQ], function( errors, window ) {
         root = window;
@@ -69,7 +68,7 @@ apply = function( url, selector, owner ) {
         if ( scripts ) {
             $.extend( sandbox, {
                 html: html,
-                $: $,
+                $: root.$,
                 owner: $(target)
             });
             vm.runInNewContext( scripts, sandbox );
@@ -79,7 +78,7 @@ apply = function( url, selector, owner ) {
     });
 };
 
-done = function( owner ) {
+done = function() {
     current++;
     if ( current == length ) {
         write( output, root );
@@ -87,8 +86,11 @@ done = function( owner ) {
 };
 
 write = function( output, root ) {
-    root.$("html").wrap("<xxxxx />");
-    fs.writeFile( output, root.$("xxxxx").html(), encoding='utf8', function(err) {
+    var out = root.$("html").html();
+    out = out.substr( 0, out.lastIndexOf("<script") );
+    out = "<!DOCTYPE html>\n<html>\n" + out + "\n</html>";
+
+    fs.writeFile( output, out, encoding='utf8', function(err) {
         if ( err ) {
             throw err;
         }

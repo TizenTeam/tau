@@ -1,8 +1,3 @@
-<html>
-<head>
-    <div data-role="cite" data-ref-url="../index.html" data-ref-sel="head" />
-</head>
-<body>
 <div data-role="page">
 
 <div data-role="header">
@@ -11,7 +6,7 @@
 
 <div data-role="content">
     <ul data-role="listview">
-        <div data-role="cite" data-ref-url="../../../src/jqm/docs/index.html" data-ref-sel="ul">
+        <div data-role="cite" data-ref-url="../../../../src/jqm/docs/index.html" data-ref-sel="ul">
             <localScripts>
                 console.log( $(owner.children()[1]).html() );
             </localScripts>
@@ -20,5 +15,3 @@
 </div>
 
 </div>
-</body>
-</html>
