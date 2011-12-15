@@ -112,19 +112,22 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		
 		var t = this;
 		
-		TITLE_H = $(o.id + o.childSelector + ':first').position().top;
-		LINE_H = $(o.id + o.childSelector + ':first').outerHeight();
-		
-		CONTAINER_W = $(o.id).innerWidth();
-		
-		var padding = parseInt($(o.id + o.childSelector).css("padding-left")) + parseInt($(o.id + o.childSelector).css("padding-right"));
-		
-		/* Add style */
-		$(o.id + ">" + o.childSelector).addClass("position_absolute").addClass("ui-btn-up-s")
-											.bind("mouseup", t._stylerMouseUp)
-											.bind("mousedown", t._stylerMouseDown)		
-											.bind("mouseover", t._stylerMouseOver)
-											.bind("mouseout", t._stylerMouseOut);
+		if ($(o.id + o.childSelector).size() > 0)
+		{
+			TITLE_H = $(o.id + o.childSelector + ':first').position().top;
+			LINE_H = $(o.id + o.childSelector + ':first').outerHeight();
+			
+			CONTAINER_W = $(o.id).innerWidth();
+			
+			var padding = parseInt($(o.id + o.childSelector).css("padding-left")) + parseInt($(o.id + o.childSelector).css("padding-right"));
+			
+			/* Add style */
+			$(o.id + ">" + o.childSelector).addClass("position_absolute").addClass("ui-btn-up-s")
+												.bind("mouseup", t._stylerMouseUp)
+												.bind("mousedown", t._stylerMouseDown)		
+												.bind("mouseover", t._stylerMouseOver)
+												.bind("mouseout", t._stylerMouseOut);
+		}
 
 		$(o.id + ">" + o.childSelector).each(function(index){
 			$(this).css("top", TITLE_H + LINE_H*index + 'px')

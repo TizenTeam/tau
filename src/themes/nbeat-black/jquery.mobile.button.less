@@ -13,8 +13,7 @@
 @color_buttonEditBGPress:	@color_38;
 
 /* Edit button size */
-/* Original size is 74px, but, for good looking, set size 48px. */
-@height_buttonEdit:	48 * @unit_base;
+@height_buttonEdit:	74 * @unit_base;
 @width_buttonEdit:	@height_buttonEdit;
 
 .ui-btn { display: block; text-align: center; cursor:pointer;  position: relative; /*margin: .5em 5px;*/ padding: 0; vertical-align: middle; } /* wongi_1018 : For button align. */
@@ -215,7 +214,7 @@ background-image: url(images/00_winset_Back.png);}
 	position: absolute;
 	top: 0 * @unit_base;
 	margin-top: 0 * @unit_base;
-	right: @width_buttonEdit/2;
+	left : 720px - 160px - @width_buttonEdit;
 }
 
 .ui-btn.ui-btn-edit.ui-btn-down-s

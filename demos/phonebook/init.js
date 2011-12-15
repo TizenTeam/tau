@@ -112,6 +112,17 @@ $("#all_groups_page").bind("pagebeforecreate", function(){
 	Phonebook.pushGourpedList("#all_groups_list", "#tmpl_groups_expandable_savedLocationName", "#tmpl_groups_expandable_groupName", groupedList);
 });
 
+/* Create contact page */
+$("#create_contact_page").bind("pagebeforecreate", function(){
+	$("#create_contact_cancel").bind("click", function(){
+		window.history.back();
+	});
+});
+
+
+
+
+
 /* Start Phonebook App initialization */
 initDB();
 
