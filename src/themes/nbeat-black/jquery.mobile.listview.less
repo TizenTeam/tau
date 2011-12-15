@@ -1363,6 +1363,44 @@ ul.ui-listview {
 		}
 	}
 
+	// Dialogue Editor for Phonebook
+	&> div.ui-li-dialogue-editor-photo
+	{
+		width: 160px;
+		left: 16px;
+		top: 34px;
+		position: absolute;
+		&> img
+		{
+			width:128px; 
+			height:128px;
+		}
+	}
+
+	&> li.ui-li-dialogue-editor-1
+	{
+		border-left: @list-li-dialogue-width rgba(68, 68, 68, 255) solid;
+		border-top-width: 0px;	//wongi_1201 //for phonebook
+		left : 160px;
+		width : 454px;
+		padding-left: 16px;
+		padding-right: 0px;
+		
+		&> .ui-field-contain
+		{
+			margin:0;
+			padding : 8px;
+			width : 446px;
+			
+			&> input
+			{
+				border : none;
+				outline: none;
+				width : 446px;
+				padding : 0px;
+			}
+		}
+	}
 
 	// Dialogue 
 	&> li.ui-li-dialogue {
