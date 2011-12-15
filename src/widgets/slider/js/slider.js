@@ -93,6 +93,14 @@
 			// get the actual slider added by jqm
 			slider = inputElement.next('.ui-slider');
 
+			var icon = inputElement.attr('data-icon');
+
+			// wrap the background
+			if (icon === undefined)
+				slider.wrap('<div class="ui-slider-bg"></div>');
+			else
+				slider.wrap('<div class="ui-slider-icon-bg"></div>');
+
 			// get the handle
 			self.handle = slider.find('.ui-slider-handle');
 
@@ -101,7 +109,6 @@
 			slider.find('*').removeClass('ui-btn-corner-all');
 
 			// add icon
-			var icon = inputElement.attr('data-icon');
 
 			switch (icon) {
 			case 'bright':
@@ -212,6 +219,7 @@
 			this.currentValue = newValue;
 			this.handleText.html(newValue);
 			this.popup.html(newValue);
+
 			this.element.trigger('update', newValue);
 		},
 
