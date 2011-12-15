@@ -354,6 +354,11 @@ jQuery.widget( "mobile.circularview", jQuery.mobile.widget, {
 			this._dragStopCB = function(e) {
 				return self._handleDragStop( e ); 
 			};
+            
+            this._$view.bind( "click", function(e) {
+                return !self._didDrag;
+            });
+            
 		} else { //touch
 			this._dragStartEvt = "touchstart";
 			this._dragStartCB = function(e) {
@@ -371,8 +376,8 @@ jQuery.widget( "mobile.circularview", jQuery.mobile.widget, {
 			this._dragStopCB = function(e) {
 				return self._handleDragStop(e);
 			};
-		}
-
+		
+        }
 		this._$view.bind( this._dragStartEvt, this._dragStartCB );
 	},
 
