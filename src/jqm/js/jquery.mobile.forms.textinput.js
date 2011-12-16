@@ -40,6 +40,9 @@ $.widget( "mobile.textinput", $.mobile.widget, {
 			/* Add class and append new div */
 			newDiv.addClass(defaultTextClass);
 			newDiv.addClass(newClassName);
+			newDiv.tap(function( event ) {
+				input.focus();
+			});
 			
 			input.parent().append(newDiv);
 			
