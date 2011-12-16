@@ -11,7 +11,7 @@
 /* S
 -----------------------------------------------------------------------------------------------------------*/
 .ui-bar-s {
-	border: 0;
+	border: none;
 	background: 			#1F1F1F;
 	color: 					@color_text;
 	font-family: Helvetica, Arial, sans-serif;
@@ -75,7 +75,7 @@
 			
 		border-style: solid;
 		border-color: 	#4c4c4c; 	
-		border-width: 	1 * @unit_base;
+		border-width: 	1px;
 			
 		.ui-btn-inner {
 			width : 108  * @unit_base;
@@ -251,7 +251,7 @@
 			background: 			#353535;			 		
 
 			border-color : black; 
-			border-width : 2 * @unit_base;
+			border-width : 2px;
 			border-style :  groove;			
 		}
 	}
@@ -261,7 +261,7 @@
 
 // NOTE: This class is applied to almost all JQM widgets!
 .ui-body-s {
-	border: 1px solid @color_border; 	// TODO: Check border color!
+	border: 1px solid #2a2a2a;
 	background: 			@color_bg; 
 	color: 					@color_text;
 	font-weight: normal;
@@ -280,14 +280,9 @@
 }
 
 .ui-br {
-	border-bottom: rgb(130,130,130);
-	border-bottom: rgba(130,130,130,.3);
-	border-bottom-width: 1px;
-	border-bottom-style: solid;
 }
 .ui-btn-up-s {
-	/* border: 1px solid 		#222; */ 
-	border: none;
+	//border: none;
 	background: 			@buttoncolor_normal;
 	font-weight: bold;
 	color: 					#fff;
@@ -299,8 +294,6 @@
 	.LESSbutton_text1_style; //wongi_button
 }
 .ui-btn-hover-s {
-	/* bborder: 1px solid 		#000; */
-	border: none;
 	background: 			/*#444444*/ @buttoncolor_hover;	//wongi_1026
 	font-weight: bold;
 	color: 					#fff;
@@ -313,8 +306,7 @@
 }
 
 .ui-btn-down-s {
-	/* border: 1px solid 		#000; */
-	border: none;
+	//border: none;
 	background: 			@buttoncolor_press;	//wongi_button
 	font-weight: bold;
 	color: 					#fff;
@@ -435,9 +427,7 @@ a.ui-link-inherit {
 -----------------------------------------------------------------------------------------------------------*/
 
 .ui-btn-inner {
-	/* border-top: 1px solid 	#fff;*/
-	/* border-color: 			rgba(255,255,255,.3); */
-	border : none;
+	//border : none;
 }
 
 /*  Jinhyuk_Controlbar	*/
