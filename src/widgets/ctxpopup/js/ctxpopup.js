@@ -417,13 +417,17 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
             self.close();
         });
         
-        var ctxid = $(elem).attr( "data-ctxid" ); 
-        if ( ctxid ) {
-            owner = $(document).find( "#" + ctxid );
-            owner
-                .bind( "vclick", function( e ) {
-                    self.pop( e.clientX, e.clientY );
-                });
+        var selector = $(elem).jqmData("selector"); 
+        if ( selector ) {
+            owner = $(document).find( selector );
+            if ( owner.length > 0 ) { 
+                owner
+                    .bind( "vclick", function( e ) {
+                        self.pop( e.clientX, e.clientY );
+                    });
+            } else {
+                console.log( "[ctxpopup] data-selector=\"" + selector + "\" is not found." );
+            }
         }
         
         $.extend( self, {
@@ -434,7 +438,7 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
             owner: owner
         });
         
-        var style = $(elem).attr("data-style");
+        var style = $(elem).jqmData("style");
         switch (style) {
         case 'picker':
             this.options.style = 'picker';
