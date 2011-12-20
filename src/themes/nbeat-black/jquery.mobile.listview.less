@@ -1382,21 +1382,21 @@ ul.ui-listview {
 		border-left: @list-li-dialogue-width rgba(68, 68, 68, 255) solid;
 		border-top-width: 0px;	//wongi_1201 //for phonebook
 		left : 160px;
-		width : 684px;
-		padding-left: 16px;
+		width : 790px;
+		padding-left: 12px;
 		padding-right: 0px;
 		
 		&> .ui-field-contain
 		{
 			margin:0;
 			padding : 8px;
-			width : 676px;
+			width : 782px;
 			
 			&> input
 			{
 				border : none;
 				outline: none;
-				width : 676;
+				width : 782pxpx;
 				padding : 0px;
 			}
 			
@@ -1406,7 +1406,7 @@ ul.ui-listview {
 				top: 0;
 				left: 0;
 				width : 100%;
-				margin: 16 * @unit_base;
+				margin: 0px;
 				color: rgba(130, 130, 130, 1);
 			}
 			
@@ -1420,6 +1420,66 @@ ul.ui-listview {
 	{
 		background-color: #000;		
 	}
+
+	&> li.ui-li-dialogue-editor-2
+	{
+		padding : 0px !important;
+		height : 130px;
+		border-left: @list-li-dialogue-width rgba(68, 68, 68, 255) solid;
+		border-top-width: 0px;	//wongi_1201 //for phonebook
+		left : 0px;
+		width : 962px;
+		font-size:32px;
+
+		&> div.ui-li-dialogue-editor-border
+		{
+			border-right: 1px rgba(68, 68, 68, 255) solid;
+			width: 160px;
+			height: 130px;	
+		}
+
+		&> div div.ui-li-dialogue-editor-2-label
+		{
+			margin-left:16px;
+			width : 186px;
+			border-right : solid 1px rgba(68, 68, 68, 255);
+			line-height:32px;
+			position:absolute;
+			top:50%;
+			margin-top:-16px;
+		}
+		
+		&> .ui-field-contain
+		{
+			margin:0;
+			width : 676px;
+			position:absolute;
+			top:50%;
+			margin-top:-16px;
+			left : 200px; 
+			
+			&> input
+			{
+				border : none;
+				outline: none;
+				width : 676;
+				padding : 0px;
+			}
+			
+			/* wongi_1215 : Default Text */
+			&>div.ui-input-default-text {
+				position: absolute;
+				top: 0;
+				width : 100%;
+				margin: 0px;
+				color: rgba(130, 130, 130, 1);
+			}
+			
+			&>div.ui-input-default-text.ui-input-default-hidden {
+				display : none;
+			}
+		}
+	}	
 
 	// Dialogue 
 	&> li.ui-li-dialogue {
