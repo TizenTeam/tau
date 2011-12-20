@@ -217,7 +217,11 @@
                 interval = {'d': 60*60*24, 'h': 60*60, 'i': 60, 's':1},
                 calmode = {};
 
-            self.cpMonthGrid.text( o.monthsOfYear[self.theDate.getMonth()] + " " + self.theDate.getFullYear() );
+            if(Globalize) {
+				self.cpMonthGrid.text(Globalize.format(self.theDate, "Y"));
+			} else {
+				self.cpMonthGrid.text( o.monthsOfYear[self.theDate.getMonth()] + " " + self.theDate.getFullYear() );
+			}
             self.cpweekDayGrid.html('');
             
             calmode = {'today': -1, 'highlightDay': -1, 'presetDay': -1, 'nexttoday': 1,
@@ -256,8 +260,14 @@
             if ( o.calShowDays ) {
                 if ( o.daysOfWeekShort.length < 8 ) { o.daysOfWeekShort = o.daysOfWeekShort.concat(o.daysOfWeekShort); }
                 calmode.weekDays = $("<div>", {'class':'ui-cp-row'}).appendTo(self.cpweekDayGrid);
+				var dayName;
                 for ( i=0; i<=6;i++ ) {
-                    $("<div>"+o.daysOfWeekShort[i+o.calStartDay]+"</div>").addClass('ui-cp-date ui-cp-date-disabled ui-cp-month').appendTo(calmode.weekDays);
+					if(Globalize) {
+						dayName = Globalize.culture().calendars.standard.days.namesShort[(i+o.calStartDay)%7];
+					} else {
+						dayName = o.daysOfWeekShort[i+o.calStartDay];
+					}
+                    $("<div>"+dayName+"</div>").addClass('ui-cp-date ui-cp-date-disabled ui-cp-month').appendTo(calmode.weekDays);
                 }
             }
             
