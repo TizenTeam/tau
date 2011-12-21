@@ -300,6 +300,17 @@
 	
 	
 	<div id="create_contact_page" data-role="page">
+		<script id="tmpl_contact_create_ln" type="text/x-jquery-tmpl">
+			<li class="ui-li-dialogue-editor-2 contact-editor-ln-display">
+				<div class="ui-li-dialogue-editor-border">
+					<div class="ui-li-dialogue-editor-2-label"></div>
+				</div>
+				<div data-role="fieldcontain">
+	        		<input class="contact-editor-ln-input" type="text" name="ln" value="" data-default-text = "Number" />
+				</div>
+			</li>
+		</script>
+	
 		<div id="create_contact_header" data-role="header" data-position="fixed" data-footerexist = "false" >
 			<a id="create_contact_cancel">Cancel</a>
 			<h1>Create</h1>
@@ -346,18 +357,28 @@
 				
 				<li data-role="list-divider"></li>
 				
-				<li class = "ui-li-dialogue-editor-2">
+				<li class="ui-li-dialogue-editor-2 contact-editor-ln-display">
 					<div class="ui-li-dialogue-editor-border">
-						<div class="ui-li-dialogue-editor-2-label">Mobile</div>
+						<div class="ui-li-dialogue-editor-2-label conatact-editor-ln-mobile"></div>
 					</div>
 					<div data-role="fieldcontain">
-	         			<input type="text" name="name" id="Mobile" value="" data-default-text = "Number" />
+	         			<input class="contact-editor-ln-input contact-editor-last-ln" type="text" name="ln" value="" data-default-text = "Number" />
 					</div>
 				</li>
 				
 				<li class = "ui-li-dialogue-editor-date">
-				</li>
 				
+				</li>
+
+				<!--  Context Popup -->
+				<div id="pop_text_only" data-role="ctxpopup" data-ctxid="contact-editor-mobile">
+					<ul data-role="listview">
+						<li><a href="#">Telephone</a></li>
+						<li><a href="#">Fax</a></li>
+						<li><a href="#">Other</a></li>
+					</ul>
+				</div>
+
 				<!-- Editor Buttons -->
 			</ul>
 		</div><!--content end-->

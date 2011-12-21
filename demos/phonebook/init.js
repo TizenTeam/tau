@@ -119,7 +119,54 @@ $("#create_contact_page").bind("pagebeforecreate", function(){
 	});
 });
 
-
+$(".contact-editor-last-ln").live( "input", function(events) {
+	/* Append one more line number input form */
+	var myTemplate = $("#tmpl_contact_create_ln");
+	
+	var ln_input_elm = myTemplate.tmpl();	
+	
+	/* Initialize template */
+	var cnt_mobile = $("div.conatact-editor-ln-mobile").size();
+	
+	if (cnt_mobile == 0)
+	{
+		ln_input_elm.find("div.ui-li-dialogue-editor-2-label").addClass("conatact-editor-ln-mobile");
+	}
+	else
+	{
+		var cnt_telephone = $("div.conatact-editor-ln-telephone").size();
+		
+		if (cnt_telephone == 0)
+		{
+			ln_input_elm.find("div.ui-li-dialogue-editor-2-label").addClass("conatact-editor-ln-telephone");
+		}
+		else
+		{
+			var cnt_fax = $("div.conatact-editor-ln-fax").size();
+			
+			if (cnt_fax == 0)
+			{
+				ln_input_elm.find("div.ui-li-dialogue-editor-2-label").addClass("conatact-editor-ln-fax");
+			}
+			else
+			{
+				ln_input_elm.find("div.ui-li-dialogue-editor-2-label").addClass("conatact-editor-ln-other");				
+			}
+		}
+	}
+	
+	$(this).removeClass("contact-editor-last-ln");
+	
+	ln_input_elm.find("input.contact-editor-ln-input").addClass("contact-editor-last-ln");
+	
+	$("li.contact-editor-ln-display:last").after(ln_input_elm);
+	
+	$("li.contact-editor-ln-display:last").trigger("create");
+	
+	$("#create_contact_editor").listview("refresh");
+	
+	return false;
+});
 
 
 
