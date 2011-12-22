@@ -419,15 +419,9 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
         
         var selector = $(elem).jqmData("selector"); 
         if ( selector ) {
-            owner = $(document).find( selector );
-            if ( owner.length > 0 ) { 
-                owner
-                    .bind( "vclick", function( e ) {
-                        self.pop( e.clientX, e.clientY );
-                    });
-            } else {
-                console.log( "[ctxpopup] data-selector=\"" + selector + "\" is not found." );
-            }
+            $( selector ).live( "vclick", function( e ) {
+                self.pop( e.clientX, e.clientY );
+            });
         }
         
         $.extend( self, {
