@@ -12,34 +12,48 @@
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 	See the License for the specific language governing permissions and
 	limitations under the License.
+
+	Author: Youmin Ha <youmin.ha@samsung.com>
 */
 
-/*
- * pagecontrol
- * by Youmin Ha <youmin.ha@samsung.com>
- *
- * This widget shows number bullets, receives touch event for each bullet,
+/**
+ * Pagecontrol widget shows number bullets, receives touch event for each bullet,
  * and runs your callback for each touch event.
  *
- * RESTRICTIONS
- * This widget can only handle maximum bullets from 1 to 10, according to
- * winset UI design.
+ * HTML Attributes:
  *
- * USAGE
+ *		data-role:	This widget must have 'pagecontrol' as data-role value.
+ *		data-max:	Maximum nimber of pagecontrol bullets. This property must not exceed 10.
+ *		data-initVal:	Initially selected value of the pagecontrol widget. Must between 1 and data-max. If this attribute is not given, initial value is set to 1.
  *
- *	<div id="foo" data-role="pagecontrol" data-max="10"><div>
- *	...
- *	<script language="text/javascript">
+ * APIs:
+ *		setValue( value )
+ *			: Set current value. Actually triggers 'change' event to the widget with given value.
+ *			@param[in] value	A value to be changed.
+ *		getValue( )
+ *			: Get current value.
+ *			@return		Current value.
  *
- *	// Bind callback to value change
- *	$('foo').bind('change', function(event, value) {
- *		// event: 'change'
- *		// value: changed value
- *	});
+ * Events:
+ *		change:	Raised when a value is changed, by setting it by javascript, or by user's touch event.
  *
- *	// Set a value to 3
- *	$('foo').trigger('change', 3);
- *	</script>
+ * Examples:
+ *
+ *		<div id="foo" data-role="pagecontrol" data-max="10"><div>
+ *		...
+ *		<script language="text/javascript">
+ *
+ *		// Bind callback to value change
+ *		$('foo').bind('change', function(event, value) {
+ *			// event: 'change'
+ *			// value: changed value
+ *		});
+ *
+ *		// Set a value to 3
+ *		$('foo').trigger('change', 3);
+ *		</script>
+ *
+ * Note:
  */
 
 (function ($, undefined) {
