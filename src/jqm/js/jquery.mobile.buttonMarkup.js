@@ -5,20 +5,39 @@
 * http://jquery.org/license
 */
 
-/**
- * Author : Lee Won-gi (wongi11.lee@samsung.com)
- * Add "data-style" to add SLP style button. 
+/*
+ *	Copyright (c) 2011 Samsung Electronics Co., Ltd All Rights Reserved
  *
- * Property : 
- * 	
- * 		circle, nobg, edit
- * 
+ *	Licensed under the Apache License, Version 2.0 (the "License");
+ *	you may not use this file except in compliance with the License.
+ *	You may obtain a copy of the License at
+ *
+ *	http://www.apache.org/licenses/LICENSE-2.0
+
+ *	Unless required by applicable law or agreed to in writing, software
+ *	distributed under the License is distributed on an "AS IS" BASIS,
+ *	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *	See the License for the specific language governing permissions and
+ *	limitations under the License.
+
+ *	Author: Wongi Lee <wongi11.lee@samsung.com>
+*/
+
+/**
+ * Button Markup modified for SLP style. 
+ *
+ * HTML Attributes:
+ *
+ *		data-role:	button
+ *		data-style : circle, nobg, edit
+ *
+ *
  * Examples:
- * 
+ *
  *  	<div  data-role="button" data-inline="true" data-icon="send" data-style="circle"></div>
  *  	<div  data-role="button" data-inline="true" data-icon="favorite" data-style="nobg">
  *  	<div  data-role="button" data-inline="true" data-icon="editminus" data-style="edit"></div>
- **/
+ */
 
 ( function( $, undefined ) {
 

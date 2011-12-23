@@ -8,6 +8,24 @@
  */
 
 /*
+ *	Copyright (c) 2011 Samsung Electronics Co., Ltd All Rights Reserved
+ *
+ *	Licensed under the Apache License, Version 2.0 (the "License");
+ *	you may not use this file except in compliance with the License.
+ *	You may obtain a copy of the License at
+ *
+ *	http://www.apache.org/licenses/LICENSE-2.0
+
+ *	Unless required by applicable law or agreed to in writing, software
+ *	distributed under the License is distributed on an "AS IS" BASIS,
+ *	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *	See the License for the specific language governing permissions and
+ *	limitations under the License.
+
+ *	Author: Wongi Lee <wongi11.lee@samsung.com>
+*/
+
+/*
  * Shows other elements inside a popup window.
  *
  * To apply, add the attribute data-role="popupwindow" to a <div>
@@ -69,6 +87,15 @@
  * Events:
  *     close: Emitted when the popupwindow is closed.
  *
+ * 
+ * UPDATE : Button close by itself when marked by "ui-popup-cancel" class. (written by Wongi Lee)  
+ * 
+ * Example :  
+ *		When user click "Cancel" button, it will be closed by itself. 	
+ *
+ * 		<div data-role="button-bg">
+ *				<input type="button" value="Cancel" class="ui-btn-popup-close" />
+ *		</div>
  */
 (function( $, undefined ) {
 
@@ -164,7 +191,7 @@ $.widget( "todons.popupwindow", $.mobile.widget, {
     });
 
     /* Events on "Cancel button : ui-popup-cancel" */
-    /* wongi_1212 : Add class = "ui-btn-pop-close" to close pop-up when it't button clicked. */
+    /* Add class = "ui-btn-pop-close" to close pop-up when it't button clicked. */
     $(".ui-popupwindow .ui-btn-popup-close").live("vclick", function(){
 		self.close();
 		return false;
