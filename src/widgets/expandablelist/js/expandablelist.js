@@ -14,6 +14,21 @@
 	limitations under the License.
 */
 
+/**
+ * Displays vertical multi-level list.
+ *
+ * To apply, add the attribute data-expandable="true" and id="parentid" to a <li> element for parent list item
+ * and add the arrribute data-expanded-by="parentid" to a <li> element for child list item.
+ *
+ * HTML Attributes:
+ *		data-expandable: Parent list item must have 'true' value for this attribute
+ *		data-expanded-by: Child list item expanded by parent list item must have 'true' value for this attribute
+ *		data-initial-expansion: If you want expandable list to be expanded initially, set this value as 'true'
+ *
+ * Example:
+ *     <li data-expandable="true" id="exp1" data-initial-expansion="true">Parent</li>
+ *     <li data-expanded-by="exp1">Child</li>
+ */
 
 (function ($, undefined) {
 
