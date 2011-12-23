@@ -1,18 +1,68 @@
 /*
-	Copyright (c) 2011 Samsung Electronics Co., Ltd All Rights Reserved
+ * Copyright (c) 2011 Samsung Electronics Co., Ltd All Rights Reserved
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
 
-	Licensed under the Apache License, Version 2.0 (the "License");
-	you may not use this file except in compliance with the License.
-	You may obtain a copy of the License at
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
 
-	http://www.apache.org/licenses/LICENSE-2.0
+ * Author: Jung, Daehyeon <darrenh.jung@samsung.com>
+ */
 
-	Unless required by applicable law or agreed to in writing, software
-	distributed under the License is distributed on an "AS IS" BASIS,
-	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	See the License for the specific language governing permissions and
-	limitations under the License.
-*/
+/**
+ * A ctxpopup is a widget that, when shown, pops up a list of items. It 
+ * automatically chooses an area inside screen to optimally fit into it. 
+ * In the default theme, it will also point an arrow to it's top left 
+ * position at the time one shows it. It is intended for a small number 
+ * of items (hence the use of list, not genlist).
+ *
+ * HTML Attributes:
+ *
+ *  data-role: This widget must have 'ctxpopup' as data-role value.
+ *  data-style: 'vlist', 'hlist', 'image', 'image-title', 'icon', 'button', 'picker' 
+ *  data-selector: (Optional) CSS Selector which desire to invoke popup.
+ *
+ * APIs:
+ *  pop( x, y, owner )
+ *   : Popup at x, y position with owner element's context.
+ *  close( )
+ *   : Close ctxpopup.
+ *
+ * Events:
+ *  close: Raised when popup was closed.
+ *
+ * Examples:
+ *
+ * <a href="#" id="btn_text_only" data-role="button" data-inline="true">Text Only</a> 
+ * <div id="pop_text_only" data-role="ctxpopup" data-selector="#btn_text_only">
+ *     <ul data-role="listview">
+ * 	       <li><a href="http://www.naver.com">www.naver.com</a></li>
+ *         <li><a href="http://www.naver.com">www.naver.com</a></li>
+ *         <li><a href="http://www.samsung.com">www.samsung.com</a></li>
+ *         <li><a href="http://www.apple.com">www.apple.com</a></li>
+ *     </ul>
+ * </div>
+ *
+ * <a href="#" id="btn_buttons" data-role="button" data-inline="true">Buttons</a> 
+ * <div id="pop_buttons" data-role="ctxpopup" data-selector="#btn_buttons" data-style="button">
+ *     <div>
+ *         <table>
+ *             <tr><td><a href="#" data-role="button">Meenie</a></td><td><a href="#" data-role="button">Mynie</a></td><td><a href="#" data-role="button">Mo</a></td></tr>
+ *             <tr><td><a href="#" data-role="button">Catch-a</a></td><td><a href="#" data-role="button">Tiger</a></td><td><a href="#" data-role="button">By-the</a></td></tr>
+ *         </table>
+ *     </div>
+ * </div>
+ *
+ * Note:
+ * 	any elements inside ctxpopup with "ui-btn-ctxpopup-close" class will invoke popup close.
+ */
 
 function SLPRect( x, y, w, h ) {
         this.x = x || 0;
