@@ -4,6 +4,22 @@
 * Dual licensed under the MIT or GPL Version 2 licenses.
 * http://jquery.org/license
 */
+
+/**
+ * Author : Lee Won-gi (wongi11.lee@samsung.com)
+ * Add "data-style" to add SLP style button. 
+ *
+ * Property : 
+ * 	
+ * 		circle, nobg, edit
+ * 
+ * Examples:
+ * 
+ *  	<div  data-role="button" data-inline="true" data-icon="send" data-style="circle"></div>
+ *  	<div  data-role="button" data-inline="true" data-icon="favorite" data-style="nobg">
+ *  	<div  data-role="button" data-inline="true" data-icon="editminus" data-style="edit"></div>
+ **/
+
 ( function( $, undefined ) {
 
 $.fn.buttonMarkup = function( options ) {
@@ -15,7 +31,7 @@ $.fn.buttonMarkup = function( options ) {
 			o = $.extend( {}, $.fn.buttonMarkup.defaults, {
 				icon:       options.icon       !== undefined ? options.icon       : el.jqmData( "icon" ),
 				iconpos:    options.iconpos    !== undefined ? options.iconpos    : el.jqmData( "iconpos" ),
-				style: el.jqmData( "style"),	/* wongi_1018 : style : default : block. Add circle & nobg */
+				style: 		el.jqmData( "style"),	/* style : default : block. Added "circle", "edit" and "nobg" */
 				theme:      options.theme      !== undefined ? options.theme      : el.jqmData( "theme" ),
 				inline:     options.inline     !== undefined ? options.inline     : el.jqmData( "inline" ),
 				shadow:     options.shadow     !== undefined ? options.shadow     : el.jqmData( "shadow" ),
@@ -65,8 +81,7 @@ $.fn.buttonMarkup = function( options ) {
 				iconClass += " ui-icon-shadow";
 			}
 			
-			if ($(el).text().length == 0) /* No text */
-			{
+			if ( $(el).text().length == 0 ) { /* No text */
 				buttonClass += " ui-btn-icon_only";
 			}
 		}
@@ -89,58 +104,48 @@ $.fn.buttonMarkup = function( options ) {
 		}
 
 		/* Set Button class for Icon BG */
-		if (o.style == "circle")	/* Circle BG Button. */
-		{
-			/* wongi_1018 : style : no text, Icon only */
+		if ( o.style == "circle" ) {	/* Circle BG Button. */
+			/* style : no text, Icon only */
 			buttonClass += " ui-btn-corner-circle";
 			buttonClass += " ui-btn-icon_only";
 		}
-		else if (o.style == "nobg")
-		{
-			/* wongi_1018 : style : no text, Icon only, no bg */
+		else if ( o.style == "nobg" ){
+			/* style : no text, Icon only, no bg */
 			buttonClass += " ui-btn-icon-nobg";
 			buttonClass += " ui-btn-icon_only";
 		}		
-		else if (o.style == "edit") /* wongi_1019 : Contact Edit style */
-		{
+		else if ( o.style == "edit" ){ /* Contact Edit style */
 			buttonClass += " ui-btn-edit";
 		}
 		
 		el.attr( "data-" + $.mobile.ns + "theme", o.theme )
 			.addClass( buttonClass );
 
-		/* wongi_1018 : Text Class for text positioning with icon. */
+		/* Text Class for text positioning with icon. */
 		textClass = "ui-btn-text";
 		
-		if (o.icon)
-		{
-			if ($(el).text().length > 0)
-			{
-				(o.iconpos == "right" ? textClass += " ui-btn-text-padding-right" : textClass += " ui-btn-text-padding-left");
+		if ( o.icon ) {
+			if ( $(el).text().length > 0 ) {
+				( o.iconpos == "right" ? textClass += " ui-btn-text-padding-right" : textClass += " ui-btn-text-padding-left" );
 				
 				innerClass += " ui-btn-hastxt";
 			}
-			else
-			{
-				if (o.style == "circle")	/* Circle BG Button. */
-				{
-					/* wongi_1018 : style : no text, Icon only */
+			else {
+				if ( o.style == "circle" ) { /* Circle BG Button. */
+					/* style : no text, Icon only */
 					innerClass += " ui-btn-corner-circle";
 				}
-				else if (o.style == "nobg")
-				{
-					/* wongi_1018 : style : no text, Icon only, no bg */
+				else if ( o.style == "nobg" ) {
+					/* style : no text, Icon only, no bg */
 					innerClass += " ui-btn-icon-nobg";
 				}
 
-				/* wongi_1018 : Icon Only : No padding on button-inner. */
+				/* Icon Only : No padding on button-inner. */
 				innerClass += " ui-btn-icon-only";
 			}
 		}
-		else	/* Text Only */
-		{
-			if ($(el).text().length > 0)
-			{
+		else {	/* Text Only */
+			if ( $(el).text().length > 0 ) {
 				innerClass += " ui-btn-hastxt";
 			}
 		}
