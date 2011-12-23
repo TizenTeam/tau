@@ -1,18 +1,58 @@
 /*
-	Copyright (c) 2011 Samsung Electronics Co., Ltd All Rights Reserved
+ *	Copyright (c) 2011 Samsung Electronics Co., Ltd All Rights Reserved
+ *
+ *	Licensed under the Apache License, Version 2.0 (the "License" );
+ *	you may not use this file except in compliance with the License.
+ *	You may obtain a copy of the License at
+ *
+ *	http://www.apache.org/licenses/LICENSE-2.0
 
-	Licensed under the Apache License, Version 2.0 (the "License");
-	you may not use this file except in compliance with the License.
-	You may obtain a copy of the License at
+ *	Unless required by applicable law or agreed to in writing, software
+ *	distributed under the License is distributed on an "AS IS" BASIS,
+ *	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *	See the License for the specific language governing permissions and
+ *	limitations under the License.
 
-	http://www.apache.org/licenses/LICENSE-2.0
-
-	Unless required by applicable law or agreed to in writing, software
-	distributed under the License is distributed on an "AS IS" BASIS,
-	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	See the License for the specific language governing permissions and
-	limitations under the License.
+ *	Author: Wongi Lee <wongi11.lee@samsung.com>
 */
+
+/**
+ * Extendable List Widget for unlimited data.
+ * To support more then 1,000 items, special list widget developed. 
+ * Fast initialize and append some element into the DOM tree repeatedly.
+ * DB connection and works like DB cursor.     
+ * 
+ * HTML Attributes:
+ *
+ *		data-role:	extendablelist
+ *		data-template : jQuery.template ID that populate into extendable list. A button : a <DIV> element with "data-role : button" should be included on data-template. 
+ *		data-dbtable : DB Table name. It used as window[DB NAME]. Loaded data should be converted as window object.
+ *		data-extenditems : Number of elements to extend at once. 
+ *		
+ *		ID : <UL> element that has "data-role=extendablelist" must have ID attribute.
+ *		Class : <UL> element that has "data-role=extendablelist" should have "vlLoadSuccess" class to guaranty DB loading is completed. 
+ *
+ *
+ * APIs:
+ *
+ *		create ( void )
+ *			: API to call _create method. API for AJAX or DB loading callback.
+ *
+ *		recreate ( Array )
+ *			: Update virtual list with new data array. For example, update with search result. 
+ *
+ * Examples:
+ * 
+ *		<script id="tmp_load_more" type="text/x-jquery-tmpl"> 
+ * 			<li class="ui-li-3-1-1" style="text-align:center; margin:0 auto">
+ * 				<div data-role="button">Load ${NUM_MORE_ITEMS} more items</div>
+ * 			</li>
+ * 		</script>
+ * 	
+ * 		<ul id = "extendable_list_main" data-role="extendablelist" data-extenditems="50" data-template="tmp-3-1-1" data-dbtable="JSON_DATA">
+ * 		</ul>
+ * 
+ */
 
 
 (function( $, undefined ) {
@@ -36,37 +76,33 @@ $.widget( "mobile.extendablelist", $.mobile.widget, {
 		splitIcon: "arrow-r",
 		splitTheme: "b",
 		inset: false,
-		id:	"",					/* Extendable list UL elemet's ID */
-		extenditems: 50,		/* Number of append items */ 
-		childSelector: " li",	/* To support swipe list */
+		id:	"",						/* Extendable list UL elemet's ID */
+		extenditems: 50,			/* Number of append items */ 
+		childSelector: " li",		/* To support swipe list */
 		dbtable: "",
 		template : "",				/* Template for each list item */
 		loadmore : "tmp_load_more",	/* Template for "Load more" message */
-		dbkey: false,			/* Data's unique Key */
+		dbkey: false,				/* Data's unique Key */
 		scrollview: false,
 		initSelector: ":jqmData(role='extendablelist')"
 	},
 
-	_stylerMouseUp: function()
-	{
-		$(this).addClass("ui-btn-up-s");
-		$(this).removeClass("ui-btn-down-s");
+	_stylerMouseUp: function() {
+		$( this ).addClass( "ui-btn-up-s" );
+		$( this ).removeClass( "ui-btn-down-s" );
 	},
 
-	_stylerMouseDown: function()
-	{
-		$(this).addClass("ui-btn-down-s");
-		$(this).removeClass("ui-btn-up-s");
+	_stylerMouseDown: function() {
+		$( this ).addClass( "ui-btn-down-s" );
+		$( this ).removeClass( "ui-btn-up-s" );
 	},
 	
-	_stylerMouseOver: function()
-	{
-		$(this).toggleClass("ui-btn-hover-s");		
+	_stylerMouseOver: function() {
+		$( this ).toggleClass( "ui-btn-hover-s" );		
 	},
 	
-	_stylerMouseOut: function()
-	{
-		$(this).toggleClass("ui-btn-hover-s");
+	_stylerMouseOut: function() {
+		$( this ).toggleClass( "ui-btn-hover-s" );
 	},
 
 	_pushData: function ( template, data ) {
@@ -74,72 +110,70 @@ $.widget( "mobile.extendablelist", $.mobile.widget, {
 		
 		var dataTable = data;
 		
-		var myTemplate = $("#" + template);
+		var myTemplate = $( "#" + template );
 		
-		var loadMoreItems = (o.extenditems > data.length - last_index ? data.length - last_index : o.extenditems); 
+		var loadMoreItems = ( o.extenditems > data.length - last_index ? data.length - last_index : o.extenditems); 
 		
-		for (i = 0; i < loadMoreItems; i++) 
+		for (i = 0; i < loadMoreItems; i++ ) 
 		{
-			var htmlData = myTemplate.tmpl( dataTable[i]);
-			$(o.id).append($(htmlData).attr( 'id', 'li_'+i ));
+			var htmlData = myTemplate.tmpl( dataTable[ i ]);
+			$( o.id ).append( $( htmlData ).attr( 'id', 'li_'+i ) );
 			last_index++;
 		}
 		
 		/* After push data, re-style virtuallist widget */
-		$(o.id).trigger( "create" );
+		$( o.id ).trigger( "create" );
 	},
 	
-	_loadmore: function(event){
+	_loadmore: function( event ){
 		var t = this;
 		var o = event.data;
 	
 		/* Remove load more message */
-		$("#load_more_message").remove();
+		$( "#load_more_message" ).remove();
 
 		/* Append items */
-		var dataTable = window[o.dbtable];
-		var myTemplate = $("#" + o.template);
+		var dataTable = window[ o.dbtable ];
+		var myTemplate = $( "#" + o.template );
 		
-		var loadMoreItems = (o.extenditems > dataTable.length - last_index ? dataTable.length - last_index : o.extenditems); 
+		var loadMoreItems = ( o.extenditems > dataTable.length - last_index ? dataTable.length - last_index : o.extenditems ); 
 		
-		for (i = 0; i < loadMoreItems; i++) 
+		for ( i = 0; i < loadMoreItems; i++ ) 
 		{
 			last_index++;
-			var htmlData = myTemplate.tmpl( dataTable[last_index]);
-			$(o.id).append($(htmlData).attr( 'id', 'li_'+last_index));
+			var htmlData = myTemplate.tmpl( dataTable[ last_index ] );
+			$( o.id ).append( $( htmlData ).attr( 'id', 'li_' + last_index ) );
 		}
 		
 		/* Append "Load more" message on the last of list */
-	    if (TOTAL_ITEMS > last_index)
-	    {
-	    	var myTemplate = $("#" + o.loadmore);
+	    if ( TOTAL_ITEMS > last_index ) {
+	    	var myTemplate = $( "#" + o.loadmore );
 	    	var more_items_to_load = TOTAL_ITEMS - last_index;
-	    	var num_next_load_items = (o.extenditems <= more_items_to_load)?o.extenditems:more_items_to_load;
-	    	var htmlData = myTemplate.tmpl({NUM_MORE_ITEMS:num_next_load_items});
+	    	var num_next_load_items = ( o.extenditems <= more_items_to_load ) ? o.extenditems : more_items_to_load;
+	    	var htmlData = myTemplate.tmpl( { NUM_MORE_ITEMS : num_next_load_items } );
 	    	
-	    	$(o.id).append($(htmlData).attr( 'id', "load_more_message"));
+	    	$( o.id ).append( $( htmlData ).attr( 'id', "load_more_message" ) );
 	    }
 	    
-	    $(o.id).trigger("create");
-	    $(o.id).extendablelist("refresh");
+	    $( o.id ).trigger( "create" );
+	    $( o.id ).extendablelist( "refresh" );
 	},
 	
-	recreate: function(newArray){
+	recreate: function( newArray ) {
 		var t = this;
 		var o = this.options;
 		
-		$(o.id).empty();
+		$( o.id ).empty();
 		
 		TOTAL_ITEMS = newArray.length;
 		
-		t._pushData((o.template), newArray);
+		t._pushData( ( o.template), newArray );
 		
-		if (o.childSelector == " ul")
-		{
-			$(o.id + " ul").swipelist();	
+		if ( o.childSelector == " ul" ) {
+			$( o.id + " ul" ).swipelist();	
 		}
 		
-		$(o.id).extendablelist();
+		$( o.id ).extendablelist();
 		
 		t.refresh( true );
 	},
@@ -149,101 +183,91 @@ $.widget( "mobile.extendablelist", $.mobile.widget, {
 		var o = this.options;
 		
 		/* After AJAX loading success */
-		o.dbtable = t.element.data("dbtable");
+		o.dbtable = t.element.data( "dbtable" );
 		
-		TOTAL_ITEMS = $(window[o.dbtable]).size();
+		TOTAL_ITEMS = $( window[ o.dbtable ] ).size();
 		
         /* Make Gen list by template */
-		if (last_index <= 0)
-		{
-			t._pushData((o.template), window[o.dbtable]);
+		if ( last_index <= 0 ) {
+			t._pushData( ( o.template ), window[ o.dbtable ] );
 
 		    /* Append "Load more" message on the last of list */
-		    if (TOTAL_ITEMS > last_index)
-		    {
-		    	var myTemplate = $("#" + o.loadmore);
+		    if ( TOTAL_ITEMS > last_index ) {
+		    	var myTemplate = $( "#" + o.loadmore );
 		    	var more_items_to_load = TOTAL_ITEMS - last_index;
-		    	var num_next_load_items = (o.extenditems <= more_items_to_load)?o.extenditems:more_items_to_load;
-		    	var htmlData = myTemplate.tmpl({NUM_MORE_ITEMS:num_next_load_items});
+		    	var num_next_load_items = ( o.extenditems <= more_items_to_load) ? o.extenditems : more_items_to_load;
+		    	var htmlData = myTemplate.tmpl( { NUM_MORE_ITEMS : num_next_load_items } );
 		    	
-		    	$(o.id).append($(htmlData).attr( 'id', "load_more_message"));
+		    	$( o.id ).append( $( htmlData ).attr( 'id', "load_more_message" ) );
 		    	
-		    	$("#load_more_message").live("click", t.options, t._loadmore);
+		    	$( "#load_more_message" ).live( "click", t.options, t._loadmore );
 		    }
-		    else	/* No more items to load */
-		    {
-		    	$("#load_more_message").die();
-		    	$("#load_more_message").remove();
+		    else {
+		    	/* No more items to load */
+		    	$( "#load_more_message" ).die();
+		    	$( "#load_more_message" ).remove();
 		    }
 		}
 
-	    if (o.childSelector == " ul")
-		{
-			$(o.id + " ul").swipelist();
+	    if ( o.childSelector == " ul" ) {
+			$( o.id + " ul" ).swipelist();
 		}
 	    
-	    $(o.id).trigger( "create" );
+	    $( o.id ).trigger( "create" );
 	    
 		t.refresh( true );
 	},
 	
 	
 	
-	create: function()
-	{
+	create: function() {
 		var o = this.options;
 
 		/* external API for AJAX callback */
-		this._create("create");
+		this._create( "create" );
 	},
 	
-	_create: function(event) {
+	_create: function( event ) {
 		var t = this;
 		var o = this.options; 
 		
 		// create listview markup
-		t.element.addClass(function( i, orig ) {
+		t.element.addClass( function( i, orig ) {
 			return orig + " ui-listview ui-extendable-list-container" + ( t.options.inset ? " ui-listview-inset ui-corner-all ui-shadow " : "" );
 		});
 
         var $el = this.element;
 		
-        o.id = "#" + $el.attr("id");
+        o.id = "#" + $el.attr( "id" );
         
-        if ($el.data("extenditems"))
-        {
-        	o.extenditems = parseInt($el.data("extenditems"));
+        if ( $el.data( "extenditems" ) ) {
+        	o.extenditems = parseInt( $el.data( "extenditems" ) );
         }
         
-	    $(o.id).bind("pagehide", function(e){
-			$(o.id).empty();
+	    $( o.id ).bind( "pagehide", function(e){
+			$( o.id ).empty();
 		});
 	    
 	    /* Scroll view */
-	    ($(".ui-scrollview-clip").size()>0)?o.scrollview=true:o.scrollview=false;
+	    ( $( ".ui-scrollview-clip" ).size() > 0) ? o.scrollview = true : o.scrollview = false;
 
 	    /* After DB Load complete, Init Vritual list */
-	    if ($(o.id).hasClass("vlLoadSuccess"))
-	    {
-		    if ($el.data("template"))
-			{
-				o.template = $el.data("template");
+	    if ( $( o.id ).hasClass( "vlLoadSuccess" ) ) {
+		    if ( $el.data( "template" ) ) {
+				o.template = $el.data( "template" );
 				
 		        /* to support swipe list, <li> or <ul> can be main node of virtual list. */
-				if ($el.data("swipelist") == true)
-				{
+				if ( $el.data( "swipelist" ) == true ) {
 					o.childSelector = " ul";
 				}
-				else
-				{
+				else {
 					o.shildSelector = " li";
 				}
 			}
 			
 			/* Set data's unique key */
-			if ($el.data("dbkey"))
-			{
-				o.datakey = $el.data("dbkey");
+			if ( $el.data( "dbkey" ) ) {
+				o.datakey = $el.data( "dbkey" );
 			}
 
 			t._initList();
@@ -253,30 +277,32 @@ $.widget( "mobile.extendablelist", $.mobile.widget, {
 	destroy : function(){
 		var o = this.options;
 		
-		$(o.id).empty();
+		$( o.id ).empty();
 		
 		TOTAL_ITEMS = 0;
 		i =0;
 		last_index = 0;
 		
-		$("#load_more_message").die();
+		$( "#load_more_message" ).die();
 	},
 	
 	_itemApply: function( $list, item ) {
 		var $countli = item.find( ".ui-li-count" );
+		
 		if ( $countli.length ) {
 			item.addClass( "ui-li-has-count" );
 		}
+		
 		$countli.addClass( "ui-btn-up-" + ( $list.jqmData( "counttheme" ) || this.options.countTheme ) + " ui-btn-corner-all" );
 
 		// TODO class has to be defined in markup
 		item.find( "h1, h2, h3, h4, h5, h6" ).addClass( "ui-li-heading" ).end()
 			.find( "p, dl" ).addClass( "ui-li-desc" ).end()
 			.find( ">img:eq(0), .ui-link-inherit>img:eq(0)" ).addClass( "ui-li-thumb" ).each(function() {
-				item.addClass( $(this).is( ".ui-li-icon" ) ? "ui-li-has-icon" : "ui-li-has-thumb" );
+				item.addClass( $( this ).is( ".ui-li-icon" ) ? "ui-li-has-icon" : "ui-li-has-thumb" );
 			}).end()
 			.find( ".ui-li-aside" ).each(function() {
-				var $this = $(this);
+				var $this = $( this );
 				$this.prependTo( $this.parent() ); //shift aside to front for css float
 			});
 	},
@@ -318,7 +344,7 @@ $.widget( "mobile.extendablelist", $.mobile.widget, {
 					.addClass( "ui-corner-tr" )
 				.end()
 				.find( ".ui-li-thumb" )
-					.not(".ui-li-icon")
+					.not( ".ui-li-icon" )
 					.addClass( "ui-corner-tl" );
 
 			// Select the last visible li element
@@ -330,7 +356,7 @@ $.widget( "mobile.extendablelist", $.mobile.widget, {
 					.addClass( "ui-corner-br" )
 				.end()
 				.find( ".ui-li-thumb" )
-					.not(".ui-li-icon")
+					.not( ".ui-li-icon" )
 					.addClass( "ui-corner-bl" );
 		}
 	},
@@ -360,11 +386,11 @@ $.widget( "mobile.extendablelist", $.mobile.widget, {
 
 			// If we're creating the element, we update it regardless
 			if ( create || !item.hasClass( "ui-li" ) ) {
-				itemTheme = item.jqmData("theme") || o.theme;
+				itemTheme = item.jqmData( "theme" ) || o.theme;
 				a = item.children( "a" );
 
 				if ( a.length ) {
-					icon = item.jqmData("icon");
+					icon = item.jqmData( "icon" );
 
 					item.buttonMarkup({
 						wrapperEls: "div",
@@ -483,7 +509,7 @@ $.widget( "mobile.extendablelist", $.mobile.widget, {
 						.wrap( "<div " + dns + "role='page' " +	dns + "url='" + id + "' " + dns + "theme='" + theme + "' " + dns + "count-theme='" + countTheme + "'><div " + dns + "role='content'></div></div>" )
 						.parent()
 							.before( "<div " + dns + "role='header' " + dns + "theme='" + o.headerTheme + "'><div class='ui-title'>" + title + "</div></div>" )
-							.after( persistentFooterID ? $( "<div " + dns + "role='footer' " + dns + "id='"+ persistentFooterID +"'>") : "" )
+							.after( persistentFooterID ? $( "<div " + dns + "role='footer' " + dns + "id='"+ persistentFooterID +"'>" ) : "" )
 							.parent()
 								.appendTo( $.mobile.pageContainer );
 
@@ -503,7 +529,7 @@ $.widget( "mobile.extendablelist", $.mobile.widget, {
 		// and aren't embedded
 		if( hasSubPages &&
 			parentPage.is( ":jqmData(external-page='true')" ) &&
-			parentPage.data("page").options.domCache === false ) {
+			parentPage.data( "page" ).options.domCache === false ) {
 
 			var newRemove = function( e, ui ){
 				var nextPage = ui.nextPage, npURL;
@@ -528,7 +554,7 @@ $.widget( "mobile.extendablelist", $.mobile.widget, {
 	childPages: function(){
 		var parentUrl = this.parentPage.jqmData( "url" );
 
-		return $( ":jqmData(url^='"+  parentUrl + "&" + $.mobile.subPageUrlKey +"')");
+		return $( ":jqmData(url^='"+  parentUrl + "&" + $.mobile.subPageUrlKey +"')" );
 	}
 });
 

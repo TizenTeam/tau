@@ -1,18 +1,66 @@
 /*
-	Copyright (c) 2011 Samsung Electronics Co., Ltd All Rights Reserved
+ *	Copyright (c) 2011 Samsung Electronics Co., Ltd All Rights Reserved
+ *
+ *	Licensed under the Apache License, Version 2.0 (the "License" );
+ *	you may not use this file except in compliance with the License.
+ *	You may obtain a copy of the License at
+ *
+ *	http://www.apache.org/licenses/LICENSE-2.0
 
-	Licensed under the Apache License, Version 2.0 (the "License");
-	you may not use this file except in compliance with the License.
-	You may obtain a copy of the License at
+ *	Unless required by applicable law or agreed to in writing, software
+ *	distributed under the License is distributed on an "AS IS" BASIS,
+ *	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *	See the License for the specific language governing permissions and
+ *	limitations under the License.
 
-	http://www.apache.org/licenses/LICENSE-2.0
-
-	Unless required by applicable law or agreed to in writing, software
-	distributed under the License is distributed on an "AS IS" BASIS,
-	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	See the License for the specific language governing permissions and
-	limitations under the License.
+ *	Author: Wongi Lee <wongi11.lee@samsung.com>
 */
+
+/**
+ * Virtual List Widget for unlimited data.
+ * To support more then 1,000 items, special list widget developed. 
+ * Fast initialize and light DOM tree.
+ * DB connection and works like DB cursor.     
+ * 
+ * HTML Attributes:
+ *
+ *		data-role:	virtuallistview
+ *		data-template : jQuery.template ID that populate into virtual list 
+ *		data-dbtable : DB Table name. It used as window[DB NAME]. Loaded data should be converted as window object.
+ *		data-dbkey : Unique key of DB Table. To sync each element on virtual list with DB table. 
+ *		
+ *		ID : <UL> element that has "data-role=virtuallist" must have ID attribute.
+ *		Class : <UL> element that has "data-role=virtuallist" should have "vlLoadSuccess" class to guaranty DB loading is completed. 
+ *
+ *
+ * APIs:
+ *
+ *		create ( void )
+ *			: API to call _create method. API for AJAX or DB loading callback.
+ *
+ *		recreate ( Array )
+ *			: Update virtual list with new data array. For example, update with search result. 
+ *
+ * Events:
+ *
+ *		touchstart : Temporary preventDefault applied on touchstart event to avoid broken screen.
+ *
+ * Examples:
+ * 
+ * 		<script id="tmp-3-2-7" type="text/x-jquery-tmpl">
+ *			<li class="ui-li-3-2-7">
+ *				<span class="ui-li-text-main">${NAME}</span>
+ *				<img src="00_winset_icon_favorite_on.png" class="ui-li-icon-sub">
+ *				<span class="ui-li-text-sub">${ACTIVE}</span>
+ *				<span class="ui-li-text-sub2">${FROM}</span>
+ *			</li>
+ *		</script>
+ *
+ *		<ul id="virtuallist-normal_3_2_7_ul" data-role="virtuallistview" data-template="tmp-3-2-7" data-dbtable="JSON_DATA">
+ *		</ul>
+ *
+ */
+
 
 (function( $, undefined ) {
 
@@ -50,7 +98,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		splitIcon: "arrow-r",
 		splitTheme: "b",
 		inset: false,
-		id:	"",			/* Virtual list UL elemet's ID */
+		id:	"",					/* Virtual list UL elemet's ID */
 		childSelector: " li",	/* To support swipe list */
 		dbtable: "",
 		template : "",
@@ -61,24 +109,24 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 
 	_stylerMouseUp: function()
 	{
-		$(this).addClass("ui-btn-up-s");
-		$(this).removeClass("ui-btn-down-s");
+		$( this ).addClass( "ui-btn-up-s" );
+		$( this ).removeClass( "ui-btn-down-s" );
 	},
 
 	_stylerMouseDown: function()
 	{
-		$(this).addClass("ui-btn-down-s");
-		$(this).removeClass("ui-btn-up-s");
+		$( this ).addClass( "ui-btn-down-s" );
+		$( this ).removeClass( "ui-btn-up-s" );
 	},
 	
 	_stylerMouseOver: function()
 	{
-		$(this).toggleClass("ui-btn-hover-s");		
+		$( this ).toggleClass( "ui-btn-hover-s" );		
 	},
 	
 	_stylerMouseOut: function()
 	{
-		$(this).toggleClass("ui-btn-hover-s");
+		$( this ).toggleClass( "ui-btn-hover-s" );
 	},
 
 	_pushData: function ( template, data ) {
@@ -86,24 +134,24 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		
 		var dataTable = data;
 		
-		var myTemplate = $("#" + template);
+		var myTemplate = $( "#" + template );
 		
-		var lastIndex = (INIT_LIST_NUM > data.length ? data.length : INIT_LIST_NUM); 
+		var lastIndex = ( INIT_LIST_NUM > data.length ? data.length : INIT_LIST_NUM ); 
 		
-		for (i = 0; i < lastIndex; i++) 
+		for ( i = 0; i < lastIndex; i++ ) 
 		{
-			var htmlData = myTemplate.tmpl( dataTable[i]);
-			$(o.id).append($(htmlData).attr( 'id', 'li_'+i ));
+			var htmlData = myTemplate.tmpl( dataTable[i] );
+			$( o.id ).append( $(htmlData).attr( 'id', 'li_'+i ) );
 		}
 		
 		/* After push data, re-style virtuallist widget */
-		$(o.id).trigger( "create" );
+		$( o.id ).trigger( "create" );
 	}, 
 
-	_reposition: function(event){
+	_reposition: function( event ) {
 		var o;
 		
-		if (event.data) {
+		if ( event.data ) {
 			o = event.data;
 		}
 		else {
@@ -112,37 +160,35 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		
 		var t = this;
 		
-		if ($(o.id + o.childSelector).size() > 0)
-		{
-			TITLE_H = $(o.id + o.childSelector + ':first').position().top;
-			LINE_H = $(o.id + o.childSelector + ':first').outerHeight();
+		if ($(o.id + o.childSelector).size() > 0){
+			TITLE_H = $( o.id + o.childSelector + ':first' ).position().top;
+			LINE_H = $( o.id + o.childSelector + ':first' ).outerHeight();
 			
-			CONTAINER_W = $(o.id).innerWidth();
+			CONTAINER_W = $( o.id ).innerWidth();
 			
-			var padding = parseInt($(o.id + o.childSelector).css("padding-left")) + parseInt($(o.id + o.childSelector).css("padding-right"));
+			var padding = parseInt( $( o.id + o.childSelector ).css( "padding-left" )) + parseInt( $(o.id + o.childSelector).css( "padding-right" ) );
 			
 			/* Add style */
-			$(o.id + ">" + o.childSelector).addClass("position_absolute").addClass("ui-btn-up-s")
-												.bind("mouseup", t._stylerMouseUp)
-												.bind("mousedown", t._stylerMouseDown)		
-												.bind("mouseover", t._stylerMouseOver)
-												.bind("mouseout", t._stylerMouseOut);
+			$( o.id + ">" + o.childSelector ).addClass( "position_absolute" ).addClass( "ui-btn-up-s" )
+												.bind( "mouseup", t._stylerMouseUp )
+												.bind( "mousedown", t._stylerMouseDown )		
+												.bind( "mouseover", t._stylerMouseOver )
+												.bind( "mouseout", t._stylerMouseOut );
 		}
 
-		$(o.id + ">" + o.childSelector).each(function(index){
-			$(this).css("top", TITLE_H + LINE_H*index + 'px')
-			.css("width", CONTAINER_W - padding);
+		$( o.id + ">" + o.childSelector ).each( function( index ) {
+			$( this ).css( "top", TITLE_H + LINE_H*index + 'px' )
+			.css( "width", CONTAINER_W - padding );
 		});
 
 		/* Set Max List Height */
-		$(o.id).height(TOTAL_ITEMS * LINE_H);
+		$( o.id ).height( TOTAL_ITEMS * LINE_H );
 	},
 	
-	_resize: function(event)
-	{
+	_resize: function( event ) {
 		var o;
 		
-		if (event.data) {
+		if ( event.data ) {
 			o = event.data;
 		}
 		else {
@@ -151,51 +197,49 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		
 		var t = this;		
 		
-		CONTAINER_W = $(o.id).innerWidth();
+		CONTAINER_W = $( o.id ).innerWidth();
 		
-		var padding = parseInt($(o.id + o.childSelector).css("padding-left")) + parseInt($(o.id + o.childSelector).css("padding-right"));
+		var padding = parseInt( $( o.id + o.childSelector ).css( "padding-left" )) + parseInt( $( o.id + o.childSelector ).css( "padding-right" ) );
 		
-		$(o.id + o.childSelector).each(function(index){
-			$(this).css("width", CONTAINER_W - padding);
+		$( o.id + o.childSelector ).each( function(index){
+			$( this ).css( "width", CONTAINER_W - padding );
 		});
 	},
 	
-	_scrollmove: function(event){
+	_scrollmove: function( event ) {
 		var velocity = 0;
 		var o = event.data;
 		var dataList = window[o.dbtable];
 		
 		/* Text & image src replace function */
-		var _replace= function(oldItem, newItem, key)
-		{
-			$(oldItem).find(".ui-li-text-main",".ui-li-text-sub","ui-btn-text").each(function(index)
-			{
-				var oldObj = $(this);
-				var newText = $(newItem).find(".ui-li-text-main",".ui-li-text-sub","ui-btn-text").eq(index).text();
+		var _replace= function( oldItem, newItem, key ) {
+			$( oldItem ).find( ".ui-li-text-main",".ui-li-text-sub","ui-btn-text" ).each( function( index ) {
+				var oldObj = $( this );
+				var newText = $( newItem ).find( ".ui-li-text-main",".ui-li-text-sub","ui-btn-text" ).eq( index ).text();
 				
-	            $(oldObj).contents().filter(function(){ return(this.nodeType == 3);}).get(0).data = newText;
+	            $( oldObj).contents().filter( function(){ 
+	            	return( this.nodeType == 3 );
+	            } ).get( 0 ).data = newText;
 			});
 			
-			$(oldItem).find("img").each(function(imgIndex)
-			{
-				var oldObj = $(this);
+			$( oldItem ).find( "img" ).each( function( imgIndex ) {
+				var oldObj = $( this );
 
-				var newImg = $(newItem).find("img").eq(imgIndex).attr("src");
+				var newImg = $( newItem ).find( "img" ).eq( imgIndex ).attr( "src" );
 				
-				$(oldObj).attr("src", newImg);
+				$( oldObj ).attr( "src", newImg );
 			});
 			
-			if (key)
-			{
-				$(oldItem).data(key, $(newItem).data(key));
+			if (key) {
+				$( oldItem ).data(key, $( newItem ).data(key));
 			}
 	    };
 		
 		//Move older item to bottom
-		var _moveTopBottom= function(v_firstIndex, v_lastIndex, num, key)
-		{
-			if (v_firstIndex < 0)
+		var _moveTopBottom= function( v_firstIndex, v_lastIndex, num, key ) {
+			if (v_firstIndex < 0) {
 				return;
+			}
 			
 			for (i=0; i<num; i++)
 			{
@@ -204,260 +248,248 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 				
 				var cur_item = $('#li_' + (v_firstIndex + i));
 				
-				if (cur_item)
-				{
+				if (cur_item) {
 					/* Make New <LI> element from template. */
-					var myTemplate = $("#" + o.template);
-					var htmlData = myTemplate.tmpl(dataList[v_lastIndex + i]);
+					var myTemplate = $( "#" + o.template );
+					var htmlData = myTemplate.tmpl( dataList[ v_lastIndex + i ] );
 					
 					/* Copy all data to current item. */
-					_replace(cur_item, htmlData, key);
+					_replace( cur_item, htmlData, key );
 					
 					/* Set New Position */
-					(cur_item).css('top', TITLE_H + LINE_H*(v_lastIndex + 1 + i)).attr( 'id', 'li_' +(v_lastIndex + 1+ i));
+					( cur_item ).css( 'top', TITLE_H + LINE_H*( v_lastIndex + 1 + i ) ).attr( 'id', 'li_' +( v_lastIndex + 1+ i ) );
 				}
-				else
+				else {
 					break;
+				}
 			}
 		};
 
 		// Move older item to bottom
-		var _moveBottomTop= function(v_firstIndex, v_lastIndex, num, key)
-		{
-			if (v_firstIndex < 0)
+		var _moveBottomTop= function( v_firstIndex, v_lastIndex, num, key ) {
+			if ( v_firstIndex < 0 ) {
 				return;
+			}
 			
-			for (i=0; i<num; i++)
+			for ( i=0; i<num; i++ )
 			{
-				var cur_item = $('#li_' + (v_lastIndex - i));
+				var cur_item = $( '#li_' + ( v_lastIndex - i ) );
 
-				if (cur_item)
-				{
-					if (v_firstIndex-1-i < 0)
-						break;
+				if ( cur_item ) {
+					if ( v_firstIndex-1-i < 0 ) {
+						break;	
+					}
 				
 					/* Make New <LI> element from template. */
-					var myTemplate = $("#" + o.template);
-					var htmlData = myTemplate.tmpl(dataList[v_firstIndex-1-i]);
+					var myTemplate = $( "#" + o.template );
+					var htmlData = myTemplate.tmpl( dataList[ v_firstIndex - 1 - i ] );
 					
 					/* Copy all data to current item. */
-					_replace(cur_item, htmlData, key);
+					_replace( cur_item, htmlData, key );
 
 					/* Set New Position */
-					$(cur_item).css('top', TITLE_H + LINE_H*(v_firstIndex-1-i)).attr( 'id', 'li_' +(v_firstIndex-1-i));
+					$( cur_item ).css( 'top', TITLE_H + LINE_H * ( v_firstIndex - 1 - i )).attr( 'id', 'li_' +( v_firstIndex - 1 - i ));
 				}
-				else
+				else {
 					break;
+				}
 			}
 		};
 		
-		/* Matrix to Array function written by Blender@stackoverflow. nnikishi@emich.edu*/
-		var matrixToArray = function(matrix) {
-		    var contents = matrix.substr(7);
-		    contents = contents.substr(0, contents.length - 1);
+		/* Matrix to Array function written by Blender@stackoverflow.nnikishi@emich.edu*/
+		var matrixToArray = function( matrix ) {
+		    var contents = matrix.substr( 7 );
+		    contents = contents.substr( 0, contents.length - 1 );
 
-		    return contents.split(', ');
+		    return contents.split( ', ' );
 		};		
 		
 		// Get scroll direction and velocity
 		/* with Scroll view */
-		if (o.scrollview)
-		{
-			var $el = $(o.id).parentsUntil(".ui-page").find(".ui-scrollview-view");
-			var transformValue = matrixToArray($el.css("-webkit-transform"));
+		if ( o.scrollview ) {
+			var $el = $( o.id ).parentsUntil( ".ui-page" ).find( ".ui-scrollview-view" );
+			var transformValue = matrixToArray( $el.css( "-webkit-transform" ) );
 			
-			var curWindowTop = Math.abs(transformValue[5]);	/* Y vector */
+			var curWindowTop = Math.abs( transformValue[ 5 ] );	/* Y vector */
 		}
-    	else
-    	{
-    		var curWindowTop = $(window).scrollTop() - LINE_H;
+    	else {
+    		var curWindowTop = $( window ).scrollTop() - LINE_H;
     	}
 		
-		var cur_num_top_itmes = $(o.id + o.childSelector).filter(function(){return (parseInt($(this).css("top")) < curWindowTop);}).size(); 
+		var cur_num_top_itmes = $( o.id + o.childSelector ).filter( function(){
+									return (parseInt($( this ).css( "top" )) < curWindowTop);
+								} ).size(); 
 		
-		if (num_top_items < cur_num_top_itmes)
-		{
+		if ( num_top_items < cur_num_top_itmes ) {
 			direction = SCROLL_DOWN;
 			velocity = cur_num_top_itmes - num_top_items;
 			num_top_items = cur_num_top_itmes;
 		}
-		else if (num_top_items > cur_num_top_itmes)
-		{
+		else if ( num_top_items > cur_num_top_itmes ) {
 			direction = SCROLL_UP;
 			velocity = num_top_items - cur_num_top_itmes;
 			num_top_items = cur_num_top_itmes;
 		}
 
 		// Move items
-		if(direction == SCROLL_DOWN)
+		if( direction == SCROLL_DOWN )
 		{
-			if (cur_num_top_itmes > PAGE_BUF)
-			{
-				if (last_index + velocity > TOTAL_ITEMS)
-				{
+			if ( cur_num_top_itmes > PAGE_BUF ) {
+				if ( last_index + velocity > TOTAL_ITEMS ) {
 					velocity = TOTAL_ITEMS - last_index -1;
 				}
 				
 				/* Prevent scroll touch event while DOM access */
-				$(document).bind("touchstart", function(event) {
+				$(document).bind( "touchstart", function(event) {
 					  event.preventDefault();
 				});				
 				
-				_moveTopBottom(first_index, last_index, velocity, o.dbkey);
+				_moveTopBottom( first_index, last_index, velocity, o.dbkey );
+				
 				first_index += velocity;
 				last_index += velocity;
 				num_top_items -= velocity;
 				
 				/* Unset prevent touch event */
-				$(document).unbind("touchstart");
+				$( document ).unbind( "touchstart" );
 			}
 		}
-		else if(direction == SCROLL_UP)
-		{
-			if (cur_num_top_itmes <= PAGE_BUF)
-			{
-				if (first_index < velocity)
-				{
+		else if( direction == SCROLL_UP ) {
+			if ( cur_num_top_itmes <= PAGE_BUF ) {
+				if ( first_index < velocity ) {
 					velocity = first_index;
 				}
 
 				/* Prevent scroll touch event while DOM access */
-				$(document).bind("touchstart", function(event) {
+				$( document ).bind( "touchstart", function( event ) {
 					  event.preventDefault();
 				});		
 				
-				_moveBottomTop(first_index, last_index, velocity, o.dbkey);
+				_moveBottomTop( first_index, last_index, velocity, o.dbkey );
+				
 				first_index -= velocity;
 				last_index -= velocity;
 				num_top_items += velocity;
 				
 				/* Unset prevent touch event */
-				$(document).unbind("touchstart");				
+				$( document ).unbind( "touchstart" );				
 			}
 			
-			if (first_index < PAGE_BUF)
-			{
+			if ( first_index < PAGE_BUF ) {
 				num_top_items = first_index;
 			}
 		}
 	},
 	
-	recreate: function(newArray){
+	recreate: function( newArray ){
 		var t = this;
 		var o = this.options;
 		
-		$(o.id).empty();
+		$( o.id ).empty();
 		
 		TOTAL_ITEMS = newArray.length;
 		direction = NO_SCROLL;
 		first_index = 0;
 		last_index = INIT_LIST_NUM -1;		
 		
-		t._pushData((o.template), newArray);
+		t._pushData( ( o.template ), newArray );
 		
-		if (o.childSelector == " ul")
-		{
-			$(o.id + " ul").swipelist();	
+		if (o.childSelector == " ul" ) {
+			$( o.id + " ul" ).swipelist();	
 		}
 		
-		$(o.id).virtuallistview();
+		$( o.id ).virtuallistview();
 		
-		t._reposition(o);
+		t._reposition( o );
 		
 		t.refresh( true );
 	},
 
-	_initList: function(){
+	_initList: function() {
 		var t = this;
 		var o = this.options;
 		
 		/* After AJAX loading success */
-		o.dbtable = t.element.data("dbtable");
+		o.dbtable = t.element.data( "dbtable" );
 		
 		TOTAL_ITEMS = $(window[o.dbtable]).size();
 		
         /* Make Gen list by template */
     	t._pushData((o.template), window[o.dbtable]);
     	
-    	$(o.id).parentsUntil(".ui-page").parent().one("pageshow", o, t._reposition);
+    	$( o.id ).parentsUntil( ".ui-page" ).parent().one( "pageshow", o, t._reposition);
 
     	/* Scrollview */
-    	if (o.scrollview) {
-    		$(o.id).parentsUntil(".ui-page").parent().bind("vmouseup", t.options, t._scrollmove);
-    		$(o.id).parentsUntil(".ui-page").parent().bind("touchend", t.options, t._scrollmove);
+    	if ( o.scrollview ) {
+    		$( o.id ).parentsUntil( ".ui-page" ).parent().bind( "vmouseup", t.options, t._scrollmove );
+    		$( o.id ).parentsUntil( ".ui-page" ).parent().bind( "touchend", t.options, t._scrollmove );
     	}
     	else {
-    		$(document).bind('scrollstop', t.options, t._scrollmove);
+    		$( document ).bind( 'scrollstop', t.options, t._scrollmove );
     	}
 	    
-	    $(window).resize(o, t._resize);
+	    $( window ).resize( o, t._resize );
 
-	    if (o.childSelector == " ul")
+	    if ( o.childSelector == " ul" )
 		{
-			$(o.id + " ul").swipelist();
+			$( o.id + " ul" ).swipelist();
 		}
 	    
 		t.refresh( true );
 	},
 	
-	create: function()
-	{
+	create: function() {
 		var o = this.options;
 		/* external API for AJAX callback */
-		this._create("create");
+		this._create( "create" );
 		
-		this._reposition(o);
+		this._reposition( o );
 	},
 	
-	_create: function(event) {
+	_create: function( event ) {
 		var t = this;
 		var o = this.options; 
 		
 		// create listview markup
-		t.element.addClass(function( i, orig ) {
+		t.element.addClass( function( i, orig ) {
 			return orig + " ui-listview ui-virtual-list-container" + ( t.options.inset ? " ui-listview-inset ui-corner-all ui-shadow " : "" );
 		});
 
         var $el = this.element,
         shortcutsContainer = $('<div class="ui-virtuallist"/>'),
         shortcutsList = $('<ul></ul>'),
-        dividers = $el.find(':jqmData(role="virtuallistview")'),
+        dividers = $el.find(':jqmData(role="virtuallistview" )'),
         lastListItem = null,
         shortcutscroll = this;
 		
-        o.id = "#" + $el.attr("id");
+        o.id = "#" + $el.attr( "id" );
         
-	    $(o.id).bind("pagehide", function(e){
-			$(o.id).empty();
+	    $( o.id ).bind( "pagehide", function( e ){
+			$( o.id ).empty();
 		});
 	    
 	    /* Scroll view */
-	    ($(".ui-scrollview-clip").size()>0)?o.scrollview=true:o.scrollview=false;
+	    ( $( ".ui-scrollview-clip" ).size()>0 ) ? o.scrollview = true : o.scrollview = false;
 
 	    /* After DB Load complete, Init Vritual list */
-	    if ($(o.id).hasClass("vlLoadSuccess"))
-	    {
-	    	$(o.id).empty();	    	
+	    if ($( o.id ).hasClass( "vlLoadSuccess" )) {
+	    	$( o.id ).empty();	    	
 	    	
-		    if ($el.data("template"))
-			{
-				o.template = $el.data("template");
+		    if ($el.data( "template" )) {
+				o.template = $el.data( "template" );
 				
 		        /* to support swipe list, <li> or <ul> can be main node of virtual list. */
-				if ($el.data("swipelist") == true)
-				{
+				if ( $el.data( "swipelist" ) == true ) {
 					o.childSelector = " ul";
 				}
-				else
-				{
+				else {
 					o.shildSelector = " li";
 				}
 			}
 			
 			/* Set data's unique key */
-			if ($el.data("dbkey"))
-			{
-				o.datakey = $el.data("dbkey");
+			if ( $el.data( "dbkey" ) ) {
+				o.datakey = $el.data( "dbkey" );
 			}
 
 			t._initList();
@@ -467,37 +499,40 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 	destroy : function(){
 		var o = this.options;
 		
-		$(document).unbind("scrollstop");
+		$(document).unbind( "scrollstop" );
 		
 		if (o.scrollview) {
-			$(o.id).parentsUntil(".ui-page").parent().unbind("vmouseup");
-    		$(o.id).parentsUntil(".ui-page").parent().unbind("touchend");
+			$( o.id ).parentsUntil( ".ui-page" ).parent().unbind( "vmouseup" );
+    		$( o.id ).parentsUntil( ".ui-page" ).parent().unbind( "touchend" );
 		}
-		$(window).unbind("resize");
+		
+		$(window).unbind( "resize" );
 
 		/* Unset prevent touch event */
-		/*$(document).unbind("touchstart");*/
+		/*$(document).unbind( "touchstart" );*/
 		
-		$(o.id).empty();
+		$( o.id ).empty();
 	},
 	
 	_itemApply: function( $list, item ) {
 		var $countli = item.find( ".ui-li-count" );
+		
 		if ( $countli.length ) {
 			item.addClass( "ui-li-has-count" );
 		}
+		
 		$countli.addClass( "ui-btn-up-" + ( $list.jqmData( "counttheme" ) || this.options.countTheme ) + " ui-btn-corner-all" );
 
 		// TODO class has to be defined in markup
 		item.find( "h1, h2, h3, h4, h5, h6" ).addClass( "ui-li-heading" ).end()
 			.find( "p, dl" ).addClass( "ui-li-desc" ).end()
-			.find( ">img:eq(0), .ui-link-inherit>img:eq(0)" ).addClass( "ui-li-thumb" ).each(function() {
-				item.addClass( $(this).is( ".ui-li-icon" ) ? "ui-li-has-icon" : "ui-li-has-thumb" );
+			.find( ">img:eq(0), .ui-link-inherit>img:eq(0)" ).addClass( "ui-li-thumb" ).each( function() {
+				item.addClass( $( this ).is( ".ui-li-icon" ) ? "ui-li-has-icon" : "ui-li-has-thumb" );
 			}).end()
 			.find( ".ui-li-aside" ).each(function() {
-				var $this = $(this);
+				var $this = $( this );
 				$this.prependTo( $this.parent() ); //shift aside to front for css float
-			});
+			} );
 	},
 
 	_removeCorners: function( li, which ) {
@@ -537,7 +572,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 					.addClass( "ui-corner-tr" )
 				.end()
 				.find( ".ui-li-thumb" )
-					.not(".ui-li-icon")
+					.not( ".ui-li-icon" )
 					.addClass( "ui-corner-tl" );
 
 			// Select the last visible li element
@@ -549,7 +584,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 					.addClass( "ui-corner-br" )
 				.end()
 				.find( ".ui-li-thumb" )
-					.not(".ui-li-icon")
+					.not( ".ui-li-icon" )
 					.addClass( "ui-corner-bl" );
 		}
 	},
@@ -579,11 +614,11 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 
 			// If we're creating the element, we update it regardless
 			if ( create || !item.hasClass( "ui-li" ) ) {
-				itemTheme = item.jqmData("theme") || o.theme;
+				itemTheme = item.jqmData( "theme" ) || o.theme;
 				a = item.children( "a" );
 
 				if ( a.length ) {
-					icon = item.jqmData("icon");
+					icon = item.jqmData( "icon" );
 
 					item.buttonMarkup({
 						wrapperEls: "div",
@@ -702,7 +737,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 						.wrap( "<div " + dns + "role='page' " +	dns + "url='" + id + "' " + dns + "theme='" + theme + "' " + dns + "count-theme='" + countTheme + "'><div " + dns + "role='content'></div></div>" )
 						.parent()
 							.before( "<div " + dns + "role='header' " + dns + "theme='" + o.headerTheme + "'><div class='ui-title'>" + title + "</div></div>" )
-							.after( persistentFooterID ? $( "<div " + dns + "role='footer' " + dns + "id='"+ persistentFooterID +"'>") : "" )
+							.after( persistentFooterID ? $( "<div " + dns + "role='footer' " + dns + "id='"+ persistentFooterID +"'>" ) : "" )
 							.parent()
 								.appendTo( $.mobile.pageContainer );
 
@@ -722,7 +757,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 		// and aren't embedded
 		if( hasSubPages &&
 			parentPage.is( ":jqmData(external-page='true')" ) &&
-			parentPage.data("page").options.domCache === false ) {
+			parentPage.data( "page" ).options.domCache === false ) {
 
 			var newRemove = function( e, ui ){
 				var nextPage = ui.nextPage, npURL;
@@ -747,7 +782,7 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 	childPages: function(){
 		var parentUrl = this.parentPage.jqmData( "url" );
 
-		return $( ":jqmData(url^='"+  parentUrl + "&" + $.mobile.subPageUrlKey +"')");
+		return $( ":jqmData(url^='"+  parentUrl + "&" + $.mobile.subPageUrlKey +"')" );
 	}
 });
 
