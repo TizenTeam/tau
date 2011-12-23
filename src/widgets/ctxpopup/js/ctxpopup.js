@@ -424,6 +424,11 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
             });
         }
         
+        $( ".ui-ctxpopup .ui-btn-ctxpopup-close" ).live( "vclick", function() {
+            self.close();
+            return false;
+        });
+
         $.extend( self, {
             elem: elem,
             isOpen: false,
