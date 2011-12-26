@@ -82,7 +82,6 @@ $.widget( "mobile.extendablelist", $.mobile.widget, {
 		dbtable: "",
 		template : "",				/* Template for each list item */
 		loadmore : "tmp_load_more",	/* Template for "Load more" message */
-		dbkey: false,				/* Data's unique Key */
 		scrollview: false,
 		initSelector: ":jqmData(role='extendablelist')"
 	},
@@ -265,11 +264,6 @@ $.widget( "mobile.extendablelist", $.mobile.widget, {
 				}
 			}
 			
-			/* Set data's unique key */
-			if ( $el.data( "dbkey" ) ) {
-				o.datakey = $el.data( "dbkey" );
-			}
-
 			t._initList();
 	    }
 	},
