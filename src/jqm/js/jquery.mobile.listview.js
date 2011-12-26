@@ -5,6 +5,32 @@
 * http://jquery.org/license
 */
 
+/**
+ * Listview shows <ul>, <ol> lists as fancy listview looks.
+ *
+ * HTML attrivutes:
+ * 
+ * A listview object uses <ul> element with <li> elements in itself. 
+ * <ul> element can get following attributes;
+ *
+ *		data-role: Must set to 'listview'.
+ *
+ * Each <li> element can have <a> tag in itself for user's touch input.
+ *
+ * APIs:
+ * 		No APIs available.
+ *
+ * Events:
+ * 		No events available.
+ * 		
+ * Examples:
+ * 		<ul data-role="listview">
+ * 			<li>item 1</li>
+ * 			<li><a href="#nextpage">item 2</a></li>
+ * 			<li>item 3</li>
+ * 		</ul>
+ */
+
 (function( $, undefined ) {
 
 //Keeps track of the number of lists per page UID
