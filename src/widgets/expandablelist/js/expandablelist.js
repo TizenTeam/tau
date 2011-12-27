@@ -62,6 +62,20 @@ $.widget("todons.expandablelist", $.mobile.widget, {
 			.removeClass( "ui-li-expanded-icon" );
 	},
 
+	_set_expand_arrow: function(self, e, parent_is_expanded) {
+			if (parent_is_expanded) {
+				self._hide_expand_img(e);
+			} else {
+				self._show_expand_img(e);
+			}
+			if($(e[0]).data("expandable") && parent_is_expanded == false) {
+				var children = $(e).nextAll(":jqmData(expanded-by='"+$(e).attr('id')+"')");
+				children.each(function(idx, child) {
+					self._set_expand_arrow(self, child, e.is_expanded);
+				});
+			}
+	},
+
 	_toggle: function(self, e, parent_is_expanded) {
 		if (! parent_is_expanded) {
 			self._show(e);
@@ -119,12 +133,8 @@ $.widget("todons.expandablelist", $.mobile.widget, {
 			var _is_expanded = e[0].is_expanded;
 			expanded.each(function(i, e) { self._toggle(self, e, _is_expanded); });
 			e[0].is_expanded = ! e[0].is_expanded;	// toggle true/false
-			if (e[0].is_expanded) {
-				self._hide_expand_img(e);
-			} else {
-				self._show_expand_img(e);
-			}
 
+			self._set_expand_arrow(self, e, e[0].is_expanded);
 		});
 	},
 
