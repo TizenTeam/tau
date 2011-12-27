@@ -8,16 +8,16 @@
  */
 
 /*
- * Displays three sliders that allow the user to select the
+ * The hsvpicker Displays three sliders that allow the user to select the
  * hue, saturation, and value for a color.
+ *
+ * HTML attributes: 
  *
  * To apply, add the attribute data-role="hsvpicker" to a <div>
  * element inside a page. Alternatively, call hsvpicker() 
  * on an element (see below).
  *
- * Options:
- *
- *     color: String; the initial color can be specified in html using the
+ *     data-color: String; the initial color can be specified in html using the
  *            data-color="#ff00ff" attribute or when constructed
  *            in javascript, eg
  *                $("#myhsvpicker").hsvpicker({ color: "#ff00ff" });
@@ -30,6 +30,12 @@
  * Events:
  *
  *     colorchanged: Fired when the color is changed.
+ *
+ * APIs:
+ *     No API available.
+ *
+ * Examples:
+ *     <div data-role="pagecontrol" data-color="#ffffff"></div>
  */
 
 function documentRelativeCoordsFromEvent(ev) {

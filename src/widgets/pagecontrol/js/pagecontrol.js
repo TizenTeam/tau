@@ -1,19 +1,19 @@
 /*
-	Copyright (c) 2011 Samsung Electronics Co., Ltd All Rights Reserved
+ *	Copyright (c) 2011 Samsung Electronics Co., Ltd All Rights Reserved
+ *
+ *	Licensed under the Apache License, Version 2.0 (the "License");
+ *	you may not use this file except in compliance with the License.
+ *	You may obtain a copy of the License at
+ *
+ *	http://www.apache.org/licenses/LICENSE-2.0
 
-	Licensed under the Apache License, Version 2.0 (the "License");
-	you may not use this file except in compliance with the License.
-	You may obtain a copy of the License at
+ *	Unless required by applicable law or agreed to in writing, software
+ *	distributed under the License is distributed on an "AS IS" BASIS,
+ *	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *	See the License for the specific language governing permissions and
+ *	limitations under the License.
 
-	http://www.apache.org/licenses/LICENSE-2.0
-
-	Unless required by applicable law or agreed to in writing, software
-	distributed under the License is distributed on an "AS IS" BASIS,
-	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	See the License for the specific language governing permissions and
-	limitations under the License.
-
-	Author: Youmin Ha <youmin.ha@samsung.com>
+ *	Author: Youmin Ha <youmin.ha@samsung.com>
 */
 
 /**
@@ -22,24 +22,29 @@
  *
  * HTML Attributes:
  *
+ *		Pagecontrol widget uses <div> element as an element itself. It takes following attributes.
+ *
  *		data-role:	This widget must have 'pagecontrol' as data-role value.
  *		data-max:	Maximum nimber of pagecontrol bullets. This property must not exceed 10.
  *		data-initVal:	Initially selected value of the pagecontrol widget. Must between 1 and data-max. If this attribute is not given, initial value is set to 1.
  *
  * APIs:
+ *
  *		setValue( value )
  *			: Set current value. Actually triggers 'change' event to the widget with given value.
  *			@param[in] value	A value to be changed.
+ *
  *		getValue( )
  *			: Get current value.
  *			@return		Current value.
  *
  * Events:
+ *
  *		change:	Raised when a value is changed, by setting it by javascript, or by user's touch event.
  *
  * Examples:
  *
- *		<div id="foo" data-role="pagecontrol" data-max="10"><div>
+ *		<div id="foo" data-role="pagecontrol" data-max="10"></div>
  *		...
  *		<script language="text/javascript">
  *
@@ -52,8 +57,6 @@
  *		// Set a value to 3
  *		$('foo').trigger('change', 3);
  *		</script>
- *
- * Note:
  */
 
 (function ($, undefined) {
