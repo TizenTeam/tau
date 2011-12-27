@@ -1,5 +1,6 @@
 domReady(function(){
-	
+
+var selectedLineNumberElement = null;
 
 function initDB(){
 	/* ?_=ts code for no cache mechanism */
@@ -168,7 +169,42 @@ $(".contact-editor-last-ln").live( "input", function(events) {
 	return false;
 });
 
+$( ".conatact-editor-ln-mobile, .conatact-editor-ln-telephone, .conatact-editor-ln-fax, .conatact-editor-ln-other" ).live( "click", function() {
+	/* Remember selected number name element */
+	selectedLineNumberElement = this;
+});
 
+$( ".contact-editor-ctx-ln-mobile" ).click( function(){ 
+	$( selectedLineNumberElement ).removeClass();
+	$( selectedLineNumberElement ).addClass( "ui-li-dialogue-editor-2-label" );
+	$( selectedLineNumberElement ).addClass( "conatact-editor-ln-mobile" );
+	
+	 selectedLineNumberElement  = null;
+});
+
+$( ".contact-editor-ctx-ln-telephone" ).click( function(){ 
+	$( selectedLineNumberElement ).removeClass();
+	$( selectedLineNumberElement ).addClass( "ui-li-dialogue-editor-2-label" );
+	$( selectedLineNumberElement ).addClass( "conatact-editor-ln-telephone" );
+	
+	 selectedLineNumberElement  = null;
+});
+
+$( ".contact-editor-ctx-ln-fax" ).click( function(){ 
+	$( selectedLineNumberElement ).removeClass();
+	$( selectedLineNumberElement ).addClass( "ui-li-dialogue-editor-2-label" );
+	$( selectedLineNumberElement ).addClass( "conatact-editor-ln-fax" );
+	
+	 selectedLineNumberElement  = null;
+});
+
+$( ".contact-editor-ctx-ln-other" ).click( function(){ 
+	$( selectedLineNumberElement ).removeClass();
+	$( selectedLineNumberElement ).addClass( "ui-li-dialogue-editor-2-label" );
+	$( selectedLineNumberElement ).addClass( "conatact-editor-ln-other" );
+	
+	 selectedLineNumberElement  = null;
+});
 
 /* Start Phonebook App initialization */
 initDB();

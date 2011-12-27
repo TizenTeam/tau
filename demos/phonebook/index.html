@@ -371,11 +371,35 @@
 				</li>
 
 				<!--  Context Popup -->
-				<div id="pop_text_only" data-role="ctxpopup" data-ctxid="contact-editor-mobile">
+				<div data-role="ctxpopup" data-selector=".conatact-editor-ln-mobile">
 					<ul data-role="listview">
-						<li><a href="#">Telephone</a></li>
-						<li><a href="#">Fax</a></li>
-						<li><a href="#">Other</a></li>
+						<li><a href="#" class="contact-editor-ctx-ln-telephone ui-btn-ctxpopup-close">Telephone</a></li>
+						<li><a href="#" class="contact-editor-ctx-ln-fax ui-btn-ctxpopup-close">Fax</a></li>
+						<li><a href="#" class="contact-editor-ctx-ln-other ui-btn-ctxpopup-close">Other</a></li>
+					</ul>
+				</div>
+
+				<div data-role="ctxpopup" data-selector=".conatact-editor-ln-telephone">
+					<ul data-role="listview">
+						<li><a href="#" class="contact-editor-ctx-ln-mobile ui-btn-ctxpopup-close">Mobile</a></li>
+						<li><a href="#" class="contact-editor-ctx-ln-fax ui-btn-ctxpopup-close">Fax</a></li>
+						<li><a href="#" class="contact-editor-ctx-ln-other ui-btn-ctxpopup-close">Other</a></li>
+					</ul>
+				</div>
+
+				<div data-role="ctxpopup" data-selector=".conatact-editor-ln-fax">
+					<ul data-role="listview">
+						<li><a href="#" class="contact-editor-ctx-ln-mobile ui-btn-ctxpopup-close">Mobile</a></li>
+						<li><a href="#" class="contact-editor-ctx-ln-telephone ui-btn-ctxpopup-close">Telephone</a></li>
+						<li><a href="#" class="contact-editor-ctx-ln-other ui-btn-ctxpopup-close">Other</a></li>
+					</ul>
+				</div>
+
+				<div data-role="ctxpopup" data-selector=".conatact-editor-ln-other">
+					<ul data-role="listview">
+						<li><a href="#" class="contact-editor-ctx-ln-mobile ui-btn-ctxpopup-close">Mobile</a></li>
+						<li><a href="#" class="contact-editor-ctx-ln-telephone ui-btn-ctxpopup-close">Telephone</a></li>
+						<li><a href="#" class="contact-editor-ctx-ln-fax ui-btn-ctxpopup-close">Fax</a></li>
 					</ul>
 				</div>
 
