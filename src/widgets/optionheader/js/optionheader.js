@@ -5,6 +5,7 @@
  * Copyright (C) TODO
  * License: TODO
  * Authors: Elliot Smith <elliot.smith@intel.com>
+ *          Jinhyuk Jun <jinhyuk.jun@samsung.com>
  */
 
 /**
@@ -90,6 +91,24 @@
  *
  *   expand: Triggered when the option header is expanded
  *   collapse: Triggered when the option header is collapsed
+ *
+ * Examples:
+ *    How to add optionheader icon( button link )
+ *    set id to <a> then add data-icon="optiontray"
+ *    add data-for= id  to data-role="optionheader"
+ *
+ *    <div data-role="header" data-position="fixed">
+ *         <a id="123">TestBtn</a>
+ *      <h1>Option header - 2 buttons</h1>
+ *         <a id="opt_text" data-icon="optiontray"></a>
+ *         <a id="1234">TestBtn</a>
+ *     <div id="myoptionheader1" data-role="optionheader" data-for="opt_text">
+ *         <div class="ui-grid-a ">
+ *               <div class="ui-block-a"><a data-role="button">Save</a></div>
+ *               <div class="ui-block-b"><a data-role="button">Next</a></div>
+ *         </div>
+ *     </div>
+ *  </div>
  *
  */
 

@@ -3,6 +3,39 @@
 * Copyright (c) jQuery Project
 * Dual licensed under the MIT or GPL Version 2 licenses.
 * http://jquery.org/license
+* Authors: Jinhyuk Jun <jinhyuk.jun@samsung.com>
+*/
+
+/**
+ * Searchbar can be created using <input> element with type=search
+ * <input type="search" name="search" id="search1" value=""  />
+ *
+ * Searchbar can be inserted 3 cases
+ * content : seachbar behave same as content element
+ * header : searchbar placed below title(header), It doesn't move when scrolling page
+ * inside optionheader : Searchbar placed inside optionheader, searchbar can be seen only expand optionheader
+ *
+ * Examples:
+ *
+ *     HTML markup for creating Searchbar
+ *         <input type="search"/>
+ *
+ *     How to make searchbar in content
+ *         <input type="search" name="" id="" value=""  />
+ *
+ *     How to make searchbar in title
+ *         <div data-role="header" data-position ="fixed" >
+ *	           <h1>Searchbar</h1>
+ *             <input type="search" name="" id="" value=""  />
+ *         </div>
+ *
+ *     How to make searchbar inside optionheader
+ *         <div data-role="header" data-position ="fixed" >
+ *	           <h1>Searchbar</h1>
+ *             <div id="myoptionheader2" data-role="optionheader">
+ *                 <input type="search" name="" id="" value=""  />
+ *             </div>
+ *         </div>
 */
 
 (function( $, undefined ) {

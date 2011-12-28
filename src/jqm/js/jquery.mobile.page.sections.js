@@ -3,6 +3,41 @@
 * Copyright (c) jQuery Project
 * Dual licensed under the MIT or GPL Version 2 licenses.
 * http://jquery.org/license
+* Authors: Jinhyuk Jun <jinhyuk.jun@samsung.com>
+
+*/
+
+/**
+ * Page can be created using the calendarpicker() method or by adding a
+ * data-role="page" attribute to an element.
+ *
+ * Page has 3 main sub element. Header, Footer, Content
+ * 3 sub element can be created using <div> element
+ *
+ * Attribute:
+ *
+ *    data-back-Btn-Text : determine which text is displayed in back button
+ *    data-add-Back-Btn : Defines if header/footer has back button or not(default "false")
+ *    data-back-Btn-Theme : defines back button's theme
+ *    data-header-Theme = defines header <div>'s theme
+ *    data-footer-Theme = defines footer <div>'s theme
+ *    data-content-Theme = defines content <div>'s theme
+ *    data-footer-Exist =  defines to show default footer or not in each page (SLP default true)
+ *    data-footer-User-Control-Theme = defines to show default footer in whole page(SLP default false. if true, all document do not has footer)
+ *
+ * Examples:
+ * 
+ *     HTML markup for creating Page:
+ *     <div data-role="page">
+ *
+ *     How to show back button
+ *     <div data-role="page" id="no-contents-0" data-add-back-btn="true">
+ *
+ *     How to  remove footer of specific page
+ *     <div data-role="page" id="no-contents-0" data-footer-Exist="false">
+ *
+ *     How to  remove footer of whole page
+ *     <div data-role="page" id="no-contents-0" data-footer-User-Control="true">
 */
 
 (function( $, undefined ) {
