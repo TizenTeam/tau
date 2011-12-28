@@ -5,6 +5,34 @@
 * http://jquery.org/license
 */
 
+/**
+ * Usages of checkbox, radio button are same as jQM except style.
+ *
+ * HTML Attributes:
+ *
+ *		data-style:	This is only for checkbox. When user does not declare, It uses default style.
+ *                  "favorite" : Star shape checkbox
+ *                  "onoff"    : Switch style on-off checkbox
+ *
+ * APIs:
+ *		Same as jQM
+ *
+ * Events:
+		Same as jQM
+ *
+ * Examples:
+ *
+ *			<input type="checkbox" name="mycheck" id="check-test" data-style="favorite"/>
+ *			<label for="check-test">Favorite</label>
+ *
+ *			<input type="checkbox" name="check-favorite" id="check-test2"
+ *					checked="checked" disabled="disabled" data-style="favorite"/>
+ *			<label for="check-test2">Favorite Checked, Disabled</label>
+ *
+ * Note:
+ */
+
+
 (function( $, undefined ) {
 
 $.widget( "mobile.checkboxradio", $.mobile.widget, {
