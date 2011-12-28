@@ -3,6 +3,52 @@
 * Copyright (c) jQuery Project
 * Dual licensed under the MIT or GPL Version 2 licenses.
 * http://jquery.org/license
+* Authors: Jinhyuk Jun <jinhyuk.jun@samsung.com>
+*/
+
+/**
+* Header/Footer can be created using the 
+* data-role="header", data-role="footer" attribute to an element.
+*
+* Every page in SLP theme have Header&Footer and default footer contains back button
+* Framework automatically generate footer even though web developer does not define footer
+* For more detail footer usage, refer Page(page.section.js) guideline
+*
+* Attribute:
+*    data-position : default value is fixed, automatically generated footer has fixed position, 
+                   in header, web dev. defines header fix or not.
+* 
+* Examples:
+*         
+*     HTML markup for creating header : 
+*         <div data-role="header" data-position="fixed">
+*             <h1>NBeat UI</h1>
+*         </div>
+*
+*     HTML markup for creating 1 button title ( button is available 1~3 )
+*         <div data-role="header" data-position="fixed">
+*             <a>Text1</a>
+*             <h1>Title Area</h1>			
+*         </div>
+*
+*     HTML markup for creating 2 button and groupControl title ( Groupcontrol is available 2~4 )
+*     <div data-role="header" data-position="fixed">
+*         <a>Text</a>	
+*         <h1>Title Extend 2 Button </h1>
+*         <a>Text</a>		
+*         <div data-role="fieldcontain">
+*             <fieldset data-role="controlgroup" data-type="horizontal">
+*                 <input type="radio" name="radio-view-8" data-icon="segment-titlestyle-segonly" id="segment1" value="on" checked="checked" />
+*                 <label for="segment1">All</label>
+*                 <input type="radio" name="radio-view-8" data-icon="segment-titlestyle-segonly" id="segment2" value="off" />
+*                 <label for="segment2">Call</label>
+*             </fieldset>
+*         </div>			
+*     </div>
+*
+*     HTML markup for creating footer
+*         <div data-role="footer" data-position="fixed">
+*         </div>
 */
 
 (function( $, undefined ) {
@@ -69,8 +115,11 @@ $.mobile.fixedToolbars = (function() {
 
 
 		/* resize test : Jinhyuk    */
-		if($(document).find(".ui-page-active").length) var footer_filter = $(document).find(".ui-page-active").find(":jqmData(role='footer')");		
-		else var footer_filter = $(document).find(":jqmData(role='footer')").eq(0); 	
+		var footer_filter;
+		if( $( document ).find( ".ui-page-active" ).length ) 
+			footer_filter = $( document ).find( ".ui-page-active" ).find( ":jqmData(role='footer')" );		
+		else 
+			footer_filter = $( document ).find( ":jqmData(role='footer')" ).eq( 0 ); 	
 
 		var footerNavbar = footer_filter.find(".ui-navbar");
 
@@ -190,108 +239,102 @@ $.mobile.fixedToolbars = (function() {
 			}		
 			/* resize footer : Jinhyuk    */
 			
-			var s_theme_header = $( event.target ).find(":jqmData(role='header')");
-			var s_theme_fieldcontain = s_theme_header.find(":jqmData(role='fieldcontain')");
+			var s_theme_header = $( event.target ).find( ":jqmData(role='header')" );
+			var s_theme_fieldcontain = s_theme_header.find( ":jqmData(role='fieldcontain')" );
+			var s_theme_content = $( event.target ).find( ".ui-content" );
 			var title_style = "normal";
-			if(s_theme_fieldcontain.length != 0) 
+			if( s_theme_fieldcontain.length != 0 ) 
 				title_style = "extended";
 			
-				if(s_theme_header.children().is(".ui-option-header")){	
-					if(s_theme_header.children().is(".input-search-bar")){
-						$( event.target ).find(".ui-content")
-							.css("position", "relative")
-							.css("top","216px" );	
-					}
-					else{
-						if($.todons.optionheader.prototype.options.collapseOnInit == true)					
-							$( event.target ).find(".ui-content")
-								.addClass("ui-title-content-option-header-collapsed-1line-height");
-						else 
-							$( event.target ).find(".ui-content")
-								.addClass("ui-title-content-option-header-expanded-1line-height");	
-					}
+			if( s_theme_header.jqmData("position") == "fixed" || s_theme_header.css("position") == "fixed" ){
+				s_theme_header
+					.css( "position", "fixed" )
+					.css( "top", "0px" );
+				$( event.target ).find( ".ui-content" ).addClass( "ui-title-content-" + title_style + "-height" );							
+			}	
+			
+			if( s_theme_header.children().is(".ui-option-header") ){	
+				s_theme_content.removeClass( "ui-title-content-" + title_style + "-height" );
+				if( s_theme_header.children().is(".input-search-bar") ){
+					s_theme_content.addClass( "ui-title-content-optionheader-search" );	
+				} else{
+					if( $.todons.optionheader.prototype.options.collapseOnInit == true )					
+						s_theme_content.addClass( "ui-title-content-option-header-collapsed-1line-height" );
+					else 
+						s_theme_content.addClass( "ui-title-content-option-header-expanded-1line-height" );	
 				}
-				else if(s_theme_header.find("input").jqmData("type") == "search"){ /* In case searchbar in header : Jinhyuk */
-					$( event.target ).find(".ui-content")
-						.css("position", "relative")
-						.css("top","206px" );										
+			} else if( s_theme_header.find("input").jqmData("type") == "search" ){ /* In case searchbar in header : Jinhyuk */
+				s_theme_content
+					.removeClass( "ui-title-content-" + title_style + "-height" )
+					.addClass( "ui-title-content-search" );										
 				}				
 
 				if(s_theme_header.children().is("a") || s_theme_header.children().find(".ui-radio").length != 0){
 					if(title_style == "normal"){				
 						if(s_theme_header.children("a").length == 1 || s_theme_header.children("a").length == 2){}
-						else if(s_theme_header.children("a").length == 3){
-							s_theme_header.find("a").eq(1)
-							.removeClass("ui-btn-right")
-					.addClass("ui-title-normal-3btn");					
-							s_theme_header.find("a").eq(2)
-								.addClass("ui-btn-right");
-						} else {/* Need to implement new layout */}
-					}
-					else{
-						var group_length = s_theme_fieldcontain.find(".ui-radio").length;
-						
-						s_theme_header.addClass("ui-title-extended-height");
-						s_theme_fieldcontain.find(".ui-controlgroup").addClass("ui-title-extended-controlgroup");						
-						s_theme_fieldcontain.addClass("ui-title-extended-segment-style");
-	
-						if(group_length == 2 || group_length == 3 || group_length == 4)
-							s_theme_fieldcontain.find(".ui-controlgroup").addClass("ui-title-extended-controlgroup-" + group_length + "btn");
-						else { /* Need to implement new layout */}
-					}	
-					$( event.target ).find(".ui-content").addClass("ui-title-content-" + title_style + "-height");	
-				}	
-
-				if(s_theme_header.jqmData("position") == "fixed" || s_theme_header.css("position") == "fixed"){
-					s_theme_header
-						.css("position", "fixed")
-						.css("top", "0px");
-					$( event.target ).find(".ui-content").addClass("ui-title-content-" + title_style + "-height");							
-				}				
-				
-				var page = $( event.target ),
-				footer = page.find( ":jqmData(role='footer')" ),
-				id = footer.data( "id" ),
-				prevPage = ui.prevPage,
-				prevFooter = prevPage && prevPage.find( ":jqmData(role='footer')" ),
-				prevFooterMatches = prevFooter.length && prevFooter.jqmData( "id" ) === id;
-
-				if ( id && prevFooterMatches ) {
-					stickyFooter = footer;
-					stickyFooter.removeClass( "fade in out" ).appendTo( $.mobile.pageContainer );
-					stickyFooter
-						.css("position", "fixed")
-						.css("top", $(".ui-page").find(":jqmData(role='footer')").eq(0).css("top"));
+					else if( s_theme_header.children("a").length == 3 ){
+						s_theme_header.find( "a" ).eq( 1 )
+							.removeClass( "ui-btn-right" )
+							.addClass( "ui-title-normal-3btn" );					
+						s_theme_header.find( "a" ).eq( 2 )
+							.addClass( "ui-btn-right" );
+					} else {/* Need to implement new layout */}
+				} else{
+					var group_length = s_theme_fieldcontain.find( ".ui-radio" ).length;
 					
-				}									
-				if(footer.is(".ui-footer-fixed")){
-					footer.css("top",document.documentElement.clientHeight-footer.height());
-				}
+					s_theme_header.addClass( "ui-title-extended-height" );
+					s_theme_fieldcontain.find( ".ui-controlgroup" ).addClass( "ui-title-extended-controlgroup" );						
+					s_theme_fieldcontain.addClass( "ui-title-extended-segment-style" );
+
+					if( group_length == 2 || group_length == 3 || group_length == 4 )
+//						s_theme_fieldcontain.find( ".ui-controlgroup" ).addClass( "ui-title-extended-controlgroup-" + group_length + "btn" );
+						s_theme_fieldcontain.addClass( "ui-title-extended-controlgroup-" + group_length + "btn" );
+					else { /* Need to implement new layout */}
+				}	
+				s_theme_content.addClass( "ui-title-content-" + title_style + "-height" );	
+			}	
+					
+			var page = $( event.target ),
+			footer = page.find( ":jqmData(role='footer')" ),
+			id = footer.data( "id" ),
+			prevPage = ui.prevPage,
+			prevFooter = prevPage && prevPage.find( ":jqmData(role='footer')" ),
+			prevFooterMatches = prevFooter.length && prevFooter.jqmData( "id" ) === id;
+
+			if ( id && prevFooterMatches ) {
+				stickyFooter = footer;
+				stickyFooter.removeClass( "fade in out" ).appendTo( $.mobile.pageContainer );
+				stickyFooter
+					.css("position", "fixed")
+					.css("top", $(".ui-page").find(":jqmData(role='footer')").eq(0).css("top"));
+				
+			}									
+			if( footer.is(".ui-footer-fixed") ){
+				footer.css( "top", document.documentElement.clientHeight - footer.height() );
+			}
 				
 			/* Increase Content size with dummy <div> because of footer height */
-			if(footer.length != 0 && $( event.target ).find(".dummy-div").length == 0){
-				$( event.target ).find(":jqmData(role='content')").append('<div class="dummy-div"></div>');
-				$(".dummy-div")	
-					.css("width", footer.width())
-					.css("height", footer.height());		
-				if($(".dummy-div").height() < defaultFooterHeight)
-					$(".dummy-div").css("height", defaultFooterHeight);
+			if( footer.length != 0 && $( event.target ).find(".dummy-div").length == 0 ){
+				$( event.target ).find( ":jqmData(role='content')" ).append( '<div class="dummy-div"></div>' );
+				$( ".dummy-div" )	
+					.css( "width", footer.width() )
+					.css( "height", footer.height() );		
+				if( $(".dummy-div").height() < defaultFooterHeight )
+					$( ".dummy-div" ).css( "height", defaultFooterHeight );
 			}					
 												
 			/* Header position fix(remove transition) : Jinhyuk */
-			var next_id = $( event.target).attr("id");
-			$("#"+next_id).find(":jqmData(role='header')").removeClass( "fade in out" ).appendTo($.mobile.pageContainer);
-											
+			var next_id = $( event.target ).attr( "id" );
+			$( "#"+next_id ).find( ":jqmData(role='header')" ).removeClass( "fade in out" ).appendTo( $.mobile.pageContainer );
 		})
 
 		.live( "pageshow", function( event, ui ) {
 			/* Fixed header modify for theme-s : Jinhyuk */
 			var s_theme_header = $( event.target ).find( ":jqmData(role='header')" );
-			if((s_theme_header.is(".ui-header-fixed")&&
-			 s_theme_header.is(".ui-bar-s"))){	
+			if( s_theme_header.is(".ui-header-fixed") && s_theme_header.is(".ui-bar-s") ){	
 				$( event.target ).find( ":jqmData(role='header')" )
-					.css("position", "fixed")
-					.css("top", "0px");
+					.css( "position", "fixed" )
+				.css("top", "0px");
 				 (( $( document ).scrollTop() === 0 ) ? $( window ) : $( document ) )
 					.unbind( "scrollstart")
 					.unbind( "silentscroll")
@@ -301,7 +344,6 @@ $.mobile.fixedToolbars = (function() {
 			var $this = $( this );
 
 			if ( stickyFooter && stickyFooter.length ) {
-
 				setTimeout(function() {
 					setTop( stickyFooter.appendTo( $this ).addClass( "fade" ) );
 					stickyFooter = null;
