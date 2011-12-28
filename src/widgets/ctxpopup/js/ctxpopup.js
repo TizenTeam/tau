@@ -440,6 +440,9 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
         this._arrowReset( this.ui.arrow );
         this.ui.container.removeAttr( "style" );
         this.ui.arrow.removeAttr( "style" );
+        
+        $( this.elem ).find( ".ui-btn" ).removeClass( "ui-btn-hover-s" ).removeClass( "ui-btn-down-s" ).addClass( "ui-btn-up" ).addClass( "ui-btn-up-s" );
+        
         this.isOpen = false;
         $(this.elem).trigger('close');
     },
