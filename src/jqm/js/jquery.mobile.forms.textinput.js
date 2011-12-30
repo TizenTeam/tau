@@ -128,7 +128,7 @@ $.widget( "mobile.textinput", $.mobile.widget, {
 				})
 				.appendTo( focusedEl )
 				.buttonMarkup({
-					icon: "delete",
+					icon: "deleteSearch",
 					iconpos: "notext",
 					corners: true,
 					shadow: true
