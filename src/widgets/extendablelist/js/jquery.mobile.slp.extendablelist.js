@@ -30,7 +30,8 @@
  *		data-extenditems : Number of elements to extend at once. 
  *		
  *		ID : <UL> element that has "data-role=extendablelist" must have ID attribute.
- *		Class : <UL> element that has "data-role=extendablelist" should have "vlLoadSuccess" class to guaranty DB loading is completed. 
+ *		Class : <UL> element that has "data-role=extendablelist" should have "vlLoadSuccess" class to guaranty DB loading is completed.
+ *		tmp_load_more : Template ID for "load more" message and button. 
  *
  *
  * APIs:
@@ -42,6 +43,10 @@
  *			: Update extendable list with new data array. For example, update with search result. 
  *
  * Examples:
+ * 
+ * 		<script id="tmp-3-1-1" type="text/x-jquery-tmpl">
+ *			<li class="ui-li-3-1-1"><span class="ui-li-text-main">${NAME}</span></li>
+ *		</script>
  * 
  *		<script id="tmp_load_more" type="text/x-jquery-tmpl"> 
  * 			<li class="ui-li-3-1-1" style="text-align:center; margin:0 auto">
