@@ -39,7 +39,7 @@
  *			: API to call _create method. API for AJAX or DB loading callback.
  *
  *		recreate ( Array )
- *			: Update virtual list with new data array. For example, update with search result. 
+ *			: Update extendable list with new data array. For example, update with search result. 
  *
  * Examples:
  * 
@@ -120,7 +120,7 @@ $.widget( "mobile.extendablelist", $.mobile.widget, {
 			last_index++;
 		}
 		
-		/* After push data, re-style virtuallist widget */
+		/* After push data, re-style extendable list widget */
 		$( o.id ).trigger( "create" );
 	},
 	
@@ -255,7 +255,7 @@ $.widget( "mobile.extendablelist", $.mobile.widget, {
 		    if ( $el.data( "template" ) ) {
 				o.template = $el.data( "template" );
 				
-		        /* to support swipe list, <li> or <ul> can be main node of virtual list. */
+		        /* to support swipe list, <li> or <ul> can be main node of extendable list. */
 				if ( $el.data( "swipelist" ) == true ) {
 					o.childSelector = " ul";
 				}
@@ -544,7 +544,7 @@ $.widget( "mobile.extendablelist", $.mobile.widget, {
 		}
 	},
 
-	// TODO sort out a better way to track sub pages of the virtuallistview this is brittle
+	// TODO sort out a better way to track sub pages of the extendable listview this is brittle
 	childPages: function(){
 		var parentUrl = this.parentPage.jqmData( "url" );
 
