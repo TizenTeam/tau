@@ -87,73 +87,6 @@
 		color : #f9f9f9;
 	}
 	
-	.ui-field-contain {		
-		margin-left : auto;
-		margin-right : auto;
-		height : 74  * @unit_base;
-		
-		.ui-title-extended-controlgroup {
-			position : absolute;
-			top : 15  * @unit_base;
-	
-			margin-top : 0 * @unit_base;
-			margin-bottom : 0 * @unit_base;
-			
-			label {
-				border-color :#2b2b2b;
-				border-style : solid;
-				border-left-width : 1px;
-				border-right-width : 1px;
-				
-			}
-			
-			.ui-radio {
-				height : 90 * @unit_base;
-				.ui-btn {
-					width : 100%;
-				
-				}
-				.ui-btn-inner {
-					.ui-btn-text {
-						text-align : center;
-					}
-				}
-
-				.ui-radio-off {
-					background: #434343;
-					.ui-btn-text{
-						color 		:#767676;
-					}
-				}			
-				.ui-radio-on{
-					background : #F9F9F9;
-					.ui-btn-text{											
-						color : #000000;		
-					}
-				}	
-			}
-		}		
-	}
-
-	.ui-title-extended-controlgroup-4btn {
-		width : 682 * @unit_base;
-		.ui-radio {
-			width : 170  * @unit_base;
-		}			
-	}
-	.ui-title-extended-controlgroup-3btn {
-		width : 432  * @unit_base;
-		.ui-radio {
-			width : 143  * @unit_base;
-		}			
-	}
-	.ui-title-extended-controlgroup-2btn {
-		width : 328  * @unit_base;
-		
-		.ui-radio {
-			width : 163  * @unit_base;
-		}
-	}	
 }
 
 .ui-title-content-normal-height,
@@ -225,29 +158,29 @@
 	.ui-title{
 		font-size : 32 * @unit_base;
 	}
-
 }
 
 .ui-header.ui-bar-s, .ui-footer.ui-bar-s {
-	.ui-btn-back.ui-btn-down-s{
+	.ui-btn.ui-btn-back.ui-btn-down-s{
 		.ui-btn-inner.ui-btn-icon-only {
 			background : #0a8cd2;
 		}
 	}
-	.ui-btn-back{
+	
+	.ui-btn.ui-btn-back, .ui-btn.ui-btn-footer-right{
 		position : absolute;
 		font-size : @font_size_default;
 
 		width : 144 * @unit_base;
 		height : 114 * @unit_base;
 		top : 0 * @unit_base;
-		left : 0 * @unit_base;
 
 		border-style : none;
 		border-width : 0px;
 		background : #1f1f1f;
-		
-		.ui-btn-inner.ui-btn-icon-only {
+	}
+	.ui-btn.ui-btn-back .ui-btn-inner.ui-btn-icon-only, 
+	.ui-btn.ui-btn-footer-right .ui-btn-inner {
 			padding : 0;
 
 			width : 104 * @unit_base;
@@ -261,9 +194,104 @@
 			border-width : 2px;
 			border-style :  groove;			
 		}
+	
+	.ui-btn.ui-btn-back{
+		left : 0 * @unit_base;
+	}
+	
+	.ui-btn.ui-btn-footer-right.ui-btn-down-s{
+		.ui-btn-inner {
+			background : #0a8cd2;
+		}
+	}
+	.ui-btn.ui-btn-footer-right{
+		right : 10 * @unit_base;
+
+		.ui-btn-inner {	
+			.ui-btn-text {
+				line-height : 74  * @unit_base;
+			}	
+		}
+	}	
+
+	.ui-field-contain {		
+		margin-left : auto;
+		margin-right : auto;
+		height : 74  * @unit_base;
+		
+		font-size : 28 * @unit_base;
+		
+		.ui-extended-controlgroup {
+			position : absolute;
+			display : inline;			
+	
+			margin-top : 0 * @unit_base;
+			margin-bottom : 0 * @unit_base;
+			
+			label {
+				border-color :#2b2b2b;
+				border-style : solid;
+				border-left-width : 1px;
+				border-right-width : 1px;
+				
+			}
+			
+			.ui-radio {
+				height : 74 * @unit_base;
+				.ui-btn {
+					width : 100%;
+				
+				}
+				.ui-btn-inner {
+					.ui-btn-text {
+						text-align : center;
+					}
 	}
 
+				.ui-radio-off {
+					background: #434343;
+					.ui-btn-text{
+						color 		:#767676;
+					}
+				}			
+				.ui-radio-on{
+					background : #F9F9F9;
+					.ui-btn-text{											
+						color : #000000;		
+					}
+				}	
+			}
+		}	
+		.ui-title-extended-controlgroup {
+			top : 15  * @unit_base;
+		}
+		.ui-footer-extended-controlgroup {
+			top : -5  * @unit_base;
+			.ui-btn-inner {
+				line-height : 74  * @unit_base;
+				padding : 0  * @unit_base;
+			}
+		}		
+	}	
+	.ui-title-extended-controlgroup-4btn {
+		width : 682 * @unit_base;
+		.ui-radio {
+			width : 170  * @unit_base;
+		}			
+	}
+	.ui-title-extended-controlgroup-3btn {
+		width : 432  * @unit_base;
+		.ui-radio {
+			width : 143  * @unit_base;
+		}			
+	}
+	.ui-title-extended-controlgroup-2btn {
+		width : 328  * @unit_base;
 
+		.ui-radio {
+			width : 163  * @unit_base;
+		}
+	}	
 }
 
 // NOTE: This class is applied to almost all JQM widgets!
@@ -722,9 +750,11 @@ a.ui-link-inherit {
 	//.LESSborder-radius-all(9px); 
 }
 
-.ui-icon-search {
+.ui-image-search {
+
 	background-image: url(images/00_search_icon.png);
 	background-repeat: no-repeat;
+	
 }
 
 .ui-icon-deleteSearch {

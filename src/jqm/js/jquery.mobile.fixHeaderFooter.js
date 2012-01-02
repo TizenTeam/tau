@@ -229,16 +229,7 @@ $.mobile.fixedToolbars = (function() {
 	// 1. Before page is shown, check for duplicate footer
 	// 2. After page is shown, append footer to new page
 	$( ".ui-page" )  /* Fixed header modify for theme-s : Jinhyuk */
-		.live( "pagebeforeshow", function( event, ui ) {
-			/* resize footer : Jinhyuk    */
-			var footer_filter = $(document).find(":jqmData(role='footer')");		
-			if(footer_filter.find(".ui-navbar").is(".ui-controlbar-s")){			
-				footer_filter
-					.css("top",document.documentElement.clientHeight  - footer_filter.height())
-					.show();
-			}		
-			/* resize footer : Jinhyuk    */
-			
+		.live( "pagebeforeshow", function( event, ui ) {		
 			var s_theme_header = $( event.target ).find( ":jqmData(role='header')" );
 			var s_theme_fieldcontain = s_theme_header.find( ":jqmData(role='fieldcontain')" );
 			var s_theme_content = $( event.target ).find( ".ui-content" );
@@ -275,7 +266,7 @@ $.mobile.fixedToolbars = (function() {
 					else if( s_theme_header.children("a").length == 3 ){
 						s_theme_header.find( "a" ).eq( 1 )
 							.removeClass( "ui-btn-right" )
-							.addClass( "ui-title-normal-3btn" );					
+							.addClass( "ui-title-normal-3btn" );
 						s_theme_header.find( "a" ).eq( 2 )
 							.addClass( "ui-btn-right" );
 					} else {/* Need to implement new layout */}
@@ -283,17 +274,45 @@ $.mobile.fixedToolbars = (function() {
 					var group_length = s_theme_fieldcontain.find( ".ui-radio" ).length;
 					
 					s_theme_header.addClass( "ui-title-extended-height" );
-					s_theme_fieldcontain.find( ".ui-controlgroup" ).addClass( "ui-title-extended-controlgroup" );						
+					s_theme_fieldcontain.find( ".ui-controlgroup" ).addClass( "ui-title-extended-controlgroup" );
+					s_theme_fieldcontain.find( ".ui-controlgroup" ).addClass( "ui-extended-controlgroup" );
 					s_theme_fieldcontain.addClass( "ui-title-extended-segment-style" );
 
 					if( group_length == 2 || group_length == 3 || group_length == 4 )
-//						s_theme_fieldcontain.find( ".ui-controlgroup" ).addClass( "ui-title-extended-controlgroup-" + group_length + "btn" );
 						s_theme_fieldcontain.addClass( "ui-title-extended-controlgroup-" + group_length + "btn" );
 					else { /* Need to implement new layout */}
 				}	
 				s_theme_content.addClass( "ui-title-content-" + title_style + "-height" );	
 			}	
-					
+
+			/* resize footer : Jinhyuk    */
+			var footer_filter = $(document).find(":jqmData(role='footer')");
+			if( footer_filter.find(".ui-navbar").is(".ui-controlbar-s") ){
+				footer_filter
+					.css( "top", document.documentElement.clientHeight  - footer_filter.height() )
+					.show();
+			}		
+			/* resize footer : Jinhyuk    */
+			if( footer_filter.children().find(".ui-radio").length != 0 ){
+				var footerGroup = footer_filter.find( ":jqmData(role='fieldcontain')" );
+				var groupLength = footerGroup.find( ".ui-radio" ).length;
+				footerGroup.find( ".ui-controlgroup" )
+					.addClass( "ui-extended-controlgroup" )
+					.addClass( "ui-footer-extended-controlgroup" )
+					.css( "display", "inline" );
+					/* Groupcontrol cannot initialize inline property at first page */
+				footerGroup.addClass( "ui-title-extended-controlgroup-" + groupLength + "btn" );				
+
+				footerButton = footer_filter.children( "a" );
+				footerButton.each(function(i){
+					if( footerButton.eq(i).is(".ui-btn") && !footerButton.eq(i).is(".ui-btn-back") ){
+						footerButton.eq( i )
+							.removeClass( "ui-btn-left" )
+							.addClass( "ui-btn-footer-right" );
+					}
+				});
+			}
+
 			var page = $( event.target ),
 			footer = page.find( ":jqmData(role='footer')" ),
 			id = footer.data( "id" ),
@@ -307,22 +326,22 @@ $.mobile.fixedToolbars = (function() {
 				stickyFooter
 					.css("position", "fixed")
 					.css("top", $(".ui-page").find(":jqmData(role='footer')").eq(0).css("top"));
-				
+
 			}									
 			if( footer.is(".ui-footer-fixed") ){
 				footer.css( "top", document.documentElement.clientHeight - footer.height() );
 			}
-				
+
 			/* Increase Content size with dummy <div> because of footer height */
 			if( footer.length != 0 && $( event.target ).find(".dummy-div").length == 0 ){
 				$( event.target ).find( ":jqmData(role='content')" ).append( '<div class="dummy-div"></div>' );
-				$( ".dummy-div" )	
+				$( ".dummy-div" )
 					.css( "width", footer.width() )
 					.css( "height", footer.height() );		
 				if( $(".dummy-div").height() < defaultFooterHeight )
 					$( ".dummy-div" ).css( "height", defaultFooterHeight );
-			}					
-												
+			}
+
 			/* Header position fix(remove transition) : Jinhyuk */
 			var next_id = $( event.target ).attr( "id" );
 			$( "#"+next_id ).find( ":jqmData(role='header')" ).removeClass( "fade in out" ).appendTo( $.mobile.pageContainer );

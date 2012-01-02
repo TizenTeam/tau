@@ -147,7 +147,7 @@ $.widget( "mobile.textinput", $.mobile.widget, {
 				//SLP --start search bar with cancel button
 				focusedEl.wrapAll( "<div class='input-search-bar'></div>" );
 
-				var searchicon = $("<div class='ui-icon-search ui-icon-searchfield'></div>")
+				var searchicon = $("<div class='ui-image-search ui-image-searchfield'></div>")
 				.tap(function( event ) {
 					searchicon.hide();
 					input.focus();
