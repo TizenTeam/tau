@@ -67,6 +67,15 @@
 			clearInterval(this.interval);
 		},
 
+		_get_position: function ( height ) {
+			var $page = $('.ui-page'),
+				$footer = $page.children('.ui-footer'),
+				footer_h = $footer.outerHeight() || 0,
+				position = window.innerHeight - height - footer_h;
+
+			return position;
+		},
+
 		_update: function () {
 			var text = new Array(2);
 			var msg;
@@ -90,8 +99,8 @@
 			$(this.element).append(this.html);
 
 			container = $(this.element).find(".ui-smallpopup");
-			container.css('top',
-				window.innerHeight - parseInt(container.css('height')));
+			container.css( 'top',
+				this._get_position(parseInt(container.css('height'))) );
 		},
 
 		_create: function () {
