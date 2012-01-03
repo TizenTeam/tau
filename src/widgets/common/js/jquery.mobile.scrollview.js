@@ -798,33 +798,65 @@ jQuery.widget( "mobile.scrolllistview", jQuery.mobile.scrollview, {
 	}
 });
 
+function ResizePageContentHeight(page) {
+	var $page = $( page ),
+		$content = $page.children(".ui-content"),
+		hh = $page.children(".ui-header").outerHeight() || 0,
+		fh = $page.children(".ui-footer").outerHeight() || 0,
+		pt = parseFloat( $content.css("padding-top") ),
+		pb = parseFloat( $content.css("padding-bottom") ),
+		wh = window.innerHeight;
+
+	$content.height( wh - (hh + fh) - (pt + pb) );
+}
+
 // auto-init scrollview and scrolllistview widgets
-$(document).bind('pagecreate create', function (e) {
-    $page = $(e.target);
+$( document ).bind( 'pagecreate create', function ( e ) {
+	$page = $( e.target );
 
-    $page.find(":jqmData(scroll):not(.ui-scrollview-clip)").each(function () {
-        var $this = $(this);
+	var scroll = $page.find(".ui-content").attr("data-scroll");
 
-        if ($this.hasClass("ui-scrolllistview")) {
-            $this.scrolllistview();
-        } else {
-            var st = $this.jqmData("scroll") + "";
-            var paging = st && st.search(/^[xy]p$/) != -1;
-            var dir = st && st.search(/^[xy]/) != -1 ? st.charAt(0) : null;
+	if ( scroll === "n" ) {
+		return;
+	}
 
-            var opts = {};
-            if (dir)
-                opts.direction = dir;
-            if (paging)
-                opts.pagingEnabled = true;
+	if ( $.support.scrollview === true && scroll === undefined ) {
+		$page.find(".ui-content").attr( "data-scroll", "y" );
+	}
 
-            var method = $this.jqmData("scroll-method");
-            if (method)
-                opts.scrollMethod = method;
+	$page.find(":jqmData(scroll):not(.ui-scrollview-clip)").each( function () {
+		var $this = $( this );
 
-            $this.scrollview(opts);
-        }
-    });
+		if ( $this.hasClass("ui-scrolllistview") ) {
+			$this.scrolllistview();
+		} else {
+			var st = $this.jqmData("scroll") + "",
+				paging = st && st.search(/^[xy]p$/) != -1,
+				dir = st && st.search(/^[xy]/) != -1 ? st.charAt(0) : null;
+
+			opts = {
+				direction: dir || undefined,
+				paging: paging || undefined,
+				scrollMethod: $this.jqmData("scroll-method") || undefined
+			};
+
+			$this.scrollview( opts );
+		}
+	});
+});
+
+$( document ).bind( 'pageshow', function ( e ) {
+	$page = $( e.target );
+
+	var scroll = $page.find(".ui-content").attr("data-scroll");
+
+	if ( scroll === "y" ) {
+		ResizePageContentHeight( e.target );
+	}
+});
+
+$( window ).bind( "orientationchange", function( event ) {
+	ResizePageContentHeight( $(".ui-page") );
 });
 
 })(jQuery,window,document); // End Component

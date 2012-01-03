@@ -73,6 +73,7 @@ $.extend( $.support, {
 	touchOverflow: !!propExists( "overflowScrolling" ),
 	boxShadow: !!propExists( "boxShadow" ) && !bb,
 	scrollTop: ( "pageXOffset" in window || "scrollTop" in document.documentElement || "scrollTop" in fakeBody[ 0 ] ) && !webos,
+	scrollview: false,
 	dynamicBaseTag: baseTagTest()
 });
 

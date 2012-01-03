@@ -41,7 +41,8 @@ CSS_SRCS=	jquery.mobile.theme.less.css \
 		jquery.mobile.swipelist.less.css \
 		jquery.mobile.nocontents.less.css \
 		shortcutscroll.less.css \
-		dayselector.less.css
+		dayselector.less.css \
+		jquery.mobile.scrollview.css
 
 all: prepare css images js
 
