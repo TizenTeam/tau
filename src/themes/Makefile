@@ -1,4 +1,4 @@
-THEMES	= nbeat-black nbeat-white
+THEMES	= nbeat-black nbeat-white nbeat/nbeat-blue nbeat/nbeat-gray
 export THEME_OUTPUT_ROOT ?= ../build/
 
 all: themes

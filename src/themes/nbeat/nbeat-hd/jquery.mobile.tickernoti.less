@@ -1,0 +1,99 @@
+@import "config.less";
+
+@ticker-height: 100px;
+
+@-webkit-keyframes ui-ticker-show {
+	from {
+		opacity: 0;
+		-webkit-transform: translateY(-@ticker-height);
+		top: -@ticker-height;
+	} to {
+		opacity: 1;
+		-webkit-transform: translateY(0);
+		top: 0;
+	}
+}
+
+@-webkit-keyframes ui-ticker-hide {
+	from {
+		opacity: 1;
+		-webkit-transform: translateY(0);
+		top: 0;
+	} to {
+		opacity: 0;
+		-webkit-transform: translateY(-@ticker-height);
+		top: -@ticker-height;
+	}
+}
+
+.ui-ticker {
+	position: fixed;
+	display: none;
+	left: 0;
+	width: 100%;
+	height: @ticker-height;
+	z-index: 1100;
+	background: rgb(108, 108, 108);
+}
+.ui-ticker.show {
+	display: block;
+	-webkit-animation: ui-ticker-show 0.8s 1 ease;
+	top: 0px;
+}
+
+.ui-ticker.hide {
+	display: block;
+	-webkit-animation: ui-ticker-hide 0.8s 1 ease;
+	top: -@ticker-height;
+}
+
+.ui-ticker-body {
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 90px;
+}
+
+.ui-ticker-btn {
+	position: relative;
+	height: 54px;
+	margin-top: 23px;
+	margin-left: 16px;
+	margin-right: 16px;
+	vertical-align: middle;
+	float: right;
+}
+
+.ui-ticker-icon {
+	position: absolute;
+	top: 0;
+	height: 64px;
+	width: 64px;
+	margin-top: 18px;
+	margin-bottom: 18px;
+	margin-left: 16px;
+	margin-right: 16px;
+	vertical-align: middle;
+
+	/* FIXME: please fix this image file */
+	background: url(images/00_button_call.png) no-repeat;
+}
+
+.ui-ticker-text1-bg {
+	position: absolute;
+	top: 0;
+	height: 28px;
+	left: 96px;
+	margin-top: 20px;
+	font-size: 0.8em;
+	color: rgb(186, 186, 186);
+}
+
+.ui-ticker-text2-bg {
+	position: absolute;
+	top: 0;
+	height: 32px;
+	left: 96px;
+	margin-top: 48px;
+	color: rgb(244, 244, 244);
+}

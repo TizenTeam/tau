@@ -1,0 +1,1315 @@
+/*!
+* jQuery Mobile Framework
+* Copyright (c) jQuery Project
+* Dual licensed under the MIT (MIT-LICENSE.txt) and GPL (GPL-LICENSE.txt) licenses.
+*/
+
+@import "config.less";
+* {-webkit-text-size-adjust:none;}
+/* Swatches */
+
+/* S
+-----------------------------------------------------------------------------------------------------------*/
+.ui-bar-s {
+	border: none;
+	background: 			#1F1F1F;
+	color: 					@color_text;
+	font-family: Helvetica, Arial, sans-serif;
+	font-weight: bold;
+	font-size : 36 * @unit_base;
+/*	height : 100 * @unit_base;*/
+
+	/* a-bar-shadow-x, a-bar-shadow-y, a-bar-shadow-radius, a-bar-shadow-color */
+	/* no shadow : text-shadow: 0 -1px 1px #000000; */
+	/* a-bar-background-start, a-bar-background-end */
+	/* no shadow .LESSbackground-img-with-gradient(top, #3c3c3c, #111); */
+		
+	.ui-link-inherit {
+		color: #fff; /*{a-bar-color}*/
+	}
+	.ui-link {
+		/* ui-bar-link */
+		color: #7cc4e7; 
+		font-weight: bold;
+		&:hover { color: #2489CE; }
+		&:active { color: #2489CE; }
+		&:visited {	color: #2489CE; }
+	}
+}
+
+.ui-header.ui-bar-s{ 
+	position : fixed;
+	top : 0px;
+	background : #6c6c6c;
+	
+	.ui-title {
+		color : #F9F9F9;
+
+		top : 0px;
+		min-height: 36 * @unit_base; 
+		text-align: center; 
+		font-size : 36 * @unit_base; 
+		display: block; 
+		margin: 28*@unit_base 135*@unit_base 28*@unit_base 135*@unit_base;  
+		text-overflow: ellipsis; 
+		overflow: hidden; 
+		white-space: nowrap; 
+		outline: 0 !important; 
+	}
+	
+	.ui-btn{
+		font-size : 28 * @unit_base;
+		height : 74 * @unit_base;
+		width : 124  * @unit_base;	
+	}
+
+
+	> .ui-btn{
+		top : 12 * @unit_base;
+		margin-top : 0px;
+		font-size : 28 * @unit_base;
+		height : 74 * @unit_base;
+		
+		background: #848484;
+		color 		:#f9f9f9;
+			
+		border-style: solid;
+		border-color: 	#4c4c4c; 	
+		border-width: 	1px;
+			
+		.ui-btn-inner {
+			width : 108  * @unit_base;
+		}
+	}
+	
+	> .ui-btn.ui-btn-down-s {
+		background 		:#0a8cd2;
+		color : #f9f9f9;
+	}
+	
+	.ui-field-contain {		
+		margin-left : auto;
+		margin-right : auto;
+		height : 74  * @unit_base;
+		
+		.ui-title-extended-controlgroup {
+			position : absolute;
+			top : 15  * @unit_base;
+	
+			margin-top : 0 * @unit_base;
+			margin-bottom : 0 * @unit_base;
+			
+			label {
+				border-color :#2b2b2b;
+				border-style : solid;
+				border-left-width : 1px;
+				border-right-width : 1px;
+				
+			}
+			
+			.ui-radio {
+				height : 90 * @unit_base;
+				.ui-btn {
+					width : 100%;
+				
+				}
+				.ui-btn-inner {
+					.ui-btn-text {
+						text-align : center;
+					}
+				}
+
+				.ui-radio-off {
+					background: #434343;
+					.ui-btn-text{
+						color 		:#767676;
+					}
+				}			
+				.ui-radio-on{
+					background : #F9F9F9;
+					.ui-btn-text{											
+						color : #000000;		
+					}
+				}	
+			}
+		}		
+	}
+
+	.ui-title-extended-controlgroup-4btn {
+		width : 682 * @unit_base;
+		.ui-radio {
+			width : 170  * @unit_base;
+		}			
+	}
+	.ui-title-extended-controlgroup-3btn {
+		width : 432  * @unit_base;
+		.ui-radio {
+			width : 143  * @unit_base;
+		}			
+	}
+	.ui-title-extended-controlgroup-2btn {
+		width : 328  * @unit_base;
+		
+		.ui-radio {
+			width : 163  * @unit_base;
+		}
+	}	
+}
+
+.ui-title-content-normal-height,
+.ui-title-content-option-header-collapsed-1line-height  {
+	position : relative;
+	top : 100  * @unit_base;	
+}
+
+.ui-title-content-extended-height {
+	position : relative;
+	top : 136  * @unit_base;	
+}
+
+.ui-title-content-option-header-expanded-1line-height {
+	position : relative;
+	top : 195  * @unit_base; 	
+}
+
+.ui-title-content-search {
+	position : relative;
+	top : 206  * @unit_base; 		
+}
+.ui-title-content-optionheader-search {
+	position : relative; 	
+	top : 219  * @unit_base;		
+}
+
+.ui-header.ui-bar-s.ui-title-extended-height {
+	height : 136  * @unit_base;
+	
+	a {
+		top : 50  * @unit_base;
+	}
+	
+	.ui-title {
+		font-size : 28  * @unit_base;
+		top : 0  * @unit_base;
+		
+		padding-top : 11 * @unit_base;		
+		margin-top : 0 * @unit_base;
+		margin-bottom : 0 * @unit_base;
+	}
+	
+}
+
+.ui-title-extended-segment-style {
+	margin-top : 0 * @unit_base;
+	margin-bottom : 0 * @unit_base;
+
+	width : 100%;
+	left : 0 * @unit_base;
+	top : -35%;
+}
+
+
+.ui-header.ui-bar-s{
+	.ui-title-normal-3btn {
+		position : absolute;
+		right : 144 * @unit_base;
+		
+		display : block
+	}	
+}
+
+.ui-footer.ui-bar-s.ui-footer-fixed {
+	background : #1f1f1f;
+
+	height : 114 * @unit_base;
+	.ui-title{
+		font-size : 32 * @unit_base;
+	}
+
+}
+
+.ui-header.ui-bar-s, .ui-footer.ui-bar-s {
+	.ui-btn-back.ui-btn-down-s{
+		.ui-btn-inner.ui-btn-icon-only {
+			background : #0a8cd2;
+		}
+	}
+	.ui-btn-back{
+		position : absolute;
+		font-size : @font_size_default;
+
+		width : 144 * @unit_base;
+		height : 114 * @unit_base;
+		top : 0 * @unit_base;
+		left : 0 * @unit_base;
+
+		border-style : none;
+		border-width : 0px;
+		background : #1f1f1f;
+		
+		.ui-btn-inner.ui-btn-icon-only {
+			padding : 0;
+
+			width : 104 * @unit_base;
+			height : 74 * @unit_base;	
+			top : 20 * @unit_base;
+			left : 20 * @unit_base;			
+
+			background: 			#353535;			 		
+
+			border-color : black; 
+			border-width : 2px;
+			border-style :  groove;			
+		}
+	}
+
+
+}
+
+// NOTE: This class is applied to almost all JQM widgets!
+.ui-body-s {
+	border: 1px solid #2a2a2a;
+	background: 			@color_bg; 
+	color: 					@color_text;
+	font-weight: normal;
+	
+	font-family: Helvetica, Arial, sans-serif; 
+
+	.ui-link-inherit { color: 	#fff; }
+	.ui-link {
+		/* ui-body-link */
+		color: #2489CE;
+		font-weight: bold;
+		&:hover { color: #2489CE; }
+		&:active { color: #2489CE; }
+		&:visited {	color: #2489CE; }
+	}
+}
+
+.ui-br {
+}
+.ui-btn-up-s {
+	//border: none;
+	background: 			@buttoncolor_normal;
+	font-weight: bold;
+	color: 					#fff;
+	
+	a.ui-link-inherit {
+		color: #fff;
+	}
+	
+	.LESSbutton_text1_style; //wongi_button
+}
+.ui-btn-hover-s {
+	background: 			/*#444444*/ @buttoncolor_hover;	//wongi_1026
+	font-weight: bold;
+	color: 					#fff;
+	
+	a.ui-link-inherit {
+		color: #fff;
+	}
+
+	.LESSbutton_text1_style; //wongi_button
+}
+
+.ui-btn-down-s {
+	//border: none;
+	background: 			@buttoncolor_press;	//wongi_button
+	font-weight: bold;
+	color: 					#fff;
+
+	a.ui-link-inherit {
+		color: #fff;
+	}
+	
+	.LESSbutton_text1_style; //wongi_button
+}
+.ui-btn-up-s,
+.ui-btn-hover-s,
+.ui-btn-down-s {
+	font-family: Helvetica, Arial, sans-serif;
+	text-decoration: none;
+}
+
+.ui-listview {
+	border-top-color: #444444;
+	&> .ui-li { 
+		border-bottom-color: #444444;	// 68 68 68 
+	}
+	& > .ui-li-static {
+		background-color: @color_bg;
+	}
+	li.ui-btn-up-s, li.ui-btn-hover-s {
+		background-color: @color_bg;
+		color:		@color_text;
+	}
+	li.ui-btn-down-s {
+		background-color: #32414a;	// 50 65 74
+		color:		@color_text;
+	}
+	/* listview: fonts for li with a link */
+	li.ui-btn-up-s > .ui-li > .ui-btn-text > a.ui-link-inherit,
+	li.ui-btn-hover-s > .ui-li > .ui-btn-text > a.ui-link-inherit,
+	li.ui-btn-down-s > .ui-li > .ui-btn-text > a.ui-link-inherit {
+		color:		@color_text;
+	}
+	/* listview divider */
+	/* NOTE: this divider has no swatch tag! */
+	li.ui-li-divider {
+		background: @color_bg_sub;	// 36 36 36
+		color:		@color_text_sub;	// 102 102 102
+	}
+	/* subitem */
+	.ui-li-sub { color: @color_text_sub; }
+	.ui-li-sub-setting { color: @color_text_setting; }
+
+	// expandable list
+	.ui-li-expandable {
+
+	}
+	&> .ui-li-expanded {
+		background-color: rgb(31, 31, 31);
+	}
+	&> .ui-li-expanded .ui-li-expanded {
+		background-color: rgb(46, 46, 46);
+	}
+
+	// bubble
+	.ui-li-static {
+		&.ui-li-bubble-left {
+			// picked from 00_MessageBubble_BG_receive.png
+			background-color: #ddce7a;	
+			.LESSbox-shadow(2px, 3px, 3px, #4d3a17);
+			color: #000000;	// 0 0 0
+		}
+		&.ui-li-bubble-right {
+			// picked from 00_MessageBubble_BG_sent.png
+			background-color: #c2d1da;
+			.LESSbox-shadow(2px, 3px, 3px, #4d3a17);
+			color: #606060;	// 96 96 96
+		}
+		&.ui-li-bubble-sos {
+			color: #d30000;	// 211 0 0
+		}
+		&.ui-li-bubble-date {
+			background-color: #424242;	// 66 66 66
+			color: #39a6d7;	// 57 166 215
+		}
+	}
+	span.ui-li-bubble-time {
+		color: #39a6d7; // 57 166 215
+	}
+}
+
+/* Structure */
+/* links within "buttons" 
+-----------------------------------------------------------------------------------------------------------*/
+
+a.ui-link-inherit {
+	text-decoration: none !important;
+}
+
+
+/* Active class used as the "on" state across all themes
+-----------------------------------------------------------------------------------------------------------*/
+
+/* button default color for active state */
+.ui-btn-active {
+	/* global-active */
+	//border: 1px solid 		#155678;
+	//font-weight: bold;
+	color: 					#fff;
+	cursor: pointer;
+	text-decoration: none;
+	background: 			@buttoncolor_press;
+  	outline: none;
+	//font-family: Helvetica, Arial, sans-serif;
+
+	a.ui-link-inherit {
+		color: 					#fff;
+	}
+}
+
+/* button inner top highlight
+-----------------------------------------------------------------------------------------------------------*/
+
+.ui-btn-inner {
+	//border : none;
+}
+
+/*  Jinhyuk_Controlbar	*/
+.ui-controlbar-s, .ui-controlbar-left, .ui-controlbar-right {
+	border: 1px solid 		@bordercolor;
+	background: 			#1f1f1f;
+	color: 					@color_36; /*{a-bar-color}*/
+	font-family: Helvetica, Arial, sans-serif;
+	font-weight: bold;
+	font-size : 36 * @unit_base; /* Jinhyuk : ControlBar size modification */
+
+	/* a-bar-shadow-x, a-bar-shadow-y, a-bar-shadow-radius, a-bar-shadow-color */
+	/* no shadow : text-shadow: 0 -1px 1px #000000; */
+	/* a-bar-background-start, a-bar-background-end */
+	/* no shadow .LESSbackground-img-with-gradient(top, #3c3c3c, #111); */
+		
+	.ui-link-inherit {
+		color: @color_36; /*{a-bar-color}*/
+		font-weight: bold;
+	}
+	.ui-link {
+		/* ui-bar-link */
+		color: @color_36; /*{a-bar-color}*/ 
+		font-weight: bold;
+	}
+	
+	.ui-btn-text {
+		color: @color_36; /*{a-bar-color}*/	
+		font-weight: bold;
+		text-decoration : none;
+	}
+
+	.ui-btn {
+		color: @color_36; /*{a-bar-color}*/	
+		background: @footercolor; /*{a-bar-background-color}*/
+		font-weight: bold;
+		text-decoration : none;
+	}
+	
+	.ui-btn-down-s, .ui-btn-active {
+		color: @color_36; /*{a-bar-color}*/	
+		background: @color_02; /*{a-bar-background-color}*/
+	}
+}
+
+.ui-controlbar-s.ui-navbar {
+	position : absolute;
+	
+	height : 114 * @unit_base;  /* temporary value */
+	width : 100%;
+	left : 0px;
+	
+	border-top : none;
+	border-bottom : none;
+	
+	z-index: 50;
+	
+	li .ui-btn, .ui-navbar-toggle .ui-btn{
+		font-size : 26 * @unit_base;
+	}
+
+	.ui-btn , .ui-btn-icon-top, .ui-btn-hover-s, .ui-btn-active, .ui-btn-up-s{
+		.ui-btn-inner{
+			padding-top : 79 * @unit_base;
+		}			
+	} 	
+	.ui-btn {
+		.ui-icon {
+			left : 50%;
+			top : 12 * @unit_base;
+			margin-left : -1.3em;
+			
+			width : 56 * @unit_base;
+			height: 56 * @unit_base;			
+		}
+		.ui-btn-text {
+			padding-left : 0px;
+		}
+	}
+	.ui-btn-inner {
+		z-index : 200;
+	}
+	.ui-btn-inner.ui-navbar-textonly {
+		font-size : 28 * @unit_base;
+	
+		padding-top : 44 * @unit_base;
+		padding-bottom : 45 * @unit_base;
+	}
+}
+
+.ui-tabbar-s {
+	.ui-btn {
+		background: #1f1f1f
+	}
+
+	.ui-btn-active, .ui-btn-show-style {
+		background: #4c4c4c;
+		border-left-style:  solid;
+		border-right-style: solid;		
+		border-left-color: 	@color_bg; 	
+		border-right-color: @color_bg;
+		border-left-width: 	1px;				
+		border-right-width: 1px;	
+
+	}
+
+	.ui-btn-animation {
+		background: #4c4c4c;
+		border-left-style:  solid;
+		border-right-style: solid;		
+		border-left-color: 	@color_bg; 	
+		border-right-color: @color_bg;
+		border-left-width: 	1px;				
+		border-right-width: 1px;
+		
+		position : absolute;
+		top : 0px;
+		height : 123 * @unit_base;
+		z-index : 100;		
+	}	
+	
+	.ui-btn-hide-style {
+		background: @footercolor;
+		border : none;		
+	}
+}
+
+.ui-toolbar-s {
+	.ui-btn, .ui-btn-up-s {
+		background: #1f1f1f;
+		
+		border-left-width : 1px;
+		border-right-width : 1px;
+		border-color : #2A2A2A;
+		border-style : solid;
+		
+	}
+	
+	.ui-btn-down-s {
+		background : #4c4c4c;
+	}
+
+}
+
+.ui-controlbar-left.ui-navbar, .ui-controlbar-right.ui-navbar {
+	position : fixed;						
+	z-index: 50;
+
+	li .ui-btn, .ui-navbar-toggle .ui-btn{
+		font-size : 20 * @unit_base;
+	}	
+	.ui-btn {
+		width : 100%;
+		margin :0px 0em;					
+
+		background: #1f1f1f;	
+	}
+		
+	.ui-btn-down-s,  .ui-btn-active{
+		color: @color_36; /*{a-bar-color}*/	
+	}
+
+	li .ui-btn, .ui-navbar-toggle .ui-btn{
+		font-size : 20 * @unit_base;
+	}
+	
+	.ui-btn-inner {
+		z-index : 200;
+		
+		padding-top : 126 * @unit_base;
+		.ui-icon {
+			left : 23%;
+			top : 35 * @unit_base;
+			width : 70 * @unit_base;
+			height: 70 * @unit_base;					
+		}		
+		.ui-btn-text.ui-btn-text-padding-left {
+			padding-left : 0px;
+		}
+	}
+			
+	.ui-btn-animation {
+		position : fixed;
+			
+		background: @color_02;
+		border-bottom-style:  solid;
+		border-top-style: solid;		
+		border-bottom-color: 	@color_bg; 	
+		border-top-color: @color_bg;
+		border-bottom-width: 	1px;				
+		border-top-width: 1px;
+
+		z-index : 100;		
+	}	
+}
+
+/*  Jinhyuk_Controlbar_Left 	*/
+.ui-controlbar-left {
+	left  : 0px;
+	float : left;
+}
+
+.ui-controlbar-right {
+	right : 0px;
+	float :right;
+}
+
+.ui-btn-ani-startposition {
+}
+
+.ui-btn-ani-endposition {
+	-webkit-transition-property : left;
+	-webkit-transition: all 0.3s ease-in-out;
+}
+
+.ui-btn-ani-verticalstartposition {
+}
+
+.ui-btn-ani-verticalendposition {
+	-webkit-transition-property : top;
+	-webkit-transition: all 0.3s ease-in-out;
+}
+
+
+/* corner rounding classes
+-----------------------------------------------------------------------------------------------------------*/
+
+.ui-corner-tl {
+	.LESSborder-radius-topleft(.6em);
+}
+.ui-corner-tr {
+	.LESSborder-radius-topright(.6em);
+}
+.ui-corner-bl {
+	.LESSborder-radius-bottomleft(.6em);
+}
+.ui-corner-br {
+	.LESSborder-radius-bottomright(.6em);
+}
+.ui-corner-top {
+	.LESSborder-radius-topleft(.6em);
+	.LESSborder-radius-topright(.6em);
+}
+.ui-corner-bottom {
+	.LESSborder-radius-bottomleft(.6em);
+	.LESSborder-radius-bottomright(.6em);
+	}
+.ui-corner-right {
+	.LESSborder-radius-topright(.6em);
+	.LESSborder-radius-bottomright(.6em);
+}
+.ui-corner-left {
+	.LESSborder-radius-topleft(.6em);
+	.LESSborder-radius-bottomleft(.6em);
+}
+.ui-corner-all {
+	//.LESSborder-radius-all(.6em);
+}
+.ui-corner-none {
+	.LESSborder-radius-all(0); 
+}
+
+/* Interaction cues
+-----------------------------------------------------------------------------------------------------------*/
+.ui-disabled {
+	opacity: 							.3;
+}
+.ui-disabled,
+.ui-disabled a {
+	cursor: default;
+}
+
+/* Icons
+-----------------------------------------------------------------------------------------------------------*/
+
+.ui-icon {
+	/* global-icon */
+/* koeun: for checkbox
+	background: 						#666;
+	background: 						rgba(0,0,0,.4);
+	*/
+	background-image: url(images/icons-18-white.png);
+	background-repeat: no-repeat;
+	// koeun : no radius for checkbox
+	//.LESSborder-radius-all(9px); 
+}
+
+.ui-icon-search {
+	background-image: url(images/00_search_icon.png);
+	background-repeat: no-repeat;
+}
+
+.ui-icon-delete {
+	background-image: url(images/00_field_btn_Clear.png);
+	background-repeat: no-repeat;
+}
+
+
+/* Alt icon color
+-----------------------------------------------------------------------------------------------------------*/
+
+.ui-icon-alt {
+	background: 						#fff;
+	background: 						rgba(255,255,255,.3);
+	background-image: url(images/icons-18-black.png);
+	background-repeat: no-repeat;
+}
+
+/* HD/"retina" sprite
+-----------------------------------------------------------------------------------------------------------*/
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+       only screen and (min--moz-device-pixel-ratio: 1.5),
+       only screen and (min-resolution: 240dpi) {
+	
+	.ui-icon-plus, .ui-icon-minus, .ui-icon-delete, .ui-icon-arrow-r,
+	.ui-icon-arrow-l, .ui-icon-arrow-u, .ui-icon-arrow-d, .ui-icon-check,
+	.ui-icon-gear, .ui-icon-refresh, .ui-icon-forward, .ui-icon-back,
+	.ui-icon-grid, .ui-icon-star, .ui-icon-alert, .ui-icon-info, .ui-icon-home, .ui-icon-search, .ui-icon-searchfield:after, 
+	.ui-icon-checkbox-off, .ui-icon-checkbox-on, .ui-icon-radio-off, .ui-icon-radio-on {
+		background-image: url(images/icons-36-white.png);
+		.LESSbackground-size(776px, 18px);
+	}
+	.ui-icon-alt {
+		background-image: url(images/icons-36-black.png);
+	}
+}
+
+/* plus minus */
+.ui-icon-plus {
+	background-position: 	-0 50%;
+}
+.ui-icon-minus {
+	/*background-position: 	-36px 50%;*/	/* wongi_1018: Same name make problem. Later, origianl icons will be removed.  */
+}
+
+/* arrows */
+.ui-icon-arrow-r {
+	background-position: 	-108px 50%;
+}
+.ui-icon-arrow-l {
+	background-position: 	-144px 50%;
+}
+.ui-icon-arrow-u {
+	background-position: 	-180px 50%;
+}
+.ui-icon-arrow-d {
+	background-position: 	-216px 50%;
+}
+
+/* misc */
+.ui-icon-check {
+	background-position: 	-252px 50%;
+}
+.ui-icon-gear {
+	background-position: 	-288px 50%;
+}
+.ui-icon-refresh {
+	background-position: 	-324px 50%;
+}
+.ui-icon-forward {
+	background-position: 	-360px 50%;
+}
+.ui-icon-back {
+	background-position: 	-396px 50%;
+}
+.ui-icon-grid {
+	background-position: 	-432px 50%;
+}
+.ui-icon-star {
+	background-position: 	-468px 50%;
+}
+.ui-icon-alert {
+	background-position: 	-504px 50%;
+}
+.ui-icon-info {
+	background-position: 	-540px 50%;
+}
+.ui-icon-home {
+	background-position: 	-576px 50%;
+}
+
+/* checks,radios */
+.ui-checkbox .ui-icon {
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+}
+//.ui-icon-checkbox-off,
+.ui-icon-radio-off {
+	background-color: transparent;	
+}
+.ui-checkbox-on .ui-icon,
+.ui-radio-on .ui-icon {
+  /*koeun we don't need bg color for icons..
+	background-color: #4596ce;*/ /* NOTE: this hex should match the active state color. It's repeated here for cascade */
+}
+
+/* loading icon */
+.ui-icon-loading {
+	background-image: url(images/ajax-loader.png);
+	width: 40px;
+	height: 40px;
+	.LESSborder-radius-all(20px); 
+}
+
+/* Jinhyuk : Add ctrl bar *//* SLP Default Footer : Jinhyuk */
+	.ui-icon-ctrlbar-account_sign-up, .ui-icon-ctrlbar-accounts, .ui-icon-ctrlbar-add-to-bookmarks, .ui-icon-ctrlbar-add-to-calendar, .ui-icon-ctrlbar-alarm, 
+	.ui-icon-ctrlbar-albums, .ui-icon-ctrlbar-area, .ui-icon-ctrlbar-artist, .ui-icon-ctrlbar-attach, .ui-icon-ctrlbar-back,
+	.ui-icon-ctrlbar-backward, .ui-icon-ctrlbar-bluetooth_preview, .ui-icon-ctrlbar-bookmarks, .ui-icon-ctrlbar-brightness, .ui-icon-ctrlbar-calendar,
+	.ui-icon-ctrlbar-call, .ui-icon-ctrlbar-camera, .ui-icon-ctrlbar-category, .ui-icon-ctrlbar-change_group, .ui-icon-ctrlbar-chat,	 
+	.ui-icon-ctrlbar-check, .ui-icon-ctrlbar-compose, .ui-icon-ctrlbar-composer, .ui-icon-ctrlbar-contacts, .ui-icon-ctrlbar-copy,	
+	.ui-icon-ctrlbar-create, .ui-icon-ctrlbar-create_folder, .ui-icon-ctrlbar-delete, .ui-icon-ctrlbar-dialer, .ui-icon-ctrlbar-DM,	
+	.ui-icon-ctrlbar-edit, .ui-icon-ctrlbar-editor, .ui-icon-ctrlbar-eng_eng_result, .ui-icon-ctrlbar-exchangs_register, .ui-icon-ctrlbar-Externalstorage,
+	.ui-icon-ctrlbar-favorite, .ui-icon-ctrlbar-features, .ui-icon-ctrlbar-forward, .ui-icon-ctrlbar-genre, .ui-icon-ctrlbar-help,		
+	.ui-icon-ctrlbar-home, .ui-icon-ctrlbar-info, .ui-icon-ctrlbar-length, .ui-icon-ctrlbar-list_by, .ui-icon-ctrlbar-logs,	
+	.ui-icon-ctrlbar-map, .ui-icon-ctrlbar-memolist, .ui-icon-ctrlbar-MemoryCard, .ui-icon-ctrlbar-mention, .ui-icon-ctrlbar-menu,	
+	.ui-icon-ctrlbar-more, .ui-icon-ctrlbar-move, .ui-icon-ctrlbar-multiview, .ui-icon-ctrlbar-multiview_02, .ui-icon-ctrlbar-multiview_03,	
+	.ui-icon-ctrlbar-multiview_04, .ui-icon-ctrlbar-multiview_05, .ui-icon-ctrlbar-multiview_06, .ui-icon-ctrlbar-multiview_07, .ui-icon-ctrlbar-multiview_08,
+	.ui-icon-ctrlbar-multiview_09, .ui-icon-ctrlbar-music_albums, .ui-icon-ctrlbar-pause, .ui-icon-ctrlbar-phone, .ui-icon-ctrlbar-Play,		
+	.ui-icon-ctrlbar-playlists, .ui-icon-ctrlbar-receive, .ui-icon-ctrlbar-reply, .ui-icon-ctrlbar-save, .ui-icon-ctrlbar-save_to_calender,	
+	.ui-icon-ctrlbar-scrap, .ui-icon-ctrlbar-search, .ui-icon-ctrlbar-send, .ui-icon-ctrlbar-set_as, .ui-icon-ctrlbar-settings,	
+	.ui-icon-ctrlbar-setup_wizard_previous, .ui-icon-ctrlbar-share, .ui-icon-ctrlbar-songs, .ui-icon-ctrlbar-stop_watch, .ui-icon-ctrlbar-store,	
+	.ui-icon-ctrlbar-synchronise_start_sync, .ui-icon-ctrlbar-synchronise_stop_01, .ui-icon-ctrlbar-synchronise_stop_02, .ui-icon-ctrlbar-synchronise_stop_03, .ui-icon-ctrlbar-view_result,	
+	.ui-icon-ctrlbar-tag, .ui-icon-ctrlbar-temp, .ui-icon-ctrlbar-timeline, .ui-icon-ctrlbar-timer, .ui-icon-ctrlbar-today,
+	.ui-icon-ctrlbar-top, .ui-icon-ctrlbar-trim, .ui-icon-ctrlbar-TTS, .ui-icon-ctrlbar-update, .ui-icon-ctrlbar-upload_export,	
+	.ui-icon-ctrlbar-volume, .ui-icon-ctrlbar-world_clock, .ui-icon-ctrlbar-year, .ui-icon-ctrlbar-add_tag, .ui-icon-ctrlbar-add_to_contact,	
+	.ui-icon-ctrlbar-close, .ui-icon-ctrlbar-groups, .ui-icon-ctrlbar-year, .ui-icon-ctrlbar-unread_message, .ui-icon-ctrlbar-weight {
+		background-color : transparent;
+
+		-moz-border-radius: 0px;
+		-webkit-border-radius: 0px;
+		border-radius: 0px;
+		background-size:  100% 100%;
+		
+		-moz-box-shadow: 0px 0px 0 				rgba(255,255,255,.4);
+		-webkit-box-shadow: 0px 0px 0 			rgba(255,255,255,.4);
+		box-shadow: 0px 0px 0 					rgba(255,255,255,.4);			
+	}
+
+	.ui-icon-ctrlbar-account_sign-up {
+		background-image: url(images/controlbar/01_controlbar_icon_account_sign-up.png);
+	}
+	.ui-icon-ctrlbar-accounts {
+		background-image: url(images/controlbar/01_controlbar_icon_accounts.png);
+	}
+	.ui-icon-ctrlbar-add-to-bookmarks {
+		background-image: url(images/controlbar/01_controlbar_icon_add-to-bookmarks.png);
+	}
+	.ui-icon-ctrlbar-add-to-calendar {
+		background-image: url(images/controlbar/01_controlbar_icon_add-to-calendar.png);
+	}
+	.ui-icon-ctrlbar-alarm {
+		background-image: url(images/controlbar/01_controlbar_icon_alarm.png);
+	}
+	.ui-icon-ctrlbar-albums {
+		background-image: url(images/controlbar/01_controlbar_icon_albums.png);
+	}
+	.ui-icon-ctrlbar-area {
+		background-image: url(images/controlbar/01_controlbar_icon_area.png);
+	}
+	.ui-icon-ctrlbar-artist {
+		background-image: url(images/controlbar/01_controlbar_icon_artist.png);
+	}		
+	.ui-icon-ctrlbar-attach {
+		background-image: url(images/controlbar/01_controlbar_icon_attach.png);
+	}			
+	.ui-icon-ctrlbar-back {
+		background-image: url(images/controlbar/01_controlbar_icon_back.png);
+	}			
+	.ui-icon-ctrlbar-backward {
+		background-image: url(images/controlbar/01_controlbar_icon_backward.png);
+	}			
+	.ui-icon-ctrlbar-bluetooth_preview {
+		background-image: url(images/controlbar/01_controlbar_icon_bluetooth_preview.png);
+	}
+	.ui-icon-ctrlbar-bookmarks {
+		background-image: url(images/controlbar/01_controlbar_icon_bookmarks.png);
+	}		
+	.ui-icon-ctrlbar-brightness {
+		background-image: url(images/controlbar/01_controlbar_icon_brightness.png);
+	}		
+	.ui-icon-ctrlbar-calendar {
+		background-image: url(images/controlbar/01_controlbar_icon_calendar.png);
+	}			
+	.ui-icon-ctrlbar-call {
+		background-image: url(images/controlbar/01_controlbar_icon_call.png);
+	}
+	.ui-icon-ctrlbar-camera {
+		background-image: url(images/controlbar/01_controlbar_icon_camera.png);
+	}
+	.ui-icon-ctrlbar-category {
+		background-image: url(images/controlbar/01_controlbar_icon_category.png);
+	}
+	.ui-icon-ctrlbar-change_group {
+		background-image: url(images/controlbar/01_controlbar_icon_change_group.png);
+	}
+	.ui-icon-ctrlbar-chat {
+		background-image: url(images/controlbar/01_controlbar_icon_chat.png);
+	}
+	.ui-icon-ctrlbar-check {
+		background-image: url(images/controlbar/01_controlbar_icon_check.png);
+	}
+	.ui-icon-ctrlbar-compose {
+		background-image: url(images/controlbar/01_controlbar_icon_compose.png);
+	}
+	.ui-icon-ctrlbar-composer {
+		background-image: url(images/controlbar/01_controlbar_icon_composer.png);
+	}	
+	.ui-icon-ctrlbar-contacts {
+		background-image: url(images/controlbar/01_controlbar_icon_contacts.png);
+		}
+	.ui-icon-ctrlbar-copy {
+		background-image: url(images/controlbar/01_controlbar_icon_copy.png);
+	}	
+	.ui-icon-ctrlbar-create {
+		background-image: url(images/controlbar/01_controlbar_icon_create.png);
+	}	
+	.ui-icon-ctrlbar-create_folder {
+		background-image: url(images/controlbar/01_controlbar_icon_create_folder.png);
+	}		
+	.ui-icon-ctrlbar-delete {
+		background-image: url(images/controlbar/01_controlbar_icon_delete.png);
+	}	
+	.ui-icon-ctrlbar-dialer {
+		background-image: url(images/controlbar/01_controlbar_icon_dialer.png);
+	}		
+	.ui-icon-ctrlbar-DM {
+		background-image: url(images/controlbar/01_controlbar_icon_DM.png);
+	}	
+	.ui-icon-ctrlbar-edit {
+		background-image: url(images/controlbar/01_controlbar_icon_edit.png);
+	}		
+	.ui-icon-ctrlbar-editor {
+		background-image: url(images/controlbar/01_controlbar_icon_editor.png);
+	}			
+	.ui-icon-ctrlbar-eng_eng_result {
+		background-image: url(images/controlbar/01_controlbar_icon_eng_eng_result.png);
+	}		
+	.ui-icon-ctrlbar-exchangs_register {
+		background-image: url(images/controlbar/01_controlbar_icon_exchangs_register.png);
+	}	
+	.ui-icon-ctrlbar-Externalstorage {
+		background-image: url(images/controlbar/01_controlbar_icon_Externalstorage.png);
+	}					
+	.ui-icon-ctrlbar-favorite {
+		background-image: url(images/controlbar/01_controlbar_icon_favorite.png);
+		}
+	.ui-icon-ctrlbar-features {
+		background-image: url(images/controlbar/01_controlbar_icon_features.png);
+	}	
+	.ui-icon-ctrlbar-forward {
+		background-image: url(images/controlbar/01_controlbar_icon_forward.png);
+	}		
+	.ui-icon-ctrlbar-genre {
+		background-image: url(images/controlbar/01_controlbar_icon_genre.png);
+	}	
+	.ui-icon-ctrlbar-help {
+		background-image: url(images/controlbar/01_controlbar_icon_help.png);
+	}	
+	.ui-icon-ctrlbar-home {
+		background-image: url(images/controlbar/01_controlbar_icon_home.png);
+	}	
+	.ui-icon-ctrlbar-info {
+		background-image: url(images/controlbar/01_controlbar_icon_info.png);
+	}	
+	.ui-icon-ctrlbar-length {
+		background-image: url(images/controlbar/01_controlbar_icon_length.png);
+		}
+	.ui-icon-ctrlbar-list_by {
+		background-image: url(images/controlbar/01_controlbar_icon_list_by.png);
+	}		
+	.ui-icon-ctrlbar-logs {
+		background-image: url(images/controlbar/01_controlbar_icon_logs.png);
+	}
+	.ui-icon-ctrlbar-map {
+		background-image: url(images/controlbar/01_controlbar_icon_map.png);
+	}	
+	.ui-icon-ctrlbar-memolist {
+		background-image: url(images/controlbar/01_controlbar_icon_memolist.png);
+	}		
+	.ui-icon-ctrlbar-MemoryCard {
+		background-image: url(images/controlbar/01_controlbar_icon_MemoryCard.png);
+	}		
+	.ui-icon-ctrlbar-mention {
+		background-image: url(images/controlbar/01_controlbar_icon_mention.png);
+	}		
+	.ui-icon-ctrlbar-menu {
+		background-image: url(images/controlbar/01_controlbar_icon_menu.png);
+	}		
+	.ui-icon-ctrlbar-more {
+		background-image: url(images/controlbar/01_controlbar_icon_more.png);
+	}			
+	.ui-icon-ctrlbar-move {
+		background-image: url(images/controlbar/01_controlbar_icon_move.png);
+	}	
+	.ui-icon-ctrlbar-multiview {
+		background-image: url(images/controlbar/01_controlbar_icon_multiview.png);
+	}	
+	.ui-icon-ctrlbar-multiview_02 {
+		background-image: url(images/controlbar/01_controlbar_icon_multiview_02.png);
+	}
+	.ui-icon-ctrlbar-multiview_03 {
+		background-image: url(images/controlbar/01_controlbar_icon_multiview_03.png);
+	}
+	.ui-icon-ctrlbar-multiview_04 {
+		background-image: url(images/controlbar/01_controlbar_icon_multiview_04.png);
+	}
+	.ui-icon-ctrlbar-multiview_05 {
+		background-image: url(images/controlbar/01_controlbar_icon_multiview_05.png);
+	}
+	.ui-icon-ctrlbar-multiview_06 {
+		background-image: url(images/controlbar/01_controlbar_icon_multiview_06.png);
+	}	
+	.ui-icon-ctrlbar-multiview_07 {
+		background-image: url(images/controlbar/01_controlbar_icon_multiview_07.png);
+	}	
+	.ui-icon-ctrlbar-multiview_08 {
+		background-image: url(images/controlbar/01_controlbar_icon_multiview_08.png);
+	}	
+	.ui-icon-ctrlbar-multiview_09 {
+		background-image: url(images/controlbar/01_controlbar_icon_multiview_09.png);
+	}	
+	.ui-icon-ctrlbar-music_albums {
+		background-image: url(images/controlbar/01_controlbar_icon_music_albums.png);
+	}	
+	.ui-icon-ctrlbar-pause {
+		background-image: url(images/controlbar/01_controlbar_icon_pause.png);
+	}		
+	.ui-icon-ctrlbar-phone {
+		background-image: url(images/controlbar/01_controlbar_icon_phone.png);
+	}
+	.ui-icon-ctrlbar-Play {
+		background-image: url(images/controlbar/01_controlbar_icon_Play.png);
+	}
+	.ui-icon-ctrlbar-playlists {
+		background-image: url(images/controlbar/01_controlbar_icon_playlists.png);
+	}	
+	.ui-icon-ctrlbar-receive {
+		background-image: url(images/controlbar/01_controlbar_icon_receive.png);
+	}	
+	.ui-icon-ctrlbar-reply {
+		background-image: url(images/controlbar/01_controlbar_icon_reply.png);
+	}	
+	.ui-icon-ctrlbar-save {
+		background-image: url(images/controlbar/01_controlbar_icon_save.png);
+	}		
+	.ui-icon-ctrlbar-save_to_calender {
+		background-image: url(images/controlbar/01_controlbar_icon_save_to_calender.png);
+	}		
+	.ui-icon-ctrlbar-scrap {
+		background-image: url(images/controlbar/01_controlbar_icon_scrap.png);
+		}
+	.ui-icon-ctrlbar-search {
+		background-image: url(images/controlbar/01_controlbar_icon_search.png);
+	}			
+	.ui-icon-ctrlbar-send {
+		background-image: url(images/controlbar/01_controlbar_icon_send.png);
+	}		
+	.ui-icon-ctrlbar-set_as {
+		background-image: url(images/controlbar/01_controlbar_icon_set_as.png);
+	}		
+	.ui-icon-ctrlbar-settings {
+		background-image: url(images/controlbar/01_controlbar_icon_settings.png);
+	}	
+	.ui-icon-ctrlbar-setup_wizard_previous {
+		background-image: url(images/controlbar/01_controlbar_icon_setup_wizard_previous.png);
+	}		
+	.ui-icon-ctrlbar-share {
+		background-image: url(images/controlbar/01_controlbar_icon_share.png);
+	}		
+	.ui-icon-ctrlbar-songs {
+		background-image: url(images/controlbar/01_controlbar_icon_songs.png);
+	}			
+	.ui-icon-ctrlbar-stop_watch {
+		background-image: url(images/controlbar/01_controlbar_icon_stop_watch.png);
+	}					
+	.ui-icon-ctrlbar-store {
+		background-image: url(images/controlbar/01_controlbar_icon_store.png);
+	}	
+	.ui-icon-ctrlbar-synchronise_start_sync {
+		background-image: url(images/controlbar/01_controlbar_icon_synchronise_start_sync.png);
+	}
+	.ui-icon-ctrlbar-synchronise_stop_01 {
+		background-image: url(images/controlbar/01_controlbar_icon_synchronise_stop_01.png);
+	}
+	.ui-icon-ctrlbar-synchronise_stop_02 {
+		background-image: url(images/controlbar/01_controlbar_icon_synchronise_stop_02.png);
+	}
+	.ui-icon-ctrlbar-synchronise_stop_03 {
+		background-image: url(images/controlbar/01_controlbar_icon_synchronise_stop_03.png);
+		}
+	.ui-icon-ctrlbar-synchronise_view_result {
+		background-image: url(images/controlbar/01_controlbar_icon_synchronise_view_result.png);
+	}
+	.ui-icon-ctrlbar-tag {
+		background-image: url(images/controlbar/01_controlbar_icon_tag.png);
+	}	
+	.ui-icon-ctrlbar-temp {
+		background-image: url(images/controlbar/01_controlbar_icon_temp.png);
+	}	
+	.ui-icon-ctrlbar-timeline {
+		background-image: url(images/controlbar/01_controlbar_icon_timeline.png);
+		}
+	.ui-icon-ctrlbar-timer {
+		background-image: url(images/controlbar/01_controlbar_icon_timer.png);
+		}
+	.ui-icon-ctrlbar-today {
+		background-image: url(images/controlbar/01_controlbar_icon_today.png);
+	}		
+	.ui-icon-ctrlbar-top {
+		background-image: url(images/controlbar/01_controlbar_icon_top.png);
+	}	
+	.ui-icon-ctrlbar-trim {
+		background-image: url(images/controlbar/01_controlbar_icon_trim.png);
+	}		
+	.ui-icon-ctrlbar-TTS {
+		background-image: url(images/controlbar/01_controlbar_icon_TTS.png);
+	}		
+	.ui-icon-ctrlbar-update {
+		background-image: url(images/controlbar/01_controlbar_icon_update.png);
+	}	
+	.ui-icon-ctrlbar-upload_export {
+		background-image: url(images/controlbar/01_controlbar_icon_upload_export.png);
+	}		
+	.ui-icon-ctrlbar-volume {
+		background-image: url(images/controlbar/01_controlbar_icon_volume.png);
+	}	
+	.ui-icon-ctrlbar-world_clock {
+		background-image: url(images/controlbar/01_controlbar_icon_world_clock.png);
+	}
+	.ui-icon-ctrlbar-year {
+		background-image: url(images/controlbar/01_controlbar_icon_year.png);
+	}
+	.ui-icon-ctrlbar-add_tag {
+		background-image: url(images/controlbar/01_controlbar_icon_add_tag.png);
+	}
+	.ui-icon-ctrlbar-add_to_contact {
+		background-image: url(images/controlbar/01_controlbar_icon_add_to_contact.png);
+	}
+	.ui-icon-ctrlbar-close {
+		background-image: url(images/controlbar/01_controlbar_icon_close.png);
+	}
+	.ui-icon-ctrlbar-groups {
+		background-image: url(images/controlbar/01_controlbar_icon_groups.png);
+	}
+	
+	.ui-icon-ctrlbar-unread_message {
+		background-image: url(images/controlbar/01_controlbar_icon_unread_message.png);
+	}
+	.ui-icon-ctrlbar-weight {
+		background-image: url(images/controlbar/01_controlbar_icon_weight.png);
+	}								
+	
+			
+				
+
+/* Jinhyuk : Add ctrl bar */
+
+
+
+
+
+
+
+
+/* Button corner classes
+-----------------------------------------------------------------------------------------------------------*/
+
+.ui-btn-corner-tl {
+	.LESSborder-radius-topleft(1em);
+}
+.ui-btn-corner-tr {
+	.LESSborder-radius-topright(1em);
+}
+.ui-btn-corner-bl {
+	.LESSborder-radius-bottomleft(1em);
+}
+.ui-btn-corner-br {
+	.LESSborder-radius-bottomright(1em);
+}
+.ui-btn-corner-top {
+	.LESSborder-radius-topleft(1em);
+	.LESSborder-radius-topright(1em);
+}
+.ui-btn-corner-bottom {
+	.LESSborder-radius-bottomleft(1em);
+	.LESSborder-radius-bottomright(1em);
+}
+.ui-btn-corner-right {
+	.LESSborder-radius-topright(1em);
+	.LESSborder-radius-bottomright(1em);
+}
+.ui-btn-corner-left {
+	.LESSborder-radius-topleft(1em);
+	.LESSborder-radius-bottomleft(1em);
+}
+.ui-btn-corner-all {
+	.LESSborder-radius-all(0.2em);	//wongi_1013 
+}
+
+/* radius clip workaround for cleaning up corner trapping */
+.ui-corner-tl,
+.ui-corner-tr,
+.ui-corner-bl, 
+.ui-corner-br,
+.ui-corner-top,
+.ui-corner-bottom, 
+.ui-corner-right,
+.ui-corner-left,
+.ui-corner-all,
+.ui-btn-corner-tl,
+.ui-btn-corner-tr,
+.ui-btn-corner-bl, 
+.ui-btn-corner-br,
+.ui-btn-corner-top,
+.ui-btn-corner-bottom, 
+.ui-btn-corner-right,
+.ui-btn-corner-left,
+.ui-btn-corner-all {
+  -webkit-background-clip: padding-box;
+     -moz-background-clip: padding;
+          background-clip: padding-box;
+}
+
+/* Overlay / modal
+-----------------------------------------------------------------------------------------------------------*/
+
+.ui-overlay {
+	background: #666;
+	opacity: .5;
+	filter: Alpha(Opacity=50);
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+.ui-overlay-shadow {
+	//.LESSbox-shadow(0px, 0px, 12px, rgba(0,0,0,.6));
+}
+.ui-shadow {
+	//.LESSbox-shadow(0px, 1px, 4px, rgba(0,0,0,.3));
+}
+.ui-bar-a .ui-shadow,
+.ui-bar-b .ui-shadow ,
+.ui-bar-c .ui-shadow  {
+	//.LESSbox-shadow(0px, 1px, 0, rgba(255,255,255,.3));
+}
+.ui-shadow-inset {
+	//-moz-box-shadow: inset 0px 1px 4px rgba(0,0,0,.2);
+	//-webkit-box-shadow: inset 0px 1px 4px rgba(0,0,0,.2); 
+	//box-shadow: inset 0px 1px 4px rgba(0,0,0,.2);
+}
+.ui-icon-shadow {
+	//.LESSbox-shadow(0px, 1px, 0, rgba(255,255,255,.4));
+}
+
+/* Focus state - set here for specificity
+-----------------------------------------------------------------------------------------------------------*/
+
+.ui-focus {
+	/* global-active-background-color */
+	//.LESSbox-shadow(0px, 1px, 12px, #387bbe);
+	outline-color : #008cd2;
+}
+
+/* unset box shadow in browsers that don't do it right
+-----------------------------------------------------------------------------------------------------------*/
+
+.ui-mobile-nosupport-boxshadow * {
+	-moz-box-shadow: none !important;
+	-webkit-box-shadow: none !important;
+	box-shadow: none !important;
+}
+
+/* ...and bring back focus */
+.ui-mobile-nosupport-boxshadow .ui-focus {
+	outline-width: 2px;
+}

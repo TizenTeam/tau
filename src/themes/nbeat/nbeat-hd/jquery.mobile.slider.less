@@ -1,0 +1,127 @@
+@import "config.less";
+
+@popup-size: 102px;
+@padding-size: 18px;
+
+label.ui-slider {
+	display: block;
+}
+
+input.ui-slider-input {
+	display: inline-block;
+	width: 50px;
+}
+
+select.ui-slider-switch {
+	display: none;
+}
+
+.ui-slider-bg,
+.ui-slider-icon-bg {
+	position: relative;
+	margin-left: 32px;
+	margin-right: 32px;
+	margin-bottom: 0.2em;
+	vertical-align: middle;
+}
+
+.ui-slider-icon-bg {
+	margin-left: 96px;
+	margin-right: 96px;
+}
+
+.ui-slider-left-volume,
+.ui-slider-left-bright {
+	position: absolute;
+	top: -0.2em;
+	left: -96px;
+	height: 80px;
+	width: 80px;
+	vertical-align: middle;
+	background: url(images/00_slider_btn_brightness01.png) no-repeat;
+}
+
+.ui-slider-left-volume {
+	background: url(images/00_slider_btn_volume01.png) no-repeat;
+}
+
+.ui-slider-right-volume,
+.ui-slider-right-bright {
+	position: absolute;
+	top: -0.2em;
+	right: -96px;
+	height: 80px;
+	width: 80px;
+	vertical-align: middle;
+	background: url(images/00_slider_btn_brightness02.png) no-repeat;
+}
+
+.ui-slider-right-volume {
+	background: url(images/00_slider_btn_volume02.png) no-repeat;
+}
+
+.ui-slider-left-text {
+	position: absolute;
+	top: -0.2em;
+	left: -96px;
+	height: 80px;
+	width: 80px;
+	text-align: center;
+	color: rgb(100, 100, 100);
+}
+
+.ui-slider-right-text {
+	position: absolute;
+	top: -0.2em;
+	right: -96px;
+	height: 80px;
+	width: 80px;
+	text-align: center;
+	color: rgb(100, 100, 100);
+}
+
+div.ui-slider {
+	display: inline-block;
+	overflow: visible;
+	height: 16px;
+	width: 100%;
+	background-image: url(images/00_winset_list_progress_bg.png);
+}
+
+a.ui-slider-handle {
+	position: relative;
+	z-index: 10;
+	top: -21px;
+	width: 58px;
+	height: 58px;
+	margin-top: -29px;
+	margin-left: -29px;
+	background: url(images/00_slider_handle.png) no-repeat;
+}
+
+.ui-slider-popup {
+	position: absolute !important;
+	width: @popup-size;
+	height: @popup-size;
+	text-align: center;
+	padding-top: 0.5em;
+	z-index: 100;
+	opacity: 0.9;
+	background: url(images/00_slider_popup_bg.png) no-repeat;
+}
+
+.ui-slider-bar {
+	position: absolute;
+	top: 0.8em;
+	height: 16px;
+	width: 0;
+	background-image: url(images/00_winset_list_progress_bar.png);
+}
+
+.ui-slider-handle-press {
+	position: absolute;
+	z-index: 15;
+	width: 58px;
+	height: 58px;
+	background: url(images/00_slider_handle_press.png) no-repeat;
+}
