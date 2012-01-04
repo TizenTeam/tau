@@ -77,16 +77,12 @@
 		},
 
 		_update: function () {
-			var text = new Array(2);
 			var msg;
 			var container;
 
-			text[0] = $(this.element).attr('data-text1');
-			text[1] = $(this.element).attr('data-text2');
+			msg = $(this.element).attr('data-text');
 			this.param = $(this.element).attr('data-param');
 			this.seconds = $(this.element).attr('data-interval');
-
-			msg = text[0] + ': ' + text[1];
 
 			if (this.html)
 				this.html.detach();
