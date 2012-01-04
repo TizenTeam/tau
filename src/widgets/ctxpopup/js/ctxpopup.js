@@ -26,7 +26,7 @@
  * HTML Attributes:
  *
  *  data-role: This widget must have 'ctxpopup' as data-role value.
- *  data-style: 'vlist', 'hlist', 'icon', 'button', 'picker' 
+ *  data-style: 'vlist', 'hlist', 'button', 'picker' 
  *  data-selector: (Optional) CSS Selector which desire to invoke popup.
  *
  * APIs:
@@ -80,7 +80,7 @@ function SLPRect( x, y, w, h ) {
 
 $.widget( "todons.ctxpopup", $.mobile.widget, {
     options: {
-        supportedStyle: [ 'vlist', 'hlist', 'icon', 'button', 'picker' ],
+        supportedStyle: [ 'vlist', 'hlist', 'button', 'picker' ],
         style: 'vlist',
         vscrollPoint: 0.7,
         hscrollPoint: 0.7,
@@ -109,30 +109,6 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
             this.ui.container.addClass("hlist");
             this.ui.arrow.addClass("hlist");
             this.options.directionPriority = this.options.horizontalPriority;
-        break;
-        case 'icon':
-            this.ui.container.addClass("icon");
-            this.ui.arrow.addClass("icon");
-            this.options.directionPriority = this.options.horizontalPriority;
-            /* 
-             * followings are highly dependent to nbeat-theme.
-             * need to find other way 
-             */
-            var div = this.ui.container.find( "li" );
-            switch ( div.length ) {
-            case 0:
-            case 1:
-            case 2:
-            case 3:
-                div.addClass( "ico-3-list" );
-            break;
-            case 4:
-                div.addClass( "ico-4-list" );
-            break;
-            default:
-                div.addClass( "ico-5-list" );
-            break;
-            }
         break;
         case 'picker':
             this.ui.container.addClass("picker");
@@ -240,7 +216,6 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
             this._checkVScroll( ul, container, containerRect, screenRect.h );
             break;
         case 'hlist':
-        case 'icon': 
             this._checkHScroll( ul, container, containerRect, screenRect.w );
             break;
         case 'picker': //already processed - never reach code.
@@ -484,28 +459,8 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
             owner: owner
         });
         
-        var style = $(elem).jqmData("style");
-        switch (style) {
-        case 'picker':
-            this.options.style = 'picker';
-        break;
-        case 'vlist':
-            this.options.style = 'vlist';
-        break;
-        case 'hlist':
-            this.options.style = 'hlist';
-        break;
-        case 'button':
-            this.options.style = 'button';
-        break;
-        case 'icon':
-            this.options.style = 'icon';
-        break;
-        default:
-            this.options.style = 'vlist';
-        break;
-        }
-
+        var style = $(elem).jqmData("style")
+        this.options.style = style || 'vlist';
    },
 
  
