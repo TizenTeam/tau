@@ -22,23 +22,34 @@
 		seconds: null,
 		running: false,
 
+		_refresh: function () {
+			this._del_event();
+			this._update();
+			this._add_event();
+
+			$(this.html).addClass("fix");
+		},
+
 		show: function () {
-			if (this.running)
-				this.hide();
+			if (this.running) {
+				this._refresh();
+				return;
+			}
 
 			this._update();
 
 			this._add_event();
 
 			this.running = true;
-			$(this.html).addClass("show").removeClass("hide");
+			$(this.html).addClass("show");
 		},
 
 		hide: function () {
 			if (!this.running)
 				return;
 
-			$(this.html).addClass("hide").removeClass("show");
+			$(this.html).addClass("hide");
+			$(this.html).removeClass("show").removeClass("fix");
 			this._del_event();
 
 			this.running = false;
