@@ -26,7 +26,7 @@
  * HTML Attributes:
  *
  *  data-role: This widget must have 'ctxpopup' as data-role value.
- *  data-style: 'vlist', 'hlist', 'image', 'image-title', 'icon', 'button', 'picker' 
+ *  data-style: 'vlist', 'hlist', 'icon', 'button', 'picker' 
  *  data-selector: (Optional) CSS Selector which desire to invoke popup.
  *
  * APIs:
@@ -80,8 +80,7 @@ function SLPRect( x, y, w, h ) {
 
 $.widget( "todons.ctxpopup", $.mobile.widget, {
     options: {
-        title: undefined,
-        supportedStyle: [ 'vlist', 'hlist', 'image', 'image-title', 'icon', 'button', 'picker' ],
+        supportedStyle: [ 'vlist', 'hlist', 'icon', 'button', 'picker' ],
         style: 'vlist',
         vscrollPoint: 0.7,
         hscrollPoint: 0.7,
@@ -110,10 +109,6 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
             this.ui.container.addClass("hlist");
             this.ui.arrow.addClass("hlist");
             this.options.directionPriority = this.options.horizontalPriority;
-        break;
-        case 'image': // 'image-title' also use this
-            this.ui.container.addClass("image");
-            this.ui.arrow.addClass("image");
         break;
         case 'icon':
             this.ui.container.addClass("icon");
@@ -240,7 +235,6 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
         // set box size
         switch (this.options.style) {
         default:
-        case 'image':
         case 'vlist':
         case 'button': 
             this._checkVScroll( ul, container, containerRect, screenRect.h );
@@ -500,16 +494,6 @@ $.widget( "todons.ctxpopup", $.mobile.widget, {
         break;
         case 'hlist':
             this.options.style = 'hlist';
-        break;
-        case 'image':
-            this.options.style = 'image';
-        break;
-        case 'image-title':
-            this.options.style = 'image';
-            this.ui.container.prepend( 
-                '<div class="title-line">' + 
-                $(elem).attr( "title" ) + 
-                '</div');
         break;
         case 'button':
             this.options.style = 'button';
