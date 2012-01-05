@@ -412,20 +412,20 @@ ol.ui-listview {
 		float: right; 
 		text-align: right; 
 		font-size: @list-font-size-sub; 
-		color: @color_text_sub;
+		color: @list_color_list_sub_text_default;
 		top: 50%;
 		margin-top: -0.5em;
 	}
 }
 .LESStext-sub-setting() {
 	.ui-li-text-sub {
-		color: @color_text_setting;
+		color: @list_color_list_sub_text_settings;
 	}
 }
 
 .LESStext-email-sub1-setting() {
 	.ui-li-text-sub1 {
-		color: @color_text_setting;
+		color: @list_color_list_sub_text_settings;
 	}
 }
 
@@ -455,7 +455,7 @@ ol.ui-listview {
 }
 .LESStext-main-1line-right-setting() {
 	.ui-li-text-main-right {
-		color: @color_text_setting;
+		color: @list_color_list_sub_text_settings;
 	}
 }
 
@@ -478,7 +478,7 @@ ol.ui-listview {
 		position: absolute;
 		font-size: @list-font-size-sub; 
 		line-height: @list-li-sub-line-height;
-		color: @color_text_sub;
+		color: @list_color_list_sub_text_default;
 		left: @left;
 		top: @top;
 		text-overflow: ellipsis;
@@ -493,7 +493,7 @@ ol.ui-listview {
 		position: absolute;
 		font-size: @list-font-size-sub; 
 		line-height: @list-li-sub-line-height;
-		color: @color_text_sub;
+		color: @list_color_list_sub_text_default;
 		right: @right;
 		top: @top;
 		text-overflow: ellipsis;
@@ -535,7 +535,7 @@ ol.ui-listview {
 		position: absolute;
 		font-size: @list-font-size-sub; 
 		line-height: @list-li-sub-line-height;
-		color: @color_text_sub;
+		color: @list_color_list_sub_text_default;
 		left: @left;
 		top: @top;
 		text-overflow: ellipsis;
@@ -549,7 +549,7 @@ ol.ui-listview {
 		position: absolute;
 		font-size: @list-font-size-sub; 
 		line-height: @list-li-sub-line-height;
-		color: @color_text_sub;
+		color: @list_color_list_sub_text_default;
 		left: @left;
 		top: @top;
 		text-overflow: ellipsis;
@@ -564,7 +564,7 @@ ol.ui-listview {
 		position: absolute;
 		font-size: @list-font-size-sub; 
 		line-height: @list-li-email-sub-line-height;
-		color: @color_text_sub;
+		color: @list_color_name_text;
 		left: @left;
 		top: @top;
 		text-overflow: ellipsis;
@@ -578,7 +578,7 @@ ol.ui-listview {
 		position: absolute;
 		font-size: @list-font-size-sub; 
 		line-height: @list-li-email-sub-line-height;
-		color: @color_text_sub;
+		color: @list_color_contents_text;
 		left: @left;
 		top: @top;
 		text-overflow: ellipsis;
@@ -592,7 +592,7 @@ ol.ui-listview {
 		position: absolute;
 		font-size: @list-font-size-sub; 
 		line-height: @list-li-email-sub-line-height;
-		color: @color_text_sub;
+		color: @list_color_list_sub_text_default;
 		right: @right;
 		top: @top;
 		text-overflow: ellipsis;
@@ -971,7 +971,7 @@ ul.ui-listview {
 			top: 0;
 			width: 10 * @unit_base;
 			height: 20 * @unit_base;
-			background-color: rgba(80, 107, 207, 1);
+			background-color: @list_color_colorbar;
 		}
 	}
 	&> li.ui-li-3-2-23 {
@@ -1241,7 +1241,7 @@ ul.ui-listview {
 			top: 0;
 			width: 10 * @unit_base;
 			height: 20 * @unit_base;
-			background-color: rgba(80, 107, 207, 1);
+			background-color: @list_color_colorbar;
 		}
 		.LESSli-reset-position-3line;
 		.LESScheckbox-left;
