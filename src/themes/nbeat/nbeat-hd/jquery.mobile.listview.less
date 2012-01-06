@@ -58,6 +58,7 @@
 @list-email-attach-icon-height: 40 * @unit_base;
 @list-email-warning-icon-width: 30 * @unit_base;
 @list-email-warning-icon-height: 30 * @unit_base;
+@list-email-text-padding-left: 60 * @unit_base;
 
 /************************/
 
@@ -617,7 +618,16 @@ ol.ui-listview {
 }
 
 .LESSsubicon-right-resize(@right:@list-li-padding-horizontal, @top: @list-li-top-padding, @width:@list-smallicon-size, @height:@list-smallicon-size ) {	// NOTE: This can be changed according to checkbox implementation!
-	img.ui-li-icon-sub {
+	.ui-checkbox.favorite,
+	.ui-icon-checkbox-off,
+	.ui-icon-checkbox-on,
+	.ui-icon-checkbox-off-press,
+	.ui-icon-checkbox-on-press,
+	.ui-radio,
+	.ui-icon-radio-off,
+	.ui-icon-radio-on,
+	.ui-icon-radio-off-press,
+	.ui-icon-radio-on-press {
 		position: absolute;
 		left: auto;
 		right: @right;
@@ -625,7 +635,12 @@ ol.ui-listview {
 		width: @width;
 		height: @height;
 		margin: 0 0;
+
 	}
+	.ui-checkbox.favorite .ui-btn.ui-btn-icon-left .ui-btn-inner .ui-btn-text {
+		margin-left: @list-email-text-padding-left;
+	}
+
 }
 
 .LESSsubicon-attach-resize(@left:2 * @list-li-padding-horizontal + @list-checkbox-size, @top: @list-li-email-top-padding, @width:@list-email-attach-icon-width, @height:@list-email-attach-icon-height ) {
