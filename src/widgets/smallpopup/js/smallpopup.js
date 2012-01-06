@@ -12,11 +12,41 @@
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 	See the License for the specific language governing permissions and
 	limitations under the License.
+
+	Author: Minkyu Kang <mk7.kang@samsung.com>
 */
 
-(function ($, window, undefined) {
-	$.widget("todons.smallpopup", $.mobile.widget, {
+/*
+ * smallpopup widget
+ *
+ * HTML Attributes
+ *
+ *  data-role: set to 'smallpopup'.
+ *  data-text: message to show.
+ *  data-param: parameter for 'tapped' event.
+ *  data-interval: time to showing. If don't set, will show infinitely.
+ *
+ * APIs
+ *
+ *  show(): show the smallpopup.
+ *  hide(): hide the smallpopup.
+ *
+ * Events
+ *
+ *  tapped: When you tap or click the smallpopup, this event will be raised.
+ *
+ * Examples
+ *
+ * <div data-role="smallpopup" id="smallpopup" data-text="Message" data-param="parameters" data-interval="3000"></div>
+ *
+ * $('#smallpopup-demo').bind('tapped', function (e, m) {
+ *	alert('smallpopup is tapped\nparameter:"' + m + '"');
+ * });
+ *
+ */
 
+(function ( $, window ) {
+	$.widget( "todons.smallpopup", $.mobile.widget, {
 		param: null,
 		interval: null,
 		seconds: null,
@@ -27,11 +57,11 @@
 			this._update();
 			this._add_event();
 
-			$(this.html).addClass("fix");
+			$( this.html ).addClass("fix");
 		},
 
 		show: function () {
-			if (this.running) {
+			if ( this.running ) {
 				this._refresh();
 				return;
 			}
@@ -41,30 +71,38 @@
 			this._add_event();
 
 			this.running = true;
-			$(this.html).addClass("show");
+			$( this.html ).addClass("show");
 		},
 
 		hide: function () {
-			if (!this.running)
+			if ( !this.running ) {
 				return;
+			}
 
-			$(this.html).addClass("hide");
-			$(this.html).removeClass("show").removeClass("fix");
+			$( this.html ).addClass("hide");
+			$( this.html ).removeClass("show").removeClass("fix");
+			this._del_event();
+
+			this.running = false;
+		},
+
+		close: function () {
+			$( this.html ).removeClass("show").removeClass("hide").removeClass("fix");
 			this._del_event();
 
 			this.running = false;
 		},
 
 		_add_event: function () {
-			var self = this;
-			var container = $(this.element).find(".ui-smallpopup");
+			var self = this,
+				container = $(this.element).find(".ui-smallpopup");
 
-			container.bind('vmouseup', function () {
-				self.element.trigger('tapped', self.param);
+			container.bind( 'vmouseup', function () {
+				self.element.trigger( 'tapped', self.param );
 				self.hide();
 			});
 
-			if (this.seconds !== undefined && this.second != 0) {
+			if ( this.seconds !== undefined && this.second !== 0 ) {
 				this.interval = setInterval(function () {
 					self.hide();
 				}, this.seconds);
@@ -72,10 +110,10 @@
 		},
 
 		_del_event: function () {
-			var container = $(this.element).find(".ui-smallpopup");
+			var container = $( this.element ).find(".ui-smallpopup");
 
 			container.unbind('vmouseup');
-			clearInterval(this.interval);
+			clearInterval( this.interval );
 		},
 
 		_get_position: function ( height ) {
@@ -88,37 +126,40 @@
 		},
 
 		_update: function () {
-			var msg;
-			var container;
+			var msg = $( this.element ).attr('data-text');
 
-			msg = $(this.element).attr('data-text');
-			this.param = $(this.element).attr('data-param');
-			this.seconds = $(this.element).attr('data-interval');
+			this.param = $( this.element ).attr('data-param');
+			this.seconds = $( this.element ).attr('data-interval');
 
-			if (this.html)
+			if ( this.html ) {
 				this.html.detach();
+			}
 
 			this.html = $('<div class="ui-smallpopup">' +
 					'<div class="ui-smallpopup-text-bg">' +
 					msg + '</div>' +
 					'</div>');
 
-			$(this.element).append(this.html);
+			$( this.element ).append( this.html );
 
-			container = $(this.element).find(".ui-smallpopup");
-			container.css( 'top',
-				this._get_position(parseInt(container.css('height'))) );
+			var container = $( this.element ).find(".ui-smallpopup"),
+				container_h = parseFloat( container.css('height') );
+
+			container.css( 'top', this._get_position(container_h) );
 		},
 
 		_create: function () {
 			this._update();
-
 			this.running = false;
-		},
-	}); /* End of widget */
+		}
+	}); // End of widget
 
 	// auto self-init widgets
-	$(document).bind("pagecreate", function (e) {
-		$(e.target).find(":jqmData(role='smallpopup')").smallpopup();
+	$( document ).bind( "pagecreate create", function ( e ) {
+		$( e.target ).find(":jqmData(role='smallpopup')").smallpopup();
 	});
-})(jQuery, this);
+
+	$( document ).bind( "pagebeforehide", function ( e ) {
+		$( e.target ).find(":jqmData(role='smallpopup')").smallpopup('close');
+	});
+}( jQuery, this ));
