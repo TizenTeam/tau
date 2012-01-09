@@ -504,7 +504,8 @@
     return function() {
       if (ran) return memo;
       ran = true;
-      return memo = func.apply(this, arguments);
+      memo = func.apply(this, arguments);
+      return memo;
     };
   };
 
