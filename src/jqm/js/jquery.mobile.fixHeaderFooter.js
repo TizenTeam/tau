@@ -130,7 +130,6 @@ $.mobile.fixedToolbars = (function() {
 			.show();	
 		if(footerNavbar.jqmData("style") == "toolbar"){
 			footerNavbar
-				.css("left", "144px")
 				.css("width", document.documentElement.clientWidth- footerNavbar.siblings(".ui-btn").width());		
 		}					
 		/* resize test : Jinhyuk    */

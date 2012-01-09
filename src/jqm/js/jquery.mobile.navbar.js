@@ -119,7 +119,6 @@ $.widget( "mobile.navbar", $.mobile.widget, {
 					.css( "top", document.documentElement.clientHeight - footer_filter.height() );		
 				if( style == "toolbar" ){
 					navbar_filter
-						.css("left", "144px")
 						.css("width", document.documentElement.clientWidth- navbar_filter.siblings(".ui-btn").width());		
 				}
 			}
