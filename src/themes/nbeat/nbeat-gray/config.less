@@ -12,132 +12,107 @@
 
 @font_family: Helvetica, Arial, sans-serif;
 
-// Font Size index
-@font_size_00:	0.5rem;	/* 16px */
-@font_size_01:	0.6rem;	/* 18px */
-@font_size_02:	0.6rem;	/* 20px */
-@font_size_03:	0.7rem;	/* 22px */
-@font_size_04:	0.8rem;	/* 24px */
-@font_size_05:	0.8rem;	/* 26px */
-@font_size_06:	0.9rem;	/* 28px */
-@font_size_07:	1.0rem;	/* 32px */
-@font_size_08:	1.125rem;	/* 36px */
-@font_size_09:	1.2rem;	/* 38px */
-@font_size_10:	1.3rem;	/* 40px */
-@font_size_11:	1.3125rem;	/* 42px */
-@font_size_12:	1.375rem;	/* 44px */
-@font_size_13:	1.5rem;	/* 48px */
-@font_size_14:	1.8rem;	/* 58px */
-@font_size_15:	2.6rem;	/* 84px */
-@font_size_16:  2.8rem;  /* Header Height */
-
 // Basic color set
-@color_bg: 				#000000;	// 0 0 0
-@color_bg_sub:			#242424;	// 36 36 36	// TODO: used only in dialog group. Check more.
+@color_bg: 				rgb(0, 0, 0);	// 0 0 0
+@color_bg_sub:			rgb(36, 36, 36);	// 36 36 36	// TODO: used only in dialog group. Check more.
 
-@color_border:			#2A2A2A;	// 42 42 42
-@color_header: 			#44444a;	// 68 68 74
+@color_border:			rgb(42, 42, 42);	// 42 42 42
+@color_header: 			rgb(68, 68, 74);	// 68 68 74
 
-@color_text:			#f9f9f9;	// 249 249 249
-@color_text_dim:		#6c7376;	// 108 115 118
+@color_text:			rgb(249, 249, 249);	// 249 249 249
+@color_text_dim:		rgb(108, 115, 118);	// 108 115 118
 @color_text_focus:		@color_text;
-@color_text_sub:		#666666;	// 102 102 102
-@color_text_setting:	#2a6d8c;	// 42 109 140
-@color_text_input:		#464646;	// 70 70 70
+@color_text_sub:		rgb(102, 102, 102);	// 102 102 102
+@color_text_setting:	rgb(42, 109, 140);	// 42 109 140
+@color_text_input:		rgb(70, 70, 70);	// 70 70 70
 @color_text_cursor:		@color_text_setting;
-@color_text_segctrl:	#9ec3d5;	// 158 195 213	// TODO: used only in segctrl. Check more.
+@color_text_segctrl:	rgb(158, 195, 213);	// 158 195 213	// TODO: used only in segctrl. Check more.
 
-/* Color set for Button */
-@buttoncolor_normal:		#3b3b3b;	
-@buttoncolor_press:			#008cd2;
-@buttoncolor_hover: 		#4b4b4b;	/* Not mentioned on GUI */
-@buttontextcolor_normal:	#F9F9F9;
-@buttontextcolor_press: 	#F9F9F9;
-
+// TODO: Move vars below to demo application's CSS!
 //Special dialogue for Phonebook
 @color_text_dialogue_main:	#F9F9F9;	//249:249:249
 @color_text_dialogue_sub:	#919191;	//146:146:146  
 
-/* Color set for Button */
-@color_buttonEditText:		#CF2929;	/* 207:41:41 */
-@color_buttonEditTextPress:	#F9F9F9;	/* 249:249:249 */
-@color_buttonEditBG:		#000000;		
-@color_buttonEditBGPress:	#008cd2; 	
 
-// color palette for reference
-// NOTE: DO NOT USE FOLLOWING CODES DIRECTLY! This codes are to be removed.
-@color_00: #000000;        /* 000, 000, 000 */
-@color_01: #00A8E7;        /* 000, 168, 231 */
-@color_02: #2A6D8C;        /* 042, 109, 140 */
-@color_03: #2ABE8C;        /* 042, 190, 140 */
-@color_04: #2F78DC;        /* 047, 120, 220 */
-@color_05: #2FA6D7;        /* 047, 166, 215 */
-@color_06: #39A6D7;        /* 057, 166, 215 */
-@color_07: #3F8DAD;        /* 063, 141, 173 */
-@color_08: #464646;        /* 070, 070, 070 */
-@color_09: #514E4C;        /* 081, 078, 076 */
-@color_10: #5A5A5A;        /* 090, 090, 090 */
-@color_11: #606060;        /* 096, 096, 096 */
-@color_12: #646464;        /* 100, 100, 100 */
-@color_13: #666666;        /* 102, 102, 102 */
-@color_14: #6997AD;        /* 105, 151, 173 */
-@color_15: #6C6C6C;        /* 108, 108, 108 */
-@color_16: #6C7376;        /* 108, 115, 118 */
-@color_17: #8C8998;        /* 140, 137, 152 */
-@color_18: #909090;        /* 144, 144, 144 */
-@color_19: #929292;        /* 146, 146, 146 */
-@color_20: #959595;        /* 149, 149, 149 */
-@color_21: #985900;        /* 152, 089, 000 */
-@color_22: #999999;        /* 153, 153, 153 */
-@color_23: #9EC3D5;        /* 158, 195, 213 */
-@color_24: #AB5252;        /* 171, 082, 082 */
-@color_25: #B4B4B4;        /* 180, 180, 180 */
-@color_26: #B9B9B9;        /* 185, 185, 185 */
-@color_27: #BABABA;        /* 186, 186, 186 */
-@color_28: #CF2525;        /* 207, 037, 037 */
-@color_29: #CF2929;        /* 207, 041, 041 */
-@color_30: #D30000;        /* 211, 000, 000 */
-@color_31: #DD8615;        /* 221, 134, 21 */
-@color_32: #E21414;        /* 226, 020, 020 */
-@color_33: #EBECED;        /* 235, 236, 237 */
-@color_34: #F01402;        /* 240, 020, 002 */
-@color_35: #F4F4F4;        /* 244, 244, 244 */
-@color_36: #F9F9F9;        /* 249, 249, 249 */
+/*************************
+  Vars/Mixins for Widgets
 
-// Pixel to em index
-@linewidth_00: 0rem;    	 /* 0px */
-@linewidth_01: 0.03rem;   /* 1px */
-@linewidth_02: 0.06rem;   /* 2px */
-@linewidth_03: 0.09rem;   /* 3px */
-@linewidth_04: 0.13rem;   /* 4px */
-@linewidth_05: 0.16rem;   /* 5px */
-@linewidth_06: 0.19rem;   /* 6px */
-@linewidth_07: 0.22rem;   /* 7px */
-@linewidth_08: 0.25rem;   /* 8px */
-@linewidth_09: 0.28rem;   /* 9px */
-@linewidth_10:0.31rem;   /* 10px */
-@linewidth_11:0.34rem;   /* 11px */
-@linewidth_12:0.38rem;   /* 12px */
+  NOTE:
+    * Color variables' name: @color_<widget name>_<identifier>
+	* Color values: Use rgb() or rgba()
+ *************************/
 
+// Header
 
-// REFACTORME
-@bgcolor: @color_bg; 
-@headercolor: @color_header;
-@bordercolor: #2A2A2A; 
-@buttoncolor_normal:#3b3b3b;	
-@buttoncolor_press:	#008cd2;
-@buttoncolor_hover: #4b4b4b;
-@buttontextcolor_normal:	#F9F9F9;	//wongi_button
-@buttontextcolor_press: 	#F9F9F9;	//wongi_button
-@footercolor: #213c49;  // Jinhyuk_Controlbar
+// Footer (controlbar)
+@color_footer: #213c49;
 
-.LESSborder-image(@url:url, @width:width, @height:height, @repeat:repeat) {
-    -moz-border-image:  url(@url) @width @height @repeat;
-    -webkit-border-image: url(@url) @width @height @repeat;
-    -o-border-image: url(@url) @width @height @repeat;
-    border-image: url(@url) @width @height @repeat;
+// ListView
+@color_list_list_main_text_read:	rgba(158, 158, 158, 1);
+@color_list_list_main_text_unread:	rgba(249, 249, 249, 1);
+@color_list_list_main_text_focus:	rgba(249, 249, 249, 1);
+@color_list_list_sub_text_default:	rgba(100, 100, 100, 1);
+@color_list_list_sub_text_settings:	rgba(0, 140, 210, 1);
+@color_list_list_sub_text_focus:	rgba(249, 249, 249, 1);
+@color_list_flexible_text_main:		rgba(249, 249, 249, 1);
+@color_list_flexible_text_sub:		rgba(149, 149, 149, 1);
+@color_list_index_list:			rgba(164, 164, 164, 1);
+@color_list_editfield_text:		rgba(70, 70, 70, 1);
+@color_list_editfield_text_cursor:	rgba(0, 140, 210, 1);
+@color_list_multiline_text:		rgba(149, 149, 149, 1);
+@color_list_3line_main_text:		rgba(249, 249, 249, 1);
+@color_list_3line_main_text_read:	rgba(249, 249, 249, 1);
+@color_list_3line_main_text_focus:	rgba(249, 249, 249, 1);
+@color_list_3line_main_text2:		rgba(104, 137, 152, 1);
+@color_list_3line_main_text2_focus:	rgba(249, 249, 249, 1);
+@color_list_converter_style:		rgba(249, 249, 249, 1);
+@color_list_converter_style_focus:	rgba(249, 249, 249, 1);
+@color_list_unread_email:		rgba(249, 249, 249, 1);
+@color_list_contents_text:		rgba(210, 210, 210, 1);
+@color_list_name_text:			rgba(129, 129, 129, 1);
+@color_list_name_text_dim:		rgba(0, 140, 210, 1);
+@color_list_colorbar:			rgba(80, 107, 207, 1); //Temp, not defined
+
+	// NOTE: vars below have 'length' unit instead of color values. Check it!
+@color_list_list_main_text:		1.375rem;	/* 44 px */
+@color_list_list_sub_text:		1.0rem;		/* 32 px */
+@color_list_flexible_text_main:		1.5rem;		/* 48 px */
+@color_list_flexible_text_sub:		1.125rem;	/* 36 px */
+@color_list_index_list:			1.0rem;		/* 32 px */
+@color_list_editfield_text:		1.375rem;	/* 44 px */
+@color_list_multiline_text:		1.0rem;		/* 32 px */
+@color_list_3line_main_text:		1.3125rem;	/* 42 px */
+@color_list_3line_main_text2:		1.125rem;	/* 36 px */
+@color_list_converter_style:		1.3rem;		/* 40 px */
+@color_list_unread_email:		1.375rem;	/* 44 px */
+@color_list_contents_text:		0.94rem;	/* 30 px */
+@color_list_name_text:			1.0rem;		/* 32 px */
+
+// Button
+@color_button_normal:#3b3b3b;	
+@color_button_press:	#008cd2;
+@color_button_hover: #4b4b4b;
+@color_button_text_normal:	#F9F9F9;	// NOTE: Not used
+@color_button_text_press: 	#F9F9F9;	// NOTE: Not used
+@color_button_EditText:			rgb(207, 37, 37);
+@color_button_EditTextPress:	rgb(249, 249, 249);
+@color_button_EditBG:			rgb(255, 255, 255);
+@color_button_EditBGPress:		rgb(217, 147, 26);
+.LESSbutton_text1_style{
+	font-family: @font_family;
+	font-weight: normal;
+	font-size: 1.0rem;
+	font-style:normal;
+	color: @color_button_text_normal;
+	&:hover {color: @color_button_text_press;}
 }
 
+
+/******************************
+  Global LESS mixin collection
+ ******************************/
+
+// Mixin : background ************************
 .LESSbackground-img-with-gradient(@from: top, @startcolor: #3c3c3c, @endcolor: #111) {
 	background-image: -webkit-gradient(linear, left top, left bottom, from(@startcolor), to(@endcolor)); /* Saf4+, Chrome */
 	background-image: -webkit-linear-gradient(@from, @startcolor, @endcolor);
@@ -146,19 +121,30 @@
 	background-image:      -o-linear-gradient(@from, @startcolor, @endcolor);
 	background-image:         linear-gradient(@from, @startcolor, @endcolor);
 }
+.LESSbackground-size(@width, @height) {
+	-moz-background-size: @width @height;
+	-o-background-size: @width @height;
+	-webkit-background-size: @width @height;
+	background-size: @width @height;
+}
 
+// Mixin : border ***************************
+.LESSborder-image(@url:url, @width:width, @height:height, @repeat:repeat) {
+    -moz-border-image:  url(@url) @width @height @repeat;
+    -webkit-border-image: url(@url) @width @height @repeat;
+    -o-border-image: url(@url) @width @height @repeat;
+    border-image: url(@url) @width @height @repeat;
+}
 .LESSborder-radius-topleft(@radius) {
 	-moz-border-radius-topleft: 		@radius; 
 	-webkit-border-top-left-radius: 	@radius;
 	border-top-left-radius: 			@radius;
 }
-
 .LESSborder-radius-topright(@radius) {
 	-moz-border-radius-topright: 		@radius; 
 	-webkit-border-top-right-radius: 	@radius;
 	border-top-right-radius: 			@radius;
 }
-
 .LESSborder-radius-bottomleft(@radius) {
 	-moz-border-radius-bottomleft: 		@radius; 
 	-webkit-border-bottom-left-radius: 	@radius;
@@ -169,21 +155,13 @@
 	-webkit-border-bottom-right-radius: 	@radius;
 	border-bottom-right-radius: 			@radius;
 }
-
 .LESSborder-radius-all(@radius) {
 	-moz-border-radius: 		@radius; 
 	-webkit-border-radius: 	@radius;
 	bordert-radius: 			@radius;
 }
 
-.LESSbackground-size(@width, @height) {
-	-moz-background-size: @width @height;
-	-o-background-size: @width @height;
-	-webkit-background-size: @width @height;
-	background-size: @width @height;
-}
-
-
+// Mixin : box ***************************
 .LESSbox-shadow(@hshadow, @vshadow, @blur, @color) {
 	-moz-box-shadow: @hshadow @vshadow @blur @color;
 	-webkit-box-shadow: @hshadow @vshadow @blur @color;
@@ -215,6 +193,7 @@
 	box-align: @position;
 }	
 
+// Mixin : Utility ************************************
 //CAUTION!!! - you MUST call this function inside of your winset structure. 
 //DO NOT CALL GLOBALLY!!
 .LESSclear-btn-basic-setting() {
@@ -241,18 +220,7 @@
 	}
 }
 
-
-//wongi_button //name from GUI guideline
-.LESSbutton_text1_style{
-	font-family: @font_family;
-	font-weight: normal;
-	font-size: 1.0rem;
-	font-style:normal;
-	color: @buttontextcolor_normal;
-	&:hover{color: @buttontextcolor_press;}
-}
-
-
+// Mixin : transform
 .LESStransform(@method) {
     transform: @method;
     -ms-transform: @method;
@@ -260,45 +228,4 @@
     -webkit-transform: @method;
     -o-transform: @method;
 }
-
-
-//ListView - Gray theme
-@list_color_list_main_text_read:	rgba(158, 158, 158, 1);
-@list_color_list_main_text_unread:	rgba(249, 249, 249, 1);
-@list_color_list_main_text_focus:	rgba(249, 249, 249, 1);
-@list_color_list_sub_text_default:	rgba(100, 100, 100, 1);
-@list_color_list_sub_text_settings:	rgba(0, 140, 210, 1);
-@list_color_list_sub_text_focus:	rgba(249, 249, 249, 1);
-@list_color_flexible_text_main:		rgba(249, 249, 249, 1);
-@list_color_flexible_text_sub:		rgba(149, 149, 149, 1);
-@list_color_index_list:			rgba(164, 164, 164, 1);
-@list_color_editfield_text:		rgba(70, 70, 70, 1);
-@list_color_editfield_text_cursor:	rgba(0, 140, 210, 1);
-@list_color_multiline_text:		rgba(149, 149, 149, 1);
-@list_color_3line_main_text:		rgba(249, 249, 249, 1);
-@list_color_3line_main_text_read:	rgba(249, 249, 249, 1);
-@list_color_3line_main_text_focus:	rgba(249, 249, 249, 1);
-@list_color_3line_main_text2:		rgba(104, 137, 152, 1);
-@list_color_3line_main_text2_focus:	rgba(249, 249, 249, 1);
-@list_color_converter_style:		rgba(249, 249, 249, 1);
-@list_color_converter_style_focus:	rgba(249, 249, 249, 1);
-@list_color_unread_email:		rgba(249, 249, 249, 1);
-@list_color_contents_text:		rgba(210, 210, 210, 1);
-@list_color_name_text:			rgba(129, 129, 129, 1);
-@list_color_name_text_dim:		rgba(0, 140, 210, 1);
-@list_color_colorbar:			rgba(80, 107, 207, 1); //Temp, not defined
-
-@list_color_list_main_text:		1.375rem;	/* 44 px */
-@list_color_list_sub_text:		1.0rem;		/* 32 px */
-@list_color_flexible_text_main:		1.5rem;		/* 48 px */
-@list_color_flexible_text_sub:		1.125rem;	/* 36 px */
-@list_color_index_list:			1.0rem;		/* 32 px */
-@list_color_editfield_text:		1.375rem;	/* 44 px */
-@list_color_multiline_text:		1.0rem;		/* 32 px */
-@list_color_3line_main_text:		1.3125rem;	/* 42 px */
-@list_color_3line_main_text2:		1.125rem;	/* 36 px */
-@list_color_converter_style:		1.3rem;		/* 40 px */
-@list_color_unread_email:		1.375rem;	/* 44 px */
-@list_color_contents_text:		0.94rem;	/* 30 px */
-@list_color_name_text:			1.0rem;		/* 32 px */
 

@@ -6,6 +6,8 @@
 
 @import "config.less";
 
+/* Button colors are defined in config.less
+
 /* Edit button size */
 @height_buttonEdit:	74 * @unit_base;
 @width_buttonEdit:	@height_buttonEdit;
@@ -191,7 +193,7 @@ background-image: url(images/00_winset_Back.png);}
 /* Contact Edit Style */
 .ui-btn.ui-btn-edit .ui-btn-text 
 {
-	color: @color_buttonEditText;
+	color: @color_button_EditText;
 }
 
 .ui-btn.ui-btn-edit.ui-btn-hover-s, .ui-btn.ui-btn-edit.ui-btn-up-s, .ui-btn.ui-btn-edit.ui-btn-down-s
@@ -199,12 +201,12 @@ background-image: url(images/00_winset_Back.png);}
 
 .ui-btn.ui-btn-edit.ui-btn-down-s .ui-btn-text 
 {
-	color: @color_buttonEditTextPress;
+	color: @color_button_EditTextPress;
 }
 
 .ui-btn.ui-btn-edit
 {
-	background-color: @buttoncolor_normal;
+	background-color: @color_button_normal;
 	position: absolute;
 	top: 0 * @unit_base;
 	margin-top: 0 * @unit_base;
@@ -213,5 +215,5 @@ background-image: url(images/00_winset_Back.png);}
 
 .ui-btn.ui-btn-edit.ui-btn-down-s
 {
-	background-color: @buttoncolor_press;
+	background-color: @color_button_press;
 }

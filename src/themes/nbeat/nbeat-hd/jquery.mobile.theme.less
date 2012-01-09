@@ -319,7 +319,7 @@
 }
 .ui-btn-up-s {
 	//border: none;
-	background: 			@buttoncolor_normal;
+	background: 			@color_button_normal;
 	font-weight: bold;
 	color: 					#fff;
 	
@@ -330,7 +330,7 @@
 	.LESSbutton_text1_style; //wongi_button
 }
 .ui-btn-hover-s {
-	background: 			/*#444444*/ @buttoncolor_hover;	//wongi_1026
+	background: 			/*#444444*/ @color_button_hover;	//wongi_1026
 	font-weight: bold;
 	color: 					#fff;
 	
@@ -343,7 +343,7 @@
 
 .ui-btn-down-s {
 	//border: none;
-	background: 			@buttoncolor_press;	//wongi_button
+	background: 			@color_button_press;	//wongi_button
 	font-weight: bold;
 	color: 					#fff;
 
@@ -450,7 +450,7 @@ a.ui-link-inherit {
 	color: 					#fff;
 	cursor: pointer;
 	text-decoration: none;
-	background: 			@buttoncolor_press;
+	background: 			@color_button_press;
   	outline: none;
 	//font-family: Helvetica, Arial, sans-serif;
 
@@ -468,9 +468,9 @@ a.ui-link-inherit {
 
 /*  Jinhyuk_Controlbar	*/
 .ui-controlbar-s, .ui-controlbar-left, .ui-controlbar-right {
-	border: 1px solid 		@bordercolor;
+	border: 1px solid 		@color_border;
 	background: 			#1f1f1f;
-	color: 					@color_36; /*{a-bar-color}*/
+	color: 					rgb(249, 249, 249); /*{a-bar-color}*/
 	font-family: Helvetica, Arial, sans-serif;
 	font-weight: bold;
 	font-size : 36 * @unit_base; /* Jinhyuk : ControlBar size modification */
@@ -481,31 +481,31 @@ a.ui-link-inherit {
 	/* no shadow .LESSbackground-img-with-gradient(top, #3c3c3c, #111); */
 		
 	.ui-link-inherit {
-		color: @color_36; /*{a-bar-color}*/
+		color: rgb(249, 249, 249); /*{a-bar-color}*/
 		font-weight: bold;
 	}
 	.ui-link {
 		/* ui-bar-link */
-		color: @color_36; /*{a-bar-color}*/ 
+		color: rgb(249, 249, 249); /*{a-bar-color}*/ 
 		font-weight: bold;
 	}
 	
 	.ui-btn-text {
-		color: @color_36; /*{a-bar-color}*/	
+		color: rgb(249, 249, 249); /*{a-bar-color}*/	
 		font-weight: bold;
 		text-decoration : none;
 	}
 
 	.ui-btn {
-		color: @color_36; /*{a-bar-color}*/	
-		background: @footercolor; /*{a-bar-background-color}*/
+		color: rgb(249, 249, 249); /*{a-bar-color}*/	
+		background: @color_footer; /*{a-bar-background-color}*/
 		font-weight: bold;
 		text-decoration : none;
 	}
 	
 	.ui-btn-down-s, .ui-btn-active {
-		color: @color_36; /*{a-bar-color}*/	
-		background: @color_02; /*{a-bar-background-color}*/
+		color: rgb(249, 249, 249); /*{a-bar-color}*/	
+		background: rgb(42, 109, 140); /*{a-bar-background-color}*/
 	}
 }
 
@@ -586,7 +586,7 @@ a.ui-link-inherit {
 	}	
 	
 	.ui-btn-hide-style {
-		background: @footercolor;
+		background: @color_footer;
 		border : none;		
 	}
 }
@@ -623,7 +623,7 @@ a.ui-link-inherit {
 	}
 		
 	.ui-btn-down-s,  .ui-btn-active{
-		color: @color_36; /*{a-bar-color}*/	
+		color: rgb(249, 249, 249); /*{a-bar-color}*/	
 	}
 
 	li .ui-btn, .ui-navbar-toggle .ui-btn{
@@ -648,7 +648,7 @@ a.ui-link-inherit {
 	.ui-btn-animation {
 		position : fixed;
 			
-		background: @color_02;
+		background: rgb(42, 109, 140);
 		border-bottom-style:  solid;
 		border-top-style: solid;		
 		border-bottom-color: 	@color_bg; 	
