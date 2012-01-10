@@ -147,7 +147,7 @@
 
 			// get the element where value can be displayed
 			self.handleText = slider.find('.ui-btn-text');
-			self.handleText.css('color', 'rgb(42, 109, 140)');
+			self.handleText.css('color', self.handle.css('color'));
 			if (self.max_value > 999)
 				self.handleText.css('font-size', '0.8em');
 
