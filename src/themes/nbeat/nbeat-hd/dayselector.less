@@ -10,48 +10,46 @@
 .ui-dayselector  {
 	
 	.ui-btn {
-		border-color : #646464;
+		border-color : @color_dayselector_Btn_border;
 		border-style : solid;
 		border-width : 1 * @unit_base;
 		.ui-btn-inner {
-			text-align :center;
-			
+			text-align :center;			
 			padding : 0.8em 0px;
 		}
 	}
  	.ui-checkbox-off {
-		background : #3b3b3b;
+		background : @color_dayselector_Btn_normal;
 		.ui-btn-text {
-			color : #f9f9f9;
+			color : @color_dayselector_Btn_Mon_to_Fri;
 		}	
 	}
 	
 	.ui-checkbox-off.ui-btn-down-s.ui-btn-hover-s {
-		background : #008cd2;
+		background : @color_dayselector_Btn_press;
 	}
 	
 	.ui-checkbox-on {
-		background : #008cd2;
+		background : @color_dayselector_Btn_press;
 		.ui-btn-text {
-			color : #f9f9f9;	
+			color : @color_dayselector_Btn_Mon_to_Fri;	
 	   	}	
 	}
 
 	.ui-checkbox-on.ui-btn-down-s.ui-btn-hover-s {
-		background : #3b3b3b;
+		background : @color_dayselector_Btn_normal;
 	}
 	.ui-dayselector-label-saturday {
 		.ui-btn-text {	
-	    	color: #00a8e7;
+	    	color: @color_dayselector_Btn_Sat;
 		}
 	}
 	.ui-dayselector-label-sunday {
 		.ui-btn-text {
-		    color: #f01402;
+		    color: @color_dayselector_Btn_Sun;
 		}
 	}
-	.ui-checkbox {
-	
+	.ui-checkbox {	
 		height : 90 * @unit_base;
 		
 		.ui-btn {
