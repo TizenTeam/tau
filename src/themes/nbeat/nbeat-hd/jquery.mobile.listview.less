@@ -401,7 +401,7 @@ ol.ui-listview {
 }
 .LESStext-main-1line(@left:@list-li-padding-horizontal) {
 	.ui-li-text-main {
-		font-size: @list-font-size-main;
+		font-size: @font_size_list_main_text;
 		top: 50%;
 		left: @left;
 		margin-top: -0.5em;
@@ -412,21 +412,21 @@ ol.ui-listview {
 	.ui-li-text-sub {
 		float: right; 
 		text-align: right; 
-		font-size: @list-font-size-sub; 
-		color: @color_list_list_sub_text_default;
+		font-size: @font_size_list_sub_text; 
+		color: @color_list_sub_text_default;
 		top: 50%;
 		margin-top: -0.5em;
 	}
 }
 .LESStext-sub-setting() {
 	.ui-li-text-sub {
-		color: @color_list_list_sub_text_settings;
+		color: @color_list_sub_text_settings;
 	}
 }
 
 .LESStext-email-sub1-setting() {
 	.ui-li-text-sub1 {
-		color: @color_list_list_sub_text_settings;
+		color: @color_list_sub_text_settings;
 	}
 }
 
@@ -456,7 +456,7 @@ ol.ui-listview {
 }
 .LESStext-main-1line-right-setting() {
 	.ui-li-text-main-right {
-		color: @color_list_list_sub_text_settings;
+		color: @color_list_sub_text_settings;
 	}
 }
 
@@ -479,7 +479,7 @@ ol.ui-listview {
 		position: absolute;
 		font-size: @list-font-size-sub; 
 		line-height: @list-li-sub-line-height;
-		color: @color_list_list_sub_text_default;
+		color: @color_list_sub_text_default;
 		left: @left;
 		top: @top;
 		text-overflow: ellipsis;
@@ -494,7 +494,7 @@ ol.ui-listview {
 		position: absolute;
 		font-size: @list-font-size-sub; 
 		line-height: @list-li-sub-line-height;
-		color: @color_list_list_sub_text_default;
+		color: @color_list_sub_text_default;
 		right: @right;
 		top: @top;
 		text-overflow: ellipsis;
@@ -536,7 +536,7 @@ ol.ui-listview {
 		position: absolute;
 		font-size: @list-font-size-sub; 
 		line-height: @list-li-sub-line-height;
-		color: @color_list_list_sub_text_default;
+		color: @color_list_sub_text_default;
 		left: @left;
 		top: @top;
 		text-overflow: ellipsis;
@@ -550,7 +550,7 @@ ol.ui-listview {
 		position: absolute;
 		font-size: @list-font-size-sub; 
 		line-height: @list-li-sub-line-height;
-		color: @color_list_list_sub_text_default;
+		color: @color_list_sub_text_default;
 		left: @left;
 		top: @top;
 		text-overflow: ellipsis;
@@ -593,7 +593,7 @@ ol.ui-listview {
 		position: absolute;
 		font-size: @list-font-size-sub; 
 		line-height: @list-li-email-sub-line-height;
-		color: @color_list_list_sub_text_default;
+		color: @color_list_sub_text_default;
 		right: @right;
 		top: @top;
 		text-overflow: ellipsis;
