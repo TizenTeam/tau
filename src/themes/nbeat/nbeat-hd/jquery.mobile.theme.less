@@ -406,27 +406,27 @@
 	// bubble
 	.ui-li-static {
 		&.ui-li-bubble-left {
-			// picked from 00_MessageBubble_BG_receive.png
-			background-color: #ddce7a;	
-			.LESSbox-shadow(2px, 3px, 3px, #4d3a17);
-			color: #000000;	// 0 0 0
+			// Color is picked from 00_MessageBubble_BG_receive.png
+			background-color: @color_list_bubble_left_bg;	
+			.LESSbox-shadow(2px, 3px, 3px, @color_list_bubble_box_shadow);
+			color: @color_list_bubble_left_text;
 		}
 		&.ui-li-bubble-right {
-			// picked from 00_MessageBubble_BG_sent.png
-			background-color: #c2d1da;
-			.LESSbox-shadow(2px, 3px, 3px, #4d3a17);
-			color: #606060;	// 96 96 96
+			// Color is picked from 00_MessageBubble_BG_sent.png
+			background-color: @color_list_bubble_left_bg;
+			.LESSbox-shadow(2px, 3px, 3px, @color_list_bubble_box_shadow);
+			color: @color_list_bubble_right_text;
 		}
 		&.ui-li-bubble-sos {
-			color: #d30000;	// 211 0 0
+			color: @color_list_bubble_sos_text;
 		}
 		&.ui-li-bubble-date {
-			background-color: #424242;	// 66 66 66
-			color: #39a6d7;	// 57 166 215
+			background-color: @color_list_bubble_date_bg;
+			color: @color_list_bubble_date_text;
 		}
 	}
 	span.ui-li-bubble-time {
-		color: #39a6d7; // 57 166 215
+		color: @color_list_bubble_time_text;
 	}
 }
 
