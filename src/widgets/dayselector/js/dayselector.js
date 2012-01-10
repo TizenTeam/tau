@@ -75,6 +75,9 @@ $.widget("todons.dayselector", $.mobile.widget, {
 		for (var i = 0; i < days.length; i++) {
 			var day = days[i];
 			var letter = day.slice(0, 1);
+			if( Globalize ) {
+				letter = Globalize.culture().calendars.standard.days.namesShort[i];
+			}
 			var id = parentId + '_' + i;
 			var labelClass = 'ui-dayselector-label-' + day.toLowerCase();
 
