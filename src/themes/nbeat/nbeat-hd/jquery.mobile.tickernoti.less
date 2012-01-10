@@ -33,8 +33,9 @@
 	width: 100%;
 	height: @ticker-height;
 	z-index: 1100;
-	background: rgb(108, 108, 108);
+	background: @color_ticker_bg;
 }
+
 .ui-ticker.show {
 	display: block;
 	-webkit-animation: ui-ticker-show 0.8s 1 ease;
@@ -86,7 +87,7 @@
 	left: 96px;
 	margin-top: 20px;
 	font-size: 0.8em;
-	color: rgb(186, 186, 186);
+	color: @color_ticker_text1;
 }
 
 .ui-ticker-text2-bg {
@@ -95,5 +96,5 @@
 	height: 32px;
 	left: 96px;
 	margin-top: 48px;
-	color: rgb(244, 244, 244);
+	color: @color_ticker_text2;
 }
