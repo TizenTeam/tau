@@ -71,7 +71,7 @@
 		height : 74 * @unit_base;
 		
 		background: #848484;
-		color 		:#f9f9f9;
+		color 		:@color_button_text_normal;
 			
 		border-style: solid;
 		border-color: 	#4c4c4c; 	
@@ -84,7 +84,7 @@
 	
 	> .ui-btn.ui-btn-down-s {
 		background 		:#0a8cd2;
-		color : #f9f9f9;
+		color : @color_button_text_press;
 	}
 	
 }
@@ -321,37 +321,37 @@
 	//border: none;
 	background: 			@color_button_normal;
 	font-weight: bold;
-	color: 					#fff;
+	color: 					@color_button_text_normal;
 	
 	a.ui-link-inherit {
-		color: #fff;
+		color: @color_button_text_normal;
 	}
 	
-	.LESSbutton_text1_style; //wongi_button
+	.LESSbutton_text1_style;
 }
 .ui-btn-hover-s {
-	background: 			/*#444444*/ @color_button_hover;	//wongi_1026
+	background: 			@color_button_hover;
 	font-weight: bold;
-	color: 					#fff;
+	color: 					@color_button_text_normal;
 	
 	a.ui-link-inherit {
-		color: #fff;
+		color: @color_button_text_normal;
 	}
 
-	.LESSbutton_text1_style; //wongi_button
+	.LESSbutton_text1_style;
 }
 
 .ui-btn-down-s {
 	//border: none;
-	background: 			@color_button_press;	//wongi_button
+	background: 			@color_button_press;
 	font-weight: bold;
-	color: 					#fff;
+	color: 					@color_button_text_normal;
 
 	a.ui-link-inherit {
-		color: #fff;
+		color: @color_button_text_normal;
 	}
 	
-	.LESSbutton_text1_style; //wongi_button
+	.LESSbutton_text1_style;
 }
 .ui-btn-up-s,
 .ui-btn-hover-s,
@@ -373,7 +373,7 @@
 		color:		@color_text;
 	}
 	li.ui-btn-down-s {
-		background-color: #32414a;	// 50 65 74
+		background-color: @color_button_press;
 		color:		@color_text;
 	}
 	/* listview: fonts for li with a link */
@@ -445,9 +445,7 @@ a.ui-link-inherit {
 /* button default color for active state */
 .ui-btn-active {
 	/* global-active */
-	//border: 1px solid 		#155678;
-	//font-weight: bold;
-	color: 					#fff;
+	color: 					@color_button_text_normal;
 	cursor: pointer;
 	text-decoration: none;
 	background: 			@color_button_press;
@@ -455,7 +453,7 @@ a.ui-link-inherit {
 	//font-family: Helvetica, Arial, sans-serif;
 
 	a.ui-link-inherit {
-		color: 					#fff;
+		color: 					@color_button_text_normal;
 	}
 }
 
