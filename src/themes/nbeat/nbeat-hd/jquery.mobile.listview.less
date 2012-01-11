@@ -1388,7 +1388,7 @@ ul.ui-listview {
 		span.contact_name_field {
 			position : absolute;
 			font-size : @list-dialogue-font-size-main;
-			color : @color_text_dialogue_main;
+			color : @color_dialogue_main_text;
 			left : 184px;
 			top : 32px;
 			height : 54px;
@@ -1397,7 +1397,7 @@ ul.ui-listview {
 		span.contact_subname_field {
 			position : absolute;
 			font-size : @list-dialogue-font-size-sub;
-			color : @color_text_dialogue_sub;
+			color : @color_dialogue_sub_text;
 			left : 184px;
 			top : 94px;
 		}
@@ -1405,7 +1405,7 @@ ul.ui-listview {
 		span.companyname_field {
 			position : absolute;
 			font-size : @list-dialogue-font-size-sub;
-			color : @color_text_dialogue_sub;
+			color : @color_dialogue_sub_text;
 			left : 184px;
 			top : 126px;
 		}
@@ -1444,7 +1444,7 @@ ul.ui-listview {
 			{
 				border : none;
 				outline: none;
-				width : 782pxpx;
+				width : 782px;
 				padding : 0px;
 			}
 			
@@ -1455,7 +1455,7 @@ ul.ui-listview {
 				left: 0;
 				width : 100%;
 				margin: 0px;
-				color: rgba(130, 130, 130, 1);
+				color: @color_dialogue_editor_default_text;
 			}
 			
 			&>div.ui-input-default-text.ui-input-default-hidden {
@@ -1466,22 +1466,22 @@ ul.ui-listview {
 
 	&> li.ui-li-dialogue-editor-1.ui-li-expanded
 	{
-		background-color: #000;		
+		background-color: @color_dialogue_editor_bg;
 	}
 
 	&> li.ui-li-dialogue-editor-2
 	{
 		padding : 0px !important;
 		height : 130px;
-		border-left: @list-li-dialogue-width rgba(68, 68, 68, 255) solid;
-		border-top-width: 0px;	//wongi_1201 //for phonebook
+		border-left: @list-li-dialogue-width @color_dialogue_editor_border solid;
+		border-top-width: 0px;
 		left : 0px;
 		width : 962px;
 		font-size:32px;
 
 		&> div.ui-li-dialogue-editor-border
 		{
-			border-right: 1px rgba(68, 68, 68, 255) solid;
+			border-right: 1px @color_dialogue_editor_border solid;
 			width: 160px;
 			height: 130px;	
 		}
@@ -1518,7 +1518,7 @@ ul.ui-listview {
 				top: 0;
 				width : 100%;
 				margin: 0px;
-				color: rgba(130, 130, 130, 1);
+				color: @color_dialogue_editor_default_text;
 			}
 			
 			&>div.ui-input-default-text.ui-input-default-hidden {
@@ -1529,8 +1529,8 @@ ul.ui-listview {
 
 	// Dialogue 
 	&> li.ui-li-dialogue {
-		border-left: @list-li-dialogue-width rgba(68, 68, 68, 255) solid;
-		border-top-width: 0px;	//wongi_1201 //for phonebook
+		border-left: @list-li-dialogue-width @color_dialogue_editor_border solid;
+		border-top-width: 0px;
 	}
 	
 	&> li.ui-li-dialogue.ui-li-divider {

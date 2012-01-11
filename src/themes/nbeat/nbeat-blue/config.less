@@ -28,11 +28,42 @@
 @color_text_cursor:		@color_text_setting;
 @color_text_segctrl:		rgb(158, 195, 213);	// 158 195 213	// TODO: used only in segctrl. Check more.
 
-// TODO: Move vars below to demo application's CSS!
-//Special dialogue for Phonebook
-@color_text_dialogue_main:	#F9F9F9;	//249:249:249
-@color_text_dialogue_sub:	#919191;	//146:146:146  
+//Dialogue color set
+@color_dialogue_main_text:				rgb(249,249,249);
+@color_dialogue_sub_text:				rgb(100,100,100);
 
+//Dialogue Editor color set
+@color_dialogue_editor_default_text:	rgb(81, 91, 106);
+@color_dialogue_editor_bg:				rgb(0, 0, 0);
+@color_dialogue_editor_border:			rgba(68, 68, 68, 255);
+
+// Button
+@color_button_normal:		rgb(51, 53, 57);	
+@color_button_press:		rgb(7, 180, 211);
+@color_button_hover: 		rgb(67, 69, 73);
+@color_button_text_normal:	rgb(249, 249, 249);
+@color_button_text_press: 	rgb(249, 249, 249);
+
+@color_button_EditText:			rgb(207, 41, 41);
+@color_button_EditTextPress:	rgb(249, 249, 249);
+@color_button_EditBG:			rgb(51, 53, 57);
+@color_button_EditBGPress:		#07b4d3;
+.LESSbutton_text1_style{
+	font-family: @font_family;
+	font-weight: normal;
+	font-size: 1.0rem;
+	font-style:normal;
+	color: @color_button_text_normal;
+	&:hover {color: @color_button_text_press;}
+}
+
+// Date Time picker color set
+@color_timepicker_text: 			rgb(82, 203, 224);
+@color_timepicker_text_dim: 		rgb(249, 249, 249);
+@color_timepicker_selector_color:	rgb(0,140,210);
+@color_timepicker_ampm_button: 		rgb(33,60,73);
+@color_timepicker_ampm_border:		rgb(66,82,90);
+@color_timepicker_title: 			rgb(100,100,100); 
 
 /*************************
   Vars/Mixins for Widgets
