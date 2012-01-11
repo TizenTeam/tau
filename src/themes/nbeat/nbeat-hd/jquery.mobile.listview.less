@@ -72,7 +72,7 @@
 	li.ui-btn-up-s > .ui-li > .ui-btn-text > a.ui-link-inherit,
 	li.ui-btn-hover-s > .ui-li > .ui-btn-text > a.ui-link-inherit,
 	li.ui-btn-down-s > .ui-li > .ui-btn-text > a.ui-link-inherit {
-		font-size: @list-font-size-main;
+		font-size: @font_size_list_main_text;
 	}
 	
 	li.ui-btn > .ui-btn-hastxt > .ui-btn-text.ui-btn-text-padding-right {
@@ -153,7 +153,7 @@
 	padding: 0px @list-li-padding-horizontal;
 }
 .ui-li-static { 
-	font-size: @list-font-size-main;  
+	font-size: @font_size_list_main_text;  
 }
 .ui-li-divider { 
 	counter-reset: listnumbering;  
@@ -355,7 +355,7 @@ ol.ui-listview {
 .ui-li-sub-setting { 
 	float: right; 
 	text-align: right; 
-	font-size: @list-font-size-sub; 
+	font-size: @font_size_list_sub_text; 
 	margin: .3em 0; 
 }
 
@@ -432,7 +432,7 @@ ol.ui-listview {
 
 .LESStext-sub-1line-left(@left:@list-li-padding-horizontal) {
 	.ui-li-text-sub-left {
-		font-size: @list-font-size-sub;
+		font-size: @font_size_list_sub_text;
 		top: 50%;
 		left: @left;
 		width: @list-li-sub-left-width;
@@ -446,7 +446,7 @@ ol.ui-listview {
 //.LESStext-main-1line-right(@left:@list-li-main-right-padding+@list-li-padding-horizontal) {
 .LESStext-main-1line-right(@left:@list-li-main-right-padding) {
 	.ui-li-text-main-right {
-		font-size: @list-font-size-main;
+		font-size: @font_size_list_main_text;
 		top: 50%;
 		left: @left;
 		margin-top: -0.5em;
@@ -464,7 +464,7 @@ ol.ui-listview {
 .LESStext-main-2line(@left:@list-li-padding-horizontal, @top: @list-li-top-padding) {
 	.ui-li-text-main {
 		position: absolute;
-		font-size: @list-font-size-main;
+		font-size: @font_size_list_main_text;
 		line-height: @list-li-main-line-height;
 		left: @left;
 		top: @top;
@@ -477,7 +477,7 @@ ol.ui-listview {
 .LESStext-sub-2line-left(@left:@list-li-padding-horizontal, @top: @list-li-top-padding+@list-li-main-line-height) {
 	.ui-li-text-sub {
 		position: absolute;
-		font-size: @list-font-size-sub; 
+		font-size: @font_size_list_sub_text; 
 		line-height: @list-li-sub-line-height;
 		color: @color_list_sub_text_default;
 		left: @left;
@@ -492,7 +492,7 @@ ol.ui-listview {
 .LESStext-sub-2line-right(@right:@list-li-padding-horizontal, @top: @list-li-top-padding) {
 	.ui-li-text-sub2 {
 		position: absolute;
-		font-size: @list-font-size-sub; 
+		font-size: @font_size_list_sub_text; 
 		line-height: @list-li-sub-line-height;
 		color: @color_list_sub_text_default;
 		right: @right;
@@ -507,7 +507,7 @@ ol.ui-listview {
 .LESStext-main-3line(@left:@list-li-padding-horizontal, @top: @list-li-top-padding) {
 	.ui-li-text-main {
 		position: absolute;
-		font-size: @list-font-size-main;
+		font-size: @font_size_list_main_text;
 		line-height: @list-li-sub-line-height;
 		left: @left;
 		top: @top;
@@ -521,7 +521,7 @@ ol.ui-listview {
 .LESStext-email-main-3line(@left:2 * @list-li-padding-horizontal + @list-checkbox-size, @top: @list-li-email-top-padding) {
 	.ui-li-text-main {
 		position: absolute;
-		font-size: @list-font-size-main;
+		font-size: @font_size_list_main_text;
 		line-height: @list-li-main-line-height;
 		left: @left;
 		top: @top;
@@ -534,7 +534,7 @@ ol.ui-listview {
 .LESStext-sub-3line-left1(@left:@list-li-padding-horizontal, @top: @list-li-top-padding+@list-li-main-line-height) {
 	.ui-li-text-sub1 {
 		position: absolute;
-		font-size: @list-font-size-sub; 
+		font-size: @font_size_list_sub_text; 
 		line-height: @list-li-sub-line-height;
 		color: @color_list_sub_text_default;
 		left: @left;
@@ -548,7 +548,7 @@ ol.ui-listview {
 .LESStext-sub-3line-left2(@left:@list-li-padding-horizontal, @top: @list-li-top-padding+@list-li-main-line-height) {
 	.ui-li-text-sub2 {
 		position: absolute;
-		font-size: @list-font-size-sub; 
+		font-size: @font_size_list_sub_text; 
 		line-height: @list-li-sub-line-height;
 		color: @color_list_sub_text_default;
 		left: @left;
@@ -563,7 +563,7 @@ ol.ui-listview {
 .LESStext-email-sub-3line-sub1(@left:2 * @list-li-padding-horizontal + @list-checkbox-size, @top:@list-li-email-top-padding + @list-li-main-line-height + @list-li-email-subline-top-padding) {
 	.ui-li-text-sub1 {
 		position: absolute;
-		font-size: @list-font-size-sub; 
+		font-size: @font_size_list_sub_text; 
 		line-height: @list-li-email-sub-line-height;
 		color: @color_list_name_text;
 		left: @left;
@@ -577,7 +577,7 @@ ol.ui-listview {
 .LESStext-email-sub-3line-sub2(@left:2 * @list-li-padding-horizontal + @list-checkbox-size, @top:@list-li-email-top-padding + @list-li-main-line-height + @list-li-email-sub-line-height) {
 	.ui-li-text-sub2 {
 		position: absolute;
-		font-size: @list-font-size-sub; 
+		font-size: @font_size_list_sub_text; 
 		line-height: @list-li-email-sub-line-height;
 		color: @color_list_contents_text;
 		left: @left;
@@ -591,7 +591,7 @@ ol.ui-listview {
 .LESStext-email-sub-3line-sub3(@right:@list-li-padding-horizontal, @top: @list-li-email-top-padding + @list-li-main-line-height + @list-li-email-sub-line-height) {
 	.ui-li-text-sub3 {
 		position: absolute;
-		font-size: @list-font-size-sub; 
+		font-size: @font_size_list_sub_text; 
 		line-height: @list-li-email-sub-line-height;
 		color: @color_list_sub_text_default;
 		right: @right;
