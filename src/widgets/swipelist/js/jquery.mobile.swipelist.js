@@ -34,6 +34,7 @@
 			maxSwipeItemLeft = 0,
 			resetNeeded = false,
 			dragging = false,
+			swiped = false,
 			_self = this,
 			startData = {
 				point: new $.mobile.todons.Point(0,0)
@@ -41,21 +42,22 @@
 
 			_self._mouseDownCB = function(e) {
 				$currentSwipeItem = $(this);
-				e.preventDefault();
 				_TouchStart(e,e.pageX, e.pageY);
-				dragging = true;
 			};
 
 			_self._mouseMoveCB = function(e) {
 				if (!dragging)
 					return;
 
-				e.preventDefault();
 				_TouchMove(e.pageX, e.pageY);
 			};
 
 			_self._mouseUpCB = function(e) {
 				dragging = false;
+			};
+
+			_self._clickCB = function ( e ) {
+				return !swiped;
 			};
 
 			var _TouchStart =  function(e, X, Y) {
@@ -68,6 +70,7 @@
 				if ($currentSwipeItem.width() / 2 < swipeThreshold)
 					swipeThreshold = $currentSwipeItem.outerWidth() / 2;
 
+				swiped = false;
 				resetNeeded = true;
 				dragging = true;
 
@@ -82,6 +85,7 @@
 				$previousAnimatedItem = null;
 
 				dragging = false;
+				swiped = true;
 
 				return 1;
 			};
@@ -92,6 +96,7 @@
 				$previousAnimatedItem = $animatedItem;
 
 				dragging = false;
+				swiped = true;
 			};
 
 			var _reset = function() {
@@ -206,6 +211,7 @@
 					$containerDiv.bind("vmousedown", self._mouseDownCB);
 					$containerDiv.bind("vmousemove", self._mouseMoveCB);
 					$containerDiv.bind("vmouseup", self._mouseUpCB);
+					$containerDiv.bind( "vclick", self._clickCB );
 				}
 			});
 
