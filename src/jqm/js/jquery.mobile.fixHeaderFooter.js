@@ -240,27 +240,31 @@ $.mobile.fixedToolbars = (function() {
 				s_theme_header
 					.css( "position", "fixed" )
 					.css( "top", "0px" );
-				$( event.target ).find( ".ui-content" ).addClass( "ui-title-content-" + title_style + "-height" );							
-			}	
-			
-			if( s_theme_header.children().is(".ui-option-header") ){	
+				if( s_theme_header.children().is(".ui-navbar") ) {
+					s_theme_header.addClass( "ui-title-controlbar-height" );
+					$( event.target ).find( ".ui-content" ).addClass( "ui-title-content-controlbar-height" );
+				} else
+					$( event.target ).find( ".ui-content" ).addClass( "ui-title-content-" + title_style + "-height" );
+			}
+
+			if( s_theme_header.children().is(".ui-option-header") ){
 				s_theme_content.removeClass( "ui-title-content-" + title_style + "-height" );
 				if( s_theme_header.children().is(".input-search-bar") ){
-					s_theme_content.addClass( "ui-title-content-optionheader-search" );	
+					s_theme_content.addClass( "ui-title-content-optionheader-search" );
 				} else{
-					if( $.todons.optionheader.prototype.options.collapseOnInit == true )					
+					if( $.todons.optionheader.prototype.options.collapseOnInit == true )
 						s_theme_content.addClass( "ui-title-content-option-header-collapsed-1line-height" );
-					else 
-						s_theme_content.addClass( "ui-title-content-option-header-expanded-1line-height" );	
+					else
+						s_theme_content.addClass( "ui-title-content-option-header-expanded-1line-height" );
 				}
 			} else if( s_theme_header.find("input").jqmData("type") == "search" ){ /* In case searchbar in header : Jinhyuk */
 				s_theme_content
 					.removeClass( "ui-title-content-" + title_style + "-height" )
-					.addClass( "ui-title-content-search" );										
-				}				
+					.addClass( "ui-title-content-search" );
+				}
 
 				if(s_theme_header.children().is("a") || s_theme_header.children().find(".ui-radio").length != 0){
-					if(title_style == "normal"){				
+					if(title_style == "normal"){
 						if(s_theme_header.children("a").length == 1 || s_theme_header.children("a").length == 2){}
 					else if( s_theme_header.children("a").length == 3 ){
 						s_theme_header.find( "a" ).eq( 1 )
@@ -271,7 +275,7 @@ $.mobile.fixedToolbars = (function() {
 					} else {/* Need to implement new layout */}
 				} else{
 					var group_length = s_theme_fieldcontain.find( ".ui-radio" ).length;
-					
+
 					s_theme_header.addClass( "ui-title-extended-height" );
 					s_theme_fieldcontain.find( ".ui-controlgroup" ).addClass( "ui-title-extended-controlgroup" );
 					s_theme_fieldcontain.find( ".ui-controlgroup" ).addClass( "ui-extended-controlgroup" );
@@ -280,9 +284,9 @@ $.mobile.fixedToolbars = (function() {
 					if( group_length == 2 || group_length == 3 || group_length == 4 )
 						s_theme_fieldcontain.addClass( "ui-title-extended-controlgroup-" + group_length + "btn" );
 					else { /* Need to implement new layout */}
-				}	
-				s_theme_content.addClass( "ui-title-content-" + title_style + "-height" );	
-			}	
+				}
+				s_theme_content.addClass( "ui-title-content-" + title_style + "-height" );
+			}
 
 			/* resize footer : Jinhyuk    */
 			var footer_filter = $(document).find(":jqmData(role='footer')");
