@@ -3,7 +3,7 @@
 
 .ui-option-header {
     overflow: hidden;
-    background : #484848;
+    background : @color_optionheader_Background;
 }
 
 .ui-option-header-1-row {
@@ -41,13 +41,21 @@
 .ui-option-header .ui-btn-text {
     line-height: 34px;
 }
-.ui-option-header .ui-btn-inner {
-    padding-top: 6px;
-    padding-bottom: 6px;
-    background : #000;
-	color 		:#FFF;
-	
-	
+.ui-option-header {
+	.ui-btn-down-s.ui-btn-hover-s .ui-btn-inner,
+	.ui-btn-down-s .ui-btn-inner {
+		background : @color_optionheader_bt_press;
+	}
+	.ui-btn-hover-s .ui-btn-inner,
+	.ui-btn-up-s .ui-btn-inner {
+		background : @color_optionheader_bt;
+	}
+
+	.ui-btn-inner {
+	    padding-top: 6 * @unit_base;
+	    padding-bottom: 6 * @unit_base;
+		color 		: @color_optionheader_tab_text;	    
+	}	
 }
 
 .ui-option-header .ui-controlgroup-horizontal .ui-btn {
@@ -93,7 +101,7 @@
 }
 
 .ui-triangle {
-  color : #484848; 
+  color : @color_optionheader_Background; 
 
   position: absolute;
   bottom: 0px;
@@ -105,7 +113,7 @@
 	border-top-width : 0 * @unit_base;
 	border-right-width :10 * @unit_base;
 	border-bottom-width : 10 * @unit_base;
-	border-bottom-color : #484848;
+	border-bottom-color : @color_optionheader_Background;
 }
 
 .ui-triangle-image{

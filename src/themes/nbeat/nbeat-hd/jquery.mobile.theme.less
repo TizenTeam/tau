@@ -10,167 +10,40 @@
 
 /* S
 -----------------------------------------------------------------------------------------------------------*/
+
+/***************************************************************************
+                    Header / Footer 
+                    NavigationBar
+***************************************************************************/
 .ui-bar-s {
 	border: none;
-	background: 			#1F1F1F;
-	color: 					@color_text;
+	background: @color_bar_bg;
+	color: @color_bar_title_text;
 	font-family: Helvetica, Arial, sans-serif;
 	font-weight: bold;
 	font-size : 36 * @unit_base;
-/*	height : 100 * @unit_base;*/
-
-	/* a-bar-shadow-x, a-bar-shadow-y, a-bar-shadow-radius, a-bar-shadow-color */
-	/* no shadow : text-shadow: 0 -1px 1px #000000; */
-	/* a-bar-background-start, a-bar-background-end */
-	/* no shadow .LESSbackground-img-with-gradient(top, #3c3c3c, #111); */
-		
+	
 	.ui-link-inherit {
-		color: #fff; /*{a-bar-color}*/
+		color: @color_bar_title_text;
 	}
+/*	
 	.ui-link {
-		/* ui-bar-link */
 		color: #7cc4e7; 
 		font-weight: bold;
 		&:hover { color: #2489CE; }
 		&:active { color: #2489CE; }
 		&:visited {	color: #2489CE; }
 	}
-}
-
-.ui-header.ui-bar-s{ 
-	position : fixed;
-	top : 0px;
-	background : #6c6c6c;
-	
-	.ui-title {
-		color : #F9F9F9;
-
-		top : 0px;
-		min-height: 36 * @unit_base; 
-		text-align: center; 
-		font-size : 36 * @unit_base; 
-		display: block; 
-		margin: 28*@unit_base 135*@unit_base 28*@unit_base 135*@unit_base;  
-		text-overflow: ellipsis; 
-		overflow: hidden; 
-		white-space: nowrap; 
-		outline: 0 !important; 
-	}
-	
-	.ui-btn{
-		font-size : 28 * @unit_base;
-		height : 74 * @unit_base;
-		width : 124  * @unit_base;	
-	}
-
-
-	> .ui-btn{
-		top : 12 * @unit_base;
-		margin-top : 0px;
-		font-size : 28 * @unit_base;
-		height : 74 * @unit_base;
-		
-		background: #848484;
-		color 		:@color_button_text_normal;
-			
-		border-style: solid;
-		border-color: 	#4c4c4c; 	
-		border-width: 	1px;
-			
-		.ui-btn-inner {
-			width : 108  * @unit_base;
-		}
-	}
-	
-	> .ui-btn.ui-btn-down-s {
-		background 		:#0a8cd2;
-		color : @color_button_text_press;
-	}
-	
-}
-
-.ui-title-content-normal-height,
-.ui-title-content-option-header-collapsed-1line-height  {
-	position : relative;
-	top : 100  * @unit_base;	
-}
-
-.ui-title-content-extended-height {
-	position : relative;
-	top : 136  * @unit_base;	
-}
-
-.ui-title-content-option-header-expanded-1line-height {
-	position : relative;
-	top : 195  * @unit_base; 	
-}
-
-.ui-title-content-search {
-	position : relative;
-	top : 206  * @unit_base; 		
-}
-.ui-title-content-optionheader-search {
-	position : relative; 	
-	top : 219  * @unit_base;		
-}
-
-.ui-header.ui-bar-s.ui-title-extended-height {
-	height : 136  * @unit_base;
-	
-	a {
-		top : 50  * @unit_base;
-	}
-	
-	.ui-title {
-		font-size : 28  * @unit_base;
-		top : 0  * @unit_base;
-		
-		padding-top : 11 * @unit_base;		
-		margin-top : 0 * @unit_base;
-		margin-bottom : 0 * @unit_base;
-	}
-	
-}
-
-.ui-title-extended-segment-style {
-	margin-top : 0 * @unit_base;
-	margin-bottom : 0 * @unit_base;
-
-	width : 100%;
-	left : 0 * @unit_base;
-	top : -35%;
-}
-
-
-.ui-header.ui-bar-s{
-	.ui-title-normal-3btn {
-		position : absolute;
-		right : 144 * @unit_base;
-		
-		display : block
-	}	
-}
-
-.ui-footer.ui-bar-s.ui-footer-fixed {
-	background : #1f1f1f;
-
-	height : 114 * @unit_base;
-	.ui-title{
-		font-size : 32 * @unit_base;
-	}
-}
-
-.ui-header.ui-bar-s, 
-.ui-footer.ui-bar-s {
-	.ui-btn.ui-btn-back.ui-btn-down-s{
+	*/	
+	.ui-btn.ui-btn-back.ui-btn-down-s {
 		.ui-btn-inner.ui-btn-icon-only {
-			background : #0a8cd2;
+			background : @color_bar_back_btn_press;
 		}
 	}
 	
 	.ui-btn.ui-btn-back, .ui-btn.ui-btn-footer-right{
 		position : absolute;
-		font-size : @font_size_default;
+		font-size : 32 * @unit_base;
 
 		width : 144 * @unit_base;
 		height : 114 * @unit_base;
@@ -178,7 +51,7 @@
 
 		border-style : none;
 		border-width : 0px;
-		background : #1f1f1f;
+		background : @color_bar_bg;
 	}
 	.ui-btn.ui-btn-back .ui-btn-inner.ui-btn-icon-only, 
 	.ui-btn.ui-btn-footer-right .ui-btn-inner {
@@ -189,7 +62,7 @@
 			top : 20 * @unit_base;
 			left : 20 * @unit_base;			
 
-			background: 			#353535;			 		
+			background: @color_bar_footer_btn_bg;			 		
 
 			border-color : black; 
 			border-width : 2px;
@@ -202,7 +75,7 @@
 	
 	.ui-btn.ui-btn-footer-right.ui-btn-down-s{
 		.ui-btn-inner {
-			background : #0a8cd2;
+			background : @color_bar_btn_press;
 		}
 	}
 	.ui-btn.ui-btn-footer-right{
@@ -230,19 +103,18 @@
 			margin-bottom : 0 * @unit_base;
 			
 			label {
-				border-color :#2b2b2b;
+				border-color : @color_bar_seg_btn_border;
 				border-style : solid;
 				border-left-width : 1px;
 				border-right-width : 1px;
-				
 			}
 			
 			.ui-radio {
 				height : 74 * @unit_base;
 				.ui-btn {
 					width : 100%;
-				
 				}
+				
 				.ui-btn-inner {
 					.ui-btn-text {
 						text-align : center;
@@ -250,15 +122,15 @@
 	}
 
 				.ui-radio-off {
-					background: #434343;
+					background: @color_bar_seg_btn_normal;
 					.ui-btn-text{
-						color 		:#767676;
+						color : @color_bar_seg_text_normal;
 					}
 				}			
 				.ui-radio-on{
-					background : #F9F9F9;
+					background : @color_bar_seg_btn_press;
 					.ui-btn-text{											
-						color : #000000;		
+						color : @color_bar_seg_text_press;		
 					}
 				}	
 			}
@@ -274,6 +146,13 @@
 			}
 		}		
 	}	
+	.ui-title-normal-3btn {
+		position : absolute;
+		right : 144 * @unit_base;
+		
+		display : block;
+	}
+		
 	.ui-title-extended-controlgroup-4btn {
 		width : 682 * @unit_base;
 		.ui-radio {
@@ -288,12 +167,127 @@
 	}
 	.ui-title-extended-controlgroup-2btn {
 		width : 328  * @unit_base;
-
 		.ui-radio {
 			width : 163  * @unit_base;
 		}
 	}	
 }
+
+.ui-header.ui-bar-s{ 
+	position : fixed;
+	top : 0px;
+	background : @color_bar_title_bg;
+	
+	.ui-title {
+		color : @color_bar_title_text;
+
+		top : 0px;
+		min-height: 36 * @unit_base; 
+		text-align: center; 
+		font-size : 36 * @unit_base; 
+		display: block; 
+		margin: 28*@unit_base 135*@unit_base 28*@unit_base 135*@unit_base;  
+		text-overflow: ellipsis; 
+		overflow: hidden; 
+		white-space: nowrap; 
+		outline: 0 !important; 
+	}
+	
+	.ui-btn{
+		font-size : 28 * @unit_base;
+		height : 74 * @unit_base;
+		width : 124  * @unit_base;	
+	}
+
+	> .ui-btn{
+		top : 12 * @unit_base;
+		margin-top : 0px;
+		font-size : 28 * @unit_base;
+		height : 74 * @unit_base;
+		
+		background: @color_bar_title_btn_bg;
+		color 		: @color_bar_title_text;
+			
+		border-style: solid;
+		border-color: @color_bar_title_btn_border; 	
+		border-width: 1px;
+			
+		.ui-btn-inner {
+			width : 108  * @unit_base;
+		}
+	}
+	
+	> .ui-btn.ui-btn-down-s {
+		background : @color_bar_btn_press;
+		color : @color_bar_title_text;
+	}	
+}
+
+.ui-header.ui-bar-s.ui-title-extended-height {
+	height : 136  * @unit_base;
+	
+	a {
+		top : 50  * @unit_base;
+	}
+	
+	.ui-title {
+		font-size : 28  * @unit_base;
+		top : 0  * @unit_base;
+		
+		padding-top : 11 * @unit_base;		
+		margin-top : 0 * @unit_base;
+		margin-bottom : 0 * @unit_base;
+	}
+
+	.ui-title-extended-segment-style {
+		left : 0 * @unit_base;
+		top : -30%;
+	}		
+}
+
+.ui-footer.ui-bar-s.ui-footer-fixed {
+	background : @color_bar_footer_bg;
+
+	height : 114 * @unit_base;
+	.ui-title{
+		font-size : 32 * @unit_base;
+	}
+}
+/***************************************************************************
+                    Header / Footer 
+                    NavigationBar
+***************************************************************************/
+/***************************************************************************
+                    Content Top calculate
+***************************************************************************/
+.ui-title-content-normal-height,
+.ui-title-content-option-header-collapsed-1line-height  {
+	position : relative;
+	top : 100  * @unit_base;	
+}
+
+.ui-title-content-extended-height {
+	position : relative;
+	top : 136  * @unit_base;	
+}
+
+.ui-title-content-option-header-expanded-1line-height {
+	position : relative;
+	top : 195  * @unit_base; 	
+}
+
+.ui-title-content-search {
+	position : relative;
+	top : 206  * @unit_base; 		
+}
+
+.ui-title-content-optionheader-search {
+	position : relative; 	
+	top : 219  * @unit_base;		
+}
+/***************************************************************************
+                    Content Top calculate
+***************************************************************************/
 
 // NOTE: This class is applied to almost all JQM widgets!
 .ui-body-s {
@@ -464,46 +458,30 @@ a.ui-link-inherit {
 	//border : none;
 }
 
-/*  Jinhyuk_Controlbar	*/
+/*************************************************************************** 
+                    ControlBar
+***************************************************************************/
 .ui-controlbar-s, .ui-controlbar-left, .ui-controlbar-right {
-	border: 1px solid 		@color_border;
-	background: 			#1f1f1f;
-	color: 					rgb(249, 249, 249); /*{a-bar-color}*/
+	border: 1px solid 		@color_controlbar_btn_border;
+	background: 			@color_controlbar_bg;
+	color: 					@color_controlbar_btn_text;
 	font-family: Helvetica, Arial, sans-serif;
 	font-weight: bold;
-	font-size : 36 * @unit_base; /* Jinhyuk : ControlBar size modification */
-
-	/* a-bar-shadow-x, a-bar-shadow-y, a-bar-shadow-radius, a-bar-shadow-color */
-	/* no shadow : text-shadow: 0 -1px 1px #000000; */
-	/* a-bar-background-start, a-bar-background-end */
-	/* no shadow .LESSbackground-img-with-gradient(top, #3c3c3c, #111); */
-		
-	.ui-link-inherit {
-		color: rgb(249, 249, 249); /*{a-bar-color}*/
-		font-weight: bold;
-	}
-	.ui-link {
-		/* ui-bar-link */
-		color: rgb(249, 249, 249); /*{a-bar-color}*/ 
-		font-weight: bold;
-	}
+	font-size : 36 * @unit_base;
 	
-	.ui-btn-text {
-		color: rgb(249, 249, 249); /*{a-bar-color}*/	
+	.ui-link-inherit, .ui-link {
+		color: @color_controlbar_btn_text;
 		font-weight: bold;
-		text-decoration : none;
 	}
 
-	.ui-btn {
-		color: rgb(249, 249, 249); /*{a-bar-color}*/	
-		background: @color_footer; /*{a-bar-background-color}*/
+	.ui-btn-text, .ui-btn {
+		color: @color_controlbar_btn_text;	
 		font-weight: bold;
 		text-decoration : none;
 	}
 	
 	.ui-btn-down-s, .ui-btn-active {
-		color: rgb(249, 249, 249); /*{a-bar-color}*/	
-		background: rgb(42, 109, 140); /*{a-bar-background-color}*/
+		color: @color_controlbar_btn_text;	
 	}
 }
 
@@ -554,26 +532,25 @@ a.ui-link-inherit {
 
 .ui-tabbar-s {
 	.ui-btn {
-		background: #1f1f1f
+		background: @color_controlbar_tabbbar_bg;
 	}
 
 	.ui-btn-active, .ui-btn-show-style {
-		background: #4c4c4c;
+		background: @color_controlbar_btn_press;
 		border-left-style:  solid;
 		border-right-style: solid;		
-		border-left-color: 	@color_bg; 	
-		border-right-color: @color_bg;
+		border-left-color: 	@color_controlbar_btn_border; 	
+		border-right-color: @color_controlbar_btn_border;
 		border-left-width: 	1px;				
 		border-right-width: 1px;	
-
 	}
 
 	.ui-btn-animation {
-		background: #4c4c4c;
+		background: @color_controlbar_btn_press;
 		border-left-style:  solid;
 		border-right-style: solid;		
-		border-left-color: 	@color_bg; 	
-		border-right-color: @color_bg;
+		border-left-color: 	@color_controlbar_btn_border; 	
+		border-right-color: @color_controlbar_btn_border;
 		border-left-width: 	1px;				
 		border-right-width: 1px;
 		
@@ -591,19 +568,17 @@ a.ui-link-inherit {
 
 .ui-toolbar-s {
 	.ui-btn, .ui-btn-up-s {
-		background: #1f1f1f;
+		background: @color_controlbar_toolbbar_bg;
 		
 		border-left-width : 1px;
 		border-right-width : 1px;
-		border-color : #2A2A2A;
+		border-color : @color_controlbar_btn_border;
 		border-style : solid;
-		
 	}
 	
 	.ui-btn-down-s {
-		background : #4c4c4c;
+		background : @color_controlbar_btn_press;
 	}
-
 }
 
 .ui-controlbar-left.ui-navbar, .ui-controlbar-right.ui-navbar {
@@ -617,11 +592,11 @@ a.ui-link-inherit {
 		width : 100%;
 		margin :0px 0em;					
 
-		background: #1f1f1f;	
+		background: @color_controlbar_bg;	
 	}
 		
 	.ui-btn-down-s,  .ui-btn-active{
-		color: rgb(249, 249, 249); /*{a-bar-color}*/	
+		color: @color_controlbar_btn_text;	
 	}
 
 	li .ui-btn, .ui-navbar-toggle .ui-btn{
@@ -646,11 +621,11 @@ a.ui-link-inherit {
 	.ui-btn-animation {
 		position : fixed;
 			
-		background: rgb(42, 109, 140);
+		background: @color_controlbar_bg;
 		border-bottom-style:  solid;
 		border-top-style: solid;		
-		border-bottom-color: 	@color_bg; 	
-		border-top-color: @color_bg;
+		border-bottom-color: @color_controlbar_btn_border; 	
+		border-top-color: @color_controlbar_btn_border;
 		border-bottom-width: 	1px;				
 		border-top-width: 1px;
 
@@ -658,7 +633,6 @@ a.ui-link-inherit {
 	}	
 }
 
-/*  Jinhyuk_Controlbar_Left 	*/
 .ui-controlbar-left {
 	left  : 0px;
 	float : left;
@@ -684,6 +658,9 @@ a.ui-link-inherit {
 	-webkit-transition-property : top;
 	-webkit-transition: all 0.3s ease-in-out;
 }
+/*************************************************************************** 
+                    ControlBar
+***************************************************************************/
 
 
 /* corner rounding classes

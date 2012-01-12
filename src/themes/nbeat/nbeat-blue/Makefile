@@ -23,7 +23,7 @@ CSS_SRCS=	../nbeat-hd/jquery.mobile.theme.less.css \
 		../nbeat-hd/jquery.mobile.listview.less.css \
 		../nbeat-hd/jquery.mobile.virtuallistview.less.css \
 		../nbeat-hd/jquery.mobile.popupwindow.less.css \
-		../nbeat-hd/jquery.mobile.segmentctrl.css \
+		../nbeat-hd/jquery.mobile.segmentctrl.less.css \
 		../nbeat-hd/jquery.mobile.hsvpicker.less.css \
 		../nbeat-hd/jquery.mobile.colorpalette.less.css \
 		../nbeat-hd/jquery.mobile.colortitle.less.css \
