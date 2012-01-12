@@ -853,7 +853,9 @@ $( document ).bind( 'pageshow', function ( e ) {
 	var scroll = $page.find(".ui-content").attr("data-scroll");
 
 	if ( scroll === "y" ) {
-		ResizePageContentHeight( e.target );
+		setTimeout( function () {
+			ResizePageContentHeight( e.target );
+		}, 100);
 	}
 });
 
