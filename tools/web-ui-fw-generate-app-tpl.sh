@@ -3,7 +3,7 @@
 ### Prepare: set global variables ###
 CWD=`pwd`
 SCRIPTDIR="`cd \`dirname $0\`/; pwd`"
-LIBDIR=/usr/share/web-ui-fw
+LIBDIR=/usr/lib/web-ui-fw
 DATA_FRAMEWORK_ROOT=
 
 

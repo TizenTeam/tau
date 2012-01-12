@@ -1,4 +1,4 @@
-THEMES	= nbeat-black nbeat-white nbeat/nbeat-blue nbeat/nbeat-gray
+THEMES	= tizen/tizen-blue tizen/tizen-gray
 export THEME_OUTPUT_ROOT ?= ../build/
 
 all: themes
