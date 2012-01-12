@@ -100,7 +100,9 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 		var vt = this._vTracker;
 		if (vt) {
 			var c = this._$clip.height();
-			var v = this._$view.height();
+			var v = this._$view.height() +
+				parseFloat( this._$view.css("padding-top") );
+
 			vt.start(this._sy, speedY, duration, (v > c) ? -(v - c) : 0, 0);
 			keepGoing = keepGoing || !vt.done();
 		}
