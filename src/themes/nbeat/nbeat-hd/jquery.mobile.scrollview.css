@@ -73,7 +73,8 @@
  * padding here set to zero - otherwise the list scrolls underneith the top heading and can be seen above it
  */
 .ui-content.ui-scrollview-clip {
-    padding: 0;
+	padding: 0;
+	padding-bottom: 15px;
 }
 .ui-content.ui-scrollview-clip > div.ui-scrollview-view {
 	margin: 0;
@@ -85,5 +86,5 @@
  * without this, it is placed too high, so it is clipped in half
  */
 .ui-content.ui-scrollview-clip > .ui-listview.ui-scrollview-view {
-    margin: 0;
+	margin: 0;
 }

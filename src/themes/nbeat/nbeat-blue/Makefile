@@ -8,6 +8,7 @@ CSS_OUTPUT = ${OUTPUT_DIR}/web-ui-fw-theme.css
 CSS_SRCS=	../nbeat-hd/jquery.mobile.theme.less.css \
 		../nbeat-hd/jquery.mobile.core.less.css \
 		../nbeat-hd/jquery.mobile.transitions.css \
+		../nbeat-hd/jquery.mobile.scrollview.css \
 		../nbeat-hd/jquery.mobile.grids.css \
 		../nbeat-hd/jquery.mobile.headerfooter.css \
 		../nbeat-hd/jquery.mobile.navbar.css \
