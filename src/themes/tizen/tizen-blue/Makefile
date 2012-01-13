@@ -8,6 +8,7 @@ CSS_OUTPUT = ${OUTPUT_DIR}/web-ui-fw-theme.css
 CSS_SRCS=	../common/jquery.mobile.theme.less.css \
 		../common/jquery.mobile.core.less.css \
 		../common/jquery.mobile.transitions.css \
+		../common/jquery.mobile.scrollview.css \
 		../common/jquery.mobile.grids.css \
 		../common/jquery.mobile.headerfooter.css \
 		../common/jquery.mobile.navbar.css \
