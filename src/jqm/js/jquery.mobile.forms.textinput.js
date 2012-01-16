@@ -74,6 +74,7 @@ $.widget( "mobile.textinput", $.mobile.widget, {
 			newDiv.addClass(defaultTextClass);
 			newDiv.addClass(newClassName);
 			newDiv.tap(function( event ) {
+				input.blur();
 				input.focus();
 			});
 			
@@ -120,9 +121,11 @@ $.widget( "mobile.textinput", $.mobile.widget, {
 				focusedEl = input.wrap( "<div class='ui-input-search ui-shadow-inset ui-corner-all ui-btn-shadow" + themeclass + "'></div>" ).parent();
 				clearbtn = $( "<a href='#' class='ui-input-clear' title='clear text'>clear text</a>" )
 				.tap(function( event ) {
-					input.val( "" ).focus();
-					input.trigger( "change" );
-					input.trigger( "input" );	//wongi_1124
+					input.val( "" )
+						.blur()
+						.focus()
+						.trigger( "change" )
+						.trigger( "input" );
 					clearbtn.addClass( "ui-input-clear-hidden" );
 					event.preventDefault();
 				})
@@ -147,10 +150,21 @@ $.widget( "mobile.textinput", $.mobile.widget, {
 				//SLP --start search bar with cancel button
 				focusedEl.wrapAll( "<div class='input-search-bar'></div>" );
 
-				var searchicon = $("<div class='ui-image-search ui-image-searchfield'></div>")
-				.tap(function( event ) {
-					searchicon.hide();
+				input.tap(function( event ) {
+					var inputedText = input.val();
+					input.blur();
+//					if ( inputedText.length > 0 )	
 					input.focus();
+				});
+
+
+				var searchicon = $("<div class='ui-image-search ui-image-searchfield'></div>");
+				searchicon.tap(function( event ) {
+					searchicon.hide();
+					
+					input
+						.blur()
+						.focus();
 				})
 				.appendTo( focusedEl );
 
@@ -158,6 +172,7 @@ $.widget( "mobile.textinput", $.mobile.widget, {
 				.tap(function( event ) {
 					input.val( "" );
 					hideCancel();
+					input.blur();
 					input.trigger( "change" );
 					event.preventDefault();
 				})
@@ -174,15 +189,7 @@ $.widget( "mobile.textinput", $.mobile.widget, {
 					.removeClass( "ui-btn-cancel-hide" );
 					searchicon.hide();
 				}
-				function hideCancel() {
-					focusedEl.addClass( "ui-input-search-wide" )
-					.removeClass( "ui-input-search-default" );
-					cancelbtn.addClass( "ui-btn-cancel-hide" )
-					.removeClass( "ui-btn-cancel-show" );
-					searchicon.show();
-					toggleClear();
-					input.blur();					
-				}
+
 				input.focus( showCancel );
 				//SLP --end
 
@@ -195,6 +202,9 @@ $.widget( "mobile.textinput", $.mobile.widget, {
 			})
 			.blur(function(){
 				focusedEl.removeClass( "ui-focus" );
+				hideCancel();
+				input.trigger( "change" );
+				event.preventDefault();	
 			});
 
 		// Autogrow
@@ -218,6 +228,16 @@ $.widget( "mobile.textinput", $.mobile.widget, {
 					keyupTimeout = setTimeout( keyup, keyupTimeoutBuffer );
 				});
 			}
+		
+		function hideCancel() {
+			focusedEl.addClass( "ui-input-search-wide" )
+			.removeClass( "ui-input-search-default" );
+			cancelbtn.addClass( "ui-btn-cancel-hide" )
+			.removeClass( "ui-btn-cancel-show" );
+			if( input.val() =="" )	searchicon.show();
+			toggleClear();					
+		}		
+
 		},
 
 	disable: function(){
