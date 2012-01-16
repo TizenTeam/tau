@@ -1,7 +1,7 @@
 web-ui-fw (0.1.1) unstable; urgency=low
 
   * Restructuring
-  * Git: 165.213.180.234:slp/pkgs/w/web-app-fw
+  * Git: slp/pkgs/w/web-app-fw
   * Tag: web-ui-fw_0.1.1
 
  -- Youmin Ha <youmin.ha@samsung.com>  Tue, 22 Nov 2011 15:54:49 +0900
@@ -9,7 +9,7 @@ web-ui-fw (0.1.1) unstable; urgency=low
 web-ui-fw (0.1.0) unstable; urgency=low
 
   * Init
-  * Git: 165.213.180.234:slp/pkgs/w/web-app-fw
+  * Git: slp/pkgs/w/web-app-fw
   * Tag: web-ui-fw_0.1.0
 
  -- Youmin Ha <youmin.ha@samsung.com>  Fri, 02 Sep 2011 19:06:54 +0900
