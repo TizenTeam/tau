@@ -150,7 +150,22 @@ $.widget( "mobile.navbar", $.mobile.widget, {
 					.css("height", navbar_filter.height());		
 			}			
 		});		
-	//SLP --end
+
+	},
+	
+	_setDisabled: function( value, cnt ) {
+		this.element.find( "li" ).eq( cnt ).attr( "disabled", value );
+		this.element.find( "li" ).eq( cnt ).attr( "aria-disabled", value );
+	},
+		
+	disable: function(cnt) {
+		this._setDisabled( true, cnt );
+		this.element.find( "li" ).eq( cnt ).addClass( "ui-disabled" );
+	},
+
+	enable: function(cnt) {
+		this._setDisabled( false, cnt );
+		this.element.find( "li" ).eq( cnt ).removeClass( "ui-disabled" );
 	}
 });
 
