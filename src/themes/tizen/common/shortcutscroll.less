@@ -1,8 +1,9 @@
 @import "config.less";
+
 .ui-shortcutscroll {
 	position: absolute;
 	right: 0*@unit_base;
-	background-color: rgba(225, 221, 215,0.5);
+	background-color: @color_shortcutscroll_rollover_bg;
 	width: 30*@unit_base;
 	-webkit-user-select: none;
 	margin:0;
@@ -15,7 +16,7 @@
 	}
 	li {
 		cursor: pointer;
-		color:rgba(0,0,0,0.6);
+		color: @color_shortcutscroll_rollover_text;
 		padding: 2*@unit_base 2*@unit_base 2*@unit_base 2*@unit_base;
 		text-align: right;
 	}
@@ -35,7 +36,7 @@
 	}
 	li {
 		cursor: pointer;
-		color:rgba(0,0,0,0.6);
+		color: @color_shortcutscroll_rollover_text;
 		padding: 2*@unit_base 2*@unit_base 2*@unit_base 2*@unit_base;
 		text-align: right;
 	}
@@ -44,7 +45,7 @@
 .ui-shortcutscroll-bg {
 	position: absolute;
 	right: 0*@unit_base;
-	background-color: rgba(225, 221, 215,0.5);
+	background-color: @color_shortcutscroll_rollover_bg;
 	width: 30*@unit_base;
 	z-index: 10;
 	top: 0;
@@ -52,12 +53,12 @@
 
 .ui-shortcutscroll-popup {
 	position: absolute;
-	background: rgba(255,255,255,1);
-	color: rgb(180, 180, 180);
+	background: @color_shortcutscroll_popup_bg;
+	color: @color_shortcutscroll_popup_text;
 	padding:10*@unit_base 30*@unit_base;
-	-moz-box-shadow: 8*@unit_base 10*@unit_base 0*@unit_base rgb(199, 199, 199);
-	-webkit-box-shadow: 8*@unit_base 10*@unit_base 0*@unit_base rgb(199, 199, 199);
-	box-shadow: 8*@unit_base 10*@unit_base 0*@unit_base rgb(199, 199, 199);
+	-moz-box-shadow: 8*@unit_base 10*@unit_base 0*@unit_base @color_shortcutscroll_popup_shadow;
+	-webkit-box-shadow: 8*@unit_base 10*@unit_base 0*@unit_base @color_shortcutscroll_popup_shadow;
+	box-shadow: 8*@unit_base 10*@unit_base 0*@unit_base @color_shortcutscroll_popup_shadow;
 	text-align: center;
 	font-size: 75*@unit_base;
 	font-weight: bold;

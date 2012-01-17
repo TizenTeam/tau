@@ -1,5 +1,7 @@
 @import "config.less";
 
+
+
 .ui-ctxpopup {
     position: absolute;
     z-index: 9999;
@@ -17,6 +19,11 @@
     .ui-listview {
         border: none;
     }
+	
+	.ui-listview > .ui-li {
+		margin: 0 -7 * @px_base;
+		padding: 0 7 * @px_base;
+	}
 
     .ui-listview > .ui-li:last-child {
         border: none;
@@ -92,7 +99,7 @@
     
     .hlist.container {
         a.ui-link {
-            color: rgb(249,249,249);
+            color: @color_text;
             text-decoration: none;
         }
  
@@ -106,10 +113,10 @@
             padding-right: 32 * @px_base;
             padding-top: 16 * @px_base;
             padding-bottom: 16 * @px_base;
-            border-left: 1 * @px_base solid rgb(70,70,70);
-            border-right: 1 * @px_base solid rgb(0,0,0);
-            border-top: 1 * @px_base solid rgb(0,0,0);
-            border-bottom: 1 * @px_base solid rgb(70,70,70);
+            border-left: 1 * @px_base solid @color_ctxpopup_border_left;
+            border-right: 1 * @px_base solid @color_ctxpopup_border_right;
+            border-top: 1 * @px_base solid @color_ctxpopup_border_right;
+            border-bottom: 1 * @px_base solid @color_ctxpopup_border_left;
          }
 
         td:first-of-type {
@@ -139,8 +146,8 @@
         li {
             float: left;
             display: inline-block;
-            border-left: 1 * @px_base solid rgb(70,70,70);
-            border-right: 1 * @px_base solid rgb(0,0,0);
+            border-left: 1 * @px_base solid @color_ctxpopup_border_left;
+            border-right: 1 * @px_base solid @color_ctxpopup_border_right;
             text-align: center;
         }
 
@@ -253,13 +260,13 @@
             
             a.ui-link {
                 text-decoration: none;
-                color: rgb(105,151,173);
+                color: @color_ctxpopup_timepicker_text;
             }       
         }
 
         li.current {
             a.ui-link {
-                color: rgb(249, 249, 249);
+                color: @color_ctxpopup_timepicker_text_focus;
             }
         }
     }        
