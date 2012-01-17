@@ -1282,8 +1282,8 @@
 			}
 		});
 
-		// click routing - direct to HTTP or Ajax, accordingly
-		$( document ).bind( "click", function( event ) {
+		// click routing - direct to HTTP or Ajax, accordingly //koeun fixed
+		$( document ).bind( "vclick", function( event ) {
 			if( !$.mobile.linkBindingEnabled ){
 				return;
 			}
