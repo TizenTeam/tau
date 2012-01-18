@@ -23,7 +23,7 @@ CSS_SRCS=	../common/jquery.mobile.theme.less.css \
 		../common/jquery.mobile.listview.less.css \
 		../common/jquery.mobile.virtuallistview.less.css \
 		../common/jquery.mobile.popupwindow.less.css \
-		../common/jquery.mobile.segmentctrl.css \
+		../common/jquery.mobile.segmentctrl.less.css \
 		../common/jquery.mobile.hsvpicker.less.css \
 		../common/jquery.mobile.colorpalette.less.css \
 		../common/jquery.mobile.colortitle.less.css \
