@@ -6,7 +6,8 @@
 * Modified by Koeun Choi <koeun.choi@samsung.com>
 * Modified by Minkyu Kang <mk7.kang@samsung.com>
 */
-( function( $, window, document, undefined ) {
+
+( function ( $, window, document, undefined ) {
 
 jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 	options: {
@@ -17,7 +18,7 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 		overshootDuration: 250,   // Duration of the overshoot animation in msecs.
 		snapbackDuration:  500,   // Duration of the snapback animation in msecs.
 
-		moveThreshold:     10,   // User must move this many pixels in any direction to trigger a scroll.
+		moveThreshold:     50,   // User must move this many pixels in any direction to trigger a scroll.
 		moveIntervalThreshold:     150,   // Time between mousemoves must not exceed this threshold.
 
 		scrollMethod:      "translate",  // "translate", "position", "scroll"
@@ -45,7 +46,7 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 
 		var $child = this._$clip.children();
 
-		if ($child.length > 1) {
+		if ( $child.length > 1 ) {
 			$child = this._$clip.wrapInner("<div></div>").children();
 		}
 
@@ -155,14 +156,14 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 		var x = 0, y = 0;
 
 		var vt = this._vTracker;
-		if (vt) {
+		if ( vt ) {
 			vt.update();
 			y = vt.getPosition();
 			keepGoing = !vt.done();
 		}
 
 		var ht = this._hTracker;
-		if (ht) {
+		if ( ht ) {
 			ht.update();
 			x = ht.getPosition();
 			keepGoing = keepGoing || !ht.done();
@@ -173,7 +174,7 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 				[ { x: x, y: y } ] );
 
 		if ( keepGoing ) {
-			this._timerID = setTimeout(this._timerCB, this._timerInterval);
+			this._timerID = setTimeout( this._timerCB, this._timerInterval );
 		} else {
 			this._stopMScroll();
 		}
@@ -226,7 +227,7 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 					-x / $v.width() * $sbt.parent().width() + "px", "0px",
 					duration);
 			} else {
-				$sbt.css("left", -x/$v.width()*100 + "%");
+				$sbt.css("left", -x/$v.width() * 100 + "%");
 			}
 		}
 	},
@@ -348,7 +349,8 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 		var v = this._$view;
 
 		if ( this.options.delayedClickEnabled ) {
-			this._$clickEle = target.closest( this.options.delayedClickSelector );
+			this._$clickEle =
+				target.closest( this.options.delayedClickSelector );
 		}
 
 		this._lastX = ex;
@@ -358,6 +360,7 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 		this._doSnapBackY = false;
 		this._speedX = 0;
 		this._speedY = 0;
+
 		this._directionLock = "";
 
 		var cw = 0,
@@ -374,22 +377,25 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 				this._maxX = 0;
 			}
 			if ( this._$hScrollBar ) {
-				this._$hScrollBar.find(".ui-scrollbar-thumb")
-					.css( "width", (cw >= vw ? "100%" : Math.floor(cw / vw * 100) + "%") );
+				var thumb = this._$hScrollBar.find(".ui-scrollbar-thumb");
+				thumb.css( "width", (cw >= vw ?
+					"100%" : Math.floor(cw / vw * 100) + "%") );
 			}
 		}
 
 		if ( this._vTracker ) {
 			ch = parseInt( c.css("height"), 10 );
-			vh = parseInt( v.css("height"), 10 );
+			vh = parseInt( v.css("height"), 10 ) +
+				parseFloat( v.css("padding-top") );
 			this._maxY = ch - vh;
 
 			if ( this._maxY > 0 ) {
 				this._maxY = 0;
 			}
 			if ( this._$vScrollBar ) {
-				this._$vScrollBar.find(".ui-scrollbar-thumb")
-					.css( "height", (ch >= vh ? "100%" : Math.floor(ch / vh * 100) + "%") );
+				var thumb = this._$vScrollBar.find(".ui-scrollbar-thumb");
+				thumb.css( "height", (ch >= vh ?
+					"100%" : Math.floor(ch / vh * 100) + "%") );
 			}
 		}
 
@@ -426,7 +432,9 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 			return;
 		}
 
-		if ( Math.abs( this._startY - ey ) < 50 && !this._didDrag ) {
+		var mt = this.options.moveThreshold;
+
+		if ( Math.abs( this._startY - ey ) < mt && !this._didDrag ) {
 			return;
 		}
 
@@ -442,7 +450,6 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 		if ( !this._directionLock ) {
 			var x = Math.abs( dx );
 			var y = Math.abs( dy );
-			var mt = this.options.moveThreshold;
 
 			if ( x < mt && y < mt ) {
 				return false;
@@ -473,8 +480,9 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 
 		var newX = this._sx;
 		var newY = this._sy;
+		var dirLock = this._directionLock;
 
-		if ( this._directionLock !== "y" && this._hTracker ) {
+		if ( dirLock !== "y" && this._hTracker ) {
 			var x = this._sx;
 			this._speedX = dx;
 			newX = x + dx;
@@ -484,10 +492,11 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 			this._doSnapBackX = false;
 
 			var scope = (newX > 0 || newX < this._maxX);
-			if ( scope && this._directionLock === "x" ) {
+			if ( scope && dirLock === "x" ) {
 				var sv = this._getAncestorByDirection("x");
 				if ( sv ) {
-					this._setScrollPosition( newX > 0 ? 0 : this._maxX, newY );
+					this._setScrollPosition( newX > 0 ?
+							0 : this._maxX, newY );
 					this._propagateDragMove( sv, e, ex, ey, dir );
 					return false;
 				}
@@ -497,7 +506,7 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 			}
 		}
 
-		if ( this._directionLock !== "x" && this._vTracker ) {
+		if ( dirLock !== "x" && this._vTracker ) {
 			var y = this._sy;
 			this._speedY = dy;
 			newY = y + dy;
@@ -507,10 +516,11 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 			this._doSnapBackY = false;
 
 			var scope = (newY > 0 || newY < this._maxY);
-			if ( scope && this._directionLock === "y" ) {
+			if ( scope && dirLock === "y" ) {
 				var sv = this._getAncestorByDirection("y");
 				if ( sv ) {
-					this._setScrollPosition( newX, newY > 0 ? 0 : this._maxY );
+					this._setScrollPosition( newX,
+							newY > 0 ? 0 : this._maxY );
 					this._propagateDragMove( sv, e, ex, ey, dir );
 					return false;
 				}
@@ -538,6 +548,7 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 				}
 			}
 		}
+
 		this._didDrag = true;
 		this._lastX = ex;
 		this._lastY = ey;
@@ -623,10 +634,10 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 	_hideScrollBars: function () {
 		var vclass = "ui-scrollbar-visible";
 		if ( this._$vScrollBar ) {
-			this._$vScrollBar.removeClass(vclass);
+			this._$vScrollBar.removeClass( vclass );
 		}
 		if ( this._$hScrollBar ) {
-			this._$hScrollBar.removeClass(vclass);
+			this._$hScrollBar.removeClass( vclass );
 		}
 	},
 
@@ -638,10 +649,12 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 			this._dragCB = function ( e ) {
 				switch ( e.type ) {
 				case "mousedown":
-					return self._handleDragStart( e, e.clientX, e.clientY );
+					return self._handleDragStart( e,
+							e.clientX, e.clientY );
 
 				case "mousemove":
-					return self._handleDragMove( e, e.clientX, e.clientY );
+					return self._handleDragMove( e,
+							e.clientX, e.clientY );
 
 				case "mouseup":
 					return self._handleDragStop( e );
@@ -658,11 +671,13 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 				switch ( e.type ) {
 				case "touchstart":
 					t = e.originalEvent.targetTouches[0];
-					return self._handleDragStart( e, t.pageX, t.pageY );
+					return self._handleDragStart( e,
+							t.pageX, t.pageY );
 
 				case "touchmove":
 					t = e.originalEvent.targetTouches[0];
-					return self._handleDragMove( e, t.pageX, t.pageY );
+					return self._handleDragMove( e,
+							t.pageX, t.pageY );
 
 				case "touchend":
 					return self._handleDragStop( e );
@@ -736,7 +751,7 @@ $.extend( MomentumTracker.prototype, {
 		this.maxPos = maxPos;
 
 		this.fromPos = (this.state === tstates.snapback) ? this.pos : 0;
-		var pos_temp = ((this.pos < this.minPos) ? this.minPos : this.maxPos);
+		var pos_temp = (this.pos < this.minPos) ? this.minPos : this.maxPos;
 		this.toPos = (this.state === tstates.snapback) ? pos_temp : 0;
 
 		this.startTime = getCurrentTime();
@@ -754,17 +769,19 @@ $.extend( MomentumTracker.prototype, {
 	update: function () {
 		var state = this.state;
 
-		if (state === tstates.done) {
+		if ( state === tstates.done ) {
 			return this.pos;
 		}
 
+		var cur_time = getCurrentTime();
 		var duration = this.duration;
-		var elapsed = getCurrentTime() - this.startTime;
+		var elapsed =  cur_time - this.startTime;
 		elapsed = elapsed > duration ? duration : elapsed;
 
-		if (state === tstates.scrolling || state === tstates.overshot) {
+		if ( state === tstates.scrolling || state === tstates.overshot ) {
 			var dx = this.speed *
-				(1 - $.easing[this.easing]( elapsed / duration, elapsed, 0, 1, duration ));
+				(1 - $.easing[this.easing]( elapsed / duration,
+							elapsed, 0, 1, duration ));
 
 			var x = this.pos + dx;
 
@@ -781,9 +798,10 @@ $.extend( MomentumTracker.prototype, {
 				if ( elapsed >= duration ) {
 					this.state = tstates.snapback;
 					this.fromPos = this.pos;
-					this.toPos = (x < this.minPos) ? this.minPos : this.maxPos;
+					this.toPos = (x < this.minPos) ?
+						this.minPos : this.maxPos;
 					this.duration = this.options.snapbackDuration;
-					this.startTime = getCurrentTime();
+					this.startTime = cur_time;
 					elapsed = 0;
 				}
 			} else if ( state === tstates.scrolling ) {
@@ -791,7 +809,7 @@ $.extend( MomentumTracker.prototype, {
 					this.state = tstates.overshot;
 					this.speed = dx / 2;
 					this.duration = this.options.overshootDuration;
-					this.startTime = getCurrentTime();
+					this.startTime = cur_time;
 				} else if ( elapsed >= duration ) {
 					this.state = tstates.done;
 				}
@@ -802,7 +820,8 @@ $.extend( MomentumTracker.prototype, {
 				this.state = tstates.done;
 			} else {
 				this.pos = this.fromPos + ((this.toPos - this.fromPos) *
-					$.easing[this.easing]( elapsed/duration, elapsed, 0, 1, duration ));
+					$.easing[this.easing]( elapsed/duration,
+						elapsed, 0, 1, duration ));
 			}
 		}
 
@@ -815,83 +834,6 @@ $.extend( MomentumTracker.prototype, {
 
 	getPosition: function () {
 		return this.pos;
-	}
-});
-
-jQuery.widget( "mobile.scrolllistview", jQuery.mobile.scrollview, {
-	options: {
-		direction: "y"
-	},
-
-	_create: function () {
-		$.mobile.scrollview.prototype._create.call( this );
-
-		/*
-		 * Cache the dividers so we don't have to search for them everytime the
-		 * view is scrolled.
-		 *
-		 * XXX: Note that we need to update this cache if we ever support lists
-		 *	that can dynamically update their content.
-		 */
-
-		this._$dividers = this._$view.find(":jqmData(role='list-divider')");
-		this._lastDivider = null;
-	},
-
-	_setScrollPosition: function ( x, y ) {
-		// Let the view scroll like it normally does.
-
-		$.mobile.scrollview.prototype._setScrollPosition.call( this, x, y );
-
-		y = -y;
-
-		// Find the dividers for the list.
-
-		var $divs = this._$dividers;
-		var cnt = $divs.length;
-		var d = null;
-		var dy = 0;
-		var nd = null;
-		var i = 0;
-
-		for ( i; i < cnt; i++ ) {
-			nd = $divs.get( i );
-			var t = nd.offsetTop;
-
-			if ( y >= t ) {
-				d = nd;
-				dy = t;
-			}
-
-			if ( d ) {
-				break;
-			}
-		}
-
-		// If we found a divider to move position it at the top of the clip view.
-
-		if ( !d ) {
-			return;
-		}
-
-		var h = d.offsetHeight;
-		var mxy = (d !== nd) ? nd.offsetTop : (this._$view.get(0).offsetHeight);
-
-		if ( y + h >= mxy ) {
-			y = (mxy - h) - dy;
-		} else {
-			y = y - dy;
-		}
-
-		// XXX: Need to convert this over to using $().css() and supporting the non-transform case.
-
-		var ld = this._lastDivider;
-		if ( ld && d !== ld ) {
-			setElementTransform( $( ld ), 0, 0 );
-		}
-
-		setElementTransform( $( d ), 0, y + "px" );
-		this._lastDivider = d;
 	}
 });
 
