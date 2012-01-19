@@ -74,6 +74,9 @@ parseopt $@
 
 APP_NAME=${argv[0]}
 INSTALL_DIR=${argv[1]}
+if [ ! -n "$INSTALL_DIR" ]; then
+	INSTALL_DIR=.
+fi
 DESTDIR="$INSTALL_DIR/$APP_NAME"
 
 
@@ -86,7 +89,7 @@ function usage
 
 	if [ -n "$1" ]; then EXITCODE=1; echo "ERROR: $ERRMSG"; echo ""; fi
 
-	if [ ! -n "$2" ]; then 
+	if [ ! -n "$1" ]; then 
 		echo "Usage: $0 <--copylib> <--type=[w3c|wac]> <app-name> <install-dir>"
 		echo ""
 		echo "       app-name : Your application name. If whitespace is contained, wrap it "
