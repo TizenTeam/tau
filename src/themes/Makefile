@@ -1,4 +1,4 @@
-THEMES	= tizen/tizen-blue tizen/tizen-gray
+THEMES	= tizen/tizen-*
 export THEME_OUTPUT_ROOT ?= ../build/
 
 all: themes
