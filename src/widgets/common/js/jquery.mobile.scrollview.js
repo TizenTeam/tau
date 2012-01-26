@@ -31,6 +31,8 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 		showScrollBars:    true,
 
 		pagingEnabled:     false,
+		overshootEnable:   false,
+
 		delayedClickSelector: "a,input,textarea,select,button,.ui-btn",
 		delayedClickEnabled: false
 	},
@@ -42,6 +44,9 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 	},
 
 	_create: function () {
+		var $page = $('.ui-page');
+		this._$content = $page.children('.ui-content');
+
 		this._$clip = $( this.element ).addClass("ui-scrollview-clip");
 
 		var $child = this._$clip.children();
@@ -157,14 +162,14 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 
 		var vt = this._vTracker;
 		if ( vt ) {
-			vt.update();
+			vt.update( this.options.overshootEnable );
 			y = vt.getPosition();
 			keepGoing = !vt.done();
 		}
 
 		var ht = this._hTracker;
 		if ( ht ) {
-			ht.update();
+			ht.update( this.options.overshootEnable );
 			x = ht.getPosition();
 			keepGoing = keepGoing || !ht.done();
 		}
@@ -180,9 +185,41 @@ jQuery.widget( "mobile.scrollview", jQuery.mobile.widget, {
 		}
 	},
 
+	_setCalibration: function ( x, y ) {
+		if ( this.options.overshootEnable ) {
+			this._sx = x;
+			this._sy = y;
+			return;
+		}
+
+		var v = this._$view;
+		var c = this._$content;
+		var dirLock = this._directionLock;
+
+		if ( dirLock !== "y" && this._hTracker ) {
+			this._sx = x;
+		}
+
+		if ( dirLock !== "x" && this._vTracker ) {
+			var scroll_height = v.height() - c.height() +
+				parseFloat( c.css("padding-top") ) +
+				parseFloat( c.css("padding-bottom") );
+
+			if ( y >= 0 ) {
+				this._sy = 0;
+			} else if ( y < -scroll_height ) {
+				this._sy = -scroll_height;
+			} else {
+				this._sy = y;
+			}
+		}
+	},
+
 	_setScrollPosition: function ( x, y, duration ) {
-		this._sx = x;
-		this._sy = y;
+		this._setCalibration( x, y );
+
+		x = this._sx;
+		y = this._sy;
 
 		var $v = this._$view;
 
@@ -766,7 +803,7 @@ $.extend( MomentumTracker.prototype, {
 		this.duration = 0;
 	},
 
-	update: function () {
+	update: function ( overshootEnable ) {
 		var state = this.state;
 
 		if ( state === tstates.done ) {
@@ -805,7 +842,7 @@ $.extend( MomentumTracker.prototype, {
 					elapsed = 0;
 				}
 			} else if ( state === tstates.scrolling ) {
-				if ( didOverShoot ) {
+				if ( didOverShoot && overshootEnable ) {
 					this.state = tstates.overshot;
 					this.speed = dx / 2;
 					this.duration = this.options.overshootDuration;
