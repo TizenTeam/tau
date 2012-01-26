@@ -4,28 +4,33 @@
                 <h1>Date/time picker</h1>
             </div>
             <div data-role="content">
-                <h2>Date/time picker</h2>
-                <form action="#" action="get">
-                    <div data-role="fieldcontain">
-                        <input type="datetime" name="demo-date" id="demo-date" />
-                    </div>
-                </form>
-                <p>The date you selected is: <span id="selected-date1"><em>(select a date first)</em></span></p>
-                <h2>Date picker</h2>
-                <form action="#" action="get">
-                    <div data-role="fieldcontain">
-                        <input type="date" name="demo-date2" id="demo-date2" />
-                    </div>
-                </form>
-                <p>The date you selected is: <span id="selected-date2"><em>(select a date first)</em></span></p>
-                <h2>Time picker</h2>
-                <form action="#" action="get">
-                    <div data-role="fieldcontain">
-                        <input type="time" name="demo-date3" id="demo-date3" />
-                    </div>
-                </form>
-                <p>The date you selected is: <span id="selected-date3"><em>(select a date first)</em></span></p>
-
+				<ul data-role="listview">
+					<li class="ui-li-3-2-2">
+						<span class="ui-li-text-main">
+               		    	<input type="datetime" name="demo-date" id="demo-date" 
+									data-format="MMM dd yyyy hh:mm tt"/>
+						</span>
+						<span class="ui-li-text-sub">
+							Date/Time Picker - <span id="selected-date1"><em>(select a date first)</em></span>
+						</span>
+					</li>
+					<li class="ui-li-3-2-2">
+						<span class="ui-li-text-main">
+                    	   	<input type="date" name="demo-date2" id="demo-date2"/>
+						</span>
+						<span class="ui-li-text-sub">
+							Date Picker  - <span id="selected-date2"><em>(select a date first)</em></span>
+						</span>
+					</li>
+					<li class="ui-li-3-2-2">
+						<span class="ui-li-text-main">
+                    		<input type="time" name="demo-date3" id="demo-date3"/>
+						</span>
+						<span class="ui-li-text-sub">
+							Time Picker - <span id="selected-date3"><em>(select a date first)</em></span>
+						</span>
+					</li>
+				</ul>
             </div><!-- /content -->
         </div> <!-- /page -->
 
