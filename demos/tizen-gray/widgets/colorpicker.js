@@ -1,11 +1,12 @@
 $( "#colorpicker-demo" ).live("pageshow", function () {
 	// default color
-	$("#colortitle").text("#54a12d");
-	$("#colortitle").css("color", "#54a12d");
+	var defaultColor = "#45cc98";
+	$("#colortitle").text(defaultColor);
+	$("#colortitle").css("color", defaultColor);
 
 	// hsvpicker 
 	$("#hsvpicker").bind("colorchanged", function(e, color) {
-		 // cheang palette color
+		 // change palette color
 		$("#colorpalette").colorpalette("option", "color", color);
 		// show color text
 		$("#colortitle").text(color);
@@ -20,5 +21,7 @@ $( "#colorpicker-demo" ).live("pageshow", function () {
 		$("#colortitle").text(color);
 		$("#colortitle").css("color", color);
 	});
+
+	$("#colorpalette").colorpalette("option", "color", defaultColor);
 });
 

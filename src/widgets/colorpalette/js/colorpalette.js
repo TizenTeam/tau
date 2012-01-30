@@ -23,7 +23,7 @@
  * element inside a page. Alternatively, call colorpalette() on an
  * element.
  *
- *     data-role: Myst have 'colorpalette'.
+ *     data-role: Must have 'colorpalette'.
  *     data-color: String; initial color can be specified in html
  *            using the data-color="#ff00ff" attribute or
  *            when constructed in javascript, eg :
