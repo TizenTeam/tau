@@ -89,6 +89,8 @@ var last_index = INIT_LIST_NUM -1;	//last id of <li> element.
 
 var num_top_items = 0;				//By scroll move, number of hidden elements.
 
+var accessDom = false;
+
 $.widget( "mobile.virtuallistview", $.mobile.widget, {
 	options: {
 		theme: "s",
@@ -241,6 +243,8 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 				return;
 			}
 			
+			accessDom = true;
+			
 			for (i=0; i<num; i++)
 			{
 				if (v_lastIndex + i > TOTAL_ITEMS)
@@ -260,9 +264,12 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 					( cur_item ).css( 'top', TITLE_H + LINE_H*( v_lastIndex + 1 + i ) ).attr( 'id', 'li_' +( v_lastIndex + 1+ i ) );
 				}
 				else {
+					accessDom = false;
 					break;
 				}
 			}
+			
+			accessDom = false;
 		};
 
 		// Move older item to bottom
@@ -270,6 +277,8 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 			if ( v_firstIndex < 0 ) {
 				return;
 			}
+			
+			accessDom = true;
 			
 			for ( i=0; i<num; i++ )
 			{
@@ -291,9 +300,12 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 					$( cur_item ).css( 'top', TITLE_H + LINE_H * ( v_firstIndex - 1 - i )).attr( 'id', 'li_' +( v_firstIndex - 1 - i ));
 				}
 				else {
+					accessDom = false;
 					break;
 				}
 			}
+			
+			accessDom = false;
 		};
 		
 		/* Matrix to Array function written by Blender@stackoverflow.nnikishi@emich.edu*/
@@ -338,20 +350,12 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 				if ( last_index + velocity > TOTAL_ITEMS ) {
 					velocity = TOTAL_ITEMS - last_index -1;
 				}
-				
-				/* Prevent scroll touch event while DOM access */
-				$(document).bind( "touchstart", function(event) {
-					  event.preventDefault();
-				});				
-				
+
 				_moveTopBottom( first_index, last_index, velocity, o.dbkey );
 				
 				first_index += velocity;
 				last_index += velocity;
 				num_top_items -= velocity;
-				
-				/* Unset prevent touch event */
-				$( document ).unbind( "touchstart" );
 			}
 		}
 		else if( direction == SCROLL_UP ) {
@@ -359,20 +363,12 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
 				if ( first_index < velocity ) {
 					velocity = first_index;
 				}
-
-				/* Prevent scroll touch event while DOM access */
-				$( document ).bind( "touchstart", function( event ) {
-					  event.preventDefault();
-				});		
 				
 				_moveBottomTop( first_index, last_index, velocity, o.dbkey );
 				
 				first_index -= velocity;
 				last_index -= velocity;
 				num_top_items += velocity;
-				
-				/* Unset prevent touch event */
-				$( document ).unbind( "touchstart" );				
 			}
 			
 			if ( first_index < PAGE_BUF ) {
@@ -427,6 +423,15 @@ $.widget( "mobile.virtuallistview", $.mobile.widget, {
     	else {
     		$( document ).bind( 'scrollstop', t.options, t._scrollmove );
     	}
+    	
+		/* Prevent scroll touch event while DOM access */
+    	accessDom = false;
+    	
+		$(document).bind( "touchstart", function(event) {
+			if ( accessDom ) {
+				return false;
+			}
+		});				
 	    
 	    $( window ).resize( o, t._resize );
 
