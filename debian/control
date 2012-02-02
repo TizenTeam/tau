@@ -13,7 +13,7 @@ Description: Tizen web framework javascript libraries
 
 Package: libweb-ui-fw-themes
 Architecture: all
-Depends: libweb-ui-fw (= ${Source-Version}), libweb-ui-fw-theme-tizen-gray, libweb-ui-fw-theme-tizen-blue
+Depends: libweb-ui-fw (= ${Source-Version}), libweb-ui-fw-theme-tizen-gray
 Description: Metapackage for web-ui-framework themes
 
 Package: libweb-ui-fw-theme-tizen-gray
@@ -21,14 +21,13 @@ Architecture: all
 Depends: libweb-ui-fw (= ${Source-Version})
 Description: NBeat gray theme for web-ui-framework
 
-Package: libweb-ui-fw-theme-tizen-blue
-Architecture: all
-Depends: libweb-ui-fw (= ${Source-Version})
-Description: NBeat blue theme for web-ui-framework
-
 Package: libweb-ui-fw-dev
 Architecture: all
 Depends: libweb-ui-fw (= ${Source-Version})
 Description: Dev package for libweb-ui-fw
 XB-Generate-Docs: yes
 
+Package: libweb-ui-fw-demo-tizen-gray
+Architecture: all
+Depends: libweb-ui-fw, libweb-ui-fw-theme-tizen-gray
+Description: Tizen-gray widget demo
