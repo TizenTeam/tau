@@ -83,9 +83,19 @@ $.widget( "mobile.navbar", $.mobile.widget, {
 		});
 
 		$navbar.delegate( "a", "vclick", function( event ) {
+			/* Disabled Button : Intercept touch event & do nothing */
+			if ( $( this ).parent().hasClass("ui-disabled") ) {
+				return false;
+			}
+			
 			$navbtns.not( ".ui-state-persist" ).removeClass( $.mobile.activeBtnClass );
 			$( this ).addClass( $.mobile.activeBtnClass );
 		});
+
+		/* Disabled Button : Intercept touch event */
+		$navbar.delegate( "li.ui-disabled a.ui-btn", "vmousedown vmouseup vmouseover vclick", function( event ) {
+			return false;
+		});		
 
 		//SLP --start for tabbar	
 		if( style === "tabbar" || style === "toolbar" ){
