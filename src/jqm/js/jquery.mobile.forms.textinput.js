@@ -174,6 +174,8 @@ $.widget( "mobile.textinput", $.mobile.widget, {
 				shadow: true
 			});
 
+			hideCancel(); /* Hide Cancel button when create */
+
 			function toggleClear() {
 				if ( !input.val() ) {
 					clearbtn.addClass( "ui-input-clear-hidden" );
