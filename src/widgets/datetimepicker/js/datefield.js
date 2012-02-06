@@ -67,7 +67,7 @@
  *    $("#myDatetimepicker").bind("date-changed", function(e, date) {
  *        alert("New date: " + date.toString());
  *    });
- */ 
+ */
 
 
 (function($, window, undefined) {
@@ -90,37 +90,39 @@
 		/**
 		 * return W3C DTF string
 		 */
-		getValue: function() { 
-			var time = this.data.time;
-			var date = this.data.date;			
+		getValue: function() {
+			var data = [];
+			for ( item in this.data ) {
+				data[item] = this.data[item];
+			}
+
 			if ( this.calendar.convert ) {
-				var greg = this.calendar.convert.toGregorian( 
-						date.year, date.month, date.day );
-				date.year = greg.getFullYear();
-				date.month = greg.getMonth();
-				date.day = greg.getDate();
+				var greg = this.calendar.convert.toGregorian(
+						data.year, data.month, data.day );
+				data["year"] = greg.getFullYear();
+				data["month"] = greg.getMonth();
+				data["day"] = greg.getDate();
 			}
 			var obj = this;
-			var toTimeString = function timeStr( t ) {				
-				return  obj._makeTwoDigits( t.hour ) + ':' +  
-				 	obj._makeTwoDigits( t.min ) + ':' +
-					obj._makeTwoDigits( t.sec );
-				
+			var toTimeString = function timeStr( t ) {
+				return  obj._makeTwoDigits( t["hour"] ) + ':' +
+					obj._makeTwoDigits( t["min"] ) + ':' +
+					obj._makeTwoDigits( t["sec"] );
 			};
+
 			var toDateString = function dateStr( d ) {
-				return ( "" + ( ( d.year % 10000 ) + 10000 ) ).substr(1) + '-' +  
-					obj._makeTwoDigits( d.month ) + '-' +  
-					obj._makeTwoDigits( d.day ); 
-				
+				return ( "" + ( ( d["year"] % 10000 ) + 10000 ) ).substr(1) + '-' +
+					obj._makeTwoDigits( d["month"] ) + '-' +
+					obj._makeTwoDigits( d["day"] );
 			};
 
 			switch ( this.options.type ) {
 			case 'time':
-				return toTimeString( time );
+				return toTimeString( data );
 			case 'date':
-				return toDateString( date );
+				return toDateString( data );
 			default:
-				return toDateString( date ) + 'T' + toTimeString( time );
+				return toDateString( data ) + 'T' + toTimeString( data );
 			}
 		},
 
@@ -149,7 +151,7 @@
 				}
 				target.text( hour );
 				break;
-			case 'm':				
+			case 'm':
 			case 'M':
 			case 'd':
 			case 's':
@@ -176,7 +178,7 @@
 				} else if ( value < 100 ) {
 					value = '00' + value;
 				} else if ( value < 1000 ) {
-					value = '0' + value; 
+					value = '0' + value;
 				}
 				target.text( value );
 				break;
@@ -220,7 +222,7 @@
 				case 'MMMM':
 					$(div).append( tpl.replace('%1', 'month') );
 					attr['month'] = true;
-					break;	
+					break;
 				case 'yy':	// year two digit
 				case 'yyyy': // year four digit
 					$(div).append( tpl.replace('%1', 'year') );
@@ -230,16 +232,17 @@
 					// add button
 				case 'tt': //AM / PM indicator AM/PM
 					// add button
-					var ampm = this.data.time.hour > 11 ? 
-							this.calendar.PM[0] : this.calendar.AM[0];							
-					var btn = '<a href="#" class="ui-datefield-ampm" data-role="button">' + 
+					var ampm = this.data["hour"] > 11 ?
+							this.calendar.PM[0] : this.calendar.AM[0];
+					var btn = '<a href="#" class="ui-datefield-ampm"' +
+							' data-role="button" data-inline="true">' +
 							ampm + '</a>';
 					$(div).append( btn );
 					attr['ampm'] = true;
 					break;
 				case 'g':
 				case 'gg':
-					$(div).append( tpl.replace('%1', 'era').replace('%2', 
+					$(div).append( tpl.replace('%1', 'era').replace('%2',
 																this.calendar.eras.name) );
 					break;
 				default : // string or any non-clickable object
@@ -250,17 +253,17 @@
 
 			return {
 				attr: attr,
-				html: div,				
+				html: div,
 			};
 		},
 
 		_switchAmPm: function( obj, owner ) {
 			if ( this.calendar.AM != null ) {
 				if ( this.calendar.AM[0] == $(owner).find('.ui-btn-text').text() ) { // AM to PM
-					this.data.time.hour += 12;
+					this.data["hour"] += 12;
 					$(owner).find('.ui-btn-text').text( this.calendar.PM[0] );
 				} else {	// PM to AM
-					this.data.time.hour -= 12;
+					this.data["hour"] -= 12;
 					$(owner).find('.ui-btn-text').text( this.calendar.AM[0] );
 				}
 				obj.update();
@@ -286,10 +289,9 @@
 				} else {
 					token.push( pattern.charAt(0) );
 					pattern = pattern.substr(1);
-				
 				}
 			}
-			
+
 			return token;
 		},
 
@@ -302,52 +304,47 @@
 
 			var isTime = type.indexOf("time") > -1;
 			var isDate = type.indexOf("date") > -1;
-	
+
 			$.extend( this, {
 				elem: input,
 				time: isTime,
 				date: isDate,
 				calendar: Globalize.culture().calendars.standard,
 				data: {
-					now: new Date(),
-					parentInput: undefined,
-					time: { 
-						hour: 0,
-						min: 0,
-						sec: 0
-					},
-					date: {
-						year: 0,
-						month: 0,
-						day: 0
-					},
+					now		: new Date(),
+					"hour"	: 0,
+					"min"	: 0,
+					"sec"	: 0,
+					"year"	: 0,
+					"month"	: 0,
+					"day"	: 0
 				},
-				
+
 			});
-		
+
 			// init date&time
 			var now = this.data.now;
+			var data = this.data;
 			if ( isDate ) {
-				var date = this.data.date;	 	
 				if ( this.calendar.convert ) {
-					var local = this.calendar.convert.fromGregorian( 
+					var local = this.calendar.convert.fromGregorian(
 							this.data.now );
-					date.year = local.year;
-					date.month = local.month + 1;
-					date.day = local.day;
+					data["year"] = local.year;
+					data["month"] = local.month + 1;
+					data["day"] = local.day;
 				} else {
-					date.year = now.getFullYear();
-					date.month = now.getMonth() + 1;
-					date.day = now.getDate();
+					data["year"] = now.getFullYear();
+					data["month"] = now.getMonth() + 1;
+					data["day"] = now.getDate();
 				}
 			}
 
 			if ( isTime ) {
-				var time = this.data.time;
-				time.hour = now.getHours();
-				time.min = now.getMinutes();
-				time.sec = now.getSeconds();
+				data["hour"] = now.getHours();
+				data["min"] = now.getMinutes();
+				data["sec"] = now.getSeconds();
 			}
+
 			$.mobile.todons.parseOptions( this );
 			$(input).css('display', 'none');
 			$div = $(document.createElement('div'));
@@ -363,19 +360,19 @@
 				obj._switchAmPm( obj, this );
 			});
 		},
-		
+
 		_populateDataSelector: function( field, pat, obj ) {
 			var values, numItems, current, data;
 			switch ( field ) {
-			case 'hour': 
+			case 'hour':
 				if ( pat == 'H' ) {
 					// twentyfour
 					values = range( 0, 23 );
 					data = range( 0, 23 );
-					current = obj.data.time.hour;
+					current = obj.data["hour"];
 				} else {
 					values = range( 1, 12 );
-					current = obj.data.time.hour - 1;//11
+					current = obj.data["hour"] - 1;//11
 					if ( current >= 11 ) {
 						current = current - 12;
 						data = range( 13, 23 );
@@ -401,10 +398,10 @@
 					values = values.map( obj._makeTwoDigits );
 				}
 				data = range( 0, 59 );
-				current = ( field == 'min' ? obj.data.time.min : obj.data.time.sec );
+				current = ( field == 'min' ? obj.data["min"] : obj.data["sec"] );
 				numItems = values.length;
 				break;
-			case 'year':				
+			case 'year':
 				var local = new Date( 1900, 0, 1 );
 				var yearlb;
 				var yearhb;
@@ -415,9 +412,9 @@
 				} else {
 					yearlb = local.getFullYear();
 					yearhb = yearlb + 200;
-				}	
+				}
 				data = range( yearlb, yearhb );
-				current = obj.data.date.year - yearlb;
+				current = obj.data["year"] - yearlb;
 				values = range( yearlb, yearhb );
 				numItems = values.length;
 				break;
@@ -442,7 +439,7 @@
 					}
 				}
 				data = range( 1, values.length );
-				current = obj.data.date.month - 1;
+				current = obj.data["month"] - 1;
 				numItems = values.length;
 				break;
 			case 'day':
@@ -453,18 +450,18 @@
 					values = values.map( obj._makeTwoDigits );
 				}
 				data = range( 1, day );
-				current = obj.data.date.day - 1;
+				current = obj.data["day"] - 1;
 				numItems = day;
 				break;
 			}
-			
+
 			return {
 				values: values,
 				data: data,
 				numItems: numItems,
 				current: current
 			};
-			
+
 		},
 
 		_showDataSelector: function( obj, ui, target ) {
@@ -477,14 +474,14 @@
 			var field = attr.match(/ui-datefield-([^ ]*)/);
 			if ( !field ) {
 				return;
-			} 
-			
-			target.addClass('ui-datefield-selected');
+			}
+
+			target.not('.ui-datefield-seperator').addClass('ui-datefield-selected');
 
 			var pat = target.jqmData('pat');
 			var data = obj._populateDataSelector( field[1], pat, obj );
 
-			var values = data.values, 
+			var values = data.values,
 				numItems = data.numItems;
 				current = data.current;
 				valuesData = data.data;
@@ -500,56 +497,39 @@
 
 					$li.append( $item );
 					$ul.append( $li );
-					
+
 					if ( current == item ) {
 						$li.addClass('current');
 					}
 				}
-				
+
 				var $div = $(document.createElement('div') );
 				$div.attr("data-style", "picker").append( $ul ).appendTo( ui );
 				var $ctx = $div.ctxpopup();
 
-				$ctx.ctxpopup( 'pop', 
+				$ctx.ctxpopup( 'pop',
 						target.offset().left + target.width() / 2 - window.pageXOffset,
 						target.offset().top + target.height() / 2 - window.pageYOffset,
 						target );
+
 				$div.bind('close', function(e) {
 					$div.unbind( 'close' );
 					$ul.unbind( 'vclick' );
 					$(obj).unbind( 'update' );
 					$(ui).find('.ui-datefield-selected').removeClass('ui-datefield-selected');
 				});
+
 				$(obj).bind( 'update', function( e, val ) {
 					$ctx.ctxpopup( 'close' );
 					var data = $(ui).find( '.' + field[0] );
 					obj._updateField( $(data), val );
-					console.log( data );
-					switch( field[1] ) {
-					case 'year':
-						obj.data.date.year = val;
-						break;
-					case 'month':
-						obj.data.date.month = val;
-						break;
-					case 'day':
-						obj.data.date.day = val;
-						break;
-					case 'hour':
-						obj.data.time.hour = val;
-						break;
-					case 'min':
-						obj.data.time.min = val;
-						break;
-					case 'sec':
-						obj.data.time.sec = val;
-						break;
-					}
+					obj.data[ field[1] ] = val;
 					obj.update();
 				});
+
 				$ul.bind( 'vclick', function( e ) {
 					if ( $(e.target).is('a') ) {
-						var val = $(e.target).jqmData("val"); 
+						var val = $(e.target).jqmData("val");
 						$(obj).trigger( 'update', val ); // close popup, unselect field
 					}
 				});
@@ -558,29 +538,11 @@
 
 		_initField: function( type, div ){
 			var updateFields = function( obj, html, attr ) {
-				if ( attr['year'] ) {
-					obj._updateField( $(html).find( '.ui-datefield-year' ), 
-									obj.data.date.year );
-				} 
-				if ( attr['month'] ) {
-					obj._updateField( $(html).find( '.ui-datefield-month' ),
-									obj.data.date.month );
-				} 
-				if ( attr['day'] ) {
-					obj._updateField( $(html).find( '.ui-datefield-day' ),
-									obj.data.date.day );
-				} 
-				if ( attr['hour'] ) {
-					obj._updateField( $(html).find( '.ui-datefield-hour' ),
-									obj.data.time.hour );
-				} 
-				if ( attr['min'] ) {
-					obj._updateField( $(html).find( '.ui-datefield-min' ),
-									obj.data.time.min );
-				}
-				if ( attr['sec'] ) {
-					obj._updateField( $(html).find( '.ui-datefield-sec' ),
-									obj.data.time.sec );
+				for( item in attr ) {
+					if ( attr[item] ) {
+						obj._updateField( $(html).find( '.ui-datefield-' + item ),
+							obj.data[item] );
+					}
 				}
 			};
 
@@ -606,8 +568,8 @@
 					updateFields( this, time.html, time.attr );
 					div.append( time.html );
 				}
-			}									
-		},		
+			}
+		},
 
 	});
 
