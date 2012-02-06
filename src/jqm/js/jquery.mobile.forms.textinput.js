@@ -147,6 +147,8 @@ $.widget( "mobile.textinput", $.mobile.widget, {
 				toggleClear();
 				input.keyup( toggleClear );
 			
+			input.bind('paste cut keyup focus change blur', toggleClear);
+
 				//SLP --start search bar with cancel button
 				focusedEl.wrapAll( "<div class='input-search-bar'></div>" );
 
@@ -216,9 +218,7 @@ $.widget( "mobile.textinput", $.mobile.widget, {
 						clientHeight = input[ 0 ].clientHeight;
 
 					if ( clientHeight < scrollHeight ) {
-						input.css({
-							height: (scrollHeight + extraLineHeight)
-						});
+						input.height(scrollHeight + extraLineHeight);
 					}
 				},
 				keyupTimeout;
@@ -227,6 +227,17 @@ $.widget( "mobile.textinput", $.mobile.widget, {
 					clearTimeout( keyupTimeout );
 					keyupTimeout = setTimeout( keyup, keyupTimeoutBuffer );
 				});
+
+			// binding to pagechange here ensures that for pages loaded via
+			// ajax the height is recalculated without user input
+			$( document ).one( "pagechange", keyup );
+
+			// Issue 509: the browser is not providing scrollHeight properly until the styles load
+			if ( $.trim( input.val() ) ) {
+				// bind to the window load to make sure the height is calculated based on BOTH
+				// the DOM and CSS
+				$( window ).load( keyup );
+			}
 			}
 		
 		function hideCancel() {
