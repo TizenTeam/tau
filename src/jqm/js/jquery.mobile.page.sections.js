@@ -69,8 +69,7 @@ $( ":jqmData(role='page'), :jqmData(role='dialog')" ).live( "pagecreate", functi
 			backBtn,
 			footerExist = $this.jqmData("footerexist");  /* Footer on / off option : Wongi */
 		
-		if (footerExist != undefined && (footerExist == true || footerExist == false))
-		{
+		if ( footerExist != undefined && (footerExist == true || footerExist == false) ){
 			/*$.mobile.page.prototype.options.footerExist = footerExist;*/
 			o.footerExist = footerExist;
 		}
@@ -79,7 +78,6 @@ $( ":jqmData(role='page'), :jqmData(role='dialog')" ).live( "pagecreate", functi
 
 		//apply theming and markup modifications to page,header,content,footer
 		if ( role === "header" || role === "footer" ) {
-			
 			var thisTheme = theme || ( role === "header" ? o.headerTheme : o.footerTheme ) || pageTheme;
 
 			$this
@@ -94,35 +92,29 @@ $( ":jqmData(role='page'), :jqmData(role='dialog')" ).live( "pagecreate", functi
 			rightbtn = $headeranchors.hasClass( "ui-btn-right" );
 
 			leftbtn = leftbtn || $headeranchors.eq( 0 ).not( ".ui-btn-right" ).addClass( "ui-btn-left" ).length;
-			
 			rightbtn = rightbtn || $headeranchors.eq( 1 ).addClass( "ui-btn-right" ).length;
-			
-			if(o.footerUserControl)
+
+			// set default userControl value _ SLP
+			if( o.footerUserControl )
 				$.mobile.page.prototype.options.footerUserControl = "true";
 			
 			// Auto-add back btn on pages beyond first view
-			if ( o.addBackBtn && 
-				o.footerExist && /* SLP Default Footer : Jinhyuk */
-				(role === "footer"  ) &&
-//				$( ".ui-page" ).length > 1 &&
+			// create backbtn in case footer exist _ SLP
+			if( o.addBackBtn &&
+				o.footerExist &&
+				( role === "footer" ) &&
 				$this.jqmData( "url" ) !== $.mobile.path.stripHash( location.hash ) &&
 				!leftbtn ) {
-
-				// SLP -- start jinhyuk.. remove arrow-l, change left btn to back
-				//backBtn = $( "<a href='#' class='ui-btn-left' data-"+ $.mobile.ns +"rel='back' data-"+ $.mobile.ns +"icon='arrow-l'>"+ o.backBtnText +"</a>" )
-				backBtn = $( "<a href='#' class='ui-btn-back' data-"+ $.mobile.ns +"rel='back' data-"+ $.mobile.ns +"icon='header-back-btn'></a>" )
-				// SLP --end
+				
+				backBtn = $( "<a href='#' class='ui-btn-back' data-"+ $.mobile.ns +"rel='back' data-"+ $.mobile.ns +"icon='header-back-btn'></a>" )				
 					// If theme is provided, override default inheritance
 					.attr( "data-"+ $.mobile.ns +"theme", o.backBtnTheme || thisTheme )
 					.prependTo( $this );
 
-				// SLP --start back btn : 11/14 jqm back btn has a bug.... temporary fix.
 				backBtn.bind( "vclick", function( event ) {
 					window.history.back();
 					return false;
 				});
-				// SLP --end
-
 			}
 
 			// Page title
@@ -148,29 +140,31 @@ $( ":jqmData(role='page'), :jqmData(role='dialog')" ).live( "pagecreate", functi
 			$this.attr( "role", "main" );
 
 			/* Add default footer to add backbtn */
+			// set backbtn in case footer is not exist _ SLP
 			thisTheme = "s";
-			if(o.footerExist){
+			if( o.footerExist ){
 				backBtn = $( "<a href='#' class='ui-btn-back' data-"+ $.mobile.ns +"rel='back' data-"+ $.mobile.ns +"icon='header-back-btn'></a>" )
 					.attr( "data-"+ $.mobile.ns +"theme", o.backBtnTheme || thisTheme );
+				var footer = $page.find( "div:jqmData(role='footer')" );					
 
-				if($page.find("div:jqmData(role='footer')").length != 0){
-					if(!$page.find("div:jqmData(role='footer')").find("jqmData(role='navbar')").is("jqmData(style='tabbar')")){				
-						backBtn.appendTo($page.find("div:jqmData(role='footer')"));	
+				if( footer.length != 0 ){
+					// add backbtn in case toolbar _ SLP
+					if( !footer.find("jqmData(role='navbar')").is("jqmData(style='tabbar')") ){
+						backBtn.appendTo( footer );	
+					}
+				} else{					
+					if( !$.mobile.page.prototype.options.footerUserControl ) {
+						normalFooter = $( "<div data-role='footer' class='ui-footer ui-bar-s ui-footer-fixed fade ui-fixed-overlay' data-position='fixed'></div>" )
+						.insertAfter( $page.find( ".ui-content" ) );
+						backBtn.appendTo( normalFooter );			
 					}
 				}
-				else{
-					if(!$.mobile.page.prototype.options.footerUserControl) {
-						normalFooter = $("<div data-role='footer' class='ui-footer ui-bar-s ui-footer-fixed fade ui-fixed-overlay' data-position='fixed'></div>")
-						.insertAfter($page.find( ".ui-content" ));
-						backBtn.appendTo(normalFooter);						
-					}											
-				}	
-				if(backBtn){
+				if( backBtn ){
 					backBtn.bind( "vclick", function( event ) {
-							window.history.back();
-							return false;
-					});			
-				}		
+						window.history.back();
+						return false;
+					});
+				}
 			}
 		}
 	});
