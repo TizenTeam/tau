@@ -9,7 +9,7 @@ Standards-Version: 0.1.0
 Package: libweb-ui-fw
 Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: Tizen web framework javascript/css libraries
+Description: Tizen web framework javascript libraries
 
 Package: libweb-ui-fw-themes
 Architecture: all
