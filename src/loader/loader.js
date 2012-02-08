@@ -120,9 +120,16 @@ S = {
 				src = elem.getAttribute('src');
 			if(src && src.match(this.libFileName)) {
 				// Set framework data, only when they are given.
-				this.frameworkData.rootDir = elem.getAttribute('data-framework-root') || this.frameworkData.rootDir;
-				this.frameworkData.version = elem.getAttribute('data-framework-version') || this.frameworkData.version;
-				this.frameworkData.theme = elem.getAttribute('data-framework-theme') || this.frameworkData.theme;
+				var tokens = src.split(/[\/\\]/),
+					version_idx = -3;
+				this.frameworkData.rootDir = elem.getAttribute( 'data-framework-root' ) || 
+					tokens.slice( 0, tokens.length + version_idx ).join( '/' ) ||
+					this.frameworkData.rootDir;
+				this.frameworkData.version = elem.getAttribute( 'data-framework-version' ) || 
+					tokens[ tokens.length + version_idx ] ||
+					this.frameworkData.version;
+				this.frameworkData.theme = elem.getAttribute( 'data-framework-theme' ) || 
+					this.frameworkData.theme;
 				foundScript = true;
 				break;
 			}
