@@ -268,16 +268,18 @@ S = {
 // Loader's jobs
 (function (S, $, undefined) {
 
+	// Try to set globalize first
+	S.getParams();
+	S.setGlobalize();
+
  	// Turn off JQM's auto initialization option.
 	// NOTE: This job must be done before domready.
 	$.mobile.autoInitializePage = false;
 
 	domReady(function() {
 		S.beforeAct(S, $);
-		S.getParams();
 		S.loadTheme();
 		S.setViewport();
 		S.startAct(S, $);
-		S.setGlobalize();
 	});
  })(S, jQuery);
