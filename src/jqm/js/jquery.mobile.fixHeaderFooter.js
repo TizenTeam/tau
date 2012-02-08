@@ -347,7 +347,8 @@ $.mobile.fixedToolbars = (function() {
 
 			/* Header position fix(remove transition) : Jinhyuk */
 			var next_id = $( event.target ).attr( "id" );
-			$( "#"+next_id ).find( ":jqmData(role='header')" ).removeClass( "fade in out" ).appendTo( $.mobile.pageContainer );
+			if($("#"+next_id).is("jqmData(role='header')"))
+				$( "#"+next_id ).find( ":jqmData(role='header')" ).removeClass( "fade in out" ).appendTo( $.mobile.pageContainer );
 		})
 
 		.live( "pageshow", function( event, ui ) {
