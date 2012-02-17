@@ -1,0 +1,25 @@
+From b0074ca866b536d2a8cfbe6a195cd7b8f1cb8e8c Mon Sep 17 00:00:00 2001
+From: Minkyu Kang <mk7.kang@samsung.com>
+Date: Wed, 15 Feb 2012 19:55:16 +0900
+Subject: [PATCH] JQM: change click to vclick for click routing
+
+---
+ .../js/jquery.mobile.navigation.js                 |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.navigation.js b/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.navigation.js
+index f85a491..555f4b3 100755
+--- a/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.navigation.js
++++ b/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.navigation.js
+@@ -1294,7 +1294,7 @@
+ 		});
+ 
+ 		// click routing - direct to HTTP or Ajax, accordingly
+-		$( document ).bind( "click", function( event ) {
++		$( document ).bind( "vclick", function( event ) {
+ 			if( !$.mobile.linkBindingEnabled ){
+ 				return;
+ 			}
+-- 
+1.7.5.4
+

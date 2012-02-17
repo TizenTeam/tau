@@ -1,0 +1,26 @@
+From b0ef5938298ad314cc3ea7ffd5afeb34b42c3bbb Mon Sep 17 00:00:00 2001
+From: Youmin Ha <youmin.ha@samsung.com>
+Date: Wed, 15 Feb 2012 17:47:08 +0900
+Subject: [PATCH] JQM: Don't draw right arrow on clickable listitems (For Tizen theme)
+
+---
+ .../js/jquery.mobile.listview.js                   |    3 ++-
+ 1 files changed, 2 insertions(+), 1 deletions(-)
+
+diff --git a/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.listview.js b/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.listview.js
+index 58a2078..0f35aa3 100644
+--- a/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.listview.js
++++ b/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.listview.js
+@@ -183,7 +183,8 @@ $.widget( "mobile.listview", $.mobile.widget, {
+ 						shadow: false,
+ 						corners: false,
+ 						iconpos: "right",
+-						icon: a.length > 1 || icon === false ? false : icon || "arrow-r",
++						//icon: a.length > 1 || icon === false ? false : icon || "arrow-r",
++						icon: false,
+ 						theme: itemTheme
+ 					});
+ 
+-- 
+1.7.4.1
+

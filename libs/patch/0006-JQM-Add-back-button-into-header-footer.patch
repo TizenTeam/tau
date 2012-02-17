@@ -1,0 +1,181 @@
+From 259750f02a678feeb3ce1da00c8af596ab584303 Mon Sep 17 00:00:00 2001
+From: Minkyu Kang <mk7.kang@samsung.com>
+Date: Thu, 16 Feb 2012 18:01:41 +0900
+Subject: [PATCH 2/2] JQM: Add back button into header/footer
+
+---
+ .../js/jquery.mobile.page.sections.js              |  105 +++++++++++++++++---
+ 1 files changed, 91 insertions(+), 14 deletions(-)
+
+diff --git a/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.page.sections.js b/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.page.sections.js
+index 2317c0c..9c81ac6 100644
+--- a/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.page.sections.js
++++ b/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.page.sections.js
+@@ -1,5 +1,34 @@
+-/*
+-* This plugin handles theming and layout of headers, footers, and content areas
++/**
++ * Page can be created using the calendarpicker() method or by adding a
++ * data-role="page" attribute to an element.
++ *
++ * Page has 3 main sub element. Header, Footer, Content
++ * 3 sub element can be created using <div> element
++ *
++ * Attribute:
++ *
++ *    data-back-Btn-Text : determine which text is displayed in back button
++ *    data-add-Back-Btn : Defines if header/footer has back button or not(default "false")
++ *    data-back-Btn-Theme : defines back button's theme
++ *    data-header-Theme = defines header <div>'s theme
++ *    data-footer-Theme = defines footer <div>'s theme
++ *    data-content-Theme = defines content <div>'s theme
++ *    data-footer-Exist =  defines to show default footer or not in each page (SLP default true)
++ *    data-footer-User-Control-Theme = defines to show default footer in whole page(SLP default false. if true, all document do not has footer)
++ *
++ * Examples:
++ * 
++ *     HTML markup for creating Page:
++ *     <div data-role="page">
++ *
++ *     How to show back button
++ *     <div data-role="page" id="no-contents-0" data-add-back-btn="true">
++ *
++ *     How to  remove footer of specific page
++ *     <div data-role="page" id="no-contents-0" data-footer-Exist="false">
++ *
++ *     How to  remove footer of whole page
++ *     <div data-role="page" id="no-contents-0" data-footer-User-Control="true">
+ */
+ 
+ (function( $, undefined ) {
+@@ -10,29 +39,36 @@ $.mobile.page.prototype.options.backBtnTheme = null;
+ $.mobile.page.prototype.options.headerTheme  = "a";
+ $.mobile.page.prototype.options.footerTheme  = "a";
+ $.mobile.page.prototype.options.contentTheme = null;
++$.mobile.page.prototype.options.footerExist = true; /* SLP Default Footer : Jinhyuk */
++$.mobile.page.prototype.options.footerUserControl = false; /* SLP Default Footer : Jinhyuk */
+ 
+ $( ":jqmData(role='page'), :jqmData(role='dialog')" ).live( "pagecreate", function( e ) {
+ 	
+ 	var $page = $( this ),
+ 		o = $page.data( "page" ).options,
+-		pageRole = $page.jqmData( "role" ),
+ 		pageTheme = o.theme;
+ 	
+ 	$( ":jqmData(role='header'), :jqmData(role='footer'), :jqmData(role='content')", this ).each(function() {
+ 		var $this = $( this ),
+ 			role = $this.jqmData( "role" ),
+ 			theme = $this.jqmData( "theme" ),
+-			contentTheme = theme || o.contentTheme || ( pageRole === "dialog" && pageTheme ),
++			contentTheme = theme || o.contentTheme || pageTheme,
+ 			$headeranchors,
+ 			leftbtn,
+ 			rightbtn,
+-			backBtn;
++			normalFooter, /* SLP Default Footer : Jinhyuk */
++			backBtn,
++			footerExist = $this.jqmData("footerexist");  /* Footer on / off option : Wongi */
++		
++		if ( footerExist != undefined && (footerExist == true || footerExist == false) ){
++			/*$.mobile.page.prototype.options.footerExist = footerExist;*/
++			o.footerExist = footerExist;
++		}
+ 			
+ 		$this.addClass( "ui-" + role );	
+ 
+ 		//apply theming and markup modifications to page,header,content,footer
+ 		if ( role === "header" || role === "footer" ) {
+-			
+ 			var thisTheme = theme || ( role === "header" ? o.headerTheme : o.footerTheme ) || pageTheme;
+ 
+ 			$this
+@@ -47,20 +83,29 @@ $( ":jqmData(role='page'), :jqmData(role='dialog')" ).live( "pagecreate", functi
+ 			rightbtn = $headeranchors.hasClass( "ui-btn-right" );
+ 
+ 			leftbtn = leftbtn || $headeranchors.eq( 0 ).not( ".ui-btn-right" ).addClass( "ui-btn-left" ).length;
+-			
+ 			rightbtn = rightbtn || $headeranchors.eq( 1 ).addClass( "ui-btn-right" ).length;
++
++			// set default userControl value _ SLP
++			if( o.footerUserControl )
++				$.mobile.page.prototype.options.footerUserControl = "true";
+ 			
+ 			// Auto-add back btn on pages beyond first view
+-			if ( o.addBackBtn && 
+-				role === "header" &&
+-				$( ".ui-page" ).length > 1 &&
++			// create backbtn in case footer exist _ SLP
++			if( o.addBackBtn &&
++				o.footerExist &&
++				( role === "footer" ) &&
+ 				$this.jqmData( "url" ) !== $.mobile.path.stripHash( location.hash ) &&
+ 				!leftbtn ) {
+-
+-				backBtn = $( "<a href='#' class='ui-btn-left' data-"+ $.mobile.ns +"rel='back' data-"+ $.mobile.ns +"icon='arrow-l'>"+ o.backBtnText +"</a>" )
++				
++				backBtn = $( "<a href='#' class='ui-btn-back' data-"+ $.mobile.ns +"rel='back' data-"+ $.mobile.ns +"icon='header-back-btn'></a>" )				
+ 					// If theme is provided, override default inheritance
+ 					.attr( "data-"+ $.mobile.ns +"theme", o.backBtnTheme || thisTheme )
+-					.prependTo( $this );				
++					.prependTo( $this );
++
++				backBtn.bind( "vclick", function( event ) {
++					window.history.back();
++					return false;
++				});
+ 			}
+ 
+ 			// Page title
+@@ -72,6 +117,10 @@ $( ":jqmData(role='page'), :jqmData(role='dialog')" ).live( "pagecreate", functi
+ 					"role": "heading",
+ 					"aria-level": "1"
+ 				});
++			//SLP -- start
++			// prevent winset selection for header & footer
++//			$this.preventDefaultBehaviour();
++			//SLP -- end
+ 
+ 		} else if ( role === "content" ) {
+ 			if ( contentTheme ) {
+@@ -80,8 +129,36 @@ $( ":jqmData(role='page'), :jqmData(role='dialog')" ).live( "pagecreate", functi
+ 
+ 			// Add ARIA role
+ 			$this.attr( "role", "main" );
++
++			/* Add default footer to add backbtn */
++			// set backbtn in case footer is not exist _ SLP
++			thisTheme = "s";
++			if( o.footerExist ){
++				backBtn = $( "<a href='#' class='ui-btn-back' data-"+ $.mobile.ns +"rel='back' data-"+ $.mobile.ns +"icon='header-back-btn'></a>" )
++					.attr( "data-"+ $.mobile.ns +"theme", o.backBtnTheme || thisTheme );
++				var footer = $page.find( "div:jqmData(role='footer')" );					
++
++				if( footer.length != 0 ){
++					// add backbtn in case toolbar _ SLP
++					if( !footer.find("jqmData(role='navbar')").is("jqmData(style='tabbar')") ){
++						backBtn.appendTo( footer );	
++					}
++				} else{					
++					if( !$.mobile.page.prototype.options.footerUserControl ) {
++						normalFooter = $( "<div data-role='footer' class='ui-footer ui-bar-s ui-footer-fixed fade ui-fixed-overlay' data-position='fixed'></div>" )
++						.insertAfter( $page.find( ".ui-content" ) );
++						backBtn.appendTo( normalFooter );			
++					}
++				}
++				if( backBtn ){
++					backBtn.bind( "vclick", function( event ) {
++						window.history.back();
++						return false;
++					});
++				}
++			}
+ 		}
+ 	});
+ });
+ 
+-})( jQuery );
+\ No newline at end of file
++})( jQuery );
+-- 
+1.7.5.4
+
