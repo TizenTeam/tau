@@ -3,13 +3,16 @@
 <head>
 	<script src="../../build/web-ui-fw/0.1/js/jquery.js"></script>
 	<script src="configure.js"></script>
-	<script src="../../build/web-ui-fw/0.1/js/web-ui-fw.js"
+	<script src="../../build/web-ui-fw/0.1/js/web-ui-fw-libs.min.js"></script>
+	<script src="../../build/web-ui-fw/0.1/js/web-ui-fw.min.js"
+		data-framework-root="../../build/web-ui-fw"
+		data-framework-version="0.1"
 		data-framework-theme="tizen-gray">
 	</script>
 	<script src="init.js"></script>
 	<script src="widgets/checkbox/checkbox.js"></script>
+	<script src="widgets/switch/switch.js"></script>
 	<script src="widgets/radio/radio.js"></script>
-	<script src="widgets/colorpicker.js"></script>
 	<script src="widgets/progressbar.js"></script>
 	<script src="widgets/popupwindow/popupwindow.js"></script>
 	<script src="tips/generate-elements-dynamically.js"></script>
@@ -20,7 +23,7 @@
 <body>
 	<div data-role="page">
 		<div data-role="header" data-position="fixed">
-			<h1>NBeat UI</h1>
+			<h1>Tizen UI</h1>
 		</div>
 		<div data-role="content">
 			<p id="current_date"></p>
@@ -28,6 +31,7 @@
 				<li data-role="list-divider">Controls</li>
 				<li><a href="widgets/button/button.html">Button</a></li>
 				<li><a href="widgets/checkbox/checkbox.html">Check</a></li>
+				<li><a href="widgets/switch/switch.html">Switch</a></li>
 				<li><a href="widgets/radio/radio.html">Radio</a></li>
 				<li><a href="widgets/colorpicker.html">Color picker</a></li>
 				<li><a href="widgets/datefield.html">Time picker</a></li>
@@ -39,13 +43,12 @@
 				<li><a href="#NavigationbarMain">Navigation Bar</a></li>
 				<li><a href="widgets/imageslider.html">ImageSlider</a></li>
 				<li><a href="widgets/pagecontrol/pagecontrol.html">PageControl</a></li>
-				<li><a href="#calendarDemo">Calendar</a></li>
 				<li><a href="widgets/selectioninfo.html">SelectionInfo</a></li>
 				<li data-role="list-divider">ControlBar</li>
 				<li><a href="#controlbar-demo">ControlBar</a></li>
 
 				<li data-role="list-divider">List</li>
-				<li><a href="widgets/genlist/genlist.html">Genlist</a></li>
+				<li><a href="widgets/list/list.html">List</a></li>
 				<li><a href="widgets/auto-dividers.html">Auto-Dividers</a></li>
 				<li><a href="widgets/fast-scroll.html">Short cut scroll (aka fast-scroll)</a></li>
 
@@ -83,30 +86,9 @@
 				<li data-role="list-divider">Programming Tips</li>
 				<li><a href="tips/generate-elements-dynamically.html">Generate Elements by JS</a></li>
 
-				<li data-role="list-divider">Not Implemented</li>
-				<li><a href="#notImplemented" data-rel="dialog">Gengrid</a></li>
-				<li><a href="#notImplemented" data-rel="dialog">Handler</a></li>
-				<li><a href="#notImplemented" data-rel="dialog">Split View</a></li>
-				<li><a href="#notImplemented" data-rel="dialog">Font</a></li>
-				<li><a href="#notImplemented" data-rel="dialog">Font Effect</a></li>
-				<li><a href="#notImplemented" data-rel="dialog">MultiButtonEntry</a></li>
-				<li><a href="#notImplemented" data-rel="dialog">Transit</a></li>
-				<li><a href="#notImplemented">Grid View</a></li>
-				<li><a href="#notImplemented">Background Text</a></li>
 			</ul>
 		</div>
 	</div>
-
-	<div data-role="page" id="calendarDemo" data-add-back-btn="true">
-		<div data-role="header" data-position="fixed">
-			<h1>Calendar Picker - Click Button to launch Calendar Picker</h1>
-		</div>
-		<div class="content" data-role="content" id="calendarinputcontainer">
-			<label id="label">Selected Date</label><input type="text" name = "calendardate" id="selectedCalendarDate" value="Select Date"/>
-			<input type="button" data-role="calendarpicker" data-icon="grid" data-iconpos="notext" data-options='{"calStartDay": 0}' id = "calendarbutton">
-		</div>
-	</div>
-
 
 	<div data-role="page" id="notImplemented">
 		<div data-role="header" data-position="fixed">
@@ -282,6 +264,7 @@
 		<div data-role="content">
 			<div class="content-primary">
 			<ul data-role="listview">
+				<li><a href="#TabbarInHeader">Tabbar in Header</a></li>
 				<li><a href="#Tabbar2Items">2 Items Style</a></li>
 				<li><a href="#Tabbar3Items">3 Items Style</a></li>
 				<li><a href="#Tabbar4Items">4 Items Style</a></li>
@@ -292,7 +275,7 @@
 			</div><!--/content-primary -->
 		</div>
 		<div data-role="footer"data-position ="fixed">
-			<div data-role="navbar" data-style="tabbar" >
+			<div data-role="controlbar" data-style="tabbar" >
 				<ul>
 					<li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active">Menu</a></li>
 					<li><a href="#" data-icon="ctrlbar-save" >Save</a></li>
@@ -303,7 +286,28 @@
 			</div>
 		</div>
 	</div>
-
+	<div data-role="page" id="TabbarInHeader">
+		<div data-role="header" data-position="fixed">
+			<div data-role="controlbar" data-style="tabbar" >
+				<ul>
+					<li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active">Menu</a></li>
+					<li><a href="#" data-icon="ctrlbar-save" >Save</a></li>
+					<li><a href="#" data-icon="ctrlbar-share" >Share</a></li>
+					<li><a href="#" data-icon="ctrlbar-timeline" >Timeline</a></li>
+					<li><a href="#" data-icon="ctrlbar-world_clock" >WorldClock</a></li>
+				</ul>
+			</div><!-- /navbar -->
+		</div>
+		<div data-role="content">
+			<div class="content-primary">
+				<ul data-role="listview">
+					<li><a href="#">Test</a></li>
+				</ul>
+			</div><!--/content-primary -->
+		</div>
+		<div data-role="footer"data-position ="fixed">
+		</div>
+	</div>
 	<div data-role="page" id="Tabbar2Items">
 		<div data-role="header" data-position="fixed">
 			<h1>Tabbar</h1>
@@ -316,12 +320,12 @@
 			</div><!--/content-primary -->
 		</div>
 		<div data-role="footer"data-position ="fixed">
-			<div data-role="navbar" data-style="tabbar" >
+			<div data-role="controlbar" data-style="tabbar" >
 				<ul>
 					<li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active">Menu</a></li>
 					<li><a href="#" data-icon="ctrlbar-save" >Save</a></li>
 				</ul>
-			</div><!-- /navbar -->
+			</div><!-- /controlbar -->
 		</div>
 	</div>
 
@@ -337,13 +341,13 @@
 			</div><!--/content-primary -->
 		</div>
 		<div data-role="footer"data-position ="fixed">
-			<div data-role="navbar" data-style="tabbar" >
+			<div data-role="controlbar" data-style="tabbar" >
 				<ul>
 					<li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active">Menu</a></li>
 					<li><a href="#" data-icon="ctrlbar-save" >Save</a></li>
 					<li><a href="#" data-icon="ctrlbar-share" >Share</a></li>
 				</ul>
-			</div><!-- /navbar -->
+			</div><!-- /controlbar -->
 		</div>
 	</div>
 
@@ -359,14 +363,14 @@
 			</div><!--/content-primary -->
 		</div>
 		<div data-role="footer"data-position ="fixed">
-			<div data-role="navbar" data-style="tabbar" >
+			<div data-role="controlbar" data-style="tabbar" >
 				<ul>
 					<li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active">Menu</a></li>
 					<li><a href="#" data-icon="ctrlbar-save" >Save</a></li>
 					<li><a href="#" data-icon="ctrlbar-share" >Share</a></li>
 					<li><a href="#" data-icon="ctrlbar-timeline" >Timeline</a></li>
 				</ul>
-			</div><!-- /navbar -->
+			</div><!-- /controlbar -->
 		</div>
 	</div>
 
@@ -382,7 +386,7 @@
 			</div><!--/content-primary -->
 		</div>
 		<div data-role="footer"data-position ="fixed">
-			<div data-role="navbar" data-style="tabbar" >
+			<div data-role="controlbar" data-style="tabbar" >
 				<ul>
 					<li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active">Menu</a></li>
 					<li><a href="#" data-icon="ctrlbar-save" >Save</a></li>
@@ -390,7 +394,7 @@
 					<li><a href="#" data-icon="ctrlbar-timeline" >Timeline</a></li>
 					<li><a href="#" data-icon="ctrlbar-world_clock" >WorldClock</a></li>
 				</ul>
-			</div><!-- /navbar -->
+			</div><!-- /controlbar -->
 		</div>
 	</div>
 
@@ -406,7 +410,7 @@
 			</div><!--/content-primary -->
 		</div>
 		<div data-role="footer"data-position ="fixed">
-			<div data-role="navbar" data-style="tabbar" >
+			<div data-role="controlbar" data-style="tabbar" >
 				<ul>
 					<li><a href="#" class="ui-btn-active">Songs</a></li>
 					<li><a href="#">Favorites</a></li>
@@ -414,7 +418,7 @@
 					<li><a href="#">Message</a></li>
 					<li><a href="#">Contact</a></li>
 				</ul>
-			</div><!-- /navbar -->
+			</div><!-- /controlbar -->
 		</div>
 	</div>
 
@@ -430,7 +434,7 @@
 			</div><!--/content-primary -->
 		</div>
 		<div data-role="footer"data-position ="fixed">
-			<div data-role="navbar" data-style="tabbar" >
+			<div data-role="controlbar" data-style="tabbar" >
 				<ul>
 					<li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active"></a></li>
 					<li><a href="#" data-icon="ctrlbar-save" ></a></li>
@@ -438,7 +442,7 @@
 					<li><a href="#" data-icon="ctrlbar-timeline" ></a></li>
 					<li><a href="#" data-icon="ctrlbar-world_clock" ></a></li>
 				</ul>
-			</div><!-- /navbar -->
+			</div><!-- /controlbar -->
 		</div>
 	</div>
 
@@ -461,7 +465,7 @@
 			</div><!--/content-primary -->
 		</div>
 		<div data-role="footer"data-position ="fixed">
-			<div data-role="navbar" data-style="toolbar" >
+			<div data-role="controlbar" data-style="toolbar" >
 				<ul>
 					<li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active">Menu</a></li>
 					<li><a href="#" data-icon="ctrlbar-save" >Save</a></li>
@@ -469,13 +473,13 @@
 					<li><a href="#" data-icon="ctrlbar-timeline" >Timeline</a></li>
 					<li><a href="#" data-icon="ctrlbar-world_clock" >WorldClock</a></li>
 				</ul>
-			</div><!-- /navbar -->
+			</div><!-- /controlbar -->
 		</div>
 	</div>
 
 	<div data-role="page" id="ToolbarInHeader">
 		<div data-role="header" data-position="fixed">
-			<div data-role="navbar" data-style="toolbar" >
+			<div data-role="controlbar" data-style="toolbar" >
 				<ul>
 					<li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active">Menu</a></li>
 					<li><a href="#" data-icon="ctrlbar-save" >Save</a></li>
@@ -483,7 +487,7 @@
 					<li><a href="#" data-icon="ctrlbar-timeline" >Timeline</a></li>
 					<li><a href="#" data-icon="ctrlbar-world_clock" >WorldClock</a></li>
 				</ul>
-			</div><!-- /navbar -->
+			</div><!-- /controlbar -->
 		</div>
 		<div data-role="content">
 			<div class="content-primary">
@@ -509,12 +513,12 @@
 			</div><!--/content-primary -->
 		</div>
 		<div data-role="footer"data-position ="fixed">
-			<div data-role="navbar" data-style="toolbar" >
+			<div data-role="controlbar" data-style="toolbar" >
 				<ul>
 					<li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active">Menu</a></li>
 					<li><a href="#" data-icon="ctrlbar-save" >Save</a></li>
 				</ul>
-			</div><!-- /navbar -->
+			</div><!-- /controlbar -->
 		</div>
 	</div>
 
@@ -530,13 +534,13 @@
 			</div><!--/content-primary -->
 		</div>
 		<div data-role="footer"data-position ="fixed">
-			<div data-role="navbar" data-style="toolbar" >
+			<div data-role="controlbar" data-style="toolbar" >
 				<ul>
 					<li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active">Menu</a></li>
 					<li><a href="#" data-icon="ctrlbar-save" >Save</a></li>
 					<li><a href="#" data-icon="ctrlbar-share" >Share</a></li>
 				</ul>
-			</div><!-- /navbar -->
+			</div><!-- /controlbar -->
 		</div>
 	</div>
 
@@ -552,14 +556,14 @@
 			</div><!--/content-primary -->
 		</div>
 		<div data-role="footer"data-position ="fixed">
-			<div data-role="navbar" data-style="toolbar" >
+			<div data-role="controlbar" data-style="toolbar" >
 				<ul>
 					<li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active">Menu</a></li>
 					<li><a href="#" data-icon="ctrlbar-save" >Save</a></li>
 					<li><a href="#" data-icon="ctrlbar-share" >Share</a></li>
 					<li><a href="#" data-icon="ctrlbar-timeline" >Timeline</a></li>
 				</ul>
-			</div><!-- /navbar -->
+			</div><!-- /controlbar -->
 		</div>
 	</div>
 
@@ -575,7 +579,7 @@
 			</div><!--/content-primary -->
 		</div>
 		<div data-role="footer"data-position ="fixed">
-			<div data-role="navbar" data-style="toolbar" >
+			<div data-role="controlbar" data-style="toolbar" >
 				<ul>
 					<li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active">Menu</a></li>
 					<li><a href="#" data-icon="ctrlbar-save" >Save</a></li>
@@ -583,7 +587,7 @@
 					<li><a href="#" data-icon="ctrlbar-timeline" >Timeline</a></li>
 					<li><a href="#" data-icon="ctrlbar-world_clock" >WorldClock</a></li>
 				</ul>
-			</div><!-- /navbar -->
+			</div><!-- /controlbar -->
 		</div>
 	</div>
 
@@ -599,7 +603,7 @@
 			</div><!--/content-primary -->
 		</div>
 		<div data-role="footer"data-position ="fixed">
-			<div data-role="navbar" data-style="toolbar" >
+			<div data-role="controlbar" data-style="toolbar" >
 				<ul>
 					<li><a href="#" class="ui-btn-active">Songs</a></li>
 					<li><a href="#">Favorites</a></li>
@@ -607,7 +611,7 @@
 					<li><a href="#">Message</a></li>
 					<li><a href="#">Contact</a></li>
 				</ul>
-			</div><!-- /navbar -->
+			</div><!-- /controlbar -->
 		</div>
 	</div>
 
@@ -623,7 +627,7 @@
 			</div><!--/content-primary -->
 		</div>
 		<div data-role="footer"data-position ="fixed">
-			<div data-role="navbar" data-style="toolbar" >
+			<div data-role="controlbar" data-style="toolbar" >
 				<ul>
 					<li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active"></a></li>
 					<li><a href="#" data-icon="ctrlbar-save" ></a></li>
@@ -631,7 +635,7 @@
 					<li><a href="#" data-icon="ctrlbar-timeline" ></a></li>
 					<li><a href="#" data-icon="ctrlbar-world_clock" ></a></li>
 				</ul>
-			</div><!-- /navbar -->
+			</div><!-- /controlbar -->
 		</div>
 	</div>
 	<!-- Toolbar Style -->
@@ -659,7 +663,7 @@
 				<li><a href="#notImplemented">Button</a></li>
 				<li><a href="#notImplemented">Check</a></li>
 			</ul>
-			<div data-role="navbar" data-style="left">
+			<div data-role="controlbar" data-style="left">
 				<ul>
 					<li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active">Menu</a></li>
 					<li><a href="#" data-icon="ctrlbar-save" >Save</a></li>
@@ -667,7 +671,7 @@
 					<li><a href="#" data-icon="ctrlbar-timeline" >Timeline</a></li>
 					<li><a href="#" data-icon="ctrlbar-world_clock" >WorldClock</a></li>
 				</ul>
-			</div><!-- /navbar -->
+			</div><!-- /controlbar -->
 		</div>
 	</div>
 	<!-- ControlBar Left Style -->
@@ -682,7 +686,7 @@
 				<li><a href="#notImplemented" data-rel="dialog">AutoScroll</a></li>
 				<li><a href="#notImplemented">Button</a></li>
 			</ul>
-			<div data-role="navbar" data-style="right">
+			<div data-role="controlbar" data-style="right">
 				<ul>
 					<li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active">Menu</a></li>
 					<li><a href="#" data-icon="ctrlbar-save" >Save</a></li>
@@ -690,7 +694,7 @@
 					<li><a href="#" data-icon="ctrlbar-timeline" >Timeline</a></li>
 					<li><a href="#" data-icon="ctrlbar-world_clock" >WorldClock</a></li>
 				</ul>
-			</div><!-- /navbar -->
+			</div><!-- /controlbar -->
 		</div>
 	</div>
 	<!-- ControlBar Right Style -->
@@ -703,7 +707,7 @@
 		<div data-role="content">
 		</div>
 		<div data-role="footer"data-position ="fixed">
-			<div data-role="navbar" data-style="tabbar">
+			<div data-role="controlbar" data-style="tabbar">
 				<ul>
 					<li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active">Menu</a></li>
 					<li><a href="#" data-icon="ctrlbar-save" >Save</a></li>
@@ -711,7 +715,7 @@
 					<li><a href="#" data-icon="ctrlbar-timeline" >Timeline</a></li>
 					<li><a href="#" data-icon="ctrlbar-world_clock" >WorldClock</a></li>
 				</ul>
-			</div><!-- /navbar -->
+			</div><!-- /controlbar -->
 		</div>
 	</div>
 	<!-- ControlBar Animation -->

@@ -1,0 +1,18 @@
+
+<div data-role="page" id="virtuallist-normal_1line-bigicon5" class="virtuallist_demo_page"
+	data-add-back-btn="true">
+	<div data-role="header" data-position="fixed">
+		<h1>Virtual List - Normal Style 1line-bigicon5</h1>
+	</div>
+	<div data-role="content">
+		<script id="tmp-1line-bigicon5" type="text/x-jquery-tmpl">
+			<li class="ui-li-1line-bigicon5">	
+				<span class="ui-li-text-main">${NAME}</span>
+				<img src=${TEAM_LOGO} class="ui-li-bigicon">
+				<div data-role="button" data-inline="true" data-icon="plus" data-style="circle"></div>
+			</li>
+		</script>
+		<ul id="virtuallist-normal_1line-bigicon5_ul" data-role="virtuallistview" data-template="tmp-1line-bigicon5" data-dbtable="JSON_DATA">
+		</ul>
+	</div>
+</div>

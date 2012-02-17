@@ -1,0 +1,196 @@
+@import "config.less";
+
+@border_radius: .3em;
+
+.ui-ctxpopup {
+	display: table;
+	
+	.ui-ctxpopup-row .ui-triangle-top {
+		top: 1px;
+	}
+
+	.ui-ctxpopup-row .ui-triangle-left {
+		left: 1px;
+	}
+
+	.ui-ctxpopup-row .ui-triangle-right {
+		right: 1px;
+	}
+
+	.ui-ctxpopup-row .ui-triangle-bottom {
+		bottom: 1px;
+	}
+
+	.ui-ctxpopup-row {
+		display: table-row;
+
+		.ui-ctxpopup-cell {
+			display: table-cell;
+		}
+
+		.ui-popupwindow-padding {
+			background: rgb(45,45,45);
+			border: none;
+			-webkit-box-shadow: 0 * @unit_base 0 * @unit_base 12 * @unit_base rgba( 0, 0, 0, .6 );
+			box-shadow: 0 * @unit_base 0 * @unit_base 12 * @unit_base rgba( 0, 0, 0, .6 );
+			-webkit-border-radius: @border_radius;
+			border-radius: @border_radius;
+		}
+
+	}
+
+    .ui-listview li.ui-btn-up-s, .ui-listview li.ui-btn-hover-s {
+        background: transparent;
+    }
+
+	.ui-listview li.ui-btn-down-s {
+		background: @color_bar_back_btn_press;
+	}
+
+	.ui-listview li:last-child {
+		border-bottom-left-radius: @border_radius;
+		border-bottom-right-radius: @border_radius;
+	}
+
+	.ui-listview li:first-child {
+		border-top-left-radius: @border_radius;
+		border-top-right-radius: @border_radius;
+	}
+	
+    .ui-listview {
+        border: none;
+    }
+	
+	.ui-listview > .ui-li {
+//		margin: 0 -7 * @px_base;
+		padding: 0 7 * @unit_base;
+	}
+
+    .ui-listview > .ui-li:last-child {
+        border: none;
+    }
+
+    .horizontal {
+		.icon .ui-btn {
+			padding: 0;
+			background: transparent;
+	
+			.ui-btn-icon-only {
+				width: 128 * @unit_base;
+				height: 92 * @unit_base;
+				padding: 0;
+			}
+
+			.ui-icon {
+				padding: 32 * @unit_base 0;
+				height: inherit;
+				width: inherit;
+				margin: 0;
+				background-size: inherit;
+				background-position: center;
+			}
+		}
+
+		.text {
+			padding: 0 20 * @unit_base;
+		}
+
+
+        a.ui-link {
+            color: @color_text;
+            text-decoration: none;
+        }
+ 
+        table {
+            border: none;
+            border-spacing: 0;
+        }
+        
+        td {
+            border-left: 1 * @unit_base solid @color_ctxpopup_border_left;
+            border-right: 1 * @unit_base solid @color_ctxpopup_border_right;
+            border-top: 1 * @unit_base solid @color_ctxpopup_border_right;
+            border-bottom: 1 * @unit_base solid @color_ctxpopup_border_left;
+         }
+
+        td:first-of-type {
+            border-left: none;
+        }
+
+        td:last-of-type {
+            border-right: none;
+        }
+
+        tr:first-of-type > td {
+            border-top: none;
+        }
+
+        tr:last-of-type > td {
+            border-bottom: none;
+        }
+
+		tr:first-of-type > td:first-of-type {
+			border-top-left-radius: @border_radius;
+		}
+
+		tr:first-of-type > td:last-of-type {
+			border-top-right-radius: @border_radius;
+		}
+
+		tr:last-of-type > td:first-of-type {
+			border-bottom-left-radius: @border_radius;
+		}
+	
+		tr:last-of-type > td:last-of-type {
+			border-bottom-right-radius: @border_radius;
+		}
+
+        ul {
+            padding: 0;
+            display: inline-block;
+            list-style: none;
+            vertical-align: middle;
+            margin: 0;
+        }
+    
+        li {
+			line-height: 92 * @unit_base;
+			min-height: 92 * @unit_base;
+
+            float: left;
+            display: inline-block;
+            border-left: 1 * @unit_base solid @color_ctxpopup_border_left;
+            border-right: 1 * @unit_base solid @color_ctxpopup_border_right;
+            text-align: center;
+        }
+
+		li:first-of-type {
+			border-top-left-radius: @border_radius;
+			border-bottom-left-radius: @border_radius;
+
+            border-left: none;
+        }
+            
+        li:last-of-type {
+			border-top-right-radius: @border_radius;
+			border-bottom-right-radius: @border_radius;
+
+            border-right: none;
+            margin-right: 0;
+        }
+
+		li:active, td:active {
+			background: @color_bar_back_btn_press;
+		}
+    }
+
+    .button {
+        table .ui-btn {
+            margin: 8 * @unit_base;
+            padding: 0;
+            height: 74 * @unit_base;
+            width: 172 * @unit_base;
+        }
+    }
+
+}

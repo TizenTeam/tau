@@ -7,8 +7,8 @@
 			DO NOT REMOVE below code!
 		-->
 		<script src="@LIBDIR@/jquery.js"></script>
-		<script src="@LIBDIR@/web-ui-fw.js" @DATA_FRAMEWORK_ROOT@
-			data-framework-version="0.1" 
+		<script src="@LIBDIR@/web-ui-fw-libs.min.js"></script>
+		<script src="@LIBDIR@/web-ui-fw.min.js"
 			data-framework-theme="tizen-gray"></script>
 
 		<!--NOTE:

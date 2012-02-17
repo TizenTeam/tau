@@ -15,7 +15,7 @@ List = {
 				};
 		
 			// is this only option for these things? can we make it these to better way?
-			var item = '<li class="ui-li-3-2-14" data-id="' + listContent.dataId + '" id="' + listContent.id + '">' + 
+			var item = '<li class="ui-li-2line-bigicon2" data-id="' + listContent.dataId + '" id="' + listContent.id + '">' + 
 					'<span class="ui-li-text-main">' + listContent.title + '</span>' + 
 					'<span class="ui-li-text-sub">' + listContent.subTitle + '</span>' +
 					'<img src="' + listContent.imgSrc + '" class="ui-li-bigicon">' + 
@@ -50,9 +50,9 @@ List = {
 		li = list.find('li');
 		
 		if ( li.length > 0 ) {
-			var checked = $( li[0] ).hasClass( "ui-li-3-2-14" );
+			var checked = $( li[0] ).hasClass( "ui-li-2line-bigicon2" );
 			for ( var i = 0; i < li.length; i++ ) {
-				$( li[i] ).toggleClass("ui-li-3-2-14").toggleClass("ui-li-3-2-20");
+				$( li[i] ).toggleClass("ui-li-2line-bigicon2").toggleClass("ui-li-2line-check3");
 
 				if ( checked ) {
 					var div = '<form><input type="checkbox" data-style="check" name="' + $( li[i] ).attr("id") + '_check' + '" /></form>';

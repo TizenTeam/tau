@@ -80,7 +80,7 @@ $.widget( "mobile.textinput", $.mobile.widget, {
 			
 			input.parent().append(newDiv);
 			
-			/* When focus, default text will be hidden. */
+			/* When focus, default text will be hide. */
 			input.focus(function() {
 				input.parent().find("div.ui-input-default-text").addClass( "ui-input-default-hidden" );
 			})
@@ -94,7 +94,7 @@ $.widget( "mobile.textinput", $.mobile.widget, {
 				}
 			});			
 		}
-
+		
 		
 		$( "label[for='" + input.attr( "id" ) + "']" ).addClass( "ui-input-text" );
 
@@ -118,8 +118,8 @@ $.widget( "mobile.textinput", $.mobile.widget, {
 		//"search" input widget
 		if ( input.is( "[type='search'],:jqmData(type='search')" ) ) {
 
-			focusedEl = input.wrap( "<div class='ui-input-search ui-shadow-inset ui-corner-all ui-btn-shadow" + themeclass + "'></div>" ).parent();
-			clearbtn = $( "<a href='#' class='ui-input-clear' title='clear text'>clear text</a>" )
+				focusedEl = input.wrap( "<div class='ui-input-search ui-shadow-inset ui-corner-all ui-btn-shadow" + themeclass + "'></div>" ).parent();
+				clearbtn = $( "<a href='#' class='ui-input-clear' title='clear text'>clear text</a>" )
 				.tap(function( event ) {
 					input.val( "" )
 						.blur()
@@ -136,77 +136,77 @@ $.widget( "mobile.textinput", $.mobile.widget, {
 					corners: true,
 					shadow: true
 				});
-
-			toggleClear();
-
-			/* Event handlers */
-			input.bind('paste cut keyup focus change blur', toggleClear);
-			input.tap(function( event ) {
-				input.blur();
-				input.focus();
-			});
-			
-			//SLP --start search bar with cancel button
-			focusedEl.wrapAll( "<div class='input-search-bar'></div>" );
-
-			var searchicon = $("<div class='ui-image-search ui-image-searchfield'></div>");
-			searchicon.tap(function( event ) {
-			searchicon.hide();
-					
-			input
-				.blur()
-				.focus();
-			})
-			.appendTo( focusedEl );
-
-			var cancelbtn = $( "<a href='#' class='ui-input-cancel' title='clear text'>Cancel</a>" )
-			.tap(function( event ) {
-				input.val( "" );
-				hideCancel();
-				input.blur();
-				input.trigger( "change" );
-				event.preventDefault();
-			})
-			.appendTo( focusedEl.parent() )
-			.buttonMarkup({
-				iconpos: "cancel",
-				corners: true,
-				shadow: true
-			});
-
-			hideCancel(); /* Hide Cancel button when create */
-
-			function toggleClear() {
-				if ( !input.val() ) {
-					clearbtn.addClass( "ui-input-clear-hidden" );
-				} else {
-					clearbtn.removeClass( "ui-input-clear-hidden" );
+	
+				function toggleClear() {
+					if ( !input.val() ) {
+						clearbtn.addClass( "ui-input-clear-hidden" );
+					} else {
+						clearbtn.removeClass( "ui-input-clear-hidden" );
+					}
 				}
-			}
+				toggleClear();
+				input.keyup( toggleClear );
 			
-			function showCancel() {
-				focusedEl.addClass( "ui-input-search-default" )
-				.removeClass( "ui-input-search-wide" );
-				cancelbtn.addClass( "ui-btn-cancel-show" )
-				.removeClass( "ui-btn-cancel-hide" );
-				searchicon.hide();
+			input.bind('paste cut keyup focus change blur', toggleClear);
+
+				//SLP --start search bar with cancel button
+				focusedEl.wrapAll( "<div class='input-search-bar'></div>" );
+
+				input.tap(function( event ) {
+					var inputedText = input.val();
+					input.blur();
+//					if ( inputedText.length > 0 )	
+					input.focus();
+				});
+
+
+				var searchicon = $("<div class='ui-image-search ui-image-searchfield'></div>");
+				searchicon.tap(function( event ) {
+					searchicon.hide();
+					
+					input
+						.blur()
+						.focus();
+				})
+				.appendTo( focusedEl );
+
+				var cancelbtn = $( "<a href='#' class='ui-input-cancel' title='clear text'>Cancel</a>" )
+				.tap(function( event ) {
+					input.val( "" );
+					hideCancel();
+					input.blur();
+					input.trigger( "change" );
+					event.preventDefault();
+				})
+				.appendTo( focusedEl.parent() )
+				.buttonMarkup({
+					iconpos: "cancel",
+					corners: true,
+					shadow: true
+				});
+				function showCancel() {
+					focusedEl.addClass( "ui-input-search-default" )
+					.removeClass( "ui-input-search-wide" );
+					cancelbtn.addClass( "ui-btn-cancel-show" )
+					.removeClass( "ui-btn-cancel-hide" );
+					searchicon.hide();
+				}
+
+				input.focus( showCancel );
+				//SLP --end
+
+			} else {
+				input.addClass( "ui-corner-all ui-shadow-inset" + themeclass );
 			}
 
-			input.focus( showCancel );
-			//SLP --end
-
-		} else {
-			input.addClass( "ui-corner-all ui-shadow-inset" + themeclass );
-		}
-
-		input.focus(function() {
+			input.focus(function() {
 				focusedEl.addClass( "ui-focus" );
 			})
 			.blur(function(){
 				focusedEl.removeClass( "ui-focus" );
 				hideCancel();
 				input.trigger( "change" );
-				event.preventDefault();
+				event.preventDefault();	
 			});
 
 		// Autogrow
@@ -223,10 +223,10 @@ $.widget( "mobile.textinput", $.mobile.widget, {
 				},
 				keyupTimeout;
 
-			input.keyup(function() {
-				clearTimeout( keyupTimeout );
-				keyupTimeout = setTimeout( keyup, keyupTimeoutBuffer );
-			});
+				input.keyup(function() {
+					clearTimeout( keyupTimeout );
+					keyupTimeout = setTimeout( keyup, keyupTimeoutBuffer );
+				});
 
 			// binding to pagechange here ensures that for pages loaded via
 			// ajax the height is recalculated without user input
@@ -238,8 +238,8 @@ $.widget( "mobile.textinput", $.mobile.widget, {
 				// the DOM and CSS
 				$( window ).load( keyup );
 			}
-		}
-
+			}
+		
 		function hideCancel() {
 			focusedEl.addClass( "ui-input-search-wide" )
 			.removeClass( "ui-input-search-default" );
@@ -247,8 +247,9 @@ $.widget( "mobile.textinput", $.mobile.widget, {
 			.removeClass( "ui-btn-cancel-show" );
 			if( input.val() =="" )	searchicon.show();
 			toggleClear();					
-		}
-	},
+		}		
+
+		},
 
 	disable: function(){
 		( this.element.attr( "disabled", true ).is( "[type='search'],:jqmData(type='search')" ) ?

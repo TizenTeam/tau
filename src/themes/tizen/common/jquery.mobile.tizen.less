@@ -1,0 +1,145 @@
+/*
+ * Common definition for theme
+ */
+
+@font_size_default: 32px;	// Default unit font size
+//@rem_base: (1rem/@font_size_default);
+
+@em_base: 1em/@font_size_default;	// WARNING: Don't use em unit!	This value is to be removed.
+@px_base: 1px;
+
+@unit_base: @px_base;
+
+@font_family: Helvetica, Arial, sans-serif;
+
+/******************************
+  z-index order collection
+ ******************************/
+@z_base_maximum: 2147483647;
+@z_base_loader: 100;
+@z_base_header_footer: 1000;
+@z_base_smallpopup: @z_base_header_footer + 100;
+@z_base_popup: @z_base_smallpopup + 100;
+@z_base_tickernoti: @z_base_maximum - 100;
+
+
+/******************************
+  Global LESS mixin collection
+ ******************************/
+
+// Mixin : background ************************
+.LESSbackground-img-with-gradient(@from: top, @startcolor: #3c3c3c, @endcolor: #111) {
+	background-image: -webkit-gradient(linear, left top, left bottom, from(@startcolor), to(@endcolor)); /* Saf4+, Chrome */
+	background-image: -webkit-linear-gradient(@from, @startcolor, @endcolor);
+	background-image:    -moz-linear-gradient(@from, @startcolor, @endcolor);
+	background-image:     -ms-linear-gradient(@from, @startcolor, @endcolor);
+	background-image:      -o-linear-gradient(@from, @startcolor, @endcolor);
+	background-image:         linear-gradient(@from, @startcolor, @endcolor);
+}
+.LESSbackground-size(@width, @height) {
+	-moz-background-size: @width @height;
+	-o-background-size: @width @height;
+	-webkit-background-size: @width @height;
+	background-size: @width @height;
+}
+
+// Mixin : border ***************************
+.LESSborder-image(@url:url, @width:width, @height:height, @repeat:repeat) {
+    -moz-border-image:  url(@url) @width @height @repeat;
+    -webkit-border-image: url(@url) @width @height @repeat;
+    -o-border-image: url(@url) @width @height @repeat;
+    border-image: url(@url) @width @height @repeat;
+}
+.LESSborder-radius-topleft(@radius) {
+	-moz-border-radius-topleft: 		@radius; 
+	-webkit-border-top-left-radius: 	@radius;
+	border-top-left-radius: 			@radius;
+}
+.LESSborder-radius-topright(@radius) {
+	-moz-border-radius-topright: 		@radius; 
+	-webkit-border-top-right-radius: 	@radius;
+	border-top-right-radius: 			@radius;
+}
+.LESSborder-radius-bottomleft(@radius) {
+	-moz-border-radius-bottomleft: 		@radius; 
+	-webkit-border-bottom-left-radius: 	@radius;
+	border-bottom-left-radius: 			@radius;
+}
+.LESSborder-radius-bottomright(@radius) {
+	-moz-border-radius-bottomright: 		@radius; 
+	-webkit-border-bottom-right-radius: 	@radius;
+	border-bottom-right-radius: 			@radius;
+}
+.LESSborder-radius-all(@radius) {
+	-moz-border-radius: 		@radius; 
+	-webkit-border-radius: 	@radius;
+	bordert-radius: 			@radius;
+}
+
+// Mixin : box ***************************
+.LESSbox-shadow(@hshadow, @vshadow, @blur, @color) {
+	-moz-box-shadow: @hshadow @vshadow @blur @color;
+	-webkit-box-shadow: @hshadow @vshadow @blur @color;
+	box-shadow: @hshadow @vshadow @blur @color;
+}
+.LESSdisplaybox() {
+	display:-moz-box;
+	display:-webkit-box;
+	display:box;
+}
+//position: vertical, horizental
+.LESSbox-orient(@position) {
+	-moz-box-orient: @position;
+	-webkit-box-orient: @position;
+	box-orient: @position;
+}
+
+//position: start, center, end
+.LESSbox-pack(@position) {
+	-moz-box-pack: @position;
+	-webkit-box-pack: @position;
+	box-pack: @position;
+}
+
+//position: start, center, end
+.LESSbox-align(@position) {
+	-moz-box-align: @position;
+	-webkit-box-align: @position;
+	box-align: @position;
+}	
+
+// Mixin : Utility ************************************
+//CAUTION!!! - you MUST call this function inside of your winset structure. 
+//DO NOT CALL GLOBALLY!!
+.LESSclear-btn-basic-setting() {
+	.ui-btn-corner-all {
+		.LESSborder-radius-all(0);
+	}
+	.ui-btn-inner {
+		border-top: 0;
+	}
+	.ui-btn-up-s {
+		border: 0;
+		background: transparent;
+		font-weight: normal;
+	}
+	.ui-btn-hover-s {
+		border: 0;
+		background: transparent;
+		font-weight: normal;
+	}
+	.ui-btn-down-s {
+		border: 0;
+		background: transparent;
+		font-weight: normal;
+	}
+}
+
+// Mixin : transform
+.LESStransform(@method) {
+    transform: @method;
+    -ms-transform: @method;
+    -moz-transform: @method;
+    -webkit-transform: @method;
+    -o-transform: @method;
+}

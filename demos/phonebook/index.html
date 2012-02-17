@@ -22,7 +22,7 @@
 		<script id="tmpl_contacts_normal" type="text/x-jquery-tmpl">
 			<ul data-role="listview" data-luid=${Luid}> 
 				<ul data-role="swipelist">
-					<li class="ui-li-3-1-25">
+					<li class="ui-li-1line-radio6">
 						<div data-role="button" data-inline="true">Call</div>
 						<div data-role="button" data-inline="true">Message</div>
 						<div data-role="button" data-inline="true">Video call</div>
@@ -147,7 +147,7 @@
 				{{/if}}
 				</span>
 			</li>
-			<li class="ui-li-4-1-13 ui-li-dialogue">
+			<li class="ui-li-1line-leftsub2 ui-li-dialogue">
 				<div style="display: inline-block;" class="ui-li-text-sub-left">Mobile</div>
 				<div style="display: inline-block;" class="ui-li-text-main-right">${ln_mobile}</div>
 				<img src="image/00_check_checking.png" class="ui-li-bigicon">
@@ -159,29 +159,29 @@
 			</li>
 
 			<li data-role="list-divider"></li>
-			<li class="ui-li-4-1-12 ui-li-dialogue">
+			<li class="ui-li-1line-leftsub1 ui-li-dialogue">
 				<div style="display: inline-block;" class="ui-li-text-sub-left">Telephone</div>
 				<div style="display: inline-block;" class="ui-li-text-main-right">${ln_telephone}</div>
 			</li>
-			<li class="ui-li-4-1-12 ui-li-dialogue">
+			<li class="ui-li-1line-leftsub1 ui-li-dialogue">
 				<div style="display: inline-block;" class="ui-li-text-sub-left">Fax</div>
 				<div style="display: inline-block;" class="ui-li-text-main-right">${ln_fax}</div>
 			</li>
-			<li class="ui-li-4-1-12 ui-li-dialogue">
+			<li class="ui-li-1line-leftsub1 ui-li-dialogue">
 				<div style="display: inline-block;" class="ui-li-text-sub-left">Other</div>
 				<div style="display: inline-block;" class="ui-li-text-main-right">${ln_other}</div>
 			</li>
 
 			<li data-role="list-divider"></li>
-			<li class="ui-li-4-1-12 ui-li-dialogue">
+			<li class="ui-li-1line-leftsub1 ui-li-dialogue">
 				<div style="display: inline-block;" class="ui-li-text-sub-left">Home</div>
 				<div style="display: inline-block;" class="ui-li-text-main-right ui-li-long-text phonebook-email">${em_home}</div>
 			</li>
-			<li class="ui-li-4-1-12 ui-li-dialogue">
+			<li class="ui-li-1line-leftsub1 ui-li-dialogue">
 				<div style="display: inline-block;" class="ui-li-text-sub-left">Work</div>
 				<div style="display: inline-block;" class="ui-li-text-main-right ui-li-long-text phonebook-email">${em_work}</div>
 			</li>
-			<li class="ui-li-4-1-12 ui-li-dialogue">
+			<li class="ui-li-1line-leftsub1 ui-li-dialogue">
 				<div style="display: inline-block;" class="ui-li-text-sub-left">Other</div>
 				<div style="display: inline-block;" class="ui-li-text-main-right ui-li-long-text phonebook-email">${em_other}</div>
 			</li>
@@ -207,7 +207,7 @@
 
 			<li data-role="list-divider"></li>
 			{{if birthday}}
-				<li class="ui-li-4-1-12 ui-li-dialogue">
+				<li class="ui-li-1line-leftsub1 ui-li-dialogue">
 					<div style="display: inline-block;" class="ui-li-text-sub-left">Birthday</div>
 					<div style="display: inline-block;" class="ui-li-text-main-right">${birthday}</div>
 				</li>
@@ -215,7 +215,7 @@
 			{{/if}}
 
 			{{if webaddr}}
-				<li class="ui-li-4-1-12 ui-li-dialogue">
+				<li class="ui-li-1line-leftsub1 ui-li-dialogue">
 					<div style="display: inline-block;" class="ui-li-text-sub-left">Website</div>
 					<div style="display: inline-block;" class="ui-li-text-main-right">${webaddr}</div>
 				</li>
@@ -267,12 +267,12 @@
 	<!-- Page: All Groups List -->
 	<div id="all_groups_page" data-role="page">
 		<script id = "tmpl_groups_expandable_savedLocationName" type="text/x-jquery-tmpl">
-			<li data-expandable="true" id=${savedLocation} data-initial-expansion="false" class="ui-li-3-1-1 ui-li-3-1-1-dialogue">
+			<li data-expandable="true" id=${savedLocation} data-initial-expansion="false" class="ui-li-1line ui-li-1line-dialogue">
 				<span class="ui-li-text-main">${savedLocation} (${savedLocationCount})</span>
 			</li>
 		</script>
 		<script id = "tmpl_groups_expandable_groupName" type="text/x-jquery-tmpl">
-			<li id=${groupNameId} data-expanded-by=${savedLocation} class="ui-li-3-1-1 ui-li-3-1-1-dialogue">
+			<li id=${groupNameId} data-expanded-by=${savedLocation} class="ui-li-1line ui-li-1line-dialogue">
 				<span class="ui-li-text-main">${groupName} (${groupCount})</span>
 			</li>
 		</script>
@@ -284,7 +284,7 @@
 		<!--content start-->
 		<div data-role="content" style="top:100px; position:relative">
 			<ul id="all_groups_list" data-role="listview" data-dbtable="phonebookGroupsDB" data-dbkey = "luid">
-				<li id="All_contacts_on_groups_list" class="ui-li-3-1-1 ui-li-3-1-1-dialogue">
+				<li id="All_contacts_on_groups_list" class="ui-li-1line ui-li-1line-dialogue">
 					<a href="#all_contacts_page"><span class="ui-li-text-main"></span></a>	<!-- Reuse tmpl_contacts_title -->
 				</li>
 			</ul>

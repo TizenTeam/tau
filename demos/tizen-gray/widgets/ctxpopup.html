@@ -4,28 +4,28 @@
 	</div>
 	<div class="content" data-role="content">
 		<div>
-            <a href="#" id="btn_icon_text" data-role="button" data-inline="true">Icon+Text</a>
-                <div id="pop_icon_text" data-role="ctxpopup" data-selector="#btn_icon_text">
+            <a href="#pop_icon_text" id="btn_icon_text" data-role="button" data-inline="true" data-rel="popupwindow">Icon+Text</a>
+                <div id="pop_icon_text" data-role="popupwindow" data-show-arrow="true">
                     <ul data-role="listview">
-                        <li class="ui-li-3-1-10">
+                        <li class="ui-li-1line-bigicon1">
                             <a class="ui-btn-ctxpopup-close" href="#">
                                 <img class="ui-li-bigicon" src="http://cdn1.iconfinder.com/data/icons/very_emotional_emoticons_lazy/64x64/64%20(36).png">
                                 <span class="ui-li-text-main">Eenie</span>
                             </a>
                         </li>
-                        <li class="ui-li-3-1-10">
+                        <li class="ui-li-1line-bigicon1">
                             <a class="ui-btn-ctxpopup-close" href="#">
                                 <img class="ui-li-bigicon" src="http://cdn1.iconfinder.com/data/icons/very_emotional_emoticons_lazy/64x64/64%20(36).png">
                                 <span class="ui-li-text-main">Meenie</span>
                             </a>
                         </li>
-                        <li class="ui-li-3-1-10">
+                        <li class="ui-li-1line-bigicon1">
                             <a class="ui-btn-ctxpopup-close" href="#">
                                 <img class="ui-li-bigicon" src="http://cdn1.iconfinder.com/data/icons/very_emotional_emoticons_lazy/64x64/64%20(36).png">
                                 <span class="ui-li-text-main">Mynie</span>
                             </a>
                         </li>
-                        <li class="ui-li-3-1-10">
+                        <li class="ui-li-1line-bigicon1">
                             <a class="ui-btn-ctxpopup-close" href="#">
                                 <img class="ui-li-bigicon" src="http://cdn1.iconfinder.com/data/icons/very_emotional_emoticons_lazy/64x64/64%20(36).png">
                                 <span class="ui-li-text-main">Mo</span>
@@ -33,64 +33,60 @@
                         </li>
                   </ul>
                 </div>
-	    
-            <br>			
-			<br>			
-            <a href="#" id="btn_3_icons" data-role="button" data-inline="true">3 Icons</a> 
-                <div id="pop_3_icons" data-role="ctxpopup" data-selector="#btn_3_icons" data-style="hlist">
+
+            <br>
+			<br>
+            <a href="#pop_3_icons" id="btn_3_icons" data-role="button" data-inline="true" data-rel="popupwindow">3 Icons</a>
+                <div class="horizontal" id="pop_3_icons" data-role="popupwindow" data-show-arrow="true">
                     <ul>
                         <li class="icon"><a href="#" data-role="button" data-icon="call"></a></li>
                         <li class="icon"><a href="#" data-role="button" data-icon="favorite"></a></li>
-                        <li class="text"><a href="#"></a>Function</li>
+                        <li class="text"><a href="#">Function</a></li>
                    </ul>
                 </div>
-				
-			<br>			
-			<br>			
-            <a href="#" id="btn_6_icons" data-role="button" data-inline="true">6 Icons-Grid</a> 
-                <div id="pop_6_icons" data-role="ctxpopup" data-selector="#btn_6_icons" data-style="hlist">
+			<br>
+			<br>
+            <a href="#pop_6_icons" id="btn_6_icons" data-role="button" data-inline="true" data-rel="popupwindow">6 Icons-Grid</a>
+                <div class="horizontal" id="pop_6_icons" data-role="popupwindow" data-show-arrow="true">
                     <table>
                         <tr>
-                            <td>
+                            <td class="icon">
                                 <a href="#" data-role="button" data-icon="call"></a>
                             </td>
-                            <td>
+                            <td class="icon">
                                 <a href="#" data-role="button" data-icon="favorite"></a>
-                            </td>                           
-                            <td>
-                                <a href="#" data-role="button" data-icon="favorite"></a>
+                            </td>
+                            <td class="text">
+                                <a href="#">Eeenie</a>
                             </td>
                         </tr>
                         <tr>
-                            <td>
+                            <td class="icon">
                                 <a href="#" data-role="button" data-icon="call"></a>
                             </td>
-                            <td>
-                                <a href="#" data-role="button" data-icon="favorite"></a>
-                            </td>                           
-                            <td>
+                            <td class="text">
+                                <a href="#">Mynie</a>
+                            </td>
+                            <td class="icon">
                                 <a href="#" data-role="button" data-icon="favorite"></a>
                             </td>
                         </tr>
                     </table>
                 </div>
-				
-			<br>	
-			<br>						
-            <a href="#" id="btn_copy_paste" data-role="button" data-inline="true">CopyPaste</a> 
-                <div id="pop_copy_paste" data-role="ctxpopup" data-selector="#btn_copy_paste" data-style="hlist">
+			<br>
+			<br>
+			<a href="#pop_copy_paste" id="btn_copy_paste" data-role="button" data-inline="true" data-rel="popupwindow">CopyPaste</a>
+                <div id="pop_copy_paste" class="horizontal" data-role="popupwindow" data-show-arrow="true">
                     <ul>
                         <li class='text'><a href="#">Copy</a></li>
                         <li class='text'><a href="#">All</a></li>
                         <li class='text'><a href="#">Paste</a></li>
                     </ul>
                 </div>
-				
-			<br>				
-			<br>				
-            <a href="#" id="btn_text_only" data-role="button" data-inline="true">Text Only</a> 
-                <div id="pop_text_only" data-role="ctxpopup" data-selector="#btn_text_only">
-            
+			<br>
+			<br>
+            <a href="#pop_text_only" id="btn_text_only" data-role="button" data-inline="true" data-rel="popupwindow">Text Only</a>
+                <div id="pop_text_only" data-role="popupwindow" data-show-arrow="true">
                     <ul data-role="listview">
                         <li><a href="http://www.naver.com">www.naver.com</a></li>
                         <li><a href="http://www.naver.com">www.naver.com</a></li>
@@ -99,10 +95,10 @@
                     </ul>
                 </div>
 
-			<br>				
-			<br>				
-            <a href="#" id="btn_buttons" data-role="button" data-inline="true">Buttons</a> 
-                <div id="pop_buttons" data-role="ctxpopup" data-selector="#btn_buttons" data-style="button">
+			<br>
+			<br>
+            <a href="#pop_buttons" id="btn_buttons" data-role="button" data-inline="true" data-rel="popupwindow">Buttons</a> 
+                <div id="pop_buttons" class="button" data-role="popupwindow" data-show-arrow="true">
                     <div>
                         <table>
                             <tr><td><a href="#" data-role="button">Meenie</a></td><td><a href="#" data-role="button">Mynie</a></td><td><a href="#" data-role="button">Mo</a></td></tr>
@@ -113,9 +109,9 @@
 
 			<br>
 			<br>
-            <a href="#" class="picker_btn" data-role="button" data-inline="true">Time Picker #1</a>
-            <a href="#" class="picker_btn" data-role="button" data-inline="true">Time Picker #2</a>
-                <div id="pop_time_picker" data-role="ctxpopup" data-selector=".picker_btn" data-style="picker">
+			<!-- 
+            <a href="#pop_time_picker" class="picker_btn" data-role="button" data-inline="true" data-rel="popupwindow">Time Picker</a>
+                <div class="picker" id="pop_time_picker" data-role="popupwindow" data-show-arrow="true">
                     <ul>
                         <li><a href="#">1</a></li>
                         <li><a href="#">2</a></li>
@@ -176,11 +172,11 @@
                         <li><a href="#">57</a></li>
                         <li><a href="#">58</a></li>
                         <li><a href="#">59</a></li>
-                        <li><a href="#">60</a></li> 
+                        <li><a href="#">60</a></li>
 
                     </ul>
                 </div>
-
+			-->
         </div>
 	</div> <!-- /content -->
 

@@ -1,7 +1,7 @@
  /*!
  * jQuery UI Google Map 3.0-alpha
  * http://code.google.com/p/jquery-ui-map/
- * Copyright (c) 2010 - 2011 Johan Säll Larsson
+ * Copyright (c) 2010 - 2011 Johan S?ll Larsson
  * Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
  *
  * Depends:
@@ -100,16 +100,6 @@
 		 */
 		placesSearch: function(a, b) {
 			this.get('services > PlacesService', new google.maps.places.PlacesService(this.get('map'))).search(a, b);
-		},
-        
-        placesDetail: function(a, b) {
-            this.get('services > PlacesService', new google.maps.places.PlacesService(this.get('map'))).getDetails(a, b);
-        },
-
-        setCenter: function(a) {
-            this.get('map').setCenter(a);
-        }
-
+		}
 	});
-
 } (jQuery) );

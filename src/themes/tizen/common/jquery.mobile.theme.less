@@ -35,7 +35,7 @@
 	}
 	*/	
 	.ui-btn.ui-btn-back.ui-btn-down-s {
-		.ui-btn-inner.ui-btn-icon-only {
+		.ui-btn-inner {
 			background : @color_bar_back_btn_press;
 		}
 	}
@@ -52,7 +52,7 @@
 		border-width : 0px;
 		background : @color_bar_bg;
 	}
-	.ui-btn.ui-btn-back .ui-btn-inner.ui-btn-icon-only, 
+	.ui-btn.ui-btn-back .ui-btn-inner, 
 	.ui-btn.ui-btn-footer-right .ui-btn-inner {
 			padding : 0;
 
@@ -587,6 +587,7 @@ a.ui-link-inherit {
 	}
 }
 
+.ui-header .ui-navbar.ui-tabbar-s,
 .ui-header .ui-navbar.ui-toolbar-s {
 	a {
 		width : 100%;
@@ -729,13 +730,9 @@ a.ui-link-inherit {
 
 .ui-icon {
 	/* global-icon */
-/* koeun: for checkbox
-	background: 						#666;
-	background: 						rgba(0,0,0,.4);
-	*/
 	background-image: url(images/icons-18-white.png);
 	background-repeat: no-repeat;
-	// koeun : no radius for checkbox
+	// no radius for checkbox
 	//.LESSborder-radius-all(9px); 
 }
 
@@ -848,7 +845,7 @@ a.ui-link-inherit {
 }
 .ui-checkbox-on .ui-icon,
 .ui-radio-on .ui-icon {
-  /*koeun we don't need bg color for icons..
+  /*Do not need bg color for icons..
 	background-color: #4596ce;*/ /* NOTE: this hex should match the active state color. It's repeated here for cascade */
 }
 
@@ -860,7 +857,7 @@ a.ui-link-inherit {
 	.LESSborder-radius-all(20px); 
 }
 
-/* Jinhyuk : Add ctrl bar *//* SLP Default Footer : Jinhyuk */
+/* Add ctrl bar *//* TIZEN Default Footer */
 	.ui-icon-ctrlbar-account_sign-up, .ui-icon-ctrlbar-accounts, .ui-icon-ctrlbar-add-to-bookmarks, .ui-icon-ctrlbar-add-to-calendar, .ui-icon-ctrlbar-alarm, 
 	.ui-icon-ctrlbar-albums, .ui-icon-ctrlbar-area, .ui-icon-ctrlbar-artist, .ui-icon-ctrlbar-attach, .ui-icon-ctrlbar-back,
 	.ui-icon-ctrlbar-backward, .ui-icon-ctrlbar-bluetooth_preview, .ui-icon-ctrlbar-bookmarks, .ui-icon-ctrlbar-brightness, .ui-icon-ctrlbar-calendar,
@@ -1213,8 +1210,7 @@ a.ui-link-inherit {
 		background-image: url(images/controlbar/01_controlbar_icon_3Dview.png);
 	}								
 				
-
-/* Jinhyuk : Add ctrl bar */
+/* ---------------------------------------------- */
 
 
 

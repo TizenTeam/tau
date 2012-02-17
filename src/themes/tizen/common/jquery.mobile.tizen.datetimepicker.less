@@ -1,0 +1,92 @@
+@import "config.less";
+
+.ui-datefield {
+	display: inline-block;
+
+	div {
+		display: inline-block;
+
+		span {
+			margin-right: 20 * @unit_base;
+		}
+
+		span:hover {
+			color: @color_button_hover;
+		}
+
+		.ui-datefield-selected {
+			color: @color_timepicker_selector_color;
+		}
+
+		.ui-datefield-ampm {
+			margin-right: 0;
+			margin-top: 0;
+			top: -5 * @unit_base;
+			display: inline-block;
+			span.ui-btn-inner.ui-btn-hastxt {
+				margin-right: 0;
+				padding: 0 25*@unit_base;
+				span {
+					margin-right: 0;
+				}
+			}
+		}
+	}
+
+	.ui-datefield-tab {
+		display: inline-block;
+		min-width: 60 * @unit_base;
+	}
+}
+
+.ui-datetimepicker-selector {
+	div ul {
+		padding: 0;
+		display: inline;
+		list-style: none;
+		vertical-align: middle;
+		margin: 0;
+
+		li {
+			font-size: 44 * @unit_base;
+			float: left;
+			padding: 30 * @unit_base 8 * @unit_base 0 8 * @unit_base;
+			max-width: 200 * @unit_base;
+			min-width: 200 * @unit_base;
+
+			a.ui-link {
+				text-decoration: none;
+				color: @color_ctxpopup_timepicker_text;
+			}
+
+			a.ui-link:hover {
+				color: @color_ctxpopup_timepicker_text; 
+			}
+		}
+
+		li.current {
+			a.ui-link {
+				color: @color_ctxpopup_timepicker_text_focus;
+			}
+		}
+	}
+}
+
+.ui-datetimepicker {
+	left: 0 !important;
+	padding: 0;
+	
+	.ui-popupwindow-padding {
+		background: @color_timepicker_selector_color !important;
+		border-radius: 0 !important;
+		-webkit-border-radius: 0 !important;
+		box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.6) !important;
+		border-width: 0 !important;
+		text-align: center !important;
+
+		div {
+			height: 106 * @unit_base;
+		}
+	}
+}
+

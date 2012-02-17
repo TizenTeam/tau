@@ -8,9 +8,8 @@ CSS_OUTPUT = ${OUTPUT_DIR}/web-ui-fw-theme.css
 CSS_SRCS=	../common/jquery.mobile.theme.less.css \
 		../common/jquery.mobile.core.less.css \
 		../common/jquery.mobile.transitions.css \
-		../common/jquery.mobile.scrollview.css \
 		../common/jquery.mobile.grids.css \
-		../common/jquery.mobile.headerfooter.css \
+		../common/jquery.mobile.headerfooter.less.css \
 		../common/jquery.mobile.navbar.css \
 		../common/jquery.mobile.button.less.css \
 		../common/jquery.mobile.collapsible.css \
@@ -21,27 +20,31 @@ CSS_SRCS=	../common/jquery.mobile.theme.less.css \
 		../common/jquery.mobile.forms.textinput.less.css \
 		../common/jquery.mobile.controlgroup.less.css \
 		../common/jquery.mobile.listview.less.css \
-		../common/jquery.mobile.virtuallistview.less.css \
-		../common/jquery.mobile.popupwindow.less.css \
 		../common/jquery.mobile.segmentctrl.less.css \
-		../common/jquery.mobile.hsvpicker.less.css \
-		../common/jquery.mobile.colorpalette.less.css \
-		../common/jquery.mobile.colortitle.less.css \
-		../common/jquery.mobile.datetimepicker.less.css \
-		../common/jquery.mobile.ctxpopup.less.css \
-		../common/jquery.mobile.progressbar.less.css \
-		../common/jquery.mobile.progress.less.css \
-		../common/jquery.mobile.slider.less.css \
-		../common/jquery.mobile.imageslider.less.css \
-		../common/jquery.mobile.tickernoti.less.css \
-		../common/jquery.mobile.smallpopup.less.css \
-		../common/jquery.mobile.optionheader.less.css \
-		../common/jquery.mobile.pagecontrol.less.css \
-		../common/jquery.mobile.calendarpicker.less.css \
-		../common/jquery.mobile.swipelist.less.css \
-		../common/jquery.mobile.nocontents.less.css \
-		../common/shortcutscroll.less.css \
-		../common/dayselector.less.css
+		../common/jquery.mobile.tizen.optionheader.less.css \
+		../common/jquery.mobile.tizen.virtuallistview.less.css \
+		../common/jquery.mobile.tizen.scrollview.css \
+		../common/jquery.mobile.tizen.hsvpicker.less.css \
+		../common/jquery.mobile.tizen.colorpalette.less.css \
+		../common/jquery.mobile.tizen.colortitle.less.css \
+		../common/jquery.mobile.tizen.datetimepicker.less.css \
+		../common/jquery.mobile.tizen.popupwindow.less.css \
+		../common/jquery.mobile.tizen.ctxpopup.less.css \
+		../common/jquery.mobile.tizen.progressbar.less.css \
+		../common/jquery.mobile.tizen.progress.less.css \
+		../common/jquery.mobile.tizen.slider.less.css \
+		../common/jquery.mobile.tizen.imageslider.less.css \
+		../common/jquery.mobile.tizen.notification.less.css \
+		../common/jquery.mobile.tizen.pagecontrol.less.css \
+		../common/jquery.mobile.tizen.swipelist.less.css \
+		../common/jquery.mobile.tizen.nocontents.less.css \
+		../common/jquery.mobile.tizen.shortcutscroll.less.css \
+		../common/jquery.mobile.tizen.dayselector.less.css \
+		../common/jquery.mobile.tizen.toggleswitch.less.css \
+		../common/jquery.mobile.tizen.huegradient.css \
+		../common/jquery.mobile.tizen.colorpicker.less.css \
+		../common/jquery.mobile.tizen.colorpickerbutton.css \
+		../common/jquery.mobile.tizen.triangle.less.css
 
 all: prepare css images js
 

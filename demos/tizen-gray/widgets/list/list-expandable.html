@@ -1,0 +1,45 @@
+<div data-role="page" id="genlist-expandable" data-add-back-btn="true">
+	<div data-role="header" data-position="fixed">
+		<h1>expandable list</h1>
+	</div>
+	<div data-role="content">
+		<ul data-role="listview">
+			<li class="ui-li-1line ui-li-dialogue" data-expandable="true" id="exp1" data-initial-expansion="true">1line</li>
+			<li class="ui-li-1line ui-li-dialogue" data-expanded-by="exp1">exp1-sub 1</li>
+			<li class="ui-li-1line ui-li-dialogue" data-expanded-by="exp1">exp1-sub 2</li>
+			<li class="ui-li-1line ui-li-dialogue" data-expanded-by="exp1">exp1-sub 3</li>
+			<li class="ui-li-1line ui-li-dialogue" data-expanded-by="exp1">exp1-sub 4</li>
+			<li class="ui-li-1line ui-li-dialogue" data-expanded-by="exp1">exp1-sub 5</li>
+			<li class="ui-li-1line ui-li-dialogue" data-expanded-by="exp1">exp1-sub 6</li>
+			<li class="ui-li-1line ui-li-dialogue" data-expanded-by="exp1">exp1-sub 7</li>
+			<li data-expanded-by="exp1" data-expandable="true" id="exp2">exp1-sub 2 (exp2)</li>
+			<li class="ui-li-1line" data-expanded-by="exp2">exp2-sub 1</li>
+			<li class="ui-li-1line" data-expanded-by="exp2">exp2-sub 2</li>
+			<li class="ui-li-1line" data-expanded-by="exp2">exp2-sub 3</li>
+			<li class="ui-li-2line ui-li-dialogue" data-expandable="true" id="exp3">
+				<span class="ui-li-text-main">2line</span>
+				<span class="ui-li-text-sub">Subtext</span>
+			</li>
+			<li class="ui-li-2line-sub-main ui-li-dialogue" data-expandable="true" id="exp4">
+				<span class="ui-li-text-main">2line-sub-main</span>
+				<span class="ui-li-text-sub">Subtext</span>
+			</li>
+			<li class="ui-li-2line-radio1 ui-li-dialogue" data-expandable="true" id="exp5">
+				<span class="ui-li-text-main">2line-radio1</span>
+				<span class="ui-li-text-sub">Subtext</span>
+				<form><input type="radio" /></form>
+			</li>
+			<li class="ui-li-2line-colorbar3" data-expandable="true" id="exp6">
+				<span class="ui-li-color-bar" style="background-color:rgba(72, 136, 42, 1);"></span>
+				<span class="ui-li-text-main">2line-colorbar3</span>
+				<span class="ui-li-text-sub">Subtext</span>
+<!--				<div data-role="button" data-inline="true" data-icon="call" data-style="circle"></div> -->
+				<img src="thumbnail.jpg" class="ui-li-bigicon">
+			</li>
+
+
+		</ul>
+	</div>
+	<div data-role="footer">
+	</div>
+</div>

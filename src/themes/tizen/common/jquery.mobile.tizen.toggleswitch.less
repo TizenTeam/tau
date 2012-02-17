@@ -1,0 +1,42 @@
+@import "config.less";
+
+.ui-toggleswitch {
+	position: relative;
+	overflow: hidden;
+	background: @color_button_normal;
+
+	.toggleswitch-background {
+		position: absolute;
+		margin: 0px;
+		border: 0px;
+		left: 0px;
+		right: 0px;
+		top: 0px;
+		bottom: 0px;
+		pointer-events: none;
+	}
+
+	.toggleswitch-sizer {
+		margin: 0px;
+		opacity: 0;
+		pointer-events: none;
+	}
+
+	.toggleswitch-floating-button {
+		background: @color_text;
+		position: absolute;
+		margin: 0px;
+		left: 0px;
+		right: 0px;
+	}
+
+	.ui-btn-inner {
+		padding: 2 * @unit_base 7 * @unit_base !important;
+	}
+
+	.toggleswitch-mover {
+		border-color: transparent;
+		background: none;
+		pointer-events: none;
+	}
+}

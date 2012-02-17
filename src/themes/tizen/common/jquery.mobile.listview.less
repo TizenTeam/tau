@@ -372,7 +372,7 @@ ol.ui-listview {
 */
 
 // =======================
-// nbeat-black normal list
+// tizen normal list
 // =======================
 .ui-li-long-text {
 	display: inline-block;
@@ -383,7 +383,7 @@ ol.ui-listview {
 
 .LESSli-reset-position-1line(@height: @list-li-main-line-height, @padding-left: @list-li-padding-horizontal) {
 	margin: 0;
-	height: @height;
+	height: @height !important;
 	min-height: @height;
 	padding-left: @padding-left;
 }
@@ -682,7 +682,6 @@ ol.ui-listview {
 		top: @top;
 	}
 }
-
 .LESScheckbox-right(@right:@list-li-padding-horizontal, @top: 50%) {	// NOTE: This can be changed according to checkbox implementation!
 	.ui-checkbox {
 		position: absolute;
@@ -690,16 +689,23 @@ ol.ui-listview {
 		top: @top;
 		margin: -1.1em 65*@unit_base 0 @list-li-padding-horizontal;
 	}
-	&> .ui-checkbox.onoff {
+/*	&> .ui-checkbox.onoff {
 		position: absolute;
 		left: auto;
 		right: @right;
 		top: @top;
 		margin-top: -1.1em;
-		/*
-		float: right;
-		margin-right: @list-li-padding-horizontal;
-		*/
+		//float: right;
+		//margin-right: @list-li-padding-horizontal;
+	}
+*/
+}
+.LESStoggleswitch-right(@right:@list-li-padding-horizontal, @top: 50%) {	// NOTE: This can be changed according to checkbox implementation!
+	.ui-toggleswitch {
+		position: absolute;
+		right: @right;
+		top: @top;
+		margin: -1.1em 0 0 @list-li-padding-horizontal;
 	}
 }
 .LESScheckbox-left(@left:@list-li-padding-horizontal, @top: 50%) {	// checkbox + radio
@@ -804,71 +810,71 @@ ul.ui-listview {
 		}
 	}
 
-	&> li.ui-li-3-1-1,
-	&> li.ui-li-3-1-2,
-	&> li.ui-li-3-1-3 {
+	&> li.ui-li-1line,
+	&> li.ui-li-1line-sub,
+	&> li.ui-li-1line-setting {
 		.LESStext-main-1line;
 		.LESStext-sub-1line;
 	}
-	&> li.ui-li-3-1-3 {
+	&> li.ui-li-1line-setting {
 		.LESStext-sub-setting;
 	}
-	&> li.ui-li-3-1-4,
-	&> li.ui-li-3-1-5 {
+	&> li.ui-li-1line-btn1,
+	&> li.ui-li-1line-btn2 {
 		.LESStext-main-1line;
 		.LESSbtn-right;
 	}
-	&> li.ui-li-3-1-6 {
+	&> li.ui-li-1line-toggle {
 		.LESStext-main-1line;
-		.LESScheckbox-right;
+		.LESStoggleswitch-right;
 	}
 	
-	&> li.ui-li-3-1-10,
-	&> li.ui-li-3-1-11,
-	&> li.ui-li-3-1-13,
-	&> li.ui-li-3-1-14,
-	&> li.ui-li-3-1-15 {
+	&> li.ui-li-1line-bigicon1,
+	&> li.ui-li-1line-bigicon2,
+	&> li.ui-li-1line-bigicon4,
+	&> li.ui-li-1line-bigicon5,
+	&> li.ui-li-1line-bigicon6 {
 		.LESStext-main-1line(2 * @list-li-padding-horizontal + @list-bigicon-size);
 		.LESSimg-bigicon-left;
 	}
-	&> li.ui-li-3-1-11 {
+	&> li.ui-li-1line-bigicon2 {
 		.LESStext-sub-1line;
 	}
-	&> li.ui-li-3-1-15 {
-		.LESScheckbox-right;
+	&> li.ui-li-1line-bigicon6 {
+		.LESStoggleswitch-right;
 	}
 
-	&> li.ui-li-3-1-16,
-	&> li.ui-li-3-1-17,
-	&> li.ui-li-3-1-20,
-	&> li.ui-li-3-1-22,
-	&> li.ui-li-3-1-24 {
+	&> li.ui-li-1line-check1,
+	&> li.ui-li-1line-check2,
+	&> li.ui-li-1line-radio1,
+	&> li.ui-li-1line-radio3,
+	&> li.ui-li-1line-radio5 {
 		.LESSli-reset-position-1line(@list-li-main-line-height, 2 * @list-li-padding-horizontal + @list-checkbox-size);
 		.LESScheckbox-left;
 		.LESStext-main-1line;
 	}
-	&> li.ui-li-3-1-18,
-	&> li.ui-li-3-1-19,
-	&> li.ui-li-3-1-23 {
+	&> li.ui-li-1line-check3,
+	&> li.ui-li-1line-check4,
+	&> li.ui-li-1line-radio4 {
 		.LESSli-reset-position-1line(@list-li-main-line-height, 3 * @list-li-padding-horizontal + @list-checkbox-size + @list-bigicon-size);
 		.LESScheckbox-left;
 		.LESSimg-bigicon-left(74 * @unit_base);
 		.LESStext-main-1line;
 	}
-	&> li.ui-li-3-1-13,
-	&> li.ui-li-3-1-14,
-	&> li.ui-li-3-1-17,
-	&> li.ui-li-3-1-19,
-	&> li.ui-li-3-1-22,
-	&> li.ui-li-3-1-24 {
+	&> li.ui-li-1line-bigicon4,
+	&> li.ui-li-1line-bigicon5,
+	&> li.ui-li-1line-check2,
+	&> li.ui-li-1line-check4,
+	&> li.ui-li-1line-radio3,
+	&> li.ui-li-1line-radio5 {
 		.LESSbtn-right;
 	}
-	&> li.ui-li-3-1-24 {
+	&> li.ui-li-1line-radio5 {
 		.LESSimg-bigicon-right(96 * @unit_base);
 	}
 
 	/* For Contacts list : wongi_1108 */
-	&> li.ui-li-3-1-25 {
+	&> li.ui-li-1line-radio6 {
 		.LESStext-main-1line;
 		.LESSimg-bigicon-right(16 * @unit_base);
 	}
@@ -876,31 +882,31 @@ ul.ui-listview {
 
 	// === 2 line ===
 	// text align
-	&> li.ui-li-3-2-1,
-	&> li.ui-li-3-2-9,
-	&> li.ui-li-3-2-10 {
+	&> li.ui-li-2line,
+	&> li.ui-li-2line-setting,
+	&> li.ui-li-2line-toggle-setting {
 		.LESSli-reset-position;
 		.LESStext-main-2line;
 		.LESStext-sub-2line-left;
-		.LESScheckbox-right;
+		.LESStoggleswitch-right;
 	}
-	&> li.ui-li-3-2-2,
-	&> li.ui-li-3-2-29 {
+	&> li.ui-li-2line-sub-main,
+	&> li.ui-li-2line-sub-main-bigicon1 {
 		.LESSli-reset-position;
 		.LESStext-main-2line(@list-li-padding-horizontal, @list-li-top-padding + @list-li-sub-line-height);
 		.LESStext-sub-2line-left(@list-li-padding-horizontal, @list-li-top-padding);
 		.LESSimg-bigicon-right;
 	}
-	&> li.ui-li-3-2-3 {
+	&> li.ui-li-2line-2sub {
 		.LESSli-reset-position;
 		.LESStext-main-2line;
 		.LESStext-sub-2line-left;
 		.LESStext-sub-2line-right;
 	}
-	&> li.ui-li-3-2-4,
-	&> li.ui-li-3-2-5,
-	&> li.ui-li-3-2-11,
-	&> li.ui-li-3-2-12 {
+	&> li.ui-li-2line-btn1,
+	&> li.ui-li-2line-btn2,
+	&> li.ui-li-2line-btn-setting,
+	&> li.ui-li-2line-bigicon0 {
 		.LESSli-reset-position;
 		.LESStext-main-2line;
 		.LESStext-sub-2line-left;
@@ -913,14 +919,14 @@ ul.ui-listview {
 			}
 		}
 	}
-	&> li.ui-li-3-2-7 {
+	&> li.ui-li-2line-star1 {
 		.LESSli-reset-position;
 		.LESStext-main-2line;
 		.LESStext-sub-2line-left;
 		.LESSsubicon-right(@list-li-padding-horizontal, @list-li-top-padding);
 		.LESStext-sub-2line-right(@list-li-padding-horizontal, @list-li-top-padding+@list-li-main-line-height);
 	}
-	&> li.ui-li-3-2-8 {
+	&> li.ui-li-2line-star2 {
 		.LESSli-reset-position;
 		.LESStext-main-2line;
 		.LESStext-sub-2line-left;
@@ -934,41 +940,41 @@ ul.ui-listview {
 		}
 	}
 
-	&> li.ui-li-3-2-13,
-	&> li.ui-li-3-2-14,
-	&> li.ui-li-3-2-15,
-	&> li.ui-li-3-2-17,
-	&> li.ui-li-3-2-25,
-	&> li.ui-li-3-2-31 {
+	&> li.ui-li-2line-bigicon1,
+	&> li.ui-li-2line-bigicon2,
+	&> li.ui-li-2line-bigicon3,
+	&> li.ui-li-2line-bigicon4,
+	&> li.ui-li-2line-colorbar3,
+	&> li.ui-li-2line-bigicon-pgbar2 {
 		.LESSli-reset-position;
 		.LESStext-main-2line(2 * @list-li-padding-horizontal + @list-bigicon-size, @list-li-top-padding);
 		.LESStext-sub-2line-left(2 * @list-li-padding-horizontal + @list-bigicon-size, @list-li-top-padding+@list-li-main-line-height);
 		.LESSbtn-right;
 		.LESSimg-bigicon-left;
 	}
-	&> li.ui-li-3-2-14 {
+	&> li.ui-li-2line-bigicon2 {
 		.LESStext-sub-2line-right;
 	}
 	
-	&> li.ui-li-3-2-9,
-	&> li.ui-li-3-2-10,
-	&> li.ui-li-3-2-11,
-	&> li.ui-li-3-2-15 {
+	&> li.ui-li-2line-setting,
+	&> li.ui-li-2line-toggle-setting,
+	&> li.ui-li-2line-btn-setting,
+	&> li.ui-li-2line-bigicon3 {
 		.LESStext-sub-setting;
 	}
 
-	&> li.ui-li-3-2-18,
-	&> li.ui-li-3-2-19,
-	&> li.ui-li-3-2-21 {
+	&> li.ui-li-2line-check1,
+	&> li.ui-li-2line-check2,
+	&> li.ui-li-2line-radio1 {
 		.LESSli-reset-position;
 		.LESScheckbox-left;
 		.LESStext-main-2line(2 * @list-li-padding-horizontal + @list-checkbox-size, @list-li-top-padding);
 		.LESStext-sub-2line-left(2 * @list-li-padding-horizontal + @list-checkbox-size, @list-li-top-padding+@list-li-main-line-height);
 		.LESSbtn-right;
 	}
-	&> li.ui-li-3-2-20,
-	&> li.ui-li-3-2-22,
-	&> li.ui-li-3-2-33 {
+	&> li.ui-li-2line-check3,
+	&> li.ui-li-2line-radio2,
+	&> li.ui-li-2line-icon-bigicon-btn {
 		.LESSli-reset-position;
 		.LESScheckbox-left;
 		.LESSimg-bigicon-left(2*@list-li-padding-horizontal + @list-checkbox-size);
@@ -977,9 +983,9 @@ ul.ui-listview {
 		.LESSbtn-right;
 	}
 
-	&> li.ui-li-3-2-23,
-	&> li.ui-li-3-2-24,
-	&> li.ui-li-3-2-25 {
+	&> li.ui-li-2line-colorbar1,
+	&> li.ui-li-2line-colorbar2,
+	&> li.ui-li-2line-colorbar3 {
 		.ui-li-color-bar {
 			position: absolute;
 			left: 0;
@@ -989,7 +995,7 @@ ul.ui-listview {
 			background-color: @color_list_colorbar;
 		}
 	}
-	&> li.ui-li-3-2-23 {
+	&> li.ui-li-2line-colorbar1 {
 		.LESSli-reset-position;
 		.LESStext-main-2line;
 		.LESStext-sub-2line-left;
@@ -1010,7 +1016,7 @@ ul.ui-listview {
 			}
 		}
 	}
-	&> li.ui-li-3-2-24 {
+	&> li.ui-li-2line-colorbar2 {
 		.LESSli-reset-position;
 		.LESStext-main-2line;
 		.LESStext-sub-2line-left;
@@ -1023,16 +1029,16 @@ ul.ui-listview {
 			}
 		}
 	}
-	&> li.ui-li-3-2-26 {
+	&> li.ui-li-2line-bigicon8 {
 		.LESSli-reset-position;
 		.LESSimg-bigicon-left;
 		.LESStext-main-2line(2 * @list-li-padding-horizontal + @list-bigicon-size, @list-li-top-padding);
 		.LESStext-sub-2line-left(2 * @list-li-padding-horizontal + @list-bigicon-size, @list-li-top-padding+@list-li-main-line-height);
 		.LESSsubicon-right(@list-li-padding-horizontal, @list-li-top-padding + @list-li-main-line-height + 8*@unit_base);
 	}
-	&> li.ui-li-3-2-27,
-	&> li.ui-li-3-2-28,
-	&> li.ui-li-3-2-34 {
+	&> li.ui-li-2line-thumb1,
+	&> li.ui-li-2line-thumb2,
+	&> li.ui-li-2line-thumb3 {
 		.LESSli-reset-position;
 		.LESStext-main-2line;
 		.LESStext-sub-2line-left;
@@ -1052,7 +1058,7 @@ ul.ui-listview {
 			}
 		}
 	}
-	&> li.ui-li-3-2-30 {
+	&> li.ui-li-2line-bigicon-pgbar1 {
 		.LESSli-reset-position;
 		.LESSimg-bigicon-left;
 		.LESStext-main-2line(2 * @list-li-padding-horizontal + @list-bigicon-size, 0);
@@ -1069,7 +1075,7 @@ ul.ui-listview {
 			width: 468 * @unit_base;
 		}
 	}
-	&> li.ui-li-3-2-32 {
+	&> li.ui-li-2line-bigicon-pgbar3 {
 		.LESSli-reset-position;
 		.LESSimg-bigicon-left;
 		.LESStext-main-2line(2 * @list-li-padding-horizontal + @list-bigicon-size, 0);
@@ -1082,15 +1088,15 @@ ul.ui-listview {
 			width: 608 * @unit_base;
 		}
 	}
-	&> li.ui-li-3-2-1,
-	&> li.ui-li-3-2-2,
-	&> li.ui-li-3-2-9 {
+	&> li.ui-li-2line,
+	&> li.ui-li-2line-sub-main,
+	&> li.ui-li-2line-setting {
 		.ui-li-text-main,
 		.ui-li-text-sub {
 			max-width: 95%;
 		}
 	}
-	&> li.ui-li-3-2-3,
+	&> li.ui-li-2line-2sub,
 	&> li.ui-li-3-2-6 {
 		.ui-li-text-main {
 			max-width: 65%;
@@ -1102,10 +1108,10 @@ ul.ui-listview {
 			max-width: 30%;
 		}
 	}
-	&> li.ui-li-3-2-4,
-	&> li.ui-li-3-2-24,
-	&> li.ui-li-3-2-27,
-	&> li.ui-li-3-2-28 {
+	&> li.ui-li-2line-btn1,
+	&> li.ui-li-2line-colorbar3,
+	&> li.ui-li-2line-thumb1,
+	&> li.ui-li-2line-thumb2 {
 		.ui-li-text-main,
 		.ui-li-text-sub {
 			max-width: 65%;
@@ -1114,22 +1120,22 @@ ul.ui-listview {
 			max-width: 30%;
 		}
 	}
-	&> li.ui-li-3-2-5,
-	&> li.ui-li-3-2-10,
-	&> li.ui-li-3-2-11,
-	&> li.ui-li-3-2-12,
-	&> li.ui-li-3-2-13,
-	&> li.ui-li-3-2-15,
-	&> li.ui-li-3-2-18,
-	&> li.ui-li-3-2-21,
-	&> li.ui-li-3-2-29 {
+	&> li.ui-li-2line-btn2,
+	&> li.ui-li-2line-toggle-setting,
+	&> li.ui-li-2line-btn-setting,
+	&> li.ui-li-2line-bigicon0,
+	&> li.ui-li-2line-bigicon1,
+	&> li.ui-li-2line-bigicon3,
+	&> li.ui-li-2line-check1,
+	&> li.ui-li-2line-radio1,
+	&> li.ui-li-2line-sub-main-bigicon1 {
 		.ui-li-text-main,
 		.ui-li-text-sub {
 			max-width: 80%;
 		}
 	}
-	&> li.ui-li-3-2-7,
-	&> li.ui-li-3-2-23 {
+	&> li.ui-li-2line-star1,
+	&> li.ui-li-2line-colorbar1 {
 		.ui-li-text-main {
 			max-width: 85%;
 		}
@@ -1140,7 +1146,7 @@ ul.ui-listview {
 			max-width: 30%;
 		}
 	}
-	&> li.ui-li-3-2-8 {
+	&> li.ui-li-2line-star2 {
 		.ui-li-text-main {
 			max-width: 85%;
 		}
@@ -1148,7 +1154,7 @@ ul.ui-listview {
 			max-width: 95%;
 		}
 	}
-	&> li.ui-li-3-2-14 {
+	&> li.ui-li-2line-bigicon2 {
 		.ui-li-text-main {
 			max-width: 55%;
 		}
@@ -1159,18 +1165,18 @@ ul.ui-listview {
 			max-width: 20%;
 		}
 	}
-	&> li.ui-li-3-2-17,
-	&> li.ui-li-3-2-19,
-	&> li.ui-li-3-2-20,
-	&> li.ui-li-3-2-22,
-	&> li.ui-li-3-2-25,
-	&> li.ui-li-3-2-33 {
+	&> li.ui-li-2line-bigicon4,
+	&> li.ui-li-2line-check2,
+	&> li.ui-li-2line-check3,
+	&> li.ui-li-2line-radio2,
+	&> li.ui-li-2line-colorbar3,
+	&> li.ui-li-2line-icon-bigicon-btn {
 		.ui-li-text-main,
 		.ui-li-text-sub {
 			max-width: 65%;
 		}
 	}
-	&> li.ui-li-3-2-26 {
+	&> li.ui-li-2line-bigicon8 {
 		.ui-li-text-main {
 			max-width: 75%;
 		}
@@ -1178,7 +1184,7 @@ ul.ui-listview {
 			max-width: 70%;
 		}
 	}
-	&> li.ui-li-3-2-30 {
+	&> li.ui-li-2line-bigicon-pgbar1 {
 		.ui-li-text-main {
 			max-width: 60%;
 		}
@@ -1189,13 +1195,13 @@ ul.ui-listview {
 			max-width: 20%;
 		}
 	}
-	&> li.ui-li-3-2-31 {
+	&> li.ui-li-2line-bigicon-pgbar2 {
 		.ui-li-text-main,
 		.ui-li-text-sub {
 			max-width: 55%;
 		}
 	}
-	&> li.ui-li-3-2-32 {
+	&> li.ui-li-2line-bigicon-pgbar3 {
 		.ui-li-text-main {
 			max-width: 80%;
 		}
@@ -1206,7 +1212,7 @@ ul.ui-listview {
 			max-width: 20%;
 		}
 	}
-	&> li.ui-li-3-2-34 {
+	&> li.ui-li-2line-thumb3 {
 		.ui-li-text-main,
 		.ui-li-text-sub {
 			max-width: 75%;
@@ -1234,22 +1240,22 @@ ul.ui-listview {
 	}
 
 	// Email
-	&> li.ui-li-3-4-10,
-	&> li.ui-li-3-4-11,
-	&> li.ui-li-3-4-12,
-	&> li.ui-li-3-4-13,
-	&> li.ui-li-3-4-14,
-	&> li.ui-li-3-4-15,
-	&> li.ui-li-3-4-16,
-	&> li.ui-li-3-4-17,
-	&> li.ui-li-3-4-18,
-	&> li.ui-li-3-4-19,
-	&> li.ui-li-3-4-20,
-	&> li.ui-li-3-4-21,
-	&> li.ui-li-3-4-22,
-	&> li.ui-li-3-4-23,
-	&> li.ui-li-3-4-24,
-	&> li.ui-li-3-4-25 {
+	&> li.ui-li-email-name1-btn,
+	&> li.ui-li-email-name2-btn,
+	&> li.ui-li-email-name1,
+	&> li.ui-li-email-name2,
+	&> li.ui-li-email-name1-btn-warning,
+	&> li.ui-li-email-name2-btn-warning,
+	&> li.ui-li-email-name1-warning,
+	&> li.ui-li-email-name2-warning,
+	&> li.ui-li-email-name1-btn-attach,
+	&> li.ui-li-email-name2-btn-attach,
+	&> li.ui-li-email-name1-attach,
+	&> li.ui-li-email-name2-attach,
+	&> li.ui-li-email-name1-btn-warning-attach,
+	&> li.ui-li-email-name2-btn-warning-attach,
+	&> li.ui-li-email-name1-warning-attach,
+	&> li.ui-li-email-name2-warning-attach {
 		.ui-li-color-bar {
 			position: absolute;
 			left: 0;
@@ -1265,67 +1271,67 @@ ul.ui-listview {
 		.LESStext-email-sub-3line-sub3(@list-li-padding-horizontal, @list-li-email-top-padding + @list-li-main-line-height + @list-li-email-sub-line-height);
 	}
 
-	&> li.ui-li-3-4-10,
-	&> li.ui-li-3-4-11,
-	&> li.ui-li-3-4-12,
-	&> li.ui-li-3-4-13 {
+	&> li.ui-li-email-name1-btn,
+	&> li.ui-li-email-name2-btn,
+	&> li.ui-li-email-name1,
+	&> li.ui-li-email-name2 {
 		.LESStext-email-main-3line(2 * @list-li-padding-horizontal + @list-checkbox-size, @list-li-email-top-padding);
 		.LESStext-email-sub-3line-sub1(2 * @list-li-padding-horizontal + @list-checkbox-size, @list-li-email-top-padding + @list-li-main-line-height + @list-li-email-subline-top-padding);
 	}
-	&> li.ui-li-3-4-14,
-	&> li.ui-li-3-4-15,
-	&> li.ui-li-3-4-16,
-	&> li.ui-li-3-4-17 {
+	&> li.ui-li-email-name1-btn-warning,
+	&> li.ui-li-email-name2-btn-warning,
+	&> li.ui-li-email-name1-warning,
+	&> li.ui-li-email-name2-warning {
 		.LESStext-email-main-3line(2 * @list-li-padding-horizontal + @list-checkbox-size, @list-li-email-top-padding);
 		.LESStext-email-sub-3line-sub1(5 * @list-li-padding-horizontal + @list-checkbox-size, @list-li-email-top-padding + @list-li-main-line-height + @list-li-email-subline-top-padding);
 		.LESSsubicon-warning-resize(2 * @list-li-padding-horizontal + @list-checkbox-size, @list-email-icon-top-padding + @list-li-main-line-height, @list-email-warning-icon-width, @list-email-warning-icon-height);
 	}
-	&> li.ui-li-3-4-18,
-	&> li.ui-li-3-4-19,
-	&> li.ui-li-3-4-20,
-	&> li.ui-li-3-4-21 {
+	&> li.ui-li-email-name1-btn-attach,
+	&> li.ui-li-email-name2-btn-attach,
+	&> li.ui-li-email-name1-attach,
+	&> li.ui-li-email-name2-attach {
 		.LESStext-email-main-3line(5 * @list-li-padding-horizontal + @list-checkbox-size, @list-li-email-top-padding);
 		.LESStext-email-sub-3line-sub1(2 * @list-li-padding-horizontal + @list-checkbox-size, @list-li-email-top-padding + @list-li-main-line-height + @list-li-email-subline-top-padding);
 		.LESSsubicon-attach-resize(2 * @list-li-padding-horizontal + @list-checkbox-size, @list-email-icon-top-padding, @list-email-attach-icon-width, @list-email-attach-icon-height);
 	}
-	&> li.ui-li-3-4-22,
-	&> li.ui-li-3-4-23,
-	&> li.ui-li-3-4-24,
-	&> li.ui-li-3-4-25 {
+	&> li.ui-li-email-name1-btn-warning-attach,
+	&> li.ui-li-email-name2-btn-warning-attach,
+	&> li.ui-li-email-name1-warning-attach,
+	&> li.ui-li-email-name2-warning-attach {
 		.LESStext-email-main-3line(5 * @list-li-padding-horizontal + @list-checkbox-size, @list-li-email-top-padding);
 		.LESStext-email-sub-3line-sub1(5 * @list-li-padding-horizontal + @list-checkbox-size, @list-li-email-top-padding + @list-li-main-line-height + @list-li-email-subline-top-padding);
 		.LESSsubicon-attach-resize(2 * @list-li-padding-horizontal + @list-checkbox-size, @list-email-icon-top-padding, @list-email-attach-icon-width, @list-email-attach-icon-height);
 		.LESSsubicon-warning-resize(2 * @list-li-padding-horizontal + @list-checkbox-size, @list-email-icon-top-padding + @list-li-main-line-height, @list-email-warning-icon-width, @list-email-warning-icon-height);
 	}
 
-	&> li.ui-li-3-4-10,
-	&> li.ui-li-3-4-11,
-	&> li.ui-li-3-4-14,
-	&> li.ui-li-3-4-15,
-	&> li.ui-li-3-4-18,
-	&> li.ui-li-3-4-19,
-	&> li.ui-li-3-4-22,
-	&> li.ui-li-3-4-23 {
+	&> li.ui-li-email-name1-btn,
+	&> li.ui-li-email-name2-btn,
+	&> li.ui-li-email-name1-btn-warning,
+	&> li.ui-li-email-name2-btn-warning,
+	&> li.ui-li-email-name1-btn-attach,
+	&> li.ui-li-email-name2-btn-attach,
+	&> li.ui-li-email-name1-btn-warning-attach,
+	&> li.ui-li-email-name2-btn-warning-attach {
 		.LESSbtn-email(2 * @list-li-padding-horizontal + @list-email-icon-width);
 	}
-	&> li.ui-li-3-4-10,
-	&> li.ui-li-3-4-12,
-	&> li.ui-li-3-4-14,
-	&> li.ui-li-3-4-16,
-	&> li.ui-li-3-4-18,
-	&> li.ui-li-3-4-20,
-	&> li.ui-li-3-4-22,
-	&> li.ui-li-3-4-24 {
+	&> li.ui-li-email-name1-btn,
+	&> li.ui-li-email-name1,
+	&> li.ui-li-email-name1-btn-warning,
+	&> li.ui-li-email-name1-warning,
+	&> li.ui-li-email-name1-btn-attach,
+	&> li.ui-li-email-name1-attach,
+	&> li.ui-li-email-name1-btn-warning-attach,
+	&> li.ui-li-email-name1-warning-attach {
 		.LESStext-email-sub1-setting;
 	}	
 
 
 	// Dialogue list
-	&> li.ui-li-4-1-12 {
+	&> li.ui-li-1line-leftsub1 {
 		.LESStext-sub-1line-left;
 		.LESStext-main-1line-right;
 	}
-	&> li.ui-li-4-1-13 { 
+	&> li.ui-li-1line-leftsub2 { 
 		.LESSli-reset-position-1line;
 		.LESStext-sub-1line-left;
 		.LESStext-main-1line-right;
@@ -1363,7 +1369,7 @@ ul.ui-listview {
 		}
 	}
 	
-	&> li.ui-li-4-2-18 { 
+	&> li.ui-li-3line-dgroup1 { 
 		.LESSli-reset-position-3line;
 		.LESStext-main-3line(@list-li-padding-horizontal, @list-li-top-padding);
 		.LESStext-sub-3line-left1(@list-li-padding-horizontal, @list-li-top-padding + @list-li-sub-line-height);

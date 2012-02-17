@@ -1,0 +1,21 @@
+
+<div data-role="page" id="virtuallist-normal_2line-star1" class="virtuallist_demo_page"
+	data-add-back-btn="true">
+	<div data-role="header" data-position="fixed">
+		<h1>Virtual List - Normal Style 2line-star1</h1>
+	</div>
+	<div data-role="content">
+		<script id="tmp-2line-star1" type="text/x-jquery-tmpl">
+			<li class="ui-li-2line-star1">
+				<span class="ui-li-text-main">${NAME}</span>
+				<img src="00_winset_icon_favorite_on.png" class="ui-li-icon-sub">
+				<span class="ui-li-text-sub">${ACTIVE}</span>
+				<span class="ui-li-text-sub2">${FROM}</span>
+			</li>
+
+			</script>
+
+		<ul id="virtuallist-normal_2line-star1_ul" data-role="virtuallistview" data-template="tmp-2line-star1" data-dbtable="JSON_DATA">
+		</ul>
+	</div>
+</div>
