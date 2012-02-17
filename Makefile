@@ -114,7 +114,7 @@ third_party: init jqm
 	    for f in ${LIBS_JS_FILES}; do \
 	        cat $$f >> ${FW_LIB_JS}; \
 		uglifyjs $$f >> ${FW_LIB_MIN}; \
-		echo '\n' >> ${FW_LIB_MIN}; \
+		echo "" >> ${FW_LIB_MIN}; \
 	    done; \
 	    cp ${LIBS_DIR}/js/${JQUERY} ${JS_OUTPUT_ROOT}/jquery.js
 	@@cd ${LIBS_DIR}/css; \
