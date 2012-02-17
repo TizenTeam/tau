@@ -3,7 +3,7 @@
 ### Prepare: set global variables ###
 CWD=`pwd`
 SCRIPTDIR="`cd \`dirname $0\`/; pwd`"
-LIBDIR=/usr/lib/tizen-web-ui-fw
+LIBDIR=$SCRIPTDIR/../lib/tizen-web-ui-fw
 DATA_FRAMEWORK_ROOT=
 
 
@@ -126,7 +126,7 @@ function copy_template
 
 	# Check if this script is in src script
 	if [ -e "${SCRIPTDIR}/../build/tizen-web-ui-fw" ]; then
-		libpath="${SCRIPTDIR}/../build"
+		libpath="${SCRIPTDIR}/../build/tizen-web-ui-fw"
 		tplpath=${SCRIPTDIR}/../src/template
 	fi
 
@@ -140,7 +140,7 @@ function copy_template
 	# copy lib if --copylib option is given
 	if [ -n "$copylib" ]; then
 		echo "Copying libs into $DESTDIR..."
-		cp -a ${libpath}/tizen-web-ui-fw ${DESTDIR}/	|| usage "ERROR: Failed to copy libs"
+		cp -a ${libpath} ${DESTDIR}/	|| usage "ERROR: Failed to copy libs"
 		DATA_FRAMEWORK_ROOT="data-framework-root=\"tizen-web-ui-fw\""
 		LIBDIR="tizen-web-ui-fw/0.1/js"	# This new value is used by replace_template()
 	else   # otherwise, just set libdir
