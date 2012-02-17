@@ -218,7 +218,7 @@ demo: widgets
 
 
 install: all
-	mkdir -p ${INSTALL_DIR}/lib/web-ui-fw ${INSTALL_DIR}/bin
+	mkdir -p ${INSTALL_DIR}/lib/web-ui-fw ${INSTALL_DIR}/bin ${INSTALL_DIR}/share/web-ui-fw/demos/
 	cp -av ${OUTPUT_ROOT}/web-ui-fw/* src/template ${INSTALL_DIR}/lib/web-ui-fw/
 	cp -av tools/* ${INSTALL_DIR}/bin/
 	cp -av demos/tizen-gray ${INSTALL_DIR}/share/web-ui-fw/demos/ && cd ${INSTALL_DIR}/share/web-ui-fw/demos/tizen-gray && sed -i -e "s#../../build#../../../../lib#g" *.html

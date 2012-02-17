@@ -1,6 +1,7 @@
 #!/bin/bash
 
-path_to_be_removed= \
+path_to_be_removed=( \
+	build.sh \
 	debian \
 	demos/aroundMe \
 	demos/baseline \
@@ -23,5 +24,10 @@ path_to_be_removed= \
 	src/themes/nbeat-white \
 	src/themes/tizen/tizen-blue \
 	tests \
-	tools
+	tools/cleanup-src.sh )
 
+cd `dirname $0`
+for p in "${path_to_be_removed[@]}"; do
+	echo $p
+	rm -rf $p
+done
