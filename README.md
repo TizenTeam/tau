@@ -1,4 +1,4 @@
-web-ui-fw is a set of widgets and other components for jQuery Mobile,
+tizen-web-ui-fw is a set of widgets and other components for jQuery Mobile,
 including:
 
 * color pickers
@@ -24,7 +24,7 @@ including:
 * simple horizontal and vertical box layout management (based on jLayout)
 * listview controls (declarative, modal control of the appearance of a listview)
 
-web-ui-fw also includes a custom theme (slightly deprecated, as it was built
+tizen-web-ui-fw also includes a custom theme (slightly deprecated, as it was built
 using the outdated single CSS file approach).
 
 The project is complementary to jQuery Mobile and the components
@@ -32,10 +32,10 @@ should slot into existing projects. In almost all cases, the colours
 and styling of the widgets should broadly adhere to the jQuery Mobile
 styling approach.
 
-Instructions for using web-ui-fw in your own project are in the
-**Using a web-ui-fw distribution** section.
+Instructions for using tizen-web-ui-fw in your own project are in the
+**Using a tizen-web-ui-fw distribution** section.
 
-If you are interested in working on web-ui-fw itself, please see
+If you are interested in working on tizen-web-ui-fw itself, please see
 HACKING.md.
 
 **Note: This is the first release of the project, and there are
@@ -46,13 +46,13 @@ feedback, log bugs, provide patches etc.**
 Dependencies
 ============
 
-web-ui-fw depends on jQuery and jQuery Mobile. It is written against the
+tizen-web-ui-fw depends on jQuery and jQuery Mobile. It is written against the
 1.0-stable branch of jQuery Mobile. So you should use the 1.0 version
 of jQuery Mobile as explained at:
 
   http://jquerymobile.com/download/
 
-web-ui-fw incorporates the following third party libraries
+tizen-web-ui-fw incorporates the following third party libraries
 either in full or in part:
 
 * <a href="http://www.bramstein.com/projects/jlayout/">jLayout and
@@ -82,28 +82,28 @@ The project is maintained by Intel's Open Source Technology Centre.
 Contact
 ===========
 
-Contact us on FreeNode: irc.freenode.net channel #web-ui-fw
+Contact us on FreeNode: irc.freenode.net channel #tizen-web-ui-fw
 
-Using a web-ui-fw distribution
+Using a tizen-web-ui-fw distribution
 ==============================
 
-This document explains how to use one of the web-ui-fw distribution
+This document explains how to use one of the tizen-web-ui-fw distribution
 files (available under
-<a href="https://github.com/otcshare/web-ui-fw/downloads">**Downloads**</a>).
+<a href="https://github.com/otcshare/tizen-web-ui-fw/downloads">**Downloads**</a>).
 
 A distribution file contains the following:
 
 <pre>
 docs/                   basic API documentation
-images/                 images used by web-ui-fw widgets and custom theme;
+images/                 images used by tizen-web-ui-fw widgets and custom theme;
                         note that this includes several jqm sprite
                         pngs, for use in the custom theme; if you're using
                         jqm from a CDN, some of these may be redundant
 COPYING                 licence file
 README                  this file
-web-ui-fw-libs.js       3rd party libraries web-ui-fw depends on (see Dependencies)
-web-ui-fw.js            the web UI widgets, components etc.
-web-ui-fw-widget.css    CSS styling for the web UI widgets
+tizen-web-ui-fw-libs.js       3rd party libraries tizen-web-ui-fw depends on (see Dependencies)
+tizen-web-ui-fw.js            the web UI widgets, components etc.
+tizen-web-ui-fw-widget.css    CSS styling for the web UI widgets
 </pre>
 
 The JavaScript files will be minified (via uglify-js) if you got the
@@ -115,9 +115,9 @@ Step by step
 ------------
 
 1. Download the tarball and unpack it somewhere. This should give you
-   a web-ui-fw directory.
+   a tizen-web-ui-fw directory.
 2. Copy the files from there to your project (it's up to you where they go).
-3. Add stylesheet and script elements to load the web-ui-fw files in the
+3. Add stylesheet and script elements to load the tizen-web-ui-fw files in the
    correct order, _after_ the lines you added to load jQuery and jQuery Mobile.
 
 For example, if your project had a layout like this:
@@ -131,7 +131,7 @@ For example, if your project had a layout like this:
     app.css (your application's CSS)
 </pre>
 
-You could add the web-ui-fw directory to your project like this:
+You could add the tizen-web-ui-fw directory to your project like this:
 
 <pre>
 /
@@ -140,19 +140,19 @@ You could add the web-ui-fw directory to your project like this:
     app.js
   css/
     app.css
-  web-ui-fw/
+  tizen-web-ui-fw/
     images/
-      ... web-ui-fw images ...
-    web-ui-fw-libs.js (3rd party dependencies of web-ui-fw)
-    web-ui-fw.js (web UI components)
-    web-ui-fw-widget.css (web UI widget styling)
-    web-ui-fw-theme.css (optional)
+      ... tizen-web-ui-fw images ...
+    tizen-web-ui-fw-libs.js (3rd party dependencies of tizen-web-ui-fw)
+    tizen-web-ui-fw.js (web UI components)
+    tizen-web-ui-fw-widget.css (web UI widget styling)
+    tizen-web-ui-fw-theme.css (optional)
 </pre>
 
-Note that the web-ui-fw-theme.css file is optional. If you want to
+Note that the tizen-web-ui-fw-theme.css file is optional. If you want to
 use it, see the **Using the custom theme** section.
 
-The boilerplate for a basic web-ui-fw project, pulling in all
+The boilerplate for a basic tizen-web-ui-fw project, pulling in all
 the required files in the right order, is shown in the next section.
 
 Boilerplate index.html
@@ -172,8 +172,8 @@ Boilerplate index.html
     &lt;link rel="stylesheet"
           href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" /&gt;
 
-    &lt;!-- web-ui-fw widget styling --&gt;
-    &lt;link rel="stylesheet" href="web-ui-fw/web-ui-fw-widget.css" /&gt;
+    &lt;!-- tizen-web-ui-fw widget styling --&gt;
+    &lt;link rel="stylesheet" href="tizen-web-ui-fw/tizen-web-ui-fw-widget.css" /&gt;
 
     &lt;!-- your application stylesheet --&gt;
     &lt;link rel="stylesheet" href="css/app.css" /&gt;
@@ -182,9 +182,9 @@ Boilerplate index.html
     &lt;script src="http://code.jquery.com/jquery-1.6.4.min.js"&gt;&lt;/script&gt;
     &lt;script src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"&gt;&lt;/script&gt;
 
-    &lt;!-- web-ui-fw JS --&gt;
-    &lt;script src="web-ui-fw/web-ui-fw-libs.js"&gt;&lt;/script&gt;
-    &lt;script src="web-ui-fw/web-ui-fw.js"&gt;&lt;/script&gt;
+    &lt;!-- tizen-web-ui-fw JS --&gt;
+    &lt;script src="tizen-web-ui-fw/tizen-web-ui-fw-libs.js"&gt;&lt;/script&gt;
+    &lt;script src="tizen-web-ui-fw/tizen-web-ui-fw.js"&gt;&lt;/script&gt;
 
     &lt;!-- your application JS --&gt;
     &lt;script src="js/app.js"&gt;&lt;/script&gt;
@@ -199,7 +199,7 @@ Boilerplate index.html
       &lt;/div&gt;
 
       &lt;div data-role="content"&gt;
-        &lt;!-- APPLY ONE OF THE web-ui-fw COMPONENTS --&gt;
+        &lt;!-- APPLY ONE OF THE tizen-web-ui-fw COMPONENTS --&gt;
         &lt;ul data-role="listview" data-autodividers="alpha"&gt;
           &lt;li&gt;Albert&lt;/li&gt;
           &lt;li&gt;Aldo&lt;/li&gt;
@@ -220,24 +220,24 @@ Boilerplate index.html
 </pre>
 
 The listview in the example above uses the autodividers component
-from web-ui-fw. If you can see list dividers containing alphabetical letters
+from tizen-web-ui-fw. If you can see list dividers containing alphabetical letters
 at the appropriate points in the listview, you can be fairly confident
-that web-ui-fw has loaded correctly.
+that tizen-web-ui-fw has loaded correctly.
 
 Using the custom theme
 ----------------------
 
 Replace the standard jQuery Mobile theme file with the
-web-ui-fw-theme.css file. For example:
+tizen-web-ui-fw-theme.css file. For example:
 
 <pre>
 &lt;!-- load the custom theme instead of jquery.mobile-1.0.min.css --&gt;
-&lt;link rel="stylesheet" href="web-ui-fw/web-ui-fw-theme.css" /&gt;
+&lt;link rel="stylesheet" href="tizen-web-ui-fw/tizen-web-ui-fw-theme.css" /&gt;
 
 &lt;!-- load jQuery and jQuery Mobile JavaScript--&gt;
 &lt;script src="http://code.jquery.com/jquery-1.6.4.min.js"&gt;&lt;/script&gt;
 &lt;script src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"&gt;&lt;/script&gt;
 
-&lt;!-- load the web-ui-fw as above --&gt;
+&lt;!-- load the tizen-web-ui-fw as above --&gt;
 ...
 </pre>

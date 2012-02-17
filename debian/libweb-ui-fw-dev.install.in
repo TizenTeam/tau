@@ -1,2 +1,2 @@
 @PREFIX@/bin/*
-@PREFIX@/lib/web-ui-fw/template
+@PREFIX@/lib/tizen-web-ui-fw/template

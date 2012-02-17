@@ -3,12 +3,12 @@
     <head>
         <title>@APP_NAME@</title>
 		<!--NOTE:
-			jquery.js and web-ui-fw.js must be included.
+			jquery.js and tizen-web-ui-fw.js must be included.
 			DO NOT REMOVE below code!
 		-->
 		<script src="@LIBDIR@/jquery.js"></script>
-		<script src="@LIBDIR@/web-ui-fw-libs.min.js"></script>
-		<script src="@LIBDIR@/web-ui-fw.min.js"
+		<script src="@LIBDIR@/tizen-web-ui-fw-libs.min.js"></script>
+		<script src="@LIBDIR@/tizen-web-ui-fw.min.js"
 			data-framework-theme="tizen-gray"></script>
 
 		<!--NOTE:

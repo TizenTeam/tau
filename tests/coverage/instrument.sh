@@ -41,17 +41,17 @@ if [ -d $DIR/instrumented ] ; then
   rm -Rf $DIR/instrumented
 fi
 
-# just instrument the web-ui-fw file
-$JSCOVERAGE_BIN --exclude web-ui-fw-libs.js --exclude jquery.js \
-  $DIR/../../build/web-ui-fw/latest/js $DIR/instrumented
+# just instrument the tizen-web-ui-fw file
+$JSCOVERAGE_BIN --exclude tizen-web-ui-fw-libs.js --exclude jquery.js \
+  $DIR/../../build/tizen-web-ui-fw/latest/js $DIR/instrumented
 
 # copy all the unit tests to the instrumented directory
 cp -a $DIR/../unit-tests/* $DIR/instrumented/
 
 # edit links in all index.html test files
 for file in `find $DIR/instrumented/ -name index.html` ; do
-  # refer to the instrumented web-ui-fw JS file
-  sed -i -e 's%\.\.\/\.\.\/\.\.\/build\/web-ui-fw\/latest\/js\/web-ui-fw\.js%\.\.\/web-ui-fw\.js%' $file
+  # refer to the instrumented tizen-web-ui-fw JS file
+  sed -i -e 's%\.\.\/\.\.\/\.\.\/build\/tizen-web-ui-fw\/latest\/js\/tizen-web-ui-fw\.js%\.\.\/tizen-web-ui-fw\.js%' $file
 
   # other files are just one directory further up
   sed -i -e 's%\.\.\/\.\.\/build%\.\.\/\.\.\/\.\.\/build%' $file

@@ -3,7 +3,7 @@ THEME_NAME=nbeat-black
 THEME_OUTPUT_ROOT ?= .
 OUTPUT_DIR = ${THEME_OUTPUT_ROOT}/${THEME_NAME}
 
-CSS_OUTPUT = ${OUTPUT_DIR}/web-ui-fw-theme.css
+CSS_OUTPUT = ${OUTPUT_DIR}/tizen-web-ui-fw-theme.css
 CSS_SRCS=	jquery.mobile.theme.less.css \
 		jquery.mobile.core.less.css \
 		jquery.mobile.transitions.css \

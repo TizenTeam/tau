@@ -1,6 +1,6 @@
 ## Project setting
 DEBUG ?= yes
-PROJECT_NAME = web-ui-fw
+PROJECT_NAME = tizen-web-ui-fw
 VERSION = 0.1
 VERSION_COMPAT =
 THEME_NAME = default
@@ -218,10 +218,10 @@ demo: widgets
 
 
 install: all
-	mkdir -p ${INSTALL_DIR}/lib/web-ui-fw ${INSTALL_DIR}/bin ${INSTALL_DIR}/share/web-ui-fw/demos/
-	cp -av ${OUTPUT_ROOT}/web-ui-fw/* src/template ${INSTALL_DIR}/lib/web-ui-fw/
+	mkdir -p ${INSTALL_DIR}/lib/tizen-web-ui-fw ${INSTALL_DIR}/bin ${INSTALL_DIR}/share/tizen-web-ui-fw/demos/
+	cp -av ${OUTPUT_ROOT}/tizen-web-ui-fw/* src/template ${INSTALL_DIR}/lib/tizen-web-ui-fw/
 	cp -av tools/* ${INSTALL_DIR}/bin/
-	cp -av demos/tizen-gray ${INSTALL_DIR}/share/web-ui-fw/demos/ && cd ${INSTALL_DIR}/share/web-ui-fw/demos/tizen-gray && sed -i -e "s#../../build#../../../../lib#g" *.html
+	cp -av demos/tizen-gray ${INSTALL_DIR}/share/tizen-web-ui-fw/demos/ && cd ${INSTALL_DIR}/share/tizen-web-ui-fw/demos/tizen-gray && sed -i -e "s#../../build#../../../../lib#g" *.html
 
 
 coverage: clean all

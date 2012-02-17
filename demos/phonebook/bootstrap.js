@@ -58,8 +58,8 @@ S = {
     scriptsToLoadPreConfig: ['js/jquery.js'],
 
     // these are scripts which should be loaded after config.js
-    scriptsToLoadPostConfig: ['js/web-ui-fw-libs.js',
-                              'js/web-ui-fw.js'],
+    scriptsToLoadPostConfig: ['js/tizen-web-ui-fw-libs.js',
+                              'js/tizen-web-ui-fw.js'],
 
     addBasePath: function (scripts) {
         var mapped = [];
@@ -152,7 +152,7 @@ S = {
     },
 
     // default root path to the framework; could be an absolute file:// URI
-    defaultFrameworkRoot: 'web-ui-fw',
+    defaultFrameworkRoot: 'tizen-web-ui-fw',
 
     // default framework version to load
     defaultFrameworkVersion: '0.1',
@@ -274,7 +274,7 @@ S.css = {
 
         // load stylesheet for the theme
         themePath = S.basePath + 'themes/' + frameworkTheme;
-        S.css.load(themePath + '/web-ui-fw-theme.css');
+        S.css.load(themePath + '/tizen-web-ui-fw-theme.css');
 		S.themePath = themePath;
 
 		//set viewport -- by koeun

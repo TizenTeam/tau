@@ -10,7 +10,7 @@ What a developer needs to do in their application:
 
   <script src="bootstrap.js"
           data-framework-version="0.1"
-          data-framework-root="/path/to/web-ui-fw"
+          data-framework-root="/path/to/tizen-web-ui-fw"
           data-framework-theme="default">
   </script>
 
@@ -49,7 +49,7 @@ What happens when the app loads:
 
   - Hides the <body> element until everything is loaded
 
-  - Sets a default root location for the framework files (web-ui-fw in
+  - Sets a default root location for the framework files (tizen-web-ui-fw in
     this demo, but could be an absolute file:// path)
 
   - Sets a default version of the framework to load (0.1)

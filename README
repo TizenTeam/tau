@@ -24,7 +24,7 @@ Building
 ========
 
 ***
-NB: The development team working on web-ui-fw uses Linux,
+NB: The development team working on tizen-web-ui-fw uses Linux,
 so no one has attempted to build this project on other
 platforms.
 ***
@@ -63,7 +63,7 @@ do this, append a debug=true parameter to the URL, e.g.
 file://<path>/demos/gallery/index.html?debug=true
 
 where <path> is the full, absolute (with leading /) path to your
-checked out copy of the web-ui-fw repo.
+checked out copy of the tizen-web-ui-fw repo.
 
 Also note that each time you change your widget code, you'll
 need to do "make clean ; make" to rebuild the CSS and JS files.

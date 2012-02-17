@@ -1,15 +1,15 @@
 /**
- * loader.js : Loader for web-ui-fw
+ * loader.js : Loader for tizen-web-ui-fw
  * Refactored from bootstrap.js
  *
  * By Youmin Ha <youmin.ha@samsung.com>
  *
  */
 S = {
-	libFileNamePattern : "web-ui-fw(.min)?.js",
+	libFileNamePattern : "tizen-web-ui-fw(.min)?.js",
 
 	frameworkData : {
-		rootDir: '/usr/share/web-ui-fw',
+		rootDir: '/usr/share/tizen-web-ui-fw',
 		version: '0.1',
 		theme: "default",
 		},
@@ -90,7 +90,7 @@ S = {
 				'themes',
 				this.frameworkData.theme
 					].join('/'),
-			cssPath = [themePath, 'web-ui-fw-theme.css'].join('/'),
+			cssPath = [themePath, 'tizen-web-ui-fw-theme.css'].join('/'),
 			jsPath = [themePath, 'theme.js'].join('/');
 
 		this.css.load(cssPath);

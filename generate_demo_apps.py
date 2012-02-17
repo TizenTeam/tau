@@ -9,7 +9,7 @@ def changeIndexFile():
 	f = open(filename)
 	before = f.read()
 	f.close()
-	after = before.replace("../../build/web-ui-fw", "web-ui-fw")
+	after = before.replace("../../build/tizen-web-ui-fw", "tizen-web-ui-fw")
 	f = open(filename, "w")
 	f.write(after)
 	f.close()
@@ -33,8 +33,8 @@ def makeWebAppPackage(directory):
 	os.chdir(directory)
 	webAppName = directory.replace("pkged-demo-apps/", "")
 	changeIndexFile()
-	# copy web-ui-fw lib
-	shutil.copytree("../../build/web-ui-fw", "web-ui-fw")
+	# copy tizen-web-ui-fw lib
+	shutil.copytree("../../build/tizen-web-ui-fw", "tizen-web-ui-fw")
 	#add meta files for packaging
 	addConfigFileAndIcon(webAppName)
 	# zip dirs...

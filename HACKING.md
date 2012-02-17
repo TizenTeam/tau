@@ -4,22 +4,22 @@ Quick start
 There are two ways to quickly use this project if you don't want to build it.
 First: you could download the latest official release at:
 
-    https://github.com/web-ui-fw/web-ui-fw/downloads
+    https://github.com/tizen-web-ui-fw/tizen-web-ui-fw/downloads
 
 Second: you could use the files from the online demo at:
 
-    http://web-ui-fw.github.com/
+    http://tizen-web-ui-fw.github.com/
 
 and that means:
 
-    http://web-ui-fw.github.com/web-ui-fw/web-ui-fw.js
-    http://web-ui-fw.github.com/web-ui-fw/web-ui-fw-libs.js
-    http://web-ui-fw.github.com/web-ui-fw/web-ui-fw-widget.css
+    http://tizen-web-ui-fw.github.com/tizen-web-ui-fw/tizen-web-ui-fw.js
+    http://tizen-web-ui-fw.github.com/tizen-web-ui-fw/tizen-web-ui-fw-libs.js
+    http://tizen-web-ui-fw.github.com/tizen-web-ui-fw/tizen-web-ui-fw-widget.css
 
 Of course you will need JQuery Mobile (currently, version 1.0) and JQuery
 (currently, version 1.6.4).
 
-Please see the README file for some boilerplate on how to use web-ui-fw
+Please see the README file for some boilerplate on how to use tizen-web-ui-fw
 within a jQuery Mobile project.
 
 
@@ -59,7 +59,7 @@ then set DEBUG=no in the Makefile to compress the Javascript code.
 Installing Google Chrome
 ------------------------
 
-The main browser used for developing web-ui-fw is Google Chrome. This
+The main browser used for developing tizen-web-ui-fw is Google Chrome. This
 is also used to produce the coverage reports (see below). So it's
 recommended that you install it if you intend to do any work on the
 project.
@@ -76,7 +76,7 @@ suite (in tests/unit-tests): see the section on "Running the test coverage
 report" for more details.
 
 It's not essential to install this unless you want to get coverage
-reports for the web-ui-fw test suite.
+reports for the tizen-web-ui-fw test suite.
 
 The source is available from: `http://siliconforks.com/jscoverage/`
 It has minimal dependencies and is easy to build.
@@ -107,7 +107,7 @@ Building
 ========
 
 ***
-NB: The development team working on web-ui-fw uses Linux,
+NB: The development team working on tizen-web-ui-fw uses Linux,
 so no one has attempted to build this project on other
 platforms.
 ***
@@ -166,7 +166,7 @@ do this, append a debug=true parameter to the URL, e.g.
     file://<path>/demos/gallery/index.html?debug=true
 
 where `<path>` is the full, absolute (with leading /) path to your
-checked out copy of the web-ui-fw repo.
+checked out copy of the tizen-web-ui-fw repo.
 
 Also note that each time you change your widget code, you'll
 need to do `make clean && make` to rebuild the CSS and JS files.
