@@ -1,15 +1,15 @@
 /**
- * loader.js : Loader for tizen-web-ui-fw
+ * loader.js : Loader for web-ui-fw
  * Refactored from bootstrap.js
  *
  * By Youmin Ha <youmin.ha@samsung.com>
  *
  */
 S = {
-	libFileNamePattern : "tizen-web-ui-fw(.min)?.js",
+	libFileName : "tizen-web-ui-fw(.min)?.js",
 
 	frameworkData : {
-		rootDir: '/usr/share/tizen-web-ui-fw',
+		rootDir: '/usr/lib/tizen-web-ui-fw',
 		version: '0.1',
 		theme: "default",
 		},
@@ -71,11 +71,13 @@ S = {
 		for (var idx in scriptElems) {
 			var elem = scriptElems[idx],
 				src = elem.getAttribute('src');
-			if(src && src.match(this.libFileNamePattern)) {
+			if(src && src.match(this.libFileName)) {
 				// Set framework data, only when they are given.
-				this.frameworkData.rootDir = elem.getAttribute('data-framework-root') || this.frameworkData.rootDir;
-				this.frameworkData.version = elem.getAttribute('data-framework-version') || this.frameworkData.version;
-				this.frameworkData.theme = elem.getAttribute('data-framework-theme') || this.frameworkData.theme;
+				var tokens = src.split(/[\/\\]/),
+					version_idx = -3;
+				this.frameworkData.rootDir = elem.getAttribute( 'data-framework-root' ) || tokens.slice( 0, tokens.length + version_idx ).join( '/' ) || this.frameworkData.rootDir;
+				this.frameworkData.version = elem.getAttribute( 'data-framework-version' ) || tokens[ tokens.length + version_idx ] || this.frameworkData.version;
+				this.frameworkData.theme = elem.getAttribute( 'data-framework-theme' ) || this.frameworkData.theme;
 				foundScript = true;
 				break;
 			}
@@ -221,16 +223,18 @@ S = {
 // Loader's jobs
 (function (S, $, undefined) {
 
+	// Try to set globalize first
+	S.getParams();
+	S.setGlobalize();
+
  	// Turn off JQM's auto initialization option.
 	// NOTE: This job must be done before domready.
 	$.mobile.autoInitializePage = false;
 
 	domReady(function() {
 		S.beforeAct(S, $);
-		S.getParams();
 		S.loadTheme();
 		S.setViewport();
 		S.startAct(S, $);
-		S.setGlobalize();
 	});
  })(S, jQuery);
