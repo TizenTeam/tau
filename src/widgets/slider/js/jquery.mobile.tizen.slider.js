@@ -232,7 +232,7 @@
 			}
 
 			this.currentValue = newValue;
-			this.handleText.html(newValue);
+			this.handleText.text(newValue);
 			this.popup.html(newValue);
 
 			this.element.trigger('update', newValue);
