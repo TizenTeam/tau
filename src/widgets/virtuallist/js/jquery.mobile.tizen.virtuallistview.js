@@ -400,18 +400,17 @@ $.widget( "tizen.virtuallistview", $.mobile.widget, {
 		
 		TOTAL_ITEMS = $(window[o.dbtable]).size();
 		
-        /* Make Gen list by template */
-    	t._pushData((o.template), window[o.dbtable]);
+        	/* Make Gen list by template */
+	    	t._pushData((o.template), window[o.dbtable]);
     	
-    	$( o.id ).parentsUntil( ".ui-page" ).parent().one( "pageshow", o, t._reposition);
+	    	$( o.id ).parentsUntil( ".ui-page" ).parent().one( "pageshow", o, t._reposition);
 
-    	/* Scrollview */
-   		$(document).bind( "scrollstop.virtuallist", t.options, t._scrollmove );
+	    	/* Scrollview */
+   		$( document ).bind( "scrollstop.virtuallist", t.options, t._scrollmove );
    		
-	    $( window ).resize( o, t._resize );
+   		$( window ).bind( "resize.virtuallist", t._resize );
 
-	    if ( o.childSelector == " ul" )
-		{
+	    	if ( o.childSelector == " ul" ) {
 			$( o.id + " ul" ).swipelist();
 		}
 	    
@@ -420,6 +419,7 @@ $.widget( "tizen.virtuallistview", $.mobile.widget, {
 	
 	create: function() {
 		var o = this.options;
+
 		/* external API for AJAX callback */
 		this._create( "create" );
 		
@@ -435,61 +435,53 @@ $.widget( "tizen.virtuallistview", $.mobile.widget, {
 			return orig + " ui-listview ui-virtual-list-container" + ( t.options.inset ? " ui-listview-inset ui-corner-all ui-shadow " : "" );
 		});
 
-        var $el = this.element,
-        shortcutsContainer = $('<div class="ui-virtuallist"/>'),
-        shortcutsList = $('<ul></ul>'),
-        dividers = $el.find(':jqmData(role="virtuallistview" )'),
-        lastListItem = null,
-        shortcutscroll = this;
+		var $el = this.element,
+	        shortcutsContainer = $('<div class="ui-virtuallist"/>'),
+        	shortcutsList = $('<ul></ul>'),
+	        dividers = $el.find(':jqmData(role="virtuallistview" )'),
+	        lastListItem = null,
+	        shortcutscroll = this;
 		
-        o.id = "#" + $el.attr( "id" );
+	        o.id = "#" + $el.attr( "id" );
         
-	    $( o.id ).bind( "pagehide", function( e ){
+		$( o.id ).bind( "pagehide", function( e ){
 			$( o.id ).empty();
 		});
 	    
-	    /* Scroll view */
-	    ( $( ".ui-scrollview-clip" ).size()>0 ) ? o.scrollview = true : o.scrollview = false;
+	    	/* Scroll view */
+		( $( ".ui-scrollview-clip" ).size()>0 ) ? o.scrollview = true : o.scrollview = false;
 
-	    /* After DB Load complete, Init Vritual list */
-	    if ($( o.id ).hasClass( "vlLoadSuccess" )) {
-	    	$( o.id ).empty();	    	
+		/* After DB Load complete, Init Vritual list */
+		if ($( o.id ).hasClass( "vlLoadSuccess" )) {
+			$( o.id ).empty();	    	
 	    	
-		    if ($el.data( "template" )) {
+			if ($el.data( "template" )) {
 				o.template = $el.data( "template" );
 				
 		        /* to support swipe list, <li> or <ul> can be main node of virtual list. */
-				if ( $el.data( "swipelist" ) == true ) {
-					o.childSelector = " ul";
-				}
-				else {
-					o.shildSelector = " li";
-				}
+			if ( $el.data( "swipelist" ) == true ) {
+				o.childSelector = " ul";
 			}
+			else {
+				o.shildSelector = " li";
+			}
+		}
 			
-			/* Set data's unique key */
-			if ( $el.data( "dbkey" ) ) {
-				o.datakey = $el.data( "dbkey" );
-			}
+		/* Set data's unique key */
+		if ( $el.data( "dbkey" ) ) {
+			o.datakey = $el.data( "dbkey" );
+		}
 
-			t._initList();
+		t._initList();
 	    }
 	},
 	
 	destroy : function(){
 		var o = this.options;
 		
-		$(document).unbind( "scrollstop" );
+		$( document ).unbind( "scrollstop" );
 		
-		if (o.scrollview) {
-			$( o.id ).parentsUntil( ".ui-page" ).parent().unbind( "vmouseup" );
-    		$( o.id ).parentsUntil( ".ui-page" ).parent().unbind( "touchend" );
-		}
-		
-		$(window).unbind( "resize" );
-
-		/* Unset prevent touch event */
-		/*$(document).unbind( "touchstart" );*/
+		$( window ).unbind( "resize.virtuallist" );
 		
 		$( o.id ).empty();
 	},
