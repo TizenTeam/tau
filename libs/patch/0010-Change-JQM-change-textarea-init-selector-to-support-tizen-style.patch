@@ -1,0 +1,29 @@
+From 54d4b201e9b3ac279133aab2dbc1b315321e3eda Mon Sep 17 00:00:00 2001
+From: Lee Wongi <wongi11.lee@samsung.com>
+Date: Tue, 21 Feb 2012 15:33:14 +0900
+Subject: [PATCH] Change textarea init selector to support tizen style.
+
+Change-Id: I52e69a94d21a3f7ac53bc098412d2aa6862a17af
+---
+ .../js/jquery.mobile.forms.textinput.js            |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+ mode change 100644 => 100755 libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.forms.textinput.js
+
+diff --git a/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.forms.textinput.js b/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.forms.textinput.js
+old mode 100644
+new mode 100755
+index f44c8a8..0fd17f2
+--- a/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.forms.textinput.js
++++ b/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.forms.textinput.js
+@@ -7,7 +7,7 @@
+ $.widget( "mobile.textinput", $.mobile.widget, {
+ 	options: {
+ 		theme: null,
+-		initSelector: "input[type='text'], input[type='search'], :jqmData(type='search'), input[type='number'], :jqmData(type='number'), input[type='password'], input[type='email'], input[type='url'], input[type='tel'], textarea, input[type='time'], input[type='date'], input[type='month'], input[type='week'], input[type='datetime'], input[type='datetime-local'], input[type='color'], input:not([type])"
++		initSelector: "input[type='text'], input[type='search'], :jqmData(type='search'), input[type='number'], :jqmData(type='number'), input[type='password'], input[type='email'], input[type='url'], input[type='tel'], textarea:not([type='tizen-textarea']), input[type='time'], input[type='date'], input[type='month'], input[type='week'], input[type='datetime'], input[type='datetime-local'], input[type='color'], input:not([type])"
+ 	},
+ 
+ 	_create: function() {
+-- 
+1.7.0.4
+
