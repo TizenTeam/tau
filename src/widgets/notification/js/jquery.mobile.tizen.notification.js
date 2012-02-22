@@ -104,13 +104,9 @@
 
 				btn_container.append( this.btn );
 
-				var btn_inner = btn_container.find(".ui-btn-inner");
-
-				btn_inner.css( "padding", "0.3em 0.7em" );
-
 				this.btn.bind( "vmouseup", function () {
-						self.hide();
-						});
+					self.hide();
+				});
 			}
 
 			container.bind( 'vmouseup', function () {
