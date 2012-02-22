@@ -1,5 +1,5 @@
 $( "#checkbox-demo" ).live("pagecreate", function () {
-	$( "#check-1" ).bind('click', function () {
+	$( "#check-1" ).bind('vclick', function () {
 		console.log("clicked...");
 		value = $( "#checkbox-1" ).prop( "checked" ); 
 		// change checkbox property and update UI. 

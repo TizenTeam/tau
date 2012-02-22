@@ -18,7 +18,7 @@ $('#pagecontrol').live('pageshow', function() {
 
 
 // Example: Set value by random
-$('#pagecontrol_btn_randomset').live('click', 
+$('#pagecontrol_btn_randomset').live('vclick',
 	function() {
 	var i;
 	for(i=1; i<=10; i++) {
