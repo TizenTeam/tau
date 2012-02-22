@@ -338,7 +338,7 @@ jQuery.widget( "mobile.circularview", jQuery.mobile.widget, {
 				return self._handleDragStop( e ); 
 			};
             
-            this._$view.bind( "click", function(e) {
+            this._$view.bind( "vclick", function(e) {
                 return !self._didDrag;
             });
             

@@ -10,6 +10,6 @@ function addCheckbox(){
 }
 
 
-$('#bAdd').live('click', function () {
+$('#bAdd').live('vclick', function () {
 		addCheckbox();
 });
