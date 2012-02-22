@@ -902,7 +902,7 @@ $( document ).bind( 'pagecreate create', function ( e ) {
 	var $page = $( e.target );
 	var scroll = $page.find(".ui-content").attr("data-scroll");
 
-	if ( scroll === "n" ) {
+	if ( scroll === "none" ) {
 		return;
 	}
 
