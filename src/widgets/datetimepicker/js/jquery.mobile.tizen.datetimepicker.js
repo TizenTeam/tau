@@ -534,8 +534,8 @@
 				/* TODO NEED TO REFACTORING HERE */
 				var $div = $(document.createElement('div'));
 				$div.append( $ul ).appendTo( ui );
-				$div.attr('data-transition', 'slideup' );
 				$div.addClass('ui-datetimepicker-selector');
+				$div.attr( 'data-transition', 'none' );
 				var $ctx = $div.ctxpopup();
 				$ctx.parents('.ui-popupwindow').addClass('ui-datetimepicker');
 				$div.circularview();
