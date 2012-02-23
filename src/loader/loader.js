@@ -53,8 +53,11 @@ S = {
 					defaultWidth = 720;
 
 				factor = width / defaultWidth;
+				if ( factor > 1 ) {
+					// TODO NOTE some of targets(e.g iPad) need to set scale equal or less than 1.0
+					factor = 1;
+				}
 			}
-
 			console.log( "ScaleFactor: " + factor );
 			return factor;
 		},
