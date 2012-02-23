@@ -73,7 +73,6 @@ $.widget( "tizen.searchbar", $.mobile.widget, {
 			input[0].setAttribute( "autocomplete", "off" );
 		}
 
-
 		focusedEl = input.wrap( "<div class='ui-input-search ui-shadow-inset ui-corner-all ui-btn-shadow" + themeclass + "'></div>" ).parent();
 		clearbtn = $( "<a href='#' class='ui-input-clear' title='clear text'>clear text</a>" )
 		.tap(function( event ) {
@@ -83,7 +82,7 @@ $.widget( "tizen.searchbar", $.mobile.widget, {
 				.trigger( "change" )
 				.trigger( "input" );
 			clearbtn.addClass( "ui-input-clear-hidden" );
-			event.preventDefault();
+			event.stopPropagation();
 		})
 		.appendTo( focusedEl )
 		.buttonMarkup({
@@ -124,7 +123,7 @@ $.widget( "tizen.searchbar", $.mobile.widget, {
 			hideCancel();
 			input.blur();
 			input.trigger( "change" );
-			/*event.preventDefault();*/
+			event.stopPropagation();
 		})
 		.appendTo( focusedEl.parent() )
 		.buttonMarkup({
@@ -141,6 +140,11 @@ $.widget( "tizen.searchbar", $.mobile.widget, {
 		
 		// Input Blured
 		/* When user touch on page, it's same to blur */
+		$("form.search").tap(function( event ){
+			input.focus();
+			event.stopPropagation();
+		});
+
 		$( currentPage ).bind("vclick", function(e) {
 			focusedEl.removeClass( "ui-focus" );
 			hideCancel();
