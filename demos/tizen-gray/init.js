@@ -63,6 +63,10 @@ $( document ).bind("pagecreate", function () {
 		$("#selected-date3").text( newDate.toString() );
 	});
 
+	$("#demo-date4").bind("date-changed", function ( e, newDate ) {
+		$("#selected-date4").text( newDate.toString() );
+	});
+
 	$('#notification-demo').bind('vmouseup', function ( e ) {
 		$('#notification').notification('show');
 	});
