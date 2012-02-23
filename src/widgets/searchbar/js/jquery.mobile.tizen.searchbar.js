@@ -26,7 +26,7 @@
  *     How to make searchbar in title
  *         <div data-role="header" data-position ="fixed" >
  *	           <h1>Searchbar</h1>
- *             <input type="search" name="" id="" value=""  />
+ *             <input type="tizen-search" name="" id="" value=""  />
  *         </div>
  *
  *     How to make searchbar inside optionheader
@@ -52,9 +52,133 @@ $.widget( "tizen.searchbar", $.mobile.widget, {
 			o = this.options,
 			theme = o.theme || $.mobile.getInheritedTheme( this.element, "c" ),
 			themeclass  = " ui-body-" + theme,
-			focusedEl, clearbtn;
+			focusedEl, clearbtn,
+			currentPage = input.closest(".ui-page");
+		
+		$( "label[for='" + input.attr( "id" ) + "']" ).addClass( "ui-input-text" );
 
-		/* wongi_1215 : default text */
+		focusedEl = input.addClass("ui-input-text ui-body-"+ theme );
+
+		// XXX: Temporary workaround for issue 785 (Apple bug 8910589).
+		//      Turn off autocorrect and autocomplete on non-iOS 5 devices
+		//      since the popup they use can't be dismissed by the user. Note
+		//      that we test for the presence of the feature by looking for
+		//      the autocorrect property on the input element. We currently
+		//      have no test for iOS 5 or newer so we're temporarily using
+		//      the touchOverflow support flag for jQM 1.0. Yes, I feel dirty. - jblas
+		if ( typeof input[0].autocorrect !== "undefined" && !$.support.touchOverflow ) {
+			// Set the attribute instead of the property just in case there
+			// is code that attempts to make modifications via HTML.
+			input[0].setAttribute( "autocorrect", "off" );
+			input[0].setAttribute( "autocomplete", "off" );
+		}
+
+
+		focusedEl = input.wrap( "<div class='ui-input-search ui-shadow-inset ui-corner-all ui-btn-shadow" + themeclass + "'></div>" ).parent();
+		clearbtn = $( "<a href='#' class='ui-input-clear' title='clear text'>clear text</a>" )
+		.tap(function( event ) {
+			input.val( "" )
+				.blur()
+				.focus()
+				.trigger( "change" )
+				.trigger( "input" );
+			clearbtn.addClass( "ui-input-clear-hidden" );
+			event.preventDefault();
+		})
+		.appendTo( focusedEl )
+		.buttonMarkup({
+			icon: "deleteSearch",
+			iconpos: "notext",
+			corners: true,
+			shadow: true
+		});
+		
+		toggleClear();
+		
+		input.keyup( toggleClear );
+		
+		input.bind('paste cut keyup focus change blur', toggleClear);
+
+		//SLP --start search bar with cancel button
+		focusedEl.wrapAll( "<div class='input-search-bar'></div>" );
+
+		input.tap(function( event ) {
+			var inputedText = input.val();
+			input.blur();
+			input.focus();
+		});
+
+		var searchicon = $("<div class='ui-image-search ui-image-searchfield'></div>");
+		searchicon.tap(function( event ) {
+			searchicon.hide();
+			
+			input
+				.blur()
+				.focus();
+		})
+		.appendTo( focusedEl );
+
+		var cancelbtn = $( "<a href='#' class='ui-input-cancel' title='clear text'>Cancel</a>" )
+		.tap(function( event ) {
+			input.val( "" );
+			hideCancel();
+			input.blur();
+			input.trigger( "change" );
+			/*event.preventDefault();*/
+		})
+		.appendTo( focusedEl.parent() )
+		.buttonMarkup({
+			iconpos: "cancel",
+			corners: true,
+			shadow: true
+		});
+
+		// Input Focused
+		input.focus(function() {
+			showCancel();
+			focusedEl.addClass( "ui-focus" );
+		});
+		
+		// Input Blured
+		/* When user touch on page, it's same to blur */
+		$( currentPage ).bind("vclick", function(e) {
+			focusedEl.removeClass( "ui-focus" );
+			hideCancel();
+			input.trigger( "change" );
+		});
+
+		// Autogrow
+		if ( input.is( "textarea" ) ) {
+			var extraLineHeight = 15,
+				keyupTimeoutBuffer = 100,
+				keyup = function() {
+					var scrollHeight = input[ 0 ].scrollHeight,
+						clientHeight = input[ 0 ].clientHeight;
+
+					if ( clientHeight < scrollHeight ) {
+						input.height(scrollHeight + extraLineHeight);
+					}
+				},
+				keyupTimeout;
+
+				input.keyup(function() {
+					clearTimeout( keyupTimeout );
+					keyupTimeout = setTimeout( keyup, keyupTimeoutBuffer );
+				});
+
+			// binding to pagechange here ensures that for pages loaded via
+			// ajax the height is recalculated without user input
+			$( document ).one( "pagechange", keyup );
+
+			// Issue 509: the browser is not providing scrollHeight properly until the styles load
+			if ( $.trim( input.val() ) ) {
+				// bind to the window load to make sure the height is calculated based on BOTH
+				// the DOM and CSS
+				$( window ).load( keyup );
+			}
+		}
+
+		// Default Text
 		var defaultText = input.jqmData("default-text");
 		
 		if ((defaultText != undefined) && (defaultText.length > 0))
@@ -95,45 +219,6 @@ $.widget( "tizen.searchbar", $.mobile.widget, {
 			});			
 		}
 		
-		
-		$( "label[for='" + input.attr( "id" ) + "']" ).addClass( "ui-input-text" );
-
-		focusedEl = input.addClass("ui-input-text ui-body-"+ theme );
-
-		// XXX: Temporary workaround for issue 785 (Apple bug 8910589).
-		//      Turn off autocorrect and autocomplete on non-iOS 5 devices
-		//      since the popup they use can't be dismissed by the user. Note
-		//      that we test for the presence of the feature by looking for
-		//      the autocorrect property on the input element. We currently
-		//      have no test for iOS 5 or newer so we're temporarily using
-		//      the touchOverflow support flag for jQM 1.0. Yes, I feel dirty. - jblas
-		if ( typeof input[0].autocorrect !== "undefined" && !$.support.touchOverflow ) {
-			// Set the attribute instead of the property just in case there
-			// is code that attempts to make modifications via HTML.
-			input[0].setAttribute( "autocorrect", "off" );
-			input[0].setAttribute( "autocomplete", "off" );
-		}
-
-
-		focusedEl = input.wrap( "<div class='ui-input-search ui-shadow-inset ui-corner-all ui-btn-shadow" + themeclass + "'></div>" ).parent();
-		clearbtn = $( "<a href='#' class='ui-input-clear' title='clear text'>clear text</a>" )
-		.tap(function( event ) {
-			input.val( "" )
-				.blur()
-				.focus()
-				.trigger( "change" )
-				.trigger( "input" );
-			clearbtn.addClass( "ui-input-clear-hidden" );
-			event.preventDefault();
-		})
-		.appendTo( focusedEl )
-		.buttonMarkup({
-			icon: "deleteSearch",
-			iconpos: "notext",
-			corners: true,
-			shadow: true
-		});
-
 		function toggleClear() {
 			if ( !input.val() ) {
 				clearbtn.addClass( "ui-input-clear-hidden" );
@@ -141,45 +226,7 @@ $.widget( "tizen.searchbar", $.mobile.widget, {
 				clearbtn.removeClass( "ui-input-clear-hidden" );
 			}
 		}
-		toggleClear();
-		input.keyup( toggleClear );
 		
-		input.bind('paste cut keyup focus change blur', toggleClear);
-
-		//SLP --start search bar with cancel button
-		focusedEl.wrapAll( "<div class='input-search-bar'></div>" );
-
-		input.tap(function( event ) {
-			var inputedText = input.val();
-			input.blur();
-//					if ( inputedText.length > 0 )	
-			input.focus();
-		});
-
-		var searchicon = $("<div class='ui-image-search ui-image-searchfield'></div>");
-		searchicon.tap(function( event ) {
-			searchicon.hide();
-			
-			input
-				.blur()
-				.focus();
-		})
-		.appendTo( focusedEl );
-
-		var cancelbtn = $( "<a href='#' class='ui-input-cancel' title='clear text'>Cancel</a>" )
-		.tap(function( event ) {
-			input.val( "" );
-			hideCancel();
-			input.blur();
-			input.trigger( "change" );
-			event.preventDefault();
-		})
-		.appendTo( focusedEl.parent() )
-		.buttonMarkup({
-			iconpos: "cancel",
-			corners: true,
-			shadow: true
-		});
 		function showCancel() {
 			focusedEl.addClass( "ui-input-search-default" )
 			.removeClass( "ui-input-search-wide" );
@@ -188,56 +235,17 @@ $.widget( "tizen.searchbar", $.mobile.widget, {
 			searchicon.hide();
 		}
 
-		input.focus( showCancel );
-
-		input.focus(function() {
-			focusedEl.addClass( "ui-focus" );
-		})
-		.blur(function(){
-			focusedEl.removeClass( "ui-focus" );
-			hideCancel();
-			input.trigger( "change" );
-			event.preventDefault();	
-		});
-
-		// Autogrow
-		if ( input.is( "textarea" ) ) {
-			var extraLineHeight = 15,
-				keyupTimeoutBuffer = 100,
-				keyup = function() {
-					var scrollHeight = input[ 0 ].scrollHeight,
-						clientHeight = input[ 0 ].clientHeight;
-
-					if ( clientHeight < scrollHeight ) {
-						input.height(scrollHeight + extraLineHeight);
-					}
-				},
-				keyupTimeout;
-
-				input.keyup(function() {
-					clearTimeout( keyupTimeout );
-					keyupTimeout = setTimeout( keyup, keyupTimeoutBuffer );
-				});
-
-			// binding to pagechange here ensures that for pages loaded via
-			// ajax the height is recalculated without user input
-			$( document ).one( "pagechange", keyup );
-
-			// Issue 509: the browser is not providing scrollHeight properly until the styles load
-			if ( $.trim( input.val() ) ) {
-				// bind to the window load to make sure the height is calculated based on BOTH
-				// the DOM and CSS
-				$( window ).load( keyup );
-			}
-		}
-		
 		function hideCancel() {
 			focusedEl.addClass( "ui-input-search-wide" )
 			.removeClass( "ui-input-search-default" );
 			cancelbtn.addClass( "ui-btn-cancel-hide" )
 			.removeClass( "ui-btn-cancel-show" );
-			if( input.val() =="" )	searchicon.show();
-			toggleClear();					
+			
+			if( input.val() =="" ) {
+				searchicon.show();
+			}
+			
+			toggleClear();
 		}		
 	},
 
