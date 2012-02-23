@@ -1,0 +1,214 @@
+From c1aaf9af8c239fa8d6da305a74dcbd355fa65c99 Mon Sep 17 00:00:00 2001
+From: Lee Wongi <wongi11.lee@samsung.com>
+Date: Thu, 23 Feb 2012 11:28:27 +0900
+Subject: [PATCH] JQM Resize content in scrollview.
+
+Change-Id: If40d512a7d2df0d038013bb6ebc06de90c13d1af
+---
+ .../js/jquery.mobile.fixHeaderFooter.js            |  117 +++++++++----------
+ 1 files changed, 55 insertions(+), 62 deletions(-)
+
+diff --git a/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.fixHeaderFooter.js b/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.fixHeaderFooter.js
+index 2aa10b5..d05fe11 100644
+--- a/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.fixHeaderFooter.js
++++ b/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.fixHeaderFooter.js
+@@ -105,8 +105,7 @@ $.mobile.fixedToolbars = (function() {
+ 		// If we are in autoHideMode, we don't do anything because we know the scroll
+ 		// callbacks for the plugin will fire off a show when the scrolling has stopped.
+ 
+-
+-		/* resize test : Jinhyuk    */
++		
+ 		var footer_filter;
+ 		if( $( document ).find( ".ui-page-active" ).length ) 
+ 			footer_filter = $( document ).find( ".ui-page-active" ).find( ":jqmData(role='footer')" );		
+@@ -124,11 +123,38 @@ $.mobile.fixedToolbars = (function() {
+ 			footerNavbar
+ 				.css("width", window.innerWidth - footerNavbar.siblings(".ui-btn").width());		
+ 		}					
+-		/* resize test : Jinhyuk    */
+ 
++		// NOTE : by Jinhyuk Jun <jinhyuk.jun@samsung.com>
++		//     divide content mode scrollview and non-scrollview
++		//     recalculate content area when resize callback occur
++
++		if(event.type == "resize") /* resize only */
++		{
++			var s_theme_header = $( document ).find( ".ui-page-active" ).find( ":jqmData(role='header')" );
++			var s_theme_content = $( document ).find( ".ui-page-active" ).find( ":jqmData(role='content')" );
++			
++			// data-role != "fixed", scrollview=false -> header scroll support
++			if( $.support.scrollview === false && s_theme_header.css("position") != "fixed" ){
++				s_theme_header.css( "position", "relative" );
++				s_theme_content
++					.css( "top", "0" )
++					.css( "height", "" );
++			} else if( $.support.scrollview === true ) {
++				if(s_theme_header.css( "position") != "fixed" )
++					s_theme_header.css( "position", "fixed" );
++					s_theme_content.css( "top", s_theme_header.height() );
++			}
++		
++			// resize content size in case scrollview
++			if( $.support.scrollview === true ) {
++				s_theme_content
++					.css( "height", document.documentElement.clientHeight - footer_filter.height() - s_theme_header.height());	
++			}
++		}
++		
+ 		if ( !autoHideMode && currentstate === "overlay" ) {
+ 			if ( !delayTimer ) {
+-				/* Fixed header modify for theme-s : Jinhyuk */
++				/* Fixed header modify for theme-s */
+ 				if(!($( event.target).find( ":jqmData(role='header')" ).is(":jqmData(position='fixed')")&&
+ 				$( event.target).find( ":jqmData(role='header')" ).is(".ui-bar-s")))				
+ 					$.mobile.fixedToolbars.hide( true );
+@@ -173,7 +199,7 @@ $.mobile.fixedToolbars = (function() {
+ 
+ 		( ( $document.scrollTop() === 0 ) ? $window : $document )
+ 			.bind( "scrollstart", function( event ) {
+-				/* Fixed header modify for theme-s : Jinhyuk */
++				/* Fixed header modify for theme-s */
+ 				if(!$( event.target).find( ":jqmData(role='header')" ).is(":jqmData(position='fixed')"))
+ 				{
+ 					scrollTriggered = true;
+@@ -219,7 +245,7 @@ $.mobile.fixedToolbars = (function() {
+ 
+ 	// 1. Before page is shown, check for duplicate footer
+ 	// 2. After page is shown, append footer to new page
+-	$( ".ui-page" )  /* Fixed header modify for theme-s : Jinhyuk */
++	$( ".ui-page" )  /* Fixed header modify for theme-s */
+ 		.live( "pagebeforeshow", function( event, ui ) {		
+ 			var s_theme_header = $( event.target ).find( ":jqmData(role='header')" );
+ 			var s_theme_fieldcontain = s_theme_header.find( ":jqmData(role='fieldcontain')" );
+@@ -249,7 +275,7 @@ $.mobile.fixedToolbars = (function() {
+ 					else
+ 						s_theme_content.addClass( "ui-title-content-option-header-expanded-1line-height" );
+ 				}
+-			} else if( s_theme_header.find("input").jqmData("type") == "search" ){ /* In case searchbar in header : Jinhyuk */
++			} else if( s_theme_header.find("input").jqmData("type") == "search" ){
+ 				s_theme_content
+ 					.removeClass( "ui-title-content-" + title_style + "-height" )
+ 					.addClass( "ui-title-content-search" );
+@@ -280,14 +306,30 @@ $.mobile.fixedToolbars = (function() {
+ 				s_theme_content.addClass( "ui-title-content-" + title_style + "-height" );
+ 			}
+ 
+-			/* resize footer : Jinhyuk    */
++			// NOTE : by Jinhyuk Jun <jinhyuk.jun@samsung.com>
++			//     divide content mode scrollview and non-scrollview
++			//     recalculate content area when resize callback occur
++
++			if(event.type == "resize") /* resize only */
++			{
++				// data-role != "fixed", scrollview=false -> header scroll support
++				if( $.support.scrollview === false && s_theme_header.css("position") != "fixed" ){
++					s_theme_header.css( "position", "relative" );
++					s_theme_content.css( "top", "0" );
++				} else if( $.support.scrollview === true ){
++					if( s_theme_header.css("position") != "fixed" )
++						s_theme_header.css( "position", "fixed" );
++						s_theme_content.css( "top", s_theme_header.height() );
++				}
++			}
++
+ 			var footer_filter = $(document).find(":jqmData(role='footer')");
+ 			if( footer_filter.find(".ui-navbar").is(".ui-controlbar-s") ){
+ 				footer_filter
+ 					.css( "top", window.innerHeight  - footer_filter.height() )
+ 					.show();
+ 			}		
+-			/* resize footer : Jinhyuk    */
++
+ 			if( footer_filter.children().find(".ui-radio").length != 0 ){
+ 				var footerGroup = footer_filter.find( ":jqmData(role='fieldcontain')" );
+ 				var groupLength = footerGroup.find( ".ui-radio" ).length;
+@@ -337,13 +379,13 @@ $.mobile.fixedToolbars = (function() {
+ 					$( ".dummy-div" ).css( "height", defaultFooterHeight );
+ 			}
+ 
+-			/* Header position fix(remove transition) : Jinhyuk */
++			/* Header position fix(remove transition) */
+ 			var next_id = $( event.target ).attr( "id" );
+ 			$( "#"+next_id ).find( ":jqmData(role='header')" ).removeClass( "fade in out" ).appendTo( $.mobile.pageContainer );
+ 		})
+ 
+ 		.live( "pageshow", function( event, ui ) {
+-			/* Fixed header modify for theme-s : Jinhyuk */
++			/* Fixed header modify for theme-s */
+ 			var s_theme_header = $( event.target ).find( ":jqmData(role='header')" );
+ 			if( s_theme_header.is(".ui-header-fixed") && s_theme_header.is(".ui-bar-s") ){	
+ 				$( event.target ).find( ":jqmData(role='header')" )
+@@ -366,49 +408,10 @@ $.mobile.fixedToolbars = (function() {
+ 
+ 			$.mobile.fixedToolbars.show( true, this );					
+ 
+-			/* Header position fix(remove transition) : Jinhyuk */
++			/* Header position fix(remove transition) */
+ 			$("body").children(":jqmData(role='header')").insertBefore($(event.target).find(":jqmData(role='content')").eq(0));
+ 		})
+ 
+-		.live( "vclick", function( event, ui ) {
+-/*
+-			var previous_index = $(".ui-page-active").find(":jqmData(role='footer')" ).find(".ui-state-persist").parents("li").index();
+-			var active_index = $(event.target).parents("li").index();
+-			var navbar_filter = $(".ui-page-active").find(":jqmData(role='footer')" ).find(":jqmData(role='navbar')");
+-			var element_count = navbar_filter.find('li').length;
+-			var style = navbar_filter.jqmData( "style" );
+-			var list_width = $(".ui-page-active").find('.ui-navbar').width()/element_count;
+-			
+-			var next_link = $(event.target).parents("a").attr("href");
+-			
+-			
+-			$(".ui-page-active").addClass("ui-btn-hide-style");
+-
+-
+-			if(navbar_filter.find(".ui-btn-animation").length == 0 && style != "toolbar"){					
+-				$('<div class="ani-focus"></div>').appendTo(navbar_filter.children());
+-				$(".ani-focus")
+-					.addClass("ui-btn-animation")	
+-					.removeClass("ui-btn-ani-verticalendposition")
+-					.removeClass("ui-btn-ani-endposition");
+-
+-			}					
+-				$(".ani-focus")				
+-					.css("width", navbar_filter.width()/element_count )
+-					.css("height",navbar_filter.css("height"))	
+-					.css("left", previous_index * list_width);
+-
+-
+-				$(".ui-btn-ani-startposition").css("-webkit-transform","translateX("+previous_index *list_width+")");
+-				$(".ani-focus").addClass("ui-btn-ani-startposition");
+-				
+-				var t=setTimeout("",10);
+-				$(".ui-btn-ani-endposition").css("-webkit-transform","translateX("+active_index *list_width+")");
+-				$(".ani-focus").removeClass("ui-btn-ani-startposition");
+-				$(".ani-focus").addClass("ui-btn-ani-endposition");
+-*/
+-		});
+-		
+ 
+ 	// When a collapsiable is hidden or shown we need to trigger the fixed toolbar to reposition itself (#1635)
+ 	$( ".ui-collapsible-contain" ).live( "collapse expand", showEventCallback );
+@@ -497,17 +500,7 @@ $.mobile.fixedToolbars = (function() {
+ 					screenHeight = window.innerHeight,
+ 					thisHeight = el.outerHeight(),
+ 					alreadyVisible = ( el.is( ".ui-header-fixed" ) && fromTop <= thisTop + thisHeight ) ||
+-														( el.is( ".ui-footer-fixed" ) && thisTop <= fromTop + screenHeight );
+-// block blink code in title : Jinhyuk
+-				// Add state class
+-//				el.addClass( "ui-fixed-overlay" ).removeClass( "ui-fixed-inline" );
+-
+-/*				if ( !alreadyVisible && !immediately ) {
+-					el.animationComplete(function() {
+-						el.removeClass( "in" );
+-					}).addClass( "in" );
+-				}*/
+-//				setTop(el);
++							( el.is( ".ui-footer-fixed" ) && thisTop <= fromTop + screenHeight );
+ 			});
+ 		},
+ 
+-- 
+1.7.0.4
+
