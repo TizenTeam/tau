@@ -1,0 +1,29 @@
+From 7cf6c94898a6b9240030cdee5e2dae85fa90ae82 Mon Sep 17 00:00:00 2001
+From: Lee Wongi <wongi11.lee@samsung.com>
+Date: Thu, 23 Feb 2012 16:56:46 +0900
+Subject: [PATCH] JQM change input's type on fixed header.
+
+Change-Id: I42cfcb0654fb4f7f5bc0115b1894d1f4d9942b09
+---
+ .../js/jquery.mobile.fixHeaderFooter.js            |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+ mode change 100644 => 100755 libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.fixHeaderFooter.js
+
+diff --git a/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.fixHeaderFooter.js b/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.fixHeaderFooter.js
+old mode 100644
+new mode 100755
+index d05fe11..26d0ec3
+--- a/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.fixHeaderFooter.js
++++ b/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.fixHeaderFooter.js
+@@ -275,7 +275,7 @@ $.mobile.fixedToolbars = (function() {
+ 					else
+ 						s_theme_content.addClass( "ui-title-content-option-header-expanded-1line-height" );
+ 				}
+-			} else if( s_theme_header.find("input").jqmData("type") == "search" ){
++			} else if( s_theme_header.find("input").attr("type") === "tizen-search" ){
+ 				s_theme_content
+ 					.removeClass( "ui-title-content-" + title_style + "-height" )
+ 					.addClass( "ui-title-content-search" );
+-- 
+1.7.0.4
+
