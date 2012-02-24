@@ -1,3 +1,11 @@
+web-ui-fw (0.1.7) unstable; urgency=low
+
+  * Modify cleanup code
+  * Git: slp/pkgs/w/web-ui-fw
+  * Tag: web-ui-fw_0.1.7
+
+ -- Youmin Ha <youmin.ha@samsung.com>  Fri, 24 Feb 2012 20:51:54 +0900
+
 web-ui-fw (0.1.6) unstable; urgency=low
 
   * Add patch for some widgets 
