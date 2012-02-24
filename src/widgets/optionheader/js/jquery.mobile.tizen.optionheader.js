@@ -124,7 +124,7 @@ $.widget("tizen.optionheader", $.mobile.widget, {
 		startCollapsed: false,
 		expandable: true,
 		duration: 0.25,
-		collapseOnInit : true /* Add SLP theme for optional header : Jinhyuk_Jun */
+		collapseOnInit : true
 	},
 	collapsedHeight: '5px',
 
@@ -146,9 +146,7 @@ $.widget("tizen.optionheader", $.mobile.widget, {
 		theme = this.element.jqmData( 'theme' ) || this.options.theme;
 		this.options.theme = theme;
 
-		/* Add SLP theme for optional header : Jinhyuk_Jun */
 		this.element.closest( ':jqmData(role="header")' ).addClass( "ui-option-header-resizing" );
-
 
 		// set up the click handler; it's done here so it can
 		// easily be removed, as there should only be one instance
@@ -198,24 +196,26 @@ $.widget("tizen.optionheader", $.mobile.widget, {
 			arrowCenter = 14,
 			btn2Position = 10,
 			btn3Position = 144;
-			
-		
+
 		if( $(this.element).parents(".ui-page").find("#"+matchingBtn).length != 0 ){
 			matchBtn = $( this.element ).parents( ".ui-page" ).find( "#" + matchingBtn );
+ 			
 
 			if ( this.options.expandable ) {
 				matchBtn.bind( 'vclick', this.clickHandler );
 			} else {
 				matchBtn.unbind( 'vclick', this.clickHandler );
-			}			
+			}
+
+ 			// decide arrow Button position
 			if( matchBtn.css( "left" ) && matchBtn.css( "left" ) != "auto" ){
 				$( ".ui-triangle-image" ).css( "left", matchBtn.width()/2 + parseInt(matchBtn.css("left")) - arrowCenter + "px" );
 			} else if( matchBtn.css("right") ){
 				buttonRight = matchBtn.nextAll().is( "a" ) ? btn3Position : btn2Position;
 				$( ".ui-triangle-image" ).css( "left", document.documentElement.clientWidth - matchBtn.width()/2 - buttonRight - arrowCenter + "px" );
-			} /* Button position : Jinhyuk */
+			}
 		} else {
-			$( ".ui-triangle-image" ).css( "left", document.documentElement.clientWidth/2 - arrowCenter + "px" );	
+			$( ".ui-triangle-image" ).css( "left", document.documentElement.clientWidth/2 - arrowCenter + "px" );
 		}
 	},
 	// Draw the option header, according to current options
@@ -238,7 +238,7 @@ $.widget("tizen.optionheader", $.mobile.widget, {
 			gridCols = {solo:1, a:2, b:3, c:4, d:5},
 			grid = o.grid,
 			iterator;
-	
+
 		if ( !grid ) {
 			if ( $kids.length <= 5 ) {
 				for ( var letter in gridCols ) {
@@ -389,7 +389,7 @@ $.widget("tizen.optionheader", $.mobile.widget, {
 	* {Function} options.callback Function to call after toggle completes
 	*/
 
-	toggle: function ( options ) {/* Option header reposition : Jinhyuk */
+	toggle: function ( options ) {
 		var toggle_header = this.element.parents( ":jqmData(role='header')" );
 		var toggle_content = this.element.parents( ":jqmData(role='page')" ).find( ".ui-content" );
 		var CollapsedTop = 110,
