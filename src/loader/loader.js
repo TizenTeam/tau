@@ -136,22 +136,6 @@ S = {
 			head.insertBefore(meta, head.firstChild);
 		}
 	},
-	
-	beforeAct: function(S, $) {
-        var body = document.getElementsByTagName('body')[0];
-        body.style.visibility = 'hidden';
-	},
-
-	startAct: function(S, $) {
-		// Turn on JQM initialize
-		$.mobile.initializePage();
-
-		// NOTE: This code is for preventing body visible without applying CSS.
-		// TODO: Is this event correct? Search for another suitable event.
-		$(window).one('pageshow', function() {
-			$('body').css('visibility', 'visible');
-		});
-	},
 
 	/** Load Globalize culture file, and set default culture.
 	 *  @param[in]  language  Language code. ex) en-US, en, ko-KR, ko
@@ -226,19 +210,15 @@ S = {
 
 // Loader's jobs
 (function (S, $, undefined) {
-
-	// Try to set globalize first
-	S.getParams();
-	S.setGlobalize();
+	S.getParams( );
+	S.loadTheme( );
+	S.setViewport( );
+	S.setGlobalize( );
 
  	// Turn off JQM's auto initialization option.
 	// NOTE: This job must be done before domready.
 	$.mobile.autoInitializePage = false;
-
-	domReady(function() {
-		S.beforeAct(S, $);
-		S.loadTheme();
-		S.setViewport();
-		S.startAct(S, $);
+	domReady( function( ) {
+		$.mobile.initializePage( );
 	});
  })(S, jQuery);
