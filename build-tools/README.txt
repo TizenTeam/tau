@@ -1,12 +1,15 @@
-Following tools are added;
+Tizen Web UI Framework includes following tools used on build;
 
-* less
+* less (http://lesscss.org)
 	* Description: A dynamic CSS language compiler based on node.js
 	* Mods
-		* Support rem unit
+		* Support rem unit (build-tools/lib/less/parser.js)
+	* License: Apache License Version 2.0 (build-tools/lib/less/LICENSE)
 
-* UglifyJS
+* UglifyJS (https://github.com/mishoo/UglifyJS)
 	* Description: A javascript code compressor/uglifier based on node.js
 	* Mods
-		* Add relative lib directory to work with UglifyJS libs.
-		* Change lib directory structure: lib/ to lib/uglifyjs/
+		* Add relative lib directory to work with UglifyJS libs (build-tools/bin/uglifyjs)
+		* Change lib directory structure: lib/ to lib/uglifyjs/ (build-tools/bin/uglifyjs, build-tools/lib/uglify-js)
+	* License: BSD License (build-tools/lib/uglifyjs/LICENSE)
+	
