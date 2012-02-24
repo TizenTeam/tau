@@ -26,7 +26,7 @@ path_to_be_removed=( \
 	tests \
 	tools/cleanup-src.sh )
 
-cd `dirname $0`
+cd `dirname $0`/../
 for p in "${path_to_be_removed[@]}"; do
 	echo $p
 	rm -rf $p
