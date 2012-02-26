@@ -906,6 +906,11 @@ $( document ).bind( 'pagecreate create', function ( e ) {
 		return;
 	}
 
+	if ( $.support.scrollview === undefined ) {
+		// set as default value
+		$.support.scrollview = true;
+	}
+
 	if ( $.support.scrollview === true && scroll === undefined ) {
 		$page.find(".ui-content").attr( "data-scroll", "y" );
 	}
