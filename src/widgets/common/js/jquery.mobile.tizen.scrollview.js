@@ -33,8 +33,7 @@ jQuery.widget( "tizen.scrollview", jQuery.mobile.widget, {
 		pagingEnabled:     false,
 		overshootEnable:   false,
 
-		delayedClickSelector: "a,input,textarea,select,button,.ui-btn",
-		delayedClickEnabled: false
+		delayedClickSelector: "a,input,textarea,select,button,.ui-btn"
 	},
 
 	_makePositioned: function ( $ele ) {
@@ -389,11 +388,6 @@ jQuery.widget( "tizen.scrollview", jQuery.mobile.widget, {
 		var c = this._$clip;
 		var v = this._$view;
 
-		if ( this.options.delayedClickEnabled ) {
-			this._$clickEle =
-				target.closest( this.options.delayedClickSelector );
-		}
-
 		this._lastX = ex;
 		this._lastY = ey;
 		this._startY = ey;
@@ -640,13 +634,8 @@ jQuery.widget( "tizen.scrollview", jQuery.mobile.widget, {
 
 		this._disableTracking();
 
-		if ( !this._didDrag &&
-				this.options.delayedClickEnabled &&
-				this._$clickEle.length ) {
-			this._$clickEle
-				.trigger("mousedown")
-				.trigger("mouseup")
-				.trigger("click");
+		if ( !this._didDrag && this.options.eventType === "touch" ) {
+			$(e.target).closest(this.options.delayedClickSelector).trigger("click");
 		}
 
 		/*
