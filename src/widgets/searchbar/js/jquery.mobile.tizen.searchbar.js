@@ -82,6 +82,7 @@ $.widget( "tizen.searchbar", $.mobile.widget, {
 				.trigger( "change" )
 				.trigger( "input" );
 			clearbtn.addClass( "ui-input-clear-hidden" );
+			event.preventDefault();
 			event.stopPropagation();
 		})
 		.appendTo( focusedEl )
@@ -123,6 +124,7 @@ $.widget( "tizen.searchbar", $.mobile.widget, {
 			hideCancel();
 			input.blur();
 			input.trigger( "change" );
+			event.preventDefault();
 			event.stopPropagation();
 		})
 		.appendTo( focusedEl.parent() )
@@ -140,12 +142,12 @@ $.widget( "tizen.searchbar", $.mobile.widget, {
 		
 		// Input Blured
 		/* When user touch on page, it's same to blur */
-		$("form.search").tap(function( event ){
+		$("div.input-search-bar").tap(function( event ){
 			input.focus();
 			event.stopPropagation();
 		});
 
-		$( currentPage ).bind("vclick", function(e) {
+		$( currentPage ).bind("tap", function(e) {
 			focusedEl.removeClass( "ui-focus" );
 			hideCancel();
 			input.trigger( "change" );
