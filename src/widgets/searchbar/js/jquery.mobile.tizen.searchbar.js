@@ -4,11 +4,12 @@
 * Dual licensed under the MIT or GPL Version 2 licenses.
 * http://jquery.org/license
 * Authors: Jinhyuk Jun <jinhyuk.jun@samsung.com>
+*          Wongi Lee <wongi11.lee@samsung.com>
 */
 
 /**
- * Searchbar can be created using <input> element with type=tizen-search
- * <input type="tizen-search" name="search" id="search1" value=""  />
+ * Searchbar can be created using <input> element with type=search
+ * <input type="search" name="search" id="search1" value=""  />
  *
  * Searchbar can be inserted 3 cases
  * content : seachbar behave same as content element
@@ -18,22 +19,22 @@
  * Examples:
  *
  *     HTML markup for creating Searchbar
- *         <input type="tizen-search"/>
+ *         <input type="search"/>
  *
  *     How to make searchbar in content
- *         <input type="tizen-search" name="" id="" value=""  />
+ *         <input type="search" name="" id="" value=""  />
  *
  *     How to make searchbar in title
  *         <div data-role="header" data-position ="fixed" >
  *	           <h1>Searchbar</h1>
- *             <input type="tizen-search" name="" id="" value=""  />
+ *             <input type="search" name="" id="" value=""  />
  *         </div>
  *
  *     How to make searchbar inside optionheader
  *         <div data-role="header" data-position ="fixed" >
  *	           <h1>Searchbar</h1>
  *             <div id="myoptionheader2" data-role="optionheader">
- *                 <input type="tizen-search" name="" id="" value=""  />
+ *                 <input type="search" name="" id="" value=""  />
  *             </div>
  *         </div>
 */
@@ -43,7 +44,7 @@
 $.widget( "tizen.searchbar", $.mobile.widget, {
 	options: {
 		theme: null,
-		initSelector: "input[type='tizen-search'],:jqmData(type='tizen-search')"
+		initSelector: "input[type='search'],:jqmData(type='search')"
 	},
 
 	_create: function() {
@@ -256,13 +257,13 @@ $.widget( "tizen.searchbar", $.mobile.widget, {
 	},
 
 	disable: function(){
-		( this.element.attr( "disabled", true ).is( "[type='tizen-search'],:jqmData(type='tizen-search')" ) ?
-			this.element.parent() : this.element ).addClass( "ui-disabled" );
+		this.element.attr( "disabled", true );
+		this.element.parent().addClass( "ui-disabled" );
 	},
 
 	enable: function(){
-		( this.element.attr( "disabled", false).is( "[type='tizen-search'],:jqmData(type='tizen-search')" ) ?
-			this.element.parent() : this.element ).removeClass( "ui-disabled" );
+		this.element.attr( "disabled", false);
+		this.element.parent().removeClass( "ui-disabled" );
 	}
 });
 
