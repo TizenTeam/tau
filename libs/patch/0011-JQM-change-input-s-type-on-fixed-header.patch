@@ -20,7 +20,7 @@ index d05fe11..26d0ec3
  						s_theme_content.addClass( "ui-title-content-option-header-expanded-1line-height" );
  				}
 -			} else if( s_theme_header.find("input").jqmData("type") == "search" ){
-+			} else if( s_theme_header.find("input").attr("type") === "tizen-search" ){
++			} else if( s_theme_header.find("input").attr("type") === "search" ){
  				s_theme_content
  					.removeClass( "ui-title-content-" + title_style + "-height" )
  					.addClass( "ui-title-content-search" );
