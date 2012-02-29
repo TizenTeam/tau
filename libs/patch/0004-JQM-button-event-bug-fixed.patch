@@ -1,0 +1,115 @@
+From 6734ec723c053c9c81949c146a5f3ea5a0fbfdc5 Mon Sep 17 00:00:00 2001
+From: Minkyu Kang <mk7.kang@samsung.com>
+Date: Tue, 28 Feb 2012 14:19:23 +0900
+Subject: [PATCH] JQM: button event bug fixed
+
+Signed-off-by: Koeun Choi <koeun.choi@samsung.com>
+Signed-off-by: Minkyu Kang <mk7.kang@samsung.com>
+---
+ .../js/jquery.mobile.buttonMarkup.js               |   74 +++++++++++++-------
+ 1 files changed, 49 insertions(+), 25 deletions(-)
+
+diff --git a/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.buttonMarkup.js b/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.buttonMarkup.js
+index a08e611..d192e37 100644
+--- a/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.buttonMarkup.js
++++ b/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.buttonMarkup.js
+@@ -130,47 +130,71 @@ function closestEnabledButton( element ) {
+     return element;
+ }
+ 
++// Bug fix: When moving finger out of button after touching down button, button color MUST be returned.
++// button click event comes this order : vmouseover -> vmousedown -> vmouseup -> vmouseout
++
++var selectedButton = null;
++var useScrollview = false;
++
+ var attachEvents = function() {
+ 	$( document ).bind( {
+-		"vmousedown": function( event ) {
+-			var btn = closestEnabledButton( event.target ),
+-				$btn, theme;
++		"vmouseover focus": function( event ) {
++			var $btn, theme;
+ 
+-			if ( btn ) {
+-				$btn = $( btn );
++			// check if there is selected button... if so, make it to "btn-up" state.
++			if ( selectedButton ) {
++				$btn = $( selectedButton );
+ 				theme = $btn.attr( "data-" + $.mobile.ns + "theme" );
+-				$btn.removeClass( "ui-btn-up-" + theme ).addClass( "ui-btn-down-" + theme );
++				$btn.removeClass( "ui-btn-down-" + theme ).removeClass( "ui-btn-hover-" + theme )
++					.addClass( "ui-btn-up-" + theme );
+ 			}
+-		},
+-		"vmousecancel vmouseup": function( event ) {
+-			var btn = closestEnabledButton( event.target ),
+-				$btn, theme;
+ 
+-			if ( btn ) {
+-				$btn = $( btn );
++			selectedButton = closestEnabledButton( event.target );
++			if ( selectedButton ) {
++				$btn = $( selectedButton );
+ 				theme = $btn.attr( "data-" + $.mobile.ns + "theme" );
+-				$btn.removeClass( "ui-btn-down-" + theme ).addClass( "ui-btn-up-" + theme );
++				$btn.removeClass( "ui-btn-up-" + theme ).addClass( "ui-btn-hover-" + theme );
+ 			}
+ 		},
+-		"vmouseover focus": function( event ) {
+-			var btn = closestEnabledButton( event.target ),
+-				$btn, theme;
++		"vmouseout blur": function( event ) {
++			var $btn, theme;
+ 
+-			if ( btn ) {
+-				$btn = $( btn );
++			if ( selectedButton ) {
++				$btn = $( selectedButton );
+ 				theme = $btn.attr( "data-" + $.mobile.ns + "theme" );
+-				$btn.removeClass( "ui-btn-up-" + theme ).addClass( "ui-btn-hover-" + theme );
++				$btn.removeClass( "ui-btn-hover-" + theme ).removeClass( "ui-btn-down-" + theme ).addClass( "ui-btn-up-" + theme );
+ 			}
+ 		},
+-		"vmouseout blur": function( event ) {
+-			var btn = closestEnabledButton( event.target ),
+-				$btn, theme;
++		"vmousedown": function( event ) {
++			var $btn, theme;
++
++			if ( !selectedButton ) {
++				selectedButton = closestEnabledButton( event.target );
++			}
+ 
+-			if ( btn ) {
+-				$btn = $( btn );
++			$btn = $( selectedButton );
++			theme = $btn.attr( "data-" + $.mobile.ns + "theme" );
++			$btn.removeClass( "ui-btn-up-" + theme ).addClass( "ui-btn-down-" + theme );
++		},
++		"vmousecancel vmouseup": function( event ) {
++			var $btn, theme;
++
++			if ( selectedButton ) {
++				$btn = $( selectedButton );
+ 				theme = $btn.attr( "data-" + $.mobile.ns + "theme" );
+-				$btn.removeClass( "ui-btn-hover-" + theme  + " ui-btn-down-" + theme ).addClass( "ui-btn-up-" + theme );
++				$btn.removeClass( "ui-btn-down-" + theme ).addClass( "ui-btn-up-" + theme );
++
++				if ( event.type === "vmousecancel" && useScrollview ) {
++					event.preventDefault();
++				}
++				selectedButton = null;
++			}
++		},
++		"scrollstart scrollview_scroll": function( event ) {
++			if ( event.type === "scrollview_scroll" ) {
++				useScrollview = true;
+ 			}
++			$( this ).trigger("vmousecancel");
+ 		}
+ 	});
+ 
+-- 
+1.7.5.4
+

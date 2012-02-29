@@ -1,59 +1,57 @@
-From e424c135d1a438cc234107bb45608baa26139ebc Mon Sep 17 00:00:00 2001
-From: Koeun Choi <koeun.choi@samsung.com>
-Date: Wed, 15 Feb 2012 19:34:44 +0900
-Subject: [PATCH] JQM:checkbox pressed, no-lable support
+From 412619cb65dfa87ee6485afa6bbe810a2705dd67 Mon Sep 17 00:00:00 2001
+From: Minkyu Kang <mk7.kang@samsung.com>
+Date: Wed, 29 Feb 2012 16:46:14 +0900
+Subject: [PATCH] JQM: checkbox pressed, no-lable support
 
+Signed-off-by: Koeun Choi <koeun.choi@samsung.com>
 ---
- .../js/jquery.mobile.forms.checkboxradio.js        |   60 ++++++++++++++++++--
- 1 files changed, 55 insertions(+), 5 deletions(-)
+ .../js/jquery.mobile.forms.checkboxradio.js        |   57 ++++++++++++++++++-
+ 1 files changed, 54 insertions(+), 3 deletions(-)
 
 diff --git a/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.forms.checkboxradio.js b/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.forms.checkboxradio.js
-index d09a422..6b2268f 100644
+index d09a422..9243f2e 100644
 --- a/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.forms.checkboxradio.js
 +++ b/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.forms.checkboxradio.js
-@@ -23,11 +23,22 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
- 			checkedClass = "ui-" + checkedState + activeBtn,
- 			uncheckedClass = "ui-" + uncheckedState,
+@@ -25,10 +25,23 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
  			checkedicon = "ui-icon-" + checkedState,
--			uncheckedicon = "ui-icon-" + uncheckedState;
-+			uncheckedicon = "ui-icon-" + uncheckedState,
-+			checkedpressedicon = checkedicon + "-press",
-+			uncheckedpressedicon = uncheckedicon + "-press";
+ 			uncheckedicon = "ui-icon-" + uncheckedState;
  
++		var checkedpressedicon = checkedicon + "-press",
++			uncheckedpressedicon = uncheckedicon + "-press";
++
  		if ( inputtype !== "checkbox" && inputtype !== "radio" ) {
  			return;
  		}
+ 
 +		// Support fake label
 +		if ( label.length == 0 ) {
-+			//fake label
-+			label = $( "<label for='" + input[ 0 ].id  + "' style='display:block;width:1px;height:1px;'></label>" );
++			label = $( "<label for='" + input[ 0 ].id  +
++				"' style='display:block;width:1px;height:1px;'></label>" );
 +		}
 +
 +		// Wrap the input + label in a div
 +		input.add( label )
 +			.wrapAll( "<div class='ui-" + inputtype + "'></div>" );
- 
++
  		// Expose for other methods
  		$.extend( this, {
-@@ -36,7 +47,9 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
+ 			label: label,
+@@ -36,6 +49,8 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
  			checkedClass: checkedClass,
  			uncheckedClass: uncheckedClass,
  			checkedicon: checkedicon,
--			uncheckedicon: uncheckedicon
-+			uncheckedicon: uncheckedicon,
 +			checkedpressedicon: checkedpressedicon,
-+			uncheckedpressedicon: uncheckedpressedicon
++			uncheckedpressedicon: uncheckedpressedicon,
+ 			uncheckedicon: uncheckedicon
  		});
  
- 		// If there's no selected theme...
-@@ -50,11 +63,20 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
+@@ -50,11 +65,19 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
  			shadow: false
  		});
  
 -		// Wrap the input + label in a div
 -		input.add( label )
 -			.wrapAll( "<div class='ui-" + inputtype + "'></div>" );
-+		// TODO : support either data-style or class...
 +		if ( input.hasClass( "favorite" ) ) {
 +			input.parent().addClass( "favorite" ).end();
 +		}
@@ -70,7 +68,7 @@ index d09a422..6b2268f 100644
  			vmouseover: function( event ) {
  				if ( $( this ).parent().is( ".ui-disabled" ) ) {
  					event.stopPropagation();
-@@ -154,6 +176,34 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
+@@ -154,6 +177,34 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
  		.checkboxradio( "refresh" );
  	},
  
@@ -106,5 +104,5 @@ index d09a422..6b2268f 100644
  		var input = this.element,
  			label = this.label,
 -- 
-1.7.0.4
+1.7.5.4
 

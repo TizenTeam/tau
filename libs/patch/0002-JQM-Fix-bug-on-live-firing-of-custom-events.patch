@@ -1,30 +1,30 @@
-From 8a6605cac17177b38527a8a7d21b92e75de1e1fe Mon Sep 17 00:00:00 2001
-From: Youmin Ha <youmin.ha@samsung.com>
-Date: Wed, 15 Feb 2012 17:43:48 +0900
+From aee148944929c79484c59d2e70b63ffdd09e1dd0 Mon Sep 17 00:00:00 2001
+From: Minkyu Kang <mk7.kang@samsung.com>
+Date: Tue, 28 Feb 2012 10:59:29 +0900
 Subject: [PATCH] JQM: Fix bug on live firing of custom events
 
+Signed-off-by: Youmin Ha <youmin.ha@samsung.com>
 ---
- .../js/jquery.mobile.event.js                      |    7 +++++++
- 1 files changed, 7 insertions(+), 0 deletions(-)
+ .../js/jquery.mobile.event.js                      |    6 ++++++
+ 1 files changed, 6 insertions(+), 0 deletions(-)
 
 diff --git a/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.event.js b/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.event.js
-index 7b79b79..9a87f4a 100644
+index 7b79b79..408d2ba 100644
 --- a/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.event.js
 +++ b/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.event.js
-@@ -24,6 +24,13 @@ var supportTouch = $.support.touch,
+@@ -24,6 +24,12 @@ var supportTouch = $.support.touch,
  function triggerCustomEvent( obj, eventType, event ) {
  	var originalType = event.type;
  	event.type = eventType;
 +
-+	// NOTE : by Youmin Ha <youmin.ha@samsung.com>
-+	//     event.liveFired is already set by basic events e.g. vclick,
-+	//     which is fired already.
-+	//     To fire this custom event, event.liveFired must be cleared.
++	// event.liveFired is already set by basic events e.g. vclick,
++	// which is fired already.
++	// To fire this custom event, event.liveFired must be cleared.
 +	event.liveFired = undefined;
 +
  	$.event.handle.call( obj, event );
  	event.type = originalType;
  }
 -- 
-1.7.4.1
+1.7.5.4
 

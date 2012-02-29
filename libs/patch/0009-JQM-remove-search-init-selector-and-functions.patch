@@ -3,7 +3,7 @@ From: Lee Wongi <wongi11.lee@samsung.com>
 Date: Wed, 29 Feb 2012 14:21:44 +0900
 Subject: [PATCH] JQM remove search init selector and functions.
 
-Change-Id: I2b842313ddf53f1ea54af857a97770933adc7f2f
+Signed-off-by: Lee Wongi <wongi11.lee@samsung.com>
 ---
  .../js/jquery.mobile.forms.textinput.js            |   41 ++------------------
  1 files changed, 4 insertions(+), 37 deletions(-)
