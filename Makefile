@@ -7,6 +7,8 @@ THEME_NAME = default
 
 PATH := $(CURDIR)/build-tools/bin:$(PATH)
 
+JSLINT_LEVEL = 1
+JSLINT = jslint --sloppy --eqeq --bitwise --forin --nomen --white --predef jQuery
 INLINE_PROTO = 1
 OUTPUT_ROOT = $(CURDIR)/build
 FRAMEWORK_ROOT = ${OUTPUT_ROOT}/${PROJECT_NAME}/${VERSION}
@@ -126,15 +128,23 @@ widgets: init third_party
 	@@ls -l ${WIDGETS_DIR} | grep '^d' | awk '{print $$NF;}' | \
 	    while read REPLY; do \
 	        echo "	# Building widget $$REPLY"; \
-                if test "x${INLINE_PROTO}x" = "x1x"; then \
-                  ./tools/inline-protos.sh ${WIDGETS_DIR}/$$REPLY >> ${WIDGETS_DIR}/$$REPLY/js/$$REPLY.js.compiled; \
-                  cat ${WIDGETS_DIR}/$$REPLY/js/$$REPLY.js.compiled >> ${FW_JS}; \
-                else \
-	          for f in `find ${WIDGETS_DIR}/$$REPLY -iname 'js/*.js' | sort`; do \
-	              echo "		$$f"; \
-	              cat $$f >> ${FW_JS}; \
-	          done; \
-                fi; \
+			if test ${JSLINT_LEVEL} -ge 1; then \
+				for FNAME in ${WIDGETS_DIR}/$$REPLY/js/*.js; do \
+					${JSLINT} $$FNAME; \
+					if test ${JSLINT_LEVEL} -ge 2 -a $$? -ne 0; then \
+						exit 1; \
+					fi; \
+				done; \
+			fi; \
+			if test "x${INLINE_PROTO}x" = "x1x"; then \
+				./tools/inline-protos.sh ${WIDGETS_DIR}/$$REPLY >> ${WIDGETS_DIR}/$$REPLY/js/$$REPLY.js.compiled; \
+				cat ${WIDGETS_DIR}/$$REPLY/js/$$REPLY.js.compiled >> ${FW_JS}; \
+			else \
+				for f in `find ${WIDGETS_DIR}/$$REPLY -iname 'js/*.js' | sort`; do \
+					echo "		$$f"; \
+					cat $$f >> ${FW_JS}; \
+				done; \
+            fi; \
 	        for f in `find ${WIDGETS_DIR}/$$REPLY -iname '*.js.theme' | sort`; do \
 	            echo "		$$f"; \
 	            cat $$f >> ${FW_JS_THEME}; \

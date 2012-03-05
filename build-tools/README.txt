@@ -12,4 +12,13 @@ Tizen Web UI Framework includes following tools used on build;
 		* Add relative lib directory to work with UglifyJS libs (build-tools/bin/uglifyjs)
 		* Change lib directory structure: lib/ to lib/uglifyjs/ (build-tools/bin/uglifyjs, build-tools/lib/uglify-js)
 	* License: BSD License (build-tools/lib/uglifyjs/LICENSE)
-	
+
+* node-jslint (http://github.com/reid/node-jslint)
+	* Version: 3/2/2012 Update (node-jslint: 0.1.6)
+	* Description: The JavaScript Code Quality Tool for Node.js
+	* Mods
+		* Change lib directory structure: lib/ to lib/jslint/ (build-tools/bin/jslint, build-tools/lib/jslint)
+	* License
+		* node-jslint: BSD License (build-tools/lib/jslint/LICENSE)
+		* jslint: Customized MIT License (build-tools/lib/jslint/jslint.js)
+		* nopt, abbrev: MIT License (build-tools/lib/jslint/nopt/LICENSE)
