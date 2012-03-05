@@ -37,21 +37,18 @@ FW_MIN = $(subst .js,.min.js,$(FW_JS))
 FW_LIB_JS = ${JS_OUTPUT_ROOT}/${PROJECT_NAME}-libs.js
 FW_LIB_MIN = $(subst .js,.min.js,$(FW_LIB_JS))
 
-
-
 FW_JS_THEME = ${JS_OUTPUT_ROOT}/${PROJECT_NAME}-${THEME_NAME}-theme.js
 FW_CSS = ${CSS_OUTPUT_ROOT}/${PROJECT_NAME}-theme.css
 FW_LIBS_JS = ${JS_OUTPUT_ROOT}/${PROJECT_NAME}-libs.js
 FW_THEME_CSS_FILE = ${PROJECT_NAME}-theme.css
 FW_WIDGET_CSS_FILE = ${WIDGET_CSS_OUTPUT_ROOT}/${PROJECT_NAME}-widget.css
 
-LIBS_JS_FILES = underscore.js \
-                jlayout/jquery.sizes.js \
-                jlayout/jlayout.border.js \
-                jlayout/jlayout.grid.js \
-                jlayout/jlayout.flexgrid.js \
-                jlayout/jlayout.flow.js \
-                jlayout/jquery.jlayout.js \
+LIBS_JS_FILES = jlayout/jquery.sizes.js \
+				jlayout/jlayout.border.js \
+				jlayout/jlayout.grid.js \
+				jlayout/jlayout.flexgrid.js \
+				jlayout/jlayout.flow.js \
+				jlayout/jquery.jlayout.js \
 				domready.js \
                 $(NULL)
 
@@ -67,13 +64,11 @@ JQM_LIB_PATH = $(CURDIR)/libs/js/${JQM_VERSION}
 ifeq (${DEBUG},yes)
 LIBS_JS_FILES +=\
 	jquery.mobile.js \
-    jquery.ui.position.git+dfe75e1.js \
     $(NULL)
 JQUERY = jquery-1.6.4.js
 else
 LIBS_JS_FILES +=\
 	jquery.mobile.min.js \
-    jquery.ui.position.git+dfe75e1.min.js \
     $(NULL)
 JQUERY = jquery-1.6.4.min.js
 endif
