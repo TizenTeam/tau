@@ -70,7 +70,7 @@
 				runningClass: runningClass
 			});
 			this._refresh();
-		},
+		}
 	}); /* End of widget */
 
 	// auto self-init widgets

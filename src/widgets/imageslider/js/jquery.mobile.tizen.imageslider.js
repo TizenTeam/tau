@@ -522,7 +522,7 @@
 
 			this.images.splice( image_index, 1 );
 			temp_img.detach();
-		},
+		}
 	}); /* End of widget */
 
 	// auto self-init widgets

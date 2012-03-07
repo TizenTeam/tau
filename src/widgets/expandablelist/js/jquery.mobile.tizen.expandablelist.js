@@ -18,7 +18,7 @@
 
 $.widget("todons.expandablelist", $.mobile.widget, {
 	options: {
-		initSelector: ":jqmData(expandable='true')",
+		initSelector: ":jqmData(expandable='true')"
 	},
 
 	_hide: function(e) {
@@ -122,7 +122,7 @@ $.widget("todons.expandablelist", $.mobile.widget, {
 
 			self._set_expand_arrow(self, e, e[0].is_expanded);
 		});
-	},
+	}
 
 
 });	// end: $.widget()

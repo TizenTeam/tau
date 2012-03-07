@@ -51,7 +51,7 @@ $.widget("todons.colorwidget", $.mobile.widget, {
       return true;
     }
     return false;
-  },
+  }
 });
 
 })(jQuery);

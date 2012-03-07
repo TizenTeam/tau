@@ -279,7 +279,7 @@
 
 			return {
 				attr: attr,
-				html: div,
+				html: div
 			};
 		},
 
@@ -347,7 +347,7 @@
 					"year"	: 0,
 					"month"	: 0,
 					"day"	: 0
-				},
+				}
 
 			});
 
@@ -604,7 +604,7 @@
 					div.append( time.html );
 				}
 			}
-		},
+		}
 
 	});
 

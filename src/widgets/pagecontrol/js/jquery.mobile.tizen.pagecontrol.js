@@ -49,7 +49,7 @@
 
 $.widget("tizen.pagecontrol", $.mobile.widget, {
 	options: {
-		initSelector: ":jqmData(role='pagecontrol')",
+		initSelector: ":jqmData(role='pagecontrol')"
 	},
 
 	_create: function () {
@@ -137,9 +137,9 @@ $.widget("tizen.pagecontrol", $.mobile.widget, {
 
 			// 2. Store new value (DO NOT change this order!)
 			e.data('current', value);
-			
+
 		});
-	},
+	}
 });	// end: $.widget()
 
 

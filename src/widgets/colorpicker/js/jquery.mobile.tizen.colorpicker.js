@@ -183,7 +183,7 @@ $.widget( "tizen.colorpicker", $.tizen.colorwidget, {
             : { background : "#ffffff" , opacity : ((hsl[2] - 0.5) * 2.0) });
         this._ui.hs.selector.css({
             left       : (hsl[0] / 360 * this._ui.hs.eventSource.width()),
-            top        : (hsl[1] * this._ui.hs.eventSource.height()),
+            top        : (hsl[1] * this._ui.hs.eventSource.height())
         });
         this._ui.l.selector.css({
             top        : (hsl[2] * this._ui.l.eventSource.height()),

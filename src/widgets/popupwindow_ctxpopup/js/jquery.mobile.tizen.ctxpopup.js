@@ -73,7 +73,7 @@
         _setOption: function(key, value) {
             $.tizen.popupwindow.prototype._setOption.apply(this.element.data("popupwindow"), arguments);
             this.options[key] = value;
-        },
+        }
     });
 
 var origOpen = $.tizen.popupwindow.prototype.open,
