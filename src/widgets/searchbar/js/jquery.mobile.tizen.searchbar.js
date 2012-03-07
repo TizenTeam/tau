@@ -44,7 +44,7 @@
 $.widget( "tizen.searchbar", $.mobile.widget, {
 	options: {
 		theme: null,
-		initSelector: "input[type='search'],:jqmData(type='search')"
+		initSelector: "input[type='search'],:jqmData(type='search'), input[type='tizen-search'],:jqmData(type='tizen-search')"
 	},
 
 	_create: function() {
