@@ -362,7 +362,7 @@ jQuery.widget( "mobile.circularview", jQuery.mobile.widget, {
 		
         }
 		this._$view.bind( this._dragStartEvt, this._dragStartCB );
-	},
+	}
 
 });
 

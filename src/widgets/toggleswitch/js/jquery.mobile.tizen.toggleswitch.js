@@ -68,8 +68,8 @@ $.widget("tizen.toggleswitch", $.tizen.widgetex, {
             btnSpan   : "#btn-span",
             txt       : {
                 normal : "[data-normal-text]",
-                active : "[data-active-text]",
-            },
+                active : "[data-active-text]"
+            }
         }
     },
 

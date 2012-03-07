@@ -11,7 +11,7 @@ S = {
 	frameworkData : {
 		rootDir: '/usr/lib/tizen-web-ui-fw',
 		version: '0.1',
-		theme: "default",
+		theme: "default"
 		},
 
     cacheBust: (document.location.href.match(/debug=true/)) ?
@@ -42,7 +42,7 @@ S = {
 							console.log('Error while loading ' + scriptPath + '\n' + jqXHR.status + ':' + jqXHR.statusText);
 						}
 					}
-				},
+				}
 			});
 		},
 		getScaleFactor: function () {
@@ -60,7 +60,7 @@ S = {
 			}
 			console.log( "ScaleFactor: " + factor );
 			return factor;
-		},
+		}
 	},
 
 	css : {
@@ -73,7 +73,7 @@ S = {
 			customstylesheetLink.setAttribute('rel', 'stylesheet');
 			customstylesheetLink.setAttribute('href', href);
 			return customstylesheetLink;
-		},
+		}
 	},
 
 	getParams: function() {
@@ -103,7 +103,7 @@ S = {
 
 	loadTheme: function() {
 		var themePath = [
-				this.frameworkData.rootDir, 
+				this.frameworkData.rootDir,
 				this.frameworkData.version,
 				'themes',
 				this.frameworkData.theme
@@ -147,7 +147,7 @@ S = {
 		};
 		function getGlobalizeCulturePath(self, file) {
 			return [
-				self.frameworkData.rootDir, 
+				self.frameworkData.rootDir,
 				self.frameworkData.version,
 				'js',
 				'cultures',
@@ -176,8 +176,8 @@ S = {
 		// Run culture script
 		console.log('Run globalize culture: ' + globalizeCulturePath);
 		this.util.loadScriptSync(
-			globalizeCulturePath, 
-			null, 
+			globalizeCulturePath,
+			null,
 			function(jqXHR, textStatus, errorThrown) {	// Failed to load!
 				if(jqXHR.status == 404) {
 					// If culture file is not found, run neutral language culture. 
@@ -204,7 +204,7 @@ S = {
 		// NOTE: It is not needed to set with neutral lang. 
 		//       Globalize automatically deals with it.
 		Globalize.culture(lang);
-	},
+	}
 };
 
 
@@ -215,7 +215,7 @@ S = {
 	S.setViewport( );
 	S.setGlobalize( );
 
- 	// Turn off JQM's auto initialization option.
+	// Turn off JQM's auto initialization option.
 	// NOTE: This job must be done before domready.
 	$.mobile.autoInitializePage = false;
 	domReady( function( ) {

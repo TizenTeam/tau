@@ -75,7 +75,7 @@
 (function ($, window, undefined) {
 	$.widget("tizen.tizenslider", $.mobile.widget, {
 		options: {
-			popupEnabled: true,
+			popupEnabled: true
 		},
 
 		popup: null,
@@ -281,7 +281,7 @@
 
 				break;
 			}
-		},
+		}
 	});
 
 	// stop jqm from initialising sliders
