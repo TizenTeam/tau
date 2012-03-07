@@ -84,9 +84,9 @@ S = {
 		var scriptElems = document.getElementsByTagName('script'),
 			val = null,
 			foundScript = false;
-		for (var idx in scriptElems) {
+		for ( var idx in scriptElems ) {
 			var elem = scriptElems[idx],
-				src = elem.getAttribute('src');
+				src = elem.src ? elem.getAttribute( 'src' ) : undefined;
 			if(src && src.match(this.libFileName)) {
 				// Set framework data, only when they are given.
 				var tokens = src.split(/[\/\\]/),
