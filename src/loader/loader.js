@@ -156,7 +156,11 @@ S = {
 		}
 
 		// Get lang, and change country code to uppercase chars.
-		var lang = language || $('html').attr('lang') || window.navigator.language,
+		var lang = language 
+			|| $( 'html' ).attr( 'lang' )
+			|| window.navigator.language	/* Webkit, Safari */
+			|| window.navigator.userLanguage	/* IE */
+			|| 'en',
 			countryCodeIdx = lang.lastIndexOf('-'),
 			ignoreCodes = ['Cyrl', 'Latn', 'Mong'];	// Not country code!
 
