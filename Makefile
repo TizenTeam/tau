@@ -8,7 +8,7 @@ THEME_NAME = default
 PATH := $(CURDIR)/build-tools/bin:$(PATH)
 
 JSLINT_LEVEL = 1
-JSLINT = jslint --sloppy --eqeq --bitwise --forin --nomen --white --predef jQuery
+JSLINT = jslint --sloppy --eqeq --bitwise --forin --nomen --predef jQuery --color --plusplus --browser --jqmspace
 INLINE_PROTO = 1
 OUTPUT_ROOT = $(CURDIR)/build
 FRAMEWORK_ROOT = ${OUTPUT_ROOT}/${PROJECT_NAME}/${VERSION}
