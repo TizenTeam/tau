@@ -1,0 +1,89 @@
+@import "config.less";
+
+.ui-splitview {
+	margin : 0;
+	padding : 0;
+	background-color : @color_bg;
+}
+
+.ui-splitview .ui-panel {
+	position : absolute;
+	overflow : hidden;
+	border : 0;
+	margin : 0;
+	padding : 0;
+	background-color : @color_bg;
+}
+
+.ui-splitview .ui-panel .ui-listview {
+	margin : 0;
+	padding : 0;
+	background-color : @color_bg;
+}
+
+.ui-splitview .ui-spliter {
+	position : absolute;
+	margin : 0;
+	padding : 0;
+}
+
+.ui-splitview .ui-spliter-handle {
+	margin : 0;
+	padding : 0;
+	cursor : move;
+	display : block;
+	text-align : center;
+	cursor : pointer;
+	position : relative;
+	background-position : center center;
+	background-repeat : no-repeat;
+	background-size : 100% 100%;
+}
+
+.ui-spliter-active {
+	opacity : 0.8;
+}
+
+.ui-direction-horizontal .ui-spliter {
+	background-color : @color_splitview_handler_bg;
+	border-right : 1 * @unit_base solid @color_splitview_handler_border;
+	border-left : 1 * @unit_base solid @color_splitview_handler_border;
+	width : 38 * @unit_base;
+}
+
+.ui-direction-horizontal .ui-spliter-handle {
+	width : 38 * @unit_base;
+	height : 48 * @unit_base;
+	background-image : url( "images/00_splitscreen_handler.png" );
+}
+
+.ui-direction-horizontal .ui-fixed {
+	width : 5 * @unit_base;
+}
+
+.ui-direction-vertical .ui-spliter {
+	background-color : @color_splitview_handler_bg;
+	border-top : 1 * @unit_base solid @color_splitview_handler_border;
+	border-bottom : 1 * @unit_base solid @color_splitview_handler_border;
+	height : 38 * @unit_base;
+}
+
+.ui-direction-vertical .ui-spliter-handle {
+	width : 48 * @unit_base;
+	height : 38 * @unit_base;
+	background-image : url( "images/00_splitscreen_handler_hor.png" );
+}
+
+.ui-direction-vertical .ui-fixed {
+	height : 5 * @unit_base;
+}
+
+.ui-fixed .ui-spliter-handle {
+	display : none;
+}
+
+.ui-splitview-iframe {
+	width : 100%;
+	height : 100%;
+}
+
