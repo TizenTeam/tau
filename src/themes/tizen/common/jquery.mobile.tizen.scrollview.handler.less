@@ -1,0 +1,52 @@
+@import "config.less";
+
+.ui-handler {
+	position : absolute;
+	overflow : hidden;
+}
+
+.ui-handler-y {
+	top : 10 * @unit_base;
+	right : 10 * @unit_base;
+	bottom : 10 * @unit_base;
+	width : 48 * @unit_base;
+}
+
+.ui-handler-x {
+	right : 10 * @unit_base;
+	bottom : 10 * @unit_base;
+	left : 10 * @unit_base;
+	height : 48 * @unit_base;
+}
+
+.ui-handler-track {
+	position : relative;
+	width : 100%;
+	height : 100%;
+}
+
+.ui-handler-thumb {
+	position : absolute;
+	top : 0;
+	left : 0;
+	background-color : @color_scrollview_handler_bg;
+	background-position : center;
+	background-repeat : no-repeat;
+	-moz-border-radius : 5 * @unit_base;
+	-webkit-border-radius : 5 * @unit_base;
+	border-radius : 5 * @unit_base;
+}
+
+.ui-handler-y .ui-handler-thumb {
+	width : 48 * @unit_base;
+	height : 214 * @unit_base;
+	background-image : url("images/00_scroll_bar_handler.png");
+	background-size : 48 * @unit_base	40 * @unit_base;
+}
+
+.ui-handler-x .ui-handler-thumb {
+	width : 214 * @unit_base;
+	height : 48 * @unit_base;
+	background-image : url("images/00_scroll_bar_handler_hor.png");
+	background-size : 40 * @unit_base 48 * @unit_base;
+}

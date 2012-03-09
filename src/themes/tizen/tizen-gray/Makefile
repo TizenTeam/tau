@@ -44,7 +44,12 @@ CSS_SRCS=	../common/jquery.mobile.theme.less.css \
 		../common/jquery.mobile.tizen.huegradient.css \
 		../common/jquery.mobile.tizen.colorpicker.less.css \
 		../common/jquery.mobile.tizen.colorpickerbutton.css \
-		../common/jquery.mobile.tizen.triangle.less.css
+		../common/jquery.mobile.tizen.triangle.less.css \
+		../common/jquery.mobile.tizen.splitview.less.css \
+		../common/jquery.mobile.tizen.multibuttonentry.less.css \
+		../common/jquery.mobile.tizen.virtualgridview.less.css \
+		../common/jquery.mobile.tizen.scrollview.handler.less.css \
+		../common/jquery.mobile.tizen.multimediaview.less.css
 
 all: prepare css images js
 
