@@ -358,6 +358,7 @@ var JSLINT = (function () {
             sub       : true,
             vars      : true,
             white     : true,
+            jqmspace  : true,
             widget    : true,
             windows   : true
         },
@@ -2341,6 +2342,9 @@ klass:              do {
     }
 
     function no_space(left, right) {
+        if (option.jqmspace)
+            return;
+
         left = left || token;
         right = right || next_token;
         if ((!option.white || xmode === 'styleproperty' || xmode === 'style') &&
@@ -2350,6 +2354,9 @@ klass:              do {
     }
 
     function no_space_only(left, right) {
+        if (option.jqmspace)
+            return;
+
         left = left || token;
         right = right || next_token;
         if (right.id !== '(end)' && (left.line !== right.line ||

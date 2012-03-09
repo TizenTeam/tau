@@ -18,7 +18,7 @@ function commandOptions() {
             'newcap', 'node', 'nomen', 'on', 'passfail', 'plusplus',
             'properties', 'regexp', 'rhino', 'undef', 'unparam',
             'sloppy', 'sub', 'vars', 'white', 'widget', 'windows',
-            'json', 'color'
+            'json', 'color', 'jqmspace'
         ],
         commandOpts = {
             'indent' : Number,
