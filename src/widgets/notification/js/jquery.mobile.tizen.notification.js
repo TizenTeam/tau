@@ -90,9 +90,9 @@
 		_get_container: function () {
 			if ( this.type === 'ticker' ) {
 				return $( this.element ).find(".ui-ticker");
-			} else {
-				return $( this.element ).find(".ui-smallpopup");
 			}
+
+			return $( this.element ).find(".ui-smallpopup");
 		},
 
 		_add_event: function () {
@@ -100,9 +100,7 @@
 				container = this._get_container();
 
 			if ( this.type === 'ticker' ) {
-				var btn_container = container.find(".ui-ticker-btn");
-
-				btn_container.append( this.btn );
+				container.find(".ui-ticker-btn").append( this.btn );
 
 				this.btn.bind( "vmouseup", function () {
 					self.hide();
@@ -131,13 +129,15 @@
 			clearInterval( this.interval );
 		},
 
-		_get_position: function ( height ) {
-			var $page = $('.ui-page'),
+		_set_position: function () {
+			var container = this._get_container(),
+				container_h = parseFloat( container.css('height') ),
+				$page = $('.ui-page'),
 				$footer = $page.children('.ui-footer'),
 				footer_h = $footer.outerHeight() || 0,
-				position = window.innerHeight - height - footer_h;
+				position = window.innerHeight - container_h - footer_h;
 
-			return position;
+			container.css( 'top', position );
 		},
 
 		_update: function () {
@@ -174,16 +174,13 @@
 
 				$( this.element ).append( this.html );
 
-				var container = $( this.element ).find(".ui-smallpopup"),
-					container_h = parseFloat( container.css('height') );
-
-				container.css( 'top', this._get_position(container_h) );
+				this._set_position();
 			}
 		},
 
 		_create: function () {
 			this.btn = $("<a href='#' class='ui-input-cancel' title='close' data-theme='s'>Close</a>")
-				.tap( function( event ) {
+				.tap( function ( event ) {
 					event.preventDefault();
 				})
 				.buttonMarkup({
