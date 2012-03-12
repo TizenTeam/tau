@@ -87,14 +87,16 @@
 			this.popupVisible = false;
 
 			var self = this,
-			inputElement = $(this.element),
-			slider,
-			showPopup,
-			hidePopup,
-			positionPopup,
-			updateSlider,
-			slider_bar,
-			handle_press;
+				inputElement = $(this.element),
+				slider,
+				showPopup,
+				hidePopup,
+				positionPopup,
+				updateSlider,
+				slider_bar,
+				handle_press,
+				popupEnabledAttr,
+				icon;
 
 			// apply jqm slider
 			inputElement.slider();
@@ -105,7 +107,7 @@
 			self.popup = $('<div class="ui-slider-popup"></div>');
 
 			// set the popupEnabled according to the html attribute
-			var popupEnabledAttr = inputElement.attr('data-popupenabled');
+			popupEnabledAttr = inputElement.attr('data-popupenabled');
 			if ( popupEnabledAttr !== undefined ) {
 				self.options.popupEnabled = (popupEnabledAttr === 'true');
 			}
@@ -113,7 +115,7 @@
 			// get the actual slider added by jqm
 			slider = inputElement.next('.ui-slider');
 
-			var icon = inputElement.attr('data-icon');
+			icon = inputElement.attr('data-icon');
 
 			// wrap the background
 			if ( icon === undefined ) {
@@ -200,16 +202,18 @@
 
 		// position the popup
 		positionPopup: function () {
-			this.popup.position({my: 'center bottom',
-					at: 'center top',
-					offset: '0 20px',
-					of: this.handle});
+			var dstOffset = this.handle.offset();
 
-			this.handle_press.position({my: 'left top',
-					at: 'left top',
-					offset: '0 0',
-					of: this.handle});
-	       },
+			this.popup.offset({
+				left: dstOffset.left + (this.handle.width() - this.popup.width()) / 2,
+				top: dstOffset.top  - this.popup.outerHeight() + 15
+			});
+
+			this.handle_press.offset({
+				left: dstOffset.left,
+				top: dstOffset.top
+			});
+		},
 
 		// show value on the handle and in popup
 		updateSlider: function () {
@@ -285,19 +289,19 @@
 	});
 
 	// stop jqm from initialising sliders
-	$(document).bind("pagebeforecreate", function (e) {
+	$(document).bind("pagebeforecreate", function ( e ) {
 		if ($.data(window, "jqmSliderInitSelector") === undefined ) {
-			$.data(window,"jqmSliderInitSelector",
+			$.data(window, "jqmSliderInitSelector",
 				$.mobile.slider.prototype.options.initSelector);
 			$.mobile.slider.prototype.options.initSelector = null;
 		}
 	});
 
 	// initialise sliders with our own slider
-	$(document).bind("pagecreate", function(e) {
-		var jqmSliderInitSelector = $.data(window,"jqmSliderInitSelector");
+	$(document).bind("pagecreate", function ( e ) {
+		var jqmSliderInitSelector = $.data(window, "jqmSliderInitSelector");
 		$(e.target).find(jqmSliderInitSelector).not('select').tizenslider();
 		$(e.target).find(jqmSliderInitSelector).filter('select').slider();
 	});
 
-})( jQuery, this );
+}( jQuery, this ));
