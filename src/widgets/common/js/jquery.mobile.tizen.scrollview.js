@@ -10,7 +10,7 @@
 (function ( $, window, document, undefined ) {
 
 	function setElementTransform( $ele, x, y, duration ) {
-		var v = "translate3d(" + x + "," + y + ", 0px)",
+		var v = "translate(" + x + "," + y + ")",
 			transition;
 
 		if ( !duration || duration === undefined ) {
@@ -22,6 +22,8 @@
 		$ele.css({
 			"-moz-transform": v,
 			"-webkit-transform": v,
+			"-ms-transform": v,
+			"-o-transform": v,
 			"transform": v,
 			"-webkit-transition": transition
 		});
@@ -94,6 +96,12 @@
 			}
 
 			this._$view = $child.addClass("ui-scrollview-view");
+
+			if ( this.options.scrollMethod === "translate" ) {
+				if ( this._$view.css("transform") === undefined ) {
+					this.options.scrollMethod = "position";
+				}
+			}
 
 			this._$clip.css( "overflow",
 				this.options.scrollMethod === "scroll" ? "scroll" : "hidden" );
@@ -408,8 +416,6 @@
 				svdir = this.options.direction,
 				thumb;
 
-
-
 			// should skip the dragging when click the button
 			this._skip_dragging = target.is('.ui-btn-text') ||
 					target.is('.ui-btn-inner');
@@ -425,16 +431,10 @@
 			 * generation of "click" events.
 			 */
 
-			if ( this.options.eventType === "mouse" ) {
-				shouldBlockEvent = !( target.is(':input') ||
-					target.parents(':input').length > 0 );
-			} else if ( this.options.eventType === "touch" ) {
-				shouldBlockEvent = !( target.is(':input') ||
+			this._shouldBlockEvent = !( target.is(':input') ||
 					target.parents(':input').length > 0 );
 
-			}
-
-			if ( shouldBlockEvent ) {
+			if ( this._shouldBlockEvent ) {
 				e.preventDefault();
 			}
 
@@ -508,6 +508,10 @@
 
 			if ( !this._dragging ) {
 				return;
+			}
+
+			if ( this._shouldBlockEvent ) {
+				e.preventDefault();
 			}
 
 			var mt = this.options.moveThreshold,
@@ -646,8 +650,6 @@
 			this._setScrollPosition( newX, newY );
 
 			this._showScrollBars();
-
-			return;
 		},
 
 		_handleDragStop: function ( e ) {
@@ -903,7 +905,7 @@
 			fh = $page.children(".ui-footer").outerHeight() || 0,
 			pt = parseFloat( $content.css("padding-top") ),
 			pb = parseFloat( $content.css("padding-bottom") ),
-			wh = window.innerHeight;
+			wh = $(window).height();
 
 		$content.height( wh - (hh + fh) - (pt + pb) );
 	}
