@@ -52,16 +52,13 @@
 				$content = $page.children('.ui-content'),
 				$header = $page.children('.ui-header'),
 				$footer = $page.children('.ui-footer'),
-				content_h = 0,
 				header_h = $header.outerHeight() || 0,
 				footer_h = $footer.outerHeight() || 0,
 				padding_t = parseFloat( $content.css('padding-top') ) || 0,
-				padding_b = parseFloat( $content.css('padding-bottom') ) || 0;
-
-			content_h = window.innerHeight - header_h - footer_h -
-					(padding_t + padding_b) * 2;
-
-			var container_h = this.container.height();
+				padding_b = parseFloat( $content.css('padding-bottom') ) || 0,
+				content_h = window.innerHeight - header_h - footer_h -
+					(padding_t + padding_b) * 2,
+				container_h = this.container.height();
 
 			return ( content_h < container_h ? container_h : content_h );
 		},
@@ -73,6 +70,7 @@
 				content_gap = 46,
 				text0_height = this.text0_bg.height() || 0,
 				text1_height = this.text1_bg.height() || 0,
+				text_top = 0,
 				icon_top = (content_height -
 					(icon_height + content_gap +
 					 text0_height + text1_height)) / 2;
@@ -87,23 +85,22 @@
 				(window.innerWidth - icon_width) / 2 );
 			this.icon_img.css( 'top', icon_top );
 
-			var text_top = icon_top + icon_height + content_gap;
+			text_top = icon_top + icon_height + content_gap;
 
 			this.text0_bg.css( 'top', text_top );
 			this.text1_bg.css( 'top', text_top + text0_height );
 		},
 
 		_create: function () {
-			var icon_type = $( this.element ).attr('data-type');
+			var icon_type = $( this.element ).attr('data-type'),
+				text = new Array(2);
 
 			if ( icon_type === undefined ||
-				(icon_type !== "picture" &&
-				 icon_type !== "multimedia" &&
-				 icon_type !== "text") ) {
+					(icon_type !== "picture" &&
+					 icon_type !== "multimedia" &&
+					 icon_type !== "text") ) {
 				icon_type = "unnamed";
 			}
-
-			var text = new Array(2);
 
 			text[0] = $( this.element ).attr('data-text1');
 			text[1] = $( this.element ).attr('data-text2');
