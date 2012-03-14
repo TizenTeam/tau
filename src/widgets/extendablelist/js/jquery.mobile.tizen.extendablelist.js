@@ -86,198 +86,202 @@ $.widget( "tizen.extendablelist", $.mobile.widget, {
 		$( this ).addClass( "ui-btn-down-s" );
 		$( this ).removeClass( "ui-btn-up-s" );
 	},
-	
+
 	_stylerMouseOver: function() {
-		$( this ).toggleClass( "ui-btn-hover-s" );		
+		$( this ).toggleClass( "ui-btn-hover-s" );
 	},
-	
+
 	_stylerMouseOut: function() {
 		$( this ).toggleClass( "ui-btn-hover-s" );
 	},
 
 	_pushData: function ( template, data ) {
 		var o = this.options;
-		
+
 		var dataTable = data;
-		
+
 		var myTemplate = $( "#" + template );
-		
+
 		var loadMoreItems = ( o.extenditems > data.length - last_index ? data.length - last_index : o.extenditems); 
-		
+
 		for (i = 0; i < loadMoreItems; i++ ) 
 		{
 			var htmlData = myTemplate.tmpl( dataTable[ i ]);
 			$( o.id ).append( $( htmlData ).attr( 'id', 'li_'+i ) );
 			last_index++;
 		}
-		
+
 		/* After push data, re-style extendable list widget */
 		$( o.id ).trigger( "create" );
 	},
-	
+
 	_loadmore: function( event ){
 		var t = this;
 		var o = event.data;
-	
+
 		/* Remove load more message */
 		$( "#load_more_message" ).remove();
 
 		/* Append items */
 		var dataTable = window[ o.dbtable ];
 		var myTemplate = $( "#" + o.template );
-		
-		var loadMoreItems = ( o.extenditems > dataTable.length - last_index ? dataTable.length - last_index : o.extenditems ); 
-		
+
+		var loadMoreItems = ( o.extenditems > dataTable.length - last_index ? dataTable.length - last_index : o.extenditems );
+
 		for ( i = 0; i < loadMoreItems; i++ ) 
 		{
 			last_index++;
 			var htmlData = myTemplate.tmpl( dataTable[ last_index ] );
 			$( o.id ).append( $( htmlData ).attr( 'id', 'li_' + last_index ) );
 		}
-		
+
 		/* Append "Load more" message on the last of list */
-	    if ( TOTAL_ITEMS > last_index ) {
-	    	var myTemplate = $( "#" + o.loadmore );
-	    	var more_items_to_load = TOTAL_ITEMS - last_index;
-	    	var num_next_load_items = ( o.extenditems <= more_items_to_load ) ? o.extenditems : more_items_to_load;
-	    	var htmlData = myTemplate.tmpl( { NUM_MORE_ITEMS : num_next_load_items } );
-	    	
-	    	$( o.id ).append( $( htmlData ).attr( 'id', "load_more_message" ) );
-	    }
-	    
-	    $( o.id ).trigger( "create" );
-	    $( o.id ).extendablelist( "refresh" );
+		if ( TOTAL_ITEMS > last_index ) {
+			var myTemplate = $( "#" + o.loadmore );
+			var more_items_to_load = TOTAL_ITEMS - last_index;
+			var num_next_load_items = ( o.extenditems <= more_items_to_load ) ? o.extenditems : more_items_to_load;
+			var htmlData = myTemplate.tmpl( { NUM_MORE_ITEMS : num_next_load_items } );
+
+			$( o.id ).append( $( htmlData ).attr( 'id', "load_more_message" ) );
+		}
+
+		$( o.id ).trigger( "create" );
+		$( o.id ).extendablelist( "refresh" );
 	},
-	
+
 	recreate: function( newArray ) {
 		var t = this;
 		var o = this.options;
-		
+
 		$( o.id ).empty();
-		
+
 		TOTAL_ITEMS = newArray.length;
-		
+
 		t._pushData( ( o.template), newArray );
-		
+
 		if ( o.childSelector == " ul" ) {
 			$( o.id + " ul" ).swipelist();	
 		}
-		
+
 		$( o.id ).extendablelist();
-		
+
 		t.refresh( true );
 	},
 
 	_initList: function(){
 		var t = this;
 		var o = this.options;
-		
+
 		/* After AJAX loading success */
 		o.dbtable = t.element.data( "dbtable" );
-		
+
 		TOTAL_ITEMS = $( window[ o.dbtable ] ).size();
-		
-        /* Make Gen list by template */
+
+		/* Make Gen list by template */
 		if ( last_index <= 0 ) {
 			t._pushData( ( o.template ), window[ o.dbtable ] );
 
-		    /* Append "Load more" message on the last of list */
-		    if ( TOTAL_ITEMS > last_index ) {
-		    	var myTemplate = $( "#" + o.loadmore );
-		    	var more_items_to_load = TOTAL_ITEMS - last_index;
-		    	var num_next_load_items = ( o.extenditems <= more_items_to_load) ? o.extenditems : more_items_to_load;
-		    	var htmlData = myTemplate.tmpl( { NUM_MORE_ITEMS : num_next_load_items } );
-		    	
-		    	$( o.id ).append( $( htmlData ).attr( 'id', "load_more_message" ) );
-		    	
-		    	$( "#load_more_message" ).live( "click", t.options, t._loadmore );
-		    }
-		    else {
-		    	/* No more items to load */
-		    	$( "#load_more_message" ).die();
-		    	$( "#load_more_message" ).remove();
-		    }
+			/* Append "Load more" message on the last of list */
+			if ( TOTAL_ITEMS > last_index ) {
+				var myTemplate = $( "#" + o.loadmore );
+				var more_items_to_load = TOTAL_ITEMS - last_index;
+				var num_next_load_items = ( o.extenditems <= more_items_to_load) ? o.extenditems : more_items_to_load;
+				var htmlData = myTemplate.tmpl( { NUM_MORE_ITEMS : num_next_load_items } );
+
+				$( o.id ).append( $( htmlData ).attr( 'id', "load_more_message" ) );
+
+				$( "#load_more_message" ).live( "click", t.options, t._loadmore );
+			}
+			else {
+				/* No more items to load */
+				$( "#load_more_message" ).die();
+				$( "#load_more_message" ).remove();
+			}
 		}
 
-	    if ( o.childSelector == " ul" ) {
+		if ( o.childSelector == " ul" ) {
 			$( o.id + " ul" ).swipelist();
 		}
-	    
-	    $( o.id ).trigger( "create" );
-	    
+
+		$( o.id ).trigger( "create" );
+
 		t.refresh( true );
 	},
-	
-	
-	
+
 	create: function() {
 		var o = this.options;
 
 		/* external API for AJAX callback */
 		this._create( "create" );
 	},
-	
+
 	_create: function( event ) {
 		var t = this;
 		var o = this.options; 
-		
+
 		// create listview markup
 		t.element.addClass( function( i, orig ) {
 			return orig + " ui-listview ui-extendable-list-container" + ( t.options.inset ? " ui-listview-inset ui-corner-all ui-shadow " : "" );
 		});
 
-        var $el = this.element;
-		
-        o.id = "#" + $el.attr( "id" );
-        
-        if ( $el.data( "extenditems" ) ) {
-        	o.extenditems = parseInt( $el.data( "extenditems" ) );
-        }
-        
-	    $( o.id ).bind( "pagehide", function(e){
+		var $el = this.element;
+
+		o.id = "#" + $el.attr( "id" );
+
+		if ( $el.data( "extenditems" ) ) {
+			o.extenditems = parseInt( $el.data( "extenditems" ) );
+		}
+
+		$( o.id ).bind( "pagehide", function(e){
 			$( o.id ).empty();
 		});
-	    
-	    /* Scroll view */
-	    ( $( ".ui-scrollview-clip" ).size() > 0) ? o.scrollview = true : o.scrollview = false;
 
-	    /* After DB Load complete, Init Vritual list */
-	    if ( $( o.id ).hasClass( "vlLoadSuccess" ) ) {
-		    if ( $el.data( "template" ) ) {
-				o.template = $el.data( "template" );
-				
-		        /* to support swipe list, <li> or <ul> can be main node of extendable list. */
-				if ( $el.data( "swipelist" ) == true ) {
-					o.childSelector = " ul";
-				}
-				else {
-					o.shildSelector = " li";
-				}
+		/* Scroll view */
+		( $( ".ui-scrollview-clip" ).size() > 0) ? o.scrollview = true : o.scrollview = false;
+
+		/* After DB Load complete, Init Extendable list */
+		if ( $( o.id ).hasClass( "elLoadSuccess" ) ) {
+			if( $( o.id ).hasClass( "elInitComplete" ) ){
+				return;
 			}
-			
+			else {
+				if ( $el.data( "template" ) ) {
+					o.template = $el.data( "template" );
+
+					/* to support swipe list, <li> or <ul> can be main node of extendable list. */
+					if ( $el.data( "swipelist" ) == true ) {
+						o.childSelector = " ul";
+					}
+					else {
+						o.shildSelector = " li";
+					}
+				}
+				
+				$( o.id ).addClass( "elInitComplete" );
+			}
 			t._initList();
-	    }
+		}
 	},
-	
+
 	destroy : function(){
 		var o = this.options;
-		
+
 		$( o.id ).empty();
-		
+
 		TOTAL_ITEMS = 0;
 		i =0;
 		last_index = 0;
-		
+
 		$( "#load_more_message" ).die();
 	},
-	
+
 	_itemApply: function( $list, item ) {
 		var $countli = item.find( ".ui-li-count" );
-		
+
 		if ( $countli.length ) {
 			item.addClass( "ui-li-has-count" );
 		}
-		
+
 		$countli.addClass( "ui-btn-up-" + ( $list.jqmData( "counttheme" ) || this.options.countTheme ) + " ui-btn-corner-all" );
 
 		// TODO class has to be defined in markup

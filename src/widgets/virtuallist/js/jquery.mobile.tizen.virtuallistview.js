@@ -104,12 +104,12 @@ $.widget( "tizen.virtuallistview", $.mobile.widget, {
 		$( this ).addClass( "ui-btn-down-s" );
 		$( this ).removeClass( "ui-btn-up-s" );
 	},
-	
+
 	_stylerMouseOver: function()
 	{
 		$( this ).toggleClass( "ui-btn-hover-s" );		
 	},
-	
+
 	_stylerMouseOut: function()
 	{
 		$( this ).toggleClass( "ui-btn-hover-s" );
@@ -117,47 +117,47 @@ $.widget( "tizen.virtuallistview", $.mobile.widget, {
 
 	_pushData: function ( template, data ) {
 		var o = this.options;
-		
+
 		var dataTable = data;
-		
+
 		var myTemplate = $( "#" + template );
-		
-		var lastIndex = ( INIT_LIST_NUM > data.length ? data.length : INIT_LIST_NUM ); 
-		
-		for ( i = 0; i < lastIndex; i++ ) 
+
+		var lastIndex = ( INIT_LIST_NUM > data.length ? data.length : INIT_LIST_NUM );
+
+		for ( i = 0; i < lastIndex; i++ )
 		{
 			var htmlData = myTemplate.tmpl( dataTable[i] );
 			$( o.id ).append( $(htmlData).attr( 'id', 'li_'+i ) );
 		}
-		
+
 		/* After push data, re-style virtuallist widget */
 		$( o.id ).trigger( "create" );
 	}, 
 
 	_reposition: function( event ) {
 		var o;
-		
+
 		if ( event.data ) {
 			o = event.data;
 		}
 		else {
 			o = event;
 		}
-		
+
 		var t = this;
-		
+
 		if ($(o.id + o.childSelector).size() > 0){
 			TITLE_H = $( o.id + o.childSelector + ':first' ).position().top;
 			LINE_H = $( o.id + o.childSelector + ':first' ).outerHeight();
-			
+
 			CONTAINER_W = $( o.id ).innerWidth();
-			
+
 			var padding = parseInt( $( o.id + o.childSelector ).css( "padding-left" )) + parseInt( $(o.id + o.childSelector).css( "padding-right" ) );
-			
+
 			/* Add style */
 			$( o.id + ">" + o.childSelector ).addClass( "position_absolute" ).addClass( "ui-btn-up-s" )
 												.bind( "mouseup", t._stylerMouseUp )
-												.bind( "mousedown", t._stylerMouseDown )		
+												.bind( "mousedown", t._stylerMouseDown )
 												.bind( "mouseover", t._stylerMouseOver )
 												.bind( "mouseout", t._stylerMouseOut );
 		}
@@ -170,18 +170,18 @@ $.widget( "tizen.virtuallistview", $.mobile.widget, {
 		/* Set Max List Height */
 		$( o.id ).height( TOTAL_ITEMS * LINE_H );
 	},
-	
+
 	_resize: function( event ) {
 		var o;
-		
+
 		if ( event.data ) {
 			o = event.data;
 		}
 		else {
 			o = event;
 		}
-		
-		var t = this;		
+
+		var t = this;
 		
 		CONTAINER_W = $( o.id ).innerWidth();
 		
@@ -191,57 +191,57 @@ $.widget( "tizen.virtuallistview", $.mobile.widget, {
 			$( this ).css( "width", CONTAINER_W - padding );
 		});
 	},
-	
+
 	_scrollmove: function( event ) {
 		var velocity = 0;
 		var o = event.data;
 		var dataList = window[o.dbtable];
-		
+
 		/* Text & image src replace function */
 		var _replace= function( oldItem, newItem, key ) {
 			$( oldItem ).find( ".ui-li-text-main",".ui-li-text-sub","ui-btn-text" ).each( function( index ) {
 				var oldObj = $( this );
 				var newText = $( newItem ).find( ".ui-li-text-main",".ui-li-text-sub","ui-btn-text" ).eq( index ).text();
-				
-	            $( oldObj).contents().filter( function(){ 
-	            	return( this.nodeType == 3 );
-	            } ).get( 0 ).data = newText;
+
+				$( oldObj).contents().filter( function(){ 
+					return( this.nodeType == 3 );
+				} ).get( 0 ).data = newText;
 			});
-			
+
 			$( oldItem ).find( "img" ).each( function( imgIndex ) {
 				var oldObj = $( this );
 
 				var newImg = $( newItem ).find( "img" ).eq( imgIndex ).attr( "src" );
-				
+
 				$( oldObj ).attr( "src", newImg );
 			});
 			
 			if (key) {
 				$( oldItem ).data(key, $( newItem ).data(key));
 			}
-	    };
-		
+		};
+
 		//Move older item to bottom
 		var _moveTopBottom= function( v_firstIndex, v_lastIndex, num, key ) {
 			if (v_firstIndex < 0) {
 				return;
 			}
-			
+
 			for (i=0; i<num; i++)
 			{
 				if (v_lastIndex + i > TOTAL_ITEMS)
 					break;
-				
+
 				var cur_item = $('#li_' + (v_firstIndex + i));
-				
+
 				if (cur_item) {
 					/* Make New <LI> element from template. */
 					var myTemplate = $( "#" + o.template );
 					var htmlData = myTemplate.tmpl( dataList[ v_lastIndex + i ] );
-					
+
 					/* Copy all data to current item. */
 					_replace( cur_item, htmlData, key );
-					
+
 					/* Set New Position */
 					( cur_item ).css( 'top', TITLE_H + LINE_H*( v_lastIndex + 1 + i ) ).attr( 'id', 'li_' +( v_lastIndex + 1+ i ) );
 				}
@@ -263,13 +263,13 @@ $.widget( "tizen.virtuallistview", $.mobile.widget, {
 
 				if ( cur_item ) {
 					if ( v_firstIndex-1-i < 0 ) {
-						break;	
+						break;
 					}
-				
+
 					/* Make New <LI> element from template. */
 					var myTemplate = $( "#" + o.template );
 					var htmlData = myTemplate.tmpl( dataList[ v_firstIndex - 1 - i ] );
-					
+
 					/* Copy all data to current item. */
 					_replace( cur_item, htmlData, key );
 
@@ -281,31 +281,31 @@ $.widget( "tizen.virtuallistview", $.mobile.widget, {
 				}
 			}
 		};
-		
+
 		/* Matrix to Array function written by Blender@stackoverflow.nnikishi@emich.edu*/
 		var matrixToArray = function( matrix ) {
-		    var contents = matrix.substr( 7 );
-		    contents = contents.substr( 0, contents.length - 1 );
+			var contents = matrix.substr( 7 );
+			contents = contents.substr( 0, contents.length - 1 );
 
-		    return contents.split( ', ' );
-		};		
-		
+			return contents.split( ', ' );
+		};
+
 		// Get scroll direction and velocity
 		/* with Scroll view */
 		if ( o.scrollview ) {
 			var $el = $( o.id ).parentsUntil( ".ui-page" ).find( ".ui-scrollview-view" );
 			var transformValue = matrixToArray( $el.css( "-webkit-transform" ) );
-			
+
 			var curWindowTop = Math.abs( transformValue[ 5 ] );	/* Y vector */
 		}
-    	else {
-    		var curWindowTop = $( window ).scrollTop() - LINE_H;
-    	}
-		
+		else {
+			var curWindowTop = $( window ).scrollTop() - LINE_H;
+		}
+
 		var cur_num_top_itmes = $( o.id + o.childSelector ).filter( function(){
 									return (parseInt($( this ).css( "top" )) < curWindowTop);
 								} ).size(); 
-		
+
 		if ( num_top_items < cur_num_top_itmes ) {
 			direction = SCROLL_DOWN;
 			velocity = cur_num_top_itmes - num_top_items;
@@ -324,18 +324,18 @@ $.widget( "tizen.virtuallistview", $.mobile.widget, {
 				if ( last_index + velocity > TOTAL_ITEMS ) {
 					velocity = TOTAL_ITEMS - last_index -1;
 				}
-				
+
 				/* Prevent scroll touch event while DOM access */
 				$(document).bind( "touchstart.virtuallist", function(event) {
-					  event.preventDefault();
-				});				
-				
+					event.preventDefault();
+				});
+
 				_moveTopBottom( first_index, last_index, velocity, o.dbkey );
-				
+
 				first_index += velocity;
 				last_index += velocity;
 				num_top_items -= velocity;
-				
+
 				/* Unset prevent touch event */
 				$( document ).unbind( "touchstart.virtuallist" );
 			}
@@ -348,72 +348,72 @@ $.widget( "tizen.virtuallistview", $.mobile.widget, {
 
 				/* Prevent scroll touch event while DOM access */
 				$( document ).bind( "touchstart.virtuallist", function( event ) {
-					  event.preventDefault();
-				});		
-				
+					event.preventDefault();
+				});
+
 				_moveBottomTop( first_index, last_index, velocity, o.dbkey );
-				
+
 				first_index -= velocity;
 				last_index -= velocity;
 				num_top_items += velocity;
-				
+
 				/* Unset prevent touch event */
-				$( document ).unbind( "touchstart.virtuallist" );				
+				$( document ).unbind( "touchstart.virtuallist" );
 			}
-			
+
 			if ( first_index < PAGE_BUF ) {
 				num_top_items = first_index;
 			}
 		}
 	},
-	
+
 	recreate: function( newArray ){
 		var t = this;
 		var o = this.options;
-		
+
 		$( o.id ).empty();
-		
+
 		TOTAL_ITEMS = newArray.length;
 		direction = NO_SCROLL;
 		first_index = 0;
-		last_index = INIT_LIST_NUM -1;		
-		
+		last_index = INIT_LIST_NUM -1;
+
 		t._pushData( ( o.template ), newArray );
-		
+
 		if (o.childSelector == " ul" ) {
-			$( o.id + " ul" ).swipelist();	
+			$( o.id + " ul" ).swipelist();
 		}
-		
+
 		$( o.id ).virtuallistview();
-		
+
 		t._reposition( o );
-		
+
 		t.refresh( true );
 	},
 
 	_initList: function() {
 		var t = this;
 		var o = this.options;
-		
+
 		/* After AJAX loading success */
 		o.dbtable = t.element.data( "dbtable" );
-		
+
 		TOTAL_ITEMS = $(window[o.dbtable]).size();
-		
-        	/* Make Gen list by template */
-	    	t._pushData((o.template), window[o.dbtable]);
-    	
-	    	$( o.id ).parentsUntil( ".ui-page" ).parent().one( "pageshow", o, t._reposition);
 
-	    	/* Scrollview */
-   		$( document ).bind( "scrollstop.virtuallist", t.options, t._scrollmove );
-   		
-   		$( window ).bind( "resize.virtuallist", t._resize );
+		/* Make Gen list by template */
+		t._pushData((o.template), window[o.dbtable]);
 
-	    	if ( o.childSelector == " ul" ) {
+		$( o.id ).parentsUntil( ".ui-page" ).parent().one( "pageshow", o, t._reposition);
+
+		/* Scrollview */
+		$( document ).bind( "scrollstop.virtuallist", t.options, t._scrollmove );
+
+		$( window ).bind( "resize.virtuallist", t._resize );
+
+		if ( o.childSelector == " ul" ) {
 			$( o.id + " ul" ).swipelist();
 		}
-	    
+
 		t.refresh( true );
 	},
 	
@@ -425,55 +425,55 @@ $.widget( "tizen.virtuallistview", $.mobile.widget, {
 		
 		this._reposition( o );
 	},
-	
+
 	_create: function( event ) {
 		var t = this;
-		var o = this.options; 
-		
+		var o = this.options;
+
 		// create listview markup
 		t.element.addClass( function( i, orig ) {
 			return orig + " ui-listview ui-virtual-list-container" + ( t.options.inset ? " ui-listview-inset ui-corner-all ui-shadow " : "" );
 		});
 
 		var $el = this.element,
-	        shortcutsContainer = $('<div class="ui-virtuallist"/>'),
-        	shortcutsList = $('<ul></ul>'),
-	        dividers = $el.find(':jqmData(role="virtuallistview" )'),
-	        lastListItem = null,
-	        shortcutscroll = this;
-		
-	        o.id = "#" + $el.attr( "id" );
-        
+			shortcutsContainer = $('<div class="ui-virtuallist"/>'),
+			shortcutsList = $('<ul></ul>'),
+			dividers = $el.find(':jqmData(role="virtuallistview" )'),
+			lastListItem = null,
+			shortcutscroll = this;
+
+			o.id = "#" + $el.attr( "id" );
+
 		$( o.id ).bind( "pagehide", function( e ){
 			$( o.id ).empty();
 		});
-	    
-	    	/* Scroll view */
+
+		/* Scroll view */
 		( $( ".ui-scrollview-clip" ).size()>0 ) ? o.scrollview = true : o.scrollview = false;
 
 		/* After DB Load complete, Init Vritual list */
 		if ($( o.id ).hasClass( "vlLoadSuccess" )) {
-			$( o.id ).empty();	    	
-	    	
+			$( o.id ).empty();
+
 			if ($el.data( "template" )) {
 				o.template = $el.data( "template" );
-				
-		        /* to support swipe list, <li> or <ul> can be main node of virtual list. */
+
+			/* to support swipe list, <li> or <ul> can be main node of virtual list. */
 			if ( $el.data( "swipelist" ) == true ) {
 				o.childSelector = " ul";
 			}
 			else {
-				o.shildSelector = " li";
+				o.childSelector = " li";
 			}
 		}
-			
+
 		/* Set data's unique key */
 		if ( $el.data( "dbkey" ) ) {
 			o.datakey = $el.data( "dbkey" );
 		}
 
 		t._initList();
-	    }
+		}
 	},
 	
 	destroy : function(){
@@ -485,7 +485,7 @@ $.widget( "tizen.virtuallistview", $.mobile.widget, {
 		
 		$( o.id ).empty();
 	},
-	
+
 	_itemApply: function( $list, item ) {
 		var $countli = item.find( ".ui-li-count" );
 		

@@ -150,7 +150,7 @@ $( document ).bind("pagecreate", function () {
 		$.getScript( "./virtuallist-db-demo.js", function ( data, textStatus ) {
 			$("ul").filter( function () {
 				return $( this ).data("role") == "extendablelist";
-			}).addClass("vlLoadSuccess");
+			}).addClass("elLoadSuccess");
 
 			$("#genlist-extendable-page").die();
 			$("ul.ui-extendable-list-container").extendablelist("create");
