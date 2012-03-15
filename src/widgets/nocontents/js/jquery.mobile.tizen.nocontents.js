@@ -56,7 +56,7 @@
 				footer_h = $footer.outerHeight() || 0,
 				padding_t = parseFloat( $content.css('padding-top') ) || 0,
 				padding_b = parseFloat( $content.css('padding-bottom') ) || 0,
-				content_h = window.innerHeight - header_h - footer_h -
+				content_h = $(window).height() - header_h - footer_h -
 					(padding_t + padding_b) * 2,
 				container_h = this.container.height();
 
@@ -82,7 +82,7 @@
 			this.container.height( content_height );
 
 			this.icon_img.css( 'left',
-				(window.innerWidth - icon_width) / 2 );
+				($(window).width() - icon_width) / 2 );
 			this.icon_img.css( 'top', icon_top );
 
 			text_top = icon_top + icon_height + content_gap;

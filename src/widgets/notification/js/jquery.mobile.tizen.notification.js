@@ -135,7 +135,7 @@
 				$page = $('.ui-page'),
 				$footer = $page.children('.ui-footer'),
 				footer_h = $footer.outerHeight() || 0,
-				position = window.innerHeight - container_h - footer_h;
+				position = $(window).height() - container_h - footer_h;
 
 			container.css( 'top', position );
 		},
@@ -162,7 +162,6 @@
 						text[1] + '</div>' +
 						'<div class="ui-ticker-body"></div>' +
 						'<div class="ui-ticker-btn"></div>' +
-						'</div>' +
 						'</div>');
 
 				$( this.element ).append( this.html );

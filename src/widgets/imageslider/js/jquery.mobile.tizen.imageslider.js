@@ -368,7 +368,7 @@
 			var padding = parseFloat($content.css('padding-top')) +
 					parseFloat($content.css('padding-bottom'));
 
-			var content_h = window.innerHeight - header_h -
+			var content_h = $(window).height() - header_h -
 					footer_h - padding * 2;
 
 			return content_h;
@@ -383,7 +383,7 @@
 
 			this.container = $( this.element ).find('.ui-imageslider');
 
-			this.max_width = window.innerWidth;
+			this.max_width = $(window).width();
 			this.max_height = this._get_height();
 			this.container.css( 'height', this.max_height );
 
