@@ -91,14 +91,14 @@ index 3bb5613..0216c65 100644
 +		}
 +
 +		footer_filter
-+			.css( "top", window.innerHeight - footer_filter.height() )
++			.css( "top", $(window).height() - footer_filter.height() )
 +			.show();
 +
 +		var footerNavbar = footer_filter.find(".ui-navbar");
 +
 +		if ( footerNavbar.jqmData("style") == "toolbar" ) {
 +			footerNavbar
-+				.css( "width", window.innerWidth - footerNavbar.siblings(".ui-btn").width() );
++				.css( "width", $(window).width() - footerNavbar.siblings(".ui-btn").width() );
 +		}
 +
 +		// divide content mode scrollview and non-scrollview
@@ -264,7 +264,7 @@ index 3bb5613..0216c65 100644
 +
 +			if ( footer_filter.find(".ui-navbar").is(".ui-controlbar-s") ){
 +				footer_filter
-+					.css( "top", window.innerHeight - footer_filter.height() )
++					.css( "top", $(window).height() - footer_filter.height() )
 +					.show();
 +			}
 +
@@ -305,7 +305,7 @@ index 3bb5613..0216c65 100644
 +			}
 +
 +			if ( footer.is(".ui-footer-fixed") ) {
-+				footer.css( "top", window.innerHeight - footer.height() );
++				footer.css( "top", $(window).height() - footer.height() );
 +			}
 +
 +			/* Increase Content size with dummy <div> because of footer height */
@@ -362,7 +362,7 @@ index 3bb5613..0216c65 100644
  	// When a collapsiable is hidden or shown we need to trigger the fixed toolbar to reposition itself (#1635)
  	$( ".ui-collapsible-contain" ).live( "collapse expand", showEventCallback );
  
-@@ -215,6 +485,11 @@ $.mobile.fixedToolbars = (function() {
+@@ -215,10 +485,15 @@ $.mobile.fixedToolbars = (function() {
  	}
  
  	function setTop( el ) {
@@ -374,7 +374,17 @@ index 3bb5613..0216c65 100644
  		var fromTop = $(window).scrollTop(),
  			thisTop = getOffsetTop( el[ 0 ] ), // el.offset().top returns the wrong value on iPad iOS 3.2.1, call our workaround instead.
  			thisCSStop = el.css( "top" ) == "auto" ? 0 : parseFloat(el.css( "top" )),
-@@ -264,16 +539,6 @@ $.mobile.fixedToolbars = (function() {
+-			screenHeight = window.innerHeight,
++			screenHeight = $(window).height(),
+ 			thisHeight = el.outerHeight(),
+ 			useRelative = el.parents( ".ui-page:not(.ui-page-fullscreen)" ).length,
+ 			relval;
+@@ -260,20 +535,10 @@ $.mobile.fixedToolbars = (function() {
+ 					fromTop = $( window ).scrollTop(),
+ 					// el.offset().top returns the wrong value on iPad iOS 3.2.1, call our workaround instead.
+ 					thisTop = getOffsetTop( el[ 0 ] ),
+-					screenHeight = window.innerHeight,
++					screenHeight = $(window).height(),
  					thisHeight = el.outerHeight(),
  					alreadyVisible = ( el.is( ".ui-header-fixed" ) && fromTop <= thisTop + thisHeight ) ||
  														( el.is( ".ui-footer-fixed" ) && thisTop <= fromTop + screenHeight );
