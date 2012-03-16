@@ -84,185 +84,184 @@
 //                      (to either the right or left).
 (function ($) {
 
-$.widget("tizen.swipelist", $.mobile.widget, {
-    options: {
-        theme: null
-    },
+	$.widget("tizen.swipelist", $.mobile.widget, {
+		options: {
+			theme: null
+		},
 
-    _create: function () {
-        // use the theme set on the element, set in options,
-        // the parent theme, or 'c' (in that order of preference)
-        var theme = this.element.jqmData('theme') ||
-                    this.options.theme ||
-                    this.element.parent().jqmData('theme') ||
-                    'c';
+		_create: function () {
+			// use the theme set on the element, set in options,
+			// the parent theme, or 'c' (in that order of preference)
+			var theme = this.element.jqmData('theme') ||
+				this.options.theme ||
+				this.element.parent().jqmData('theme') ||
+				'c';
 
-        this.options.theme = theme;
+			this.options.theme = theme;
+			this.refresh();
+		},
 
-        this.refresh();
-    },
+		refresh: function () {
+			this._cleanupDom();
 
-    refresh: function () {
-        this._cleanupDom();
+			var self = this,
+				defaultCoverTheme,
+				covers;
 
-        var self = this,
-            defaultCoverTheme,
-            covers;
+			defaultCoverTheme = 'ui-body-' + this.options.theme;
 
-        defaultCoverTheme = 'ui-body-' + this.options.theme;
+			// swipelist is a listview
+			if (!this.element.hasClass('ui-listview')) {
+				this.element.listview();
+			}
 
-        // swipelist is a listview
-        if (!this.element.hasClass('ui-listview')) {
-            this.element.listview();
-        }
+			this.element.addClass('ui-swipelist');
 
-        this.element.addClass('ui-swipelist');
+			// get the list item covers
+			covers = this.element.find(':jqmData(role="swipelist-item-cover")');
 
-        // get the list item covers
-        covers = this.element.find(':jqmData(role="swipelist-item-cover")');
+			covers.each(function () {
+				var cover = $(this),
+					coverTheme = defaultCoverTheme,
+				// get the parent li element and add classes
+					item = cover.closest('li'),
+					itemHasThemeClass;
 
-        covers.each(function () {
-            var cover = $(this);
-            var coverTheme = defaultCoverTheme;
+				// add swipelist CSS classes
+				item.addClass('ui-swipelist-item');
+				cover.addClass('ui-swipelist-item-cover');
 
-            // get the parent li element and add classes
-            var item = cover.closest('li');
+				// set swatch on cover: if the nearest list item has
+				// a swatch set on it, that will be used; otherwise, use
+				// the swatch set for the swipelist
+				itemHasThemeClass = item.attr('class')
+					.match(/ui\-body\-[a-z]|ui\-bar\-[a-z]/);
 
-            // add swipelist CSS classes
-            item.addClass('ui-swipelist-item');
+				if (itemHasThemeClass) {
+					coverTheme = itemHasThemeClass[0];
+				}
 
-            cover.addClass('ui-swipelist-item-cover');
+				cover.addClass(coverTheme);
 
-            // set swatch on cover: if the nearest list item has
-            // a swatch set on it, that will be used; otherwise, use
-            // the swatch set for the swipelist
-            var itemHasThemeClass = item.attr('class')
-                                        .match(/ui\-body\-[a-z]|ui\-bar\-[a-z]/);
+				// wrap inner HTML (so it can potentially be styled)
+				if (cover.has('.ui-swipelist-item-cover-inner').length === 0) {
+					cover.wrapInner($('<span/>').addClass('ui-swipelist-item-cover-inner'));
+				}
 
-            if (itemHasThemeClass) {
-                coverTheme = itemHasThemeClass[0];
-            }
+				// bind to swipe events on the cover and the item
+				if (!(cover.data('animateRight') && cover.data('animateLeft'))) {
+					cover.data('animateRight', function () {
+						self._animateCover(cover, 100);
+					});
 
-            cover.addClass(coverTheme);
+					cover.data('animateLeft', function () {
+						self._animateCover(cover, 0);
+					});
+				}
 
-            // wrap inner HTML (so it can potentially be styled)
-            if (cover.has('.ui-swipelist-item-cover-inner').length === 0) {
-                cover.wrapInner($('<span/>').addClass('ui-swipelist-item-cover-inner'));
-            }
+				// bind to synthetic events
+				item.bind('swipeleft', cover.data('animateLeft'));
+				cover.bind('swiperight', cover.data('animateRight'));
 
-            // bind to swipe events on the cover and the item
-            if (!(cover.data('animateRight') && cover.data('animateLeft'))) {
-                cover.data('animateRight', function () {
-                    self._animateCover(cover, 100);
-                });
+				// any clicks on buttons inside the item also trigger
+				// the cover to slide back to the left
+				item.find('.ui-btn').bind('vclick', cover.data('animateLeft'));
+			});
+		},
 
-                cover.data('animateLeft', function () {
-                    self._animateCover(cover, 0);
-                });
-            }
+		_cleanupDom: function () {
 
-            // bind to synthetic events
-            item.bind('swipeleft', cover.data('animateLeft'));
-            cover.bind('swiperight', cover.data('animateRight'));
+			var self = this,
+				defaultCoverTheme,
+				covers;
 
-            // any clicks on buttons inside the item also trigger
-            // the cover to slide back to the left
-            item.find('.ui-btn').bind('vclick', cover.data('animateLeft'));
-        });
-    },
+			defaultCoverTheme = 'ui-body-' + this.options.theme;
 
-    _cleanupDom: function () {
-        var self = this,
-            defaultCoverTheme,
-            covers;
+			this.element.removeClass('ui-swipelist');
 
-        defaultCoverTheme = 'ui-body-' + this.options.theme;
+			// get the list item covers
+			covers = this.element.find(':jqmData(role="swipelist-item-cover")');
 
-        this.element.removeClass('ui-swipelist');
+			covers.each(function () {
+				var cover = $(this),
+					coverTheme = defaultCoverTheme,
+					text,
+					wrapper,
+					// get the parent li element and add classes
+					item = cover.closest('li'),
+					itemClass,
+					itemHasThemeClass;
 
-        // get the list item covers
-        covers = this.element.find(':jqmData(role="swipelist-item-cover")');
+					// remove swipelist CSS classes
+				item.removeClass('ui-swipelist-item');
+				cover.removeClass('ui-swipelist-item-cover');
 
-        covers.each(function () {
-            var cover = $(this);
-            var coverTheme = defaultCoverTheme;
-            var text, wrapper;
+				// remove swatch from cover: if the nearest list item has
+				// a swatch set on it, that will be used; otherwise, use
+				// the swatch set for the swipelist
+				itemClass = item.attr('class');
+				itemHasThemeClass = itemClass &&
+					itemClass.match(/ui\-body\-[a-z]|ui\-bar\-[a-z]/);
 
-            // get the parent li element and add classes
-            var item = cover.closest('li');
+				if (itemHasThemeClass) {
+					coverTheme = itemHasThemeClass[0];
+				}
 
-            // remove swipelist CSS classes
-            item.removeClass('ui-swipelist-item');
-            cover.removeClass('ui-swipelist-item-cover');
+				cover.removeClass(coverTheme);
 
-            // remove swatch from cover: if the nearest list item has
-            // a swatch set on it, that will be used; otherwise, use
-            // the swatch set for the swipelist
-            var itemClass = item.attr('class');
-            var itemHasThemeClass = itemClass &&
-                                    itemClass.match(/ui\-body\-[a-z]|ui\-bar\-[a-z]/);
+				// remove wrapper HTML
+				wrapper = cover.find('.ui-swipelist-item-cover-inner');
+				wrapper.children().unwrap();
+				text = wrapper.text();
 
-            if (itemHasThemeClass) {
-                coverTheme = itemHasThemeClass[0];
-            }
+				if (text) {
+					cover.append(text);
+					wrapper.remove();
+				}
 
-            cover.removeClass(coverTheme);
+				// unbind swipe events
+				if (cover.data('animateRight') && cover.data('animateLeft')) {
+					cover.unbind('swiperight', cover.data('animateRight'));
+					item.unbind('swipeleft', cover.data('animateLeft'));
 
-            // remove wrapper HTML
-            wrapper = cover.find('.ui-swipelist-item-cover-inner');
+					// unbind clicks on buttons inside the item
+					item.find('.ui-btn').unbind('vclick', cover.data('animateLeft'));
 
-            wrapper.children().unwrap();
+					cover.data('animateRight', null);
+					cover.data('animateLeft', null);
+				}
+			});
+		},
 
-            text = wrapper.text()
+		// NB I tried to use CSS animations for this, but the performance
+		// and appearance was terrible on Android 2.2 browser;
+		// so I reverted to jQuery animations
+		//
+		// once the cover animation is done, the cover emits an
+		// animationComplete event
+		_animateCover: function (cover, leftPercentage) {
+			var animationOptions = {
+				easing: 'linear',
+				duration: 'fast',
+				queue: true,
+				complete: function () {
+					cover.trigger('animationComplete');
+				}
+			};
 
-            if (text) {
-              cover.append(text);
-              wrapper.remove();
-            }
+			cover.stop();
+			cover.clearQueue();
+			cover.animate({left: leftPercentage + '%'}, animationOptions);
+		},
 
-            // unbind swipe events
-            if (cover.data('animateRight') && cover.data('animateLeft')) {
-                cover.unbind('swiperight', cover.data('animateRight'));
-                item.unbind('swipeleft', cover.data('animateLeft'));
+		destroy: function () {
+			this._cleanupDom();
+		}
 
-                // unbind clicks on buttons inside the item
-                item.find('.ui-btn').unbind('vclick', cover.data('animateLeft'));
+	});
 
-                cover.data('animateRight', null);
-                cover.data('animateLeft', null);
-            }
-        });
-    },
+	$(document).bind("pagecreate", function (e) {
+		$(e.target).find(":jqmData(role='swipelist')").swipelist();
+	});
 
-    // NB I tried to use CSS animations for this, but the performance
-    // and appearance was terrible on Android 2.2 browser;
-    // so I reverted to jQuery animations
-    //
-    // once the cover animation is done, the cover emits an
-    // animationComplete event
-    _animateCover: function (cover, leftPercentage) {
-        var animationOptions = {
-          easing: 'linear',
-          duration: 'fast',
-          queue: true,
-          complete: function () {
-              cover.trigger('animationComplete');
-          }
-        };
-
-        cover.stop();
-        cover.clearQueue();
-        cover.animate({left: '' + leftPercentage + '%'}, animationOptions);
-    },
-
-    destroy: function () {
-      this._cleanupDom();
-    }
-
-});
-
-$(document).bind("pagecreate", function (e) {
-    $(e.target).find(":jqmData(role='swipelist')").swipelist();
-});
-
-})(jQuery);
+}(jQuery));
