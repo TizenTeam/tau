@@ -172,7 +172,7 @@
 			var self = this,
 				lang = language
 					|| $( 'html' ).attr( 'lang' )
-					|| window.navigator.language	/* Webkit, Safari */
+					|| window.navigator.language.split( '.' )[0]	/* Webkit, Safari + workaround for Tizen */
 					|| window.navigator.userLanguage	/* IE */
 					|| 'en',
 				countryCode = null,
@@ -181,7 +181,6 @@
 				globalizeCultureFile,
 				globalizeCulturePath,
 				neutralLangIndex;
-
 
 			if ( countryCodeIdx != -1 ) {	// Found country code!
 				countryCode = lang.substr( countryCodeIdx + 1 );
