@@ -14,7 +14,8 @@
 		frameworkData : {
 			rootDir: '/usr/lib/tizen-web-ui-fw',
 			version: '0.1',
-			theme: "default"
+			theme: "default",
+			desktopScale: false
 		},
 
 		util : {
@@ -103,6 +104,8 @@
 						|| this.frameworkData.version;
 					this.frameworkData.theme = elem.getAttribute( 'data-framework-theme' )
 						|| this.frameworkData.theme;
+					this.frameworkData.desktopScale = elem.getAttribute( 'data-framework-desktop-scale' )
+						|| this.frameworkData.desktopScale;
 					foundScript = true;
 					break;
 				}
@@ -224,6 +227,26 @@
 			// NOTE: It is not needed to set with neutral lang. 
 			//       Globalize automatically deals with it.
 			Globalize.culture( lang );
+		},
+
+		setDesktopDefaultFontSize: function ( ) {
+			/* This function sets default font-size value of html element, only in desktop browsers.
+			 * It resizes all widgets using 'rem' unit.
+			 */
+			var desktopRatio = isNaN( this.frameworkData.desktopScale ) ? 0.5 : parseFloat( this.frameworkData.desktopScale ),
+				mobileIdx = navigator.appVersion.indexOf("Mobile"),
+				isMobile = -1 < mobileIdx,
+				themeDefaultFontSize = 16,
+				scaledFontSize = 16;
+
+			if ( ! isMobile ) {	// applies only with desktop
+				themeDefaultFontSize = parseInt( $( 'body' ).css( 'font-size' ), 10 );
+				scaledFontSize = Math.round( themeDefaultFontSize * desktopRatio );
+				$( 'html' ).css( { 'font-size': scaledFontSize + "px" } );
+
+				$( '.ui-mobile' ).css( { 'font-size': scaledFontSize + "px" } );
+				$( '.ui-mobile').children( 'body' ).css( { 'font-size': scaledFontSize + "px" } );
+			}
 		}
 	};
 } ( jQuery, window.Globalize, window ) );
@@ -241,5 +264,6 @@
 	$.mobile.autoInitializePage = false;
 	domReady( function ( ) {
 		$.mobile.initializePage( );
+		S.setDesktopDefaultFontSize( );
 	});
 } ( window.S, jQuery, window.domReady ) );
