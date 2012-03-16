@@ -18,6 +18,8 @@
 	<script src="widgets/popupwindow/popupwindow.js"></script>
 	<script src="tips/generate-elements-dynamically.js"></script>
 	<script src="widgets/pagecontrol/pagecontrol-demo.js"></script>
+	<script src="widgets/multibuttonentry-demo.js"></script>
+	<script src="widgets/splitview-demo.js"></script>
 	<link rel="stylesheet" href="custom.css" />
 	<title>Tizen UI</title>
 
@@ -25,6 +27,7 @@
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
 	<link rel="apple-touch-icon" href="icon-tizen.png" />
+	<link rel="stylesheet" href="./widgets/grid/css/namecard.css" />
 </head>
 
 <body>
@@ -51,6 +54,8 @@
 				<li><a href="widgets/imageslider.html">ImageSlider</a></li>
 				<li><a href="widgets/pagecontrol/pagecontrol.html">PageControl</a></li>
 				<li><a href="widgets/selectioninfo.html">SelectionInfo</a></li>
+				<li><a href="widgets/handler.html">Handler</a></li>
+				<li><a href="#multibuttonentry">Multi-Button Entry</a></li>
 				<li data-role="list-divider">ControlBar</li>
 				<li><a href="#controlbar-demo">ControlBar</a></li>
 
@@ -82,11 +87,14 @@
 				<li><a href="#no-contents-3">No Contents - Unnamed</a></li>
 
 				<li data-role="list-divider">Grid view</li>
+				<li><a href="widgets/grid/virtualgrid.html">Virtual Grid</a></li>
 				<li data-role="list-divider">Background text</li>
 				<li data-role="list-divider">Page Indicator</li>
 				<li data-role="list-divider">Landscape</li>
 				<li data-role="list-divider">Spilit view</li>
-
+				<li><a href="#splitview">Spilit view</a></li>
+				<li data-role="list-divider">Multimedia view</li>
+				<li><a href="widgets/multimediaview/multimediaview.html">Multimedia view</a></li>
 				<li data-role="list-divider">Etc.</li>
 				<li><a href="#widgets/label.html">Label</a></li>
 
@@ -922,5 +930,139 @@
 			<a>Edit</a>
 		</div>
 	</div>
+
+	<div data-role="page" id="multibuttonentry">
+		<div data-role="header" >
+			<h1>Multi-button Entry</h1>
+		</div>
+		<div data-role="content">
+			<div data-role="multibuttonentry" data-listuri="addressbook"></div>
+			<div data-role="controlgroup">
+				<input type='button' value='Append Item' id='MBTaddItemTest'/>
+				<input type='button' value='Remove first Item' id='MBTremoveItemTest'/>
+				<input type='button' value="Input 'Hello'" id='MBTinputTextTest'/>
+				<input type='button' value='Get input text' id='MBTgetInputTextTest'/>
+				<input type='button' value='Select 1' id='MBTselectItemTest'/>
+				<input type='button' value='Selected item' id='MBTgetSelectedItemTest'/>
+				<input type='button' value='Length' id='MBTlengthTest'/>
+				<input type='button' value='Grouping On' id='MBTfocusOutTest'/>
+				<input type='button' value='Grouping Off' id='MBTfocusInTest'/>
+				<input type='button' value='Remove All Item' id='MBTremoveAllItemTest'/>
+			</div>
+		</div>
+	</div>
+	<div data-role="page"  id="addressbook">
+		<div data-role="header">
+			<h1>Address Book</h1>
+		</div>
+		<div data-role="content">
+			<ul data-role="listview">
+				<li data-role="list-divider">A</li>
+				<li><a href="#multibuttonentry">Adam Kinkaid</a></li>
+				<li><a href="#multibuttonentry">Alex Wickerham</a></li>
+				<li><a href="#multibuttonentry">Avery Johnson</a></li>
+				<li data-role="list-divider">B</li>
+				<li><a href="#multibuttonentry">Bob Cabot</a></li>
+				<li data-role="list-divider">C</li>
+				<li><a href="#multibuttonentry">Caleb Booth</a></li>
+				<li><a href="#multibuttonentry">Christopher Adams</a></li>
+				<li><a href="#multibuttonentry">Culver James</a></li>
+				<li data-role="list-divider">D</li>
+				<li><a href="#multibuttonentry">David Walsh</a></li>
+				<li><a href="#multibuttonentry">Drake Alfred</a></li>
+				<li data-role="list-divider">E</li>
+				<li><a href="#multibuttonentry">Elizabeth Bacon</a></li>
+				<li><a href="#multibuttonentry">Emery Parker</a></li>
+				<li><a href="#multibuttonentry">Enid Voldon</a></li>
+				<li data-role="list-divider">F</li>
+				<li><a href="#multibuttonentry">Francis Wall</a></li>
+				<li data-role="list-divider">G</li>
+				<li><a href="#multibuttonentry">Graham Smith</a></li>
+				<li><a href="#multibuttonentry">Greta Peete</a></li>
+				<li data-role="list-divider">H</li>
+				<li><a href="#multibuttonentry">Harvey Walls</a></li>
+				<li data-role="list-divider">M</li>
+				<li><a href="#multibuttonentry">Mike Farnsworth</a></li>
+				<li><a href="#multibuttonentry">Murray Vanderbuilt</a></li>
+				<li data-role="list-divider">N</li>
+				<li><a href="#multibuttonentry">Nathan Williams</a></li>
+				<li data-role="list-divider">P</li>
+				<li><a href="#multibuttonentry">Paul Baker</a></li>
+				<li><a href="#multibuttonentry">Pete Mason</a></li>
+				<li data-role="list-divider">R</li>
+				<li><a href="#multibuttonentry">Rod Tarker</a></li>
+				<li data-role="list-divider">S</li>
+				<li><a href="#multibuttonentry">Sawyer Wakefield</a></li>
+			</ul>
+		</div> <!--/content -->
+	</div> <!--/page -->
+
+	<div data-role="page" id="splitview">
+		<div data-role="content">
+			<div id="test" data-role="splitview" data-direction="horizontal" data-fixed="false">
+				<div data-role="panel" data-id="menu" data-scroll="y" data-size="0.3">
+					<ul data-role="listview">
+						<li><a href="#test1" data-target="main"><h2>Inner Page(#test1)</h2></a></li>
+						<li><a href="#test2" data-target="main"><h2>Inner Page(#test2)</h2></a></li>
+						<li><a href="http://m.naver.com" data-target="main"><h2>m.naver.com</h2></a></li>
+						<li><a href="http://m.daum.net" data-target="main"><h2>m.daum.net</h2></a></li>
+						<li><a id="SPtestFix"><h2>Fix</h2></a></li>
+						<li><a id="SPtestMovable"><h2>Movable</h2></a></li>
+					</ul>
+				</div>
+				<div data-role="panel" data-id="main" data-scroll="y" data-size="0.7">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div data-role="page" id="test1" data-footer-Exist="false" >
+		<div data-role="header">
+			<h1>Test 1</h1>
+		</div>
+		<div data-role="content">
+			<ul data-role="listview">
+				<li class="ui-li-2line-bigicon8 ui-li-dialogue">
+					<img src="widgets/list/thumbnail.jpg" class="ui-li-bigicon">
+					<span class="ui-li-text-main">2line-bigicon8</span>
+					<span class="ui-li-text-sub">Subtext</span>
+					<img src="widgets/list/00_winset_icon_favorite_on.png" class="ui-li-icon-sub">
+				</li>
+				<li class="ui-li-1line ui-li-dialogue" data-expandable="false">
+					<span class="ui-li-text-main">2line-radio1</span>
+				</li>
+				<li class="ui-li-1line ui-li-dialogue" data-expandable="true" id="exp5">
+					<span class="ui-li-text-main">2line-radio1</span>
+				</li>
+				<li class="ui-li-1line ui-li-dialogue" data-expandable="true" id="exp5">
+					<span class="ui-li-text-main">2line-radio1</span>
+				</li>
+			</ui>
+		</div>
+	</div>
+	<div data-role="page" id="test2" data-footer-Exist="false" >
+		<div data-role="header">
+			<h1>Test 2</h1>
+		</div>
+		<div data-role="content">
+			<ul data-role="listview">
+				<li class="ui-li-2line-bigicon8 ui-li-dialogue">
+					<img src="widgets/list/thumbnail.jpg" class="ui-li-bigicon">
+					<span class="ui-li-text-main">2line-bigicon8</span>
+					<span class="ui-li-text-sub">Subtext</span>
+					<img src="widgets/list/00_winset_icon_favorite_on.png" class="ui-li-icon-sub">
+				</li>
+				<li class="ui-li-1line ui-li-dialogue" data-expandable="false">
+					<span class="ui-li-text-main">2line-radio1</span>
+				</li>
+				<li class="ui-li-1line ui-li-dialogue" data-expandable="true" id="exp5">
+					<span class="ui-li-text-main">2line-radio1</span>
+				</li>
+				<li class="ui-li-1line ui-li-dialogue" data-expandable="true" id="exp5">
+					<span class="ui-li-text-main">2line-radio1</span>
+				</li>
+			</ui>
+		</div>
+	</div>
+
 </body>
 </html>
