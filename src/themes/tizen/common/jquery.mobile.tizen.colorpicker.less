@@ -1,12 +1,13 @@
 /* Own CSS */
+@import "config.less";
 
 /* @selector-size should be an odd number, in order to pixel-perfectly center on a given colour */
-@colorpicker-selector-size: 61px;
-@colorpicker-selector-border-width: 5px;
-@colorpicker-clrchannel-hs-width:  256px;
-@colorpicker-clrchannel-hs-height: 256px;
-@colorpicker-clrchannel-l-width: 16px;
-@colorpicker-clrchannel-l-height: 256px;
+@colorpicker-selector-size: 61 * @unit_base;
+@colorpicker-selector-border-width: 5 * @unit_base;
+@colorpicker-clrchannel-hs-width:  256 * @unit_base;
+@colorpicker-clrchannel-hs-height: 256 * @unit_base;
+@colorpicker-clrchannel-l-width: 16 * @unit_base;
+@colorpicker-clrchannel-l-height: 256 * @unit_base;
 
 @colorpicker-selector-total-size: @colorpicker-selector-size + 2 * @colorpicker-selector-border-width;
 @colorpicker-clrchannel-hs-padding: @colorpicker-selector-total-size / 2;

@@ -1,12 +1,12 @@
 @import "config.less";
 
-@hsvpicker-clrchannel-masks-width: 300px;
-@hsvpicker-clrchannel-masks-height: 38px;
-@hsvpicker-clrchannel-selector-width: 10px;
-@hsvpicker-clrchannel-selector-height: 50px;
-@hsvpicker-clrchannel-selector-border-width: 5px;
-@hsvpicker-clrchannel-masks-container-hpadding: 12px;
-@hsvpicker-clrchannel-masks-container-vpadding: 16px;
+@hsvpicker-clrchannel-masks-width: 300 * @unit_base;
+@hsvpicker-clrchannel-masks-height: 38 * @unit_base;
+@hsvpicker-clrchannel-selector-width: 10 * @unit_base;
+@hsvpicker-clrchannel-selector-height: 50 * @unit_base;
+@hsvpicker-clrchannel-selector-border-width: 5 * @unit_base;
+@hsvpicker-clrchannel-masks-container-hpadding: 12 * @unit_base;
+@hsvpicker-clrchannel-masks-container-vpadding: 16 * @unit_base;
 
 @hsvpicker-clrchannel-selector-actual-height: @hsvpicker-clrchannel-selector-height -
     2 * @hsvpicker-clrchannel-selector-border-width;
@@ -29,8 +29,8 @@
 .ui-hsvpicker {
     .hsvpicker-clrchannel-container {
         display: table;
-        padding-left: 27px;
-        padding-right: 27px;
+        padding-left: 27 * @unit_base;
+        padding-right: 27 * @unit_base;
 
         .hsvpicker-arrow-btn-container {
             display: table-cell;
@@ -73,8 +73,8 @@
 
             .hsvpicker-clrchannel-selector {
                 position: absolute;
-                left: 0px;
-                top: 0px;
+                left: 0 * @unit_base;
+                top: 0 * @unit_base;
                 width: @hsvpicker-clrchannel-selector-width;
                 height: @hsvpicker-clrchannel-selector-actual-height;
                 border: @hsvpicker-clrchannel-selector-border-width solid black;
