@@ -54,7 +54,7 @@ jQuery.widget( "mobile.circularview", jQuery.mobile.widget, {
 
     refresh: function() {
  		this._viewWidth = this._$view.width();
-		this._clipWidth = window.innerWidth;
+		this._clipWidth = $(window).width();
 		this._itemWidth = this._$list.children().first().outerWidth();
 		this._$items = this._$list.children().detach();
 		var itemsPerView = this._clipWidth / this._itemWidth;
