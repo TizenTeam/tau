@@ -2,7 +2,7 @@
 
 /* tickernoti */
 
-@ticker-height: 100px;
+@ticker-height: 100 * @unit_base;
 
 @-webkit-keyframes ui-ticker-show {
 	from {
@@ -45,7 +45,7 @@
 .ui-ticker.show {
 	display: block;
 	-webkit-animation: ui-ticker-show 0.8s 1 ease;
-	top: 0px;
+	top: 0;
 }
 
 .ui-ticker.hide {
@@ -56,10 +56,10 @@
 
 .ui-ticker-btn {
 	position: relative;
-	height: 54px;
-	margin-top: 23px;
-	margin-left: 16px;
-	margin-right: 16px;
+	height: 54 * @unit_base;
+	margin-top: 23 * @unit_base;
+	margin-left: 16 * @unit_base;
+	margin-right: 16 * @unit_base;
 	vertical-align: middle;
 	float: right;
 
@@ -71,12 +71,12 @@
 .ui-ticker-icon {
 	position: absolute;
 	top: 0;
-	height: 64px;
-	width: 64px;
-	margin-top: 18px;
-	margin-bottom: 18px;
-	margin-left: 16px;
-	margin-right: 16px;
+	height: 64 * @unit_base;
+	width: 64 * @unit_base;
+	margin-top: 18 * @unit_base;
+	margin-bottom: 18 * @unit_base;
+	margin-left: 16 * @unit_base;
+	margin-right: 16 * @unit_base;
 	vertical-align: middle;
 
 	/* FIXME: please fix this image file */
@@ -86,9 +86,9 @@
 .ui-ticker-text1-bg {
 	position: absolute;
 	top: 0;
-	height: 28px;
-	left: 96px;
-	margin-top: 20px;
+	height: 28 * @unit_base;
+	left: 96 * @unit_base;
+	margin-top: 20 * @unit_base;
 	font-size: 0.8em;
 	color: @color_ticker_text1;
 }
@@ -96,15 +96,15 @@
 .ui-ticker-text2-bg {
 	position: absolute;
 	top: 0;
-	height: 32px;
-	left: 96px;
-	margin-top: 48px;
+	height: 32 * @unit_base;
+	left: 96 * @unit_base;
+	margin-top: 48 * @unit_base;
 	color: @color_ticker_text2;
 }
 
 /* smallpopup */
 
-@smallpopup-height: 48px;
+@smallpopup-height: 48 * @unit_base;
 
 @-webkit-keyframes ui-smallpopup-show {
 	from {
@@ -161,7 +161,7 @@
 
 .ui-smallpopup-text-bg {
 	position: relative;
-	margin-top: 6px;
-	margin-left: 16px;
+	margin-top: 6 * @unit_base;
+	margin-left: 16 * @unit_base;
 	color: @color_smallpopup_text;
 }
