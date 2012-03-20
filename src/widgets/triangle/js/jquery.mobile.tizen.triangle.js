@@ -3,7 +3,8 @@
  * http://www.opensource.org/licenses/mit-license.php)
  *
  * ***************************************************************************
- * Copyright (C) 2011 by Intel Corporation Ltd.
+ * Copyright (c) 2000 - 2011 Samsung Electronics Co., Ltd.
+ * Copyright (c) 2011 by Intel Corporation Ltd.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
