@@ -3,49 +3,57 @@
 */
 
 /**
- * Multibuttonentry is a widget that create and handle with text block.
+ *	Multibuttonentry widget is a kind of button widget.
+ *	When a user inputs a text and the text gets an change event,
+ *	the text can be changed from it to a button widget.
  *
- * HTML Attributes:
+ *	HTML Attributes:
  *
- *		data-listUrl : Represent a link page 'id'.
- *		data-label:	To handle label text.( optional )
- *		data-descMessage : To handle message format. This message is displayed when 'focusout' state. ( optional )
+ *		data-listUrl : This attribute is represent a 'id' about page.
+ *				This page is containing prepared data for provide to user.
+ *				For example, like address book.
+ *		data-label:	This attribute is providing label for user-guide. (Default : 'To : ')
+ *		data-descMessage : This attribute is managing message format.
+ * 				 This message is displayed when widget status was changed to 'focusout'.
  *
- * APIs:
+ *	APIs:
  *
  *		inputtext ( void )
  *			: Get a string from inputbox.
- *		inputtext ( string )
- *			: Set a string to inputbox.
- *		select ( void )
- *			: Get a string that include selected block.
- *		select ( number )
- *			: Select a text block that is specific position.
- *		add ( string )
- *			: Insert a new textblock at last position.
- *		add ( string, number )
- *			: Insert a new textblock at position by index.
- *		remove ( void )
- *			: Remove all textblocks.
- *		remove ( number )
- *			: Remove a textblock that is pointed by index.
+ *		inputtext (  [string]  )
+ *			: If argument is not exist, will get a string from inputbox.
+ *			If argument is exist, will set a string to inputbox.
+ *		select (  [number]  )
+ *			: If argument is not exist, will act  as a getter.
+ *			Get a string of selected block.
+ *			If widget is not exist a selected button, it will return 'null'.
+ *			Select a button located on the index. (number : index of button)
+ *		add ( text, [number] )
+ *			: If second argument is not exist, will insert to a new textblock at last position.
+ *			Insert a new button at position that is pointed by index. (number : index of button)
+ *		remove ( [number] )
+ *			: If argument is not exist, will remove all buttons.
+ *			Remove a button that is pointed by index. (number : index of button)
  *		length ( void )
- *			: Get a number of textblock.
- *		focusIn ( void )
- *			: This method change a status to 'focusin'. This status is able to handle a widget.
+ *			: Get a number of buttons.
+ *		foucsIn ( void )
+ *			: This method change a status to 'focusin'.
+ *			This status is able to manage a widget.
  *		focusOut ( void )
- *			: This method change a status to 'focusout'. this status is not able to handle a widget.
+ *			: This method change a status to 'focusout'.
+ *			This status is not able to manage a widget.
  *
- * Events:
  *
- *		select : This event is occurs when select a block.
- *		add : This event is occurs when insert new text block.
- *		remove : This event is occurs when remove a text block.
+ *	Events:
  *
- * Examples:
+ *		select : This event will occur when select a button.
+ *		add : This event will occur when insert new button.
+ *		remove : This event will occur when remove a button.
  *
- *		 <div data-role="multibuttonentry" data-label="To : " data-listUrl:"#addressbook" data-descMessage="{0} & {1} more...">
- *       </div>
+ *	Examples:
+ *
+ *		<div data-role="multibuttonentry" data-label="To : " data-listUrl:"#addressbook" data-descMessage="{0} & {1} more...">
+ *		</div>
  *
  */
 
@@ -118,7 +126,6 @@
 
 				if ( keyValue == 8 ) {
 					if ( valueString.length === 0 ) {
-						//self._removeTextBlock( valueString );
 						self._validateTargetBlock();
 					}
 				} else if ( keyValue == 13 ) {
@@ -203,7 +210,6 @@
 				lockBlock = $view.find( "div.ui-multibuttonentry-sblock" );
 
 			if ( lockBlock !== null && lockBlock.length > 0 ) {
-				//self._currentWidth -=  $( lockBlock ).outerWidth();
 				self._currentWidth -= self._calcBlockWidth( lockBlock );
 				lockBlock.remove();
 				self._modifyInputBoxWidth();
@@ -263,7 +269,7 @@
 				maxWidth = self._viewWidth - self._reservedWidth,
 				inputBoxWidth = maxWidth - self._reservedWidth,
 				blocks = $view.find( "div" ),
-				anchorWidth = $view.find( ".ui-multibuttonentry-link" ).outerWidth(true);
+				anchorWidth = $view.find( ".ui-multibuttonentry-link" ).outerWidth(true),
 				blockWidth = 0,
 				index = 0,
 				tempWidth = 0,
