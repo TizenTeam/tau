@@ -286,4 +286,5 @@ init: clean
 	@@mkdir -p ${CSS_OUTPUT_ROOT}
 	@@mkdir -p ${CSS_IMAGES_OUTPUT_DIR}
 	@@mkdir -p ${PROTOTYPE_HTML_OUTPUT_DIR}
+	@@test -h ${LATEST_ROOT} || ln -s ${FRAMEWORK_ROOT} ${LATEST_ROOT}
 	@@rm -f docs/*.html
