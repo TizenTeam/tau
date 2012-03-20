@@ -92,7 +92,7 @@
 		},
 
 		_create: function () {
-			var icon_type = $( this.element ).attr('data-type'),
+			var icon_type = $( this.element ).jqmData('type'),
 				text = new Array(2);
 
 			if ( icon_type === undefined ||
@@ -102,8 +102,8 @@
 				icon_type = "unnamed";
 			}
 
-			text[0] = $( this.element ).attr('data-text1');
-			text[1] = $( this.element ).attr('data-text2');
+			text[0] = $( this.element ).jqmData('text1');
+			text[1] = $( this.element ).jqmData('text2');
 
 			if ( text[0] === undefined ) {
 				text[0] = "";

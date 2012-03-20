@@ -147,11 +147,11 @@
 				this.html.detach();
 			}
 
-			text[0] = $(this.element).attr('data-text1');
-			text[1] = $(this.element).attr('data-text2');
-			this.param = $(this.element).attr('data-param');
-			this.seconds = $(this.element).attr('data-interval');
-			this.type = $(this.element).attr('data-type') || 'popup';
+			text[0] = $(this.element).jqmData('text1');
+			text[1] = $(this.element).jqmData('text2');
+			this.param = $(this.element).jqmData('param');
+			this.seconds = $(this.element).jqmData('interval');
+			this.type = $(this.element).jqmData('type') || 'popup';
 
 			if ( this.type === 'ticker' ) {
 				this.html = $('<div class="ui-ticker">' +
