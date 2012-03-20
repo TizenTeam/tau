@@ -1,5 +1,8 @@
 @import "config.less";
 
+@img-width: 314 * @unit_base;
+@img-height: 310 * @unit_base;
+
 .ui-nocontents {
 	position: relative;
 	left: 0;
@@ -13,22 +16,26 @@
 .ui-nocontents-icon-unnamed {
 	position: absolute;
 	display: block;
-	width: 314 * @unit_base;
-	height: 310 * @unit_base;
+	width: @img-width;
+	height: @img-height;
 	
 	background: url(images/00_Nocontents_text.png) no-repeat;
+	.LESSbackground-size(@img-height, @img-width);
 }
 
 .ui-nocontents-icon-picture {
 	background: url(images/00_Nocontents_picture.png) no-repeat;
+	.LESSbackground-size(@img-height, @img-width);
 }
 
 .ui-nocontents-icon-multimedia {
 	background: url(images/00_Nocontents_multimedia.png) no-repeat;
+	.LESSbackground-size(@img-height, @img-width);
 }
 
 .ui-nocontents-icon-unnamed {
 	background: url(images/00_Nocontents_unnamed.png) no-repeat;
+	.LESSbackground-size(@img-height, @img-width);
 }
 
 .ui-nocontents-text {
