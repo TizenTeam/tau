@@ -54,7 +54,6 @@ LIBS_JS_FILES = jlayout/jquery.sizes.js \
 				domready.js \
                 $(NULL)
 
-JQUERY_MOBILE = submodules/jquery-mobile/compiled/jquery.mobile.js
 JQUERY_MOBILE_CSS = submodules/jquery-mobile/compiled/jquery.mobile.structure.css \
                     submodules/jquery-mobile/compiled/jquery.mobile.css \
                     $(NULL)
@@ -87,23 +86,26 @@ LIBS_CSS_FILES +=\
 endif
 
 
-all: third_party widgets loader themes version_compat compress
+all: libs_prepare third_party widgets libs_cleanup loader themes version_compat compress
 
-
-jqm: init
-	# Building jQuery Mobile...
-	@@test -d ${JQM_LIB_PATH}.bak && rm -f ${JQM_LIB_PATH} && mv ${JQM_LIB_PATH}.bak ${JQM_LIB_PATH}; \
-	cp -a ${JQM_LIB_PATH} ${JQM_LIB_PATH}.bak; \
-	for f in `ls $(CURDIR)/libs/patch/*.patch`; do \
+libs_prepare:
+	# Prepare libs/ build...
+	@@test -d ${LIBS_DIR}.bak && rm -rf ${LIBS_DIR} && mv ${LIBS_DIR}.bak ${LIBS_DIR}; \
+	cp -a ${LIBS_DIR} ${LIBS_DIR}.bak
+	for f in `ls ${LIBS_DIR}/patch/*.patch`; do \
 		cd $(CURDIR); \
 		echo "Apply patch: $$f";  \
 		cat $$f | patch -p1 -N; \
 	done; \
+
+libs_cleanup:
+	# Cleanup libs/ directory...
+	@@rm -rf ${LIBS_DIR} && mv ${LIBS_DIR}.bak ${LIBS_DIR}
+
+jqm: init
+	# Building jQuery Mobile...
 	cd ${JQM_LIB_PATH} && make all-but-min || exit 1; \
 	cp -f ${JQM_LIB_PATH}/compiled/*.js ${JQM_LIB_PATH}/../; \
-	rm -rf ${JQM_LIB_PATH}; mv ${JQM_LIB_PATH}.bak ${JQM_LIB_PATH};
-
-
 
 third_party: init jqm
 	# Building third party components...
