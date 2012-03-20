@@ -3,12 +3,12 @@
 @todons-selected-color: #d9931a;
 @todons-selected-color-disabled: #999999;
 
-@colorpalette-choice-total-width:  54px;
-@colorpalette-choice-total-height: 54px;
-@colorpalette-item-border-width:  4px;
+@colorpalette-choice-total-width:  54 * @unit_base;
+@colorpalette-choice-total-height: 54 * @unit_base;
+@colorpalette-item-border-width:  4 * @unit_base;
 @colorpalette-item-border-color: #c0c0c0;
-@colorpalette-preview-total-width:  304px;
-@colorpalette-preview-total-height: 109px;
+@colorpalette-preview-total-width:  304 * @unit_base;
+@colorpalette-preview-total-height: 109 * @unit_base;
 
 @colorpalette-choice-actual-width:  @colorpalette-choice-total-width  - 2 * @colorpalette-item-border-width;
 @colorpalette-choice-actual-height: @colorpalette-choice-total-height - 2 * @colorpalette-item-border-width;
@@ -25,14 +25,14 @@
 
 .ui-colorpalette {
   display: table;
-    padding-left:   24px;
-    padding-right:  24px;
-    padding-top:    15px;
-    padding-bottom: 15px;
+    padding-left:   24 * @unit_base;
+    padding-right:  24 * @unit_base;
+    padding-top:    15 * @unit_base;
+    padding-bottom: 15 * @unit_base;
 
   .colorpalette-preview-container {
-        padding-top: 48px;
-        padding-bottom: 39px;
+        padding-top: 48 * @unit_base;
+        padding-bottom: 39 * @unit_base;
     display: table;
     margin: auto;
 
@@ -60,11 +60,11 @@
 
     .colorpalette-choice-container-rest {
       .colorpalette-choice-container-left;
-            padding-left: 38px;
+            padding-left: 38 * @unit_base;
     }
 
     .colorpalette-normal-row .colorpalette-choice-container-left {
-            padding-bottom: 16px;
+            padding-bottom: 16 * @unit_base;
     }
 
     .colorpalette-choice {
