@@ -36,14 +36,14 @@
 	position: relative;
 	top: 0;
 
-	/* FIXME: image is unbalanced - expanded it forced */
-	height: @img-height + 1;
-	width: @img-width + 1;
+	height: @img-height;
+	width: @img-width;
 
 	background: url(images/process/00_winset_list_process_01.png) no-repeat;
+	.LESSbackground-size(@img-height, @img-width);
 }
 .ui-progress-circle-running {
-	-webkit-animation: ui-rotate-animation 1.5s infinite linear;
+	-webkit-animation: ui-rotate-animation 1s infinite linear;
 }
 
 /* Progress - pending style */
@@ -98,7 +98,7 @@
 
 	background-color: @bar-color0;
 
-	-webkit-background-size: @bar-height * 2 @bar-height * 2;
+	.LESSbackground-size(@bar-height * 2, @bar-height * 2);
 }
 .ui-progress-pending-running {
 	-webkit-animation: ui-move-animation 0.5s infinite linear;
