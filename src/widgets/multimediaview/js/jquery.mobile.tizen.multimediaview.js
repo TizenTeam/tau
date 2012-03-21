@@ -19,24 +19,19 @@
  *				Default value is 'false'.
  *
  * APIs:
- *			width( void )
- *					: Get a width of widget.
- *			width( number )
- *					: Set a widget of widget.
- *			height( void )
- *					: Get a height of widget.
- *			height( number )
- *					: Set a height of widget.
+ *			width( [number] )
+ *					: Get or set a widget of widget.
+ *			height( [number] )
+ *					: Get or set a height of widget.
  *			size( number, number )
  *					: Set a size of widget and resize a widget.
  *					 First argument is width and second argument is height.
- *			fullscreen( void )
- *					: Get a status that fullscreen.
- *			fullscreen( boolean )
+ *			fullscreen( [boolean] )
  *					: Set a status that fullscreen.
+ *
  * Events:
  *
- *
+ *			create :  triggered when a multimediaview is created.
  *
  * Examples:
  *
@@ -59,7 +54,7 @@
 		options : {
 			theme : null,
 			controls : true,
-			fullScreen : false,
+			fullscreen : false,
 			initSelector : "video, audio"
 		},
 		_create : function () {
@@ -135,6 +130,7 @@
 			if ( typeof control != "undefined" && control !== null ) {
 				if ( view[0].nodeName === "VIDEO" ) {
 					controlOffset = control.offset();
+					controlOffset.left = offset.left;
 					controlOffset.top = offset.top + height - controlHeight;
 					control.offset( controlOffset );
 				}
@@ -284,6 +280,7 @@
 					}
 				});
 				self._updateSeekBar();
+				self._resize();
 			});
 
 			playpauseButton.bind( "vclick.multimediaview", function () {
@@ -358,7 +355,7 @@
 				}
 			});
 
-			$( volumeBar ).bind( "vmousedown.multimediaview", function ( e ) {
+			volumeBar.bind( "vmousedown.multimediaview", function ( e ) {
 				var baseX = e.clientX,
 					volumeGuideLeft = volumeGuide.offset().left,
 					volumeGuideWidth = volumeGuide.width(),
@@ -368,7 +365,7 @@
 					currentVolume = ( baseX - volumeGuideLeft ) / volumeGuideWidth;
 
 				self._endTimer();
-				self._setVolume( 1 - currentVolume.toFixed( 2 ) );
+				self._setVolume( currentVolume.toFixed( 2 ) );
 
 				e.preventDefault();
 				e.stopPropagation();
@@ -377,7 +374,7 @@
 					var currentX = e.clientX,
 						currentVolume = ( currentX - volumeGuideLeft ) / volumeGuideWidth;
 
-					self._setVolume( 1 - currentVolume.toFixed( 2 ) );
+					self._setVolume( currentVolume.toFixed( 2 ) );
 
 					e.preventDefault();
 					e.stopPropagation();
@@ -405,7 +402,6 @@
 			playpauseButton.unbind( ".multimediaview" );
 			fullscreenButton.unbind( ".multimediaview" );
 			seekBar.unbind( ".multimediaview" );
-			volumeBar.unbind( ".multimediaview" );
 			volumeBar.unbind( ".multimediaview" );
 			volumeHandle.unbind( ".multimediaview" );
 		},
@@ -543,12 +539,12 @@
 
 			volumeBarTop = parseInt( volumeBar.offset().top, 10 );
 			volumeGuideLeft = volumeGuide.offset().left;
-			volumeBase = volumeGuideLeft + volumeGuideWidth;
+			volumeBase = volumeGuideLeft;
 			handlerOffset = volumeHandle.offset();
-			handlerOffset.top = volumeBarTop + parseInt( ( volumeBarHeight - handlerHeight ) / 2, 10 );
-			handlerOffset.left = volumeBase - parseInt( volumeGuideWidth * volume, 10 ) - parseInt( handlerWidth / 2, 10 );
+			handlerOffset.top = volumeBarTop - parseInt( ( handlerHeight - volumeBarHeight ) / 2, 10 );
+			handlerOffset.left = volumeBase + parseInt( volumeGuideWidth * volume, 10 ) - parseInt( handlerWidth / 2, 10 );
 			volumeHandle.offset( handlerOffset );
-			volumeValue.width( parseInt( volumeGuideWidth * ( 1 - volume ), 10 ) );
+			volumeValue.width( parseInt( volumeGuideWidth * ( volume ), 10 ) );
 		},
 		_setVolume : function ( value ) {
 			var viewElement = this.element[0];
@@ -612,7 +608,8 @@
 		},
 		fullscreen : function ( value ) {
 			var self = this,
-				control = self.element.parent().find( ".ui-multimediaview-control" ),
+				view = self.element,
+				control = view.parent().find( ".ui-multimediaview-control" ),
 				fullscreenButton = control.find( ".ui-fullscreenbutton" ),
 				args = arguments,
 				option = this.options,
@@ -622,10 +619,12 @@
 				return option.fullscreen;
 			}
 			if ( args.length === 1 ) {
+				view.parents( ".ui-content" ).scrollview( "scrollTo", 0, 0 );
+
 				this.options.fullscreen = value;
 				if ( value ) {
-					currentPage.children( ".ui-header:visible" ).hide();
-					currentPage.children( ".ui-footer:visible" ).hide();
+					currentPage.children( ".ui-header" ).hide();
+					currentPage.children( ".ui-footer" ).hide();
 					this._fitContentArea( currentPage );
 					fullscreenButton.removeClass( "ui-fullscreen-on" ).addClass( "ui-fullscreen-off" );
 				} else {
