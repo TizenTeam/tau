@@ -36,185 +36,189 @@
 // element inside a page. Alternatively, call colorpicker() 
 // on an element (see below).
 //
-// Options:
-//     color: String; can be specified in html using the
-//            data-color="#ff00ff" attribute or when constructed
-//                $("#mycolorpicker").colorpicker({ color: "#ff00ff" });
-//            where the html might be :
-//                <div id="mycolorpicker"/>
+//Options:
+//	color: String; can be specified in html using the
+//		data-color="#ff00ff" attribute or when constructed
+//			$("#mycolorpicker").colorpicker({ color: "#ff00ff" });
+//		where the html might be :
+//			<div id="mycolorpicker"/>
 
-(function( $, undefined ) {
+(function ( $, undefined ) {
 
-$.widget( "tizen.colorpicker", $.tizen.colorwidget, {
-    options: {
-        initSelector: ":jqmData(role='colorpicker')"
-    },
+	$.widget( "tizen.colorpicker", $.tizen.colorwidget, {
+		options: {
+			initSelector: ":jqmData(role='colorpicker')"
+		},
 
-    _htmlProto: {
-        ui: {
-            clrpicker: "#colorpicker",
-            hs: {
-                hueGradient: "#colorpicker-hs-hue-gradient",
-                gradient:    "#colorpicker-hs-sat-gradient",
-                eventSource: "[data-event-source='hs']",
-                valMask:     "#colorpicker-hs-val-mask",
-                selector:    "#colorpicker-hs-selector"
-            },
-            l: {
-                gradient:    "#colorpicker-l-gradient",
-                eventSource: "[data-event-source='l']",
-                selector:    "#colorpicker-l-selector"
-            }
-        }
-    },
+		_htmlProto: {
+			ui: {
+				clrpicker: "#colorpicker",
+				hs: {
+					hueGradient: "#colorpicker-hs-hue-gradient",
+					gradient:    "#colorpicker-hs-sat-gradient",
+					eventSource: "[data-event-source='hs']",
+					valMask:     "#colorpicker-hs-val-mask",
+					selector:    "#colorpicker-hs-selector"
+				},
+				l: {
+					gradient:    "#colorpicker-l-gradient",
+					eventSource: "[data-event-source='l']",
+					selector:    "#colorpicker-l-selector"
+				}
+			}
+		},
 
-    _create: function() {
-        var self = this;
+		_create: function () {
+			var self = this;
 
-        this.element
-            .css("display", "none")
-            .after(this._ui.clrpicker);
+			this.element
+				.css( "display", "none" )
+				.after( this._ui.clrpicker );
 
-        this._ui.hs.hueGradient.huegradient();
+			this._ui.hs.hueGradient.huegradient();
 
-        $.extend( self, {
-            dragging: false,
-            draggingHS: false,
-            selectorDraggingOffset: {
-                x : -1,
-                y : -1
-            },
-            dragging_hsl: undefined
-        });
+			$.extend( self, {
+				dragging: false,
+				draggingHS: false,
+				selectorDraggingOffset: {
+					x : -1,
+					y : -1
+				},
+				dragging_hsl: undefined
+			} );
 
-        $( document )
-            .bind( "vmousemove", function( event ) {
-                if ( self.dragging ) {
-                    event.stopPropagation();
-                    event.preventDefault();
-                }
-            })
-            .bind( "vmouseup", function( event ) {
-                if ( self.dragging )
-                    self.dragging = false;
-            });
+			$( document )
+				.bind( "vmousemove", function ( event ) {
+					if ( self.dragging ) {
+						event.stopPropagation();
+						event.preventDefault();
+					}
+				} )
+				.bind( "vmouseup", function ( event ) {
+					if ( self.dragging ) {
+						self.dragging = false;
+					}
+				} );
 
-        this._bindElements("hs");
-        this._bindElements("l");
-    },
+			this._bindElements( "hs" );
+			this._bindElements( "l" );
+		},
 
-    _bindElements: function(which) {
-        var self = this,
-            stopDragging = function(event) {
-                self.dragging = false;
-                event.stopPropagation();
-                event.preventDefault();
-            };
+		_bindElements: function ( which ) {
+			var self = this,
+				stopDragging = function ( event ) {
+					self.dragging = false;
+					event.stopPropagation();
+					event.preventDefault();
+				};
 
-        this._ui[which].eventSource
-            .bind( "vmousedown mousedown", function (event) { self._handleMouseDown(event, which, false); })
-            .bind( "vmousemove"          , function (event) { self._handleMouseMove(event, which, false); })
-            .bind( "vmouseup"            , stopDragging);
+			this._ui[which].eventSource
+				.bind( "vmousedown mousedown", function ( event ) { self._handleMouseDown( event, which, false ); } )
+				.bind( "vmousemove"          , function ( event ) { self._handleMouseMove( event, which, false ); } )
+				.bind( "vmouseup"            , stopDragging );
 
-        this._ui[which].selector
-            .bind( "vmousedown mousedown", function (event) { self._handleMouseDown(event, which, true); })
-            .bind( "touchmove vmousemove", function (event) { self._handleMouseMove(event, which, true); })
-            .bind( "vmouseup"            , stopDragging);
-    },
+			this._ui[which].selector
+				.bind( "vmousedown mousedown", function ( event ) { self._handleMouseDown( event, which, true); } )
+				.bind( "touchmove vmousemove", function ( event ) { self._handleMouseMove( event, which, true); } )
+				.bind( "vmouseup"            , stopDragging );
+		},
 
-    _handleMouseDown: function(event, containerStr, isSelector) {
-        var coords = $.mobile.tizen.targetRelativeCoordsFromEvent(event),
-            widgetStr = isSelector ? "selector" : "eventSource";
-        if ((coords.x >= 0 && coords.x <= this._ui[containerStr][widgetStr].width() &&
-             coords.y >= 0 && coords.y <= this._ui[containerStr][widgetStr].height()) || isSelector) {
-            this.dragging = true;
-            this.draggingHS = ("hs" === containerStr);
+		_handleMouseDown: function ( event, containerStr, isSelector ) {
+			var coords = $.mobile.tizen.targetRelativeCoordsFromEvent( event ),
+				widgetStr = isSelector ? "selector" : "eventSource";
+			if ( ( coords.x >= 0 && coords.x <= this._ui[containerStr][widgetStr].width() &&
+					coords.y >= 0 && coords.y <= this._ui[containerStr][widgetStr].height() ) || isSelector ) {
+				this.dragging = true;
+				this.draggingHS = ( "hs" === containerStr );
 
-            if (isSelector) {
-                this.selectorDraggingOffset.x = coords.x;
-                this.selectorDraggingOffset.y = coords.y;
-            }
+				if ( isSelector ) {
+					this.selectorDraggingOffset.x = coords.x;
+					this.selectorDraggingOffset.y = coords.y;
+				}
 
-            this._handleMouseMove(event, containerStr, isSelector, coords);
-        }
-    },
+				this._handleMouseMove( event, containerStr, isSelector, coords );
+			}
+		},
 
-    _handleMouseMove: function(event, containerStr, isSelector, coords) {
-        if (this.dragging &&
-            !(( this.draggingHS && containerStr === "l") || 
-              (!this.draggingHS && containerStr === "hs"))) {
-            coords = (coords || $.mobile.tizen.targetRelativeCoordsFromEvent(event));
+		_handleMouseMove: function ( event, containerStr, isSelector, coords ) {
+			var potential_h,
+				potential_s,
+				potential_l;
 
-            if (this.draggingHS) {
-                var potential_h = isSelector
-                      ? this.dragging_hsl[0] / 360 + (coords.x - this.selectorDraggingOffset.x) / this._ui[containerStr].eventSource.width()
-                      : coords.x / this._ui[containerStr].eventSource.width(),
-                    potential_s = isSelector
-                      ? this.dragging_hsl[1]       + (coords.y - this.selectorDraggingOffset.y) / this._ui[containerStr].eventSource.height()
-                      : coords.y / this._ui[containerStr].eventSource.height();
+			if ( this.dragging &&
+					!( ( this.draggingHS && containerStr === "l" ) ||
+						( !this.draggingHS && containerStr === "hs" ) ) ) {
+				coords = ( coords || $.mobile.tizen.targetRelativeCoordsFromEvent( event ) );
 
-                this.dragging_hsl[0] = Math.min(1.0, Math.max(0.0, potential_h)) * 360;
-                this.dragging_hsl[1] = Math.min(1.0, Math.max(0.0, potential_s));
-            }
-            else {
-                var potential_l = isSelector
-                      ? this.dragging_hsl[2]       + (coords.y - this.selectorDraggingOffset.y) / this._ui[containerStr].eventSource.height()
-                      : coords.y / this._ui[containerStr].eventSource.height();
+				if ( this.draggingHS ) {
+					potential_h = isSelector
+						? this.dragging_hsl[0] / 360 + ( coords.x - this.selectorDraggingOffset.x ) / this._ui[containerStr].eventSource.width()
+						: coords.x / this._ui[containerStr].eventSource.width();
+					potential_s = isSelector
+						? this.dragging_hsl[1] + ( coords.y - this.selectorDraggingOffset.y ) / this._ui[containerStr].eventSource.height()
+						: coords.y / this._ui[containerStr].eventSource.height();
 
-                this.dragging_hsl[2] = Math.min(1.0, Math.max(0.0, potential_l));
-            }
+					this.dragging_hsl[0] = Math.min( 1.0, Math.max( 0.0, potential_h ) ) * 360;
+					this.dragging_hsl[1] = Math.min( 1.0, Math.max( 0.0, potential_s ) );
+				} else {
+					potential_l = isSelector
+						? this.dragging_hsl[2] + ( coords.y - this.selectorDraggingOffset.y ) / this._ui[containerStr].eventSource.height()
+						: coords.y / this._ui[containerStr].eventSource.height();
 
-            if (!isSelector) {
-                this.selectorDraggingOffset.x = Math.ceil(this._ui[containerStr].selector.outerWidth()  / 2.0);
-                this.selectorDraggingOffset.y = Math.ceil(this._ui[containerStr].selector.outerHeight() / 2.0);
-            }
+					this.dragging_hsl[2] = Math.min( 1.0, Math.max( 0.0, potential_l ) );
+				}
 
-            this._updateSelectors(this.dragging_hsl);
-            event.stopPropagation();
-            event.preventDefault();
-        }
-    },
+				if ( !isSelector ) {
+					this.selectorDraggingOffset.x = Math.ceil( this._ui[containerStr].selector.outerWidth()  / 2.0 );
+					this.selectorDraggingOffset.y = Math.ceil( this._ui[containerStr].selector.outerHeight() / 2.0 );
+				}
 
-    _updateSelectors: function(hsl) {
-        var clr = $.tizen.colorwidget.prototype._setElementColor.call(this, this._ui.hs.selector, [hsl[0], 1.0 - hsl[1], hsl[2]], "background").clr,
-            gray = $.tizen.colorwidget.clrlib.RGBToHTML([hsl[2], hsl[2], hsl[2]]);
+				this._updateSelectors( this.dragging_hsl );
+				event.stopPropagation();
+				event.preventDefault();
+			}
+		},
 
-        this._ui.hs.valMask.css((hsl[2] < 0.5)
-            ? { background : "#000000" , opacity : (1.0 - hsl[2] * 2.0)   }
-            : { background : "#ffffff" , opacity : ((hsl[2] - 0.5) * 2.0) });
-        this._ui.hs.selector.css({
-            left       : (hsl[0] / 360 * this._ui.hs.eventSource.width()),
-            top        : (hsl[1] * this._ui.hs.eventSource.height())
-        });
-        this._ui.l.selector.css({
-            top        : (hsl[2] * this._ui.l.eventSource.height()),
-            background : gray
-        });
-        $.tizen.colorwidget.prototype._setColor.call(this, clr);
-    },
+		_updateSelectors: function ( hsl ) {
+			var clr = $.tizen.colorwidget.prototype._setElementColor.call( this, this._ui.hs.selector, [hsl[0], 1.0 - hsl[1], hsl[2]], "background" ).clr,
+				gray = $.tizen.colorwidget.clrlib.RGBToHTML( [hsl[2], hsl[2], hsl[2]] );
 
-    widget: function() { return this._ui.clrpicker; },
+			this._ui.hs.valMask.css((hsl[2] < 0.5)
+				? { background : "#000000" , opacity : ( 1.0 - hsl[2] * 2.0 )   }
+				: { background : "#ffffff" , opacity : ( ( hsl[2] - 0.5 ) * 2.0 ) } );
+			this._ui.hs.selector.css( {
+				left : ( hsl[0] / 360 * this._ui.hs.eventSource.width() ),
+				top : ( hsl[1] * this._ui.hs.eventSource.height() )
+			});
+			this._ui.l.selector.css({
+				top : ( hsl[2] * this._ui.l.eventSource.height() ),
+				background : gray
+			} );
+			$.tizen.colorwidget.prototype._setColor.call( this, clr );
+		},
 
-    _setDisabled: function(value) {
-        $.tizen.widgetex.prototype._setDisabled.call(this, value);
-        this._ui.hs.hueGradient.huegradient("option", "disabled", value);
-        this._ui.clrpicker[value ? "addClass" : "removeClass"]("ui-disabled");
-        $.tizen.colorwidget.prototype._displayDisabledState.call(this, this._ui.clrpicker);
-    },
+		widget: function () { return this._ui.clrpicker; },
 
-    _setColor: function(clr) {
-        if ($.tizen.colorwidget.prototype._setColor.call(this, clr)) {
-            this.dragging_hsl = $.tizen.colorwidget.clrlib.RGBToHSL($.tizen.colorwidget.clrlib.HTMLToRGB(this.options.color));
-            this.dragging_hsl[1] = 1.0 - this.dragging_hsl[1];
-            this._updateSelectors(this.dragging_hsl);
-        }
-    }
-});
+		_setDisabled: function ( value ) {
+			$.tizen.widgetex.prototype._setDisabled.call( this, value );
+			this._ui.hs.hueGradient.huegradient( "option", "disabled", value );
+			this._ui.clrpicker[value ? "addClass" : "removeClass"]( "ui-disabled" );
+			$.tizen.colorwidget.prototype._displayDisabledState.call( this, this._ui.clrpicker );
+		},
 
-$(document).bind("pagecreate create", function(e) {
-    $($.tizen.colorpicker.prototype.options.initSelector, e.target)
-        .not(":jqmData(role='none'), :jqmData(role='nojs')")
-        .colorpicker();
-});
+		_setColor: function ( clr ) {
+			if ( $.tizen.colorwidget.prototype._setColor.call( this, clr ) ) {
+				this.dragging_hsl = $.tizen.colorwidget.clrlib.RGBToHSL( $.tizen.colorwidget.clrlib.HTMLToRGB( this.options.color ) );
+				this.dragging_hsl[1] = 1.0 - this.dragging_hsl[1];
+				this._updateSelectors( this.dragging_hsl );
+			}
+		}
+	} );
 
-})(jQuery);
+	$( document ).bind( "pagecreate create", function ( e ) {
+		$( $.tizen.colorpicker.prototype.options.initSelector, e.target )
+			.not( ":jqmData(role='none'), :jqmData(role='nojs')" )
+			.colorpicker();
+	} );
+
+}( jQuery ) );
