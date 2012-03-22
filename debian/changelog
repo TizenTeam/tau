@@ -1,3 +1,11 @@
+web-ui-fw (0.1.12) unstable; urgency=low
+
+  * Bug fix, add new widget, add boilerplate 
+  * Git: slp/pkgs/w/web-ui-fw
+  * Tag: web-ui-fw_0.1.12
+
+ -- Noha Park <noha.park@samsung.com>  Thu, 22 Mar 2012 14:48:53 +0900
+
 web-ui-fw (0.1.11) unstable; urgency=low
 
   * Bug fix, solve browser compatibility issue
