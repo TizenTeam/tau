@@ -83,137 +83,144 @@
  *                $("#mycolorpalette").colorpalette("option", "color", "#ABCDEF");
  *            Default: "#1a8039"
  *
- * APIs:
- * 		$('obj').colorpalette() : Make an object to a colorpalette widget.
+ *APIs:
+ *		$('obj').colorpalette() : Make an object to a colorpalette widget.
  *
- * Events:
- * 		No event.
+ *Events:
+ *		No event.
  *
- * Examples:
- * 		<div data-role="colorpalette" data-color: "#ffffff"></div>
+ *Examples:
+ *		<div data-role="colorpalette" data-color: "#ffffff"></div>
  *
- * 		<div id="toBeColorpalette"></div>
- * 		<script>
- * 			$("#toBeColorpalette").colorpalette({ color: "#ffffff" });
- * 		</script>
+ *		<div id="toBeColorpalette"></div>
+ *		<script>
+ *			$("#toBeColorpalette").colorpalette({ color: "#ffffff" });
+ *		</script>
  *
  */
 
-(function( $, undefined ) {
+( function ( $, undefined ) {
 
-$.widget( "tizen.colorpalette", $.tizen.colorwidget, {
-    options: {
-        showPreview: false,
-        initSelector: ":jqmData(role='colorpalette')"
-    },
+	$.widget( "tizen.colorpalette", $.tizen.colorwidget, {
+		options: {
+			showPreview: false,
+			initSelector: ":jqmData(role='colorpalette')"
+		},
 
-    _htmlProto: {
-        ui: {
-            clrpalette: "#colorpalette",
-            preview: "#colorpalette-preview",
-            previewContainer: "#colorpalette-preview-container"
-        }
-    },
+		_htmlProto: {
+			ui: {
+				clrpalette: "#colorpalette",
+				preview: "#colorpalette-preview",
+				previewContainer: "#colorpalette-preview-container"
+			}
+		},
 
-    _create: function() {
-        var self = this;
+		_create: function () {
+			var self = this;
 
-        this.element
-            .css("display", "none")
-            .after(this._ui.clrpalette);
+			this.element
+				.css( "display", "none" )
+				.after( this._ui.clrpalette );
 
-        this._ui.clrpalette.find("[data-colorpalette-choice]").bind("vclick", function(e) {
-            var clr = $.tizen.colorwidget.prototype._getElementColor.call(this, $(e.target)),
-                Nix,
-                nChoices = self._ui.clrpalette.attr("data-" + ($.mobile.ns || "") + "n-choices"),
-                choiceId, rgbMatches;
+			this._ui.clrpalette.find( "[data-colorpalette-choice]" ).bind( "vclick", function ( e ) {
+				var clr = $.tizen.colorwidget.prototype._getElementColor.call(this, $(e.target)),
+					Nix,
+					nChoices = self._ui.clrpalette.attr( "data-" + ( $.mobile.ns || "" ) + "n-choices" ),
+					choiceId,
+					rgbMatches;
 
-            rgbMatches = clr.match(/rgb\(([0-9]*), *([0-9]*), *([0-9]*)\)/);
+				rgbMatches = clr.match(/rgb\(([0-9]*), *([0-9]*), *([0-9]*)\)/);
 
-            if (rgbMatches && rgbMatches.length > 3)
-                clr = $.tizen.colorwidget.clrlib.RGBToHTML([
-                    parseInt(rgbMatches[1]) / 255,
-                    parseInt(rgbMatches[2]) / 255,
-                    parseInt(rgbMatches[3]) / 255]);
+				if ( rgbMatches && rgbMatches.length > 3 ) {
+					clr = $.tizen.colorwidget.clrlib.RGBToHTML( [
+						parseInt(rgbMatches[1], 10) / 255,
+						parseInt(rgbMatches[2], 10) / 255,
+						parseInt(rgbMatches[3], 10) / 255] );
+				}
 
-            for (Nix = 0 ; Nix < nChoices ; Nix++)
-                self._ui.clrpalette.find("[data-colorpalette-choice=" + Nix + "]").removeClass("colorpalette-choice-active");
+				for ( Nix = 0 ; Nix < nChoices ; Nix++ ) {
+					self._ui.clrpalette.find( "[data-colorpalette-choice=" + Nix + "]" ).removeClass( "colorpalette-choice-active" );
+				}
 
-            $(e.target).addClass("colorpalette-choice-active");
-            $.tizen.colorwidget.prototype._setColor.call(self, clr);
-            $.tizen.colorwidget.prototype._setElementColor.call(self, self._ui.preview,
-                $.tizen.colorwidget.clrlib.RGBToHSL($.tizen.colorwidget.clrlib.HTMLToRGB(clr)), "background");
-        });
-    },
+				$(e.target).addClass( "colorpalette-choice-active" );
+				$.tizen.colorwidget.prototype._setColor.call( self, clr );
+				$.tizen.colorwidget.prototype._setElementColor.call( self, self._ui.preview, $.tizen.colorwidget.clrlib.RGBToHSL( $.tizen.colorwidget.clrlib.HTMLToRGB( clr ) ), "background" );
+			} );
+		},
 
-    _setShowPreview: function(show) {
-        if (show)
-            this._ui.previewContainer.removeAttr("style");
-        else
-            this._ui.previewContainer.css("display", "none");
-        this.element.attr("data-" + ($.mobile.ns || "") + "show-preview", show);
-        this.options.showPreview = show;
-    },
+		_setShowPreview: function ( show ) {
+			if ( show ) {
+				this._ui.previewContainer.removeAttr( "style" );
+			} else {
+				this._ui.previewContainer.css( "display", "none" );
+			}
 
-    widget: function(value) {
-        return this._ui.clrpalette;
-    },
+			this.element.attr( "data-" + ( $.mobile.ns || "" ) + "show-preview", show );
+			this.options.showPreview = show;
+		},
 
-    _setDisabled: function(value) {
-        $.tizen.widgetex.prototype._setDisabled.call(this, value);
-        this._ui.clrpalette[value ? "addClass" : "removeClass"]("ui-disabled");
-        $.tizen.colorwidget.prototype._displayDisabledState.call(this, this._ui.clrpalette);
-    },
+		widget: function ( value ) {
+			return this._ui.clrpalette;
+		},
 
-    _setColor: function(clr) {
-        if ($.tizen.colorwidget.prototype._setColor.call(this, clr)) {
-            clr = this.options.color;
-            var Nix,
-                activeIdx = -1,
-                nChoices = this._ui.clrpalette.attr("data-" + ($.mobile.ns || "") + "n-choices"),
-                hsl = $.tizen.colorwidget.clrlib.RGBToHSL($.tizen.colorwidget.clrlib.HTMLToRGB(clr)),
-                origHue = hsl[0],
-                offset = hsl[0] / 36,
-                theFloor = Math.floor(offset),
-                newClr;
+		_setDisabled: function ( value ) {
+			$.tizen.widgetex.prototype._setDisabled.call( this, value );
+			this._ui.clrpalette[value ? "addClass" : "removeClass"]( "ui-disabled" );
+			$.tizen.colorwidget.prototype._displayDisabledState.call( this, this._ui.clrpalette );
+		},
 
-            $.tizen.colorwidget.prototype._setElementColor.call(this, this._ui.preview,
-                $.tizen.colorwidget.clrlib.RGBToHSL($.tizen.colorwidget.clrlib.HTMLToRGB(clr)), "background");
+		_setColor: function ( clr ) {
+			if ( $.tizen.colorwidget.prototype._setColor.call( this, clr ) ) {
+				clr = this.options.color;
 
-            offset = (offset - theFloor < 0.5)
-                ? (offset - theFloor)
-                : (offset - (theFloor + 1));
+				var Nix,
+					activeIdx = -1,
+					nChoices = this._ui.clrpalette.attr( "data-" + ( $.mobile.ns || "" ) + "n-choices" ),
+					hsl = $.tizen.colorwidget.clrlib.RGBToHSL( $.tizen.colorwidget.clrlib.HTMLToRGB( clr ) ),
+					origHue = hsl[0],
+					offset = hsl[0] / 36,
+					theFloor = Math.floor( offset ),
+					newClr,
+					currentlyActive;
 
-            offset *= 36;
+				$.tizen.colorwidget.prototype._setElementColor.call( this, this._ui.preview,
+						$.tizen.colorwidget.clrlib.RGBToHSL( $.tizen.colorwidget.clrlib.HTMLToRGB( clr ) ), "background" );
 
-            for (Nix = 0 ; Nix < nChoices ; Nix++) {
-                hsl[0] = Nix * 36 + offset;
-                hsl[0] = ((hsl[0] < 0) ? (hsl[0] + 360) : ((hsl[0] > 360) ? (hsl[0] - 360) : hsl[0]));
+				offset = ( offset - theFloor < 0.5 )
+					? ( offset - theFloor )
+					: ( offset - ( theFloor + 1 ) );
 
-                if (hsl[0] === origHue)
-                    activeIdx = Nix;
+				offset *= 36;
 
-                newClr = $.tizen.colorwidget.clrlib.RGBToHTML($.tizen.colorwidget.clrlib.HSLToRGB(hsl));
+				for ( Nix = 0 ; Nix < nChoices ; Nix++ ) {
+					hsl[0] = Nix * 36 + offset;
+					hsl[0] = ( ( hsl[0] < 0) ? ( hsl[0] + 360 ) : ( ( hsl[0] > 360 ) ? ( hsl[0] - 360 ) : hsl[0] ) );
 
-                $.tizen.colorwidget.prototype._setElementColor.call(this, this._ui.clrpalette.find("[data-colorpalette-choice=" + Nix + "]"),
-                    $.tizen.colorwidget.clrlib.RGBToHSL($.tizen.colorwidget.clrlib.HTMLToRGB(newClr)), "background");
-            }
+					if ( hsl[0] === origHue ) {
+						activeIdx = Nix;
+					}
 
-            if (activeIdx != -1) {
-                var currentlyActive = parseInt(this._ui.clrpalette.find(".colorpalette-choice-active").attr("data-" + ($.mobile.ns || "") + "colorpalette-choice"));
-                if (currentlyActive != activeIdx) {
-                    this._ui.clrpalette.find("[data-colorpalette-choice=" + currentlyActive + "]").removeClass("colorpalette-choice-active");
-                    this._ui.clrpalette.find("[data-colorpalette-choice=" + activeIdx + "]").addClass("colorpalette-choice-active");
-                }
-            }
-        }
-    }
-});
+					newClr = $.tizen.colorwidget.clrlib.RGBToHTML( $.tizen.colorwidget.clrlib.HSLToRGB( hsl ) );
 
-$(document).bind("pagecreate create", function(e) {
-    $($.tizen.colorpalette.prototype.options.initSelector, e.target)
-        .not(":jqmData(role='none'), :jqmData(role='nojs')")
-        .colorpalette();
-});
+					$.tizen.colorwidget.prototype._setElementColor.call( this, this._ui.clrpalette.find( "[data-colorpalette-choice=" + Nix + "]" ),
+							$.tizen.colorwidget.clrlib.RGBToHSL( $.tizen.colorwidget.clrlib.HTMLToRGB( newClr ) ), "background" );
+				}
 
-})( jQuery );
+				if (activeIdx != -1) {
+					currentlyActive = parseInt( this._ui.clrpalette.find( ".colorpalette-choice-active" ).attr( "data-" + ($.mobile.ns || "" ) + "colorpalette-choice" ), 10 );
+					if ( currentlyActive != activeIdx ) {
+						this._ui.clrpalette.find( "[data-colorpalette-choice=" + currentlyActive + "]" ).removeClass( "colorpalette-choice-active" );
+						this._ui.clrpalette.find( "[data-colorpalette-choice=" + activeIdx + "]" ).addClass( "colorpalette-choice-active" );
+					}
+				}
+			}
+		}
+	});
+
+	$( document ).bind( "pagecreate create", function ( e ) {
+		$( $.tizen.colorpalette.prototype.options.initSelector, e.target )
+			.not( ":jqmData(role='none'), :jqmData(role='nojs')" )
+			.colorpalette();
+	});
+
+}( jQuery ) );

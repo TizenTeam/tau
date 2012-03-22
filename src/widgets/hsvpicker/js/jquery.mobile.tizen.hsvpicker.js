@@ -8,7 +8,7 @@
  * Copyright (C) 2011 by Intel Corporation Ltd.
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the "Software"),
+ * copy of this software and associated documentation files (the "Software" ),
  * to deal in the Software without restriction, including without limitation
  * the rights to use, copy, modify, merge, publish, distribute, sublicense,
  * and/or sell copies of the Software, and to permit persons to whom the
@@ -41,195 +41,201 @@
 //     color: String; the initial color can be specified in html using the
 //            data-color="#ff00ff" attribute or when constructed
 //            in javascript, eg
-//                $("#myhsvpicker").hsvpicker({ color: "#ff00ff" });
+//                $( "#myhsvpicker" ).hsvpicker({ color: "#ff00ff" });
 //            where the html might be :
 //                <div id="myhsvpicker"></div>
 //            The color can be changed post-construction like this :
-//                $("#myhsvpicker").hsvpicker("option", "color", "#ABCDEF");
+//                $( "#myhsvpicker" ).hsvpicker( "option", "color", "#ABCDEF" );
 //            Default: "#1a8039"
 //
 // Events:
 //
 //     colorchanged: Fired when the color is changed.
 
-(function( $, undefined ) {
+(function ( $, undefined ) {
 
-$.widget( "tizen.hsvpicker", $.tizen.colorwidget, {
-    options: {
-        initSelector: ":jqmData(role='hsvpicker')"
-    },
+	$.widget( "tizen.hsvpicker", $.tizen.colorwidget, {
+		options: {
+			initSelector: ":jqmData(role='hsvpicker')"
+		},
 
-    _htmlProto: {
-        ui: {
-            container: "#hsvpicker",
-            hue: {
-                eventSource: "[data-event-source='hue']",
-                selector:    "#hsvpicker-hue-selector",
-                hue:         "#hsvpicker-hue-hue",
-                valMask:     "#hsvpicker-hue-mask-val"
-            },
-            sat: {
-                gradient:    "#hsvpicker-sat-gradient",
-                eventSource: "[data-event-source='sat']",
-                selector:    "#hsvpicker-sat-selector",
-                hue:         "#hsvpicker-sat-hue",
-                valMask:     "#hsvpicker-sat-mask-val"
-            },
-            val: {
-                gradient:    "#hsvpicker-val-gradient",
-                eventSource: "[data-event-source='val']",
-                selector:    "#hsvpicker-val-selector",
-                hue:         "#hsvpicker-val-hue"
-            }
-        }
-    },
+		_htmlProto: {
+			ui: {
+				container: "#hsvpicker",
+				hue: {
+					eventSource: "[data-event-source='hue']",
+					selector: "#hsvpicker-hue-selector",
+					hue: "#hsvpicker-hue-hue",
+					valMask:  "#hsvpicker-hue-mask-val"
+				},
+				sat: {
+					gradient: "#hsvpicker-sat-gradient",
+					eventSource: "[data-event-source='sat']",
+					selector: "#hsvpicker-sat-selector",
+					hue: "#hsvpicker-sat-hue",
+					valMask: "#hsvpicker-sat-mask-val"
+				},
+				val: {
+					gradient: "#hsvpicker-val-gradient",
+					eventSource: "[data-event-source='val']",
+					selector: "#hsvpicker-val-selector",
+					hue: "#hsvpicker-val-hue"
+				}
+			}
+		},
 
-    _create: function() {
-        var self = this;
+		_create: function () {
+			var self = this,
+				chan,
+				hsvIdx,
+				max,
+				step;
 
-        this.element
-            .css("display", "none")
-            .after(this._ui.container);
+			this.element
+				.css( "display", "none" )
+				.after( this._ui.container );
 
-        this._ui.hue.hue.huegradient();
+			this._ui.hue.hue.huegradient();
 
-        $.extend(this, {
-            dragging_hsv: [ 0, 0, 0],
-            selectorDraggingOffset: {
-                x : -1,
-                y : -1
-            },
-            dragging: -1
-        });
+			$.extend( this, {
+				dragging_hsv: [ 0, 0, 0],
+				selectorDraggingOffset: {
+					x : -1,
+					y : -1
+				},
+				dragging: -1
+			} );
 
-        this._ui.container.find(".hsvpicker-arrow-btn")
-            .buttonMarkup()
-            .bind("vclick", function(e) {
-                var chan = $(this).attr("data-" + ($.mobile.ns || "") + "target"),
-                    hsvIdx = ("hue" === chan) ? 0 :
-                             ("sat" === chan) ? 1 : 2,
-                    max = (0 == hsvIdx ? 360 : 1),
-                    step = 0.05 * max;
+			this._ui.container.find( ".hsvpicker-arrow-btn" )
+				.buttonMarkup()
+				.bind( "vclick", function ( e ) {
+					chan = $( this).attr( "data-" + ( $.mobile.ns || "" ) + "target" );
+					hsvIdx = ( "hue" === chan ) ? 0 :
+							( "sat" === chan) ? 1 : 2;
+					max = ( 0 == hsvIdx ? 360 : 1 );
+					step = 0.05 * max;
 
-                self.dragging_hsv[hsvIdx] = self.dragging_hsv[hsvIdx] + step * ("left" === $(this).attr("data-" + ($.mobile.ns || "") + "location") ? -1 : 1);
-                self.dragging_hsv[hsvIdx] = Math.min(max, Math.max(0.0, self.dragging_hsv[hsvIdx]));
-                self._updateSelectors(self.dragging_hsv);
-            });
+					self.dragging_hsv[hsvIdx] = self.dragging_hsv[hsvIdx] + step * ( "left" === $( this ).attr( "data-" + ( $.mobile.ns || "" ) + "location" ) ? -1 : 1);
+					self.dragging_hsv[hsvIdx] = Math.min( max, Math.max( 0.0, self.dragging_hsv[hsvIdx] ) );
+					self._updateSelectors( self.dragging_hsv );
+				} );
 
-        $( document )
-            .bind( "vmousemove", function( event ) {
-                if ( self.dragging != -1 ) {
-                    event.stopPropagation();
-                    event.preventDefault();
-                }
-            })
-            .bind( "vmouseup", function( event ) {
-                self.dragging = -1;
-            });
+			$( document )
+				.bind( "vmousemove", function ( event ) {
+					if ( self.dragging != -1 ) {
+						event.stopPropagation();
+						event.preventDefault();
+					}
+				} )
+				.bind( "vmouseup", function ( event ) {
+					self.dragging = -1;
+				} );
 
-        this._bindElements("hue", 0);
-        this._bindElements("sat", 1);
-        this._bindElements("val", 2);
-    },
+			this._bindElements( "hue", 0 );
+			this._bindElements( "sat", 1 );
+			this._bindElements( "val", 2 );
+		},
 
-    _bindElements: function(chan, idx) {
-        var self = this;
-        this._ui[chan].selector
-            .bind("mousedown vmousedown", function(e) { self._handleMouseDown(chan, idx, e, true); })
-            .bind("vmousemove touchmove", function(e) { self._handleMouseMove(chan, idx, e, true); })
-            .bind("vmouseup",             function(e) { self.dragging = -1; });
-        this._ui[chan].eventSource
-            .bind("mousedown vmousedown", function(e) { self._handleMouseDown(chan, idx, e, false); })
-            .bind("vmousemove touchmove", function(e) { self._handleMouseMove(chan, idx, e, false); })
-            .bind("vmouseup",             function(e) { self.dragging = -1; });
-    },
+		_bindElements: function ( chan, idx ) {
+			var self = this;
+			this._ui[chan].selector
+				.bind( "mousedown vmousedown", function ( e ) { self._handleMouseDown( chan, idx, e, true ); } )
+				.bind( "vmousemove touchmove", function ( e ) { self._handleMouseMove( chan, idx, e, true ); } )
+				.bind( "vmouseup",             function ( e ) { self.dragging = -1; } );
+			this._ui[chan].eventSource
+				.bind( "mousedown vmousedown", function ( e ) { self._handleMouseDown( chan, idx, e, false ); } )
+				.bind( "vmousemove touchmove", function ( e ) { self._handleMouseMove( chan, idx, e, false ); } )
+				.bind( "vmouseup",             function ( e ) { self.dragging = -1; } );
+		},
 
-    _handleMouseDown: function(chan, idx, e, isSelector) {
-        var coords = $.mobile.tizen.targetRelativeCoordsFromEvent(e),
-            widgetStr = (isSelector ? "selector" : "eventSource");
+		_handleMouseDown: function ( chan, idx, e, isSelector ) {
+			var coords = $.mobile.tizen.targetRelativeCoordsFromEvent( e ),
+				widgetStr = ( isSelector ? "selector" : "eventSource" );
 
-        if (coords.x >= 0 && coords.x <= this._ui[chan][widgetStr].outerWidth() &&
-            coords.y >= 0 && coords.y <= this._ui[chan][widgetStr].outerHeight()) {
+			if ( coords.x >= 0 && coords.x <= this._ui[chan][widgetStr].outerWidth() &&
+					coords.y >= 0 && coords.y <= this._ui[chan][widgetStr].outerHeight() ) {
 
-            this.dragging = idx;
+				this.dragging = idx;
 
-            if (isSelector) {
-                this.selectorDraggingOffset.x = coords.x;
-                this.selectorDraggingOffset.y = coords.y;
-            }
+				if ( isSelector ) {
+					this.selectorDraggingOffset.x = coords.x;
+					this.selectorDraggingOffset.y = coords.y;
+				}
 
-            this._handleMouseMove(chan, idx, e, isSelector, coords);
-        }
-    },
+				this._handleMouseMove( chan, idx, e, isSelector, coords );
+			}
+		},
 
-    _handleMouseMove: function(chan, idx, e, isSelector, coords) {
-        if (this.dragging === idx) {
-            coords = (coords || $.mobile.tizen.targetRelativeCoordsFromEvent(e));
+		_handleMouseMove: function ( chan, idx, e, isSelector, coords ) {
+			if ( this.dragging === idx ) {
+				coords = ( coords || $.mobile.tizen.targetRelativeCoordsFromEvent( e ) );
 
-            var factor = ((0 === idx) ? 360 : 1),
-                potential = (isSelector
-                  ? ((this.dragging_hsv[idx] / factor) +
-                     ((coords.x - this.selectorDraggingOffset.x) / this._ui[chan].eventSource.width()))
-                  : (coords.x / this._ui[chan].eventSource.width()));
+				var factor = ( ( 0 === idx ) ? 360 : 1 ),
+					potential = ( isSelector
+							? ( ( this.dragging_hsv[idx] / factor) +
+									( ( coords.x - this.selectorDraggingOffset.x ) / this._ui[chan].eventSource.width() ) )
+									: ( coords.x / this._ui[chan].eventSource.width() ) );
 
-            this.dragging_hsv[idx] = Math.min(1.0, Math.max(0.0, potential)) * factor;
+				this.dragging_hsv[idx] = Math.min( 1.0, Math.max( 0.0, potential ) ) * factor;
 
-            if (!isSelector) {
-                this.selectorDraggingOffset.x = Math.ceil(this._ui[chan].selector.outerWidth()  / 2.0);
-                this.selectorDraggingOffset.y = Math.ceil(this._ui[chan].selector.outerHeight() / 2.0);
-            }
+				if ( !isSelector ) {
+					this.selectorDraggingOffset.x = Math.ceil( this._ui[chan].selector.outerWidth() / 2.0 );
+					this.selectorDraggingOffset.y = Math.ceil( this._ui[chan].selector.outerHeight() / 2.0 );
+				}
 
-            this._updateSelectors(this.dragging_hsv);
-            e.stopPropagation();
-            e.preventDefault();
-        }
-    },
+				this._updateSelectors( this.dragging_hsv );
+				e.stopPropagation();
+				e.preventDefault();
+			}
+		},
 
-    _updateSelectors: function(hsv) {
-        var clrlib = $.tizen.colorwidget.clrlib,
-            clrwidget = $.tizen.colorwidget.prototype,
-             clr = clrlib.HSVToHSL(hsv),
-            hclr = clrlib.HSVToHSL([hsv[0], 1.0, 1.0]),
-            vclr = clrlib.HSVToHSL([hsv[0], hsv[1], 1.0]);
+		_updateSelectors: function ( hsv ) {
+			var clrlib = $.tizen.colorwidget.clrlib,
+				clrwidget = $.tizen.colorwidget.prototype,
+				clr = clrlib.HSVToHSL( hsv ),
+				hclr = clrlib.HSVToHSL( [hsv[0], 1.0, 1.0] ),
+				vclr = clrlib.HSVToHSL( [hsv[0], hsv[1], 1.0] );
 
-        this._ui.hue.selector.css({ left : this._ui.hue.eventSource.width() * hsv[0] / 360});
-        clrwidget._setElementColor.call(this, this._ui.hue.selector,  clr, "background");
-        if ($.mobile.browser.ie)
-            this._ui.hue.hue.find("*").css("opacity", hsv[1]);
-        else
-            this._ui.hue.hue.css("opacity", hsv[1]);
-        this._ui.hue.valMask.css("opacity", 1.0 - hsv[2]);
+			this._ui.hue.selector.css( { left : this._ui.hue.eventSource.width() * hsv[0] / 360} );
+			clrwidget._setElementColor.call( this, this._ui.hue.selector,  clr, "background" );
+			if ( $.mobile.browser.ie ) {
+				this._ui.hue.hue.find( "*" ).css( "opacity", hsv[1] );
+			} else {
+				this._ui.hue.hue.css( "opacity", hsv[1] );
+			}
 
-        this._ui.sat.selector.css({ left : this._ui.sat.eventSource.width() * hsv[1]});
-        clrwidget._setElementColor.call(this, this._ui.sat.selector,  clr, "background");
-        clrwidget._setElementColor.call(this, this._ui.sat.hue,      hclr, "background");
-        this._ui.sat.valMask.css("opacity", 1.0 - hsv[2]);
+			this._ui.hue.valMask.css( "opacity", 1.0 - hsv[2] );
 
-        this._ui.val.selector.css({ left : this._ui.val.eventSource.width() * hsv[2]});
-        clrwidget._setElementColor.call(this, this._ui.val.selector,  clr, "background");
-        clrwidget._setElementColor.call(this, this._ui.val.hue,      vclr, "background");
-        clrwidget._setColor.call(this, clrlib.RGBToHTML(clrlib.HSLToRGB(clr)));
-    },
+			this._ui.sat.selector.css( { left : this._ui.sat.eventSource.width() * hsv[1]} );
+			clrwidget._setElementColor.call( this, this._ui.sat.selector,  clr, "background" );
+			clrwidget._setElementColor.call( this, this._ui.sat.hue, hclr, "background" );
+			this._ui.sat.valMask.css( "opacity", 1.0 - hsv[2] );
 
-    _setDisabled: function(value) {
-        $.tizen.widgetex.prototype._setDisabled.call(this, value);
-        this._ui.container[value ? "addClass" : "removeClass"]("ui-disabled");
-        this._ui.hue.hue.huegradient("option", "disabled", value);
-        $.tizen.colorwidget.prototype._displayDisabledState.call(this, this._ui.container);
-    },
+			this._ui.val.selector.css( { left : this._ui.val.eventSource.width() * hsv[2]} );
+			clrwidget._setElementColor.call( this, this._ui.val.selector,  clr, "background" );
+			clrwidget._setElementColor.call( this, this._ui.val.hue, vclr, "background" );
+			clrwidget._setColor.call( this, clrlib.RGBToHTML( clrlib.HSLToRGB(clr) ) );
+		},
 
-    _setColor: function(clr) {
-        if ($.tizen.colorwidget.prototype._setColor.call(this, clr)) {
-            this.dragging_hsv = $.tizen.colorwidget.clrlib.RGBToHSV($.tizen.colorwidget.clrlib.HTMLToRGB(this.options.color));
-            this._updateSelectors(this.dragging_hsv);
-        }
-    }
-});
+		_setDisabled: function ( value ) {
+			$.tizen.widgetex.prototype._setDisabled.call( this, value );
+			this._ui.container[value ? "addClass" : "removeClass"]( "ui-disabled" );
+			this._ui.hue.hue.huegradient( "option", "disabled", value );
+			$.tizen.colorwidget.prototype._displayDisabledState.call( this, this._ui.container );
+		},
 
-$(document).bind("pagecreate create", function(e) {
-    $($.tizen.hsvpicker.prototype.options.initSelector, e.target)
-        .not(":jqmData(role='none'), :jqmData(role='nojs')")
-        .hsvpicker();
-});
+		_setColor: function ( clr ) {
+			if ( $.tizen.colorwidget.prototype._setColor.call( this, clr ) ) {
+				this.dragging_hsv = $.tizen.colorwidget.clrlib.RGBToHSV( $.tizen.colorwidget.clrlib.HTMLToRGB( this.options.color ) );
+				this._updateSelectors( this.dragging_hsv );
+			}
+		}
+	} );
 
-})(jQuery);
+	$( document ).bind( "pagecreate create", function ( e ) {
+		$( $.tizen.hsvpicker.prototype.options.initSelector, e.target )
+			.not( ":jqmData(role='none'), :jqmData(role='nojs')" )
+			.hsvpicker();
+	} );
+
+}( jQuery ) );

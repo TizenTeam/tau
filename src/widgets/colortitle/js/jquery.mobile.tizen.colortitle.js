@@ -48,46 +48,46 @@
 //                $("#mycolortitle").colortitle("option", "color", "#ABCDEF");
 //            Default: "#1a8039".
 
-(function( $, undefined ) {
+(function ( $, undefined ) {
 
-$.widget( "tizen.colortitle", $.tizen.colorwidget, {
-    options: {
-        initSelector: ":jqmData(role='colortitle')"
-    },
+	$.widget( "tizen.colortitle", $.tizen.colorwidget, {
+		options: {
+			initSelector: ":jqmData(role='colortitle')"
+		},
 
-    _htmlProto: {
-        ui: {
-            clrtitle: "#colortitle",
-            header:   "#colortitle-string"
-        }
-    },
+		_htmlProto: {
+			ui: {
+				clrtitle: "#colortitle",
+				header:   "#colortitle-string"
+			}
+		},
 
-    _create: function() {
-        this.element
-            .css("display", "none")
-            .after(this._ui.clrtitle);
+		_create: function () {
+			this.element
+				.css( "display", "none" )
+				.after( this._ui.clrtitle );
 
-    },
+		},
 
-    widget: function() { return this._ui.clrtitle; },
+		widget: function () { return this._ui.clrtitle; },
 
-    _setDisabled: function(value) {
-        $.tizen.widgetex.prototype._setDisabled.call(this, value);
-        this._ui.clrtitle[value ? "addClass" : "removeClass"]("ui-disabled");
-    },
+		_setDisabled: function ( value ) {
+			$.tizen.widgetex.prototype._setDisabled.call( this, value );
+			this._ui.clrtitle[value ? "addClass" : "removeClass"]( "ui-disabled" );
+		},
 
-    _setColor: function(clr) {
-        if ($.tizen.colorwidget.prototype._setColor.call(this, clr)) {
-            this._ui.header.text(this.options.color);
-            $(this._ui.header).parent().css("color", this.options.color);
-        }
-    }
-});
+		_setColor: function ( clr ) {
+			if ( $.tizen.colorwidget.prototype._setColor.call( this, clr ) ) {
+				this._ui.header.text( this.options.color );
+				$( this._ui.header ).parent().css( "color", this.options.color );
+			}
+		}
+	} );
 
-$(document).bind("pagecreate create", function(e) {
-    $($.tizen.colortitle.prototype.options.initSelector, e.target)
-        .not(":jqmData(role='none'), :jqmData(role='nojs')")
-        .colortitle();
-});
+	$( document ).bind( "pagecreate create", function ( e ) {
+		$( $.tizen.colortitle.prototype.options.initSelector, e.target )
+			.not( ":jqmData(role='none'), :jqmData(role='nojs')" )
+			.colortitle();
+	} );
 
-})(jQuery);
+}( jQuery ) );
