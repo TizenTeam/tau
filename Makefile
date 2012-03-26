@@ -51,7 +51,6 @@ LIBS_JS_FILES = jlayout/jquery.sizes.js \
 				jlayout/jlayout.flexgrid.js \
 				jlayout/jlayout.flow.js \
 				jlayout/jquery.jlayout.js \
-				domready.js \
                 $(NULL)
 
 JQUERY_MOBILE_CSS = submodules/jquery-mobile/compiled/jquery.mobile.structure.css \

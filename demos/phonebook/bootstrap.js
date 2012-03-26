@@ -211,7 +211,7 @@ S.css = {
 
 // auto-run function which loads the framework
 (function () {
-    domReady(function () {
+    $(document).ready(function () {
         var body = document.getElementsByTagName('body')[0];
         body.style.visibility = 'hidden';
 

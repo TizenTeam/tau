@@ -1,4 +1,4 @@
-domReady(function(){
+$(document).ready(function(){
     /* For phonebook demo, Load dummy data via AJAX */
     pb_dbsrc ="phonebook_data/contacts.js";
     pb_dbtable = $("#all_contacts_page ul").data("dbtable");

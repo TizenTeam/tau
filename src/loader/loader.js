@@ -253,7 +253,7 @@
 
 
 // Loader's jobs
-( function ( S, $, domReady, undefined ) {
+( function ( S, $, undefined ) {
 	S.getParams( );
 	S.loadTheme( );
 	S.setViewport( );
@@ -262,8 +262,9 @@
 	// Turn off JQM's auto initialization option.
 	// NOTE: This job must be done before domready.
 	$.mobile.autoInitializePage = false;
-	domReady( function ( ) {
+
+	$(document).ready( function ( ) {
 		$.mobile.initializePage( );
 		S.setDesktopDefaultFontSize( );
 	});
-} ( window.S, jQuery, window.domReady ) );
+} ( window.S, jQuery ) );

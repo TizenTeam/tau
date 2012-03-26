@@ -1,4 +1,4 @@
-domReady(function(){
+$(document).ready(function(){
 
 var selectedLineNumberElement = null;
 
