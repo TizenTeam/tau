@@ -9,7 +9,8 @@
 		<script src="@LIBDIR@/jquery.js"></script>
 		<script src="@LIBDIR@/tizen-web-ui-fw-libs.min.js"></script>
 		<script src="@LIBDIR@/tizen-web-ui-fw.min.js"
-			data-framework-theme="tizen-gray"></script>
+			data-framework-theme="tizen-gray"
+			data-framework-viewport-scale=false></script>
 
 		<!--NOTE:
 			Additional scripts and css files are to be placed here.
