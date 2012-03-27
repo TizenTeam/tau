@@ -400,7 +400,7 @@
 			this.images_hold = new Array();
 
 			$( this.element ).wrapInner('<div class="ui-imageslider"></div>');
-			$('img').wrap('<div class="ui-imageslider-bg"></div>');
+			$( this.element ).find('img').wrap('<div class="ui-imageslider-bg"></div>');
 
 			this.container = $( this.element ).find('.ui-imageslider');
 
