@@ -62,9 +62,9 @@
 
 /************************/
 
-.ui-listview { 
-	margin: 0; 
-	counter-reset: listnumbering; 
+.ui-listview {
+	margin: 0;
+	counter-reset: listnumbering;
 	border-top-width: 1px;
 	border-top-style: solid;
 
@@ -74,89 +74,89 @@
 	li.ui-btn-down-s > .ui-li > .ui-btn-text > a.ui-link-inherit {
 		font-size: @font_size_list_main_text;
 	}
-	
+
 	li.ui-btn > .ui-btn-hastxt > .ui-btn-text.ui-btn-text-padding-right {
 		padding-right: 0 * @unit_base;	// Clear default button padding-right
 	}
-	
-	&> .ui-li { 
+
+	&> .ui-li {
 		// list item separator line
-		border-bottom-width: 1px; 
-		border-bottom-style: solid; 
+		border-bottom-width: 1px;
+		border-bottom-style: solid;
 	}
 }
 
 .ui-content {
-	.ui-listview { 
-		margin: -15px; 
+	.ui-listview {
+		margin: -15px;
 
-		.ui-listview { 
-			margin: 0; 
+		.ui-listview {
+			margin: 0;
 		}
 
 	}
-	.ui-listview-inset { 
-		margin: 1em 0;  
+	.ui-listview-inset {
+		margin: 1em 0;
 	}
 }
-.ui-listview, 
-.ui-li { 
-	list-style:none; 
-	padding:0; 
+.ui-listview,
+.ui-li {
+	list-style:none;
+	padding:0;
 }
-.ui-li, 
-.ui-li.ui-field-contain { 
-	display: block; 
-	margin:0; 
-	position: relative; 
-	overflow: visible; 
-	text-align: left;  
+.ui-li,
+.ui-li.ui-field-contain {
+	display: block;
+	margin:0;
+	position: relative;
+	overflow: visible;
+	text-align: left;
 }
 .ui-li {
 	.ui-btn {
 		// NOTE: position(:absolute), right(:16px) is defined in jquery.mobile.button.less
 		//       Have to cross-check with Wongi!
-		
+
 		// vertical center
 		top: 50%;
 		margin-top: -0.8em;	// TODO: guessed value. Fix this with Wongi.
 	}
-	.ui-btn-text { 
-		position: relative; 
-	//	z-index: 1; 
+	.ui-btn-text {
+		position: relative;
+	//	z-index: 1;
 
-		a.ui-link-inherit { 
-			text-overflow: ellipsis; 
-			overflow: hidden; 
-			white-space: nowrap;  
+		a.ui-link-inherit {
+			text-overflow: ellipsis;
+			overflow: hidden;
+			white-space: nowrap;
 		}
 	}
-	&:last-child, 
-	&.ui-field-contain:last-child { 
-		border-bottom-width: 1px; 
+	&:last-child,
+	&.ui-field-contain:last-child {
+		border-bottom-width: 1px;
 	}
-	&>.ui-btn-inner { 
-		display: block; 
-		position: relative; 
-		padding: 0; 
-		border-width:0; 
+	&>.ui-btn-inner {
+		display: block;
+		position: relative;
+		padding: 0;
+		border-width:0;
 	}
-	.ui-btn-inner a.ui-link-inherit, 
-	&.ui-li-static { 
+	.ui-btn-inner a.ui-link-inherit,
+	&.ui-li-static {
 		padding: .7em 15px;
-		display: block; 
+		display: block;
 	}
 }
-.ui-li-divider, 
-.ui-li-static {  
-	font-weight: @list-font-weight;  
+.ui-li-divider,
+.ui-li-static {
+	font-weight: @list-font-weight;
 	padding: 0px @list-li-padding-horizontal;
 }
-.ui-li-static { 
-	font-size: @font_size_list_main_text;  
+.ui-li-static {
+	font-size: @font_size_list_main_text;
 }
-.ui-li-divider { 
-	counter-reset: listnumbering;  
+.ui-li-divider {
+	counter-reset: listnumbering;
 	font-size: @list-font-size-divider;
 	// text align: bottom
 	padding-top: @list-font-size-divider;
@@ -167,18 +167,18 @@
 
 
 // Ordered list
-ol.ui-listview .ui-link-inherit:before, 
-ol.ui-listview .ui-li-static:before, 
-.ui-li-dec { 
-	font-size: .8em; 
-	display: inline-block; 
-	padding-right: .3em; 
+ol.ui-listview .ui-link-inherit:before,
+ol.ui-listview .ui-li-static:before,
+.ui-li-dec {
+	font-size: .8em;
+	display: inline-block;
+	padding-right: .3em;
 	font-weight: normal;
-	counter-increment: listnumbering; 
-	content: counter(listnumbering) ". "; 
+	counter-increment: listnumbering;
+	content: counter(listnumbering) ". ";
 }
 ol.ui-listview {
-	.ui-li-jsnumbering:before { 
+	.ui-li-jsnumbering:before {
 		content: "" !important; /* to avoid chance of duplication */
 	}
 }
@@ -186,177 +186,177 @@ ol.ui-listview {
 // Detailed li styles
 
 .ui-listview-inset {
-	.ui-li { 
-		border-right-width: 1px; 
-		border-left-width: 1px; 
+	.ui-li {
+		border-right-width: 1px;
+		border-left-width: 1px;
 	}
 }
 .ui-li-has-thumb {
-	.ui-btn-inner a.ui-link-inherit, 
-	&.ui-li-static  { 
+	.ui-btn-inner a.ui-link-inherit,
+	&.ui-li-static  {
 		min-height: 60 * @unit_base;
 		padding-left: 100 * @unit_base;
 	}
 }
 .ui-li-has-icon {
-	.ui-btn-inner a.ui-link-inherit, 
-	&.ui-li-static {  
-		min-height: 20px; 
-		padding-left: 40px; 
+	.ui-btn-inner a.ui-link-inherit,
+	&.ui-li-static {
+		min-height: 20px;
+		padding-left: 40px;
 	}
 }
 .ui-li-has-count {
-	.ui-btn-inner a.ui-link-inherit, 
-	&.ui-li-static { 
-		padding-right: 45px; 
+	.ui-btn-inner a.ui-link-inherit,
+	&.ui-li-static {
+		padding-right: 45px;
 	}
 }
 .ui-li-has-arrow {
-	.ui-btn-inner a.ui-link-inherit, 
-	&.ui-li-static { 
-		padding-right: 30px; 
+	.ui-btn-inner a.ui-link-inherit,
+	&.ui-li-static {
+		padding-right: 30px;
 	}
-	&.ui-li-has-count .ui-btn-inner a.ui-link-inherit, 
-	&.ui-li-static.ui-li-has-count { 
-		padding-right: 75px; 
+	&.ui-li-has-count .ui-btn-inner a.ui-link-inherit,
+	&.ui-li-static.ui-li-has-count {
+		padding-right: 75px;
 	}
 }
-.ui-li-heading { 
-	font-size: 16px; 
-	font-weight: bold; 
-	display: block; 
-	margin: .6em 0; 
-	text-overflow: ellipsis; 
-	overflow: hidden; 
-	white-space: nowrap;  
+.ui-li-heading {
+	font-size: 16px;
+	font-weight: bold;
+	display: block;
+	margin: .6em 0;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
 }
-.ui-li-desc {  
-	font-size: 12px; 
-	font-weight: normal; 
-	display: block; 
-	margin: -.5em 0 .6em; 
-	text-overflow: ellipsis; 
-	overflow: hidden; 
-	white-space: nowrap; 
+.ui-li-desc {
+	font-size: 12px;
+	font-weight: normal;
+	display: block;
+	margin: -.5em 0 .6em;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
 }
-.ui-li-thumb, 
-.ui-li-icon { 
-	position: absolute; 
-	left: 1px; 
-	top: 0; 
-	max-height: @list-bigicon-size2; 
-	max-width: @list-bigicon-size2; 
+.ui-li-thumb,
+.ui-li-icon {
+	position: absolute;
+	left: 1px;
+	top: 0;
+	max-height: @list-bigicon-size2;
+	max-width: @list-bigicon-size2;
 }
-//.ui-li-icon { 
-//	max-height: 40px; 
-//	max-width: 40px; 
-//	left: 10px; 
-//	top: .9em; 
+//.ui-li-icon {
+//	max-height: 40px;
+//	max-width: 40px;
+//	left: 10px;
+//	top: .9em;
 //}
-//.ui-li-thumb, 
-//.ui-li-icon, 
-//.ui-li-content { 
-//	float: left; 
-//	margin-right: 10px; 
+//.ui-li-thumb,
+//.ui-li-icon,
+//.ui-li-content {
+//	float: left;
+//	margin-right: 10px;
 //}
-.ui-li-aside { 
-	float: right; 
-	width: 50%; 
-	text-align: right; 
-	margin: .3em 0; 
+.ui-li-aside {
+	float: right;
+	width: 50%;
+	text-align: right;
+	margin: .3em 0;
 }
 @media all and (min-width: 480px){
 	 .ui-li-aside { width: 45%; }
-}	 
-.ui-li-divider { 
-	cursor: default; 
+}
+.ui-li-divider {
+	cursor: default;
 }
 .ui-li-has-alt {
-	.ui-btn-inner a.ui-link-inherit, 
-	&.ui-li-static { 
-		padding-right: 95px; 
+	.ui-btn-inner a.ui-link-inherit,
+	&.ui-li-static {
+		padding-right: 95px;
 	}
 }
 .ui-li-has-count {
-	.ui-li-count { 
-		position: absolute; 
-		font-size: 11px; 
-		font-weight: bold; 
-		padding: .2em .5em; 
-		top: 50%; 
-		margin-top: -.9em; 
-		right: 38px; 
+	.ui-li-count {
+		position: absolute;
+		font-size: 11px;
+		font-weight: bold;
+		padding: .2em .5em;
+		top: 50%;
+		margin-top: -.9em;
+		right: 38px;
 	}
 }
-.ui-li-divider .ui-li-count, 
-.ui-li-static .ui-li-count { 
-	right: 10px; 
+.ui-li-divider .ui-li-count,
+.ui-li-static .ui-li-count {
+	right: 10px;
 }
-.ui-li-has-alt .ui-li-count { 
-	right: 55px; 
+.ui-li-has-alt .ui-li-count {
+	right: 55px;
 }
-.ui-li-link-alt { 
-	position: absolute; 
-	width: 40px; 
-	height: 100%; 
-	border-width: 0; 
-	border-left-width: 1px; 
-	top: 0; 
-	right: 0; 
-	margin: 0; 
-	padding: 0; 
-	z-index: 2; 
+.ui-li-link-alt {
+	position: absolute;
+	width: 40px;
+	height: 100%;
+	border-width: 0;
+	border-left-width: 1px;
+	top: 0;
+	right: 0;
+	margin: 0;
+	padding: 0;
+	z-index: 2;
 
-	.ui-btn { 
-		overflow: hidden; 
-		position: absolute; 
-		right: 8px; 
-		top: 50%; 
-		margin: -11px 0 0 0; 
-		border-bottom-width: 1px; 
+	.ui-btn {
+		overflow: hidden;
+		position: absolute;
+		right: 8px;
+		top: 50%;
+		margin: -11px 0 0 0;
+		border-bottom-width: 1px;
 		z-index: -1;
 	}
-	.ui-btn-inner { 
-		padding: 0; 
-		height: 100%; 
-		position: absolute; 
-		width: 100%; 
-		top: 0; 
+	.ui-btn-inner {
+		padding: 0;
+		height: 100%;
+		position: absolute;
+		width: 100%;
+		top: 0;
 		left: 0;
 	}
-	.ui-btn .ui-icon { 
-		right: 50%; 
-		margin-right: -9px;  
+	.ui-btn .ui-icon {
+		right: 50%;
+		margin-right: -9px;
 	}
 }
-.ui-listview * .ui-btn-inner > .ui-btn > .ui-btn-inner { 
-	border-top: 0px; 
+.ui-listview * .ui-btn-inner > .ui-btn > .ui-btn-inner {
+	border-top: 0px;
 }
 
-.ui-listview-filter { 
-	border-width: 0; 
-	overflow: hidden; 
+.ui-listview-filter {
+	border-width: 0;
+	overflow: hidden;
 	margin: -15px -15px 15px -15px;
 
-	.ui-input-search { 
-		margin: 5px; 
-		width: auto; 
-		display: block; 
+	.ui-input-search {
+		margin: 5px;
+		width: auto;
+		display: block;
 	}
 }
-.ui-listview-filter-inset { 
-	margin: -15px -5px -15px -5px; 
-	background: transparent; 
+.ui-listview-filter-inset {
+	margin: -15px -5px -15px -5px;
+	background: transparent;
 }
 .ui-li.ui-screen-hidden {
 	display:none;
 }
-.ui-li-sub, 
-.ui-li-sub-setting { 
-	float: right; 
-	text-align: right; 
-	font-size: @font_size_list_sub_text; 
-	margin: .3em 0; 
+.ui-li-sub,
+.ui-li-sub-setting {
+	float: right;
+	text-align: right;
+	font-size: @font_size_list_sub_text;
+	margin: .3em 0;
 }
 
 /* listview: size for li with a link */
@@ -410,9 +410,9 @@ ol.ui-listview {
 
 .LESStext-sub-1line() {
 	.ui-li-text-sub {
-		float: right; 
-		text-align: right; 
-		font-size: @font_size_list_sub_text; 
+		float: right;
+		text-align: right;
+		font-size: @font_size_list_sub_text;
 		color: @color_list_sub_text_default;
 		top: 50%;
 		margin-top: -0.5em;
@@ -477,7 +477,7 @@ ol.ui-listview {
 .LESStext-sub-2line-left(@left:@list-li-padding-horizontal, @top: @list-li-top-padding+@list-li-main-line-height) {
 	.ui-li-text-sub {
 		position: absolute;
-		font-size: @font_size_list_sub_text; 
+		font-size: @font_size_list_sub_text;
 		line-height: @list-li-sub-line-height;
 		color: @color_list_sub_text_default;
 		left: @left;
@@ -492,7 +492,7 @@ ol.ui-listview {
 .LESStext-sub-2line-right(@right:@list-li-padding-horizontal, @top: @list-li-top-padding) {
 	.ui-li-text-sub2 {
 		position: absolute;
-		font-size: @font_size_list_sub_text; 
+		font-size: @font_size_list_sub_text;
 		line-height: @list-li-sub-line-height;
 		color: @color_list_sub_text_default;
 		right: @right;
@@ -534,7 +534,7 @@ ol.ui-listview {
 .LESStext-sub-3line-left1(@left:@list-li-padding-horizontal, @top: @list-li-top-padding+@list-li-main-line-height) {
 	.ui-li-text-sub1 {
 		position: absolute;
-		font-size: @font_size_list_sub_text; 
+		font-size: @font_size_list_sub_text;
 		line-height: @list-li-sub-line-height;
 		color: @color_list_sub_text_default;
 		left: @left;
@@ -548,7 +548,7 @@ ol.ui-listview {
 .LESStext-sub-3line-left2(@left:@list-li-padding-horizontal, @top: @list-li-top-padding+@list-li-main-line-height) {
 	.ui-li-text-sub2 {
 		position: absolute;
-		font-size: @font_size_list_sub_text; 
+		font-size: @font_size_list_sub_text;
 		line-height: @list-li-sub-line-height;
 		color: @color_list_sub_text_default;
 		left: @left;
@@ -563,7 +563,7 @@ ol.ui-listview {
 .LESStext-email-sub-3line-sub1(@left:2 * @list-li-padding-horizontal + @list-checkbox-size, @top:@list-li-email-top-padding + @list-li-main-line-height + @list-li-email-subline-top-padding) {
 	.ui-li-text-sub1 {
 		position: absolute;
-		font-size: @font_size_list_sub_text; 
+		font-size: @font_size_list_sub_text;
 		line-height: @list-li-email-sub-line-height;
 		color: @color_list_name_text;
 		left: @left;
@@ -577,7 +577,7 @@ ol.ui-listview {
 .LESStext-email-sub-3line-sub2(@left:2 * @list-li-padding-horizontal + @list-checkbox-size, @top:@list-li-email-top-padding + @list-li-main-line-height + @list-li-email-sub-line-height) {
 	.ui-li-text-sub2 {
 		position: absolute;
-		font-size: @font_size_list_sub_text; 
+		font-size: @font_size_list_sub_text;
 		line-height: @list-li-email-sub-line-height;
 		color: @color_list_contents_text;
 		left: @left;
@@ -591,7 +591,7 @@ ol.ui-listview {
 .LESStext-email-sub-3line-sub3(@right:@list-li-padding-horizontal, @top: @list-li-email-top-padding + @list-li-main-line-height + @list-li-email-sub-line-height) {
 	.ui-li-text-sub3 {
 		position: absolute;
-		font-size: @font_size_list_sub_text; 
+		font-size: @font_size_list_sub_text;
 		line-height: @list-li-email-sub-line-height;
 		color: @color_list_sub_text_default;
 		right: @right;
@@ -723,7 +723,7 @@ ol.ui-listview {
 		right: auto;
 		left: @left;
 		top: @top;
-		margin: -1.1em 0 0 -8*@unit_base; 
+		margin: -1.1em 0 0 -8*@unit_base;
 	}
 }
 .LESSimg-bigicon(@size:@list-bigicon-size) {
@@ -788,14 +788,14 @@ ul.ui-listview {
 		padding : 0px;
 		padding-left : 16px;
 		padding-right : 16px;
-		
+
 		&> div.ui-btn {
 			position : absolute;
 			padding : 0px;
 			margin-top : 0px;
 			width : 336px;
 			top : 18px;
-			
+
 			&> span.ui-btn-hastxt {
 				padding-top : 0.4em;
 			}
@@ -804,7 +804,7 @@ ul.ui-listview {
 		&> div.ui-btn:nth-child(1) {
 			left : 16px;
 		}
-		
+
 		&> div.ui-btn:nth-child(2) {
 			left : 372px;
 		}
@@ -828,7 +828,7 @@ ul.ui-listview {
 		.LESStext-main-1line;
 		.LESStoggleswitch-right;
 	}
-	
+
 	&> li.ui-li-1line-bigicon1,
 	&> li.ui-li-1line-bigicon2,
 	&> li.ui-li-1line-bigicon4,
@@ -955,7 +955,7 @@ ul.ui-listview {
 	&> li.ui-li-2line-bigicon2 {
 		.LESStext-sub-2line-right;
 	}
-	
+
 	&> li.ui-li-2line-setting,
 	&> li.ui-li-2line-toggle-setting,
 	&> li.ui-li-2line-btn-setting,
@@ -1224,7 +1224,7 @@ ul.ui-listview {
 		font-size: 36 * @unit_base;
 		padding: 16 * @unit_base;
 
-		h1.ui-li-heading { 
+		h1.ui-li-heading {
 			font-size: 48 * @unit_base;
 			margin-top: 0 * @unit_base;
 			margin-bottom: 0 * @unit_base;
@@ -1323,7 +1323,7 @@ ul.ui-listview {
 	&> li.ui-li-email-name1-btn-warning-attach,
 	&> li.ui-li-email-name1-warning-attach {
 		.LESStext-email-sub1-setting;
-	}	
+	}
 
 
 	// Dialogue list
@@ -1331,13 +1331,13 @@ ul.ui-listview {
 		.LESStext-sub-1line-left;
 		.LESStext-main-1line-right;
 	}
-	&> li.ui-li-1line-leftsub2 { 
+	&> li.ui-li-1line-leftsub2 {
 		.LESSli-reset-position-1line;
 		.LESStext-sub-1line-left;
 		.LESStext-main-1line-right;
 		.LESSimg-bigicon-right(16 * @unit_base);
 	}
-	&> li.ui-li-4-2-3 { 
+	&> li.ui-li-4-2-3 {
 		.LESSli-reset-position;
 		.LESStext-main-2line;
 		.LESStext-sub-2line-left;
@@ -1347,7 +1347,7 @@ ul.ui-listview {
 			max-width: 95%;
 		}
 	}
-	&> li.ui-li-4-2-10 { 
+	&> li.ui-li-4-2-10 {
 		.LESSli-reset-position;
 		.LESStext-main-2line(@list-li-padding-horizontal, @list-li-top-padding + @list-li-sub-line-height);
 		.LESStext-sub-2line-left(@list-li-padding-horizontal, @list-li-top-padding);
@@ -1357,19 +1357,19 @@ ul.ui-listview {
 		}
 		.LESScheckbox-right;
 	}
-	
+
 	&> li.ui-li-4-2-11 {
 		.LESStext-sub-1line-left;
 		.LESStext-main-1line-right;
-		
-		.ui-li-text-main-right	
+
+		.ui-li-text-main-right
 		{
 			display: inline-block;
 			word-wrap:normal;
 		}
 	}
-	
-	&> li.ui-li-3line-dgroup1 { 
+
+	&> li.ui-li-3line-dgroup1 {
 		.LESSli-reset-position-3line;
 		.LESStext-main-3line(@list-li-padding-horizontal, @list-li-top-padding);
 		.LESStext-sub-3line-left1(@list-li-padding-horizontal, @list-li-top-padding + @list-li-sub-line-height);
@@ -1380,7 +1380,7 @@ ul.ui-listview {
 	&> li.ui-li-4-3-2 {
 		height : 190px;
 		padding : 0px;
-	
+
 		.ui-li-thumb {
 			float : left;
 			height : 128px;
@@ -1388,9 +1388,9 @@ ul.ui-listview {
 			width : 128px;
 			max-width: 128px;
 			left: 32px;
-			top: 28px;			
+			top: 28px;
 		}
-		
+
 		span.contact_name_field {
 			position : absolute;
 			font-size : @list-dialogue-font-size-main;
@@ -1399,7 +1399,7 @@ ul.ui-listview {
 			top : 32px;
 			height : 54px;
 		}
-		
+
 		span.contact_subname_field {
 			position : absolute;
 			font-size : @list-dialogue-font-size-sub;
@@ -1407,7 +1407,7 @@ ul.ui-listview {
 			left : 184px;
 			top : 94px;
 		}
-		
+
 		span.companyname_field {
 			position : absolute;
 			font-size : @list-dialogue-font-size-sub;
@@ -1426,7 +1426,7 @@ ul.ui-listview {
 		position: absolute;
 		&> img
 		{
-			width:128px; 
+			width:128px;
 			height:128px;
 		}
 	}
@@ -1439,13 +1439,13 @@ ul.ui-listview {
 		width : 790px;
 		padding-left: 12px;
 		padding-right: 0px;
-		
+
 		&> .ui-field-contain
 		{
 			margin:0;
 			padding : 8px;
 			width : 782px;
-			
+
 			&> input
 			{
 				border : none;
@@ -1453,7 +1453,7 @@ ul.ui-listview {
 				width : 782px;
 				padding : 0px;
 			}
-			
+
 			/* wongi_1215 : Default Text */
 			&>div.ui-input-default-text {
 				position: absolute;
@@ -1463,7 +1463,7 @@ ul.ui-listview {
 				margin: 0px;
 				color: @color_dialogue_editor_default_text;
 			}
-			
+
 			&>div.ui-input-default-text.ui-input-default-hidden {
 				display : none;
 			}
@@ -1489,7 +1489,7 @@ ul.ui-listview {
 		{
 			border-right: 1px @color_dialogue_editor_border solid;
 			width: 160px;
-			height: 130px;	
+			height: 130px;
 		}
 
 		&> div div.ui-li-dialogue-editor-2-label
@@ -1500,7 +1500,7 @@ ul.ui-listview {
 			top:50%;
 			margin-top:-16px;
 		}
-		
+
 		&> .ui-field-contain
 		{
 			margin:0;
@@ -1508,8 +1508,8 @@ ul.ui-listview {
 			position:absolute;
 			top:50%;
 			margin-top:-16px;
-			left : 200px; 
-			
+			left : 200px;
+
 			&> input
 			{
 				border : none;
@@ -1517,7 +1517,7 @@ ul.ui-listview {
 				width : 676px;
 				padding : 0px;
 			}
-			
+
 			/* wongi_1215 : Default Text */
 			&>div.ui-input-default-text {
 				position: absolute;
@@ -1526,35 +1526,35 @@ ul.ui-listview {
 				margin: 0px;
 				color: @color_dialogue_editor_default_text;
 			}
-			
+
 			&>div.ui-input-default-text.ui-input-default-hidden {
 				display : none;
 			}
 		}
-	}	
+	}
 
-	// Dialogue 
+	// Dialogue
 	&> li.ui-li-dialogue {
 		border-left: @list-li-dialogue-width @color_dialogue_editor_border solid;
 		border-top-width: 0px;
 	}
-	
+
 	&> li.ui-li-dialogue.ui-li-divider {
-		height: 32px;
+		height: 32 * @unit_base;
 		padding : 0px;
 	}
 
 	&> li.ui-li-divider {
-		height: 32px;	/* wongi_1206 */
+		height: 32 * @unit_base;
 		padding : 0px;
 	}
 
-	&> li.ui-li-group-title {	/* wongi_1206 */
-		padding-top : 32px;
+	&> li.ui-li-group-title {
+		padding-top : 32 * @unit_base;
 	}
-		
-	&> li.ui-li-group-title span {	/* wongi_1206 */
-		padding-left : 16px;
+
+	&> li.ui-li-group-title span {
+		padding-left : 16 * @unit_base;
 	}
 
 	&> li.ui-li-3-button {
@@ -1562,7 +1562,7 @@ ul.ui-listview {
 		padding-right : 8px;
 		height : 60px;
 	}
-	
+
 	&> li.ui-li-3-button div.ui-btn {
 		margin-left : 8px;
 		margin-right : 8px;
@@ -1576,7 +1576,7 @@ ul.ui-listview {
 			padding-top : 0.6em;
 		}
 	}
-	
+
 	&> li.ui-li-3-button div.ui-btn:nth-child(1) {
 		left : 0%;
 	}
@@ -1667,7 +1667,7 @@ ul.ui-listview {
 
 /* Odd iPad positioning issue. */
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
-    .ui-li .ui-btn-text { 
-		overflow:  visible; 
+    .ui-li .ui-btn-text {
+		overflow:  visible;
 	}
 }
