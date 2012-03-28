@@ -67,98 +67,112 @@
 //     days: array of day names, Sunday first; defaults to English day
 //           names; the first letters are used as text for the checkboxes
 
-(function ($, window, undefined) {
-    $.widget("tizen.dayselector", $.mobile.widget, {
-        options: {
-            initSelector: 'fieldset:jqmData(role="dayselector")',
-            theme: null,
-            type: 'horizontal',
-            days: ['Sunday',
-                   'Monday',
-                   'Tuesday',
-                   'Wednesday',
-                   'Thursday',
-                   'Friday',
-                   'Saturday']
-        },
+(function ( $, window, undefined ) {
+	$.widget( "tizen.dayselector", $.mobile.widget, {
+		options: {
+			initSelector: 'fieldset:jqmData(role="dayselector")',
+			theme: null,
+			type: 'horizontal',
+			days: ['Sunday',
+			       'Monday',
+			       'Tuesday',
+			       'Wednesday',
+			       'Thursday',
+			       'Friday',
+			       'Saturday']
+		},
 
-        defaultTheme: 'c',
+		defaultTheme: 'c',
 
-        _create: function () {
-            this.element.addClass('ui-dayselector');
+		_create: function () {
+			var days,
+				parentId,
+				i,
+				day,
+				letter,
+				id,
+				labelClass,
+				checkbox,
+				label;
 
-            this.options.type = this.element.jqmData('type') || this.options.type;
+			this.element.addClass( 'ui-dayselector' );
 
-            this.options.theme = this.element.jqmData('theme') ||
-                                 this.options.theme ||
-                                 this.element.closest(':jqmData(theme)').jqmData('theme') ||
-                                 this.defaultTheme;
+			this.options.type = this.element.jqmData( 'type' ) || this.options.type;
 
-            var days = this.options.days;
+			this.options.theme = this.element.jqmData( 'theme' ) ||
+									this.options.theme ||
+									this.element.closest( ':jqmData(theme)').jqmData('theme' ) ||
+									this.defaultTheme;
 
-            this.element.attr('data-' + $.mobile.ns + 'type', this.options.type);
+			days = this.options.days;
 
-            var parentId = this.element.attr('id') ||
-                           'dayselector' + (new Date()).getTime();
+			this.element.attr( 'data-' + $.mobile.ns + 'type', this.options.type );
 
-            for (var i = 0; i < days.length; i++) {
-                var day = days[i];
-                var letter = day.slice(0, 1);
-				if ( Globalize ) {
+			parentId = this.element.attr( 'id' ) ||
+							'dayselector' + ( new Date() ).getTime();
+
+			for ( i = 0; i < days.length; i++ ) {
+				day = days[i];
+				letter = day.slice(0, 1);
+
+				if ( window.Globalize ) {
 					//TODO may some modification required to support
 					//	start week day difference upon cultures.
-					letter = Globalize.culture().calendars.standard.days.namesShort[i];
+					letter = window.Globalize.culture().calendars.standard.days.namesShort[i];
 				}
-                var id = parentId + '_' + i;
-                var labelClass = 'ui-dayselector-label-' + i;
+				id = parentId + '_' + i;
+				labelClass = 'ui-dayselector-label-' + i;
 
-                var checkbox = $('<input type="checkbox"/>')
-                               .attr('id', id)
-                               .attr('value', i);
+				checkbox = $( '<input type="checkbox"/>' )
+							.attr( 'id', id )
+							.attr( 'value', i );
 
-                var label = $('<label>' + letter + '</label>')
-                            .attr('for', id)
-                            .addClass(labelClass);
+				label = $( '<label>' + letter + '</label>' )
+						.attr( 'for', id )
+						.addClass( labelClass );
 
-                this.element.append(checkbox);
-                this.element.append(label);
-            }
+				this.element.append( checkbox );
+				this.element.append( label );
+			}
 
-            this.checkboxes = this.element.find(':checkbox')
-                                          .checkboxradio({theme: this.options.theme});
+			this.checkboxes = this.element
+								.find( ':checkbox' )
+								.checkboxradio( { theme: this.options.theme } );
 
-            this.element.controlgroup({excludeInvisible: false});
-        },
+			this.element.controlgroup( { excludeInvisible: false } );
+		},
 
-        _setOption: function(key, value) {
-            if (key === "disabled")
-                this._setDisabled(value);
-        },
+		_setOption: function ( key, value ) {
+			if ( key === "disabled" ) {
+				this._setDisabled( value );
+			}
+		},
 
-        _setDisabled: function(value) {
-            $.Widget.prototype._setOption.call(this, "disabled", value);
-            this.element[value ? "addClass" : "removeClass"]("ui-disabled");
-        },
+		_setDisabled: function ( value ) {
+			$.Widget.prototype._setOption.call(this, "disabled", value);
+			this.element[value ? "addClass" : "removeClass"]("ui-disabled");
+		},
 
-        value: function () {
-            var values = this.checkboxes.filter(':checked').map(function () {
-                return this.value;
-            }).get();
+		value: function () {
+			var values = this.checkboxes.filter( ':checked' ).map( function () {
+				return this.value;
+			} ).get();
 
-            return values;
-        },
+			return values;
+		},
 
-        selectAll: function () {
-            this.checkboxes.attr('checked', 'checked')
-                           .checkboxradio('refresh');
-        }
+		selectAll: function () {
+			this.checkboxes
+				.attr( 'checked', 'checked' )
+				.checkboxradio( 'refresh' );
+		}
 
-    }); /* End of Widget */
+	} ); /* End of Widget */
 
-    // auto self-init widgets
-    $(document).bind("pagebeforecreate", function (e) {
-        var elts = $($.tizen.dayselector.prototype.options.initSelector, e.target);
-        elts.not(":jqmData(role='none'), :jqmData(role='nojs')").dayselector();
-    });
+	// auto self-init widgets
+	$( document ).bind( "pagebeforecreate", function ( e ) {
+		var elts = $( $.tizen.dayselector.prototype.options.initSelector, e.target );
+		elts.not( ":jqmData(role='none'), :jqmData(role='nojs')" ).dayselector();
+	} );
 
-})(jQuery, this);
+}( jQuery, this ) );
