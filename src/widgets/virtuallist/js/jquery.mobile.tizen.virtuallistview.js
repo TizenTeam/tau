@@ -35,12 +35,12 @@
  *		data-template : jQuery.template ID that populate into virtual list 
  *		data-dbtable : DB Table name. It used as window[DB NAME]. Loaded data should be converted as window object.
  *		data-dbkey : Unique key of DB Table. To sync each element on virtual list with DB table. 
+ *		data-row : Optional. Set number of <li> elements that are used for data handling. 
  *		
  *		ID : <UL> element that has "data-role=virtuallist" must have ID attribute.
  *		Class : <UL> element that has "data-role=virtuallist" should have "vlLoadSuccess" class to guaranty DB loading is completed. 
  *
- *
- * APIs:
+ * * APIs:
  *
  *		create ( void )
  *			: API to call _create method. API for AJAX or DB loading callback.
@@ -63,7 +63,7 @@
  *			</li>
  *		</script>
  *
- *		<ul id="virtuallist-normal_3_2_7_ul" data-role="virtuallistview" data-template="tmp-3-2-7" data-dbtable="JSON_DATA">
+ *		<ul id="virtuallist-normal_3_2_7_ul" data-role="virtuallistview" data-template="tmp-3-2-7" data-dbtable="JSON_DATA" data-row="100">
  *		</ul>
  *
  */
@@ -73,8 +73,6 @@
 
 	/* Code for Virtual List Demo */
 	var listCountPerPage = {},	/* Keeps track of the number of lists per page UID. This allows support for multiple nested list in the same page. https://github.com/jquery/jquery-mobile/issues/1617 */
-		INIT_LIST_NUM = 100,
-		PAGE_BUF = ( INIT_LIST_NUM / 2 ),
 		TOTAL_ITEMS = 0,
 		LINE_H = 0,
 		TITLE_H = 0,
@@ -82,9 +80,10 @@
 		NO_SCROLL = 0,					/* ENUM */
 		SCROLL_DOWN = 1,				/* ENUM */
 		SCROLL_UP = -1,					/* ENUM */
+		MINIMUM_ROW = 20,
 		direction = NO_SCROLL,
-		first_index = 0,				//first id of <li> element.
-		last_index = INIT_LIST_NUM - 1,	//last id of <li> element.
+		first_index,
+		last_index,
 		num_top_items = 0;				//By scroll move, number of hidden elements.
 
 	$.widget( "tizen.virtuallistview", $.mobile.widget, {
@@ -102,6 +101,8 @@
 			template : "",
 			dbkey: false,			/* Data's unique Key */
 			scrollview: false,
+			row: 100,
+			page_buf: 50,
 			initSelector: ":jqmData(role='virtuallistview')"
 		},
 
@@ -128,7 +129,7 @@
 				i,
 				dataTable = data,
 				myTemplate = $( "#" + template ),
-				lastIndex = ( INIT_LIST_NUM > data.length ? data.length : INIT_LIST_NUM ),
+				lastIndex = ( o.row > data.length ? data.length : o.row ),
 				htmlData;
 
 			for ( i = 0; i < lastIndex; i++ ) {
@@ -338,7 +339,7 @@
 
 			// Move items
 			if ( direction == SCROLL_DOWN ) {
-				if ( cur_num_top_itmes > PAGE_BUF ) {
+				if ( cur_num_top_itmes > o.page_buf ) {
 					if ( last_index + velocity > TOTAL_ITEMS ) {
 						velocity = TOTAL_ITEMS - last_index - 1;
 					}
@@ -358,7 +359,7 @@
 					$( document ).unbind( "touchstart.virtuallist" );
 				}
 			} else if ( direction == SCROLL_UP ) {
-				if ( cur_num_top_itmes <= PAGE_BUF ) {
+				if ( cur_num_top_itmes <= o.page_buf ) {
 					if ( first_index < velocity ) {
 						velocity = first_index;
 					}
@@ -378,7 +379,7 @@
 					$( document ).unbind( "touchstart.virtuallist" );
 				}
 
-				if ( first_index < PAGE_BUF ) {
+				if ( first_index < o.page_buf ) {
 					num_top_items = first_index;
 				}
 			}
@@ -393,7 +394,7 @@
 			TOTAL_ITEMS = newArray.length;
 			direction = NO_SCROLL;
 			first_index = 0;
-			last_index = INIT_LIST_NUM - 1;
+			last_index = o.row - 1;
 
 			t._pushData( ( o.template ), newArray );
 
@@ -471,6 +472,17 @@
 				o.scrollview = false;
 			}
 
+			/* Init list and page buf */
+			if ( $el.data( "row" ) ) {
+				o.row = $el.data( "row" );
+
+				if ( o.row < MINIMUM_ROW ) {
+					o.row = MINIMUM_ROW;
+				}
+
+				o.page_buf = parseInt( ( o.row / 2 ), 10 );
+			}
+
 			/* After DB Load complete, Init Vritual list */
 			if ( $( o.id ).hasClass( "vlLoadSuccess" ) ) {
 				$( o.id ).empty();
@@ -490,6 +502,9 @@
 				if ( $el.data( "dbkey" ) ) {
 					o.datakey = $el.data( "dbkey" );
 				}
+
+				first_index = 0;			//first id of <li> element.
+				last_index = o.row - 1;		//last id of <li> element.
 
 				t._initList();
 			}
