@@ -169,7 +169,7 @@
 //auto self-init widgets
 	$( document ).bind( "pagecreate create", function ( e ) {
 		$( $.tizen.colorpickerbutton.prototype.options.initSelector, e.target )
-			.not( ":jqmData( role='none' ), :jqmData( role='nojs' )" )
+			.not( ":jqmData(role='none'), :jqmData(role='nojs')" )
 			.colorpickerbutton();
 	} );
 
