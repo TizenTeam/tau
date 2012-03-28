@@ -17,17 +17,23 @@ def changeIndexFile():
 
 def addConfigFileAndIcon(webAppName):
 	# config.xml file
-	shutil.copy("../../src/template/wac/config.xml.in", "config.xml")
-	f = open("config.xml")
-	config = f.read()
-	f.close()
-	config = config.replace("templateID", webAppName)
-	config = config.replace("@APP_NAME@", webAppName)
-	f = open("config.xml", "w")
-	f.write(config)
-	f.close()
+	if os.path.exists("config.xml"):
+		print "config.xml exists... ignore copy of template"
+	else:
+		shutil.copy("../../src/template/wac/config.xml.in", "config.xml")
+		f = open("config.xml")
+		config = f.read()
+		f.close()
+		config = config.replace("templateID", webAppName)
+		config = config.replace("@APP_NAME@", webAppName)
+		f = open("config.xml", "w")
+		f.write(config)
+		f.close()
 	# icon.png
-	shutil.copy("../../src/template/wac/icon.png", "icon.png")
+	if os.path.exists("icon.png"):
+		print "icong.png exists... ignore copy of template"
+	else:
+		shutil.copy("../../src/template/wac/icon.png", "icon.png")
 
 def makeWebAppPackage(directory):
 	os.chdir(directory)
