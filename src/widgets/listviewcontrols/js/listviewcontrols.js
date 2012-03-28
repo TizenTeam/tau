@@ -137,172 +137,167 @@
 
 (function ($) {
 
-$.widget("todons.listviewcontrols", $.mobile.widget, {
-    _defaults: {
-        controlPanelSelector: null,
-        modesAvailable: ['edit', 'view'],
-        mode: 'view',
-        controlPanelShowIn: null
-    },
+	$.widget( "todons.listviewcontrols", $.mobile.widget, {
+		_defaults: {
+			controlPanelSelector: null,
+			modesAvailable: ['edit', 'view'],
+			mode: 'view',
+			controlPanelShowIn: null
+		},
 
-    _listviewCssClass: 'ui-listviewcontrols-listview',
-    _controlsCssClass: 'ui-listviewcontrols-panel',
+		_listviewCssClass: 'ui-listviewcontrols-listview',
+		_controlsCssClass: 'ui-listviewcontrols-panel',
 
-    _create: function () {
-        var self = this,
-            o = this.options,
-            optionsValid = true,
-            page = this.element.closest('.ui-page'),
-            controlPanelSelectorAttr = 'data-' + $.mobile.ns + 'listviewcontrols',
-            controlPanelSelector = this.element.attr(controlPanelSelectorAttr),
-            dataOptions = this.element.jqmData('listviewcontrols-options'),
-            controlPanelShowInAttr;
+		_create: function () {
+			var self = this,
+				o = this.options,
+				optionsValid = true,
+				page = this.element.closest( '.ui-page' ),
+				controlPanelSelectorAttr = 'data-' + $.mobile.ns + 'listviewcontrols',
+				controlPanelSelector = this.element.attr( controlPanelSelectorAttr ),
+				dataOptions = this.element.jqmData( 'listviewcontrols-options' ),
+				controlPanelShowInAttr;
 
-        o.controlPanelSelector = o.controlPanelSelector || controlPanelSelector;
+			o.controlPanelSelector = o.controlPanelSelector || controlPanelSelector;
 
-        // precedence for options: defaults < jqmData attribute < options arg
-        o = $.extend({}, this._defaults, dataOptions, o);
+			// precedence for options: defaults < jqmData attribute < options arg
+			o = $.extend( {}, this._defaults, dataOptions, o );
 
-        optionsValid = (this._validOption('modesAvailable', o.modesAvailable, o) &&
-                        this._validOption('controlPanelSelector', o.controlPanelSelector, o) &&
-                        this._validOption('mode', o.mode, o));
+			optionsValid = ( this._validOption( 'modesAvailable', o.modesAvailable, o ) &&
+					this._validOption( 'controlPanelSelector', o.controlPanelSelector, o ) &&
+					this._validOption( 'mode', o.mode, o ) );
 
-        if (!optionsValid) {
-            return false;
-        }
+			if ( !optionsValid ) {
+				return false;
+			}
 
-        // get the controls element
-        this.controlPanel = $(document).find(o.controlPanelSelector).first();
+			// get the controls element
+			this.controlPanel = $( document ).find( o.controlPanelSelector ).first();
 
-        if (this.controlPanel.length === 0) {
-            return false;
-        }
+			if ( this.controlPanel.length === 0 ) {
+				return false;
+			}
 
-        // once we have the controls element, we may need to override the
-        // mode in which controls are shown
-        controlPanelShowInAttr = this.controlPanel.jqmData('listviewcontrols-show-in');
-        if (controlPanelShowInAttr) {
-            o.controlPanelShowIn = controlPanelShowInAttr;
-        }
-        else if (!o.controlPanelShowIn) {
-            o.controlPanelShowIn = o.modesAvailable[0];
-        }
+			// once we have the controls element, we may need to override the
+			// mode in which controls are shown
+			controlPanelShowInAttr = this.controlPanel.jqmData( 'listviewcontrols-show-in' );
+			if ( controlPanelShowInAttr ) {
+				o.controlPanelShowIn = controlPanelShowInAttr;
+			} else if ( !o.controlPanelShowIn ) {
+				o.controlPanelShowIn = o.modesAvailable[0];
+			}
 
-        if (!this._validOption('controlPanelShowIn', o.controlPanelShowIn, o)) {
-            return;
-        }
+			if ( !this._validOption( 'controlPanelShowIn', o.controlPanelShowIn, o ) ) {
+				return;
+			}
 
-        // done setting options
-        this.options = o;
+			// done setting options
+			this.options = o;
 
-        // mark the controls and the list with a class
-        this.element.removeClass(this._listviewCssClass).addClass(this._listviewCssClass);
-        this.controlPanel.removeClass(this._controlsCssClass).addClass(this._controlsCssClass);
+			// mark the controls and the list with a class
+			this.element.removeClass(this._listviewCssClass).addClass(this._listviewCssClass);
+			this.controlPanel.removeClass(this._controlsCssClass).addClass(this._controlsCssClass);
 
-        // show the widget
-        if (page && !page.is(':visible')) {
-            page.bind('pageshow', function () { self.refresh(); });
-        }
-        else {
-            this.refresh();
-        }
-    },
+			// show the widget
+			if ( page && !page.is( ':visible' ) ) {
+				page.bind( 'pageshow', function () { self.refresh(); } );
+			} else {
+				this.refresh();
+			}
+		},
 
-    _validOption: function (varName, value, otherOptions) {
-        var ok = false;
+		_validOption: function ( varName, value, otherOptions ) {
+			var ok = false,
+				i = 0;
 
-        if (varName === 'mode') {
-            ok = ($.inArray(value, otherOptions.modesAvailable) >= 0);
-        }
-        else if (varName === 'controlPanelSelector') {
-            ok = ($.type(value) === 'string');
-        }
-        else if (varName === 'modesAvailable') {
-            ok = ($.isArray(value) && value.length > 1);
+			if ( varName === 'mode' ) {
+				ok = ( $.inArray( value, otherOptions.modesAvailable ) >= 0 );
+			} else if ( varName === 'controlPanelSelector' ) {
+				ok = ( $.type( value ) === 'string' );
+			} else if ( varName === 'modesAvailable' ) {
+				ok = ( $.isArray( value ) && value.length > 1 );
 
-            if (ok) {
-                for (var i = 0; i < value.length; i++) {
-                    if (value[i] === '' || $.type(value[i]) !== 'string') {
-                        ok = false;
-                    }
-                }
-            }
-        }
-        else if (varName === 'controlPanelShowIn') {
-            ok = ($.inArray(value, otherOptions.modesAvailable) >= 0);
-        }
+				if ( ok ) {
+					for ( i = 0; i < value.length; i++ ) {
+						if ( value[i] === '' || $.type( value[i] ) !== 'string' ) {
+							ok = false;
+						}
+					}
+				}
+			} else if ( varName === 'controlPanelShowIn' ) {
+				ok = ( $.inArray( value, otherOptions.modesAvailable ) >= 0 );
+			}
 
-        return ok;
-    },
+			return ok;
+		},
 
-    _setOption: function (varName, value) {
-        var oldValue = this.options[varName];
+		_setOption: function ( varName, value ) {
+			var oldValue = this.options[varName];
 
-        if (oldValue !== value && this._validOption(varName, value, this.options)) {
-            this.options[varName] = value;
-            this.refresh();
-        }
-    },
+			if ( oldValue !== value && this._validOption( varName, value, this.options ) ) {
+				this.options[varName] = value;
+				this.refresh();
+			}
+		},
 
-    visibleListItems: function () {
-        return this.element.find('li:not(:jqmData(role=list-divider)):visible');
-    },
+		visibleListItems: function () {
+			return this.element.find( 'li:not(:jqmData(role=list-divider)):visible' );
+		},
 
-    refresh: function () {
-        var self = this,
-            triggerUpdateLayout = false,
-            isVisible = null,
-            showIn,
-            modalElements;
+		refresh: function () {
+			var self = this,
+				triggerUpdateLayout = false,
+				isVisible = null,
+				showIn,
+				modalElements;
 
-        // hide/show the control panel and hide/show controls inside
-        // list items based on their "show-in" option
-        isVisible = this.controlPanel.is(':visible');
+			// hide/show the control panel and hide/show controls inside
+			// list items based on their "show-in" option
+			isVisible = this.controlPanel.is( ':visible' );
 
-        if (this.options.mode === this.options.controlPanelShowIn) {
-            this.controlPanel.show();
-        }
-        else {
-            this.controlPanel.hide();
-        }
+			if ( this.options.mode === this.options.controlPanelShowIn ) {
+				this.controlPanel.show();
+			} else {
+				this.controlPanel.hide();
+			}
 
-        if (this.controlPanel.is(':visible') !== isVisible) {
-            triggerUpdateLayout = true;
-        }
+			if ( this.controlPanel.is( ':visible' ) !== isVisible ) {
+				triggerUpdateLayout = true;
+			}
 
-        // we only operate on elements inside list items which aren't dividers
-        modalElements = this.element.find('li:not(:jqmData(role=list-divider))')
-                                    .find(':jqmData(listviewcontrols-show-in)');
+			// we only operate on elements inside list items which aren't dividers
+			modalElements = this.element
+								.find( 'li:not(:jqmData(role=list-divider))' )
+								.find( ':jqmData(listviewcontrols-show-in)' );
 
-        modalElements.each(function () {
-            showIn = $(this).jqmData('listviewcontrols-show-in');
+			modalElements.each(function () {
+				showIn = $( this ).jqmData( 'listviewcontrols-show-in' );
 
-            isVisible = $(this).is(':visible');
+				isVisible = $( this ).is( ':visible' );
 
-            if (showIn === self.options.mode) {
-                $(this).show();
-            }
-            else {
-                $(this).hide();
-            }
+				if ( showIn === self.options.mode ) {
+					$( this ).show();
+				} else {
+					$( this ).hide();
+				}
 
-            if ($(this).is(':visible') !== isVisible) {
-                triggerUpdateLayout = true;
-            }
-        });
+				if ( $( this ).is( ':visible' ) !== isVisible ) {
+					triggerUpdateLayout = true;
+				}
+			} );
 
-        if (triggerUpdateLayout) {
-            this.element.trigger('updatelayout');
-        }
-    }
-});
+			if ( triggerUpdateLayout ) {
+				this.element.trigger( 'updatelayout' );
+			}
+		}
+	} );
 
-$('ul').live('listviewcreate', function () {
-	var list = $(this);
+	$( 'ul' ).live( 'listviewcreate', function () {
+		var list = $(this);
 
-	if (list.is(':jqmData(listviewcontrols)')) {
-		list.listviewcontrols();
-	}
-});
+		if ( list.is( ':jqmData(listviewcontrols)' ) ) {
+			list.listviewcontrols();
+		}
+	} );
 
-})(jQuery);
+}( jQuery ) );
