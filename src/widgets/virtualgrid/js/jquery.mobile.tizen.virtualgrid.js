@@ -1,5 +1,26 @@
-/*
-*	Author: Kangsik Kim <kangsik81.kim@samsung.com>
+/* ***************************************************************************
+ * Copyright (c) 2000 - 2011 Samsung Electronics Co., Ltd.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+ * DEALINGS IN THE SOFTWARE.
+ * ***************************************************************************
+ *
+ *	Author: Kangsik Kim <kangsik81.kim@samsung.com>
 */
 
 /**
@@ -13,9 +34,11 @@
  *		data-template : jQuery.template ID that populate into virtual list
  *		data-dbtable : DB Table name. It used as window[DB NAME]. Loaded data should be converted as window object.
  *		data-dbkey : Unique key of DB Table. To sync each element on virtual list with DB table.
+ *		data-column : Set a number of column. (Default : 3)
+ *		data-row : Set a number of row. (Default : 10)
  *
- *		ID : <UL> element that has "data-role=virtuallist" must have ID attribute.
- *		Class : <UL> element that has "data-role=virtuallist" should have "vlLoadSuccess" class to guaranty DB loading is completed.
+ *		ID : <UL> element that has "data-role=virtualgrid" must have ID attribute.
+ *		Class : <UL> element that has "data-role=virtualgrid" should have "vlLoadSuccess" class to guaranty DB loading is completed.
  *
  * APIs:
  *
@@ -39,11 +62,10 @@
  *					</div>
  *				</div>
  *			</script>
- *			<div id="virtualgrid-demo" data-role="virtualgrid" data-column="3" data-row="60" data-template="tizen-demo-namecard" data-dbtable="JSON_DATA" data-scroll="y">
+ *			<div id="virtualgrid-demo" data-role="virtualgrid" data-column="3" data-row="60" data-template="tizen-demo-namecard" data-dbtable="JSON_DATA" >
  *			</div>
  *
  */
-
 
 ( function ( $, window, undefined ) {
 	$.widget( "tizen.virtualgrid", $.mobile.widget, {
@@ -76,6 +98,7 @@
 				_firstIndex : 0,
 				_lastIndex : 0,
 				_prevPos : 0,
+				_updateCnt : 0,
 				_numTopItems : 0
 			});
 
@@ -165,68 +188,81 @@
 		},
 
 		_addEvents : function () {
-			var widget = this,
-				$view = this.element;
+			var widget = this;
+
+			$( document ).bind( "scrollupdate.virtualgrid", function ( event ) {
+				if ( widget._updateCnt === 10 ) {
+					widget._updateCnt += 1;
+				} else {
+					widget._updateCnt = 0;
+					widget._doScrollEvent(event);
+				}
+			});
+
 			$( document ).bind( "scrollstop.virtualgrid", function ( event ) {
-				var opts = widget.options,
-					dataList = window[opts.dbtable],
-					filterCondition = 0,
-					replaceRowCnt = 0,
-					replacedCount = 0,
-					$scrollview = $view.closest( ".ui-scrollview-view" ),
-					transformValue = null,
-					curWindowTop = 0;
-
-				/* with Scroll view */
-				if ( widget._viewHeight === 0 ) {
-					widget._viewHeight = $scrollview.parent().height();
-				}
-
-				transformValue = widget._matrixToArray( $scrollview.css( "-webkit-transform" ) );
-				curWindowTop = Math.abs( transformValue[5] );
-				if ( widget._prevPos > curWindowTop ) {
-					widget._direction = widget.SCROLL_UP;
-				} else if ( widget._prevPos < curWindowTop ) {
-					widget._direction = widget.SCROLL_DOWN;
-				}
-
-				if ( widget._direction == widget.SCROLL_DOWN ) {
-					filterCondition = ( curWindowTop - widget._blockHeight );
-					replaceRowCnt = $( ".ui-virtualgrid-wrapblock" ).filter( function () {
-						return ( parseInt( ( $( this ).position().top ), 10 ) < filterCondition );
-					}).size();
-					if ( replaceRowCnt > widget._bufferSize ) {
-						$( document ).bind( "touchstart.virtualgrid", function ( event ) {
-							event.preventDefault();
-						});
-						replaceRowCnt = replaceRowCnt - widget._bufferSize;
-						replacedCount = widget._moveTopBottom( widget._firstIndex, widget._lastIndex, replaceRowCnt, opts.dbkey );
-						widget._firstIndex += replacedCount;
-						widget._lastIndex += replacedCount;
-						widget._numTopItems -= replacedCount;
-						$( document ).unbind( "touchstart.virtualgrid" );
-					}
-				} else if ( widget._direction == widget.SCROLL_UP ) {
-					filterCondition = ( curWindowTop + widget._viewHeight + widget._blockHeight );
-					replaceRowCnt = $( ".ui-virtualgrid-wrapblock" ).filter( function () {
-						return ( parseInt( ( $( this ).position().top ), 10 ) > filterCondition );
-					}).size();
-					if ( replaceRowCnt > widget._bufferSize ) {
-						$( document ).bind( "touchstart.virtualgrid", function ( event ) {
-							event.preventDefault();
-						});
-						replaceRowCnt = replaceRowCnt - widget._bufferSize;
-						replacedCount = widget._moveBottomTop( widget._firstIndex, widget._lastIndex, replaceRowCnt, opts.dbkey );
-						widget._firstIndex -= replacedCount;
-						widget._lastIndex -= replacedCount;
-						widget._numTopItems += replacedCount;
-						$( document ).unbind( "touchstart.virtualgrid" );
-					}
-				}
-				// save preve position information.
-				widget._prevPos = curWindowTop;
+				widget._doScrollEvent(event);
 			});
 		},
+
+		_doScrollEvent : function ( event ) {
+			var widget = this,
+				$view = this.element,
+				opts = widget.options,
+				dataList = window [opts.dbtable],
+				filterCondition = 0,
+				replaceRowCnt = 0,
+				replacedCount = 0,
+				$scrollview = $view.closest (".ui-scrollview-view"),
+				transformValue = null,
+				curWindowTop = 0;
+
+			transformValue = widget._matrixToArray ($scrollview.css ("-webkit-transform"));
+			curWindowTop = Math.abs (transformValue [5]);
+			if (widget._prevPos > curWindowTop) {
+				widget._direction = widget.SCROLL_UP;
+			} else if (widget._prevPos < curWindowTop) {
+				widget._direction = widget.SCROLL_DOWN;
+			}
+
+			if (widget._direction == widget.SCROLL_DOWN) {
+				filterCondition = (curWindowTop - widget._blockHeight );
+				replaceRowCnt = $ (".ui-virtualgrid-wrapblock").filter (function () {
+					return (parseInt (($ (this).position ().top ), 10) < filterCondition );
+				}).size ();
+				if (replaceRowCnt > widget._bufferSize) {
+					$ (document).bind ("touchstart.virtualgrid", function (event) {
+						event.preventDefault ();
+					});
+
+					replaceRowCnt = replaceRowCnt - widget._bufferSize;
+					replacedCount = widget._moveTopBottom (widget._firstIndex, widget._lastIndex, replaceRowCnt, opts.dbkey);
+					widget._firstIndex += replacedCount;
+					widget._lastIndex += replacedCount;
+					widget._numTopItems -= replacedCount;
+					$ (document).unbind ("touchstart.virtualgrid");
+				}
+			} else if (widget._direction == widget.SCROLL_UP) {
+				filterCondition = (curWindowTop + widget._viewHeight + widget._blockHeight );
+				replaceRowCnt = $ (".ui-virtualgrid-wrapblock").filter (function () {
+					return (parseInt (($ (this).position ().top ), 10) > filterCondition );
+				}).size ();
+				if (replaceRowCnt > widget._bufferSize) {
+					$ (document).bind ("touchstart.virtualgrid", function (event) {
+						event.preventDefault ();
+					});
+
+					replaceRowCnt = replaceRowCnt - widget._bufferSize;
+					replacedCount = widget._moveBottomTop (widget._firstIndex, widget._lastIndex, replaceRowCnt, opts.dbkey);
+					widget._firstIndex -= replacedCount;
+					widget._lastIndex -= replacedCount;
+					widget._numTopItems += replacedCount;
+					$ (document).unbind ("touchstart.virtualgrid");
+				}
+			}
+			// save preve position information.
+			widget._prevPos = curWindowTop;
+		},
+
 		/* Matrix to Array function written by Blender@stackoverflow.nnikishi@emich.edu*/
 		_matrixToArray : function ( matrix ) {
 			var contents = matrix.substr( 7 );
@@ -265,7 +301,7 @@
 
 				// select block
 				curBlock = $( "#block_" + ( v_firstIndex + i ) );
-				if ( curBlock ) {
+				if ( !curBlock ) {
 					break;
 				}
 
@@ -374,3 +410,4 @@
 	});
 
 } ( jQuery, window ) );
+
