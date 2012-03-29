@@ -115,353 +115,348 @@
 //
 
 
-(function($, undefined) {
-$.widget("tizen.optionheader", $.mobile.widget, {
-//$.widget("todons.optionheader", $.todons.widgetex, {
-	options: {
-		initSelector: ":jqmData(role='optionheader')",
-		showIndicator: true,
-		theme: 's',
-		startCollapsed: false,
-		expandable: true,
-		duration: 0.25,
-		collapseOnInit : true
-	},
-	collapsedHeight: '5px',
+(function ($, undefined) {
+	$.widget("tizen.optionheader", $.mobile.widget, {
+		options: {
+			initSelector: ":jqmData(role='optionheader')",
+			showIndicator: true,
+			theme: 's',
+			startCollapsed: false,
+			expandable: true,
+			duration: 0.25,
+			collapseOnInit : true
+		},
+		collapsedHeight: '5px',
 
-	_create: function () {
-		var options,
-			theme,
-			self = this,
-			elementHeight = 106,
-			parentPage,
-			dataOptions = this.element.jqmData( 'options' );
+		_create: function () {
+			var options,
+				theme,
+				self = this,
+				elementHeight = 106,
+				parentPage,
+				dataOptions = this.element.jqmData( 'options' ),
+				page = this.element.closest( ':jqmData(role="page")' );
+			// parse data-options
+			$.extend( this.options, dataOptions );
 
-		// parse data-options
-		$.extend( this.options, dataOptions );
+			this.isCollapsed = this.options.collapseOnInit;
+			this.expandedHeight = null;
 
-		this.isCollapsed = this.options.collapseOnInit;
-		this.expandedHeight = null;
+			// parse data-theme and reset options.theme if it's present
+			theme = this.element.jqmData( 'theme' ) || this.options.theme;
+			this.options.theme = theme;
 
-		// parse data-theme and reset options.theme if it's present
-		theme = this.element.jqmData( 'theme' ) || this.options.theme;
-		this.options.theme = theme;
+			this.element.closest( ':jqmData(role="header")' ).addClass( "ui-option-header-resizing" );
 
-		this.element.closest( ':jqmData(role="header")' ).addClass( "ui-option-header-resizing" );
+			// set up the click handler; it's done here so it can
+			// easily be removed, as there should only be one instance
+			// of the handler function for each class instance
+			this.clickHandler = function () {
+				self.toggle();
+			};
 
-		// set up the click handler; it's done here so it can
-		// easily be removed, as there should only be one instance
-		// of the handler function for each class instance
-		this.clickHandler = function () {
-			self.toggle();
-		};
+			if ( this.element.height() < elementHeight ) {
+				this.element.css( "height", elementHeight );
+			}
 
-		if( this.element.height() < elementHeight ){
-			this.element.css( "height", elementHeight );
-		}
+			// get the element's dimensions
+			// and to set its initial collapse state;
+			// either do it now (if the page is visible already)
+			// or on pageshow
 
-		// get the element's dimensions
-		// and to set its initial collapse state;
-		// either do it now (if the page is visible already)
-		// or on pageshow
-		page = this.element.closest( ':jqmData(role="page")' );
+			if ( page.is(":visible") ) {
+				self.refresh();
+				self._realize();
+			} else {
+				self.refresh();
 
-		if ( page.is(":visible") ){
-			self.refresh();
-			self._realize();
-		} else {
-			self.refresh();
-
-		page.bind( "pagebeforeshow", function() {
+				page.bind( "pagebeforeshow", function () {
+					self._setArrowLeft();
+					self._realize();
+				});
+			}
 			self._setArrowLeft();
-			self._realize();
-			});
-		}
-		self._setArrowLeft();
-//        this.refresh();
-	},
+	//        this.refresh();
+		},
 
-	_realize: function () {
-		if ( !this.expandedHeight ) {
-			this.expandedHeight = this.element.height();
-		}
-
-		if ( this.isCollapsed ) {
-//        if (this.options.startCollapsed) {
-			this.collapse( {duration: 0} );
-		}
-	},
-
-	_setArrowLeft: function () {
-		var matchingBtn = $( this.element ).jqmData( "for" ),
-			arrowCenter = 14,
-			btn2Position = 10,
-			btn3Position = 144;
-
-		if( $(this.element).parents(".ui-page").find("#"+matchingBtn).length != 0 ){
-			matchBtn = $( this.element ).parents( ".ui-page" ).find( "#" + matchingBtn );
- 			
-
-			if ( this.options.expandable ) {
-				matchBtn.bind( 'vclick', this.clickHandler );
-			} else {
-				matchBtn.unbind( 'vclick', this.clickHandler );
+		_realize: function () {
+			if ( !this.expandedHeight ) {
+				this.expandedHeight = this.element.height();
 			}
 
- 			// decide arrow Button position
-			if( matchBtn.css( "left" ) && matchBtn.css( "left" ) != "auto" ){
-				$( ".ui-triangle-image" ).css( "left", matchBtn.width()/2 + parseInt(matchBtn.css("left")) - arrowCenter + "px" );
-			} else if( matchBtn.css("right") ){
+			if ( this.isCollapsed ) {
+	//        if (this.options.startCollapsed) {
+				this.collapse( {duration: 0} );
+			}
+		},
+
+		_setArrowLeft: function () {
+			var matchingBtn = $( this.element ).jqmData( "for" ),
+				arrowCenter = 14,
+				btn2Position = 10,
+				btn3Position = 144,
+				matchBtn = $( this.element ).parents( ".ui-page" ).find( "#" + matchingBtn ),
 				buttonRight = matchBtn.nextAll().is( "a" ) ? btn3Position : btn2Position;
-				$( ".ui-triangle-image" ).css( "left", document.documentElement.clientWidth - matchBtn.width()/2 - buttonRight - arrowCenter + "px" );
+
+			if ( $(this.element).parents(".ui-page").find( "#" + matchingBtn ).length != 0 ) {
+
+				if ( this.options.expandable ) {
+					matchBtn.bind( 'vclick', this.clickHandler );
+				} else {
+					matchBtn.unbind( 'vclick', this.clickHandler );
+				}
+
+				// decide arrow Button position
+				if ( matchBtn.css( "left" ) && matchBtn.css( "left" ) != "auto" ) {
+					$( ".ui-triangle-image" ).css( "left", matchBtn.width() / 2 + parseInt(matchBtn.css( "left" ), 10) - arrowCenter + "px" );
+				} else if ( matchBtn.css("right") ) {
+					$( ".ui-triangle-image" ).css( "left", document.documentElement.clientWidth - matchBtn.width() / 2 - buttonRight - arrowCenter + "px" );
+				}
+			} else {
+				$( ".ui-triangle-image" ).css( "left", document.documentElement.clientWidth / 2 - arrowCenter + "px" );
 			}
-		} else {
-			$( ".ui-triangle-image" ).css( "left", document.documentElement.clientWidth/2 - arrowCenter + "px" );
-		}
-	},
-	// Draw the option header, according to current options
-	refresh: function () {
-		var el = this.element,
-			arrow = $( '<div class="ui-option-header-triangle-arrow"></div>' ),
-			optionHeaderClass = 'ui-option-header',
-			self = this,
-			gridRowSelector = '.ui-grid-a,.ui-grid-b,.ui-grid-c,.ui-grid-d,.ui-grid-e',
-			theme = this.options.theme,
-			numRows,
-			rowsClass,
-			themeClass;
+		},
+		// Draw the option header, according to current options
+		refresh: function () {
+			var el = this.element,
+				arrow = $( '<div class="ui-option-header-triangle-arrow"></div>' ),
+				optionHeaderClass = 'ui-option-header',
+				gridRowSelector = '.ui-grid-a,.ui-grid-b,.ui-grid-c,.ui-grid-d,.ui-grid-e',
+				theme = this.options.theme,
+				numRows,
+				rowsClass,
+				themeClass,
+				klass,
+				o = $.extend( {grid: null} ),
+				$kids = el.find( "div" ).eq( 0 ).children().children(),
+				letter,
+				gridCols = {solo: 1, a: 2, b: 3, c: 4, d: 5},
+				grid = o.grid;
 
-		var $this = $( this ),
-			o = $.extend({
-				grid: null
-			}),
-			$kids = el.find( "div" ).eq( 0 ).children().children(),
-			gridCols = {solo:1, a:2, b:3, c:4, d:5},
-			grid = o.grid,
-			iterator;
-
-		if ( !grid ) {
-			if ( $kids.length <= 5 ) {
-				for ( var letter in gridCols ) {
-					if ( gridCols[ letter ] === $kids.length ) {
-						grid = letter;
+			if ( !grid ) {
+				if ( $kids.length <= 5 ) {
+					for ( letter in gridCols ) {
+						if ( gridCols[ letter ] === $kids.length ) {
+							grid = letter;
+						}
 					}
+					numRows = $kids.length / gridCols[grid];
+				} else {
+					numRows = 2;
 				}
-				numRows = $kids.length / gridCols[grid];
+			}
+
+	        // count ui-grid-* elements to get number of rows
+	//        numRows = el.find(gridRowSelector).length;
+
+	        // ...at least one row
+	//        numRows = Math.max(1, numRows);
+
+	        // add classes to outer div:
+	        //   ui-option-header-N-row, where N = options.rows
+	        //   ui-bar-X, where X = options.theme (defaults to 'c')
+	        //   ui-option-header
+			rowsClass = 'ui-option-header-' + numRows + '-row';
+			themeClass = 'ui-body-' + this.options.theme;
+
+			el.removeClass( rowsClass ).addClass( rowsClass );
+			el.removeClass( themeClass ).addClass( themeClass );
+			el.removeClass( optionHeaderClass ).addClass( optionHeaderClass );
+
+			// remove any arrow currently visible
+			el.prev( '.ui-option-header-triangle-arrow' ).remove();
+	//        el.prev('.ui-triangle-container').remove();
+
+			// if there are elements inside the option header
+			// and this.options.showIndicator,
+			// insert a triangle arrow as the first element inside the
+			// optionheader div to show the header has hidden content
+			if ( this.options.showIndicator ) {
+				el.before( arrow );
+				arrow.append("<div class='ui-triangle-image'></div>");
+	//            arrow.triangle({"color": el.css('background-color'), offset: "50%"});
+			}
+
+	        // if expandable, bind clicks to the toggle() method
+			if ( this.options.expandable ) {
+	//            el.unbind('vclick', this.clickHandler).bind('vclick', this.clickHandler);
+	//            arrow.unbind('vclick', this.clickHandler).bind('vclick', this.clickHandler);
+				el.bind( 'vclick', this.clickHandler );
+				arrow.bind( 'vclick', this.clickHandler );
+
 			} else {
-				numRows = 2;
+				el.unbind( 'vclick', this.clickHandler );
+				arrow.unbind( 'vclick', this.clickHandler );
 			}
-		}
 
-        // count ui-grid-* elements to get number of rows
-//        numRows = el.find(gridRowSelector).length;
+			// for each ui-grid-a element, add a class ui-option-header-row-M
+			// to it, where M is the xpath position() of the div
+	/*        el.find(gridRowSelector).each(function (index) {
+	            var klass = 'ui-option-header-row-' + (index + 1);
+	            $(this).removeClass(klass).addClass(klass);
+	        });*/
+			klass = 'ui-option-header-row-' + ( numRows );
+			el.find( "div" ).eq( 0 ).removeClass( klass ).addClass( klass );
 
-        // ...at least one row
-//        numRows = Math.max(1, numRows);
+			// redraw the buttons (now that the optionheader has the right
+			// swatch)
+			el.find( '.ui-btn' ).each(function () {
+				$( this ).attr( 'data-' + $.mobile.ns + 'theme', theme );
 
-        // add classes to outer div:
-        //   ui-option-header-N-row, where N = options.rows
-        //   ui-bar-X, where X = options.theme (defaults to 'c')
-        //   ui-option-header
-		rowsClass = 'ui-option-header-' + numRows + '-row';
-		themeClass = 'ui-body-' + this.options.theme;
+				// hack the class of the button to remove the old swatch
+				var klass = $( this ).attr( 'class' );
+				klass = klass.replace(/ui-btn-up-\w{1}\s*/, '');
+				klass = klass + ' ui-btn-up-' + theme;
+				$( this ).attr( 'class', klass );
+			});
+		},
 
-		el.removeClass( rowsClass ).addClass( rowsClass );
-		el.removeClass( themeClass ).addClass( themeClass );
-		el.removeClass( optionHeaderClass ).addClass( optionHeaderClass );
+		_setHeight: function ( height, isCollapsed, options ) {
+			var self = this,
+				elt = this.element.get( 0 ),
+				duration,
+				commonCallback,
+				callback,
+				handler;
 
-		// remove any arrow currently visible
-		el.prev( '.ui-option-header-triangle-arrow' ).remove();
-//        el.prev('.ui-triangle-container').remove();
+			options = options || {};
 
-		// if there are elements inside the option header
-		// and this.options.showIndicator,
-		// insert a triangle arrow as the first element inside the
-		// optionheader div to show the header has hidden content
-		if( this.options.showIndicator ) {
-			el.before( arrow );
-			arrow.append("<div class='ui-triangle-image'></div>");
-//            arrow.triangle({"color": el.css('background-color'), offset: "50%"});
-		}
-
-        // if expandable, bind clicks to the toggle() method
-		if( this.options.expandable ) {
-//            el.unbind('vclick', this.clickHandler).bind('vclick', this.clickHandler);
-//            arrow.unbind('vclick', this.clickHandler).bind('vclick', this.clickHandler);
-			el.bind( 'vclick', this.clickHandler );
-			arrow.bind( 'vclick', this.clickHandler );
-
-		} else {
-			el.unbind( 'vclick', this.clickHandler );
-			arrow.unbind( 'vclick', this.clickHandler );
-		}
-
-		// for each ui-grid-a element, add a class ui-option-header-row-M
-		// to it, where M is the xpath position() of the div
-/*        el.find(gridRowSelector).each(function (index) {
-            var klass = 'ui-option-header-row-' + (index + 1);
-            $(this).removeClass(klass).addClass(klass);
-        });*/
-		var klass = 'ui-option-header-row-' + ( numRows );
-		el.find( "div" ).eq( 0 ).removeClass( klass ).addClass( klass );
-
-		// redraw the buttons (now that the optionheader has the right
-		// swatch)
-		el.find( '.ui-btn' ).each(function () {
-			$( this ).attr( 'data-' + $.mobile.ns + 'theme', theme );
-
-			// hack the class of the button to remove the old swatch
-			var klass = $( this ).attr( 'class' );
-			klass = klass.replace(/ui-btn-up-\w{1}\s*/, '');
-			klass = klass + ' ui-btn-up-' + theme;
-			$( this ).attr( 'class', klass );
-		});
-	},
-
-	_setHeight: function ( height, isCollapsed, options ) {
-		var self = this,
-			duration,
-			commonCallback,
-			callback;
-
-		options = options || {};
-
-		// set default duration if not specified
-		duration = options.duration;
-		if ( typeof duration == 'undefined' ) {
-			duration = this.options.duration;
-		}
-
-		// the callback to always call after expanding or collapsing
-		commonCallback = function () {
-			self.isCollapsed = isCollapsed;
-
-			if ( isCollapsed ) {
-				self.element.trigger( 'collapse' );
-			} else {
-				self.element.trigger( 'expand' );
+			// set default duration if not specified
+			duration = options.duration;
+			if ( typeof duration == 'undefined' ) {
+				duration = this.options.duration;
 			}
-		};
 
-		// combine commonCallback with any user-specified callback
-		if ( options.callback ) {
-			callback = function () {
-				options.callback();
-				commonCallback();
-			};
-		} else {
-			callback = function () {
-				commonCallback();
-			}
-		}
+			// the callback to always call after expanding or collapsing
+			commonCallback = function () {
+				self.isCollapsed = isCollapsed;
 
-		// apply the animation
-		if( duration > 0 && $.support.cssTransitions ) {
-			// add a handler to invoke a callback when the animation is done
-			var elt = this.element.get( 0 );
-
-			var handler = {
-				handleEvent: function ( e ) {
-					elt.removeEventListener( 'webkitTransitionEnd', this );
-					self.element.css( '-webkit-transition', null );
-					callback();
+				if ( isCollapsed ) {
+					self.element.trigger( 'collapse' );
+				} else {
+					self.element.trigger( 'expand' );
 				}
 			};
 
-			elt.addEventListener( 'webkitTransitionEnd', handler, false );
+			// combine commonCallback with any user-specified callback
+			if ( options.callback ) {
+				callback = function () {
+					options.callback();
+					commonCallback();
+				};
+			} else {
+				callback = function () {
+					commonCallback();
+				};
+			}
 
-			// apply the transition
-			this.element.css( '-webkit-transition', 'height ' + duration + 's ease-out' );
-			this.element.css( 'height', height );
-		}
-		// make sure the callback gets called even when there's no
-		// animation
-		else {
-			this.element.css( 'height', height );
-			callback();
-		}
-	},
+			// apply the animation
+			if ( duration > 0 && $.support.cssTransitions ) {
+				// add a handler to invoke a callback when the animation is done
 
-	/**
-	* Toggle the expanded/collapsed state of the widget.
-	* {Object} [options] Configuration for the expand/collapse
-	* {Integer} [options.duration] Duration of the expand/collapse;
-	* defaults to this.options.duration
-	* {Function} options.callback Function to call after toggle completes
-	*/
+				handler = {
+					handleEvent: function ( e ) {
+						elt.removeEventListener( 'webkitTransitionEnd', this );
+						self.element.css( '-webkit-transition', null );
+						callback();
+					}
+				};
 
-	toggle: function ( options ) {
-		var toggle_header = this.element.parents( ":jqmData(role='header')" );
-		var toggle_content = this.element.parents( ":jqmData(role='page')" ).find( ".ui-content" );
-		var CollapsedTop = 110,
-			ExpandedTop = 206; 
+				elt.addEventListener( 'webkitTransitionEnd', handler, false );
 
-		if( toggle_header.children().is(".input-search-bar") ){
-			CollapsedTop = 218;
-			ExpandedTop = 314;
-		}
+				// apply the transition
+				this.element.css( '-webkit-transition', 'height ' + duration + 's ease-out' );
+				this.element.css( 'height', height );
+			} else {
+			// make sure the callback gets called even when there's no
+			// animation
+				this.element.css( 'height', height );
+				callback();
+			}
+		},
 
-		if( $( window ).scrollTop() <= CollapsedTop ){
-			toggle_header.css( "position", "relative" );
-			toggle_content.css( "top", "0px" );
-    	}
+		/**
+		* Toggle the expanded/collapsed state of the widget.
+		* {Object} [options] Configuration for the expand/collapse
+		* {Integer} [options.duration] Duration of the expand/collapse;
+		* defaults to this.options.duration
+		* {Function} options.callback Function to call after toggle completes
+		*/
 
-		if( this.isCollapsed ){
-			this.expand( options );
+		toggle: function ( options ) {
+			var toggle_header = this.element.parents( ":jqmData(role='header')" ),
+				toggle_content = this.element.parents( ":jqmData(role='page')" ).find( ".ui-content" ),
+				CollapsedTop = 110,
+				ExpandedTop = 206,
+				CalculateTime;
 
-			if( $( window ).scrollTop() <= ExpandedTop ){
-				var t = setTimeout( function(){  
+			if ( toggle_header.children().is( ".input-search-bar" ) ) {
+				CollapsedTop = 218;
+				ExpandedTop = 314;
+			}
+
+			if ( $( window ).scrollTop() <= CollapsedTop ) {
+				toggle_header.css( "position", "relative" );
+				toggle_content.css( "top", "0px" );
+			}
+
+			if ( this.isCollapsed ) {
+				this.expand( options );
+
+				if ( $( window ).scrollTop() <= ExpandedTop ) {
+					CalculateTime = setTimeout( function () {
+						toggle_header.css( 'position', 'fixed' );
+						toggle_content.css( 'top', ExpandedTop + "px" );
+					}, 500 );
+				} else {
+					//   Need to move scroll top
 					toggle_header.css( 'position', 'fixed' );
 					toggle_content.css( 'top', ExpandedTop + "px" );
-				}, 500 );
+				}
+				this.options.collapseOnInit = false;
 			} else {
-				//   Need to move scroll top      		
-				toggle_header.css( 'position', 'fixed' );
-				toggle_content.css( 'top', ExpandedTop + "px" );
+				this.collapse( options );
+				if ( $(window).scrollTop() <= ExpandedTop ) {
+					CalculateTime = setTimeout( function () {
+						toggle_header.css( 'position', 'fixed' );
+						toggle_content.css( 'top', CollapsedTop + "px" );
+					}, 500 );
+				} else {
+					toggle_header.css( 'position', 'fixed' );
+					toggle_content.css( 'top', CollapsedTop + "px" );
+				}
 			}
-			this.options.collapseOnInit = false;
-		} else {
-			this.collapse( options );
-			if( $(window).scrollTop() <= ExpandedTop ){
-				var t = setTimeout( function(){
-				toggle_header.css( 'position', 'fixed' );
-				toggle_content.css( 'top', CollapsedTop + "px" );
-			}, 500 );
-		} else{
-			toggle_header.css( 'position', 'fixed' );
-			toggle_content.css( 'top', CollapsedTop + "px" );
-			}
+			this.options.collapseOnInit = true;
+		},
+
+		_setDisabled: function ( value ) {
+			$.Widget.prototype._setOption.call( this, "disabled", value );
+			this.element.add( this.element.prev( ".ui-triangle-container" ) )[value ? "addClass" : "removeClass"]("ui-disabled");
+		},
+		/**
+		* Takes the same options as toggle()
+		*/
+		collapse: function ( options ) {
+	//        if (!this.isCollapsed) {
+			this._setHeight( '10px', true, options );
+	//        }
+		},
+
+		/**
+		* Takes the same options as toggle()
+		*/
+		expand: function ( options ) {
+	//        if (this.isCollapsed) {
+			this._setHeight( this.expandedHeight, false, options );
+	//        }
 		}
-		this.options.collapseOnInit = true;
-	},
-	_setDisabled: function( value ) {
-		$.Widget.prototype._setOption.call( this, "disabled", value );
-		this.element.add( this.element.prev(".ui-triangle-container") )[value ? "addClass" : "removeClass"]("ui-disabled");
-	},
-	/**
-	* Takes the same options as toggle()
-	*/
-	collapse: function ( options ) {
-//        if (!this.isCollapsed) {
-		this._setHeight( '10px', true, options );
-//        }
-	},
+	});
 
-	/**
-	* Takes the same options as toggle()
-	*/
-	expand: function ( options ) {
-//        if (this.isCollapsed) {
-		this._setHeight( this.expandedHeight, false, options );
-//        }
-	}
-});
+	// auto self-init widgets
+	$(document).bind("pagecreate create", function ( e ) {
+	    $($.tizen.optionheader.prototype.options.initSelector, e.target)
+			.not(":jqmData(role='none'), :jqmData(role='nojs')")
+			.optionheader();
+	});
 
-// auto self-init widgets
-$(document).bind("pagecreate create", function (e) {
-    $($.tizen.optionheader.prototype.options.initSelector, e.target)
-    .not(":jqmData(role='none'), :jqmData(role='nojs')")
-    .optionheader();
-});
-
-})(jQuery);
+}(jQuery) );
