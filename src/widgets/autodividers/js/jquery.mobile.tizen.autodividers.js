@@ -108,160 +108,165 @@
 //		this happens if list items are added to the listview,
 //		which causes the autodividers to be regenerated.
 
-(function( $, undefined ) {
+(function ( $, undefined ) {
 
-var autodividers = function(options) {
-	var list = $( this );
-	options = options || {};
+	var autodividers = function ( options ) {
+		var list = $( this ),
+			listview = list.data( 'listview' ),
+			dividerType = options.type || list.jqmData( 'autodividers' ) || 'alpha',
+			textSelector = options.selector || list.jqmData( 'autodividers-selector' ) || 'a',
+			getDividerText,
+			mergeDividers,
+			isNonDividerLi,
+			liAdded,
+			liRemoved;
 
-	var listview = list.data( 'listview' );
+		options = options || {};
 
-	var dividerType = options.type || list.jqmData( 'autodividers' ) || 'alpha';
+		getDividerText = function ( elt ) {
+			// look for some text in the item
+			var text = elt.find( textSelector ).text() || elt.text() || null;
 
-	var textSelector = options.selector || list.jqmData( 'autodividers-selector' ) || 'a';
-
-	var getDividerText = function( elt ) {
-		// look for some text in the item
-		var text = elt.find( textSelector ).text() || elt.text() || null;
-
-		if ( !text ) {
-			return null;
-		}
-
-		// create the text for the divider
-		if ( dividerType === 'alpha' ) {
-			text = text.slice( 0, 1 ).toUpperCase();
-		}
-
-		return text;
-	};
-
-	var mergeDividers = function() {
-		var dividersChanged = false;
-
-		// any dividers which are following siblings of a divider, where
-		// there are no dividers with different text inbetween, can be removed
-		list.find( 'li.ui-li-divider' ).each(function() {
-			var divider = $( this );
-			var dividerText = divider.text();
-			var selector = '.ui-li-divider:not(:contains(' + dividerText + '))';
-			var nextDividers = divider.nextUntil( selector );
-			nextDividers = nextDividers.filter( '.ui-li-divider:contains(' + dividerText + ')' );
-
-			if (nextDividers.length > 0) {
-				nextDividers.remove();
-				dividersChanged = true;
+			if ( !text ) {
+				return null;
 			}
-		});
 
-		if (dividersChanged) {
-			list.trigger( 'updatelayout' );
-		}
+			// create the text for the divider
+			if ( dividerType === 'alpha' ) {
+				text = text.slice( 0, 1 ).toUpperCase();
+			}
+
+			return text;
+		};
+
+		mergeDividers = function () {
+			var dividersChanged = false,
+				divider,
+				dividerText,
+				selector,
+				nextDividers;
+
+			// any dividers which are following siblings of a divider, where
+			// there are no dividers with different text inbetween, can be removed
+			list.find( 'li.ui-li-divider' ).each(function () {
+				divider = $( this );
+				dividerText = divider.text();
+				selector = '.ui-li-divider:not(:contains(' + dividerText + '))';
+				nextDividers = divider.nextUntil( selector );
+				nextDividers = nextDividers.filter( '.ui-li-divider:contains(' + dividerText + ')' );
+
+				if ( nextDividers.length > 0 ) {
+					nextDividers.remove();
+					dividersChanged = true;
+				}
+			} );
+
+			if ( dividersChanged ) {
+				list.trigger( 'updatelayout' );
+			}
+		};
+
+		// check that elt is a non-divider li element
+		isNonDividerLi = function ( elt ) {
+			return elt.is('li') &&
+					elt.jqmData( 'role' ) !== 'list-divider';
+		};
+
+		// li element inserted, so check whether it needs a divider
+		liAdded = function ( li ) {
+			var dividerText = getDividerText( li ),
+				existingDividers,
+				divider;
+
+			if ( !dividerText ) {
+				listview.refresh();
+				return;
+			}
+
+			// add expected divider for this li if it doesn't exist
+			existingDividers = li.prevAll( '.ui-li-divider:first:contains(' + dividerText + ')' );
+
+			if ( existingDividers.length === 0 ) {
+				divider = $( '<li>' + dividerText + '</li>' );
+				divider.attr( 'data-' + $.mobile.ns + 'role', 'list-divider' );
+				li.before( divider );
+
+				listview.refresh();
+
+				mergeDividers();
+			} else {
+				listview.refresh();
+			}
+		};
+
+		// li element removed, so check whether its divider should go
+		liRemoved = function ( li ) {
+			var dividerText = getDividerText( li ),
+				precedingItems,
+				nextItems;
+
+			if ( !dividerText ) {
+				listview.refresh();
+				return;
+			}
+
+			// remove divider for this li if there are no other
+			// li items for the divider before or after this li item
+			precedingItems = li.prevUntil( '.ui-li-divider:contains(' + dividerText + ')' );
+			nextItems = li.nextUntil( '.ui-li-divider' );
+
+			if ( precedingItems.length === 0 && nextItems.length === 0 ) {
+				li.prevAll( '.ui-li-divider:contains(' + dividerText + '):first' ).remove();
+
+				listview.refresh();
+
+				mergeDividers();
+			} else {
+				listview.refresh();
+			}
+		};
+
+		// set up the dividers on first create
+		list.find( 'li' ).each( function () {
+			var li = $( this );
+
+			// remove existing dividers
+			if ( li.jqmData( 'role' ) === 'list-divider' ) {
+				li.remove();
+			} else {			// make new dividers for list items
+				liAdded( li );
+			}
+		} );
+
+		// bind to DOM events to keep list up to date
+		list.bind( 'DOMNodeInserted', function ( e ) {
+			var elt = $( e.target );
+
+			if ( !isNonDividerLi( elt ) ) {
+				return;
+			}
+
+			liAdded( elt );
+		} );
+
+		list.bind( 'DOMNodeRemoved', function ( e ) {
+			var elt = $( e.target );
+
+			if ( !isNonDividerLi( elt ) ) {
+				return;
+			}
+
+			liRemoved( elt );
+		} );
 	};
 
-	// check that elt is a non-divider li element
-	var isNonDividerLi = function( elt ) {
-		return elt.is('li') &&
-		       elt.jqmData( 'role' ) !== 'list-divider';
-	};
+	$.fn.autodividers = autodividers;
 
-	// li element inserted, so check whether it needs a divider
-	var liAdded = function( li ) {
-		var dividerText = getDividerText( li );
+	$( ":jqmData(role=listview)" ).live( "listviewcreate", function () {
+		var list = $( this );
 
-		if ( !dividerText ) {
-			listview.refresh();
-			return;
+		if ( list.is( ':jqmData(autodividers)' ) ) {
+			list.autodividers();
 		}
-
-		// add expected divider for this li if it doesn't exist
-		var existingDividers = li.prevAll( '.ui-li-divider:first:contains(' + dividerText + ')' );
-
-		if ( existingDividers.length === 0 ) {
-			var divider = $( '<li>' + dividerText + '</li>' );
-			divider.attr( 'data-' + $.mobile.ns + 'role', 'list-divider' );
-			li.before( divider );
-
-			listview.refresh();
-
-			mergeDividers();
-		}
-		else {
-			listview.refresh();
-		}
-	};
-
-	// li element removed, so check whether its divider should go
-	var liRemoved = function( li ) {
-
-		var dividerText = getDividerText( li );
-
-		if ( !dividerText ) {
-			listview.refresh();
-			return;
-		}
-
-		// remove divider for this li if there are no other
-		// li items for the divider before or after this li item
-		var precedingItems = li.prevUntil( '.ui-li-divider:contains(' + dividerText + ')' );
-		var nextItems = li.nextUntil( '.ui-li-divider' );
-
-		if ( precedingItems.length === 0 && nextItems.length === 0 ) {
-			li.prevAll( '.ui-li-divider:contains(' + dividerText + '):first' ).remove();
-
-			listview.refresh();
-
-			mergeDividers();
-		}
-		else {
-			listview.refresh();
-		}
-	};
-
-	// set up the dividers on first create
-	list.find( 'li' ).each( function() {
-		var li = $( this );
-
-		// remove existing dividers
-		if ( li.jqmData( 'role' ) === 'list-divider' ) {
-			li.remove();
-		}
-		// make new dividers for list items
-		else {
-			liAdded( li );
-		}
-	});
-
-	// bind to DOM events to keep list up to date
-	list.bind( 'DOMNodeInserted', function( e ) {
-		var elt = $( e.target );
-
-		if ( !isNonDividerLi( elt ) ) {
-			return;
-		}
-
-		liAdded( elt );
-	});
-
-	list.bind( 'DOMNodeRemoved', function( e ) {
-		var elt = $( e.target );
-
-		if ( !isNonDividerLi( elt ) ) {
-			return;
-		}
-
-		liRemoved( elt );
-	});
-};
-
-$.fn.autodividers = autodividers;
-
-$( ":jqmData(role=listview)" ).live( "listviewcreate", function() {
-	var list = $( this );
-
-	if ( list.is( ':jqmData(autodividers)' ) ) {
-		list.autodividers();
-	}
-});
-
-})( jQuery );
+	} );
+}( jQuery ) );
