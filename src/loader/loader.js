@@ -15,7 +15,7 @@
 			rootDir: '/usr/lib/tizen-web-ui-fw',
 			version: '0.1',
 			theme: "default",
-			desktopScale: false
+			viewportScale: false,
 		},
 
 		util : {
@@ -48,12 +48,17 @@
 					width = screen.width < screen.height ? screen.width : screen.height;
 					factor = width / defaultWidth;
 					if ( factor > 1 ) {
-						// TODO NOTE some of targets(e.g iPad) need to set scale equal or less than 1.0
+						// NOTE: some targets(e.g iPad) need to set scale equal or less than 1.0
 						factor = 1;
 					}
 				}
 				console.log( "ScaleFactor: " + factor );
 				return factor;
+			},
+			isMobileBrowser: function ( ) {
+				var mobileIdx = window.navigator.appVersion.indexOf("Mobile"),
+					isMobile = -1 < mobileIdx;
+				return isMobile;
 			}
 		},
 
@@ -83,7 +88,7 @@
 			// Find current <script> tag element
 			var scriptElems = document.getElementsByTagName( 'script' ),
 				val = null,
-				foundScript = false,
+				foundScriptTag = false,
 				idx,
 				elem,
 				src,
@@ -104,13 +109,12 @@
 						|| this.frameworkData.version;
 					this.frameworkData.theme = elem.getAttribute( 'data-framework-theme' )
 						|| this.frameworkData.theme;
-					this.frameworkData.desktopScale = elem.getAttribute( 'data-framework-desktop-scale' )
-						|| this.frameworkData.desktopScale;
-					foundScript = true;
+					this.frameworkData.viewportScale = "true" === elem.getAttribute( 'data-framework-viewport-scale' ) ? true : this.frameworkData.viewportScale;
+					foundScriptTag = true;
 					break;
 				}
 			}
-			return foundScript;
+			return foundScriptTag;
 		},
 
 		loadTheme: function ( ) {
@@ -125,32 +129,6 @@
 
 			this.css.load( cssPath );
 			this.util.loadScriptSync( jsPath );
-		},
-
-		setViewport: function ( ) {
-			var meta,
-				scale,
-				head;
-			$( "meta" ).each( function ( ) {
-				if ( $( this ).attr( "name" ) === "viewport" ) {
-					console.log( "user set viewport... framework viewport will not be applied." );
-					meta = this;
-				}
-			});
-			if ( meta ) {
-				return;
-			}
-			meta = document.createElement( "meta" );
-			if ( meta ) {
-				//set meta tags for view port
-				scale = this.util.getScaleFactor( );
-
-				meta.name = "viewport";
-				meta.content = "width=device-width, initial-scale=" + scale + ", maximum-scale=" + scale + ", user-scalable=0, target-densityDpi=device-dpi";
-				console.log( meta.content );
-				head = document.getElementsByTagName( 'head' ).item( 0 );
-				head.insertBefore( meta, head.firstChild );
-			}
 		},
 
 		/** Load Globalize culture file, and set default culture.
@@ -229,34 +207,72 @@
 			Globalize.culture( lang );
 		},
 
-		setDesktopDefaultFontSize: function ( ) {
-			/* This function sets default font-size value of html element, only in desktop browsers.
-			 * It resizes all widgets using 'rem' unit.
-			 */
-			var desktopRatio = isNaN( this.frameworkData.desktopScale ) ? 0.5 : parseFloat( this.frameworkData.desktopScale ),
-				mobileIdx = navigator.appVersion.indexOf("Mobile"),
-				isMobile = -1 < mobileIdx,
-				themeDefaultFontSize = 16,
-				scaledFontSize = 16;
+		/** Set viewport meta tag for mobile devices.
+		 *
+		 * @param[in]	viewportWidth	Viewport width. 'device-dpi' is also allowed.
+		 * @param[in]	useAutoScale	If true, calculate & use scale factor. otherwise, scale factor is 1.
+		 * @param[in]	useDeviceDpi	If true, add 'target-densityDpi=device-dpi' to viewport meta content.
+		 */
+		setViewport: function ( viewportWidth, useAutoScale, useDeviceDpi ) {
+			var meta,
+				scale = 1,
+				head;
+			// Do nothing if viewport setting code is already in the code.
+			$( "meta" ).each( function ( ) {
+				if ( $( this ).attr( "name" ) === "viewport" ) {
+					console.log( "User set viewport... framework viewport will not be applied." );
+					meta = this;
+					return;
+				}
+			});
 
-			if ( ! isMobile ) {	// applies only with desktop
-				themeDefaultFontSize = parseInt( $( 'body' ).css( 'font-size' ), 10 );
-				scaledFontSize = Math.round( themeDefaultFontSize * desktopRatio );
-				$( 'html' ).css( { 'font-size': scaledFontSize + "px" } );
+			// Set meta tag
+			meta = document.createElement( "meta" );
+			if ( meta ) {
+				scale = useAutoScale ? this.util.getScaleFactor( ) : scale;
+				meta.name = "viewport";
+				meta.content = "width=" + viewportWidth + ", initial-scale=" + scale + ", maximum-scale=" + scale + ", user-scalable=0";
+				if ( useDeviceDpi ) {
+					meta.content += ", target-densityDpi=device-dpi";
+				}
+				console.log( meta.content );
+				head = document.getElementsByTagName( 'head' ).item( 0 );
+				head.insertBefore( meta, head.firstChild );
+			}
+		},
 
-				$( '.ui-mobile' ).css( { 'font-size': scaledFontSize + "px" } );
-				$( '.ui-mobile').children( 'body' ).css( { 'font-size': scaledFontSize + "px" } );
+		/**	Read body's font-size, scale it, and reset it.
+		 *  param[in]	desired font-size / base font-size.
+		 */
+		scaleBaseFontSize: function ( ratio ) {
+			themeDefaultFontSize = parseInt( $( 'body' ).css( 'font-size' ), 10 );
+			scaledFontSize = Math.round( themeDefaultFontSize * ratio );
+			$( '.ui-mobile' ).css( { 'font-size': scaledFontSize + "px" } );
+			$( '.ui-mobile').children( 'body' ).css( { 'font-size': scaledFontSize + "px" } );
+		},
+
+		setScaling: function ( ) {
+			var baseWidth = 720,		// NOTE: need to be changed to get the value from theme.
+				standardWidth = 360;
+
+			if ( this.frameworkData.viewportScale ) {
+				// Use viewport scaling with base font-size
+				// NOTE: No font-size setting is needed.
+				this.setViewport( baseWidth, true, true );
+			} else {
+				// Fixed viewport scale(=1.0) with scaled font size
+				this.setViewport( "device-dpi", false, undefined );
+				this.scaleBaseFontSize( parseFloat( standardWidth / baseWidth ) );
 			}
 		}
 	};
 } ( jQuery, window.Globalize, window ) );
 
 
-// Loader's jobs
+// Loader's job list
 ( function ( S, $, undefined ) {
 	S.getParams( );
 	S.loadTheme( );
-	S.setViewport( );
 	S.setGlobalize( );
 
 	// Turn off JQM's auto initialization option.
@@ -264,7 +280,7 @@
 	$.mobile.autoInitializePage = false;
 
 	$(document).ready( function ( ) {
+		S.setScaling( );
 		$.mobile.initializePage( );
-		S.setDesktopDefaultFontSize( );
 	});
 } ( window.S, jQuery ) );
