@@ -4,10 +4,10 @@
  */
 
 /**
- * multimediaview is a widget that lets the user to see and handle with multimedia contents.
- *
- * To apply, add the attribute data-role="multimediaview" to an <div> field.
- *
+ * MultiMediaView is a widget that provides an audio or a video content handling features.
+ * A multi-media content handled with this widget can be played with HTML5's <audio> or <video> tag.
+ * If a user wants to play a music file, he should use "<audio>" tag.
+ * And he should use "<video>" tag to play a video file.
  *
  * HTML Attributes:
  *			data-theme : Set a theme of widget.
@@ -60,6 +60,7 @@
 		_create : function () {
 			var self = this,
 				view = self.element,
+				viewElement = view[0],
 				option = self.options,
 				role = "multimediaview",
 				control = null;
@@ -83,18 +84,48 @@
 
 			control.hide();
 			view.wrap( "<div class='ui-multimediaview-wrap'>" ).after( control );
-			view.removeAttr( "controls" );
+			if ( option.controls ) {
+				if ( view.attr("controls") ) {
+					view.removeAttr( "controls" );
+				}
+			}
+
 			self._addEvent();
 
 			$( document ).bind( "pagechange.multimediaview", function ( e ) {
-				control.show();
-				self._resize();
-			});
-			$( document ).bind( "pagebeforechange.multimediaview", function ( e ) {
-				if ( view[0].played.length !== 0 ) {
-					view[0].pause();
+				var $page = $( e.target );
+				if ( $page.find( view ).length > 0 && viewElement.autoplay ) {
+					viewElement.play();
+				}
+
+				if ( option.controls ) {
+					control.show();
+					self._resize();
+				}
+			}).bind( "pagebeforechange.multimediaview", function ( e ) {
+				if ( viewElement.played.length !== 0 ) {
+					viewElement.pause();
 					control.hide();
 				}
+			});
+			$( window ).bind( "resize.multimediaview orientationchange.multimediaview", function ( e ) {
+				if ( !option.controls ) {
+					return;
+				}
+				var $page = $( e.target );
+
+				// for maintaining page layout
+				if ( !option.fullscreen ) {
+					$( ".ui-header:visible" ).show();
+					$( ".ui-footer:visible" ).show();
+				} else {
+					view.parents( ".ui-content" ).scrollview( "scrollTo", 0, 0 );
+					$( ".ui-header" ).hide();
+					$( ".ui-footer" ).hide();
+					self._fitContentArea( $page );
+				}
+
+				self._resize();
 			});
 		},
 		_resize : function () {
@@ -111,6 +142,9 @@
 			viewOffset = view.offset();
 
 			this._resizeControl( viewOffset, viewWidth, viewHeight );
+
+			this._updateSeekBar();
+			this._updateVolumeState();
 		},
 		_resizeControl : function ( offset, width, height ) {
 			var self = this,
@@ -127,7 +161,7 @@
 				availableWidth = 0,
 				controlOffset = null;
 
-			if ( typeof control != "undefined" && control !== null ) {
+			if ( control ) {
 				if ( view[0].nodeName === "VIDEO" ) {
 					controlOffset = control.offset();
 					controlOffset.left = offset.left;
@@ -138,7 +172,7 @@
 				control.width( controlWidth );
 			}
 
-			if ( typeof seekBar != "undefined" && seekBar !== null ) {
+			if ( seekBar ) {
 				availableWidth = control.width() - ( buttons.outerWidth( true ) * buttons.length );
 				availableWidth -= ( parseInt( buttons.eq( 0 ).css( "margin-left" ), 10 ) + parseInt( buttons.eq( 0 ).css( "margin-right" ), 10 ) ) * buttons.length;
 				if ( !self.isVolumeHide ) {
@@ -147,7 +181,7 @@
 				seekBar.width( availableWidth );
 			}
 
-			if ( typeof durationLabel != "undefined" && durationLabel !== null && !isNaN( viewElement.duration ) ) {
+			if ( durationLabel && !isNaN( viewElement.duration ) ) {
 				durationLabel.find( "p" ).text( self._convertTimeFormat( viewElement.duration ) );
 			}
 
@@ -169,18 +203,14 @@
 				docHeight = 0;
 
 			if ( isFullscreen ) {
-				if ( self.backupView !== null ) {
-					return;
+				if ( !self.backupView ) {
+					self.backupView = {
+						width : view[0].style.getPropertyValue( "width" ) || "",
+						height : view[0].style.getPropertyValue( "height" ) || "",
+						position : view.css( "position" ),
+						zindex : view.css( "z-index" )
+					};
 				}
-
-				self.backupView = {
-					width : view.width(),
-					height : view.height(),
-					offset : view.offset(),
-					position : view.css( "position" ),
-					zindex : view.css( "z-index" )
-				};
-
 				docWidth = $( "body" )[0].clientWidth;
 				docHeight = $( "body" )[0].clientHeight;
 
@@ -191,14 +221,17 @@
 					left : 0
 				});
 			} else {
-				if ( self.backupView === null ) {
+				if ( !self.backupView ) {
 					return;
 				}
 
 				view.removeClass( "ui-" + self.role + "-fullscreen" );
-				view.width( self.backupView.width ).height( self.backupView.height );
-				view.css( "position", self.backupView.position );
-				view.css( "z-index", self.backupView.zindex );
+				view.css( {
+					"width" : self.backupView.width,
+					"height" : self.backupView.height,
+					"position": self.backupView.position,
+					"z-index": self.backupView.zindex
+				});
 				self.backupView = null;
 			}
 			parent.show();
@@ -272,6 +305,10 @@
 					break;
 				}
 			}).bind( "vclick.multimediaview", function ( e ) {
+				if ( !self.options.controls ) {
+					return;
+				}
+
 				control.fadeToggle( "fast", function () {
 					var offset = control.offset();
 					self.isControlHide = !self.isControlHide;
@@ -279,7 +316,6 @@
 						self._startTimer();
 					}
 				});
-				self._updateSeekBar();
 				self._resize();
 			});
 
@@ -463,7 +499,7 @@
 		_startTimer : function ( duration ) {
 			this._endTimer();
 
-			if ( typeof duration == "undefined" ) {
+			if ( !duration ) {
 				duration = 3000;
 			}
 
@@ -481,7 +517,7 @@
 			}, duration );
 		},
 		_endTimer : function () {
-			if ( this.controlTimer !== null ) {
+			if ( this.controlTimer ) {
 				clearTimeout( this.controlTimer );
 				this.controlTimer = null;
 			}
@@ -514,6 +550,7 @@
 				currenttime = view[0].currentTime;
 			}
 			timebarWidth = parseInt( currenttime / duration * durationWidth, 10 );
+			durationBar.offset( durationOffset );
 			currenttimeBar.offset( durationOffset ).width( timebarWidth );
 			timestampLabel.find( "p" ).text( self._convertTimeFormat( currenttime ) );
 		},
@@ -529,19 +566,19 @@
 				volumeHandle = volumeControl.find( ".ui-handler" ),
 				handlerWidth = volumeHandle.width(),
 				handlerHeight = volumeHandle.height(),
-				volumeBarHeight = volumeControl.height(),
+				volumeGuideHeight = volumeGuide.height(),
 				volumeGuideWidth = volumeGuide.width(),
-				volumeBarTop = 0,
+				volumeGuideTop = 0,
 				volumeGuideLeft = 0,
 				volumeBase = 0,
 				handlerOffset = null,
 				volume = view[0].volume;
 
-			volumeBarTop = parseInt( volumeBar.offset().top, 10 );
-			volumeGuideLeft = volumeGuide.offset().left;
+			volumeGuideTop = parseInt( volumeGuide.offset().top, 10 );
+			volumeGuideLeft = parseInt( volumeGuide.offset().left, 10 );
 			volumeBase = volumeGuideLeft;
 			handlerOffset = volumeHandle.offset();
-			handlerOffset.top = volumeBarTop - parseInt( ( handlerHeight - volumeBarHeight ) / 2, 10 );
+			handlerOffset.top = volumeGuideTop - parseInt( ( handlerHeight - volumeGuideHeight ) / 2, 10 );
 			handlerOffset.left = volumeBase + parseInt( volumeGuideWidth * volume, 10 ) - parseInt( handlerWidth / 2, 10 );
 			volumeHandle.offset( handlerOffset );
 			volumeValue.width( parseInt( volumeGuideWidth * ( volume ), 10 ) );
@@ -561,12 +598,12 @@
 			}
 
 			var $page = $( page ),
-				$content = $page.children( ".ui-content:visible:first" ),
-				hh = $page.children( ".ui-header:visible" ).outerHeight() || 0,
-				fh = $page.children( ".ui-footer:visible" ).outerHeight() || 0,
+				$content = $( ".ui-content:visible:first" ),
+				hh = $( ".ui-header:visible" ).outerHeight() || 0,
+				fh = $( ".ui-footer:visible" ).outerHeight() || 0,
 				pt = parseFloat( $content.css( "padding-top" ) ),
 				pb = parseFloat( $content.css( "padding-bottom" ) ),
-				wh = $( parent ).height(),
+				wh = ( ( parent === window ) ? window.innerHeight : $( parent ).height() ),
 				height = wh - ( hh + fh ) - ( pt + pb );
 
 			$content.offset( {
@@ -612,7 +649,7 @@
 				control = view.parent().find( ".ui-multimediaview-control" ),
 				fullscreenButton = control.find( ".ui-fullscreenbutton" ),
 				args = arguments,
-				option = this.options,
+				option = self.options,
 				currentPage = $( ".ui-page-active" );
 
 			if ( args.length === 0 ) {
@@ -643,9 +680,5 @@
 
 	$( document ).bind( "pagecreate create", function ( e ) {
 		$.tizen.multimediaview.prototype.enhanceWithin( e.target );
-	});
-
-	$( window ).bind( "orientationchange", function () {
-		$( ":jqmData(role='multimediaview')" ).multimediaview( "refresh" );
 	});
 } ( jQuery, document, window ) );
