@@ -35,7 +35,7 @@
  *				For example, like address book.
  *		data-label:	This attribute is providing label for user-guide. (Default : 'To : ')
  *		data-descMessage : This attribute is managing message format.
- * 				 This message is displayed when widget status was changed to 'focusout'.
+ *				 This message is displayed when widget status was changed to 'focusout'.
  *
  *	APIs:
  *
@@ -86,6 +86,9 @@
 		_reservedWidth : 0,
 		_currentWidth : 0,
 		_fontSize : 0,
+		_anchorWidth : 0,
+		_labelWidth : 0,
+		_marginWidth : 0,
 		options : {
 			label : "To : ",
 			listUrl : "#addressbook",
@@ -118,7 +121,6 @@
 
 			// bind a event
 			this._bindEvents();
-			//
 			self._focusStatus = "init";
 			// display widget
 			$view.show();
@@ -160,8 +162,18 @@
 			});
 
 			$( document ).bind( "pagechange.mbe", function ( event ) {
+				if ( $view.innerWidth() === 0 ) {
+					return ;
+				}
+				var inputBox = $view.find( ".ui-multibuttonentry-input" );
+				if ( self._labelWidth === 0 ) {
+					self._labelWidth = $view.find( ".ui-multibuttonentry-label" ).outerWidth( true );
+					self._anchorWidth = $view.find( ".ui-multibuttonentry-link" ).outerWidth( true );
+					self._marginWidth = parseInt( ( $( inputBox ).css( "margin-left" ) ).replace( "px", "" ), 10 );
+					self._marginWidth += parseInt( ( $( inputBox ).css( "margin-right" ) ).replace( "px", "" ), 10 );
+					self._viewWidth = $view.innerWidth();
+				}
 				self._modifyInputBoxWidth();
-				self._resizeBlock();
 			});
 		},
 		// create a textbutton and append this button to parent layer.
@@ -170,6 +182,10 @@
 		_addTextBlock : function ( messages, blcokIndex ) {
 			if ( arguments.length === 0 ) {
 				return;
+			}
+
+			if ( ! messages ) {
+				return ;
 			}
 
 			var self = this,
@@ -287,31 +303,31 @@
 		_modifyInputBoxWidth : function () {
 			var self = this,
 				$view = self.element,
-				maxWidth = self._viewWidth - self._reservedWidth,
-				inputBoxWidth = maxWidth - self._reservedWidth,
+				labelWidth = self._labelWidth,
+				anchorWidth = self._anchorWidth,
+				inputBoxWidth = self._viewWidth - labelWidth - anchorWidth,
 				blocks = $view.find( "div" ),
-				anchorWidth = $view.find( ".ui-multibuttonentry-link" ).outerWidth(true),
 				blockWidth = 0,
 				index = 0,
-				tempWidth = 0,
-				margin = 0,
+				margin = self._marginWidth,
 				inputBox = $view.find( ".ui-multibuttonentry-input" );
-			margin += parseInt( ( $( inputBox ).css( "margin-left" ) ).replace( "px", "" ), 10 );
-			margin += parseInt( ( $( inputBox ).css( "margin-right" ) ).replace( "px", "" ), 10 );
-			inputBoxWidth -= margin;
-			tempWidth = anchorWidth + margin;
+
+			if ( $view.width() === 0 ) {
+				return ;
+			}
+
 			for ( index = 0; index < blocks.length; index += 1 ) {
 				blockWidth = self._calcBlockWidth( blocks[index] );
-				inputBoxWidth = inputBoxWidth - blockWidth - margin;
+				inputBoxWidth = inputBoxWidth - blockWidth;
 				if ( inputBoxWidth <= 0 ) {
 					if ( inputBoxWidth + anchorWidth >= 0 ) {
-						inputBoxWidth = self._viewWidth - margin - tempWidth;
+						inputBoxWidth = self._viewWidth - anchorWidth;
 					} else {
-						inputBoxWidth = self._viewWidth - blockWidth - tempWidth;
+						inputBoxWidth = self._viewWidth - blockWidth - anchorWidth;
 					}
 				}
 			}
-			$( inputBox ).width( inputBoxWidth );
+			$( inputBox ).width( inputBoxWidth - margin - 1 );
 		},
 		_stringFormat : function ( expression ) {
 			var pattern = null,
@@ -341,7 +357,7 @@
 		},
 
 		//----------------------------------------------------//
-		//                      Public Method                 //
+		//					Public Method					//
 		//----------------------------------------------------//
 		//
 		// Focus In Event
@@ -427,7 +443,7 @@
 			if ( arguments.length === 0 ) {
 				// return a selected block.
 				lockBlock = $view.find( "div.ui-multibuttonentry-sblock" );
-				if ( typeof lockBlock != "undefined" ) {
+				if ( lockBlock) {
 					return lockBlock.text();
 				}
 				return null;
@@ -460,24 +476,22 @@
 
 			if ( arguments.length === 0 ) {
 				blocks.remove();
-				self._modifyInputBoxWidth();
 				this._trigger( "clear" );
 			} else if ( typeof position == "number" ) {
 				// remove selected button
 				index = ( ( position < blocks.length ) ? position : ( blocks.length - 1 ) );
 				$( blocks[index] ).remove();
-				self._modifyInputBoxWidth();
 				this._trigger( "remove" );
 			}
+			self._modifyInputBoxWidth();
 		},
 		length : function () {
 			return this.element.find( "div" ).length;
 		},
 		refresh : function () {
-			var self = this,
-				$view = this.element;
-			self.element.hide().show();
-			self._viewWidth = $view.width();
+			var self = this;
+			self.element.hide();
+			self.element.show();
 		},
 		destory : function () {
 			var $view = this.element;

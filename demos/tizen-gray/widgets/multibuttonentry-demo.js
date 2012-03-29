@@ -13,7 +13,7 @@
 		});
 
 		$( "#MBTgetInputTextTest" ).click( function () {
-			var input = $( ":jqmData( role='multibuttonentry' )" ).multibuttonentry( "inputText" );
+			var input = $( ":jqmData(role='multibuttonentry')" ).multibuttonentry( "inputText" );
 			window.alert( "input String : " + input );
 		});
 
