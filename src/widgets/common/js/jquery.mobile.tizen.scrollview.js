@@ -85,15 +85,9 @@
 				direction,
 				self = this;
 
-			this._$content = $page.children('.ui-content');
-
 			this._$clip = $( this.element ).addClass("ui-scrollview-clip");
 
-			$child = this._$clip.children();
-
-			if ( $child.length > 1 ) {
-				$child = this._$clip.wrapInner("<div></div>").children();
-			}
+			$child = this._$clip.wrapInner("<div></div>").children();
 
 			this._$view = $child.addClass("ui-scrollview-view");
 
