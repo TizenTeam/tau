@@ -96,54 +96,54 @@
 //   Set to false to hide scrollbars on the container's scrollview.
 //   Has no effect is scrollable=false
 
-(function ($, undefined) {
+(function ( $, undefined ) {
 
-// hbox
-$.widget("tizen.layouthbox", $.tizen.jlayoutadaptor, {
-    fixed: {
-        type: 'flexGrid',
-        rows: 1,
-        direction: 'x',
-        initSelector: ':jqmData(layout="hbox")'
-    },
+	// hbox
+	$.widget( "tizen.layouthbox", $.tizen.jlayoutadaptor, {
+		fixed: {
+			type: 'flexGrid',
+			rows: 1,
+			direction: 'x',
+			initSelector: ':jqmData(layout="hbox")'
+		},
 
-    _create: function () {
-        if (!this.options.hgap) {
-            this.options.hgap = 0;
-        }
+		_create: function () {
+			if ( !this.options.hgap ) {
+				this.options.hgap = 0;
+			}
 
-        $.tizen.jlayoutadaptor.prototype._create.apply(this, arguments);
-    }
-});
+			$.tizen.jlayoutadaptor.prototype._create.apply( this, arguments );
+		}
+	} );
 
-$(document).bind("pagecreate", function (e) {
-    $($.tizen.layouthbox.prototype.fixed.initSelector, e.target)
-    .not(":jqmData(role='none'), :jqmData(role='nojs')")
-    .layouthbox();
-});
+	$( document ).bind( "pagecreate", function ( e ) {
+		$( $.tizen.layouthbox.prototype.fixed.initSelector, e.target )
+			.not( ":jqmData(role='none'), :jqmData(role='nojs')" )
+			.layouthbox();
+	} );
 
-// vbox
-$.widget("tizen.layoutvbox", $.tizen.jlayoutadaptor, {
-    fixed: {
-        type: 'flexGrid',
-        columns: 1,
-        direction: 'y',
-        initSelector: ':jqmData(layout="vbox")'
-    },
+	// vbox
+	$.widget( "tizen.layoutvbox", $.tizen.jlayoutadaptor, {
+		fixed: {
+			type: 'flexGrid',
+			columns: 1,
+			direction: 'y',
+			initSelector: ':jqmData(layout="vbox")'
+		},
 
-    _create: function () {
-        if (!this.options.vgap) {
-            this.options.vgap = 0;
-        }
+		_create: function () {
+			if ( !this.options.vgap ) {
+				this.options.vgap = 0;
+			}
 
-        $.tizen.jlayoutadaptor.prototype._create.apply(this, arguments);
-    }
-});
+			$.tizen.jlayoutadaptor.prototype._create.apply( this, arguments );
+		}
+	} );
 
-$(document).bind("pagecreate", function (e) {
-    $($.tizen.layoutvbox.prototype.fixed.initSelector, e.target)
-    .not(":jqmData(role='none'), :jqmData(role='nojs')")
-    .layoutvbox();
-});
+	$( document ).bind( "pagecreate", function ( e ) {
+		$( $.tizen.layoutvbox.prototype.fixed.initSelector, e.target )
+			.not( ":jqmData(role='none'), :jqmData(role='nojs')" )
+			.layoutvbox();
+	} );
 
-})(jQuery);
+}( jQuery ) );
