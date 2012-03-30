@@ -1,54 +1,46 @@
 .ui-demo-namecard {
 	display : inline-block;
-	width : 220px;
-	height : 260px;
-	margin-right: 17px;
-	margin-bottom: 1px;
+	width : 5.1rem;
+	height : 6.1rem;
+	margin-right: 0.4rem;
+	margin-left: 0.4rem;
+	margin-bottom: 1.5rem;
 }
 
 .ui-demo-namecard-pic {
 	float : left;
-	padding-top : 5px;
-	padding-left : 5px;
+	padding-top : 0.2rem;
+	padding-left : 0.2rem;
+	padding-bottom: 0rem;
 }
 
 .ui-demo-namecard-pic-img {
-	height : 210px;
-	width : 210px;
+	height : 5rem;
+	width : 5rem;
 }
 
 .ui-demo-namecard-contents {
 	float : left;
-	width : 200px;
-	height : 50px;
-	margin : 3px auto;
-	padding : 1px 1px 1px 1px;
+	height : 1rem;
+	margin: 0rem;
 }
 
 .ui-demo-namecard-contents span {
 	font-style : italic;
-	padding : 0 0.3em;
 	color : #666;
 	border-bottom : 1px dashed;
+	margin-top: 0rem;
 }
 
 .ui-demo-namecard-contents span.name {
 	color : white;
-	font : normal 30px Georgia, serif !important;
+	font : normal 0.8rem Georgia, serif !important;
 
-	width: 200px;
+	width: 5rem;
 	display: inline-block;
 	white-space : nowrap;
 	overflow : hidden !important;
 	text-overflow : ellipsis !important;
 	-o-text-overflow:ellipsis;
 	resize:horizontal;
-}
-
-.ui-demo-namecard-contents span.active {
-	font : normal 12px Georgia, serif !important;
-}
-
-.ui-demo-namecard-contents span.from {
-	font : normal 11px Georgia, serif !important;
 }
