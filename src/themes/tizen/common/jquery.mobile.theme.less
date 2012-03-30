@@ -64,8 +64,8 @@
 			background: @color_bar_footer_btn_bg;			 		
 
 			border-color : black; 
-			border-width : 2px;
-			border-style :  groove;			
+			border-width : 2 * @unit_base;
+			border-style :  groove;
 		}
 	
 	.ui-btn.ui-btn-back{
@@ -133,10 +133,10 @@
 			}
 		}	
 		.ui-title-extended-controlgroup {
-			top : 15  * @unit_base;
+			top : 5  * @unit_base; // scale change
 		}
 		.ui-footer-extended-controlgroup {
-			top : -5  * @unit_base;
+			top : 16  * @unit_base; // scale change
 			.ui-btn-inner {
 				line-height : 74  * @unit_base;
 				padding : 0  * @unit_base;
@@ -238,8 +238,9 @@
 
 	.ui-title-extended-segment-style {
 		left : 0 * @unit_base;
-		top : -30%;
-	}		
+		margin-top : 0 * @unit_base;
+		top : 2 * @unit_base; // scale change
+	}
 }
 
 .ui-header.ui-bar-s.ui-title-controlbar-height,
@@ -255,6 +256,11 @@
 		font-size : 32 * @unit_base;
 	}
 }
+.ui-footer.ui-bar-s .ui-title-extended-controlgroup-4btn {
+	margin-top : 0 * @unit_base;
+}
+
+
 /***************************************************************************
                     Header / Footer 
                     NavigationBar

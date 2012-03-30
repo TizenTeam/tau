@@ -31,7 +31,7 @@
 
 .ui-option-header .ui-btn {
     display: block;
-    margin: 3px 5px 5px 5px;
+    margin: 3 * @unit_base 5 * @unit_base 5 * @unit_base 5 * @unit_base;
 }
 
 .ui-option-header .ui-input-search .ui-btn {
@@ -60,17 +60,17 @@
 
 .ui-option-header .ui-controlgroup-horizontal .ui-btn {
     display: inline-block !important;
-    margin: -3px !important;
+    margin: -3 * @unit_base !important;
 }
 .ui-option-header .ui-controlgroup,
 .ui-option-header fieldset.ui-controlgroup {
     margin-bottom: 0px !important;
 }
 .ui-option-header .ui-controlgroup-horizontal .ui-corner-left {
-    margin-left: 5px !important;
+    margin-left: 5 * @unit_base !important;
 }
 .ui-option-header .ui-controlgroup-horizontal .ui-corner-right {
-    margin-right: 5px !important;
+    margin-right: 5 * @unit_base !important;
 }
 
 .ui-option-header-triangle-arrow {
@@ -118,6 +118,7 @@
 */
 .ui-triangle-image{
 	background-image: url(images/00_winset_control_top_arrow.png); 
+	background-size:  100% 100%;
 
 	position : absolute;
 	width: 28 * @unit_base;
@@ -126,7 +127,10 @@
 	
 }
 
-.ui-icon-optiontray	{	background-image: url(images/00_winset_btn_optiontray.png);}
+.ui-icon-optiontray	{	
+	background-size:  100% 100%;
+	background-image: url(images/00_winset_btn_optiontray.png);
+}
 
 .ui-header {
 	.ui-btn{	
