@@ -1,3 +1,11 @@
+web-ui-fw (0.1.13) unstable; urgency=low
+
+  * Apply rem scaling, fix widget bugs
+  * Git: slp/pkgs/w/web-ui-fw
+  * Tag: web-ui-fw_0.1.13
+
+ -- Noha Park <noha.park@samsung.com>  Fri, 30 Mar 2012 09:04:40 +0900
+
 web-ui-fw (0.1.12) unstable; urgency=low
 
   * Bug fix, add new widget, add boilerplate 
