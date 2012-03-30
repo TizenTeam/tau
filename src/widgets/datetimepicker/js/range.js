@@ -4,7 +4,7 @@
  * original by: Waldo Malqui Silva
  * version: 1107.2516
  */
-function range (low, high, step) {
+function range( low, high, step ) {
     // Create an array containing the range of integers or characters
     // from low to high (inclusive)  
     // 
@@ -19,11 +19,13 @@ function range (low, high, step) {
     // *     returns 3: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']
     // *     example 4: range( 'c', 'a' );
     // *     returns 4: ['c', 'b', 'a']
-    var matrix = [];
-    var inival, endval, plus;
-    var walker = step || 1;
-    var chars = false;
- 
+	var matrix = [],
+		inival,
+		endval,
+		plus,
+		walker = step || 1,
+		chars = false;
+
     if (!isNaN(low) && !isNaN(high)) {
         inival = low;
         endval = high;
@@ -35,7 +37,7 @@ function range (low, high, step) {
         inival = (isNaN(low) ? 0 : low);
         endval = (isNaN(high) ? 0 : high);
     }
- 
+
     plus = ((inival > endval) ? false : true);
     if (plus) {
         while (inival <= endval) {
@@ -48,7 +50,7 @@ function range (low, high, step) {
             inival -= walker;
         }
     }
- 
+
     return matrix;
 }
 
