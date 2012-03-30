@@ -113,8 +113,8 @@
 	var autodividers = function ( options ) {
 		var list = $( this ),
 			listview = list.data( 'listview' ),
-			dividerType = options.type || list.jqmData( 'autodividers' ) || 'alpha',
-			textSelector = options.selector || list.jqmData( 'autodividers-selector' ) || 'a',
+			dividerType,
+			textSelector,
 			getDividerText,
 			mergeDividers,
 			isNonDividerLi,
@@ -122,6 +122,8 @@
 			liRemoved;
 
 		options = options || {};
+		dividerType = options.type || list.jqmData( 'autodividers' ) || 'alpha';
+		textSelector = options.selector || list.jqmData( 'autodividers-selector' ) || 'a';
 
 		getDividerText = function ( elt ) {
 			// look for some text in the item
