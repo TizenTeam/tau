@@ -19,7 +19,6 @@
 	<script src="tips/generate-elements-dynamically.js"></script>
 	<script src="widgets/pagecontrol/pagecontrol-demo.js"></script>
 	<script src="widgets/multibuttonentry-demo.js"></script>
-	<script src="widgets/splitview-demo.js"></script>
 	<link rel="stylesheet" href="custom.css" />
 	<title>Tizen UI</title>
 
@@ -92,8 +91,6 @@
 				<li data-role="list-divider">Background text</li>
 				<li data-role="list-divider">Page Indicator</li>
 				<li data-role="list-divider">Landscape</li>
-				<li data-role="list-divider">Spilit view</li>
-				<li><a href="#splitview">Spilit view</a></li>
 				<li data-role="list-divider">Multimedia view</li>
 				<li><a href="widgets/multimediaview/multimediaview.html">Multimedia view</a></li>
 
@@ -995,73 +992,5 @@
 			</ul>
 		</div> <!--/content -->
 	</div> <!--/page -->
-
-	<div data-role="page" id="splitview">
-		<div data-role="content">
-			<div id="test" data-role="splitview" data-direction="horizontal" data-fixed="false">
-				<div data-role="panel" data-id="menu" data-scroll="y" data-size="0.3">
-					<ul data-role="listview">
-						<li><a href="#test1" data-target="main"><h2>Inner Page(#test1)</h2></a></li>
-						<li><a href="#test2" data-target="main"><h2>Inner Page(#test2)</h2></a></li>
-						<li><a href="http://m.naver.com" data-target="main"><h2>m.naver.com</h2></a></li>
-						<li><a href="http://m.daum.net" data-target="main"><h2>m.daum.net</h2></a></li>
-						<li><a id="SPtestFix"><h2>Fix</h2></a></li>
-						<li><a id="SPtestMovable"><h2>Movable</h2></a></li>
-					</ul>
-				</div>
-				<div data-role="panel" data-id="main" data-scroll="y" data-size="0.7">
-				</div>
-			</div>
-		</div>
-	</div>
-	<div data-role="page" id="test1" data-footer-Exist="false" >
-		<div data-role="header">
-			<h1>Test 1</h1>
-		</div>
-		<div data-role="content">
-			<ul data-role="listview">
-				<li class="ui-li-2line-bigicon8 ui-li-dialogue">
-					<img src="widgets/list/thumbnail.jpg" class="ui-li-bigicon">
-					<span class="ui-li-text-main">2line-bigicon8</span>
-					<span class="ui-li-text-sub">Subtext</span>
-					<img src="widgets/list/00_winset_icon_favorite_on.png" class="ui-li-icon-sub">
-				</li>
-				<li class="ui-li-1line ui-li-dialogue" data-expandable="false">
-					<span class="ui-li-text-main">2line-radio1</span>
-				</li>
-				<li class="ui-li-1line ui-li-dialogue" data-expandable="true" id="exp5">
-					<span class="ui-li-text-main">2line-radio1</span>
-				</li>
-				<li class="ui-li-1line ui-li-dialogue" data-expandable="true" id="exp5">
-					<span class="ui-li-text-main">2line-radio1</span>
-				</li>
-			</ul>
-		</div>
-	</div>
-	<div data-role="page" id="test2" data-footer-Exist="false" >
-		<div data-role="header">
-			<h1>Test 2</h1>
-		</div>
-		<div data-role="content">
-			<ul data-role="listview">
-				<li class="ui-li-2line-bigicon8 ui-li-dialogue">
-					<img src="widgets/list/thumbnail.jpg" class="ui-li-bigicon">
-					<span class="ui-li-text-main">2line-bigicon8</span>
-					<span class="ui-li-text-sub">Subtext</span>
-					<img src="widgets/list/00_winset_icon_favorite_on.png" class="ui-li-icon-sub">
-				</li>
-				<li class="ui-li-1line ui-li-dialogue" data-expandable="false">
-					<span class="ui-li-text-main">2line-radio1</span>
-				</li>
-				<li class="ui-li-1line ui-li-dialogue" data-expandable="true" id="exp5">
-					<span class="ui-li-text-main">2line-radio1</span>
-				</li>
-				<li class="ui-li-1line ui-li-dialogue" data-expandable="true" id="exp5">
-					<span class="ui-li-text-main">2line-radio1</span>
-				</li>
-			</ul>
-		</div>
-	</div>
-
 </body>
 </html>
