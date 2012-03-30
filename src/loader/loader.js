@@ -244,16 +244,17 @@
 		/**	Read body's font-size, scale it, and reset it.
 		 *  param[in]	desired font-size / base font-size.
 		 */
-		scaleBaseFontSize: function ( ratio ) {
-			themeDefaultFontSize = parseInt( $( 'body' ).css( 'font-size' ), 10 );
-			scaledFontSize = Math.round( themeDefaultFontSize * ratio );
+		scaleBaseFontSize: function ( themeDefaultFontSize, ratio ) {
+			var scaledFontSize = Math.round( themeDefaultFontSize * ratio );
 			$( '.ui-mobile' ).css( { 'font-size': scaledFontSize + "px" } );
 			$( '.ui-mobile').children( 'body' ).css( { 'font-size': scaledFontSize + "px" } );
 		},
 
 		setScaling: function ( ) {
 			var baseWidth = 720,		// NOTE: need to be changed to get the value from theme.
-				standardWidth = 360;
+				standardWidth = 360,
+				themeDefaultFontSize = parseInt( $( 'body' ).css( 'font-size' ), 10 );
+			$( 'body' ).attr( 'data-tizen-theme-default-font-size', themeDefaultFontSize );
 
 			if ( this.frameworkData.viewportScale ) {
 				// Use viewport scaling with base font-size
@@ -262,7 +263,7 @@
 			} else {
 				// Fixed viewport scale(=1.0) with scaled font size
 				this.setViewport( "device-dpi", false, undefined );
-				this.scaleBaseFontSize( parseFloat( standardWidth / baseWidth ) );
+				this.scaleBaseFontSize( themeDefaultFontSize, parseFloat( standardWidth / baseWidth ) );
 			}
 		}
 	};
