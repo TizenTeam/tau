@@ -132,7 +132,7 @@
 			self._viewWidth = $view.innerWidth();
 			self._reservedWidth += self._calcBlockWidth( moreBlock );
 			self._reservedWidth += self._calcBlockWidth( labeltag );
-			self._fontSize = $( moreBlock ).css( "font-size" ).replace( "px", "" );
+			self._fontSize = parseInt ( $( moreBlock ).css( "font-size" ), 10 );
 			self._currentWidth = self._reservedWidth;
 		},
 		// bind events
@@ -169,8 +169,8 @@
 				if ( self._labelWidth === 0 ) {
 					self._labelWidth = $view.find( ".ui-multibuttonentry-label" ).outerWidth( true );
 					self._anchorWidth = $view.find( ".ui-multibuttonentry-link" ).outerWidth( true );
-					self._marginWidth = parseInt( ( $( inputBox ).css( "margin-left" ) ).replace( "px", "" ), 10 );
-					self._marginWidth += parseInt( ( $( inputBox ).css( "margin-right" ) ).replace( "px", "" ), 10 );
+					self._marginWidth = parseInt( ( $( inputBox ).css( "margin-left" ) ), 10 );
+					self._marginWidth += parseInt( ( $( inputBox ).css( "margin-right" ) ), 10 );
 					self._viewWidth = $view.innerWidth();
 				}
 				self._modifyInputBoxWidth();
