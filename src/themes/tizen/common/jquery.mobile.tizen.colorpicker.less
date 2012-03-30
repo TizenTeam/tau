@@ -2,11 +2,11 @@
 @import "config.less";
 
 /* @selector-size should be an odd number, in order to pixel-perfectly center on a given colour */
-@colorpicker-selector-size: 61 * @unit_base;
+@colorpicker-selector-size: 72 * @unit_base;
 @colorpicker-selector-border-width: 5 * @unit_base;
 @colorpicker-clrchannel-hs-width:  256 * @unit_base;
 @colorpicker-clrchannel-hs-height: 256 * @unit_base;
-@colorpicker-clrchannel-l-width: 16 * @unit_base;
+@colorpicker-clrchannel-l-width: 18 * @unit_base;
 @colorpicker-clrchannel-l-height: 256 * @unit_base;
 
 @colorpicker-selector-total-size: @colorpicker-selector-size + 2 * @colorpicker-selector-border-width;
@@ -61,6 +61,7 @@
             position: absolute;
             width:  @colorpicker-clrchannel-l-width;
             height: @colorpicker-clrchannel-l-height;
+            left: ( @colorpicker-selector-size + ( @colorpicker-selector-border-width * 2 ) - @colorpicker-clrchannel-l-width ) / 2;
         }
 
         .colorpicker-l-selector {
