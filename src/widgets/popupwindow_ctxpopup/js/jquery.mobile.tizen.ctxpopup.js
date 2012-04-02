@@ -38,216 +38,222 @@
 // to one in the superclass, upon calling $.widget the object is overwritten in both the prototype of the superclass and
 // the prototype of the subclass. The prototype of the superclass should remain unchanged.
 
-(function($, undefined) {
-    $.widget("tizen.ctxpopup", $.tizen.widgetex, {
-        options: $.extend({}, $.tizen.popupwindow.prototype.options, {
-            initSelector: ":not(:not(" + $.tizen.popupwindow.prototype.options.initSelector + ")):not(:not(:jqmData(show-arrow='true'), :jqmData(show-arrow)))"
-        }),
+(function ( $, undefined ) {
+	$.widget( "tizen.ctxpopup", $.tizen.widgetex, {
+		options: $.extend( {}, $.tizen.popupwindow.prototype.options, {
+			initSelector: ":not(:not(" + $.tizen.popupwindow.prototype.options.initSelector + ")):not(:not(:jqmData(show-arrow='true'), :jqmData(show-arrow)))"
+		} ),
 
-        _htmlProto: {
-            ui: {
-                outer     : "#outer",
-                container : "#container", // the key has to have the name "container"
-                arrow     : {
-                    all : ":jqmData(role='triangle')",
-                    l   : "#left",
-                    t   : "#top",
-                    r   : "#right",
-                    b   : "#bottom"
-                }
-            }
-        },
+		_htmlProto: {
+			ui: {
+				outer		: "#outer",
+				container	: "#container", // the key has to have the name "container"
+				arrow		: {
+					all		: ":jqmData(role='triangle')",
+					l		: "#left",
+					t		: "#top",
+					r		: "#right",
+					b		: "#bottom"
+				}
+			}
+		},
 
-        _create: function(){
-            if (!this.element.data("popupwindow"))
-                this.element.popupwindow();
-            this.element.data("popupwindow")
-                    ._ui.container
-                        .removeClass("ui-popupwindow-padding")
-                        .append(this._ui.outer);
-            this._ui.outer.trigger("create"); // Creates the triangle widgets
-            this._ui.container
-                .addClass("ui-popupwindow-padding")
-                .append(this.element);
-        },
+		_create: function () {
+			if ( !this.element.data( "popupwindow" ) ) {
+				this.element.popupwindow();
+			}
 
-        _setOption: function(key, value) {
-            $.tizen.popupwindow.prototype._setOption.apply(this.element.data("popupwindow"), arguments);
-            this.options[key] = value;
-        }
-    });
+			this.element.data( "popupwindow" )
+				._ui.container
+				.removeClass( "ui-popupwindow-padding" )
+				.append( this._ui.outer );
+			this._ui.outer.trigger( "create" ); // Creates the triangle widgets
+			this._ui.container
+				.addClass( "ui-popupwindow-padding" )
+				.append( this.element );
+		},
 
-var origOpen = $.tizen.popupwindow.prototype.open,
-    orig_setOption = $.tizen.popupwindow.prototype._setOption,
-    orig_placementCoords = $.tizen.popupwindow.prototype._placementCoords;
+		_setOption: function ( key, value ) {
+			$.tizen.popupwindow.prototype._setOption.apply( this.element.data( "popupwindow" ), arguments );
+			this.options[key] = value;
+		}
+	} );
 
-$.tizen.popupwindow.prototype._setOption = function(key, value) {
-    var ctxpopup = this.element.data("ctxpopup"),
-        needsApplying = true;
-    if (ctxpopup) {
-        if ("shadow" === key || "overlayTheme" === key || "corners" === key) {
-            var origContainer = this._ui.container;
+	var origOpen = $.tizen.popupwindow.prototype.open,
+		orig_setOption = $.tizen.popupwindow.prototype._setOption,
+		orig_placementCoords = $.tizen.popupwindow.prototype._placementCoords;
 
-            this._ui.container = ctxpopup._ui.container;
-            orig_setOption.apply(this, arguments);
-            this._ui.container = origContainer;
-            needsApplying = false;
-        }
-        ctxpopup.options[key] = value;
-    }
+	$.tizen.popupwindow.prototype._setOption = function ( key, value ) {
+		var ctxpopup = this.element.data( "ctxpopup" ),
+			needsApplying = true,
+			origContainer;
+		if ( ctxpopup ) {
+			if ( "shadow" === key || "overlayTheme" === key || "corners" === key ) {
+				origContainer = this._ui.container;
 
-    if (needsApplying)
-        orig_setOption.apply(this, arguments);
-};
+				this._ui.container = ctxpopup._ui.container;
+				orig_setOption.apply( this, arguments );
+				this._ui.container = origContainer;
+				needsApplying = false;
+			}
+			ctxpopup.options[key] = value;
+		}
 
-$.tizen.popupwindow.prototype._placementCoords = function(x, y, cx, cy) {
-    var ctxpopup = this.element.data("ctxpopup"),
-        self = this;
+		if ( needsApplying ) {
+			orig_setOption.apply(this, arguments);
+		}
+	};
 
-    if (ctxpopup) {
-        var coords = {}, minDiff, minDiffIdx;
+	$.tizen.popupwindow.prototype._placementCoords = function ( x, y, cx, cy ) {
+		var ctxpopup = this.element.data( "ctxpopup" ),
+			self = this,
+			coords = {},
+			minDiff,
+			minDiffIdx;
 
-        // Returns:
-        // {
-        //    absDiff: int
-        //    triangleOffset: int
-        //    actual: { x: int, y: int }
-        // }
-        function getCoords(arrow, x_factor, y_factor) {
-            // Unhide the arrow we want to test to take it into account
-            ctxpopup._ui.arrow.all.hide();
-            ctxpopup._ui.arrow[arrow].show();
+		function getCoords( arrow, x_factor, y_factor ) {
+			// Unhide the arrow we want to test to take it into account
+			ctxpopup._ui.arrow.all.hide();
+			ctxpopup._ui.arrow[arrow].show();
 
-            var isHorizontal = ("b" === arrow || "t" === arrow),
-                // Names of keys used in calculations depend on whether things are horizontal or not
-                coord = (isHorizontal
-                    ? {point: "x", size: "cx", beg: "left", outerSize: "outerWidth",  niceSize: "width",  triangleSize : "height"}
-                    : {point: "y", size: "cy", beg: "top",  outerSize: "outerHeight", niceSize: "height", triangleSize : "width"}),
-                size = {
-                    cx : self._ui.container.width(),
-                    cy : self._ui.container.height()
-                },
-                halfSize = {
-                    cx : size.cx / 2,
-                    cy : size.cy / 2
-                },
-                desired = { 
-                    "x" : x + halfSize.cx * x_factor,
-                    "y" : y + halfSize.cy * y_factor
-                },
-                orig = orig_placementCoords.call(self, desired.x, desired.y, size.cx, size.cy),
+			var isHorizontal = ( "b" === arrow || "t" === arrow ),
+			// Names of keys used in calculations depend on whether things are horizontal or not
+				coord = ( isHorizontal
+						? { point: "x", size: "cx", beg: "left", outerSize: "outerWidth",  niceSize: "width", triangleSize : "height" }
+						: { point: "y", size: "cy", beg: "top",  outerSize: "outerHeight", niceSize: "height", triangleSize : "width" } ),
+				size = {
+					cx : self._ui.container.width(),
+					cy : self._ui.container.height()
+				},
+				halfSize = {
+					cx : size.cx / 2,
+					cy : size.cy / 2
+				},
+				desired = {
+					"x" : x + halfSize.cx * x_factor,
+					"y" : y + halfSize.cy * y_factor
+				},
+				orig = orig_placementCoords.call( self, desired.x, desired.y, size.cx, size.cy ),
 
-                // The triangleOffset must be clamped to the range described below:
-                //
-                //                          +-------...
-                //                          |   /\
-                //                          |  /  \
-                //                   ----+--+-,-----...
-                //lowerDiff       -->____|  |/ <-- possible rounded corner
-                //triangle size   -->    | /|
-                //                   ____|/ |
-                //                    ^  |\ | <-- lowest possible offset for triangle
-                // actual range of    |  | \| 
-                // arrow offset       |  |  | 
-                // values due to      |  .  . Payload table cell looks like
-                // possible rounded   |  .  . a popup window, and it may have
-                // corners and arrow  |  .  . arbitrary things like borders,
-                // triangle size -    |  |  | shadows, and rounded corners.
-                // our clamp range    |  | /|
-                //                   _v__|/ |
-                //triangle size   -->    |\ | <-- highest possible offset for triangle
-                //                   ____| \|
-                //upperDiff       -->    |  |\ <-- possible rounded corner
-                //                   ----+--+-'-----...
-                //                          |  \  /
-                //                          |   \/
-                //                          +-------...
-                //
-                // We calculate lowerDiff and upperDiff by considering the offset and width of the payload (this.element)
-                // versus the offset and width of the element enclosing the triangle, because the payload is inside
-                // whatever decorations (such as borders, shadow, rounded corners) and thus can give a reliable indication
-                // of the thickness of the combined decorations
+			// The triangleOffset must be clamped to the range described below:
+			//
+			//                          +-------...
+			//                          |   /\
+			//                          |  /  \
+			//                   ----+--+-,-----...
+			//lowerDiff       -->____|  |/ <-- possible rounded corner
+			//triangle size   -->    | /|
+			//                   ____|/ |
+			//                    ^  |\ | <-- lowest possible offset for triangle
+			// actual range of    |  | \| 
+			// arrow offset       |  |  | 
+			// values due to      |  .  . Payload table cell looks like
+			// possible rounded   |  .  . a popup window, and it may have
+			// corners and arrow  |  .  . arbitrary things like borders,
+			// triangle size -    |  |  | shadows, and rounded corners.
+			// our clamp range    |  | /|
+			//                   _v__|/ |
+			//triangle size   -->    |\ | <-- highest possible offset for triangle
+			//                   ____| \|
+			//upperDiff       -->    |  |\ <-- possible rounded corner
+			//                   ----+--+-'-----...
+			//                          |  \  /
+			//                          |   \/
+			//                          +-------...
+			//
+			// We calculate lowerDiff and upperDiff by considering the offset and width of the payload (this.element)
+			// versus the offset and width of the element enclosing the triangle, because the payload is inside
+			// whatever decorations (such as borders, shadow, rounded corners) and thus can give a reliable indication
+			// of the thickness of the combined decorations
 
-                arrowBeg = ctxpopup._ui.arrow[arrow].offset()[coord.beg],
-                arrowSize = ctxpopup._ui.arrow[arrow][coord.outerSize](true),
-                payloadBeg = self.element.offset()[coord.beg],
-                payloadSize = self.element[coord.outerSize](true),
-                triangleSize = ctxpopup._ui.arrow[arrow][coord.triangleSize](),
-                triangleOffset = 
-                    Math.max(
-                        triangleSize // triangle size
-                            + Math.max(0, payloadBeg - arrowBeg), // lowerDiff
-                        Math.min(
-                            arrowSize // bottom
-                                - triangleSize // triangle size
-                                - Math.max(0, arrowBeg + arrowSize - (payloadBeg + payloadSize)), // upperDiff
-                            arrowSize / 2 // arrow unrestricted offset
-                                + desired[coord.point]
-                                - orig[coord.point]
-                                - halfSize[coord.size])),
-                // Triangle points here
-                final = {
-                    "x": orig.x + ( isHorizontal ? triangleOffset : 0) + ("r" === arrow ? size.cx : 0),
-                    "y": orig.y + (!isHorizontal ? triangleOffset : 0) + ("b" === arrow ? size.cy : 0)
-                },
-                ret = {
-                    actual         : orig,
-                    triangleOffset : triangleOffset,
-                    absDiff        : Math.abs(x - final.x) + Math.abs(y - final.y)
-                };
+				arrowBeg = ctxpopup._ui.arrow[arrow].offset()[coord.beg],
+				arrowSize = ctxpopup._ui.arrow[arrow][coord.outerSize]( true ),
+				payloadBeg = self.element.offset()[coord.beg],
+				payloadSize = self.element[coord.outerSize]( true ),
+				triangleSize = ctxpopup._ui.arrow[arrow][coord.triangleSize](),
+				triangleOffset =
+					Math.max(
+						triangleSize // triangle size
+							+ Math.max( 0, payloadBeg - arrowBeg ), // lowerDiff
+						Math.min(
+								arrowSize // bottom
+									- triangleSize // triangle size
+									- Math.max( 0, arrowBeg + arrowSize - ( payloadBeg + payloadSize ) ), // upperDiff
+								arrowSize / 2 // arrow unrestricted offset
+									+ desired[coord.point]
+									- orig[coord.point]
+									- halfSize[coord.size] 
+							)
+					),
+					// Triangle points here
+				final = {
+					"x": orig.x + ( isHorizontal ? triangleOffset : 0) + ("r" === arrow ? size.cx : 0),
+					"y": orig.y + (!isHorizontal ? triangleOffset : 0) + ("b" === arrow ? size.cy : 0)
+				},
+				ret = {
+					actual			: orig,
+					triangleOffset	: triangleOffset,
+					absDiff			: Math.abs( x - final.x ) + Math.abs( y - final.y )
+				};
 
-            // Hide it back
-            ctxpopup._ui.arrow[arrow].hide();
+			// Hide it back
+			ctxpopup._ui.arrow[arrow].hide();
 
-            return ret;
-        }
+			return ret;
+		}
 
-        coords = {
-            l : getCoords("l",  1,  0),
-            r : getCoords("r", -1,  0),
-            t : getCoords("t",  0,  1),
-            b : getCoords("b",  0, -1)
-        };
+		if ( ctxpopup ) {
+			// Returns:
+			// {
+			//    absDiff: int
+			//    triangleOffset: int
+			//    actual: { x: int, y: int }
+			// }
 
-        $.each(coords, function(key, value) {
-            if (minDiff === undefined || value.absDiff < minDiff) {
-                minDiff = value.absDiff;
-                minDiffIdx = key;
-            }
-        });
+			coords = {
+				l : getCoords( "l", 1, 0 ),
+				r : getCoords( "r", -1, 0 ),
+				t : getCoords( "t", 0, 1 ),
+				b : getCoords( "b", 0, -1 )
+			};
 
-        // Side-effect: show the appropriate arrow and move it to the right offset
-        ctxpopup._ui.arrow[minDiffIdx]
-            .show()
-            .triangle("option", "offset", coords[minDiffIdx].triangleOffset);
-        return coords[minDiffIdx].actual;
-    }
-    else
-        return orig_placementCoords.call(this, x, y, cx, cy);
-};
+			$.each( coords, function ( key, value ) {
+				if ( minDiff === undefined || value.absDiff < minDiff ) {
+					minDiff = value.absDiff;
+					minDiffIdx = key;
+				}
+			} );
 
-$.tizen.popupwindow.prototype.open = function(x, y) {
-    var ctxpopup = this.element.data("ctxpopup");
+			// Side-effect: show the appropriate arrow and move it to the right offset
+			ctxpopup._ui.arrow[minDiffIdx]
+				.show()
+				.triangle( "option", "offset", coords[minDiffIdx].triangleOffset );
+			return coords[minDiffIdx].actual;
+		}
 
-    if (ctxpopup) {
-        this._setShadow(false);
-        this._setCorners(false);
-        this._setOverlayTheme(null);
-        this._setOption("overlayTheme", ctxpopup.options.overlayTheme);
-        ctxpopup._ui.arrow.all.triangle("option", "color", ctxpopup._ui.container.css("background-color"));
+		return orig_placementCoords.call( this, x, y, cx, cy );
+	};
 
-		// temporary
-		$('.ui-popupwindow').css('background', 'none');
-    }
+	$.tizen.popupwindow.prototype.open = function ( x, y ) {
+		var ctxpopup = this.element.data( "ctxpopup" );
 
-    origOpen.call(this, x, y);
-};
+		if ( ctxpopup ) {
+			this._setShadow( false );
+			this._setCorners( false );
+			this._setOverlayTheme( null );
+			this._setOption( "overlayTheme", ctxpopup.options.overlayTheme );
+			ctxpopup._ui.arrow.all.triangle( "option", "color", ctxpopup._ui.container.css( "background-color" ) );
 
-//auto self-init widgets
-$( document ).bind( "pagecreate create", function( e ){
-    var ctxpopups = $($.tizen.ctxpopup.prototype.options.initSelector, e.target);
-    $.tizen.ctxpopup.prototype.enhanceWithin( e.target );
+			// temporary
+			$( '.ui-popupwindow' ).css( 'background', 'none' );
+		}
 
-});
+		origOpen.call( this, x, y );
+	};
 
-})(jQuery);
+	//auto self-init widgets
+	$( document ).bind( "pagecreate create", function ( e ) {
+		var ctxpopups = $( $.tizen.ctxpopup.prototype.options.initSelector, e.target );
+		$.tizen.ctxpopup.prototype.enhanceWithin( e.target );
+	} );
+}( jQuery ) );
