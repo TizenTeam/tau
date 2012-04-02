@@ -44,7 +44,7 @@
  *			AUDIO :
  *				<audio data-controls="true" style="width:100%;">
  *					<source src="media/Over the horizon.mp3" type="audio/mp3" />
- *					Your browser does not support the video tag.
+ *					Your browser does not support the audio tag.
  *				</audio>
  *
  */
@@ -112,15 +112,19 @@
 				if ( !option.controls ) {
 					return;
 				}
-				var $page = $( e.target );
+				var $page = $( e.target ),
+					$scrollview = view.parents( ".ui-scrollview-clip" );
+
+				$scrollview.each( function ( i ) {
+					if ( $.data( this, "scrollview" ) ) {
+						$( this ).scrollview( "scrollTo", 0, 0 );
+					}
+				});
 
 				// for maintaining page layout
 				if ( !option.fullscreen ) {
-					$( ".ui-header:visible" ).show();
 					$( ".ui-footer:visible" ).show();
 				} else {
-					view.parents( ".ui-content" ).scrollview( "scrollTo", 0, 0 );
-					$( ".ui-header" ).hide();
 					$( ".ui-footer" ).hide();
 					self._fitContentArea( $page );
 				}
@@ -137,7 +141,7 @@
 				viewOffset = null;
 
 			this._resizeFullscreen( this.options.fullscreen );
-			viewWidth = parent.width();
+			viewWidth = ( ( view[0].nodeName === "VIDEO" ) ? view.width() : parent.width() );
 			viewHeight = ( ( view[0].nodeName === "VIDEO" ) ? view.height() : control.height() );
 			viewOffset = view.offset();
 
