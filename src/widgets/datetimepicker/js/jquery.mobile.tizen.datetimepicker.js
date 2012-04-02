@@ -42,6 +42,7 @@
  *	data-role: 'datetimepicker'
  *	data-format: date format string. e.g) "MMM dd yyyy, HH:mm"
  *	type: 'date', 'datetime', 'time'
+ *	value: pre-set value. any date/time string Date.parse() accepts.
  *
  * Options:
  *	type: 'date', 'datetime', 'time'
@@ -309,6 +310,7 @@
 		update: function () {
 			if ( $(this.elem).is('input') ) {
 				this.elem.value = this.getValue();
+				this.elem.attr("value", this.elem.value );
 			}
 			$(this.elem).trigger('date-changed', this.getValue() );
 		},
@@ -336,7 +338,7 @@
 		},
 
 		_create: function () {
-			var input = this.element,
+			var input = this.element.get(0),
 				type = $(input).attr("type"),
 				isTime,
 				isDate,
@@ -352,14 +354,12 @@
 
 			isTime = type.indexOf("time") > -1;
 			isDate = type.indexOf("date") > -1;
-
 			$.extend( obj, {
 				elem: input,
 				time: isTime,
 				date: isDate,
 				calendar: window.Globalize.culture().calendars.standard,
 				data: {
-					now		: new Date(),
 					"hour"	: 0,
 					"min"	: 0,
 					"sec"	: 0,
@@ -371,11 +371,16 @@
 			});
 
 			// init date&time
-			now = obj.data.now;
+			if ( input.value ) {
+				now = new Date( Date.parse(input.value) );
+			} else {
+				now = new Date();
+			}
+
 			data = obj.data;
 			if ( isDate ) {
 				if ( obj.calendar.convert ) {
-					local = obj.calendar.convert.fromGregorian( obj.data.now );
+					local = obj.calendar.convert.fromGregorian( now );
 					data.year = local.year;
 					data.month = local.month + 1;
 					data.day = local.day;
