@@ -38,7 +38,7 @@
  *		data-row : Set a number of row. (Default : 10)
  *
  *		ID : <UL> element that has "data-role=virtualgrid" must have ID attribute.
- *		Class : <UL> element that has "data-role=virtualgrid" should have "vlLoadSuccess" class to guaranty DB loading is completed.
+ *		Class : <UL> element that has "data-role=virtualgrid" should have "vgLoadSuccess" class to guaranty DB loading is completed.
  *
  * APIs:
  *
@@ -74,7 +74,7 @@
 			column : 3,
 			dbtable : "",
 			template : "",
-			row : 10,
+			row : 20,
 			dbkey : false
 		},
 		create : function () {
@@ -98,14 +98,13 @@
 				_firstIndex : 0,
 				_lastIndex : 0,
 				_prevPos : 0,
-				_updateCnt : 0,
 				_numTopItems : 0
 			});
 
 			var opts = this.options, widget = this;
 			opts.id = "#" + this.element.attr( 'id' );
 
-			if ( $( opts.id ).hasClass( "vlLoadSuccess" ) ) {
+			if ( $( opts.id ).hasClass( "vgLoadSuccess" ) ) {
 				$( opts.id ).empty();
 				// validation row, column count
 				// initialize global value.
@@ -191,12 +190,7 @@
 			var widget = this;
 
 			$( document ).bind( "scrollupdate.virtualgrid", function ( event ) {
-				if ( widget._updateCnt === 10 ) {
-					widget._updateCnt += 1;
-				} else {
-					widget._updateCnt = 0;
-					widget._doScrollEvent(event);
-				}
+				widget._doScrollEvent(event);
 			});
 
 			$( document ).bind( "scrollstop.virtualgrid", function ( event ) {
@@ -242,7 +236,7 @@
 					$ (document).unbind ("touchstart.virtualgrid");
 				}
 			} else if (widget._direction == widget.SCROLL_UP) {
-				filterCondition = (curWindowTop + widget._viewHeight + widget._blockHeight );
+				filterCondition = (curWindowTop + widget._viewHeight + ( widget._blockHeight * 3) );
 				replaceRowCnt = $ (".ui-virtualgrid-wrapblock").filter (function () {
 					return (parseInt (($ (this).position ().top ), 10) > filterCondition );
 				}).size ();
@@ -295,7 +289,7 @@
 			// wrap block count
 			// print argument value
 			for ( i = 0; i < num; i += 1 ) {
-				if ( v_lastIndex > widget._totalRowCnt ) {
+				if ( v_lastIndex >= widget._totalRowCnt ) {
 					break;
 				}
 
