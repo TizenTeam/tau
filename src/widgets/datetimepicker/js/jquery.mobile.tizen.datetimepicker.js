@@ -42,11 +42,12 @@
  *	data-role: 'datetimepicker'
  *	data-format: date format string. e.g) "MMM dd yyyy, HH:mm"
  *	type: 'date', 'datetime', 'time'
- *	value: pre-set value. any date/time string Date.parse() accepts.
+ *	data-val: pre-set value. any date/time string Date.parse() accepts.
  *
  * Options:
  *	type: 'date', 'datetime', 'time'
  *	format: see data-format in HTML Attributes.
+ *	val: see data-val in HTML Attributes.
  *
  * APIs:
  *	getValue()
@@ -99,6 +100,7 @@
 		options: {
 			type: 'datetime', // date, time, datetime applicable
 			format: null,
+			val: null,
 			initSelector: "input[type='date'], input[type='datetime'], input[type='time'], :jqmData(role='datetimepicker')"
 		},
 
@@ -309,8 +311,8 @@
 
 		update: function () {
 			if ( $(this.elem).is('input') ) {
-				this.elem.value = this.getValue();
-				this.elem.attr("value", this.elem.value );
+				this.options.val = this.getValue();
+				this.elem.value = this.options.val;
 			}
 			$(this.elem).trigger('date-changed', this.getValue() );
 		},
@@ -342,6 +344,7 @@
 				type = $(input).attr("type"),
 				isTime,
 				isDate,
+				val,
 				now,
 				data,
 				local,
@@ -371,8 +374,9 @@
 			});
 
 			// init date&time
-			if ( input.value ) {
-				now = new Date( Date.parse(input.value) );
+			val = this.options.val;
+			if ( val ) {
+				now = new Date( Date.parse( val ) );
 			} else {
 				now = new Date();
 			}
