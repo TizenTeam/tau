@@ -450,10 +450,10 @@
 				if ( this._maxX > 0 ) {
 					this._maxX = 0;
 				}
-				if ( this._$hScrollBar ) {
+				if ( this._$hScrollBar  && vw ) {
 					thumb = this._$hScrollBar.find(".ui-scrollbar-thumb");
 					thumb.css( "width", (cw >= vw ? "100%" :
-							Math.floor(cw / vw * 100) + "%") );
+							(Math.floor(cw / vw * 100) || 1) + "%") );
 				}
 			}
 
@@ -466,10 +466,10 @@
 				if ( this._maxY > 0 ) {
 					this._maxY = 0;
 				}
-				if ( this._$vScrollBar ) {
+				if ( this._$vScrollBar && vh ) {
 					thumb = this._$vScrollBar.find(".ui-scrollbar-thumb");
 					thumb.css( "height", (ch >= vh ? "100%" :
-							Math.floor(ch / vh * 100) + "%") );
+							(Math.floor(ch / vh * 100) || 1) + "%") );
 				}
 			}
 
