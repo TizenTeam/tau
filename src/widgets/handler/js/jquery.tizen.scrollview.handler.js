@@ -81,6 +81,10 @@
 	});
 
 	$( document ).delegate( ":jqmData(scroll)", "scrollviewcreate", function () {
+		if ( $( this ).attr( "data-" + $.mobile.ns + "scroll" ) === "none" ) {
+			return;
+		}
+
 		var self = this,
 			$this = $( this ),
 			scrollview = $this.data( "scrollview" ),
@@ -135,7 +139,7 @@
 				pY : t.pageY
 			};
 			clipLength = ( isHorizontal ? _$clip.width() : _$clip.height() );
-			viewLength = ( isHorizontal ? _$view.width() : _$view.height() ) - clipLength;
+			viewLength = ( isHorizontal ? _$view.outerWidth( true ) : _$view.outerHeight( true ) ) - clipLength;
 			trackLength = clipLength - handlerHeight - handlerMargin;
 
 			_$view.trigger( "scrollstart" );
@@ -157,7 +161,7 @@
 				if ( handlePos > trackLength ) {
 					handlePos = trackLength;
 				}
-				scrollPos = -( handlePos / trackLength * viewLength );
+				scrollPos = - Math.round( handlePos / trackLength * viewLength );
 
 				$this.attr( "display", "none" );
 				if ( isHorizontal ) {
@@ -209,10 +213,10 @@
 				return;
 			}
 			clipLength = ( isHorizontal ? _$clip.width() : _$clip.height() );
-			viewLength = ( isHorizontal ? _$view.width() : _$view.height() ) - clipLength;
+			viewLength = ( isHorizontal ? _$view.outerWidth( true ) : _$view.outerHeight( true ) ) - clipLength;
 			trackLength = clipLength - handlerHeight - handlerMargin;
 
-			if ( clipLength > viewLength ) {
+			if ( clipLength > viewLength || trackLength < ( handlerHeight * 4 / 3 ) ) {
 				return;
 			}
 
@@ -222,7 +226,7 @@
 			event.preventDefault();
 			event.stopPropagation();
 		}).bind( "scrollupdate", function ( event, data ) {
-			if ( !scrollview.enableHandler() || clipLength > viewLength ) {
+			if ( !scrollview.enableHandler() || clipLength > viewLength || trackLength < ( handlerHeight * 4 / 3 ) ) {
 				return;
 			}
 
@@ -231,10 +235,10 @@
 			handlerThumb.stop( true, true ).hide().css( "opacity", 1.0 );
 
 			if ( isHorizontal ) {
-				handlerPos = ( scrollPos.x / viewLength ) * trackLength;
+				handlerPos = Math.round( scrollPos.x / viewLength * trackLength );
 				handlerThumb.css( "left", handlerPos );
 			} else {
-				handlerPos = ( scrollPos.y / viewLength ) * trackLength;
+				handlerPos = Math.round( scrollPos.y / viewLength * trackLength );
 				handlerThumb.css( "top", handlerPos );
 			}
 
