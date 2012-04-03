@@ -18,10 +18,9 @@
 	<script>
 		$( ".virtuallist_demo_page" ).live( "pagecreate", function() {
 			$.getScript( "./js/virtualgrid-db-demo.js", function( data, textStatus ) {
-				console.log( "Loading status     : " + textStatus );
 				$( "div" ).filter( function() {
 					return $( this ).data( "role" ) == "virtualgrid";
-				}).addClass( "vlLoadSuccess" );
+				}).addClass( "vgLoadSuccess" );
 				$( ".virtuallist_demo_page" ).die();
 				$( ":jqmData(role='virtualgrid')" ).virtualgrid( "create" );
 			});
