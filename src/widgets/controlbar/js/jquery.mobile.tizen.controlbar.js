@@ -129,7 +129,7 @@
 						controlbar_filter.find( ".ui-btn-inner" ).addClass( "ui-navbar-textonly" );
 					} else {
 						if ( controlbar_filter.find( ".ui-btn-text" ).text() == "" ) {
-							controlbar_filter.find( ".ui-btn" ).css( "padding-top", "20px" );
+							controlbar_filter.find( ".ui-btn" ).addClass( "ui-ctrlbar-icononly" );
 						}
 					}
 					footer_filter
