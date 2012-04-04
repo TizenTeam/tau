@@ -144,15 +144,16 @@
 
 			focusedEl = input.wrap( "<div class='ui-input-search ui-shadow-inset ui-corner-all ui-btn-shadow" + themeclass + "'></div>" ).parent();
 			clearbtn = $( "<a href='#' class='ui-input-clear' title='clear text'>clear text</a>" )
-						.tap( function ( event ) {
-					input.val( "" )
-								.blur()
-								.focus()
-								.trigger( "change" )
-								.trigger( "input" );
-					clearbtn.addClass( "ui-input-clear-hidden" );
+				.tap( function ( event ) {
 					event.preventDefault();
 					event.stopPropagation();
+
+					input.val( "" )
+						.blur()
+						.focus()
+						.trigger( "change" )
+						.trigger( "input" );
+					clearbtn.addClass( "ui-input-clear-hidden" );
 				} )
 				.appendTo( focusedEl )
 				.buttonMarkup({
@@ -191,15 +192,15 @@
 
 			cancelbtn = $( "<a href='#' class='ui-input-cancel' title='clear text'>Cancel</a>" )
 				.tap(function ( event ) {
-					hideCancel();
+					event.preventDefault();
+					event.stopPropagation();
 
 					input
 						.val( "" )
 						.blur()
 						.trigger( "change" );
 
-					event.preventDefault();
-					event.stopPropagation();
+					hideCancel();
 				} )
 				.appendTo( focusedEl.parent() )
 				.buttonMarkup( {
