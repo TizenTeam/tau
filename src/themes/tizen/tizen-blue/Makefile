@@ -23,7 +23,7 @@ CSS_SRCS=	../common/jquery.mobile.theme.less.css \
 		../common/jquery.mobile.segmentctrl.less.css \
 		../common/jquery.mobile.tizen.optionheader.less.css \
 		../common/jquery.mobile.tizen.virtuallistview.less.css \
-		../common/jquery.mobile.tizen.scrollview.css \
+		../common/jquery.mobile.tizen.scrollview.less.css \
 		../common/jquery.mobile.tizen.hsvpicker.less.css \
 		../common/jquery.mobile.tizen.colorpalette.less.css \
 		../common/jquery.mobile.tizen.colortitle.less.css \
