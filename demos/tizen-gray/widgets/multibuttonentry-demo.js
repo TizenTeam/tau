@@ -47,9 +47,17 @@
 			$( ":jqmData(role='multibuttonentry')" ).multibuttonentry( "destory" );
 		});
 
-		$( "#addressbook a" ).click( function () {
+		$( "#contentList a" ).click( function () {
 			var arg = $( this ).text();
 			$( ":jqmData(role='multibuttonentry')" ).multibuttonentry( "add", arg );
+		});
+
+		$( "#cancelBtn" ).click( function () {
+			$.mobile.changePage( "#multibuttonentry", {
+				transition: "reverse slide",
+				reverse: false,
+				changeHash: false
+			} );
 		});
 	});
 } ( jQuery, window ) );
