@@ -1563,11 +1563,24 @@ ul.ui-listview {
 // bubble li
 // =========
 .ui-listview {
+	.ui-li-bubble-left,
+		.ui-li-bubble-right,
+		.ui-li-bubble-sos {
+		img {
+			position: relative;
+			min-width: 160 * @unit_base;
+			min-height: 160 * @unit_base;
+		}
+	}
 	.ui-li-bubble-left {
 		word-wrap: break-word;
 		.LESSborder-radius-topright(@list-li-bubble-corner-radius);
 		.LESSborder-radius-bottomright(@list-li-bubble-corner-radius);
 		font-size: @list-li-bubble-font-size;
+		p, span {
+			font-size: @list-li-bubble-font-size;
+		}
+		//margin: 12px 20% 12px 0%;
 		margin-top: 12 * @unit_base;
 		margin-bottom: 12 * @unit_base;
 		margin-left: 0;
