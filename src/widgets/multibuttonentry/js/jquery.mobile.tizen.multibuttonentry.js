@@ -132,14 +132,16 @@
 			self._viewWidth = $view.innerWidth();
 			self._reservedWidth += self._calcBlockWidth( moreBlock );
 			self._reservedWidth += self._calcBlockWidth( labeltag );
-			self._fontSize = parseInt ( $( moreBlock ).css( "font-size" ), 10 );
+			self._fontSize = parseInt( $( moreBlock ).css( "font-size" ), 10 );
 			self._currentWidth = self._reservedWidth;
 		},
 		// bind events
 		_bindEvents : function () {
 			var self = this,
-				$view = this.element,
-				inputbox = $view.find( ".ui-multibuttonentry-input" );
+				$view = self.element,
+				option = self.options,
+				inputbox = $view.find( ".ui-multibuttonentry-input" ),
+				moreBlock = $view.find( ".ui-multibuttonentry-link" );
 
 			inputbox.bind( "keydown", function ( event ) {
 				// 8  : backspace
@@ -160,6 +162,14 @@
 					self._unlockTextBlock();
 				}
 			});
+
+			moreBlock.click( function () {
+				$.mobile.changePage( option.listUrl, {
+					transition: "slide",
+					reverse: false,
+					changeHash: false
+				} );
+			} );
 
 			$( document ).bind( "pagechange.mbe", function ( event ) {
 				if ( $view.innerWidth() === 0 ) {
@@ -407,8 +417,8 @@
 				currentWidth = currentWidth - $( blocks[index] ).outerWidth( true );
 				statement += ", " + $( blocks[index] ).text();
 				if ( currentWidth <= 0 ) {
-					statement = statement.substring( 0, lastIndex ) + "...";
-					statement = self._stringFormat( self.options.descMessage, statement, ( blocks.length - index ) - 1 );
+					statement = "," + $( blocks[0] ).text();
+					statement = self._stringFormat( self.options.descMessage, statement, blocks.length - 1 );
 					break;
 				}
 				lastIndex = statement.length;

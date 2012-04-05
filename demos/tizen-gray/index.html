@@ -928,25 +928,27 @@
 		</div>
 		<div data-role="content">
 			<div data-role="multibuttonentry" data-listuri="addressbook"></div>
-			<div data-role="controlgroup">
-				<a data-role="button" id='MBTaddItemTest' >Append Item</a>
-				<a data-role="button" id='MBTremoveItemTest' >Remove first Item</a>
-				<a data-role="button" id='MBTinputTextTest' >Input 'Hello'</a>
-				<a data-role="button" id='MBTgetInputTextTest' >Get input text</a>
-				<a data-role="button" id='MBTselectItemTest' >Select 1</a>
-				<a data-role="button" id='MBTgetSelectedItemTest' >Selected item</a>
-				<a data-role="button" id='MBTlengthTest' >Length</a>
-				<a data-role="button" id='MBTfocusOutTest' >Grouping On</a>
-				<a data-role="button" id='MBTfocusInTest' >Grouping Off</a>
-				<a data-role="button" id='MBTremoveAllItemTest' >Remove All Item</a>
-			</div>
+			<br>
+			<ul data-role="listview">
+				<li><a id='MBTaddItemTest'>Append Item</a></li>
+				<li><a id='MBTremoveItemTest'>Remove first Item</a></li>
+				<li><a id='MBTinputTextTest'>Input 'Hello'</a></li>
+				<li><a id='MBTgetInputTextTest'>Get input text</a></li>
+				<li><a id='MBTselectItemTest'>Select 1</a></li>
+				<li><a id='MBTgetSelectedItemTest'>Selected item</a></li>
+				<li><a id='MBTlengthTest'>Length</a></li>
+				<li><a id='MBTfocusOutTest'>Grouping On</a></li>
+				<li><a id='MBTfocusInTest'>Grouping Off</a></li>
+				<li><a id='MBTremoveAllItemTest'>Remove All Item</a></li>
+			</ul>
 		</div>
 	</div>
-	<div data-role="page"  id="addressbook">
+	<div data-role="page"  id="addressbook" data-footer-Exist="false" >
 		<div data-role="header">
 			<h1>Address Book</h1>
+			<a id="cancelBtn" href="#multibuttonentry" data-role="button" class="ui-btn-right" >Cancel</a>
 		</div>
-		<div data-role="content">
+		<div data-role="content" id="contentList">
 			<ul data-role="listview">
 				<li data-role="list-divider">A</li>
 				<li><a href="#multibuttonentry">Adam Kinkaid</a></li>
