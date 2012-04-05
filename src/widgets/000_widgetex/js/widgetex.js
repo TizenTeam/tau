@@ -171,6 +171,11 @@
 		},
 
 		_init: function () {
+			// TODO THIS IS TEMPORARY PATCH TO AVOID CTXPOPUP PAGE CRASH
+			if ( this.element === undefined ) {
+				return;
+			}
+
 			var page = this.element.closest( ".ui-page" ),
 				self = this,
 				myOptions = {};
