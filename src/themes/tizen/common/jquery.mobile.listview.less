@@ -88,7 +88,7 @@
 
 .ui-content {
 	.ui-listview {
-		margin: -15px;
+		margin: -16 * @unit_base;
 
 		.ui-listview {
 			margin: 0;
@@ -114,16 +114,11 @@
 }
 .ui-li {
 	.ui-btn {
-		// NOTE: position(:absolute), right(:16px) is defined in jquery.mobile.button.less
-		//       Have to cross-check with Wongi!
-
-		// vertical center
 		top: 50%;
-		margin-top: -0.8em;	// TODO: guessed value. Fix this with Wongi.
+		margin-top: -0.8em;
 	}
 	.ui-btn-text {
 		position: relative;
-	//	z-index: 1;
 
 		a.ui-link-inherit {
 			text-overflow: ellipsis;
@@ -143,7 +138,7 @@
 	}
 	.ui-btn-inner a.ui-link-inherit,
 	&.ui-li-static {
-		padding: .7em 15px;
+		padding: .7em 16*@unit_base;
 		display: block;
 	}
 }
@@ -158,7 +153,6 @@
 .ui-li-divider {
 	counter-reset: listnumbering;
 	font-size: @list-font-size-divider;
-	// text align: bottom
 	padding-top: @list-font-size-divider;
 	&.ui-bar-s {
 		height : @list-font-size-divider;
@@ -247,18 +241,6 @@ ol.ui-listview {
 	max-height: @list-bigicon-size2;
 	max-width: @list-bigicon-size2;
 }
-//.ui-li-icon {
-//	max-height: 40px;
-//	max-width: 40px;
-//	left: 10px;
-//	top: .9em;
-//}
-//.ui-li-thumb,
-//.ui-li-icon,
-//.ui-li-content {
-//	float: left;
-//	margin-right: 10px;
-//}
 .ui-li-aside {
 	float: right;
 	width: 50%;
@@ -365,7 +347,6 @@ ol.ui-listview {
 .ui-listview li.ui-btn-hover-s > .ui-li > .ui-btn-text > a.ui-link-inherit,
 .ui-listview li.ui-btn-down-s > .ui-li > .ui-btn-text > a.ui-link-inherit {
 	margin: 0;
-//	height: @height;
 	min-height: @height;
 	padding-left: 0;
 }
@@ -438,12 +419,10 @@ ol.ui-listview {
 		width: @list-li-sub-left-width;
 		line-height: @list-li-main-line-height;
 		margin-top: -0.5em;
-	//	border-right: 1px rgba(68, 68, 68, 255) solid;
 		vertical-align: top;
 	}
 
 }
-//.LESStext-main-1line-right(@left:@list-li-main-right-padding+@list-li-padding-horizontal) {
 .LESStext-main-1line-right(@left:@list-li-main-right-padding) {
 	.ui-li-text-main-right {
 		font-size: @font_size_list_main_text;
@@ -689,16 +668,6 @@ ol.ui-listview {
 		top: @top;
 		margin: -1.1em 65*@unit_base 0 @list-li-padding-horizontal;
 	}
-/*	&> .ui-checkbox.onoff {
-		position: absolute;
-		left: auto;
-		right: @right;
-		top: @top;
-		margin-top: -1.1em;
-		//float: right;
-		//margin-right: @list-li-padding-horizontal;
-	}
-*/
 }
 .LESStoggleswitch-right(@right:@list-li-padding-horizontal, @top: 50%) {	// NOTE: This can be changed according to checkbox implementation!
 	.ui-toggleswitch {
@@ -1588,7 +1557,6 @@ ul.ui-listview {
 	&> li.ui-li-3-button div.ui-btn:nth-child(3) {
 		left : 66%;
 	}
-
 }
 
 // =========
@@ -1600,7 +1568,6 @@ ul.ui-listview {
 		.LESSborder-radius-topright(@list-li-bubble-corner-radius);
 		.LESSborder-radius-bottomright(@list-li-bubble-corner-radius);
 		font-size: @list-li-bubble-font-size;
-		//margin: 12px 20% 12px 0%;
 		margin-top: 12 * @unit_base;
 		margin-bottom: 12 * @unit_base;
 		margin-left: 0;
