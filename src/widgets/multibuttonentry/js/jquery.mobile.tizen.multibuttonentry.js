@@ -164,6 +164,7 @@
 			});
 
 			moreBlock.click( function () {
+				$(inputbox).hide();
 				$.mobile.changePage( option.listUrl, {
 					transition: "slide",
 					reverse: false,
@@ -184,6 +185,7 @@
 					self._viewWidth = $view.innerWidth();
 				}
 				self._modifyInputBoxWidth();
+				$(inputbox).show();
 			});
 		},
 		// create a textbutton and append this button to parent layer.
