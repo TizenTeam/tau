@@ -17,7 +17,7 @@ index 0216c65..8fd9357 100644
  					}
  				}
 -			} else if ( s_theme_header.find("input").jqmData("type") == "search" ) {
-+			} else if( s_theme_header.find("input").attr("type") === "search" || s_theme_header.find("input").attr("type") === "tizen-search" ) {
++			} else if( s_theme_header.find("input").attr("type") === "search" || s_theme_header.find("input").attr("type") === "tizen-search" || s_theme_header.find("input").jqmData("type") == "search" || s_theme_header.find("input").jqmData("type") == "tizen-search" ) {
  				s_theme_content
  					.removeClass("ui-title-content-" + title_style + "-height")
  					.addClass("ui-title-content-search");
