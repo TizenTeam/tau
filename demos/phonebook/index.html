@@ -1,21 +1,37 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>All contacts</title>
-	<link rel="stylesheet" href="css/phonebook.css" />
-	<script src="../../build/tizen-web-ui-fw/0.1/js/jquery.js"></script>
-	<script src="configure.js"></script>
-	<script src="../../build/tizen-web-ui-fw/0.1/js/tizen-web-ui-fw.js"
-                data-framework-root="../../build/tizen-web-ui-fw"
-                data-framework-version="0.1"
-                data-framework-theme="tizen-gray">
-    </script>
-    
-	<script src="js/phonebook.js"></script>
-    <script src="init.js"></script>    
-</head>
+    <head>
+        <title>phonebook2</title>
+		<!--NOTE:
+			jquery.js and tizen-web-ui-fw.js must be included.
+			DO NOT REMOVE below code!
+		-->
+		<script src="../../build/tizen-web-ui-fw/0.1/js/jquery.js"></script>
+		<script src="./configure.js"></script>
+		<script src="../../build/tizen-web-ui-fw/0.1/js/tizen-web-ui-fw-libs.js"></script>
+		<script src="../../build/tizen-web-ui-fw/0.1/js/tizen-web-ui-fw.js"
+			data-framework-theme="tizen-gray"
+			data-framework-viewport-scale=false></script>
 
-<body id="phonebook_body">
+		<link rel="stylesheet" href="css/phonebook.css" />
+		<script src="js/phonebook.js"></script>
+		<script src="./init.js"></script>
+		<!--NOTE:
+			Additional scripts and css files are to be placed here.
+			You can use jQuery namespace($) and all functionalities in jQuery
+			in your script.  For example:
+
+				<script src="main.js"></script>
+				<link rel="stylesheet" href="my.css">
+
+			When you want to manipulate elements in your code, you have to
+			use $(document).ready() for your code to work properly, like this;
+
+				$(document).ready(function(){ ... });
+		-->
+    </head>
+
+    <body id="phonebook_body">
 	<!-- Page: All Contacts -->
 	<div id="all_contacts_page" data-role="page">
 	
@@ -27,7 +43,7 @@
 						<div data-role="button" data-inline="true">Message</div>
 						<div data-role="button" data-inline="true">Video call</div>
 						<div data-role="button" data-inline="true">Delete</div>
-						<div data-role="ui-list-cover">
+						<div data-role="swipelist-item-cover">
 						<div>
 							<span class="ui-li-text-main">
 								{{if name_first}}
@@ -71,18 +87,16 @@
 			
 		<div id="all_contacts_header" data-role="header" data-position="fixed">
 			<h1>All contacts</h1>
+			<input id="all_contacts_queryInput" type="search" value=""/>
 		</div><!-- /header -->
 	
 		<!--content start-->
 		<div data-role="content" style="top:100px; position:relative">
-			<div data-role="fieldcontain" data-position="fixed">
-				<input id="all_contacts_queryInput" type="search" value=""/>
-			</div>
 			<ul id="all_contacts_list" data-role="virtuallistview" data-template="tmpl_contacts_normal" data-swipelist="true" data-dbtable="phonebookDB" data-dbkey = "luid">
 			</ul>
 		</div><!--content end-->
 		<div id="all_contacts_footer" data-role="footer"data-position ="fixed">
-			<div data-role="navbar" data-style="toolbar" >
+			<div data-role="controlbar" data-style="toolbar" >
 				<ul>
 					<li><a href="#" data-icon="ctrlbar-edit">Edit</a></li>
 					<li><a href="#all_groups_page" data-icon="ctrlbar-groups">Groups</a></li>
@@ -408,7 +422,5 @@
 			</ul>
 		</div><!--content end-->
 	</div><!--page end-->
-	
-	
-</body> 
+</body>
 </html>
