@@ -139,9 +139,9 @@
 					icon_type + '"/>');
 
 			this.text0_bg = $('<div class="ui-nocontents-text">' +
-					text[0] + '<div>');
+					text[0] + '</div>');
 			this.text1_bg = $('<div class="ui-nocontents-text">' +
-					text[1] + '<div>');
+					text[1] + '</div>');
 
 			this.container.append( this.icon_img );
 			this.container.append( this.text0_bg );
