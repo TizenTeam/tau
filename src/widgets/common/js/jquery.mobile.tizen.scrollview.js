@@ -907,20 +907,23 @@
 	// auto-init scrollview and scrolllistview widgets
 	$( document ).bind( 'pagecreate create', function ( e ) {
 		var $page = $( e.target ),
-			scroll = $page.find(".ui-content").attr("data-scroll");
+			content_scroll = $page.find(".ui-content").jqmData("scroll");
 
-		if ( scroll === "none" ) {
-			return;
-		}
-
+		/* content scroll */
 		if ( $.support.scrollview === undefined ) {
 			// set as default value
 			$.support.scrollview = true;
 		}
 
-		if ( $.support.scrollview === true && scroll === undefined ) {
-			$page.find(".ui-content").attr( "data-scroll", "y" );
+		if ( $.support.scrollview === true && content_scroll === undefined ) {
+			content_scroll = "y";
 		}
+
+		if ( content_scroll !== "y" ) {
+			content_scroll = "none";
+		}
+
+		$page.find(".ui-content").attr( "data-scroll", content_scroll );
 
 		$page.find(":jqmData(scroll):not(.ui-scrollview-clip)").each( function () {
 			if ( $( this ).hasClass("ui-scrolllistview") ) {
@@ -930,6 +933,10 @@
 					paging = st && (st.search(/^[xy]p$/) !== -1),
 					dir = st && (st.search(/^[xy]/) !== -1) ? st.charAt(0) : null,
 					opts;
+
+				if ( st === "none") {
+					return;
+				}
 
 				opts = {
 					direction: dir || undefined,
@@ -944,7 +951,7 @@
 
 	$( document ).bind( 'pageshow', function ( e ) {
 		var $page = $( e.target ),
-			scroll = $page.find(".ui-content").attr("data-scroll");
+			scroll = $page.find(".ui-content").jqmData("scroll");
 
 		if ( scroll === "y" ) {
 			setTimeout( function () {
