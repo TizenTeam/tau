@@ -157,7 +157,7 @@
 			};
 
 			/* Apply REM scaling */
-			elementHeight = elementHeight / ( 36 / parseInt(this.option.default_font_size) );
+			elementHeight = elementHeight / ( 36 / parseInt($('html').css('font-size')) );
 
 			if ( this.element.height() < elementHeight ) {
 				this.element.css( "height", elementHeight );
@@ -202,7 +202,7 @@
 				matchBtn = $( this.element ).parents( ".ui-page" ).find( "#" + matchingBtn ),
 				buttonRight = matchBtn.nextAll().is( "a" ) ? btn3Position : btn2Position;
 				/* Apply REM scaling */
-				scaleFactor = ( 36 / parseInt(this.option.default_font_size) );
+				scaleFactor = ( 36 / parseInt($('html').css('font-size')) );
 
 			if ( $(this.element).parents(".ui-page").find( "#" + matchingBtn ).length != 0 ) {
 
@@ -214,12 +214,12 @@
 
 				// decide arrow Button position
 				if ( matchBtn.css( "left" ) && matchBtn.css( "left" ) != "auto" ) {
-					$( ".ui-triangle-image" ).css( "left", matchBtn.width() / 2 + parseInt(matchBtn.css( "left" ), 10) - ( arrowCenter / scaleFactor ) + "px" );
+					$( ".ui-triangle-image" ).css( "left", matchBtn.width() / 2 + parseInt(matchBtn.css( "left" ), 10) - arrowCenter + "px" );
 				} else if ( matchBtn.css("right") ) {
-					$( ".ui-triangle-image" ).css( "left", document.documentElement.clientWidth - matchBtn.width() / 2 - ( ( buttonRight - arrowCenter ) / scaleFactor ) + "px" );
+					$( ".ui-triangle-image" ).css( "left", document.documentElement.clientWidth - ( matchBtn.width() / 2 + buttonRight / scaleFactor ) - arrowCenter + "px" );
 				}
 			} else {
-				$( ".ui-triangle-image" ).css( "left", document.documentElement.clientWidth / 2 - ( arrowCenter / scaleFactor ) + "px" );
+				$( ".ui-triangle-image" ).css( "left", document.documentElement.clientWidth / 2 - arrowCenter + "px" );
 			}
 		},
 		// Draw the option header, according to current options
