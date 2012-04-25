@@ -61,7 +61,6 @@
 
 (function ( $, window, undefined ) {
 	$.widget( "tizen.nocontents", $.mobile.widget, {
-
 		max_height: 0,
 		container: null,
 		icon_img: null,
@@ -73,12 +72,15 @@
 				$content = $page.children('.ui-content'),
 				$header = $page.children('.ui-header'),
 				$footer = $page.children('.ui-footer'),
+				$view = $content.children('.ui-scrollview-view'),
 				header_h = $header.outerHeight() || 0,
 				footer_h = $footer.outerHeight() || 0,
-				padding_t = parseFloat( $content.css('padding-top') ) || 0,
-				padding_b = parseFloat( $content.css('padding-bottom') ) || 0,
-				content_h = $(window).height() - header_h - footer_h -
-					(padding_t + padding_b) * 2,
+				padding_t = (parseFloat( $content.css('padding-top') ) || 0) +
+						(parseFloat( $view.css('padding-top') ) || 0),
+				padding_b = (parseFloat( $content.css('padding-bottom') ) || 0) +
+						(parseFloat( $view.css('padding-bottom') ) || 0),
+				content_h = $( window ).height() - header_h - footer_h -
+					(padding_t + padding_b),
 				container_h = this.container.height();
 
 			return ( content_h < container_h ? container_h : content_h );
@@ -88,13 +90,13 @@
 			var content_height = this._get_height(),
 				icon_height = this.icon_img.height(),
 				icon_width = this.icon_img.width(),
-				content_gap = 46,
 				text0_height = this.text0_bg.height() || 0,
 				text1_height = this.text1_bg.height() || 0,
+				content_gap = text0_height || text1_height,
 				text_top = 0,
-				icon_top = (content_height -
-					(icon_height + content_gap +
-					 text0_height + text1_height)) / 2;
+				icon_top = ( content_height -
+					( icon_height + content_gap +
+					 text0_height + text1_height ) ) / 2;
 
 			if ( icon_top < content_gap ) {
 				icon_top = content_gap;
@@ -103,7 +105,7 @@
 			this.container.height( content_height );
 
 			this.icon_img.css( 'left',
-				($(window).width() - icon_width) / 2 );
+				( $( window ).width() - icon_width ) / 2 );
 			this.icon_img.css( 'top', icon_top );
 
 			text_top = icon_top + icon_height + content_gap;
@@ -114,38 +116,36 @@
 
 		_create: function () {
 			var icon_type = $( this.element ).jqmData('type'),
-				text = new Array(2);
+				get_text = function ( text ) {
+					if ( text == undefined ) {
+						text = "";
+					}
 
-			if ( icon_type === undefined ||
-					(icon_type !== "picture" &&
-					 icon_type !== "multimedia" &&
-					 icon_type !== "text") ) {
+					var elem = $('<div class="ui-nocontents-text">' +
+							text + '</div>');
+					return elem;
+				};
+
+			switch ( icon_type ) {
+			case "picture":
+			case "multimedia":
+			case "text":
+				break;
+			default:
 				icon_type = "unnamed";
+				break;
 			}
 
-			text[0] = $( this.element ).jqmData('text1');
-			text[1] = $( this.element ).jqmData('text2');
-
-			if ( text[0] === undefined ) {
-				text[0] = "";
-			}
-
-			if ( text[1] === undefined ) {
-				text[1] = "";
-			}
-
-			this.container = $('<div class="ui-nocontents"/>');
+			this.container = $('<div class="ui-nocontents">');
 			this.icon_img = $('<div class="ui-nocontents-icon-' +
-					icon_type + '"/>');
+					icon_type + '">');
 
-			this.text0_bg = $('<div class="ui-nocontents-text">' +
-					text[0] + '</div>');
-			this.text1_bg = $('<div class="ui-nocontents-text">' +
-					text[1] + '</div>');
+			this.text0_bg = get_text( $( this.element ).jqmData('text1') );
+			this.text1_bg = get_text( $( this.element ).jqmData('text2') );
 
-			this.container.append( this.icon_img );
-			this.container.append( this.text0_bg );
-			this.container.append( this.text1_bg );
+			this.container.append( this.icon_img )
+				.append( this.text0_bg )
+				.append( this.text1_bg );
 
 			$( this.element ).append( this.container );
 
@@ -156,4 +156,4 @@
 	$( document ).bind( "pagecreate create", function ( e ) {
 		$( e.target ).find(":jqmData(role='nocontents')").nocontents();
 	});
-} ( jQuery, this ));
+}( jQuery, this ));
