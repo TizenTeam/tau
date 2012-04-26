@@ -90,7 +90,7 @@ function usage
 	if [ -n "$1" ]; then EXITCODE=1; echo "ERROR: $ERRMSG"; echo ""; fi
 
 	if [ ! -n "$1" ]; then 
-		echo "Usage: $0 <--copylib> <--type=[w3c|wac]> <app-name> <install-dir>"
+		echo "Usage: $0 <--copylib> <--type=[w3c|tizen]> <app-name> <install-dir>"
 		echo ""
 		echo "       app-name : Your application name. If whitespace is contained, wrap it "
 		echo "                  by quote mark."
@@ -100,9 +100,9 @@ function usage
 		echo "       --copylib : When this option is used, all libs and resources will be "
 		echo "                  copied into template directory, and all templates will refer"
 		echo "                  those copied libs."
-		echo "       --type=[w3c|wac]"
+		echo "       --type=[w3c|tizen]"
 		echo "                  Set type of application template. If no --type= option is given,"
-		echo "                  only default app template files will be copied."
+		echo "                  the type is set to tizen by default."
 		echo ""
 	fi
 
@@ -133,6 +133,9 @@ function copy_template
 	echo "Copying template files into $DESTDIR..."
 	mkdir -p $DESTDIR || usage "ERROR: Failed to create directory: $DESTDIR"
 	find $tplpath/ -maxdepth 1 -type f | xargs -i cp -a {} $DESTDIR/ ||  usage "ERROR: Failed to copy templates" ;
+	if [[ ! -n "$type" ]]; then
+		type="tizen"
+	fi
 	if [[ -n "$type" && -d "$tplpath/$type" ]]; then	# Copy type-specific files
 		cp -a $tplpath/$type/* $DESTDIR/ || usage "ERROR: Failed to copy templates"
 	fi

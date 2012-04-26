@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <widget xmlns="http://www.w3.org/ns/widgets"
-            version="0.1" 
-            id="http://www.samsung.com/app/templateID"
-            viewmodes="fullscreen">
+        xmlns:tizen="http://tizen.org/ns/widgets"
+        version="0.1"
+        id="http://www.samsung.com/app/templateID"
+        viewmodes="fullscreen">
     <!-- automatically generated name -->
     <name>@APP_NAME@</name>
- 
+
     <!-- icon resource -->
     <icon src="icon.png"/>
 
