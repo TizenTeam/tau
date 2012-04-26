@@ -1,4 +1,4 @@
-$(function() {
+$(document).ready(function() {
 	var Runner = function( ) {
 		var self = this;
 
@@ -67,9 +67,10 @@ $(function() {
 
 				$.each( data.testPages, function(i, dir) {
 					QUnit.asyncTest( dir, function() {
+						console.log('Test start: ' + dir);
 						self.dir = dir;
 						self.$frameElem.one( "load", self.onFrameLoad );
-						self.$frameElem.attr( "src", template.replace("{{testfile}}", dir) );
+						self.$frameElem.attr( "src", template.replace("{{testfile}}", dir + '/index.html') );
 					});
 				});
 
