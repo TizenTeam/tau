@@ -171,6 +171,9 @@
 				}
 			}
 
+			// NOTE: 'en' to 'en-US', because globalize has no 'en' culture file.
+			lang = lang == 'en' ? 'en-US' : lang;
+
 			globalizeCultureFile = getGlobalizeCultureFile( lang );
 			globalizeCulturePath = getGlobalizeCulturePath( self, globalizeCultureFile );
 			neutralLangIndex = lang.lastIndexOf( '-' );
