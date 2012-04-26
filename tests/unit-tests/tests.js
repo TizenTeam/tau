@@ -12,6 +12,7 @@ var TESTS = {
 		"optionheader",
 		"processingbar",
 */
-		"progressbar"
+		"progressbar",
+		"nocontents"
 	]
 };
