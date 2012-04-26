@@ -13,7 +13,8 @@ var TESTS = {
 		"processingbar",
 */
 		"progressbar",
-		"notification"
+		"slider",
+		"notification",
 		"nocontents"
 	]
 };

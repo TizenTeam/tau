@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="../../../build/tizen-web-ui-fw/0.1/js/jquery.js"></script>
+	<script src="../../../build/tizen-web-ui-fw/0.1/js/tizen-web-ui-fw-libs.min.js"></script>
+	<script src="../../../build/tizen-web-ui-fw/0.1/js/tizen-web-ui-fw.js"
+		data-framework-theme="tizen-gray"
+		data-framework-viewport-scale=false>
+	</script>
+
+	<link rel="stylesheet" href="../../../libs/js/jquery-mobile-1.0.1pre/external/qunit.css" />
+
+	<script src="../../../libs/js/jquery-mobile-1.0.1pre/external/qunit.js"></script>
+	<script src="slider-tests.js"></script>
+
+	<title>Slider</title>
+</head>
+
+<body>
+
+<h1 id="qunit-header">Slider</h1>
+<h2 id="qunit-banner"></h2>
+<div id="qunit-testrunner-toolbar"></div>
+<h2 id="qunit-userAgent"></h2>
+<ol id="qunit-tests"></ol>
+
+<div id="qunit-fixture">
+
+	<div data-role="page" id="slider">
+		<div data-role="header" data-position="fixed">
+			<h1>Slider</h1>
+		</div>
+		<div data-role="content">
+			<input id="slider0" data-popupenabled="false" type="range" name="slider" value="50" min="0" max="100">
+			<input id="slider1" data-popupenabled="false" type="range" name="slider" value="5" min="0" max="10" data-icon="volume">
+		</div>
+	</div>
+
+</div>
+
+</body>
+</html>
