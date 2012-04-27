@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="../../../build/tizen-web-ui-fw/0.1/js/jquery.js"></script>
+	<script src="../../../build/tizen-web-ui-fw/0.1/js/tizen-web-ui-fw-libs.min.js"></script>
+	<script src="../../../build/tizen-web-ui-fw/0.1/js/tizen-web-ui-fw.js"
+		data-framework-theme="tizen-gray"
+		data-framework-viewport-scale=false>
+	</script>
+
+	<link rel="stylesheet" href="../../../libs/js/jquery-mobile-1.0.1pre/external/qunit.css" />
+
+	<script src="../../../libs/js/jquery-mobile-1.0.1pre/external/qunit.js"></script>
+	<script src="imageslider-tests.js"></script>
+
+	<title>Image Slider</title>
+</head>
+
+<body>
+
+<h1 id="qunit-header">Image Slider</h1>
+<h2 id="qunit-banner"></h2>
+<div id="qunit-testrunner-toolbar"></div>
+<h2 id="qunit-userAgent"></h2>
+<ol id="qunit-tests"></ol>
+
+<div id="qunit-fixture">
+
+	<div data-role="page">
+		<div data-role="header" data-position="fixed">
+			<h1>Image Slider</h1>
+		</div>
+		<div data-role="content" data-scroll="none">
+			<div data-role="imageslider" id="imageslider" data-start-index="2" data-vertical-align="middle">
+				<img src="01.jpg">
+				<img src="02.jpg">
+				<img src="03.jpg">
+				<img src="04.jpg">
+			</div>
+		</div>
+	</div>
+
+</div>
+
+</body>
+</html>

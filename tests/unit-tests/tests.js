@@ -15,6 +15,7 @@ var TESTS = {
 		"progressbar",
 		"slider",
 		"notification",
-		"nocontents"
+		"nocontents",
+		"imageslider"
 	]
 };
