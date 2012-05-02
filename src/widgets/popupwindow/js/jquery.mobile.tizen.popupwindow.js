@@ -198,9 +198,6 @@
 
 		_setOverlayTheme: function (value) {
 			this._realSetTheme(this._ui.container, value);
-			// The screen must always have some kind of background for fade to work, so, if the theme is being unset,
-	// set the background to "a".
-			this._realSetTheme(this._ui.screen, (value === "" ? "a" : value));
 			this.options.overlayTheme = value;
 			this.element.attr("data-" + ($.mobile.ns || "") + "overlay-theme", value);
 		},
