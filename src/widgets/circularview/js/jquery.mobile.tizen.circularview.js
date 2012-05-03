@@ -145,6 +145,7 @@
 			$child = this._$clip.wrapInner( "<div></div>" ).children();
 			//}
 			this._$view = $child.addClass( "ui-scrollview-view" );
+			this._$clip.width( $(window).width() );
 			this._$list = $child.children();
 
 			this._$clip.css( "overflow", "hidden" );
@@ -168,7 +169,7 @@
 			var itemsPerView;
 
 			this._viewWidth = this._$view.width();
-			this._clipWidth = $( window ).width();
+			this._clipWidth = this._$clip.width();
 			this._itemWidth = this._$list.children().first().outerWidth();
 			this._$items = this._$list.children().detach();
 			itemsPerView = this._clipWidth / this._itemWidth;
