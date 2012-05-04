@@ -221,13 +221,14 @@
 				scale = 1,
 				head;
 			// Do nothing if viewport setting code is already in the code.
-			$( "meta" ).each( function ( ) {
-				if ( $( this ).attr( "name" ) === "viewport" ) {
-					console.log( "User set viewport... framework viewport will not be applied." );
-					meta = this;
-					return;
-				}
+			$( "meta[name=viewpport]" ).each( function ( ) {
+				console.log( "User set viewport... framework viewport will not be applied." );
+				meta = this;
+				return;
 			});
+			if( meta ) {
+				return;	// Ignore viweport setting, when viewport is already set.
+			}
 
 			// Set meta tag
 			meta = document.createElement( "meta" );
