@@ -266,7 +266,7 @@
 				this.setViewport( baseWidth, true, true );
 			} else {
 				// Fixed viewport scale(=1.0) with scaled font size
-				this.setViewport( "device-dpi", false, undefined );
+				this.setViewport( "device-width", false, undefined );
 				this.scaleBaseFontSize( themeDefaultFontSize, parseFloat( standardWidth / baseWidth ) );
 			}
 		}
