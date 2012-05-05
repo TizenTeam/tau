@@ -82,7 +82,7 @@
 			       'Saturday']
 		},
 
-		defaultTheme: 'c',
+		defaultTheme: 's',
 
 		_create: function () {
 			var days,
