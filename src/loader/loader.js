@@ -221,7 +221,7 @@
 				scale = 1,
 				head;
 			// Do nothing if viewport setting code is already in the code.
-			$( "meta[name=viewpport]" ).each( function ( ) {
+			$( "meta[name=viewport]" ).each( function ( ) {
 				console.log( "User set viewport... framework viewport will not be applied." );
 				meta = this;
 				return;
