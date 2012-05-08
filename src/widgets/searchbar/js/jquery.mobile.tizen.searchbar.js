@@ -225,6 +225,7 @@
 			$( currentPage ).bind("tap", function ( e ) {
 				focusedEl.removeClass( "ui-focus" );
 				hideCancel();
+				input.blur();
 				input.trigger( "change" );
 			} );
 
