@@ -60,7 +60,9 @@
 
 		_create: function () {
 			if ( !this.element.data( "popupwindow" ) ) {
-				this.element.popupwindow();
+				this.element.popupwindow( {
+					fade: false
+				});
 			}
 
 			this.element.data( "popupwindow" )
