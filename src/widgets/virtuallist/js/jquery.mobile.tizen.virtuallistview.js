@@ -122,6 +122,8 @@
 
 		_stylerMouseOut: function () {
 			$( this ).toggleClass( "ui-btn-hover-s" );
+			$( this ).addClass( "ui-btn-up-s" );
+			$( this ).removeClass( "ui-btn-down-s" );
 		},
 
 		_pushData: function ( template, data ) {
@@ -404,9 +406,9 @@
 
 			$( o.id ).virtuallistview();
 
-			t._reposition( o );
-
 			t.refresh( true );
+
+			t._reposition( o );
 		},
 
 		_initList: function () {
