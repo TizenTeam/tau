@@ -12,7 +12,7 @@ diff --git a/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.fixHeaderFooter.js 
 index 0216c65..8fd9357 100644
 --- a/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.fixHeaderFooter.js
 +++ b/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.fixHeaderFooter.js
-@@ -291,7 +291,7 @@ $.mobile.fixedToolbars = (function() {
+@@ -286,7 +286,7 @@ $.mobile.fixedToolbars = (function() {
  							.addClass("ui-title-content-option-header-expanded-1line-height");
  					}
  				}
