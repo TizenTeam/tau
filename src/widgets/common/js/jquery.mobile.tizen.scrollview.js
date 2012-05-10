@@ -730,6 +730,10 @@
 				suffix = "\"><div class=\"ui-scrollbar-track\"><div class=\"ui-scrollbar-thumb\"></div></div></div>";
 
 			if ( this.options.eventType === "mouse" ) {
+				this._$view.bind( "mousewheel", function (e) {
+					var old = self.getScrollPosition();
+					self.scrollTo( -old.x, -(old.y - e.wheelDelta) );
+				});
 				this._dragEvt = "mousedown mousemove mouseup click";
 				this._dragCB = function ( e ) {
 					switch ( e.type ) {
