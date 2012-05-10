@@ -56,6 +56,8 @@
  *		: Get current selected date/time as W3C DTF style string.
  *	setValue( datestring )
  *		: Set date/time to 'datestring'.
+ *	changeTypeFormat( type, format )
+ *		: Change Type and Format options
  *
  * Events:
  *	data-changed: Raised when date/time was changed.
@@ -100,9 +102,9 @@
 ( function ( $, window, undefined ) {
 	$.widget( "tizen.datetimepicker", $.tizen.widgetex, {
 		options: {
-			type: 'datetime', // date, time, datetime applicable
-			format: null,
-			date: new Date(),
+			type: undefined, // date, time, datetime applicable
+			format: undefined,
+			date: undefined,
 			initSelector: "input[type='date'], input[type='datetime'], input[type='time'], :jqmData(role='datetimepicker')"
 		},
 
@@ -345,6 +347,9 @@
 				case 'gg':
 					$(div).append( tpl.replace('%1', 'era').replace('%2', this.calendar.eras.name) );
 					break;
+				case '\t':
+					$(div).append( tpl.replace('%1', 'tab').replace('%2', pat) );
+					break;
 				default : // string or any non-clickable object
 					$(div).append( tpl.replace('%1', 'seperator').replace('%2', pat) );
 					break;
@@ -386,17 +391,31 @@
 			return matches;
 		},
 
+		changeTypeFormat: function ( type, format ) {
+			this._field.remove();
+			var elem = this.elem;
+
+			$.mobile.widget.prototype.destroy.apply( this, arguments );
+			$(elem).datetimepicker( {
+				"type": type,
+				"format": format,
+				"date": this.options.date // preserve current date
+			});
+		},
+
 		_create: function () {
 			var input = this.element.get(0),
-				type = $(input).attr("type") || this.options.type,
+				type = this.options.type || $(input).attr("type") || 'datetime',
 				isTime,
 				isDate,
 				obj = this,
-				date,
+				date = this.options.date || input.value || new Date(),
 				$div;
 
-			this.options.type = type || this.options.type;
-			date = input.value || this.options.date;
+			this._setOptions( {
+				"type": type,
+				"date": date
+			});
 
 			isTime = type.indexOf("time") > -1;
 			isDate = type.indexOf("date") > -1;
@@ -412,6 +431,7 @@
 			// init date&time
 			this._initFieldDiv( $div );
 			$(input).after( $div );
+			this._field = $div;
 			this.setValue( date );
 
 			$div.bind('vclick', function ( e ) {
@@ -421,6 +441,7 @@
 			$div.find('.ui-datefield-period').buttonMarkup().bind( 'vclick', function ( e ) {
 				obj._switchAmPm( obj );
 			});
+
 		},
 
 		_populateDataSelector: function ( field, pat ) {
@@ -533,19 +554,20 @@
 			target = $(target);
 
 			var attr = target.attr("class"),
-				field = attr.match(/ui-datefield-([\w]*)/),
+				field = attr ? attr.match(/ui-datefield-([\w]*)/) : undefined,
 				pat,
 				data,
 				values,
 				numItems,
 				current,
 				valuesData,
-				item,
-				$li,
-				$item,
+				html,
+				datans,
 				$ul,
 				$div,
-				$ctx;
+				$ctx,
+				$li,
+				i;
 
 			if ( !attr ) {
 				return;
@@ -565,29 +587,20 @@
 			valuesData = data.data;
 
 			if ( values ) {
-				$ul = $(document.createElement('ul'));
-				for ( item in values ) {
-					$li = $(document.createElement('li'));
-					$item = $(document.createElement('a'));
-					$item.addClass('ui-link');
-					$item.text( values[item] );
-					$item.jqmData( "val", valuesData[item] );
-
-					$li.append( $item );
-					$ul.append( $li );
-
-					if ( current == item ) {
-						$li.addClass('current');
-					}
+				datans = "data-" + ($.mobile.ns ? ($.mobile.ns + '-') : "") + 'val="';
+				for( i = 0; i < values.length; i++ ) {
+					html += '<li><a class="ui-link" ' + datans + valuesData[i] +'">' + values[i] + '</a></li>';
 				}
 
-				/* TODO NEED TO REFACTORING HERE */
+				$ul = $("<ul></ul>");
 				$div = $('<div class="ui-datetimepicker-selector" data-transition="none"></div>');
 				$div.append( $ul ).appendTo( ui );
 				$ctx = $div.ctxpopup();
 				$ctx.parents('.ui-popupwindow').addClass('ui-datetimepicker');
+				$li = $(html);
+				$( $li[current] ).addClass("current");
+				$div.jqmData( "list", $li );
 				$div.circularview();
-				$div.circularview( 'centerTo', '.current' );
 				$ctx.popupwindow( 'open',
 						target.offset().left + target.width() / 2 - window.pageXOffset,
 						target.offset().top + target.height() - window.pageYOffset );
@@ -634,6 +647,8 @@
 						$(obj).trigger( 'update', val ); // close popup, unselect field
 					}
 				});
+
+				$div.circularview( 'centerTo', '.current', 500 );
 			}
 			return ui;
 		},
