@@ -958,9 +958,7 @@
 			scroll = $page.find(".ui-content").jqmData("scroll");
 
 		if ( scroll === "y" ) {
-			setTimeout( function () {
-				resizePageContentHeight( e.target );
-			}, 100);
+			resizePageContentHeight( e.target );
 		}
 	});
 
