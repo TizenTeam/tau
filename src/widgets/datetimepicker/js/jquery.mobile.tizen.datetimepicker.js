@@ -392,10 +392,9 @@
 		},
 
 		changeTypeFormat: function ( type, format ) {
-			this._field.remove();
+			this.fieldDiv.remove();
 			var elem = this.elem;
-
-			$.mobile.widget.prototype.destroy.apply( this, arguments );
+			$.mobile.widget.prototype.destroy.apply( this );
 			$(elem).datetimepicker( {
 				"type": type,
 				"format": format,
@@ -411,7 +410,6 @@
 				obj = this,
 				date = this.options.date || $(input).attr("value") || new Date(),
 				$div;
-
 			this._setOptions( {
 				"type": type,
 				"date": date
@@ -431,7 +429,6 @@
 			// init date&time
 			this._initFieldDiv( $div );
 			$(input).after( $div );
-			this._field = $div;
 			this.setValue( date );
 
 			$div.bind('vclick', function ( e ) {
@@ -454,7 +451,6 @@
 				yearlb,
 				yearhb,
 				day;
-
 
 			switch ( field ) {
 			case 'hour':
@@ -657,7 +653,6 @@
 			var date,
 				time,
 				datetime;
-
 			if ( this.options.format ) {
 				datetime = this._format( this.options.format );
 				div.append( datetime.html );
