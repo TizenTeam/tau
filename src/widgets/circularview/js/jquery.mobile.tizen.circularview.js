@@ -144,7 +144,6 @@
 			this._$clip = $( this.element ).addClass( "ui-scrollview-clip" );
 			this._$clip.wrapInner( '<div class="ui-scrollview-view"></div>' );
 			this._$view = $('.ui-scrollview-view', this._$clip );
-			this._$clip.width( $(window).width() );
 			this._$list = $( 'ul', this._$clip );
 
 			this._$clip.css( "overflow", "hidden" );
@@ -163,11 +162,18 @@
 			this._addBehaviors();
 		},
 
+		reflow: function () {
+			var xy = this.getScrollPosition();
+			this.refresh();
+			this.scrollTo( xy.x, xy.y );
+		},
+
 		refresh: function () {
 			var itemsPerView;
 
-			this._viewWidth = this._$view.width();
+			this._$clip.width( $(window).width() );
 			this._clipWidth = this._$clip.width();
+			this._$list.empty();
 			this._$list.append(this._items[0]);
 			this._itemWidth = $(this._items[0]).outerWidth();
 			$(this._items[0]).detach();

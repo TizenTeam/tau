@@ -331,11 +331,11 @@
 					});
 
 				this._ui.screen
-					.height($(document).height())
+					.css("height", "100%")
 					.removeClass("ui-screen-hidden");
 
 				if (this.options.fade) {
-					this._ui.screen.animate({opacity: 0.5}, "fast");
+					this._ui.screen.animate({opacity: 0.8}, "fast");
 				} else {
 					this._ui.screen.css({opacity: 0.0});
 				}
@@ -379,15 +379,28 @@
 					})
 					.addClass("in")
 					.animationComplete(function () {
-						self._ui.screen.height($(document).height());
+						self._ui.screen.css("height", "100%");
 					});
 
 				this._isOpen = true;
+				if ( !this._reflow ) {
+					this._reflow = function () {
+						if ( self._isOpen ) {
+							self._isOpen = false;
+							self.open.call( self, x_where, y_where );
+						}
+					};
+					$(window).bind( "resize", this._reflow );
+				}
 			}
 		},
 
 		close: function () {
 			if (this._isOpen) {
+				if ( this._reflow ) {
+					$(window).unbind( "resize", this._reflow );
+					this._reflow = null;
+				}
 				var self = this,
 					hideScreen = function () {
 						self._ui.screen.addClass("ui-screen-hidden");
