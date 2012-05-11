@@ -42,8 +42,8 @@
  *	data-role: 'datetimepicker'
  *	data-format: date format string. e.g) "MMM dd yyyy, HH:mm"
  *	type: 'date', 'datetime', 'time'
- *	value: pre-set value. any date/time string Date.parse() accepts.
- *	data-value: same as above.
+ *	value: pre-set value. only accepts ISO date string. e.g) "2012-05-04", "2012-05-04T01:02:03+09:00" 
+ *	data-date: any date/time string "new Date()" accepts.
  *
  * Options:
  *	type: 'date', 'datetime', 'time'
@@ -102,9 +102,9 @@
 ( function ( $, window, undefined ) {
 	$.widget( "tizen.datetimepicker", $.tizen.widgetex, {
 		options: {
-			type: undefined, // date, time, datetime applicable
-			format: undefined,
-			date: undefined,
+			type: null, // date, time, datetime applicable
+			format: null,
+			date: null,
 			initSelector: "input[type='date'], input[type='datetime'], input[type='time'], :jqmData(role='datetimepicker')"
 		},
 
@@ -409,7 +409,7 @@
 				isTime,
 				isDate,
 				obj = this,
-				date = this.options.date || input.value || new Date(),
+				date = this.options.date || $(input).attr("value") || new Date(),
 				$div;
 
 			this._setOptions( {
@@ -593,7 +593,7 @@
 				}
 
 				$ul = $("<ul></ul>");
-				$div = $('<div class="ui-datetimepicker-selector" data-transition="none"></div>');
+				$div = $('<div class="ui-datetimepicker-selector" data-transition="none" data-fade="false"></div>');
 				$div.append( $ul ).appendTo( ui );
 				$ctx = $div.ctxpopup();
 				$ctx.parents('.ui-popupwindow').addClass('ui-datetimepicker');
