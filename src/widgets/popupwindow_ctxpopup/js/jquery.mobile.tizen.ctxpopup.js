@@ -238,6 +238,7 @@
 		var ctxpopup = this.element.data( "ctxpopup" );
 
 		if ( ctxpopup ) {
+			this._setFade( false );
 			this._setShadow( false );
 			this._setCorners( false );
 			this._setOverlayTheme( null );
