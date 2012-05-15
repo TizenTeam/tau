@@ -81,7 +81,6 @@ $(document).ready( function () {
 		ok( ( function () {
 			var origin = objTime.options.date.getHours() < 12 ? objTime.calendar.AM[0] : objTime.calendar.PM[0],
 				span = $(time).parent().find( ".ui-datefield-period .ui-btn-text" );
-				console.log( span );
 			if ( span.text() != origin ) {
 				console.log( span.text() + " " + origin );
 				return false;
@@ -123,13 +122,30 @@ $(document).ready( function () {
 			objDatetime._populateDataSelector( "hour", "H", objDatetime ),
 			objDatetime._populateDataSelector( "month", "MMM", objDatetime )
 		], "should populate data selector by given field and pattern" );
+
 		start();
 	});
 
 	asyncTest( "Public Methods", function () {
 		equal( "2012-01-01T09:00:00",
-			objDatetime.setValue("Jan 1 09:00:00 2012").getValue(),
+			objDatetime.setValue.call(objDatetime, "Jan 1 09:00:00 2012").getValue(),
 			"should set and get value by API" );
+		var format = "yyyy MM dd hh mm";
+		objDatetime.changeTypeFormat( "datetime", format );
+		equal( $(datetime).data("datetimepicker").options.format, format, "should set type and format" );
 		start();
 	});
+
+	asyncTest( "Events", function () {
+		var str = "May 2 18:00:00 2012";
+
+		$(datetime).bind("date-changed", function(e, date) {
+			equal( date, "2012-05-02T18:00:00", "Should invoke event when date changed" );
+			start();
+		});
+
+		objDatetime.setValue( str );
+	});
+
+
 });
