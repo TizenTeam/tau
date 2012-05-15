@@ -126,6 +126,15 @@
 			for (i = 0; i < loadMoreItems; i++ ) {
 				htmlData = myTemplate.tmpl( dataTable[ i ] );
 				$( o.id ).append( $( htmlData ).attr( 'id', 'li_' + i ) );
+
+				/* Add style */
+				$( o.id + ">" + o.childSelector )
+					.addClass( "ui-btn-up-s" )
+					.bind( "mouseup", t._stylerMouseUp )
+					.bind( "mousedown", t._stylerMouseDown )
+					.bind( "mouseover", t._stylerMouseOver )
+					.bind( "mouseout", t._stylerMouseOut );
+
 				last_index++;
 			}
 
