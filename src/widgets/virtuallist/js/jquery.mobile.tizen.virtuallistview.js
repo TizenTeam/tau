@@ -423,7 +423,11 @@
 			/* Make Gen list by template */
 			t._pushData( (o.template), window[o.dbtable]);
 
-			$( o.id ).parentsUntil( ".ui-page" ).parent().one( "pageshow", o, t._reposition);
+			$( o.id ).parentsUntil( ".ui-page" ).parent().one( "pageshow", function () {
+				setTimeout( function () {
+					t._reposition( o );
+				}, 0);
+			});
 
 			/* Scrollview */
 			$( document ).bind( "scrollstop.virtuallist", t.options, t._scrollmove );
