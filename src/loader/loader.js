@@ -131,37 +131,18 @@
 			this.util.loadScriptSync( jsPath );
 		},
 
-		/** Load Globalize culture file, and set default culture.
-		 *  @param[in]  language  Language code. ex) en-US, en, ko-KR, ko
-		 *                        If language is not given, read language from html 'lang' attribute, or from system setting.
+		/* Get appropriate language code for globalize
 		 */
-		loadGlobalizeCulture: function ( language ) {
-			function getGlobalizeCultureFile( lang ) {
-				return ['globalize.culture.', lang, '.js'].join( '' );
-			}
-			function getGlobalizeCulturePath( self, file ) {
-				return [
-					self.frameworkData.rootDir,
-					self.frameworkData.version,
-					'js',
-					'cultures',
-					file,
-				].join( '/' );
-			}
-
+		_getGlobalizeLanguageCode: function ( language ) {
 			// Get lang, and change country code to uppercase chars.
-			var self = this,
-				lang = language
+			var lang = language
 					|| $( 'html' ).attr( 'lang' )
 					|| window.navigator.language.split( '.' )[0]	/* Webkit, Safari + workaround for Tizen */
 					|| window.navigator.userLanguage	/* IE */
 					|| 'en',
 				countryCode = null,
 				countryCodeIdx = lang.lastIndexOf('-'),
-				ignoreCodes = ['Cyrl', 'Latn', 'Mong'],	// Not country code!
-				globalizeCultureFile,
-				globalizeCulturePath,
-				neutralLangIndex;
+				ignoreCodes = ['Cyrl', 'Latn', 'Mong'];	// Not country code!
 
 			if ( countryCodeIdx != -1 ) {	// Found country code!
 				countryCode = lang.substr( countryCodeIdx + 1 );
@@ -174,9 +155,49 @@
 			// NOTE: 'en' to 'en-US', because globalize has no 'en' culture file.
 			lang = lang == 'en' ? 'en-US' : lang;
 
-			globalizeCultureFile = getGlobalizeCultureFile( lang );
-			globalizeCulturePath = getGlobalizeCulturePath( self, globalizeCultureFile );
-			neutralLangIndex = lang.lastIndexOf( '-' );
+			return lang;
+		},
+
+		_getNeutralLang: function ( lang ) {
+			var neutralLangIdx = lang.lastIndexOf( '-' ),
+				neutralLang;
+			if ( neutralLangIdx != -1 ) {
+				neutralLang = lang.substr( 0, neutralLangIdx );
+			}
+			return neutralLang;
+		},
+
+		/** Load Globalize culture file, and set default culture.
+		 *  @param[in]  language  Language code. ex) en-US, en, ko-KR, ko
+		 *                        If language is not given, read language from html 'lang' attribute, or from system setting.
+		 */
+		_loadGlobalizeCulture: function ( language, cultureDic ) {
+			var self = this,
+				lang,
+				globalizeCulturePath,
+				neutralLang;
+
+			function getGlobalizeCultureFile( lang ) {
+				return ['globalize.culture.', lang, '.js'].join( '' );
+			}
+			function getGlobalizeCulturePath( self, file ) {
+				return [
+					self.frameworkData.rootDir,
+					self.frameworkData.version,
+					'js',
+					'cultures',
+					file,
+				].join( '/' );
+			}
+			lang = S._getGlobalizeLanguageCode( language );
+			if( cultureDic ) {
+				if( cultureDic[lang] ) {
+					globalizeCulturePath = cultureDic[lang];
+				}
+			} else {
+				globalizeCulturePath = getGlobalizeCulturePath( self, getGlobalizeCultureFile( lang ) );
+			}
+			neutralLang = S._getNeutralLang( lang );
 
 			// Run culture script
 			console.log( 'Run globalize culture: ' + globalizeCulturePath );
@@ -184,13 +205,18 @@
 				globalizeCulturePath,
 				null,
 				function ( jqXHR, textStatus, errorThrown ) {	// Failed to load!
+					var neutralCulturePath;
 					if ( jqXHR.status == 404 ) {
 						// If culture file is not found, run neutral language culture. 
 						// (e.g. en-US --> en)
-						if ( neutralLangIndex != -1 ) {
-							var neutralLang = lang.substr( 0, neutralLangIndex ),
-								neutralCultureFile = getGlobalizeCultureFile( neutralLang ),
-								neutralCulturePath = getGlobalizeCulturePath( self, neutralCultureFile );
+						if ( neutralLang ) {
+							if( cultureDic ) {
+								if( cultureDic[lang] ) {
+									neutralCulturePath = cultureDic[neutralLang];
+								}
+							} else {
+								neutralCulturePath = getGlobalizeCulturePath( self, getGlobalizeCultureFile( neutralLang ) );
+							}
 							console.log( 'Run globalize culture of neutral lang: ' + neutralCulturePath );
 							self.util.loadScriptSync( neutralCulturePath );
 						}
@@ -202,18 +228,46 @@
 			return lang;
 		},
 		setGlobalize: function ( ) {
-			var lang = this.loadGlobalizeCulture( );
+			var lang = this._loadGlobalizeCulture( );
 
 			// Set culture
-			// NOTE: It is not needed to set with neutral lang. 
+			// NOTE: It is not needed to set with neutral lang.
 			//       Globalize automatically deals with it.
+			Globalize.culture( lang );
+		},
+		/**
+		 * Load custom globalize culture file
+		 * Find current system language, and load appropriate culture file from given colture file list.
+		 *
+		 * @param[in]	cultureDic	collection of 'language':'culture file path' key-val pair.
+		 * @example
+		 * var myCultures = {
+		 * 		"en"    : "culture/en.js",
+		 * 		"fr"    : "culture/fr.js",
+		 * 		"ko-KR" : "culture/ko-KR.js"
+		 * };
+		 * loadCultomGlobalizeCulture( myCultures );
+		 *
+		 * ex) culture/fr.js
+		 * -------------------------------
+		 * Globalize.addCultureInfo( "fr", {
+		 *   messages: {
+		 *     "hello" : "bonjour",
+		 *     "translate" : "traduire"
+		 *   }
+		 * } );
+		 * -------------------------------
+		 */
+		loadCustomGlobalizeCulture: function ( cultureDic ) {
+			var lang = S._getGlobalizeLanguageCode( );
+			lang = S.loadGlobalizeCulture( lang, cultureDic );
 			Globalize.culture( lang );
 		},
 
 		/** Set viewport meta tag for mobile devices.
 		 *
 		 * @param[in]	viewportWidth	Viewport width. 'device-dpi' is also allowed.
-		 * @param[in]	useAutoScale	If true, calculate & use scale factor. otherwise, scale factor is 1.
+		 * @param[in]	useAutoScale	If true, cculate & use scale factor. otherwise, scale factor is 1.
 		 * @param[in]	useDeviceDpi	If true, add 'target-densityDpi=device-dpi' to viewport meta content.
 		 */
 		setViewport: function ( viewportWidth, useAutoScale, useDeviceDpi ) {
@@ -227,7 +281,7 @@
 				return;
 			});
 			if( meta ) {
-				return;	// Ignore viweport setting, when viewport is already set.
+				return;	// Ignore viewport setting, when viewport is already set.
 			}
 
 			// Set meta tag
