@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="../../../build/tizen-web-ui-fw/0.1/js/jquery.js"></script>
+	<script src="../../../build/tizen-web-ui-fw/0.1/js/tizen-web-ui-fw-libs.js"></script>
+	<script src="../../../build/tizen-web-ui-fw/0.1/js/tizen-web-ui-fw.js"
+		data-framework-theme="tizen-gray"
+		data-framework-viewport-scale=false>
+	</script>
+
+	<link rel="stylesheet" href="../../../libs/js/jquery-mobile-1.0.1pre/external/qunit.css" />
+
+	<script src="../../../libs/js/jquery-mobile-1.0.1pre/tests/jquery.testHelper.js"></script>
+	<script src="../../../libs/js/jquery-mobile-1.0.1pre/external/qunit.js"></script>
+	<script src="ctxpopup-tests.js"></script>
+
+	<title>Contextual Popup</title>
+</head>
+
+<body>
+
+<h1 id="qunit-header">Contextual Popup</h1>
+<h2 id="qunit-banner"></h2>
+<div id="qunit-testrunner-toolbar"></div>
+<h2 id="qunit-userAgent"></h2>
+<ol id="qunit-tests"></ol>
+
+<div id="qunit-fixture">
+	<div data-role="page" id="dummy">
+		<div data-role="header"></div>
+		<div data-role="content"></div>
+	</div>
+	<div data-role="page" id="page-1">
+		<div data-role="header" data-position="fixed">
+			<h1>Contextual Popup</h1>
+		</div>
+		<div data-role="content">
+			<a href="#pop_plain" id="btn_plain" data-role="button" data-inline="true" data-rel="popupwindow">Pop_1</a>
+			<div id="pop_plain" data-role="popupwindow" data-show-arrow="true">
+				<ul data-role="listview">
+					<li class="ui-li-1line-bigicon">
+						<span class="ui-li-text-main">Dummy 1</span>
+					</li>
+					<li class="ui-li-1line-bigicon">
+						<span class="ui-li-text-main">Dummy 2</span>
+					</li>
+				</ul>
+			</div>
+			<a href="#pop_horizontal" id="btn_horizontal" data-role="button" data-inline="true" data-rel="popupwindow">Pop 2</a>
+			<div id="pop_horizontal" class="horizontal" data-role="popupwindow" data-show-arrow="true">
+				<ul>
+					<li class="icon">
+						<a href="#" data-role="button" data-icon="call"></a>
+					</li>
+					<li class="icon">
+						<a href="#" data-role="button" data-icon="favorite"></a>
+					</li>
+					<li class="text">
+						<a href="#">Function</a>
+					</li>
+				</ul>
+			</div>
+			<a href="#pop_buttons" id="btn_buttons" data-role="button" data-inline="true" data-rel="popupwindow">Pop 3</a>
+			<div id="pop_buttons" class="button" data-role="popupwindow" data-show-arrow="true">
+				<table>
+					<tr>
+						<td>
+							<a href="#" data-role="button">A</a>
+						</td>
+						<td>
+							<a href="#" data-role="button">B</a>
+						</td>
+						<td>
+							<a href="#" data-role="button">C</a>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<a href="#" data-role="button">D</a>
+						</td>
+						<td>
+							<a href="#" data-role="button">E</a>
+						</td>
+						<td>
+							<a href="#" data-role="button">F</a>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<a href="#pop_not" id="btn_not" data-role="button" data-inline="true" data-rel="popupwindow">Pop 4</a>
+			<div id="pop_not" data-role="popupwindow">
+				<div>
+					<span>Dummy</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+</body>
+</html>
+
