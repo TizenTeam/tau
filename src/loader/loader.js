@@ -68,7 +68,9 @@
 					'',
 			addElementToHead : function ( elem ) {
 				var head = document.getElementsByTagName( 'head' )[0];
-				head.appendChild( elem );
+				if( head ) {
+					$( head ).prepend( elem );
+				}
 			},
 			load: function ( path ) {
 				this.addElementToHead( this.makeLink( path + this.cacheBust ) );
