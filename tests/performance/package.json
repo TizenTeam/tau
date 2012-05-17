@@ -1,0 +1,29 @@
+{
+  "name": "web-ui-pts",
+  "description": "Web UI Framework Performance Test Suites",
+  "version": "0.0.2",
+  "homepage": "",
+  "author": {
+    "name": "Jung, Daehyeon",
+    "email": "darrenh.jung@samsung.com"
+  },
+  "main": "./runner",
+  "engines": {
+    "node": "~0.6.1"
+  },
+  "scripts": {
+    "test": "test.sh"
+  },
+  "dependencies": {
+	  "alfred": ">= 0.5.4",
+	  "argsparser": ">= 0.0.6",
+	  "cli-table": ">= 0.0.2",
+	  "colors": ">= 0.6.0",
+	  "ws": ">= 0.4.13"
+  },
+  "devDependencies": {
+	  "qunit": ">= 0.5.0",
+	  "grunt": "latest"
+  },
+  "keywords": []
+}
