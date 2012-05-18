@@ -1,4 +1,4 @@
-THEME_NAME=tizen-gray
+THEME_NAME=tizen-blue
 
 THEME_OUTPUT_ROOT ?= .
 OUTPUT_DIR = ${THEME_OUTPUT_ROOT}/${THEME_NAME}
@@ -64,21 +64,21 @@ less: prepare
 		done;
 
 css: prepare less
-	# Creating tizen-gray theme...
+	# Creating tizen-blue theme...
 	@rm -f $(CSS_OUTPUT)
 	@for src in $(CSS_SRCS); do \
 		cat $$src >> $(CSS_OUTPUT) ; \
 		done
 
 images: prepare
-	# Copying tizen-gray theme images...
+	# Copying tizen-blue theme images...
 	@cp -a images/ ${OUTPUT_DIR}/
 
 js: prepare
 	@cp -a theme.js ${OUTPUT_DIR}
 
 clean:
-	# Cleaning tizen-gray theme...
+	# Cleaning tizen-blue theme...
 	-rm -rf $(OUTPUT_DIR)
 	-rm -f *.less.css
 
