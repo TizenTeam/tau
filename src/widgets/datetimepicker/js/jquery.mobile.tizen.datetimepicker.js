@@ -597,10 +597,20 @@
 				$( $li[current] ).addClass("current");
 				$div.jqmData( "list", $li );
 				$div.circularview();
+				if ( !obj._reflow ) {
+					obj._reflow = function () {
+						$div.circularview("reflow");
+					};
+					$(window).bind("resize", obj._reflow);
+				}
 				$ctx.popupwindow( 'open',
 						target.offset().left + target.width() / 2 - window.pageXOffset,
 						target.offset().top + target.height() - window.pageYOffset );
 				$div.bind('closed', function ( e ) {
+					if ( obj._reflow ) {
+						$(window).unbind("resize", obj._reflow);
+						obj._reflow = null;
+					}
 					$div.unbind( 'closed' );
 					$ul.unbind( 'vclick' );
 					$(obj).unbind( 'update' );
