@@ -1,173 +1,158 @@
 /*
- * dayselector unit tests
+ * Unit Test: Dayselector
+ * modified by : Koeun Choi <koeun.choi@samsung.com>
  */
 
 (function ($) {
-  $.mobile.defaultTransition = "none";
 
-  var testMarkup = function (elt, expectedType, expectedTheme, expectedLabels) {
-    var checkbox, label, expectedId;
+	module( "Day selector" );
 
-    ok(elt.hasClass('ui-dayselector'));
+	var unit_dayselector = function (elt, expectedType, expectedTheme) {
+		var days = 7,
+			checkbox,
+			label,
+			expectedId,
+			i;
 
-    // main element should be a controlgroup
-    ok(elt.hasClass('ui-controlgroup'));
+		elt.dayselector();
 
-    equal(elt.attr('data-' + $.mobile.ns + 'type'), expectedType, "should have '" + expectedType + "' type");
+		ok( elt.hasClass('ui-dayselector'), "day-selector has 'ui-dayselector' class.");
+		// main element should be a controlgroup
+		ok( elt.hasClass('ui-controlgroup'), "day-selector has 'ui-controlgroup' class." );
 
-    for (var i = 0; i < expectedLabels.length; i++) {
-      expectedId = elt.attr('id') + '_' + i;
-      checkbox = elt.find('.ui-checkbox :checkbox[value=' + i + '][id=' + expectedId + ']');
-      equal(checkbox.length, 1, "should be one checkbox per day");
-      equal(checkbox.attr('value'), '' + i, "should have correct day value");
+		equal( elt.attr('data-' + $.mobile.ns + 'type'), expectedType, "should have '" + expectedType + "' type" );
 
-      label = checkbox.siblings().first();
-      equal(label.length, 1, "should be one label per day");
-      equal(label.attr('for'), expectedId, "should associate correctly with checkbox");
-      ok(label.hasClass('ui-dayselector-label-' + i), "should have the right label class");
-      equal(label.jqmData('theme'), expectedTheme, "should have '" + expectedTheme + "' theme");
-      equal(label.find('.ui-btn-text').text(), expectedLabels[i], "should have day letter set");
-    }
-  };
+		for ( i = 0; i < days ; i++ ) {
+			expectedId = elt.attr( 'id' ) + '_' + i;
+			checkbox = elt.find( '.ui-checkbox :checkbox[value=' + i + '][id=' + expectedId + ']' );
+			equal( checkbox.length, 1, "should be one checkbox per day" );
+			equal( checkbox.prop('value'), String(i), "should have correct day value" );
 
-  module("Day selector");
+			label = checkbox.siblings().first();
+			equal( label.length, 1, "should be one label per day" );
+			equal( label.attr('for'), expectedId, "should associate correctly with checkbox" );
+			ok( label.hasClass('ui-dayselector-label-' + i), "should have the right label class" );
+			equal( label.jqmData('theme'), expectedTheme, "should have '" + expectedTheme + "' theme" );
+		}
+	};
 
-  asyncTest("Should set default configuration correctly", function () {
+	/* Test 1. Default Configuration Check */
+	asyncTest( "Default Configuration Check", function () {
 
-    $.testHelper.pageSequence([
+		$.testHelper.pageSequence( [
+			function () {
+				$.testHelper.openPage( '#dayselector-test-configuration' );
+			},
 
-      function () {
-        $.testHelper.openPage('#dayselector-test-configuration');
-      },
+			function () {
+				var expectedType = 'horizontal',
+					testPage = $( '#dayselector-test-configuration' ),
+					expectedTheme = 's',
+					daySelector;
 
-      function () {
-        var $new_page = $('#dayselector-test-configuration');
-        ok($new_page.hasClass('ui-page-active'));
+				// test default values are applied correctly
+				daySelector = testPage.find( '#dayselector-test-configuration-default' );
+				unit_dayselector( daySelector, expectedType, expectedTheme );
 
-        // test defaults are applied correctly
-        var defaultDs = $new_page.find('#dayselector-test-configuration-default');
+				start();
+			}
+		]);
+	});
 
-        // test the checkboxes are OK
-        var expectedType = 'horizontal';
-        var expectedLabels = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
-        var expectedTheme = 'c';
-        testMarkup(defaultDs, expectedType, expectedTheme, expectedLabels);
-      },
+	/* Test 2. Theme Configuration Check */
+	asyncTest( "Theme Configuration Check", function () {
 
-      function () { start(); }
+		$.testHelper.pageSequence( [
+			function () {
+				$.testHelper.openPage( '#dayselector-test-configuration' );
+			},
 
-    ]);
+			function () {
+				var expectedType = 'horizontal',
+					testPage = $( '#dayselector-test-configuration' ),
+					expectedTheme,
+					daySelector;
 
-  });
+				// test user theme is applied to dayselector winset correctly
+				daySelector = testPage.find( '#dayselector-test-configuration-theme' );
+				daySelector.dayselector();
+				expectedTheme = daySelector.jqmData( 'theme' );
+				equal( expectedTheme, 'a', "dayselector fieldset theme is 'a'" );
+				unit_dayselector( daySelector, expectedType, expectedTheme );
 
-  asyncTest("Should set theme from data-theme attribute", function () {
+				start();
+			}
 
-    $.testHelper.pageSequence([
+		]);
+	});
 
-      function () {
-        $.testHelper.openPage('#dayselector-test-configuration');
-      },
+	/* Test 3. Custom Configuration Check */
+	asyncTest( "Custom Configuration Check", function () {
 
-      function () {
-        var $new_page = $('#dayselector-test-configuration');
-        ok($new_page.hasClass('ui-page-active'));
+		$.testHelper.pageSequence( [
+			function () {
+				$.testHelper.openPage( '#dayselector-test-configuration' );
+			},
 
-        // test theme is applied correctly
-        var themeDs = $new_page.find('#dayselector-test-configuration-theme');
+			function () {
+				var expectedType = 'vertical',
+					testPage = $( '#dayselector-test-configuration' ),
+					expectedTheme = 'a',
+					daySelector;
 
-        // test the checkboxes are OK
-        var expectedType = 'horizontal';
-        var expectedLabels = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
-        var expectedTheme = 'a';
-        testMarkup(themeDs, expectedType, expectedTheme, expectedLabels);
-      },
+				// test custom config is applied correctly
+				daySelector = testPage.find( '#dayselector-test-configuration-custom' );
 
-      function () { start(); }
+				daySelector.dayselector({ type: expectedType, theme: expectedTheme });
+				unit_dayselector(daySelector, expectedType, expectedTheme );
 
-    ]);
+				start();
+			}
 
-  });
+		]);
+	});
 
-  asyncTest("Should set custom configuration correctly", function () {
+	/* Test 4. Check Event and APIs */
+	asyncTest( "Check Event and APIs", function () {
 
-    $.testHelper.pageSequence([
+		$.testHelper.pageSequence([
+			function () {
+				$.testHelper.openPage( '#dayselector-test-select' );
+			},
 
-      function () {
-        $.testHelper.openPage('#dayselector-test-configuration');
-      },
+			function () {
+				var testPage,
+					daySelectorElem,
+					wednesday,
+					friday;
+				testPage = $( '#dayselector-test-select' );
+				ok( testPage.hasClass('ui-page-active') );
 
-      function () {
-        var $new_page = $('#dayselector-test-configuration');
-        ok($new_page.hasClass('ui-page-active'));
+				// test defaults are applied correctly
+				daySelectorElem = testPage.find( '#dayselector-test-select-1' );
 
-        // test custom config is applied correctly
-        var customDs = $new_page.find('#dayselector-test-configuration-custom');
+				// nothing should be selected yet
+				deepEqual( daySelectorElem.dayselector('value'), [] );
 
-        // what we expect
-        var expectedType = 'vertical';
-        var expectedTheme = 'a';
+				// click on Wednesday and Friday to switch them on
+				wednesday = daySelectorElem.find( '.ui-checkbox' )[3];
+				$( wednesday ).find( 'label' ).trigger( 'click' );
 
-        var frenchDays = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'];
+				friday = daySelectorElem.find( '.ui-checkbox' )[5];
+				$( friday ).find( 'label' ).trigger( 'click' );
+				deepEqual( daySelectorElem.dayselector('value'), ['3', '5'] );
 
-        var expectedLabels = [];
-        for (var j = 0; j < frenchDays.length; j++) {
-          expectedLabels.push(frenchDays[j].slice(0, 1));
-        }
+				// turn off Wednesday and Friday
+				$( wednesday ).find( 'label' ).trigger( 'click' );
+				$( friday ).find( 'label' ).trigger( 'click' );
+				deepEqual( daySelectorElem.dayselector('value'), [] );
 
-        customDs.dayselector({type: expectedType, theme: expectedTheme, days: frenchDays});
+				// test the selectAll() method
+				daySelectorElem.dayselector( 'selectAll' );
+				deepEqual( daySelectorElem.dayselector('value'), ['0', '1', '2', '3', '4', '5', '6'] );
 
-        testMarkup(customDs, expectedType, expectedTheme, expectedLabels);
-      },
-
-      function () { start(); }
-
-    ]);
-
-  });
-
-  asyncTest("Should respond to selection via clicks or API", function () {
-
-    $.testHelper.pageSequence([
-
-      function () {
-        $.testHelper.openPage('#dayselector-test-select');
-      },
-
-      function () {
-        var $new_page = $('#dayselector-test-select');
-        ok($new_page.hasClass('ui-page-active'));
-
-        // test defaults are applied correctly
-        var selectDs = $new_page.find('#dayselector-test-select-1');
-
-        // nothing should be selected yet
-        deepEqual(selectDs.dayselector('value'), []);
-
-        // click on Wednesday and Friday to switch them on
-        var wednesday = selectDs.find('.ui-btn-text:contains("W")');
-        wednesday.trigger('click');
-
-        var friday = selectDs.find('.ui-btn-text:contains("F")');
-        friday.trigger('click');
-
-        deepEqual(selectDs.dayselector('value'), ['3', '5']);
-
-        // turn off Wednesday and Friday
-        wednesday.trigger('click');
-        friday.trigger('click');
-
-        deepEqual(selectDs.dayselector('value'), []);
-
-        // test the selectAll() method
-        selectDs.dayselector('selectAll');
-
-        deepEqual(selectDs.dayselector('value'), ['0', '1', '2', '3', '4', '5', '6']);
-      },
-
-      function () { start(); }
-
-    ]);
-
-  });
-
+				start();
+			}
+		]);
+	});
 })(jQuery);

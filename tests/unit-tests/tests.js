@@ -12,5 +12,6 @@ var TESTS = {
 		"multibuttonentry",
 		"multimediaview",
 		"virtualgrid",
+		"dayselector"
 	]
 };
