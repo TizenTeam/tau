@@ -1,34 +1,66 @@
-Name:		web-ui-fw
-Summary:	Tizen Web UI Framework Library
-Version:	0.1.11
-Release:	1
-Group:		TO_BE/FILLED_IN
-License:	MIT
-BuildRequires:	node-js, make
+Name:       web-ui-fw
+Version:    0.1.16
+Release:    1
+Summary:    Tizen Web UI Framework Library
+Group:      Development/Other
+License:    MIT
+BuildRequires:  make
+BuildRequires:  nodejs
+BuildRequires:  nodejs-x86-arm
+
+Source0:    %{name}-%{version}.tar.gz
 
 %description
-Tizen Web UI Framework library package
+Tizen Web UI Framework library and theme packages
 
 %prep
-make clean
-
+%setup -q
+ 
 %build
-make
+make all
+
+%install
+make DESTDIR=%{buildroot} install
 
 %post
 
-
 %files
-/usr/lib/tizen-web-ui-fw/*/js
-/usr/lib/tizen-web-ui-fw/*/themes/tizen-gray
+%{_prefix}/share/tizen-web-ui-fw/*/js
+ 
+ 
+%changelog
+ 
+ 
+###############################
+%package -n web-ui-fw-theme-tizen-gray
+Summary:    Tizen Web UI Framework Theme : tizen-gray
+%Description -n web-ui-fw-theme-tizen-gray
+    Tizen Web UI Framework Theme : tizen-gray
+%files -n web-ui-fw-theme-tizen-gray
+/usr/share/tizen-web-ui-fw/*/themes/tizen-gray
 
+###############################
+%package -n web-ui-fw-theme-default
+Summary:    Tizen Web UI Framework Theme : default
+%Description -n web-ui-fw-theme-default
+    Tizen Web UI Framework Theme : default
+%files -n web-ui-fw-theme-default
+/usr/share/tizen-web-ui-fw/*/themes/default
 
-%package -n libweb-ui-fw
+###############################
+%package -n web-ui-fw-devel
+Summary:    Tizen Web UI Framework Developer's files
+%Description -n web-ui-fw-devel
+    Tizen Web UI Framework Developer's files
+%files -n web-ui-fw-devel
+/usr/share/tizen-web-ui-fw/bin
+/usr/share/tizen-web-ui-fw/template
 
-%package -n libweb-ui-fw-theme-tizen-gray
-
-%package -n libweb-ui-fw-dev
-
-%package -n libweb-ui-fw-demo-tizen-gray
-
-
+###############################
+%package -n web-ui-fw-demo-tizen-gray
+BuildArch:  noarch
+Summary:    Tizen Web UI Framework Demo Application: tizen-gray demo
+%Description -n web-ui-fw-demo-tizen-gray
+    Tizen Web UI Framework Demo Application: tizen-gray demo
+%files  -n web-ui-fw-demo-tizen-gray
+/usr/share/tizen-web-ui-fw/demos/tizen-gray
