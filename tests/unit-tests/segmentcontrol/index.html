@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script src="../../../build/tizen-web-ui-fw/0.1/js/jquery.js"></script>
+	<script src="../../../build/tizen-web-ui-fw/0.1/js/tizen-web-ui-fw-libs.min.js"></script>
+	<script src="../../../build/tizen-web-ui-fw/0.1/js/tizen-web-ui-fw.js"
+		data-framework-theme="tizen-gray"
+		data-framework-viewport-scale=false>
+	</script>
+
+	<link rel="stylesheet" href="../../../libs/js/jquery-mobile-1.0.1pre/external/qunit.css" />
+
+	<script src="../../../libs/js/jquery-mobile-1.0.1pre/external/qunit.js"></script>
+
+  <script src="segmentcontrol-tests.js"></script>
+</head>
+<body>
+
+<h1 id="qunit-header">jQuery Mobile Controlbar Tests</h1>
+<h2 id="qunit-banner"></h2>
+<h2 id="qunit-userAgent"></h2>
+<ol id="qunit-tests">
+</ol>
+
+
+<div data-nstest-role="page">
+  <div data-nstest-role="header" data-position="inline">
+    <h1>SegmentControl Test - markup</h1>
+  </div>
+  <div data-nstest-role="content">
+		<div data-role="fieldcontain" id="segmentcontrol-2btn">
+			<fieldset data-role="controlgroup" data-type="horizontal">
+				<input type="radio" name="radio-view-1" data-icon="segment-titlestyle-segonly" id="segment1" value="on" checked="checked" />
+				<label for="segment1">List</label>
+				<input type="radio" name="radio-view-1" data-icon="segment-titlestyle-segonly" id="segment2" value="off" />
+				<label for="segment2">Grid</label>
+			</fieldset>
+		</div>
+
+		<div data-role="fieldcontain" id="segmentcontrol-3btn">
+			<fieldset data-role="controlgroup" data-type="horizontal">
+				<input type="radio" name="radio-view-2" data-icon="segment-titlestyle-segonly" id="segment3" value="on" checked="checked" />
+				<label for="segment3">List</label>
+				<input type="radio" name="radio-view-2" data-icon="segment-titlestyle-segonly" id="segment4" value="off" />
+				<label for="segment4">Grid</label>
+				<input type="radio" name="radio-view-2" data-icon="segment-titlestyle-segonly" id="segment5" value="off" />
+				<label for="segment5">Grid</label>
+			</fieldset>
+		</div>
+
+		<div data-role="fieldcontain" id="segmentcontrol-4btn">
+			<fieldset data-role="controlgroup" data-type="horizontal">
+				<input type="radio" name="radio-view-9" data-icon="segment-titlestyle-segonly" id="segment6" value="on" checked="checked" />
+				<label for="segment6">List</label>
+				<input type="radio" name="radio-view-9" data-icon="segment-titlestyle-segonly" id="segment7" value="off" />
+				<label for="segment7">Grid</label>
+				<input type="radio" name="radio-view-9" data-icon="segment-titlestyle-segonly" id="segment8" value="off" />
+				<label for="segment8">Grid</label>
+				<input type="radio" name="radio-view-9" data-icon="segment-titlestyle-segonly" id="segment9" value="off" />
+				<label for="segment9">Grid</label>
+			</fieldset>
+		</div>
+	</div>
+	<div data-nstest-role="footer">
+	</div>
+</div>
+
+
+</body>
+</html>
