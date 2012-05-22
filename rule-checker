@@ -1,0 +1,12 @@
+#!/bin/sh
+# author: koeun.choi@samsung.com
+# This script is syntax rule checker for file you created.
+# Please check syntax before you make a commit.
+
+if [ $# -lt 1 ]; then
+	echo How to use : ./rule-checker {file-path1}
+	echo How to use : ./rule-checker {file-path1 file-path2 file-path3 ...}
+	echo Example : ./rule-checker src/widgets/slider/js/jquery.mobile.tizen.slider.js
+else
+	build-tools/bin/jslint --sloppy --eqeq --bitwise --forin --nomen --predef jQuery --color --plusplus --browser --jqmspace $@
+fi
