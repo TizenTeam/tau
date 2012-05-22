@@ -1,3 +1,11 @@
+web-ui-fw (0.1.17) unstable; urgency=low
+
+  * Unit test for some widgets included.
+  * Git: slp/pkgs/w/web-ui-fw
+  * Tag: web-ui-fw_0.1.17
+
+ -- Koeun Choi <koeun.choi@samsung.com>  Tue, 22 May 2012 21:10:39 +0900
+
 web-ui-fw (0.1.16) unstable; urgency=low
 
   * Many bugfix
