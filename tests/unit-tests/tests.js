@@ -9,10 +9,17 @@ var TESTS = {
 		"datetimepicker",
 		"nocontents",
 		"handler",
+		"searchbar",
+		"virtuallist",
+		"extendablelist",
 		"multibuttonentry",
 		"multimediaview",
 		"virtualgrid",
 		"dayselector",
-		"expandablelist"
+		"expandablelist",
+		"controlbar",
+		"navigaionbar",
+		"segmentcontrol",
+		"optionheader",
 	]
 };
