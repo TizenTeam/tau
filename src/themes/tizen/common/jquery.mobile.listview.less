@@ -364,7 +364,7 @@ ol.ui-listview {
 
 .LESSli-reset-position-1line(@height: @list-li-main-line-height, @padding-left: @list-li-padding-horizontal) {
 	margin: 0;
-	height: @height !important;
+	height: @height;
 	min-height: @height;
 	padding-left: @padding-left;
 }
@@ -372,13 +372,13 @@ ol.ui-listview {
 	margin: 0;
 	padding: 0 @list-li-padding-horizontal;
 	height: @height;
-	min-height: @height;
+	//min-height: @height;
 }
 .LESSli-reset-position-3line(@height: @list-li-3line-height) {
 	margin: 0;
 	padding: 0 @list-li-padding-horizontal;
 	height: @height;
-	min-height: @height;
+	//min-height: @height;
 }
 .LESStext-main-1line(@left:@list-li-padding-horizontal) {
 	.ui-li-text-main {
@@ -1638,7 +1638,8 @@ ul.ui-listview {
 	}
 	.ui-li-expand-transition-hide {
 		visibility: hidden;
-		height: 0px;
+		height: 0px !important;
+		min-height: 0px !important;
 		padding-top: 0px;
 		padding-bottom: 0px;
 		border: 0px;
