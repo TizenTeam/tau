@@ -26,8 +26,3 @@ Architecture: all
 Depends: libweb-ui-fw (= ${Source-Version})
 Description: Dev package for libweb-ui-fw
 XB-Generate-Docs: yes
-
-Package: libweb-ui-fw-demo-tizen-gray
-Architecture: all
-Depends: libweb-ui-fw, libweb-ui-fw-theme-tizen-gray
-Description: Tizen-gray widget demo
