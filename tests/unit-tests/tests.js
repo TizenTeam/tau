@@ -20,6 +20,7 @@ var TESTS = {
 		"controlbar",
 		"navigationbar",
 		"segmentcontrol",
-		"optionheader"
+		"optionheader",
+		"autodivider"
 	]
 };
