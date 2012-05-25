@@ -18,7 +18,7 @@ var TESTS = {
 		"dayselector",
 		"expandablelist",
 		"controlbar",
-		"navigaionbar",
+		"navigationbar",
 		"segmentcontrol",
 		"optionheader",
 	]
