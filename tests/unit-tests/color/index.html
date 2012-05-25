@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="../../../build/tizen-web-ui-fw/0.1/js/jquery.js"></script>
+	<script src="../../../build/tizen-web-ui-fw/0.1/js/tizen-web-ui-fw-libs.min.js"></script>
+	<script src="../../../build/tizen-web-ui-fw/0.1/js/tizen-web-ui-fw.js"
+		data-framework-theme="tizen-gray"
+		data-framework-viewport-scale=false>
+	</script>
+
+	<link rel="stylesheet" href="../../../libs/js/jquery-mobile-1.0.1pre/external/qunit.css" />
+
+	<script src="../../../libs/js/jquery-mobile-1.0.1pre/tests/jquery.testHelper.js"></script>
+	<script src="../../../libs/js/jquery-mobile-1.0.1pre/external/qunit.js"></script>
+	<script src="color-tests.js"></script>
+
+	<title>Color Picker</title>
+</head>
+
+<body>
+
+<h1 id="qunit-header">Color</h1>
+<h2 id="qunit-banner"></h2>
+<div id="qunit-testrunner-toolbar"></div>
+<h2 id="qunit-userAgent"></h2>
+<ol id="qunit-tests"></ol>
+<div id="qunit-fixture">
+	<div data-role="page" id="colorpage">
+	<div>
+		<div>Color title widget</div>
+		<div data-role="colortitle" id="colortitle"></div>
+	</div>
+	<div>
+		<div>Color palette widget</div>
+		<div data-role="colorpalette" id="colorpalette" data-show-preview="true"></div>
+	</div>
+	<div>
+		<div>Color picker button</div>
+		<div data-role="colorpickerbutton" data-inline="true" id="colorpickerbutton-noform"></div>
+	</div>
+	<div>
+		<div data-role="label">Hue-Saturation-Value picker widget</div>
+		<div data-role="hsvpicker" id="hsvpicker"></div>
+	</div>
+	<div>
+		<div data-role="label">Hue-Saturation-Lightness picker widget</div>
+		<div data-role="colorpicker" id="colorpicker" data-color="#ffffff"></div>
+	</div>
+	</div>
+</div>
+
+</body>
+</html>
+
