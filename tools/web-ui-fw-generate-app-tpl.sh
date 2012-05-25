@@ -3,7 +3,7 @@
 ### Prepare: set global variables ###
 CWD=`pwd`
 SCRIPTDIR="`cd \`dirname $0\`/; pwd`"
-LIBDIR=$SCRIPTDIR/../lib/tizen-web-ui-fw
+LIBDIR=$SCRIPTDIR/../share/tizen-web-ui-fw
 DATA_FRAMEWORK_ROOT=
 
 
@@ -89,7 +89,7 @@ function usage
 
 	if [ -n "$1" ]; then EXITCODE=1; echo "ERROR: $ERRMSG"; echo ""; fi
 
-	if [ ! -n "$1" ]; then 
+	if [ -n "$1" ]; then
 		echo "Usage: $0 <--copylib> <--type=[w3c|tizen]> <app-name> <install-dir>"
 		echo ""
 		echo "       app-name : Your application name. If whitespace is contained, wrap it "
@@ -113,8 +113,9 @@ function usage
 ### Check argv ###
 function check_argv
 {
-	if [ ! -d "$INSTALL_DIR" ]; then usage "No install-dir found; $INSTALL_DIR"; fi
-	if [ -e "$DESTDIR" ]; then usage "$DESTDIR already exists"; fi
+	if [ ! -n "$APP_NAME" ]; then usage "No app-name is given."; fi
+	if [ ! -d "$INSTALL_DIR" ]; then usage "No install-dir is found; $INSTALL_DIR"; fi
+	if [ -e "$DESTDIR" ]; then usage "$DESTDIR already exists."; fi
 }
 
 
