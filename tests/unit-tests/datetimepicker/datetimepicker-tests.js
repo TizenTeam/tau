@@ -75,7 +75,7 @@ $(document).ready( function () {
 			updateFieldTest( "yyyy", 1995 )
 		],
 		[
-			"12", "01", "13", "09", "9", "09", "Mar", "March", "95", "1995"
+			"12", "01", "13", "09", "9", "09", Globalize.culture().calendar.months.namesAbbr[2], Globalize.culture().calendar.months.names[2], "95", "1995"
 		], "should update field to given value with format" );
 
 		ok( ( function () {
@@ -97,6 +97,12 @@ $(document).ready( function () {
 			objTime._parsePattern( "MMMM dd yyyy hh:mm 'dummy space'" ), "should parse DTF string as array" );
 
 		objDatetime.options.date = new Date( "May 2 18:30:00 2012" );
+
+		var months = Globalize.culture().calendar.months.namesAbbr.slice();
+		if ( months.length > 12 ) {
+			months.length = 12;
+		}
+
 		deepEqual( [
 			{ // hour h 6
 				values : [ "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" ],
@@ -111,7 +117,7 @@ $(document).ready( function () {
 				current : 18
 			},
 			{
-				values : [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ],
+				values : months,
 				data : range( 1, 12 ),
 				numItems : 12,
 				current : 4
