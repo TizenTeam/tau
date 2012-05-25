@@ -20,7 +20,7 @@ def addConfigFileAndIcon(webAppName):
 	if os.path.exists("config.xml"):
 		print "config.xml exists... ignore copy of template"
 	else:
-		shutil.copy("../../src/template/wac/config.xml.in", "config.xml")
+		shutil.copy("../../src/template/tizen/config.xml.in", "config.xml")
 		f = open("config.xml")
 		config = f.read()
 		f.close()
@@ -33,13 +33,16 @@ def addConfigFileAndIcon(webAppName):
 	if os.path.exists("icon.png"):
 		print "icong.png exists... ignore copy of template"
 	else:
-		shutil.copy("../../src/template/wac/icon.png", "icon.png")
+		shutil.copy("../../src/template/tizen/icon.png", "icon.png")
 
 def makeWebAppPackage(directory):
 	os.chdir(directory)
 	webAppName = directory.replace("pkged-demo-apps/", "")
 	changeIndexFile()
 	# copy tizen-web-ui-fw lib
+	if os.path.exists("tizen-web-ui-fw"):
+		print "tizen-web-ui-fw directory exists... remove existing directory"
+		os.system("rm -rf tizen-web-ui-fw")
 	shutil.copytree("../../build/tizen-web-ui-fw", "tizen-web-ui-fw")
 	#add meta files for packaging
 	addConfigFileAndIcon(webAppName)
