@@ -44,6 +44,18 @@
 				});
 			}, 1000 );
 		});
+
+		obj_optionheader.options = false;
+		created_optionheader.optionheader( "toggle", true );
+		if ( obj_optionheader.options == false ) {
+			equal( obj_optionheader.isCollapsed , false, "API test -> toggle() collapse" );
+		}
+
+		obj_optionheader.options = true;
+		created_optionheader.optionheader( "toggle", true );
+		if ( obj_optionheader.options == true ) {
+			equal( obj_optionheader.isCollapsed , true, "API test -> toggle() expand" );
+		}
 	/* Check Markup */
 	};
 
