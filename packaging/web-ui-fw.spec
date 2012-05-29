@@ -1,3 +1,4 @@
+#sbs-git:slp/pkgs/w/web-ui-fw web-ui-fw 0.1.16
 Name:       web-ui-fw
 Version:    0.1.16
 Release:    1
@@ -15,7 +16,7 @@ Tizen Web UI Framework library and theme packages
 
 %prep
 %setup -q
- 
+
 %build
 make all
 
@@ -27,9 +28,7 @@ make DESTDIR=%{buildroot} install
 %files
 %{_prefix}/share/tizen-web-ui-fw/*/js
  
- 
 %changelog
- 
  
 ###############################
 %package -n web-ui-fw-theme-tizen-gray

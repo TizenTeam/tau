@@ -7,7 +7,11 @@ var fs = require("fs");
 // Add ../lib to require path
 // by Youmin Ha <youmin.ha@samsung.com>
 var path = require("path");
-require.paths.unshift(path.join(__dirname, '..', 'lib'));	
+
+try {
+	require.paths.unshift(path.join(__dirname, '..', 'lib'));
+} catch (ex) {
+}
 
 var uglify = require("uglify-js"), // symlink ~/.node_libraries/uglify-js.js to ../uglify-js.js
     jsp = uglify.parser,
