@@ -1,164 +1,85 @@
 /*
  * swipelist unit tests
+ *
+ * Hyunjung Kim <hjnim.kim@samsung.com>
+ *
  */
 
-(function ($) {
-  $.mobile.defaultTransition = "none";
+( function ( $ ) {
 
-  module("Swipelist");
+	module("swipelist");
 
-  asyncTest("Applies markup", function () {
+	var unit_swipe = function( swipelist, type ) {
+		var	covers,
+			cover,
+			coverStart,
+			item,
+			slideLeftDone = function () {
+				ok(true, "Animation Complete - sliding left");
+				cover.unbind("animationComplete");
+				equal(cover.position().left, coverStart, "Position - Cover");
+				start();
+			},
+			slideRightDone = function () {
+				ok(true, "Animation Complete - sliding right");
+				setTimeout(function () {
+					cover.unbind("animationComplete");
+					cover.bind("animationComplete", slideLeftDone);
+					item.trigger("swipeleft");
+				}, 0);
+			};
 
-    $.testHelper.pageSequence([
+		$("#swipelistpage").page();
+		swipelist.swipelist();
 
-      function () {
-        $.testHelper.openPage('#swipelist-test');
-      },
+		ok(swipelist.hasClass("ui-swipelist"),"Create - Swipelist");
+		covers = swipelist.find("li *.ui-swipelist-item-cover");
+		cover = covers.first();
+		coverStart = cover.position().left;
+		item = swipelist.find("li").first();
 
-      function () {
-        var $new_page = $('#swipelist-test');
-        ok($new_page.hasClass('ui-page-active'));
+		cover.bind("animationComplete", slideRightDone);
+		cover.trigger("swiperight");
+		stop();
 
-        var swipelist = $new_page.find('ul:jqmData(role=swipelist)');
-        var covers = swipelist.find('li *.ui-swipelist-item-cover.ui-body-c');
+		equal( swipelist.find("li.ui-swipelist-item").length , 2, "Count - Swipeable li");
+		equal( covers.length , 2, "Count - cover");
 
-        ok(swipelist.hasClass('ui-listview'));
-        ok(swipelist.hasClass('ui-swipelist'));
+		equal(covers.find("span.ui-swipelist-item-cover-inner:contains('1line-leftsub1')").length,
+				1,
+				"Check - Cover string value");
+	};
 
-        equal(swipelist.find('li.ui-swipelist-item').length, 2, "should be two swipe-able items");
-        equal(covers.length, 2, "should be two swipe covers with 'c' theme");
+	var unit_swipe_destroy = function(swipelist, type) {
+		var covers,
+			new_page = $("#swipedestorypage");
 
-        equal(covers.find('span.ui-swipelist-item-cover-inner:contains("Nigel")').length,
-                          1,
-                          "should wrap inner text of Nigel cover with a span");
-        equal(covers.find('span.ui-swipelist-item-cover-inner:contains("Bert")').length,
-                          1,
-                          "should wrap inner text of Bert cover with a span");
-      },
+		new_page.page();
+		swipelist.swipelist();
+		ok(swipelist.hasClass("ui-swipelist"),"Create - Swipelist");
+		covers = swipelist.find("li *.ui-swipelist-item-cover");
 
-      function () { start(); }
+		equal( swipelist.find("li.ui-swipelist-item").length , 2, "Count - Swipeable li");
+		equal( covers.length , 2, "Count - cover");
 
-    ]);
+		swipelist.swipelist("destroy");
 
-  });
+		equal(new_page.has('.ui-swipelist').length, 0, "Destroy - list");
+		equal(new_page.has('.ui-swipelist-item').length, 0 , "Destroy - item" );
+		equal(new_page.has('.ui-swipelist-item-cover').length, 0, "Destroy - cover");
 
-  asyncTest("Responds to swipe events", function () {
+	};
 
-    $.testHelper.pageSequence([
+	asyncTest( " swipelist ", function() {
+		expect(7);
+		unit_swipe( $("#swipewidget"), "swipelist" );
+		start();
+	});
 
-      function () {
-        $.testHelper.openPage('#swipelist-test');
-      },
+	asyncTest( " swipelist - destory", function() {
+		expect(6),
+		unit_swipe_destroy( $("#swipedestroy"), "swipelistdestroy"),
+		start()
+	});
 
-      function () {
-        var $new_page = $('#swipelist-test');
-        ok($new_page.hasClass('ui-page-active'));
-
-        var swipelist = $new_page.find('ul:jqmData(role=swipelist)');
-
-        var cover = swipelist.find('li *.ui-swipelist-item-cover.ui-body-c').first();
-        var item = swipelist.find('li').first();
-        var coverStart = cover.position().left;
-
-        var isRight = false;
-
-        var slideLeftDone = function () {
-          ok(true, 'should trigger animationComplete after sliding left');
-          equal(cover.position().left, coverStart, "cover should be back where it started");
-        };
-
-        var slideRightDone = function () {
-          ok(true, 'should trigger animationComplete after sliding right');
-
-          setTimeout(function () {
-            cover.unbind('animationComplete');
-            cover.bind('animationComplete', slideLeftDone);
-            item.trigger('swipeleft');
-          }, 0);
-        };
-
-        cover.bind('animationComplete', slideRightDone);
-
-        cover.trigger('swiperight');
-      },
-
-      function () { expect(4); start(); }
-    ]);
-
-  });
-
-  asyncTest("Responds to clicks on buttons inside the list element", function () {
-
-    $.testHelper.pageSequence([
-
-      function () {
-        $.testHelper.openPage('#swipelist-test-interior-buttons');
-      },
-
-      function () {
-        var $new_page = $('#swipelist-test-interior-buttons');
-        ok($new_page.hasClass('ui-page-active'));
-
-        var swipelist = $new_page.find('ul:jqmData(role=swipelist)');
-
-        var cover = swipelist.find('li *.ui-swipelist-item-cover.ui-body-c').first();
-        var button = swipelist.find('li *:jqmData(role=button)').first();
-        var coverStart = cover.position().left;
-
-        var slideLeftDone = function () {
-          ok(true, "should slide back to the left when interior button clicked");
-          equal(cover.position().left, coverStart, "cover should be back where it started");
-        };
-
-        var slideRightDone = function () {
-          setTimeout(function () {
-            cover.unbind('animationComplete');
-            cover.bind('animationComplete', slideLeftDone);
-            button.trigger('click');
-          }, 0);
-        };
-
-        cover.bind('animationComplete', slideRightDone);
-
-        cover.trigger('swiperight');
-      },
-
-      function () { expect(3); start(); }
-    ]);
-
-  });
-
-  asyncTest("Can be destroyed", function () {
-
-    $.testHelper.pageSequence([
-
-      function () {
-        $.testHelper.openPage('#swipelist-test-destroy');
-      },
-
-      function () {
-        var $new_page = $('#swipelist-test-destroy');
-        ok($new_page.hasClass('ui-page-active'));
-
-        var swipelist = $new_page.find('ul:jqmData(role=swipelist)');
-        swipelist.swipelist('destroy');
-        var covers = $new_page.find(':jqmData(role=swipelist-item-cover)');
-
-
-        equal($new_page.has('.ui-swipelist').length, 0);
-        equal($new_page.has('.ui-swipelist-item').length, 0);
-        equal($new_page.has('.ui-swipelist-item-cover').length, 0);
-        equal($new_page.has('.ui-swipelist-item-cover-inner').length, 0);
-
-        covers.each(function () {
-          ok(!$(this).data('animateRight'));
-          ok(!$(this).data('animateLeft'));
-        });
-      },
-
-      function () { expect(7); start(); }
-    ]);
-
-  });
-
-})(jQuery);
+} ) ( jQuery );
