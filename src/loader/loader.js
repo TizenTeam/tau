@@ -131,104 +131,119 @@
 			this.util.loadScriptSync( jsPath );
 		},
 
-		/* Get appropriate language code for globalize
-		 */
-		_getGlobalizeLanguageCode: function ( language ) {
-			// Get lang, and change country code to uppercase chars.
-			var lang = language
-					|| $( 'html' ).attr( 'lang' )
-					|| window.navigator.language.split( '.' )[0]	/* Webkit, Safari + workaround for Tizen */
-					|| window.navigator.userLanguage	/* IE */
-					|| 'en',
-				countryCode = null,
-				countryCodeIdx = lang.lastIndexOf('-'),
-				ignoreCodes = ['Cyrl', 'Latn', 'Mong'];	// Not country code!
 
-			if ( countryCodeIdx != -1 ) {	// Found country code!
-				countryCode = lang.substr( countryCodeIdx + 1 );
-				if ( ignoreCodes.join( '-' ).indexOf( countryCode ) < 0 ) { // countryCode is not found from ignoreCodes
-					// Make countryCode to uppercase
-					lang = [ lang.substr( 0, countryCodeIdx ), countryCode.toUpperCase( ) ].join( '-' );
-				}
-			}
-
-			// NOTE: 'en' to 'en-US', because globalize has no 'en' culture file.
-			lang = lang == 'en' ? 'en-US' : lang;
-
-			return lang;
-		},
-
-		_getNeutralLang: function ( lang ) {
-			var neutralLangIdx = lang.lastIndexOf( '-' ),
-				neutralLang;
-			if ( neutralLangIdx != -1 ) {
-				neutralLang = lang.substr( 0, neutralLangIdx );
-			}
-			return neutralLang;
-		},
 
 		/** Load Globalize culture file, and set default culture.
-		 *  @param[in]  language  Language code. ex) en-US, en, ko-KR, ko
-		 *                        If language is not given, read language from html 'lang' attribute, or from system setting.
+		 *  @param[in]  language  (optional) Language code. ex) en-US, en, ko-KR, ko
+		 *                        If language is not given, read language from html 'lang' attribute, 
+		 *                        or from system setting.
+		 *  @param[in]  cultureDic (optional) Dictionary having language code->
 		 */
-		_loadGlobalizeCulture: function ( language, cultureDic ) {
+		loadGlobalizeCulture: function ( language, cultureDic ) {
 			var self = this,
+				cFPath,
 				lang,
-				globalizeCulturePath,
-				neutralLang;
+				mockJSXHR;
 
-			function getGlobalizeCultureFile( lang ) {
-				return ['globalize.culture.', lang, '.js'].join( '' );
-			}
-			function getGlobalizeCulturePath( self, file ) {
-				return [
-					self.frameworkData.rootDir,
-					self.frameworkData.version,
-					'js',
-					'cultures',
-					file,
-				].join( '/' );
-			}
-			lang = S._getGlobalizeLanguageCode( language );
-			if( cultureDic ) {
-				if( cultureDic[lang] ) {
-					globalizeCulturePath = cultureDic[lang];
-				}
-			} else {
-				globalizeCulturePath = getGlobalizeCulturePath( self, getGlobalizeCultureFile( lang ) );
-			}
-			neutralLang = S._getNeutralLang( lang );
-
-			// Run culture script
-			console.log( 'Run globalize culture: ' + globalizeCulturePath );
-			this.util.loadScriptSync(
-				globalizeCulturePath,
-				null,
-				function ( jqXHR, textStatus, errorThrown ) {	// Failed to load!
-					var neutralCulturePath;
-					if ( jqXHR.status == 404 ) {
-						// If culture file is not found, run neutral language culture. 
-						// (e.g. en-US --> en)
-						if ( neutralLang ) {
-							if( cultureDic ) {
-								if( cultureDic[lang] ) {
-									neutralCulturePath = cultureDic[neutralLang];
-								}
-							} else {
-								neutralCulturePath = getGlobalizeCulturePath( self, getGlobalizeCultureFile( neutralLang ) );
-							}
-							console.log( 'Run globalize culture of neutral lang: ' + neutralCulturePath );
-							self.util.loadScriptSync( neutralCulturePath );
-						}
-					} else {
-						window.alert( 'Error while loading ' + globalizeCulturePath + '\n' + jqXHR.status + ':' + jqXHR.statusText );
+			function getLang ( language ) {
+				var lang = language
+						|| $( 'html' ).attr( 'lang' )
+						|| window.navigator.language.split( '.' )[0]	// Webkit, Safari + workaround for Tizen
+						|| window.navigator.userLanguage	// IE
+						|| 'en',
+					countryCode = null,
+					countryCodeIdx = lang.lastIndexOf('-'),
+					ignoreCodes = ['Cyrl', 'Latn', 'Mong'];	// Not country code!
+				if ( countryCodeIdx != -1 ) {	// Found country code!
+					countryCode = lang.substr( countryCodeIdx + 1 );
+					if ( ignoreCodes.join( '-' ).indexOf( countryCode ) < 0 ) {
+						// countryCode is not found from ignoreCodes.
+						// Make countryCode to uppercase.
+						lang = [ lang.substr( 0, countryCodeIdx ), countryCode.toUpperCase( ) ].join( '-' );
 					}
 				}
-			);
+				// NOTE: 'en' to 'en-US', because globalize has no 'en' culture file.
+				lang = lang == 'en' ? 'en-US' : lang;
+				return lang;
+			}
+
+			function getNeutralLang ( lang ) {
+				var neutralLangIdx = lang.lastIndexOf( '-' ),
+					neutralLang;
+				if ( neutralLangIdx != -1 ) {
+					neutralLang = lang.substr( 0, neutralLangIdx );
+				}
+				return neutralLang;
+			}
+
+			function getCultureFilePath ( lang, cFDic ) {
+				var cFPath = null;	// error value
+
+				if ( "string" != typeof lang ) {
+					return null;
+				}
+				if ( cFDic ) {
+					if ( cFDic[lang] ) cFPath = cFDic[lang];
+				} else {
+					// Default Globalize culture file path
+					cFPath = [
+						self.frameworkData.rootDir,
+						self.frameworkData.version,
+						'js',
+						'cultures',
+						['globalize.culture.', lang, '.js'].join( '' ),
+					].join( '/' );
+				}
+				return cFPath;
+			}
+
+			function printLoadError( cFPath, jqXHR ) {
+				console.log( "Error " + jqXHR.status + ": " + jqXHR.statusText );
+				console.log( "::Culture file (" + cFPath + ") is failed to load.");
+			}
+
+			function loadCultureFile ( cFPath, errCB ) {
+				function _successCB ( ) {
+					console.log( "Culture file (" + cFPath + ") is loaded successfully.");
+				}
+				function _errCB ( jqXHR, textStatus, err ) {
+					if( errCB ) {
+						errCB( jqXHR, textStatus, err );
+					}
+					else {
+						printLoadError( cFPath, jqXHR );
+					}
+				}
+
+				if( ! cFPath ) {	// Invalid cFPath -> Regard it as '404 Not Found' error.
+					mockJSXHR = {
+						status: 404,
+						statusText: "Not Found"
+					};
+					_errCB( mockJSXHR, null, null );
+				} else {
+					S.util.loadScriptSync ( cFPath, _successCB, _errCB );
+				}
+			}
+
+			lang = getLang( language );
+			cFPath = getCultureFilePath( lang, cultureDic );
+			loadCultureFile( cFPath,
+				function ( jqXHR, textStatus, err ) {
+					if( jqXHR.status == 404 ) {
+						// If culture file is not found, try once more with neutral lang.
+						var nLang = getNeutralLang( lang ),
+							cFPath = getCultureFilePath( nLang, cultureDic );
+						loadCultureFile( cFPath, null );
+					} else {
+						printLoadError( cFPath, jqXHR );
+					}
+				} );
+
 			return lang;
 		},
 		setGlobalize: function ( ) {
-			var lang = this._loadGlobalizeCulture( );
+			var lang = this.loadGlobalizeCulture( );
 
 			// Set culture
 			// NOTE: It is not needed to set with neutral lang.
@@ -259,9 +274,7 @@
 		 * -------------------------------
 		 */
 		loadCustomGlobalizeCulture: function ( cultureDic ) {
-			var lang = S._getGlobalizeLanguageCode( );
-			lang = S.loadGlobalizeCulture( lang, cultureDic );
-			Globalize.culture( lang );
+			S.loadGlobalizeCulture( null, cultureDic );
 		},
 
 		/** Set viewport meta tag for mobile devices.
