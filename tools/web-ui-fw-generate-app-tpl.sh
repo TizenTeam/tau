@@ -3,7 +3,8 @@
 ### Prepare: set global variables ###
 CWD=`pwd`
 SCRIPTDIR="`cd \`dirname $0\`/; pwd`"
-LIBDIR=$SCRIPTDIR/../share/tizen-web-ui-fw
+PREFIX="/usr"
+LIBDIR=/share/tizen-web-ui-fw
 DATA_FRAMEWORK_ROOT=
 
 
@@ -122,7 +123,7 @@ function check_argv
 ### Copy template files into installation directory ###
 function copy_template
 {
-	local libpath=$LIBDIR
+	local libpath="${PREFIX}${LIBDIR}"
 	local tplpath=$libpath/template
 
 	# Check if this script is in src script
@@ -148,8 +149,7 @@ function copy_template
 		DATA_FRAMEWORK_ROOT="data-framework-root=\"tizen-web-ui-fw\""
 		LIBDIR="tizen-web-ui-fw/0.1/js"	# This new value is used by replace_template()
 	else   # otherwise, just set libdir
-		echo;
-		#LIBDIR="file://$LIBDIR/template"
+		LIBDIR="file://${PREFIX}${LIBDIR}/template"
 	fi
 }
 
