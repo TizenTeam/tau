@@ -1,18 +1,18 @@
-From 65e95a96f55e9344f654c9e86d9a383f782ebb38 Mon Sep 17 00:00:00 2001
+From a0e5981b139c44c505acb6d07455b82deccc2c8e Mon Sep 17 00:00:00 2001
 From: Minkyu Kang <mk7.kang@samsung.com>
-Date: Fri, 11 May 2012 09:18:16 +0900
+Date: Fri, 31 May 2012 09:18:16 +0900
 Subject: [PATCH] JQM: add tizen non-animation transition handler
 
 Signed-off-by: Minkyu Kang <mk7.kang@samsung.com>
 ---
- .../js/jquery.mobile.navigation.js                 |   19 ++++++++++++++++++-
- 1 files changed, 18 insertions(+), 1 deletions(-)
+ .../js/jquery.mobile.navigation.js                 |   19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
 diff --git a/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.navigation.js b/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.navigation.js
-index 1bf187f..78af32f 100755
+index 1bf187f..aa33160 100755
 --- a/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.navigation.js
 +++ b/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.navigation.js
-@@ -630,8 +630,25 @@
+@@ -630,6 +630,25 @@
  		return $.Deferred().resolve( name, reverse, $toPage, $fromPage ).promise();
  	};
  
@@ -33,12 +33,11 @@ index 1bf187f..78af32f 100755
 +		return deferred.promise();
 +	};
 +
++	$.mobile.noneTransitionHandler = $.mobile.tizenTransitionHandler;
++
  	//default handler for unknown transitions
--	$.mobile.defaultTransitionHandler = $.mobile.noneTransitionHandler;
-+	$.mobile.defaultTransitionHandler = $.mobile.tizenTransitionHandler;
+ 	$.mobile.defaultTransitionHandler = $.mobile.noneTransitionHandler;
  
- 	//transition handler dictionary for 3rd party transitions
- 	$.mobile.transitionHandlers = {
 -- 
-1.7.5.4
+1.7.9.5
 
