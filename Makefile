@@ -51,7 +51,7 @@ LIBS_JS_FILES = jlayout/jquery.sizes.js \
 				jlayout/jlayout.flexgrid.js \
 				jlayout/jlayout.flow.js \
 				jlayout/jquery.jlayout.js \
-				jquery.easing.js \
+				jquery.easing.1.3.js \
 				jquery.tmpl.js \
                 $(NULL)
 
