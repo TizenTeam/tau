@@ -20,14 +20,16 @@
 		nb = pc.children( 'div.page_n' )[0];	// 1st button
 		console.dir( nb );
 		ok( $(nb).hasClass( 'page_n_1' ), "first button should be activated" );
+		equal( $( pc ).pagecontrol( "value" ), 1, "value() method must return 1" );
 
 		nb = pc.children( 'div.page_n' )[9];
 		ok( nb, "last number button should exist" );
 		pc.one( "change", function( ev, val ) {
 			equal( val, 10, "pagecontrol element's value must be set when click event comes." );
+			ok( $( nb ).hasClass( 'page_n_10' ), "after click, clicked button should be changed to number type" );
+			equal( $( pc ).pagecontrol( "value" ), 10, "value() method must return 1" );
 			} );
 		$(nb).trigger( "click" );
-		ok( $( nb ).hasClass( 'page_n_10' ), "after click, clicked button should be changed to number type" );
 	} );
 
 } ) ( jQuery );

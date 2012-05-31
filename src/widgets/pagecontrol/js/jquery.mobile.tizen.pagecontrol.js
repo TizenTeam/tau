@@ -162,7 +162,12 @@
 				e.data( 'current', value );
 
 			});
+		},
+
+		value: function ( val ) {
+			return $( this.element ).data( "current" );
 		}
+
 	});	// end: $.widget()
 
 
