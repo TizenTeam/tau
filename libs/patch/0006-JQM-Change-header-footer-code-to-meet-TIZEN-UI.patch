@@ -1,4 +1,4 @@
-From b965bdb85d01cab9aa5a630f0fcbecff39bfbd4d Mon Sep 17 00:00:00 2001
+From de8245f21b2bc298ddf672b5d0e47d0c2dc33b70 Mon Sep 17 00:00:00 2001
 From: Minkyu Kang <mk7.kang@samsung.com>
 Date: Wed, 29 Feb 2012 15:44:47 +0900
 Subject: [PATCH] JQM: Change header/footer code to meet TIZEN UI
@@ -6,11 +6,11 @@ Subject: [PATCH] JQM: Change header/footer code to meet TIZEN UI
 Signed-off-by: Jun Jinhyuk <jinhyuk.jun@samsung.com>
 Signed-off-by: Minkyu Kang <mk7.kang@samsung.com>
 ---
- .../js/jquery.mobile.fixHeaderFooter.js            |  288 ++++++++++++++++++-
- 1 files changed, 272 insertions(+), 16 deletions(-)
+ .../js/jquery.mobile.fixHeaderFooter.js            |  293 ++++++++++++++++++--
+ 1 file changed, 277 insertions(+), 16 deletions(-)
 
 diff --git a/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.fixHeaderFooter.js b/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.fixHeaderFooter.js
-index 3bb5613..92e9f68 100644
+index 3bb5613..7425e46 100644
 --- a/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.fixHeaderFooter.js
 +++ b/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.fixHeaderFooter.js
 @@ -2,6 +2,51 @@
@@ -137,7 +137,7 @@ index 3bb5613..92e9f68 100644
  				if ( $( event.target ).closest( ignoreTargets ).length ) {
  					return;
  				}
-@@ -145,13 +239,141 @@ $.mobile.fixedToolbars = (function() {
+@@ -145,13 +239,146 @@ $.mobile.fixedToolbars = (function() {
  				stateBefore = null;
  			});
  
@@ -170,8 +170,13 @@ index 3bb5613..92e9f68 100644
 +					$( event.target ).find( ".ui-content" )
 +						.addClass("ui-title-content-controlbar-height");
 +				} else {
-+					$( event.target ).find( ".ui-content" )
-+						.addClass("ui-title-content-" + title_style + "-height");
++					if ( s_theme_header.length ) {
++						$( event.target ).find( ".ui-content" )
++							.addClass("ui-title-content-" + title_style + "-height");
++					} else {
++						$( event.target ).find( ".ui-content" )
++							.addClass("ui-title-content-no-height");
++					}
 +				}
 +			}
 +
@@ -280,7 +285,7 @@ index 3bb5613..92e9f68 100644
  
  			var page = $( event.target ),
  				footer = page.find( ":jqmData(role='footer')" ),
-@@ -162,15 +384,49 @@ $.mobile.fixedToolbars = (function() {
+@@ -162,15 +389,49 @@ $.mobile.fixedToolbars = (function() {
  
  			if ( id && prevFooterMatches ) {
  				stickyFooter = footer;
@@ -332,7 +337,7 @@ index 3bb5613..92e9f68 100644
  				setTimeout(function() {
  					setTop( stickyFooter.appendTo( $this ).addClass( "fade" ) );
  					stickyFooter = null;
-@@ -178,8 +434,13 @@ $.mobile.fixedToolbars = (function() {
+@@ -178,8 +439,13 @@ $.mobile.fixedToolbars = (function() {
  			}
  
  			$.mobile.fixedToolbars.show( true, this );
@@ -346,7 +351,7 @@ index 3bb5613..92e9f68 100644
  	// When a collapsiable is hidden or shown we need to trigger the fixed toolbar to reposition itself (#1635)
  	$( ".ui-collapsible-contain" ).live( "collapse expand", showEventCallback );
  
-@@ -215,10 +476,15 @@ $.mobile.fixedToolbars = (function() {
+@@ -215,10 +481,15 @@ $.mobile.fixedToolbars = (function() {
  	}
  
  	function setTop( el ) {
@@ -363,7 +368,7 @@ index 3bb5613..92e9f68 100644
  			thisHeight = el.outerHeight(),
  			useRelative = el.parents( ".ui-page:not(.ui-page-fullscreen)" ).length,
  			relval;
-@@ -260,20 +526,10 @@ $.mobile.fixedToolbars = (function() {
+@@ -260,20 +531,10 @@ $.mobile.fixedToolbars = (function() {
  					fromTop = $( window ).scrollTop(),
  					// el.offset().top returns the wrong value on iPad iOS 3.2.1, call our workaround instead.
  					thisTop = getOffsetTop( el[ 0 ] ),
@@ -386,5 +391,5 @@ index 3bb5613..92e9f68 100644
  		},
  
 -- 
-1.7.5.4
+1.7.9.5
 
