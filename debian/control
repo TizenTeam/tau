@@ -19,7 +19,12 @@ Description: Metapackage for web-ui-framework themes
 Package: libweb-ui-fw-theme-tizen-gray
 Architecture: all
 Depends: libweb-ui-fw (= ${Source-Version})
-Description: NBeat gray theme for web-ui-framework
+Description: Tizen gray theme for web-ui-framework
+
+Package: libweb-ui-fw-theme-tizen-blue
+Architecture: all
+Depends: libweb-ui-fw (= ${Source-Version})
+Description: Tizen blue theme for web-ui-framework
 
 Package: libweb-ui-fw-dev
 Architecture: all
