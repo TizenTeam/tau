@@ -1,0 +1,66 @@
+/*
+ *  Tizen web ui framework Document stylesheet
+ *
+ *  Youmin Ha <youmin.ha@samsung.com>
+ */
+
+
+/* Section */
+section {
+	margin-top: 2em;
+}
+section > header > h1 {
+	background-color: #0f67a1;
+	color: #ffffff;
+	margin: 0.3em 0em;
+	padding: 0.1em 0.5em;
+}
+
+/* Article */
+section > article {
+	margin-top: 0.5em;
+	margin-bottom: 1.5em;
+	padding-left: 1em;
+}
+section > article > header {
+	background-color: #e2edf4;
+	border-top: 3px double #44aaff;
+	border-bottom: 3px double #44aaff;
+	padding: 0.2em 1em 0.2em 1em;
+}
+section > article > header > .title {
+	font-size: 1.2em;
+	color: #176092;
+	margin: 0em;
+}
+section > article > header > .title,
+section > article > header > .type,
+section > article > header > .default {
+	display: inline-block;
+	min-width: 150px;
+}
+article dl > dt {
+	color: #666666;
+	font-size: 1em;
+	font-weight: bold;
+}
+
+/* Code example */
+.code-exam {
+}
+.code-exam h1,
+.code-exam h2,
+.code-exam h3 {
+	font-size: 1.1em;
+	border-bottom: 2px solid #999999;
+}
+.code-exam > dl {
+	margin-left: 1em;
+}
+.code-exam pre {
+	margin-top: 0.2em;
+	background-color: #f5f4ee;
+	border: 1px dotted #aaaaaa;
+	padding: 5px;
+}
+

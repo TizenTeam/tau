@@ -1,0 +1,212 @@
+<header>
+	<h1>Widget: Pagecontrol</h1>
+</header>
+
+<section id="Overview">
+	<header>
+		<h1>Overview</h1>
+	</header>
+	<article>
+Pagecontrol, which is also called as page indicator, is a widget having dot or number bullet buttons. When users select a dot bullet button to choose a page, the button will be activated to a number bullet button, and "change" event will be fired on the widget element.
+	</article>
+</section>
+
+<section id="Dependencies">
+	<header>
+		<h1>Dependencies</h1>
+	</header>
+	<article>
+No dependency.
+	</article>
+</section>
+
+<section id="Example">
+	<header>
+		<h1>Example</h1>
+	</header>
+	<article>
+	<div class="code-exam">
+		<pre><code>&lt;div data-role="pagecontrol" data-max="10" data-initVal="3"&gt;&lt;/div&gt;</code></pre>
+	</div>
+	</article>
+</section>
+
+<section id="Options">
+	<header>
+		<h1>Options</h1>
+	</header>
+	<article>
+		<header>
+			<h1 class="title">data-max</h1>
+			<span class="type">Type: number</span>
+			<span class="default">Default: 1</span>
+		</header>
+		<p>Set maximum number of bullet buttons. Can be set when initializing pagecontrol widget.<br>
+		Must be set from 1 to 10. If the given value is greater than 10, the value is set to 10.</p>
+		<div class="code-exam">
+		<h3>Code examples</h3>
+			<dl>
+				<dt>
+					Set maximum number of bullet buttons
+				</dt>
+				<dd>
+					<pre><code>
+&lt;div data-role="pagecontrol" data-max="5"&gt;&lt;/div&gt;
+					</code></pre>
+				</dd>
+			</dl>
+		</div>
+	</article>
+	<article>
+		<header>
+			<h1 class="title">data-initVal</h1>
+			<span class="type">Type: number</span>
+			<span class="default">Default: 1</span>
+		</header>
+		<p>Set initial selected value. If no option is given, it is set to 1 by default.</p>
+		<div class="code-exam">
+			<h3>Code examples</h3>
+			<dl>
+				<dt>Set initial selected value to 2</dt>
+				<dd>
+					<pre><code>
+&lt;div data-role="pagecontrol" data-max="3" data-initVal="2"&gt;&lt;/div&gt;
+					</code></pre>
+				</dd>
+			</dl>
+		</div>
+	</article>
+</section>
+
+<section id="Sub-elements">
+	<header>
+		<h1>Sub-elements</h1>
+	</header>
+	<article>
+No sub-element is needed.
+	</article>
+</section>
+
+<section id="Events">
+	<header>
+		<h1>Events</h1>
+	</header>
+	<article>
+		<header><h1 class="title">change</h1></header>
+		<p>Fired when the value is changed.</p>
+		<div class="code-exam">
+			<h3>Code examples</h3>
+			<dl>
+				<dt>Bind "change" event callback to a pagecontrol object</dt>
+				<dd>
+					<pre><code>
+&lt;div id="foo" data-role="pagecontrol" data-max="3" data-initVal="2"&gt;&lt;/div&gt;
+					</code></pre>
+					<pre><code>
+$( "#foo" ).bind( "change", function( ev, val ) {
+	console.log( "value is changed to " + val );
+} );
+					</code></pre>
+				</dd>
+			</dl>
+		</div>
+
+	</article>
+</section>
+
+<section id="Methods">
+	<header>
+		<h1>Methods</h1>
+	</header>
+	<article>
+		<header>
+			<h1 class="title">destroy</h1>
+		</header>
+		<dl>
+			<dt>Signature</dt>
+			<dd>.pagecontrol( "destroy" )</dd>
+		</dl>
+		<p>Remove widget functionality completely. This will return the element back to its pre-init state.</p>
+	</article>
+	<article>
+		<header>
+			<h1 class="title">option</h1>
+		</header>
+		<dl>
+			<dt>Signature</dt>
+			<dd>.pagecontrol( "option", optionName [, value] )</dd>
+		</dl>
+		<p>Get or set any widget option. If value is not given, this will act as a getter function.</p>
+		<dl>
+			<dt>Signature</dt>
+			<dd>.pagecontrol( "option", options )</dd>
+		</dl>
+		<p>Set multipel widget options at once, by providing an options object.</p>
+	</article>
+	<article>
+		<header>
+			<h1 class="title">refresh</h1>
+		</header>
+		<dl>
+			<dt>Signature</dt>
+			<dd>.pagecontrol( "refresh" )</dd>
+		</dl>
+		<p>Refreshes the widget. This method is useful for updaating widget's visual state, when the widget's state is changed by javascript code.</p>
+	</article>
+	<article>
+		<header>
+			<h1 class="title">value</h1>
+		</header>
+		<dl>
+			<dt>Signature</dt>
+			<dd>.pagecontrol( "value" )</dd>
+		</dl>
+		<p>Get pagecontrol widget's currnet value.</p>
+		<div class="code-exam">
+			<h3>Code examples</h3>
+			<dl>
+				<dt>Get current value from pagecontrol widget</dt>
+				<dd>
+					<pre><code>
+&lt;div id="foo" data-role="pagecontrol" data-max="3" data-initVal="2"&gt;&lt;/div&gt;
+					</code></pre>
+					<pre><code>
+console.log( $( "#foo" ).pagecontrol( "value" ) );  // Get current value
+					</code></pre>
+				</dd>
+			</dl>
+		</div>
+
+	</article>
+
+	<article>
+		<header>
+			<h1 class="title">change</h1>
+		</header>
+		<dl>
+			<dt>Signature</dt>
+			<dd>.trigger( "change" , val )</dd>
+		</dl>
+		<p>Set pagecontrol widget's value, with sending "change" event by trigger() function.</p>
+		<div class="code-exam">
+			<h3>Code examples</h3>
+			<dl>
+				<dt>Set a value on pagecontrol widget</dt>
+				<dd>
+					<pre><code>
+&lt;div id="foo" data-role="pagecontrol" data-max="3" data-initVal="2"&gt;&lt;/div&gt;
+					</code></pre>
+					<pre><code>
+$( "#foo" ).trigger( "change", 1 );  // Set current value to 1.
+					</code></pre>
+				</dd>
+			</dl>
+		</div>
+
+	</article>
+
+</section>
+
+<section id="Theming">
+</section>
+
