@@ -226,7 +226,6 @@
 				focusedEl.removeClass( "ui-focus" );
 				hideCancel();
 				input.blur();
-				input.trigger( "change" );
 			} );
 
 			// Autogrow
