@@ -99,7 +99,7 @@ $( document ).ready( function () {
 		} );
 	}
 
-	/* Load Dummy Data and Init Virtual List widget*/
+	/* Load Dummy Data and Init Extendable List widget*/
 	if ( window.JSON_DATA ) {
 		$( "ul" ).filter( function () {
 			return $( this ).data( "role" ) == "extendablelist";
