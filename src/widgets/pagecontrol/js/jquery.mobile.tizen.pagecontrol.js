@@ -72,6 +72,33 @@
 			initSelector: ":jqmData(role='pagecontrol')"
 		},
 
+		// subroutine: find a child by value
+		_getBtn: function ( value ) {
+			return $( this.element ).children( ":jqmData(value='" + value + "')" );
+		},
+
+		// subroutine: change active button by value
+		_changeActiveBtn: function ( newNum ) {
+			var oldNum = $( this.element ).data( 'current' );
+
+			console.log(" oldNum=" + oldNum );
+
+			// Check value
+			if ( newNum < 1 || newNum > $( this.element ).data( "max" ) ) {
+				return false;
+			}
+
+			this._getBtn( oldNum ).removeClass( 'page_n_' + oldNum )
+					.addClass( 'page_n_dot' );
+			this._getBtn( newNum ).removeClass( 'page_n_dot' )
+					.addClass( 'page_n_' + newNum );
+		},
+
+		_triggerChange: function ( event ) {
+			// Trigger change event
+			$( this ).trigger( 'change', $( this ).data( 'value' ) );
+		},
+
 		_create: function ( ) {
 		},
 
@@ -116,30 +143,6 @@
 				page_margin_class = 'page_n_margin_19';
 			}
 
-			// subroutine: find a child by value
-			function getBtn( value ) {
-				return e.children( ":jqmData(value='" + value + "')" );
-			}
-
-			// subroutine: change active button by value
-			function changeActiveBtn( newNum ) {
-				var oldNum = e.data( 'current' );
-
-				// Check value
-				if ( newNum < 1 || newNum > e.max ) {
-					return false;
-				}
-
-				getBtn( oldNum ).removeClass( 'page_n_' + oldNum )
-						.addClass( 'page_n_dot' );
-				getBtn( newNum ).removeClass( 'page_n_dot' )
-						.addClass( 'page_n_' + newNum );
-			}
-
-			function triggerChange( event ) {
-				// Trigger change event
-				e.trigger( 'change', $( this ).data( 'value' ) );
-			}
 
 			// Add dot icons
 			for ( i = 1; i <= maxVal; i++ ) {
@@ -150,13 +153,13 @@
 						.addClass( 'page_n_' + i );
 				}
 				// bind vclick event to each icon
-				btn.bind( 'vclick', triggerChange );
+				btn.bind( 'vclick', this._triggerChange );
 			}
 
 			// pagecontrol element's change event
 			e.bind( 'change', function ( event, value ) {
 				// 1. Change activated button
-				changeActiveBtn( value );
+				self._changeActiveBtn( value );
 
 				// 2. Store new value (DO NOT change this order!)
 				e.data( 'current', value );
@@ -165,7 +168,13 @@
 		},
 
 		value: function ( val ) {
-			return $( this.element ).data( "current" );
+			var pc = $( this.element );
+
+			if( val && typeof val == "number" ) {
+
+			} else {
+				return pc.data( "current" );
+			}
 		}
 
 	});	// end: $.widget()
