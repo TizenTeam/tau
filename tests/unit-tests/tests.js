@@ -30,6 +30,7 @@ var TESTS = {
 		"swipelist",
 		"toggleswitch",
 		"virtuallist",
-		"virtualgrid"
+		"virtualgrid",
+		"collapsible"
 	]
 };
