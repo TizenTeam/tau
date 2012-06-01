@@ -1,0 +1,54 @@
+<!doctype html>  
+
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+
+  <title>resize | geomap</title>
+  <meta name="description" content="geomap resize method">
+  <meta name="author" content="Ryan Westphal">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="../css/style.css?v=2">
+  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
+</head>
+
+<body>
+
+  <div id="resize" data-role="page">
+    <div data-role="header" data-theme="e">
+      <h1>resize</h1>
+    </div>
+    
+    <div data-role="content">
+      <table>
+        <tr>
+          <th>return type</th>
+          <td>undefined</td>
+        </tr>
+        <tr>
+          <th>syntax</th>
+          <td>.geomap( &quot;resize&quot; )</td>
+        </tr>
+        <tr>
+          <th>usage</th>
+          <td><pre><code>$(&quot;#map&quot;).geomap( &quot;resize&quot; )</code></pre></td>
+        </tr>
+      </table>
+      <p>
+        This method tells the geomap widget to recalculate its frame and adjust its bbox to fit a new size. The map will maintain its center point and pixel size and expand or contract to fill the new surroundings.</p>
+      <p>
+        The geomap widget watches the browser window for you. If your map widget&#39;s div position is related to the window in some way, geomap will automatically resize to fit when the window size changes. If the map widget&#39;s div is not related to the window and you manually change its size, you need to call resize so that the map can adjust.</p>
+      <p>
+        This method refreshes the map.</p>
+    </div>
+  </div> <!-- end of #container -->
+
+  <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+  <script src="http://code.jquerygeo.com/jquery.geo-1.0a4.min.js"></script>
+  <script src="../js/script.js"></script>
+  <script src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
+</body>
+</html>
+

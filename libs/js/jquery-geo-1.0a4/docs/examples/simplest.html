@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <title>simplest</title>
+
+    <meta name="description" content="A very simple instantiation of the geomap widget">
+    <meta name="author" content="Ryan Westphal">
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+  </head>
+<body>
+  <div>
+    <a href="../" class="docLink">&lt; docs</a>
+    <h1>simplest</h1>
+    <p>A 256x256 pixel div...geomap called with no arguments.</p>
+    <div id="map" style="width: 256px; height: 256px;"></div>
+  </div>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+  <script src="http://code.jquerygeo.com/jquery.geo-1.0a4.min.js"></script>
+  <script>
+    $(function () {
+      $("#map").geomap();
+    });  
+  </script>
+</body>
+</html>

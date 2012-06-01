@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="../../../build/tizen-web-ui-fw/0.1/js/jquery.js"></script>
+	<script src="../../../build/tizen-web-ui-fw/0.1/js/tizen-web-ui-fw-libs.js"></script>
+	<script src="../../../build/tizen-web-ui-fw/0.1/js/tizen-web-ui-fw.js"
+		data-framework-theme="tizen-gray"
+		data-framework-viewport-scale=false>
+	</script>
+
+	<link rel="stylesheet" href="../../../libs/js/jquery-mobile-1.0.1pre/external/qunit.css" />
+
+	<script src="../../../libs/js/jquery-mobile-1.0.1pre/external/qunit.js"></script>
+	<script src="mapview-tests.js"></script>
+
+	<title>Mapview</title>
+</head>
+
+<body>
+
+<h1 id="qunit-header">Mapview</h1>
+<h2 id="qunit-banner"></h2>
+<div id="qunit-testrunner-toolbar"></div>
+<h2 id="qunit-userAgent"></h2>
+<ol id="qunit-tests"></ol>
+
+<div id="qunit-fixture">
+
+	<div data-role="page" id="mapview0">
+		<div data-role="header">
+			<h1>Mapview</h1>
+		</div><!-- /header -->
+		<div data-role="content">
+			<div id="map" data-role="mapview" style="height:360px;" data-zoom="8" data-center="126.981354,37.589207"></div>
+		</div><!-- /content -->
+	</div><!-- /page -->
+
+</div>
+
+</body>
+</html>

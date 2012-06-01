@@ -78,8 +78,13 @@
 
 				<li data-role="list-divider">Grid view</li>
 				<li><a href="widgets/grid/virtualgrid.html">Virtual Grid</a></li>
+				<li><a href="widgets/grid/virtualgrid-rotation.html">Virtual Grid - Rotation</a></li>
+				<li><a href="widgets/grid/virtualgrid-list.html">Virtual Grid - List</a></li>
+				<li><a href="widgets/grid/virtualgrid-x.html">Virtual Grid - X</a></li>
 				<li data-role="list-divider">Multimedia view</li>
 				<li><a href="widgets/multimediaview/multimediaview.html">Multimedia view</a></li>
+				<li data-role="list-divider">Map view</li>
+				<li><a href="#mapview">Map view</a></li>
 
 				<li data-role="list-divider">Programming Tips</li>
 				<li><a href="tips/generate-elements-dynamically.html">Generate Elements by JS</a></li>
@@ -995,6 +1000,32 @@
 		</div> <!-- /content -->
 	</div> <!-- /page -->
 
+	<div data-role="page" id="mapview">
+		<div data-role="header">
+			<h1>Map View</h1>
+		</div><!-- /header -->
+		<div data-role="content">
+			<div id="sampleMap" data-role="mapview" style="height:360px;" data-zoom="8" data-center="126.981354,37.589207"></div>
+
+			<!-- menu popup -->
+			<div id="map_menu_popup" data-role="popupwindow" data-show-arrow="b">
+				<ul data-role="listview">
+					<li><a href="#" id="routeFrom">Route from</a></li>
+					<li><a href="#" id="routeTo">Route to</a></li>
+					<li><a href="#" id="getAddress">Get Address</a></li>
+				</ul>
+			</div><!-- /popup -->
+
+			<!-- result popup -->
+			<div id="map_result_popup" data-role="popupwindow" data-style="center_basic_1btn">
+				<p data-role="text"></p>
+				<div data-role="button-bg">
+					<a href="#" data-role="button" id="map_close_btn" data-inline="true">Close</a>
+				</div>
+			</div><!-- /popup -->
+		</div><!-- /content -->
+	</div><!-- /page -->
+
 	<script src="widgets/checkbox/checkbox.js"></script>
 	<script src="widgets/switch/switch.js"></script>
 	<script src="widgets/radio/radio.js"></script>
@@ -1004,5 +1035,6 @@
 	<script src="tips/generate-elements-dynamically.js"></script>
 	<script src="widgets/pagecontrol/pagecontrol-demo.js"></script>
 	<script src="widgets/multibuttonentry-demo.js"></script>
+	<script src="widgets/mapview-demo.js"></script>
 </body>
 </html>

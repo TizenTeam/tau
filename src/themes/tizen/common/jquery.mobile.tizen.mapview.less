@@ -1,0 +1,103 @@
+@import "config.less";
+
+.ui-mapview {
+	color : #373737;
+	font-size : small;
+}
+
+.ui-mapview .ui-mapview-control {
+	position : absolute;
+	left : 5 * @unit_base;
+}
+
+.ui-mapview .ui-mapview-control .ui-button {
+	background-position : center center;
+	background-size : 60%;
+	background-repeat : no-repeat;
+	-webkit-border-radius : 6 * @unit_base;
+	-moz-border-radius : 6 * @unit_base;
+	border-radius : 6 * @unit_base;
+	background-color : #555;
+	cursor : pointer;
+	color : white;
+}
+
+.ui-mapview .ui-mapview-zoom-control {
+	top : 50%;
+	margin : -256 * @unit_base 0;
+	width : 80 * @unit_base;
+	height : 400 * @unit_base;
+	padding : 5 * @unit_base;
+}
+
+.ui-mapview .ui-mapview-zoom-control div.ui-button {
+	width : 74 * @unit_base;
+	height : 74 * @unit_base;
+	text-align : center;
+	font-size : large;
+	font-weight : bold;
+	vertical-align : middle;
+}
+
+.ui-mapview .ui-mapview-zoom-control div.ui-button-plus {
+	background-image : url(./images/popup/00_popup_arrow_top.png);
+}
+
+.ui-mapview .ui-mapview-zoom-control div.ui-button-minus {
+	background-image : url(./images/popup/00_popup_arrow_bottom.png);
+}
+
+.ui-mapview .ui-mapview-zoom-control .ui-zoom-bar {
+	margin-top : 20 * @unit_base;
+	margin-bottom : 20 * @unit_base;
+	display : block;
+	height : 240 * @unit_base;
+}
+
+.ui-mapview .ui-mapview-zoom-control .ui-zoom-bar span {
+	margin : 0;
+	padding : 0;
+	position : absolute;
+	-webkit-border-radius : 6 * @unit_base;
+	-moz-border-radius : 6 * @unit_base;
+	border-radius : 6 * @unit_base;
+}
+
+.ui-mapview .ui-mapview-zoom-control .ui-zoom-bar span.ui-zoom-guide {
+	margin-left : 29 * @unit_base;
+	width : 16 * @unit_base;
+	height : 240 * @unit_base;
+	background-color : #2a6d8c;
+}
+
+.ui-mapview .ui-mapview-zoom-control .ui-zoom-bar span.ui-zoom-value {
+	margin-left : 29 * @unit_base;
+	width : 16 * @unit_base;
+	background-color : #373737;
+}
+
+.ui-mapview .ui-mapview-zoom-control .ui-zoom-bar span.ui-zoom-handle {
+	width : 74 * @unit_base;
+	height : 20 * @unit_base;
+	background-color : #555;
+}
+
+.ui-mapview .ui-mapview-scale-control {
+	bottom : 80 * @unit_base;
+	font-size : xx-small;
+	margin : 0;
+	padding : 0;
+}
+
+.ui-mapview .ui-mapview-scale-control div.ui-scaleline-bottom {
+	border : solid 2 * @unit_base #373737;
+	border-bottom : none;
+	margin-top : -2 * @unit_base;
+	text-align : center;
+}
+
+.ui-mapview .ui-mapview-scale-control div.ui-scaleline-top {
+	border : solid 2 * @unit_base #373737;
+	border-top : none;
+	text-align : center;
+}
