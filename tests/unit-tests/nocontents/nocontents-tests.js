@@ -8,28 +8,26 @@
 	module("Nocontents");
 
 	var unit_nocontents = function ( widget, type ) {
-		var nocontents,
-			background,
-			text;
+		var background,
+			text,
+			i;
 
 		/* Create */
 		widget.nocontents();
 
-		nocontents = widget.children(".ui-nocontents");
-		ok( nocontents, "Create" );
+		ok( widget.hasClass("ui-nocontents"), "Create" );
 
 		/* Check Background */
-		background = nocontents.children( ".ui-nocontents-icon-" + type );
+		background = widget.children( ".ui-nocontents-icon-" + type );
 		ok( background, "Background" );
 
-		/* Check Parameters */
-		text = nocontents.children( ".ui-nocontents-text" );
+		/* Check Texts */
+		text = widget.children("p");
 
-		text = text.first();
-		equal( text.text(), widget.jqmData("text1"), "Parameter: data-text1" );
+		for ( i = 0; i < text.length; i++ ) {
+			ok( text.hasClass("ui-nocontents-text"), "Text" + i );
 
-		text = text.next();
-		equal( text.text(), widget.jqmData("text2"), "Parameter: data-text2" );
+		}
 	};
 
 	test( "text type", function () {
