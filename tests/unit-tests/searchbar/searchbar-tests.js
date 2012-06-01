@@ -6,35 +6,35 @@
 
 $( document ).ready( function () {
 
-	module( "Searchbar");
+	module( "Searchbar" );
 
 	// trigger pagecreate
 	$( "#searchbar-unit-test" ).page();
 
 	asyncTest( "Searchbar", function () {
 		/* Initialize */
-		var $divSearchbar = $( "div.input-search-bar"),
-			$input = $("input");
+		var $divSearchbar = $( "div.input-search-bar" ),
+			$input = $( "input" );
 
-		equal( $divSearchbar.length, 1, "initialized");
+		equal( $divSearchbar.length, 1, "initialized" );
 		equal( $divSearchbar.find( "div.ui-input-search" ).length, 1 );
 		equal( $divSearchbar.find( "div.ui-input-search input.ui-input-text" ).length, 1 );
 		equal( $divSearchbar.find( "div.ui-input-search a.ui-input-clear" ).hasClass( "ui-input-clear-hidden" ), true );
 		equal( $divSearchbar.find( "div.ui-input-search div.ui-image-search" ).length, 1 );
 		equal( $divSearchbar.find( "a.ui-input-cancel" ).hasClass( "ui-btn" ), true );
 		equal( $divSearchbar.find( "a.ui-input-cancel" ).hasClass( "ui-btn-icon-cancel" ), true );
-		equal( $("#searchbar-content p").filter( function( index ){
+		equal( $("#searchbar-content p").filter( function ( index ) {
 			return $( this ).css( "display" ) != "none";
 		} ).length, 30 );
 
 		/* Public Method */
 		/* disable */
-		$("#searchInput").searchbar("disable");
+		$( "#searchInput" ).searchbar( "disable" );
 		equal( $( "div.ui-input-search" ).hasClass( "ui-disabled" ), true, "disable" );
 		equal( $( "#searchInput" ).attr( "disabled" ), "disabled" );
 
 		/* enable */
-		$("#searchInput").searchbar("enable");
+		$( "#searchInput" ).searchbar( "enable" );
 		equal( $( "div.ui-input-search" ).hasClass( "ui-disabled" ), false, "enable" );
 		equal( $( "#searchInput" ).attr( "disabled" ), undefined );
 
@@ -45,23 +45,23 @@ $( document ).ready( function () {
 
 		$input.val( "a" ).trigger( "change" );
 
-		equal( $("#searchbar-content p").filter( function( index ){
+		equal( $("#searchbar-content p").filter( function ( index ) {
 			return $( this ).css( "display" ) != "none";
 		} ).length, 24 );
 
 		$input.val( "ar" ).trigger( "change" );
-		equal( $("#searchbar-content p").filter( function( index ){
+		equal( $("#searchbar-content p").filter( function ( index ) {
 			return $( this ).css( "display" ) != "none";
 		} ).length, 10 );
 
 		$input.val( "are" ).trigger( "change" );
-		equal( $("#searchbar-content p").filter( function( index ){
+		equal( $("#searchbar-content p").filter( function ( index ) {
 			return $( this ).css( "display" ) != "none";
 		} ).length, 1 );
 
 		/* Clear button preesed. */
 		$( "a.ui-input-clear" ).trigger( "tap" );
-		equal( $("#searchbar-content p").filter( function( index ){
+		equal( $("#searchbar-content p").filter( function ( index ) {
 			return $( this ).css( "display" ) != "none";
 		} ).length, 30 );
 
