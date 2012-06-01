@@ -171,7 +171,8 @@
 			var pc = $( this.element );
 
 			if( val && typeof val == "number" ) {
-
+				this._changeActiveBtn( val );
+				pc.data( 'current', val );
 			} else {
 				return pc.data( "current" );
 			}
