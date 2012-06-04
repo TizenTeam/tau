@@ -1,6 +1,6 @@
-#sbs-git:slp/pkgs/w/web-ui-fw web-ui-fw 0.1.16
+#sbs-git:slp/pkgs/w/web-ui-fw web-ui-fw 0.1.18
 Name:       web-ui-fw
-Version:    0.1.16
+Version:    0.1.18
 Release:    1
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -26,7 +26,7 @@ make DESTDIR=%{buildroot} install
 %post
 
 %files
-%{_prefix}/share/tizen-web-ui-fw/*/js
+/usr/share/tizen-web-ui-fw/*/js
  
 %changelog
  
@@ -37,6 +37,14 @@ Summary:    Tizen Web UI Framework Theme : tizen-gray
     Tizen Web UI Framework Theme : tizen-gray
 %files -n web-ui-fw-theme-tizen-gray
 /usr/share/tizen-web-ui-fw/*/themes/tizen-gray
+
+###############################
+%package -n web-ui-fw-theme-tizen-blue
+Summary:    Tizen Web UI Framework Theme : tizen-blue
+%Description -n web-ui-fw-theme-tizen-blue
+    Tizen Web UI Framework Theme : tizen-blue
+%files -n web-ui-fw-theme-tizen-blue
+/usr/share/tizen-web-ui-fw/*/themes/tizen-blue
 
 ###############################
 %package -n web-ui-fw-theme-default
