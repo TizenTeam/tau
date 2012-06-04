@@ -1,2 +1,2 @@
-@PREFIX@/bin/*
+@PREFIX@/share/tizen-web-ui-fw/bin/*
 @PREFIX@/share/tizen-web-ui-fw/template
