@@ -67,7 +67,7 @@
 		seconds: null,
 		running: false,
 
-		_refresh: function () {
+		refresh: function () {
 			this._del_event();
 			this._update();
 			this._add_event();
@@ -77,7 +77,7 @@
 
 		show: function () {
 			if ( this.running ) {
-				this._refresh();
+				this.refresh();
 				return;
 			}
 
@@ -199,6 +199,8 @@
 		},
 
 		_create: function () {
+			var self = this;
+
 			this.btn = $("<a href='#' class='ui-input-cancel' title='close' data-theme='s'>Close</a>")
 				.tap( function ( event ) {
 					event.preventDefault();
@@ -211,6 +213,12 @@
 
 			this._update();
 			this.running = false;
+
+			$( window ).bind( "resize", function () {
+				if ( self.running ) {
+					self.refresh();
+				}
+			});
 		}
 	}); // End of widget
 
