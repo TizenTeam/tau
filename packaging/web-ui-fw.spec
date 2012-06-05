@@ -30,6 +30,7 @@ make DESTDIR=%{buildroot} install
 
 %files
 /usr/share/tizen-web-ui-fw/*/js
+/usr/share/tizen-web-ui-fw/latest
 
 %changelog
 

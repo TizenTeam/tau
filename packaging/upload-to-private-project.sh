@@ -45,7 +45,9 @@ echo "cd $OBSDIR_PROJECT; osc build standard --no-verify --local-package --clean
 echo ""
 
 ### Build
+if test "$2" == "local"; then
 #rpmbuild -ba packaging/*.spec
-#cd $OBSDIR_PROJECT
-#osc build standard --no-verify --local-package --clean
+	cd $OBSDIR_PROJECT
+	osc build standard --no-verify --local-package --clean
+fi
 

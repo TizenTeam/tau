@@ -218,6 +218,7 @@ version_compat: third_party widgets
 	for v_compat in ${VERSION_COMPAT}; do \
 		ln -sf ${VERSION} ${FRAMEWORK_ROOT}/../$$v_compat; \
 	done;
+	ln -sf ${VERSION} ${FRAMEWORK_ROOT}/../latest
 
 demo: widgets 
 	mkdir -p ${OUTPUT_ROOT}/demos
