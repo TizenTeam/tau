@@ -60,19 +60,19 @@ JQUERY_MOBILE_CSS = submodules/jquery-mobile/compiled/jquery.mobile.structure.cs
                     $(NULL)
 JQUERY_MOBILE_IMAGES = submodules/jquery-mobile/css/themes/default/images
 
-JQM_VERSION = jquery-mobile-1.0.1pre
+JQM_VERSION = jquery-mobile-1.1.0
 JQM_LIB_PATH = $(CURDIR)/libs/js/${JQM_VERSION}
 
 ifeq (${DEBUG},yes)
 LIBS_JS_FILES +=\
 	jquery.mobile.js \
     $(NULL)
-JQUERY = jquery-1.6.4.js
+JQUERY = jquery-1.7.1.js
 else
 LIBS_JS_FILES +=\
 	jquery.mobile.min.js \
     $(NULL)
-JQUERY = jquery-1.6.4.min.js
+JQUERY = jquery-1.7.1.min.js
 endif
 
 LIBS_CSS_FILES =
@@ -105,7 +105,7 @@ libs_cleanup:
 
 jqm: init
 	# Building jQuery Mobile...
-	cd ${JQM_LIB_PATH} && make all-but-min || exit 1; \
+	cd ${JQM_LIB_PATH} && make js NODE=`which node` || exit 1; \
 	cp -f ${JQM_LIB_PATH}/compiled/*.js ${JQM_LIB_PATH}/../; \
 
 third_party: init jqm
