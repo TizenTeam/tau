@@ -1,13 +1,16 @@
 #sbs-git:slp/pkgs/w/web-ui-fw web-ui-fw 0.1.18
 Name:       web-ui-fw
 Version:    0.1.18
-Release:    1
+Release:    2
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
 License:    MIT
+BuildArch:  noarch
 BuildRequires:  make
 BuildRequires:  nodejs
+%ifarch %{arm}
 BuildRequires:  nodejs-x86-arm
+%endif
 
 Source0:    %{name}-%{version}.tar.gz
 
@@ -27,11 +30,12 @@ make DESTDIR=%{buildroot} install
 
 %files
 /usr/share/tizen-web-ui-fw/*/js
- 
+
 %changelog
- 
+
 ###############################
 %package -n web-ui-fw-theme-tizen-gray
+BuildArch:  noarch
 Summary:    Tizen Web UI Framework Theme : tizen-gray
 %Description -n web-ui-fw-theme-tizen-gray
     Tizen Web UI Framework Theme : tizen-gray
@@ -40,6 +44,7 @@ Summary:    Tizen Web UI Framework Theme : tizen-gray
 
 ###############################
 %package -n web-ui-fw-theme-tizen-blue
+BuildArch:  noarch
 Summary:    Tizen Web UI Framework Theme : tizen-blue
 %Description -n web-ui-fw-theme-tizen-blue
     Tizen Web UI Framework Theme : tizen-blue
@@ -48,6 +53,7 @@ Summary:    Tizen Web UI Framework Theme : tizen-blue
 
 ###############################
 %package -n web-ui-fw-theme-default
+BuildArch:  noarch
 Summary:    Tizen Web UI Framework Theme : default
 %Description -n web-ui-fw-theme-default
     Tizen Web UI Framework Theme : default
@@ -56,6 +62,7 @@ Summary:    Tizen Web UI Framework Theme : default
 
 ###############################
 %package -n web-ui-fw-devel
+BuildArch:  noarch
 Summary:    Tizen Web UI Framework Developer's files
 %Description -n web-ui-fw-devel
     Tizen Web UI Framework Developer's files
