@@ -15,7 +15,7 @@ index f85a491..1bf187f 100755
 @@ -566,9 +566,8 @@
  		var orientation 	= $.event.special.orientationchange.orientation(),
  			port			= orientation === "portrait",
- 			winMin			= port ? 480 : 320,
+ 			winMin			= port ? 120 : 80,
 -			screenHeight	= port ? screen.availHeight : screen.availWidth,
 -			winHeight		= Math.max( winMin, $( window ).height() ),
 -			pageMin			= Math.min( screenHeight, winHeight );
