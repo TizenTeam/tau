@@ -1,29 +1,31 @@
-From 2a8cf7a3f7501700d08875be4ee2d9f0af25eab2 Mon Sep 17 00:00:00 2001
-From: wongi11.lee <wongi11.lee@samsung.com>
-Date: Thu, 10 May 2012 10:37:13 +0900
-Subject: [PATCH] JQM Update min-height calculation.
+From 1f7a496263bcd44ba634c46fad86888f430ac1d2 Mon Sep 17 00:00:00 2001
+From: Minkyu Kang <mk7.kang@samsung.com>
+Date: Tue, 5 Jun 2012 11:20:28 +0900
+Subject: [PATCH] JQM: Update min-height calculation
 
-Change-Id: If8373e9a5c7258d1e45a37dc0f74486a164850b2
+Signed-off-by: Lee Wongi <wongi11.lee@samsung.com>
 ---
- .../js/jquery.mobile.navigation.js                 |    5 ++---
- 1 files changed, 2 insertions(+), 3 deletions(-)
+ .../js/jquery.mobile.navigation.js                 |    7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
 diff --git a/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.navigation.js b/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.navigation.js
-index f85a491..1bf187f 100755
+index f85a491..d6f5240 100755
 --- a/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.navigation.js
 +++ b/libs/js/jquery-mobile-1.0.1pre/js/jquery.mobile.navigation.js
-@@ -566,9 +566,8 @@
+@@ -565,10 +565,9 @@
+ 	function getScreenHeight(){
  		var orientation 	= $.event.special.orientationchange.orientation(),
  			port			= orientation === "portrait",
- 			winMin			= port ? 120 : 80,
+-			winMin			= port ? 480 : 320,
 -			screenHeight	= port ? screen.availHeight : screen.availWidth,
 -			winHeight		= Math.max( winMin, $( window ).height() ),
 -			pageMin			= Math.min( screenHeight, winHeight );
++			winMin			= port ? 120 : 80,
 +			winHeight		= $( window ).height(),
 +			pageMin			= Math.min( winMin, winHeight );
  
  		return pageMin;
  	}
 -- 
-1.7.0.4
+1.7.9.5
 
