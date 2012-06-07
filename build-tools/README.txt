@@ -22,3 +22,23 @@ Tizen Web UI Framework includes following tools used on build;
 		* node-jslint: BSD License (build-tools/lib/jslint/LICENSE)
 		* jslint: Customized MIT License (build-tools/lib/jslint/jslint.js)
 		* nopt, abbrev: MIT License (build-tools/lib/jslint/nopt/LICENSE)
+
+* clean-css (http://github.com/GoalSmashers/clean-css)
+	* Version: 0.4.0
+	* Description: A CSS code minifier
+	* Mods
+		* Fix local library path and name
+	* License
+		* MIT license (build-tools/lib/cleancss/LICENSE)
+
+* optimist (http://github.com/substack/node-optimist)
+	* Version: 0.3.4
+	* Description: A node.js command-line option parser libraryr, used by clean-css.
+	* License
+		* MIT/X11 license (build-tools/lib/optimist/LICENSE)
+
+* wordwrap (http://github.com/substack/node-wordwrap)
+	* Version: b026541 (Released at Apr. 30 2012)
+	* Description: Word-wrapping library, used by optimist.
+	* License
+		* MIT license (build-tools/lib/wordwrap/LICENSE)
