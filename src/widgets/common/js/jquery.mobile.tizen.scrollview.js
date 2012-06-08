@@ -9,6 +9,18 @@
 
 (function ( $, window, document, undefined ) {
 
+	function resizePageContentHeight( page ) {
+		var $page = $( page ),
+			$content = $page.children(".ui-content"),
+			hh = $page.children(".ui-header").outerHeight() || 0,
+			fh = $page.children(".ui-footer").outerHeight() || 0,
+			pt = parseFloat( $content.css("padding-top") ),
+			pb = parseFloat( $content.css("padding-bottom") ),
+			wh = $(window).height();
+
+		$content.height( wh - (hh + fh) - (pt + pb) );
+	}
+
 	function setElementTransform( $ele, x, y, duration ) {
 		var v = "translate(" + x + "," + y + ")",
 			transition;
@@ -400,7 +412,7 @@
 			this._didDrag = false;
 
 			var target = $( e.target ),
-				shouldBlockEvent = 1,
+				self = this,
 				c = this._$clip,
 				v = this._$view,
 				cw = 0,
@@ -430,6 +442,15 @@
 
 			if ( this._shouldBlockEvent ) {
 				e.preventDefault();
+			} else {
+				target.one( "resize.scrollview", function () {
+					if ( ey > c.height() ) {
+						self.scrollTo( -ex, self._sy - ey + c.height(),
+							self.options.snapbackDuration );
+					}
+				});
+
+				return;
 			}
 
 			this._lastX = ex;
@@ -726,11 +747,12 @@
 		_addBehaviors: function () {
 			var self = this,
 				$c = this._$clip,
+				$v = this._$view,
 				prefix = "<div class=\"ui-scrollbar ui-scrollbar-",
 				suffix = "\"><div class=\"ui-scrollbar-track\"><div class=\"ui-scrollbar-thumb\"></div></div></div>";
 
 			if ( this.options.eventType === "mouse" ) {
-				this._$view.bind( "mousewheel", function (e) {
+				$v.bind( "mousewheel", function (e) {
 					var old = self.getScrollPosition();
 					self.scrollTo( -old.x, -(old.y - e.wheelDelta) );
 				});
@@ -777,7 +799,7 @@
 				};
 			}
 
-			this._$view.bind( this._dragEvt, this._dragCB );
+			$v.bind( this._dragEvt, this._dragCB );
 
 			if ( this.options.showScrollBars ) {
 				if ( this._vTracker ) {
@@ -789,6 +811,32 @@
 					this._$hScrollBar = $c.children(".ui-scrollbar-x");
 				}
 			}
+
+			$( window ).bind( "resize", function ( e ) {
+				var $page = $c.parentsUntil("ui-page"),
+					focused;
+
+				if ( $c.jqmData("scroll") === "y" ) {
+					resizePageContentHeight( $page );
+
+					focused = $c.find(".ui-focus");
+
+					if ( focused ) {
+						focused.trigger("resize.scrollview");
+					}
+
+					/* calibration */
+					if ( self._sy < $c.height() - $v.height() ) {
+						self.scrollTo( 0, self._sy,
+							self.options.snapbackDuration );
+					}
+				}
+			});
+
+			$( window ).bind( "orientationchange", function ( e ) {
+				var $page = $c.parentsUntil("ui-page");
+				resizePageContentHeight( $page );
+			});
 		}
 	});
 
@@ -896,18 +944,6 @@
 		}
 	});
 
-	function resizePageContentHeight( page ) {
-		var $page = $( page ),
-			$content = $page.children(".ui-content"),
-			hh = $page.children(".ui-header").outerHeight() || 0,
-			fh = $page.children(".ui-footer").outerHeight() || 0,
-			pt = parseFloat( $content.css("padding-top") ),
-			pb = parseFloat( $content.css("padding-bottom") ),
-			wh = $(window).height();
-
-		$content.height( wh - (hh + fh) - (pt + pb) );
-	}
-
 	// auto-init scrollview and scrolllistview widgets
 	$( document ).bind( 'pagecreate create', function ( e ) {
 		var $page = $( e.target ),
@@ -960,10 +996,6 @@
 		if ( scroll === "y" ) {
 			resizePageContentHeight( e.target );
 		}
-	});
-
-	$( window ).bind( "orientationchange", function ( e ) {
-		resizePageContentHeight( $(".ui-page") );
 	});
 
 }( jQuery, window, document ) );
