@@ -26,6 +26,7 @@ var TESTS = {
 		"radio",
 		"searchbar",
 		"segmentcontrol",
+		"shortcutscroll",
 		"slider",
 		"swipelist",
 		"toggleswitch",
