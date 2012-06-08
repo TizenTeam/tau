@@ -223,9 +223,11 @@
 			} );
 
 			$( currentPage ).bind("tap", function ( e ) {
-				focusedEl.removeClass( "ui-focus" );
-				hideCancel();
-				input.blur();
+				if ( $( input ).is( ":focus" ) ) {
+					focusedEl.removeClass( "ui-focus" );
+					hideCancel();
+					input.blur();
+				}
 			} );
 
 			// Autogrow
