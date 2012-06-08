@@ -119,7 +119,7 @@
 				.add( this._ui.outer )
 				.bind( "vclick", function ( e ) {
 					self._setChecked( !( self.options.checked ) );
-					e.stopPropagation();
+					return false;
 				} );
 		},
 /*
