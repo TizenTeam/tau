@@ -4,9 +4,9 @@
  * Hyunjung Kim <hjnim.kim@samsung.com>
  *
  */
-$( "#checkboxpage" ).live( "pageinit",function(event){
+$( "#checkboxpage" ).live( "pageinit", function ( event ) {
 
-	module("button");
+	module( "button" );
 
 	var unit_button = function ( widget, type ) {
 		var buttonClassPrefix = "ui-btn",
@@ -18,71 +18,83 @@ $( "#checkboxpage" ).live( "pageinit",function(event){
 
 		ok( widget.hasClass(buttonClassPrefix), "Create - Button" );
 
-		if( widget.jqmData( "inline" ) ) {
+		if ( widget.jqmData( "inline" ) ) {
 			ok( widget.hasClass( buttonClassPrefix + "-inline"), "Style - Inline");
-		}else{
+		} else {
 			ok( !widget.hasClass( buttonClassPrefix + "-inline"), "Style - Non Inline");
 		}
 
-		if( !widget.children().first().hasClass( buttonClassPrefix + "-hastxt" ) ) {
+		if ( !widget.children().first().hasClass( buttonClassPrefix + "-hastxt" ) ) {
 			buttonText = "";
 		}
-		equal( widget.text() , buttonText , "Button Text" );
+		// Text Trim, Cause jQueryMobile(JQM) 1.1 forced to add - "\u00a0" in buttonIcon(ButtonMarkup)
+		// JQM 1.1 buttonMarkup code :
+		// - if( buttonIcon ) buttonIcon.appendChild( document.createTextNode( "\u00a0" ) );
+		equal( widget.text().trim() , buttonText , "Button Text" );
 
 		icon = widget.jqmData("icon");
-		if( icon !== undefined ) {
+		if ( icon !== undefined ) {
 			ok( widget.children().children().hasClass("ui-icon-" + icon ) , "Style - Button Icon" );
 		}
-		if( icon !== undefined && buttonText != ""){
+		if ( icon !== undefined && buttonText != "") {
 			position = widget.jqmData("iconpos");
-			if( position === undefined ) {
+			if ( position === undefined ) {
 				position = "left";
 			}
 			ok( widget.children().children().first().hasClass( buttonClassPrefix + "-text-padding-" + position ) , "Style - Button Icon, Text Position" );
 		}
 
-		buttonStyle= widget.jqmData( "style" );
-		if( buttonStyle !== undefined ) {
-			switch( buttonStyle ){
-				case "circle" :
-					hasClass = " .ui-btn-corner-circle, .ui-btn-icon_only";
+		buttonStyle = widget.jqmData( "style" );
+		if ( buttonStyle !== undefined ) {
+			switch ( buttonStyle ) {
+			case "circle" :
+				hasClass = " .ui-btn-corner-circle, .ui-btn-icon_only";
 				break;
-				case "edit" :
-					hasClass = " .ui-btn-edit";
+			case "edit" :
+				hasClass = " .ui-btn-edit";
 				break;
-				case "nobg" :
-					hasClass = " .ui-btn-icon-nobg, .ui-btn-icon_only";
+			case "nobg" :
+				hasClass = " .ui-btn-icon-nobg, .ui-btn-icon_only";
 				break;
 			}
 			ok( widget.children().is( hasClass ) );
 		}
+
+		// Check APIs
+		widget.button().button( "disable" );
+		equal( widget.attr("disabled"), "disabled", "button disable test" );
+
+		widget.button().button( "enable" );
+		equal( widget.attr("disable"), undefined, "button enable test" );
+
+
 	};
 
-	test ( "Button" , function() {
+	test ( "Button" , function () {
 		unit_button( $("#button-0"), "Text Button" );
 	});
 
-	test ( "Button - Inline" , function() {
+	test ( "Button - Inline" , function () {
 		unit_button( $("#button-1"), "Text Button Inline" );
 	});
 
-	test ( "Button - Inline, Icon" , function() {
+	test ( "Button - Inline, Icon" , function () {
 		unit_button( $("#button-2"), "Call Icon" );
 	});
 
-	test ( "Button - Inline, Call Icon, Icon Position(Right)" , function() {
+	test ( "Button - Inline, Call Icon, Icon Position(Right)" , function () {
 		unit_button( $("#button-3"), "Icon Text" );
 	});
 
-	test ( "Button - Inline, Only Icon(Reveal)" , function() {
+	test ( "Button - Inline, Only Icon(Reveal)" , function () {
 		unit_button( $("#button-4"), "Non Text Button" );
 	});
 
-	test ( "Button - Inline, Only Icon(Send), circle" , function() {
+	test ( "Button - Inline, Only Icon(Send), circle" , function () {
 		unit_button( $("#button-5"), "Non Text Button" );
 	});
 
-	test ( "Button - Inline, Only Icon(Favorite), nobackground" , function() {
+	test ( "Button - Inline, Only Icon(Favorite), nobackground" , function () {
 		unit_button( $("#button-6"), "Non Text Button" );
 	});
 

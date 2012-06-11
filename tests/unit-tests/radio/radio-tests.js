@@ -34,7 +34,10 @@ $( "#radiopage" ).live( "pageinit", function(event) {
 			label.trigger( "vclick" );
 		}
 
-		equal( labelSpan.text(), input.val(), "Label Text" );
+		// Text Trim, Cause jQueryMobile(JQM) 1.1 forced to add - "\u00a0" in buttonIcon(ButtonMarkup)
+		// JQM 1.1 buttonMarkup code :
+		// - if( buttonIcon ) buttonIcon.appendChild( document.createTextNode( "\u00a0" ) );
+		equal( labelSpan.text().trim(), input.val(), "Label Text" );
 	};
 
 	/* Group Radio */
