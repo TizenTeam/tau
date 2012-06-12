@@ -25,6 +25,7 @@
 					url: scriptPath,
 					dataType: 'script',
 					async: false,
+					crossDomain: false,
 					success: successCB,
 					error: function ( jqXHR, textStatus, errorThrown ) {
 						if ( errorCB ) {
@@ -231,7 +232,14 @@
 					};
 					_errCB( mockJSXHR, null, null );
 				} else {
-					S.util.loadScriptSync ( cFPath, _successCB, _errCB );
+					$.ajax( {
+						url: cFPath,
+						dataType: 'script',
+						cache: true,
+						async: false,
+						success: _successCB,
+						error: _errCB
+					} );
 				}
 			}
 
