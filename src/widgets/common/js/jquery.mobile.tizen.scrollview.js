@@ -732,7 +732,7 @@
 			if ( this.options.eventType === "mouse" ) {
 				this._$view.bind( "mousewheel", function (e) {
 					var old = self.getScrollPosition();
-					self.scrollTo( -old.x, -(old.y - e.wheelDelta) );
+					self.scrollTo( -old.x, -(old.y - e.originalEvent.wheelDelta) );
 				});
 				this._dragEvt = "mousedown mousemove mouseup click";
 				this._dragCB = function ( e ) {
