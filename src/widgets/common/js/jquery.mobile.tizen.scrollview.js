@@ -423,8 +423,9 @@
 				thumb;
 
 			// should skip the dragging when click the button
-			this._skip_dragging = target.is('.ui-btn-text') ||
-					target.is('.ui-btn-inner');
+			this._skip_dragging = target.is( '.ui-btn-text' ) ||
+					target.is( '.ui-btn-inner' ) ||
+					target.is( '.ui-btn-inner .ui-icon' );
 
 			if ( this._skip_dragging ) {
 				return;
