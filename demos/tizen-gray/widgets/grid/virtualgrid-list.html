@@ -1,0 +1,31 @@
+<div data-role="page" class="virtualgrid_list_demo_page">
+	<div id="normal" data-role="header" data-position="inline">
+		<h1>Virtual Grid - List</h1>
+	</div>
+	<div data-role="content" data-scroll="none">
+		<script id="tizen-demo-namecard" type="text/x-jquery-tmpl">
+			<div class="ui-demo-rotation-list-namecard" >
+				<div class="ui-demo-namecard-list-pic">
+					<img class="ui-demo-namecard-list-pic-img" src="${TEAM_LOGO}"  />
+				</div>
+				<div class="ui-demo-namecard-list-contents">
+					<span class="ui-li-text-main">${NAME}</span>
+				</div>
+			</div>
+		</script>
+		<div id="virtualgrid-demo"  data-role="virtualgrid" data-itemcount="1" data-rotation="false" data-template="tizen-demo-namecard" data-dbtable="JSON_DATA"></div>
+	</div>
+	<script>
+		$( ".virtualgrid_list_demo_page" ).live( "pagecreate", function() {
+			$.getScript( "./js/virtualgrid-db-demo.js", function( data, textStatus ) {
+				var $item = $( "div" ).filter( function() {
+					return $( this ).data( "role" ) == "virtualgrid";
+				}).addClass( "vgLoadSuccess" );
+				$( ".virtualgrid_demo_page" ).die();
+				$( ":jqmData(role='virtualgrid')" ).virtualgrid( "create" );
+				$( ".virtualgrid_list_demo_page" ).unbind("pagecreate");
+				$item.removeClass("vgLoadSuccess");
+			});
+		});
+	</script>
+</div>

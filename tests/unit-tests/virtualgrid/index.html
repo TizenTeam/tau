@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<script src="../../../build/tizen-web-ui-fw/0.1/js/jquery.js"></script>
-		<script src="../../../build/tizen-web-ui-fw/0.1/js/tizen-web-ui-fw-libs.min.js"></script>
+		<script src="../../../build/tizen-web-ui-fw/0.1/js/tizen-web-ui-fw-libs.js"></script>
 		<script src="../../../build/tizen-web-ui-fw/0.1/js/tizen-web-ui-fw.js"
 			data-framework-theme="tizen-gray"
 			data-framework-viewport-scale=false>
@@ -21,7 +21,7 @@
 		<ol id="qunit-tests"></ol>
 
 		<div id="qunit-fixture">
-			<div data-role="page" id="notifiaction0" class="virtuallist_demo_page">
+			<div data-role="page" id="virtualgrid_demo_page" class="virtualgrid_demo_page">
 				<script id="tizen-demo-namecard" type="text/x-jquery-tmpl">
 					<div class="ui-demo-namecard">
 					<div class="ui-demo-namecard-pic">
@@ -31,14 +31,15 @@
 					</div>
 					</div>
 				</script>
-				<div id="virtualgrid-demo" data-role="virtualgrid" data-column="3" data-row="16" data-template="tizen-demo-namecard" data-dbtable="JSON_DATA"></div>
+				<div id="virtualgrid-test" data-role="virtualgrid"  data-itemcount="3" data-rotation="true" data-template="tizen-demo-namecard" data-dbtable="JSON_DATA"></div>
 				<script>
-				$( ".virtuallist_demo_page" ).live( "pagecreate", function() {
+				$( ".virtualgrid_demo_page" ).live( "pagecreate", function() {
+					console.log("pagecreate...");
 					$.getScript( "../../../demos/tizen-gray/widgets/grid/js/virtualgrid-db-demo.js", function( data, textStatus ) {
 						$( "div" ).filter( function() {
 							return $( this ).data( "role" ) == "virtualgrid";
 						}).addClass( "vgLoadSuccess" );
-						$( ".virtuallist_demo_page" ).die();
+						$( ".virtualgrid_demo_page" ).die();
 						$( ":jqmData(role='virtualgrid')" ).virtualgrid( "create" );
 					});
 				});
