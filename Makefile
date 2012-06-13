@@ -1,3 +1,5 @@
+SHELL := /bin/bash
+
 ## Project setting
 DEBUG ?= yes
 PROJECT_NAME = tizen-web-ui-fw
@@ -197,12 +199,19 @@ themes:
 	make -C src/themes || exit $?
 
 
-compress: widgets loader
-	@@echo "	# Compressing....";
-	echo '/*' > ${FW_MIN}
-	cat ${COPYING_FILE} >> ${FW_MIN}
-	echo '*/' >> ${FW_MIN}
-	uglifyjs -nc ${FW_JS} >> ${FW_MIN}
+compress: widgets loader themes
+	# Javacript code compressing
+	@@echo "	# Compressing...."; \
+	echo '/*' > ${FW_MIN}; \
+	cat ${COPYING_FILE} >> ${FW_MIN}; \
+	echo '*/' >> ${FW_MIN}; \
+	uglifyjs -nc ${FW_JS} >> ${FW_MIN}; \
+	# CSS compressing
+	@@cd ${THEME_OUTPUT_ROOT}; \
+	for csspath in */*.css; do \
+		echo "Compressing $$csspath"; \
+		cleancss -o $${csspath/%.css/.min.css} $$csspath; \
+	done
 
 
 docs: init
