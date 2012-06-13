@@ -24,19 +24,19 @@
  */
 
 /*
- * Notification widget
+ * Imageslider widget
  *
  * HTML Attributes
  *
  *  data-role: set to 'imageslider'
- *  data-start-index: start index
+ *  data-index: start index
  *  data-vertical-align: set to top or middle or bottom.
  *
  * APIs
  *
- *  add(image_file): add the image (parameter: url of iamge)
- *  del(image_index): delete the image (parameter: index of image)
- *  refresh(): refresh the widget, should be called after add or del.
+ *  add(file): add the image (parameter: url of iamge)
+ *  del(index): delete the image (parameter: index of image)
+ *  refresh(index): refresh the widget, should be called after add or del. (parameter: start index)
  *
  * Events
  *
@@ -44,7 +44,7 @@
  *
  * Example
  *
- * <div data-role="imageslider" id="imageslider" data-start-index="3" data-vertical-align="middle">
+ * <div data-role="imageslider" id="imageslider" data-index="3" data-vertical-align="middle">
  *	<img src="01.jpg">
  *	<img src="02.jpg">
  *	<img src="03.jpg">
@@ -68,7 +68,8 @@
 (function ( $, window, undefined ) {
 	$.widget( "tizen.imageslider", $.mobile.widget, {
 		options: {
-			photoFlicking: false
+			flicking: false,
+			duration: 500
 		},
 
 		dragging: false,
@@ -86,7 +87,7 @@
 		align_type: null,
 		direction: 1,
 		container: null,
-		interval: null,
+		loader: [],
 
 		_resize: function ( obj ) {
 			var width,
@@ -132,36 +133,53 @@
 			obj.css( 'top', img_top + 'px' );
 		},
 
-		_detach: function ( image_index, obj ) {
+		_attach: function ( index, obj ) {
+			var self = this,
+				processing = function () {
+					self._resize( self.images[index] );
+					self._align( obj, self.images[index] );
+				};
+
 			if ( !obj.length ) {
 				return;
 			}
-			if ( image_index < 0 ) {
+			if ( index < 0 ) {
 				return;
 			}
-			if ( image_index >= this.images.length ) {
-				return;
-			}
-
-			this.images[image_index].detach();
-			obj.css( "display", "none" );
-		},
-
-		_attach: function ( image_index, obj ) {
-			if ( !obj.length ) {
-				return;
-			}
-			if ( image_index < 0 ) {
-				return;
-			}
-			if ( image_index >= this.images.length ) {
+			if ( index >= this.images.length ) {
 				return;
 			}
 
 			obj.css( "display", "block" );
-			obj.append( this.images[image_index] );
-			this._resize( this.images[image_index] );
-			this._align( obj, this.images[image_index] );
+			obj.append( this.images[index] );
+
+			if ( this.images[index].height() ) {
+				processing();
+			} else {
+				this.loader[index] = setInterval( function () {
+					if ( !self.images[index].height() )
+						return;
+
+					processing();
+					clearInterval( self.loader[index] );
+				}, 10);
+			}
+		},
+
+		_detach: function ( index, obj ) {
+			if ( !obj.length ) {
+				return;
+			}
+			if ( index < 0 ) {
+				return;
+			}
+			if ( index >= this.images.length ) {
+				return;
+			}
+
+			this.images[index].detach();
+			obj.css( "display", "none" );
+			clearInterval( this.loader[index] );
 		},
 
 		_drag: function ( _x ) {
@@ -172,7 +190,7 @@
 				return;
 			}
 
-			if ( this.options.photoFlicking === false ) {
+			if ( this.options.flicking === false ) {
 				delta = this.org_x - _x;
 
 				// first image
@@ -260,14 +278,13 @@
 				}
 			}
 
-			sec = 500;
+			sec = this.options.duration;
 			self = this;
 
 			this.moving = true;
 
-			this.interval = setInterval( function () {
+			setTimeout( function () {
 				self.moving = false;
-				clearInterval( self.interval );
 			}, sec - 50 );
 
 			this.cur_img.animate( { left: 0 }, sec );
@@ -345,6 +362,11 @@
 		},
 
 		_show: function () {
+			/* resizing */
+			this.max_width = $( window ).width();
+			this.max_height = this._get_height();
+			this.container.css( 'height', this.max_height );
+
 			this.cur_img = $( 'div' ).find( '.ui-imageslider-bg:eq(' + this.index + ')' );
 			this.prev_img = this.cur_img.prev();
 			this.next_img = this.cur_img.next();
@@ -381,31 +403,26 @@
 		},
 
 		_get_height: function () {
-			var $page = $( '.ui-page' ),
+			var $page = $( this.element ).parentsUntil( 'ui-page' ),
 				$content = $page.children( '.ui-content' ),
-				$header = $page.children( '.ui-header' ),
-				$footer = $page.children( '.ui-footer' ),
-				header_h = $header.outerHeight(),
-				footer_h = $footer.outerHeight(),
-				padding = parseFloat( $content.css( 'padding-top' ) ) + parseFloat( $content.css( 'padding-bottom' ) ),
-				content_h = $( window ).height() - header_h - footer_h - padding * 2;
+				header_h = $page.children( '.ui-header' ).outerHeight() || 0,
+				footer_h = $page.children( '.ui-footer' ).outerHeight() || 0,
+				padding = parseFloat( $content.css( 'padding-top' ) )
+					+ parseFloat( $content.css( 'padding-bottom' ) ),
+				content_h = $( window ).height() - header_h - footer_h - padding;
 
 			return content_h;
 		},
 
 		_create: function () {
 			var temp_img,
-				start_index,
+				index,
 				i = 0;
 
 			$( this.element ).wrapInner( '<div class="ui-imageslider"></div>' );
 			$( this.element ).find( 'img' ).wrap( '<div class="ui-imageslider-bg"></div>' );
 
 			this.container = $( this.element ).find('.ui-imageslider');
-
-			this.max_width = $( window ).width();
-			this.max_height = this._get_height();
-			this.container.css( 'height', this.max_height );
 
 			temp_img = $( 'div' ).find( '.ui-imageslider-bg:first' );
 
@@ -419,20 +436,20 @@
 				this.images[i].detach();
 			}
 
-			start_index = parseInt( $( this.element ).attr( 'data-start-index' ), 10 );
-			if ( start_index === undefined ) {
-				start_index = 0;
+			index = parseInt( $( this.element ).jqmData( 'index' ), 10 );
+			if ( index === undefined ) {
+				index = 0;
 			}
-			if ( start_index < 0 ) {
-				start_index = 0;
+			if ( index < 0 ) {
+				index = 0;
 			}
-			if ( start_index >= this.images.length ) {
-				start_index = this.images.length - 1;
+			if ( index >= this.images.length ) {
+				index = this.images.length - 1;
 			}
 
-			this.index = start_index;
+			this.index = index;
 
-			this.align_type = $( this.element ).attr( 'data-vertical-align' );
+			this.align_type = $( this.element ).jqmData( 'vertical-align' );
 		},
 
 		_update: function () {
@@ -472,22 +489,22 @@
 			this._show();
 		},
 
-		add: function ( image_file ) {
-			this.images_hold.push( image_file );
+		add: function ( file ) {
+			this.images_hold.push( file );
 		},
 
-		del: function ( image_index ) {
+		del: function ( index ) {
 			var temp_img;
 
-			if ( image_index === undefined ) {
-				image_index = this.index;
+			if ( index === undefined ) {
+				index = this.index;
 			}
 
-			if ( image_index < 0 || image_index >= this.images.length ) {
+			if ( index < 0 || index >= this.images.length ) {
 				return;
 			}
 
-			if ( image_index == this.index ) {
+			if ( index == this.index ) {
 				temp_img = this.cur_img;
 
 				if ( this.index == 0 ) {
@@ -501,7 +518,7 @@
 					this.prev_img = this.prev_img.prev();
 					if ( this.prev_img.length ) {
 						this.prev_img.css( 'left', -this.max_width );
-						this._attach( image_index - 2, this.prev_img );
+						this._attach( index - 2, this.prev_img );
 					}
 					this.index--;
 				} else {
@@ -509,34 +526,34 @@
 					this.next_img = this.next_img.next();
 					if ( this.next_img.length ) {
 						this.next_img.css( 'left', this.max_width );
-						this._attach( image_index + 2, this.next_img );
+						this._attach( index + 2, this.next_img );
 					}
 				}
 
-				this.cur_img.animate( { left: 0 }, 500 );
+				this.cur_img.animate( { left: 0 }, this.options.duration );
 
-			} else if ( image_index == this.index - 1 ) {
+			} else if ( index == this.index - 1 ) {
 				temp_img = this.prev_img;
 				this.prev_img = this.prev_img.prev();
 				if ( this.prev_img.length ) {
 					this.prev_img.css( 'left', -this.max_width );
-					this._attach( image_index - 1, this.prev_img );
+					this._attach( index - 1, this.prev_img );
 				}
 				this.index--;
 
-			} else if ( image_index == this.index + 1 ) {
+			} else if ( index == this.index + 1 ) {
 				temp_img = this.next_img;
 				this.next_img = this.next_img.next();
 				if ( this.next_img.length ) {
 					this.next_img.css( 'left', this.max_width );
-					this._attach( image_index + 1, this.next_img );
+					this._attach( index + 1, this.next_img );
 				}
 
 			} else {
-				temp_img = $( 'div' ).find( '.ui-imageslider-bg:eq(' + image_index + ')' );
+				temp_img = $( 'div' ).find( '.ui-imageslider-bg:eq(' + index + ')' );
 			}
 
-			this.images.splice( image_index, 1 );
+			this.images.splice( index, 1 );
 			temp_img.detach();
 		}
 	}); /* End of widget */
