@@ -16,6 +16,7 @@
 			version: '0.1',
 			theme: "default",
 			viewportScale: false,
+			minified: false
 		},
 
 		util : {
@@ -112,6 +113,7 @@
 					this.frameworkData.theme = elem.getAttribute( 'data-framework-theme' )
 						|| this.frameworkData.theme;
 					this.frameworkData.viewportScale = "true" === elem.getAttribute( 'data-framework-viewport-scale' ) ? true : this.frameworkData.viewportScale;
+					this.frameworkData.minified = src.search(/\.min\.js$/) > -1 ? true : false;
 					foundScriptTag = true;
 					break;
 				}
@@ -126,9 +128,14 @@
 					'themes',
 					this.frameworkData.theme
 				].join( '/' ),
-				cssPath = [themePath, 'tizen-web-ui-fw-theme.css'].join( '/' ),
+				cssPath,
 				jsPath = [themePath, 'theme.js'].join( '/' );
 
+			if( this.frameworkData.minified ) {
+				cssPath = [themePath, 'tizen-web-ui-fw-theme.min.css'].join( '/' );
+			} else {
+				cssPath = [themePath, 'tizen-web-ui-fw-theme.css'].join( '/' );
+			}
 			this.css.load( cssPath );
 			this.util.loadScriptSync( jsPath );
 		},
