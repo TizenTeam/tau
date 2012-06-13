@@ -1,5 +1,4 @@
 ( function ( ) {
-	console.log("en.js runs !!!!!!!!!");
 
 	var cultureInfo = {
 			messages: {
@@ -7,9 +6,12 @@
 				"translate" : "translate"
 			}
 		},
-		supportLang = { "en", "en-US" };
+		supportLang = [ "en", "en-US" ],
+		i, lang;
 
-	for ( var lang in supportLang ) {
+	for ( i in supportLang ) {
+		lang = supportLang[ i ];
 		Globalize.addCultureInfo( lang, cultureInfo );
 	}
+
 } ) ( );
