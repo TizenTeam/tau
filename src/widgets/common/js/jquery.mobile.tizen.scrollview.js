@@ -22,7 +22,8 @@
 	}
 
 	function setElementTransform( $ele, x, y, duration ) {
-		var v = "translate(" + x + "," + y + ")",
+		var translate3d = "translate3d(" + x + "," + y + ", 0px)",
+			translate2d = "translate(" + x + "," + y + ")",
 			transition;
 
 		if ( !duration || duration === undefined ) {
@@ -31,12 +32,19 @@
 			transition =  "-webkit-transform " + duration / 1000 + "s";
 		}
 
+		/*
+		 * CSS 2D Transformations
+		 * 	Safari 3.2 / Firefox 3.5 / Chrome 1.0 / Opera 10.5 / IE 9
+		 *
+		 * CSS 3D Transformations
+		 *	Safari 4.0 / Firefox 10.0 / Chrome 12.0 / Opera 12.0 / IE 10
+		 */
 		$ele.css({
-			"-moz-transform": v,
-			"-webkit-transform": v,
-			"-ms-transform": v,
-			"-o-transform": v,
-			"transform": v,
+			"-moz-transform": translate3d,
+			"-webkit-transform": translate3d,
+			"-ms-transform": translate2d,
+			"-o-transform": translate3d,
+			"transform": translate3d,
 			"-webkit-transition": transition
 		});
 	}
