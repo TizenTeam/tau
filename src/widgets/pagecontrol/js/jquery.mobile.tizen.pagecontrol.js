@@ -33,7 +33,7 @@
  *
  *		data-role:	This widget must have 'pagecontrol' as data-role value.
  *		data-max:	Maximum nimber of pagecontrol bullets. This property must not exceed 10.
- *		data-initVal:	Initially selected value of the pagecontrol widget. Must between 1 and data-max. If this attribute is not given, initial value is set to 1.
+ *		data-value:	Initially selected value of the pagecontrol widget. Must between 1 and data-max. If this attribute is not given, initial value is set to 1.
  *
  * APIs:
  *
@@ -79,9 +79,7 @@
 
 		// subroutine: change active button by value
 		_changeActiveBtn: function ( newNum ) {
-			var oldNum = $( this.element ).data( 'current' );
-
-			console.log(" oldNum=" + oldNum );
+			var oldNum = $( this.element ).data( 'value' );
 
 			// Check value
 			if ( newNum < 1 || newNum > $( this.element ).data( "max" ) ) {
@@ -106,7 +104,7 @@
 			var self = this,
 				e = this.element,
 				maxVal = e.data( "max" ),
-				currentVal = e.attr( "data-initVal" ),
+				value = e.attr( "data-value" ),
 				i = 0,
 				btn = null,
 				buf = null,
@@ -121,10 +119,10 @@
 			}
 			e.data( "max", maxVal );
 
-			if ( ! currentVal ) {
-				currentVal = 1;
+			if ( ! value ) {
+				value = 1;
 			}
-			e.data( "current", currentVal );
+			e.data( "value", value );
 
 			// Set pagecontrol class
 			e.addClass( 'pagecontrol' );
@@ -148,7 +146,7 @@
 			for ( i = 1; i <= maxVal; i++ ) {
 				btn = $( '<div class="page_n page_n_dot ' + page_margin_class + '" data-value="' + i + '"></div>' );
 				e.append( btn );
-				if ( i == currentVal ) {
+				if ( i == value ) {
 					btn.removeClass( 'page_n_dot' )
 						.addClass( 'page_n_' + i );
 				}
@@ -162,7 +160,7 @@
 				self._changeActiveBtn( value );
 
 				// 2. Store new value (DO NOT change this order!)
-				e.data( 'current', value );
+				e.data( 'value', value );
 
 			});
 		},
@@ -172,9 +170,9 @@
 
 			if( val && typeof val == "number" ) {
 				this._changeActiveBtn( val );
-				pc.data( 'current', val );
+				pc.data( 'value', val );
 			} else {
-				return pc.data( "current" );
+				return pc.data( "value" );
 			}
 		}
 
