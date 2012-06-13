@@ -10,17 +10,17 @@
 		var pc = $( '<div data-role="pagecontrol"></div>' )
 				.attr( {
 				'data-max': 10,
-				'data-initVal': 1
+				'data-value': 2
 				} ),
 			nb;
 
 		pc.pagecontrol( );
 
 		ok( pc, "pagecontrol object creation" );
-		nb = pc.children( 'div.page_n' )[0];	// 1st button
+		nb = pc.children( 'div.page_n' )[1];	// 2nd button
 		console.dir( nb );
-		ok( $(nb).hasClass( 'page_n_1' ), "first button should be activated" );
-		equal( $( pc ).pagecontrol( "value" ), 1, "value() method must return 1" );
+		ok( $(nb).hasClass( 'page_n_2' ), "first button should be activated" );
+		equal( $( pc ).pagecontrol( "value" ), 2, "value() method must return 2" );
 
 		nb = pc.children( 'div.page_n' )[9];
 		ok( nb, "last number button should exist" );
