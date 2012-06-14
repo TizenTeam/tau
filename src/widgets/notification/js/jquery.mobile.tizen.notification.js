@@ -30,79 +30,124 @@
  *
  *  data-role: set to 'notification'.
  *  data-type: 'ticker' or 'popup'.
- *  data-text1: top text for tickernoti, text to show for smallpopup.
- *  data-text2: bottom text for tickernoti, smallpopup will ignore this text.
- *  data-param: parameter for 'tapped' event.
  *  data-interval: time to showing. If don't set, will show infinitely.
  *
  * APIs
  *
  *  show(): show the notification.
  *  hide(): hide the notification.
+ *  text(text0, text1): set texts or get texts
  *
  * Events
  *
- *  tapped: When you tap or click the smallpopup, this event will be raised.
+ *  N/A
  *
  * Examples
  *
  * // tickernoti
- * <div data-role="notification" id="notification" data-type="ticker" data-text1="text1" data-text2="text2" data-param="parameters" data-interval="3000"></div>
+ * <div data-role="notification" id="notification" data-type="ticker" data-interval="3000">
+ * 	<p>Hello World</p>
+ * 	<p>Denis</p>
+ * </div>
  *
  * // smallpopup
- * <div data-role="notification" id="notification" data-type="popup" data-text1="text1" data-param="parameters" data-interval="3000"></div>
- *
- * // event
- * $('#notification-demo').bind('tapped', function (e, m) {
- *	alert('notification is tapped\nparameter:"' + m + '"');
- * });
+ * <div data-role="notification" id="notification" data-type="popup" data-interval="3000">
+ * 	<p>Hello World</p>
+ * </div>
  *
  */
 
 (function ( $, window ) {
 	$.widget( "tizen.notification", $.mobile.widget, {
 		btn: null,
-		param: null,
+		text_bg: [],
 		interval: null,
 		seconds: null,
 		running: false,
 
-		refresh: function () {
-			this._del_event();
-			this._update();
-			this._add_event();
+		_get_text: function () {
+			var text = new Array( 2 );
 
-			$( this.html ).addClass("fix");
+			if ( this.type === 'ticker' ) {
+				text[0] = $( this.text_bg[0] ).text();
+				text[1] = $( this.text_bg[1] ).text();
+			} else {
+				text[0] = $( this.text_bg[0] ).text();
+			}
+
+			return text;
+		},
+
+		_set_text: function ( text0, text1 ) {
+			var _set = function ( elem, text ) {
+				if ( !text ) {
+					return;
+				}
+				elem.text( text );
+			};
+
+			if ( this.type === 'ticker' ) {
+				_set( $( this.text_bg[0] ), text0 );
+				_set( $( this.text_bg[1] ), text1 );
+			} else {
+				_set( $( this.text_bg[0] ), text0 );
+			}
+		},
+
+		text: function ( text0, text1 ) {
+			if ( text0 === undefined && text1 === undefined ) {
+				return this._get_text();
+			}
+
+			this._set_text( text0, text1 );
+		},
+
+		_refresh: function () {
+			var container = this._get_container();
+
+			$( container ).addClass("fix")
+					.removeClass("show")
+					.removeClass("hide");
 		},
 
 		show: function () {
+			var container = this._get_container();
+
 			if ( this.running ) {
-				this.refresh();
+				this._refresh();
 				return;
 			}
 
-			this._update();
-
-			this._add_event();
+			$( container ).addClass("show")
+					.removeClass("hide")
+					.removeClass("fix");
 
 			this.running = true;
-			$( this.html ).addClass("show");
+			this._set_interval();
 		},
 
 		hide: function () {
+			var container = this._get_container();
+
 			if ( !this.running ) {
 				return;
 			}
 
-			$( this.html ).addClass("hide");
-			$( this.html ).removeClass("show").removeClass("fix");
-			this._del_event();
+			$( container ).addClass("hide")
+					.removeClass("show")
+					.removeClass("fix");
 
 			this.running = false;
+			clearInterval( this.interval );
 		},
 
 		close: function () {
-			$( this.html ).removeClass("show").removeClass("hide").removeClass("fix");
+			var container = this._get_container();
+
+			$( container ).removeClass("show")
+					.removeClass("hide")
+					.removeClass("fix");
+
 			this._del_event();
 
 			this.running = false;
@@ -114,6 +159,16 @@
 			}
 
 			return $( this.element ).find(".ui-smallpopup");
+		},
+
+		_set_interval: function () {
+			var self = this;
+
+			if ( this.seconds !== undefined && this.second !== 0 ) {
+				this.interval = setInterval( function () {
+					self.hide();
+				}, this.seconds );
+			}
 		},
 
 		_add_event: function () {
@@ -129,15 +184,8 @@
 			}
 
 			container.bind( 'vmouseup', function () {
-				self.element.trigger( 'tapped', self.param );
 				self.hide();
 			});
-
-			if ( this.seconds !== undefined && this.second !== 0 ) {
-				this.interval = setInterval( function () {
-					self.hide();
-				}, this.seconds );
-			}
 		},
 
 		_del_event: function () {
@@ -152,54 +200,19 @@
 
 		_set_position: function () {
 			var container = this._get_container(),
-				container_h = parseFloat( container.css('height') ),
+				container_h = parseFloat( container.height() ),
 				$page = $('.ui-page'),
 				$footer = $page.children('.ui-footer'),
 				footer_h = $footer.outerHeight() || 0,
-				position = $(window).height() - container_h - footer_h;
+				position = $( window ).height() - container_h - footer_h;
 
 			container.css( 'top', position );
 		},
 
-		_update: function () {
-			var text = new Array(2);
-
-			if ( this.html ) {
-				this.html.detach();
-			}
-
-			text[0] = $(this.element).jqmData('text1');
-			text[1] = $(this.element).jqmData('text2');
-			this.param = $(this.element).jqmData('param');
-			this.seconds = $(this.element).jqmData('interval');
-			this.type = $(this.element).jqmData('type') || 'popup';
-
-			if ( this.type === 'ticker' ) {
-				this.html = $('<div class="ui-ticker">' +
-						'<div class="ui-ticker-icon"></div>' +
-						'<div class="ui-ticker-text1-bg">' +
-						text[0] + '</div>' +
-						'<div class="ui-ticker-text2-bg">' +
-						text[1] + '</div>' +
-						'<div class="ui-ticker-body"></div>' +
-						'<div class="ui-ticker-btn"></div>' +
-						'</div>');
-
-				$( this.element ).append( this.html );
-			} else {
-				this.html = $('<div class="ui-smallpopup">' +
-						'<div class="ui-smallpopup-text-bg">' +
-						text[0] + '</div>' +
-						'</div>');
-
-				$( this.element ).append( this.html );
-
-				this._set_position();
-			}
-		},
-
 		_create: function () {
-			var self = this;
+			var self = this,
+				elem = $( this.element ),
+				i;
 
 			this.btn = $("<a href='#' class='ui-input-cancel' title='close' data-theme='s'>Close</a>")
 				.tap( function ( event ) {
@@ -211,12 +224,49 @@
 					shadow: true
 				});
 
-			this._update();
-			this.running = false;
+			this.seconds = elem.jqmData('interval');
+			this.type = elem.jqmData('type') || 'popup';
+
+			if ( this.type === 'ticker' ) {
+				elem.wrapInner("<div class='ui-ticker'></div>");
+				elem.find(".ui-ticker").append("<div class='ui-ticker-icon'></div>" +
+							"<div class='ui-ticker-body'></div>" +
+							"<div class='ui-ticker-btn'></div>");
+				this.text_bg = elem.find("p");
+
+				if ( this.text_bg.length < 2 ) {
+					elem.find(".ui-ticker").append("<p></p><p></p>");
+					this.text_bg = elem.find("p");
+				} else if ( this.text_bg.length > 2 ) {
+					for ( i = 2; i < this.text_bg.length; i++ ) {
+						$( this.text_bg[2] ).css( "display", "none" );
+					}
+				}
+
+				$( this.text_bg[0] ).addClass("ui-ticker-text1-bg");
+				$( this.text_bg[1] ).addClass("ui-ticker-text2-bg");
+			} else {
+				elem.wrapInner("<div class='ui-smallpopup'></div>");
+				this.text_bg = elem.find("p").addClass("ui-smallpopup-text-bg");
+
+				if ( this.text_bg.length < 1 ) {
+					elem.find(".ui-smallpopup")
+						.append("<p class='ui-smallpopup-text-bg'></p>");
+					this.text_bg = elem.find("p");
+				} else if ( this.text_bg.length > 1 ) {
+					for ( i = 1; i < this.text_bg.length; i++ ) {
+						$( this.text_bg[i] ).css( "display", "none" );
+					}
+				}
+
+				this._set_position();
+			}
+
+			this._add_event();
 
 			$( window ).bind( "resize", function () {
 				if ( self.running ) {
-					self.refresh();
+					self._refresh();
 				}
 			});
 		}
