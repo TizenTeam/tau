@@ -43,9 +43,9 @@
  * Options:
  *     theme: string; the theme to use if none is specified using the 'data-theme' attribute
  *            default: 'c'
- *     popupEnabled: boolean; controls whether the popup is displayed or not
- *                   specify if the popup is enabled using the 'data-popupEnabled' attribute
- *                   set from javascript using .tizenslider('option','popupEnabled',newValue)
+ *     popup: boolean; controls whether the popup is displayed or not
+ *                   specify if the popup is enabled using the 'data-popup' attribute
+ *                   set from javascript using .tizenslider('option','popup',newValue)
  *
  * Events:
  *     changed: triggers when the value is changed (rather than when the handle is moved)
@@ -55,28 +55,28 @@
  *     <a href="#" id="popupEnabler" data-role="button" data-inline="true">Enable popup</a>
  *     <a href="#" id="popupDisabler" data-role="button" data-inline="true">Disable popup</a>
  *     <div data-role="fieldcontain">
- *         <input id="mySlider" data-theme='a' data-popupenabled='false' type="range" name="slider" value="7" min="0" max="9" />
+ *         <input id="mySlider" data-theme='a' data-popup='false' type="range" name="slider" value="7" min="0" max="9" />
  *     </div>
  *     <div data-role="fieldcontain">
  *         <input id="mySlider2" type="range" name="slider" value="77" min="0" max="777" />
  *     </div>
  *
  *     // disable popup from javascript
- *     $('#mySlider').tizenslider('option','popupEnabled',false);
+ *     $('#mySlider').tizenslider('option','popup',false);
  *
  *     // from buttons
  *     $('#popupEnabler').bind('vclick', function() {
- *         $('#mySlider').tizenslider('option','popupEnabled',true);
+ *         $('#mySlider').tizenslider('option','popup',true);
  *     });
  *     $('#popupDisabler').bind('vclick', function() {
- *         $('#mySlider').tizenslider('option','popupEnabled',false);
+ *         $('#mySlider').tizenslider('option','popup',false);
  *     });
  */
 
 (function ($, window, undefined) {
 	$.widget("tizen.tizenslider", $.mobile.widget, {
 		options: {
-			popupEnabled: true
+			popup: true
 		},
 
 		popup: null,
@@ -107,10 +107,10 @@
 
 			self.popup = $('<div class="ui-slider-popup"></div>');
 
-			// set the popupEnabled according to the html attribute
-			popupEnabledAttr = inputElement.attr('data-popupenabled');
+			// set the popup according to the html attribute
+			popupEnabledAttr = inputElement.jqmData('popup');
 			if ( popupEnabledAttr !== undefined ) {
-				self.options.popupEnabled = (popupEnabledAttr === 'true');
+				self.options.popup = (popupEnabledAttr === 'true');
 			}
 
 			// get the actual slider added by jqm
@@ -245,7 +245,7 @@
 
 		// show the popup
 		showPopup: function () {
-			if ( !(this.options.popupEnabled && !this.popupVisible) ) {
+			if ( !(this.options.popup && !this.popupVisible) ) {
 				return;
 			}
 
@@ -257,7 +257,7 @@
 
 		// hide the popup
 		hidePopup: function () {
-			if ( !(this.options.popupEnabled && this.popupVisible) ) {
+			if ( !(this.options.popup && this.popupVisible) ) {
 				return;
 			}
 
@@ -275,10 +275,10 @@
 			}
 
 			switch ( key ) {
-			case 'popupEnabled':
-				this.options.popupEnabled = value;
+			case 'popup':
+				this.options.popup = value;
 
-				if ( this.options.popupEnabled ) {
+				if ( this.options.popup) {
 					this.updateSlider();
 				} else {
 					this.hidePopup();
