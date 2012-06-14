@@ -1,7 +1,6 @@
-#sbs-git:slp/pkgs/w/web-ui-fw web-ui-fw 0.1.18
 Name:       web-ui-fw
-Version:    0.1.18
-Release:    2
+Version:    0.1.19
+Release:    1
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
 License:    MIT
