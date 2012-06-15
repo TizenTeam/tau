@@ -8,7 +8,7 @@
 
 ( function ($, Globalize, window, undefined) {
 
-	window.S = {
+	 var tizen = {
 		libFileName : "tizen-web-ui-fw(.min)?.js",
 
 		frameworkData : {
@@ -86,7 +86,7 @@
 		},
 
 		getParams: function ( ) {
-			/* Get data-* params from <script> tag, and set S.frameworkData.* values
+			/* Get data-* params from <script> tag, and set tizen.frameworkData.* values
 			 * Returns true if proper <script> tag is found, or false if not.
 			 */
 			// Find current <script> tag element
@@ -291,7 +291,7 @@
 		 * -------------------------------
 		 */
 		loadCustomGlobalizeCulture: function ( cultureDic ) {
-			S.loadGlobalizeCulture( null, cultureDic );
+			tizen.loadGlobalizeCulture( null, cultureDic );
 		},
 
 		/** Set viewport meta tag for mobile devices.
@@ -355,21 +355,32 @@
 			}
 		}
 	};
-} ( jQuery, window.Globalize, window ) );
 
+	function export2TizenNS ( $, tizen ) {
+		if ( undefined == typeof $.tizen ) {
+			$.tizen = { };
+		}
 
-// Loader's job list
-( function ( S, $, undefined ) {
-	S.getParams( );
-	S.loadTheme( );
-	S.setGlobalize( );
+		$.tizen.frameworkData = tizen.frameworkData;
+
+		$.tizen.util = { };
+		$.tizen.util.loadCustomGlobalizeCulture = tizen.loadCustomGlobalizeCulture;
+
+		$.tizen.__tizen__ = tizen;	// for unit-test
+	}
+
+	tizen.getParams( );
+	tizen.loadTheme( );
+	tizen.setGlobalize( );
+	export2TizenNS( $, tizen );
 
 	// Turn off JQM's auto initialization option.
 	// NOTE: This job must be done before domready.
 	$.mobile.autoInitializePage = false;
 
 	$(document).ready( function ( ) {
-		S.setScaling( );
+		tizen.setScaling( );
 		$.mobile.initializePage( );
 	});
-} ( window.S, jQuery ) );
+
+} ( jQuery, window.Globalize, window ) );
