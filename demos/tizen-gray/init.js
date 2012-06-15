@@ -71,11 +71,6 @@ $( document ).bind("pagecreate", function () {
 		$('#notification').notification('show');
 	});
 
-	$('#notification-demo').bind('tapped', function ( e, m ) {
-		/* DO SOMETHING */
-		alert('notification is tapped\nparameter:"' + m + '"');
-	});
-
 	$('#imageslider-add').bind('vmouseup', function ( e ) {
 		$('#imageslider').imageslider('add', './test/10.jpg');
 		$('#imageslider').imageslider('add', './test/11.jpg');
@@ -87,8 +82,8 @@ $( document ).bind("pagecreate", function () {
 	});
 
 	$('#selectioninfo-demo').bind('vmouseup', function ( e ) {
-		$('#smallpopup_selectioninfo').jqmData("text1",
-			$("#dayselector1").find(".ui-checkbox-on").length + " items are selected");
+		$('#smallpopup_selectioninfo').notification( "text",
+			$("#dayselector1").find(".ui-checkbox-on").length + " items are selected" );
 		$('#smallpopup_selectioninfo').notification('show');
 	});
 
