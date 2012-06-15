@@ -89,34 +89,33 @@
 		container: null,
 		loader: [],
 
-		_resize: function ( obj ) {
-			var width,
-				height,
-				margin = 40,
+		_resize: function ( index ) {
+			var img = this.images[index],
+				width = this.images[index].width(),
+				height = this.images[index].height(),
+				margin = 80,
 				ratio,
 				img_max_width = this.max_width - margin,
 				img_max_height = this.max_height - margin;
 
-			height = obj.height();
-			width = obj.width();
-
 			ratio = height / width;
 
 			if ( width > img_max_width ) {
-				obj.width( img_max_width );
-				obj.height( img_max_width * ratio );
+				img.width( img_max_width );
+				img.height( img_max_width * ratio );
 			}
 
-			height = obj.height();
+			height = img.height();
 
 			if ( height > img_max_height ) {
-				obj.height( img_max_height );
-				obj.width( img_max_height / ratio );
+				img.height( img_max_height );
+				img.width( img_max_height / ratio );
 			}
 		},
 
-		_align: function ( obj, img ) {
-			var img_top = 0;
+		_align: function ( index, obj ) {
+			var img = this.images[index],
+				img_top = 0;
 
 			if ( !obj.length ) {
 				return;
@@ -136,8 +135,8 @@
 		_attach: function ( index, obj ) {
 			var self = this,
 				processing = function () {
-					self._resize( self.images[index] );
-					self._align( obj, self.images[index] );
+					self._resize( index );
+					self._align( index, obj );
 				};
 
 			if ( !obj.length ) {
@@ -177,8 +176,10 @@
 				return;
 			}
 
-			this.images[index].detach();
 			obj.css( "display", "none" );
+			this.images[index].removeAttr("style");
+			this.images[index].detach();
+
 			clearInterval( this.loader[index] );
 		},
 
@@ -416,6 +417,7 @@
 
 		_create: function () {
 			var temp_img,
+				self = this,
 				index,
 				i = 0;
 
@@ -450,6 +452,10 @@
 			this.index = index;
 
 			this.align_type = $( this.element ).jqmData( 'vertical-align' );
+
+			$( window ).bind( 'resize', function () {
+				self.refresh();
+			});
 		},
 
 		_update: function () {
