@@ -147,7 +147,7 @@ function copy_template
 		echo "Copying libs into $DESTDIR..."
 		cp -a ${libpath} ${DESTDIR}/	|| usage "ERROR: Failed to copy libs"
 		DATA_FRAMEWORK_ROOT="data-framework-root=\"tizen-web-ui-fw\""
-		LIBDIR="tizen-web-ui-fw/0.1/js"	# This new value is used by replace_template()
+		LIBDIR="tizen-web-ui-fw/latest/js"	# This new value is used by replace_template()
 	else   # otherwise, just set libdir
 		LIBDIR="file://${PREFIX}${LIBDIR}/template"
 	fi
