@@ -1,5 +1,5 @@
-<div data-role="page" class="virtualgrid_list_demo_page">
-	<div id="normal" data-role="header" data-position="inline">
+<div id="virtualgrid_list_page" data-role="page" class="virtualgrid_list_demo_page">
+	<div id="normal" data-role="header" data-position="fixed">
 		<h1>Virtual Grid - List</h1>
 	</div>
 	<div data-role="content" data-scroll="none">
@@ -16,7 +16,7 @@
 		<div id="virtualgrid-demo"  data-role="virtualgrid" data-itemcount="1" data-rotation="false" data-template="tizen-demo-namecard" data-dbtable="JSON_DATA"></div>
 	</div>
 	<script>
-		$( ".virtualgrid_list_demo_page" ).live( "pagecreate", function() {
+		$( ".virtualgrid_list_demo_page" ).one( "pagecreate", function() {
 			$.getScript( "./js/virtualgrid-db-demo.js", function( data, textStatus ) {
 				var $item = $( "div" ).filter( function() {
 					return $( this ).data( "role" ) == "virtualgrid";
@@ -25,6 +25,16 @@
 				$( ":jqmData(role='virtualgrid')" ).virtualgrid( "create" );
 				$( ".virtualgrid_list_demo_page" ).unbind("pagecreate");
 				$item.removeClass("vgLoadSuccess");
+
+				var $page = $( "#virtualgrid_list_page" ),
+					$content = $page.children(".ui-content"),
+					hh = $page.children(".ui-header").outerHeight() || 0,
+					fh = $page.children(".ui-footer").outerHeight() || 0,
+					pt = parseFloat( $content.css("padding-top") ),
+					pb = parseFloat( $content.css("padding-bottom") ),
+					wh = $(window).height();
+				$content.height( wh - (hh + fh) - (pt + pb) );
+				$content.css( "overflow", "hidden" );
 			});
 		});
 	</script>
