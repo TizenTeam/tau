@@ -439,7 +439,7 @@
 			}
 
 			index = parseInt( $( this.element ).jqmData( 'index' ), 10 );
-			if ( index === undefined ) {
+			if ( !index ) {
 				index = 0;
 			}
 			if ( index < 0 ) {

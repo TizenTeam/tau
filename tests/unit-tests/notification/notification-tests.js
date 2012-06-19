@@ -10,15 +10,7 @@
 	var unit_notification = function ( widget, type ) {
 		var notification,
 			elem = ".ui-" + type,
-			text,
-			tapped = false,
-			param;
-
-		/* Bind tapped event */
-		widget.bind( "tapped", function ( e, m ) {
-			tapped = true;
-			param = m;
-		});
+			text;
 
 		/* Create */
 		widget.notification();
@@ -38,25 +30,22 @@
 		notification = widget.children( elem );
 		ok( notification.hasClass("hide"), "API: hide" );
 
-		/* Trigger click event */
+		/* hide when click */
 		widget.notification("show");
 		notification = widget.children( elem );
 		notification.trigger("vmouseup");
 
-		ok( tapped, "Event: tapped" );
+		notification = widget.children( elem );
+		ok( notification.hasClass("hide"), "Hide when click the notification" );
 
-		/* Check Parameters */
-		equal( param, widget.jqmData("param"), "Parameter: data-param" );
+		text = notification.children("p");
+		console.log(text);
 
 		if ( type === "smallpopup" ) {
-			text = notification.children( elem + "-text-bg");
-			equal( text.text(), widget.jqmData("text1"), "Parameter: data-text1" );
+			ok( $( text[0] ).hasClass( "ui-smallpopup-text-bg" ), "Text" );
 		} else {
-			text = notification.children( elem + "-text1-bg");
-			equal( text.text(), widget.jqmData("text1"), "Parameter: data-text1" );
-
-			text = notification.children( elem + "-text2-bg");
-			equal( text.text(), widget.jqmData("text2"), "Parameter: data-text2" );
+			ok( $( text[0] ).hasClass( "ui-ticker-text1-bg" ), "Top Text" );
+			ok( $( text[1] ).hasClass( "ui-ticker-text2-bg" ), "Bottom Text" );
 		}
 	};
 
