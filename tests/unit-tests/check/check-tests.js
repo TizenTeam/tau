@@ -22,13 +22,15 @@ $( "#checkpage" ).live( "pageinit", function( event ){
 		if( !widget.is(":checked") ){
 			checkClass = classPrefix + "-off";
 		}
-
 		if( widget.hasClass( "favorite" )){
 			ok( checkbox.hasClass( "favorite" ), "Style - Favorite" );
 		}
 
+		// Text Trim, Cause jQueryMobile(JQM) 1.1 forced to add - "\u00a0" in buttonIcon(ButtonMarkup)
+		// JQM 1.1 buttonMarkup code :
+		// - if( buttonIcon ) buttonIcon.appendChild( document.createTextNode( "\u00a0" ) );
 		label = checkbox.children().last();
-		equal ( label.text(), type, "label, type string must be same" );
+		equal ( label.text().trim(), type, "label, type string must be same" );
 
 		label.trigger( "vclick" );
 		if( !widget.is( ":disabled" ) ) {
