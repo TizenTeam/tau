@@ -47,14 +47,8 @@
 			selected;
 
 		css.addElementToHead( scarecrow );
-		/*
-		console.log('2');
 		selected = $('head').children('meta[name=scarecrow]');
-		console.log('3');
-		console.dir(selected);
 		ok( selected.length > 0, 'Object must be added to header.' );
-		*/
 	} );
-
 } ) ( jQuery );
 
