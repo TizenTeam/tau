@@ -108,6 +108,8 @@
 			$( container ).addClass("fix")
 					.removeClass("show")
 					.removeClass("hide");
+
+			this._set_interval();
 		},
 
 		show: function () {
@@ -163,6 +165,8 @@
 
 		_set_interval: function () {
 			var self = this;
+
+			clearInterval( this.interval );
 
 			if ( this.seconds !== undefined && this.second !== 0 ) {
 				this.interval = setInterval( function () {
