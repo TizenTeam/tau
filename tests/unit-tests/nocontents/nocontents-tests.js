@@ -25,8 +25,7 @@
 		text = widget.children("p");
 
 		for ( i = 0; i < text.length; i++ ) {
-			ok( text.hasClass("ui-nocontents-text"), "Text" + i );
-
+			ok( $( text[i] ).hasClass("ui-nocontents-text"), "Text" + i );
 		}
 	};
 
