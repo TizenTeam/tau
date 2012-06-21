@@ -1,0 +1,29 @@
+From 04ecc70a88117e7435d0910ddfa7f1bff4383ad0 Mon Sep 17 00:00:00 2001
+From: wongi11.lee <wongi11.lee@samsung.com>
+Date: Thu, 21 Jun 2012 17:35:28 +0900
+Subject: [PATCH] JQM fix vclick trigger twice after pageChange.
+
+Change-Id: If554309b29cec1f1255d76a85fabaefc980d9daa
+Signed-off-by: wongi11.lee <wongi11.lee@samsung.com>
+---
+ .../jquery-mobile-1.1.0/js/jquery.mobile.vmouse.js |    4 ++++
+ 1 files changed, 4 insertions(+), 0 deletions(-)
+
+diff --git a/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.vmouse.js b/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.vmouse.js
+index 6e9b504..f3c14b4 100644
+--- a/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.vmouse.js
++++ b/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.vmouse.js
+@@ -195,6 +195,10 @@ function triggerVirtualEvent( eventType, event, flags ) {
+ function mouseEventCallback( event ) {
+ 	var touchID = $.data(event.target, touchTargetPropertyName);
+ 
++	if ( touchID === undefined ) {
++		return;
++	}
++
+ 	if ( !blockMouseTriggers && ( !lastTouchID || lastTouchID !== touchID ) ){
+ 		var ve = triggerVirtualEvent( "v" + event.type, event );
+ 		if ( ve ) {
+-- 
+1.7.0.4
+
