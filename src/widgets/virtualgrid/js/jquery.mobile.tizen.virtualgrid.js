@@ -279,21 +279,25 @@
 				footerHeight = 0,
 				itemsPerView = 0,
 				$child,
+				$item,
 				attributeName,
 				itemWidth = 0;
 
 			if ( widget._direction ) {
 				// x-axis
 				widget._viewSize = widget._$view.width();
-				widget._itemSize = widget._$list.children().first().children().first().outerWidth(true);
+				$item = widget._$list.children().first().children().first();
+				widget._itemSize = $item.outerWidth(true);
+				widget._itemOtherSize = $item.outerHeight(true);
 				attributeName = "width";
 			} else {
 				// y-axis
 				widget._viewSize = widget._$view.height();
-				widget._itemSize = widget._$list.children().first().children().first().outerHeight(true);
+				$item = widget._$list.children().first().children().first();
+				widget._itemSize = $item.outerHeight(true);
+				widget._itemOtherSize = $item.outerWidth(true);
 				attributeName = "height";
 			}
-
 			itemsPerView = widget._clipSize / widget._itemSize;
 			itemsPerView = Math.ceil( itemsPerView );
 			widget._itemsPerView = parseInt( itemsPerView, 10);
@@ -388,18 +392,24 @@
 				clipHeight =  $(widget.element).height();
 			}
 
+			// Tizen...
 			if ( isNaN(clipHeight) || clipHeight > documentHeight || clipHeight <= 0 ) {
 				clipHeight = documentHeight;
 				if ( !widget._direction && $parent.hasClass("ui-content") ) {
-					clipHeight = clipHeight - parseInt($parent.css("padding"), 10);
+					clipHeight = clipHeight - parseInt($parent.css("padding-top"), 10);
+					clipHeight = clipHeight - parseInt($parent.css("padding-bottom"), 10);
 					header = $parent.siblings(".ui-header");
 					footer = $parent.siblings(".ui-footer");
 
 					if ( header ) {
-						clipHeight = clipHeight - header.height();
+						if ( header.outerHeight(true) === null ) {
+							clipHeight = clipHeight - 50;
+						} else {
+							clipHeight = clipHeight - header.outerHeight(true);
+						}
 					}
 					if ( footer ) {
-						clipHeight = clipHeight - footer.height();
+						clipHeight = clipHeight - footer.outerHeight(true);
 					}
 				}
 			}
@@ -656,9 +666,11 @@
 			$wrapper.addClass("ui-scrollview-view");
 			for ( index = 0; index < count ; index += 1 ) {
 				$item = widget._makeWrapBlock( widget._template, widget._dataSet, index );
+				if ( widget._direction ) {
+					$item.css("top", 0).css("left", ( index * widget._itemSize ));
+				}
 				$wrapper.append($item);
 			}
-			// widget._replaceBlock($wrapper.children().last(), widget._totalRowCnt - 1);
 			$wrapper.children().first().addClass("rotation-head");
 			return $wrapper;
 		},
@@ -679,7 +691,7 @@
 			for ( colIndex = 0; colIndex < opts.itemcount; colIndex++ ) {
 				if ( dataTable[index] ) {
 					htmlData = myTemplate.tmpl( dataTable[index] );
-					$(htmlData).css(attrName, ( colIndex * widget._columnWidth )).addClass("virtualgrid-item");
+					$(htmlData).css(attrName, ( colIndex * widget._itemOtherSize )).addClass("virtualgrid-item");
 					wrapBlock.append( htmlData );
 					index += 1;
 				}
