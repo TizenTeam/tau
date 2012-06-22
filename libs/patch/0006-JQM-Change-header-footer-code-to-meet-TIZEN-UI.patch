@@ -159,7 +159,7 @@ index 3bb5613..7425e46 100644
 +				title_style = "extended";
 +			}
 +
-+			if ( s_theme_header.jqmData("position") == "fixed" || window.S.frameworkData.theme.match(/tizen/) ||
++			if ( s_theme_header.jqmData("position") == "fixed" || $.tizen.frameworkData.theme.match(/tizen/) ||
 +				s_theme_header.css("position") == "fixed" ) {
 +				s_theme_header
 +					.css( "position", "fixed" )

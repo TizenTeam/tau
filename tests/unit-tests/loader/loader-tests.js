@@ -9,8 +9,10 @@
 
 	module( "Loader" );
 
+	var tizen = $.tizen.__tizen__;
+
 	test( "util.getScaleFactor()", function ( ) {
-		var util = window.S.util,
+		var util = tizen.util,
 			expected = 1,
 			defaultWidth = 720;
 
@@ -32,7 +34,7 @@
 			mobile = appVersion.match( "Mobile" ),
 			isMobile = mobile ? true : false;
 
-		equal( window.S.util.isMobileBrowser(), isMobile, "Mobile browser must be detected." );
+		equal( tizen.util.isMobileBrowser(), isMobile, "Mobile browser must be detected." );
 
 		/* NOTE:
 		 * Is this test OK? How are both cases(mobile/non-mobile) tested?
@@ -40,19 +42,13 @@
 	} );
 
 	test( "css.addElementToHead()", function ( ) {
-		var css = window.S.css,
+		var css = tizen.css,
 			scarecrow = $( '<meta name="scarecrow" />' ),
 			selected;
 
 		css.addElementToHead( scarecrow );
-		/*
-		console.log('2');
 		selected = $('head').children('meta[name=scarecrow]');
-		console.log('3');
-		console.dir(selected);
 		ok( selected.length > 0, 'Object must be added to header.' );
-		*/
 	} );
-
 } ) ( jQuery );
 
