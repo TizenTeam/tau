@@ -1,0 +1,35 @@
+<div data-role="page" data-add-back-btn="true" id="twolinesample">
+	<div data-role="header" data-position="fixed">
+		<h1>Two line text sample</h1>
+	</div><!-- /header -->
+
+	<div data-role="content">
+		<p> short button or long text button</p>
+		<p> do not need to control width. because button control text width in case content area<p>
+		<div data-role="button" data-inline="true">Text Button Test</div>
+		<div data-role="button" data-inline="true">Text Button Test. long text line</div>
+		<br>
+		<p> but some case, for example width fixed area or narrow width<br>
+		browser change text to ellipsis </p>
+			<fieldset data-role="controlgroup" data-type="horizontal">
+				<input type="radio" name="radio-view-9" data-icon="segment-titlestyle-segonly" id="segment861" value="on" checked="checked" />
+				<label for="segment861">List</label>
+				<input type="radio" name="radio-view-9" data-icon="segment-titlestyle-segonly" id="segment862" value="off" />
+				<label for="segment862">This button is very long text. This button is very long text</label>
+				<input type="radio" name="radio-view-9" data-icon="segment-titlestyle-segonly" id="segment863" value="off" />
+				<label id="textposition" for="segment863">This button is very long text<br>This button is very long text</label>
+			</fieldset>	<br>
+		<p> to make text in button, 2 line
+		<p> Simple making step is ...<br><br>
+		1. first insert &lt;br&gt; tag between text  <br><br>
+		2. then set fontsize to see text in small area <br>
+		   &nbsp;&nbsp;ex&gt; $( "#textposition" ).css("font-size", "12px");  <br><br>
+		3. if element attribute or inner attributes has padding-top/bottom,<br>
+		 control this value because this value hide some text top/bottom <br>
+		   &nbsp;&nbsp;ex&gt; $( "#textposition" ).find("span").css("padding-top", "4px"); <br><br>
+		4. last control height between line text using line-height  <br>
+			 &nbsp;&nbsp;ex&gt; $( "#textposition" ).find("span").css("line-height", "14px"); <br><br><br><br>
+	</div>
+	<div data-role="footer">
+	</div>
+</div>
