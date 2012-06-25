@@ -17,7 +17,7 @@ index 6e9b504..f3c14b4 100644
  function mouseEventCallback( event ) {
  	var touchID = $.data(event.target, touchTargetPropertyName);
  
-+	if ( touchID === undefined ) {
++	if ( ( $.support.touch === true ) && ( touchID === undefined ) ) {
 +		return;
 +	}
 +
