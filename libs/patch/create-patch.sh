@@ -20,9 +20,6 @@ function reset_branch
 	exit $ret
 }
 
-# If --cancel option is given, just reset git and exit.
-test "$1" == "--cancel" && reset_branch 0
-
 # Make sure if current branch is PATCH_BRANCH
 test ! -f "$ORIG_BRANCH_FILE" && echo "ERROR: Original branch file ($ORIG_BRANCH_FILE) is not found!" && exit 1
 test "${CURRENT_BRANCH}" != "$PATCH_BRANCH" && echo "ERROR: Current branch is not '$PATCH_BRANCH'." && exit 1
