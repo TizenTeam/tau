@@ -1,7 +1,7 @@
 From 3548a6e0000943da605e6cbb00c1ec51ba82cf12 Mon Sep 17 00:00:00 2001
 From: Youmin Ha <youmin.ha@samsung.com>
 Date: Tue, 5 Jun 2012 16:47:59 +0900
-Subject: [PATCH] [PATCH] JQM: Fix bug on live firing custom events
+Subject: [JQM] Fix bug on live firing custom events
 
 Signed-off-by: Youmin Ha <youmin.ha@samsung.com>
 ---

@@ -1,10 +1,9 @@
 From 04ecc70a88117e7435d0910ddfa7f1bff4383ad0 Mon Sep 17 00:00:00 2001
 From: wongi11.lee <wongi11.lee@samsung.com>
 Date: Thu, 21 Jun 2012 17:35:28 +0900
-Subject: [PATCH] JQM fix vclick trigger twice after pageChange.
+Subject: [JQM] fix vclick trigger twice after pageChange.
 
-Change-Id: If554309b29cec1f1255d76a85fabaefc980d9daa
-Signed-off-by: wongi11.lee <wongi11.lee@samsung.com>
+Signed-off-by: Wongi Lee <wongi11.lee@samsung.com>
 ---
  .../jquery-mobile-1.1.0/js/jquery.mobile.vmouse.js |    4 ++++
  1 files changed, 4 insertions(+), 0 deletions(-)

@@ -1,9 +1,9 @@
 From 5473991ef637e148085e155981dc743a3a7ec02c Mon Sep 17 00:00:00 2001
 From: Jun Jinhyuk <jinhyuk.jun@samsung.com>
 Date: Thu, 7 Jun 2012 01:33:22 -0400
-Subject: [PATCH] fixedBar and backButton patch
+Subject: [JQM] fixedBar and backButton patch
 
-Change-Id: I653e8ba092991c9818b0c22d3957892e0699fed8
+Signed-off-by: Jinhyuk Jun <jinhyuk.jun@samsung.com>
 ---
  .../js/jquery.mobile.fixedToolbar.js               |  212 +++++++++++++++++++-
  .../js/jquery.mobile.page.sections.js              |   69 +++++--

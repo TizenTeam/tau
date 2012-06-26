@@ -1,7 +1,7 @@
 From 3fea934afc1252e6476750d86e450a61e6d8b816 Mon Sep 17 00:00:00 2001
 From: wongi11.lee <wongi11.lee@samsung.com>
 Date: Fri, 8 Jun 2012 19:58:19 +0900
-Subject: [PATCH] JQM Apply Tizen button style.
+Subject: [JQM] Apply Tizen button style.
 
 Signed-off-by: Wongi Lee <wongi11.lee@samsung.com>
 ---

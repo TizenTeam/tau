@@ -1,9 +1,9 @@
 From 2807a575905be49a8445aea0b1759a88339f4e16 Mon Sep 17 00:00:00 2001
 From: Koeun Choi <koeun.choi@samsung.com>
 Date: Fri, 15 Jun 2012 17:11:51 +0900
-Subject: [PATCH] JQM nolabel n favorite class for check support
+Subject: [JQM] nolabel n favorite class for check support
 
-Change-Id: I4db1ac869668ff361ae760e844959eb8236a3ad3
+Signed-off-by: Koeun Choi <koeun.choi@samsung.com>
 ---
  .../js/jquery.mobile.forms.checkboxradio.js        |   10 ++++++++++
  1 file changed, 10 insertions(+)
