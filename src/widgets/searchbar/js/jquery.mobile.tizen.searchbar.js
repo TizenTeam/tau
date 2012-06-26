@@ -145,6 +145,9 @@
 			focusedEl = input.wrap( "<div class='ui-input-search ui-shadow-inset ui-corner-all ui-btn-shadow" + themeclass + "'></div>" ).parent();
 			clearbtn = $( "<a href='#' class='ui-input-clear' title='clear text'>clear text</a>" )
 				.tap( function ( event ) {
+					if( input.attr( "disabled" ) == "disabled" ) {
+						return false;
+					}
 					event.preventDefault();
 					event.stopPropagation();
 
@@ -173,6 +176,9 @@
 			focusedEl.wrapAll( "<div class='input-search-bar'></div>" );
 
 			input.tap( function ( event ) {
+				if( input.attr( "disabled" ) == "disabled" ) {
+					return false;
+				}
 				inputedText = input.val();
 				input
 					.blur()
@@ -182,6 +188,9 @@
 			searchicon = $("<div class='ui-image-search ui-image-searchfield'></div>");
 			searchicon
 				.tap( function ( event ) {
+					if( input.attr( "disabled" ) == "disabled" ) {
+						return false;
+					}
 					searchicon.hide();
 
 					input
@@ -192,6 +201,9 @@
 
 			cancelbtn = $( "<a href='#' class='ui-input-cancel' title='clear text'>Cancel</a>" )
 				.tap(function ( event ) {
+					if( input.attr( "disabled" ) == "disabled" ) {
+						return false;
+					}
 					event.preventDefault();
 					event.stopPropagation();
 
@@ -211,6 +223,9 @@
 
 			// Input Focused
 			input.focus( function () {
+				if( input.attr( "disabled" ) == "disabled" ) {
+					return false;
+				}
 				showCancel();
 				focusedEl.addClass( "ui-focus" );
 			} );
@@ -218,11 +233,18 @@
 			// Input Blured
 			/* When user touch on page, it's same to blur */
 			$( "div.input-search-bar" ).tap( function ( event ) {
+				if( input.attr( "disabled" ) == "disabled" ) {
+					return false;
+				}
 				input.focus();
 				event.stopPropagation();
 			} );
 
 			$( currentPage ).bind("tap", function ( e ) {
+				if( input.attr( "disabled" ) == "disabled" ) {
+					return;
+				}
+
 				if ( $( input ).is( ":focus" ) ) {
 					focusedEl.removeClass( "ui-focus" );
 					hideCancel();
@@ -241,7 +263,7 @@
 					if ( clientHeight < scrollHeight ) {
 						input.height(scrollHeight + extraLineHeight);
 					}
-				};
+				}
 
 				input.keyup( function () {
 					clearTimeout( keyupTimeout );
@@ -304,11 +326,15 @@
 		disable: function () {
 			this.element.attr( "disabled", true );
 			this.element.parent().addClass( "ui-disabled" );
+			this.element.parent().parent().find(".ui-input-cancel").addClass( "ui-disabled" );
+			$( this.element ).blur();
 		},
 
 		enable: function () {
 			this.element.attr( "disabled", false );
 			this.element.parent().removeClass( "ui-disabled" );
+			this.element.parent().parent().find(".ui-input-cancel").removeClass( "ui-disabled" );
+			$( this.element ).focus();
 		}
 	} );
 
