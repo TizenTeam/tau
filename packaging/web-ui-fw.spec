@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.1.19
+Version:    0.1.20
 Release:    1
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -30,8 +30,6 @@ make DESTDIR=%{buildroot} install
 %files
 /usr/share/tizen-web-ui-fw/*/js
 /usr/share/tizen-web-ui-fw/latest
-
-%changelog
 
 ###############################
 %package -n web-ui-fw-theme-tizen-gray
@@ -78,3 +76,36 @@ Summary:    Tizen Web UI Framework Demo Application: tizen-gray demo
     Tizen Web UI Framework Demo Application: tizen-gray demo
 %files  -n web-ui-fw-demo-tizen-gray
 /usr/share/tizen-web-ui-fw/demos/tizen-gray
+
+
+###############################
+%changelog
+
+* Fri Jun 22 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.20
+- Spec changes
+	- Support 'latest' version (by symlink) for tizen-web-ui-fw.js path.
+	- imageslider : supports 'resize' event.
+	- listview : listview has 1px padding-bottom.
+	- loader : Change global namespace, from S to $.tizen.
+	- loader : Move loadCustomGlobalizeCulture() into $.tizen.util namespace.
+- Improvements & Bugfixes
+	- Scrollview : supports 'translate3d', instead of 'translate'.
+	- notification : reset timer when 'show' or 'refresh' event.
+	- JQM patch : Fix vclick event triggered twice.
+- Etc.
+	- Add & fix unit tests.
+
+* Thu Jun 14 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.19
+- Spec changes
+	- themes : Provide tizen-blue theme RPM package for OBS.
+	- mapview : new widget.
+	- notification : add .refresh() API.
+	- pagecontrol : add .value([val]) API, and change an attribute name 'data-initVal' to 'data-value'.
+- Improvements & Bugfixes
+	- Support minified CSS.
+	- loader : Fix & refactor 'loading globalize culture file' routine.
+	- JQM Patch : Calculate min-height of window in javascript code, and remove predefined min-height value from CSS.
+	- Many more bugfixes.
+- Etc.
+	- Add many unit tests.
+	- Fix test coverage instrumentation tool to work with current source code.
