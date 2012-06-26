@@ -403,7 +403,7 @@
 
 					if ( header ) {
 						if ( header.outerHeight(true) === null ) {
-							clipHeight = clipHeight - 50;
+							clipHeight = clipHeight - ( $(".ui-header").outerHeight() || 0 );
 						} else {
 							clipHeight = clipHeight - header.outerHeight(true);
 						}
