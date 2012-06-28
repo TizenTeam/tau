@@ -38,8 +38,8 @@ $(document).ready( function () {
 			notEqual( before, ts.toggleswitch( "option", "checked" ), "should change value" );
 		});
 
-		ts.next().children().first().click();
-
+		// "click" event or ".click()" is not working due to 'remove 2nd vclick' patch.
+		ts.next().find(".ui-toggleswitch-mover").trigger( "vclick" );
 		expect(2);
 
 		before = ts.toggleswitch( "option", "checked" );
