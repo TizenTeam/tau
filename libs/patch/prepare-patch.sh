@@ -11,9 +11,10 @@ CURRENT_BRANCH_FILE=${CWD}/.current_branch.txt
 
 function reset_branch
 {
-	echo "Restore to original git branch."
+	echo "Reset git to original git branch..."
 	test -f "$CURRENT_BRANCH_FILE" && CURRENT_BRANCH="`cat $CURRENT_BRANCH_FILE`"
 	git checkout ${CURRENT_BRANCH}
+	test -e ".git/rebase-apply" && git am --abort
 	git branch -D ${PATCH_BRANCH}
 	rm -f $CURRENT_BRANCH_FILE
 	exit 1
@@ -21,6 +22,9 @@ function reset_branch
 
 # If --cancel option is given, just reset git and exit.
 test "$1" == "--cancel" && reset_branch
+
+# If current branch file is already exist, reset and exit.
+test -f "$CURRENT_BRANCH_FILE" && reset_branch
 
 # Remember current branch name to a file
 echo "${CURRENT_BRANCH}" > $CURRENT_BRANCH_FILE

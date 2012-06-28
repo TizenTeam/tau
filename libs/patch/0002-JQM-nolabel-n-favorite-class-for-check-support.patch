@@ -1,0 +1,41 @@
+From 2807a575905be49a8445aea0b1759a88339f4e16 Mon Sep 17 00:00:00 2001
+From: Koeun Choi <koeun.choi@samsung.com>
+Date: Fri, 15 Jun 2012 17:11:51 +0900
+Subject: [JQM] nolabel n favorite class for check support
+
+Signed-off-by: Koeun Choi <koeun.choi@samsung.com>
+---
+ .../js/jquery.mobile.forms.checkboxradio.js        |   10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.forms.checkboxradio.js b/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.forms.checkboxradio.js
+index eb4731b..b373431 100644
+--- a/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.forms.checkboxradio.js
++++ b/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.forms.checkboxradio.js
+@@ -43,6 +43,12 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
+ 			return;
+ 		}
+ 
++		// Support fake label
++		if ( label.length == 0 ) {
++			label = $( "<label for='" + input[ 0 ].id  +
++				"' style='display:block;width:1px;height:1px;'></label>" );
++		}
++
+ 		// Expose for other methods
+ 		$.extend( this, {
+ 			label: label,
+@@ -70,6 +76,10 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
+ 		var wrapper = document.createElement('div');
+ 		wrapper.className = 'ui-' + inputtype;
+ 
++		if ( input.hasClass( "favorite" ) ) {
++			wrapper.className += ' favorite';
++		}
++
+ 		input.add( label ).wrapAll( wrapper );
+ 
+ 		label.bind({
+-- 
+1.7.9.5
+

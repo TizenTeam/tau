@@ -27,7 +27,10 @@ $( "#checkboxpage" ).live( "pageinit", function ( event ) {
 		if ( !widget.children().first().hasClass( buttonClassPrefix + "-hastxt" ) ) {
 			buttonText = "";
 		}
-		equal( widget.text() , buttonText , "Button Text" );
+		// Text Trim, Cause jQueryMobile(JQM) 1.1 forced to add - "\u00a0" in buttonIcon(ButtonMarkup)
+		// JQM 1.1 buttonMarkup code :
+		// - if( buttonIcon ) buttonIcon.appendChild( document.createTextNode( "\u00a0" ) );
+		equal( widget.text().trim() , buttonText , "Button Text" );
 
 		icon = widget.jqmData("icon");
 		if ( icon !== undefined ) {
@@ -57,7 +60,7 @@ $( "#checkboxpage" ).live( "pageinit", function ( event ) {
 			ok( widget.children().is( hasClass ) );
 		}
 
-		/* Check APIs */
+		// Check APIs
 		widget.button().button( "disable" );
 		equal( widget.attr("disabled"), "disabled", "button disable test" );
 

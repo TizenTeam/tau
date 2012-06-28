@@ -374,6 +374,9 @@
 	tizen.setGlobalize( );
 	export2TizenNS( $, tizen );
 
+	// set default page transition to slide
+	$.mobile.defaultPageTransition = "slide";
+
 	// Turn off JQM's auto initialization option.
 	// NOTE: This job must be done before domready.
 	$.mobile.autoInitializePage = false;

@@ -1,42 +1,67 @@
 @import "config.less";
 
 .ui-toggleswitch {
-	position: relative;
+	height: 80 * @unit_base;
+	width: 60 * @unit_base;
 	overflow: hidden;
-	background: @color_button_normal;
 
-	.toggleswitch-background {
-		position: absolute;
-		margin: 0px;
-		border: 0px;
-		left: 0px;
-		right: 0px;
-		top: 0px;
-		bottom: 0px;
-		pointer-events: none;
+	.ui-toggleswitch-mover {
+		position: relative;
+		font-size: 20 * @unit_base;
+		display: block;
+
+		.ui-toggleswitch-off {
+			border-radius: 5 * @unit_base;
+			color: @color_text_sub;
+			background: @color_button_normal;
+			height: 80 * @unit_base;
+		}
+
+		.ui-toggleswitch-on {
+			display: none;
+			border-radius: 5 * @unit_base;
+			background: @color_button_press;
+			height: 80 * @unit_base;
+			color: white;
+
+		}
+
+		.ui-toggleswitch-reed {
+			position: absolute;
+			border-radius: 5 * @unit_base;
+			width: 57 * @unit_base;
+			background: @color_button_text_normal;
+			top: 40 * @unit_base;
+			height: 39 * @unit_base;
+			left: 1px;
+		}
+
+		.ui-toggleswitch-text {
+			width: 100%;
+			position: absolute;
+			padding-top: 10 * @unit_base;
+			text-align: center;
+			text-overflow: ellipsis;
+		}
 	}
+}
 
-	.toggleswitch-sizer {
-		margin: 0px;
-		opacity: 0;
-		pointer-events: none;
-	}
+.ui-toggleswitch-state-checked {
+	.ui-toggleswitch-mover {
+		.ui-toggleswitch-reed {
+			top: 1px;
+		}
 
-	.toggleswitch-floating-button {
-		background: @color_text;
-		position: absolute;
-		margin: 0px;
-		left: 0px;
-		right: 0px;
-	}
+		.ui-toggleswitch-text {
+			top: 40 * @unit_base;
+		}
 
-	.ui-btn-inner {
-		padding: 2 * @unit_base 7 * @unit_base !important;
-	}
+		.ui-toggleswitch-on {
+			display: block;
+		}
 
-	.toggleswitch-mover {
-		border-color: transparent;
-		background: none;
-		pointer-events: none;
+		.ui-toggleswitch-off {
+			display: none;
+		}
 	}
 }
