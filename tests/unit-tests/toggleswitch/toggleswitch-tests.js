@@ -9,38 +9,43 @@ $(document).ready( function () {
 	test( "Options", function () {
 		var ts = $("#ts-self"),
 			text = [],
-			on = "Enabled",
-			off = "Disbled";
+			on = "Enable",
+			off = "Disable";
 
 		$("#ts-self").toggleswitch( {
-			onText: on,
-			offText: off,
+			texton: on,
+			textoff: off,
 			checked: false
 		});
-
 		deepEqual( [ on, off, false ],
-			[ ts.jqmData("onText"), ts.jqmData("offText"), ts.jqmData("checked") ],
+			[ ts.toggleswitch("option", "texton"),
+				ts.toggleswitch("option", "textoff"),
+				ts.toggleswitch("option", "checked") ],
 			"should set on/off text by option val" );
-		ts.next().find("a:odd").each( function (i, e) {
-			text.push( $(e).text().trim() );
-		}).end().find("a:lt(4):even").each( function (i, e) {
-			text.push( $(e).text().trim() );
-		});
 
-		deepEqual( text, [ on, on, off, off ], "should display on/off text correctly" );
+		text.push( ts.next().find(".ui-toggleswitch-on .ui-toggleswitch-text").text() );
+		text.push( ts.next().find(".ui-toggleswitch-off .ui-toggleswitch-text").text() );
+
+		deepEqual( text, [ on, off ], "should display on/off text correctly" );
 	});
 
 	test( "Events", function () {
-		var ts = $("#ts-self").toggleswitch().data("toggleswitch"),
-			before = ts.options.checked;
+		var ts = $("#ts-self").toggleswitch(),
+			before = ts.toggleswitch( "option", "checked" );
 
-		$("#ts-self").bind("changed", function() {
+		ts.bind("changed", function() {
 			ok( true, "should trigger changed event");
-			notEqual( before, ts.options.checked, "should change value" );
+			notEqual( before, ts.toggleswitch( "option", "checked" ), "should change value" );
 		});
 
-		$("#ts-self").next().click();
+		ts.next().children().first().click();
+
 		expect(2);
+
+		before = ts.toggleswitch( "option", "checked" );
+		ts.toggleswitch( "option", "checked", !before );
+
+		expect(4);
 	});
 
 });
