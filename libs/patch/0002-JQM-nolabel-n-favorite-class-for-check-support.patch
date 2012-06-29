@@ -1,7 +1,7 @@
 From 2807a575905be49a8445aea0b1759a88339f4e16 Mon Sep 17 00:00:00 2001
 From: Koeun Choi <koeun.choi@samsung.com>
 Date: Fri, 15 Jun 2012 17:11:51 +0900
-Subject: [JQM] nolabel n favorite class for check support
+Subject: [PATCH] JQM:nolabel n favorite class for check support
 
 Signed-off-by: Koeun Choi <koeun.choi@samsung.com>
 ---
