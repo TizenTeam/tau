@@ -1,0 +1,91 @@
+From c70b1f818389c9703af17bb59e1f78f4eefa7c65 Mon Sep 17 00:00:00 2001
+From: wongi11.lee <wongi11.lee@samsung.com>
+Date: Fri, 29 Jun 2012 13:24:49 +0900
+Subject: [PATCH] JQM remove 'search' from forms.textinput.
+
+Change-Id: I3de28a38dad8cfcc40a6e98273107e5beabb836e
+Signed-off-by: wongi11.lee <wongi11.lee@samsung.com>
+---
+ .../js/jquery.mobile.forms.textinput.js            |   49 +++----------------
+ 1 files changed, 8 insertions(+), 41 deletions(-)
+
+diff --git a/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.forms.textinput.js b/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.forms.textinput.js
+index f444522..a06d54d 100644
+--- a/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.forms.textinput.js
++++ b/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.forms.textinput.js
+@@ -13,8 +13,7 @@ $.widget( "mobile.textinput", $.mobile.widget, {
+ 		theme: null,
+ 		// This option defaults to true on iOS devices.
+ 		preventFocusZoom: /iPhone|iPad|iPod/.test( navigator.platform ) && navigator.userAgent.indexOf( "AppleWebKit" ) > -1,
+-		initSelector: "input[type='text'], input[type='search'], :jqmData(type='search'), input[type='number'], :jqmData(type='number'), input[type='password'], input[type='email'], input[type='url'], input[type='tel'], textarea, input[type='time'], input[type='date'], input[type='month'], input[type='week'], input[type='datetime'], input[type='datetime-local'], input[type='color'], input:not([type])",
+-		clearSearchButtonText: "clear text"
++		initSelector: "input[type='text'], input[type='number'], :jqmData(type='number'), input[type='password'], input[type='email'], input[type='url'], input[type='tel'], textarea, input[type='time'], input[type='date'], input[type='month'], input[type='week'], input[type='datetime'], input[type='datetime-local'], input[type='color'], input:not([type])"
+ 	},
+ 
+ 	_create: function() {
+@@ -46,41 +45,7 @@ $.widget( "mobile.textinput", $.mobile.widget, {
+ 		}
+ 
+ 
+-		//"search" input widget
+-		if ( input.is( "[type='search'],:jqmData(type='search')" ) ) {
+-
+-			focusedEl = input.wrap( "<div class='ui-input-search ui-shadow-inset ui-btn-corner-all ui-btn-shadow ui-icon-searchfield" + themeclass + miniclass + "'></div>" ).parent();
+-			clearbtn = $( "<a href='#' class='ui-input-clear' title='" + o.clearSearchButtonText + "'>" + o.clearSearchButtonText + "</a>" )
+-				.bind('click', function( event ) {
+-					input
+-						.val( "" )
+-						.focus()
+-						.trigger( "change" );
+-					clearbtn.addClass( "ui-input-clear-hidden" );
+-					event.preventDefault();
+-				})
+-				.appendTo( focusedEl )
+-				.buttonMarkup({
+-					icon: "delete",
+-					iconpos: "notext",
+-					corners: true,
+-					shadow: true,
+-					mini: mini
+-				});
+-
+-			function toggleClear() {
+-				setTimeout(function() {
+-					clearbtn.toggleClass( "ui-input-clear-hidden", !input.val() );
+-				}, 0);
+-			}
+-
+-			toggleClear();
+-
+-			input.bind('paste cut keyup focus change blur', toggleClear);
+-
+-		} else {
+-			input.addClass( "ui-corner-all ui-shadow-inset" + themeclass + miniclass );
+-		}
++		input.addClass( "ui-corner-all ui-shadow-inset" + themeclass + miniclass );
+ 
+ 		input.focus(function() {
+ 				focusedEl.addClass( $.mobile.focusClass );
+@@ -133,13 +98,15 @@ $.widget( "mobile.textinput", $.mobile.widget, {
+ 	},
+ 
+ 	disable: function(){
+-		( this.element.attr( "disabled", true ).is( "[type='search'],:jqmData(type='search')" ) ?
+-			this.element.parent() : this.element ).addClass( "ui-disabled" );
++		if ( this.element.attr( "disabled", true ) ) {
++			this.element.addClass( "ui-disabled" );
++		}
+ 	},
+ 
+ 	enable: function(){
+-		( this.element.attr( "disabled", false).is( "[type='search'],:jqmData(type='search')" ) ?
+-			this.element.parent() : this.element ).removeClass( "ui-disabled" );
++		if ( this.element.attr( "disabled", false) ) {
++			this.element.removeClass( "ui-disabled" );
++		}
+ 	}
+ });
+ 
+-- 
+1.7.0.4
+
