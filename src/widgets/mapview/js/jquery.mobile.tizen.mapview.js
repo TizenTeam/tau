@@ -256,9 +256,6 @@
 					});
 				}
 				originTouchend.call( this, e );
-
-				// for jquerygeo's exception handling
-				this._multiTouchAnchor = undefined;
 			};
 
 			geomap._refreshDrawing = function () {
