@@ -1,7 +1,7 @@
 From 5473991ef637e148085e155981dc743a3a7ec02c Mon Sep 17 00:00:00 2001
 From: Jun Jinhyuk <jinhyuk.jun@samsung.com>
 Date: Thu, 7 Jun 2012 01:33:22 -0400
-Subject: [JQM] fixedBar and backButton patch
+Subject: [PATCH] JQM:fixedBar and backButton patch
 
 Signed-off-by: Jinhyuk Jun <jinhyuk.jun@samsung.com>
 ---
