@@ -22,8 +22,7 @@
 	}
 
 	function setElementTransform( $ele, x, y, duration ) {
-		var translate3d = "translate3d(" + x + "," + y + ", 0px)",
-			translate2d = "translate(" + x + "," + y + ")",
+		var translate,
 			transition;
 
 		if ( !duration || duration === undefined ) {
@@ -39,12 +38,18 @@
 		 * CSS 3D Transformations
 		 *	Safari 4.0 / Firefox 10.0 / Chrome 12.0 / Opera 12.0 / IE 10
 		 */
+		if ( $.support.cssTransform3d ) {
+			translate = "translate3d(" + x + "," + y + ", 0px)";
+		} else {
+			translate = "translate(" + x + "," + y + ")";
+		}
+
 		$ele.css({
-			"-moz-transform": translate3d,
-			"-webkit-transform": translate3d,
-			"-ms-transform": translate2d,
-			"-o-transform": translate3d,
-			"transform": translate3d,
+			"-moz-transform": translate,
+			"-webkit-transform": translate,
+			"-ms-transform": translate,
+			"-o-transform": translate,
+			"transform": translate,
 			"-webkit-transition": transition
 		});
 	}
