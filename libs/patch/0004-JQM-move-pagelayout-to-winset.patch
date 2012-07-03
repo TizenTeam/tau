@@ -1,0 +1,68 @@
+From 12f7cdd3e6a427c777eb5b4c48b33fdd0ba1ef15 Mon Sep 17 00:00:00 2001
+From: Jun Jinhyuk <jinhyuk.jun@samsung.com>
+Date: Thu, 5 Jul 2012 01:00:43 -0400
+Subject: [PATCH] JQM move pagelayout to winset
+
+Change-Id: I38777266f0e4d30bce2db5057e2675f35221096a
+---
+ .../js/jquery.mobile.fixedToolbar.js               |    2 +-
+ .../js/jquery.mobile.page.sections.js              |   16 ++--------------
+ 2 files changed, 3 insertions(+), 15 deletions(-)
+ mode change 100644 => 100755 libs/js/jquery-mobile-1.1.0/js/jquery.mobile.page.sections.js
+
+diff --git a/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.fixedToolbar.js b/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.fixedToolbar.js
+index 0f9c23d..6a40ac5 100644
+--- a/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.fixedToolbar.js
++++ b/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.fixedToolbar.js
+@@ -65,7 +65,7 @@ define( [ "jquery", "./jquery.mobile.widget", "./jquery.mobile.core", "./jquery.
+ 
+ 				return false;
+ 			},
+-			initSelector: ":jqmData(position='fixed')"
++			initSelector: ":jqmData(position='dummy')"
+ 		},
+ 
+ 		_create: function() {
+diff --git a/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.page.sections.js b/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.page.sections.js
+old mode 100644
+new mode 100755
+index e0a718d..e78af6a
+--- a/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.page.sections.js
++++ b/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.page.sections.js
+@@ -8,11 +8,12 @@ define( [ "jquery", "./jquery.mobile.page", "./jquery.mobile.core", "./jquery.mo
+ (function( $, undefined ) {
+ 
+ $.mobile.page.prototype.options.backBtnText  = "Back";
+-$.mobile.page.prototype.options.addBackBtn   = false;
++$.mobile.page.prototype.options.addBackBtn   = "footer";
+ $.mobile.page.prototype.options.backBtnTheme = null;
+ $.mobile.page.prototype.options.headerTheme  = "a";
+ $.mobile.page.prototype.options.footerTheme  = "a";
+ $.mobile.page.prototype.options.contentTheme = null;
++$.mobile.page.prototype.options.footerExist  = true;
+ 
+ $( document ).delegate( ":jqmData(role='page'), :jqmData(role='dialog')", "pagecreate", function( e ) {
+ 
+@@ -58,19 +59,6 @@ $( document ).delegate( ":jqmData(role='page'), :jqmData(role='dialog')", "pagec
+ 				rightbtn = rightbtn || $headeranchors.eq( 1 ).addClass( "ui-btn-right" ).length;
+ 			}
+ 
+-			// Auto-add back btn on pages beyond first view
+-			if ( o.addBackBtn &&
+-				role === "header" &&
+-				$( ".ui-page" ).length > 1 &&
+-				$page.jqmData( "url" ) !== $.mobile.path.stripHash( location.hash ) &&
+-				!leftbtn ) {
+-
+-				backBtn = $( "<a href='#' class='ui-btn-left' data-"+ $.mobile.ns +"rel='back' data-"+ $.mobile.ns +"icon='arrow-l'>"+ o.backBtnText +"</a>" )
+-					// If theme is provided, override default inheritance
+-					.attr( "data-"+ $.mobile.ns +"theme", o.backBtnTheme || thisTheme )
+-					.prependTo( $this );
+-			}
+-
+ 			// Page title
+ 			$this.children( "h1, h2, h3, h4, h5, h6" )
+ 				.addClass( "ui-title" )
+-- 
+1.7.4.1
+
