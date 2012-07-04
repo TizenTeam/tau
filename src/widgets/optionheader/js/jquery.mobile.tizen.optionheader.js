@@ -157,7 +157,7 @@
 			};
 
 			/* Apply REM scaling */
-			elementHeight = elementHeight / ( 36 / parseInt($('html').css('font-size')) );
+			elementHeight = elementHeight / ( 36 / parseInt( $('html').css('font-size'), 10 ) );
 
 			if ( this.element.height() < elementHeight ) {
 				this.element.css( "height", elementHeight );
@@ -200,9 +200,8 @@
 				btn2Position = 10,
 				btn3Position = 144,
 				matchBtn = $( this.element ).parents( ".ui-page" ).find( "#" + matchingBtn ),
-				buttonRight = matchBtn.nextAll().is( "a" ) ? btn3Position : btn2Position;
-				/* Apply REM scaling */
-				scaleFactor = ( 36 / parseInt($('html').css('font-size')) );
+				buttonRight = matchBtn.nextAll().is( "a" ) ? btn3Position : btn2Position,
+				scaleFactor = ( 36 / parseInt( $('html').css('font-size'), 10 ) );
 
 			if ( $(this.element).parents(".ui-page").find( "#" + matchingBtn ).length != 0 ) {
 
@@ -395,8 +394,8 @@
 				CollapsedTop = 110,
 				ExpandedTop = 206,
 				CalculateTime,
-				/* Apply REM scaling */
-				scaleFactor = ( 36 / parseInt($('html').css('font-size')));
+				scaleFactor = ( 36 / parseInt( $('html').css('font-size'), 10 ) );
+
 			if ( toggle_header.children().is( ".input-search-bar" ) ) {
 				CollapsedTop = 218;
 				ExpandedTop = 314;
@@ -449,7 +448,7 @@
 		*/
 		collapse: function ( options ) {
 			var collapsedBarHeight = 10,
-			scaleFactor = ( 36 / parseInt($('html').css('font-size')));
+				scaleFactor = ( 36 / parseInt( $('html').css('font-size'), 10 ) );
 
 			collapsedBarHeight = collapsedBarHeight / scaleFactor;
 

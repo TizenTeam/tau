@@ -182,7 +182,7 @@
 								arrowSize / 2 // arrow unrestricted offset
 									+ desired[coord.point]
 									- orig[coord.point]
-									- halfSize[coord.size] 
+									- halfSize[coord.size]
 							)
 					),
 					// Triangle points here

@@ -46,13 +46,13 @@
  *
  * // tickernoti
  * <div data-role="notification" id="notification" data-type="ticker" data-interval="3000">
- * 	<p>Hello World</p>
- * 	<p>Denis</p>
+ *	<p>Hello World</p>
+ *	<p>Denis</p>
  * </div>
  *
  * // smallpopup
  * <div data-role="notification" id="notification" data-type="popup" data-interval="3000">
- * 	<p>Hello World</p>
+ *	<p>Hello World</p>
  * </div>
  *
  */
