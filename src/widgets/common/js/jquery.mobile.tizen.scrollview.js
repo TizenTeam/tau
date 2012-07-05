@@ -830,20 +830,26 @@
 				var $page = $c.parentsUntil("ui-page"),
 					focused;
 
-				if ( $c.jqmData("scroll") === "y" ) {
-					resizePageContentHeight( $page );
+				if ( $c.jqmData("scroll") !== "y" ) {
+					return;
+				}
 
-					focused = $c.find(".ui-focus");
+				if ( !$c.height() || !$v.height() ) {
+					return;
+				}
 
-					if ( focused ) {
-						focused.trigger("resize.scrollview");
-					}
+				resizePageContentHeight( $page );
 
-					/* calibration */
-					if ( self._sy < $c.height() - $v.height() ) {
-						self.scrollTo( 0, self._sy,
-							self.options.snapbackDuration );
-					}
+				focused = $c.find(".ui-focus");
+
+				if ( focused ) {
+					focused.trigger("resize.scrollview");
+				}
+
+				/* calibration */
+				if ( self._sy < $c.height() - $v.height() ) {
+					self.scrollTo( 0, self._sy,
+						self.options.snapbackDuration );
 				}
 			});
 
