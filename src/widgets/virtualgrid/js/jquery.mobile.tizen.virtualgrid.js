@@ -272,6 +272,8 @@
 
 			widget._makePositioned(widget._$clip);
 			widget._addBehaviors();
+			widget._createScrollBar();
+			widget._currentItemCount = 0;
 		},
 
 		refresh : function () {
@@ -330,9 +332,86 @@
 			$.extend(widget.options, widget._scrollView.options);
 			widget.options.showScrollBars = false;
 			widget._getScrollHierarchy = widget._scrollView._getScrollHierarchy;
-			widget._hideScrollBars =  widget._scrollView._hideScrollBars;
-			widget._showScrollBars =  widget._scrollView._showScrollBars;
 			widget._makePositioned =  widget._scrollView._makePositioned;
+		},
+
+		_hideScrollBars : function () {
+			var widget = this,
+				vclass = "ui-scrollbar-visible";
+
+			if ( widget.options.rotation ) {
+				return ;
+			}
+
+			if ( widget._vScrollBar ) {
+				widget._vScrollBar.removeClass( vclass );
+			} else {
+				widget._hScrollBar.removeClass( vclass );
+			}
+		},
+
+		_showScrollBars : function () {
+			var widget = this,
+				vclass = "ui-scrollbar-visible";
+
+			if ( widget.options.rotation ) {
+				return ;
+			}
+
+			if ( widget._vScrollBar ) {
+				widget._vScrollBar.addClass( vclass );
+			} else {
+				widget._hScrollBar.addClass( vclass );
+			}
+		},
+
+		_setScrollBarPosition : function ( di, duration ) {
+			var widget = this,
+				$sbt = null,
+				x = "0px",
+				y = "0px";
+
+			if ( widget.options.rotation ) {
+				return ;
+			}
+
+			widget._currentItemCount = widget._currentItemCount + di;
+			if ( widget._vScrollBar ) {
+				$sbt = widget._vScrollBar .find(".ui-scrollbar-thumb");
+				y = ( widget._currentItemCount * widget._itemScrollSize ) + "px";
+			} else {
+				$sbt = widget._hScrollBar .find(".ui-scrollbar-thumb");
+				x = ( widget._currentItemCount * widget._itemScrollSize ) + "px";
+			}
+			setElementTransform( $sbt, x, y, duration );
+		},
+
+		_createScrollBar : function () {
+			var widget = this,
+				$scrollBar = null,
+				scrollBarSize = 0,
+				prefix = "<div class=\"ui-scrollbar ui-scrollbar-",
+				suffix = "\"><div class=\"ui-scrollbar-track\"><div class=\"ui-scrollbar-thumb\"></div></div></div>";
+
+			if ( widget.options.rotation ) {
+				return ;
+			}
+
+			scrollBarSize = parseInt( widget._maxViewSize / widget._clipSize , 10);
+			scrollBarSize = scrollBarSize < 10 ? 30 : scrollBarSize;
+			widget._itemScrollSize = parseFloat( ( widget._clipSize - scrollBarSize ) / ( widget._totalRowCnt - widget._itemsPerView ) );
+			widget._itemScrollSize = Math.round(widget._itemScrollSize * 100) / 100;
+			if ( widget._direction ) {
+				widget._$clip.append( prefix + "x" + suffix );
+				widget._hScrollBar = $(widget._$clip.children(".ui-scrollbar-x"));
+				widget._hScrollBar.css("width", widget._clipSize);
+				widget._hScrollBar.find(".ui-scrollbar-thumb").css("width", scrollBarSize);
+			} else {
+				widget._$clip.append( prefix + "y" + suffix );
+				widget._vScrollBar = $(widget._$clip.children(".ui-scrollbar-y"));
+				widget._vScrollBar.css("height", widget._clipSize);
+				widget._vScrollBar.find(".ui-scrollbar-thumb").css("height", scrollBarSize);
+			}
 		},
 
 		centerTo: function ( selector ) {
@@ -533,6 +612,7 @@
 						$item = widget._$list.children( ).last( ).detach( );
 						widget._replaceBlock( $item, circularNum( idx, widget._totalRowCnt ) );
 						widget._$list.prepend( $item );
+						widget._setScrollBarPosition(-1);
 					}
 				} else if ( di < 0 ) { // scroll down
 					for ( i = 0; i > di; i-- ) {
@@ -540,6 +620,7 @@
 						$item = widget._$list.children().first().detach();
 						widget._replaceBlock($item, circularNum( idx, widget._totalRowCnt ) );
 						widget._$list.append( $item );
+						widget._setScrollBarPosition(1);
 					}
 				}
 				widget._scalableSize += di * widget._itemSize;
