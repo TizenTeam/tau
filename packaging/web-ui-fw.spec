@@ -1,6 +1,6 @@
 Name:       web-ui-fw
-Version:    0.1.20
-Release:    1
+Version:    0.1.22
+Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
 License:    MIT
@@ -80,6 +80,17 @@ Summary:    Tizen Web UI Framework Demo Application: tizen-gray demo
 
 ###############################
 %changelog
+
+* Fri Jul 6 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.22
+- Spec changes
+	- JQM 1.1 upgrade
+- Improvements & Bugfixes
+	- Transform3D support on scrollview
+	- Page layout supports IME control
+	- Mapview supports pinch zoom on JQM 1.1
+	- Fix wrong character on button in minified version
+	- Virtualgrid supports scrollbar
+	- Lots of bugfixes
 
 * Fri Jun 22 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.20
 - Spec changes
