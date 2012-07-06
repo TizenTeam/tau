@@ -645,7 +645,7 @@
 					obj.setValue( date );
 				});
 
-				$ul.bind( 'vclick', function ( e ) {
+				$ul.bind( 'click', function ( e ) {
 					if ( $(e.target).is('a') ) {
 						$ul.find(".current").removeClass("current");
 						$(e.target).parent().addClass('current');
