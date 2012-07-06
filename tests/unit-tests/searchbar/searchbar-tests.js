@@ -71,12 +71,7 @@ $( document ).ready( function () {
 
 		/* Cancel button pressed. */
 		$( "a.ui-btn-icon-cancel" ).trigger( "tap" );
-		notEqual( $( "div.ui-image-search" ).css( "dispaly" ), "none" );
-
-		/* Page area pressed. */
-		$input.focus();
-		$( "#searchbar-unit-test" ).trigger( "tap" );
-		equal( $divSearchbar.find( "a.ui-input-cancel" ).hasClass( "ui-btn-cancel-hide" ), true , "page area touched");
+		notEqual( $( "div.ui-image-search" ).css( "display" ), "none" );
 
 		start();
 	} );
