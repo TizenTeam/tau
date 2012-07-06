@@ -180,7 +180,11 @@
 
 		recreate: function ( newArray ) {
 			var t = this,
-				o = this.options;
+				o = this.options,
+				myTemplate,
+				more_items_to_load,
+				num_next_load_items,
+				htmlData;
 
 			$( o.id ).empty();
 

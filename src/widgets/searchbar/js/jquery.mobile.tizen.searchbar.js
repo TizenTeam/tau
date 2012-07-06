@@ -145,7 +145,7 @@
 			focusedEl = input.wrap( "<div class='ui-input-search ui-shadow-inset ui-corner-all ui-btn-shadow" + themeclass + "'></div>" ).parent();
 			clearbtn = $( "<a href='#' class='ui-input-clear' title='clear text'>clear text</a>" )
 				.tap( function ( event ) {
-					if( input.attr( "disabled" ) == "disabled" ) {
+					if ( input.attr( "disabled" ) == "disabled" ) {
 						return false;
 					}
 					event.preventDefault();
@@ -176,7 +176,7 @@
 			focusedEl.wrapAll( "<div class='input-search-bar'></div>" );
 
 			input.tap( function ( event ) {
-				if( input.attr( "disabled" ) == "disabled" ) {
+				if ( input.attr( "disabled" ) == "disabled" ) {
 					return false;
 				}
 				inputedText = input.val();
@@ -188,7 +188,7 @@
 			searchicon = $("<div class='ui-image-search ui-image-searchfield'></div>");
 			searchicon
 				.tap( function ( event ) {
-					if( input.attr( "disabled" ) == "disabled" ) {
+					if ( input.attr( "disabled" ) == "disabled" ) {
 						return false;
 					}
 					searchicon.hide();
@@ -201,7 +201,7 @@
 
 			cancelbtn = $( "<a href='#' class='ui-input-cancel' title='clear text'>Cancel</a>" )
 				.tap(function ( event ) {
-					if( input.attr( "disabled" ) == "disabled" ) {
+					if ( input.attr( "disabled" ) == "disabled" ) {
 						return false;
 					}
 					event.preventDefault();
@@ -223,7 +223,7 @@
 
 			// Input Focused
 			input.focus( function () {
-				if( input.attr( "disabled" ) == "disabled" ) {
+				if ( input.attr( "disabled" ) == "disabled" ) {
 					return false;
 				}
 				showCancel();
@@ -233,7 +233,7 @@
 			// Input Blured
 			/* When user touch on page, it's same to blur */
 			$( "div.input-search-bar" ).tap( function ( event ) {
-				if( input.attr( "disabled" ) == "disabled" ) {
+				if ( input.attr( "disabled" ) == "disabled" ) {
 					return false;
 				}
 				input.focus();
@@ -241,7 +241,7 @@
 			} );
 
 			$( currentPage ).bind("tap", function ( e ) {
-				if( input.attr( "disabled" ) == "disabled" ) {
+				if ( input.attr( "disabled" ) == "disabled" ) {
 					return;
 				}
 
@@ -263,7 +263,7 @@
 					if ( clientHeight < scrollHeight ) {
 						input.height(scrollHeight + extraLineHeight);
 					}
-				}
+				};
 
 				input.keyup( function () {
 					clearTimeout( keyupTimeout );

@@ -168,7 +168,7 @@
 		value: function ( val ) {
 			var pc = $( this.element );
 
-			if( val && typeof val == "number" ) {
+			if ( val && typeof val == "number" ) {
 				this._changeActiveBtn( val );
 				pc.data( 'value', val );
 			} else {

@@ -156,8 +156,9 @@
 				processing();
 			} else {
 				this.loader[index] = setInterval( function () {
-					if ( !self.images[index].height() )
+					if ( !self.images[index].height() ) {
 						return;
+					}
 
 					processing();
 					clearInterval( self.loader[index] );
