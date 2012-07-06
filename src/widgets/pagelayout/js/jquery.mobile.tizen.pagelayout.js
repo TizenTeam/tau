@@ -302,9 +302,9 @@
 					}
 					self.setHeaderFooter( event );
 				} )
-				.bind( "webkitAnimationStart animationstart updatelayout", function(){
+				.bind( "webkitAnimationStart animationstart updatelayout", function(e, data){
 					if( o.updatePagePadding ){
-						self.updatePagePadding();
+						self.updatePagePadding(data);
 					}
 				})
 
@@ -405,7 +405,7 @@
 		},
 
 		// This will set the content element's top or bottom padding equal to the toolbar's height
-		updatePagePadding: function() {
+		updatePagePadding: function(data) {
 			var $el = this.element,
 				header = $el.is( ".ui-header" );
 
@@ -413,7 +413,7 @@
 			if( this.options.fullscreen ){ return; }
 
 //			$el.closest( ".ui-page" ).css( "padding-" + ( header ? "top" : "bottom" ), $el.outerHeight() );
-			this.updatePageLayout();
+			this.updatePageLayout(data);
 		},
 
 
