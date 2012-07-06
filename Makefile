@@ -117,7 +117,7 @@ libs_cleanup:
 
 jqm: init
 	# Building jQuery Mobile...
-	cd ${JQM_LIB_PATH} && make js NODE=`which node` || exit 1; \
+	cd ${JQM_LIB_PATH} && make js NODE=/usr/bin/node || exit 1; \
 	cp -f ${JQM_LIB_PATH}/compiled/*.js ${JQM_LIB_PATH}/../; \
 
 third_party: init jqm
