@@ -315,6 +315,9 @@
 							self.updatePagePadding();
 						});
 					}
+					$( window ).bind( "resize", function(){
+						self.layoutPageIME();
+					}),
 /* new_header */
 					/* Header position fix(remove transition) */
 					$( "body" ).children( ":jqmData(role='header')" )
@@ -361,8 +364,45 @@
 				});
 		},
 
-
 		_visible: true,
+		_IMEShown : false,
+
+		layoutPageIME: function() {
+			if ( $( document.activeElement ).is( "input" ) || $( document.activeElement ).is( "textarea" ) ) {
+				/* Check vertical and horizontal ratio.
+				 * If focus on input and two values are different, IME is drawed. */
+				console.log("A: " + ( screen.width / window.innerWidth  ) + " B: " + ( ( screen.height - 50 ) / window.innerHeight ) );
+				if ( this._IMEShown === false ) {
+					if ( ( screen.width / window.innerWidth  ) != ( ( screen.height - 50 ) / window.innerHeight ) ) {
+						/* IME draw */
+						console.log("hide");
+						$( ".ui-page-active .ui-footer" ).hide();
+						this.updatePageLayout();
+
+						this._IMEShown = true;
+					}
+				} else {
+					if ( ( screen.width / window.innerWidth  ) == ( ( screen.height - 50 ) / window.innerHeight ) ) {
+						/* IME disappered */
+						$( ".ui-page-active .ui-footer" ).show();
+						this.updatePageLayout();
+
+						this._IMEShown = false;
+					}
+				}
+			} else {
+				console.log("A: " + ( screen.width / window.innerWidth  ) + " B: " + ( ( screen.height - 50 ) / window.innerHeight ) );
+				if ( this._IMEShown === true ) {
+					if ( ( screen.width / window.innerWidth  ) == ( ( screen.height - 50 ) / window.innerHeight ) ) {
+						/* IME disappered */
+						$( ".ui-page-active .ui-footer" ).show();
+						this.updatePageLayout();
+
+						this._IMEShown = false;
+					}
+				}
+			}
+		},
 
 		// This will set the content element's top or bottom padding equal to the toolbar's height
 		updatePagePadding: function() {
