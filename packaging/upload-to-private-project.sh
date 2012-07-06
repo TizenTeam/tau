@@ -33,7 +33,7 @@ test -d $OBSDIR_PROJECT || osc mkpac $PROJECT
 
 ### Make tarball and spec into obs project dir
 cd $OBSDIR_PROJECT
-osc rm *
+osc rm --force *
 rm -rf $OBSDIR_PROJECT/*
 cd $SRCROOT
 git archive --format=tar --prefix=$TARNAME/ HEAD | gzip > $OBSDIR_PROJECT/$TARNAME.tar.gz
