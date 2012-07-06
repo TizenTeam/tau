@@ -125,7 +125,7 @@ third_party: init jqm
 	@@cd ${LIBS_DIR}/js; \
 	    for f in ${LIBS_JS_FILES}; do \
 	        cat $$f >> ${FW_LIB_JS}; \
-		uglifyjs $$f >> ${FW_LIB_MIN}; \
+		uglifyjs --ascii $$f >> ${FW_LIB_MIN}; \
 		echo "" >> ${FW_LIB_MIN}; \
 	    done; \
 	    cp ${LIBS_DIR}/js/${JQUERY} ${JS_OUTPUT_ROOT}/jquery.js
@@ -205,7 +205,7 @@ compress: widgets loader themes
 	echo '/*' > ${FW_MIN}; \
 	cat ${COPYING_FILE} >> ${FW_MIN}; \
 	echo '*/' >> ${FW_MIN}; \
-	uglifyjs -nc ${FW_JS} >> ${FW_MIN}; \
+	uglifyjs --ascii -nc ${FW_JS} >> ${FW_MIN}; \
 	# CSS compressing
 	@@cd ${THEME_OUTPUT_ROOT}; \
 	for csspath in */*.css; do \
