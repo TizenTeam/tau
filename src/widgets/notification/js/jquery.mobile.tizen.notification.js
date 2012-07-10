@@ -272,6 +272,10 @@
 				if ( self.running ) {
 					self._refresh();
 				}
+
+				if ( self.type === 'popup' ) {
+					self._set_position();
+				}
 			});
 		}
 	}); // End of widget
