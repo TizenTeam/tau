@@ -31,9 +31,9 @@
 					</div>
 					</div>
 				</script>
-				<div id="virtualgrid-test" data-role="virtualgrid"  data-itemcount="3" data-rotation="true" data-template="tizen-demo-namecard" data-dbtable="JSON_DATA"></div>
+				<div id="virtualgrid-test" data-role="virtualgrid"  data-itemcount="3" data-rotation="false" data-template="tizen-demo-namecard" data-dbtable="JSON_DATA"></div>
 				<script>
-				$( ".virtualgrid_demo_page" ).live( "pagecreate", function() {
+				$( ".virtualgrid_demo_page" ).one( "pagecreate", function() {
 					console.log("pagecreate...");
 					$.getScript( "../../../demos/tizen-gray/widgets/grid/js/virtualgrid-db-demo.js", function( data, textStatus ) {
 						$( "div" ).filter( function() {

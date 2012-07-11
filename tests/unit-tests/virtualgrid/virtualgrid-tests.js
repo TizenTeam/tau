@@ -32,10 +32,10 @@
 			}
 		}
 
-		notEqual( index, 0, "API : centerTo");
+		notEqual( index, -1, "API : centerTo");
 
 		$item = $($(".ui-virtualgrid-wrapblock-y:first").children()[0])
-		$item.trigger("click");
+		$(".virtualgrid_demo_page").trigger("select");
 	};
 
 	test( "Virtualgrid", function () {
