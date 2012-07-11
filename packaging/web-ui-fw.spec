@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.1.22
+Version:    0.1.23
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -81,7 +81,12 @@ Summary:    Tizen Web UI Framework Demo Application: tizen-gray demo
 ###############################
 %changelog
 
-* Fri Jul 6 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.22
+* Wed Jul 11 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.23
+- Improvements & Bugfixes
+   - Fix notification position
+   - Fix unit tests
+
+ Fri Jul 6 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.22
 - Spec changes
 	- JQM 1.1 upgrade
 - Improvements & Bugfixes
