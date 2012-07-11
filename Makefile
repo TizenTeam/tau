@@ -57,9 +57,9 @@ LIBS_JS_FILES = jlayout/jquery.sizes.js \
 				jlayout/jquery.jlayout.js \
 				jquery.easing.1.3.js \
 				jquery.tmpl.js \
+				jquery.mobile.js \
 				${GEO_VERSION}/js/jquery.geo.head.js \
 				${GEO_VERSION}/js/jquery.mousewheel.js \
-				${GEO_VERSION}/js/jquery.ui.widget.js \
 				${GEO_VERSION}/js/jquery.geo.core.js \
 				${GEO_VERSION}/js/jquery.geo.geographics.js \
 				${GEO_VERSION}/js/jquery.geo.geomap.js \
@@ -76,9 +76,6 @@ JQM_VERSION = jquery-mobile-1.1.0
 JQM_LIB_PATH = $(CURDIR)/libs/js/${JQM_VERSION}
 
 ifeq (${DEBUG},yes)
-LIBS_JS_FILES +=\
-	jquery.mobile.js \
-    $(NULL)
 JQUERY = jquery-1.7.1.js
 else
 LIBS_JS_FILES +=\
