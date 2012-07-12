@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	</head>
+<body>
+
+<div data-role="page" data-add-back-btn="none">
+	<div data-role="header" data-position="fixed" >
+		<h1>Back button to Header</h1>
+	</div>
+
+	<div data-role="content">
+		<p> Case 7 : <br><br>
+		Web Developer declared only footer in page<br>
+		but need to add back button dynamically <br>
+		select footer and call barlayout("addBackBtn") API<br></p>
+		<div>
+			<p style="width:100%; padding:1em; background-color:whitesmoke; color:black; border-width:3px; border-style:inset">
+			&lt;div data-role="page" data-add-back-btn="none"&gt; <br>
+			&nbsp&nbsp&nbsp&nbsp&lt;div data-role="header" data-position="fixed"&gt; <br>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&lt;h1&gt;back button sample&lt;/h1&gt; <br>
+			&nbsp&nbsp&nbsp&nbsp&lt;/div&gt; <br>
+			&nbsp&nbsp&nbsp&nbsp&lt;div data-role="content"&gt; <br>
+			&nbsp&nbsp&nbsp&nbsp&lt;/div&gt; <br>
+			&nbsp&nbsp&nbsp&nbsp&lt;div data-role="footer"&gt; <br>
+			&nbsp&nbsp&nbsp&nbsp&lt;/div&gt; <br>
+		  &lt;/div&gt; </p>
+		</div><br>
+
+		<div>
+			<p style="width:100%; padding:1em; background-color:whitesmoke; color:black; border-width:3px; border-style:inset">
+				&lt;script&gt; <br>
+				&nbsp;&nbsp;var $elFooter = $(".ui-page-active").find(".ui-footer"); <br>
+				&nbsp;&nbsp;$elFooter.barlayout("addBackBtn"); <br>
+				&lt;/script&gt; <br>
+			</p>
+		</div><br>
+
+		<a id="genBackToFooter" data-role="button" data-inline="true">Generate backbutton to footer</a><br><br>
+		<a href="../backbutton-control.html" data-role="button" data-inline="true">Go Back</a>
+	</div>
+
+	<div data-role="footer">
+	</div>
+</div>
+
+</body>
+</html>

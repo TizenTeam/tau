@@ -440,7 +440,7 @@
 			$elFooter.css( "top", window.innerHeight - resultFooterHeight );
 
 			if ( $elFooterControlbar.jqmData("style") == "toolbar" ) {
-				$elFooterControlbar.css( "width", window.innerWidth - $elFooterControlbar.siblings( ".ui-btn" ).width() );
+				$elFooterControlbar.css( "width", window.innerWidth - $elFooterControlbar.siblings( ".ui-btn" ).width() - parseInt($elFooterControlbar.siblings(".ui-btn").css("right"),10) * 2  );
 			}
 
 			if ( $.support.scrollview ) {

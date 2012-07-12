@@ -11,7 +11,7 @@
 -----------------------------------------------------------------------------------------------------------*/
 
 /***************************************************************************
-                    Header / Footer 
+                    Header / Footer
                     NavigationBar
 ***************************************************************************/
 .ui-bar-s {
@@ -21,71 +21,55 @@
 	font-family: Helvetica, Arial, sans-serif;
 	font-weight: bold;
 	font-size : 36 * @unit_base;
-	
+
 	.ui-link-inherit {
 		color: @color_bar_title_text;
 	}
-/*	
-	.ui-link {
-		color: #7cc4e7; 
-		font-weight: bold;
-		&:hover { color: #2489CE; }
-		&:active { color: #2489CE; }
-		&:visited {	color: #2489CE; }
-	}
-	*/	
+
 	.ui-btn.ui-btn-back.ui-btn-down-s {
 		.ui-btn-inner {
 			background : @color_bar_back_btn_press;
 		}
 	}
-	
-	.ui-btn.ui-btn-back, .ui-btn.ui-btn-footer-right{
+
+	> .ui-btn.ui-btn-back,
+	> .ui-btn.ui-btn-footer-right{
 		position : absolute;
 		font-size : 32 * @unit_base;
 
-		width : 144 * @unit_base;
-		height : 114 * @unit_base;
-		top : 0 * @unit_base;
+		width : 104 * @unit_base;
+		height : 74 * @unit_base;
+		top : 20 * @unit_base;
 
 		border-style : none;
 		border-width : 0px;
-		background : @color_bar_bg;
 	}
-	.ui-btn.ui-btn-back .ui-btn-inner, 
+	.ui-btn.ui-btn-back .ui-btn-inner,
 	.ui-btn.ui-btn-footer-right .ui-btn-inner {
 			padding : 0;
 
 			width : 104 * @unit_base;
-			height : 74 * @unit_base;	
-			top : 20 * @unit_base;
-			left : 20 * @unit_base;			
-
-			background: @color_bar_footer_btn_bg;			 		
-
-			border-color : black; 
-			border-width : 2 * @unit_base;
-			border-style :  groove;
+			height : 74 * @unit_base;
 		}
-	
+
 	.ui-btn.ui-btn-back{
-		right : 0 * @unit_base;
+		right : 20 * @unit_base;
 	}
-	
+
 	.ui-btn.ui-btn-footer-right.ui-btn-down-s{
 		.ui-btn-inner {
 			background : @color_bar_btn_press;
 		}
 	}
 	.ui-btn.ui-btn-footer-right{
-		.ui-btn-inner {	
+		.ui-btn-inner {
 			.ui-btn-text {
 				line-height : 74  * @unit_base;
-			}	
+			}
 		}
-	}	
+	}
 
-	.ui-field-contain {		
+	.ui-field-contain {
 		margin-left : auto;
 		margin-right : auto;
 		height : 74  * @unit_base;
@@ -154,46 +138,51 @@
 		width : 682 * @unit_base;
 		.ui-radio {
 			width : 170  * @unit_base;
-		}			
+		}
 	}
 	.ui-title-extended-controlgroup-3btn {
 		width : 432  * @unit_base;
 		.ui-radio {
 			width : 143  * @unit_base;
-		}			
+		}
 	}
 	.ui-title-extended-controlgroup-2btn {
 		width : 328  * @unit_base;
 		.ui-radio {
 			width : 163  * @unit_base;
 		}
-	}	
+	}
 }
 
-.ui-header.ui-bar-s{ 
+.ui-header.ui-bar-s{
 	position : fixed;
 	top : 0px;
 	background : @color_bar_title_bg;
-	
+
 	.ui-title {
 		color : @color_bar_title_text;
 
 		top : 0px;
-		min-height: 36 * @unit_base; 
-		text-align: center; 
-		font-size : 36 * @unit_base; 
-		display: block; 
-		margin: 28*@unit_base 135*@unit_base 28*@unit_base 135*@unit_base;  
-		text-overflow: ellipsis; 
-		overflow: hidden; 
-		white-space: nowrap; 
-		outline: 0 !important; 
+		min-height: 36 * @unit_base;
+		text-align: center;
+		font-size : 36 * @unit_base;
+		display: block;
+		margin: 28*@unit_base 135*@unit_base 28*@unit_base 135*@unit_base;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		white-space: nowrap;
+		outline: 0 !important;
 	}
-	
+
 	.ui-btn{
 		font-size : 28 * @unit_base;
 		height : 74 * @unit_base;
-		width : 124  * @unit_base;	
+	}
+
+	.ui-btn.ui-btn-left,
+	.ui-btn.ui-btn-right,
+	.ui-btn.ui-title-normal-3btn {
+		width : 114 * @unit_base;
 	}
 
 	> .ui-btn{
@@ -201,28 +190,24 @@
 		margin-top : 0px;
 		font-size : 28 * @unit_base;
 		height : 74 * @unit_base;
-		
+
 		background: @color_bar_title_btn_bg;
 		color 		: @color_bar_title_text;
-			
+
 		border-style: solid;
-		border-color: @color_bar_title_btn_border; 	
+		border-color: @color_bar_title_btn_border;
 		border-width: 1px;
-			
-		.ui-btn-inner {
-			width : 108  * @unit_base;
-		}
 	}
-	
+
 	> .ui-btn.ui-btn-down-s {
 		background : @color_bar_btn_press;
 		color : @color_bar_title_text;
-	}	
+	}
 }
 
 .ui-header.ui-bar-s.ui-title-extended-height {
 	height : 136  * @unit_base;
-	
+
 	a {
 		top : 50  * @unit_base;
 	}
@@ -230,8 +215,8 @@
 	.ui-title {
 		font-size : 28  * @unit_base;
 		top : 0  * @unit_base;
-		
-		padding-top : 11 * @unit_base;		
+
+		padding-top : 11 * @unit_base;
 		margin-top : 0 * @unit_base;
 		margin-bottom : 0 * @unit_base;
 	}
@@ -241,6 +226,11 @@
 		margin-top : 0 * @unit_base;
 		top : 2 * @unit_base; // scale change
 	}
+}
+
+.ui-header.ui-bar-s	.ui-btn.ui-btn-back .ui-btn-inner {
+	border-style : none;
+	border-width : 0px;
 }
 
 .ui-header.ui-bar-s.ui-title-controlbar-height,
@@ -262,7 +252,7 @@
 
 
 /***************************************************************************
-                    Header / Footer 
+                    Header / Footer
                     NavigationBar
 ***************************************************************************/
 /***************************************************************************
@@ -271,37 +261,37 @@
 .ui-title-content-normal-height,
 .ui-title-content-option-header-collapsed-1line-height  {
 	position : relative;
-	top : 100  * @unit_base;	
+	top : 100  * @unit_base;
 }
 
 .ui-title-content-no-height {
 	position : relative;
-	top : 0  * @unit_base;	
+	top : 0  * @unit_base;
 }
 
 .ui-title-content-extended-height {
 	position : relative;
-	top : 136  * @unit_base;	
+	top : 136  * @unit_base;
 }
 
 .ui-title-content-option-header-expanded-1line-height {
 	position : relative;
-	top : 195  * @unit_base; 	
+	top : 195  * @unit_base;
 }
 
 .ui-title-content-search {
 	position : relative;
-	top : 206  * @unit_base; 		
+	top : 206  * @unit_base;
 }
 
 .ui-title-content-optionheader-search {
-	position : relative; 	
-	top : 219  * @unit_base;		
+	position : relative;
+	top : 219  * @unit_base;
 }
 
 .ui-title-content-controlbar-height {
 	position : relative;
-	top : 115  * @unit_base;	
+	top : 115  * @unit_base;
 }
 /***************************************************************************
                     Content Top calculate
@@ -310,11 +300,11 @@
 // NOTE: This class is applied to almost all JQM widgets!
 .ui-body-s {
 	border: 1px solid #2a2a2a;
-	background: 			@color_bg; 
+	background: 			@color_bg;
 	color: 					@color_text;
 	font-weight: normal;
-	
-	font-family: Helvetica, Arial, sans-serif; 
+
+	font-family: Helvetica, Arial, sans-serif;
 
 	.ui-link-inherit { color: 	#fff; }
 	.ui-link {
@@ -334,18 +324,18 @@
 	background: 			@color_button_normal;
 	font-weight: bold;
 	color: 					@color_button_text_normal;
-	
+
 	a.ui-link-inherit {
 		color: @color_button_text_normal;
 	}
-	
+
 	.LESSbutton_text1_style;
 }
 .ui-btn-hover-s {
 	background: 			@color_button_hover;
 	font-weight: bold;
 	color: 					@color_button_text_normal;
-	
+
 	a.ui-link-inherit {
 		color: @color_button_text_normal;
 	}
@@ -362,7 +352,7 @@
 	a.ui-link-inherit {
 		color: @color_button_text_normal;
 	}
-	
+
 	.LESSbutton_text1_style;
 }
 .ui-btn-up-s,
