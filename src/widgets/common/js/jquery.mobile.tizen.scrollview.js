@@ -59,8 +59,6 @@
 
 			showScrollBars:    true,
 			overshootEnable:   false,
-
-			delayedClickSelector: "a,input,textarea,select,button,.ui-btn"
 		},
 
 		_makePositioned: function ( $ele ) {
@@ -417,7 +415,9 @@
 					target.parents(':input').length > 0 );
 
 			if ( this._shouldBlockEvent ) {
-				e.preventDefault();
+				if ( this.options.eventType === "mouse" ) {
+					e.preventDefault();
+				}
 			} else {
 				target.one( "resize.scrollview", function () {
 					if ( ey > $c.height() ) {
@@ -603,11 +603,6 @@
 
 			this._disableTracking();
 
-			if ( !this._didDrag && this.options.eventType === "touch" ) {
-				$( e.target ).closest( this.options.delayedClickSelector )
-						.trigger("click");
-			}
-
 			return !this._didDrag;
 		},
 
@@ -691,7 +686,7 @@
 					}
 				};
 			} else {
-				this._dragEvt = "touchstart touchmove touchend vclick";
+				this._dragEvt = "touchstart touchmove touchend click";
 
 				this._dragCB = function ( e ) {
 					var t;
@@ -710,7 +705,7 @@
 					case "touchend":
 						return self._handleDragStop( e );
 
-					case "vclick":
+					case "click":
 						return !self._didDrag;
 					}
 				};
