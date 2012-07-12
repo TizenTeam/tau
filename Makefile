@@ -11,6 +11,7 @@ PATH := $(CURDIR)/build-tools/bin:$(PATH)
 
 JSLINT_LEVEL = 1
 JSLINT = jslint --sloppy --eqeq --bitwise --forin --nomen --predef jQuery --color --plusplus --browser --jqmspace
+COMMON_WIDGET = common
 INLINE_PROTO = 1
 OUTPUT_ROOT = $(CURDIR)/build
 FRAMEWORK_ROOT = ${OUTPUT_ROOT}/${PROJECT_NAME}/${VERSION}
@@ -141,6 +142,9 @@ widgets: init third_party
 	    while read REPLY; do \
 	        echo "	# Building widget $$REPLY"; \
 			if test ${JSLINT_LEVEL} -ge 1; then \
+				if test $$REPLY = ${COMMON_WIDGET}; then \
+					continue; \
+				fi; \
 				for FNAME in ${WIDGETS_DIR}/$$REPLY/js/*.js; do \
 					${JSLINT} $$FNAME; \
 					if test ${JSLINT_LEVEL} -ge 2 -a $$? -ne 0; then \
