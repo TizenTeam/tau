@@ -366,13 +366,14 @@
 
 		_visible: true,
 		_IMEShown : false,
+		_IMEindicatorHeight : window.outerHeight - window.innerHeight,
 
 		layoutPageIME: function() {
 			if ( $( document.activeElement ).is( "input" ) || $( document.activeElement ).is( "textarea" ) ) {
 				/* Check vertical and horizontal ratio.
 				 * If focus on input and two values are different, IME is drawed. */
 				if ( this._IMEShown === false ) {
-					if ( ( screen.width / window.innerWidth  ) != ( ( screen.height - 50 ) / window.innerHeight ) ) {
+					if ( ( window.innerHeight + this._IMEindicatorHeight ) < window.outerHeight && window.innerWidth == window.outerWidth ) {
 						/* IME draw */
 						$( ".ui-page-active .ui-footer" ).hide();
 						this.updatePageLayout();
@@ -380,7 +381,7 @@
 						this._IMEShown = true;
 					}
 				} else {
-					if ( ( screen.width / window.innerWidth  ) == ( ( screen.height - 50 ) / window.innerHeight ) ) {
+					if ( ( window.innerHeight + this._IMEindicatorHeight ) >= window.outerHeight ) {
 						/* IME disappered */
 						$( ".ui-page-active .ui-footer" ).show();
 						this.updatePageLayout();
@@ -390,7 +391,7 @@
 				}
 			} else {
 				if ( this._IMEShown === true ) {
-					if ( ( screen.width / window.innerWidth  ) == ( ( screen.height - 50 ) / window.innerHeight ) ) {
+					if ( ( window.innerHeight + this._IMEindicatorHeight ) >= window.outerHeight ) {
 						/* IME disappered */
 						$( ".ui-page-active .ui-footer" ).show();
 						this.updatePageLayout();
