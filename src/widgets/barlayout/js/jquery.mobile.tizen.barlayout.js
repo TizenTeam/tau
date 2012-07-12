@@ -37,8 +37,8 @@
 			// need to add parameter target wherels this requert occurs header/footer
 			var self = this,
 				$el = self.element,
-				$elHeader = self.element,
-				$elFooter = $el.siblings( ":jqmData(role='footer')" ),
+				$elHeader = $( this.element ).jqmData( "role" )=="header" ? self.element : $el.siblings( ":jqmData(role='header')" ),
+				$elFooter = $( this.element ).jqmData( "role" )=="footer" ? self.element : $el.siblings( ":jqmData(role='footer')" ),
 				$elPage = $el.closest( ".ui-page" ),
 				backBtn,
 				attachElement = $elFooter,
