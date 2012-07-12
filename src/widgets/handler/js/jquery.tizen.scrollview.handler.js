@@ -24,9 +24,11 @@
 */
 
 /**
- * 'Handler' is widget that is working in conjunction with 'scrollview'.
- * 'Handler' is supporting 'scroll event( up/down )' and is indicating scroll
- * position.
+ * ‘Handler’ is a widget helping a user to scroll a window or panel.
+ * It is different from the scrollview feature in that the handler has a fixed size
+ * and disappears when a scroll size is smaller than a parent window's size.
+ * If the handler widget is activated, a scroll bar on the screen will be deactivated.
+ * The handler widget supports scrolling up and down and indicates the position of the scrolled window.
  *
  * HTML Attributes:
  *
@@ -36,10 +38,11 @@
  *
  * APIs:
  *
- *		enableHandler ( void )
- *			: Get a status that whether enable.
  *		enableHandler ( boolean )
- *			: Set a status that whether enable.
+ *			: Get or set the use of Handler.
+ *			If the value is ‘true’, it will be run Handler.
+ *			If the value is ‘false’, it will be not run Handler.
+ *			If no value is specified, will act as a getter.
  *
  * Events:
  *
