@@ -333,6 +333,7 @@
 			widget.options.showScrollBars = false;
 			widget._getScrollHierarchy = widget._scrollView._getScrollHierarchy;
 			widget._makePositioned =  widget._scrollView._makePositioned;
+			widget._set_scrollbar_size = widget._scrollView._set_scrollbar_size;
 		},
 
 		_hideScrollBars : function () {
