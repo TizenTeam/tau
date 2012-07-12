@@ -25,22 +25,22 @@ Built by David Kaneda and maintained by Jonathan Stark.
 
 
 .slide.out {
-	-webkit-transform: translateX(-100%);
+	-webkit-transform: translate3d(-100%, 0, 0);
 	-webkit-animation-name: slideouttoleft;
 }
 
 .slide.in {
-	-webkit-transform: translateX(0);
+	-webkit-transform: translate3d(0, 0, 0);
 	-webkit-animation-name: slideinfromright;
 }
 
 .slide.out.reverse {
-	-webkit-transform: translateX(100%);
+	-webkit-transform: translate3d(100%, 0, 0);
 	-webkit-animation-name: slideouttoright;
 }
 
 .slide.in.reverse {
-	-webkit-transform: translateX(0);
+	-webkit-transform: translate3d(0, 0, 0);
 	-webkit-animation-name: slideinfromleft;
 }
 
@@ -50,7 +50,7 @@ Built by David Kaneda and maintained by Jonathan Stark.
 }
 
 .slideup.in {
-	-webkit-transform: translateY(0);
+	-webkit-transform: translate3d(0, 0, 0);
 	-webkit-animation-name: slideinfrombottom;
 	z-index: 10;
 }
@@ -61,7 +61,7 @@ Built by David Kaneda and maintained by Jonathan Stark.
 }
 
 .slideup.out.reverse {
-	-webkit-transform: translateY(100%);
+	-webkit-transform: translate3d(0, 100%, 0);
 	z-index: 10;
 	-webkit-animation-name: slideouttobottom;
 }
@@ -72,7 +72,7 @@ Built by David Kaneda and maintained by Jonathan Stark.
 }
 
 .slidedown.in {
-	-webkit-transform: translateY(0);
+	-webkit-transform: translate3d(0, 0, 0);
 	-webkit-animation-name: slideinfromtop;
 	z-index: 10;
 }
@@ -83,49 +83,49 @@ Built by David Kaneda and maintained by Jonathan Stark.
 }
 
 .slidedown.out.reverse {
-	-webkit-transform: translateY(-100%);
+	-webkit-transform: translate3d(0, -100%, 0);
 	z-index: 10;
 	-webkit-animation-name: slideouttotop;
 }
 
 @-webkit-keyframes slideinfromright {
-    from { -webkit-transform: translateX(100%); }
-    to { -webkit-transform: translateX(0); }
+    from { -webkit-transform: translate3d(100%, 0, 0); }
+    to { -webkit-transform: translate3d(0, 0, 0); }
 }
 
 @-webkit-keyframes slideinfromleft {
-    from { -webkit-transform: translateX(-100%); }
-    to { -webkit-transform: translateX(0); }
+    from { -webkit-transform: translate3d(-100%, 0, 0); }
+    to { -webkit-transform: translate3d(0, 0, 0); }
 }
 
 @-webkit-keyframes slideouttoleft {
-    from { -webkit-transform: translateX(0); }
-    to { -webkit-transform: translateX(-100%); }
+    from { -webkit-transform: translate3d(0, 0, 0); }
+    to { -webkit-transform: translate3d(-100%, 0, 0); }
 }
 
 @-webkit-keyframes slideouttoright {
-    from { -webkit-transform: translateX(0); }
-    to { -webkit-transform: translateX(100%); }
+    from { -webkit-transform: translate3d(0, 0, 0); }
+    to { -webkit-transform: translate3d(100%, 0, 0); }
 }
 
 @-webkit-keyframes slideinfromtop {
-    from { -webkit-transform: translateY(-100%); }
-    to { -webkit-transform: translateY(0); }
+    from { -webkit-transform: translate3d(0, -100%, 0); }
+    to { -webkit-transform: translate3d(0, 0, 0); }
 }
 
 @-webkit-keyframes slideinfrombottom {
-    from { -webkit-transform: translateY(100%); }
-    to { -webkit-transform: translateY(0); }
+    from { -webkit-transform: translate3d(0, 100%, 0); }
+    to { -webkit-transform: translate3d(0, 0, 0); }
 }
 
 @-webkit-keyframes slideouttobottom {
-    from { -webkit-transform: translateY(0); }
-    to { -webkit-transform: translateY(100%); }
+    from { -webkit-transform: translate3d(0, 0, 0); }
+    to { -webkit-transform: translate3d(0, 100%, 0); }
 }
 
 @-webkit-keyframes slideouttotop {
-    from { -webkit-transform: translateY(0); }
-    to { -webkit-transform: translateY(-100%); }
+    from { -webkit-transform: translate3d(0, 0, 0); }
+    to { -webkit-transform: translate3d(0, -100%, 0); }
 }
 @-webkit-keyframes fadein {
     from { opacity: 0; }
@@ -169,7 +169,7 @@ Built by David Kaneda and maintained by Jonathan Stark.
 .flip {
 	-webkit-animation-duration: .65s;
 	-webkit-backface-visibility:hidden;
-	-webkit-transform:translateX(0); /* Needed to work around an iOS 3.1 bug that causes listview thumbs to disappear when -webkit-visibility:hidden is used. */
+	-webkit-transform:translate3d(0, 0, 0); /* Needed to work around an iOS 3.1 bug that causes listview thumbs to disappear when -webkit-visibility:hidden is used. */
 }
 
 .flip.out {
