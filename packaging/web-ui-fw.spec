@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.1.23
+Version:    0.1.24
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -80,6 +80,11 @@ Summary:    Tizen Web UI Framework Demo Application: tizen-gray demo
 
 ###############################
 %changelog
+
+* Wed Jul 11 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.24
+- Improvements & Bugfixes
+   - Fix IME show/hide algorithm
+   - Fix error on virtualgrid: link _set_scrollbar_size() function to the one in virtuallist
 
 * Wed Jul 11 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.23
 - Improvements & Bugfixes
