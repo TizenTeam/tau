@@ -1,13 +1,34 @@
-/*
+/* ***************************************************************************
+ * Copyright (c) 2000 - 2011 Samsung Electronics Co., Ltd.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+ * DEALINGS IN THE SOFTWARE.
+ * ***************************************************************************
+ *
  * Authors: Yonghwi Park <yonghwi0324.park@samsung.com>
  *		 Wonseop Kim <wonseop.kim@samsung.com>
- */
+*/
 
 /**
- * MultiMediaView is a widget that provides an audio or a video content handling features.
- * A multi-media content handled with this widget can be played with HTML5's <audio> or <video> tag.
- * If a user wants to play a music file, he should use "<audio>" tag.
- * And he should use "<video>" tag to play a video file.
+ *
+ * MultiMediaView is a widget that lets the user view and handle multimedia contents.
+ * Video and audio elements are coded as standard HTML elements and enhanced by the 
+ * MultiMediaview to make them attractive and usable on a mobile device.
  *
  * HTML Attributes:
  *			data-theme : Set a theme of widget.
@@ -20,14 +41,19 @@
  *
  * APIs:
  *			width( [number] )
- *					: Get or set a widget of widget.
+ *					: Get or set the width of widget.
+ *					The first argument is the width of widget.
+ *					If no first argument is specified, will act as a getter.
  *			height( [number] )
- *					: Get or set a height of widget.
+ *					: Get or set the height of widget.
+ *					The first argument is the height of widget.
+ *					If no first argument is specified, will act as a getter.
  *			size( number, number )
  *					: Set a size of widget and resize a widget.
- *					 First argument is width and second argument is height.
+ *					 The first argument is width and second argument is height.
  *			fullscreen( [boolean] )
- *					: Set a status that fullscreen.
+ *					: Get or Set the status of fullscreen.
+ * 					If no first argument is specified, will act as a getter.
  *
  * Events:
  *
