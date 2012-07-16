@@ -38,7 +38,9 @@
 		$(".virtualgrid_demo_page").trigger("select");
 	};
 
-	test( "Virtualgrid", function () {
-		unit_virtualgrid( $("#virtualgrid-test"), "virtualgrid" );
+	$(document).bind("pagecreate", function () {
+		test( "Virtualgrid", function () {
+			unit_virtualgrid( $("#virtualgrid-test"), "virtualgrid" );
+		});
 	});
 }( jQuery ));
