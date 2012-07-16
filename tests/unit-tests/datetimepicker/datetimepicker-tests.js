@@ -79,18 +79,9 @@ $(document).ready( function () {
 		], "should update field to given value with format" );
 
 		ok( ( function () {
-			var origin = objTime.options.date.getHours() < 12 ? objTime.calendar.AM[0] : objTime.calendar.PM[0],
-				span = $(time).parent().find( ".ui-datefield-period .ui-btn-text" );
-			if ( span.text() != origin ) {
-				console.log( span.text() + " " + origin );
-				return false;
-			}
+			var beforeNoon = objTime.options.date.getHours() < 12;
 			objTime._switchAmPm();
-			if ( span.text() == origin ) {
-				console.log( span.text() + " " + origin );
-				return false;
-			}
-			return true;
+			return beforeNoon != objTime.options.date.getHours() < 12;
 		}()), "should change AM/PM by AMPM button" );
 
 		deepEqual( [ "MMMM", " ", "dd", " ", "yyyy", " ", "hh", ":", "mm", " ", "dummy space" ],
@@ -133,12 +124,11 @@ $(document).ready( function () {
 	});
 
 	asyncTest( "Public Methods", function () {
-		equal( "2012-01-01T09:00:00",
-			objDatetime.setValue.call(objDatetime, "Jan 1 09:00:00 2012").getValue(),
-			"should set and get value by API" );
+		objDatetime.value.call( objDatetime, "Jan 1 09:00:00 2012" );
+		equal( "2012-01-01T09:00:00", objDatetime.value(), "should set and get value by API" );
 		var format = "yyyy MM dd hh mm";
-		objDatetime.changeTypeFormat( "datetime", format );
-		equal( $(datetime).data("datetimepicker").options.format, format, "should set type and format" );
+		objDatetime._setFormat( format );
+		equal( objDatetime.option("format"), format, "should set type and format" );
 		start();
 	});
 
@@ -150,7 +140,7 @@ $(document).ready( function () {
 			start();
 		});
 
-		objDatetime.setValue( str );
+		objDatetime.value( str );
 	});
 
 

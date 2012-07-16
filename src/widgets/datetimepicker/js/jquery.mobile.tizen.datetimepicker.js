@@ -52,15 +52,19 @@
  *	date: preset value as JavaScript Date Object representation.
  *
  * APIs:
- *	getValue()
- *		: Get current selected date/time as W3C DTF style string.
- *	setValue( datestring )
+ *	value( datestring )
  *		: Set date/time to 'datestring'.
- *	changeTypeFormat( type, format )
- *		: Change Type and Format options
+ *	value()
+ *		: Get current selected date/time as W3C DTF style string.
+ *	getValue() - replaced with 'value()'
+ *		: same as value()
+ *	setValue( datestring ) - replaced with 'value(datestring)'
+ *		: same as value( datestring )
+ *	changeTypeFormat( type, format ) - deprecated
+ *		: Change Type and Format options. use datetimepicker( "option", "format" ) instead
  *
  * Events:
- *	data-changed: Raised when date/time was changed.
+ *	date-changed: Raised when date/time was changed.
  *
  * Examples:
  *	<ul data-role="listview">
@@ -101,11 +105,16 @@
 
 ( function ( $, window, undefined ) {
 	$.widget( "tizen.datetimepicker", $.tizen.widgetex, {
+
 		options: {
 			type: null, // date, time, datetime applicable
 			format: null,
 			date: null,
 			initSelector: "input[type='date'], input[type='datetime'], input[type='time'], :jqmData(role='datetimepicker')"
+		},
+
+		_calendar: function () {
+			return window.Globalize.culture().calendars.standard;
 		},
 
 		_value: {
@@ -130,22 +139,127 @@
 			return ret;
 		},
 
-		setValue: function ( newdate ) {
+		_setType: function ( type ) {
+			//datetime, date, time
+			switch (type) {
+			case 'datetime':
+			case 'date':
+			case 'time':
+				this.options.type = type;
+				break;
+			default:
+				this.options.type = 'datetime';
+				break;
+			}
+
+			this.element.attr( "data-" + ( $.mobile.ns ? $.mobile.ns + "-" : "" ) + "type", this.options.type );
+			return this.options.type;
+		},
+
+		_setFormat: function ( format ) {
+			if ( this.options.format != format ) {
+				this.options.format = format;
+			} else {
+				return;
+			}
+
+			this.ui.children().remove();
+
+			var token = this._parsePattern( format ),
+				div = document.createElement('div'),
+				pat,
+				tpl,
+				period,
+				btn,
+				obj = this;
+
+			while ( token.length > 0 ) {
+				pat = token.shift();
+				tpl = '<span class="ui-datefield-%1" data-pat="' + pat + '">%2</span>';
+				switch ( pat ) {
+				case 'H': //0 1 2 3 ... 21 22 23
+				case 'HH': //00 01 02 ... 21 22 23
+				case 'h': //0 1 2 3 ... 11 12
+				case 'hh': //00 01 02 ... 11 12
+					$(div).append( tpl.replace('%1', 'hour') );
+					break;
+				case 'mm': //00 01 ... 59
+				case 'm': //0 1 2 ... 59
+					$(div).append( tpl.replace('%1', 'min') );
+					break;
+				case 'ss':
+				case 's':
+					$(div).append( tpl.replace('%1', 'sec') );
+					break;
+				case 'd': // day of month 5
+				case 'dd': // day of month(leading zero) 05
+					$(div).append( tpl.replace('%1', 'day') );
+					break;
+				case 'M': // Month of year 9
+				case 'MM': // Month of year(leading zero) 09
+				case 'MMM':
+				case 'MMMM':
+					$(div).append( tpl.replace('%1', 'month') );
+					break;
+				case 'yy':	// year two digit
+				case 'yyyy': // year four digit
+					$(div).append( tpl.replace('%1', 'year') );
+					break;
+				case 't': //AM / PM indicator(first letter) A, P
+					// add button
+				case 'tt': //AM / PM indicator AM/PM
+					// add button
+					btn = '<a href="#" class="ui-datefield-period"' +
+						' data-role="button" data-inline="true">period</a>';
+					$(div).append( btn );
+					break;
+				case 'g':
+				case 'gg':
+					$(div).append( tpl.replace('%1', 'era').replace('%2', this._calendar().eras.name) );
+					break;
+				case '\t':
+					$(div).append( tpl.replace('%1', 'tab').replace('%2', pat) );
+					break;
+				default : // string or any non-clickable object
+					$(div).append( tpl.replace('%1', 'seperator').replace('%2', pat) );
+					break;
+				}
+			}
+
+			this.ui.append( div );
+			if ( this.options.date ) {
+				this._setDate( this.options.date );
+			}
+
+			this.ui.find('.ui-datefield-period').buttonMarkup().bind( 'vclick', function ( e ) {
+				obj._switchAmPm( obj );
+			});
+
+			this.element.attr( "data-" + ( $.mobile.ns ? $.mobile.ns + "-" : "" ) + "format", this.options.format );
+			return this.options.format;
+		},
+
+		_setDate: function ( newdate ) {
 			if ( typeof ( newdate ) == "string" ) {
 				newdate = new Date( newdate );
 			}
 
-			var fields = $('span,a', this.fieldDiv),
+			var fields = $('span,a', this.ui),
 				type,
 				fn,
 				$field,
 				btn,
 				i;
+
+			function getMonth() {
+				return newdate.getMonth() + 1;
+			}
+
 			for ( i = 0; i < fields.length; i++ ) {
 				$field = $(fields[i]);
 				type = $field.attr("class").match(/ui-datefield-([\w]*)/);
 				if ( !type ) {
-					continue;
+					type = "";
 				}
 				switch ( type[1] ) {
 				case 'hour':
@@ -161,62 +275,91 @@
 					fn = newdate.getFullYear;
 					break;
 				case 'month':
-					fn = function () {
-						return newdate.getMonth() + 1;
-					};
+					fn = getMonth;
 					break;
 				case 'day':
 					fn = newdate.getDate;
 					break;
 				case 'period':
-					fn = newdate.getHours() < 12 ? this.calendar.AM[0] : this.calendar.PM[0];
+					fn = newdate.getHours() < 12 ? this._calendar().AM[0] : this._calendar().PM[0];
 					btn = $field.find( '.ui-btn-text' );
 					if ( btn.length == 0 ) {
 						$field.text(fn);
 					} else if ( btn.text() != fn ) {
 						btn.text( fn );
 					}
-					continue;
+					fn = null;
+					break;
 				default:
-					continue;
+					fn = null;
+					break;
 				}
-				this._updateField( $field, fn.call( newdate ) );
+				if ( fn ) {
+					this._updateField( $field, fn.call( newdate ) );
+				}
 			}
 
 			this.options.date = newdate;
-			this._setValue( this.getValue() );
-			return this;
+
+			this._setValue( this.value() );
+
+			this.element.attr( "data-" + ( $.mobile.ns ? $.mobile.ns + "-" : "" ) + "date", this.options.date );
+			return this.options.date;
+		},
+
+		destroy: function () {
+			if ( this.ui ) {
+				this.ui.remove();
+			}
+
+			if ( this.element ) {
+				this.element.show();
+			}
+		},
+
+		value: function ( val ) {
+			function timeStr( t, obj ) {
+				return obj._makeTwoDigits( t.getHours() ) + ':' +
+					obj._makeTwoDigits( t.getMinutes() ) + ':' +
+					obj._makeTwoDigits( t.getSeconds() );
+			}
+
+			function dateStr( d, obj ) {
+				return ( ( d.getFullYear() % 10000 ) + 10000 ).toString().substr(1) + '-' +
+					obj._makeTwoDigits( d.getMonth() + 1 ) + '-' +
+					obj._makeTwoDigits( d.getDate() );
+			}
+
+			var rvalue = null;
+			if ( val ) {
+				rvalue = this._setDate( val );
+			} else {
+				switch ( this.options.type ) {
+				case 'time':
+					rvalue = timeStr( this.options.date, this );
+					break;
+				case 'date':
+					rvalue = dateStr( this.options.date, this );
+					break;
+				default:
+					rvalue = dateStr( this.options.date, this ) + 'T' + timeStr( this.options.date, this );
+					break;
+				}
+			}
+			return rvalue;
+		},
+
+		setValue: function ( newdate ) {
+			console.warn( "setValue was deprecated. use datetimepicker('option', 'date', value) instead." );
+			return this.value( newdate );
 		},
 
 		/**
 		 * return W3C DTF string
 		 */
 		getValue: function () {
-			var date = this.options.date,
-				obj = this,
-				toTimeString,
-				toDateString;
-
-			toTimeString = function timeStr( t ) {
-				return obj._makeTwoDigits( t.getHours() ) + ':' +
-					obj._makeTwoDigits( t.getMinutes() ) + ':' +
-					obj._makeTwoDigits( t.getSeconds() );
-			};
-
-			toDateString = function dateStr( d ) {
-				return ( ( d.getFullYear() % 10000 ) + 10000 ).toString().substr(1) + '-' +
-					obj._makeTwoDigits( d.getMonth() + 1 ) + '-' +
-					obj._makeTwoDigits( d.getDate() );
-			};
-
-			switch ( this.options.type ) {
-			case 'time':
-				return toTimeString( date );
-			case 'date':
-				return toDateString( date );
-			default:
-				return toDateString( date ) + 'T' + toTimeString( date );
-			}
+			console.warn("getValue() was deprecated. use datetimepicker('value') instead.");
+			return this.value();
 		},
 
 		_updateField: function ( target, value ) {
@@ -262,10 +405,10 @@
 				text = this._makeTwoDigits( value );
 				break;
 			case 'MMM':
-				text = this.calendar.months.namesAbbr[ value - 1];
+				text = this._calendar().months.namesAbbr[ value - 1];
 				break;
 			case 'MMMM':
-				text = this.calendar.months.names[ value - 1 ];
+				text = this._calendar().months.names[ value - 1 ];
 				break;
 			case 'yy':
 				text = this._makeTwoDigits( value % 100 );
@@ -287,83 +430,8 @@
 			}
 		},
 
-		_format: function ( pattern ) {
-			var token = this._parsePattern( pattern ),
-				div = document.createElement('div'),
-				attr = [],
-				pat,
-				tpl,
-				period,
-				btn;
-
-			while ( token.length > 0 ) {
-				pat = token.shift();
-				tpl = '<span class="ui-datefield-%1" data-pat="' + pat + '">%2</span>';
-				switch ( pat ) {
-				case 'H': //0 1 2 3 ... 21 22 23
-				case 'HH': //00 01 02 ... 21 22 23
-				case 'h': //0 1 2 3 ... 11 12
-				case 'hh': //00 01 02 ... 11 12
-					$(div).append( tpl.replace('%1', 'hour') );
-					attr.hour = true;
-					break;
-				case 'mm': //00 01 ... 59
-				case 'm': //0 1 2 ... 59
-					$(div).append( tpl.replace('%1', 'min') );
-					attr.min = true;
-					break;
-				case 'ss':
-				case 's':
-					$(div).append( tpl.replace('%1', 'sec') );
-					attr.sec = true;
-					break;
-				case 'd': // day of month 5					
-				case 'dd': // day of month(leading zero) 05
-					$(div).append( tpl.replace('%1', 'day') );
-					attr.day = true;
-					break;
-				case 'M': // Month of year 9
-				case 'MM': // Month of year(leading zero) 09
-				case 'MMM':
-				case 'MMMM':
-					$(div).append( tpl.replace('%1', 'month') );
-					attr.month = true;
-					break;
-				case 'yy':	// year two digit
-				case 'yyyy': // year four digit
-					$(div).append( tpl.replace('%1', 'year') );
-					attr.year = true;
-					break;
-				case 't': //AM / PM indicator(first letter) A, P
-					// add button
-				case 'tt': //AM / PM indicator AM/PM
-					// add button
-					btn = '<a href="#" class="ui-datefield-period"' +
-						' data-role="button" data-inline="true">period</a>';
-					$(div).append( btn );
-					attr.period = true;
-					break;
-				case 'g':
-				case 'gg':
-					$(div).append( tpl.replace('%1', 'era').replace('%2', this.calendar.eras.name) );
-					break;
-				case '\t':
-					$(div).append( tpl.replace('%1', 'tab').replace('%2', pat) );
-					break;
-				default : // string or any non-clickable object
-					$(div).append( tpl.replace('%1', 'seperator').replace('%2', pat) );
-					break;
-				}
-			}
-
-			return {
-				attr: attr,
-				html: div
-			};
-		},
-
 		_switchAmPm: function ( obj ) {
-			if ( this.calendar.AM != null ) {
+			if ( this._calendar().AM != null ) {
 				var date = new Date( this.options.date ),
 					text,
 					change = 1000 * 60 * 60 * 12;
@@ -371,12 +439,12 @@
 					change = -change;
 				}
 				date.setTime( date.getTime() + change );
-				this.setValue( date );
+				this._setDate( date );
 			}
 		},
 
 		_parsePattern: function ( pattern ) {
-			var regex = /\/|\s|dd|d|MMMM|MMM|MM|M|yyyy|yy|y|hh|h|HH|H|mm|m|ss|s|tt|t|f|gg|g|'.*'$|./g,
+			var regex = /\/|\s|dd|d|MMMM|MMM|MM|M|yyyy|yy|y|hh|h|HH|H|mm|m|ss|s|tt|t|f|gg|g|\'[\w\W]*\'$|[\w\W]/g,
 				matches,
 				i;
 
@@ -392,53 +460,58 @@
 		},
 
 		changeTypeFormat: function ( type, format ) {
-			this.fieldDiv.remove();
-			var elem = this.elem;
-			$.mobile.widget.prototype.destroy.apply( this );
-			$(elem).datetimepicker( {
-				"type": type,
-				"format": format,
-				"date": this.options.date // preserve current date
-			});
+			console.warn('changeTypeFormat() was deprecated. use datetimepicker("option", "type"|"format", value) instead');
+			if ( type ) {
+				this._setType( type );
+			}
+
+			if ( format ) {
+				this._setFormat( format );
+			}
 		},
 
 		_create: function () {
-			var input = this.element.get(0),
-				type = this.options.type || $(input).attr("type") || 'datetime',
-				isTime,
-				isDate,
-				obj = this,
-				date = this.options.date || $(input).attr("value") || new Date(),
-				$div;
-			this._setOptions( {
-				"type": type,
-				"date": date
-			});
+			var obj = this;
 
-			isTime = type.indexOf("time") > -1;
-			isDate = type.indexOf("date") > -1;
-			$.extend( obj, {
-				elem: input,
-				isTime: isTime,
-				isDate: isDate,
-				calendar: window.Globalize.culture().calendars.standard
-			});
+			if ( this.element.is( "input" ) ) {
+				( function ( obj ) {
+					var type, value, format;
 
-			$(input).css('display', 'none');
-			$div = $('<div class="ui-datefield"></div>');
-			// init date&time
-			this._initFieldDiv( $div );
-			$(input).after( $div );
-			this.setValue( date );
+					type = obj.element.attr( "type" );
+					obj.options.type = type;
 
-			$div.bind('vclick', function ( e ) {
+					value = obj.element.attr( "value" );
+					if ( value ) {
+						obj.options.date = new Date( value );
+					}
+				}( this ) );
+			}
+
+			if ( !this.options.format ) {
+				switch ( this.options.type ) {
+				case 'datetime':
+					this.options.format = this._calendar().patterns.d + "\t" + this._calendar().patterns.t;
+					break;
+				case 'date':
+					this.options.format = this._calendar().patterns.d;
+					break;
+				case 'time':
+					this.options.format = this._calendar().patterns.t;
+					break;
+				}
+			}
+
+			if ( !this.options.date ) {
+				this.options.date = new Date();
+			}
+
+			this.element.hide();
+			this.ui = $('<div class="ui-datefield"></div>');
+			$(this.element).after( this.ui );
+
+			this.ui.bind('vclick', function ( e ) {
 				obj._showDataSelector( obj, this, e.target );
 			});
-
-			$div.find('.ui-datefield-period').buttonMarkup().bind( 'vclick', function ( e ) {
-				obj._switchAmPm( obj );
-			});
-
 		},
 
 		_populateDataSelector: function ( field, pat ) {
@@ -507,10 +580,10 @@
 					values = range( 1, 12 ).map( this._makeTwoDigits );
 					break;
 				case 3:
-					values = this.calendar.months.namesAbbr.slice();
+					values = this._calendar().months.namesAbbr.slice();
 					break;
 				case 4:
-					values = this.calendar.months.names.slice();
+					values = this._calendar().months.names.slice();
 					break;
 				}
 				if ( values.length == 13 ) { // @TODO Lunar calendar support
@@ -584,8 +657,8 @@
 
 			if ( values ) {
 				datans = "data-" + ($.mobile.ns ? ($.mobile.ns + '-') : "") + 'val="';
-				for( i = 0; i < values.length; i++ ) {
-					html += '<li><a class="ui-link" ' + datans + valuesData[i] +'">' + values[i] + '</a></li>';
+				for ( i = 0; i < values.length; i++ ) {
+					html += '<li><a class="ui-link" ' + datans + valuesData[i] + '">' + values[i] + '</a></li>';
 				}
 
 				$ul = $("<ul></ul>");
@@ -642,7 +715,7 @@
 						date.setDate( val );
 						break;
 					}
-					obj.setValue( date );
+					obj._setDate( date );
 				});
 
 				$ul.bind( 'click', function ( e ) {
@@ -657,33 +730,6 @@
 				$div.circularview( 'centerTo', '.current', 500 );
 			}
 			return ui;
-		},
-
-		_initFieldDiv: function ( div ) {
-			var date,
-				time,
-				datetime;
-			if ( this.options.format ) {
-				datetime = this._format( this.options.format );
-				div.append( datetime.html );
-			} else {
-				if ( this.isDate ) {
-					date = this._format( this.calendar.patterns.d );
-					$(date.html).addClass('date');
-					div.append( date.html );
-				}
-
-				if ( this.isDate && this.isTime ) {
-					div.append( '<span class="ui-datefield-tab"></span>' );
-				}
-
-				if ( this.isTime ) {
-					time = this._format( this.calendar.patterns.t );
-					$(time.html).addClass('time');
-					div.append( time.html );
-				}
-			}
-			this.fieldDiv = div;
 		}
 
 	});
