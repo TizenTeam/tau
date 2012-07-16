@@ -16,6 +16,6 @@ $( document ).bind( "pagecreate", function () {
 
 	$("#mylist").delegate( ".ui-btn", "vclick", function ( e ) {
 		$( "#li" + this.id ).remove();
-		$( window ).trigger("resize");
+		$("#mylist").listview("refresh");
 	});
 });

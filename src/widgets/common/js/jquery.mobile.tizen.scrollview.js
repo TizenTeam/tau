@@ -47,7 +47,7 @@
 			overshootDuration: 250,   // Duration of the overshoot animation in msecs.
 			snapbackDuration:  500,   // Duration of the snapback animation in msecs.
 
-			moveThreshold:     50,   // User must move this many pixels in any direction to trigger a scroll.
+			moveThreshold:     30,   // User must move this many pixels in any direction to trigger a scroll.
 			moveIntervalThreshold:     150,   // Time between mousemoves must not exceed this threshold.
 
 			scrollMethod:      "translate",  // "translate", "position"
@@ -87,6 +87,7 @@
 
 			this._makePositioned( this._$view );
 			this._$view.css( { left: 0, top: 0 } );
+			this._view_height = this._$view.height();
 
 			this._sx = 0;
 			this._sy = 0;
@@ -713,13 +714,38 @@
 
 			$v.bind( this._dragEvt, this._dragCB );
 
+			if ( $c.jqmData("scroll") !== "y" ) {
+				return;
+			}
+
+			$c.bind( "updatelayout", function ( e ) {
+				var $page = $c.parentsUntil("ui-page"),
+					sy,
+					vh;
+
+				if ( !$c.height() || !$v.height() ) {
+					return;
+				}
+
+				resizePageContentHeight( $page );
+
+				sy = $c.height() - $v.height();
+				vh = $v.height() - self._view_height;
+
+				if ( self._sy - sy <= -vh ) {
+					self.scrollTo( 0, self._sy,
+						self.options.snapbackDuration );
+				} else if ( self._sy - sy <= vh + self.options.moveThreshold ) {
+					self.scrollTo( 0, sy,
+						self.options.snapbackDuration );
+				}
+
+				self._view_height = $v.height();
+			});
+
 			$( window ).bind( "resize", function ( e ) {
 				var $page = $c.parentsUntil("ui-page"),
 					focused;
-
-				if ( $c.jqmData("scroll") !== "y" ) {
-					return;
-				}
 
 				if ( !$c.height() || !$v.height() ) {
 					return;
@@ -738,14 +764,12 @@
 					self.scrollTo( 0, self._sy,
 						self.options.snapbackDuration );
 				}
+
+				self._view_height = $v.height();
 			});
 
 			$( window ).bind( "orientationchange", function ( e ) {
 				var $page = $c.parentsUntil("ui-page");
-
-				if ( $c.jqmData("scroll") !== "y" ) {
-					return;
-				}
 
 				resizePageContentHeight( $page );
 			});
