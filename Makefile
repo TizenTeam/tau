@@ -142,15 +142,14 @@ widgets: init third_party
 	    while read REPLY; do \
 	        echo "	# Building widget $$REPLY"; \
 			if test ${JSLINT_LEVEL} -ge 1; then \
-				if test $$REPLY = ${COMMON_WIDGET}; then \
-					continue; \
+				if test $$REPLY != ${COMMON_WIDGET}; then \
+					for FNAME in ${WIDGETS_DIR}/$$REPLY/js/*.js; do \
+						${JSLINT} $$FNAME; \
+						if test ${JSLINT_LEVEL} -ge 2 -a $$? -ne 0; then \
+							exit 1; \
+						fi; \
+					done; \
 				fi; \
-				for FNAME in ${WIDGETS_DIR}/$$REPLY/js/*.js; do \
-					${JSLINT} $$FNAME; \
-					if test ${JSLINT_LEVEL} -ge 2 -a $$? -ne 0; then \
-						exit 1; \
-					fi; \
-				done; \
 			fi; \
 			if test "x${INLINE_PROTO}x" = "x1x"; then \
 				./tools/inline-protos.sh ${WIDGETS_DIR}/$$REPLY >> ${WIDGETS_DIR}/$$REPLY/js/$$REPLY.js.compiled; \
