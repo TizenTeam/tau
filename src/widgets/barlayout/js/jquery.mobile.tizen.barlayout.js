@@ -79,11 +79,15 @@
 					}
 				}
 
-/* jQM 1.1.0 do not need this code
-* navigation.js control whote back button  */
-/*				backBtn.bind( "vclick", function( event ) {
+				/* jQM 1.1.0 is a navigation that offers window.history.back using javascript(navigation.js). */
+				/* however to block the exception of long press popup, this code was added(touchstart, vclick). */
+				backBtn.bind( "touchstart", function( event ){
+					event.preventDefault();
+				});
+				backBtn.bind( "vclick", function( event ){
 					window.history.back();
-				});*/
+					return false;
+				});
 		},
 
 		addBackBtn : function(target) {
