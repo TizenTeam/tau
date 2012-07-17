@@ -49,8 +49,7 @@
 /* Progress - pending style */
 @bar-height: 16 * @unit_base;
 @bar-margin: 16 * @unit_base;
-@bar-color0: rgb(55, 55, 55);
-@bar-color1: rgb(0, 140, 210);
+@color_progress_bar1: rgb(0, 140, 210);
 
 @-webkit-keyframes ui-move-animation {
 	from {
@@ -79,24 +78,24 @@
 	background: -webkit-linear-gradient(-45deg,
 				transparent,
 				transparent 25%,
-				@bar-color1 25%,
-				@bar-color1 50%,
+				@color_progress_bar1 25%,
+				@color_progress_bar1 50%,
 				transparent 50%,
 				transparent 75%,
-				@bar-color1 75%);
+				@color_progress_bar1 75%);
 
 	background: -webkit-gradient(linear,
 				left top,
 				right bottom,
 				color-stop(0%,  rgba(0,0,0,0)),
 				color-stop(25%, rgba(0,0,0,0)),
-				color-stop(25%, @bar-color1),
-				color-stop(50%, @bar-color1),
+				color-stop(25%, @color_progress_bar1),
+				color-stop(50%, @color_progress_bar1),
 				color-stop(50%, rgba(0,0,0,0)),
 				color-stop(75%, rgba(0,0,0,0)),
-				color-stop(75%, @bar-color1));
+				color-stop(75%, @color_progress_bar1));
 
-	background-color: @bar-color0;
+	background-color: @color_progress_bar0;
 
 	.LESSbackground-size(@bar-height * 2, @bar-height * 2);
 }
