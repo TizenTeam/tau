@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.1.24
+Version:    0.1.25
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -81,7 +81,11 @@ Summary:    Tizen Web UI Framework Demo Application: tizen-gray demo
 ###############################
 %changelog
 
-* Wed Jul 11 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.24
+* Tue Jul 17 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.25
+- Improvements & Bugfixes
+   - Set 'slide' as default page transition effect, by JQM patch
+
+* Fri Jul 13 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.24
 - Improvements & Bugfixes
    - Fix IME show/hide algorithm
    - Fix error on virtualgrid: link _set_scrollbar_size() function to the one in virtuallist
