@@ -21,6 +21,7 @@
  * ***************************************************************************
  *
  *	Author: Wongi Lee <wongi11.lee@samsung.com>
+ *	        Youmin Ha <youmin.ha@samsung.com>
  */
 
 /**
@@ -86,6 +87,20 @@
 		last_index,
 		num_top_items = 0;				//By scroll move, number of hidden elements.
 
+	// A simple template changer function, Replacing jquery.template library.
+	function _tmpl( tpl, data ) {
+		var htmlstr, key;
+
+		if ( ! tpl || ! data ) { return null; }
+
+		htmlstr = $( tpl ).html();
+		for ( key in data ) {
+			htmlstr = htmlstr.replace( new RegExp( "\\\$\{" + key + "\}", "g" ), data[ key ] );
+		}
+
+		return $( htmlstr );
+	}
+
 	$.widget( "tizen.virtuallistview", $.mobile.widget, {
 		options: {
 			theme: "s",
@@ -135,7 +150,7 @@
 				htmlData;
 
 			for ( i = 0; i < lastIndex; i++ ) {
-				htmlData = myTemplate.tmpl( dataTable[i] );
+				htmlData = _tmpl( myTemplate, dataTable[i] );
 				$( o.id ).append( $( htmlData ).attr( 'id', 'li_' + i ) );
 			}
 
@@ -260,7 +275,7 @@
 					if ( cur_item ) {
 						/* Make New <LI> element from template. */
 						myTemplate = $( "#" + o.template );
-						htmlData = myTemplate.tmpl( dataList[ v_lastIndex + i ] );
+						htmlData = _tmpl( myTemplate, dataList[ v_lastIndex + i ] );
 
 						/* Copy all data to current item. */
 						_replace( cur_item, htmlData, key );
@@ -293,7 +308,7 @@
 
 						/* Make New <LI> element from template. */
 						myTemplate = $( "#" + o.template );
-						htmlData = myTemplate.tmpl( dataList[ v_firstIndex - 1 - i ] );
+						htmlData = _tmpl( myTemplate, dataList[ v_firstIndex - 1 - i ] );
 
 						/* Copy all data to current item. */
 						_replace( cur_item, htmlData, key );
