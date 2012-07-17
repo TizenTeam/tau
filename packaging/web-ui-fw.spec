@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.1.25
+Version:    0.1.26
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -50,6 +50,15 @@ Summary:    Tizen Web UI Framework Theme : tizen-blue
 /usr/share/tizen-web-ui-fw/*/themes/tizen-blue
 
 ###############################
+%package -n web-ui-fw-theme-tizen-white
+BuildArch:  noarch
+Summary:    Tizen Web UI Framework Theme : tizen-white
+%Description -n web-ui-fw-theme-tizen-white
+    Tizen Web UI Framework Theme : tizen-white
+%files -n web-ui-fw-theme-tizen-white
+/usr/share/tizen-web-ui-fw/*/themes/tizen-white
+
+###############################
 %package -n web-ui-fw-theme-default
 BuildArch:  noarch
 Summary:    Tizen Web UI Framework Theme : default
@@ -80,6 +89,10 @@ Summary:    Tizen Web UI Framework Demo Application: tizen-gray demo
 
 ###############################
 %changelog
+
+* Tue Jul 17 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.26
+- Improvements & Bugfixes
+   - Add tizen-white theme package, to make rpm build to be finished
 
 * Tue Jul 17 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.25
 - Improvements & Bugfixes
