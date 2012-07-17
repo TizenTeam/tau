@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.1.26
+Version:    0.1.27
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -89,6 +89,10 @@ Summary:    Tizen Web UI Framework Demo Application: tizen-gray demo
 
 ###############################
 %changelog
+
+* Tue Jul 17 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.27
+- Improvements & Bugfixes
+   - Revert 'preventing long-press popup' patch, to fix backbutton to work in SocialMagazine
 
 * Tue Jul 17 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.26
 - Improvements & Bugfixes
