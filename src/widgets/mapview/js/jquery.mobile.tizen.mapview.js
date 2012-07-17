@@ -24,22 +24,29 @@
 */
 
 /**
- * 'mapview' is geospatial mapping widget from Applied Geographics developed
- * with the intention of making spatial web mapping significantly simple.
- * Powered by jQueryGeo 1.0a4 ( http://jquerygeo.com ).
+ * 'MapView' is a geospatial mapping widget which uses various geographic web services.
+ * A user can select a specific geographic web service and control it with MapView widget APIs.
+ * MapView supports the features as follows.
+ * - Zoom-in/out
+ * - Watch point panning
+ * - Marking a point or a polygon on the map.
+ * MapView wraps jQueryGeo plug-in and fully supports jQueryGeo APIs.
+ * All of geo-data format is based on GeoJSON specification.
+ * The max and min values of latitude are 90 and -90, and the equator value is 0 on the Geodetic coordinates.
+ * The max and min values of longitude are 180 and -180, and 0 means the position of Greenwich observatory.
  *
  * HTML Attributes:
  *
  *		data-bbox : bounds of the currently visible viewport.
- *		data-bboxMax : bounds of maxiamum viewport for non-tiled maps.
+ *		data-bboxMax : bounds of maximum viewport for non-tiled maps.
  *		data-center : center of the currently visible viewport.
  *		data-zoom : zoom level of the currently visible viewport.
  *		data-mode : determines how the map, user, & developer interact.
- *		data-pannable : allow or prohit map panning.
+ *		data-pannable : allow or prohibit map panning.
  *		data-measure-labels : format to apply to label while measuring.
  *		data-services-provider : determin the content of the map.
-*		dtat-tile-width : define how tiles are placed in the viewport.
- *		dtat-axisLayout : "map" or "image".
+ *		data-tile-width : define how tiles are placed in the viewport.
+ *		data-axisLayout : Determines direction of the coordinate system axes. It can be "map" or "image".
  *
  * APIs:
  *
@@ -62,7 +69,7 @@
  *			: This method tells the widget to recalculate its frame
  *			and adjust its bbox to fit a new size
  *		destroy ( void )
- *			: Call destroy to turn your interactive map back to a boring old div.
+ *			: Call destroys to turn your interactive map back to a boring old div.
  *		opacity ( number )
  *			: This method sets the value of the opacity property of service objects.
  *		append ( object( GeoJSON object ) | array [ , object ] [ , string ] [ , boolean ] )
@@ -83,7 +90,7 @@
  *		move
  *			: The move event triggers when the user moves the mouse cursor while the cursor is over the map.
  *		click
- *			: The click event triggers when the user clicks or taps a point on the map and then lets go at the same point within a short time threashold.
+ *			: The click event triggers when the user clicks or taps a point on the map and then lets go at the same point within a short time threshold.
  *		dblclick
  *			: The dblclick event triggers when the user double-clicks or double-taps a point on the map.
  *		taphold
@@ -181,7 +188,6 @@
 
 		_redefineMethods: function ( element ) {
 			var self = this,
-				$view = self.element,
 				geomap = self._geomap,
 				originCreate = geomap._create,
 				originSetOption = geomap._setOption,
@@ -246,10 +252,14 @@
 			geomap._dragTarget_touchstop = function ( e ) {
 				// for jquerygeo's exception handling
 				if ( supportTouch && ( !this._multiTouchAnchor || !this._multiTouchAnchor[0] ) ) {
-					return ;
+					return;
 				}
 
-				if ( !isMove && ( new Date().getTime() - startTime ) > 750 ) {
+				if ( !isMove && ( new Date().getTime() - startTime ) > 750 && !this._isMultiTouch ) {
+					if ( !this._mouseDown ) {
+						e.currentTarget = this._$eventTarget;
+						this._eventTarget_touchstart( e );
+					}
 					self._trigger( "taphold", eventClone, {
 						x : eventClone.pageX,
 						y : eventClone.pageY
