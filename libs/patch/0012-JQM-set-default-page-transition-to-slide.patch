@@ -1,0 +1,26 @@
+From 55dcac86989fdc737ea6894ca136bb250bdc5f95 Mon Sep 17 00:00:00 2001
+From: Minkyu Kang <mk7.kang@samsung.com>
+Date: Tue, 17 Jul 2012 09:12:49 +0900
+Subject: [PATCH] JQM: set default page transition to slide
+
+Signed-off-by: Minkyu Kang <mk7.kang@samsung.com>
+---
+ .../jquery-mobile-1.1.0/js/jquery.mobile.core.js   |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.core.js b/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.core.js
+index 9007c36..ae576b1 100644
+--- a/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.core.js
++++ b/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.core.js
+@@ -44,7 +44,7 @@ define( [ "jquery", "../external/requirejs/text!../version.txt", "./jquery.mobil
+ 		linkBindingEnabled: true,
+ 
+ 		// Set default page transition - 'none' for no transitions
+-		defaultPageTransition: "fade",
++		defaultPageTransition: "slide",
+ 
+ 		// Set maximum window width for transitions to apply - 'false' for no limit
+ 		maxTransitionWidth: false,
+-- 
+1.7.9.5
+
