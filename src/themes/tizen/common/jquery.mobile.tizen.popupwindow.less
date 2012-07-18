@@ -1,27 +1,64 @@
 @import "config.less";
 
+/* Resource color mapping table
+
+@color_popup_title_bg:	popup_title_bg.png
+@color_popup_text_bg:	popup_bg.png
+@color_popup_button_bg:	popup_button_bg.png
+@color_popup_font:		Popup title & default
+@color_popup_text_font:	Popup text
+
+*/
+
+
 @popupwindow-text-padding-vert: 22 * @unit_base;
 @popupwindow-text-padding-hori: 16 * @unit_base;
+
 
 .ui-popupwindow-screen {
     background: #000000;
     opacity: 0;
-	position: absolute; 
-	top: 0; 
-	left: 0; 
-	width: 100%; 
-	height: 100%;  
-	z-index: @z_base_popup; 
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: @z_base_popup;
 }
 
 .ui-popupwindow {
 
 	position: absolute;
 	z-index: (@z_base_popup + 1) !important;
-	background: #536771; //recheck color and change it to var
-	color: white; //recheck color and change it to var
+	color: @color_popup_font;
 
+	//FIXME : remove background & padding if there is no padding.
 	padding: 2*@unit_base 2*@unit_base;
+	background:		@color_popup_text_bg;
+
+	// --------- common style in popup window ------------- //
+	.popup-title {
+		width: 100%;
+		height: 100%;
+		font-size: @font_size_popup_basic_style_title;
+		background: @color_popup_title_bg;
+		p {
+			margin: 0*@unit_base 0*@unit_base;
+			padding: 13*@unit_base 0*@unit_base;
+		}
+	}
+
+	.popup-text {
+		width: 100%;
+		color: @color_popup_text_font;
+		font-size: @font_size_popup_info_style;
+		background: @color_popup_text_bg;
+		p {
+			text-align: center;
+			padding: @popupwindow-text-padding-vert @popupwindow-text-padding-hori;
+		}
+	}
+	// ----------------------------------------------------- //
 
 	.center_info {
 
@@ -29,44 +66,20 @@
 		.LESSbox-orient(vertical);
 		.LESSbox-align(center);
 		.LESSbox-pack(center);
-	
-		.popup-text {
-			font-size: @font_size_popup_info_style;
-			background: @color_popup_text_background;
-			width: 100%;
-			p {
-				text-align: center;
-				padding: @popupwindow-text-padding-vert @popupwindow-text-padding-hori;
-			}
-		}
+
+		// .popup-text
 	}
 
 	.center_title {
-
 		.LESSdisplaybox();
 		.LESSbox-orient(vertical);
 		.LESSbox-align(center);
 		.LESSbox-pack(center);
 
-	    	text-align: center;
+	    text-align: center;
 
-		.popup-title {
-			font-size: @font_size_popup_basic_style_title;
-			height: 64*@unit_base;
-			p { 
-				margin: 0*@unit_base 0*@unit_base;
-				padding: 13*@unit_base 0*@unit_base;
-			}
-		}
-		.popup-text {
-			font-size: @font_size_popup_info_style;
-			background: @color_popup_text_background;
-			width: 100%;
-			p {
-				text-align: center;
-				padding: @popupwindow-text-padding-vert @popupwindow-text-padding-hori;
-			}
-		}
+		// .popup-title
+		// .popup-text
   	}
 
 	.center_basic_1btn {
@@ -76,26 +89,18 @@
 		.LESSbox-align(center);
 		.LESSbox-pack(center);
 
-	    	text-align: center;
+	    text-align: center;
 
-		.popup-text {
-			font-size: @font_size_popup_info_style;
-			background: @color_popup_text_background;
-			width: 100%;
-			p {
-				text-align: center;
-				padding: @popupwindow-text-padding-vert @popupwindow-text-padding-hori;
-			}
-		}
+		// .popup-text
 
 		.popup-button-bg {
 			font-size: @font_size_popup_button_text;
-			background: @color_popup_button_background;
+			background: @color_popup_button_bg;
 			width: 100%;
 			padding-top: 11*@unit_base;
 			padding-bottom: 11*@unit_base;
 			vertical-align: middle;
-			
+
 			.ui-btn {
 				width: 402*@unit_base;
 				height: 74*@unit_base;
@@ -111,26 +116,18 @@
 		.LESSbox-align(center);
 		.LESSbox-pack(center);
 
-	    	text-align: center;
+	    text-align: center;
 
-		.popup-text {
-			font-size: @font_size_popup_info_style;
-			background: @color_popup_text_background;
-			width: 100%;
-			p {
-				text-align: center;
-				padding: @popupwindow-text-padding-vert @popupwindow-text-padding-hori;
-			}
-		}
+		// .popup-text
 
 		.popup-button-bg {
 			font-size: @font_size_popup_button_text;
-			background: @color_popup_button_background;
+			background: @color_popup_button_bg;
 			width: 100%;
 			padding-top: 11*@unit_base;
 			padding-bottom: 11*@unit_base;
 			vertical-align: middle;
-			
+
 			.ui-btn {
 				width: 274*@unit_base;
 				height: 74*@unit_base;
@@ -150,21 +147,13 @@
 		.LESSbox-align(center);
 		.LESSbox-pack(center);
 
-	    	text-align: center;
+	    text-align: center;
 
-		.popup-text {
-			font-size: @font_size_popup_info_style;
-			background: @color_popup_text_background;
-			width: 100%;
-			p {
-				text-align: center;
-				padding: @popupwindow-text-padding-vert @popupwindow-text-padding-hori;
-			}
-		}
+		// .popup-text
 
 		.popup-button-bg {
 			font-size: @font_size_popup_button_text;
-			background: @color_popup_button_background;
+			background: @color_popup_button_bg;
 			width: 100%;
 			padding-top: 11*@unit_base;
 			padding-bottom: 11*@unit_base;
@@ -191,32 +180,17 @@
 
 	    	text-align: center;
 
-		.popup-title {
-			font-size: @font_size_popup_basic_style_title;
-			height: 64*@unit_base;
-			p { 
-				margin: 0*@unit_base 0*@unit_base;
-				padding: 13*@unit_base 0*@unit_base;
-			}
-		}
-		.popup-text {
-			font-size: @font_size_popup_info_style;
-			background: @color_popup_text_background;
-			width: 100%;
-			p {
-				text-align: center;
-				padding: @popupwindow-text-padding-vert @popupwindow-text-padding-hori;
-			}
-		}
+		// .popup-title
+		// .popup-text
 
 		.popup-button-bg {
 			font-size: @font_size_popup_button_text;
-			background: @color_popup_button_background;
+			background: @color_popup_button_bg;
 			width: 100%;
 			padding-top: 11*@unit_base;
 			padding-bottom: 11*@unit_base;
 			vertical-align: middle;
-			
+
 			.ui-btn {
 				width: 402*@unit_base;
 				height: 74*@unit_base;
@@ -234,32 +208,17 @@
 
 	    	text-align: center;
 
-		.popup-title {
-			font-size: @font_size_popup_basic_style_title;
-			height: 64*@unit_base;
-			p { 
-				margin: 0*@unit_base 0*@unit_base;
-				padding: 13*@unit_base 0*@unit_base;
-			}
-		}
-		.popup-text {
-			font-size: @font_size_popup_info_style;
-			background: @color_popup_text_background;
-			width: 100%;
-			p {
-				text-align: center;
-				padding: @popupwindow-text-padding-vert @popupwindow-text-padding-hori;
-			}
-		}
+		// .popup-title
+		// .popup-text
 
 		.popup-button-bg {
 			font-size: @font_size_popup_button_text;
-			background: @color_popup_button_background;
+			background: @color_popup_button_bg;
 			width: 100%;
 			padding-top: 11*@unit_base;
 			padding-bottom: 11*@unit_base;
 			vertical-align: middle;
-			
+
 			.ui-btn {
 				width: 274*@unit_base;
 				height: 74*@unit_base;
@@ -279,29 +238,14 @@
 		.LESSbox-align(center);
 		.LESSbox-pack(center);
 
-	    	text-align: center;
+	    text-align: center;
 
-		.popup-title {
-			font-size: @font_size_popup_basic_style_title;
-			height: 64*@unit_base;
-			p { 
-				margin: 0*@unit_base 0*@unit_base;
-				padding: 13*@unit_base 0*@unit_base;
-			}
-		}
-		.popup-text {
-			font-size: @font_size_popup_info_style;
-			background: @color_popup_text_background;
-			width: 100%;
-			p {
-				text-align: center;
-				padding: @popupwindow-text-padding-vert @popupwindow-text-padding-hori;
-			}
-		}
+		// .popup-title
+		// .popup-text
 
 		.popup-button-bg {
 			font-size: @font_size_popup_button_text;
-			background: @color_popup_button_background;
+			background: @color_popup_button_bg;
 			width: 100%;
 			padding-top: 11*@unit_base;
 			padding-bottom: 11*@unit_base;
@@ -326,26 +270,18 @@
 		.LESSbox-align(center);
 		.LESSbox-pack(center);
 
-	    	text-align: center;
+	    text-align: center;
 
-		.popup-text {
-			font-size: @font_size_popup_info_style;
-			background: @color_popup_text_background;
-			width: 100%;
-			p {
-				text-align: center;
-				padding: @popupwindow-text-padding-vert @popupwindow-text-padding-hori;
-			}
-		}
+		// .popup-text
 
 		.popup-button-bg {
 			font-size: @font_size_popup_button_text;
-			background: @color_popup_button_background;
+			background: @color_popup_button_bg;
 			width: 100%;
 			padding-top: 1px;
 			padding-bottom: 16*@unit_base;
 			vertical-align: middle;
-			
+
 			.ui-btn {
 				width: 356*@unit_base;
 				height: 74*@unit_base;
@@ -363,21 +299,13 @@
 		.LESSbox-align(center);
 		.LESSbox-pack(center);
 
-	    	text-align: center;
+	    text-align: center;
 
-		.popup-text {
-			font-size: @font_size_popup_info_style;
-			background: @color_popup_text_background;
-			width: 100%;
-			p {
-				text-align: center;
-				padding: @popupwindow-text-padding-vert @popupwindow-text-padding-hori;
-			}
-		}
+		// .popup-text
 
 		.popup-check-bg {
 			font-size: @font_size_popup_info_style;
-			background: @color_popup_text_background;
+			background: @color_popup_text_bg;
 			width: 100%;
 			padding-top: 0*@unit_base;
 			padding-bottom: 22*@unit_base;
@@ -386,7 +314,7 @@
 			.ui-checkbox {
 				.ui-btn {
 					text-align: center;
-					background: @color_popup_text_background;
+					background: @color_popup_text_bg;
 					border: 0*@unit_base;
 
 					.ui-btn-inner {
@@ -398,12 +326,12 @@
 
 		.popup-button-bg {
 			font-size: @font_size_popup_button_text;
-			background: @color_popup_button_background;
+			background: @color_popup_button_bg;
 			width: 100%;
 			padding-top: 11*@unit_base;
 			padding-bottom: 11*@unit_base;
 			vertical-align: middle;
-			
+
 			.ui-btn {
 				width: 274*@unit_base;
 				height: 74*@unit_base;
@@ -425,14 +353,8 @@
 
 	    	text-align: center;
 
-		.popup-title {
-			font-size: @font_size_popup_basic_style_title;
-			height: 64*@unit_base;
-			p { 
-				margin: 0*@unit_base 0*@unit_base;
-				padding: 13*@unit_base 0*@unit_base;
-			}
-		}
+		// .popup-title
+
 		.popup-scroller-bg {
 			width: 100%;
 			overflow: hidden;
@@ -444,12 +366,12 @@
 		}
 		.popup-button-bg {
 			font-size: @font_size_popup_button_text;
-			background: @color_popup_button_background;
+			background: @color_popup_button_bg;
 			width: 100%;
 			padding-top: 11*@unit_base;
 			padding-bottom: 11*@unit_base;
 			vertical-align: middle;
-			
+
 			.ui-btn {
 				width: 402*@unit_base;
 				height: 74*@unit_base;
@@ -457,7 +379,7 @@
 
 			}
 		}
-	}	
+	}
 	.center_liststyle_2btn {
 
 		.LESSdisplaybox();
@@ -467,14 +389,8 @@
 
 	    	text-align: center;
 
-		.popup-title {
-			font-size: @font_size_popup_basic_style_title;
-			height: 64*@unit_base;
-			p { 
-				margin: 0*@unit_base 0*@unit_base;
-				padding: 13*@unit_base 0*@unit_base;
-			}
-		}
+		// .popup-title
+
 		.popup-scroller-bg {
 			width: 100%;
 			overflow: hidden;
@@ -486,12 +402,12 @@
 		}
 		.popup-button-bg {
 			font-size: @font_size_popup_button_text;
-			background: @color_popup_button_background;
+			background: @color_popup_button_bg;
 			width: 100%;
 			padding-top: 11*@unit_base;
 			padding-bottom: 11*@unit_base;
 			vertical-align: middle;
-			
+
 			.ui-btn {
 				width: 274*@unit_base;
 				height: 74*@unit_base;
@@ -503,7 +419,7 @@
 				display: inline-block;
 			}
 		}
-	}	
+	}
 	.center_liststyle_3btn {
 
 		.LESSdisplaybox();
@@ -513,14 +429,8 @@
 
 	    	text-align: center;
 
-		.popup-title {
-			font-size: @font_size_popup_basic_style_title;
-			height: 64*@unit_base;
-			p { 
-				margin: 0*@unit_base 0*@unit_base;
-				padding: 13*@unit_base 0*@unit_base;
-			}
-		}
+		// .popup-title
+
 		.popup-scroller-bg {
 			width: 100%;
 			overflow: hidden;
@@ -532,12 +442,12 @@
 		}
 		.popup-button-bg {
 			font-size: @font_size_popup_button_text;
-			background: @color_popup_button_background;
+			background: @color_popup_button_bg;
 			width: 100%;
 			padding-top: 11*@unit_base;
 			padding-bottom: 11*@unit_base;
 			vertical-align: middle;
-			
+
 			.ui-btn {
 				width: 186*@unit_base;
 				height: 74*@unit_base;
@@ -549,7 +459,7 @@
 				display: inline-block;
 			}
 		}
-	}	
+	}
 
 	.center_progressbar {
 
@@ -563,7 +473,7 @@
 		.popup-text {
 			font-size: @font_size_popup_center_progressbar_title;
 			font-color: @color_popup_center_progressbar_title;
-			background: @color_popup_text_background;
+			background: @color_popup_text_bg;
 			width: 100%;
 			height: 70*@unit_base;
 			p {
@@ -576,7 +486,7 @@
 		.popup-text-bottom-bg {
 			font-size: @font_size_popup_center_progressbar_title;
 			font-color: @color_popup_center_progressbar_title;
-			background: @color_popup_text_background;
+			background: @color_popup_text_bg;
 			width: 100%;
 			vertical-align: middle;
 
@@ -585,7 +495,7 @@
 				height: 48*@unit_base;
 				padding: 0*@unit_base 16*@unit_base 0*@unit_base 16*@unit_base;
 				text-align: left;
-		
+
 				display: inline-block;
 			}
 			.text-right {
@@ -601,12 +511,12 @@
 
 		.popup-button-bg {
 			font-size: @font_size_popup_button_text;
-			background: @color_popup_button_background;
+			background: @color_popup_button_bg;
 			width: 100%;
 			padding-top: 11*@unit_base;
 			padding-bottom: 11*@unit_base;
 			vertical-align: middle;
-			
+
 			.ui-btn {
 				width: 402*@unit_base;
 				height: 74*@unit_base;
@@ -616,12 +526,12 @@
 		}
 
 		.popup-progress-bg {
-			background: @color_popup_text_background;
+			background: @color_popup_text_bg;
 			width: 100%;
 			height: 100%;
 		}
 	}
-	
+
 	.centertext_progressbar {
 
 		.LESSdisplaybox();
@@ -634,7 +544,7 @@
 		.popup-text {
 			font-size: @font_size_popup_center_progressbar_title;
 			font-color: @color_popup_center_progressbar_title;
-			background: @color_popup_text_background;
+			background: @color_popup_text_bg;
 			width: 100%;
 			padding-top: 22*@unit_base;
 			padding-bottom: 16*@unit_base;
@@ -646,7 +556,7 @@
 		.popup-text-bottom-bg {
 			font-size: @font_size_popup_center_progressbar_title;
 			font-color: @color_popup_center_progressbar_title;
-			background: @color_popup_text_background;
+			background: @color_popup_text_bg;
 			width: 100%;
 			vertical-align: middle;
 
@@ -655,7 +565,7 @@
 				height: 40*@unit_base;
 				padding: 16*@unit_base 16*@unit_base 22*@unit_base 16*@unit_base;
 				text-align: left;
-		
+
 				display: inline-block;
 			}
 			.text-right {
@@ -671,12 +581,12 @@
 
 		.popup-button-bg {
 			font-size: @font_size_popup_button_text;
-			background: @color_popup_button_background;
+			background: @color_popup_button_bg;
 			width: 100%;
 			padding-top: 11*@unit_base;
 			padding-bottom: 11*@unit_base;
 			vertical-align: middle;
-			
+
 			.ui-btn {
 				width: 402*@unit_base;
 				height: 74*@unit_base;
@@ -686,7 +596,7 @@
 		}
 
 		.popup-progress-bg {
-			background: @color_popup_text_background;
+			background: @color_popup_text_bg;
 			width: 100%;
 			height: 100%;
 		}
@@ -736,18 +646,14 @@
 	}
 
 	.ui-corner-all {
-		-moz-border-radius: 0.3em !important; 
-		-webkit-border-radius: 0.3em !important; 
+		-moz-border-radius: 0.3em !important;
+		-webkit-border-radius: 0.3em !important;
 		border-radius: 0.3em !important;
 	}
 }
 
-
-
-
-
 .ui-popupwindow-corner-all {
-	-moz-border-radius: 0em !important; 
-	-webkit-border-radius: 0em !important; 
+	-moz-border-radius: 0em !important;
+	-webkit-border-radius: 0em !important;
 	border-radius: 0em !important;
 }
