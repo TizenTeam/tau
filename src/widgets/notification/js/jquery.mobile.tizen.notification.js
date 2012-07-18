@@ -37,6 +37,7 @@
  *  show(): show the notification.
  *  hide(): hide the notification.
  *  text(text0, text1): set texts or get texts
+ *  setIcon(src): set the icon (tickernoti only)
  *
  * Events
  *
@@ -46,6 +47,7 @@
  *
  * // tickernoti
  * <div data-role="notification" id="notification" data-type="ticker" data-interval="3000">
+ *	<img src="icon01.png">
  *	<p>Hello World</p>
  *	<p>Denis</p>
  * </div>
@@ -61,6 +63,7 @@
 	$.widget( "tizen.notification", $.mobile.widget, {
 		btn: null,
 		text_bg: [],
+		icon: [],
 		interval: null,
 		seconds: null,
 		running: false,
@@ -100,6 +103,16 @@
 			}
 
 			this._set_text( text0, text1 );
+		},
+
+		setIcon: function ( src ) {
+			if ( src === undefined ) {
+				return;
+			}
+
+			this.icon.detach();
+			this.icon = $( "<img src='" + src + "' class='ui-ticker-icon'>" );
+			$( this.element ).find(".ui-ticker").append( this.icon );
 		},
 
 		_refresh: function () {
@@ -233,8 +246,7 @@
 
 			if ( this.type === 'ticker' ) {
 				elem.wrapInner("<div class='ui-ticker'></div>");
-				elem.find(".ui-ticker").append("<div class='ui-ticker-icon'></div>" +
-							"<div class='ui-ticker-body'></div>" +
+				elem.find(".ui-ticker").append("<div class='ui-ticker-body'></div>" +
 							"<div class='ui-ticker-btn'></div>");
 				this.text_bg = elem.find("p");
 
@@ -243,12 +255,22 @@
 					this.text_bg = elem.find("p");
 				} else if ( this.text_bg.length > 2 ) {
 					for ( i = 2; i < this.text_bg.length; i++ ) {
-						$( this.text_bg[2] ).css( "display", "none" );
+						$( this.text_bg[i] ).css( "display", "none" );
 					}
 				}
 
 				$( this.text_bg[0] ).addClass("ui-ticker-text1-bg");
 				$( this.text_bg[1] ).addClass("ui-ticker-text2-bg");
+
+				this.icon = elem.find("img");
+
+				if ( this.icon.length ) {
+					$( this.icon ).addClass("ui-ticker-icon");
+
+					for ( i = 1; i < this.icon.length; i++ ) {
+						$( this.icon[i] ).css( "display", "none" );
+					}
+				}
 			} else {
 				elem.wrapInner("<div class='ui-smallpopup'></div>");
 				this.text_bg = elem.find("p").addClass("ui-smallpopup-text-bg");
