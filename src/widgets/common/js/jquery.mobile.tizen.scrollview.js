@@ -727,8 +727,6 @@
 					return;
 				}
 
-				resizePageContentHeight( $page );
-
 				sy = $c.height() - $v.height();
 				vh = $v.height() - self._view_height;
 
@@ -751,8 +749,6 @@
 					return;
 				}
 
-				resizePageContentHeight( $page );
-
 				focused = $c.find(".ui-focus");
 
 				if ( focused ) {
@@ -766,12 +762,6 @@
 				}
 
 				self._view_height = $v.height();
-			});
-
-			$( window ).bind( "orientationchange", function ( e ) {
-				var $page = $c.parentsUntil("ui-page");
-
-				resizePageContentHeight( $page );
 			});
 		},
 
@@ -972,7 +962,7 @@
 					dir = st && ( st.search(/^[xy]/) !== -1 ) ? st.charAt(0) : null,
 					opts;
 
-				if ( st === "none") {
+				if ( st === "none" ) {
 					return;
 				}
 
