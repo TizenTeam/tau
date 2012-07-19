@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.1.27
+Version:    0.1.28
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -89,6 +89,13 @@ Summary:    Tizen Web UI Framework Demo Application: tizen-gray demo
 
 ###############################
 %changelog
+
+* Thu Jul 19 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.28
+- Improvements & Bugfixes
+   - Fix #WEB-1028: memory leak on virtuallist/virtualgrid
+- Spec changes
+   - $.tizen.loadTheme() function accepts theme name as arguement
+   - Scrollview supports 'updatelayout' callback
 
 * Tue Jul 17 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.27
 - Improvements & Bugfixes
