@@ -74,14 +74,30 @@
 					$( head ).prepend( elem );
 				}
 			},
-			load: function ( path ) {
-				this.addElementToHead( this.makeLink( path + this.cacheBust ) );
-			},
 			makeLink : function ( href ) {
-				var customstylesheetLink = document.createElement( 'link' );
-				customstylesheetLink.setAttribute( 'rel', 'stylesheet' );
-				customstylesheetLink.setAttribute( 'href', href );
-				return customstylesheetLink;
+				var cssLink = document.createElement( 'link' );
+				cssLink.setAttribute( 'rel', 'stylesheet' );
+				cssLink.setAttribute( 'href', href );
+				cssLink.setAttribute( 'name', 'tizen-theme' );
+				return cssLink;
+			},
+			load: function ( path ) {
+				var head = document.getElementsByTagName( 'head' )[0],
+					cssLinks = head.getElementsByTagName( 'link' ),
+					idx,
+					l = null;
+				// Find css link element
+				for ( idx = 0; idx < cssLinks.length; idx++ ) {
+					if( cssLinks[idx].getAttribute( 'name' ) == "tizen-theme" ) {
+						l = cssLinks[idx];
+						break;
+					}
+				}
+				if ( l ) {	// Found the link element!
+					l.setAttribute( 'href', path );
+				} else {
+					this.addElementToHead( this.makeLink( path ) );
+				}
 			}
 		},
 
@@ -122,26 +138,29 @@
 			return foundScriptTag;
 		},
 
-		loadTheme: function ( ) {
-			var themePath = [
-					this.frameworkData.rootDir,
-					this.frameworkData.version,
-					'themes',
-					this.frameworkData.theme
-				].join( '/' ),
-				cssPath,
-				jsPath = [themePath, 'theme.js'].join( '/' );
+		loadTheme: function ( theme ) {
+			var themePath, cssPath, jsPath;
 
-			if( this.frameworkData.minified ) {
+			if ( ! theme ) {
+				theme = tizen.frameworkData.theme;
+			}
+			themePath = [
+					tizen.frameworkData.rootDir,
+					tizen.frameworkData.version,
+					'themes',
+					theme
+				].join( '/' ),
+
+			jsPath = [themePath, 'theme.js'].join( '/' );
+
+			if( tizen.frameworkData.minified ) {
 				cssPath = [themePath, 'tizen-web-ui-fw-theme.min.css'].join( '/' );
 			} else {
 				cssPath = [themePath, 'tizen-web-ui-fw-theme.css'].join( '/' );
 			}
-			this.css.load( cssPath );
-			this.util.loadScriptSync( jsPath );
+			tizen.css.load( cssPath );
+			tizen.util.loadScriptSync( jsPath );
 		},
-
-
 
 		/** Load Globalize culture file, and set default culture.
 		 *  @param[in]  language  (optional) Language code. ex) en-US, en, ko-KR, ko
@@ -362,9 +381,8 @@
 		}
 
 		$.tizen.frameworkData = tizen.frameworkData;
-
-		$.tizen.util = { };
-		$.tizen.util.loadCustomGlobalizeCulture = tizen.loadCustomGlobalizeCulture;
+		$.tizen.loadCustomGlobalizeCulture = tizen.loadCustomGlobalizeCulture;
+		$.tizen.loadTheme = tizen.loadTheme;
 
 		$.tizen.__tizen__ = tizen;	// for unit-test
 	}
