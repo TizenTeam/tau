@@ -44,6 +44,11 @@
 		border-style : none;
 		border-width : 0px;
 	}
+
+	> .ui-btn.ui-btn-footer-right{
+		left : 10 * @unit_base;
+	}
+
 	.ui-btn.ui-btn-back .ui-btn-inner,
 	.ui-btn.ui-btn-footer-right .ui-btn-inner {
 			padding : 0;
@@ -250,6 +255,14 @@
 	margin-top : 20 * @unit_base;
 }
 
+.ui-footer.ui-bar-s {
+	> .ui-btn {
+		background-color : @color_bar_btn_bg;
+	}
+	> .ui-btn-back {
+		background-color : @color_bar_back_btn_bg;
+	}
+}
 
 /***************************************************************************
                     Header / Footer
