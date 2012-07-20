@@ -18,27 +18,27 @@
 		virtualGrid = widget.virtualgrid("create");
 		ok(virtualGrid, "Create");
 
-		$(".virtualgrid_demo_page").bind("select", function (event){
+		$(".virtualgrid_demo_page").bind("select", function ( event ) {
 			ok(true, "Event : select");
 		});
 
 		$($(".virtualgrid_demo_page").find(".ui-scrollview-view")).find(".ui-virtualgrid-wrapblock-y:first").addClass("center");
 		widget.virtualgrid("centerTo", "center");
 		$items = $($(".virtualgrid_demo_page").find(".ui-scrollview-view")).find(".ui-virtualgrid-wrapblock-y");
-		for( idx = 0 ; idx < $items.length ; idx += 1 ) {
+		for ( idx = 0 ; idx < $items.length ; idx += 1 ) {
 			if ( $($items[idx]).hasClass("center") ) {
 				index = idx;
 				break;
 			}
 		}
 
-		notEqual( index, -1, "API : centerTo");
+		notEqual( index, 0, "API : centerTo");
 
-		$item = $($(".ui-virtualgrid-wrapblock-y:first").children()[0])
-		$(".virtualgrid_demo_page").trigger("select");
+		$item = $($(".ui-virtualgrid-wrapblock-y:first").children()[0]);
+		$item.trigger("click");
 	};
 
-	$(document).bind("pagecreate", function () {
+	$(document).bind("dataloaded" , function () {
 		test( "Virtualgrid", function () {
 			unit_virtualgrid( $("#virtualgrid-test"), "virtualgrid" );
 		});

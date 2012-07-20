@@ -21,23 +21,34 @@
  * ***************************************************************************
  *
  *	Author: Kangsik Kim <kangsik81.kim@samsung.com>
- *	        Youmin Ha <youmin.ha@samsung.com>
+ *			Youmin Ha <youmin.ha@samsung.com>
 */
 
 /**
- * Virtual Grid Widget for unlimited data.
- * To support more then 1,000 items, special grid widget developed.
- * Fast initialize and light DOM tree.
+ * In the web environment, it is challenging to display a large amount of data in a grid.
+ * When an application needs to show, for example, image gallery with over 1,000 images,
+ * the same enormous data must be inserted into a HTML document.
+ * It takes a long time to display the data and manipulating DOM is complex.
+ * The virtual grid widget supports storing unlimited data without performance issues
+ * by reusing a limited number of grid elements.
+ * The virtual grid widget is based on the jQuery.template plug-in 
+ * For more information, see jQuery.template.
  *
  * HTML Attributes:
  *
  *		data-role:  virtualgridview
- *		data-template : jQuery.template ID that populate into virtual list
- *		data-dbtable : DB Table name. It used as window[DB NAME]. Loaded data should be converted as window object.
- *		data-dbkey : Unique key of DB Table. To sync each element on virtual list with DB table.
- *		data-itemcount : Set a number of column. (Default : 3)
- *		data-direction : Set a scroll direction. (Default : y)
- *		data-rotation : Set a rotation state. (Default : false)
+ *		data-template :	Has the ID of the jQuery.template element.
+ *						jQuery.template for a virtual grid must be defined.
+ *						Style for template would use rem unit to support scalability.
+ *		data-dbtable :	Has the window object name. 
+ *						Window [dbtable] object must exist as a JSON array.
+ *		data-itemcount : Number of column elements. (Default : 3)
+ *		data-direction : This option define the direction of the scroll.
+ *						You must choose one of the 'x' and 'y' (Default : y)
+ *		data-rotation : This option defines whether or not the circulation of the data.
+ *						If option is 'true' and scroll is reached the last data,
+ *						Widget will present the first data on the screen.
+ *						If option is ‘false’, Widget will operate like a scrollview.
  *
  *		ID : <UL> element that has "data-role=virtualgrid" must have ID attribute.
  *		Class : <UL> element that has "data-role=virtualgrid" should have "vgLoadSuccess" class to guaranty DB loading is completed.
@@ -45,13 +56,17 @@
  * APIs:
  *
  *		create ( void )
- *			: API to call _create method. API for AJAX or DB loading callback.
+ *			: Create VirtualGrid widget. At this moment, _create method is called internally.
+ *		centerTo ( String )
+ *			: Find a DOM Element with the given class name.
+ *			This element will be centered on the screen.
+ *			Serveral elements were found, the first element is displayed.
  *
  * Events:
- *		scrollstart : This event will occur when scroll start.
- *		scrollupdate : This event will occur when scroll update.
- *		scrollstop : This event will occur when scroll stop.
- *		select : This event will occur when select a item.
+ *		scrollstart : : This event triggers when a user begin to move the scroll on VirtualGrid.
+ *		scrollupdate : : This event triggers while a user moves the scroll on VirtualGrid.
+ *		scrollstop : This event triggers when a user stop the scroll on VirtualGrid.
+ *		select : This event triggers when a cell is selected.
  *
  * Examples:
  *
@@ -289,6 +304,19 @@
 			widget._addBehaviors();
 			widget._createScrollBar();
 			widget._currentItemCount = 0;
+
+			$(document).one("pageshow", function (event) {
+				var $page = $(widget.element).parents(".ui-page"),
+					$header = $page.find( ":jqmData(role='header')" ),
+					$footer = $page.find( ":jqmData(role='footer')" ),
+					$content = $page.find( ":jqmData(role='content')" ),
+					footerHeight = $footer ? $footer.height() : 0,
+					headerHeight = $header ? $header.height() : 0;
+
+				if ( $page && $content ) {
+					$content.height(window.innerHeight - headerHeight - footerHeight);
+				}
+			});
 		},
 
 		refresh : function () {
@@ -414,8 +442,8 @@
 			}
 
 			scrollBarSize = parseInt( widget._maxViewSize / widget._clipSize , 10);
-			scrollBarSize = scrollBarSize < 10 ? 30 : scrollBarSize;
-			widget._itemScrollSize = parseFloat( ( widget._clipSize - scrollBarSize ) / ( widget._totalRowCnt - widget._itemsPerView ) );
+			scrollBarSize = scrollBarSize < 30 ? 30 : scrollBarSize;
+			widget._itemScrollSize = parseFloat( ( widget._clipSize - ( scrollBarSize ) ) / ( widget._totalRowCnt - widget._itemsPerView ) );
 			widget._itemScrollSize = Math.round(widget._itemScrollSize * 100) / 100;
 			if ( widget._direction ) {
 				widget._$clip.append( prefix + "x" + suffix );
@@ -697,6 +725,7 @@
 				widget._movePos = ey - widget._eventPos;
 				y = widget._nextPos + widget._movePos;
 			}
+			widget._showScrollBars();
 			widget._setScrollPosition( x, y );
 			return false;
 		},
