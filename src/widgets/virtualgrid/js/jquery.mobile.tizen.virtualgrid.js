@@ -704,8 +704,8 @@
 		_handleDragStop: function ( e ) {
 			var widget = this;
 
-			widget._scrollView._handleDragStop.apply( this, [ e ] );
 			widget._reservedPos = widget._movePos ? widget._nextPos + widget._movePos : widget._reservedPos;
+			widget._scrollView._handleDragStop.apply( this, [ e ] );
 			return widget._didDrag ? false : undefined;
 		},
 
