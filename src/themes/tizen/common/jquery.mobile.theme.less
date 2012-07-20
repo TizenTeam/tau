@@ -89,10 +89,7 @@
 			margin-bottom : 0 * @unit_base;
 
 			label {
-				border-color : @color_bar_seg_btn_border;
-				border-style : solid;
-				border-left-width : 1px;
-				border-right-width : 1px;
+				.LESSextended-controlgroup-border;
 			}
 
 			.ui-radio {
@@ -104,6 +101,7 @@
 				.ui-btn-inner {
 					.ui-btn-text {
 						text-align : center;
+						font-weight : bold;
 					}
 	}
 
@@ -134,27 +132,27 @@
 	}
 	.ui-title-normal-3btn {
 		position : absolute;
-		right : 154 * @unit_base;
-
 		display : block;
+
+		right : @style-title-3btn-right-position;
 	}
 
 	.ui-title-extended-controlgroup-4btn {
-		width : 682 * @unit_base;
+		width : @style-title-extended-4btn-width;
 		.ui-radio {
-			width : 170  * @unit_base;
+			width : @style-title-extended-4btn-radio-width;
 		}
 	}
 	.ui-title-extended-controlgroup-3btn {
-		width : 432  * @unit_base;
+		width : @style-title-extended-3btn-width;
 		.ui-radio {
-			width : 143  * @unit_base;
+			width : @style-title-extended-3btn-radio-width;
 		}
 	}
 	.ui-title-extended-controlgroup-2btn {
-		width : 328  * @unit_base;
+		width : @style-title-extended-2btn-width;
 		.ui-radio {
-			width : 163  * @unit_base;
+			width : @style-title-extended-2btn-radio-width;
 		}
 	}
 }
@@ -169,14 +167,14 @@
 
 		top : 0px;
 		min-height: 36 * @unit_base;
-		text-align: center;
 		font-size : 36 * @unit_base;
 		display: block;
-		margin: 28*@unit_base 135*@unit_base 28*@unit_base 135*@unit_base;
 		text-overflow: ellipsis;
 		overflow: hidden;
 		white-space: nowrap;
 		outline: 0 !important;
+		
+		.LESStitle-diff-style; /* different title style */
 	}
 
 	.ui-btn{
@@ -199,9 +197,7 @@
 		background: @color_bar_title_btn_bg;
 		color 		: @color_bar_title_text;
 
-		border-style: solid;
-		border-color: @color_bar_title_btn_border;
-		border-width: 1px;
+		.LESStitle-border; /* different title style */
 	}
 
 	> .ui-btn.ui-btn-down-s {
@@ -702,35 +698,35 @@ a.ui-link-inherit {
 -----------------------------------------------------------------------------------------------------------*/
 
 .ui-corner-tl {
-	.LESSborder-radius-topleft(.6em);
+	.LESSborder-radius-topleft(@style-corner-radius);
 }
 .ui-corner-tr {
-	.LESSborder-radius-topright(.6em);
+	.LESSborder-radius-topright(@style-corner-radius);
 }
 .ui-corner-bl {
-	.LESSborder-radius-bottomleft(.6em);
+	.LESSborder-radius-bottomleft(@style-corner-radius);
 }
 .ui-corner-br {
-	.LESSborder-radius-bottomright(.6em);
+	.LESSborder-radius-bottomright(@style-corner-radius);
 }
 .ui-corner-top {
-	.LESSborder-radius-topleft(.6em);
-	.LESSborder-radius-topright(.6em);
+	.LESSborder-radius-topleft(@style-corner-radius);
+	.LESSborder-radius-topright(@style-corner-radius);
 }
 .ui-corner-bottom {
-	.LESSborder-radius-bottomleft(.6em);
-	.LESSborder-radius-bottomright(.6em);
-	}
+	.LESSborder-radius-bottomleft(@style-corner-radius);
+	.LESSborder-radius-bottomright(@style-corner-radius);
+}
 .ui-corner-right {
-	.LESSborder-radius-topright(.6em);
-	.LESSborder-radius-bottomright(.6em);
+	.LESSborder-radius-topright(@style-corner-radius);
+	.LESSborder-radius-bottomright(@style-corner-radius);
 }
 .ui-corner-left {
-	.LESSborder-radius-topleft(.6em);
-	.LESSborder-radius-bottomleft(.6em);
+	.LESSborder-radius-topleft(@style-corner-radius);
+	.LESSborder-radius-bottomleft(@style-corner-radius);
 }
 .ui-corner-all {
-	//.LESSborder-radius-all(.6em);
+	//.LESSborder-radius-all(@style-corner-radius);
 }
 .ui-corner-none {
 	.LESSborder-radius-all(0); 

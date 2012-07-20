@@ -181,7 +181,7 @@
 ***************************************************************************/
 @color_searchbar_bg : rgba(36, 36, 36, 1);   /* #242424 */
 @color_searchbar_default_text : rgba(130, 130, 130, 1);       /* #828282 */
-
+@color_searchbar_input_field_bg : rgba(0, 0, 0, 1); /* #000000*/
 
 /***************************************************************************
                     SegmentControl
@@ -289,3 +289,36 @@
 									Layout ( position, padding, margin etc...)
 ****************************************************************************
 ***************************************************************************/
+
+@style-corner-radius : .6em;
+@style-title-3btn-right-position : 154 * @unit_base;
+
+@style-title-extended-2btn-width : 328 * @unit_base;
+@style-title-extended-2btn-radio-width : 163 * @unit_base;
+@style-title-extended-3btn-width : 432 * @unit_base;
+@style-title-extended-3btn-radio-width : 143 * @unit_base;
+@style-title-extended-4btn-width : 682 * @unit_base;
+@style-title-extended-4btn-radio-width : 170 * @unit_base;
+
+@style-title-btn-left-positon : 10 * @unit_base;
+@style-title-btn-right-positon : 10 * @unit_base;
+/***************************************************************************
+									Navigation
+***************************************************************************/
+.LESStitle-diff-style {
+	text-align: center;
+	margin: 28*@unit_base 135*@unit_base 28*@unit_base 135*@unit_base;
+}
+
+.LESStitle-border {
+	border-style: solid;
+	border-color: @color_bar_title_btn_border;
+	border-width: 1px;
+}
+
+.LESSextended-controlgroup-border {
+	border-color : @color_bar_seg_btn_border;
+	border-style : solid;
+	border-left-width : 1px;
+	border-right-width : 1px;
+}
