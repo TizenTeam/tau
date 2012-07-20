@@ -84,6 +84,12 @@
 {
 	padding: 0.2em 0.5em;
 }
+
+/* white theme, delete button padding */
+.ui-li .ui-btn.ui-btn-edit .ui-btn-inner.ui-btn-hastxt
+{
+        .LESSbutton_edit_padding;
+}
 	
 /* wongi_1017 : Icons */
 /* icons sizing */
@@ -188,6 +194,7 @@ background-image: url(images/00_winset_Back.png);}
 /* No BG button : data-iconbg = "nobg" */
 .ui-btn.ui-btn-icon-nobg, .ui-btn .ui-btn-icon-nobg
 {
+	background: transparent;
 	background-color: transparent;	
 	border: none;	
 }
@@ -208,7 +215,7 @@ background-image: url(images/00_winset_Back.png);}
 
 .ui-btn.ui-btn-edit
 {
-	background-color: @color_button_normal;
+	.LESSbutton_edit_style;
 	position: absolute;
 	top: 0 * @unit_base;
 	margin-top: 0 * @unit_base;
@@ -216,5 +223,11 @@ background-image: url(images/00_winset_Back.png);}
 
 .ui-btn.ui-btn-edit.ui-btn-down-s
 {
-	background-color: @color_button_press;
+        .LESSbutton_editpress_style;
 }
+
+.ui-btn-box-s
+{
+        .LESSbutton_box_style;
+}
+

@@ -4,7 +4,7 @@
 	height: 80 * @unit_base;
 	width: 60 * @unit_base;
 	overflow: hidden;
-
+	font-weight: bold;
 	.ui-toggleswitch-mover {
 		position: relative;
 		font-size: 20 * @unit_base;
@@ -13,24 +13,58 @@
 		.ui-toggleswitch-off {
 			border-radius: 5 * @unit_base;
 			color: @color_text_sub;
-			background: @color_button_normal;
+			.LESStoggleswitch_off_style;
 			height: 80 * @unit_base;
+			.ui-toggleswitch-img{
+				width: 100%;
+				position: absolute;
+				padding-top: 7 * @unit_base;
+				.ui-toggleswitch-sign{
+					position: absolute;
+					width: 4px;
+					height: 12px;
+					left: 50%;
+					margin-left:-2px;
+					background: url(images/00_switch_button_off.png) no-repeat;
+					background-size: cover;
+					-webkit-background-size: cover;
+					-o-background-size: cover;
+					-moz-background-size: cover;
+				}
+			}
 		}
 
 		.ui-toggleswitch-on {
 			display: none;
 			border-radius: 5 * @unit_base;
-			background: @color_button_press;
+			.LESStoggleswitch_on_style;
 			height: 80 * @unit_base;
 			color: white;
-
+			.ui-toggleswitch-img{
+				width: 100%;
+				position: absolute;
+				padding-top: 6 * @unit_base;
+				text-align: center;
+				.ui-toggleswitch-sign{
+					position: absolute;
+					width: 15px;
+					height: 15px;
+					left: 50%;
+					margin-left:-7px;
+					background: url(images/00_switch_button_on.png) no-repeat;
+					background-size: cover;
+					-webkit-background-size: cover;
+					-o-background-size: cover;
+					-moz-background-size: cover;
+				}
+			}
 		}
 
 		.ui-toggleswitch-reed {
 			position: absolute;
 			border-radius: 5 * @unit_base;
 			width: 57 * @unit_base;
-			background: @color_button_text_normal;
+			.LESStoggleswitch_reed_style;
 			top: 40 * @unit_base;
 			height: 39 * @unit_base;
 			left: 1px;
@@ -55,7 +89,9 @@
 		.ui-toggleswitch-text {
 			top: 40 * @unit_base;
 		}
-
+		.ui-toggleswitch-img{
+			top: 40 * @unit_base;
+		}
 		.ui-toggleswitch-on {
 			display: block;
 		}

@@ -120,6 +120,14 @@
 @font_size_popup_text_progress_title:		42 * @unit_base; //1.3125rem;	/* 42px */
 @font_size_popup_button_text:			32 * @unit_base; //1.0rem;	/* 32px */
 
+.LESSpopup_button_style{
+}
+
+.LESSpopup_button_hover_style{
+}
+
+.LESSpopup_button_press_style{
+}
 
 /***************************************************************************
                     Button
@@ -134,6 +142,26 @@
 @color_button_EditTextPress:	rgb(249, 249, 249);
 @color_button_EditBG:		rgb(0, 0, 0);
 @color_button_EditBGPress:	rgb(0, 140, 210);
+
+@color_button_switch_BGon:	rgb(0, 140, 210);
+@color_button_switch_BGoff:	rgb(59, 59, 59);
+@color_button_switch_BGreed:	rgb(249, 249, 249);
+
+.LESSbutton_up_style{
+        background: @color_button_normal;
+        color: @color_button_text_normal;
+}
+
+.LESSbutton_hover_style{
+	background: @color_button_hover;
+	color: @color_button_text_normal;
+}
+
+.LESSbutton_down_style{
+	background: @color_button_press;
+	color: @color_button_text_normal;
+}
+
 .LESSbutton_text1_style{
 	font-family: @font_family;
 	font-weight: normal;
@@ -141,6 +169,39 @@
 	font-style:normal;
 	color: @color_button_text_normal;
 	&:hover {color: @color_button_text_press;}
+}
+
+.LESSbutton_box_style{
+	color: @color_button_text_normal;
+}
+
+.LESScirclebutton_hover_style{
+}
+
+.LESScirclebutton_press_style{
+}
+
+.LESStoggleswitch_on_style{
+	background: @color_button_switch_BGon;
+}
+
+.LESStoggleswitch_off_style{
+	background: @color_button_switch_BGoff;
+}
+
+.LESStoggleswitch_reed_style{
+	background: @color_button_switch_BGreed;
+}
+
+.LESSbutton_edit_style{
+        background: @color_button_normal;
+}
+
+.LESSbutton_editpress_style{
+	background: @color_button_press;
+}
+
+.LESSbutton_edit_padding{
 }
 
 /***************************************************************************

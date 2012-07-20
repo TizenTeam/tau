@@ -329,39 +329,32 @@
 .ui-br {
 }
 .ui-btn-up-s {
-	//border: none;
-	background: 			@color_button_normal;
 	font-weight: bold;
-	color: 					@color_button_text_normal;
-
 	a.ui-link-inherit {
 		color: @color_button_text_normal;
 	}
-
+	.LESSbutton_up_style;
 	.LESSbutton_text1_style;
 }
 .ui-btn-hover-s {
-	background: 			@color_button_hover;
 	font-weight: bold;
-	color: 					@color_button_text_normal;
-
 	a.ui-link-inherit {
 		color: @color_button_text_normal;
 	}
-
+	.LESSbutton_hover_style;
 	.LESSbutton_text1_style;
 }
 
-.ui-btn-down-s {
-	//border: none;
-	background: 			@color_button_press;
-	font-weight: bold;
-	color: 					@color_button_text_normal;
+.ui-btn-hover-s.ui-btn-corner-circle{
+	.LESScirclebutton_hover_style;
+}
 
+.ui-btn-down-s {
+	font-weight: bold;
 	a.ui-link-inherit {
 		color: @color_button_text_normal;
 	}
-
+	.LESSbutton_down_style;
 	.LESSbutton_text1_style;
 }
 .ui-btn-up-s,
@@ -369,6 +362,10 @@
 .ui-btn-down-s {
 	font-family: Helvetica, Arial, sans-serif;
 	text-decoration: none;
+}
+
+.ui-btn-down-s.ui-btn-corner-circle{
+	.LESScirclebutton_press_style;
 }
 
 .ui-listview {
@@ -380,10 +377,12 @@
 		background-color: @color_bg;
 	}
 	li.ui-btn-up-s, li.ui-btn-hover-s {
+		background: none;
 		background-color: @color_bg;
 		color:		@color_text;
 	}
 	li.ui-btn-down-s {
+		background: none;
 		background-color: @color_button_press;
 		color:		@color_text;
 	}
