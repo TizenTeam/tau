@@ -14,7 +14,7 @@
 
 .ui-multimediaview-fullscreen {
 	position : absolute !important;
-	z-index : @z_base_header_footer  + 100 !important;
+	z-index : @z_base_header_footer + 100 !important;
 }
 
 .ui-multimediaview-audio {
@@ -26,23 +26,11 @@
 }
 
 .ui-multimediaview-control span.ui-play-icon {
-	background-image : url("./images/controlbar/01_controlbar_icon_Play.png");
+	background-image : url(./images/controlbar/01_controlbar_icon_Play.png);
 }
 
 .ui-multimediaview-control span.ui-pause-icon {
-	background-image : url("./images/controlbar/01_controlbar_icon_pause.png");
-}
-
-.ui-multimediaview-control span.ui-stop-icon {
-	background-image : url(./images/stop.png);
-}
-
-.ui-multimediaview-control span.ui-ff-icon {
-	background : url(./images/controlbar/01_controlbar_icon_FF.png);
-}
-
-.ui-multimediaview-control span.ui-rew-icon {
-	background-image : url(./images/controlbar/01_controlbar_icon_REW.png);
+	background-image : url(./images/controlbar/01_controlbar_icon_pause.png);
 }
 
 .ui-multimediaview-control span.ui-volume-icon {
@@ -64,7 +52,7 @@
 .ui-multimediaview-control {
 	position : absolute;
 	display : block;
-	z-index : @z_base_header_footer  + 101 !important;
+	z-index : @z_base_header_footer + 101 !important;
 	padding : 0;
 	margin : 0;
 	outline : 0;
@@ -98,7 +86,9 @@
 }
 
 .ui-multimediaview-control .ui-timestamplabel p {
-	margin : 0;
+	margin-top : -6 * @unit_base;
+	margin-left : 4 * @unit_base;
+	padding : 0;
 	text-align : center;
 	font-size : 22 * @unit_base;
 	line-height : 28 * @unit_base;
@@ -112,7 +102,9 @@
 }
 
 .ui-multimediaview-control .ui-durationlabel p {
-	margin : 0 * @unit_base;
+	margin-top : -6 * @unit_base;
+	margin-right : 4 * @unit_base;
+	padding : 0;
 	text-align : center;
 	font-size : 22 * @unit_base;
 	line-height : 28 * @unit_base;
@@ -120,7 +112,7 @@
 }
 
 .ui-multimediaview-control .ui-seekbar {
-	margin-top : 20 * @unit_base;
+	margin-top : 16 * @unit_base;
 	padding-left : 4 * @unit_base;
 	padding-right : 4 * @unit_base;
 	height : 16 * @unit_base;
@@ -157,7 +149,7 @@
 
 .ui-multimediaview-control .ui-volumecontrol .ui-volumebar {
 	height : 100%;
-	padding-top : 33 * @unit_base;
+	padding-top : 35 * @unit_base;
 	padding-left : 40 * @unit_base;
 	display : block;
 }
@@ -194,4 +186,7 @@
 	-moz-border-radius : 5 * @unit_base;
 	border-radius : 5 * @unit_base;
 	background-color : @color_multimediaview_bar_handle;
+	background : -webkit-gradient(linear, left top, left bottom, from(#FFFFFF), to(#E6E6E6));
+	background : -moz-linear-gradient(top, #FFFFFF, #E6E6E6);
+	border : solid 1px rgb(213, 213, 213);
 }

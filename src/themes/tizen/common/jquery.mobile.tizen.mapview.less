@@ -17,9 +17,9 @@
 	-webkit-border-radius : 6 * @unit_base;
 	-moz-border-radius : 6 * @unit_base;
 	border-radius : 6 * @unit_base;
-	background-color : #555;
+	background-color : @color_mapview_button_bg;
 	cursor : pointer;
-	color : white;
+	color : @color_mapview_button;
 }
 
 .ui-mapview .ui-mapview-zoom-control {
@@ -67,19 +67,22 @@
 	margin-left : 29 * @unit_base;
 	width : 16 * @unit_base;
 	height : 240 * @unit_base;
-	background-color : #2a6d8c;
+	background-color : @color_mapview_zoom_active;
 }
 
 .ui-mapview .ui-mapview-zoom-control .ui-zoom-bar span.ui-zoom-value {
 	margin-left : 29 * @unit_base;
 	width : 16 * @unit_base;
-	background-color : #373737;
+	background-color : @color_mapview_zoom_gray;
 }
 
 .ui-mapview .ui-mapview-zoom-control .ui-zoom-bar span.ui-zoom-handle {
 	width : 74 * @unit_base;
 	height : 20 * @unit_base;
-	background-color : #555;
+	background-color : @color_mapview_zoom_handle;
+	background : -webkit-gradient(linear, left top, left bottom, from(#FFFFFF), to(#E6E6E6));
+	background : -moz-linear-gradient(top, #FFFFFF, #E6E6E6);
+	border : solid 1px rgb(213, 213, 213);
 }
 
 .ui-mapview .ui-mapview-scale-control {
