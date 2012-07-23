@@ -21,7 +21,6 @@
  * ***************************************************************************
  *
  *	Author: Kangsik Kim <kangsik81.kim@samsung.com>
- *			Youmin Ha <youmin.ha@samsung.com>
 */
 
 /**
@@ -120,20 +119,6 @@
 
 	function getCurrentTime () {
 		return (new Date()).getTime();
-	}
-
-	// A simple template changer function, Replacing jquery.template library.
-	function _tmpl( tpl, data ) {
-		var htmlstr, key;
-
-		if ( ! tpl || ! data ) { return null; }
-
-		htmlstr = $( tpl ).html();
-		for ( key in data ) {
-			htmlstr = htmlstr.replace( new RegExp( "\\\$\{" + key + "\}", "g" ), data[ key ] );
-		}
-
-		return $( htmlstr );
 	}
 
 	$.extend (MomentumTracker.prototype, {
@@ -816,7 +801,7 @@
 			wrapBlock.addClass( blockClassName );
 			for ( colIndex = 0; colIndex < opts.itemcount; colIndex++ ) {
 				if ( dataTable[index] ) {
-					htmlData = _tmpl( myTemplate, dataTable[index] );
+					htmlData = myTemplate.tmpl( dataTable[index] );
 					$(htmlData).css(attrName, ( colIndex * widget._itemOtherSize )).addClass("virtualgrid-item");
 					wrapBlock.append( htmlData );
 					index += 1;
@@ -851,7 +836,7 @@
 				data = widget._dataSet[dataIdx];
 				if ( $item && data ) {
 					myTemplate = widget._template;
-					htmlData = _tmpl( myTemplate, data );
+					htmlData = myTemplate.tmpl( data );
 					widget._replace( $item, htmlData, false );
 					dataIdx ++;
 				}
