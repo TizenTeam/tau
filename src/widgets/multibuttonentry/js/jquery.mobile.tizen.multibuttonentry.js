@@ -24,52 +24,58 @@
 */
 
 /**
- *	Multibuttonentry widget is a kind of button widget.
- *	When a user inputs a text and the text gets an change event,
- *	the text can be changed from it to a button widget.
+ *	The MultiButtonEntry widget changes a text item to a button. It can be comprised of a number of button widgets. 
+ *	When a user types text and the text gets a specific event to change from a text to a button, 
+ *	the input text is changed to a MultiButtonEntry widget.
+ *	A user can add the MultiButtonEntry widget to a contact list, email list, or another list.
+ *	The typical use of this widget is composing a number of contacts or phone numbers in a specific area of the screen.
  *
  *	HTML Attributes:
  *
- *		data-listUrl : This attribute is represent a 'id' about page.
- *				This page is containing prepared data for provide to user.
- *				For example, like address book.
- *		data-label:	This attribute is providing label for user-guide. (Default : 'To : ')
+ *		data-listUrl : Represents the page id.
+ *					The page contains data for the user, for example, an address book.(Default : null)
+ *		data-label:	Provide a label for a user-guide. (Default : 'To : ')
  *		data-descMessage : This attribute is managing message format.
- *				 This message is displayed when widget status was changed to 'focusout'.
+ *				 This message is displayed when widget status was changed to 'focusout'. (Default : '{0} & {1} more')
  *
  *	APIs:
  *
- *		inputtext ( void )
- *			: Get a string from inputbox.
  *		inputtext (  [string]  )
  *			: If argument is not exist, will get a string from inputbox.
  *			If argument is exist, will set a string to inputbox.
  *		select (  [number]  )
- *			: If argument is not exist, will act  as a getter.
- *			Get a string of selected block.
- *			If widget is not exist a selected button, it will return 'null'.
- *			Select a button located on the index. (number : index of button)
+ *			: If no argument exists, gets a string of the selected block.
+ *			If any button isn't selected on a multibuttonentry widget, this method returns "null" value.
+ *			When a user call this method with an argument which is a number type,
+ *			this method selects the button which is matched with the argument.
  *		add ( text, [number] )
- *			: If second argument is not exist, will insert to a new textblock at last position.
- *			Insert a new button at position that is pointed by index. (number : index of button)
+ *			:  If second argument does not exist, will insert to a new button at last position.
+ *			Insert a new button at indexed position. The position is decided by the second argument.
+ *			"index of position" means that the position of inserting a new button is decided by the second argument on "add" method.
+ *			For example, if a user call the method like this "add("Tizen", 2)",
+ *			new button labed "Tizen" will be inserted on the third position.
  *		remove ( [number] )
- *			: If argument is not exist, will remove all buttons.
- *			Remove a button that is pointed by index. (number : index of button)
+ *			: If no argument exists, all buttons are removed.
+ *			Remove a button at indexed position.
+ *			The position is decided by the second argument. (index: index of button)
  *		length ( void )
  *			: Get a number of buttons.
  *		foucsIn ( void )
  *			: This method change a status to 'focusin'.
  *			This status is able to manage a widget.
  *		focusOut ( void )
- *			: This method change a status to 'focusout'.
- *			This status is not able to manage a widget.
+ *			: Changes the focus status to 'focus out'.
+ *			The status is not able to manage a widget.
+ *			All buttons that contained in the widget are removed and
+ *			summarized message is displayed.
  *
  *
  *	Events:
  *
- *		select : This event will occur when select a button.
- *		add : This event will occur when insert new button.
- *		remove : This event will occur when remove a button.
+ *		create : Occur when create MultiButtonEntry widget.
+ *		select : Occur when a button is selected.
+ *		add : Occur when new button is inserted.
+ *		remove : Occur when a button is removed.
  *
  *	Examples:
  *
@@ -165,6 +171,7 @@
 
 			moreBlock.click( function () {
 				$(inputbox).hide();
+
 				$.mobile.changePage( option.listUrl, {
 					transition: "slide",
 					reverse: false,
@@ -188,6 +195,7 @@
 				$(inputbox).show();
 			});
 		},
+
 		// create a textbutton and append this button to parent layer.
 		// @param arg1 : string
 		// @param arg2 : index
@@ -214,7 +222,7 @@
 			}
 			// save src data
 			dataBlock = $( document.createElement( 'input' ) );
-			dataBlock.val( content ).addClass( "ui-multibuttonentry-data" ).hide();
+			dataBlock.attr( "value", content ).addClass( "ui-multibuttonentry-data" ).hide();
 
 			// Create a new text HTMLDivElement.
 			textBlock = $( document.createElement( 'div' ) );
@@ -252,6 +260,7 @@
 			self._modifyInputBoxWidth();
 			self._trigger( "add" );
 		},
+
 		_removeTextBlock : function () {
 			var self = this,
 				$view = this.element,
@@ -267,6 +276,7 @@
 				$view.find( "div:last" ).removeClass( "ui-multibuttonentry-block" ).addClass( "ui-multibuttonentry-sblock" );
 			}
 		},
+
 		_calcBlockWidth : function ( block ) {
 			var blockWidth = 0;
 			blockWidth = $( block ).outerWidth( true );
@@ -279,6 +289,7 @@
 				lockBlock.removeClass( "ui-multibuttonentry-sblock" ).addClass( "ui-multibuttonentry-block" );
 			}
 		},
+
 		// call when remove text block by backspace key.
 		_validateTargetBlock : function () {
 			var self = this,
@@ -294,6 +305,7 @@
 				lastBlock.removeClass( "ui-multibuttonentry-block" ).addClass( "ui-multibuttonentry-sblock" );
 			}
 		},
+
 		_ellipsisTextBlock : function ( text ) {
 			var self = this,
 				str = text,
