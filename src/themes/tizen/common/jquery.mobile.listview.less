@@ -41,8 +41,6 @@
 @list-li-bubble-date-font-size: @list-li-bubble-time-font-size;
 @list-li-bubble-corner-radius: 9 * @unit_base;	// TODO: fit to 9px (picked from bg images)
 
-@list-li-dialogue-width: 16 * @unit_base;
-
 @list-li-sub-left-width: 187 * @unit_base;
 @list-li-main-right-padding: 187 * @unit_base;
 
@@ -83,6 +81,8 @@
 		// list item separator line
 		border-bottom-width: 1px;
 		border-bottom-style: solid;
+
+		border-top-width: 0px;
 	}
 }
 
@@ -1403,7 +1403,7 @@ ul.ui-listview {
 
 	&> li.ui-li-dialogue-editor-1
 	{
-		border-left: @list-li-dialogue-width rgba(68, 68, 68, 255) solid;
+		border-left: @style_list_li_dialogue_border_left_width rgba(68, 68, 68, 255) solid;
 		border-top-width: 0px;	//wongi_1201 //for phonebook
 		left : 160px;
 		width : 790px;
@@ -1449,7 +1449,7 @@ ul.ui-listview {
 	{
 		padding : 0px !important;
 		height : 130px;
-		border-left: @list-li-dialogue-width @color_dialogue_editor_border solid;
+		border-left: @style_list_li_dialogue_border_left_width @color_dialogue_editor_border solid;
 		border-top-width: 0px;
 		left : 0px;
 		width : 962px;
@@ -1505,7 +1505,9 @@ ul.ui-listview {
 
 	// Dialogue
 	&> li.ui-li-dialogue {
-		border-left: @list-li-dialogue-width @color_dialogue_editor_border solid;
+		margin-left: @style_list_li_dialogue_margin_left;
+		border-left: @style_list_li_dialogue_border_left_width @color_dialogue_editor_border solid;
+		//margin-left: @style_list_li_dialogue_margin_left;
 		border-top-width: 0px;
 	}
 
@@ -1600,11 +1602,12 @@ ul.ui-listview {
 	.ui-li-bubble-sos {
 	}
 	.ui-li-bubble-date {
-		height: 40px;
+		height: 40 * @unit_base;
 		font-size: @list-li-bubble-date-font-size;
 		margin: 12px 0%;	// no horizontal margin
 		padding: 0% 16px;
 		padding-top: 15px;
+		text-align: @style_list_bubble_date_text_align;
 	}
 	span.ui-li-bubble-time {
 		margin-left: 12px;

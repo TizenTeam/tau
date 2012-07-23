@@ -44,11 +44,6 @@
 		border-style : none;
 		border-width : 0px;
 	}
-
-	> .ui-btn.ui-btn-footer-right{
-		left : 10 * @unit_base;
-	}
-
 	.ui-btn.ui-btn-back .ui-btn-inner,
 	.ui-btn.ui-btn-footer-right .ui-btn-inner {
 			padding : 0;
@@ -371,9 +366,9 @@
 }
 
 .ui-listview {
-	border-top-color: #444444;
+	border-top-color: @color_list_border_bottom;
 	&> .ui-li { 
-		border-bottom-color: #444444;	// 68 68 68 
+		border-bottom-color: @color_list_border_bottom;
 	}
 	& > .ui-li-static {
 		background-color: @color_bg;
@@ -409,10 +404,10 @@
 
 	}
 	&> .ui-li-expanded {
-		background-color: rgb(31, 31, 31);
+		background-color: @color_list_expandable_expanded_bg;
 	}
-	&> .ui-li-expanded .ui-li-expanded {
-		background-color: rgb(46, 46, 46);
+	&> .ui-li-expanded .ui-li-expanded {	// 3rd~ more depth
+		background-color: @color_list_expandable_expanded_bg;
 	}
 
 	// bubble
@@ -425,7 +420,7 @@
 		}
 		&.ui-li-bubble-right {
 			// Color is picked from 00_MessageBubble_BG_sent.png
-			background-color: @color_list_bubble_left_bg;
+			background-color: @color_list_bubble_right_bg;
 			.LESSbox-shadow(2px, 3px, 3px, @color_list_bubble_box_shadow);
 			color: @color_list_bubble_right_text;
 		}
