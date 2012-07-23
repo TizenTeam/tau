@@ -88,12 +88,8 @@
 			this.popupVisible = false;
 
 			var self = this,
-				inputElement = $(this.element),
+				inputElement = $( this.element ),
 				slider,
-				showPopup,
-				hidePopup,
-				positionPopup,
-				updateSlider,
 				slider_bar,
 				handle_press,
 				popupEnabledAttr,
@@ -110,7 +106,7 @@
 			// set the popup according to the html attribute
 			popupEnabledAttr = inputElement.jqmData('popup');
 			if ( popupEnabledAttr !== undefined ) {
-				self.options.popup = (popupEnabledAttr === 'true');
+				self.options.popup = ( popupEnabledAttr === 'true' );
 			}
 
 			// get the actual slider added by jqm
@@ -165,14 +161,11 @@
 			self.handle_press.css('display', 'none');
 
 			// add a popup element (hidden initially)
-			slider.before(self.popup);
+			slider.before( self.popup );
 			self.popup.hide();
 
 			// get the element where value can be displayed
 			self.handleText = slider.find('.ui-btn-text');
-			if ( inputElement.attr('max') > 999 ) {
-				self.handleText.css('font-size', '0.8em');
-			}
 
 			// set initial value
 			self.updateSlider();
@@ -188,7 +181,7 @@
 			});
 
 			// watch events on the document to turn off the slider popup
-			slider.add(document).bind('vmouseup', function () {
+			slider.add( document ).bind('vmouseup', function () {
 				self.hidePopup();
 			});
 		},
@@ -206,7 +199,7 @@
 			var dstOffset = this.handle.offset();
 
 			this.popup.offset({
-				left: dstOffset.left + (this.handle.width() - this.popup.width()) / 2,
+				left: dstOffset.left + ( this.handle.width() - this.popup.width() ) / 2,
 				top: dstOffset.top  - this.popup.outerHeight() + 15
 			});
 
@@ -218,6 +211,8 @@
 
 		// show value on the handle and in popup
 		updateSlider: function () {
+			var font_size;
+
 			if ( this.popupVisible ) {
 				this.positionPopup();
 			}
@@ -228,7 +223,7 @@
 			// the slider's value changes :(
 			this.handle.removeAttr('title');
 
-			this.slider_bar.width(this.handle.css('left'));
+			this.slider_bar.width( this.handle.css('left') );
 
 			var newValue = this.element.val();
 
@@ -236,20 +231,33 @@
 				return;
 			}
 
-			this.currentValue = newValue;
-			this.handleText.text(newValue);
-			this.popup.html(newValue);
+			if ( newValue > 999 ) {
+				font_size = '0.7em';
+			} else if ( newValue > 99 ) {
+				font_size = '0.8em';
+			} else if ( newValue > 9 ) {
+				font_size = '0.9em';
+			} else {
+				font_size = '1em';
+			}
 
-			this.element.trigger('update', newValue);
+			if ( font_size != this.handleText.css('font-size') ) {
+				this.handleText.css( 'font-size', font_size );
+			}
+
+			this.currentValue = newValue;
+			this.handleText.text( newValue );
+			this.popup.html( newValue );
+
+			this.element.trigger( 'update', newValue );
 		},
 
 		// show the popup
 		showPopup: function () {
-			if ( !(this.options.popup && !this.popupVisible) ) {
+			if ( !this.options.popup || this.popupVisible ) {
 				return;
 			}
 
-			this.handleText.hide();
 			this.popup.show();
 			this.popupVisible = true;
 			this._handle_press_show();
@@ -257,11 +265,10 @@
 
 		// hide the popup
 		hidePopup: function () {
-			if ( !(this.options.popup && this.popupVisible) ) {
+			if ( !this.options.popup || !this.popupVisible ) {
 				return;
 			}
 
-			this.handleText.show();
 			this.popup.hide();
 			this.popupVisible = false;
 			this._handle_press_hide();
@@ -290,19 +297,19 @@
 	});
 
 	// stop jqm from initialising sliders
-	$(document).bind("pagebeforecreate", function ( e ) {
-		if ($.data(window, "jqmSliderInitSelector") === undefined ) {
-			$.data(window, "jqmSliderInitSelector",
-				$.mobile.slider.prototype.options.initSelector);
+	$( document ).bind( "pagebeforecreate", function ( e ) {
+		if ( $.data( window, "jqmSliderInitSelector" ) === undefined ) {
+			$.data( window, "jqmSliderInitSelector",
+				$.mobile.slider.prototype.options.initSelector );
 			$.mobile.slider.prototype.options.initSelector = null;
 		}
 	});
 
 	// initialise sliders with our own slider
-	$(document).bind("pagecreate", function ( e ) {
-		var jqmSliderInitSelector = $.data(window, "jqmSliderInitSelector");
-		$(e.target).find(jqmSliderInitSelector).not('select').tizenslider();
-		$(e.target).find(jqmSliderInitSelector).filter('select').slider();
+	$( document ).bind( "pagecreate", function ( e ) {
+		var jqmSliderInitSelector = $.data( window, "jqmSliderInitSelector" );
+		$( e.target ).find(jqmSliderInitSelector).not('select').tizenslider();
+		$( e.target ).find(jqmSliderInitSelector).filter('select').slider();
 	});
 
 }( jQuery, this ));
