@@ -154,7 +154,7 @@
 		* 2. Set default header/footer position */
 		setHeaderFooter: function(event){
 			var $elPage = $( event.target ),
-				$elHeader = $elPage.find( ":jqmData(role='header')" ),
+				$elHeader = $elPage.find( ":jqmData(role='header')" ).length ? $elPage.find( ":jqmData(role='header')") : $elPage.siblings( ":jqmData(role='header')"),
 				$elFieldcontain = $elHeader.find( ":jqmData(role='fieldcontain')" ),
 				$elControlgroup = $elHeader.find( ":jqmData(role='controlgroup')" ),
 				$elContent = $elPage.find( ".ui-content" ),
