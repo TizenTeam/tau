@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.1.28
+Version:    0.1.29
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -89,6 +89,10 @@ Summary:    Tizen Web UI Framework Demo Application: tizen-gray demo
 
 ###############################
 %changelog
+
+* Mon Jul 23 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.29
+- Improvements & Bugfixes
+   - HOTFIX: Revert template function with jquery.template
 
 * Thu Jul 19 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.28
 - Improvements & Bugfixes
