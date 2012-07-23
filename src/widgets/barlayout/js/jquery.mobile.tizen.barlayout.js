@@ -79,9 +79,20 @@
 					}
 				}
 
-/* jQM 1.1.0 do not need this code
-* navigation.js control whote back button  */
-/*				backBtn.bind( "vclick", function( event ) {
+				// block long press default behavior of webRuntime
+				backBtn.bind( "touchstart", function( event ) {
+					event.preventDefault();
+				});
+				backBtn.bind( "vclick", function( event ) {
+					if( $.support.touch ) {
+						$( this ).trigger( "click" );
+					}
+				});
+
+				/* jQM 1.1.0 do not need this code
+				 * navigation.js control whole back button  */
+				/*
+				backBtn.bind( "vclick", function( event ) {
 					window.history.back();
 				});*/
 		},
