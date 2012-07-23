@@ -95,7 +95,7 @@
 /***************************************************************************
                    Shortcut Scroll
 ***************************************************************************/
-@color_shortcutscroll_rollover_bg: rgba(230, 230, 230, 1); // 00_fast_scroll_rollover_bg.png
+@color_shortcutscroll_rollover_bg: none;
 @color_shortcutscroll_rollover_text: rgba(160, 172, 179, 1);
 @color_shortcutscroll_popup_bg: rgba(229, 229, 229, 1); // 00_fast_scroll_popup_bg.png
 @color_shortcutscroll_popup_shadow: rgba(199, 199, 199, 0.5);
@@ -162,9 +162,9 @@
 
 @color_button_hover: 		rgb(161, 171, 177);
 
-@color_button_text_normal:	rgb(0, 0, 0);
+@color_button_text_normal:	rgb(249, 249, 249);
 @color_button_text_white:	rgb(249, 249, 249);
-@color_button_text_press: 	rgb(0, 0, 0);
+@color_button_text_press: 	rgb(249, 249, 249);
 
 @color_circlebutton_hover:		rgb(239, 119, 126);
 @color_circlebutton_hover_webkit:	-webkit-gradient(linear, left top, left bottom, from(rgb(198, 78, 85)), to(rgb(166, 43, 45)));
@@ -542,4 +542,8 @@
 	border-top-color: @color_border_top;
 	border-left-color: @color_bar_seg_btn_border;
 	border-right-color: @color_bar_seg_btn_border;
+}
+
+.LESSback-btn-background {
+	background : none;
 }
