@@ -37,6 +37,7 @@
  *
  * HTML Attributes:
  *
+ *		data-control : Appear(true) or disappear the belonging controller.
  *		data-bbox : bounds of the currently visible viewport.
  *		data-bboxMax : bounds of maximum viewport for non-tiled maps.
  *		data-center : center of the currently visible viewport.
