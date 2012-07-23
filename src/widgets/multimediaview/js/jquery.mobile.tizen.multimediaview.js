@@ -53,7 +53,7 @@
  *					 The first argument is width and second argument is height.
  *			fullscreen( [boolean] )
  *					: Get or Set the status of fullscreen.
- * 					If no first argument is specified, will act as a getter.
+ *					If no first argument is specified, will act as a getter.
  *
  * Events:
  *
