@@ -19,7 +19,7 @@ index 56f93a6..e5555e8 100644
  			scrollPage = function(){
 +				// Prevent blinking on page scrolling in Tizen/Android devices.
 +				// Don't scoll window, when current scroll top(scrollTop()) is already at toScroll,
-+				// or when current scroll top is 0 and toScroll is same to defaultHomeScroll 
++				// or when current scroll top is 0 and toScroll is same to defaultHomeScroll
 +				// (which means the top position of page). In these case, page scrolling is not needed.
 +				var st = $( window ).scrollTop();
 +				if( st === toScroll || ( $.mobile.defaultHomeScroll === toScroll && st == 0 ) ) {
