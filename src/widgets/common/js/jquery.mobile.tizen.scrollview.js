@@ -730,6 +730,12 @@
 				sy = $c.height() - $v.height();
 				vh = $v.height() - self._view_height;
 
+				self._view_height = $v.height();
+
+				if ( vh > $c.height() / 2 ) {
+					return;
+				}
+
 				if ( self._sy - sy <= -vh ) {
 					self.scrollTo( 0, self._sy,
 						self.options.snapbackDuration );
@@ -737,8 +743,6 @@
 					self.scrollTo( 0, sy,
 						self.options.snapbackDuration );
 				}
-
-				self._view_height = $v.height();
 			});
 
 			$( window ).bind( "resize", function ( e ) {
