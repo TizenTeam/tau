@@ -1,0 +1,34 @@
+From b0b89011ffeb68fc9a207f67558048217912025c Mon Sep 17 00:00:00 2001
+From: Youmin Ha <youmin.ha@samsung.com>
+Date: Wed, 25 Jul 2012 10:15:08 +0900
+Subject: [PATCH] JQM: Add default theme on buttonMarkup
+
+Signed-off-by: Youmin Ha <youmin.ha@samsung.com>
+---
+ .../js/jquery.mobile.buttonMarkup.js               |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.buttonMarkup.js b/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.buttonMarkup.js
+index d523ad9..9ca2366 100644
+--- a/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.buttonMarkup.js
++++ b/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.buttonMarkup.js
+@@ -38,7 +38,7 @@ $.fn.buttonMarkup = function( options ) {
+ 			o = $.extend( {}, $.fn.buttonMarkup.defaults, {
+ 				icon:       options.icon       !== undefined ? options.icon       : el.jqmData( "icon" ),
+ 				iconpos:    options.iconpos    !== undefined ? options.iconpos    : el.jqmData( "iconpos" ),
+-				theme:      options.theme      !== undefined ? options.theme      : el.jqmData( "theme" ) || $.mobile.getInheritedTheme( el, "c" ),
++				theme:      options.theme      !== undefined ? options.theme      : el.jqmData( "theme" ) || $.mobile.getInheritedTheme( el, $.fn.buttonMarkup.defaults["theme"] ),
+ 				inline:     options.inline     !== undefined ? options.inline     : el.jqmData( "inline" ),
+ 				shadow:     options.shadow     !== undefined ? options.shadow     : el.jqmData( "shadow" ),
+ 				corners:    options.corners    !== undefined ? options.corners    : el.jqmData( "corners" ),
+@@ -223,6 +223,7 @@ $.fn.buttonMarkup = function( options ) {
+ };
+ 
+ $.fn.buttonMarkup.defaults = {
++	theme: "c",
+ 	corners: true,
+ 	shadow: true,
+ 	iconshadow: true,
+-- 
+1.7.9.5
+

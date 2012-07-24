@@ -15,6 +15,7 @@ $.mobile.listview.prototype.options.splitTheme = "s";
 
 //clear button theme
 $.mobile.button.prototype.options.theme = "s";
+$.fn.buttonMarkup.defaults.theme = "s";
 
 // Default theme swatch
 $.mobile.page.prototype.options.theme = "s";
