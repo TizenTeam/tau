@@ -838,6 +838,7 @@
 					myTemplate = widget._template;
 					htmlData = myTemplate.tmpl( data );
 					widget._replace( $item, htmlData, false );
+					htmlData.remove();	// Clear temporary htmlData to free cache
 					dataIdx ++;
 				}
 			}
@@ -863,6 +864,7 @@
 
 				$( oldObj ).attr( "src", newImg );
 			});
+			$( oldItem ).removeData();
 			if ( key ) {
 				$( oldItem ).data( key, $( newItem ).data( key ) );
 			}

@@ -235,6 +235,8 @@
 					$( oldObj ).attr( "src", newImg );
 				} );
 
+				$( oldItem ).removeData( );	// Clear old data
+
 				if (key) {
 					$( oldItem ).data( key, $( newItem ).data( key ) );
 				}
@@ -265,8 +267,12 @@
 						/* Copy all data to current item. */
 						_replace( cur_item, htmlData, key );
 
+						// Clear temporary htmlData to free cache
+						htmlData.remove();
+
 						/* Set New Position */
 						( cur_item ).css( 'top', TITLE_H + LINE_H * ( v_lastIndex + 1 + i ) ).attr( 'id', 'li_' + ( v_lastIndex + 1 + i ) );
+
 					} else {
 						break;
 					}
@@ -298,8 +304,12 @@
 						/* Copy all data to current item. */
 						_replace( cur_item, htmlData, key );
 
+						// Clear temporary htmlData to free cache
+						htmlData.remove();
+
 						/* Set New Position */
 						$( cur_item ).css( 'top', TITLE_H + LINE_H * ( v_firstIndex - 1 - i ) ).attr( 'id', 'li_' + ( v_firstIndex - 1 - i ) );
+
 					} else {
 						break;
 					}
