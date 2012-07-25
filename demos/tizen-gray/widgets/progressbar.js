@@ -50,15 +50,19 @@ $("#progressbar-demo").live("pageshow", function ( e ) {
 	$("#progressing").progress( "running", true );
 
 	$("#pendingTest").bind("vclick", function ( e ) {
-		var running = $("#pending").progress( "option", "running" );
+		var running = $("#pending").progress( "running" );
 		// start/stop progressing animation
 		$("#pending").progress( "running", !running );
 	});
 
 	$("#progressingTest").bind("vclick", function ( e ) {
-		var running = $("#progressing").progress( "option", "running" );
+		var running = $("#progressing").progress( "running" );
 		// start/stop progressing animation
 		$("#progressing").progress( "running", !running );
+
+		if ( running ) {
+			$("#progressing").progress( "hide" );
+		}
 	});
 });
 
