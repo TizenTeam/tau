@@ -14,7 +14,7 @@
 		frameworkData : {
 			rootDir: '/usr/lib/tizen-web-ui-fw',
 			version: '0.1',
-			theme: "default",
+			theme: "tizen-gray",
 			viewportScale: false,
 			minified: false
 		},
@@ -114,6 +114,18 @@
 				src,
 				tokens,
 				version_idx;
+
+			function getTizenTheme( ) {
+				var t = navigator.theme ? navigator.theme.split( ':' )[0] : null;
+				if ( t ) {
+					t = t.replace('-hd', '');
+					if( ! t.match( /^tizen-/ ) ) {
+						t = 'tizen-' + t;
+					}
+				}
+				return t;
+			}
+
 			for ( idx in scriptElems ) {
 				elem = scriptElems[idx];
 				src = elem.src ? elem.getAttribute( 'src' ) : undefined;
@@ -128,6 +140,7 @@
 						|| tokens[ tokens.length + version_idx ]
 						|| this.frameworkData.version;
 					this.frameworkData.theme = elem.getAttribute( 'data-framework-theme' )
+						|| getTizenTheme( )
 						|| this.frameworkData.theme;
 					this.frameworkData.viewportScale = "true" === elem.getAttribute( 'data-framework-viewport-scale' ) ? true : this.frameworkData.viewportScale;
 					this.frameworkData.minified = src.search(/\.min\.js$/) > -1 ? true : false;
