@@ -76,7 +76,6 @@
 				themeclass  = " ui-body-" + theme,
 				focusedEl,
 				clearbtn,
-				currentPage = input.closest( ".ui-page" ),
 				searchicon,
 				cancelbtn,
 				defaultText,
@@ -85,18 +84,12 @@
 				newClassName,
 				newStyle,
 				newDiv,
-				inputedText,
-				extraLineHeight,
-				keyupTimeoutBuffer,
-				keyup,
-				keyupTimeout;
+				inputedText;
 
 			function toggleClear() {
-				if ( !input.val() ) {
-					clearbtn.addClass( "ui-input-clear-hidden" );
-				} else {
-					clearbtn.removeClass( "ui-input-clear-hidden" );
-				}
+				setTimeout(function () {
+					clearbtn.toggleClass( "ui-input-clear-hidden", !input.val() );
+				}, 0);
 			}
 
 			function showCancel() {
@@ -144,50 +137,35 @@
 
 			focusedEl = input.wrap( "<div class='ui-input-search ui-shadow-inset ui-corner-all ui-btn-shadow" + themeclass + "'></div>" ).parent();
 			clearbtn = $( "<a href='#' class='ui-input-clear' title='clear text'>clear text</a>" )
-				.tap( function ( event ) {
+				.bind('click', function ( event ) {
 					if ( input.attr( "disabled" ) == "disabled" ) {
 						return false;
 					}
-					event.preventDefault();
-					event.stopPropagation();
-
-					input.val( "" )
-						.blur()
+					input
+						.val( "" )
 						.focus()
-						.trigger( "change" )
-						.trigger( "input" );
+						.trigger( "change" );
 					clearbtn.addClass( "ui-input-clear-hidden" );
-				} )
+					event.preventDefault();
+				})
 				.appendTo( focusedEl )
 				.buttonMarkup({
 					icon: "deleteSearch",
 					iconpos: "notext",
 					corners: true,
 					shadow: true
-				} );
+				});
 
 			toggleClear();
 
-			input.keyup( toggleClear );
 
 			input.bind( 'paste cut keyup focus change blur', toggleClear );
 
 			//SLP --start search bar with cancel button
 			focusedEl.wrapAll( "<div class='input-search-bar'></div>" );
 
-			input.tap( function ( event ) {
-				if ( input.attr( "disabled" ) == "disabled" ) {
-					return false;
-				}
-				inputedText = input.val();
-				input
-					.blur()
-					.focus();
-			} );
-
-			searchicon = $("<div class='ui-image-search ui-image-searchfield'></div>");
-			searchicon
-				.tap( function ( event ) {
+			searchicon = $("<div class='ui-image-search ui-image-searchfield'></div>")
+				.bind('click', function ( event ) {
 					if ( input.attr( "disabled" ) == "disabled" ) {
 						return false;
 					}
@@ -200,7 +178,7 @@
 				.appendTo( focusedEl );
 
 			cancelbtn = $( "<a href='#' class='ui-input-cancel' title='clear text'>Cancel</a>" )
-				.tap(function ( event ) {
+				.bind('click', function ( event ) {
 					if ( input.attr( "disabled" ) == "disabled" ) {
 						return false;
 					}
@@ -222,16 +200,21 @@
 				} );
 
 			// Input Focused
-			input.focus( function () {
-				if ( input.attr( "disabled" ) == "disabled" ) {
-					return false;
-				}
-				showCancel();
-				focusedEl.addClass( "ui-focus" );
-			} );
+			input
+				.focus( function () {
+					if ( input.attr( "disabled" ) == "disabled" ) {
+						return false;
+					}
+					showCancel();
+					focusedEl.addClass( $.mobile.focusClass );
+				})
+				.blur(function () {
+					focusedEl.removeClass( $.mobile.focusClass );
+				});
 
 			// Input Blured
 			/* When user touch on page, it's same to blur */
+			/* FIXME : if there is no problem, please remove this codes..
 			$( "div.input-search-bar" ).tap( function ( event ) {
 				if ( input.attr( "disabled" ) == "disabled" ) {
 					return false;
@@ -240,6 +223,7 @@
 				event.stopPropagation();
 			} );
 
+			var currentPage = input.closest( ".ui-page" );
 			$( currentPage ).bind("tap", function ( e ) {
 				if ( input.attr( "disabled" ) == "disabled" ) {
 					return;
@@ -250,37 +234,7 @@
 					hideCancel();
 					input.blur();
 				}
-			} );
-
-			// Autogrow
-			if ( input.is( "textarea" ) ) {
-				extraLineHeight = 15;
-				keyupTimeoutBuffer = 100;
-				keyup = function () {
-					var scrollHeight = input[ 0 ].scrollHeight,
-						clientHeight = input[ 0 ].clientHeight;
-
-					if ( clientHeight < scrollHeight ) {
-						input.height(scrollHeight + extraLineHeight);
-					}
-				};
-
-				input.keyup( function () {
-					clearTimeout( keyupTimeout );
-					keyupTimeout = setTimeout( keyup, keyupTimeoutBuffer );
-				});
-
-				// binding to pagechange here ensures that for pages loaded via
-				// ajax the height is recalculated without user input
-				$( document ).one( "pagechange", keyup );
-
-				// Issue 509: the browser is not providing scrollHeight properly until the styles load
-				if ( $.trim( input.val() ) ) {
-					// bind to the window load to make sure the height is calculated based on BOTH
-					// the DOM and CSS
-					$( window ).load( keyup );
-				}
-			}
+			} );*/
 
 			// Default Text
 			defaultText = input.jqmData( "default-text" );
