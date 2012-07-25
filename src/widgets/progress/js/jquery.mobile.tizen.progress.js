@@ -103,6 +103,6 @@
 
 	// auto self-init widgets
 	$( document ).bind( "pagecreate", function ( e ) {
-		$( e.target ).find( ":jqmData(role='progress')" ).progress();
+		$( e.target ).find( ":jqmData(role='progressing')" ).progress();
 	} );
 }(jQuery, this));

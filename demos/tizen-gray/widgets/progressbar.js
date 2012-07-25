@@ -46,24 +46,24 @@ $("#progressbar-demo").live("pageshow", function ( e ) {
 		}());
 	});
 
-	$( this ).find("#pending").progress({ running: true });
-	$( this ).find("#progressing").progress({ running: true });
+	$("#pending").progress( "running", true );
+	$("#progressing").progress( "running", true );
 
 	$("#pendingTest").bind("vclick", function ( e ) {
 		var running = $("#pending").progress( "option", "running" );
 		// start/stop progressing animation
-		$("#pending").progress( "option", "running", !running );
+		$("#pending").progress( "running", !running );
 	});
 
 	$("#progressingTest").bind("vclick", function ( e ) {
 		var running = $("#progressing").progress( "option", "running" );
 		// start/stop progressing animation
-		$("#progressing").progress( "option", "running", !running );
+		$("#progressing").progress( "running", !running );
 	});
 });
 
 $("#progressbar-demo").live("pagehide", function ( e ) {
 	progressbar_running = false;
-	$( this ).find("#pending").progress( { running: true } );
-	$( this ).find("#progressing").progress( { running: true } );
+	$("#pending").progress( "running", false );
+	$("#progressing").progress( "running", false );
 });
