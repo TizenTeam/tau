@@ -252,7 +252,7 @@
 					.css( "display", "inline" );
 
 					/* Groupcontrol cannot initialize inline property at first page */
-				$elFooterGroup.addClass( "ui-title-extended-controlgroup-" + gLength + "btn" );
+				$elFooterGroup.addClass( "ui-footer-extended-controlgroup-" + gLength + "btn" );
 
 				footerButton = $elFooter.children( "a" );
 				footerButton.each(function( i ) {
