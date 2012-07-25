@@ -67,8 +67,16 @@ $( document ).bind("pagecreate", function () {
 		$("#selected-date4").text( newDate.toString() );
 	});
 
-	$('#notification-demo').bind('vmouseup', function ( e ) {
+	$('#noti-demo').bind('vmouseup', function ( e ) {
 		$('#notification').notification('show');
+	});
+
+	$('#noti-icon1').bind('vclick', function ( e ) {
+		$('#notification').notification('setIcon', './test/icon02.png');
+	});
+
+	$('#noti-icon2').bind('vclick', function ( e ) {
+		$('#notification').notification('setIcon', './test/icon01.png');
 	});
 
 	$('#imageslider-add').bind('vmouseup', function ( e ) {
