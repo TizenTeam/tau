@@ -1659,6 +1659,30 @@ ul.ui-listview {
 	}
 }
 
+ul.ui-listview {
+	> li.ui-li-1line-radio4.ui-list-link,
+	> li.ui-li-1line-radio3.ui-list-link,
+	> li.ui-li-1line-radio2.ui-list-link,
+	> li.ui-li-1line-radio1.ui-list-link {
+		height : 121  * @unit_base;
+		padding-left : 0 * @unit_base;
+
+		a {
+			padding-top : 0 * @unit_base;
+			padding-bottom : 0 * @unit_base;
+			padding-left : 74 * @unit_base;
+
+			height : 121  * @unit_base;
+			line-height : 121 * @unit_base;
+			.ui-radio {
+				top : 42 * @unit_base;
+			}
+		}
+	}
+}
+
+
+
 /* Odd iPad positioning issue. */
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
     .ui-li .ui-btn-text {
