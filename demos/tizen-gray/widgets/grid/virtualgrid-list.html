@@ -13,18 +13,23 @@
 				</div>
 			</div>
 		</script>
-		<div id="virtualgrid-demo"  data-role="virtualgrid" data-itemcount="1" data-rotation="false" data-template="tizen-demo-namecard" data-dbtable="JSON_DATA"></div>
+		<div id="virtualgrid-demo"  data-role="virtualgrid" data-itemcount="1" data-rotation="false" data-template="tizen-demo-namecard"></div>
 	</div>
 	<script>
 		$( ".virtualgrid_list_demo_page" ).one( "pagecreate", function() {
 			$.getScript( "./js/virtualgrid-db-demo.js", function( data, textStatus ) {
-				var $item = $( "div" ).filter( function() {
-					return $( this ).data( "role" ) == "virtualgrid";
-				}).addClass( "vgLoadSuccess" );
 				$( ".virtualgrid_demo_page" ).die();
-				$( ":jqmData(role='virtualgrid')" ).virtualgrid( "create" );
+
+				$( ":jqmData(role='virtualgrid')" ).virtualgrid( "create", {
+					itemData: function ( idx ) {
+						return JSON_DATA[ idx ];
+					},
+					numItemData: JSON_DATA.length,
+					cacheItemData: function ( minIdx, maxIdx ) {
+					}
+				});
+
 				$( ".virtualgrid_list_demo_page" ).unbind("pagecreate");
-				$item.removeClass("vgLoadSuccess");
 
 				var $page = $( "#virtualgrid_list_page" ),
 					$content = $page.children(".ui-content"),
