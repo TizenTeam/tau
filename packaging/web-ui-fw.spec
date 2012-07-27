@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.1.29
+Version:    0.1.30
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -89,6 +89,15 @@ Summary:    Tizen Web UI Framework Demo Application: tizen-gray demo
 
 ###############################
 %changelog
+* Mon Jul 27 2012 Koeun Choi <koeun.choi@samsung.com> 0.1.30
+- FIX : virtuallist, virtualgrid: Clean up temporary jquery.template object to clear cache
+	add default theme option on buttonMarkup for tizen theme
+	[searchbar] first fix : focus/blur fixed
+	back button does not work when long press
+	scrollview: don't auto scrolling if resizing area is too large
+- Feature : notification : add api to set the icon at tickernoti
+	demo : update the list sample demo
+	Support tizen default theme
 
 * Mon Jul 23 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.29
 - Improvements & Bugfixes
