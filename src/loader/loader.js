@@ -42,7 +42,7 @@
 				} );
 			},
 			getScaleFactor: function ( ) {
-				var factor = window.scale,
+				var factor = navigator.scale,
 					width = 0,
 					defaultWidth = 720;
 
