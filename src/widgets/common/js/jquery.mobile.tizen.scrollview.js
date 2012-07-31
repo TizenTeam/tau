@@ -724,6 +724,7 @@
 					vh;
 
 				if ( !$c.height() || !$v.height() ) {
+					self.scrollTo( 0, 0, 0 );
 					return;
 				}
 
@@ -732,7 +733,7 @@
 
 				self._view_height = $v.height();
 
-				if ( vh > $c.height() / 2 ) {
+				if ( vh == 0 || vh > $c.height() / 2 ) {
 					return;
 				}
 
