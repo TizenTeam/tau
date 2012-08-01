@@ -79,7 +79,9 @@
 //                 Default: $.mobile.defaultDialogTransition
 //
 // Events:
-//     close: Emitted when the popupwindow is closed.
+//	popupbeforeposition: triggered after a popup has completed preparations for opening, but has not yet opened
+//	popupafteropen: triggered after a popup has completely opened
+//	popupafterclose triggered when a popup has completely closed
 
 (function ( $, undefined ) {
 
@@ -371,6 +373,8 @@
 					newleft = coords.x;
 				}
 
+				this.element.trigger("popupbeforeposition");
+
 				this._ui.container
 					.removeClass("ui-selectmenu-hidden")
 					.css({
@@ -380,6 +384,7 @@
 					.addClass("in")
 					.animationComplete(function () {
 						self._ui.screen.css("height", "100%");
+						self.element.trigger("popupafteropen");
 					});
 
 				this._isOpen = true;
@@ -405,7 +410,6 @@
 					hideScreen = function () {
 						self._ui.screen.addClass("ui-screen-hidden");
 						self._isOpen = false;
-						self.element.trigger("closed");
 					};
 
 				this._ui.container
@@ -416,6 +420,7 @@
 							.removeClass("reverse out")
 							.addClass("ui-selectmenu-hidden")
 							.removeAttr("style");
+						self.element.trigger("popupafterclose");
 					});
 
 				if (this.options.fade) {
