@@ -335,7 +335,12 @@
 		setViewport: function ( viewportWidth, useAutoScale, useDeviceDpi ) {
 			var meta,
 				scale = 1,
-				head;
+				head,
+				content,
+				threshold,
+				standardWidth = 360,
+				screenWidth = screen.width;
+
 			// Do nothing if viewport setting code is already in the code.
 			$( "meta[name=viewport]" ).each( function ( ) {
 				console.log( "User set viewport... framework viewport will not be applied." );
@@ -343,6 +348,13 @@
 				return;
 			});
 			if( meta ) {
+				content = $( meta ).prop( "content" );
+				if ( content.indexOf( "device-width" ) > 0
+						&& content.indexOf( "device-dpi" ) > 0 ) {
+					threshold = screenWidth > standardWidth ? ( screenWidth/standardWidth) : 1;
+					$.vmouse.moveDistanceThreshold = 10 * threshold;
+					$.vmouse.clickDistanceThreshold = 10 * threshold;
+				}
 				return;	// Ignore viewport setting, when viewport is already set.
 			}
 
@@ -358,6 +370,8 @@
 				console.log( meta.content );
 				head = document.getElementsByTagName( 'head' ).item( 0 );
 				head.insertBefore( meta, head.firstChild );
+
+				// TODO : change threshold when scaleFactor is changed. Reference line 354-356
 			}
 		},
 
@@ -371,7 +385,7 @@
 		},
 
 		setScaling: function ( ) {
-			var baseWidth = 720,		// NOTE: need to be changed to get the value from theme.
+			var baseWidth = 720,		// Winset GUI Guide is 720 HD.
 				standardWidth = 360,
 				themeDefaultFontSize = parseInt( $( 'body' ).css( 'font-size' ), 10 );
 			$( 'body' ).attr( 'data-tizen-theme-default-font-size', themeDefaultFontSize );
