@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.1.30
+Version:    0.1.31
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -89,6 +89,14 @@ Summary:    Tizen Web UI Framework Demo Application: tizen-gray demo
 
 ###############################
 %changelog
+
+* Mon Aug 01 2012 Jinhyuk Jun <jinhyuk.jun@samsnug.com> 0.1.31
+- FIX : 
+	- IME checkroutine update, improve relayout on resize event
+	- Add highlight effect for radio button list 
+	- Scrollview : fix condition of updatelayout event
+- Feature : progressing : add show/hide api
+
 * Mon Jul 27 2012 Koeun Choi <koeun.choi@samsung.com> 0.1.30
 - FIX : virtuallist, virtualgrid: Clean up temporary jquery.template object to clear cache
 	add default theme option on buttonMarkup for tizen theme
