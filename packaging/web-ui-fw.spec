@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.1.33
+Version:    0.1.34
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -90,6 +90,11 @@ Summary:    Tizen Web UI Framework Demo Application: tizen-gray demo
 ###############################
 %changelog
 
+* Mon Aug 02 2012 Jinhyuk Jun <jinhyuk.jun@samsung.com> 0.1.34
+- FIX :
+	- Back Button : enlarge backbutton click size for white theme
+- Feature :
+	- Expandable List : Add refresh api
 * Mon Aug 02 2012 Jinhyuk Jun <jinhyuk.jun@samsung.com> 0.1.33
 - FIX :
 	- click event touch threshold tuning
