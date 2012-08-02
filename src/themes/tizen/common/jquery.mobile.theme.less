@@ -32,7 +32,6 @@
 		}
 	}
 
-	> .ui-btn.ui-btn-back,
 	> .ui-btn.ui-btn-footer-right{
 		position : absolute;
 		font-size : 32 * @unit_base;
@@ -44,22 +43,33 @@
 		border-style : none;
 		border-width : 0px;
 	}
+	
+	> .ui-btn.ui-btn-back {
+		position : absolute;
+		font-size : 32 * @unit_base;
+		border-style : none;
+		border-width : 0px;
+		.LESSbtn-back;
+	}
 
 	> .ui-btn.ui-btn-footer-right {
 		left : 10 * @unit_base;
 	}
 
-	.ui-btn.ui-btn-back .ui-btn-inner,
 	.ui-btn.ui-btn-footer-right .ui-btn-inner {
-			padding : 0;
+		padding : 0;
 
-			width : 104 * @unit_base;
-			height : 74 * @unit_base;
-		}
-
-	.ui-btn.ui-btn-back{
-		right : 20 * @unit_base;
+		width : 104 * @unit_base;
+		height : 74 * @unit_base;
 	}
+
+	.ui-btn.ui-btn-back .ui-btn-inner {
+		padding : 0;
+
+		.LESSbtn-back-inner;
+	}
+
+
 
 	.ui-btn.ui-btn-footer-right.ui-btn-down-s{
 		.ui-btn-inner {
