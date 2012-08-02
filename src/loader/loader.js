@@ -337,7 +337,8 @@
 				scale = 1,
 				head,
 				content,
-				threshold,
+				ratio,
+				threshold = 15,
 				standardWidth = 360,
 				screenWidth = screen.width;
 
@@ -351,9 +352,9 @@
 				content = $( meta ).prop( "content" );
 				if ( content.indexOf( "device-width" ) > 0
 						&& content.indexOf( "device-dpi" ) > 0 ) {
-					threshold = screenWidth > standardWidth ? ( screenWidth/standardWidth) : 1;
-					$.vmouse.moveDistanceThreshold = 10 * threshold;
-					$.vmouse.clickDistanceThreshold = 10 * threshold;
+					ratio = screenWidth > standardWidth ? ( screenWidth/standardWidth) : 1;
+					$.vmouse.moveDistanceThreshold = threshold * ratio;
+					$.vmouse.clickDistanceThreshold = threshold * ratio;
 				}
 				return;	// Ignore viewport setting, when viewport is already set.
 			}
