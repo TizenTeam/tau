@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.1.31
+Version:    0.1.32
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -89,6 +89,11 @@ Summary:    Tizen Web UI Framework Demo Application: tizen-gray demo
 
 ###############################
 %changelog
+
+
+* Mon Aug 02 2012 Jinhyuk Jun <jinhyuk.jun@samsung.com> 0.1.32
+- FIX : 
+	- Add back button highlight effect for white theme
 
 * Mon Aug 01 2012 Jinhyuk Jun <jinhyuk.jun@samsnug.com> 0.1.31
 - FIX : 
