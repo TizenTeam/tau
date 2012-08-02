@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.1.32
+Version:    0.1.33
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -90,6 +90,9 @@ Summary:    Tizen Web UI Framework Demo Application: tizen-gray demo
 ###############################
 %changelog
 
+* Mon Aug 02 2012 Jinhyuk Jun <jinhyuk.jun@samsung.com> 0.1.33
+- FIX :
+	- click event touch threshold tuning
 
 * Mon Aug 02 2012 Jinhyuk Jun <jinhyuk.jun@samsung.com> 0.1.32
 - FIX : 
