@@ -100,6 +100,14 @@
 			return ( $( e ).height( ) == 0);
 		},
 
+		refresh: function () {
+			if ( this._handler ) {
+				this.element.unbind();
+				this._handler = null;
+			}
+			this._create();
+		},
+
 		_create: function ( ) {
 
 			var children = $( this.element ).nextAll( ":jqmData(expanded-by='" + $( this.element ).attr( 'id' ) + "')" ),
@@ -142,7 +150,7 @@
 
 			expanded.addClass( "ui-li-expanded" );
 
-			e.bind( 'vclick', function ( ) {
+			this._handler = e.bind( 'vclick', function ( ) {
 				var _is_expanded = e[0].is_expanded;
 				expanded.each( function ( i, e ) { self._toggle( self, e, _is_expanded ); } );
 				e[0].is_expanded = ! e[0].is_expanded;
