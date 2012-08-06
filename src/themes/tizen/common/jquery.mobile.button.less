@@ -30,7 +30,7 @@
 .ui-header .ui-btn-icon-right .ui-btn-inner,
 .ui-footer .ui-btn-icon-right .ui-btn-inner,
 .ui-bar .ui-btn-icon-right .ui-btn-inner { padding-right: 27 * @unit_base; }
-.ui-btn-icon-top .ui-btn-inner { padding-top: 33 * @unit_base; }
+.ui-btn-icon-top .ui-btn-inner { padding-top: 27 * @unit_base; }
 .ui-header .ui-btn-icon-top .ui-btn-inner,
 .ui-footer .ui-btn-icon-top .ui-btn-inner,
 .ui-bar .ui-btn-icon-top .ui-btn-inner { padding-top: 27 * @unit_base; }
@@ -49,8 +49,8 @@
 .ui-btn-icon-left .ui-icon { left: /*10px;*/ 0 * @unit_base; } /* wongi_1018 : with 64px icon, left 10 -> 0 for good looking. */
 .ui-btn-icon-circle .ui-icon {left: 0 * @unit_base;} /* wongi_1018 : for circle icon center positioning. */
 .ui-btn-icon-right .ui-icon { right: 10 * @unit_base; }
-.ui-btn-icon-top .ui-icon { top: 10 * @unit_base; }
-.ui-btn-icon-bottom .ui-icon { bottom: 10 * @unit_base; }
+.ui-btn-icon-top .ui-icon { top: 0 * @unit_base; }
+.ui-btn-icon-bottom .ui-icon { bottom: 0 * @unit_base; }
 .ui-header .ui-btn-icon-left .ui-icon,
 .ui-footer .ui-btn-icon-left .ui-icon,
 .ui-bar .ui-btn-icon-left .ui-icon { left: @style-back-btn-left; } /* SLP Default Footer : Jinhyuk */
@@ -80,11 +80,18 @@
 	margin-top:  -32  * @unit_base;
 }
 
-.ui-li .ui-btn .ui-btn-inner.ui-btn-hastxt
+.ui-btn .ui-btn-inner.ui-btn-hastxt
 {
 	padding: 0.2em 0.5em;
 }
-
+.ui-btn-icon-top .ui-btn-inner.ui-btn-hastxt
+{
+        padding-top: 48 * @unit_base;
+}
+.ui-btn-icon-bottom .ui-btn-inner.ui-btn-hastxt
+{
+	padding-bottom: 48 * @unit_base;
+}
 /* white theme, delete button padding */
 .ui-li .ui-btn.ui-btn-edit .ui-btn-inner.ui-btn-hastxt
 {
@@ -97,21 +104,37 @@
 .ui-btn.ui-btn-edit .ui-icon { width: @width_buttonEdit; height: @height_buttonEdit; }
 
 /* Padding for Icon with text */
-.ui-btn .ui-btn-text.ui-btn-text-padding-left {padding-left: 32 * @unit_base;}
-.ui-btn .ui-btn-text.ui-btn-text-padding-right {padding-right: 48 * @unit_base;}
-
+.ui-btn .ui-btn-text.ui-btn-text-padding-left { padding-left: 32 * @unit_base; }
+.ui-btn .ui-btn-text.ui-btn-text-padding-right { padding-right: 48 * @unit_base; }
+.ui-btn .ui-btn-text.ui-btn-text-padding-top {padding-top: 32 * @unit_base;}
+.ui-icon
+{
+	z-index: 10;
+	background-repeat: no-repeat;
+	vertical-align: middle;
+	background-position: 0% 0%;
+	background-size: 100%;
+}
+.ui-btn-box.s .ui-icon
+{
+	position: absolute;
+}
+.ui-btn-box-s.ui-btn-icon-left .ui-icon, .ui-btn-box-s.ui-btn-icon-right .ui-icon
+{
+	margin-top: -64 * @unit_base / 2;
+	top: 50%;
+}
+.ui-btn-box-s.ui-btn-icon-top .ui-icon, .ui-btn-box-s.ui-btn-icon-bottom .ui-icon
+{
+	margin-left: -64 * @unit_base / 2;
+	left: 50%;
+}
 .tizen-icon-common
 {
 	/* Overlap original property */
-	background-position:0% 0%; 	
-
 	width: 64 * @unit_base; height: 64 * @unit_base;
-	background-repeat: no-repeat;
-	background-size: 100% 100%;
 	margin-top : 50%;
 	top : -32 * @unit_base;
-	z-index : 10;
-	vertical-align:middle;
 }
 
 .ui-icon-bg			{.tizen-icon-common;	background-image: url(images/00_btn_circle_bg_normal.png);	z-index:0; }

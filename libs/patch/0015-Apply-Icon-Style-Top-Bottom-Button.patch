@@ -1,0 +1,39 @@
+From 9a1d3e529bd702f2531d6d15b843e4ba03a57732 Mon Sep 17 00:00:00 2001
+From: hjnim.kim <hjnim.kim@samsung.com>
+Date: Mon, 6 Aug 2012 09:58:26 +0900
+Subject: [PATCH] Apply-Icon-Style-Top,Bottom-Button
+
+---
+ .../js/jquery.mobile.buttonMarkup.js               |   16 +++++++++++++---
+ 1 files changed, 13 insertions(+), 3 deletions(-)
+
+diff --git a/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.buttonMarkup.js b/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.buttonMarkup.js
+index bdbea2a..cf57a23 100644
+--- a/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.buttonMarkup.js
++++ b/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.buttonMarkup.js
+@@ -115,9 +115,19 @@ $.fn.buttonMarkup = function( options ) {
+
+		if ( o.icon ) {
+			if ( $(el).text().length > 0 ) {
+-				o.iconpos == "right" ?
+-					textClass += " ui-btn-text-padding-right" :
+-					textClass += " ui-btn-text-padding-left";
++
++				switch( o.iconpos )
++				{
++					case "right" :
++					case "left" :
++					case "top" :
++					case "bottom" :
++						textClass += " ui-btn-text-padding-" + o.iconpos;
++						break;
++					default:
++						textClass += " ui-btn-text-padding-left";
++						break;
++				}
+
+				innerClass += " ui-btn-hastxt";
+			} else {
+--
+1.7.4.1
+
