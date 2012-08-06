@@ -1625,6 +1625,16 @@ ul.ui-listview {
 	}
 }
 
+@-webkit-keyframes ui-expand-show {
+	from {
+		-webkit-transform-origin: 0% 0%;
+		-webkit-transform: rotateX(90deg) skewX(30deg) translateZ(0);
+	} to {
+		-webkit-transform-origin: 0% 0%;
+		-webkit-transform: rotateX(0deg) skewX(0deg) translateZ(0);
+	}
+}
+
 // Expandable list animation
 .ui-listview {
 	.ui-li-expandable {
@@ -1639,15 +1649,10 @@ ul.ui-listview {
 	}
 	.ui-li-expanded {
 		overflow: hidden;
-
-		// Transition
-		-webkit-transition: all 0.2s ease;
-		-moz-transition:  all 0.2s ease;
-		-o-transition: all 0.2s ease;
-		transition: all 0.2s ease;
 	}
 	.ui-li-expand-transition-show {
 		visibility: visible;
+		-webkit-animation: ui-expand-show 0.4s 1 ease-out;
 	}
 	.ui-li-expand-transition-hide {
 		visibility: hidden;
@@ -1656,6 +1661,10 @@ ul.ui-listview {
 		padding-top: 0px;
 		padding-bottom: 0px;
 		border: 0px;
+		-webkit-transition: all 0.2s ease;
+		-moz-transition: all 0.2s ease;
+		-o-transition: all 0.2s ease;
+		transition: all 0.2s ease;
 	}
 }
 
