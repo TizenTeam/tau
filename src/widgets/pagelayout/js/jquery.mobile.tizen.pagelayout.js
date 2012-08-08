@@ -416,6 +416,7 @@
 				$elPage = $( document ).find( ".ui-page-active" ),
 				$elHeader = $elPage.find( ":jqmData(role='header')" ),
 				$elContent = $elPage.find( ":jqmData(role='content')" ),
+				resultContentHeight = 0,
 				resultFooterHeight = 0,
 				resultHeaderHeight = 0;
 
@@ -437,16 +438,21 @@
 				$elFooterControlbar.css( "width", window.innerWidth - $elFooterControlbar.siblings( ".ui-btn" ).width() - parseInt($elFooterControlbar.siblings(".ui-btn").css("right"), 10 ) * 2  );
 			}
 
+			resultContentHeight = window.innerHeight - resultFooterHeight - resultHeaderHeight;
+
 			if ( $.support.scrollview ) {
 				if ( $elHeader.css("position") != "fixed" ) {
 					$elHeader.css( "position", "fixed" );
 				}
-				$elContent.css( "height", window.innerHeight - resultFooterHeight - resultHeaderHeight );
+
+				$elContent.height( resultContentHeight -
+						parseFloat( $elContent.css("padding-top") ) -
+						parseFloat( $elContent.css("padding-bottom") ) );
 			} else {
 				if ( $elHeader.css("position") != "fixed" ) {
 					$elHeader.css( "position", "relative" );
 				} else {
-					$elContent.css( "height", window.innerHeight - resultFooterHeight - resultHeaderHeight );
+					$elContent.height( resultContentHeight );
 				}
 			}
 
