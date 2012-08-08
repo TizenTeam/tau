@@ -237,7 +237,7 @@
 
 			if ( $elFooter.find(".ui-navbar").is(".ui-controlbar-s") ) {
 				$elFooter
-					.css( "top", $(window).height() - $elFooter.height() )
+					.css( "bottom", 0 )
 					.show();
 			}
 
@@ -264,7 +264,7 @@
 			}
 
 			if ( $elFooter.is(".ui-footer-fixed") ) {
-				$elFooter.css( "top", $(window).height() - $elFooter.height() );
+				$elFooter.css( "bottom", 0 );
 			}
 
 			/* Increase Content size with dummy <div> because of footer height */
@@ -303,16 +303,16 @@
 				} )
 				.bind( "webkitAnimationStart animationstart updatelayout", function ( e, data ) {
 					if ( o.updatePagePadding ) {
-						self.updatePagePadding(data);
+						self.updatePagePadding(data);	// FIXME: unused function.
 						self.updatePageLayout(data);
 					}
 				})
 
 				.bind( "pageshow", function ( event ) {
-					self.updatePagePadding();
+					self.updatePagePadding();			// FIXME: unused function.
 					if ( o.updatePagePadding ) {
 						$( window ).bind( "throttledresize." + self.widgetName, function () {
-							self.updatePagePadding();
+							self.updatePagePadding();	// FIXME: unused function.
 							self.layoutPageIME();   // IME/resize reposition
 							self.updatePageLayout();
 						});
@@ -432,7 +432,7 @@
 			resultHeaderHeight = ( $elHeader.css( "display" ) == "none" ) ? 0 : $elHeader.height();
 
 			if (resultFooterHeight != 0 ) {
-				$elFooter.css( "top", window.innerHeight - resultFooterHeight );
+				$elFooter.css( "bottom", 0 );
 			}
 			if ( $elFooterControlbar.jqmData("style") == "toolbar" ) {
 				$elFooterControlbar.css( "width", window.innerWidth - $elFooterControlbar.siblings( ".ui-btn" ).width() - parseInt($elFooterControlbar.siblings(".ui-btn").css("right"), 10 ) * 2  );
