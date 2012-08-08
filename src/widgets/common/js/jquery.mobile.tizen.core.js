@@ -196,15 +196,29 @@ jQuery.extend(jQuery.mobile.tizen, {
     },
 
     disableSelection: function (element) {
-        return $(element).each(function () {
-            jQuery(element).css('-webkit-user-select', 'none');
-        });
+	return this.enableSelection( element, 'none' );
     },
 
     enableSelection: function (element, value) {
         return $(element).each(function () {
-            val = value == "text" ? val = 'text' : val = 'auto';
-            jQuery(element).css('-webkit-user-select', val);
+		switch( value ) {
+			case 'text' :
+			case 'auto' :
+			case 'none' :
+				val = value;
+			break;
+
+			default :
+				val = 'auto';
+			break;
+		}
+            jQuery(element).css( {
+				'user-select': val,
+				'-moz-user-select': val,
+				'-webkit-user-select': val,
+				'-o-user-select': val,
+				'-ms-transform': val
+				} );
         });
     },
 
