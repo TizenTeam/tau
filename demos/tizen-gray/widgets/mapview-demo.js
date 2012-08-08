@@ -48,7 +48,9 @@
 					}
 				};
 
-				mapView.mapview( "append", routePoints[ role ], role );
+				mapView.mapview( "append", routePoints[ role ], {
+					markerColor: ( role === "from" ? "red" : "blue" )
+				});
 
 				if ( routePoints.from && routePoints.to ) {
 					measureRoute();
@@ -102,7 +104,7 @@
 			resultPopup.popupwindow( "close" );
 		});
 
-		resultPopup.bind( "closed", function ( e ) {
+		resultPopup.bind( "popupafterclose", function ( e ) {
 			resultPopup.find( "p" ).text( "" );
 			mapView.mapview( "empty" );
 			routePoints.from = routePoints.to = null;

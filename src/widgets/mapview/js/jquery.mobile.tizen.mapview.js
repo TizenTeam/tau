@@ -288,7 +288,8 @@
 					marker,
 					image,
 					width,
-					height;
+					height,
+					markerColor;
 
 				if ( !coordinates || isNaN( coordinates[0] ) || isNaN( coordinates[1] ) ) {
 					return;
@@ -300,7 +301,8 @@
 				}
 
 				context = this._context;
-				marker = self._markerList[ style.markerColor ] || self._markerList.red;
+				markerColor = ( style && style.markerColor ) ? style.markerColor : "red";
+				marker = self._markerList[ markerColor ];
 
 				coordinates[0] += parseInt( marker.css( "margin-left" ), 10 );
 				coordinates[1] += parseInt( marker.css( "margin-top" ), 10 );
