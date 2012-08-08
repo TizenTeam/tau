@@ -21,6 +21,7 @@
  * ***************************************************************************
  *
  *	Author: Kangsik Kim <kangsik81.kim@samsung.com>
+ *	        Youmin Ha <youmin.ha@samsung.com>
 */
 
 /**
@@ -39,8 +40,6 @@
  *		data-template :	Has the ID of the jQuery.template element.
  *						jQuery.template for a virtual grid must be defined.
  *						Style for template would use rem unit to support scalability.
- *		data-dbtable :	Has the window object name. 
- *						Window [dbtable] object must exist as a JSON array.
  *		data-itemcount : Number of column elements. (Default : 3)
  *		data-direction : This option define the direction of the scroll.
  *						You must choose one of the 'x' and 'y' (Default : y)
@@ -50,12 +49,22 @@
  *						If option is ‘false’, Widget will operate like a scrollview.
  *
  *		ID : <UL> element that has "data-role=virtualgrid" must have ID attribute.
- *		Class : <UL> element that has "data-role=virtualgrid" should have "vgLoadSuccess" class to guaranty DB loading is completed.
  *
  * APIs:
  *
- *		create ( void )
- *			: Create VirtualGrid widget. At this moment, _create method is called internally.
+ *		create ( {
+ *				itemData: function ( idx ) { return json_obj; },
+ *				numItemData: number or function () { return number; },
+ *				cacheItemData: function ( minIdx, maxIdx ) {}
+ *				} )
+ *			: Create VirtualGrid widget. At this moment, _create method is called.
+ *			args : A collection of options
+ *				itemData: A function that returns JSON object for given index. Mandatory.
+ *				numItemData: Total number of itemData. Mandatory.
+ *				cacheItemData: Virtuallist will ask itemData between minIdx and maxIdx.
+ *				               Developers can implement this function for preparing data.
+ *				               Optional.
+ *
  *		centerTo ( String )
  *			: Find a DOM Element with the given class name.
  *			This element will be centered on the screen.
@@ -183,10 +192,10 @@
 		},
 
 		create : function () {
-			this._create();
+			this._create.apply( this, arguments );
 		},
 
-		_create : function () {
+		_create : function ( args ) {
 			$.extend(this, {
 				// view
 				_$view : null,
@@ -204,9 +213,10 @@
 				_lastMove : null,
 
 				// Data
-				_totalItemCnt : 0,
+				_itemData : function ( idx ) { return null; },
+				_numItemData : 0,
+				_cacheItemData : function ( minIdx, maxIdx ) { },
 				_totalRowCnt : 0,
-				_dataSet : null,
 				_template : null,
 				_maxViewSize : 0,
 				_modifyViewPos : 0,
@@ -233,18 +243,35 @@
 				clipHeight = 0,
 				$child = null;
 
-			if ( ! (widget.element.hasClass("vgLoadSuccess") ) ) {
-				return ;
+			// itemData
+			// If mandatory options are not given, Do nothing.
+			if ( args ) {
+				if ( args.itemData && typeof args.itemData == 'function'  ) {
+					widget._itemData = args.itemData;
+				} else {
+					return;
+				}
+				if ( args.numItemData ) {
+					if ( typeof args.numItemData == 'function' ) {
+						widget._numItemData = args.numItemData( );
+					} else if ( typeof args.numItemData == 'number' ) {
+						widget._numItemData = args.numItemData;
+					} else {
+						return;
+					}
+				} else {
+					return;
+				}
+			} else {	// No option is given; Do nothing.
+				return;
 			}
 
 			if ( $(widget.element).find(".ui-scrollview-view").length >= 1) {
 				$(widget.element).find(".ui-scrollview-view").remove();
 			}
 
-			widget._dataSet = window[opts.dbtable];
-			widget._totalItemCnt = widget._dataSet.length;
-			totalRowCnt = parseInt(widget._totalItemCnt / opts.itemcount , 10 );
-			widget._totalRowCnt = widget._totalItemCnt % opts.itemcount === 0 ? totalRowCnt : totalRowCnt + 1;
+			totalRowCnt = parseInt(widget._numItemData / opts.itemcount , 10 );
+			widget._totalRowCnt = widget._numItemData % opts.itemcount === 0 ? totalRowCnt : totalRowCnt + 1;
 			widget._template = $( "#" + opts.template );
 
 			if ( !widget._template ) {
@@ -776,7 +803,7 @@
 			$wrapper = $(document.createElement("div"));
 			$wrapper.addClass("ui-scrollview-view");
 			for ( index = 0; index < count ; index += 1 ) {
-				$item = widget._makeWrapBlock( widget._template, widget._dataSet, index );
+				$item = widget._makeWrapBlock( widget._template, index );
 				if ( widget._direction ) {
 					$item.css("top", 0).css("left", ( index * widget._itemSize ));
 				}
@@ -787,10 +814,11 @@
 		},
 
 		// make a single row block
-		_makeWrapBlock : function ( myTemplate, dataTable, rowIndex ) {
+		_makeWrapBlock : function ( myTemplate, rowIndex ) {
 			var widget = this,
 				opts = widget.options,
 				index = rowIndex * opts.itemcount,
+				itemData = null,
 				htmlData = null,
 				colIndex = 0,
 				attrName = widget._direction ? "top" : "left",
@@ -800,8 +828,9 @@
 
 			wrapBlock.addClass( blockClassName );
 			for ( colIndex = 0; colIndex < opts.itemcount; colIndex++ ) {
-				if ( dataTable[index] ) {
-					htmlData = myTemplate.tmpl( dataTable[index] );
+				itemData = widget._itemData( index );
+				if ( itemData ) {
+					htmlData = myTemplate.tmpl( itemData );
 					$(htmlData).css(attrName, ( colIndex * widget._itemOtherSize )).addClass("virtualgrid-item");
 					wrapBlock.append( htmlData );
 					index += 1;
@@ -824,7 +853,7 @@
 
 			$items = $(block).children();
 			if ( $items.length !== opts.itemcount ) {
-				tempBlocks = $(widget._makeWrapBlock( widget._template, widget._dataSet, index ));
+				tempBlocks = $(widget._makeWrapBlock( widget._template, index ));
 				$(block).append(tempBlocks.children());
 				tempBlocks.remove();
 				return ;
@@ -833,7 +862,7 @@
 			dataIdx = index * opts.itemcount;
 			for ( idx = 0; idx < opts.itemcount ; idx += 1) {
 				$item = $items[idx];
-				data = widget._dataSet[dataIdx];
+				data = widget._itemData( dataIdx );
 				if ( $item && data ) {
 					myTemplate = widget._template;
 					htmlData = myTemplate.tmpl( data );

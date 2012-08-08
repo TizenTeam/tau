@@ -13,7 +13,7 @@
 				</div>
 			</div>
 		</script>
-		<div id="virtualgrid-demo" style=" width:380px; height:410px; background-color: gray;" data-direction="x" data-role="virtualgrid" data-column="3" data-row="9" data-template="tizen-demo-namecard" data-dbtable="JSON_DATA">
+		<div id="virtualgrid-demo" style=" width:380px; height:410px; background-color: gray;" data-direction="x" data-role="virtualgrid" data-column="3" data-row="9" data-template="tizen-demo-namecard">
 		</div>
 	</div>
 	<script>
@@ -24,13 +24,18 @@
 	<script>
 		$( ".virtualgrid_x_demo_page" ).one( "pagecreate", function() {
 			$.getScript( "./js/virtualgrid-db-demo.js", function( data, textStatus ) {
-				var $item = $( "div" ).filter( function() {
-					return $( this ).data( "role" ) == "virtualgrid";
-				}).addClass( "vgLoadSuccess" );
 				$( ".rotationview_demo_page" ).die();
-				$( ":jqmData(role='virtualgrid')" ).virtualgrid( "create" );
+
+				$( ":jqmData(role='virtualgrid')" ).virtualgrid( "create", {
+					itemData: function ( idx ) {
+						return JSON_DATA[ idx ];
+					},
+					numItemData: JSON_DATA.length,
+					cacheItemData: function ( minIdx, maxIdx ) {
+					}
+				});
+
 				$( ".virtualgrid_x_demo_page" ).unbind("pagecreate");
-				$item.removeClass("vgLoadSuccess");
 
 				var $page = $( "#virtualgrid_x_page" ),
 					$content = $page.children(".ui-content"),
@@ -42,7 +47,6 @@
 				$content.height( wh - (hh + fh) - (pt + pb) );
 				$content.css( "overflow", "hidden" );
 			});
-			
 		});
 	</script>
 </div>
