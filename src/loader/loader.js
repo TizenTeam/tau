@@ -1,9 +1,7 @@
 /**
- * loader.js : Loader for web-ui-fw
- * Refactored from bootstrap.js
+ * loader.js
  *
- * By Youmin Ha <youmin.ha@samsung.com>
- *
+ * Youmin Ha <youmin.ha@samsung.com>
  */
 
 ( function ($, Globalize, window, undefined) {
@@ -16,6 +14,7 @@
 			version: '0.1',
 			theme: "tizen-gray",
 			viewportScale: false,
+			defaultFontSize: 16,
 			minified: false
 		},
 
@@ -381,14 +380,21 @@
 		 */
 		scaleBaseFontSize: function ( themeDefaultFontSize, ratio ) {
 			var scaledFontSize = Math.round( themeDefaultFontSize * ratio );
-			$( '.ui-mobile' ).css( { 'font-size': scaledFontSize + "px" } );
-			$( '.ui-mobile').children( 'body' ).css( { 'font-size': scaledFontSize + "px" } );
+
+			$( 'html.ui-mobile' ).css( { 'font-size': scaledFontSize + "px" } );
+			console.log('html:font size is set to ' + scaledFontSize );
+			$( document ).ready( function ( ) {
+				$( '.ui-mobile').children( 'body' ).css( { 'font-size': scaledFontSize + "px" } );
+			} );
 		},
 
 		setScaling: function ( ) {
 			var baseWidth = 720,		// Winset GUI Guide is 720 HD.
 				standardWidth = 360,
-				themeDefaultFontSize = parseInt( $( 'body' ).css( 'font-size' ), 10 );
+				themeDefaultFontSize;
+
+			themeDefaultFontSize = this.frameworkData.defaultFontSize;
+
 			$( 'body' ).attr( 'data-tizen-theme-default-font-size', themeDefaultFontSize );
 
 			if ( this.frameworkData.viewportScale ) {
@@ -415,17 +421,18 @@
 		$.tizen.__tizen__ = tizen;	// for unit-test
 	}
 
+	export2TizenNS( $, tizen );
+
 	tizen.getParams( );
 	tizen.loadTheme( );
+	tizen.setScaling( );	// Run after loadTheme(), for the default font size.
 	tizen.setGlobalize( );
-	export2TizenNS( $, tizen );
 
 	// Turn off JQM's auto initialization option.
 	// NOTE: This job must be done before domready.
 	$.mobile.autoInitializePage = false;
 
 	$(document).ready( function ( ) {
-		tizen.setScaling( );
 		$.mobile.initializePage( );
 	});
 
