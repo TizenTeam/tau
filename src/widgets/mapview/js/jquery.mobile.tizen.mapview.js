@@ -121,7 +121,8 @@
 			bbox : null,
 			bboxMax : null,
 			mode : "pan",
-			servicesProvider : "osm"
+			servicesProvider : "osm",
+			useMarker: true
 		},
 
 		_geomap: $.geo.geomap.prototype,
@@ -151,6 +152,7 @@
 				attr : "<p>Tiles Courtesy of <a href='http://www.mapquest.com/' target='_blank'>MapQuest</a> <img src='http://developer.mapquest.com/content/osm/mq_logo.png'></p>"
 			} ]
 		],
+		_markerList : {},
 
 		_createWidget: function ( options, element ) {
 			var self = this,
@@ -197,6 +199,8 @@
 				originTouchmove = geomap._dragTarget_touchmove,
 				originTouchend = geomap._dragTarget_touchstop,
 				originRefreshDrawing = geomap._refreshDrawing,
+				geographics = $.geo.geographics.prototype,
+				originDrawPoint = geographics.drawPoint,
 				eventClone = {},
 				supportTouch = $.support.touch,
 				startTime = 0,
@@ -261,10 +265,12 @@
 						e.currentTarget = this._$eventTarget;
 						this._eventTarget_touchstart( e );
 					}
-					self._trigger( "taphold", eventClone, {
-						x : eventClone.pageX,
-						y : eventClone.pageY
-					});
+					if ( eventClone ) {
+						self._trigger( "taphold", eventClone, {
+							x : eventClone.pageX,
+							y : eventClone.pageY
+						});
+					}
 				}
 				originTouchend.call( this, e );
 			};
@@ -273,6 +279,41 @@
 				// for jquerygeo's exception handling
 				if ( this._$drawContainer.hasOwnProperty( "geographics" ) ) {
 					originRefreshDrawing.call( this );
+				}
+			};
+
+			geographics.drawPoint = function ( coordinates, style ) {
+				var option = self.options,
+					context,
+					marker,
+					image,
+					width,
+					height;
+
+				if ( !coordinates || isNaN( coordinates[0] ) || isNaN( coordinates[1] ) ) {
+					return;
+				}
+
+				if ( !option.useMarker ) {
+					originDrawPoint.call( this, coordinates, style );
+					return;
+				}
+
+				context = this._context;
+				marker = self._markerList[ style.markerColor ] || self._markerList.red;
+
+				coordinates[0] += parseInt( marker.css( "margin-left" ), 10 );
+				coordinates[1] += parseInt( marker.css( "margin-top" ), 10 );
+				width = parseInt( marker.css( "width" ), 10 );
+				height = parseInt( marker.css( "height" ), 10 );
+
+				if ( marker[0].src !== self._getNativeURL( marker.css( "backgroundImage" ) ) ) {
+					marker.one( "load", function () {
+						context.drawImage( marker[0], coordinates[0], coordinates[1], width, height );
+					});
+					marker[0].src =  self._getNativeURL( marker.css( "backgroundImage" ) );
+				} else {
+					context.drawImage( marker[0], coordinates[0], coordinates[1], width, height );
 				}
 			};
 		},
@@ -337,10 +378,27 @@
 				zoomMinus = $( "<div class='ui-button ui-button-minus'></div>" ),
 				scaleControl = $( "<div class='ui-mapview-control ui-mapview-scale-control'></div>" ),
 				scaleLineTop = $( "<div class='ui-scaleline-top'></div>" ),
-				scaleLineBottom = $( "<div class='ui-scaleline-bottom'></div>" );
+				scaleLineBottom = $( "<div class='ui-scaleline-bottom'></div>" ),
+				marker = $( "<img></img>" ),
+				markerCopy,
+				markerColors = ["red", "blue", "gray", "purple", "yellow"],
+				markerSrc,
+				i,
+				className;
 
 			if ( !self.options.control ) {
 				return;
+			}
+
+			for ( i = 0; i < markerColors.length; i += 1 ) {
+				className = "ui-mapview-marker-" + markerColors[i];
+				marker.addClass( className );
+				markerCopy = marker.clone();
+				$view.append( markerCopy );
+				markerSrc = self._getNativeURL( markerCopy.css( "backgroundImage" ) );
+				markerCopy.attr( "src", markerSrc ).css( "display", "none" );
+				self._markerList[ markerColors[i] ] = markerCopy;
+				marker.removeClass( className );
 			}
 
 			zoomBar.append( zoomGuide ).append( zoomValue ).append( zoomHandle );
@@ -508,6 +566,14 @@
 				lineLength = ( ( firstDigit > 5 ) ? 5 : ( ( firstDigit > 2 ) ? 2 : 1 ) );
 
 			return lineLength * multiple;
+		},
+
+		_getNativeURL: function ( url ) {
+			var markerUriExp = /url\(*/;
+			if ( markerUriExp.test( url ) ) {
+				url = url.replace( markerUriExp, "" ).replace( /\)$/, "" );
+			}
+			return url;
 		},
 
 		destroy: function () {
