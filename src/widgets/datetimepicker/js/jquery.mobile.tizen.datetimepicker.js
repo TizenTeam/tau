@@ -125,9 +125,7 @@
 		_daysInMonth: [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ],
 
 		_isLeapYear: function ( year ) {
-			return year % 4 ? false :
-					( year % 100 ? true :
-							( year % 400 ? false : true ) );
+			return year % 4 ? 0 : ( year % 100 ? 1 : ( year % 400 ? 0 : 1 ) );
 		},
 
 		_makeTwoDigits: function ( val ) {
@@ -598,7 +596,7 @@
 			case 'day':
 				day = this._daysInMonth[ this.options.date.getMonth() ];
 				if ( day == 28 ) {
-					day = day + this._isLeapYear( this.options.date.getFullYear() ) ? 1 : 0;
+					day += this._isLeapYear( this.options.date.getFullYear() );
 				}
 				values = range( 1, day );
 				if ( pat.length == 2 ) {
@@ -679,12 +677,12 @@
 				$ctx.popupwindow( 'open',
 						target.offset().left + target.width() / 2 - window.pageXOffset,
 						target.offset().top + target.height() - window.pageYOffset );
-				$div.bind('closed', function ( e ) {
+				$div.bind('popupafterclose', function ( e ) {
 					if ( obj._reflow ) {
 						$(window).unbind("resize", obj._reflow);
 						obj._reflow = null;
 					}
-					$div.unbind( 'closed' );
+					$div.unbind( 'popupafterclose' );
 					$ul.unbind( 'vclick' );
 					$(obj).unbind( 'update' );
 					$(ui).find('.ui-datefield-selected').removeClass('ui-datefield-selected');
