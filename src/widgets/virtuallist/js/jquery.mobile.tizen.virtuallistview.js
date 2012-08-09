@@ -33,20 +33,24 @@
  *
  *		data-role:	virtuallistview
  *		data-template : jQuery.template ID that populate into virtual list 
- *		data-dbtable : DB Table name. It used as window[DB NAME]. Loaded data should be converted as window object.
- *		data-dbkey : Unique key of DB Table. To sync each element on virtual list with DB table. 
  *		data-row : Optional. Set number of <li> elements that are used for data handling. 
  *		
  *		ID : <UL> element that has "data-role=virtuallist" must have ID attribute.
- *		Class : <UL> element that has "data-role=virtuallist" should have "vlLoadSuccess" class to guaranty DB loading is completed. 
  *
  * * APIs:
  *
- *		create ( void )
- *			: API to call _create method. API for AJAX or DB loading callback.
- *
- *		recreate ( Array )
- *			: Update virtual list with new data array. For example, update with search result. 
+ *		create ( {
+ *				itemData: function ( idx ) { return json_obj; },
+ *				numItemData: number or function () { return number; },
+ *				cacheItemData: function ( minIdx, maxIdx ) {}
+ *				} )
+ *			: Create a virtuallist widget. At this moment, _create method is called.
+ *			args : A collection of options
+ *				itemData: A function that returns JSON object for given index. Mandatory.
+ *				numItemData: Total number of itemData. Mandatory.
+ *				cacheItemData: Virtuallist will ask itemData between minIdx and maxIdx.
+ *				               Developers can implement this function for preparing data.
+ *				               Optional.
  *
  * Events:
  *
@@ -73,18 +77,9 @@
 
 	/* Code for Virtual List Demo */
 	var listCountPerPage = {},	/* Keeps track of the number of lists per page UID. This allows support for multiple nested list in the same page. https://github.com/jquery/jquery-mobile/issues/1617 */
-		TOTAL_ITEMS = 0,
-		LINE_H = 0,
-		TITLE_H = 0,
-		CONTAINER_W = 0,
-		NO_SCROLL = 0,					/* ENUM */
-		SCROLL_DOWN = 1,				/* ENUM */
-		SCROLL_UP = -1,					/* ENUM */
-		MINIMUM_ROW = 20,
-		direction = NO_SCROLL,
-		first_index,
-		last_index,
-		num_top_items = 0;				//By scroll move, number of hidden elements.
+		_NO_SCROLL = 0,					/* ENUM */
+		_SCROLL_DOWN = 1,				/* ENUM */
+		_SCROLL_UP = -1;					/* ENUM */
 
 	$.widget( "tizen.virtuallistview", $.mobile.widget, {
 		options: {
@@ -126,16 +121,15 @@
 			$( this ).removeClass( "ui-btn-down-s" );
 		},
 
-		_pushData: function ( template, data ) {
+		_pushData: function ( template ) {
 			var o = this.options,
 				i,
-				dataTable = data,
 				myTemplate = $( "#" + template ),
-				lastIndex = ( o.row > data.length ? data.length : o.row ),
+				lastIndex = ( o.row > this._numItemData ? this._numItemData : o.row ),
 				htmlData;
 
 			for ( i = 0; i < lastIndex; i++ ) {
-				htmlData = myTemplate.tmpl( dataTable[i] );
+				htmlData = myTemplate.tmpl( this._itemData( i ) );
 				$( o.id ).append( $( htmlData ).attr( 'id', 'li_' + i ) );
 			}
 
@@ -155,28 +149,30 @@
 			}
 
 			if ( $( o.id + o.childSelector ).size() > 0 ) {
-				TITLE_H = $( o.id + o.childSelector + ':first' ).position().top;
-				LINE_H = $( o.id + o.childSelector + ':first' ).outerHeight();
+				t._title_h = $( o.id + o.childSelector + ':first' ).position().top;
+				t._line_h = $( o.id + o.childSelector + ':first' ).outerHeight();
 
-				CONTAINER_W = $( o.id ).innerWidth();
+				t._container_w = $( o.id ).innerWidth();
 
 				padding = parseInt( $( o.id + o.childSelector ).css( "padding-left" ), 10 ) + parseInt( $( o.id + o.childSelector ).css( "padding-right" ), 10 );
 
 				/* Add style */
-				$( o.id + ">" + o.childSelector ).addClass( "position_absolute" ).addClass( "ui-btn-up-s" )
-													.bind( "mouseup", t._stylerMouseUp )
-													.bind( "mousedown", t._stylerMouseDown )
-													.bind( "mouseover", t._stylerMouseOver )
-													.bind( "mouseout", t._stylerMouseOut );
+				$( o.id + ">" + o.childSelector )
+					.addClass( "position_absolute" )
+					.addClass( "ui-btn-up-s" )
+					.bind( "mouseup", t._stylerMouseUp )
+					.bind( "mousedown", t._stylerMouseDown )
+					.bind( "mouseover", t._stylerMouseOver )
+					.bind( "mouseout", t._stylerMouseOut );
 			}
 
 			$( o.id + ">" + o.childSelector ).each( function ( index ) {
-				$( this ).css( "top", TITLE_H + LINE_H * index + 'px' )
-					.css( "width", CONTAINER_W - padding );
+				$( this ).css( "top", t._title_h + t._line_h * index + 'px' )
+					.css( "width", t._container_w - padding );
 			} );
 
 			/* Set Max List Height */
-			$( o.id ).height( TOTAL_ITEMS * LINE_H );
+			$( o.id ).height( t._numItemData * t._line_h );
 		},
 
 		_resize: function ( event ) {
@@ -190,20 +186,20 @@
 				o = event;
 			}
 
-			CONTAINER_W = $( o.id ).innerWidth();
+			t._container_w = $( o.id ).innerWidth();
 
 			padding = parseInt( $( o.id + o.childSelector ).css( "padding-left" ), 10 ) + parseInt( $( o.id + o.childSelector ).css( "padding-right" ), 10 );
 
 			$( o.id + o.childSelector ).each( function (index) {
-				$( this ).css( "width", CONTAINER_W - padding );
+				$( this ).css( "width", t._container_w - padding );
 			} );
 		},
 
 		_scrollmove: function ( event ) {
-			var velocity = 0,
-				o = event.data,
+			var t = event.data,	// document
+				o = t.options,
+				velocity = 0,
 				i,
-				dataList = window[o.dbtable],
 				_replace,		/* Function */
 				_moveTopBottom,	/* Function */
 				_moveBottomTop,	/* Function */
@@ -211,7 +207,7 @@
 				$el,
 				transformValue,
 				curWindowTop,
-				cur_num_top_itmes;
+				cur_num_top_items;
 
 			/* Text & image src replace function */
 			_replace = function ( oldItem, newItem, key ) {
@@ -253,7 +249,7 @@
 				}
 
 				for ( i = 0; i < num; i++ ) {
-					if ( v_lastIndex + i > TOTAL_ITEMS ) {
+					if ( v_lastIndex + i > t._numItemData ) {
 						break;
 					}
 
@@ -262,7 +258,7 @@
 					if ( cur_item ) {
 						/* Make New <LI> element from template. */
 						myTemplate = $( "#" + o.template );
-						htmlData = myTemplate.tmpl( dataList[ v_lastIndex + i ] );
+						htmlData = myTemplate.tmpl( t._itemData( v_lastIndex + i ) );
 
 						/* Copy all data to current item. */
 						_replace( cur_item, htmlData, key );
@@ -271,7 +267,7 @@
 						htmlData.remove();
 
 						/* Set New Position */
-						( cur_item ).css( 'top', TITLE_H + LINE_H * ( v_lastIndex + 1 + i ) ).attr( 'id', 'li_' + ( v_lastIndex + 1 + i ) );
+						( cur_item ).css( 'top', t._title_h + t._line_h * ( v_lastIndex + 1 + i ) ).attr( 'id', 'li_' + ( v_lastIndex + 1 + i ) );
 
 					} else {
 						break;
@@ -299,7 +295,7 @@
 
 						/* Make New <LI> element from template. */
 						myTemplate = $( "#" + o.template );
-						htmlData = myTemplate.tmpl( dataList[ v_firstIndex - 1 - i ] );
+						htmlData = myTemplate.tmpl( t._itemData( v_firstIndex - 1 - i ) );
 
 						/* Copy all data to current item. */
 						_replace( cur_item, htmlData, key );
@@ -308,7 +304,7 @@
 						htmlData.remove();
 
 						/* Set New Position */
-						$( cur_item ).css( 'top', TITLE_H + LINE_H * ( v_firstIndex - 1 - i ) ).attr( 'id', 'li_' + ( v_firstIndex - 1 - i ) );
+						$( cur_item ).css( 'top', t._title_h + t._line_h * ( v_firstIndex - 1 - i ) ).attr( 'id', 'li_' + ( v_firstIndex - 1 - i ) );
 
 					} else {
 						break;
@@ -332,28 +328,28 @@
 				transformValue = _matrixToArray( $el.css( "-webkit-transform" ) );
 				curWindowTop = Math.abs( transformValue[ 5 ] );	/* Y vector */
 			} else {
-				curWindowTop = $( window ).scrollTop() - LINE_H;
+				curWindowTop = $( window ).scrollTop() - t._line_h;
 			}
 
-			cur_num_top_itmes = $( o.id + o.childSelector ).filter( function () {
+			cur_num_top_items = $( o.id + o.childSelector ).filter( function () {
 				return (parseInt( $( this ).css( "top" ), 10 ) < curWindowTop );
 			} ).size();
 
-			if ( num_top_items < cur_num_top_itmes ) {
-				direction = SCROLL_DOWN;
-				velocity = cur_num_top_itmes - num_top_items;
-				num_top_items = cur_num_top_itmes;
-			} else if ( num_top_items > cur_num_top_itmes ) {
-				direction = SCROLL_UP;
-				velocity = num_top_items - cur_num_top_itmes;
-				num_top_items = cur_num_top_itmes;
+			if ( t._num_top_items < cur_num_top_items ) {
+				t._direction = _SCROLL_DOWN;
+				velocity = cur_num_top_items - t._num_top_items;
+				t._num_top_items = cur_num_top_items;
+			} else if ( t._num_top_items > cur_num_top_items ) {
+				t._direction = _SCROLL_UP;
+				velocity = t._num_top_items - cur_num_top_items;
+				t._num_top_items = cur_num_top_items;
 			}
 
 			// Move items
-			if ( direction == SCROLL_DOWN ) {
-				if ( cur_num_top_itmes > o.page_buf ) {
-					if ( last_index + velocity > TOTAL_ITEMS ) {
-						velocity = TOTAL_ITEMS - last_index - 1;
+			if ( t._direction == _SCROLL_DOWN ) {
+				if ( cur_num_top_items > o.page_buf ) {
+					if ( t._last_index + velocity > t._numItemData ) {
+						velocity = t._numItemData - t._last_index - 1;
 					}
 
 					/* Prevent scroll touch event while DOM access */
@@ -361,19 +357,19 @@
 						event.preventDefault();
 					});
 
-					_moveTopBottom( first_index, last_index, velocity, o.dbkey );
+					_moveTopBottom( t._first_index, t._last_index, velocity, o.dbkey );
 
-					first_index += velocity;
-					last_index += velocity;
-					num_top_items -= velocity;
+					t._first_index += velocity;
+					t._last_index += velocity;
+					t._num_top_items -= velocity;
 
 					/* Unset prevent touch event */
 					$( document ).unbind( "touchstart.virtuallist" );
 				}
-			} else if ( direction == SCROLL_UP ) {
-				if ( cur_num_top_itmes <= o.page_buf ) {
-					if ( first_index < velocity ) {
-						velocity = first_index;
+			} else if ( t._direction == _SCROLL_UP ) {
+				if ( cur_num_top_items <= o.page_buf ) {
+					if ( t._first_index < velocity ) {
+						velocity = t._first_index;
 					}
 
 					/* Prevent scroll touch event while DOM access */
@@ -381,34 +377,34 @@
 						event.preventDefault();
 					});
 
-					_moveBottomTop( first_index, last_index, velocity, o.dbkey );
+					_moveBottomTop( t._first_index, t._last_index, velocity, o.dbkey );
 
-					first_index -= velocity;
-					last_index -= velocity;
-					num_top_items += velocity;
+					t._first_index -= velocity;
+					t._last_index -= velocity;
+					t._num_top_items += velocity;
 
 					/* Unset prevent touch event */
 					$( document ).unbind( "touchstart.virtuallist" );
 				}
 
-				if ( first_index < o.page_buf ) {
-					num_top_items = first_index;
+				if ( t._first_index < o.page_buf ) {
+					t._num_top_items = t._first_index;
 				}
 			}
 		},
 
-		recreate: function ( newArray ) {
+		_recreate: function ( newArray ) {
 			var t = this,
 				o = this.options;
 
 			$( o.id ).empty();
 
-			TOTAL_ITEMS = newArray.length;
-			direction = NO_SCROLL;
-			first_index = 0;
-			last_index = o.row - 1;
+			t._numItemData = newArray.length;
+			t._direction = _NO_SCROLL;
+			t._first_index = 0;
+			t._last_index = o.row - 1;
 
-			t._pushData( ( o.template ), newArray );
+			t._pushData( o.template );
 
 			if (o.childSelector == " ul" ) {
 				$( o.id + " ul" ).swipelist();
@@ -426,12 +422,9 @@
 				o = this.options;
 
 			/* After AJAX loading success */
-			o.dbtable = t.element.data( "dbtable" );
-
-			TOTAL_ITEMS = $(window[o.dbtable]).size();
 
 			/* Make Gen list by template */
-			t._pushData( (o.template), window[o.dbtable]);
+			t._pushData( o.template );
 
 			$( o.id ).parentsUntil( ".ui-page" ).parent().one( "pageshow", function () {
 				setTimeout( function () {
@@ -440,7 +433,7 @@
 			});
 
 			/* Scrollview */
-			$( document ).bind( "scrollstop.virtuallist", t.options, t._scrollmove );
+			$( document ).bind( "scrollstop.virtuallist", t, t._scrollmove );
 
 			$( window ).bind( "resize.virtuallist", t._resize );
 
@@ -455,12 +448,27 @@
 			var o = this.options;
 
 			/* external API for AJAX callback */
-			this._create( "create" );
+			this._create.apply( this, arguments );
 
 			this._reposition( o );
 		},
 
-		_create: function ( event ) {
+		_create: function ( args ) {
+			// Extend required vars
+			$.extend( this, {
+				_itemData : function ( idx ) { return null; },
+				_numItemData : 0,
+				_cacheItemData : function ( minIdx, maxIdx ) { },
+				_line_h : 0,
+				_title_h : 0,
+				_container_w : 0,
+				_minimum_row : 20,
+				_direction : _NO_SCROLL,
+				_first_index : 0,
+				_last_index : 0,
+				_num_top_items : 0	// By scroll move, number of hidden elements.
+			} );
+
 			var t = this,
 				o = this.options,
 				$el = this.element,
@@ -469,6 +477,7 @@
 				dividers = $el.find(':jqmData(role="virtuallistview" )'),
 				lastListItem = null,
 				shortcutscroll = this;
+
 
 			// create listview markup
 			t.element.addClass( function ( i, orig ) {
@@ -492,38 +501,73 @@
 			if ( $el.data( "row" ) ) {
 				o.row = $el.data( "row" );
 
-				if ( o.row < MINIMUM_ROW ) {
-					o.row = MINIMUM_ROW;
+				if ( o.row < t._minimum_row ) {
+					o.row = t._minimum_row;
 				}
 
 				o.page_buf = parseInt( ( o.row / 2 ), 10 );
 			}
 
-			/* After DB Load complete, Init Vritual list */
-			if ( $( o.id ).hasClass( "vlLoadSuccess" ) ) {
-				$( o.id ).empty();
-
-				if ( $el.data( "template" ) ) {
-					o.template = $el.data( "template" );
-
-					/* to support swipe list, <li> or <ul> can be main node of virtual list. */
-					if ( $el.data( "swipelist" ) == true ) {
-						o.childSelector = " ul";
+			// Get arguments
+			if ( args ) {
+				if ( args.itemData && typeof args.itemData == 'function'  ) {
+					t._itemData = args.itemData;
+				} else {
+					return;
+				}
+				if ( args.numItemData ) {
+					if ( typeof args.numItemData == 'function' ) {
+						t._numItemData = args.numItemData( );
+					} else if ( typeof args.numItemData == 'number' ) {
+						t._numItemData = args.numItemData;
 					} else {
-						o.childSelector = " li";
+						return;
 					}
+				} else {
+					return;
 				}
+			} else {	// No option is given
+				// Legacy support: dbtable
+				console.log("WARNING: The data interface of virtuallist is changed. \nOld data interface(data-dbtable) is still supported, but will be removed in next version. \nPlease fix your code soon!");
 
-				/* Set data's unique key */
-				if ( $el.data( "dbkey" ) ) {
-					o.datakey = $el.data( "dbkey" );
+				/* After DB Load complete, Init Vritual list */
+				if ( $( o.id ).hasClass( "vlLoadSuccess" ) ) {
+					var dbtable_name = $el.jqmData('dbtable'),
+						dbtable = window[ dbtable_name ];
+					if( ! dbtable ) {
+						dbtable = { };
+					}
+
+					$( o.id ).empty();
+
+					if ( $el.data( "template" ) ) {
+						o.template = $el.data( "template" );
+
+						/* to support swipe list, <li> or <ul> can be main node of virtual list. */
+						if ( $el.data( "swipelist" ) == true ) {
+							o.childSelector = " ul";
+						} else {
+							o.childSelector = " li";
+						}
+					}
+
+					/* Set data's unique key */
+					if ( $el.data( "dbkey" ) ) {
+						o.dbkey = $el.data( "dbkey" );
+					}
+
+					t._first_index = 0;			//first id of <li> element.
+					t._last_index = o.row - 1;		//last id of <li> element.
+
+					t._itemData = function ( idx ) {
+						return dbtable[ idx ];
+					};
+					t._numItemData = dbtable.length;
+
+					t._initList();
 				}
-
-				first_index = 0;			//first id of <li> element.
-				last_index = o.row - 1;		//last id of <li> element.
-
-				t._initList();
 			}
+
 		},
 
 		destroy : function () {
