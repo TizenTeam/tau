@@ -12,7 +12,7 @@
 		frameworkData : {
 			rootDir: '/usr/lib/tizen-web-ui-fw',
 			version: '0.1',
-			theme: "tizen-gray",
+			theme: "tizen-white",
 			viewportScale: false,
 			defaultFontSize: 16,
 			minified: false
