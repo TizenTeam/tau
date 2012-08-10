@@ -134,8 +134,8 @@
 					}
 					footer_filter
 						.css( "position", "fixed" )
-						.css( "height", controlbar_filter.height() )
-						.css( "top", window.innerHeight - footer_filter.height() );
+						.css( "bottom", 0 )
+						.css( "height", controlbar_filter.height() );
 					if ( style == "toolbar" ) {
 						controlbar_filter
 							.css( "width", window.innerWidth - controlbar_filter.siblings(".ui-btn").width() - parseInt(controlbar_filter.siblings(".ui-btn").css("right"),10) * 2 );
