@@ -1515,9 +1515,19 @@ ul.ui-listview {
 	// Dialogue
 	&> li.ui-li-dialogue {
 		margin-left: @style_list_li_dialogue_margin_left;
+		margin-right : @style_list_li_dialogue_margin_left;
 		border-left: @style_list_li_dialogue_border_left_width @color_dialogue_editor_border solid;
 		//margin-left: @style_list_li_dialogue_margin_left;
 		border-top-width: 0px;
+
+		.LESSdialogue-border-style;
+	}
+
+	&> li.ui-li-dialogue.ui-body-s,
+	&> li.ui-li-dialogue.ui-btn-up-s {
+		&:not(.ui-li-expanded){
+			background : @color_list_dialogue_bg;
+		}
 	}
 
 	&> li.ui-li-dialogue.ui-li-divider {
@@ -1568,6 +1578,10 @@ ul.ui-listview {
 
 	&> li.ui-li-3-button div.ui-btn:nth-child(3) {
 		left : 66%;
+	}
+
+	&> li.ui-li-dialogue-divider {
+		.LESSdialogue-divider;
 	}
 }
 

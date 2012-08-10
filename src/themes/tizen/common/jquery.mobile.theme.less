@@ -191,12 +191,14 @@
 	top : 0px;
 	background : @color_bar_title_bg;
 
+	min-height : 100 * @unit_base;
+
 	.ui-title {
 		color : @color_bar_title_text;
 
 		top : 0px;
-		min-height: 44 * @unit_base;
-		font-size : 36 * @unit_base;
+		min-height: @style-title-min-height;
+		font-size : @style-title-font-size;
 		display: block;
 		text-overflow: ellipsis;
 		overflow: hidden;
@@ -254,7 +256,7 @@
 	.ui-title-extended-segment-style {
 		left : 0 * @unit_base;
 		margin-top : 0 * @unit_base;
-		top : 2 * @unit_base; // scale change
+		top : @style-title-extended-margin; // scale change
 	}
 }
 
