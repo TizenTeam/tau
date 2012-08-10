@@ -1,7 +1,7 @@
 From 55dcac86989fdc737ea6894ca136bb250bdc5f95 Mon Sep 17 00:00:00 2001
 From: Minkyu Kang <mk7.kang@samsung.com>
 Date: Tue, 17 Jul 2012 09:12:49 +0900
-Subject: [PATCH] JQM: set default page transition to slide
+Subject: [PATCH] JQM: set default page transition to none
 
 Signed-off-by: Minkyu Kang <mk7.kang@samsung.com>
 ---
@@ -17,7 +17,7 @@ index 9007c36..ae576b1 100644
  
  		// Set default page transition - 'none' for no transitions
 -		defaultPageTransition: "fade",
-+		defaultPageTransition: "slide",
++		defaultPageTransition: "none",
  
  		// Set maximum window width for transitions to apply - 'false' for no limit
  		maxTransitionWidth: false,
