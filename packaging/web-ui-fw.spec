@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.1.34
+Version:    0.1.35
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -89,6 +89,21 @@ Summary:    Tizen Web UI Framework Demo Application: tizen-gray demo
 
 ###############################
 %changelog
+
+* Fri Aug 10 2012 Minkyu Kang <mk7.kang@samsung.com> 0.1.35
+- FIX :
+	- expandablelist: modify show animation
+	- virtualgrid: Redesign programming interface
+	- popupwindow: code clean and fixed issues
+	- pagelayout: fix content height
+	- license file update
+	- virtuallist: Change programming interface
+	- datetimepicker: getting days correctly
+	- searchbar: set to hidden when cancel button is hide
+	- White theme title font tuning
+- Spec changes:
+	- default theme tizen-gray to tizen-white
+	- set default page transition to none
 
 * Mon Aug 02 2012 Jinhyuk Jun <jinhyuk.jun@samsung.com> 0.1.34
 - FIX :
