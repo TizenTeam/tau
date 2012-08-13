@@ -29,42 +29,6 @@ $( document ).ready( function () {
 			equal( vlOptions.dbkey, false );
 			equal( vlOptions.scrollview, true );
 
-			ok ( ( function () {
-				var i = 0,
-					newJSON = new Array(),
-					newItem,
-					firstLI,
-					result = true;
-
-				/* make short JSON array */
-				for ( i = 0; i < 200; i++ ) {
-					newJSON.push( window.JSON_DATA[ ( i + 100 ) ] );
-				}
-
-				/* Call recreate */
-				$( "#virtuallist-normal_1line_ul" ).virtuallistview( "recreate", newJSON );
-
-				$vlContainer = $( "ul.ui-virtual-list-container" );
-				$vlElements = $( "ul.ui-virtual-list-container li" );
-
-				/* Check new List */
-				ok( $vlContainer );
-				equal( $vlElements.length, 100 );
-				ok( parseInt( vlHeight, 10 ) > 3000 );
-
-				newItem = window.JSON_DATA[ 100 ];
-
-				firstLI = $( "ul.ui-virtual-list-container li:first" );
-
-				try {
-					equal( newItem.NAME, $( firstLI ).find( "span.ui-li-text-main" ).text() );
-				} catch ( exception ) {
-					console.log( exception );
-					return false;
-				}
-
-				return true;
-			}() ), "recreate()" );
 
 			/* Destroy method */
 			ok ( ( function () {
