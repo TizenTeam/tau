@@ -1,4 +1,4 @@
-/*!
+/*
  * jQuery Mobile Widget @VERSION
  *
  * TODO: remove unnecessary codes....
@@ -196,11 +196,12 @@ jQuery.extend(jQuery.mobile.tizen, {
     },
 
     disableSelection: function (element) {
-	return this.enableSelection( element, 'none' );
+	var self = this;
+	return self.enableSelection( element, 'none' );
     },
 
     enableSelection: function (element, value) {
-        return $(element).each(function () {
+        return $(element).each( function () {
 		switch( value ) {
 			case 'text' :
 			case 'auto' :
@@ -212,14 +213,28 @@ jQuery.extend(jQuery.mobile.tizen, {
 				val = 'auto';
 			break;
 		}
-            jQuery(element).css( {
-				'user-select': val,
-				'-moz-user-select': val,
-				'-webkit-user-select': val,
-				'-o-user-select': val,
-				'-ms-transform': val
-				} );
-        });
+            $(this).css( {
+			'user-select': val,
+			'-moz-user-select': val,
+			'-webkit-user-select': val,
+			'-o-user-select': val,
+			'-ms-transform': val
+			} );
+        } );
+    },
+
+    disableContextMenu: function(element) {
+	$(element).each( function() {
+		$(this).bind("contextmenu", function( event ) {
+			return false;
+		} );
+	} );
+    },
+
+    enableContextMenu: function(element) {
+	$(element).each( function() {
+		$(this).unbind( "contextmenu" );
+	} );
     },
 
     // Set the height of the content area to fill the space between a
