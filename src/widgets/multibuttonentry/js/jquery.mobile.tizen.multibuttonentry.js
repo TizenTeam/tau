@@ -32,11 +32,12 @@
  *
  *	HTML Attributes:
  *
- *		data-listUrl : Represents the page id.
- *					The page contains data for the user, for example, an address book.(Default : null)
+ *		data-list-id : Represents the page id.
+ *				The page contains data for the user, for example, an address book.
+ *				If the value is null, anchor button doesn't work. (Default : null)
  *		data-label:	Provide a label for a user-guide. (Default : 'To : ')
- *		data-descMessage : This attribute is managing message format.
- *				 This message is displayed when widget status was changed to 'focusout'. (Default : '{0} & {1} more')
+ *		data-description : This attribute is managing message format.
+ *				This message is displayed when widget status was changed to 'focusout'. (Default : '+ {0}')
  *
  *	APIs:
  *
@@ -68,7 +69,8 @@
  *			The status is not able to manage a widget.
  *			All buttons that contained in the widget are removed and
  *			summarized message is displayed.
- *
+ *		destroy ( void )
+ *			: Remove all of the new DOM elements for the current widget that you created.
  *
  *	Events:
  *
@@ -79,7 +81,7 @@
  *
  *	Examples:
  *
- *		<div data-role="multibuttonentry" data-label="To : " data-listUrl:"#addressbook" data-descMessage="{0} & {1} more...">
+ *		<div data-role="multibuttonentry" data-label="To : " data-list-id:"#addressbook" data-description="+ {0}">
  *		</div>
  *
  */
@@ -97,14 +99,16 @@
 		_marginWidth : 0,
 		options : {
 			label : "To : ",
-			listUrl : "#addressbook",
-			descMessage : "{0} & {1} more..."
+			listId : null,
+			description : "+ {0}"
 		},
+
 		_create : function () {
 			var self = this,
 				$view = this.element,
 				role = $view.jqmData( "role" ),
 				option = this.options,
+				className = "ui-multibuttonentry-link",
 				inputbox = $( document.createElement( "input" ) ),
 				labeltag = $( document.createElement( "label" ) ),
 				moreBlock = $( document.createElement( "a" ) );
@@ -112,7 +116,7 @@
 			$view.hide().empty().addClass( "ui-" + role );
 
 			// create a label tag.
-			$( labeltag ).text( this.options.label ).addClass( "ui-multibuttonentry-label" );
+			$( labeltag ).text( option.label ).addClass( "ui-multibuttonentry-label" );
 			$view.append( labeltag );
 
 			// create a input tag
@@ -120,7 +124,10 @@
 			$view.append( inputbox );
 
 			// create a anchor tag.
-			$( moreBlock ).text( "+" ).attr( "href", option.listUrl ).addClass( "ui-multibuttonentry-link" );
+			if ( option.listId === null ||  $.trim(option.listId).length < 1  ) {
+				className += "-dim";
+			}
+			$( moreBlock ).text( "+" ).attr( "href",  $.trim(option.listId)).addClass( "ui-multibuttonentry-link-base" ).addClass( className );
 
 			// append default htmlelements to main widget.
 			$view.append( moreBlock );
@@ -141,38 +148,57 @@
 			self._fontSize = parseInt( $( moreBlock ).css( "font-size" ), 10 );
 			self._currentWidth = self._reservedWidth;
 		},
+
 		// bind events
 		_bindEvents : function () {
 			var self = this,
 				$view = self.element,
 				option = self.options,
 				inputbox = $view.find( ".ui-multibuttonentry-input" ),
-				moreBlock = $view.find( ".ui-multibuttonentry-link" );
+				moreBlock = $view.find( ".ui-multibuttonentry-link-base" ),
+				isSeparator = false;
 
-			inputbox.bind( "keydown", function ( event ) {
+			inputbox.bind( "keyup", function ( event ) {
 				// 8  : backspace
 				// 13 : Enter
+				// 186 : semi-colon
+				// 188 : comma
 				var keyValue = event.keyCode,
-					valueString = $( inputbox ).val();
+					valueString = $( inputbox ).val(),
+					valueStrings = [],
+					index;
 
-				if ( keyValue == 8 ) {
+				if ( keyValue === 8 ) {
 					if ( valueString.length === 0 ) {
 						self._validateTargetBlock();
 					}
-				} else if ( keyValue == 13 ) {
+				} else if ( keyValue === 13 || keyValue === 186 || keyValue === 188 ) {
 					if ( valueString.length !== 0 ) {
-						self._addTextBlock( valueString );
+						// split content by separators(',', ';')
+						valueStrings = valueString.split ( /[,;]/ );
+						for ( index = 0; index < valueStrings.length; index++ ) {
+							if ( valueStrings[index].length !== 0 && valueStrings[index].replace( /\s/g, "" ).length !== 0 ) {
+								self._addTextBlock( valueStrings[index] );
+							}
+						}
 					}
 					inputbox.val( "" );
+					isSeparator = true;
 				} else {
 					self._unlockTextBlock();
 				}
+
+				return !isSeparator;
 			});
 
 			moreBlock.click( function () {
+				if ( $( moreBlock ).hasClass( "ui-multibuttonentry-link-dim" ) ) {
+					return ;
+				}
+
 				$(inputbox).hide();
 
-				$.mobile.changePage( option.listUrl, {
+				$.mobile.changePage( option.listId, {
 					transition: "slide",
 					reverse: false,
 					changeHash: false
@@ -186,7 +212,7 @@
 				var inputBox = $view.find( ".ui-multibuttonentry-input" );
 				if ( self._labelWidth === 0 ) {
 					self._labelWidth = $view.find( ".ui-multibuttonentry-label" ).outerWidth( true );
-					self._anchorWidth = $view.find( ".ui-multibuttonentry-link" ).outerWidth( true );
+					self._anchorWidth = $view.find( ".ui-multibuttonentry-link-base" ).outerWidth( true );
 					self._marginWidth = parseInt( ( $( inputBox ).css( "margin-left" ) ), 10 );
 					self._marginWidth += parseInt( ( $( inputBox ).css( "margin-right" ) ), 10 );
 					self._viewWidth = $view.innerWidth();
@@ -194,12 +220,18 @@
 				self._modifyInputBoxWidth();
 				$(inputbox).show();
 			});
+
+			$view.bind( "click", function ( event ) {
+				if ( self._focusStatus === "focusOut" ) {
+					self.focusIn();
+				}
+			});
 		},
 
 		// create a textbutton and append this button to parent layer.
 		// @param arg1 : string
 		// @param arg2 : index
-		_addTextBlock : function ( messages, blcokIndex ) {
+		_addTextBlock : function ( messages, blockIndex ) {
 			if ( arguments.length === 0 ) {
 				return;
 			}
@@ -211,7 +243,7 @@
 			var self = this,
 				$view = self.element,
 				content = messages,
-				index = blcokIndex,
+				index = blockIndex,
 				blocks = null,
 				dataBlock = null,
 				displayText = null,
@@ -220,6 +252,7 @@
 			if ( self._viewWidth === 0 ) {
 				self._viewWidth = $view.innerWidth();
 			}
+
 			// save src data
 			dataBlock = $( document.createElement( 'input' ) );
 			dataBlock.attr( "value", content ).addClass( "ui-multibuttonentry-data" ).hide();
@@ -229,13 +262,9 @@
 			displayText = self._ellipsisTextBlock( content ) ;
 			textBlock.text( displayText ).addClass( "ui-multibuttonentry-block" );
 			textBlock.append( dataBlock );
+
 			// bind a event to HTMLDivElement.
 			textBlock.bind( "vclick", function ( event ) {
-				if ( self._focusStatus === "focusOut" ) {
-					self.focusInEvent();
-					return;
-				}
-
 				if ( $( this ).hasClass( "ui-multibuttonentry-sblock" ) ) {
 					// If block is selected, it will be removed.
 					self._removeTextBlock();
@@ -282,6 +311,7 @@
 			blockWidth = $( block ).outerWidth( true );
 			return blockWidth;
 		},
+
 		_unlockTextBlock : function () {
 			var $view = this.element,
 				lockBlock = $view.find( "div.ui-multibuttonentry-sblock" );
@@ -324,6 +354,7 @@
 			}
 			return ellipsisStr;
 		},
+
 		_modifyInputBoxWidth : function () {
 			var self = this,
 				$view = self.element,
@@ -353,6 +384,7 @@
 			}
 			$( inputBox ).width( inputBoxWidth - margin - 1 );
 		},
+
 		_stringFormat : function ( expression ) {
 			var pattern = null,
 				message = expression,
@@ -363,6 +395,7 @@
 			}
 			return message;
 		},
+
 		_resizeBlock : function () {
 			var self = this,
 				$view = self.element,
@@ -380,8 +413,8 @@
 			$view.show();
 		},
 
-		//----------------------------------------------------//
-		//					Public Method					//
+		//---------------------------------------------------- //
+		//					Public Method   //
 		//----------------------------------------------------//
 		//
 		// Focus In Event
@@ -403,7 +436,9 @@
 			// change focus state.
 			this._modifyInputBoxWidth();
 			this._focusStatus = "focusIn";
+			$view.removeClass( "ui-multibuttonentry-focusout" ).addClass( "ui-multibuttonentry-focusin" );
 		},
+
 		focusOut : function () {
 			if ( this._focusStatus === "focusOut" ) {
 				return;
@@ -419,33 +454,38 @@
 				more = $view.find( "span" ),
 				blocks = $view.find( "div" ),
 				currentWidth = $view.outerWidth( true ) - more.outerWidth( true ) - label.outerWidth( true ),
-				textWidth = currentWidth;
+				blockWidth = 0;
 
 			$view.find( ".ui-multibuttonentry-input" ).hide();
 			$view.find( "a" ).hide();
 			blocks.hide();
 
-			// div button
 			currentWidth = currentWidth - self._reservedWidth;
-			for ( index = 0; index < blocks.length; index += 1 ) {
-				currentWidth = currentWidth - $( blocks[index] ).outerWidth( true );
-				statement += ", " + $( blocks[index] ).text();
-				if ( currentWidth <= 0 ) {
-					statement = "," + $( blocks[0] ).text();
-					statement = self._stringFormat( self.options.descMessage, statement, blocks.length - 1 );
+
+			for ( index = 0; index < blocks.length; index++ ) {
+				blockWidth = $( blocks[index] ).outerWidth( true );
+				if ( currentWidth - blockWidth <= 0 ) {
+					lastIndex = index - 1;
 					break;
 				}
-				lastIndex = statement.length;
+
+				$( blocks[index] ).show();
+				currentWidth -= blockWidth;
 			}
-			tempBlock = $( document.createElement( 'input' ) );
-			tempBlock.val( statement.substr( 1, statement.length ) );
-			tempBlock.addClass( "ui-multibuttonentry-desclabel" ).addClass( "ui-multibuttonentry-desclabel" );
-			tempBlock.width( textWidth - ( self._reservedWidth ) );
-			tempBlock.attr( "disabled", true );
-			$view.find( "label" ).after( tempBlock );
+
+			if ( lastIndex !== blocks.length ) {
+				statement = self._stringFormat( self.options.description, blocks.length - lastIndex - 1 );
+				tempBlock = $( document.createElement( 'label' ));
+				tempBlock.text( statement );
+				tempBlock.addClass( "ui-multibuttonentry-desclabel" ).addClass( "ui-multibuttonentry-desclabel" );
+				$( blocks[lastIndex] ).after( tempBlock );
+			}
+
 			// update foucs state
 			this._focusStatus = "focusOut";
+			$view.removeClass( "ui-multibuttonentry-focusin" ).addClass( "ui-multibuttonentry-focusout" );
 		},
+
 		inputText : function ( message ) {
 			var $view = this.element;
 
@@ -455,6 +495,7 @@
 			$view.find( ".ui-multibuttonentry-input" ).val( message );
 			return message;
 		},
+
 		select : function ( index ) {
 			var $view = this.element,
 				lockBlock = null,
@@ -466,9 +507,9 @@
 
 			if ( arguments.length === 0 ) {
 				// return a selected block.
-				lockBlock = $view.find( "div.ui-multibuttonentry-sblock" );
+				lockBlock = $view.find( "div.ui-multibuttonentry-sblock" ).children( ".ui-multibuttonentry-data" );
 				if ( lockBlock) {
-					return lockBlock.text();
+					return lockBlock.attr( "value" );
 				}
 				return null;
 			}
@@ -482,6 +523,7 @@
 			}
 			return null;
 		},
+
 		add : function ( message, position ) {
 			if ( this._focusStatus === "focusOut" ) {
 				return;
@@ -489,6 +531,7 @@
 
 			this._addTextBlock( message, position );
 		},
+
 		remove : function ( position ) {
 			var self = this,
 				$view = this.element,
@@ -509,23 +552,26 @@
 			}
 			self._modifyInputBoxWidth();
 		},
+
 		length : function () {
 			return this.element.find( "div" ).length;
 		},
+
 		refresh : function () {
 			var self = this;
 			self.element.hide();
 			self.element.show();
 		},
-		destory : function () {
+
+		destroy : function () {
 			var $view = this.element;
 
 			$view.find( "label" ).remove();
 			$view.find( "div" ).unbind( "vclick" ).remove();
 			$view.find( "a" ).remove();
-			$view.find( ".ui-multibuttonentry-input" ).unbind( "keydown" ).remove();
+			$view.find( ".ui-multibuttonentry-input" ).unbind( "keyup" ).remove();
 
-			this._trigger( "destory" );
+			this._trigger( "destroy" );
 		}
 	});
 
