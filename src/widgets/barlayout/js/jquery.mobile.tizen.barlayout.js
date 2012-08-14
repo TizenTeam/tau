@@ -15,7 +15,8 @@
 			/* skip below step to attach bind/addclass only 1 time */
 			self._generateFooter();
 			self._addBackbutton();
-
+			self._disableSelection();
+			self._disableContext();
 		},
 
 		/* Make dummy footer
@@ -84,6 +85,26 @@
 /*				backBtn.bind( "vclick", function( event ) {
 					window.history.back();
 				});*/
+		},
+
+		_disableSelection : function() {
+			var self = this,
+                                $el = self.element,
+                                $elHeader = $( this.element ).jqmData( "role" )=="header" ? self.element : $el.siblings( ":jqmData(role='header')" ),
+				$elFooter = $( this.element ).jqmData( "role" )=="footer" ? self.element : $el.siblings( ":jqmData(role='footer')" );
+
+			$.mobile.tizen.disableSelection( $elHeader );
+			$.mobile.tizen.disableSelection( $elFooter );
+		},
+
+		_disableContext : function() {
+			var self = this,
+				$el = self.element,
+				$elHeader = $( this.element ).jqmData( "role" )=="header" ? self.element : $el.siblings( ":jqmData(role='header')" ),
+				$elFooter = $( this.element ).jqmData( "role" )=="footer" ? self.element : $el.siblings( ":jqmData(role='footer')" );
+
+			$.mobile.tizen.disableContextMenu( $elHeader );
+			$.mobile.tizen.disableContextMenu( $elFooter );
 		},
 
 		addBackBtn : function(target) {
