@@ -21,7 +21,7 @@
  * ***************************************************************************
  *
  *	Author: Kangsik Kim <kangsik81.kim@samsung.com>
- *	        Youmin Ha <youmin.ha@samsung.com>
+ *			Youmin Ha <youmin.ha@samsung.com>
 */
 
 /**
@@ -36,11 +36,14 @@
  *
  * HTML Attributes:
  *
- *		data-role:  virtualgridview
+ *		data-role:  virtualgrid
  *		data-template :	Has the ID of the jQuery.template element.
  *						jQuery.template for a virtual grid must be defined.
  *						Style for template would use rem unit to support scalability.
- *		data-itemcount : Number of column elements. (Default : 3)
+ *		data-itemcount : Number of column elements. (Default : 1)
+ *						User can select a numeric type or 'auto'.
+ *						If value of attribute is 'auto', Number of column is dependent on screen size.
+ *						If value of attribute is numeric type, number of column is always fixed.
  *		data-direction : This option define the direction of the scroll.
  *						You must choose one of the 'x' and 'y' (Default : y)
  *		data-rotation : This option defines whether or not the circulation of the data.
@@ -48,7 +51,7 @@
  *						Widget will present the first data on the screen.
  *						If option is ‘false’, Widget will operate like a scrollview.
  *
- *		ID : <UL> element that has "data-role=virtualgrid" must have ID attribute.
+ *		ID : <DIV> element that has "data-role=virtualgrid" must have ID attribute.
  *
  * APIs:
  *
@@ -62,8 +65,8 @@
  *				itemData: A function that returns JSON object for given index. Mandatory.
  *				numItemData: Total number of itemData. Mandatory.
  *				cacheItemData: Virtuallist will ask itemData between minIdx and maxIdx.
- *				               Developers can implement this function for preparing data.
- *				               Optional.
+ *				Developers can implement this function for preparing data.
+ *				Optional.
  *
  *		centerTo ( String )
  *			: Find a DOM Element with the given class name.
@@ -81,7 +84,7 @@
  *			<script id="tizen-demo-namecard" type="text/x-jquery-tmpl">
  *				<div class="ui-demo-namecard">
  *					<div class="ui-demo-namecard-pic">
- *						<img class="ui-demo-namecard-pic-img" src="${TEAM_LOGO}"  />
+ *						<img class="ui-demo-namecard-pic-img" src="${TEAM_LOGO}" />
  *					</div>
  *					<div class="ui-demo-namecard-contents">
  *						<span class="name ui-li-text-main">${NAME}</span>
@@ -90,7 +93,7 @@
  *					</div>
  *				</div>
  *			</script>
- *			<div id="virtualgrid-demo" data-role="virtualgrid" data-itemcount="3" data-template="tizen-demo-namecard" data-dbtable="JSON_DATA" >
+ *			<div id="virtualgrid-demo" data-role="virtualgrid" data-itemcount="3" data-template="tizen-demo-namecard" >
  *			</div>
  *
  */
@@ -104,15 +107,6 @@
 			n = total + n;
 		}
 		return n;
-	}
-
-	function setElementTransform ($ele, x, y) {
-		var v = "translate3d( " + x + "," + y + ", 0px)";
-		$ele.css ({
-			"-moz-transform" : v,
-			"-webkit-transform" : v,
-			"transform" : v
-		});
 	}
 
 	function MomentumTracker (options) {
@@ -166,7 +160,6 @@
 			if (elapsed >= duration) {
 				this.state = tstates.done;
 			}
-
 			return this.pos;
 		},
 
@@ -177,18 +170,15 @@
 		getPosition : function () {
 			return this.pos;
 		}
-
 	});
 
 	jQuery.widget ("mobile.virtualgrid", jQuery.mobile.widget, {
 		options : {
 			// virtualgrid option
-			dbtable : "JSON",
 			template : "",
-
 			direction : "y",
 			rotation : false,
-			itemcount : 3
+			itemcount : 1
 		},
 
 		create : function () {
@@ -200,11 +190,14 @@
 				// view
 				_$view : null,
 				_$clip : null,
-				_$items : null,
+				_$rows : null,
 				_tracker : null,
 				_viewSize : 0,
 				_clipSize : 0,
-				_itemSize : 0,
+				_cellSize : undefined,
+				_currentItemCount : 0,
+				_itemCount : 1,
+				_isAuto : false,
 
 				// timer
 				_timerInterval : 0,
@@ -234,275 +227,426 @@
 				_speedY : 0,
 				_lastX : 0,
 				_speedX : 0,
-				_itemsPerView : 0
+				_rowsPerView : 0,
+
+				_filterRatio : 0.9
 			});
 
-			var widget = this,
-				opts = widget.options,
-				totalRowCnt = 0,
-				clipHeight = 0,
-				$child = null;
+			var self = this,
+				$dom = $(self.element),
+				opts = self.options,
+				$item = null;
 
 			// itemData
 			// If mandatory options are not given, Do nothing.
-			if ( args ) {
-				if ( args.itemData && typeof args.itemData == 'function'  ) {
-					widget._itemData = args.itemData;
-				} else {
-					return;
-				}
-				if ( args.numItemData ) {
-					if ( typeof args.numItemData == 'function' ) {
-						widget._numItemData = args.numItemData( );
-					} else if ( typeof args.numItemData == 'number' ) {
-						widget._numItemData = args.numItemData;
-					} else {
-						return;
-					}
-				} else {
-					return;
-				}
-			} else {	// No option is given; Do nothing.
+			if ( !args ) {
+				return ;
+			}
+
+			if ( !self._loadData(args) ) {
 				return;
 			}
 
-			if ( $(widget.element).find(".ui-scrollview-view").length >= 1) {
-				$(widget.element).find(".ui-scrollview-view").remove();
+			// set a scroll direction.
+			self._direction = opts.direction === 'x' ? true : false;
+
+			// itemcount is assigned 'auto'
+			if ( typeof opts.itemcount === "string" && opts.itemcount.toUpperCase() == "AUTO" ) {
+				self._isAuto = true;
 			}
 
-			totalRowCnt = parseInt(widget._numItemData / opts.itemcount , 10 );
-			widget._totalRowCnt = widget._numItemData % opts.itemcount === 0 ? totalRowCnt : totalRowCnt + 1;
-			widget._template = $( "#" + opts.template );
+			// make view layer
+			self._$clip = $(self.element).addClass("ui-scrollview-clip").addClass("ui-virtualgrid-view");
+			$item = $(document.createElement("div")).addClass("ui-scrollview-view");
+			self._clipSize =  self._calculateClipSize();
+			self._$clip.append($item);
+			self._$view = $item;
+			self._$clip.css("overflow", "hidden");
+			self._$view.css("overflow", "hidden");
 
-			if ( !widget._template ) {
-				return ;
-			}
+			// inherit from scrollview widget.
+			self._scrollView = $.tizen.scrollview.prototype;
+			self._initScrollView();
 
-			// set direction.
-			widget._direction = opts.direction === 'x' ? true : false;
+			// create tracker.
+			self._createTracker();
+			self._makePositioned(self._$clip);
+			self._timerInterval = 1000 / self.options.fps;
 
-			widget._$clip = $(widget.element).addClass("ui-scrollview-clip");
-
-			widget._clipSize =  widget._calcClipHeihgt();
-			$child = widget._makeBlocks( 1 );
-			widget._$clip.append($child);
-
-			widget._$view = $child;
-			widget._$list = $child;
-			widget._$clip.css("overflow", "hidden");
-			widget._$view.css("overflow", "hidden");
-
-			widget._timerID = 0;
-			widget._timerCB = function () {
-				widget._handleMomentumScroll();
+			self._timerID = 0;
+			self._timerCB = function () {
+				self._handleMomentumScroll();
 			};
-			widget.refresh();
-			widget._blockScroll = widget._itemsPerView > widget._totalRowCnt;
-			widget._maxSize = ( widget._totalRowCnt - widget._itemsPerView ) * widget._itemSize;
-			widget._maxViewSize = ( widget._itemsPerView ) * widget._itemSize;
-			widget._relayoutflag = false;
-			widget._modifyViewPos = -widget._itemSize;
-			if ( widget._clipSize < widget._maxViewSize ) {
-				widget._modifyViewPos = (-widget._itemSize) + ( widget._clipSize - widget._maxViewSize );
+			$dom.closest(".ui-content").addClass("ui-virtualgrid-content").css("overflow", "hidden");
+
+			// add event handler.
+			self._addBehaviors();
+
+			self._currentItemCount = 0;
+			self._createScrollBar();
+			self.refresh();
+		},
+
+		// The argument is checked for compliance with the specified format.
+		// @param args   : Object
+		// @return boolean
+		_loadData : function ( args ) {
+			var self = this;
+
+			if ( args.itemData && typeof args.itemData == 'function'  ) {
+				self._itemData = args.itemData;
+			} else {
+				return false;
 			}
-
-			widget._scrollView = $.tizen.scrollview.prototype;
-			widget._scrollView.options.moveThreshold = 10;
-			widget._tracker = new MomentumTracker(widget._scrollView.options);
-			widget._initScrollView();
-			widget._timerInterval = 1000 / widget.options.fps;
-
-			widget._makePositioned(widget._$clip);
-			widget._addBehaviors();
-			widget._createScrollBar();
-			widget._currentItemCount = 0;
-
-			$(document).one("pageshow", function (event) {
-				var $page = $(widget.element).parents(".ui-page"),
-					$header = $page.find( ":jqmData(role='header')" ),
-					$footer = $page.find( ":jqmData(role='footer')" ),
-					$content = $page.find( ":jqmData(role='content')" ),
-					footerHeight = $footer ? $footer.height() : 0,
-					headerHeight = $header ? $header.height() : 0;
-
-				if ( $page && $content ) {
-					$content.height(window.innerHeight - headerHeight - footerHeight);
+			if ( args.numItemData ) {
+				if ( typeof args.numItemData == 'function' ) {
+					self._numItemData = args.numItemData( );
+				} else if ( typeof args.numItemData == 'number' ) {
+					self._numItemData = args.numItemData;
+				} else {
+					return false;
 				}
-			});
+			} else {
+				return false;
+			}
+			return true;
+		},
+
+		// Make up the first screen.
+		_initLayout: function () {
+			var self = this,
+				opts = self.options,
+				i,
+				$row;
+
+			for ( i = -1; i < self._rowsPerView + 1; i += 1 ) {
+				$row = self._$rows[ circularNum( i, self._$rows.length ) ];
+				self._$view.append( $row );
+			}
+			self._setElementTransform( -self._cellSize );
+
+			self._replaceRow(self._$view.children().first(), self._totalRowCnt - 1);
+			if ( opts.rotation && self._rowsPerView >= self._totalRowCnt ) {
+				self._replaceRow(self._$view.children().last(), 0);
+			}
+			self._setViewSize();
+		},
+
+		_setViewSize : function () {
+			var self = this,
+				height = 0,
+				width = 0;
+
+			if ( self._direction ) {
+				width = self._cellSize * ( self._rowsPerView + 2 );
+				width = parseInt(width, 10) + 1;
+				self._$view.width( width );
+				self._viewSize = self._$view.width();
+			} else {
+				self._$view.height( self._cellSize * ( self._rowsPerView + 2 ) );
+				self._$clip.height( self._clipSize );
+				self._viewSize = self._$view.height();
+			}
 		},
 
 		refresh : function () {
-			var widget = this,
-				footerHeight = 0,
-				itemsPerView = 0,
-				$child,
-				$item,
-				attributeName,
-				itemWidth = 0;
+			var self = this,
+				opts = self.options,
+				width = 0,
+				height = 0;
 
-			if ( widget._direction ) {
-				// x-axis
-				widget._viewSize = widget._$view.width();
-				$item = widget._$list.children().first().children().first();
-				widget._itemSize = $item.outerWidth(true);
-				widget._itemOtherSize = $item.outerHeight(true);
-				attributeName = "width";
-			} else {
-				// y-axis
-				widget._viewSize = widget._$view.height();
-				$item = widget._$list.children().first().children().first();
-				widget._itemSize = $item.outerHeight(true);
-				widget._itemOtherSize = $item.outerWidth(true);
-				attributeName = "height";
+			self._template = $( "#" + opts.template );
+			if ( !self._template ) {
+				return ;
 			}
-			itemsPerView = widget._clipSize / widget._itemSize;
-			itemsPerView = Math.ceil( itemsPerView );
-			widget._itemsPerView = parseInt( itemsPerView, 10);
 
-			widget._$list.children().remove();
-			$child = widget._makeBlocks( itemsPerView + 2 );
-			$(widget._$list).append($child.children());
-			widget._$list.children().css(attributeName, widget._itemSize + "px");
-			widget._$items = widget._$list.children().detach();
+			width = self._calculateClipWidth();
+			height = self._calculateClipHeight();
+			self._$view.width(width).height(height);
+			self._$clip.width(width).height(height);
 
-			widget._reservedPos = -widget._itemSize;
-			widget._scalableSize = -widget._itemSize;
+			self._clipSize = self._calculateClipSize();
+			self._calculateColumnSize();
+			self._initPageProperty();
+			self._setScrollBarSize( );
+		},
 
-			widget._initLayout();
-			widget._$view.delegate(".virtualgrid-item", "click", function (event) {
-				var $selectedItem = $(this);
-				$selectedItem.trigger("select", this);
-			});
+		_initPageProperty : function () {
+			var self = this,
+				rowsPerView = 0,
+				$child,
+				columnCount = 0,
+				totalRowCnt = 0,
+				attributeName = self._direction ? "width" : "height";
+
+			if ( self._isAuto ) {
+				columnCount = self._calculateColumnCount();
+			} else {
+				columnCount = self.options.itemcount;
+			}
+			totalRowCnt = parseInt(self._numItemData / columnCount , 10 );
+			self._totalRowCnt = self._numItemData % columnCount === 0 ? totalRowCnt : totalRowCnt + 1;
+			self._itemCount = columnCount;
+
+			if ( self._cellSize <= 0) {
+				return ;
+			}
+
+			rowsPerView = self._clipSize / self._cellSize;
+			rowsPerView = Math.ceil( rowsPerView );
+			self._rowsPerView = parseInt( rowsPerView, 10);
+
+			$child = self._makeRows( rowsPerView + 2 );
+			$(self._$view).append($child.children());
+			self._$view.children().css(attributeName, self._cellSize + "px");
+			self._$rows = self._$view.children().detach();
+
+			self._reservedPos = -self._cellSize;
+			self._scalableSize = -self._cellSize;
+
+			self._initLayout();
+
+			self._blockScroll = self._rowsPerView > self._totalRowCnt;
+			self._maxSize = ( self._totalRowCnt - self._rowsPerView ) * self._cellSize;
+			self._maxViewSize = ( self._rowsPerView ) * self._cellSize;
+			self._modifyViewPos = -self._cellSize;
+			if ( self._clipSize < self._maxViewSize ) {
+				self._modifyViewPos = (-self._cellSize) + ( self._clipSize - self._maxViewSize );
+			}
+		},
+
+		resize : function ( ) {
+			var self = this,
+				rowsPerView = 0,
+				itemCount = 0,
+				totalRowCnt = 0,
+				diffRowCnt = 0,
+				clipSize = 0,
+				prevcnt = 0,
+				clipPosition = 0;
+
+			itemCount = self._calculateColumnCount();
+			if ( self._isAuto && itemCount != self._itemCount ) {
+				totalRowCnt = parseInt(self._numItemData / itemCount , 10 );
+				self._totalRowCnt = self._numItemData % itemCount === 0 ? totalRowCnt : totalRowCnt + 1;
+				prevcnt = self._itemCount;
+				self._itemCount = itemCount;
+				clipPosition = self._getClipPosition();
+				self._$view.hide();
+
+				diffRowCnt = self._replaceRows(itemCount, prevcnt, self._totalRowCnt, clipPosition);
+				self._maxSize = ( self._totalRowCnt - self._rowsPerView ) * self._cellSize;
+				self._scalableSize += (-diffRowCnt) * self._cellSize;
+				self._reservedPos  += (-diffRowCnt) * self._cellSize;
+				self._setScrollBarSize();
+				self._setScrollBarPosition(diffRowCnt);
+
+				self._$view.show();
+			}
+
+			clipSize = self._calculateClipSize();
+			if ( clipSize !== self._clipSize ) {
+				rowsPerView = clipSize / self._cellSize;
+				rowsPerView = parseInt( Math.ceil( rowsPerView ), 10 );
+
+				if ( rowsPerView > self._rowsPerView ) {
+					// increase row.
+					self._increaseRow( rowsPerView - self._rowsPerView );
+				} else if ( rowsPerView < self._rowsPerView ) {
+					// decrease row.
+					self._decreaseRow( self._rowsPerView - rowsPerView );
+				}
+				self._rowsPerView = rowsPerView;
+				self._clipSize = clipSize;
+				self._blockScroll = self._rowsPerView > self._totalRowCnt;
+				self._maxSize = ( self._totalRowCnt - self._rowsPerView ) * self._cellSize;
+				self._maxViewSize = ( self._rowsPerView ) * self._cellSize;
+				if ( self._clipSize < self._maxViewSize ) {
+					self._modifyViewPos = (-self._cellSize) + ( self._clipSize - self._maxViewSize );
+				}
+				if ( self._direction ) {
+					self._$clip.width(self._clipSize);
+				} else {
+					self._$clip.height(self._clipSize);
+				}
+				self._setScrollBarSize();
+				self._setScrollBarPosition(0);
+				self._setViewSize();
+			}
 		},
 
 		_initScrollView : function () {
-			var widget = this;
-			if ( widget._direction ) {
-				widget._hTracker = widget._tracker;
-				widget._$clip.width(widget._clipSize);
-			} else {
-				widget._vTracker = widget._tracker;
-				widget._$clip.height(widget._clipSize);
-			}
-			$.extend(widget.options, widget._scrollView.options);
-			widget.options.showScrollBars = false;
-			widget._getScrollHierarchy = widget._scrollView._getScrollHierarchy;
-			widget._makePositioned =  widget._scrollView._makePositioned;
-			widget._set_scrollbar_size = widget._scrollView._set_scrollbar_size;
+			var self = this;
+			$.extend(self.options, self._scrollView.options);
+			self.options.moveThreshold = 10;
+			self.options.showScrollBars = false;
+			self._getScrollHierarchy = self._scrollView._getScrollHierarchy;
+			self._makePositioned =  self._scrollView._makePositioned;
+			self._set_scrollbar_size = self._scrollView._set_scrollbar_size;
+			self._setStyleTransform = self._scrollView._setElementTransform;
 		},
 
-		_hideScrollBars : function () {
-			var widget = this,
-				vclass = "ui-scrollbar-visible";
+		_createTracker : function () {
+			var self = this;
 
-			if ( widget.options.rotation ) {
-				return ;
-			}
-
-			if ( widget._vScrollBar ) {
-				widget._vScrollBar.removeClass( vclass );
+			self._tracker = new MomentumTracker(self.options);
+			if ( self._direction ) {
+				self._hTracker = self._tracker;
+				self._$clip.width(self._clipSize);
 			} else {
-				widget._hScrollBar.removeClass( vclass );
+				self._vTracker = self._tracker;
+				self._$clip.height(self._clipSize);
 			}
 		},
 
-		_showScrollBars : function () {
-			var widget = this,
-				vclass = "ui-scrollbar-visible";
+		//----------------------------------------------------//
+		//		Scrollbar		//
+		//----------------------------------------------------//
+		_createScrollBar : function () {
+			var self = this,
+				prefix = "<div class=\"ui-scrollbar ui-scrollbar-",
+				suffix = "\"><div class=\"ui-scrollbar-track\"><div class=\"ui-scrollbar-thumb\"></div></div></div>";
 
-			if ( widget.options.rotation ) {
+			if ( self.options.rotation ) {
 				return ;
 			}
 
-			if ( widget._vScrollBar ) {
-				widget._vScrollBar.addClass( vclass );
+			if ( self._direction ) {
+				self._$clip.append( prefix + "x" + suffix );
+				self._hScrollBar = $(self._$clip.children(".ui-scrollbar-x"));
+				self._hScrollBar.find(".ui-scrollbar-thumb").addClass("ui-scrollbar-thumb-x");
 			} else {
-				widget._hScrollBar.addClass( vclass );
+				self._$clip.append( prefix + "y" + suffix );
+				self._vScrollBar = $(self._$clip.children(".ui-scrollbar-y"));
+				self._vScrollBar.find(".ui-scrollbar-thumb").addClass("ui-scrollbar-thumb-y");
 			}
+		},
+
+		_setScrollBarSize: function () {
+			var self = this,
+				scrollBarSize = 0,
+				currentSize = 0,
+				$scrollBar,
+				attrName,
+				className;
+
+			if ( self.options.rotation ) {
+				return ;
+			}
+
+			scrollBarSize = parseInt( self._maxViewSize / self._clipSize , 10);
+			if ( self._direction ) {
+				$scrollBar = self._hScrollBar.find(".ui-scrollbar-thumb");
+				attrName = "width";
+				currentSize = $scrollBar.width();
+				className = "ui-scrollbar-thumb-x";
+				self._hScrollBar.css("width", self._clipSize);
+			} else {
+				$scrollBar = self._vScrollBar.find(".ui-scrollbar-thumb");
+				attrName = "height";
+				className = "ui-scrollbar-thumb-y";
+				currentSize = $scrollBar.height();
+				self._vScrollBar.css("height", self._clipSize);
+			}
+
+			if ( scrollBarSize > currentSize ) {
+				$scrollBar.removeClass(className);
+				$scrollBar.css(attrName, scrollBarSize);
+			} else {
+				scrollBarSize = currentSize;
+			}
+
+			self._itemScrollSize = parseFloat( ( self._clipSize - scrollBarSize ) / ( self._totalRowCnt - self._rowsPerView ) );
+			self._itemScrollSize = Math.round(self._itemScrollSize * 100) / 100;
 		},
 
 		_setScrollBarPosition : function ( di, duration ) {
-			var widget = this,
+			var self = this,
 				$sbt = null,
 				x = "0px",
 				y = "0px";
 
-			if ( widget.options.rotation ) {
+			if ( self.options.rotation ) {
 				return ;
 			}
 
-			widget._currentItemCount = widget._currentItemCount + di;
-			if ( widget._vScrollBar ) {
-				$sbt = widget._vScrollBar .find(".ui-scrollbar-thumb");
-				y = ( widget._currentItemCount * widget._itemScrollSize ) + "px";
+			self._currentItemCount = self._currentItemCount + di;
+			if ( self._vScrollBar ) {
+				$sbt = self._vScrollBar .find(".ui-scrollbar-thumb");
+				y = ( self._currentItemCount * self._itemScrollSize ) + "px";
 			} else {
-				$sbt = widget._hScrollBar .find(".ui-scrollbar-thumb");
-				x = ( widget._currentItemCount * widget._itemScrollSize ) + "px";
+				$sbt = self._hScrollBar .find(".ui-scrollbar-thumb");
+				x = ( self._currentItemCount * self._itemScrollSize ) + "px";
 			}
-			setElementTransform( $sbt, x, y, duration );
+			self._setStyleTransform( $sbt, x, y, duration );
 		},
 
-		_createScrollBar : function () {
-			var widget = this,
-				$scrollBar = null,
-				scrollBarSize = 0,
-				prefix = "<div class=\"ui-scrollbar ui-scrollbar-",
-				suffix = "\"><div class=\"ui-scrollbar-track\"><div class=\"ui-scrollbar-thumb\"></div></div></div>";
+		_hideScrollBars : function () {
+			var self = this,
+				vclass = "ui-scrollbar-visible";
 
-			if ( widget.options.rotation ) {
+			if ( self.options.rotation ) {
 				return ;
 			}
 
-			scrollBarSize = parseInt( widget._maxViewSize / widget._clipSize , 10);
-			scrollBarSize = scrollBarSize < 30 ? 30 : scrollBarSize;
-			widget._itemScrollSize = parseFloat( ( widget._clipSize - ( scrollBarSize ) ) / ( widget._totalRowCnt - widget._itemsPerView ) );
-			widget._itemScrollSize = Math.round(widget._itemScrollSize * 100) / 100;
-			if ( widget._direction ) {
-				widget._$clip.append( prefix + "x" + suffix );
-				widget._hScrollBar = $(widget._$clip.children(".ui-scrollbar-x"));
-				widget._hScrollBar.css("width", widget._clipSize);
-				widget._hScrollBar.find(".ui-scrollbar-thumb").css("width", scrollBarSize);
+			if ( self._vScrollBar ) {
+				self._vScrollBar.removeClass( vclass );
 			} else {
-				widget._$clip.append( prefix + "y" + suffix );
-				widget._vScrollBar = $(widget._$clip.children(".ui-scrollbar-y"));
-				widget._vScrollBar.css("height", widget._clipSize);
-				widget._vScrollBar.find(".ui-scrollbar-thumb").css("height", scrollBarSize);
+				self._hScrollBar.removeClass( vclass );
 			}
 		},
 
+		_showScrollBars : function () {
+			var self = this,
+				vclass = "ui-scrollbar-visible";
+
+			if ( self.options.rotation ) {
+				return ;
+			}
+
+			if ( self._vScrollBar ) {
+				self._vScrollBar.addClass( vclass );
+			} else {
+				self._hScrollBar.addClass( vclass );
+			}
+		},
+
+		//----------------------------------------------------//
+		//		scroll process		//
+		//----------------------------------------------------//
 		centerTo: function ( selector ) {
-			var widget = this,
+			var self = this,
 				i,
 				newX = 0,
 				newY = 0;
 
-			if ( !widget.options.rotation ) {
+			if ( !self.options.rotation ) {
 				return;
 			}
 
-			for ( i = 0; i < widget._$items.length; i++ ) {
-				if ( $( widget._$items[i]).hasClass( selector ) ) {
-					if ( widget._direction ) {
-						newX = -( i * widget._itemSize - widget._clipSize / 2 + widget._itemSize * 2 );
+			for ( i = 0; i < self._$rows.length; i++ ) {
+				if ( $( self._$rows[i]).hasClass( selector ) ) {
+					if ( self._direction ) {
+						newX = -( i * self._cellSize - self._clipSize / 2 + self._cellSize * 2 );
 					} else {
-						newY = -( i * widget._itemSize - widget._clipSize / 2 + widget._itemSize * 2 );
+						newY = -( i * self._cellSize - self._clipSize / 2 + self._cellSize * 2 );
 					}
-					widget.scrollTo( newX, newY );
+					self.scrollTo( newX, newY );
 					return;
 				}
 			}
 		},
 
 		scrollTo: function ( x, y, duration ) {
-			var widget = this;
-			if ( widget._direction ) {
-				widget._sx = widget._reservedPos;
-				widget._reservedPos = x;
+			var self = this;
+			if ( self._direction ) {
+				self._sx = self._reservedPos;
+				self._reservedPos = x;
 			} else {
-				widget._sy = widget._reservedPos;
-				widget._reservedPos = y;
+				self._sy = self._reservedPos;
+				self._reservedPos = y;
 			}
-			widget._scrollView.scrollTo.apply( this, [ x, y, duration ] );
+			self._scrollView.scrollTo.apply( this, [ x, y, duration ] );
 		},
 
 		getScrollPosition: function () {
@@ -512,97 +656,86 @@
 			return { x: 0, y: -this._ry };
 		},
 
-		_calcClipHeihgt : function () {
-			var widget = this,
-				view = $(widget.element),
-				documentHeight = widget._direction ? $(window).width() : $(window).height(),
-				$parent = $(widget.element).parent(),
-				header = null,
-				footer = null,
-				clipHeight = 0;
+		_setScrollPosition: function ( x, y ) {
+			var self = this,
+				sy = self._scalableSize,
+				distance = self._direction ? x : y,
+				dy = distance - sy,
+				di = parseInt( dy / self._cellSize, 10 ),
+				i = 0,
+				idx = 0,
+				$row = null;
 
-			if ( widget._direction ) {
-				clipHeight =  $(widget.element).width();
-			} else {
-				clipHeight =  $(widget.element).height();
+			if ( self._blockScroll ) {
+				return ;
 			}
 
-			// Tizen...
-			if ( isNaN(clipHeight) || clipHeight > documentHeight || clipHeight <= 0 ) {
-				clipHeight = documentHeight;
-				if ( !widget._direction && $parent.hasClass("ui-content") ) {
-					clipHeight = clipHeight - parseInt($parent.css("padding-top"), 10);
-					clipHeight = clipHeight - parseInt($parent.css("padding-bottom"), 10);
-					header = $parent.siblings(".ui-header");
-					footer = $parent.siblings(".ui-footer");
-
-					if ( header ) {
-						if ( header.outerHeight(true) === null ) {
-							clipHeight = clipHeight - ( $(".ui-header").outerHeight() || 0 );
-						} else {
-							clipHeight = clipHeight - header.outerHeight(true);
-						}
-					}
-					if ( footer ) {
-						clipHeight = clipHeight - footer.outerHeight(true);
-					}
+			if ( ! self.options.rotation ) {
+				if ( dy > 0 && distance >= -self._cellSize && self._scalableSize >= -self._cellSize ) {
+					// top
+					self._stopMScroll();
+					self._scalableSize = -self._cellSize;
+					self._setElementTransform( -self._cellSize );
+					return;
+				}
+				if ( (dy < 0 && self._scalableSize <= -(self._maxSize + self._cellSize) )) {
+					// bottom
+					self._stopMScroll();
+					self._scalableSize = -(self._maxSize + self._cellSize);
+					self._setElementTransform( self._modifyViewPos );
+					return;
 				}
 			}
-			return clipHeight;
+
+			if ( di > 0 ) { // scroll up
+				for ( i = 0; i < di; i++ ) {
+					idx = -parseInt( ( sy / self._cellSize ) + i + 3, 10 );
+					$row = self._$view.children( ).last( ).detach( );
+					self._replaceRow( $row, circularNum( idx, self._totalRowCnt ) );
+					self._$view.prepend( $row );
+					self._setScrollBarPosition(-1);
+				}
+			} else if ( di < 0 ) { // scroll down
+				for ( i = 0; i > di; i-- ) {
+					idx = self._rowsPerView - parseInt( ( sy / self._cellSize ) + i, 10 );
+					$row = self._$view.children().first().detach();
+					self._replaceRow($row, circularNum( idx, self._totalRowCnt ) );
+					self._$view.append( $row );
+					self._setScrollBarPosition(1);
+				}
+			}
+			self._scalableSize += di * self._cellSize;
+			self._setElementTransform( distance - self._scalableSize - self._cellSize );
 		},
 
-		_initLayout: function () {
-			var widget = this,
-				opts = widget.options,
-				i,
-				$item;
+		_setElementTransform : function ( value ) {
+			var self = this,
+				x = 0,
+				y = 0;
 
-			for ( i = -1; i < widget._itemsPerView + 1; i += 1 ) {
-				$item = widget._$items[ circularNum( i, widget._$items.length ) ];
-				widget._$list.append( $item );
-			}
-			widget._setElementTransform( -widget._itemSize );
-
-			widget._replaceBlock(widget._$list.children().first(), widget._totalRowCnt - 1);
-			if ( opts.rotation && widget._itemsPerView >= widget._totalRowCnt ) {
-				widget._replaceBlock(widget._$list.children().last(), 0);
-			}
-
-			if ( widget._direction ) {
-				widget._$view.width( widget._itemSize * ( widget._itemsPerView + 2 ) );
-				widget._viewSize = widget._$view.width();
+			if ( self._direction ) {
+				x = value + "px";
 			} else {
-				widget._$view.height( widget._itemSize * ( widget._itemsPerView + 2 ) );
-				widget._viewSize = widget._$view.height();
+				y = value + "px";
 			}
+			self._setStyleTransform(self._$view, x, y );
 		},
 
-		_startMScroll: function ( speedX, speedY ) {
-			var widget = this;
-			if ( widget._direction  ) {
-				widget._sx = widget._reservedPos;
-			} else {
-				widget._sy = widget._reservedPos;
-			}
-			widget._scrollView._startMScroll.apply(widget, [speedX, speedY]);
-		},
-
-		_stopMScroll: function () {
-			this._scrollView._stopMScroll.apply(this);
-		},
-
+		//----------------------------------------------------//
+		//		Event handler		//
+		//----------------------------------------------------//
 		_handleMomentumScroll: function () {
-			var widget = this,
-				opts = widget.options,
+			var self = this,
+				opts = self.options,
 				keepGoing = false,
 				v = this._$view,
 				x = 0,
 				y = 0,
-				t = widget._tracker;
+				t = self._tracker;
 
 			if ( t ) {
 				t.update();
-				if ( widget._direction ) {
+				if ( self._direction ) {
 					x = t.getPosition();
 				} else {
 					y = t.getPosition();
@@ -610,91 +743,38 @@
 				keepGoing = !t.done();
 			}
 
-			widget._setScrollPosition( x, y );
+			self._setScrollPosition( x, y );
 			if ( !opts.rotation ) {
 				keepGoing = !t.done();
-				widget._reservedPos = widget._direction ? x : y;
+				self._reservedPos = self._direction ? x : y;
 				// bottom
-				widget._reservedPos = widget._reservedPos <= (-(widget._maxSize - widget._modifyViewPos)) ? ( - ( widget._maxSize + widget._itemSize) ) : widget._reservedPos;
+				self._reservedPos = self._reservedPos <= (-(self._maxSize - self._modifyViewPos)) ? ( - ( self._maxSize + self._cellSize) ) : self._reservedPos;
 				// top
-				widget._reservedPos = widget._reservedPos > -widget._itemSize ? -widget._itemSize : widget._reservedPos;
+				self._reservedPos = self._reservedPos > -self._cellSize ? -self._cellSize : self._reservedPos;
 			} else {
-				widget._reservedPos = widget._direction ? x : y;
+				self._reservedPos = self._direction ? x : y;
 			}
-			widget._$clip.trigger( widget.options.updateEventName, [ { x: x, y: y } ] );
+			self._$clip.trigger( self.options.updateEventName, [ { x: x, y: y } ] );
 
 			if ( keepGoing ) {
-				widget._timerID = setTimeout( widget._timerCB, widget._timerInterval );
+				self._timerID = setTimeout( self._timerCB, self._timerInterval );
 			} else {
-				widget._stopMScroll();
+				self._stopMScroll();
 			}
 		},
 
-		_setScrollPosition: function ( x, y ) {
-			var widget = this,
-				sy = widget._scalableSize,
-				distance = widget._direction ? x : y,
-				dy = distance - sy,
-				di = parseInt( dy / widget._itemSize, 10 ),
-				i = 0,
-				idx = 0,
-				isSkip = true,
-				$item = null;
-
-			if ( widget._blockScroll ) {
-				return ;
+		_startMScroll: function ( speedX, speedY ) {
+			var self = this;
+			if ( self._direction  ) {
+				self._sx = self._reservedPos;
+			} else {
+				self._sy = self._reservedPos;
 			}
-
-			if ( ! widget.options.rotation ) {
-				if ( dy > 0 && distance >= -widget._itemSize && widget._scalableSize >= -widget._itemSize ) {
-					// top 
-					widget._stopMScroll();
-					widget._scalableSize = -widget._itemSize;
-					widget._setElementTransform( -widget._itemSize );
-					isSkip = false;
-				} else if ( (dy < 0 && widget._scalableSize <= -(widget._maxSize + widget._itemSize) )) {
-					// bottom
-					widget._stopMScroll();
-					widget._scalableSize = -(widget._maxSize + widget._itemSize);
-					widget._setElementTransform( widget._modifyViewPos );
-					isSkip = false;
-				}
-			}
-
-			if ( isSkip ) {
-				if ( di > 0 ) { // scroll up
-					for ( i = 0; i < di; i++ ) {
-						idx = -parseInt( ( sy / widget._itemSize ) + i + 3, 10 );
-						$item = widget._$list.children( ).last( ).detach( );
-						widget._replaceBlock( $item, circularNum( idx, widget._totalRowCnt ) );
-						widget._$list.prepend( $item );
-						widget._setScrollBarPosition(-1);
-					}
-				} else if ( di < 0 ) { // scroll down
-					for ( i = 0; i > di; i-- ) {
-						idx = widget._itemsPerView - parseInt( ( sy / widget._itemSize ) + i, 10 );
-						$item = widget._$list.children().first().detach();
-						widget._replaceBlock($item, circularNum( idx, widget._totalRowCnt ) );
-						widget._$list.append( $item );
-						widget._setScrollBarPosition(1);
-					}
-				}
-				widget._scalableSize += di * widget._itemSize;
-				widget._setElementTransform( distance - widget._scalableSize - widget._itemSize );
-			}
+			self._scrollView._startMScroll.apply(self, [speedX, speedY]);
 		},
 
-		_setElementTransform : function ( value ) {
-			var widget = this,
-				x = 0,
-				y = 0;
-
-			if ( widget._direction ) {
-				x = value + "px";
-			} else {
-				y = value + "px";
-			}
-			setElementTransform( widget._$view, x, y );
+		_stopMScroll: function () {
+			this._scrollView._stopMScroll.apply(this);
 		},
 
 		_enableTracking: function () {
@@ -708,130 +788,292 @@
 		},
 
 		_handleDragStart: function ( e, ex, ey ) {
-			var widget = this;
-			widget._scrollView._handleDragStart.apply( this, [ e, ex, ey ] );
-			widget._eventPos = widget._direction ? ex : ey;
-			widget._nextPos = widget._reservedPos;
+			var self = this;
+			self._scrollView._handleDragStart.apply( this, [ e, ex, ey ] );
+			self._eventPos = self._direction ? ex : ey;
+			self._nextPos = self._reservedPos;
 		},
 
 		_handleDragMove: function ( e, ex, ey ) {
-			var widget = this,
-				dx = ex - widget._lastX,
-				dy = ey - widget._lastY,
+			var self = this,
+				dx = ex - self._lastX,
+				dy = ey - self._lastY,
 				x = 0,
 				y = 0;
 
-			widget._lastMove = getCurrentTime();
-			widget._speedX = dx;
-			widget._speedY = dy;
+			self._lastMove = getCurrentTime();
+			self._speedX = dx;
+			self._speedY = dy;
 
-			widget._didDrag = true;
+			self._didDrag = true;
 
-			widget._lastX = ex;
-			widget._lastY = ey;
+			self._lastX = ex;
+			self._lastY = ey;
 
-			if ( widget._direction ) {
-				widget._movePos = ex - widget._eventPos;
-				x = widget._nextPos + widget._movePos;
+			if ( self._direction ) {
+				self._movePos = ex - self._eventPos;
+				x = self._nextPos + self._movePos;
 			} else {
-				widget._movePos = ey - widget._eventPos;
-				y = widget._nextPos + widget._movePos;
+				self._movePos = ey - self._eventPos;
+				y = self._nextPos + self._movePos;
 			}
-			widget._showScrollBars();
-			widget._setScrollPosition( x, y );
+			self._showScrollBars();
+			self._setScrollPosition( x, y );
 			return false;
 		},
 
 		_handleDragStop: function ( e ) {
-			var widget = this;
+			var self = this;
 
-			widget._reservedPos = widget._movePos ? widget._nextPos + widget._movePos : widget._reservedPos;
-			widget._scrollView._handleDragStop.apply( this, [ e ] );
-			return widget._didDrag ? false : undefined;
+			self._reservedPos = self._movePos ? self._nextPos + self._movePos : self._reservedPos;
+			self._scrollView._handleDragStop.apply( this, [ e ] );
+			return self._didDrag ? false : undefined;
 		},
 
 		_addBehaviors: function () {
-			var widget = this;
+			var self = this;
 
-			if ( widget.options.eventType === "mouse" ) {
-				widget._dragStartEvt = "mousedown";
-				widget._dragStartCB = function ( e ) {
-					return widget._handleDragStart( e, e.clientX, e.clientY );
+			// scroll event handler.
+			if ( self.options.eventType === "mouse" ) {
+				self._dragStartEvt = "mousedown";
+				self._dragStartCB = function ( e ) {
+					return self._handleDragStart( e, e.clientX, e.clientY );
 				};
 
-				widget._dragMoveEvt = "mousemove";
-				widget._dragMoveCB = function ( e ) {
-					return widget._handleDragMove( e, e.clientX, e.clientY );
+				self._dragMoveEvt = "mousemove";
+				self._dragMoveCB = function ( e ) {
+					return self._handleDragMove( e, e.clientX, e.clientY );
 				};
 
-				widget._dragStopEvt = "mouseup";
-				widget._dragStopCB = function ( e ) {
-					return widget._handleDragStop( e, e.clientX, e.clientY );
+				self._dragStopEvt = "mouseup";
+				self._dragStopCB = function ( e ) {
+					return self._handleDragStop( e, e.clientX, e.clientY );
 				};
 
-				widget._$view.bind( "vclick", function (e) {
-					return !widget._didDrag;
+				self._$view.bind( "vclick", function (e) {
+					return !self._didDrag;
 				} );
 			} else { //touch
-				widget._dragStartEvt = "touchstart";
-				widget._dragStartCB = function ( e ) {
+				self._dragStartEvt = "touchstart";
+				self._dragStartCB = function ( e ) {
 					var t = e.originalEvent.targetTouches[0];
-					return widget._handleDragStart(e, t.pageX, t.pageY );
+					return self._handleDragStart(e, t.pageX, t.pageY );
 				};
 
-				widget._dragMoveEvt = "touchmove";
-				widget._dragMoveCB = function ( e ) {
+				self._dragMoveEvt = "touchmove";
+				self._dragMoveCB = function ( e ) {
 					var t = e.originalEvent.targetTouches[0];
-					return widget._handleDragMove(e, t.pageX, t.pageY );
+					return self._handleDragMove(e, t.pageX, t.pageY );
 				};
 
-				widget._dragStopEvt = "touchend";
-				widget._dragStopCB = function ( e ) {
-					return widget._handleDragStop( e );
+				self._dragStopEvt = "touchend";
+				self._dragStopCB = function ( e ) {
+					return self._handleDragStop( e );
 				};
 			}
-			widget._$view.bind( widget._dragStartEvt, widget._dragStartCB );
+			self._$view.bind( self._dragStartEvt, self._dragStartCB );
+
+			// other events.
+			self._$view.delegate(".virtualgrid-item", "click", function (event) {
+				var $selectedItem = $(this);
+				$selectedItem.trigger("select", this);
+			});
+
+			$( window ).bind("resize", function ( e ) {
+				var height = 0,
+					$virtualgrid = $(".ui-virtualgrid-view");
+				if ( $virtualgrid.length !== 0 ) {
+					if ( self._direction ) {
+						height = self._calculateClipHeight();
+						self._$view.height(height);
+						self._$clip.height(height);
+					} else {
+						height = self._calculateClipWidth();
+						self._$view.width(height);
+						self._$clip.width(height);
+					}
+					self.resize( );
+				}
+			});
+
+			$(document).one("pageshow", function (event) {
+				var $page = $(self.element).parents(".ui-page"),
+					$header = $page.find( ":jqmData(role='header')" ),
+					$footer = $page.find( ":jqmData(role='footer')" ),
+					$content = $page.find( ":jqmData(role='content')" ),
+					footerHeight = $footer ? $footer.height() : 0,
+					headerHeight = $header ? $header.height() : 0;
+
+				if ( $page && $content ) {
+					$content.height(window.innerHeight - headerHeight - footerHeight).css("overflow", "hidden");
+					$content.addClass("ui-virtualgrid-content");
+				}
+			});
 		},
 
-		_makeBlocks : function ( count ) {
-			var widget = this,
-				opts = widget.options,
+		//----------------------------------------------------//
+		//		Calculate size about dom element.		//
+		//----------------------------------------------------//
+		_calculateClipSize : function () {
+			var self = this,
+				clipSize = 0;
+
+			if ( self._direction ) {
+				clipSize = self._calculateClipWidth();
+			} else {
+				clipSize = self._calculateClipHeight();
+			}
+			return clipSize;
+		},
+
+		_calculateClipWidth : function () {
+			var self = this,
+				view = $(self.element),
+				$parent = $(self.element).parent(),
+				paddingValue = 0,
+				clipSize = $(window).width();
+			if ( $parent.hasClass("ui-content") ) {
+				paddingValue = parseInt($parent.css("padding-left"), 10);
+				clipSize = clipSize - ( paddingValue || 0 );
+				paddingValue = parseInt($parent.css("padding-right"), 10);
+				clipSize = clipSize - ( paddingValue || 0);
+			} else {
+				clipSize = view.width();
+			}
+			return clipSize;
+		},
+
+		_calculateClipHeight : function () {
+			var self = this,
+				view = $(self.element),
+				$parent = $(self.element).parent(),
+				header = null,
+				footer = null,
+				paddingValue = 0,
+				clipSize = $(window).height();
+			if ( $parent.hasClass("ui-content") ) {
+				paddingValue = parseInt($parent.css("padding-top"), 10);
+				clipSize = clipSize - ( paddingValue || 0 );
+				paddingValue = parseInt($parent.css("padding-bottom"), 10);
+				clipSize = clipSize - ( paddingValue || 0);
+				header = $parent.siblings(".ui-header");
+				footer = $parent.siblings(".ui-footer");
+
+				if ( header ) {
+					if ( header.outerHeight(true) === null ) {
+						clipSize = clipSize - ( $(".ui-header").outerHeight() || 0 );
+					} else {
+						clipSize = clipSize - header.outerHeight(true);
+					}
+				}
+				if ( footer ) {
+					clipSize = clipSize - footer.outerHeight(true);
+				}
+			} else {
+				clipSize = view.height();
+			}
+			return clipSize;
+		},
+
+		_calculateColumnSize : function () {
+			var self = this,
+				$tempBlock,
+				$cell;
+
+			$tempBlock = self._makeRows( 1 );
+			self._$view.append( $tempBlock.children().first() );
+			if ( self._direction ) {
+				// x-axis
+				self._viewSize = self._$view.width();
+				$cell = self._$view.children().first().children().first();
+				self._cellSize = $cell.outerWidth(true);
+				self._cellOtherSize = $cell.outerHeight(true);
+			} else {
+				// y-axis
+				self._viewSize = self._$view.height();
+				$cell = self._$view.children().first().children().first();
+				self._cellSize = $cell.outerHeight(true);
+				self._cellOtherSize = $cell.outerWidth(true);
+			}
+			$tempBlock.remove();
+			self._$view.children().remove();
+		},
+
+		_calculateColumnCount : function ( ) {
+			var self = this,
+				$view = $(self.element),
+				viewSize = self._direction ? $view.innerHeight() : $view.innerWidth(),
+				itemCount = 0 ;
+
+			if ( self._direction ) {
+				viewSize = viewSize - ( parseInt( $view.css("padding-top"), 10 ) + parseInt( $view.css("padding-bottom"), 10 ) );
+			} else {
+				viewSize = viewSize - ( parseInt( $view.css("padding-left"), 10 ) + parseInt( $view.css("padding-right"), 10 ) );
+			}
+
+			itemCount = parseInt( (viewSize / self._cellOtherSize), 10);
+			return itemCount > 0 ? itemCount : 1 ;
+		},
+
+		// Read the position of clip form property ('webkit-transform').
+		// @return : number - position of clip.
+		_getClipPosition : function () {
+			var self = this,
+				matrix = null,
+				contents = null,
+				result = -self._cellSize,
+				$scrollview = self._$view.closest(".ui-scrollview-view");
+
+			if ( $scrollview ) {
+				matrix = $scrollview.css("-webkit-transform");
+				contents = matrix.substr( 7 );
+				contents = contents.substr( 0, contents.length - 1 );
+				contents = contents.split( ', ' );
+				result =  Math.abs(contents [5]);
+			}
+			return result;
+		},
+
+		//----------------------------------------------------//
+		//		DOM Element handle		//
+		//----------------------------------------------------//
+		_makeRows : function ( count ) {
+			var self = this,
+				opts = self.options,
 				index = 0,
-				$item = null,
+				$row = null,
 				$wrapper = null;
 
 			$wrapper = $(document.createElement("div"));
 			$wrapper.addClass("ui-scrollview-view");
 			for ( index = 0; index < count ; index += 1 ) {
-				$item = widget._makeWrapBlock( widget._template, index );
-				if ( widget._direction ) {
-					$item.css("top", 0).css("left", ( index * widget._itemSize ));
+				$row = self._makeRow( self._template, index );
+				if ( self._direction ) {
+					$row.css("top", 0).css("left", ( index * self._cellSize ));
 				}
-				$wrapper.append($item);
+				$wrapper.append($row);
 			}
-			$wrapper.children().first().addClass("rotation-head");
 			return $wrapper;
 		},
 
 		// make a single row block
-		_makeWrapBlock : function ( myTemplate, rowIndex ) {
-			var widget = this,
-				opts = widget.options,
-				index = rowIndex * opts.itemcount,
-				itemData = null,
+		_makeRow : function ( myTemplate, rowIndex ) {
+			var self = this,
+				opts = self.options,
+				index = rowIndex * self._itemCount,
 				htmlData = null,
+				itemData = null,
 				colIndex = 0,
-				attrName = widget._direction ? "top" : "left",
-				blockClassName = widget._direction ? "ui-virtualgrid-wrapblock-x" : "ui-virtualgrid-wrapblock-y",
-				blockAttrName = widget._direction ? "top" : "left",
+				attrName = self._direction ? "top" : "left",
+				blockClassName = self._direction ? "ui-virtualgrid-wrapblock-x" : "ui-virtualgrid-wrapblock-y",
+				blockAttrName = self._direction ? "top" : "left",
 				wrapBlock = $( document.createElement( "div" ));
 
-			wrapBlock.addClass( blockClassName );
-			for ( colIndex = 0; colIndex < opts.itemcount; colIndex++ ) {
-				itemData = widget._itemData( index );
+			wrapBlock.addClass( blockClassName ).attr("row-index", rowIndex);
+			for ( colIndex = 0; colIndex < self._itemCount; colIndex++ ) {
+				itemData = self._itemData( index );
 				if ( itemData ) {
-					htmlData = myTemplate.tmpl( itemData );
-					$(htmlData).css(attrName, ( colIndex * widget._itemOtherSize )).addClass("virtualgrid-item");
+					htmlData = self._makeHtmlData( myTemplate, index, colIndex);
 					wrapBlock.append( htmlData );
 					index += 1;
 				}
@@ -839,11 +1081,99 @@
 			return wrapBlock;
 		},
 
-		_replaceBlock : function ( block, index ) {
-			var widget = this,
-				opts = widget.options,
-				$items = null,
-				$item = null,
+		_makeHtmlData : function ( myTemplate, dataIndex, colIndex ) {
+			var self = this,
+				htmlData = null,
+				itemData = null,
+				attrName = self._direction ? "top" : "left";
+
+			itemData = self._itemData( dataIndex );
+			if ( itemData ) {
+				htmlData = myTemplate.tmpl( itemData );
+				$(htmlData).css(attrName, ( colIndex * self._cellOtherSize )).addClass("virtualgrid-item");
+			}
+			return htmlData;
+		},
+
+		_increaseRow : function ( num ) {
+			var self = this,
+				rotation = self.options.rotation,
+				$row = null,
+				headItemIndex = 0,
+				tailItemIndex = 0,
+				itemIndex = 0,
+				size = self._scalableSize,
+				idx = 0;
+
+			headItemIndex = parseInt( $(self._$view.children().first()).attr("row-index"), 10) - 1;
+			tailItemIndex = parseInt( $(self._$view.children()[self._rowsPerView]).attr("row-index"), 10) + 1;
+
+			for ( idx = 1 ; idx <= num ; idx++ ) {
+				if ( tailItemIndex + idx  >= self._totalRowCnt ) {
+					$row = self._makeRow( self._template, headItemIndex );
+					self._$view.prepend($row);
+					headItemIndex -= 1;
+				} else {
+					$row = self._makeRow( self._template, tailItemIndex + idx );
+					self._$view.append($row);
+				}
+				if ( self._direction ) {
+					$row.width(self._cellSize);
+				} else {
+					$row.height(self._cellSize);
+				}
+			}
+		},
+
+		_decreaseRow : function ( num ) {
+			var self = this,
+				idx = 0;
+
+			for ( idx = 0 ; idx < num ; idx++ ) {
+				self._$view.children().last().remove();
+			}
+		},
+
+		_replaceRows : function ( curCnt, prevCnt, maxCnt, clipPosition ) {
+			var self = this,
+				$rows = self._$view.children(),
+				prevRowIndex = 0,
+				rowIndex = 0,
+				diffRowCnt = 0,
+				targetCnt = 1,
+				filterCondition = ( self._filterRatio * self._cellSize) + self._cellSize,
+				idx = 0;
+
+			if ( filterCondition < clipPosition ) {
+				targetCnt += 1;
+			}
+
+			prevRowIndex = parseInt( $($rows[targetCnt]).attr("row-index"), 10);
+			if ( prevRowIndex === 0 ) {
+				// only top.
+				rowIndex = maxCnt - targetCnt;
+			} else {
+				rowIndex = Math.round( (prevRowIndex * prevCnt) / curCnt );
+				if ( rowIndex + self._rowsPerView >= maxCnt ) {
+					// only bottom.
+					rowIndex = maxCnt - self._rowsPerView;
+				}
+				diffRowCnt = prevRowIndex - rowIndex;
+				rowIndex -= targetCnt;
+			}
+
+			for ( idx = 0 ; idx < $rows.length ; idx += 1 ) {
+				self._replaceRow($rows[idx], circularNum( rowIndex, self._totalRowCnt ));
+				rowIndex++;
+			}
+			return -diffRowCnt;
+		},
+
+		_replaceRow : function ( block, index ) {
+			var self = this,
+				opts = self.options,
+				$columns = null,
+				$column = null,
 				data = null,
 				htmlData = null,
 				myTemplate = null,
@@ -851,24 +1181,27 @@
 				dataIdx = 0,
 				tempBlocks = null;
 
-			$items = $(block).children();
-			if ( $items.length !== opts.itemcount ) {
-				tempBlocks = $(widget._makeWrapBlock( widget._template, index ));
+			$columns = $(block).attr("row-index", index).children();
+			if ( $columns.length !== self._itemCount ) {
+				$(block).children().remove();
+				tempBlocks = $(self._makeRow( self._template, index ));
 				$(block).append(tempBlocks.children());
 				tempBlocks.remove();
 				return ;
 			}
 
-			dataIdx = index * opts.itemcount;
-			for ( idx = 0; idx < opts.itemcount ; idx += 1) {
-				$item = $items[idx];
-				data = widget._itemData( dataIdx );
-				if ( $item && data ) {
-					myTemplate = widget._template;
+			dataIdx = index * self._itemCount;
+			for ( idx = 0; idx < self._itemCount ; idx += 1 ) {
+				$column = $columns[idx];
+				data = self._itemData(dataIdx);
+				if ( $column && data ) {
+					myTemplate = self._template;
 					htmlData = myTemplate.tmpl( data );
-					widget._replace( $item, htmlData, false );
+					self._replace( $column, htmlData, false );
 					htmlData.remove();	// Clear temporary htmlData to free cache
 					dataIdx ++;
+				} else if ($column && !data ) {
+					$($column).remove();
 				}
 			}
 		},
@@ -893,7 +1226,7 @@
 
 				$( oldObj ).attr( "src", newImg );
 			});
-			$( oldItem ).removeData();
+			$( oldItem).removeData();
 			if ( key ) {
 				$( oldItem ).data( key, $( newItem ).data( key ) );
 			}
