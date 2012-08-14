@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.1.35
+Version:    0.1.36
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -89,6 +89,14 @@ Summary:    Tizen Web UI Framework Demo Application: tizen-gray demo
 
 ###############################
 %changelog
+
+* Tue Aug 14 2012 Youmin Ha <youmin.ha@samasung.com> 0.1.36
+- FIX :
+	- checkboxRadio: Add left/right padding
+	- button: custom button & icon position
+	- virtuallist: remove 'recreate' test
+- Spec changes:
+	- header/footer: enable/disable support
 
 * Fri Aug 10 2012 Minkyu Kang <mk7.kang@samsung.com> 0.1.35
 - FIX :
