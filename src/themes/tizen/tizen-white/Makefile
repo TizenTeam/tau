@@ -49,7 +49,9 @@ CSS_SRCS=	../common/jquery.mobile.theme.less.css \
 		../common/jquery.mobile.tizen.scrollview.handler.less.css \
 		../common/jquery.mobile.tizen.virtualgridview.less.css \
 		../common/jquery.mobile.tizen.multimediaview.less.css \
-		../common/jquery.mobile.tizen.mapview.less.css
+		../common/jquery.mobile.tizen.mapview.less.css \
+		../common/jquery.mobile.popup.css \
+		../common/jquery.mobile.tizen.popup.less.css
 
 all: prepare css images js
 
