@@ -119,8 +119,10 @@
 			} else {
 				this._ui.container.find(".ui-toggleswitch-img").hide();
 			}
+
 			$( this._ui.mover ).bind( "vclick", function () {
 				self._setChecked( !self.options.checked );
+				return false;
 			});
 		},
 
