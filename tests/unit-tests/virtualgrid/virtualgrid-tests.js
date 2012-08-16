@@ -15,11 +15,28 @@
 			$item;
 
 		/* Create */
-		virtualGrid = widget.virtualgrid("create");
+		virtualGrid = widget.virtualgrid("create" , {
+			itemData: function ( idx ) {
+				return JSON_DATA[ idx ];
+			},
+			numItemData: JSON_DATA.length,
+			cacheItemData: function ( minIdx, maxIdx ) { }
+		});
 		ok(virtualGrid, "Create");
 
 		$(".virtualgrid_demo_page").bind("select", function ( event ) {
 			ok(true, "Event : select");
+		});
+
+		$(".virtualgrid_demo_page").bind("test.resize", function ( event ) {
+			var prevColCnt = 0;
+
+			$item = $(".ui-virtualgrid-wrapblock-y:first");
+			prevColCnt = $item.children().length;
+			$("#virtualgrid-test").css("width", "1500px");
+			widget.virtualgrid("resize");
+			$item = $(".ui-virtualgrid-wrapblock-y:first");
+			notEqual( $item.children().length, prevColCnt, "Event : resize");
 		});
 
 		$($(".virtualgrid_demo_page").find(".ui-scrollview-view")).find(".ui-virtualgrid-wrapblock-y:first").addClass("center");
@@ -36,6 +53,7 @@
 
 		$item = $($(".ui-virtualgrid-wrapblock-y:first").children()[0]);
 		$item.trigger("click");
+		$item.trigger("test.resize");
 	};
 
 	$(document).bind("dataloaded" , function () {

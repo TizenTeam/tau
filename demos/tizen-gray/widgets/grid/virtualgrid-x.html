@@ -13,19 +13,18 @@
 				</div>
 			</div>
 		</script>
-		<div id="virtualgrid-demo" style=" width:380px; height:410px; background-color: gray;" data-direction="x" data-role="virtualgrid" data-column="3" data-row="9" data-template="tizen-demo-namecard">
+		<div id="virtualgrid-demo" data-itemcount="auto" style="background-color: gray;" data-direction="x" data-role="virtualgrid" data-template="tizen-demo-namecard">
 		</div>
 	</div>
 	<script>
-		$("#rotationview-demo").bind("select", function(event, data){
+		$("#virtualgrid-demo").bind("select", function(event, data){
 			//alert("item :: " + $(data).find(".ui-demo-namecard-contents").text());
 		});
 	</script>
 	<script>
 		$( ".virtualgrid_x_demo_page" ).one( "pagecreate", function() {
 			$.getScript( "./js/virtualgrid-db-demo.js", function( data, textStatus ) {
-				$( ".rotationview_demo_page" ).die();
-
+				$( ".virtualgrid_demo_page" ).die();
 				$( ":jqmData(role='virtualgrid')" ).virtualgrid( "create", {
 					itemData: function ( idx ) {
 						return JSON_DATA[ idx ];
@@ -34,18 +33,7 @@
 					cacheItemData: function ( minIdx, maxIdx ) {
 					}
 				});
-
 				$( ".virtualgrid_x_demo_page" ).unbind("pagecreate");
-
-				var $page = $( "#virtualgrid_x_page" ),
-					$content = $page.children(".ui-content"),
-					hh = $page.children(".ui-header").outerHeight() || 0,
-					fh = $page.children(".ui-footer").outerHeight() || 0,
-					pt = parseFloat( $content.css("padding-top") ),
-					pb = parseFloat( $content.css("padding-bottom") ),
-					wh = $(window).height();
-				$content.height( wh - (hh + fh) - (pt + pb) );
-				$content.css( "overflow", "hidden" );
 			});
 		});
 	</script>
