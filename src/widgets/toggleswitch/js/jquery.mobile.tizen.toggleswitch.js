@@ -113,10 +113,10 @@
 		_create: function () {
 			var self = this;
 			this.element.hide().after( this._ui.container );
-			if( this.element.jqmData("icon") ){
+			if ( this.element.jqmData("icon") ) {
 				this._ui.container.find(".ui-toggleswitch-text").hide();
 				this._ui.container.find(".ui-toggleswitch-img").show();
-			}else{
+			} else {
 				this._ui.container.find(".ui-toggleswitch-img").hide();
 			}
 			$( this._ui.mover ).bind( "vclick", function () {

@@ -341,8 +341,7 @@
 					self._isOpen = false;
 				};
 
-			this._ui.container.removeClass("in").addClass("reverse out")
-
+			this._ui.container.removeClass("in").addClass("reverse out");
 
 			if ( this.options.fade ) {
 				this._ui.screen.animate( {opacity: 0}, "fast", hideScreen );

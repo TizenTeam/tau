@@ -138,7 +138,7 @@
 						.css( "height", controlbar_filter.height() );
 					if ( style == "toolbar" ) {
 						controlbar_filter
-							.css( "width", window.innerWidth - controlbar_filter.siblings(".ui-btn").width() - parseInt(controlbar_filter.siblings(".ui-btn").css("right"),10) * 2 );
+							.css( "width", window.innerWidth - controlbar_filter.siblings(".ui-btn").width() - parseInt(controlbar_filter.siblings(".ui-btn").css("right"), 10) * 2 );
 					}
 				}
 			});

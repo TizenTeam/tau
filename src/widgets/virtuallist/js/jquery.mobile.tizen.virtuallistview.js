@@ -476,7 +476,9 @@
 				shortcutsList = $('<ul></ul>'),
 				dividers = $el.find(':jqmData(role="virtuallistview" )'),
 				lastListItem = null,
-				shortcutscroll = this;
+				shortcutscroll = this,
+				dbtable_name,
+				dbtable;
 
 
 			// create listview markup
@@ -532,9 +534,10 @@
 
 				/* After DB Load complete, Init Vritual list */
 				if ( $( o.id ).hasClass( "vlLoadSuccess" ) ) {
-					var dbtable_name = $el.jqmData('dbtable'),
-						dbtable = window[ dbtable_name ];
-					if( ! dbtable ) {
+					dbtable_name = $el.jqmData('dbtable');
+					dbtable = window[ dbtable_name ];
+
+					if ( !dbtable ) {
 						dbtable = { };
 					}
 

@@ -211,7 +211,8 @@
 
 		// show value on the handle and in popup
 		updateSlider: function () {
-			var font_size;
+			var font_size,
+				newValue;
 
 			if ( this.popupVisible ) {
 				this.positionPopup();
@@ -225,7 +226,7 @@
 
 			this.slider_bar.width( this.handle.css('left') );
 
-			var newValue = this.element.val();
+			newValue = this.element.val();
 
 			if ( newValue === this.currentValue ) {
 				return;
