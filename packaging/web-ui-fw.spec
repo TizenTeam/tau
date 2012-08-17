@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.1.36
+Version:    0.1.37
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -89,6 +89,16 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+
+* Fri Aug 17 2012 Minkyu Kang <mk7.kang@samasung.com> 0.1.37
+- FIX :
+	- button: fix alignment
+	- listview: adjust the main text width
+	- virtualgrid: refactoring
+- Spec changes:
+	- transition: support JQM 1.1.0 transitions
+	- scrollview: support the outer scroll
+	- notification: remove interval feature
 
 * Tue Aug 14 2012 Youmin Ha <youmin.ha@samasung.com> 0.1.36
 - FIX :
