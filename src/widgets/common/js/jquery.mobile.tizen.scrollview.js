@@ -174,6 +174,10 @@
 				vt = this._vTracker,
 				ht = this._hTracker;
 
+			if ( this._outerScrolling ) {
+				return;
+			}
+
 			if ( vt ) {
 				vt.update( this.options.overshootEnable );
 				y = vt.getPosition();
@@ -257,6 +261,8 @@
 					parseFloat( $c.css("padding-top") ) +
 					parseFloat( $c.css("padding-bottom") );
 
+				this._outerScroll( y, scroll_height );
+
 				if ( y >= 0 ) {
 					this._sy = 0;
 				} else if ( y < -scroll_height ) {
@@ -279,6 +285,10 @@
 				$sbt;
 
 			this._setCalibration( x, y );
+
+			if ( this._outerScrolling ) {
+				return;
+			}
 
 			x = this._sx;
 			y = this._sy;
@@ -312,6 +322,51 @@
 					$sbt.css("left", -x / $v.width() * 100 + "%");
 				}
 			}
+		},
+
+		_outerScroll: function ( y, scroll_height ) {
+			var self = this,
+				top = $( window ).scrollTop(),
+				sy = 0,
+				duration = this.options.snapbackDuration,
+				start = getCurrentTime(),
+				tfunc;
+
+			if ( this._$clip.jqmData("scroll") !== "y" ) {
+				return;
+			}
+
+			if ( this._outerScrolling ) {
+				return;
+			}
+
+			if ( y >= 0 ) {
+				sy = -y;
+			} else if ( y < -scroll_height ) {
+				sy = -y - scroll_height;
+			} else {
+				return;
+			}
+
+			sy *= 10;
+
+			tfunc = function () {
+				var elapsed = getCurrentTime() - start;
+
+				if ( elapsed >= duration ) {
+					window.scrollTo( 0, top + sy );
+					self._outerScrolling = undefined;
+				} else {
+					ec = $.easing.easeOutQuad( elapsed / duration, elapsed, 0, 1, duration );
+
+					window.scrollTo( 0, top + ( sy * ec ) );
+					self._outerScrolling = setTimeout( tfunc, self._timerInterval );
+				}
+			};
+			this._outerScrolling = setTimeout( tfunc, self._timerInterval );
+
+			/* skip the srollview dragging */
+			this._skip_dragging = true;
 		},
 
 		_scrollTo: function ( x, y, duration ) {
