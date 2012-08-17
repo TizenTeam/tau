@@ -1,0 +1,31 @@
+From ea0849395563ced0fab0ce5d4b0c947b49b4b152 Mon Sep 17 00:00:00 2001
+From: Koeun Choi <koeun.choi@samsung.com>
+Date: Fri, 17 Aug 2012 21:05:05 +0900
+Subject: [PATCH] apply tizen default button order in title bar: ui-btn-right.
+
+Change-Id: I3ad4b706982090e2b1efa28227fe8e40ac9ee039
+---
+ .../js/jquery.mobile.page.sections.js              |    4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.page.sections.js b/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.page.sections.js
+index e78af6a..5e289b5 100755
+--- a/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.page.sections.js
++++ b/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.page.sections.js
+@@ -54,9 +54,13 @@ $( document ).delegate( ":jqmData(role='page'), :jqmData(role='dialog')", "pagec
+ 				leftbtn	= $headeranchors.hasClass( "ui-btn-left" );
+ 				rightbtn = $headeranchors.hasClass( "ui-btn-right" );
+ 
++				// when button position is not declared, make it "right" button on Tizen.
++				rightbtn = $headeranchors.not( ".ui-btn-left" ).addClass( "ui-btn-right" );
++				/*
+ 				leftbtn = leftbtn || $headeranchors.eq( 0 ).not( ".ui-btn-right" ).addClass( "ui-btn-left" ).length;
+ 
+ 				rightbtn = rightbtn || $headeranchors.eq( 1 ).addClass( "ui-btn-right" ).length;
++				*/
+ 			}
+ 
+ 			// Page title
+-- 
+1.7.9.5
+

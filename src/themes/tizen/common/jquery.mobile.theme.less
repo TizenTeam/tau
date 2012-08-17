@@ -140,12 +140,6 @@
 			}
 		}
 	}
-	.ui-title-normal-3btn {
-		position : absolute;
-		display : block;
-
-		right : @style-title-3btn-right-position;
-	}
 
 	.ui-title-extended-controlgroup-4btn {
 		width : @style-title-extended-4btn-width;
@@ -193,13 +187,20 @@
 
 	min-height : 100 * @unit_base;
 
-	.ui-title {
-		color : @color_bar_title_text;
+	img {
+		display: inline-block;
+		height: 32 * @unit_base;
+		width: 32 * @unit_base;
+		margin-left: 16 * @unit_base;
+		//margin-right: 16 * @unit_base; /* Title's left margin covers this. */
+		//vertical-align: middle;
+	}
 
-		top : 0px;
+	.ui-title {
+		display: inline-block;
+		color : @color_bar_title_text;
 		min-height: @style-title-min-height;
 		font-size : @style-title-font-size;
-		display: block;
 		text-overflow: ellipsis;
 		overflow: hidden;
 		white-space: nowrap;
@@ -214,8 +215,7 @@
 	}
 
 	.ui-btn.ui-btn-left,
-	.ui-btn.ui-btn-right,
-	.ui-btn.ui-title-normal-3btn {
+	.ui-btn.ui-btn-right {
 		width : 114 * @unit_base;
 	}
 

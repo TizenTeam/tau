@@ -6,10 +6,10 @@
 	<script src="configure.js"></script>
 	<script src="tizen-web-ui-fw/latest/js/tizen-web-ui-fw-libs.js"></script>
 	<script src="tizen-web-ui-fw/latest/js/tizen-web-ui-fw.js"
-		data-framework-theme="tizen-gray"
+		data-framework-theme="tizen-white"
 		data-framework-viewport-scale=false>
 	</script>
-	<script src="init.js"></script>
+	<script src="main.js"></script>
 	<link rel="stylesheet" href="custom.css" />
 
 	<title>Tizen UI</title>
@@ -31,9 +31,9 @@
 			<p id="html_font_size"></p>
 				<fieldset data-role="controlgroup" id="input-select-theme">
 					<legend>Select theme</legend>
-					<input type="radio" name="select-theme" id="select-theme-tizen-gray" value="tizen-gray" checked="true"/>
-					<label for="select-theme-tizen-gray">tizen-gray</label>
-					<input type="radio" name="select-theme" id="select-theme-tizen-white" value="tizen-white" />
+					<input type="radio" name="select-theme" id="select-theme-tizen-black" value="tizen-black"/>
+					<label for="select-theme-tizen-black">tizen-black</label>
+					<input type="radio" name="select-theme" id="select-theme-tizen-white" value="tizen-white" checked="true" />
 					<label for="select-theme-tizen-white">tizen-white</label>
 				</fieldset>
 			<script>
@@ -41,7 +41,7 @@
 					$("#input-select-theme").find("input[name='select-theme']").bind( "change", 
 						function ( ev, data ) {
 							var radio = this,
-								theme = "tizen-gray";
+								theme = "tizen-white";
 							if( radio.checked ) {
 								theme = radio.value;
 								console.log( "Request theme change: " + theme );
@@ -735,66 +735,195 @@
 			<h1>Normal Title</h1>
 		</div>
 		<div data-role="content">
-			<div class="content-primary">
-				<ul data-role="listview">
-					<li><a href="#normal1btn">Title 1 button</a></li>
-					<li><a href="#normal2btn">Title 2 button</a></li>
-					<li><a href="#normal3btn">Title 3 button</a></li>
-				</ul>
-			</div><!--/content-primary -->
+			<ul data-role="listview">
+				<li><a href="#normal1btn">Title 1 button</a></li>
+				<li><a href="#normal2btn">Title 2 button</a></li>
+				<li><a href="#normal2btnicononly">Title 2 button Icon only</a></li>
+				<li><a href="#normal3btn">Title 3 button</a></li>
+				<li><a href="#iconTitle">Icon + Title</a></li>
+				<li><a href="#customTitle1">Custom Title with button position: left</a></li>
+				<li><a href="#customTitle2">Custom Title with button position: right</a></li>
+				<li><a href="#customTitle3">Custom Title with button position: mix</a></li>
+				<li><a href="#NavigationbarMain">Go back to Navigation Bar</a></li>
+			</ul>
 		</div>
 	</div>
 
 	<div data-role="page" id="normal1btn">
 		<div data-role="header" data-position="fixed">
-			<a>Text1</a>
-			<h1>Normal Title</h1>
+			<h1>Normal Title - 1Btn</h1>
+			<a>default</a>
 		</div>
 		<div data-role="content">
-			<div class="content-primary">
-				<ul data-role="listview">
-					<li><a href="#normal1btn">Title 1 button</a></li>
-					<li><a href="#normal2btn">Title 2 button</a></li>
-					<li><a href="#normal3btn">Title 3 button</a></li>
-				</ul>
-			</div><!--/content-primary -->
+			<ul data-role="listview">
+				<li><a href="#normal1btn">Title 1 button</a></li>
+				<li><a href="#normal2btn">Title 2 button</a></li>
+				<li><a href="#normal2btnicononly">Title 2 button Icon only</a></li>
+				<li><a href="#normal3btn">Title 3 button</a></li>
+				<li><a href="#iconTitle">Icon + Title</a></li>
+				<li><a href="#customTitle1">Custom Title with button position: left</a></li>
+				<li><a href="#customTitle2">Custom Title with button position: right</a></li>
+				<li><a href="#customTitle3">Custom Title with button position: mix</a></li>
+				<li><a href="#NavigationbarMain">Go back to Navigation Bar</a></li>
+			</ul>
 		</div>
 	</div>
 
 	<div data-role="page" id="normal2btn">
 		<div data-role="header" data-position="fixed">
-			<a>Text1</a>
-			<h1>Normal Title</h1>
-			<a>Text2</a>
+			<h1>Normal Title - 2Btn</h1>
+			<a>default1</a>
+			<a>default2</a>
 		</div>
 		<div data-role="content">
-			<div class="content-primary">
-				<ul data-role="listview">
-					<li><a href="#normal1btn">Title 1 button</a></li>
-					<li><a href="#normal2btn">Title 2 button</a></li>
-					<li><a href="#normal3btn">Title 3 button</a></li>
-				</ul>
-			</div><!--/content-primary -->
+			<ul data-role="listview">
+				<li><a href="#normal1btn">Title 1 button</a></li>
+				<li><a href="#normal2btn">Title 2 button</a></li>
+				<li><a href="#normal2btnicononly">Title 2 button Icon only</a></li>
+				<li><a href="#normal3btn">Title 3 button</a></li>
+				<li><a href="#iconTitle">Icon + Title</a></li>
+				<li><a href="#customTitle1">Custom Title with button position: left</a></li>
+				<li><a href="#customTitle2">Custom Title with button position: right</a></li>
+				<li><a href="#customTitle3">Custom Title with button position: mix</a></li>
+				<li><a href="#NavigationbarMain">Go back to Navigation Bar</a></li>
+			</ul>
 		</div>
 	</div>
 
-	<div data-role="page" id="normal3btn" data-add-back-btn="true">
+	<div data-role="page" id="normal2btnicononly">
 		<div data-role="header" data-position="fixed">
-			<a>Text1</a>
-			<h1>Normal Title</h1>
-			<a>Text2</a>
-			<a>Text3</a>
+			<h1>Normal Title+2Buttons Icon only - Not Implemented Yet</h1>
+			<a data-icon="plus"></a>
+			<a data-icon="minus"></a>
 		</div>
 		<div data-role="content">
-			<div class="content-primary">
-				<ul data-role="listview">
-					<li><a href="#normal1btn">Title 1 button</a></li>
-					<li><a href="#normal2btn">Title 2 button</a></li>
-					<li><a href="#normal3btn">Title 3 button</a></li>
-				</ul>
-			</div><!--/content-primary -->
+			<ul data-role="listview">
+				<li><a href="#normal1btn">Title 1 button</a></li>
+				<li><a href="#normal2btn">Title 2 button</a></li>
+				<li><a href="#normal2btnicononly">Title 2 button Icon only</a></li>
+				<li><a href="#normal3btn">Title 3 button</a></li>
+				<li><a href="#iconTitle">Icon + Title</a></li>
+				<li><a href="#customTitle1">Custom Title with button position: left</a></li>
+				<li><a href="#customTitle2">Custom Title with button position: right</a></li>
+				<li><a href="#customTitle3">Custom Title with button position: mix</a></li>
+				<li><a href="#NavigationbarMain">Go back to Navigation Bar</a></li>
+			</ul>
 		</div>
 	</div>
+
+
+	<div data-role="page" id="normal3btn" data-add-back-btn="true">
+		<div data-role="header" data-position="fixed">
+			<a>default1</a>
+			<h1>Normal Title - 3Btn</h1>
+			<a>default2</a>
+			<a>default3</a>
+		</div>
+		<div data-role="content">
+			<ul data-role="listview">
+				<li><a href="#normal1btn">Title 1 button</a></li>
+				<li><a href="#normal2btn">Title 2 button</a></li>
+				<li><a href="#normal2btnicononly">Title 2 button Icon only</a></li>
+				<li><a href="#normal3btn">Title 3 button</a></li>
+				<li><a href="#iconTitle">Icon + Title</a></li>
+				<li><a href="#customTitle1">Custom Title with button position: left</a></li>
+				<li><a href="#customTitle2">Custom Title with button position: right</a></li>
+				<li><a href="#customTitle3">Custom Title with button position: mix</a></li>
+				<li><a href="#NavigationbarMain">Go back to Navigation Bar</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div data-role="page" id="iconTitle">
+		<div data-role="header" data-position="fixed">
+			<img src="icon-tizen.png"/>
+			<h1>Icon Title</h1>
+			<a>default</a>
+		</div>
+		<div data-role="content">
+			<ul data-role="listview">
+				<li><a href="#normal1btn">Title 1 button</a></li>
+				<li><a href="#normal2btn">Title 2 button</a></li>
+				<li><a href="#normal2btnicononly">Title 2 button Icon only</a></li>
+				<li><a href="#normal3btn">Title 3 button</a></li>
+				<li><a href="#iconTitle">Icon + Title</a></li>
+				<li><a href="#customTitle1">Custom Title with button position: left</a></li>
+				<li><a href="#customTitle2">Custom Title with button position: right</a></li>
+				<li><a href="#customTitle3">Custom Title with button position: mix</a></li>
+				<li><a href="#NavigationbarMain">Go back to Navigation Bar</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div data-role="page" id="customTitle1">
+		<div data-role="header" data-position="fixed">
+			<h1>Title with Left button</h1>
+			<a class="ui-btn-left">Left1</a>
+			<a class="ui-btn-left">Left2</a>
+			<a class="ui-btn-left">Left3</a>
+		</div>
+		<div data-role="content">
+			<ul data-role="listview">
+				<li><a href="#normal1btn">Title 1 button</a></li>
+				<li><a href="#normal2btn">Title 2 button</a></li>
+				<li><a href="#normal2btnicononly">Title 2 button Icon only</a></li>
+				<li><a href="#normal3btn">Title 3 button</a></li>
+				<li><a href="#iconTitle">Icon + Title</a></li>
+				<li><a href="#customTitle1">Custom Title with button position: left</a></li>
+				<li><a href="#customTitle2">Custom Title with button position: right</a></li>
+				<li><a href="#customTitle3">Custom Title with button position: mix</a></li>
+				<li><a href="#NavigationbarMain">Go back to Navigation Bar</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div data-role="page" id="customTitle2">
+		<div data-role="header" data-position="fixed">
+			<h1>Title with Right button</h1>
+			<a class="ui-btn-right">Right1</a>
+			<a class="ui-btn-right">Right2</a>
+			<a class="ui-btn-right">Right3</a>
+		</div>
+		<div data-role="content">
+			<ul data-role="listview">
+				<li><a href="#normal1btn">Title 1 button</a></li>
+				<li><a href="#normal2btn">Title 2 button</a></li>
+				<li><a href="#normal2btnicononly">Title 2 button Icon only</a></li>
+				<li><a href="#normal3btn">Title 3 button</a></li>
+				<li><a href="#iconTitle">Icon + Title</a></li>
+				<li><a href="#customTitle1">Custom Title with button position: left</a></li>
+				<li><a href="#customTitle2">Custom Title with button position: right</a></li>
+				<li><a href="#customTitle3">Custom Title with button position: mix</a></li>
+				<li><a href="#NavigationbarMain">Go back to Navigation Bar</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div data-role="page" id="customTitle3">
+		<div data-role="header" data-position="fixed">
+			<a class="ui-btn-left">Left</a>
+			<h1>Title with Left/Right button</h1>
+			<a class="ui-btn-right">Right1</a>
+			<a class="ui-btn-right">Right2</a>
+		</div>
+		<div data-role="content">
+			<ul data-role="listview">
+				<li><a href="#normal1btn">Title 1 button</a></li>
+				<li><a href="#normal2btn">Title 2 button</a></li>
+				<li><a href="#normal2btnicononly">Title 2 button Icon only</a></li>
+				<li><a href="#normal3btn">Title 3 button</a></li>
+				<li><a href="#iconTitle">Icon + Title</a></li>
+				<li><a href="#customTitle1">Custom Title with button position: left</a></li>
+				<li><a href="#customTitle2">Custom Title with button position: right</a></li>
+				<li><a href="#customTitle3">Custom Title with button position: mix</a></li>
+				<li><a href="#NavigationbarMain">Go back to Navigation Bar</a></li>
+			</ul>
+		</div>
+	</div>
+
+
+
+
 
 	<div data-role="page" id="extendedstyle"  data-add-back-btn="true">
 		<div data-role="header" data-position="fixed">

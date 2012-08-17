@@ -161,7 +161,8 @@
 				$elFooterGroup,
 				gLength,
 				footerButton,
-				tStyle = "normal";
+				tStyle = "normal",
+				headerBtnNum;
 
 			if ( $elFieldcontain.length != 0 || $elControlgroup.length != 0 ) {
 				tStyle = "extended";
@@ -195,16 +196,9 @@
 				$elContent.removeClass( "ui-title-content-" + tStyle + "-height" ).addClass( "ui-title-content-search" );
 			}
 
-			if ( $elHeader.children().is("a") || $elHeader.children().find(".ui-radio").length != 0 ) {
-				if ( tStyle == "normal" ) {
-					if ( $elHeader.children("a").length == 3 ) {
-						$elHeader.find( "a" ).eq( 1 )
-							.removeClass( "ui-btn-right" )
-							.addClass( "ui-title-normal-3btn" );
-						$elHeader.find( "a" ).eq( 2 )
-							.addClass( "ui-btn-right" );
-					}
-				} else {
+			headerBtnNum = $elHeader.children("a").length;
+			if ( headerBtnNum > 0  || $elHeader.children().find(".ui-radio").length != 0 ) {
+				if ( tStyle != "normal" ) {
 					gLength = $elFieldcontain.length ? $elFieldcontain.find( ".ui-radio" ).length : $elControlgroup.find( "a" ).length;
 
 					$elHeader.addClass( "ui-title-extended-height" );
