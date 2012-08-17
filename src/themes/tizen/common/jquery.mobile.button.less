@@ -12,11 +12,11 @@
 @height_buttonEdit:	74 * @unit_base;
 @width_buttonEdit:	@height_buttonEdit;
 
-.ui-btn { display: block; text-align: center; cursor:pointer;  position: relative; /*margin: .5em 5px;*/ padding: 0; vertical-align: middle; } /* wongi_1018 : For button align. */
+.ui-btn { display: block; text-align: center; cursor:pointer;  position: relative; /*margin: .2em 0px;*/ padding: 0; vertical-align: middle; } /* wongi_1018 : For button align. */
 .ui-btn:focus, .ui-btn:active { outline: none; }
 .ui-header .ui-btn, .ui-footer .ui-btn, .ui-bar .ui-btn { display: inline-block; font-size: 13 * @unit_base; margin: 0; }
 .ui-btn-inline { display: inline-block; }
-.ui-btn-inner { padding: .6em 25 * @unit_base; display: block; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; position: relative; zoom: 1; }
+.ui-btn-inner { padding: .5em 32 * @unit_base; display: block; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; position: relative; zoom: 1; }
 .ui-header .ui-btn-inner, .ui-footer .ui-btn-inner, .ui-bar .ui-btn-inner { padding: 0.7em 8 * @unit_base 0.7em; }	/* wongi_1024 : Button text middle align */
 .ui-header .ui-btn-inner.ui-btn-icon-only , .ui-footer .ui-btn-inner, .ui-bar .ui-btn-inner.ui-btn-icon-only { padding: .4em 8 * @unit_base .5em; }	/* wongi_1024 : Button text middle align */
 .ui-btn-icon-notext { width: 24 * @unit_base; height: 24 * @unit_base; }
@@ -49,7 +49,7 @@
 .ui-btn-icon-left .ui-icon { left: /*10px;*/ 0 * @unit_base; } /* wongi_1018 : with 64px icon, left 10 -> 0 for good looking. */
 .ui-btn-icon-circle .ui-icon {left: 0 * @unit_base;} /* wongi_1018 : for circle icon center positioning. */
 .ui-btn-icon-right .ui-icon { right: 10 * @unit_base; }
-.ui-btn-icon-top .ui-icon { top: 0 * @unit_base; }
+.ui-btn-icon-top .ui-icon { top: 0 * @unit_base; margin-top: 0; }
 .ui-btn-icon-bottom .ui-icon { bottom: 0 * @unit_base; }
 .ui-header .ui-btn-icon-left .ui-icon,
 .ui-footer .ui-btn-icon-left .ui-icon,
@@ -80,17 +80,17 @@
 	margin-top:  -32  * @unit_base;
 }
 
-.ui-btn .ui-btn-inner.ui-btn-hastxt
+.ui-li .ui-btn .ui-btn-inner.ui-btn-hastxt
 {
 	padding: 0.2em 0.5em;
 }
-.ui-btn-icon-top .ui-btn-inner.ui-btn-hastxt
+.ui-btn-icon-top .ui-btn-inner.ui-btn-hastxt, .ui-li .ui-btn-icon-top .ui-btn-inner.ui-btn-hastxt
 {
-        padding-top: 48 * @unit_base;
+        padding-top: 52 * @unit_base;
 }
-.ui-btn-icon-bottom .ui-btn-inner.ui-btn-hastxt
+.ui-btn-icon-bottom .ui-btn-inner.ui-btn-hastxt, .ui-li .ui-btn-icon-bottom .ui-btn-inner.ui-btn-hastxt
 {
-	padding-bottom: 48 * @unit_base;
+	padding-bottom: 52 * @unit_base;
 }
 /* white theme, delete button padding */
 .ui-li .ui-btn.ui-btn-edit .ui-btn-inner.ui-btn-hastxt
@@ -104,7 +104,7 @@
 .ui-btn.ui-btn-edit .ui-icon { width: @width_buttonEdit; height: @height_buttonEdit; }
 
 /* Padding for Icon with text */
-.ui-btn .ui-btn-text.ui-btn-text-padding-left { padding-left: 32 * @unit_base; }
+.ui-btn .ui-btn-text.ui-btn-text-padding-left { padding-left: 44 * @unit_base; }
 .ui-btn .ui-btn-text.ui-btn-text-padding-right { padding-right: 48 * @unit_base; }
 .ui-btn .ui-btn-text.ui-btn-text-padding-top {padding-top: 32 * @unit_base;}
 .ui-icon
@@ -133,8 +133,8 @@
 {
 	/* Overlap original property */
 	width: 64 * @unit_base; height: 64 * @unit_base;
-	margin-top : 50%;
-	top : -32 * @unit_base;
+	/* margin-top : 50 */
+	/* top : -32 * @unit_base; */
 }
 
 .ui-icon-bg			{.tizen-icon-common;	background-image: url(images/00_btn_circle_bg_normal.png);	z-index:0; }
