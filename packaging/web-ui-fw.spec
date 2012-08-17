@@ -78,13 +78,13 @@ Summary:    Tizen Web UI Framework Developer's files
 /usr/share/tizen-web-ui-fw/template
 
 ###############################
-%package -n web-ui-fw-demo-tizen-gray
+%package -n web-ui-fw-demo-tizen-winsets
 BuildArch:  noarch
-Summary:    Tizen Web UI Framework Demo Application: tizen-gray demo
-%Description -n web-ui-fw-demo-tizen-gray
-    Tizen Web UI Framework Demo Application: tizen-gray demo
-%files  -n web-ui-fw-demo-tizen-gray
-/usr/share/tizen-web-ui-fw/demos/tizen-gray
+Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
+%Description -n web-ui-fw-demo-tizen-winsets
+    Tizen Web UI Framework Demo Application: tizen winset demo
+%files  -n web-ui-fw-demo-tizen-winsets
+/usr/share/tizen-web-ui-fw/demos/tizen-winsets
 
 
 ###############################
