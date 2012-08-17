@@ -22,7 +22,6 @@ path_to_be_removed=( \
 	src/themes/default \
 	src/themes/nbeat-black \
 	src/themes/nbeat-white \
-	src/themes/tizen/tizen-blue \
 	tests \
 	tools/cleanup-src.sh )
 

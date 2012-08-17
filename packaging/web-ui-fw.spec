@@ -41,15 +41,6 @@ Summary:    Tizen Web UI Framework Theme : tizen-gray
 /usr/share/tizen-web-ui-fw/*/themes/tizen-gray
 
 ###############################
-%package -n web-ui-fw-theme-tizen-blue
-BuildArch:  noarch
-Summary:    Tizen Web UI Framework Theme : tizen-blue
-%Description -n web-ui-fw-theme-tizen-blue
-    Tizen Web UI Framework Theme : tizen-blue
-%files -n web-ui-fw-theme-tizen-blue
-/usr/share/tizen-web-ui-fw/*/themes/tizen-blue
-
-###############################
 %package -n web-ui-fw-theme-tizen-white
 BuildArch:  noarch
 Summary:    Tizen Web UI Framework Theme : tizen-white
@@ -217,7 +208,6 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 * Thu Jun 14 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.19
 - Spec changes
-	- themes : Provide tizen-blue theme RPM package for OBS.
 	- mapview : new widget.
 	- notification : add .refresh() API.
 	- pagecontrol : add .value([val]) API, and change an attribute name 'data-initVal' to 'data-value'.
