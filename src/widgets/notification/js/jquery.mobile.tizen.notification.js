@@ -30,7 +30,6 @@
  *
  *  data-role: set to 'notification'.
  *  data-type: 'ticker' or 'popup'.
- *  data-interval: time to showing. If don't set, will show infinitely.
  *
  * APIs
  *
@@ -46,14 +45,14 @@
  * Examples
  *
  * // tickernoti
- * <div data-role="notification" id="notification" data-type="ticker" data-interval="3000">
+ * <div data-role="notification" id="notification" data-type="ticker">
  *	<img src="icon01.png">
  *	<p>Hello World</p>
  *	<p>Denis</p>
  * </div>
  *
  * // smallpopup
- * <div data-role="notification" id="notification" data-type="popup" data-interval="3000">
+ * <div data-role="notification" id="notification" data-type="popup">
  *	<p>Hello World</p>
  * </div>
  *
@@ -64,8 +63,6 @@
 		btn: null,
 		text_bg: [],
 		icon: [],
-		interval: null,
-		seconds: null,
 		running: false,
 
 		_get_text: function () {
@@ -121,8 +118,6 @@
 			$( container ).addClass("fix")
 					.removeClass("show")
 					.removeClass("hide");
-
-			this._set_interval();
 		},
 
 		show: function () {
@@ -138,7 +133,6 @@
 					.removeClass("fix");
 
 			this.running = true;
-			this._set_interval();
 		},
 
 		hide: function () {
@@ -153,7 +147,6 @@
 					.removeClass("fix");
 
 			this.running = false;
-			clearInterval( this.interval );
 		},
 
 		close: function () {
@@ -174,18 +167,6 @@
 			}
 
 			return $( this.element ).find(".ui-smallpopup");
-		},
-
-		_set_interval: function () {
-			var self = this;
-
-			clearInterval( this.interval );
-
-			if ( this.seconds !== undefined && this.second !== 0 ) {
-				this.interval = setInterval( function () {
-					self.hide();
-				}, this.seconds );
-			}
 		},
 
 		_add_event: function () {
@@ -212,7 +193,6 @@
 				this.btn.unbind("vmouseup");
 			}
 			container.unbind('vmouseup');
-			clearInterval( this.interval );
 		},
 
 		_set_position: function () {
@@ -241,7 +221,6 @@
 					shadow: true
 				});
 
-			this.seconds = elem.jqmData('interval');
 			this.type = elem.jqmData('type') || 'popup';
 
 			if ( this.type === 'ticker' ) {
