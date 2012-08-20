@@ -21,7 +21,7 @@ index d523ad9..9ca2366 100644
  				inline:     options.inline     !== undefined ? options.inline     : el.jqmData( "inline" ),
  				shadow:     options.shadow     !== undefined ? options.shadow     : el.jqmData( "shadow" ),
  				corners:    options.corners    !== undefined ? options.corners    : el.jqmData( "corners" ),
-@@ -223,6 +223,7 @@ $.fn.buttonMarkup = function( options ) {
+@@ -235,6 +235,7 @@ $.fn.buttonMarkup = function( options ) {
  };
  
  $.fn.buttonMarkup.defaults = {
