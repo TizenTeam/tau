@@ -79,7 +79,18 @@
 				iconpos = $navbtns.filter( ":jqmData(icon)" ).length ?
 										this.options.iconpos : undefined,
 				theme = $.mobile.listview.prototype.options.theme,	/* Get current theme */
-				style = $controlbar.attr( "data-style" );
+				style = $controlbar.attr( "data-style" ),
+				ww = window.innerWidth || $( window ).width(),
+				wh = window.innerHeight || $( window ).height(),
+				isLandscape;
+
+			isLandscape = ww > wh && ( ww - wh );
+
+			if ( isLandscape ) {
+				$controlbar.removeClass( "ui-portrait-controlbar" ).addClass( "ui-landscape-controlbar" );
+			} else {
+				$controlbar.removeClass( "ui-landscape-controlbar" ).addClass( "ui-portrait-controlbar" );
+			}
 
 			if ( style === "left" || style === "right" ) {
 				$controlbar
@@ -161,6 +172,26 @@
 						.css( "height", controlbar_filter.height() );
 				}
 			});
+
+			this._bindControlbarEvents();
+		},
+
+		_bindControlbarEvents: function () {
+			var $controlbar = this.element;
+
+			$( window ).bind( "orientationchange", function ( e, ui ) {
+				ww = window.innerWidth || $( window ).width();
+				wh = window.innerHeight || $( window ).height();
+
+				isLandscape = ww > wh && ( ww - wh );
+
+				if ( isLandscape ) {
+					$controlbar.removeClass( "ui-portrait-controlbar" ).addClass( "ui-landscape-controlbar" );
+				} else {
+					$controlbar.removeClass( "ui-landscape-controlbar" ).addClass( "ui-portrait-controlbar" );
+				}
+			})
+
 		},
 
 		_setDisabled: function ( value, cnt ) {
