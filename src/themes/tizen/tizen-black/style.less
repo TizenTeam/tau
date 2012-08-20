@@ -1,0 +1,603 @@
+// Basic color set
+@color_bg: 				rgb(249, 249, 249);	// 249 249 249
+@color_bg_sub:			rgb(36, 36, 36);	// 36 36 36	// TODO: used only in dialog group. Check more.
+
+@color_border:			rgb(42, 42, 42);	// 42 42 42
+@color_header: 			rgb(68, 68, 74);	// 68 68 74
+
+@color_scrollbar: 		rgb(218, 218, 218);
+
+@color_text:				rgb(0, 0, 0);	// 0 0 0
+@color_text_dim:			rgb(108, 115, 118);	// 108 115 118
+@color_text_focus:		@color_text;
+@color_text_sub:			rgb(102, 102, 102);	// 102 102 102
+@color_text_setting:		rgb(42, 109, 140);	// 42 109 140
+@color_text_input:		rgb(70, 70, 70);	// 70 70 70
+@color_text_cursor:		@color_text_setting;
+@color_text_segctrl:		rgb(158, 195, 213);	// 158 195 213	// TODO: used only in segctrl. Check more.
+
+//Dialogue color set
+@color_dialogue_main_text:				rgb(249,249,249);
+@color_dialogue_sub_text:				rgb(146,146,146);
+
+//Dialogue Editor color set
+@color_dialogue_editor_default_text:	rgb(70, 70, 70);
+@color_dialogue_editor_bg:				rgb(0, 0, 0);
+@color_dialogue_editor_border:			rgb(108, 168, 199);	
+
+/*************************
+  Vars/Mixins for Widgets
+
+  NOTE:
+    * Color variables' name: @color_<widget name>_<identifier>
+	* Color values: Use rgb() or rgba()
+ *************************/
+
+
+/***************************************************************************
+                   List 
+***************************************************************************/
+@color_list_border_bottom:		rgb(169, 169, 169);
+@color_list_main_text_read:		rgba(158, 158, 158, 1);
+@color_list_main_text_unread:	rgba(249, 249, 249, 1);
+@color_list_main_text_focus:		rgba(249, 249, 249, 1);
+@color_list_sub_text_default:		rgba(100, 100, 100, 1);
+@color_list_sub_text_settings:	rgba(0, 140, 210, 1);
+@color_list_sub_text_focus:		rgba(249, 249, 249, 1);
+@color_list_flexible_text_main:	rgba(249, 249, 249, 1);
+@color_list_flexible_text_sub:		rgba(149, 149, 149, 1);
+@color_list_index_list:			rgba(164, 164, 164, 1);
+@color_list_editfield_text:			rgba(70, 70, 70, 1);
+@color_list_editfield_text_cursor:	rgba(0, 140, 210, 1);
+@color_list_multiline_text:		rgba(149, 149, 149, 1);
+@color_list_3line_main_text:		rgba(249, 249, 249, 1);
+@color_list_3line_main_text_read:	rgba(249, 249, 249, 1);
+@color_list_3line_main_text_focus:	rgba(249, 249, 249, 1);
+@color_list_3line_main_text2:		rgba(104, 137, 152, 1);
+@color_list_3line_main_text2_focus:	rgba(249, 249, 249, 1);
+@color_list_converter_style:		rgba(249, 249, 249, 1);
+@color_list_converter_style_focus:	rgba(249, 249, 249, 1);
+@color_list_unread_email:		rgba(249, 249, 249, 1);
+@color_list_contents_text:		rgba(210, 210, 210, 1);
+@color_list_name_text:			rgba(129, 129, 129, 1);
+@color_list_name_text_dim:		rgba(0, 140, 210, 1);
+@color_list_colorbar:				rgba(80, 107, 207, 1); //Temp, not defined
+@color_list_bubble_box_shadow:	rgb(78, 78, 78);	// Not defined in GUI guide.
+@color_list_bubble_left_text:	rgb(0, 0, 0);
+@color_list_bubble_left_bg:		rgb(217, 230, 237);	// Not defined in GUI guide. Picked from image.
+@color_list_bubble_right_text:	rgb(96, 96, 96);
+@color_list_bubble_right_bg:	rgb(217, 217, 217); // Not defined in GUI guide. Picked from image.
+@color_list_bubble_sos_text:	rgb(211, 0, 0);
+@color_list_bubble_date_text:	rgb(128, 128, 128);
+@color_list_bubble_date_bg:		rgba(225, 225, 225, 0);
+@color_list_bubble_time_text:	rgb(57, 166, 215);
+@color_list_bubble_link_text:	rgb(34, 129, 157);
+@color_list_bubble_failed_text:	rgb(211, 0, 0);
+@color_list_bubble_name_text:	rgb(57, 166, 215);
+@color_list_bubble_help_text:	rgb(146, 146, 146);
+@color_list_divider_bg :		rgb(209, 227, 238); /* #d1e3ee */
+@color_list_divider_text :		rgb(0, 94, 160); /* #005ea0 */
+@color_list_expandable_expanded_bg:	rgb(215, 225, 232);
+
+@font_size_list_main_text:		44 * @unit_base; //1.375rem;	/* 44 px */
+@font_size_list_sub_text:		32 * @unit_base; //1.0rem;	/* 32 px */
+@font_size_list_flexible_text_main:	48 * @unit_base; //1.5rem;	/* 48 px */
+@font_size_list_flexible_text_sub:	36 * @unit_base; //1.125rem;	/* 36 px */
+@font_size_list_index_list:		32 * @unit_base; //1.0rem;	/* 32 px */
+@font_size_list_editfield_text:		44 * @unit_base; //1.375rem;	/* 44 px */
+@font_size_list_multiline_text:		32 * @unit_base; //1.0rem;	/* 32 px */
+@font_size_list_3line_main_text:	42 * @unit_base; //1.3125rem;	/* 42 px */
+@font_size_list_3line_main_text2:	36 * @unit_base; //1.125rem;	/* 36 px */
+@font_size_list_converter_style:	40 * @unit_base; //1.3rem;	/* 40 px */
+@font_size_list_unread_email:		44 * @unit_base; //1.375rem;	/* 44 px */
+@font_size_list_contents_text:		30 * @unit_base; //0.94rem;	/* 30 px */
+@font_size_list_name_text:		32 * @unit_base; //1.0rem;	/* 32 px */
+
+@style_list_li_dialogue_margin_left: 16 * @unit_base;
+@style_list_li_dialogue_border_left_width: 10 * @unit_base;
+@style_list_bubble_date_height:	40 * @unit_base;
+@style_list_bubble_date_text_align:	center;
+
+@color_list_dialogue_bg : rgba(236, 240, 242, 1);
+/***************************************************************************
+                   Shortcut Scroll
+***************************************************************************/
+@color_shortcutscroll_rollover_bg: none;
+@color_shortcutscroll_rollover_text: rgba(160, 172, 179, 1);
+@color_shortcutscroll_popup_bg: rgba(229, 229, 229, 1); // 00_fast_scroll_popup_bg.png
+@color_shortcutscroll_popup_shadow: rgba(199, 199, 199, 0.5);
+@color_shortcutscroll_popup_text: rgb(42, 137, 194);
+
+
+/***************************************************************************
+                   Popup
+***************************************************************************/
+@color_popup_info_style:		rgba(249, 249, 249, 1);
+@color_popup_basic_style_title:		rgba(249, 249, 249, 1);
+@color_popup_center_progressbar_title:	rgba(153, 153, 153, 1);
+@color_popup_text_progress_title:	rgba(249, 249, 249, 1);
+/* TODO : ninepatch popup title */
+@color_popup_title_bg:		rgba(80, 147, 182, 255);	/* popup_title_bg.png */
+@color_popup_text_bg:		rgba(236, 240, 242, 255);	/* popup_bg.png */
+@color_popup_button_bg:		rgba(209, 221, 228, 255);	/* popup_button_bg.png */
+@color_popup_font:			white;
+@color_popup_text_font:		black;
+
+@color_popup_buttonbg:		rgb(84, 126, 153);
+@color_popup_buttonbg_webkit:	-webkit-gradient(linear, left top, left bottom, from(rgb(84, 126, 153)), to(rgb(69, 105, 128)));
+@color_popup_buttonbg_moz:	-moz-linear-gradient(top, rgb(84, 126, 153), rgb(69, 105, 128));
+@color_popup_buttontext:	rgb(249, 249, 249);
+@color_popup_buttonbg_over:	rgb(94, 136, 163);
+@color_popup_buttonbg_press:	rgb(67, 160, 217);
+@color_popup_buttonbg_press_webkit:	-webkit-gradient(linear, left top, left bottom, from(rgb(67, 160, 217)), to(rgb(56, 139, 185)));
+@color_popup_buttonbg_press_moz:	-moz-linear-gradient(top, rgb(67, 160, 217), rgb(56, 139, 185));
+
+@font_size_popup_info_style:			42 * @unit_base; //1.3125rem;	/* 42px */
+@font_size_popup_basic_style_title:		38 * @unit_base; //1.1875rem;	/* 38px */
+@font_size_popup_center_progressbar_title:	26 * @unit_base; //0.8125rem;	/* 26px */
+@font_size_popup_text_progress_title:		42 * @unit_base; //1.3125rem;	/* 42px */
+@font_size_popup_button_text:			32 * @unit_base; //1.0rem;	/* 32px */
+
+.LESSpopup_button_style{
+	background: @color_popup_buttonbg;
+	background: @color_popup_buttonbg_webkit;
+	background: @color_popup_buttonbg_moz;
+	color: @color_popup_buttontext;
+}
+
+.LESSpopup_button_hover_style{
+	background: @color_popup_buttonbg_over;
+}
+
+.LESSpopup_button_press_style{
+	background: @color_popup_buttonbg_press;
+	background: @color_popup_buttonbg_press_webkit;
+	background: @color_popup_buttonbg_press_moz;
+}
+
+/***************************************************************************
+                    Button
+***************************************************************************/
+
+@color_button_normal:		rgb(151, 161, 167);
+@color_button_normal_webkit:	-webkit-gradient(linear, left top, left bottom, from(rgb(151, 161, 167)), to(rgb(122, 132, 141)));
+@color_button_normal_moz:	-moz-linear-gradient(top, rgb(151, 161, 167), rgb(122, 132, 141));
+
+@color_button_press:		rgb(67, 160, 217);
+@color_button_press_webkit:	-webkit-gradient(linear, left top, left bottom, from(rgb(67, 160, 217)), to(rgb(56, 139, 185)));
+@color_button_press_moz:	-moz-linear-gradient(top, rgb(67, 160, 217), rgb(56, 139, 185));
+
+@color_button_hover: 		rgb(161, 171, 177);
+
+@color_button_text_normal:	rgb(249, 249, 249);
+@color_button_text_white:	rgb(249, 249, 249);
+@color_button_text_press: 	rgb(249, 249, 249);
+
+@color_circlebutton_hover:		rgb(239, 119, 126);
+@color_circlebutton_hover_webkit:	-webkit-gradient(linear, left top, left bottom, from(rgb(198, 78, 85)), to(rgb(166, 43, 45)));
+@color_circlebutton_hover_moz:		-moz-linear-gradient(top, rgb(198, 78, 85), rgb(166,43,45));
+@color_circlebutton_press:		rgb(67, 160, 217);
+@color_circlebutton_press_webkit:       -webkit-gradient(linear, left top, left bottom, from(rgb(67, 160, 217)), to(rgb(56, 139, 185)));
+@color_circlebutton_press_moz:		-moz-linear-gradient(top, rgb(67, 160, 217), rgb(56, 139, 185));
+
+@color_button_EditText:		rgb(249, 249, 249);
+@color_button_EditTextPress:	rgb(249, 249, 249);
+@color_button_EditBG:		rgb(0, 0, 0);
+@color_button_EditBGPress:	rgb(0, 140, 210);
+
+@color_button_switch_BGon:		rgb(42, 126, 172);
+@color_button_switch_BGon_webkit:	-webkit-gradient(linear, left top, left bottom, from(rgb(33, 116, 167)), to(rgb(75, 165, 219)));
+@color_button_switch_BGon_moz:		-moz-linear-gradient(top, rgb(33, 116, 167), rgb(75, 165, 219));
+@color_button_switch_BGoff:		rgb(151, 161, 167);
+@color_button_switch_BGoff_text_color:	rgb(203, 203, 203);
+@color_button_switch_BGoff_webkit:	-webkit-gradient(linear, left top, left bottom, from(rgb(114, 114, 114)), to(rgb(141, 141, 141)));
+@color_button_switch_BGoff_moz:		-moz-linear-gradient(top, rgb(114, 114, 114), rgb(141, 141, 141));
+@color_button_switch_BGreed:		rgb(253, 253, 253);
+@color_button_switch_BGreed_webkit:	-webkit-gradient(linear, left top, left bottom, from(rgb(253, 253, 253)), to(rgb(231, 231, 231)));
+@color_button_switch_BGreed_moz:	-moz-linear-gradient(top, rgb(253, 253, 253), rgb(231, 231, 231));
+
+@radius_button_switch: 4px;
+@radius_button_switch_reed: 2px;
+
+@color_button_edit:			rgb(201, 88, 88);
+@color_button_edit_webkit:		-webkit-gradient(linear, left top, left bottom, from(rgb(201, 88, 88)), to(rgb(161, 40, 40)));
+@color_button_edit_moz:			-moz_linear-gradient(top, rgb(201, 88, 88), rgb(161, 40, 40));
+
+@color_button_edit_press:		rgb(147, 24, 24);
+@color_button_edit_press_webkit:	-webkit-gradient(linear, left top, left bottom, from(rgb(147, 24,24)), to(rgb(110, 23, 23)));
+@color_button_edit_press_moz:		-moz-linear-gradient(top, rgb(147, 24, 24), rgb(110, 23, 23));
+
+.LESSbutton_up_style{
+	background: @color_button_normal;
+	background: @color_button_normal_webkit;
+	background: @color_button_normal_moz;
+	color: @color_button_text_normal;
+}
+
+.LESSbutton_hover_style{
+	background: @color_button_hover;
+	color: @color_button_text_white;
+}
+
+.LESSbutton_down_style{
+	background: @color_button_press;
+	background: @color_button_press_webkit;
+	background: @color_button_press_moz;
+	color: @color_button_text_white;
+}
+
+.LESSbutton_text1_style{
+	font-family: @font_family;
+	font-weight: normal;
+	font-size: 1.0rem;
+	font-style:normal;
+	color: @color_button_text_normal;
+	&:hover {color: @color_button_text_press;}
+}
+
+.LESSbutton_box_style{
+	color: @color_button_text_white;
+	&:hover {color: @color_button_text_white;}
+}
+
+.LESScirclebutton_hover_style{
+	border-width: 0px;
+	background: @color_circlebutton_hover;
+	background: @color_circlebutton_hover_webkit;
+	backgronnd: @color_circlebutton_hover_moz;
+}
+
+.LESScirclebutton_press_style{
+	border-width: 0px;
+	background: @color_circlebutton_press;
+	background: @color_circlebutton_press_webkit;
+	background: @color_circlebutton_press_moz;
+}
+
+.LESStoggleswitch_on_style{
+	background: @color_button_switch_BGon;
+	background: @color_button_switch_BGon_webkit;
+	background: @color_button_switch_BGon_moz;
+	border-radius: @radius_button_switch;
+	-webkit-border-radius: @radius_button_switch;
+	-moz-border-radius: @radius_button_switch;
+}
+
+.LESStoggleswitch_off_style{
+	color: @color_button_switch_BGoff_text_color;
+	background: @color_button_switch_BGoff;
+	background: @color_button_switch_BGoff_webkit;
+	background: @color_button_switch_BGoff_moz;
+	border-radius: @radius_button_switch;
+	-webkit-border-radius: @radius_button_switch;
+	-moz-border-radius: @radius_button_switch;
+}
+
+.LESStoggleswitch_reed_style{
+	background: @color_button_switch_BGreed;
+	background: @color_button_switch_BGreed_webkit;
+	background: @color_button_switch_BGreed_moz;
+	border-radius: @radius_button_switch_reed;
+	-webkit-border-radius: @radius_button_switch_reed;
+	-moz-border-radius: @radius_button_switch_reed;
+}
+
+.LESSbutton_edit_style{
+	background: @color_button_edit;
+	background: @color_button_edit_webkit;
+	background: @color_button_edit_moz;
+	font-weight:bold;
+	color: rgb(249, 249, 249);
+}
+
+.LESSbutton_editpress_style{
+	background: @color_button_edit_press;
+	background: @color_button_edit_press_webkit;
+	background: @color_button_edit_press_moz;
+}
+
+.LESSbutton_edit_padding{
+	padding: 0.5em 0.8em;
+}
+
+/***************************************************************************
+		    Date Time picker color set
+***************************************************************************/
+@color_timepicker_selector_color:	rgb(42,137,194);
+
+/***************************************************************************
+                  Contextual Popup 
+***************************************************************************/
+@color_ctxpopup_text:			rgb(19, 58, 83);
+@color_ctxpopup_background:		rgb(219, 229, 239);
+@color_ctxpopup_border_left:	rgb(225, 235, 241);
+@color_ctxpopup_border_right:	rgb(174, 184, 190);
+@color_ctxpopup_border_bottom:	rgb(153, 176, 195);
+@color_ctxpopup_timepicker_text:	rgb( 105, 151, 173 );
+@color_ctxpopup_timepicker_text_focus:	rgb( 249, 249, 249 );
+
+/***************************************************************************
+                    DaySelector
+***************************************************************************/
+@color_dayselector_Btn_Sat:		rgba(0, 168, 231, 1); /* #00a8e7 */
+@color_dayselector_Btn_Sun:		rgba(240, 20, 2, 1); /* #f01402 */
+@color_dayselector_Btn_Mon_to_Fri:	rgba(249, 249, 249, 1); /* #f9f9f9 */	
+@color_dayselector_Btn_border:		rgba(26, 82, 116, 1); /* #f9f9f9 */	
+@color_dayselector_Btn_normal:		-webkit-linear-gradient(top,  rgb(125,157,178) 0%,rgb(84,121,144) 100%);
+@color_dayselector_Btn_press:		-webkit-linear-gradient(top,  rgb(59,119,150) 0%,rgb(47,91,117) 100%);
+
+
+/***************************************************************************
+                    OptionHeader
+***************************************************************************/
+@color_optionheader_Background:	rgba(26, 82, 116, 1); 
+@color_optionheader_bt:		-webkit-linear-gradient(top,  rgb(56,112,141) 0%,rgb(36,93,128) 100%);
+@color_optionheader_bt_press:	-webkit-linear-gradient(top,  rgb(74,164,218) 0%,rgb(43,138,195) 100%);
+@color_optionheader_tab_text:	rgba(249, 249, 249, 1); /* #f9f9f9 */
+
+
+/***************************************************************************
+                    SearchBar(forms.textinput)
+***************************************************************************/
+@color_searchbar_bg : rgba(215, 225, 232, 1);   /* #242424 */
+@color_searchbar_default_text : rgba(121, 131, 138, 1);       /* #828282 */
+@color_searchbar_input_field_bg : rgba(249, 249, 249, 1); /* #F9F9F9*/
+
+
+/***************************************************************************
+                    SegmentControl
+***************************************************************************/
+@color_segmentcontrol_btn_normal : -webkit-linear-gradient(top,  rgb(125,157,178) 0%,rgb(84,121,144) 100%);
+@color_segmentcontrol_btn_press : -webkit-linear-gradient(top,  rgb(59,119,150) 0%,rgb(47,91,117) 100%);
+@color_segmentcontrol_Seg_text : rgba(249, 249, 249, 1); /* #F9F9F9*/
+@color_segmentcontrol_Seg_text_pressed : rgba(249, 249, 249, 1); /* #F9F9F9*/
+
+
+/***************************************************************************
+                    ControlGroup
+***************************************************************************/
+@color_controlgroup_btn_border : rgba(26, 82, 116, 1); /* #252525 */
+
+
+/***************************************************************************
+                    Header / Footer 
+                    NavigationBar / ControlBar
+***************************************************************************/
+@color_bar_bg : -webkit-linear-gradient(top,  rgb(156,181,179) 0%,rgb(79,116,141) 100%);
+@color_bar_back_btn_press : rgba(26, 82, 116, 0.3); /* #1A5274 */
+@color_bar_btn_press : -webkit-linear-gradient(top,  rgb(74,164,218) 0%,rgb(43,138,195) 100%);
+@color_bar_btn_bg : transparent;
+@color_bar_back_btn_bg : transparent;
+
+@color_bar_seg_btn_border : rgba(0, 0, 0, 0.1);
+@color_bar_seg_text_press : rgba(249, 249, 249, 1); 
+@color_bar_seg_text_normal : rgba(249, 249, 249, 1); 
+@color_bar_seg_btn_press : -webkit-linear-gradient(top,  rgb(61,120,151) 0%,rgb(48,91,118) 100%);
+@color_bar_seg_btn_normal : -webkit-linear-gradient(top,  rgb(127,159,181) 0%,rgb(70,108,133) 100%);
+
+@color_bar_title_text : rgba(249, 249, 249, 1); /* #F9F9F9 */
+@color_bar_title_bg : -webkit-linear-gradient(top,  rgb(90,153,186) 0%,rgb(32,84,115) 100%);
+@color_bar_title_btn_bg : -webkit-linear-gradient(top,  rgb(80,149,185) 10%,rgb(43,107,147) 90%);
+@color_bar_title_btn_border : rgba(0, 0, 0, 0.1);
+
+@color_bar_footer_bg : -webkit-linear-gradient(top,  rgb(156,181,179) 0%,rgb(79,116,141) 100%);
+@color_bar_footer_btn_bg : transparent;
+
+@color_controlbar_btn_border : rgba(0, 0, 0, 0.1); /* #000000 */
+@color_controlbar_tabbbar_bg : -webkit-linear-gradient(top,  rgb(156,181,179) 0%,rgb(79,116,141) 100%);
+@color_controlbar_toolbbar_bg : -webkit-linear-gradient(top,  rgb(156,181,179) 0%,rgb(79,116,141) 100%);
+@color_controlbar_bg : -webkit-linear-gradient(top,  rgb(156,181,179) 0%,rgb(79,116,141) 100%);
+@color_controlbar_btn_text : rgba(249, 249, 249, 1); /* #F9F9F9 */
+@color_controlbar_btn_press : -webkit-linear-gradient(top,  rgb(61,121,150) 0%,rgb(48,91,118) 100%);
+
+@color_border_top : rgba(255, 255, 255, 0.5);
+@color_border_bottom : rgba(0, 0, 0, 0.5);
+
+/***************************************************************************
+                    Tickernoti
+***************************************************************************/
+@color_ticker_bg:			rgb(35, 90, 123);
+@color_ticker_text1:			rgb(249, 249, 249);
+@color_ticker_text2:			rgb(142, 170, 186);
+
+
+/***************************************************************************
+                    Smallpopup
+***************************************************************************/
+@color_smallpopup_bg:			rgb(215, 225, 232);
+@color_smallpopup_text:			rgb(77, 77, 77);
+
+
+/***************************************************************************
+                    No Contents
+***************************************************************************/
+@color_nocontents_text:			rgb(154, 145, 154);
+
+
+/***************************************************************************
+                    Slider
+***************************************************************************/
+@color_slider_handle_text:		rgb(42, 137, 194);
+@color_slider_popup_text:		rgb(249, 249, 249);
+
+
+/***************************************************************************
+                    Progress
+***************************************************************************/
+@color_progress_bar0:			rgb(178, 178, 178);
+@color_progress_bar1:			rgb(42, 137, 194);
+
+
+/***************************************************************************
+                   Handler
+***************************************************************************/
+@color_scrollview_handler_bg : rgba(150, 150, 150, 0.5);
+
+/***************************************************************************
+                   multimediaview
+***************************************************************************/
+@color_multimediaview_bg : rgb(249, 249, 249);
+@color_multimediaview_control_bg : rgba(249, 249, 249, 0.5);
+@color_multimediaview_button_bg : rgb(249, 249, 249);
+@color_multimediaview_timestamp_text : rgb(42, 137, 194);
+@color_multimediaview_duration_text : rgb(128, 128, 128);
+@color_multimediaview_bar_gray : rgb(178, 178, 178);
+@color_multimediaview_bar_active : rgb(42, 137, 194);
+@color_multimediaview_bar_handle : rgb(249, 249, 249);
+
+/***************************************************************************
+                   Color widgets
+***************************************************************************/
+@color_widgets_title_bg: rgb(235, 239, 241);
+@color_widgets_basic_border: rgb(192, 192, 192);
+@color_widgets_left_border: rgb(108, 168, 199);
+
+.LESScolortitle_background_style{
+        background-color: @color_widgets_title_bg;
+        border: 1px solid;
+        border-color: @color_widgets_basic_border;
+        border-left: 6px solid;
+        border-left-color: @color_widgets_left_border;
+}
+
+.LESShsvpicker_background_style{
+        background-color: @color_widgets_title_bg;
+        border: 1px solid;
+        border-color: @color_widgets_basic_border;
+        border-left: 6px solid;
+        border-left-color: @color_widgets_left_border;
+}
+
+.LESSpalette_background_style{
+        background-color: @color_widgets_title_bg;
+        border: 1px solid;
+        border-top: 6px solid;
+        border-color: @color_widgets_basic_border;
+}
+
+
+/***************************************************************************
+                   multibutton entry
+***************************************************************************/
+@color_multibuttonentry_bg : rgb(249, 249, 249);
+@color_multibuttonentry_block_text : rgb(255, 255, 255);
+@color_multibuttonentry_block_bg : rgb(60, 100, 155);
+@color_multibuttonentry_block_border : rgb(85, 131, 174);
+@color_multibuttonentry_press_bg : rgb(41, 137, 194);
+@color_multibuttonentry_press_border : rgb(93, 187, 244);
+@color_multibuttonentry_input_text : #222222;
+@color_multibuttonentry_link : rgb(100, 100, 100);
+
+
+/***************************************************************************
+                   mapview
+***************************************************************************/
+@color_mapview_button_bg : rgb(141, 141, 141);
+@color_mapview_button : rgb(128, 128, 128);
+@color_mapview_zoom_active : rgb(42, 137, 194);
+@color_mapview_zoom_gray : rgb(178, 178, 178);
+@color_mapview_zoom_handle : rgb(249, 249, 249);
+
+/***************************************************************************
+****************************************************************************
+									Layout ( position, padding, margin etc...)
+****************************************************************************
+***************************************************************************/
+@style-title-font-size : 52 * @unit_base;
+
+@style-corner-radius : .3em;
+@style-title-3btn-right-position : 228 * @unit_base;
+@style-title-extended-2btn-width : 688 * @unit_base;
+@style-title-extended-2btn-radio-width : 343 * @unit_base;
+@style-title-extended-3btn-width : 688 * @unit_base;
+@style-title-extended-3btn-radio-width : 229 * @unit_base;
+@style-title-extended-4btn-width : 688 * @unit_base;
+@style-title-extended-4btn-radio-width : 171 * @unit_base;
+
+@style-title-btn-left-positon : 0 * @unit_base;
+@style-title-btn-right-positon : 114 * @unit_base;
+
+@style-back-btn-left : 44 * @unit_base;
+@style-back-btn-arrow-top : 5 * @unit_base;
+
+@style-title-min-height : 62 * @unit_base;
+@style-title-extended-margin : -30 * @unit_base;
+/***************************************************************************
+									Navigation
+***************************************************************************/
+
+.LESStitle-diff-style {
+	text-align: left;
+	margin: 19*@unit_base 135*@unit_base 19*@unit_base 16*@unit_base;
+}
+
+.LESStitle-border {
+	border-style: solid;
+	border-width : 1px;
+	border-bottom-color: @color_border_bottom;
+	border-bottom-width: 2px;
+	border-top-color: @color_border_top;
+
+	border-left-color : @color_bar_title_btn_border;
+	border-right-color : @color_bar_title_btn_border;
+
+	font-weight : bold;
+	
+	-webkit-border-radius: 0px;
+}
+
+.LESSextended-controlgroup-border {
+	border-style : solid;
+	border-width : 1px;
+	border-bottom-width: 2px;
+
+	border-bottom-color: @color_border_bottom;
+	border-top-color: @color_border_top;
+	border-left-color: @color_bar_seg_btn_border;
+	border-right-color: @color_bar_seg_btn_border;
+}
+
+.LESSback-btn-background {
+	background : none;
+}
+
+.LESStitle-btn-left {
+	right : @style-title-btn-left-positon;
+}
+
+.LESSbtn-back {
+	width : 144 * @unit_base;
+	height : 114 * @unit_base;
+	top : 0 * @unit_base;
+	right : 0 * @unit_base;
+}
+
+.LESSbtn-back-inner {
+	width : 144 * @unit_base;
+	height : 114 * @unit_base;
+}
+
+.LESSbtn-arrow-position {
+	left : 20 * @unit_base;
+	top : 30 * @unit_base;
+}
+
+.LESSdialogue-border-style {
+	border-right-style : solid;
+	border-right-color : black;
+	border-right-width : 1px;
+}
+
+.LESSdialogue-divider {
+	padding-top : 36 * @unit_base;
+	padding-bottom : 10 * @unit_base;
+	padding-left : 10 * @unit_base;
+
+	margin-left : 16 * @unit_base;
+	margin-right : 16 * @unit_base;
+
+	background : rgba(249, 249, 249, 1);
+	font-size : 32 * @unit_base;
+	font-weight : bold;
+	color : rgba(92, 151, 187, 1);
+}
