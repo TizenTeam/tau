@@ -60,7 +60,7 @@ $( document ).ready( function () {
 		} ).length, 1 );
 
 		/* Clear button preesed. */
-		$( "a.ui-input-clear" ).trigger( "tap" );
+		$( "a.ui-input-clear" ).trigger( "click" );
 		equal( $("#searchbar-content p").filter( function ( index ) {
 			return $( this ).css( "display" ) != "none";
 		} ).length, 30 );
@@ -70,7 +70,7 @@ $( document ).ready( function () {
 		equal( $divSearchbar.find( "a.ui-input-cancel" ).hasClass( "ui-btn-icon-cancel" ), true );
 
 		/* Cancel button pressed. */
-		$( "a.ui-btn-icon-cancel" ).trigger( "tap" );
+		$( "a.ui-btn-icon-cancel" ).trigger( "click" );
 		notEqual( $( "div.ui-image-search" ).css( "display" ), "none" );
 
 		start();

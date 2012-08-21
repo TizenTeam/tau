@@ -4,10 +4,6 @@ $(document).ready( function () {
 	asyncTest( "Auto-initialization", function () {
 		$.testHelper.pageSequence( [
 			function () {
-				$.testHelper.openPage( "#page-1" );
-			},
-
-			function () {
 				var plain = $("#pop_plain"),
 					plainBtn = $("#btn_plain"),
 					horizontal = $("#pop_horizontal"),
@@ -34,10 +30,6 @@ $(document).ready( function () {
 	asyncTest( "Open and Placements", function () {
 		$.testHelper.pageSequence( [
 			function () {
-				$.testHelper.openPage( "#page-1" );
-			},
-
-			function () {
 				var plain = $("#pop_plain").ctxpopup(),
 					horizontal = $("#pop_horizontal").ctxpopup(),
 					buttons = $("#pop_buttons").ctxpopup();
@@ -50,13 +42,17 @@ $(document).ready( function () {
 						parents = popup.parents(".ui-popupwindow"),
 						popPos,
 						popDim,
-						segment = 4,
+						segment = 5,
 						closed = 0,
 						open = 0;
 
-					popup.bind( "closed", function () {
+					popup.bind( "popupafterclose", function () {
 						// tests event trigger
 						closed++;
+						if ( closed == open ) {
+							equal( closed, open, "should 'popupafterclose' triggered." );
+							start();
+						}
 					});
 
 					while ( y <= height ) {
@@ -68,6 +64,7 @@ $(document).ready( function () {
 								width: parents.width(),
 								height: parents.height()
 							};
+
 							if ( popPos.left < 0 || popPos.top < 0 || popPos.left > (width - popDim.width) || popPos.top > (height - popDim.height) ) {
 								throw "Pop up occured at wrong position: (" + parseInt(popPos.left, 10) + "," + parseInt(popPos.top, 10) + "," + popDim.width + "," + popDim.height + ")";
 							}
@@ -78,9 +75,11 @@ $(document).ready( function () {
 						y += height / segment;
 						x = 0;
 					}
-
-					equal( closed, open, "should 'closed' triggered." );
-
+					setTimeout( function() {
+						if ( closed != open )
+							throw "  Error, popupafterclose event was not triggering ";
+					}, 1000 * 10 );
+					stop();
 					return true;
 				}
 

@@ -343,12 +343,6 @@
 
 			this._ui.container.removeClass("in").addClass("reverse out");
 
-			if ( this.options.fade ) {
-				this._ui.screen.animate( {opacity: 0}, "fast", hideScreen );
-			} else {
-				hideScreen();
-			}
-
 			if ( this.options.transition === "none" ) {
 				this._ui.container
 					.addClass("ui-selectmenu-hidden")
@@ -362,6 +356,12 @@
 						.removeAttr("style");
 					self.element.trigger("popupafterclose");
 				} );
+			}
+
+			if ( this.options.fade ) {
+				this._ui.screen.animate( {opacity: 0}, "fast", hideScreen );
+			} else {
+				hideScreen();
 			}
 		},
 
