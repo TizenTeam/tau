@@ -1,0 +1,47 @@
+From cdada84aa4444504a17346146a8b08c9e633eaaa Mon Sep 17 00:00:00 2001
+From: Jun Jinhyuk <jinhyuk.jun@samsung.com>
+Date: Tue, 21 Aug 2012 14:45:17 +0900
+Subject: [PATCH] JQM generate checkbox radio has class in list
+
+Change-Id: Ie958c0a960d14494f476e2354677fcc588b7a32c
+---
+ .../js/jquery.mobile.listview.js                   |   16 ++++++++++++++++
+ 1 files changed, 16 insertions(+), 0 deletions(-)
+
+diff --git a/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.listview.js b/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.listview.js
+index 4ccdd73..a290e32 100644
+--- a/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.listview.js
++++ b/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.listview.js
+@@ -151,6 +151,19 @@ $.widget( "mobile.listview", $.mobile.widget, {
+ 			}
+ 		}
+ 	},
++	
++	_addCheckboxRadioClasses: function( containers )
++	{
++		var i, inputAttr, len = containers.length;
++		for ( i = 0; i < len; i++ ) {
++			inputAttr = $( containers[ i ] ).find( "input" );
++			if ( inputAttr.attr( "type" ) == "checkbox" ) {
++				$( containers[ i ] ).addClass( "ui-li-has-checkbox" );
++			} else if ( inputAttr.attr( "type" ) == "radio" ) {
++				$( containers[ i ] ).addClass( "ui-li-has-radio" );
++			}
++		}
++	},
+ 
+ 	refresh: function( create ) {
+ 		this.parentPage = this.element.closest( ".ui-page" );
+@@ -313,6 +326,9 @@ $.widget( "mobile.listview", $.mobile.widget, {
+ 		this._addThumbClasses( li );
+ 		this._addThumbClasses( $list.find( ".ui-link-inherit" ) );
+ 
++		this._addCheckboxRadioClasses( li );
++		this._addCheckboxRadioClasses( $list.find( ".ui-link-inherit" ) );
++
+ 		this._refreshCorners( create );
+ 	},
+ 
+-- 
+1.7.4.1
+
