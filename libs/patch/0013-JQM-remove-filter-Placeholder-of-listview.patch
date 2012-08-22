@@ -1,0 +1,27 @@
+From 731daf9729c9163dd0db78d72acc0c21ff334ca8 Mon Sep 17 00:00:00 2001
+From: Minkyu Kang <mk7.kang@samsung.com>
+Date: Mon, 20 Aug 2012 15:48:11 +0900
+Subject: [PATCH] JQM: remove filter Placeholder of listview
+
+Change-Id: I03d5e62e33d3e1fe7455e9b30d2cc479c092503f
+Signed-off-by: Minkyu Kang <mk7.kang@samsung.com>
+---
+ .../js/jquery.mobile.listview.filter.js            |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.listview.filter.js b/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.listview.filter.js
+index a2420d8..929b221 100644
+--- a/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.listview.filter.js
++++ b/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.listview.filter.js
+@@ -9,7 +9,7 @@ define( [ "jquery", "./jquery.mobile.listview", "./jquery.mobile.forms.textinput
+ (function( $, undefined ) {
+ 
+ $.mobile.listview.prototype.options.filter = false;
+-$.mobile.listview.prototype.options.filterPlaceholder = "Filter items...";
++$.mobile.listview.prototype.options.filterPlaceholder = "";
+ $.mobile.listview.prototype.options.filterTheme = "c";
+ $.mobile.listview.prototype.options.filterCallback = function( text, searchValue ){
+ 	return text.toLowerCase().indexOf( searchValue ) === -1;
+-- 
+1.7.9.5
+
