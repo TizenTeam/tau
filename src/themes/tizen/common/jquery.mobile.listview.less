@@ -211,6 +211,12 @@
 			.ui-btn-inner {
 				padding : 10 * @unit_base 10 * @unit_base 10 * @unit_base 10 * @unit_base;
 				line-height : 40 * @unit_base;
+
+				color : transparent;
+
+				.ui-icon {
+					left : 5 * @unit_base;
+				}
 			}
 		}
 	}
@@ -297,7 +303,24 @@ li.ui-li-thumbnail-right {
 		height: 60 * @unit_base;
 		padding-top : 0px;
 		padding-bottom : 0px;
+
+		padding-left : 92 * @unit_base;
+		line-height : 60 * @unit_base;
 	}
+
+	&[data-style="checkexpandable"] {
+		height: 60 * @unit_base;
+		padding-top : 0px;
+		padding-bottom : 0px;
+
+		padding-left : 92 * @unit_base;
+		line-height : 60 * @unit_base;
+	}
+}
+
+.ui-divider-expand-div {
+
+
 }
 
 
