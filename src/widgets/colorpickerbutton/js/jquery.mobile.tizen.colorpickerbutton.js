@@ -74,7 +74,7 @@
 			},
 			hideInput: true,
 			closeText: "Close",
-			initSelector: "input[type='color'], :jqmData(type='color'), :jqmData(role='colorpickerbutton')"
+			initSelector: ":jqmData(type='color'), :jqmData(role='colorpickerbutton')"
 		},
 
 		_htmlProto: {
