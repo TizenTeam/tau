@@ -170,6 +170,7 @@
 @color_button_hover: 		rgb(161, 171, 177);
 
 @color_button_text_normal:	rgb(249, 249, 249);
+@color_button_text_black:	rgb(0, 0, 0);
 @color_button_text_white:	rgb(249, 249, 249);
 @color_button_text_press: 	rgb(249, 249, 249);
 
@@ -211,7 +212,6 @@
 	background: @color_button_normal;
 	background: @color_button_normal_webkit;
 	background: @color_button_normal_moz;
-	color: @color_button_text_normal;
 }
 
 .LESSbutton_hover_style{
@@ -231,8 +231,8 @@
 	font-weight: normal;
 	font-size: 1.0rem;
 	font-style:normal;
-	color: @color_button_text_normal;
-	&:hover {color: @color_button_text_press;}
+	color: @color_button_text_black;
+	&:hover {color: @color_button_text_black;}
 }
 
 .LESSbutton_box_style{
