@@ -59,6 +59,7 @@
 
 			showScrollBars:    true,
 			overshootEnable:   false,
+			scrollJump:        false,
 		},
 
 		_makePositioned: function ( $ele ) {
@@ -108,6 +109,7 @@
 
 			this._add_event();
 			this._add_scrollbar();
+			this._add_scroll_jump();
 		},
 
 		_startMScroll: function ( speedX, speedY ) {
@@ -340,7 +342,7 @@
 				return;
 			}
 
-			if ( y >= 0 ) {
+			if ( y > 0 ) {
 				sy = -y;
 			} else if ( y < -scroll_height ) {
 				sy = -y - scroll_height;
@@ -837,6 +839,37 @@
 			this._scrollbar_showed = false;
 		},
 
+		_add_scroll_jump: function () {
+			var $c = this._$clip,
+				self = this,
+				top_btn,
+				left_btn;
+
+			if ( !this.options.scrollJump ) {
+				return;
+			}
+
+			if ( this._vTracker ) {
+				top_btn = $( '<div class="ui-scroll-jump-top-bg ui-btn" data-theme="s">' +
+						'<div class="ui-scroll-jump-top"></div></div>' );
+				$c.append( top_btn );
+
+				top_btn.bind( "vclick", function () {
+					self.scrollTo( 0, 0, self.options.overshootDuration );
+				} );
+			}
+
+			if ( this._hTracker ) {
+				left_btn = $( '<div class="ui-scroll-jump-left-bg ui-btn" data-theme="s">' +
+						'<div class="ui-scroll-jump-left"></div></div>' );
+				$c.append( left_btn );
+
+				left_btn.bind( "vclick", function () {
+					self.scrollTo( 0, 0, self.options.overshootDuration );
+				} );
+			}
+		},
+
 		_set_scrollbar_size: function () {
 			var $c = this._$clip,
 				$v = this._$view,
@@ -1019,7 +1052,8 @@
 
 				opts = {
 					direction: dir || undefined,
-					scrollMethod: $( this ).jqmData("scroll-method") || undefined
+					scrollMethod: $( this ).jqmData("scroll-method") || undefined,
+					scrollJump: $( this ).jqmData("scroll-jump") || undefined
 				};
 
 				$( this ).scrollview( opts );
