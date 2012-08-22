@@ -41,7 +41,7 @@ index c5f32b4..d1b992b 100644
  		buttonClass += o.corners ? " ui-btn-corner-all" : "";
  
 +		// To distinguish real buttons
-+		if( el.jqmData("role") == "button" || e.tagName == "BUTTON" ){
++		if( el.jqmData("role") == "button" || e.tagName == "BUTTON" || e.tagName == "A" ){
 +			buttonClass += " ui-btn-box-" + o.theme;
 +		}
 +
