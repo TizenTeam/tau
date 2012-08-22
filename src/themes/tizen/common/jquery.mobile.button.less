@@ -16,7 +16,7 @@
 .ui-btn:focus, .ui-btn:active { outline: none; }
 .ui-header .ui-btn, .ui-footer .ui-btn, .ui-bar .ui-btn { display: inline-block; font-size: 13 * @unit_base; margin: 0; }
 .ui-btn-inline { display: inline-block; }
-.ui-btn-inner { padding: .5em 32 * @unit_base; display: block; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; position: relative; zoom: 1; }
+.ui-btn-inner { padding: .5em 36 * @unit_base; display: block; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; position: relative; zoom: 1; }
 .ui-header .ui-btn-inner, .ui-footer .ui-btn-inner, .ui-bar .ui-btn-inner { padding: 0.7em 0 0.7em; }  /* wongi_1024 : Button text middle align */
 .ui-header .ui-btn-inner.ui-btn-icon-only , .ui-footer .ui-btn-inner, .ui-bar .ui-btn-inner.ui-btn-icon-only { padding: .4em 8 * @unit_base .5em; }	/* wongi_1024 : Button text middle align */
 .ui-btn-icon-notext { width: 24 * @unit_base; height: 24 * @unit_base; }
@@ -70,8 +70,9 @@
 .ui-btn-text
 {
 	/*padding-left : 80px;*/	//wongi_1017
-    margin-left: auto;
-    margin-right: auto;	
+	margin-left: auto;
+	margin-right: auto;
+	padding:0 1px; /* Webkit width(ellipsis) problem workaround */
 }
 
 .ui-li .ui-btn.ui-btn-icon_only
@@ -247,6 +248,12 @@
 .ui-btn-inner.ui-btn-icon-only
 {
 	padding: 32 * @unit_base 32 * @unit_base;
+}
+
+.ui-btn-icon-only .ui-btn-text
+{
+	position: absolute;
+	left: -9999px;
 }
 
 .ui-btn-edit .ui-btn-inner.ui-btn-icon-only

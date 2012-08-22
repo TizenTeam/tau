@@ -62,9 +62,9 @@ index c5f32b4..d1b992b 100644
 +
 +		if ( o.icon ) {
 +			if ( $(el).text().length > 0 ) {
-+				o.iconpos == "right" ?
++				/* o.iconpos == "right" ?
 +					textClass += " ui-btn-text-padding-right" :
-+					textClass += " ui-btn-text-padding-left";
++					textClass += " ui-btn-text-padding-left"; */
 +
 +				switch ( o.iconpos ) {
 +				case "right" :
