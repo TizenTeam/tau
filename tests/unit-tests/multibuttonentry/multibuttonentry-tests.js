@@ -18,7 +18,7 @@
 		ok(multibuttonentry.length > 0, "Create");
 
 		/* length */
-		equal( multibuttonentry.multibuttonentry("length"), 0 ,"API : length ");
+		equal( multibuttonentry.multibuttonentry("length"), 0, "API : length ");
 
 		/* Add */
 		multibuttonentry.multibuttonentry("add", "string1");
@@ -31,17 +31,17 @@
 		/* Select */
 		multibuttonentry.multibuttonentry("select", 1);
 		outputText = multibuttonentry.multibuttonentry("select");
-		equal( outputText, "..." , "API : select ( 1 )");
+		equal( outputText, "string2", "API : select ( 1 )");
 
 		/* Focus Out */
 		multibuttonentry.multibuttonentry("focusOut");
-		status = multibuttonentry.find(".ui-multibuttonentry-desclabel").length === 1 ? true : false;
-		equal( status, true , "API : focusOut ");
+		status = multibuttonentry.hasClass("ui-multibuttonentry-focusout");
+		equal( status, true, "API : focusOut ");
 
 		/* Focus In */
 		multibuttonentry.multibuttonentry("focusIn");
-		status = multibuttonentry.find(".ui-multibuttonentry-desclabel").length === 1 ? true : false;
-		equal(status, false,  "API : focusIn ");
+		status = multibuttonentry.hasClass("ui-multibuttonentry-focusin");
+		equal(status, true,  "API : focusIn ");
 
 		/* Remove */
 		multibuttonentry.multibuttonentry("remove", 0);
@@ -49,7 +49,7 @@
 
 		/* Reamove all */
 		multibuttonentry.multibuttonentry("remove");
-		equal( multibuttonentry.multibuttonentry("length"), 0 ,"API : remove");
+		equal( multibuttonentry.multibuttonentry("length"), 0, "API : remove");
 
 		/* input */
 		inputText = "multibuttonentry";

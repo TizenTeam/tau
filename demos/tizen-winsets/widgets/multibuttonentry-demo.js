@@ -43,8 +43,8 @@
 			$( ":jqmData(role='multibuttonentry')" ).multibuttonentry( "focusOut", 0 );
 		});
 
-		$( "#MBTdestoryTest" ).click( function () {
-			$( ":jqmData(role='multibuttonentry')" ).multibuttonentry( "destory" );
+		$( "#MBTdestroyTest" ).click( function () {
+			$( ":jqmData(role='multibuttonentry')" ).multibuttonentry( "destroy" );
 		});
 
 		$( "#contentList a" ).click( function () {
