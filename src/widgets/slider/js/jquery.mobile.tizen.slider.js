@@ -142,11 +142,11 @@
 			case 'text':
 				slider.before( $('<div class="ui-slider-left-text">' +
 					'<span style="position:relative;top:0.4em;">' +
-					inputElement.attr('data-text-left') +
+					inputElement.attr('data-text-left').substring( 0, 3) +
 					'</span></div>') );
 				slider.after( $('<div class="ui-slider-right-text">' +
 					'<span style="position:relative;top:0.4em;">' +
-					inputElement.attr('data-text-right') +
+					inputElement.attr('data-text-right').substring( 0, 3) +
 					'</span></div>') );
 				break;
 			}
