@@ -316,9 +316,27 @@ li.ui-li-thumbnail-right {
 		padding-left : 92 * @unit_base;
 		line-height : 60 * @unit_base;
 	}
+
+	&[data-style="expandable"] {
+		height: 60 * @unit_base;
+		padding-top : 0px;
+		padding-bottom : 0px;
+
+		line-height : 60 * @unit_base;
+	}
 }
 
 .ui-divider-expand-div {
+	position : absolute;
+
+	width : 98 * @unit_base;
+	height : 42 * @unit_base;
+	top : 10 * @unit_base;
+	right : 0px;
+
+	border-left-width : 1px;
+	border-left-style : solid;
+	border-left-color : rgba(42, 137, 194, 0.5);
 
 
 }
