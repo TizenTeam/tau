@@ -33,10 +33,10 @@
  *
  * APIs
  *
- *  show(): show the notification.
- *  hide(): hide the notification.
+ *  open(): open the notification.
+ *  close(): close the notification.
  *  text(text0, text1): set texts or get texts
- *  setIcon(src): set the icon (tickernoti only)
+ *  icon(src): set the icon (tickernoti only)
  *
  * Events
  *
@@ -62,7 +62,7 @@
 	$.widget( "tizen.notification", $.mobile.widget, {
 		btn: null,
 		text_bg: [],
-		icon: [],
+		icon_img: [],
 		running: false,
 
 		_get_text: function () {
@@ -102,14 +102,14 @@
 			this._set_text( text0, text1 );
 		},
 
-		setIcon: function ( src ) {
+		icon: function ( src ) {
 			if ( src === undefined ) {
 				return;
 			}
 
-			this.icon.detach();
-			this.icon = $( "<img src='" + src + "' class='ui-ticker-icon'>" );
-			$( this.element ).find(".ui-ticker").append( this.icon );
+			this.icon_img.detach();
+			this.icon_img = $( "<img src='" + src + "' class='ui-ticker-icon'>" );
+			$( this.element ).find(".ui-ticker").append( this.icon_img );
 		},
 
 		_refresh: function () {
@@ -120,7 +120,7 @@
 					.removeClass("hide");
 		},
 
-		show: function () {
+		open: function () {
 			var container = this._get_container();
 
 			if ( this.running ) {
@@ -135,7 +135,7 @@
 			this.running = true;
 		},
 
-		hide: function () {
+		close: function () {
 			var container = this._get_container();
 
 			if ( !this.running ) {
@@ -177,12 +177,12 @@
 				container.find(".ui-ticker-btn").append( this.btn );
 
 				this.btn.bind( "vmouseup", function () {
-					self.hide();
+					self.close();
 				});
 			}
 
 			container.bind( 'vmouseup', function () {
-				self.hide();
+				self.close();
 			});
 		},
 
@@ -241,13 +241,13 @@
 				$( this.text_bg[0] ).addClass("ui-ticker-text1-bg");
 				$( this.text_bg[1] ).addClass("ui-ticker-text2-bg");
 
-				this.icon = elem.find("img");
+				this.icon_img = elem.find("img");
 
-				if ( this.icon.length ) {
-					$( this.icon ).addClass("ui-ticker-icon");
+				if ( this.icon_img.length ) {
+					$( this.icon_img ).addClass("ui-ticker-icon");
 
-					for ( i = 1; i < this.icon.length; i++ ) {
-						$( this.icon[i] ).css( "display", "none" );
+					for ( i = 1; i < this.icon_img.length; i++ ) {
+						$( this.icon_img[i] ).css( "display", "none" );
 					}
 				}
 			} else {

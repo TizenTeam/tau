@@ -68,15 +68,15 @@ $( document ).bind("pagecreate", function () {
 	});
 
 	$('#noti-demo').bind('vmouseup', function ( e ) {
-		$('#notification').notification('show');
+		$('#notification').notification('open');
 	});
 
 	$('#noti-icon1').bind('vclick', function ( e ) {
-		$('#notification').notification('setIcon', './test/icon02.png');
+		$('#notification').notification('icon', './test/icon02.png');
 	});
 
 	$('#noti-icon2').bind('vclick', function ( e ) {
-		$('#notification').notification('setIcon', './test/icon01.png');
+		$('#notification').notification('icon', './test/icon01.png');
 	});
 
 	$('#imageslider-add').bind('vmouseup', function ( e ) {
@@ -86,13 +86,13 @@ $( document ).bind("pagecreate", function () {
 	});
 
 	$('#imageslider-del').bind('vmouseup', function ( e ) {
-		$('#imageslider').imageslider('del');
+		$('#imageslider').imageslider('delete');
 	});
 
 	$('#selectioninfo-demo').bind('vmouseup', function ( e ) {
 		$('#smallpopup_selectioninfo').notification( "text",
 			$("#dayselector1").find(".ui-checkbox-on").length + " items are selected" );
-		$('#smallpopup_selectioninfo').notification('show');
+		$('#smallpopup_selectioninfo').notification('open');
 	});
 
 	$('#groupindex-demo').bind('pageshow', function () {
