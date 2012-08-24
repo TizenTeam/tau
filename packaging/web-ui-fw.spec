@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.1.39
+Version:    0.1.40
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -88,7 +88,11 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 ###############################
 %changelog
 
-* Fri Aug 24 2012 Minkyu Kang <mk7.kang@samasung.com> 0.1.39
+* Fri Aug 24 2012 Minkyu Kang <mk7.kang@samsung.com> 0.1.40
+- FIX:
+	- build error fixed
+
+* Fri Aug 24 2012 Minkyu Kang <mk7.kang@samsung.com> 0.1.39
 - FIX:
 	- listview: style fix, remove filter placeholder
 	- controlbar: divide styles
@@ -99,11 +103,11 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 	- add white and black theme
 	- support new GUI guide
 
-* Mon Aug 20 2012 Minkyu Kang <mk7.kang@samasung.com> 0.1.38
+* Mon Aug 20 2012 Minkyu Kang <mk7.kang@samsung.com> 0.1.38
 - FIX:
 	- fix coment of version tag
 
-* Fri Aug 17 2012 Minkyu Kang <mk7.kang@samasung.com> 0.1.37
+* Fri Aug 17 2012 Minkyu Kang <mk7.kang@samsung.com> 0.1.37
 - FIX :
 	- button: fix alignment
 	- listview: adjust the main text width
