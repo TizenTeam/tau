@@ -175,20 +175,19 @@
 		},
 
 		_placementCoords: function ( x, y, cw, ch ) {
-			var scrollTop = $( window ).scrollTop(),
-				screenHeight = $( window ).height(),
+			var screenHeight = $( window ).height(),
 				screenWidth = $( window ).width(),
 				halfheight = ch / 2,
 				maxwidth = parseFloat( this._ui.container.css( "max-width" ) ),
-				roomtop = y - scrollTop,
-				roombot = scrollTop + screenHeight - y,
+				roomtop = y,
+				roombot = screenHeight - y,
 				newtop,
 				newleft;
 
 			if ( roomtop > ch / 2 && roombot > ch / 2 ) {
 				newtop = y - halfheight;
 			} else {
-				newtop = roomtop > roombot ? scrollTop + screenHeight - ch - 30 : scrollTop + 30;
+				newtop = roomtop > roombot ? screenHeight - ch - 30 : 30;
 			}
 
 			if ( cw < maxwidth ) {
@@ -214,7 +213,6 @@
 				popupWidth,
 				menuHeight,
 				menuWidth,
-				scrollTop,
 				screenHeight,
 				screenWidth,
 				roomtop,
@@ -239,14 +237,13 @@
 
 			menuHeight = this._ui.container.innerHeight();
 			menuWidth = this._ui.container.innerWidth();
-			scrollTop = $( window ).scrollTop();
 			screenHeight = $( window ).height();
 			screenWidth = $( window ).width();
-			roomtop = y - scrollTop;
-			roombot = scrollTop + screenHeight - y;
+			roomtop = y;
+			roombot = screenHeight - y;
 			halfheight = menuHeight / 2;
 			maxwidth = parseFloat( this._ui.container.css( "max-width" ) );
-			newtop = ( screenHeight - menuHeight ) / 2 + scrollTop;
+			newtop = ( screenHeight - menuHeight ) / 2;
 
 			if ( menuWidth < maxwidth ) {
 				newleft = ( screenWidth - menuWidth ) / 2;
