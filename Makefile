@@ -3,8 +3,7 @@ SHELL := /bin/bash
 ## Project setting
 DEBUG ?= yes
 PROJECT_NAME = tizen-web-ui-fw
-PACKAGE_VERSION := $(shell cat packaging/web-ui-fw.spec | grep "Version:" | sed -e 's@Version:[[:space:]]*\([0-9][0-9\.]*\)@\1@' )
-VERSION := $(shell echo ${PACKAGE_VERSION} | sed "s/^\([0-9][0-9]*\.[0-9][0-9]*\)\..*/\1/" )
+VERSION = 0.1
 VERSION_COMPAT =
 THEME_NAME = default
 
@@ -203,7 +202,9 @@ themes:
 compress: widgets loader themes
 	# Javacript code compressing
 	@@echo "	# Compressing...."; \
-	cat ${COPYING_FILE} | sed -e "s/@PACKAGE_VERSION@/${PACKAGE_VERSION}/g" >> ${FW_MIN}; \
+	echo '/*' > ${FW_MIN}; \
+	cat ${COPYING_FILE} >> ${FW_MIN}; \
+	echo '*/' >> ${FW_MIN}; \
 	uglifyjs --ascii -nc ${FW_JS} >> ${FW_MIN}; \
 	# CSS compressing
 	@@cd ${THEME_OUTPUT_ROOT}; \
@@ -302,7 +303,6 @@ init: clean
 
 	# Initializing...
 	@@mkdir -p ${JS_OUTPUT_ROOT}
-	@@cat ${COPYING_FILE} | sed -e "s/@PACKAGE_VERSION@/${PACKAGE_VERSION}/g" > ${FW_JS}
 	@@mkdir -p ${THEME_OUTPUT_ROOT}
 	@@mkdir -p ${CSS_OUTPUT_ROOT}
 	@@mkdir -p ${CSS_IMAGES_OUTPUT_DIR}
