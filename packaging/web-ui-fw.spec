@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.1.38
+Version:    0.1.39
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -30,6 +30,13 @@ make DESTDIR=%{buildroot} install
 %files
 /usr/share/tizen-web-ui-fw/*/js
 /usr/share/tizen-web-ui-fw/latest
+
+###############################
+%package -n web-ui-fw-theme-tizen-gray
+BuildArch:  noarch
+Summary:    Tizen Web UI Framework Theme : tizen-gray
+%Description -n web-ui-fw-theme-tizen-gray
+    Tizen Web UI Framework Theme : tizen-gray
 
 ###############################
 %package -n web-ui-fw-theme-tizen-black
@@ -80,6 +87,17 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+
+* Fri Aug 24 2012 Minkyu Kang <mk7.kang@samasung.com> 0.1.39
+- FIX:
+	- listview: style fix, remove filter placeholder
+	- controlbar: divide styles
+	- scrollview: don't skip dragging when click button or inputbox
+	- slider: trim the text on text slider
+- Spec changes:
+	- remove gray and blue theme
+	- add white and black theme
+	- support new GUI guide
 
 * Mon Aug 20 2012 Minkyu Kang <mk7.kang@samasung.com> 0.1.38
 - FIX:
