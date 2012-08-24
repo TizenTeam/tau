@@ -4,9 +4,6 @@ path_to_be_removed=( \
 	build.sh \
 	debian \
 	demos/aroundMe \
-	demos/baseline \
-	demos/gallery \
-	demos/nbeat-white \
 	demos/phonebook \
 	deprecated \
 	deps.dot \
@@ -20,9 +17,7 @@ path_to_be_removed=( \
 	src/jqm \
 	src/candidates \
 	src/themes/default \
-	src/themes/nbeat-black \
-	src/themes/nbeat-white \
-	tests \
+	src/widgets/mapview \
 	tools/cleanup-src.sh )
 
 cd `dirname $0`/../
