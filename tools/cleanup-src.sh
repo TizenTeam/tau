@@ -14,10 +14,12 @@ path_to_be_removed=( \
 	limbo \
 	README*	\
 	run.sh \
+	rule-checker \
 	src/jqm \
 	src/candidates \
 	src/themes/default \
 	src/widgets/mapview \
+	tools/export-to-open-git.sh	\
 	tools/cleanup-src.sh )
 
 cd `dirname $0`/../
@@ -36,6 +38,7 @@ for w in "${prop_widgets[@]}"; do
 	echo "Remove widget: $w"
 	rm -rf src/widgets/${w}
 	find demos/tizen-winsets/ -name "*${w}*" -exec rm -rf {} \;
+	find tests/ -name "*${w}*" -exec rm -rf {} \;
 	find src/themes/ -name "*${w}*" -exec rm -rf {} \;
 	grep -r "$w" src/themes/ | cut -f1 -d: | xargs sed -i -e "/${w}/d"
 
