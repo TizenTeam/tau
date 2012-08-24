@@ -40,8 +40,9 @@ $(document).ready( function () {
 						x = 0,
 						y = 0,
 						parents = popup.parents(".ui-popupwindow"),
-						popPos,
 						popDim,
+						popPosX = 0,
+						popPosY = 0,
 						segment = 5,
 						closed = 0,
 						open = 0;
@@ -59,14 +60,15 @@ $(document).ready( function () {
 						while ( x <= width ) {
 							popup.popupwindow( "open", x, y );
 							open++;
-							popPos = parents.position();
+							popPosX = parseInt( parents.css("left") );
+							popPosY = parseInt( parents.css("top") );
 							popDim = {
 								width: parents.width(),
 								height: parents.height()
 							};
 
-							if ( popPos.left < 0 || popPos.top < 0 || popPos.left > (width - popDim.width) || popPos.top > (height - popDim.height) ) {
-								throw "Pop up occured at wrong position: (" + parseInt(popPos.left, 10) + "," + parseInt(popPos.top, 10) + "," + popDim.width + "," + popDim.height + ")";
+							if ( popPosX < 0 || popPosY < 0 || popPosX > (width - popDim.width) || popPosY > (height - popDim.height) ) {
+								throw "Pop up occured at wrong position: (" + popPosX + "," + popPosY + "," + popDim.width + "," + popDim.height + ")";
 							}
 
 							popup.popupwindow( "close" );
