@@ -20,14 +20,37 @@
 	}
 }
 
-.ui-li-text-main .ui-datefield-period.ui-btn {
+.ui-datetime {
+	margin: 0;
+	height: 72 * @unit_base;
+}
+
+.ui-datetime-text-main {
+	position: relative;
+	font-size: @font_size_list_main_text;
+	top: 34 * @unit_base;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	max-width: 90%;
+}
+
+.ui-datetime-text-main .ui-datefield-period.ui-btn {
 	margin-top: -0.3em;
 	height: 56 * @unit_base;
-
+	right: auto;
+	position: relative;
 	.ui-btn-inner.ui-btn-hastxt {
 		padding-top: 0;
 		padding-bottom: 0;
 	}
+}
+
+.ui-datetime-text-sub {
+	position: absolute;
+	top: 10 * @unit_base;
+        color: @color_list_sub_text_default;
+	font-size: @font_size_list_sub_text;
 }
 
 .ui-datetimepicker-selector {
@@ -80,4 +103,3 @@
 		}
 	}
 }
-
