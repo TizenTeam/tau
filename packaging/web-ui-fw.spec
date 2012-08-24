@@ -32,13 +32,13 @@ make DESTDIR=%{buildroot} install
 /usr/share/tizen-web-ui-fw/latest
 
 ###############################
-%package -n web-ui-fw-theme-tizen-gray
+%package -n web-ui-fw-theme-tizen-black
 BuildArch:  noarch
-Summary:    Tizen Web UI Framework Theme : tizen-gray
-%Description -n web-ui-fw-theme-tizen-gray
-    Tizen Web UI Framework Theme : tizen-gray
-%files -n web-ui-fw-theme-tizen-gray
-/usr/share/tizen-web-ui-fw/*/themes/tizen-gray
+Summary:    Tizen Web UI Framework Theme : tizen-black
+%Description -n web-ui-fw-theme-tizen-black
+    Tizen Web UI Framework Theme : tizen-black
+%files -n web-ui-fw-theme-tizen-black
+/usr/share/tizen-web-ui-fw/*/themes/tizen-black
 
 ###############################
 %package -n web-ui-fw-theme-tizen-white
