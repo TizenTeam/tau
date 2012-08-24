@@ -674,8 +674,9 @@
 					};
 					$(window).bind("resize", obj._reflow);
 				}
+				// cause ctxpopup forced to subtract 10
 				$ctx.popupwindow( 'open',
-						target.offset().left + target.width() / 2 - window.pageXOffset,
+						target.offset().left + ( target.width() / 2 ) + 10 - window.pageXOffset ,
 						target.offset().top + target.height() - window.pageYOffset );
 				$div.bind('popupafterclose', function ( e ) {
 					if ( obj._reflow ) {
