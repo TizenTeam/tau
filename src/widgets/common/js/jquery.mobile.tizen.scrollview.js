@@ -448,41 +448,32 @@
 			this._stopMScroll();
 
 			this._didDrag = false;
+			this._skip_dragging = false;
 
 			var target = $( e.target ),
 				self = this,
 				$c = this._$clip,
 				svdir = this.options.direction;
 
-			/* should skip the dragging when click the button */
-			this._skip_dragging = target.is( '.ui-btn-text' ) ||
+			/* should prevent the default behavior when click the button */
+			this._is_button = target.is( '.ui-btn-text' ) ||
 					target.is( '.ui-btn-inner' ) ||
 					target.is( '.ui-btn-inner .ui-icon' );
-
-			if ( this._skip_dragging ) {
-				return;
-			}
 
 			/*
 			 * We need to prevent the default behavior to
 			 * suppress accidental selection of text, etc.
 			 */
-			this._shouldBlockEvent = !( target.is(':input') ||
-					target.parents(':input').length > 0 );
+			this._is_inputbox = target.is(':input') ||
+					target.parents(':input').length > 0;
 
-			if ( this._shouldBlockEvent ) {
-				if ( this.options.eventType === "mouse" ) {
-					e.preventDefault();
-				}
-			} else {
+			if ( this._is_inputbox ) {
 				target.one( "resize.scrollview", function () {
 					if ( ey > $c.height() ) {
 						self.scrollTo( -ex, self._sy - ey + $c.height(),
 							self.options.snapbackDuration );
 					}
 				});
-
-				return;
 			}
 
 			this._lastX = ex;
@@ -517,7 +508,7 @@
 				return;
 			}
 
-			if ( this._shouldBlockEvent ) {
+			if ( !this._is_inputbox && !this._is_button ) {
 				e.preventDefault();
 			}
 
