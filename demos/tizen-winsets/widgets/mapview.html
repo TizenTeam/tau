@@ -1,0 +1,27 @@
+	<div data-role="page" id="mapview">
+		<div data-role="header"  data-position="fixed">
+			<h1>Map View</h1>
+		</div><!-- /header -->
+		<div data-role="content">
+			<div id="sampleMap" data-role="mapview" style="height:360px;" data-zoom="8" data-center="126.981354,37.589207"></div>
+
+			<!-- menu popup -->
+			<div id="map_menu_popup" data-role="popupwindow" data-show-arrow="b">
+				<ul data-role="listview">
+					<li><a href="#" id="routeFrom">Route from</a></li>
+					<li><a href="#" id="routeTo">Route to</a></li>
+					<li><a href="#" id="getAddress">Get Address</a></li>
+				</ul>
+			</div><!-- /popup -->
+
+			<!-- result popup -->
+			<div id="map_result_popup" data-role="popupwindow" data-style="center_basic_1btn">
+				<p data-role="text"></p>
+				<div data-role="button-bg">
+					<a href="#" data-role="button" id="map_close_btn" data-inline="true">Close</a>
+				</div>
+			</div><!-- /popup -->
+		</div><!-- /content -->
+	</div><!-- /page -->
+
+	<script src="widgets/mapview-demo.js"></script>

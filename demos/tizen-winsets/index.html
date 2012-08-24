@@ -105,9 +105,6 @@
 				<li><a href="widgets/grid/virtualgrid-auto.html">Virtual Grid - Auto</a></li>
 				<li data-role="list-divider">Multimedia view</li>
 				<li><a href="widgets/multimediaview/multimediaview.html">Multimedia view</a></li>
-				<li data-role="list-divider">Map view</li>
-				<li><a href="#mapview">Map view</a></li>
-
 				<li data-role="list-divider">PageLayout</li>
 				<li><a href="widgets/pagelayout/barcontrol.html">Header/Footer(fixed/non-fixed) Control</a></li>
 				<li><a href="widgets/pagelayout/backbutton-control.html">Back Button Control</a></li>
@@ -119,6 +116,12 @@
 				<li><a href="tips/list-sample/list-sample.html">Example for using listview</a></li>
 				<li><a href="tips/list-sample/expandable.html">Example for using expandable list</a></li>
 				<li><a href="tips/page-transition/transition.html">Page transitions</a></li>
+
+<!-- START_PROPRIETARY -->
+				<li data-role="list-divider">Experimental</li>
+				<li><a href="widgets/mapview.html">Map view</a></li>
+<!-- END_PROPRIETARY -->
+
 			</ul>
 		</div>
 	</div>
@@ -1131,31 +1134,6 @@
 		</div> <!-- /content -->
 	</div> <!-- /page -->
 
-	<div data-role="page" id="mapview">
-		<div data-role="header"  data-position="fixed">
-			<h1>Map View</h1>
-		</div><!-- /header -->
-		<div data-role="content">
-			<div id="sampleMap" data-role="mapview" style="height:360px;" data-zoom="8" data-center="126.981354,37.589207"></div>
-
-			<!-- menu popup -->
-			<div id="map_menu_popup" data-role="popupwindow" data-show-arrow="b">
-				<ul data-role="listview">
-					<li><a href="#" id="routeFrom">Route from</a></li>
-					<li><a href="#" id="routeTo">Route to</a></li>
-					<li><a href="#" id="getAddress">Get Address</a></li>
-				</ul>
-			</div><!-- /popup -->
-
-			<!-- result popup -->
-			<div id="map_result_popup" data-role="popupwindow" data-style="center_basic_1btn">
-				<p data-role="text"></p>
-				<div data-role="button-bg">
-					<a href="#" data-role="button" id="map_close_btn" data-inline="true">Close</a>
-				</div>
-			</div><!-- /popup -->
-		</div><!-- /content -->
-	</div><!-- /page -->
 
 	<script src="widgets/checkbox/checkbox.js"></script>
 	<script src="widgets/switch/switch.js"></script>
@@ -1169,7 +1147,6 @@
 	<script src="tips/list-sample/expandable.js"></script>
 	<script src="widgets/pagecontrol/pagecontrol-demo.js"></script>
 	<script src="widgets/multibuttonentry-demo.js"></script>
-	<script src="widgets/mapview-demo.js"></script>
 	<script src="widgets/pagelayout/barcontrol.js"></script>
 	<script src="widgets/pagelayout/backbutton-control.js"></script>
 	<!-- test file for content div control, not completed yet -->
