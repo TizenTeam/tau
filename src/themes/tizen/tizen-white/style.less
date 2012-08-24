@@ -17,14 +17,15 @@
 @color_text_segctrl:		rgb(158, 195, 213);	// 158 195 213	// TODO: used only in segctrl. Check more.
 
 //Dialogue color set
-@color_dialogue_main_text:				rgb(249,249,249);
+@color_dialogue_main_text:	rgba(92, 151, 187, 1);
 @color_dialogue_sub_text:				rgb(146,146,146);
+@color_list_dialogue_bg : rgba(236, 240, 242, 1);
+@color_dialogue_border_right:	rgba(142, 154, 163, 1);
 
 //Dialogue Editor color set
 @color_dialogue_editor_default_text:	rgb(70, 70, 70);
 @color_dialogue_editor_bg:				rgb(0, 0, 0);
 @color_dialogue_editor_border:			rgb(108, 168, 199);	
-
 /*************************
   Vars/Mixins for Widgets
 
@@ -98,7 +99,6 @@
 @style_list_bubble_date_height:	40 * @unit_base;
 @style_list_bubble_date_text_align:	center;
 
-@color_list_dialogue_bg : rgba(236, 240, 242, 1);
 /***************************************************************************
                    Shortcut Scroll
 ***************************************************************************/
@@ -563,7 +563,7 @@
 
 .LESSdialogue-border-style {
 	border-right-style : solid;
-	border-right-color : black;
+	border-right-color : @color_dialogue_border_right;
 	border-right-width : 1px;
 }
 
@@ -575,8 +575,8 @@
 	margin-left : 16 * @unit_base;
 	margin-right : 16 * @unit_base;
 
-	background : rgba(249, 249, 249, 1);
+	background : @color_list_dialogue_bg;
 	font-size : 32 * @unit_base;
 	font-weight : bold;
-	color : rgba(92, 151, 187, 1);
+	color : @color_dialogue_main_text;
 }
