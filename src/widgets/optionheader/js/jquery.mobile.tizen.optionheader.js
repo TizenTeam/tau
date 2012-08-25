@@ -196,29 +196,21 @@
 
 		_setArrowLeft: function () {
 			var matchingBtn = $( this.element ).jqmData( "for" ),
-				arrowCenter = 14,
-				btn2Position = 10,
-				btn3Position = 144,
+				arrowCenter = 12,
 				matchBtn = $( this.element ).parents( ".ui-page" ).find( "#" + matchingBtn ),
-				buttonRight = matchBtn.nextAll().is( "a" ) ? btn3Position : btn2Position,
+				siblingBtnCnt = matchBtn.prevAll(".ui-btn-right").length,
 				scaleFactor = ( 36 / parseInt( $('html').css('font-size'), 10 ) );
 
-			if ( $(this.element).parents(".ui-page").find( "#" + matchingBtn ).length != 0 ) {
 
+			if ( $(this.element).parents(".ui-page").find( "#" + matchingBtn ).length != 0 ) {
 				if ( this.options.expandable ) {
 					matchBtn.bind( 'vclick', this.clickHandler );
 				} else {
 					matchBtn.unbind( 'vclick', this.clickHandler );
 				}
 
-				// decide arrow Button position
-				if ( matchBtn.css( "left" ) && matchBtn.css( "left" ) != "auto" ) {
-					$( ".ui-triangle-image" ).css( "left", matchBtn.width() / 2 + parseInt(matchBtn.css( "left" ), 10) - arrowCenter + "px" );
-				} else if ( matchBtn.css("right") ) {
-					$( ".ui-triangle-image" ).css( "left", document.documentElement.clientWidth - ( matchBtn.width() / 2 + buttonRight / scaleFactor ) - arrowCenter + "px" );
-				}
-			} else {
-				$( ".ui-triangle-image" ).css( "left", document.documentElement.clientWidth / 2 - arrowCenter + "px" );
+				$( ".ui-triangle-image" ).css( "right", ( matchBtn.width() / 2  + matchBtn.width() * siblingBtnCnt - arrowCenter) / scaleFactor + "px");
+				$( ".ui-triangle-image" ).css( "left", "auto" );
 			}
 		},
 		// Draw the option header, according to current options
@@ -406,8 +398,9 @@
 			ExpandedTop = ( ExpandedTop / scaleFactor );
 
 			if ( $( window ).scrollTop() <= CollapsedTop ) {
-				toggle_header.css( "position", "relative" );
-				toggle_content.css( "top", "0px" );
+/*				toggle_header.css( "position", "relative" );
+					toggle_content.css( "top", "0px" ); */
+/* tizen beta request : optionheader remove slide */
 			}
 
 			if ( this.isCollapsed ) {
@@ -415,8 +408,9 @@
 
 				if ( $( window ).scrollTop() <= ExpandedTop ) {
 					CalculateTime = setTimeout( function () {
-						toggle_header.css( 'position', 'fixed' );
-						toggle_content.css( 'top', ExpandedTop + "px" );
+/*						toggle_header.css( 'position', 'fixed' );
+						toggle_content.css( 'top', ExpandedTop + "px" );*/
+/* tizen beta request : optionheader remove slide */
 					}, 500 );
 				} else {
 					//   Need to move scroll top
@@ -428,8 +422,9 @@
 				this.collapse( options );
 				if ( $(window).scrollTop() <= ExpandedTop ) {
 					CalculateTime = setTimeout( function () {
-						toggle_header.css( 'position', 'fixed' );
-						toggle_content.css( 'top', CollapsedTop + "px" );
+/*						toggle_header.css( 'position', 'fixed' );
+						toggle_content.css( 'top', CollapsedTop + "px" );*/
+/* tizen beta request : optionheader remove slide */
 					}, 500 );
 				} else {
 					toggle_header.css( 'position', 'fixed' );

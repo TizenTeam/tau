@@ -29,14 +29,18 @@
 	height: 100%;
 	z-index: 100;
 
-	.ui-li-text-main {
-		position: absolute;
-	}
-	.ui-li-text-sub-left {
-		margin-top: 0.8em !important;
-		margin-left: @list-li-padding-horizontal !important;
-	}
-	.ui-li-text-main-right {
-		margin-top: 0.7em !important;
+
+	.ui-swipelist-item-cover-inner {
+		position : absolute;
+		padding-top : 30 * @unit_base;
+		padding-bottom : 30 * @unit_base;
+		padding-left : 16 * @unit_base;
+		
+		width : 100%;
+
+		.ui-li-text-sub {
+			position : absolute;
+			padding-right : 16 * @unit_base;
+		}
 	}
 }
