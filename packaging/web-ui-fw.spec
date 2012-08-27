@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.1.40
+Version:    0.1.41
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -87,6 +87,10 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+
+* Mon Aug 27 2012 Jinhyuk Jun <jinhyuk.jun@samsung.com> 0.1.41
+- FIX:
+    - radio/check button : button size bug fix
 
 * Fri Aug 24 2012 Minkyu Kang <mk7.kang@samsung.com> 0.1.40
 - FIX:
