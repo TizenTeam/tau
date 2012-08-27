@@ -153,7 +153,7 @@
 			this.running = false;
 		},
 
-		close: function () {
+		distroy: function () {
 			var container = this._get_container();
 
 			$( container ).removeClass("show")
@@ -293,6 +293,6 @@
 	});
 
 	$( document ).bind( "pagebeforehide", function ( e ) {
-		$( e.target ).find(":jqmData(role='notification')").notification('close');
+		$( e.target ).find(":jqmData(role='notification')").notification('destroy');
 	});
 }( jQuery, this ));
