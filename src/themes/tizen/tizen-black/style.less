@@ -162,13 +162,11 @@
                     Button
 ***************************************************************************/
 
-@color_button_normal:		rgb(151, 161, 167);
-@color_button_normal_webkit:	-webkit-gradient(linear, left top, left bottom, from(rgb(151, 161, 167)), to(rgb(122, 132, 141)));
-@color_button_normal_moz:	-moz-linear-gradient(top, rgb(151, 161, 167), rgb(122, 132, 141));
+@color_button_normal:		rgb(53, 53, 57);
+@color_button_normal_webkit:	-webkit-gradient(linear, left top, left bottom, from(rgb(53, 53, 57)), to(rgb(40, 41, 44)));
+@color_button_normal_moz:	-moz-linear-gradient(top, rgb(53, 53, 57), rgb(40, 41, 44));
 
-@color_button_press:		rgb(67, 160, 217);
-@color_button_press_webkit:	-webkit-gradient(linear, left top, left bottom, from(rgb(67, 160, 217)), to(rgb(56, 139, 185)));
-@color_button_press_moz:	-moz-linear-gradient(top, rgb(67, 160, 217), rgb(56, 139, 185));
+@color_button_press:		rgb(42, 137, 194);
 
 @color_button_hover: 		rgb(161, 171, 177);
 
@@ -179,9 +177,7 @@
 @color_circlebutton_hover:		rgb(239, 119, 126);
 @color_circlebutton_hover_webkit:	-webkit-gradient(linear, left top, left bottom, from(rgb(198, 78, 85)), to(rgb(166, 43, 45)));
 @color_circlebutton_hover_moz:		-moz-linear-gradient(top, rgb(198, 78, 85), rgb(166,43,45));
-@color_circlebutton_press:		rgb(67, 160, 217);
-@color_circlebutton_press_webkit:       -webkit-gradient(linear, left top, left bottom, from(rgb(67, 160, 217)), to(rgb(56, 139, 185)));
-@color_circlebutton_press_moz:		-moz-linear-gradient(top, rgb(67, 160, 217), rgb(56, 139, 185));
+@color_circlebutton_press:		rgb(42, 137, 194);
 
 @color_button_EditText:		rgb(249, 249, 249);
 @color_button_EditTextPress:	rgb(249, 249, 249);
@@ -202,9 +198,9 @@
 @radius_button_switch: 4px;
 @radius_button_switch_reed: 2px;
 
-@color_button_edit:			rgb(201, 88, 88);
-@color_button_edit_webkit:		-webkit-gradient(linear, left top, left bottom, from(rgb(201, 88, 88)), to(rgb(161, 40, 40)));
-@color_button_edit_moz:			-moz_linear-gradient(top, rgb(201, 88, 88), rgb(161, 40, 40));
+@color_button_edit:			rgb(192, 82, 82);
+@color_button_edit_webkit:		-webkit-gradient(linear, left top, left bottom, from(rgb(192, 82, 82)), to(rgb(162, 40, 40)));
+@color_button_edit_moz:			-moz_linear-gradient(top, rgb(192, 88, 88), rgb(162, 40, 40));
 
 @color_button_edit_press:		rgb(147, 24, 24);
 @color_button_edit_press_webkit:	-webkit-gradient(linear, left top, left bottom, from(rgb(147, 24,24)), to(rgb(110, 23, 23)));
@@ -224,8 +220,6 @@
 
 .LESSbutton_down_style{
 	background: @color_button_press;
-	background: @color_button_press_webkit;
-	background: @color_button_press_moz;
 	color: @color_button_text_white;
 }
 
@@ -253,8 +247,6 @@
 .LESScirclebutton_press_style{
 	border-width: 0px;
 	background: @color_circlebutton_press;
-	background: @color_circlebutton_press_webkit;
-	background: @color_circlebutton_press_moz;
 }
 
 .LESStoggleswitch_on_style{
@@ -450,9 +442,9 @@
 /***************************************************************************
                    Color widgets
 ***************************************************************************/
-@color_widgets_title_bg: rgb(235, 239, 241);
-@color_widgets_basic_border: rgb(192, 192, 192);
-@color_widgets_left_border: rgb(108, 168, 199);
+@color_widgets_title_bg: rgb(26, 26, 26);
+@color_widgets_basic_border: rgb(32, 32, 32);
+@color_widgets_left_border: rgb(45, 51, 74);
 
 .LESScolortitle_background_style{
         background-color: @color_widgets_title_bg;
@@ -474,7 +466,7 @@
         background-color: @color_widgets_title_bg;
         border: 1px solid;
         border-top: 6px solid;
-        border-color: @color_widgets_basic_border;
+        border-color: @color_widgets_left_border;
 }
 
 
