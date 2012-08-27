@@ -126,6 +126,7 @@
 					coverTheme = defaultCoverTheme,
 				// get the parent li element and add classes
 					item = cover.closest('li'),
+					btn,
 					itemHasThemeClass;
 
 				// add swipelist CSS classes
@@ -166,7 +167,13 @@
 
 				// any clicks on buttons inside the item also trigger
 				// the cover to slide back to the left
-				item.find('.ui-btn').bind('vclick', cover.data('animateLeft'));
+				btn = item.find('.ui-btn');
+
+				if ( btn.length ) {
+					btn.bind('vclick', cover.data('animateLeft'));
+				} else {
+					item.append('<div class="ui-dummy"></div>');
+				}
 			});
 		},
 
