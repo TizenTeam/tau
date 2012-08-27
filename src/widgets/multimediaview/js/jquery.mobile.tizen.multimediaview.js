@@ -183,9 +183,11 @@
 				control = view.parent().find( ".ui-multimediaview-control" ),
 				buttons = control.find( ".ui-button" ),
 				playpauseButton = control.find( ".ui-playpausebutton" ),
-				volumeControl = control.find( ".ui-volumecontrol" ),
 				seekBar = control.find( ".ui-seekbar" ),
 				durationLabel = control.find( ".ui-durationlabel" ),
+				timestampLabel = control.find( ".ui-timestamplabel" ),
+				volumeControl = control.find( ".ui-volumecontrol" ),
+				volumeBar = volumeControl.find( ".ui-volumebar" ),
 				controlWidth = width,
 				controlHeight = control.outerHeight( true ),
 				availableWidth = 0,
@@ -217,6 +219,12 @@
 
 			if ( viewElement.autoplay && viewElement.paused === false ) {
 				playpauseButton.removeClass( "ui-play-icon" ).addClass( "ui-pause-icon" );
+			}
+
+			if ( seekBar.width() < ( volumeBar.width() + timestampLabel.width() + durationLabel.width() ) ) {
+				durationLabel.hide();
+			} else {
+				durationLabel.show();
 			}
 		},
 		_resizeFullscreen : function ( isFullscreen ) {
@@ -363,10 +371,12 @@
 				}
 			});
 
-			fullscreenButton.bind( "vclick.multimediaview", function () {
+			fullscreenButton.bind( "vclick.multimediaview", function ( e ) {
 				self.fullscreen( !self.options.fullscreen );
 				control.fadeIn( "fast" );
 				self._endTimer();
+				e.preventDefault();
+				e.stopPropagation();
 			});
 
 			seekBar.bind( "vmousedown.multimediaview", function ( e ) {
