@@ -275,6 +275,10 @@
 						}
 					} );
 			}
+
+			if ( input.val() ) {
+				searchicon.hide();
+			}
 		},
 
 		disable: function () {
