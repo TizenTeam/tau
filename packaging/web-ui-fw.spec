@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.1.41
+Version:    0.1.42
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -88,9 +88,21 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 ###############################
 %changelog
 
+* Tue Aug 28 2012 Minkyu Kang <mk7.kang@samsung.com> 0.1.42
+- FIX:
+	- multimediaview: video progress bar display normally for too samll
+	- segmentcontrol: remove media query
+	- scrollview: add outer scroll condition
+	- datetimepicker: modify triangle size
+	- popupwindow: set the screen height explicitly
+	- notification: add multiline text
+- Spec changes:
+	- mutibuttonentry: support new GUI
+	- virtualgrid: support new GUI
+
 * Mon Aug 27 2012 Jinhyuk Jun <jinhyuk.jun@samsung.com> 0.1.41
 - FIX:
-    - radio/check button : button size bug fix
+	- radio/check button : button size bug fix
 
 * Fri Aug 24 2012 Minkyu Kang <mk7.kang@samsung.com> 0.1.40
 - FIX:
