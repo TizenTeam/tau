@@ -342,6 +342,14 @@
 				return;
 			}
 
+			if ( !this._dragging ) {
+				return;
+			}
+
+			if ( scroll_height < 0 ) {
+				return;
+			}
+
 			if ( y > 0 ) {
 				sy = -y;
 			} else if ( y < -scroll_height ) {
