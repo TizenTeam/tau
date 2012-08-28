@@ -116,7 +116,6 @@
 @-webkit-keyframes ui-smallpopup-hide {
 	from {
 		opacity: 1;
-		height: @smallpopup-height;
 		left: 0;
 		-webkit-transform: scaleY(1);
 	} to {
@@ -130,10 +129,8 @@
 .ui-smallpopup {
 	position: fixed;
 	display: none;
-	top: 0;
 	left: 0;
 	width: 100%;
-	height: @smallpopup-height;
 	z-index: @z_base_smallpopup;
 	background: @color_smallpopup_bg;
 	vertical-align: middle;
@@ -159,6 +156,8 @@
 .ui-smallpopup-text-bg {
 	position: relative;
 	margin-top: 6 * @unit_base;
+	margin-bottom: 6 * @unit_base;
 	margin-left: 16 * @unit_base;
+	margin-right: 16 * @unit_base;
 	color: @color_smallpopup_text;
 }

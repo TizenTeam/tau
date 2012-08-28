@@ -133,6 +133,10 @@
 					.removeClass("fix");
 
 			this.running = true;
+
+			if ( this.type === 'popup' ) {
+				this._set_position();
+			}
 		},
 
 		close: function () {
@@ -270,9 +274,11 @@
 			this._add_event();
 
 			$( window ).bind( "resize", function () {
-				if ( self.running ) {
-					self._refresh();
+				if ( !self.running ) {
+					return;
 				}
+
+				self._refresh();
 
 				if ( self.type === 'popup' ) {
 					self._set_position();
