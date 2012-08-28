@@ -266,6 +266,8 @@
 				top: newtop,
 				left: newleft
 			});
+
+			this._ui.screen.css( "height", screenHeight );
 		},
 
 		open: function ( x_where, y_where ) {
@@ -287,7 +289,7 @@
 				}
 			} );
 
-			this._ui.screen.css( "height", "100%" )
+			this._ui.screen.css( "height", $( window ).height() )
 					.removeClass("ui-screen-hidden");
 
 			if ( this.options.fade ) {
