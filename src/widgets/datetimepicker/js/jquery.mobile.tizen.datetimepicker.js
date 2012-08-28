@@ -634,7 +634,8 @@
 				$div,
 				$ctx,
 				$li,
-				i;
+				i,
+				newLeft = 10;
 
 			if ( !attr ) {
 				return;
@@ -675,8 +676,11 @@
 					$(window).bind("resize", obj._reflow);
 				}
 				// cause ctxpopup forced to subtract 10
+				if( $(window).width() / 2 < target.offset().left ) {
+					newLeft = -10;
+				}
 				$ctx.popupwindow( 'open',
-						target.offset().left + ( target.width() / 2 ) + 10 - window.pageXOffset ,
+						target.offset().left + ( target.width() / 2 ) + newLeft - window.pageXOffset ,
 						target.offset().top + target.height() - window.pageYOffset );
 				$div.bind('popupafterclose', function ( e ) {
 					if ( obj._reflow ) {
