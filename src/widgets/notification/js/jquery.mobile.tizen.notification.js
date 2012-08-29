@@ -153,7 +153,7 @@
 			this.running = false;
 		},
 
-		distroy: function () {
+		destroy: function () {
 			var container = this._get_container();
 
 			$( container ).removeClass("show")
