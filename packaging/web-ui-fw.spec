@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.1.43
+Version:    0.1.44
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -87,6 +87,13 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+
+* Fri Aug 31 2012 Minkyu Kang <mk7.kang@samsung.com> 0.1.44
+- FIX:
+	- swipelist: show list items correctly
+	- datetimepicker: set last day, if day is overflowed
+- Spec changes:
+	- controlbar: update icons
 
 * Tue Aug 29 2012 Minkyu Kang <mk7.kang@samsung.com> 0.1.43
 - FIX:
