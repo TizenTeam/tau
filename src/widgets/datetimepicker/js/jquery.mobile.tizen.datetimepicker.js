@@ -713,6 +713,10 @@
 						break;
 					case 'month':
 						date.setMonth( val - 1 );
+
+						if ( date.getMonth() == val ) {
+							date.setDate( date.getDate() - 1 );
+						}
 						break;
 					case 'day':
 						date.setDate( val );
