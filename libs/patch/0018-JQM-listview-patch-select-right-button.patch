@@ -1,0 +1,50 @@
+From 707a5c7b76fdfb108c7b54316384763f37a0b303 Mon Sep 17 00:00:00 2001
+From: Jun Jinhyuk <jinhyuk.jun@samsung.com>
+Date: Tue, 4 Sep 2012 15:51:58 +0900
+Subject: [PATCH] JQM listview patch select right button
+
+Change-Id: Ic5b8e01303750c03a3ce681a45d591214683e4a7
+---
+ .../js/jquery.mobile.listview.js                   |   19 ++++++++++++++++++-
+ 1 files changed, 18 insertions(+), 1 deletions(-)
+
+diff --git a/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.listview.js b/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.listview.js
+index a290e32..671bc84 100644
+--- a/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.listview.js
++++ b/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.listview.js
+@@ -164,7 +164,21 @@ $.widget( "mobile.listview", $.mobile.widget, {
+ 			}
+ 		}
+ 	},
+-
++	
++	_addRightBtnClasses: function( containers )
++	{
++		var i, btnAttr, len = containers.length;
++		for ( i = 0; i < len; i++ ) {
++			btnAttr = $( containers[ i ] ).find( ":jqmData(role='button')" ) || ( $( containers[ i ] ).find( "input" ).attr( "type" ) == "button" );
++			if ( btnAttr.length ) {
++				if ( btnAttr.jqmData( "style" ) == "circle" )  {
++					$( containers[ i ] ).addClass( "ui-li-has-right-circle-btn" );
++				} else {
++					$( containers[ i ] ).addClass( "ui-li-has-right-btn" );
++				}
++			}
++		}
++	},
+ 	refresh: function( create ) {
+ 		this.parentPage = this.element.closest( ".ui-page" );
+ 		this._createSubPages();
+@@ -329,6 +343,9 @@ $.widget( "mobile.listview", $.mobile.widget, {
+ 		this._addCheckboxRadioClasses( li );
+ 		this._addCheckboxRadioClasses( $list.find( ".ui-link-inherit" ) );
+ 
++		this._addRightBtnClasses( li );
++		this._addRightBtnClasses( $list.find( ".ui-link-inherit" ) );
++
+ 		this._refreshCorners( create );
+ 	},
+ 
+-- 
+1.7.4.1
+

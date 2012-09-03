@@ -120,7 +120,6 @@
 	padding:0;
 
 	font-size : @list-font-size-main;
-
 }
 .ui-li,
 .ui-li.ui-field-contain {
@@ -131,7 +130,6 @@
 	text-align: left;
 }
 .ui-li {
-	
 	h3 {
 		margin-top	: 0px;
 		margin-bottom : 0px;
@@ -139,6 +137,10 @@
 		font-size : @list-font-size-main;
 		min-height	: 52 * @unit_base;
 		font-weight : normal;
+	}
+
+	form {
+		display : inline-block;
 	}
 	.ui-btn {
 		top: 50%;
@@ -165,7 +167,6 @@
 
 	&>.ui-btn-inner.ui-btn-hastxt {
 		padding: 0px 0px;
-		
 	}
 
 	.ui-btn-inner a.ui-link-inherit,
@@ -175,6 +176,10 @@
 		padding-left : 16 * @unit_base;
 		padding-right : 16 * @unit_base;
 		display: block;
+
+		overflow:hidden;
+		white-space : nowrap;
+		text-overflow : ellipsis;
 	}
 
 	.ui-toggleswitch {
@@ -268,11 +273,15 @@ li.ui-li-thumbnail-right {
 	&.ui-li-static {
 		padding-top : 10 * @unit_base;
 		padding-bottom : 58 * @unit_base;
-/*		padding-left : 16 * @unit_base;
-		padding-right : 16 * @unit_base;
-		display: block;*/
 
 		min-height : 60 * @unit_base;
+	}
+
+	a {
+		overflow:hidden;
+		white-space : nowrap;
+		text-overflow : ellipsis;
+		padding-right : 16 * @unit_base; /* ellipsis for normal text */
 	}
 }
 
@@ -338,8 +347,6 @@ li.ui-li-thumbnail-right {
 	border-left-width : 1px;
 	border-left-style : solid;
 	border-left-color : @color_list_divider_expand_div;
-
-
 }
 
 
@@ -351,6 +358,7 @@ li.ui-li-thumbnail-right {
 	}
 	.ui-li-text-sub {
 		padding-left: 104 * @unit_base;
+		padding-right: 16 * @unit_base; /* ellipsis for sub text */
 	}
 }
 
@@ -377,6 +385,35 @@ li.ui-li-thumbnail-right {
 	.ui-li-text-sub {
 		padding-left: 180 * @unit_base;
 	}
+}
+
+.ui-li.ui-li-has-right-circle-btn {
+	.ui-btn-inner a {
+		padding-right : 96 * @unit_base;
+	}
+}
+
+.ui-li.ui-li-has-right-btn {
+	.ui-btn-inner a {
+		padding-right : 256 * @unit_base;
+	}
+}
+
+.ui-li.ui-li-thumbnail-right {
+	.ui-btn-inner a {
+		padding-right : 104 * @unit_base;
+	}
+}
+.ui-li.ui-li-static.ui-li-has-right-circle-btn {
+	padding-right : 96 * @unit_base;
+}
+
+.ui-li.ui-li-static.ui-li-has-right-btn {
+	padding-right : 256 * @unit_base;
+}
+
+.ui-li.ui-li-static.ui-li-thumbnail-right {
+	padding-right : 104 * @unit_base;
 }
 
 .ui-li-has-icon {
@@ -429,18 +466,22 @@ li.ui-li-thumbnail-right {
 	text-align: right;
 	font-size: @font_size_list_sub_text;
 	color: @color_list_sub_text_default;
-/*	top: 50%;
-	margin-top: -0.5em;*/
 
 	position : absolute;
 	right : 16 * @unit_base;
 	top : 16 * @unit_base;
-		> img {
-			position : relative;
-			width: @list-smallicon-size;
-			height: @list-smallicon-size;
-			margin: 0 @list-li-padding-horizontal 0 @list-li-padding-horizontal;
-		}
+
+	overflow:hidden;
+	white-space : nowrap;
+	text-overflow : ellipsis;
+	width	: 95%;
+
+	> img {
+		position : relative;
+		width: @list-smallicon-size;
+		height: @list-smallicon-size;
+		margin: 0 @list-li-padding-horizontal 0 @list-li-padding-horizontal;
+	}
 }
 
 .ui-li-text-sub2 {
@@ -453,16 +494,20 @@ li.ui-li-thumbnail-right {
 	right : 16 * @unit_base;
 	top : 16 * @unit_base;
 
-		> img {
-			width: @list-smallicon-size;
-			height: @list-smallicon-size;
-			margin: 0 0 0 @list-li-padding-horizontal;
-		}
+	overflow:hidden;
+	white-space : nowrap;
+	text-overflow : ellipsis;
+	width : 60%;
+
+	> img {
+		width: @list-smallicon-size;
+		height: @list-smallicon-size;
+		margin: 0 0 0 @list-li-padding-horizontal;
+	}
 }
 /*
 li:not(.ui-li-has-multiline) .ui-li-text-sub {
 	position : absolute;
-
 	right : 16 * @unit_base;
 	top: 22 * @unit_base;
 	margin-top: 0px;
@@ -470,11 +515,18 @@ li:not(.ui-li-has-multiline) .ui-li-text-sub {
 .ui-li-has-multiline .ui-li-text-sub {
 	position : absolute;
 
+	text-align: left;
 	right : auto;
 	left : 16 * @unit_base;
 	top: 70 * @unit_base;
 	margin-top: 0px;
 
+	overflow:hidden;
+	white-space : nowrap;
+	text-overflow : ellipsis;
+
+	/* ellipsis for multiline list */
+	width : 90%;
 }
 
 .ui-li-icon-sub-right,
@@ -512,6 +564,11 @@ li:not(.ui-li-has-multiline) .ui-li-text-sub {
 			background : @color_list_dialogue_bg;
 		}
 	}
+	&> li.ui-li-dialogue.ui-li-expanded {
+		padding-left : 44 * @unit_base;
+		min-height : 52 * @unit_base;
+	}
+
 
 	&> li.ui-li-dialogue.ui-li-divider {
 		height: 32 * @unit_base;
