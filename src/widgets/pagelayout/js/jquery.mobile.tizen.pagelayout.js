@@ -246,16 +246,16 @@
 
 					/* Groupcontrol cannot initialize inline property at first page */
 				$elFooterGroup.addClass( "ui-footer-extended-controlgroup-" + gLength + "btn" );
-
-				footerButton = $elFooter.children( "a" );
-				footerButton.each( function ( i ) {
-					if ( footerButton.eq( i ).is(".ui-btn") && !footerButton.eq( i ).is(".ui-btn-back") ) {
-						footerButton.eq( i )
-							.removeClass( "ui-btn-left" )
-							.addClass( "ui-btn-footer-right" );
-					}
-				});
 			}
+
+			footerButton = $elFooter.children( "a" );
+			footerButton.each( function ( i ) {
+				if ( footerButton.eq( i ).is(".ui-btn") && !footerButton.eq( i ).is(".ui-btn-back") ) {
+					footerButton.eq( i )
+						.removeClass( "ui-btn-left" )
+						.addClass( "ui-btn-footer-right" );
+				}
+			});
 
 			if ( $elFooter.is(".ui-footer-fixed") ) {
 				$elFooter.css( "bottom", 0 );
@@ -304,11 +304,13 @@
 
 				.bind( "pageshow", function ( event ) {
 					self.updatePagePadding();			// FIXME: unused function.
+					self._updateHeaderArea();
 					if ( o.updatePagePadding ) {
 						$( window ).bind( "throttledresize." + self.widgetName, function () {
 							self.updatePagePadding();	// FIXME: unused function.
 							self.layoutPageIME();   // IME/resize reposition
 							self.updatePageLayout();
+							self._updateHeaderArea();
 						});
 					}
 
@@ -355,6 +357,16 @@
 				.bind( "pagebeforeshow", function ( event ) {
 
 				});
+		},
+
+		_updateHeaderArea : function() {
+			var $elPage = $( ".ui-page-active" ),
+				$elHeader = $elPage.find( ":jqmData(role='header')" ).length ? $elPage.find( ":jqmData(role='header')") : $elPage.siblings( ":jqmData(role='header')"),
+				headerBtnNum = $elHeader.children("a").length,
+				headerSrcNum = $elHeader.children("img").length;
+
+			$elHeader.find( "h1" ).css( "width", window.innerWidth - $elHeader.children( "a" ).width() * headerBtnNum - $elHeader.children( "a" ).width() / 4 - $elHeader.children( "img" ).width() * headerSrcNum * 3 );
+			/* add half width for default space between text and button, and img tag area is too narrow, so multiply three for img width*/
 		},
 
 		_visible: true,
