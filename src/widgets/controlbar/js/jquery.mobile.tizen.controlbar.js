@@ -155,7 +155,8 @@
 			});
 
 			$( document ).bind( "pageshow", function ( e, ui ) {
-				var controlbar_filter = $( ".ui-page" ).find( ":jqmData(role='footer')" ).eq( 0 ).find( ":jqmData(role='controlbar')" ),
+				var controlbar_filter = $( ".ui-page-active" ).find( ":jqmData(role='footer')" ).eq( 0 ).find( ":jqmData(role='controlbar')" ),
+					element_width = 0,
 					element_count = controlbar_filter.find( 'li' ).length;
 
 				if ( controlbar_filter.find(".ui-btn-active").length == 0 ) {
@@ -170,6 +171,22 @@
 					$( ".ui-page-active" ).find( ".dummy-div" )
 						.css( "width", controlbar_filter.width() )
 						.css( "height", controlbar_filter.height() );
+				}
+
+				if ( controlbar_filter.length ) {
+					element_width = Math.floor( controlbar_filter.outerWidth() / element_count );
+					controlbar_filter.find("li:last").width( controlbar_filter.outerWidth() - element_width * ( element_count - 1 ) );
+				}
+			});
+
+			$( window ).bind( "resize", function ( e ) {
+				var controlbar_filter = $( ".ui-page-active" ).find( ":jqmData(role='footer')" ).eq( 0 ).find( ":jqmData(role='controlbar')" ),
+					element_width = 0,
+					element_count = controlbar_filter.find( 'li' ).length;
+
+				if ( controlbar_filter.length ) {
+					element_width = Math.floor( controlbar_filter.outerWidth() / element_count );
+					controlbar_filter.find("li:last").width( controlbar_filter.outerWidth() - element_width * ( element_count - 1 ) );
 				}
 			});
 
