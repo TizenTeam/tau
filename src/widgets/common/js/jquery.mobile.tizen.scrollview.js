@@ -35,7 +35,7 @@
 	};
 
 	function getCurrentTime() {
-		return ( new Date() ).getTime();
+		return Date.now();
 	}
 
 	jQuery.widget( "tizen.scrollview", jQuery.mobile.widget, {
