@@ -53,7 +53,7 @@
 	};
 
 	function getCurrentTime() {
-		return ( new Date()).getTime();
+		return Date.now();
 	}
 
 	$.extend( MomentumTracker.prototype, {

@@ -219,7 +219,6 @@
 		_move: function ( _x ) {
 			var delta = this.org_x - _x,
 				flip = 0,
-				date,
 				drag_time,
 				sec,
 				self;
@@ -235,8 +234,7 @@
 			}
 
 			if ( !flip ) {
-				date = new Date();
-				drag_time = date.getTime() - this.org_time;
+				drag_time = Date.now() - this.org_time;
 
 				if ( Math.abs( delta ) / drag_time > 1 ) {
 					flip = 1;
@@ -326,8 +324,7 @@
 
 				self.org_x = e.pageX;
 
-				date = new Date();
-				self.org_time = date.getTime();
+				self.org_time = Date.now();
 			} );
 
 			this.container.bind( 'vmouseup', function ( e ) {
