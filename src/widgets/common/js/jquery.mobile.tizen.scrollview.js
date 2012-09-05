@@ -816,11 +816,13 @@
 					focused.trigger("resize.scrollview");
 				}
 
-				/* calibration */
-				if ( self._sy < $c.height() - $v.height() ) {
-					self.scrollTo( 0, self._sy,
-						self.options.snapbackDuration );
-				}
+				/* calibration - after triggered throttledresize */
+				setTimeout( function () {
+					if ( self._sy < $c.height() - $v.height() ) {
+						self.scrollTo( 0, self._sy,
+							self.options.snapbackDuration );
+					}
+				}, 260 );
 
 				self._view_height = $v.height();
 			});
