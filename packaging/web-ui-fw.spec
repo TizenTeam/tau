@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.1.44
+Version:    0.1.45
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -87,6 +87,15 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+
+* Fri Sep 05 2012 Minkyu Kang <mk7.kang@samsung.com> 0.1.45
+- FIX:
+	- controlbar: set correct controlbar width of last element
+	- slider: get popup enable value correctly
+	- use Date.now() instead of (new Data()).getTime()
+	- popupwindow: fix the background color of popup scroller
+	- listview: add padding-left to expandable list
+	- add ellipsis for title area support
 
 * Fri Aug 31 2012 Minkyu Kang <mk7.kang@samsung.com> 0.1.44
 - FIX:
