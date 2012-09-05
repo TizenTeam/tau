@@ -470,6 +470,13 @@
 					target.is( '.ui-btn-inner' ) ||
 					target.is( '.ui-btn-inner .ui-icon' );
 
+			if ( this._is_button ) {
+				if ( target.parents('.ui-slider-handle') ) {
+					this._skip_dragging = true;
+					return;
+				}
+			}
+
 			/*
 			 * We need to prevent the default behavior to
 			 * suppress accidental selection of text, etc.
