@@ -106,7 +106,7 @@
 			// set the popup according to the html attribute
 			popupEnabledAttr = inputElement.jqmData('popup');
 			if ( popupEnabledAttr !== undefined ) {
-				self.options.popup = ( popupEnabledAttr === 'true' );
+				self.options.popup = ( popupEnabledAttr == true );
 			}
 
 			// get the actual slider added by jqm
