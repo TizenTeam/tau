@@ -288,10 +288,6 @@
 
 			this._setCalibration( x, y );
 
-			if ( this._outerScrolling ) {
-				return;
-			}
-
 			x = this._sx;
 			y = this._sy;
 
