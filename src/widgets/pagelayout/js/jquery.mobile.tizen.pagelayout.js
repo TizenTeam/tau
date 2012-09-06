@@ -269,6 +269,8 @@
 					.css( "height", $elFooter.height() );
 			}
 
+			$elFooter.show();
+
 			/* Header position fix(remove transition) */
 			next_id = $( event.target ).attr( "id" );
 
