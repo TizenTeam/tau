@@ -209,7 +209,7 @@
 					matchBtn.unbind( 'vclick', this.clickHandler );
 				}
 
-				$( ".ui-triangle-image" ).css( "right", ( matchBtn.width() / 2  + matchBtn.width() * siblingBtnCnt - arrowCenter) / scaleFactor + "px");
+				$( ".ui-triangle-image" ).css( "right", ( matchBtn.width() / 2  + matchBtn.width() * siblingBtnCnt - ( arrowCenter / scaleFactor ) ) + "px");
 				$( ".ui-triangle-image" ).css( "left", "auto" );
 			}
 		},
