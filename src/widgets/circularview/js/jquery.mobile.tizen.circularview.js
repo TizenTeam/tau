@@ -360,6 +360,7 @@
 				if ( elapsed >= duration ) {
 					self._timerID = 0;
 					self._setScrollPosition( x, y );
+					self._$clip.trigger("scrollend");
 				} else {
 					ec = efunc( elapsed / duration, elapsed, 0, 1, duration );
 					self._setScrollPosition( sx + ( dx * ec ), sy + ( dy * ec ) );

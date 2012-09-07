@@ -673,12 +673,6 @@
 				$( $li[current] ).addClass("current");
 				$div.jqmData( "list", $li );
 				$div.circularview();
-				if ( !obj._reflow ) {
-					obj._reflow = function () {
-						$div.circularview("reflow");
-					};
-					$(window).bind("resize", obj._reflow);
-				}
 				// cause ctxpopup forced to subtract 10
 				if( $(window).width() / 2 < target.offset().left ) {
 					newLeft = -10;
@@ -739,6 +733,14 @@
 				});
 
 				$div.circularview( 'centerTo', '.current', 500 );
+				$div.bind( 'scrollend' , function ( e ) {
+					if ( !obj._reflow ) {
+						obj._reflow = function () {
+								$div.circularview("reflow");
+							};
+						$(window).bind("resize", obj._reflow);
+					}
+				});
 			}
 			return ui;
 		}
