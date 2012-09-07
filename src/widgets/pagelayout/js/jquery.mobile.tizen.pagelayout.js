@@ -293,6 +293,7 @@
 					if ( !o.visibleOnPageShow ) {
 						self.hide( true );
 					}
+					self._IMEShown = false;
 					self.setHeaderFooter( event );
 				} )
 				.bind( "webkitAnimationStart animationstart updatelayout", function ( e, data ) {
