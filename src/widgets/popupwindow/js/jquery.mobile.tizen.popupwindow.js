@@ -126,7 +126,7 @@
 			popup.find( ":jqmData(role='check-bg')" )
 					.wrapAll( "<div class='popup-check-bg'></div>" );
 			popup.find( ":jqmData(role='scroller-bg')" )
-					.wrapAll( "<div class='popup-scroller-bg'></div>" );
+					.addClass( "popup-scroller-bg" );
 			popup.find( ":jqmData(role='text-bottom-bg')" )
 					.wrapAll( "<div class='popup-text-bottom-bg'></div>" );
 			popup.find( ":jqmData(role='text-left')" )
