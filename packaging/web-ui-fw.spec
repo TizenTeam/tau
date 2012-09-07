@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.1.46
+Version:    0.1.45
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -88,18 +88,7 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 ###############################
 %changelog
 
-* Fri Sep 07 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.46
-- FIX:
-	- optionheader arrow position
-	- footer doesn't hide IME status
-	- scrollview bug fix
-	- controlbar item width fix
-	- show checkbox which doesn't have label
-	- show footer at pagebeforeshow
-- Spec changes:
-	- merge JQM popup
-
-* Wed Sep 05 2012 Minkyu Kang <mk7.kang@samsung.com> 0.1.45
+* Fri Sep 05 2012 Minkyu Kang <mk7.kang@samsung.com> 0.1.45
 - FIX:
 	- controlbar: set correct controlbar width of last element
 	- slider: get popup enable value correctly
