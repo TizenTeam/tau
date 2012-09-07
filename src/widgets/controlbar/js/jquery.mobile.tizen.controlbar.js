@@ -174,8 +174,8 @@
 				}
 
 				if ( controlbar_filter.length ) {
-					element_width = Math.floor( controlbar_filter.outerWidth() / element_count );
-					controlbar_filter.find("li:last").width( controlbar_filter.outerWidth() - element_width * ( element_count - 1 ) );
+					element_width = controlbar_filter.find("li:first").width();
+					controlbar_filter.find("li:last").width( controlbar_filter.width() - element_width * ( element_count - 1 ) );
 				}
 			});
 
@@ -185,8 +185,8 @@
 					element_count = controlbar_filter.find( 'li' ).length;
 
 				if ( controlbar_filter.length ) {
-					element_width = Math.floor( controlbar_filter.outerWidth() / element_count );
-					controlbar_filter.find("li:last").width( controlbar_filter.outerWidth() - element_width * ( element_count - 1 ) );
+					element_width = controlbar_filter.find("li:first").width();
+					controlbar_filter.find("li:last").width( controlbar_filter.width() - element_width * ( element_count - 1 ) );
 				}
 			});
 
