@@ -76,7 +76,7 @@
 				themeclass  = " ui-body-" + theme,
 				focusedEl,
 				clearbtn,
-				searchicon,
+				searchtext,
 				cancelbtn,
 				defaultText,
 				defaultTextClass,
@@ -84,6 +84,7 @@
 				newClassName,
 				newStyle,
 				newDiv,
+				searchimage,
 				inputedText;
 
 			function toggleClear() {
@@ -99,7 +100,7 @@
 				cancelbtn
 					.addClass( "ui-btn-cancel-show" )
 					.removeClass( "ui-btn-cancel-hide" );
-				searchicon.hide();
+				searchtext.hide();
 			}
 
 			function hideCancel() {
@@ -111,7 +112,7 @@
 					.removeClass( "ui-btn-cancel-show" );
 
 				if ( input.val() == "" ) {
-					searchicon.show();
+					searchtext.show();
 				}
 
 				toggleClear();
@@ -164,12 +165,12 @@
 			//SLP --start search bar with cancel button
 			focusedEl.wrapAll( "<div class='input-search-bar'></div>" );
 
-			searchicon = $("<div class='ui-image-search ui-image-searchfield'></div>")
+			searchtext = $("<div class=' ui-image-searchfield'></div>")
 				.bind('click', function ( event ) {
 					if ( input.attr( "disabled" ) == "disabled" ) {
 						return false;
 					}
-					searchicon.hide();
+					searchtext.hide();
 
 					input
 						.blur()
@@ -198,6 +199,8 @@
 					corners: true,
 					shadow: true
 				} );
+
+			searchimage = $("<div class='ui-image-search'></div>").appendTo( focusedEl );
 
 			// Input Focused
 			input
@@ -277,7 +280,7 @@
 			}
 
 			if ( input.val() ) {
-				searchicon.hide();
+				searchtext.hide();
 			}
 		},
 

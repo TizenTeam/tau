@@ -59,16 +59,21 @@ textarea.ui-input-text {
 
 .ui-image-search {
 	position: absolute;
-	top: 0;
-	left: 0;
-	width : 100%;
+	top: 0px;
+	left: 0px;
+	width : 42 * @unit_base;
+	height : 42 * @unit_base;
 	margin: 16 * @unit_base;
 }
 
 .ui-image-searchfield:after {
-	margin-left: 58 * @unit_base;
+	margin-left: 74 * @unit_base;
 	content: "Search";
 	color: @color_searchbar_default_text;
+
+	position : absolute;
+	top: 16 * @unit_base;
+
 }
 
 /* orientation adjustments - incomplete!*/
@@ -110,7 +115,7 @@ textarea.ui-input-text {
 		.ui-input-text {
 			height: 74 * @unit_base;
 			padding : 0px;
-			margin-left : 10 * @unit_base;
+			margin-left : 74 * @unit_base;
 		}
 	}
 	.ui-input-search-default {
