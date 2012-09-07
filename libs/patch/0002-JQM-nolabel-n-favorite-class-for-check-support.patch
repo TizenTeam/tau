@@ -19,7 +19,7 @@ index eb4731b..b373431 100644
 +		// Support fake label
 +		if ( label.length == 0 ) {
 +			label = $( "<label for='" + input[ 0 ].id  +
-+				"' style='display:block;width:1px;height:1px;'></label>" );
++				"'></label>" );
 +		}
 +
  		// Expose for other methods
