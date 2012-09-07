@@ -1,0 +1,233 @@
+From dc926a4b6bd820cc6fa50dabba5066073a56c9b5 Mon Sep 17 00:00:00 2001
+From: Daehyeon Jung <darrenh.jung@samsung.com>
+Date: Thu, 9 Aug 2012 10:53:27 +0900
+Subject: [PATCH] JQM: merge navigation from 1.2.0a for popup
+
+Signed-off-by: Jung, Daehyeon <darrenh.jung@samsung.com>
+---
+ .../js/jquery.mobile.navigation.js                 |   96 ++++++++++++++++++--
+ 1 file changed, 86 insertions(+), 10 deletions(-)
+
+diff --git a/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.navigation.js b/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.navigation.js
+index ad2f67c..f6e11b3 100644
+--- a/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.navigation.js
++++ b/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.navigation.js
+@@ -138,6 +138,10 @@ define( [
+ 					return relUrl;
+ 				}
+ 
++				if ( absUrl === undefined ) {
++					absUrl = documentBase;
++				}
++
+ 				var relObj = path.parseUrl( relUrl ),
+ 					absObj = path.parseUrl( absUrl ),
+ 					protocol = relObj.protocol || absObj.protocol,
+@@ -168,7 +172,8 @@ define( [
+ 				} else if ( path.isSameDomain( u, documentBase ) ) {
+ 					return u.hrefNoHash.replace( documentBase.domain, "" );
+ 				}
+-				return absUrl;
++
++				return window.decodeURIComponent(absUrl);
+ 			},
+ 
+ 			//get path from current hash, or from a file path
+@@ -211,6 +216,10 @@ define( [
+ 				return path.stripHash( hash.replace( /\?.*$/, "" ).replace( dialogHashKey, "" ) );
+ 			},
+ 
++			isHashValid: function( hash ) {
++				return ( /^#[^#]+$/ ).test( hash );
++			},
++
+ 			//check whether a url is referencing the same domain, or an external domain or different protocol
+ 			//could be mailto, etc
+ 			isExternal: function( url ) {
+@@ -253,7 +262,20 @@ define( [
+ 				if ( u.protocol !== "" ) {
+ 					return ( u.hash && ( u.hrefNoHash === documentUrl.hrefNoHash || ( documentBaseDiffers && u.hrefNoHash === documentBase.hrefNoHash ) ) );
+ 				}
+-				return (/^#/).test( u.href );
++				return ( /^#/ ).test( u.href );
++			},
++
++
++			// Some embedded browsers, like the web view in Phone Gap, allow cross-domain XHR
++			// requests if the document doing the request was loaded via the file:// protocol.
++			// This is usually to allow the application to "phone home" and fetch app specific
++			// data. We normally let the browser handle external/cross-domain urls, but if the
++			// allowCrossDomainPages option is true, we will allow cross-domain http/https
++			// requests to go through our page loading logic.
++			isPermittedCrossDomainRequest: function( docUrl, reqUrl ) {
++				return $.mobile.allowCrossDomainPages &&
++					docUrl.protocol === "file:" &&
++					reqUrl.search( /^https?:/ ) !== -1;
+ 			}
+ 		},
+ 
+@@ -307,7 +329,7 @@ define( [
+ 				$.each( urlHistory.stack, function( i, historyEntry ) {
+ 
+ 					//if the url is in the stack, it's a forward or a back
+-					if( opts.currentUrl === historyEntry.url ) {
++					if ( decodeURIComponent( opts.currentUrl ) === decodeURIComponent( historyEntry.url ) ) {
+ 						//define back and forward by whether url is older or newer than current page
+ 						back = i < urlHistory.activeIndex;
+ 						forward = !back;
+@@ -398,7 +420,7 @@ define( [
+ 
+ 	//remove active classes after page transition or error
+ 	function removeActiveLinkClass( forceRemoval ) {
+-		if( !!$activeClickedLink && ( !$activeClickedLink.closest( '.ui-page-active' ).length || forceRemoval ) ) {
++		if ( !!$activeClickedLink && ( !$activeClickedLink.closest( "." + $.mobile.activePageClass ).length || forceRemoval ) ) {
+ 			$activeClickedLink.removeClass( $.mobile.activeBtnClass );
+ 		}
+ 		$activeClickedLink = null;
+@@ -667,7 +689,8 @@ define( [
+ 		// attribute and in need of enhancement.
+ 		if ( page.length === 0 && dataUrl && !path.isPath( dataUrl ) ) {
+ 			page = settings.pageContainer.children( "#" + dataUrl )
+-				.attr( "data-" + $.mobile.ns + "url", dataUrl );
++				.attr( "data-" + $.mobile.ns + "url", dataUrl )
++				.jqmData( "url", dataUrl );
+ 		}
+ 
+ 		// If we failed to find a page in the DOM, check the URL to see if it
+@@ -1002,6 +1025,16 @@ define( [
+ 		if( fromPage && fromPage[0] === toPage[0] && !settings.allowSamePageTransition ) {
+ 			isPageTransitioning = false;
+ 			mpc.trigger( "pagechange", triggerData );
++
++			// Even if there is no page change to be done, we should keep the urlHistory in sync with the hash changes
++			if ( settings.fromHashChange ) {
++				urlHistory.directHashChange({
++					currentUrl:	url,
++					isBack:		function() {},
++					isForward:	function() {}
++				});
++			}
++
+ 			return;
+ 		}
+ 
+@@ -1033,6 +1066,9 @@ define( [
+ 			}
+ 		} catch(e) {}
+ 
++		// Record whether we are at a place in history where a dialog used to be - if so, do not add a new history entry and do not change the hash either
++		var alreadyThere = false;
++
+ 		// If we're displaying the page as a dialog, we don't want the url
+ 		// for the dialog content to be used in the hash. Instead, we want
+ 		// to append the dialogHashKey to the url of the current page.
+@@ -1041,7 +1077,24 @@ define( [
+ 			// be an empty string. Moving the undefined -> empty string back into
+ 			// urlHistory.addNew seemed imprudent given undefined better represents
+ 			// the url state
++
++			// If we are at a place in history that once belonged to a dialog, reuse
++			// this state without adding to urlHistory and without modifying the hash.
++			// However, if a dialog is already displayed at this point, and we're
++			// about to display another dialog, then we must add another hash and
++			// history entry on top so that one may navigate back to the original dialog
++			if ( active.url.indexOf( dialogHashKey ) > -1 && !$.mobile.activePage.is( ".ui-dialog" ) ) {
++				settings.changeHash = false;
++				alreadyThere = true;
++			}
++
+ 			url = ( active.url || "" ) + dialogHashKey;
++
++			// tack on another dialogHashKey if this is the same as the initial hash
++			// this makes sure that a history entry is created for this dialog
++			if ( urlHistory.activeIndex === 0 && url === urlHistory.initialDst ) {
++				url += dialogHashKey;
++			}
+ 		}
+ 
+ 		// Set the location hash.
+@@ -1068,7 +1121,7 @@ define( [
+ 			|| ( isDialog ? $.mobile.defaultDialogTransition : $.mobile.defaultPageTransition );
+ 
+ 		//add page to history stack if it's not back or forward
+-		if( !historyDir ) {
++		if ( !historyDir && !alreadyThere ) {
+ 			urlHistory.addNew( url, settings.transition, pageTitle, pageUrl, settings.role );
+ 		}
+ 
+@@ -1193,8 +1246,7 @@ define( [
+ 
+ 			url = path.makeUrlAbsolute(  url, getClosestBaseUrl($this) );
+ 
+-			//external submits use regular HTTP
+-			if( path.isExternal( url ) || target ) {
++			if ( ( path.isExternal( url ) && !path.isPermittedCrossDomainRequest( documentUrl, url ) ) || target ) {
+ 				return;
+ 			}
+ 
+@@ -1344,7 +1396,7 @@ define( [
+ 				//this may need to be more specific as we use data-rel more
+ 				role = $link.attr( "data-" + $.mobile.ns + "rel" ) || undefined;
+ 
+-			$.mobile.changePage( href, { transition: transition, reverse: reverse, role: role } );
++			$.mobile.changePage( href, { transition: transition, reverse: reverse, role: role, link: $link } );
+ 			event.preventDefault();
+ 		});
+ 
+@@ -1369,6 +1421,9 @@ define( [
+ 				//transition is false if it's the first page, undefined otherwise (and may be overridden by default)
+ 				transition = $.mobile.urlHistory.stack.length === 0 ? "none" : undefined,
+ 
++				// "navigate" event fired to allow others to take advantage of the more robust hashchange handling
++				navEvent = new $.Event( "navigate" ),
++
+ 				// default options for the changPage calls made after examining the current state
+ 				// of the page and the hash
+ 				changePageOptions = {
+@@ -1377,6 +1432,17 @@ define( [
+ 					fromHashChange: true
+ 				};
+ 
++			if ( 0 === urlHistory.stack.length ) {
++				urlHistory.initialDst = to;
++			}
++
++			// We should probably fire the "navigate" event from those places that make calls to _handleHashChange,
++			// and have _handleHashChange hook into the "navigate" event instead of triggering it here
++			$.mobile.pageContainer.trigger( navEvent );
++			if ( navEvent.isDefaultPrevented() ) {
++				return;
++			}
++
+ 			//if listening is disabled (either globally or temporarily), or it's a dialog hash
+ 			if( !$.mobile.hashListeningEnabled || urlHistory.ignoreNextHashChange ) {
+ 				urlHistory.ignoreNextHashChange = false;
+@@ -1432,6 +1498,14 @@ define( [
+ 				// since the hashchange could've been the result of a forward/backward navigation
+ 				// that crosses from an external page/dialog to an internal page/dialog.
+ 				to = ( typeof to === "string" && !path.isPath( to ) ) ? ( path.makeUrlAbsolute( '#' + to, documentBase ) ) : to;
++
++				// If we're about to go to an initial URL that contains a reference to a non-existent
++				// internal page, go to the first page instead. We know that the initial hash refers to a
++				// non-existent page, because the initial hash did not end up in the initial urlHistory entry
++				if ( to === path.makeUrlAbsolute( '#' + urlHistory.initialDst, documentBase ) &&
++					urlHistory.stack.length && urlHistory.stack[0].url !== urlHistory.initialDst.replace( dialogHashKey, "" ) ) {
++					to = $.mobile.firstPage;
++				}
+ 				$.mobile.changePage( to, changePageOptions );
+ 			}	else {
+ 				//there's no hash, go to the first page in the dom
+@@ -1441,7 +1515,9 @@ define( [
+ 
+ 		//hashchange event handler
+ 		$window.bind( "hashchange", function( e, triggered ) {
+-			$.mobile._handleHashChange( location.hash );
++			// Firefox auto-escapes the location.hash as for v13 but
++			// leaves the href untouched
++			$.mobile._handleHashChange( path.parseUrl(location.href).hash );
+ 		});
+ 
+ 		//set page min-heights to be device specific
+-- 
+1.7.9.5
+

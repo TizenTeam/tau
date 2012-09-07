@@ -138,6 +138,7 @@
 		},
 
 		_create: function () {
+			console.warn("popupwindow() was deprecated. use popup() instead.");
 			var thisPage = this.element.closest(":jqmData(role='page')"),
 				self = this;
 

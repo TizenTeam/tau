@@ -17,24 +17,24 @@
 	</div>
 	<div class="content" data-role="content">
 		<ul data-role="listview" data-icon="1line-textonly">
-			<li><a href="#center_info" data-inline="true" data-rel="popupwindow" aria-haspopup="true">Center info popup</a></li>
-			<li><a href="#center_title" data-inline="true" data-rel="popupwindow" aria-haspopup="true">Center title popup</a></li>
-			<li><a href="#center_basic_1btn" data-inline="true" data-rel="popupwindow" aria-haspopup="true">Center basic 1 button popup</a></li>
-			<li><a href="#center_basic_2btn" data-inline="true" data-rel="popupwindow" aria-haspopup="true">Center basic 2 button popup</a></li>
-			<li><a href="#center_basic_3btn" data-inline="true" data-rel="popupwindow" aria-haspopup="true">Center basic 3 button popup</a></li>
-			<li><a href="#center_title_1btn" data-inline="true" data-rel="popupwindow" aria-haspopup="true">Center title 1 button popup</a></li>
-			<li><a href="#center_title_2btn" data-inline="true" data-rel="popupwindow" aria-haspopup="true">Center title 2 button popup</a></li>
-			<li><a href="#center_title_3btn" data-inline="true" data-rel="popupwindow" aria-haspopup="true">Center title 3 button popup</a></li>
-			<li><a href="#center_button_vertical" data-inline="true" data-rel="popupwindow" aria-haspopup="true">Center_button vertical</a></li>
-			<li><a href="#center_checkbox" data-inline="true" data-rel="popupwindow" aria-haspopup="true">Center_checkbox</a></li>
-			<li><a href="#center_liststyle_1btn" data-inline="true" data-rel="popupwindow" aria-haspopup="true">Center_list style 1 button popup</a></li>
-			<li><a href="#center_liststyle_2btn" data-inline="true" data-rel="popupwindow" aria-haspopup="true">Center_list style 2 button popup</a></li>
-			<li><a href="#center_liststyle_3btn" data-inline="true" data-rel="popupwindow" aria-haspopup="true">Center_list style 3 button popup</a></li>
+			<li><a href="#center_info" data-inline="true" data-rel="popup" data-position-to="window">Center info popup</a></li>
+			<li><a href="#center_title" data-inline="true" data-rel="popup" data-position-to="window">Center title popup</a></li>
+			<li><a href="#center_basic_1btn" data-inline="true" data-rel="popup" data-position-to="window">Center basic 1 button popup</a></li>
+			<li><a href="#center_basic_2btn" data-inline="true" data-rel="popup" data-position-to="window">Center basic 2 button popup</a></li>
+			<li><a href="#center_basic_3btn" data-inline="true" data-rel="popup" data-position-to="window">Center basic 3 button popup</a></li>
+			<li><a href="#center_title_1btn" data-inline="true" data-rel="popup" data-position-to="window">Center title 1 button popup</a></li>
+			<li><a href="#center_title_2btn" data-inline="true" data-rel="popup" data-position-to="window">Center title 2 button popup</a></li>
+			<li><a href="#center_title_3btn" data-inline="true" data-rel="popup" data-position-to="window">Center title 3 button popup</a></li>
+			<li><a href="#center_button_vertical" data-inline="true" data-rel="popup" data-position-to="window">Center_button vertical</a></li>
+			<li><a href="#center_checkbox" data-inline="true" data-rel="popup" data-position-to="window">Center_checkbox</a></li>
+			<li><a href="#center_liststyle_1btn" data-inline="true" data-rel="popup" data-position-to="window">Center_list style 1 button popup</a></li>
+			<li><a href="#center_liststyle_2btn" data-inline="true" data-rel="popup" data-position-to="window">Center_list style 2 button popup</a></li>
+			<li><a href="#center_liststyle_3btn" data-inline="true" data-rel="popup" data-position-to="window">Center_list style 3 button popup</a></li>
 		</ul>
 
 		<!-- text only -->
-		<div id="center_info" data-role="popupwindow" data-style="center_info">
-			<div data-role="text"> <p>
+		<div id="center_info" data-role="popup" class="center_info">
+			<div class="ui-popup-text"> <p>
 				Pop-up dialog box, a child
 				window that blocks user inter-
 				act to the parent windows
@@ -42,11 +42,11 @@
 		</div>
 
 		<!-- popup title-text -->
-		<div id="center_title" data-role="popupwindow" data-style="center_title">
-			<p data-role="title">
+		<div id="center_title" data-role="popup" class="center_title">
+			<p class="ui-popup-title">
 				Popup title
 			</p>
-			<p data-role="text">
+			<p class="ui-popup-text">
 				Pop-up dialog box, a child
 				window that blocks user interact
 				to the parent windows
@@ -54,38 +54,38 @@
 		</div>
 
 		<!-- popup basic+text+1button -->
-		<div id="center_basic_1btn" data-role="popupwindow" data-style="center_basic_1btn">
-			<p data-role="text">
+		<div id="center_basic_1btn" data-role="popup" class="center_basic_1btn">
+			<p class="ui-popup-text">
 				Pop-up dialog box, a child
 				window that blocks user interact
 				to the parent windows
 			</p>
-			<div data-role="button-bg">
+			<div class="ui-popup-button-bg">
 					<input type="button" value="Text Button" />
 			</div>
 		</div>
 
 		<!-- popup basic+text+2button -->
-		<div id="center_basic_2btn" data-role="popupwindow" data-style="center_basic_2btn">
-			<p data-role="text">
+		<div id="center_basic_2btn" data-role="popup" class="center_basic_2btn">
+			<p class="ui-popup-text">
 				Pop-up dialog box, a child
 				window that blocks user interact
 				to the parent windows
 			</p>
-			<div data-role="button-bg">
+			<div class="ui-popup-button-bg">
 					<input type="button" value="Text Button" />
 					<input type="button" value="Text Button" />
 			</div>
 		</div>
 
 		<!-- popup basic+text+3button -->
-		<div id="center_basic_3btn" data-role="popupwindow" data-style="center_basic_3btn">
-			<p data-role="text">
+		<div id="center_basic_3btn" data-role="popup" class="center_basic_3btn">
+			<p class="ui-popup-text">
 				Pop-up dialog box, a child
 				window that blocks user interact
 				to the parent windows
 			</p>
-			<div data-role="button-bg">
+			<div class="ui-popup-button-bg">
 					<input type="button" value="Button1" />
 					<input type="button" value="Button2" />
 					<input type="button" value="Button3" />
@@ -93,47 +93,47 @@
 		</div>
 
 		<!-- popup title+text+1button -->
-		<div id="center_title_1btn" data-role="popupwindow" data-style="center_title_1btn">
-			<p data-role="title">
+		<div id="center_title_1btn" data-role="popup" class="center_title_1btn">
+			<p class="ui-popup-title">
 				Popup title
 			</p>
-			<p data-role="text">
+			<p class="ui-popup-text">
 				Pop-up dialog box, a child
 				window that blocks user interact
 				to the parent windows
 			</p>
-			<div data-role="button-bg">
+			<div class="ui-popup-button-bg">
 					<input type="button" value="Text Button" />
 			</div>
 		</div>
 
 		<!-- popup title+text+2button -->
-		<div id="center_title_2btn" data-role="popupwindow" data-style="center_title_2btn">
-			<p data-role="title">
+		<div id="center_title_2btn" data-role="popup" class="center_title_2btn">
+			<p class="ui-popup-title">
 				Popup title
 			</p>
-			<p data-role="text">
+			<p class="ui-popup-text">
 				Pop-up dialog box, a child
 				window that blocks user interact
 				to the parent windows
 			</p>
-			<div data-role="button-bg">
+			<div class="ui-popup-button-bg">
 					<input type="button" value="Text Button" />
 					<input type="button" value="Text Button" />
 			</div>
 		</div>
 
 		<!-- popup title+text+3button -->
-		<div id="center_title_3btn" data-role="popupwindow" data-style="center_title_3btn">
-			<p data-role="title">
+		<div id="center_title_3btn" data-role="popup" class="center_title_3btn">
+			<p class="ui-popup-title">
 				Popup title
 			</p>
-			<p data-role="text">
+			<p class="ui-popup-text">
 				Pop-up dialog box, a child
 				window that blocks user interact
 				to the parent windows
 			</p>
-			<div data-role="button-bg">
+			<div class="ui-popup-button-bg">
 					<input type="button" value="Button1" />
 					<input type="button" value="Button2" />
 					<input type="button" value="Button3" />
@@ -141,12 +141,12 @@
 		</div>
 
 		<!-- popup center_button_vertical -->
-		<div id="center_button_vertical" data-role="popupwindow" data-style="center_button_vertical">
-			<p data-role="text">
+		<div id="center_button_vertical" data-role="popup" class="center_button_vertical">
+			<p class="ui-popup-text">
 				File 01.jpg
 				already in use
 			</p>
-			<div data-role="button-bg">
+			<div class="ui-popup-button-bg">
 					<input type="button" value="Replace" />
 					<input type="button" value="Rename" />
 					<input type="button" value="Cancel" />
@@ -154,30 +154,30 @@
 		</div>
 
 		<!-- popup checkbox  -->
-		<div id="center_checkbox" data-role="popupwindow" data-style="center_checkbox">
-			<p data-role="text">
+		<div id="center_checkbox" data-role="popup" class="center_checkbox">
+			<p class="ui-popup-text">
 				Use packet data must
 				be enabled to access
 				data service.
 				Change settings?
 			</p>
-			<div data-role="check-bg">
+			<div class="ui-popup-check-bg">
 				<input type="checkbox" name="checkbox-1" id="checkbox-1" class="custom" />
 				<label for="checkbox-1">Don't ask again</label>
 			</div>
-			<div data-role="button-bg">
+			<div class="ui-popup-button-bg">
 					<input type="button" value="Text" />
 					<input type="button" value="Text" />
 			</div>
 		</div>
 
 		<!-- popup liststyle 1 button -->
-		<div id="center_liststyle_1btn" data-role="popupwindow" data-style="center_liststyle_1btn">
-			<p data-role="title">
+		<div id="center_liststyle_1btn" data-role="popup" class="center_liststyle_1btn">
+			<p class="ui-popup-title">
 				Popup title
 			</p>
-			<div data-role="scroller-bg">
-				<ul data-role="listview" data-icon="1line-textonly" data-scroll="y">
+			<div class="ui-popup-scroller-bg" data-scroll="y">
+				<ul data-role="listview" data-icon="1line-textonly">
 					<li><a href="#">List item 1</a></li>
 					<li><a href="#">List item 2</a></li>
 					<li><a href="#">List item 3</a></li>
@@ -189,18 +189,18 @@
 					<li><a href="#">List item 9</a></li>
 				</ul>
 			</div>
-			<div data-role="button-bg">
+			<div class="ui-popup-button-bg">
 					<input type="button" value="Text Button" />
 			</div>
 		</div>
 
 		<!-- popup liststyle 2 button -->
-		<div id="center_liststyle_2btn" data-role="popupwindow" data-style="center_liststyle_2btn">
-			<p data-role="title">
+		<div id="center_liststyle_2btn" data-role="popup" class="center_liststyle_2btn">
+			<p class="ui-popup-title">
 				Popup title
 			</p>
-			<div data-role="scroller-bg">
-				<ul data-role="listview" data-icon="1line-textonly" data-scroll="y">
+			<div class="ui-popup-scroller-bg" data-scroll="y">
+				<ul data-role="listview" data-icon="1line-textonly">
 					<li><a href="#">List item 1</a></li>
 					<li><a href="#">List item 2</a></li>
 					<li><a href="#">List item 3</a></li>
@@ -212,19 +212,19 @@
 					<li><a href="#">List item 9</a></li>
 				</ul>
 			</div>
-			<div data-role="button-bg">
+			<div class="ui-popup-button-bg">
 					<input type="button" value="Text Button" />
 					<input type="button" value="Text Button" />
 			</div>
 		</div>
 
 		<!-- popup liststyle 3 button -->
-		<div id="center_liststyle_3btn" data-role="popupwindow" data-style="center_liststyle_3btn">
-			<p data-role="title">
+		<div id="center_liststyle_3btn" data-role="popup" class="center_liststyle_3btn">
+			<p class="ui-popup-title">
 				Popup title
 			</p>
-			<div data-role="scroller-bg">
-				<ul data-role="listview" data-icon="1line-textonly" data-scroll="y">
+			<div class="ui-popup-scroller-bg" data-scroll="y">
+				<ul data-role="listview" data-icon="1line-textonly">
 					<li><a href="#">List item 1</a></li>
 					<li><a href="#">List item 2</a></li>
 					<li><a href="#">List item 3</a></li>
@@ -236,7 +236,7 @@
 					<li><a href="#">List item 9</a></li>
 				</ul>
 			</div>
-			<div data-role="button-bg">
+			<div class="ui-popup-button-bg">
 					<input type="button" value="Button" />
 					<input type="button" value="Button" />
 					<input type="button" value="Button" />
