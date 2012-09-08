@@ -16,7 +16,7 @@ index 4ccdd73..a290e32 100644
  			}
  		}
  	},
-+	
++
 +	_addCheckboxRadioClasses: function( containers )
 +	{
 +		var i, inputAttr, len = containers.length;

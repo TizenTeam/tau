@@ -17,7 +17,7 @@ index a290e32..671bc84 100644
  		}
  	},
 -
-+	
++
 +	_addRightBtnClasses: function( containers )
 +	{
 +		var i, btnAttr, len = containers.length;
