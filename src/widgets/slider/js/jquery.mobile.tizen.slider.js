@@ -103,6 +103,11 @@
 			// hide the slider input element proper
 			inputElement.hide();
 
+			// FIXME: workaround for list elipse
+			if ( inputElement.parent().hasClass("ui-li") ) {
+				inputElement.parent().css( "overflow", "visible" );
+			}
+
 			self.popup = $('<div class="ui-slider-popup"></div>');
 
 			// set the popup according to the html attribute
