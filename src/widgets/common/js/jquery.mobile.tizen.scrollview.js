@@ -62,6 +62,10 @@
 			scrollJump:        false,
 		},
 
+		_getViewHeight: function () {
+			return this._$view.height() + this._view_offset;
+		},
+
 		_makePositioned: function ( $ele ) {
 			if ( $ele.css("position") === "static" ) {
 				$ele.css( "position", "relative" );
@@ -88,7 +92,9 @@
 
 			this._makePositioned( this._$view );
 			this._$view.css( { left: 0, top: 0 } );
-			this._view_height = this._$view.height();
+
+			this._view_offset = this._$view.offset().top - this._$clip.offset().top;
+			this._view_height = this._getViewHeight();
 
 			this._sx = 0;
 			this._sy = 0;
@@ -136,8 +142,7 @@
 
 			if ( vt ) {
 				c = this._$clip.height();
-				v = this._$view.height() +
-					parseFloat( this._$view.css("padding-top") );
+				v = this._getViewHeight();
 
 				vt.start( this._sy, speedY,
 					duration, (v > c) ? -(v - c) : 0, 0 );
@@ -259,9 +264,7 @@
 			}
 
 			if ( dirLock !== "x" && this._vTracker ) {
-				scroll_height = $v.height() - $c.height() +
-					parseFloat( $c.css("padding-top") ) +
-					parseFloat( $c.css("padding-bottom") );
+				scroll_height = this._getViewHeight() - $c.height();
 
 				this._outerScroll( y, scroll_height );
 
@@ -302,10 +305,10 @@
 
 				if ( sm === "translate" ) {
 					this._setElementTransform( $sbt, "0px",
-						-y / $v.height() * $sbt.parent().height() + "px",
+						-y / this._getViewHeight() * $sbt.parent().height() + "px",
 						duration );
 				} else {
-					$sbt.css( "top", -y / $v.height() * 100 + "%" );
+					$sbt.css( "top", -y / this._getViewHeight() * 100 + "%" );
 				}
 			}
 
@@ -780,17 +783,18 @@
 			$c.bind( "updatelayout", function ( e ) {
 				var $page = $c.parentsUntil("ui-page"),
 					sy,
-					vh;
+					vh,
+					view_h = self._getViewHeight();
 
-				if ( !$c.height() || !$v.height() ) {
+				if ( !$c.height() || !view_h ) {
 					self.scrollTo( 0, 0, 0 );
 					return;
 				}
 
-				sy = $c.height() - $v.height();
-				vh = $v.height() - self._view_height;
+				sy = $c.height() - view_h;
+				vh = view_h - self._view_height;
 
-				self._view_height = $v.height();
+				self._view_height = view_h;
 
 				if ( vh == 0 || vh > $c.height() / 2 ) {
 					return;
@@ -807,9 +811,10 @@
 
 			$( window ).bind( "resize", function ( e ) {
 				var $page = $c.parentsUntil("ui-page"),
-					focused;
+					focused,
+					view_h = self._getViewHeight();
 
-				if ( !$c.height() || !$v.height() ) {
+				if ( !$c.height() || !view_h ) {
 					return;
 				}
 
@@ -821,13 +826,18 @@
 
 				/* calibration - after triggered throttledresize */
 				setTimeout( function () {
-					if ( self._sy < $c.height() - $v.height() ) {
+					if ( self._sy < $c.height() - self._getViewHeight() ) {
 						self.scrollTo( 0, self._sy,
 							self.options.snapbackDuration );
 					}
 				}, 260 );
 
-				self._view_height = $v.height();
+				self._view_height = view_h;
+			});
+
+			$( document ).bind( "pageshow", function ( e ) {
+				self._view_offset = self._$view.offset().top - self._$clip.offset().top;
+				self._view_height = self._getViewHeight();
 			});
 		},
 
@@ -913,7 +923,7 @@
 
 			if ( this._vTracker ) {
 				ch = $c.height();
-				vh = $v.height();
+				vh = this._getViewHeight();
 				this._maxY = ch - vh;
 
 				if ( this._maxY > 0 ) {
