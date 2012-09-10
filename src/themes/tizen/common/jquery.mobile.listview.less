@@ -149,9 +149,7 @@
 	.ui-btn-text {
 		position: relative;
 		a.ui-link-inherit {
-			text-overflow: ellipsis;
-			overflow: hidden;
-			white-space: nowrap;
+			.LESStext-ellipsis();
 		}
 	}
 	&:last-child,
@@ -177,10 +175,13 @@
 		padding-right : 16 * @unit_base;
 		display: block;
 
-		overflow:hidden;
-		white-space : nowrap;
-		text-overflow : ellipsis;
+		white-space: nowrap;	// default: 1line
 	}
+
+	.ui-btn-inner a.ui-link-inherit {
+		.LESStext-ellipsis();
+	}
+
 
 	.ui-toggleswitch {
 		&:last-child {
@@ -278,9 +279,7 @@ li.ui-li-thumbnail-right {
 	}
 
 	a {
-		overflow:hidden;
-		white-space : nowrap;
-		text-overflow : ellipsis;
+		.LESStext-ellipsis();
 		padding-right : 16 * @unit_base; /* ellipsis for normal text */
 	}
 }
@@ -432,9 +431,7 @@ li.ui-li-thumbnail-right {
 	font-weight: bold;
 	display: block;
 	margin: .6em 0;
-	text-overflow: ellipsis;
-	overflow: hidden;
-	white-space: nowrap;
+	.LESStext-ellipsis();
 }
 
 .ui-li-thumb,
@@ -471,10 +468,8 @@ li.ui-li-thumbnail-right {
 	right : 16 * @unit_base;
 	top : 16 * @unit_base;
 
-	overflow:hidden;
-	white-space : nowrap;
-	text-overflow : ellipsis;
 	width	: 95%;
+	.LESStext-ellipsis();
 
 	> img {
 		position : relative;
@@ -494,10 +489,8 @@ li.ui-li-thumbnail-right {
 	right : 16 * @unit_base;
 	top : 16 * @unit_base;
 
-	overflow:hidden;
-	white-space : nowrap;
-	text-overflow : ellipsis;
 	width : 60%;
+	.LESStext-ellipsis();
 
 	> img {
 		width: @list-smallicon-size;
@@ -521,12 +514,8 @@ li:not(.ui-li-has-multiline) .ui-li-text-sub {
 	top: 70 * @unit_base;
 	margin-top: 0px;
 
-	overflow:hidden;
-	white-space : nowrap;
-	text-overflow : ellipsis;
-
-	/* ellipsis for multiline list */
 	width : 90%;
+	.LESStext-ellipsis();
 }
 
 .ui-li-icon-sub-right,
@@ -664,7 +653,7 @@ li:not(.ui-li-has-multiline) .ui-li-text-sub {
 		.LESSimg-expand-icon;
 	}
 	.ui-li-expanded {
-		overflow: hidden;
+		overflow-x: hidden;
 	}
 	.ui-li-expand-transition-show {
 		visibility: visible;
