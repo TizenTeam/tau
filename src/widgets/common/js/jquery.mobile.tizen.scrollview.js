@@ -73,8 +73,7 @@
 		},
 
 		_create: function () {
-			var $page = $('.ui-page'),
-				direction,
+			var direction,
 				self = this;
 
 			this._$clip = $( this.element ).addClass("ui-scrollview-clip");
@@ -781,8 +780,7 @@
 			}
 
 			$c.bind( "updatelayout", function ( e ) {
-				var $page = $c.parentsUntil("ui-page"),
-					sy,
+				var sy,
 					vh,
 					view_h = self._getViewHeight();
 
@@ -810,9 +808,12 @@
 			});
 
 			$( window ).bind( "resize", function ( e ) {
-				var $page = $c.parentsUntil("ui-page"),
-					focused,
+				var focused,
 					view_h = self._getViewHeight();
+
+				if ( $(".ui-page-active").get(0) !== self._page.get(0) ) {
+					return;
+				}
 
 				if ( !$c.height() || !view_h ) {
 					return;
@@ -835,7 +836,8 @@
 				self._view_height = view_h;
 			});
 
-			$( document ).bind( "pageshow", function ( e ) {
+			$( document ).one( "pageshow", function ( e ) {
+				self._page = $(".ui-page-active");
 				self._view_offset = self._$view.offset().top - self._$clip.offset().top;
 				self._view_height = self._getViewHeight();
 			});
