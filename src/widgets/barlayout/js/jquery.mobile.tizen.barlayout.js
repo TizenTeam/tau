@@ -47,11 +47,11 @@
 
 				/* Back button skip case :
 				* 1. tabbar
-				* 2. footer does not exit
+				* 2. footer does not exist and addBackBtn is set to "footer"
 				* 3. user define data-add-Back-Btn = "false"
 				*/
 				if ( status != "external" ) {
-					if ( $elFooter.children( ":jqmData(role='controlbar')" ).jqmData( "style" ) == "tabbar" || $elPage.data().page.options.footerExist == false || $elPage.data().page.options.addBackBtn == "none"  ) {
+					if ( $elFooter.children( ":jqmData(role='controlbar')" ).jqmData( "style" ) == "tabbar" || $elPage.data().page.options.addBackBtn == "none" || ( $elPage.data().page.options.addBackBtn == "footer" && $elPage.data().page.options.footerExist == false )  ) {
 						return true;
 					}
 				}
