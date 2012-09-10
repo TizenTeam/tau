@@ -1,5 +1,6 @@
 /*
  * Common definition for theme
+ * 'config.less' in each theme must include this file.
  */
 
 @font_size_default: 36px;	// Default unit font size. DO NOT USE THIS VALUE IN WIDGET CSS!
@@ -143,3 +144,12 @@
     -webkit-transform: @method;
     -o-transform: @method;
 }
+
+// Mixin : text ellipsis
+.LESStext-ellipsis() {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	-o-text-overflow: ellipsis;
+	overflow: hidden;
+}
+
