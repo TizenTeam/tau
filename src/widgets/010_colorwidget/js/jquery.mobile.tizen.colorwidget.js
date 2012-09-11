@@ -68,9 +68,18 @@
 					el.css( el.jqmData( "cssProp" ), el.jqmData( self.options.disabled ? "dclr" : "clr" ) );
 				} );
 		},
-
+		_isValidColorCode: function( value ) {
+			return /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test( value );
+		},
 		_setColor: function ( value ) {
-			var currentValue = ( this.options.color );
+			var currentValue = ( this.options.color ),
+				self = this;
+
+			if( !self._isValidColorCode( value ) )
+			{
+				console.log( " Color code is invalid " );
+				value = "#000000";
+			}
 
 			value = value.match(/#[0-9A-Fa-f]{6}/)
 				? value
