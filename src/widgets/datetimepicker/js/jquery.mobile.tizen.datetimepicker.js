@@ -710,6 +710,7 @@
 						date.setMonth( val - 1 );
 
 						if ( date.getMonth() == val ) {
+							date.setDate( 1 );
 							date.setDate( date.getDate() - 1 );
 						}
 						break;
@@ -729,7 +730,7 @@
 					}
 				});
 
-				$div.circularview( 'centerTo', '.current', 500 );
+				$div.circularview( 'centerTo', '.current', 200 );
 				$div.bind( 'scrollend' , function ( e ) {
 					if ( !obj._reflow ) {
 						obj._reflow = function () {
