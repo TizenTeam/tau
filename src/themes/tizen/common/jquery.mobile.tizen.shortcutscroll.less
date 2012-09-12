@@ -5,7 +5,11 @@
 	right: 0*@unit_base;
 	background-color: @color_shortcutscroll_rollover_bg;
 	width: 30*@unit_base;
+	-ms-user-select: none;
+	-o-user-select: none;
+	-moz-user-select: none;
 	-webkit-user-select: none;
+	user-select:none;
 	margin:0;
 	padding-right: 0.08em;
 	opacity: 1;
@@ -25,7 +29,11 @@
 .ui-shortcutscroll2 {
 	position: absolute;
 	right: 0*@unit_base;
+	-ms-user-select: none;
+	-o-user-select: none;
+	-moz-user-select: none;
 	-webkit-user-select: none;
+	user-select: none;
 	margin:0;
 	padding-right: 0.08em;
 	opacity: 1;
@@ -56,6 +64,8 @@
 	background: @color_shortcutscroll_popup_bg;
 	color: @color_shortcutscroll_popup_text;
 	padding:10*@unit_base 30*@unit_base;
+	-ms-box-shadow: 8*@unit_base 10*@unit_base 0*@unit_base @color_shortcutscroll_popup_shadow;
+	-o-box-shadow: 8*@unit_base 10*@unit_base 0*@unit_base @color_shortcutscroll_popup_shadow; 
 	-moz-box-shadow: 8*@unit_base 10*@unit_base 0*@unit_base @color_shortcutscroll_popup_shadow;
 	-webkit-box-shadow: 8*@unit_base 10*@unit_base 0*@unit_base @color_shortcutscroll_popup_shadow;
 	box-shadow: 8*@unit_base 10*@unit_base 0*@unit_base @color_shortcutscroll_popup_shadow;

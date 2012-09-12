@@ -37,7 +37,18 @@
 	background-image:      -o-linear-gradient(@from, @startcolor, @endcolor);
 	background-image:         linear-gradient(@from, @startcolor, @endcolor);
 }
+
+.LESSbackground-with-gradient(@from: top, @startcolor: #3c3c3c, @endcolor: #5c5c5c) {
+	background: @startcolor;
+	background: -webkit-linear-gradient(@from, @startcolor 0%, @endcolor 100%);
+	background: -moz-linear-gradient(@from, @startcolor 0%, @endcolor 100%);
+	background: -ms-linear-gradient(@from, @startcolor 0%, @endcolor 100%);
+	background: -o-linear-gradient(@from, @startcolor 0%, @endcolor 100%);
+	background: linear-gradient(@from, @startcolor 0%, @endcolor 100%);
+}
+
 .LESSbackground-size(@width, @height) {
+	-ms-background-size: @width @height;
 	-moz-background-size: @width @height;
 	-o-background-size: @width @height;
 	-webkit-background-size: @width @height;
@@ -46,10 +57,11 @@
 
 // Mixin : border ***************************
 .LESSborder-image(@url:url, @width:width, @height:height, @repeat:repeat) {
-    -moz-border-image:  url(@url) @width @height @repeat;
-    -webkit-border-image: url(@url) @width @height @repeat;
-    -o-border-image: url(@url) @width @height @repeat;
-    border-image: url(@url) @width @height @repeat;
+	-moz-border-image:  url(@url) @width @height @repeat;
+	-webkit-border-image: url(@url) @width @height @repeat;
+	-o-border-image: url(@url) @width @height @repeat;
+	-ms-border-image: url(@url) @width @height @repeat;
+	border-image: url(@url) @width @height @repeat;
 }
 .LESSborder-radius-topleft(@radius) {
 	-moz-border-radius-topleft: 		@radius; 
@@ -72,13 +84,17 @@
 	border-bottom-right-radius: 			@radius;
 }
 .LESSborder-radius-all(@radius) {
-	-moz-border-radius: 		@radius; 
+	-o-border-radius:	@radius;
+	-ms-border-radius:	@radius;
+	-moz-border-radius: 	@radius; 
 	-webkit-border-radius: 	@radius;
-	bordert-radius: 			@radius;
+	border-radius: 		@radius;
 }
 
 // Mixin : box ***************************
 .LESSbox-shadow(@hshadow, @vshadow, @blur, @color) {
+	-o-box-shadow: @hshadow @vshadow @blur @color;
+	-ms-box-shadow: @hshadow @vshadow @blur @color;
 	-moz-box-shadow: @hshadow @vshadow @blur @color;
 	-webkit-box-shadow: @hshadow @vshadow @blur @color;
 	box-shadow: @hshadow @vshadow @blur @color;
@@ -90,21 +106,27 @@
 }
 //position: vertical, horizental
 .LESSbox-orient(@position) {
+	-ms-box-orient: @position;
 	-moz-box-orient: @position;
+	-o-box-orient: @position;
 	-webkit-box-orient: @position;
 	box-orient: @position;
 }
 
 //position: start, center, end
 .LESSbox-pack(@position) {
+	-ms-box-pack: @position;
 	-moz-box-pack: @position;
+	-o-box-pack: @position;
 	-webkit-box-pack: @position;
 	box-pack: @position;
 }
 
 //position: start, center, end
 .LESSbox-align(@position) {
+	-ms-box-align: @position;
 	-moz-box-align: @position;
+	-o-box-align: @position;
 	-webkit-box-align: @position;
 	box-align: @position;
 }	
@@ -152,4 +174,3 @@
 	-o-text-overflow: ellipsis;
 	overflow-x: hidden;
 }
-

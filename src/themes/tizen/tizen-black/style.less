@@ -76,7 +76,11 @@
 @color_list_bubble_failed_text:	rgb(211, 0, 0);
 @color_list_bubble_name_text:	rgb(57, 166, 215);
 @color_list_bubble_help_text:	rgb(146, 146, 146);
-@color_list_divider_bg :		-webkit-linear-gradient(top,  rgb(73,73,73) 0%,rgb(22,22,22) 100%);
+
+@color_list_divider_bg : rgb(73,73,73);
+@color_list_divider_bg_start : rgb(73,73,73);
+@color_list_divider_bg_end : rgb(22,22,22);
+
 @color_list_divider_text :		rgb(142, 174, 193); /* #005ea0 */
 @color_list_divider_expand_div : rgba(0, 0, 0, 0.5);
 @color_list_expandable_expanded_bg:	rgb(26, 26, 26);
@@ -100,6 +104,11 @@
 @style_list_li_dialogue_border_left_width: 10 * @unit_base;
 @style_list_bubble_date_height:	40 * @unit_base;
 @style_list_bubble_date_text_align:	center;
+
+.LESSlistDivider_Background{
+	.LESSbackground-with-gradient(top, @color_list_divider_bg_start, @color_list_divider_bg_end);
+}
+
 /***************************************************************************
                    Shortcut Scroll
 ***************************************************************************/
@@ -141,8 +150,6 @@
 
 .LESSpopup_button_style{
 	background: @color_popup_buttonbg;
-	background: @color_popup_buttonbg_webkit;
-	background: @color_popup_buttonbg_moz;
 	color: @color_popup_buttontext;
 }
 
@@ -152,8 +159,6 @@
 
 .LESSpopup_button_press_style{
 	background: @color_popup_buttonbg_press;
-	background: @color_popup_buttonbg_press_webkit;
-	background: @color_popup_buttonbg_press_moz;
 }
 
 .LESSpopup_padding_style{
@@ -320,9 +325,20 @@
 @color_dayselector_Btn_Sun:		rgba(240, 20, 2, 1); /* #f01402 */
 @color_dayselector_Btn_Mon_to_Fri:	rgba(249, 249, 249, 1); /* #f9f9f9 */
 @color_dayselector_Btn_border:		rgba(0, 0, 0, 0.1); /* #000000 */
-@color_dayselector_Btn_normal:		-webkit-linear-gradient(top,  rgb(48,65,95) 0%,rgb(30,43,62) 100%);
-@color_dayselector_Btn_press:		-webkit-linear-gradient(top,  rgb(71,98,141) 0%,rgb(52,75,112) 100%);
 
+@color_dayselector_Btn_normal_start:	rgb(48,65,95) 0%;
+@color_dayselector_Btn_normal_end:	rgb(30,43,62) 100%;
+
+@color_dayselector_Btn_press_start:	rgb(71,98,141) 0%;
+@color_dayselector_Btn_press_end:	rgb(52,75,112) 100%;
+
+.LESSDayselectorButtonNormal{
+	.LESSbackground-with-gradient(top, @color_dayselector_Btn_normal_start, @color_dayselector_Btn_normal_end);
+}
+
+.LESSDayaselectorButtonPress{
+	.LESSbackground-with-gradient(top, @color_dayselector_Btn_press_start, @color_dayselector_Btn_press_end);
+}
 
 /***************************************************************************
                     OptionHeader
@@ -344,12 +360,24 @@
 /***************************************************************************
                     SegmentControl
 ***************************************************************************/
-@color_segmentcontrol_btn_normal : -webkit-linear-gradient(top,  rgb(48,65,95) 0%,rgb(30,43,62) 100%);
-@color_segmentcontrol_btn_press : -webkit-linear-gradient(top,  rgb(71,98,141) 0%,rgb(52,75,112) 100%);
+@color_segmentcontrol_btn_normal_start : rgb(48,65,95);
+@color_segmentcontrol_btn_normal_end : rgb(30,43,62);
+
+@color_segmentcontrol_btn_press_start : rgb(71,98,141);
+@color_segmentcontrol_btn_press_end : rgb(52,75,112);
+
 @color_segmentcontrol_Seg_text : rgba(249, 249, 249, 1); /* #F9F9F9*/
 @color_segmentcontrol_Seg_text_pressed : rgba(249, 249, 249, 1); /* #F9F9F9*/
 
+.LESSSegmentControlBtnBackground
+{
+	.LESSbackground-with-gradient(top,@color_segmentcontrol_btn_normal_start,@color_segmentcontrol_btn_normal_end);
+}
 
+.LESSSegmentControlBtnPressBackground
+{
+	.LESSbackground-with-gradient(top,@color_segmentcontrol_btn_normal_start,@color_segmentcontrol_btn_normal_end);
+}
 /***************************************************************************
                     ControlGroup
 ***************************************************************************/
@@ -360,7 +388,10 @@
                     Header / Footer 
                     NavigationBar / ControlBar
 ***************************************************************************/
-@color_bar_bg : -webkit-linear-gradient(top,  rgb(156,181,179) 0%,rgb(79,116,141) 100%);
+@color_bar_bg : rgb(156,181,179);
+@color_bar_bg_start : rgb(156, 181, 179);
+@color_bar_bg_end : rgb(79, 116, 141);
+
 @color_bar_back_btn_press : rgba(26, 82, 116, 0.3); /* #1A5274 */
 @color_bar_btn_press : rgba(0, 0, 0, 0.1);
 @color_bar_btn_bg : transparent;
@@ -373,10 +404,15 @@
 @color_bar_seg_btn_normal : -webkit-linear-gradient(top,  rgb(56,80,120) 0%,rgb(39,58,88) 100%);
 
 @color_bar_title_text : rgba(249, 249, 249, 1); /* #F9F9F9 */
-@color_bar_title_bg : -webkit-linear-gradient(top,  rgb(68,88,120) 0%,rgb(24,37,56) 100%);
+@color_bar_title_bg : rgb(68,88,120);
+@color_bar_title_bg_start : rgb(68,88,120);
+@color_bar_title_bg_end : rgb(24,37,56);
+
 @color_bar_title_btn_border : rgba(0, 0, 0, 0.2);
 
-@color_bar_footer_bg : -webkit-linear-gradient(top,  rgb(43,54,71) 0%,rgb(17,24,35) 100%);
+@color_bar_footer_bg : rgb(43,54,71);
+@color_bar_footer_bg_start : rgb(43,54,71);
+@color_bar_footer_bg_end : rgb(17,24,35);
 @color_bar_footer_btn_bg : transparent;
 
 @color_controlbar_btn_border : rgba(0, 0, 0, 0.1); /* #000000 */
@@ -388,6 +424,16 @@
 
 @color_border_top : rgba(255, 255, 255, 0.5);
 @color_border_bottom : rgba(0, 0, 0, 0.5);
+
+.LESSHeaderFooterBackground
+{
+	.LESSbackground-with-gradient(top, @color_bar_bg_start, @color_bar_bg_end);
+}
+
+.LESSColorBarTitleBackground
+{
+	.LESSbackground-with-gradient(top, @color_bar_title_bg_start, @color_bar_title_bg_end);
+}
 
 /***************************************************************************
                     Tickernoti
