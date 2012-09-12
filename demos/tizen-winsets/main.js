@@ -148,7 +148,7 @@ $( document ).bind("pagecreate", function () {
 	});
 
 	/*Expandable list : Dummy DB load*/
-	$("#genlist_extendable_page").live("pagecreate", function () {
+	$("#genlist_extendable_page").live("pagecreate", function ( el ) {
 		/*?_=ts code for no cache mechanism*/
 		$.getScript( "./virtuallist-db-demo.js", function ( data, textStatus ) {
 			$("ul").filter( function () {
@@ -157,6 +157,7 @@ $( document ).bind("pagecreate", function () {
 
 			$("#genlist-extendable-page").die();
 			$("ul.ui-extendable-list-container").extendablelist("create");
+			// TODO: 'create' is called twice!!
 		});
 	});
 
