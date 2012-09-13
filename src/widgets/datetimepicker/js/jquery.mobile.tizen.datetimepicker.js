@@ -130,7 +130,6 @@
 
 		_makeTwoDigits: function ( val ) {
 			var ret = val.toString(10);
-
 			if ( val < 10 ) {
 				ret = "0" + ret;
 			}
@@ -389,9 +388,7 @@
 						hour = 12;
 					}
 				}
-				if ( pat.length == 2 ) {
-					hour = this._makeTwoDigits( hour );
-				}
+				hour = this._makeTwoDigits( hour );
 				text = hour;
 				break;
 			case 'm':
