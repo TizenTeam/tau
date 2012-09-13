@@ -31,10 +31,12 @@
 		.ui-popupwindow-padding {
 			background: @color_ctxpopup_background;
 			border: none;
+			-ms-box-shadow: 0 * @unit_base 0 * @unit_base 12 * @unit_base rgba( 0, 0, 0, .6 );
+			-o-box-shadow: 0 * @unit_base 0 * @unit_base 12 * @unit_base rgba( 0, 0, 0, .6 );
+			-moz-box-shadow: 0 * @unit_base 0 * @unit_base 12 * @unit_base rgba( 0, 0, 0, .6 );
 			-webkit-box-shadow: 0 * @unit_base 0 * @unit_base 12 * @unit_base rgba( 0, 0, 0, .6 );
 			box-shadow: 0 * @unit_base 0 * @unit_base 12 * @unit_base rgba( 0, 0, 0, .6 );
-			-webkit-border-radius: @border_radius;
-			border-radius: @border_radius;
+			.LESSborder-radius-all(@border_radius);
 		}
 
 	}

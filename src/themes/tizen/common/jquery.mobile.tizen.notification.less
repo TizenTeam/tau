@@ -44,12 +44,18 @@
 
 .ui-ticker.show {
 	display: block;
+	-ms-animation: ui-ticker-show 0.8s 1 ease;
+	-o-animation: ui-ticker-show 0.8s 1 ease;
+	-moz-animation: ui-ticker-show 0.8s 1 ease;
 	-webkit-animation: ui-ticker-show 0.8s 1 ease;
 	top: 0;
 }
 
 .ui-ticker.hide {
 	display: block;
+	-ms-animation: ui-ticker-hide 0.8s 1 ease;
+	-o-animation: ui-ticker-hide 0.8s 1 ease;
+	-ms-animation: ui-ticker-hide 0.8s 1 ease;
 	-webkit-animation: ui-ticker-hide 0.8s 1 ease;
 	top: -@ticker-height;
 }
@@ -143,14 +149,18 @@
 
 .ui-smallpopup.show {
 	display: block;
-
+	-moz-animation: ui-smallpopup-show 0.5s 1 ease;
+	-ms-animation: ui-smallpopup-show 0.5s 1 ease;
+	-o-animation: ui-smallpopup-show 0.5s 1 ease;
 	-webkit-animation: ui-smallpopup-show 0.5s 1 ease;
 }
 
 .ui-smallpopup.hide {
 	display: block;
 	left: -100%;
-
+	-moz-animation: ui-smallpopup-hide 0.5s 1 ease;
+	-ms-animation: ui-smallpopup-hide 0.5s 1 ease;
+	-o-animation: ui-smallpopup-hide 0.5s 1 ease;
 	-webkit-animation: ui-smallpopup-hide 0.5s 1 ease;
 }
 

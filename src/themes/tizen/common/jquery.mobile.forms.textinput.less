@@ -16,12 +16,16 @@ input.ui-input-text, textarea.ui-input-text {
 	display: block;
 	width: 95%;
 }
-input.ui-input-text { -webkit-appearance: none; }
+input.ui-input-text {
+	appearance: none;
+	-webkit-appearance: none; 
+}
 textarea.ui-input-text {
 	height: 50*@unit_base;
 	-webkit-transition: height 200ms linear;
 	-moz-transition: height 200ms linear;
 	-o-transition: height 200ms linear;
+	-ms-transition: height 200ms linear;
 	transition: height 200ms linear;
 }
 
@@ -112,6 +116,7 @@ textarea.ui-input-text {
 		-webkit-transition: width 400ms linear;
 		-moz-transition: width 400ms linear;
 		-o-transition: width 400ms linear;
+		-ms-transition: width 400ms linear;
 		transition: width 400ms linear;
 	}
 	.ui-input-search-wide {
@@ -119,6 +124,7 @@ textarea.ui-input-text {
 		-webkit-transition: width 400ms linear;
 		-moz-transition: width 400ms linear;
 		-o-transition: width 400ms linear;
+		-ms-transition: width 400ms linear;
 		transition: width 400ms linear;
 	}
 	.ui-btn-icon-cancel {
@@ -148,6 +154,7 @@ textarea.ui-input-text {
 		-webkit-transition: all 400ms linear;
 		-moz-transition: all 400ms linear;
 		-o-transition: all 400ms linear;
+		-ms-transition: all 400ms linear;
 		transition: all 400ms linear;
 	}
 	.ui-btn-cancel-hide {
