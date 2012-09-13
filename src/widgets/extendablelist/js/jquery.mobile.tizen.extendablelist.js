@@ -1,4 +1,4 @@
-/* ***************************************************************************
+/****************************************************************************
  * Copyright (c) 2000 - 2011 Samsung Electronics Co., Ltd.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -42,12 +42,18 @@
  *
  *
  *APIs:
- *
- *		create ( void )
- *			: API to call _create method. API for AJAX or DB loading callback.
- *
- *		recreate ( Array )
- *			: Update extendable list with new data array. For example, update with search result.
+ *		create ( {
+ *				itemData: function ( idx ) { return json_obj; },
+ *				numItemData: number or function () { return number; },
+ *				cacheItemData: function ( minIdx, maxIdx ) {}
+ *				} )
+ *			: Create a extendable list widget. At this moment, _create method is called.
+ *			args : A collection of options
+ *				itemData: A function that returns JSON object for given index. Mandatory.
+ *				numItemData: Total number of itemData. Mandatory.
+ *				cacheItemData: Extendable list will ask itemData between minIdx and maxIdx.
+ *				    Developers can implement this function for preparing data.
+ *				    Optional.
  *
  *Examples:
  *
@@ -61,7 +67,7 @@
  *			</li>
  *		</script>
  *	
- *		<ul id = "extendable_list_main" data-role="extendablelist" data-extenditems="50" data-template="tmp-3-1-1" data-dbtable="JSON_DATA">
+ *		<ul id = "extendable_list_main" data-role="extendablelist" data-extenditems="50" data-template="tmp-3-1-1">
  *		</ul>
  *
  */
@@ -72,9 +78,7 @@
 	//Keeps track of the number of lists per page UID
 	//This allows support for multiple nested list in the same page
 	//https://github.com/jquery/jquery-mobile/issues/1617
-	var listCountPerPage = {},
-		TOTAL_ITEMS = 0,
-		last_index = 0;
+	var listCountPerPage = {};
 
 	$.widget( "tizen.extendablelist", $.mobile.widget, {
 		options: {
@@ -115,17 +119,16 @@
 			$( this ).removeClass( "ui-btn-down-s" );
 		},
 
-		_pushData: function ( template, data ) {
+		_pushData: function ( template ) {
 			var o = this.options,
 				t = this,
 				i = 0,
-				dataTable = data,
 				myTemplate = $( "#" + template ),
-				loadMoreItems = ( o.extenditems > data.length - last_index ? data.length - last_index : o.extenditems ),
+				loadMoreItems = ( o.extenditems > t._numItemData - t._lastIndex ? t._numItemData - t.lastIndex : o.extenditems ),
 				htmlData;
 
 			for (i = 0; i < loadMoreItems; i++ ) {
-				htmlData = myTemplate.tmpl( dataTable[ i ] );
+				htmlData = myTemplate.tmpl( t._itemData( i ) );
 				$( o.id ).append( $( htmlData ).attr( 'id', 'li_' + i ) );
 
 				/* Add style */
@@ -136,7 +139,7 @@
 					.bind( "mouseover", t._stylerMouseOver )
 					.bind( "mouseout", t._stylerMouseOut );
 
-				last_index++;
+				t._lastIndex += 1;
 			}
 
 			/* After push data, re-style extendable list widget */
@@ -144,12 +147,11 @@
 		},
 
 		_loadmore: function ( event ) {
-			var t = this,
-				o = event.data,
+			var t = event.data,	// <li> element
+				o = t.options,
 				i = 0,
-				dataTable = window[ o.dbtable ],
 				myTemplate = $( "#" + o.template ),
-				loadMoreItems = ( o.extenditems > dataTable.length - last_index ? dataTable.length - last_index : o.extenditems ),
+				loadMoreItems = ( o.extenditems > t._numItemData - t._lastIndex ? t._numItemData - t._lastIndex : o.extenditems ),
 				htmlData,
 				more_items_to_load,
 				num_next_load_items;
@@ -159,15 +161,15 @@
 
 			/* Append More Items */
 			for ( i = 0; i < loadMoreItems; i++ ) {
-				htmlData = myTemplate.tmpl( dataTable[ last_index ] );
-				$( o.id ).append( $( htmlData ).attr( 'id', 'li_' + last_index ) );
-				last_index++;
+				htmlData = myTemplate.tmpl( t._itemData( t._lastIndex ) );
+				$( o.id ).append( $( htmlData ).attr( 'id', 'li_' + t._lastIndex ) );
+				t._lastIndex += 1;
 			}
 
 			/* Append "Load more" message on the last of list */
-			if ( TOTAL_ITEMS > last_index ) {
+			if ( t._numItemData > t._lastIndex ) {
 				myTemplate = $( "#" + o.loadmore );
-				more_items_to_load = TOTAL_ITEMS - last_index;
+				more_items_to_load = t._numItemData - t._lastIndex;
 				num_next_load_items = ( o.extenditems <= more_items_to_load ) ? o.extenditems : more_items_to_load;
 				htmlData = myTemplate.tmpl( { NUM_MORE_ITEMS : num_next_load_items } );
 
@@ -179,46 +181,13 @@
 		},
 
 		recreate: function ( newArray ) {
-			var t = this,
-				o = this.options,
-				myTemplate,
-				more_items_to_load,
-				num_next_load_items,
-				htmlData;
-
-			$( o.id ).empty();
-
-			last_index = 0;
-			TOTAL_ITEMS = newArray.length;
-
-			t._pushData( ( o.template), newArray );
-
-			/* Append "Load more" message on the last of list */
-			if ( TOTAL_ITEMS > last_index ) {
-				myTemplate = $( "#" + o.loadmore );
-				more_items_to_load = TOTAL_ITEMS - last_index;
-				num_next_load_items = ( o.extenditems <= more_items_to_load) ? o.extenditems : more_items_to_load;
-				htmlData = myTemplate.tmpl( { NUM_MORE_ITEMS : num_next_load_items } );
-
-				$( o.id ).append( $( htmlData ).attr( 'id', "load_more_message" ) );
-
-				$( "#load_more_message" ).live( "click", t.options, t._loadmore );
-			} else {
-				/* No more items to load */
-				$( "#load_more_message" ).die();
-				$( "#load_more_message" ).remove();
-			}
-
-			if ( o.childSelector == " ul" ) {
-				$( o.id + " ul" ).swipelist();
-			}
-
-			$( o.id ).extendablelist();
-
-			t.refresh( true );
+			this._create( {
+				itemData: function ( idx ) { return newArray[ idx ] },
+				numItemData: newArray.length
+			} );
 		},
 
-		_initList: function () {
+		_initList: function (args ) {
 			var t = this,
 				o = this.options,
 				myTemplate,
@@ -226,25 +195,20 @@
 				num_next_load_items,
 				htmlData;
 
-			/* After AJAX loading success */
-			o.dbtable = t.element.data( "dbtable" );
-
-			TOTAL_ITEMS = $( window[ o.dbtable ] ).size();
-
 			/* Make Gen list by template */
-			if ( last_index <= 0 ) {
-				t._pushData( ( o.template ), window[ o.dbtable ] );
+			if ( t._lastIndex <= 0 ) {
+				t._pushData( o.template );
 
 				/* Append "Load more" message on the last of list */
-				if ( TOTAL_ITEMS > last_index ) {
+				if ( t._numItemData > t._lastIndex ) {
 					myTemplate = $( "#" + o.loadmore );
-					more_items_to_load = TOTAL_ITEMS - last_index;
+					more_items_to_load = t._numItemData - t._lastIndex;
 					num_next_load_items = ( o.extenditems <= more_items_to_load) ? o.extenditems : more_items_to_load;
 					htmlData = myTemplate.tmpl( { NUM_MORE_ITEMS : num_next_load_items } );
 
 					$( o.id ).append( $( htmlData ).attr( 'id', "load_more_message" ) );
 
-					$( "#load_more_message" ).live( "click", t.options, t._loadmore );
+					$( "#load_more_message" ).live( "click", t, t._loadmore );
 				} else {
 					/* No more items to load */
 					$( "#load_more_message" ).die();
@@ -265,13 +229,24 @@
 			var o = this.options;
 
 			/* external API for AJAX callback */
-			this._create( "create" );
+			this._create.apply( this, arguments );
 		},
 
-		_create: function ( event ) {
+		_create: function ( args ) {
 			var t = this,
 				o = this.options,
 				$el = this.element;
+
+
+			t.destroy();
+
+			$.extend(this, {
+				_itemData: function ( idx ) { return null; },
+				_numItemData: 0,
+				_cacheItemData: function ( minIdx, maxIdx ) { },
+				_lastIndex: 0
+			});
+
 
 			// create listview markup
 			t.element.addClass( function ( i, orig ) {
@@ -295,33 +270,73 @@
 				o.scrollview = false;
 			}
 
-			/* After DB Load complete, Init Extendable list */
-			if ( $( o.id ).hasClass( "elLoadSuccess" ) ) {
-				if ( !$( o.id ).hasClass( "elInitComplete" ) ) {
-					if ( $el.data( "template" ) ) {
-						o.template = $el.data( "template" );
-
-						/* to support swipe list, <li> or <ul> can be main node of extendable list. */
-						if ( $el.data( "swipelist" ) == true ) {
-							o.childSelector = " ul";
-						} else {
-							o.shildSelector = " li";
-						}
-					}
-
-					$( o.id ).addClass( "elInitComplete" );
+			if ( args ) {
+				if ( !t._loadData( args ) ) {
+					return;
 				}
+			} else {
+				// Legacy support: dbtable
+				console.warn("WARNING: The data interface of extendable list is changed. \nOld data interface(data-dbtable) is still supported, but will be removed in next version. \nPlease fix your code soon!");
 
-				t._initList();
+				if ( $( o.id ).hasClass( "elLoadSuccess" ) ) {
+					var dbtable_name = $el.jqmData('dbtable');
+					o.dbtable = window[ dbtable_name ];
+					if( !(o.dbtable) ) {
+						o.dbtable = { };
+					}
+					t._itemData = function ( idx ) {
+						return o.dbtable[ idx ];
+					};
+					t._numItemData = o.dbtable.length;
+
+				} else {
+					console.warn("No elLoadSuccess class");
+					return;
+				}
 			}
+
+			if ( $el.data( "template" ) ) {
+				o.template = $el.data( "template" );
+
+				/* to support swipe list, <li> or <ul> can be main node of extendable list. */
+				if ( $el.data( "swipelist" ) == true ) {
+					o.childSelector = " ul";
+				} else {
+					o.shildSelector = " li";
+				}
+			}
+			t._initList( args );
 		},
+
+		_loadData : function ( args ) {
+			var self = this;
+
+			if ( args.itemData && typeof args.itemData == 'function'  ) {
+				self._itemData = args.itemData;
+			} else {
+				return false;
+			}
+			if ( args.numItemData ) {
+				if ( typeof args.numItemData == 'function' ) {
+					self._numItemData = args.numItemData( );
+				} else if ( typeof args.numItemData == 'number' ) {
+					self._numItemData = args.numItemData;
+				} else {
+					return false;
+				}
+			} else {
+				return false;
+			}
+			return true;
+		},
+
 
 		destroy : function () {
 			var o = this.options;
 
 			$( o.id ).empty();
 
-			TOTAL_ITEMS = 0;
+			eOTAL_ITEMS = 0;
 			last_index = 0;
 
 			$( "#load_more_message" ).die();
