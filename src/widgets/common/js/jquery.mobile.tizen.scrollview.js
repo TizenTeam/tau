@@ -59,6 +59,7 @@
 
 			showScrollBars:    true,
 			overshootEnable:   false,
+			outerScrollEnable: false,
 			scrollJump:        false,
 		},
 
@@ -331,6 +332,10 @@
 				duration = this.options.snapbackDuration,
 				start = getCurrentTime(),
 				tfunc;
+
+			if ( !this.options.outerScrollEnable ) {
+				return;
+			}
 
 			if ( this._$clip.jqmData("scroll") !== "y" ) {
 				return;
