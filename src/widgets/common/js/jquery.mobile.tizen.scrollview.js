@@ -40,10 +40,10 @@
 
 	jQuery.widget( "tizen.scrollview", jQuery.mobile.widget, {
 		options: {
-			fps:               60,    // Frames per second in msecs.
 			direction:         null,  // "x", "y", or null for both.
 
-			scrollDuration:    2000,  // Duration of the scrolling animation in msecs.
+			timerInterval:     10,
+			scrollDuration:    1000,  // Duration of the scrolling animation in msecs.
 			overshootDuration: 250,   // Duration of the overshoot animation in msecs.
 			snapbackDuration:  500,   // Duration of the snapback animation in msecs.
 
@@ -106,7 +106,7 @@
 			this._vTracker = ( direction !== "x" ) ?
 					new MomentumTracker( this.options ) : null;
 
-			this._timerInterval = 1000 / this.options.fps;
+			this._timerInterval = this.options.timerInterval;
 			this._timerID = 0;
 
 			this._timerCB = function () {
@@ -215,7 +215,7 @@
 			if ( !duration || duration === undefined ) {
 				transition = "none";
 			} else {
-				transition =  "-webkit-transform " + duration / 1000 + "s";
+				transition =  "-webkit-transform " + duration / 1000 + "s ease-out";
 			}
 
 			if ( $.support.cssTransform3d ) {
