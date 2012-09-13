@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.1.47
+Version:    0.1.48
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -87,6 +87,18 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+
+* Thu Sep 13 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.48
+- FIX:
+	- Add missing icon: controlbar
+	- scrollview: tune scrolling animatio ninterval
+	- datetimepicker: digit/triangle position
+	- datetimepicker: fix day overflow issue
+- Spec changes:
+	- scrollview: show scrollbar when page is showed
+	- scrollview: disable outer scroll
+	- extendablelist: change api with legacy support
+	- add ui-text-ellipsis class
 
 * Mon Sep 10 2012 Minkyu Kang <mk7.kang@samsung.com> 0.1.47
 - FIX:

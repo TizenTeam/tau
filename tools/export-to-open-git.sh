@@ -13,8 +13,7 @@ fi
 
 # <name>%%<git address>%%<branch>
 git_servers=( \
-	private%%165.213.149.219:29418/magnolia/framework/web/web-ui-fw%%2.0_beta \
-	public%%tizendev.org:29418/framework/web/web-ui-fw%%2.0_beta \
+	rsa%%tizendev.org:29418/framework/web/web-ui-fw%%2.0_beta%%tizen_2.0_build \
 	)
 
 cd `dirname $0`/../
@@ -29,10 +28,11 @@ tmpdir=`mktemp -d`
 
 for server in "${git_servers[@]}"
 do
-	n=`echo $server | sed -e 's/\(..*\)%%\(..*\)%%\(..*\)/\1/'`
-	s=`echo $server | sed -e 's/\(..*\)%%\(..*\)%%\(..*\)/\2/'`
-	b=`echo $server | sed -e 's/\(..*\)%%\(..*\)%%\(..*\)/\3/'`
-	echo "n: $n, s: $s, b: $b"
+	n=`echo $server | sed -e 's/\(..*\)%%\(..*\)%%\(..*\)%%\(..*\)/\1/'`
+	s=`echo $server | sed -e 's/\(..*\)%%\(..*\)%%\(..*\)%%\(..*\)/\2/'`
+	b=`echo $server | sed -e 's/\(..*\)%%\(..*\)%%\(..*\)%%\(..*\)/\3/'`
+	t=`echo $server | sed -e 's/\(..*\)%%\(..*\)%%\(..*\)%%\(..*\)/\4/'`
+	echo "n: $n, s: $s, b: $b, t:$t"
 
 	echo "Clone git: $tempdir/$n"
 	cd $tmpdir
@@ -51,10 +51,15 @@ do
 	msg="Export `cat packaging/web-ui-fw.spec | grep "Version:" | sed -e 's@Version:[[:space:]]*\([0-9][0-9\.]*\)@\1@'`"
 	git commit -m "$msg"
 
+	echo "Remove previous tag (even in server), and attach a tag on HEAD"
+	git push origin :tags/${t}
+	git tag -d ${t}
+	git tag -a -m "${msg}" ${t}
 done
 
 echo ""
 echo ""
 echo "Done."
 echo "Go to $tmpdir/ , check each git repos, add tag for build trigger, and push them if they are OK."
+echo "  >> git push origin HEAD:refs/for/gerrithost ${t}"
 
