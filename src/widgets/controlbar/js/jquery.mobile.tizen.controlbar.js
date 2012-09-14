@@ -197,17 +197,16 @@
 			var $controlbar = this.element;
 
 			$( window ).bind( "orientationchange", function ( e, ui ) {
-				ww = window.innerWidth || $( window ).width();
-				wh = window.innerHeight || $( window ).height();
-
-				isLandscape = ww > wh && ( ww - wh );
+				var ww = window.innerWidth || $( window ).width(),
+					wh = window.innerHeight || $( window ).height(),
+					isLandscape = ww > wh && ( ww - wh );
 
 				if ( isLandscape ) {
 					$controlbar.removeClass( "ui-portrait-controlbar" ).addClass( "ui-landscape-controlbar" );
 				} else {
 					$controlbar.removeClass( "ui-landscape-controlbar" ).addClass( "ui-portrait-controlbar" );
 				}
-			})
+			});
 
 		},
 

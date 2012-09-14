@@ -182,7 +182,7 @@
 
 		recreate: function ( newArray ) {
 			this._create( {
-				itemData: function ( idx ) { return newArray[ idx ] },
+				itemData: function ( idx ) { return newArray[ idx ]; },
 				numItemData: newArray.length
 			} );
 		},
@@ -235,7 +235,8 @@
 		_create: function ( args ) {
 			var t = this,
 				o = this.options,
-				$el = this.element;
+				$el = this.element,
+				dbtable_name;
 
 
 			t.destroy();
@@ -279,9 +280,9 @@
 				console.warn("WARNING: The data interface of extendable list is changed. \nOld data interface(data-dbtable) is still supported, but will be removed in next version. \nPlease fix your code soon!");
 
 				if ( $( o.id ).hasClass( "elLoadSuccess" ) ) {
-					var dbtable_name = $el.jqmData('dbtable');
+					dbtable_name = $el.jqmData('dbtable');
 					o.dbtable = window[ dbtable_name ];
-					if( !(o.dbtable) ) {
+					if ( !(o.dbtable) ) {
 						o.dbtable = { };
 					}
 					t._itemData = function ( idx ) {
@@ -332,12 +333,11 @@
 
 
 		destroy : function () {
-			var o = this.options;
+			var o = this.options,
+				eOTAL_ITEMS = 0,
+				last_index = 0;
 
 			$( o.id ).empty();
-
-			eOTAL_ITEMS = 0;
-			last_index = 0;
 
 			$( "#load_more_message" ).die();
 		},

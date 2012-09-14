@@ -18,7 +18,7 @@
 				style = $listdivider.attr( "data-style" );
 
 			if ( style === "expandable" || style === "checkexpandable" ) {
-				openStatus ? iconStatus = "opened" : iconStatus = "closed";
+				iconStatus = openStatus ? "opened" : "closed";
 				expandSrc = "<span class='ui-divider-expand-div'><span class='ui-icon-expandable-divider-" + iconStatus + "'/></span>";
 
 				$( expandSrc ).appendTo( $listdivider );

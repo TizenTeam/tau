@@ -671,7 +671,7 @@
 				$div.jqmData( "list", $li );
 				$div.circularview();
 				// cause ctxpopup forced to subtract 10
-				if( $(window).width() / 2 < target.offset().left ) {
+				if ( $( window ).width() / 2 < target.offset().left ) {
 					newLeft = -10;
 				}
 				$ctx.popupwindow( 'open',
@@ -734,8 +734,8 @@
 				$div.bind( 'scrollend' , function ( e ) {
 					if ( !obj._reflow ) {
 						obj._reflow = function () {
-								$div.circularview("reflow");
-							};
+							$div.circularview("reflow");
+						};
 						$(window).bind("resize", obj._reflow);
 					}
 				});
