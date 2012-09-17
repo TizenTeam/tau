@@ -496,6 +496,10 @@
 				});
 			}
 
+			if ( this.options.eventType === "mouse" && !this._is_inputbox && !this._is_button ) {
+				e.preventDefault();
+			}
+
 			this._lastX = ex;
 			this._lastY = ey;
 			this._startY = ey;
