@@ -14,11 +14,10 @@ input.ui-input-text, textarea.ui-input-text {
 	line-height: 1.4;
 	font-size: 32 * @unit_base;
 	display: block;
-	width: 95%;
 }
 input.ui-input-text {
 	appearance: none;
-	-webkit-appearance: none; 
+	-webkit-appearance: none;
 }
 textarea.ui-input-text {
 	height: 50*@unit_base;
@@ -30,9 +29,13 @@ textarea.ui-input-text {
 }
 
 .ui-input-search {
-	padding: 0 0;
 	position: relative;
+
+	padding-right : 74 * @unit_base;
+	padding-left : 74 * @unit_base;
+
 	input.ui-input-text {
+		width : 100%;
 		border: none;
 		background: transparent none;
 		outline: 0 !important;
@@ -42,9 +45,11 @@ textarea.ui-input-text {
 		background: transparent none;
 	}
 	.ui-btn-icon-notext.ui-input-clear {
-		width: 38 * @unit_base;
-		height: 38 * @unit_base;
-		.ui-btn-inner { padding: 0; }
+		width: 70 * @unit_base;
+		height: 70 * @unit_base;
+		.ui-btn-inner {
+			padding : 16 * @unit_base;
+		}
 	}
 	.ui-icon-deleteSearch {
 		width: 38 * @unit_base;
@@ -56,7 +61,6 @@ textarea.ui-input-text {
 		right: 0;
 		top: 0;
 		vertical-align: middle;
-		margin: 16 * @unit_base;
 	}
 	.ui-input-clear-hidden { display: none; }
 }
@@ -70,28 +74,33 @@ textarea.ui-input-text {
 	margin: 16 * @unit_base;
 }
 
-/* orientation adjustments - incomplete!*/
-@media all and (min-width: 721*@unit_base){
-	label.ui-input-text  {
+
+/* code for label+inputbox : remove this code if webApp dev. controls input area */
+@media all and (min-width: 721*@unit_base) {
+	label.ui-input-text:not([data-type='search']) {
 		vertical-align: top;
 		display: inline-block;
-		margin: 0 2% 0 0
+		margin: 0 2% 0 0;
 	}
-	input.ui-input-text,
-	textarea.ui-input-text,
-	.ui-input-search { width: 60%; display: inline-block; }
-	.ui-input-search input.ui-input-text { width: 85%; /*echos rule from above*/ }
+	input.ui-input-text:not([data-type='search']), textarea.ui-input-text:not([data-type='search']){
+		width: 60%;
+		display: inline-block;
+	}
+	.ui-input-search input.ui-input-text:not([data-type='search']) {
+		width: 85%;
+	}
 }
+
 
 /* search bar */
 .ui-body-s > div > .ui-field-contain > .input-search-bar,
 .ui-body-s > .ui-field-contain > .input-search-bar {
 	margin : -48*@unit_base -15*@unit_base -32*@unit_base -15*@unit_base;
-} /* Need to confirm exact concept : Jinhyuk */
+} /* Need to confirm exact concept */
 
 .input-search-bar {
-	position : relative;  /* In case searchbar in header : Jinhyuk */
-	
+	position : relative;
+
 	background-color: @color_searchbar_bg;
 	padding: @search-bar-padding;
 	vertical-align: middle;
@@ -100,19 +109,20 @@ textarea.ui-input-text {
 	}
 	.ui-input-search {
 		font-size : 32 * @unit_base;
-		display: inline-block;
+		display : block;
 		position: relative;
-		width: 70%;
-		padding: 0;
+
+		margin-right : 150 * @unit_base;
 		background-color: @color_searchbar_input_field_bg;
 		.ui-input-text {
 			height: 74 * @unit_base;
 			padding : 0px;
-			margin-left : 74 * @unit_base;
+
+			margin-right : 38 * @unit_base;
 		}
 	}
 	.ui-input-search-default {
-		width: 70%;
+		margin-right : 150 * @unit_base;
 		-webkit-transition: width 400ms linear;
 		-moz-transition: width 400ms linear;
 		-o-transition: width 400ms linear;
@@ -120,7 +130,7 @@ textarea.ui-input-text {
 		transition: width 400ms linear;
 	}
 	.ui-input-search-wide {
-		width: 100%;
+		margin-right : 0 * @unit_base;
 		-webkit-transition: width 400ms linear;
 		-moz-transition: width 400ms linear;
 		-o-transition: width 400ms linear;
@@ -130,27 +140,28 @@ textarea.ui-input-text {
 	.ui-btn-icon-cancel {
 		display: inline-block;
 		position: absolute;
-		left: 70%;
+
+		top	: 16 * @unit_base;
+		right : 0 * @unit_base;
+		margin-right : 16 * @unit_base;
 
 		vertical-align: middle;
-		margin-left : 10 * @unit_base;
-		margin-right : 10 * @unit_base;
 		padding : 0px;
 
 		height : 74 * @unit_base;
-		
+
 		border-color : none;
 		.ui-btn-text{
 			font-size : 32 * @unit_base;
-		}	
+		}
 		.ui-btn-inner {
 			padding-top : 18 * @unit_base;
 			padding-bottom : 18 * @unit_base;
-		}	
+		}
 	}
-	
+
 	.ui-btn-icon-cancel.ui-input-cancel {
-		width: 26%;		
+		width : 134 * @unit_base;
 		-webkit-transition: all 400ms linear;
 		-moz-transition: all 400ms linear;
 		-o-transition: all 400ms linear;
@@ -158,11 +169,11 @@ textarea.ui-input-text {
 		transition: all 400ms linear;
 	}
 	.ui-btn-cancel-hide {
-		left: 100%;
+		right : -150 * @unit_base;
 		visibility: hidden;
 	}
 	.ui-btn-cancel-show {
-		left: 70%;
+		right : 0px;
 		visibility: visible;
 	}
 }
