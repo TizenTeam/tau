@@ -35,6 +35,8 @@
 	function setElementTransform( $ele, x, y ) {
 		var v = "translate3d( " + x + "," + y + ", 0px)";
 		$ele.css({
+			"-ms-transform": v,
+			"-o-transform": v,
 			"-moz-transform": v,
 			"-webkit-transform": v,
 			"transform": v
