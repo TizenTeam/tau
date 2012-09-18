@@ -59,7 +59,7 @@
 
 			showScrollBars:    true,
 			overshootEnable:   false,
-			outerScrollEnable: false,
+			outerScrollEnable: true,
 			scrollJump:        false,
 		},
 
@@ -178,6 +178,7 @@
 			var keepGoing = false,
 				x = 0,
 				y = 0,
+				scroll_height = 0,
 				vt = this._vTracker,
 				ht = this._hTracker;
 
@@ -189,6 +190,16 @@
 				vt.update( this.options.overshootEnable );
 				y = vt.getPosition();
 				keepGoing = !vt.done();
+
+				if ( vt.getRemained() > this.options.overshootDuration ) {
+					scroll_height = this._getViewHeight() - this._$clip.height();
+
+					if ( vt.isMin() ) {
+						this._outerScroll( y - vt.getRemained() / 3, scroll_height );
+					} else if ( vt.isMax() ) {
+						this._outerScroll( vt.getRemained() / 3, scroll_height );
+					}
+				}
 			}
 
 			if ( ht ) {
@@ -266,9 +277,7 @@
 			if ( dirLock !== "x" && this._vTracker ) {
 				scroll_height = this._getViewHeight() - $c.height();
 
-				this._outerScroll( y, scroll_height );
-
-				if ( y >= 0 ) {
+				if ( y > 0 ) {
 					this._sy = 0;
 				} else if ( y < -scroll_height ) {
 					this._sy = -scroll_height;
@@ -327,7 +336,7 @@
 
 		_outerScroll: function ( y, scroll_height ) {
 			var self = this,
-				top = $( window ).scrollTop(),
+				top = $( window ).scrollTop() - window.screenTop,
 				sy = 0,
 				duration = this.options.snapbackDuration,
 				start = getCurrentTime(),
@@ -345,10 +354,6 @@
 				return;
 			}
 
-			if ( !this._dragging ) {
-				return;
-			}
-
 			if ( scroll_height < 0 ) {
 				return;
 			}
@@ -361,25 +366,23 @@
 				return;
 			}
 
-			sy *= 10;
-
 			tfunc = function () {
 				var elapsed = getCurrentTime() - start;
 
 				if ( elapsed >= duration ) {
 					window.scrollTo( 0, top + sy );
 					self._outerScrolling = undefined;
+
+					self._stopMScroll();
 				} else {
-					ec = $.easing.easeOutQuad( elapsed / duration, elapsed, 0, 1, duration );
+					ec = $.easing.easeOutQuad( elapsed / duration,
+							elapsed, 0, 1, duration );
 
 					window.scrollTo( 0, top + ( sy * ec ) );
 					self._outerScrolling = setTimeout( tfunc, self._timerInterval );
 				}
 			};
 			this._outerScrolling = setTimeout( tfunc, self._timerInterval );
-
-			/* skip the srollview dragging */
-			this._skip_dragging = true;
 		},
 
 		_scrollTo: function ( x, y, duration ) {
@@ -992,6 +995,7 @@
 			this.minPos = 0;
 			this.maxPos = 0;
 			this.duration = 0;
+			this.remained = 0;
 		},
 
 		update: function ( overshootEnable ) {
@@ -1008,6 +1012,8 @@
 			}
 
 			elapsed = elapsed > duration ? duration : elapsed;
+
+			this.remained = duration - elapsed;
 
 			if ( state === tstates.scrolling || state === tstates.overshot ) {
 				dx = this.speed *
@@ -1026,6 +1032,9 @@
 				this.pos = x;
 
 				if ( state === tstates.overshot ) {
+					if ( !overshootEnable ) {
+						this.state = tstates.done;
+					}
 					if ( elapsed >= duration ) {
 						this.state = tstates.snapback;
 						this.fromPos = this.pos;
@@ -1061,6 +1070,18 @@
 
 		done: function () {
 			return this.state === tstates.done;
+		},
+
+		isMin: function () {
+			return this.pos === this.minPos;
+		},
+
+		isMax: function () {
+			return this.pos === this.maxPos;
+		},
+
+		getRemained: function () {
+			return this.remained;
 		},
 
 		getPosition: function () {
