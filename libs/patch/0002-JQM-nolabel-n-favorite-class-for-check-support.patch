@@ -1,17 +1,27 @@
-From 2807a575905be49a8445aea0b1759a88339f4e16 Mon Sep 17 00:00:00 2001
+From 5f35008c978c291f67778bb72d39709109682d0c Mon Sep 17 00:00:00 2001
 From: Koeun Choi <koeun.choi@samsung.com>
 Date: Fri, 15 Jun 2012 17:11:51 +0900
 Subject: [PATCH] JQM:nolabel n favorite class for check support
 
 Signed-off-by: Koeun Choi <koeun.choi@samsung.com>
+Signed-off-by: Youmin Ha <youmin.ha@samsung.com>
 ---
- .../js/jquery.mobile.forms.checkboxradio.js        |   10 ++++++++++
- 1 file changed, 10 insertions(+)
+ .../js/jquery.mobile.forms.checkboxradio.js        |   12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
 
 diff --git a/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.forms.checkboxradio.js b/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.forms.checkboxradio.js
-index eb4731b..b373431 100644
+index eb4731b..08556cf 100644
 --- a/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.forms.checkboxradio.js
 +++ b/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.forms.checkboxradio.js
+@@ -26,7 +26,7 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
+ 			// NOTE: Windows Phone could not find the label through a selector
+ 			// filter works though.
+ 			parentLabel = $( input ).closest( "label" ),
+-			label = parentLabel.length ? parentLabel : $( input ).closest( "form,fieldset,:jqmData(role='page'),:jqmData(role='dialog')" ).find( "label" ).filter( "[for='" + input[0].id + "']" ),
++			label = parentLabel.length ? parentLabel : ( input[0].id ? $( input ).closest( "form,fieldset,:jqmData(role='page'),:jqmData(role='dialog')" ).find( "label" ).filter( "[for='" + input[0].id + "']" ) : [ ] ),
+ 			inputtype = input[0].type,
+ 			mini = inheritAttr( input, "mini" ),
+ 			checkedState = inputtype + "-on",
 @@ -43,6 +43,12 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
  			return;
  		}
