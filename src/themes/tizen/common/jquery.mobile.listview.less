@@ -175,11 +175,11 @@
 		padding-right : 16 * @unit_base;
 		display: block;
 
-		white-space: nowrap;	// default: 1line
+		white-space: normal;	// default: 1line
 	}
 
 	.ui-btn-inner a.ui-link-inherit {
-		.LESStext-ellipsis();
+		.LESStext-no-ellipsis();
 	}
 
 
@@ -279,12 +279,27 @@ li.ui-li-thumbnail-right {
 	}
 
 	a {
-		.LESStext-ellipsis();
+		.LESStext-no-ellipsis();
 		padding-right : 16 * @unit_base; /* ellipsis for normal text */
 	}
 }
 
+/********************************************/
+/************  Add ellipsis *****************/
+/********************************************/
+.ui-li.ui-li-text-ellipsis {
+	.ui-btn-inner a.ui-link-inherit {
+		.LESStext-ellipsis();
+	}
 
+	a {
+		.LESStext-ellipsis();
+	}
+
+	&.ui-li-static {
+		.LESStext-ellipsis();
+	}
+}
 /********************************************/
 /*************** Divider ********************/
 /********************************************/
@@ -394,7 +409,7 @@ li.ui-li-thumbnail-right {
 
 .ui-li.ui-li-has-right-btn {
 	.ui-btn-inner a {
-		padding-right : 256 * @unit_base;
+		padding-right : 158 * @unit_base;
 	}
 }
 
@@ -408,7 +423,7 @@ li.ui-li-thumbnail-right {
 }
 
 .ui-li.ui-li-static.ui-li-has-right-btn {
-	padding-right : 256 * @unit_base;
+	padding-right : 158 * @unit_base;
 }
 
 .ui-li.ui-li-static.ui-li-thumbnail-right {
@@ -516,6 +531,20 @@ li:not(.ui-li-has-multiline) .ui-li-text-sub {
 
 	width : 90%;
 	.LESStext-ellipsis();
+}
+
+.ui-li-has-multiline.ui-li-has-right-btn {
+	.ui-btn-inner a {
+		.ui-li-text-sub {
+			width : 74%;
+		}
+	}
+}
+
+.ui-li-has-multiline.ui-li-static.ui-li-has-right-btn {
+	.ui-li-text-sub {
+		width : 74%;
+	}
 }
 
 .ui-li-icon-sub-right,
