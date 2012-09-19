@@ -477,7 +477,7 @@
 					target.is( '.ui-btn-inner .ui-icon' );
 
 			if ( this._is_button ) {
-				if ( target.parents('.ui-slider-handle') ) {
+				if ( target.parents('.ui-slider-handle').length ) {
 					this._skip_dragging = true;
 					return;
 				}
