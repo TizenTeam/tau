@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.1.48
+Version:    0.1.49
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -87,6 +87,21 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+
+* Thu Sep 20 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.49
+- FIX:
+	- JSLINT code clean-up
+	- scrollview: firefox support
+	- scrollview: fix finding slider handle
+	- list: tweak text ellipsis
+	- checkbox: fix selecting wrong label tag (N_SE-8370)
+	- imageslider: check parameter
+	- smallpopup: fix position
+	- searchbar: fix 'clear' button size
+- Spec changes:
+	- scrollview: support outer scroll
+	- JQM: block click event only with the element that does preventdefault on vclick(N_SE-6090)
+	- remove S/W IME control
 
 * Thu Sep 13 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.48
 - FIX:
