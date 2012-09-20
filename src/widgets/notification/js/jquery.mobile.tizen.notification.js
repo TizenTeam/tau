@@ -201,13 +201,10 @@
 
 		_set_position: function () {
 			var container = this._get_container(),
-				container_h = parseFloat( container.height() ),
-				$page = $('.ui-page'),
-				$footer = $page.children('.ui-footer'),
-				footer_h = $footer.outerHeight() || 0,
-				position = $( window ).height() - container_h - footer_h;
+				$footer = $('.ui-page-active').children('.ui-footer'),
+				footer_h = $footer.outerHeight() || 0;
 
-			container.css( 'top', position );
+			container.css( 'bottom', footer_h);
 		},
 
 		_create: function () {
