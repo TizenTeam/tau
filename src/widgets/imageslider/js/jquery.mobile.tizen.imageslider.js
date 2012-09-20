@@ -117,6 +117,9 @@
 			var img = this.images[index],
 				img_top = 0;
 
+			if ( !obj) {
+				return;
+			}
 			if ( !obj.length ) {
 				return;
 			}
@@ -139,6 +142,9 @@
 					self._align( index, obj );
 				};
 
+			if ( !obj) {
+				return;
+			}
 			if ( !obj.length ) {
 				return;
 			}
@@ -167,6 +173,9 @@
 		},
 
 		_detach: function ( index, obj ) {
+			if ( !obj) {
+				return;
+			}
 			if ( !obj.length ) {
 				return;
 			}
