@@ -295,7 +295,8 @@
 					if ( !o.visibleOnPageShow ) {
 						self.hide( true );
 					}
-					self._IMEShown = false;
+/* IME concenpt change after alpha2.0 */
+/*					self._IMEShown = false;*/
 					self.setHeaderFooter( event );
 				} )
 				.bind( "webkitAnimationStart animationstart updatelayout", function ( e, data ) {
@@ -311,7 +312,8 @@
 					if ( o.updatePagePadding ) {
 						$( window ).bind( "throttledresize." + self.widgetName, function () {
 							self.updatePagePadding();	// FIXME: unused function.
-							self.layoutPageIME();   // IME/resize reposition
+/* IME concenpt change after alpha2.0 */
+/*							self.layoutPageIME();*/
 							self.updatePageLayout();
 							self._updateHeaderArea();
 						});
@@ -373,7 +375,8 @@
 		},
 
 		_visible: true,
-		_IMEShown : false,
+/* IME concenpt change after alpha2.0 */
+/*		_IMEShown : false,
 		_IMEindicatorHeight : window.outerHeight - window.innerHeight,
 
 		layoutPageIME: function () {
@@ -381,8 +384,6 @@
 					|| $(".ui-page-active .ui-header .input-search-bar").length
 					|| $(".ui-page-active .ui-content").find("input").length
 					|| $(".ui-page-active .ui-content").find("textarea").length) {
-					/* Check vertical and horizontal ratio.
-					 * If focus on input and two values are different, IME is drawed. */
 
 				if ( ( window.innerHeight + this._IMEindicatorHeight ) < window.outerHeight && window.innerWidth == window.outerWidth ) {
 					if ( this._IMEShown === false ) {
@@ -404,7 +405,7 @@
 				}
 			}
 		},
-
+*/
 		// This will set the content element's top or bottom padding equal to the toolbar's height
 		updatePagePadding: function (data) {
 			var $el = this.element,
