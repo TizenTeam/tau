@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.1.51
+Version:    0.1.52
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -91,6 +91,9 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Fri Sep 21 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.52
+- ETC.
+	- Move SMACK manifest files to the top SRCDIR
 
 * Fri Sep 21 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.51
 - FIX:
