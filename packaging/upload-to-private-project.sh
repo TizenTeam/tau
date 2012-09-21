@@ -37,7 +37,7 @@ osc rm --force *
 rm -rf $OBSDIR_PROJECT/*
 cd $SRCROOT
 git archive --format=tar --prefix=$TARNAME/ HEAD | gzip > $OBSDIR_PROJECT/$TARNAME.tar.gz
-cp -av ./packaging/$PROJECT.spec $OBSDIR_PROJECT/
+cp -av ./packaging/$PROJECT.spec ./packaging/*.manifest $OBSDIR_PROJECT/
 cd $OBSDIR_PROJECT
 
 echo "Complete."

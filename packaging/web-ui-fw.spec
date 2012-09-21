@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.1.50
+Version:    0.1.51
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -91,6 +91,12 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+
+* Fri Sep 21 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.51
+- FIX:
+	- Popup: Do not focus container
+	- Header: show backbutton when both tabbar and header are present together
+	- Multi button entry: text ellipsis, code refactoring
 
 * Fri Sep 21 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.50
 - ETC.
