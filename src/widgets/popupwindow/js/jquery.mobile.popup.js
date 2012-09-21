@@ -94,9 +94,7 @@ define( [ "jquery",
 				this.element.trigger( "popupbeforeposition" );
 				this._ui.container
 					.removeClass( "ui-selectmenu-hidden" )
-					.offset( this._placementCoords( this._desiredCoords( undefined, undefined, "window" ) ) )
-					.attr( "tabindex", "0" )
-					.focus();
+					.offset( this._placementCoords( this._desiredCoords( undefined, undefined, "window" ) ) );
 
 				this._resizeData = null;
 				this._orientationchangeInProgress = false;
@@ -477,7 +475,6 @@ define( [ "jquery",
 		_openPrereqsComplete: function() {
 			this._ui.container.addClass( "ui-popup-active" );
 			this._isOpen = true;
-			this._ui.container.attr( "tabindex", "0" ).focus();
 			this.element.trigger( "popupafteropen" );
 		},
 
