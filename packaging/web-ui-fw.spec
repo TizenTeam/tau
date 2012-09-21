@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.1.49
+Version:    0.1.50
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -28,6 +28,7 @@ make DESTDIR=%{buildroot} install
 %post
 
 %files
+%manifest web-ui-fw.manifest
 /usr/share/tizen-web-ui-fw/*/js
 /usr/share/tizen-web-ui-fw/latest
 
@@ -45,6 +46,7 @@ Summary:    Tizen Web UI Framework Theme : tizen-black
 %Description -n web-ui-fw-theme-tizen-black
     Tizen Web UI Framework Theme : tizen-black
 %files -n web-ui-fw-theme-tizen-black
+%manifest web-ui-fw-theme-tizen-black.manifest
 /usr/share/tizen-web-ui-fw/*/themes/tizen-black
 
 ###############################
@@ -54,6 +56,7 @@ Summary:    Tizen Web UI Framework Theme : tizen-white
 %Description -n web-ui-fw-theme-tizen-white
     Tizen Web UI Framework Theme : tizen-white
 %files -n web-ui-fw-theme-tizen-white
+%manifest web-ui-fw-theme-tizen-white.manifest
 /usr/share/tizen-web-ui-fw/*/themes/tizen-white
 
 ###############################
@@ -63,6 +66,7 @@ Summary:    Tizen Web UI Framework Theme : default
 %Description -n web-ui-fw-theme-default
     Tizen Web UI Framework Theme : default
 %files -n web-ui-fw-theme-default
+%manifest web-ui-fw-theme-default.manifest
 /usr/share/tizen-web-ui-fw/*/themes/default
 
 ###############################
@@ -87,6 +91,10 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+
+* Fri Sep 21 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.50
+- ETC.
+	- Apply SMACK manifest
 
 * Thu Sep 20 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.49
 - FIX:
