@@ -467,9 +467,12 @@
 	}
 	/* listview: fonts for li with a link */
 	li.ui-btn-up-s > .ui-li > .ui-btn-text > a.ui-link-inherit,
-	li.ui-btn-hover-s > .ui-li > .ui-btn-text > a.ui-link-inherit,
+	li.ui-btn-hover-s > .ui-li > .ui-btn-text > a.ui-link-inherit {
+		color:		@color_list_main_text_unfocus;
+	}
+
 	li.ui-btn-down-s > .ui-li > .ui-btn-text > a.ui-link-inherit {
-		color:		@color_text;
+		color:		@color_list_main_text_focus;
 	}
 	/* listview divider */
 	/* NOTE: this divider has no swatch tag! */
