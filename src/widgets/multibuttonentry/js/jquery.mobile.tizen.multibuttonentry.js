@@ -21,6 +21,7 @@
  * ***************************************************************************
  *
  *	Author: Kangsik Kim <kangsik81.kim@samsung.com>
+ *				Minkyeong Kim <minkyeong.kim@samsung.com>
 */
 
 /**
@@ -124,10 +125,10 @@
 			$view.append( inputbox );
 
 			// create a anchor tag.
-			if ( option.listId === null ||  $.trim(option.listId).length < 1  ) {
+			if ( option.listId === null || $.trim(option.listId).length < 1  ) {
 				className += "-dim";
 			}
-			$( moreBlock ).text( "+" ).attr( "href",  $.trim(option.listId)).addClass( "ui-multibuttonentry-link-base" ).addClass( className );
+			$( moreBlock ).text( "+" ).attr( "href", $.trim(option.listId) ).addClass( "ui-multibuttonentry-link-base" ).addClass( className );
 
 			// append default htmlelements to main widget.
 			$view.append( moreBlock );
@@ -157,6 +158,21 @@
 				inputbox = $view.find( ".ui-multibuttonentry-input" ),
 				moreBlock = $view.find( ".ui-multibuttonentry-link-base" ),
 				isSeparator = false;
+
+			// delegate a event to HTMLDivElement(each block).
+			$view.delegate( "div", "vclick", function ( event ) {
+				if ( $( this ).hasClass( "ui-multibuttonentry-sblock" ) ) {
+					// If block is selected, it will be removed.
+					self._removeTextBlock();
+				}
+
+				var lockBlock = $view.find( "div.ui-multibuttonentry-sblock" );
+				if ( typeof lockBlock !== "undefined" ) {
+					lockBlock.removeClass( "ui-multibuttonentry-sblock" ).addClass( "ui-multibuttonentry-block" );
+				}
+				$( this ).removeClass( "ui-multibuttonentry-block" ).addClass( "ui-multibuttonentry-sblock" );
+				self._trigger( "select" );
+			});
 
 			inputbox.bind( "keyup", function ( event ) {
 				// 8  : backspace
@@ -202,8 +218,8 @@
 					transition: "slide",
 					reverse: false,
 					changeHash: false
-				} );
-			} );
+				});
+			});
 
 			$( document ).bind( "pagechange.mbe", function ( event ) {
 				if ( $view.innerWidth() === 0 ) {
@@ -236,7 +252,7 @@
 				return;
 			}
 
-			if ( ! messages ) {
+			if ( !messages ) {
 				return ;
 			}
 
@@ -245,38 +261,17 @@
 				content = messages,
 				index = blockIndex,
 				blocks = null,
-				dataBlock = null,
-				displayText = null,
 				textBlock = null;
 
 			if ( self._viewWidth === 0 ) {
 				self._viewWidth = $view.innerWidth();
 			}
 
-			// save src data
-			dataBlock = $( document.createElement( 'input' ) );
-			dataBlock.attr( "value", content ).addClass( "ui-multibuttonentry-data" ).hide();
-
 			// Create a new text HTMLDivElement.
 			textBlock = $( document.createElement( 'div' ) );
-			displayText = self._ellipsisTextBlock( content ) ;
-			textBlock.text( displayText ).addClass( "ui-multibuttonentry-block" );
-			textBlock.append( dataBlock );
 
-			// bind a event to HTMLDivElement.
-			textBlock.bind( "vclick", function ( event ) {
-				if ( $( this ).hasClass( "ui-multibuttonentry-sblock" ) ) {
-					// If block is selected, it will be removed.
-					self._removeTextBlock();
-				}
-
-				var lockBlock = $view.find( "div.ui-multibuttonentry-sblock" );
-				if ( typeof lockBlock != "undefined" ) {
-					lockBlock.removeClass( "ui-multibuttonentry-sblock" ).addClass( "ui-multibuttonentry-block" );
-				}
-				$( this ).removeClass( "ui-multibuttonentry-block" ).addClass( "ui-multibuttonentry-sblock" );
-				self._trigger( "select" );
-			});
+			textBlock.text( content ).addClass( "ui-multibuttonentry-block" );
+			textBlock.css( {'visibility': 'hidden'} );
 
 			blocks = $view.find( "div" );
 			if ( index !== null && index <= blocks.length ) {
@@ -284,6 +279,9 @@
 			} else {
 				$view.find( ".ui-multibuttonentry-input" ).before( textBlock );
 			}
+
+			textBlock = self._ellipsisTextBlock( textBlock );
+			textBlock.css( {'visibility': 'visible'} );
 
 			self._currentWidth += self._calcBlockWidth( textBlock );
 			self._modifyInputBoxWidth();
@@ -293,7 +291,6 @@
 		_removeTextBlock : function () {
 			var self = this,
 				$view = this.element,
-				targetBlock = null,
 				lockBlock = $view.find( "div.ui-multibuttonentry-sblock" );
 
 			if ( lockBlock !== null && lockBlock.length > 0 ) {
@@ -307,15 +304,13 @@
 		},
 
 		_calcBlockWidth : function ( block ) {
-			var blockWidth = 0;
-			blockWidth = $( block ).outerWidth( true );
-			return blockWidth;
+			return $( block ).outerWidth( true );
 		},
 
 		_unlockTextBlock : function () {
 			var $view = this.element,
 				lockBlock = $view.find( "div.ui-multibuttonentry-sblock" );
-			if ( lockBlock !== null ) {
+			if ( !lockBlock ) {
 				lockBlock.removeClass( "ui-multibuttonentry-sblock" ).addClass( "ui-multibuttonentry-block" );
 			}
 		},
@@ -336,35 +331,28 @@
 			}
 		},
 
-		_ellipsisTextBlock : function ( text ) {
+		_ellipsisTextBlock : function ( textBlock ) {
 			var self = this,
-				str = text,
-				length = 0,
-				maxWidth = self._viewWidth,
-				maxCharCnt = parseInt( ( self._viewWidth / self._fontSize ), 10 ) - 5,
-				ellipsisStr = null;
-			if ( str ) {
-				length = str.length ;
-				if ( length > maxCharCnt ) {
-					ellipsisStr = str.substring( 0, maxCharCnt );
-					ellipsisStr += "...";
-				} else {
-					ellipsisStr = str;
-				}
+				$view = self.element,
+				maxWidth = $view.innerWidth() - ( self._labelWidth + self._anchorWidth ) * 2;
+
+			if ( self._calcBlockWidth( textBlock ) > maxWidth ) {
+				$( textBlock ).width( maxWidth - self._marginWidth );
 			}
-			return ellipsisStr;
+
+			return textBlock;
 		},
 
 		_modifyInputBoxWidth : function () {
 			var self = this,
 				$view = self.element,
+				margin = self._marginWidth,
 				labelWidth = self._labelWidth,
 				anchorWidth = self._anchorWidth,
-				inputBoxWidth = self._viewWidth - labelWidth - anchorWidth,
+				inputBoxWidth = self._viewWidth - labelWidth,
 				blocks = $view.find( "div" ),
 				blockWidth = 0,
 				index = 0,
-				margin = self._marginWidth,
 				inputBox = $view.find( ".ui-multibuttonentry-input" );
 
 			if ( $view.width() === 0 ) {
@@ -373,16 +361,27 @@
 
 			for ( index = 0; index < blocks.length; index += 1 ) {
 				blockWidth = self._calcBlockWidth( blocks[index] );
-				inputBoxWidth = inputBoxWidth - blockWidth;
-				if ( inputBoxWidth <= 0 ) {
-					if ( inputBoxWidth + anchorWidth >= 0 ) {
-						inputBoxWidth = self._viewWidth - anchorWidth;
+
+				if ( blockWidth >= inputBoxWidth + anchorWidth ) {
+					if ( blockWidth >= inputBoxWidth ) {
+						inputBoxWidth = self._viewWidth - blockWidth;
 					} else {
-						inputBoxWidth = self._viewWidth - blockWidth - anchorWidth;
+						inputBoxWidth = self._viewWidth ;
+					}
+				} else {
+					if ( blockWidth >= inputBoxWidth ) {
+						inputBoxWidth = self._viewWidth - blockWidth;
+					} else {
+						inputBoxWidth -= blockWidth;
 					}
 				}
 			}
-			$( inputBox ).width( inputBoxWidth - margin - 1 );
+
+			inputBoxWidth -= margin;
+			if ( inputBoxWidth < anchorWidth * 2 ) {
+				inputBoxWidth = self._viewWidth - margin;
+			}
+			$( inputBox ).width( inputBoxWidth - anchorWidth );
 		},
 
 		_stringFormat : function ( expression ) {
@@ -396,21 +395,16 @@
 			return message;
 		},
 
-		_resizeBlock : function () {
+		_resizeBlocks : function () {
 			var self = this,
 				$view = self.element,
-				dataBlocks = $( ".ui-multibuttonentry-data" ),
 				blocks = $view.find( "div" ),
-				srcTexts = [],
 				index = 0;
 
-			$view.hide();
-			for ( index = 0 ; index < dataBlocks.length ; index += 1 ) {
-				srcTexts[index] = $( dataBlocks[index] ).val();
-				self._addTextBlock( srcTexts[index] );
+			for ( index = 0 ; index < blocks.length ; index += 1 ) {
+				$( blocks[index] ).css( "width", "auto" );
+				blocks[index] = self._ellipsisTextBlock( blocks[index] );
 			}
-			blocks.remove();
-			$view.show();
 		},
 
 		//---------------------------------------------------- //
@@ -507,9 +501,9 @@
 
 			if ( arguments.length === 0 ) {
 				// return a selected block.
-				lockBlock = $view.find( "div.ui-multibuttonentry-sblock" ).children( ".ui-multibuttonentry-data" );
+				lockBlock = $view.find( "div.ui-multibuttonentry-sblock" );
 				if ( lockBlock) {
-					return lockBlock.attr( "value" );
+					return lockBlock.text();
 				}
 				return null;
 			}
@@ -558,16 +552,19 @@
 		},
 
 		refresh : function () {
-			var self = this;
-			self.element.hide();
-			self.element.show();
+			var self = this,
+				$view = this.element;
+
+			self._viewWidth = $view.innerWidth();
+			self._resizeBlocks();
+			self._modifyInputBoxWidth();
 		},
 
 		destroy : function () {
 			var $view = this.element;
 
 			$view.find( "label" ).remove();
-			$view.find( "div" ).unbind( "vclick" ).remove();
+			$view.find( "div" ).undelegate( "vclick" ).remove();
 			$view.find( "a" ).remove();
 			$view.find( ".ui-multibuttonentry-input" ).unbind( "keyup" ).remove();
 
