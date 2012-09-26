@@ -1,0 +1,61 @@
+From 90c6c1dae398b40abfd2f9325bd1ed57ecd69178 Mon Sep 17 00:00:00 2001
+From: Minkyu Kang <mk7.kang@samsung.com>
+Date: Wed, 26 Sep 2012 14:34:50 +0900
+Subject: [PATCH] JQM: add event blocker when load a first page
+
+Change-Id: I4b159977e158cf8358bdd118682b8291e3adb6d8
+Signed-off-by: Minkyu Kang <mk7.kang@samsung.com>
+---
+ .../jquery-mobile-1.1.0/js/jquery.mobile.init.js   |   13 +++++++++++++
+ .../js/jquery.mobile.navigation.js                 |    4 ++++
+ 2 files changed, 17 insertions(+)
+
+diff --git a/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.init.js b/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.init.js
+index 93c03e8..54c4615 100644
+--- a/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.init.js
++++ b/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.init.js
+@@ -106,6 +106,18 @@ define( [ "jquery", "./jquery.mobile.core", "./jquery.mobile.support", "./jquery
+ 			$( window ).unbind( "scroll", checkLoaderPosition );
+ 		},
+ 
++		addEventBlocker: function () {
++			$html.addClass( "ui-blocker" );
++			$html.bind( "touchstart touchend vclick mousedown mouseup click", function () {
++				return false;
++			} );
++		},
++
++		removeEventBlocker: function () {
++			$html.removeClass( "ui-blocker" );
++			$html.unbind( "touchstart touchend vclick mousedown mouseup click" );
++		},
++
+ 		// find and enhance the pages in the dom and transition to the first page.
+ 		initializePage: function() {
+ 			// find present pages
+@@ -138,6 +150,7 @@ define( [ "jquery", "./jquery.mobile.core", "./jquery.mobile.support", "./jquery
+ 
+ 			// cue page loading message
+ 			$.mobile.showPageLoadingMsg();
++			$.mobile.addEventBlocker();
+ 
+ 			//remove initial build class (only present on first pageshow)
+ 			hideRenderingClass();
+diff --git a/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.navigation.js b/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.navigation.js
+index f6e11b3..841e8a9 100644
+--- a/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.navigation.js
++++ b/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.navigation.js
+@@ -529,6 +529,10 @@ define( [
+ 
+ 			//trigger pageshow, define prevPage as either fromPage or empty jQuery obj
+ 			toPage.data( "page" )._trigger( "show", null, { prevPage: fromPage || $( "" ) } );
++
++			setTimeout( function () {
++				$.mobile.removeEventBlocker();
++			}, 0 );
+ 		});
+ 
+ 		return promise;
+-- 
+1.7.9.5
+
