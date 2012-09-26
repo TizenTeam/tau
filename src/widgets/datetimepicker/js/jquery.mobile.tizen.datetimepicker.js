@@ -302,7 +302,7 @@
 
 			this.options.date = newdate;
 
-			this._setValue( this.value() );
+			this._setValue( newdate );
 
 			this.element.attr( "data-" + ( $.mobile.ns ? $.mobile.ns + "-" : "" ) + "date", this.options.date );
 			return this.options.date;
