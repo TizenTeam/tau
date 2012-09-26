@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.1.52
+Version:    0.1.53
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -91,6 +91,14 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Wed Sep 26 2012 Minkyu Kang <mk7.kang@samsung.com> 0.1.53
+- FIX:
+	- listview: change focused color
+	- multibuttonentry: code refactoring
+	- datetimepicker: modify date format when triggered date-changed event
+	- slider: fix the top of slider bar
+	- add event blocker when load a first page
+
 * Fri Sep 21 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.52
 - ETC.
 	- Move SMACK manifest files to the top SRCDIR
