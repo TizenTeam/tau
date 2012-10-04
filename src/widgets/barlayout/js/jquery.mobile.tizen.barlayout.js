@@ -4,19 +4,16 @@
 		options: {
 			addBackBtn: false ,
 			backBtnText: "Back",
-
 			initSelector: ":jqmData(role='header'), :jqmData(role='footer')"
 		},
 		_create: function () {
 			var self = this;
-
 			/* this call api will be moved to jquery.mobile.page.section.js patch */
 			/* call _generateFooter in header(just 1 time in first step) because to calculate another layout width footer/header */
 			/* skip below step to attach bind/addclass only 1 time */
 			self._generateFooter();
 			self._addBackbutton();
 			self._disableSelection();
-			self._disableContext();
 		},
 
 		/* Make dummy footer
@@ -38,8 +35,8 @@
 			// need to add parameter target wherels this requert occurs header/footer
 			var self = this,
 				$el = self.element,
-				$elHeader = $( this.element ).jqmData( "role" ) == "header" ? self.element : $el.siblings( ":jqmData(role='header')" ),
-				$elFooter = $( this.element ).jqmData( "role" ) == "footer" ? self.element : $el.siblings( ":jqmData(role='footer')" ),
+				$elHeader = $el.jqmData( "role" ) === "header" ? $el : $el.siblings( ":jqmData(role='header')" ),
+				$elFooter = $el.jqmData( "role" ) === "footer" ? $el : $el.siblings( ":jqmData(role='footer')" ),
 				$elPage = $el.closest( ".ui-page" ),
 				backBtn,
 				attachElement = $elFooter,
@@ -57,7 +54,7 @@
 				}
 			}
 
-			$elPage.data().page.options.addBackBtn == "header" ? attachElement = $elHeader : attachElement = $elFooter;
+			attachElement = ( $elPage.data().page.options.addBackBtn === "header" ) ? $elHeader : $elFooter;
 
 			backBtn = $( "<a href='#' class='ui-btn-back' data-" + $.mobile.ns + "rel='back'></a>" )
 					.buttonMarkup( {icon: "header-back-btn", theme : "s"} );
@@ -66,7 +63,7 @@
 				if ( $el.is(".ui-page") ) {
 					$elHeader = $el.find( ":jqmData(role='header')" );
 					$elFooter = $el.find( ":jqmData(role='footer')" );
-					target == "header" ? attachElement = $elHeader : attachElement = $elFooter;
+					attachElement = ( target === "header" ) ? $elHeader : $elFooter;
 				} else {
 					attachElement = $el;
 				}
@@ -81,29 +78,26 @@
 				}
 			}
 
-/* jQM 1.1.0 do not need this code
-* navigation.js control whote back button  */
-/*				backBtn.bind( "vclick", function( event ) {
+				/* jQM 1.1.0 does not need this code.
+				   navigation.js control whole back buttons. */
+				/*
+				backBtn.bind( "vclick", function( event ) {
 					window.history.back();
-				});*/
+				});
+				*/
 		},
 
 		_disableSelection : function () {
 			var self = this,
 				$el = self.element,
-				$elHeader = $( this.element ).jqmData( "role" ) == "header" ? self.element : $el.siblings( ":jqmData(role='header')" ),
-				$elFooter = $( this.element ).jqmData( "role" ) == "footer" ? self.element : $el.siblings( ":jqmData(role='footer')" );
+				$elHeader = $el.jqmData( "role" ) === "header" ? $el : $el.siblings( ":jqmData(role='header')" ),
+				$elFooter = $el.jqmData( "role" ) === "footer" ? $el : $el.siblings( ":jqmData(role='footer')" );
 
+			// disable selection
 			$.mobile.tizen.disableSelection( $elHeader );
 			$.mobile.tizen.disableSelection( $elFooter );
-		},
 
-		_disableContext : function () {
-			var self = this,
-				$el = self.element,
-				$elHeader = $( this.element ).jqmData( "role" ) == "header" ? self.element : $el.siblings( ":jqmData(role='header')" ),
-				$elFooter = $( this.element ).jqmData( "role" ) == "footer" ? self.element : $el.siblings( ":jqmData(role='footer')" );
-
+			// disable context menu
 			$.mobile.tizen.disableContextMenu( $elHeader );
 			$.mobile.tizen.disableContextMenu( $elFooter );
 		},
