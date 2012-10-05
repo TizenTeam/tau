@@ -76,14 +76,8 @@ JQUERY_MOBILE_IMAGES = submodules/jquery-mobile/css/themes/default/images
 JQM_VERSION = jquery-mobile-1.1.0
 JQM_LIB_PATH = $(CURDIR)/libs/js/${JQM_VERSION}
 
-ifeq (${DEBUG},yes)
 JQUERY = jquery-1.7.1.js
-else
-LIBS_JS_FILES +=\
-	jquery.mobile.min.js \
-    $(NULL)
-JQUERY = jquery-1.7.1.min.js
-endif
+JQUERY_MIN = $(subst .js,.min.js,$(JQUERY))
 
 LIBS_CSS_FILES =
 ifeq (${DEBUG},yes)
@@ -127,6 +121,7 @@ third_party: init jqm
 		echo "" >> ${FW_LIB_MIN}; \
 	    done; \
 	    cp ${LIBS_DIR}/js/${JQUERY} ${JS_OUTPUT_ROOT}/jquery.js
+	    cp ${LIBS_DIR}/js/${JQUERY_MIN} ${JS_OUTPUT_ROOT}/jquery.min.js
 	@@cd ${LIBS_DIR}/css; \
 	    for f in ${LIBS_CSS_FILES}; do \
 	        cat $$f >> ${FW_CSS}; \
