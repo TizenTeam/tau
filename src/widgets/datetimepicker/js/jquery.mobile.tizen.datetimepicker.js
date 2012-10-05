@@ -526,7 +526,7 @@
 
 			switch ( field ) {
 			case 'hour':
-				if ( pat == 'H' ) {
+				if ( pat == 'H' || pat == 'HH' ) {
 					// twentyfour
 					values = range( 0, 23 );
 					data = range( 0, 23 );
