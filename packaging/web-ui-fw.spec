@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.1.53
+Version:    0.1.54
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -91,6 +91,16 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Fri Oct 05 2012 Minkyu Kang <mk7.kang@samsung.com> 0.1.54
+- FIX:
+	- handler: don't append a handler if handler is not enabled
+	- scrollview: use static value
+	- datetimepicker: fix date-format HH display error
+- ETC:
+	- provide jquery.min.js
+	- barlayout: codes clean
+	- remove unused file
+
 * Wed Sep 26 2012 Minkyu Kang <mk7.kang@samsung.com> 0.1.53
 - FIX:
 	- listview: change focused color
