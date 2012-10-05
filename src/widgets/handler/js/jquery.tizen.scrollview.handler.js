@@ -88,6 +88,10 @@
 			return;
 		}
 
+		if ( $( this ).jqmData("handler") !== true ) {
+			return;
+		}
+
 		var self = this,
 			$this = $( this ),
 			scrollview = $this.data( "scrollview" ),
