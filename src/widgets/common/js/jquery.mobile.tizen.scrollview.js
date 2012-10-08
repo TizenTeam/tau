@@ -78,8 +78,13 @@
 				self = this;
 
 			this._$clip = $( this.element ).addClass("ui-scrollview-clip");
-			this._$view = this._$clip.wrapInner("<div></div>").children()
+
+			if ( this._$clip.children(".ui-scrollview-view").length ) {
+				this._$view = this._$clip.children(".ui-scrollview-view");
+			} else {
+				this._$view = this._$clip.wrapInner("<div></div>").children()
 							.addClass("ui-scrollview-view");
+			}
 
 			if ( this.options.scrollMethod === "translate" ) {
 				if ( this._$view.css("transform") === undefined ) {
@@ -553,10 +558,6 @@
 				newY,
 				dirLock;
 
-			if ( Math.abs( this._startY - ey ) < mt && !this._didDrag ) {
-				return;
-			}
-
 			this._lastMove = getCurrentTime();
 
 			if ( !this._directionLock ) {
@@ -618,6 +619,10 @@
 			}
 
 			if ( dirLock !== "x" && this._vTracker ) {
+				if ( Math.abs( this._startY - ey ) < mt ) {
+					return;
+				}
+
 				y = this._sy;
 				this._speedY = dy;
 				newY = y + dy;
