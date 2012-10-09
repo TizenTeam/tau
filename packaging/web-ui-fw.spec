@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.1.54
+Version:    0.1.55
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -91,6 +91,10 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Tue Oct 09 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.55
+- FIX:
+	- Fix SMACK manifest bug (S1-9098)
+
 * Fri Oct 05 2012 Minkyu Kang <mk7.kang@samsung.com> 0.1.54
 - FIX:
 	- handler: don't append a handler if handler is not enabled
