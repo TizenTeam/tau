@@ -47,7 +47,7 @@
 //     textoff: String; "Off";
 //
 // Events:
-//     changed: Emitted when the switch is changed
+//     change: Emitted when the switch is changed.
 
 (function ( $, undefined ) {
 
@@ -76,7 +76,7 @@
 
 		_value: {
 			attr: "data-" + ($.mobile.ns || "") + "checked",
-			signal: "changed"
+			signal: "change"
 		},
 
 		_setTexton: function ( text ) {
