@@ -13,7 +13,7 @@ fi
 
 # <name>%%<git address>%%<branch>
 git_servers=( \
-	rsa%%tizendev.org:29418/framework/web/web-ui-fw%%2.0_beta%%tizen_2.0_build \
+	rsa%%tizendev.org:29418/framework/web/web-ui-fw%%master%%submit/trunk/`date --utc +%Y%m%d.%H%M%S`\
 	)
 
 cd `dirname $0`/../
@@ -61,5 +61,5 @@ echo ""
 echo ""
 echo "Done."
 echo "Go to $tmpdir/ , check each git repos, add tag for build trigger, and push them if they are OK."
-echo "  >> git push origin HEAD:refs/for/gerrithost ${t}"
+echo "  >> git push origin HEAD:refs/for/${b} ${t}"
 
