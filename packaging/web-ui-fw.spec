@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.1.55
+Version:    0.1.56
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -91,6 +91,11 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Mon Oct 15 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.56
+- FIX:
+	- Toggleswitch: Change event name from 'changed' to 'change'
+	- Notification: Revert interval feature
+
 * Tue Oct 09 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.55
 - FIX:
 	- Fix SMACK manifest bug (S1-9098)
