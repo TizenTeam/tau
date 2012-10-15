@@ -41,7 +41,7 @@ process_fname() # $1 = file name, n_pass
         }
         else {
           insideTag = 0;
-          printf("\n$(\"<div>");
+          printf("\n$( [ \"<div>");
           while (1 == (getline inputLine < protoFile)) {
             for (Nix1 = 1 ; Nix1 <= length(inputLine) ; Nix1++) {
               theChar = substr(inputLine, Nix1, 1);
@@ -54,9 +54,9 @@ process_fname() # $1 = file name, n_pass
                 theChar = "'"'"'";
               printf("%s", theChar);
             }
-            printf("\" +\n  \"");
+            printf("\" ,\n  \"");
           }
-          printf("</div>\")");
+          printf("</div>\" ].join(\"\"))");
           close(protoFile);
         }
       }
