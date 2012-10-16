@@ -96,18 +96,12 @@
 				focusedEl
 					.addClass( "ui-input-search-default" )
 					.removeClass( "ui-input-search-wide" );
-				cancelbtn
-					.addClass( "ui-btn-cancel-show" )
-					.removeClass( "ui-btn-cancel-hide" );
 			}
 
 			function hideCancel() {
 				focusedEl
 					.addClass( "ui-input-search-wide" )
 					.removeClass( "ui-input-search-default" );
-				cancelbtn
-					.addClass( "ui-btn-cancel-hide" )
-					.removeClass( "ui-btn-cancel-show" );
 
 				toggleClear();
 			}
@@ -158,28 +152,6 @@
 
 			//SLP --start search bar with cancel button
 			focusedEl.wrapAll( "<div class='input-search-bar'></div>" );
-
-			cancelbtn = $( "<a href='#' class='ui-input-cancel' title='clear text'>Cancel</a>" )
-				.bind('click', function ( event ) {
-					if ( input.attr( "disabled" ) == "disabled" ) {
-						return false;
-					}
-					event.preventDefault();
-					event.stopPropagation();
-
-					input
-						.val( "" )
-						.blur()
-						.trigger( "change" );
-
-					hideCancel();
-				} )
-				.appendTo( focusedEl.parent() )
-				.buttonMarkup( {
-					iconpos: "cancel",
-					corners: true,
-					shadow: true
-				} );
 
 			searchimage = $("<div class='ui-image-search'></div>").appendTo( focusedEl );
 
@@ -244,14 +216,12 @@
 		disable: function () {
 			this.element.attr( "disabled", true );
 			this.element.parent().addClass( "ui-disabled" );
-			this.element.parent().parent().find(".ui-input-cancel").addClass( "ui-disabled" );
 			$( this.element ).blur();
 		},
 
 		enable: function () {
 			this.element.attr( "disabled", false );
 			this.element.parent().removeClass( "ui-disabled" );
-			this.element.parent().parent().find(".ui-input-cancel").removeClass( "ui-disabled" );
 			$( this.element ).focus();
 		}
 	} );
