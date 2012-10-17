@@ -261,14 +261,6 @@
 				$elFooter.css( "bottom", 0 );
 			}
 
-			/* Increase Content size with dummy <div> because of footer height */
-			if ( $elFooter.length != 0 && $( event.target ).find( ".dummy-div" ).length == 0 ) {
-				$( event.target ).find( ":jqmData(role='content')" ).append( '<div class="dummy-div"></div>' );
-				$( ".dummy-div" )
-					.css( "width", $elFooter.width() )
-					.css( "height", $elFooter.height() );
-			}
-
 			$elFooter.show();
 
 			/* Header position fix(remove transition) */

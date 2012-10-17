@@ -165,14 +165,6 @@
 					controlbar_filter.find( "div" ).css( "left", controlbar_filter.find( ".ui-btn-active" ).parent( "li" ).index() * controlbar_filter.width() / element_count );
 				}
 
-				/* Increase Content size with dummy <div> because of footer height */
-				if ( controlbar_filter.length != 0 && $( ".ui-page-active" ).find( ".dummy-div" ).length == 0 && $( ".ui-page-active" ).find( ":jqmData(role='footer')" ).find( ":jqmData(role='controlbar')" ).length != 0 ) {
-					$( ".ui-page-active" ).find( ":jqmData(role='content')" ).append( '<div class="dummy-div"></div>' );
-					$( ".ui-page-active" ).find( ".dummy-div" )
-						.css( "width", controlbar_filter.width() )
-						.css( "height", controlbar_filter.height() );
-				}
-
 				if ( controlbar_filter.length ) {
 					element_width = controlbar_filter.find("li:first").width();
 					controlbar_filter.find("li:last").width( controlbar_filter.width() - element_width * ( element_count - 1 ) );
