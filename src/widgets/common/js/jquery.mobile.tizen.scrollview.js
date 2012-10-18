@@ -619,7 +619,7 @@
 			}
 
 			if ( dirLock !== "x" && this._vTracker ) {
-				if ( Math.abs( this._startY - ey ) < mt ) {
+				if ( Math.abs( this._startY - ey ) < mt && dirLock !== "xy" ) {
 					return;
 				}
 
@@ -799,10 +799,6 @@
 			}
 
 			$v.bind( this._dragEvt, this._dragCB );
-
-			if ( $c.jqmData("scroll") !== "y" ) {
-				return;
-			}
 
 			$c.bind( "updatelayout", function ( e ) {
 				var sy,
@@ -1128,7 +1124,7 @@
 				$( this ).scrolllistview();
 			} else {
 				var st = $( this ).jqmData("scroll"),
-					dir = st && ( st.search(/^[xy]/) !== -1 ) ? st.charAt(0) : null,
+					dir = st && ( st.search(/^[xy]/) !== -1 ) ? st : null,
 					opts;
 
 				if ( st === "none" ) {
