@@ -1,0 +1,29 @@
+From 351740d23e76316fd82cc6ae0736b37f8de0d16f Mon Sep 17 00:00:00 2001
+From: Minkyu Kang <mk7.kang@samsung.com>
+Date: Tue, 23 Oct 2012 18:14:15 +0900
+Subject: [PATCH] JQM: listview: don't trigger updatelayout when keyup event
+ of filter
+
+Change-Id: I780a6bf3ff9bbeb7a421249ac33ff04da46d60b6
+Signed-off-by: Minkyu Kang <mk7.kang@samsung.com>
+---
+ .../js/jquery.mobile.listview.js                   |    3 ---
+ 1 file changed, 3 deletions(-)
+
+diff --git a/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.listview.js b/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.listview.js
+index b72c8b8..bb73015 100644
+--- a/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.listview.js
++++ b/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.listview.js
+@@ -97,9 +97,6 @@ $.widget( "mobile.listview", $.mobile.widget, {
+ 					.not(".ui-li-icon")
+ 					.addClass( "ui-corner-bl" );
+ 		}
+-		if ( !create ) {
+-			this.element.trigger( "updatelayout" );
+-		}
+ 	},
+ 
+ 	// This is a generic utility method for finding the first
+-- 
+1.7.9.5
+
