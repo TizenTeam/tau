@@ -100,7 +100,6 @@
 
 			this._view_offset = this._$view.offset().top - this._$clip.offset().top;
 			this._view_height = this._getViewHeight();
-			this._clip_height = this._$clip.height();
 
 			this._sx = 0;
 			this._sy = 0;
@@ -147,8 +146,8 @@
 			}
 
 			if ( vt ) {
-				c = this._clip_height;
-				v = this._view_height;
+				c = this._$clip.height();
+				v = this._getViewHeight();
 
 				vt.start( this._sy, speedY,
 					duration, (v > c) ? -(v - c) : 0, 0 );
@@ -198,7 +197,7 @@
 				keepGoing = !vt.done();
 
 				if ( vt.getRemained() > this.options.overshootDuration ) {
-					scroll_height = this._view_height - this._clip_height;
+					scroll_height = this._getViewHeight() - this._$clip.height();
 
 					if ( vt.isMin() ) {
 						this._outerScroll( y - vt.getRemained() / 3, scroll_height );
@@ -281,7 +280,7 @@
 			}
 
 			if ( dirLock !== "x" && this._vTracker ) {
-				scroll_height = this._view_height - this._clip_height;
+				scroll_height = this._getViewHeight() - $c.height();
 
 				if ( y > 0 ) {
 					this._sy = 0;
@@ -320,10 +319,10 @@
 
 				if ( sm === "translate" ) {
 					this._setElementTransform( $sbt, "0px",
-						-y / this._view_height * $sbt.parent().height() + "px",
+						-y / this._getViewHeight() * $sbt.parent().height() + "px",
 						duration );
 				} else {
-					$sbt.css( "top", -y / this._view_height * 100 + "%" );
+					$sbt.css( "top", -y / this._getViewHeight() * 100 + "%" );
 				}
 			}
 
@@ -498,8 +497,8 @@
 
 			if ( this._is_inputbox ) {
 				target.one( "resize.scrollview", function () {
-					if ( ey > self._clip_height ) {
-						self.scrollTo( -ex, self._sy - ey + self._clip_height,
+					if ( ey > $c.height() ) {
+						self.scrollTo( -ex, self._sy - ey + $c.height(),
 							self.options.snapbackDuration );
 					}
 				});
@@ -803,21 +802,19 @@
 			$c.bind( "updatelayout", function ( e ) {
 				var sy,
 					vh,
-					clip_h = $c.height(),
 					view_h = self._getViewHeight();
 
-				if ( !clip_h || !view_h ) {
+				if ( !$c.height() || !view_h ) {
 					self.scrollTo( 0, 0, 0 );
 					return;
 				}
 
-				sy = clip_h - view_h;
+				sy = $c.height() - view_h;
 				vh = view_h - self._view_height;
 
 				self._view_height = view_h;
-				self._clip_height = clip_h;
 
-				if ( vh == 0 || vh > clip_h / 2 ) {
+				if ( vh == 0 || vh > $c.height() / 2 ) {
 					return;
 				}
 
@@ -832,14 +829,13 @@
 
 			$( window ).bind( "resize", function ( e ) {
 				var focused,
-					clip_h = $c.height(),
 					view_h = self._getViewHeight();
 
 				if ( $(".ui-page-active").get(0) !== $c.closest(".ui-page").get(0) ) {
 					return;
 				}
 
-				if ( !clip_h || !view_h ) {
+				if ( !$c.height() || !view_h ) {
 					return;
 				}
 
@@ -851,29 +847,23 @@
 
 				/* calibration - after triggered throttledresize */
 				setTimeout( function () {
-					self._view_height = self._getViewHeight();
-					self._clip_height = $c.height();
-
-					if ( self._sy < self._clip_height - self._veiw_height ) {
+					if ( self._sy < $c.height() - self._getViewHeight() ) {
 						self.scrollTo( 0, self._sy,
 							self.options.snapbackDuration );
 					}
 				}, 260 );
 
 				self._view_height = view_h;
-				self._clip_height = clip_h;
 			});
 
 			$c.closest(".ui-page")
 				.one( "pageshow", function ( e ) {
 					self._view_offset = self._$view.offset().top - self._$clip.offset().top;
+					self._view_height = self._getViewHeight();
 				})
 				.bind( "pageshow", function ( e ) {
 					/* should be called after pagelayout */
 					setTimeout( function () {
-						self._view_height = self._getViewHeight();
-						self._clip_height = self._$clip.height();
-
 						self._set_scrollbar_size();
 						self._setScrollPosition( self._sx, self._sy );
 						self._showScrollBars( 2000 );
@@ -962,8 +952,8 @@
 			}
 
 			if ( this._vTracker ) {
-				ch = this._clip_height;
-				vh = this._view_height;
+				ch = $c.height();
+				vh = this._getViewHeight();
 				this._maxY = ch - vh;
 
 				if ( this._maxY > 0 ) {
