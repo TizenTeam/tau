@@ -364,7 +364,7 @@
 			}
 
 			if ( y > 0 ) {
-				sy = -y;
+				sy = ( window.screenTop ? window.screenTop : -y );
 			} else if ( y < -scroll_height ) {
 				sy = -y - scroll_height;
 			} else {
