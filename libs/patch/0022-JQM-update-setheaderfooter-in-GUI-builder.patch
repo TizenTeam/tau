@@ -1,0 +1,29 @@
+From d41f2c4965179a89e255cb1636eeff14c65cc1c0 Mon Sep 17 00:00:00 2001
+From: Jun Jinhyuk <jinhyuk.jun@samsung.com>
+Date: Thu, 18 Oct 2012 15:51:48 +0900
+Subject: [PATCH] JQM update setheaderfooter in GUI builder
+
+Change-Id: Iae03f3afbb1e2cdf223f5e97a6122e3406c8d965
+---
+ .../jquery-mobile-1.1.0/js/jquery.mobile.page.js   |    5 +++++
+ 1 files changed, 5 insertions(+), 0 deletions(-)
+
+diff --git a/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.page.js b/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.page.js
+index 85c77fe..1951c1c 100644
+--- a/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.page.js
++++ b/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.page.js
+@@ -39,6 +39,11 @@ $.widget( "mobile.page", $.mobile.widget, {
+ 		$( ".ui-page-active" ).children( ".ui-content" ).trigger("updatelayout", ["external"]);
+ 	},
+ 
++	/* GUI Builder only : redesign page when user drag&drop header,footer */
++	setToolbar : function () {
++		$( ".ui-page" ).trigger( "pagebeforeshow" );
++	},
++
+ 	removeContainerBackground: function(){
+ 		$.mobile.pageContainer.removeClass( "ui-overlay-" + $.mobile.getInheritedTheme( this.element.parent() ) );
+ 	},
+-- 
+1.7.4.1
+
