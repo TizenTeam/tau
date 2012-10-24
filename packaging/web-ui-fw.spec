@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.1.56
+Version:    0.1.57
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -91,6 +91,17 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Wed Oct 24 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.57
+- FIX:
+	- expandablelist: icon color fix
+	- scrollview: Fix xy scroll
+	- footer: Remove dummy div
+	- Make string concatnation effective in inline-protos.sh
+- Spec changes:
+	- refresh header/footer when drag&drop event is fired in GUI builder
+	- searchbar: delete cancel button
+	- don't trigger updatelayout event when keyup event comes
+
 * Mon Oct 15 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.56
 - FIX:
 	- Toggleswitch: Change event name from 'changed' to 'change'
