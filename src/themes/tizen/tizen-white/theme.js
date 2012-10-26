@@ -21,6 +21,6 @@ $.fn.buttonMarkup.defaults.theme = "s";
 $.mobile.page.prototype.options.theme = "s";
 
 // Default font size for this theme
-$.tizen.frameworkData.defaultFontSize = 36;
+$.tizen.frameworkData.defaultFontSize = 22;
 
 })(jQuery);

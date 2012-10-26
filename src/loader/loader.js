@@ -14,7 +14,7 @@
 			version: '0.1',
 			theme: "tizen-white",
 			viewportScale: false,
-			defaultFontSize: 16,
+			defaultFontSize: 22,
 			minified: false
 		},
 
@@ -39,22 +39,6 @@
 						}
 					}
 				} );
-			},
-			getScaleFactor: function ( ) {
-				var factor = navigator.scale,
-					width = 0,
-					defaultWidth = 720;
-
-				if ( !factor ) {
-					width = screen.width < screen.height ? screen.width : screen.height;
-					factor = width / defaultWidth;
-					if ( factor > 1 ) {
-						// NOTE: some targets(e.g iPad) need to set scale equal or less than 1.0
-						factor = 1;
-					}
-				}
-				console.log( "ScaleFactor: " + factor );
-				return factor;
 			},
 			isMobileBrowser: function ( ) {
 				var mobileIdx = window.navigator.appVersion.indexOf("Mobile"),
@@ -327,19 +311,15 @@
 
 		/** Set viewport meta tag for mobile devices.
 		 *
-		 * @param[in]	viewportWidth	Viewport width. 'device-dpi' is also allowed.
 		 * @param[in]	useAutoScale	If true, cculate & use scale factor. otherwise, scale factor is 1.
-		 * @param[in]	useDeviceDpi	If true, add 'target-densityDpi=device-dpi' to viewport meta content.
 		 */
-		setViewport: function ( viewportWidth, useAutoScale, useDeviceDpi ) {
+		setViewport: function ( useAutoScale ) {
 			var meta,
-				scale = 1,
 				head,
 				content,
-				ratio,
-				threshold = 15,
-				standardWidth = 360,
-				screenWidth = screen.width;
+				screenWidth = window.outerWidth;
+				// TODO : Above code will be replaced by below codes. But screen.availWidth has a webkit bug at this moment.
+				// screenWidth = screen.availWidth;
 
 			// Do nothing if viewport setting code is already in the code.
 			$( "meta[name=viewport]" ).each( function ( ) {
@@ -349,29 +329,17 @@
 			});
 			if( meta ) {
 				content = $( meta ).prop( "content" );
-				if ( content.indexOf( "device-width" ) > 0
-						&& content.indexOf( "device-dpi" ) > 0 ) {
-					ratio = screenWidth > standardWidth ? ( screenWidth/standardWidth) : 1;
-					$.vmouse.moveDistanceThreshold = threshold * ratio;
-					$.vmouse.clickDistanceThreshold = threshold * ratio;
-				}
 				return;	// Ignore viewport setting, when viewport is already set.
 			}
 
 			// Set meta tag
 			meta = document.createElement( "meta" );
 			if ( meta ) {
-				scale = useAutoScale ? this.util.getScaleFactor( ) : scale;
 				meta.name = "viewport";
-				meta.content = "width=" + viewportWidth + ", initial-scale=" + scale + ", maximum-scale=" + scale + ", user-scalable=0";
-				if ( useDeviceDpi ) {
-					meta.content += ", target-densityDpi=device-dpi";
-				}
+				meta.content = useAutoScale ? "width=" + screenWidth + ", user-scalable=no" : "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no";
 				console.log( meta.content );
 				head = document.getElementsByTagName( 'head' ).item( 0 );
 				head.insertBefore( meta, head.firstChild );
-
-				// TODO : change threshold when scaleFactor is changed. Reference line 354-356
 			}
 		},
 
@@ -379,6 +347,7 @@
 		 *  param[in]	desired font-size / base font-size.
 		 */
 		scaleBaseFontSize: function ( themeDefaultFontSize, ratio ) {
+			console.log( "themedefaultfont size: " + themeDefaultFontSize + ", ratio: " + ratio );
 			var scaledFontSize = Math.round( themeDefaultFontSize * ratio );
 
 			$( 'html.ui-mobile' ).css( { 'font-size': scaledFontSize + "px" } );
@@ -389,22 +358,25 @@
 		},
 
 		setScaling: function ( ) {
-			var baseWidth = 720,		// Winset GUI Guide is 720 HD.
-				standardWidth = 360,
+			var baseWidth = 360,
+				screenWidth = window.outerWidth,
+				// TODO : Above code will be replaced by below codes. But screen.availWidth has a webkit bug at this moment.
+				// screenWidth = screen.availWidth,
 				themeDefaultFontSize;
 
+			// this.frameworkData.defaultFontSize is from theme.js
 			themeDefaultFontSize = this.frameworkData.defaultFontSize;
-
+			console.log( "setScaling themeDefaultFontSize: " + themeDefaultFontSize );
 			$( 'body' ).attr( 'data-tizen-theme-default-font-size', themeDefaultFontSize );
 
 			if ( this.frameworkData.viewportScale ) {
-				// Use viewport scaling with base font-size
-				// NOTE: No font-size setting is needed.
-				this.setViewport( baseWidth, true, true );
-			} else {
 				// Fixed viewport scale(=1.0) with scaled font size
-				this.setViewport( "device-width", false, undefined );
-				this.scaleBaseFontSize( themeDefaultFontSize, parseFloat( standardWidth / baseWidth ) );
+				this.setViewport( true );
+				this.scaleBaseFontSize( themeDefaultFontSize, parseFloat( screenWidth / baseWidth ) );
+			} else {
+				// Use base font-size (18px)
+				// NOTE: No font-size setting is needed.
+				this.setViewport( false );
 			}
 		}
 	};
