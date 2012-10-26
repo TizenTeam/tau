@@ -239,6 +239,11 @@
 				$elFooterGroup = $elFooter.find( ":jqmData(role='fieldcontain')" );
 				gLength = $elFooterGroup.find( ".ui-radio" ).length;
 
+
+				if ( $elFooterGroup.find( "div" ).is( ".ui-controlgroup-label" ) ) {
+					$elFooterGroup.find( "div.ui-controlgroup-label" ).remove();
+				}
+
 				$elFooterGroup.find( ".ui-controlgroup" )
 					.addClass( "ui-extended-controlgroup" )
 					.addClass( "ui-footer-extended-controlgroup" )
