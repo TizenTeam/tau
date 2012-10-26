@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.1.57
+Version:    0.1.58
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -91,6 +91,12 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Fri Oct 26 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.58
+- FIX:
+	- scrollview: Fix outer scroll amount
+	- tabbar: fix tapping twice
+	- popupwindow: fix left position
+
 * Wed Oct 24 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.57
 - FIX:
 	- expandablelist: icon color fix
