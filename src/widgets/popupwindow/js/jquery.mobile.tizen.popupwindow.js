@@ -246,7 +246,7 @@
 			maxwidth = parseFloat( this._ui.container.css( "max-width" ) );
 			newtop = ( screenHeight - menuHeight ) / 2;
 
-			if ( menuWidth < maxwidth ) {
+			if ( !maxwidth || menuWidth < maxwidth ) {
 				newleft = ( screenWidth - menuWidth ) / 2;
 			} else {
 				newleft = x - menuWidth / 2;
