@@ -114,6 +114,10 @@
 				iconpos:	iconpos
 			});
 
+			if ( $controlbar.find( ".ui-state-persist" ).length ) {
+				$controlbar.addClass( "ui-controlbar-persist" );
+			}
+
 			$controlbar.delegate( "a", "vclick", function ( event ) {
 				$navbtns.not( ".ui-state-persist" ).removeClass( $.mobile.activeBtnClass );
 				$( this ).addClass( $.mobile.activeBtnClass );

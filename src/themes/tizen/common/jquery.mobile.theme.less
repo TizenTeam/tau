@@ -670,13 +670,32 @@ a.ui-link-inherit {
 }
 
 .ui-tabbar-s {
-	.ui-btn {
-		background: @color_controlbar_tabbbar_bg;
+	&.ui-controlbar-persist {
+		.ui-btn {
+			background: @color_controlbar_tabbbar_bg;
+		}
+		.ui-state-persist, .ui-state-persist.ui-btn-active, .ui-btn-show-style {
+			background: @color_controlbar_btn_press;
+		}
+		.ui-btn-hover-s.ui-btn-down-s {
+			&:not(.ui-state-persist) {
+				background: @color_controlbar_btn_press;
+			}
+		}
+	}
+	&:not(.ui-controlbar-persist) {
+		.ui-btn {
+			background: @color_controlbar_tabbbar_bg;
+		}
+		.ui-btn-active, .ui-btn-show-style,
+		.ui-btn.ui-btn-hover-s.ui-btn-down-s {
+
+			background: @color_controlbar_btn_press;
+		}
 	}
 
 	.ui-btn-active, .ui-btn-show-style,
 	.ui-btn.ui-btn-hover-s.ui-btn-down-s {
-		background: @color_controlbar_btn_press;
 		border-left-style:  solid;
 		border-right-style:solid;
 		border-left-color: @color_controlbar_btn_border;
