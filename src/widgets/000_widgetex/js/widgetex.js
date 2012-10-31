@@ -292,46 +292,58 @@
 		var ar = widget.split( "." ),
 			namespace,
 			widgetName,
+			source,
+			noSource = false,
 			htmlProto,
 			protoPath;
 
 		if ( ar.length == 2 ) {
 			namespace = ar[0];
 			widgetName = ar[1];
-			htmlProto = $( "<div></div>" )
-						.text( "Failed to load proto for widget " + namespace + "." + widgetName + "!" )
-						.css( {background: "red", color: "blue", border: "1px solid black"} )
-						.jqmData( "tizen.widgetex.ajax.fail", true );
 
 			// If htmlProto is defined
 			if ( $[namespace][widgetName].prototype._htmlProto !== undefined ) {
 				// If no source is defined, use the widget name
-				if ( $[namespace][widgetName].prototype._htmlProto.source === undefined ) {
-					$[namespace][widgetName].prototype._htmlProto.source = widgetName;
+				source = $[namespace][widgetName].prototype._htmlProto.source;
+				if ( source === undefined ) {
+					source = widgetName;
+					noSource = true;
 				}
 
 				// Load the HTML prototype via AJAX if not defined inline
-				if ( typeof $[namespace][widgetName].prototype._htmlProto.source === "string" ) {
-					// Establish the path for the proto file
-					widget = $[namespace][widgetName].prototype._htmlProto.source;
-					protoPath = getProtoPath();
+				if ( typeof source === "string" ) {
+					if ( noSource ) {	// use external htmlproto file
+						// Establish the path for the proto file
+						widget = source;
+						protoPath = getProtoPath();
 
-					// Make the AJAX call
-					$.ajax( {
-						url: protoPath + "/" + widget + ".prototype.html",
-						async: false,
-						dataType: "html"
-					}).success( function (data, textStatus, jqXHR ) {
-						htmlProto = $( "<div></div>" ).html(data).jqmData( "tizen.widgetex.ajax.fail", false );
-					} );
+						// Make the AJAX call
+						$.ajax( {
+							url: protoPath + "/" + widget + ".prototype.html",
+							async: false,
+							dataType: "html"
+						}).success( function (data, textStatus, jqXHR ) {
+							source = $( "<div></div>" ).html(data).jqmData( "tizen.widgetex.ajax.fail", false );
+						} );
 
-					// Assign the HTML proto to the widget prototype
-					$[namespace][widgetName].prototype._htmlProto.source = htmlProto;
-				} else { // Otherwise, use the inline definition
+						// Assign the HTML proto to the widget prototype
+						source  = $( "<div></div>" )
+							.text( "Failed to load proto for widget " + namespace + "." + widgetName + "!" )
+							.css( {background: "red", color: "blue", border: "1px solid black"} )
+							.jqmData( "tizen.widgetex.ajax.fail", true );
+
+					} else {
+						// inline definition (string)
+						source = $( source ).jqmData( "tizen.widgetex.ajax.fail", false );
+					}
+
+				} else {
+					// inline definition (object)
 					// AJAX loading has trivially succeeded, since there was no AJAX loading at all
-					$[namespace][widgetName].prototype._htmlProto.source.jqmData( "tizen.widgetex.ajax.fail", false );
-					htmlProto = $[namespace][widgetName].prototype._htmlProto.source;
+					source.jqmData( "tizen.widgetex.ajax.fail", false );
 				}
+				htmlProto = source;
+				$[namespace][widgetName].prototype._htmlProto.source = source;
 
 				// If there's a "ui" portion in the HTML proto, copy it over to this instance, and
 				// replace the selectors with the selected elements from a copy of the HTML prototype
