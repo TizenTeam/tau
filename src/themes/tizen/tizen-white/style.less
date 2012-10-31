@@ -21,6 +21,77 @@
 @color_searchbar_input_field_bg : rgba(255, 255, 255, 1); /* W301 : 00_search_edit_field_bg.png */
 
 
+/***************** Button *************************************/
+
+@color_button_EditText:         rgb(61, 61, 61);
+@color_button_EditTextPress:    rgb(61, 61, 61);
+
+@color_button_text_normal:      rgb(54, 49, 51);
+@color_button_text_press:       rgb(248, 246, 239);
+
+@color_button_normal:           rgb(235, 232, 227);
+@color_button_normal_webkit:    -webkit-linear-gradient(top, rgb(235, 232, 227), rgb(234, 231, 226));
+@color_button_normal_moz:       -moz-linear-gradient(top, rgb(235, 232, 227), rgb(234, 231, 226));
+@color_button_normal_o:         -o-linear-gradient(top, rgb(235, 232, 227), rgb(234, 231, 226));
+@color_button_normal_ms:        -ms-linear-gradient(top, rgb(235, 232, 227), rgb(234, 231, 226));
+@color_button_press:            rgb(59, 115, 182);
+
+@color_button_inner:            rgb(247, 245, 238);
+@color_button_inner_webkit:     -webkit-linear-gradient(top, rgb(250, 247, 242), rgb(248, 245, 240));
+@color_button_inner_moz:        -moz-linear-gradient(top, rgb(250, 247, 242), rgb(248, 245, 240));
+@color_button_inner_o:          -o-linear-gradient(top, rgb(250, 247, 242), rgb(248, 245, 240));
+@color_button_inner_ms:         -ms-linear-gradient(top, rgb(250, 247, 242), rgb(248, 245, 240));
+
+@button_shadow_outer:              0 0 2px 2px rgba(235, 232, 227, 1);
+
+.LESSbutton_box_style{
+        color: @color_button_text_normal;
+}
+
+.LESSbutton_up_style{
+        background: @color_button_normal;
+        background: @color_button_normal_webkit;
+        background: @color_button_normal_moz;
+        background: @color_button_normal_o;
+        background: @color_button_normal_ms;
+}
+
+.LESSbutton_box_style{
+        background: @color_button_inner;
+        background: @color_button_inner_webkit;
+        background: @color_button_inner_moz;
+        background: @color_button_inner_o;
+        background: @color_button_inner_ms;
+        box-shadow: @button_shadow_outer;
+        -webkit-box-shadow: @button_shadow_outer;
+        -moz-box-shadow: @button_shadow_outer;
+        -o-box-shadow: @button_shadow_outer;
+        -ms-box-shadow: @button_shadow_outer;
+	border: 1px solid;
+	border-color: rgba(206, 203, 198, 1);
+}
+
+.LESSbutton_inner_pressstyle{
+        color: @color_button_text_press;
+}
+
+.LESSbutton_text1_style{
+        font-family: @font_family;
+        font-weight: normal;
+        font-size: 1.0rem;
+        font-style:normal;
+        color: @color_button_text_black;
+        &:hover {color: @color_button_text_normal;}
+}
+
+.LESSbutton_hover_style{
+        color: @color_button_text_normal;
+}
+
+.LESSbutton_down_style{
+        background: @color_button_press;
+        color: @color_button_text_press;
+}
 
 
 /******************************************************************************************************/
@@ -211,17 +282,11 @@
                     Button
 ***************************************************************************/
 
-@color_button_normal:		rgb(151, 161, 167);
-@color_button_normal_webkit:	-webkit-gradient(linear, left top, left bottom, from(rgb(151, 161, 167)), to(rgb(122, 132, 141)));
-@color_button_normal_moz:	-moz-linear-gradient(top, rgb(151, 161, 167), rgb(122, 132, 141));
-
-@color_button_press:		rgb(67, 160, 217);
 @color_button_press_webkit:	-webkit-gradient(linear, left top, left bottom, from(rgb(67, 160, 217)), to(rgb(56, 139, 185)));
 @color_button_press_moz:	-moz-linear-gradient(top, rgb(67, 160, 217), rgb(56, 139, 185));
 
 @color_button_hover: 		rgb(161, 171, 177);
 
-@color_button_text_normal:	rgb(249, 249, 249);
 @color_button_text_black:	rgb(0, 0, 0);
 @color_button_text_white:	rgb(249, 249, 249);
 @color_button_text_press: 	rgb(249, 249, 249);
@@ -260,23 +325,6 @@
 @color_button_edit_press_webkit:	-webkit-gradient(linear, left top, left bottom, from(rgb(147, 24,24)), to(rgb(110, 23, 23)));
 @color_button_edit_press_moz:		-moz-linear-gradient(top, rgb(147, 24, 24), rgb(110, 23, 23));
 
-.LESSbutton_up_style{
-	background: @color_button_normal;
-	background: @color_button_normal_webkit;
-	background: @color_button_normal_moz;
-}
-
-.LESSbutton_hover_style{
-	background: @color_button_hover;
-	color: @color_button_text_white;
-}
-
-.LESSbutton_down_style{
-	background: @color_button_press;
-	background: @color_button_press_webkit;
-	background: @color_button_press_moz;
-	color: @color_button_text_white;
-}
 
 .LESSbutton_text1_style{
 	font-family: @font_family;
@@ -285,11 +333,6 @@
 	font-style:normal;
 	color: @color_button_text_black;
 	&:hover {color: @color_button_text_black;}
-}
-
-.LESSbutton_box_style{
-	color: @color_button_text_white;
-	&:hover {color: @color_button_text_white;}
 }
 
 .LESScirclebutton_hover_style{

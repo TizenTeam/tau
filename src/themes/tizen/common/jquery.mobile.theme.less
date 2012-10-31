@@ -245,35 +245,38 @@
 
 .ui-br {
 }
-.ui-btn-up-s {
+.ui-btn-box-s.ui-btn-up-s {
 	font-weight: bold;
-	a.ui-link-inherit {
-		color: @color_button_text_normal;
-	}
-	.LESSbutton_up_style;
+	.LESSbutton_box_style;
+        /*border: 1px solid;
+        border-color: rgb(206, 203, 198);*/
+        .LESSborder-radius-all( 0.3rem );
 	.LESSbutton_text1_style;
 }
-.ui-btn-hover-s {
+
+.ui-header .ui-btn-box-s,
+.ui-btn-back.ui-btn-up-s,
+.ui-btn-back.ui-btn-hover-s,
+.ui-btn-back.ui-btn-down-s {
+	background: transparent;
+	border: none;
+}
+
+.ui-btn-box-s.ui-btn-hover-s {
 	font-weight: bold;
-	a.ui-link-inherit {
-		color: @color_button_text_normal;
-	}
 	.LESSbutton_hover_style;
 	.LESSbutton_text1_style;
 }
 
-.ui-btn-hover-s.ui-btn-corner-circle{
+.ui-btn-box-s.ui-btn-hover-s.ui-btn-corner-circle{
 	.LESScirclebutton_hover_style;
 }
 
-.ui-btn-down-s {
-	font-weight: bold;
-	a.ui-link-inherit {
-		color: @color_button_text_normal;
-	}
+.ui-btn-box-s.ui-btn-down-s {
 	.LESSbutton_down_style;
-	.LESSbutton_text1_style;
+	/*.LESSbutton_text1_style;*/
 }
+
 .ui-btn-up-s,
 .ui-btn-hover-s,
 .ui-btn-down-s {
@@ -445,9 +448,8 @@ a.ui-link-inherit {
 		height: 32 * @unit_base;
 		
 	}
-}
 
-.ui-btn-back .ui-btn-inner .ui-icon-header-back-btn {
+
 	width: 32 * @unit_base; 
 	height: 32 * @unit_base;
 
