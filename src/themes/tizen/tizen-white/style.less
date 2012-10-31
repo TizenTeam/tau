@@ -1,5 +1,44 @@
+/******************************************************************************************************/
+/**************** Define ColorCode Here    ************* Start ****************************************/
+/******************************************************************************************************/
+
+
+
+/***************** Dialogue List ******************************/
+@color_list_bg: rgb(248, 246, 239);
+@color_list_dialogue_bg : rgba(239, 237, 229, 1);
+@color_list_divider_expand_div : rgba(0, 0, 0, 0.5);
+@color_list_sub_text_default: rgba(100, 100, 100, 1);
+@color_dialogue_main_text: rgba(59, 115, 182, 1);
+@color_dialogue_border_right: rgba(142, 154, 163, 1);
+
+@color_list_divider_bg : rgb(248, 246, 239);
+@color_list_divider_text :		rgba(59, 115, 182, 1);
+
+/***************** SearchBar(forms.textinput) *****************/
+@color_searchbar_bg : rgba(248, 246, 239, 1);
+@color_searchbar_default_text : rgba(121, 131, 138, 1); /* Search default text */
+@color_searchbar_input_field_bg : rgba(255, 255, 255, 1); /* W301 : 00_search_edit_field_bg.png */
+
+
+
+
+/******************************************************************************************************/
+/**************** Define ColorCode Here    ************* End ****************************************/
+/******************************************************************************************************/
+
+
+
+
+
+
+
+
+
+/************************** old color code  ******************************/
+
 // Basic color set
-@color_bg: 				rgb(249, 249, 249);	// 249 249 249
+@color_bg: 				rgb(248, 246, 239); // #F8F6EF // Main Background color
 @color_bg_sub:			rgb(36, 36, 36);	// 36 36 36	// TODO: used only in dialog group. Check more.
 
 @color_border:			rgb(42, 42, 42);	// 42 42 42
@@ -17,10 +56,9 @@
 @color_text_segctrl:		rgb(158, 195, 213);	// 158 195 213	// TODO: used only in segctrl. Check more.
 
 //Dialogue color set
-@color_dialogue_main_text:	rgba(92, 151, 187, 1);
+
 @color_dialogue_sub_text:				rgb(146,146,146);
-@color_list_dialogue_bg : rgba(236, 240, 242, 1);
-@color_dialogue_border_right:	rgba(142, 154, 163, 1);
+
 
 //Dialogue Editor color set
 @color_dialogue_editor_default_text:	rgb(70, 70, 70);
@@ -44,7 +82,7 @@
 @color_list_border_bottom:		rgb(169, 169, 169);
 @color_list_main_text_read:		rgba(158, 158, 158, 1);
 @color_list_main_text_unread:	rgba(249, 249, 249, 1);
-@color_list_sub_text_default:		rgba(100, 100, 100, 1);
+
 @color_list_sub_text_settings:	rgba(0, 140, 210, 1);
 @color_list_sub_text_focus:		rgba(249, 249, 249, 1);
 @color_list_flexible_text_main:	rgba(249, 249, 249, 1);
@@ -78,11 +116,10 @@
 @color_list_bubble_failed_text:	rgb(211, 0, 0);
 @color_list_bubble_name_text:	rgb(57, 166, 215);
 @color_list_bubble_help_text:	rgb(146, 146, 146);
-@color_list_divider_bg :		rgb(209, 227, 238); /* #d1e3ee */
-@color_list_divider_text :		rgb(29, 100, 149); 
-@color_list_divider_expand_div : rgba(0, 0, 0, 0.5);
+
+
 @color_list_expandable_expanded_bg:	rgb(215, 225, 232);
-@color_list_press : rgba(42, 137, 194, 1);
+@color_list_press : rgba(87, 135, 194, 1);
 
 @font_size_list_main_text:		44 * @unit_base; //1.375rem;	/* 44 px */
 @font_size_list_sub_text:		32 * @unit_base; //1.0rem;	/* 32 px */
@@ -98,14 +135,10 @@
 @font_size_list_contents_text:		30 * @unit_base; //0.94rem;	/* 30 px */
 @font_size_list_name_text:		32 * @unit_base; //1.0rem;	/* 32 px */
 
-@style_list_li_dialogue_margin_left: 16 * @unit_base;
 @style_list_li_dialogue_border_left_width: 10 * @unit_base;
 @style_list_bubble_date_height:	40 * @unit_base;
 @style_list_bubble_date_text_align:	center;
 
-.LESSlistDivider_Background{
-	background: @color_list_divider_bg;
-}
 
 /***************************************************************************
                    Shortcut Scroll
@@ -368,12 +401,6 @@
 @color_optionheader_tab_text:	rgba(249, 249, 249, 1); /* #f9f9f9 */
 
 
-/***************************************************************************
-                    SearchBar(forms.textinput)
-***************************************************************************/
-@color_searchbar_bg : rgba(215, 225, 232, 1);   /* #242424 */
-@color_searchbar_default_text : rgba(121, 131, 138, 1);       /* #828282 */
-@color_searchbar_input_field_bg : rgba(249, 249, 249, 1); /* #F9F9F9*/
 
 
 /***************************************************************************
@@ -390,6 +417,9 @@
 @color_segmentcontrol_Seg_text : rgba(249, 249, 249, 1); /* #F9F9F9*/
 @color_segmentcontrol_Seg_text_pressed : rgba(249, 249, 249, 1); /* #F9F9F9*/
 
+
+/* delete */
+/*
 .LESSSegmentControlBtnBackground
 {
 	.LESSbackground-with-gradient(top, @color_segmentcontrol_btn_normal_start, @color_segmentcontrol_btn_normal_end);
@@ -399,6 +429,7 @@
 {
 	.LESSbackground-with-gradient(top, @color_segmentcontrol_btn_press_start, @color_segmentcontrol_btn_press_end);
 }
+*/
 
 /***************************************************************************
                     ControlGroup
@@ -425,7 +456,7 @@
 @color_bar_seg_btn_press : -webkit-linear-gradient(top,  rgb(61,120,151) 0%,rgb(48,91,118) 100%);
 @color_bar_seg_btn_normal : -webkit-linear-gradient(top,  rgb(127,159,181) 0%,rgb(70,108,133) 100%);
 
-@color_bar_title_text : rgba(249, 249, 249, 1); /* #F9F9F9 */
+@color_bar_title_text : rgba(59, 115, 182, 1); /* #3b73b6 */ /* title text */
 
 @color_bar_title_bg : rgb(90, 153, 186);
 @color_bar_title_bg_start : rgb(90, 153, 186);
@@ -454,7 +485,7 @@
 
 .LESSColorBarTitleBackground
 {
-	.LESSbackground-with-gradient(top, @color_bar_title_bg_start, @color_bar_title_bg_end);
+	background : rgb(248, 246, 239); // #F8F6EF /* Header Background */
 }
 
 /***************************************************************************
@@ -573,7 +604,7 @@
 									Layout ( position, padding, margin etc...)
 ****************************************************************************
 ***************************************************************************/
-@style-title-font-size : 52 * @unit_base;
+@style-title-font-size : 28 * @unit_base;
 
 @style-corner-radius : .3em;
 @style-title-extended-2btn-width : 688 * @unit_base;
@@ -586,7 +617,7 @@
 @style-back-btn-left : 44 * @unit_base;
 @style-back-btn-arrow-top : 30 * @unit_base;
 
-@style-title-min-height : 62 * @unit_base;
+@style-title-min-height : 30 * @unit_base;
 @style-title-extended-margin : -30 * @unit_base;
 /***************************************************************************
 									Navigation
@@ -594,7 +625,7 @@
 
 .LESStitle-diff-style {
 	text-align: left;
-	margin: 19*@unit_base 135*@unit_base 19*@unit_base 16*@unit_base;
+	margin: 20*@unit_base 8*@unit_base 12*@unit_base 8*@unit_base;
 }
 
 .LESSextended-controlgroup-border {
@@ -622,29 +653,4 @@
 .LESSbtn-back-inner {
 	width : 144 * @unit_base;
 	height : 114 * @unit_base;
-}
-
-.LESSbtn-arrow-position {
-	left : 20 * @unit_base;
-	top : 30 * @unit_base;
-}
-
-.LESSdialogue-border-style {
-	border-right-style : solid;
-	border-right-color : @color_dialogue_border_right;
-	border-right-width : 1px;
-}
-
-.LESSdialogue-divider {
-	padding-top : 36 * @unit_base;
-	padding-bottom : 10 * @unit_base;
-	padding-left : 10 * @unit_base;
-
-	margin-left : 16 * @unit_base;
-	margin-right : 16 * @unit_base;
-
-	background : @color_list_dialogue_bg;
-	font-size : 32 * @unit_base;
-	font-weight : bold;
-	color : @color_dialogue_main_text;
 }

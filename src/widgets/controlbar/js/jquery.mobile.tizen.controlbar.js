@@ -75,11 +75,11 @@
 		_create: function () {
 
 			var $controlbar = this.element,
-				$navbtns = $controlbar.find( "a" ),
-				iconpos = $navbtns.filter( ":jqmData(icon)" ).length ?
+				$ctrlbtns = $controlbar.find( "a" ),
+				iconpos = $ctrlbtns.filter( ":jqmData(icon)" ).length ?
 										this.options.iconpos : undefined,
+				textpos = $ctrlbtns.html().length ? true : false,
 				theme = $.mobile.listview.prototype.options.theme,	/* Get current theme */
-				style = $controlbar.attr( "data-style" ),
 				ww = window.innerWidth || $( window ).width(),
 				wh = window.innerHeight || $( window ).height(),
 				isLandscape;
@@ -92,23 +92,36 @@
 				$controlbar.removeClass( "ui-landscape-controlbar" ).addClass( "ui-portrait-controlbar" );
 			}
 
-			if ( style === "left" || style === "right" ) {
-				$controlbar
-					.parents( ".ui-content" )
-					.css( 'padding', '0' );
-			} else {
+
+/*
 				$controlbar
 					.addClass( "ui-navbar" )
 					.attr( "role", "navigation" )
 					.find( "ul" )
+				
 						.grid( { grid: this.options.grid } );
+*/
+				$controlbar.addClass( "ui-navbar" )
+					.find( "ul" )
+					.grid( { grid: this.options.grid } );
+			if ( $controlbar.parents( ".ui-footer" ).length  ) {
+				$controlbar.find( "li" ).addClass( "ui-ctrl-btn-style" );
+			}
+
+
+			/* title controlbar */
+			if ( $controlbar.siblings( ".ui-title" ).length ) {
+				$controlbar.parents( ".ui-header" ).addClass( "ui-title-controlbar" );
 			}
 
 			if ( !iconpos ) {
-				$controlbar.addClass( "ui-navbar-noicons" );
+				$controlbar.addClass( "ui-controlbar-noicons" );
+			}
+			if ( !textpos ) {
+				$controlbar.addClass( "ui-controlbar-notext" );
 			}
 
-			$navbtns.buttonMarkup({
+			$ctrlbtns.buttonMarkup({
 				corners:	false,
 				shadow:		false,
 				iconpos:	iconpos
@@ -119,27 +132,20 @@
 			}
 
 			$controlbar.delegate( "a", "vclick", function ( event ) {
-				$navbtns.not( ".ui-state-persist" ).removeClass( $.mobile.activeBtnClass );
+				$ctrlbtns.not( ".ui-state-persist" ).removeClass( $.mobile.activeBtnClass );
 				$( this ).addClass( $.mobile.activeBtnClass );
 			});
 
-			if ( style === "tabbar" || style === "toolbar" ) {
 				$controlbar
-					.addClass( "ui-controlbar-" + theme )
-					.addClass( "ui-" + style + "-" + theme );
-			} else {
-				$controlbar
-					.addClass( "ui-controlbar-" + style )
-					.end();
-			}
+				.addClass( "ui-controlbar");
+
 
 			$( document ).bind( "pagebeforeshow", function ( event, ui ) {
 				var footer_filter = $( event.target ).find( ":jqmData(role='footer')" ),
-					controlbar_filter = footer_filter.find( ":jqmData(role='controlbar')" ),
-					style = controlbar_filter.jqmData( "style" );
+					controlbar_filter = footer_filter.find( ":jqmData(role='controlbar')" );
 
-				if ( style == "toolbar" || style == "tabbar" ) {
-					/* Need to add text only style */
+				
+/*
 					if ( !(controlbar_filter.find(".ui-btn-inner").children().is(".ui-icon")) ) {
 						controlbar_filter.find( ".ui-btn-inner" ).addClass( "ui-navbar-textonly" );
 					} else {
@@ -147,15 +153,16 @@
 							controlbar_filter.find( ".ui-btn" ).addClass( "ui-ctrlbar-icononly" );
 						}
 					}
+					*/
 					footer_filter
 						.css( "position", "fixed" )
 						.css( "bottom", 0 )
 						.css( "height", controlbar_filter.height() );
-					if ( style == "toolbar" ) {
+/*					if ( style == "toolbar" ) {
 						controlbar_filter
 							.css( "width", window.innerWidth - controlbar_filter.siblings(".ui-btn").width() - parseInt(controlbar_filter.siblings(".ui-btn").css("right"), 10) * 2 );
-					}
-				}
+					}*/
+
 			});
 
 			$( document ).bind( "pageshow", function ( e, ui ) {

@@ -17,6 +17,12 @@
 				expandSrc,
 				style = $listdivider.attr( "data-style" );
 
+			if ( style == undefined || style === "normal" ) {
+				$listdivider.wrapInner('<div class="list-normal-text" />');
+				expandSrc = "<span class='ui-divider-normal-line'></span>";
+				$( expandSrc ).appendTo( $listdivider );
+			}
+
 			if ( style === "expandable" || style === "checkexpandable" ) {
 				iconStatus = openStatus ? "opened" : "closed";
 				expandSrc = "<span class='ui-divider-expand-div'><span class='ui-icon-expandable-divider-" + iconStatus + "'/></span>";

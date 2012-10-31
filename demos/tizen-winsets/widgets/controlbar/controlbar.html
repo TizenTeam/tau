@@ -1,0 +1,445 @@
+<!DOCTYPE html> 
+<html> 
+	<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<link rel="stylesheet"  href="themes/default/" />  
+	<script src="js/jquery.js"></script>
+	<script src="js/"></script>
+	<script src="theme.js"></script>
+		<script src="js/jquery.mobile.forms.button.extension.js"></script>
+	</head> 
+<body> 
+
+	<div data-role="page">
+		<div data-role="header" data-position="fixed">
+			<h1>ControlBar Demo</h1>
+		</div>
+		<div data-role="content">
+			<div class="content-primary">
+				<ul data-role="listview">
+					<li data-role="list-divider">Header</li>
+					<li><a href="controlbar_text.html">Tab(text) only</a></li>
+					<li><a href="controlbar_icon_text.html">Tab(icon + text) only</a></li>
+					<li><a href="controlbar_icon.html">Tab(icon) only</a></li>
+					<li><a href="controlbar_title_text.html">Title + Tab(text)</a></li>
+					<li><a href="controlbar_title_icon.html">Title Tab(icon) only</a></li>
+					<li><a href="controlbar_scrolling.html">Scrolling interation</a></li>
+					<li><a href="#Tabbar_Main">Persist toolbar</a></li>
+					<li data-role="list-divider">Footer</li>
+					<li><a href="controlbar_footer.html">[Progressing...]Footer + Tab(text)</a></li>
+					<li><a href="controlbar_footer_more.html">[Progressing...]Footer + more + Tab(text)</a></li>
+					<li><a href="controlbar_footer_segment.html">Footer + SegmentTab(text)</a></li>
+					<li><a href="controlbar_footer_segment_more.html">Footer + more + SegmentTab(text)</a></li>
+
+					<li data-role="list-divider">Old version</li>
+					<li><a href="#Tabbar_Main">Tabbar Style</a></li>
+					<li><a href="#Toolbar">Toolbar Style</a></li>
+				</ul>
+			</div><!--/content-primary -->
+		</div>
+	</div>
+
+
+
+	<div data-role="page" id="controlbar-demo" data-add-back-btn="true">
+		<div data-role="header" data-position="fixed">
+			<h1>ControlBar</h1>
+		</div>
+		<div data-role="content">
+			<div class="content-primary">
+				<ul data-role="listview">
+					<li><a href="#Tabbar_Main">Tabbar Style</a></li>
+					<li><a href="#Toolbar">Toolbar Style</a></li>
+				</ul>
+			</div><!--/content-primary -->
+		</div>
+	</div>
+
+	<!-- ControlBar Tabbar Style -->
+	<div data-role="page" id="Tabbar_Main">
+		<div data-role="header" data-position="fixed">
+			<h1>Tabbar</h1>
+		</div>
+		<div data-role="content">
+			<div class="content-primary">
+			<ul data-role="listview">
+				<li><a href="#TabbarInHeader">Tabbar in Header</a></li>
+				<li><a href="#Tabbar2Items">2 Items Style</a></li>
+				<li><a href="#Tabbar3Items">3 Items Style</a></li>
+				<li><a href="#Tabbar4Items">4 Items Style</a></li>
+				<li><a href="#Tabbar5Items">5 Items Style</a></li>
+				<li><a href="#TabbarText">Only Text Style</a></li>
+				<li><a href="#TabbarIcon">Only Icon Style</a></li>
+			</ul>
+			</div><!--/content-primary -->
+		</div>
+		<div data-role="footer"data-position ="fixed">
+			<div data-role="controlbar" data-style="tabbar" >
+				<ul>
+					<li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active">Menu</a></li>
+					<li><a href="#" data-icon="ctrlbar-save" >Save</a></li>
+					<li><a href="#" data-icon="ctrlbar-share" >Share</a></li>
+					<li><a href="#" data-icon="ctrlbar-timeline" >Timeline</a></li>
+					<li><a href="#" data-icon="ctrlbar-world_clock" >WorldClock</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div data-role="page" id="TabbarInHeader">
+		<div data-role="header" data-position="fixed">
+			<div data-role="controlbar" data-style="tabbar" >
+				<ul>
+					<li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active">Menu</a></li>
+					<li><a href="#" data-icon="ctrlbar-save" >Save</a></li>
+					<li><a href="#" data-icon="ctrlbar-share" >Share</a></li>
+					<li><a href="#" data-icon="ctrlbar-timeline" >Timeline</a></li>
+					<li><a href="#" data-icon="ctrlbar-world_clock" >WorldClock</a></li>
+				</ul>
+			</div><!-- /navbar -->
+		</div>
+		<div data-role="content">
+			<div class="content-primary">
+				<ul data-role="listview">
+					<li><a href="#">Test</a></li>
+				</ul>
+			</div><!--/content-primary -->
+		</div>
+		<div data-role="footer"data-position ="fixed">
+		</div>
+	</div>
+	<div data-role="page" id="Tabbar2Items">
+		<div data-role="header" data-position="fixed">
+			<h1>Tabbar</h1>
+		</div>
+		<div data-role="content">
+			<div class="content-primary">
+				<ul data-role="listview">
+					<li><a href="#">2 Items Style List</a></li>
+				</ul>
+			</div><!--/content-primary -->
+		</div>
+		<div data-role="footer"data-position ="fixed">
+			<div data-role="controlbar" data-style="tabbar" >
+				<ul>
+					<li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active">Menu</a></li>
+					<li><a href="#" data-icon="ctrlbar-save" >Save</a></li>
+				</ul>
+			</div><!-- /controlbar -->
+		</div>
+	</div>
+
+	<div data-role="page" id="Tabbar3Items">
+		<div data-role="header" data-position="fixed">
+			<h1>Tabbar</h1>
+		</div>
+		<div data-role="content">
+			<div class="content-primary">
+				<ul data-role="listview">
+					<li><a href="#">3 Items Style List</a></li>
+				</ul>
+			</div><!--/content-primary -->
+		</div>
+		<div data-role="footer"data-position ="fixed">
+			<div data-role="controlbar" data-style="tabbar" >
+				<ul>
+					<li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active">Menu</a></li>
+					<li><a href="#" data-icon="ctrlbar-save" >Save</a></li>
+					<li><a href="#" data-icon="ctrlbar-share" >Share</a></li>
+				</ul>
+			</div><!-- /controlbar -->
+		</div>
+	</div>
+
+	<div data-role="page" id="Tabbar4Items">
+		<div data-role="header" data-position="fixed">
+			<h1>Tabbar</h1>
+		</div>
+		<div data-role="content">
+			<div class="content-primary">
+				<ul data-role="listview">
+					<li><a href="#">4 Items Style List</a></li>
+				</ul>
+			</div><!--/content-primary -->
+		</div>
+		<div data-role="footer"data-position ="fixed">
+			<div data-role="controlbar" data-style="tabbar" >
+				<ul>
+					<li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active">Menu</a></li>
+					<li><a href="#" data-icon="ctrlbar-save" >Save</a></li>
+					<li><a href="#" data-icon="ctrlbar-share" >Share</a></li>
+					<li><a href="#" data-icon="ctrlbar-timeline" >Timeline</a></li>
+				</ul>
+			</div><!-- /controlbar -->
+		</div>
+	</div>
+
+	<div data-role="page" id="Tabbar5Items">
+		<div data-role="header" data-position="fixed">
+			<h1>Tabbar</h1>
+		</div>
+		<div data-role="content">
+			<div class="content-primary">
+				<ul data-role="listview">
+					<li><a href="#">5 Items Style List</a></li>
+				</ul>
+			</div><!--/content-primary -->
+		</div>
+		<div data-role="footer"data-position ="fixed">
+			<div data-role="controlbar" data-style="tabbar" >
+				<ul>
+					<li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active">Menu</a></li>
+					<li><a href="#" data-icon="ctrlbar-save" >Save</a></li>
+					<li><a href="#" data-icon="ctrlbar-share" >Share</a></li>
+					<li><a href="#" data-icon="ctrlbar-timeline" >Timeline</a></li>
+					<li><a href="#" data-icon="ctrlbar-world_clock" >WorldClock</a></li>
+				</ul>
+			</div><!-- /controlbar -->
+		</div>
+	</div>
+
+	<div data-role="page" id="TabbarText">
+		<div data-role="header" data-position="fixed">
+			<h1>Tabbar</h1>
+		</div>
+		<div data-role="content">
+			<div class="content-primary">
+				<ul data-role="listview">
+					<li><a href="#">Text Style List</a></li>
+				</ul>
+			</div><!--/content-primary -->
+		</div>
+		<div data-role="footer"data-position ="fixed">
+			<div data-role="controlbar" data-style="tabbar" >
+				<ul>
+					<li><a href="#" class="ui-btn-active">Songs</a></li>
+					<li><a href="#">Favorites</a></li>
+					<li><a href="#">Group</a></li>
+					<li><a href="#">Message</a></li>
+					<li><a href="#">Contact</a></li>
+				</ul>
+			</div><!-- /controlbar -->
+		</div>
+	</div>
+
+	<div data-role="page" id="TabbarIcon">
+		<div data-role="header" data-position="fixed">
+			<h1>Tabbar</h1>
+		</div>
+		<div data-role="content">
+			<div class="content-primary">
+				<ul data-role="listview">
+					<li><a href="#">Icon Style List</a></li>
+				</ul>
+			</div><!--/content-primary -->
+		</div>
+		<div data-role="footer"data-position ="fixed">
+			<div data-role="controlbar" data-style="tabbar" >
+				<ul>
+					<li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active"></a></li>
+					<li><a href="#" data-icon="ctrlbar-save" ></a></li>
+					<li><a href="#" data-icon="ctrlbar-share" ></a></li>
+					<li><a href="#" data-icon="ctrlbar-timeline" ></a></li>
+					<li><a href="#" data-icon="ctrlbar-world_clock" ></a></li>
+				</ul>
+			</div><!-- /controlbar -->
+		</div>
+	</div>
+
+	<!-- Toolbar Style -->
+	<div data-role="page" id="Toolbar">
+		<div data-role="header" data-position="fixed">
+			<h1>Toolbar</h1>
+		</div>
+		<div data-role="content">
+			<div class="content-primary">
+				<ul data-role="listview">
+					<li><a href="#ToolbarInHeader">Toolbar in Header</a></li>
+					<li><a href="#Toolbar2Items">2 Items Style</a></li>
+					<li><a href="#Toolbar3Items">3 Items Style</a></li>
+					<li><a href="#Toolbar4Items">4 Items Style</a></li>
+					<li><a href="#Toolbar5Items">5 Items Style</a></li>
+					<li><a href="#ToolbarText">Only Text Style</a></li>
+					<li><a href="#ToolbarIcon">Only Icon Style</a></li>
+				</ul>
+			</div><!--/content-primary -->
+		</div>
+		<div data-role="footer"data-position ="fixed">
+			<div data-role="controlbar" data-style="toolbar" >
+				<ul>
+					<li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active">Menu</a></li>
+					<li><a href="#" data-icon="ctrlbar-save" >Save</a></li>
+					<li><a href="#" data-icon="ctrlbar-share" >Share</a></li>
+					<li><a href="#" data-icon="ctrlbar-timeline" >Timeline</a></li>
+					<li><a href="#" data-icon="ctrlbar-world_clock" >WorldClock</a></li>
+				</ul>
+			</div><!-- /controlbar -->
+		</div>
+	</div>
+
+	<div data-role="page" id="ToolbarInHeader">
+		<div data-role="header" data-position="fixed">
+			<div data-role="controlbar" data-style="toolbar" >
+				<ul>
+					<li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active">Menu</a></li>
+					<li><a href="#" data-icon="ctrlbar-save" >Save</a></li>
+					<li><a href="#" data-icon="ctrlbar-share" >Share</a></li>
+					<li><a href="#" data-icon="ctrlbar-timeline" >Timeline</a></li>
+					<li><a href="#" data-icon="ctrlbar-world_clock" >WorldClock</a></li>
+				</ul>
+			</div><!-- /controlbar -->
+		</div>
+		<div data-role="content">
+			<div class="content-primary">
+				<ul data-role="listview">
+					<li><a href="#">Test</a></li>
+				</ul>
+			</div><!--/content-primary -->
+		</div>
+		<div data-role="footer"data-position ="fixed">
+		</div>
+	</div>
+
+
+	<div data-role="page" id="Toolbar2Items">
+		<div data-role="header" data-position="fixed">
+			<h1>Toolbar</h1>
+		</div>
+		<div data-role="content">
+			<div class="content-primary">
+				<ul data-role="listview">
+					<li><a href="#">2 Items Style</a></li>
+				</ul>
+			</div><!--/content-primary -->
+		</div>
+		<div data-role="footer"data-position ="fixed">
+			<div data-role="controlbar" data-style="toolbar" >
+				<ul>
+					<li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active">Menu</a></li>
+					<li><a href="#" data-icon="ctrlbar-save" >Save</a></li>
+				</ul>
+			</div><!-- /controlbar -->
+		</div>
+	</div>
+
+	<div data-role="page" id="Toolbar3Items">
+		<div data-role="header" data-position="fixed">
+			<h1>Toolbar</h1>
+		</div>
+		<div data-role="content">
+			<div class="content-primary">
+				<ul data-role="listview">
+					<li><a href="#">3 Items Style</a></li>
+				</ul>
+			</div><!--/content-primary -->
+		</div>
+		<div data-role="footer"data-position ="fixed">
+			<div data-role="controlbar" data-style="toolbar" >
+				<ul>
+					<li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active">Menu</a></li>
+					<li><a href="#" data-icon="ctrlbar-save" >Save</a></li>
+					<li><a href="#" data-icon="ctrlbar-share" >Share</a></li>
+				</ul>
+			</div><!-- /controlbar -->
+		</div>
+	</div>
+
+	<div data-role="page" id="Toolbar4Items">
+		<div data-role="header" data-position="fixed">
+			<h1>Toolbar</h1>
+		</div>
+		<div data-role="content">
+			<div class="content-primary">
+				<ul data-role="listview">
+					<li><a href="#">4 Items Style</a></li>
+				</ul>
+			</div><!--/content-primary -->
+		</div>
+		<div data-role="footer"data-position ="fixed">
+			<div data-role="controlbar" data-style="toolbar" >
+				<ul>
+					<li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active">Menu</a></li>
+					<li><a href="#" data-icon="ctrlbar-save" >Save</a></li>
+					<li><a href="#" data-icon="ctrlbar-share" >Share</a></li>
+					<li><a href="#" data-icon="ctrlbar-timeline" >Timeline</a></li>
+				</ul>
+			</div><!-- /controlbar -->
+		</div>
+	</div>
+
+	<div data-role="page" id="Toolbar5Items">
+		<div data-role="header" data-position="fixed">
+			<h1>Toolbar</h1>
+		</div>
+		<div data-role="content">
+			<div class="content-primary">
+				<ul data-role="listview">
+					<li><a href="#">5 Items Style</a></li>
+				</ul>
+			</div><!--/content-primary -->
+		</div>
+		<div data-role="footer"data-position ="fixed">
+			<div data-role="controlbar" data-style="toolbar" >
+				<ul>
+					<li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active">Menu</a></li>
+					<li><a href="#" data-icon="ctrlbar-save" >Save</a></li>
+					<li><a href="#" data-icon="ctrlbar-share" >Share</a></li>
+					<li><a href="#" data-icon="ctrlbar-timeline" >Timeline</a></li>
+					<li><a href="#" data-icon="ctrlbar-world_clock" >WorldClock</a></li>
+				</ul>
+			</div><!-- /controlbar -->
+		</div>
+	</div>
+
+	<div data-role="page" id="ToolbarText">
+		<div data-role="header" data-position="fixed">
+			<h1>Toolbar</h1>
+		</div>
+		<div data-role="content">
+			<div class="content-primary">
+				<ul data-role="listview">
+					<li><a href="#">Text Style</a></li>
+				</ul>
+			</div><!--/content-primary -->
+		</div>
+		<div data-role="footer"data-position ="fixed">
+			<div data-role="controlbar" data-style="toolbar" >
+				<ul>
+					<li><a href="#" class="ui-btn-active">Songs</a></li>
+					<li><a href="#">Favorites</a></li>
+					<li><a href="#">Group</a></li>
+					<li><a href="#">Message</a></li>
+					<li><a href="#">Contact</a></li>
+				</ul>
+			</div><!-- /controlbar -->
+		</div>
+	</div>
+
+	<div data-role="page" id="ToolbarIcon">
+		<div data-role="header" data-position="fixed">
+			<h1>Toolbar</h1>
+		</div>
+		<div data-role="content">
+			<div class="content-primary">
+				<ul data-role="listview">
+					<li><a href="#">Only Icon Style</a></li>
+				</ul>
+			</div><!--/content-primary -->
+		</div>
+		<div data-role="footer"data-position ="fixed">
+			<div data-role="controlbar" data-style="toolbar" >
+				<ul>
+					<li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active"></a></li>
+					<li><a href="#" data-icon="ctrlbar-save" ></a></li>
+					<li><a href="#" data-icon="ctrlbar-share" ></a></li>
+					<li><a href="#" data-icon="ctrlbar-timeline" ></a></li>
+					<li><a href="#" data-icon="ctrlbar-world_clock" ></a></li>
+				</ul>
+			</div><!-- /controlbar -->
+		</div>
+	</div>
+	<!-- Toolbar Style -->
+
+
+</body>
+</html>

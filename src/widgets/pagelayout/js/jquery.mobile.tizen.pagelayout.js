@@ -185,6 +185,13 @@
 				}
 			}
 
+			/* set Title style */
+			/* newTheme */
+			if ( $elHeader.find("span.ui-title-text-sub").length ) {
+				$elHeader.addClass( "ui-title-multiline");
+			}
+
+
 			if ( $elHeader.children().is(".ui-option-header") ) {
 				$elContent.removeClass( "ui-title-content-" + tStyle + "-height" );
 				if ( $.tizen.optionheader.prototype.options.collapseOnInit == true ) {
@@ -367,7 +374,7 @@
 				headerBtnNum = $elHeader.children("a").length,
 				headerSrcNum = $elHeader.children("img").length;
 
-			$elHeader.find( "h1" ).css( "width", window.innerWidth - $elHeader.children( "a" ).width() * headerBtnNum - $elHeader.children( "a" ).width() / 4 - $elHeader.children( "img" ).width() * headerSrcNum * 3 );
+			$elHeader.find( "h1" ).css( "width", window.innerWidth - $elHeader.children( "a" ).width() * headerBtnNum - $elHeader.children( "a" ).width() / 4 - $elHeader.children( "img" ).width() * headerSrcNum * 4 );
 			/* add half width for default space between text and button, and img tag area is too narrow, so multiply three for img width*/
 		},
 

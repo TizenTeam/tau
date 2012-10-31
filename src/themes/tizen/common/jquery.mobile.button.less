@@ -51,9 +51,6 @@
 .ui-btn-icon-right .ui-icon { right: 10 * @unit_base; }
 .ui-btn-icon-top .ui-icon { top: 0 * @unit_base; margin-top: 0; }
 .ui-btn-icon-bottom .ui-icon { bottom: 0 * @unit_base; }
-.ui-header .ui-btn-icon-left .ui-icon,
-.ui-footer .ui-btn-icon-left .ui-icon,
-.ui-bar .ui-btn-icon-left .ui-icon { left: @style-back-btn-left; } /* SLP Default Footer : Jinhyuk */
 .ui-header .ui-btn-icon-right .ui-icon,
 .ui-footer .ui-btn-icon-right .ui-icon,
 .ui-bar .ui-btn-icon-right .ui-icon { right: 4 * @unit_base; }
@@ -156,44 +153,6 @@
 .ui-icon-editminus		{.tizen-icon-common;	background-image: url(images/00_button_icon_minus.png); top : -@height_buttonEdit/2;}
 .ui-icon-editplus		{.tizen-icon-common;	background-image: url(images/00_button_icon_plus.png); top : -@height_buttonEdit/2;}
 
-/* Header back btn : Jinjyuk */
-.ui-btn-up-s .ui-icon-header-back-btn{
-	width: 56 * @unit_base; 
-	height: 56 * @unit_base;
-
-	background-repeat: no-repeat;
-	background-size: 100% 100%;
-
-	.LESSbtn-arrow-position;
-	background-image: url(images/00_winset_Back.png);
-}
-
-.ui-btn-down-s, .ui-btn-hover-s {
-	.ui-icon-header-back-btn{
-		width: 56 * @unit_base;
-		height: 56 * @unit_base;
-
-		background-repeat: no-repeat;
-		background-size: 100% 100%;
-	
-		.LESSbtn-arrow-position;
-		background-image: url(images/00_winset_Back.png);
-	}
-}
-
-.ui-header {
-	.ui-btn-down-s, .ui-btn-hover-s, .ui-btn-up-s {
-		.ui-icon-header-back-btn {
-			top : @style-back-btn-arrow-top;
-		}
-	}
-}
-
-.ui-icon-header-back-btn{
-	.LESSbackground-size(48 * @unit_base, 38 * @unit_base);
-	width: 48 * @unit_base;
-	height: 38 * @unit_base;	
-}
 
 .ui-icon-expandable-divider-opened {
 	width: 42 * @unit_base;

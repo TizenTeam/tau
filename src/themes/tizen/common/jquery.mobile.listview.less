@@ -9,39 +9,17 @@
 @import "config.less";
 
 /* Using font size */
-@list-font-size-main:	44 * @unit_base;
-@list-font-size-sub:	32 * @unit_base;
-@list-font-size-divider: 32 * @unit_base;	// NOTE: defined in dialogue group
-
-/*
-@list-dialogue-font-size-main:	38 * @unit_base;
-@list-dialogue-font-size-sub:	32 * @unit_base;
-*/
+@list-font-size-main:	22 * @unit_base;
+@list-font-size-sub:	16 * @unit_base;
+@list-font-size-divider: 16 * @unit_base;	// NOTE: defined in dialogue group
 
 @list-font-weight:		normal;
 
-/*
-@list-li-height: 112 * @unit_base;
+@list-smallicon-size: 17 * @unit_base;
+@list-li-padding-horizontal: 8 * @unit_base;
 
-@list-li-2line-height: 128 * @unit_base;
-@list-li-3line-height: 160 * @unit_base;
-@list-li-top-padding: 10 * @unit_base;
-@list-li-main-line-height: 60 * @unit_base;
-@list-li-sub-line-height: 48 * @unit_base;
-*/	
-@list-smallicon-size: 32 * @unit_base;
-@list-li-padding-horizontal: 16 * @unit_base;
-/*
-@list-li-divider-height: 32 * @unit_base;
-
-*/
 @list-bigicon-size: 64 * @unit_base;
 @list-bigicon-size2: 72 * @unit_base;
-/*
-@list-checkbox-size: 42 * @unit_base;
-@list-progressbar-height: 16 * @unit_base;
-*/
-
 
 // Bubble
 @list-li-bubble-font-size: 38 * @unit_base;
@@ -71,8 +49,6 @@
 .ui-listview {
 	margin: 0;
 	counter-reset: listnumbering;
-	border-top-width: 1px;
-	border-top-style: solid;
 
 	li.ui-btn > .ui-btn-hastxt > .ui-btn-text.ui-btn-text-padding-right {
 		padding-right: 0 * @unit_base;	// Clear default button padding-right
@@ -88,13 +64,13 @@
 
 	&> .ui-li:not(.ui-li-divider) {
 		&:not(.ui-li-static) {
-			min-height : 112 * @unit_base;
+			min-height : 55 * @unit_base;
 		}
 	}
 
 	&> .ui-li.ui-li-has-multiline:not(.ui-li-divider) {
 		&:not(.ui-li-static) {
-			min-height : 128 * @unit_base;
+			min-height : 64 * @unit_base;
 		}
 	}
 }
@@ -108,7 +84,6 @@
 		.ui-listview {
 			margin: 0;
 		}
-
 	}
 	.ui-listview-inset {
 		margin: 1em 0;
@@ -135,7 +110,6 @@
 		margin-bottom : 0px;
 
 		font-size : @list-font-size-main;
-		min-height	: 52 * @unit_base;
 		font-weight : normal;
 	}
 
@@ -169,10 +143,10 @@
 
 	.ui-btn-inner a.ui-link-inherit,
 	&.ui-li-static {
-		padding-top : 30 * @unit_base;
-		padding-bottom : 30 * @unit_base;
-		padding-left : 16 * @unit_base;
-		padding-right : 16 * @unit_base;
+		padding-top : 15 * @unit_base;
+		padding-bottom : 15 * @unit_base;
+		padding-left : 8 * @unit_base;
+		padding-right : 8 * @unit_base;
 		display: block;
 
 		white-space: normal;	// default: 1line
@@ -181,7 +155,6 @@
 	.ui-btn-inner a.ui-link-inherit {
 		.LESStext-no-ellipsis();
 	}
-
 
 	.ui-toggleswitch {
 		&:last-child {
@@ -230,15 +203,18 @@
 	img.ui-li-bigicon {
 		position : absolute;
 
+		width : 35 * @unit_base;
+		height : 35 * @unit_base;
+
 		top : 50%;
-		margin-top : -36 * @unit_base;
+		margin-top : -18 * @unit_base;
 
 		&:first-child {
-			left : 16 * @unit_base;
+			left : 8 * @unit_base;
 		}
 
 		&:nth-child(2) {
-			left : 92 * @unit_base;
+			left : 36 * @unit_base;
 		}
 
 		&:last-child {
@@ -252,8 +228,8 @@
 
 	.ui-li-color-bar {
 		position : absolute;
-		width  : 12 * @unit_base;
-		height : 20 * @unit_base;
+		width  : 9 * @unit_base;
+		height : 13 * @unit_base;
 
 		top : 0 * @unit_base;
 		left : 0 * @unit_base;
@@ -265,17 +241,20 @@
 li.ui-li-thumbnail-right {
 	img.ui-li-bigicon.ui-li-thumb {
 		left : auto;
-		right : 16 * @unit_base;
+		right : 8 * @unit_base;
+
+		width : 51 * @unit_base;
+		height : 51 * @unit_base;
+
+		margin-top : -25 * @unit_base;
 	}
 }
 
 .ui-li.ui-li-has-multiline {
 	.ui-btn-inner a.ui-link-inherit,
 	&.ui-li-static {
-		padding-top : 10 * @unit_base;
-		padding-bottom : 58 * @unit_base;
-
-		min-height : 60 * @unit_base;
+		padding-top : 7 * @unit_base;
+		padding-bottom : 28 * @unit_base;
 	}
 
 	a {
@@ -300,6 +279,24 @@ li.ui-li-thumbnail-right {
 		.LESStext-ellipsis();
 	}
 }
+
+/********************************************/
+/*************** Edit Field *****************/
+/********************************************/
+.ui-li {
+	> input {
+		border-style : none;
+		border-width : 0px;
+
+		outline-color : @color_list_bg;
+		font-size : 23 * @unit_base;
+		line-height : 1;
+
+		padding-top : 0px;
+		padding-bottom : 0px;
+	}
+}
+
 /********************************************/
 /*************** Divider ********************/
 /********************************************/
@@ -309,18 +306,31 @@ li.ui-li-thumbnail-right {
 	counter-reset: listnumbering;
 	font-weight: bold;
 	font-size: @list-font-size-divider;
-	padding-left: 16 * @unit_base;
-	padding-top: 8 * @unit_base;
-	padding-bottom: 8 * @unit_base;
+	padding-left: 8 * @unit_base;
+	padding-top: 4 * @unit_base;
+	padding-bottom: 4 * @unit_base;
+	margin-right : 12 * @unit_base;
+	
+
 }
 
 .ui-listview .ui-li-divider {
 	&[data-style="dialogue"] {
-		height: 32 * @unit_base;
+		height: 20 * @unit_base;
 		padding : 0px;
 
-		.LESSdialogue-divider;
-		background : @color_bg;
+		padding-top : 20 * @unit_base;
+		padding-bottom : 0 * @unit_base;
+		padding-left : 10 * @unit_base;
+	
+		margin-left : 4 * @unit_base;
+		margin-right : 4 * @unit_base;
+	
+
+		font-size : 16 * @unit_base;
+		font-weight : bold;
+		color : @color_dialogue_main_text;
+		background : @color_list_bg;
 	}
 
 	&[data-style="check"] {
@@ -338,7 +348,7 @@ li.ui-li-thumbnail-right {
 		padding-bottom : 0px;
 
 		padding-left : 92 * @unit_base;
-		line-height : 60 * @unit_base;
+		line-height : 6   0 * @unit_base;
 	}
 
 	&[data-style="expandable"] {
@@ -347,6 +357,26 @@ li.ui-li-thumbnail-right {
 		padding-bottom : 0px;
 
 		line-height : 60 * @unit_base;
+	}
+
+	.ui-divider-normal-line {
+		display : inline-block;
+		position : relative;
+
+		width : 100%;
+		height : 2 * @unit_base;
+
+		background : @color_list_divider_text;
+	}
+
+	.list-normal-text {
+		position : absolute;
+		padding-right : 5 * @unit_base;
+
+		font-size : 24 * @unit_base;
+		color : @color_list_divider_text;
+		background : @color_list_bg;
+		z-index : 10;
 	}
 }
 
@@ -363,16 +393,14 @@ li.ui-li-thumbnail-right {
 	border-left-color : @color_list_divider_expand_div;
 }
 
-
 .ui-li-has-thumb:not(.ui-li-thumbnail-right) {
 	.ui-btn-inner a.ui-link-inherit,
 	&.ui-li-static  {
-		min-height: 60 * @unit_base;
-		padding-left: 104 * @unit_base;
+		padding-left: 52 * @unit_base;
 	}
 	.ui-li-text-sub {
-		padding-left: 104 * @unit_base;
-		padding-right: 16 * @unit_base; /* ellipsis for sub text */
+		padding-left: 52 * @unit_base;
+		padding-right: 8 * @unit_base; /* ellipsis for sub text */
 	}
 }
 
@@ -380,11 +408,10 @@ li.ui-li-thumbnail-right {
 .ui-li-has-radio{
 	.ui-btn-inner a.ui-link-inherit,
 	&.ui-li-static  {
-		min-height: 60 * @unit_base;
-		padding-left: 92 * @unit_base;
+		padding-left: 36 * @unit_base;
 	}
 	.ui-li-text-sub {
-		padding-left: 92 * @unit_base;
+		padding-left: 36 * @unit_base;
 	}
 }
 
@@ -392,12 +419,11 @@ li.ui-li-thumbnail-right {
 .ui-li-has-thumb.ui-li-has-radio {
 	.ui-btn-inner a.ui-link-inherit,
 	&.ui-li-static  {
-		min-height: 60 * @unit_base;
-		padding-left: 180 * @unit_base;
+		padding-left: 78 * @unit_base;
 	}
 
 	.ui-li-text-sub {
-		padding-left: 180 * @unit_base;
+		padding-left: 78 * @unit_base;
 	}
 }
 
@@ -466,7 +492,7 @@ li.ui-li-thumbnail-right {
 .ui-li-sub-setting {
 	float: right;
 	text-align: right;
-	font-size: @font_size_list_sub_text;
+	font-size: 16 * @unit_base;
 	margin: .3em 0;
 }
 
@@ -476,12 +502,12 @@ li.ui-li-thumbnail-right {
 .ui-li-text-sub {
 	float: right;
 	text-align: right;
-	font-size: @font_size_list_sub_text;
+	font-size: 16 * @unit_base;
 	color: @color_list_sub_text_default;
 
 	position : absolute;
-	right : 16 * @unit_base;
-	top : 16 * @unit_base;
+	right : 8 * @unit_base;
+	top : 20 * @unit_base;
 
 	width	: 95%;
 	.LESStext-ellipsis();
@@ -497,7 +523,7 @@ li.ui-li-thumbnail-right {
 .ui-li-text-sub2 {
 	float: right;
 	text-align: right;
-	font-size: @font_size_list_sub_text;
+	font-size: 16 * @unit_base;
 	color: @color_list_sub_text_default;
 
 	position : absolute;
@@ -525,8 +551,8 @@ li:not(.ui-li-has-multiline) .ui-li-text-sub {
 
 	text-align: left;
 	right : auto;
-	left : 16 * @unit_base;
-	top: 70 * @unit_base;
+	left : 8 * @unit_base;
+	top: 35 * @unit_base;
 	margin-top: 0px;
 
 	width : 90%;
@@ -556,7 +582,7 @@ li:not(.ui-li-has-multiline) .ui-li-text-sub {
 	margin: 0 0;
 }
 .ui-li-icon-sub-right {
-	right : 16 * @unit_base;
+	right : 8 * @unit_base;
 }
 
 
@@ -566,13 +592,23 @@ li:not(.ui-li-has-multiline) .ui-li-text-sub {
 // =========
 .ui-listview {
 	&> li.ui-li-dialogue {
-		margin-left: @style_list_li_dialogue_margin_left;
-		margin-right : @style_list_li_dialogue_margin_left;
-		border-left: @style_list_li_dialogue_border_left_width @color_dialogue_editor_border solid;
-		//margin-left: @style_list_li_dialogue_margin_left;
-		border-top-width: 0px;
+		margin-left: 4 * @unit_base;
+		margin-right : 4 * @unit_base;
 
-		.LESSdialogue-border-style;
+		border-style : solid;
+		border-color : @color_dialogue_border_right;
+		border-width : 1px;
+		border-top-width : 0px;
+
+		&:first-child {
+			border-top-width : 1px;
+			border-top-left-radius : 3px;
+			border-top-right-radius : 3px;
+		}
+		&:last-child {
+			border-bottom-left-radius : 3px;
+			border-bottom-right-radius : 3px;
+		}
 	}
 
 	&> li.ui-li-dialogue.ui-body-s,
@@ -587,7 +623,6 @@ li:not(.ui-li-has-multiline) .ui-li-text-sub {
 		min-height : 52 * @unit_base;
 	}
 
-
 	&> li.ui-li-dialogue.ui-li-divider {
 		height: 32 * @unit_base;
 		padding : 0px;
@@ -600,8 +635,19 @@ li:not(.ui-li-has-multiline) .ui-li-text-sub {
 	&> li.ui-li-group-title span {
 		padding-left : 16 * @unit_base;
 	}
+
 	&> li.ui-li-dialogue-divider {
-		.LESSdialogue-divider;
+		padding-top : 20 * @unit_base;
+		padding-bottom : 0 * @unit_base;
+		padding-left : 10 * @unit_base;
+	
+		margin-left : 4 * @unit_base;
+		margin-right : 4 * @unit_base;
+	
+		background : @color_list_dialogue_bg;
+		font-size : 16 * @unit_base;
+		font-weight : bold;
+		color : @color_dialogue_main_text;
 	}
 }
 

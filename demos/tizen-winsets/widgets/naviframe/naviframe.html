@@ -1,0 +1,346 @@
+<!DOCTYPE html> 
+<html> 
+	<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<link rel="stylesheet"  href="themes/default/" />  
+	<script src="js/jquery.js"></script>
+	<script src="js/"></script>
+	<script src="theme.js"></script>
+		<script src="js/jquery.mobile.forms.button.extension.js"></script>
+	</head> 
+<body> 
+
+	<div data-role="page" id="NavigationbarMain" data-add-back-btn="true">
+		<div data-role="header" data-position="fixed">
+			<h1>Naviframe</h1>
+		</div>
+		<div data-role="content">
+			<div class="content-primary">
+				<ul data-role="listview">
+					<li data-role="list-divider">Simple Naviframe Header Style</li>
+					<li><a href="naviframe_title_text.html">Title text</a></li>
+					<li><a href="naviframe_title_text_2_btn.html">Title text Button 2</a></li>
+					<li><a href="naviframe_title_text_1_btn.html">Title text Button 1</a></li>
+					<li><a href="naviframe_title_text_src.html">Image Title text</a></li>
+					<li><a href="naviframe_title_text_multiline.html">Title text Multiline</a></li>
+					<li><a href="naviframe_title_text_multiline_src.html">Image Title text Multiline</a></li>
+					<li><a href="naviframe_title_text_multiline_src_2_btn.html">Image Title text Multiline Button 02</a></li>
+					<li data-role="list-divider">Simple Naviframe Footer Style</li>
+					<li><a href="naviframe_footer_more.html">Footer more</a></li>
+					<li data-role="list-divider">Old version</li>
+					<li><a href="#normalstyle">Normal style title</a></li>
+					<li><a href="#extendedstyle">Extended style title</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div data-role="page" id="normalstyle" data-add-back-btn="true">
+		<div data-role="header" data-position="fixed">
+			<h1>Normal Title</h1>
+		</div>
+		<div data-role="content">
+			<ul data-role="listview">
+				<li><a href="#normal1btn">Title 1 button</a></li>
+				<li><a href="#normal2btn">Title 2 button</a></li>
+				<li><a href="#normal2btnicononly">Title 2 button Icon only</a></li>
+				<li><a href="#normal3btn">Title 3 button</a></li>
+				<li><a href="#iconTitle">Icon + Title</a></li>
+				<li><a href="#customTitle1">Custom Title with button position: left</a></li>
+				<li><a href="#customTitle2">Custom Title with button position: right</a></li>
+				<li><a href="#customTitle3">Custom Title with button position: mix</a></li>
+				<li><a href="#NavigationbarMain">Go back to Navigation Bar</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div data-role="page" id="normal1btn">
+		<div data-role="header" data-position="fixed">
+			<h1>Normal Title - 1Btn</h1>
+			<a>text1</a>
+		</div>
+		<div data-role="content">
+			<ul data-role="listview">
+				<li><a href="#normal1btn">Title 1 button</a></li>
+				<li><a href="#normal2btn">Title 2 button</a></li>
+				<li><a href="#normal2btnicononly">Title 2 button Icon only</a></li>
+				<li><a href="#normal3btn">Title 3 button</a></li>
+				<li><a href="#iconTitle">Icon + Title</a></li>
+				<li><a href="#customTitle1">Custom Title with button position: left</a></li>
+				<li><a href="#customTitle2">Custom Title with button position: right</a></li>
+				<li><a href="#customTitle3">Custom Title with button position: mix</a></li>
+				<li><a href="#NavigationbarMain">Go back to Navigation Bar</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div data-role="page" id="normal2btn">
+		<div data-role="header" data-position="fixed">
+			<h1>Normal Title - 2Btn</h1>
+			<a>text1</a>
+			<a>text2</a>
+		</div>
+		<div data-role="content">
+			<ul data-role="listview">
+				<li><a href="#normal1btn">Title 1 button</a></li>
+				<li><a href="#normal2btn">Title 2 button</a></li>
+				<li><a href="#normal2btnicononly">Title 2 button Icon only</a></li>
+				<li><a href="#normal3btn">Title 3 button</a></li>
+				<li><a href="#iconTitle">Icon + Title</a></li>
+				<li><a href="#customTitle1">Custom Title with button position: left</a></li>
+				<li><a href="#customTitle2">Custom Title with button position: right</a></li>
+				<li><a href="#customTitle3">Custom Title with button position: mix</a></li>
+				<li><a href="#NavigationbarMain">Go back to Navigation Bar</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div data-role="page" id="normal2btnicononly">
+		<div data-role="header" data-position="fixed">
+			<h1>Normal Title+2Buttons Icon only</h1>
+			<a data-icon="plus"></a>
+			<a data-icon="minus"></a>
+		</div>
+		<div data-role="content">
+			<ul data-role="listview">
+				<li><a href="#normal1btn">Title 1 button</a></li>
+				<li><a href="#normal2btn">Title 2 button</a></li>
+				<li><a href="#normal2btnicononly">Title 2 button Icon only</a></li>
+				<li><a href="#normal3btn">Title 3 button</a></li>
+				<li><a href="#iconTitle">Icon + Title</a></li>
+				<li><a href="#customTitle1">Custom Title with button position: left</a></li>
+				<li><a href="#customTitle2">Custom Title with button position: right</a></li>
+				<li><a href="#customTitle3">Custom Title with button position: mix</a></li>
+				<li><a href="#NavigationbarMain">Go back to Navigation Bar</a></li>
+			</ul>
+		</div>
+	</div>
+
+
+	<div data-role="page" id="normal3btn" data-add-back-btn="true">
+		<div data-role="header" data-position="fixed">
+			<h1>Normal Title - 3Btn</h1>
+			<a>text1</a>
+			<a>text2</a>
+			<a>text3</a>
+		</div>
+		<div data-role="content">
+			<ul data-role="listview">
+				<li><a href="#normal1btn">Title 1 button</a></li>
+				<li><a href="#normal2btn">Title 2 button</a></li>
+				<li><a href="#normal2btnicononly">Title 2 button Icon only</a></li>
+				<li><a href="#normal3btn">Title 3 button</a></li>
+				<li><a href="#iconTitle">Icon + Title</a></li>
+				<li><a href="#customTitle1">Custom Title with button position: left</a></li>
+				<li><a href="#customTitle2">Custom Title with button position: right</a></li>
+				<li><a href="#customTitle3">Custom Title with button position: mix</a></li>
+				<li><a href="#NavigationbarMain">Go back to Navigation Bar</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div data-role="page" id="iconTitle">
+		<div data-role="header" data-position="fixed">
+			<img src="icon-tizen.png"/>
+			<h1>Icon Title</h1>
+			<a>text1</a>
+		</div>
+		<div data-role="content">
+			<ul data-role="listview">
+				<li><a href="#normal1btn">Title 1 button</a></li>
+				<li><a href="#normal2btn">Title 2 button</a></li>
+				<li><a href="#normal2btnicononly">Title 2 button Icon only</a></li>
+				<li><a href="#normal3btn">Title 3 button</a></li>
+				<li><a href="#iconTitle">Icon + Title</a></li>
+				<li><a href="#customTitle1">Custom Title with button position: left</a></li>
+				<li><a href="#customTitle2">Custom Title with button position: right</a></li>
+				<li><a href="#customTitle3">Custom Title with button position: mix</a></li>
+				<li><a href="#NavigationbarMain">Go back to Navigation Bar</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div data-role="page" id="customTitle1">
+		<div data-role="header" data-position="fixed">
+			<h1>Title with Left button</h1>
+			<a class="ui-btn-left">Left1</a>
+			<a class="ui-btn-left">Left2</a>
+			<a class="ui-btn-left">Left3</a>
+		</div>
+		<div data-role="content">
+			<ul data-role="listview">
+				<li><a href="#normal1btn">Title 1 button</a></li>
+				<li><a href="#normal2btn">Title 2 button</a></li>
+				<li><a href="#normal2btnicononly">Title 2 button Icon only</a></li>
+				<li><a href="#normal3btn">Title 3 button</a></li>
+				<li><a href="#iconTitle">Icon + Title</a></li>
+				<li><a href="#customTitle1">Custom Title with button position: left</a></li>
+				<li><a href="#customTitle2">Custom Title with button position: right</a></li>
+				<li><a href="#customTitle3">Custom Title with button position: mix</a></li>
+				<li><a href="#NavigationbarMain">Go back to Navigation Bar</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div data-role="page" id="customTitle2">
+		<div data-role="header" data-position="fixed">
+			<h1>Title with Right button</h1>
+			<a class="ui-btn-right">Right1</a>
+			<a class="ui-btn-right">Right2</a>
+			<a class="ui-btn-right">Right3</a>
+		</div>
+		<div data-role="content">
+			<ul data-role="listview">
+				<li><a href="#normal1btn">Title 1 button</a></li>
+				<li><a href="#normal2btn">Title 2 button</a></li>
+				<li><a href="#normal2btnicononly">Title 2 button Icon only</a></li>
+				<li><a href="#normal3btn">Title 3 button</a></li>
+				<li><a href="#iconTitle">Icon + Title</a></li>
+				<li><a href="#customTitle1">Custom Title with button position: left</a></li>
+				<li><a href="#customTitle2">Custom Title with button position: right</a></li>
+				<li><a href="#customTitle3">Custom Title with button position: mix</a></li>
+				<li><a href="#NavigationbarMain">Go back to Navigation Bar</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div data-role="page" id="customTitle3">
+		<div data-role="header" data-position="fixed">
+			<a class="ui-btn-left">Left</a>
+			<h1>Title with Left/Right button</h1>
+			<a class="ui-btn-right">Right1</a>
+			<a class="ui-btn-right">Right2</a>
+		</div>
+		<div data-role="content">
+			<ul data-role="listview">
+				<li><a href="#normal1btn">Title 1 button</a></li>
+				<li><a href="#normal2btn">Title 2 button</a></li>
+				<li><a href="#normal2btnicononly">Title 2 button Icon only</a></li>
+				<li><a href="#normal3btn">Title 3 button</a></li>
+				<li><a href="#iconTitle">Icon + Title</a></li>
+				<li><a href="#customTitle1">Custom Title with button position: left</a></li>
+				<li><a href="#customTitle2">Custom Title with button position: right</a></li>
+				<li><a href="#customTitle3">Custom Title with button position: mix</a></li>
+				<li><a href="#NavigationbarMain">Go back to Navigation Bar</a></li>
+			</ul>
+		</div>
+	</div>
+
+
+
+
+
+	<div data-role="page" id="extendedstyle"  data-add-back-btn="true">
+		<div data-role="header" data-position="fixed">
+			<h1>Extended Title</h1>
+		</div>
+		<div data-role="content">
+			<div class="content-primary">
+				<ul data-role="listview">
+					<li><a href="#extendedstyle2btn">2 Button</a></li>
+					<li><a href="#extendedstyle3btn">3 Button</a></li>
+					<li><a href="#extendedstyle4btn">4 Button</a></li>
+					<li><a href="#footerExtendedStyle">Footer Extended Style</a></li>
+				</ul>
+			</div><!--/content-primary -->
+		</div>
+	</div>
+
+	<div data-role="page" id="extendedstyle2btn">
+		<div data-role="header" data-position="fixed">
+			<h1>Extended Title 2 Button </h1>
+			<div data-role="fieldcontain">
+				<fieldset data-role="controlgroup" data-type="horizontal">
+					<input type="radio" name="radio-view-8" data-icon="segment-titlestyle-segonly" id="segment1" value="on" checked="checked" />
+					<label for="segment1">All</label>
+					<input type="radio" name="radio-view-8" data-icon="segment-titlestyle-segonly" id="segment2" value="off" />
+					<label for="segment2">Call</label>
+				</fieldset>
+			</div>
+		</div>
+		<div data-role="content">
+			<div class="content-primary">
+				<ul data-role="listview">
+					<li><a href="#extendedstyle2btn">2 Button</a></li>
+					<li><a href="#extendedstyle3btn">3 Button</a></li>
+				</ul>
+			</div><!--/content-primary -->
+		</div>
+	</div>
+
+	<div data-role="page" id="extendedstyle3btn">
+		<div data-role="header" data-position="fixed">
+			<h1>Extended Title 3 Button </h1>
+			<div data-role="fieldcontain">
+				<fieldset data-role="controlgroup" data-type="horizontal">
+					<input type="radio" name="radio-view-8" data-icon="segment-titlestyle-segonly" id="segment71" value="on" checked="checked" />
+					<label for="segment71">All</label>
+					<input type="radio" name="radio-view-8" data-icon="segment-titlestyle-segonly" id="segment72" value="off" />
+					<label for="segment72">Call</label>
+					<input type="radio" name="radio-view-8" data-icon="segment-titlestyle-segonly" id="segment73" value="off" />
+					<label for="segment73">Message</label>
+				</fieldset>
+			</div>
+		</div>
+		<div data-role="content">
+			<div class="content-primary">
+				<ul data-role="listview">
+					<li><a href="#extendedstyle2btn">2 Button</a></li>
+					<li><a href="#extendedstyle3btn">3 Button</a></li>
+				</ul>
+			</div><!--/content-primary -->
+		</div>
+	</div>
+
+	<div data-role="page" id="extendedstyle4btn">
+		<div data-role="header" data-position="fixed">
+			<h1>Extended Title 4 Button </h1>
+			<div data-role="fieldcontain">
+				<fieldset data-role="controlgroup" data-type="horizontal">
+					<input type="radio" name="radio-view-8" data-icon="segment-titlestyle-segonly" id="segment71" value="on" checked="checked" />
+					<label for="segment71">All</label>
+					<input type="radio" name="radio-view-8" data-icon="segment-titlestyle-segonly" id="segment72" value="off" />
+					<label for="segment72">Call</label>
+					<input type="radio" name="radio-view-8" data-icon="segment-titlestyle-segonly" id="segment73" value="off" />
+					<label for="segment73">Message</label>
+					<input type="radio" name="radio-view-8" data-icon="segment-titlestyle-segonly" id="segment74" value="off" />
+					<label for="segment74">Contact</label>
+				</fieldset>
+			</div>
+		</div>
+		<div data-role="content">
+			<div class="content-primary">
+				<ul data-role="listview">
+					<li><a href="#extendedstyle2btn">2 Button</a></li>
+					<li><a href="#extendedstyle3btn">3 Button</a></li>
+				</ul>
+			</div><!--/content-primary -->
+		</div>
+	</div>
+
+	<div data-role="page" id="footerExtendedStyle">
+		<div data-role="header" data-position="fixed">
+			<h1>Extended Footer style</h1>
+		</div>
+		<div data-role="content">
+			<p> test page </p>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="fieldcontain">
+				<fieldset data-role="controlgroup" data-type="horizontal">
+					<input type="radio" name="radio-view-8" data-icon="segment-titlestyle-segonly" id="segment1" value="on" checked="checked" />
+					<label for="segment1">All</label>
+					<input type="radio" name="radio-view-8" data-icon="segment-titlestyle-segonly" id="segment2" value="off" />
+					<label for="segment2">Call</label>
+					<input type="radio" name="radio-view-8" data-icon="segment-titlestyle-segonly" id="segment3" value="off" />
+					<label for="segment3">Contact</label>
+				</fieldset>
+			</div>
+			<a>Edit</a>
+		</div>
+	</div>
+
+
+</body>
+</html>

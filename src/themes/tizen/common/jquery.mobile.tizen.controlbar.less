@@ -1,0 +1,126 @@
+@import "config.less";
+
+/***************************************************************************
+                    Controlbar
+***************************************************************************/
+.ui-controlbar {
+	&.ui-portrait-controlbar {
+		height : 64 * @unit_base;
+	}
+	&.ui-landscape-controlbar {
+		height : 55 * @unit_base;
+	}
+
+	a.ui-btn {
+		background : transparent;	
+		color : rgba(153, 153, 153, 1);
+
+		.ui-icon {
+			width: 32 * @unit_base; 
+			height: 32 * @unit_base;
+
+			background-repeat: no-repeat;
+			background-size: 100% 100%;	
+		}
+	}
+
+	a.ui-btn.ui-btn-active {
+		color : rgba(59, 115, 182, 1);
+	}
+
+/* move concept strange */	
+	a.ui-btn.ui-btn-active {
+		background : -webkit-linear-gradient(top,  rgba(169,165,151,0.3) 0%,rgba(255,255,255,0.1) 100%);
+	}
+
+	.ui-btn-inner {
+		padding-top : 44 * @unit_base;
+		padding-bottom : 3 * @unit_base;
+		
+		font-size : 15 * @unit_base;
+		font-weight : bold;
+
+		.ui-icon {
+			top : 13 * @unit_base;
+			
+			left : 50%;
+			margin-left : -16 * @unit_base;
+		}
+	}
+	
+	.ui-ctrl-btn-style {
+		width : 196 * @unit_base;
+	}
+	&.ui-controlbar-noicons {
+		.ui-btn-inner {
+			padding-top : 24 * @unit_base;
+			padding-bottom : 21 * @unit_base;
+		}
+	}
+	
+	&.ui-controlbar-notext {
+		.ui-btn-inner {
+			padding-top : 44 * @unit_base;
+			padding-bottom : 3 * @unit_base;
+			
+			.ui-icon {
+				top : 17 * @unit_base;
+			}
+		}
+	}
+}
+
+/* title font size when title controlbar */
+.ui-header.ui-bar-s.ui-title-controlbar {
+	.ui-title {
+		font-size : 22 * @unit_base;
+		margin-top : 8 * @unit_base;
+		margin-bottom : 0 * @unit_base;
+	}
+
+	.ui-controlbar {
+		&.ui-controlbar-noicons {
+			.ui-btn-inner {
+				padding-top : 15 * @unit_base;
+				padding-bottom : 13 * @unit_base;
+			}
+		}
+
+		&.ui-controlbar-notext {
+			.ui-btn-inner {
+				padding-top : 47 * @unit_base;
+				padding-bottom : 0 * @unit_base;
+			}
+		}
+		
+		&.ui-portrait-controlbar {
+			height : 47 * @unit_base;
+		}
+		
+		&.ui-landscape-controlbar {
+			height : 40 * @unit_base;
+		}
+	}
+}
+
+.ui-footer.ui-bar-s {
+	.ui-controlbar {
+		height : 48 * @unit_base;
+
+		margin-left : auto;
+		margin-right : auto;
+	}
+}
+
+.ui-controlbar-s.ui-navbar-noicons {
+	font-size : 22 * @unit_base;
+}
+
+.ui-btn-up-s {
+	.ui-icon-ctrl-edit { background-image: url(images/controlbar/00_ctrl_edit.png); }
+
+}
+
+.ui-btn-down-s, .ui-btn-hover-s, .ui-btn-active {
+	.ui-icon-ctrl-edit { background-image: url(images/controlbar/00_ctrl_edit_press.png); }
+}
