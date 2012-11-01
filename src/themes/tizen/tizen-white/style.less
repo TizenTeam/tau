@@ -4,16 +4,49 @@
 
 
 
-/***************** Dialogue List ******************************/
+/***************** Naviframe **********************************/
+@color_bar_title_text : rgba(59, 115, 182, 1); /* #3b73b6 */ /* title text */
+@color_bar_btn_press : rgba(0, 0, 0, 0.1);
+
+/***************** Body ***************************************/
+@color_bg: rgb(248, 246, 239); // #F8F6EF // Main Background color
+@color_text: rgb(0, 0, 0);	// 0 0 0
+@color_text_sub:			rgb(102, 102, 102);	// 102 102 102
+@color_text_setting:		rgb(42, 109, 140);	// 42 109 140
+
+/***************** List ***************************************/
 @color_list_bg: rgb(248, 246, 239);
-@color_list_dialogue_bg : rgba(239, 237, 229, 1);
-@color_list_divider_expand_div : rgba(0, 0, 0, 0.5);
+@color_list_border_bottom:		rgb(169, 169, 169);
+@color_list_press : rgba(87, 135, 194, 1);
+@color_list_main_text_focus:		rgba(249, 249, 249, 1);
+@color_list_main_text_unfocus:		rgba(0, 0, 0, 1);
 @color_list_sub_text_default: rgba(100, 100, 100, 1);
+
+
+@color_list_divider_expand_div : rgba(0, 0, 0, 0.5);
+@color_list_divider_bg : rgb(248, 246, 239);
+@color_list_divider_text :		rgba(59, 115, 182, 1);
+
+@color_list_dialogue_bg : rgba(239, 237, 229, 1);
 @color_dialogue_main_text: rgba(59, 115, 182, 1);
 @color_dialogue_border_right: rgba(142, 154, 163, 1);
 
-@color_list_divider_bg : rgb(248, 246, 239);
-@color_list_divider_text :		rgba(59, 115, 182, 1);
+@color_list_expandable_expanded_bg:	rgb(215, 225, 232);
+
+@color_list_bubble_box_shadow:	rgb(78, 78, 78);	// Not defined in GUI guide.
+@color_list_bubble_left_text:	rgb(0, 0, 0);
+@color_list_bubble_left_bg:		rgb(217, 230, 237);	// Not defined in GUI guide. Picked from image.
+@color_list_bubble_right_text:	rgb(96, 96, 96);
+@color_list_bubble_right_bg:	rgb(217, 217, 217); // Not defined in GUI guide. Picked from image.
+@color_list_bubble_sos_text:	rgb(211, 0, 0);
+@color_list_bubble_date_text:	rgb(128, 128, 128);
+@color_list_bubble_date_bg:		rgba(225, 225, 225, 0);
+@color_list_bubble_time_text:	rgb(57, 166, 215);
+@color_list_bubble_link_text:	rgb(34, 129, 157);
+@color_list_bubble_failed_text:	rgb(211, 0, 0);
+@color_list_bubble_name_text:	rgb(57, 166, 215);
+@color_list_bubble_help_text:	rgb(146, 146, 146);
+
 
 /***************** SearchBar(forms.textinput) *****************/
 @color_searchbar_bg : rgba(248, 246, 239, 1);
@@ -109,7 +142,7 @@
 /************************** old color code  ******************************/
 
 // Basic color set
-@color_bg: 				rgb(248, 246, 239); // #F8F6EF // Main Background color
+
 @color_bg_sub:			rgb(36, 36, 36);	// 36 36 36	// TODO: used only in dialog group. Check more.
 
 @color_border:			rgb(42, 42, 42);	// 42 42 42
@@ -117,11 +150,10 @@
 
 @color_scrollbar: 		rgb(218, 218, 218);
 
-@color_text:				rgb(0, 0, 0);	// 0 0 0
+
 @color_text_dim:			rgb(108, 115, 118);	// 108 115 118
 @color_text_focus:		@color_text;
-@color_text_sub:			rgb(102, 102, 102);	// 102 102 102
-@color_text_setting:		rgb(42, 109, 140);	// 42 109 140
+
 @color_text_input:		rgb(70, 70, 70);	// 70 70 70
 @color_text_cursor:		@color_text_setting;
 @color_text_segctrl:		rgb(158, 195, 213);	// 158 195 213	// TODO: used only in segctrl. Check more.
@@ -147,10 +179,8 @@
 /***************************************************************************
                    List 
 ***************************************************************************/
-@color_list_main_text_focus:		rgba(249, 249, 249, 1);
-@color_list_main_text_unfocus:		rgba(0, 0, 0, 1);
 
-@color_list_border_bottom:		rgb(169, 169, 169);
+
 @color_list_main_text_read:		rgba(158, 158, 158, 1);
 @color_list_main_text_unread:	rgba(249, 249, 249, 1);
 
@@ -174,23 +204,11 @@
 @color_list_name_text:			rgba(129, 129, 129, 1);
 @color_list_name_text_dim:		rgba(0, 140, 210, 1);
 @color_list_colorbar:				rgba(80, 107, 207, 1); //Temp, not defined
-@color_list_bubble_box_shadow:	rgb(78, 78, 78);	// Not defined in GUI guide.
-@color_list_bubble_left_text:	rgb(0, 0, 0);
-@color_list_bubble_left_bg:		rgb(217, 230, 237);	// Not defined in GUI guide. Picked from image.
-@color_list_bubble_right_text:	rgb(96, 96, 96);
-@color_list_bubble_right_bg:	rgb(217, 217, 217); // Not defined in GUI guide. Picked from image.
-@color_list_bubble_sos_text:	rgb(211, 0, 0);
-@color_list_bubble_date_text:	rgb(128, 128, 128);
-@color_list_bubble_date_bg:		rgba(225, 225, 225, 0);
-@color_list_bubble_time_text:	rgb(57, 166, 215);
-@color_list_bubble_link_text:	rgb(34, 129, 157);
-@color_list_bubble_failed_text:	rgb(211, 0, 0);
-@color_list_bubble_name_text:	rgb(57, 166, 215);
-@color_list_bubble_help_text:	rgb(146, 146, 146);
 
 
-@color_list_expandable_expanded_bg:	rgb(215, 225, 232);
-@color_list_press : rgba(87, 135, 194, 1);
+
+
+
 
 @font_size_list_main_text:		44 * @unit_base; //1.375rem;	/* 44 px */
 @font_size_list_sub_text:		32 * @unit_base; //1.0rem;	/* 32 px */
@@ -489,7 +507,7 @@
 @color_bar_bg_end : rgb(79,116,141);
 
 @color_bar_back_btn_press : rgba(26, 82, 116, 0.3); /* #1A5274 */
-@color_bar_btn_press : rgba(0, 0, 0, 0.1);
+
 @color_bar_btn_bg : transparent;
 @color_bar_back_btn_bg : transparent;
 
@@ -498,8 +516,6 @@
 @color_bar_seg_text_normal : rgba(249, 249, 249, 1); 
 @color_bar_seg_btn_press : -webkit-linear-gradient(top,  rgb(61,120,151) 0%,rgb(48,91,118) 100%);
 @color_bar_seg_btn_normal : -webkit-linear-gradient(top,  rgb(127,159,181) 0%,rgb(70,108,133) 100%);
-
-@color_bar_title_text : rgba(59, 115, 182, 1); /* #3b73b6 */ /* title text */
 
 @color_bar_title_bg : rgb(90, 153, 186);
 @color_bar_title_bg_start : rgb(90, 153, 186);
@@ -649,7 +665,6 @@
 ***************************************************************************/
 @style-title-font-size : 28 * @unit_base;
 
-@style-corner-radius : .3em;
 @style-title-extended-2btn-width : 688 * @unit_base;
 @style-title-extended-2btn-radio-width : 343 * @unit_base;
 @style-title-extended-3btn-width : 688 * @unit_base;

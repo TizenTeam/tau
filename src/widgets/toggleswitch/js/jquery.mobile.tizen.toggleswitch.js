@@ -114,7 +114,9 @@
 			var self = this;
 			this.element.hide().after( this._ui.container );
 			if ( this.element.jqmData("icon") ) {
+				this._ui.container.addClass("ui-toggleswitch-image-style");
 				this._ui.container.find(".ui-toggleswitch-text").hide();
+				this._ui.container.find(".ui-toggleswitch-reed").hide();
 				this._ui.container.find(".ui-toggleswitch-img").show();
 			} else {
 				this._ui.container.find(".ui-toggleswitch-img").hide();

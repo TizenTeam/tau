@@ -144,8 +144,10 @@
 
 .ui-footer.ui-bar-s {
 	height : 48 * @unit_base;
+	text-align : center;
 	
-	>.ui-btn {
+	>.ui-btn.ui-btn-back,
+	>[data-icon="naviframe-more"] {
 		background : transparent;
 
 		.ui-btn-footer-right .ui-btn-icon-only .ui-icon {
@@ -198,12 +200,12 @@
 			&.ui-corner-left {
 				border-left-width : 0px;
 			}
-
+		}
 		}
 	
+	> [data-role="button"]:not([data-icon="naviframe-more"]) {
+		top : 6 * @unit_base;
 	}
-
-	
 }
 
 /***************************************************************************
@@ -216,6 +218,10 @@
 
 .ui-title-content-normal-height {
 	top : 62  * @unit_base;
+}
+
+.ui-title-content-search {
+	top : 111  * @unit_base;
 }
 
 
@@ -401,39 +407,41 @@ a.ui-link-inherit {
 }
 
 
+
+
 /* corner rounding classes
 -----------------------------------------------------------------------------------------------------------*/
 
 .ui-corner-tl {
-	.LESSborder-radius-topleft(@style-corner-radius);
+	.LESSborder-radius-topleft(.3em);
 }
 .ui-corner-tr {
-	.LESSborder-radius-topright(@style-corner-radius);
+	.LESSborder-radius-topright(.3em);
 }
 .ui-corner-bl {
-	.LESSborder-radius-bottomleft(@style-corner-radius);
+	.LESSborder-radius-bottomleft(.3em);
 }
 .ui-corner-br {
-	.LESSborder-radius-bottomright(@style-corner-radius);
+	.LESSborder-radius-bottomright(.3em);
 }
 .ui-corner-top {
-	.LESSborder-radius-topleft(@style-corner-radius);
-	.LESSborder-radius-topright(@style-corner-radius);
+	.LESSborder-radius-topleft(.3em);
+	.LESSborder-radius-topright(.3em);
 }
 .ui-corner-bottom {
-	.LESSborder-radius-bottomleft(@style-corner-radius);
-	.LESSborder-radius-bottomright(@style-corner-radius);
+	.LESSborder-radius-bottomleft(.3em);
+	.LESSborder-radius-bottomright(.3em);
 }
 .ui-corner-right {
-	.LESSborder-radius-topright(@style-corner-radius);
-	.LESSborder-radius-bottomright(@style-corner-radius);
+	.LESSborder-radius-topright(.3em);
+	.LESSborder-radius-bottomright(.3em);
 }
 .ui-corner-left {
-	.LESSborder-radius-topleft(@style-corner-radius);
-	.LESSborder-radius-bottomleft(@style-corner-radius);
+	.LESSborder-radius-topleft(.3em);
+	.LESSborder-radius-bottomleft(.3em);
 }
 .ui-corner-all {
-	//.LESSborder-radius-all(@style-corner-radius);
+	//.LESSborder-radius-all(.3em);
 }
 .ui-corner-none {
 	.LESSborder-radius-all(0); 
@@ -448,8 +456,9 @@ a.ui-link-inherit {
 		height: 32 * @unit_base;
 		
 	}
+}
 
-
+.ui-btn-back .ui-btn-inner .ui-icon-header-back-btn {
 	width: 32 * @unit_base; 
 	height: 32 * @unit_base;
 

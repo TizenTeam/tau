@@ -1,31 +1,31 @@
 @import "config.less";
 
 .ui-toggleswitch {
-	height: 80 * @unit_base;
-	width: 60 * @unit_base;
+	height: 40 * @unit_base;
+	width: 30 * @unit_base;
 	overflow: hidden;
 	.ui-toggleswitch-mover {
 		position: relative;
-		font-size : 26 * @unit_base;
-		line-height : 40 * @unit_base;
+		font-size : 13 * @unit_base;
+		line-height : 20 * @unit_base;
 		display: block;
 
 		.ui-toggleswitch-off {
 			border-radius: 5 * @unit_base;
 			color: @color_text_sub;
 			.LESStoggleswitch_off_style;
-			height: 80 * @unit_base;
+			height: 40 * @unit_base;
 			.ui-toggleswitch-img{
 				width: 100%;
 				position: absolute;
 				padding-top: 7 * @unit_base;
 				.ui-toggleswitch-sign{
 					position: absolute;
-					width: 4px;
-					height: 12px;
-					left: 50%;
+					width: 44 * @unit_base;
+					height: 44 * @unit_base;
+					/*left: 50%;*/
 					margin-left:-2px;
-					background: url(images/00_switch_button_off.png) no-repeat;
+					background: url(images/00_button_off.png) no-repeat;
 					background-size: cover;
 					-ms-background-size: cover;
 					-webkit-background-size: cover;
@@ -39,7 +39,7 @@
 			display: none;
 			border-radius: 5 * @unit_base;
 			.LESStoggleswitch_on_style;
-			height: 80 * @unit_base;
+			height: 40 * @unit_base;
 			color: white;
 			.ui-toggleswitch-img{
 				width: 100%;
@@ -48,11 +48,11 @@
 				text-align: center;
 				.ui-toggleswitch-sign{
 					position: absolute;
-					width: 15px;
-					height: 15px;
+					width: 44 * @unit_base;
+					height: 44 * @unit_base;
 					left: 50%;
 					margin-left:-7px;
-					background: url(images/00_switch_button_on.png) no-repeat;
+					background: url(images/00_button_on.png) no-repeat;
 					background-size: cover;
 					-ms-background-size: cover;
 					-webkit-background-size: cover;
@@ -65,10 +65,10 @@
 		.ui-toggleswitch-reed {
 			position: absolute;
 			border-radius: 5 * @unit_base;
-			width: 57 * @unit_base;
+			width: 28 * @unit_base;
 			.LESStoggleswitch_reed_style;
-			top: 40 * @unit_base;
-			height: 39 * @unit_base;
+			top: 20 * @unit_base;
+			height: 19 * @unit_base;
 			left: 1px;
 		}
 
@@ -88,10 +88,10 @@
 		}
 
 		.ui-toggleswitch-text {
-			top: 40 * @unit_base;
+			top: 20 * @unit_base;
 		}
 		.ui-toggleswitch-img{
-			top: 40 * @unit_base;
+			top: 20 * @unit_base;
 		}
 		.ui-toggleswitch-on {
 			display: block;
@@ -99,6 +99,33 @@
 
 		.ui-toggleswitch-off {
 			display: none;
+		}
+	}
+}
+
+.ui-toggleswitch.ui-toggleswitch-image-style {
+	display : inline-block;
+
+	width : 44 * @unit_base;
+	height : 44 * @unit_base;
+	.ui-toggleswitch-mover {
+
+		.ui-toggleswitch-off,
+		.ui-toggleswitch-on {
+			background-image : none;
+
+			height : 44 * @unit_base;
+			width : 44 * @unit_base;
+
+			.ui-toggleswitch-img {
+				padding-top : 0px;
+				top : 0px;
+
+				.ui-toggleswitch-sign {
+					left : 0px;
+					margin-left : 0px;
+				}
+			}
 		}
 	}
 }

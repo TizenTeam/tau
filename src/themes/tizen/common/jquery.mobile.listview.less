@@ -58,8 +58,13 @@
 		// list item separator line
 		border-bottom-width: 1px;
 		border-bottom-style: solid;
+		border-left-width : 0px;
+		border-right-width : 0px;
 
 		border-top-width: 0px;
+
+		margin-left : 13 * @unit_base;
+		margin-right : 13 * @unit_base;
 	}
 
 	&> .ui-li:not(.ui-li-divider) {
@@ -145,11 +150,14 @@
 	&.ui-li-static {
 		padding-top : 15 * @unit_base;
 		padding-bottom : 15 * @unit_base;
-		padding-left : 8 * @unit_base;
-		padding-right : 8 * @unit_base;
+/*		padding-left : 13 * @unit_base;
+		padding-right : 13 * @unit_base;*/
 		display: block;
 
 		white-space: normal;	// default: 1line
+
+		border-left-width	: 0px;
+		border-right-width : 0px;
 	}
 
 	.ui-btn-inner a.ui-link-inherit {
@@ -159,12 +167,19 @@
 	.ui-toggleswitch {
 		&:last-child {
 			top : 50%;
-			margin-top : -40 * @unit_base;
+			margin-top : -20 * @unit_base;
 
 			display : inline-block;
 			position : absolute;
 
 			right : 16 * @unit_base;
+		}
+	}
+	.ui-toggleswitch.ui-toggleswitch-image-style {
+		&:last-child {
+			margin-top : -22 * @unit_base;
+
+			right : 13 * @unit_base;
 		}
 	}
 
@@ -306,11 +321,10 @@ li.ui-li-thumbnail-right {
 	counter-reset: listnumbering;
 	font-weight: bold;
 	font-size: @list-font-size-divider;
-	padding-left: 8 * @unit_base;
-	padding-top: 4 * @unit_base;
-	padding-bottom: 4 * @unit_base;
 	margin-right : 12 * @unit_base;
 	
+	height: 60 * @unit_base;
+	line-height : 60 * @unit_base;
 
 }
 
@@ -377,6 +391,11 @@ li.ui-li-thumbnail-right {
 		color : @color_list_divider_text;
 		background : @color_list_bg;
 		z-index : 10;
+	}
+
+	+ li.ui-li-dialogue {
+		border-top-left-radius : 3px;
+		border-top-right-radius : 3px;
 	}
 }
 
@@ -594,11 +613,13 @@ li:not(.ui-li-has-multiline) .ui-li-text-sub {
 	&> li.ui-li-dialogue {
 		margin-left: 4 * @unit_base;
 		margin-right : 4 * @unit_base;
+		padding-left : 10 * @unit_base;
+		padding-right : 10 * @unit_base;
 
 		border-style : solid;
 		border-color : @color_dialogue_border_right;
 		border-width : 1px;
-		border-top-width : 0px;
+/*		border-top-width : 0px;*/
 
 		&:first-child {
 			border-top-width : 1px;

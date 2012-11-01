@@ -142,7 +142,10 @@
 
 			$( document ).bind( "pagebeforeshow", function ( event, ui ) {
 				var footer_filter = $( event.target ).find( ":jqmData(role='footer')" ),
-					controlbar_filter = footer_filter.find( ":jqmData(role='controlbar')" );
+					controlbar_filter = footer_filter.find( ":jqmData(role='controlbar')" ),
+					$elFooterMore = controlbar_filter.siblings( ":jqmData(icon='naviframe-more')" ),
+					$elFooterBack = controlbar_filter.siblings( ".ui-btn-back" );
+
 
 				
 /*
@@ -158,10 +161,11 @@
 						.css( "position", "fixed" )
 						.css( "bottom", 0 )
 						.css( "height", controlbar_filter.height() );
-/*					if ( style == "toolbar" ) {
-						controlbar_filter
-							.css( "width", window.innerWidth - controlbar_filter.siblings(".ui-btn").width() - parseInt(controlbar_filter.siblings(".ui-btn").css("right"), 10) * 2 );
-					}*/
+					if ( $elFooterMore.length )
+						controlbar_filter.addClass( "ui-controlbar-margin-more" );
+					if ( $elFooterBack.length )
+						controlbar_filter.addClass( "ui-controlbar-margin-back" );
+
 
 			});
 
