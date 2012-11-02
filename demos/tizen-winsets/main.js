@@ -86,7 +86,7 @@ $( document ).bind("pagecreate", function () {
 	});
 
 	$('#imageslider-del').bind('vmouseup', function ( e ) {
-		$('#imageslider').imageslider('delete');
+		$('#imageslider').imageslider('remove');
 	});
 
 	$('#selectioninfo-demo').bind('vmouseup', function ( e ) {
