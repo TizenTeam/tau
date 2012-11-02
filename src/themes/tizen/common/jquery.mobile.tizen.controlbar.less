@@ -4,6 +4,8 @@
                     Controlbar
 ***************************************************************************/
 .ui-controlbar {
+	background : @color_bg;
+	z-index : 1000;
 	&.ui-portrait-controlbar {
 		height : 64 * @unit_base;
 	}
@@ -12,7 +14,7 @@
 	}
 
 	a.ui-btn {
-		background : transparent;	
+		background : @color_bg;
 		color : rgba(153, 153, 153, 1);
 
 		.ui-icon {
@@ -30,7 +32,8 @@
 
 /* move concept strange */	
 	a.ui-btn.ui-btn-active {
-		background : -webkit-linear-gradient(top,  rgba(169,165,151,0.3) 0%,rgba(255,255,255,0.1) 100%);
+		background : -webkit-linear-gradient(top,  rgba(169,165,151,1) 0%,rgba(246,248,239,1) 100%);
+
 	}
 
 	.ui-btn-inner {
@@ -105,10 +108,16 @@
 
 .ui-footer.ui-bar-s {
 	.ui-controlbar {
-		height : 48 * @unit_base;
+		height : 49 * @unit_base;
 
 		margin-left : auto;
 		margin-right : auto;
+
+		.ui-btn-inner {
+			.ui-icon {
+				top : 7 * @unit_base;
+			}
+		}
 	}
 
 	.ui-controlbar.ui-controlbar-margin-back {
@@ -118,6 +127,7 @@
 	.ui-controlbar.ui-controlbar-margin-more {
 		margin-left : 56 * @unit_base;
 	}
+	
 }
 
 .ui-controlbar-s.ui-navbar-noicons {

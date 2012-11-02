@@ -40,13 +40,13 @@
 	position : fixed;
 	top : 0px;
 
-	min-height : 62 * @unit_base;
+	min-height : 55 * @unit_base;
 
 	.ui-title {
 		display: inline-block;
 		color : @color_bar_title_text;
 		min-height : 28 * @unit_base;
-		max-height : 30 * @unit_base; /* temporary UX strange */
+		max-height : 34 * @unit_base; /* temporary UX strange */
 		font-size  : 28 * @unit_base;
 		text-overflow: ellipsis;
 		overflow: hidden;
@@ -54,7 +54,7 @@
 		outline: 0 !important;
 
 		text-align: left;
-		margin: 20*@unit_base 8*@unit_base 12*@unit_base 8*@unit_base;
+		margin: 16*@unit_base 8*@unit_base 5*@unit_base 8*@unit_base;
 
 	}
 
@@ -65,6 +65,10 @@
 			top : 0px;
 			margin-top : 0px;
 		}
+	}
+
+	> .ui-btn.ui-btn-back {
+		right : 13 * @unit_base;
 	}
 
 	img {
@@ -143,7 +147,7 @@
 }
 
 .ui-footer.ui-bar-s {
-	height : 48 * @unit_base;
+	height : 49 * @unit_base;
 	text-align : center;
 	
 	>.ui-btn.ui-btn-back,
@@ -213,11 +217,11 @@
 ***************************************************************************/
 .ui-content {
 	position : relative;
-	top : 62  * @unit_base;
+	top : 55  * @unit_base;
 }
 
 .ui-title-content-normal-height {
-	top : 62  * @unit_base;
+	top : 55  * @unit_base;
 }
 
 .ui-title-content-search {

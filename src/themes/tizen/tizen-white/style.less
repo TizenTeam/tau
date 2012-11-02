@@ -54,6 +54,10 @@
 @color_searchbar_default_text : rgba(121, 131, 138, 1); /* Search default text */
 @color_searchbar_input_field_bg : rgba(255, 255, 255, 1); /* W301 : 00_search_edit_field_bg.png */
 
+/***************** Popup **************************************/
+@font_size_popup_info_style: 24 * @unit_base;
+@color_popup_text_bg: rgba(248, 246, 239, 1);	/* B061L1 */
+
 
 /***************** Button *************************************/
 
@@ -247,8 +251,8 @@
 @color_popup_text_progress_title:	rgba(249, 249, 249, 1);
 /* TODO : ninepatch popup title */
 @color_popup_title_bg:		rgba(80, 147, 182, 255);	/* popup_title_bg.png */
-@color_popup_text_bg:		rgba(236, 240, 242, 255);	/* popup_bg.png */
-@color_popup_button_bg:		rgba(209, 221, 228, 255);	/* popup_button_bg.png */
+
+@color_popup_button_bg:		rgba(248, 246, 239, 1);
 @color_popup_font:			white;
 @color_popup_text_font:		black;
 
@@ -265,21 +269,21 @@
 @color_popup_buttonbg_press_ms:		-ms-linear-gradient(top, rgb(67, 160, 217), rgb(56, 139, 185));
 @color_popup_buttonbg_press_o:		-o-linear-gradient(top, rgb(67, 160, 217), rgb(56, 139, 185));
 
-@color_popup_scroller_bg:	rgb(249, 249, 249);
+@color_popup_scroller_bg:	rgba(248, 246, 239, 1);
 
-@font_size_popup_info_style:			42 * @unit_base; //1.3125rem;	/* 42px */
-@font_size_popup_basic_style_title:		38 * @unit_base; //1.1875rem;	/* 38px */
+
+@font_size_popup_basic_style_title:		24 * @unit_base; //1.1875rem;	/* 38px */
 @font_size_popup_center_progressbar_title:	26 * @unit_base; //0.8125rem;	/* 26px */
 @font_size_popup_text_progress_title:		42 * @unit_base; //1.3125rem;	/* 42px */
 @font_size_popup_button_text:			32 * @unit_base; //1.0rem;	/* 32px */
 
 .LESSpopup_button_style{
-	background: @color_popup_buttonbg;
+/*	background: @color_popup_buttonbg;
 	background: @color_popup_buttonbg_webkit;
 	background: @color_popup_buttonbg_moz;
 	background: @color_popup_buttonbg_ms;
 	background: @color_popup_buttonbg_o;
-	color: @color_popup_buttontext;
+	color: @color_popup_buttontext;*/
 }
 
 .LESSpopup_button_hover_style{
