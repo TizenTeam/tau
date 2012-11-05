@@ -35,8 +35,8 @@
  * APIs
  *
  *  add(file): add the image (parameter: url of iamge)
- *  delete(index): delete the image (parameter: index of image)
- *  refresh(index): refresh the widget, should be called after add or del. (parameter: start index)
+ *  remove(index): remove the image (parameter: index of image)
+ *  refresh(index): refresh the widget, should be called after add or remove. (parameter: start index)
  *
  * Events
  *
@@ -60,7 +60,7 @@
  * });
  *
  * $('#imageslider-del').bind('vmouseup', function ( e ) {
- *	$('#imageslider').imageslider('delete');
+ *	$('#imageslider').imageslider('remove');
  * });
  *
  */
@@ -517,7 +517,7 @@
 			this.images_hold.push( file );
 		},
 
-		delete: function ( index ) {
+		remove: function ( index ) {
 			var temp_img;
 
 			if ( index === undefined ) {
