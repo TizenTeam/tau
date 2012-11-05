@@ -58,6 +58,8 @@ Summary:    Tizen Web UI Framework Theme : tizen-white
 %files -n web-ui-fw-theme-tizen-white
 %manifest web-ui-fw-theme-tizen-white.manifest
 /usr/share/tizen-web-ui-fw/*/themes/tizen-white
+/usr/share/tizen-web-ui-fw/*/themes/tizen-tizen
+
 
 ###############################
 %package -n web-ui-fw-theme-default
