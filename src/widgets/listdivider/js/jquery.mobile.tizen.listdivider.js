@@ -1,45 +1,40 @@
 /* ***************************************************************************
-
+* style : normal, check
+*
+*
 */
 
 (function ( $, undefined ) {
 
 	$.widget( "tizen.listdivider", $.mobile.widget, {
 		options: {
-			initSelector: ":jqmData(role='list-divider')"
+			initSelector: ":jqmData(role='list-divider')",
 		},
 
 		_create: function () {
 
 			var $listdivider = this.element,
 				openStatus = true,
-				iconStatus,
 				expandSrc,
+				listDividerLine = true,
 				style = $listdivider.attr( "data-style" );
 
-			if ( style == undefined || style === "normal" ) {
-				$listdivider.wrapInner('<div class="list-normal-text" />');
-				expandSrc = "<span class='ui-divider-normal-line'></span>";
-				$( expandSrc ).appendTo( $listdivider );
+			if ( $listdivider.data("line") === false ) {
+				listDividerLine = false;
 			}
 
-			if ( style === "expandable" || style === "checkexpandable" ) {
-				iconStatus = openStatus ? "opened" : "closed";
-				expandSrc = "<span class='ui-divider-expand-div'><span class='ui-icon-expandable-divider-" + iconStatus + "'/></span>";
+			if ( style == undefined || style === "normal" || style === "check" ) {
+				$listdivider.buttonMarkup();
 
-				$( expandSrc ).appendTo( $listdivider );
-			}
-
-			$listdivider.children( ".ui-divider-expand-div" ).bind( "vclick", function ( event, ui ) {
-				if ( openStatus ) {
-					$( this ).children( "span" ).removeClass( "ui-icon-expandable-divider-opened" );
-					$( this ).children( "span" ).addClass( "ui-icon-expandable-divider-closed" );
-					openStatus = false;
-				} else {
-					$( this ).children( "span" ).removeClass( "ui-icon-expandable-divider-closed" );
-					$( this ).children( "span" ).addClass( "ui-icon-expandable-divider-opened" );
-					openStatus = true;
+				if ( listDividerLine ) {
+					expandSrc = "<span class='ui-divider-normal-line'></span>";
+					$( expandSrc ).appendTo( $listdivider.children( ".ui-btn-inner" ) );
 				}
+
+			}
+
+			$listdivider.bind( "vclick", function ( event, ui ) {
+			/* need to implement expand/collapse divider */
 			});
 		},
 	});

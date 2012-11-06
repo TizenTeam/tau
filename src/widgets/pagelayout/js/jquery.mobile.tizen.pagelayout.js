@@ -173,9 +173,8 @@
 					.css( "position", "fixed" )
 					.css( "top", "0px" );
 
-				if ( $elHeader.children().is(".ui-navbar") ) {
-					$elHeader.addClass( "ui-title-controlbar-height" );
-					$( event.target ).find( ".ui-content" ).addClass( "ui-title-content-controlbar-height" );
+				if ( $elHeader.is(".ui-title-controlbar-multiline") ) {
+					$( event.target ).find( ".ui-content" ).addClass( "ui-title-content-multi-controlbar-height" );
 				} else {
 					if ( $elHeader.length ) {
 						$( event.target ).find( ".ui-content" ).addClass( "ui-title-content-" + tStyle + "-height" );

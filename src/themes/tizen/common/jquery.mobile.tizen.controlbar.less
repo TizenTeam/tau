@@ -7,7 +7,7 @@
 	background : @color_bg;
 	z-index : 1000;
 	&.ui-portrait-controlbar {
-		height : 64 * @unit_base;
+		height : 55 * @unit_base;
 	}
 	&.ui-landscape-controlbar {
 		height : 55 * @unit_base;
@@ -44,7 +44,7 @@
 		font-weight : bold;
 
 		.ui-icon {
-			top : 13 * @unit_base;
+			top : 10 * @unit_base;
 			
 			left : 50%;
 			margin-left : -16 * @unit_base;
@@ -56,18 +56,18 @@
 	}*/
 	&.ui-controlbar-noicons {
 		.ui-btn-inner {
-			padding-top : 24 * @unit_base;
-			padding-bottom : 21 * @unit_base;
+			padding-top : 19 * @unit_base;
+			padding-bottom : 18 * @unit_base;
 		}
 	}
 	
 	&.ui-controlbar-notext {
 		.ui-btn-inner {
-			padding-top : 44 * @unit_base;
-			padding-bottom : 3 * @unit_base;
+			padding-top : 50 * @unit_base;
+			padding-bottom : 5 * @unit_base;
 			
 			.ui-icon {
-				top : 17 * @unit_base;
+				top : 11 * @unit_base;
 			}
 		}
 	}
@@ -105,6 +105,20 @@
 		}
 	}
 }
+
+.ui-header.ui-bar-s {
+	&.ui-title-controlbar-multiline {
+		height : 75 * @unit_base;
+		.ui-portrait-controlbar {
+			height : 75 * @unit_base;
+			.ui-btn-inner {
+				padding-top : 45 * @unit_base;
+				padding-bottom : 10 * @unit_base;
+			}
+		}
+	}
+}
+
 
 .ui-footer.ui-bar-s {
 	.ui-controlbar {

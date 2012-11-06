@@ -120,6 +120,9 @@
 			if ( !textpos ) {
 				$controlbar.addClass( "ui-controlbar-notext" );
 			}
+			if ( textpos && iconpos ) {
+				$controlbar.parents( ".ui-header" ).addClass( "ui-title-controlbar-multiline" );
+			}
 
 			$ctrlbtns.buttonMarkup({
 				corners:	false,
@@ -146,8 +149,6 @@
 					$elFooterMore = controlbar_filter.siblings( ":jqmData(icon='naviframe-more')" ),
 					$elFooterBack = controlbar_filter.siblings( ".ui-btn-back" );
 
-
-				
 /*
 					if ( !(controlbar_filter.find(".ui-btn-inner").children().is(".ui-icon")) ) {
 						controlbar_filter.find( ".ui-btn-inner" ).addClass( "ui-navbar-textonly" );
