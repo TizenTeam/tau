@@ -59,6 +59,7 @@ all: prepare css images js
 
 prepare:
 	-mkdir -p ${OUTPUT_DIR}
+	-ln -sf ${THEME_NAME} ${THEME_OUTPUT_ROOT}/tizen-tizen
 
 less: prepare
 	# Compiling less to css...
