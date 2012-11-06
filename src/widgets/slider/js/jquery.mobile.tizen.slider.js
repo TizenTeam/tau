@@ -103,11 +103,6 @@
 			// hide the slider input element proper
 			inputElement.hide();
 
-			// FIXME: workaround for list elipse
-			if ( inputElement.parent().hasClass("ui-li") ) {
-				inputElement.parent().css( "overflow", "visible" );
-			}
-
 			self.popup = $('<div class="ui-slider-popup"></div>');
 
 			// set the popup according to the html attribute
@@ -208,8 +203,7 @@
 			var dstOffset = this.handle.offset();
 
 			this.popup.offset({
-				left: dstOffset.left + ( this.handle.width() - this.popup.width() ) / 2,
-				top: dstOffset.top  - this.popup.outerHeight() + 15
+				left: dstOffset.left + ( this.handle.width() - this.popup.width() ) / 2
 			});
 
 			this.handle_press.offset({
@@ -221,11 +215,8 @@
 		// show value on the handle and in popup
 		updateSlider: function () {
 			var font_size,
+				padding_size,
 				newValue;
-
-			if ( this.popupVisible ) {
-				this.positionPopup();
-			}
 
 			// remove the title attribute from the handle (which is
 			// responsible for the annoying tooltip); NB we have
@@ -237,18 +228,38 @@
 
 			newValue = this.element.val();
 
+			if ( this.popupVisible ) {
+				this.positionPopup();
+
+				if ( newValue > 999 ) {
+					font_size = '0.8rem';
+					padding_size = '0.5rem';
+				} else if ( newValue > 99 ) {
+					font_size = '1rem';
+					padding_size = '0.5rem';
+				} else {
+					font_size = '1.5rem';
+					padding_size = '0.15rem';
+				}
+
+				this.popup.css({
+					"font-size": font_size,
+					"padding-top": padding_size
+				});
+			}
+
 			if ( newValue === this.currentValue ) {
 				return;
 			}
 
 			if ( newValue > 999 ) {
-				font_size = '0.7em';
+				font_size = '0.5rem';
 			} else if ( newValue > 99 ) {
-				font_size = '0.8em';
+				font_size = '0.7rem';
 			} else if ( newValue > 9 ) {
-				font_size = '0.9em';
+				font_size = '0.85rem';
 			} else {
-				font_size = '1em';
+				font_size = '0.95rem';
 			}
 
 			if ( font_size != this.handleText.css('font-size') ) {
