@@ -1,6 +1,6 @@
 Name:       web-ui-fw
 Version:    0.1.59
-Release:    0
+Release:    1
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
 License:    MIT
