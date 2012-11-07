@@ -68,7 +68,14 @@
 	.ui-listview > .ui-li {
 		color: @color_ctxpopup_text;
 		border-bottom-color: @color_ctxpopup_border_bottom;
-		padding: 0 7 * @unit_base;
+		border-top-width: 1px;
+		border-top-color: @color_ctxpopup_border_top;
+		padding: 0 10 * @unit_base;
+		margin-left: 0;
+		margin-right: 0;
+		&:first-child, &:last-child {
+			border-top-width: 0px;
+		}
 	}
 
 	.ui-listview li.ui-btn-up-s > .ui-li > .ui-btn-text > a.ui-link-inherit, .ui-listview li.ui-btn-hover-s > .ui-li > .ui-btn-text > a.ui-link-inherit, .ui-listview li.ui-btn-down-s > .ui-li > .ui-btn-text > a.ui-link-inherit {
@@ -82,14 +89,12 @@
     .horizontal {
 		color: @color_ctxpopup_text;
 		max-width: 648 * @unit_base;
-
 		.icon .ui-btn {
 			padding: 0;
-			background: transparent;
-
+			background: transparent ! important;
 			.ui-btn-icon-only {
-				width: 128 * @unit_base;
-				height: 92 * @unit_base;
+				width: 96 * @unit_base;
+				height: 64 * @unit_base;
 				padding: 0;
 			}
 
@@ -105,7 +110,7 @@
 
 		.text {
 			padding: 0 20 * @unit_base;
-			min-width: 128 * @unit_base;
+			min-width: 96 * @unit_base;
 		}
 
 
@@ -176,9 +181,9 @@
         }
 
         li {
-			line-height: 92 * @unit_base;
-			min-height: 92 * @unit_base;
-			min-width: 128 * @unit_base;
+			line-height: 64 * @unit_base;
+			min-height: 64 * @unit_base;
+			min-width: 96 * @unit_base;
 
             float: left;
             display: inline-block;
@@ -203,7 +208,7 @@
         }
 
 		li:active, td:active {
-			background: @color_bar_back_btn_press;
+			background: @color_ctxbutton_press;
 		}
     }
 

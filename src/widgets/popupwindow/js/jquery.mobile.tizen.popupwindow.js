@@ -270,8 +270,7 @@
 
 			this._ui.screen.css( "height", screenHeight );
 		},
-
-		open: function ( x_where, y_where ) {
+		open: function ( x_where, y_where, backgroundclose ) {
 			var self = this,
 				zIndexMax = 0;
 
@@ -293,10 +292,14 @@
 			this._ui.screen.css( "height", $( window ).height() )
 					.removeClass("ui-screen-hidden");
 
-			if ( this.options.fade ) {
-				this._ui.screen.animate( {opacity: this.options.opacity}, "fast" );
+			if( backgroundclose ) {
+				this._ui.screen.css( "opacity", 0 );
 			} else {
-				this._ui.screen.css( {opacity: this.options.opacity} );
+				if ( this.options.fade ) {
+					this._ui.screen.animate( {opacity: this.options.opacity}, "fast" );
+				} else {
+					this._ui.screen.css( {opacity: this.options.opacity} );
+				}
 			}
 
 			this._setPosition( x_where, y_where );

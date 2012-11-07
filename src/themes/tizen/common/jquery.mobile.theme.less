@@ -277,17 +277,27 @@
 	.LESSbutton_text1_style;
 }
 
-.ui-btn-box-s .ui-btn-inner {
-	border: 1px solid;
-	border-color: rgb(199, 197, 190);
-	.LESSborder-radius-all( 0.3rem );
-	.LESSbox-boxsizing( border-box );
-	.LESSbutton_inner_box_style;
-	height: 100%;
+.ui-ctxpopup .ui-btn-box-s{
+	&.ui-btn-up-s,
+	&.ui-btn-hover-s {
+		background: transparent !important;
+		border: none;
+		box-shadow: none;
+		padding: 0;
+		color: white !important;
+	}
+	&.ui-btn-down-s {
+		background: @color_ctxbutton_press !important;
+		border: none;
+		box-shadow: none;
+		padding: 0;
+		color: white !important;
+		.LESSborder-radius-all( 0 );
+	}
 }
 
-.ui-popup-container .ui-btn-box-s.ui-btn-up-s {
-	box-shadow: none;
+.ui-ctxpopup .ui-btn-down-s {
+        background: @color_ctxbutton_press !important;
 }
 
 .ui-header .ui-btn-box-s,

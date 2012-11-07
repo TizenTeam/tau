@@ -249,7 +249,7 @@
 			$( '.ui-popupwindow' ).css( 'background', 'none' );
 		}
 
-		origOpen.call( this, x, y );
+		origOpen.call( this, x, y, true );
 	};
 
 	//auto self-init widgets
