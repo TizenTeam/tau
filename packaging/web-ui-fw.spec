@@ -1,6 +1,6 @@
 Name:       web-ui-fw
-Version:    0.1.59
-Release:    1
+Version:    0.1.60
+Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
 License:    MIT
@@ -40,16 +40,6 @@ Summary:    Tizen Web UI Framework Theme : tizen-gray
     Tizen Web UI Framework Theme : tizen-gray
 
 ###############################
-%package -n web-ui-fw-theme-tizen-black
-BuildArch:  noarch
-Summary:    Tizen Web UI Framework Theme : tizen-black
-%Description -n web-ui-fw-theme-tizen-black
-    Tizen Web UI Framework Theme : tizen-black
-%files -n web-ui-fw-theme-tizen-black
-%manifest web-ui-fw-theme-tizen-black.manifest
-/usr/share/tizen-web-ui-fw/*/themes/tizen-black
-
-###############################
 %package -n web-ui-fw-theme-tizen-white
 BuildArch:  noarch
 Summary:    Tizen Web UI Framework Theme : tizen-white
@@ -59,7 +49,6 @@ Summary:    Tizen Web UI Framework Theme : tizen-white
 %manifest web-ui-fw-theme-tizen-white.manifest
 /usr/share/tizen-web-ui-fw/*/themes/tizen-white
 /usr/share/tizen-web-ui-fw/*/themes/tizen-tizen
-
 
 ###############################
 %package -n web-ui-fw-theme-default
@@ -93,7 +82,11 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
-* Wed Nov 06 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.59
+* Wed Nov 07 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.60
+- FIX:
+	- Remove tizen-black theme package description
+
+* Tue Nov 06 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.59
 - FIX:
 	- Fix theme name to meet the change of system theme name: white->tizen
 	- Popupwindow: fix left position
