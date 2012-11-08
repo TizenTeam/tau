@@ -1102,7 +1102,7 @@
 				}
 
 				if ( self._sy - sy <= -vh ) {
-					self.scrollTo( 0, self._sy,
+					self.scrollTo( 0, sy,
 						self.options.snapbackDuration );
 				} else if ( self._sy - sy <= vh + self.options.moveThreshold ) {
 					self.scrollTo( 0, sy,
