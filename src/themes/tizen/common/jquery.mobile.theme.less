@@ -377,28 +377,34 @@
 
 	// bubble
 	.ui-li-static {
+		&.ui-li-bubble-receive,
 		&.ui-li-bubble-left {
-			// Color is picked from 00_MessageBubble_BG_receive.png
-			background-color: @color_list_bubble_left_bg;	
-			.LESSbox-shadow(2px, 3px, 3px, @color_list_bubble_box_shadow);
-			color: @color_list_bubble_left_text;
+			color: @color_list_bubble_receive_text;
+			> .ui-li-bubble-time {
+				color: @color_list_bubble_time_receive_text;
+			}
 		}
+		&.ui-li-bubble-sent,
 		&.ui-li-bubble-right {
-			// Color is picked from 00_MessageBubble_BG_sent.png
-			background-color: @color_list_bubble_right_bg;
-			.LESSbox-shadow(2px, 3px, 3px, @color_list_bubble_box_shadow);
-			color: @color_list_bubble_right_text;
+			color: @color_list_bubble_sent_text;
+			> .ui-li-bubble-time {
+				color: @color_list_bubble_time_sent_text;
+			}
 		}
 		&.ui-li-bubble-sos {
 			color: @color_list_bubble_sos_text;
+			> .ui-li-bubble-time {
+				color: @color_list_bubble_time_sos_text;
+			}
 		}
 		&.ui-li-bubble-date {
 			background-color: @color_list_bubble_date_bg;
 			color: @color_list_bubble_date_text;
+			font-style: italic;
 		}
 	}
 	span.ui-li-bubble-time {
-		color: @color_list_bubble_time_text;
+		font-weight: bold;
 	}
 }
 
