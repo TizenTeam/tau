@@ -13,10 +13,6 @@ $( document ).bind("pagecreate", function () {
 			}
 		});
 	});
-	
-	$("#checkHideInput").bind("change", function (e) {
-        $("#colorpickerbutton").colorpickerbutton("option", "hideInput", $("#checkHideInput").is(":checked"));
-    });	
 
 	$('#scroller-demo').bind('pageshow', function ( e ) {
 		$page = $( e.target );
@@ -159,66 +155,6 @@ $( document ).bind("pagecreate", function () {
 			$("ul.ui-extendable-list-container").extendablelist("create");
 			// TODO: 'create' is called twice!!
 		});
-	});
-
-	/* Color widget demo */
-	var clrWidgetsAreInit = false;
-	$("#colorwidgets-demo").bind("pageshow", function () {
-		if ( clrWidgetsAreInit ) {
-			return;
-		}
-
-		$("#colorpicker").bind("colorchanged", function ( e, clr ) {
-			$("#colorpickerbutton").colorpickerbutton( "option", "color", clr );
-			$("#colorpickerbutton-noform").colorpickerbutton( "option", "color", clr );
-			$("#hsvpicker").hsvpicker( "option", "color", clr );
-			$("#colortitle").colortitle( "option", "color", clr );
-			$("#colorpalette").colorpalette( "option", "color", clr );
-		});
-
-		$("#colorpickerbutton").bind("colorchanged", function ( e, clr ) {
-			$("#colorpicker").colorpicker( "option", "color", clr );
-			$("#colorpickerbutton-noform").colorpickerbutton( "option", "color", clr );
-			$("#hsvpicker").hsvpicker( "option", "color", clr );
-			$("#colortitle").colortitle( "option", "color", clr );
-			$("#colorpalette").colorpalette( "option", "color", clr );
-		});
-
-		$("#colorpickerbutton-noform").bind("colorchanged", function ( e, clr ) {
-			$("#colorpicker").colorpicker( "option", "color", clr );
-			$("#colorpickerbutton").colorpickerbutton( "option", "color", clr );
-			$("#hsvpicker").hsvpicker( "option", "color", clr );
-			$("#colortitle").colortitle( "option", "color", clr );
-			$("#colorpalette").colorpalette( "option", "color", clr );
-		});
-
-		$("#hsvpicker").bind("colorchanged", function ( e, clr ) {
-			$("#colorpicker").colorpicker( "option", "color", clr );
-			$("#colorpickerbutton").colorpickerbutton( "option", "color", clr );
-			$("#colorpickerbutton-noform").colorpickerbutton( "option", "color", clr );
-			$("#colortitle").colortitle( "option", "color", clr );
-			$("#colorpalette").colorpalette( "option", "color", clr );
-		});
-
-		$("#colortitle").bind("colorchanged", function ( e, clr ) {
-			$("#colorpicker").colorpicker( "option", "color", clr );
-			$("#colorpickerbutton").colorpickerbutton( "option", "color", clr );
-			$("#colorpickerbutton-noform").colorpickerbutton( "option", "color", clr );
-			$("#hsvpicker").hsvpicker( "option", "color", clr );
-			$("#colorpalette").colorpalette( "option", "color", clr );
-		});
-
-		$("#colorpalette").bind("colorchanged", function ( e, clr ) {
-			$("#colorpicker").colorpicker( "option", "color", clr );
-			$("#colorpickerbutton").colorpickerbutton( "option", "color", clr );
-			$("#colorpickerbutton-noform").colorpickerbutton( "option", "color", clr );
-			$("#hsvpicker").hsvpicker( "option", "color", clr );
-			$("#colortitle").colortitle( "option", "color", clr );
-		});
-
-		$("#colorpalette").colorpalette("option", "color", "#45cc98");
-
-		clrWidgetsAreInit = true;
 	});
 });
 
