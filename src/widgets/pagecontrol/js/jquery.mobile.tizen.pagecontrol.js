@@ -86,10 +86,10 @@
 				return false;
 			}
 
-			this._getBtn( oldNum ).removeClass( 'page_n_' + oldNum )
-					.addClass( 'page_n_dot' );
-			this._getBtn( newNum ).removeClass( 'page_n_dot' )
-					.addClass( 'page_n_' + newNum );
+			this._getBtn( oldNum ).removeClass( 'page_n_selected' )
+					.addClass( 'page_n_unselected' );
+			this._getBtn( newNum ).removeClass( 'page_n_unselected' )
+					.addClass( 'page_n_selected' );
 		},
 
 		_triggerChange: function ( event ) {
@@ -108,7 +108,7 @@
 				i = 0,
 				btn = null,
 				buf = null,
-				page_margin_class = 'page_n_margin_44';
+				page_margin_class = 'page_n_margin_42';
 
 
 			// Set default values
@@ -130,25 +130,13 @@
 			// Set empty callback variable
 			self.changeCallback = null;
 
-			// Calculate left/right margin
-			if ( maxVal <= 7 ) {
-				page_margin_class = 'page_n_margin_44';
-			} else if ( maxVal == 8 ) {
-				page_margin_class = 'page_n_margin_35';
-			} else if ( maxVal == 9 ) {
-				page_margin_class = 'page_n_margin_26';
-			} else {
-				page_margin_class = 'page_n_margin_19';
-			}
-
-
-			// Add dot icons
+			// Add icon classes
 			for ( i = 1; i <= maxVal; i++ ) {
-				btn = $( '<div class="page_n page_n_dot ' + page_margin_class + '" data-value="' + i + '"></div>' );
+				btn = $( '<div class="page_n page_n_unselected ' + page_margin_class + '" data-value="' + i + '"></div>' );
 				e.append( btn );
 				if ( i == value ) {
-					btn.removeClass( 'page_n_dot' )
-						.addClass( 'page_n_' + i );
+					btn.removeClass( 'page_n_unselected' )
+						.addClass( 'page_n_selected' );
 				}
 				// bind vclick event to each icon
 				btn.bind( 'vclick', this._triggerChange );
