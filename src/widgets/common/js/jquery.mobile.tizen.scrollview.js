@@ -1146,9 +1146,9 @@
 			}
 
 			if ( this._vTracker ) {
-				top_btn = $( '<div class="ui-scroll-jump-top-bg ui-btn" data-theme="s">' +
-						'<div class="ui-scroll-jump-top"></div></div>' );
-				$c.append( top_btn );
+				top_btn = $( '<div class="ui-scroll-jump-top-bg">' +
+						'<div data-role="button" data-inline="true" data-icon="jumptop" style="width:37px;height:37px">.</div></div>' );
+				$c.append( top_btn ).trigger("create");
 
 				top_btn.bind( "vclick", function () {
 					self.scrollTo( 0, 0, self.options.overshootDuration );
@@ -1156,9 +1156,9 @@
 			}
 
 			if ( this._hTracker ) {
-				left_btn = $( '<div class="ui-scroll-jump-left-bg ui-btn" data-theme="s">' +
-						'<div class="ui-scroll-jump-left"></div></div>' );
-				$c.append( left_btn );
+				left_btn = $( '<div class="ui-scroll-jump-left-bg">' +
+						'<div data-role="button" data-inline="true" data-icon="jumpleft" style="width:37px;height:37px">.</div></div>' );
+				$c.append( left_btn ).trigger("create");
 
 				left_btn.bind( "vclick", function () {
 					self.scrollTo( 0, 0, self.options.overshootDuration );
