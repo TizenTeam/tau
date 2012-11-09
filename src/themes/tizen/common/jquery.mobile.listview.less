@@ -49,6 +49,8 @@
 	margin: 0;
 	counter-reset: listnumbering;
 
+	border-top-color: @color_list_border_bottom;
+
 	li.ui-btn > .ui-btn-hastxt > .ui-btn-text.ui-btn-text-padding-right {
 		padding-right: 0 * @unit_base;	// Clear default button padding-right
 	}
@@ -57,6 +59,7 @@
 		// list item separator line
 		border-bottom-width: 1px;
 		border-bottom-style: solid;
+		border-bottom-color: @color_list_border_bottom;
 		border-left-width : 0px;
 		border-right-width : 0px;
 
@@ -65,6 +68,11 @@
 		margin-left : 13 * @unit_base;
 		margin-right : 13 * @unit_base;
 	}
+
+	& > .ui-li-static {
+		background-color: @color_bg;
+	}
+
 
 	&> .ui-li:not(.ui-li-divider) {
 		&:not(.ui-li-static) {
@@ -76,6 +84,26 @@
 		&:not(.ui-li-static) {
 			min-height : 64 * @unit_base;
 		}
+	}
+
+	li.ui-btn-up-s, li.ui-btn-hover-s {
+		background: none;
+		background-color: @color_bg;
+		color:		@color_text;
+	}
+	li.ui-btn-down-s {
+		background: none;
+		background-color: @color_list_press;
+		color:		@color_text;
+	}
+	/* listview: fonts for li with a link */
+	li.ui-btn-up-s > .ui-li > .ui-btn-text > a.ui-link-inherit,
+	li.ui-btn-hover-s > .ui-li > .ui-btn-text > a.ui-link-inherit {
+		color:		@color_list_main_text_unfocus;
+	}
+
+	li.ui-btn-down-s > .ui-li > .ui-btn-text > a.ui-link-inherit {
+		color:		@color_list_main_text_focus;
 	}
 }
 
@@ -314,7 +342,14 @@ li.ui-li-thumbnail-right {
 /********************************************/
 /*************** Divider ********************/
 /********************************************/
-.ui-li-divider {
+
+.ui-listview li.ui-li-divider {
+	background: @color_list_divider_bg;
+	color:		@color_list_divider_text;
+
+	border-bottom-width : 0px;
+	border-top-width : 0px;
+
 	cursor: default;
 
 	counter-reset: listnumbering;
@@ -339,9 +374,7 @@ li.ui-li-thumbnail-right {
 			}
 		}
 	}
-}
 
-.ui-listview .ui-li-divider {
 	&[data-style="dialogue"] {
 		height: 20 * @unit_base;
 		padding : 0px;
@@ -579,7 +612,7 @@ li:not(.ui-li-has-multiline) .ui-li-text-sub {
 
 	text-align: left;
 	right : auto;
-	left : 8 * @unit_base;
+	left : 0px;
 	top: 35 * @unit_base;
 	margin-top: 0px;
 
@@ -685,6 +718,37 @@ li:not(.ui-li-has-multiline) .ui-li-text-sub {
 // bubble li
 // =========
 .ui-listview {
+	.ui-li-static {
+		&.ui-li-bubble-receive,
+		&.ui-li-bubble-left {
+			color: @color_list_bubble_receive_text;
+			> .ui-li-bubble-time {
+				color: @color_list_bubble_time_receive_text;
+			}
+		}
+		&.ui-li-bubble-sent,
+		&.ui-li-bubble-right {
+			color: @color_list_bubble_sent_text;
+			> .ui-li-bubble-time {
+				color: @color_list_bubble_time_sent_text;
+			}
+		}
+		&.ui-li-bubble-sos {
+			color: @color_list_bubble_sos_text;
+			> .ui-li-bubble-time {
+				color: @color_list_bubble_time_sos_text;
+			}
+		}
+		&.ui-li-bubble-date {
+			background-color: @color_list_bubble_date_bg;
+			color: @color_list_bubble_date_text;
+			font-style: italic;
+		}
+	}
+
+	span.ui-li-bubble-time {
+		font-weight: bold;
+	}
 	// Common
 	.ui-li-bubble-receive,
 	.ui-li-bubble-left,
@@ -775,7 +839,11 @@ li:not(.ui-li-has-multiline) .ui-li-text-sub {
 	}
 }
 .ui-listview {
-	.ui-li-expandable {
+	&> .ui-li-expanded {
+		background-color: @color_list_expandable_expanded_bg;
+	}
+	&> .ui-li-expanded .ui-li-expanded {	// 3rd~ more depth
+		background-color: @color_list_expandable_expanded_bg;
 	}
 	.ui-li-expandable-shown {
 		// Down arrow
