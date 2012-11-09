@@ -125,10 +125,10 @@
 			$view.append( inputbox );
 
 			// create a anchor tag.
-			if ( option.listId === null || $.trim(option.listId).length < 1  ) {
+			if ( option.listId === null || $.trim( option.listId ).length < 1 || $( option.listId ).length === 0 ) {
 				className += "-dim";
 			}
-			$( moreBlock ).text( "+" ).attr( "href", $.trim(option.listId) ).addClass( "ui-multibuttonentry-link-base" ).addClass( className );
+			$( moreBlock ).text( "+" ).attr( "href", $.trim( option.listId ) ).addClass( "ui-multibuttonentry-link-base" ).addClass( className );
 
 			// append default htmlelements to main widget.
 			$view.append( moreBlock );
@@ -209,10 +209,10 @@
 
 			moreBlock.click( function () {
 				if ( $( moreBlock ).hasClass( "ui-multibuttonentry-link-dim" ) ) {
-					return ;
+					return;
 				}
 
-				$(inputbox).hide();
+				$( inputbox ).hide();
 
 				$.mobile.changePage( option.listId, {
 					transition: "slide",
@@ -234,7 +234,7 @@
 					self._viewWidth = $view.innerWidth();
 				}
 				self._modifyInputBoxWidth();
-				$(inputbox).show();
+				$( inputbox ).show();
 			});
 
 			$view.bind( "click", function ( event ) {
@@ -356,7 +356,7 @@
 				inputBox = $view.find( ".ui-multibuttonentry-input" );
 
 			if ( $view.width() === 0 ) {
-				return ;
+				return;
 			}
 
 			for ( index = 0; index < blocks.length; index += 1 ) {
@@ -366,7 +366,7 @@
 					if ( blockWidth >= inputBoxWidth ) {
 						inputBoxWidth = self._viewWidth - blockWidth;
 					} else {
-						inputBoxWidth = self._viewWidth ;
+						inputBoxWidth = self._viewWidth;
 					}
 				} else {
 					if ( blockWidth >= inputBoxWidth ) {
@@ -469,13 +469,13 @@
 
 			if ( lastIndex !== blocks.length ) {
 				statement = self._stringFormat( self.options.description, blocks.length - lastIndex - 1 );
-				tempBlock = $( document.createElement( 'label' ));
+				tempBlock = $( document.createElement( 'label' ) );
 				tempBlock.text( statement );
 				tempBlock.addClass( "ui-multibuttonentry-desclabel" ).addClass( "ui-multibuttonentry-desclabel" );
 				$( blocks[lastIndex] ).after( tempBlock );
 			}
 
-			// update foucs state
+			// update focus state
 			this._focusStatus = "focusOut";
 			$view.removeClass( "ui-multibuttonentry-focusin" ).addClass( "ui-multibuttonentry-focusout" );
 		},
@@ -502,7 +502,7 @@
 			if ( arguments.length === 0 ) {
 				// return a selected block.
 				lockBlock = $view.find( "div.ui-multibuttonentry-sblock" );
-				if ( lockBlock) {
+				if ( lockBlock ) {
 					return lockBlock.text();
 				}
 				return null;
