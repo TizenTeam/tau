@@ -10,7 +10,7 @@ div.pagecontrol {
 
 	.LESSpagecontrolIconCommonProperties(@imgUrl) {
 		background-image: url(@imgUrl);
-		background-size: 52 * @unit_base;
+		background-size: 10 * @unit_base 9 * @unit_base;
 
 		// Transition
 		-ms-transition: background 0.5s ease;
@@ -27,29 +27,16 @@ div.pagecontrol {
 	&> div.page_n {
 		display: inline-block;
 		border: 0;
-		width: 52 * @unit_base;
-		height: 52 * @unit_base;
+		width: 10 * @unit_base;
+		height: 9 * @unit_base;
 	}
 
-	&> div.page_n_margin_44 { .LESSpagecontrolIconMargin(22, 22); }
-	// NOTE: Reduces 2 picels for each margin, to show properly with Tizen emulator.
-	&> div.page_n_margin_35 { .LESSpagecontrolIconMargin(17, 16; }
-	&> div.page_n_margin_26 { .LESSpagecontrolIconMargin(12, 12); }
-	&> div.page_n_margin_19 { .LESSpagecontrolIconMargin(9, 8); }
+	&> div.page_n_margin_42 { .LESSpagecontrolIconMargin(11, 11); }
 
-
-	&> div.page_n_dot {
-		.LESSpagecontrolIconCommonProperties('images/00_mainmenu_page_bar_001.png');
+	&> div.page_n_unselected {
+		.LESSpagecontrolIconCommonProperties('images/00_page_indicator_02.png');
 	}
-	&> div.page_n_1 { .LESSpagecontrolIconCommonProperties('images/00_mainmenu_page_bar_01.png'); }
-	&> div.page_n_2 { .LESSpagecontrolIconCommonProperties('images/00_mainmenu_page_bar_02.png'); }
-	&> div.page_n_3 { .LESSpagecontrolIconCommonProperties('images/00_mainmenu_page_bar_03.png'); }
-	&> div.page_n_4 { .LESSpagecontrolIconCommonProperties('images/00_mainmenu_page_bar_04.png'); }
-	&> div.page_n_5 { .LESSpagecontrolIconCommonProperties('images/00_mainmenu_page_bar_05.png'); }
-	&> div.page_n_6 { .LESSpagecontrolIconCommonProperties('images/00_mainmenu_page_bar_06.png'); }
-	&> div.page_n_7 { .LESSpagecontrolIconCommonProperties('images/00_mainmenu_page_bar_07.png'); }
-	&> div.page_n_8 { .LESSpagecontrolIconCommonProperties('images/00_mainmenu_page_bar_08.png'); }
-	&> div.page_n_9 { .LESSpagecontrolIconCommonProperties('images/00_mainmenu_page_bar_09.png'); }
-	&> div.page_n_10 { .LESSpagecontrolIconCommonProperties('images/00_mainmenu_page_bar_10.png'); }
-
+	&> div.page_n_selected {
+		.LESSpagecontrolIconCommonProperties('images/00_page_indicator_01.png');
+	}
 }
