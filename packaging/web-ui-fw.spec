@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.1.60
+Version:    0.1.61
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -82,6 +82,14 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Fri Nov 09 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.61
+- FIX:
+	- Many widgets: New UX 0.6 theme implementation
+	- widgetex: init speed up
+	- scrollview: fix scrollbar and scale animation
+	- scrollview: fix scroll position when updatelayout is triggered
+	- header/footer: make textselection disable, except input type="text"
+
 * Wed Nov 07 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.60
 - FIX:
 	- Remove tizen-black theme package description
