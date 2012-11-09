@@ -207,7 +207,7 @@
 
 					setTimeout( function () {
 						self._setBouncing( self._$view, "out" );
-					}, 400 );
+					}, 350 );
 				},
 				vt = this._vTracker,
 				ht = this._hTracker;
@@ -288,30 +288,19 @@
 		},
 
 		_setBouncing: function ( $ele, dir ) {
-			var translate,
-				origin,
-				x_rate = 0.98,
-				y_rate;
-
-			if ( !this.options.overflowEnable ) {
-				return;
-			}
-
-			if ( $.support.cssTransform3d ) {
-				translate = "translate3d(" + this._sx + "px," + this._sy + "px, 0px)";
-			} else {
-				translate = "translate(" + this._sx + "px," + this._sy + "px)";
-			}
-
 			if ( dir === "in" ) {
 				if ( this._bouncing ) {
 					return;
 				}
 
 				this._bouncing = true;
+				this._bouncing_count = 1;
 
-				y_rate = x_rate - ( $ele.width() / $ele.height() / 10 );
-				translate += " scale(" + x_rate + "," + y_rate + ")";
+				this._bouncing_org_x = 1;
+				this._bouncing_org_y = 1;
+
+				this._bouncing_x = 0.99;
+				this._bouncing_y = 0.99;
 
 				this._setOverflowIndicator( this._bouncing_dir );
 			} else if ( dir === "out" ) {
@@ -320,15 +309,57 @@
 				}
 
 				this._bouncing = false;
-				translate += " scale(1)";
+				this._bouncing_count = 1;
+
+				this._bouncing_org_x = this._bouncing_x;
+				this._bouncing_org_y = this._bouncing_y;
+
+				this._bouncing_x = 1;
+				this._bouncing_y = 1;
+				this._setOverflowIndicator( this._bouncing_dir );
+			} else {
+				return;
+			}
+
+			this._doBouncing( $ele, dir );
+		},
+
+		_doBouncing: function ( $ele, dir ) {
+			var translate,
+				origin,
+				x_rate,
+				y_rate,
+				frame = 10,
+				self = this;
+
+			if ( $.support.cssTransform3d ) {
+				translate = "translate3d(" + this._sx + "px," + this._sy + "px, 0px)";
+			} else {
+				translate = "translate(" + this._sx + "px," + this._sy + "px)";
+			}
+
+			if ( dir === "in" ) {
+				x_rate = this._bouncing_org_x -	( this._bouncing_org_x -
+						this._bouncing_x ) / frame * this._bouncing_count;
+				y_rate = this._bouncing_org_y -	( this._bouncing_org_y -
+						this._bouncing_y ) / frame * this._bouncing_count;
+
+				translate += " scale(" + x_rate + "," + y_rate + ")";
+			} else if ( dir === "out" ) {
+				x_rate = this._bouncing_org_x +	( this._bouncing_x -
+						this._bouncing_org_x ) / frame * this._bouncing_count;
+				y_rate = this._bouncing_org_y +	( this._bouncing_y -
+						this._bouncing_org_y ) / frame * this._bouncing_count;
+
+				translate += " scale(" + x_rate + "," + y_rate + ")";
 			} else {
 				return;
 			}
 
 			if ( this._bouncing_dir ) {
-				origin = "50% " + ( y_rate * 100 ) + "%";
+				origin = "50% " + ( this._bouncing_y * 100 - 10 ) + "%";
 			} else {
-				origin = "50% 0%";
+				origin = "50% 10%";
 			}
 
 			$ele.css({
@@ -339,6 +370,16 @@
 				"transform": translate,
 				"-webkit-transform-origin": origin,
 			});
+
+			this._bouncing_count++;
+
+			if ( this._bouncing_count > frame ) {
+				return;
+			}
+
+			setTimeout( function () {
+				self._doBouncing( $ele, dir );
+			}, this._timerInterval );
 		},
 
 		_setCalibration: function ( x, y ) {
