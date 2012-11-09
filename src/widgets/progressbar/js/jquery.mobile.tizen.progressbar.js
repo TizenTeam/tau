@@ -38,6 +38,8 @@
 			this.valueDiv = $( "<div class='ui-progressbar-value'></div>" )
 				.appendTo( this.element );
 
+			this.valueDiv.wrap("<div class='ui-progress-bg'></div>");
+
 			this.oldValue = this._value();
 			this._refreshValue();
 		},

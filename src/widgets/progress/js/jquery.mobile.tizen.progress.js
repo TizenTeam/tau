@@ -124,6 +124,7 @@
 			var self = this,
 				element = this.element,
 				style = element.jqmData( "style" ),
+				_html,
 				runningClass;
 
 			if ( style ) {
@@ -132,9 +133,19 @@
 				style = this.options.style;
 			}
 
-			this.html = $( '<div class="ui-progress-container-' + style + '">' +
-						'<div class="ui-progress-' + style + '"></div>' +
-					'</div>' );
+			_html = '<div class="ui-progress-container-' + style + '">' +
+					'<div class="ui-progress-' + style + '"></div>' +
+				'</div>';
+
+			if ( style === "pending" ) {
+				_html = '<div class="ui-progress-pending-bg">' + _html + '</div>';
+			}
+
+			this.html = $( _html );
+
+			if ( style === "pending" ) {
+				this.html.wrap('<div class="ui-progress-bg"></div>');
+			}
 
 			runningClass = "ui-progress-" + style + "-running";
 

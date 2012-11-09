@@ -1,7 +1,7 @@
 @import "config.less";
 
-@bar-height: 16 * @unit_base;
-@bar-margin: 16 * @unit_base;
+@bar-height: 18 * @unit_base;
+@bar-margin: 21 * @unit_base;
 
 @-webkit-keyframes ui-scale-animation {
 	from {
@@ -12,34 +12,38 @@
 }
 
 .ui-progressbar-value {
-	background-image: url(images/00_winset_list_progress_bar.png);
 	height: 100%;
-}
 
-.ui-progressbar {
-	position: relative;
-	background-image: url(images/00_winset_list_progress_bg.png);
-	margin-left: @bar-margin;
-	margin-right: @bar-margin;
-	height: @bar-height;
+	//FIXME
+	//background-image: url(images/00_winset_list_progress_bar.png);
+	background-color: @color_progress_bar1;
+	.LESSborder-radius-all( 10 * @unit_base );
 }
 
 .ui-progress-bg {
 	position: relative;
-	top: 0;
-	background-image: url(images/00_winset_list_progress_bg.png);
-	width: 100%;
-	height: @bar-height;
+	overflow: hidden;
+
+	top: 5 * @unit_base;
+	height: 7 * @unit_base;
+	margin-left: 5 * @unit_base;
+	margin-right: 5 * @unit_base;
+
+	.LESSborder-radius-all( 10 * @unit_base );
+	border: 1px;
+	border-style: solid;
+	border-color: rgb(180, 180, 180);
+	.LESSbox-shadow(1px, -1px, 1px, rgb(180, 180, 180));
 }
 
-.ui-progress-bar {
+.ui-progressbar {
 	position: relative;
-	top: -@bar-height;
-	width: 100%;
+	margin-left: @bar-margin;
+	margin-right: @bar-margin;
 	height: @bar-height;
 
-	background-image: url(images/00_winset_list_progress_bar.png);
-
-	-webkit-animation: ui-scale-animation 5s infinite linear;
-	-webkit-transform-origin: 0% 0%;
+	//FIXME
+	//background-image: url(images/00_winset_list_progress_bg.png);
+	background-color: @color_progress_bar0;
+	.LESSborder-radius-all( 10 * @unit_base );
 }

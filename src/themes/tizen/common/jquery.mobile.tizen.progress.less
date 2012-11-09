@@ -1,10 +1,8 @@
 @import "config.less";
 
 /* Progress - circle style */
-@img-height: 64 * @unit_base;
-@img-width: 64 * @unit_base;
-@bar-vmargin: 16 * @unit_base;
-@bar-hmargin: 1 * @unit_base;
+@img-height: 32 * @unit_base;
+@img-width: 32 * @unit_base;
 
 @-webkit-keyframes ui-rotate-animation {
 	from {
@@ -16,7 +14,7 @@
 
 .ui-progress-container-circle {
 	position: absolute;
-	right: 16 * @unit_base;
+	right: 13 * @unit_base;
 	top: 25%;
 }
 
@@ -27,17 +25,17 @@
 	height: @img-height;
 	width: @img-width;
 
-	background: url(images/00_winset_list_process_01.png) no-repeat;
+	background: url(images/00_list_process_01.png) no-repeat;
 	.LESSbackground-size(@img-width, @img-height);
 }
+
 .ui-progress-circle-running {
 	-webkit-animation: ui-rotate-animation 1s infinite linear;
 }
 
 /* Progress - pending style */
-@bar-height: 16 * @unit_base;
-@bar-margin: 16 * @unit_base;
-@color_progress_bar1: rgb(0, 140, 210);
+@bar-height: 7 * @unit_base;
+@bar-margin: 21 * @unit_base;
 
 @-webkit-keyframes ui-move-animation {
 	from {
@@ -47,12 +45,33 @@
 	}
 }
 
-.ui-progress-container-pending {
+.ui-progress-pending-bg {
 	position: relative;
+	top: 0;
 	margin-left: @bar-margin;
 	margin-right: @bar-margin;
-	height: @bar-height;
+	height: 18 * @unit_base;
+
+	//FIXME
+	//background-image: url(images/00_winset_list_progress_bg.png);
+	background-color: @color_progress_bar0;
+	.LESSborder-radius-all( 10 * @unit_base );
+}
+
+.ui-progress-container-pending {
+	position: relative;
 	overflow: hidden;
+
+	top: 5 * @unit_base;
+	height: @bar-height;
+	margin-left: 5 * @unit_base;
+	margin-right: 5 * @unit_base;
+
+	.LESSborder-radius-all( 10 * @unit_base );
+	border: 1px;
+	border-style: solid;
+	border-color: rgb(180, 180, 180);
+	.LESSbox-shadow(1px, -1px, 1px, rgb(180, 180, 180));
 }
 
 .ui-progress-pending {
@@ -65,12 +84,24 @@
 
 	background: -webkit-linear-gradient(-45deg,
 				transparent,
-				transparent 25%,
-				@color_progress_bar1 25%,
-				@color_progress_bar1 50%,
+				transparent 10%,
+				@color_progress_bar1 10%,
+				@color_progress_bar1 20%,
+				transparent 20%,
+				transparent 30%,
+				@color_progress_bar1 30%,
+				@color_progress_bar1 40%,
+				transparent 40%,
 				transparent 50%,
-				transparent 75%,
-				@color_progress_bar1 75%);
+				@color_progress_bar1 50%,
+				@color_progress_bar1 60%,
+				transparent 60%,
+				transparent 70%,
+				@color_progress_bar1 70%,
+				@color_progress_bar1 80%,
+				transparent 80%,
+				transparent 90%,
+				@color_progress_bar1 90%);
 
 	background: -webkit-gradient(linear,
 				left top,
@@ -87,7 +118,7 @@
 
 	.LESSbackground-size(@bar-height * 2, @bar-height * 2);
 }
+
 .ui-progress-pending-running {
 	-webkit-animation: ui-move-animation 0.5s infinite linear;
 }
-
