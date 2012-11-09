@@ -80,7 +80,8 @@
 @color_button_inner_o:          -o-linear-gradient(top, rgb(250, 247, 242), rgb(248, 245, 240));
 @color_button_inner_ms:         -ms-linear-gradient(top, rgb(250, 247, 242), rgb(248, 245, 240));
 
-@button_shadow_outer:              0 0 2px 2px rgba(235, 232, 227, 1);
+@button_shadow_outer:              0 0 1px 1px rgba(255, 255, 255, 1);
+@button_shadow_inner:		inset 0 0 3px rgba(255, 255, 255, 1);
 
 .LESSbutton_box_style{
         color: @color_button_text_normal;
@@ -95,20 +96,23 @@
 }
 
 .LESSbutton_box_style{
-        background: @color_button_inner;
-        background: @color_button_inner_webkit;
-        background: @color_button_inner_moz;
-        background: @color_button_inner_o;
-        background: @color_button_inner_ms;
-        box-shadow: @button_shadow_outer;
-        -webkit-box-shadow: @button_shadow_outer;
-        -moz-box-shadow: @button_shadow_outer;
-        -o-box-shadow: @button_shadow_outer;
-        -ms-box-shadow: @button_shadow_outer;
+        background: @color_button_normal;
+        background: @color_button_normal_webkit;
+        background: @color_button_normal_moz;
+        background: @color_button_normal_o;
+        background: @color_button_normal_ms;
 	border: 1px solid;
-	border-color: rgba(206, 203, 198, 1);
+	border-color: rgba(220, 218, 211, 1);
+	.LESSbox-shadow-line( @button_shadow_outer );
 }
-
+.LESSbutton_inner_box_style{
+	background: @color_button_inner;
+	background: @color_button_inner_webkit;
+	background: @color_button_inner_ms;
+	background: @color_button_inner_o;
+	background: @color_button_inner_moz;
+	.LESSbox-shadow-line( @button_shadow_inner );
+}
 .LESSbutton_inner_pressstyle{
         color: @color_button_text_press;
 }
@@ -404,7 +408,6 @@
 	background: @color_button_edit;
 	background: @color_button_edit_webkit;
 	background: @color_button_edit_moz;
-	font-weight:bold;
 	color: rgb(249, 249, 249);
 }
 
