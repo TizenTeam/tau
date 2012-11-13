@@ -363,13 +363,17 @@ li.ui-li-thumbnail-right {
 
 	height: 38 * @unit_base;
 
+	font-size : @list-font-size-divider;
+	&>.ui-btn-inner>.ui-btn-text {	// For buttonMarkup-ed dividers
+		font-size : @list-font-size-divider;
+	}
 
 	&.ui-btn {
 		top : 0px;
 		margin-top: 0 * @unit_base;
 		border-radius : 0px;
 
-		font-size : 16 * @unit_base;
+		font-size : @list-font-size-divider;
 		.ui-btn-inner.ui-btn-hastxt {
 			height : 100%;
 			padding-left : 0px;
