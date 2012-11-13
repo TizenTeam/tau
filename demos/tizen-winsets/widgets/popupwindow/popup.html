@@ -17,8 +17,10 @@
 	</div>
 	<div class="content" data-role="content">
 		<ul data-role="listview" data-icon="1line-textonly">
+			<li data-role="list-divider">App samples</li>
 			<li><a href="#center_social_style1" data-inline="true" data-rel="popup" data-position-to="window">Social Magazine style1</a></li>
 			<li><a href="#center_social_style2" data-inline="true" data-rel="popup" data-position-to="window">Social Magazine style2</a></li>
+			<li data-role="list-divider">Normal samples</li>
 			<li><a href="#center_info" data-inline="true" data-rel="popup" data-position-to="window">Center info popup</a></li>
 			<li><a href="#center_title" data-inline="true" data-rel="popup" data-position-to="window">Center title popup</a></li>
 			<li><a href="#center_basic_1btn" data-inline="true" data-rel="popup" data-position-to="window">Center basic 1 button popup</a></li>
@@ -34,13 +36,11 @@
 			<li><a href="#center_liststyle_3btn" data-inline="true" data-rel="popup" data-position-to="window">Center_list style 3 button popup</a></li>
 		</ul>
 
-
-
-		<!-- popup basic+text+1button -->
+		<!-- Social Magazine font popup -->
 		<div id="center_social_style1" data-role="popup" class="center_liststyle_2btn">
-					<p class="ui-popup-title">
-						Font Size
-					</p>
+			<div class="ui-popup-title">
+				<h1>Font Size</h1>
+			</div>
 					<div class="ui-popup-scroller-bg" data-scroll="y"  style="height:auto">
 						<ul data-role="listview">
 							<li class="ui-li-has-radio" id="text_fontSmall">
@@ -63,27 +63,24 @@
 					<div class="ui-popup-button-bg">
 						<div data-role="button"  data-inline="true">OK</div>
 						<div data-role="button"  data-inline="true">Cancel</div>
-						<!--<input type="button" value="OK" id="popupFontSizeOKBtn" />
-						<input type="button" value="Cancel"  id="popupfontSizeCancelBtn"/>-->
 					</div>
 		</div>
 
+		<!-- Social Magazine ime popup -->
 		<div id="center_social_style2" data-role="popup" class="center_title_2btn">
-			<p class="ui-popup-title">
-						Create new category
-					</p>
-					<p class="ui-popup-text">
+			<div class="ui-popup-title">
+				<h1>Create new category<h1>
+			</div>
+			<div class="ui-popup-text">
 						<input type="text" id="newCategoryPopupInput" name="newCategoryName" size="30" />
-					</p>
+			</div>
 					<div class="ui-popup-button-bg">
 						<div data-role="button"  data-inline="true">OK</div>
 						<div data-role="button"  data-inline="true">Cancel</div>
-<!--						<input type="button" id="createNewCategoryPopupOKBtn" value="OK"/>
-						<input type="button" id="createNewCategoryPopupCancelBtn" value="Cancel"/>-->
 					</div>
 		</div>
 
-		<!-- text only -->
+		<!-- Center info Popup -->
 		<div id="center_info" data-role="popup" class="center_info">
 			<div class="ui-popup-text"> <p>
 				Pop-up dialog box, a child
@@ -92,152 +89,141 @@
 			</p></div>
 		</div>
 
-		<!-- popup title-text -->
+		<!-- Center title Popup -->
 		<div id="center_title" data-role="popup" class="center_title">
-			<p class="ui-popup-title">
-				Popup title
-			</p>
-			<p class="ui-popup-text">
+			<div class="ui-popup-title">
+				<h1>Popup title</h1>
+			</div>
+			<div class="ui-popup-text">
 				Pop-up dialog box, a child
 				window that blocks user interact
 				to the parent windows
-			</p>
+			</div>
 		</div>
 
-		<!-- popup basic+text+1button -->
+		<!-- Center basic 1 button popup -->
 		<div id="center_basic_1btn" data-role="popup" class="center_basic_1btn">
-			<p class="ui-popup-text">
+			<div class="ui-popup-text">
 				Pop-up dialog box, a child
 				window that blocks user interact
 				to the parent windows
-			</p>
+			</div>
 			<div class="ui-popup-button-bg">
-					<input type="button" value="Text Button" />
+				<div data-role="button"  data-inline="true">Button</div>
 			</div>
 		</div>
 
-		<!-- popup basic+text+2button -->
+		<!-- Center basic 2 button popup -->
 		<div id="center_basic_2btn" data-role="popup" class="center_basic_2btn">
-			<p class="ui-popup-text">
+			<div class="ui-popup-text">
 				Pop-up dialog box, a child
 				window that blocks user interact
 				to the parent windows
-			</p>
+			</div>
 			<div class="ui-popup-button-bg">
-<!--					<input type="button" value="Text Button" />
-					<input type="button" value="Text Button" />-->
-					<div data-role="button"  data-inline="true">Cancel</div>
-					<div data-role="button"  data-inline="true">Cancel</div>
+				<div data-role="button"  data-inline="true">Button1</div>
+				<div data-role="button"  data-inline="true">Button2</div>
 			</div>
 		</div>
 
-		<!-- popup basic+text+3button -->
+		<!-- Center basic 3 button popup -->
 		<div id="center_basic_3btn" data-role="popup" class="center_basic_3btn">
-			<p class="ui-popup-text">
+			<div class="ui-popup-text">
 				Pop-up dialog box, a child
 				window that blocks user interact
 				to the parent windows
-			</p>
+			</div>
 			<div class="ui-popup-button-bg">
-<!--					<input type="button" value="Button1" />
-					<input type="button" value="Button2" />
-					<input type="button" value="Button3" />-->
-					<div data-role="button"  data-inline="true">Cancel</div>
-					<div data-role="button"  data-inline="true">Cancel</div>
-					<div data-role="button"  data-inline="true">Cancel</div>
+					<div data-role="button"  data-inline="true">Button1</div>
+					<div data-role="button"  data-inline="true">Button2</div>
+					<div data-role="button"  data-inline="true">Button3</div>
 			</div>
 		</div>
 
-		<!-- popup title+text+1button -->
+		<!-- Center title 1 button popup -->
 		<div id="center_title_1btn" data-role="popup" class="center_title_1btn">
-			<p class="ui-popup-title">
-				Popup title
-			</p>
-			<p class="ui-popup-text">
+			<div class="ui-popup-title">
+				<h1>Popup title</h1>
+			</div>
+			<div class="ui-popup-text">
 				Pop-up dialog box, a child
 				window that blocks user interact
 				to the parent windows
-			</p>
+			</div>
 			<div class="ui-popup-button-bg">
-<!--					<input type="button" value="Text Button" />-->
-				<div data-role="button"  data-inline="true">Cancel</div>
+				<div data-role="button"  data-inline="true">Button</div>
 			</div>
 		</div>
 
-		<!-- popup title+text+2button -->
+		<!-- Center title 2 button popup -->
 		<div id="center_title_2btn" data-role="popup" class="center_title_2btn">
-			<p class="ui-popup-title">
-				Popup title
-			</p>
-			<p class="ui-popup-text">
+			<div class="ui-popup-title">
+				<h1>Popup title</h1>
+			</div>
+			<div class="ui-popup-text">
 				Pop-up dialog box, a child
 				window that blocks user interact
 				to the parent windows
-			</p>
+			</div>
 			<div class="ui-popup-button-bg">
-<!--					<input type="button" value="Text Button" />
-					<input type="button" value="Text Button" />-->
-					<div data-role="button"  data-inline="true">Cancel</div>
-					<div data-role="button"  data-inline="true">Cancel</div>
+				<div data-role="button"  data-inline="true">Button1</div>
+				<div data-role="button"  data-inline="true">Button2</div>
 			</div>
 		</div>
 
-		<!-- popup title+text+3button -->
+		<!-- Center title 3 button popup -->
 		<div id="center_title_3btn" data-role="popup" class="center_title_3btn">
-			<p class="ui-popup-title">
-				Popup title
-			</p>
-			<p class="ui-popup-text">
+			<div class="ui-popup-title">
+				<h1>Popup title</h1>
+			</div>
+			<div class="ui-popup-text">
 				Pop-up dialog box, a child
 				window that blocks user interact
 				to the parent windows
-			</p>
+			</div>
 			<div class="ui-popup-button-bg">
-<!--					<input type="button" value="Button1" />
-					<input type="button" value="Button2" />
-					<input type="button" value="Button3" />-->
-					<div data-role="button"  data-inline="true">Cancel</div>
-					<div data-role="button"  data-inline="true">Cancel</div>
-					<div data-role="button"  data-inline="true">Cancel</div>
+				<div data-role="button"  data-inline="true">Button1</div>
+				<div data-role="button"  data-inline="true">Button2</div>
+				<div data-role="button"  data-inline="true">Button3</div>
 			</div>
 		</div>
 
-		<!-- popup center_button_vertical -->
+		<!-- Center button vertical -->
 		<div id="center_button_vertical" data-role="popup" class="center_button_vertical">
-			<p class="ui-popup-text">
+			<div class="ui-popup-text">
 				File 01.jpg
 				already in use
-			</p>
+			</div>
 			<div class="ui-popup-button-bg">
-					<input type="button" value="Replace" />
-					<input type="button" value="Rename" />
-					<input type="button" value="Cancel" />
+				<div data-role="button"  data-inline="true">Rename</div>
+				<div data-role="button"  data-inline="true">Replace</div>
+				<div data-role="button"  data-inline="true">Cancel</div>
 			</div>
 		</div>
 
 		<!-- popup checkbox  -->
 		<div id="center_checkbox" data-role="popup" class="center_checkbox">
-			<p class="ui-popup-text">
+			<div class="ui-popup-text">
 				Use packet data must
 				be enabled to access
 				data service.
 				Change settings?
-			</p>
+			</div>
 			<div class="ui-popup-check-bg">
 				<input type="checkbox" name="checkbox-1" id="checkbox-1" class="custom" />
 				<label for="checkbox-1">Don't ask again</label>
 			</div>
 			<div class="ui-popup-button-bg">
-					<input type="button" value="Text" />
-					<input type="button" value="Text" />
+				<div data-role="button"  data-inline="true">Rename</div>
+				<div data-role="button"  data-inline="true">Replace</div>
 			</div>
 		</div>
 
 		<!-- popup liststyle 1 button -->
 		<div id="center_liststyle_1btn" data-role="popup" class="center_liststyle_1btn">
-			<p class="ui-popup-title">
-				Popup title
-			</p>
+			<div class="ui-popup-title">
+				<h1>Popup title</h1>
+			</div>
 			<div class="ui-popup-scroller-bg" data-scroll="y">
 				<ul data-role="listview" data-icon="1line-textonly">
 					<li><a href="#">List item 1</a></li>
@@ -252,15 +238,15 @@
 				</ul>
 			</div>
 			<div class="ui-popup-button-bg">
-					<input type="button" value="Text Button" />
+				<div data-role="button"  data-inline="true">Cancel</div>
 			</div>
 		</div>
 
 		<!-- popup liststyle 2 button -->
 		<div id="center_liststyle_2btn" data-role="popup" class="center_liststyle_2btn">
-			<p class="ui-popup-title">
-				Popup title
-			</p>
+			<div class="ui-popup-title">
+				<h1>Popup title</h1>
+			</div>
 			<div class="ui-popup-scroller-bg" data-scroll="y">
 				<ul data-role="listview" data-icon="1line-textonly">
 					<li><a href="#">List item 1</a></li>
@@ -275,16 +261,16 @@
 				</ul>
 			</div>
 			<div class="ui-popup-button-bg">
-					<input type="button" value="Text Button" />
-					<input type="button" value="Text Button" />
+				<div data-role="button"  data-inline="true">Ok</div>
+				<div data-role="button"  data-inline="true">Cancel</div>
 			</div>
 		</div>
 
 		<!-- popup liststyle 3 button -->
 		<div id="center_liststyle_3btn" data-role="popup" class="center_liststyle_3btn">
-			<p class="ui-popup-title">
-				Popup title
-			</p>
+			<div class="ui-popup-title">
+				<h1>Popup title</h1>
+			</div>
 			<div class="ui-popup-scroller-bg" data-scroll="y">
 				<ul data-role="listview" data-icon="1line-textonly">
 					<li><a href="#">List item 1</a></li>
@@ -299,9 +285,9 @@
 				</ul>
 			</div>
 			<div class="ui-popup-button-bg">
-					<input type="button" value="Button" />
-					<input type="button" value="Button" />
-					<input type="button" value="Button" />
+				<div data-role="button"  data-inline="true">Rename</div>
+				<div data-role="button"  data-inline="true">Replace</div>
+				<div data-role="button"  data-inline="true">Cancel</div>
 			</div>
 		</div>
 

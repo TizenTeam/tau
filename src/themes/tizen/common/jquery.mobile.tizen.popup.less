@@ -1,16 +1,5 @@
 @import "config.less";
 
-/* Resource color mapping table
-
-@color_popup_title_bg:	popup_title_bg.png
-@color_popup_text_bg:	popup_bg.png
-@color_popup_button_bg:	popup_button_bg.png
-@color_popup_font:		Popup title & default
-@color_popup_text_font:	Popup text
-
-*/
-
-
 @popup-text-padding-vert: 22 * @unit_base;
 @popup-text-padding-hori: 16 * @unit_base;
 @popup-ratio: 86.12%;
@@ -33,317 +22,107 @@
 .ui-popup-container {
 	position: absolute;
 	width: @popup-ratio;
-	color: @color_popup_font;
 	z-index: (@z_base_popup + 1) !important;
 	background:		@color_popup_text_bg;
+	text-align: center;
+	.LESSdisplaybox();
+	.LESSbox-orient(vertical);
+	.LESSbox-align(center);
+	.LESSbox-pack(center);
 	
-	.ui-body-s {
-		background: none;
+	.ui-popup {
+		padding : 3px 2px 2px 2px;
+		background:		@color_popup_text_bg;
+		width : 100%;
+		> .ui-popup-title,
+		> .ui-popup-text,
+		> .ui-popup-button-bg {
+			width : 100%;
+		}
 	}
 
-	// --------- common style in popup  ------------- //
 	.ui-popup-title {
 		width: 100%;
-		height: 100%;
+		height: 40 * @unit_base;
+		text-align : left;
+		color : @color_bar_title_text;
+
 		font-size: @font_size_popup_basic_style_title;
 		font-weight : bold;
-		color : @color_bar_title_text;
-		
-		text-align : left;
-		
-	}
 
-	p.ui-popup-title {
-		color: @color_bar_title_text;
-	 	margin: 0*@unit_base 0*@unit_base;
-	 	margin-left : 16 * @unit_base;
-		padding: 13*@unit_base 0*@unit_base;		
+		h1 {
+			font-size: @font_size_popup_basic_style_title;
+			font-weight : bold;
+			color : @color_bar_title_text;
+
+			margin : 0px;
+			padding-top : 10 * @unit_base;
+			padding-left : 16 * @unit_base;
+		}
 	}
 
 	.ui-popup-text {
 		margin-top: @popup-text-padding-vert;
 		margin-bottom: @popup-text-padding-vert;
 		color: @color_popup_text_font;
-		font-size: @font_size_popup_info_style;
+		font-size: 20 * @unit_base;
 		background: @color_popup_text_bg;
 		text-align: center;
-	}
 
 	.ui-li .ui-radio, .ui-li .ui-checkbox {
 		label {
 			background : transparent;
 		}
 	}
+	}
 
 	.ui-popup-button-bg {
-			.ui-btn-inner {
-			padding-top: 5 * @unit_base;
-			padding-bottom: 5 * @unit_base;
-			padding-left : 20 * @unit_base;
-			padding-right : 20 * @unit_base;
-		}
-	}
-
-
-
-	// ----------------------------------------------------- //
-
-	.center_info {
-
-		.LESSdisplaybox();
-		.LESSbox-orient(vertical);
-		.LESSbox-align(center);
-		.LESSbox-pack(center);
-
-		// .ui-popup-text
-	}
-
-	.center_title {
-		.LESSdisplaybox();
-		.LESSbox-orient(vertical);
-		.LESSbox-align(center);
-		.LESSbox-pack(center);
-
-		text-align: center;
-
-	}
-
-	.center_basic_1btn {
-
-		.LESSdisplaybox();
-		.LESSbox-orient(vertical);
-		.LESSbox-align(center);
-		.LESSbox-pack(center);
-
-	    text-align: center;
-
-		// .ui-popup-text
-
-		.ui-popup-button-bg {
 			font-size: @font_size_popup_button_text;
+			height : 37 * @unit_base;
+			padding-top: 10 * @unit_base;
+			padding-bottom: 10 * @unit_base;
 			width: 100%;
-			height : 57 * @unit_base;
+			vertical-align: middle;
+
+			> .ui-btn {
+				display : inline-block;
+				margin:auto;
+				height : 37 * @unit_base;
+			}
+
 			.ui-btn-inner {
 				padding-top: 5 * @unit_base;
 				padding-bottom: 5 * @unit_base;
 				padding-left : 20 * @unit_base;
 				padding-right : 20 * @unit_base;
-			}
-			vertical-align: middle;
-
-			.ui-btn {
-				margin:auto;
-			}
 		}
 	}
-	.center_basic_2btn {
 
-		.LESSdisplaybox();
-		.LESSbox-orient(vertical);
-		.LESSbox-align(center);
-		.LESSbox-pack(center);
 
-	    text-align: center;
-
-		// .ui-popup-text
-
-		.ui-popup-button-bg {
-			font-size: @font_size_popup_button_text;
-			background: @color_popup_button_bg;
-			width: 100%;
-			height : 57 * @unit_base;
-			.ui-btn-inner {
-				padding-top: 5 * @unit_base;
-				padding-bottom: 5 * @unit_base;
-				padding-left : 20 * @unit_base;
-				padding-right : 20 * @unit_base;
-			}
-			vertical-align: middle;
-
-			.ui-btn {
-				height: 37*@unit_base;
-				width : 200 * @unit_base;
-				top : 5 * @unit_base;
-				margin-top: 0*@unit_base;
-				margin-bottom: 0*@unit_base;
-				margin-left: 5*@unit_base;
-				margin-right: 5*@unit_base;
-
-				display: inline-block;
-			}
-		}
-	}
-	.center_basic_3btn {
-
-		.LESSdisplaybox();
-		.LESSbox-orient(vertical);
-		.LESSbox-align(center);
-		.LESSbox-pack(center);
-
-	    text-align: center;
-
-		// .ui-popup-text
-
-		.ui-popup-button-bg {
-			font-size: @font_size_popup_button_text;
-			background: @color_popup_button_bg;
-			width: 100%;
-			padding-top: 11*@unit_base;
-			padding-bottom: 11*@unit_base;
-			vertical-align: middle;
-
-			.ui-btn {
-				width: 186*@unit_base;
-				height: 37*@unit_base;
-				margin-top: 0*@unit_base;
-				margin-bottom: 0*@unit_base;
-				margin-left: 5*@unit_base;
-				margin-right: 5*@unit_base;
-
-				display: inline-block;
-			}
-		}
-	}
-	.center_title_1btn {
-
-		.LESSdisplaybox();
-		.LESSbox-orient(vertical);
-		.LESSbox-align(center);
-		.LESSbox-pack(center);
-
-	    	text-align: center;
-
-		// .ui-popup-title
-		// .ui-popup-text
-
-		.ui-popup-button-bg {
-			font-size: @font_size_popup_button_text;
-			background: @color_popup_button_bg;
-			width: 100%;
-			padding-top: 11*@unit_base;
-			padding-bottom: 11*@unit_base;
-			vertical-align: middle;
-			text-align : center;
-
-			.ui-btn {
-				width: 402*@unit_base;
-				height: 37*@unit_base;
-				margin:auto;
-
-			}
-		}
-	}
-	.center_title_2btn {
-
-		.LESSdisplaybox();
-		.LESSbox-orient(vertical);
-		.LESSbox-align(center);
-		.LESSbox-pack(center);
-
-	    	text-align: center;
-
-		// .ui-popup-title
-		// .ui-popup-text
-
-		.ui-popup-button-bg {
-			font-size: @font_size_popup_button_text;
-/*			background: @color_popup_button_bg;*/
-			width: 100%;
-			padding-top: 11*@unit_base;
-			padding-bottom: 11*@unit_base;
-			vertical-align: middle;
-
-			.ui-btn {
-				width: 130*@unit_base;
-				height: 37*@unit_base;
-				margin-top: 0*@unit_base;
-				margin-bottom: 0*@unit_base;
-				margin-left: 5*@unit_base;
-				margin-right: 5*@unit_base;
-				.ui-btn-inner {
-					padding-top: 5 * @unit_base;
-					padding-bottom: 5 * @unit_base;
-					padding-left : 20 * @unit_base;
-					padding-right : 20 * @unit_base;
-				}
-				display: inline-block;
-			}
-		}
-	}
+/***** Normal Samples *****/
+	.center_info,
+	.center_title,
+	.center_basic_1btn,
+	.center_basic_2btn,
+	.center_basic_3btn,
+	.center_title_1btn,
+	.center_title_2btn,
 	.center_title_3btn {
-
-		.LESSdisplaybox();
-		.LESSbox-orient(vertical);
-		.LESSbox-align(center);
-		.LESSbox-pack(center);
-
-	    text-align: center;
-
-		// .ui-popup-title
-		// .ui-popup-text
-
-		.ui-popup-button-bg {
-			font-size: @font_size_popup_button_text;
-			background: @color_popup_button_bg;
-			width: 100%;
-			padding-top: 11*@unit_base;
-			padding-bottom: 11*@unit_base;
-			vertical-align: middle;
-
-			.ui-btn {
-				width: 186*@unit_base;
-				height: 37*@unit_base;
-				margin-top: 0*@unit_base;
-				margin-bottom: 0*@unit_base;
-				margin-left: 5*@unit_base;
-				margin-right: 5*@unit_base;
-
-				display: inline-block;
-			}
-		}
 	}
+
 	.center_button_vertical {
-
-		.LESSdisplaybox();
-		.LESSbox-orient(vertical);
-		.LESSbox-align(center);
-		.LESSbox-pack(center);
-
-	    text-align: center;
-
-		// .ui-popup-text
-
 		.ui-popup-button-bg {
-			font-size: @font_size_popup_button_text;
-			background: @color_popup_button_bg;
-			width: 100%;
-			padding-top: 1px;
-			padding-bottom: 16*@unit_base;
-			vertical-align: middle;
-
+			display : block;
+			height : auto;
 			.ui-btn {
-				width: 356*@unit_base;
-				height: 37*@unit_base;
-				margin-top: 16*@unit_base;
-				margin-bottom: 0*@unit_base;
-				margin-left: auto;
-				margin-right: auto;
+				width: 200*@unit_base;
 			}
 		}
 	}
+	
 	.center_checkbox {
-
-		.LESSdisplaybox();
-		.LESSbox-orient(vertical);
-		.LESSbox-align(center);
-		.LESSbox-pack(center);
-
-	    text-align: center;
-
-		// .ui-popup-text
-
 		.ui-popup-check-bg {
-			font-size: @font_size_popup_info_style;
+			font-size: 20 * @unit_base;
 			background: @color_popup_text_bg;
 			width: 100%;
 			padding-top: 0*@unit_base;
@@ -384,16 +163,6 @@
 		}
 	}
 	.center_liststyle_1btn {
-
-		.LESSdisplaybox();
-		.LESSbox-orient(vertical);
-		.LESSbox-align(center);
-		.LESSbox-pack(center);
-
-	    	text-align: center;
-
-		// .ui-popup-title
-
 		.ui-popup-scroller-bg {
 			width: 100%;
 			overflow: hidden;
@@ -401,32 +170,12 @@
 			height: 512*@unit_base;
 		}
 		.ui-popup-button-bg {
-			font-size: @font_size_popup_button_text;
-			background: @color_popup_button_bg;
-			width: 100%;
 			padding-top: 11*@unit_base;
 			padding-bottom: 11*@unit_base;
 			vertical-align: middle;
-
-			.ui-btn {
-				width: 201*@unit_base;
-				height: 37*@unit_base;
-				margin:auto;
-
-			}
 		}
 	}
 	.center_liststyle_2btn {
-
-		.LESSdisplaybox();
-		.LESSbox-orient(vertical);
-		.LESSbox-align(center);
-		.LESSbox-pack(center);
-
-	    	text-align: center;
-
-		// .ui-popup-title
-
 		.ui-popup-scroller-bg {
 			width: 100%;
 			overflow: hidden;
@@ -434,9 +183,6 @@
 			height: 512*@unit_base;
 		}
 		.ui-popup-button-bg {
-			font-size: @font_size_popup_button_text;
-			background: @color_popup_button_bg;
-			width: 100%;
 			padding-top: 11*@unit_base;
 			padding-bottom: 11*@unit_base;
 			vertical-align: middle;
@@ -460,17 +206,8 @@
 			}
 		}
 	}
+
 	.center_liststyle_3btn {
-
-		.LESSdisplaybox();
-		.LESSbox-orient(vertical);
-		.LESSbox-align(center);
-		.LESSbox-pack(center);
-
-	    	text-align: center;
-
-		// .ui-popup-title
-
 		.ui-popup-scroller-bg {
 			width: 100%;
 			overflow: hidden;
@@ -478,9 +215,6 @@
 			height: 512*@unit_base;
 		}
 		.ui-popup-button-bg {
-			font-size: @font_size_popup_button_text;
-			background: @color_popup_button_bg;
-			width: 100%;
 			padding-top: 11*@unit_base;
 			padding-bottom: 11*@unit_base;
 			vertical-align: middle;
@@ -499,11 +233,6 @@
 	}
 
 	.center_progressbar {
-
-		.LESSdisplaybox();
-		.LESSbox-orient(vertical);
-		.LESSbox-align(center);
-		.LESSbox-pack(center);
 
 	    	text-align: center;
 
@@ -571,11 +300,6 @@
 
 	.centertext_progressbar {
 
-		.LESSdisplaybox();
-		.LESSbox-orient(vertical);
-		.LESSbox-align(center);
-		.LESSbox-pack(center);
-
 	    	text-align: center;
 
 		.ui-popup-text {
@@ -638,15 +362,4 @@
 			height: 100%;
 		}
 	}
-	
-/*	
-	.ui-btn{
-		.LESSpopup_button_style;
-	}
-	.ui-btn.ui-btn-hover-s{
-		.LESSpopup_button_hover_style;
-	}
-	.ui-btn.ui-btn-down-s{
-		.LESSpopup_button_press_style;
-	}*/
 }
