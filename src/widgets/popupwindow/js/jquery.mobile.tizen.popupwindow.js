@@ -289,12 +289,14 @@
 				}
 			} );
 
-			this._ui.screen.css( "height", $( window ).height() )
-					.removeClass("ui-screen-hidden");
+			this._ui.screen.css( "height", $( window ).height() );
 
 			if( backgroundclose ) {
-				this._ui.screen.css( "opacity", 0 );
+				this._ui.screen.css( "opacity", 0 )
+						.removeClass("ui-screen-hidden");
 			} else {
+				this._ui.removeClass("ui-screen-hidden");
+
 				if ( this.options.fade ) {
 					this._ui.screen.animate( {opacity: this.options.opacity}, "fast" );
 				} else {

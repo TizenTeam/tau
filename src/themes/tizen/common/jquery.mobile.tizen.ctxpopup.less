@@ -60,9 +60,8 @@
 	}
 	
     .ui-listview {
-		min-width: 386 * @unit_base;
 		max-width: 620 * @unit_base;
-        border: none;
+        	border: none;
     }
 	
 	.ui-listview > .ui-li {
@@ -70,11 +69,15 @@
 		border-bottom-color: @color_ctxpopup_border_bottom;
 		border-top-width: 1px;
 		border-top-color: @color_ctxpopup_border_top;
-		padding: 0 10 * @unit_base;
 		margin-left: 0;
 		margin-right: 0;
 		&:first-child, &:last-child {
 			border-top-width: 0px;
+		}
+		.ui-btn-inner {
+			margin: 0;
+			padding-left: 10 * @unit_base;
+			padding-right: 10 * @unit_base;
 		}
 	}
 
@@ -109,8 +112,8 @@
 		}
 
 		.text {
-			padding: 0 20 * @unit_base;
-			min-width: 96 * @unit_base;
+			padding: 0 10 * @unit_base;
+			min-width: 48 * @unit_base;
 		}
 
 
@@ -214,10 +217,10 @@
 
     .button {
         table .ui-btn {
-            margin: 8 * @unit_base;
+            margin: 0 * @unit_base;
             padding: 0;
-            height: 74 * @unit_base;
-            width: 172 * @unit_base;
+            height: 56 * @unit_base;
+            width: 132 * @unit_base;
         }
     }
 

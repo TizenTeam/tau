@@ -182,6 +182,7 @@
 		.ui-btn-inner {
 			border: none;
 			background: transparent;
+			box-shadow: none;
 		}
 	}
 
@@ -275,7 +276,7 @@
 .ui-br {
 }
 .ui-btn-box-s {
-	padding: 1px;
+	padding: 1 * @unit_base;
 }
 .ui-btn-box-s.ui-btn-up-s {
 	.LESSbutton_box_style;
@@ -299,6 +300,11 @@
 		padding: 0;
 		color: white !important;
 		.LESSborder-radius-all( 0 );
+	}
+	.ui-btn-inner {
+		background: transparent ! important;
+		box-shadow: none;
+		border: none;
 	}
 }
 
@@ -324,12 +330,12 @@
 	font-weight: normal;
 	.LESSborder-radius-all( 0.9 rem );
 }
-/*
+
 .ui-btn-box-s.ui-btn-hover-s {
 	.LESSbutton_hover_style;
 	.LESSbutton_text1_style;
 }
-
+/*
 .ui-btn-box-s.ui-btn-hover-s.ui-btn-corner-circle{
 	.LESScirclebutton_hover_style;
 }
