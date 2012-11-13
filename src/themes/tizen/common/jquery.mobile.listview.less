@@ -237,7 +237,6 @@
 			height : 30 * @unit_base;
 
 			.ui-btn-inner {
-				padding : 5 * @unit_base 5 * @unit_base 5 * @unit_base 5 * @unit_base;
 				line-height : 20 * @unit_base;
 
 				color : transparent;
@@ -680,7 +679,12 @@ li:not(.ui-li-has-multiline) .ui-li-text-sub {
 		border-style : solid;
 		border-color : @color_dialogue_border_right;
 		border-width : 1px;
-/*		border-top-width : 0px;*/
+
+		> .ui-btn-inner {
+			margin-left : 0px;
+			margin-right : 0px;
+		
+		}
 
 		&:first-child {
 			border-top-width : 1px;
@@ -690,6 +694,14 @@ li:not(.ui-li-has-multiline) .ui-li-text-sub {
 		&:last-child {
 			border-bottom-left-radius : 3px;
 			border-bottom-right-radius : 3px;
+		}
+		
+		> img {
+			margin-left : 6 * @unit_base;
+		}
+		
+		[data-role="button"]:last-child {
+			margin-right : 10 * @unit_base;
 		}
 	}
 
