@@ -122,6 +122,13 @@
 						coords.y += $( e.target ).offset().top  - shortcutsListOffset.top;
 					}
 
+					self.shortcutsList.find( 'li' ).each( function () {
+						var listItem = $( this );
+						$( listItem )
+							.removeClass( "ui-shortcutscroll-hover" )
+							.removeClass( "ui-shortcutscroll-hover-up" )
+							.removeClass( "ui-shortcutscroll-hover-down" );
+					});
 					// Hit test each list item
 					self.shortcutsList.find( 'li' ).each( function () {
 						var listItem = $( this ),
@@ -132,10 +139,16 @@
 
 						if ( coords.x >= l && coords.x <= r && coords.y >= t && coords.y <= b ) {
 							jumpToDivider( $( listItem.data( 'divider' ) ) );
+							$( listItem ).addClass( "ui-shortcutscroll-hover" );
+							if ( listItem.index() > 0 )
+								$( listItem ).siblings().eq( listItem.index() - 1 ).addClass( "ui-shortcutscroll-hover-up" );
+							$( listItem ).siblings().eq( listItem.index() ).addClass( "ui-shortcutscroll-hover-down" );
 							return false;
 						}
 						return true;
 					} );
+
+
 
 					e.preventDefault();
 					e.stopPropagation();
