@@ -54,7 +54,6 @@
 				<li><a href="widgets/searchbar.html">Searchbar</a></li>
 				<li><a href="widgets/entry.html">Entry</a></li>
 				<li><a href="widgets/datefield.html">Time picker</a></li>
-				<li><a href="widgets/controlbar/controlbar.html">Controlbar</a></li>
 				<li><a href="widgets/progressbar.html">Progressbar</a></li>
 				<li><a href="#slider-demo">Slider</a></li>
 				<li><a href="widgets/imageslider.html">ImageSlider</a></li>
@@ -68,6 +67,10 @@
 				<li><a href="widgets/naviframe/naviframe.html">Naviframe</a></li>
 				<li><a href="widgets/pagelayout/barcontrol.html">Header/Footer(fixed/non-fixed) Control</a></li>
 				<li><a href="widgets/pagelayout/backbutton-control.html">Back Button Control</a></li>
+
+				<li data-role="list-divider">Controlbar</li>
+				<li><a href="widgets/controlbar/controlbar.html">Controlbar</a></li>
+				<li><a href="#controlbar_persist_a">Persist toolbar</a></li>
 
 				<li data-role="list-divider">Scrollview</li>
 				<li><a href="widgets/scrollview_x.html">Horizontal Scroll</a></li>
@@ -125,6 +128,55 @@
 		<div data-role="footer">
 		</div>
 	</div>
+
+<div data-role="page" id="controlbar_persist_a">
+	<div data-role="header" data-position="fixed">
+		<div data-role="controlbar" data-id="persist_header" >
+			<ul>
+				<li><a href="#controlbar_persist_a" class="ui-btn-active ui-state-persist">Menu</a></li>
+				<li><a href="#controlbar_persist_b" >Save</a></li>
+				<li><a href="#controlbar_persist_c" >Next</a></li>
+			</ul>
+		</div><!-- /controlbar -->
+	</div>
+
+	<div data-role="content">
+		<p>page a</p>
+	</div>
+</div>
+
+<div data-role="page" id="controlbar_persist_b">
+	<div data-role="header" data-position="fixed">
+		<div data-role="controlbar" data-id="persist_header" >
+			<ul>
+				<li><a href="#controlbar_persist_a" >Menu</a></li>
+				<li><a href="#controlbar_persist_b" class="ui-btn-active ui-state-persist">Save</a></li>
+				<li><a href="#controlbar_persist_c" >Next</a></li>
+			</ul>
+		</div><!-- /controlbar -->
+	</div>
+
+	<div data-role="content">
+		<p>page b</p>
+	</div>
+</div>
+
+<div data-role="page" id="controlbar_persist_c">
+	<div data-role="header" data-position="fixed">
+		<div data-role="controlbar" data-id="persist_header" >
+			<ul>
+				<li><a href="#controlbar_persist_a" >Menu</a></li>
+				<li><a href="#controlbar_persist_b" >Save</a></li>
+				<li><a href="#controlbar_persist_c" class="ui-btn-active ui-state-persist">Next</a></li>
+			</ul>
+		</div><!-- /controlbar -->
+	</div>
+
+	<div data-role="content">
+		<p>page c</p>
+	</div>
+</div>
+
 
 	<div data-role="page" id="notImplemented">
 		<div data-role="header" data-position="fixed">

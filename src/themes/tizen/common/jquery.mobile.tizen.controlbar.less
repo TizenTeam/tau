@@ -18,54 +18,67 @@
 		color : rgba(153, 153, 153, 1);
 
 		.ui-icon {
-			width: 32 * @unit_base; 
+			width: 32 * @unit_base;
 			height: 32 * @unit_base;
 
 			background-repeat: no-repeat;
-			background-size: 100% 100%;	
+			background-size: 100% 100%;
 		}
 	}
 
-	a.ui-btn.ui-btn-active {
-		color : rgba(59, 115, 182, 1);
+	&.ui-controlbar-persist {
+		a.ui-btn {
+			background: @color_bg;
+		}
+		a.ui-state-persist, a.ui-state-persist.ui-btn-active, a.ui-btn-show-style {
+			background: @color_controlbar_btn_press;
+			color : rgba(59, 115, 182, 1);
+		}
+		a.ui-btn-hover-s.ui-btn-down-s {
+			&:not(.ui-state-persist) {
+				color : rgba(59, 115, 182, 1);
+				background: @color_controlbar_btn_press;
+			}
+		}
 	}
 
-/* move concept strange */	
-	a.ui-btn.ui-btn-active {
-		background : -webkit-linear-gradient(top,  rgba(169,165,151,1) 0%,rgba(246,248,239,1) 100%);
-
+	&:not(.ui-controlbar-persist) {
+		a.ui-btn {
+			background: @color_bg;
+		}
+		a.ui-btn-active, .ui-btn-show-style,
+		a.ui-btn.ui-btn-hover-s.ui-btn-down-s {
+			color : rgba(59, 115, 182, 1);
+			background: @color_controlbar_btn_press;
+		}
 	}
 
 	.ui-btn-inner {
 		padding-top : 44 * @unit_base;
 		padding-bottom : 3 * @unit_base;
-		
+
 		font-size : 15 * @unit_base;
 		font-weight : bold;
 
 		.ui-icon {
 			top : 10 * @unit_base;
-			
 			left : 50%;
 			margin-left : -16 * @unit_base;
 		}
 	}
-	
-/*	.ui-ctrl-btn-style {
-		width : 196 * @unit_base;
-	}*/
+
 	&.ui-controlbar-noicons {
 		.ui-btn-inner {
 			padding-top : 19 * @unit_base;
 			padding-bottom : 18 * @unit_base;
 		}
 	}
-	
+
 	&.ui-controlbar-notext {
 		.ui-btn-inner {
 			padding-top : 50 * @unit_base;
 			padding-bottom : 5 * @unit_base;
-			
+
 			.ui-icon {
 				top : 11 * @unit_base;
 			}
@@ -95,11 +108,11 @@
 				padding-bottom : 0 * @unit_base;
 			}
 		}
-		
+
 		&.ui-portrait-controlbar {
 			height : 47 * @unit_base;
 		}
-		
+
 		&.ui-landscape-controlbar {
 			height : 40 * @unit_base;
 		}
@@ -141,7 +154,7 @@
 	.ui-controlbar.ui-controlbar-margin-more {
 		margin-left : 56 * @unit_base;
 	}
-	
+
 }
 
 .ui-controlbar-s.ui-navbar-noicons {
@@ -156,3 +169,4 @@
 .ui-btn-down-s, .ui-btn-hover-s, .ui-btn-active {
 	.ui-icon-ctrl-edit { background-image: url(images/controlbar/00_ctrl_edit_press.png); }
 }
+

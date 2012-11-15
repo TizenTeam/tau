@@ -139,9 +139,7 @@
 				$( this ).addClass( $.mobile.activeBtnClass );
 			});
 
-				$controlbar
-				.addClass( "ui-controlbar");
-
+				$controlbar.addClass( "ui-controlbar");
 
 			$( document ).bind( "pagebeforeshow", function ( event, ui ) {
 				var footer_filter = $( event.target ).find( ":jqmData(role='footer')" ),
@@ -149,15 +147,6 @@
 					$elFooterMore = controlbar_filter.siblings( ":jqmData(icon='naviframe-more')" ),
 					$elFooterBack = controlbar_filter.siblings( ".ui-btn-back" );
 
-/*
-					if ( !(controlbar_filter.find(".ui-btn-inner").children().is(".ui-icon")) ) {
-						controlbar_filter.find( ".ui-btn-inner" ).addClass( "ui-navbar-textonly" );
-					} else {
-						if ( controlbar_filter.find( ".ui-btn-text" ).text() == "" ) {
-							controlbar_filter.find( ".ui-btn" ).addClass( "ui-ctrlbar-icononly" );
-						}
-					}
-					*/
 					footer_filter
 						.css( "position", "fixed" )
 						.css( "bottom", 0 )
@@ -166,20 +155,12 @@
 						controlbar_filter.addClass( "ui-controlbar-margin-more" );
 					if ( $elFooterBack.length )
 						controlbar_filter.addClass( "ui-controlbar-margin-back" );
-
-
 			});
 
 			$( document ).bind( "pageshow", function ( e, ui ) {
 				var controlbar_filter = $( ".ui-page-active" ).find( ":jqmData(role='footer')" ).eq( 0 ).find( ":jqmData(role='controlbar')" ),
 					element_width = 0,
 					element_count = controlbar_filter.find( 'li' ).length;
-
-				if ( controlbar_filter.find(".ui-btn-active").length == 0 ) {
-					controlbar_filter.find( "div" ).css( "left", "0px" );
-				} else {
-					controlbar_filter.find( "div" ).css( "left", controlbar_filter.find( ".ui-btn-active" ).parent( "li" ).index() * controlbar_filter.width() / element_count );
-				}
 
 				if ( controlbar_filter.length ) {
 					element_width = controlbar_filter.find("li:first").width();
@@ -215,7 +196,6 @@
 					$controlbar.removeClass( "ui-landscape-controlbar" ).addClass( "ui-portrait-controlbar" );
 				}
 			});
-
 		},
 
 		_setDisabled: function ( value, cnt ) {
