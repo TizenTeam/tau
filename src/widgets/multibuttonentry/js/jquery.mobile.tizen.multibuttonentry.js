@@ -299,7 +299,7 @@
 			if ( option.listId === null || $.trim( option.listId ).length < 1 || $( option.listId ).length === 0 ) {
 				className += "-dim";
 			}
-			$( moreBlock ).text( "+" ).attr( "href", $.trim( option.listId ) ).addClass( "ui-multibuttonentry-link-base" ).addClass( className );
+			$( moreBlock ).attr( "href", $.trim( option.listId ) ).attr( "data-role", "button" ).attr( "data-inline", "true" ).attr( "data-icon", "plus" ).attr( "data-style", "circle" ).addClass( "ui-multibuttonentry-link-base" ).addClass( className );
 
 			// append default htmlelements to main widget.
 			$view.append( moreBlock );
@@ -524,6 +524,7 @@
 				blocks = $view.find( "div" ),
 				blockWidth = 0,
 				index = 0,
+				inputBoxMargin = 10,
 				inputBox = $view.find( ".ui-multibuttonentry-input" );
 
 			if ( $view.width() === 0 ) {
@@ -552,7 +553,7 @@
 			if ( inputBoxWidth < anchorWidth * 2 ) {
 				inputBoxWidth = self._viewWidth - margin;
 			}
-			$( inputBox ).width( inputBoxWidth - anchorWidth );
+			$( inputBox ).width( inputBoxWidth - anchorWidth - inputBoxMargin );
 		},
 
 		_stringFormat : function ( expression ) {

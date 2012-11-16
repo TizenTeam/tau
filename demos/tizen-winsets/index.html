@@ -288,7 +288,7 @@
 
 
 	<div data-role="page" id="multibuttonentry">
-		<div data-role="header"  data-position="fixed">
+		<div data-role="header" data-position="fixed">
 			<h1>Multi-button Entry</h1>
 		</div>
 		<div data-role="content">
@@ -308,10 +308,9 @@
 			</ul>
 		</div>
 	</div>
-	<div data-role="page"  id="addressbook" data-footer-Exist="false" >
+	<div data-role="page" id="addressbook" data-add-back-btn="none">
 		<div data-role="header"  data-position="fixed">
 			<h1>Address Book</h1>
-			<a id="cancelBtn" href="#multibuttonentry" data-role="button" class="ui-btn-right" >Cancel</a>
 		</div>
 		<div data-role="content" id="contentList">
 			<ul data-role="listview">
@@ -353,6 +352,11 @@
 				<li><a href="#multibuttonentry">Sawyer Wakefield</a></li>
 			</ul>
 		</div> <!--/content -->
+		<div data-role="footer">
+			<div align="right">
+				<a href="#multibuttonentry" data-role="button" style="margin-right : 1em;">Cancel</a>
+			</div>
+		</div>
 	</div> <!--/page -->
 
 	<!--                   nocontents                 -->
