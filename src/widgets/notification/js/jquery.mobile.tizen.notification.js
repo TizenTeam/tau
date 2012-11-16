@@ -198,7 +198,7 @@
 				container = this._get_container();
 
 			if ( this.type === 'ticker' ) {
-				container.find(".ui-ticker-btn").append( this.btn );
+				container.find(".ui-ticker-btn").append( this.btn ).trigger("create");
 
 				this.btn.bind( "vmouseup", function () {
 					self.close();
@@ -233,15 +233,7 @@
 				elem = $( this.element ),
 				i;
 
-			this.btn = $("<a href='#' class='ui-input-cancel' title='close' data-theme='s'>Close</a>")
-				.tap( function ( event ) {
-					event.preventDefault();
-				})
-				.buttonMarkup({
-					inline: true,
-					corners: true,
-					shadow: true
-				});
+			this.btn = $('<div data-role="button" data-inline="true">Close</div>');
 
 			this.seconds = elem.jqmData('interval');
 			this.type = elem.jqmData('type') || 'popup';
