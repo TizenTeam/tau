@@ -111,6 +111,13 @@
 
 ( function ( $, document, window, undefined ) {
 
+	var geoOrigin = {
+			geomap: $.extend( {}, $.geo.geomap.prototype ),
+			geographics: $.extend( {}, $.geo.geographics.prototype ),
+			geotiled: $.extend( {}, $.geo._serviceTypes.tiled ),
+			geoShingled: $.extend( {}, $.geo._serviceTypes.shingled ),
+		};
+
 	$.widget( "tizen.mapview", $.mobile.widget, {
 		options: {
 			theme : null,
@@ -125,16 +132,16 @@
 			useMarker: true
 		},
 
-		_geomap: $.geo.geomap.prototype,
+		_geomap: undefined,
 		_METERS_PER_UNIT: {
 			"m" : 1.0,
 			"km" : 0.0001,
 			"ft" : 3.2808399,
 			"mi" : 0.000621371192
 		},
-		_supportedSevices: [
-			// OSM
-			[ {
+		_TOUCHHOLDTIME: 750,
+		_supportedSevices: {
+			"osm" : [ {
 				"class": "osm",
 				type: "tiled",
 				src: function ( view ) {
@@ -142,8 +149,7 @@
 				},
 				attr : "&copy; OpenStreetMap &amp; contributors, CC-BY-SA"
 			} ],
-			// Mapquest-open
-			[ {
+			"mapquest-open" : [ {
 				"class" : "mapquest-open",
 				type : "tiled",
 				src : function ( view ) {
@@ -151,12 +157,13 @@
 				},
 				attr : "<p>Tiles Courtesy of <a href='http://www.mapquest.com/' target='_blank'>MapQuest</a> <img src='http://developer.mapquest.com/content/osm/mq_logo.png'></p>"
 			} ]
-		],
-		_markerList : {},
+		},
+		_markerList: {},
+		_mouseDown: {},
 
 		_createWidget: function ( options, element ) {
 			var self = this,
-				geomap = self._geomap;
+				geomap = self._geomap = $.extend( {}, geoOrigin.geomap );
 
 			$.data( element, this.widgetName, this );
 			this.element = $( element );
@@ -165,168 +172,195 @@
 				this._getCreateOptions(),
 				options );
 
-			this.element.bind( "remove." + this.widgetName, function () {
-				self.destroy();
-			});
-
-			self._redefineMethods( element );
-			geomap._createWidget.apply( geomap, arguments );
-			self.options  = self._convertOption( self.options );
-			geomap._setOptions( self.options );
+			self._redefineMethods( this.element );
+			self.options = self._convertOption( self.options );
+			geomap._createWidget.call( geomap, self.options, element );
 		},
 
 		_create: function () {
 			var self = this,
 				$view = self.element;
 
-			if ( !$view.hasClass( "geo-map" ) || $view.hasClass( "ui-mapview" ) ) {
+			if ( $view.hasClass( "ui-mapview" ) ) {
 				return;
 			}
 
 			$view.addClass( "ui-mapview" );
 
 			self._createControl();
+			self._updateScaleState();
 			self._addEvent();
 		},
 
 		_redefineMethods: function ( element ) {
 			var self = this,
 				geomap = self._geomap,
-				originCreate = geomap._create,
-				originSetOption = geomap._setOption,
-				originSetZoom = geomap._setZoom,
-				originTouchstart = geomap._eventTarget_touchstart,
-				originTouchmove = geomap._dragTarget_touchmove,
-				originTouchend = geomap._dragTarget_touchstop,
-				originRefreshDrawing = geomap._refreshDrawing,
+				geomapOrigin = geoOrigin.geomap,
 				geographics = $.geo.geographics.prototype,
-				originDrawPoint = geographics.drawPoint,
+				geographicsOrigin = geoOrigin.geographics,
 				eventClone = {},
 				supportTouch = $.support.touch,
 				startTime = 0,
-				isMove = false;
+				isMove = false,
+				delayCount = 0,
+				maxDelayCount = 10;
 
-			geomap._create = function () {
-				originCreate.call( this );
-				self._create.call( self );
-			};
+			$.extend( geomap, {
+				_create: function () {
+					geomapOrigin._create.call( this );
+					self._create.call( self );
+				},
 
-			geomap._setOption = function ( key, value, refresh ) {
-				var tempTilingScheme;
-
-				if ( key === "servicesProvider" ) {
-					key = "services";
-					value = ( value === "mapquest-open" ) ? self._supportedSevices[1] : self._supportedSevices[0];
-				}
-
-				if ( key === "tileWidth" ) {
-					tempTilingScheme = this._options.tilingScheme;
-					tempTilingScheme.tileWidth = tempTilingScheme.tileHeight = parseInt( value, 10 );
-					key = "tilingScheme";
-					value = tempTilingScheme;
-				}
-
-				originSetOption.call( this, key, value, refresh );
-				self._setOptionState.call( self, key, value );
-			};
-
-			geomap._setZoom = function ( value, trigger, refresh ) {
-				originSetZoom.call( this, value, trigger, refresh );
-				self.options.zoom = value;
-				self._updateZoomState( this._options.zoom );
-				self._updateScaleState();
-			};
-
-			geomap._eventTarget_touchstart = function ( e ) {
-				eventClone = ( supportTouch ? e.originalEvent.targetTouches[0] : e );
-				startTime = new Date().getTime();
-				isMove = false;
-				originTouchstart.call( this, e );
-			};
-
-			geomap._dragTarget_touchmove = function ( e ) {
-				// for jquerygeo's exception handling
-				if ( supportTouch && ( !this._multiTouchAnchor || !this._multiTouchAnchor[0] ) ) {
-					return ;
-				}
-
-				isMove = true;
-				originTouchmove.call( this, e );
-			};
-
-			geomap._dragTarget_touchstop = function ( e ) {
-				// for jquerygeo's exception handling
-				if ( supportTouch && ( !this._multiTouchAnchor || !this._multiTouchAnchor[0] ) ) {
-					return;
-				}
-
-				if ( !isMove && ( new Date().getTime() - startTime ) > 750 && !this._isMultiTouch ) {
-					if ( !this._mouseDown ) {
-						e.currentTarget = this._$eventTarget;
-						this._eventTarget_touchstart( e );
+				destroy: function () {
+					if ( geomap._resizeTimeout ) {
+						window.clearTimeout( geomap._resizeTimeout );
 					}
-					if ( eventClone ) {
-						self._trigger( "taphold", eventClone, {
-							x : eventClone.pageX,
-							y : eventClone.pageY
-						});
+					geomapOrigin.destroy.call( this );
+				},
+
+				_setOption: function ( key, value, refresh ) {
+					var tempTilingScheme;
+
+					if ( key === "tileWidth" ) {
+						tempTilingScheme = this._options.tilingScheme;
+						tempTilingScheme.tileWidth = tempTilingScheme.tileHeight = parseInt( value, 10 );
+						key = "tilingScheme";
+						value = tempTilingScheme;
+					}
+
+					if ( key === "servicesProvider" ) {
+						key = "services";
+						value = self._supportedSevices[value] || self._supportedSevices.osm ;
+						this._options.zoomMin = 0;
+						this._options.zoomMax = 18;
+						this._options.tilingScheme.levels = 19;
+					}
+
+					geomapOrigin._setOption.call( this, key, value, refresh );
+					self._setOptionState.call( self, key, value );
+				},
+
+				_setZoom: function ( value, trigger, refresh ) {
+					geomapOrigin._setZoom.call( this, value, trigger, refresh );
+					self.options.zoom = value;
+					self._updateZoomState( this._options.zoom );
+					self._updateScaleState();
+				},
+
+				_eventTarget_touchstart: function ( e ) {
+					eventClone = ( supportTouch ? e.originalEvent.targetTouches[0] : e );
+					startTime = new Date().getTime();
+					isMove = false;
+					self._mouseDown = true;
+					geomapOrigin._eventTarget_touchstart.call( this, e );
+				},
+
+				_dragTarget_touchmove: function ( e ) {
+					// for jquerygeo's exception handling
+					if ( supportTouch && ( !this._multiTouchAnchor || !this._multiTouchAnchor[0] ) ) {
+						return ;
+					}
+
+					isMove = true;
+					geomapOrigin._dragTarget_touchmove.call( this, e );
+				},
+
+				_dragTarget_touchstop: function ( e ) {
+					// for jquerygeo's exception handling
+					if ( supportTouch && ( !this._multiTouchAnchor || !this._multiTouchAnchor[0] ) ) {
+						return;
+					}
+
+					if ( !isMove
+							&& ( new Date().getTime() - startTime ) > self._TOUCHHOLDTIME
+								&& !this._isMultiTouch ) {
+						if ( self._mouseDown && eventClone ) {
+							self._trigger( "taphold", eventClone, {
+								x : eventClone.pageX,
+								y : eventClone.pageY
+							});
+						}
+					}
+					self._mouseDown = false;
+					geomapOrigin._dragTarget_touchstop.call( this, e );
+				},
+
+				_refreshDrawing: function () {
+					// for jquerygeo's exception handling
+					if ( this._$drawContainer && this._$drawContainer.hasOwnProperty( "geographics" ) ) {
+						geomapOrigin._refreshDrawing.call( this );
 					}
 				}
-				originTouchend.call( this, e );
-			};
+			});
 
-			geomap._refreshDrawing = function () {
-				// for jquerygeo's exception handling
-				if ( this._$drawContainer.hasOwnProperty( "geographics" ) ) {
-					originRefreshDrawing.call( this );
+			$.extend( geographics, {
+				drawPoint : function ( coordinates, style ) {
+					var currentGeographics = this,
+						option = self.options,
+						context,
+						marker,
+						image,
+						width,
+						height,
+						markerColor;
+
+					style = this._getGraphicStyle( style );
+
+					if ( !coordinates || isNaN( coordinates[0] ) || isNaN( coordinates[1] ) ) {
+						return;
+					}
+
+					if ( !option.useMarker ) {
+						geographicsOrigin.drawPoint.call( this, coordinates, style );
+						return;
+					}
+
+					context = this._context;
+
+					if ( style.markerSrc ) {
+						marker = $( new Image() );
+						width = ( style.markerWidth ) ? parseInt( style.markerWidth, 10 ) : parseInt( style.width, 10 );
+						height = ( style.markerHeight ) ? parseInt( style.markerHeight, 10 ) : parseInt( style.height, 10 );
+						coordinates[0] -= width / 2;
+						coordinates[1] -= height;
+						marker.one( "load", function () {
+							context.drawImage( marker[0], coordinates[0], coordinates[1], width, height );
+							currentGeographics._end();
+						}).attr( "src", style.markerSrc );
+					} else {
+						markerColor = style.markerColor || "red";
+						marker = self._markerList[ markerColor ];
+
+						if ( !marker ) {
+							geographicsOrigin.drawPoint.call( this, coordinates, style );
+							return;
+						}
+
+						coordinates[0] += parseInt( marker.css( "margin-left" ), 10 );
+						coordinates[1] += parseInt( marker.css( "margin-top" ), 10 );
+						width = ( style.markerWidth ) ? parseInt( style.markerWidth, 10 ) : parseInt( marker.css( "width" ), 10 );
+						height = ( style.markerHeight ) ? parseInt( style.markerHeight, 10 ) : parseInt( marker.css( "height" ), 10 );
+
+						if ( marker[0].src !== self._getNativeURL( marker.css( "backgroundImage" ) ) ) {
+							marker.one( "load", function () {
+								context.drawImage( marker[0], coordinates[0], coordinates[1], width, height );
+							}).attr( "src", self._getNativeURL( marker.css( "backgroundImage" ) ) );
+						} else {
+							context.drawImage( marker[0], coordinates[0], coordinates[1], width, height );
+						}
+					}
 				}
-			};
-
-			geographics.drawPoint = function ( coordinates, style ) {
-				var option = self.options,
-					context,
-					marker,
-					image,
-					width,
-					height,
-					markerColor;
-
-				if ( !coordinates || isNaN( coordinates[0] ) || isNaN( coordinates[1] ) ) {
-					return;
-				}
-
-				if ( !option.useMarker ) {
-					originDrawPoint.call( this, coordinates, style );
-					return;
-				}
-
-				context = this._context;
-				markerColor = ( style && style.markerColor ) ? style.markerColor : "red";
-				marker = self._markerList[ markerColor ];
-
-				coordinates[0] += parseInt( marker.css( "margin-left" ), 10 );
-				coordinates[1] += parseInt( marker.css( "margin-top" ), 10 );
-				width = parseInt( marker.css( "width" ), 10 );
-				height = parseInt( marker.css( "height" ), 10 );
-
-				if ( marker[0].src !== self._getNativeURL( marker.css( "backgroundImage" ) ) ) {
-					marker.one( "load", function () {
-						context.drawImage( marker[0], coordinates[0], coordinates[1], width, height );
-					});
-					marker[0].src =  self._getNativeURL( marker.css( "backgroundImage" ) );
-				} else {
-					context.drawImage( marker[0], coordinates[0], coordinates[1], width, height );
-				}
-			};
+			});
 		},
 
 		_convertOption: function ( options ) {
-			var opt = $.extend( {}, options ),
+			var self = this,
+				tempValue,
+				opt = $.extend( true, {}, self._geomap.options, options ),
 				convertNumberAll = function ( name ) {
 					if ( typeof opt[ name ] !== "string" ) {
 						return;
 					}
-
 					opt[ name ] = opt[ name ].split( ',' );
 					$.each( opt[ name ], function ( i ) {
 						var member = this;
@@ -338,6 +372,17 @@
 			$.each( options, function ( key, value ) {
 				if ( !value ) {
 					delete opt[ key ];
+				}
+
+				if ( key === "servicesProvider" ) {
+					opt = $.extend( opt, { services : self._supportedSevices[value] || self._supportedSevices.osm } );
+					opt.zoomMin = 0;
+					opt.zoomMax = 18;
+					opt.tilingScheme.levels = 19;
+				}
+
+				if ( key === "zoom" ) {
+					value = parseInt( value, 10 );
 				}
 			});
 
@@ -430,19 +475,19 @@
 				self.resize();
 			});
 
-			$view.bind( "geomapshape.mapview", function ( e, ui ) {
-				if ( ui.type === "Point" ) {
-					self.append( ui );
+			$view.bind( "geomapshape.mapview", function ( e, geo ) {
+				if ( geo.type === "Point" ) {
+					self.append( geo );
 				}
-				self._trigger( "shape", e );
-			}).bind( "geomapmove.mapview", function ( e, ui ) {
-				self._trigger( "move", e );
-			}).bind( "geomapclick.mapview", function ( e, ui ) {
-				self._trigger( "click", e );
-			}).bind( "geomapdbclick.mapview", function ( e, ui ) {
-				self._trigger( "dbclick", e );
-			}).bind( "geomapbboxchange.mapview", function ( e, ui ) {
-				self._trigger( "bboxchange", e );
+				self._trigger( "shape", e, geo );
+			}).bind( "geomapmove.mapview", function ( e, geo ) {
+				self._trigger( "move", e, geo );
+			}).bind( "geomapclick.mapview", function ( e, geo ) {
+				self._trigger( "click", e, geo );
+			}).bind( "geomapdbclick.mapview", function ( e, geo ) {
+				self._trigger( "dbclick", e, geo );
+			}).bind( "geomapbboxchange.mapview", function ( e, geo ) {
+				self._trigger( "bboxchange", e, geo );
 				self.options.zoom = geomap._options.zoom;
 				self._updateZoomState( self.options.zoom );
 				self._updateScaleState();
@@ -496,7 +541,8 @@
 				handleHeight = zoomHandle.height(),
 				zoomGuideHeight = zoomGuide.height(),
 				handleMarginTop = 0,
-				maxLevel = geomap._options.tilingScheme.levels - 1,
+				minLevel = geomap._options.zoomMin,
+				maxLevel = geomap._options.zoomMax,
 				zoomGuideTop = 0,
 				zoomrate = 1;
 
@@ -505,21 +551,23 @@
 			}
 
 			if ( !isNormalize ) {
-				value = ( value < 0 ) ? 0 : ( value > maxLevel ) ? maxLevel : value;
+				value = ( value < minLevel ) ? minLevel : ( value > maxLevel ) ? maxLevel : value;
 			}
 
-			zoomrate = 1 - ( isNormalize ? value : ( value / maxLevel ) );
+			zoomrate = 1 - ( isNormalize ? value : ( ( value - minLevel ) / ( maxLevel - minLevel ) ) );
 
 			zoomGuideTop = parseInt( zoomGuide.offset().top, 10 );
 			handleMarginTop = parseInt( zoomGuideHeight * zoomrate, 10 ) - parseInt( handleHeight / 2, 10 );
 			zoomHandle.css( "margin-top", handleMarginTop );
 			zoomValue.height( parseInt( zoomGuideHeight * zoomrate, 10 ) );
+
+			self._trigger( "zoomchange", window.event, { zoomlevel : value } );
 		},
 
 		_setZoomLevel: function ( value ) {
 			var self = this,
 				geomap = self._geomap,
-				maxLevel = geomap._options.tilingScheme.levels - 1;
+				maxLevel = geomap._options.zoomMax;
 
 			value = ( value < 0 ) ? 0 : ( value > 1 ) ? 1 : value;
 			geomap._setZoom.call( this._geomap, value * maxLevel, false, true );
@@ -580,6 +628,11 @@
 
 		destroy: function () {
 			this._geomap.destroy.call( this._geomap );
+			this._geomap = null;
+
+			$( window ).unbind( ".mapview" );
+			$( document ).unbind( ".mapview" );
+			this.element.unbind( ".mapview" ).empty().removeClass( "ui-mapview" );
 		},
 
 		toMap: function ( p, isGeodetic ) {
@@ -611,10 +664,12 @@
 
 		refresh: function () {
 			this._geomap.refresh.call( this._geomap );
+			this._updateZoomState( this.options.zoom );
 		},
 
 		resize: function () {
 			this._geomap.resize.call( this._geomap );
+			this.refresh();
 		},
 
 		append: function ( shape, style, label, refresh ) {
@@ -631,44 +686,6 @@
 
 		remove: function ( shape, refresh ) {
 			this._geomap.remove.apply( this._geomap, arguments );
-		},
-
-		location: function ( name, callback ) {
-			var self = this,
-				geomap = self._geomap,
-				serviceURL = null;
-
-			if ( !name || typeof name !== "string" ) {
-				return;
-			}
-
-			if ( self.options.serviceProvider === "mapquest-open" ) {
-				serviceURL = "http://open.mapquestapi.com/nominatim/v1/search";
-			} else {
-				serviceURL = "http://nominatim.openstreetmap.org/search";
-			}
-
-			$.ajax({
-				url : serviceURL,
-				data : {
-					format : "json",
-					q : name
-				},
-				dataType : "jsonp",
-				jsonp : "json_callback",
-				success : function ( results ) {
-					if ( results.length > 0 ) {
-						self.option( "center", [
-							parseFloat( results[0].lon, 10 ),
-							parseFloat( results[0].lat, 10 )
-						]);
-					}
-
-					if ( callback ) {
-						callback( results );
-					}
-				}
-			});
 		}
 	});
 

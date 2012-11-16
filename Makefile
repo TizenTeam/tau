@@ -49,7 +49,7 @@ FW_LIBS_JS = ${JS_OUTPUT_ROOT}/${PROJECT_NAME}-libs.js
 FW_THEME_CSS_FILE = ${PROJECT_NAME}-theme.css
 FW_WIDGET_CSS_FILE = ${WIDGET_CSS_OUTPUT_ROOT}/${PROJECT_NAME}-widget.css
 
-GEO_VERSION = jquery-geo-1.0a4
+GEO_VERSION = jquery-geo-1.0b2
 
 LIBS_JS_FILES = jlayout/jquery.sizes.js \
 				jlayout/jlayout.border.js \
@@ -60,7 +60,7 @@ LIBS_JS_FILES = jlayout/jquery.sizes.js \
 				jquery.easing.1.3.js \
 				jquery.tmpl.js \
 				jquery.mobile.js \
-				${GEO_VERSION}/js/jquery.geo.head.js \
+				${GEO_VERSION}/js/jsrender.js \
 				${GEO_VERSION}/js/jquery.mousewheel.js \
 				${GEO_VERSION}/js/jquery.geo.core.js \
 				${GEO_VERSION}/js/jquery.geo.geographics.js \
