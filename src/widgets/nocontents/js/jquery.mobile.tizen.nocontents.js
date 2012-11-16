@@ -65,7 +65,22 @@
  * <div data-role="nocontents" id="nocontents" data-type="unnamed"></div>
  *
  */
+/**
+	@class NoContents
+	The no contents widget is used if a list has no items.
+	To add a no contents widget to the application, use the following code:
 
+		<div data-role="nocontents" data-type="Picture">
+			<p>Main Text</p>
+			<p>Sub Text</p>
+		</div>
+
+*/
+/**
+	@property {String} data-type
+	Defines the no contents widget type. The type options are text, picture, multimedia, and unnamed.
+	The default value is unnamed.
+*/
 (function ( $, window, undefined ) {
 	$.widget( "tizen.nocontents", $.mobile.widget, {
 		max_height: 0,

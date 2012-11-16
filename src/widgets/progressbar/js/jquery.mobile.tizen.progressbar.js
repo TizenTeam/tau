@@ -15,6 +15,33 @@
  */
 /* This is from jquery ui plugin - progressbar 11/16/2011 */
 
+
+/**
+	@class ProgressBar
+	The progress bar widget shows a control that indicates the progress percentage of an on-going operation. This widget can be scaled to fit inside a parent container.
+
+	To add a progress bar widget to the application, use the following code:
+
+		<div id="foo" data-role="progressbar"</div>
+*/
+/**
+	@event change
+	The progress bar can define a callback for the change event, which is fired when the progress value is changed:
+		<div id="foo" data-role="progressbar"></div>
+		$("#foo").bind("change", function (ev, val)
+		{
+			Console.log("Value is changed to " + val);
+		});
+*/
+/**
+	@method value
+	You can use the value method with the pickers to set or get the current default progress bar value:
+
+		<div id="foo" data-role="progressbar"></div>
+		var oldVal = $("#foo").progress("option", "value");
+		$("#foo").progress("option", "value", 50);
+*/
+
 (function ( $, window, undefined ) {
 
 	$.widget( "tizen.progressbar", $.mobile.widget, {

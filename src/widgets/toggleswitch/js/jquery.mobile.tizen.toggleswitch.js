@@ -49,6 +49,51 @@
 // Events:
 //     change: Emitted when the switch is changed.
 
+/**
+	@class ToggleSwitch
+	The toggle switch widget shows a 2-state switch on the screen.
+
+	To add a toggle switch widget to the application, use the following code:
+
+		// Off state
+		<div id="switch-1" data-role="toggleswitch" data-checked="false" data-textoff="Disabled"></div>
+		// On state
+		<div id="switch-2" data-role="toggleswitch" data-texton="Enabled"></div>
+		<script>
+		$("#switch-1").bind("changed", function(e, state)
+		{
+			alert(state);
+		});
+		</script>
+*/
+/**
+	@property {Boolean} data-checked
+	Sets the toggle switch state.
+	The default value is true.
+*/
+/**
+	@property {String} data-texton
+	Sets the label text value for the toggle switch 'on' state.
+	The default value is On.
+*/
+/**
+	@property {String} data-textoff
+	Sets the label text value for the toggle switch 'off' state.
+	The default value is Off.
+*/
+/**
+	@event change
+	The toggle switch can define a callback for the change event, which is fired when the toggle switch state is changed.
+
+		<div id="switch-1" data-role="toggleswitch"></div>
+		<script>
+		$("#switch-1").bind("change", function(e, state)
+		{
+			alert(state);
+		});
+		</script>
+*/
+
 (function ( $, undefined ) {
 
 	$.widget( "tizen.toggleswitch", $.tizen.widgetex, {

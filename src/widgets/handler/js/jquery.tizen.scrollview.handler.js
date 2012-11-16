@@ -58,6 +58,30 @@
  *		</div>
  */
 
+/**
+	@class handler
+	The handler widget enables the user to vertically scroll through a page or panel using a fixed-size handle. The widget indicates the position of the scrolled window, and only appears on the screen if the parent page or panel's scroll size is larger than the screen size. <br/> To add a handler widget to the application, use the following code:
+
+		<div data-role="content" data-scroll="y" data-handler="true">
+			<ul data-role="listview">
+				<li data-role="list-divider">A</li>
+				<li><a href="#">Adam Kinkaid</a></li>
+					...
+			</ul>
+		</div>
+	
+	You can use the enableHandler method with the handler widget to get (if no value is defined) or set the handler usage status. If the [enable] value is true, the handler is enabled; otherwise the handler is not used.
+
+		$("#.selector").scrollview("enableHandler", [enable]);
+*/
+/**
+	@property {Boolean} data-handler
+	Enables the handler widget. The value must be set to true.
+*/
+/**
+	@property {String} data-handler-theme
+	Sets the handler widget theme.
+*/	
 ( function ( $, document, undefined ) {
 	// The options of handler in scrollview
 	$.tizen.scrollview.prototype.options.handler = false;

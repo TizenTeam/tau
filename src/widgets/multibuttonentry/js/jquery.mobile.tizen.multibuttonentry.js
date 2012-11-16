@@ -87,6 +87,177 @@
  *
  */
 
+
+/**
+	@class MultiButtonEntry
+	The multi-button entry widget enables the user to enter text and convert it to a button. Each button that is created from entered text as a result of a change event forms a multi-button entry widget. This widget is useful in composing an e-mail or SMS message to a group of addresses, each of which is a clickable item for more actions, such as copying, editing, or removing the address.
+
+	To add a multi-button entry widget to the application, use the following code:
+
+		<div data-role="multibuttonentry" data-label="To:" data-theme="#addressbook" data-list-id="pageId">
+		</div>
+*/
+
+/**
+	@property {String}  data-label
+	Sets a label as a guide for the user.
+	For example, while composing an e-mail message, the 'To: ' label is a guide for the user to enter e-mail addresses.
+*/
+
+/**
+	@property {String} data-decription
+	Manages the message format.
+	The message is displayed when the widget status changes to focus out
+ */
+/**
+	@property {String} data-list-id
+	Sets the ID of the page to which the button links.
+*/
+/**
+	@event create
+	The create event is fired when the multi-button view widget is created:
+
+		<div data-role="multibuttonentry" data-label="To:" data-theme="#addressbook">
+		</div>
+		// Option 01
+		$(".selector").multibuttonentry
+		({
+			create: function(event, ui)
+			{
+				// Handle the create event
+ 			}
+		});
+		// Option 02
+		$(".selector").bind("create", function(event, ui)
+		{
+   			// Handle the create event
+		});
+**/
+/**
+	@event select
+	The select event is fired when a multi-button view widget button is selected:
+
+		<div data-role="multibuttonentry" data-label="To:" data-theme="#addressbook">
+		</div>
+		// Option 01
+		$(".selector").multibuttonentry
+		({
+			select: function(event, ui)
+			{
+			// Handle the select event
+			}
+		});
+		// Option 02
+		$(".selector").bind("multibuttonentryselect", function(event, ui)
+		{
+			// Handle the select event
+		});	
+*/
+/**
+	@event add
+	The add event is fired when a multi-button view widget button is created:
+
+		<div data-role="multibuttonentry" data-label="To:" data-theme="#addressbook">
+		</div>
+		// Option 01
+		$(".selector").multibuttonentry
+		({
+			add: function(event, ui)
+			{
+				// Handle the add event
+			}
+		});
+		// Option 02
+		$(".selector").bind("multibuttonentryadd", function(event, ui)
+		{
+		// Handle the add event
+		});
+*/
+/**
+	@event remove
+	The remove event is fired when a multi-button view widget button is removed:
+
+		<div data-role="multibuttonentry" data-label="To:" data-theme="#addressbook">
+		</div>
+		// Option 01
+		$(".selector").multibuttonentry
+		({
+			remove: function(event, ui)
+			{
+			// Handle the remove event
+			}
+		});
+		// Option 02
+		$(".selector").bind("multibuttonentryremove", function(event, ui)
+		{
+			// Handle the remove event
+		});
+*/
+/**
+	@method destroy
+	The destroy method is used to remove in the current widget all the new DOM elements that you have created.
+	
+		<div data-role="multibuttonentry" data-label="To:" data-theme="#addressbook">
+		</div>
+		$(".selector").multibuttonentry("destroy");
+	
+	@since Tizen2.0
+*/
+/**
+	@method inputText
+	The inputText method is used to manage the widget input box text. If no parameter is set, the method gets the input box text. If a parameter is set, the parameter text is set in the input box.
+	
+		<div data-role="multibuttonentry" data-label="To:" data-theme="#addressbook">
+		</div>
+		$(".selector").multibuttonentry("inputText", [text]);
+*/
+/**
+	@method select
+	The select method is used to select a multi-button entry widget button based on its index value. If no index value is defined, the method returns the string of the selected block. If there are no buttons present in the widget, the method returns null.
+
+		<div data-role="multibuttonentry" data-label="To:" data-theme="#addressbook">
+		</div>
+		$(".selector").multibuttonentry("select", [index]);
+*/
+/**
+	@method add
+	The add method is used to add a new multi-button entry widget button with the specified label text at the specified index position. If the index parameter is not defined, the widget button is added at the bottom of the list. For example, the $(".selector").multibuttonentry("add", "Tizen", 2) method call creates a new widget button labeled 'Tizen' at the third position in the widget.
+
+		<div data-role="multibuttonentry" data-label="To:" data-theme="#addressbook">
+		</div>
+		$(".selector").multibuttonentry("add", [text], [index]);
+*/
+/**
+	@method remove
+	The remove method is used to remove a multi-button entry widget button at the specified index position. If the parameter is not defined, all the widget buttons are removed.
+
+		<div data-role="multibuttonentry" data-label="To:" data-theme="#addressbook">
+		</div>
+		$(".selector").multibuttonentry("remove", [index]);
+*/
+/**
+	@method length
+	The length method is used to retrieve the number of buttons in the multi-button entry widget:
+		<div data-role="multibuttonentry" data-label="To:" data-theme="#addressbook">
+		</div>
+		$(".selector").multibuttonentry("length");
+*/
+/**
+	@method focusIn
+	The focusIn method is used to set the focus status to "focus in". This focus state enables the user to add or remove buttons in the multi-button entry widget.
+
+		<div data-role="multibuttonentry" data-label="To:" data-theme="#addressbook">
+		</div>
+		$(".selector").multibuttonentry("focusIn");
+*/
+/**
+	@method focusOut
+	The focusOut method is used to set the focus status to "focus out". In this focus state, the user cannot manage the buttons in the widget, all the buttons are removed, and a message is displayed.
+
+		<div data-role="multibuttonentry" data-label="To:" data-theme="#addressbook">
+		</div>
+		$(".selector").multibuttonentry("focusOut");
+*/
 ( function ( $, window, document, undefined ) {
 	$.widget( "tizen.multibuttonentry", $.mobile.widget, {
 		_focusStatus : null,

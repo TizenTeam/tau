@@ -72,6 +72,48 @@
  *
  */
 
+/**
+	@class VirtualList
+	In the Web environment, it is challenging to display a large amount of data in a list, such as displaying a contact list of over 1000 list items. It takes time to display the entire list in HTML and the DOM manipulation is complex.
+
+	The virtual list widget is used to display a list of unlimited data elements on the screen for better performance. This widget provides easy access to databases to retrieve and display data. Virtual lists are based on the jQuery.template plugin as described in the jQuery documentation for jQuery.template plugin.
+
+	To add a virtual list widget to the application, use the following code:
+
+		<script id="tmp-3-2-7" type="text/x-jquery-tmpl">
+			<li class="ui-li-3-2-7">
+				<span class="ui-li-text-main">${NAME}</span>
+				<img src="00_winset_icon_favorite_on.png" class="ui-li-icon-sub"/>
+				<span class="ui-li-text-sub">${ACTIVE}</span>
+				<span class="ui-li-text-sub2">${FROM}</span>
+			</li>
+		</script>
+		<ul id="vlist" data-role="virtuallistview" data-template="tmp-3-2-7" data-dbtable="JSON_DATA" data-row="100"></ul>
+*/
+/**
+	@property {String} data-role
+	Creates the virtual list view. The value must be set to virtuallistview.
+	Only the &gt;ul&lt; element, which a id attribute defined, supports this option. Also, the vlLoadSuccess class attribute must be defined in the &gt;ul&lt; element to ensure that loading data from the database is complete.
+*/
+/**
+	@property {String} data-template
+	Defines the jQuery.template element ID.
+	The jQuery.template must be defined. The template style can use rem units to support scalability.
+*/
+/**
+	@property {Number} data-row
+	Defines the number of virtual list child elements.
+	The minimum value is 20 and the default value is 100. As the value gets higher, the loading time increases while the system performance improves. So you need to pick a value that provides the best performance without excessive loading time.
+*/
+/**
+	@method create
+	@param {function} itemData(index)
+	: function itemData(index) returns the JSON object matched with the given index. The index value is between 0 and numItemData-1.
+	@param {Number} numItemData
+	: number numItemData or function numItemData() defines or returns a static number of items.
+	@param {function} cacheItemData(minIndex, maxIndex)
+	: function cacheItemData(minIndex, maxIndex) prepares the JSON data. This method is called before calling the itemData() method with index values between minIndex and maxIndex.
+*/
 
 (function ( $, undefined ) {
 

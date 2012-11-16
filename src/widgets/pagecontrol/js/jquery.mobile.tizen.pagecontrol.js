@@ -66,6 +66,33 @@
  *		</script>
  */
 
+/**
+	@class PageControl
+	The page control widget shows a numbered list on the screen. It can receive a touch event from each list item, and run a callback for each touch event. <br/>To add a page control widget to the application, use the following code:
+
+		<div id="foo" data-role="pagecontrol" data-max="5" data-value ="3"></div>
+		$("#foo").bind("change", function(ev, val)
+		{
+				Console.log("Value is changed to " + val);
+		} );
+
+	The page control can define a callback for the change event, which is fired when a list item value is changed.<br/> You can use the value method with the page control to set or get the current page control value:
+
+		<div id="foo" data-role="pagecontrol"></div>
+		var oldVal = $("#foo").pagecontrol("value");
+		$("#foo").pagecontrol("value", 2);
+*/
+/**
+	@property {Number} data-max
+	Defines the number of items in the list.
+	The value must be between 1 and 10, and the default value is 1.
+*/
+/**
+	@property {Number} data-value
+	Defines the number of the initially selected list item.
+	The value must be between 1 and data-max, and the default value is 1.
+*/
+
 (function ($, undefined) {
 	$.widget( "tizen.pagecontrol", $.mobile.widget, {
 		options: {

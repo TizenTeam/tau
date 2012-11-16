@@ -66,7 +66,14 @@
 //
 //     days: array of day names, Sunday first; defaults to English day
 //           names; the first letters are used as text for the checkboxes
+/**
+	@class Dayselector
+	The day selector widget shows a grouped button on the screen for selecting weekdays. <br/> To add a day selector widget to the application, use the following code:
 
+		<fieldset id="dayselector1" data-role="dayselector" data-type="horizontal">
+			<legend><!-- Day selector description --></legend>
+		</fieldset>
+*/
 (function ( $, window, undefined ) {
 	$.widget( "tizen.dayselector", $.mobile.widget, {
 		options: {

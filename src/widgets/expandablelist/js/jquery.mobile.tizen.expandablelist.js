@@ -36,6 +36,26 @@
  *     <li data-expanded-by="exp1">Child</li>
  */
 
+/**
+	@class Expandablelist
+	The expandable list widget shows a parent list view where the list items expand into child lists. When the list is in a collapsed state, only the parent list items are shown. If the user clicks a list item, the child list for that list item is displayed with a transition effect. If the user clicks the parent list item again, the child list collapses and is hidden.<br/><br/>Each child list is created as part of its parent expandable list item so that the child list and its parent expandable list item share the same ID. The child list ID is defined with the data-expanded-by option.
+	
+		<li data-expandable="true" id="exp1" data-initial-expansion="true">Parent</li>
+		// Rest of the parent list items
+		<li data-expanded-by="exp1">Child</li>
+*/
+/**
+	@property {String} data-expanded-by
+	Specifies the ID of the parent expandable list item
+*/
+/**
+	@property {Boolean} data-initial-expansion
+	Defines whether the child list is expanded when the parent expandable list is loaded.
+*/
+/**
+	@property {Boolean} data-expandable
+	Defines whether the list item can be expanded in to a child list.
+*/
 ( function ( $, undefined ) {
 
 	$.widget( "tizen.expandablelist", $.mobile.widget, {

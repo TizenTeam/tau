@@ -3,6 +3,22 @@
 *
 *
 */
+/**
+	@class ListDivider
+	The list divider widget is used as a list separator for grouping lists. List dividers can be used in Tizen as described in the jQueryMobile documentation for list dividers.<br/>
+	To add a list divider widget to the application, use the following code:
+
+		<li data-role="list-divider" data-style="check">
+		<form><input type="checkbox" name="c2line-check1" /></form></li>
+
+	The list divider can define callbacks for events as described in the jQueryMobile documentation for list events. <br/> You can use methods with the list divider as described in the jQueryMobile documentation for list methods.
+
+	@since tizen2.0	
+*/
+/**
+	@property {String} data-style
+	Sets the style of the list divider. The style options are dialogue, check, expandable, and checkexpandable.
+*/
 
 (function ( $, undefined ) {
 

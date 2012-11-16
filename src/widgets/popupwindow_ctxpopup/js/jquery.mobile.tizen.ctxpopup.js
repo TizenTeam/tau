@@ -38,6 +38,32 @@
 // to one in the superclass, upon calling $.widget the object is overwritten in both the prototype of the superclass and
 // the prototype of the subclass. The prototype of the superclass should remain unchanged.
 
+/**
+	@class ContextPopup
+		The context pop-up widget shows a list of options and automatically optimizes its size within the screen. This widget is intended for a small list of options for a larger list, use the List widget. <br/>The context pop-up widget requires a target button, which must be clicked to open the context pop-up. In the default application theme, an arrow pointer is displayed at the top-left corner of the context pop-up widget when it is opened.<br/><br/> To add a context pop-up widget to the application, use the following code:
+
+			// Target button
+			<a href="#pop_3_icons" id="btn_3_icons" data-role="button" data-inline="true" data-rel="popupwindow">3 Icons</a>
+			// Context pop-up
+				<div class="horizontal" id="pop_3_icons" data-role="popupwindow" data-show-arrow="true">
+				<ul>
+					<li class="icon">
+						<a href="#" data-role="button" data-icon="call"></a>
+					</li>
+					<li class="icon">
+						<a href="#" data-role="button" data-icon="favorite"></a>
+					</li>
+					<li class="text">
+						<a href="#">Function</a>
+					</li>
+				</ul>
+			</div>
+	The context pop-up can define callbacks for events as described in the [jQueryMobile documentation for pop-up events.][1]
+	You can use methods with the context pop-up as described in the [jQueryMobile documentation for pop-up methods.][2]
+	[1]: http://jquerymobile.com/demos/1.2.0-alpha.1/docs/pages/popup/events.html
+	[2]: http://jquerymobile.com/demos/1.2.0-alpha.1/docs/pages/popup/methods.html
+*/
+
 (function ( $, undefined ) {
 	$.widget( "tizen.ctxpopup", $.tizen.widgetex, {
 		options: $.extend( {}, $.tizen.popupwindow.prototype.options, {

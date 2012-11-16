@@ -83,6 +83,52 @@
 //
 //   animationComplete: Triggered by a cover when it finishes sliding
 //                      (to either the right or left).
+
+/**
+	@class SwipeList
+	The swipe list widget shows a list view on the screen where the list items can be swiped vertically to show a menu.
+	To add a swipe list widget to the application, use the following code:
+
+		<ul data-role="swipelist">
+			<li>
+				<div data-role="button" data-inline="true">OK</div>
+				<div data-role="button" data-inline="true">Cancel</div>
+				<div data-role="swipelist-item-cover">
+					<p>This is a swipelist item cover.<br>
+						This will be swiped out when swipe event comes.</p>
+				</div>
+			</li>
+		</ul>
+	
+	You can use methods with the swipe list as described in the jQueryMobile documentation for list view methods.
+*/
+/**
+	@property {String} data-role
+	Creates a swipe list using the HTML unordered list (&gt;ul&lt;) element.
+	The default value is swipelist.
+
+	Creates a swipe list item cover using an HTML $gt;div$lt; element. This cover can be swiped to show the content beneath it.
+	The default value is swipelist-item-cover.
+*/
+/**
+	@event animationend
+	The swipe list can define a callback for the animationend event, which is fired after a list item is swiped and the swipe animation is complete:
+
+		<ul data-role="swipelist">
+		<li>
+				<div data-role="button" data-inline="true">OK</div>
+				<div data-role="button" data-inline="true">Cancel</div>
+				<div data-role="swipelist-item-cover" id="foo">
+				<p>This is a swipelist item cover.<br>
+						This will be swiped out when swipe event comes.</p>
+				</div>
+			</li>
+		</ul>
+		$("#foo").bind("animationend", function (ev)
+		{
+			Console.log("Swipelist cover's animation is complete.");
+		});
+*/
 (function ($) {
 
 	$.widget("tizen.swipelist", $.mobile.widget, {

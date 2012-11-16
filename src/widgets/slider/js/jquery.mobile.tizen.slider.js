@@ -73,6 +73,38 @@
  *     });
  */
 
+/**
+	@class Slider
+	The slider widget shows a control on the screen that you can use to change values by dragging a handle on a horizontal scale. Sliders can be used in Tizen as described in the jQueryMobile documentation for sliders.
+
+	To add a slider widget to the application, use the following code:
+
+		<input data-popup='false' type="range" name="slider" value="5" min="0" max="10" data-icon="text" data-text-left="Min" data-text-right="Max" />
+
+	The slider can define callbacks for events as described in the jQueryMobile documentation for slider events.
+	You can use methods with the slider as described in the jQueryMobile documentation for slider methods.
+*/
+/**
+	@property {String} data-icon
+	Defines the icon style for the slider ends. The icon options are bright, volume, and text.
+	The default value is text.
+*/
+/**
+	@property {Boolean} data-popup
+	Enables or disables a pop-up showing the current value while the handle is dragged.
+	The default value is true.
+*/
+/**
+	@property {String} data-text-left
+	Defines the text displayed on the left side of the slider.
+	The data-icon option must be set to text.
+*/
+/**
+	@property {String} data-text-right
+	Defines the text displayed on the right side of the slider.
+	The data-icon option must be set to text.
+*/
+
 (function ($, window, undefined) {
 	$.widget("tizen.tizenslider", $.mobile.widget, {
 		options: {

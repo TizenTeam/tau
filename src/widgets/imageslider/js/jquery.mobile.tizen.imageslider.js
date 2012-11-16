@@ -65,6 +65,49 @@
  *
  */
 
+ /**
+	@class ImageSlider
+	The image slider widget shows images in a gallery on the screen. <br/><br/> To add an image slider widget to the application, use the following code:
+
+		<div data-role="imageslider" id="imageslider" data-vertical-align="middle" data-index="3">
+			<img src="01.jpg">
+			<img src="02.jpg">
+			<img src="03.jpg">
+			<img src="04.jpg">
+			<img src="05.jpg">
+		</div>
+*/
+/**
+	@property {Integer} data-index
+	Defines the index number of the first image in the gallery.
+	<br/>The default value is 0.
+*/
+/**
+	@property {String} data-vertical-align
+	Defines the image alignment. The alignment options are top, middle, and bottom.
+	<br/>The default value is top.
+*/
+/**
+	@method add
+	The add method is used to add an image to the image slider. The image_file attribute defines the image file URL.
+
+		<div id="imageslider" data-role="imageslider" data-vertical-align="middle"></div>
+		$("#imageslider").imageslider('add', [image_file]);
+*/
+/**
+	@method del
+	The del method is used to delete an image from the image slider. The image_index attribute defines the index of the image to be deleted.
+
+		<div id="imageslider" data-role="imageslider" data-vertical-align="middle"></div>
+		$("#imageslider").imageslider('del', [image_index]);
+*/
+/**
+	@method refresh
+	The refresh method is used to refresh the image slider. This method must be called after adding images to the image slider.
+
+		<div id="imageslider" data-role="imageslider" data-vertical-align="middle"></div>
+		$("#imageslider").imageslider('refresh');
+*/
 (function ( $, window, undefined ) {
 	$.widget( "tizen.imageslider", $.mobile.widget, {
 		options: {

@@ -99,6 +99,167 @@
  */
 
 // most of following codes are derived from jquery.mobile.scrollview.js
+
+/**
+	@class VirtualGrid
+	In the Web environment, it is challenging to display large amount of data in a list, such as displaying a contact list of over 1000 list items. It takes time to display the entire list in HTML and the DOM manipulation is complex.
+
+	The virtual grid widget is used to display a list of unlimited data elements on the screen for better performance. This widget displays the data in the grid format by reusing the existing grid control space. Virtual grids are based on the jQuery.template plugin as described in the jQuery documentation for jQuery.template plugin.
+
+	To add a virtual grid widget to the application, use the following code:
+
+		<script id="tizen-demo-namecard" type="text/x-jquery-tmpl">
+			<div class="ui-demo-namecard">
+				<div class="ui-demo-namecard-pic">
+					<img class="ui-demo-namecard-pic-img" src="${TEAM_LOGO}" />
+				</div>
+				<div class="ui-demo-namecard-contents">
+				<span class="name ui-li-text-main">${NAME}</span>
+				</div>
+			</div>
+		</script>
+		<div id="virtualgrid-demo" data-role="virtualgrid" data-itemcount="1" data-template="tizen-demo-namecard">
+		</div>
+*/
+/**
+	@property {String} data-template
+	Specifies the jQuery.template element ID.
+	The jQuery.template must be defined. The template style can use rem units to support scalability.
+*/
+/**
+	@property {String} data-direction
+	Defines the scroll direction. The direction options are x (horizontal) and y (vertical).
+	The default value is y.
+*/
+/**
+	@property {Boolean} data-rotation
+	Defines whether the data elements are displayed from the beginning of the list again once the end of file is reached.
+	The default value is false.
+*/
+/**
+	@property {String} data-itemcount
+	Sets the number of column elements displayed in one row. The value can be a number (when the column number is fixed and displayed as the input value) or auto (when the column number varies and the columns are arranged according to the screen size).
+The default value is 1.
+*/
+/**
+	@event scrollstart
+	The scrollstart event is fired when the user starts scrolling through the grid:
+
+		<div data-role="virtualgrid" data-scroll="y" data-template="tizen-demo-namecard"></div>
+		// Option 01
+		$(".selector").virtualgrid
+		({
+			scrollstart: function(event, ui)
+			{
+			// Handle the scrollstart event
+			}
+		});
+		// Option 02
+		$(".selector").bind("scrollstart", function(event, ui)
+		{
+		// Handle the scrollstart event
+		});
+*/
+/**
+	@event scrollupdate
+	The scrollupdate event is fired when the user moves the scroll bar in the grid:
+
+		<div data-role="virtualgrid" data-scroll="y" data-template="tizen-demo-namecard"></div>
+		// Option 01
+		$(".selector").virtualgrid
+		({
+			scrollupdate: function(event, ui)
+			{
+			// Handle the scrollupdate event
+			}
+		});
+		// Option 02
+		$(".selector").bind("scrollupdate", function(event, ui)
+		{
+		// Handle the scrollupdate event
+		});
+*/
+/**
+	@event scrollstop
+	The scrollstop event is fired when the user stops scrolling:
+
+		<div data-role="virtualgrid" data-scroll="y" data-template="tizen-demo-namecard"></div>
+		// Option 01
+		$(".selector").virtualgrid
+		({
+			scrollstop: function(event, ui)
+			{
+			// Handle the scrollstop event
+			}
+		});
+		// Option 02
+		$(".selector").bind("scrollstop", function(event, ui)
+		{
+		// Handle the scrollstop event
+		});
+*/
+/**
+	@event select
+	The select event is fired when a virtual grid cell is selected:
+
+		<div data-role="virtualgrid" data-scroll="y" data-template="tizen-demo-namecard"></div>
+		// Option 01
+		$(".selector").virtualgrid
+		({
+			select: function(event, ui)
+			{
+			// Handle the select event
+			}
+		});
+		// Option 02
+		$(".selector").bind("select", function(event, ui)
+		{
+		// Handle the select event
+		});
+*/
+/**
+	@method create
+	@param {function} itemData(index)
+	@param {Number} numItemData
+	@param {function} cacheItemData(minIndex, maxIndex)
+	The create method is used to call the jQuery _create method. In the method parameters:
+
+	function itemData(index) returns the JSON object matched with the given index. The index value is between 0 and numItemData-1.<br/>
+	number numItemData or function numItemData() defines or returns a static number of items.<br/>
+	function cacheItemData(minIndex, maxIndex) prepares the JSON data. This method is called before calling the itemData() method with index values between minIndex and maxIndex.<br/>
+
+		<div data-role="virtualgrid" data-scroll="y" data-template="tizen-demo-namecard"></div>
+			function itemData(idx)
+			{
+				return DATA[idx];
+			}
+			function cacheItemData(minIdx, maxIdx)
+			{
+			// Prepare JSON data between minIdx and maxIdx
+			}
+			var numItemData = DATA.length;
+			$(".selector").virtualgrid("create",
+			{
+				itemData, numItemData, cacheItemData
+			});
+*/
+/**
+	@method centerTo
+	The centerTo method is used to search for the DOM element with a specified class name. The retrieved element is placed at the center of the virtual grid. If multiple elements are retrieved, the first element from the result list is placed at the center of the virtual grid.
+
+		<div data-role="virtualgrid" data-scroll="y" data-template="tizen-demo-namecard"></div>
+		$(".selector").virtualgrid("centerTo", "selector");
+*/
+/**
+	@method resize
+	The resize method is used to rearrange the DOM elements to fit a new screen size when the screen is resized:
+
+		<div data-role="virtualgrid" data-scroll="y" data-template="tizen-demo-namecard"></div>
+		".selector").virtualgrid("resize");
+
+	@since Tizen2.0
+*/
+
 ( function ($, window, document, undefined) {
 
 	function circularNum (num, total) {
