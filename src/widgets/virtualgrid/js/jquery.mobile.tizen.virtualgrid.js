@@ -510,6 +510,11 @@ The default value is 1.
 			}
 		},
 
+		_getViewHeight : function () {
+			var self = this;
+			return self._$view.height();
+		},
+
 		refresh : function () {
 			var self = this,
 				opts = self.options,
@@ -645,6 +650,9 @@ The default value is 1.
 			self._makePositioned =  self._scrollView._makePositioned;
 			self._set_scrollbar_size = self._scrollView._set_scrollbar_size;
 			self._setStyleTransform = self._scrollView._setElementTransform;
+			self._hideOverflowIndicator = self._scrollView._hideOverflowIndicator;
+			self._showOverflowIndicator = self._scrollView._showOverflowIndicator;
+			self._setGestureScroll = self._scrollView._setGestureScroll;
 		},
 
 		_createTracker : function () {
