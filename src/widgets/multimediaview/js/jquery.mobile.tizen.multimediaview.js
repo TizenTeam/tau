@@ -173,8 +173,8 @@
 			view.addClass( "ui-multimediaview" );
 			control = self._createControl();
 
-			if ( view[0].nodeName === "AUDIO" ) {
-				control.addClass( "ui-multimediaview-audio" );
+			if ( view[0].nodeName === "VIDEO" ) {
+				control.addClass( "ui-multimediaview-video" );
 			}
 
 			control.hide();
