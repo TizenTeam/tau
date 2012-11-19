@@ -38,8 +38,9 @@ jQuery.extend(jQuery.mobile.tizen, {
     disableSelection: function (element) {
 	var self = this;
 	$(element).find('*').each( function() {
-		if( $(this).get(0).tagName !== 'INPUT' &&
-			$(this).attr("type") !== 'text' ) {
+		if( ( $(this).get(0).tagName !== 'INPUT' &&
+			$(this).attr("type") !== 'text' ) &&
+			$(this).get(0).tagName !== 'TEXTAREA' ) {
 			self.enableSelection( this, 'none' );
 		}
 	} );
@@ -72,8 +73,9 @@ jQuery.extend(jQuery.mobile.tizen, {
     disableContextMenu: function(element) {
 	var self = this;
 	$(element).find('*').each( function() {
-		if( $(this).get(0).tagName !== 'INPUT'
-			&& $(this).attr("type") !== 'text' ) {
+		if( ( $(this).get(0).tagName !== 'INPUT' &&
+			$(this).attr("type") !== 'text' ) &&
+			$(this).get(0).tagName !== 'TEXTAREA' ) {
 			self._disableContextMenu( this );
 		}
 	} );
