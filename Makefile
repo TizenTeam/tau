@@ -5,6 +5,7 @@ DEBUG ?= yes
 PROJECT_NAME = tizen-web-ui-fw
 VERSION = 0.1
 VERSION_COMPAT =
+PKG_VERSION = $(shell cat packaging/web-ui-fw.spec | grep Version: | sed -e "s@Version:\s*@@" )
 THEME_NAME = default
 
 PATH := $(CURDIR)/build-tools/bin:$(PATH)
@@ -182,6 +183,7 @@ widgets: init third_party
 
 loader: widgets globalize
 	cat 'src/loader/loader.js' >> ${FW_JS}
+	echo '(function($$){$$.tizen.frameworkData.pkgVersion="$(PKG_VERSION)";}(jQuery));' >> ${FW_JS}
 
 
 globalize: widgets
