@@ -31,29 +31,12 @@
  *  Controlbar can be created using data-role = "controlbar" inside footer 
  *  Framework determine which controlbar will display with controlbar attribute
  *
- * Attributes:
- *
- *     data-style : determine which controlbar will use ( tabbar / toolbar )
- *                    tabbar do not have back button, toolbar has back button 
- *
  * Examples:
  *         
- *     HTML markup for creating tabbar: ( 2 ~ 5 li item available )
- *     icon can be changed data-icon attribute
- *         <div data-role="footer"data-position ="fixed">
- *              <div data-role="controlbar" data-style="tabbar" >
- *                     <ul>
- *                            <li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active">Menu</a></li>
- *                            <li><a href="#" data-icon="ctrlbar-save" >Save</a></li>
- *                            <li><a href="#" data-icon="ctrlbar-share" >Share</a></li>
- *                     </ul>
- *             </div>
- *      </div>
- *
- *     HTML markup for creating toolbar: ( 2 ~ 5 li item available )
+ *     HTML markup for creating controlbar: ( 2 ~ 5 li item available )
  *     icon can be changed data-icon attribute
  *         <div data-role="footer" data-position ="fixed">
- *              <div data-role="controlbar" data-style="toolbar" >
+ *              <div data-role="controlbar">
  *                     <ul>
  *                            <li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active">Menu</a></li>
  *                            <li><a href="#" data-icon="ctrlbar-save" >Save</a></li>

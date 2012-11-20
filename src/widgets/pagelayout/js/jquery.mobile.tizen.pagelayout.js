@@ -421,8 +421,7 @@
 		},
 
 
-		/* 1. Calculate toolbar width(only controlbar)
-		*  2. Calculate and update content height   */
+		/* 1. Calculate and update content height   */
 		updatePageLayout: function ( receiveType ) {
 			var $elFooter,
 				$elFooterControlbar,
@@ -446,9 +445,6 @@
 
 			if (resultFooterHeight != 0 ) {
 				$elFooter.css( "bottom", 0 );
-			}
-			if ( $elFooterControlbar.jqmData("style") == "toolbar" ) {
-				$elFooterControlbar.css( "width", window.innerWidth - $elFooterControlbar.siblings( ".ui-btn" ).width() - parseInt($elFooterControlbar.siblings(".ui-btn").css("right"), 10 ) * 2  );
 			}
 
 			resultContentHeight = window.innerHeight - resultFooterHeight - resultHeaderHeight;

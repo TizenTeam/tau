@@ -43,13 +43,11 @@
 				o = $elPage.data( "page" ).options;
 
 				/* Back button skip case :
-				* 1. tabbar
-				* 2. footer does not exist and addBackBtn is set to "footer"
-				* 3. user define data-add-Back-Btn = "false"
+				* 1. footer does not exist and addBackBtn is set to "footer"
+				* 2. user define data-add-Back-Btn = "false"
 				*/
 			if ( status != "external" ) {
-				if ( ( $elFooter.children( ":jqmData(role='controlbar')" ).jqmData( "style" ) == "tabbar" && $elPage.jqmData( "addBackBtn" ) != "header" )
-						|| $elPage.data().page.options.addBackBtn == "none" || ( $elPage.data().page.options.addBackBtn == "footer" && $elPage.data().page.options.footerExist == false )  ) {
+				if ( $elPage.data().page.options.addBackBtn == "none" || ( $elPage.data().page.options.addBackBtn == "footer" && $elPage.data().page.options.footerExist == false )  ) {
 					return true;
 				}
 			}
