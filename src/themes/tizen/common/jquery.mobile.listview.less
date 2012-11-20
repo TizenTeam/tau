@@ -390,6 +390,19 @@ li.ui-li-thumbnail-right {
 		}
 	}
 
+	&:not(.ui-btn) {
+		margin-left : 12 * @unit_base;
+		margin-right : 12 * @unit_base;
+	}
+
+	&>.ui-btn-text {
+		position : absolute;
+
+		top : 5 * @unit_base;
+		height : 18 * @unit_base;
+		padding-right : 10 * @unit_base;
+	}
+
 	&[data-style="dialogue"] {
 		height: 20 * @unit_base;
 		padding : 0px;

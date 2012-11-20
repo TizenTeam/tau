@@ -1,7 +1,8 @@
 /* ***************************************************************************
 * style : normal, check
-*
-*
+* option :
+*    - folded : decide to show divider press effect or not
+*    - line : decide to draw divider line or not
 */
 /**
 	@class ListDivider
@@ -21,10 +22,11 @@
 */
 
 (function ( $, undefined ) {
-
 	$.widget( "tizen.listdivider", $.mobile.widget, {
 		options: {
 			initSelector: ":jqmData(role='list-divider')",
+			folded : false,
+			listDividerLine : true,
 		},
 
 		_create: function () {
@@ -36,17 +38,28 @@
 				style = $listdivider.attr( "data-style" );
 
 			if ( $listdivider.data("line") === false ) {
-				listDividerLine = false;
+				this.options.listDividerLine = false;
+			}
+
+			if ( $listdivider.data("folded") === true ) {
+				this.options.folded = true;
 			}
 
 			if ( style == undefined || style === "normal" || style === "check" ) {
-				$listdivider.buttonMarkup();
-
-				if ( listDividerLine ) {
-					expandSrc = "<span class='ui-divider-normal-line'></span>";
-					$( expandSrc ).appendTo( $listdivider.children( ".ui-btn-inner" ) );
+				if ( this.options.folded ) {
+					$listdivider.buttonMarkup();
+				} else {
+					$listdivider.wrapInner("<span class='ui-btn-text'></span>");
 				}
 
+				if ( this.options.listDividerLine ) {
+					expandSrc = "<span class='ui-divider-normal-line'></span>";
+					if ( this.options.folded ) {
+						$( expandSrc ).appendTo( $listdivider.children( ".ui-btn-inner" ) );
+					} else {
+						$( expandSrc ).appendTo( $listdivider);
+					}
+				}
 			}
 
 			$listdivider.bind( "vclick", function ( event, ui ) {
