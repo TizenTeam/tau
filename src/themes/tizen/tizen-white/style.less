@@ -1,30 +1,34 @@
-/******************************************************************************************************/
-/**************** Define ColorCode Here    ************* Start ****************************************/
-/******************************************************************************************************/
-
-
-
-/***************** Naviframe **********************************/
-@color_bar_title_text : rgba(59, 115, 182, 1); /* #3b73b6 */ /* title text */
-@color_bar_btn_press : rgba(0, 0, 0, 0.1);
-
-/***************** Controlbar *********************************/
-@color_controlbar_btn_press : -webkit-linear-gradient(top,  rgba(169,165,151,1) 0%,rgba(246,248,239,1) 100%);
-
-/***************** Body ***************************************/
+/***************************************************************************
+                   Body
+***************************************************************************/
 @color_bg: rgb(248, 246, 239); // #F8F6EF // Main Background color
 @color_text: rgb(0, 0, 0);	// 0 0 0
 @color_text_sub:			rgb(102, 102, 102);	// 102 102 102
 @color_text_setting:		rgb(42, 109, 140);	// 42 109 140
 
-/***************** List ***************************************/
+
+/***************************************************************************
+                   Naviframe
+***************************************************************************/
+@color_bar_title_text : rgba(59, 115, 182, 1); /* #3b73b6 */ /* title text */
+@color_bar_btn_press : rgba(0, 0, 0, 0.1);
+
+
+/***************************************************************************
+                   Controlbar
+***************************************************************************/
+@color_controlbar_btn_press : -webkit-linear-gradient(top,  rgba(169,165,151,1) 0%,rgba(246,248,239,1) 100%);
+
+
+/***************************************************************************
+                   List
+***************************************************************************/
 @color_list_bg:								rgba(248, 246, 239, 1);				/* B0211	: List bg color			*/
 @color_list_press :						rgba(87, 135, 194, 1);				/* B041		: List Press color	*/
 @color_list_border_bottom:		rgba(211, 209, 203, 0.5);			/* B0221	: 1px line Code 		*/
 @color_list_main_text_focus:		rgba(249, 249, 249, 1);
 @color_list_main_text_unfocus:		rgba(0, 0, 0, 1);
 @color_list_sub_text_default: rgba(100, 100, 100, 1);
-
 
 @color_list_divider_expand_div : rgba(0, 0, 0, 0.5);
 @color_list_divider_bg : rgba(248, 246, 239, 1);						/* W021L1 : Index BG					*/
@@ -50,25 +54,34 @@
 @color_list_bubble_link_text:	rgb(34, 129, 157);
 
 
-/****************** Shortcut Scroll *************************/
+/***************************************************************************
+                   Shortcut Scroll
+***************************************************************************/
 @color_shortcutscroll_rollover_bg: rgba(230, 227, 216, 1);		/* B0723 : 00_fast_scroll_rollover_bg.9.png */
 @color_shortcutscroll_rollover_text: rgba(160, 159, 154, 1);	/* B0721 : Rollover text */
 @color_shortcutscroll_popup_bg: rgba(59, 115, 182, 1);				/* B0731 : 00_fast_scroll_popup_bg.png */
 @color_shortcutscroll_popup_shadow: rgba(199, 199, 199, 0.5);
 @color_shortcutscroll_popup_text: rgba(255, 255, 255, 1);			/* B0732 : Scroll popup text */
 
-/***************** SearchBar(forms.textinput) *****************/
+
+/***************************************************************************
+                   SearchBar(forms.textinput)
+***************************************************************************/
 @color_searchbar_bg : rgba(248, 246, 239, 1);
 @color_searchbar_default_text : rgba(121, 131, 138, 1); /* Search default text */
 @color_searchbar_input_field_bg : rgba(255, 255, 255, 1); /* W301 : 00_search_edit_field_bg.png */
 
-/***************** Popup **************************************/
+
+/***************************************************************************
+                   Popup
+***************************************************************************/
 @font_size_popup_info_style: 24 * @unit_base;
 @color_popup_text_bg: rgba(248, 246, 239, 1);								/* B061L1 : Popop info					*/
 
 
-/***************** Button *************************************/
-
+/***************************************************************************
+                        Button(connected with other winset)
+***************************************************************************/
 @color_button_EditText:         rgb(61, 61, 61);
 @color_button_EditTextPress:    rgb(61, 61, 61);
 
@@ -142,13 +155,10 @@
         color: @color_button_text_press;
 }
 
-/***************** Datetime picker ****************************/
 
-@font_size_datetime_main_text:              22 * @unit_base;
-@font_size_datetime_sub_text:               16 * @unit_base;
 /***************************************************************************
                         contextual popup
- ***************************************************************************/
+***************************************************************************/
 @color_ctxpopup_text:                   rgb(255, 255, 255);
 @color_ctxpopup_background:             rgb(68, 68, 68);
 @color_ctxpopup_border_left:            rgb(91, 91, 91);
@@ -160,109 +170,75 @@
 
 @color_ctxpopup_timepicker_text:        rgba( 249, 249, 249, 0.4 );
 @color_ctxpopup_timepicker_text_focus:  rgba( 249, 249, 249, 1 );
-
-/******************************************************************************************************/
-/**************** Define ColorCode Here    ************* End ****************************************/
-/******************************************************************************************************/
-
-
-
-
-
-
-
-
-
-/************************** old color code  ******************************/
-
-// Basic color set
-
-@color_bg_sub:			rgb(36, 36, 36);	// 36 36 36	// TODO: used only in dialog group. Check more.
-
-@color_border:			rgb(42, 42, 42);	// 42 42 42
-@color_header: 			rgb(68, 68, 74);	// 68 68 74
-
-@color_scrollbar: 		rgb(198, 196, 190);
-
-
-@color_text_dim:			rgb(108, 115, 118);	// 108 115 118
-@color_text_focus:		@color_text;
-
-@color_text_input:		rgb(70, 70, 70);	// 70 70 70
-@color_text_cursor:		@color_text_setting;
-@color_text_segctrl:		rgb(158, 195, 213);	// 158 195 213	// TODO: used only in segctrl. Check more.
-
-//Dialogue color set
-
-@color_dialogue_sub_text:				rgb(146,146,146);
-
-
-//Dialogue Editor color set
-@color_dialogue_editor_default_text:	rgb(70, 70, 70);
-@color_dialogue_editor_bg:				rgb(0, 0, 0);
-@color_dialogue_editor_border:			rgb(108, 168, 199);	
-/*************************
-  Vars/Mixins for Widgets
-
-  NOTE:
-    * Color variables' name: @color_<widget name>_<identifier>
-	* Color values: Use rgb() or rgba()
- *************************/
+@color_bar_back_btn_press : rgba(26, 82, 116, 0.3); /* #1A5274 */
 
 
 /***************************************************************************
-                   List 
+                   Scrollview
 ***************************************************************************/
+@color_scrollbar: 		rgb(198, 196, 190);
 
 
-@color_list_main_text_read:		rgba(158, 158, 158, 1);
-@color_list_main_text_unread:	rgba(249, 249, 249, 1);
-
-@color_list_sub_text_settings:	rgba(0, 140, 210, 1);
-@color_list_sub_text_focus:		rgba(249, 249, 249, 1);
-@color_list_flexible_text_main:	rgba(249, 249, 249, 1);
-@color_list_flexible_text_sub:		rgba(149, 149, 149, 1);
-@color_list_index_list:			rgba(164, 164, 164, 1);
-@color_list_editfield_text:			rgba(70, 70, 70, 1);
-@color_list_editfield_text_cursor:	rgba(0, 140, 210, 1);
-@color_list_multiline_text:		rgba(149, 149, 149, 1);
-@color_list_3line_main_text:		rgba(249, 249, 249, 1);
-@color_list_3line_main_text_read:	rgba(249, 249, 249, 1);
-@color_list_3line_main_text_focus:	rgba(249, 249, 249, 1);
-@color_list_3line_main_text2:		rgba(104, 137, 152, 1);
-@color_list_3line_main_text2_focus:	rgba(249, 249, 249, 1);
-@color_list_converter_style:		rgba(249, 249, 249, 1);
-@color_list_converter_style_focus:	rgba(249, 249, 249, 1);
-@color_list_unread_email:		rgba(249, 249, 249, 1);
-@color_list_contents_text:		rgba(210, 210, 210, 1);
-@color_list_name_text:			rgba(129, 129, 129, 1);
-@color_list_name_text_dim:		rgba(0, 140, 210, 1);
-@color_list_colorbar:				rgba(80, 107, 207, 1); //Temp, not defined
+/***************************************************************************
+                   Date Time picker
+***************************************************************************/
+@color_timepicker_selector_color:	rgb(42,137,194);
+@font_size_datetime_main_text:              22 * @unit_base;
+@font_size_datetime_sub_text:               16 * @unit_base;
 
 
+/***************************************************************************
+                   DaySelector
+***************************************************************************/
+@color_dayselector_Btn_Sat:		rgba(0, 168, 231, 1); /* #00a8e7 */
+@color_dayselector_Btn_Sun:		rgba(240, 20, 2, 1); /* #f01402 */
+@color_dayselector_Btn_Mon_to_Fri:	rgba(249, 249, 249, 1); /* #f9f9f9 */	
+@color_dayselector_Btn_border:		rgba(26, 82, 116, 1); /* #f9f9f9 */	
+
+@color_dayselector_Btn_normal_start:	rgb(126, 157, 178);
+@color_dayselector_Btn_normal_end:	rgb(84,121,144);
+
+@color_dayselector_Btn_press_start:	rgb(59,119,150);
+@color_dayselector_Btn_press_end:	rgb(47,91,117);
 
 
+.LESSDayselectorButtonNormal{
+	.LESSbackground-with-gradient(top, @color_dayselector_Btn_normal_start, @color_dayselector_Btn_normal_end);
+}
+
+.LESSDayaselectorButtonPress{
+	.LESSbackground-with-gradient(top, @color_dayselector_Btn_press_start, @color_dayselector_Btn_press_end);
+}
 
 
-@font_size_list_main_text:		44 * @unit_base; //1.375rem;	/* 44 px */
-@font_size_list_sub_text:		32 * @unit_base; //1.0rem;	/* 32 px */
-@font_size_list_flexible_text_main:	48 * @unit_base; //1.5rem;	/* 48 px */
-@font_size_list_flexible_text_sub:	36 * @unit_base; //1.125rem;	/* 36 px */
-@font_size_list_index_list:		32 * @unit_base; //1.0rem;	/* 32 px */
-@font_size_list_editfield_text:		44 * @unit_base; //1.375rem;	/* 44 px */
-@font_size_list_multiline_text:		32 * @unit_base; //1.0rem;	/* 32 px */
-@font_size_list_3line_main_text:	42 * @unit_base; //1.3125rem;	/* 42 px */
-@font_size_list_3line_main_text2:	36 * @unit_base; //1.125rem;	/* 36 px */
-@font_size_list_converter_style:	40 * @unit_base; //1.3rem;	/* 40 px */
-@font_size_list_unread_email:		44 * @unit_base; //1.375rem;	/* 44 px */
-@font_size_list_contents_text:		30 * @unit_base; //0.94rem;	/* 30 px */
-@font_size_list_name_text:		32 * @unit_base; //1.0rem;	/* 32 px */
-
-@style_list_li_dialogue_border_left_width: 10 * @unit_base;
-@style_list_bubble_date_height:	40 * @unit_base;
-@style_list_bubble_date_text_align:	center;
+/***************************************************************************
+                   OptionHeader
+***************************************************************************/
+@color_optionheader_Background:	rgba(26, 82, 116, 1); 
+@color_optionheader_bt:		-webkit-linear-gradient(top,  rgb(56,112,141) 0%,rgb(36,93,128) 100%);
+@color_optionheader_bt_press:	-webkit-linear-gradient(top,  rgb(74,164,218) 0%,rgb(43,138,195) 100%);
+@color_optionheader_tab_text:	rgba(249, 249, 249, 1); /* #f9f9f9 */
 
 
+/***************************************************************************
+                   SegmentControl
+***************************************************************************/
+@color_segmentcontrol_btn_normal : rgb(125,157,178);
+@color_segmentcontrol_btn_normal_start : rgb(125,157,178);
+@color_segmentcontrol_btn_normal_end : rgb(84,121,144);
+
+@color_segmentcontrol_btn_press : rgb(59,119,150);
+@color_segmentcontrol_btn_press_start : rgb(59,119,150);
+@color_segmentcontrol_btn_press_end : rgb(47,91,117);
+
+@color_segmentcontrol_Seg_text : rgba(249, 249, 249, 1); /* #F9F9F9*/
+@color_segmentcontrol_Seg_text_pressed : rgba(249, 249, 249, 1); /* #F9F9F9*/
+
+
+/***************************************************************************
+                   ControlGroup
+***************************************************************************/
+@color_controlgroup_btn_border : rgba(26, 82, 116, 1); /* #252525 */
 
 
 /***************************************************************************
@@ -270,7 +246,7 @@
 ***************************************************************************/
 @color_popup_center_progressbar_title:	rgba(153, 153, 153, 1);
 @color_popup_text_progress_title:	rgba(249, 249, 249, 1);
-/* TODO : ninepatch popup title */
+
 @color_popup_title_bg:		rgba(80, 147, 182, 255);	/* popup_title_bg.png */
 
 @color_popup_button_bg:		rgba(248, 246, 239, 1);
@@ -284,6 +260,7 @@
 @color_popup_buttonbg_o:	-o-linear-gradient(top, rgb(84, 126, 153), rgb(69, 105, 128));
 @color_popup_buttontext:	rgb(249, 249, 249);
 @color_popup_buttonbg_over:	rgb(94, 136, 163);
+
 @color_popup_buttonbg_press:	rgb(67, 160, 217);
 @color_popup_buttonbg_press_webkit:	-webkit-gradient(linear, left top, left bottom, from(rgb(67, 160, 217)), to(rgb(56, 139, 185)));
 @color_popup_buttonbg_press_moz:	-moz-linear-gradient(top, rgb(67, 160, 217), rgb(56, 139, 185));
@@ -322,14 +299,10 @@
 .LESSpopup_padding_style{
 }
 
+
 /***************************************************************************
                     Button
 ***************************************************************************/
-
-@color_button_press_webkit:	-webkit-gradient(linear, left top, left bottom, from(rgb(67, 160, 217)), to(rgb(56, 139, 185)));
-@color_button_press_moz:	-moz-linear-gradient(top, rgb(67, 160, 217), rgb(56, 139, 185));
-
-@color_button_hover: 		rgb(161, 171, 177);
 
 @color_button_text_black:	rgb(0, 0, 0);
 @color_button_text_white:	rgb(249, 249, 249);
@@ -342,10 +315,6 @@
 @color_circlebutton_press_webkit:       -webkit-gradient(linear, left top, left bottom, from(rgb(67, 160, 217)), to(rgb(56, 139, 185)));
 @color_circlebutton_press_moz:		-moz-linear-gradient(top, rgb(67, 160, 217), rgb(56, 139, 185));
 
-@color_button_EditText:		rgb(249, 249, 249);
-@color_button_EditTextPress:	rgb(249, 249, 249);
-@color_button_EditBG:		rgb(0, 0, 0);
-@color_button_EditBGPress:	rgb(0, 140, 210);
 
 @color_button_switch_BGon:		rgb(42, 126, 172);
 @color_button_switch_BGon_webkit:	-webkit-gradient(linear, left top, left bottom, from(rgb(33, 116, 167)), to(rgb(75, 165, 219)));
@@ -369,29 +338,6 @@
 @color_button_edit_press_webkit:	-webkit-gradient(linear, left top, left bottom, from(rgb(147, 24,24)), to(rgb(110, 23, 23)));
 @color_button_edit_press_moz:		-moz-linear-gradient(top, rgb(147, 24, 24), rgb(110, 23, 23));
 
-
-.LESSbutton_text1_style{
-	font-family: @font_family;
-	font-weight: normal;
-	font-size: 1.0rem;
-	font-style:normal;
-	color: @color_button_text_black;
-	&:hover {color: @color_button_text_black;}
-}
-
-.LESScirclebutton_hover_style{
-	border-width: 0px;
-	background: @color_circlebutton_hover;
-	background: @color_circlebutton_hover_webkit;
-	backgronnd: @color_circlebutton_hover_moz;
-}
-
-.LESScirclebutton_press_style{
-	border-width: 0px;
-	background: @color_circlebutton_press;
-	background: @color_circlebutton_press_webkit;
-	background: @color_circlebutton_press_moz;
-}
 
 .LESStoggleswitch_on_style{
 	background: @color_button_switch_BGon;
@@ -438,129 +384,6 @@
 	padding: 0.5em 0.8em;
 }
 
-/***************************************************************************
-		    Date Time picker color set
-***************************************************************************/
-@color_timepicker_selector_color:	rgb(42,137,194);
-
-
-/***************************************************************************
-                    DaySelector
-***************************************************************************/
-@color_dayselector_Btn_Sat:		rgba(0, 168, 231, 1); /* #00a8e7 */
-@color_dayselector_Btn_Sun:		rgba(240, 20, 2, 1); /* #f01402 */
-@color_dayselector_Btn_Mon_to_Fri:	rgba(249, 249, 249, 1); /* #f9f9f9 */	
-@color_dayselector_Btn_border:		rgba(26, 82, 116, 1); /* #f9f9f9 */	
-
-@color_dayselector_Btn_normal_start:	rgb(126, 157, 178);
-@color_dayselector_Btn_normal_end:	rgb(84,121,144);
-
-@color_dayselector_Btn_press_start:	rgb(59,119,150);
-@color_dayselector_Btn_press_end:	rgb(47,91,117);
-
-
-.LESSDayselectorButtonNormal{
-	.LESSbackground-with-gradient(top, @color_dayselector_Btn_normal_start, @color_dayselector_Btn_normal_end);
-}
-
-.LESSDayaselectorButtonPress{
-	.LESSbackground-with-gradient(top, @color_dayselector_Btn_press_start, @color_dayselector_Btn_press_end);
-}
-
-
-/***************************************************************************
-                    OptionHeader
-***************************************************************************/
-@color_optionheader_Background:	rgba(26, 82, 116, 1); 
-@color_optionheader_bt:		-webkit-linear-gradient(top,  rgb(56,112,141) 0%,rgb(36,93,128) 100%);
-@color_optionheader_bt_press:	-webkit-linear-gradient(top,  rgb(74,164,218) 0%,rgb(43,138,195) 100%);
-@color_optionheader_tab_text:	rgba(249, 249, 249, 1); /* #f9f9f9 */
-
-
-
-
-/***************************************************************************
-                    SegmentControl
-***************************************************************************/
-@color_segmentcontrol_btn_normal : rgb(125,157,178);
-@color_segmentcontrol_btn_normal_start : rgb(125,157,178);
-@color_segmentcontrol_btn_normal_end : rgb(84,121,144);
-
-@color_segmentcontrol_btn_press : rgb(59,119,150);
-@color_segmentcontrol_btn_press_start : rgb(59,119,150);
-@color_segmentcontrol_btn_press_end : rgb(47,91,117);
-
-@color_segmentcontrol_Seg_text : rgba(249, 249, 249, 1); /* #F9F9F9*/
-@color_segmentcontrol_Seg_text_pressed : rgba(249, 249, 249, 1); /* #F9F9F9*/
-
-
-/* delete */
-/*
-.LESSSegmentControlBtnBackground
-{
-	.LESSbackground-with-gradient(top, @color_segmentcontrol_btn_normal_start, @color_segmentcontrol_btn_normal_end);
-}
-
-.LESSSegmentControlBtnPressBackground
-{
-	.LESSbackground-with-gradient(top, @color_segmentcontrol_btn_press_start, @color_segmentcontrol_btn_press_end);
-}
-*/
-
-/***************************************************************************
-                    ControlGroup
-***************************************************************************/
-@color_controlgroup_btn_border : rgba(26, 82, 116, 1); /* #252525 */
-
-
-/***************************************************************************
-                    Header / Footer 
-                    NavigationBar / ControlBar
-***************************************************************************/
-@color_bar_bg : rgb(156, 181, 179);
-@color_bar_bg_start : rgb(156, 181, 179);
-@color_bar_bg_end : rgb(79,116,141);
-
-@color_bar_back_btn_press : rgba(26, 82, 116, 0.3); /* #1A5274 */
-
-@color_bar_btn_bg : transparent;
-@color_bar_back_btn_bg : transparent;
-
-@color_bar_seg_btn_border : rgba(0, 0, 0, 0.1);
-@color_bar_seg_text_press : rgba(249, 249, 249, 1); 
-@color_bar_seg_text_normal : rgba(249, 249, 249, 1); 
-@color_bar_seg_btn_press : -webkit-linear-gradient(top,  rgb(61,120,151) 0%,rgb(48,91,118) 100%);
-@color_bar_seg_btn_normal : -webkit-linear-gradient(top,  rgb(127,159,181) 0%,rgb(70,108,133) 100%);
-
-@color_bar_title_bg : rgb(90, 153, 186);
-@color_bar_title_bg_start : rgb(90, 153, 186);
-@color_bar_title_bg_end : rgb(32, 84, 115);
-
-@color_bar_title_btn_border : rgba(36, 93, 128, 0.4); /* 00_winset_divider_line.png  temp value */
-
-@color_bar_footer_bg : -webkit-linear-gradient(top,  rgb(156,181,179) 0%,rgb(79,116,141) 100%);
-@color_bar_footer_btn_bg : transparent;
-
-@color_controlbar_btn_border : rgba(0, 0, 0, 0.1); /* #000000 */
-@color_controlbar_tabbbar_bg : transparent;
-@color_controlbar_toolbbar_bg : transparent;
-@color_controlbar_bg : transparent;
-
-@color_controlbar_btn_text : rgba(249, 249, 249, 1); /* #F9F9F9 */
-
-
-@color_border_top : rgba(255, 255, 255, 0.5);
-@color_border_bottom : rgba(0, 0, 0, 0.5);
-
-.LESSHeaderFooterBackground
-{
-	.LESSbackground-with-gradient(top, @color_bar_bg_start, @color_bar_bg_end);
-}
-
-.LESSColorBarTitleBackground
-{
-	background : rgb(248, 246, 239); // #F8F6EF /* Header Background */
-}
 
 /***************************************************************************
                     Tickernoti
@@ -604,6 +427,7 @@
 ***************************************************************************/
 @color_scrollview_handler_bg : rgba(150, 150, 150, 0.5);
 
+
 /***************************************************************************
                    multimediaview
 ***************************************************************************/
@@ -615,6 +439,7 @@
 @color_multimediaview_bar_gray : rgb(178, 178, 178);
 @color_multimediaview_bar_active : rgb(42, 137, 194);
 @color_multimediaview_bar_handle : rgb(249, 249, 249);
+
 
 /***************************************************************************
                    Color widgets
@@ -660,6 +485,7 @@
 @color_multibuttonentry_link_bg : rgb(178, 178, 178);
 @color_multibuttonentry_link : rgb(249, 249, 249);
 
+
 /***************************************************************************
                    mapview
 ***************************************************************************/
@@ -669,62 +495,8 @@
 @color_mapview_zoom_gray : rgb(178, 178, 178);
 @color_mapview_zoom_handle : rgb(249, 249, 249);
 
+
 /***************************************************************************
                   virtualgrid
 ***************************************************************************/
 @color_virtualgrid_bg : rgb(255, 255, 255);
-
-/***************************************************************************
-****************************************************************************
-									Layout ( position, padding, margin etc...)
-****************************************************************************
-***************************************************************************/
-@style-title-font-size : 28 * @unit_base;
-
-@style-title-extended-2btn-width : 688 * @unit_base;
-@style-title-extended-2btn-radio-width : 343 * @unit_base;
-@style-title-extended-3btn-width : 688 * @unit_base;
-@style-title-extended-3btn-radio-width : 229 * @unit_base;
-@style-title-extended-4btn-width : 688 * @unit_base;
-@style-title-extended-4btn-radio-width : 171 * @unit_base;
-
-@style-back-btn-left : 44 * @unit_base;
-@style-back-btn-arrow-top : 30 * @unit_base;
-
-@style-title-min-height : 30 * @unit_base;
-@style-title-extended-margin : -30 * @unit_base;
-/***************************************************************************
-									Navigation
-***************************************************************************/
-
-.LESStitle-diff-style {
-	text-align: left;
-	margin: 20*@unit_base 8*@unit_base 12*@unit_base 8*@unit_base;
-}
-
-.LESSextended-controlgroup-border {
-	border-style : solid;
-	border-width : 1px;
-	border-bottom-width: 2px;
-
-	border-bottom-color: @color_border_bottom;
-	border-top-color: @color_border_top;
-	border-left-color: @color_bar_seg_btn_border;
-	border-right-color: @color_bar_seg_btn_border;
-}
-
-.LESSback-btn-background {
-	background : none;
-}
-
-.LESSbtn-back {
-	width : 144 * @unit_base;
-	height : 114 * @unit_base;
-	top : 0 * @unit_base;
-	right : 0 * @unit_base;
-}
-
-.LESSbtn-back-inner {
-	width : 144 * @unit_base;
-	height : 114 * @unit_base;
-}
