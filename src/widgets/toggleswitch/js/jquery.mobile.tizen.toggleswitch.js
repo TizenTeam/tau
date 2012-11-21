@@ -45,6 +45,7 @@
 //     checked: Boolean; the state of the switch.(default: true)
 //     texton: String; "On";
 //     textoff: String; "Off";
+//     style: String; the style of toggleswitch (default: image)
 //
 // Events:
 //     change: Emitted when the switch is changed.
@@ -101,6 +102,7 @@
 			texton			: "On",
 			textoff			: "Off",
 			checked			: true,
+			style				: "image",
 			initSelector	: ":jqmData(role='toggleswitch')"
 		},
 
@@ -150,6 +152,12 @@
 			}
 		},
 
+		_setStyle: function ( style ) {
+			if ( style ) {
+				this.options.style = style;
+			}
+		},
+
 		_setDisabled: function ( value ) {
 			$.tizen.widgetex.prototype._setDisabled.call( this, value );
 			this._ui.container[value ? "addClass" : "removeClass"]( "ui-disabled" );
@@ -158,7 +166,8 @@
 		_create: function () {
 			var self = this;
 			this.element.hide().after( this._ui.container );
-			if ( this.element.jqmData("icon") ) {
+			self._setStyle( this.element.jqmData("style") );
+			if ( this.options.style != "text" ) {
 				this._ui.container.addClass("ui-toggleswitch-image-style");
 				this._ui.container.find(".ui-toggleswitch-text").hide();
 				this._ui.container.find(".ui-toggleswitch-reed").hide();
