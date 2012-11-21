@@ -211,6 +211,12 @@
 				self.close();
 				return false;
 			} );
+
+			this.element.bind( "vclick", function( e ) {
+				if ( $( e.target ).is("ui-btn-ctxpopup-close") ) {
+					self.close();
+				}
+			} );
 		},
 
 		destroy: function () {
