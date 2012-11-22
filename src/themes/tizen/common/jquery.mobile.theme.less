@@ -200,7 +200,7 @@
 			width : 77 * @unit_base;
 
 			border-style : solid;
-			border-color : black;
+			border-color : @color_bar_divider_line;
 			border-top-width : 0px;
 			border-bottom-width : 0px;
 			border-left-width : 1px;
@@ -208,6 +208,24 @@
 
 			border-radius : 0px;
 			box-shadow : none;
+
+			padding : 0px;
+			margin-left : -10 * @unit_base;
+			margin-right : 1px;
+
+			&.ui-btn-down-s, .ui-btn-active-s {
+				.ui-btn-inner {
+					background : @color_bg;
+					.ui-btn-text {
+						color : @color_bar_title_text;
+					}
+				}
+			}
+
+			>.ui-btn-inner {
+				border : 0px solid;
+				box-shadow : none;
+			}
 			.ui-btn-text {
 				font-size : 17 * @unit_base;
 				color : rgba(58, 58, 58, 1);
