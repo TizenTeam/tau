@@ -15,7 +15,7 @@
 
 	a.ui-btn {
 		background : @color_bg;
-		color : rgba(153, 153, 153, 1);
+		color : @color_controlbar_btn_normal;
 
 		.ui-icon {
 			width: 32 * @unit_base;
@@ -31,13 +31,12 @@
 			background: @color_bg;
 		}
 		a.ui-state-persist, a.ui-state-persist.ui-btn-active, a.ui-btn-show-style {
-			background: @color_controlbar_btn_press;
-			color : rgba(59, 115, 182, 1);
+			color : @color_controlbar_btn_pressed;
 		}
 		a.ui-btn-hover-s.ui-btn-down-s {
 			&:not(.ui-state-persist) {
-				color : rgba(59, 115, 182, 1);
-				background: @color_controlbar_btn_press;
+				color : @color_controlbar_btn_pressed;
+				background: @color_controlbar_btn_tab_press;
 			}
 		}
 	}
@@ -46,10 +45,12 @@
 		a.ui-btn {
 			background: @color_bg;
 		}
-		a.ui-btn-active, .ui-btn-show-style,
+		a.ui-btn-active, .ui-btn-show-style {
+			color : @color_controlbar_btn_pressed;
+		}
 		a.ui-btn.ui-btn-hover-s.ui-btn-down-s {
-			color : rgba(59, 115, 182, 1);
-			background: @color_controlbar_btn_press;
+			color : @color_controlbar_btn_pressed;
+			background: @color_controlbar_btn_tab_press;
 		}
 	}
 
@@ -122,7 +123,7 @@
 .ui-header.ui-bar-s {
 	&.ui-title-controlbar-multiline {
 		height : 75 * @unit_base;
-		.ui-portrait-controlbar {
+		.ui-controlbar {
 			height : 75 * @unit_base;
 			.ui-btn-inner {
 				padding-top : 45 * @unit_base;
