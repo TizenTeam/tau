@@ -579,40 +579,40 @@
 					dbtable_name = $el.jqmData('dbtable');
 					dbtable = window[ dbtable_name ];
 
+					$( o.id ).empty();
+
 					if ( !dbtable ) {
 						dbtable = { };
 					}
-
-					$( o.id ).empty();
-
-					if ( $el.data( "template" ) ) {
-						o.template = $el.data( "template" );
-
-						/* to support swipe list, <li> or <ul> can be main node of virtual list. */
-						if ( $el.data( "swipelist" ) == true ) {
-							o.childSelector = " ul";
-						} else {
-							o.childSelector = " li";
-						}
-					}
-
-					/* Set data's unique key */
-					if ( $el.data( "dbkey" ) ) {
-						o.dbkey = $el.data( "dbkey" );
-					}
-
-					t._first_index = 0;			//first id of <li> element.
-					t._last_index = o.row - 1;		//last id of <li> element.
 
 					t._itemData = function ( idx ) {
 						return dbtable[ idx ];
 					};
 					t._numItemData = dbtable.length;
-
-					t._initList();
+				} else {
+					return;	// Do nothing
 				}
 			}
 
+			if ( $el.data( "template" ) ) {
+				o.template = $el.data( "template" );
+
+				/* to support swipe list, <li> or <ul> can be main node of virtual list. */
+				if ( $el.data( "swipelist" ) == true ) {
+					o.childSelector = " ul";
+				} else {
+					o.childSelector = " li";
+				}
+			}
+
+			/* Set data's unique key */
+			if ( $el.data( "dbkey" ) ) {
+				o.dbkey = $el.data( "dbkey" );
+			}
+
+			t._first_index = 0;			//first id of <li> element.
+			t._last_index = o.row - 1;		//last id of <li> element.
+			t._initList();
 		},
 
 		destroy : function () {
