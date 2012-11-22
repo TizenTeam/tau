@@ -65,19 +65,13 @@
 	To add a notification widget to the application, use the following code:
 
 		<div data-role="page">
-			<div data-role="notification" data-type="tickernoti">
+			<div data-role="notification" data-type="smallpopup">
 				<p>text1</p>
-				<p>text2</p>
 			</div>
 			<div data-role="header"></div>
 			<div data-role="content"></div>
 			<div data-role="footer"></div>
 		</div>
-		<script type="text/javascript">
-		$('#notification-demo').bind('tapped', function (e, m)
-		{
-			// Notification is tapped with parameter m
-		});
 */
 /**
 	@property {String} data-type
@@ -85,24 +79,29 @@
 
 */
 /**
-	@method show
-	The show method is used to show the notification widget:
+	@property {Integer} data-interval
+	Defines the time to showing a notification widget. <br/>The default is infinitely.
 
-		<div data-role="notification" data-type="tickernoti" data-interval="3000"></div>
-		$('#notification').notification('show');
 */
 /**
-	@method hide
-	The hide method is used to hide the notification widget:
+	@method open
+	The open method is used to open the notification widget:
 
-		<div data-role="notification" data-type="tickernoti" data-interval="3000"></div>
-		$('#notification').notification('hide');
+		<div data-role="notification" data-type="smallpopup" data-interval="3000"></div>
+		$('#notification').notification('open');
+*/
+/**
+	@method close
+	The close method is used to close the notification widget:
+
+		<div data-role="notification" data-type="smallpopup" data-interval="3000"></div>
+		$('#notification').notification('close');
 */
 /**
 	@method text
 	The text method is used to set or get the notification text:
 
-		<div data-role="notification" data-type="tickernoti" data-interval="3000"></div>
+		<div data-role="notification" data-type="smallpopup" data-interval="3000"></div>
 		// Set notification text
 		$('#notification').notification('text', 'setThisText');
 		// Get notification text
@@ -110,11 +109,11 @@
 	@since Tizen2.0
 */
 /**
-	@method setIcon
+	@method icon
 	The setIcon method is used to set the ticker notification icon. The icon can be set only if the notification type is set to tickernoti.
 
 		<div data-role="notification" data-type="tickernoti" data-interval="3000"></div>
-		$('#notification').notification('setIcon', './test.png');
+		$('#notification').notification('icon', './test.png');
 */
 (function ( $, window ) {
 	$.widget( "tizen.notification", $.mobile.widget, {

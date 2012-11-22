@@ -28,8 +28,7 @@
 	@event change
 	The progress bar can define a callback for the change event, which is fired when the progress value is changed:
 		<div id="foo" data-role="progressbar"></div>
-		$("#foo").bind("change", function (ev, val)
-		{
+		$("#foo").bind("change", function (ev, val) {
 			Console.log("Value is changed to " + val);
 		});
 */
@@ -38,8 +37,8 @@
 	You can use the value method with the pickers to set or get the current default progress bar value:
 
 		<div id="foo" data-role="progressbar"></div>
-		var oldVal = $("#foo").progress("option", "value");
-		$("#foo").progress("option", "value", 50);
+		var oldVal = $("#foo").progressbar("value");
+		$("#foo").progressbar("value", 50);
 */
 
 (function ( $, window, undefined ) {
