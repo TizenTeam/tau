@@ -19,14 +19,14 @@
 		ok( pc, "pagecontrol object creation" );
 		nb = pc.children( 'div.page_n' )[1];	// 2nd button
 		console.dir( nb );
-		ok( $(nb).hasClass( 'page_n_2' ), "first button should be activated" );
+		ok( $(nb).hasClass( 'page_n_selected' ), "first button should be activated" );
 		equal( $( pc ).pagecontrol( "value" ), 2, "value() method must return 2" );
 
 		nb = pc.children( 'div.page_n' )[9];
 		ok( nb, "last number button should exist" );
 		pc.one( "change", function( ev, val ) {
 			equal( val, 10, "pagecontrol element's value must be set when click event comes." );
-			ok( $( nb ).hasClass( 'page_n_10' ), "after click, clicked button should be changed to number type" );
+			ok( $( nb ).hasClass( 'page_n_selected' ), "after click, clicked button should be changed to number type" );
 			equal( $( pc ).pagecontrol( "value" ), 10, "value() method must return 10" );
 
 			$( pc ).pagecontrol( "value", 5 );
