@@ -11,7 +11,6 @@ var TESTS = {
 		"extendablelist",
 		"handler",
 		"imageslider",
-		"listviewcontrols",
 		"multibuttonentry",
 		"multimediaview",
 		"navigationbar",
