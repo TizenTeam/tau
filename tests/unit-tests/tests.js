@@ -4,7 +4,6 @@ var TESTS = {
 		"autodividers",
 		"button",
 		"check",
-		"color",
 		"controlbar",
 		"datetimepicker",
 		"dayselector",
