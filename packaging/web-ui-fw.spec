@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.1.62
+Version:    0.1.63
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -82,6 +82,21 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Fri Nov 23 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.63
+- FIX:
+	- dayselector: fix size
+	- remove unised styles
+	- divider: set non-press effect to default option
+	- popupwindow: fix window closing failure
+	- handler: GUI implementation
+	- TC: fix unit TCs
+	- scrollview: fix padding size
+- Spec changes:
+	- Remove color widgets
+	- add $.tizen.pkgVersion for SDK
+- Etc.
+	- JSDuck documents
+
 * Fri Nov 16 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.62
 - FIX:
 	- Many winsets: Fix layout
