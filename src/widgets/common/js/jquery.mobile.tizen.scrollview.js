@@ -143,8 +143,9 @@
 				c = this._$clip.width();
 				v = this._$view.width();
 
-				if ( ( this._sx === 0 && speedX > 0 ) ||
-					( this._sx === -(v - c) && speedX < 0 ) ) {
+				if ( (( this._sx === 0 && speedX > 0 ) ||
+					( this._sx === -(v - c) && speedX < 0 )) &&
+						v > c ) {
 					return;
 				}
 
@@ -157,8 +158,9 @@
 				c = this._$clip.height();
 				v = this._getViewHeight();
 
-				if ( ( this._sy === 0 && speedY > 0 ) ||
-					( this._sy === -(v - c) && speedY < 0 ) ) {
+				if ( (( this._sy === 0 && speedY > 0 ) ||
+					( this._sy === -(v - c) && speedY < 0 )) &&
+						v > c ) {
 					return;
 				}
 
@@ -224,7 +226,13 @@
 				if ( vt.getRemained() > this.options.overshootDuration ) {
 					scroll_height = this._getViewHeight() - this._$clip.height();
 
-					if ( vt.isMin() ) {
+					if ( !vt.isAvail() ) {
+						if ( this._speedY > 0 ) {
+							this._outerScroll( vt.getRemained() / 3, scroll_height );
+						} else {
+							this._outerScroll( y - vt.getRemained() / 3, scroll_height );
+						}
+					} else if ( vt.isMin() ) {
 						this._outerScroll( y - vt.getRemained() / 3, scroll_height );
 
 						if ( scroll_height > 0 ) {
@@ -429,6 +437,10 @@
 						this._setBouncing( this._$view, "in" );
 					}
 				} else {
+					if ( this._bouncing && this._sy !== y ) {
+						this._bouncing = false;
+					}
+
 					this._sy = y;
 				}
 
@@ -444,10 +456,6 @@
 				$vsb = this._$vScrollBar,
 				$hsb = this._$hScrollBar,
 				$sbt;
-
-			if ( this._sx === x && this._sy === y ) {
-				return;
-			}
 
 			this._setCalibration( x, y );
 
@@ -502,10 +510,6 @@
 			}
 
 			if ( this._outerScrolling ) {
-				return;
-			}
-
-			if ( scroll_height < 0 ) {
 				return;
 			}
 
@@ -1131,8 +1135,8 @@
 				/* calibration - after triggered throttledresize */
 				setTimeout( function () {
 					if ( self._sy < $c.height() - self._getViewHeight() ) {
-						self.scrollTo( 0, self._sy,
-							self.options.snapbackDuration );
+						self.scrollTo( 0, $c.height() - self._getViewHeight(),
+							self.options.overshootDuration );
 					}
 				}, 260 );
 
@@ -1381,6 +1385,10 @@
 
 		isMax: function () {
 			return this.pos === this.maxPos;
+		},
+
+		isAvail: function () {
+			return !( this.minPos === this.maxPos );
 		},
 
 		getRemained: function () {
