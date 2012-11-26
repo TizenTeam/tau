@@ -173,9 +173,8 @@
 					.css( "position", "fixed" )
 					.css( "top", "0px" );
 
-				if ( $elHeader.children().is(".ui-navbar") ) {
-					$elHeader.addClass( "ui-title-controlbar-height" );
-					$( event.target ).find( ".ui-content" ).addClass( "ui-title-content-controlbar-height" );
+				if ( $elHeader.is(".ui-title-controlbar-multiline") ) {
+					$( event.target ).find( ".ui-content" ).addClass( "ui-title-content-multi-controlbar-height" );
 				} else {
 					if ( $elHeader.length ) {
 						$( event.target ).find( ".ui-content" ).addClass( "ui-title-content-" + tStyle + "-height" );
@@ -184,6 +183,13 @@
 					}
 				}
 			}
+
+			/* set Title style */
+			/* newTheme */
+			if ( $elHeader.find("span.ui-title-text-sub").length ) {
+				$elHeader.addClass( "ui-title-multiline");
+			}
+
 
 			if ( $elHeader.children().is(".ui-option-header") ) {
 				$elContent.removeClass( "ui-title-content-" + tStyle + "-height" );
@@ -238,6 +244,11 @@
 			if ( $elFooter.children().find(".ui-radio").length != 0 ) {
 				$elFooterGroup = $elFooter.find( ":jqmData(role='fieldcontain')" );
 				gLength = $elFooterGroup.find( ".ui-radio" ).length;
+
+
+				if ( $elFooterGroup.find( "div" ).is( ".ui-controlgroup-label" ) ) {
+					$elFooterGroup.find( "div.ui-controlgroup-label" ).remove();
+				}
 
 				$elFooterGroup.find( ".ui-controlgroup" )
 					.addClass( "ui-extended-controlgroup" )
@@ -362,7 +373,7 @@
 				headerBtnNum = $elHeader.children("a").length,
 				headerSrcNum = $elHeader.children("img").length;
 
-			$elHeader.find( "h1" ).css( "width", window.innerWidth - $elHeader.children( "a" ).width() * headerBtnNum - $elHeader.children( "a" ).width() / 4 - $elHeader.children( "img" ).width() * headerSrcNum * 3 );
+			$elHeader.find( "h1" ).css( "width", window.innerWidth - $elHeader.children( "a" ).width() * headerBtnNum - $elHeader.children( "a" ).width() / 4 - $elHeader.children( "img" ).width() * headerSrcNum * 4 );
 			/* add half width for default space between text and button, and img tag area is too narrow, so multiply three for img width*/
 		},
 
@@ -410,8 +421,7 @@
 		},
 
 
-		/* 1. Calculate toolbar width(only controlbar)
-		*  2. Calculate and update content height   */
+		/* 1. Calculate and update content height   */
 		updatePageLayout: function ( receiveType ) {
 			var $elFooter,
 				$elFooterControlbar,
@@ -435,9 +445,6 @@
 
 			if (resultFooterHeight != 0 ) {
 				$elFooter.css( "bottom", 0 );
-			}
-			if ( $elFooterControlbar.jqmData("style") == "toolbar" ) {
-				$elFooterControlbar.css( "width", window.innerWidth - $elFooterControlbar.siblings( ".ui-btn" ).width() - parseInt($elFooterControlbar.siblings(".ui-btn").css("right"), 10 ) * 2  );
 			}
 
 			resultContentHeight = window.innerHeight - resultFooterHeight - resultHeaderHeight;

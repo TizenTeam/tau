@@ -1,13 +1,12 @@
 @import "config.less";
 
-@img-width: 314 * @unit_base;
-@img-height: 310 * @unit_base;
+@img-width: 140 * @unit_base;
+@img-height: 140 * @unit_base;
 
 .ui-nocontents {
 	position: relative;
 	left: 0;
 	width: 100%;
-	height: 508 * @unit_base;
 }
 
 .ui-nocontents-icon-text,
@@ -18,6 +17,8 @@
 	display: block;
 	width: @img-width;
 	height: @img-height;
+	left: 50%;
+	margin-left: -(@img-width / 2);
 	
 	background: url(images/00_Nocontents_text.png) no-repeat;
 	.LESSbackground-size(@img-width, @img-height);
@@ -41,8 +42,9 @@
 .ui-nocontents-text {
 	position: absolute;
 	margin: 0;
-	height: 46 * @unit_base;
+	height: 19 * @unit_base;
 	width: 100%;
+	font-size: 0.72rem;
 	text-align: center;
 	color: @color_nocontents_text;
 }

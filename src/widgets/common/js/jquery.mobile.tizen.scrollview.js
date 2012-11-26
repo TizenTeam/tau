@@ -60,6 +60,7 @@
 			showScrollBars:    true,
 			overshootEnable:   false,
 			outerScrollEnable: true,
+			overflowEnable:    true,
 			scrollJump:        false,
 		},
 
@@ -121,6 +122,7 @@
 			this._add_event();
 			this._add_scrollbar();
 			this._add_scroll_jump();
+			this._add_overflow_indicator();
 		},
 
 		_startMScroll: function ( speedX, speedY ) {
@@ -133,12 +135,19 @@
 
 			this._stopMScroll();
 			this._showScrollBars();
+			this._showOverflowIndicator();
 
 			this._$clip.trigger( this.options.startEventName );
 
 			if ( ht ) {
 				c = this._$clip.width();
 				v = this._$view.width();
+
+				if ( (( this._sx === 0 && speedX > 0 ) ||
+					( this._sx === -(v - c) && speedX < 0 )) &&
+						v > c ) {
+					return;
+				}
 
 				ht.start( this._sx, speedX,
 					duration, (v > c) ? -(v - c) : 0, 0 );
@@ -148,6 +157,12 @@
 			if ( vt ) {
 				c = this._$clip.height();
 				v = this._getViewHeight();
+
+				if ( (( this._sy === 0 && speedY > 0 ) ||
+					( this._sy === -(v - c) && speedY < 0 )) &&
+						v > c ) {
+					return;
+				}
 
 				vt.start( this._sy, speedY,
 					duration, (v > c) ? -(v - c) : 0, 0 );
@@ -177,6 +192,7 @@
 			}
 
 			this._hideScrollBars();
+			this._hideOverflowIndicator();
 		},
 
 		_handleMomentumScroll: function () {
@@ -184,6 +200,17 @@
 				x = 0,
 				y = 0,
 				scroll_height = 0,
+				self = this,
+				bouncing = function ( dir ) {
+					setTimeout( function () {
+						self._bouncing_dir = dir;
+						self._setBouncing( self._$view, "in" );
+					}, 100 );
+
+					setTimeout( function () {
+						self._setBouncing( self._$view, "out" );
+					}, 350 );
+				},
 				vt = this._vTracker,
 				ht = this._hTracker;
 
@@ -199,10 +226,24 @@
 				if ( vt.getRemained() > this.options.overshootDuration ) {
 					scroll_height = this._getViewHeight() - this._$clip.height();
 
-					if ( vt.isMin() ) {
+					if ( !vt.isAvail() ) {
+						if ( this._speedY > 0 ) {
+							this._outerScroll( vt.getRemained() / 3, scroll_height );
+						} else {
+							this._outerScroll( y - vt.getRemained() / 3, scroll_height );
+						}
+					} else if ( vt.isMin() ) {
 						this._outerScroll( y - vt.getRemained() / 3, scroll_height );
+
+						if ( scroll_height > 0 ) {
+							bouncing( 1 );
+						}
 					} else if ( vt.isMax() ) {
 						this._outerScroll( vt.getRemained() / 3, scroll_height );
+
+						if ( scroll_height > 0 ) {
+							bouncing( 0 );
+						}
 					}
 				}
 			}
@@ -228,6 +269,10 @@
 			var translate,
 				transition;
 
+			if ( this._bouncing ) {
+				return;
+			}
+
 			if ( !duration || duration === undefined ) {
 				transition = "none";
 			} else {
@@ -248,6 +293,101 @@
 				"transform": translate,
 				"-webkit-transition": transition
 			});
+		},
+
+		_setBouncing: function ( $ele, dir ) {
+			if ( dir === "in" ) {
+				if ( this._bouncing ) {
+					return;
+				}
+
+				this._bouncing = true;
+				this._bouncing_count = 1;
+
+				this._bouncing_org_x = 1;
+				this._bouncing_org_y = 1;
+
+				this._bouncing_x = 0.99;
+				this._bouncing_y = 0.99;
+
+				this._setOverflowIndicator( this._bouncing_dir );
+			} else if ( dir === "out" ) {
+				if ( !this._bouncing ) {
+					return;
+				}
+
+				this._bouncing = false;
+				this._bouncing_count = 1;
+
+				this._bouncing_org_x = this._bouncing_x;
+				this._bouncing_org_y = this._bouncing_y;
+
+				this._bouncing_x = 1;
+				this._bouncing_y = 1;
+				this._setOverflowIndicator( this._bouncing_dir );
+			} else {
+				return;
+			}
+
+			this._doBouncing( $ele, dir );
+		},
+
+		_doBouncing: function ( $ele, dir ) {
+			var translate,
+				origin,
+				x_rate,
+				y_rate,
+				frame = 10,
+				self = this;
+
+			if ( $.support.cssTransform3d ) {
+				translate = "translate3d(" + this._sx + "px," + this._sy + "px, 0px)";
+			} else {
+				translate = "translate(" + this._sx + "px," + this._sy + "px)";
+			}
+
+			if ( dir === "in" ) {
+				x_rate = this._bouncing_org_x -	( this._bouncing_org_x -
+						this._bouncing_x ) / frame * this._bouncing_count;
+				y_rate = this._bouncing_org_y -	( this._bouncing_org_y -
+						this._bouncing_y ) / frame * this._bouncing_count;
+
+				translate += " scale(" + x_rate + "," + y_rate + ")";
+			} else if ( dir === "out" ) {
+				x_rate = this._bouncing_org_x +	( this._bouncing_x -
+						this._bouncing_org_x ) / frame * this._bouncing_count;
+				y_rate = this._bouncing_org_y +	( this._bouncing_y -
+						this._bouncing_org_y ) / frame * this._bouncing_count;
+
+				translate += " scale(" + x_rate + "," + y_rate + ")";
+			} else {
+				return;
+			}
+
+			if ( this._bouncing_dir ) {
+				origin = "50% " + ( this._bouncing_y * 100 - 10 ) + "%";
+			} else {
+				origin = "50% 10%";
+			}
+
+			$ele.css({
+				"-moz-transform": translate,
+				"-webkit-transform": translate,
+				"-ms-transform": translate,
+				"-o-transform": translate,
+				"transform": translate,
+				"-webkit-transform-origin": origin,
+			});
+
+			this._bouncing_count++;
+
+			if ( this._bouncing_count > frame ) {
+				return;
+			}
+
+			setTimeout( function () {
+				self._doBouncing( $ele, dir );
+			}, this._timerInterval );
 		},
 
 		_setCalibration: function ( x, y ) {
@@ -284,9 +424,23 @@
 
 				if ( y > 0 ) {
 					this._sy = 0;
+
+					if ( scroll_height > 0 ) {
+						this._bouncing_dir = 0;
+						this._setBouncing( this._$view, "in" );
+					}
 				} else if ( y < -scroll_height ) {
 					this._sy = -scroll_height;
+
+					if ( scroll_height > 0 ) {
+						this._bouncing_dir = 1;
+						this._setBouncing( this._$view, "in" );
+					}
 				} else {
+					if ( this._bouncing && this._sy !== y ) {
+						this._bouncing = false;
+					}
+
 					this._sy = y;
 				}
 
@@ -356,10 +510,6 @@
 			}
 
 			if ( this._outerScrolling ) {
-				return;
-			}
-
-			if ( scroll_height < 0 ) {
 				return;
 			}
 
@@ -525,6 +675,7 @@
 
 		_propagateDragMove: function ( sv, e, ex, ey, dir ) {
 			this._hideScrollBars();
+			this._hideOverflowIndicator();
 			this._disableTracking();
 			sv._handleDragStart( e, ex, ey );
 			sv._directionLock = dir;
@@ -656,6 +807,7 @@
 			this._setScrollPosition( newX, newY );
 
 			this._showScrollBars();
+			this._showOverflowIndicator();
 		},
 
 		_handleDragStop: function ( e ) {
@@ -675,14 +827,71 @@
 				y;
 
 			if ( sx || sy ) {
-				this._startMScroll( sx, sy );
+				if ( !this._setGestureScroll( sx, sy ) ) {
+					this._startMScroll( sx, sy );
+				}
 			} else {
 				this._hideScrollBars();
+				this._hideOverflowIndicator();
 			}
 
 			this._disableTracking();
 
+			if ( this._bouncing ) {
+				this._setBouncing( this._$view, "out" );
+				this._hideScrollBars();
+				this._hideOverflowIndicator();
+			}
+
 			return !this._didDrag;
+		},
+
+		_setGestureScroll: function ( sx, sy ) {
+			var self = this,
+				reset = function () {
+					clearTimeout( self._gesture_timer );
+					self._gesture_dir = 0;
+					self._gesture_count = 0;
+					self._gesture_timer = undefined;
+				};
+
+			if ( !sy ) {
+				return false;
+			}
+
+			dir = sy > 0 ? 1 : -1;
+
+			if ( !this._gesture_timer ) {
+				this._gesture_count = 1;
+				this._gesture_dir = dir;
+
+				this._gesture_timer = setTimeout( function () {
+					reset();
+				}, 1000 );
+
+				return false;
+			}
+
+			if ( this._gesture_dir !== dir ) {
+				reset();
+				return false;
+			}
+
+			this._gesture_count++;
+
+			if ( this._gesture_count === 3 ) {
+				if ( dir > 0 ) {
+					this.scrollTo( 0, 0, this.options.overshootDuration );
+				} else {
+					this.scrollTo( 0, -( this._getViewHeight() - this._$clip.height() ),
+							this.options.overshootDuration );
+				}
+				reset();
+
+				return true;
+			}
+
+			return false;
 		},
 
 		_enableTracking: function () {
@@ -738,6 +947,84 @@
 			}
 
 			this._scrollbar_showed = false;
+		},
+
+		_resetOverflowIndicator: function () {
+			if ( !this.options.overflowEnable || !this._overflowAvail ) {
+				return;
+			}
+
+			this._overflow_top.css( "-webkit-animation", "" );
+			this._overflow_bottom.css( "-webkit-animation", "" );
+		},
+
+		_setOverflowIndicator: function ( dir ) {
+			if ( dir === 1 ) {
+				this._opacity_top = "0.2";
+				this._opacity_bottom = "0.8";
+			} else if ( dir === 0 ) {
+				this._opacity_top = "0.8";
+				this._opacity_bottom = "0.2";
+			} else {
+				this._opacity_top = "0.5";
+				this._opacity_bottom = "0.5";
+			}
+		},
+
+		_getOverflowIndicator: function ( opacity ) {
+			if ( opacity === "0.2" ) {
+				return "-lite";
+			} else if ( opacity === "0.8" ) {
+				return "-dark";
+			}
+			return "";
+		},
+
+		_showOverflowIndicator: function () {
+			if ( !this.options.overflowEnable || !this._overflowAvail ) {
+				return;
+			}
+
+			this._overflow_top.css( "opacity", this._opacity_top );
+			this._overflow_bottom.css( "opacity", this._opacity_bottom );
+
+			if ( this._overflow_showed === true ) {
+				return;
+			}
+
+			this._overflow_top.css( "-webkit-animation", "ui-overflow-show" +
+					this._getOverflowIndicator( this._opacity_top ) + " 0.3s 1 ease" );
+			this._overflow_bottom.css( "-webkit-animation", "ui-overflow-show" +
+					this._getOverflowIndicator( this._opacity_bottom ) + " 0.3s 1 ease" );
+
+			this._overflow_showed = true;
+		},
+
+		_hideOverflowIndicator: function () {
+			var opacity_top,
+				opacity_bottom;
+
+			if ( !this.options.overflowEnable || !this._overflowAvail ) {
+				return;
+			}
+
+			if ( this._overflow_showed === false ) {
+				return;
+			}
+
+			opacity_top = this._overflow_top.css( "opacity" );
+			opacity_bottom = this._overflow_bottom.css( "opacity" );
+
+			this._overflow_top.css( "opacity", "0" );
+			this._overflow_bottom.css( "opacity", "0" );
+
+			this._overflow_top.css( "-webkit-animation", "ui-overflow-hide" +
+					this._getOverflowIndicator( opacity_top ) + " 0.5s 1 ease" );
+			this._overflow_bottom.css( "-webkit-animation", "ui-overflow-hide" +
+					this._getOverflowIndicator( opacity_bottom ) + " 0.5s 1 ease" );
+
+			this._overflow_showed = false;
+			this._setOverflowIndicator();
 		},
 
 		_add_event: function () {
@@ -819,7 +1106,7 @@
 				}
 
 				if ( self._sy - sy <= -vh ) {
-					self.scrollTo( 0, self._sy,
+					self.scrollTo( 0, sy,
 						self.options.snapbackDuration );
 				} else if ( self._sy - sy <= vh + self.options.moveThreshold ) {
 					self.scrollTo( 0, sy,
@@ -848,8 +1135,8 @@
 				/* calibration - after triggered throttledresize */
 				setTimeout( function () {
 					if ( self._sy < $c.height() - self._getViewHeight() ) {
-						self.scrollTo( 0, self._sy,
-							self.options.snapbackDuration );
+						self.scrollTo( 0, $c.height() - self._getViewHeight(),
+							self.options.overshootDuration );
 					}
 				}, 260 );
 
@@ -867,6 +1154,7 @@
 						self._set_scrollbar_size();
 						self._setScrollPosition( self._sx, self._sy );
 						self._showScrollBars( 2000 );
+						self._resetOverflowIndicator();
 					}, 0 );
 				});
 		},
@@ -903,9 +1191,9 @@
 			}
 
 			if ( this._vTracker ) {
-				top_btn = $( '<div class="ui-scroll-jump-top-bg ui-btn" data-theme="s">' +
-						'<div class="ui-scroll-jump-top"></div></div>' );
-				$c.append( top_btn );
+				top_btn = $( '<div class="ui-scroll-jump-top-bg">' +
+						'<div data-role="button" data-inline="true" data-icon="jumptop" style="width:37px;height:37px">.</div></div>' );
+				$c.append( top_btn ).trigger("create");
 
 				top_btn.bind( "vclick", function () {
 					self.scrollTo( 0, 0, self.options.overshootDuration );
@@ -913,14 +1201,30 @@
 			}
 
 			if ( this._hTracker ) {
-				left_btn = $( '<div class="ui-scroll-jump-left-bg ui-btn" data-theme="s">' +
-						'<div class="ui-scroll-jump-left"></div></div>' );
-				$c.append( left_btn );
+				left_btn = $( '<div class="ui-scroll-jump-left-bg">' +
+						'<div data-role="button" data-inline="true" data-icon="jumpleft" style="width:37px;height:37px">.</div></div>' );
+				$c.append( left_btn ).trigger("create");
 
 				left_btn.bind( "vclick", function () {
 					self.scrollTo( 0, 0, self.options.overshootDuration );
 				} );
 			}
+		},
+
+		_add_overflow_indicator: function () {
+			if ( !this.options.overflowEnable ) {
+				return;
+			}
+
+			this._overflow_top = $( '<div class="ui-overflow-indicator-top"></div>' );
+			this._overflow_bottom = $( '<div class="ui-overflow-indicator-bottom"></div>' );
+
+			this._$clip.append( this._overflow_top );
+			this._$clip.append( this._overflow_bottom );
+
+			this._opacity_top = "0.5";
+			this._opacity_bottom = "0.5";
+			this._overflow_showed = false;
 		},
 
 		_set_scrollbar_size: function () {
@@ -963,6 +1267,8 @@
 					thumb = this._$vScrollBar.find(".ui-scrollbar-thumb");
 					thumb.css( "height", (ch >= vh ? "0" :
 							(Math.floor(ch / vh * 100) || 1) + "%") );
+
+					this._overflowAvail = !!thumb.height();
 				}
 			}
 		}
@@ -1081,6 +1387,10 @@
 			return this.pos === this.maxPos;
 		},
 
+		isAvail: function () {
+			return !( this.minPos === this.maxPos );
+		},
+
 		getRemained: function () {
 			return this.remained;
 		},
@@ -1115,6 +1425,7 @@
 			} else {
 				var st = $( this ).jqmData("scroll"),
 					dir = st && ( st.search(/^[xy]/) !== -1 ) ? st : null,
+					content = $(this).hasClass("ui-content"),
 					opts;
 
 				if ( st === "none" ) {
@@ -1123,6 +1434,7 @@
 
 				opts = {
 					direction: dir || undefined,
+					overflowEnable: content,
 					scrollMethod: $( this ).jqmData("scroll-method") || undefined,
 					scrollJump: $( this ).jqmData("scroll-jump") || undefined
 				};

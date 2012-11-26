@@ -58,6 +58,41 @@
  *
  */
 
+/**
+	@class Progress
+	The progress widget shows that an operation is in progress. <br/>To add a progress widget to the application, use the following code:
+
+		<div data-role="progress" data-style="circle"></div>
+
+	The progress widget can define a callback for the change event, which is fired when the progress value is changed:
+
+		<div id="foo" data-role="progress"></div>
+		$("#foo").bind("change", function(ev, val)
+		{
+			Console.log("Value is changed to " + val);
+		});
+*/
+/**
+	@property {String} data-style
+	Sets the style of the progress widget. The style options are pending (pending progress style) and circle (circular progress status style).
+*/
+/**
+	@method value
+	The value method is used to set or get the current default progress widget value:
+
+		<div id="foo" data-role="progress"></div>
+		var oldVal = $("#foo").progress("option", "value");
+		$("#foo").progress("option", "value", 50);
+*/
+/**
+	@method running
+	The running method is used to set or get the current running state of the pending or circular progress widget:
+
+		<div id="foo" data-role="progress" data-style="pending"></div>
+		var currentRunning = $("#foo").progress("option", "running");
+		$("#foo").progress("option", "running", true);
+*/
+
 (function ( $, window, undefined ) {
 	$.widget( "tizen.progress", $.mobile.widget, {
 		options: {
@@ -124,6 +159,7 @@
 			var self = this,
 				element = this.element,
 				style = element.jqmData( "style" ),
+				_html,
 				runningClass;
 
 			if ( style ) {
@@ -132,9 +168,19 @@
 				style = this.options.style;
 			}
 
-			this.html = $( '<div class="ui-progress-container-' + style + '">' +
-						'<div class="ui-progress-' + style + '"></div>' +
-					'</div>' );
+			_html = '<div class="ui-progress-container-' + style + '">' +
+					'<div class="ui-progress-' + style + '"></div>' +
+				'</div>';
+
+			if ( style === "pending" ) {
+				_html = '<div class="ui-progress-pending-bg">' + _html + '</div>';
+			}
+
+			this.html = $( _html );
+
+			if ( style === "pending" ) {
+				this.html.wrap('<div class="ui-progress-bg"></div>');
+			}
 
 			runningClass = "ui-progress-" + style + "-running";
 

@@ -65,7 +65,22 @@
  * <div data-role="nocontents" id="nocontents" data-type="unnamed"></div>
  *
  */
+/**
+	@class NoContents
+	The no contents widget is used if a list has no items.
+	To add a no contents widget to the application, use the following code:
 
+		<div data-role="nocontents" data-type="Picture">
+			<p>Main Text</p>
+			<p>Sub Text</p>
+		</div>
+
+*/
+/**
+	@property {String} data-type
+	Defines the no contents widget type. The type options are text, picture, multimedia, and unnamed.
+	The default value is unnamed.
+*/
 (function ( $, window, undefined ) {
 	$.widget( "tizen.nocontents", $.mobile.widget, {
 		max_height: 0,
@@ -73,7 +88,7 @@
 		text_bg: null,
 
 		_get_height: function () {
-			var $page = $('.ui-page'),
+			var $page = $('.ui-page-active'),
 				$content = $page.children('.ui-content'),
 				$header = $page.children('.ui-header'),
 				$footer = $page.children('.ui-footer'),
@@ -87,13 +102,14 @@
 				content_h = $( window ).height() - header_h - footer_h -
 					(padding_t + padding_b);
 
+			$content.height( content_h );
+
 			return content_h;
 		},
 
 		_align: function () {
 			var content_height = this._get_height(),
 				icon_height = this.icon_img.height(),
-				icon_width = this.icon_img.width(),
 				text_height = 0,
 				content_gap = 0,
 				text_top = 0,
@@ -111,8 +127,6 @@
 				icon_top = content_gap;
 			}
 
-			this.icon_img.css( 'left',
-				( $( window ).width() - icon_width ) / 2 );
 			this.icon_img.css( 'top', icon_top );
 
 			text_top = icon_top + icon_height + content_gap;

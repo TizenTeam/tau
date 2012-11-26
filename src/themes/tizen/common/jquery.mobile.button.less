@@ -12,11 +12,11 @@
 @height_buttonEdit:	74 * @unit_base;
 @width_buttonEdit:	@height_buttonEdit;
 
-.ui-btn { display: block; text-align: center; cursor:pointer;  position: relative; /*margin: .2em 0px;*/ padding: 0; vertical-align: middle; } /* wongi_1018 : For button align. */
+.ui-btn { display: block; text-align: center; cursor:pointer;  position: relative; /*margin: .2em 0px; padding: 0; */ vertical-align: middle; } /* wongi_1018 : For button align. */
 .ui-btn:focus, .ui-btn:active { outline: none; }
 .ui-header .ui-btn, .ui-footer .ui-btn, .ui-bar .ui-btn { display: inline-block; font-size: 13 * @unit_base; margin: 0; }
 .ui-btn-inline { display: inline-block; }
-.ui-btn-inner { padding: .5em 36 * @unit_base; display: block; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; position: relative; zoom: 1; }
+.ui-btn-inner { padding: .5em 18 * @unit_base; display: block; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; position: relative; zoom: 1; }
 .ui-header .ui-btn-inner, .ui-footer .ui-btn-inner, .ui-bar .ui-btn-inner { padding: 0.7em 0 0.7em; }  /* wongi_1024 : Button text middle align */
 .ui-header .ui-btn-inner.ui-btn-icon-only , .ui-footer .ui-btn-inner, .ui-bar .ui-btn-inner.ui-btn-icon-only { padding: .4em 8 * @unit_base .5em; }	/* wongi_1024 : Button text middle align */
 .ui-btn-icon-notext { width: 24 * @unit_base; height: 24 * @unit_base; }
@@ -51,9 +51,6 @@
 .ui-btn-icon-right .ui-icon { right: 10 * @unit_base; }
 .ui-btn-icon-top .ui-icon { top: 0 * @unit_base; margin-top: 0; }
 .ui-btn-icon-bottom .ui-icon { bottom: 0 * @unit_base; }
-.ui-header .ui-btn-icon-left .ui-icon,
-.ui-footer .ui-btn-icon-left .ui-icon,
-.ui-bar .ui-btn-icon-left .ui-icon { left: @style-back-btn-left; } /* SLP Default Footer : Jinhyuk */
 .ui-header .ui-btn-icon-right .ui-icon,
 .ui-footer .ui-btn-icon-right .ui-icon,
 .ui-bar .ui-btn-icon-right .ui-icon { right: 4 * @unit_base; }
@@ -78,12 +75,44 @@
 .ui-li .ui-btn.ui-btn-icon_only
 {
 	top: 50%;
-	margin-top:  -32  * @unit_base;
+	margin-top:  (-32 * 1/2)   * @unit_base;
 }
 
 .ui-li .ui-btn .ui-btn-inner.ui-btn-hastxt
 {
 	padding: 0.2em 0.5em;
+}
+
+.ui-btn.ui-btn-box-s.ui-btn-down-s .ui-btn-inner
+{
+	.LESSbutton_inner_pressstyle;
+}
+
+.ui-header .ui-btn-box-s,
+.ui-header .ui-btn-box-s .ui-btn-inner,
+.ui-header .ui-btn.ui-btn-box-s.ui-btn-down-s .ui-btn-inner,
+.ui-btn.ui-btn-back.ui-btn-up-s .ui-btn-inner,
+.ui-btn.ui-btn-back.ui-btn-hover-s .ui-btn-inner,
+.ui-btn.ui-btn-back.ui-btn-down-s .ui-btn-inner
+{
+	background: transparent;
+	border: none;
+	box-shadow: none;
+}
+
+.ui-scroll-jump-top-bg .ui-btn-icon-left .ui-btn-inner
+{
+	padding-left: 0;
+}
+/* Circle Icon BG : data-iconbg = "circle" */
+.ui-btn.ui-btn-box-s.ui-btn-icon_only
+{
+/*	background: transparent;
+	border: 0px;*/
+}
+.ui-btn.ui-btn-box-s .ui-btn-inner.ui-btn-corner-all.ui-btn-icon-only
+{
+	.LESSborder-radius-all(1.0em);
 }
 .ui-btn-icon-top .ui-btn-inner.ui-btn-hastxt, .ui-li .ui-btn-icon-top .ui-btn-inner.ui-btn-hastxt
 {
@@ -101,7 +130,7 @@
 	
 /* wongi_1017 : Icons */
 /* icons sizing */
-.ui-btn .ui-icon { width: 64 * @unit_base; height: 64 * @unit_base; }
+.ui-btn .ui-icon { width: 32 * @unit_base ; height: 32 * @unit_base; }
 .ui-btn.ui-btn-edit .ui-icon { width: @width_buttonEdit; height: @height_buttonEdit; }
 
 /* Padding for Icon with text */
@@ -122,7 +151,7 @@
 }
 .ui-btn-box-s.ui-btn-icon-left .ui-icon, .ui-btn-box-s.ui-btn-icon-right .ui-icon
 {
-	margin-top: -64 * @unit_base / 2;
+	margin-top: -32 * @unit_base / 2;
 	top: 50%;
 }
 .ui-btn-box-s.ui-btn-icon-top .ui-icon, .ui-btn-box-s.ui-btn-icon-bottom .ui-icon
@@ -133,22 +162,22 @@
 .tizen-icon-common
 {
 	/* Overlap original property */
-	width: 64 * @unit_base; height: 64 * @unit_base;
+	width: 32 * @unit_base; height: 32 * @unit_base;
 	/* margin-top : 50 */
 	/* top : -32 * @unit_base; */
 }
 
 .ui-icon-bg			{.tizen-icon-common;	background-image: url(images/00_btn_circle_bg_normal.png);	z-index:0; }
 .ui-icon-reveal			{.tizen-icon-common;	background-image: url(images/00_button_reveal.png);	 }
-.ui-icon-reveal-left	{.tizen-icon-common;	background-image: url(images/00_button_reveal_left.png);	 }
+.ui-icon-reveal-left		{.tizen-icon-common;	background-image: url(images/00_button_reveal_left.png);	 }
 .ui-icon-closed			{.tizen-icon-common;	background-image: url(images/00_button_expand_closed.png);	 }
 .ui-icon-opened			{.tizen-icon-common;	background-image: url(images/00_button_expand_opened.png);	 }
 .ui-icon-info			{.tizen-icon-common;	background-image: url(images/00_button_info.png);	 }
 .ui-icon-rename			{.tizen-icon-common;	background-image: url(images/00_button_rename.png);	 }
 .ui-icon-call			{.tizen-icon-common;	background-image: url(images/00_button_call.png);	 }
 .ui-icon-warning		{.tizen-icon-common;	background-image: url(images/00_button_warning.png);	 }
-.ui-icon-plus			{.tizen-icon-common;	background-image: url(images/00_button_plus_normal.png);	 }
-.ui-icon-minus			{.tizen-icon-common;	background-image: url(images/00_button_minus_normal.png);	 }
+.ui-icon-plus			{.tizen-icon-common;	background-image: url(images/00_button_plus.png);	 }
+.ui-icon-minus			{.tizen-icon-common;	background-image: url(images/00_button_expand_minus.png);	 }
 .ui-icon-cancel			{.tizen-icon-common;	background-image: url(images/00_button_cancel.png);	 }
 .ui-icon-send			{.tizen-icon-common;	background-image: url(images/00_button_send.png);	 }
 .ui-icon-favorite		{.tizen-icon-common;	background-image: url(images/00_winset_icon_favorite_on.png);	 }
@@ -156,44 +185,6 @@
 .ui-icon-editminus		{.tizen-icon-common;	background-image: url(images/00_button_icon_minus.png); top : -@height_buttonEdit/2;}
 .ui-icon-editplus		{.tizen-icon-common;	background-image: url(images/00_button_icon_plus.png); top : -@height_buttonEdit/2;}
 
-/* Header back btn : Jinjyuk */
-.ui-btn-up-s .ui-icon-header-back-btn{
-	width: 56 * @unit_base; 
-	height: 56 * @unit_base;
-
-	background-repeat: no-repeat;
-	background-size: 100% 100%;
-
-	.LESSbtn-arrow-position;
-	background-image: url(images/00_winset_Back.png);
-}
-
-.ui-btn-down-s, .ui-btn-hover-s {
-	.ui-icon-header-back-btn{
-		width: 56 * @unit_base;
-		height: 56 * @unit_base;
-
-		background-repeat: no-repeat;
-		background-size: 100% 100%;
-	
-		.LESSbtn-arrow-position;
-		background-image: url(images/00_winset_Back.png);
-	}
-}
-
-.ui-header {
-	.ui-btn-down-s, .ui-btn-hover-s, .ui-btn-up-s {
-		.ui-icon-header-back-btn {
-			top : @style-back-btn-arrow-top;
-		}
-	}
-}
-
-.ui-icon-header-back-btn{
-	.LESSbackground-size(48 * @unit_base, 38 * @unit_base);
-	width: 48 * @unit_base;
-	height: 38 * @unit_base;	
-}
 
 .ui-icon-expandable-divider-opened {
 	width: 42 * @unit_base;
@@ -234,7 +225,7 @@
 .ui-btn-down-s .ui-icon-opened			{.tizen-icon-common;	background-image: url(images/00_button_expand_opened_press.png);	 }
 .ui-btn-down-s .ui-icon-info			{.tizen-icon-common;	background-image: url(images/00_button_info_press.png);	 }
 .ui-btn-down-s .ui-icon-rename			{.tizen-icon-common;	background-image: url(images/00_button_rename_press.png);	 }
-.ui-btn-down-s .ui-icon-call			{.tizen-icon-common;	background-image: url(images/00_button_call_press.png);	 }
+.ui-btn-down-s .ui-icon-call			{.tizen-icon-common;	background-image: url(images/00_button_call.png);	 }
 .ui-btn-down-s .ui-icon-warning			{.tizen-icon-common;	background-image: url(images/00_button_warning_press.png);	 }
 .ui-btn-down-s .ui-icon-plus			{.tizen-icon-common;	background-image: url(images/00_button_plus_press.png);	 }
 .ui-btn-down-s .ui-icon-minus			{.tizen-icon-common;	background-image: url(images/00_button_minus_press.png);	 }
@@ -247,7 +238,7 @@
 
 .ui-btn-inner.ui-btn-icon-only
 {
-	padding: 32 * @unit_base 32 * @unit_base;
+	padding: 16 * @unit_base 16 * @unit_base;
 }
 
 .ui-btn-icon-only .ui-btn-text
@@ -261,13 +252,18 @@
 	padding: @width_buttonEdit/2 @height_buttonEdit/2;
 }
 
-/* Circle Icon BG : data-iconbg = "circle" */
-.ui-btn-corner-all.ui-btn-corner-circle
+.ui-btn.ui-btn-corner-all
 {
-	.LESSborder-radius-all(1.0em);	//wongi_1018	
+	.LESSborder-radius-all(0.3em);
 }
 	
 /* No BG button : data-iconbg = "nobg" */
+
+.ui-btn.ui-btn-corner-all.ui-btn-icon_only
+{
+        .LESSborder-radius-all(1em);
+}
+
 .ui-btn.ui-btn-icon-nobg, .ui-btn .ui-btn-icon-nobg
 {
 	background: transparent;

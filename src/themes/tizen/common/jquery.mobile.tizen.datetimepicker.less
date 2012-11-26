@@ -18,13 +18,13 @@
 
 .ui-datetime {
 	margin: 0;
-	height: 72 * @unit_base;
+	height: 36 * @unit_base;
 }
 
 .ui-datetime-text-main {
 	position: relative;
-	font-size: @font_size_list_main_text;
-	top: 28 * @unit_base;
+	font-size: @font_size_datetime_main_text;
+	top: 0 ;
 	text-overflow: ellipsis;
 	overflow: hidden;
 	white-space: nowrap;
@@ -34,20 +34,16 @@
 
 .ui-datetime-text-main .ui-datefield-period.ui-btn {
 	margin-top: -0.3em;
-	height: 56 * @unit_base;
+	height: 28 * @unit_base;
 	right: auto;
 	position: relative;
 }
 
-.ui-datetime-text-main.ui-datetime-nosubtitle {
-	top : 0px;
-}
-
 .ui-datetime-text-sub {
-	position: absolute;
-	top: 10 * @unit_base;
-        color: @color_list_sub_text_default;
-	font-size: @font_size_list_sub_text;
+	top: 15 * @unit_base ! important;
+        color: @color_list_divider_text ! important;
+	background: transparent ! important;
+        font-size: @font_size_datetime_sub_text ! important;
 }
 
 .ui-datetimepicker-selector {
@@ -59,11 +55,11 @@
 		margin: 0;
 
 		li {
-			font-size: 44 * @unit_base;
+			font-size: 22 * @unit_base;
 			float: left;
-			padding: 30 * @unit_base 8 * @unit_base 0 8 * @unit_base;
-			max-width: 120 * @unit_base;
-			min-width: 120 * @unit_base;
+			padding: 15 * @unit_base 4 * @unit_base 0 4 * @unit_base;
+			max-width: 60 * @unit_base;
+			min-width: 60 * @unit_base;
 
 			a.ui-link {
 				text-decoration: none;
@@ -99,7 +95,7 @@
 		text-align: center !important;
 
 		div {
-			height: 106 * @unit_base;
+			height: 53 * @unit_base;
 		}
 	}
 }

@@ -85,6 +85,54 @@
  *	popupafterclose triggered when a popup has completely closed
 */
 
+/**
+	@class Popup
+	The pop-up widget shows a list of items in a pop-up window in the middle of the screen. It automatically optimizes the pop-up window size within the screen.
+	To add a pop-up widget to the application, use the following code:
+
+		// Basic pop-up
+		<div id="center_info" data-role="popup" data-style="center_info">
+			<div data-role="text">
+				<p>
+				Pop-up dialog box, a child window that blocks user interaction in the parent window
+				</p>
+			</div>
+		</div>
+		// Pop-up with a title and button
+		<div id="center_title_1btn" data-role="popup" data-style="center_title_1btn">
+			<p data-role="title">
+				Pop-up title
+			</p>
+			<p data-role="text">
+				Pop-up dialog box
+			</p>
+		<div data-role="button-bg">
+			<input type="button" value="Text Button" />
+		</div>
+		</div>
+
+	The pop-up can define callbacks for events as described in the jQueryMobile documentation for pop-up events. <br/>You can use methods with the pop-up as described in the jQueryMobile documentation for pop-up methods.
+*/
+
+/**
+	@property {String} data-style
+	Defines the pop-up window style.
+	The following styles are available:
+
+	center_info: basic pop-up message
+	center_title: pop-up message with a title
+	center_basic_1btn: pop-up message with 1 button
+	center_basic_2btn: pop-up message with 2 horizontal buttons
+	center_title_1btn: pop-up message with a title and 1 button
+	center_title_2btn: pop-up message with a title and 2 horizontal buttons
+	center_title_3btn: pop-up message with a title and 3 horizontal buttons
+	center_button_vertical: pop-up message with vertical buttons
+	center_checkbox: pop-up message with a check box
+	center_liststyle_1btn>: pop-up message with a list and 1 button
+	center_liststyle_2btn: pop-up message with a list and 2 horizontal buttons
+	center_liststyle_3btn: pop-up message with a list and 3 horizontal buttons
+*/
+
 (function ( $, undefined ) {
 	$.widget( "tizen.popupwindow", $.tizen.widgetex, {
 		options: {
@@ -162,6 +210,12 @@
 			this._ui.screen.bind( "vclick", function ( e ) {
 				self.close();
 				return false;
+			} );
+
+			this.element.bind( "vclick", function( e ) {
+				if ( $( e.target ).is("ui-btn-ctxpopup-close") ) {
+					self.close();
+				}
 			} );
 		},
 
@@ -270,8 +324,7 @@
 
 			this._ui.screen.css( "height", screenHeight );
 		},
-
-		open: function ( x_where, y_where ) {
+		open: function ( x_where, y_where, backgroundclose ) {
 			var self = this,
 				zIndexMax = 0;
 
@@ -290,13 +343,19 @@
 				}
 			} );
 
-			this._ui.screen.css( "height", $( window ).height() )
-					.removeClass("ui-screen-hidden");
+			this._ui.screen.css( "height", $( window ).height() );
 
-			if ( this.options.fade ) {
-				this._ui.screen.animate( {opacity: this.options.opacity}, "fast" );
+			if( backgroundclose ) {
+				this._ui.screen.css( "opacity", 0 )
+						.removeClass("ui-screen-hidden");
 			} else {
-				this._ui.screen.css( {opacity: this.options.opacity} );
+				this._ui.removeClass("ui-screen-hidden");
+
+				if ( this.options.fade ) {
+					this._ui.screen.animate( {opacity: this.options.opacity}, "fast" );
+				} else {
+					this._ui.screen.css( {opacity: this.options.opacity} );
+				}
 			}
 
 			this._setPosition( x_where, y_where );

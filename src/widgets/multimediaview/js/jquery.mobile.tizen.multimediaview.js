@@ -74,7 +74,76 @@
  *				</audio>
  *
  */
+/**
+	@class MutimediaView
+	The multimedia view widget shows a player control that you can use to view and handle multimedia content. This widget uses the standard HTML video and audio elements, which have been enhanced for use on a mobile device.
 
+	To add a multimedia view widget to the application, use the following code:
+	
+		// Video player control
+		<video data-controls="true" style="width:100%;" data-theme="c">
+		<source src="<VIDEO_FILE_URL>" type="video/mp4" /> Your browser does not support the video tag. </video>
+		// Audio player control
+		<audio data-controls="true" style="width:100%;"> <source src="<AUDIO_FILE_URL>" type="audio/mp3" /> Your browser does not support the audio tag.
+		</audio>
+
+	The multimedia view can define a callback for the create event, which is fired when the widget is created.
+		$('.selector').multimediaview({
+			create:function(event, u){...}
+		});
+		$(".selector").bind("create", function(event, ui)
+		{
+			// Respond to the multimedia view widget creation
+		});
+*/
+/**
+	@property {Boolean} data-control
+	Sets the controls for the widget.
+	The default value is true. If the value is set to true, the widget uses its own player controls. If the value is set to false, the widget uses the browser's player controls.
+*/
+/**
+	@property {Boolean} data-fullscreen
+	Defines whether the widget opens in the fullscreen view mode.
+	The default value is false.
+*/
+/**
+	@property {String} data-theme
+	Sets the widget theme.
+	If the value is not set, the parent control's theme is used
+*/
+/**
+	@method width
+	The width method is used to get (if no value is defined) or set the multimedia view widget width:
+		<video data-fullscreen="true">
+			 <source src="test.mp4" type="video/mp4" />
+		</video>
+		$(".selector").multimediaview("width", [value]);
+*/
+/**
+	@method height
+	The height method is used to get (if no value is defined) or set the multimedia view widget height:
+		<video data-fullscreen="true">
+			<source src="test.mp4" type="video/mp4" />
+		</video>
+		$(".selector").multimediaview("height", [value]);
+*/
+/**
+	@method size
+	The size method is used to set the size of the multimedia view widget using the width and height parameters:
+		<video data-fullscreen="true">
+			<source src="test.mp4" type="video/mp4" />
+		</video>
+		$(".selector").multimediaview("size", width, height);
+*/
+/**
+	@method fullscreen
+	The fullscreen method is used to get (if no value is defined) or set the fullscreen mode of the multimedia view widget. If the value is true, the fullscreen mode is used; otherwise the multimedia view widget runs in the normal mode.
+
+		<video data-fullscreen="true">
+			<source src="test.mp4" type="video/mp4" />
+		</video>
+		$(".selector").multimediaview("fullscreen", [value]);
+*/
 ( function ( $, document, window, undefined ) {
 	$.widget( "tizen.multimediaview", $.mobile.widget, {
 		options : {
@@ -104,8 +173,8 @@
 			view.addClass( "ui-multimediaview" );
 			control = self._createControl();
 
-			if ( view[0].nodeName === "AUDIO" ) {
-				control.addClass( "ui-multimediaview-audio" );
+			if ( view[0].nodeName === "VIDEO" ) {
+				control.addClass( "ui-multimediaview-video" );
 			}
 
 			control.hide();

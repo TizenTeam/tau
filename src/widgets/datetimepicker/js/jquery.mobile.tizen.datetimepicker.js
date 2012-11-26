@@ -102,6 +102,20 @@
  *    });
  */
 
+/**
+	@class DateTimePicker
+	The picker widgets show a control that you can use to enter date and time values. <br/> To add a date time picker widget to the application, use the following code:
+
+			<li class="ui-li-dialogue ui-datetime">
+				<div class="ui-datetime-text-main">
+					<input type="datetime" data-format="MMM dd yyyy hh:mm:ss" name="demo-date" id="demo-date" />
+				</div>
+				<div class="ui-li-text-sub">Date/Time Picker
+					<span id="selected-date1"><em>(select a date first)</em></span>
+				</div>
+			</li>
+*/
+
 
 ( function ( $, window, undefined ) {
 	$.widget( "tizen.datetimepicker", $.tizen.widgetex, {

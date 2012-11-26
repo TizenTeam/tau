@@ -48,6 +48,29 @@
 // If a listview has no dividers or a single divider, the widget won't
 // display.
 
+/**
+	@class ShortcutScroll
+	The shortcut scroll widget shows a shortcut list that is bound to its parent scroll bar and respective list view. This widget is displayed as a text pop-up representing shortcuts to different list dividers in the list view. If you select a shortcut text from the shortcut scroll, the parent list view is moved to the location representing the selected shortcut.
+
+	To add a shortcut scroll widget to the application, use the following code:
+
+		<div class="content" data-role="content" data-scroll="y">
+			<ul id="contacts" data-role="listview" data-shortcutscroll="true">
+				<li>Anton</li>
+			</ul>
+		</div>
+
+	For the shortcut scroll widget to be visible, the parent list view must have multiple list dividers.
+*/
+
+/**
+	@property {Boolean}  data-shortcutscroll
+	When set to true, creates a shortcut scroll using the HTML unordered list (&lt;ul&gt;) element.
+*/
+/**
+	@method shortcutscroll
+	The shortcut scroll is created for the closest list view with the ui-scrollview-clip class.
+*/
 (function ( $, undefined ) {
 
 	$.widget( "tizen.shortcutscroll", $.mobile.widget, {
@@ -122,6 +145,13 @@
 						coords.y += $( e.target ).offset().top  - shortcutsListOffset.top;
 					}
 
+					self.shortcutsList.find( 'li' ).each( function () {
+						var listItem = $( this );
+						$( listItem )
+							.removeClass( "ui-shortcutscroll-hover" )
+							.removeClass( "ui-shortcutscroll-hover-up" )
+							.removeClass( "ui-shortcutscroll-hover-down" );
+					});
 					// Hit test each list item
 					self.shortcutsList.find( 'li' ).each( function () {
 						var listItem = $( this ),
@@ -132,10 +162,16 @@
 
 						if ( coords.x >= l && coords.x <= r && coords.y >= t && coords.y <= b ) {
 							jumpToDivider( $( listItem.data( 'divider' ) ) );
+							$( listItem ).addClass( "ui-shortcutscroll-hover" );
+							if ( listItem.index() > 0 )
+								$( listItem ).siblings().eq( listItem.index() - 1 ).addClass( "ui-shortcutscroll-hover-up" );
+							$( listItem ).siblings().eq( listItem.index() ).addClass( "ui-shortcutscroll-hover-down" );
 							return false;
 						}
 						return true;
 					} );
+
+
 
 					e.preventDefault();
 					e.stopPropagation();

@@ -61,6 +61,20 @@
  *		</div>
 */
 
+/**
+	@class SearchBar
+	The search bar widget is used to search for page content. This widget can be placed in the header, option header, or page content.
+
+	To add a search bar widget to the application, use the following code:
+
+		<label for="search-basic">Search Input:</label>
+		<input type="search" name="search" id="searc-basic" value="" data-mini="true" />
+
+	Tizen supports many search bar options as described in the jQueryMobile documentation for search bar options.
+	The search bar can define callbacks for events as described in the jQueryMobile documentation for search bar events.
+	You can use methods with the search bar as described in the jQueryMobile documentation for search bar methods.
+*/
+
 (function ( $, undefined ) {
 
 	$.widget( "tizen.searchbar", $.mobile.widget, {

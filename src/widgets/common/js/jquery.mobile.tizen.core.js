@@ -37,7 +37,14 @@ ensureNS("jQuery.mobile.tizen");
 jQuery.extend(jQuery.mobile.tizen, {
     disableSelection: function (element) {
 	var self = this;
-	return self.enableSelection( element, 'none' );
+	$(element).find('*').each( function() {
+		if( ( $(this).get(0).tagName !== 'INPUT' &&
+			$(this).attr("type") !== 'text' ) &&
+			$(this).get(0).tagName !== 'TEXTAREA' ) {
+			self.enableSelection( this, 'none' );
+		}
+	} );
+	return true;
     },
 
     enableSelection: function (element, value) {
@@ -64,6 +71,18 @@ jQuery.extend(jQuery.mobile.tizen, {
     },
 
     disableContextMenu: function(element) {
+	var self = this;
+	$(element).find('*').each( function() {
+		if( ( $(this).get(0).tagName !== 'INPUT' &&
+			$(this).attr("type") !== 'text' ) &&
+			$(this).get(0).tagName !== 'TEXTAREA' ) {
+			self._disableContextMenu( this );
+		}
+	} );
+    },
+
+    _disableContextMenu: function(element) {
+
 	$(element).each( function() {
 		$(this).bind("contextmenu", function( event ) {
 			return false;

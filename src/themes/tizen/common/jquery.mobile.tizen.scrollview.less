@@ -26,14 +26,14 @@
 	top: 2 * @unit_base;
 	right: 2 * @unit_base;
 	bottom: 2 * @unit_base;
-	width: 10 * @unit_base;
+	width: 8 * @unit_base;
 }
 
 .ui-scrollbar-x {
 	right: 2 * @unit_base;
 	bottom: 2 * @unit_base;
 	left: 2 * @unit_base;
-	height: 10 * @unit_base;
+	height: 8 * @unit_base;
 }
 
 .ui-scrollbar-track {
@@ -50,49 +50,120 @@
 }
 
 .ui-scrollbar-y .ui-scrollbar-thumb {
-	width:  10 * @unit_base;
+	width:  5 * @unit_base;
 	height: 100%;
+	.LESSborder-radius-all(2 * @unit_base);
+	.LESSbox-shadow(1 * @unit_base, 1 * @unit_base, 2 * @unit_base, rgb(148, 146, 140))
 }
 
 .ui-scrollbar-x .ui-scrollbar-thumb {
 	width: 100%;
-	height: 10 * @unit_base;
+	height: 5 * @unit_base;
+	.LESSborder-radius-all(2 * @unit_base);
 }
 
 .ui-scroll-jump-top-bg {
 	position: absolute;
-	top: 16 * @unit_base;
-	right: 16 * @unit_base;
-	width: 76 * @unit_base;
-	height: 70 * @unit_base;
-	background: url(images/00_scroll_jump_bg.png) no-repeat;
-	.LESSbackground-size(76 * @unit_base, 70 * @unit_base);
+	top: 9 * @unit_base;
+	right: 13 * @unit_base;
+	width: 37 * @unit_base;
+	height: 37 * @unit_base;
 }
 
 .ui-scroll-jump-left-bg {
 	position: absolute;
-	bottom: 16 * @unit_base;
-	left: 16 * @unit_base;
-	width: 76 * @unit_base;
-	height: 70 * @unit_base;
-	background: url(images/00_scroll_jump_bg.png) no-repeat;
-	.LESSbackground-size(76 * @unit_base, 70 * @unit_base);
+	bottom: 9 * @unit_base;
+	left: 13 * @unit_base;
+	width: 37 * @unit_base;
+	height: 37 * @unit_base;
 }
 
-.ui-scroll-jump-top,
-.ui-scroll-jump-left {
-	position: relative;
-	top: 14 * @unit_base;
-	left: 17 * @unit_base;
-	width: 42 * @unit_base;
-	height: 42 * @unit_base;
-	background: url(images/00_scroll_icon_jump.png) no-repeat;
-	.LESSbackground-size(42 * @unit_base, 42 * @unit_base);
+.ui-icon-jumptop {
+	background: url(images/00_icon_jump.png) no-repeat;
+	.LESSbackground-size(19 * @unit_base, 19 * @unit_base);
+	background-position: 9 * @unit_base 9 * @unit_base;
 }
 
-.ui-scroll-jump-left {
-	background: url(images/00_scroll_icon_jump_left.png) no-repeat;
-	.LESSbackground-size(42 * @unit_base, 42 * @unit_base);
+.ui-icon-jumpleft {
+	background: url(images/00_icon_jump_left.png) no-repeat;
+	.LESSbackground-size(19 * @unit_base, 19 * @unit_base);
+	background-position: 9 * @unit_base 9 * @unit_base;
+}
+
+@-webkit-keyframes ui-overflow-show-lite {
+	from {
+		opacity: 0;
+	} to {
+		opacity: 0.2;
+	}
+}
+
+@-webkit-keyframes ui-overflow-show {
+	from {
+		opacity: 0;
+	} to {
+		opacity: 0.5;
+	}
+}
+
+@-webkit-keyframes ui-overflow-show-dark {
+	from {
+		opacity: 0;
+	} to {
+		opacity: 0.8;
+	}
+}
+
+@-webkit-keyframes ui-overflow-hide-lite {
+	from {
+		opacity: 0.2;
+	} to {
+		opacity: 0;
+	}
+}
+
+@-webkit-keyframes ui-overflow-hide {
+	from {
+		opacity: 0.5;
+	} to {
+		opacity: 0;
+	}
+}
+
+@-webkit-keyframes ui-overflow-hide-dark {
+	from {
+		opacity: 0.8;
+	} to {
+		opacity: 0;
+	}
+}
+
+.ui-overflow-indicator-top {
+	position: absolute;
+	display: block;
+	top: 0;
+	width: 100%;
+	height: 10 * @unit_base;
+	opacity: 0;
+	background: -webkit-gradient(linear,
+				left bottom,
+				left top,
+				color-stop(0, rgb(255,255,255)),
+				color-stop(1, rgb(128,128,128)));
+}
+
+.ui-overflow-indicator-bottom {
+	position: absolute;
+	display: block;
+	bottom: 0;
+	width:100%;
+	height: 10 * @unit_base;
+	opacity: 0;
+	background: -webkit-gradient(linear,
+				left bottom,
+				left top,
+				color-stop(0, rgb(128,128,128)),
+				color-stop(1, rgb(255,255,255)));
 }
 
 /*
@@ -107,8 +178,8 @@
 }
 .ui-content.ui-scrollview-clip > div.ui-scrollview-view {
 	margin: 0;
-	padding-left: 16 * @unit_base;
-	padding-right: 16 * @unit_base;
+	padding-left: 8 * @unit_base;
+	padding-right: 8 * @unit_base;
 }
 
 /*

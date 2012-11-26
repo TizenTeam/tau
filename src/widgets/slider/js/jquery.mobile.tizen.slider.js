@@ -73,6 +73,38 @@
  *     });
  */
 
+/**
+	@class Slider
+	The slider widget shows a control on the screen that you can use to change values by dragging a handle on a horizontal scale. Sliders can be used in Tizen as described in the jQueryMobile documentation for sliders.
+
+	To add a slider widget to the application, use the following code:
+
+		<input data-popup='false' type="range" name="slider" value="5" min="0" max="10" data-icon="text" data-text-left="Min" data-text-right="Max" />
+
+	The slider can define callbacks for events as described in the jQueryMobile documentation for slider events.
+	You can use methods with the slider as described in the jQueryMobile documentation for slider methods.
+*/
+/**
+	@property {String} data-icon
+	Defines the icon style for the slider ends. The icon options are bright, volume, and text.
+	The default value is text.
+*/
+/**
+	@property {Boolean} data-popup
+	Enables or disables a pop-up showing the current value while the handle is dragged.
+	The default value is true.
+*/
+/**
+	@property {String} data-text-left
+	Defines the text displayed on the left side of the slider.
+	The data-icon option must be set to text.
+*/
+/**
+	@property {String} data-text-right
+	Defines the text displayed on the right side of the slider.
+	The data-icon option must be set to text.
+*/
+
 (function ($, window, undefined) {
 	$.widget("tizen.tizenslider", $.mobile.widget, {
 		options: {
@@ -102,11 +134,6 @@
 
 			// hide the slider input element proper
 			inputElement.hide();
-
-			// FIXME: workaround for list elipse
-			if ( inputElement.parent().hasClass("ui-li") ) {
-				inputElement.parent().css( "overflow", "visible" );
-			}
 
 			self.popup = $('<div class="ui-slider-popup"></div>');
 
@@ -208,8 +235,7 @@
 			var dstOffset = this.handle.offset();
 
 			this.popup.offset({
-				left: dstOffset.left + ( this.handle.width() - this.popup.width() ) / 2,
-				top: dstOffset.top  - this.popup.outerHeight() + 15
+				left: dstOffset.left + ( this.handle.width() - this.popup.width() ) / 2
 			});
 
 			this.handle_press.offset({
@@ -221,11 +247,8 @@
 		// show value on the handle and in popup
 		updateSlider: function () {
 			var font_size,
+				padding_size,
 				newValue;
-
-			if ( this.popupVisible ) {
-				this.positionPopup();
-			}
 
 			// remove the title attribute from the handle (which is
 			// responsible for the annoying tooltip); NB we have
@@ -237,18 +260,38 @@
 
 			newValue = this.element.val();
 
+			if ( this.popupVisible ) {
+				this.positionPopup();
+
+				if ( newValue > 999 ) {
+					font_size = '0.8rem';
+					padding_size = '0.5rem';
+				} else if ( newValue > 99 ) {
+					font_size = '1rem';
+					padding_size = '0.5rem';
+				} else {
+					font_size = '1.5rem';
+					padding_size = '0.15rem';
+				}
+
+				this.popup.css({
+					"font-size": font_size,
+					"padding-top": padding_size
+				});
+			}
+
 			if ( newValue === this.currentValue ) {
 				return;
 			}
 
 			if ( newValue > 999 ) {
-				font_size = '0.7em';
+				font_size = '0.5rem';
 			} else if ( newValue > 99 ) {
-				font_size = '0.8em';
+				font_size = '0.7rem';
 			} else if ( newValue > 9 ) {
-				font_size = '0.9em';
+				font_size = '0.85rem';
 			} else {
-				font_size = '1em';
+				font_size = '0.95rem';
 			}
 
 			if ( font_size != this.handleText.css('font-size') ) {

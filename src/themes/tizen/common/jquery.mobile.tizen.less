@@ -3,7 +3,7 @@
  * 'config.less' in each theme must include this file.
  */
 
-@font_size_default: 36px;	// Default unit font size. DO NOT USE THIS VALUE IN WIDGET CSS!
+@font_size_default: 22px;	// Default unit font size. DO NOT USE THIS VALUE IN WIDGET CSS!
 @rem_base: (1rem/@font_size_default);
 
 @em_base: 1em/@font_size_default;	// WARNING: Don't use em unit!	This value is to be removed.
@@ -99,6 +99,23 @@
 	-webkit-box-shadow: @hshadow @vshadow @blur @color;
 	box-shadow: @hshadow @vshadow @blur @color;
 }
+
+.LESSbox-shadow-line( @value ) {
+	-o-box-shadow: @value;
+        -ms-box-shadow: @value;
+        -moz-box-shadow: @value;
+        -webkit-box-shadow: @value;
+        box-shadow: @value;
+}
+
+.LESSbox-boxsizing( @value ) {
+	-o-box-sizing: @value;
+        -ms-box-sizing: @value;
+        -moz-box-sizing: @value;
+        -webkit-box-sizing: @value;
+        box-sizing: @value;
+}
+
 .LESSdisplaybox() {
 	display:-moz-box;
 	display:-webkit-box;

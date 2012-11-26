@@ -1,0 +1,173 @@
+@import "config.less";
+
+/***************************************************************************
+                    Controlbar
+***************************************************************************/
+.ui-controlbar {
+	background : @color_bg;
+	z-index : 1000;
+	&.ui-portrait-controlbar {
+		height : 55 * @unit_base;
+	}
+	&.ui-landscape-controlbar {
+		height : 55 * @unit_base;
+	}
+
+	a.ui-btn {
+		background : @color_bg;
+		color : @color_controlbar_btn_normal;
+
+		.ui-icon {
+			width: 32 * @unit_base;
+			height: 32 * @unit_base;
+
+			background-repeat: no-repeat;
+			background-size: 100% 100%;
+		}
+	}
+
+	&.ui-controlbar-persist {
+		a.ui-btn {
+			background: @color_bg;
+		}
+		a.ui-state-persist, a.ui-state-persist.ui-btn-active, a.ui-btn-show-style {
+			color : @color_controlbar_btn_pressed;
+		}
+		a.ui-btn-hover-s.ui-btn-down-s {
+			&:not(.ui-state-persist) {
+				color : @color_controlbar_btn_pressed;
+				background: @color_controlbar_btn_tab_press;
+			}
+		}
+	}
+
+	&:not(.ui-controlbar-persist) {
+		a.ui-btn {
+			background: @color_bg;
+		}
+		a.ui-btn-active, .ui-btn-show-style {
+			color : @color_controlbar_btn_pressed;
+		}
+		a.ui-btn.ui-btn-hover-s.ui-btn-down-s {
+			color : @color_controlbar_btn_pressed;
+			background: @color_controlbar_btn_tab_press;
+		}
+	}
+
+	.ui-btn-inner {
+		padding-top : 44 * @unit_base;
+		padding-bottom : 3 * @unit_base;
+
+		font-size : 15 * @unit_base;
+		font-weight : bold;
+
+		.ui-icon {
+			top : 10 * @unit_base;
+			left : 50%;
+			margin-left : -16 * @unit_base;
+		}
+	}
+
+	&.ui-controlbar-noicons {
+		.ui-btn-inner {
+			padding-top : 19 * @unit_base;
+			padding-bottom : 18 * @unit_base;
+		}
+	}
+
+	&.ui-controlbar-notext {
+		.ui-btn-inner {
+			padding-top : 50 * @unit_base;
+			padding-bottom : 5 * @unit_base;
+
+			.ui-icon {
+				top : 11 * @unit_base;
+			}
+		}
+	}
+}
+
+/* title font size when title controlbar */
+.ui-header.ui-bar-s.ui-title-controlbar {
+	.ui-title {
+		font-size : 22 * @unit_base;
+		margin-top : 8 * @unit_base;
+		margin-bottom : 0 * @unit_base;
+	}
+
+	.ui-controlbar {
+		&.ui-controlbar-noicons {
+			.ui-btn-inner {
+				padding-top : 15 * @unit_base;
+				padding-bottom : 13 * @unit_base;
+			}
+		}
+
+		&.ui-controlbar-notext {
+			.ui-btn-inner {
+				padding-top : 47 * @unit_base;
+				padding-bottom : 0 * @unit_base;
+			}
+		}
+
+		&.ui-portrait-controlbar {
+			height : 47 * @unit_base;
+		}
+
+		&.ui-landscape-controlbar {
+			height : 40 * @unit_base;
+		}
+	}
+}
+
+.ui-header.ui-bar-s {
+	&.ui-title-controlbar-multiline {
+		height : 75 * @unit_base;
+		.ui-controlbar {
+			height : 75 * @unit_base;
+			.ui-btn-inner {
+				padding-top : 45 * @unit_base;
+				padding-bottom : 10 * @unit_base;
+			}
+		}
+	}
+}
+
+
+.ui-footer.ui-bar-s {
+	.ui-controlbar {
+		height : 49 * @unit_base;
+
+		margin-left : auto;
+		margin-right : auto;
+
+		.ui-btn-inner {
+			.ui-icon {
+				top : 7 * @unit_base;
+			}
+		}
+	}
+
+	.ui-controlbar.ui-controlbar-margin-back {
+		margin-right : 56 * @unit_base;
+	}
+
+	.ui-controlbar.ui-controlbar-margin-more {
+		margin-left : 56 * @unit_base;
+	}
+
+}
+
+.ui-controlbar-s.ui-navbar-noicons {
+	font-size : 22 * @unit_base;
+}
+
+.ui-btn-up-s {
+	.ui-icon-ctrl-edit { background-image: url(images/controlbar/00_ctrl_edit.png); }
+
+}
+
+.ui-btn-down-s, .ui-btn-hover-s, .ui-btn-active {
+	.ui-icon-ctrl-edit { background-image: url(images/controlbar/00_ctrl_edit_press.png); }
+}
+

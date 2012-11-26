@@ -72,7 +72,35 @@
  *
  */
 
+/**
+ 	@class Extenablelist
+	In the Web environment, it is challenging to display a large amount of data in a list, such as displaying a contact list of over 1000 list items. It takes time to display the entire list in HTML and the DOM manipulation is complex.
+	The extendable list widget is used to display a list of unlimited data elements on the screen for better performance. The list is extended if you click the button at the bottom of the list to load more data elements. Extendable lists are based on the jQuery.template plugin as described in the jQuery documentation for jQuery.template plugin.<br/>
+	To add a extendable list widget to the application, use the following code:
 
+			<script id="tmp-3-1-1" type="text/x-jquery-tmpl">
+				<li class="ui-li-3-1-1"><span class="ui-li-text-main">${NAME}</span></li>
+			</script>
+			<script id="tmp_load_more" type="text/x-jquery-tmpl">
+				<li class="ui-li-3-1-1" style="text-align:center; margin:0 auto">
+				<div data-role="button">Load ${NUM_MORE_ITEMS} more items</div>
+				</li>
+			</script>
+			<ul id="extendable_list_main" data-role="extendablelist" data-extenditems="50" data-template="tmp-3-1-1">
+			</ul>
+*/
+/**
+	@property {String} data-role
+	Creates the extendable list view. The value must be set to extendablelist. Only the &lt;ul&gt; element, which a id attribute defined, supports this option. Also, the elLoadSuccess class attribute must be defined in the &lt;ul&gt; element to ensure that loading data from the database is complete.
+*/
+/**
+	@property {String} data-template
+	Specifies the jQuery.template element ID. The jQuery.template must be defined. The template style can use rem units to support scalability. For using the button at the bottom of the list to load more data elements, there must be list view template with the button. The attribute ID must be tmp_load_more.
+*/
+/**
+	@property {Integer} data-extenditems
+	Defines the number of data elements to be extended at a time.
+*/
 ( function ( $, undefined ) {
 
 	//Keeps track of the number of lists per page UID

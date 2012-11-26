@@ -2,8 +2,8 @@
 @search-bar-padding: (16*@unit_base);
 
 label.ui-input-text {
-	font-size: 32 * @unit_base;
-	line-height: 1.4;
+	font-size: 22 * @unit_base;
+	line-height: 1.2;
 	display: block;
 	font-weight: normal;
 	margin: 0 0 .3em;
@@ -12,7 +12,7 @@ input.ui-input-text, textarea.ui-input-text {
 	background-image: none;
 	padding: .4em;
 	line-height: 1.4;
-	font-size: 32 * @unit_base;
+	font-size: 16 * @unit_base;
 	display: block;
 }
 input.ui-input-text {
@@ -21,6 +21,7 @@ input.ui-input-text {
 }
 textarea.ui-input-text {
 	height: 50*@unit_base;
+	resize: none;
 	-webkit-transition: height 200ms linear;
 	-moz-transition: height 200ms linear;
 	-o-transition: height 200ms linear;
@@ -31,8 +32,8 @@ textarea.ui-input-text {
 .ui-input-search {
 	position: relative;
 
-	padding-right : 74 * @unit_base;
-	padding-left : 74 * @unit_base;
+	padding-right : 30 * @unit_base;
+	padding-left : 30 * @unit_base;
 
 	input.ui-input-text {
 		width : 100%;
@@ -45,15 +46,15 @@ textarea.ui-input-text {
 		background: transparent none;
 	}
 	.ui-btn-icon-notext.ui-input-clear {
-		width: 70 * @unit_base;
-		height: 70 * @unit_base;
+		width: 30 * @unit_base;
+		height: 30 * @unit_base;
 		.ui-btn-inner {
-			padding : 16 * @unit_base;
+			padding : 4 * @unit_base;
 		}
 	}
 	.ui-icon-deleteSearch {
-		width: 38 * @unit_base;
-		height: 38 * @unit_base;
+		width: 22 * @unit_base;
+		height: 22 * @unit_base;
 	}
 
 	.ui-input-clear {
@@ -69,9 +70,9 @@ textarea.ui-input-text {
 	position: absolute;
 	top: 0px;
 	left: 0px;
-	width : 42 * @unit_base;
-	height : 42 * @unit_base;
-	margin: 16 * @unit_base;
+	width : 22 * @unit_base;
+	height : 22 * @unit_base;
+	margin: 4 * @unit_base;
 }
 
 
@@ -108,13 +109,13 @@ textarea.ui-input-text {
 		.LESSborder-radius-all(.3em);
 	}
 	.ui-input-search {
-		font-size : 32 * @unit_base;
+		font-size : 16 * @unit_base;
 		display : block;
 		position: relative;
 
 		background-color: @color_searchbar_input_field_bg;
 		.ui-input-text {
-			height: 74 * @unit_base;
+			height: 30 * @unit_base;
 			padding : 0px;
 
 			margin-right : 38 * @unit_base;
@@ -177,7 +178,18 @@ textarea.ui-input-text {
 }
 
 .ui-header .input-search-bar {
-	padding-top : 16 * @unit_base;
-	padding-bottom : 16 * @unit_base;
+	padding-top : 13 * @unit_base;
+	padding-bottom : 13 * @unit_base;
 }
 
+.ui-image-search {
+	background-image: url(images/00_search_icon.png);
+	background-repeat: no-repeat;
+	background-size : 100% 100%;
+}
+
+.ui-icon-deleteSearch {
+	background-image: url(images/00_Edit_Field_clear.png);
+	background-repeat: no-repeat;
+	background-size : 100% 100%;
+}

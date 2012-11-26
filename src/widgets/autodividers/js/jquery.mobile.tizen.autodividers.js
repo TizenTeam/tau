@@ -108,6 +108,24 @@
 //		this happens if list items are added to the listview,
 //		which causes the autodividers to be regenerated.
 
+/**
+	@class Autodivider
+	The auto-divider widget is used to automatically create dividers for a list view based on the list view items.
+	The dividers are applied using the link texts (in link lists) or texts (in read-only lists).
+	The element used to derive the text for the divider defaults to the first link inside the element; failing that, the text directly inside the element is used.
+	This widget automatically updates the dividers every time a list view item is added or deleted.
+
+			<ul data-role="listview" data-autodividers="alpha">
+				<li><a href="#">Amy</a></li>
+				<li><a href="#">Arabella</a></li>
+				<li><a href="#">Barry</a></li>
+				//Other list items
+			</ul>
+
+
+	@since tizen2.0
+
+*/
 (function ( $, undefined ) {
 
 	var autodividers = function ( options ) {

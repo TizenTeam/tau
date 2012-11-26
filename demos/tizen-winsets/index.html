@@ -24,18 +24,12 @@
 <body>
 	<div data-role="page">
 		<div data-role="header" data-position="fixed">
-			<h1>Tizen UI</h1>
+			<h1>Tizen Web UI</h1>
 		</div>
 		<div data-role="content">
 			<p id="current_date"></p>
 			<p id="html_font_size"></p>
-				<fieldset data-role="controlgroup" id="input-select-theme">
-					<legend>Select theme</legend>
-					<input type="radio" name="select-theme" id="select-theme-tizen-black" value="tizen-black"/>
-					<label for="select-theme-tizen-black">tizen-black</label>
-					<input type="radio" name="select-theme" id="select-theme-tizen-white" value="tizen-white" checked="true" />
-					<label for="select-theme-tizen-white">tizen-white</label>
-				</fieldset>
+
 			<script>
 				$( document ).one( "pagecreate", function ( ) {
 					$("#input-select-theme").find("input[name='select-theme']").bind( "change", 
@@ -51,24 +45,32 @@
 					);
 				} );
 			</script>
-			<ul data-role="listview" data-icon="1line-textonly">
+			<ul data-role="listview">
 				<li data-role="list-divider">Controls</li>
 				<li><a href="widgets/button/button.html">Button</a></li>
 				<li><a href="widgets/checkbox/checkbox.html">Check</a></li>
 				<li><a href="widgets/switch/switch.html">Switch</a></li>
 				<li><a href="widgets/radio/radio.html">Radio</a></li>
-				<li><a href="widgets/colorpicker.html">Color picker</a></li>
+				<li><a href="widgets/searchbar.html">Searchbar</a></li>
+				<li><a href="widgets/entry.html">Entry</a></li>
 				<li><a href="widgets/datefield.html">Time picker</a></li>
 				<li><a href="widgets/progressbar.html">Progressbar</a></li>
-				<li><a href="widgets/entry.html">Entry</a></li>
-				<li><a href="widgets/searchbar.html">Searchbar</a></li>
 				<li><a href="#slider-demo">Slider</a></li>
-				<li><a href="widgets/day-selector.html" >Day Selector</a></li>
-				<li><a href="#NavigationbarMain">Navigation Bar</a></li>
 				<li><a href="widgets/imageslider.html">ImageSlider</a></li>
-				<li><a href="widgets/pagecontrol/pagecontrol.html">PageControl</a></li>
+				<li><a href="widgets/segmentctrl.html">Segment Control</a></li>
+				<li><a href="widgets/day-selector.html" >Day Selector</a></li>
 				<li><a href="widgets/selectioninfo.html">SelectionInfo</a></li>
+				<li><a href="widgets/pagecontrol/pagecontrol.html">PageControl</a></li>
 				<li><a href="#multibuttonentry">Multi-Button Entry</a></li>
+
+				<li data-role="list-divider">PageLayout</li>
+				<li><a href="widgets/naviframe/naviframe.html">Naviframe</a></li>
+				<li><a href="widgets/pagelayout/barcontrol.html">Header/Footer(fixed/non-fixed) Control</a></li>
+				<li><a href="widgets/pagelayout/backbutton-control.html">Back Button Control</a></li>
+
+				<li data-role="list-divider">Controlbar</li>
+				<li><a href="widgets/controlbar/controlbar.html">Controlbar</a></li>
+				<li><a href="#controlbar_persist_a">Persist toolbar</a></li>
 
 				<li data-role="list-divider">Scrollview</li>
 				<li><a href="widgets/scrollview_x.html">Horizontal Scroll</a></li>
@@ -77,21 +79,15 @@
 				<li><a href="widgets/handler.html">Handler</a></li>
 				<li><a href="widgets/scroll_jump.html">Scroll Jump</a></li>
 
-				<li data-role="list-divider">ControlBar</li>
-				<li><a href="#controlbar-demo">ControlBar</a></li>
-
 				<li data-role="list-divider">List</li>
 				<li><a href="widgets/list/list.html">List</a></li>
 				<li><a href="widgets/auto-dividers.html">Auto-Dividers</a></li>
 				<li><a href="widgets/fast-scroll.html">Short cut scroll (aka fast-scroll)</a></li>
 
-				<li data-role="list-divider">Navigation Bar</li>
-				<li><a href="widgets/segmentctrl.html">Segment Control</a></li>
-				<li><a href="#option-header-demo">Optional Header</a></li>
-
-				<li data-role="list-divider">Popup</li>
+				<li data-role="list-divider">Additional Popup</li>
 				<li><a href="widgets/popupwindow/popup.html">Popup</a></li>
 				<li><a href="widgets/ctxpopup.html">CxtPopup</a></li>
+				<li><a href="#option-header-demo">Optional Header</a></li>
 
 				<li data-role="list-divider">Notification (ticker)</li>
 				<li><a href="widgets/tickernoti.html">TickerNoti</a></li>
@@ -113,9 +109,6 @@
 				<li><a href="widgets/grid/virtualgrid-auto.html">Virtual Grid - Auto</a></li>
 				<li data-role="list-divider">Multimedia view</li>
 				<li><a href="widgets/multimediaview/multimediaview.html">Multimedia view</a></li>
-				<li data-role="list-divider">PageLayout</li>
-				<li><a href="widgets/pagelayout/barcontrol.html">Header/Footer(fixed/non-fixed) Control</a></li>
-				<li><a href="widgets/pagelayout/backbutton-control.html">Back Button Control</a></li>
 
 				<li data-role="list-divider">Programming Tips</li>
 				<li><a href="tips/generate-elements-dynamically.html">Generate Elements by JS</a></li>
@@ -132,7 +125,58 @@
 
 			</ul>
 		</div>
+		<div data-role="footer">
+		</div>
 	</div>
+
+<div data-role="page" id="controlbar_persist_a">
+	<div data-role="header" data-position="fixed">
+		<div data-role="controlbar" data-id="persist_header" >
+			<ul>
+				<li><a href="#controlbar_persist_a" class="ui-btn-active ui-state-persist">Menu</a></li>
+				<li><a href="#controlbar_persist_b" >Save</a></li>
+				<li><a href="#controlbar_persist_c" >Next</a></li>
+			</ul>
+		</div><!-- /controlbar -->
+	</div>
+
+	<div data-role="content">
+		<p>page a</p>
+	</div>
+</div>
+
+<div data-role="page" id="controlbar_persist_b">
+	<div data-role="header" data-position="fixed">
+		<div data-role="controlbar" data-id="persist_header" >
+			<ul>
+				<li><a href="#controlbar_persist_a" >Menu</a></li>
+				<li><a href="#controlbar_persist_b" class="ui-btn-active ui-state-persist">Save</a></li>
+				<li><a href="#controlbar_persist_c" >Next</a></li>
+			</ul>
+		</div><!-- /controlbar -->
+	</div>
+
+	<div data-role="content">
+		<p>page b</p>
+	</div>
+</div>
+
+<div data-role="page" id="controlbar_persist_c">
+	<div data-role="header" data-position="fixed">
+		<div data-role="controlbar" data-id="persist_header" >
+			<ul>
+				<li><a href="#controlbar_persist_a" >Menu</a></li>
+				<li><a href="#controlbar_persist_b" >Save</a></li>
+				<li><a href="#controlbar_persist_c" class="ui-btn-active ui-state-persist">Next</a></li>
+			</ul>
+		</div><!-- /controlbar -->
+	</div>
+
+	<div data-role="content">
+		<p>page c</p>
+	</div>
+</div>
+
 
 	<div data-role="page" id="notImplemented">
 		<div data-role="header" data-position="fixed">
@@ -229,403 +273,6 @@
 		</div>
 	</div>
 
-	<div data-role="page" id="controlbar-demo" data-add-back-btn="true">
-		<div data-role="header" data-position="fixed">
-			<h1>ControlBar</h1>
-		</div>
-		<div data-role="content">
-			<div class="content-primary">
-				<ul data-role="listview">
-					<li><a href="#Tabbar_Main">Tabbar Style</a></li>
-					<li><a href="#Toolbar">Toolbar Style</a></li>
-				</ul>
-			</div><!--/content-primary -->
-		</div>
-	</div>
-
-	<!-- ControlBar Tabbar Style -->
-	<div data-role="page" id="Tabbar_Main">
-		<div data-role="header" data-position="fixed">
-			<h1>Tabbar</h1>
-		</div>
-		<div data-role="content">
-			<div class="content-primary">
-			<ul data-role="listview">
-				<li><a href="#TabbarInHeader">Tabbar in Header</a></li>
-				<li><a href="#Tabbar2Items">2 Items Style</a></li>
-				<li><a href="#Tabbar3Items">3 Items Style</a></li>
-				<li><a href="#Tabbar4Items">4 Items Style</a></li>
-				<li><a href="#Tabbar5Items">5 Items Style</a></li>
-				<li><a href="#TabbarText">Only Text Style</a></li>
-				<li><a href="#TabbarIcon">Only Icon Style</a></li>
-			</ul>
-			</div><!--/content-primary -->
-		</div>
-		<div data-role="footer"data-position ="fixed">
-			<div data-role="controlbar" data-style="tabbar" >
-				<ul>
-					<li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active">Menu</a></li>
-					<li><a href="#" data-icon="ctrlbar-save" >Save</a></li>
-					<li><a href="#" data-icon="ctrlbar-share" >Share</a></li>
-					<li><a href="#" data-icon="ctrlbar-timeline" >Timeline</a></li>
-					<li><a href="#" data-icon="ctrlbar-world_clock" >WorldClock</a></li>
-				</ul>
-			</div>
-		</div>
-	</div>
-	<div data-role="page" id="TabbarInHeader">
-		<div data-role="header" data-position="fixed">
-			<div data-role="controlbar" data-style="tabbar" >
-				<ul>
-					<li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active">Menu</a></li>
-					<li><a href="#" data-icon="ctrlbar-save" >Save</a></li>
-					<li><a href="#" data-icon="ctrlbar-share" >Share</a></li>
-					<li><a href="#" data-icon="ctrlbar-timeline" >Timeline</a></li>
-					<li><a href="#" data-icon="ctrlbar-world_clock" >WorldClock</a></li>
-				</ul>
-			</div><!-- /navbar -->
-		</div>
-		<div data-role="content">
-			<div class="content-primary">
-				<ul data-role="listview">
-					<li><a href="#">Test</a></li>
-				</ul>
-			</div><!--/content-primary -->
-		</div>
-		<div data-role="footer"data-position ="fixed">
-		</div>
-	</div>
-	<div data-role="page" id="Tabbar2Items">
-		<div data-role="header" data-position="fixed">
-			<h1>Tabbar</h1>
-		</div>
-		<div data-role="content">
-			<div class="content-primary">
-				<ul data-role="listview">
-					<li><a href="#">2 Items Style List</a></li>
-				</ul>
-			</div><!--/content-primary -->
-		</div>
-		<div data-role="footer"data-position ="fixed">
-			<div data-role="controlbar" data-style="tabbar" >
-				<ul>
-					<li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active">Menu</a></li>
-					<li><a href="#" data-icon="ctrlbar-save" >Save</a></li>
-				</ul>
-			</div><!-- /controlbar -->
-		</div>
-	</div>
-
-	<div data-role="page" id="Tabbar3Items">
-		<div data-role="header" data-position="fixed">
-			<h1>Tabbar</h1>
-		</div>
-		<div data-role="content">
-			<div class="content-primary">
-				<ul data-role="listview">
-					<li><a href="#">3 Items Style List</a></li>
-				</ul>
-			</div><!--/content-primary -->
-		</div>
-		<div data-role="footer"data-position ="fixed">
-			<div data-role="controlbar" data-style="tabbar" >
-				<ul>
-					<li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active">Menu</a></li>
-					<li><a href="#" data-icon="ctrlbar-save" >Save</a></li>
-					<li><a href="#" data-icon="ctrlbar-share" >Share</a></li>
-				</ul>
-			</div><!-- /controlbar -->
-		</div>
-	</div>
-
-	<div data-role="page" id="Tabbar4Items">
-		<div data-role="header" data-position="fixed">
-			<h1>Tabbar</h1>
-		</div>
-		<div data-role="content">
-			<div class="content-primary">
-				<ul data-role="listview">
-					<li><a href="#">4 Items Style List</a></li>
-				</ul>
-			</div><!--/content-primary -->
-		</div>
-		<div data-role="footer"data-position ="fixed">
-			<div data-role="controlbar" data-style="tabbar" >
-				<ul>
-					<li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active">Menu</a></li>
-					<li><a href="#" data-icon="ctrlbar-save" >Save</a></li>
-					<li><a href="#" data-icon="ctrlbar-share" >Share</a></li>
-					<li><a href="#" data-icon="ctrlbar-timeline" >Timeline</a></li>
-				</ul>
-			</div><!-- /controlbar -->
-		</div>
-	</div>
-
-	<div data-role="page" id="Tabbar5Items">
-		<div data-role="header" data-position="fixed">
-			<h1>Tabbar</h1>
-		</div>
-		<div data-role="content">
-			<div class="content-primary">
-				<ul data-role="listview">
-					<li><a href="#">5 Items Style List</a></li>
-				</ul>
-			</div><!--/content-primary -->
-		</div>
-		<div data-role="footer"data-position ="fixed">
-			<div data-role="controlbar" data-style="tabbar" >
-				<ul>
-					<li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active">Menu</a></li>
-					<li><a href="#" data-icon="ctrlbar-save" >Save</a></li>
-					<li><a href="#" data-icon="ctrlbar-share" >Share</a></li>
-					<li><a href="#" data-icon="ctrlbar-timeline" >Timeline</a></li>
-					<li><a href="#" data-icon="ctrlbar-world_clock" >WorldClock</a></li>
-				</ul>
-			</div><!-- /controlbar -->
-		</div>
-	</div>
-
-	<div data-role="page" id="TabbarText">
-		<div data-role="header" data-position="fixed">
-			<h1>Tabbar</h1>
-		</div>
-		<div data-role="content">
-			<div class="content-primary">
-				<ul data-role="listview">
-					<li><a href="#">Text Style List</a></li>
-				</ul>
-			</div><!--/content-primary -->
-		</div>
-		<div data-role="footer"data-position ="fixed">
-			<div data-role="controlbar" data-style="tabbar" >
-				<ul>
-					<li><a href="#" class="ui-btn-active">Songs</a></li>
-					<li><a href="#">Favorites</a></li>
-					<li><a href="#">Group</a></li>
-					<li><a href="#">Message</a></li>
-					<li><a href="#">Contact</a></li>
-				</ul>
-			</div><!-- /controlbar -->
-		</div>
-	</div>
-
-	<div data-role="page" id="TabbarIcon">
-		<div data-role="header" data-position="fixed">
-			<h1>Tabbar</h1>
-		</div>
-		<div data-role="content">
-			<div class="content-primary">
-				<ul data-role="listview">
-					<li><a href="#">Icon Style List</a></li>
-				</ul>
-			</div><!--/content-primary -->
-		</div>
-		<div data-role="footer"data-position ="fixed">
-			<div data-role="controlbar" data-style="tabbar" >
-				<ul>
-					<li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active"></a></li>
-					<li><a href="#" data-icon="ctrlbar-save" ></a></li>
-					<li><a href="#" data-icon="ctrlbar-share" ></a></li>
-					<li><a href="#" data-icon="ctrlbar-timeline" ></a></li>
-					<li><a href="#" data-icon="ctrlbar-world_clock" ></a></li>
-				</ul>
-			</div><!-- /controlbar -->
-		</div>
-	</div>
-
-	<!-- Toolbar Style -->
-	<div data-role="page" id="Toolbar">
-		<div data-role="header" data-position="fixed">
-			<h1>Toolbar</h1>
-		</div>
-		<div data-role="content">
-			<div class="content-primary">
-				<ul data-role="listview">
-					<li><a href="#ToolbarInHeader">Toolbar in Header</a></li>
-					<li><a href="#Toolbar2Items">2 Items Style</a></li>
-					<li><a href="#Toolbar3Items">3 Items Style</a></li>
-					<li><a href="#Toolbar4Items">4 Items Style</a></li>
-					<li><a href="#Toolbar5Items">5 Items Style</a></li>
-					<li><a href="#ToolbarText">Only Text Style</a></li>
-					<li><a href="#ToolbarIcon">Only Icon Style</a></li>
-				</ul>
-			</div><!--/content-primary -->
-		</div>
-		<div data-role="footer"data-position ="fixed">
-			<div data-role="controlbar" data-style="toolbar" >
-				<ul>
-					<li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active">Menu</a></li>
-					<li><a href="#" data-icon="ctrlbar-save" >Save</a></li>
-					<li><a href="#" data-icon="ctrlbar-share" >Share</a></li>
-					<li><a href="#" data-icon="ctrlbar-timeline" >Timeline</a></li>
-					<li><a href="#" data-icon="ctrlbar-world_clock" >WorldClock</a></li>
-				</ul>
-			</div><!-- /controlbar -->
-		</div>
-	</div>
-
-	<div data-role="page" id="ToolbarInHeader">
-		<div data-role="header" data-position="fixed">
-			<div data-role="controlbar" data-style="toolbar" >
-				<ul>
-					<li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active">Menu</a></li>
-					<li><a href="#" data-icon="ctrlbar-save" >Save</a></li>
-					<li><a href="#" data-icon="ctrlbar-share" >Share</a></li>
-					<li><a href="#" data-icon="ctrlbar-timeline" >Timeline</a></li>
-					<li><a href="#" data-icon="ctrlbar-world_clock" >WorldClock</a></li>
-				</ul>
-			</div><!-- /controlbar -->
-		</div>
-		<div data-role="content">
-			<div class="content-primary">
-				<ul data-role="listview">
-					<li><a href="#">Test</a></li>
-				</ul>
-			</div><!--/content-primary -->
-		</div>
-		<div data-role="footer"data-position ="fixed">
-		</div>
-	</div>
-
-
-	<div data-role="page" id="Toolbar2Items">
-		<div data-role="header" data-position="fixed">
-			<h1>Toolbar</h1>
-		</div>
-		<div data-role="content">
-			<div class="content-primary">
-				<ul data-role="listview">
-					<li><a href="#">2 Items Style</a></li>
-				</ul>
-			</div><!--/content-primary -->
-		</div>
-		<div data-role="footer"data-position ="fixed">
-			<div data-role="controlbar" data-style="toolbar" >
-				<ul>
-					<li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active">Menu</a></li>
-					<li><a href="#" data-icon="ctrlbar-save" >Save</a></li>
-				</ul>
-			</div><!-- /controlbar -->
-		</div>
-	</div>
-
-	<div data-role="page" id="Toolbar3Items">
-		<div data-role="header" data-position="fixed">
-			<h1>Toolbar</h1>
-		</div>
-		<div data-role="content">
-			<div class="content-primary">
-				<ul data-role="listview">
-					<li><a href="#">3 Items Style</a></li>
-				</ul>
-			</div><!--/content-primary -->
-		</div>
-		<div data-role="footer"data-position ="fixed">
-			<div data-role="controlbar" data-style="toolbar" >
-				<ul>
-					<li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active">Menu</a></li>
-					<li><a href="#" data-icon="ctrlbar-save" >Save</a></li>
-					<li><a href="#" data-icon="ctrlbar-share" >Share</a></li>
-				</ul>
-			</div><!-- /controlbar -->
-		</div>
-	</div>
-
-	<div data-role="page" id="Toolbar4Items">
-		<div data-role="header" data-position="fixed">
-			<h1>Toolbar</h1>
-		</div>
-		<div data-role="content">
-			<div class="content-primary">
-				<ul data-role="listview">
-					<li><a href="#">4 Items Style</a></li>
-				</ul>
-			</div><!--/content-primary -->
-		</div>
-		<div data-role="footer"data-position ="fixed">
-			<div data-role="controlbar" data-style="toolbar" >
-				<ul>
-					<li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active">Menu</a></li>
-					<li><a href="#" data-icon="ctrlbar-save" >Save</a></li>
-					<li><a href="#" data-icon="ctrlbar-share" >Share</a></li>
-					<li><a href="#" data-icon="ctrlbar-timeline" >Timeline</a></li>
-				</ul>
-			</div><!-- /controlbar -->
-		</div>
-	</div>
-
-	<div data-role="page" id="Toolbar5Items">
-		<div data-role="header" data-position="fixed">
-			<h1>Toolbar</h1>
-		</div>
-		<div data-role="content">
-			<div class="content-primary">
-				<ul data-role="listview">
-					<li><a href="#">5 Items Style</a></li>
-				</ul>
-			</div><!--/content-primary -->
-		</div>
-		<div data-role="footer"data-position ="fixed">
-			<div data-role="controlbar" data-style="toolbar" >
-				<ul>
-					<li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active">Menu</a></li>
-					<li><a href="#" data-icon="ctrlbar-save" >Save</a></li>
-					<li><a href="#" data-icon="ctrlbar-share" >Share</a></li>
-					<li><a href="#" data-icon="ctrlbar-timeline" >Timeline</a></li>
-					<li><a href="#" data-icon="ctrlbar-world_clock" >WorldClock</a></li>
-				</ul>
-			</div><!-- /controlbar -->
-		</div>
-	</div>
-
-	<div data-role="page" id="ToolbarText">
-		<div data-role="header" data-position="fixed">
-			<h1>Toolbar</h1>
-		</div>
-		<div data-role="content">
-			<div class="content-primary">
-				<ul data-role="listview">
-					<li><a href="#">Text Style</a></li>
-				</ul>
-			</div><!--/content-primary -->
-		</div>
-		<div data-role="footer"data-position ="fixed">
-			<div data-role="controlbar" data-style="toolbar" >
-				<ul>
-					<li><a href="#" class="ui-btn-active">Songs</a></li>
-					<li><a href="#">Favorites</a></li>
-					<li><a href="#">Group</a></li>
-					<li><a href="#">Message</a></li>
-					<li><a href="#">Contact</a></li>
-				</ul>
-			</div><!-- /controlbar -->
-		</div>
-	</div>
-
-	<div data-role="page" id="ToolbarIcon">
-		<div data-role="header" data-position="fixed">
-			<h1>Toolbar</h1>
-		</div>
-		<div data-role="content">
-			<div class="content-primary">
-				<ul data-role="listview">
-					<li><a href="#">Only Icon Style</a></li>
-				</ul>
-			</div><!--/content-primary -->
-		</div>
-		<div data-role="footer"data-position ="fixed">
-			<div data-role="controlbar" data-style="toolbar" >
-				<ul>
-					<li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active"></a></li>
-					<li><a href="#" data-icon="ctrlbar-save" ></a></li>
-					<li><a href="#" data-icon="ctrlbar-share" ></a></li>
-					<li><a href="#" data-icon="ctrlbar-timeline" ></a></li>
-					<li><a href="#" data-icon="ctrlbar-world_clock" ></a></li>
-				</ul>
-			</div><!-- /controlbar -->
-		</div>
-	</div>
-	<!-- Toolbar Style -->
 
 	<!-- Mixed Style -->
 
@@ -639,395 +286,9 @@
 	</div>
 	<!-- Mixed Style -->
 
-	<!-- ControlBar Left Style -->
-	<div data-role="page" id="ControlBarVerticalLeft" >
-		<div data-role="header"  data-position="fixed">
-			<h1>Vertical Toolbar</h1>
-		</div>
-		<div data-role="content">
-			<ul data-role="listview" data-icon="1line-textonly">
-				<li><a href="#notImplemented" data-rel="dialog">AutoScroll</a></li>
-				<li><a href="#notImplemented">Button</a></li>
-				<li><a href="#notImplemented">Check</a></li>
-			</ul>
-			<div data-role="controlbar" data-style="left">
-				<ul>
-					<li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active">Menu</a></li>
-					<li><a href="#" data-icon="ctrlbar-save" >Save</a></li>
-					<li><a href="#" data-icon="ctrlbar-share" >Share</a></li>
-					<li><a href="#" data-icon="ctrlbar-timeline" >Timeline</a></li>
-					<li><a href="#" data-icon="ctrlbar-world_clock" >WorldClock</a></li>
-				</ul>
-			</div><!-- /controlbar -->
-		</div>
-	</div>
-	<!-- ControlBar Left Style -->
-
-	<!-- ControlBar Right Style -->
-	<div data-role="page" id="ControlBarVerticalRight" >
-		<div data-role="header"  data-position="fixed">
-			<h1>Vertical Toolbar</h1>
-		</div>
-		<div data-role="content">
-			<ul data-role="listview" data-icon="1line-textonly">
-				<li><a href="#notImplemented" data-rel="dialog">AutoScroll</a></li>
-				<li><a href="#notImplemented">Button</a></li>
-			</ul>
-			<div data-role="controlbar" data-style="right">
-				<ul>
-					<li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active">Menu</a></li>
-					<li><a href="#" data-icon="ctrlbar-save" >Save</a></li>
-					<li><a href="#" data-icon="ctrlbar-share" >Share</a></li>
-					<li><a href="#" data-icon="ctrlbar-timeline" >Timeline</a></li>
-					<li><a href="#" data-icon="ctrlbar-world_clock" >WorldClock</a></li>
-				</ul>
-			</div><!-- /controlbar -->
-		</div>
-	</div>
-	<!-- ControlBar Right Style -->
-
-	<!-- ControlBar Animation -->
-	<div data-role="page" id="ControlBarAnimation" >
-		<div data-role="header" data-position="fixed">
-			<h1>Vertical Toolbar</h1>
-		</div>
-		<div data-role="content">
-		</div>
-		<div data-role="footer"data-position ="fixed">
-			<div data-role="controlbar" data-style="tabbar">
-				<ul>
-					<li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active">Menu</a></li>
-					<li><a href="#" data-icon="ctrlbar-save" >Save</a></li>
-					<li><a href="#" data-icon="ctrlbar-share" >Share</a></li>
-					<li><a href="#" data-icon="ctrlbar-timeline" >Timeline</a></li>
-					<li><a href="#" data-icon="ctrlbar-world_clock" >WorldClock</a></li>
-				</ul>
-			</div><!-- /controlbar -->
-		</div>
-	</div>
-	<!-- ControlBar Animation -->
-
-	<div data-role="page" id="NavigationbarMain" data-add-back-btn="true">
-		<div data-role="header" data-position="fixed">
-			<h1>ControlBar</h1>
-		</div>
-		<div data-role="content">
-			<div class="content-primary">
-				<ul data-role="listview">
-					<li><a href="#normalstyle">Normal style title</a></li>
-					<li><a href="#extendedstyle">Extended style title</a></li>
-				</ul>
-			</div><!--/content-primary -->
-		</div>
-	</div>
-
-	<div data-role="page" id="normalstyle" data-add-back-btn="true">
-		<div data-role="header" data-position="fixed">
-			<h1>Normal Title</h1>
-		</div>
-		<div data-role="content">
-			<ul data-role="listview">
-				<li><a href="#normal1btn">Title 1 button</a></li>
-				<li><a href="#normal2btn">Title 2 button</a></li>
-				<li><a href="#normal2btnicononly">Title 2 button Icon only</a></li>
-				<li><a href="#normal3btn">Title 3 button</a></li>
-				<li><a href="#iconTitle">Icon + Title</a></li>
-				<li><a href="#customTitle1">Custom Title with button position: left</a></li>
-				<li><a href="#customTitle2">Custom Title with button position: right</a></li>
-				<li><a href="#customTitle3">Custom Title with button position: mix</a></li>
-				<li><a href="#NavigationbarMain">Go back to Navigation Bar</a></li>
-			</ul>
-		</div>
-	</div>
-
-	<div data-role="page" id="normal1btn">
-		<div data-role="header" data-position="fixed">
-			<h1>Normal Title - 1Btn</h1>
-			<a>text1</a>
-		</div>
-		<div data-role="content">
-			<ul data-role="listview">
-				<li><a href="#normal1btn">Title 1 button</a></li>
-				<li><a href="#normal2btn">Title 2 button</a></li>
-				<li><a href="#normal2btnicononly">Title 2 button Icon only</a></li>
-				<li><a href="#normal3btn">Title 3 button</a></li>
-				<li><a href="#iconTitle">Icon + Title</a></li>
-				<li><a href="#customTitle1">Custom Title with button position: left</a></li>
-				<li><a href="#customTitle2">Custom Title with button position: right</a></li>
-				<li><a href="#customTitle3">Custom Title with button position: mix</a></li>
-				<li><a href="#NavigationbarMain">Go back to Navigation Bar</a></li>
-			</ul>
-		</div>
-	</div>
-
-	<div data-role="page" id="normal2btn">
-		<div data-role="header" data-position="fixed">
-			<h1>Normal Title - 2Btn</h1>
-			<a>text1</a>
-			<a>text2</a>
-		</div>
-		<div data-role="content">
-			<ul data-role="listview">
-				<li><a href="#normal1btn">Title 1 button</a></li>
-				<li><a href="#normal2btn">Title 2 button</a></li>
-				<li><a href="#normal2btnicononly">Title 2 button Icon only</a></li>
-				<li><a href="#normal3btn">Title 3 button</a></li>
-				<li><a href="#iconTitle">Icon + Title</a></li>
-				<li><a href="#customTitle1">Custom Title with button position: left</a></li>
-				<li><a href="#customTitle2">Custom Title with button position: right</a></li>
-				<li><a href="#customTitle3">Custom Title with button position: mix</a></li>
-				<li><a href="#NavigationbarMain">Go back to Navigation Bar</a></li>
-			</ul>
-		</div>
-	</div>
-
-	<div data-role="page" id="normal2btnicononly">
-		<div data-role="header" data-position="fixed">
-			<h1>Normal Title+2Buttons Icon only</h1>
-			<a data-icon="plus"></a>
-			<a data-icon="minus"></a>
-		</div>
-		<div data-role="content">
-			<ul data-role="listview">
-				<li><a href="#normal1btn">Title 1 button</a></li>
-				<li><a href="#normal2btn">Title 2 button</a></li>
-				<li><a href="#normal2btnicononly">Title 2 button Icon only</a></li>
-				<li><a href="#normal3btn">Title 3 button</a></li>
-				<li><a href="#iconTitle">Icon + Title</a></li>
-				<li><a href="#customTitle1">Custom Title with button position: left</a></li>
-				<li><a href="#customTitle2">Custom Title with button position: right</a></li>
-				<li><a href="#customTitle3">Custom Title with button position: mix</a></li>
-				<li><a href="#NavigationbarMain">Go back to Navigation Bar</a></li>
-			</ul>
-		</div>
-	</div>
-
-
-	<div data-role="page" id="normal3btn" data-add-back-btn="true">
-		<div data-role="header" data-position="fixed">
-			<h1>Normal Title - 3Btn</h1>
-			<a>text1</a>
-			<a>text2</a>
-			<a>text3</a>
-		</div>
-		<div data-role="content">
-			<ul data-role="listview">
-				<li><a href="#normal1btn">Title 1 button</a></li>
-				<li><a href="#normal2btn">Title 2 button</a></li>
-				<li><a href="#normal2btnicononly">Title 2 button Icon only</a></li>
-				<li><a href="#normal3btn">Title 3 button</a></li>
-				<li><a href="#iconTitle">Icon + Title</a></li>
-				<li><a href="#customTitle1">Custom Title with button position: left</a></li>
-				<li><a href="#customTitle2">Custom Title with button position: right</a></li>
-				<li><a href="#customTitle3">Custom Title with button position: mix</a></li>
-				<li><a href="#NavigationbarMain">Go back to Navigation Bar</a></li>
-			</ul>
-		</div>
-	</div>
-
-	<div data-role="page" id="iconTitle">
-		<div data-role="header" data-position="fixed">
-			<img src="icon-tizen.png"/>
-			<h1>Icon Title</h1>
-			<a>text1</a>
-		</div>
-		<div data-role="content">
-			<ul data-role="listview">
-				<li><a href="#normal1btn">Title 1 button</a></li>
-				<li><a href="#normal2btn">Title 2 button</a></li>
-				<li><a href="#normal2btnicononly">Title 2 button Icon only</a></li>
-				<li><a href="#normal3btn">Title 3 button</a></li>
-				<li><a href="#iconTitle">Icon + Title</a></li>
-				<li><a href="#customTitle1">Custom Title with button position: left</a></li>
-				<li><a href="#customTitle2">Custom Title with button position: right</a></li>
-				<li><a href="#customTitle3">Custom Title with button position: mix</a></li>
-				<li><a href="#NavigationbarMain">Go back to Navigation Bar</a></li>
-			</ul>
-		</div>
-	</div>
-
-	<div data-role="page" id="customTitle1">
-		<div data-role="header" data-position="fixed">
-			<h1>Title with Left button</h1>
-			<a class="ui-btn-left">Left1</a>
-			<a class="ui-btn-left">Left2</a>
-			<a class="ui-btn-left">Left3</a>
-		</div>
-		<div data-role="content">
-			<ul data-role="listview">
-				<li><a href="#normal1btn">Title 1 button</a></li>
-				<li><a href="#normal2btn">Title 2 button</a></li>
-				<li><a href="#normal2btnicononly">Title 2 button Icon only</a></li>
-				<li><a href="#normal3btn">Title 3 button</a></li>
-				<li><a href="#iconTitle">Icon + Title</a></li>
-				<li><a href="#customTitle1">Custom Title with button position: left</a></li>
-				<li><a href="#customTitle2">Custom Title with button position: right</a></li>
-				<li><a href="#customTitle3">Custom Title with button position: mix</a></li>
-				<li><a href="#NavigationbarMain">Go back to Navigation Bar</a></li>
-			</ul>
-		</div>
-	</div>
-
-	<div data-role="page" id="customTitle2">
-		<div data-role="header" data-position="fixed">
-			<h1>Title with Right button</h1>
-			<a class="ui-btn-right">Right1</a>
-			<a class="ui-btn-right">Right2</a>
-			<a class="ui-btn-right">Right3</a>
-		</div>
-		<div data-role="content">
-			<ul data-role="listview">
-				<li><a href="#normal1btn">Title 1 button</a></li>
-				<li><a href="#normal2btn">Title 2 button</a></li>
-				<li><a href="#normal2btnicononly">Title 2 button Icon only</a></li>
-				<li><a href="#normal3btn">Title 3 button</a></li>
-				<li><a href="#iconTitle">Icon + Title</a></li>
-				<li><a href="#customTitle1">Custom Title with button position: left</a></li>
-				<li><a href="#customTitle2">Custom Title with button position: right</a></li>
-				<li><a href="#customTitle3">Custom Title with button position: mix</a></li>
-				<li><a href="#NavigationbarMain">Go back to Navigation Bar</a></li>
-			</ul>
-		</div>
-	</div>
-
-	<div data-role="page" id="customTitle3">
-		<div data-role="header" data-position="fixed">
-			<a class="ui-btn-left">Left</a>
-			<h1>Title with Left/Right button</h1>
-			<a class="ui-btn-right">Right1</a>
-			<a class="ui-btn-right">Right2</a>
-		</div>
-		<div data-role="content">
-			<ul data-role="listview">
-				<li><a href="#normal1btn">Title 1 button</a></li>
-				<li><a href="#normal2btn">Title 2 button</a></li>
-				<li><a href="#normal2btnicononly">Title 2 button Icon only</a></li>
-				<li><a href="#normal3btn">Title 3 button</a></li>
-				<li><a href="#iconTitle">Icon + Title</a></li>
-				<li><a href="#customTitle1">Custom Title with button position: left</a></li>
-				<li><a href="#customTitle2">Custom Title with button position: right</a></li>
-				<li><a href="#customTitle3">Custom Title with button position: mix</a></li>
-				<li><a href="#NavigationbarMain">Go back to Navigation Bar</a></li>
-			</ul>
-		</div>
-	</div>
-
-
-
-
-
-	<div data-role="page" id="extendedstyle"  data-add-back-btn="true">
-		<div data-role="header" data-position="fixed">
-			<h1>Extended Title</h1>
-		</div>
-		<div data-role="content">
-			<div class="content-primary">
-				<ul data-role="listview">
-					<li><a href="#extendedstyle2btn">2 Button</a></li>
-					<li><a href="#extendedstyle3btn">3 Button</a></li>
-					<li><a href="#extendedstyle4btn">4 Button</a></li>
-					<li><a href="#footerExtendedStyle">Footer Extended Style</a></li>
-				</ul>
-			</div><!--/content-primary -->
-		</div>
-	</div>
-
-	<div data-role="page" id="extendedstyle2btn">
-		<div data-role="header" data-position="fixed">
-			<h1>Extended Title 2 Button </h1>
-			<div data-role="fieldcontain">
-				<fieldset data-role="controlgroup" data-type="horizontal">
-					<input type="radio" name="radio-view-8" data-icon="segment-titlestyle-segonly" id="segment1" value="on" checked="checked" />
-					<label for="segment1">All</label>
-					<input type="radio" name="radio-view-8" data-icon="segment-titlestyle-segonly" id="segment2" value="off" />
-					<label for="segment2">Call</label>
-				</fieldset>
-			</div>
-		</div>
-		<div data-role="content">
-			<div class="content-primary">
-				<ul data-role="listview">
-					<li><a href="#extendedstyle2btn">2 Button</a></li>
-					<li><a href="#extendedstyle3btn">3 Button</a></li>
-				</ul>
-			</div><!--/content-primary -->
-		</div>
-	</div>
-
-	<div data-role="page" id="extendedstyle3btn">
-		<div data-role="header" data-position="fixed">
-			<h1>Extended Title 3 Button </h1>
-			<div data-role="fieldcontain">
-				<fieldset data-role="controlgroup" data-type="horizontal">
-					<input type="radio" name="radio-view-8" data-icon="segment-titlestyle-segonly" id="segment71" value="on" checked="checked" />
-					<label for="segment71">All</label>
-					<input type="radio" name="radio-view-8" data-icon="segment-titlestyle-segonly" id="segment72" value="off" />
-					<label for="segment72">Call</label>
-					<input type="radio" name="radio-view-8" data-icon="segment-titlestyle-segonly" id="segment73" value="off" />
-					<label for="segment73">Message</label>
-				</fieldset>
-			</div>
-		</div>
-		<div data-role="content">
-			<div class="content-primary">
-				<ul data-role="listview">
-					<li><a href="#extendedstyle2btn">2 Button</a></li>
-					<li><a href="#extendedstyle3btn">3 Button</a></li>
-				</ul>
-			</div><!--/content-primary -->
-		</div>
-	</div>
-
-	<div data-role="page" id="extendedstyle4btn">
-		<div data-role="header" data-position="fixed">
-			<h1>Extended Title 4 Button </h1>
-			<div data-role="fieldcontain">
-				<fieldset data-role="controlgroup" data-type="horizontal">
-					<input type="radio" name="radio-view-8" data-icon="segment-titlestyle-segonly" id="segment71" value="on" checked="checked" />
-					<label for="segment71">All</label>
-					<input type="radio" name="radio-view-8" data-icon="segment-titlestyle-segonly" id="segment72" value="off" />
-					<label for="segment72">Call</label>
-					<input type="radio" name="radio-view-8" data-icon="segment-titlestyle-segonly" id="segment73" value="off" />
-					<label for="segment73">Message</label>
-					<input type="radio" name="radio-view-8" data-icon="segment-titlestyle-segonly" id="segment74" value="off" />
-					<label for="segment74">Contact</label>
-				</fieldset>
-			</div>
-		</div>
-		<div data-role="content">
-			<div class="content-primary">
-				<ul data-role="listview">
-					<li><a href="#extendedstyle2btn">2 Button</a></li>
-					<li><a href="#extendedstyle3btn">3 Button</a></li>
-				</ul>
-			</div><!--/content-primary -->
-		</div>
-	</div>
-
-	<div data-role="page" id="footerExtendedStyle">
-		<div data-role="header" data-position="fixed">
-			<h1>Extended Footer style</h1>
-		</div>
-		<div data-role="content">
-			<p> test page </p>
-		</div>
-		<div data-role="footer" data-position="fixed">
-			<div data-role="fieldcontain">
-				<fieldset data-role="controlgroup" data-type="horizontal">
-					<input type="radio" name="radio-view-8" data-icon="segment-titlestyle-segonly" id="segment1" value="on" checked="checked" />
-					<label for="segment1">All</label>
-					<input type="radio" name="radio-view-8" data-icon="segment-titlestyle-segonly" id="segment2" value="off" />
-					<label for="segment2">Call</label>
-					<input type="radio" name="radio-view-8" data-icon="segment-titlestyle-segonly" id="segment3" value="off" />
-					<label for="segment3">Contact</label>
-				</fieldset>
-			</div>
-			<a>Edit</a>
-		</div>
-	</div>
 
 	<div data-role="page" id="multibuttonentry">
-		<div data-role="header"  data-position="fixed">
+		<div data-role="header" data-position="fixed">
 			<h1>Multi-button Entry</h1>
 		</div>
 		<div data-role="content">
@@ -1047,10 +308,9 @@
 			</ul>
 		</div>
 	</div>
-	<div data-role="page"  id="addressbook" data-footer-Exist="false" >
+	<div data-role="page" id="addressbook" data-add-back-btn="none">
 		<div data-role="header"  data-position="fixed">
 			<h1>Address Book</h1>
-			<a id="cancelBtn" href="#multibuttonentry" data-role="button" class="ui-btn-right" >Cancel</a>
 		</div>
 		<div data-role="content" id="contentList">
 			<ul data-role="listview">
@@ -1092,6 +352,11 @@
 				<li><a href="#multibuttonentry">Sawyer Wakefield</a></li>
 			</ul>
 		</div> <!--/content -->
+		<div data-role="footer">
+			<div align="right">
+				<a href="#multibuttonentry" data-role="button" style="margin-right : 1em;">Cancel</a>
+			</div>
+		</div>
 	</div> <!--/page -->
 
 	<!--                   nocontents                 -->

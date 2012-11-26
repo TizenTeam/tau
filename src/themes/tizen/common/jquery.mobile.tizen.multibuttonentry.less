@@ -2,7 +2,6 @@
 
 .ui-multibuttonentry {
 	display : table;
-	background-color : @color_multibuttonentry_bg;
 	outline : none;
 }
 
@@ -13,11 +12,10 @@
 	margin-left : .3em;
 	margin-right : .3em;
 	padding : .6em 0em;
-	color : @color_multibuttonentry_input_text;
+	color : @color_multibuttonentry_label_text;
 	font-weight : bold;
 	text-align : center;
 	font-size : 1em;
-	background-color : @color_multibuttonentry_bg;
 }
 
 .ui-multibuttonentry-input {
@@ -30,10 +28,9 @@
 	color : @color_multibuttonentry_input_text;
 	text-align : left;
 	font-size : 1em;
-	background-color : @color_multibuttonentry_bg;
 }
 
-.ui-multibuttonentry div, .ui-multibuttonentry a {
+.ui-multibuttonentry div {
 	display : inline-block;
 	text-align : center;
 	cursor : pointer;
@@ -45,11 +42,11 @@
 	padding : .2em .5em;
 	font-size : 1em;
 	text-shadow : 0 .1em .1em rgba(0,0,0,.3);
-	-ms-border-radius : .5em;
-	-o-border-radius : .5em;
-	-webkit-border-radius : .5em;
-	-moz-border-radius : .5em;
-	border-radius : 1.5em;
+	-ms-border-radius : .2em;
+	-o-border-radius : .2em;
+	-webkit-border-radius : .2em;
+	-moz-border-radius : .2em;
+	border-radius : .2em;
 	.LESSbox-shadow(0, .1em, .1em, rgba(0,0,0,.2));
 	color : @color_multibuttonentry_block_text;
 	overflow : hidden;
@@ -57,32 +54,17 @@
 	white-space : nowrap;
 }
 
-a.ui-multibuttonentry-link-base {
-	float : right;
-	font-size : 1em;
-	font-weight : bold;
-	text-decoration : none;
-	border : solid 2px @color_multibuttonentry_link_bg;
-}
-
-a.ui-multibuttonentry-link {
-	color : @color_multibuttonentry_link !important;
-	background-color : @color_multibuttonentry_link_bg;
-}
-
-a.ui-multibuttonentry-link-dim {
-	color : @color_multibuttonentry_link_bg !important;
-	background-color : @color_multibuttonentry_bg;
-}
-
 div.ui-multibuttonentry-block {
-	border : solid 2px @color_multibuttonentry_block_border;
 	background-color : @color_multibuttonentry_block_bg;
+	background-image: url(./images/00_contacts_button_header.png);
+	background-size: contain;
+	background-repeat: no-repeat;
+	padding-left : .7em;
 }
 
 div.ui-multibuttonentry-sblock {
-	border : solid 2px @color_multibuttonentry_press_border;
 	background : @color_multibuttonentry_press_bg;
+	padding-left : .7em;
 }
 
 .ui-multibuttonentry .ui-multibuttonentry-desclabel {
@@ -90,10 +72,9 @@ div.ui-multibuttonentry-sblock {
 	outline : none;
 	position : relative;
 	border : 0;
-	color : @color_multibuttonentry_input_text;
+	color : @color_multibuttonentry_label_text;
 	text-align : left;
 	font-size : 1em;
-	background-color : @color_multibuttonentry_bg;
 }
 
 .ui-multibuttonentry-focus-button {

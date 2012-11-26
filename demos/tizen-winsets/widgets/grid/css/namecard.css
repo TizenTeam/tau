@@ -9,11 +9,11 @@
 
 .ui-demo-rotation-namecard {
 	position : fixed;
-	width : 5.1rem;
+	width : 4.4rem;
 	height : 6.1rem;
 	margin-right: 0.3rem;
 	margin-left: 0.3rem;
-	margin-bottom: 1.5rem;
+	margin-bottom: 0.5rem;
 }
 
 .ui-demo-namecard-pic {
@@ -24,8 +24,8 @@
 }
 
 .ui-demo-namecard-pic-img {
-	height : 5rem;
-	width : 5rem;
+	height : 4.3rem;
+	width : 4.3rem;
 }
 
 .ui-demo-namecard-contents {
@@ -57,7 +57,7 @@
 
 .ui-demo-namecard-span-x {
 	color : gray;
-	font : normal 0.8rem Georgia, serif !important;
+	font : normal 0.6rem Georgia, serif !important;
 
 	width: 5rem;
 	display: block;
@@ -70,9 +70,8 @@
 
 .ui-demo-namecard-contents span.name {
 	color : gray;
-	font : normal 0.8rem Georgia, serif !important;
-
-	width: 5rem;
+	font : normal 0.6rem Georgia, serif !important;
+	width: 4rem;
 	display: inline-block;
 	white-space : nowrap;
 	overflow : hidden !important;
@@ -110,7 +109,7 @@
 .ui-demo-namecard-list-contents span{
 	left : 9.6rem;
 	font-weight : normal;
-	font-size : 1.2rem;
+	font-size : 0.9rem;
 	color : gray;
 	padding-top : 1rem;
 	font-family: Helvetica, Arial, sans-serif;

@@ -87,6 +87,177 @@
  *
  */
 
+
+/**
+	@class MultiButtonEntry
+	The multi-button entry widget enables the user to enter text and convert it to a button. Each button that is created from entered text as a result of a change event forms a multi-button entry widget. This widget is useful in composing an e-mail or SMS message to a group of addresses, each of which is a clickable item for more actions, such as copying, editing, or removing the address.
+
+	To add a multi-button entry widget to the application, use the following code:
+
+		<div data-role="multibuttonentry" data-label="To:" data-theme="#addressbook" data-list-id="pageId">
+		</div>
+*/
+
+/**
+	@property {String}  data-label
+	Sets a label as a guide for the user.
+	For example, while composing an e-mail message, the 'To: ' label is a guide for the user to enter e-mail addresses.
+*/
+
+/**
+	@property {String} data-decription
+	Manages the message format.
+	The message is displayed when the widget status changes to focus out
+ */
+/**
+	@property {String} data-list-id
+	Sets the ID of the page to which the button links.
+*/
+/**
+	@event create
+	The create event is fired when the multi-button view widget is created:
+
+		<div data-role="multibuttonentry" data-label="To:" data-theme="#addressbook">
+		</div>
+		// Option 01
+		$(".selector").multibuttonentry
+		({
+			create: function(event, ui)
+			{
+				// Handle the create event
+ 			}
+		});
+		// Option 02
+		$(".selector").bind("create", function(event, ui)
+		{
+   			// Handle the create event
+		});
+**/
+/**
+	@event select
+	The select event is fired when a multi-button view widget button is selected:
+
+		<div data-role="multibuttonentry" data-label="To:" data-theme="#addressbook">
+		</div>
+		// Option 01
+		$(".selector").multibuttonentry
+		({
+			select: function(event, ui)
+			{
+			// Handle the select event
+			}
+		});
+		// Option 02
+		$(".selector").bind("multibuttonentryselect", function(event, ui)
+		{
+			// Handle the select event
+		});	
+*/
+/**
+	@event add
+	The add event is fired when a multi-button view widget button is created:
+
+		<div data-role="multibuttonentry" data-label="To:" data-theme="#addressbook">
+		</div>
+		// Option 01
+		$(".selector").multibuttonentry
+		({
+			add: function(event, ui)
+			{
+				// Handle the add event
+			}
+		});
+		// Option 02
+		$(".selector").bind("multibuttonentryadd", function(event, ui)
+		{
+		// Handle the add event
+		});
+*/
+/**
+	@event remove
+	The remove event is fired when a multi-button view widget button is removed:
+
+		<div data-role="multibuttonentry" data-label="To:" data-theme="#addressbook">
+		</div>
+		// Option 01
+		$(".selector").multibuttonentry
+		({
+			remove: function(event, ui)
+			{
+			// Handle the remove event
+			}
+		});
+		// Option 02
+		$(".selector").bind("multibuttonentryremove", function(event, ui)
+		{
+			// Handle the remove event
+		});
+*/
+/**
+	@method destroy
+	The destroy method is used to remove in the current widget all the new DOM elements that you have created.
+	
+		<div data-role="multibuttonentry" data-label="To:" data-theme="#addressbook">
+		</div>
+		$(".selector").multibuttonentry("destroy");
+	
+	@since Tizen2.0
+*/
+/**
+	@method inputText
+	The inputText method is used to manage the widget input box text. If no parameter is set, the method gets the input box text. If a parameter is set, the parameter text is set in the input box.
+	
+		<div data-role="multibuttonentry" data-label="To:" data-theme="#addressbook">
+		</div>
+		$(".selector").multibuttonentry("inputText", [text]);
+*/
+/**
+	@method select
+	The select method is used to select a multi-button entry widget button based on its index value. If no index value is defined, the method returns the string of the selected block. If there are no buttons present in the widget, the method returns null.
+
+		<div data-role="multibuttonentry" data-label="To:" data-theme="#addressbook">
+		</div>
+		$(".selector").multibuttonentry("select", [index]);
+*/
+/**
+	@method add
+	The add method is used to add a new multi-button entry widget button with the specified label text at the specified index position. If the index parameter is not defined, the widget button is added at the bottom of the list. For example, the $(".selector").multibuttonentry("add", "Tizen", 2) method call creates a new widget button labeled 'Tizen' at the third position in the widget.
+
+		<div data-role="multibuttonentry" data-label="To:" data-theme="#addressbook">
+		</div>
+		$(".selector").multibuttonentry("add", [text], [index]);
+*/
+/**
+	@method remove
+	The remove method is used to remove a multi-button entry widget button at the specified index position. If the parameter is not defined, all the widget buttons are removed.
+
+		<div data-role="multibuttonentry" data-label="To:" data-theme="#addressbook">
+		</div>
+		$(".selector").multibuttonentry("remove", [index]);
+*/
+/**
+	@method length
+	The length method is used to retrieve the number of buttons in the multi-button entry widget:
+		<div data-role="multibuttonentry" data-label="To:" data-theme="#addressbook">
+		</div>
+		$(".selector").multibuttonentry("length");
+*/
+/**
+	@method focusIn
+	The focusIn method is used to set the focus status to "focus in". This focus state enables the user to add or remove buttons in the multi-button entry widget.
+
+		<div data-role="multibuttonentry" data-label="To:" data-theme="#addressbook">
+		</div>
+		$(".selector").multibuttonentry("focusIn");
+*/
+/**
+	@method focusOut
+	The focusOut method is used to set the focus status to "focus out". In this focus state, the user cannot manage the buttons in the widget, all the buttons are removed, and a message is displayed.
+
+		<div data-role="multibuttonentry" data-label="To:" data-theme="#addressbook">
+		</div>
+		$(".selector").multibuttonentry("focusOut");
+*/
 ( function ( $, window, document, undefined ) {
 	$.widget( "tizen.multibuttonentry", $.mobile.widget, {
 		_focusStatus : null,
@@ -125,10 +296,10 @@
 			$view.append( inputbox );
 
 			// create a anchor tag.
-			if ( option.listId === null || $.trim(option.listId).length < 1  ) {
+			if ( option.listId === null || $.trim( option.listId ).length < 1 || $( option.listId ).length === 0 ) {
 				className += "-dim";
 			}
-			$( moreBlock ).text( "+" ).attr( "href", $.trim(option.listId) ).addClass( "ui-multibuttonentry-link-base" ).addClass( className );
+			$( moreBlock ).attr( "href", $.trim( option.listId ) ).attr( "data-role", "button" ).attr( "data-inline", "true" ).attr( "data-icon", "plus" ).attr( "data-style", "circle" ).addClass( "ui-multibuttonentry-link-base" ).addClass( className );
 
 			// append default htmlelements to main widget.
 			$view.append( moreBlock );
@@ -209,10 +380,10 @@
 
 			moreBlock.click( function () {
 				if ( $( moreBlock ).hasClass( "ui-multibuttonentry-link-dim" ) ) {
-					return ;
+					return;
 				}
 
-				$(inputbox).hide();
+				$( inputbox ).hide();
 
 				$.mobile.changePage( option.listId, {
 					transition: "slide",
@@ -234,7 +405,7 @@
 					self._viewWidth = $view.innerWidth();
 				}
 				self._modifyInputBoxWidth();
-				$(inputbox).show();
+				$( inputbox ).show();
 			});
 
 			$view.bind( "click", function ( event ) {
@@ -353,10 +524,11 @@
 				blocks = $view.find( "div" ),
 				blockWidth = 0,
 				index = 0,
+				inputBoxMargin = 10,
 				inputBox = $view.find( ".ui-multibuttonentry-input" );
 
 			if ( $view.width() === 0 ) {
-				return ;
+				return;
 			}
 
 			for ( index = 0; index < blocks.length; index += 1 ) {
@@ -366,7 +538,7 @@
 					if ( blockWidth >= inputBoxWidth ) {
 						inputBoxWidth = self._viewWidth - blockWidth;
 					} else {
-						inputBoxWidth = self._viewWidth ;
+						inputBoxWidth = self._viewWidth;
 					}
 				} else {
 					if ( blockWidth >= inputBoxWidth ) {
@@ -381,7 +553,7 @@
 			if ( inputBoxWidth < anchorWidth * 2 ) {
 				inputBoxWidth = self._viewWidth - margin;
 			}
-			$( inputBox ).width( inputBoxWidth - anchorWidth );
+			$( inputBox ).width( inputBoxWidth - anchorWidth - inputBoxMargin );
 		},
 
 		_stringFormat : function ( expression ) {
@@ -469,13 +641,13 @@
 
 			if ( lastIndex !== blocks.length ) {
 				statement = self._stringFormat( self.options.description, blocks.length - lastIndex - 1 );
-				tempBlock = $( document.createElement( 'label' ));
+				tempBlock = $( document.createElement( 'label' ) );
 				tempBlock.text( statement );
 				tempBlock.addClass( "ui-multibuttonentry-desclabel" ).addClass( "ui-multibuttonentry-desclabel" );
 				$( blocks[lastIndex] ).after( tempBlock );
 			}
 
-			// update foucs state
+			// update focus state
 			this._focusStatus = "focusOut";
 			$view.removeClass( "ui-multibuttonentry-focusin" ).addClass( "ui-multibuttonentry-focusout" );
 		},
@@ -502,7 +674,7 @@
 			if ( arguments.length === 0 ) {
 				// return a selected block.
 				lockBlock = $view.find( "div.ui-multibuttonentry-sblock" );
-				if ( lockBlock) {
+				if ( lockBlock ) {
 					return lockBlock.text();
 				}
 				return null;

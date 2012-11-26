@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.1.58
+Version:    0.1.63
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -40,16 +40,6 @@ Summary:    Tizen Web UI Framework Theme : tizen-gray
     Tizen Web UI Framework Theme : tizen-gray
 
 ###############################
-%package -n web-ui-fw-theme-tizen-black
-BuildArch:  noarch
-Summary:    Tizen Web UI Framework Theme : tizen-black
-%Description -n web-ui-fw-theme-tizen-black
-    Tizen Web UI Framework Theme : tizen-black
-%files -n web-ui-fw-theme-tizen-black
-%manifest web-ui-fw-theme-tizen-black.manifest
-/usr/share/tizen-web-ui-fw/*/themes/tizen-black
-
-###############################
 %package -n web-ui-fw-theme-tizen-white
 BuildArch:  noarch
 Summary:    Tizen Web UI Framework Theme : tizen-white
@@ -58,6 +48,7 @@ Summary:    Tizen Web UI Framework Theme : tizen-white
 %files -n web-ui-fw-theme-tizen-white
 %manifest web-ui-fw-theme-tizen-white.manifest
 /usr/share/tizen-web-ui-fw/*/themes/tizen-white
+/usr/share/tizen-web-ui-fw/*/themes/tizen-tizen
 
 ###############################
 %package -n web-ui-fw-theme-default
@@ -91,6 +82,49 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Fri Nov 23 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.63
+- FIX:
+	- dayselector: fix size
+	- remove unised styles
+	- divider: set non-press effect to default option
+	- popupwindow: fix window closing failure
+	- handler: GUI implementation
+	- TC: fix unit TCs
+	- scrollview: fix padding size
+- Spec changes:
+	- Remove color widgets
+	- add $.tizen.pkgVersion for SDK
+- Etc.
+	- JSDuck documents
+
+* Fri Nov 16 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.62
+- FIX:
+	- Many winsets: Fix layout
+	- Footer: fix position to bottom
+- Spec changes:
+	- Remove color widgets
+
+* Fri Nov 09 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.61
+- FIX:
+	- Many widgets: New UX 0.6 theme implementation
+	- widgetex: init speed up
+	- scrollview: fix scrollbar and scale animation
+	- scrollview: fix scroll position when updatelayout is triggered
+	- header/footer: make textselection disable, except input type="text"
+
+* Wed Nov 07 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.60
+- FIX:
+	- Remove tizen-black theme package description
+
+* Tue Nov 06 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.59
+- FIX:
+	- Fix theme name to meet the change of system theme name: white->tizen
+	- Popupwindow: fix left position
+	- Remove black theme
+	- footer: remove label, legend drawing
+- Spec changes:
+	- UX guide v0.4 : button, layout
+
 * Fri Oct 26 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.58
 - FIX:
 	- scrollview: Fix outer scroll amount
