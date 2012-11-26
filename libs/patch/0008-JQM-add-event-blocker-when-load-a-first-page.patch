@@ -1,0 +1,60 @@
+From 6c13cc110b8efa21a98823a3d481e52ff710b12c Mon Sep 17 00:00:00 2001
+From: Minkyu Kang <mk7.kang@samsung.com>
+Date: Mon, 26 Nov 2012 19:58:57 +0900
+Subject: [PATCH 8/9]  JQM: add event blocker when load a first page
+
+ Signed-off-by: Minkyu Kang <mk7.kang@samsung.com>
+---
+ .../jquery-mobile-1.2.0/js/jquery.mobile.init.js   |   13 +++++++++++++
+ .../js/jquery.mobile.navigation.js                 |    4 ++++
+ 2 files changed, 17 insertions(+)
+
+diff --git a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.init.js b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.init.js
+index 4ff7a54..52f6434 100644
+--- a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.init.js
++++ b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.init.js
+@@ -41,6 +41,18 @@ define( [ "jquery", "./jquery.mobile.core", "./jquery.mobile.support", "./jquery
+ 	setTimeout( hideRenderingClass, 5000 );
+ 
+ 	$.extend( $.mobile, {
++		addEventBlocker: function () {
++			$html.addClass( "ui-blocker" );
++			$html.bind( "touchstart touchend vclick mousedown mouseup click", function () {
++				return false;
++			} );
++		},
++
++		removeEventBlocker: function () {
++			$html.removeClass( "ui-blocker" );
++			$html.unbind( "touchstart touchend vclick mousedown mouseup click" );
++		},
++
+ 		// find and enhance the pages in the dom and transition to the first page.
+ 		initializePage: function() {
+ 			// find present pages
+@@ -75,6 +87,7 @@ define( [ "jquery", "./jquery.mobile.core", "./jquery.mobile.support", "./jquery
+ 
+ 			// cue page loading message
+ 			$.mobile.showPageLoadingMsg();
++			$.mobile.addEventBlocker();
+ 
+ 			//remove initial build class (only present on first pageshow)
+ 			hideRenderingClass();
+diff --git a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.navigation.js b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.navigation.js
+index 8172d32..9048789 100644
+--- a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.navigation.js
++++ b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.navigation.js
+@@ -570,6 +570,10 @@ define( [
+ 
+ 			//trigger pageshow, define prevPage as either fromPage or empty jQuery obj
+ 			toPage.data( "page" )._trigger( "show", null, { prevPage: fromPage || $( "" ) } );
++
++			setTimeout( function () {
++				$.mobile.removeEventBlocker();
++			}, 0 );
+ 		});
+ 
+ 		return promise;
+-- 
+1.7.9.5
+

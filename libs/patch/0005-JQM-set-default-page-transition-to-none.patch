@@ -1,0 +1,26 @@
+From bbc623ab6c512dc9d959feb719ffc3c197907e10 Mon Sep 17 00:00:00 2001
+From: Minkyu Kang <mk7.kang@samsung.com>
+Date: Mon, 26 Nov 2012 19:44:25 +0900
+Subject: [PATCH 5/9] JQM: set default page transition to none
+
+Signed-off-by: Minkyu Kang <mk7.kang@samsung.com>
+---
+ .../jquery-mobile-1.2.0/js/jquery.mobile.core.js   |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.core.js b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.core.js
+index 4e8ebfe..426ccaf 100644
+--- a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.core.js
++++ b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.core.js
+@@ -44,7 +44,7 @@ define( [ "jquery", "text!../version.txt" ], function( $, __version__ ) {
+ 		linkBindingEnabled: true,
+ 
+ 		// Set default page transition - 'none' for no transitions
+-		defaultPageTransition: "fade",
++		defaultPageTransition: "none",
+ 
+ 		// Set maximum window width for transitions to apply - 'false' for no limit
+ 		maxTransitionWidth: false,
+-- 
+1.7.9.5
+

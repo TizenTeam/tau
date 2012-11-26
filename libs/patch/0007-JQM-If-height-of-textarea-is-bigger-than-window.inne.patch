@@ -1,0 +1,27 @@
+From 723871c2841378d2e5c9f60459b010fa2223dd6b Mon Sep 17 00:00:00 2001
+From: Minkyu Kang <mk7.kang@samsung.com>
+Date: Mon, 26 Nov 2012 19:48:26 +0900
+Subject: [PATCH 7/9] JQM: If height of textarea is bigger than
+ window.innerHeight/2, don't grow up anymore
+
+ Signed-off-by: Minkyu Kang <mk7.kang@samsung.com>
+---
+ .../js/widgets/forms/textinput.js                  |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/textinput.js b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/textinput.js
+index c242aa3..08505ed 100644
+--- a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/textinput.js
++++ b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/textinput.js
+@@ -113,7 +113,7 @@ $.widget( "mobile.textinput", $.mobile.widget, {
+ 				var scrollHeight = input[ 0 ].scrollHeight,
+ 					clientHeight = input[ 0 ].clientHeight;
+ 
+-				if ( clientHeight < scrollHeight ) {
++				if ( clientHeight < scrollHeight && window.innerHeight / 2 > scrollHeight ) {
+ 					input.height(scrollHeight + extraLineHeight);
+ 				}
+ 			};
+-- 
+1.7.9.5
+

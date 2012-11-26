@@ -1,0 +1,25 @@
+From 02f7c040428383d05c277e286c54680a7e1f5812 Mon Sep 17 00:00:00 2001
+From: Minkyu Kang <mk7.kang@samsung.com>
+Date: Mon, 26 Nov 2012 20:01:31 +0900
+Subject: [PATCH 9/9] JQM: checkbox: set focus when click the checkbox
+
+Signed-off-by: Minkyu Kang <mk7.kang@samsung.com>
+---
+ .../js/widgets/forms/checkboxradio.js              |    1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/checkboxradio.js b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/checkboxradio.js
+index 2e1114f..762307a 100644
+--- a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/checkboxradio.js
++++ b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/checkboxradio.js
+@@ -166,6 +166,7 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
+ 			if ( this.checked || self.inputtype === "checkbox" ) {
+ 				$this.trigger( "change" );
+ 			}
++			$this.focus();
+ 		})
+ 		.checkboxradio( "refresh" );
+ 	},
+-- 
+1.7.9.5
+
