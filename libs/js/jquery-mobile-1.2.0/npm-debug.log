@@ -1,0 +1,158 @@
+info it worked if it ends with ok
+verbose cli [ 'node', '/usr/bin/npm', 'install' ]
+info using npm@1.1.4
+info using node@v0.6.12
+verbose config file /home/prom/.npmrc
+verbose config file /usr/etc/npmrc
+verbose config file /usr/share/npm/npmrc
+verbose caching /home/prom/git/web-ui-fw.upgrade/libs/js/jquery-mobile-1.2.0/package.json
+verbose loadDefaults jquery-mobile-build@0.0.1
+verbose readDependencies: using package.json deps
+verbose where, deps [ '/home/prom/git/web-ui-fw.upgrade/libs/js/jquery-mobile-1.2.0',
+verbose where, deps   [ 'grunt',
+verbose where, deps     'grunt-css',
+verbose where, deps     'grunt-junit',
+verbose where, deps     'grunt-git-authors',
+verbose where, deps     'requirejs',
+verbose where, deps     'glob-whatev',
+verbose where, deps     'rimraf',
+verbose where, deps     'testswarm' ] ]
+verbose from cache /home/prom/git/web-ui-fw.upgrade/libs/js/jquery-mobile-1.2.0/package.json
+info preinstall jquery-mobile-build@0.0.1
+verbose from cache /home/prom/git/web-ui-fw.upgrade/libs/js/jquery-mobile-1.2.0/package.json
+verbose readDependencies: using package.json deps
+verbose cache add [ 'grunt@0.3.x', null ]
+silly cache add: name, spec, args [ undefined, 'grunt@0.3.x', [ 'grunt@0.3.x', null ] ]
+verbose parsed url { pathname: 'grunt@0.3.x',
+verbose parsed url   path: 'grunt@0.3.x',
+verbose parsed url   href: 'grunt@0.3.x' }
+silly cache add: name, spec, args [ 'grunt', '0.3.x', [ 'grunt', '0.3.x' ] ]
+verbose parsed url { pathname: '0.3.x', path: '0.3.x', href: '0.3.x' }
+verbose addNamed [ 'grunt', '0.3.x' ]
+verbose addNamed [ null, '>=0.3.0- <0.4.0-' ]
+silly name, range, hasData [ 'grunt', '>=0.3.0- <0.4.0-', false ]
+verbose raw, before any munging grunt
+verbose url resolving [ 'https://registry.npmjs.org/', './grunt' ]
+verbose url resolved https://registry.npmjs.org/grunt
+http GET https://registry.npmjs.org/grunt
+verbose cache add [ 'grunt-css@0.2.0', null ]
+silly cache add: name, spec, args [ undefined, 'grunt-css@0.2.0', [ 'grunt-css@0.2.0', null ] ]
+verbose parsed url { pathname: 'grunt-css@0.2.0',
+verbose parsed url   path: 'grunt-css@0.2.0',
+verbose parsed url   href: 'grunt-css@0.2.0' }
+silly cache add: name, spec, args [ 'grunt-css', '0.2.0', [ 'grunt-css', '0.2.0' ] ]
+verbose parsed url { pathname: '0.2.0', path: '0.2.0', href: '0.2.0' }
+verbose addNamed [ 'grunt-css', '0.2.0' ]
+verbose addNamed [ '0.2.0', '0.2.0' ]
+verbose cache add [ 'grunt-junit@0.1.4', null ]
+silly cache add: name, spec, args [ undefined, 'grunt-junit@0.1.4', [ 'grunt-junit@0.1.4', null ] ]
+verbose parsed url { pathname: 'grunt-junit@0.1.4',
+verbose parsed url   path: 'grunt-junit@0.1.4',
+verbose parsed url   href: 'grunt-junit@0.1.4' }
+silly cache add: name, spec, args [ 'grunt-junit', '0.1.4', [ 'grunt-junit', '0.1.4' ] ]
+verbose parsed url { pathname: '0.1.4', path: '0.1.4', href: '0.1.4' }
+verbose addNamed [ 'grunt-junit', '0.1.4' ]
+verbose addNamed [ '0.1.4', '0.1.4' ]
+verbose cache add [ 'grunt-git-authors@1.0.0', null ]
+silly cache add: name, spec, args [ undefined,
+silly cache add: name, spec, args   'grunt-git-authors@1.0.0',
+silly cache add: name, spec, args   [ 'grunt-git-authors@1.0.0', null ] ]
+verbose parsed url { pathname: 'grunt-git-authors@1.0.0',
+verbose parsed url   path: 'grunt-git-authors@1.0.0',
+verbose parsed url   href: 'grunt-git-authors@1.0.0' }
+silly cache add: name, spec, args [ 'grunt-git-authors',
+silly cache add: name, spec, args   '1.0.0',
+silly cache add: name, spec, args   [ 'grunt-git-authors', '1.0.0' ] ]
+verbose parsed url { pathname: '1.0.0', path: '1.0.0', href: '1.0.0' }
+verbose addNamed [ 'grunt-git-authors', '1.0.0' ]
+verbose addNamed [ '1.0.0', '1.0.0' ]
+verbose cache add [ 'requirejs@1.0.8', null ]
+silly cache add: name, spec, args [ undefined, 'requirejs@1.0.8', [ 'requirejs@1.0.8', null ] ]
+verbose parsed url { pathname: 'requirejs@1.0.8',
+verbose parsed url   path: 'requirejs@1.0.8',
+verbose parsed url   href: 'requirejs@1.0.8' }
+silly cache add: name, spec, args [ 'requirejs', '1.0.8', [ 'requirejs', '1.0.8' ] ]
+verbose parsed url { pathname: '1.0.8', path: '1.0.8', href: '1.0.8' }
+verbose addNamed [ 'requirejs', '1.0.8' ]
+verbose addNamed [ '1.0.8', '1.0.8' ]
+verbose cache add [ 'glob-whatev@~0.1.4', null ]
+silly cache add: name, spec, args [ undefined,
+silly cache add: name, spec, args   'glob-whatev@~0.1.4',
+silly cache add: name, spec, args   [ 'glob-whatev@~0.1.4', null ] ]
+verbose parsed url { pathname: 'glob-whatev@~0.1.4',
+verbose parsed url   path: 'glob-whatev@~0.1.4',
+verbose parsed url   href: 'glob-whatev@~0.1.4' }
+silly cache add: name, spec, args [ 'glob-whatev', '~0.1.4', [ 'glob-whatev', '~0.1.4' ] ]
+verbose parsed url { pathname: '~0.1.4', path: '~0.1.4', href: '~0.1.4' }
+verbose addNamed [ 'glob-whatev', '~0.1.4' ]
+verbose addNamed [ null, '>=0.1.4- <0.2.0-' ]
+silly name, range, hasData [ 'glob-whatev', '>=0.1.4- <0.2.0-', false ]
+verbose cache add [ 'rimraf@2.0.1', null ]
+silly cache add: name, spec, args [ undefined, 'rimraf@2.0.1', [ 'rimraf@2.0.1', null ] ]
+verbose parsed url { pathname: 'rimraf@2.0.1',
+verbose parsed url   path: 'rimraf@2.0.1',
+verbose parsed url   href: 'rimraf@2.0.1' }
+silly cache add: name, spec, args [ 'rimraf', '2.0.1', [ 'rimraf', '2.0.1' ] ]
+verbose parsed url { pathname: '2.0.1', path: '2.0.1', href: '2.0.1' }
+verbose addNamed [ 'rimraf', '2.0.1' ]
+verbose addNamed [ '2.0.1', '2.0.1' ]
+verbose cache add [ 'testswarm@0.2.3', null ]
+silly cache add: name, spec, args [ undefined, 'testswarm@0.2.3', [ 'testswarm@0.2.3', null ] ]
+verbose parsed url { pathname: 'testswarm@0.2.3',
+verbose parsed url   path: 'testswarm@0.2.3',
+verbose parsed url   href: 'testswarm@0.2.3' }
+silly cache add: name, spec, args [ 'testswarm', '0.2.3', [ 'testswarm', '0.2.3' ] ]
+verbose parsed url { pathname: '0.2.3', path: '0.2.3', href: '0.2.3' }
+verbose addNamed [ 'testswarm', '0.2.3' ]
+verbose addNamed [ '0.2.3', '0.2.3' ]
+verbose raw, before any munging grunt-css/0.2.0
+verbose url resolving [ 'https://registry.npmjs.org/', './grunt-css/0.2.0' ]
+verbose url resolved https://registry.npmjs.org/grunt-css/0.2.0
+http GET https://registry.npmjs.org/grunt-css/0.2.0
+verbose raw, before any munging grunt-junit/0.1.4
+verbose url resolving [ 'https://registry.npmjs.org/', './grunt-junit/0.1.4' ]
+verbose url resolved https://registry.npmjs.org/grunt-junit/0.1.4
+http GET https://registry.npmjs.org/grunt-junit/0.1.4
+verbose raw, before any munging grunt-git-authors/1.0.0
+verbose url resolving [ 'https://registry.npmjs.org/', './grunt-git-authors/1.0.0' ]
+verbose url resolved https://registry.npmjs.org/grunt-git-authors/1.0.0
+http GET https://registry.npmjs.org/grunt-git-authors/1.0.0
+verbose raw, before any munging requirejs/1.0.8
+verbose url resolving [ 'https://registry.npmjs.org/', './requirejs/1.0.8' ]
+verbose url resolved https://registry.npmjs.org/requirejs/1.0.8
+http GET https://registry.npmjs.org/requirejs/1.0.8
+verbose raw, before any munging glob-whatev
+verbose url resolving [ 'https://registry.npmjs.org/', './glob-whatev' ]
+verbose url resolved https://registry.npmjs.org/glob-whatev
+http GET https://registry.npmjs.org/glob-whatev
+verbose raw, before any munging rimraf/2.0.1
+verbose url resolving [ 'https://registry.npmjs.org/', './rimraf/2.0.1' ]
+verbose url resolved https://registry.npmjs.org/rimraf/2.0.1
+http GET https://registry.npmjs.org/rimraf/2.0.1
+verbose raw, before any munging testswarm/0.2.3
+verbose url resolving [ 'https://registry.npmjs.org/', './testswarm/0.2.3' ]
+verbose url resolved https://registry.npmjs.org/testswarm/0.2.3
+http GET https://registry.npmjs.org/testswarm/0.2.3
+ERR! Error: failed to fetch from registry: grunt
+ERR!     at /usr/share/npm/lib/utils/npm-registry-client/get.js:139:12
+ERR!     at cb (/usr/share/npm/lib/utils/npm-registry-client/request.js:31:9)
+ERR!     at Request._callback (/usr/share/npm/lib/utils/npm-registry-client/request.js:136:18)
+ERR!     at Request.callback (/usr/lib/nodejs/request/main.js:119:22)
+ERR!     at Request.<anonymous> (/usr/lib/nodejs/request/main.js:212:58)
+ERR!     at Request.emit (events.js:88:20)
+ERR!     at ClientRequest.<anonymous> (/usr/lib/nodejs/request/main.js:209:10)
+ERR!     at ClientRequest.emit (events.js:67:17)
+ERR!     at ClientRequest.onError (/usr/lib/nodejs/request/tunnel.js:164:21)
+ERR!     at ClientRequest.g (events.js:156:14)
+ERR! You may report this log at:
+ERR!     <http://bugs.debian.org/npm>
+ERR! or use
+ERR!     reportbug --attach /home/prom/git/web-ui-fw.upgrade/libs/js/jquery-mobile-1.2.0/npm-debug.log npm
+ERR! 
+ERR! System Linux 3.2.0-32-generic-pae
+ERR! command "node" "/usr/bin/npm" "install"
+ERR! cwd /home/prom/git/web-ui-fw.upgrade/libs/js/jquery-mobile-1.2.0
+ERR! node -v v0.6.12
+ERR! npm -v 1.1.4
+ERR! message failed to fetch from registry: grunt
+verbose exit [ 1, true ]
