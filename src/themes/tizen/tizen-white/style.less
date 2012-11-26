@@ -83,11 +83,12 @@
 /***************************************************************************
                         Button(connected with other winset)
 ***************************************************************************/
-@color_button_EditText:         rgb(61, 61, 61);
+@color_button_EditText:         rgb(249, 249, 249);
 @color_button_EditTextPress:    rgb(61, 61, 61);
 
 @color_button_text_normal:      rgb(54, 49, 51);
 @color_button_text_press:       rgb(248, 246, 239);
+@color_button_text_white:       rgb(249, 249, 249);
 
 @color_button_normal:           rgb(235, 232, 227);
 @color_button_normal_webkit:    -webkit-linear-gradient(top, rgb(235, 232, 227), rgb(234, 231, 226));
@@ -105,6 +106,10 @@
 @button_shadow_outer:              0 0 1px 1px rgba(255, 255, 255, 1);
 @button_shadow_inner:		none;
 
+@color_button_edit:			rgb(201, 88, 88);
+@color_button_edit_webkit:		-webkit-gradient(linear, left top, left bottom, from(rgb(201, 88, 88)), to(rgb(161, 40, 40)));
+@color_button_edit_moz:			-moz_linear-gradient(top, rgb(201, 88, 88), rgb(161, 40, 40));
+
 .LESSbutton_box_style{
         color: @color_button_text_normal;
 }
@@ -118,11 +123,11 @@
 }
 
 .LESSbutton_box_style{
-        background: @color_button_normal;
-        background: @color_button_normal_webkit;
-        background: @color_button_normal_moz;
-        background: @color_button_normal_o;
-        background: @color_button_normal_ms;
+	background: @color_button_normal;
+	background: @color_button_normal_webkit;
+	background: @color_button_normal_moz;
+	background: @color_button_normal_o;
+	background: @color_button_normal_ms;
 	border: 1px solid;
 	border-color: rgba(220, 218, 211, 1);
 	.LESSbox-shadow-line( @button_shadow_outer );
@@ -156,6 +161,11 @@
         color: @color_button_text_press;
 }
 
+.LESSbutton_edit_style{
+	background: @color_button_edit;
+	background: @color_button_edit_webkit;
+	background: @color_button_edit_moz;
+}
 
 /***************************************************************************
                         contextual popup
@@ -306,8 +316,6 @@
 ***************************************************************************/
 
 @color_button_text_black:	rgb(0, 0, 0);
-@color_button_text_white:	rgb(249, 249, 249);
-@color_button_text_press: 	rgb(249, 249, 249);
 
 @color_circlebutton_hover:		rgb(239, 119, 126);
 @color_circlebutton_hover_webkit:	-webkit-gradient(linear, left top, left bottom, from(rgb(198, 78, 85)), to(rgb(166, 43, 45)));
@@ -330,10 +338,6 @@
 
 @radius_button_switch: 4px;
 @radius_button_switch_reed: 2px;
-
-@color_button_edit:			rgb(201, 88, 88);
-@color_button_edit_webkit:		-webkit-gradient(linear, left top, left bottom, from(rgb(201, 88, 88)), to(rgb(161, 40, 40)));
-@color_button_edit_moz:			-moz_linear-gradient(top, rgb(201, 88, 88), rgb(161, 40, 40));
 
 @color_button_edit_press:		rgb(147, 24, 24);
 @color_button_edit_press_webkit:	-webkit-gradient(linear, left top, left bottom, from(rgb(147, 24,24)), to(rgb(110, 23, 23)));
@@ -366,13 +370,6 @@
 	border-radius: @radius_button_switch_reed;
 	-webkit-border-radius: @radius_button_switch_reed;
 	-moz-border-radius: @radius_button_switch_reed;
-}
-
-.LESSbutton_edit_style{
-	background: @color_button_edit;
-	background: @color_button_edit_webkit;
-	background: @color_button_edit_moz;
-	color: rgb(249, 249, 249);
 }
 
 .LESSbutton_editpress_style{
