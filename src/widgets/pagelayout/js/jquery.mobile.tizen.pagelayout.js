@@ -160,64 +160,18 @@
 				$elFooter,
 				$elFooterGroup,
 				gLength,
-				footerButton,
-				tStyle = "normal",
-				headerBtnNum;
-
-			if ( $elFieldcontain.length != 0 || $elControlgroup.length != 0 ) {
-				tStyle = "extended";
-			}
+				footerButton;
 
 			if ( $elHeader.jqmData("position") == "fixed" || $.tizen.frameworkData.theme.match(/tizen/) || $elHeader.css("position") == "fixed" ) {
 				$elHeader
 					.css( "position", "fixed" )
 					.css( "top", "0px" );
-
-				if ( $elHeader.is(".ui-title-controlbar-multiline") ) {
-					$( event.target ).find( ".ui-content" ).addClass( "ui-title-content-multi-controlbar-height" );
-				} else {
-					if ( $elHeader.length ) {
-						$( event.target ).find( ".ui-content" ).addClass( "ui-title-content-" + tStyle + "-height" );
-					} else {
-						$( event.target ).find( ".ui-content" ).addClass( "ui-title-content-no-height" );
-					}
-				}
 			}
 
 			/* set Title style */
 			/* newTheme */
 			if ( $elHeader.find("span.ui-title-text-sub").length ) {
 				$elHeader.addClass( "ui-title-multiline");
-			}
-
-
-			if ( $elHeader.children().is(".ui-option-header") ) {
-				$elContent.removeClass( "ui-title-content-" + tStyle + "-height" );
-				if ( $.tizen.optionheader.prototype.options.collapseOnInit == true ) {
-					$elContent.addClass( "ui-title-content-option-header-collapsed-1line-height" );
-				} else {
-					$elContent.addClass( "ui-title-content-option-header-expanded-1line-height" );
-				}
-			} else if ( $elHeader.find("input").attr("type") === "search" || $elHeader.find("input").attr("type") === "tizen-search" || $elHeader.find("input").jqmData("type") == "search" || $elHeader.find("input").jqmData("type") == "tizen-search" ) {
-				$elContent.removeClass( "ui-title-content-" + tStyle + "-height" ).addClass( "ui-title-content-search" );
-			}
-
-			headerBtnNum = $elHeader.children("a").length;
-			if ( headerBtnNum > 0  || $elHeader.children().find(".ui-radio").length != 0 ) {
-				if ( tStyle != "normal" ) {
-					gLength = $elFieldcontain.length ? $elFieldcontain.find( ".ui-radio" ).length : $elControlgroup.find( "a" ).length;
-
-					$elHeader.addClass( "ui-title-extended-height" );
-
-					$elFieldcontain.length ? $elFieldcontain.find( ".ui-controlgroup" ).addClass( "ui-title-extended-controlgroup" ).addClass( "ui-extended-controlgroup" ) : $elControlgroup.addClass( "ui-title-extended-button-controlgroup" ).addClass( "ui-extended-controlgroup" );
-
-					$elFieldcontain.length ? $elFieldcontain.addClass( "ui-title-extended-segment-style" ) : $elControlgroup.addClass( "ui-title-extended-segment-style" );
-
-					if ( gLength == 2 || gLength == 3 || gLength == 4 ) {
-						$elFieldcontain.length ? $elFieldcontain.addClass( "ui-title-extended-controlgroup-" + gLength + "btn" ) : $elControlgroup.addClass( "ui-title-extended-controlgroup-" + gLength + "btn" );
-					}
-				}
-				$elContent.addClass( "ui-title-content-" + tStyle + "-height" );
 			}
 
 			// divide content mode scrollview and non-scrollview
