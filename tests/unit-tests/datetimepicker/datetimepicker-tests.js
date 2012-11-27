@@ -136,7 +136,7 @@ $(document).ready( function () {
 		var str = "May 2 18:00:00 2012";
 
 		$(datetime).bind("date-changed", function(e, date) {
-			equal( date, "2012-05-02T18:00:00", "Should invoke event when date changed" );
+			equal( objDatetime.value(), "2012-05-02T18:00:00", "Should invoke event when date changed" );
 			start();
 		});
 

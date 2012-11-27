@@ -33,8 +33,8 @@ $(document).ready( function () {
 		var ts = $("#ts-self").toggleswitch(),
 			before = ts.toggleswitch( "option", "checked" );
 
-		ts.bind("changed", function() {
-			ok( true, "should trigger changed event");
+		ts.bind("change", function() {
+			ok( true, "should trigger change event");
 			notEqual( before, ts.toggleswitch( "option", "checked" ), "should change value" );
 		});
 
