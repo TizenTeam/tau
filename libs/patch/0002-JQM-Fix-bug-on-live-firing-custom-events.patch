@@ -1,0 +1,28 @@
+From b8ddc771114f47169e6420e06715c21ab39d6d8c Mon Sep 17 00:00:00 2001
+From: Youmin Ha <youmin.ha@samsung.com>
+Date: Mon, 26 Nov 2012 22:09:23 +0900
+Subject: [PATCH] JQM: Fix bug on live firing custom events
+
+Signed-off-by: Youmin Ha <youmin.ha@samsung.com>
+---
+ libs/js/jquery-mobile-1.2.0/js/events/touch.js |    4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/libs/js/jquery-mobile-1.2.0/js/events/touch.js b/libs/js/jquery-mobile-1.2.0/js/events/touch.js
+index 2b18a7e..6083faf 100644
+--- a/libs/js/jquery-mobile-1.2.0/js/events/touch.js
++++ b/libs/js/jquery-mobile-1.2.0/js/events/touch.js
+@@ -32,6 +32,10 @@ define( [ "jquery", "../jquery.mobile.vmouse", "../jquery.mobile.support.touch"
+ 	function triggerCustomEvent( obj, eventType, event ) {
+ 		var originalType = event.type;
+ 		event.type = eventType;
++		// event.liveFired is already set by basic events, e.g. vclick, which is fired already.
++		// To fire this custom event, event.liveFired must be cleared.
++		event.liveFired = undefined;
++
+ 		$.event.handle.call( obj, event );
+ 		event.type = originalType;
+ 	}
+-- 
+1.7.9.5
+
