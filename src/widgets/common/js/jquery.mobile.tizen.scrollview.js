@@ -1143,6 +1143,32 @@
 				self._view_height = view_h;
 			});
 
+			$( window ).bind( "vmouseout", function ( e ) {
+				var drag_stop = false;
+
+				if ( $(".ui-page-active").get(0) !== $c.closest(".ui-page").get(0) ) {
+					return;
+				}
+
+				if ( !self._dragging ) {
+					return;
+				}
+
+				if ( e.pageX < 0 || e.pageX > $( window ).width() ) {
+					drag_stop = true;
+				}
+
+				if ( e.pageY < 0 || e.pageY > $( window ).height() ) {
+					drag_stop = true;
+				}
+
+				if ( drag_stop ) {
+					self._hideScrollBars();
+					self._hideOverflowIndicator();
+					self._disableTracking();
+				}
+			});
+
 			$c.closest(".ui-page")
 				.one( "pageshow", function ( e ) {
 					self._view_offset = self._$view.offset().top - self._$clip.offset().top;
