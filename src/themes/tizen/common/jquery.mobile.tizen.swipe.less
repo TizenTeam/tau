@@ -2,12 +2,12 @@
 
 @list-li-padding-horizontal: 16 * @unit_base;
 
-.ui-swipelist {
+.ui-swipe {
 	list-style-type: none;
 }
 
-.ui-swipelist-item {
-	height: 52 * @unit_base;
+.ui-swipe-item {
+	height: 26 * @unit_base;
 	-ms-user-select: none;
 	-o-user-select: none;
 	-moz-user-select: none;
@@ -17,11 +17,12 @@
 	text-align : center;
 
 	.ui-btn {
-		margin-top: -1.5em !important;
+		margin-top: -1.5em ! important;
+		position: relative ! important;
 	}
 }
 
-.ui-swipelist-item-cover {
+.ui-swipe-item-cover {
 	position: absolute;
 	border: none;
 	top: 0%;
@@ -30,11 +31,11 @@
 	height: 100%;
 	z-index: 100;
 
-	.ui-swipelist-item-cover-inner {
+	.ui-swipe-item-cover-inner {
 		position : absolute;
-		padding-top : 30 * @unit_base;
-		padding-bottom : 30 * @unit_base;
-		padding-left : 16 * @unit_base;
+		padding-top : 15 * @unit_base;
+		padding-bottom : 15 * @unit_base;
+		padding-left : 8 * @unit_base;
 
 		width : 100%;
 

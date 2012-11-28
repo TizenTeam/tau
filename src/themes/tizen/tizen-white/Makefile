@@ -33,7 +33,7 @@ CSS_SRCS=	../common/jquery.mobile.theme.less.css \
 		../common/jquery.mobile.tizen.imageslider.less.css \
 		../common/jquery.mobile.tizen.notification.less.css \
 		../common/jquery.mobile.tizen.pagecontrol.less.css \
-		../common/jquery.mobile.tizen.swipelist.less.css \
+		../common/jquery.mobile.tizen.swipe.less.css \
 		../common/jquery.mobile.tizen.nocontents.less.css \
 		../common/jquery.mobile.tizen.shortcutscroll.less.css \
 		../common/jquery.mobile.tizen.dayselector.less.css \
