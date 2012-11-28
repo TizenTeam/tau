@@ -17,7 +17,6 @@ var TESTS = {
 		"navigationbar",
 		"nocontents",
 		"notification",
-		"optionheader",
 		"pagecontrol",
 		"popupwindow",
 		"popupwindow_ctxpopup",
