@@ -30,7 +30,7 @@
 		equal( imageslider.length, count + 2, "API: add" );
 
 		/* API: del */
-		widget.imageslider("del");
+		widget.imageslider("remove");
 		imageslider = refresh( widget );
 		equal( imageslider.length, count + 1, "API: del" );
 	};
