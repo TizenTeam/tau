@@ -169,7 +169,6 @@
 			}
 
 			/* set Title style */
-			/* newTheme */
 			if ( $elHeader.find("span.ui-title-text-sub").length ) {
 				$elHeader.addClass( "ui-title-multiline");
 			}
@@ -180,7 +179,6 @@
 				if ( $elHeader.css( "position" ) != "fixed" ) {
 					$elHeader.css( "position", "fixed" );
 				}
-
 			} else {
 				if ( $elHeader.css("position") != "fixed" ) {
 					$elHeader.css( "position", "relative" );
@@ -188,31 +186,6 @@
 			}
 
 			$elFooter = $( document ).find( ":jqmData(role='footer')" );
-
-			if ( $elFooter.find(".ui-navbar").is(".ui-controlbar-s") ) {
-				$elFooter
-					.css( "bottom", 0 )
-					.show();
-			}
-
-			if ( $elFooter.children().find(".ui-radio").length != 0 ) {
-				$elFooterGroup = $elFooter.find( ":jqmData(role='fieldcontain')" );
-				gLength = $elFooterGroup.find( ".ui-radio" ).length;
-
-
-				if ( $elFooterGroup.find( "div" ).is( ".ui-controlgroup-label" ) ) {
-					$elFooterGroup.find( "div.ui-controlgroup-label" ).remove();
-				}
-
-				$elFooterGroup.find( ".ui-controlgroup" )
-					.addClass( "ui-extended-controlgroup" )
-					.addClass( "ui-footer-extended-controlgroup" )
-					.css( "display", "inline" );
-
-					/* Groupcontrol cannot initialize inline property at first page */
-				$elFooterGroup.addClass( "ui-footer-extended-controlgroup-" + gLength + "btn" );
-			}
-
 			footerButton = $elFooter.children( "a" );
 			footerButton.each( function ( i ) {
 				if ( footerButton.eq( i ).is(".ui-btn") && !footerButton.eq( i ).is(".ui-btn-back") ) {
@@ -221,19 +194,6 @@
 						.addClass( "ui-btn-footer-right" );
 				}
 			});
-
-			if ( $elFooter.is(".ui-footer-fixed") ) {
-				$elFooter.css( "bottom", 0 );
-			}
-
-			$elFooter.show();
-
-			/* Header position fix(remove transition) */
-			next_id = $( event.target ).attr( "id" );
-
-			$( "#" + next_id ).find( ":jqmData(role='header')" )
-				.removeClass( "fade in out" )
-				.appendTo( $.mobile.pageContainer );
 		},
 
 		_bindPageEvents: function () {
@@ -252,34 +212,28 @@
 					if ( !o.visibleOnPageShow ) {
 						self.hide( true );
 					}
-/* IME concenpt change after alpha2.0 */
-/*					self._IMEShown = false;*/
 					self.setHeaderFooter( event );
 				} )
 				.bind( "webkitAnimationStart animationstart updatelayout", function ( e, data ) {
+					var thisPage = this;
 					if ( o.updatePagePadding ) {
-						self.updatePagePadding(data);	// FIXME: unused function.
+						self.updatePagePadding(thisPage);
 						self.updatePageLayout(data);
 					}
 				})
 
 				.bind( "pageshow", function ( event ) {
-					self.updatePagePadding();			// FIXME: unused function.
+					var thisPage = this;
+					self.updatePagePadding(thisPage);
 					self._updateHeaderArea();
 					if ( o.updatePagePadding ) {
 						$( window ).bind( "throttledresize." + self.widgetName, function () {
-							self.updatePagePadding();	// FIXME: unused function.
-/* IME concenpt change after alpha2.0 */
-/*							self.layoutPageIME();*/
+							self.updatePagePadding(thisPage);
+
 							self.updatePageLayout();
 							self._updateHeaderArea();
 						});
 					}
-
-					/* Header position fix(remove transition) */
-					$( "body" ).children( ":jqmData(role='header')" )
-						.insertBefore( $(event.target).find(":jqmData(role='content')").eq( 0 ) );
-/* new_header */
 				})
 
 				.bind( "pagebeforehide", function ( e, ui ) {
@@ -321,7 +275,7 @@
 				});
 		},
 
-		_updateHeaderArea : function() {
+		_updateHeaderArea : function () {
 			var $elPage = $( ".ui-page-active" ),
 				$elHeader = $elPage.find( ":jqmData(role='header')" ).length ? $elPage.find( ":jqmData(role='header')") : $elPage.siblings( ":jqmData(role='header')"),
 				headerBtnNum = $elHeader.children("a").length,
@@ -364,14 +318,15 @@
 		},
 */
 		// This will set the content element's top or bottom padding equal to the toolbar's height
-		updatePagePadding: function (data) {
+		updatePagePadding: function ( tbPage ) {
 			var $el = this.element,
-				header = $el.is( ".ui-header" );
+				header = $el.siblings( ".ui-header" ).length;
 
 			// This behavior only applies to "fixed", not "fullscreen"
 			if ( this.options.fullscreen ) { return; }
 
-//			$el.closest( ".ui-page" ).css( "padding-" + ( header ? "top" : "bottom" ), $el.outerHeight() );
+			tbPage = tbPage || $el.closest( ".ui-page" );
+			$( tbPage ).css( "padding-" + ( header ? "top" : "bottom" ), $el.siblings( ".ui-header" ).outerHeight() );
 		},
 
 
