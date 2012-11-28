@@ -122,12 +122,7 @@
 {
 	padding-bottom: 52 * @unit_base;
 }
-/* white theme, delete button padding */
-.ui-li .ui-btn.ui-btn-edit .ui-btn-inner.ui-btn-hastxt
-{
-        .LESSbutton_edit_padding;
-}
-	
+
 /* wongi_1017 : Icons */
 /* icons sizing */
 .ui-btn .ui-icon { width: 32 * @unit_base ; height: 32 * @unit_base; }
@@ -247,18 +242,16 @@
 	display: none;
 }
 
-.ui-btn-edit .ui-btn-inner.ui-btn-icon-only
-{
-	padding: @width_buttonEdit/2 @height_buttonEdit/2;
-}
-
 .ui-btn.ui-btn-corner-all
 {
 	.LESSborder-radius-all(0.3em);
 }
 	
 /* No BG button : data-iconbg = "nobg" */
-
+.ui-btn.ui-btn-corner-all.ui-btn-icon-nobg
+{
+	box-shadow: none;
+}
 .ui-btn.ui-btn-corner-all.ui-btn-icon_only
 {
         .LESSborder-radius-all(1em);
@@ -276,28 +269,21 @@
 {
 	color: @color_button_EditText;
 }
-
-.ui-btn.ui-btn-edit.ui-btn-hover-s, .ui-btn.ui-btn-edit.ui-btn-up-s, .ui-btn.ui-btn-edit.ui-btn-down-s
-{	font-size: 0.6em;	}
-
+.ui-btn.ui-btn-edit .ui-btn-inner
+{
+	.LESSbutton_edit_style;
+}
+/*
 .ui-btn.ui-btn-edit.ui-btn-down-s .ui-btn-text 
 {
 	color: @color_button_EditTextPress;
-}
-
-.ui-btn.ui-btn-edit
-{
-	.LESSbutton_edit_style;
-	position: absolute;
-	top: 0 * @unit_base;
-	margin-top: 0 * @unit_base;
 }
 
 .ui-btn.ui-btn-edit.ui-btn-down-s
 {
         .LESSbutton_editpress_style;
 }
-
+*/
 .ui-btn-box-s
 {
         .LESSbutton_box_style;
