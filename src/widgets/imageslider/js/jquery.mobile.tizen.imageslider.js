@@ -95,11 +95,11 @@
 		$("#imageslider").imageslider('add', [image_file]);
 */
 /**
-	@method del
-	The del method is used to delete an image from the image slider. The image_index attribute defines the index of the image to be deleted.
+	@method remove
+	The remove method is used to delete an image from the image slider. The image_index attribute defines the index of the image to be deleted.
 
 		<div id="imageslider" data-role="imageslider" data-vertical-align="middle"></div>
-		$("#imageslider").imageslider('del', [image_index]);
+		$("#imageslider").imageslider('remove', [image_index]);
 */
 /**
 	@method refresh
