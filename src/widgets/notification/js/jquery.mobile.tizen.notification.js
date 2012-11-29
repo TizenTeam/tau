@@ -112,7 +112,7 @@
 	@method icon
 	The setIcon method is used to set the ticker notification icon. The icon can be set only if the notification type is set to tickernoti.
 
-		<div data-role="notification" data-type="tickernoti" data-interval="3000"></div>
+		<div data-role="notification" data-type="ticker" data-interval="3000"></div>
 		$('#notification').notification('icon', './test.png');
 */
 (function ( $, window ) {
