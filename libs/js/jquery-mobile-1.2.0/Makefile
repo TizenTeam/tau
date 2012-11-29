@@ -17,7 +17,7 @@ clean: init
 # NOTE it doesn't appear as though you can override init from a task file
 init:
 	@@if ! (node -v | grep "\(v0.[6-9]\|v[1-9].[0-9]\)" > /dev/null); then echo "!!! node.js > 0.6.x required" && exit 1; fi
-	@@npm install
+#	@@npm install
 	@@node node_modules/.bin/grunt custom_init
 
 # Build and minify the CSS files
