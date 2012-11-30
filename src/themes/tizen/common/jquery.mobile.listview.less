@@ -776,6 +776,42 @@ li:not(.ui-li-has-multiline) .ui-li-text-sub {
 	}
 }
 
+// Edit list mode
+.ui-listview {
+	li.ui-li-dialogue-edit{
+		padding-left : 116 * @unit_base;
+		padding-top : 12 * @unit_base;
+		padding-bottom : 12 * @unit_base;
+
+		.ui-edit-title {
+			position : absolute;
+			left : 10 * @unit_base;
+			width : 91 * @unit_base;
+			padding-right : 8 * @unit_base;
+			display : inline-block;
+			top : 50%;
+			margin-top : -13 * @unit_base;
+
+			border-right-color : rgba(185, 184, 178, 1);
+			border-right-width : 1px;
+			border-right-style : solid;
+		}
+
+		input {
+			font-size : 22 * @unit_base;
+			background : transparent;
+			outline-color : transparent;
+			width : 100%;
+			padding-left : 0px;
+			padding-right : 0px;
+		}
+	}
+
+	> .ui-li.ui-li-dialogue-edit.ui-li-has-right-btn {
+		padding-right : 110 * @unit_base;
+	}
+}
+
 // =========
 // bubble li
 // =========
