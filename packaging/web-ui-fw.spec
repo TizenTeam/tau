@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.1.63
+Version:    0.1.64
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -82,6 +82,16 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Fri Nov 30 2012 Minkyu Kang <mk7.kang@samsung.com> 0.1.64
+- FIX:
+	- fix unit tests
+	- remove unused theme files
+	- timepicker: text position fix
+	- scrollview: set dragstop when mouse is out of window
+	- listview: fix margin
+- Spec changes:
+	- support data-framework-viewport-width
+
 * Fri Nov 23 2012 Youmin Ha <youmin.ha@samsung.com> 0.1.63
 - FIX:
 	- dayselector: fix size
