@@ -1,9 +1,42 @@
 /**
+ * @class core
  * loader.js
  *
  * Youmin Ha <youmin.ha@samsung.com>
+ *
+ *
  */
+/*
+	Web UI scaling concept in Tizen Web UI
 
+Generally, web applications must be designed to be showed acceptable on various size and resolution of screens, and web winsets have to be scaled well.  Tizen Web UI Framework supports various viewport settings, and Tizen Web UI widgets are designed to be scalable on various screen sizes.  In order to make web applications scalable on many devices which have different screen size, it is necessary to understand how mobile web browsers deal with screen resolution, and how Tizen Web UI Framework supports scaling for web applications.
+
+
+* Viewport on mobile web browser
+
+Viewport is an area showing web content on the browser.  Unlike desktop browsers, mobile browsers support logical viewport seting, which means that application can set viewport width/height and zoom level by itself.
+The very important thing that to be remembered is that the viewport resolution in pixel is 'Logical', not physical.  For example, if the viewport width is set to 480 on a mobile device having 720px screen width, the viewport width is considered to 480px logically. All elements put on right side from 480px horizontal position will not be shown on the viewport.
+Most mobile browsers set viewport with given content attribute with <meta name="viewport" content="..."> tag in <head> section in the application source html, whereas desktop browsers ignore the tag.
+Detailed usage of viewport meta tag is found in here: http://www.w3.org/TR/mwabp/#bp-viewport
+
+
+* Viewport setting by application developers
+
+When developers write <meta name="viewport" content="..."> in the <head> section of the web application HTML file, Tizen Web UI Framework does not add another viewport meta tag, nor modify developer-defined viewport.
+
+
+* Automatic viewport setting by Tizen Web UI Framework
+
+If developers do not give a viewport meta tag, Tizen Web UI Framework automatically add a viewport meta tag with default viewport setting.
+
+
+* Portrait/landscape mode
+
+
+* Tizen Web UI widgets scaling
+
+
+ */
 ( function ($, Globalize, window, undefined) {
 
 	 var tizen = {
@@ -13,7 +46,9 @@
 			rootDir: '/usr/lib/tizen-web-ui-fw',
 			version: '0.1',
 			theme: "tizen-white",
+			viewportWidth: "device-width",
 			viewportScale: false,
+
 			defaultFontSize: 22,
 			minified: false
 		},
@@ -125,7 +160,11 @@
 					this.frameworkData.theme = elem.getAttribute( 'data-framework-theme' )
 						|| getTizenTheme( )
 						|| this.frameworkData.theme;
-					this.frameworkData.viewportScale = "true" === elem.getAttribute( 'data-framework-viewport-scale' ) ? true : this.frameworkData.viewportScale;
+					this.frameworkData.viewportWidth = elem.getAttribute( 'data-framework-viewport-width' )
+						|| this.frameworkData.viewportWidth;
+					this.frameworkData.viewportScale =
+						"true" === elem.getAttribute( 'data-framework-viewport-scale' ) ? true 
+						: this.frameworkData.viewportScale;
 					this.frameworkData.minified = src.search(/\.min\.js$/) > -1 ? true : false;
 					foundScriptTag = true;
 					break;
@@ -311,36 +350,40 @@
 
 		/** Set viewport meta tag for mobile devices.
 		 *
-		 * @param[in]	useAutoScale	If true, cculate & use scale factor. otherwise, scale factor is 1.
+		 * @param[in]	viewportWidth	viewport width. "device-width" is OK.
 		 */
-		setViewport: function ( useAutoScale ) {
-			var meta,
+		setViewport: function ( viewportWidth ) {
+			var meta = null,
 				head,
-				content,
-				screenWidth = window.outerWidth;
-				// TODO : Above code will be replaced by below codes. But screen.availWidth has a webkit bug at this moment.
-				// screenWidth = screen.availWidth;
+				content;
 
 			// Do nothing if viewport setting code is already in the code.
 			$( "meta[name=viewport]" ).each( function ( ) {
-				console.log( "User set viewport... framework viewport will not be applied." );
 				meta = this;
 				return;
 			});
-			if( meta ) {
+			if( meta ) {	// Found custom viewport!
 				content = $( meta ).prop( "content" );
-				return;	// Ignore viewport setting, when viewport is already set.
+				console.log( "Viewport is already set. Framework skips viewport setting." );
+				viewportWidth = content.replace( /.*width=(device-width|\d+)\s*,?.*$/gi, "$1" )
+			} else {
+				// Create a meta tag
+				meta = document.createElement( "meta" );
+				if ( meta ) {
+					meta.name = "viewport";
+					content = [ "width=", viewportWidth, ", user-scalable=no" ].join( "" );
+					if ( ! isNaN( viewportWidth ) ) {
+						// Fix scale to 1.0, if viewport width is set to fixed value.
+						// NOTE: Works wrong in Tizen browser!
+						//content = [ content, ", initial-scale=1.0, maximum-scale=1.0" ].join( "" );
+					}
+					meta.content = content;
+					console.log( content );
+					head = document.getElementsByTagName( 'head' ).item( 0 );
+					head.insertBefore( meta, head.firstChild );
+				}
 			}
-
-			// Set meta tag
-			meta = document.createElement( "meta" );
-			if ( meta ) {
-				meta.name = "viewport";
-				meta.content = useAutoScale ? "width=" + screenWidth + ", user-scalable=no" : "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no";
-				console.log( meta.content );
-				head = document.getElementsByTagName( 'head' ).item( 0 );
-				head.insertBefore( meta, head.firstChild );
-			}
+			return viewportWidth;
 		},
 
 		/**	Read body's font-size, scale it, and reset it.
@@ -358,26 +401,29 @@
 		},
 
 		setScaling: function ( ) {
-			var baseWidth = 360,
-				screenWidth = window.outerWidth,
-				// TODO : Above code will be replaced by below codes. But screen.availWidth has a webkit bug at this moment.
-				// screenWidth = screen.availWidth,
-				themeDefaultFontSize;
+			var viewportWidth = this.frameworkData.viewportWidth,
+				themeDefaultFontSize = this.frameworkData.defaultFontSize, // comes from theme.js
+				ratio = 1;
 
-			// this.frameworkData.defaultFontSize is from theme.js
-			themeDefaultFontSize = this.frameworkData.defaultFontSize;
-			console.log( "setScaling themeDefaultFontSize: " + themeDefaultFontSize );
+			// Keep original font size
 			$( 'body' ).attr( 'data-tizen-theme-default-font-size', themeDefaultFontSize );
 
-			if ( this.frameworkData.viewportScale ) {
-				// Fixed viewport scale(=1.0) with scaled font size
-				this.setViewport( true );
-				this.scaleBaseFontSize( themeDefaultFontSize, parseFloat( screenWidth / baseWidth ) );
-			} else {
-				// Use base font-size (18px)
-				// NOTE: No font-size setting is needed.
-				this.setViewport( false );
+			// Legacy support: tizen.frameworkData.viewportScale
+			if ( this.frameworkData.viewportScale == true ) {
+				viewportWidth = "screen-width";
 			}
+
+			if ( "screen-width" == viewportWidth ) {
+				viewportWidth = window.outerWidth;
+				// TODO : Above code will be replaced by below codes. But screen.availWidth has a webkit bug at this moment.
+				// viewportWidth = screen.availWidth,
+			}
+
+			viewportWidth = this.setViewport( viewportWidth );	// If custom viewport setting exists, get viewport width
+			if ( ! isNaN( viewportWidth ) ) {	// fixed width!
+				ratio = parseFloat( viewportWidth / this.frameworkData.defaultViewportWidth );
+			}
+			this.scaleBaseFontSize( themeDefaultFontSize, ratio );
 		}
 	};
 

@@ -20,7 +20,9 @@ $.fn.buttonMarkup.defaults.theme = "s";
 // Default theme swatch
 $.mobile.page.prototype.options.theme = "s";
 
-// Default font size for this theme
+// Original scale of the theme
+$.tizen.frameworkData.defaultViewportWidth = 360;	// Fit to device-width
 $.tizen.frameworkData.defaultFontSize = 22;
+
 
 })(jQuery);
