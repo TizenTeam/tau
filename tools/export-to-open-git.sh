@@ -20,8 +20,7 @@ cd `dirname $0`/../
 CWD=`pwd`
 
 # clean-up current git head
-rm -rf *
-git co .
+git reset --hard HEAD
 
 # make temp dir
 tmpdir=`mktemp -d`
