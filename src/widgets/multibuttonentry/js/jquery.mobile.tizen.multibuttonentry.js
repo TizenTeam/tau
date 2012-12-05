@@ -125,12 +125,12 @@
 			create: function(event, ui)
 			{
 				// Handle the create event
- 			}
+			}
 		});
 		// Option 02
 		$(".selector").bind("create", function(event, ui)
 		{
-   			// Handle the create event
+			// Handle the create event
 		});
 **/
 /**

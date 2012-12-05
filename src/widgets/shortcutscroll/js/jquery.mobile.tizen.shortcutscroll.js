@@ -163,8 +163,9 @@
 						if ( coords.x >= l && coords.x <= r && coords.y >= t && coords.y <= b ) {
 							jumpToDivider( $( listItem.data( 'divider' ) ) );
 							$( listItem ).addClass( "ui-shortcutscroll-hover" );
-							if ( listItem.index() > 0 )
+							if ( listItem.index() > 0 ) {
 								$( listItem ).siblings().eq( listItem.index() - 1 ).addClass( "ui-shortcutscroll-hover-up" );
+							}
 							$( listItem ).siblings().eq( listItem.index() ).addClass( "ui-shortcutscroll-hover-down" );
 							return false;
 						}

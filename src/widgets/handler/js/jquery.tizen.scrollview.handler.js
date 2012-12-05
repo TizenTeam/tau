@@ -81,7 +81,7 @@
 /**
 	@property {String} data-handler-theme
 	Sets the handler widget theme.
-*/	
+*/
 ( function ( $, document, undefined ) {
 	// The options of handler in scrollview
 	$.tizen.scrollview.prototype.options.handler = false;
