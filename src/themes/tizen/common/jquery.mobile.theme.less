@@ -94,44 +94,51 @@
 
 	> .ui-btn{
 		position : absolute;
-		top : 19 * @unit_base;
+		top : 16 * @unit_base;
 		margin-top : 0px;
 
-		height : 32 * @unit_base;
-		width : 32 * @unit_base;
+		height : 34 * @unit_base;
+		width : 34 * @unit_base;
 
 		background: transparent;
-		color	: red;
-
+		color	: @color_bar_title_button_text;
 	}
 
-	> .ui-btn.ui-btn-right:nth-child(2) {
+	> .ui-btn.ui-btn-icon_only {
+		-o-border-radius : 0px;
+		-ms-border-radius : 0px;
+		-moz-border-radius : 0px;
+		-webkit-border-radius : 0px;
+		border-radius : 0px;
+	}
+
+	> .ui-btn:nth-child(2) {
+		right : 13 * @unit_base;
+	}
+
+	> .ui-btn:nth-child(3) {
+		right : 56 * @unit_base;
+	}
+
+	> img + h1 + a.ui-btn:nth-child(3) {
+		right : 13 * @unit_base;
+	}
+
+	> img + h1 + a.ui-btn:nth-child(4) {
+		right : 56 * @unit_base;
+	}
+
+	> img + h1 + span.ui-title-text-sub + a.ui-btn:nth-child(4) {
 		right : 11 * @unit_base;
 	}
 
-	> .ui-btn.ui-btn-right:nth-child(3) {
-		right : 58 * @unit_base;
-	}
-
-	> img + h1 + a.ui-btn.ui-btn-right:nth-child(3) {
-		right : 11 * @unit_base;
-	}
-
-	> img + h1 + a.ui-btn.ui-btn-right:nth-child(4) {
-		right : 58 * @unit_base;
-	}
-
-	> img + h1 + span.ui-title-text-sub + a.ui-btn.ui-btn-right:nth-child(4) {
-		right : 11 * @unit_base;
-	}
-
-	> img + h1 + span.ui-title-text-sub + a.ui-btn.ui-btn-right:nth-child(5) {
+	> img + h1 + span.ui-title-text-sub + a.ui-btn:nth-child(5) {
 		right : 58 * @unit_base;
 	}
 
 	> .ui-btn.ui-btn-down-s {
 		background : @color_bar_btn_press;
-		color : @color_bar_title_text;
+		color : @color_bar_title_button_text_press;
 	}
 	
 	&.ui-title-multiline {
