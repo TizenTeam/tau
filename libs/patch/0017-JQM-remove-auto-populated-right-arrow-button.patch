@@ -1,0 +1,30 @@
+From be01921630ab7b3412a1a44f66829b4b52919a3e Mon Sep 17 00:00:00 2001
+From: Minkyu Kang <mk7.kang@samsung.com>
+Date: Tue, 27 Nov 2012 17:25:50 +0900
+Subject: [PATCH] JQM: remove auto populated right-arrow button
+
+Signed-off-by: Minkyu Kang <mk7.kang@samsung.com>
+Signed-off-by: wongi11.lee <wongi11.lee@samsung.com>
+---
+ libs/js/jquery-mobile-1.2.0/js/widgets/listview.js |    5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/listview.js b/libs/js/jquery-mobile-1.2.0/js/widgets/listview.js
+index f24699b..0d472c0 100644
+--- a/libs/js/jquery-mobile-1.2.0/js/widgets/listview.js
++++ b/libs/js/jquery-mobile-1.2.0/js/widgets/listview.js
+@@ -206,6 +206,11 @@ $.widget( "mobile.listview", $.mobile.widget, {
+ 				if ( a.length && !isDivider ) {
+ 					icon = item.jqmData( "icon" );
+ 
++					/* Remove auto populated right-arrow button. */
++					if ( icon === undefined ) {
++						icon = false;
++					}
++
+ 					item.buttonMarkup({
+ 						wrapperEls: "div",
+ 						shadow: false,
+-- 
+1.7.9.5
+

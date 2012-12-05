@@ -1,0 +1,28 @@
+From d619ef6ad654ade99062a98bd9dfdf66ba261618 Mon Sep 17 00:00:00 2001
+From: Minkyu Kang <mk7.kang@samsung.com>
+Date: Mon, 26 Nov 2012 19:43:36 +0900
+Subject: [PATCH 4/9] JQM: add refresh api to page
+
+Signed-off-by: Jun Jinhyuk <jinhyuk.jun@samsung.com>
+---
+ libs/js/jquery-mobile-1.2.0/js/widgets/page.js |    4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/page.js b/libs/js/jquery-mobile-1.2.0/js/widgets/page.js
+index 256fbb2..395fb4e 100644
+--- a/libs/js/jquery-mobile-1.2.0/js/widgets/page.js
++++ b/libs/js/jquery-mobile-1.2.0/js/widgets/page.js
+@@ -34,6 +34,10 @@ $.widget( "mobile.page", $.mobile.widget, {
+ 			} );
+ 
+ 	},
++
++	_refresh: function() {
++		$( ".ui-page-active" ).children( ".ui-content" ).trigger("updatelayout", ["external"]);
++	},
+ 	
+ 	removeContainerBackground: function() {
+ 		$.mobile.pageContainer.removeClass( "ui-overlay-" + $.mobile.getInheritedTheme( this.element.parent() ) );
+-- 
+1.7.9.5
+

@@ -1,26 +1,27 @@
-From f95cf2987e50119260db1763a1b52b4bc34d57b2 Mon Sep 17 00:00:00 2001
-From: "wongi11.lee" <wongi11.lee@samsung.com>
-Date: Thu, 21 Jun 2012 17:35:28 +0900
-Subject: [PATCH] JQM:fix vclick trigger twice after pageChange.
+From 68d9af646236c33372253f027c5b72cff6bd6fac Mon Sep 17 00:00:00 2001
+From: Minkyu Kang <mk7.kang@samsung.com>
+Date: Mon, 26 Nov 2012 18:55:38 +0900
+Subject: [PATCH 1/9] JQM: fix vclick trigger twice after pageChange
 
 Signed-off-by: Wongi Lee <wongi11.lee@samsung.com>
+Signed-off-by: Minkyu Kang <mk7.kang@samsung.com>
 ---
- .../jquery-mobile-1.1.0/js/jquery.mobile.vmouse.js |    4 ++++
+ .../jquery-mobile-1.2.0/js/jquery.mobile.vmouse.js |    4 ++++
  1 file changed, 4 insertions(+)
 
-diff --git a/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.vmouse.js b/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.vmouse.js
-index 6e9b504..b608460 100644
---- a/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.vmouse.js
-+++ b/libs/js/jquery-mobile-1.1.0/js/jquery.mobile.vmouse.js
+diff --git a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.vmouse.js b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.vmouse.js
+index 0ba6fe6..666a4e6 100644
+--- a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.vmouse.js
++++ b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.vmouse.js
 @@ -195,6 +195,10 @@ function triggerVirtualEvent( eventType, event, flags ) {
  function mouseEventCallback( event ) {
- 	var touchID = $.data(event.target, touchTargetPropertyName);
+ 	var touchID = $.data( event.target, touchTargetPropertyName );
  
 +	if ( ( $.support.touch === true ) && ( touchID === undefined ) ) {
 +		return;
 +	}
 +
- 	if ( !blockMouseTriggers && ( !lastTouchID || lastTouchID !== touchID ) ){
+ 	if ( !blockMouseTriggers && ( !lastTouchID || lastTouchID !== touchID ) ) {
  		var ve = triggerVirtualEvent( "v" + event.type, event );
  		if ( ve ) {
 -- 
