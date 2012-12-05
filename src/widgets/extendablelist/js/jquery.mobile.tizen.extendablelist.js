@@ -73,7 +73,7 @@
  */
 
 /**
- 	@class Extenablelist
+	@class Extendablelist
 	In the Web environment, it is challenging to display a large amount of data in a list, such as displaying a contact list of over 1000 list items. It takes time to display the entire list in HTML and the DOM manipulation is complex.
 	The extendable list widget is used to display a list of unlimited data elements on the screen for better performance. The list is extended if you click the button at the bottom of the list to load more data elements. Extendable lists are based on the jQuery.template plugin as described in the jQuery documentation for jQuery.template plugin.<br/>
 	To add a extendable list widget to the application, use the following code:
