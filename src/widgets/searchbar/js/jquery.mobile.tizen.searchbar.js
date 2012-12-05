@@ -46,18 +46,16 @@
  *	How to make searchbar in content
  *		<input type="search" name="" id="" value=""  />
  *
- *	How to make searchbar in title
+ *	How to make cancel button in searchbar
  *		<div data-role="header" data-position ="fixed" >
  *			<h1>Searchbar</h1>
- *			<input type="search" name="" id="" value=""  />
+ *			<input type="search" data-cancel-btn=true name="" id="" value=""  />
  *		</div>
  *
- *	How to make searchbar inside optionheader
+ *	How to make icon in front of searchbar
  *		<div data-role="header" data-position ="fixed" >
  *			<h1>Searchbar</h1>
- *			<div id="myoptionheader2" data-role="optionheader">
- *				<input type="search" name="" id="" value=""  />
- *			</div>
+ *			<input type="search" data-icon="call" name="" id="" value=""  />
  *		</div>
 */
 
@@ -98,39 +96,14 @@
 				newStyle,
 				newDiv,
 				searchimage,
-				inputedText;
-
-			function toggleClear() {
-				setTimeout(function () {
-					clearbtn.toggleClass( "ui-input-clear-hidden", !input.val() );
-				}, 0);
-			}
-
-			function showCancel() {
-				focusedEl
-					.addClass( "ui-input-search-default" )
-					.removeClass( "ui-input-search-wide" );
-			}
-
-			function hideCancel() {
-				focusedEl
-					.addClass( "ui-input-search-wide" )
-					.removeClass( "ui-input-search-default" );
-
-				toggleClear();
-			}
+				inputedText,
+				useCancelBtn = false,
+				frontIcon = false;
 
 			$( "label[for='" + input.attr( "id" ) + "']" ).addClass( "ui-input-text" );
 
-			focusedEl = input.addClass( "ui-input-text ui-body-" + theme );
+//			focusedEl = input.addClass( "ui-input-text ui-body-" + theme );
 
-			// XXX: Temporary workaround for issue 785 (Apple bug 8910589).
-			//      Turn off autocorrect and autocomplete on non-iOS 5 devices
-			//      since the popup they use can't be dismissed by the user. Note
-			//      that we test for the presence of the feature by looking for
-			//      the autocorrect property on the input element. We currently
-			//      have no test for iOS 5 or newer so we're temporarily using
-			//      the touchOverflow support flag for jQM 1.0. Yes, I feel dirty. - jblas
 			if ( typeof input[0].autocorrect !== "undefined" && !$.support.touchOverflow ) {
 				// Set the attribute instead of the property just in case there
 				// is code that attempts to make modifications via HTML.
@@ -139,6 +112,16 @@
 			}
 
 			focusedEl = input.wrap( "<div class='ui-input-search ui-shadow-inset ui-corner-all ui-btn-shadow" + themeclass + "'></div>" ).parent();
+
+			if ( $( this.element ).data( "cancel-btn" ) === true ) {
+				useCancelBtn = true;
+				focusedEl.addClass( "ui-input-search-default" );
+			}
+			if ( $( this.element ).data( "icon" ) != undefined ) {
+				frontIcon = true;
+				focusedEl.addClass( "ui-search-bar-icon" );
+			}
+
 			clearbtn = $( "<a href='#' class='ui-input-clear' title='clear text'>clear text</a>" )
 				.bind('click', function ( event ) {
 					if ( input.attr( "disabled" ) == "disabled" ) {
@@ -161,13 +144,41 @@
 
 			toggleClear();
 
-
 			input.bind( 'paste cut keyup focus change blur', toggleClear );
 
 			//SLP --start search bar with cancel button
 			focusedEl.wrapAll( "<div class='input-search-bar'></div>" );
-
 			searchimage = $("<div class='ui-image-search'></div>").appendTo( focusedEl );
+
+			if ( frontIcon ) {
+				makeFrontIcon();
+			}
+
+			if ( useCancelBtn ) {
+				cancelbtn = $( "<div data-role='button' class='ui-input-cancel' title='clear text'>Cancel</div>" )
+					.bind('click', function ( event ) {
+						if ( input.attr( "disabled" ) == "disabled" ) {
+							return false;
+						}
+						event.preventDefault();
+						event.stopPropagation();
+
+						input
+							.val( "" )
+							.blur()
+							.trigger( "change" );
+
+						if ( useCancelBtn ) {
+							hideCancel();
+						}
+					} )
+					.appendTo( focusedEl.parent() )
+					.buttonMarkup( {
+						iconpos: "cancel",
+						corners: true,
+						shadow: true
+					} );
+			}
 
 			// Input Focused
 			input
@@ -175,7 +186,9 @@
 					if ( input.attr( "disabled" ) == "disabled" ) {
 						return false;
 					}
-					showCancel();
+					if ( useCancelBtn ) {
+						showCancel();
+					}
 					focusedEl.addClass( $.mobile.focusClass );
 				})
 				.blur(function () {
@@ -225,17 +238,56 @@
 			if ( !input.attr("placeholder") ) {
 				input.attr( "placeholder", "Search" );
 			}
+
+			function toggleClear() {
+				setTimeout(function () {
+					clearbtn.toggleClass( "ui-input-clear-hidden", !input.val() );
+				}, 0);
+			}
+
+			function showCancel() {
+				focusedEl
+					.addClass( "ui-input-search-default" )
+					.removeClass( "ui-input-search-wide" );
+					cancelbtn
+						.addClass( "ui-btn-cancel-show" )
+						.removeClass( "ui-btn-cancel-hide" );
+			}
+
+			function hideCancel() {
+				focusedEl
+					.addClass( "ui-input-search-wide" )
+					.removeClass( "ui-input-search-default" );
+					cancelbtn
+						.addClass( "ui-btn-cancel-hide" )
+						.removeClass( "ui-btn-cancel-show" );
+				toggleClear();
+			}
+
+			function makeFrontIcon() {
+				var frontIcon = $( "<div data-role='button' data-style='circle'></div>" );
+				frontIcon
+					.appendTo( focusedEl.parent() )
+					.buttonMarkup( {
+						icon: "call",
+						corners: true,
+						shadow: true
+					} );
+				frontIcon.addClass( "ui-btn-search-front-icon" );
+			}
 		},
 
 		disable: function () {
 			this.element.attr( "disabled", true );
 			this.element.parent().addClass( "ui-disabled" );
 			$( this.element ).blur();
+			this.element.parent().parent().find(".ui-input-cancel").addClass( "ui-disabled" );
 		},
 
 		enable: function () {
 			this.element.attr( "disabled", false );
 			this.element.parent().removeClass( "ui-disabled" );
+			this.element.parent().parent().find(".ui-input-cancel").removeClass( "ui-disabled" )
 			$( this.element ).focus();
 		}
 	} );
