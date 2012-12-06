@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.1.64
+Version:    0.2.0
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -82,6 +82,15 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Thu Dec 06 2012 Minkyu Kang <mk7.kang@samsung.com> 0.2.0
+- FIX:
+	- fix jslint error
+	- remove unused files
+	- change naviframe style
+- Spec changes:
+	- applied jQuery Mobile 1.2.0
+	- remove optionheader
+
 * Fri Nov 30 2012 Minkyu Kang <mk7.kang@samsung.com> 0.1.64
 - FIX:
 	- fix unit tests
