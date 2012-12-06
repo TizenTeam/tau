@@ -75,14 +75,14 @@ $( document ).bind("pagecreate", function () {
 		$('#notification').notification('icon', './test/icon01.png');
 	});
 
-	$('#imageslider-add').bind('vmouseup', function ( e ) {
-		$('#imageslider').imageslider('add', './test/10.jpg');
-		$('#imageslider').imageslider('add', './test/11.jpg');
-		$('#imageslider').imageslider('refresh');
+	$('#gallery-add').bind('vmouseup', function ( e ) {
+		$('#gallery').gallery('add', './test/10.jpg');
+		$('#gallery').gallery('add', './test/11.jpg');
+		$('#gallery').gallery('refresh');
 	});
 
-	$('#imageslider-del').bind('vmouseup', function ( e ) {
-		$('#imageslider').imageslider('remove');
+	$('#gallery-del').bind('vmouseup', function ( e ) {
+		$('#gallery').gallery('remove');
 	});
 
 	$('#selectioninfo-demo').bind('vmouseup', function ( e ) {

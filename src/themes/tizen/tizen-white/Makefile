@@ -30,7 +30,7 @@ CSS_SRCS=	../common/jquery.mobile.theme.less.css \
 		../common/jquery.mobile.tizen.progressbar.less.css \
 		../common/jquery.mobile.tizen.progress.less.css \
 		../common/jquery.mobile.tizen.slider.less.css \
-		../common/jquery.mobile.tizen.imageslider.less.css \
+		../common/jquery.mobile.tizen.gallery.less.css \
 		../common/jquery.mobile.tizen.notification.less.css \
 		../common/jquery.mobile.tizen.pagecontrol.less.css \
 		../common/jquery.mobile.tizen.swipe.less.css \

@@ -24,11 +24,11 @@
  */
 
 /*
- * Imageslider widget
+ * Gallery widget
  *
  * HTML Attributes
  *
- *  data-role: set to 'imageslider'
+ *  data-role: set to 'gallery'
  *  data-index: start index
  *  data-vertical-align: set to top or middle or bottom.
  *
@@ -44,7 +44,7 @@
  *
  * Example
  *
- * <div data-role="imageslider" id="imageslider" data-index="3" data-vertical-align="middle">
+ * <div data-role="gallery" id="gallery" data-index="3" data-vertical-align="middle">
  *	<img src="01.jpg">
  *	<img src="02.jpg">
  *	<img src="03.jpg">
@@ -53,23 +53,23 @@
  * </div>
  *
  *
- * $('#imageslider-add').bind('vmouseup', function ( e ) {
- *	$('#imageslider').imageslider('add', '9.jpg');
- *	$('#imageslider').imageslider('add', '10.jpg');
- *	$('#imageslider').imageslider('refresh');
+ * $('#gallery-add').bind('vmouseup', function ( e ) {
+ *	$('#gallery').gallery('add', '9.jpg');
+ *	$('#gallery').gallery('add', '10.jpg');
+ *	$('#gallery').gallery('refresh');
  * });
  *
- * $('#imageslider-del').bind('vmouseup', function ( e ) {
- *	$('#imageslider').imageslider('remove');
+ * $('#gallery-del').bind('vmouseup', function ( e ) {
+ *	$('#gallery').gallery('remove');
  * });
  *
  */
 
  /**
-	@class ImageSlider
+	@class Gallery
 	The image slider widget shows images in a gallery on the screen. <br/><br/> To add an image slider widget to the application, use the following code:
 
-		<div data-role="imageslider" id="imageslider" data-vertical-align="middle" data-index="3">
+		<div data-role="gallery" id="gallery" data-vertical-align="middle" data-index="3">
 			<img src="01.jpg">
 			<img src="02.jpg">
 			<img src="03.jpg">
@@ -91,25 +91,25 @@
 	@method add
 	The add method is used to add an image to the image slider. The image_file attribute defines the image file URL.
 
-		<div id="imageslider" data-role="imageslider" data-vertical-align="middle"></div>
-		$("#imageslider").imageslider('add', [image_file]);
+		<div id="gallery" data-role="gallery" data-vertical-align="middle"></div>
+		$("#gallery").gallery('add', [image_file]);
 */
 /**
 	@method remove
 	The remove method is used to delete an image from the image slider. The image_index attribute defines the index of the image to be deleted.
 
-		<div id="imageslider" data-role="imageslider" data-vertical-align="middle"></div>
-		$("#imageslider").imageslider('remove', [image_index]);
+		<div id="gallery" data-role="gallery" data-vertical-align="middle"></div>
+		$("#gallery").gallery('remove', [image_index]);
 */
 /**
 	@method refresh
 	The refresh method is used to refresh the image slider. This method must be called after adding images to the image slider.
 
-		<div id="imageslider" data-role="imageslider" data-vertical-align="middle"></div>
-		$("#imageslider").imageslider('refresh');
+		<div id="gallery" data-role="gallery" data-vertical-align="middle"></div>
+		$("#gallery").gallery('refresh');
 */
 (function ( $, window, undefined ) {
-	$.widget( "tizen.imageslider", $.mobile.widget, {
+	$.widget( "tizen.gallery", $.mobile.widget, {
 		options: {
 			flicking: false,
 			duration: 500
@@ -419,7 +419,7 @@
 			this.max_height = this._get_height();
 			this.container.css( 'height', this.max_height );
 
-			this.cur_img = $( 'div' ).find( '.ui-imageslider-bg:eq(' + this.index + ')' );
+			this.cur_img = $( 'div' ).find( '.ui-gallery-bg:eq(' + this.index + ')' );
 			this.prev_img = this.cur_img.prev();
 			this.next_img = this.cur_img.next();
 
@@ -482,12 +482,12 @@
 				index,
 				i = 0;
 
-			$( this.element ).wrapInner( '<div class="ui-imageslider"></div>' );
-			$( this.element ).find( 'img' ).wrap( '<div class="ui-imageslider-bg"></div>' );
+			$( this.element ).wrapInner( '<div class="ui-gallery"></div>' );
+			$( this.element ).find( 'img' ).wrap( '<div class="ui-gallery-bg"></div>' );
 
-			this.container = $( this.element ).find('.ui-imageslider');
+			this.container = $( this.element ).find('.ui-gallery');
 
-			temp_img = $( 'div' ).find( '.ui-imageslider-bg:first' );
+			temp_img = $( 'div' ).find( '.ui-gallery-bg:first' );
 
 			while ( temp_img.length ) {
 				this.images[i] = temp_img.find( 'img' );
@@ -527,7 +527,7 @@
 			while ( this.images_hold.length ) {
 				image_file = this.images_hold.shift();
 
-				bg_html = $( '<div class="ui-imageslider-bg"></div>' );
+				bg_html = $( '<div class="ui-gallery-bg"></div>' );
 				temp_img = $( '<img src="' + image_file + '"></div>' );
 
 				bg_html.append( temp_img );
@@ -617,7 +617,7 @@
 				}
 
 			} else {
-				temp_img = $( 'div' ).find( '.ui-imageslider-bg:eq(' + index + ')' );
+				temp_img = $( 'div' ).find( '.ui-gallery-bg:eq(' + index + ')' );
 			}
 
 			this.images.splice( index, 1 );
@@ -627,15 +627,15 @@
 
 	// auto self-init widgets
 	$( document ).bind( "pagecreate", function ( e ) {
-		$( e.target ).find( ":jqmData(role='imageslider')" ).imageslider();
+		$( e.target ).find( ":jqmData(role='gallery')" ).gallery();
 	});
 
 	$( document ).bind( "pageshow", function ( e ) {
-		$( e.target ).find( ":jqmData(role='imageslider')" ).imageslider( 'show' );
+		$( e.target ).find( ":jqmData(role='gallery')" ).gallery( 'show' );
 	});
 
 	$( document ).bind( "pagebeforehide", function ( e ) {
-		$( e.target ).find( ":jqmData(role='imageslider')" ).imageslider( 'hide' );
+		$( e.target ).find( ":jqmData(role='gallery')" ).gallery( 'hide' );
 	} );
 
 }( jQuery, this ) );
