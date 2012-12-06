@@ -1,4 +1,3 @@
-sbs -eo make clean
-sbs -eo make
-google-chrome --allow-file-access-from-files demos/tizen-winsets/index.html
-
+make clean
+make
+google-chrome --allow-file-access-from-files --ignore-gpu-blacklist demos/tizen-winsets/index.html &
