@@ -8,19 +8,6 @@
 
 @import "config.less";
 
-/* Using font size */
-@list-font-size-main:	22 * @unit_base;
-@list-font-size-sub:	16 * @unit_base;
-@list-font-size-divider: 16 * @unit_base;	// NOTE: defined in dialogue group
-
-@list-font-weight:		normal;
-
-@list-smallicon-size: 17 * @unit_base;
-@list-li-padding-horizontal: 8 * @unit_base;
-
-@list-bigicon-size: 64 * @unit_base;
-@list-bigicon-size2: 72 * @unit_base;
-
 // Bubble
 @list-li-bubble-font-size: 19 * @unit_base;
 @list-li-bubble-time-font-size: 11 * @unit_base;
@@ -55,7 +42,7 @@
 		padding-right: 0 * @unit_base;	// Clear default button padding-right
 	}
 
-	&> .ui-li {
+	.ui-li {
 		border-left-width : 0px;
 		border-right-width : 0px;
 
@@ -70,7 +57,7 @@
 		}
 	}
 
-	& > .ui-li-static {
+	.ui-li-static {
 		background-color: @color_bg;
 
 		border-bottom-width: 1px;
@@ -81,13 +68,13 @@
 	}
 
 
-	&> .ui-li:not(.ui-li-divider) {
+	 .ui-li:not(.ui-li-divider) {
 		&:not(.ui-li-static) {
 			min-height : 55 * @unit_base;
 		}
 	}
 
-	&> .ui-li.ui-li-has-multiline:not(.ui-li-divider) {
+	 .ui-li.ui-li-has-multiline:not(.ui-li-divider) {
 		&:not(.ui-li-static) {
 			min-height : 64 * @unit_base;
 		}
@@ -129,13 +116,15 @@
 	}
 }
 .ui-listview,
-.ui-li {
+.ui-li,
+.ui-collapsible-heading {
 	list-style:none;
 	padding:0;
 
 	font-size : @list-font-size-main;
 }
 .ui-li,
+.ui-collapsible-heading,
 .ui-li.ui-field-contain {
 	display: block;
 	margin:0;
@@ -144,6 +133,15 @@
 	text-align: left;
 }
 .ui-li {
+	.ui-btn {	// NOTE: For vertical aligning buttons. It breaks collapsible size. Refactor it!
+		top: 50%;
+		margin-top: -0.8em;
+	}
+}
+.ui-li,
+.ui-collapsible-heading,
+.ui-collapsible > .ui-collapsible-content,
+.ui-listview li {
 	h3 {
 		margin-top	: 0px;
 		margin-bottom : 0px;
@@ -151,13 +149,8 @@
 		font-size : @list-font-size-main;
 		font-weight : normal;
 	}
-
 	form {
 		display : inline-block;
-	}
-	.ui-btn {
-		top: 50%;
-		margin-top: -0.9em;
 	}
 	.ui-btn-text {
 		position: relative;
@@ -169,7 +162,8 @@
 	&.ui-field-contain:last-child {
 		border-bottom-width: 1px;
 	}
-	&>.ui-btn-inner {
+	&>.ui-btn-inner,
+	&.ui-collapsible-heading>.ui-collapsible-heading-toggle {
 		display: block;
 		position: relative;
 		padding: 0;
@@ -181,7 +175,9 @@
 	}
 
 	.ui-btn-inner a.ui-link-inherit,
-	&.ui-li-static {
+	.ui-collapsible-heading-toggle > .ui-btn-inner,
+	&>li,
+	&.ui-li-static, {
 		padding-top : 15 * @unit_base;
 		padding-bottom : 15 * @unit_base;
 		display: block;
@@ -192,7 +188,8 @@
 		border-right-width : 0px;
 	}
 
-	.ui-btn-inner a.ui-link-inherit {
+	.ui-btn-inner a.ui-link-inherit,
+	.ui-collapsible-heading-toggle {
 		.LESStext-no-ellipsis();
 	}
 
@@ -704,7 +701,7 @@ li:not(.ui-li-has-multiline) .ui-li-text-sub {
 // Dialogue
 // =========
 .ui-listview {
-	&> li.ui-li-dialogue {
+	 li.ui-li-dialogue {
 		margin-left: 4 * @unit_base;
 		margin-right : 4 * @unit_base;
 		padding-left : 10 * @unit_base;
@@ -894,10 +891,10 @@ li:not(.ui-li-has-multiline) .ui-li-text-sub {
 
 // Expandable list animation
 .ui-listview {
-	&> .ui-li-expanded {
+	.ui-li-expanded {
 		background-color: @color_list_expandable_expanded_bg;
 	}
-	&> .ui-li-expanded .ui-li-expanded {	// 3rd~ more depth
+	.ui-li-expanded .ui-li-expanded {	// 3rd~ more depth
 		background-color: @color_list_expandable_expanded_bg;
 	}
 	.ui-li-expandable-shown {
@@ -938,7 +935,7 @@ li:not(.ui-li-has-multiline) .ui-li-text-sub {
 
 .LESSimg-expand-icon(@right:@list-li-padding-horizontal, @size:37*@unit_base) {
 	.ui-li-expand-icon {
-		background-image: url(images/controls/button/00_button_expand_closed.png);
+		background-image: url(images/00_button_expand_closed.png);
 		background-size: 100%;
 		position: absolute;
 		top: 50%;
@@ -951,7 +948,7 @@ li:not(.ui-li-has-multiline) .ui-li-text-sub {
 
 .LESSimg-expanded-icon(@right:@list-li-padding-horizontal, @size:37*@unit_base) {
 	.ui-li-expanded-icon {
-		background-image: url(images/controls/button/00_button_expand_opened.png);
+		background-image: url(images/00_button_expand_opened.png);
 		background-size: 100%;
 		position: absolute;
 		top: 50%;
@@ -961,3 +958,4 @@ li:not(.ui-li-has-multiline) .ui-li-text-sub {
 		right: 18 * @unit_base;
 	}
 }
+

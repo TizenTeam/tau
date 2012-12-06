@@ -12,7 +12,7 @@ CSS_SRCS=	../common/jquery.mobile.theme.less.css \
 		../common/jquery.mobile.headerfooter.less.css \
 		../common/jquery.mobile.navbar.css \
 		../common/jquery.mobile.button.less.css \
-		../common/jquery.mobile.collapsible.css \
+		../common/jquery.mobile.collapsible.less.css \
 		../common/jquery.mobile.dialog.less.css \
 		../common/jquery.mobile.forms.checkboxradio.less.css \
 		../common/jquery.mobile.forms.fieldcontain.css \
