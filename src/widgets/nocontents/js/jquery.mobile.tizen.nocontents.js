@@ -141,6 +141,8 @@
 			var elem = this.element,
 				icon_type = $( this.element ).jqmData('type');
 
+			console.warn("nocontent widget will be deprecated. Please fix your application.");
+
 			switch ( icon_type ) {
 			case "picture":
 			case "multimedia":
