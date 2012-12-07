@@ -3,7 +3,7 @@ From: Jun Jinhyuk <jinhyuk.jun@samsung.com>
 Date: Wed, 28 Nov 2012 14:25:58 +0900
 Subject: [PATCH] JQM add back btn option and remove jqm back btn
 
-Change-Id: I0167a2086b796395b572581e2bada10bf8ffc3b9
+Signed-off-by: Jun Jinhyuk <jinhyuk.jun@samsung.com>
 ---
  .../js/widgets/page.sections.js                    |   16 ++--------------
  1 files changed, 2 insertions(+), 14 deletions(-)

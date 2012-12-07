@@ -1,7 +1,7 @@
 From 35f745aec67a96f74d48acba51ae2ec7b6f21ff9 Mon Sep 17 00:00:00 2001
 From: Minkyu Kang <mk7.kang@samsung.com>
 Date: Mon, 26 Nov 2012 19:45:26 +0900
-Subject: [PATCH 6/9] JQM: remove filter Placeholder of listview
+Subject: [PATCH] JQM: remove filter Placeholder of listview
 
 Signed-off-by: Minkyu Kang <mk7.kang@samsung.com>
 ---

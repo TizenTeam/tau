@@ -3,7 +3,7 @@ From: Jun Jinhyuk <jinhyuk.jun@samsung.com>
 Date: Wed, 28 Nov 2012 11:18:33 +0900
 Subject: [PATCH] JQM add listview style option
 
-Change-Id: I860638b20352b89ed2bea900e55007d1d00e7222
+Signed-off-by: Jun Jinhyuk <jinhyuk.jun@samsung.com>
 ---
  libs/js/jquery-mobile-1.2.0/js/widgets/listview.js |   34 ++++++++++++++++++++
  1 files changed, 34 insertions(+), 0 deletions(-)

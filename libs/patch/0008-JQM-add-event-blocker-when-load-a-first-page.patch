@@ -1,7 +1,7 @@
 From 6c13cc110b8efa21a98823a3d481e52ff710b12c Mon Sep 17 00:00:00 2001
 From: Minkyu Kang <mk7.kang@samsung.com>
 Date: Mon, 26 Nov 2012 19:58:57 +0900
-Subject: [PATCH 8/9]  JQM: add event blocker when load a first page
+Subject: [PATCH]  JQM: add event blocker when load a first page
 
  Signed-off-by: Minkyu Kang <mk7.kang@samsung.com>
 ---

@@ -13,7 +13,7 @@ diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/listview.js b/libs/js/jquery
 index f24699b..0d472c0 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/listview.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/listview.js
-@@ -206,6 +206,11 @@ $.widget( "mobile.listview", $.mobile.widget, {
+@@ -234,6 +234,11 @@ $.widget( "mobile.listview", $.mobile.widget, {
  				if ( a.length && !isDivider ) {
  					icon = item.jqmData( "icon" );
  

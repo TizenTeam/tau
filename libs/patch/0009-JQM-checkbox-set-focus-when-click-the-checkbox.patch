@@ -1,7 +1,7 @@
 From 02f7c040428383d05c277e286c54680a7e1f5812 Mon Sep 17 00:00:00 2001
 From: Minkyu Kang <mk7.kang@samsung.com>
 Date: Mon, 26 Nov 2012 20:01:31 +0900
-Subject: [PATCH 9/9] JQM: checkbox: set focus when click the checkbox
+Subject: [PATCH] JQM: checkbox: set focus when click the checkbox
 
 Signed-off-by: Minkyu Kang <mk7.kang@samsung.com>
 ---

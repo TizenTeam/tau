@@ -3,7 +3,7 @@ From: Jun Jinhyuk <jinhyuk.jun@samsung.com>
 Date: Tue, 27 Nov 2012 15:12:53 +0900
 Subject: [PATCH] JQM use tizen pagelayout instead of fixedToolbar
 
-Change-Id: Ibdc4b25ca969e578ea96bc0920c12d7602fc8579
+Signed-off-by: Jun Jinhyuk <jinhyuk.jun@samsung.com>
 ---
  .../jquery-mobile-1.2.0/js/widgets/fixedToolbar.js |    2 +-
  1 files changed, 1 insertions(+), 1 deletions(-)

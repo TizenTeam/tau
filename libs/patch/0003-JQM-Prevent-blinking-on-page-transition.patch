@@ -1,7 +1,7 @@
 From 294d4afac6c0e00dd1489ad8b23cde0bae0cf459 Mon Sep 17 00:00:00 2001
 From: Minkyu Kang <mk7.kang@samsung.com>
 Date: Mon, 26 Nov 2012 19:41:07 +0900
-Subject: [PATCH 3/9] JQM: Prevent blinking on page transition
+Subject: [PATCH] JQM: Prevent blinking on page transition
 
 Signed-off-by: Minkyu Kang <mk7.kang@samsung.com>
 Signed-off-by: Youmin Ha <youmin.ha@samsung.com>

@@ -3,7 +3,6 @@ From: "hjnim.kim" <hjnim.kim@samsung.com>
 Date: Mon, 26 Nov 2012 20:22:14 +0900
 Subject: [PATCH] JQM: Applied Tizen Button Style
 
-Change-Id: I414c18c74727e99d30f8b3a42dfc10cc2f789e79
 Signed-off-by: hjnim.kim <hjnim.kim@samsung.com>
 ---
  .../js/jquery.mobile.buttonMarkup.js               |   56 ++++++++++++++++++++
