@@ -10,7 +10,7 @@ var TESTS = {
 		"expandablelist",
 		"extendablelist",
 		"handler",
-		"imageslider",
+		"gallery",
 		"multibuttonentry",
 		"multimediaview",
 		"navigationbar",
