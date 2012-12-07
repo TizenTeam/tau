@@ -84,8 +84,6 @@
  *		find ( string )
  *			: The find method allows you to search for shapes appended to the map
  *			and/or services.
- *		location ( string, function )
- *			: The location method can move to specific location by location name.
  *
  * Events:
  *		move
@@ -161,25 +159,14 @@
 		_markerList: {},
 		_mouseDown: {},
 
-		_createWidget: function ( options, element ) {
-			var self = this,
-				geomap = self._geomap = $.extend( {}, geoOrigin.geomap );
-
-			$.data( element, this.widgetName, this );
-			this.element = $( element );
-			this.options = $.extend( true, {},
-				this.options,
-				this._getCreateOptions(),
-				options );
-
-			self._redefineMethods( this.element );
-			self.options = self._convertOption( self.options );
-			geomap._createWidget.call( geomap, self.options, element );
-		},
-
 		_create: function () {
 			var self = this,
-				$view = self.element;
+				$view = self.element,
+				geomap = self._geomap = $.extend( {}, geoOrigin.geomap );
+
+			self._redefineMethods( $view );
+			self.options = self._convertOption( self.options );
+			geomap._createWidget.call( geomap, self.options, $view[0] );
 
 			if ( $view.hasClass( "ui-mapview" ) ) {
 				return;
@@ -206,18 +193,6 @@
 				maxDelayCount = 10;
 
 			$.extend( geomap, {
-				_create: function () {
-					geomapOrigin._create.call( this );
-					self._create.call( self );
-				},
-
-				destroy: function () {
-					if ( geomap._resizeTimeout ) {
-						window.clearTimeout( geomap._resizeTimeout );
-					}
-					geomapOrigin.destroy.call( this );
-				},
-
 				_setOption: function ( key, value, refresh ) {
 					var tempTilingScheme;
 
@@ -464,15 +439,16 @@
 				zoomPlus = $view.find( "div.ui-button-plus" ),
 				zoomMinus = $view.find( "div.ui-button-minus" );
 
-			$( document ).bind( "pagechange.mapview", function ( e ) {
-				var $page = $( e.target );
-				if ( $page.find( $view ).length > 0 ) {
-					self.resize();
+			$( document ).unbind( ".mapview" ).bind( "pagechange.mapview", function ( e ) {
+				var $page = $( e.target ),
+					widget = $page.find( ".ui-mapview" );
+				if ( $page.find( ".ui-mapview" ).length > 0 ) {
+					widget.mapview( "resize" );
 				}
 			});
 
-			$( window ).bind( "resize.mapview orientationchange.mapview", function ( e ) {
-				self.resize();
+			$( window ).unbind( ".mapview" ).bind( "resize.mapview orientationchange.mapview", function ( e ) {
+				$( e.target ).find( ".ui-mapview" ).mapview( "resize" );
 			});
 
 			$view.bind( "geomapshape.mapview", function ( e, geo ) {
@@ -624,15 +600,6 @@
 				url = url.replace( markerUriExp, "" ).replace( /\)$/, "" );
 			}
 			return url;
-		},
-
-		destroy: function () {
-			this._geomap.destroy.call( this._geomap );
-			this._geomap = null;
-
-			$( window ).unbind( ".mapview" );
-			$( document ).unbind( ".mapview" );
-			this.element.unbind( ".mapview" ).empty().removeClass( "ui-mapview" );
 		},
 
 		toMap: function ( p, isGeodetic ) {
