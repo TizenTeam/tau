@@ -39,7 +39,7 @@ CSS_SRCS=	../common/jquery.mobile.theme.less.css \
 		../common/jquery.mobile.tizen.dayselector.less.css \
 		../common/jquery.mobile.tizen.toggleswitch.less.css \
 		../common/jquery.mobile.tizen.triangle.less.css \
-		../common/jquery.mobile.tizen.multibuttonentry.less.css \
+		../common/jquery.mobile.tizen.tokentextarea.less.css \
 		../common/jquery.mobile.tizen.scrollview.handler.less.css \
 		../common/jquery.mobile.tizen.virtualgridview.less.css \
 		../common/jquery.mobile.tizen.multimediaview.less.css \

@@ -11,7 +11,6 @@ var TESTS = {
 		"extendablelist",
 		"handler",
 		"gallery",
-		"multibuttonentry",
 		"multimediaview",
 		"navigationbar",
 		"nocontents",
@@ -27,6 +26,7 @@ var TESTS = {
 		"slider",
 		"swipelist",
 		"toggleswitch",
+		"tokentextarea",
 		"virtuallist",
 		"virtualgrid",
 		"collapsible"

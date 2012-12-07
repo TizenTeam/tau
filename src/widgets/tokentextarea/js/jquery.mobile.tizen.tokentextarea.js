@@ -25,15 +25,15 @@
 */
 
 /**
- *	The MultiButtonEntry widget changes a text item to a button. It can be comprised of a number of button widgets. 
+ *	The TokenTextArea widget changes a text item to a button. It can be comprised of a number of button widgets. 
  *	When a user types text and the text gets a specific event to change from a text to a button, 
- *	the input text is changed to a MultiButtonEntry widget.
- *	A user can add the MultiButtonEntry widget to a contact list, email list, or another list.
+ *	the input text is changed to a TokenTextArea widget.
+ *	A user can add the TokenTextArea widget to a contact list, email list, or another list.
  *	The typical use of this widget is composing a number of contacts or phone numbers in a specific area of the screen.
  *
  *	HTML Attributes:
  *
- *		data-list-id : Represents the page id.
+ *		data-link : Represents the page id.
  *				The page contains data for the user, for example, an address book.
  *				If the value is null, anchor button doesn't work. (Default : null)
  *		data-label:	Provide a label for a user-guide. (Default : 'To : ')
@@ -47,7 +47,7 @@
  *			If argument is exist, will set a string to inputbox.
  *		select (  [number]  )
  *			: If no argument exists, gets a string of the selected block.
- *			If any button isn't selected on a multibuttonentry widget, this method returns "null" value.
+ *			If any button isn't selected on a token text area widget, this method returns "null" value.
  *			When a user call this method with an argument which is a number type,
  *			this method selects the button which is matched with the argument.
  *		add ( text, [number] )
@@ -75,33 +75,33 @@
  *
  *	Events:
  *
- *		create : Occur when create MultiButtonEntry widget.
+ *		create : Occur when create TokenTextArea widget.
  *		select : Occur when a button is selected.
  *		add : Occur when new button is inserted.
  *		remove : Occur when a button is removed.
  *
  *	Examples:
  *
- *		<div data-role="multibuttonentry" data-label="To : " data-list-id:"#addressbook" data-description="+ {0}">
+ *		<div data-role="tokentextarea" data-label="To : " data-link:"#addressbook" data-description="+ {0}">
  *		</div>
  *
  */
 
 
 /**
-	@class MultiButtonEntry
-	The multi-button entry widget enables the user to enter text and convert it to a button. Each button that is created from entered text as a result of a change event forms a multi-button entry widget. This widget is useful in composing an e-mail or SMS message to a group of addresses, each of which is a clickable item for more actions, such as copying, editing, or removing the address.
+	@class TokenTextArea
+	The TokenTextArea widget enables the user to enter text and convert it to a button. Each button that is created from entered text as a result of a change event forms a token text area widget. This widget is useful in composing an e-mail or SMS message to a group of addresses, each of which is a clickable item for more actions, such as copying, editing, or removing the address.
 
-	To add a multi-button entry widget to the application, use the following code:
+	To add a token text area widget to the application, use the following code:
 
-		<div data-role="multibuttonentry" data-label="To:" data-theme="#addressbook" data-list-id="pageId">
+		<div data-role="tokentextarea" data-label="To : " data-link="pageId">
 		</div>
 */
 
 /**
 	@property {String}  data-label
 	Sets a label as a guide for the user.
-	For example, while composing an e-mail message, the 'To: ' label is a guide for the user to enter e-mail addresses.
+	For example, while composing an e-mail message, the 'To : ' label is a guide for the user to enter e-mail addresses.
 */
 
 /**
@@ -110,17 +110,17 @@
 	The message is displayed when the widget status changes to focus out
  */
 /**
-	@property {String} data-list-id
+	@property {String} data-link
 	Sets the ID of the page to which the button links.
 */
 /**
 	@event create
-	The create event is fired when the multi-button view widget is created:
+	The create event is fired when the token text area widget is created:
 
-		<div data-role="multibuttonentry" data-label="To:" data-theme="#addressbook">
+		<div data-role="tokentextarea">
 		</div>
 		// Option 01
-		$(".selector").multibuttonentry
+		$(".selector").tokentextarea
 		({
 			create: function(event, ui)
 			{
@@ -135,12 +135,12 @@
 **/
 /**
 	@event select
-	The select event is fired when a multi-button view widget button is selected:
+	The select event is fired when a token text area widget button is selected:
 
-		<div data-role="multibuttonentry" data-label="To:" data-theme="#addressbook">
+		<div data-role="tokentextarea">
 		</div>
 		// Option 01
-		$(".selector").multibuttonentry
+		$(".selector").tokentextarea
 		({
 			select: function(event, ui)
 			{
@@ -148,19 +148,19 @@
 			}
 		});
 		// Option 02
-		$(".selector").bind("multibuttonentryselect", function(event, ui)
+		$(".selector").bind("select", function(event, ui)
 		{
 			// Handle the select event
 		});	
 */
 /**
 	@event add
-	The add event is fired when a multi-button view widget button is created:
+	The add event is fired when a token text area widget button is created:
 
-		<div data-role="multibuttonentry" data-label="To:" data-theme="#addressbook">
+		<div data-role="tokentextarea">
 		</div>
 		// Option 01
-		$(".selector").multibuttonentry
+		$(".selector").tokentextarea
 		({
 			add: function(event, ui)
 			{
@@ -168,19 +168,19 @@
 			}
 		});
 		// Option 02
-		$(".selector").bind("multibuttonentryadd", function(event, ui)
+		$(".selector").bind("add", function(event, ui)
 		{
 		// Handle the add event
 		});
 */
 /**
 	@event remove
-	The remove event is fired when a multi-button view widget button is removed:
+	The remove event is fired when a token text area widget button is removed:
 
-		<div data-role="multibuttonentry" data-label="To:" data-theme="#addressbook">
+		<div data-role="tokentextarea">
 		</div>
 		// Option 01
-		$(".selector").multibuttonentry
+		$(".selector").tokentextarea
 		({
 			remove: function(event, ui)
 			{
@@ -188,7 +188,7 @@
 			}
 		});
 		// Option 02
-		$(".selector").bind("multibuttonentryremove", function(event, ui)
+		$(".selector").bind("remove", function(event, ui)
 		{
 			// Handle the remove event
 		});
@@ -197,9 +197,9 @@
 	@method destroy
 	The destroy method is used to remove in the current widget all the new DOM elements that you have created.
 	
-		<div data-role="multibuttonentry" data-label="To:" data-theme="#addressbook">
+		<div data-role="tokentextarea">
 		</div>
-		$(".selector").multibuttonentry("destroy");
+		$(".selector").tokentextarea("destroy");
 	
 	@since Tizen2.0
 */
@@ -207,59 +207,59 @@
 	@method inputText
 	The inputText method is used to manage the widget input box text. If no parameter is set, the method gets the input box text. If a parameter is set, the parameter text is set in the input box.
 	
-		<div data-role="multibuttonentry" data-label="To:" data-theme="#addressbook">
+		<div data-role="tokentextarea">
 		</div>
-		$(".selector").multibuttonentry("inputText", [text]);
+		$(".selector").tokentextarea("inputText", [text]);
 */
 /**
 	@method select
-	The select method is used to select a multi-button entry widget button based on its index value. If no index value is defined, the method returns the string of the selected block. If there are no buttons present in the widget, the method returns null.
+	The select method is used to select a token text area widget button based on its index value. If no index value is defined, the method returns the string of the selected block. If there are no buttons present in the widget, the method returns null.
 
-		<div data-role="multibuttonentry" data-label="To:" data-theme="#addressbook">
+		<div data-role="tokentextarea">
 		</div>
-		$(".selector").multibuttonentry("select", [index]);
+		$(".selector").tokentextarea("select", [index]);
 */
 /**
 	@method add
-	The add method is used to add a new multi-button entry widget button with the specified label text at the specified index position. If the index parameter is not defined, the widget button is added at the bottom of the list. For example, the $(".selector").multibuttonentry("add", "Tizen", 2) method call creates a new widget button labeled 'Tizen' at the third position in the widget.
+	The add method is used to add a new token text area widget button with the specified label text at the specified index position. If the index parameter is not defined, the widget button is added at the bottom of the list. For example, the $(".selector").tokentextarea("add", "Tizen", 2) method call creates a new widget button labeled 'Tizen' at the third position in the widget.
 
-		<div data-role="multibuttonentry" data-label="To:" data-theme="#addressbook">
+		<div data-role="tokentextarea">
 		</div>
-		$(".selector").multibuttonentry("add", [text], [index]);
+		$(".selector").tokentextarea("add", [text], [index]);
 */
 /**
 	@method remove
-	The remove method is used to remove a multi-button entry widget button at the specified index position. If the parameter is not defined, all the widget buttons are removed.
+	The remove method is used to remove a token text area widget button at the specified index position. If the parameter is not defined, all the widget buttons are removed.
 
-		<div data-role="multibuttonentry" data-label="To:" data-theme="#addressbook">
+		<div data-role="tokentextarea">
 		</div>
-		$(".selector").multibuttonentry("remove", [index]);
+		$(".selector").tokentextarea("remove", [index]);
 */
 /**
 	@method length
-	The length method is used to retrieve the number of buttons in the multi-button entry widget:
-		<div data-role="multibuttonentry" data-label="To:" data-theme="#addressbook">
+	The length method is used to retrieve the number of buttons in the token text area widget:
+		<div data-role="tokentextarea">
 		</div>
-		$(".selector").multibuttonentry("length");
+		$(".selector").tokentextarea("length");
 */
 /**
 	@method focusIn
-	The focusIn method is used to set the focus status to "focus in". This focus state enables the user to add or remove buttons in the multi-button entry widget.
+	The focusIn method is used to set the focus status to "focus in". This focus state enables the user to add or remove buttons in the token text area widget.
 
-		<div data-role="multibuttonentry" data-label="To:" data-theme="#addressbook">
+		<div data-role="tokentextarea">
 		</div>
-		$(".selector").multibuttonentry("focusIn");
+		$(".selector").tokentextarea("focusIn");
 */
 /**
 	@method focusOut
 	The focusOut method is used to set the focus status to "focus out". In this focus state, the user cannot manage the buttons in the widget, all the buttons are removed, and a message is displayed.
 
-		<div data-role="multibuttonentry" data-label="To:" data-theme="#addressbook">
+		<div data-role="tokentextarea">
 		</div>
-		$(".selector").multibuttonentry("focusOut");
+		$(".selector").tokentextarea("focusOut");
 */
 ( function ( $, window, document, undefined ) {
-	$.widget( "tizen.multibuttonentry", $.mobile.widget, {
+	$.widget( "tizen.tokentextarea", $.mobile.widget, {
 		_focusStatus : null,
 		_items : null,
 		_viewWidth : 0,
@@ -271,7 +271,7 @@
 		_marginWidth : 0,
 		options : {
 			label : "To : ",
-			listId : null,
+			link : null,
 			description : "+ {0}"
 		},
 
@@ -280,7 +280,7 @@
 				$view = this.element,
 				role = $view.jqmData( "role" ),
 				option = this.options,
-				className = "ui-multibuttonentry-link",
+				className = "ui-tokentextarea-link",
 				inputbox = $( document.createElement( "input" ) ),
 				labeltag = $( document.createElement( "label" ) ),
 				moreBlock = $( document.createElement( "a" ) );
@@ -288,18 +288,18 @@
 			$view.hide().empty().addClass( "ui-" + role );
 
 			// create a label tag.
-			$( labeltag ).text( option.label ).addClass( "ui-multibuttonentry-label" );
+			$( labeltag ).text( option.label ).addClass( "ui-tokentextarea-label" );
 			$view.append( labeltag );
 
 			// create a input tag
-			$( inputbox ).text( option.label ).addClass( "ui-multibuttonentry-input" );
+			$( inputbox ).text( option.label ).addClass( "ui-tokentextarea-input" );
 			$view.append( inputbox );
 
 			// create a anchor tag.
-			if ( option.listId === null || $.trim( option.listId ).length < 1 || $( option.listId ).length === 0 ) {
+			if ( option.link === null || $.trim( option.link ).length < 1 || $( option.link ).length === 0 ) {
 				className += "-dim";
 			}
-			$( moreBlock ).attr( "href", $.trim( option.listId ) ).attr( "data-role", "button" ).attr( "data-inline", "true" ).attr( "data-icon", "plus" ).attr( "data-style", "circle" ).addClass( "ui-multibuttonentry-link-base" ).addClass( className );
+			$( moreBlock ).attr( "href", $.trim( option.link ) ).attr( "data-role", "button" ).attr( "data-inline", "true" ).attr( "data-icon", "plus" ).attr( "data-style", "circle" ).addClass( "ui-tokentextarea-link-base" ).addClass( className );
 
 			// append default htmlelements to main widget.
 			$view.append( moreBlock );
@@ -326,22 +326,22 @@
 			var self = this,
 				$view = self.element,
 				option = self.options,
-				inputbox = $view.find( ".ui-multibuttonentry-input" ),
-				moreBlock = $view.find( ".ui-multibuttonentry-link-base" ),
+				inputbox = $view.find( ".ui-tokentextarea-input" ),
+				moreBlock = $view.find( ".ui-tokentextarea-link-base" ),
 				isSeparator = false;
 
 			// delegate a event to HTMLDivElement(each block).
 			$view.delegate( "div", "vclick", function ( event ) {
-				if ( $( this ).hasClass( "ui-multibuttonentry-sblock" ) ) {
+				if ( $( this ).hasClass( "ui-tokentextarea-sblock" ) ) {
 					// If block is selected, it will be removed.
 					self._removeTextBlock();
 				}
 
-				var lockBlock = $view.find( "div.ui-multibuttonentry-sblock" );
+				var lockBlock = $view.find( "div.ui-tokentextarea-sblock" );
 				if ( typeof lockBlock !== "undefined" ) {
-					lockBlock.removeClass( "ui-multibuttonentry-sblock" ).addClass( "ui-multibuttonentry-block" );
+					lockBlock.removeClass( "ui-tokentextarea-sblock" ).addClass( "ui-tokentextarea-block" );
 				}
-				$( this ).removeClass( "ui-multibuttonentry-block" ).addClass( "ui-multibuttonentry-sblock" );
+				$( this ).removeClass( "ui-tokentextarea-block" ).addClass( "ui-tokentextarea-sblock" );
 				self._trigger( "select" );
 			});
 
@@ -379,13 +379,13 @@
 			});
 
 			moreBlock.click( function () {
-				if ( $( moreBlock ).hasClass( "ui-multibuttonentry-link-dim" ) ) {
+				if ( $( moreBlock ).hasClass( "ui-tokentextarea-link-dim" ) ) {
 					return;
 				}
 
 				$( inputbox ).hide();
 
-				$.mobile.changePage( option.listId, {
+				$.mobile.changePage( option.link, {
 					transition: "slide",
 					reverse: false,
 					changeHash: false
@@ -396,10 +396,10 @@
 				if ( $view.innerWidth() === 0 ) {
 					return ;
 				}
-				var inputBox = $view.find( ".ui-multibuttonentry-input" );
+				var inputBox = $view.find( ".ui-tokentextarea-input" );
 				if ( self._labelWidth === 0 ) {
-					self._labelWidth = $view.find( ".ui-multibuttonentry-label" ).outerWidth( true );
-					self._anchorWidth = $view.find( ".ui-multibuttonentry-link-base" ).outerWidth( true );
+					self._labelWidth = $view.find( ".ui-tokentextarea-label" ).outerWidth( true );
+					self._anchorWidth = $view.find( ".ui-tokentextarea-link-base" ).outerWidth( true );
 					self._marginWidth = parseInt( ( $( inputBox ).css( "margin-left" ) ), 10 );
 					self._marginWidth += parseInt( ( $( inputBox ).css( "margin-right" ) ), 10 );
 					self._viewWidth = $view.innerWidth();
@@ -441,14 +441,14 @@
 			// Create a new text HTMLDivElement.
 			textBlock = $( document.createElement( 'div' ) );
 
-			textBlock.text( content ).addClass( "ui-multibuttonentry-block" );
+			textBlock.text( content ).addClass( "ui-tokentextarea-block" );
 			textBlock.css( {'visibility': 'hidden'} );
 
 			blocks = $view.find( "div" );
 			if ( index !== null && index <= blocks.length ) {
 				$( blocks[index] ).before( textBlock );
 			} else {
-				$view.find( ".ui-multibuttonentry-input" ).before( textBlock );
+				$view.find( ".ui-tokentextarea-input" ).before( textBlock );
 			}
 
 			textBlock = self._ellipsisTextBlock( textBlock );
@@ -462,7 +462,7 @@
 		_removeTextBlock : function () {
 			var self = this,
 				$view = this.element,
-				lockBlock = $view.find( "div.ui-multibuttonentry-sblock" );
+				lockBlock = $view.find( "div.ui-tokentextarea-sblock" );
 
 			if ( lockBlock !== null && lockBlock.length > 0 ) {
 				self._currentWidth -= self._calcBlockWidth( lockBlock );
@@ -470,7 +470,7 @@
 				self._modifyInputBoxWidth();
 				this._trigger( "remove" );
 			} else {
-				$view.find( "div:last" ).removeClass( "ui-multibuttonentry-block" ).addClass( "ui-multibuttonentry-sblock" );
+				$view.find( "div:last" ).removeClass( "ui-tokentextarea-block" ).addClass( "ui-tokentextarea-sblock" );
 			}
 		},
 
@@ -480,9 +480,9 @@
 
 		_unlockTextBlock : function () {
 			var $view = this.element,
-				lockBlock = $view.find( "div.ui-multibuttonentry-sblock" );
+				lockBlock = $view.find( "div.ui-tokentextarea-sblock" );
 			if ( !lockBlock ) {
-				lockBlock.removeClass( "ui-multibuttonentry-sblock" ).addClass( "ui-multibuttonentry-block" );
+				lockBlock.removeClass( "ui-tokentextarea-sblock" ).addClass( "ui-tokentextarea-block" );
 			}
 		},
 
@@ -493,12 +493,12 @@
 				lastBlock = $view.find( "div:last" ),
 				tmpBlock = null;
 
-			if ( lastBlock.hasClass( "ui-multibuttonentry-sblock" ) ) {
+			if ( lastBlock.hasClass( "ui-tokentextarea-sblock" ) ) {
 				self._removeTextBlock();
 			} else {
-				tmpBlock = $view.find( "div.ui-multibuttonentry-sblock" );
-				tmpBlock.removeClass( "ui-multibuttonentry-sblock" ).addClass( "ui-multibuttonentry-block" );
-				lastBlock.removeClass( "ui-multibuttonentry-block" ).addClass( "ui-multibuttonentry-sblock" );
+				tmpBlock = $view.find( "div.ui-tokentextarea-sblock" );
+				tmpBlock.removeClass( "ui-tokentextarea-sblock" ).addClass( "ui-tokentextarea-block" );
+				lastBlock.removeClass( "ui-tokentextarea-block" ).addClass( "ui-tokentextarea-sblock" );
 			}
 		},
 
@@ -525,7 +525,7 @@
 				blockWidth = 0,
 				index = 0,
 				inputBoxMargin = 10,
-				inputBox = $view.find( ".ui-multibuttonentry-input" );
+				inputBox = $view.find( ".ui-tokentextarea-input" );
 
 			if ( $view.width() === 0 ) {
 				return;
@@ -593,16 +593,16 @@
 			var $view = this.element;
 
 			$view.find( "label" ).show();
-			$view.find( ".ui-multibuttonentry-desclabel" ).remove();
-			$view.find( "div.ui-multibuttonentry-sblock" ).removeClass( "ui-multibuttonentry-sblock" ).addClass( "ui-multibuttonentry-block" );
+			$view.find( ".ui-tokentextarea-desclabel" ).remove();
+			$view.find( "div.ui-tokentextarea-sblock" ).removeClass( "ui-tokentextarea-sblock" ).addClass( "ui-tokentextarea-block" );
 			$view.find( "div" ).show();
-			$view.find( ".ui-multibuttonentry-input" ).show();
+			$view.find( ".ui-tokentextarea-input" ).show();
 			$view.find( "a" ).show();
 
 			// change focus state.
 			this._modifyInputBoxWidth();
 			this._focusStatus = "focusIn";
-			$view.removeClass( "ui-multibuttonentry-focusout" ).addClass( "ui-multibuttonentry-focusin" );
+			$view.removeClass( "ui-tokentextarea-focusout" ).addClass( "ui-tokentextarea-focusin" );
 		},
 
 		focusOut : function () {
@@ -622,7 +622,7 @@
 				currentWidth = $view.outerWidth( true ) - more.outerWidth( true ) - label.outerWidth( true ),
 				blockWidth = 0;
 
-			$view.find( ".ui-multibuttonentry-input" ).hide();
+			$view.find( ".ui-tokentextarea-input" ).hide();
 			$view.find( "a" ).hide();
 			blocks.hide();
 
@@ -643,22 +643,22 @@
 				statement = self._stringFormat( self.options.description, blocks.length - lastIndex - 1 );
 				tempBlock = $( document.createElement( 'label' ) );
 				tempBlock.text( statement );
-				tempBlock.addClass( "ui-multibuttonentry-desclabel" ).addClass( "ui-multibuttonentry-desclabel" );
+				tempBlock.addClass( "ui-tokentextarea-desclabel" ).addClass( "ui-tokentextarea-desclabel" );
 				$( blocks[lastIndex] ).after( tempBlock );
 			}
 
 			// update focus state
 			this._focusStatus = "focusOut";
-			$view.removeClass( "ui-multibuttonentry-focusin" ).addClass( "ui-multibuttonentry-focusout" );
+			$view.removeClass( "ui-tokentextarea-focusin" ).addClass( "ui-tokentextarea-focusout" );
 		},
 
 		inputText : function ( message ) {
 			var $view = this.element;
 
 			if ( arguments.length === 0 ) {
-				return $view.find( ".ui-multibuttonentry-input" ).val();
+				return $view.find( ".ui-tokentextarea-input" ).val();
 			}
-			$view.find( ".ui-multibuttonentry-input" ).val( message );
+			$view.find( ".ui-tokentextarea-input" ).val( message );
 			return message;
 		},
 
@@ -673,7 +673,7 @@
 
 			if ( arguments.length === 0 ) {
 				// return a selected block.
-				lockBlock = $view.find( "div.ui-multibuttonentry-sblock" );
+				lockBlock = $view.find( "div.ui-tokentextarea-sblock" );
 				if ( lockBlock ) {
 					return lockBlock.text();
 				}
@@ -684,7 +684,7 @@
 			// 2. select pointed block.
 			blocks = $view.find( "div" );
 			if ( blocks.length > index ) {
-				$( blocks[index] ).removeClass( "ui-multibuttonentry-block" ).addClass( "ui-multibuttonentry-sblock" );
+				$( blocks[index] ).removeClass( "ui-tokentextarea-block" ).addClass( "ui-tokentextarea-sblock" );
 				this._trigger( "select" );
 			}
 			return null;
@@ -738,17 +738,17 @@
 			$view.find( "label" ).remove();
 			$view.find( "div" ).undelegate( "vclick" ).remove();
 			$view.find( "a" ).remove();
-			$view.find( ".ui-multibuttonentry-input" ).unbind( "keyup" ).remove();
+			$view.find( ".ui-tokentextarea-input" ).unbind( "keyup" ).remove();
 
 			this._trigger( "destroy" );
 		}
 	});
 
 	$( document ).bind( "pagecreate create", function () {
-		$( ":jqmData(role='multibuttonentry')" ).multibuttonentry();
+		$( ":jqmData(role='tokentextarea')" ).tokentextarea();
 	});
 
 	$( window ).bind( "resize", function () {
-		$( ":jqmData(role='multibuttonentry')" ).multibuttonentry( "refresh" );
+		$( ":jqmData(role='tokentextarea')" ).tokentextarea( "refresh" );
 	});
 } ( jQuery, window, document ) );
