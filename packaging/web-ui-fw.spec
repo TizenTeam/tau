@@ -31,6 +31,7 @@ make DESTDIR=%{buildroot} install
 %manifest web-ui-fw.manifest
 /usr/share/tizen-web-ui-fw/*/js
 /usr/share/tizen-web-ui-fw/latest
+/usr/share/tizen-web-ui-fw/VERSION
 
 ###############################
 %package -n web-ui-fw-theme-tizen-gray
