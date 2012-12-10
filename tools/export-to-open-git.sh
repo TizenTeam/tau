@@ -38,6 +38,8 @@ do
 	git clone ssh://${account}@${s} $n || err "git clone failure"
 
 	cd $tmpdir/$n
+	rm -rf *
+	git checkout .
 	git fetch origin $b:$b
 	git checkout $b
 

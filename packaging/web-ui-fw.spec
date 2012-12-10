@@ -1,6 +1,6 @@
 Name:       web-ui-fw
-Version:    0.2.1
-Release:    1
+Version:    0.2.2
+Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
 License:    MIT
@@ -82,6 +82,13 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Thu Dec 10 2012 Youmin Ha <youmin.ha@samsung.com> 0.2.2
+- FIX:
+	- chang searchbar/slider images
+	- delete redundant button images
+- Spec changes:
+	- Change widget name: shortcutscroll -> fastscroll
+
 * Thu Dec 07 2012 Youmin Ha <youmin.ha@samsung.com> 0.2.1
 - FIX:
 	- jqm1.2: Change collapsible style to meet expandable list
