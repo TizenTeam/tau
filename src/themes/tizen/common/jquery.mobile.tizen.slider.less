@@ -20,8 +20,19 @@ select.ui-slider-switch {
 	position: relative;
 	vertical-align: middle;
 
+	height: 18 * @unit_base;
 	margin-left: 16 * @unit_base;
 	margin-right: 16 * @unit_base;
+
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0, @color_progress_bar1),
+		color-stop(1, @color_progress_bar0)
+	);
+	.LESSbox-shadow(1px, 1px, 0px, white);
+	.LESSborder-radius-all( 10 * @unit_base );
 }
 
 .ui-slider-icon-bg {
@@ -34,7 +45,7 @@ select.ui-slider-switch {
 	position: absolute;
 	vertical-align: middle;
 
-	top: -0.35rem;
+	top: -0.5rem;
 	left: -50 * @unit_base;
 	height: @img-height;
 	width: @img-width;
@@ -52,7 +63,7 @@ select.ui-slider-switch {
 .ui-slider-right-bright {
 	position: absolute;
 
-	top: -0.35rem;
+	top: -0.5rem;
 	right: -50 * @unit_base;
 	height: @img-height;
 	width: @img-width;
@@ -71,7 +82,7 @@ select.ui-slider-switch {
 .ui-slider-left-text {
 	position: absolute;
 
-	top: -0.35rem;
+	top: -0.5rem;
 	left: -52 * @unit_base;
 	height: 37 * @unit_base;
 	width: 37 * @unit_base;
@@ -83,7 +94,7 @@ select.ui-slider-switch {
 .ui-slider-right-text {
 	position: absolute;
 
-	top: -0.35rem;
+	top: -0.5rem;
 	right: -52 * @unit_base;
 	height: 37 * @unit_base;
 	width: 37 * @unit_base;
@@ -93,18 +104,22 @@ select.ui-slider-switch {
 }
 
 div.ui-slider {
-	display: inline-block;
-	overflow: visible;
+	position: relative;
 
-	height: 18 * @unit_base;
-	width: 100%;
+	top: 5 * @unit_base;
+	height: 7 * @unit_base;
+	margin-left: 5 * @unit_base;
+	margin-right: 5 * @unit_base;
 
-	//FIXME
-	//background-image: url(images/00_progress_bg.9.png);
-	background-color: rgb(236,233,229);
+	.LESSborder-radius-all( 10 * @unit_base );
+	border: 1px;
+	border-style: solid;
+	border-color: @color_progress_boarder;
+	.LESSbox-shadow(1px, -1px, 1px, @color_progress_boarder);
+	background-color: @color_progress_bar0;
 
 	.ui-btn {
-		top: -0.45rem;
+		top: -0.8rem;
 		margin-top: 0;
 	}
 	.ui-btn-inner {
@@ -136,7 +151,7 @@ a.ui-slider-handle {
 
 	width: @popup-width;
 	height: @popup-height;
-	top: -56 * @unit_base;
+	top: -60 * @unit_base;
 	padding-top: 0.1rem;
 
 	color: @color_slider_popup_text;
@@ -151,20 +166,18 @@ a.ui-slider-handle {
 	position: relative;
 
 	top: -36 * @unit_base;
-	height: 18 * @unit_base;
+	height: 7 * @unit_base;
 	width: 0;
 
-	//FIXME
-	//background-image: url(images/00_progress_bar.9.png);
 	background-image: -webkit-gradient(
 		linear,
 		left bottom,
 		left top,
-		color-stop(0.2, rgb(236,233,229)),
-		color-stop(0.2, rgb(54,119,155)),
-		color-stop(0.8, rgb(54,119,195)),
-		color-stop(0.8, rgb(236,233,229))
+		color-stop(0, @color_progress_value0),
+		color-stop(1, @color_progress_value1)
 	);
+	.LESSborder-radius-all( 10 * @unit_base );
+	.LESSbox-shadow(-1px, -1px, 1px, rgb(179, 200, 226));
 }
 
 .ui-slider-handle-press {
