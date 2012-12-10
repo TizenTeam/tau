@@ -30,7 +30,7 @@
  * Authors: Elliot Smith <elliot.smith@intel.com>
  */
 
-// shortcutscroll is a scrollview controller, which binds
+// fastscroll is a scrollview controller, which binds
 // a scrollview to a a list of short cuts; the shortcuts are built
 // from the text on dividers in the list. Clicking on a shortcut
 // instantaneously jumps the scrollview to the selected list divider;
@@ -38,9 +38,9 @@
 // list divider matching the text currently under the touch; a popup
 // with the text currently under the touch is also displayed.
 //
-// To apply, add the attribute data-shortcutscroll="true" to a listview
+// To apply, add the attribute data-fastscroll="true" to a listview
 // (a <ul> or <ol> element inside a page). Alternatively, call
-// shortcutscroll() on an element.
+// fastscroll() on an element.
 //
 // The closest element with class ui-scrollview-clip is used as the
 // scrollview to be controlled.
@@ -49,13 +49,13 @@
 // display.
 
 /**
-	@class ShortcutScroll
+	@class fastscroll
 	The shortcut scroll widget shows a shortcut list that is bound to its parent scroll bar and respective list view. This widget is displayed as a text pop-up representing shortcuts to different list dividers in the list view. If you select a shortcut text from the shortcut scroll, the parent list view is moved to the location representing the selected shortcut.
 
 	To add a shortcut scroll widget to the application, use the following code:
 
 		<div class="content" data-role="content" data-scroll="y">
-			<ul id="contacts" data-role="listview" data-shortcutscroll="true">
+			<ul id="contacts" data-role="listview" data-fastscroll="true">
 				<li>Anton</li>
 			</ul>
 		</div>
@@ -64,18 +64,18 @@
 */
 
 /**
-	@property {Boolean}  data-shortcutscroll
+	@property {Boolean}  data-fastscroll
 	When set to true, creates a shortcut scroll using the HTML unordered list (&lt;ul&gt;) element.
 */
 /**
-	@method shortcutscroll
+	@method fastscroll
 	The shortcut scroll is created for the closest list view with the ui-scrollview-clip class.
 */
 (function ( $, undefined ) {
 
-	$.widget( "tizen.shortcutscroll", $.mobile.widget, {
+	$.widget( "tizen.fastscroll", $.mobile.widget, {
 		options: {
-			initSelector: ":jqmData(shortcutscroll)"
+			initSelector: ":jqmData(fastscroll)"
 		},
 
 		_create: function () {
@@ -86,12 +86,12 @@
 				jumpToDivider;
 
 			this.scrollview = $el.closest( '.ui-scrollview-clip' );
-			this.shortcutsContainer = $( '<div class="ui-shortcutscroll"/>' );
+			this.shortcutsContainer = $( '<div class="ui-fastscroll"/>' );
 			this.shortcutsList = $( '<ul></ul>' );
 
 			// popup for the hovering character
-			this.shortcutsContainer.append($( '<div class="ui-shortcutscroll-popup"></div>' ) );
-			$popup = this.shortcutsContainer.find( '.ui-shortcutscroll-popup' );
+			this.shortcutsContainer.append($( '<div class="ui-fastscroll-popup"></div>' ) );
+			$popup = this.shortcutsContainer.find( '.ui-fastscroll-popup' );
 
 			this.shortcutsContainer.append( this.shortcutsList );
 			this.scrollview.append( this.shortcutsContainer );
@@ -148,9 +148,9 @@
 					self.shortcutsList.find( 'li' ).each( function () {
 						var listItem = $( this );
 						$( listItem )
-							.removeClass( "ui-shortcutscroll-hover" )
-							.removeClass( "ui-shortcutscroll-hover-up" )
-							.removeClass( "ui-shortcutscroll-hover-down" );
+							.removeClass( "ui-fastscroll-hover" )
+							.removeClass( "ui-fastscroll-hover-up" )
+							.removeClass( "ui-fastscroll-hover-down" );
 					});
 					// Hit test each list item
 					self.shortcutsList.find( 'li' ).each( function () {
@@ -162,11 +162,11 @@
 
 						if ( coords.x >= l && coords.x <= r && coords.y >= t && coords.y <= b ) {
 							jumpToDivider( $( listItem.data( 'divider' ) ) );
-							$( listItem ).addClass( "ui-shortcutscroll-hover" );
+							$( listItem ).addClass( "ui-fastscroll-hover" );
 							if ( listItem.index() > 0 ) {
-								$( listItem ).siblings().eq( listItem.index() - 1 ).addClass( "ui-shortcutscroll-hover-up" );
+								$( listItem ).siblings().eq( listItem.index() - 1 ).addClass( "ui-fastscroll-hover-up" );
 							}
-							$( listItem ).siblings().eq( listItem.index() ).addClass( "ui-shortcutscroll-hover-down" );
+							$( listItem ).siblings().eq( listItem.index() ).addClass( "ui-fastscroll-hover-down" );
 							return false;
 						}
 						return true;
@@ -177,7 +177,7 @@
 					e.preventDefault();
 					e.stopPropagation();
 				} )
-				// bind mouseout of the shortcutscroll container to remove popup
+				// bind mouseout of the fastscroll container to remove popup
 				.bind( 'touchend mouseup vmouseup vmouseout', function () {
 					$popup.hide();
 				} );
@@ -239,9 +239,9 @@
 	} );
 
 	$( document ).bind( "pagecreate create", function ( e ) {
-		$( $.tizen.shortcutscroll.prototype.options.initSelector, e.target )
+		$( $.tizen.fastscroll.prototype.options.initSelector, e.target )
 			.not( ":jqmData(role='none'), :jqmData(role='nojs')" )
-			.shortcutscroll();
+			.fastscroll();
 	} );
 
 } ( jQuery ) );

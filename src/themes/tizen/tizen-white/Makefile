@@ -35,7 +35,7 @@ CSS_SRCS=	../common/jquery.mobile.theme.less.css \
 		../common/jquery.mobile.tizen.pagecontrol.less.css \
 		../common/jquery.mobile.tizen.swipe.less.css \
 		../common/jquery.mobile.tizen.nocontents.less.css \
-		../common/jquery.mobile.tizen.shortcutscroll.less.css \
+		../common/jquery.mobile.tizen.fastscroll.less.css \
 		../common/jquery.mobile.tizen.dayselector.less.css \
 		../common/jquery.mobile.tizen.toggleswitch.less.css \
 		../common/jquery.mobile.tizen.triangle.less.css \

@@ -1,9 +1,9 @@
 @import "config.less";
 
-.ui-shortcutscroll {
+.ui-fastscroll {
 	position: absolute;
 	right: 0*@unit_base;
-	background-color: @color_shortcutscroll_rollover_bg;
+	background-color: @color_fastscroll_rollover_bg;
 	width: 25*@unit_base;
 	-ms-user-select: none;
 	-o-user-select: none;
@@ -21,19 +21,19 @@
 	}
 	li {
 		cursor: pointer;
-		color: @color_shortcutscroll_rollover_text;
+		color: @color_fastscroll_rollover_text;
 		padding: 2*@unit_base 2*@unit_base 2*@unit_base 2*@unit_base;
 		text-align: center;
 		font-size : 16 * @unit_base;
 		font-weight : bold;
 
 		border-left-width : 3 * @unit_base;
-		border-left-color : @color_shortcutscroll_popup_bg;
+		border-left-color : @color_fastscroll_popup_bg;
 		border-left-style : solid;
 	}
 }
 
-.ui-shortcutscroll2 {
+.ui-fastscroll2 {
 	position: absolute;
 	right: 0*@unit_base;
 	-ms-user-select: none;
@@ -51,7 +51,7 @@
 	}
 	li {
 		cursor: pointer;
-		color: @color_shortcutscroll_rollover_text;
+		color: @color_fastscroll_rollover_text;
 		padding: 2*@unit_base 2*@unit_base 2*@unit_base 2*@unit_base;
 		text-align: right;
 
@@ -60,25 +60,25 @@
 	}
 }
 
-.ui-shortcutscroll-bg {
+.ui-fastscroll-bg {
 	position: absolute;
 	right: 0*@unit_base;
-	background-color: @color_shortcutscroll_rollover_bg;
+	background-color: @color_fastscroll_rollover_bg;
 	width: 25 * @unit_base;
 	z-index: 10;
 	top: 0;
 }
 
-.ui-shortcutscroll-popup {
+.ui-fastscroll-popup {
 	position: absolute;
-	background: @color_shortcutscroll_popup_bg;
-	color: @color_shortcutscroll_popup_text;
+	background: @color_fastscroll_popup_bg;
+	color: @color_fastscroll_popup_text;
 	padding:10*@unit_base 30*@unit_base;
-	-ms-box-shadow: 8*@unit_base 10*@unit_base 0*@unit_base @color_shortcutscroll_popup_shadow;
-	-o-box-shadow: 8*@unit_base 10*@unit_base 0*@unit_base @color_shortcutscroll_popup_shadow; 
-	-moz-box-shadow: 8*@unit_base 10*@unit_base 0*@unit_base @color_shortcutscroll_popup_shadow;
-	-webkit-box-shadow: 8*@unit_base 10*@unit_base 0*@unit_base @color_shortcutscroll_popup_shadow;
-	box-shadow: 8*@unit_base 10*@unit_base 0*@unit_base @color_shortcutscroll_popup_shadow;
+	-ms-box-shadow: 8*@unit_base 10*@unit_base 0*@unit_base @color_fastscroll_popup_shadow;
+	-o-box-shadow: 8*@unit_base 10*@unit_base 0*@unit_base @color_fastscroll_popup_shadow; 
+	-moz-box-shadow: 8*@unit_base 10*@unit_base 0*@unit_base @color_fastscroll_popup_shadow;
+	-webkit-box-shadow: 8*@unit_base 10*@unit_base 0*@unit_base @color_fastscroll_popup_shadow;
+	box-shadow: 8*@unit_base 10*@unit_base 0*@unit_base @color_fastscroll_popup_shadow;
 	text-align: center;
 	font-size: 75*@unit_base;
 	font-weight: bold;
@@ -86,27 +86,27 @@
 	box-sizing:border-box;
 }
 
-li.ui-shortcutscroll-hover {
-	color : @color_shortcutscroll_popup_bg;
+li.ui-fastscroll-hover {
+	color : @color_fastscroll_popup_bg;
 }
 
-li.ui-shortcutscroll-hover,
-li.ui-shortcutscroll-hover-up,
-li.ui-shortcutscroll-hover-down {
+li.ui-fastscroll-hover,
+li.ui-fastscroll-hover-up,
+li.ui-fastscroll-hover-down {
 	background : @color_list_bg;
 
 	border-style : solid;
-	border-color : @color_shortcutscroll_popup_bg;
+	border-color : @color_fastscroll_popup_bg;
 	border-width : 0px;
 	border-right-width : 3 * @unit_base;
 	border-left-width : 1px;
 	border-left-color : @color_list_bg;
 }
 
-li.ui-shortcutscroll-hover-up {
+li.ui-fastscroll-hover-up {
 	border-top-width : 3 * @unit_base;
 }
 
-li.ui-shortcutscroll-hover-down {
+li.ui-fastscroll-hover-down {
 	border-bottom-width : 3 * @unit_base;
 }
