@@ -1,5 +1,5 @@
 @import "config.less";
-@search-bar-padding: (16*@unit_base);
+@search-bar-padding: (13*@unit_base);
 
 label.ui-input-text {
 	font-size: 22 * @unit_base;
@@ -32,8 +32,15 @@ textarea.ui-input-text {
 .ui-input-search {
 	position: relative;
 
-	padding-right : 30 * @unit_base;
-	padding-left : 30 * @unit_base;
+	padding-right : 36 * @unit_base;
+	padding-left : 36 * @unit_base;
+
+	border : 1px solid @color_searchbar_border;
+	-webkit-box-shadow: inset 2 * @unit_base 2 * @unit_base 2 * @unit_base @color_searchbar_border;
+	-moz-box-shadow: inset 2 * @unit_base 2 * @unit_base 2 * @unit_base @color_searchbar_border;
+	-o-box-shadow: inset 2 * @unit_base 2 * @unit_base 2 * @unit_base @color_searchbar_border;
+	-ms-box-shadow: inset 2 * @unit_base 2 * @unit_base 2 * @unit_base @color_searchbar_border;
+	box-shadow: inset 2 * @unit_base 2 * @unit_base 2 * @unit_base @color_searchbar_border;
 
 	input.ui-input-text {
 		width : 100%;
@@ -46,10 +53,10 @@ textarea.ui-input-text {
 		background: transparent none;
 	}
 	.ui-btn-icon-notext.ui-input-clear {
-		width: 30 * @unit_base;
-		height: 30 * @unit_base;
+		width: 36 * @unit_base;
+		height: 33 * @unit_base;
 		.ui-btn-inner {
-			padding : 4 * @unit_base;
+			padding : 6 * @unit_base;
 		}
 	}
 	.ui-icon-deleteSearch {
@@ -65,16 +72,6 @@ textarea.ui-input-text {
 	}
 	.ui-input-clear-hidden { display: none; }
 }
-
-.ui-image-search {
-	position: absolute;
-	top: 0px;
-	left: 0px;
-	width : 22 * @unit_base;
-	height : 22 * @unit_base;
-	margin: 4 * @unit_base;
-}
-
 
 /* code for label+inputbox : remove this code if webApp dev. controls input area */
 @media all and (min-width: 721*@unit_base) {
@@ -92,7 +89,6 @@ textarea.ui-input-text {
 	}
 }
 
-
 /* search bar */
 .ui-body-s > div > .ui-field-contain > .input-search-bar,
 .ui-body-s > .ui-field-contain > .input-search-bar {
@@ -108,6 +104,7 @@ textarea.ui-input-text {
 	.ui-corner-all {
 		.LESSborder-radius-all(.3em);
 	}
+
 	.ui-input-search {
 		font-size : 16 * @unit_base;
 		display : block;
@@ -115,20 +112,33 @@ textarea.ui-input-text {
 
 		background-color: @color_searchbar_input_field_bg;
 		.ui-input-text {
-			height: 30 * @unit_base;
+			height: 33 * @unit_base;
 			padding : 0px;
 
 			margin-right : 38 * @unit_base;
 		}
+
+		.ui-image-search {
+			position: absolute;
+			top: 0px;
+			left: 0px;
+			width : 22 * @unit_base;
+			height : 22 * @unit_base;
+			margin: 6 * @unit_base;
+		}
 	}
+
 	.ui-input-search-default {
+		margin-right : 75 * @unit_base;
 		-webkit-transition: width 400ms linear;
 		-moz-transition: width 400ms linear;
 		-o-transition: width 400ms linear;
 		-ms-transition: width 400ms linear;
 		transition: width 400ms linear;
 	}
+
 	.ui-input-search-wide {
+		margin-right : 75 * @unit_base;
 		margin-right : 0 * @unit_base;
 		-webkit-transition: width 400ms linear;
 		-moz-transition: width 400ms linear;
@@ -136,60 +146,76 @@ textarea.ui-input-text {
 		-ms-transition: width 400ms linear;
 		transition: width 400ms linear;
 	}
-	.ui-btn-icon-cancel {
+
+	.ui-btn-icon-cancel.ui-input-cancel {
 		display: inline-block;
 		position: absolute;
 
-		top	: 16 * @unit_base;
+		top	: 3 * @unit_base;
 		right : 0 * @unit_base;
-		margin-right : 16 * @unit_base;
+		height : 33 * @unit_base;
+		margin-right : 10 * @unit_base;
 
 		vertical-align: middle;
 		padding : 0px;
 
-		height : 74 * @unit_base;
-
 		border-color : none;
-		.ui-btn-text{
-			font-size : 32 * @unit_base;
-		}
-		.ui-btn-inner {
-			padding-top : 18 * @unit_base;
-			padding-bottom : 18 * @unit_base;
-		}
-	}
 
-	.ui-btn-icon-cancel.ui-input-cancel {
-		width : 134 * @unit_base;
+		width : 68 * @unit_base;
 		-webkit-transition: all 400ms linear;
 		-moz-transition: all 400ms linear;
 		-o-transition: all 400ms linear;
 		-ms-transition: all 400ms linear;
 		transition: all 400ms linear;
+
+		.ui-btn-inner {
+			padding-top : 6 * @unit_base;
+			padding-bottom : 6 * @unit_base;
+			.ui-btn-text{
+				font-size : 15 * @unit_base;
+			}
+		}
+
+		&.ui-btn-cancel-hide {
+			right : -75 * @unit_base;
+			visibility: hidden;
+		}
+		&.ui-btn-cancel-show {
+			right : 0px;
+			visibility: visible;
+		}
 	}
-	.ui-btn-cancel-hide {
-		right : -150 * @unit_base;
-		visibility: hidden;
+
+	.ui-search-bar-icon {
+		margin-left : 42 * @unit_base;
 	}
-	.ui-btn-cancel-show {
-		right : 0px;
-		visibility: visible;
+
+	.ui-btn.ui-btn-search-front-icon {
+		position : absolute;
+		width : 35 * @unit_base;
+		height : 35 * @unit_base;
+		top : 2 * @unit_base;
+		border-radius : 66 * @unit_base;
+		>.ui-btn-inner.ui-btn-icon-only {
+			border-radius : 66 * @unit_base;
+		}
 	}
 }
 
 .ui-header .input-search-bar {
-	padding-top : 13 * @unit_base;
-	padding-bottom : 13 * @unit_base;
+	padding-top : 4 * @unit_base;
+	padding-bottom : 4 * @unit_base;
 }
 
 .ui-image-search {
-	background-image: url(images/00_search_icon.png);
+	background-image: url(images/controls/00_search_icon.png);
 	background-repeat: no-repeat;
 	background-size : 100% 100%;
 }
 
 .ui-icon-deleteSearch {
-	background-image: url(images/00_Edit_Field_clear.png);
+	background-image: url(images/controls/00_field_btn_clear.png);
 	background-repeat: no-repeat;
 	background-size : 100% 100%;
 }
+

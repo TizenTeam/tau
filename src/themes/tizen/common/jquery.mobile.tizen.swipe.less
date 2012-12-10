@@ -1,0 +1,49 @@
+@import "config.less";
+
+@list-li-padding-horizontal: 16 * @unit_base;
+
+.ui-swipe {
+	list-style-type: none;
+}
+
+.ui-swipe-item {
+	height: 26 * @unit_base;
+	-ms-user-select: none;
+	-o-user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-user-select: none;
+
+	text-align : center;
+
+	.ui-btn {
+		margin-top: -1.5em ! important;
+		position: relative ! important;
+	}
+}
+
+.ui-swipe-item-cover {
+	position: absolute;
+	border: none;
+	top: 0%;
+	left: 0%;
+	width: 100%;
+	height: 100%;
+	z-index: 100;
+
+	.ui-swipe-item-cover-inner {
+		position : absolute;
+		padding-top : 15 * @unit_base;
+		padding-bottom : 15 * @unit_base;
+		padding-left : 8 * @unit_base;
+
+		width : 100%;
+
+		text-align : left;
+
+		.ui-li-text-sub {
+			position : absolute;
+			padding-right : 16 * @unit_base;
+		}
+	}
+}

@@ -1,0 +1,34 @@
+From 294d4afac6c0e00dd1489ad8b23cde0bae0cf459 Mon Sep 17 00:00:00 2001
+From: Minkyu Kang <mk7.kang@samsung.com>
+Date: Mon, 26 Nov 2012 19:41:07 +0900
+Subject: [PATCH] JQM: Prevent blinking on page transition
+
+Signed-off-by: Minkyu Kang <mk7.kang@samsung.com>
+Signed-off-by: Youmin Ha <youmin.ha@samsung.com>
+---
+ .../js/jquery.mobile.transition.js                 |    9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.transition.js b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.transition.js
+index 8eb43b0..cb7c9a7 100644
+--- a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.transition.js
++++ b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.transition.js
+@@ -31,6 +31,15 @@ var createHandler = function( sequential ) {
+ 				$.mobile.pageContainer.toggleClass( "ui-mobile-viewport-transitioning viewport-" + name );
+ 			},
+ 			scrollPage = function() {
++				// Prevent blinking on page scrolling in Tizen/Android devices.
++				// Don't scoll window, when current scroll top(scrollTop()) is already at toScroll,
++				// or when current scroll top is 0 and toScroll is same to defaultHomeScroll
++				// (which means the top position of page). In these case, page scrolling is not needed.
++				var st = $( window ).scrollTop();
++				if( st === toScroll || ( $.mobile.defaultHomeScroll === toScroll && st == 0 ) ) {
++					return;
++				}
++
+ 				// By using scrollTo instead of silentScroll, we can keep things better in order
+ 				// Just to be precautios, disable scrollstart listening like silentScroll would
+ 				$.event.special.scrollstart.enabled = false;
+-- 
+1.7.9.5
+

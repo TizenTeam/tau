@@ -94,44 +94,51 @@
 
 	> .ui-btn{
 		position : absolute;
-		top : 19 * @unit_base;
+		top : 16 * @unit_base;
 		margin-top : 0px;
 
-		height : 32 * @unit_base;
-		width : 32 * @unit_base;
+		height : 34 * @unit_base;
+		width : 34 * @unit_base;
 
 		background: transparent;
-		color	: red;
-
+		color	: @color_bar_title_button_text;
 	}
 
-	> .ui-btn.ui-btn-right:nth-child(2) {
+	> .ui-btn.ui-btn-icon_only {
+		-o-border-radius : 0px;
+		-ms-border-radius : 0px;
+		-moz-border-radius : 0px;
+		-webkit-border-radius : 0px;
+		border-radius : 0px;
+	}
+
+	> .ui-btn:nth-child(2) {
+		right : 13 * @unit_base;
+	}
+
+	> .ui-btn:nth-child(3) {
+		right : 56 * @unit_base;
+	}
+
+	> img + h1 + a.ui-btn:nth-child(3) {
+		right : 13 * @unit_base;
+	}
+
+	> img + h1 + a.ui-btn:nth-child(4) {
+		right : 56 * @unit_base;
+	}
+
+	> img + h1 + span.ui-title-text-sub + a.ui-btn:nth-child(4) {
 		right : 11 * @unit_base;
 	}
 
-	> .ui-btn.ui-btn-right:nth-child(3) {
-		right : 58 * @unit_base;
-	}
-
-	> img + h1 + a.ui-btn.ui-btn-right:nth-child(3) {
-		right : 11 * @unit_base;
-	}
-
-	> img + h1 + a.ui-btn.ui-btn-right:nth-child(4) {
-		right : 58 * @unit_base;
-	}
-
-	> img + h1 + span.ui-title-text-sub + a.ui-btn.ui-btn-right:nth-child(4) {
-		right : 11 * @unit_base;
-	}
-
-	> img + h1 + span.ui-title-text-sub + a.ui-btn.ui-btn-right:nth-child(5) {
+	> img + h1 + span.ui-title-text-sub + a.ui-btn:nth-child(5) {
 		right : 58 * @unit_base;
 	}
 
 	> .ui-btn.ui-btn-down-s {
 		background : @color_bar_btn_press;
-		color : @color_bar_title_text;
+		color : @color_bar_title_button_text_press;
 	}
 	
 	&.ui-title-multiline {
@@ -185,6 +192,11 @@
 			box-shadow: none;
 		}
 	}
+	>[data-role="button"] {
+		font-size : 15 * @unit_base;
+		font-weight : bold;
+		color : @color_controlbar_btn_normal;
+	}
 
 	[data-role="controlgroup"] {
 		width : 245 * @unit_base; /* temp value */
@@ -200,7 +212,7 @@
 			width : 77 * @unit_base;
 
 			border-style : solid;
-			border-color : black;
+			border-color : @color_bar_divider_line;
 			border-top-width : 0px;
 			border-bottom-width : 0px;
 			border-left-width : 1px;
@@ -208,6 +220,24 @@
 
 			border-radius : 0px;
 			box-shadow : none;
+
+			padding : 0px;
+			margin-left : -10 * @unit_base;
+			margin-right : 1px;
+
+			&.ui-btn-down-s, .ui-btn-active-s {
+				.ui-btn-inner {
+					background : @color_bg;
+					.ui-btn-text {
+						color : @color_bar_title_text;
+					}
+				}
+			}
+
+			>.ui-btn-inner {
+				border : 0px solid;
+				box-shadow : none;
+			}
 			.ui-btn-text {
 				font-size : 17 * @unit_base;
 				color : rgba(58, 58, 58, 1);
@@ -233,21 +263,8 @@
 ***************************************************************************/
 .ui-content {
 	position : relative;
-	top : 55  * @unit_base;
+	top : 0;
 }
-
-.ui-title-content-normal-height {
-	top : 55  * @unit_base;
-}
-
-.ui-title-content-multi-controlbar-height {
-	top : 75  * @unit_base;
-}
-
-.ui-title-content-search {
-	top : 111  * @unit_base;
-}
-
 
 /***************************************************************************
                     Content Top calculate
@@ -451,17 +468,17 @@ a.ui-link-inherit {
 }
 
 .ui-btn-up-s {
-	.ui-icon-header-back-btn { background-image: url(images/00_icon_Back.png); }
-	.ui-icon-naviframe-more { background-image: url(images/00_icon_more.png); }
-	.ui-icon-naviframe-cancel { background-image: url(images/00_icon_cancel.png); }
-	.ui-icon-naviframe-edit { background-image: url(images/00_icon_edit.png); }
-	.ui-icon-naviframe-plus { background-image: url(images/00_icon_plus.png); }
+	.ui-icon-header-back-btn { background-image: url(images/page/00_icon_Back.png); }
+	.ui-icon-naviframe-more { background-image: url(images/page/00_icon_more.png); }
+	.ui-icon-naviframe-cancel { background-image: url(images/00_icon_cancel.png); } /* FIXME : check ux if it needs to be deprecated... */
+	.ui-icon-naviframe-edit { background-image: url(images/page/00_icon_edit.png); }
+	.ui-icon-naviframe-plus { background-image: url(images/page/00_icon_plus.png); }
 }
 
 .ui-btn-down-s, .ui-btn-hover-s {
-	.ui-icon-header-back-btn { background-image: url(images/00_icon_Back_press.png); }
-	.ui-icon-naviframe-more { background-image: url(images/00_icon_more_press.png); }
-	.ui-icon-naviframe-cancel { background-image: url(images/00_icon_cancel_press.png); }
-	.ui-icon-naviframe-edit { background-image: url(images/00_icon_edit_press.png); }
-	.ui-icon-naviframe-plus { background-image: url(images/00_icon_plus_press.png); }
+	.ui-icon-header-back-btn { background-image: url(images/page/00_icon_Back_press.png); }
+	.ui-icon-naviframe-more { background-image: url(images/page/00_icon_more_press.png); }
+	.ui-icon-naviframe-cancel { background-image: url(images/00_icon_cancel_press.png); } /* FIXME: check ux if it needs to be deprecated.. */
+	.ui-icon-naviframe-edit { background-image: url(images/page/00_icon_edit_press.png); }
+	.ui-icon-naviframe-plus { background-image: url(images/page/00_icon_plus_press.png); }
 }

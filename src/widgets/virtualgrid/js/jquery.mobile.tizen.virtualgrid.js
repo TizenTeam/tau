@@ -40,10 +40,6 @@
  *		data-template :	Has the ID of the jQuery.template element.
  *						jQuery.template for a virtual grid must be defined.
  *						Style for template would use rem unit to support scalability.
- *		data-itemcount : Number of column elements. (Default : 1)
- *						User can select a numeric type or 'auto'.
- *						If value of attribute is 'auto', Number of column is dependent on screen size.
- *						If value of attribute is numeric type, number of column is always fixed.
  *		data-direction : This option define the direction of the scroll.
  *						You must choose one of the 'x' and 'y' (Default : y)
  *		data-rotation : This option defines whether or not the circulation of the data.
@@ -93,7 +89,7 @@
  *					</div>
  *				</div>
  *			</script>
- *			<div id="virtualgrid-demo" data-role="virtualgrid" data-itemcount="3" data-template="tizen-demo-namecard" >
+ *			<div id="virtualgrid-demo" data-role="virtualgrid" data-template="tizen-demo-namecard" >
  *			</div>
  *
  */
@@ -118,7 +114,7 @@
 				</div>
 			</div>
 		</script>
-		<div id="virtualgrid-demo" data-role="virtualgrid" data-itemcount="1" data-template="tizen-demo-namecard">
+		<div id="virtualgrid-demo" data-role="virtualgrid" data-template="tizen-demo-namecard">
 		</div>
 */
 /**
@@ -135,11 +131,6 @@
 	@property {Boolean} data-rotation
 	Defines whether the data elements are displayed from the beginning of the list again once the end of file is reached.
 	The default value is false.
-*/
-/**
-	@property {String} data-itemcount
-	Sets the number of column elements displayed in one row. The value can be a number (when the column number is fixed and displayed as the input value) or auto (when the column number varies and the columns are arranged according to the screen size).
-The default value is 1.
 */
 /**
 	@event scrollstart
@@ -339,7 +330,6 @@ The default value is 1.
 			template : "",
 			direction : "y",
 			rotation : false,
-			itemcount : 1
 		},
 
 		create : function () {
@@ -358,7 +348,7 @@ The default value is 1.
 				_cellSize : undefined,
 				_currentItemCount : 0,
 				_itemCount : 1,
-				_isAuto : false,
+				_isAuto : true,
 
 				// timer
 				_timerInterval : 0,
@@ -410,11 +400,6 @@ The default value is 1.
 
 			// set a scroll direction.
 			self._direction = opts.direction === 'x' ? true : false;
-
-			// itemcount is assigned 'auto'
-			if ( typeof opts.itemcount === "string" && opts.itemcount.toUpperCase() == "AUTO" ) {
-				self._isAuto = true;
-			}
 
 			// make view layer
 			self._$clip = $(self.element).addClass("ui-scrollview-clip").addClass("ui-virtualgrid-view");
@@ -545,11 +530,8 @@ The default value is 1.
 				totalRowCnt = 0,
 				attributeName = self._direction ? "width" : "height";
 
-			if ( self._isAuto ) {
-				columnCount = self._calculateColumnCount();
-			} else {
-				columnCount = self.options.itemcount;
-			}
+			columnCount = self._calculateColumnCount();
+
 			totalRowCnt = parseInt(self._numItemData / columnCount , 10 );
 			self._totalRowCnt = self._numItemData % columnCount === 0 ? totalRowCnt : totalRowCnt + 1;
 			self._itemCount = columnCount;

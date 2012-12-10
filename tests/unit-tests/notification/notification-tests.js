@@ -18,20 +18,20 @@
 		notification = widget.children( elem );
 		ok( notification, "Create" );
 
-		/* Show */
-		widget.notification("show");
+		/* Open */
+		widget.notification("open");
 
 		notification = widget.children( elem );
-		ok( notification.hasClass("show"), "API: show" );
+		ok( notification.hasClass("show"), "API: open" );
 
-		/* Hide */
-		widget.notification("hide");
+		/* Close */
+		widget.notification("close");
 
 		notification = widget.children( elem );
-		ok( notification.hasClass("hide"), "API: hide" );
+		ok( notification.hasClass("hide"), "API: close" );
 
 		/* hide when click */
-		widget.notification("show");
+		widget.notification("open");
 		notification = widget.children( elem );
 		notification.trigger("vmouseup");
 

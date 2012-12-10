@@ -20,8 +20,7 @@ cd `dirname $0`/../
 CWD=`pwd`
 
 # clean-up current git head
-rm -rf *
-git co .
+git reset --hard HEAD
 
 # make temp dir
 tmpdir=`mktemp -d`
@@ -39,6 +38,8 @@ do
 	git clone ssh://${account}@${s} $n || err "git clone failure"
 
 	cd $tmpdir/$n
+	rm -rf *
+	git checkout .
 	git fetch origin $b:$b
 	git checkout $b
 

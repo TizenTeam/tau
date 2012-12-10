@@ -1,5 +1,6 @@
 ( function ( $, window ) {
-	$( document ).ready( function () {
+
+	$( "#mapview-demo-page" ).bind( "pageshow", function ( e ) {
 		var mapView = $( "#sampleMap" ),
 			menuPopup = $( "#map_menu_popup" ),
 			routeFromButton = $( "#routeFrom" ),
@@ -30,7 +31,7 @@
 
 				mapView.mapview( "append", measureShape, length.toFixed( 2 ) + "m" );
 				resultPopup.find( "p" ).text( "Route distance = " +  displayLength );
-				resultPopup.popupwindow( "open" );
+				resultPopup.popup( "open" );
 			},
 			checkRoute = function ( role ) {
 				menuPopup.popupwindow( "close" );
@@ -48,9 +49,15 @@
 					}
 				};
 
-				mapView.mapview( "append", routePoints[ role ], {
-					markerColor: ( role === "from" ? "red" : "blue" )
-				});
+				if ( role === "from" ) {
+					mapView.mapview( "append", routePoints[ role ], {
+						markerColor: "blue"
+					});
+				} else {
+					mapView.mapview( "append", routePoints[ role ], {
+						markerColor: "red"
+					});
+				}
 
 				if ( routePoints.from && routePoints.to ) {
 					measureRoute();
@@ -95,13 +102,13 @@
 						zoom : 15
 					});
 					resultPopup.find( "p" ).text( results.display_name );
-					resultPopup.popupwindow( "open" );
+					resultPopup.popup( "open" );
 				}
 			});
 		});
 
 		closeButton.bind( "vclick", function ( e ) {
-			resultPopup.popupwindow( "close" );
+			resultPopup.popup( "close" );
 		});
 
 		resultPopup.bind( "popupafterclose", function ( e ) {
@@ -110,4 +117,5 @@
 			routePoints.from = routePoints.to = null;
 		});
 	});
+
 } ( jQuery, window ) );

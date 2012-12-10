@@ -36,7 +36,7 @@
  *			data-controls : If this value is 'true', widget will use belonging controller.
  *				If this value is 'false', widget will use browser`s controller.
  *				Default value is 'true'.
- *			data-fullscreen : Set a status that fullscreen when inital start.
+ *			data-full-screen : Set a status that full-screen when inital start.
  *				Default value is 'false'.
  *
  * APIs:
@@ -48,11 +48,8 @@
  *					: Get or set the height of widget.
  *					The first argument is the height of widget.
  *					If no first argument is specified, will act as a getter.
- *			size( number, number )
- *					: Set a size of widget and resize a widget.
- *					 The first argument is width and second argument is height.
- *			fullscreen( [boolean] )
- *					: Get or Set the status of fullscreen.
+ *			fullScreen( [boolean] )
+ *					: Get or Set the status of full-screen.
  *					If no first argument is specified, will act as a getter.
  *
  * Events:
@@ -81,7 +78,7 @@
 	To add a multimedia view widget to the application, use the following code:
 	
 		// Video player control
-		<video data-controls="true" style="width:100%;" data-theme="c">
+		<video data-controls="true" style="width:100%;">
 		<source src="<VIDEO_FILE_URL>" type="video/mp4" /> Your browser does not support the video tag. </video>
 		// Audio player control
 		<audio data-controls="true" style="width:100%;"> <source src="<AUDIO_FILE_URL>" type="audio/mp3" /> Your browser does not support the audio tag.
@@ -102,7 +99,7 @@
 	The default value is true. If the value is set to true, the widget uses its own player controls. If the value is set to false, the widget uses the browser's player controls.
 */
 /**
-	@property {Boolean} data-fullscreen
+	@property {Boolean} data-full-screen
 	Defines whether the widget opens in the fullscreen view mode.
 	The default value is false.
 */
@@ -114,7 +111,7 @@
 /**
 	@method width
 	The width method is used to get (if no value is defined) or set the multimedia view widget width:
-		<video data-fullscreen="true">
+		<video>
 			 <source src="test.mp4" type="video/mp4" />
 		</video>
 		$(".selector").multimediaview("width", [value]);
@@ -122,34 +119,26 @@
 /**
 	@method height
 	The height method is used to get (if no value is defined) or set the multimedia view widget height:
-		<video data-fullscreen="true">
+		<video>
 			<source src="test.mp4" type="video/mp4" />
 		</video>
 		$(".selector").multimediaview("height", [value]);
 */
 /**
-	@method size
-	The size method is used to set the size of the multimedia view widget using the width and height parameters:
-		<video data-fullscreen="true">
-			<source src="test.mp4" type="video/mp4" />
-		</video>
-		$(".selector").multimediaview("size", width, height);
-*/
-/**
-	@method fullscreen
-	The fullscreen method is used to get (if no value is defined) or set the fullscreen mode of the multimedia view widget. If the value is true, the fullscreen mode is used; otherwise the multimedia view widget runs in the normal mode.
+	@method fullScreen
+	The fullScreen method is used to get (if no value is defined) or set the full-screen mode of the multimedia view widget. If the value is true, the full-screen mode is used; otherwise the multimedia view widget runs in the normal mode.
 
-		<video data-fullscreen="true">
+		<video>
 			<source src="test.mp4" type="video/mp4" />
 		</video>
-		$(".selector").multimediaview("fullscreen", [value]);
+		$(".selector").multimediaview("fullScreen", [value]);
 */
 ( function ( $, document, window, undefined ) {
 	$.widget( "tizen.multimediaview", $.mobile.widget, {
 		options : {
 			theme : null,
 			controls : true,
-			fullscreen : false,
+			fullScreen : false,
 			initSelector : "video, audio"
 		},
 		_create : function () {
@@ -217,7 +206,7 @@
 				});
 
 				// for maintaining page layout
-				if ( !option.fullscreen ) {
+				if ( !option.fullScreen ) {
 					$( ".ui-footer:visible" ).show();
 				} else {
 					$( ".ui-footer" ).hide();
@@ -235,7 +224,7 @@
 				viewHeight = 0,
 				viewOffset = null;
 
-			this._resizeFullscreen( this.options.fullscreen );
+			this._resizeFullscreen( this.options.fullScreen );
 			viewWidth = ( ( view[0].nodeName === "VIDEO" ) ? view.width() : parent.width() );
 			viewHeight = ( ( view[0].nodeName === "VIDEO" ) ? view.height() : control.height() );
 			viewOffset = view.offset();
@@ -441,7 +430,7 @@
 			});
 
 			fullscreenButton.bind( "vclick.multimediaview", function ( e ) {
-				self.fullscreen( !self.options.fullscreen );
+				self.fullScreen( !self.options.fullScreen );
 				control.fadeIn( "fast" );
 				self._endTimer();
 				e.preventDefault();
@@ -745,14 +734,7 @@
 				self._resize();
 			}
 		},
-		size : function ( width, height ) {
-			var self = this,
-				view = self.element;
-
-			view.width( width ).height( height );
-			self._resize();
-		},
-		fullscreen : function ( value ) {
+		fullScreen : function ( value ) {
 			var self = this,
 				view = self.element,
 				control = view.parent().find( ".ui-multimediaview-control" ),
@@ -762,12 +744,12 @@
 				currentPage = $( ".ui-page-active" );
 
 			if ( args.length === 0 ) {
-				return option.fullscreen;
+				return option.fullScreen;
 			}
 			if ( args.length === 1 ) {
 				view.parents( ".ui-content" ).scrollview( "scrollTo", 0, 0 );
 
-				this.options.fullscreen = value;
+				this.options.fullScreen = value;
 				if ( value ) {
 					currentPage.children( ".ui-header" ).hide();
 					currentPage.children( ".ui-footer" ).hide();

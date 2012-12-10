@@ -53,3 +53,12 @@ jLayout (http://www.bramstein.com/projects/jlayout/) [BSD license]
 jSizes (http://www.bramstein.com/projects/jsizes/) [BSD license]
 
 Globalize (http://github.com/jquery/globalize/) [MIT license]
+
+jQuery Geo (http://jquerygeo.com/)
+	AppGeo/geo
+	(c) 2007-2011, Applied Geographics, Inc. All rights reserved.
+	Dual licensed under the MIT or GPL Version 2 licenses.
+	http://jquery.org/license
+
+jQuery Mouse Wheel Plugin (https://github.com/brandonaaron/jquery-mousewheel) [MIT license]
+JsRender (https://github.com/BorisMoore/jsrender) [MIT license]

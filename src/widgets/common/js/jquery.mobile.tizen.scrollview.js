@@ -296,6 +296,18 @@
 		},
 
 		_setBouncing: function ( $ele, dir ) {
+			var scroll_height = this._getViewHeight() - this._$clip.height();
+
+			if ( this._softkeyboard ) {
+				if ( this._bouncing_dir ) {
+					this._outerScroll( -scroll_height - this._softkeyboardHeight,
+							scroll_height );
+				} else {
+					this._outerScroll( this._softkeyboardHeight, scroll_height );
+				}
+				return;
+			}
+
 			if ( dir === "in" ) {
 				if ( this._bouncing ) {
 					return;
@@ -950,7 +962,7 @@
 		},
 
 		_resetOverflowIndicator: function () {
-			if ( !this.options.overflowEnable || !this._overflowAvail ) {
+			if ( !this.options.overflowEnable || !this._overflowAvail || this._softkeyboard ) {
 				return;
 			}
 
@@ -981,7 +993,7 @@
 		},
 
 		_showOverflowIndicator: function () {
-			if ( !this.options.overflowEnable || !this._overflowAvail ) {
+			if ( !this.options.overflowEnable || !this._overflowAvail || this._softkeyboard ) {
 				return;
 			}
 
@@ -1004,7 +1016,7 @@
 			var opacity_top,
 				opacity_bottom;
 
-			if ( !this.options.overflowEnable || !this._overflowAvail ) {
+			if ( !this.options.overflowEnable || !this._overflowAvail || this._softkeyboard ) {
 				return;
 			}
 
@@ -1141,6 +1153,44 @@
 				}, 260 );
 
 				self._view_height = view_h;
+			});
+
+			$( window ).bind( "vmouseout", function ( e ) {
+				var drag_stop = false;
+
+				if ( $(".ui-page-active").get(0) !== $c.closest(".ui-page").get(0) ) {
+					return;
+				}
+
+				if ( !self._dragging ) {
+					return;
+				}
+
+				if ( e.pageX < 0 || e.pageX > $( window ).width() ) {
+					drag_stop = true;
+				}
+
+				if ( e.pageY < 0 || e.pageY > $( window ).height() ) {
+					drag_stop = true;
+				}
+
+				if ( drag_stop ) {
+					self._hideScrollBars();
+					self._hideOverflowIndicator();
+					self._disableTracking();
+				}
+			});
+
+			this._softkeyboard = false;
+			this._softkeyboardHeight = 0;
+
+			window.addEventListener( "softkeyboardchange", function ( e ) {
+				if ( $(".ui-page-active").get(0) !== $c.closest(".ui-page").get(0) ) {
+					return;
+				}
+
+				self._softkeyboard = ( e.state === "on" ? true : false );
+				self._softkeyboardHeight = e.height;
 			});
 
 			$c.closest(".ui-page")

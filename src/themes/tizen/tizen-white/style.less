@@ -11,7 +11,10 @@
                    Naviframe
 ***************************************************************************/
 @color_bar_title_text : rgba(59, 115, 182, 1); /* #3b73b6 */ /* title text */
-@color_bar_btn_press : rgba(0, 0, 0, 0.1);
+@color_bar_title_button_text : rgba(58, 58, 58, 1); 				/* B052L4 : Title text button */
+@color_bar_title_button_text_press : rgba(59, 115, 182, 1);	/* B052L5 : Title text button press */
+@color_bar_btn_press : rgba(64, 147, 247, 0.1);							/* B052L1P : Title text button press bg */
+@color_bar_divider_line : rgba(192, 192, 192, 1);						/* 00_divider_line.9.png */
 
 
 /***************************************************************************
@@ -54,15 +57,26 @@
 @color_list_bubble_help_text:	rgb(154, 154, 154);
 @color_list_bubble_link_text:	rgb(34, 129, 157);
 
+@list-font-size-main:	22 * @unit_base;
+@list-font-size-sub:	16 * @unit_base;
+@list-font-size-divider: 16 * @unit_base;	// NOTE: defined in dialogue group
+
+@list-font-weight:		normal;
+
+@list-smallicon-size: 17 * @unit_base;
+@list-li-padding-horizontal: 8 * @unit_base;
+
+@list-bigicon-size: 64 * @unit_base;
+@list-bigicon-size2: 72 * @unit_base;
 
 /***************************************************************************
                    Shortcut Scroll
 ***************************************************************************/
-@color_shortcutscroll_rollover_bg: rgba(230, 227, 216, 1);		/* B0723 : 00_fast_scroll_rollover_bg.9.png */
-@color_shortcutscroll_rollover_text: rgba(160, 159, 154, 1);	/* B0721 : Rollover text */
-@color_shortcutscroll_popup_bg: rgba(59, 115, 182, 1);				/* B0731 : 00_fast_scroll_popup_bg.png */
-@color_shortcutscroll_popup_shadow: rgba(199, 199, 199, 0.5);
-@color_shortcutscroll_popup_text: rgba(255, 255, 255, 1);			/* B0732 : Scroll popup text */
+@color_fastscroll_rollover_bg: rgba(230, 227, 216, 1);		/* B0723 : 00_fast_scroll_rollover_bg.9.png */
+@color_fastscroll_rollover_text: rgba(160, 159, 154, 1);	/* B0721 : Rollover text */
+@color_fastscroll_popup_bg: rgba(59, 115, 182, 1);				/* B0731 : 00_fast_scroll_popup_bg.png */
+@color_fastscroll_popup_shadow: rgba(199, 199, 199, 0.5);
+@color_fastscroll_popup_text: rgba(255, 255, 255, 1);			/* B0732 : Scroll popup text */
 
 
 /***************************************************************************
@@ -71,6 +85,7 @@
 @color_searchbar_bg : rgba(248, 246, 239, 1);
 @color_searchbar_default_text : rgba(121, 131, 138, 1); /* Search default text */
 @color_searchbar_input_field_bg : rgba(255, 255, 255, 1); /* W301 : 00_search_edit_field_bg.png */
+@color_searchbar_border : rgba(153, 153, 153, 1);
 
 
 /***************************************************************************
@@ -83,11 +98,12 @@
 /***************************************************************************
                         Button(connected with other winset)
 ***************************************************************************/
-@color_button_EditText:         rgb(61, 61, 61);
+@color_button_EditText:         rgb(249, 249, 249);
 @color_button_EditTextPress:    rgb(61, 61, 61);
 
 @color_button_text_normal:      rgb(54, 49, 51);
 @color_button_text_press:       rgb(248, 246, 239);
+@color_button_text_white:       rgb(249, 249, 249);
 
 @color_button_normal:           rgb(235, 232, 227);
 @color_button_normal_webkit:    -webkit-linear-gradient(top, rgb(235, 232, 227), rgb(234, 231, 226));
@@ -105,6 +121,10 @@
 @button_shadow_outer:              0 0 1px 1px rgba(255, 255, 255, 1);
 @button_shadow_inner:		none;
 
+@color_button_edit:			rgb(201, 88, 88);
+@color_button_edit_webkit:		-webkit-gradient(linear, left top, left bottom, from(rgb(201, 88, 88)), to(rgb(161, 40, 40)));
+@color_button_edit_moz:			-moz_linear-gradient(top, rgb(201, 88, 88), rgb(161, 40, 40));
+
 .LESSbutton_box_style{
         color: @color_button_text_normal;
 }
@@ -118,11 +138,11 @@
 }
 
 .LESSbutton_box_style{
-        background: @color_button_normal;
-        background: @color_button_normal_webkit;
-        background: @color_button_normal_moz;
-        background: @color_button_normal_o;
-        background: @color_button_normal_ms;
+	background: @color_button_normal;
+	background: @color_button_normal_webkit;
+	background: @color_button_normal_moz;
+	background: @color_button_normal_o;
+	background: @color_button_normal_ms;
 	border: 1px solid;
 	border-color: rgba(220, 218, 211, 1);
 	.LESSbox-shadow-line( @button_shadow_outer );
@@ -156,6 +176,11 @@
         color: @color_button_text_press;
 }
 
+.LESSbutton_edit_style{
+	background: @color_button_edit;
+	background: @color_button_edit_webkit;
+	background: @color_button_edit_moz;
+}
 
 /***************************************************************************
                         contextual popup
@@ -306,8 +331,6 @@
 ***************************************************************************/
 
 @color_button_text_black:	rgb(0, 0, 0);
-@color_button_text_white:	rgb(249, 249, 249);
-@color_button_text_press: 	rgb(249, 249, 249);
 
 @color_circlebutton_hover:		rgb(239, 119, 126);
 @color_circlebutton_hover_webkit:	-webkit-gradient(linear, left top, left bottom, from(rgb(198, 78, 85)), to(rgb(166, 43, 45)));
@@ -330,10 +353,6 @@
 
 @radius_button_switch: 4px;
 @radius_button_switch_reed: 2px;
-
-@color_button_edit:			rgb(201, 88, 88);
-@color_button_edit_webkit:		-webkit-gradient(linear, left top, left bottom, from(rgb(201, 88, 88)), to(rgb(161, 40, 40)));
-@color_button_edit_moz:			-moz_linear-gradient(top, rgb(201, 88, 88), rgb(161, 40, 40));
 
 @color_button_edit_press:		rgb(147, 24, 24);
 @color_button_edit_press_webkit:	-webkit-gradient(linear, left top, left bottom, from(rgb(147, 24,24)), to(rgb(110, 23, 23)));
@@ -366,13 +385,6 @@
 	border-radius: @radius_button_switch_reed;
 	-webkit-border-radius: @radius_button_switch_reed;
 	-moz-border-radius: @radius_button_switch_reed;
-}
-
-.LESSbutton_edit_style{
-	background: @color_button_edit;
-	background: @color_button_edit_webkit;
-	background: @color_button_edit_moz;
-	color: rgb(249, 249, 249);
 }
 
 .LESSbutton_editpress_style{
@@ -444,52 +456,21 @@
 
 
 /***************************************************************************
-                   Color widgets
+                   tokentextarea
 ***************************************************************************/
-@color_widgets_title_bg: rgb(235, 239, 241);
-@color_widgets_basic_border: rgb(192, 192, 192);
-@color_widgets_left_border: rgb(108, 168, 199);
-
-.LESScolortitle_background_style{
-        background-color: @color_widgets_title_bg;
-        border: 1px solid;
-        border-color: @color_widgets_basic_border;
-        border-left: 6px solid;
-        border-left-color: @color_widgets_left_border;
-}
-
-.LESShsvpicker_background_style{
-        background-color: @color_widgets_title_bg;
-        border: 1px solid;
-        border-color: @color_widgets_basic_border;
-        border-left: 6px solid;
-        border-left-color: @color_widgets_left_border;
-}
-
-.LESSpalette_background_style{
-        background-color: @color_widgets_title_bg;
-        border: 1px solid;
-        border-top: 6px solid;
-        border-color: @color_widgets_basic_border;
-}
-
-
-/***************************************************************************
-                   multibutton entry
-***************************************************************************/
-@color_multibuttonentry_block_text : rgb(255, 255, 255);
-@color_multibuttonentry_block_bg : rgb(95, 138, 189);
-@color_multibuttonentry_press_bg : rgb(54, 89, 132);
-@color_multibuttonentry_input_text : #222222;
-@color_multibuttonentry_link : rgb(186, 185, 180);
-@color_multibuttonentry_label_text : rgb(102, 102, 102);
+@color_tokentextarea_block_text : rgb(255, 255, 255);
+@color_tokentextarea_block_bg : rgb(95, 138, 189);
+@color_tokentextarea_press_bg : rgb(54, 89, 132);
+@color_tokentextarea_input_text : #222222;
+@color_tokentextarea_link : rgb(186, 185, 180);
+@color_tokentextarea_label_text : rgb(102, 102, 102);
 
 
 /***************************************************************************
                    mapview
 ***************************************************************************/
-@color_mapview_button_bg : rgb(141, 141, 141);
-@color_mapview_button : rgb(128, 128, 128);
+@color_mapview_button_bg : rgb(248, 246, 239);
+@color_mapview_button_border : rgb(186, 185, 180);
 @color_mapview_zoom_active : rgb(42, 137, 194);
-@color_mapview_zoom_gray : rgb(178, 178, 178);
+@color_mapview_zoom_gray : rgb(204, 202, 196);
 @color_mapview_zoom_handle : rgb(249, 249, 249);

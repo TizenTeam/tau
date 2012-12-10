@@ -32,30 +32,23 @@
 			widget.multimediaview( "height", height );
 			equal( height, widget.height(), "API: height" );
 
-			/* size */
-			width = 256;
-			height = 512;
-			widget.multimediaview( "size", width, height );
-			equal( "width : " + widget.width() + ", height : " + widget.height(),
-				"width : " + width + ", height : " + height, "API: size" );
-
 			/* fullscreen */
 			fullscreenButton = widget.parent().find( ".ui-fullscreenbutton" );
 
-			widget.multimediaview( "fullscreen", true );
-			ok( fullscreenButton.hasClass( "ui-fullscreen-off" ), "API: fullscreen (on)" );
+			widget.multimediaview( "fullScreen", true );
+			ok( fullscreenButton.hasClass( "ui-fullscreen-off" ), "API: fullScreen (on)" );
 
-			widget.multimediaview("fullscreen", false );
-			ok( fullscreenButton.hasClass( "ui-fullscreen-on" ), "API: fullscreen (off)" );
+			widget.multimediaview( "fullScreen", false );
+			ok( fullscreenButton.hasClass( "ui-fullscreen-on" ), "API: fullScreen (off)" );
 		}
 	};
 
 	test( "video", function () {
-		unit_multimediaview( $("#video"), "video" );
+		unit_multimediaview( $( "#video" ), "video" );
 	});
 
 	test( "audio", function () {
-		unit_multimediaview( $("#audio"), "audio" );
+		unit_multimediaview( $( "#audio" ), "audio" );
 	});
 
 }( jQuery ));

@@ -1,0 +1,80 @@
+From 189014d78087fa36d63f399a0fb756b61252a4dc Mon Sep 17 00:00:00 2001
+From: "hjnim.kim" <hjnim.kim@samsung.com>
+Date: Mon, 26 Nov 2012 20:22:14 +0900
+Subject: [PATCH] JQM: Applied Tizen Button Style
+
+Signed-off-by: hjnim.kim <hjnim.kim@samsung.com>
+---
+ .../js/jquery.mobile.buttonMarkup.js               |   56 ++++++++++++++++++++
+ 1 files changed, 56 insertions(+), 0 deletions(-)
+
+diff --git a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.buttonMarkup.js b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.buttonMarkup.js
+index 3d7d884..0be6999 100644
+--- a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.buttonMarkup.js
++++ b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.buttonMarkup.js
+@@ -80,6 +80,62 @@ $.fn.buttonMarkup = function( options ) {
+ 		buttonClass += o.shadow ? " ui-shadow" : "";
+ 		buttonClass += o.corners ? " ui-btn-corner-all" : "";
+ 
++		// To distinguish real buttons
++		if( el.jqmData("role") == "button" || e.tagName == "BUTTON" || e.tagName == "DIV" ){
++			buttonClass += " ui-btn-box-" + o.theme;
++		}
++
++		/* TIZEN style markup */
++		buttonStyle = el.jqmData("style");
++
++		if ( buttonStyle == "circle" ) {
++			/* style : no text, Icon only */
++			buttonClass += " ui-btn-corner-circle";
++			buttonClass += " ui-btn-icon_only";
++		} else if ( buttonStyle == "nobg" ) {
++			/* style : no text, Icon only, no bg */
++			buttonClass += " ui-btn-icon-nobg";
++			buttonClass += " ui-btn-icon_only";
++		} else if ( buttonStyle == "edit" ) {
++			buttonClass += " ui-btn-edit";
++		}
++
++		if ( o.icon ) {
++			if ( $(el).text().length > 0 ) {
++				/* o.iconpos == "right" ?
++					textClass += " ui-btn-text-padding-right" :
++					textClass += " ui-btn-text-padding-left"; */
++
++				switch ( o.iconpos ) {
++				case "right" :
++				case "left" :
++				case "top" :
++				case "bottom" :
++					textClass += " ui-btn-text-padding-" + o.iconpos;
++					break;
++				default:
++					textClass += " ui-btn-text-padding-left";
++					break;
++				}
++
++				innerClass += " ui-btn-hastxt";
++			} else {
++				if ( buttonStyle == "circle" ) {
++					/* style : no text, Icon only */
++					innerClass += " ui-btn-corner-circle";
++				} else if ( buttonStyle == "nobg" ) {
++					/* style : no text, Icon only, no bg */
++					innerClass += " ui-btn-icon-nobg";
++				}
++
++				buttonClass += " ui-btn-icon_only";
++				innerClass += " ui-btn-icon-only";
++			}
++		} else {
++			if ( $(el).text().length > 0 ) {
++				innerClass += " ui-btn-hastxt";
++			}
++		}
+ 		if ( o.mini !== undefined ) {
+ 			// Used to control styling in headers/footers, where buttons default to `mini` style.
+ 			buttonClass += o.mini === true ? " ui-mini" : " ui-fullsize";
+-- 
+1.7.5.4
+

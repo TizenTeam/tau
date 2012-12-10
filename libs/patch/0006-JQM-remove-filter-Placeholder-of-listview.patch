@@ -1,0 +1,26 @@
+From 35f745aec67a96f74d48acba51ae2ec7b6f21ff9 Mon Sep 17 00:00:00 2001
+From: Minkyu Kang <mk7.kang@samsung.com>
+Date: Mon, 26 Nov 2012 19:45:26 +0900
+Subject: [PATCH] JQM: remove filter Placeholder of listview
+
+Signed-off-by: Minkyu Kang <mk7.kang@samsung.com>
+---
+ .../js/widgets/listview.filter.js                  |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/listview.filter.js b/libs/js/jquery-mobile-1.2.0/js/widgets/listview.filter.js
+index 447d354..0774615 100644
+--- a/libs/js/jquery-mobile-1.2.0/js/widgets/listview.filter.js
++++ b/libs/js/jquery-mobile-1.2.0/js/widgets/listview.filter.js
+@@ -9,7 +9,7 @@ define( [ "jquery", "./listview", "./forms/textinput" ], function( $ ) {
+ (function( $, undefined ) {
+ 
+ $.mobile.listview.prototype.options.filter = false;
+-$.mobile.listview.prototype.options.filterPlaceholder = "Filter items...";
++$.mobile.listview.prototype.options.filterPlaceholder = "";
+ $.mobile.listview.prototype.options.filterTheme = "c";
+ // TODO rename callback/deprecate and default to the item itself as the first argument
+ var defaultFilterCallback = function( text, searchValue, item ) {
+-- 
+1.7.9.5
+

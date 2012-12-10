@@ -62,11 +62,11 @@ fieldset.ui-controlgroup {
 	.ui-controlgroup-last {
 		border-bottom-width: 1px;
 	}
-	
+
 	.ui-radio {
 		width : 100%;
 	}
-	
+
 	.ui-radio label {
 		text-align :left;
 		.ui-btn-inner {
@@ -87,5 +87,29 @@ fieldset.ui-controlgroup {
 	}
 	.ui-controlgroup-last {
 		margin-right: 0;
+	}
+
+	[data-role="button"] {
+		border-top : 0px;
+		border-bottom : 0px;
+		border-radius : 0px;
+		box-shadow : none;
+		background : none;
+		margin-left : -10 * @unit_base;
+		&.ui-btn-down-s, .ui-btn-active-s {
+			.ui-btn-inner {
+				background : @color_bg;
+				.ui-btn-text {
+					color : @color_bar_title_text;
+				}
+			}
+		}
+
+		>.ui-btn-inner {
+			border : 0px solid;
+			box-shadow : none;
+			padding-top : 5 * @unit_base;
+			padding-bottom : 5 * @unit_base;
+		}
 	}
 }
