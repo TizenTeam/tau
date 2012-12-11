@@ -348,7 +348,7 @@
 				_cellSize : undefined,
 				_currentItemCount : 0,
 				_itemCount : 1,
-				_isAuto : true,
+				_inheritedSize : null,
 
 				// timer
 				_timerInterval : 0,
@@ -397,6 +397,9 @@
 			if ( !self._loadData(args) ) {
 				return;
 			}
+
+			// read defined properties(width and height) from dom element.
+			self._inheritedSize = self._getinheritedSize(self.element);
 
 			// set a scroll direction.
 			self._direction = opts.direction === 'x' ? true : false;
@@ -519,7 +522,7 @@
 			self._clipSize = self._calculateClipSize();
 			self._calculateColumnSize();
 			self._initPageProperty();
-			self._setScrollBarSize( );
+			self._setScrollBarSize();
 		},
 
 		_initPageProperty : function () {
@@ -563,8 +566,40 @@
 			}
 		},
 
+		_getinheritedSize : function ( elem ) {
+			var $target = $(elem),
+				height,
+				width,
+				ret = {
+					isDefinedWidth : false,
+					isDefinedHeight : false,
+					width : 0,
+					height : 0
+				};
+
+			while ( $target[0].nodeType === Node.ELEMENT_NODE && (ret.isDefinedWidth === false || ret.isHeightDefined === false )) {
+				height = $target[0].style.height;
+				width = $target[0].style.width;
+
+				if (ret.isDefinedHeight === false && height !== "" ) {
+					// Size was defined
+					ret.isDefinedHeight = true;
+					ret.height = parseInt(height, 10);
+				}
+
+				if ( ret.isDefinedWidth === false && width !== "" ) {
+					// Size was defined
+					ret.isDefinedWidth = true;
+					ret.width = parseInt(width, 10);
+				}
+				$target = $target.parent();
+			}
+			return ret;
+		},
+
 		resize : function ( ) {
 			var self = this,
+				ret = null,
 				rowsPerView = 0,
 				itemCount = 0,
 				totalRowCnt = 0,
@@ -574,7 +609,7 @@
 				clipPosition = 0;
 
 			itemCount = self._calculateColumnCount();
-			if ( self._isAuto && itemCount != self._itemCount ) {
+			if ( itemCount != self._itemCount ) {
 				totalRowCnt = parseInt(self._numItemData / itemCount , 10 );
 				self._totalRowCnt = self._numItemData % itemCount === 0 ? totalRowCnt : totalRowCnt + 1;
 				prevcnt = self._itemCount;
@@ -1083,6 +1118,11 @@
 				$parent = $(self.element).parent(),
 				paddingValue = 0,
 				clipSize = $(window).width();
+
+			if ( self._inheritedSize.isDefinedWidth ) {
+				return self._inheritedSize.width;
+			}
+
 			if ( $parent.hasClass("ui-content") ) {
 				paddingValue = parseInt($parent.css("padding-left"), 10);
 				clipSize = clipSize - ( paddingValue || 0 );
@@ -1102,6 +1142,11 @@
 				footer = null,
 				paddingValue = 0,
 				clipSize = $(window).height();
+
+			if ( self._inheritedSize.isDefinedHeight ) {
+				return self._inheritedSize.height;
+			}
+
 			if ( $parent.hasClass("ui-content") ) {
 				paddingValue = parseInt($parent.css("padding-top"), 10);
 				clipSize = clipSize - ( paddingValue || 0 );
