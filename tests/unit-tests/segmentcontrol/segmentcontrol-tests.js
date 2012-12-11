@@ -1,5 +1,5 @@
 /*
- * controlbar unit tests
+ * segmentcontrol unit tests
  */
 
 (function ($) {

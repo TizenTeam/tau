@@ -4,7 +4,7 @@ var TESTS = {
 		"autodividers",
 		"button",
 		"check",
-		"controlbar",
+		"tabbar",
 		"datetimepicker",
 		"extendablelist",
 		"handler",

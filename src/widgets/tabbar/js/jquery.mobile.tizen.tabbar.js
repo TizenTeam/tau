@@ -20,7 +20,7 @@
  * DEALINGS IN THE SOFTWARE.
  * ***************************************************************************
  *
- * jQuery Mobile Framework : "controlbar" plugin
+ * jQuery Mobile Framework : "tabbar" plugin
  * Copyright (c) jQuery Project
  * Dual licensed under the MIT or GPL Version 2 licenses.
  * http://jquery.org/license
@@ -28,19 +28,19 @@
 */
 
 /**
- *  Controlbar can be created using data-role = "controlbar" inside footer 
- *  Framework determine which controlbar will display with controlbar attribute
+ *  Tabbar can be created using data-role = "tabbar" inside footer 
+ *  Framework determine which tabbar will display with tabbar attribute
  *
  * Examples:
  *         
- *     HTML markup for creating controlbar: ( 2 ~ 5 li item available )
- *     icon can be changed data-icon attribute
+ *     HTML markup for creating tabbar: ( 2 ~ 5 li item available )
+ *     icon can be changed data-icon attribute (customized icon need)
  *         <div data-role="footer" data-position ="fixed">
- *              <div data-role="controlbar">
+ *              <div data-role="tabbar">
  *                     <ul>
- *                            <li><a href="#" data-icon="ctrlbar-menu" class="ui-btn-active">Menu</a></li>
- *                            <li><a href="#" data-icon="ctrlbar-save" >Save</a></li>
- *                            <li><a href="#" data-icon="ctrlbar-share" >Share</a></li>
+ *                            <li><a href="#" class="ui-btn-active">Menu</a></li>
+ *                            <li><a href="#">Save</a></li>
+ *                            <li><a href="#">Share</a></li>
  *                     </ul>
  *             </div>
  *      </div>
@@ -48,20 +48,20 @@
 
 (function ( $, undefined ) {
 
-	$.widget( "tizen.controlbar", $.mobile.widget, {
+	$.widget( "tizen.tabbar", $.mobile.widget, {
 		options: {
 			iconpos: "top",
 			grid: null,
-			initSelector: ":jqmData(role='controlbar')"
+			initSelector: ":jqmData(role='tabbar')"
 		},
 
 		_create: function () {
 
-			var $controlbar = this.element,
-				$ctrlbtns = $controlbar.find( "a" ),
-				iconpos = $ctrlbtns.filter( ":jqmData(icon)" ).length ?
+			var $tabbar = this.element,
+				$tabbtns = $tabbar.find( "a" ),
+				iconpos = $tabbtns.filter( ":jqmData(icon)" ).length ?
 										this.options.iconpos : undefined,
-				textpos = $ctrlbtns.html().length ? true : false,
+				textpos = $tabbtns.html().length ? true : false,
 				theme = $.mobile.listview.prototype.options.theme,	/* Get current theme */
 				ww = window.innerWidth || $( window ).width(),
 				wh = window.innerHeight || $( window ).height(),
@@ -70,103 +70,103 @@
 			isLandscape = ww > wh && ( ww - wh );
 
 			if ( isLandscape ) {
-				$controlbar.removeClass( "ui-portrait-controlbar" ).addClass( "ui-landscape-controlbar" );
+				$tabbar.removeClass( "ui-portrait-tabbar" ).addClass( "ui-landscape-tabbar" );
 			} else {
-				$controlbar.removeClass( "ui-landscape-controlbar" ).addClass( "ui-portrait-controlbar" );
+				$tabbar.removeClass( "ui-landscape-tabbar" ).addClass( "ui-portrait-tabbar" );
 			}
 
 
 /*
-				$controlbar
+				$tabbar
 					.addClass( "ui-navbar" )
 					.attr( "role", "navigation" )
 					.find( "ul" )
 				
 						.grid( { grid: this.options.grid } );
 */
-				$controlbar.addClass( "ui-navbar" )
+				$tabbar.addClass( "ui-navbar" )
 					.find( "ul" )
 					.grid( { grid: this.options.grid } );
-			if ( $controlbar.parents( ".ui-footer" ).length  ) {
-				$controlbar.find( "li" ).addClass( "ui-ctrl-btn-style" );
+			if ( $tabbar.parents( ".ui-footer" ).length  ) {
+				$tabbar.find( "li" ).addClass( "ui-tab-btn-style" );
 			}
 
 
-			/* title controlbar */
-			if ( $controlbar.siblings( ".ui-title" ).length ) {
-				$controlbar.parents( ".ui-header" ).addClass( "ui-title-controlbar" );
+			/* title tabbar */
+			if ( $tabbar.siblings( ".ui-title" ).length ) {
+				$tabbar.parents( ".ui-header" ).addClass( "ui-title-tabbar" );
 			}
 
 			if ( !iconpos ) {
-				$controlbar.addClass( "ui-controlbar-noicons" );
+				$tabbar.addClass( "ui-tabbar-noicons" );
 			}
 			if ( !textpos ) {
-				$controlbar.addClass( "ui-controlbar-notext" );
+				$tabbar.addClass( "ui-tabbar-notext" );
 			}
 			if ( textpos && iconpos ) {
-				$controlbar.parents( ".ui-header" ).addClass( "ui-title-controlbar-multiline" );
+				$tabbar.parents( ".ui-header" ).addClass( "ui-title-tabbar-multiline" );
 			}
 
-			$ctrlbtns.buttonMarkup({
+			$tabbtns.buttonMarkup({
 				corners:	false,
 				shadow:		false,
 				iconpos:	iconpos
 			});
 
-			if ( $controlbar.find( ".ui-state-persist" ).length ) {
-				$controlbar.addClass( "ui-controlbar-persist" );
+			if ( $tabbar.find( ".ui-state-persist" ).length ) {
+				$tabbar.addClass( "ui-tabbar-persist" );
 			}
 
-			$controlbar.delegate( "a", "vclick", function ( event ) {
-				$ctrlbtns.not( ".ui-state-persist" ).removeClass( $.mobile.activeBtnClass );
+			$tabbar.delegate( "a", "vclick", function ( event ) {
+				$tabbtns.not( ".ui-state-persist" ).removeClass( $.mobile.activeBtnClass );
 				$( this ).addClass( $.mobile.activeBtnClass );
 			});
 
-				$controlbar.addClass( "ui-controlbar");
+				$tabbar.addClass( "ui-tabbar");
 
 			$( document ).bind( "pagebeforeshow", function ( event, ui ) {
 				var footer_filter = $( event.target ).find( ":jqmData(role='footer')" ),
-					controlbar_filter = footer_filter.find( ":jqmData(role='controlbar')" ),
-					$elFooterMore = controlbar_filter.siblings( ":jqmData(icon='naviframe-more')" ),
-					$elFooterBack = controlbar_filter.siblings( ".ui-btn-back" );
+					tabbar_filter = footer_filter.find( ":jqmData(role='tabbar')" ),
+					$elFooterMore = tabbar_filter.siblings( ":jqmData(icon='naviframe-more')" ),
+					$elFooterBack = tabbar_filter.siblings( ".ui-btn-back" );
 
 					footer_filter
 						.css( "position", "fixed" )
 						.css( "bottom", 0 )
-						.css( "height", controlbar_filter.height() );
+						.css( "height", tabbar_filter.height() );
 					if ( $elFooterMore.length )
-						controlbar_filter.addClass( "ui-controlbar-margin-more" );
+						tabbar_filter.addClass( "ui-tabbar-margin-more" );
 					if ( $elFooterBack.length )
-						controlbar_filter.addClass( "ui-controlbar-margin-back" );
+						tabbar_filter.addClass( "ui-tabbar-margin-back" );
 			});
 
 			$( document ).bind( "pageshow", function ( e, ui ) {
-				var controlbar_filter = $( ".ui-page-active" ).find( ":jqmData(role='footer')" ).eq( 0 ).find( ":jqmData(role='controlbar')" ),
+				var tabbar_filter = $( ".ui-page-active" ).find( ":jqmData(role='footer')" ).eq( 0 ).find( ":jqmData(role='tabbar')" ),
 					element_width = 0,
-					element_count = controlbar_filter.find( 'li' ).length;
+					element_count = tabbar_filter.find( 'li' ).length;
 
-				if ( controlbar_filter.length ) {
-					element_width = controlbar_filter.find("li:first").width();
-					controlbar_filter.find("li:last").width( controlbar_filter.width() - element_width * ( element_count - 1 ) );
+				if ( tabbar_filter.length ) {
+					element_width = tabbar_filter.find("li:first").width();
+					tabbar_filter.find("li:last").width( tabbar_filter.width() - element_width * ( element_count - 1 ) );
 				}
 			});
 
 			$( window ).bind( "resize", function ( e ) {
-				var controlbar_filter = $( ".ui-page-active" ).find( ":jqmData(role='footer')" ).eq( 0 ).find( ":jqmData(role='controlbar')" ),
+				var tabbar_filter = $( ".ui-page-active" ).find( ":jqmData(role='footer')" ).eq( 0 ).find( ":jqmData(role='tabbar')" ),
 					element_width = 0,
-					element_count = controlbar_filter.find( 'li' ).length;
+					element_count = tabbar_filter.find( 'li' ).length;
 
-				if ( controlbar_filter.length ) {
-					element_width = controlbar_filter.find("li:first").width();
-					controlbar_filter.find("li:last").width( controlbar_filter.width() - element_width * ( element_count - 1 ) );
+				if ( tabbar_filter.length ) {
+					element_width = tabbar_filter.find("li:first").width();
+					tabbar_filter.find("li:last").width( tabbar_filter.width() - element_width * ( element_count - 1 ) );
 				}
 			});
 
-			this._bindControlbarEvents();
+			this._bindTabbarEvents();
 		},
 
-		_bindControlbarEvents: function () {
-			var $controlbar = this.element;
+		_bindTabbarEvents: function () {
+			var $tabbar = this.element;
 
 			$( window ).bind( "orientationchange", function ( e, ui ) {
 				var ww = window.innerWidth || $( window ).width(),
@@ -174,9 +174,9 @@
 					isLandscape = ww > wh && ( ww - wh );
 
 				if ( isLandscape ) {
-					$controlbar.removeClass( "ui-portrait-controlbar" ).addClass( "ui-landscape-controlbar" );
+					$tabbar.removeClass( "ui-portrait-tabbar" ).addClass( "ui-landscape-tabbar" );
 				} else {
-					$controlbar.removeClass( "ui-landscape-controlbar" ).addClass( "ui-portrait-controlbar" );
+					$tabbar.removeClass( "ui-landscape-tabbar" ).addClass( "ui-portrait-tabbar" );
 				}
 			});
 		},
@@ -199,6 +199,6 @@
 
 	//auto self-init widgets
 	$( document ).bind( "pagecreate create", function ( e ) {
-		$( $.tizen.controlbar.prototype.options.initSelector, e.target ).controlbar();
+		$( $.tizen.tabbar.prototype.options.initSelector, e.target ).tabbar();
 	});
 }( jQuery ) );

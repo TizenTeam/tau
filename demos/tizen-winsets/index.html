@@ -67,9 +67,9 @@
 				<li><a href="widgets/pagelayout/barcontrol.html">Header/Footer(fixed/non-fixed) Control</a></li>
 				<li><a href="widgets/pagelayout/backbutton-control.html">Back Button Control</a></li>
 
-				<li data-role="list-divider">Controlbar</li>
-				<li><a href="widgets/controlbar/controlbar.html">Controlbar</a></li>
-				<li><a href="#controlbar_persist_a">Persist toolbar</a></li>
+				<li data-role="list-divider">Tabbar</li>
+				<li><a href="widgets/tabbar/tabbar.html">Tabbar</a></li>
+				<li><a href="#tabbar_persist_a">Persist toolbar</a></li>
 
 				<li data-role="list-divider">Scrollview</li>
 				<li><a href="widgets/scrollview_x.html">Horizontal Scroll</a></li>
@@ -120,15 +120,15 @@
 		</div>
 	</div>
 
-<div data-role="page" id="controlbar_persist_a">
+<div data-role="page" id="tabbar_persist_a">
 	<div data-role="header" data-position="fixed">
-		<div data-role="controlbar" data-id="persist_header" >
+		<div data-role="tabbar" data-id="persist_header" >
 			<ul>
-				<li><a href="#controlbar_persist_a" class="ui-btn-active ui-state-persist">Menu</a></li>
-				<li><a href="#controlbar_persist_b" >Save</a></li>
-				<li><a href="#controlbar_persist_c" >Next</a></li>
+				<li><a href="#tabbar_persist_a" class="ui-btn-active ui-state-persist">Menu</a></li>
+				<li><a href="#tabbar_persist_b" >Save</a></li>
+				<li><a href="#tabbar_persist_c" >Next</a></li>
 			</ul>
-		</div><!-- /controlbar -->
+		</div><!-- /tabbar -->
 	</div>
 
 	<div data-role="content">
@@ -136,15 +136,15 @@
 	</div>
 </div>
 
-<div data-role="page" id="controlbar_persist_b">
+<div data-role="page" id="tabbar_persist_b">
 	<div data-role="header" data-position="fixed">
-		<div data-role="controlbar" data-id="persist_header" >
+		<div data-role="tabbar" data-id="persist_header" >
 			<ul>
-				<li><a href="#controlbar_persist_a" >Menu</a></li>
-				<li><a href="#controlbar_persist_b" class="ui-btn-active ui-state-persist">Save</a></li>
-				<li><a href="#controlbar_persist_c" >Next</a></li>
+				<li><a href="#tabbar_persist_a" >Menu</a></li>
+				<li><a href="#tabbar_persist_b" class="ui-btn-active ui-state-persist">Save</a></li>
+				<li><a href="#tabbar_persist_c" >Next</a></li>
 			</ul>
-		</div><!-- /controlbar -->
+		</div><!-- /tabbar -->
 	</div>
 
 	<div data-role="content">
@@ -152,15 +152,15 @@
 	</div>
 </div>
 
-<div data-role="page" id="controlbar_persist_c">
+<div data-role="page" id="tabbar_persist_c">
 	<div data-role="header" data-position="fixed">
-		<div data-role="controlbar" data-id="persist_header" >
+		<div data-role="tabbar" data-id="persist_header" >
 			<ul>
-				<li><a href="#controlbar_persist_a" >Menu</a></li>
-				<li><a href="#controlbar_persist_b" >Save</a></li>
-				<li><a href="#controlbar_persist_c" class="ui-btn-active ui-state-persist">Next</a></li>
+				<li><a href="#tabbar_persist_a" >Menu</a></li>
+				<li><a href="#tabbar_persist_b" >Save</a></li>
+				<li><a href="#tabbar_persist_c" class="ui-btn-active ui-state-persist">Next</a></li>
 			</ul>
-		</div><!-- /controlbar -->
+		</div><!-- /tabbar -->
 	</div>
 
 	<div data-role="content">
@@ -282,8 +282,7 @@
 	<script src="widgets/pagelayout/barcontrol.js"></script>
 	<script src="widgets/pagelayout/backbutton-control.js"></script>
 	<script src="widgets/list/list-edit.js"></script>
-	<!-- test file for content div control, not completed yet -->
-	<script src="widgets/pagelayout/ctrl-test.js"></script>
 
+	<link rel="stylesheet" href="./widgets/tabbar/tabbar.css" />
 </body>
 </html>

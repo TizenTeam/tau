@@ -1,0 +1,5 @@
+.ui-btn-up-s .ui-icon-tabedit {.tizen-icon-common;	background-image: url(00_tab_edit.png);	 }
+
+.ui-btn-hover-s .ui-icon-tabedit,
+.ui-btn-active.ui-btn-up-s .ui-icon-tabedit,
+.ui-btn-down-s .ui-icon-tabedit {.tizen-icon-common;	background-image: url(00_tab_edit_press.png);	 }
