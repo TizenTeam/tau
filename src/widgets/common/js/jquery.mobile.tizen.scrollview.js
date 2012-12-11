@@ -1098,6 +1098,81 @@
 
 			$v.bind( this._dragEvt, this._dragCB );
 
+			$v.bind( "keydown", function ( e ) {
+				var elem,
+					elem_top,
+					screen_h;
+
+				if ( e.keyCode == 9 ) {
+					return false;
+				}
+
+				elem = $c.find(".ui-focus");
+
+				if ( elem === undefined ) {
+					return;
+				}
+
+				elem_top = elem.offset().top;
+				screen_h = $c.offset().top + $c.height() - elem.height();
+
+				if ( self._softkeyboard ) {
+					screen_h -= self._softkeyboardHeight;
+				}
+
+				if ( ( elem_top < 0 ) || ( elem_top > screen_h ) ) {
+					self.scrollTo( 0, self._sy - elem_top +
+						elem.height() + $c.offset().top, 0);
+				}
+
+				return;
+			});
+
+			$v.bind( "keyup", function ( e ) {
+				var input,
+					elem,
+					elem_top,
+					screen_h;
+
+				if ( e.keyCode != 9 ) {
+					return;
+				}
+
+				/* Tab Key */
+
+				input = $( this ).find(":input");
+
+				for ( i = 0; i < input.length; i++ ) {
+					if ( !$( input[i] ).hasClass("ui-focus") ) {
+						continue;
+					}
+
+					if ( i + 1 == input.length ) {
+						elem = $( input[0] );
+					} else {
+						elem = $( input[i + 1] );
+					}
+
+					elem_top = elem.offset().top;
+					screen_h = $c.offset().top + $c.height() - elem.height();
+
+					if ( self._softkeyboard ) {
+						screen_h -= self._softkeyboardHeight;
+					}
+
+					if ( ( elem_top < 0 ) || ( elem_top > screen_h ) ) {
+						self.scrollTo( 0, self._sy - elem_top +
+							elem.height() + $c.offset().top, 0);
+					}
+
+					elem.focus();
+
+					break;
+				}
+
+				return false;
+			});
+
 			$c.bind( "updatelayout", function ( e ) {
 				var sy,
 					vh,
