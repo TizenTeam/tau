@@ -14,7 +14,6 @@ var TESTS = {
 		"multimediaview",
 		"navigationbar",
 		"notification",
-		"pagecontrol",
 		"popupwindow",
 		"popupwindow_ctxpopup",
 		"progressbar",
