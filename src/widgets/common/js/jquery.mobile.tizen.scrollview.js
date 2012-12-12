@@ -437,14 +437,14 @@
 				if ( y > 0 ) {
 					this._sy = 0;
 
-					if ( scroll_height > 0 ) {
+					if ( this._didDrag && scroll_height > 0 ) {
 						this._bouncing_dir = 0;
 						this._setBouncing( this._$view, "in" );
 					}
 				} else if ( y < -scroll_height ) {
 					this._sy = -scroll_height;
 
-					if ( scroll_height > 0 ) {
+					if ( this._didDrag && scroll_height > 0 ) {
 						this._bouncing_dir = 1;
 						this._setBouncing( this._$view, "in" );
 					}
@@ -1192,8 +1192,10 @@
 					return;
 				}
 
-				if ( self._sy - sy <= -vh ) {
-					self.scrollTo( 0, sy,
+				if ( sy > 0 ) {
+					self.scrollTo( 0, 0, 0 );
+				} else if ( self._sy - sy <= -vh ) {
+					self.scrollTo( 0, self._sy,
 						self.options.snapbackDuration );
 				} else if ( self._sy - sy <= vh + self.options.moveThreshold ) {
 					self.scrollTo( 0, sy,
