@@ -22,7 +22,7 @@ var TESTS = {
 		"radio",
 		"searchbar",
 		"segmentcontrol",
-		"shortcutscroll",
+		"fastscroll",
 		"slider",
 		"swipelist",
 		"toggleswitch",
