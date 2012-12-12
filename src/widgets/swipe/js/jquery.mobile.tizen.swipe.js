@@ -32,7 +32,7 @@
  *          Hyunjung Kim <hjnim.kim@samsung.com>
  */
 
-// Widget which turns a list into a "swipe":
+// Widget which turns a html element into a "swipe":
 // i.e. each list item has a sliding "cover" which can be swiped
 // to the right (to reveal buttons underneath) or left (to
 // cover the buttons again). Clicking on a button under a swipe
@@ -54,11 +54,11 @@
 
 /**
 	@class Swipe
-	The swipe widget shows a list view on the screen where the list items can be swiped vertically to show a menu.
-	To add a swipe list widget to the application, use the following code:
+	The swipe widget shows a view on the screen where the items can be swiped vertically to show a menu.
+	To add a swipe widget to the application, use the following code:
 
-		<ul data-role="swipe">
-			<li>
+		<ul data-role="listview">
+			<li data-role="swipe">
 				<div data-role="swipe-cover">
 					<div data-role="button" data-inline="true">OK</div>
 					<div data-role="button" data-inline="true">Cancel</div>
@@ -70,49 +70,51 @@
 			</li>
 		</ul>
 
-	You can use methods with the swipe as described in the jQueryMobile documentation for list view methods.
+	You can use methods with the swipe as described in the jQueryMobile documentation for view methods.
 */
 /**
 	@property {String} data-role
-	Creates a swipe list using the HTML unordered list (&gt;ul&lt;) element.
+	Creates a swipe using the HTML unordered view (&gt;ul&lt;) element.
 	The default value is swipe.
 
-	Creates a swipe list item cover using an HTML $gt;div$lt; element. This cover can be swiped to show the content beneath it.
-	The default value is swipelist-item-cover.
+	Creates a swipe item cover using an HTML $gt;div$lt; element. This cover can be swiped to show the content beneath it.
+	The default value is swipe-item-cover.
 */
 /**
 	@method open
-	uncover swipelist item
+	uncover swipe item
 */
 /**
 	@method close
-	cover swipelist item
+	cover swipe item
 */
 /**
-	@method isOpen
+	@method opened
 	return coveritem status( coverd or uncovred )
 */
 /**
 	@event animationstart
-	The swipe list can define a callback for the animationstart event, which is fired after a list item is swipe and the swipe animation is start:
+	The swipe can define a callback for the animationstart event, which is fired after a item is swipe and the swipe animation is start:
 */
 /**
 	@event animationend
-	The swipe list can define a callback for the animationend event, which is fired after a list item is swiped and the swipe animation is complete:
+	The swipe can define a callback for the animationend event, which is fired after a item is swiped and the swipe animation is complete:
 
-		<ul data-role="swipelist">
-		<li>
-				<div data-role="button" data-inline="true">OK</div>
-				<div data-role="button" data-inline="true">Cancel</div>
-				<div data-role="swipelist-item-cover" id="foo">
-				<p>This is a swipelist item cover.<br>
+		<ul data-role="listview">
+		<li data-role="swipe">
+				<div data-role="swipe-cover">
+					<div data-role="button" data-inline="true">OK</div>
+					<div data-role="button" data-inline="true">Cancel</div>
+				</div>
+				<div data-role="swipe-item-cover" id="foo">
+				<p>This is a swipe item cover.<br>
 						This will be swiped out when swipe event comes.</p>
 				</div>
 			</li>
 		</ul>
 		$("#foo").bind("animationend", function (ev)
 		{
-			Console.log("Swipelist cover's animation is complete.");
+			Console.log("Swipe cover's animation is complete.");
 		});
 */
 (function ($) {
@@ -147,13 +149,12 @@
 
 			defaultCoverTheme = 'ui-body-' + this.options.theme;
 
-			// swipe is a listview
 			if ( !this.element.parent().hasClass('ui-listview') ) {
 				this.element.parent().listview();
 			}
 			this.element.addClass('ui-swipe');
 
-			// get the list item covers
+			// get the item covers
 			covers = this.element.find(':jqmData(role="swipe-item-cover")');
 			item = this.element.find(':jqmData(role="swipe-item")');
 
@@ -210,7 +211,7 @@
 
 			this.element.removeClass('ui-swipe');
 
-			// get the list item covers
+			// get the item covers
 			cover = this.element.find(':jqmData(role="swipe-item-cover")');
 			item = this.element.find(':jqmData(role="swipe-item")');
 
@@ -272,7 +273,7 @@
 				.each(
 					function () {
 						if ( this !== self.element.get(0) &&
-								$( this ).swipe("isOpen") ) {
+								$( this ).swipe("opened") ) {
 							$( this ).swipe("close");
 						}
 					}
@@ -303,7 +304,7 @@
 			} );
 		},
 
-		isOpen: function () {
+		opened: function () {
 			return this._isopen;
 		},
 

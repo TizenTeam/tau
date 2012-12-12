@@ -20,7 +20,7 @@ var TESTS = {
 		"segmentcontrol",
 		"fastscroll",
 		"slider",
-		"swipelist",
+		"swipe",
 		"toggleswitch",
 		"tokentextarea",
 		"virtuallist",

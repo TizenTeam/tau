@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script src="../../../build/tizen-web-ui-fw/latest/js/jquery.js"></script>
+	<script src="../../../build/tizen-web-ui-fw/latest/js/tizen-web-ui-fw-libs.min.js"></script>
+	<script src="../../../build/tizen-web-ui-fw/latest/js/tizen-web-ui-fw.js"
+		data-framework-theme="tizen-white"
+		data-framework-viewport-scale=false>
+	</script>
+
+	<link rel="stylesheet" href="../../../libs/js/jquery-mobile-1.1.0/external/qunit.css" />
+
+	<script src="../../../libs/js/jquery-mobile-1.1.0/external/qunit.js"></script>
+	<script src="swipe-tests.js"></script>
+
+	<title>Swipe</title>
+</head>
+<body>
+
+<h1 id="qunit-header">Swipe Tests</h1>
+<h2 id="qunit-banner"></h2>
+<h2 id="qunit-userAgent"></h2>
+<ol id="qunit-tests">
+</ol>
+
+<div id="qunit-fixture" style="top:0px;left:0px;">
+	<div data-role="page" id="swipelistpage">
+			<ul data-role="listview">
+				<li id="swipewidget" data-role="swipe">
+					<div data-role="swipe-item">
+						<div data-role="button" data-inline="true">Twitter</div>
+						<div data-role="button" data-inline="true">Twitter</div>
+						<div data-role="button" data-inline="true">Facebook</div>
+						<div data-role="button" data-inline="true">Facebook</div>
+					</div>
+					<div data-role="swipe-item-cover">
+						Swipe2
+					</div>
+				</li>
+				<li data-role="swipe">
+					<div data-role="swipe-item">
+						<div data-role="button" data-inline="true">Twitter</div>
+						<div data-role="button" data-inline="true">Twitter</div>
+						<div data-role="button" data-inline="true">Facebook</div>
+						<div data-role="button" data-inline="true">Facebook</div>
+					</div>
+					<div data-role="swipe-item-cover">
+						Swipe1
+					</div>
+				</li>
+			</ul>
+	</div>
+	<div data-role="page" id="swipedestorypage">
+			<ul data-role="listview" >
+				<li id="swipedestroy" data-role="swipe">
+					<div data-role="swipe-item">
+						<div data-role="button" data-inline="true">Twitter</div>
+						<div data-role="button" data-inline="true">Twitter</div>
+						<div data-role="button" data-inline="true">Facebook</div>
+						<div data-role="button" data-inline="true">Facebook</div>
+					</div>
+					<div data-role="swipe-item-cover">
+						<div style="display: inline-block;" class="ui-li-text-sub-left">subtext</div>
+						<div style="display: inline-block;" class="ui-li-text-main-right">2line-leftsub2</div>
+					</div>
+				</li>
+				<li data-role="swipe">
+					<div data-role="swipe-item">
+						<div data-role="button" data-inline="true">Twitter</div>
+						<div data-role="button" data-inline="true">Twitter</div>
+						<div data-role="button" data-inline="true">Facebook</div>
+						<div data-role="button" data-inline="true">Facebook</div>
+					</div>
+					<div data-role="swipe-item-cover">
+						<div style="display: inline-block;" class="ui-li-text-sub-left">subtext</div>
+						<div style="display: inline-block;" class="ui-li-text-main-right">1line-leftsub1</div>
+					</div>
+				</li>
+			</ul>
+	</div>
+</div>
+
+</body>
+</html>
