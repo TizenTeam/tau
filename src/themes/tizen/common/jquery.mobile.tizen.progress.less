@@ -45,35 +45,6 @@
 	}
 }
 
-.ui-progress-pending-bg {
-	position: relative;
-	top: 0;
-	margin-left: @bar-margin;
-	margin-right: @bar-margin;
-	height: 18 * @unit_base;
-
-	//FIXME
-	//background-image: url(images/00_winset_list_progress_bg.png);
-	background-color: @color_progress_bar0;
-	.LESSborder-radius-all( 10 * @unit_base );
-}
-
-.ui-progress-container-pending {
-	position: relative;
-	overflow: hidden;
-
-	top: 5 * @unit_base;
-	height: @bar-height;
-	margin-left: 5 * @unit_base;
-	margin-right: 5 * @unit_base;
-
-	.LESSborder-radius-all( 10 * @unit_base );
-	border: 1px;
-	border-style: solid;
-	border-color: rgb(180, 180, 180);
-	.LESSbox-shadow(1px, -1px, 1px, rgb(180, 180, 180));
-}
-
 .ui-progress-pending {
 	position: relative;
 	top: 0;
@@ -82,37 +53,16 @@
 	padding-top: 0;
 	padding-bottom: 0;
 
-	background: -webkit-linear-gradient(-45deg,
-				transparent,
-				transparent 10%,
-				@color_progress_bar1 10%,
-				@color_progress_bar1 20%,
-				transparent 20%,
-				transparent 30%,
-				@color_progress_bar1 30%,
-				@color_progress_bar1 40%,
-				transparent 40%,
-				transparent 50%,
-				@color_progress_bar1 50%,
-				@color_progress_bar1 60%,
-				transparent 60%,
-				transparent 70%,
-				@color_progress_bar1 70%,
-				@color_progress_bar1 80%,
-				transparent 80%,
-				transparent 90%,
-				@color_progress_bar1 90%);
-
 	background: -webkit-gradient(linear,
 				left top,
 				right bottom,
 				color-stop(0%,  rgba(0,0,0,0)),
 				color-stop(25%, rgba(0,0,0,0)),
-				color-stop(25%, @color_progress_bar1),
-				color-stop(50%, @color_progress_bar1),
+				color-stop(25%, @color_progress_value0),
+				color-stop(50%, @color_progress_value0),
 				color-stop(50%, rgba(0,0,0,0)),
 				color-stop(75%, rgba(0,0,0,0)),
-				color-stop(75%, @color_progress_bar1));
+				color-stop(75%, @color_progress_value0));
 
 	background-color: @color_progress_bar0;
 
