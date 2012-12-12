@@ -13,7 +13,6 @@ var TESTS = {
 		"gallery",
 		"multimediaview",
 		"navigationbar",
-		"nocontents",
 		"notification",
 		"pagecontrol",
 		"popupwindow",
