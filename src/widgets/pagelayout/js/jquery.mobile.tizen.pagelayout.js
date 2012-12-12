@@ -194,6 +194,14 @@
 						.addClass( "ui-btn-footer-right" );
 				}
 			});
+
+			if ( $elFooter.find( ".ui-controlgroup" ).length ) {
+				footerControlButton = $elFooter.find( ".ui-controlgroup a" );
+				footerControlButtonWidth = 100 / $elFooter.find( ".ui-controlgroup a" ).length;
+				footerControlButton.each( function ( i ) {
+					footerControlButton.eq( i ).css( "max-width", footerControlButtonWidth + "%" );
+				});
+			}
 		},
 
 		_bindPageEvents: function () {
