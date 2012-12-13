@@ -1,21 +1,21 @@
 /*
- * Unit Test: Shortcut Scroll
+ * Unit Test: FastScroll
  *
  * Minkyu Kang <mk7.kang@samsung.com>
  */
 
 (function ($) {
-	module("Shortcut Scroll");
+	module("FastScroll");
 
-	var unit_shortcutscroll = function ( list ) {
+	var unit_fastscroll = function ( list ) {
 		var widget,
 			shortcut,
 			divider;
 
-		widget = list.parentsUntil(".ui-content").parent().find(".ui-shortcutscroll");
+		widget = list.parentsUntil(".ui-content").parent().find(".ui-fastscroll");
 
 		/* Create */
-		ok( widget.hasClass("ui-shortcutscroll"), "Create" );
+		ok( widget.hasClass("ui-fastscroll"), "Create" );
 
 		shortcut = widget.find("li");
 		divider = list.find(".ui-li-divider");
@@ -27,7 +27,7 @@
 	};
 
 	test( "shortcut", function () {
-		unit_shortcutscroll( $("#shortcut") );
+		unit_fastscroll( $("#shortcut") );
 	});
 
 }( jQuery ));
