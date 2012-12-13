@@ -151,9 +151,9 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 					// Set framework data, only when they are given.
 					tokens = src.split(/[\/\\]/);
 					version_idx = -3;
-					this.frameworkData.rootDir = elem.getAttribute( 'data-framework-root' )
+					this.frameworkData.rootDir = ( elem.getAttribute( 'data-framework-root' )
 						|| tokens.slice( 0, tokens.length + version_idx ).join( '/' )
-						|| this.frameworkData.rootDir;
+						|| this.frameworkData.rootDir ).replace( /^file:(\/\/)?/, '' );
 					this.frameworkData.version = elem.getAttribute( 'data-framework-version' )
 						|| tokens[ tokens.length + version_idx ]
 						|| this.frameworkData.version;
