@@ -4,26 +4,29 @@
 	</head>
 <body>
 
-<div data-role="page">
-	<div data-role="header" data-position="fixed" >
-		<h1>Normal footer generate</h1>
+<div data-role="page" data-add-Back-Btn="true">
+	<div data-role="header" data-position="fixed">
+		<h1>Normal footer with back button</h1>
 	</div>
 
 	<div data-role="content">
-		<p> Case 1 : <br><br>
-		Web Developer doesn't define footer in page <br>
-		This page do not have &lt;div&gt; footer in html file <br>
-		Framework automatically generate footer in case no footer definition in page</p><br>
+		<p> Case 3 : <br><br>
+		Web Developer declare back btn option and make footer <br>
+		back button displayed right bottom side of footer</p><br>
 		<div>
 			<p style="width:100%; padding:1em; background-color:whitesmoke; color:black; border-width:3px; border-style:inset">
-			&lt;div data-role="page"&gt; <br>
+			&lt;div data-role="page" data-add-Back-Btn="true"&gt; <br>
 			&nbsp&nbsp&nbsp&nbsp&lt;div data-role="header" data-position="fixed"&gt; <br>
 			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&lt;h1&gt;back button sample&lt;/h1&gt; <br>
 			&nbsp&nbsp&nbsp&nbsp&lt;/div&gt; <br>
 			&nbsp&nbsp&nbsp&nbsp&lt;div data-role="content"&gt; <br>
 			&nbsp&nbsp&nbsp&nbsp&lt;/div&gt; <br>
+			&nbsp&nbsp&nbsp&nbsp&lt;div data-role="footer" data-position="fixed"&gt; <br>
+			&nbsp&nbsp&nbsp&nbsp&lt;/div&gt; <br>
 			&lt;/div&gt; </p>
 		</div><br>
+	</div>
+	<div data-role="footer" data-position="fixed">
 	</div>
 </div>
 

@@ -4,29 +4,30 @@
 	</head>
 <body>
 
-<div data-role="page" data-add-back-btn="none">
+<div data-role="page">
 	<div data-role="header" data-position="fixed" >
 		<h1>No back button</h1>
 	</div>
 
 	<div data-role="content">
-		<p> Case 5 : <br><br>
-		Web Developer defines that back button will not use in this page <br>
-		This page declared that this page will not use back button <br>
-		declared "data-add-back-btn=none" to page <br>
-		1. draw footer to page <br>
-		2. check and do not draw back button to page</p>
+		<p> Case 2 : <br><br>
+		Web Developer defines footer in page <br>
+		no page option declared <br>
 		<div>
 			<p style="width:100%; padding:1em; background-color:whitesmoke; color:black; border-width:3px; border-style:inset">
-			&lt;div data-role="page" data-add-back-btn="none"&gt; <br>
+			&lt;div data-role="page"&gt; <br>
 			&nbsp&nbsp&nbsp&nbsp&lt;div data-role="header" data-position="fixed"&gt; <br>
 			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&lt;h1&gt;back button sample&lt;/h1&gt; <br>
 			&nbsp&nbsp&nbsp&nbsp&lt;/div&gt; <br>
 			&nbsp&nbsp&nbsp&nbsp&lt;div data-role="content"&gt; <br>
 			&nbsp&nbsp&nbsp&nbsp&lt;/div&gt; <br>
+			&nbsp&nbsp&nbsp&nbsp&lt;div data-role="footer" data-position="fixed"&gt; <br>
+			&nbsp&nbsp&nbsp&nbsp&lt;/div&gt; <br>
 		  &lt;/div&gt; </p>
 		</div><br>
 		<a href="../backbutton-control.html" data-role="button" data-inline="true">Go Back</a>
+	</div>
+	<div data-role="footer" data-position="fixed" >
 	</div>
 </div>
 </body>

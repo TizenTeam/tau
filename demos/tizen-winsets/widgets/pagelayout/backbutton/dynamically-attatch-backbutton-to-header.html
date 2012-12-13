@@ -4,19 +4,19 @@
 	</head>
 <body>
 
-<div data-role="page" data-add-back-btn="none">
+<div data-role="page">
 	<div data-role="header" data-position="fixed" >
 		<h1>Back button to Header</h1>
 	</div>
 
 	<div data-role="content">
-		<p> Case 7 : <br><br>
+		<p> Case 6 : <br><br>
 		Web Developer declared only footer in page<br>
 		but need to add back button dynamically in header<br>
-		select header and call barlayout("addBackBtn") API<br></p>
+		call page("addBackBtn", target) API<br></p>
 		<div>
 			<p style="width:100%; padding:1em; background-color:whitesmoke; color:black; border-width:3px; border-style:inset">
-			&lt;div data-role="page" data-add-back-btn="none"&gt; <br>
+			&lt;div data-role="page"&gt; <br>
 			&nbsp&nbsp&nbsp&nbsp&lt;div data-role="header" data-position="fixed"&gt; <br>
 			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&lt;h1&gt;back button sample&lt;/h1&gt; <br>
 			&nbsp&nbsp&nbsp&nbsp&lt;/div&gt; <br>
@@ -30,8 +30,7 @@
 		<div>
 			<p style="width:100%; padding:1em; background-color:whitesmoke; color:black; border-width:3px; border-style:inset">
 				&lt;script&gt; <br>
-				&nbsp;&nbsp;var $elHeader = $(".ui-page-active").find(".ui-header"); <br>
-				&nbsp;&nbsp;$elHeader.barlayout("addBackBtn"); <br>
+				&nbsp;&nbsp;$(".ui-page-active").page( "addBackBtn", "header" );<br>
 				&lt;/script&gt; <br>
 			</p>
 		</div><br>
