@@ -1,131 +1,64 @@
 @import "config.less";
 
-.ui-toggleswitch {
-	height: 40 * @unit_base;
-	width: 30 * @unit_base;
-	overflow: hidden;
-	.ui-toggleswitch-mover {
-		position: relative;
-		font-size : 13 * @unit_base;
-		line-height : 20 * @unit_base;
-		display: block;
 
-		.ui-toggleswitch-off {
-			border-radius: 5 * @unit_base;
-			color: @color_text_sub;
-			.LESStoggleswitch_off_style;
-			height: 40 * @unit_base;
-			.ui-toggleswitch-img{
-				width: 100%;
-				position: absolute;
-				padding-top: 7 * @unit_base;
-				.ui-toggleswitch-sign{
-					position: absolute;
-					width: 66 * @unit_base;
-					height: 35 * @unit_base;
-					/*left: 50%;*/
-					margin-left:-2px;
-					background: url(images/00_button_off.png) no-repeat;
-					background-size: cover;
-					-ms-background-size: cover;
-					-webkit-background-size: cover;
-					-o-background-size: cover;
-					-moz-background-size: cover;
-				}
-			}
+div.ui-slider.ui-toggle-switch {
+	width: 66 * @unit_base;
+	height: 35 * @unit_base;
+	background-color : transparent;
+
+	.ui-slider-label {
+		position: absolute;
+		width: 66 * @unit_base;
+		height: 35 * @unit_base;
+		background-size: cover;
+		-ms-background-size: cover;
+		-webkit-background-size: cover;
+		-o-background-size: cover;
+		-moz-background-size: cover;
+
+		&.ui-slider-label-a {
+			background: url(images/00_button_on.png) no-repeat;
 		}
 
-		.ui-toggleswitch-on {
-			display: none;
-			border-radius: 5 * @unit_base;
-			.LESStoggleswitch_on_style;
-			height: 40 * @unit_base;
-			color: white;
-			.ui-toggleswitch-img{
-				width: 100%;
-				position: absolute;
-				padding-top: 6 * @unit_base;
-				text-align: center;
-				.ui-toggleswitch-sign{
-					position: absolute;
-					width: 66 * @unit_base;
-					height: 35 * @unit_base;
-					left: 50%;
-					margin-left:-7px;
-					background: url(images/00_button_on.png) no-repeat;
-					background-size: cover;
-					-ms-background-size: cover;
-					-webkit-background-size: cover;
-					-o-background-size: cover;
-					-moz-background-size: cover;
-				}
-			}
+		&.ui-slider-label-b {
+			background: url(images/00_button_off.png) no-repeat;
 		}
+	}
 
-		.ui-toggleswitch-reed {
-			position: absolute;
-			border-radius: 5 * @unit_base;
-			width: 28 * @unit_base;
-			.LESStoggleswitch_reed_style;
-			top: 20 * @unit_base;
-			height: 19 * @unit_base;
-			left: 1px;
-		}
-
-		.ui-toggleswitch-text {
-			width: 100%;
-			position: absolute;
-			text-align: center;
-			text-overflow: ellipsis;
+	.ui-slider-inneroffset {
+		a {
+			background : none;
 		}
 	}
 }
 
-.ui-toggleswitch-state-checked {
-	.ui-toggleswitch-mover {
-		.ui-toggleswitch-reed {
-			top: 1px;
-		}
+div.ui-slider.ui-slider-switch:not(.ui-toggle-switch) {
+	position : relative;
+	width : 5.5em;
+	height : 32 * @unit_base;
 
-		.ui-toggleswitch-text {
-			top: 20 * @unit_base;
-		}
-		.ui-toggleswitch-img{
-			top: 20 * @unit_base;
-		}
-		.ui-toggleswitch-on {
-			display: block;
-		}
-
-		.ui-toggleswitch-off {
-			display: none;
-		}
+	a.ui-slider-handle {
+		position : absolute;
+		background : rgba(255, 255, 255, 1);
+		top : -34 * @unit_base;
+		margin-top : 30 * @unit_base;
+		border-radius : 15 * @unit_base;
+		border : 2px solid gray;
 	}
-}
-
-.ui-toggleswitch.ui-toggleswitch-image-style {
-	display : inline-block;
-
-	width : 66 * @unit_base;
-	height : 35 * @unit_base;
-	.ui-toggleswitch-mover {
-
-		.ui-toggleswitch-off,
-		.ui-toggleswitch-on {
-			background-image : none;
-
-			height : 66 * @unit_base;
-			width : 35 * @unit_base;
-
-			.ui-toggleswitch-img {
-				padding-top : 0px;
-				top : 0px;
-
-				.ui-toggleswitch-sign {
-					left : 0px;
-					margin-left : 0px;
-				}
-			}
+	span {
+		position : absolute;
+		overflow : hidden;
+		text-align : center;
+		height :  32 * @unit_base;
+		font-weight : bold;
+		border-radius : 10 * @unit_base;
+		&.ui-slider-label-a {
+			left : 0px;
+			color : white;
+		}
+		&.ui-slider-label-b {
+			right : 0px;
+			color : black;
 		}
 	}
 }
