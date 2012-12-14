@@ -157,8 +157,8 @@
 				$elControlgroup = $elHeader.find( ":jqmData(role='controlgroup')" ),
 				$elContent = $elPage.find( ".ui-content" ),
 				next_id,
-				$elFooter,
-				$elFooterGroup,
+				$elFooter = $( document ).find( ":jqmData(role='footer')" ),
+				$elFooterGroup = $elFooter.find( ":jqmData(role='fieldcontain')" ),
 				gLength,
 				footerButton;
 
@@ -185,22 +185,8 @@
 				}
 			}
 
-			$elFooter = $( document ).find( ":jqmData(role='footer')" );
-			footerButton = $elFooter.children( "a" );
-			footerButton.each( function ( i ) {
-				if ( footerButton.eq( i ).is(".ui-btn") && !footerButton.eq( i ).is(".ui-btn-back") ) {
-					footerButton.eq( i )
-						.removeClass( "ui-btn-left" )
-						.addClass( "ui-btn-footer-right" );
-				}
-			});
-
-			if ( $elFooter.find( ".ui-controlgroup" ).length ) {
-				footerControlButton = $elFooter.find( ".ui-controlgroup a" );
-				footerControlButtonWidth = 100 / $elFooter.find( ".ui-controlgroup a" ).length;
-				footerControlButton.each( function ( i ) {
-					footerControlButton.eq( i ).css( "max-width", footerControlButtonWidth + "%" );
-				});
+			if ( $elFooterGroup.find( "div" ).is( ".ui-controlgroup-label" ) ) {
+				$elFooterGroup.find( "div.ui-controlgroup-label" ).remove();
 			}
 		},
 
