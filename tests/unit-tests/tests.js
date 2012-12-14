@@ -6,7 +6,6 @@ var TESTS = {
 		"check",
 		"controlbar",
 		"datetimepicker",
-		"expandablelist",
 		"extendablelist",
 		"handler",
 		"gallery",
