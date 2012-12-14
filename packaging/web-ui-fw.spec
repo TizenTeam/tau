@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.2
+Version:    0.2.3
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -83,6 +83,20 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Fri Dec 14 2012 Minkyu Kang <mk7.kang@samsung.com> 0.2.3
+- FIX:
+	- slider: add image
+	- button: data-icon support, styles fix
+	- progressbar: modify the background
+	- scrollview: auto scrolling bug fix
+	- pagelayout: IME concept is changed
+- Spec changes:
+	- dialogue: add edit mode
+	- nocontents: removed
+	- pagecontrol: removed
+	- dayselector: removed
+	- expandablelist: removed
+
 * Thu Dec 10 2012 Youmin Ha <youmin.ha@samsung.com> 0.2.2
 - FIX:
 	- chang searchbar/slider images
