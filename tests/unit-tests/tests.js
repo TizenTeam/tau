@@ -21,7 +21,6 @@ var TESTS = {
 		"fastscroll",
 		"slider",
 		"swipe",
-		"toggleswitch",
 		"tokentextarea",
 		"virtuallist",
 		"virtualgrid",
