@@ -1,18 +1,26 @@
-From 3efba1ecbb1a2cd09aad29850060d1703b52d682 Mon Sep 17 00:00:00 2001
+From 0df0afd2b03ab688210b9ff71d65dff73a33419c Mon Sep 17 00:00:00 2001
 From: "hjnim.kim" <hjnim.kim@samsung.com>
-Date: Thu, 6 Dec 2012 14:47:57 +0900
-Subject: [PATCH] JQM Apply tizen style context popup
+Date: Tue, 11 Dec 2012 19:14:31 +0900
+Subject: [PATCH] Apply tizen style context popup
 
-Change-Id: I6a592010eebbce98a02c901b9c121eec2dff87fb
 ---
- libs/js/jquery-mobile-1.2.0/js/widgets/popup.js |   86 +++++++++++++++++++----
- 1 files changed, 71 insertions(+), 15 deletions(-)
+ libs/js/jquery-mobile-1.2.0/js/widgets/popup.js |   95 ++++++++++++++++++++---
+ 1 files changed, 84 insertions(+), 11 deletions(-)
 
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
-index de2af2c..660bb7e 100644
+index de2af2c..6470bc4 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
-@@ -109,13 +109,13 @@ define( [ "jquery",
+@@ -58,7 +58,7 @@ define( [ "jquery",
+ 			//      https://github.com/jquery/jquery-mobile/issues/4784
+ 			//
+ 			// NOTE this option is modified in _create!
+-			history: !$.mobile.browser.ie
++			history: false
+ 		},
+ 
+ 		_eatEventAndClose: function( e ) {
+@@ -109,7 +109,7 @@ define( [ "jquery",
  		},
  
  		_resizeTimeout: function() {
@@ -21,42 +29,18 @@ index de2af2c..660bb7e 100644
  				// effectively rapid-open the popup while leaving the screen intact
  				this._trigger( "beforeposition" );
  				this._ui.container
- 					.removeClass( "ui-selectmenu-hidden" )
- 					.offset( this._placementCoords( this._desiredCoords( undefined, undefined, "window" ) ) );
--
-+			
- 				this._resizeScreen();
- 				this._resizeData = null;
- 				this._orientationchangeInProgress = false;
-@@ -143,17 +143,19 @@ define( [ "jquery",
- 		_create: function() {
+@@ -144,7 +144,8 @@ define( [ "jquery",
  			var ui = {
  					screen: $( "<div class='ui-screen-hidden ui-popup-screen'></div>" ),
--					placeholder: $( "<div style='display: none;'><!-- placeholder --></div>" ),
+ 					placeholder: $( "<div style='display: none;'><!-- placeholder --></div>" ),
 -					container: $( "<div class='ui-popup-container ui-selectmenu-hidden'></div>" )
-+					placeholder: $( "</div><div style='display: none;'><!-- placeholder --></div>" ),
 +					container: $( "<div class='ui-popup-container ui-selectmenu-hidden'></div>" ),
 +					arrow : $("<div class='ui-arrow'></div>")
  				},
  				thisPage = this.element.closest( ".ui-page" ),
  				myId = this.element.attr( "id" ),
--				self = this;
-+				self = this,
-+				link;
- 
- 			// We need to adjust the history option to be false if there's no AJAX nav.
- 			// We can't do it in the option declarations because those are run before
- 			// it is determined whether there shall be AJAX nav.
--			this.options.history = this.options.history && $.mobile.ajaxEnabled && $.mobile.hashListeningEnabled;
-+			this.options.history = false && $.mobile.ajaxEnabled && $.mobile.hashListeningEnabled;
- 
- 			if ( thisPage.length === 0 ) {
- 				thisPage = $( "body" );
-@@ -172,9 +174,10 @@ define( [ "jquery",
- 				ui.screen.attr( "id", myId + "-screen" );
- 				ui.container.attr( "id", myId + "-popup" );
+@@ -174,7 +175,7 @@ define( [ "jquery",
  				ui.placeholder.html( "<!-- placeholder for " + myId + " -->" );
-+				ui.arrow.attr( "id", myId + "-arrow" );
  			}
  			ui.container.append( this.element );
 -
@@ -64,37 +48,43 @@ index de2af2c..660bb7e 100644
  			// Add class to popup element
  			this.element.addClass( "ui-popup" );
  
-@@ -361,8 +364,11 @@ define( [ "jquery",
+@@ -276,7 +277,7 @@ define( [ "jquery",
+ 		},
+ 
+ 		_setTolerance: function( value ) {
+-			var tol = { t: 30, r: 15, b: 30, l: 15 };
++			var tol = { t: 10, r: 10, b: 10, l: 10 };
+ 
+ 			if ( value ) {
+ 				var ar = String( value ).split( "," );
+@@ -361,7 +362,11 @@ define( [ "jquery",
  					cx: winCoords.cx - this._tolerance.l - this._tolerance.r,
  					cy: winCoords.cy - this._tolerance.t - this._tolerance.b
  				},
 -				menuSize, ret;
--
 +				menuSize, ret,
 +				linkOffset = $(this.link).offset(),
 +				positionOffsets = [],
 +				correctionValue = [0,0],
 +				arrayIdx;
+ 
  			// Clamp the width of the menu before grabbing its size
  			this._ui.container.css( "max-width", rc.cx );
- 			menuSize = {
-@@ -385,11 +391,50 @@ define( [ "jquery",
- 
- 			// fix for $( document ).height() bug in core 1.7.2.
- 			var docEl = document.documentElement, docBody = document.body,
--				docHeight = Math.max( docEl.clientHeight, docBody.scrollHeight, docBody.offsetHeight, docEl.scrollHeight, docEl.offsetHeight );
-+				docHeight = Math.max( docEl.clientHeight, docBody.scrollHeight, docBody.offsetHeight, docEl.scrollHeight, docEl.offsetHeight ),
-+				arrowtop,
-+				arrowleft;
+@@ -388,8 +393,48 @@ define( [ "jquery",
+ 				docHeight = Math.max( docEl.clientHeight, docBody.scrollHeight, docBody.offsetHeight, docEl.scrollHeight, docEl.offsetHeight );
  
  			ret.y -= Math.min( ret.y, Math.max( 0, ret.y + menuSize.cy - docHeight ) );
--
--			return { left: ret.x, top: ret.y };
++			if ( this.positionTo === "window" )
++			{
++				return { left: ret.x, top: ret.y , arrowleft: 0 , arrowtop: 0};
++			}
++
 +			positionOffsets = [ linkOffset.left,
 +								linkOffset.top,
 +								docEl.clientHeight - ( linkOffset.top + $(this.link).height() ),
 +								docEl.clientWidth - ( linkOffset.left + $(this.link).width() )];
 +			arrayIdx = positionOffsets.indexOf(Math.max.apply(window,positionOffsets));
++
 +			switch( arrayIdx )
 +			{
 +				case 0:
@@ -117,32 +107,20 @@ index de2af2c..660bb7e 100644
 +									.addClass("ui-arrow top");
 +					break;
 +				case 3:
-+					correctionValue = [ $(this.link).width() , 0];
++					correctionValue = [ ( menuSize.cx < $(this.link).width() ) ? ( $(this.link).width() / 2 ) + ( menuSize.cx / 2) : $(this.link).width() , 0];
 +					arrowtop = ( linkOffset.top - ret.y  ) + ( $(this.link).height() / 2 ) - parseInt( $(this._ui.arrow).css("border-width") );
 +					arrowleft = - parseInt( $(this._ui.arrow).css("border-width") ) * 2;
 +					$(this._ui.arrow).attr( "class", "" )
 +									.addClass("ui-arrow right");
 +					break;
 +			}
-+			if ( this.positionTo === "window" )
-+			{
-+				correctionValue = [ 0, 0];
-+			}
+ 
+-			return { left: ret.x, top: ret.y };
 +			return { left: ret.x + correctionValue[0], top: ret.y + correctionValue[1] , arrowleft: arrowleft , arrowtop: arrowtop};
  		},
  
  		_createPrereqs: function( screenPrereq, containerPrereq, whenDone ) {
-@@ -532,7 +577,8 @@ define( [ "jquery",
- 						return true;
- 					}
- 					return false;
--				}());
-+				}()),
-+				self = this;
- 
- 			// Make sure options is defined
- 			options = ( options || {} );
-@@ -569,7 +615,7 @@ define( [ "jquery",
+@@ -569,7 +614,7 @@ define( [ "jquery",
  			this._ui.container
  				.removeClass( "ui-selectmenu-hidden" )
  				.offset( coords );
@@ -151,39 +129,60 @@ index de2af2c..660bb7e 100644
  			if ( this.options.overlayTheme && androidBlacklist ) {
  				/* TODO:
  				The native browser on Android 4.0.X ("Ice Cream Sandwich") suffers from an issue where the popup overlay appears to be z-indexed
-@@ -587,6 +633,14 @@ define( [ "jquery",
+@@ -587,6 +632,7 @@ define( [ "jquery",
  				// TODO sort out why this._page isn't working
  				this.element.closest( ".ui-page" ).addClass( "ui-popup-open" );
  			}
-+				//
-+			if ( self.positionTo !== "window")
-+			{
-+				$(self.element.get(0)).addClass("ui-ctxpopup");
-+				$(self._ui.container).removeClass("ui-popup-container").addClass("ui-ctxpopup-container");
-+			} else {
-+				$(self._ui.arrow).hide();
-+			}
++			
  			this._animate({
  				additionalCondition: true,
  				transition: transition,
-@@ -691,7 +745,8 @@ define( [ "jquery",
+@@ -691,15 +737,42 @@ define( [ "jquery",
  		// what should be in _open. Seems to be "visual" vs "history" for now
  		open: function( options ) {
  			var self = this, opts = this.options, url, hashkey, activePage, currentIsDialog, hasHash, urlHistory;
 -
-+			self.link = options.link,
-+			self.positionTo =  options.positionTo;
++			// self.link = ( $(event.target).attr('data-role') === 'button') ? event.target : $(event.target).closest('[data-role="button"]')[0];
  			// make sure open is idempotent
  			if( $.mobile.popup.active ) {
  				return;
-@@ -798,6 +853,7 @@ define( [ "jquery",
- 				positionTo: $link.jqmData( "position-to" ),
- 				link: $link
- 			});
-+			popup._openButton = $link;
- 		}
- 
- 		//remove after delay
+ 			}
+-
+ 			// set the global popup mutex
+ 			$.mobile.popup.active = this;
+-
++			if( !options )
++			{
++				options = [];
++			}
++			if ( !options.link )
++			{
++				self.link = $(event.target).closest('a')[0];
++			} else {
++				self.link = options.link;
++			}
++			self.positionTo = ( options != null && options.positionTo != null ) ? options.positionTo : "origin";
++			if ( $(self.link).jqmData("position-to") !== "window")
++			{
++				$(self.element).addClass("ui-ctxpopup");
++				$(self._ui.container).removeClass("ui-popup-container")
++					.addClass("ui-ctxpopup-container");
++			} else {
++				$(self._ui.arrow).hide();
++			}
++			if( !options.x 
++				&& self.positionTo !== "window" )
++			{
++				options.x = $(self.link).offset().left + $(self.link).outerWidth() / 2;
++			}
++			if( !options.y 
++				&& self.positionTo !== "window" )
++			{
++				options.y = $(self.link).offset().top + $(self.link).outerHeight() / 2;
++			}
+ 			// if history alteration is disabled close on navigate events
+ 			// and leave the url as is
+ 			if( !( opts.history ) ) {
 -- 
 1.7.5.4
 

@@ -92,38 +92,17 @@
 <!-- target button -->
 <a href="#pop_buttons" id="btn_buttons" data-role="button" data-inline="true" data-rel="popup">Buttons</a>
 <!-- context popup -->
-<div id="pop_buttons" class="button" data-role="popup" >
-	<div>
-		<table>
-			<tr>
-				<td>
-					<a href="#" data-role="button">Meenie</a>
-				</td>
-				<td>
-					<a href="#" data-role="button">Mynie</a>
-				</td>
-				<td>
-					<a href="#" data-role="button">Mo</a>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<a href="#" data-role="button">Catch-a</a>
-				</td>
-				<td>
-					<a href="#" data-role="button">Tiger</a>
-				</td>
-				<td>
-					<a href="#" data-role="button">By-the</a>
-				</td>
-			</tr>
-		</table>
-	</div>
+<div id="pop_buttons"  data-role="popup" >
+	<ul data-role="listview">
+				<li><a href="#">Meenie</a></li>
+				<li><a href="#">Mynie</a></li>
+				<li><a href="#">Mo</a></li>
+	</ul>
  </div>
+<br>
+<br>
 
-<br>
-<br>
- <a href="#pop_text_only" id="btn_text_only" data-role="button"  data-transition="flip" data-inline="true" data-rel="popup">Animation</a>
+<a href="#pop_text_only" id="btn_text_only" data-role="button"  data-transition="flip" data-inline="true" data-rel="popup">Animation</a>
 
 <div id="pop_text_only" data-role="popup" >
 	<ul data-role="listview">
@@ -141,8 +120,30 @@
 		</li>
 	</ul>
 </div>
+<br>
+<br>
+<a onclick="popupTest()" id="btn_text_only" data-role="button"  data-transition="flip" data-inline="true" data-rel="popup">MethodOpen</a>
+<br>
+<br>
+<a href="#closeTest" id="close_btn_buttons" data-role="button" data-inline="true" data-rel="popup">CloseTest</a>
+<div id="closeTest"  data-role="popup" >
+	<ul data-role="listview">
+				<li><a data-rel="back" href="#">Close</a></li>
+				<li><a data-rel="back" onclick="closeTest()" href="#">Close/javascript</a></li>
+	</ul>
+ </div>
+<br>
+<br>
+</div>
+</div> <!-- /content -->
 
-        </div>
-	</div> <!-- /content -->
-
+<div data-role="footer">
+	<a href="#slideView_pop" data-role="button" data-transition="slideup" data-icon="naviframe-more" data-rel="popup"></a>
+	<div  id="slideView_pop" data-role="popup" data-show-arrow="true">
+		<ul data-role="listview" style="width:400px">
+		<li ><a id="manageFeedsViewBtn">4Manage feeds</a></li>
+		<li><a href="#settingView" id="viewbyBtn">Settings</a></li>
+	</ul>
+	</div>
+</div>
 </div> <!-- /page -->
