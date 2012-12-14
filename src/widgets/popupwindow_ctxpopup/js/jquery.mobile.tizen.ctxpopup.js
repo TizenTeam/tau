@@ -28,8 +28,12 @@
  * ***************************************************************************
  *
  * Authors: Gabriel Schulhof <gabriel.schulhof@intel.com>
+ *			Hyunjung Kim <hjnim.kim@samsung.com>
  */
 
+/*
+ * % ContextPopup widget do not use anymore(will be deprecated, internal use only)
+ */
 // This widget is implemented in an extremely ugly way. It should derive from $.tizen.popupwindow, but it doesn't
 // because there's a bug in jquery.ui.widget.js which was fixed in jquery-ui commit
 // b9153258b0f0edbff49496ed16d2aa93bec07d95. Once a version of jquery-ui containing that commit is released
@@ -39,7 +43,7 @@
 // the prototype of the subclass. The prototype of the superclass should remain unchanged.
 
 /**
-	@class ContextPopup
+	class ContextPopup
 		The context pop-up widget shows a list of options and automatically optimizes its size within the screen. This widget is intended for a small list of options for a larger list, use the List widget. <br/>The context pop-up widget requires a target button, which must be clicked to open the context pop-up. In the default application theme, an arrow pointer is displayed at the top-left corner of the context pop-up widget when it is opened.<br/><br/> To add a context pop-up widget to the application, use the following code:
 
 			// Target button
@@ -62,6 +66,8 @@
 	You can use methods with the context pop-up as described in the [jQueryMobile documentation for pop-up methods.][2]
 	[1]: http://jquerymobile.com/demos/1.2.0-alpha.1/docs/pages/popup/events.html
 	[2]: http://jquerymobile.com/demos/1.2.0-alpha.1/docs/pages/popup/methods.html
+
+	@deprecated 2.0 verisons
 */
 
 (function ( $, undefined ) {
@@ -85,6 +91,7 @@
 		},
 
 		_create: function () {
+			console.warn("ctxpopup() was deprecated. use popup() instead.");
 			if ( !this.element.data( "popupwindow" ) ) {
 				this.element.popupwindow();
 			}
