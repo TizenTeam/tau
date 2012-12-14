@@ -19,36 +19,8 @@
 	z-index : @z_base_header_footer + 100 !important;
 }
 
-.ui-multimediaview-video {
-	background-color : @color_multimediaview_control_bg !important;
-}
-
 .ui-multimediaview-control span {
 	display : inline-block;
-}
-
-.ui-multimediaview-control span.ui-play-icon {
-	background-image : url(./images/00_button_play.png);
-}
-
-.ui-multimediaview-control span.ui-pause-icon {
-	background-image : url(./images/00_button_pause.png);
-}
-
-.ui-multimediaview-control span.ui-volume-icon {
-	background-image : url(./images/controls/00_slider_button_volume_02.png);
-}
-
-.ui-multimediaview-control span.ui-mute-icon {
-	background-image : url(./images/controls/00_slider_button_volume_01.png);
-}
-
-.ui-multimediaview-control span.ui-fullscreen-on {
-	background-image : url(./images/00_button_fullscreen_on.png);
-}
-
-.ui-multimediaview-control span.ui-fullscreen-off {
-	background-image : url(./images/00_button_fullscreen_off.png);
 }
 
 .ui-multimediaview-control {
@@ -68,24 +40,20 @@
 	background-repeat : no-repeat;
 	width : 74 * @unit_base_multimediaview;
 	height : 74 * @unit_base_multimediaview;
-	.LESSborder-radius-all( 6 * @unit_base_multimediaview);
-	background-color : @color_multimediaview_button_bg;
 	margin : 4 * @unit_base_multimediaview;
 }
 
 .ui-multimediaview-control .ui-playpausebutton {
-	background-color : transparent !important;
 	float : left;
 }
 
 .ui-multimediaview-control .ui-timestamplabel {
 	text-align : center;
-	color : @color_multimediaview_timestamp_text;
 	float : left;
 }
 
 .ui-multimediaview-control .ui-timestamplabel p {
-	margin-top : -6 * @unit_base_multimediaview;
+	margin-top : -9.8 * @unit_base_multimediaview;
 	margin-left : 4 * @unit_base_multimediaview;
 	padding : 0;
 	text-align : center;
@@ -96,12 +64,11 @@
 
 .ui-multimediaview-control .ui-durationlabel {
 	text-align : center;
-	color : @color_multimediaview_duration_text;
 	float : right;
 }
 
 .ui-multimediaview-control .ui-durationlabel p {
-	margin-top : -6 * @unit_base_multimediaview;
+	margin-top : -9.8 * @unit_base_multimediaview;
 	margin-right : 4 * @unit_base_multimediaview;
 	padding : 0;
 	text-align : center;
@@ -111,7 +78,7 @@
 }
 
 .ui-multimediaview-control .ui-seekbar {
-	margin-top : 16 * @unit_base_multimediaview;
+	margin-top : 11.5 * @unit_base_multimediaview;
 	padding-left : 4 * @unit_base_multimediaview;
 	padding-right : 4 * @unit_base_multimediaview;
 	height : 16 * @unit_base_multimediaview;
@@ -123,7 +90,6 @@
 	padding : 0;
 	width : 100%;
 	height : 16 * @unit_base_multimediaview;
-	background-color : @color_multimediaview_bar_gray;
 	border-radius : 1.5em;
 }
 
@@ -132,11 +98,6 @@
 	padding : 0;
 	height : 16 * @unit_base_multimediaview;
 	position : absolute;
-	background : -webkit-gradient(linear, left top, left bottom, from(#6298D9), to(#295B98));
-	background : -moz-linear-gradient(top, #6298D9, #295B98);
-	background : -o-linear-gradient(top, #6298D9, #295B98);
-	background : -ms-linear-gradient(top, #6298D9, #295B98);
-	background-color : @color_multimediaview_bar_active;
 	border-radius : 1.5em;
 }
 
@@ -157,7 +118,6 @@
 	width : 160 * @unit_base_multimediaview;
 	height : 16 * @unit_base_multimediaview;
 	position : absolute;
-	background-color : @color_multimediaview_bar_gray;
 	border-radius : 1.5em;
 }
 
@@ -166,11 +126,6 @@
 	padding : 0;
 	height : 16 * @unit_base_multimediaview;
 	position : absolute;
-	background : -webkit-gradient(linear, left top, left bottom, from(#6298D9), to(#295B98));
-	background : -moz-linear-gradient(top, #6298D9, #295B98);
-	background : -o-linear-gradient(top, #6298D9, #295B98);
-	background : -ms-linear-gradient(top, #6298D9, #295B98);
-	background-color : @color_multimediaview_bar_active;
 	border-radius : 1.5em;
 }
 
@@ -180,11 +135,78 @@
 	width : 30 * @unit_base_multimediaview;
 	height : 30 * @unit_base_multimediaview;
 	position : absolute;
-	background-color : @color_multimediaview_bar_handle;
-	background : -webkit-gradient(linear, left top, left bottom, from(#FFFFFF), to(#E6E6E6));
-	background : -moz-linear-gradient(top, #FFFFFF, #E6E6E6);
-	background : -o-linear-gradient(top, #FFFFFF, #E6E6E6);
-	background : -ms-linear-gradient(top, #FFFFFF, #E6E6E6);
-	border : solid 1px @color_multimediaview_button_border;
+	border-style: solid;
+	border-width: 1px;
 	border-radius : 1.5em;
 }
+
+/* S
+-----------------------------------------------------------------------------------------------------------*/
+
+.ui-multimediaview-s {
+	.ui-multimediaview-video {
+		background-color : @color_multimediaview_control_bg;
+	}
+
+	.ui-timestamplabel {
+		color : @color_multimediaview_timestamp_text;
+	}
+
+	.ui-durationlabel {
+		color : @color_multimediaview_duration_text;
+	}
+
+	span.ui-button {
+		background-color : @color_multimediaview_button_bg;
+	}
+
+	span.ui-play-icon {
+		background-image : url(./images/00_button_play.png);
+	}
+
+	span.ui-pause-icon {
+		background-image : url(./images/00_button_pause.png);
+	}
+
+	span.ui-volume-icon {
+		background-image : url(./images/controls/00_slider_button_volume_02.png);
+	}
+
+	span.ui-mute-icon {
+		background-image : url(./images/controls/00_slider_button_volume_01.png);
+	}
+
+	span.ui-fullscreen-on {
+		background-image : url(./images/00_button_fullscreen_on.png);
+	}
+
+	span.ui-fullscreen-off {
+		background-image : url(./images/00_button_fullscreen_off.png);
+	}
+
+	.ui-seekbar {
+		.ui-duration {
+			background-color : @color_multimediaview_bar_gray;
+		}
+
+		.ui-currenttime {
+			.LESSmultimediaview_bar_active_style();
+		}
+	}
+
+	.ui-volumebar {
+		.ui-guide {
+			background-color : @color_multimediaview_bar_gray;
+		}
+
+		.ui-value {
+			.LESSmultimediaview_bar_active_style();
+		}
+
+		.ui-handler {
+			.LESSmultimediaview_bar_handle_style();
+			border-color : @color_multimediaview_button_border;
+		}
+	}
+}
+

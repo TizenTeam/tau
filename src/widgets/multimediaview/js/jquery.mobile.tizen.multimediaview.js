@@ -135,88 +135,53 @@
 */
 ( function ( $, document, window, undefined ) {
 	$.widget( "tizen.multimediaview", $.mobile.widget, {
-		options : {
-			theme : null,
-			controls : true,
-			fullScreen : false,
-			initSelector : "video, audio"
+		options: {
+			theme: null,
+			controls: true,
+			fullScreen: false,
+			initSelector: "video, audio"
 		},
-		_create : function () {
+
+		_create: function () {
 			var self = this,
 				view = self.element,
 				viewElement = view[0],
 				option = self.options,
+				parentTheme = $.mobile.getInheritedTheme( view, "s" ),
+				theme = option.theme || parentTheme,
 				role = "multimediaview",
 				control = null;
 
 			$.extend( this, {
-				role : null,
-				isControlHide : false,
-				controlTimer : null,
-				isVolumeHide : true,
-				isVertical : true,
-				backupView : null
+				role: null,
+				isControlHide: false,
+				controlTimer: null,
+				isVolumeHide: true,
+				isVertical: true,
+				backupView: null
 			});
 
 			self.role = role;
 			view.addClass( "ui-multimediaview" );
 			control = self._createControl();
+			control.find( ".ui-button" ).each( function ( index ) {
+				$( this ).buttonMarkup( { corners: true, theme: theme, shadow: true } );
+			});
 
 			if ( view[0].nodeName === "VIDEO" ) {
-				control.addClass( "ui-multimediaview-video" );
+				control.addClass( "ui-" + role + "-video" );
 			}
 
 			control.hide();
-			view.wrap( "<div class='ui-multimediaview-wrap'>" ).after( control );
-			if ( option.controls ) {
-				if ( view.attr("controls") ) {
-					view.removeAttr( "controls" );
-				}
+			view.wrap( [ "<div class='ui-", role, "-wrap ui-", role , "-", theme, "'>" ].join( "" ) ).after( control );
+			if ( option.controls && view.attr( "controls" ) ) {
+				view.removeAttr( "controls" );
 			}
 
 			self._addEvent();
-
-			$( document ).bind( "pagechange.multimediaview", function ( e ) {
-				var $page = $( e.target );
-				if ( $page.find( view ).length > 0 && viewElement.autoplay ) {
-					viewElement.play();
-				}
-
-				if ( option.controls ) {
-					control.show();
-					self._resize();
-				}
-			}).bind( "pagebeforechange.multimediaview", function ( e ) {
-				if ( viewElement.played.length !== 0 ) {
-					viewElement.pause();
-					control.hide();
-				}
-			});
-			$( window ).bind( "resize.multimediaview orientationchange.multimediaview", function ( e ) {
-				if ( !option.controls ) {
-					return;
-				}
-				var $page = $( e.target ),
-					$scrollview = view.parents( ".ui-scrollview-clip" );
-
-				$scrollview.each( function ( i ) {
-					if ( $.data( this, "scrollview" ) ) {
-						$( this ).scrollview( "scrollTo", 0, 0 );
-					}
-				});
-
-				// for maintaining page layout
-				if ( !option.fullScreen ) {
-					$( ".ui-footer:visible" ).show();
-				} else {
-					$( ".ui-footer" ).hide();
-					self._fitContentArea( $page );
-				}
-
-				self._resize();
-			});
 		},
-		_resize : function () {
+
+		_resize: function () {
 			var view = this.element,
 				parent = view.parent(),
 				control = parent.find( ".ui-multimediaview-control" ),
@@ -234,7 +199,8 @@
 			this._updateSeekBar();
 			this._updateVolumeState();
 		},
-		_resizeControl : function ( offset, width, height ) {
+
+		_resizeControl: function ( offset, width, height ) {
 			var self = this,
 				view = self.element,
 				viewElement = view[0],
@@ -285,7 +251,8 @@
 				durationLabel.show();
 			}
 		},
-		_resizeFullscreen : function ( isFullscreen ) {
+
+		_resizeFullscreen: function ( isFullscreen ) {
 			var self = this,
 				view = self.element,
 				parent = view.parent(),
@@ -301,10 +268,10 @@
 			if ( isFullscreen ) {
 				if ( !self.backupView ) {
 					self.backupView = {
-						width : view[0].style.getPropertyValue( "width" ) || "",
-						height : view[0].style.getPropertyValue( "height" ) || "",
-						position : view.css( "position" ),
-						zindex : view.css( "z-index" )
+						width: view[0].style.getPropertyValue( "width" ) || "",
+						height: view[0].style.getPropertyValue( "height" ) || "",
+						position: view.css( "position" ),
+						zindex: view.css( "z-index" )
 					};
 				}
 				docWidth = $( "body" )[0].clientWidth;
@@ -313,8 +280,8 @@
 				view.width( docWidth ).height( docHeight - 1 );
 				view.addClass( "ui-" + self.role + "-fullscreen" );
 				view.offset( {
-					top : 0,
-					left : 0
+					top: 0,
+					left: 0
 				});
 			} else {
 				if ( !self.backupView ) {
@@ -323,8 +290,8 @@
 
 				view.removeClass( "ui-" + self.role + "-fullscreen" );
 				view.css( {
-					"width" : self.backupView.width,
-					"height" : self.backupView.height,
+					"width": self.backupView.width,
+					"height": self.backupView.height,
 					"position": self.backupView.position,
 					"z-index": self.backupView.zindex
 				});
@@ -332,9 +299,11 @@
 			}
 			parent.show();
 		},
-		_addEvent : function () {
+
+		_addEvent: function () {
 			var self = this,
 				view = self.element,
+				option = self.options,
 				viewElement = view[0],
 				control = view.parent().find( ".ui-multimediaview-control" ),
 				playpauseButton = control.find( ".ui-playpausebutton" ),
@@ -349,6 +318,47 @@
 				seekBar = control.find( ".ui-seekbar" ),
 				durationBar = seekBar.find( ".ui-duration" ),
 				currenttimeBar = seekBar.find( ".ui-currenttime" );
+
+			$( document ).unbind( ".multimediaview" ).bind( "pagechange.multimediaview", function ( e ) {
+				var $page = $( e.target );
+				if ( $page.find( view ).length > 0 && viewElement.autoplay ) {
+					viewElement.play();
+				}
+
+				if ( option.controls ) {
+					control.show();
+					self._resize();
+				}
+			}).bind( "pagebeforechange.multimediaview", function ( e ) {
+				if ( viewElement.played.length !== 0 ) {
+					viewElement.pause();
+					control.hide();
+				}
+			});
+
+			$( window ).unbind( ".multimediaview" ).bind( "resize.multimediaview orientationchange.multimediaview", function ( e ) {
+				if ( !option.controls ) {
+					return;
+				}
+				var $page = $( e.target ),
+					$scrollview = view.parents( ".ui-scrollview-clip" );
+
+				$scrollview.each( function ( i ) {
+					if ( $.data( this, "scrollview" ) ) {
+						$( this ).scrollview( "scrollTo", 0, 0 );
+					}
+				});
+
+				// for maintaining page layout
+				if ( !option.fullScreen ) {
+					$( ".ui-footer:visible" ).show();
+				} else {
+					$( ".ui-footer" ).hide();
+					self._fitContentArea( $page );
+				}
+
+				self._resize();
+			});
 
 			view.bind( "loadedmetadata.multimediaview", function ( e ) {
 				if ( !isNaN( viewElement.duration ) ) {
@@ -384,19 +394,19 @@
 				self._resize();
 			}).bind( "error.multimediaview", function ( e ) {
 				switch ( e.target.error.code ) {
-				case e.target.error.MEDIA_ERR_ABORTED :
+				case e.target.error.MEDIA_ERR_ABORTED:
 					window.alert( 'You aborted the video playback.' );
 					break;
-				case e.target.error.MEDIA_ERR_NETWORK :
+				case e.target.error.MEDIA_ERR_NETWORK:
 					window.alert( 'A network error caused the video download to fail part-way.' );
 					break;
-				case e.target.error.MEDIA_ERR_DECODE :
+				case e.target.error.MEDIA_ERR_DECODE:
 					window.alert( 'The video playback was aborted due to a corruption problem or because the video used features your browser did not support.' );
 					break;
-				case e.target.error.MEDIA_ERR_SRC_NOT_SUPPORTED :
+				case e.target.error.MEDIA_ERR_SRC_NOT_SUPPORTED:
 					window.alert( 'The video could not be loaded, either because the server or network failed or because the format is not supported.' );
 					break;
-				default :
+				default:
 					window.alert( 'An unknown error occurred.' );
 					break;
 				}
@@ -521,7 +531,8 @@
 				});
 			});
 		},
-		_removeEvent : function () {
+
+		_removeEvent: function () {
 			var self = this,
 				view = self.element,
 				control = view.parent().find( ".ui-multimediaview-control" ),
@@ -539,7 +550,8 @@
 			volumeBar.unbind( ".multimediaview" );
 			volumeHandle.unbind( ".multimediaview" );
 		},
-		_createControl : function () {
+
+		_createControl: function () {
 			var self = this,
 				view = self.element,
 				control = $( "<span></span>" ),
@@ -575,12 +587,7 @@
 			seekBar.append( durationBar ).append( currenttimeBar ).append( durationLabel ).append( timestampLabel );
 
 			playpauseButton.addClass( "ui-play-icon" );
-			if ( view[0].muted ) {
-				$( volumeButton ).addClass( "ui-mute-icon" );
-			} else {
-				$( volumeButton ).addClass( "ui-volume-icon" );
-			}
-
+			volumeButton.addClass( view[0].muted ? "ui-mute-icon" : "ui-volume-icon" );
 			volumeBar.append( volumeGuide ).append( volumeValue ).append( volumeHandle );
 			volumeControl.append( volumeBar );
 
@@ -594,7 +601,8 @@
 
 			return control;
 		},
-		_startTimer : function ( duration ) {
+
+		_startTimer: function ( duration ) {
 			this._endTimer();
 
 			if ( !duration ) {
@@ -614,13 +622,15 @@
 				control.fadeOut( "fast" );
 			}, duration );
 		},
-		_endTimer : function () {
+
+		_endTimer: function () {
 			if ( this.controlTimer ) {
 				clearTimeout( this.controlTimer );
 				this.controlTimer = null;
 			}
 		},
-		_convertTimeFormat : function ( systime ) {
+
+		_convertTimeFormat: function ( systime ) {
 			var ss = parseInt( systime % 60, 10 ).toString(),
 				mm = parseInt( ( systime / 60 ) % 60, 10 ).toString(),
 				hh = parseInt( systime / 3600, 10 ).toString(),
@@ -630,7 +640,8 @@
 
 			return time;
 		},
-		_updateSeekBar : function ( currenttime ) {
+
+		_updateSeekBar: function ( currenttime ) {
 			var self = this,
 				view = self.element,
 				duration = view[0].duration,
@@ -652,7 +663,8 @@
 			currenttimeBar.offset( durationOffset ).width( timebarWidth );
 			timestampLabel.find( "p" ).text( self._convertTimeFormat( currenttime ) );
 		},
-		_updateVolumeState : function () {
+
+		_updateVolumeState: function () {
 			var self = this,
 				view = self.element,
 				control = view.parent().find( ".ui-multimediaview-control" ),
@@ -681,7 +693,8 @@
 			volumeHandle.offset( handlerOffset );
 			volumeValue.width( parseInt( volumeGuideWidth * ( volume ), 10 ) );
 		},
-		_setVolume : function ( value ) {
+
+		_setVolume: function ( value ) {
 			var viewElement = this.element[0];
 
 			if ( value < 0.0 || value > 1.0 ) {
@@ -690,6 +703,7 @@
 
 			viewElement.volume = value;
 		},
+
 		_fitContentArea: function ( page, parent ) {
 			if ( typeof parent == "undefined" ) {
 				parent = window;
@@ -705,10 +719,11 @@
 				height = wh - ( hh + fh ) - ( pt + pb );
 
 			$content.offset( {
-				top : ( hh + pt )
+				top: ( hh + pt )
 			}).height( height );
 		},
-		width : function ( value ) {
+
+		width: function ( value ) {
 			var self = this,
 				args = arguments,
 				view = self.element;
@@ -721,7 +736,8 @@
 				self._resize();
 			}
 		},
-		height : function ( value ) {
+
+		height: function ( value ) {
 			var self = this,
 				view = self.element,
 				args = arguments;
@@ -734,7 +750,8 @@
 				self._resize();
 			}
 		},
-		fullScreen : function ( value ) {
+
+		fullScreen: function ( value ) {
 			var self = this,
 				view = self.element,
 				control = view.parent().find( ".ui-multimediaview-control" ),
@@ -764,7 +781,8 @@
 				self._resize();
 			}
 		},
-		refresh : function () {
+
+		refresh: function () {
 			this._resize();
 		}
 	});
