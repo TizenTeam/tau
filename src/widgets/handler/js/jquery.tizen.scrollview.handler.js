@@ -89,10 +89,13 @@
 	var originSetOption = $.tizen.scrollview.prototype._setOption,
 		createHandler = function ( target ) {
 			var $view = target,
-				prefix = "<div class=\"ui-handler ui-handler-",
+				prefix = "<div class=\"ui-handler ui-handler-direction-",
 				suffix = "\"><div class=\"ui-handler-track\"><div class=\"ui-handler-thumb\"></div></div></div>",
 				scrollview = $view.data( "scrollview" ),
-				direction = scrollview.options.direction,
+				options = scrollview.options,
+				direction = options.direction,
+				parentTheme = $.mobile.getInheritedTheme( scrollview, "s" ),
+				theme = options.theme || parentTheme,
 				isHorizontal = ( scrollview.options.direction === "x" ),
 				_$view = scrollview._$view,
 				_$clip = scrollview._$clip,
@@ -121,13 +124,11 @@
 				return;
 			}
 
-			$view.append( prefix + direction + suffix );
+			$view.addClass( " ui-handler-" + theme ).append( [ prefix, direction, suffix ].join( "" ) );
 			handler = $view.find( ".ui-handler" );
 			handlerThumb = $view.find( ".ui-handler-thumb" ).hide();
 			handlerHeight = ( isHorizontal ? handlerThumb.width() : handlerThumb.height() );
 			handlerMargin = ( isHorizontal ? parseInt( handler.css( "right" ), 10 ) : parseInt( handler.css( "bottom" ), 10 ) );
-
-			scrollview.enableHandler( scrollview.options.handler );
 
 			$.extend( $view, {
 				moveData : null
@@ -296,10 +297,27 @@
 			}
 		},
 
+		_setHandlerTheme: function ( handlerTheme ) {
+			if ( !handlerTheme ) {
+				return;
+			}
+
+			var oldClass = "ui-handler-" + this.options.handlerTheme,
+				newClass = "ui-handler-" + handlerTheme;
+
+			this.element.removeClass( oldClass ).addClass( newClass );
+			this.options.handlerTheme = handlerTheme;
+		},
+
 		_setOption: function ( key, value ) {
-			if ( key === "handler") {
+			switch ( key ) {
+			case "handler":
 				this.enableHandler( value );
-			} else {
+				break;
+			case "handlerTheme":
+				this._setHandlerTheme( value );
+				break;
+			default:
 				originSetOption.call( this, key, value );
 			}
 		},
