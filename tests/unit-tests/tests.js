@@ -1,7 +1,6 @@
 var TESTS = {
 	"testPages":[
 		// Put your test here
-		"autodividers",
 		"button",
 		"check",
 		"tabbar",
