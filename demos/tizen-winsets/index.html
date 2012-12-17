@@ -22,7 +22,7 @@
 </head>
 
 <body>
-	<div data-role="page">
+	<div data-role="page" data-add-back-btn="true">
 		<div data-role="header" data-position="fixed">
 			<h1>Tizen Web UI</h1>
 		</div>
@@ -59,7 +59,6 @@
 				<li><a href="widgets/gallery.html">Gallery</a></li>
 				<li><a href="widgets/segmentctrl.html">Segment Control</a></li>
 				<li><a href="widgets/buttonGrouping.html">Group Control(new segment)</a></li>
-				<li><a href="widgets/selectioninfo.html">SelectionInfo</a></li>
 				<li><a href="#tokentextarea">Token Text Area</a></li>
 
 				<li data-role="list-divider">PageLayout</li>
@@ -120,7 +119,7 @@
 		</div>
 	</div>
 
-<div data-role="page" id="tabbar_persist_a">
+<div data-role="page" id="tabbar_persist_a" data-add-back-btn="true">
 	<div data-role="header" data-position="fixed">
 		<div data-role="tabbar" data-id="persist_header" >
 			<ul>
@@ -134,9 +133,12 @@
 	<div data-role="content">
 		<p>page a</p>
 	</div>
+
+	<div data-role="footer">
+	</div>
 </div>
 
-<div data-role="page" id="tabbar_persist_b">
+<div data-role="page" id="tabbar_persist_b" data-add-back-btn="true">
 	<div data-role="header" data-position="fixed">
 		<div data-role="tabbar" data-id="persist_header" >
 			<ul>
@@ -150,9 +152,12 @@
 	<div data-role="content">
 		<p>page b</p>
 	</div>
+
+	<div data-role="footer">
+	</div>
 </div>
 
-<div data-role="page" id="tabbar_persist_c">
+<div data-role="page" id="tabbar_persist_c" data-add-back-btn="true">
 	<div data-role="header" data-position="fixed">
 		<div data-role="tabbar" data-id="persist_header" >
 			<ul>
@@ -166,15 +171,20 @@
 	<div data-role="content">
 		<p>page c</p>
 	</div>
+
+	<div data-role="footer">
+	</div>
 </div>
 
 
-	<div data-role="page" id="notImplemented">
+	<div data-role="page" id="notImplemented" data-add-back-btn="true">
 		<div data-role="header" data-position="fixed">
 			<h1>Not Implemented</h1>
 		</div>
 		<div data-role="content">
 			<p> Not Implemented </p>
+		</div>
+		<div data-role="footer">
 		</div>
 	</div>
 
@@ -196,9 +206,11 @@
 				<li><input id="mySlider5" name="mySlider5" data-popup='false' type="range" name="slider" value="5" min="0" max="10" data-icon='text' data-text-left='Min' data-text-right='Max'/></li>
 			</ul>
 		</div><!-- /content -->
+		<div data-role="footer">
+		</div>
 	</div> <!-- /page -->
 
-	<div data-role="page" id="tokentextarea">
+	<div data-role="page" id="tokentextarea" data-add-back-btn="true">
 		<div data-role="header" data-position="fixed">
 			<h1>Token Text Area</h1>
 		</div>
@@ -217,6 +229,8 @@
 				<li><a id='MBTfocusInTest'>Grouping Off</a></li>
 				<li><a id='MBTremoveAllItemTest'>Remove All Item</a></li>
 			</ul>
+		</div>
+		<div data-role="footer">
 		</div>
 	</div>
 	<div data-role="page" id="addressbook" data-add-back-btn="none">
