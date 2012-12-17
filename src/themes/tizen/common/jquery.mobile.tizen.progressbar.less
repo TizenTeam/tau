@@ -14,13 +14,18 @@
 .ui-progressbar-value {
 	height: 100%;
 
-	//FIXME
-	//background-image: url(images/00_winset_list_progress_bar.png);
-	background-color: @color_progress_bar1;
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0, @color_progress_value0),
+		color-stop(1, @color_progress_value1)
+	);
 	.LESSborder-radius-all( 10 * @unit_base );
+	.LESSbox-shadow(-1px, -1px, 1px, rgb(179, 200, 226));
 }
 
-.ui-progress-bg {
+.ui-progressbar-bg {
 	position: relative;
 	overflow: hidden;
 
@@ -32,8 +37,9 @@
 	.LESSborder-radius-all( 10 * @unit_base );
 	border: 1px;
 	border-style: solid;
-	border-color: rgb(180, 180, 180);
-	.LESSbox-shadow(1px, -1px, 1px, rgb(180, 180, 180));
+	border-color: @color_progress_boarder;
+	.LESSbox-shadow(1px, -1px, 1px, @color_progress_boarder);
+	background-color: @color_progress_bar0;
 }
 
 .ui-progressbar {
@@ -42,8 +48,13 @@
 	margin-right: @bar-margin;
 	height: @bar-height;
 
-	//FIXME
-	//background-image: url(images/00_winset_list_progress_bg.png);
-	background-color: @color_progress_bar0;
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0, @color_progress_bar1),
+		color-stop(1, @color_progress_bar0)
+	);
+	.LESSbox-shadow(1px, 1px, 0px, white);
 	.LESSborder-radius-all( 10 * @unit_base );
 }

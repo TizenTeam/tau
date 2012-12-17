@@ -3,7 +3,7 @@ SHELL := /bin/bash
 ## Project setting
 DEBUG ?= yes
 PROJECT_NAME = tizen-web-ui-fw
-VERSION = 0.1
+VERSION = 0.2
 VERSION_COMPAT =
 PKG_VERSION = $(shell cat packaging/web-ui-fw.spec | grep Version: | sed -e "s@Version:\s*@@" )
 THEME_NAME = default
@@ -92,7 +92,7 @@ LIBS_CSS_FILES +=\
 endif
 
 
-all: libs_prepare third_party widgets libs_cleanup loader themes version_compat compress
+all: libs_prepare third_party widgets libs_cleanup loader themes version version_compat compress
 
 libs_prepare:
 	# Prepare libs/ build...
@@ -183,7 +183,6 @@ widgets: init third_party
 
 loader: widgets globalize
 	cat 'src/loader/loader.js' >> ${FW_JS}
-	echo '(function($$){$$.tizen.frameworkData.pkgVersion="$(PKG_VERSION)";}(jQuery));' >> ${FW_JS}
 
 
 globalize: widgets
@@ -195,6 +194,9 @@ globalize: widgets
 themes:
 	make -C src/themes || exit $?
 
+version: loader themes
+	echo '(function($$){$$.tizen.frameworkData.pkgVersion="$(PKG_VERSION)";}(jQuery));' >> ${FW_JS}
+	echo "$(PKG_VERSION)" > ${FRAMEWORK_ROOT}/../VERSION
 
 compress: widgets loader themes
 	# Javacript code compressing

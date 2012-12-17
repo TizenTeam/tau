@@ -49,7 +49,7 @@
 				<li data-role="list-divider">Controls</li>
 				<li><a href="widgets/button/button.html">Button</a></li>
 				<li><a href="widgets/checkbox/checkbox.html">Check</a></li>
-				<li><a href="widgets/switch/switch.html">Switch</a></li>
+				<li><a href="widgets/switch/toggleswitch.html">ToggleSwitch</a></li>
 				<li><a href="widgets/radio/radio.html">Radio</a></li>
 				<li><a href="widgets/searchbar/searchbar.html">Searchbar</a></li>
 				<li><a href="widgets/entry.html">Entry</a></li>
@@ -59,9 +59,7 @@
 				<li><a href="widgets/gallery.html">Gallery</a></li>
 				<li><a href="widgets/segmentctrl.html">Segment Control</a></li>
 				<li><a href="widgets/buttonGrouping.html">Group Control(new segment)</a></li>
-				<li><a href="widgets/day-selector.html" >Day Selector</a></li>
 				<li><a href="widgets/selectioninfo.html">SelectionInfo</a></li>
-				<li><a href="widgets/pagecontrol/pagecontrol.html">PageControl</a></li>
 				<li><a href="#tokentextarea">Token Text Area</a></li>
 
 				<li data-role="list-divider">PageLayout</li>
@@ -95,17 +93,12 @@
 				<li><a href="widgets/small-popup.html">Small Popup</a></li>
 				<li><a href="widgets/small-popup-interval.html">Small Popup Interval</a></li>
 
-				<li data-role="list-divider">No Contents</li>
-				<li><a href="#no-contents-0">No Contents - Text</a></li>
-				<li><a href="#no-contents-1">No Contents - Picture</a></li>
-				<li><a href="#no-contents-2">No Contents - Multimedia</a></li>
-				<li><a href="#no-contents-3">No Contents - Unnamed</a></li>
-
 				<li data-role="list-divider">Grid view</li>
 				<li><a href="widgets/grid/virtualgrid.html">Virtual Grid</a></li>
 				<li><a href="widgets/grid/virtualgrid-rotation.html">Virtual Grid - Rotation</a></li>
 				<li><a href="widgets/grid/virtualgrid-list.html">Virtual Grid - List</a></li>
 				<li><a href="widgets/grid/virtualgrid-x.html">Virtual Grid - X</a></li>
+				<li><a href="widgets/grid/virtualgrid-size.html">Virtual Grid - Size</a></li>
 				<li data-role="list-divider">Multimedia view</li>
 				<li><a href="widgets/multimediaview/multimediaview.html">Multimedia view</a></li>
 
@@ -114,7 +107,6 @@
 				<li><a href="tips/custom-globalize-culture/custom-globalize-culture.html">Using custom Globalize culture files</a></li>
 				<li><a href="tips/two-line-text/two-line-text.html">2 line text</a></li>
 				<li><a href="tips/list-sample/list-sample.html">Example for using listview</a></li>
-				<li><a href="tips/list-sample/expandable.html">Example for using expandable list</a></li>
 				<li><a href="tips/page-transition/transition.html">Page transitions</a></li>
 
 <!-- START_PROPRIETARY -->
@@ -278,57 +270,7 @@
 		</div>
 	</div> <!--/page -->
 
-	<!--                   nocontents                 -->
-	<div data-role="page" id="no-contents-0" data-add-back-btn="true">
-		<div data-role="header" data-position="fixed">
-			<h1>No Contents</h1>
-		</div>
-		<div data-role="content">
-			<div data-role="nocontents" id="nocontents0" data-type="text">
-				<p>Text Type</p>
-				<p>Text</p>
-			</div>
-		</div> <!-- /content -->
-	</div> <!-- /page -->
-
-	<div data-role="page" id="no-contents-1" data-add-back-btn="true">
-		<div data-role="header" data-position="fixed">
-			<h1>No Contents</h1>
-		</div>
-		<div data-role="content">
-			<div data-role="nocontents" id="nocontents1" data-type="picture">
-				<p>Picture Type</p>
-				<p>Text</p>
-			</div>
-		</div> <!-- /content -->
-	</div> <!-- /page -->
-
-	<div data-role="page" id="no-contents-2" data-add-back-btn="true">
-		<div data-role="header" data-position="fixed">
-			<h1>No Contents</h1>
-		</div>
-		<div data-role="content">
-			<div data-role="nocontents" id="nocontents2" data-type="multimedia">
-				<p>Multimedia Type</p>
-				<p>Text</p>
-			</div>
-		</div> <!-- /content -->
-	</div> <!-- /page -->
-
-	<div data-role="page" id="no-contents-3" data-add-back-btn="true">
-		<div data-role="header" data-position="fixed">
-			<h1>No Contents</h1>
-		</div>
-		<div data-role="content">
-			<div data-role="nocontents" id="nocontents3">
-				<p>Unnamed Type</p>
-			</div>
-		</div> <!-- /content -->
-	</div> <!-- /page -->
-
-
 	<script src="widgets/checkbox/checkbox.js"></script>
-	<script src="widgets/switch/switch.js"></script>
 	<script src="widgets/radio/radio.js"></script>
 	<script src="widgets/progressbar.js"></script>
 	<script src="widgets/ctxpopup.js"></script>
@@ -336,12 +278,12 @@
 	<script src="tips/generate-elements-dynamically.js"></script>
 	<script src="tips/two-line-text/two-line-text.js"></script>
 	<script src="tips/list-sample/list-sample.js"></script>
-	<script src="tips/list-sample/expandable.js"></script>
-	<script src="widgets/pagecontrol/pagecontrol-demo.js"></script>
 	<script src="widgets/tokentextarea-demo.js"></script>
 	<script src="widgets/pagelayout/barcontrol.js"></script>
 	<script src="widgets/pagelayout/backbutton-control.js"></script>
+	<script src="widgets/list/list-edit.js"></script>
 	<!-- test file for content div control, not completed yet -->
 	<script src="widgets/pagelayout/ctrl-test.js"></script>
+
 </body>
 </html>

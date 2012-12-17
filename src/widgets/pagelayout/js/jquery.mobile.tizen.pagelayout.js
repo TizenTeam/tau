@@ -194,6 +194,14 @@
 						.addClass( "ui-btn-footer-right" );
 				}
 			});
+
+			if ( $elFooter.find( ".ui-controlgroup" ).length ) {
+				footerControlButton = $elFooter.find( ".ui-controlgroup a" );
+				footerControlButtonWidth = 100 / $elFooter.find( ".ui-controlgroup a" ).length;
+				footerControlButton.each( function ( i ) {
+					footerControlButton.eq( i ).css( "max-width", footerControlButtonWidth + "%" );
+				});
+			}
 		},
 
 		_bindPageEvents: function () {
@@ -262,6 +270,18 @@
 						}
 					}
 				});
+
+			window.addEventListener( "softkeyboardchange", function( e ) {
+				var $elFooter = $( ".ui-page-active .ui-footer" ),
+					thisPage = this;
+
+				if ( e.state == "on" ) {
+					$elFooter.hide();
+				} else if (e.state == "off") {
+					$elFooter.show();
+				}
+				self.updatePagePadding( thisPage, e.state );
+			});
 		},
 
 		_bindContentControlEvents: function () {
@@ -318,17 +338,21 @@
 		},
 */
 		// This will set the content element's top or bottom padding equal to the toolbar's height
-		updatePagePadding: function ( tbPage ) {
+		updatePagePadding: function ( tbPage, imestatus ) {
 			var $el = this.element,
 				header = $el.siblings( ".ui-header" ).length;
 
 			// This behavior only applies to "fixed", not "fullscreen"
-			if ( this.options.fullscreen ) { return; }
+			if ( this.options.fullscreen && imestatus ) { return; }
 
 			tbPage = tbPage || $el.closest( ".ui-page" );
+			if ( imestatus == "on" ) {
+				$el.height( window.innerHeight - $el.siblings( ".ui-header" ).height() -
+					parseFloat( $el.css("padding-top") ) -
+					parseFloat( $el.css("padding-bottom") ) );
+			}
 			$( tbPage ).css( "padding-" + ( header ? "top" : "bottom" ), $el.siblings( ".ui-header" ).outerHeight() );
 		},
-
 
 		/* 1. Calculate and update content height   */
 		updatePageLayout: function ( receiveType ) {

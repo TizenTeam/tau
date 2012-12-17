@@ -165,12 +165,16 @@
 				style = this.options.style;
 			}
 
-			_html = '<div class="ui-progress-container-' + style + '">' +
-					'<div class="ui-progress-' + style + '"></div>' +
-				'</div>';
-
-			if ( style === "pending" ) {
-				_html = '<div class="ui-progress-pending-bg">' + _html + '</div>';
+			if ( style == "circle" ) {
+				_html = '<div class="ui-progress-container-circle">' +
+						'<div class="ui-progress-circle"></div>' +
+					'</div>';
+			} else if ( style === "pending" ) {
+				_html = '<div class="ui-progressbar">' +
+						'<div class="ui-progressbar-bg">' +
+							'<div class="ui-progress-pending"></div>' +
+						'</div">' +
+					'</div>';
 			}
 
 			this.html = $( _html );

@@ -29,9 +29,13 @@
  *
  * Authors: Gabriel Schulhof <gabriel.schulhof@intel.com>,
  *          Elliot Smith <elliot.smith@intel.com>
+ *			Hyunjung Kim <hjnim.kim@samsung.com>
  */
 
 /*
+ * % Popupwindow widget do not use anymore(will be deprecated, internal use only)
+ *
+ *
  * Shows other elements inside a popup window.
  *
  * To apply, add the attribute data-role="popupwindow" to a <div> element inside
@@ -86,7 +90,7 @@
 */
 
 /**
-	@class Popup
+	class Popupwindow
 	The pop-up widget shows a list of items in a pop-up window in the middle of the screen. It automatically optimizes the pop-up window size within the screen.
 	To add a pop-up widget to the application, use the following code:
 
@@ -112,6 +116,8 @@
 		</div>
 
 	The pop-up can define callbacks for events as described in the jQueryMobile documentation for pop-up events. <br/>You can use methods with the pop-up as described in the jQueryMobile documentation for pop-up methods.
+
+	@deprecated 2.0 verisons
 */
 
 /**

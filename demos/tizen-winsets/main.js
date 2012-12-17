@@ -120,16 +120,6 @@ $( document ).bind("pagecreate", function () {
 		console.log('option header was expanded');
 	});
 
-	//day-selector codes...
-	$("#day-selector-check-all").live('vclick', function () {
-		$("#dayselector1").dayselector('selectAll');
-	});
-
-	$("#day-selector-get-days").live('vclick', function () {
-		var valuesStr = $("#dayselector1").dayselector('value').join(', ');
-		$(".selectedDay").text( valuesStr );
-	});
-
 	/* Gen list : Dummy DB load */
 	$(".virtuallist_demo_page").live("pagecreate", function () {
 		/* ?_=ts code for no cache mechanism */

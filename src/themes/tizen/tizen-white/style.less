@@ -431,8 +431,11 @@
 /***************************************************************************
                     Progress
 ***************************************************************************/
-@color_progress_bar0:			rgb(226, 223, 219);
-@color_progress_bar1:			rgb(54, 119, 195);
+@color_progress_bar0:			rgb(202, 200, 196);
+@color_progress_bar1:			rgb(246, 243, 239);
+@color_progress_boarder:		rgb(163, 160, 158);
+@color_progress_value0:			rgb(54, 119, 195);
+@color_progress_value1:			rgb(150, 184, 224);
 
 
 /***************************************************************************
@@ -453,6 +456,22 @@
 @color_multimediaview_bar_active : rgb(74, 132, 201);
 @color_multimediaview_bar_handle : rgb(249, 249, 249);
 @color_multimediaview_button_border : rgb(186, 185, 180);
+
+.LESSmultimediaview_bar_active_style{
+	background-color : @color_multimediaview_bar_active;
+	background-image : -webkit-gradient(linear, left top, left bottom, from(rgb(98, 137, 217)), to(rgb(41, 91, 152)));
+	background-image : -moz-linear-gradient(top, rgb(98, 137, 217), rgb(41, 91, 152));
+	background-image : -o-linear-gradient(top, rgb(98, 137, 217), rgb(41, 91, 152));
+	background-image : -ms-linear-gradient(top, rgb(98, 137, 217), rgb(41, 91, 152));
+}
+
+.LESSmultimediaview_bar_handle_style{
+	background-color : @color_multimediaview_bar_handle;
+	background-image : -webkit-gradient(linear, left top, left bottom, from(rgb(255, 255, 255)), to(rgb(230, 230, 230)));
+	background-image : -moz-linear-gradient(top, rgb(255, 255, 255), rgb(230, 230, 230));
+	background-image : -o-linear-gradient(top, rgb(255, 255, 255), rgb(230, 230, 230));
+	background-image : -ms-linear-gradient(top, rgb(255, 255, 255), rgb(230, 230, 230));
+}
 
 
 /***************************************************************************

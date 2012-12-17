@@ -201,14 +201,14 @@
 				y = 0,
 				scroll_height = 0,
 				self = this,
-				bouncing = function ( dir ) {
+				end_effect = function ( dir ) {
 					setTimeout( function () {
-						self._bouncing_dir = dir;
-						self._setBouncing( self._$view, "in" );
+						self._effect_dir = dir;
+						self._setEndEffect( "in" );
 					}, 100 );
 
 					setTimeout( function () {
-						self._setBouncing( self._$view, "out" );
+						self._setEndEffect( "out" );
 					}, 350 );
 				},
 				vt = this._vTracker,
@@ -236,13 +236,13 @@
 						this._outerScroll( y - vt.getRemained() / 3, scroll_height );
 
 						if ( scroll_height > 0 ) {
-							bouncing( 1 );
+							end_effect( 1 );
 						}
 					} else if ( vt.isMax() ) {
 						this._outerScroll( vt.getRemained() / 3, scroll_height );
 
 						if ( scroll_height > 0 ) {
-							bouncing( 0 );
+							end_effect( 0 );
 						}
 					}
 				}
@@ -269,7 +269,7 @@
 			var translate,
 				transition;
 
-			if ( this._bouncing ) {
+			if ( this._endEffect ) {
 				return;
 			}
 
@@ -295,11 +295,11 @@
 			});
 		},
 
-		_setBouncing: function ( $ele, dir ) {
+		_setEndEffect: function ( dir ) {
 			var scroll_height = this._getViewHeight() - this._$clip.height();
 
 			if ( this._softkeyboard ) {
-				if ( this._bouncing_dir ) {
+				if ( this._effect_dir ) {
 					this._outerScroll( -scroll_height - this._softkeyboardHeight,
 							scroll_height );
 				} else {
@@ -309,97 +309,20 @@
 			}
 
 			if ( dir === "in" ) {
-				if ( this._bouncing ) {
+				if ( this._endEffect ) {
 					return;
 				}
 
-				this._bouncing = true;
-				this._bouncing_count = 1;
-
-				this._bouncing_org_x = 1;
-				this._bouncing_org_y = 1;
-
-				this._bouncing_x = 0.99;
-				this._bouncing_y = 0.99;
-
-				this._setOverflowIndicator( this._bouncing_dir );
+				this._endEffect = true;
+				this._setOverflowIndicator( this._effect_dir );
 			} else if ( dir === "out" ) {
-				if ( !this._bouncing ) {
+				if ( !this._endEffect ) {
 					return;
 				}
 
-				this._bouncing = false;
-				this._bouncing_count = 1;
-
-				this._bouncing_org_x = this._bouncing_x;
-				this._bouncing_org_y = this._bouncing_y;
-
-				this._bouncing_x = 1;
-				this._bouncing_y = 1;
-				this._setOverflowIndicator( this._bouncing_dir );
-			} else {
-				return;
+				this._endEffect = false;
+				this._setOverflowIndicator( this._effect_dir );
 			}
-
-			this._doBouncing( $ele, dir );
-		},
-
-		_doBouncing: function ( $ele, dir ) {
-			var translate,
-				origin,
-				x_rate,
-				y_rate,
-				frame = 10,
-				self = this;
-
-			if ( $.support.cssTransform3d ) {
-				translate = "translate3d(" + this._sx + "px," + this._sy + "px, 0px)";
-			} else {
-				translate = "translate(" + this._sx + "px," + this._sy + "px)";
-			}
-
-			if ( dir === "in" ) {
-				x_rate = this._bouncing_org_x -	( this._bouncing_org_x -
-						this._bouncing_x ) / frame * this._bouncing_count;
-				y_rate = this._bouncing_org_y -	( this._bouncing_org_y -
-						this._bouncing_y ) / frame * this._bouncing_count;
-
-				translate += " scale(" + x_rate + "," + y_rate + ")";
-			} else if ( dir === "out" ) {
-				x_rate = this._bouncing_org_x +	( this._bouncing_x -
-						this._bouncing_org_x ) / frame * this._bouncing_count;
-				y_rate = this._bouncing_org_y +	( this._bouncing_y -
-						this._bouncing_org_y ) / frame * this._bouncing_count;
-
-				translate += " scale(" + x_rate + "," + y_rate + ")";
-			} else {
-				return;
-			}
-
-			if ( this._bouncing_dir ) {
-				origin = "50% " + ( this._bouncing_y * 100 - 10 ) + "%";
-			} else {
-				origin = "50% 10%";
-			}
-
-			$ele.css({
-				"-moz-transform": translate,
-				"-webkit-transform": translate,
-				"-ms-transform": translate,
-				"-o-transform": translate,
-				"transform": translate,
-				"-webkit-transform-origin": origin,
-			});
-
-			this._bouncing_count++;
-
-			if ( this._bouncing_count > frame ) {
-				return;
-			}
-
-			setTimeout( function () {
-				self._doBouncing( $ele, dir );
-			}, this._timerInterval );
 		},
 
 		_setCalibration: function ( x, y ) {
@@ -437,20 +360,21 @@
 				if ( y > 0 ) {
 					this._sy = 0;
 
-					if ( scroll_height > 0 ) {
-						this._bouncing_dir = 0;
-						this._setBouncing( this._$view, "in" );
+					if ( this._didDrag && scroll_height > 0 ) {
+						this._effect_dir = 0;
+						this._setEndEffect( "in" );
 					}
 				} else if ( y < -scroll_height ) {
 					this._sy = -scroll_height;
 
-					if ( scroll_height > 0 ) {
-						this._bouncing_dir = 1;
-						this._setBouncing( this._$view, "in" );
+					if ( this._didDrag && scroll_height > 0 ) {
+						this._effect_dir = 1;
+						this._setEndEffect( "in" );
 					}
 				} else {
-					if ( this._bouncing && this._sy !== y ) {
-						this._bouncing = false;
+					if ( this._endEffect && this._sy !== y ) {
+						this._endEffect = false;
+						this._setOverflowIndicator();
 					}
 
 					this._sy = y;
@@ -849,8 +773,8 @@
 
 			this._disableTracking();
 
-			if ( this._bouncing ) {
-				this._setBouncing( this._$view, "out" );
+			if ( this._endEffect ) {
+				this._setEndEffect( "out" );
 				this._hideScrollBars();
 				this._hideOverflowIndicator();
 			}
@@ -1098,6 +1022,81 @@
 
 			$v.bind( this._dragEvt, this._dragCB );
 
+			$v.bind( "keydown", function ( e ) {
+				var elem,
+					elem_top,
+					screen_h;
+
+				if ( e.keyCode == 9 ) {
+					return false;
+				}
+
+				elem = $c.find(".ui-focus");
+
+				if ( elem === undefined ) {
+					return;
+				}
+
+				elem_top = elem.offset().top;
+				screen_h = $c.offset().top + $c.height() - elem.height();
+
+				if ( self._softkeyboard ) {
+					screen_h -= self._softkeyboardHeight;
+				}
+
+				if ( ( elem_top < 0 ) || ( elem_top > screen_h ) ) {
+					self.scrollTo( 0, self._sy - elem_top +
+						elem.height() + $c.offset().top, 0);
+				}
+
+				return;
+			});
+
+			$v.bind( "keyup", function ( e ) {
+				var input,
+					elem,
+					elem_top,
+					screen_h;
+
+				if ( e.keyCode != 9 ) {
+					return;
+				}
+
+				/* Tab Key */
+
+				input = $( this ).find(":input");
+
+				for ( i = 0; i < input.length; i++ ) {
+					if ( !$( input[i] ).hasClass("ui-focus") ) {
+						continue;
+					}
+
+					if ( i + 1 == input.length ) {
+						elem = $( input[0] );
+					} else {
+						elem = $( input[i + 1] );
+					}
+
+					elem_top = elem.offset().top;
+					screen_h = $c.offset().top + $c.height() - elem.height();
+
+					if ( self._softkeyboard ) {
+						screen_h -= self._softkeyboardHeight;
+					}
+
+					if ( ( elem_top < 0 ) || ( elem_top > screen_h ) ) {
+						self.scrollTo( 0, self._sy - elem_top +
+							elem.height() + $c.offset().top, 0);
+					}
+
+					elem.focus();
+
+					break;
+				}
+
+				return false;
+			});
+
 			$c.bind( "updatelayout", function ( e ) {
 				var sy,
 					vh,
@@ -1117,8 +1116,10 @@
 					return;
 				}
 
-				if ( self._sy - sy <= -vh ) {
-					self.scrollTo( 0, sy,
+				if ( sy > 0 ) {
+					self.scrollTo( 0, 0, 0 );
+				} else if ( self._sy - sy <= -vh ) {
+					self.scrollTo( 0, self._sy,
 						self.options.snapbackDuration );
 				} else if ( self._sy - sy <= vh + self.options.moveThreshold ) {
 					self.scrollTo( 0, sy,

@@ -193,20 +193,13 @@
 		.LESStext-no-ellipsis();
 	}
 
-	.ui-toggleswitch {
+	.ui-toggle-switch {
 		&:last-child {
 			top : 50%;
-			margin-top : -20 * @unit_base;
+			margin-top : -17 * @unit_base;
 
 			display : inline-block;
 			position : absolute;
-
-			right : 0px;
-		}
-	}
-	.ui-toggleswitch.ui-toggleswitch-image-style {
-		&:last-child {
-			margin-top : -17 * @unit_base;
 
 			right : 0px;
 		}
@@ -776,6 +769,42 @@ li:not(.ui-li-has-multiline) .ui-li-text-sub {
 	}
 }
 
+// Edit list mode
+.ui-listview {
+	li.ui-li-dialogue-edit{
+		padding-left : 116 * @unit_base;
+		padding-top : 12 * @unit_base;
+		padding-bottom : 12 * @unit_base;
+
+		.ui-edit-title {
+			position : absolute;
+			left : 10 * @unit_base;
+			width : 91 * @unit_base;
+			padding-right : 8 * @unit_base;
+			display : inline-block;
+			top : 50%;
+			margin-top : -13 * @unit_base;
+
+			border-right-color : rgba(185, 184, 178, 1);
+			border-right-width : 1px;
+			border-right-style : solid;
+		}
+
+		input {
+			font-size : 22 * @unit_base;
+			background : transparent;
+			outline-color : transparent;
+			width : 100%;
+			padding-left : 0px;
+			padding-right : 0px;
+		}
+	}
+
+	> .ui-li.ui-li-dialogue-edit.ui-li-has-right-btn {
+		padding-right : 110 * @unit_base;
+	}
+}
+
 // =========
 // bubble li
 // =========
@@ -886,76 +915,6 @@ li:not(.ui-li-has-multiline) .ui-li-text-sub {
 			padding-left: 0.5em;
 			padding-right: 0.5em;
 		}
-	}
-}
-
-// Expandable list animation
-.ui-listview {
-	.ui-li-expanded {
-		background-color: @color_list_expandable_expanded_bg;
-	}
-	.ui-li-expanded .ui-li-expanded {	// 3rd~ more depth
-		background-color: @color_list_expandable_expanded_bg;
-	}
-	.ui-li-expandable-shown {
-		// Down arrow
-		.LESSimg-expanded-icon;
-	}
-	.ui-li-expandable-hidden {
-		// Right arrow
-		.LESSimg-expand-icon;
-	}
-	.ui-li-expanded {
-		overflow-x: hidden;
-	}
-	.ui-li-expand-transition-show {
-		visibility: visible;
-		-webkit-transition: all 0.2s ease;
-		-moz-transition: all 0.2s ease;
-		-o-transition: all 0.2s ease;
-		-ms-transition: all 0.2s ease;
-		transition: all 0.2s ease;
-	}
-	.ui-li-expand-transition-hide {
-		visibility: hidden;
-		height: 0px !important;
-		min-height: 0px !important;
-		padding-top: 0px;
-		padding-bottom: 0px;
-		border-top: 0px !important;
-		border-bottom: 0px !important;
-		-webkit-transition: all 0.2s ease;
-		-moz-transition: all 0.2s ease;
-		-o-transition: all 0.2s ease;
-		-ms-transition: all 0.2s ease;
-		transition: all 0.2s ease;
-	}
-}
-
-
-.LESSimg-expand-icon(@right:@list-li-padding-horizontal, @size:37*@unit_base) {
-	.ui-li-expand-icon {
-		background-image: url(images/00_button_expand_closed.png);
-		background-size: 100%;
-		position: absolute;
-		top: 50%;
-		width: 37 * @unit_base;
-		height: 37 * @unit_base;
-		margin-top: -(@size/2);
-		right: 18 * @unit_base;
-	}
-}
-
-.LESSimg-expanded-icon(@right:@list-li-padding-horizontal, @size:37*@unit_base) {
-	.ui-li-expanded-icon {
-		background-image: url(images/00_button_expand_opened.png);
-		background-size: 100%;
-		position: absolute;
-		top: 50%;
-		width: 37 * @unit_base;
-		height: 37 * @unit_base;
-		margin-top: -(@size/2);
-		right: 18 * @unit_base;
 	}
 }
 
