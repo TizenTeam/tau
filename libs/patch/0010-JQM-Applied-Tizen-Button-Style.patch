@@ -34,13 +34,13 @@ index 3d7d884..0be6999 100644
 +			buttonClass += " ui-btn-icon_only";
 +		} else if ( buttonStyle == "edit" ) {
 +			buttonClass += " ui-btn-edit";
++		} else if ( buttonStyle == "round" ) {
++			buttonClass += " ui-btn-round";
 +		}
++
 +
 +		if ( o.icon ) {
 +			if ( $(el).text().length > 0 ) {
-+				/* o.iconpos == "right" ?
-+					textClass += " ui-btn-text-padding-right" :
-+					textClass += " ui-btn-text-padding-left"; */
 +
 +				switch ( o.iconpos ) {
 +				case "right" :
