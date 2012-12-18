@@ -20,14 +20,15 @@ FRAMEWORK_ROOT = ${OUTPUT_ROOT}/${PROJECT_NAME}/${VERSION}
 LATEST_ROOT = ${OUTPUT_ROOT}/${PROJECT_NAME}/latest
 
 JS_OUTPUT_ROOT = ${FRAMEWORK_ROOT}/js
+JS_LIB_OUTPUT_DIR = ${JS_OUTPUT_ROOT}/src
 export THEME_OUTPUT_ROOT = ${FRAMEWORK_ROOT}/themes
 CSS_OUTPUT_ROOT = ${FRAMEWORK_ROOT}/themes/${THEME_NAME}
 CSS_IMAGES_OUTPUT_DIR = ${CSS_OUTPUT_ROOT}/images
 WIDGET_CSS_OUTPUT_ROOT = ${FRAMEWORK_ROOT}/widget-css
 PROTOTYPE_HTML_OUTPUT_DIR = proto-html
 
-WIDGETS_DIR = $(CURDIR)/src/widgets
-
+JS_DIR = $(CURDIR)/src/js
+WIDGETS_DIR = ${JS_DIR}/widgets
 THEMES_DIR = $(CURDIR)/src/themes
 LIBS_DIR = $(CURDIR)/libs
 
@@ -65,7 +66,7 @@ JQM_LIB_PATH = $(CURDIR)/libs/js/${JQM_VERSION}
 JQUERY = jquery-1.8.2.js
 JQUERY_MIN = $(subst .js,.min.js,$(JQUERY))
 
-all: libs_prepare third_party widgets libs_cleanup loader themes version version_compat compress
+all: libs_prepare third_party js libs_cleanup themes version version_compat compress
 
 libs_prepare:
 	# Prepare libs/ build...
@@ -97,7 +98,36 @@ third_party: init jqm
 	    cp ${LIBS_DIR}/js/${JQUERY} ${JS_OUTPUT_ROOT}/jquery.js
 	    cp ${LIBS_DIR}/js/${JQUERY_MIN} ${JS_OUTPUT_ROOT}/jquery.min.js
 
-widgets: init third_party
+js: init third_party globalize
+	# Building JS files...
+	mkdir -p ${JS_LIB_OUTPUT_DIR}; \
+	cp -a ${JS_DIR}/* ${JS_LIB_OUTPUT_DIR}/; \
+	/usr/bin/node $(CURDIR)/tools/moduledep.js -c ${JS_LIB_OUTPUT_DIR} > ${JS_LIB_OUTPUT_DIR}/../depData.json; \
+	find ${JS_LIB_OUTPUT_DIR} -iname '*.js' | sort | \
+	while read JSFILE; do \
+		echo " # Building $$JSFILE"; \
+		sed -i -e '/^\/\/>>excludeStart\(.*\);/,/^\/\/>>excludeEnd\(.*\);/d' $$JSFILE; \
+		if test ${JSLINT_LEVEL} -ge 1; then \
+			${JSLINT} $$JSFILE; \
+			if test ${JSLINT_LEVEL} -ge 2 -a $$? -ne 0; then \
+				exit 1; \
+			fi; \
+		fi; \
+		if test "x${INLINE_PROTO}x" = "x1x"; then \
+			echo "		$$f (include inline-proto if exists)"; \
+			./tools/inline-protos.sh $$JSFILE > $$JSFILE.compiled; \
+			rm -f $$JSFILE; \
+			mv $$JSFILE.compiled $$JSFILE; \
+		else \
+			echo "		$$f"; \
+		fi; \
+	done; \
+	/usr/bin/node $(CURDIR)/tools/moduledep.js -d ${JS_LIB_OUTPUT_DIR} ${JS_LIB_OUTPUT_DIR}/../depData.json >> ${FW_JS}; \
+	cp -a ${JS_DIR}/* ${JQM_LIB_PATH}/js/* ${JS_LIB_OUTPUT_DIR}/; \
+	/usr/bin/node $(CURDIR)/tools/moduledep.js -c ${JS_LIB_OUTPUT_DIR} > ${JS_LIB_OUTPUT_DIR}/../depData.json; \
+	find ${JS_LIB_OUTPUT_DIR} -iname '*.js' | xargs sed -i -e '/^\/\/>>excludeStart\(.*\);/,/^\/\/>>excludeEnd\(.*\);/d';
+
+widgets: init third_party globalize
 	# Building widgets...
 	@@ls -l ${WIDGETS_DIR} | grep '^d' | awk '{print $$NF;}' | \
 	    while read REPLY; do \
@@ -145,25 +175,19 @@ widgets: init third_party
                 fi; \
 	    done
 
-
-loader: widgets globalize
-	cat 'src/loader/loader.js' >> ${FW_JS}
-
-
-globalize: widgets
-	cat 'libs/js/globalize/lib/globalize.js' >> ${FW_JS}
+globalize:
+	cat 'libs/js/globalize/lib/globalize.js' >> ${FW_LIB_JS}
 	# copy globalize libs...
 	cp -a libs/js/globalize/lib/cultures ${FRAMEWORK_ROOT}/js/
-
 
 themes:
 	make -C src/themes || exit $?
 
-version: loader themes
+version: js themes
 	echo '(function($$){$$.tizen.frameworkData.pkgVersion="$(PKG_VERSION)";}(jQuery));' >> ${FW_JS}
 	echo "$(PKG_VERSION)" > ${FRAMEWORK_ROOT}/../VERSION
 
-compress: widgets loader themes
+compress: js themes
 	# Javacript code compressing
 	@@echo "	# Compressing...."; \
 	echo '/*' > ${FW_MIN}; \
@@ -196,14 +220,14 @@ docs: init
 	cat docs/index.footer >> docs/index.html
 
 
-version_compat: third_party widgets
+version_compat: third_party js
 	# Creating compatible version dirs...
 	for v_compat in ${VERSION_COMPAT}; do \
 		ln -sf ${VERSION} ${FRAMEWORK_ROOT}/../$$v_compat; \
 	done;
 	ln -sf ${VERSION} ${FRAMEWORK_ROOT}/../latest
 
-demo: widgets 
+demo: js
 	mkdir -p ${OUTPUT_ROOT}/demos
 	cp -av demos/* ${OUTPUT_ROOT}/demos/
 	cp -f src/template/bootstrap.js ${OUTPUT_ROOT}/demos/gallery/

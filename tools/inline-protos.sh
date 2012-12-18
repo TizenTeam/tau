@@ -1,6 +1,7 @@
 #!/bin/bash
 
-WIDGET_BASE_DIR="$1"
+WIDGET_FNAME=$1
+WIDGET_BASE_DIR="`dirname ${WIDGET_FNAME}`"
 VERBOSE=$(test "x$2x" != "xx" && echo "1" || echo "0")
 
 rm_tmpfile() # No args
@@ -200,19 +201,20 @@ process_fname() # $1 = file name, n_pass
 }
 
 if test "x${WIDGET_BASE_DIR}x" = "xx"; then
-  echo "Usage: $(basename $0) <widget_base_dir>"
+  echo "Usage: $(basename $0) <widget_file_path>"
   exit 1
 fi
 
-for FNAME in ${WIDGET_BASE_DIR}/js/*.js; do
-  TMP_FNAME=`mktemp`
-  N_PASS=0
-  while ! process_fname $FNAME $N_PASS > $TMP_FNAME; do 
-    if test $VERBOSE -eq 1; then
-        echo "Going for another pass with ${TMP_FNAME}" > /dev/stderr
-    fi
-    N_PASS=`expr "$N_PASS" + 1`
-  done
-  cat $TMP_FNAME
-  rm_tmpfile
+FNAME=${WIDGET_FNAME}
+TMP_FNAME=`mktemp`
+N_PASS=0
+while ! process_fname $FNAME $N_PASS > $TMP_FNAME; do 
+	if test $VERBOSE -eq 1; then
+		echo "Going for another pass with ${TMP_FNAME}" > /dev/stderr
+	fi
+	N_PASS=`expr "$N_PASS" + 1`
 done
+cat $TMP_FNAME
+rm_tmpfile
+
+
