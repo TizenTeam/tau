@@ -53,7 +53,7 @@ index de2af2c..6470bc4 100644
  
  		_setTolerance: function( value ) {
 -			var tol = { t: 30, r: 15, b: 30, l: 15 };
-+			var tol = { t: 10, r: 10, b: 10, l: 10 };
++			var tol = { t: 5, r: 5, b: 5, l: 5 };
  
  			if ( value ) {
  				var ar = String( value ).split( "," );
@@ -94,21 +94,21 @@ index de2af2c..6470bc4 100644
 +					break;
 +				case 1:
 +					correctionValue = [ 0 , -(ret.y + menuSize.cy - linkOffset.top)];
-+					arrowtop = menuSize.cy;
++					arrowtop = menuSize.cy - 1;
 +					arrowleft = (linkOffset.left - ret.x + correctionValue[0]) + ( $(this.link).width() / 2 ) - parseInt( $(this._ui.arrow).css("border-width") ) / 2;
 +					$(this._ui.arrow).attr( "class", "" )
 +									.addClass( "ui-arrow bottom" );
 +					break;
 +				case 2:
 +					correctionValue = [ 0 , ( linkOffset.top + $(this.link).height() - ret.y ) ];
-+					arrowtop = - parseInt( $(this._ui.arrow).css("border-width") ) * 2;
++					arrowtop = - parseInt( $(this._ui.arrow).css("border-width") ) * 2 + 1;
 +					arrowleft = (linkOffset.left - ret.x + correctionValue[0]) + ( $(this.link).width() / 2 ) - parseInt( $(this._ui.arrow).css("border-width") ) / 2;
 +					$(this._ui.arrow).attr( "class", "" )
 +									.addClass("ui-arrow top");
 +					break;
 +				case 3:
 +					correctionValue = [ ( menuSize.cx < $(this.link).width() ) ? ( $(this.link).width() / 2 ) + ( menuSize.cx / 2) : $(this.link).width() , 0];
-+					arrowtop = ( linkOffset.top - ret.y  ) + ( $(this.link).height() / 2 ) - parseInt( $(this._ui.arrow).css("border-width") );
++					arrowtop = ( linkOffset.top - ret.y  ) + ( $(this.link).height() / 2 ) - parseInt( $(this._ui.arrow).css("border-width") ) ;
 +					arrowleft = - parseInt( $(this._ui.arrow).css("border-width") ) * 2;
 +					$(this._ui.arrow).attr( "class", "" )
 +									.addClass("ui-arrow right");
@@ -116,7 +116,7 @@ index de2af2c..6470bc4 100644
 +			}
  
 -			return { left: ret.x, top: ret.y };
-+			return { left: ret.x + correctionValue[0], top: ret.y + correctionValue[1] , arrowleft: arrowleft , arrowtop: arrowtop};
++			return { left: ret.x + correctionValue[0], top: ret.y + correctionValue[1] , arrowleft: arrowleft , arrowtop: arrowtop };
  		},
  
  		_createPrereqs: function( screenPrereq, containerPrereq, whenDone ) {

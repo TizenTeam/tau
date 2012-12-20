@@ -1,10 +1,9 @@
 var TESTS = {
 	"testPages":[
 		// Put your test here
-		"autodividers",
 		"button",
 		"check",
-		"controlbar",
+		"tabbar",
 		"datetimepicker",
 		"extendablelist",
 		"handler",
@@ -21,7 +20,6 @@ var TESTS = {
 		"fastscroll",
 		"slider",
 		"swipe",
-		"toggleswitch",
 		"tokentextarea",
 		"virtuallist",
 		"virtualgrid",

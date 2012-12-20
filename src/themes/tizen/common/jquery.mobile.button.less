@@ -21,7 +21,6 @@
 .ui-header .ui-btn-inner.ui-btn-icon-only , .ui-footer .ui-btn-inner, .ui-bar .ui-btn-inner.ui-btn-icon-only 
 {
 	padding: .4em 8 * @unit_base .5em; 
-	.LESSborder-radius-all(1.2rem);
 }	/* wongi_1024 : Button text middle align */
 .ui-btn-icon-notext { width: 24 * @unit_base; height: 24 * @unit_base; }
 .ui-btn-icon-notext .ui-btn-inner { padding: 2 * @unit_base 1 * @unit_base 2 * @unit_base 3 * @unit_base; }
@@ -86,7 +85,10 @@
 {
 	padding: 0.2em 0.5em;
 }
-
+.ui-btn-icon-nobg.ui-btn-down-s .ui-btn-inner
+{
+	background: transparent ! important;
+}
 .ui-btn.ui-btn-box-s.ui-btn-down-s .ui-btn-inner
 {
 	.LESSbutton_inner_pressstyle;
@@ -104,30 +106,14 @@
 	box-shadow: none;
 }
 
-.ui-header .ui-btn.ui-btn-corner-all,
-.ui-footer .ui-btn.ui-btn-corner-all
-{
-	.LESSborder-radius-all(1.2rem);
-	font-weight:bold;
-}
-
 .ui-scroll-jump-top-bg .ui-btn-icon-left .ui-btn-inner
 {
 	padding-left: 0;
 }
-/* Circle Icon BG : data-iconbg = "circle" */
-.ui-btn.ui-btn-box-s.ui-btn-icon_only
-{
-/*	background: transparent;
-	border: 0px;*/
-}
-.ui-btn.ui-btn-box-s .ui-btn-inner.ui-btn-corner-all.ui-btn-icon-only
-{
-	.LESSborder-radius-all(1.0em);
-}
+
 .ui-btn-icon-top .ui-btn-inner.ui-btn-hastxt, .ui-li .ui-btn-icon-top .ui-btn-inner.ui-btn-hastxt
 {
-        padding-top: 52 * @unit_base;
+	padding-top: 52 * @unit_base;
 }
 .ui-btn-icon-bottom .ui-btn-inner.ui-btn-hastxt, .ui-li .ui-btn-icon-bottom .ui-btn-inner.ui-btn-hastxt
 {
@@ -176,8 +162,8 @@
 .ui-icon-bg			{.tizen-icon-common;	background-image: url(images/00_btn_circle_bg_normal.png);	z-index:0; }
 .ui-icon-arrow-l		{.tizen-icon-common;	background-image: url(images/controls/button/00_button_left.png);	}
 .ui-icon-arrow-r		{.tizen-icon-common;	background-image: url(images/controls/button/00_button_right.png);	}
-.ui-icon-arrow-u		{.tizen-icon-common;	background-image: url(images/controls/button/00_button_expand_closed.png);	 }
-.ui-icon-arrow-d		{.tizen-icon-common;	background-image: url(images/controls/button/00_button_expand_opened.png);	 }
+.ui-icon-arrow-u		{.tizen-icon-common;	background-image: url(images/controls/button/00_button_expand_opened.png);	 }
+.ui-icon-arrow-d		{.tizen-icon-common;	background-image: url(images/controls/button/00_button_expand_closed.png);	 }
 .ui-icon-delete			{.tizen-icon-common;	background-image: url(images/controls/button/00_button_expand_cancel.png);	 }
 .ui-icon-plus			{.tizen-icon-common;	background-image: url(images/controls/button/00_button_plus.png);	 }
 .ui-icon-minus			{.tizen-icon-common;	background-image: url(images/controls/button/00_button_expand_minus.png);	 }
@@ -231,8 +217,8 @@
 .ui-btn-down-s .ui-icon-bg, .ui-btn-down-s.ui-tizen-icon-bg	{.tizen-icon-common;	background-image: url(images/00_btn_circle_bg_press.png); z-index:0;	 }
 .ui-btn-down-s .ui-icon-arrow-l		{.tizen-icon-common;	background-image: url(images/controls/button/00_button_left_press.png);	}
 .ui-btn-down-s .ui-icon-arrow-r		{.tizen-icon-common;	background-image: url(images/controls/button/00_button_right_press.png);	}
-.ui-btn-down-s .ui-icon-arrow-u		{.tizen-icon-common;	background-image: url(images/controls/button/00_button_expand_closed_press.png);	 }
-.ui-btn-down-s .ui-icon-arrow-d		{.tizen-icon-common;	background-image: url(images/controls/button/00_button_expand_opened_press.png);	 }
+.ui-btn-down-s .ui-icon-arrow-u		{.tizen-icon-common;	background-image: url(images/controls/button/00_button_expand_opened_press.png);	 }
+.ui-btn-down-s .ui-icon-arrow-d		{.tizen-icon-common;	background-image: url(images/controls/button/00_button_expand_closed_press.png);	 }
 .ui-btn-down-s .ui-icon-delete			{.tizen-icon-common;	background-image: url(images/controls/button/00_button_expand_cancel_press.png);	 }
 .ui-btn-down-s .ui-icon-plus			{.tizen-icon-common;	background-image: url(images/controls/button/00_button_plus_press.png);	 }
 .ui-btn-down-s .ui-icon-minus			{.tizen-icon-common;	background-image: url(images/controls/button/00_button_expand_minus_press.png);	 }
@@ -272,11 +258,19 @@
 {
 	box-shadow: none;
 }
-.ui-btn.ui-btn-corner-all.ui-btn-icon_only
-{
-        .LESSborder-radius-all(1em);
-}
 
+.ui-btn-corner-circle
+{
+	.LESSborder-radius-allimportant( 1em );
+}
+.ui-btn-round
+{
+	.LESSborder-radius-allimportant( 1.2em );
+}
+.ui-btn-round .ui-btn-inner
+{
+	.LESSborder-radius-allimportant( 1.2em );
+}
 .ui-btn.ui-btn-icon-nobg, .ui-btn .ui-btn-icon-nobg
 {
 	background: transparent;
@@ -293,19 +287,9 @@
 {
 	.LESSbutton_edit_style;
 }
-/*
-.ui-btn.ui-btn-edit.ui-btn-down-s .ui-btn-text 
-{
-	color: @color_button_EditTextPress;
-}
 
-.ui-btn.ui-btn-edit.ui-btn-down-s
-{
-        .LESSbutton_editpress_style;
-}
-*/
 .ui-btn-box-s
 {
-        .LESSbutton_box_style;
+	.LESSbutton_box_style;
 }
 

@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.3
+Version:    0.2.4
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -83,6 +83,25 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+
+* Fri Dec 20 2012 Youmin Ha <youmin.ha@samsung.com> 0.2.4
+- Fix:
+	- modify segment background
+	- rearrange check, radio input
+	- CtxPopup: Scale up/ down popup vi(poptop, popbottom)
+	- button: style has beed added(box,circle,nobg,round)
+	- favorite resource added
+	- demo/tizen-winsets: add footer and back button
+	- remove autodividers unit test
+	- add divider for tabbar
+	- checkboxradio: exception handling for input
+	- segment control backward compatiblity
+	- Fix collapsible unit-test
+	- remove toggleswitch
+	- add patch for remove segment text
+- Spec changes:
+	- replace controlbar to tabbar
+
 * Fri Dec 14 2012 Minkyu Kang <mk7.kang@samsung.com> 0.2.3
 - FIX:
 	- slider: add image

@@ -35,12 +35,15 @@
 	//clear btn basic setting
 	.LESSclear-btn-basic-setting();
 	input {
+		z-index: 1;
+		margin: 0px;
+		left: 10*@unit_base;
 		position: absolute;
-		left: -10000px;
 		height: 100%;
 		outline: 0 !important;
 	}
 	.ui-btn {
+		z-index: 2;		// checkbox,radio input z-index: 1
 		height: 100%;
 		margin: 0;
 		text-align: left;
@@ -142,13 +145,13 @@
 	.ui-icon-checkbox-off-press {
 		width: @favorite-size-width;
 		height: @favorite-size-height;
-		background-image: url(images/00_winset_icon_favorite_off.png);
+		background-image: url(images/controls/00_icon_favorite_off.png);
 	}
 	.ui-icon-checkbox-on,
 	.ui-icon-checkbox-on-press {
 		width: @favorite-size-width;
 		height: @favorite-size-height;
-		background-image: url(images/00_winset_icon_favorite_on.png);
+		background-image: url(images/controls/00_icon_favorite_on.png);
 	}
 }
 

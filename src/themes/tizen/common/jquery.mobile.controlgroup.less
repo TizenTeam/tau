@@ -47,6 +47,14 @@ fieldset.ui-controlgroup {
 		border-left-color: @color_controlgroup_btn_border;
 		border-left-style: solid;
 	}
+	.ui-radio-on {
+		.ui-btn-inner {
+			background : @color_bg;
+			.ui-btn-text {
+				color : @color_bar_title_text;
+			}
+		}
+	}
 	.ui-corner-left {
 		border-left-width: 0px;
 	}
@@ -79,7 +87,8 @@ fieldset.ui-controlgroup {
 	padding: 0;
 	.ui-btn {
 		display: inline-block;
-		margin: 0 -5px 0 0;
+		margin-left : -4 * @unit_base;
+		margin-right : -3 * @unit_base;
 	}
 	.ui-checkbox, .ui-radio {
 		float: left;
@@ -95,7 +104,6 @@ fieldset.ui-controlgroup {
 		border-radius : 0px;
 		box-shadow : none;
 		background : none;
-		margin-left : -10 * @unit_base;
 		&.ui-btn-down-s, .ui-btn-active-s {
 			.ui-btn-inner {
 				background : @color_bg;
@@ -105,11 +113,27 @@ fieldset.ui-controlgroup {
 			}
 		}
 
+		&.ui-btn-down-s {
+			.ui-btn-inner {
+				background : @color_tabbar_btn_tab_press;
+			}
+		}
+
 		>.ui-btn-inner {
 			border : 0px solid;
 			box-shadow : none;
 			padding-top : 5 * @unit_base;
 			padding-bottom : 5 * @unit_base;
+			padding-left : 10 * @unit_base;
+			padding-right : 10 * @unit_base;
 		}
 	}
+
+	label {
+		> span.ui-btn-inner {
+			padding-top : 3 * @unit_base;
+			padding-bottom : 3 * @unit_base;
+		}
+	}
+
 }

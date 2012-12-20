@@ -10,23 +10,27 @@
 		<script src="js/jquery.mobile.forms.button.extension.js"></script>
 	</head> 
 <body> 
-<div data-role="page">
+
+<div data-role="page" data-add-back-btn="true">
 	<div data-role="header" data-position="fixed">
-		<h1>Controlbar text with title</h1>
+		<h1>Tabbar text with title</h1>
 	</div>
 	
 	<div data-role="content">
 	</div>
 	
 	<div data-role="footer">
-		<div data-role="controlbar">
+		<a data-icon="naviframe-more"></a>
+		<div data-role="tabbar">
 			<ul>
 				<li><a href="#"class="ui-btn-active">Menu</a></li>
 				<li><a href="#">Save</a></li>
 				<li><a href="#">Share</a></li>
+
 			</ul>
 		</div>
 	</div>
 </div>
+
 </body>
 </html>

@@ -1,0 +1,213 @@
+@import "config.less";
+
+/***************************************************************************
+                    Tabbar
+***************************************************************************/
+.ui-tabbar {
+	background : @color_bg;
+	z-index : 1000;
+	&.ui-portrait-tabbar {
+		/* portrait style */
+	}
+	&.ui-landscape-tabbar {
+		/* landscape style */
+	}
+
+	a.ui-btn {
+		background : @color_bg;
+		color : @color_tabbar_btn_normal;
+
+		padding-top : 19 * @unit_base;
+		padding-bottom : 19 * @unit_base;
+		.ui-btn-inner {
+			padding-top : 0px;
+			padding-bottom : 0px;
+			border-left : 1px solid;
+			border-color : @color_bar_divider_line;
+			border-radius : 0px;
+			-0-border-radius : 0px;
+			-ms-border-radius : 0px;
+			-webkit-border-radius : 0px;
+		}
+
+		.ui-icon {
+			width: 32 * @unit_base;
+			height: 32 * @unit_base;
+
+			background-repeat: no-repeat;
+			background-size: 100% 100%;
+		}
+	}
+
+	&.ui-tabbar-persist {
+		a.ui-btn {
+			background: @color_bg;
+		}
+		a.ui-state-persist, a.ui-state-persist.ui-btn-active, a.ui-btn-show-style {
+			color : @color_tabbar_btn_pressed;
+		}
+		a.ui-btn-hover-s.ui-btn-down-s {
+			&:not(.ui-state-persist) {
+				color : @color_tabbar_btn_pressed;
+				background: @color_tabbar_btn_tab_press;
+			}
+		}
+	}
+
+	&:not(.ui-tabbar-persist) {
+		a.ui-btn {
+			background: @color_bg;
+		}
+		a.ui-btn-active, .ui-btn-show-style {
+			color : @color_tabbar_btn_pressed;
+		}
+		a.ui-btn.ui-btn-hover-s.ui-btn-down-s {
+			color : @color_tabbar_btn_pressed;
+			background: @color_tabbar_btn_tab_press;
+		}
+	}
+
+	.ui-btn-inner {
+		font-size : 15 * @unit_base;
+		font-weight : bold;
+
+		.ui-icon {
+			top : 10 * @unit_base;
+			left : 50%;
+			margin-left : -16 * @unit_base;
+		}
+	}
+
+	&.ui-tabbar-notext {
+		a.ui-btn {
+			padding-top : 11 * @unit_base;
+			padding-bottom : 10 * @unit_base;
+
+		}
+		.ui-btn-inner {
+			height : 34 * @unit_base;
+			.ui-icon {
+				top : 0px;
+			}
+		}
+	}
+}
+
+/* title font size when title tabbar */
+.ui-header.ui-bar-s.ui-title-tabbar {
+	.ui-title {
+		font-size : 22 * @unit_base;
+		margin-top : 8 * @unit_base;
+		margin-bottom : 0 * @unit_base;
+	}
+
+	.ui-tabbar {
+		&.ui-tabbar-noicons {
+			a.ui-btn {
+				padding-top : 15 * @unit_base;
+				padding-bottom : 13 * @unit_base;
+			}
+		}
+
+		&.ui-tabbar-notext {
+			a.ui-btn {
+				padding-top : 7 * @unit_base;
+				padding-bottom : 5 * @unit_base;
+			}
+		}
+
+		&.ui-portrait-tabbar {
+			/* portrait style */
+		}
+		&.ui-landscape-tabbar {
+			/* landscape style */
+		}
+	}
+}
+
+.ui-header.ui-bar-s {
+	&.ui-title-tabbar-multiline {
+		.ui-tabbar {
+			a.ui-btn {
+				padding-top : 11 * @unit_base;
+				padding-bottom : 10 * @unit_base;
+				.ui-btn-inner {
+					height : 54 * @unit_base;
+					.ui-btn-text {
+						padding-top : 0px;
+						line-height : 85 * @unit_base;
+					}
+					.ui-icon {
+						top : 0px;
+					}
+				}
+			}
+		}
+	}
+
+	li:first-child {
+		.ui-btn-inner {
+			border-left-width : 0px;
+		}
+	}
+}
+
+
+.ui-footer.ui-bar-s {
+	.ui-tabbar {
+		height : 49 * @unit_base;
+
+		margin-left : auto;
+		margin-right : auto;
+
+		a.ui-btn {
+			padding-top : 16 * @unit_base;
+			padding-bottom : 16 * @unit_base;
+		}
+		.ui-btn-inner {
+			.ui-icon {
+				top : 0px;
+			}
+		}
+		&.ui-tabbar-notext {
+			a.ui-btn {
+				padding-top : 8 * @unit_base;
+				padding-bottom : 7 * @unit_base;
+			}
+		}
+		li:first-child {
+			.ui-btn-inner {
+				border-left-width : 0px;
+			}
+		}
+	}
+
+	.ui-tabbar.ui-tabbar-margin-back {
+		margin-right : 56 * @unit_base;
+	}
+
+	.ui-tabbar.ui-tabbar-margin-more {
+		margin-left : 56 * @unit_base;
+	}
+
+	.ui-btn-back ~ .ui-tabbar {
+		li:last-child {
+			.ui-btn-inner {
+				border-right : 1px solid;
+				border-right-color : @color_bar_divider_line;
+			}
+		}
+	}
+	[data-icon="naviframe-more"] ~ .ui-tabbar {
+		li:first-child {
+			.ui-btn-inner {
+				border-left : 1px solid;
+				border-left-color : @color_bar_divider_line;
+			}
+		}
+	}
+}
+
+.ui-tabbar-s.ui-navbar-noicons {
+	font-size : 22 * @unit_base;
+}
