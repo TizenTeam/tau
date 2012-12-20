@@ -211,3 +211,117 @@
 		border-top-right-radius: @border_radius;
 	}
 }
+
+.poptop {
+	-webkit-transform-origin: 0% 0%;
+	-moz-transform-origin: 0% 0%;
+}
+
+.poptop.in {
+	-webkit-transform: scale(1);
+	-moz-transform: scale(1);
+    opacity: 1;
+	-webkit-animation-name: scalepopin;
+	-moz-animation-name: scalepopin;
+	-webkit-animation-duration: 350ms;
+	-moz-animation-duration: 350ms;
+}
+
+.poptop.out {
+	-webkit-animation-name: fadeout;
+	-moz-animation-name: fadeout;
+	opacity: 0;
+	-webkit-animation-duration: 100ms;
+	-moz-animation-duration: 100ms;
+}
+
+.poptop.in.reverse {
+	-webkit-animation-name: fadein;
+	-moz-animation-name: fadein;
+}
+
+.poptop.out.reverse {
+	-webkit-transform: scale(.8);
+	-moz-transform: scale(.8);
+	-webkit-animation-name: scalepopout;
+	-moz-animation-name: scalepopout;
+}
+
+@-webkit-keyframes scalepopin {
+    from {
+        -webkit-transform: scale(.8);
+        opacity: 0;
+    }
+    to {
+        -webkit-transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.popbottom {
+	-webkit-transform-origin: 0% 100%;
+	-moz-transform-origin: 0% 100%;
+}
+
+.popbottom.in {
+	-webkit-transform: scale(1);
+	-moz-transform: scale(1);
+    opacity: 1;
+	-webkit-animation-name: scalepopin;
+	-moz-animation-name: scalepopin;
+	-webkit-animation-duration: 350ms;
+	-moz-animation-duration: 350ms;
+}
+
+.popbottom.out {
+	-webkit-animation-name: fadeout;
+	-moz-animation-name: fadeout;
+	opacity: 0;
+	-webkit-animation-duration: 100ms;
+	-moz-animation-duration: 100ms;
+}
+
+.popbottom.in.reverse {
+	-webkit-animation-name: fadein;
+	-moz-animation-name: fadein;
+}
+
+.popbottom.out.reverse {
+	-webkit-transform: scale(.8);
+	-moz-transform: scale(.8);
+	-webkit-animation-name: scalepopout;
+	-moz-animation-name: scalepopout;
+}
+
+@-moz-keyframes scalepopin {
+    from {
+        -moz-transform: scale(.8);
+        opacity: 0;
+    }
+    to {
+        -moz-transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes scalepopout {
+    from {
+        -webkit-transform: scale(1);
+        opacity: 1;
+    }
+    to {
+        -webkit-transform: scale(.8);
+        opacity: 0;
+    }
+}
+
+@-moz-keyframes scalepopout {
+    from {
+        -moz-transform: scale(1);
+        opacity: 1;
+    }
+    to {
+        -moz-transform: scale(.8);
+        opacity: 0;
+    }
+}
