@@ -1,5 +1,23 @@
 @import "config.less";
 
+@-webkit-keyframes ui-datetime-in {
+	from {
+		-webkit-transform: translateY(14 * @unit_base) scale(.9);
+	} to {
+		-webkit-transform: translateY(0) scale(1);
+	}
+}
+
+@-webkit-keyframes ui-datetime-out {
+	from {
+		opacity: 0.8;
+		-webkit-transform: translateY(0) scale(.6);
+	} to {
+		opacity: 0;
+		-webkit-transform: translateY(-14 * @unit_base) scale(.6);
+	}
+}
+
 .ui-datefield {
 	.ui-datefield-seperator {
 		display: inline-block;
@@ -14,8 +32,26 @@
 	.ui-datefield-tab {
 		min-width: 20 * @unit_base;
 	}
+
 	.ui-btn-box-s .ui-btn-inner.ui-btn-hastxt {
 		padding: 0.1em 0.5em;
+	}
+
+	.ui-datefield-selected {
+		display: inline-block;
+		color: @color_timepicker_selector_color;
+	}
+	.ui-datefield-selected.in {
+		-ms-animation: ui-datetime-in 0.3s 1 ease;
+		-o-animation: ui-datetime-in 0.3s 1 ease;
+		-moz-animation: ui-datetime-in 0.3s 1 ease;
+		-webkit-animation: ui-datetime-in 0.3s 1 ease;
+	}
+	.ui-datefield-selected.out {
+		-ms-animation: ui-datetime-out 0.3s 1 ease;
+		-o-animation: ui-datetime-out 0.3s 1 ease;
+		-moz-animation: ui-datetime-out 0.3s 1 ease;
+		-webkit-animation: ui-datetime-out 0.3s 1 ease;
 	}
 }
 
