@@ -1,15 +1,11 @@
 @import "config.less";
-/*
-.ui-controlgroup .ui-radio-on,
-.ui-controlgroup .ui-radio-off.ui-btn-hover-s.ui-btn-down-s  {
-		.LESSSegmentControlBtnBackground;
-}
-.ui-controlgroup .ui-radio-off {
-		.LESSSegmentControlBtnPressBackground;
-}
-*/
 
 .ui-controlgroup {
+	.ui-radio {
+		> .ui-btn {
+			background : @color_bg;
+		}
+	}
 	.ui-btn-text {
 		font-size : 17  * @unit_base;
 		font-weight : bold;
@@ -17,20 +13,21 @@
 	}
 
 }
+
 .ui-controlgroup .ui-btn-inner .ui-corner-left .ui-controlgroup-first {
--o-border-radius: .3em;
--ms-border-radius: .3em;
--moz-border-radius: .3em ;
--webkit-border-radius: .3em ;
-border-radius: .3em ;
+	-o-border-radius: .3em;
+	-ms-border-radius: .3em;
+	-moz-border-radius: .3em ;
+	-webkit-border-radius: .3em ;
+	border-radius: .3em ;
 }
 
 .ui-controlgroup .ui-btn-inner .ui-corner-right .ui-controlgroup-last {
--o-border-radius: .3em;
--ms-border-radius: .3em;
--moz-border-radius: .3em ;
--webkit-border-radius: .3em ;
-border-radius: .3em ;
+	-o-border-radius: .3em;
+	-ms-border-radius: .3em;
+	-moz-border-radius: .3em ;
+	-webkit-border-radius: .3em ;
+	border-radius: .3em ;
 }
 
 .ui-controlgroup .ui-radio-off.ui-btn-hover-s.ui-btn-down-s .ui-btn-inner,
@@ -42,6 +39,6 @@ border-radius: .3em ;
   color: @color_segmentcontrol_Seg_text;
 }
 
-.ui-controlgroup .ui-radio .ui-btn-down-s .ui-btn-inner {
+.ui-controlgroup.ui-controlgroup-horizontal .ui-radio .ui-btn-down-s .ui-btn-inner {
 	background : @color_tabbar_btn_tab_press;
 }
