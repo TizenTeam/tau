@@ -159,6 +159,7 @@
 			item = this.element.find(':jqmData(role="swipe-item")');
 
 			this._covers = covers;
+			this._item = item;
 			item.addClass('ui-swipe-item');
 			coverTheme = defaultCoverTheme;
 			itemHasThemeClass = item.parent().attr('class')
@@ -180,11 +181,11 @@
 
 				if ( !( cover.data('animateRight') && cover.data('animateLeft') ) ) {
 					cover.data('animateRight', function () {
-						self._animateCover( cover, 110 );
+						self._animateCover( cover, 110, item );
 					});
 
 					cover.data('animateLeft', function () {
-						self._animateCover( cover, 0 );
+						self._animateCover( cover, 0, item );
 					});
 				}
 
@@ -257,11 +258,11 @@
 		//
 		// once the cover animation is done, the cover emits an
 		// animationComplete event
-		_animateCover: function ( cover, leftPercentage ) {
+		_animateCover: function ( cover, leftPercentage, item ) {
 			var self = this,
 				animationOptions = {
 					easing: 'linear',
-					duration: 'fast',
+					duration: 'normal',
 					queue: true,
 					complete: function () {
 						cover.trigger('animationComplete');
@@ -288,7 +289,13 @@
 			cover.stop();
 			cover.clearQueue();
 			cover.trigger('animationStart');
-			cover.animate( {left: leftPercentage + '%'}, animationOptions );
+			cover.animate( { left: leftPercentage + '%' }, animationOptions );
+			if ( leftPercentage == 0 ) {
+				item.animate({ opacity: 0 }, "slow");
+			} else {
+				item.animate({ opacity: 1 }, "slow");
+			}
+
 		},
 
 		destroy: function () {
@@ -300,7 +307,7 @@
 
 			$( self._covers ).each( function () {
 				var cover = $( this );
-				self._animateCover( cover, 110 );
+				self._animateCover( cover, 110, self._item);
 			} );
 		},
 
@@ -313,7 +320,7 @@
 
 			$( self._covers ).each( function () {
 				var cover = $( this );
-				self._animateCover( cover, 0 );
+				self._animateCover( cover, 0, self._item);
 			} );
 		}
 
