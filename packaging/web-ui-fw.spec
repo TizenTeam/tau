@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.4
+Version:    0.2.5
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -83,8 +83,13 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Wed Dec 26 2012 Youmin Ha <youmin.ha@samsung.com> 0.2.5
+	- Revert "[checkboxradio] exception handling for input"
+		This reverts commit 72478c32704fa96362db577e6cf9511777919ea8.
+		Tizen style supports no-label radio and checkbox when making lists.
+		So it ignores html input operation. Instead, it supports tizen style radio and checkbox theme.
 
-* Fri Dec 20 2012 Youmin Ha <youmin.ha@samsung.com> 0.2.4
+* Thu Dec 20 2012 Youmin Ha <youmin.ha@samsung.com> 0.2.4
 - Fix:
 	- modify segment background
 	- rearrange check, radio input
