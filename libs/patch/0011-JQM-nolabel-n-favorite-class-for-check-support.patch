@@ -10,16 +10,26 @@ Signed-off-by: Youmin Ha <youmin.ha@samsung.com>
  1 file changed, 11 insertions(+), 1 deletion(-)
 
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/checkboxradio.js b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/checkboxradio.js
-index 2e1114f..4ee4523 100644
+index 2e1114f..da00887 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/checkboxradio.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/checkboxradio.js
-@@ -44,6 +44,11 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
+@@ -27,7 +27,7 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
+ 			// NOTE: Windows Phone could not find the label through a selector
+ 			// filter works though.
+ 			parentLabel = $( input ).closest( "label" ),
+-			label = parentLabel.length ? parentLabel : $( input ).closest( "form, fieldset, :jqmData(role='page'), :jqmData(role='dialog')" ).find( "label" ).filter( "[for='" + input[0].id + "']" ).first(),
++			label = parentLabel.length ? parentLabel : ( input[0].id ? $( input ).closest( "form, fieldset, :jqmData(role='page'), :jqmData(role='dialog')" ).find( "label" ).filter( "[for='" + input[0].id + "']" ) : [ ] ),
+ 			inputtype = input[0].type,
+ 			mini = inheritAttr( input, "mini" ),
+ 			checkedState = inputtype + "-on",
+@@ -44,6 +44,12 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
  			return;
  		}
  
 +		// Support fake label
-+		if ( label.length == 0 && ( input[0].id !== '' ) ) {
-+			label = $( "<label for='" + input[0].id + "'></label>" );
++		if ( label.length == 0 ) {
++			label = $( "<label for='" + input[ 0 ].id  +
++				"'></label>" );
 +		}
 +
  		// Expose for other methods
