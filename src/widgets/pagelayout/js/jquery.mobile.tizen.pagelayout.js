@@ -207,6 +207,7 @@
 						self.hide( true );
 					}
 					self.setHeaderFooter( event );
+					self._setContentMinHeight( event );
 				} )
 				.bind( "webkitAnimationStart animationstart updatelayout", function ( e, data ) {
 					var thisPage = this;
@@ -226,6 +227,7 @@
 
 							self.updatePageLayout();
 							self._updateHeaderArea();
+							self._setContentMinHeight( event );
 						});
 					}
 				})
@@ -279,6 +281,15 @@
 				.bind( "pagebeforeshow", function ( event ) {
 
 				});
+		},
+
+		_setContentMinHeight : function ( event ) {
+			var $elPage = $( event.target ),
+				$elHeader = $elPage.find( ":jqmData(role='header')" ),
+				$elFooter = $elPage.find( ":jqmData(role='footer')" ),
+				$elContent = $elPage.find( ":jqmData(role='content')" );
+
+			$elContent.css( "min-height", window.innerHeight - $elHeader.height() - $elFooter.height() + "px" );
 		},
 
 		_updateHeaderArea : function () {
