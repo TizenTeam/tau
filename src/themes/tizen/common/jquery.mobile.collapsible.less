@@ -47,6 +47,35 @@
 	.ui-btn-icon-top .ui-btn-inner,
 	.ui-btn-icon-bottom .ui-btn-inner { padding-right: 40px; text-align: center; }
 
+	// Icons' animation
+	.ui-btn-inner > .ui-icon-arrow-d {
+		-webkit-transition: all 0.33s ease;
+		-moz-transition: all 0.33s ease;
+		-ms-transition: all 0.33s ease;
+		-o-transition: all 0.33s ease;
+		transition: all 0.33s ease;
+
+		-webkit-transform: rotate(180deg);
+		-moz-transform: rotate(180deg);
+		-ms-transform: rotate(180deg);
+		-o-transform: rotate(180deg);
+		transform: rotate(180deg);
+	}
+	.ui-btn-inner > .ui-icon-arrow-u {
+		background-image: url(images/controls/button/00_button_expand_closed.png);
+		-webkit-transition: all 0.33s ease;
+		-moz-transition: all 0.33s ease;
+		-ms-transition: all 0.33s ease;
+		-o-transition: all 0.33s ease;
+		transition: all 0.33s ease;
+
+		-webkit-transform: rotate(0deg);
+		-moz-transform: rotate(0deg);
+		-ms-transform: rotate(0deg);
+		-o-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+
 	.ui-btn span.ui-btn {
 		position: absolute;
 		left: 6px; top: 50%;
@@ -78,6 +107,14 @@
 	border-right-width: 0;
 	border-top: none;      /* Overrides ui-body-* */
 	background-image: none; /* Overrides ui-body-* */
+
+	visibility: visible;
+	overflow: auto;
+	-webkit-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-ms-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+	transition: all 0.5s ease;
 }
 .ui-collapsible-inset .ui-collapsible-content {
 	margin: 0;
@@ -85,7 +122,9 @@
 	border-left-width: 1px;
 }
 .ui-collapsible-content-collapsed {
-	display: none;
+	overflow: hidden;
+	max-height: 0px !important;
+	visibility: hidden;
 }
 .ui-collapsible-set {
 	margin: .5em 0;
