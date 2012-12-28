@@ -1243,7 +1243,7 @@
 
 			if ( this._vTracker ) {
 				top_btn = $( '<div class="ui-scroll-jump-top-bg">' +
-						'<div data-role="button" data-inline="true" data-icon="jumptop" style="width:37px;height:37px">.</div></div>' );
+						'<div data-role="button" data-inline="true" data-icon="scrolltop" data-style="box"></div></div>' );
 				$c.append( top_btn ).trigger("create");
 
 				top_btn.bind( "vclick", function () {
@@ -1253,7 +1253,7 @@
 
 			if ( this._hTracker ) {
 				left_btn = $( '<div class="ui-scroll-jump-left-bg">' +
-						'<div data-role="button" data-inline="true" data-icon="jumpleft" style="width:37px;height:37px">.</div></div>' );
+						'<div data-role="button" data-inline="true" data-icon="scrollleft" data-style="box"></div></div>' );
 				$c.append( left_btn ).trigger("create");
 
 				left_btn.bind( "vclick", function () {
