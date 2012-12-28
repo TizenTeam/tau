@@ -20,7 +20,18 @@
 	</div>
 	
 	<div data-role="footer">
-		<a data-icon="naviframe-more"></a>
+		<a href="#pop_js" data-role="button"  data-icon="naviframe-more" data-rel="popupwindow"></a>
+
+		<div id="pop_js" data-role="popupwindow" data-show-arrow="true">
+			<ul data-role="listview">
+				<li><a href="#" class="ui-btn-ctxpopup-close">Settings</a></li>
+				<li><a href="#" class="ui-btn-ctxpopup-close">Add to contact</a></li>
+				<li><a href="#" class="ui-btn-ctxpopup-close">Call log</a></li>
+				<li><a href="#" class="ui-btn-ctxpopup-close">Music</a></li>
+				<li><a href="#" class="ui-btn-ctxpopup-close">File manager</a></li>
+				<li><a href="naviframe.html" class="ui-btn-ctxpopup-close">Internal Link</a></li>
+			</ul>
+		</div>
 		<div data-role="tabbar">
 			<ul>
 				<li><a href="#"class="ui-btn-active">Menu</a></li>
