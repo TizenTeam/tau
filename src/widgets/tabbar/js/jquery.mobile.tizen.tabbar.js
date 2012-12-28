@@ -58,10 +58,9 @@
 		_create: function () {
 
 			var $tabbar = this.element,
-				$tabbtns = $tabbar.find( "a" ),
-				iconpos = $tabbtns.filter( ":jqmData(icon)" ).length ?
-										this.options.iconpos : undefined,
-				textpos = $tabbtns.html().length ? true : false,
+				$tabbtns,
+				textpos,
+				iconpos,
 				theme = $.mobile.listview.prototype.options.theme,	/* Get current theme */
 				ww = window.innerWidth || $( window ).width(),
 				wh = window.innerHeight || $( window ).height(),
@@ -75,22 +74,19 @@
 				$tabbar.removeClass( "ui-landscape-tabbar" ).addClass( "ui-portrait-tabbar" );
 			}
 
+			if ( $tabbar.find( "a" ).length ) {
+				$tabbtns = $tabbar.find( "a" );
+				iconpos = $tabbtns.filter( ":jqmData(icon)" ).length ? this.options.iconpos : undefined;
+				textpos = $tabbtns.html().length ? true : false;
+			}
 
-/*
-				$tabbar
-					.addClass( "ui-navbar" )
-					.attr( "role", "navigation" )
-					.find( "ul" )
-				
-						.grid( { grid: this.options.grid } );
-*/
-				$tabbar.addClass( "ui-navbar" )
-					.find( "ul" )
-					.grid( { grid: this.options.grid } );
+			$tabbar.addClass( "ui-navbar" )
+				.find( "ul" )
+				.grid( { grid: this.options.grid } );
+
 			if ( $tabbar.parents( ".ui-footer" ).length  ) {
 				$tabbar.find( "li" ).addClass( "ui-tab-btn-style" );
 			}
-
 
 			/* title tabbar */
 			if ( $tabbar.siblings( ".ui-title" ).length ) {
@@ -107,11 +103,13 @@
 				$tabbar.parents( ".ui-header" ).addClass( "ui-title-tabbar-multiline" );
 			}
 
-			$tabbtns.buttonMarkup({
-				corners:	false,
-				shadow:		false,
-				iconpos:	iconpos
-			});
+			if ( $tabbar.find( "a" ).length ) {
+				$tabbtns.buttonMarkup({
+					corners:	false,
+					shadow:		false,
+					iconpos:	iconpos
+				});
+			}
 
 			if ( $tabbar.find( ".ui-state-persist" ).length ) {
 				$tabbar.addClass( "ui-tabbar-persist" );
@@ -122,7 +120,7 @@
 				$( this ).addClass( $.mobile.activeBtnClass );
 			});
 
-				$tabbar.addClass( "ui-tabbar");
+			$tabbar.addClass( "ui-tabbar");
 
 			$( document ).bind( "pagebeforeshow", function ( event, ui ) {
 				var footer_filter = $( event.target ).find( ":jqmData(role='footer')" ),
