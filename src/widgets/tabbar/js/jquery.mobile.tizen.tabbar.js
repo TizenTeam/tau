@@ -52,6 +52,7 @@
 		options: {
 			iconpos: "top",
 			grid: null,
+			defaultList : 4,
 			initSelector: ":jqmData(role='tabbar')"
 		},
 
@@ -64,6 +65,10 @@
 				theme = $.mobile.listview.prototype.options.theme,	/* Get current theme */
 				ww = window.innerWidth || $( window ).width(),
 				wh = window.innerHeight || $( window ).height(),
+				tabbarDividerLeft = "<div class='ui-tabbar-divider ui-tabbar-divider-left'></div>",
+				tabbarDividerRight = "<div class='ui-tabbar-divider ui-tabbar-divider-right'></div>",
+				isScrollingStart = false,
+				isScrollingEnd = false,
 				isLandscape;
 
 			isLandscape = ww > wh && ( ww - wh );
@@ -80,9 +85,27 @@
 				textpos = $tabbtns.html().length ? true : false;
 			}
 
-			$tabbar.addClass( "ui-navbar" )
-				.find( "ul" )
-				.grid( { grid: this.options.grid } );
+			if ( $tabbar.parents( ".ui-header" ).length && $tabbar.parents( ".ui-scrollview-view" ).length ) {
+				$tabbar.find( "li" ).addClass( "tabbar-scroll-li" );
+				$tabbar.find( "ul" ).addClass( "tabbar-scroll-ul" );
+
+				/* add shadow divider */
+				$( tabbarDividerLeft ).appendTo( $tabbar.parents( ".ui-scrollview-clip" ) );
+				$( tabbarDividerRight ).appendTo( $tabbar.parents( ".ui-scrollview-clip" ) );
+
+				$( ".ui-tabbar-divider-left" ).hide();
+				$( ".ui-tabbar-divider-right" ).hide();
+
+				/* add width calculation*/
+				if ( $tabbar.parents( ".ui-scrollview-view" ).data("default-list") ) {
+					this.options.defaultList = $tabbar.parents( ".ui-scrollview-view" ).data( "default-list" );
+				}
+				$tabbar.find( "li" ).css( "width", window.innerWidth / this.options.defaultList + "px" );
+			} else {
+				$tabbar.addClass( "ui-navbar" )
+					.find( "ul" )
+					.grid( { grid: this.options.grid } );
+			}
 
 			if ( $tabbar.parents( ".ui-footer" ).length  ) {
 				$tabbar.find( "li" ).addClass( "ui-tab-btn-style" );
@@ -136,6 +159,8 @@
 						tabbar_filter.addClass( "ui-tabbar-margin-more" );
 					if ( $elFooterBack.length )
 						tabbar_filter.addClass( "ui-tabbar-margin-back" );
+
+				isScrollingStart = false;
 			});
 
 			$( document ).bind( "pageshow", function ( e, ui ) {
@@ -158,6 +183,49 @@
 					element_width = tabbar_filter.find("li:first").width();
 					tabbar_filter.find("li:last").width( tabbar_filter.width() - element_width * ( element_count - 1 ) );
 				}
+			});
+
+			$( window ).bind( "scrollstart", function ( e ) {
+				if ( $( e.target ).find( ".ui-tabbar" ).length ) {
+					isScrollingStart = true;
+					isScrollingEnd = false;
+				}
+			});
+
+			$( window ).bind( "scrollstop", function ( e ) {
+				var $tabbarScrollview = $( e.target ),
+					$minElement = $tabbar.find( "li" ).eq( 0 ),
+					minElementIndexVal = Math.abs( $tabbar.find( "li" ).eq( 0 ).offset().left ),
+					minElementIndex = -1;
+
+				isScrollingEnd = true;
+				if ( $( e.target ).find( ".ui-tabbar" ).length && isScrollingStart == true ) {
+					$tabbar.find( "li" ).each( function ( i ) {
+						var offset	= $tabbar.find( "li" ).eq( i ).offset();
+						if ( Math.abs( offset.left ) < minElementIndexVal ) {
+							minElementIndexVal = Math.abs( offset.left );
+							minElementIndex = i;
+							$minElement = $tabbar.find( "li" ).eq( i );
+						}
+					});
+
+					if ( $tabbarScrollview.length && isScrollingStart == isScrollingEnd && minElementIndex != -1) {
+						isScrollingStart = false;
+						isScrolling = false;
+						$tabbarScrollview.scrollview( "scrollTo", -( window.innerWidth / $( e.target ).find( ".ui-tabbar" ).data( "defaultList" ) * minElementIndex ) , 0, 357);
+					}
+				}
+
+				$( ".ui-tabbar-divider-left" ).hide();
+				$( ".ui-tabbar-divider-right" ).hide();
+			});
+
+			$tabbar.bind( "touchstart vmousedown", function ( e ) {
+				var $tabbarScroll = $( e.target ).parents( ".ui-scrollview-view" );
+				$tabbarScroll.offset().left < 0 ? 
+					$( ".ui-tabbar-divider-left" ).show() : $( ".ui-tabbar-divider-left" ).hide();
+				( $tabbarScroll.width() - $tabbarScroll.parents( ".ui-scrollview-clip" ).width() ) ==  Math.abs( $tabbarScroll.offset().left ) ? 
+					$( ".ui-tabbar-divider-right" ).hide() : $( ".ui-tabbar-divider-right" ).show();
 			});
 
 			this._bindTabbarEvents();
