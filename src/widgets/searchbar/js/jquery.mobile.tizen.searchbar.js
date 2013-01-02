@@ -265,11 +265,13 @@
 			}
 
 			function makeFrontIcon() {
-				var frontIcon = $( "<div data-role='button' data-style='circle'></div>" );
+				var IconStyle = $( input ).jqmData( "icon" ),
+					frontIcon = $( "<div data-role='button' data-style='circle'></div>" );
+
 				frontIcon
 					.appendTo( focusedEl.parent() )
 					.buttonMarkup( {
-						icon: "call",
+						icon: IconStyle,
 						corners: true,
 						shadow: true
 					} );
