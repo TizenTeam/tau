@@ -122,7 +122,6 @@
 			var self = this,
 				inputElement = $( this.element ),
 				slider,
-				slider_bar,
 				handle_press,
 				popupEnabledAttr,
 				icon,
@@ -150,9 +149,9 @@
 
 			// wrap the background
 			if ( icon === undefined ) {
-				slider.wrap('<div class="ui-slider-bg"></div>');
+				slider.wrap('<div class="ui-slider-container"></div>');
 			} else {
-				slider.wrap('<div class="ui-slider-icon-bg"></div>');
+				slider.wrap('<div class="ui-slider-icon-container"></div>');
 			}
 
 			// get the handle
@@ -186,10 +185,6 @@
 					'</span></div>') );
 				break;
 			}
-
-			// slider bar
-			slider.append($('<div class="ui-slider-bar"></div>'));
-			self.slider_bar = slider.find('.ui-slider-bar');
 
 			// handle press
 			slider.append($('<div class="ui-slider-handle-press"></div>'));
@@ -255,8 +250,6 @@
 			// to do it here as the jqm slider sets it every time
 			// the slider's value changes :(
 			this.handle.removeAttr('title');
-
-			this.slider_bar.width( this.handle.css('left') );
 
 			newValue = this.element.val();
 

@@ -15,8 +15,8 @@ select.ui-slider-switch {
 	display: none;
 }
 
-.ui-slider-bg,
-.ui-slider-icon-bg {
+.ui-slider-container,
+.ui-slider-icon-container {
 	position: relative;
 	vertical-align: middle;
 
@@ -35,7 +35,7 @@ select.ui-slider-switch {
 	.LESSborder-radius-all( 10 * @unit_base );
 }
 
-.ui-slider-icon-bg {
+.ui-slider-icon-container {
 	margin-left: 58 * @unit_base;
 	margin-right: 58 * @unit_base;
 }
@@ -162,10 +162,9 @@ a.ui-slider-handle {
 	.LESSbackground-size(@popup-width, @popup-height);
 }
 
-.ui-slider-bar {
-	position: relative;
+.ui-slider-bg {
+	position: absolute;
 
-	top: -36 * @unit_base;
 	height: 7 * @unit_base;
 	width: 0;
 
