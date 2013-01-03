@@ -1,9 +1,9 @@
 From 9194807cb435b256bf5f4d45f585e1ed0bbab303 Mon Sep 17 00:00:00 2001
-From: jinhyuk <jinhyuk@jinhyuk-DeskTop.(none)>
+From: Jinhyuk Jun <jinhyuk.jun@samsung.com>
 Date: Wed, 12 Dec 2012 18:34:46 +0900
-Subject: [PATCH] JQM add TIZEN back btn
+Subject: [PATCH] JQM: add TIZEN back btn
 
-Change-Id: If1c5e68cff21d78abcc499b9eac7a6a3222f09be
+Signed-off-by: Jun Jinhyuk <jinhyuk.jun@samsung.com>
 ---
  libs/js/jquery-mobile-1.2.0/js/widgets/page.js     |   13 +++++
  .../js/widgets/page.sections.js                    |   19 ++++++--

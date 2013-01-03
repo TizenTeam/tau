@@ -1,9 +1,9 @@
 From d91978cf6366c05780ed223264f65869387bc4a4 Mon Sep 17 00:00:00 2001
 From: Jun Jinhyuk <jinhyuk.jun@samsung.com>
 Date: Fri, 7 Dec 2012 10:33:32 +0900
-Subject: [PATCH] JQM add tizen toggle switch
+Subject: [PATCH] JQM: add tizen toggle switch
 
-Change-Id: Iebd5611d298e67295edfe5ded449e11637be5425
+Signed-off-by: Jun Jinhyuk <jinhyuk.jun@samsung.com>
 ---
  .../jquery-mobile-1.2.0/js/widgets/forms/slider.js |   44 +++++++++++++++-----
  1 files changed, 33 insertions(+), 11 deletions(-)

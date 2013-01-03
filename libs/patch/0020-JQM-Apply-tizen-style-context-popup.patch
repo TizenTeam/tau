@@ -1,8 +1,9 @@
 From 0df0afd2b03ab688210b9ff71d65dff73a33419c Mon Sep 17 00:00:00 2001
 From: "Hyunjung Kim" <hjnim.kim@samsung.com>
 Date: Tue, 11 Dec 2012 19:14:31 +0900
-Subject: [PATCH] Apply tizen style context popup
+Subject: [PATCH] JQM: Apply tizen style context popup
 
+Signed-off-by: Hyunjung Kim <hjnim.kim@samsung.com>
 ---
  libs/js/jquery-mobile-1.2.0/js/widgets/popup.js |   95 ++++++++++++++++++++---
  1 files changed, 84 insertions(+), 11 deletions(-)
