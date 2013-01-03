@@ -329,7 +329,7 @@
 			for ( i = 0; i < this._items.length; i++ ) {
 				if ( $( this._items[i]).is( selector ) ) {
 					newX = -( i * this._itemWidth - this._clipWidth / 2 + this._itemWidth * 1.5 );
-					this.scrollTo( newX + this._clipWidth * 2, 0 );
+					this.scrollTo( newX + this._itemWidth, 0 );
 					this.scrollTo( newX, 0, duration );
 					return;
 				}
