@@ -1,0 +1,32 @@
+From 16a62b49eb87d912f070eb6844ba670b252ac895 Mon Sep 17 00:00:00 2001
+From: Youmin Ha <youmin.ha@samsung.com>
+Date: Thu, 27 Dec 2012 19:18:06 +0900
+Subject: [PATCH] JQM: Run custom event handler on collapsible list
+
+The collapsible list runs options.customEventHandler(isCollapse)
+function with this patch.
+This patch is for animating collapsing/expanding effect of collapsed
+content.
+
+Change-Id: Ic4f776db06224c15c0a8b10b108f56e26e298d6d
+---
+ .../jquery-mobile-1.2.0/js/widgets/collapsible.js  |    3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/collapsible.js b/libs/js/jquery-mobile-1.2.0/js/widgets/collapsible.js
+index 97bfacb..d56a24f 100644
+--- a/libs/js/jquery-mobile-1.2.0/js/widgets/collapsible.js
++++ b/libs/js/jquery-mobile-1.2.0/js/widgets/collapsible.js
+@@ -121,6 +121,9 @@ $.widget( "mobile.collapsible", $.mobile.widget, {
+ 
+ 					event.preventDefault();
+ 
++					// Custom event callback
++					if ( o.customEventHandler ) { o.customEventHandler.call( this, isCollapse ) };
++
+ 					collapsibleHeading
+ 						.toggleClass( "ui-collapsible-heading-collapsed", isCollapse )
+ 						.find( ".ui-collapsible-heading-status" )
+-- 
+1.7.9.5
+
