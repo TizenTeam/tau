@@ -65,9 +65,9 @@
 
 		swipe.swipe("destroy");
 
-		equal(new_page.has('.ui-swipe').length, 0, "Destroy - swipe");
-		equal(new_page.has('.ui-swipe-item').length, 0 , "Destroy - item" );
-		equal(new_page.has('.ui-swipe-item-cover').length, 0, "Destroy - cover");
+		equal(swipe.has('.ui-swipe').length, 0, "Destroy - swipe");
+		equal(swipe.has('.ui-swipe-item').length, 0 , "Destroy - item" );
+		equal(swipe.has('.ui-swipe-item-cover').length, 0, "Destroy - cover");
 
 	};
 
