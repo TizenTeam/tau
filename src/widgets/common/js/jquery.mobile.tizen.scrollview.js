@@ -269,10 +269,6 @@
 			var translate,
 				transition;
 
-			if ( this._endEffect ) {
-				return;
-			}
-
 			if ( !duration || duration === undefined ) {
 				transition = "none";
 			} else {
@@ -747,6 +743,8 @@
 		},
 
 		_handleDragStop: function ( e ) {
+			var self = this;
+
 			if ( this._skip_dragging ) {
 				return;
 			}
@@ -774,9 +772,11 @@
 			this._disableTracking();
 
 			if ( this._endEffect ) {
-				this._setEndEffect( "out" );
-				this._hideScrollBars();
-				this._hideOverflowIndicator();
+				setTimeout( function () {
+					self._setEndEffect( "out" );
+					self._hideScrollBars();
+					self._hideOverflowIndicator();
+				}, 300 );
 			}
 
 			return !this._didDrag;
