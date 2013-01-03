@@ -26,7 +26,7 @@ $( function ( o ) {
 	o.animation = true;
 	o.customEventHandler = function ( isCollapse ) {
 		var self = this,
-			c = $(self).children('.ui-collapsible-content')[0],
+			c = $(self).children('.ui-collapsible-content')[0];
 
 		function _getHeight( el ) {
 			var h = 0,
