@@ -211,3 +211,48 @@
 .ui-tabbar-s.ui-navbar-noicons {
 	font-size : 22 * @unit_base;
 }
+
+/* Scrollable tabbar */
+
+.ui-tabbar {
+	.tabbar-scroll-ul {
+		margin-top : 0px;
+		margin-bottom : 0px;
+		padding-left : 0px;
+
+		.tabbar-scroll-li {
+			position : relative;
+			display : inline-block;
+			margin-left : -8 * @unit_base;
+			a {
+				width : 100%;
+			}
+		}
+		li.tabbar-scroll-li:first-child {
+			margin-left : 0px;
+		}
+	}
+}
+
+.ui-tabbar-divider {
+	position : absolute;
+
+	top : 0px;
+	width : 10 * @unit_base;
+	height : 55 * @unit_base;
+	background : -webkit-linear-gradient(left,  rgba(0, 0, 155, 1) 0%,rgba(246,248,239,1) 100%);
+}
+
+.ui-tabbar-divider-left {
+	left : 0px;
+	border-top-right-radius : 10 * @unit_base;
+	border-bottom-right-radius : 10 * @unit_base;
+	background : -webkit-linear-gradient(left,  rgba(0, 0, 155, 1) 0%,rgba(246,248,239,1) 100%);
+}
+
+.ui-tabbar-divider-right {
+	right : 0px;
+	border-top-left-radius : 10 * @unit_base;
+	border-bottom-left-radius : 10 * @unit_base;
+	background : -webkit-linear-gradient(right,  rgba(0, 0, 155, 1) 0%,rgba(246,248,239,1) 100%);
+}
