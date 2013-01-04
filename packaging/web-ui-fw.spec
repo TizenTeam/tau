@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.5
+Version:    0.2.6
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -83,6 +83,50 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Fri Jan 04 2013 Minkyu Kang <mk7.kang@samsung.com> 0.2.6
+	- JQM: patches cleanup
+	- Button: data-corners attribute has been added
+	- unit-test: slider: fix class name of background
+	- progressbar, slider: fix less variable typo
+	- Tabbar : VI update
+	- notification: add top position at fix class
+	- demo: entry demo page change
+	- css: .ui-disabled added
+	- tizen-winset: token textarea: remove back button at demo page
+	- theme: Remove unused less file
+	- pagelayout : content min height bug fix
+	- scrollview: skip the dragging when target is slider's handle
+	- scrollview: update and refactoring the scroll effect
+	- UnitTest:JQM Unit TC helper has been added,TCs have been modified
+	- Swipe: demo page html error has been fixed
+	- listview: Add add/delete animation (VI)
+	- Popup: demo page has been modified
+	- tizen demo : bug fix
+	- searchbar : demo page change(change front button and add behaviour)
+	- pagelayout : add min height to content
+	- gallery: rename 'Image Slider' to 'Gallery' in tizen-winsets demo and tests
+	- back button control demo : change url link to data-rel="back"
+	- loader: Skip loading theme CSS with a custom css code
+	- Button: support no-text in button
+	- collapsible: Fix syntax error
+	- slider: use data-highlight attribute
+	- collapsible: Rotate animation to collapsible heading icon
+	- toggleswitch : text switch bug fix
+	- remove candidates-calendarpicker
+	- Patch: Fix misc mistakes in JQM patches
+	- searchbar : animation change
+	- gallery: get the width correctly
+	- demo: data-framework-viewport-scale attribute is changed to data-framework-viewport-width
+	- collapsible: Add collapse/expand animation (VI)
+	- datetimepicker: VI update
+	- JQM: set transition to pop as default
+	- tabbar : bug fix in case none li element case
+	- scrollview: fix the drag bug
+	- Button: Button icon scrolltop, left has beed added
+	- Swipe: VI update and swipe speed has been changed
+	- jqm: fix errors in patch files
+	- unit-test: swipe: fixed the destroy test
+
 * Wed Dec 26 2012 Youmin Ha <youmin.ha@samsung.com> 0.2.5
 	- Revert "[checkboxradio] exception handling for input"
 		This reverts commit 72478c32704fa96362db577e6cf9511777919ea8.
