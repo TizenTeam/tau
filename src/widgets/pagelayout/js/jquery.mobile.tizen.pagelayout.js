@@ -221,6 +221,7 @@
 					var thisPage = this;
 					self.updatePagePadding(thisPage);
 					self._updateHeaderArea();
+					self._setContentMinHeight( event );
 					if ( o.updatePagePadding ) {
 						$( window ).bind( "throttledresize." + self.widgetName, function () {
 							self.updatePagePadding(thisPage);
@@ -287,9 +288,16 @@
 			var $elPage = $( event.target ),
 				$elHeader = $elPage.find( ":jqmData(role='header')" ),
 				$elFooter = $elPage.find( ":jqmData(role='footer')" ),
-				$elContent = $elPage.find( ":jqmData(role='content')" );
+				$elContent = $elPage.find( ":jqmData(role='content')" ),
+				resultMinHeight;
 
-			$elContent.css( "min-height", window.innerHeight - $elHeader.height() - $elFooter.height() + "px" );
+			resultMinHeight = window.innerHeight - $elHeader.height() - $elFooter.height();
+
+			if ( $.support.scrollview ) {
+				$elContent.css( "min-height", resultMinHeight - parseFloat( $elContent.css("padding-top") ) - parseFloat( $elContent.css("padding-bottom") ) + "px" );
+			} else {
+				$elContent.css( "min-height", resultMinHeight + "px" );
+			}
 		},
 
 		_updateHeaderArea : function () {
