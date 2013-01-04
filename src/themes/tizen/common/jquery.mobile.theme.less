@@ -485,3 +485,17 @@ a.ui-link-inherit {
 	.ui-icon-naviframe-edit { background-image: url(images/page/00_icon_edit_press.png); }
 	.ui-icon-naviframe-plus { background-image: url(images/page/00_icon_plus_press.png); }
 }
+
+/* Interaction cues
+-----------------------------------------------------------------------------------------------------------*/
+.ui-disabled {
+	filter: Alpha(Opacity=30);
+	opacity: .3;
+	zoom: 1;
+}
+.ui-disabled,
+.ui-disabled a {
+	cursor: default !important;
+	pointer-events: none;
+}
+
