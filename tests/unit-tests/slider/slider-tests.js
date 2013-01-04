@@ -11,9 +11,9 @@
 		var slider,
 			slider_bg = function ( widget ) {
 				if ( widget.jqmData("icon") !== undefined ) {
-					return "ui-slider-icon-bg";
+					return "ui-slider-icon-container";
 				}
-				return "ui-slider-bg";
+				return "ui-slider-container";
 			},
 			handle,
 			handle_left = function ( widget ) {
