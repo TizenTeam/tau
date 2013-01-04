@@ -558,12 +558,14 @@
 				svdir = this.options.direction;
 
 			/* should prevent the default behavior when click the button */
-			this._is_button = target.is( '.ui-btn-text' ) ||
+			this._is_button = target.is( '.ui-btn' ) ||
+					target.is( '.ui-btn-text' ) ||
 					target.is( '.ui-btn-inner' ) ||
 					target.is( '.ui-btn-inner .ui-icon' );
 
 			if ( this._is_button ) {
-				if ( target.parents('.ui-slider-handle').length ) {
+				if ( target.parents('.ui-slider-handle').length ||
+						target.is('.ui-slider-handle') ) {
 					this._skip_dragging = true;
 					return;
 				}
