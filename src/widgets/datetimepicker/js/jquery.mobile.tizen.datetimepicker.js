@@ -437,9 +437,24 @@
 				text = value;
 				break;
 			}
+
 			// to avoid reflow where its value isn't out-dated
 			if ( target.text() != text ) {
-				target.text( text );
+				if ( target.hasClass("ui-datefield-selected") ) {
+					target.addClass("out");
+
+					target.animationComplete( function () {
+						target.text( text );
+						target.addClass("in")
+							.removeClass("out");
+
+						target.animationComplete( function () {
+							target.removeClass("in");
+						});
+					});
+				} else {
+					target.text( text );
+				}
 			}
 		},
 
@@ -676,7 +691,7 @@
 				}
 
 				$ul = $("<ul></ul>");
-				$div = $('<div class="ui-datetimepicker-selector" data-transition="none" data-fade="false"></div>');
+				$div = $('<div class="ui-datetimepicker-selector" data-transition="fade" data-fade="false"></div>');
 				$div.append( $ul ).appendTo( ui );
 				$ctx = $div.ctxpopup();
 				$ctx.parents('.ui-popupwindow').addClass('ui-datetimepicker');
@@ -705,8 +720,8 @@
 				});
 
 				$(obj).bind( 'update', function ( e, val ) {
-					$ctx.popupwindow( 'close' );
 					var date = new Date( this.options.date );
+
 					switch ( field[1] ) {
 					case 'min':
 						date.setMinutes( val );
@@ -732,6 +747,7 @@
 						date.setDate( val );
 						break;
 					}
+
 					obj._setDate( date );
 				});
 
@@ -744,7 +760,7 @@
 					}
 				});
 
-				$div.circularview( 'centerTo', '.current', 200 );
+				$div.circularview( 'centerTo', '.current', 500 );
 				$div.bind( 'scrollend' , function ( e ) {
 					if ( !obj._reflow ) {
 						obj._reflow = function () {

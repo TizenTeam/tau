@@ -31,34 +31,60 @@ div.ui-slider.ui-toggle-switch {
 		}
 	}
 }
+.ui-slider-switch:not(.ui-toggle-switch) {
+	width : 92 * @unit_base;
+}
 
 div.ui-slider.ui-slider-switch:not(.ui-toggle-switch) {
 	position : relative;
-	width : 5.5em;
+
 	height : 32 * @unit_base;
+	border-radius : 15 * @unit_base;
+
+	.ui-slider-inneroffset {
+		position : relative;
+		margin : -1px 16 * @unit_base;
+		z-index : 1;
+	}
 
 	a.ui-slider-handle {
 		position : absolute;
 		background : rgba(255, 255, 255, 1);
-		top : -34 * @unit_base;
-		margin-top : 30 * @unit_base;
+		top : 50%;
+		margin : 1px 0 0 -15 * @unit_base;
 		border-radius : 15 * @unit_base;
 		border : 2px solid gray;
+
+		width : 28 * @unit_base;
+		height : 28 * @unit_base;
 	}
+
+	a.ui-slider-handle-snapping {
+		-webkit-transition : left 70ms linear;
+	}
+
 	span {
 		position : absolute;
 		overflow : hidden;
 		text-align : center;
 		height :  32 * @unit_base;
 		font-weight : bold;
-		border-radius : 10 * @unit_base;
+		font-size : 16 * @unit_base;
+		border-radius : 15 * @unit_base;
+		white-space : nowrap;
+		line-height : 2;
+
 		&.ui-slider-label-a {
 			left : 0px;
 			color : white;
+			z-index : 1;
+			text-indent : -1.5em;
 		}
 		&.ui-slider-label-b {
 			right : 0px;
 			color : black;
+			z-index : 0;
+			text-indent : 1.5em;
 		}
 	}
 }

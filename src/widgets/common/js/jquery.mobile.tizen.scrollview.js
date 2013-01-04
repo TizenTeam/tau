@@ -133,10 +133,6 @@
 				c,
 				v;
 
-			this._stopMScroll();
-			this._showScrollBars();
-			this._showOverflowIndicator();
-
 			this._$clip.trigger( this.options.startEventName );
 
 			if ( ht ) {
@@ -269,10 +265,6 @@
 			var translate,
 				transition;
 
-			if ( this._endEffect ) {
-				return;
-			}
-
 			if ( !duration || duration === undefined ) {
 				transition = "none";
 			} else {
@@ -315,13 +307,17 @@
 
 				this._endEffect = true;
 				this._setOverflowIndicator( this._effect_dir );
+				this._showOverflowIndicator();
 			} else if ( dir === "out" ) {
 				if ( !this._endEffect ) {
 					return;
 				}
 
 				this._endEffect = false;
-				this._setOverflowIndicator( this._effect_dir );
+			} else {
+				this._endEffect = false;
+				this._setOverflowIndicator();
+				this._showOverflowIndicator();
 			}
 		},
 
@@ -373,8 +369,7 @@
 					}
 				} else {
 					if ( this._endEffect && this._sy !== y ) {
-						this._endEffect = false;
-						this._setOverflowIndicator();
+						this._setEndEffect();
 					}
 
 					this._sy = y;
@@ -563,12 +558,14 @@
 				svdir = this.options.direction;
 
 			/* should prevent the default behavior when click the button */
-			this._is_button = target.is( '.ui-btn-text' ) ||
+			this._is_button = target.is( '.ui-btn' ) ||
+					target.is( '.ui-btn-text' ) ||
 					target.is( '.ui-btn-inner' ) ||
 					target.is( '.ui-btn-inner .ui-icon' );
 
 			if ( this._is_button ) {
-				if ( target.parents('.ui-slider-handle').length ) {
+				if ( target.parents('.ui-slider-handle').length ||
+						target.is('.ui-slider-handle') ) {
 					this._skip_dragging = true;
 					return;
 				}
@@ -736,17 +733,21 @@
 				this._doSnapBackY = false;
 			}
 
-			this._didDrag = true;
 			this._lastX = ex;
 			this._lastY = ey;
 
 			this._setScrollPosition( newX, newY );
 
-			this._showScrollBars();
-			this._showOverflowIndicator();
+			if ( this._didDrag === false ) {
+				this._didDrag = true;
+				this._showScrollBars();
+				this._showOverflowIndicator();
+			}
 		},
 
 		_handleDragStop: function ( e ) {
+			var self = this;
+
 			if ( this._skip_dragging ) {
 				return;
 			}
@@ -774,9 +775,11 @@
 			this._disableTracking();
 
 			if ( this._endEffect ) {
-				this._setEndEffect( "out" );
-				this._hideScrollBars();
-				this._hideOverflowIndicator();
+				setTimeout( function () {
+					self._setEndEffect( "out" );
+					self._hideScrollBars();
+					self._hideOverflowIndicator();
+				}, 300 );
 			}
 
 			return !this._didDrag;
@@ -885,35 +888,17 @@
 			this._scrollbar_showed = false;
 		},
 
-		_resetOverflowIndicator: function () {
-			if ( !this.options.overflowEnable || !this._overflowAvail || this._softkeyboard ) {
-				return;
-			}
-
-			this._overflow_top.css( "-webkit-animation", "" );
-			this._overflow_bottom.css( "-webkit-animation", "" );
-		},
-
 		_setOverflowIndicator: function ( dir ) {
 			if ( dir === 1 ) {
-				this._opacity_top = "0.2";
+				this._opacity_top = "0";
 				this._opacity_bottom = "0.8";
 			} else if ( dir === 0 ) {
 				this._opacity_top = "0.8";
-				this._opacity_bottom = "0.2";
+				this._opacity_bottom = "0";
 			} else {
 				this._opacity_top = "0.5";
 				this._opacity_bottom = "0.5";
 			}
-		},
-
-		_getOverflowIndicator: function ( opacity ) {
-			if ( opacity === "0.2" ) {
-				return "-lite";
-			} else if ( opacity === "0.8" ) {
-				return "-dark";
-			}
-			return "";
 		},
 
 		_showOverflowIndicator: function () {
@@ -921,25 +906,13 @@
 				return;
 			}
 
-			this._overflow_top.css( "opacity", this._opacity_top );
-			this._overflow_bottom.css( "opacity", this._opacity_bottom );
-
-			if ( this._overflow_showed === true ) {
-				return;
-			}
-
-			this._overflow_top.css( "-webkit-animation", "ui-overflow-show" +
-					this._getOverflowIndicator( this._opacity_top ) + " 0.3s 1 ease" );
-			this._overflow_bottom.css( "-webkit-animation", "ui-overflow-show" +
-					this._getOverflowIndicator( this._opacity_bottom ) + " 0.3s 1 ease" );
+			this._overflow_top.animate( { opacity: this._opacity_top }, 300 );
+			this._overflow_bottom.animate( { opacity: this._opacity_bottom }, 300 );
 
 			this._overflow_showed = true;
 		},
 
 		_hideOverflowIndicator: function () {
-			var opacity_top,
-				opacity_bottom;
-
 			if ( !this.options.overflowEnable || !this._overflowAvail || this._softkeyboard ) {
 				return;
 			}
@@ -948,16 +921,8 @@
 				return;
 			}
 
-			opacity_top = this._overflow_top.css( "opacity" );
-			opacity_bottom = this._overflow_bottom.css( "opacity" );
-
-			this._overflow_top.css( "opacity", "0" );
-			this._overflow_bottom.css( "opacity", "0" );
-
-			this._overflow_top.css( "-webkit-animation", "ui-overflow-hide" +
-					this._getOverflowIndicator( opacity_top ) + " 0.5s 1 ease" );
-			this._overflow_bottom.css( "-webkit-animation", "ui-overflow-hide" +
-					this._getOverflowIndicator( opacity_bottom ) + " 0.5s 1 ease" );
+			this._overflow_top.animate( { opacity: 0 }, 300 );
+			this._overflow_bottom.animate( { opacity: 0 }, 300 );
 
 			this._overflow_showed = false;
 			this._setOverflowIndicator();
@@ -1205,7 +1170,6 @@
 						self._set_scrollbar_size();
 						self._setScrollPosition( self._sx, self._sy );
 						self._showScrollBars( 2000 );
-						self._resetOverflowIndicator();
 					}, 0 );
 				});
 		},
@@ -1243,7 +1207,7 @@
 
 			if ( this._vTracker ) {
 				top_btn = $( '<div class="ui-scroll-jump-top-bg">' +
-						'<div data-role="button" data-inline="true" data-icon="jumptop" style="width:37px;height:37px">.</div></div>' );
+						'<div data-role="button" data-inline="true" data-icon="scrolltop" data-style="box"></div></div>' );
 				$c.append( top_btn ).trigger("create");
 
 				top_btn.bind( "vclick", function () {
@@ -1253,7 +1217,7 @@
 
 			if ( this._hTracker ) {
 				left_btn = $( '<div class="ui-scroll-jump-left-bg">' +
-						'<div data-role="button" data-inline="true" data-icon="jumpleft" style="width:37px;height:37px">.</div></div>' );
+						'<div data-role="button" data-inline="true" data-icon="scrollleft" data-style="box"></div></div>' );
 				$c.append( left_btn ).trigger("create");
 
 				left_btn.bind( "vclick", function () {

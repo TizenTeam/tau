@@ -3,39 +3,35 @@
 		<h1>ToggleSwitch</h1>
 	</div>
 	<div class="content" data-role="content">
+		<label for="flip-1">1. Tizen normal switch:</label>
 		<select name="flip-11" id="flip-11" data-role="slider">
 			<option value="off"></option>
 			<option value="on"></option>
-		</select> 
+		</select>
 		<br><br>
-
-		<label for="flip-1">Tizen switch:</label>
-		<select name="flip-1" id="flip-1" data-role="slider">
-			<option value="off"></option>
-			<option value="on"></option>
-		</select> 
-
-		<br><br>
-
-
-
-		<label for="flip-2">Flip switch:</label>
-		<select name="flip-2" id="flip-2" data-role="slider">
-			<option value="offoffoffoffoffoffoffoffoffoffoffoff">OffOffOffOffOffOffOffOffOffOffOffOffOff</option>
-			<option value="on">On</option>
-		</select> 
-
-		<br><br>
-
 		<div data-role="fieldcontain">
-		<label for="flip-3">Flip switch test:</label>
+		<label for="flip-3">2. Text toggle switch:<br>
+			(support when webDev. write text to option tag)</label>
 			<select name="flip-3" id="flip-3" data-role="slider">
-				<option value="nope">NopeNopeNopeNope</option>
-				<option value="yep">YepYepYepYep</option>
-			</select> 
+				<option value="nope">Nope</option>
+				<option value="yep">Yep</option>
+			</select>
+		<div>
+		<br><br>
+
+		<div class ="containing-element">
+			<label for="flip-2">Text toggle switch: set element width</label>
+			<select name="flip-2" id="flip-2" data-role="slider">
+				<option value="off">Long toggle off</option>
+				<option value="on">Long toggle on</option>
+			</select>
 		</div>
-
-
+		<p style="width:100%; padding:1em; background-color:whitesmoke; color:black; border-width:3px; border-style:inset">
+			 add element's width to css file <br>
+			&nbsp;.containing-element .ui-slider-switch { <br>
+			&nbsp&nbsp;width : 9em;<br>
+			&nbsp;}<br>
+		</p>
 	</div> <!-- /content -->
 	<div data-role="footer">
 	</div>

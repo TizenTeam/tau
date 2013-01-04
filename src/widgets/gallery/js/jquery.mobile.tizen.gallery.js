@@ -455,13 +455,7 @@
 		},
 
 		_get_width: function () {
-			var $page = $( this.element ).parentsUntil( 'ui-page' ),
-				$content = $page.children( '.ui-content' ),
-				padding = parseFloat( $content.css( 'padding-left' ) )
-					+ parseFloat( $content.css( 'padding-right' ) ),
-				content_w = $( window ).width() - padding;
-
-			return content_w;
+			return $( this.element ).width();
 		},
 
 		_get_height: function () {

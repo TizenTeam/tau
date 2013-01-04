@@ -1,8 +1,9 @@
 From 0df0afd2b03ab688210b9ff71d65dff73a33419c Mon Sep 17 00:00:00 2001
-From: "hjnim.kim" <hjnim.kim@samsung.com>
+From: "Hyunjung Kim" <hjnim.kim@samsung.com>
 Date: Tue, 11 Dec 2012 19:14:31 +0900
-Subject: [PATCH] Apply tizen style context popup
+Subject: [PATCH] JQM: Apply tizen style context popup
 
+Signed-off-by: Hyunjung Kim <hjnim.kim@samsung.com>
 ---
  libs/js/jquery-mobile-1.2.0/js/widgets/popup.js |   95 ++++++++++++++++++++---
  1 files changed, 84 insertions(+), 11 deletions(-)
@@ -133,7 +134,7 @@ index de2af2c..6470bc4 100644
  				// TODO sort out why this._page isn't working
  				this.element.closest( ".ui-page" ).addClass( "ui-popup-open" );
  			}
-+			
++
  			this._animate({
  				additionalCondition: true,
  				transition: transition,
@@ -170,12 +171,12 @@ index de2af2c..6470bc4 100644
 +			} else {
 +				$(self._ui.arrow).hide();
 +			}
-+			if( !options.x 
++			if( !options.x
 +				&& self.positionTo !== "window" )
 +			{
 +				options.x = $(self.link).offset().left + $(self.link).outerWidth() / 2;
 +			}
-+			if( !options.y 
++			if( !options.y
 +				&& self.positionTo !== "window" )
 +			{
 +				options.y = $(self.link).offset().top + $(self.link).outerHeight() / 2;

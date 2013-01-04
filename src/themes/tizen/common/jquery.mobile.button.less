@@ -22,8 +22,10 @@
 {
 	padding: .4em 8 * @unit_base .5em; 
 }	/* wongi_1024 : Button text middle align */
-.ui-btn-icon-notext { width: 24 * @unit_base; height: 24 * @unit_base; }
+
+.ui-btn-icon-notext { width: 36 * @unit_base; height: 36 * @unit_base; }
 .ui-btn-icon-notext .ui-btn-inner { padding: 2 * @unit_base 1 * @unit_base 2 * @unit_base 3 * @unit_base; }
+.ui-btn-icon-notext .ui-btn-inner .ui-icon { margin-left: -16 * @unit_base; margin-top: -16 * @unit_base; }
 .ui-btn-icon-notext .ui-btn-text { position: absolute; left: -999 * @unit_base; }
 .ui-btn-icon-left .ui-btn-inner { padding-left: 33 * @unit_base; }
 .ui-header .ui-btn-icon-left .ui-btn-inner,
@@ -44,7 +46,6 @@
 
 /*btn icon positioning*/
 .ui-btn-icon-notext .ui-icon { display: block; }
-
 .ui-btn-icon-left .ui-icon, .ui-btn-icon-right .ui-icon, .ui-btn-icon-circle .ui-icon { position: absolute; /*top: 50%; margin-top: -9px;*/ } /* wongi_1018 : do not use. No more use 18px default icons. */
 
 
@@ -106,11 +107,6 @@
 	box-shadow: none;
 }
 
-.ui-scroll-jump-top-bg .ui-btn-icon-left .ui-btn-inner
-{
-	padding-left: 0;
-}
-
 .ui-btn-icon-top .ui-btn-inner.ui-btn-hastxt, .ui-li .ui-btn-icon-top .ui-btn-inner.ui-btn-hastxt
 {
 	padding-top: 52 * @unit_base;
@@ -158,6 +154,15 @@
 	/* margin-top : 50 */
 	/* top : -32 * @unit_base; */
 }
+.tizen-smallicon-common
+{
+	width: 20 * @unit_base ! important;
+	height: 20 * @unit_base ! important;
+	top: 50% ! important;
+	left: 50% ! important;
+	margin-top: -20 * @unit_base / 2 ! important;
+	margin-left: -20 * @unit_base / 2 ! important;
+}
 
 .ui-icon-bg			{.tizen-icon-common;	background-image: url(images/00_btn_circle_bg_normal.png);	z-index:0; }
 .ui-icon-arrow-l		{.tizen-icon-common;	background-image: url(images/controls/button/00_button_left.png);	}
@@ -180,7 +185,8 @@
 .ui-icon-search			{.tizen-icon-common;    background-image: url(images/controls/button/00_button_search.png);	}
 .ui-icon-call			{.tizen-icon-common;	background-image: url(images/controls/button/00_button_call.png);	 }
 .ui-icon-rename			{.tizen-icon-common;	background-image: url(images/controls/button/00_button_rename.png);	 }
-
+.ui-icon-scrolltop			{.tizen-smallicon-common;	background-image: url(images/controls/button/00_icon_jump.png);	 }
+.ui-icon-scrollleft			{.tizen-smallicon-common;	background-image: url(images/controls/button/00_icon_jump_left.png);	 }
 
 .ui-icon-expandable-divider-opened {
 	width: 42 * @unit_base;
@@ -235,7 +241,8 @@
 .ui-btn-down-s .ui-icon-search			{.tizen-icon-common;    background-image: url(images/controls/button/00_button_search_press.png);	}
 .ui-btn-down-s .ui-icon-call			{.tizen-icon-common;	background-image: url(images/controls/button/00_button_call_press.png);	 }
 .ui-btn-down-s .ui-icon-rename			{.tizen-icon-common;	background-image: url(images/controls/button/00_button_rename_press.png);	 }
-
+.ui-btn-down-s .ui-icon-scrolltop			{.tizen-smallicon-common;	background-image: url(images/controls/button/00_icon_jump.png);	 }
+.ui-btn-down-s .ui-icon-scrollleft			{.tizen-smallicon-common;	background-image: url(images/controls/button/00_icon_jump_left.png);	 }
 
 .ui-btn-inner.ui-btn-icon-only
 {
@@ -250,11 +257,11 @@
 
 .ui-btn.ui-btn-corner-all
 {
-	.LESSborder-radius-all(0.3em);
+	.LESSborder-radius-allimportant(1.2em);
 }
 	
 /* No BG button : data-iconbg = "nobg" */
-.ui-btn.ui-btn-corner-all.ui-btn-icon-nobg
+.ui-btn.ui-btn-icon-nobg
 {
 	box-shadow: none;
 }

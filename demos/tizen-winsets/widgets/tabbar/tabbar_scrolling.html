@@ -13,20 +13,32 @@
 
 <div data-role="page" data-add-back-btn="true">
 	<div data-role="header" data-position="fixed">
-		<div data-role="tabbar">
-			<ul>
-				<li><a href="#"class="ui-btn-active">Menu</a></li>
-				<li><a href="#">Save</a></li>
-				<li><a href="#">Share</a></li>
-				<li><a href="#">Share2</a></li>
-				<li><a href="#">Share3</a></li>
-				<li><a href="#">Share4</a></li>
-			</ul>
-		</div>
+		<h1>Tabbar Scroll</h1>
+
+		<div style="white-space:nowrap;" data-scroll="x">
+		<div class="ui-scrollview-view" style="display:inline-block">
+			<div data-role="tabbar" data-default-list="4">
+				<ul>
+					<li><a href="#tabbar_persist_c">Next0</a></li>
+					<li><a href="#tabbar_persist_a">Menu1</a></li>
+					<li><a href="#tabbar_persist_b">Save2</a></li>
+					<li><a href="#tabbar_persist_c">Next3</a></li>
+					<li><a href="#tabbar_persist_a">Menu4</a></li>
+					<li><a href="#tabbar_persist_b">Save5</a></li>
+					<li><a href="#tabbar_persist_c">Next6</a></li>
+					<li><a href="#tabbar_persist_a">Menu7</a></li>
+					<li><a href="#tabbar_persist_b">Save8</a></li>
+					<li><a href="#tabbar_persist_c">Next9</a></li>
+					<li><a href="#tabbar_persist_a">Menu10</a></li>
+					<li><a href="#tabbar_persist_b">Save11</a></li>
+				</div>
+			</div>
+		</ul>
+	</div><!-- /tabbar -->
 	</div>
 
 	<div data-role="content">
-
+		<p>Scroll header tabbar left/right </p>
 	</div>
 
 	<div data-role="footer">

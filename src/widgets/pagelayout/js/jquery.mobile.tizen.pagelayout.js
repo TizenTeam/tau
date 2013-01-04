@@ -207,6 +207,7 @@
 						self.hide( true );
 					}
 					self.setHeaderFooter( event );
+					self._setContentMinHeight( event );
 				} )
 				.bind( "webkitAnimationStart animationstart updatelayout", function ( e, data ) {
 					var thisPage = this;
@@ -220,12 +221,14 @@
 					var thisPage = this;
 					self.updatePagePadding(thisPage);
 					self._updateHeaderArea();
+					self._setContentMinHeight( event );
 					if ( o.updatePagePadding ) {
 						$( window ).bind( "throttledresize." + self.widgetName, function () {
 							self.updatePagePadding(thisPage);
 
 							self.updatePageLayout();
 							self._updateHeaderArea();
+							self._setContentMinHeight( event );
 						});
 					}
 				})
@@ -279,6 +282,22 @@
 				.bind( "pagebeforeshow", function ( event ) {
 
 				});
+		},
+
+		_setContentMinHeight : function ( event ) {
+			var $elPage = $( event.target ),
+				$elHeader = $elPage.find( ":jqmData(role='header')" ),
+				$elFooter = $elPage.find( ":jqmData(role='footer')" ),
+				$elContent = $elPage.find( ":jqmData(role='content')" ),
+				resultMinHeight;
+
+			resultMinHeight = window.innerHeight - $elHeader.height() - $elFooter.height();
+
+			if ( $.support.scrollview ) {
+				$elContent.css( "min-height", resultMinHeight - parseFloat( $elContent.css("padding-top") ) - parseFloat( $elContent.css("padding-bottom") ) + "px" );
+			} else {
+				$elContent.css( "min-height", resultMinHeight + "px" );
+			}
 		},
 
 		_updateHeaderArea : function () {

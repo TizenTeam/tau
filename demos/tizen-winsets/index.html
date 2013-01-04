@@ -7,7 +7,8 @@
 	<script src="tizen-web-ui-fw/latest/js/tizen-web-ui-fw-libs.js"></script>
 	<script src="tizen-web-ui-fw/latest/js/tizen-web-ui-fw.js"
 		data-framework-theme="tizen-white"
-		data-framework-viewport-scale=false>
+		data-framework-viewport-width="device-width">
+
 	</script>
 	<script src="main.js"></script>
 	<link rel="stylesheet" href="custom.css" />
@@ -204,6 +205,8 @@
 				<li data-role="list-divider">Text Slider</li>
 				<li><input id="mySlider5" name="mySlider5" data-popup='false' type="range" name="slider" value="50" min="0" max="99" data-icon='text' data-text-left='0' data-text-right='99'/></li>
 				<li><input id="mySlider5" name="mySlider5" data-popup='false' type="range" name="slider" value="5" min="0" max="10" data-icon='text' data-text-left='Min' data-text-right='Max'/></li>
+				<li data-role="list-divider">data-highlight="false"</li>
+				<li><input id="mySlider" name="mySlider" data-popup='false' type="range" name="slider" value="5" min="0" max="10" data-highlight="false" /></li>
 			</ul>
 		</div><!-- /content -->
 		<div data-role="footer">
@@ -233,7 +236,7 @@
 		<div data-role="footer">
 		</div>
 	</div>
-	<div data-role="page" id="addressbook" data-add-back-btn="none">
+	<div data-role="page" id="addressbook" data-add-back-btn="false">
 		<div data-role="header"  data-position="fixed">
 			<h1>Address Book</h1>
 		</div>
@@ -298,5 +301,6 @@
 	<script src="widgets/list/list-edit.js"></script>
 
 	<link rel="stylesheet" href="./widgets/tabbar/tabbar.css" />
+	<link rel="stylesheet" href="./widgets/switch/toggleswitch.css" />
 </body>
 </html>

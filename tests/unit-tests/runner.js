@@ -85,6 +85,10 @@ $(document).ready(function() {
 		this.config.autostart = false;
 	};
 
+	QUnit.done = function( details ) {
+		location.href = "../jqm-tchelper/result.php?t=" + details.total + "&p=" + details.passed + "&f=" + details.failed + "&r=" + details.runtime;
+	};
+
 	// get the test directories
 	new Runner().exec(TESTS);
 });

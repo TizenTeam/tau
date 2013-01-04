@@ -1,0 +1,28 @@
+From 2639086fcc7eb12ab9ef1c8217c048c897e22b61 Mon Sep 17 00:00:00 2001
+From: Minkyu Kang <mk7.kang@samsung.com>
+Date: Wed, 2 Jan 2013 17:44:55 +0900
+Subject: [PATCH] JQM: set transition to pop as default
+
+According to TIZEN UX, set transtion to pop as default. (VI-WIN.005)
+
+Signed-off-by: Minkyu Kang <mk7.kang@samsung.com>
+---
+ libs/js/jquery-mobile-1.2.0/js/widgets/popup.js |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
+index de2af2c..289f4fe 100644
+--- a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
++++ b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
+@@ -44,7 +44,7 @@ define( [ "jquery",
+ 			overlayTheme: null,
+ 			shadow: true,
+ 			corners: true,
+-			transition: "none",
++			transition: "pop",
+ 			positionTo: "origin",
+ 			tolerance: null,
+ 			initSelector: ":jqmData(role='popup')",
+-- 
+1.7.9.5
+

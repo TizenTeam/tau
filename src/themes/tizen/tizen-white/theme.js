@@ -23,6 +23,37 @@ $( function ( o ) {
 	o.iconPos = "right";	// Move iconPos to right position
 	o.collapsedIcon = "arrow-u";
 	o.expandedIcon = "arrow-d";
+	o.animation = true;
+	o.customEventHandler = function ( isCollapse ) {
+		var self = this,
+			c = $(self).children('.ui-collapsible-content')[0];
+
+		function _getHeight( el ) {
+			var h = 0,
+				heading = $( el ).children('.ui-collapsible-heading')[0],
+				content = $( el ).children('.ui-collapsible-content')[0];
+
+			h += heading.clientHeight;
+			$( content ).children().each ( function ( idx, _el ) {
+				if ( $( _el ).hasClass( 'ui-collapsible' ) ) {	// recursive call for nested collapsible list
+					h += _getHeight( _el );
+
+				} else {
+					h += _el.clientHeight;
+				}
+			} );
+			return h;
+		}
+
+		if ( isCollapse ) {
+			$( c ).data( 'max-height', _getHeight( self ) );
+		} else {
+			if ( ! $( c ).data( 'max-height' ) ) {
+				$( c ).data( 'max-height', document.body.clientHeight );
+			}
+			$( c ).css( 'max-height', $( c ).data( 'max-height' ) );
+		}
+	};
 } ( $.mobile.collapsible.prototype.options ) );
 
 //clear button theme

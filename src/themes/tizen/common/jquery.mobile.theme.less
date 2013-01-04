@@ -254,6 +254,11 @@
 	> [data-role="button"]:not([data-icon="naviframe-more"]) {
 		top : 6 * @unit_base;
 	}
+
+	> p {
+		margin-top : 8 * @unit_base;
+		margin-bottom : 8 * @unit_base;
+	}
 }
 
 /***************************************************************************
@@ -295,8 +300,25 @@
 }
 .ui-btn-box-s.ui-btn-up-s {
 	.LESSbutton_box_style;
-        .LESSborder-radius-all( 0.3rem );
+	.LESSborder-radius-all( 0.3rem );
 	.LESSbutton_text1_style;
+}
+
+.ui-btn.ui-btn-corner-all .ui-btn-box-s.ui-btn-up-s {
+	.LESSborder-radius-all( 1.2rem );
+}
+
+.ui-btn-box-s .ui-btn-inner {
+	border: 1px solid;
+	border-color: rgb(199, 197, 190);
+	.LESSborder-radius-all( 0.3rem );
+	.LESSbox-boxsizing( border-box );
+	.LESSbutton_inner_box_style;
+	height: 100%;
+}
+
+.ui-btn.ui-btn-corner-all.ui-btn-box-s .ui-btn-inner {
+	.LESSborder-radius-all( 1.2rem );
 }
 
 .ui-ctxpopup .ui-btn-box-s{
@@ -327,15 +349,6 @@
         background: @color_ctxbutton_press !important;
 }
 
-.ui-btn-box-s .ui-btn-inner {
-	border: 1px solid;
-	border-color: rgb(199, 197, 190);
-	.LESSborder-radius-all( 0.3rem );
-	.LESSbox-boxsizing( border-box );
-	.LESSbutton_inner_box_style;
-	height: 100%;
-}
-
 .ui-header .ui-btn-box-s,
 .ui-footer .ui-btn-box-s,
 .ui-btn-back.ui-btn-up-s,
@@ -349,12 +362,17 @@
 .ui-btn-box-s.ui-btn-hover-s {
 	.LESSbutton_hover_style;
 	.LESSbutton_text1_style;
+	.LESSborder-radius-allimportant( 0.3em );
 }
-/*
-.ui-btn-box-s.ui-btn-hover-s.ui-btn-corner-circle{
-	.LESScirclebutton_hover_style;
+.ui-btn-box-s.ui-btn-hover-s.ui-btn-corner-circle {
+	.LESSborder-radius-allimportant( 1em );
 }
-*/
+.ui-btn-box-s.ui-btn-hover-s.ui-btn-corner-all {
+	.LESSborder-radius-allimportant( 1.2em );
+}
+.ui-btn-box-s.ui-btn-hover-s.ui-btn-round {
+	.LESSborder-radius-allimportant( 1.2em );
+}
 .ui-btn-box-s.ui-btn-down-s .ui-btn-inner {
 	.LESSbutton_down_style;
 }
@@ -365,11 +383,8 @@
 	font-family: Helvetica, Arial, sans-serif;
 	text-decoration: none;
 }
-/*
-.ui-btn-down-s.ui-btn-corner-circle{
-	.LESScirclebutton_press_style;
-}
 
+/*
 /* Structure */
 /* links within "buttons" 
 -----------------------------------------------------------------------------------------------------------*/
@@ -480,3 +495,17 @@ a.ui-link-inherit {
 	.ui-icon-naviframe-edit { background-image: url(images/page/00_icon_edit_press.png); }
 	.ui-icon-naviframe-plus { background-image: url(images/page/00_icon_plus_press.png); }
 }
+
+/* Interaction cues
+-----------------------------------------------------------------------------------------------------------*/
+.ui-disabled {
+	filter: Alpha(Opacity=30);
+	opacity: .3;
+	zoom: 1;
+}
+.ui-disabled,
+.ui-disabled a {
+	cursor: default !important;
+	pointer-events: none;
+}
+

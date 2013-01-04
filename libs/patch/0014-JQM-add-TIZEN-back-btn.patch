@@ -1,21 +1,20 @@
 From 9194807cb435b256bf5f4d45f585e1ed0bbab303 Mon Sep 17 00:00:00 2001
-From: jinhyuk <jinhyuk@jinhyuk-DeskTop.(none)>
+From: Jinhyuk Jun <jinhyuk.jun@samsung.com>
 Date: Wed, 12 Dec 2012 18:34:46 +0900
-Subject: [PATCH] JQM add TIZEN back btn
+Subject: [PATCH] JQM: add TIZEN back btn
 
-Change-Id: If1c5e68cff21d78abcc499b9eac7a6a3222f09be
+Signed-off-by: Jun Jinhyuk <jinhyuk.jun@samsung.com>
 ---
  libs/js/jquery-mobile-1.2.0/js/widgets/page.js     |   13 +++++
  .../js/widgets/page.sections.js                    |   19 ++++++--
- ...d-back-btn-option-and-remove-jqm-back-btn.patch |   51 --------------------
- 3 files changed, 27 insertions(+), 56 deletions(-)
+ 2 files changed, 27 insertions(+), 56 deletions(-)
  delete mode 100644 libs/patch/0014-JQM-add-back-btn-option-and-remove-jqm-back-btn.patch
 
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/page.js b/libs/js/jquery-mobile-1.2.0/js/widgets/page.js
 index 256fbb2..d80bd26 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/page.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/page.js
-@@ -46,6 +46,19 @@ $.widget( "mobile.page", $.mobile.widget, {
+@@ -55,6 +55,19 @@ $.widget( "mobile.page", $.mobile.widget, {
  		}
  	},
  
@@ -76,61 +75,6 @@ index 7c05ecb..90a298a 100644
  			}
  
  			// Page title
-diff --git a/libs/patch/0014-JQM-add-back-btn-option-and-remove-jqm-back-btn.patch b/libs/patch/0014-JQM-add-back-btn-option-and-remove-jqm-back-btn.patch
-deleted file mode 100644
-index 1ca3002..0000000
---- a/libs/patch/0014-JQM-add-back-btn-option-and-remove-jqm-back-btn.patch
-+++ /dev/null
-@@ -1,51 +0,0 @@
--From 252820a3ea292bf652d2ecd644c0126152a20f46 Mon Sep 17 00:00:00 2001
--From: Jun Jinhyuk <jinhyuk.jun@samsung.com>
--Date: Wed, 28 Nov 2012 14:25:58 +0900
--Subject: [PATCH] JQM add back btn option and remove jqm back btn
--
--Signed-off-by: Jun Jinhyuk <jinhyuk.jun@samsung.com>
-----
-- .../js/widgets/page.sections.js                    |   16 ++--------------
-- 1 files changed, 2 insertions(+), 14 deletions(-)
--
--diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/page.sections.js b/libs/js/jquery-mobile-1.2.0/js/widgets/page.sections.js
--index 7c05ecb..cbf6786 100644
----- a/libs/js/jquery-mobile-1.2.0/js/widgets/page.sections.js
--+++ b/libs/js/jquery-mobile-1.2.0/js/widgets/page.sections.js
--@@ -8,11 +8,12 @@ define( [ "jquery", "./page", "../jquery.mobile.core" ], function( $ ) {
-- (function( $, undefined ) {
-- 
-- $.mobile.page.prototype.options.backBtnText  = "Back";
---$.mobile.page.prototype.options.addBackBtn   = false;
--+$.mobile.page.prototype.options.addBackBtn   = "footer";
-- $.mobile.page.prototype.options.backBtnTheme = null;
-- $.mobile.page.prototype.options.headerTheme  = "a";
-- $.mobile.page.prototype.options.footerTheme  = "a";
-- $.mobile.page.prototype.options.contentTheme = null;
--+$.mobile.page.prototype.options.footerExist  = true;
-- 
-- // NOTE bind used to force this binding to run before the buttonMarkup binding
-- //      which expects .ui-footer top be applied in its gigantic selector
--@@ -61,19 +62,6 @@ $( document ).bind( "pagecreate", function( e ) {
-- 				rightbtn = rightbtn || $headeranchors.eq( 1 ).addClass( "ui-btn-right" ).length;
-- 			}
-- 
---			// Auto-add back btn on pages beyond first view
---			if ( o.addBackBtn &&
---				role === "header" &&
---				$( ".ui-page" ).length > 1 &&
---				$page.jqmData( "url" ) !== $.mobile.path.stripHash( location.hash ) &&
---				!leftbtn ) {
---
---				backBtn = $( "<a href='javascript:void(0);' class='ui-btn-left' data-"+ $.mobile.ns +"rel='back' data-"+ $.mobile.ns +"icon='arrow-l'>"+ o.backBtnText +"</a>" )
---					// If theme is provided, override default inheritance
---					.attr( "data-"+ $.mobile.ns +"theme", o.backBtnTheme || thisTheme )
---					.prependTo( $this );
---			}
---
-- 			// Page title
-- 			$this.children( "h1, h2, h3, h4, h5, h6" )
-- 				.addClass( "ui-title" )
---- 
 -1.7.4.1
 -
 -- 

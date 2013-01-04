@@ -106,13 +106,21 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 					l = null;
 				// Find css link element
 				for ( idx = 0; idx < cssLinks.length; idx++ ) {
-					if( cssLinks[idx].getAttribute( 'name' ) == "tizen-theme" ) {
+					if( cssLinks[idx].getAttribute( 'rel' ) != "stylesheet" ) {
+						continue;
+					}
+					if( cssLinks[idx].getAttribute( 'name' ) == "tizen-theme" 
+							|| cssLinks[idx].getAttribute( 'href' ) == path ) {
 						l = cssLinks[idx];
 						break;
 					}
 				}
 				if ( l ) {	// Found the link element!
-					l.setAttribute( 'href', path );
+					if ( l.getAttribute( 'href' ) == path ) {
+						console.log( "Theme is already loaded. Skip theme loading in the framework." );
+					} else {
+						l.setAttribute( 'href', path );
+					}
 				} else {
 					this.addElementToHead( this.makeLink( path ) );
 				}
