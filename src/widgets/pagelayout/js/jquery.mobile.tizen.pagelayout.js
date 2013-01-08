@@ -153,36 +153,24 @@
 		setHeaderFooter: function ( event ) {
 			var $elPage = $( event.target ),
 				$elHeader = $elPage.find( ":jqmData(role='header')" ).length ? $elPage.find( ":jqmData(role='header')") : $elPage.siblings( ":jqmData(role='header')"),
-				$elFieldcontain = $elHeader.find( ":jqmData(role='fieldcontain')" ),
-				$elControlgroup = $elHeader.find( ":jqmData(role='controlgroup')" ),
 				$elContent = $elPage.find( ".ui-content" ),
-				next_id,
 				$elFooter = $( document ).find( ":jqmData(role='footer')" ),
-				$elFooterGroup = $elFooter.find( ":jqmData(role='fieldcontain')" ),
-				gLength,
-				footerButton;
+				$elFooterGroup = $elFooter.find( ":jqmData(role='fieldcontain')" );
 
-			if ( $elHeader.jqmData("position") == "fixed" || $.tizen.frameworkData.theme.match(/tizen/) || $elHeader.css("position") == "fixed" ) {
-				$elHeader
-					.css( "position", "fixed" )
-					.css( "top", "0px" );
+			// divide content mode scrollview and non-scrollview
+			if ( !$elPage.is( ".ui-dialog" ) ) {
+				if ( $elHeader.jqmData("position") == "fixed" || ( $.support.scrollview && $.tizen.frameworkData.theme.match(/tizen/) ) ) {
+					$elHeader
+						.css( "position", "fixed" )
+						.css( "top", "0px" );
+				} else if ( !$.support.scrollview && $elHeader.jqmData("position") != "fixed" ) {
+					$elHeader.css( "position", "relative" );
+				}
 			}
 
 			/* set Title style */
 			if ( $elHeader.find("span.ui-title-text-sub").length ) {
 				$elHeader.addClass( "ui-title-multiline");
-			}
-
-			// divide content mode scrollview and non-scrollview
-			// recalculate content area when resize callback occur
-			if ( $.support.scrollview ) {
-				if ( $elHeader.css( "position" ) != "fixed" ) {
-					$elHeader.css( "position", "fixed" );
-				}
-			} else {
-				if ( $elHeader.css("position") != "fixed" ) {
-					$elHeader.css( "position", "relative" );
-				}
 			}
 
 			if ( $elFooterGroup.find( "div" ).is( ".ui-controlgroup-label" ) ) {
@@ -193,7 +181,8 @@
 		_bindPageEvents: function () {
 			var self = this,
 				o = self.options,
-				$el = self.element;
+				$el = self.element,
+				$elCurrentFooter;
 
 			//page event bindings
 			// Fixed toolbars require page zoom to be disabled, otherwise usability issues crop up
@@ -219,9 +208,9 @@
 
 				.bind( "pageshow", function ( event ) {
 					var thisPage = this;
+					self._setContentMinHeight( event );
 					self.updatePagePadding(thisPage);
 					self._updateHeaderArea();
-					self._setContentMinHeight( event );
 					if ( o.updatePagePadding ) {
 						$( window ).bind( "throttledresize." + self.widgetName, function () {
 							self.updatePagePadding(thisPage);
@@ -261,13 +250,13 @@
 				});
 
 			window.addEventListener( "softkeyboardchange", function( e ) {
-				var $elFooter = $( ".ui-page-active .ui-footer" ),
-					thisPage = this;
+				var thisPage = this;
 
 				if ( e.state == "on" ) {
-					$elFooter.hide();
+					$elCurrentFooter = $( ".ui-page-active .ui-footer" );
+					$elCurrentFooter.hide();
 				} else if (e.state == "off") {
-					$elFooter.show();
+					$elCurrentFooter.show();
 				}
 				self.updatePagePadding( thisPage, e.state );
 			});
@@ -293,11 +282,7 @@
 
 			resultMinHeight = window.innerHeight - $elHeader.height() - $elFooter.height();
 
-			if ( $.support.scrollview ) {
-				$elContent.css( "min-height", resultMinHeight - parseFloat( $elContent.css("padding-top") ) - parseFloat( $elContent.css("padding-bottom") ) + "px" );
-			} else {
-				$elContent.css( "min-height", resultMinHeight + "px" );
-			}
+			$elContent.css( "min-height", resultMinHeight - parseFloat( $elContent.css("padding-top") ) - parseFloat( $elContent.css("padding-bottom") ) + "px" );
 		},
 
 		_updateHeaderArea : function () {
@@ -306,46 +291,19 @@
 				headerBtnNum = $elHeader.children("a").length,
 				headerSrcNum = $elHeader.children("img").length;
 
-			$elHeader.find( "h1" ).css( "width", window.innerWidth - $elHeader.children( "a" ).width() * headerBtnNum - $elHeader.children( "a" ).width() / 4 - $elHeader.children( "img" ).width() * headerSrcNum * 4 );
+			if ( !$elPage.is( ".ui-dialog" ) ) {
+				$elHeader.find( "h1" ).css( "width", window.innerWidth - $elHeader.children( "a" ).width() * headerBtnNum - $elHeader.children( "a" ).width() / 4 - $elHeader.children( "img" ).width() * headerSrcNum * 4 );
+			}
 			/* add half width for default space between text and button, and img tag area is too narrow, so multiply three for img width*/
 		},
 
 		_visible: true,
-/* IME concenpt change after alpha2.0 */
-/*		_IMEShown : false,
-		_IMEindicatorHeight : window.outerHeight - window.innerHeight,
 
-		layoutPageIME: function () {
-			if ( $( document.activeElement ).is( "input" ) || $( document.activeElement ).is( "textarea" )
-					|| $(".ui-page-active .ui-header .input-search-bar").length
-					|| $(".ui-page-active .ui-content").find("input").length
-					|| $(".ui-page-active .ui-content").find("textarea").length) {
-
-				if ( ( window.innerHeight + this._IMEindicatorHeight ) < window.outerHeight && window.innerWidth == window.outerWidth ) {
-					if ( this._IMEShown === false ) {
-						$( ".ui-page-active .ui-footer" ).hide();
-						this._IMEShown = true;
-					}
-				} else if ( ( window.innerHeight + this._IMEindicatorHeight ) >= window.outerHeight ) {
-					if ( this._IMEShown === true ) {
-						$( ".ui-page-active .ui-footer" ).show();
-						this._IMEShown = false;
-					}
-				}
-			} else {
-				if ( ( window.innerHeight + this._IMEindicatorHeight ) >= window.outerHeight ) {
-					if ( this._IMEShown === true ) {
-						$( ".ui-page-active .ui-footer" ).show();
-						this._IMEShown = false;
-					}
-				}
-			}
-		},
-*/
 		// This will set the content element's top or bottom padding equal to the toolbar's height
 		updatePagePadding: function ( tbPage, imestatus ) {
 			var $el = this.element,
-				header = $el.siblings( ".ui-header" ).length;
+				header = $el.siblings( ".ui-header" ).length,
+				footer = $el.siblings( ".ui-footer" ).length;
 
 			// This behavior only applies to "fixed", not "fullscreen"
 			if ( this.options.fullscreen && imestatus ) { return; }
@@ -356,13 +314,16 @@
 					parseFloat( $el.css("padding-top") ) -
 					parseFloat( $el.css("padding-bottom") ) );
 			}
-			$( tbPage ).css( "padding-" + ( header ? "top" : "bottom" ), $el.siblings( ".ui-header" ).outerHeight() );
+			if ( $el.siblings( ".ui-header" ).jqmData("position") == "fixed" || $.support.scrollview ) {
+				$( tbPage ).css( "padding-top", ( header ? $el.siblings( ".ui-header" ).outerHeight() : 0 ) );
+			}
+			$( tbPage ).css( "padding-bottom", ( footer ? $el.siblings( ".ui-footer" ).outerHeight() : 0 ) );
+
 		},
 
 		/* 1. Calculate and update content height   */
 		updatePageLayout: function ( receiveType ) {
 			var $elFooter,
-				$elFooterControlbar,
 				$elPage = $( document ).find( ".ui-page-active" ),
 				$elHeader = $elPage.find( ":jqmData(role='header')" ),
 				$elContent = $elPage.find( ":jqmData(role='content')" ),
@@ -375,7 +336,6 @@
 			} else {
 				$elFooter = $( document ).find( ":jqmData(role='footer')" ).eq( 0 );
 			}
-			$elFooterControlbar = $elFooter.find( ".ui-navbar" );
 
 			// calculate footer height
 			resultFooterHeight = ( $elFooter.css( "display" ) == "none" ) ? 0 : $elFooter.height();
@@ -388,27 +348,17 @@
 			resultContentHeight = window.innerHeight - resultFooterHeight - resultHeaderHeight;
 
 			if ( $.support.scrollview ) {
-				if ( $elHeader.css("position") != "fixed" ) {
-					$elHeader.css( "position", "fixed" );
-				}
-
 				$elContent.height( resultContentHeight -
 						parseFloat( $elContent.css("padding-top") ) -
 						parseFloat( $elContent.css("padding-bottom") ) );
-			} else {
-				if ( $elHeader.css("position") != "fixed" ) {
-					$elHeader.css( "position", "relative" );
-				} else {
-					$elContent.height( resultContentHeight );
-				}
 			}
 
-			// check this line need
-			// because another style title will be not supported to updatePageLayout
-
-			// in case title changed
+			// External call page( "refresh") - in case title changed
 			if ( receiveType ) {
-				$elContent.css( "top", resultHeaderHeight + "px" );
+				$elPage
+					.css( "min-height", resultContentHeight )
+					.css( "padding-top", resultHeaderHeight )
+					.css( "padding-bottom", resultFooterHeight );
 			}
 		},
 
@@ -469,16 +419,10 @@
 			this[ this._visible ? "hide" : "show" ]();
 		},
 
-		/* support external api for adding backbutton via javascript */
-/*		backButton: function ( target, status ){
-			this._addBackbutton( target, "external" );
-		},
-*/
 		destroy: function () {
 			this.element.removeClass( "ui-header-fixed ui-footer-fixed ui-header-fullscreen ui-footer-fullscreen in out fade slidedown slideup ui-fixed-hidden" );
 			this.element.closest( ".ui-page" ).removeClass( "ui-page-header-fixed ui-page-footer-fixed ui-page-header-fullscreen ui-page-footer-fullscreen" );
 		}
-
 	});
 
 	//auto self-init widgets
