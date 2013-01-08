@@ -505,10 +505,10 @@
 				( function ( obj ) {
 					var type, value, format;
 
-					type = obj.element.attr( "type" );
+					type = obj.element.get(0).getAttribute( "type" );
 					obj.options.type = type;
 
-					value = obj.element.attr( "value" );
+					value = obj.element.get(0).getAttribute( "value" );
 					if ( value ) {
 						obj.options.date = new Date( value );
 					}
