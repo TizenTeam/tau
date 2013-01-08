@@ -222,10 +222,12 @@
 
 			$tabbar.bind( "touchstart vmousedown", function ( e ) {
 				var $tabbarScroll = $( e.target ).parents( ".ui-scrollview-view" );
-				$tabbarScroll.offset().left < 0 ? 
-					$( ".ui-tabbar-divider-left" ).show() : $( ".ui-tabbar-divider-left" ).hide();
-				( $tabbarScroll.width() - $tabbarScroll.parents( ".ui-scrollview-clip" ).width() ) ==  Math.abs( $tabbarScroll.offset().left ) ? 
-					$( ".ui-tabbar-divider-right" ).hide() : $( ".ui-tabbar-divider-right" ).show();
+				if ( $tabbarScroll.offset() ) {
+					$tabbarScroll.offset().left < 0 ? 
+						$( ".ui-tabbar-divider-left" ).show() : $( ".ui-tabbar-divider-left" ).hide();
+					( $tabbarScroll.width() - $tabbarScroll.parents( ".ui-scrollview-clip" ).width() ) ==  Math.abs( $tabbarScroll.offset().left ) ? 
+						$( ".ui-tabbar-divider-right" ).hide() : $( ".ui-tabbar-divider-right" ).show();
+				}
 			});
 
 			this._bindTabbarEvents();
