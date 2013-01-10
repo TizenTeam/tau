@@ -153,18 +153,17 @@
 		});
 
 		$( "#qunit-fixture" ).trigger("vmousedown");
-
+		// tapholdThreshold has been changed from 100 to 2000
 		setTimeout(function(){
 			ok( !taphold, "taphold not fired" );
-			deepEqual( target, undefined, "taphold target should be #qunit-fixture" );
-		}, $.event.special.tap.tapholdThreshold - 10);
-
+			deepEqual( target, undefined, "taphold target should be #qunit-fixture!" );
+		}, $.event.special.tap.tapholdThreshold - 2000);
 
 		setTimeout(function(){
 			ok( taphold, "taphold fired" );
-			equal( target, $( "#qunit-fixture" ).get( 0 ), "taphold target should be #qunit-fixture" );
+			equal( target, $( "#qunit-fixture" ).get( 0 ), "taphold target should be #qunit-fixture!" );
 			start();
-		}, $.event.special.tap.tapholdThreshold + 10);
+		}, $.event.special.tap.tapholdThreshold + 2000);
 	});
 
 	//NOTE used to simulate movement when checked

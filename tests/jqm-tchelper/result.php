@@ -1,32 +1,18 @@
-<?php
-	$testname = $_REQUEST["testname"];
-	$t = $_REQUEST["t"];
-	$p = $_REQUEST["p"];
-	$f = $_REQUEST["f"];
-	$r = $_REQUEST["r"];
-?>
 <html>
 	<head>
 		<script type="text/javascript" src="../../libs/js/jquery-1.7.1.js"></script>
+		<script type="text/javascript" src="cookie.js"></script>
 		<script>
-			function getCookie(name) {
-				var cname = name + "=";
-				var dc = document.cookie;
-				if (dc.length > 0) {
-					begin = dc.indexOf(cname);
-					if (begin != -1) {
-						begin += cname.length;
-						end = dc.indexOf(";", begin);
-					if (end == -1) end = dc.length;
-					return unescape(dc.substring(begin, end));
-					}
-				}
-				return null;
-			}
 			$(document).ready( function() {
 				$("#os").text( getCookie("OS") );
 				$("#browser").text( getCookie("Browser") );
 				$("#version").text( getCookie("Version") );
+
+				$("#total").text( getCookie("TizenT") );
+				$("#pass").text( getCookie("TizenP") );
+				$("#failed").text( getCookie("TizenF") );
+				$("#time").text( getCookie("TizenR") );
+
 			});
 		</script>
 	</head>
@@ -66,19 +52,19 @@
 				-->
 				<tr>
 					<td>Tests total</td>
-					<td><span><?=$t?></span></td>
+					<td><span id="total"></span></td>
 				</tr>
 				<tr>
 					<td>Tests Passed</td>
-					<td><span><?=$p?></span></td>
+					<td><span id="pass"></span></td>
 				</tr>
 				<tr>
 					<td>Tests Failed</td>
-					<td><span><?=$f?></span></td>
+					<td><span id="failed"></span></td>
 				</tr>
 				<tr>
 					<td>Time(m seconds)</td>
-					<td><span><?=$r?></span></td>
+					<td><span id="time"></span></td>
 				</tr>
 			</table>
 		</div>

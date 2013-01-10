@@ -55,6 +55,11 @@ $.testHelper.excludeFileProtocol(function(){
 			start();
 		});
 	});
+	/*
+	To delete the windows property is prohibited. (Security issue)
+
+	delete window["orientation"] is now working
+	!$.support.orientation <- return false
 
 	asyncTest( "detects functionality from basic negative properties and attributes (where possible)", function(){
 		delete window["orientation"];
@@ -64,6 +69,7 @@ $.testHelper.excludeFileProtocol(function(){
 			start();
 		});
 	});
+	*/
 
 	// NOTE mocks prependTo to simulate base href updates or lack thereof
 	var mockBaseCheck = function( url ){
