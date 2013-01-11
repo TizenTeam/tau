@@ -16,11 +16,13 @@
     <feature name="http://waclists.org/api/deviceapis" required="false"/>
     <feature name="http://wacapps.net/api/accelerometer" required="true" />
     -->
+	<feature name="http://tizen.org/privilege/tizen" required="true"/>
+	<feature name="http://tizen.org/privilege/application.read" required="true"/>
 
     <!-- access remote web resource -->
     <!-- modify here and remove comments
     <access origin="http://www.samsung.com" subdomain=true />
-    <access origin="*"/>
     -->
+    <access origin="*"/>
 
 </widget>

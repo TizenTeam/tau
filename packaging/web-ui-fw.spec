@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.6
+Version:    0.2.7
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -83,6 +83,38 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+
+* Fri Jan 11 2013 Minkyu Kang <mk7.kang@samsung.com> 0.2.7
+	- slider: set text container's width as text length
+	- Timepicker: li max-width has been changed
+	- remove experimental feature - mapview.
+	- scrollview: added conditions for finding slider
+	- UnitTC: Pass,error count save method has been changed
+	- confix.xml: default config added for tizen basic applications
+	- Swipe: p tag margin value is set '0'
+	- packaging: remove unused file
+	- tabbar : bug fix
+	- list demo : bug fix
+	- tizen-winsets: gallery: move to new section
+	- tizen-winsets: autodivider: removes link of list
+	- demos: entry of number-pattern name is changed from 'number' to 'number-pattern'
+	- pagelayout : padding calculate change, ime footer check changed
+	- tizen-winsets: searchbar: scroll to the top when type the character
+	- searchbar : bug fix
+	- demo: Fix virtuallist demo following new list style
+	- demo: Add word-wrap:break-word and remove parag. width
+	- Demo: button max-width has been set( 3 buttons in popup )
+	- back button control demo : bug fix
+	- toggleswitch : demo page modify
+	- slider: add margin-top and margin-bottom
+	- tabbar demo : bug fix
+	- Popup: IME hide when popup is closed
+	- token textarea : bug fix
+	- Timepicker: change get attribute method
+	- footer demo : bug fix
+	- unit-test: gallery: add new APIs
+	- gallery: adds support new APIs
+
 * Fri Jan 04 2013 Minkyu Kang <mk7.kang@samsung.com> 0.2.6
 	- JQM: patches cleanup
 	- Button: data-corners attribute has been added

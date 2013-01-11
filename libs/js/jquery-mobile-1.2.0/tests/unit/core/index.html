@@ -17,8 +17,12 @@
 			],
 			[ "jquery.mobile.init" ],
 			[
-				"core.js",
-				"core_scroll.js"
+				"core.js"
+				// Scroll function to operate asynchronously, this testcases check the async function synchronously.
+				// e.g.
+				// $(window).scrollTop(1000); <- scrollTop operate asynchronously
+				// ok($(window).scrollTop() > 0, $(window).scrollTop()); <-  can be problematic
+				/*"core_scroll.js"*/
 			]
 		]);
 	</script>

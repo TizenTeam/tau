@@ -37,6 +37,9 @@
  *  add(file): add the image (parameter: url of iamge)
  *  remove(index): remove the image (parameter: index of image)
  *  refresh(index): refresh the widget, should be called after add or remove. (parameter: start index)
+ *  empty: remove all of images from the gallery
+ *  length: get length of images
+ *  value: get current index of gallery
  *
  * Events
  *
@@ -67,7 +70,7 @@
 
  /**
 	@class Gallery
-	The image slider widget shows images in a gallery on the screen. <br/><br/> To add an image slider widget to the application, use the following code:
+	The gallery widget shows images in a gallery on the screen. <br/><br/> To add an gallery widget to the application, use the following code:
 
 		<div data-role="gallery" id="gallery" data-vertical-align="middle" data-index="3">
 			<img src="01.jpg">
@@ -89,24 +92,45 @@
 */
 /**
 	@method add
-	The add method is used to add an image to the image slider. The image_file attribute defines the image file URL.
+	The add method is used to add an image to the gallery. The image_file attribute defines the image file URL.
 
 		<div id="gallery" data-role="gallery" data-vertical-align="middle"></div>
 		$("#gallery").gallery('add', [image_file]);
 */
 /**
 	@method remove
-	The remove method is used to delete an image from the image slider. The image_index attribute defines the index of the image to be deleted.
+	The remove method is used to delete an image from the gallery. The image_index attribute defines the index of the image to be deleted. If not set removes current image.
 
 		<div id="gallery" data-role="gallery" data-vertical-align="middle"></div>
 		$("#gallery").gallery('remove', [image_index]);
 */
 /**
 	@method refresh
-	The refresh method is used to refresh the image slider. This method must be called after adding images to the image slider.
+	The refresh method is used to refresh the gallery. This method must be called after adding images to the gallery.
 
 		<div id="gallery" data-role="gallery" data-vertical-align="middle"></div>
 		$("#gallery").gallery('refresh');
+*/
+/**
+	@method empty
+	The empty method is used to remove all of images from the gallery.
+
+		<div id="gallery" data-role="gallery" data-vertical-align="middle"></div>
+		$("#gallery").gallery('empty');
+*/
+/**
+	@method length
+	The length method is used to get length of images.
+
+		<div id="gallery" data-role="gallery" data-vertical-align="middle"></div>
+		length = $("#gallery").gallery('length');
+*/
+/**
+	@method value
+	The value method is used to get current index of gallery.
+
+		<div id="gallery" data-role="gallery" data-vertical-align="middle"></div>
+		value = $("#gallery").gallery('value');
 */
 (function ( $, window, undefined ) {
 	$.widget( "tizen.gallery", $.mobile.widget, {
@@ -160,7 +184,7 @@
 			var img = this.images[index],
 				img_top = 0;
 
-			if ( !obj) {
+			if ( !obj ) {
 				return;
 			}
 			if ( !obj.length ) {
@@ -185,7 +209,7 @@
 					self._align( index, obj );
 				};
 
-			if ( !obj) {
+			if ( !obj ) {
 				return;
 			}
 			if ( !obj.length ) {
@@ -216,7 +240,7 @@
 		},
 
 		_detach: function ( index, obj ) {
-			if ( !obj) {
+			if ( !obj ) {
 				return;
 			}
 			if ( !obj.length ) {
@@ -234,6 +258,14 @@
 			this.images[index].detach();
 
 			clearInterval( this.loader[index] );
+		},
+
+		_detach_all: function () {
+			var i;
+
+			for ( i = 0; i < this.images.length; i++ ) {
+				this.images[i].detach();
+			}
 		},
 
 		_drag: function ( _x ) {
@@ -489,9 +521,7 @@
 				i++;
 			}
 
-			for ( i = 0; i < this.images.length; i++ ) {
-				this.images[i].detach();
-			}
+			this._detach_all();
 
 			index = parseInt( $( this.element ).jqmData( 'index' ), 10 );
 			if ( !index ) {
@@ -528,6 +558,8 @@
 				this.container.append( bg_html );
 				this.images.push( temp_img );
 			}
+
+			this._detach_all();
 		},
 
 		refresh: function ( start_index ) {
@@ -548,6 +580,8 @@
 			this.index = start_index;
 
 			this._show();
+
+			return this.index;
 		},
 
 		add: function ( file ) {
@@ -616,6 +650,19 @@
 
 			this.images.splice( index, 1 );
 			temp_img.detach();
+		},
+
+		empty: function () {
+			this.images.splice( 0, this.images.length );
+			this.container.find('.ui-gallery-bg').detach();
+		},
+
+		length: function () {
+			return this.images.length;
+		},
+
+		value: function () {
+			return this.index;
 		}
 	}); /* End of widget */
 
@@ -624,7 +671,7 @@
 		$( e.target ).find( ":jqmData(role='gallery')" ).gallery();
 	});
 
-	$( document ).bind( "pageshow", function ( e ) {
+	$( document ).bind( "pagebeforeshow", function ( e ) {
 		$( e.target ).find( ":jqmData(role='gallery')" ).gallery( 'show' );
 	});
 

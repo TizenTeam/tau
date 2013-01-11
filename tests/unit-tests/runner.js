@@ -86,9 +86,12 @@ $(document).ready(function() {
 	};
 
 	QUnit.done = function( details ) {
-		location.href = "../jqm-tchelper/result.php?t=" + details.total + "&p=" + details.passed + "&f=" + details.failed + "&r=" + details.runtime;
-	};
-
+		setCookie( "TizenP", details.passed );
+		setCookie( "TizenF", details.failed );
+		setCookie( "TizenR", details.runtime );
+		setCookie( "TizenT", details.total );
+		location.href = "../jqm-tchelper/result.php";
+	}
 	// get the test directories
 	new Runner().exec(TESTS);
 });

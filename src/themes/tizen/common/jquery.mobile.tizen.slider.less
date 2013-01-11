@@ -15,14 +15,15 @@ select.ui-slider-switch {
 	display: none;
 }
 
-.ui-slider-container,
-.ui-slider-icon-container {
+.ui-slider-container {
 	position: relative;
 	vertical-align: middle;
 
 	height: 18 * @unit_base;
 	margin-left: 16 * @unit_base;
 	margin-right: 16 * @unit_base;
+	margin-top: 9 * @unit_base;
+	margin-bottom: 9 * @unit_base;
 
 	background-image: -webkit-gradient(
 		linear,
@@ -33,11 +34,6 @@ select.ui-slider-switch {
 	);
 	.LESSbox-shadow(1px, 1px, 0px, white);
 	.LESSborder-radius-all( 10 * @unit_base );
-}
-
-.ui-slider-icon-container {
-	margin-left: 58 * @unit_base;
-	margin-right: 58 * @unit_base;
 }
 
 .ui-slider-left-volume,
@@ -83,9 +79,7 @@ select.ui-slider-switch {
 	position: absolute;
 
 	top: -0.5rem;
-	left: -52 * @unit_base;
 	height: 37 * @unit_base;
-	width: 37 * @unit_base;
 
 	text-align: center;
 	color: rgb(100, 100, 100);
@@ -95,9 +89,7 @@ select.ui-slider-switch {
 	position: absolute;
 
 	top: -0.5rem;
-	right: -52 * @unit_base;
 	height: 37 * @unit_base;
-	width: 37 * @unit_base;
 
 	text-align: center;
 	color: rgb(100, 100, 100);
@@ -119,7 +111,7 @@ div.ui-slider:not(.ui-toggle-switch) {
 	background-color: @color_progress_bar0;
 
 	.ui-btn {
-		top: -0.8rem;
+		top: -0.75rem;
 		margin-top: 0;
 	}
 	.ui-btn-inner {

@@ -105,10 +105,21 @@
 	.center_title,
 	.center_basic_1btn,
 	.center_basic_2btn,
-	.center_basic_3btn,
 	.center_title_1btn,
-	.center_title_2btn,
+	.center_title_2btn {
+	}
+	.center_basic_3btn,
 	.center_title_3btn {
+		.ui-btn {
+				max-width: 80 * @unit_base;
+				height: 37*@unit_base;
+				margin-top: 0*@unit_base;
+				margin-bottom: 0*@unit_base;
+				margin-left: 5*@unit_base;
+				margin-right: 5*@unit_base;
+
+				display: inline-block;
+			}
 	}
 
 	.center_button_vertical {
@@ -230,12 +241,12 @@
 			vertical-align: middle;
 
 			.ui-btn {
-				width: 93*@unit_base;
-				height: 37*@unit_base;
-				margin-top: 0*@unit_base;
-				margin-bottom: 0*@unit_base;
-				margin-left: 5*@unit_base;
-				margin-right: 5*@unit_base;
+				max-width: 80 * @unit_base;
+				height: 37 * @unit_base;
+				margin-top: 0 * @unit_base;
+				margin-bottom: 0 * @unit_base;
+				margin-left: 5 * @unit_base;
+				margin-right: 5 * @unit_base;
 
 				display: inline-block;
 			}

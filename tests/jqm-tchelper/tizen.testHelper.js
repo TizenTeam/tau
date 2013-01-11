@@ -5,10 +5,34 @@
  *			- pass current summary data by GET variables
  *			- Get current summary data by parsing URL to get those GET variables
  *
- * 	Issues
- * 		- Some testcases may change URL during test
+ *	Issues
+ *		- Some testcases may change URL during test
  *	It is a not complete versionc. Optimization, refactoring is needed
+ *
  */
+
+function setCookie( cookieName, cookieValue, expireDate) {
+	var today = new Date();
+		today.setDate( today.getDate() + parseInt( expireDate ) );
+		document.cookie = cookieName + "=" + escape( cookieValue ) + "; path=/; expires=" + today.toGMTString() + ";";
+}
+function getCookie(name) {
+	var cname = name + "=";
+	var dc = document.cookie;
+	if (dc.length > 0) {
+		begin = dc.indexOf(cname);
+			if (begin != -1) {
+				begin += cname.length;
+				end = dc.indexOf(";", begin);
+					if (end == -1) {
+						end = dc.length;
+					}
+				return unescape(dc.substring(begin, end));
+			}
+	}
+	return null;
+}
+
 ( function ( ) {
 
 	var QueryString = function () {
@@ -20,15 +44,11 @@
 
 		vars = query.split("&");
 
-		for (var i = 0 ; i < vars.length ; i++)
-		{
+		for (var i = 0 ; i < vars.length ; i++) {
 			pair = vars[i].split("=");
-			if (typeof query_string[pair[0]] === "undefined")
-			{
+			if (typeof query_string[pair[0]] === "undefined") {
 				query_string[pair[0]] = pair[1];
-			}
-			else if (typeof query_string[pair[0]] === "string")
-			{
+			} else if (typeof query_string[pair[0]] === "string") {
 				arr = [ query_string[pair[0]], pair[1] ];
 				query_string[pair[0]] = arr;
 			} else {
@@ -41,6 +61,8 @@
 	except : listview, event
 */
 	var tests = [
+		"listview",
+		"event",
 		"button",
 		"button-markup",
 		"navigation",
@@ -85,24 +107,16 @@
 		// TODO
 		var loc,
 			dir;
-		passCount = ( typeof QueryString.p === "undefined" ) ? 0 : parseInt( QueryString.p );
-		failCount = ( typeof QueryString.f === "undefined" ) ? 0 : parseInt( QueryString.f );
-		totalCount = ( typeof QueryString.t === "undefined" ) ? 0 : parseInt( QueryString.t );
-		runTime = ( typeof QueryString.r === "undefined" ) ? 0 : parseInt( QueryString.r );
+		passCount = ( getCookie( "TizenP") === "undefined" ) ? 0 : parseInt( getCookie( "TizenP") );
+		failCount = ( getCookie( "TizenF") === "undefined" ) ? 0 : parseInt( getCookie( "TizenF") );
+		totalCount = ( getCookie( "TizenT") === "undefined" ) ? 0 : parseInt( getCookie( "TizenT") );
+		runTime = ( getCookie( "TizenR") === "undefined" ) ? 0 : parseInt( getCookie( "TizenR") );
 
 		loc = window.location.pathname;
 		dirs = loc.substring(0, loc.lastIndexOf('/')).split('/');
 		currentTest = dirs[dirs.length-1];
 	} ( url ) );
-	QUnit.log = function( obj ) {
-		var tempUrl = url;
-		if( obj.result ) {
-			if ( tempUrl.indexOf("?")>-1 ) {
-				tempUrl = tempUrl.substr(0,tempUrl.indexOf("?"));
-			}
-			$.post( tempUrl + "../../../../../../tests/jqm-tchelper/log.php", { currentTest : currentTest, obj : obj } , function(){});
-		}
-	};
+
 	QUnit.done = function ( details ) {
 		var nextTestURL;
 
@@ -112,24 +126,26 @@
 				updir = "../";
 			for( i = 0 ; i < tests.length ; i++ )
 			{
-				if( tests[i] == currentTest )
-				{
+				if( tests[i] == currentTest ) {
 					break;
 				}
 			}
 
-			if( tests.length -1 == i ||
-				currentTest === "listview" ||
-				currentTest === "event" )
+			if( tests.length -1 == i )
 			{
 				//Goto result Page
-				nextUrl ="../../../../../../tests/jqm-tchelper/result.php"  + "?" + "p=" + passCount + "&f=" + failCount + "&t=" + totalCount + "&r=" + runTime;
+				nextUrl ="../../../../../../tests/jqm-tchelper/result.php";
 			}else{
-				if( currentTest === "navigation"  )
-				{
+				if( currentTest === "navigation"  ) {
 					updir += "../../";
+				} else if ( currentTest === "listview" ) {
+					updir += "../";
 				}
-				nextUrl = updir +  tests[i + 1] +"/?" + "p=" + passCount + "&f=" + failCount + "&t=" + totalCount + "&r=" + runTime;
+				setCookie( "TizenP", passCount );
+				setCookie( "TizenF", failCount );
+				setCookie( "TizenR", runTime );
+				setCookie( "TizenT", totalCount );
+				nextUrl = updir +  tests[i + 1];
 			}
 
 			return nextUrl;
