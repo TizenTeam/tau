@@ -12,6 +12,8 @@ $( "#searchbar-demo-page" ).bind( "pageshow", function(){
 				$( this ).hide();
 			}
 		});
+
+		$("#searchbar-content").scrollview("scrollTo", 0, 0, 0);
 	});
 });
 
