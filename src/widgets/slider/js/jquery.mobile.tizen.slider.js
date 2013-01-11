@@ -126,7 +126,12 @@
 				popupEnabledAttr,
 				icon,
 				text_right,
-				text_left;
+				text_left,
+				text_length,
+				elem_left,
+				elem_right,
+				margin_left,
+				margin_right;
 
 			// apply jqm slider
 			inputElement.slider();
@@ -148,11 +153,7 @@
 			icon = inputElement.attr('data-icon');
 
 			// wrap the background
-			if ( icon === undefined ) {
-				slider.wrap('<div class="ui-slider-container"></div>');
-			} else {
-				slider.wrap('<div class="ui-slider-icon-container"></div>');
-			}
+			slider.wrap('<div class="ui-slider-container"></div>');
 
 			// get the handle
 			self.handle = slider.find('.ui-slider-handle');
@@ -162,28 +163,51 @@
 			slider.find('*').removeClass('ui-btn-corner-all');
 
 			// add icon
-
 			switch ( icon ) {
 			case 'bright':
 			case 'volume':
-				slider.before( $('<div class="ui-slider-left-' +
-							icon + '"></div>') );
-				slider.after( $('<div class="ui-slider-right-' +
-							icon + '"></div>') );
+				elem_left = $('<div class="ui-slider-left-' + icon + '"></div>');
+				elem_right = $('<div class="ui-slider-right-' + icon + '"></div>');
+
+				slider.before( elem_left );
+				slider.after( elem_right );
+
+				margin_left = elem_left.width() + 16;
+				margin_right = elem_right.width() + 16;
 				break;
 
 			case 'text':
-				text_left = ( inputElement.attr('data-text-left') === undefined ) ? '' : inputElement.attr('data-text-left').substring( 0, 3 );
-				text_right = ( inputElement.attr('data-text-right') === undefined ) ? '' : inputElement.attr('data-text-right').substring( 0, 3 );
-				slider.before( $('<div class="ui-slider-left-text">' +
+				text_left = ( inputElement.attr('data-text-left') === undefined ) ? '' :
+						inputElement.attr('data-text-left').substring( 0, 3 );
+				text_right = ( inputElement.attr('data-text-right') === undefined ) ? '' :
+						inputElement.attr('data-text-right').substring( 0, 3 );
+
+				text_length = Math.max( text_left.length, text_right.length );
+
+				margin_left = text_length + "rem";
+				margin_right = text_length + "rem";
+
+				elem_left = $('<div class="ui-slider-left-text" style="left:' +
+					-( text_length ) + 'rem; width:' + text_length + 'rem;">' +
 					'<span style="position:relative;top:0.4em;">' +
 					text_left +
-					'</span></div>') );
-				slider.after( $('<div class="ui-slider-right-text">' +
+					'</span></div>');
+				elem_right = $('<div class="ui-slider-right-text" style="right:' +
+					-( text_length ) + 'rem; width:' + text_length + 'rem;">' +
 					'<span style="position:relative;top:0.4em;">' +
 					text_right +
-					'</span></div>') );
+					'</span></div>');
+
+				slider.before( elem_left );
+				slider.after( elem_right );
 				break;
+			}
+
+			if ( icon ) {
+				slider.parent('.ui-slider-container').css({
+					"margin-left": margin_left,
+					"margin-right": margin_right
+				});
 			}
 
 			// handle press
