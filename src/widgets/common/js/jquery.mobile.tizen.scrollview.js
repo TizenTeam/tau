@@ -563,12 +563,10 @@
 					target.is( '.ui-btn-inner' ) ||
 					target.is( '.ui-btn-inner .ui-icon' );
 
-			if ( this._is_button ) {
-				if ( target.parents('.ui-slider-handle').length ||
-						target.is('.ui-slider-handle') ) {
-					this._skip_dragging = true;
-					return;
-				}
+			/* should prevent the default behavior when click the slider */
+			if ( target.parents('.ui-slider').length || target.is('.ui-slider') ) {
+				this._skip_dragging = true;
+				return;
 			}
 
 			/*
