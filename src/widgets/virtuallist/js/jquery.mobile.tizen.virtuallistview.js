@@ -172,7 +172,7 @@
 
 			for ( i = 0; i < lastIndex; i++ ) {
 				htmlData = myTemplate.tmpl( this._itemData( i ) );
-				$( o.id ).append( $( htmlData ).attr( 'id', 'li_' + i ) );
+				$( o.id ).append( $( htmlData ).attr( 'id', o.itemIDPrefix + i ) );
 			}
 
 			/* After push data, re-style virtuallist widget */
@@ -295,7 +295,7 @@
 						break;
 					}
 
-					cur_item = $( '#li_' + ( v_firstIndex + i ) );
+					cur_item = $( '#' + o.itemIDPrefix + ( v_firstIndex + i ) );
 
 					if ( cur_item ) {
 						/* Make New <LI> element from template. */
@@ -309,7 +309,7 @@
 						htmlData.remove();
 
 						/* Set New Position */
-						( cur_item ).css( 'top', t._title_h + t._line_h * ( v_lastIndex + 1 + i ) ).attr( 'id', 'li_' + ( v_lastIndex + 1 + i ) );
+						( cur_item ).css( 'top', t._title_h + t._line_h * ( v_lastIndex + 1 + i ) ).attr( 'id', o.itemIDPrefix + ( v_lastIndex + 1 + i ) );
 
 					} else {
 						break;
@@ -328,7 +328,7 @@
 				}
 
 				for ( i = 0; i < num; i++ ) {
-					cur_item = $( '#li_' + ( v_lastIndex - i ) );
+					cur_item = $( '#' + o.itemIDPrefix + ( v_lastIndex - i ) );
 
 					if ( cur_item ) {
 						if ( v_firstIndex - 1 - i < 0 ) {
@@ -346,7 +346,7 @@
 						htmlData.remove();
 
 						/* Set New Position */
-						$( cur_item ).css( 'top', t._title_h + t._line_h * ( v_firstIndex - 1 - i ) ).attr( 'id', 'li_' + ( v_firstIndex - 1 - i ) );
+						$( cur_item ).css( 'top', t._title_h + t._line_h * ( v_firstIndex - 1 - i ) ).attr( 'id', o.itemIDPrefix + ( v_firstIndex - 1 - i ) );
 
 					} else {
 						break;
@@ -528,6 +528,7 @@
 				return orig + " ui-listview ui-virtual-list-container" + ( t.options.inset ? " ui-listview-inset ui-corner-all ui-shadow " : "" );
 			});
 
+			o.itemIDPrefix = $el.attr( "id" ) + '_';
 			o.id = "#" + $el.attr( "id" );
 
 			$( o.id ).bind( "pagehide", function ( e ) {
