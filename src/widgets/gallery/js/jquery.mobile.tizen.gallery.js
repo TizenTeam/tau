@@ -676,7 +676,7 @@
 		$( e.target ).find( ":jqmData(role='gallery')" ).gallery();
 	});
 
-	$( document ).bind( "pagebeforeshow", function ( e ) {
+	$( document ).bind( "pageshow", function ( e ) {
 		$( e.target ).find( ":jqmData(role='gallery')" ).gallery( 'show' );
 	});
 
