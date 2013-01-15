@@ -422,9 +422,7 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 			}
 
 			if ( "screen-width" == viewportWidth ) {
-				viewportWidth = window.outerWidth;
-				// TODO : Above code will be replaced by below codes. But screen.availWidth has a webkit bug at this moment.
-				// viewportWidth = screen.availWidth,
+				viewportWidth = document.documentElement.clientWidth;
 			}
 
 			viewportWidth = this.setViewport( viewportWidth );	// If custom viewport setting exists, get viewport width
