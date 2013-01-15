@@ -77,7 +77,7 @@ JQUERY_MOBILE_IMAGES = submodules/jquery-mobile/css/themes/default/images
 JQM_VERSION = jquery-mobile-1.2.0
 JQM_LIB_PATH = $(CURDIR)/libs/js/${JQM_VERSION}
 
-JQUERY = jquery-1.8.2.js
+JQUERY = jquery-1.7.1.js
 JQUERY_MIN = $(subst .js,.min.js,$(JQUERY))
 
 LIBS_CSS_FILES =
