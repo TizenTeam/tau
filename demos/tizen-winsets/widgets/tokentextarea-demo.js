@@ -19,6 +19,7 @@
 
 		$( "#MBTremoveAllItemTest" ).click( function () {
 			$( ":jqmData(role='tokentextarea')" ).tokentextarea( "remove" );
+			$( ":jqmData(role='tokentextarea')" ).parents( ".ui-scrollview-view" ).parent().scrollview( "scrollTo", 0, 0 );
 		});
 
 		$( "#MBTgetSelectedItemTest" ).click( function () {
