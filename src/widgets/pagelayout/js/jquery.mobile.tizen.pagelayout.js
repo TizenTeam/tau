@@ -258,7 +258,8 @@
 				} else if (e.state == "off") {
 					$elCurrentFooter.show();
 				}
-				self.updatePagePadding( thisPage, e.state );
+				self.updatePagePadding( thisPage );
+				self.updatePageLayout( true );
 			});
 		},
 
@@ -300,7 +301,7 @@
 		_visible: true,
 
 		// This will set the content element's top or bottom padding equal to the toolbar's height
-		updatePagePadding: function ( tbPage, imestatus ) {
+		updatePagePadding: function ( tbPage ) {
 			var $el = this.element,
 				header = $el.siblings( ".ui-header" ).length,
 				footer = $el.siblings( ".ui-footer" ).length;
@@ -309,16 +310,11 @@
 			if ( this.options.fullscreen && imestatus ) { return; }
 
 			tbPage = tbPage || $el.closest( ".ui-page" );
-			if ( imestatus == "on" ) {
-				$el.height( window.innerHeight - $el.siblings( ".ui-header" ).height() -
-					parseFloat( $el.css("padding-top") ) -
-					parseFloat( $el.css("padding-bottom") ) );
-			}
+
 			if ( $el.siblings( ".ui-header" ).jqmData("position") == "fixed" || $.support.scrollview ) {
 				$( tbPage ).css( "padding-top", ( header ? $el.siblings( ".ui-header" ).outerHeight() : 0 ) );
 			}
 			$( tbPage ).css( "padding-bottom", ( footer ? $el.siblings( ".ui-footer" ).outerHeight() : 0 ) );
-
 		},
 
 		/* 1. Calculate and update content height   */
