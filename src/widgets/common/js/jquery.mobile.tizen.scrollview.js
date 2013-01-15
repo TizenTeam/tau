@@ -961,20 +961,30 @@
 				this._dragEvt = "touchstart touchmove touchend click";
 
 				this._dragCB = function ( e ) {
-					var t;
+					var touches = e.originalEvent.touches;
 
 					switch ( e.type ) {
 					case "touchstart":
-						t = e.originalEvent.targetTouches[0];
+						if ( touches.length != 1) {
+							return;
+						}
+
 						return self._handleDragStart( e,
-								t.pageX, t.pageY );
+								touches[0].pageX, touches[0].pageY );
 
 					case "touchmove":
-						t = e.originalEvent.targetTouches[0];
+						if ( touches.length != 1) {
+							return;
+						}
+
 						return self._handleDragMove( e,
-								t.pageX, t.pageY );
+								touches[0].pageX, touches[0].pageY );
 
 					case "touchend":
+						if ( touches.length != 0) {
+							return;
+						}
+
 						return self._handleDragStop( e );
 
 					case "click":
