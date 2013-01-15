@@ -138,7 +138,7 @@ index de2af2c..6470bc4 100644
  			this._animate({
  				additionalCondition: true,
  				transition: transition,
-@@ -691,15 +737,42 @@ define( [ "jquery",
+@@ -694,15 +740,42 @@ define( [ "jquery",
  		// what should be in _open. Seems to be "visual" vs "history" for now
  		open: function( options ) {
  			var self = this, opts = this.options, url, hashkey, activePage, currentIsDialog, hasHash, urlHistory;

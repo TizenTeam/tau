@@ -14,7 +14,7 @@ diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js b/libs/js/jquery-mo
 index 87aeffb..f6efab9 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
-@@ -681,6 +681,9 @@ define( [ "jquery",
+@@ -635,6 +635,9 @@ define( [ "jquery",
  
  			this._isOpen = false;
  
