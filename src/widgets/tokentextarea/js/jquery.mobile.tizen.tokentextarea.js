@@ -481,7 +481,7 @@
 		_unlockTextBlock : function () {
 			var $view = this.element,
 				lockBlock = $view.find( "div.ui-tokentextarea-sblock" );
-			if ( !lockBlock ) {
+			if ( lockBlock ) {
 				lockBlock.removeClass( "ui-tokentextarea-sblock" ).addClass( "ui-tokentextarea-block" );
 			}
 		},
