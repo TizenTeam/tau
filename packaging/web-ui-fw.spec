@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.7
+Version:    0.2.8
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -83,6 +83,28 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+
+* Tue Jan 15 2013 Minkyu Kang <mk7.kang@samsung.com> 0.2.8
+	- Button: button padding has been updated
+	- virtuallist: fix unique listitem ID bug
+	- checkbox, radio : change display attr
+	- Button: bug fix ( when data style circle button on text )
+	- handler: bug fix (when scrolling with multi selection)
+	- JQM: adjust patch number
+	- gallery: show the widget after pageshow
+	- TokenTextArea : resource add ( press image )
+	- gallery: adds function that set the index to value API
+	- configure: set TIZEN default configures
+	- footer: h tag display attribute value has been changed
+	- buttons : demo bug fix
+	- searchbar : demo page bug fix
+	- tizen demo : bug fix
+	- build: remove JQM1.1.0
+	- Tokentextarea: Fix issues
+	- scrollview: block the multi touch
+	- list : dialogue list demo change
+	- pagelayout : update dynamic control
+	- Demo: Context popup close method has been changed
 
 * Fri Jan 11 2013 Minkyu Kang <mk7.kang@samsung.com> 0.2.7
 	- slider: set text container's width as text length
