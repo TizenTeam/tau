@@ -266,8 +266,30 @@
 		// show value on the handle and in popup
 		updateSlider: function () {
 			var font_size,
+				font_length,
+				font_top,
 				padding_size,
-				newValue;
+				newValue,
+				get_value_length = function ( v ) {
+					var val = Math.abs( v ),
+						len;
+
+					if ( val > 999 ) {
+						len = 4;
+					} else if ( val > 99 ) {
+						len = 3;
+					} else if ( val > 9 ) {
+						len = 2;
+					} else {
+						len = 1;
+					}
+
+					if ( v < 0 ) {
+						len++;
+					}
+
+					return len;
+				};
 
 			// remove the title attribute from the handle (which is
 			// responsible for the annoying tooltip); NB we have
@@ -277,18 +299,24 @@
 
 			newValue = this.element.val();
 
+			font_length = get_value_length( newValue );
+
 			if ( this.popupVisible ) {
 				this.positionPopup();
 
-				if ( newValue > 999 ) {
-					font_size = '0.8rem';
-					padding_size = '0.5rem';
-				} else if ( newValue > 99 ) {
-					font_size = '1rem';
-					padding_size = '0.5rem';
-				} else {
+				switch ( font_length ) {
+				case 1:
+				case 2:
 					font_size = '1.5rem';
 					padding_size = '0.15rem';
+				case 3:
+					font_size = '1rem';
+					padding_size = '0.5rem';
+					break;
+				default:
+					font_size = '0.8rem';
+					padding_size = '0.5rem';
+					break;
 				}
 
 				this.popup.css({
@@ -301,18 +329,30 @@
 				return;
 			}
 
-			if ( newValue > 999 ) {
-				font_size = '0.5rem';
-			} else if ( newValue > 99 ) {
-				font_size = '0.7rem';
-			} else if ( newValue > 9 ) {
-				font_size = '0.85rem';
-			} else {
+			switch ( font_length ) {
+			case 1:
 				font_size = '0.95rem';
+				font_top = '0';
+				break;
+			case 2:
+				font_size = '0.85rem';
+				font_top = '-0.01rem';
+				break;
+			case 3:
+				font_size = '0.65rem';
+				font_top = '-0.05rem';
+				break;
+			default:
+				font_size = '0.45rem';
+				font_top = '-0.15rem';
+				break;
 			}
 
 			if ( font_size != this.handleText.css('font-size') ) {
-				this.handleText.css( 'font-size', font_size );
+				this.handleText.css({
+					'font-size': font_size,
+					'top': font_top
+				});
 			}
 
 			this.currentValue = newValue;
