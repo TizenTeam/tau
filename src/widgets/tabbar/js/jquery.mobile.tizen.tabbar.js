@@ -185,14 +185,14 @@
 				}
 			});
 
-			$( window ).bind( "scrollstart", function ( e ) {
+			$( window ).bind( "tabbar.scrollstart", function ( e ) {
 				if ( $( e.target ).find( ".ui-tabbar" ).length ) {
 					isScrollingStart = true;
 					isScrollingEnd = false;
 				}
 			});
 
-			$( window ).bind( "scrollstop", function ( e ) {
+			$( window ).bind( "tabbar.scrollstop", function ( e ) {
 				var $tabbarScrollview = $( e.target ),
 					$minElement = $tabbar.find( "li" ).eq( 0 ),
 					minElementIndexVal = Math.abs( $tabbar.find( "li" ).eq( 0 ).offset().left ),
