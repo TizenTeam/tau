@@ -73,7 +73,7 @@
 (function ( $, undefined ) {
 	$.widget( "tizen.ctxpopup", $.tizen.widgetex, {
 		options: $.extend( {}, $.tizen.popupwindow.prototype.options, {
-			initSelector: ":not(:not(" + $.tizen.popupwindow.prototype.options.initSelector + ")):not(:not(:jqmData(show-arrow='true'), :jqmData(show-arrow)))"
+			initSelector: ":jqmData(show-arrow)"
 		} ),
 
 		_htmlProto: {
