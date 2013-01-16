@@ -90,7 +90,7 @@ $(document).ready(function() {
 		setCookie( "TizenF", details.failed );
 		setCookie( "TizenR", details.runtime );
 		setCookie( "TizenT", details.total );
-		location.href = "../jqm-tchelper/result.php";
+	//	location.href = "../unit-tests-runner/result.php";
 	}
 	// get the test directories
 	new Runner().exec(TESTS);
