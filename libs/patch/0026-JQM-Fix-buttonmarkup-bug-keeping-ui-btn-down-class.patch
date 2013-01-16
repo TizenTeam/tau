@@ -1,0 +1,35 @@
+From 5b8a6da21b3c26ca1b2ee6f9c511d8ee5ff1e3db Mon Sep 17 00:00:00 2001
+From: Youmin Ha <youmin.ha@samsung.com>
+Date: Wed, 16 Jan 2013 23:07:12 +0900
+Subject: [PATCH] JQM: Fix buttonmarkup bug keeping ui-btn-down class
+
+Signed-off-by: Youmin Ha <youmin.ha@samsung.com>
+---
+ .../js/jquery.mobile.buttonMarkup.js               |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.buttonMarkup.js b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.buttonMarkup.js
+index e043b10..1794b0b 100644
+--- a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.buttonMarkup.js
++++ b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.buttonMarkup.js
+@@ -250,7 +250,7 @@ var attachEvents = function() {
+ 	var hoverDelay = $.mobile.buttonMarkup.hoverDelay, hov, foc;
+ 
+ 	$( document ).bind( {
+-		"vmousedown vmousecancel vmouseup vmouseover vmouseout focus blur scrollstart": function( event ) {
++		"vmousedown vmousecancel vmouseup vmouseover vmouseout focus blur scrollstart touchend touchcancel": function( event ) {
+ 			var theme,
+ 				$btn = $( closestEnabledButton( event.target ) ),
+ 				isTouchEvent = event.originalEvent && /^touch/.test( event.originalEvent.type ),
+@@ -268,7 +268,7 @@ var attachEvents = function() {
+ 					} else {
+ 						$btn.removeClass( "ui-btn-up-" + theme ).addClass( "ui-btn-down-" + theme );
+ 					}
+-				} else if ( evt === "vmousecancel" || evt === "vmouseup" ) {
++				} else if ( evt === "vmousecancel" || evt === "vmouseup" || evt === "touchend" || evt === "touchcancel" ) {
+ 					$btn.removeClass( "ui-btn-down-" + theme ).addClass( "ui-btn-up-" + theme );
+ 				} else if ( evt === "vmouseover" || evt === "focus" ) {
+ 					if ( isTouchEvent ) {
+-- 
+1.7.9.5
+
