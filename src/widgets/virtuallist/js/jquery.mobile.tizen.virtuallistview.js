@@ -267,7 +267,7 @@
 			var _scrollView = {
 				viewTop: function ( ) {
 					var sv = $( o.id ).parentsUntil( ".ui-page" ).find( ".ui-scrollview-view" ),
-						svTrans = sv.css( "-webhit-transform" ),
+						svTrans = sv.css( "-webkit-transform" ),
 						svTransVal = "0,0,0,0,0,0";
 					if ( svTrans ) {
 						svTransVal = svTrans.replace( /matrix\s*\((.*)\)/, "$1" );	// matrix(a,c,b,d,tx,ty)
@@ -316,7 +316,6 @@
 				// top index = current position / line height
 				cti = Math.floor( cy / vl._line_h ) - bufSize;	// TODO: consider buffer!
 				cbi = cti + rowLen - 1;
-				log(">> initial cti="+cti+", cbi="+cbi);
 
 				if ( cti < 0 ) {		// Top boundary check
 					cbi += ( 0 - cti );
