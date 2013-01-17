@@ -1,15 +1,18 @@
-From 0df0afd2b03ab688210b9ff71d65dff73a33419c Mon Sep 17 00:00:00 2001
-From: "Hyunjung Kim" <hjnim.kim@samsung.com>
-Date: Tue, 11 Dec 2012 19:14:31 +0900
-Subject: [PATCH] JQM: Apply tizen style context popup
+From f19edbb67df9a307f9a8a6b3cc7e059794b98563 Mon Sep 17 00:00:00 2001
+From: "hjnim.kim" <hjnim.kim@samsung.com>
+Date: Thu, 17 Jan 2013 10:12:59 +0900
+Subject: [PATCH] JQM Apply tizen style context popup
 
-Signed-off-by: Hyunjung Kim <hjnim.kim@samsung.com>
+Apply tizen style context popup ( data-postion-to = "origin" or null )
+
+Change-Id: I654ba0c51e74f144c5f38c292380daa60b7cb38f
+Signed-off-by: hyunjung kim <hjnim.kim@samsung.com>
 ---
- libs/js/jquery-mobile-1.2.0/js/widgets/popup.js |   95 ++++++++++++++++++++---
- 1 files changed, 84 insertions(+), 11 deletions(-)
+ libs/js/jquery-mobile-1.2.0/js/widgets/popup.js |   96 ++++++++++++++++++++---
+ 1 files changed, 86 insertions(+), 10 deletions(-)
 
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
-index de2af2c..6470bc4 100644
+index c222f08..b46e737 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
 @@ -58,7 +58,7 @@ define( [ "jquery",
@@ -71,11 +74,12 @@ index de2af2c..6470bc4 100644
  
  			// Clamp the width of the menu before grabbing its size
  			this._ui.container.css( "max-width", rc.cx );
-@@ -388,8 +393,48 @@ define( [ "jquery",
- 				docHeight = Math.max( docEl.clientHeight, docBody.scrollHeight, docBody.offsetHeight, docEl.scrollHeight, docEl.offsetHeight );
+@@ -389,7 +394,48 @@ define( [ "jquery",
  
  			ret.y -= Math.min( ret.y, Math.max( 0, ret.y + menuSize.cy - docHeight ) );
-+			if ( this.positionTo === "window" )
+ 
+-			return { left: ret.x, top: ret.y };
++			if ( this.positionTo !== "origin" )
 +			{
 +				return { left: ret.x, top: ret.y , arrowleft: 0 , arrowtop: 0};
 +			}
@@ -115,13 +119,12 @@ index de2af2c..6470bc4 100644
 +									.addClass("ui-arrow right");
 +					break;
 +			}
- 
--			return { left: ret.x, top: ret.y };
++
 +			return { left: ret.x + correctionValue[0], top: ret.y + correctionValue[1] , arrowleft: arrowleft , arrowtop: arrowtop };
  		},
  
  		_createPrereqs: function( screenPrereq, containerPrereq, whenDone ) {
-@@ -569,7 +614,7 @@ define( [ "jquery",
+@@ -569,7 +615,7 @@ define( [ "jquery",
  			this._ui.container
  				.removeClass( "ui-selectmenu-hidden" )
  				.offset( coords );
@@ -130,15 +133,7 @@ index de2af2c..6470bc4 100644
  			if ( this.options.overlayTheme && androidBlacklist ) {
  				/* TODO:
  				The native browser on Android 4.0.X ("Ice Cream Sandwich") suffers from an issue where the popup overlay appears to be z-indexed
-@@ -587,6 +632,7 @@ define( [ "jquery",
- 				// TODO sort out why this._page isn't working
- 				this.element.closest( ".ui-page" ).addClass( "ui-popup-open" );
- 			}
-+
- 			this._animate({
- 				additionalCondition: true,
- 				transition: transition,
-@@ -694,15 +740,42 @@ define( [ "jquery",
+@@ -694,15 +740,45 @@ define( [ "jquery",
  		// what should be in _open. Seems to be "visual" vs "history" for now
  		open: function( options ) {
  			var self = this, opts = this.options, url, hashkey, activePage, currentIsDialog, hasHash, urlHistory;
@@ -151,34 +146,36 @@ index de2af2c..6470bc4 100644
 -
  			// set the global popup mutex
  			$.mobile.popup.active = this;
--
-+			if( !options )
-+			{
++			if( !options ) {
 +				options = [];
 +			}
-+			if ( !options.link )
-+			{
++			if ( !options.link ) {
 +				self.link = $(event.target).closest('a')[0];
 +			} else {
 +				self.link = options.link;
 +			}
 +			self.positionTo = ( options != null && options.positionTo != null ) ? options.positionTo : "origin";
-+			if ( $(self.link).jqmData("position-to") !== "window")
-+			{
++			if ( $(self.link).jqmData("position-to") !== "window" 
++					&& self.positionTo !== "window" ) {
++
 +				$(self.element).addClass("ui-ctxpopup");
 +				$(self._ui.container).removeClass("ui-popup-container")
 +					.addClass("ui-ctxpopup-container");
+ 
++				if( self.positionTo !== "origin" ) {
++					$(self._ui.arrow).hide();
++				} else {
++					$(self._ui.arrow).show();
++				}
 +			} else {
 +				$(self._ui.arrow).hide();
 +			}
 +			if( !options.x
-+				&& self.positionTo !== "window" )
-+			{
++				&& self.positionTo === "origin" ) {
 +				options.x = $(self.link).offset().left + $(self.link).outerWidth() / 2;
 +			}
 +			if( !options.y
-+				&& self.positionTo !== "window" )
-+			{
++				&& self.positionTo === "origin" ) {
 +				options.y = $(self.link).offset().top + $(self.link).outerHeight() / 2;
 +			}
  			// if history alteration is disabled close on navigate events
