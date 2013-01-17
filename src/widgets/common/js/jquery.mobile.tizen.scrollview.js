@@ -1442,7 +1442,7 @@
 
 		$page.find(".ui-content").attr( "data-scroll", content_scroll );
 
-		$page.find(":jqmData(scroll):not(.ui-scrollview-clip)").each( function () {
+		$page.find(":jqmData(scroll)").not(".ui-scrollview-clip").each( function () {
 			if ( $( this ).hasClass("ui-scrolllistview") ) {
 				$( this ).scrolllistview();
 			} else {
