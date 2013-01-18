@@ -707,7 +707,7 @@ li:not(.ui-li-has-multiline) .ui-li-text-sub {
 		> .ui-btn-inner {
 			margin-left : 0px;
 			margin-right : 0px;
-		
+			border-bottom-width : 0px;
 		}
 
 		&:first-child {
@@ -726,6 +726,39 @@ li:not(.ui-li-has-multiline) .ui-li-text-sub {
 		
 		[data-role="button"]:last-child {
 			margin-right : 10 * @unit_base;
+		}
+
+		.ui-link-inherit {
+			>.ui-btn {
+				margin-right : 0px;
+			}
+		}
+
+		&.ui-li-static {
+			.ui-li-text-sub, .ui-toggle-switch {
+				right : 10 * @unit_base;
+			}
+			&.ui-li-has-checkbox,
+			&.ui-li-has-radio {
+				padding-left : 36 * @unit_base;
+			}
+			.ui-checkbox, .ui-radio {
+				left : 0px;
+			}
+		}
+		&.ui-li-has-multiline.ui-li-static {
+			.ui-li-text-sub {
+				padding-left : 10 * @unit_base;
+			}
+			.ui-li-text-sub2 {
+				padding-right : 10 * @unit_base;
+			}
+			&.ui-li-has-checkbox,
+			&.ui-li-has-radio {
+				.ui-li-text-sub {
+					padding-left : 42 * @unit_base;
+				}
+			}
 		}
 	}
 

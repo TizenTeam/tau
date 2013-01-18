@@ -265,7 +265,7 @@
 					duration: 'normal',
 					queue: true,
 					complete: function () {
-						cover.trigger('animationComplete');
+						cover.trigger('animationend');
 					}
 				};
 
@@ -288,7 +288,7 @@
 
 			cover.stop();
 			cover.clearQueue();
-			cover.trigger('animationStart');
+			cover.trigger('animationstart');
 			cover.animate( { left: leftPercentage + '%' }, animationOptions );
 			if ( leftPercentage == 0 ) {
 				item.animate({ opacity: 0 }, "slow");

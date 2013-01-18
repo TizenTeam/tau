@@ -163,36 +163,14 @@
 				isScrollingStart = false;
 			});
 
-			$( document ).bind( "pageshow", function ( e, ui ) {
-				var tabbar_filter = $( ".ui-page-active" ).find( ":jqmData(role='footer')" ).eq( 0 ).find( ":jqmData(role='tabbar')" ),
-					element_width = 0,
-					element_count = tabbar_filter.find( 'li' ).length;
-
-				if ( tabbar_filter.length ) {
-					element_width = tabbar_filter.find("li:first").width();
-					tabbar_filter.find("li:last").width( tabbar_filter.width() - element_width * ( element_count - 1 ) );
-				}
-			});
-
-			$( window ).bind( "resize", function ( e ) {
-				var tabbar_filter = $( ".ui-page-active" ).find( ":jqmData(role='footer')" ).eq( 0 ).find( ":jqmData(role='tabbar')" ),
-					element_width = 0,
-					element_count = tabbar_filter.find( 'li' ).length;
-
-				if ( tabbar_filter.length ) {
-					element_width = tabbar_filter.find("li:first").width();
-					tabbar_filter.find("li:last").width( tabbar_filter.width() - element_width * ( element_count - 1 ) );
-				}
-			});
-
-			$( window ).bind( "scrollstart", function ( e ) {
+			$( window ).bind( "tabbar.scrollstart", function ( e ) {
 				if ( $( e.target ).find( ".ui-tabbar" ).length ) {
 					isScrollingStart = true;
 					isScrollingEnd = false;
 				}
 			});
 
-			$( window ).bind( "scrollstop", function ( e ) {
+			$( window ).bind( "tabbar.scrollstop", function ( e ) {
 				var $tabbarScrollview = $( e.target ),
 					$minElement = $tabbar.find( "li" ).eq( 0 ),
 					minElementIndexVal = Math.abs( $tabbar.find( "li" ).eq( 0 ).offset().left ),

@@ -22,7 +22,6 @@ $( document ).ready( function () {
 			/* Options */
 			equal( elOptions.id, "#extendable_list_main" );
 			equal( elOptions.childSelector, " li" );
-			equal( elOptions.dbtable, "JSON_DATA" );
 			equal( elOptions.template, "tmp-1line" );
 			equal( elOptions.extenditems, 50 );
 			equal( elOptions.scrollview, true );

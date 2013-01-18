@@ -19,7 +19,7 @@
 }
 
 .ui-tokentextarea-input {
-	display : inline-block;
+	display : inline-block !important;
 	outline : none;
 	position : relative;
 	border : 0 !important;
@@ -56,14 +56,17 @@
 
 div.ui-tokentextarea-block {
 	background-color : @color_tokentextarea_block_bg;
-	background-image: url(./images/00_contacts_button_header.png);
-	background-size: contain;
-	background-repeat: no-repeat;
+	background-image : url(./images/00_contacts_button_header.png);
+	background-size : contain;
+	background-repeat : no-repeat;
 	padding-left : .7em;
 }
 
 div.ui-tokentextarea-sblock {
-	background : @color_tokentextarea_press_bg;
+	background-color : @color_tokentextarea_press_bg;
+	background-image : url(./images/00_contacts_button_header_press.png);
+	background-size : contain;
+	background-repeat : no-repeat;
 	padding-left : .7em;
 }
 

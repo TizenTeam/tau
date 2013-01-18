@@ -106,18 +106,25 @@
 				handlerHeight = 0,
 				handlerMargin = 0,
 				trackLength = 0,
+				moveTimer,
 				isTouchable = $.support.touch,
 				dragStartEvt = ( isTouchable ? "touchstart" : "mousedown" ) + ".handler",
 				dragMoveEvt = ( isTouchable ? "touchmove" : "mousemove" ) + ".handler",
 				dragStopEvt = ( isTouchable ? "touchend" : "mouseup" ) + ".handler",
+				dragLeaveEvt = ( isTouchable ? " touchleave" : " mouseleave" ) + ".handler",
 				calculateLength = function () {
 					clipLength = ( isHorizontal ? _$clip.width() : _$clip.height() );
-					viewLength = ( isHorizontal ? _$view.outerWidth( true ) : _$view.outerHeight( true ) ) - clipLength;
+					viewLength = ( isHorizontal ? _$view.width() : _$view.height() ) - clipLength;
 					trackLength = clipLength - handlerHeight - handlerMargin * 2;
 				},
 				setHanderPostion = function ( scrollPos ) {
 					var handlerPos = Math.round( ( isHorizontal ? scrollPos.x : scrollPos.y ) / viewLength * trackLength );
-					handlerThumb.css( isHorizontal ? "left" : "top", handlerPos );
+					handlerThumb[0].style[ ( isHorizontal ? "left" : "top" ) ] = handlerPos + "px";
+				},
+				stopHandlerScroll = function () {
+					$( document ).unbind( ".handler" );
+					$view.moveData = null;
+					_$view.trigger( "scrollstop" );
 				};
 
 			if ( $view.find( ".ui-handler-thumb" ).length !== 0 || typeof direction !== "string" ) {
@@ -136,30 +143,33 @@
 
 			// handler drag
 			handlerThumb.bind( dragStartEvt, {
-				e : handlerThumb
+				e : handlerThumb[0]
 			}, function ( event ) {
 				scrollview._stopMScroll();
 
 				var target = event.data.e,
 					t = ( isTouchable ? event.originalEvent.targetTouches[0] : event );
 
-				target.css( "opacity", 1.0 );
+				target.style.opacity = 1.0;
 
 				$view.moveData = {
 					target : target,
-					X : parseInt( target.css( 'left' ), 10 ) || 0,
-					Y : parseInt( target.css( 'top' ), 10 ) || 0,
+					X : parseInt( target.style.left, 10 ) || 0,
+					Y : parseInt( target.style.top, 10 ) || 0,
 					pX : t.pageX,
 					pY : t.pageY
 				};
 				calculateLength();
 
 				_$view.trigger( "scrollstart" );
-				event.preventDefault();
-				event.stopPropagation();
+
+				if ( !isTouchable ) {
+					event.preventDefault();
+				}
 
 				$( document ).bind( dragMoveEvt, function ( event ) {
 					var moveData = $view.moveData,
+						target = moveData.target,
 						handlePos = 0,
 						scrollPos = 0,
 						t = ( isTouchable ? event.originalEvent.targetTouches[0] : event );
@@ -175,53 +185,22 @@
 					}
 					scrollPos = - Math.round( handlePos / trackLength * viewLength );
 
-					$view.attr( "display", "none" );
 					if ( isHorizontal ) {
 						scrollview._setScrollPosition( scrollPos, 0 );
-						moveData.target.css( {
-							left : handlePos
-						});
+						target.style.left = handlePos + "px";
 					} else {
 						scrollview._setScrollPosition( 0, scrollPos );
-						moveData.target.css( {
-							top : handlePos
-						});
+						target.style.top = handlePos + "px";
 					}
-					$view.attr( "display", "inline" );
 
 					event.preventDefault();
-					event.stopPropagation();
-				}).bind( dragStopEvt, function ( event ) {
-					$( document ).unbind( dragMoveEvt ).unbind( dragStopEvt );
-
-					$view.moveData = null;
-					_$view.trigger( "scrollstop" );
-
-					event.preventDefault();
+				}).bind( dragStopEvt + dragLeaveEvt, function ( event ) {
+					stopHandlerScroll();
 				});
 			});
 
-			$( document ).bind( dragMoveEvt, function ( event ) {
-				var isVisible = false,
-					vclass = "ui-scrollbar-visible";
-
-				if ( scrollview._$vScrollBar ) {
-					isVisible = scrollview._$vScrollBar.hasClass( vclass );
-				} else if ( scrollview._$hScrollBar ) {
-					isVisible = scrollview._$hScrollBar.hasClass( vclass );
-				}
-
-				if ( isVisible || $view.moveData !== null ) {
-					if ( handlerThumb.hasClass( "ui-handler-visible" ) ) {
-						_$view.trigger( "scrollupdate" );
-					} else {
-						_$view.trigger( "scrollstop" );
-					}
-				}
-			}).bind( dragStopEvt, function ( event ) {
-				if ( handlerThumb.hasClass( "ui-handler-visible" ) ) {
-					_$view.trigger( "scrollstop" );
-				}
+			_$view.bind( dragStopEvt, function ( event ) {
+				stopHandlerScroll();
 			});
 
 			$view.bind( "scrollstart", function ( event ) {
@@ -230,29 +209,36 @@
 				}
 				calculateLength();
 
-				if ( clipLength > viewLength || trackLength < ( handlerHeight * 4 / 3 ) ) {
+				if ( moveTimer ) {
+					clearInterval( moveTimer );
+					moveTimer = undefined;
+				}
+
+				if ( viewLength < 0 || trackLength < handlerHeight ) {
 					return;
 				}
 
 				handlerThumb.addClass( "ui-handler-visible" )
 							.stop( true, true )
 							.fadeIn( 'fast' );
-
-				event.preventDefault();
-				event.stopPropagation();
 			}).bind( "scrollupdate", function ( event, data ) {
-				if ( !scrollview.enableHandler() || clipLength > viewLength || trackLength < ( handlerHeight * 4 / 3 ) ) {
+				if ( !scrollview.enableHandler() || viewLength < 0 || trackLength < handlerHeight ) {
 					return;
 				}
 
 				setHanderPostion( scrollview.getScrollPosition() );
-
-				event.preventDefault();
-				event.stopPropagation();
 			}).bind( "scrollstop", function ( event ) {
-				if ( !scrollview.enableHandler() || clipLength > viewLength ) {
+				if ( !scrollview.enableHandler() || viewLength < 0 ) {
 					return;
 				}
+
+				moveTimer = setInterval( function () {
+					setHanderPostion( scrollview.getScrollPosition() );
+					if ( !scrollview._gesture_timer ) {
+						clearInterval( moveTimer );
+						moveTimer = undefined;
+					}
+				}, 10 );
 
 				if ( scrollview._handlerTimer ) {
 					clearTimeout( scrollview._handlerTimer );
@@ -267,8 +253,6 @@
 						scrollview._handlerTimer = 0;
 					}
 				}, 1000 );
-
-				event.preventDefault();
 			}).bind( "mousewheel", function ( event ) {
 				handlerThumb.removeClass( "ui-handler-visible" ).hide();
 				setHanderPostion( scrollview.getScrollPosition() );
@@ -283,17 +267,17 @@
 
 			this.options.handler = !!enabled;
 
-			var view = this.element;
+			var $view = this.element;
 			if ( this.options.handler ) {
-				if ( view.find( ".ui-handler" ).length === 0 ) {
-					createHandler( view );
+				if ( $view.find( ".ui-handler" ).length === 0 ) {
+					createHandler( $view );
 				}
 
-				view.find( ".ui-scrollbar" ).hide();
-				view.find( ".ui-handler" ).show();
+				$view.find( ".ui-scrollbar" ).hide();
+				$view.find( ".ui-handler" ).show();
 			} else {
-				view.find( ".ui-handler" ).hide();
-				view.find( ".ui-scrollbar" ).show();
+				$view.find( ".ui-handler" ).hide();
+				$view.find( ".ui-scrollbar" ).show();
 			}
 		},
 
@@ -328,7 +312,7 @@
 	$( document ).delegate( ":jqmData(scroll)", "scrollviewcreate", function () {
 		var widget = $( this );
 		if ( widget.attr( "data-" + $.mobile.ns + "scroll" ) === "none"
-				|| widget.jqmData( "handler" ) !== true ) {
+				|| widget.attr( "data-" + $.mobile.ns + "handler" ) !== "true" ) {
 			return;
 		}
 		widget.scrollview( "enableHandler", "true" );

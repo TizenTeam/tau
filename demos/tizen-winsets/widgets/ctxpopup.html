@@ -9,8 +9,8 @@
 <!-- context popup -->
 <div id="pop_js" data-role="popup" >
 	<ul data-role="listview">
-		<li><a href="#" class="ui-btn-ctxpopup-close">Close</a></li>
-		<li><a href="#" class="ui-btn-ctxpopup-close" id="ctxpopup_update">Update Button Text</a></li>
+		<li><a href="#" data-rel="back">Close</a></li>
+		<li><a href="#" data-rel="back" id="ctxpopup_update">Update Button Text</a></li>
 	</ul>
 </div>
 <br>
@@ -73,19 +73,22 @@
 <div id="pop_text_only" data-role="popup" >
 	<ul data-role="listview">
 		<li>
-			<a href="http://www.naver.com">www.naver.com</a>
+			<a href="#">Menu1</a>
 		</li>
 		<li>
-			<a href="http://www.naver.com">www.naver.com</a>
+			<a href="#">Menu2</a>
 		</li>
 		<li>
-			<a href="http://www.samsung.com">www.samsung.com</a>
+			<a href="#">Menu3</a>
 		</li>
 		<li>
-			<a href="http://www.apple.com">www.apple.com</a>
+			<a href="#">Menu4</a>
 		</li>
 	</ul>
 </div>
+<span id="codeSample">
+Code Sample
+</span>
 <br>
 <br>
 
@@ -107,16 +110,16 @@
 <div id="pop_text_only" data-role="popup" >
 	<ul data-role="listview">
 		<li>
-			<a href="http://www.naver.com">www.naver.com</a>
+			<a href="#">Menu1</a>
 		</li>
 		<li>
-			<a href="http://www.naver.com">www.naver.com</a>
+			<a href="#">Menu2</a>
 		</li>
 		<li>
-			<a href="http://www.samsung.com">www.samsung.com</a>
+			<a href="#">Menu3</a>
 		</li>
 		<li>
-			<a href="http://www.apple.com">www.apple.com</a>
+			<a href="#">Menu4</a>
 		</li>
 	</ul>
 </div>
@@ -135,15 +138,24 @@
 <br>
 <br>
 </div>
+<a href="#positionOrigin" data-role="button" data-inline="true" data-rel="popup" data-position-to="#codeSample">Position to origin</a>
+<div data-role="popup" id="positionOrigin" class="ui-content" data-theme="d">
+	<p style="color:white">I am positioned over the origin.</p>
+</div>
 </div> <!-- /content -->
 
 <div data-role="footer">
-	<a href="#slideView_pop" data-role="button" data-transition="slideup" data-icon="naviframe-more" data-rel="popup"></a>
-	<div  id="slideView_pop" data-role="popup" data-show-arrow="true">
-		<ul data-role="listview" style="width:400px">
-		<li ><a id="manageFeedsViewBtn">4Manage feeds</a></li>
-		<li><a href="#settingView" id="viewbyBtn">Settings</a></li>
-	</ul>
-	</div>
+	<a href="#navi" data-role="button"  data-icon="naviframe-more" data-rel="popup"></a>
+
+		<div id="navi" data-role="popup" >
+		<ul data-role="listview">
+			<li><a href="#" data-rel="back">Settings</a></li>
+			<li><a href="#" data-rel="back">Add to contact</a></li>
+			<li><a href="#" data-rel="back">Call log</a></li>
+			<li><a href="#" data-rel="back">Music</a></li>
+			<li><a href="#" data-rel="back">File manager</a></li>
+			<li><a href="naviframe.html" data-rel="back">Internal Link</a></li>
+		</ul>
+		</div>
 </div>
 </div> <!-- /page -->

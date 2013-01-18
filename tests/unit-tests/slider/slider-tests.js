@@ -9,12 +9,6 @@
 
 	var unit_slider = function ( widget ) {
 		var slider,
-			slider_bg = function ( widget ) {
-				if ( widget.jqmData("icon") !== undefined ) {
-					return "ui-slider-icon-container";
-				}
-				return "ui-slider-container";
-			},
 			handle,
 			handle_left = function ( widget ) {
 				var left = widget.val() * 100 /
@@ -31,7 +25,7 @@
 		ok( slider, "Create" );
 
 		/* Check Background */
-		equal( slider.parent().attr("class"), slider_bg( widget ), "Background" );
+		equal( slider.parent().attr("class"), "ui-slider-container", "Background" );
 
 		/* Check Parameters */
 		handle = slider.find(".ui-slider-handle");

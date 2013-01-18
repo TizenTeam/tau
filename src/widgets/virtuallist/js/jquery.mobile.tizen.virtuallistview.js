@@ -21,13 +21,14 @@
  * ***************************************************************************
  *
  *	Author: Wongi Lee <wongi11.lee@samsung.com>
+ *	        Youmin Ha <youmin.ha@samsung.com>
  */
 
 /**
  * Virtual List Widget for unlimited data.
  * To support more then 1,000 items, special list widget developed. 
  * Fast initialize and light DOM tree.
- * DB connection and works like DB cursor.     
+ * DB connection and works like DB cursor.
  * 
  * HTML Attributes:
  *
@@ -126,11 +127,11 @@
 	$.widget( "tizen.virtuallistview", $.mobile.widget, {
 		options: {
 			theme: "s",
-			countTheme: "c",
-			headerTheme: "b",
-			dividerTheme: "b",
+			countTheme: "s",
+			headerTheme: "s",
+			dividerTheme: "s",
 			splitIcon: "arrow-r",
-			splitTheme: "b",
+			splitTheme: "s",
 			inset: false,
 			id:	"",					/* Virtual list UL elemet's ID */
 			childSelector: " li",	/* To support swipe list */
@@ -139,7 +140,7 @@
 			dbkey: false,			/* Data's unique Key */
 			scrollview: false,
 			row: 100,
-			page_buf: 50,
+			page_buf: 30,
 			initSelector: ":jqmData(role='virtuallistview')"
 		},
 
@@ -163,22 +164,32 @@
 			$( this ).removeClass( "ui-btn-down-s" );
 		},
 
+		// ?
+		// this		virtuallistview object
+		// @param[in]	template	template name(string)
 		_pushData: function ( template ) {
 			var o = this.options,
 				i,
-				myTemplate = $( "#" + template ),
-				lastIndex = ( o.row > this._numItemData ? this._numItemData : o.row ),
+				myTemplate = $( "#" + template ),	// Get template object
+				// NOTE: o.row = # of rows handled at once. Default value is 100.
+				lastIndex = ( o.row > this._numItemData ? this._numItemData : o.row ),	// last index of handled data
 				htmlData;
 
 			for ( i = 0; i < lastIndex; i++ ) {
-				htmlData = myTemplate.tmpl( this._itemData( i ) );
-				$( o.id ).append( $( htmlData ).attr( 'id', 'li_' + i ) );
+				htmlData = myTemplate.tmpl( this._itemData( i ) );	// Make rows with template,
+				$( o.id ).append( $( htmlData ).attr( 'id', o.itemIDPrefix + i ) );	// and append it to the vlist object
 			}
 
-			/* After push data, re-style virtuallist widget */
+			// After pushing data re-style virtuallist widget
 			$( o.id ).trigger( "create" );
 		},
 
+		// Set children <li> elements' position
+		//
+		// this: virtuallist element
+		// event: virtuallistview.options
+		// 		TODO: Why this arg name is 'event'? Not resonable.
+		// 		(this function is not called with event element as args!)
 		_reposition: function ( event ) {
 			var o,
 				t = this,
@@ -189,16 +200,23 @@
 			} else {
 				o = event;
 			}
-
-			if ( $( o.id + o.childSelector ).size() > 0 ) {
+			if ( $( o.id + o.childSelector ).size() > 0 ) { // $("#vlistid li")
+				// first child's top position
+				// NOTE: the first element may not be '0'!!!
 				t._title_h = $( o.id + o.childSelector + ':first' ).position().top;
+				// first child's outer height (TODO: reuse selected items)
 				t._line_h = $( o.id + o.childSelector + ':first' ).outerHeight();
 
+				// container(vlist element)'s innerwidth
 				t._container_w = $( o.id ).innerWidth();
 
+				// get sum of container's left/right padding
 				padding = parseInt( $( o.id + o.childSelector ).css( "padding-left" ), 10 ) + parseInt( $( o.id + o.childSelector ).css( "padding-right" ), 10 );
 
-				/* Add style */
+				// Add CSS to all <li> elements
+				// 	* absolute position
+				// 	* btn-up
+				// 	* mouse up/down/over/out styles
 				$( o.id + ">" + o.childSelector )
 					.addClass( "position_absolute" )
 					.addClass( "ui-btn-up-s" )
@@ -208,12 +226,13 @@
 					.bind( "mouseout", t._stylerMouseOut );
 			}
 
+			// Set absolute top/left position of each <li>
 			$( o.id + ">" + o.childSelector ).each( function ( index ) {
 				$( this ).css( "top", t._title_h + t._line_h * index + 'px' )
 					.css( "width", t._container_w - padding );
 			} );
 
-			/* Set Max List Height */
+			// Set Max Listview Height
 			$( o.id ).height( t._numItemData * t._line_h );
 		},
 
@@ -237,202 +256,215 @@
 			} );
 		},
 
-		_scrollmove: function ( event ) {
-			var t = event.data,	// document
-				o = t.options,
-				velocity = 0,
-				i,
-				_replace,		/* Function */
-				_moveTopBottom,	/* Function */
-				_moveBottomTop,	/* Function */
-				_matrixToArray,	/* Function */
-				$el,
-				transformValue,
-				curWindowTop,
-				cur_num_top_items;
+		// New scrollmove function supporting scrollTo
+		_scrollmove: function ( ev ) {
+			var t = ev.data,	// vlist (JQM object)
+				o = t.options,	// options
+				prevTopBufLen = t._num_top_items,	// Previous(remembered) top buf length
+				timerInterval = 100,
+				i;
 
-			/* Text & image src replace function */
-			_replace = function ( oldItem, newItem, key ) {
-				var oldObj,
-					newText,
-					newImg;
-
-				$( oldItem ).find( ".ui-li-text-main", ".ui-li-text-sub", "ui-btn-text" ).each( function ( index ) {
-					oldObj = $( this );
-					newText = $( newItem ).find( ".ui-li-text-main", ".ui-li-text-sub", "ui-btn-text" ).eq( index ).text();
-
-					$( oldObj).contents().filter( function () {
-						return ( this.nodeType == 3 );
-					} ).get( 0 ).data = newText;
-				} );
-
-				$( oldItem ).find( "img" ).each( function ( imgIndex ) {
-					oldObj = $( this );
-					newImg = $( newItem ).find( "img" ).eq( imgIndex ).attr( "src" );
-
-					$( oldObj ).attr( "src", newImg );
-				} );
-
-				$( oldItem ).removeData( );	// Clear old data
-
-				if (key) {
-					$( oldItem ).data( key, $( newItem ).data( key ) );
+			var _scrollView = {
+				viewTop: function ( ) {
+					var sv = $( o.id ).parentsUntil( ".ui-page" ).find( ".ui-scrollview-view" ),
+						svTrans = sv.css( "-webkit-transform" ),
+						svTransVal = "0,0,0,0,0,0";
+					if ( svTrans ) {
+						svTransVal = svTrans.replace( /matrix\s*\((.*)\)/, "$1" );	// matrix(a,c,b,d,tx,ty)
+					}
+					return - parseInt( svTransVal.split(',')[5] );
+				}
+			},
+				_normalScroll = {
+				viewTop: function ( ) {
+					return $( window ).scrollTop( );	// TODO: - _line_h?
 				}
 			};
+			// Get current view top position
+			function viewTop ( ) {
+				return o.scrollview ? _scrollView.viewTop() : _normalScroll.viewTop();
+			}
+			// log function for debug
+			function log ( msg ) {
+				var debug = false;
+				if ( debug ) {
+					console.log( ">>virtualllist: " + msg );
+				}
+			}
 
-			//Move older item to bottom
-			_moveTopBottom = function ( v_firstIndex, v_lastIndex, num, key ) {
-				var myTemplate,
-					htmlData,
-					cur_item;
+			// Timer interval function
+			// @param[in]	vl	virtuallist object (JQM object)
+			function timerMove ( vl, undefined ) {
+				var cy,				// current y position
+					cti, cbi,		// current top/bottom idx
+					oti = vl._first_index, obi = vl._last_index,	// old top/botton idx
+					dti,			// delta of top idx
+					fromIdx, toIdx,	// index range to be moved
+					delta,			// moveItem delta
+					rowLen = vl.options.row,	// max. # of items handled at once
+					bufSize,		// top/bottom buffer size. unit: # of items
+					i;
 
-				if (v_firstIndex < 0) {
-					return;
+				// Get current view position
+				cy = viewTop();
+
+				// Calculate bufSize: rowLen / 3
+				// NOTE: Assumption: total row length = visible items * 3 (upper+visible+lower)
+				bufSize = Math.ceil( rowLen / 3 );
+
+				// Calculate current top/bottom index (to be applied)
+				// top index = current position / line height
+				cti = Math.floor( cy / vl._line_h ) - bufSize;	// TODO: consider buffer!
+				cbi = cti + rowLen - 1;
+
+				if ( cti < 0 ) {		// Top boundary check
+					cbi += ( 0 - cti );
+					cti = 0;
+				} else if ( cbi > ( vl._numItemData - 1 ) ) {		// Bottom boundary check
+					cti -= ( cbi - ( vl._numItemData - 1 ) );
+					cbi = ( vl._numItemData - 1 );
 				}
 
-				for ( i = 0; i < num; i++ ) {
-					if ( v_lastIndex + i > t._numItemData ) {
-						break;
+				// Calculate dti
+				dti = cti - oti;
+				log("cy="+cy+", oti="+oti+", obi="+obi+", cti="+cti+", cbi="+cbi+", dti="+dti);
+
+				// switch: dti = 0 --> timer stop condition: delta=0 or scrollstop event comes. END.
+				if ( 0 == dti ) {
+					// Check timer runtime
+					vl.timerStillCount += 1;
+					if ( vl.timerStillCount < 12 ) {	// check count ( TODO: test and adjust )
+						log("dti=0 " + vl.timerStillCount + " times");
+						vl.timerMoveID = setTimeout( timerMove, timerInterval, vl );	// run once more
+						return;
 					}
 
-					cur_item = $( '#li_' + ( v_firstIndex + i ) );
-
-					if ( cur_item ) {
-						/* Make New <LI> element from template. */
-						myTemplate = $( "#" + o.template );
-						htmlData = myTemplate.tmpl( t._itemData( v_lastIndex + i ) );
-
-						/* Copy all data to current item. */
-						_replace( cur_item, htmlData, key );
-
-						// Clear temporary htmlData to free cache
-						htmlData.remove();
-
-						/* Set New Position */
-						( cur_item ).css( 'top', t._title_h + t._line_h * ( v_lastIndex + 1 + i ) ).attr( 'id', 'li_' + ( v_lastIndex + 1 + i ) );
-
-					} else {
-						break;
+					log("dti=0 " + vl.timerStillCount + " times. End timer.");
+					vl.timerStillCount = 0;
+					// Stop timer
+					if ( vl.timerMoveID ) {
+						clearTimeout( vl.timerMoveID );
+						vl.timerMoveID = null;
 					}
-				}
-			};
-
-			// Move older item to bottom
-			_moveBottomTop = function ( v_firstIndex, v_lastIndex, num, key ) {
-				var myTemplate,
-					htmlData,
-					cur_item;
-
-				if ( v_firstIndex < 0 ) {
-					return;
+					return;	// End timerMove()
 				}
 
-				for ( i = 0; i < num; i++ ) {
-					cur_item = $( '#li_' + ( v_lastIndex - i ) );
+				// switch: dti >= # of max elements --> total replace.
+				else {
+					vl.timerStillCount = 0;		// Reset still counter
 
-					if ( cur_item ) {
-						if ( v_firstIndex - 1 - i < 0 ) {
-							break;
+					if ( Math.abs( dti ) >= rowLen ) {
+						fromIdx = oti;
+						toIdx = obi;
+						delta = dti;
+						log(">>> WHOLE CHANGE! delta="+delta);
+					}
+
+					// switch: dti < # of max elements --> move t2b or b2t until new top/bottom idx is covered
+					else {
+						if ( dti > 0 ) {
+							fromIdx = oti;
+							toIdx = oti + dti - 1;
+							delta = rowLen;
+						} else {
+							fromIdx = obi + dti + 1;	// dti < 0
+							toIdx = obi;
+							delta = -rowLen;
 						}
-
-						/* Make New <LI> element from template. */
-						myTemplate = $( "#" + o.template );
-						htmlData = myTemplate.tmpl( t._itemData( v_firstIndex - 1 - i ) );
-
-						/* Copy all data to current item. */
-						_replace( cur_item, htmlData, key );
-
-						// Clear temporary htmlData to free cache
-						htmlData.remove();
-
-						/* Set New Position */
-						$( cur_item ).css( 'top', t._title_h + t._line_h * ( v_firstIndex - 1 - i ) ).attr( 'id', 'li_' + ( v_firstIndex - 1 - i ) );
-
-					} else {
-						break;
-					}
-				}
-			};
-
-			/* Matrix to Array function written by Blender@stackoverflow.nnikishi@emich.edu*/
-			_matrixToArray = function ( matrix ) {
-				var contents = matrix.substr( 7 );
-
-				contents = contents.substr( 0, contents.length - 1 );
-
-				return contents.split( ', ' );
-			};
-
-			// Get scroll direction and velocity
-			/* with Scroll view */
-			if ( o.scrollview ) {
-				$el = $( o.id ).parentsUntil( ".ui-page" ).find( ".ui-scrollview-view" );
-				transformValue = _matrixToArray( $el.css( "-webkit-transform" ) );
-				curWindowTop = Math.abs( transformValue[ 5 ] );	/* Y vector */
-			} else {
-				curWindowTop = $( window ).scrollTop() - t._line_h;
-			}
-
-			cur_num_top_items = $( o.id + o.childSelector ).filter( function () {
-				return (parseInt( $( this ).css( "top" ), 10 ) < curWindowTop );
-			} ).size();
-
-			if ( t._num_top_items < cur_num_top_items ) {
-				t._direction = _SCROLL_DOWN;
-				velocity = cur_num_top_items - t._num_top_items;
-				t._num_top_items = cur_num_top_items;
-			} else if ( t._num_top_items > cur_num_top_items ) {
-				t._direction = _SCROLL_UP;
-				velocity = t._num_top_items - cur_num_top_items;
-				t._num_top_items = cur_num_top_items;
-			}
-
-			// Move items
-			if ( t._direction == _SCROLL_DOWN ) {
-				if ( cur_num_top_items > o.page_buf ) {
-					if ( t._last_index + velocity > t._numItemData ) {
-						velocity = t._numItemData - t._last_index - 1;
+						log(">>> partial change. delta="+delta);
 					}
 
-					/* Prevent scroll touch event while DOM access */
-					$(document).bind( "touchstart.virtuallist", function (event) {
-						event.preventDefault();
-					});
-
-					_moveTopBottom( t._first_index, t._last_index, velocity, o.dbkey );
-
-					t._first_index += velocity;
-					t._last_index += velocity;
-					t._num_top_items -= velocity;
-
-					/* Unset prevent touch event */
-					$( document ).unbind( "touchstart.virtuallist" );
-				}
-			} else if ( t._direction == _SCROLL_UP ) {
-				if ( cur_num_top_items <= o.page_buf ) {
-					if ( t._first_index < velocity ) {
-						velocity = t._first_index;
+					// Move items
+					for( i = fromIdx; i <= toIdx; i++ ) {
+						moveItem( vl, i, i + delta );		// Change data and position
 					}
 
-					/* Prevent scroll touch event while DOM access */
-					$( document ).bind( "touchstart.virtuallist", function ( event ) {
-						event.preventDefault();
-					});
+					// Store current top/bottom idx into vl
+					vl._first_index = cti;
+					vl._last_index = cbi;
 
-					_moveBottomTop( t._first_index, t._last_index, velocity, o.dbkey );
+					// Register timer to check again
+					vl.timerMoveID = setTimeout( timerMove, timerInterval, vl );
+				}
+				return;	// End of function
 
-					t._first_index -= velocity;
-					t._last_index -= velocity;
-					t._num_top_items += velocity;
+				// Move itemContents in i2 into i1
+				function moveItemContents( vl, i1, i2 ) {
+					// TODO: Find a efficient way to replace data!
+					// Assumption: i1 and i2 has same children.
+					var NODETYPE={ ELEMENT_NODE:1, TEXT_NODE:3 },
+						c1, c2,	// child item
+						newText,
+						i;
 
-					/* Unset prevent touch event */
-					$( document ).unbind( "touchstart.virtuallist" );
+					$( i1 ).find( ".ui-li-text-main", ".ui-li-text-sub", ".ui-li-text-sub2", "ui-btn-text" ).each( function ( index ) {
+						c1 = $( this );
+						newText = $( i2 ).find( ".ui-li-text-main", ".ui-li-text-sub", "ui-btn-text" ).eq( index ).text();
+
+						$( c1 ).contents().filter( function () {
+							return ( this.nodeType == NODETYPE.TEXT_NODE );
+						} ).get( 0 ).data = newText;
+					} );
+
+					$( i1 ).find( "img" ).each( function ( imgIdx ) {
+						var c1 = $( this );
+						newImg = $( i2 ).find( "img" ).eq( imgIdx ).attr( "src" );
+
+						$( c1 ).attr( "src", newImg );
+					} );
+
+					$( i1 ).removeData( );	// Clear old data
 				}
 
-				if ( t._first_index < o.page_buf ) {
-					t._num_top_items = t._first_index;
+				// Move item
+				function moveItem( vl, fromIdx, toIdx ) {
+					var itemData,
+						item, newItem,
+						tmpl;
+
+					log(">> move item: "+fromIdx + " --> "+toIdx);
+
+					// Find current item
+					item = $( '#' + vl.options.itemIDPrefix + fromIdx );	// TODO: refactor ID generation!
+					if ( ! item ) {
+						return false;
+					}
+
+					// Get new item
+					tmpl = $( "#" + vl.options.template );
+					newItem = tmpl.tmpl( vl._itemData( toIdx ) );
+
+					// TODO: Consider touch block while moving?
+
+					// Move item contents
+					moveItemContents( vl, item, newItem );
+
+					// clean up temporary item
+					newItem.remove();
+
+					// Move position, and set id
+					item.css( 'top', toIdx * vl._line_h )
+						.attr( 'id' , vl.options.itemIDPrefix + toIdx );	// TODO: refactor ID generation!
+
+					// TODO: Apply jqmdata? check following old code;
+					// $( oldItem ).removeData( );	// Clear old data
+					// if (key) { $( oldItem ).data( key, $( newItem ).data( key ) ); }
+
+					return true;
 				}
 			}
+
+			// ==== function start ====
+
+			t.timerStillCount = 0;	// Count do-nothing time.	For behavior tuning.
+
+			// If a timer function is alive, clear it
+			if ( t.timerMoveID ) {
+				clearTimeout( t.timerMoveID );
+				t.timerMoveID = null;
+			}
+			// run TimerMove()
+			timerMove( t );
 		},
 
 		_recreate: function ( newArray ) {
@@ -459,26 +491,33 @@
 			t._reposition( o );
 		},
 
+		// Init virtuallistview
+		// this		virtuallistview object
 		_initList: function () {
 			var t = this,
 				o = this.options;
 
 			/* After AJAX loading success */
 
-			/* Make Gen list by template */
+			// Put initial <li> elements
 			t._pushData( o.template );
 
+			// find a parent page, and run _reposition() at 'pageshow' event
+			// TODO: Consider replace parentsUntil().parent() to parent('.ui-page') ???
 			$( o.id ).parentsUntil( ".ui-page" ).parent().one( "pageshow", function () {
 				setTimeout( function () {
 					t._reposition( o );
 				}, 0);
 			});
 
-			/* Scrollview */
-			$( document ).bind( "scrollstop.virtuallist", t, t._scrollmove );
+			// Bind _scrollmove() at 'scrollstart.virtuallist' event
+			$( document ).bind( "scrollstart.virtuallist scrollstop.vrituallist", t, t._scrollmove );
 
+			// Bind _resize() at 'resize.virtuallist'
 			$( window ).bind( "resize.virtuallist", t._resize );
 
+			// when ul is a childselector, assume that this is also a swipelist,
+			// 	and run swipelist constructor
 			if ( o.childSelector == " ul" ) {
 				$( o.id + " ul" ).swipelist();
 			}
@@ -492,25 +531,26 @@
 			/* external API for AJAX callback */
 			this._create.apply( this, arguments );
 
+			// TODO: remove this line? _initList() calls reposition...
 			this._reposition( o );
 		},
 
 		_create: function ( args ) {
-			// Extend required vars
+			// Extend instance variables
 			$.extend( this, {
 				_itemData : function ( idx ) { return null; },
 				_numItemData : 0,
 				_cacheItemData : function ( minIdx, maxIdx ) { },
-				_line_h : 0,
 				_title_h : 0,
 				_container_w : 0,
-				_minimum_row : 20,
+				_minimum_row : 100,
 				_direction : _NO_SCROLL,
 				_first_index : 0,
 				_last_index : 0,
 				_num_top_items : 0	// By scroll move, number of hidden elements.
 			} );
 
+			// local variables
 			var t = this,
 				o = this.options,
 				$el = this.element,
@@ -523,25 +563,28 @@
 				dbtable;
 
 
-			// create listview markup
-			t.element.addClass( function ( i, orig ) {
+			// Add CSS classes to $el (=virtuallistview)
+			$el.addClass( function ( i, orig ) {
 				return orig + " ui-listview ui-virtual-list-container" + ( t.options.inset ? " ui-listview-inset ui-corner-all ui-shadow " : "" );
 			});
 
+			// keep the vlist's ID
+			o.itemIDPrefix = $el.attr( "id" ) + '_';
 			o.id = "#" + $el.attr( "id" );
 
+			// when page hides, empty all child elements
 			$( o.id ).bind( "pagehide", function ( e ) {
 				$( o.id ).empty();
 			});
 
-			/* Scroll view */
+			// Find if scrollview is used
 			if ( $( ".ui-scrollview-clip" ).size() > 0 ) {
 				o.scrollview = true;
 			} else {
 				o.scrollview = false;
 			}
 
-			/* Init list and page buf */
+			// Calculate page buffer size
 			if ( $el.data( "row" ) ) {
 				o.row = $el.data( "row" );
 
@@ -594,6 +637,7 @@
 				}
 			}
 
+			// Get template data
 			if ( $el.data( "template" ) ) {
 				o.template = $el.data( "template" );
 
@@ -605,14 +649,15 @@
 				}
 			}
 
-			/* Set data's unique key */
+			// Set data's unique key
+			// NOTE: Unnecessary?
 			if ( $el.data( "dbkey" ) ) {
 				o.dbkey = $el.data( "dbkey" );
 			}
 
-			t._first_index = 0;			//first id of <li> element.
-			t._last_index = o.row - 1;		//last id of <li> element.
-			t._initList();
+			t._first_index = 0;			// initial top idx of <li> element.
+			t._last_index = o.row - 1;		// initial bottom idx of <li> element.
+			t._initList();	// NOTE: Called at here only!
 		},
 
 		destroy : function () {
@@ -700,8 +745,11 @@
 			}
 		},
 
+		// this		virtuallistview object
 		refresh: function ( create ) {
 			this.parentPage = this.element.closest( ".ui-page" );
+			// Make sub page, and move the virtuallist into it...
+			// NOTE: check this subroutine.
 			this._createSubPages();
 
 			var o = this.options,
@@ -724,6 +772,7 @@
 				numli,
 				itemTheme;
 
+			// TODO: ?
 			if ( counter ) {
 				$list.find( ".ui-li-dec" ).remove();
 			}
@@ -819,6 +868,8 @@
 			return str.replace(/\W/g , "-");
 		},
 
+		// ?
+		// this		virtuallistview object
 		_createSubPages: function () {
 			var parentList = this.element,
 				parentPage = parentList.closest( ".ui-page" ),

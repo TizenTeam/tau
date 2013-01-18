@@ -292,14 +292,22 @@
 			$view.append( labeltag );
 
 			// create a input tag
-			$( inputbox ).text( option.label ).addClass( "ui-tokentextarea-input" );
+			$( inputbox ).text( option.label ).addClass( "ui-tokentextarea-input ui-input-text ui-body-s" );
 			$view.append( inputbox );
 
 			// create a anchor tag.
 			if ( option.link === null || $.trim( option.link ).length < 1 || $( option.link ).length === 0 ) {
 				className += "-dim";
 			}
-			$( moreBlock ).attr( "href", $.trim( option.link ) ).attr( "data-role", "button" ).attr( "data-inline", "true" ).attr( "data-icon", "plus" ).attr( "data-style", "circle" ).addClass( "ui-tokentextarea-link-base" ).addClass( className );
+			$( moreBlock ).attr( "data-role", "button" )
+				.buttonMarkup( {
+					inline: true,
+					icon: "plus",
+					style: "circle"
+				})
+				.attr( "href", $.trim( option.link ) )
+				.addClass( "ui-tokentextarea-link-base" )
+				.addClass( className );
 
 			// append default htmlelements to main widget.
 			$view.append( moreBlock );
@@ -319,6 +327,7 @@
 			self._reservedWidth += self._calcBlockWidth( labeltag );
 			self._fontSize = parseInt( $( moreBlock ).css( "font-size" ), 10 );
 			self._currentWidth = self._reservedWidth;
+			self._modifyInputBoxWidth();
 		},
 
 		// bind events
@@ -331,7 +340,7 @@
 				isSeparator = false;
 
 			// delegate a event to HTMLDivElement(each block).
-			$view.delegate( "div", "vclick", function ( event ) {
+			$view.delegate( "div", "click", function ( event ) {
 				if ( $( this ).hasClass( "ui-tokentextarea-sblock" ) ) {
 					// If block is selected, it will be removed.
 					self._removeTextBlock();
@@ -397,13 +406,6 @@
 					return ;
 				}
 				var inputBox = $view.find( ".ui-tokentextarea-input" );
-				if ( self._labelWidth === 0 ) {
-					self._labelWidth = $view.find( ".ui-tokentextarea-label" ).outerWidth( true );
-					self._anchorWidth = $view.find( ".ui-tokentextarea-link-base" ).outerWidth( true );
-					self._marginWidth = parseInt( ( $( inputBox ).css( "margin-left" ) ), 10 );
-					self._marginWidth += parseInt( ( $( inputBox ).css( "margin-right" ) ), 10 );
-					self._viewWidth = $view.innerWidth();
-				}
 				self._modifyInputBoxWidth();
 				$( inputbox ).show();
 			});
@@ -481,7 +483,7 @@
 		_unlockTextBlock : function () {
 			var $view = this.element,
 				lockBlock = $view.find( "div.ui-tokentextarea-sblock" );
-			if ( !lockBlock ) {
+			if ( lockBlock ) {
 				lockBlock.removeClass( "ui-tokentextarea-sblock" ).addClass( "ui-tokentextarea-block" );
 			}
 		},
@@ -517,10 +519,10 @@
 		_modifyInputBoxWidth : function () {
 			var self = this,
 				$view = self.element,
-				margin = self._marginWidth,
-				labelWidth = self._labelWidth,
-				anchorWidth = self._anchorWidth,
-				inputBoxWidth = self._viewWidth - labelWidth,
+				margin = 0,
+				labelWidth = 0,
+				anchorWidth = 0,
+				inputBoxWidth = 0,
 				blocks = $view.find( "div" ),
 				blockWidth = 0,
 				index = 0,
@@ -530,6 +532,19 @@
 			if ( $view.width() === 0 ) {
 				return;
 			}
+
+			if ( self._labelWidth === 0 ) {
+				self._labelWidth = $view.find( ".ui-tokentextarea-label" ).outerWidth( true );
+				self._anchorWidth = $view.find( ".ui-tokentextarea-link-base" ).outerWidth( true );
+				self._marginWidth = parseInt( ( $( inputBox ).css( "margin-left" ) ), 10 );
+				self._marginWidth += parseInt( ( $( inputBox ).css( "margin-right" ) ), 10 );
+				self._viewWidth = $view.innerWidth();
+			}
+
+			margin = self._marginWidth;
+			labelWidth = self._labelWidth;
+			anchorWidth = self._anchorWidth;
+			inputBoxWidth = self._viewWidth - labelWidth;
 
 			for ( index = 0; index < blocks.length; index += 1 ) {
 				blockWidth = self._calcBlockWidth( blocks[index] );
@@ -710,7 +725,7 @@
 			if ( arguments.length === 0 ) {
 				blocks.remove();
 				this._trigger( "clear" );
-			} else if ( typeof position == "number" ) {
+			} else if ( !isNaN( position ) ) {
 				// remove selected button
 				index = ( ( position < blocks.length ) ? position : ( blocks.length - 1 ) );
 				$( blocks[index] ).remove();
@@ -736,7 +751,7 @@
 			var $view = this.element;
 
 			$view.find( "label" ).remove();
-			$view.find( "div" ).undelegate( "vclick" ).remove();
+			$view.find( "div" ).undelegate( "click" ).remove();
 			$view.find( "a" ).remove();
 			$view.find( ".ui-tokentextarea-input" ).unbind( "keyup" ).remove();
 

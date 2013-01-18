@@ -207,7 +207,7 @@
 			dividers = this.element.find( '.ui-li-divider' );
 
 			// get all the list items
-			listItems = this.element.find( 'li:not(.ui-li-divider)) ');
+			listItems = this.element.find('li').not('.ui-li-divider');
 
 			// only use visible dividers
 			dividers = dividers.filter( ':visible' );

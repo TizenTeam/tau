@@ -39,7 +39,7 @@
  *  refresh(index): refresh the widget, should be called after add or remove. (parameter: start index)
  *  empty: remove all of images from the gallery
  *  length: get length of images
- *  value: get current index of gallery
+ *  value(index): get or set current index of gallery (parameter: index of image)
  *
  * Events
  *
@@ -127,10 +127,11 @@
 */
 /**
 	@method value
-	The value method is used to get current index of gallery.
+	The value method is used to get or set current index of gallery. The image_index attribute defines the index of the image to be set. If not get current index.
 
 		<div id="gallery" data-role="gallery" data-vertical-align="middle"></div>
 		value = $("#gallery").gallery('value');
+		$("#gallery").gallery('value', [image_index]);
 */
 (function ( $, window, undefined ) {
 	$.widget( "tizen.gallery", $.mobile.widget, {
@@ -154,7 +155,6 @@
 		align_type: null,
 		direction: 1,
 		container: null,
-		loader: [],
 
 		_resize: function ( index ) {
 			var img = this.images[index],
@@ -207,6 +207,18 @@
 				processing = function () {
 					self._resize( index );
 					self._align( index, obj );
+				},
+				loading = function () {
+					if ( self.images[index] === undefined ) {
+						return;
+					}
+
+					if ( !self.images[index].height() ) {
+						setTimeout( loading, 10 );
+						return;
+					}
+
+					processing();
 				};
 
 			if ( !obj ) {
@@ -218,6 +230,9 @@
 			if ( index < 0 ) {
 				return;
 			}
+			if ( !this.images.length ) {
+				return;
+			}
 			if ( index >= this.images.length ) {
 				return;
 			}
@@ -225,18 +240,7 @@
 			obj.css( "display", "block" );
 			obj.append( this.images[index] );
 
-			if ( this.images[index].height() ) {
-				processing();
-			} else {
-				this.loader[index] = setInterval( function () {
-					if ( !self.images[index].height() ) {
-						return;
-					}
-
-					processing();
-					clearInterval( self.loader[index] );
-				}, 10);
-			}
+			loading();
 		},
 
 		_detach: function ( index, obj ) {
@@ -256,8 +260,6 @@
 			obj.css( "display", "none" );
 			this.images[index].removeAttr("style");
 			this.images[index].detach();
-
-			clearInterval( this.loader[index] );
 		},
 
 		_detach_all: function () {
@@ -471,6 +473,10 @@
 		},
 
 		show: function () {
+			if ( !this.images.length ) {
+				return;
+			}
+
 			this._show();
 			this._add_event();
 		},
@@ -661,8 +667,12 @@
 			return this.images.length;
 		},
 
-		value: function () {
-			return this.index;
+		value: function ( index ) {
+			if ( index === undefined ) {
+				return this.index;
+			}
+
+			this.refresh( index );
 		}
 	}); /* End of widget */
 
@@ -671,7 +681,7 @@
 		$( e.target ).find( ":jqmData(role='gallery')" ).gallery();
 	});
 
-	$( document ).bind( "pagebeforeshow", function ( e ) {
+	$( document ).bind( "pageshow", function ( e ) {
 		$( e.target ).find( ":jqmData(role='gallery')" ).gallery( 'show' );
 	});
 

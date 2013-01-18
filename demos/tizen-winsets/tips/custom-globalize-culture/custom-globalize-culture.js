@@ -7,7 +7,7 @@
 		lang,
 		content = $( '#page-tips-custom-globalize-culture > :jqmData(role="content")' );
 
-	$.tizen.util.loadCustomGlobalizeCulture( customCultureFiles );
+	$.tizen.loadCustomGlobalizeCulture( customCultureFiles );
 
 	lang = Globalize.culture( ).name;
 	content.append( $( '<div></div>' )

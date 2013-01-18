@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.7
+Version:    0.2.10
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -83,6 +83,64 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+
+* Fri Jan 18 2013 Minkyu Kang <mk7.kang@samsung.com> 0.2.10
+	- tizen-winsets: codes cleanup
+	- datetimepicker: date calibration when year is changed
+	- Demo: textarea size has been changed
+	- Demo: Naviframe morebutton demo has been changed
+	- remove unused unit test cases : gallery3d
+	- tizen-winset: remove links
+
+* Thu Jan 17 2013 Minkyu Kang <mk7.kang@samsung.com> 0.2.9
+	- gallery: use timeout function instead of interval
+	- Tokentextarea: Display error fixed.
+	- scrollview: Fix not selector to respond with jQuery1.8.2
+	- tabbar: remove the width of last element
+	- Demo: apply css 'user-select:none'
+	- Button: guide text has been shorten
+	- build: Update jQuery to 1.8.2 (JQM1.2 compliant)
+	- virtuallist: Fix mistyping
+	- demo: Fix tizen function namespace in demo
+	- virtuallist: Rewrite listitem replacing algorithm
+	- fastscroll: modify from not selector to function
+	- extendablelist: Fix unit-test
+	- tabbar : prefix to tabbar scroll event
+	- Popupwindow: removed unvalid selector in jquery 1.8.2
+	- slider: adjust handle text as length of value
+	- Demo: 3 buttons in popup text has been changed
+	- src: codes cleanup
+	- demo : remove trailing empty strings
+	- demo : rename TizenWinset list items
+	- button : change from long text list to multiline list
+	- build: Remove JQM1.1.0 patches
+	- Popup: Apply tizen style popup and attribute support
+	- JQM: Fix buttonmarkup bug keeping ui-btn-down class
+	- UnitTest: folder and file renamed, QUnit path was modified
+	- tizen-winsets: button: fix textarea width
+	- Swipe: event name error has been fixed
+
+* Tue Jan 15 2013 Minkyu Kang <mk7.kang@samsung.com> 0.2.8
+	- Button: button padding has been updated
+	- virtuallist: fix unique listitem ID bug
+	- checkbox, radio : change display attr
+	- Button: bug fix ( when data style circle button on text )
+	- handler: bug fix (when scrolling with multi selection)
+	- JQM: adjust patch number
+	- gallery: show the widget after pageshow
+	- TokenTextArea : resource add ( press image )
+	- gallery: adds function that set the index to value API
+	- configure: set TIZEN default configures
+	- footer: h tag display attribute value has been changed
+	- buttons : demo bug fix
+	- searchbar : demo page bug fix
+	- tizen demo : bug fix
+	- build: remove JQM1.1.0
+	- Tokentextarea: Fix issues
+	- scrollview: block the multi touch
+	- list : dialogue list demo change
+	- pagelayout : update dynamic control
+	- Demo: Context popup close method has been changed
 
 * Fri Jan 11 2013 Minkyu Kang <mk7.kang@samsung.com> 0.2.7
 	- slider: set text container's width as text length
