@@ -720,7 +720,12 @@
 				});
 
 				$(obj).bind( 'update', function ( e, val ) {
-					var date = new Date( this.options.date );
+					var date = new Date( this.options.date ),
+						month,
+						date_calibration = function () {
+							date.setDate( 1 );
+							date.setDate( date.getDate() - 1 );
+						};
 
 					switch ( field[1] ) {
 					case 'min':
@@ -733,14 +738,18 @@
 						date.setSeconds( val );
 						break;
 					case 'year':
+						month = date.getMonth();
 						date.setFullYear( val );
+
+						if ( date.getMonth() != month ) {
+							date_calibration();
+						}
 						break;
 					case 'month':
 						date.setMonth( val - 1 );
 
 						if ( date.getMonth() == val ) {
-							date.setDate( 1 );
-							date.setDate( date.getDate() - 1 );
+							date_calibration();
 						}
 						break;
 					case 'day':
