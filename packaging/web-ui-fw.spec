@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.9
+Version:    0.2.10
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -84,7 +84,15 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 ###############################
 %changelog
 
-* Tue Jan 17 2013 Minkyu Kang <mk7.kang@samsung.com> 0.2.9
+* Fri Jan 18 2013 Minkyu Kang <mk7.kang@samsung.com> 0.2.10
+	- tizen-winsets: codes cleanup
+	- datetimepicker: date calibration when year is changed
+	- Demo: textarea size has been changed
+	- Demo: Naviframe morebutton demo has been changed
+	- remove unused unit test cases : gallery3d
+	- tizen-winset: remove links
+
+* Thu Jan 17 2013 Minkyu Kang <mk7.kang@samsung.com> 0.2.9
 	- gallery: use timeout function instead of interval
 	- Tokentextarea: Display error fixed.
 	- scrollview: Fix not selector to respond with jQuery1.8.2
