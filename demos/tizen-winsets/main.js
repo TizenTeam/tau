@@ -163,10 +163,23 @@ $( document ).bind("pagecreate", function () {
 			// TODO: 'create' is called twice!!
 		});
 	});
+
+	// Expand all textarea height automatically
+	$('#ButtonNolist').live( "pagecreate", function ( ev ) {
+		var page = $( ev.target );
+		$( page ).bind( 'pageshow' , function ( ) {
+			var textarea = page.find('textarea');
+			$( textarea ).each( function ( idx, el ) {
+				var h = Math.max( el.clientHeight, el.scrollHeight );
+				$( el ).height( h );
+			} );
+		} );
+	} );
+
 });
 
 $(document).bind( "pageinit" , function() {
-	$.mobile.tizen.enableSelection($("div:jqmData(role='page')"), 'none');
+	$.mobile.tizen.enableSelection( $("div:jqmData(role='page')"), 'none' );
 });
 $(document).ready( function () {
 	// add current datetime with browser language format
