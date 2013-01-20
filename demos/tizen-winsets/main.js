@@ -166,7 +166,7 @@ $( document ).bind("pagecreate", function () {
 });
 
 $(document).bind( "pageinit" , function() {
-	$.mobile.tizen.enableSelection(	$("div:jqmData(role='page')"), 'none');
+	$.mobile.tizen.enableSelection($("div:jqmData(role='page')"), 'none');
 });
 $(document).ready( function () {
 	// add current datetime with browser language format
