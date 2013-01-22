@@ -214,7 +214,7 @@
 					moveTimer = undefined;
 				}
 
-				if ( viewLength < 0 || trackLength < handlerHeight ) {
+				if ( viewLength < 0 || clipLength < handlerHeight ) {
 					return;
 				}
 
@@ -222,7 +222,7 @@
 							.stop( true, true )
 							.fadeIn( 'fast' );
 			}).bind( "scrollupdate", function ( event, data ) {
-				if ( !scrollview.enableHandler() || viewLength < 0 || trackLength < handlerHeight ) {
+				if ( !scrollview.enableHandler() || viewLength < 0 || clipLength < handlerHeight ) {
 					return;
 				}
 
