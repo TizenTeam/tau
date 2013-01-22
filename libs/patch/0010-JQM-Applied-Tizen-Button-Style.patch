@@ -37,8 +37,6 @@ index 3d7d884..0be6999 100644
 +		} else if ( buttonStyle == "round" || ( buttonStyle == "circle" && $(el).text().length > 0 ) ) {
 +			buttonClass += " ui-btn-round";
 +		}
-+
-+
 +		if ( o.icon ) {
 +			if ( $(el).text().length > 0 ) {
 +
@@ -70,6 +68,8 @@ index 3d7d884..0be6999 100644
 +		} else {
 +			if ( $(el).text().length > 0 ) {
 +				innerClass += " ui-btn-hastxt";
++			} else if ( buttonStyle == "circle" ){
++				buttonClass += " ui-btn-round";
 +			}
 +		}
  		if ( o.mini !== undefined ) {

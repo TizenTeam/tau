@@ -449,7 +449,8 @@
 							.removeClass("out");
 
 						target.animationComplete( function () {
-							target.removeClass("in");
+							target.removeClass("in").
+								removeClass("ui-datefield-selected");;
 						});
 					});
 				} else {
@@ -714,7 +715,6 @@
 					$div.unbind( 'popupafterclose' );
 					$ul.unbind( 'vclick' );
 					$(obj).unbind( 'update' );
-					$(ui).find('.ui-datefield-selected').removeClass('ui-datefield-selected');
 					$ctx.popupwindow( 'destroy' );
 					$div.remove();
 				});
@@ -758,6 +758,8 @@
 					}
 
 					obj._setDate( date );
+
+					$ctx.popupwindow( 'close' );
 				});
 
 				$ul.bind( 'click', function ( e ) {

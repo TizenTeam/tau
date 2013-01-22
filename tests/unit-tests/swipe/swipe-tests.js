@@ -15,16 +15,16 @@
 			coverStart,
 			item,
 			slideLeftDone = function () {
-				ok(true, "Animation Complete - sliding left");
-				cover.unbind("animationComplete");
+				ok(true, "Animation end - sliding left");
+				cover.unbind("animationend");
 				equal(cover.position().left, coverStart, "Position - Cover");
 				start();
 			},
 			slideRightDone = function () {
-				ok(true, "Animation Complete - sliding right");
+				ok(true, "Animation end - sliding right");
 				setTimeout(function () {
-					cover.unbind("animationComplete");
-					cover.bind("animationComplete", slideLeftDone);
+					cover.unbind("animationend");
+					cover.bind("animationend", slideLeftDone);
 					item.trigger("swipeleft");
 				}, 0);
 			};
@@ -39,7 +39,7 @@
 		coverStart = cover.position().left;
 		item = swipe.find("div.ui-swipe-item").first();
 
-		cover.bind("animationComplete", slideRightDone);
+		cover.bind("animationend", slideRightDone);
 		cover.trigger("swiperight");
 		stop();
 

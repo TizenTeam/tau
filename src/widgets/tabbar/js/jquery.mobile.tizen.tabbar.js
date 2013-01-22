@@ -102,9 +102,11 @@
 				}
 				$tabbar.find( "li" ).css( "width", window.innerWidth / this.options.defaultList + "px" );
 			} else {
-				$tabbar.addClass( "ui-navbar" )
-					.find( "ul" )
-					.grid( { grid: this.options.grid } );
+				if ( $tabbar.find( "ul" ).children().length ) {
+					$tabbar.addClass( "ui-navbar" )
+						.find( "ul" )
+						.grid( { grid: this.options.grid } );
+				}
 			}
 
 			if ( $tabbar.parents( ".ui-footer" ).length  ) {

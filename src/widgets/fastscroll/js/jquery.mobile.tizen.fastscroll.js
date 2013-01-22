@@ -90,8 +90,8 @@
 			this.shortcutsList = $( '<ul></ul>' );
 
 			// popup for the hovering character
-			this.shortcutsContainer.append($( '<div class="ui-fastscroll-popup"></div>' ) );
-			$popup = this.shortcutsContainer.find( '.ui-fastscroll-popup' );
+			this.scrollview.append($( '<div class="ui-fastscroll-popup"></div>' ) );
+			$popup = this.scrollview.find( '.ui-fastscroll-popup' );
 
 			this.shortcutsContainer.append( this.shortcutsList );
 			this.scrollview.append( this.shortcutsContainer );
@@ -127,8 +127,8 @@
 				dstOffset = self.scrollview.offset();
 				$popup
 					.text( $( divider ).text() )
-					.offset( { left : dstOffset.left + ( self.scrollview.width()  - $popup.width() ) / 2,
-								top  : dstOffset.top  + ( self.scrollview.height() - $popup.height() ) / 2 } )
+					.css( { marginLeft: -($popup.width() / 2),
+							marginTop: -($popup.height() / 2) } )
 					.show();
 			};
 

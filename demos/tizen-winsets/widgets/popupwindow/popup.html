@@ -299,13 +299,18 @@
 				<h1>PopupTest<h1>
 			</div>
 			<div class="ui-popup-text">
-						<input type="text" size="30" />
-						<input type="text" size="30" />
+				<input type="text" size="30" />
+				<input type="text" size="30" />
 			</div>
-					<div class="ui-popup-button-bg">
-						<a data-role="button" data-rel="back" data-inline="true">OK</a>
-						<a data-role="button" data-rel="back" data-inline="true">Cancel</a>
-					</div>
+			<div class="ui-popup-button-bg">
+				<a data-role="button" data-rel="back" data-inline="true">OK</a>
+				<a data-role="button" id="btn_textbox_popup_cancel" data-rel="back" data-inline="true">Cancel</a>
+				<script>
+				$("#btn_textbox_popup_cancel").bind("click", function ( ev ) {
+					$("#textbox_popup").find("input").val("");
+				} );
+				</script>
+			</div>
 		</div>
 
 		<div data-role="popup" id="positionWindow">

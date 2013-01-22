@@ -8,10 +8,12 @@
         <script src="js/"></script>
         <script src="theme.js"></script>
         <script src="js/jquery.mobile.forms.button.extension.js"></script>
+
+
         </head>
 <body>
 
-<div data-role="page" id="ButtonDemo" data-add-back-btn="true" >
+<div data-role="page" id="ButtonNolist" data-add-back-btn="true" >
         <div data-role="header" data-position="fixed">
                 <h1>Buttons</h1>
         </div>
@@ -41,44 +43,51 @@
 		*Button Icon Position top, bottom (with inline)
 		<div data-role="button" data-icon="call" data-iconpos="top">PositionTop</div><br/>
 		<div data-role="button" data-icon="call" data-iconpos="bottom">PositionBottom</div><br/>
-		<div data-role="button" data-icon="reveal" data-iconpos="top" data-inline="true">PositionTop</div>
-		<div data-role="button" data-icon="reveal" data-iconpos="bottom" data-inline="true">PositionBottom</div><br/>
+		<div data-role="button" data-icon="call" data-iconpos="top" data-inline="true">PositionTop</div>
+		<div data-role="button" data-icon="call" data-iconpos="bottom" data-inline="true">PositionBottom</div><br/>
 		 HTML Code:
 		<textarea style="width:80%;padding:1em;background-color:whitesmoke;color:black;border-style:inset"><div data-role="button" data-icon="call" data-iconpos="top">PositionTop</div>
 <div data-role="button" data-icon="call" data-iconpos="bottom">PositionBottom</div>
-<div data-role="button" data-icon="reveal" data-iconpos="top" data-inline="true">PositionTop</div>
-<div data-role="button" data-icon="reveal" data-iconpos="bottom" data-inline="true">PositionBottom</div></textarea><br/><br/>
+<div data-role="button" data-icon="call" data-iconpos="top" data-inline="true">PositionTop</div>
+<div data-role="button" data-icon="call" data-iconpos="bottom" data-inline="true">PositionBottom</div></textarea><br/><br/>
 		*Custom Button:<br/>
-		<div data-role="button" data-inline="true" data-icon="test">Custom</div>
-		<div data-role="button" data-inline="true" data-icon="test" data-iconpos="top">Custom Top</div>
-		<div data-role="button" data-inline="true" data-icon="test" data-iconpos="bottom">Custom Bottom</div>
-		<div data-role="button" data-inline="true" data-icon="test" style="width:150px;height:150px">Custom width,height</div>
-		<div data-role="button" data-inline="true" data-icon="test2" data-style="circle"></div><br/>
+		<div data-role="button" data-inline="true" data-icon="call">Custom</div>
+		<div data-role="button" data-inline="true" data-icon="call" data-iconpos="top">Custom Top</div>
+		<div data-role="button" data-inline="true" data-icon="call" data-iconpos="bottom">Custom Bottom</div>
+		<div data-role="button" data-inline="true" data-icon="call" style="width:150px;height:150px">Custom width,height</div>
+		<div data-role="button" data-inline="true" data-icon="call" data-style="circle"></div><br/>
 		HTML Code:
-		<textarea style="width:80%;padding:1em;background-color:whitesmoke;color:black;border-style:inset"><div data-role="button" data-inline="true" data-icon="test">Custom</div>
-<div data-role="button" data-inline="true" data-icon="test" data-iconpos="top">Custom Top</div>
-<div data-role="button" data-inline="true" data-icon="test" data-iconpos="bottom">Custom Bottom</div>
-<div data-role="button" data-inline="true" data-icon="test" style="width:150px;height:150px">Custom width,height</div></textarea>
+		<textarea style="width:80%;padding:1em;background-color:whitesmoke;color:black;border-style:inset"><div data-role="button" data-inline="true" data-icon="call">Custom</div>
+<div data-role="button" data-inline="true" data-icon="call" data-iconpos="top">Custom Top</div>
+<div data-role="button" data-inline="true" data-icon="call" data-iconpos="bottom">Custom Bottom</div>
+<div data-role="button" data-inline="true" data-icon="call" style="width:150px;height:150px">Custom width,height</div></textarea>
 		CSS Code:<br/>
 		<textarea style="width:80%;padding:1em;background-color:whitesmoke;color:black;border-style:inset">.ui-icon-test{
         background-size: 100% 100%;
-        background-image: url(test.png);
+        background-image: url(00_button_call);
 }
 
 .ui-icon-test2{
         background-position:0% 0%;
         background-size:50% 50%;
-        background-image: url(test.png);
+        background-image: url(00_button_call);
 }</textarea>
 		*Input Type = "Button"
 		<input type="button" value="test button"/>
 		HTML Code:
                 <textarea style="width:80%;padding:1em;background-color:whitesmoke;color:black;border-style:inset"><input type="button" value="test button"/></textarea>
-
+		<br/><br/>
+		Button No text
+		<div data-role="button" id="button1test" data-corners="false" data-inline="false" data-style="circle"></div>
+		<br/><br/>
+		<div data-role="button" id="button1test2" data-corners="false" data-inline="false" ></div>
+		<br/><br/>
+		<div data-role="button" id="button1test3" data-corners="false" data-inline="true" data-style="circle"></div>
+		<br/><br/>
+		<div data-role="button" id="button1test4" data-corners="false" data-inline="true" ></div>
 	</div>
 	<div data-role="footer">
 	</div>
 </div>
-
 </body>
 </html>
