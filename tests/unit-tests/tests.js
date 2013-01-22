@@ -23,6 +23,7 @@ var TESTS = {
 		"tokentextarea",
 		"virtuallist",
 		"virtualgrid",
-		"collapsible"
+		"collapsible",
+		"page"
 	]
 };
