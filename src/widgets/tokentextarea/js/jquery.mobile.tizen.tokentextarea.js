@@ -292,7 +292,7 @@
 			$view.append( labeltag );
 
 			// create a input tag
-			$( inputbox ).text( option.label ).addClass( "ui-tokentextarea-input ui-input-text ui-body-s" );
+			$( inputbox ).addClass( "ui-tokentextarea-input ui-tokentextarea-input-visible ui-input-text ui-body-s" );
 			$view.append( inputbox );
 
 			// create a anchor tag.
@@ -392,7 +392,7 @@
 					return;
 				}
 
-				$( inputbox ).hide();
+				$( inputbox ).removeClass( "ui-tokentextarea-input-visible" ).addClass( "ui-tokentextarea-input-invisible" );
 
 				$.mobile.changePage( option.link, {
 					transition: "slide",
@@ -407,7 +407,7 @@
 				}
 				var inputBox = $view.find( ".ui-tokentextarea-input" );
 				self._modifyInputBoxWidth();
-				$( inputbox ).show();
+				$( inputbox ).removeClass( "ui-tokentextarea-input-invisible" ).addClass( "ui-tokentextarea-input-visible" );
 			});
 
 			$view.bind( "click", function ( event ) {
@@ -507,7 +507,7 @@
 		_ellipsisTextBlock : function ( textBlock ) {
 			var self = this,
 				$view = self.element,
-				maxWidth = $view.innerWidth() - ( self._labelWidth + self._anchorWidth ) * 2;
+				maxWidth = self._viewWidth - ( self._labelWidth + self._anchorWidth ) * 2;
 
 			if ( self._calcBlockWidth( textBlock ) > maxWidth ) {
 				$( textBlock ).width( maxWidth - self._marginWidth );
@@ -611,7 +611,7 @@
 			$view.find( ".ui-tokentextarea-desclabel" ).remove();
 			$view.find( "div.ui-tokentextarea-sblock" ).removeClass( "ui-tokentextarea-sblock" ).addClass( "ui-tokentextarea-block" );
 			$view.find( "div" ).show();
-			$view.find( ".ui-tokentextarea-input" ).show();
+			$view.find( ".ui-tokentextarea-input" ).removeClass( "ui-tokentextarea-input-invisible" ).addClass( "ui-tokentextarea-input-visible" );
 			$view.find( "a" ).show();
 
 			// change focus state.
@@ -637,7 +637,7 @@
 				currentWidth = $view.outerWidth( true ) - more.outerWidth( true ) - label.outerWidth( true ),
 				blockWidth = 0;
 
-			$view.find( ".ui-tokentextarea-input" ).hide();
+			$view.find( ".ui-tokentextarea-input" ).removeClass( "ui-tokentextarea-input-visible" ).addClass( "ui-tokentextarea-input-invisible" );
 			$view.find( "a" ).hide();
 			blocks.hide();
 
