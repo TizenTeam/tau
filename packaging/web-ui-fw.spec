@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.10
+Version:    0.2.11
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -83,6 +83,26 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Tue Jan 22 2013 Minkyu Kang <mk7.kang@samsung.com> 0.2.11
+	- demo: clear input text value with cancel button click
+	- demo: Adjust textarea height automatically
+	- naviframe : bug fix
+	- tabbar : bug fix
+	- Fastscroll: popup position has been changed
+	- Button: custom button icon path, margin have been changed
+	- toggleswitch : bug fix
+	- slider: increase the margin
+	- datetimepicker: close the popup after select the value
+	- unit-test : add page backbutton control test
+	- Demo: added guide text and change input type in list vi
+	- remove legacy codes : jquery-geo
+	- Datetimepicker: text-main max-width has been removed
+	- Radio: control group border has been removed
+	- Demo: remove 'tab' space
+	- UnitTC: swipe unit tc has been fixed
+	- UnitTC: jQuery path has been fixed
+	- Button: bug fix when button has not a text
+	- tizen-winset: timepicker: demo title is changed
 
 * Fri Jan 18 2013 Minkyu Kang <mk7.kang@samsung.com> 0.2.10
 	- tizen-winsets: codes cleanup
