@@ -55,23 +55,17 @@
 					omversion = !!operammobilematch && operammobilematch[ 1 ];
 
 				if (
-						// iOS 4.3 and older : Platform is iPhone/Pad/Touch and Webkit version is less than 534 (ios5)
-						( ( platform.indexOf( "iPhone" ) > -1 || platform.indexOf( "iPad" ) > -1  || platform.indexOf( "iPod" ) > -1 ) && wkversion && wkversion < 534 )
-						||
+					// iOS 4.3 and older : Platform is iPhone/Pad/Touch and Webkit version is less than 534 (ios5)
+					( ( platform.indexOf( "iPhone" ) > -1 || platform.indexOf( "iPad" ) > -1  || platform.indexOf( "iPod" ) > -1 ) && wkversion && wkversion < 534 ) ||
 						// Opera Mini
-						( w.operamini && ({}).toString.call( w.operamini ) === "[object OperaMini]" )
-						||
-						( operammobilematch && omversion < 7458 )
-						||
+						( w.operamini && ({}).toString.call( w.operamini ) === "[object OperaMini]" ) ||
+						( operammobilematch && omversion < 7458 ) ||
 						//Android lte 2.1: Platform is Android and Webkit version is less than 533 (Android 2.2)
-						( ua.indexOf( "Android" ) > -1 && wkversion && wkversion < 533 )
-						||
+						( ua.indexOf( "Android" ) > -1 && wkversion && wkversion < 533 ) ||
 						// Firefox Mobile before 6.0 -
-						( ffversion && ffversion < 6 )
-						||
+						( ffversion && ffversion < 6 ) ||
 						// WebOS less than 3
-						( "palmGetResource" in window && wkversion && wkversion < 534 )
-						||
+						( window.palmGetResource !== undefined && wkversion && wkversion < 534 ) ||
 						// MeeGo
 						( ua.indexOf( "MeeGo" ) > -1 && ua.indexOf( "NokiaBrowser/8.5.0" ) > -1 )
 				) {
@@ -250,7 +244,7 @@
 					}
 				});
 
-			window.addEventListener( "softkeyboardchange", function( e ) {
+			window.addEventListener( "softkeyboardchange", function ( e ) {
 				var thisPage = this;
 
 				if ( e.state == "on" ) {
@@ -308,7 +302,9 @@
 				footer = $el.siblings( ".ui-footer" ).length;
 
 			// This behavior only applies to "fixed", not "fullscreen"
-			if ( this.options.fullscreen && imestatus ) { return; }
+			if ( this.options.fullscreen ) {
+				return;
+			}
 
 			tbPage = tbPage || $el.closest( ".ui-page" );
 
@@ -359,57 +355,12 @@
 			}
 		},
 
-		_useTransition: function ( notransition ) {
-			var $win = $( window ),
-				$el = this.element,
-				scroll = $win.scrollTop(),
-				elHeight = $el.height(),
-				pHeight = $el.closest( ".ui-page" ).height(),
-				viewportHeight = $.mobile.getScreenHeight(),
-				tbtype = $el.is( ":jqmData(role='header')" ) ? "header" : "footer";
-
-			return !notransition &&
-				( this.options.transition && this.options.transition !== "none" &&
-				(
-						( tbtype === "header" && !this.options.fullscreen && scroll > elHeight ) ||
-						( tbtype === "footer" && !this.options.fullscreen && scroll + viewportHeight < pHeight - elHeight )
-					) || this.options.fullscreen
-				);
-		},
-
 		show: function ( notransition ) {
-/*			var hideClass = "ui-fixed-hidden",
-				$el = this.element;
-
-			if ( this._useTransition( notransition ) ){
-				$el
-					.removeClass( "out " + hideClass )
-					.addClass( "in" );
-			}
-			else {
-				$el.removeClass( hideClass );
-			}
-			this._visible = true;*/
+			/* blank function: deprecated */
 		},
 
 		hide: function ( notransition ) {
-/*			var hideClass = "ui-fixed-hidden",
-				$el = this.element,
-				// if it's a slide transition, our new transitions need the reverse class as well to slide outward
-				outclass = "out" + ( this.options.transition === "slide" ? " reverse" : "" );
-
-			if ( this._useTransition( notransition ) ){
-				$el
-					.addClass( outclass )
-					.removeClass( "in" )
-					.animationComplete( function () {
-						$el.addClass( hideClass ).removeClass( outclass );
-					});
-			}
-			else {
-				$el.addClass( hideClass ).removeClass( outclass );
-			}
-			this._visible = false;*/
+			/* blank function: deprecated */
 		},
 
 		toggle: function () {
@@ -433,4 +384,4 @@
 			$.mobile.pagelayout.prototype.enhanceWithin( e.target );
 		});
 
-})( jQuery );
+}( jQuery ));
