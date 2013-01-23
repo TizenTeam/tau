@@ -39,7 +39,7 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
  */
 ( function ($, Globalize, window, undefined) {
 
-	 var tizen = {
+	var tizen = {
 		libFileName : "tizen-web-ui-fw(.min)?.js",
 
 		frameworkData : {
@@ -50,10 +50,30 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 			viewportScale: false,
 
 			defaultFontSize: 22,
-			minified: false
+			minified: false,
+
+			debug: false
+		},
+
+		log : {
+			debug : function ( msg ) {
+				if ( tizen.frameworkData.debug ) {
+					console.log( msg );
+				}
+			},
+			warn : function ( msg ) {
+				console.warn( msg );
+			},
+			error : function ( msg ) {
+				console.error( msg );
+			},
+			alert : function ( msg ) {
+				window.alert( msg );
+			}
 		},
 
 		util : {
+
 			loadScriptSync : function ( scriptPath, successCB, errorCB ) {
 				$.ajax( {
 					url: scriptPath,
@@ -65,11 +85,12 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 						if ( errorCB ) {
 							errorCB( jqXHR, textStatus, errorThrown );
 						} else {
-							var ignoreStatusList = [ 404 ];  // 404: not found
+							var ignoreStatusList = [ 404 ],  // 404: not found
+								errmsg = ( 'Error while loading ' + scriptPath + '\n' + jqXHR.status + ':' + jqXHR.statusText );
 							if ( -1 == $.inArray( jqXHR.status, ignoreStatusList ) ) {
-								window.alert( 'Error while loading ' + scriptPath + '\n' + jqXHR.status + ':' + jqXHR.statusText );
+								tizen.log.alert( errmsg );
 							} else {
-								console.log( 'Error while loading ' + scriptPath + '\n' + jqXHR.status + ':' + jqXHR.statusText );
+								tizen.log.warn( errmsg );
 							}
 						}
 					}
@@ -88,7 +109,7 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 					'',
 			addElementToHead : function ( elem ) {
 				var head = document.getElementsByTagName( 'head' )[0];
-				if( head ) {
+				if ( head ) {
 					$( head ).prepend( elem );
 				}
 			},
@@ -106,10 +127,10 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 					l = null;
 				// Find css link element
 				for ( idx = 0; idx < cssLinks.length; idx++ ) {
-					if( cssLinks[idx].getAttribute( 'rel' ) != "stylesheet" ) {
+					if ( cssLinks[idx].getAttribute( 'rel' ) != "stylesheet" ) {
 						continue;
 					}
-					if( cssLinks[idx].getAttribute( 'name' ) == "tizen-theme" 
+					if ( cssLinks[idx].getAttribute( 'name' ) == "tizen-theme"
 							|| cssLinks[idx].getAttribute( 'href' ) == path ) {
 						l = cssLinks[idx];
 						break;
@@ -117,7 +138,7 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 				}
 				if ( l ) {	// Found the link element!
 					if ( l.getAttribute( 'href' ) == path ) {
-						console.log( "Theme is already loaded. Skip theme loading in the framework." );
+						tizen.log.warn( "Theme is already loaded. Skip theme loading in the framework." );
 					} else {
 						l.setAttribute( 'href', path );
 					}
@@ -145,7 +166,7 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 				var t = navigator.theme ? navigator.theme.split( ':' )[0] : null;
 				if ( t ) {
 					t = t.replace('-hd', '');
-					if( ! t.match( /^tizen-/ ) ) {
+					if ( ! t.match( /^tizen-/ ) ) {
 						t = 'tizen-' + t;
 					}
 				}
@@ -171,9 +192,11 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 					this.frameworkData.viewportWidth = elem.getAttribute( 'data-framework-viewport-width' )
 						|| this.frameworkData.viewportWidth;
 					this.frameworkData.viewportScale =
-						"true" === elem.getAttribute( 'data-framework-viewport-scale' ) ? true 
+						"true" === elem.getAttribute( 'data-framework-viewport-scale' ) ? true
 						: this.frameworkData.viewportScale;
 					this.frameworkData.minified = src.search(/\.min\.js$/) > -1 ? true : false;
+					this.frameworkData.debug = "true" === elem.getAttribute( 'data-framework-debug' ) ? true
+						: this.frameworkData.debug;
 					foundScriptTag = true;
 					break;
 				}
@@ -182,21 +205,23 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 		},
 
 		loadTheme: function ( theme ) {
-			var themePath, cssPath, jsPath;
+			var themePath,
+				cssPath,
+				jsPath;
 
 			if ( ! theme ) {
 				theme = tizen.frameworkData.theme;
 			}
 			themePath = [
-					tizen.frameworkData.rootDir,
-					tizen.frameworkData.version,
-					'themes',
-					theme
-				].join( '/' ),
+				tizen.frameworkData.rootDir,
+				tizen.frameworkData.version,
+				'themes',
+				theme
+			].join( '/' );
 
-			jsPath = [themePath, 'theme.js'].join( '/' );
+			jsPath = [ themePath, 'theme.js' ].join( '/' );
 
-			if( tizen.frameworkData.minified ) {
+			if ( tizen.frameworkData.minified ) {
 				cssPath = [themePath, 'tizen-web-ui-fw-theme.min.css'].join( '/' );
 			} else {
 				cssPath = [themePath, 'tizen-web-ui-fw-theme.css'].join( '/' );
@@ -254,8 +279,8 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 				if ( "string" != typeof lang ) {
 					return null;
 				}
-				if ( cFDic ) {
-					if ( cFDic[lang] ) cFPath = cFDic[lang];
+				if ( cFDic && cFDic[lang] ) {
+					cFPath = cFDic[lang];
 				} else {
 					// Default Globalize culture file path
 					cFPath = [
@@ -270,24 +295,23 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 			}
 
 			function printLoadError( cFPath, jqXHR ) {
-				console.log( "Error " + jqXHR.status + ": " + jqXHR.statusText );
-				console.log( "::Culture file (" + cFPath + ") is failed to load.");
+				tizen.log.error( "Error " + jqXHR.status + ": " + jqXHR.statusText
+						+ "::Culture file (" + cFPath + ") is failed to load.");
 			}
 
 			function loadCultureFile ( cFPath, errCB ) {
 				function _successCB ( ) {
-					console.log( "Culture file (" + cFPath + ") is loaded successfully.");
+					tizen.log.debug( "Culture file (" + cFPath + ") is loaded successfully." );
 				}
 				function _errCB ( jqXHR, textStatus, err ) {
-					if( errCB ) {
+					if ( errCB ) {
 						errCB( jqXHR, textStatus, err );
-					}
-					else {
+					} else {
 						printLoadError( cFPath, jqXHR );
 					}
 				}
 
-				if( ! cFPath ) {	// Invalid cFPath -> Regard it as '404 Not Found' error.
+				if ( ! cFPath ) {	// Invalid cFPath -> Regard it as '404 Not Found' error.
 					mockJSXHR = {
 						status: 404,
 						statusText: "Not Found"
@@ -309,11 +333,11 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 			cFPath = getCultureFilePath( lang, cultureDic );
 			loadCultureFile( cFPath,
 				function ( jqXHR, textStatus, err ) {
-					if( jqXHR.status == 404 ) {
+					if ( jqXHR.status == 404 ) {
 						// If culture file is not found, try once more with neutral lang.
 						var nLang = getNeutralLang( lang ),
-							cFPath = getCultureFilePath( nLang, cultureDic );
-						loadCultureFile( cFPath, null );
+							ncFPath = getCultureFilePath( nLang, cultureDic );
+						loadCultureFile( ncFPath, null );
 					} else {
 						printLoadError( cFPath, jqXHR );
 					}
@@ -336,9 +360,9 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 		 * @param[in]	cultureDic	collection of 'language':'culture file path' key-val pair.
 		 * @example
 		 * var myCultures = {
-		 * 		"en"    : "culture/en.js",
-		 * 		"fr"    : "culture/fr.js",
-		 * 		"ko-KR" : "culture/ko-KR.js"
+		 *	"en"    : "culture/en.js",
+		 *	"fr"    : "culture/fr.js",
+		 *	"ko-KR" : "culture/ko-KR.js"
 		 * };
 		 * loadCultomGlobalizeCulture( myCultures );
 		 *
@@ -370,10 +394,10 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 				meta = this;
 				return;
 			});
-			if( meta ) {	// Found custom viewport!
+			if ( meta ) {	// Found custom viewport!
 				content = $( meta ).prop( "content" );
-				console.log( "Viewport is already set. Framework skips viewport setting." );
-				viewportWidth = content.replace( /.*width=(device-width|\d+)\s*,?.*$/gi, "$1" )
+				viewportWidth = content.replace( /.*width=(device-width|\d+)\s*,?.*$/gi, "$1" );
+				tizen.log.warn( "Viewport is set to '" + viewportWidth + "' in a meta tag. Framework skips viewport setting." );
 			} else {
 				// Create a meta tag
 				meta = document.createElement( "meta" );
@@ -386,7 +410,7 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 						//content = [ content, ", initial-scale=1.0, maximum-scale=1.0" ].join( "" );
 					}
 					meta.content = content;
-					console.log( content );
+					tizen.log.debug( content );
 					head = document.getElementsByTagName( 'head' ).item( 0 );
 					head.insertBefore( meta, head.firstChild );
 				}
@@ -398,13 +422,13 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 		 *  param[in]	desired font-size / base font-size.
 		 */
 		scaleBaseFontSize: function ( themeDefaultFontSize, ratio ) {
-			console.log( "themedefaultfont size: " + themeDefaultFontSize + ", ratio: " + ratio );
+			tizen.log.debug( "themedefaultfont size: " + themeDefaultFontSize + ", ratio: " + ratio );
 			var scaledFontSize = Math.round( themeDefaultFontSize * ratio );
 
 			$( 'html.ui-mobile' ).css( { 'font-size': scaledFontSize + "px" } );
-			console.log('html:font size is set to ' + scaledFontSize );
+			tizen.log.debug( 'html:font size is set to ' + scaledFontSize );
 			$( document ).ready( function ( ) {
-				$( '.ui-mobile').children( 'body' ).css( { 'font-size': scaledFontSize + "px" } );
+				$( '.ui-mobile' ).children( 'body' ).css( { 'font-size': scaledFontSize + "px" } );
 			} );
 		},
 
@@ -422,9 +446,7 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 			}
 
 			if ( "screen-width" == viewportWidth ) {
-				viewportWidth = window.outerWidth;
-				// TODO : Above code will be replaced by below codes. But screen.availWidth has a webkit bug at this moment.
-				// viewportWidth = screen.availWidth,
+				viewportWidth = document.documentElement.clientWidth;
 			}
 
 			viewportWidth = this.setViewport( viewportWidth );	// If custom viewport setting exists, get viewport width
