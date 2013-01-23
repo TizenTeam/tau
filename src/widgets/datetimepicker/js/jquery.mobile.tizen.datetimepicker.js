@@ -450,7 +450,7 @@
 
 						target.animationComplete( function () {
 							target.removeClass("in").
-								removeClass("ui-datefield-selected");;
+								removeClass("ui-datefield-selected");
 						});
 					});
 				} else {
