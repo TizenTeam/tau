@@ -570,6 +570,7 @@
 			var $target = $(elem),
 				height,
 				width,
+				NODETYPE = { ELEMENT_NODE : 1, TEXT_NODE : 3 },
 				ret = {
 					isDefinedWidth : false,
 					isDefinedHeight : false,
@@ -577,7 +578,7 @@
 					height : 0
 				};
 
-			while ( $target[0].nodeType === Node.ELEMENT_NODE && (ret.isDefinedWidth === false || ret.isHeightDefined === false )) {
+			while ( $target[0].nodeType === NODETYPE.ELEMENT_NODE && (ret.isDefinedWidth === false || ret.isHeightDefined === false )) {
 				height = $target[0].style.height;
 				width = $target[0].style.width;
 
@@ -1407,12 +1408,14 @@
 		// @param newItem   : new HtmlDivElement for replace
 		// @param key       :
 		_replace : function ( oldItem, newItem, key ) {
+			var NODETYPE = { ELEMENT_NODE : 1, TEXT_NODE : 3 };
+
 			$( oldItem ).find( ".ui-li-text-main", ".ui-li-text-sub", "ui-btn-text" ).each( function ( index ) {
 				var oldObj = $( this ),
 					newText = $( newItem ).find( ".ui-li-text-main", ".ui-li-text-sub", "ui-btn-text" ).eq( index ).text();
 
 				$( oldObj ).contents().filter( function () {
-					return ( this.nodeType == 3 );
+					return ( this.nodeType == NODETYPE.TEXT_NODE );
 				}).get( 0 ).data = newText;
 			});
 
