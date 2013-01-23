@@ -259,34 +259,37 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 	@since Tizen2.0
 */
 
-( function ($, window, document, undefined) {
+( function ( $, window, document, undefined ) {
 
-	function circularNum (num, total) {
+	function circularNum ( num, total ) {
 		var n = num % total;
-		if (n < 0) {
+		if ( n < 0 ) {
 			n = total + n;
 		}
 		return n;
 	}
 
-	function MomentumTracker (options) {
-		this.options = $.extend({}, options);
+	function MomentumTracker ( options ) {
+		this.options = $.extend( {}, options );
 		this.easing = "easeOutQuad";
 		this.reset();
 	}
 
 	var tstates = {
-		scrolling : 0,
-		done : 1
-	};
+			scrolling : 0,
+			done : 1
+		},
+		_OVERFLOW_DIR_NONE = 0,		/* ENUM */
+		_OVERFLOW_DIR_UP = 1,		/* ENUM */
+		_OVERFLOW_DIR_DOWN = -1;	/* ENUM */
 
 	function getCurrentTime () {
 		return Date.now();
 	}
 
-	$.extend (MomentumTracker.prototype, {
-		start : function (pos, speed, duration) {
-			this.state = (speed !== 0 ) ? tstates.scrolling : tstates.done;
+	$.extend( MomentumTracker.prototype, {
+		start : function ( pos, speed, duration ) {
+			this.state = ( speed !== 0 ) ? tstates.scrolling : tstates.done;
 			this.pos = pos;
 			this.speed = speed;
 			this.duration = duration;
@@ -307,17 +310,17 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 		update : function () {
 			var state = this.state, duration, elapsed, dx, x;
 
-			if (state == tstates.done) {
+			if ( state == tstates.done ) {
 				return this.pos;
 			}
 			duration = this.duration;
 			elapsed = getCurrentTime () - this.startTime;
 			elapsed = elapsed > duration ? duration : elapsed;
-			dx = this.speed * (1 - $.easing[this.easing] (elapsed / duration, elapsed, 0, 1, duration) );
+			dx = this.speed * ( 1 - $.easing[this.easing]( elapsed / duration, elapsed, 0, 1, duration ) );
 			x = this.pos + dx;
 			this.pos = x;
 
-			if (elapsed >= duration) {
+			if ( elapsed >= duration ) {
 				this.state = tstates.done;
 			}
 			return this.pos;
@@ -332,7 +335,7 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 		}
 	});
 
-	jQuery.widget ("mobile.virtualgrid", jQuery.mobile.widget, {
+	jQuery.widget ( "mobile.virtualgrid", jQuery.mobile.widget, {
 		options : {
 			// virtualgrid option
 			template : "",
@@ -345,7 +348,7 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 		},
 
 		_create : function ( args ) {
-			$.extend(this, {
+			$.extend( this, {
 				// view
 				_$view : null,
 				_$clip : null,
@@ -390,11 +393,15 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 				_rowsPerView : 0,
 				_fragment : null,
 
-				_filterRatio : 0.9
+				_filterRatio : 0.9,
+
+				_overflowStartPos : 0,
+				_overflowDir : 0,
+				_overflowMaxDragDist : 100
 			});
 
 			var self = this,
-				$dom = $(self.element),
+				$dom = $( self.element ),
 				opts = self.options,
 				$item = null;
 
@@ -404,7 +411,7 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 				return ;
 			}
 
-			if ( !self._loadData(args) ) {
+			if ( !self._loadData( args ) ) {
 				return;
 			}
 
@@ -412,19 +419,19 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 			self._fragment = document.createDocumentFragment();
 
 			// read defined properties(width and height) from dom element.
-			self._inheritedSize = self._getinheritedSize(self.element);
+			self._inheritedSize = self._getinheritedSize( self.element );
 
 			// set a scroll direction.
 			self._direction = opts.direction === 'x' ? true : false;
 
 			// make view layer
-			self._$clip = $(self.element).addClass("ui-scrollview-clip").addClass("ui-virtualgrid-view");
-			$item = $(document.createElement("div")).addClass("ui-scrollview-view");
+			self._$clip = $( self.element ).addClass( "ui-scrollview-clip" ).addClass( "ui-virtualgrid-view" );
+			$item = $( document.createElement( "div" ) ).addClass( "ui-scrollview-view" );
 			self._clipSize =  self._calculateClipSize();
-			self._$clip.append($item);
+			self._$clip.append( $item );
 			self._$view = $item;
-			self._$clip.css("overflow", "hidden");
-			self._$view.css("overflow", "hidden");
+			self._$clip.css( "overflow", "hidden" );
+			self._$view.css( "overflow", "hidden" );
 
 			// inherit from scrollview widget.
 			self._scrollView = $.tizen.scrollview.prototype;
@@ -432,19 +439,20 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 
 			// create tracker.
 			self._createTracker();
-			self._makePositioned(self._$clip);
+			self._makePositioned( self._$clip );
 			self._timerInterval = 1000 / self.options.fps;
 
 			self._timerID = 0;
 			self._timerCB = function () {
 				self._handleMomentumScroll();
 			};
-			$dom.closest(".ui-content").addClass("ui-virtualgrid-content").css("overflow", "hidden");
+			$dom.closest( ".ui-content" ).addClass( "ui-virtualgrid-content" ).css( "overflow", "hidden" );
 
 			// add event handler.
 			self._addBehaviors();
 
 			self._currentItemCount = 0;
+			self._createOverflowArea();
 			self._createScrollBar();
 			self.refresh();
 		},
@@ -502,7 +510,7 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 
 			if ( self._direction ) {
 				width = self._cellSize * ( self._rowsPerView + 2 );
-				width = parseInt(width, 10) + 1;
+				width = parseInt( width, 10 ) + 1;
 				self._$view.width( width );
 				self._viewSize = self._$view.width();
 			} else {
@@ -712,6 +720,42 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 		},
 
 		//----------------------------------------------------//
+		//		Overflow effect
+		//----------------------------------------------------//
+		_createOverflowArea : function () {
+			var self = this,
+				prefix = "<div class=\"ui-virtualgrid-overflow-indicator-",
+				suffixTop = "-top\"></div>",
+				suffixBottom = "-bottom\"></div>";
+
+			if ( self.options.rotation ) {
+				return;
+			}
+
+			if ( self._direction ) {
+				self._overflowTop = $( prefix + "x" + suffixTop );
+				self._overflowBottom = $( prefix + "x" + suffixBottom );
+			} else {
+				self._overflowTop = $( prefix + "y" + suffixTop );
+				self._overflowBottom = $( prefix + "y" + suffixBottom );
+			}
+
+			self._$clip.append( self._overflowTop );
+			self._$clip.append( self._overflowBottom );
+			self._overflowDisplayed = false;
+		},
+
+		_hideVGOverflowIndicator : function () {
+			if ( this._overflowDisplayed === false ) {
+				return;
+			}
+
+			this._overflowTop.animate( { opacity: 0 }, 300 );
+			this._overflowBottom.animate( { opacity: 0 }, 300 );
+			this._overflowDisplayed = false;
+		},
+
+		//----------------------------------------------------//
 		//		Scrollbar		//
 		//----------------------------------------------------//
 		_createScrollBar : function () {
@@ -837,7 +881,7 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 			}
 
 			for ( i = 0; i < self._$rows.length; i++ ) {
-				if ( $( self._$rows[i]).hasClass( selector ) ) {
+				if ( $( self._$rows[i] ).hasClass( selector ) ) {
 					if ( self._direction ) {
 						newX = -( i * self._cellSize - self._clipSize / 2 + self._cellSize * 2 );
 					} else {
@@ -883,7 +927,13 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 				$row = null;
 
 			if ( self._blockScroll ) {
-				return ;
+				if ( dy > 0 && distance >= -self._cellSize && self._scalableSize >= -self._cellSize ) {
+					self._overflowDir = _OVERFLOW_DIR_UP;
+				}
+				if ( (dy < 0 && self._scalableSize <= -(self._maxSize + self._cellSize) )) {
+					self._overflowDir = _OVERFLOW_DIR_DOWN;
+				}
+				return;
 			}
 
 			if ( ! self.options.rotation ) {
@@ -892,13 +942,19 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 					self._stopMScroll();
 					self._scalableSize = -self._cellSize;
 					self._setElementTransform( -self._cellSize );
+					if ( self._overflowDir === _OVERFLOW_DIR_NONE ) {
+						self._overflowDir = _OVERFLOW_DIR_UP;
+					}
 					return;
 				}
-				if ( (dy < 0 && self._scalableSize <= -(self._maxSizeExceptClip + self._cellSize) )) {
+				if ( ( dy < 0 && self._scalableSize <= -( self._maxSize + self._cellSize ) ) ) {
 					// bottom
 					self._stopMScroll();
 					self._scalableSize = -(self._maxSizeExceptClip + self._cellSize);
 					self._setElementTransform( self._modifyViewPos );
+					if ( self._overflowDir === _OVERFLOW_DIR_NONE ) {
+						self._overflowDir = _OVERFLOW_DIR_DOWN;
+					}
 					return;
 				}
 			}
@@ -986,7 +1042,7 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 			} else {
 				self._sy = self._reservedPos;
 			}
-			self._scrollView._startMScroll.apply( self, [speedX, speedY] );
+			self._scrollView._startMScroll.apply( self, [ speedX, speedY ] );
 		},
 
 		_stopMScroll: function () {
@@ -1019,7 +1075,12 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 				dx = ex - self._lastX,
 				dy = ey - self._lastY,
 				x = 0,
-				y = 0;
+				y = 0,
+				diffFromStartPos = 0,
+				diffFromLastPos = 0,
+				opacity = 0,
+				overflowPos = 0,
+				overFlowTarget = null;
 
 			self._lastMove = getCurrentTime();
 			self._speedX = dx;
@@ -1033,12 +1094,27 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 			if ( self._direction ) {
 				self._movePos = ex - self._eventPos;
 				x = self._nextPos + self._movePos;
+				overflowPos = ex;
 			} else {
 				self._movePos = ey - self._eventPos;
 				y = self._nextPos + self._movePos;
+				overflowPos = ey;
 			}
 			self._showScrollBars();
 			self._setScrollPosition( x, y );
+			if ( self._overflowDir !== _OVERFLOW_DIR_NONE ) {
+				overFlowTarget = ( self._overflowDir === _OVERFLOW_DIR_UP ) ? self._overflowTop : self._overflowBottom;
+				if ( !self._overflowDisplayed ) {
+					self._overflowDisplayed = true;
+					self._overflowStartPos = overflowPos;
+				}
+				diffFromStartPos = ( overflowPos - self._overflowStartPos ) * self._overflowDir;
+				opacity = ( diffFromStartPos < 0 ) ?
+							0 : ( diffFromStartPos > self._overflowMaxDragDist ) ?
+								1 : ( diffFromStartPos / self._overflowMaxDragDist );
+				overFlowTarget.css( "opacity", opacity );
+			}
+
 			return false;
 		},
 
@@ -1047,6 +1123,10 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 
 			self._reservedPos = self._movePos ? self._nextPos + self._movePos : self._reservedPos;
 			self._scrollView._handleDragStop.apply( this, [ e ] );
+			if ( self._overflowDir !== _OVERFLOW_DIR_NONE ) {
+				self._overflowDir = _OVERFLOW_DIR_NONE;
+				self._hideVGOverflowIndicator();
+			}
 			return self._didDrag ? false : undefined;
 		},
 
@@ -1070,7 +1150,7 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 					return self._handleDragStop( e, e.clientX, e.clientY );
 				};
 
-				self._$view.bind( "vclick", function (e) {
+				self._$view.bind( "vclick", function ( e ) {
 					return !self._didDrag;
 				} );
 			} else { //touch
@@ -1101,23 +1181,23 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 
 			$( window ).bind( "resize", function ( e ) {
 				var height = 0,
-					$virtualgrid = $(".ui-virtualgrid-view");
+					$virtualgrid = $( ".ui-virtualgrid-view" );
 				if ( $virtualgrid.length !== 0 ) {
 					if ( self._direction ) {
 						height = self._calculateClipHeight();
-						self._$view.height(height);
-						self._$clip.height(height);
+						self._$view.height( height );
+						self._$clip.height( height );
 					} else {
 						height = self._calculateClipWidth();
-						self._$view.width(height);
-						self._$clip.width(height);
+						self._$view.width( height );
+						self._$clip.width( height );
 					}
-					self.resize( );
+					self.resize();
 				}
 			} );
 
 			$( document ).one( "pageshow", function ( event ) {
-				var $page = $(self.element).parents(".ui-page"),
+				var $page = $( self.element ).parents( ".ui-page" ),
 					$header = $page.find( ":jqmData(role='header')" ),
 					$footer = $page.find( ":jqmData(role='footer')" ),
 					$content = $page.find( ":jqmData(role='content')" ),
@@ -1125,7 +1205,7 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 					headerHeight = $header ? $header.height() : 0;
 
 				if ( $page && $content ) {
-					$content.height( window.innerHeight - headerHeight - footerHeight).css( "overflow", "hidden" );
+					$content.height( window.innerHeight - headerHeight - footerHeight ).css( "overflow", "hidden" );
 					$content.addClass( "ui-virtualgrid-content" );
 				}
 			} );
@@ -1259,7 +1339,7 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 				contents = matrix.substr( 7 );
 				contents = contents.substr( 0, contents.length - 1 );
 				contents = contents.split( ', ' );
-				result =  Math.abs(contents [5]);
+				result =  Math.abs( contents [5] );
 			}
 			return result;
 		},
@@ -1319,7 +1399,7 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 			itemData = self._itemData( dataIndex );
 			if ( itemData ) {
 				htmlData = self._tmpl( itemData );
-				htmlData.css(attrName, ( colIndex * self._cellOtherSize ) ).addClass( "virtualgrid-item" );
+				htmlData.css( attrName, ( colIndex * self._cellOtherSize ) ).addClass( "virtualgrid-item" );
 			}
 			return htmlData;
 		},
@@ -1377,7 +1457,7 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 				targetCnt += 1;
 			}
 
-			prevRowIndex = parseInt( $( $rows[targetCnt]).attr("row-index"), 10 );
+			prevRowIndex = parseInt( $( $rows[targetCnt] ).attr( "row-index" ), 10 );
 			if ( prevRowIndex === 0 ) {
 				// only top.
 				rowIndex = maxCnt - targetCnt;
@@ -1510,8 +1590,4 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 	$( document ).bind( "pagecreate create", function ( e ) {
 		$( ":jqmData(role='virtualgrid')" ).virtualgrid();
 	} );
-} (jQuery, window, document) );
-
-//>>excludeStart("jqmBuildExclude", pragmas.jqmBuildExclude);
-} );
-//>>excludeEnd("jqmBuildExclude");
+} ( jQuery, window, document ) );
