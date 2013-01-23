@@ -32,9 +32,7 @@ CSS_SRCS=	../common/jquery.mobile.theme.less.css \
 		../common/jquery.mobile.tizen.slider.less.css \
 		../common/jquery.mobile.tizen.gallery.less.css \
 		../common/jquery.mobile.tizen.notification.less.css \
-		../common/jquery.mobile.tizen.pagecontrol.less.css \
 		../common/jquery.mobile.tizen.swipe.less.css \
-		../common/jquery.mobile.tizen.nocontents.less.css \
 		../common/jquery.mobile.tizen.fastscroll.less.css \
 		../common/jquery.mobile.tizen.dayselector.less.css \
 		../common/jquery.mobile.tizen.toggleswitch.less.css \
@@ -63,21 +61,21 @@ less: prepare
 		done;
 
 css: prepare less
-	# Creating tizen-gray theme...
+	# Creating tizen-white theme...
 	@rm -f $(CSS_OUTPUT)
 	@for src in $(CSS_SRCS); do \
 		cat $$src >> $(CSS_OUTPUT) ; \
 		done
 
 images: prepare
-	# Copying tizen-gray theme images...
+	# Copying tizen-white theme images...
 	@cp -a images/ ${OUTPUT_DIR}/
 
 js: prepare
 	@cp -a theme.js ${OUTPUT_DIR}
 
 clean:
-	# Cleaning tizen-gray theme...
+	# Cleaning tizen-white theme...
 	-rm -rf $(OUTPUT_DIR)
 	-rm -f *.less.css
 
