@@ -218,7 +218,7 @@
 				return false;
 			} );
 
-			this.element.bind( "vclick", function( e ) {
+			this.element.bind( "vclick", function ( e ) {
 				if ( $( e.target ).is("ui-btn-ctxpopup-close") ) {
 					self.close();
 				}
@@ -351,7 +351,7 @@
 
 			this._ui.screen.css( "height", $( window ).height() );
 
-			if( backgroundclose ) {
+			if ( backgroundclose ) {
 				this._ui.screen.css( "opacity", 0 )
 						.removeClass("ui-screen-hidden");
 			} else {
