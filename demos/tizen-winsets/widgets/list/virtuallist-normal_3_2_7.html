@@ -4,14 +4,29 @@
 	<div data-role="header" data-position="fixed">
 		<h1>Virtual List - Normal Style 2line-star1</h1>
 	</div>
+	<style type="text/css">
+	#virtuallist-normal_2line-star1_ul > li .ui-li-text-main {
+		max-width:95%;
+		display:inline-block;
+		overflow:hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+	#virtuallist-normal_2line-star1_ul > li .ui-li-text-sub2 {
+		max-width:60%;
+		width: auto;
+		margin-right:1em;
+		top: 1.59rem;
+	}
+	</style>
 	<div data-role="content">
 		<script id="tmp-2line-star1" type="text/x-jquery-tmpl">
 			<li class="ui-li-has-multiline">
-				${NAME}
+				<span class="ui-li-text-main">${NAME}</span>
 				<span class="ui-li-text-sub">${ACTIVE}
 					<img src="00_winset_icon_favorite_on.png" class="ui-li-icon-sub">
 				</span>
-				<span class="ui-li-text-sub2" style="margin-right:1em;">${FROM}</span>
+				<span class="ui-li-text-sub2">${FROM}</span>
 			</li>
 
 			</script>
