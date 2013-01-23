@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.11
+Version:    0.2.12
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -83,6 +83,28 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Wed Jan 23 2013 Minkyu Kang <mk7.kang@samsung.com> 0.2.12
+	- theme : button icon - scrolltop, scrolleft icon changed.
+	- build: cleanaup Makefile
+	- pagelayout: fix jslint error
+	- virtualgrid: Fix jslint errors
+	- tabbar : jslint bug error fix
+	- build: add regexp option to jslint
+	- virtuallist: fix jslint errors
+	- handler: Apply the exceptional principle for scrollbar on Handler.
+	- build: remove unused copyright
+	- loader: extract log class for tizen web, and fix jslint errors
+	- loader: Viewport width is set to document width
+	- popupwindow: fix jslint error
+	- build: fix Makefile for tizen-white theme
+	- build: remove unused libraries
+	- datetimepicker: fix jslint error
+	- slider: fix jslint error
+	- demo: remove deprecated demos
+	- pagelayout : change to call relayout with this page
+	- Tokentextarea: Block size error fixed.
+	- handler: bug fix (handler activation)
+
 * Tue Jan 22 2013 Minkyu Kang <mk7.kang@samsung.com> 0.2.11
 	- demo: clear input text value with cancel button click
 	- demo: Adjust textarea height automatically
