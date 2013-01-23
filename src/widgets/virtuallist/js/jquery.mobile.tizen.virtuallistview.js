@@ -193,7 +193,8 @@
 		_reposition: function ( event ) {
 			var o,
 				t = this,
-				padding;
+				padding,
+				margin;
 
 			if ( event.data ) {
 				o = event.data;
@@ -211,7 +212,8 @@
 				t._container_w = $( o.id ).innerWidth();
 
 				// get sum of container's left/right padding
-				padding = parseInt( $( o.id + o.childSelector ).css( "padding-left" ), 10 ) + parseInt( $( o.id + o.childSelector ).css( "padding-right" ), 10 );
+				padding = parseInt( $( o.id + o.childSelector ).css( "padding-left" ), 10 )
+					+ parseInt( $( o.id + o.childSelector ).css( "padding-right" ), 10 );
 
 				// Add CSS to all <li> elements
 				//	* absolute position
@@ -228,8 +230,11 @@
 
 			// Set absolute top/left position of each <li>
 			$( o.id + ">" + o.childSelector ).each( function ( index ) {
+				margin = parseInt( $( this ).css( "margin-left" ), 10 )
+					+ parseInt( $( this ).css( "margin-right" ), 10 );
+
 				$( this ).css( "top", t._title_h + t._line_h * index + 'px' )
-					.css( "width", t._container_w - padding );
+					.css( "width", t._container_w - padding - margin );
 			} );
 
 			// Set Max Listview Height
@@ -239,7 +244,8 @@
 		_resize: function ( event ) {
 			var o,
 				t = this,
-				padding;
+				padding,
+				margin;
 
 			if ( event.data ) {
 				o = event.data;
@@ -249,10 +255,13 @@
 
 			t._container_w = $( o.id ).innerWidth();
 
-			padding = parseInt( $( o.id + o.childSelector ).css( "padding-left" ), 10 ) + parseInt( $( o.id + o.childSelector ).css( "padding-right" ), 10 );
+			padding = parseInt( $( o.id + o.childSelector ).css( "padding-left" ), 10 )
+				+ parseInt( $( o.id + o.childSelector ).css( "padding-right" ), 10 );
 
 			$( o.id + o.childSelector ).each( function (index) {
-				$( this ).css( "width", t._container_w - padding );
+				margin = parseInt( $( this ).css( "margin-left" ), 10 )
+					+ parseInt( $( this ).css( "margin-right" ), 10 );
+				$( this ).css( "width", t._container_w - padding - margin );
 			} );
 		},
 
