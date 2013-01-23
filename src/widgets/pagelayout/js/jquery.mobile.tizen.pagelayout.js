@@ -150,11 +150,11 @@
 		/* Set default page positon
 		* 1. add title style to header
 		* 2. Set default header/footer position */
-		setHeaderFooter: function ( event ) {
-			var $elPage = $( event.target ),
+		setHeaderFooter: function ( thisPage ) {
+			var $elPage = $( thisPage ),
 				$elHeader = $elPage.find( ":jqmData(role='header')" ).length ? $elPage.find( ":jqmData(role='header')") : $elPage.siblings( ":jqmData(role='header')"),
 				$elContent = $elPage.find( ".ui-content" ),
-				$elFooter = $( document ).find( ":jqmData(role='footer')" ),
+				$elFooter = $elPage.find( ":jqmData(role='footer')" ),
 				$elFooterGroup = $elFooter.find( ":jqmData(role='fieldcontain')" );
 
 			// divide content mode scrollview and non-scrollview
@@ -189,35 +189,36 @@
 			// This method is meant to disable zoom while a fixed-positioned toolbar page is visible
 			$el.closest( ".ui-page" )
 				.bind( "pagebeforeshow", function ( event ) {
+					var thisPage = this;
 					if ( o.disablePageZoom ) {
 						$.mobile.zoom.disable( true );
 					}
 					if ( !o.visibleOnPageShow ) {
 						self.hide( true );
 					}
-					self.setHeaderFooter( event );
-					self._setContentMinHeight( event );
+					self.setHeaderFooter( thisPage );
+					self._setContentMinHeight( thisPage );
 				} )
 				.bind( "webkitAnimationStart animationstart updatelayout", function ( e, data ) {
 					var thisPage = this;
 					if ( o.updatePagePadding ) {
 						self.updatePagePadding(thisPage);
-						self.updatePageLayout(data);
+						self.updatePageLayout( false, thisPage);
 					}
 				})
 
 				.bind( "pageshow", function ( event ) {
 					var thisPage = this;
-					self._setContentMinHeight( event );
-					self.updatePagePadding(thisPage);
-					self._updateHeaderArea();
+					self._setContentMinHeight( thisPage );
+					self.updatePagePadding( thisPage );
+					self._updateHeaderArea( thisPage );
 					if ( o.updatePagePadding ) {
 						$( window ).bind( "throttledresize." + self.widgetName, function () {
 							self.updatePagePadding(thisPage);
 
-							self.updatePageLayout();
-							self._updateHeaderArea();
-							self._setContentMinHeight( event );
+							self.updatePageLayout( false, thisPage);
+							self._updateHeaderArea( thisPage );
+							self._setContentMinHeight( thisPage );
 						});
 					}
 				})
@@ -259,7 +260,7 @@
 					$elCurrentFooter.show();
 				}
 				self.updatePagePadding( thisPage );
-				self.updatePageLayout( true );
+				self.updatePageLayout( true, thisPage );
 			});
 		},
 
@@ -274,8 +275,8 @@
 				});
 		},
 
-		_setContentMinHeight : function ( event ) {
-			var $elPage = $( event.target ),
+		_setContentMinHeight : function ( thisPage ) {
+			var $elPage = $( thisPage ),
 				$elHeader = $elPage.find( ":jqmData(role='header')" ),
 				$elFooter = $elPage.find( ":jqmData(role='footer')" ),
 				$elContent = $elPage.find( ":jqmData(role='content')" ),
@@ -286,8 +287,8 @@
 			$elContent.css( "min-height", resultMinHeight - parseFloat( $elContent.css("padding-top") ) - parseFloat( $elContent.css("padding-bottom") ) + "px" );
 		},
 
-		_updateHeaderArea : function () {
-			var $elPage = $( ".ui-page-active" ),
+		_updateHeaderArea : function ( thisPage ) {
+			var $elPage = $( thisPage ),
 				$elHeader = $elPage.find( ":jqmData(role='header')" ).length ? $elPage.find( ":jqmData(role='header')") : $elPage.siblings( ":jqmData(role='header')"),
 				headerBtnNum = $elHeader.children("a").length,
 				headerSrcNum = $elHeader.children("img").length;
@@ -318,9 +319,9 @@
 		},
 
 		/* 1. Calculate and update content height   */
-		updatePageLayout: function ( receiveType ) {
+		updatePageLayout: function ( receiveType, thisPage ) {
 			var $elFooter,
-				$elPage = $( document ).find( ".ui-page-active" ),
+				$elPage = $( thisPage ),
 				$elHeader = $elPage.find( ":jqmData(role='header')" ),
 				$elContent = $elPage.find( ":jqmData(role='content')" ),
 				resultContentHeight = 0,
@@ -328,7 +329,7 @@
 				resultHeaderHeight = 0;
 
 			if ( $elPage.length ) {
-				$elFooter = $( document ).find( ".ui-page-active" ).find( ":jqmData(role='footer')" );
+				$elFooter = $elPage.find( ":jqmData(role='footer')" );
 			} else {
 				$elFooter = $( document ).find( ":jqmData(role='footer')" ).eq( 0 );
 			}
