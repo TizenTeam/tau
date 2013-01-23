@@ -153,14 +153,16 @@
 					$elFooterMore = tabbar_filter.siblings( ":jqmData(icon='naviframe-more')" ),
 					$elFooterBack = tabbar_filter.siblings( ".ui-btn-back" );
 
-					footer_filter
-						.css( "position", "fixed" )
-						.css( "bottom", 0 )
-						.css( "height", tabbar_filter.height() );
-					if ( $elFooterMore.length )
-						tabbar_filter.addClass( "ui-tabbar-margin-more" );
-					if ( $elFooterBack.length )
-						tabbar_filter.addClass( "ui-tabbar-margin-back" );
+				footer_filter
+					.css( "position", "fixed" )
+					.css( "bottom", 0 )
+					.css( "height", tabbar_filter.height() );
+				if ( $elFooterMore.length ) {
+					tabbar_filter.addClass( "ui-tabbar-margin-more" );
+				}
+				if ( $elFooterBack.length ) {
+					tabbar_filter.addClass( "ui-tabbar-margin-back" );
+				}
 
 				isScrollingStart = false;
 			});
@@ -191,7 +193,6 @@
 
 					if ( $tabbarScrollview.length && isScrollingStart == isScrollingEnd && minElementIndex != -1) {
 						isScrollingStart = false;
-						isScrolling = false;
 						$tabbarScrollview.scrollview( "scrollTo", -( window.innerWidth / $( e.target ).find( ".ui-tabbar" ).data( "defaultList" ) * minElementIndex ) , 0, 357);
 					}
 				}
@@ -203,10 +204,16 @@
 			$tabbar.bind( "touchstart vmousedown", function ( e ) {
 				var $tabbarScroll = $( e.target ).parents( ".ui-scrollview-view" );
 				if ( $tabbarScroll.offset() ) {
-					$tabbarScroll.offset().left < 0 ? 
-						$( ".ui-tabbar-divider-left" ).show() : $( ".ui-tabbar-divider-left" ).hide();
-					( $tabbarScroll.width() - $tabbarScroll.parents( ".ui-scrollview-clip" ).width() ) ==  Math.abs( $tabbarScroll.offset().left ) ? 
-						$( ".ui-tabbar-divider-right" ).hide() : $( ".ui-tabbar-divider-right" ).show();
+					if ( $tabbarScroll.offset().left < 0 ) {
+						$( ".ui-tabbar-divider-left" ).show();
+					} else {
+						$( ".ui-tabbar-divider-left" ).hide();
+					}
+					if ( ( $tabbarScroll.width() - $tabbarScroll.parents( ".ui-scrollview-clip" ).width() ) ==  Math.abs( $tabbarScroll.offset().left ) ) {
+						$( ".ui-tabbar-divider-right" ).hide();
+					} else {
+						$( ".ui-tabbar-divider-right" ).show();
+					}
 				}
 			});
 
