@@ -99,6 +99,7 @@
 				isHorizontal = ( scrollview.options.direction === "x" ),
 				_$view = scrollview._$view,
 				_$clip = scrollview._$clip,
+				scrollbar = $view.find( ".ui-scrollbar" ),
 				handler = null,
 				handlerThumb = null,
 				viewLength = 0,
@@ -131,8 +132,7 @@
 				return;
 			}
 
-			$view.addClass( " ui-handler-" + theme ).append( [ prefix, direction, suffix ].join( "" ) );
-			handler = $view.find( ".ui-handler" );
+			handler = $( [ prefix, direction, suffix ].join( "" ) ).appendTo( $view.addClass( " ui-handler-" + theme ) );
 			handlerThumb = $view.find( ".ui-handler-thumb" ).hide();
 			handlerHeight = ( isHorizontal ? handlerThumb.width() : handlerThumb.height() );
 			handlerMargin = ( isHorizontal ? parseInt( handler.css( "right" ), 10 ) : parseInt( handler.css( "bottom" ), 10 ) );
@@ -207,15 +207,23 @@
 				if ( !scrollview.enableHandler() ) {
 					return;
 				}
+
 				calculateLength();
+
+				if ( viewLength < 0 || clipLength < handlerHeight ) {
+					if ( scrollbar.is( ":hidden" ) ) {
+						scrollbar.show();
+					}
+					return;
+				}
+
+				if ( scrollbar.is( ":visible" ) ) {
+					scrollbar.hide();
+				}
 
 				if ( moveTimer ) {
 					clearInterval( moveTimer );
 					moveTimer = undefined;
-				}
-
-				if ( viewLength < 0 || clipLength < handlerHeight ) {
-					return;
 				}
 
 				handlerThumb.addClass( "ui-handler-visible" )
@@ -228,7 +236,7 @@
 
 				setHanderPostion( scrollview.getScrollPosition() );
 			}).bind( "scrollstop", function ( event ) {
-				if ( !scrollview.enableHandler() || viewLength < 0 ) {
+				if ( !scrollview.enableHandler() || viewLength < 0 || clipLength < handlerHeight ) {
 					return;
 				}
 
