@@ -188,8 +188,8 @@
 		//
 		// this: virtuallist element
 		// event: virtuallistview.options
-		// 		TODO: Why this arg name is 'event'? Not resonable.
-		// 		(this function is not called with event element as args!)
+		//		TODO: Why this arg name is 'event'? Not resonable.
+		//		(this function is not called with event element as args!)
 		_reposition: function ( event ) {
 			var o,
 				t = this,
@@ -214,9 +214,9 @@
 				padding = parseInt( $( o.id + o.childSelector ).css( "padding-left" ), 10 ) + parseInt( $( o.id + o.childSelector ).css( "padding-right" ), 10 );
 
 				// Add CSS to all <li> elements
-				// 	* absolute position
-				// 	* btn-up
-				// 	* mouse up/down/over/out styles
+				//	* absolute position
+				//	* btn-up
+				//	* mouse up/down/over/out styles
 				$( o.id + ">" + o.childSelector )
 					.addClass( "position_absolute" )
 					.addClass( "ui-btn-up-s" )
@@ -262,9 +262,11 @@
 				o = t.options,	// options
 				prevTopBufLen = t._num_top_items,	// Previous(remembered) top buf length
 				timerInterval = 100,
-				i;
+				i,
+				_scrollView,
+				_normalScroll;
 
-			var _scrollView = {
+			_scrollView = {
 				viewTop: function ( ) {
 					var sv = $( o.id ).parentsUntil( ".ui-page" ).find( ".ui-scrollview-view" ),
 						svTrans = sv.css( "-webkit-transform" ),
@@ -272,10 +274,10 @@
 					if ( svTrans ) {
 						svTransVal = svTrans.replace( /matrix\s*\((.*)\)/, "$1" );	// matrix(a,c,b,d,tx,ty)
 					}
-					return - parseInt( svTransVal.split(',')[5] );
+					return - parseInt( svTransVal.split(',')[5], 10 );
 				}
-			},
-				_normalScroll = {
+			};
+			_normalScroll = {
 				viewTop: function ( ) {
 					return $( window ).scrollTop( );	// TODO: - _line_h?
 				}
@@ -296,105 +298,27 @@
 			// @param[in]	vl	virtuallist object (JQM object)
 			function timerMove ( vl, undefined ) {
 				var cy,				// current y position
-					cti, cbi,		// current top/bottom idx
-					oti = vl._first_index, obi = vl._last_index,	// old top/botton idx
+					cti,		// current top idx
+					cbi,		// current bottom idx
+					oti = vl._first_index,	// old top idx
+					obi = vl._last_index,	// old botton idx
 					dti,			// delta of top idx
-					fromIdx, toIdx,	// index range to be moved
+					fromIdx,
+					toIdx,	// index range to be moved
 					delta,			// moveItem delta
 					rowLen = vl.options.row,	// max. # of items handled at once
 					bufSize,		// top/bottom buffer size. unit: # of items
 					i;
 
-				// Get current view position
-				cy = viewTop();
-
-				// Calculate bufSize: rowLen / 3
-				// NOTE: Assumption: total row length = visible items * 3 (upper+visible+lower)
-				bufSize = Math.ceil( rowLen / 3 );
-
-				// Calculate current top/bottom index (to be applied)
-				// top index = current position / line height
-				cti = Math.floor( cy / vl._line_h ) - bufSize;	// TODO: consider buffer!
-				cbi = cti + rowLen - 1;
-
-				if ( cti < 0 ) {		// Top boundary check
-					cbi += ( 0 - cti );
-					cti = 0;
-				} else if ( cbi > ( vl._numItemData - 1 ) ) {		// Bottom boundary check
-					cti -= ( cbi - ( vl._numItemData - 1 ) );
-					cbi = ( vl._numItemData - 1 );
-				}
-
-				// Calculate dti
-				dti = cti - oti;
-				log("cy="+cy+", oti="+oti+", obi="+obi+", cti="+cti+", cbi="+cbi+", dti="+dti);
-
-				// switch: dti = 0 --> timer stop condition: delta=0 or scrollstop event comes. END.
-				if ( 0 == dti ) {
-					// Check timer runtime
-					vl.timerStillCount += 1;
-					if ( vl.timerStillCount < 12 ) {	// check count ( TODO: test and adjust )
-						log("dti=0 " + vl.timerStillCount + " times");
-						vl.timerMoveID = setTimeout( timerMove, timerInterval, vl );	// run once more
-						return;
-					}
-
-					log("dti=0 " + vl.timerStillCount + " times. End timer.");
-					vl.timerStillCount = 0;
-					// Stop timer
-					if ( vl.timerMoveID ) {
-						clearTimeout( vl.timerMoveID );
-						vl.timerMoveID = null;
-					}
-					return;	// End timerMove()
-				}
-
-				// switch: dti >= # of max elements --> total replace.
-				else {
-					vl.timerStillCount = 0;		// Reset still counter
-
-					if ( Math.abs( dti ) >= rowLen ) {
-						fromIdx = oti;
-						toIdx = obi;
-						delta = dti;
-						log(">>> WHOLE CHANGE! delta="+delta);
-					}
-
-					// switch: dti < # of max elements --> move t2b or b2t until new top/bottom idx is covered
-					else {
-						if ( dti > 0 ) {
-							fromIdx = oti;
-							toIdx = oti + dti - 1;
-							delta = rowLen;
-						} else {
-							fromIdx = obi + dti + 1;	// dti < 0
-							toIdx = obi;
-							delta = -rowLen;
-						}
-						log(">>> partial change. delta="+delta);
-					}
-
-					// Move items
-					for( i = fromIdx; i <= toIdx; i++ ) {
-						moveItem( vl, i, i + delta );		// Change data and position
-					}
-
-					// Store current top/bottom idx into vl
-					vl._first_index = cti;
-					vl._last_index = cbi;
-
-					// Register timer to check again
-					vl.timerMoveID = setTimeout( timerMove, timerInterval, vl );
-				}
-				return;	// End of function
-
-				// Move itemContents in i2 into i1
+				// subroutine: Move itemContents in i2 into i1
 				function moveItemContents( vl, i1, i2 ) {
 					// TODO: Find a efficient way to replace data!
 					// Assumption: i1 and i2 has same children.
-					var NODETYPE={ ELEMENT_NODE:1, TEXT_NODE:3 },
-						c1, c2,	// child item
+					var NODETYPE = { ELEMENT_NODE: 1, TEXT_NODE: 3 },
+						c1,	// child item 1 (old)
+						c2,	// child item 2 (new)
 						newText,
+						newImg,
 						i;
 
 					$( i1 ).find( ".ui-li-text-main", ".ui-li-text-sub", ".ui-li-text-sub2", "ui-btn-text" ).each( function ( index ) {
@@ -416,13 +340,14 @@
 					$( i1 ).removeData( );	// Clear old data
 				}
 
-				// Move item
+				// subroutine: Move item
 				function moveItem( vl, fromIdx, toIdx ) {
-					var itemData,
-						item, newItem,
-						tmpl;
+					var itemData,	// data from itemData()
+						item,		// item element
+						newItem,	// new item element
+						tmpl;		// template
 
-					log(">> move item: "+fromIdx + " --> "+toIdx);
+					log( ">> move item: " + fromIdx + " --> " + toIdx );
 
 					// Find current item
 					item = $( '#' + vl.options.itemIDPrefix + fromIdx );	// TODO: refactor ID generation!
@@ -452,6 +377,85 @@
 
 					return true;
 				}
+
+
+				// Get current view position
+				cy = viewTop();
+
+				// Calculate bufSize: rowLen / 3
+				// NOTE: Assumption: total row length = visible items * 3 (upper+visible+lower)
+				bufSize = Math.ceil( rowLen / 3 );
+
+				// Calculate current top/bottom index (to be applied)
+				// top index = current position / line height
+				cti = Math.floor( cy / vl._line_h ) - bufSize;	// TODO: consider buffer!
+				cbi = cti + rowLen - 1;
+
+				if ( cti < 0 ) {		// Top boundary check
+					cbi += ( - cti );
+					cti = 0;
+				} else if ( cbi > ( vl._numItemData - 1 ) ) {		// Bottom boundary check
+					cti -= ( cbi - ( vl._numItemData - 1 ) );
+					cbi = ( vl._numItemData - 1 );
+				}
+
+				// Calculate dti
+				dti = cti - oti;
+				log( "cy=" + cy + ", oti=" + oti + ", obi=" + obi + ", cti=" + cti + ", cbi=" + cbi + ", dti=" + dti );
+
+				// switch: dti = 0 --> timer stop condition: delta=0 or scrollstop event comes. END.
+				if ( 0 == dti ) {
+					// Check timer runtime
+					vl.timerStillCount += 1;
+					if ( vl.timerStillCount < 12 ) {	// check count ( TODO: test and adjust )
+						log("dti=0 " + vl.timerStillCount + " times");
+						vl.timerMoveID = setTimeout( timerMove, timerInterval, vl );	// run once more
+						return;
+					}
+
+					log("dti=0 " + vl.timerStillCount + " times. End timer.");
+					vl.timerStillCount = 0;
+					// Stop timer
+					if ( vl.timerMoveID ) {
+						clearTimeout( vl.timerMoveID );
+						vl.timerMoveID = null;
+					}
+				} else {
+					// switch: dti >= # of max elements --> total replace.
+					vl.timerStillCount = 0;		// Reset still counter
+
+					if ( Math.abs( dti ) >= rowLen ) {
+						fromIdx = oti;
+						toIdx = obi;
+						delta = dti;
+						log( ">>> WHOLE CHANGE! delta=" + delta );
+					} else {
+						// switch: dti < # of max elements --> move t2b or b2t until new top/bottom idx is covered
+						if ( dti > 0 ) {
+							fromIdx = oti;
+							toIdx = oti + dti - 1;
+							delta = rowLen;
+						} else {
+							fromIdx = obi + dti + 1;	// dti < 0
+							toIdx = obi;
+							delta = -rowLen;
+						}
+						log( ">>> partial change. delta=" + delta );
+					}
+
+					// Move items
+					for ( i = fromIdx; i <= toIdx; i++ ) {
+						moveItem( vl, i, i + delta );		// Change data and position
+					}
+
+					// Store current top/bottom idx into vl
+					vl._first_index = cti;
+					vl._last_index = cbi;
+
+					// Register timer to check again
+					vl.timerMoveID = setTimeout( timerMove, timerInterval, vl );
+				}
+				return;	// End of function
 			}
 
 			// ==== function start ====
@@ -517,7 +521,7 @@
 			$( window ).bind( "resize.virtuallist", t._resize );
 
 			// when ul is a childselector, assume that this is also a swipelist,
-			// 	and run swipelist constructor
+			// and run swipelist constructor
 			if ( o.childSelector == " ul" ) {
 				$( o.id + " ul" ).swipelist();
 			}
