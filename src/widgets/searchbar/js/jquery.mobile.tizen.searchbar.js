@@ -102,8 +102,6 @@
 
 			$( "label[for='" + input.attr( "id" ) + "']" ).addClass( "ui-input-text" );
 
-//			focusedEl = input.addClass( "ui-input-text ui-body-" + theme );
-
 			if ( typeof input[0].autocorrect !== "undefined" && !$.support.touchOverflow ) {
 				// Set the attribute instead of the property just in case there
 				// is code that attempts to make modifications via HTML.
@@ -141,6 +139,45 @@
 					corners: true,
 					shadow: true
 				});
+
+			function toggleClear() {
+				setTimeout(function () {
+					clearbtn.toggleClass( "ui-input-clear-hidden", !input.val() );
+				}, 0);
+			}
+
+			function showCancel() {
+				focusedEl
+					.addClass( "ui-input-search-default" )
+					.removeClass( "ui-input-search-wide" );
+				cancelbtn
+					.addClass( "ui-btn-cancel-show" )
+					.removeClass( "ui-btn-cancel-hide" );
+			}
+
+			function hideCancel() {
+				focusedEl
+					.addClass( "ui-input-search-wide" )
+					.removeClass( "ui-input-search-default" );
+				cancelbtn
+					.addClass( "ui-btn-cancel-hide" )
+					.removeClass( "ui-btn-cancel-show" );
+				toggleClear();
+			}
+
+			function makeFrontIcon() {
+				var IconStyle = $( input ).jqmData( "icon" ),
+					frontIcon = $( "<div data-role='button' data-style='circle'></div>" );
+
+				frontIcon
+					.appendTo( focusedEl.parent() )
+					.buttonMarkup( {
+						icon: IconStyle,
+						corners: true,
+						shadow: true
+					} );
+				frontIcon.addClass( "ui-btn-search-front-icon" );
+			}
 
 			toggleClear();
 
@@ -238,45 +275,6 @@
 			if ( !input.attr("placeholder") ) {
 				input.attr( "placeholder", "Search" );
 			}
-
-			function toggleClear() {
-				setTimeout(function () {
-					clearbtn.toggleClass( "ui-input-clear-hidden", !input.val() );
-				}, 0);
-			}
-
-			function showCancel() {
-				focusedEl
-					.addClass( "ui-input-search-default" )
-					.removeClass( "ui-input-search-wide" );
-					cancelbtn
-						.addClass( "ui-btn-cancel-show" )
-						.removeClass( "ui-btn-cancel-hide" );
-			}
-
-			function hideCancel() {
-				focusedEl
-					.addClass( "ui-input-search-wide" )
-					.removeClass( "ui-input-search-default" );
-					cancelbtn
-						.addClass( "ui-btn-cancel-hide" )
-						.removeClass( "ui-btn-cancel-show" );
-				toggleClear();
-			}
-
-			function makeFrontIcon() {
-				var IconStyle = $( input ).jqmData( "icon" ),
-					frontIcon = $( "<div data-role='button' data-style='circle'></div>" );
-
-				frontIcon
-					.appendTo( focusedEl.parent() )
-					.buttonMarkup( {
-						icon: IconStyle,
-						corners: true,
-						shadow: true
-					} );
-				frontIcon.addClass( "ui-btn-search-front-icon" );
-			}
 		},
 
 		disable: function () {
@@ -289,7 +287,7 @@
 		enable: function () {
 			this.element.attr( "disabled", false );
 			this.element.parent().removeClass( "ui-disabled" );
-			this.element.parent().parent().find(".ui-input-cancel").removeClass( "ui-disabled" )
+			this.element.parent().parent().find(".ui-input-cancel").removeClass( "ui-disabled" );
 			$( this.element ).focus();
 		}
 	} );
