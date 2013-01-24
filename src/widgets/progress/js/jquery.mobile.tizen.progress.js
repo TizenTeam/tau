@@ -166,22 +166,18 @@
 			}
 
 			if ( style == "circle" ) {
-				_html = '<div class="ui-progress-container-circle">' +
-						'<div class="ui-progress-circle"></div>' +
-					'</div>';
+				$( this.element ).addClass("ui-progress-container-circle");
+
+				_html =	'<div class="ui-progress-circle"></div>';
 			} else if ( style === "pending" ) {
-				_html = '<div class="ui-progressbar">' +
-						'<div class="ui-progressbar-bg">' +
-							'<div class="ui-progress-pending"></div>' +
-						'</div">' +
+				$( this.element ).addClass("ui-progressbar");
+
+				_html = '<div class="ui-progressbar-bg">' +
+						'<div class="ui-progress-pending"></div>' +
 					'</div>';
 			}
 
 			this.html = $( _html );
-
-			if ( style === "pending" ) {
-				this.html.wrap('<div class="ui-progress-bg"></div>');
-			}
 
 			runningClass = "ui-progress-" + style + "-running";
 
