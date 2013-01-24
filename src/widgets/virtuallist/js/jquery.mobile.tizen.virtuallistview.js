@@ -360,21 +360,23 @@
 
 					// Find current item
 					item = $( '#' + vl.options.itemIDPrefix + fromIdx );	// TODO: refactor ID generation!
-					if ( ! item ) {
+					if ( ! item || ! item.length ) {
 						return false;
 					}
 
 					// Get new item
 					tmpl = $( "#" + vl.options.template );
-					newItem = tmpl.tmpl( vl._itemData( toIdx ) );
+					if ( tmpl ) {
+						newItem = tmpl.tmpl( vl._itemData( toIdx ) );
 
-					// TODO: Consider touch block while moving?
+						// TODO: Consider touch block while moving?
 
-					// Move item contents
-					moveItemContents( vl, item, newItem );
+						// Move item contents
+						moveItemContents( vl, item, newItem );
 
-					// clean up temporary item
-					newItem.remove();
+						// clean up temporary item
+						newItem.remove();
+					}
 
 					// Move position, and set id
 					item.css( 'top', toIdx * vl._line_h )
@@ -628,7 +630,7 @@
 				}
 			} else {	// No option is given
 				// Legacy support: dbtable
-				console.log("WARNING: The data interface of virtuallist is changed. \nOld data interface(data-dbtable) is still supported, but will be removed in next version. \nPlease fix your code soon!");
+				console.warn( "WARNING: The data interface of virtuallist is changed. \nOld data interface(data-dbtable) is still supported, but will be removed in next version. \nPlease fix your code soon!" );
 
 				/* After DB Load complete, Init Vritual list */
 				if ( $( o.id ).hasClass( "vlLoadSuccess" ) ) {
@@ -681,6 +683,11 @@
 			$( window ).unbind( "resize.virtuallist" );
 
 			$( o.id ).empty();
+
+			if ( this.timerMoveID ) {
+				clearTimeout( this.timerMoveID );
+				this.timerMoveID = null;
+			}
 		},
 
 		_itemApply: function ( $list, item ) {
