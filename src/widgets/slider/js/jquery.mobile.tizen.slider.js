@@ -309,6 +309,7 @@
 				case 2:
 					font_size = '1.5rem';
 					padding_size = '0.15rem';
+					break;
 				case 3:
 					font_size = '1rem';
 					padding_size = '0.5rem';

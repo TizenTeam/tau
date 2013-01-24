@@ -455,6 +455,10 @@
 					timerate = ( x - durationOffset.left ) / durationWidth,
 					time = duration * timerate;
 
+				if ( !viewElement.played.length ) {
+					return;
+				}
+
 				viewElement.currentTime = time;
 
 				self._endTimer();
@@ -554,35 +558,20 @@
 		_createControl: function () {
 			var self = this,
 				view = self.element,
-				control = $( "<span></span>" ),
-				playpauseButton = $( "<span></span>" ),
-				seekBar = $( "<span></span>" ),
-				timestampLabel = $( "<span><p>00:00:00</p></span>" ),
-				durationLabel = $( "<span><p>00:00:00</p></span>" ),
-				volumeButton = $( "<span></span>" ),
-				volumeControl = $( "<span></span>" ),
-				volumeBar = $( "<div></div>" ),
-				volumeGuide = $( "<span></span>" ),
-				volumeValue = $( "<span></span>" ),
-				volumeHandle = $( "<span></span>" ),
-				fullscreenButton = $( "<span></span>" ),
-				durationBar = $( "<span></span>" ),
-				currenttimeBar = $( "<span></span>" );
-
-			control.addClass( "ui-" + self.role + "-control" );
-			playpauseButton.addClass( "ui-playpausebutton ui-button" );
-			seekBar.addClass( "ui-seekbar" );
-			timestampLabel.addClass( "ui-timestamplabel" );
-			durationLabel.addClass( "ui-durationlabel" );
-			volumeButton.addClass( "ui-volumebutton ui-button" );
-			fullscreenButton.addClass( "ui-fullscreenbutton ui-button" );
-			durationBar.addClass( "ui-duration" );
-			currenttimeBar.addClass( "ui-currenttime" );
-			volumeControl.addClass( "ui-volumecontrol" );
-			volumeBar.addClass( "ui-volumebar" );
-			volumeGuide.addClass( "ui-guide" );
-			volumeValue.addClass( "ui-value" );
-			volumeHandle.addClass( "ui-handler" );
+				control = $( "<span></span>" ).addClass( "ui-" + self.role + "-control" ),
+				playpauseButton = $( "<span></span>" ).addClass( "ui-playpausebutton ui-button" ),
+				seekBar = $( "<span></span>" ).addClass( "ui-seekbar" ),
+				timestampLabel = $( "<span><p>00:00:00</p></span>" ).addClass( "ui-timestamplabel" ),
+				durationLabel = $( "<span><p>00:00:00</p></span>" ).addClass( "ui-durationlabel" ),
+				volumeButton = $( "<span></span>" ).addClass( "ui-volumebutton ui-button" ),
+				volumeControl = $( "<span></span>" ).addClass( "ui-volumecontrol" ),
+				volumeBar = $( "<div></div>" ).addClass( "ui-volumebar" ),
+				volumeGuide = $( "<span></span>" ).addClass( "ui-guide" ),
+				volumeValue = $( "<span></span>" ).addClass( "ui-value" ),
+				volumeHandle = $( "<span></span>" ).addClass( "ui-handler" ),
+				fullscreenButton = $( "<span></span>" ).addClass( "ui-fullscreenbutton ui-button" ),
+				durationBar = $( "<span></span>" ).addClass( "ui-duration" ),
+				currenttimeBar = $( "<span></span>" ).addClass( "ui-currenttime" );
 
 			seekBar.append( durationBar ).append( currenttimeBar ).append( durationLabel ).append( timestampLabel );
 
@@ -770,11 +759,13 @@
 				if ( value ) {
 					currentPage.children( ".ui-header" ).hide();
 					currentPage.children( ".ui-footer" ).hide();
+					currentPage.addClass( "ui-fullscreen-page" );
 					this._fitContentArea( currentPage );
 					fullscreenButton.removeClass( "ui-fullscreen-on" ).addClass( "ui-fullscreen-off" );
 				} else {
 					currentPage.children( ".ui-header" ).show();
 					currentPage.children( ".ui-footer" ).show();
+					currentPage.removeClass( "ui-fullscreen-page" );
 					this._fitContentArea( currentPage );
 					fullscreenButton.removeClass( "ui-fullscreen-off" ).addClass( "ui-fullscreen-on" );
 				}

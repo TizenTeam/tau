@@ -11,7 +11,7 @@ THEME_NAME = default
 PATH := $(CURDIR)/build-tools/bin:$(PATH)
 
 JSLINT_LEVEL = 1
-JSLINT = jslint --sloppy --eqeq --bitwise --forin --nomen --predef jQuery --color --plusplus --browser --jqmspace
+JSLINT = jslint --sloppy --eqeq --bitwise --forin --nomen --predef jQuery --color --plusplus --browser --jqmspace --regexp
 COMMON_WIDGET = common
 INLINE_PROTO = 1
 OUTPUT_ROOT = $(CURDIR)/build
@@ -49,24 +49,9 @@ FW_LIBS_JS = ${JS_OUTPUT_ROOT}/${PROJECT_NAME}-libs.js
 FW_THEME_CSS_FILE = ${PROJECT_NAME}-theme.css
 FW_WIDGET_CSS_FILE = ${WIDGET_CSS_OUTPUT_ROOT}/${PROJECT_NAME}-widget.css
 
-GEO_VERSION = jquery-geo-1.0b2
-
-LIBS_JS_FILES = jlayout/jquery.sizes.js \
-				jlayout/jlayout.border.js \
-				jlayout/jlayout.grid.js \
-				jlayout/jlayout.flexgrid.js \
-				jlayout/jlayout.flow.js \
-				jlayout/jquery.jlayout.js \
-				jquery.easing.1.3.js \
-				jquery.tmpl.js \
-				jquery.mobile.js \
-				${GEO_VERSION}/js/jsrender.js \
-				${GEO_VERSION}/js/jquery.mousewheel.js \
-				${GEO_VERSION}/js/jquery.geo.core.js \
-				${GEO_VERSION}/js/jquery.geo.geographics.js \
-				${GEO_VERSION}/js/jquery.geo.geomap.js \
-				${GEO_VERSION}/js/jquery.geo.tiled.js \
-				${GEO_VERSION}/js/jquery.geo.shingled.js \
+LIBS_JS_FILES = jquery.easing.1.3.js \
+		jquery.tmpl.js \
+		jquery.mobile.js \
                 $(NULL)
 
 JQUERY_MOBILE_CSS = submodules/jquery-mobile/compiled/jquery.mobile.structure.css \
@@ -79,18 +64,6 @@ JQM_LIB_PATH = $(CURDIR)/libs/js/${JQM_VERSION}
 
 JQUERY = jquery-1.8.2.js
 JQUERY_MIN = $(subst .js,.min.js,$(JQUERY))
-
-LIBS_CSS_FILES =
-ifeq (${DEBUG},yes)
-LIBS_CSS_FILES +=\
-    $(CURDIR)/src/jqm/compiled/jquery.mobile-1.0rc2pre.css \
-    $(NULL)
-else
-LIBS_CSS_FILES +=\
-    $(CURDIR)/src/jqm/compiled/jquery.mobile-1.0rc2pre.min.css \
-    $(NULL)
-endif
-
 
 all: libs_prepare third_party widgets libs_cleanup loader themes version version_compat compress
 
@@ -123,14 +96,6 @@ third_party: init jqm
 	    done; \
 	    cp ${LIBS_DIR}/js/${JQUERY} ${JS_OUTPUT_ROOT}/jquery.js
 	    cp ${LIBS_DIR}/js/${JQUERY_MIN} ${JS_OUTPUT_ROOT}/jquery.min.js
-	@@cd ${LIBS_DIR}/css; \
-	    for f in ${LIBS_CSS_FILES}; do \
-	        cat $$f >> ${FW_CSS}; \
-	    done; \
-	    cp -r images/* ${CSS_IMAGES_OUTPUT_DIR}
-
-	#@@cp -a ${LIBS_DIR}/images ${FRAMEWORK_ROOT}/
-
 
 widgets: init third_party
 	# Building widgets...

@@ -155,7 +155,7 @@ index c222f08..b46e737 100644
 +				self.link = options.link;
 +			}
 +			self.positionTo = ( options != null && options.positionTo != null ) ? options.positionTo : "origin";
-+			if ( $(self.link).jqmData("position-to") !== "window" 
++			if ( $(self.link).jqmData("position-to") !== "window"
 +					&& self.positionTo !== "window" ) {
 +
 +				$(self.element).addClass("ui-ctxpopup");

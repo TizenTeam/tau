@@ -55,23 +55,17 @@
 					omversion = !!operammobilematch && operammobilematch[ 1 ];
 
 				if (
-						// iOS 4.3 and older : Platform is iPhone/Pad/Touch and Webkit version is less than 534 (ios5)
-						( ( platform.indexOf( "iPhone" ) > -1 || platform.indexOf( "iPad" ) > -1  || platform.indexOf( "iPod" ) > -1 ) && wkversion && wkversion < 534 )
-						||
+					// iOS 4.3 and older : Platform is iPhone/Pad/Touch and Webkit version is less than 534 (ios5)
+					( ( platform.indexOf( "iPhone" ) > -1 || platform.indexOf( "iPad" ) > -1  || platform.indexOf( "iPod" ) > -1 ) && wkversion && wkversion < 534 ) ||
 						// Opera Mini
-						( w.operamini && ({}).toString.call( w.operamini ) === "[object OperaMini]" )
-						||
-						( operammobilematch && omversion < 7458 )
-						||
+						( w.operamini && ({}).toString.call( w.operamini ) === "[object OperaMini]" ) ||
+						( operammobilematch && omversion < 7458 ) ||
 						//Android lte 2.1: Platform is Android and Webkit version is less than 533 (Android 2.2)
-						( ua.indexOf( "Android" ) > -1 && wkversion && wkversion < 533 )
-						||
+						( ua.indexOf( "Android" ) > -1 && wkversion && wkversion < 533 ) ||
 						// Firefox Mobile before 6.0 -
-						( ffversion && ffversion < 6 )
-						||
+						( ffversion && ffversion < 6 ) ||
 						// WebOS less than 3
-						( "palmGetResource" in window && wkversion && wkversion < 534 )
-						||
+						( window.palmGetResource !== undefined && wkversion && wkversion < 534 ) ||
 						// MeeGo
 						( ua.indexOf( "MeeGo" ) > -1 && ua.indexOf( "NokiaBrowser/8.5.0" ) > -1 )
 				) {
@@ -150,11 +144,11 @@
 		/* Set default page positon
 		* 1. add title style to header
 		* 2. Set default header/footer position */
-		setHeaderFooter: function ( event ) {
-			var $elPage = $( event.target ),
+		setHeaderFooter: function ( thisPage ) {
+			var $elPage = $( thisPage ),
 				$elHeader = $elPage.find( ":jqmData(role='header')" ).length ? $elPage.find( ":jqmData(role='header')") : $elPage.siblings( ":jqmData(role='header')"),
 				$elContent = $elPage.find( ".ui-content" ),
-				$elFooter = $( document ).find( ":jqmData(role='footer')" ),
+				$elFooter = $elPage.find( ":jqmData(role='footer')" ),
 				$elFooterGroup = $elFooter.find( ":jqmData(role='fieldcontain')" );
 
 			// divide content mode scrollview and non-scrollview
@@ -189,35 +183,36 @@
 			// This method is meant to disable zoom while a fixed-positioned toolbar page is visible
 			$el.closest( ".ui-page" )
 				.bind( "pagebeforeshow", function ( event ) {
+					var thisPage = this;
 					if ( o.disablePageZoom ) {
 						$.mobile.zoom.disable( true );
 					}
 					if ( !o.visibleOnPageShow ) {
 						self.hide( true );
 					}
-					self.setHeaderFooter( event );
-					self._setContentMinHeight( event );
+					self.setHeaderFooter( thisPage );
+					self._setContentMinHeight( thisPage );
 				} )
 				.bind( "webkitAnimationStart animationstart updatelayout", function ( e, data ) {
 					var thisPage = this;
 					if ( o.updatePagePadding ) {
 						self.updatePagePadding(thisPage);
-						self.updatePageLayout(data);
+						self.updatePageLayout( false, thisPage);
 					}
 				})
 
 				.bind( "pageshow", function ( event ) {
 					var thisPage = this;
-					self._setContentMinHeight( event );
-					self.updatePagePadding(thisPage);
-					self._updateHeaderArea();
+					self._setContentMinHeight( thisPage );
+					self.updatePagePadding( thisPage );
+					self._updateHeaderArea( thisPage );
 					if ( o.updatePagePadding ) {
 						$( window ).bind( "throttledresize." + self.widgetName, function () {
 							self.updatePagePadding(thisPage);
 
-							self.updatePageLayout();
-							self._updateHeaderArea();
-							self._setContentMinHeight( event );
+							self.updatePageLayout( false, thisPage);
+							self._updateHeaderArea( thisPage );
+							self._setContentMinHeight( thisPage );
 						});
 					}
 				})
@@ -249,7 +244,7 @@
 					}
 				});
 
-			window.addEventListener( "softkeyboardchange", function( e ) {
+			window.addEventListener( "softkeyboardchange", function ( e ) {
 				var thisPage = this;
 
 				if ( e.state == "on" ) {
@@ -259,7 +254,7 @@
 					$elCurrentFooter.show();
 				}
 				self.updatePagePadding( thisPage );
-				self.updatePageLayout( true );
+				self.updatePageLayout( true, thisPage );
 			});
 		},
 
@@ -274,8 +269,8 @@
 				});
 		},
 
-		_setContentMinHeight : function ( event ) {
-			var $elPage = $( event.target ),
+		_setContentMinHeight : function ( thisPage ) {
+			var $elPage = $( thisPage ),
 				$elHeader = $elPage.find( ":jqmData(role='header')" ),
 				$elFooter = $elPage.find( ":jqmData(role='footer')" ),
 				$elContent = $elPage.find( ":jqmData(role='content')" ),
@@ -286,8 +281,8 @@
 			$elContent.css( "min-height", resultMinHeight - parseFloat( $elContent.css("padding-top") ) - parseFloat( $elContent.css("padding-bottom") ) + "px" );
 		},
 
-		_updateHeaderArea : function () {
-			var $elPage = $( ".ui-page-active" ),
+		_updateHeaderArea : function ( thisPage ) {
+			var $elPage = $( thisPage ),
 				$elHeader = $elPage.find( ":jqmData(role='header')" ).length ? $elPage.find( ":jqmData(role='header')") : $elPage.siblings( ":jqmData(role='header')"),
 				headerBtnNum = $elHeader.children("a").length,
 				headerSrcNum = $elHeader.children("img").length;
@@ -307,7 +302,9 @@
 				footer = $el.siblings( ".ui-footer" ).length;
 
 			// This behavior only applies to "fixed", not "fullscreen"
-			if ( this.options.fullscreen && imestatus ) { return; }
+			if ( this.options.fullscreen ) {
+				return;
+			}
 
 			tbPage = tbPage || $el.closest( ".ui-page" );
 
@@ -318,9 +315,9 @@
 		},
 
 		/* 1. Calculate and update content height   */
-		updatePageLayout: function ( receiveType ) {
+		updatePageLayout: function ( receiveType, thisPage ) {
 			var $elFooter,
-				$elPage = $( document ).find( ".ui-page-active" ),
+				$elPage = $( thisPage ),
 				$elHeader = $elPage.find( ":jqmData(role='header')" ),
 				$elContent = $elPage.find( ":jqmData(role='content')" ),
 				resultContentHeight = 0,
@@ -328,7 +325,7 @@
 				resultHeaderHeight = 0;
 
 			if ( $elPage.length ) {
-				$elFooter = $( document ).find( ".ui-page-active" ).find( ":jqmData(role='footer')" );
+				$elFooter = $elPage.find( ":jqmData(role='footer')" );
 			} else {
 				$elFooter = $( document ).find( ":jqmData(role='footer')" ).eq( 0 );
 			}
@@ -358,57 +355,12 @@
 			}
 		},
 
-		_useTransition: function ( notransition ) {
-			var $win = $( window ),
-				$el = this.element,
-				scroll = $win.scrollTop(),
-				elHeight = $el.height(),
-				pHeight = $el.closest( ".ui-page" ).height(),
-				viewportHeight = $.mobile.getScreenHeight(),
-				tbtype = $el.is( ":jqmData(role='header')" ) ? "header" : "footer";
-
-			return !notransition &&
-				( this.options.transition && this.options.transition !== "none" &&
-				(
-						( tbtype === "header" && !this.options.fullscreen && scroll > elHeight ) ||
-						( tbtype === "footer" && !this.options.fullscreen && scroll + viewportHeight < pHeight - elHeight )
-					) || this.options.fullscreen
-				);
-		},
-
 		show: function ( notransition ) {
-/*			var hideClass = "ui-fixed-hidden",
-				$el = this.element;
-
-			if ( this._useTransition( notransition ) ){
-				$el
-					.removeClass( "out " + hideClass )
-					.addClass( "in" );
-			}
-			else {
-				$el.removeClass( hideClass );
-			}
-			this._visible = true;*/
+			/* blank function: deprecated */
 		},
 
 		hide: function ( notransition ) {
-/*			var hideClass = "ui-fixed-hidden",
-				$el = this.element,
-				// if it's a slide transition, our new transitions need the reverse class as well to slide outward
-				outclass = "out" + ( this.options.transition === "slide" ? " reverse" : "" );
-
-			if ( this._useTransition( notransition ) ){
-				$el
-					.addClass( outclass )
-					.removeClass( "in" )
-					.animationComplete( function () {
-						$el.addClass( hideClass ).removeClass( outclass );
-					});
-			}
-			else {
-				$el.addClass( hideClass ).removeClass( outclass );
-			}
-			this._visible = false;*/
+			/* blank function: deprecated */
 		},
 
 		toggle: function () {
@@ -432,4 +384,4 @@
 			$.mobile.pagelayout.prototype.enhanceWithin( e.target );
 		});
 
-})( jQuery );
+}( jQuery ));

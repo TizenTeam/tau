@@ -17,12 +17,12 @@ index 256fbb2..38912fb 100644
  	},
  	
 +	refresh: function() {
-+		$( ".ui-page-active" ).children( ".ui-content" ).trigger("updatelayout", ["external"]);
++		$( this.element ).children( ".ui-content" ).trigger("updatelayout", ["external"]);
 +	},
 +
 +	/* GUI Builder only : redesign page when user drag&drop header, footer */
 +	setToolbar: function () {
-+		$( ".ui-page" ).trigger( "pagebeforeshow" );
++		$( this.element ).trigger( "pagebeforeshow" );
 +	},
 +
  	removeContainerBackground: function() {

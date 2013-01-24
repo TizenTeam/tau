@@ -65,7 +65,7 @@
 		},
 
 		_getViewHeight: function () {
-			return this._$view.height() + this._view_offset;
+			return this._$view.height();
 		},
 
 		_makePositioned: function ( $ele ) {
@@ -99,7 +99,6 @@
 			this._makePositioned( this._$view );
 			this._$view.css( { left: 0, top: 0 } );
 
-			this._view_offset = this._$view.offset().top - this._$clip.offset().top;
 			this._view_height = this._getViewHeight();
 
 			this._sx = 0;
@@ -1168,13 +1167,10 @@
 			});
 
 			$c.closest(".ui-page")
-				.one( "pageshow", function ( e ) {
-					self._view_offset = self._$view.offset().top - self._$clip.offset().top;
-					self._view_height = self._getViewHeight();
-				})
 				.bind( "pageshow", function ( e ) {
 					/* should be called after pagelayout */
 					setTimeout( function () {
+						self._view_height = self._getViewHeight();
 						self._set_scrollbar_size();
 						self._setScrollPosition( self._sx, self._sy );
 						self._showScrollBars( 2000 );
