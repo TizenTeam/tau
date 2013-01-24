@@ -96,8 +96,6 @@ third_party: init jqm
 	    done; \
 	    cp ${LIBS_DIR}/js/${JQUERY} ${JS_OUTPUT_ROOT}/jquery.js
 	    cp ${LIBS_DIR}/js/${JQUERY_MIN} ${JS_OUTPUT_ROOT}/jquery.min.js
-	@@cd ${LIBS_DIR}/css; \
-	    cp -r images/* ${CSS_IMAGES_OUTPUT_DIR}
 
 widgets: init third_party
 	# Building widgets...
