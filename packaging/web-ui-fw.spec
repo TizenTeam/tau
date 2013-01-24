@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.12
+Version:    0.2.13
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -83,6 +83,21 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Thu Jan 24 2013 Youmin Ha <youmin.ha@samsung.com> 0.2.13
+	- virtuallist: Prevent replacing contents on nonexist element
+	- JQM: Trim text in listitem to get index in autodivider
+	- JQM: Remove trailing whitespace in jqm patch
+	- scrollview: get the height including margin
+	- multimediaview: bug fix ( scrolling in full-screen mode )
+	- virtuallist: set listitem width to exclude listitem left/right margin
+	- demo: fix virtuallist sample layout
+	- progress: set the position explicitly
+	- progress: rename from progressing to progress
+	- build: remove unused files
+	- searchbar: fix jslint errors
+	- src: fix file permissions
+	- button : change jump left icon
+
 * Wed Jan 23 2013 Minkyu Kang <mk7.kang@samsung.com> 0.2.12
 	- theme : button icon - scrolltop, scrolleft icon changed.
 	- build: cleanaup Makefile
