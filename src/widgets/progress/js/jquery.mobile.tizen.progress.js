@@ -25,17 +25,17 @@
  */
 
 /*
- * Progressing widget
+ * Progress widget
  *
  * HTML Attributes
  *
- *  data-role: set to 'progressing'.
+ *  data-role: set to 'progress'.
  *  data-style: 'circle' or 'pending'.
  *
  * APIs
  *
- *  show(): show the progressing.
- *  hide(): hide the progressing.
+ *  show(): show the progress.
+ *  hide(): hide the progress.
  *  running(boolean): start or stop the running.
  *
  * Events
@@ -46,15 +46,15 @@
  *
  * <li data-role="list-divider">Progress Pending</li>
  * <li>
- *	<div data-role="progressing" data-style="pending" id="pending"></div>
+ *	<div data-role="progress" data-style="pending" id="pending"></div>
  * </li>
  * <li data-role="list-divider">Progress ~ing</li>
  * <li>
- *	<div data-role="progressing" data-style="circle" id="progressing"></div>Loading..
+ *	<div data-role="progress" data-style="circle" id="progress"></div>Loading..
  * </li>
  *
  * $("#pending").progress( "running", true );
- * $("#progressing").progress( "running", true );
+ * $("#progress").progress( "running", true );
  *
  */
 
@@ -194,6 +194,6 @@
 	} ); /* End of widget */
 
 	$( document ).bind( "pagecreate", function ( e ) {
-		$( e.target ).find( ":jqmData(role='progressing')" ).progress();
+		$( e.target ).find( ":jqmData(role='progress')" ).progress();
 	} );
 }( jQuery, this ));
