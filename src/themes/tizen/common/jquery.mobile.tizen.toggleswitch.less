@@ -5,6 +5,8 @@ div.ui-slider.ui-toggle-switch {
 	width: 66 * @unit_base;
 	height: 35 * @unit_base;
 	background-color : transparent;
+	margin-top : 5 * @unit_base;
+	margin-bottom : 5 * @unit_base;
 
 	.ui-slider-label {
 		position: absolute;
@@ -37,6 +39,9 @@ div.ui-slider.ui-toggle-switch {
 
 div.ui-slider.ui-slider-switch:not(.ui-toggle-switch) {
 	position : relative;
+
+	margin-top : 5 * @unit_base;
+	margin-bottom : 5 * @unit_base;
 
 	height : 32 * @unit_base;
 	border-radius : 15 * @unit_base;
@@ -87,4 +92,8 @@ div.ui-slider.ui-slider-switch:not(.ui-toggle-switch) {
 			text-indent : 1.5em;
 		}
 	}
+}
+
+.ui-slider-switch .ui-slider-handle .ui-btn-inner {
+	padding : 0;
 }
