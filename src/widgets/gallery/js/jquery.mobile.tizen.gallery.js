@@ -677,7 +677,7 @@
 	}); /* End of widget */
 
 	// auto self-init widgets
-	$( document ).bind( "pagecreate", function ( e ) {
+	$( document ).bind( "pagecreate create", function ( e ) {
 		$( e.target ).find( ":jqmData(role='gallery')" ).gallery();
 	});
 
