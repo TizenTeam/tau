@@ -417,7 +417,7 @@
 	});
 
 	// initialise sliders with our own slider
-	$( document ).bind( "pagecreate", function ( e ) {
+	$( document ).bind( "pagecreate create", function ( e ) {
 		var jqmSliderInitSelector = $.data( window, "jqmSliderInitSelector" );
 		$( e.target ).find(jqmSliderInitSelector).not('select').tizenslider();
 		$( e.target ).find(jqmSliderInitSelector).filter('select').slider();
