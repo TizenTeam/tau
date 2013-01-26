@@ -296,6 +296,7 @@
 					"position": self.backupView.position,
 					"z-index": self.backupView.zindex
 				});
+				view.closest(".ui-multimediaview-wrap").css( "height", "" );
 				self.backupView = null;
 			}
 			parent.show();
