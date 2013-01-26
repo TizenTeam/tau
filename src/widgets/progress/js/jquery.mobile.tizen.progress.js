@@ -189,7 +189,7 @@
 		}
 	} ); /* End of widget */
 
-	$( document ).bind( "pagecreate", function ( e ) {
+	$( document ).bind( "pagecreate create", function ( e ) {
 		$( e.target ).find( ":jqmData(role='progress')" ).progress();
 	} );
 }( jQuery, this ));
