@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.14
+Version:    0.2.15
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -83,6 +83,14 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Mon Jan 28 2013 Youmin Ha <youmin.ha@samsung.com> 0.2.15
+	- slider: increase the text width(N_SE-23397)
+	- virtualgrid: DOM element leak fix
+	- header: Move button top higher in header with tabbar(N_SE-22253)
+	- datatimepicker: don't open the popup before popupafterclose event is fired(N_SE-23027)
+	- handler: bug fix (regarding enableHandler function )
+	- demo:fix syntax error
+
 * Sat Jan 26 2013 Youmin Ha <youmin.ha@samsung.com> 0.2.14
 	- demo: fix demo using tizen device API
 	- multimediaview: reset the height of container
