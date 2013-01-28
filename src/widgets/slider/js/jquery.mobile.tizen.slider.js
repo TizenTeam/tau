@@ -182,7 +182,7 @@
 				text_right = ( inputElement.attr('data-text-right') === undefined ) ? '' :
 						inputElement.attr('data-text-right').substring( 0, 3 );
 
-				text_length = Math.max( text_left.length, text_right.length );
+				text_length = Math.max( text_left.length, text_right.length ) + 1;
 
 				margin_left = text_length + "rem";
 				margin_right = text_length + "rem";
