@@ -379,6 +379,7 @@
 				_lastX : 0,
 				_speedX : 0,
 				_rowsPerView : 0,
+				_fragment : null,
 
 				_filterRatio : 0.9
 			});
@@ -397,6 +398,9 @@
 			if ( !self._loadData(args) ) {
 				return;
 			}
+
+			// make a fragment.
+			self._fragment = document.createDocumentFragment();
 
 			// read defined properties(width and height) from dom element.
 			self._inheritedSize = self._getinheritedSize(self.element);
@@ -1241,7 +1245,7 @@
 				$row = null,
 				$wrapper = null;
 
-			$wrapper = $(document.createElement("div"));
+			$wrapper = $( self._createElement( "div" ) );
 			$wrapper.addClass("ui-scrollview-view");
 			for ( index = 0; index < count ; index += 1 ) {
 				$row = self._makeRow( self._template, index );
@@ -1264,16 +1268,15 @@
 				attrName = self._direction ? "top" : "left",
 				blockClassName = self._direction ? "ui-virtualgrid-wrapblock-x" : "ui-virtualgrid-wrapblock-y",
 				blockAttrName = self._direction ? "top" : "left",
-				wrapBlock = $( document.createElement( "div" ));
+				wrapBlock = $( self._createElement( "div" ) );
 
 			wrapBlock.addClass( blockClassName ).attr("row-index", rowIndex);
 			for ( colIndex = 0; colIndex < self._itemCount; colIndex++ ) {
-				itemData = self._itemData( index );
-				if ( itemData ) {
-					htmlData = self._makeHtmlData( myTemplate, index, colIndex);
+				htmlData = self._makeHtmlData( myTemplate, index, colIndex);
+				if ( htmlData ) {
 					wrapBlock.append( htmlData );
-					index += 1;
 				}
+				index += 1;
 			}
 			return wrapBlock;
 		},
@@ -1371,6 +1374,7 @@
 				opts = self.options,
 				$columns = null,
 				$column = null,
+				$block = block.attr ? block : $( block ),
 				data = null,
 				htmlData = null,
 				myTemplate = null,
@@ -1378,18 +1382,18 @@
 				dataIdx = 0,
 				tempBlocks = null;
 
-			$columns = $(block).attr("row-index", index).children();
+			$columns = $block.attr("row-index", index).children();
 			if ( $columns.length !== self._itemCount ) {
-				$(block).children().remove();
+				$block.children().remove();
 				tempBlocks = $(self._makeRow( self._template, index ));
-				$(block).append(tempBlocks.children());
+				$block.append(tempBlocks.children());
 				tempBlocks.remove();
 				return ;
 			}
 
 			dataIdx = index * self._itemCount;
 			for ( idx = 0; idx < self._itemCount ; idx += 1 ) {
-				$column = $columns[idx];
+				$column = $columns.eq(idx);
 				data = self._itemData(dataIdx);
 				if ( $column && data ) {
 					myTemplate = self._template;
@@ -1398,9 +1402,16 @@
 					htmlData.remove();	// Clear temporary htmlData to free cache
 					dataIdx ++;
 				} else if ($column && !data ) {
-					$($column).remove();
+					$column.remove();
 				}
 			}
+		},
+
+		_createElement : function ( tag ) {
+			var element = document.createElement( tag );
+
+			this._fragment.appendChild( element );
+			return element;
 		},
 
 		/* Text & image src replace function */

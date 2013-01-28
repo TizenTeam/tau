@@ -226,9 +226,9 @@
 					moveTimer = undefined;
 				}
 
-				handlerThumb.addClass( "ui-handler-visible" )
-							.stop( true, true )
-							.fadeIn( 'fast' );
+				handler.addClass( "ui-handler-visible" );
+				handlerThumb.stop( true, true )
+							.fadeIn();
 			}).bind( "scrollupdate", function ( event, data ) {
 				if ( !scrollview.enableHandler() || viewLength < 0 || clipLength < handlerHeight ) {
 					return;
@@ -254,15 +254,16 @@
 				}
 				scrollview._handlerTimer = setTimeout( function () {
 					if ( scrollview._timerID === 0 && $view.moveData === null ) {
-						handlerThumb.removeClass( "ui-handler-visible" )
-									.stop( true, true )
+						handlerThumb.stop( true, true )
 									.css( "opacity", 1.0 )
-									.fadeOut( 'fast' );
+									.fadeOut( function () {
+										handler.removeClass( "ui-handler-visible" );
+									});
 						scrollview._handlerTimer = 0;
 					}
 				}, 1000 );
 			}).bind( "mousewheel", function ( event ) {
-				handlerThumb.removeClass( "ui-handler-visible" ).hide();
+				handler.removeClass( "ui-handler-visible" );
 				setHanderPostion( scrollview.getScrollPosition() );
 			});
 		};
@@ -284,7 +285,7 @@
 				$view.find( ".ui-scrollbar" ).hide();
 				$view.find( ".ui-handler" ).show();
 			} else {
-				$view.find( ".ui-handler" ).hide();
+				$view.find( ".ui-handler" ).removeClass( "ui-handler-visible" ).hide();
 				$view.find( ".ui-scrollbar" ).show();
 			}
 		},

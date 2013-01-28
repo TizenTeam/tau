@@ -95,7 +95,7 @@
 				this.options.value = value;
 				this._refreshValue();
 				if ( this._value() === this.options.max ) {
-					this._trigger( "complete" );
+					this.element.trigger( "complete" );
 				}
 			}
 			// jquery.ui.widget.js MUST be updated to new version!
@@ -121,7 +121,7 @@
 
 			if ( this.oldValue !== value ) {
 				this.oldValue = value;
-				this._trigger( "change" );
+				this.element.trigger( "change" );
 			}
 
 			this.valueDiv

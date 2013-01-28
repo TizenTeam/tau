@@ -278,6 +278,7 @@
 				docHeight = $( "body" )[0].clientHeight;
 
 				view.width( docWidth ).height( docHeight - 1 );
+				view.closest(".ui-multimediaview-wrap").height( docHeight - 1 );
 				view.addClass( "ui-" + self.role + "-fullscreen" );
 				view.offset( {
 					top: 0,
@@ -295,6 +296,7 @@
 					"position": self.backupView.position,
 					"z-index": self.backupView.zindex
 				});
+				view.closest(".ui-multimediaview-wrap").css( "height", "" );
 				self.backupView = null;
 			}
 			parent.show();
