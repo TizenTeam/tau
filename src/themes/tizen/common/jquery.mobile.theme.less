@@ -103,6 +103,14 @@
 		background: transparent;
 		color	: @color_bar_title_button_text;
 	}
+	&.ui-title-tabbar >.ui-btn {
+		// NOTE: there is an issue that when tabbar and button are
+		// used together in the header, the lower part of buttons is
+		// hidden by the tabbar. (N_SE-22253) Although No specification
+		// for this case is found in the GUI guide, this one is added
+		// to resolve this issue.
+		top: 8 * @unit_base;
+	}
 
 	> .ui-btn.ui-btn-icon_only {
 		-o-border-radius : 0px;
