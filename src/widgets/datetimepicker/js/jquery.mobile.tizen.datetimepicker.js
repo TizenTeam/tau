@@ -388,7 +388,9 @@
 
 			var pat = target.jqmData( 'pat' ),
 				hour,
-				text;
+				text,
+				self = this;
+
 			switch ( pat ) {
 			case 'H':
 			case 'HH':
@@ -442,9 +444,10 @@
 			if ( target.text() != text ) {
 				if ( target.hasClass("ui-datefield-selected") ) {
 					target.addClass("out");
+					this._new_value = text;
 
 					target.animationComplete( function () {
-						target.text( text );
+						target.text( self._new_value);
 						target.addClass("in")
 							.removeClass("out");
 
@@ -538,6 +541,7 @@
 			this.ui = $('<div class="ui-datefield"></div>');
 			$(this.element).after( this.ui );
 
+			this._popup_open = false;
 			this.ui.bind('vclick', function ( e ) {
 				obj._showDataSelector( obj, this, e.target );
 			});
@@ -666,12 +670,16 @@
 				$ctx,
 				$li,
 				i,
-				newLeft = 10;
+				newLeft = 10,
+				self = this;
 
 			if ( !attr ) {
 				return;
 			}
 			if ( !field ) {
+				return;
+			}
+			if ( this._popup_open ) {
 				return;
 			}
 
@@ -707,16 +715,26 @@
 				$ctx.popupwindow( 'open',
 						target.offset().left + ( target.width() / 2 ) + newLeft - window.pageXOffset ,
 						target.offset().top + target.height() - window.pageYOffset );
+
+				this._popup_open = true;
+
 				$div.bind('popupafterclose', function ( e ) {
 					if ( obj._reflow ) {
 						$(window).unbind("resize", obj._reflow);
 						obj._reflow = null;
 					}
+
+					if ( !( target.hasClass("in") || target.hasClass("out") ) ) {
+						target.removeClass("ui-datefield-selected");
+					}
+
 					$div.unbind( 'popupafterclose' );
 					$ul.unbind( 'vclick' );
 					$(obj).unbind( 'update' );
 					$ctx.popupwindow( 'destroy' );
 					$div.remove();
+
+					self._popup_open = false;
 				});
 
 				$(obj).bind( 'update', function ( e, val ) {
