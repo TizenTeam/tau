@@ -10,10 +10,10 @@
 	var unit_slider = function ( widget ) {
 		var slider,
 			handle,
-			handle_left = function ( widget ) {
-				var left = widget.val() * 100 /
+			handle_left = function ( widget, slider ) {
+				var left = widget.val() * slider.width() /
 					( widget.attr("max") - widget.attr("min") );
-				return left + "%";
+				return Math.floor( left );
 			},
 			random_move = function ( min, max) {
 				return Math.floor( (Math.random() * (max - min + 1)) + min );
@@ -34,12 +34,12 @@
 		equal( handle.attr("aria-valuemin"), widget.attr("min"), "Paramter: min" );
 		equal( handle.attr("aria-valuemax"), widget.attr("max"), "Paramter: max" );
 
-		equal( handle.css("left"), handle_left(widget), "Handle Location: Default" );
+		equal( parseInt( handle.css("left") ), handle_left( widget, slider ), "Handle Location: Default" );
 
 		/* Check APIs */
 		widget.val( random_move(widget.attr("min"), widget.attr("max")) );
 		widget.trigger("change");
-		equal( handle.css("left"), handle_left(widget), "Handle Location: Moved" );
+		equal( parseInt( handle.css("left") ), handle_left( widget, slider ), "Handle Location: Moved" );
 	};
 
 	test( "normal slider", function () {
