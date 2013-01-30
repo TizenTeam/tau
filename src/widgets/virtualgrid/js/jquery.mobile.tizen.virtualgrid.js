@@ -329,7 +329,7 @@
 			// virtualgrid option
 			template : "",
 			direction : "y",
-			rotation : false,
+			rotation : false
 		},
 
 		create : function () {
@@ -462,6 +462,7 @@
 			} else {
 				return false;
 			}
+			self._getObjectNames( self._itemData( 0 ) );
 			return true;
 		},
 
@@ -478,9 +479,9 @@
 			}
 			self._setElementTransform( -self._cellSize );
 
-			self._replaceRow(self._$view.children().first(), self._totalRowCnt - 1);
+			self._replaceRow( self._$view.children().first(), self._totalRowCnt - 1 );
 			if ( opts.rotation && self._rowsPerView >= self._totalRowCnt ) {
-				self._replaceRow(self._$view.children().last(), 0);
+				self._replaceRow( self._$view.children().last(), 0 );
 			}
 			self._setViewSize();
 		},
@@ -520,8 +521,8 @@
 
 			width = self._calculateClipWidth();
 			height = self._calculateClipHeight();
-			self._$view.width(width).height(height);
-			self._$clip.width(width).height(height);
+			self._$view.width( width ).height( height );
+			self._$clip.width( width ).height( height );
 
 			self._clipSize = self._calculateClipSize();
 			self._calculateColumnSize();
@@ -539,21 +540,21 @@
 
 			columnCount = self._calculateColumnCount();
 
-			totalRowCnt = parseInt(self._numItemData / columnCount , 10 );
+			totalRowCnt = parseInt( self._numItemData / columnCount, 10 );
 			self._totalRowCnt = self._numItemData % columnCount === 0 ? totalRowCnt : totalRowCnt + 1;
 			self._itemCount = columnCount;
 
-			if ( self._cellSize <= 0) {
+			if ( self._cellSize <= 0 ) {
 				return ;
 			}
 
 			rowsPerView = self._clipSize / self._cellSize;
 			rowsPerView = Math.ceil( rowsPerView );
-			self._rowsPerView = parseInt( rowsPerView, 10);
+			self._rowsPerView = parseInt( rowsPerView, 10 );
 
 			$child = self._makeRows( rowsPerView + 2 );
-			$(self._$view).append($child.children());
-			self._$view.children().css(attributeName, self._cellSize + "px");
+			$( self._$view ).append( $child.children() );
+			self._$view.children().css( attributeName, self._cellSize + "px" );
 			self._$rows = self._$view.children().detach();
 
 			self._reservedPos = -self._cellSize;
@@ -563,15 +564,15 @@
 
 			self._blockScroll = self._rowsPerView > self._totalRowCnt;
 			self._maxSize = ( self._totalRowCnt - self._rowsPerView ) * self._cellSize;
-			self._maxViewSize = ( self._rowsPerView ) * self._cellSize;
+			self._maxViewSize = self._rowsPerView * self._cellSize;
 			self._modifyViewPos = -self._cellSize;
 			if ( self._clipSize < self._maxViewSize ) {
-				self._modifyViewPos = (-self._cellSize) + ( self._clipSize - self._maxViewSize );
+				self._modifyViewPos = ( -self._cellSize ) + ( self._clipSize - self._maxViewSize );
 			}
 		},
 
 		_getinheritedSize : function ( elem ) {
-			var $target = $(elem),
+			var $target = $( elem ),
 				height,
 				width,
 				NODETYPE = { ELEMENT_NODE : 1, TEXT_NODE : 3 },
@@ -582,20 +583,20 @@
 					height : 0
 				};
 
-			while ( $target[0].nodeType === NODETYPE.ELEMENT_NODE && (ret.isDefinedWidth === false || ret.isHeightDefined === false )) {
+			while ( $target[0].nodeType === NODETYPE.ELEMENT_NODE && ( ret.isDefinedWidth === false || ret.isHeightDefined === false ) ) {
 				height = $target[0].style.height;
 				width = $target[0].style.width;
 
-				if (ret.isDefinedHeight === false && height !== "" ) {
+				if ( ret.isDefinedHeight === false && height !== "" ) {
 					// Size was defined
 					ret.isDefinedHeight = true;
-					ret.height = parseInt(height, 10);
+					ret.height = parseInt( height, 10 );
 				}
 
 				if ( ret.isDefinedWidth === false && width !== "" ) {
 					// Size was defined
 					ret.isDefinedWidth = true;
-					ret.width = parseInt(width, 10);
+					ret.width = parseInt( width, 10 );
 				}
 				$target = $target.parent();
 			}
@@ -615,19 +616,19 @@
 
 			itemCount = self._calculateColumnCount();
 			if ( itemCount != self._itemCount ) {
-				totalRowCnt = parseInt(self._numItemData / itemCount , 10 );
+				totalRowCnt = parseInt( self._numItemData / itemCount, 10 );
 				self._totalRowCnt = self._numItemData % itemCount === 0 ? totalRowCnt : totalRowCnt + 1;
 				prevcnt = self._itemCount;
 				self._itemCount = itemCount;
 				clipPosition = self._getClipPosition();
 				self._$view.hide();
 
-				diffRowCnt = self._replaceRows(itemCount, prevcnt, self._totalRowCnt, clipPosition);
+				diffRowCnt = self._replaceRows( itemCount, prevcnt, self._totalRowCnt, clipPosition );
 				self._maxSize = ( self._totalRowCnt - self._rowsPerView ) * self._cellSize;
-				self._scalableSize += (-diffRowCnt) * self._cellSize;
-				self._reservedPos  += (-diffRowCnt) * self._cellSize;
+				self._scalableSize += ( -diffRowCnt ) * self._cellSize;
+				self._reservedPos  += ( -diffRowCnt ) * self._cellSize;
 				self._setScrollBarSize();
-				self._setScrollBarPosition(diffRowCnt);
+				self._setScrollBarPosition( diffRowCnt );
 
 				self._$view.show();
 			}
@@ -648,24 +649,24 @@
 				self._clipSize = clipSize;
 				self._blockScroll = self._rowsPerView > self._totalRowCnt;
 				self._maxSize = ( self._totalRowCnt - self._rowsPerView ) * self._cellSize;
-				self._maxViewSize = ( self._rowsPerView ) * self._cellSize;
+				self._maxViewSize = self._rowsPerView * self._cellSize;
 				if ( self._clipSize < self._maxViewSize ) {
-					self._modifyViewPos = (-self._cellSize) + ( self._clipSize - self._maxViewSize );
+					self._modifyViewPos = ( -self._cellSize ) + ( self._clipSize - self._maxViewSize );
 				}
 				if ( self._direction ) {
-					self._$clip.width(self._clipSize);
+					self._$clip.width( self._clipSize );
 				} else {
-					self._$clip.height(self._clipSize);
+					self._$clip.height( self._clipSize );
 				}
 				self._setScrollBarSize();
-				self._setScrollBarPosition(0);
+				self._setScrollBarPosition( 0 );
 				self._setViewSize();
 			}
 		},
 
 		_initScrollView : function () {
 			var self = this;
-			$.extend(self.options, self._scrollView.options);
+			$.extend( self.options, self._scrollView.options );
 			self.options.moveThreshold = 10;
 			self.options.showScrollBars = false;
 			self._getScrollHierarchy = self._scrollView._getScrollHierarchy;
@@ -680,13 +681,13 @@
 		_createTracker : function () {
 			var self = this;
 
-			self._tracker = new MomentumTracker(self.options);
+			self._tracker = new MomentumTracker( self.options );
 			if ( self._direction ) {
 				self._hTracker = self._tracker;
-				self._$clip.width(self._clipSize);
+				self._$clip.width( self._clipSize );
 			} else {
 				self._vTracker = self._tracker;
-				self._$clip.height(self._clipSize);
+				self._$clip.height( self._clipSize );
 			}
 		},
 
@@ -704,12 +705,12 @@
 
 			if ( self._direction ) {
 				self._$clip.append( prefix + "x" + suffix );
-				self._hScrollBar = $(self._$clip.children(".ui-scrollbar-x"));
-				self._hScrollBar.find(".ui-scrollbar-thumb").addClass("ui-scrollbar-thumb-x");
+				self._hScrollBar = $( self._$clip.children( ".ui-scrollbar-x" ) );
+				self._hScrollBar.find( ".ui-scrollbar-thumb" ).addClass( "ui-scrollbar-thumb-x" );
 			} else {
 				self._$clip.append( prefix + "y" + suffix );
-				self._vScrollBar = $(self._$clip.children(".ui-scrollbar-y"));
-				self._vScrollBar.find(".ui-scrollbar-thumb").addClass("ui-scrollbar-thumb-y");
+				self._vScrollBar = $( self._$clip.children( ".ui-scrollbar-y" ) );
+				self._vScrollBar.find( ".ui-scrollbar-thumb" ).addClass( "ui-scrollbar-thumb-y" );
 			}
 		},
 
@@ -725,30 +726,30 @@
 				return ;
 			}
 
-			scrollBarSize = parseInt( self._maxViewSize / self._clipSize , 10);
+			scrollBarSize = parseInt( self._maxViewSize / self._clipSize, 10 );
 			if ( self._direction ) {
-				$scrollBar = self._hScrollBar.find(".ui-scrollbar-thumb");
+				$scrollBar = self._hScrollBar.find( ".ui-scrollbar-thumb" );
 				attrName = "width";
 				currentSize = $scrollBar.width();
 				className = "ui-scrollbar-thumb-x";
-				self._hScrollBar.css("width", self._clipSize);
+				self._hScrollBar.css( "width", self._clipSize );
 			} else {
-				$scrollBar = self._vScrollBar.find(".ui-scrollbar-thumb");
+				$scrollBar = self._vScrollBar.find( ".ui-scrollbar-thumb" );
 				attrName = "height";
 				className = "ui-scrollbar-thumb-y";
 				currentSize = $scrollBar.height();
-				self._vScrollBar.css("height", self._clipSize);
+				self._vScrollBar.css( "height", self._clipSize );
 			}
 
 			if ( scrollBarSize > currentSize ) {
-				$scrollBar.removeClass(className);
-				$scrollBar.css(attrName, scrollBarSize);
+				$scrollBar.removeClass( className );
+				$scrollBar.css( attrName, scrollBarSize );
 			} else {
 				scrollBarSize = currentSize;
 			}
 
 			self._itemScrollSize = parseFloat( ( self._clipSize - scrollBarSize ) / ( self._totalRowCnt - self._rowsPerView ) );
-			self._itemScrollSize = Math.round(self._itemScrollSize * 100) / 100;
+			self._itemScrollSize = Math.round( self._itemScrollSize * 100 ) / 100;
 		},
 
 		_setScrollBarPosition : function ( di, duration ) {
@@ -763,10 +764,10 @@
 
 			self._currentItemCount = self._currentItemCount + di;
 			if ( self._vScrollBar ) {
-				$sbt = self._vScrollBar .find(".ui-scrollbar-thumb");
+				$sbt = self._vScrollBar .find( ".ui-scrollbar-thumb" );
 				y = ( self._currentItemCount * self._itemScrollSize ) + "px";
 			} else {
-				$sbt = self._hScrollBar .find(".ui-scrollbar-thumb");
+				$sbt = self._hScrollBar .find( ".ui-scrollbar-thumb" );
 				x = ( self._currentItemCount * self._itemScrollSize ) + "px";
 			}
 			self._setStyleTransform( $sbt, x, y, duration );
@@ -869,10 +870,10 @@
 					self._setElementTransform( -self._cellSize );
 					return;
 				}
-				if ( (dy < 0 && self._scalableSize <= -(self._maxSize + self._cellSize) )) {
+				if ( (dy < 0 && self._scalableSize <= -( self._maxSize + self._cellSize ) ) ) {
 					// bottom
 					self._stopMScroll();
-					self._scalableSize = -(self._maxSize + self._cellSize);
+					self._scalableSize = -( self._maxSize + self._cellSize );
 					self._setElementTransform( self._modifyViewPos );
 					return;
 				}
@@ -881,18 +882,18 @@
 			if ( di > 0 ) { // scroll up
 				for ( i = 0; i < di; i++ ) {
 					idx = -parseInt( ( sy / self._cellSize ) + i + 3, 10 );
-					$row = self._$view.children( ).last( ).detach( );
+					$row = self._$view.children().last().detach();
 					self._replaceRow( $row, circularNum( idx, self._totalRowCnt ) );
 					self._$view.prepend( $row );
-					self._setScrollBarPosition(-1);
+					self._setScrollBarPosition( -1 );
 				}
 			} else if ( di < 0 ) { // scroll down
 				for ( i = 0; i > di; i-- ) {
 					idx = self._rowsPerView - parseInt( ( sy / self._cellSize ) + i, 10 );
 					$row = self._$view.children().first().detach();
-					self._replaceRow($row, circularNum( idx, self._totalRowCnt ) );
+					self._replaceRow( $row, circularNum( idx, self._totalRowCnt ) );
 					self._$view.append( $row );
-					self._setScrollBarPosition(1);
+					self._setScrollBarPosition( 1 );
 				}
 			}
 			self._scalableSize += di * self._cellSize;
@@ -909,7 +910,7 @@
 			} else {
 				y = value + "px";
 			}
-			self._setStyleTransform(self._$view, x, y );
+			self._setStyleTransform( self._$view, x, y );
 		},
 
 		//----------------------------------------------------//
@@ -939,7 +940,7 @@
 				keepGoing = !t.done();
 				self._reservedPos = self._direction ? x : y;
 				// bottom
-				self._reservedPos = self._reservedPos <= (-(self._maxSize - self._modifyViewPos)) ? ( - ( self._maxSize + self._cellSize) ) : self._reservedPos;
+				self._reservedPos = self._reservedPos <= ( -( self._maxSize - self._modifyViewPos ) ) ? ( - ( self._maxSize + self._cellSize ) ) : self._reservedPos;
 				// top
 				self._reservedPos = self._reservedPos > -self._cellSize ? -self._cellSize : self._reservedPos;
 			} else {
@@ -956,16 +957,16 @@
 
 		_startMScroll: function ( speedX, speedY ) {
 			var self = this;
-			if ( self._direction  ) {
+			if ( self._direction ) {
 				self._sx = self._reservedPos;
 			} else {
 				self._sy = self._reservedPos;
 			}
-			self._scrollView._startMScroll.apply(self, [speedX, speedY]);
+			self._scrollView._startMScroll.apply( self, [speedX, speedY] );
 		},
 
 		_stopMScroll: function () {
-			this._scrollView._stopMScroll.apply(this);
+			this._scrollView._stopMScroll.apply( this );
 		},
 
 		_enableTracking: function () {
@@ -1052,13 +1053,13 @@
 				self._dragStartEvt = "touchstart";
 				self._dragStartCB = function ( e ) {
 					var t = e.originalEvent.targetTouches[0];
-					return self._handleDragStart(e, t.pageX, t.pageY );
+					return self._handleDragStart( e, t.pageX, t.pageY );
 				};
 
 				self._dragMoveEvt = "touchmove";
 				self._dragMoveCB = function ( e ) {
 					var t = e.originalEvent.targetTouches[0];
-					return self._handleDragMove(e, t.pageX, t.pageY );
+					return self._handleDragMove( e, t.pageX, t.pageY );
 				};
 
 				self._dragStopEvt = "touchend";
@@ -1069,12 +1070,12 @@
 			self._$view.bind( self._dragStartEvt, self._dragStartCB );
 
 			// other events.
-			self._$view.delegate(".virtualgrid-item", "click", function (event) {
-				var $selectedItem = $(this);
-				$selectedItem.trigger("select", this);
-			});
+			self._$view.delegate( ".virtualgrid-item", "click", function ( event ) {
+				var $selectedItem = $( this );
+				$selectedItem.trigger( "select", this );
+			} );
 
-			$( window ).bind("resize", function ( e ) {
+			$( window ).bind( "resize", function ( e ) {
 				var height = 0,
 					$virtualgrid = $(".ui-virtualgrid-view");
 				if ( $virtualgrid.length !== 0 ) {
@@ -1089,9 +1090,9 @@
 					}
 					self.resize( );
 				}
-			});
+			} );
 
-			$(document).one("pageshow", function (event) {
+			$( document ).one( "pageshow", function ( event ) {
 				var $page = $(self.element).parents(".ui-page"),
 					$header = $page.find( ":jqmData(role='header')" ),
 					$footer = $page.find( ":jqmData(role='footer')" ),
@@ -1100,10 +1101,10 @@
 					headerHeight = $header ? $header.height() : 0;
 
 				if ( $page && $content ) {
-					$content.height(window.innerHeight - headerHeight - footerHeight).css("overflow", "hidden");
-					$content.addClass("ui-virtualgrid-content");
+					$content.height( window.innerHeight - headerHeight - footerHeight).css( "overflow", "hidden" );
+					$content.addClass( "ui-virtualgrid-content" );
 				}
-			});
+			} );
 		},
 
 		//----------------------------------------------------//
@@ -1123,20 +1124,20 @@
 
 		_calculateClipWidth : function () {
 			var self = this,
-				view = $(self.element),
-				$parent = $(self.element).parent(),
+				view = $( self.element ),
+				$parent = $( self.element ).parent(),
 				paddingValue = 0,
-				clipSize = $(window).width();
+				clipSize = $( window ).width();
 
 			if ( self._inheritedSize.isDefinedWidth ) {
 				return self._inheritedSize.width;
 			}
 
-			if ( $parent.hasClass("ui-content") ) {
-				paddingValue = parseInt($parent.css("padding-left"), 10);
+			if ( $parent.hasClass( "ui-content" ) ) {
+				paddingValue = parseInt( $parent.css( "padding-left" ), 10 );
 				clipSize = clipSize - ( paddingValue || 0 );
-				paddingValue = parseInt($parent.css("padding-right"), 10);
-				clipSize = clipSize - ( paddingValue || 0);
+				paddingValue = parseInt( $parent.css( "padding-right" ), 10 );
+				clipSize = clipSize - ( paddingValue || 0 );
 			} else {
 				clipSize = view.width();
 			}
@@ -1145,34 +1146,34 @@
 
 		_calculateClipHeight : function () {
 			var self = this,
-				view = $(self.element),
-				$parent = $(self.element).parent(),
+				view = $( self.element ),
+				$parent = view.parent(),
 				header = null,
 				footer = null,
 				paddingValue = 0,
-				clipSize = $(window).height();
+				clipSize = $( window ).height();
 
 			if ( self._inheritedSize.isDefinedHeight ) {
 				return self._inheritedSize.height;
 			}
 
-			if ( $parent.hasClass("ui-content") ) {
-				paddingValue = parseInt($parent.css("padding-top"), 10);
+			if ( $parent.hasClass( "ui-content" ) ) {
+				paddingValue = parseInt( $parent.css( "padding-top" ), 10 );
 				clipSize = clipSize - ( paddingValue || 0 );
-				paddingValue = parseInt($parent.css("padding-bottom"), 10);
-				clipSize = clipSize - ( paddingValue || 0);
-				header = $parent.siblings(".ui-header");
-				footer = $parent.siblings(".ui-footer");
+				paddingValue = parseInt( $parent.css( "padding-bottom" ), 10 );
+				clipSize = clipSize - ( paddingValue || 0 );
+				header = $parent.siblings( ".ui-header" );
+				footer = $parent.siblings( ".ui-footer" );
 
 				if ( header ) {
-					if ( header.outerHeight(true) === null ) {
-						clipSize = clipSize - ( $(".ui-header").outerHeight() || 0 );
+					if ( header.outerHeight( true ) === null ) {
+						clipSize = clipSize - ( $( ".ui-header" ).outerHeight() || 0 );
 					} else {
-						clipSize = clipSize - header.outerHeight(true);
+						clipSize = clipSize - header.outerHeight( true );
 					}
 				}
 				if ( footer ) {
-					clipSize = clipSize - footer.outerHeight(true);
+					clipSize = clipSize - footer.outerHeight( true );
 				}
 			} else {
 				clipSize = view.height();
@@ -1191,14 +1192,14 @@
 				// x-axis
 				self._viewSize = self._$view.width();
 				$cell = self._$view.children().first().children().first();
-				self._cellSize = $cell.outerWidth(true);
-				self._cellOtherSize = $cell.outerHeight(true);
+				self._cellSize = $cell.outerWidth( true );
+				self._cellOtherSize = $cell.outerHeight( true );
 			} else {
 				// y-axis
 				self._viewSize = self._$view.height();
 				$cell = self._$view.children().first().children().first();
-				self._cellSize = $cell.outerHeight(true);
-				self._cellOtherSize = $cell.outerWidth(true);
+				self._cellSize = $cell.outerHeight( true );
+				self._cellOtherSize = $cell.outerWidth( true );
 			}
 			$tempBlock.remove();
 			self._$view.children().remove();
@@ -1206,17 +1207,17 @@
 
 		_calculateColumnCount : function ( ) {
 			var self = this,
-				$view = $(self.element),
+				$view = $( self.element ),
 				viewSize = self._direction ? $view.innerHeight() : $view.innerWidth(),
 				itemCount = 0 ;
 
 			if ( self._direction ) {
-				viewSize = viewSize - ( parseInt( $view.css("padding-top"), 10 ) + parseInt( $view.css("padding-bottom"), 10 ) );
+				viewSize = viewSize - ( parseInt( $view.css( "padding-top" ), 10 ) + parseInt( $view.css( "padding-bottom" ), 10 ) );
 			} else {
-				viewSize = viewSize - ( parseInt( $view.css("padding-left"), 10 ) + parseInt( $view.css("padding-right"), 10 ) );
+				viewSize = viewSize - ( parseInt( $view.css( "padding-left" ), 10 ) + parseInt( $view.css( "padding-right" ), 10 ) );
 			}
 
-			itemCount = parseInt( (viewSize / self._cellOtherSize), 10);
+			itemCount = parseInt( ( viewSize / self._cellOtherSize ), 10 );
 			return itemCount > 0 ? itemCount : 1 ;
 		},
 
@@ -1227,10 +1228,10 @@
 				matrix = null,
 				contents = null,
 				result = -self._cellSize,
-				$scrollview = self._$view.closest(".ui-scrollview-view");
+				$scrollview = self._$view.closest( ".ui-scrollview-view" );
 
 			if ( $scrollview ) {
-				matrix = $scrollview.css("-webkit-transform");
+				matrix = $scrollview.css( "-webkit-transform" );
 				contents = matrix.substr( 7 );
 				contents = contents.substr( 0, contents.length - 1 );
 				contents = contents.split( ', ' );
@@ -1250,13 +1251,13 @@
 				$wrapper = null;
 
 			$wrapper = $( self._createElement( "div" ) );
-			$wrapper.addClass("ui-scrollview-view");
+			$wrapper.addClass( "ui-scrollview-view" );
 			for ( index = 0; index < count ; index += 1 ) {
 				$row = self._makeRow( self._template, index );
 				if ( self._direction ) {
-					$row.css("top", 0).css("left", ( index * self._cellSize ));
+					$row.css( "top", 0 ).css( "left", ( index * self._cellSize ) );
 				}
-				$wrapper.append($row);
+				$wrapper.append( $row );
 			}
 			return $wrapper;
 		},
@@ -1274,9 +1275,9 @@
 				blockAttrName = self._direction ? "top" : "left",
 				wrapBlock = $( self._createElement( "div" ) );
 
-			wrapBlock.addClass( blockClassName ).attr("row-index", rowIndex);
+			wrapBlock.addClass( blockClassName ).attr( "row-index", rowIndex );
 			for ( colIndex = 0; colIndex < self._itemCount; colIndex++ ) {
-				htmlData = self._makeHtmlData( myTemplate, index, colIndex);
+				htmlData = self._makeHtmlData( myTemplate, index, colIndex );
 				if ( htmlData ) {
 					wrapBlock.append( htmlData );
 				}
@@ -1293,8 +1294,8 @@
 
 			itemData = self._itemData( dataIndex );
 			if ( itemData ) {
-				htmlData = myTemplate.tmpl( itemData );
-				$(htmlData).css(attrName, ( colIndex * self._cellOtherSize )).addClass("virtualgrid-item");
+				htmlData = self._tmpl( itemData );
+				htmlData.css(attrName, ( colIndex * self._cellOtherSize ) ).addClass( "virtualgrid-item" );
 			}
 			return htmlData;
 		},
@@ -1309,22 +1310,22 @@
 				size = self._scalableSize,
 				idx = 0;
 
-			headItemIndex = parseInt( $(self._$view.children().first()).attr("row-index"), 10) - 1;
-			tailItemIndex = parseInt( $(self._$view.children()[self._rowsPerView]).attr("row-index"), 10) + 1;
+			headItemIndex = parseInt( $( self._$view.children().first() ).attr( "row-index" ), 10 ) - 1;
+			tailItemIndex = parseInt( $( self._$view.children()[self._rowsPerView] ).attr( "row-index" ), 10 ) + 1;
 
 			for ( idx = 1 ; idx <= num ; idx++ ) {
 				if ( tailItemIndex + idx  >= self._totalRowCnt ) {
 					$row = self._makeRow( self._template, headItemIndex );
-					self._$view.prepend($row);
+					self._$view.prepend( $row );
 					headItemIndex -= 1;
 				} else {
 					$row = self._makeRow( self._template, tailItemIndex + idx );
-					self._$view.append($row);
+					self._$view.append( $row );
 				}
 				if ( self._direction ) {
-					$row.width(self._cellSize);
+					$row.width( self._cellSize );
 				} else {
-					$row.height(self._cellSize);
+					$row.height( self._cellSize );
 				}
 			}
 		},
@@ -1345,19 +1346,19 @@
 				rowIndex = 0,
 				diffRowCnt = 0,
 				targetCnt = 1,
-				filterCondition = ( self._filterRatio * self._cellSize) + self._cellSize,
+				filterCondition = ( self._filterRatio * self._cellSize ) + self._cellSize,
 				idx = 0;
 
 			if ( filterCondition < clipPosition ) {
 				targetCnt += 1;
 			}
 
-			prevRowIndex = parseInt( $($rows[targetCnt]).attr("row-index"), 10);
+			prevRowIndex = parseInt( $( $rows[targetCnt]).attr("row-index"), 10 );
 			if ( prevRowIndex === 0 ) {
 				// only top.
 				rowIndex = maxCnt - targetCnt;
 			} else {
-				rowIndex = Math.round( (prevRowIndex * prevCnt) / curCnt );
+				rowIndex = Math.round( ( prevRowIndex * prevCnt ) / curCnt );
 				if ( rowIndex + self._rowsPerView >= maxCnt ) {
 					// only bottom.
 					rowIndex = maxCnt - self._rowsPerView;
@@ -1367,7 +1368,7 @@
 			}
 
 			for ( idx = 0 ; idx < $rows.length ; idx += 1 ) {
-				self._replaceRow($rows[idx], circularNum( rowIndex, self._totalRowCnt ));
+				self._replaceRow( $rows[idx], circularNum( rowIndex, self._totalRowCnt ) );
 				rowIndex++;
 			}
 			return -diffRowCnt;
@@ -1386,26 +1387,25 @@
 				dataIdx = 0,
 				tempBlocks = null;
 
-			$columns = $block.attr("row-index", index).children();
+			$columns = $block.attr( "row-index", index ).children();
 			if ( $columns.length !== self._itemCount ) {
 				$block.children().remove();
-				tempBlocks = $(self._makeRow( self._template, index ));
-				$block.append(tempBlocks.children());
+				tempBlocks = $( self._makeRow( self._template, index ) );
+				$block.append( tempBlocks.children() );
 				tempBlocks.remove();
 				return ;
 			}
 
 			dataIdx = index * self._itemCount;
 			for ( idx = 0; idx < self._itemCount ; idx += 1 ) {
-				$column = $columns.eq(idx);
-				data = self._itemData(dataIdx);
+				$column = $columns.eq( idx );
+				data = self._itemData( dataIdx );
 				if ( $column && data ) {
-					myTemplate = self._template;
-					htmlData = myTemplate.tmpl( data );
+					htmlData = self._tmpl( data );
 					self._replace( $column, htmlData, false );
 					htmlData.remove();	// Clear temporary htmlData to free cache
 					dataIdx ++;
-				} else if ($column && !data ) {
+				} else if ( $column && !data ) {
 					$column.remove();
 				}
 			}
@@ -1416,6 +1416,42 @@
 
 			this._fragment.appendChild( element );
 			return element;
+		},
+		_getObjectNames : function ( obj ) {
+			var properties = [],
+				name = "";
+
+			for ( name in obj ) {
+				properties.push( name );
+			}
+			this._properties = properties;
+		},
+
+		_tmpl : function ( data ) {
+			var self = this,
+				idx = 0,
+				plainMsg,
+				ret;
+			if ( !data ) {
+				return ;
+			}
+
+			plainMsg = self._template.text();
+			for ( idx = 0 ; idx < self._properties.length ; idx++ ) {
+				plainMsg = self._strReplace( plainMsg, "${" + self._properties[ idx ] + "}" , data[ self._properties[ idx ] ] );
+			}
+			ret = $( plainMsg );
+			return ret;
+		},
+
+		_strReplace : function ( plainMsg, stringToFind, stringToReplace ) {
+			var temp = plainMsg,
+				index = plainMsg.indexOf( stringToFind );
+			while ( index !== -1 ) {
+				temp = temp.replace( stringToFind, stringToReplace );
+				index = temp.indexOf( stringToFind );
+			}
+			return temp;
 		},
 
 		/* Text & image src replace function */
@@ -1440,7 +1476,7 @@
 
 				$( oldObj ).attr( "src", newImg );
 			});
-			$( oldItem).removeData();
+			$( oldItem ).removeData();
 			if ( key ) {
 				$( oldItem ).data( key, $( newItem ).data( key ) );
 			}
@@ -1448,6 +1484,6 @@
 	} );
 
 	$( document ).bind( "pagecreate create", function ( e ) {
-		$(":jqmData(role='virtualgrid')").virtualgrid();
+		$( ":jqmData(role='virtualgrid')" ).virtualgrid();
 	} );
 } (jQuery, window, document) );
