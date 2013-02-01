@@ -1049,7 +1049,8 @@
 						elem = $( input[i + 1] );
 					}
 
-					elem_top = elem.offset().top;
+					elem_top = elem.offset().top + window.screenTop *
+						( $( window ).width() / window.screen.availWidth );
 					screen_h = $c.offset().top + $c.height() - elem.height();
 
 					if ( self._softkeyboard ) {
@@ -1163,7 +1164,8 @@
 				}
 
 				self._softkeyboard = ( e.state === "on" ? true : false );
-				self._softkeyboardHeight = e.height;
+				self._softkeyboardHeight = e.height *
+						( $( window ).width() / window.screen.availWidth );
 			});
 
 			$c.closest(".ui-page")
