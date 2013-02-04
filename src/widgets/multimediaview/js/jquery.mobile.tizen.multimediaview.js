@@ -146,10 +146,10 @@
 			var self = this,
 				view = self.element,
 				viewElement = view[0],
+				isVideo = ( viewElement.nodeName === "VIDEO" ),
 				option = self.options,
 				parentTheme = $.mobile.getInheritedTheme( view, "s" ),
 				theme = option.theme || parentTheme,
-				role = "multimediaview",
 				control = null;
 
 			$.extend( this, {
@@ -157,24 +157,22 @@
 				isControlHide: false,
 				controlTimer: null,
 				isVolumeHide: true,
-				isVertical: true,
 				backupView: null,
-				_reserveVolume: -1
+				_reserveVolume: -1,
+				_isVideo: isVideo
 			});
 
-			self.role = role;
 			view.addClass( "ui-multimediaview" );
 			control = self._createControl();
 			control.find( ".ui-button" ).each( function ( index ) {
 				$( this ).buttonMarkup( { corners: true, theme: theme, shadow: true } );
 			});
 
-			if ( view[0].nodeName === "VIDEO" ) {
-				control.addClass( "ui-" + role + "-video" );
+			if ( isVideo ) {
+				control.addClass( "ui-multimediaview-video" );
 			}
 
-			control.hide();
-			view.wrap( [ "<div class='ui-", role, "-wrap ui-", role , "-", theme, "'>" ].join( "" ) ).after( control );
+			view.wrap( "<div class='ui-multimediaview-wrap ui-multimediaview-" + theme + "'>" ).after( control );
 			if ( option.controls && view.attr( "controls" ) ) {
 				view.removeAttr( "controls" );
 			}
@@ -183,29 +181,19 @@
 		},
 
 		_resize: function () {
-			var view = this.element,
-				parent = view.parent(),
-				control = parent.find( ".ui-multimediaview-control" ),
-				viewWidth = 0,
-				viewHeight = 0,
-				viewOffset = null;
-
 			this._resizeFullscreen( this.options.fullScreen );
-			viewWidth = ( ( view[0].nodeName === "VIDEO" ) ? view.width() : parent.width() );
-			viewHeight = ( ( view[0].nodeName === "VIDEO" ) ? view.height() : control.height() );
-			viewOffset = view.offset();
-
-			this._resizeControl( viewOffset, viewWidth, viewHeight );
-
+			this._resizeControl();
 			this._updateSeekBar();
 			this._updateVolumeState();
 		},
 
-		_resizeControl: function ( offset, width, height ) {
+		_resizeControl: function () {
 			var self = this,
 				view = self.element,
 				viewElement = view[0],
-				control = view.parent().find( ".ui-multimediaview-control" ),
+				isVideo = self._isVideo,
+				wrap = view.parent( ".ui-multimediaview-wrap" ),
+				control = wrap.find( ".ui-multimediaview-control" ),
 				buttons = control.find( ".ui-button" ),
 				playpauseButton = control.find( ".ui-playpausebutton" ),
 				seekBar = control.find( ".ui-seekbar" ),
@@ -213,20 +201,21 @@
 				timestampLabel = control.find( ".ui-timestamplabel" ),
 				volumeControl = control.find( ".ui-volumecontrol" ),
 				volumeBar = volumeControl.find( ".ui-volumebar" ),
-				controlWidth = width,
-				controlHeight = control.outerHeight( true ),
+				width = ( isVideo ? view.width() : wrap.width() ),
+				height = ( isVideo ? view.height() : control.height() ),
+				offset = view.offset(),
+				controlHeight = control.height(),
 				availableWidth = 0,
 				controlOffset = null;
 
 			if ( control ) {
-				if ( view[0].nodeName === "VIDEO" ) {
+				if ( isVideo ) {
 					controlOffset = control.offset();
 					controlOffset.left = offset.left;
 					controlOffset.top = offset.top + height - controlHeight;
 					control.offset( controlOffset );
 				}
-
-				control.width( controlWidth );
+				control.width( width );
 			}
 
 			if ( seekBar ) {
@@ -256,51 +245,54 @@
 		_resizeFullscreen: function ( isFullscreen ) {
 			var self = this,
 				view = self.element,
-				parent = view.parent(),
-				control = view.parent().find( ".ui-multimediaview-control" ),
+				viewElement = view[0],
+				wrap = view.parent( ".ui-multimediaview-wrap" ),
+				control = wrap.find( ".ui-multimediaview-control" ),
 				playpauseButton = control.find( ".ui-playpausebutton" ),
 				timestampLabel = control.find( ".ui-timestamplabel" ),
 				seekBar = control.find( ".ui-seekbar" ),
 				durationBar = seekBar.find( ".ui-duration" ),
 				currenttimeBar = seekBar.find( ".ui-currenttime" ),
+				body = $( "body" )[0],
 				docWidth = 0,
 				docHeight = 0;
 
 			if ( isFullscreen ) {
 				if ( !self.backupView ) {
 					self.backupView = {
-						width: view[0].style.getPropertyValue( "width" ) || "",
-						height: view[0].style.getPropertyValue( "height" ) || "",
+						width: viewElement.style.getPropertyValue( "width" ) || "",
+						height: viewElement.style.getPropertyValue( "height" ) || "",
 						position: view.css( "position" ),
-						zindex: view.css( "z-index" )
+						zindex: view.css( "z-index" ),
+						wrapHeight: wrap[0].style.getPropertyValue( "height" ) || ""
 					};
 				}
-				docWidth = $( "body" )[0].clientWidth;
-				docHeight = $( "body" )[0].clientHeight;
+				docWidth = body.clientWidth;
+				docHeight = body.clientHeight;
 
 				view.width( docWidth ).height( docHeight - 1 );
-				view.closest(".ui-multimediaview-wrap").height( docHeight - 1 );
-				view.addClass( "ui-" + self.role + "-fullscreen" );
+				wrap.height( docHeight - 1 )
+					.siblings()
+					.addClass( "ui-multimediaview-siblings-off" );
 				view.offset( {
 					top: 0,
 					left: 0
-				});
+				}).addClass( "ui-multimediaview-fullscreen" );
 			} else {
 				if ( !self.backupView ) {
 					return;
 				}
-
-				view.removeClass( "ui-" + self.role + "-fullscreen" );
+				wrap.css( "height", self.backupView.wrapHeight )
+					.siblings()
+					.removeClass( "ui-multimediaview-siblings-off" );
 				view.css( {
 					"width": self.backupView.width,
 					"height": self.backupView.height,
 					"position": self.backupView.position,
 					"z-index": self.backupView.zindex
-				});
-				view.closest(".ui-multimediaview-wrap").css( "height", "" );
+				}).removeClass( "ui-multimediaview-fullscreen" );
 				self.backupView = null;
 			}
-			parent.show();
 		},
 
 		_addEvent: function () {
@@ -308,7 +300,8 @@
 				view = self.element,
 				option = self.options,
 				viewElement = view[0],
-				control = view.parent().find( ".ui-multimediaview-control" ),
+				isVideo = self._isVideo,
+				control = view.parent( ".ui-multimediaview-wrap" ).find( ".ui-multimediaview-control" ),
 				playpauseButton = control.find( ".ui-playpausebutton" ),
 				timestampLabel = control.find( ".ui-timestamplabel" ),
 				durationLabel = control.find( ".ui-durationlabel" ),
@@ -316,26 +309,25 @@
 				volumeControl = control.find( ".ui-volumecontrol" ),
 				volumeBar = volumeControl.find( ".ui-volumebar" ),
 				volumeGuide = volumeControl.find( ".ui-guide" ),
-				volumeHandle = volumeControl.find( ".ui-handler" ),
+				volumeHandle = volumeControl.find( ".ui-handle" ),
 				fullscreenButton = control.find( ".ui-fullscreenbutton" ),
 				seekBar = control.find( ".ui-seekbar" ),
 				durationBar = seekBar.find( ".ui-duration" ),
-				currenttimeBar = seekBar.find( ".ui-currenttime" );
+				currenttimeBar = seekBar.find( ".ui-currenttime" ),
+				$document = $( document );
 
-			$( document ).unbind( ".multimediaview" ).bind( "pagechange.multimediaview", function ( e ) {
+			$document.unbind( ".multimediaview" ).bind( "pagechange.multimediaview", function ( e ) {
 				var $page = $( e.target );
 				if ( $page.find( view ).length > 0 && viewElement.autoplay ) {
 					viewElement.play();
 				}
 
 				if ( option.controls ) {
-					control.show();
 					self._resize();
 				}
 			}).bind( "pagebeforechange.multimediaview", function ( e ) {
 				if ( viewElement.played.length !== 0 ) {
 					viewElement.pause();
-					control.hide();
 				}
 			});
 
@@ -360,7 +352,9 @@
 					self._fitContentArea( $page );
 				}
 
-				self._resize();
+				if ( control.css( "display" ) !== "none" ) {
+					self._resize();
+				}
 			});
 
 			view.bind( "loadedmetadata.multimediaview", function ( e ) {
@@ -401,40 +395,18 @@
 					durationLabel.find( "p" ).text( self._convertTimeFormat( viewElement.duration ) );
 				}
 				self._resize();
-			}).bind( "error.multimediaview", function ( e ) {
-				switch ( e.target.error.code ) {
-				case e.target.error.MEDIA_ERR_ABORTED:
-					window.alert( 'You aborted the video playback.' );
-					break;
-				case e.target.error.MEDIA_ERR_NETWORK:
-					window.alert( 'A network error caused the video download to fail part-way.' );
-					break;
-				case e.target.error.MEDIA_ERR_DECODE:
-					window.alert( 'The video playback was aborted due to a corruption problem or because the video used features your browser did not support.' );
-					break;
-				case e.target.error.MEDIA_ERR_SRC_NOT_SUPPORTED:
-					window.alert( 'The video could not be loaded, either because the server or network failed or because the format is not supported.' );
-					break;
-				default:
-					window.alert( 'An unknown error occurred.' );
-					break;
-				}
-			}).bind( "vclick.multimediaview", function ( e ) {
+			}).bind( "click.multimediaview", function ( e ) {
 				if ( !self.options.controls ) {
 					return;
 				}
 
 				control.fadeToggle( "fast", function () {
-					var offset = control.offset();
 					self.isControlHide = !self.isControlHide;
-					if ( self.options.mediatype == "video" ) {
-						self._startTimer();
-					}
 				});
 				self._resize();
 			});
 
-			playpauseButton.bind( "vclick.multimediaview", function () {
+			playpauseButton.bind( "click.multimediaview", function () {
 				self._endTimer();
 
 				if ( viewElement.paused ) {
@@ -443,16 +415,17 @@
 					viewElement.pause();
 				}
 
-				if ( self.options.mediatype == "video" ) {
+				if ( isVideo ) {
 					self._startTimer();
 				}
 			});
 
-			fullscreenButton.bind( "vclick.multimediaview", function ( e ) {
+			fullscreenButton.bind( "click.multimediaview", function ( e ) {
 				self.fullScreen( !self.options.fullScreen );
-				control.fadeIn( "fast" );
+				control.fadeIn( "fast", function () {
+					self._resize();
+				});
 				self._endTimer();
-				e.preventDefault();
 				e.stopPropagation();
 			});
 
@@ -473,18 +446,16 @@
 				self._endTimer();
 
 				e.preventDefault();
-				e.stopPropagation();
 
-				$( document ).bind( "vmousemove.multimediaview", function ( e ) {
+				$document.bind( "vmousemove.multimediaview", function ( e ) {
 					var x = e.clientX,
 						timerate = ( x - durationOffset.left ) / durationWidth;
 
 					viewElement.currentTime = duration * timerate;
 
 					e.preventDefault();
-					e.stopPropagation();
 				}).bind( "vmouseup.multimediaview", function () {
-					$( document ).unbind( "vmousemove.multimediaview vmouseup.multimediaview" );
+					$document.unbind( "vmousemove.multimediaview vmouseup.multimediaview" );
 					if ( viewElement.paused ) {
 						viewElement.pause();
 					} else {
@@ -493,22 +464,22 @@
 				});
 			});
 
-			volumeButton.bind( "vclick.multimediaview", function () {
+			volumeButton.bind( "click.multimediaview", function () {
 				if ( self.isVolumeHide ) {
 					var view = self.element,
 						volume = viewElement.volume;
 
 					self.isVolumeHide = false;
+					volumeControl.fadeIn( "fast", function () {
+						self._updateVolumeState();
+						self._updateSeekBar();
+					});
 					self._resize();
-					volumeControl.fadeIn( "fast" );
-					self._updateVolumeState();
-					self._updateSeekBar();
 				} else {
 					self.isVolumeHide = true;
 					volumeControl.fadeOut( "fast", function () {
 						self._resize();
 					});
-					self._updateSeekBar();
 				}
 			});
 
@@ -525,36 +496,29 @@
 				self._setVolume( currentVolume.toFixed( 2 ) );
 
 				e.preventDefault();
-				e.stopPropagation();
 
-				$( document ).bind( "vmousemove.multimediaview", function ( e ) {
+				$document.bind( "vmousemove.multimediaview", function ( e ) {
 					var currentX = e.clientX,
 						currentVolume = ( currentX - volumeGuideLeft ) / volumeGuideWidth;
 
 					self._setVolume( currentVolume.toFixed( 2 ) );
 
 					e.preventDefault();
-					e.stopPropagation();
 				}).bind( "vmouseup.multimediaview", function () {
-					$( document ).unbind( "vmousemove.multimediaview vmouseup.multimediaview" );
-
-					if ( self.options.mediatype == "video" ) {
-						self._startTimer();
-					}
+					$document.unbind( "vmousemove.multimediaview vmouseup.multimediaview" );
 				});
 			});
 		},
 
 		_removeEvent: function () {
-			var self = this,
-				view = self.element,
-				control = view.parent().find( ".ui-multimediaview-control" ),
+			var view = this.element,
+				control = view.parent( ".ui-multimediaview-wrap" ).find( ".ui-multimediaview-control" ),
 				playpauseButton = control.find( ".ui-playpausebutton" ),
 				fullscreenButton = control.find( ".ui-fullscreenbutton" ),
 				seekBar = control.find( ".ui-seekbar" ),
 				volumeControl = control.find( ".ui-volumecontrol" ),
 				volumeBar = volumeControl.find( ".ui-volumebar" ),
-				volumeHandle = volumeControl.find( ".ui-handler" );
+				volumeHandle = volumeControl.find( ".ui-handle" );
 
 			view.unbind( ".multimediaview" );
 			playpauseButton.unbind( ".multimediaview" );
@@ -565,33 +529,33 @@
 		},
 
 		_createControl: function () {
-			var self = this,
-				view = self.element,
-				control = $( "<span></span>" ).addClass( "ui-" + self.role + "-control" ),
+			var view = this.element,
+				viewElement = view[0],
+				control = $( "<span></span>" ).addClass( "ui-multimediaview-control" ),
 				playpauseButton = $( "<span></span>" ).addClass( "ui-playpausebutton ui-button" ),
-				seekBar = $( "<span></span>" ).addClass( "ui-seekbar" ),
+				seekBar = $( "<span></span>" ).addClass( "ui-seekbar ui-multimediaview-bar" ),
 				timestampLabel = $( "<span><p>00:00:00</p></span>" ).addClass( "ui-timestamplabel" ),
 				durationLabel = $( "<span><p>00:00:00</p></span>" ).addClass( "ui-durationlabel" ),
 				volumeButton = $( "<span></span>" ).addClass( "ui-volumebutton ui-button" ),
 				volumeControl = $( "<span></span>" ).addClass( "ui-volumecontrol" ),
-				volumeBar = $( "<div></div>" ).addClass( "ui-volumebar" ),
-				volumeGuide = $( "<span></span>" ).addClass( "ui-guide" ),
-				volumeValue = $( "<span></span>" ).addClass( "ui-value" ),
-				volumeHandle = $( "<span></span>" ).addClass( "ui-handler" ),
+				volumeBar = $( "<div></div>" ).addClass( "ui-volumebar ui-multimediaview-bar" ),
+				volumeGuide = $( "<span></span>" ).addClass( "ui-guide ui-multimediaview-bar-bg" ),
+				volumeValue = $( "<span></span>" ).addClass( "ui-value ui-multimediaview-bar-highlight" ),
+				volumeHandle = $( "<span></span>" ).addClass( "ui-handle" ),
 				fullscreenButton = $( "<span></span>" ).addClass( "ui-fullscreenbutton ui-button" ),
-				durationBar = $( "<span></span>" ).addClass( "ui-duration" ),
-				currenttimeBar = $( "<span></span>" ).addClass( "ui-currenttime" );
+				durationBar = $( "<span></span>" ).addClass( "ui-duration ui-multimediaview-bar-bg" ),
+				currenttimeBar = $( "<span></span>" ).addClass( "ui-currenttime ui-multimediaview-bar-highlight" );
 
 			seekBar.append( durationBar ).append( currenttimeBar ).append( durationLabel ).append( timestampLabel );
 
 			playpauseButton.addClass( "ui-play-icon" );
-			volumeButton.addClass( view[0].muted ? "ui-mute-icon" : "ui-volume-icon" );
+			volumeButton.addClass( viewElement.muted ? "ui-mute-icon" : "ui-volume-icon" );
 			volumeBar.append( volumeGuide ).append( volumeValue ).append( volumeHandle );
 			volumeControl.append( volumeBar );
 
 			control.append( playpauseButton ).append( seekBar ).append( volumeControl ).append( volumeButton );
 
-			if ( self.element[0].nodeName === "VIDEO" ) {
+			if ( this._isVideo ) {
 				$( fullscreenButton ).addClass( "ui-fullscreen-on" );
 				control.append( fullscreenButton );
 			}
@@ -609,7 +573,7 @@
 
 			var self = this,
 				view = self.element,
-				control = view.parent().find( ".ui-multimediaview-control" ),
+				control = view.parent( ".ui-multimediaview-wrap" ).find( ".ui-multimediaview-control" ),
 				volumeControl = control.find( ".ui-volumecontrol" );
 
 			self.controlTimer = setTimeout( function () {
@@ -629,6 +593,10 @@
 		},
 
 		_convertTimeFormat: function ( systime ) {
+			if ( isNaN( systime ) ) {
+				return "00:00:00";
+			}
+
 			var ss = parseInt( systime % 60, 10 ).toString(),
 				mm = parseInt( ( systime / 60 ) % 60, 10 ).toString(),
 				hh = parseInt( systime / 3600, 10 ).toString(),
@@ -640,10 +608,10 @@
 		},
 
 		_updateSeekBar: function ( currenttime ) {
-			var self = this,
-				view = self.element,
-				duration = view[0].duration,
-				control = view.parent().find( ".ui-multimediaview-control" ),
+			var view = this.element,
+				viewElement = view[0],
+				duration = viewElement.duration,
+				control = view.parent( ".ui-multimediaview-wrap" ).find( ".ui-multimediaview-control" ),
 				seekBar = control.find(  ".ui-seekbar"  ),
 				durationBar = seekBar.find( ".ui-duration" ),
 				currenttimeBar = seekBar.find( ".ui-currenttime" ),
@@ -653,25 +621,24 @@
 				durationHeight = durationBar.height(),
 				timebarWidth = 0;
 
-			if ( typeof currenttime == "undefined" ) {
-				currenttime = view[0].currentTime;
+			if ( typeof currenttime === "undefined" ) {
+				currenttime = viewElement.currentTime;
 			}
 			timebarWidth = parseInt( currenttime / duration * durationWidth, 10 );
 			durationBar.offset( durationOffset );
 			currenttimeBar.offset( durationOffset ).width( timebarWidth );
-			timestampLabel.find( "p" ).text( self._convertTimeFormat( currenttime ) );
+			timestampLabel.find( "p" ).text( this._convertTimeFormat( currenttime ) );
 		},
 
 		_updateVolumeState: function () {
-			var self = this,
-				view = self.element,
-				control = view.parent().find( ".ui-multimediaview-control" ),
+			var view = this.element,
+				control = view.parent( ".ui-multimediaview-wrap" ).find( ".ui-multimediaview-control" ),
 				volumeControl = control.find( ".ui-volumecontrol" ),
 				volumeButton = control.find( ".ui-volumebutton" ),
 				volumeBar = volumeControl.find( ".ui-volumebar" ),
 				volumeGuide = volumeControl.find( ".ui-guide" ),
 				volumeValue = volumeControl.find( ".ui-value" ),
-				volumeHandle = volumeControl.find( ".ui-handler" ),
+				volumeHandle = volumeControl.find( ".ui-handle" ),
 				handlerWidth = volumeHandle.width(),
 				handlerHeight = volumeHandle.height(),
 				volumeGuideHeight = volumeGuide.height(),
@@ -689,7 +656,7 @@
 			handlerOffset.top = volumeGuideTop - parseInt( ( handlerHeight - volumeGuideHeight ) / 2, 10 );
 			handlerOffset.left = volumeBase + parseInt( volumeGuideWidth * volume, 10 ) - parseInt( handlerWidth / 2, 10 );
 			volumeHandle.offset( handlerOffset );
-			volumeValue.width( parseInt( volumeGuideWidth * ( volume ), 10 ) );
+			volumeValue.offset( volumeGuide.offset() ).width( parseInt( volumeGuideWidth * ( volume ), 10 ) );
 		},
 
 		_setVolume: function ( value ) {
@@ -703,7 +670,7 @@
 		},
 
 		_fitContentArea: function ( page, parent ) {
-			if ( typeof parent == "undefined" ) {
+			if ( typeof parent === "undefined" ) {
 				parent = window;
 			}
 
@@ -722,64 +689,59 @@
 		},
 
 		width: function ( value ) {
-			var self = this,
-				args = arguments,
-				view = self.element;
+			var view = this.element;
 
-			if ( args.length === 0 ) {
+			if ( arguments.length === 0 ) {
 				return view.width();
 			}
-			if ( args.length === 1 ) {
-				view.width( value );
-				self._resize();
-			}
+
+			view.width( value );
+			this._resize();
 		},
 
 		height: function ( value ) {
-			var self = this,
-				view = self.element,
-				args = arguments;
+			var view = this.element;
 
-			if ( args.length === 0 ) {
+			if ( !this._isVideo ) {
+				return;
+			}
+
+			if ( arguments.length === 0 ) {
 				return view.height();
 			}
-			if ( args.length === 1 ) {
-				view.height( value );
-				self._resize();
-			}
+
+			view.height( value );
+			this._resize();
 		},
 
 		fullScreen: function ( value ) {
-			var self = this,
-				view = self.element,
-				control = view.parent().find( ".ui-multimediaview-control" ),
+			var view = this.element,
+				option = this.options,
+				control = view.parent( ".ui-multimediaview-wrap" ).find( ".ui-multimediaview-control" ),
 				fullscreenButton = control.find( ".ui-fullscreenbutton" ),
-				args = arguments,
-				option = self.options,
 				currentPage = $( ".ui-page-active" );
 
-			if ( args.length === 0 ) {
+			if ( arguments.length === 0 ) {
 				return option.fullScreen;
 			}
-			if ( args.length === 1 ) {
-				view.parents( ".ui-content" ).scrollview( "scrollTo", 0, 0 );
 
-				this.options.fullScreen = value;
-				if ( value ) {
-					currentPage.children( ".ui-header" ).hide();
-					currentPage.children( ".ui-footer" ).hide();
-					currentPage.addClass( "ui-fullscreen-page" );
-					this._fitContentArea( currentPage );
-					fullscreenButton.removeClass( "ui-fullscreen-on" ).addClass( "ui-fullscreen-off" );
-				} else {
-					currentPage.children( ".ui-header" ).show();
-					currentPage.children( ".ui-footer" ).show();
-					currentPage.removeClass( "ui-fullscreen-page" );
-					this._fitContentArea( currentPage );
-					fullscreenButton.removeClass( "ui-fullscreen-off" ).addClass( "ui-fullscreen-on" );
-				}
-				self._resize();
+			view.parents( ".ui-scrollview-clip" ).scrollview( "scrollTo", 0, 0 );
+
+			this.options.fullScreen = value;
+			if ( value ) {
+				currentPage.children( ".ui-header" ).hide();
+				currentPage.children( ".ui-footer" ).hide();
+				view.parents().addClass( "ui-fullscreen-parents" );
+				this._fitContentArea( currentPage );
+				fullscreenButton.removeClass( "ui-fullscreen-on" ).addClass( "ui-fullscreen-off" );
+			} else {
+				currentPage.children( ".ui-header" ).show();
+				currentPage.children( ".ui-footer" ).show();
+				view.parents().removeClass( "ui-fullscreen-parents" );
+				this._fitContentArea( currentPage );
+				fullscreenButton.removeClass( "ui-fullscreen-off" ).addClass( "ui-fullscreen-on" );
 			}
+			this._resize();
 		},
 
 		refresh: function () {
