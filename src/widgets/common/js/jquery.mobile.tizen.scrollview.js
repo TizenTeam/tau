@@ -515,6 +515,10 @@
 			return { x: -this._sx, y: -this._sy };
 		},
 
+		skipDragging: function ( value ) {
+			this._skip_dragging = value;
+		},
+
 		_getScrollHierarchy: function () {
 			var svh = [],
 				d;
@@ -739,6 +743,10 @@
 				this._didDrag = true;
 				this._showScrollBars();
 				this._showOverflowIndicator();
+
+				this._$clip.parents(".ui-scrollview-clip").each( function () {
+					$( this ).scrollview( "skipDragging", true );
+				} );
 			}
 		},
 
