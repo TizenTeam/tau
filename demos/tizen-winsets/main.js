@@ -63,6 +63,14 @@ $( document ).bind("pagecreate", function () {
 		$("#selected-date4").text( newDate.toString() );
 	});
 
+	$("#demo-date5").bind("date-changed", function ( e, newDate ) {
+		$("#selected-date5").text( newDate.toString() );
+	});
+
+	$("#demo-date6").bind("date-changed", function ( e, newDate ) {
+		$("#selected-date6").text( newDate.toString() );
+	});
+
 	$('#noti-demo').bind('vmouseup', function ( e ) {
 		$('#notification').notification('open');
 	});
