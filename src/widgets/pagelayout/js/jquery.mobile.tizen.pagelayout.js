@@ -197,7 +197,7 @@
 					var thisPage = this;
 					if ( o.updatePagePadding ) {
 						self.updatePagePadding(thisPage);
-						self.updatePageLayout( false, thisPage);
+						self.updatePageLayout( thisPage, data);
 					}
 				})
 
@@ -210,7 +210,7 @@
 						$( window ).bind( "throttledresize." + self.widgetName, function () {
 							self.updatePagePadding(thisPage);
 
-							self.updatePageLayout( false, thisPage);
+							self.updatePageLayout( thisPage, false);
 							self._updateHeaderArea( thisPage );
 							self._setContentMinHeight( thisPage );
 						});
@@ -245,7 +245,7 @@
 				});
 
 			window.addEventListener( "softkeyboardchange", function ( e ) {
-				var thisPage = this;
+				var thisPage = $( ".ui-page-active" );
 
 				if ( e.state == "on" ) {
 					$elCurrentFooter = $( ".ui-page-active .ui-footer" );
@@ -254,7 +254,7 @@
 					$elCurrentFooter.show();
 				}
 				self.updatePagePadding( thisPage );
-				self.updatePageLayout( true, thisPage );
+				self.updatePageLayout( thisPage, true );
 			});
 		},
 
@@ -315,7 +315,7 @@
 		},
 
 		/* 1. Calculate and update content height   */
-		updatePageLayout: function ( receiveType, thisPage ) {
+		updatePageLayout: function ( thisPage, receiveType ) {
 			var $elFooter,
 				$elPage = $( thisPage ),
 				$elHeader = $elPage.find( ":jqmData(role='header')" ),
@@ -331,8 +331,8 @@
 			}
 
 			// calculate footer height
-			resultFooterHeight = ( $elFooter.css( "display" ) == "none" ) ? 0 : $elFooter.height();
-			resultHeaderHeight = ( $elHeader.css( "display" ) == "none" ) ? 0 : $elHeader.height();
+			resultFooterHeight = ( $elFooter.css( "display" ) == "none" || $elFooter.length == 0 ) ? 0 : $elFooter.height();
+			resultHeaderHeight = ( $elHeader.css( "display" ) == "none" || $elHeader.length == 0 ) ? 0 : $elHeader.height();
 
 			if (resultFooterHeight != 0 ) {
 				$elFooter.css( "bottom", 0 );
