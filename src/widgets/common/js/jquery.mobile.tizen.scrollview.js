@@ -1179,7 +1179,7 @@
 				}
 
 				self._softkeyboard = ( e.state === "on" ? true : false );
-				self._softkeyboardHeight = e.height *
+				self._softkeyboardHeight = parseInt( e.height ) *
 						( $( window ).width() / window.screen.availWidth );
 			});
 
