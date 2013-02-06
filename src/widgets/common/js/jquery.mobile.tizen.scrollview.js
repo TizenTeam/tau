@@ -572,6 +572,13 @@
 				return;
 			}
 
+			if ( target.is('textarea') ) {
+				target.bind( "scroll", function () {
+					self._skip_dragging = true;
+					target.unbind("scroll");
+				});
+			}
+
 			/*
 			 * We need to prevent the default behavior to
 			 * suppress accidental selection of text, etc.
