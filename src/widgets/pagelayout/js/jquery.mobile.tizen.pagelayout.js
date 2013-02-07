@@ -149,7 +149,8 @@
 				$elHeader = $elPage.find( ":jqmData(role='header')" ).length ? $elPage.find( ":jqmData(role='header')") : $elPage.siblings( ":jqmData(role='header')"),
 				$elContent = $elPage.find( ".ui-content" ),
 				$elFooter = $elPage.find( ":jqmData(role='footer')" ),
-				$elFooterGroup = $elFooter.find( ":jqmData(role='fieldcontain')" );
+				$elFooterGroup = $elFooter.find( ":jqmData(role='fieldcontain')" ),
+				$elFooterControlGroup = $elFooter.find( ".ui-controlgroup" );
 
 			// divide content mode scrollview and non-scrollview
 			if ( !$elPage.is( ".ui-dialog" ) ) {
@@ -169,6 +170,13 @@
 
 			if ( $elFooterGroup.find( "div" ).is( ".ui-controlgroup-label" ) ) {
 				$elFooterGroup.find( "div.ui-controlgroup-label" ).remove();
+			}
+
+			if ( $elFooterControlGroup.length ) {
+				var anchorPer = 100 / $elFooterControlGroup.find( "a" ).length;
+				$elFooterControlGroup.find( "a" ).each( function ( i ) {
+					$elFooterControlGroup.find( "a" ).eq( i ).width( anchorPer + "%" );
+				});
 			}
 		},
 
