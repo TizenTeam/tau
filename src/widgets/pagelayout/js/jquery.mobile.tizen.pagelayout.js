@@ -296,7 +296,7 @@
 				headerSrcNum = $elHeader.children("img").length;
 
 			if ( !$elPage.is( ".ui-dialog" ) ) {
-				$elHeader.find( "h1" ).css( "width", window.innerWidth - $elHeader.children( "a" ).width() * headerBtnNum - $elHeader.children( "a" ).width() / 4 - $elHeader.children( "img" ).width() * headerSrcNum * 4 );
+				$elHeader.find( "h1" ).css( "width", window.innerWidth - parseInt( $elHeader.find( "h1" ).css( "margin-left" ), 10 ) * 2 - $elHeader.children( "a" ).width() * headerBtnNum - $elHeader.children( "a" ).width() / 4 - $elHeader.children( "img" ).width() * headerSrcNum * 4 );
 			}
 			/* add half width for default space between text and button, and img tag area is too narrow, so multiply three for img width*/
 		},
