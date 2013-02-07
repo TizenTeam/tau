@@ -503,6 +503,7 @@
 
 		scrollTo: function ( x, y, duration ) {
 			this._stopMScroll();
+			this._didDrag = false;
 
 			if ( !duration || this.options.scrollMethod === "translate" ) {
 				this._setScrollPosition( x, y, duration );
@@ -1012,6 +1013,7 @@
 			$v.bind( "keydown", function ( e ) {
 				var elem,
 					elem_top,
+					scroll_top = $( window ).scrollTop() - window.screenTop,
 					screen_h;
 
 				if ( e.keyCode == 9 ) {
@@ -1024,16 +1026,16 @@
 					return;
 				}
 
-				elem_top = elem.offset().top;
+				elem_top = elem.offset().top - scroll_top;
 				screen_h = $c.offset().top + $c.height() - elem.height();
 
 				if ( self._softkeyboard ) {
 					screen_h -= self._softkeyboardHeight;
 				}
 
-				if ( ( elem_top < 0 ) || ( elem_top > screen_h ) ) {
-					self.scrollTo( 0, self._sy - elem_top +
-						elem.height() + $c.offset().top, 0);
+				if ( ( elem_top < $c.offset().top ) || ( elem_top > screen_h ) ) {
+					self.scrollTo( 0, self._sy -
+							( elem_top - $c.offset().top - elem.height() ) );
 				}
 
 				return;
@@ -1043,6 +1045,7 @@
 				var input,
 					elem,
 					elem_top,
+					scroll_top = $( window ).scrollTop() - window.screenTop,
 					screen_h;
 
 				if ( e.keyCode != 9 ) {
@@ -1064,8 +1067,7 @@
 						elem = $( input[i + 1] );
 					}
 
-					elem_top = elem.offset().top + window.screenTop *
-						( $( window ).width() / window.screen.availWidth );
+					elem_top = elem.offset().top - scroll_top;
 					screen_h = $c.offset().top + $c.height() - elem.height();
 
 					if ( self._softkeyboard ) {
