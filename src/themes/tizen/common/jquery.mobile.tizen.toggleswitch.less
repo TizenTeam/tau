@@ -12,18 +12,16 @@ div.ui-slider.ui-toggle-switch {
 		position: absolute;
 		width: 66 * @unit_base;
 		height: 35 * @unit_base;
-		background-size: cover;
-		-ms-background-size: cover;
-		-webkit-background-size: cover;
-		-o-background-size: cover;
-		-moz-background-size: cover;
+		background-size : 100% 100%;
+		background-repeat : no-repeat;
+		background-color : transparent;
 
 		&.ui-slider-label-a {
-			background: url(images/00_button_on.png) no-repeat;
+			background-image : url(images/00_button_on.png);
 		}
 
 		&.ui-slider-label-b {
-			background: url(images/00_button_off.png) no-repeat;
+			background-image : url(images/00_button_off.png);
 		}
 	}
 

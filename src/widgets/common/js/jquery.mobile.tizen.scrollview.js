@@ -503,6 +503,7 @@
 
 		scrollTo: function ( x, y, duration ) {
 			this._stopMScroll();
+			this._didDrag = false;
 
 			if ( !duration || this.options.scrollMethod === "translate" ) {
 				this._setScrollPosition( x, y, duration );
@@ -513,6 +514,10 @@
 
 		getScrollPosition: function () {
 			return { x: -this._sx, y: -this._sy };
+		},
+
+		skipDragging: function ( value ) {
+			this._skip_dragging = value;
 		},
 
 		_getScrollHierarchy: function () {
@@ -566,6 +571,13 @@
 			if ( target.parents('.ui-slider').length || target.is('.ui-slider') ) {
 				this._skip_dragging = true;
 				return;
+			}
+
+			if ( target.is('textarea') ) {
+				target.bind( "scroll", function () {
+					self._skip_dragging = true;
+					target.unbind("scroll");
+				});
 			}
 
 			/*
@@ -739,6 +751,10 @@
 				this._didDrag = true;
 				this._showScrollBars();
 				this._showOverflowIndicator();
+
+				this._$clip.parents(".ui-scrollview-clip").each( function () {
+					$( this ).scrollview( "skipDragging", true );
+				} );
 			}
 		},
 
@@ -997,6 +1013,7 @@
 			$v.bind( "keydown", function ( e ) {
 				var elem,
 					elem_top,
+					scroll_top = $( window ).scrollTop() - window.screenTop,
 					screen_h;
 
 				if ( e.keyCode == 9 ) {
@@ -1009,16 +1026,16 @@
 					return;
 				}
 
-				elem_top = elem.offset().top;
+				elem_top = elem.offset().top - scroll_top;
 				screen_h = $c.offset().top + $c.height() - elem.height();
 
 				if ( self._softkeyboard ) {
 					screen_h -= self._softkeyboardHeight;
 				}
 
-				if ( ( elem_top < 0 ) || ( elem_top > screen_h ) ) {
-					self.scrollTo( 0, self._sy - elem_top +
-						elem.height() + $c.offset().top, 0);
+				if ( ( elem_top < $c.offset().top ) || ( elem_top > screen_h ) ) {
+					self.scrollTo( 0, self._sy -
+							( elem_top - $c.offset().top - elem.height() ) );
 				}
 
 				return;
@@ -1028,6 +1045,7 @@
 				var input,
 					elem,
 					elem_top,
+					scroll_top = $( window ).scrollTop() - window.screenTop,
 					screen_h;
 
 				if ( e.keyCode != 9 ) {
@@ -1049,7 +1067,7 @@
 						elem = $( input[i + 1] );
 					}
 
-					elem_top = elem.offset().top;
+					elem_top = elem.offset().top - scroll_top;
 					screen_h = $c.offset().top + $c.height() - elem.height();
 
 					if ( self._softkeyboard ) {
@@ -1163,7 +1181,8 @@
 				}
 
 				self._softkeyboard = ( e.state === "on" ? true : false );
-				self._softkeyboardHeight = e.height;
+				self._softkeyboardHeight = parseInt( e.height ) *
+						( $( window ).width() / window.screen.availWidth );
 			});
 
 			$c.closest(".ui-page")

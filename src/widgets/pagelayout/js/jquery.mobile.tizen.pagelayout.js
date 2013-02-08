@@ -149,7 +149,8 @@
 				$elHeader = $elPage.find( ":jqmData(role='header')" ).length ? $elPage.find( ":jqmData(role='header')") : $elPage.siblings( ":jqmData(role='header')"),
 				$elContent = $elPage.find( ".ui-content" ),
 				$elFooter = $elPage.find( ":jqmData(role='footer')" ),
-				$elFooterGroup = $elFooter.find( ":jqmData(role='fieldcontain')" );
+				$elFooterGroup = $elFooter.find( ":jqmData(role='fieldcontain')" ),
+				$elFooterControlGroup = $elFooter.find( ".ui-controlgroup" );
 
 			// divide content mode scrollview and non-scrollview
 			if ( !$elPage.is( ".ui-dialog" ) ) {
@@ -169,6 +170,13 @@
 
 			if ( $elFooterGroup.find( "div" ).is( ".ui-controlgroup-label" ) ) {
 				$elFooterGroup.find( "div.ui-controlgroup-label" ).remove();
+			}
+
+			if ( $elFooterControlGroup.length ) {
+				var anchorPer = 100 / $elFooterControlGroup.find( "a" ).length;
+				$elFooterControlGroup.find( "a" ).each( function ( i ) {
+					$elFooterControlGroup.find( "a" ).eq( i ).width( anchorPer + "%" );
+				});
 			}
 		},
 
@@ -197,7 +205,7 @@
 					var thisPage = this;
 					if ( o.updatePagePadding ) {
 						self.updatePagePadding(thisPage);
-						self.updatePageLayout( false, thisPage);
+						self.updatePageLayout( thisPage, data);
 					}
 				})
 
@@ -210,7 +218,7 @@
 						$( window ).bind( "throttledresize." + self.widgetName, function () {
 							self.updatePagePadding(thisPage);
 
-							self.updatePageLayout( false, thisPage);
+							self.updatePageLayout( thisPage, false);
 							self._updateHeaderArea( thisPage );
 							self._setContentMinHeight( thisPage );
 						});
@@ -245,7 +253,7 @@
 				});
 
 			window.addEventListener( "softkeyboardchange", function ( e ) {
-				var thisPage = this;
+				var thisPage = $( ".ui-page-active" );
 
 				if ( e.state == "on" ) {
 					$elCurrentFooter = $( ".ui-page-active .ui-footer" );
@@ -254,7 +262,7 @@
 					$elCurrentFooter.show();
 				}
 				self.updatePagePadding( thisPage );
-				self.updatePageLayout( true, thisPage );
+				self.updatePageLayout( thisPage, true );
 			});
 		},
 
@@ -315,7 +323,7 @@
 		},
 
 		/* 1. Calculate and update content height   */
-		updatePageLayout: function ( receiveType, thisPage ) {
+		updatePageLayout: function ( thisPage, receiveType ) {
 			var $elFooter,
 				$elPage = $( thisPage ),
 				$elHeader = $elPage.find( ":jqmData(role='header')" ),
@@ -331,8 +339,8 @@
 			}
 
 			// calculate footer height
-			resultFooterHeight = ( $elFooter.css( "display" ) == "none" ) ? 0 : $elFooter.height();
-			resultHeaderHeight = ( $elHeader.css( "display" ) == "none" ) ? 0 : $elHeader.height();
+			resultFooterHeight = ( $elFooter.css( "display" ) == "none" || $elFooter.length == 0 ) ? 0 : $elFooter.height();
+			resultHeaderHeight = ( $elHeader.css( "display" ) == "none" || $elHeader.length == 0 ) ? 0 : $elHeader.height();
 
 			if (resultFooterHeight != 0 ) {
 				$elFooter.css( "bottom", 0 );

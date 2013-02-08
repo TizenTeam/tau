@@ -255,10 +255,10 @@
 				scrollview._handlerTimer = setTimeout( function () {
 					if ( scrollview._timerID === 0 && $view.moveData === null ) {
 						handlerThumb.stop( true, true )
-									.css( "opacity", 1.0 )
-									.fadeOut( function () {
-										handler.removeClass( "ui-handler-visible" );
-									});
+							.css( "opacity", 1.0 )
+							.fadeOut( function () {
+								handler.removeClass( "ui-handler-visible" );
+							});
 						scrollview._handlerTimer = 0;
 					}
 				}, 1000 );
