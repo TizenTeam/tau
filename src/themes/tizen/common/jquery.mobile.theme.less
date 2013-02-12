@@ -219,21 +219,21 @@
 			border-color : @color_bar_divider_line;
 			border-top-width : 0px;
 			border-bottom-width : 0px;
-			border-left-width : 0px;
+			border-left-width : 1px;
 			border-right-width : 1px;
 
-			border-top-left-radius : 0px !important;
-			border-top-right-radius : 0px !important;
-			border-bottom-left-radius : 0px !important;
-			border-bottom-right-radius : 0px !important;
+			.LESSborder-radius-all(0);
 
 			box-shadow : none;
 
 			padding : 0px;
 			margin-left : -4 * @unit_base;
 			margin-right : -5 * @unit_base;
-
+			&.ui-btn-hover-s {
+				.LESSborder-radius-all(0);
+			}
 			&.ui-btn-down-s, .ui-btn-active-s {
+				.LESSborder-radius-all(0);
 				.ui-btn-inner {
 					background : @color_bg;
 					.ui-btn-text {
@@ -243,6 +243,7 @@
 			}
 
 			>.ui-btn-inner {
+				.LESSborder-radius-all(0);
 				border : 0px solid;
 				box-shadow : none;
 			}
