@@ -99,7 +99,7 @@ index c222f08..b46e737 100644
 +					break;
 +				case 1:
 +					correctionValue = [ 0 , -(ret.y + menuSize.cy - linkOffset.top)];
-+					arrowtop = menuSize.cy - 1;
++					arrowtop = menuSize.cy - 2;
 +					arrowleft = (linkOffset.left - ret.x + correctionValue[0]) + ( $(this.link).width() / 2 ) - parseInt( $(this._ui.arrow).css("border-width") ) / 2;
 +					$(this._ui.arrow).attr( "class", "" )
 +									.addClass( "ui-arrow bottom" );
@@ -150,7 +150,7 @@ index c222f08..b46e737 100644
 +				options = [];
 +			}
 +			if ( !options.link ) {
-+				self.link = $(event.target).closest('a')[0];
++				self.link = ( $(event.target).closest('a')[0] || $(event.target).closest('div')[0] );
 +			} else {
 +				self.link = options.link;
 +			}
