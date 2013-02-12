@@ -33,7 +33,7 @@ index f24699b..d56a7ba 100644
 +	{
 +		var i, btnAttr, len = containers.length;
 +		for ( i = 0; i < len; i++ ) {
-+			btnAttr = $( containers[ i ] ).find( ":jqmData(role='button')" ) || ( $( containers[ i ] ).find( "input" ).attr( "type" ) == "button" );
++			btnAttr = $( containers[ i ] ).find( ":jqmData(role='button'),input[type='button'],select:jqmData(role='slider')" );
 +			if ( btnAttr.length ) {
 +				if ( btnAttr.jqmData( "style" ) == "circle" )  {
 +					$( containers[ i ] ).addClass( "ui-li-has-right-circle-btn" );
