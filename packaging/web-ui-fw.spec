@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.15
+Version:    0.2.16
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -83,6 +83,27 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Mon Jan 28 2013 Youmin Ha <youmin.ha@samsung.com> 0.2.16
+	- demo: checkbox: reduce button's width
+	- tabbar : delete right/left tab animation color
+	- scrollview: fix the scroll position at keydown event
+	- groupControl : change footer groupControl from min-width to percentage
+	- scrollview: get height of softkeyboard correctly
+	- tizen-winset: Add name attr to all radio inputs
+	- virtualgrid: changes event binding target
+	- scrollview: skip the drag if target is textarea
+	- scrollview: skip the dragging of parent scrollview
+	- scrollview: apply the scaling ratio to the soft keyboard
+	- demos: apply disabled option in textarea
+	- demo: remove unused codes
+	- demo: datetimepicker: show selected date correctly
+	- listview: Adjust bubble listitem width and margin
+	- pagelayout : change external refresh call and ime status follow only current page
+	- toggleSwitch : bug fix
+	- unit-test: slider: fix the move test
+	- handler: fix jslint error
+	- ToggleSwitch : set image toggleswitch background attribute
+
 * Mon Jan 28 2013 Youmin Ha <youmin.ha@samsung.com> 0.2.15
 	- slider: increase the text width(N_SE-23397)
 	- virtualgrid: DOM element leak fix
