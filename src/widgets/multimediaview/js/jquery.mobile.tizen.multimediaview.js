@@ -158,7 +158,8 @@
 				controlTimer: null,
 				isVolumeHide: true,
 				isVertical: true,
-				backupView: null
+				backupView: null,
+				_reserveVolume: -1
 			});
 
 			self.role = role;
@@ -378,11 +379,17 @@
 					self.stop();
 				}
 			}).bind( "volumechange.multimediaview", function ( e ) {
-				if ( viewElement.volume < 0.1 ) {
-					viewElement.muted = true;
+				if ( viewElement.muted && viewElement.volume > 0.1 ) {
+					volumeButton.removeClass( "ui-volume-icon" ).addClass( "ui-mute-icon" );
+					self._reserveVolume = viewElement.volume;
+					viewElement.volume = 0;
+				} else if ( self._reserveVolume !== -1 && !viewElement.muted ) {
+					volumeButton.removeClass( "ui-mute-icon" ).addClass( "ui-volume-icon" );
+					viewElement.volume = self._reserveVolume;
+					self._reserveVolume = -1;
+				} else if ( viewElement.volume < 0.1 ) {
 					volumeButton.removeClass( "ui-volume-icon" ).addClass( "ui-mute-icon" );
 				} else {
-					viewElement.muted = false;
 					volumeButton.removeClass( "ui-mute-icon" ).addClass( "ui-volume-icon" );
 				}
 

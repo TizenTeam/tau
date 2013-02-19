@@ -521,7 +521,7 @@ li.ui-li-thumbnail-right {
 	}
 }
 
-.ui-li.ui-li-has-right-btn:not(.ui-swipelist-item) {
+.ui-li.ui-li-has-right-btn:not(.ui-swipe) {
 	.ui-btn-inner a {
 		padding-right : 79 * @unit_base;
 	}
@@ -536,7 +536,7 @@ li.ui-li-thumbnail-right {
 	padding-right : 48 * @unit_base;
 }
 
-.ui-li.ui-li-static.ui-li-has-right-btn:not(.ui-swipelist-item) {
+.ui-li.ui-li-static.ui-li-has-right-btn:not(.ui-swipe) {
 	padding-right : 79 * @unit_base;
 }
 
@@ -694,7 +694,7 @@ li:not(.ui-li-has-multiline) .ui-li-text-sub {
 // Dialogue
 // =========
 .ui-listview {
-	 li.ui-li-dialogue {
+	li.ui-li-dialogue {
 		margin-left: 4 * @unit_base;
 		margin-right : 4 * @unit_base;
 		padding-left : 10 * @unit_base;
@@ -703,6 +703,7 @@ li:not(.ui-li-has-multiline) .ui-li-text-sub {
 		border-style : solid;
 		border-color : @color_dialogue_border_right;
 		border-width : 1px;
+		border-top-width : 0px;
 
 		> .ui-btn-inner {
 			margin-left : 0px;
@@ -760,6 +761,10 @@ li:not(.ui-li-has-multiline) .ui-li-text-sub {
 				}
 			}
 		}
+	}
+
+	li.ui-li-divider + .ui-li-dialogue {
+		border-top-width : 1px;
 	}
 
 	&> li.ui-li-dialogue.ui-body-s,

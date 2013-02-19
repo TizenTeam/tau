@@ -38,10 +38,12 @@
 
 		$( "#MBTfocusInTest" ).click( function () {
 			$( ":jqmData(role='tokentextarea')" ).tokentextarea( "focusIn", 0 );
+			$( ":jqmData(role='tokentextarea')" ).parents( ".ui-scrollview-view" ).parent().scrollview( "scrollTo", 0, 0 );
 		});
 
 		$( "#MBTfocusOutTest" ).click( function () {
 			$( ":jqmData(role='tokentextarea')" ).tokentextarea( "focusOut", 0 );
+			$( ":jqmData(role='tokentextarea')" ).parents( ".ui-scrollview-view" ).parent().scrollview( "scrollTo", 0, 0 );
 		});
 
 		$( "#MBTdestroyTest" ).click( function () {

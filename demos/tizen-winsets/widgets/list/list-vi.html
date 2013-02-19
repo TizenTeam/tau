@@ -1,30 +1,16 @@
 <div data-role="page" data-add-back-btn="true">
 	<script type="text/javascript">
 		var add = function() {
-			var val = $("#idx").val();
-			if( isNaN( val ) ) {
-				alert( "invalid value" );
-				return;
-			}
-			$("#listvi").listview( 'addItem', '<li>Test<div data-role="button" data-inline="true">TEST</div></li>', val );
+			$("#listvi").listview( 'addItem', '<li>Test<div data-role="button" data-inline="true">TEST</div></li>', 0 );
 		}
 		var del = function() {
-			var val = $("#idx").val();
-			if( isNaN( val ) ) {
-				alert( "invalid value" );
-				return;
-			}
-			$("#listvi").listview( 'removeItem' , val );
+			$("#listvi").listview( 'removeItem' , 0 );
 		}
 	</script>
 	<div data-role="header" data-position="fixed">
 		<h1>List vi</h1>
 	</div>
 	<div class="content" data-role="content" data-scroll="y">
-		<div>
-			Only number in textbox, list index start at 0(zero)
-		</div>
-		<input type="number" value="0" id="idx" min="0" />
 		<div data-role="button" onclick="add()" data-inline="true">Add</div>
 		<div data-role="button" onclick="del()" data-inline="true">Del</div>
 		<ul id="listvi" data-role="listview">
