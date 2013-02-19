@@ -216,7 +216,7 @@
 			self.handle_press.css('display', 'none');
 
 			// add a popup element (hidden initially)
-			slider.before( self.popup );
+			slider.parents(".ui-page").append( self.popup );
 			self.popup.hide();
 
 			// get the element where value can be displayed
@@ -254,7 +254,8 @@
 			var dstOffset = this.handle.offset();
 
 			this.popup.offset({
-				left: dstOffset.left + ( this.handle.width() - this.popup.width() ) / 2
+				left: dstOffset.left + ( this.handle.width() - this.popup.width() ) / 2,
+				top: dstOffset.top - this.popup.height()
 			});
 
 			this.handle_press.offset({
