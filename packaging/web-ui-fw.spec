@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.16
+Version:    0.2.17
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -83,6 +83,19 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Tue Feb 19 2013 Minkyu Kang <mk7.kang@samsung.com> 0.2.17
+	- DialogueList : delete border top value / add sample's text ellipsis
+	- Tokentextarea: Add scroll-to-top for Grouping On/Off regarding #N_SE-24877
+	- Multimediaview: Fix mute function
+	- Tizen-winset: list vi index guide textbox has been removed
+	- Tizen-winset: custom button texts have been changed
+	- slider: move popup div to out of content
+	- TizenWinset: disable context popup in multimediaview
+	- Swipe: wrong style name has been fixed
+	- demo: add the sample at dialogue list
+	- listview: Add ui-li-has-right-btn class with toggleswitch
+	- WinsetDemo : change wrong title name
+
 * Mon Jan 28 2013 Youmin Ha <youmin.ha@samsung.com> 0.2.16
 	- demo: checkbox: reduce button's width
 	- tabbar : delete right/left tab animation color
