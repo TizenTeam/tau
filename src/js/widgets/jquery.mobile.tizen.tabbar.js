@@ -75,8 +75,6 @@ define( [ '../jquery.mobile.tizen.core', 'jquery.mobile.tizen.pagelayout' ], fun
 				wh = window.innerHeight || $( window ).height(),
 				tabbarDividerLeft = "<div class='ui-tabbar-divider ui-tabbar-divider-left'></div>",
 				tabbarDividerRight = "<div class='ui-tabbar-divider ui-tabbar-divider-right'></div>",
-				isScrollingStart = false,
-				isScrollingEnd = false,
 				isLandscape;
 
 			isLandscape = ww > wh && ( ww - wh );
@@ -171,42 +169,6 @@ define( [ '../jquery.mobile.tizen.core', 'jquery.mobile.tizen.pagelayout' ], fun
 				if ( $elFooterBack.length ) {
 					tabbar_filter.addClass( "ui-tabbar-margin-back" );
 				}
-
-				isScrollingStart = false;
-			});
-
-			$( window ).bind( "tabbar.scrollstart", function ( e ) {
-				if ( $( e.target ).find( ".ui-tabbar" ).length ) {
-					isScrollingStart = true;
-					isScrollingEnd = false;
-				}
-			});
-
-			$( window ).bind( "tabbar.scrollstop", function ( e ) {
-				var $tabbarScrollview = $( e.target ),
-					$minElement = $tabbar.find( "li" ).eq( 0 ),
-					minElementIndexVal = Math.abs( $tabbar.find( "li" ).eq( 0 ).offset().left ),
-					minElementIndex = -1;
-
-				isScrollingEnd = true;
-				if ( $( e.target ).find( ".ui-tabbar" ).length && isScrollingStart == true ) {
-					$tabbar.find( "li" ).each( function ( i ) {
-						var offset	= $tabbar.find( "li" ).eq( i ).offset();
-						if ( Math.abs( offset.left ) < minElementIndexVal ) {
-							minElementIndexVal = Math.abs( offset.left );
-							minElementIndex = i;
-							$minElement = $tabbar.find( "li" ).eq( i );
-						}
-					});
-
-					if ( $tabbarScrollview.length && isScrollingStart == isScrollingEnd && minElementIndex != -1) {
-						isScrollingStart = false;
-						$tabbarScrollview.scrollview( "scrollTo", -( window.innerWidth / $( e.target ).find( ".ui-tabbar" ).data( "defaultList" ) * minElementIndex ) , 0, 357);
-					}
-				}
-
-				$( ".ui-tabbar-divider-left" ).hide();
-				$( ".ui-tabbar-divider-right" ).hide();
 			});
 
 			$tabbar.bind( "touchstart vmousedown", function ( e ) {
@@ -226,6 +188,49 @@ define( [ '../jquery.mobile.tizen.core', 'jquery.mobile.tizen.pagelayout' ], fun
 			});
 
 			this._bindTabbarEvents();
+			this._initTabbarAnimation();
+		},
+
+		_initTabbarAnimation: function () {
+			var isScrollingStart = false,
+				isScrollingEnd = false;
+			$( document ).bind( "scrollstart.tabbar", function ( e ) {
+				if ( $( e.target ).find( ".ui-tabbar" ).length ) {
+					isScrollingStart = true;
+					isScrollingEnd = false;
+				}
+			});
+
+			$( document ).bind( "scrollstop.tabbar", function ( e ) {
+				var $tabbarScrollview = $( e.target ),
+					$elTabbar = $( e.target ).find( ".ui-tabbar" ),
+					$elTabbarLI = $( e.target ).find( ".ui-tabbar li" ),
+					$minElement = $elTabbarLI.eq( 0 ),
+					minElementIndexVal,
+					minElementIndex = -1;
+
+				isScrollingEnd = true;
+				if ( $elTabbar.length && isScrollingStart == true ) {
+					minElementIndexVal = Math.abs( $elTabbarLI.eq( 0 ).offset().left );
+					$elTabbarLI.each( function ( i ) {
+						var offset	= $elTabbarLI.eq( i ).offset();
+
+						if ( Math.abs( offset.left ) < minElementIndexVal ) {
+							minElementIndexVal = Math.abs( offset.left );
+							minElementIndex = i;
+							$minElement = $elTabbarLI.eq( i );
+						}
+					});
+
+					if ( $tabbarScrollview.length && isScrollingStart == isScrollingEnd && minElementIndex != -1) {
+						isScrollingStart = false;
+						$tabbarScrollview.scrollview( "scrollTo", -( window.innerWidth / $elTabbar.data( "defaultList" ) * minElementIndex ) , 0, 357);
+					}
+				}
+
+				$( ".ui-tabbar-divider-left" ).hide();
+				$( ".ui-tabbar-divider-right" ).hide();
+			});
 		},
 
 		_bindTabbarEvents: function () {
