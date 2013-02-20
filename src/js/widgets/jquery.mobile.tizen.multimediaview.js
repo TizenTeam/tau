@@ -267,12 +267,16 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 				viewElement = view[0],
 				wrap = view.parent( ".ui-multimediaview-wrap" ),
 				control = wrap.find( ".ui-multimediaview-control" ),
+				fullscreenButton = control.find( ".ui-fullscreenbutton" ),
+				currentPage = $( ".ui-page-active" ),
 				playpauseButton = control.find( ".ui-playpausebutton" ),
 				timestampLabel = control.find( ".ui-timestamplabel" ),
 				seekBar = control.find( ".ui-seekbar" ),
 				durationBar = seekBar.find( ".ui-duration" ),
 				currenttimeBar = seekBar.find( ".ui-currenttime" ),
 				body = $( "body" )[0],
+				header = currentPage.children( ".ui-header" ),
+				footer = currentPage.children( ".ui-footer" ),
 				docWidth = 0,
 				docHeight = 0;
 
@@ -289,10 +293,19 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 				docWidth = body.clientWidth;
 				docHeight = body.clientHeight;
 
+				header.hide();
+				footer.hide();
+				view.parents().each( function ( e ) {
+					var element = $( this );
+					element.addClass( "ui-fullscreen-parents" )
+						.siblings()
+						.addClass( "ui-multimediaview-siblings-off" );
+				});
+				this._fitContentArea( currentPage );
+				fullscreenButton.removeClass( "ui-fullscreen-on" ).addClass( "ui-fullscreen-off" );
+
 				view.width( docWidth ).height( docHeight - 1 );
-				wrap.height( docHeight - 1 )
-					.siblings()
-					.addClass( "ui-multimediaview-siblings-off" );
+				wrap.height( docHeight - 1 );
 				view.offset( {
 					top: 0,
 					left: 0
@@ -301,9 +314,19 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 				if ( !self.backupView ) {
 					return;
 				}
-				wrap.css( "height", self.backupView.wrapHeight )
-					.siblings()
-					.removeClass( "ui-multimediaview-siblings-off" );
+
+				header.show();
+				footer.show();
+				view.parents().each( function ( e ) {
+					var element = $( this );
+					element.removeClass( "ui-fullscreen-parents" )
+						.siblings()
+						.removeClass( "ui-multimediaview-siblings-off" );
+				});
+				this._fitContentArea( currentPage );
+				fullscreenButton.removeClass( "ui-fullscreen-off" ).addClass( "ui-fullscreen-on" );
+
+				wrap.css( "height", self.backupView.wrapHeight );
 				view.css( {
 					"width": self.backupView.width,
 					"height": self.backupView.height,
@@ -345,6 +368,10 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 					self._resize();
 				}
 			}).bind( "pagebeforechange.multimediaview", function ( e ) {
+				if ( option.fullScreen ) {
+					self.fullScreen( !option.fullScreen );
+				}
+
 				if ( viewElement.played.length !== 0 ) {
 					viewElement.pause();
 				}
@@ -443,6 +470,7 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 			});
 
 			fullscreenButton.bind( "click.multimediaview", function ( e ) {
+				e.preventDefault();
 				self.fullScreen( !self.options.fullScreen );
 				control.fadeIn( "fast", function () {
 					self._resize();
@@ -750,10 +778,7 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 			}
 
 			var view = this.element,
-				option = this.options,
-				control = view.parent( ".ui-multimediaview-wrap" ).find( ".ui-multimediaview-control" ),
-				fullscreenButton = control.find( ".ui-fullscreenbutton" ),
-				currentPage = $( ".ui-page-active" );
+				option = this.options;
 
 			if ( arguments.length === 0 ) {
 				return option.fullScreen;
@@ -762,19 +787,7 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 			view.parents( ".ui-scrollview-clip" ).scrollview( "scrollTo", 0, 0 );
 
 			this.options.fullScreen = value;
-			if ( value ) {
-				currentPage.children( ".ui-header" ).hide();
-				currentPage.children( ".ui-footer" ).hide();
-				view.parents().addClass( "ui-fullscreen-parents" );
-				this._fitContentArea( currentPage );
-				fullscreenButton.removeClass( "ui-fullscreen-on" ).addClass( "ui-fullscreen-off" );
-			} else {
-				currentPage.children( ".ui-header" ).show();
-				currentPage.children( ".ui-footer" ).show();
-				view.parents().removeClass( "ui-fullscreen-parents" );
-				this._fitContentArea( currentPage );
-				fullscreenButton.removeClass( "ui-fullscreen-off" ).addClass( "ui-fullscreen-on" );
-			}
+
 			this._resize();
 		},
 
