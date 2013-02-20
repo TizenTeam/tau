@@ -185,6 +185,12 @@
 				init: false,
 				runningClass: runningClass
 			} );
+
+			if ( style === "pending" ) {
+				$( this.element ).append( this.html );
+				this.init = true;
+			}
+
 			this._refresh();
 		}
 	} ); /* End of widget */
