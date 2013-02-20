@@ -258,6 +258,10 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 		},
 
 		_resizeFullscreen: function ( isFullscreen ) {
+			if ( !this._isVideo ) {
+				return;
+			}
+
 			var self = this,
 				view = self.element,
 				viewElement = view[0],
@@ -706,10 +710,19 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 		},
 
 		width: function ( value ) {
-			var view = this.element;
+			if ( this.options.fullScreen ) {
+				return;
+			}
+
+			var view = this.element,
+				wrap = view.parent( ".ui-multimediaview-wrap" );
 
 			if ( arguments.length === 0 ) {
 				return view.width();
+			}
+
+			if ( !this._isVideo ) {
+				wrap.width( value );
 			}
 
 			view.width( value );
@@ -717,11 +730,11 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 		},
 
 		height: function ( value ) {
-			var view = this.element;
-
-			if ( !this._isVideo ) {
+			if ( !this._isVideo || this.options.fullScreen ) {
 				return;
 			}
+
+			var view = this.element;
 
 			if ( arguments.length === 0 ) {
 				return view.height();
@@ -732,6 +745,10 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 		},
 
 		fullScreen: function ( value ) {
+			if ( !this._isVideo ) {
+				return;
+			}
+
 			var view = this.element,
 				option = this.options,
 				control = view.parent( ".ui-multimediaview-wrap" ).find( ".ui-multimediaview-control" ),
