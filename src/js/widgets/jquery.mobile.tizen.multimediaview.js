@@ -158,11 +158,12 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 				option = self.options,
 				parentTheme = $.mobile.getInheritedTheme( view, "s" ),
 				theme = option.theme || parentTheme,
+				width = viewElement.style.getPropertyValue( "width" ) || "",
+				wrap = $( "<div class='ui-multimediaview-wrap ui-multimediaview-" + theme + "'>" ),
 				control = null;
 
 			$.extend( this, {
 				role: null,
-				isControlHide: false,
 				controlTimer: null,
 				isVolumeHide: true,
 				backupView: null,
@@ -172,15 +173,21 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 
 			view.addClass( "ui-multimediaview" );
 			control = self._createControl();
+			control.hide();
+
 			control.find( ".ui-button" ).each( function ( index ) {
 				$( this ).buttonMarkup( { corners: true, theme: theme, shadow: true } );
 			});
 
+			view.wrap( wrap ).after( control );
+
 			if ( isVideo ) {
 				control.addClass( "ui-multimediaview-video" );
+			} else {
+				self.width( width );
+				self.options.fullScreen = false;
 			}
 
-			view.wrap( "<div class='ui-multimediaview-wrap ui-multimediaview-" + theme + "'>" ).after( control );
 			if ( option.controls && view.attr( "controls" ) ) {
 				view.removeAttr( "controls" );
 			}
@@ -408,9 +415,12 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 					return;
 				}
 
-				control.fadeToggle( "fast", function () {
-					self.isControlHide = !self.isControlHide;
-				});
+				control.fadeToggle( "fast" );
+				self._resize();
+			}).bind( "multimediaviewinit", function ( e ) {
+				if ( option.controls ) {
+					control.show();
+				}
 				self._resize();
 			});
 
@@ -586,7 +596,6 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 
 			self.controlTimer = setTimeout( function () {
 				self.isVolumeHide = true;
-				self.isControlHide = true;
 				self.controlTimer = null;
 				volumeControl.hide();
 				control.fadeOut( "fast" );
