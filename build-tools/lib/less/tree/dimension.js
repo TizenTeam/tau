@@ -28,7 +28,24 @@ tree.Dimension.prototype = {
         return new(tree.Dimension)
                   (tree.operate(op, this.value, other.value),
                   this.unit || other.unit);
+    },
+
+    compare: function (other) {
+        if (other instanceof tree.Dimension) {
+            if (other.value > this.value) {
+                return -1;
+            } else if (other.value < this.value) {
+                return 1;
+            } else {
+                if (other.unit && this.unit !== other.unit) {
+                    return -1;
+                }
+                return 0;
+            }
+        } else {
+            return -1;
+        }
     }
 };
 
-})(require('less/tree'));
+})(require('../tree'));

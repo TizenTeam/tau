@@ -1,12 +1,11 @@
 (function (tree) {
 
-tree.Comment = function (value, silent) {
+tree.UnicodeDescriptor = function (value) {
     this.value = value;
-    this.silent = !!silent;
 };
-tree.Comment.prototype = {
+tree.UnicodeDescriptor.prototype = {
     toCSS: function (env) {
-        return env.compress ? '' : this.value;
+        return this.value;
     },
     eval: function () { return this }
 };

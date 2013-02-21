@@ -1,6 +1,7 @@
 Tizen Web UI Framework includes following tools used on build;
 
 * less (http://lesscss.org)
+	* Version: 1.3.3
 	* Description: A dynamic CSS language compiler based on node.js
 	* Mods
 		* Support rem unit (build-tools/lib/less/parser.js)

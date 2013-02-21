@@ -17,6 +17,11 @@ tree.Operation.prototype.eval = function (env) {
                     message: "Can't substract or divide a color from a number" };
         }
     }
+    if (!a.operate) {
+        throw { name: "OperationError",
+                message: "Operation on an invalid type" };
+    }
+
     return a.operate(this.op, b);
 };
 
@@ -29,4 +34,4 @@ tree.operate = function (op, a, b) {
     }
 };
 
-})(require('less/tree'));
+})(require('../tree'));

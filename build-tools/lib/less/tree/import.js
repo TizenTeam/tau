@@ -11,27 +11,30 @@
 // `import,push`, we also pass it a callback, which it'll call once
 // the file has been fetched, and parsed.
 //
-tree.Import = function (path, imports) {
+tree.Import = function (path, imports, features, once, index, rootpath) {
     var that = this;
 
+    this.once = once;
+    this.index = index;
     this._path = path;
-
+    this.features = features && new(tree.Value)(features);
+    this.rootpath = rootpath;
+		
     // The '.less' extension is optional
     if (path instanceof tree.Quoted) {
-        this.path = /\.(le?|c)ss(\?.*)?$/.test(path.value) ? path.value : path.value + '.less';
+        this.path = /(\.[a-z]*$)|([\?;].*)$/.test(path.value) ? path.value : path.value + '.less';
     } else {
         this.path = path.value.value || path.value;
     }
 
-    this.css = /css(\?.*)?$/.test(this.path);
+    this.css = /css([\?;].*)?$/.test(this.path);
 
     // Only pre-compile .less files
     if (! this.css) {
-        imports.push(this.path, function (root) {
-            if (! root) {
-                throw new(Error)("Error parsing " + that.path);
-            }
-            that.root = root;
+        imports.push(this.path, function (e, root, imported) {
+            if (e) { e.index = index }
+            if (imported && that.once) that.skip = imported;
+            that.root = root || new(tree.Ruleset)([], []);
         });
     }
 };
@@ -46,32 +49,34 @@ tree.Import = function (path, imports) {
 // ruleset.
 //
 tree.Import.prototype = {
-    toCSS: function () {
+    toCSS: function (env) {
+        var features = this.features ? ' ' + this.features.toCSS(env) : '';
+
         if (this.css) {
-            return "@import " + this._path.toCSS() + ';\n';
+            // Add the base path if the import is relative
+            if (typeof this._path.value === "string" && !/^(?:[a-z-]+:|\/)/.test(this._path.value)) {
+                this._path.value = this.rootpath + this._path.value;
+            }
+            return "@import " + this._path.toCSS() + features + ';\n';
         } else {
             return "";
         }
     },
     eval: function (env) {
-        var ruleset;
+        var ruleset, features = this.features && this.features.eval(env);
+
+        if (this.skip) return [];
 
         if (this.css) {
             return this;
         } else {
-            ruleset = new(tree.Ruleset)(null, this.root.rules.slice(0));
+            ruleset = new(tree.Ruleset)([], this.root.rules.slice(0));
 
-            for (var i = 0; i < ruleset.rules.length; i++) {
-                if (ruleset.rules[i] instanceof tree.Import) {
-                    Array.prototype
-                         .splice
-                         .apply(ruleset.rules,
-                                [i, 1].concat(ruleset.rules[i].eval(env)));
-                }
-            }
-            return ruleset.rules;
+            ruleset.evalImports(env);
+
+            return this.features ? new(tree.Media)(ruleset.rules, this.features.value) : ruleset.rules;
         }
     }
 };
 
-})(require('less/tree'));
+})(require('../tree'));
