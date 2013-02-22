@@ -813,13 +813,23 @@ define( [ ], function ( ) {
 					self._gesture_dir = 0;
 					self._gesture_count = 0;
 					self._gesture_timer = undefined;
+				},
+				direction = {
+					top: 0,
+					bottom: 1,
+					left: 2,
+					right: 3
 				};
 
-			if ( !sy ) {
+			if ( !sy && !sx ) {
 				return false;
 			}
 
-			dir = sy > 0 ? 1 : -1;
+			if ( Math.abs( sx ) > Math.abs( sy ) ) {
+				dir = sx > 0 ? direction.left : direction.right;
+			} else {
+				dir = sy > 0 ? direction.top : direction.bottom;
+			}
 
 			if ( !this._gesture_timer ) {
 				this._gesture_count = 1;
@@ -840,13 +850,25 @@ define( [ ], function ( ) {
 			this._gesture_count++;
 
 			if ( this._gesture_count === 3 ) {
-				if ( dir > 0 ) {
-					this.scrollTo( 0, 0, this.options.overshootDuration );
-				} else {
-					this.scrollTo( 0, -( this._getViewHeight() - this._$clip.height() ),
+				switch ( dir ) {
+				case direction.top:
+					this.scrollTo( this._sx, 0, this.options.overshootDuration );
+					break;
+				case direction.bottom:
+					this.scrollTo( this._sx, -( this._getViewHeight() - this._$clip.height() ),
 							this.options.overshootDuration );
+					break;
+				case direction.left:
+					this.scrollTo( 0, this._sy, this.options.overshootDuration );
+					break;
+				case direction.right:
+					this.scrollTo( -( this._$view.width() - this._$clip.width() ), this._sy,
+							this.options.overshootDuration );
+					break;
 				}
+
 				reset();
+				this._didDrag = true;
 
 				return true;
 			}
