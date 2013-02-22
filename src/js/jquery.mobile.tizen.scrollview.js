@@ -76,6 +76,10 @@ define( [ ], function ( ) {
 			return this._$view.height();
 		},
 
+		_getViewWidth: function () {
+			return this._$view.width();
+		},
+
 		_makePositioned: function ( $ele ) {
 			if ( $ele.css("position") === "static" ) {
 				$ele.css( "position", "relative" );
@@ -144,7 +148,7 @@ define( [ ], function ( ) {
 
 			if ( ht ) {
 				c = this._$clip.width();
-				v = this._$view.width();
+				v = this._getViewWidth();
 
 				if ( (( this._sx === 0 && speedX > 0 ) ||
 					( this._sx === -(v - c) && speedX < 0 )) &&
@@ -862,7 +866,7 @@ define( [ ], function ( ) {
 					this.scrollTo( 0, this._sy, this.options.overshootDuration );
 					break;
 				case direction.right:
-					this.scrollTo( -( this._$view.width() - this._$clip.width() ), this._sy,
+					this.scrollTo( -( this._getViewWidth() - this._$clip.width() ), this._sy,
 							this.options.overshootDuration );
 					break;
 				}
