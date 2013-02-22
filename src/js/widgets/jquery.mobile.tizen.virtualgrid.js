@@ -372,6 +372,7 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 				_template : null,
 				_maxViewSize : 0,
 				_modifyViewPos : 0,
+				_maxSizeExceptClip : 0,
 				_maxSize : 0,
 
 				// axis - ( true : x , false : y )
@@ -511,9 +512,14 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 			}
 		},
 
+		_getViewWidth : function () {
+			var self = this;
+			return self._maxSize;
+		},
+
 		_getViewHeight : function () {
 			var self = this;
-			return self._$view.height();
+			return self._maxSize;
 		},
 
 		refresh : function () {
@@ -571,8 +577,9 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 			self._initLayout();
 
 			self._blockScroll = self._rowsPerView > self._totalRowCnt;
-			self._maxSize = ( self._totalRowCnt - self._rowsPerView ) * self._cellSize;
-			self._maxViewSize = self._rowsPerView * self._cellSize;
+			self._maxSizeExceptClip = ( self._totalRowCnt - self._rowsPerView ) * self._cellSize;
+			self._maxSize = self._totalRowCnt * self._cellSize;
+			self._maxViewSize = ( self._rowsPerView ) * self._cellSize;
 			self._modifyViewPos = -self._cellSize;
 			if ( self._clipSize < self._maxViewSize ) {
 				self._modifyViewPos = ( -self._cellSize ) + ( self._clipSize - self._maxViewSize );
@@ -607,6 +614,9 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 					ret.width = parseInt( width, 10 );
 				}
 				$target = $target.parent();
+				if ( $target.hasClass( "ui-content" ) ) {
+					break;
+				}
 			}
 			return ret;
 		},
@@ -631,10 +641,11 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 				clipPosition = self._getClipPosition();
 				self._$view.hide();
 
-				diffRowCnt = self._replaceRows( itemCount, prevcnt, self._totalRowCnt, clipPosition );
-				self._maxSize = ( self._totalRowCnt - self._rowsPerView ) * self._cellSize;
-				self._scalableSize += ( -diffRowCnt ) * self._cellSize;
-				self._reservedPos  += ( -diffRowCnt ) * self._cellSize;
+				diffRowCnt = self._replaceRows(itemCount, prevcnt, self._totalRowCnt, clipPosition);
+				self._maxSizeExceptClip = ( self._totalRowCnt - self._rowsPerView ) * self._cellSize;
+				self._maxSize = self._totalRowCnt * self._cellSize;
+				self._scalableSize += (-diffRowCnt) * self._cellSize;
+				self._reservedPos  += (-diffRowCnt) * self._cellSize;
 				self._setScrollBarSize();
 				self._setScrollBarPosition( diffRowCnt );
 
@@ -656,8 +667,9 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 				self._rowsPerView = rowsPerView;
 				self._clipSize = clipSize;
 				self._blockScroll = self._rowsPerView > self._totalRowCnt;
-				self._maxSize = ( self._totalRowCnt - self._rowsPerView ) * self._cellSize;
-				self._maxViewSize = self._rowsPerView * self._cellSize;
+				self._maxSizeExceptClip = ( self._totalRowCnt - self._rowsPerView ) * self._cellSize;
+				self._maxSize = self._totalRowCnt * self._cellSize;
+				self._maxViewSize = ( self._rowsPerView ) * self._cellSize;
 				if ( self._clipSize < self._maxViewSize ) {
 					self._modifyViewPos = ( -self._cellSize ) + ( self._clipSize - self._maxViewSize );
 				}
@@ -840,9 +852,11 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 		scrollTo: function ( x, y, duration ) {
 			var self = this;
 			if ( self._direction ) {
+				x -= self._cellSize;
 				self._sx = self._reservedPos;
 				self._reservedPos = x;
 			} else {
+				y -= self._cellSize;
 				self._sy = self._reservedPos;
 				self._reservedPos = y;
 			}
@@ -864,6 +878,8 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 				di = parseInt( dy / self._cellSize, 10 ),
 				i = 0,
 				idx = 0,
+				replaceStartIdx = 0,
+				realRowCount = self._rowsPerView + 2,
 				$row = null;
 
 			if ( self._blockScroll ) {
@@ -878,32 +894,32 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 					self._setElementTransform( -self._cellSize );
 					return;
 				}
-				if ( (dy < 0 && self._scalableSize <= -( self._maxSize + self._cellSize ) ) ) {
+				if ( (dy < 0 && self._scalableSize <= -(self._maxSizeExceptClip + self._cellSize) )) {
 					// bottom
 					self._stopMScroll();
-					self._scalableSize = -( self._maxSize + self._cellSize );
+					self._scalableSize = -(self._maxSizeExceptClip + self._cellSize);
 					self._setElementTransform( self._modifyViewPos );
 					return;
 				}
 			}
 
+			replaceStartIdx = ( Math.abs( di ) < realRowCount ) ? 0 : ( di > 0 ) ? di - realRowCount : di + realRowCount;
 			if ( di > 0 ) { // scroll up
-				for ( i = 0; i < di; i++ ) {
+				for ( i = replaceStartIdx; i < di; i++ ) {
 					idx = -parseInt( ( sy / self._cellSize ) + i + 3, 10 );
 					$row = self._$view.children().last().detach();
 					self._replaceRow( $row, circularNum( idx, self._totalRowCnt ) );
 					self._$view.prepend( $row );
-					self._setScrollBarPosition( -1 );
 				}
 			} else if ( di < 0 ) { // scroll down
-				for ( i = 0; i > di; i-- ) {
+				for ( i = replaceStartIdx; i > di; i-- ) {
 					idx = self._rowsPerView - parseInt( ( sy / self._cellSize ) + i, 10 );
 					$row = self._$view.children().first().detach();
 					self._replaceRow( $row, circularNum( idx, self._totalRowCnt ) );
 					self._$view.append( $row );
-					self._setScrollBarPosition( 1 );
 				}
 			}
+			self._setScrollBarPosition( -di );
 			self._scalableSize += di * self._cellSize;
 			self._setElementTransform( distance - self._scalableSize - self._cellSize );
 		},
@@ -948,7 +964,7 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 				keepGoing = !t.done();
 				self._reservedPos = self._direction ? x : y;
 				// bottom
-				self._reservedPos = self._reservedPos <= ( -( self._maxSize - self._modifyViewPos ) ) ? ( - ( self._maxSize + self._cellSize ) ) : self._reservedPos;
+				self._reservedPos = self._reservedPos <= (-(self._maxSizeExceptClip - self._modifyViewPos)) ? ( - ( self._maxSizeExceptClip + self._cellSize) ) : self._reservedPos;
 				// top
 				self._reservedPos = self._reservedPos > -self._cellSize ? -self._cellSize : self._reservedPos;
 			} else {
