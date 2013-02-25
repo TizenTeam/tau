@@ -1,0 +1,86 @@
+@import "config.less";
+
+.ui-splitview {
+	margin: 0;
+	padding: 0;
+	position: relative;
+}
+.ui-splitview .ui-pane {
+	position: absolute;
+	overflow: hidden;
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
+.ui-splitview .ui-pane .ui-listview {
+	margin: 0;
+	padding: 0;
+}
+.ui-splitview .ui-spliter {
+	position: absolute;
+	z-index: 100;
+	display: block;
+	margin: 0;
+	padding: 0;
+}
+.ui-splitview .ui-spliter-bar {
+	background-color: @color_splitview_spliter_bar;
+	border-color: black;
+	border-style: solid;
+}
+.ui-splitview .ui-spliter-handle {
+	margin: 0;
+	padding: 0;
+	cursor: move;
+	display: block;
+	text-align: center;
+	cursor: pointer;
+	position: relative;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+.ui-direction-horizontal > .ui-spliter {
+	width: 60px;
+}
+.ui-direction-vertical > .ui-spliter {
+	height: 60px;
+}
+.ui-direction-horizontal > .ui-spliter > .ui-spliter-bar {
+	width: 13px;
+	margin: 0 0 0 25px;
+	border-width: 1px 1px 1px 0;
+}
+.ui-direction-vertical > .ui-spliter > .ui-spliter-bar {
+	height: 13px;
+	margin: 25px 0 0 0;
+	border-width: 0 1px 1px 1px;
+}
+.ui-spliter-active > .ui-spliter-bar {
+	background-color: @color_splitview_spliter_bar_active;
+}
+.ui-direction-horizontal > .ui-spliter > .ui-spliter-bar > .ui-spliter-handle {
+	width: 13px;
+	height: 26px;
+	background-image: url(./images/00_splite_handler_v.png);
+}
+.ui-direction-vertical > .ui-spliter > .ui-spliter-bar > .ui-spliter-handle {
+	width: 26px;
+	height: 13px;
+	background-image: url(./images/00_splite_handler_h.png);
+}
+.ui-direction-horizontal > .ui-fixed {
+	width: 0px;
+}
+.ui-direction-horizontal > .ui-fixed > .ui-spliter-bar {
+	width: 5px;
+}
+.ui-direction-vertical > .ui-fixed {
+	height: 0px;
+}
+.ui-direction-vertical > .ui-fixed > .ui-spliter-bar {
+	height: 5px;
+}
+.ui-fixed .ui-spliter-handle {
+	display: none;
+}

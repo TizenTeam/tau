@@ -26,6 +26,7 @@ var TESTS = {
 		"virtuallist",
 		"virtualgrid",
 		"collapsible",
-		"page"
+		"page",
+		"splitview"
 	]
 };
