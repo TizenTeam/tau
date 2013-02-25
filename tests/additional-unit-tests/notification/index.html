@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="../../../build/tizen-web-ui-fw/latest/js/jquery.js"></script>
+	<script src="../../../build/tizen-web-ui-fw/latest/js/tizen-web-ui-fw-libs.min.js"></script>
+	<script src="../../../build/tizen-web-ui-fw/latest/js/tizen-web-ui-fw.js"
+		data-framework-theme="tizen-white"
+		data-framework-viewport-scale=false>
+	</script>
+
+	<link rel="stylesheet" href="../../../libs/js/jquery-mobile-1.2.0/external/qunit.css" />
+
+	<script src="../../../libs/js/jquery-mobile-1.2.0/external/qunit.js"></script>
+	<script src="notification-tests.js"></script>
+
+	<title>Notification</title>
+</head>
+
+<body>
+
+<h1 id="qunit-header">Notification</h1>
+<h2 id="qunit-banner"></h2>
+<div id="qunit-testrunner-toolbar"></div>
+<h2 id="qunit-userAgent"></h2>
+<ol id="qunit-tests"></ol>
+
+<div id="qunit-fixture">
+
+	<div data-role="page" id="notifiaction0">
+		<div data-role="notification" id="smallpopup" data-type="popup" data-interval='1000'>
+			<p>text1</p>
+		</div>
+		<div data-role="notification" id="smallpopup2" data-type="popup" data-interval='1000'>
+			<p>text1</p>
+			<p>text2</p>
+		</div>
+		<div data-role="notification" id="smallpopup3" data-type="popup" data-interval='1000'>			
+		</div>
+		<div data-role="header" data-position="fixed">
+			<h1>Notification</h1>
+		</div>
+		<div data-role="content">
+		</div>
+	</div>
+
+	<div data-role="page" id="notification1">
+		<div data-role="notification" id="tickernoti" data-type="ticker"  data-icon="02_icon.png" data-interval='5'>
+			<p>text1</p>
+			<p>text2</p>
+		</div>
+		<div data-role="notification" id="tickernoti2" data-type="ticker"  data-icon="02_icon.png" data-interval='5'>
+			<p>text1</p>
+			<p>text2</p>
+			<p>text3</p>
+			<p>text4</p>
+		</div>
+		<div data-role="notification" id="tickernoti3" data-type="ticker"  data-icon="02_icon.png" data-interval='5'>			
+		</div>
+		<div data-role="header" data-position="fixed">
+			<h1>Notification</h1>
+		</div>
+		<div data-role="content">
+		</div>
+	</div>
+	
+
+</div>
+
+</body>
+</html>
