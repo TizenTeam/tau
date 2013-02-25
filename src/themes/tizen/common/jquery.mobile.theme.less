@@ -19,7 +19,8 @@
 	}
 	
 	
-	> .ui-btn.ui-btn-back {
+	> .ui-btn.ui-btn-back,
+	> .ui-btn.ui-btn-footer-down {
 		background : transparent;
 
 		position : absolute;
@@ -29,8 +30,19 @@
 			top : 8 * @unit_base;
 			left : auto;
 			right : 13 * @unit_base;
+			margin-top : 0px;
+		}
+	}
 
-			margin-top : 0px
+	> .ui-btn.ui-btn-footer-down {
+		border : none;
+		box-shadow : none;
+		.ui-icon {
+			top : 8 * @unit_base;
+			left : auto;
+			right : 13 * @unit_base;
+
+			margin-top : 0px;
 		}
 	}
 }
@@ -67,7 +79,8 @@
 		}
 	}
 
-	> .ui-btn.ui-btn-back {
+	> .ui-btn.ui-btn-back,
+	> .ui-btn.ui-btn-footer-down {
 		right : 13 * @unit_base;
 	}
 
@@ -166,6 +179,7 @@
 	text-align : center;
 	bottom : 0px;
 	>.ui-btn.ui-btn-back,
+	>.ui-btn.ui-btn-footer-down,
 	>[data-icon="naviframe-more"] {
 		background : transparent;
 
@@ -368,6 +382,9 @@
 .ui-btn-back.ui-btn-up-s,
 .ui-btn-back.ui-btn-hover-s,
 .ui-btn-back.ui-btn-down-s,
+.ui-btn-footer-down.ui-btn-up-s,
+.ui-btn-footer-down.ui-btn-hover-s,
+.ui-btn-footer-down.ui-btn-down-s,
 .ui-popup-container .ui-btn-box-s {
 	font-weight: normal;
 	.LESSborder-radius-all( 0.9 rem );
@@ -485,7 +502,8 @@ a.ui-link-inherit {
 	}
 }
 
-.ui-btn-back .ui-btn-inner .ui-icon-header-back-btn {
+.ui-btn-back .ui-btn-inner .ui-icon-header-back-btn,
+.ui-btn-footer-down .ui-btn-inner .ui-icon {
 	width: 32 * @unit_base; 
 	height: 32 * @unit_base;
 
@@ -500,6 +518,7 @@ a.ui-link-inherit {
 	.ui-icon-naviframe-cancel { background-image: url(images/00_icon_cancel.png); } /* FIXME : check ux if it needs to be deprecated... */
 	.ui-icon-naviframe-edit { background-image: url(images/page/00_icon_edit.png); }
 	.ui-icon-naviframe-plus { background-image: url(images/page/00_icon_plus.png); }
+	.ui-icon-down { background-image: url(images/controls/button/00_button_down.png); }
 }
 
 .ui-btn-down-s {
@@ -508,6 +527,7 @@ a.ui-link-inherit {
 	.ui-icon-naviframe-cancel { background-image: url(images/00_icon_cancel_press.png); } /* FIXME: check ux if it needs to be deprecated.. */
 	.ui-icon-naviframe-edit { background-image: url(images/page/00_icon_edit_press.png); }
 	.ui-icon-naviframe-plus { background-image: url(images/page/00_icon_plus_press.png); }
+	.ui-icon-down { background-image: url(images/controls/button/00_button_down_press.png); }
 }
 
 /* Interaction cues
