@@ -21,7 +21,6 @@ CSS_SRCS=	../common/jquery.mobile.theme.less.css \
 		../common/jquery.mobile.controlgroup.less.css \
 		../common/jquery.mobile.listview.less.css \
 		../common/jquery.mobile.segmentctrl.less.css \
-		../common/jquery.mobile.tizen.optionheader.less.css \
 		../common/jquery.mobile.tizen.virtuallistview.less.css \
 		../common/jquery.mobile.tizen.scrollview.less.css \
 		../common/jquery.mobile.tizen.datetimepicker.less.css \
@@ -34,7 +33,6 @@ CSS_SRCS=	../common/jquery.mobile.theme.less.css \
 		../common/jquery.mobile.tizen.notification.less.css \
 		../common/jquery.mobile.tizen.swipe.less.css \
 		../common/jquery.mobile.tizen.fastscroll.less.css \
-		../common/jquery.mobile.tizen.dayselector.less.css \
 		../common/jquery.mobile.tizen.toggleswitch.less.css \
 		../common/jquery.mobile.tizen.triangle.less.css \
 		../common/jquery.mobile.tizen.tokentextarea.less.css \
