@@ -610,8 +610,8 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 		},
 
 		_convertTimeFormat: function ( systime ) {
-			if ( isNaN( systime ) ) {
-				return "00:00:00";
+			if ( !$.isNumeric( systime ) ) {
+				return "Playback Error";
 			}
 
 			var ss = parseInt( systime % 60, 10 ).toString(),
