@@ -11,9 +11,9 @@
 	<link rel="stylesheet" href="../../../libs/js/jquery-mobile-1.2.0/external/qunit.css" />
 
 	<script src="../../../libs/js/jquery-mobile-1.2.0/external/qunit.js"></script>
-	<script src="progressbar-tests.js"></script>
+	<script src="progress-tests.js"></script>
 
-	<title>Progressbar</title>
+	<title>Progress</title>
 </head>
 
 <body>
@@ -26,13 +26,14 @@
 
 <div id="qunit-fixture">
 
-	<div data-role="page" id="progressbar_demo">
+	<div data-role="page" id="progress_demo">
 		<div data-role="header" data-position="fixed">
 			<h1>Progressbar</h1>
 		</div>
 		<div data-role="content">
 			<ul data-role="listview">
-				<li><div data-role="progressbar" id="progressbar"></div></li>
+				<li><div data-role="progressing" data-style="pending" id="pending"></div></li>
+				<li><div data-role="progressing" data-style="circle" id="progressing"></div></li>
 			</ul>
 		</div>
 	</div>

@@ -14,6 +14,7 @@ var TESTS = {
 		"popupwindow",
 		"popupwindow_ctxpopup",
 		"progressbar",
+		"progress",
 		"radio",
 		"searchbar",
 		"segmentcontrol",
