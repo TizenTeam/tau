@@ -43,7 +43,6 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 			tapToggleBlacklist: "a, input, select, textarea, .ui-header-fixed, .ui-footer-fixed",
 			hideDuringFocus: "input, textarea, select",
 			updatePagePadding: true,
-			trackPersistentToolbars: true,
 			// Browser detection! Weeee, here we go...
 			// Unfortunately, position:fixed is costly, not to mention probably impossible, to feature-detect accurately.
 			// Some tests exist, but they currently return false results in critical devices and browsers, which could lead to a broken experience.
@@ -239,24 +238,6 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 					}
 					if ( o.updatePagePadding ) {
 						$( window ).unbind( "throttledresize." + self.widgetName );
-					}
-
-					if ( o.trackPersistentToolbars ) {
-						var thisFooter = $( ".ui-footer-fixed:jqmData(id)", this ),
-							thisHeader = $( ".ui-header-fixed:jqmData(id)", this ),
-							nextFooter = thisFooter.length && ui.nextPage && $( ".ui-footer-fixed:jqmData(id='" + thisFooter.jqmData( "id" ) + "')", ui.nextPage ),
-							nextHeader = thisHeader.length && ui.nextPage && $( ".ui-header-fixed:jqmData(id='" + thisHeader.jqmData( "id" ) + "')", ui.nextPage );
-
-						nextFooter = nextFooter || $();
-
-						if ( nextFooter.length || nextHeader.length ) {
-
-							nextFooter.add( nextHeader ).appendTo( $.mobile.pageContainer );
-
-							ui.nextPage.one( "pageshow", function () {
-								nextFooter.add( nextHeader ).appendTo( this );
-							});
-						}
 					}
 				});
 
