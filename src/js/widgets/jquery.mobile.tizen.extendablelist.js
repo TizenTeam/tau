@@ -208,8 +208,8 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 				more_items_to_load = t._numItemData - t._lastIndex;
 				num_next_load_items = ( o.extenditems <= more_items_to_load ) ? o.extenditems : more_items_to_load;
 				htmlData = myTemplate.tmpl( { NUM_MORE_ITEMS : num_next_load_items } );
-
-				$( o.id ).append( $( htmlData ).attr( 'id', "load_more_message" ) );
+				// Button minimum height(37px)
+				$( o.id ).append( $( htmlData ).attr( 'id', "load_more_message" ).css( 'min-height' , "37px") );
 			}
 
 			$( o.id ).trigger( "create" );
@@ -241,8 +241,8 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 					more_items_to_load = t._numItemData - t._lastIndex;
 					num_next_load_items = ( o.extenditems <= more_items_to_load) ? o.extenditems : more_items_to_load;
 					htmlData = myTemplate.tmpl( { NUM_MORE_ITEMS : num_next_load_items } );
-
-					$( o.id ).append( $( htmlData ).attr( 'id', "load_more_message" ) );
+					// Button minimum height(37px)
+					$( o.id ).append( $( htmlData ).attr( 'id', "load_more_message" ).css( 'min-height' , "37px") );
 
 					$( "#load_more_message" ).live( "click", t, t._loadmore );
 				} else {
