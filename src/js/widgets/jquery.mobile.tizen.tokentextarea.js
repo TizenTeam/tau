@@ -127,18 +127,12 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 
 		<div data-role="tokentextarea">
 		</div>
-		// Option 01
 		$(".selector").tokentextarea
 		({
 			create: function(event, ui)
 			{
 				// Handle the create event
 			}
-		});
-		// Option 02
-		$(".selector").bind("create", function(event, ui)
-		{
-			// Handle the create event
 		});
 **/
 /**
@@ -147,15 +141,6 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 
 		<div data-role="tokentextarea">
 		</div>
-		// Option 01
-		$(".selector").tokentextarea
-		({
-			select: function(event, ui)
-			{
-			// Handle the select event
-			}
-		});
-		// Option 02
 		$(".selector").bind("select", function(event, ui)
 		{
 			// Handle the select event
@@ -167,18 +152,9 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 
 		<div data-role="tokentextarea">
 		</div>
-		// Option 01
-		$(".selector").tokentextarea
-		({
-			add: function(event, ui)
-			{
-				// Handle the add event
-			}
-		});
-		// Option 02
 		$(".selector").bind("add", function(event, ui)
 		{
-		// Handle the add event
+			// Handle the add event
 		});
 */
 /**
@@ -187,15 +163,6 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 
 		<div data-role="tokentextarea">
 		</div>
-		// Option 01
-		$(".selector").tokentextarea
-		({
-			remove: function(event, ui)
-			{
-			// Handle the remove event
-			}
-		});
-		// Option 02
 		$(".selector").bind("remove", function(event, ui)
 		{
 			// Handle the remove event
@@ -359,7 +326,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 					lockBlock.removeClass( "ui-tokentextarea-sblock" ).addClass( "ui-tokentextarea-block" );
 				}
 				$( this ).removeClass( "ui-tokentextarea-block" ).addClass( "ui-tokentextarea-sblock" );
-				self._trigger( "select" );
+				$view.trigger( "select" );
 			});
 
 			inputbox.bind( "keyup", function ( event ) {
@@ -466,19 +433,31 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 
 			self._currentWidth += self._calcBlockWidth( textBlock );
 			self._modifyInputBoxWidth();
-			self._trigger( "add" );
+			$view.trigger( "add" );
 		},
 
 		_removeTextBlock : function () {
 			var self = this,
 				$view = this.element,
-				lockBlock = $view.find( "div.ui-tokentextarea-sblock" );
+				lockBlock = $view.find( "div.ui-tokentextarea-sblock" ),
+				_temp = null,
+				_dummy = function () {};
 
 			if ( lockBlock !== null && lockBlock.length > 0 ) {
 				self._currentWidth -= self._calcBlockWidth( lockBlock );
 				lockBlock.remove();
 				self._modifyInputBoxWidth();
-				this._trigger( "remove" );
+
+				this._eventRemoveCall = true;
+				if ( $view[0].remove ) {
+					_temp = $view[0].remove;
+					$view[0].remove = _dummy;
+				}
+				$view.triggerHandler( "remove" );
+				if ( _temp) {
+					$view[0].remove = _temp;
+				}
+				this._eventRemoveCall = false;
 			} else {
 				$view.find( "div:last" ).removeClass( "ui-tokentextarea-block" ).addClass( "ui-tokentextarea-sblock" );
 			}
@@ -515,7 +494,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 		_ellipsisTextBlock : function ( textBlock ) {
 			var self = this,
 				$view = self.element,
-				maxWidth = self._viewWidth - ( self._labelWidth + self._anchorWidth ) * 2;
+				maxWidth = self._viewWidth / 2;
 
 			if ( self._calcBlockWidth( textBlock ) > maxWidth ) {
 				$( textBlock ).width( maxWidth - self._marginWidth );
@@ -708,7 +687,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 			blocks = $view.find( "div" );
 			if ( blocks.length > index ) {
 				$( blocks[index] ).removeClass( "ui-tokentextarea-block" ).addClass( "ui-tokentextarea-sblock" );
-				this._trigger( "select" );
+				$view.trigger( "select" );
 			}
 			return null;
 		},
@@ -725,7 +704,10 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 			var self = this,
 				$view = this.element,
 				blocks = $view.find( "div" ),
-				index = 0;
+				index = 0,
+				_temp = null,
+				_dummy = function () {};
+
 			if ( this._focusStatus === "focusOut" ) {
 				return;
 			}
@@ -737,7 +719,17 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 				// remove selected button
 				index = ( ( position < blocks.length ) ? position : ( blocks.length - 1 ) );
 				$( blocks[index] ).remove();
-				this._trigger( "remove" );
+
+				this._eventRemoveCall = true;
+				if ( $view[0].remove ) {
+					_temp = $view[0].remove;
+					$view[0].remove = _dummy;
+				}
+				$view.triggerHandler( "remove" );
+				if ( _temp) {
+					$view[0].remove = _temp;
+				}
+				this._eventRemoveCall = false;
 			}
 			self._modifyInputBoxWidth();
 		},
@@ -756,12 +748,29 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 		},
 
 		destroy : function () {
-			var $view = this.element;
+			var $view = this.element,
+				_temp = null,
+				_dummy = function () {};
+
+			if ( this._eventRemoveCall ) {
+				return;
+			}
 
 			$view.find( "label" ).remove();
 			$view.find( "div" ).undelegate( "click" ).remove();
 			$view.find( "a" ).remove();
 			$view.find( ".ui-tokentextarea-input" ).unbind( "keyup" ).remove();
+
+			this._eventRemoveCall = true;
+			if ( $view[0].remove ) {
+				_temp = $view[0].remove;
+				$view[0].remove = _dummy;
+			}
+			$view.remove();
+			if ( _temp) {
+				$view[0].remove = _temp;
+			}
+			this._eventRemoveCall = false;
 
 			this._trigger( "destroy" );
 		}
