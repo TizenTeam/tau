@@ -301,12 +301,12 @@ define( [ ], function ( ) {
 
 			coord_x = _x - this.org_x;
 
-			this.cur_img.css( 'left', coord_x + 'px' );
+			this._moveLeft( this.cur_img , coord_x + 'px');
 			if ( this.next_img.length ) {
-				this.next_img.css( 'left', coord_x + this.window_width + 'px' );
+				this._moveLeft( this.next_img ,  coord_x + this.window_width + 'px' );
 			}
 			if ( this.prev_img.length ) {
-				this.prev_img.css( 'left', coord_x - this.window_width + 'px' );
+				this._moveLeft( this.prev_img ,  coord_x - this.window_width + 'px' );
 			}
 		},
 
@@ -347,7 +347,7 @@ define( [ ], function ( ) {
 					this.index++;
 
 					if ( this.next_img.length ) {
-						this.next_img.css( 'left', this.window_width + 'px' );
+						this._moveLeft( this.next_img ,  this.window_width + 'px' );
 						this._attach( this.index + 1, this.next_img );
 					}
 
@@ -364,7 +364,7 @@ define( [ ], function ( ) {
 					this.index--;
 
 					if ( this.prev_img.length ) {
-						this.prev_img.css( 'left', -this.window_width + 'px' );
+						this._moveLeft( this.prev_img , -this.window_width + 'px' );
 						this._attach( this.index - 1, this.prev_img );
 					}
 
@@ -379,14 +379,14 @@ define( [ ], function ( ) {
 
 			setTimeout( function () {
 				self.moving = false;
-			}, sec - 50 );
+			}, sec - 25 );
 
-			this.cur_img.animate( { left: 0 }, sec );
+			this._moveLeft( this.cur_img, 0 + 'px', sec );
 			if ( this.next_img.length ) {
-				this.next_img.animate( { left: this.window_width }, sec );
+				this._moveLeft( this.next_img, this.window_width + 'px', sec );
 			}
 			if ( this.prev_img.length ) {
-				this.prev_img.animate( { left: -this.window_width }, sec );
+				this._moveLeft( this.prev_img, -this.window_width + 'px', sec );
 			}
 		},
 
@@ -453,7 +453,31 @@ define( [ ], function ( ) {
 			this.container.unbind( 'vmouseup' );
 			this.container.unbind( 'vmouseout' );
 		},
+		_moveLeft : function ( $ele , value , duration) {
+			var translate,
+				transition = "",
+				cssArray = null;
 
+			if ( $.support.cssTransform3d ) {
+				translate = "translate3d(" + value + ", 0px, 0px)";
+			} else {
+				translate = "translate(" + value + ", 0px)";
+			}
+			if( !duration ||  duration !== undefined ) {
+				transition =  "-webkit-transform " + (duration / 1000)+ "s ease";
+			}
+			cssArray = {"-moz-transform": translate,
+					"-webkit-transform": translate,
+					"-ms-transform": translate,
+					"-o-transform": translate,
+					"transform": translate};
+			if( transition !== "" ) {
+				cssArray["-webkit-transition"] = transition ;
+			}
+
+			$ele.css(cssArray);
+			return $ele;
+		},
 		_show: function () {
 			/* resizing */
 			this.window_width = $( window ).width();
@@ -470,13 +494,12 @@ define( [ ], function ( ) {
 			this._attach( this.index + 1, this.next_img );
 
 			if ( this.prev_img.length ) {
-				this.prev_img.css( 'left', -this.window_width + 'px' );
+				this._moveLeft( this.prev_img, -this.window_width + 'px');
 			}
 
-			this.cur_img.css( 'left', '0px' );
-
+			this._moveLeft( this.cur_img, '0px');
 			if ( this.next_img.length ) {
-				this.next_img.css( 'left', this.window_width + 'px' );
+				this._moveLeft( this.next_img, this.window_width + 'px' );
 			}
 		},
 
@@ -626,7 +649,7 @@ define( [ ], function ( ) {
 					this.cur_img = this.prev_img;
 					this.prev_img = this.prev_img.prev();
 					if ( this.prev_img.length ) {
-						this.prev_img.css( 'left', -this.window_width );
+						this._moveLeft( this.prev_img, -this.window_width);
 						this._attach( index - 2, this.prev_img );
 					}
 					this.index--;
@@ -634,18 +657,17 @@ define( [ ], function ( ) {
 					this.cur_img = this.next_img;
 					this.next_img = this.next_img.next();
 					if ( this.next_img.length ) {
-						this.next_img.css( 'left', this.window_width );
+						this._moveLeft( this.next_img, this.window_width);
 						this._attach( index + 2, this.next_img );
 					}
 				}
-
-				this.cur_img.animate( { left: 0 }, this.options.duration );
+				this._moveLeft( this.cur_img, '0px', this.options.duration );
 
 			} else if ( index == this.index - 1 ) {
 				temp_img = this.prev_img;
 				this.prev_img = this.prev_img.prev();
 				if ( this.prev_img.length ) {
-					this.prev_img.css( 'left', -this.window_width );
+					this._moveLeft( this.prev_img, -this.window_width);
 					this._attach( index - 1, this.prev_img );
 				}
 				this.index--;
@@ -654,7 +676,7 @@ define( [ ], function ( ) {
 				temp_img = this.next_img;
 				this.next_img = this.next_img.next();
 				if ( this.next_img.length ) {
-					this.next_img.css( 'left', this.window_width );
+					this._moveLeft( this.next_img, this.window_width);
 					this._attach( index + 1, this.next_img );
 				}
 
