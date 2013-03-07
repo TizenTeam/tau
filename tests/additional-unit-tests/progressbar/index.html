@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="../../../build/tizen-web-ui-fw/latest/js/jquery.js"></script>
+	<script src="../../../build/tizen-web-ui-fw/latest/js/tizen-web-ui-fw-libs.min.js"></script>
+	<script src="../../../build/tizen-web-ui-fw/latest/js/tizen-web-ui-fw.js"
+		data-framework-theme="tizen-white"
+		data-framework-viewport-scale=false>
+	</script>
+
+	<link rel="stylesheet" href="../../../libs/js/jquery-mobile-1.2.0/external/qunit.css" />
+
+	<script src="../../../libs/js/jquery-mobile-1.2.0/external/qunit.js"></script>
+	<script src="progressbar-tests.js"></script>
+
+	<title>Progressbar</title>
+</head>
+
+<body>
+
+<h1 id="qunit-header">Progressbar</h1>
+<h2 id="qunit-banner"></h2>
+<div id="qunit-testrunner-toolbar"></div>
+<h2 id="qunit-userAgent"></h2>
+<ol id="qunit-tests"></ol>
+
+<div id="qunit-fixture">
+
+	<div data-role="page" id="progressbar_demo">
+		<div data-role="header" data-position="fixed">
+			<h1>Progressbar</h1>
+		</div>
+		<div data-role="content">
+			<ul data-role="listview">
+				<li><div data-role="progressbar" id="progressbar"></div></li>
+				<li><div data-role="progressing" data-style="pending" id="pending"></div></li>
+				<li><div data-role="progressing" data-style="circle" id="progressing"></div></li>
+			</ul>
+		</div>
+	</div>
+
+</div>
+
+</body>
+</html>

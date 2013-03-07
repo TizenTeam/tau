@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="../../../build/tizen-web-ui-fw/latest/js/jquery.js"></script>
+	<script src="../../../build/tizen-web-ui-fw/latest/js/tizen-web-ui-fw-libs.min.js"></script>
+	<script src="../../../build/tizen-web-ui-fw/latest/js/tizen-web-ui-fw.js"
+		data-framework-theme="tizen-white"
+		data-framework-viewport-scale=false>
+	</script>
+
+	<link rel="stylesheet" href="../../../libs/js/jquery-mobile-1.2.0/external/qunit.css" />
+
+	<script src="../../../libs/js/jquery-mobile-1.2.0/external/qunit.js"></script>
+	
+
+	<title>MultiMediaView</title>
+</head>
+
+<body>
+
+<h1 id="qunit-header">MultiMediaView</h1>
+<h2 id="qunit-banner"></h2>
+<div id="qunit-testrunner-toolbar"></div>
+<h2 id="qunit-userAgent"></h2>
+<ol id="qunit-tests"></ol>
+
+<div id="qunit-fixture">
+
+	<div data-role="page" id="multimediaview0">
+		<div data-role="header" data-position="fixed">
+			<h1>MultiMediaView (video)</h1>
+		</div>
+		<div data-role="content">
+			<video data-controls="true" style="width:100%;" id="video">
+				<source src="http://www.w3schools.com/html5/mov_bbb.mp4" type="video/mp4" />
+				<source src="http://www.w3schools.com/html5/mov_bbb.ogg" type="video/ogg" />
+				<source src="http://www.w3schools.com/html5/mov_bbb.webm" type="video/webm" />
+				<p>Your browser does not support the video tag.</p>
+			</video>
+		</div>
+	</div>
+	
+	<div data-role="page" id="multimediaview01">
+		<div data-role="header" data-position="fixed">
+			<h1>MultiMediaView (video)</h1>
+		</div>
+		<div data-role="content">
+			
+		</div>
+	</div>
+
+	<div data-role="page" id="multimediaview1">
+		<div data-role="header" data-position="fixed">
+			<h1>MultiMediaView (audio)</h1>
+		</div>
+		<div data-role="content">
+			<audio data-controls="true" style="width:100%;" id="audio">
+				<source src="http://www.w3schools.com/html5/mov_bbb.mp4" type="audio/mp4" />
+				<source src="http://www.w3schools.com/html5/mov_bbb.ogg" type="audio/ogg" />
+				<p>Your browser does not support the audio tag.</p>
+			</audio>
+		</div>
+	</div>
+	<div data-role="page" id="multimediaview11">
+		<div data-role="header" data-position="fixed">
+			<h1>MultiMediaView (audio)</h1>
+		</div>
+		<div data-role="content">
+			<audio data-controls="true" style="width:100%;" id="audio">
+				<source src="http://www.w3schools.com/html5/mov_bbb.mp4" type="audio/mp4" />
+				<source src="http://www.w3schools.com/html5/mov_bbb.ogg" type="audio/ogg" />
+				<p>Your browser does not support the audio tag.</p>
+			</audio>
+		</div>
+	</div>
+
+</div>
+<script src="multimediaview-tests.js"></script>
+</body>
+</html>

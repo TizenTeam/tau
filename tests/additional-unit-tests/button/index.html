@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="../../../build/tizen-web-ui-fw/latest/js/jquery.js"></script>
+	<script src="../../../build/tizen-web-ui-fw/latest/js/tizen-web-ui-fw-libs.min.js"></script>
+	<script src="../../../build/tizen-web-ui-fw/latest/js/tizen-web-ui-fw.js"
+		data-framework-theme="tizen-white"
+		data-framework-viewport-scale=false>
+	</script>
+
+	<link rel="stylesheet" href="../../../libs/js/jquery-mobile-1.2.0/external/qunit.css" />
+
+	<script src="../../../libs/js/jquery-mobile-1.1.0/tests/jquery.testHelper.js"></script>
+	<script src="../../../libs/js/jquery-mobile-1.2.0/external/qunit.js"></script>
+	<script src="button-tests.js"></script>
+	<title>Button</title>
+</head>
+
+<body>
+
+<h1 id="qunit-header">Button</h1>
+<h2 id="qunit-banner"></h2>
+<div id="qunit-testrunner-toolbar"></div>
+<h2 id="qunit-userAgent"></h2>
+<ol id="qunit-tests"></ol>
+
+<div id="qunit-fixture">
+	<div data-role="page" id="checkboxpage">
+		<div data-role="contents">
+			<div data-role="button" id="button-0">Text Button</div>
+			<div data-role="button" data-inline="true" id="button-1">Text Button Inline</div>
+			<div data-role="button" data-inline="true" data-icon="reveal" id="button-2">Call Icon</div>
+			<div data-role="button" data-inline="true" data-icon="call" data-iconpos="right" id="button-3">Icon Text</div>
+			<div data-role="button" data-inline="true" data-icon="reveal" id="button-4"></div>
+			<div data-role="button" data-inline="true" data-icon="send" data-style="circle" id="button-5"></div>
+			<div data-role="button" data-inline="true" data-icon="favorite" data-style="nobg" id="button-6"></div>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
