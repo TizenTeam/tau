@@ -53,7 +53,8 @@ FW_WIDGET_CSS_FILE = ${WIDGET_CSS_OUTPUT_ROOT}/${PROJECT_NAME}-widget.css
 LIBS_JS_FILES = jquery.easing.1.3.js \
 		jquery.tmpl.js \
 		jquery.mobile.js \
-                $(NULL)
+		globalize/lib/globalize.js \
+		$(NULL)
 
 JQUERY_MOBILE_CSS = submodules/jquery-mobile/compiled/jquery.mobile.structure.css \
                     submodules/jquery-mobile/compiled/jquery.mobile.css \
@@ -87,7 +88,7 @@ jqm: init
 	cd ${JQM_LIB_PATH} && make js NODE=/usr/bin/node || exit 1; \
 	cp -f ${JQM_LIB_PATH}/compiled/*.js ${JQM_LIB_PATH}/../; \
 
-third_party: init jqm
+third_party: init jqm globalize
 	# Building third party components...
 	@@cd ${LIBS_DIR}/js; \
 	    for f in ${LIBS_JS_FILES}; do \
@@ -98,7 +99,7 @@ third_party: init jqm
 	    cp ${LIBS_DIR}/js/${JQUERY} ${JS_OUTPUT_ROOT}/jquery.js
 	    cp ${LIBS_DIR}/js/${JQUERY_MIN} ${JS_OUTPUT_ROOT}/jquery.min.js
 
-js: init third_party globalize
+js: init third_party
 	# Building JS files...
 	mkdir -p ${JS_LIB_OUTPUT_DIR}; \
 	cp -a ${JS_DIR}/* ${JS_LIB_OUTPUT_DIR}/; \
@@ -176,7 +177,6 @@ widgets: init third_party globalize
 	    done
 
 globalize:
-	cat 'libs/js/globalize/lib/globalize.js' >> ${FW_LIB_JS}
 	# copy globalize libs...
 	cp -a libs/js/globalize/lib/cultures ${FRAMEWORK_ROOT}/js/
 
@@ -187,7 +187,7 @@ version: js themes
 	echo '(function($$){$$.tizen.frameworkData.pkgVersion="$(PKG_VERSION)";}(jQuery));' >> ${FW_JS}
 	echo "$(PKG_VERSION)" > ${FRAMEWORK_ROOT}/../VERSION
 
-compress: js themes
+compress: third_party js themes
 	# Javacript code compressing
 	@@echo "	# Compressing...."; \
 	echo '/*' > ${FW_MIN}; \
