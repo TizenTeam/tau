@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.17
+Version:    0.2.18
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -83,6 +83,44 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+
+* Thu Mar 7 2013 Youmin Ha <youmin.ha@samsung.com> 0.2.18
+	- build: Fix Makefile to add globalize to the minified lib
+	- build-tools : upgrade less to v1.3.3
+	- demos : change normal js path to minified js
+	- Theme : remove reduantant less - dayselector, optionheader, nocontents
+	- multimediaview : fix full-screen mode.
+	- multimediaview : fix 'width', 'height' and 'fullScreen' methods
+	- Extendablelist: Added min-height "load more button" in listitem
+	- virtualgrid: adjusts VI effect for an overflow action
+	- ControlGroup : change ellipsis font color (press/normal)
+	- multimediaview: Add an error message to Multimediaview
+	- virtualgrid: adjusts triple flick gesture
+	- scrollview: add function for getting width of view
+	- scrollview: adds support x axis gesture scroll
+	- multimediaview : fix audio control
+	- tabbar : tabbar slide animation change
+	- TizenWinsetDemo : 2line-text demo bug fix
+	- collapsible: Fix demo to show radio button correctly in the collapsible list
+	- collapsible: Set listitem position to relative
+	- UnitTC: added list divider unit test
+	- Style: unnecessary color codes have been deleted and modified
+	- build: Module build implementation
+	- UnitTC: Additional unit testcases have been added
+	- listview : bug fix
+	- Naviframe : remove back button's hover effect
+	- TizenDemo : remove back button
+	- Transition: added more-button vi
+	- pinch: added new event called pinch
+	- Popup: css word-wrap:break-word has been added
+	- virtualgrid: memory leak fix
+	- progress: set to init state at pending bar
+	- progress: add margin of top/bottom
+	- unit-test: split progress test and progressbar test
+	- Tizen-winset: Context popup sample page guide text has been changed
+	- multimediaview: fix the height of widget when full-screen mode
+	- JQM: performance tuning
+
 * Tue Feb 19 2013 Minkyu Kang <mk7.kang@samsung.com> 0.2.17
 	- DialogueList : delete border top value / add sample's text ellipsis
 	- Tokentextarea: Add scroll-to-top for Grouping On/Off regarding #N_SE-24877
