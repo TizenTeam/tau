@@ -380,7 +380,6 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 				if ( $view.innerWidth() === 0 ) {
 					return ;
 				}
-				var inputBox = $view.find( ".ui-tokentextarea-input" );
 				self._modifyInputBoxWidth();
 				$( inputbox ).removeClass( "ui-tokentextarea-input-invisible" ).addClass( "ui-tokentextarea-input-visible" );
 			});
@@ -431,9 +430,13 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 			textBlock = self._ellipsisTextBlock( textBlock );
 			textBlock.css( {'visibility': 'visible'} );
 
-			self._currentWidth += self._calcBlockWidth( textBlock );
 			self._modifyInputBoxWidth();
-			$view.trigger( "add" );
+
+			textBlock.hide();
+			textBlock.fadeIn( "fast", function() {
+				self._currentWidth += self._calcBlockWidth( textBlock );
+				$view.trigger( "add" );
+			});
 		},
 
 		_removeTextBlock : function () {
@@ -445,8 +448,11 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 
 			if ( lockBlock !== null && lockBlock.length > 0 ) {
 				self._currentWidth -= self._calcBlockWidth( lockBlock );
-				lockBlock.remove();
-				self._modifyInputBoxWidth();
+
+				lockBlock.fadeOut( "fast", function() {
+					lockBlock.remove();
+					self._modifyInputBoxWidth();
+				});
 
 				this._eventRemoveCall = true;
 				if ( $view[0].remove ) {
@@ -543,7 +549,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 						inputBoxWidth = self._viewWidth;
 					}
 				} else {
-					if ( blockWidth >= inputBoxWidth ) {
+					if ( blockWidth > inputBoxWidth ) {
 						inputBoxWidth = self._viewWidth - blockWidth;
 					} else {
 						inputBoxWidth -= blockWidth;
@@ -645,7 +651,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 				statement = self._stringFormat( self.options.description, blocks.length - lastIndex - 1 );
 				tempBlock = $( document.createElement( 'label' ) );
 				tempBlock.text( statement );
-				tempBlock.addClass( "ui-tokentextarea-desclabel" ).addClass( "ui-tokentextarea-desclabel" );
+				tempBlock.addClass( "ui-tokentextarea-desclabel" );
 				$( blocks[lastIndex] ).after( tempBlock );
 			}
 
@@ -713,12 +719,19 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 			}
 
 			if ( arguments.length === 0 ) {
-				blocks.remove();
-				this._trigger( "clear" );
+				blocks.fadeOut( "fast", function() {
+					blocks.remove();
+					self._modifyInputBoxWidth();
+					this._trigger( "clear" );
+				});
 			} else if ( !isNaN( position ) ) {
 				// remove selected button
 				index = ( ( position < blocks.length ) ? position : ( blocks.length - 1 ) );
-				$( blocks[index] ).remove();
+
+				$( blocks[index] ).fadeOut( "fast", function() {
+					$( blocks[index] ).remove();
+					self._modifyInputBoxWidth();
+				});
 
 				this._eventRemoveCall = true;
 				if ( $view[0].remove ) {
@@ -731,7 +744,6 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 				}
 				this._eventRemoveCall = false;
 			}
-			self._modifyInputBoxWidth();
 		},
 
 		length : function () {
