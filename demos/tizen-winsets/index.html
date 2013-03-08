@@ -32,21 +32,6 @@
 			<p id="current_date"></p>
 			<p id="html_font_size"></p>
 
-			<script>
-				$( document ).one( "pagecreate", function ( ) {
-					$("#input-select-theme").find("input[name='select-theme']").bind( "change",
-						function ( ev, data ) {
-							var radio = this,
-								theme = "tizen-white";
-							if( radio.checked ) {
-								theme = radio.value;
-								console.log( "Request theme change: " + theme );
-								$.tizen.loadTheme( theme );
-							}
-						}
-					);
-				} );
-			</script>
 			<ul data-role="listview">
 				<li data-role="list-divider">Controls</li>
 				<li><a href="widgets/button/button.html">Button</a></li>
