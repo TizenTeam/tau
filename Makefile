@@ -9,6 +9,7 @@ PKG_VERSION = $(shell cat packaging/web-ui-fw.spec | grep Version: | sed -e "s@V
 THEME_NAME = default
 
 PATH := $(CURDIR)/build-tools/bin:$(PATH)
+NODE = $(shell which node)
 
 JSLINT_LEVEL = 1
 JSLINT = jslint --sloppy --eqeq --bitwise --forin --nomen --predef jQuery --color --plusplus --browser --jqmspace --regexp --continue
@@ -103,7 +104,7 @@ js: init third_party
 	# Building JS files...
 	mkdir -p ${JS_LIB_OUTPUT_DIR}; \
 	cp -a ${JS_DIR}/* ${JS_LIB_OUTPUT_DIR}/; \
-	/usr/bin/node $(CURDIR)/tools/moduledep.js -c ${JS_LIB_OUTPUT_DIR} > ${JS_LIB_OUTPUT_DIR}/../depData.json; \
+	${NODE} $(CURDIR)/tools/moduledep.js -c ${JS_LIB_OUTPUT_DIR} > ${JS_LIB_OUTPUT_DIR}/../depData.json; \
 	find ${JS_LIB_OUTPUT_DIR} -iname '*.js' | sort | \
 	while read JSFILE; do \
 		echo " # Building $$JSFILE"; \
@@ -123,9 +124,9 @@ js: init third_party
 			echo "		$$f"; \
 		fi; \
 	done; \
-	/usr/bin/node $(CURDIR)/tools/moduledep.js -d ${JS_LIB_OUTPUT_DIR} ${JS_LIB_OUTPUT_DIR}/../depData.json >> ${FW_JS}; \
+	${NODE} $(CURDIR)/tools/moduledep.js -d ${JS_LIB_OUTPUT_DIR} ${JS_LIB_OUTPUT_DIR}/../depData.json >> ${FW_JS}; \
 	cp -a ${JS_DIR}/* ${JQM_LIB_PATH}/js/* ${JS_LIB_OUTPUT_DIR}/; \
-	/usr/bin/node $(CURDIR)/tools/moduledep.js -c ${JS_LIB_OUTPUT_DIR} > ${JS_LIB_OUTPUT_DIR}/../depData.json; \
+	${node} $(CURDIR)/tools/moduledep.js -c ${JS_LIB_OUTPUT_DIR} > ${JS_LIB_OUTPUT_DIR}/../depData.json; \
 	find ${JS_LIB_OUTPUT_DIR} -iname '*.js' | xargs sed -i -e '/^\/\/>>excludeStart\(.*\);/,/^\/\/>>excludeEnd\(.*\);/d';
 
 widgets: init third_party globalize
