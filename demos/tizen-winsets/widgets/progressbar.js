@@ -1,6 +1,6 @@
 var progressbar_running;
 
-$("#progressbar-demo").live("pageshow", function ( e ) {
+$( document ).on( "pageshow", "#progressbar-demo", function () {
 
 	$("#progressbarTest").bind("vclick", function ( e ) {
 		progressbar_running = !progressbar_running;
@@ -66,7 +66,7 @@ $("#progressbar-demo").live("pageshow", function ( e ) {
 	});
 });
 
-$("#progressbar-demo").live("pagehide", function ( e ) {
+$( document ).on( "pagehide", "#progressbar-demo", function () {
 	progressbar_running = false;
 	$("#pending").progress( "running", false );
 	$("#progressing").progress( "running", false );

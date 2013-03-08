@@ -64,7 +64,7 @@ $( document ).bind("pagecreate", function () {
 	});
 
 	/* Gen list : Dummy DB load */
-	$(".virtuallist_demo_page").live("pagecreate", function () {
+	$( document ).on( "pagecreate", ".virtuallist_demo_page", function () {
 		/* ?_=ts code for no cache mechanism */
 		$.getScript( "./virtuallist-db-demo.js", function ( data, textStatus ) {
 			$("ul").filter( function () {
@@ -77,7 +77,7 @@ $( document ).bind("pagecreate", function () {
 	});
 
 	/*Expandable list : Dummy DB load*/
-	$("#genlist_extendable_page").live("pagecreate", function ( el ) {
+	$( document ).on( "pagecreate", "#genlist_extendable_page", function () {
 		/*?_=ts code for no cache mechanism*/
 		$.getScript( "./virtuallist-db-demo.js", function ( data, textStatus ) {
 			$("ul").filter( function () {
@@ -91,7 +91,7 @@ $( document ).bind("pagecreate", function () {
 	});
 
 	// Expand all textarea height automatically
-	$('#ButtonNolist').live( "pagecreate", function ( ev ) {
+	$( document ).on( "pagecreate", "#ButtonNolist", function ( ev ) {
 		var page = $( ev.target );
 		$( page ).bind( 'pageshow' , function ( ) {
 			var textarea = page.find('textarea');

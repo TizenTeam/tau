@@ -1,6 +1,6 @@
 var ContactName = "";
 
-$("#genlist-dialog-edit .ui-li-dialogue-edit .ui-btn").live("vclick", function ( e ) {
+$( document ).on( "vclick", "#genlist-dialog-edit .ui-li-dialogue-edit .ui-btn", function ( e ) {
 	$(e.target).parents(".ui-btn").siblings("input").val("");
 });
 

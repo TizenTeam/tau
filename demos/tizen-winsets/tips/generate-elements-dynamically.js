@@ -11,11 +11,11 @@ function addCheckbox(){
 }
 
 
-$( '#bAdd' ).live( 'vclick', function () {
+$( document ).on( "vclick", "#bAdd", function () {
 	addCheckbox();
 } );
 
-$( "#ButtonAdd" ).live( "vclick", function() {
+$( document ).on( "vclick", "#ButtonAdd", function () {
 	/* Append new button */
 	var buttonTemplate = "<div data-role='button' data-inline='true' " +
 							"data-icon='call' data-style='circle' " +
@@ -26,7 +26,7 @@ $( "#ButtonAdd" ).live( "vclick", function() {
 	/*$("#buttonItems").trigger("create");*/
 } );
 
-$( "#ListAdd" ).live( "vclick", function() {
+$( document ).on( "vclick", "#ListAdd", function () {
 	var listTemplate = "<li>Appended New Item</li>";
 	$( listTemplate ).appendTo( "#listview" );
 	$( "#listview" ).listview( "refresh");

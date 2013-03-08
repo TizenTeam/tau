@@ -1,4 +1,4 @@
-$( "#checkbox-demo" ).live("pagecreate", function () {
+$( document ).on( "pagecreate", "#checkbox-demo", function () {
 	$( "#check-1" ).bind('vclick', function () {
 		console.log("clicked...");
 		value = $( "#checkbox-1" ).prop( "checked" );

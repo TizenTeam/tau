@@ -1,4 +1,4 @@
-$("#pop_js").live("vclick", function ( e ) {
+$( document ).on( "vclick", "#pop_js", function ( e ) {
 	if ( $(e.target).is("#ctxpopup_update") ) {
 		$("#btn_js").text("Peekaboo!");
 		$("#btn_js").buttonMarkup("refresh");
