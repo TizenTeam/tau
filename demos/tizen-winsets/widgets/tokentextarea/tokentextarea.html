@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8" >
+		<script src="../../tizen-web-ui-fw/latest/js/jquery.min.js"></script>
+		<script src="../../configure.js"></script>
+		<script src="../../tizen-web-ui-fw/latest/js/tizen-web-ui-fw-libs.min.js"></script>
+		<script src="../../tizen-web-ui-fw/latest/js/tizen-web-ui-fw.min.js"
+				data-framework-theme="tizen-white"
+				data-framework-viewport-width="device-width">
+		</script>
+		<script src="../../main.js"></script>
+		<script src="tokentextarea-demo.js"></script>
+		<link rel="stylesheet" href="../../custom.css" />
+
+		<title>Tizen UI - Tokentextarea</title>
+
+		<!-- for compatibility test -->
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<link rel="apple-touch-icon" href="../../icon-tizen.png" />
+	</head>
+	<body>
+		<div data-role="page" id="tokentextarea" data-add-back-btn="true">
+			<div data-role="header" data-position="fixed">
+				<h1>Token Text Area</h1>
+			</div>
+			<div data-role="content">
+				<div data-role="tokentextarea" data-link="#addressbook"></div>
+				<br>
+				<ul data-role="listview">
+					<li><a id='MBTaddItemTest'>Append Item</a></li>
+					<li><a id='MBTremoveItemTest'>Remove first Item</a></li>
+					<li><a id='MBTinputTextTest'>Input 'Hello'</a></li>
+					<li><a id='MBTgetInputTextTest'>Get input text</a></li>
+					<li><a id='MBTselectItemTest'>Select 1</a></li>
+					<li><a id='MBTgetSelectedItemTest'>Selected item</a></li>
+					<li><a id='MBTlengthTest'>Length</a></li>
+					<li><a id='MBTfocusOutTest'>Grouping On</a></li>
+					<li><a id='MBTfocusInTest'>Grouping Off</a></li>
+					<li><a id='MBTremoveAllItemTest'>Remove All Item</a></li>
+				</ul>
+			</div>
+			<div data-role="footer">
+			</div>
+		</div>
+		<div data-role="page" id="addressbook">
+			<div data-role="header" data-position="fixed">
+				<h1>Address Book</h1>
+			</div>
+			<div data-role="content" id="contentList">
+				<ul data-role="listview">
+					<li data-role="list-divider">A</li>
+					<li><a href="#tokentextarea">Adam Kinkaid</a></li>
+					<li><a href="#tokentextarea">Alex Wickerham</a></li>
+					<li><a href="#tokentextarea">Avery Johnson</a></li>
+					<li data-role="list-divider">B</li>
+					<li><a href="#tokentextarea">Bob Cabot</a></li>
+					<li data-role="list-divider">C</li>
+					<li><a href="#tokentextarea">Caleb Booth</a></li>
+					<li><a href="#tokentextarea">Christopher Adams</a></li>
+					<li><a href="#tokentextarea">Culver James</a></li>
+					<li data-role="list-divider">D</li>
+					<li><a href="#tokentextarea">David Walsh</a></li>
+					<li><a href="#tokentextarea">Drake Alfred</a></li>
+					<li data-role="list-divider">E</li>
+					<li><a href="#tokentextarea">Elizabeth Bacon</a></li>
+					<li><a href="#tokentextarea">Emery Parker</a></li>
+					<li><a href="#tokentextarea">Enid Voldon</a></li>
+					<li data-role="list-divider">F</li>
+					<li><a href="#tokentextarea">Francis Wall</a></li>
+					<li data-role="list-divider">G</li>
+					<li><a href="#tokentextarea">Graham Smith</a></li>
+					<li><a href="#tokentextarea">Greta Peete</a></li>
+					<li data-role="list-divider">H</li>
+					<li><a href="#tokentextarea">Harvey Walls</a></li>
+					<li data-role="list-divider">M</li>
+					<li><a href="#tokentextarea">Mike Farnsworth</a></li>
+					<li><a href="#tokentextarea">Murray Vanderbuilt</a></li>
+					<li data-role="list-divider">N</li>
+					<li><a href="#tokentextarea">Nathan Williams</a></li>
+					<li data-role="list-divider">P</li>
+					<li><a href="#tokentextarea">Paul Baker</a></li>
+					<li><a href="#tokentextarea">Pete Mason</a></li>
+					<li data-role="list-divider">R</li>
+					<li><a href="#tokentextarea">Rod Tarker</a></li>
+					<li data-role="list-divider">S</li>
+					<li><a href="#tokentextarea">Sawyer Wakefield</a></li>
+				</ul>
+			</div> <!--/content -->
+			<div data-role="footer">
+				<div align="right">
+					<a href="#tokentextarea" data-role="button" style="margin-right : 1em;">Cancel</a>
+				</div>
+			</div>
+		</div> <!--/page -->
+	</body>
+</html>

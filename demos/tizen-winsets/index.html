@@ -45,7 +45,7 @@
 				<li><a href="widgets/slider/slider.html">Slider</a></li>
 				<li><a href="widgets/segmentctrl.html">Segment Control</a></li>
 				<li><a href="widgets/buttonGrouping.html">Group Control(new segment)</a></li>
-				<li><a href="#tokentextarea">Token Text Area</a></li>
+				<li><a href="widgets/tokentextarea/tokentextarea.html" data-ajax="false">Token Text Area</a></li>
 
 				<li data-role="list-divider">Page Layout</li>
 				<li><a href="widgets/naviframe/naviframe.html">Naviframe</a></li>
@@ -105,80 +105,6 @@
 		</div>
 	</div>
 
-	<div data-role="page" id="tokentextarea" data-add-back-btn="true">
-		<div data-role="header" data-position="fixed">
-			<h1>Token Text Area</h1>
-		</div>
-		<div data-role="content">
-			<div data-role="tokentextarea" data-link="#addressbook"></div>
-			<br>
-			<ul data-role="listview">
-				<li><a id='MBTaddItemTest'>Append Item</a></li>
-				<li><a id='MBTremoveItemTest'>Remove first Item</a></li>
-				<li><a id='MBTinputTextTest'>Input 'Hello'</a></li>
-				<li><a id='MBTgetInputTextTest'>Get input text</a></li>
-				<li><a id='MBTselectItemTest'>Select 1</a></li>
-				<li><a id='MBTgetSelectedItemTest'>Selected item</a></li>
-				<li><a id='MBTlengthTest'>Length</a></li>
-				<li><a id='MBTfocusOutTest'>Grouping On</a></li>
-				<li><a id='MBTfocusInTest'>Grouping Off</a></li>
-				<li><a id='MBTremoveAllItemTest'>Remove All Item</a></li>
-			</ul>
-		</div>
-		<div data-role="footer">
-		</div>
-	</div>
-	<div data-role="page" id="addressbook">
-		<div data-role="header" data-position="fixed">
-			<h1>Address Book</h1>
-		</div>
-		<div data-role="content" id="contentList">
-			<ul data-role="listview">
-				<li data-role="list-divider">A</li>
-				<li><a href="#tokentextarea">Adam Kinkaid</a></li>
-				<li><a href="#tokentextarea">Alex Wickerham</a></li>
-				<li><a href="#tokentextarea">Avery Johnson</a></li>
-				<li data-role="list-divider">B</li>
-				<li><a href="#tokentextarea">Bob Cabot</a></li>
-				<li data-role="list-divider">C</li>
-				<li><a href="#tokentextarea">Caleb Booth</a></li>
-				<li><a href="#tokentextarea">Christopher Adams</a></li>
-				<li><a href="#tokentextarea">Culver James</a></li>
-				<li data-role="list-divider">D</li>
-				<li><a href="#tokentextarea">David Walsh</a></li>
-				<li><a href="#tokentextarea">Drake Alfred</a></li>
-				<li data-role="list-divider">E</li>
-				<li><a href="#tokentextarea">Elizabeth Bacon</a></li>
-				<li><a href="#tokentextarea">Emery Parker</a></li>
-				<li><a href="#tokentextarea">Enid Voldon</a></li>
-				<li data-role="list-divider">F</li>
-				<li><a href="#tokentextarea">Francis Wall</a></li>
-				<li data-role="list-divider">G</li>
-				<li><a href="#tokentextarea">Graham Smith</a></li>
-				<li><a href="#tokentextarea">Greta Peete</a></li>
-				<li data-role="list-divider">H</li>
-				<li><a href="#tokentextarea">Harvey Walls</a></li>
-				<li data-role="list-divider">M</li>
-				<li><a href="#tokentextarea">Mike Farnsworth</a></li>
-				<li><a href="#tokentextarea">Murray Vanderbuilt</a></li>
-				<li data-role="list-divider">N</li>
-				<li><a href="#tokentextarea">Nathan Williams</a></li>
-				<li data-role="list-divider">P</li>
-				<li><a href="#tokentextarea">Paul Baker</a></li>
-				<li><a href="#tokentextarea">Pete Mason</a></li>
-				<li data-role="list-divider">R</li>
-				<li><a href="#tokentextarea">Rod Tarker</a></li>
-				<li data-role="list-divider">S</li>
-				<li><a href="#tokentextarea">Sawyer Wakefield</a></li>
-			</ul>
-		</div> <!--/content -->
-		<div data-role="footer">
-			<div align="right">
-				<a href="#tokentextarea" data-role="button" style="margin-right : 1em;">Cancel</a>
-			</div>
-		</div>
-	</div> <!--/page -->
-
 	<script src="widgets/checkbox/checkbox.js"></script>
 	<script src="widgets/radio/radio.js"></script>
 	<script src="widgets/progressbar.js"></script>
@@ -188,7 +114,6 @@
 	<script src="tips/two-line-text/two-line-text.js"></script>
 	<script src="tips/list-sample/list-sample.js"></script>
 	<script src="tips/pinch-event/pinch.js"></script>
-	<script src="widgets/tokentextarea-demo.js"></script>
 	<script src="widgets/pagelayout/barcontrol.js"></script>
 	<script src="widgets/pagelayout/backbutton-control.js"></script>
 	<script src="widgets/list/list-edit.js"></script>
