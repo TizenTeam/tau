@@ -1,10 +1,25 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8" >
+		<script src="../../../tizen-web-ui-fw/latest/js/jquery.min.js"></script>
+		<script src="../../../configure.js"></script>
+		<script src="../../../tizen-web-ui-fw/latest/js/tizen-web-ui-fw-libs.min.js"></script>
+		<script src="../../../tizen-web-ui-fw/latest/js/tizen-web-ui-fw.min.js"
+				data-framework-theme="tizen-white"
+				data-framework-viewport-width="device-width">
+		</script>
+		<script src="../../../main.js"></script>
+		<link rel="stylesheet" href="../../../custom.css" />
+		<title>Tizen UI - Back button control</title>
+		<!-- for compatibility test -->
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<link rel="apple-touch-icon" href="../../../icon-tizen.png" />
 	</head>
 <body>
 
-<div data-role="page">
+<div data-role="page" id="pageGenBackToFooter">
 	<div data-role="header" data-position="fixed" >
 		<h1>Back button demo</h1>
 		<span class="ui-title-text-sub">Back button to Footer</span>
@@ -40,8 +55,14 @@
 		<a href="#" data-role="button" data-inline="true" data-rel="back">Go Back</a>
 	</div>
 
-	<div data-role="footer">
-	</div>
+	<div data-role="footer"></div>
+	<script type="text/javascript">
+		$( document ).one("pagecreate", "#pageGenBackToFooter", function () {
+			$("#genBackToFooter").bind("vclick", function () {
+				$("#pageGenBackToFooter").page( "addBackBtn", "footer" );
+			});
+		});
+	</script>
 </div>
 
 </body>
