@@ -1,40 +1,63 @@
-<div id="radio-demo" data-role="page" data-add-back-btn="true">
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8" >
+		<script src="../../tizen-web-ui-fw/latest/js/jquery.min.js"></script>
+		<script src="../../configure.js"></script>
+		<script src="../../tizen-web-ui-fw/latest/js/tizen-web-ui-fw-libs.min.js"></script>
+		<script src="../../tizen-web-ui-fw/latest/js/tizen-web-ui-fw.min.js"
+				data-framework-theme="tizen-white"
+				data-framework-viewport-width="device-width">
+		</script>
+		<script src="../../main.js"></script>
+		<link rel="stylesheet" href="../../custom.css" />
+		<title>Tizen UI - Radio</title>
+		<!-- for compatibility test -->
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<link rel="apple-touch-icon" href="../../icon-tizen.png" />
+	</head>
+	<body>
+		<div id="radio-demo" data-role="page" data-add-back-btn="true">
 
-		<div data-role="header" data-position="fixed">
-			<h1>Radio</h1>
+			<div data-role="header" data-position="fixed">
+				<h1>Radio</h1>
 
-		</div>
+			</div>
 
-		<div data-role="content">
-			<div class="content-primary">
-			<fieldset data-role="controlgroup">
-				<legend>Choose a pet:</legend>
-					<input type="radio" name="radio-choice" id="radio-choice-1" value="choice-1" checked="checked" />
-					<label for="radio-choice-1">Cat</label>
+			<div data-role="content">
+				<div class="content-primary">
+					<fieldset data-role="controlgroup">
+						<legend>Choose a pet:</legend>
+						<input type="radio" name="radio-choice" id="radio-choice-1" value="choice-1" checked="checked" />
+						<label for="radio-choice-1">Cat</label>
 
-					<input type="radio" name="radio-choice" id="radio-choice-2" value="choice-2"  />
-					<label for="radio-choice-2">Dog</label>
+						<input type="radio" name="radio-choice" id="radio-choice-2" value="choice-2"  />
+						<label for="radio-choice-2">Dog</label>
 
-					<input type="radio" name="radio-choice" id="radio-choice-3" value="choice-3"  />
-					<label for="radio-choice-3">Hamster</label>
+						<input type="radio" name="radio-choice" id="radio-choice-3" value="choice-3"  />
+						<label for="radio-choice-3">Hamster</label>
 
-					<input type="radio" name="radio-choice" id="radio-choice-4" value="choice-4"  />
-					<label for="radio-choice-4">Lizard</label>
-			</fieldset>
-			<p> Trigged When user clicks a radio button :
-				<span class="triggered-radio">
-					<em>(This is updated when user clicks a radio button )</em>
-				</span>
-			</p>
+						<input type="radio" name="radio-choice" id="radio-choice-4" value="choice-4"  />
+						<label for="radio-choice-4">Lizard</label>
+					</fieldset>
+					<p> Trigged When user clicks a radio button :
+						<span class="triggered-radio">
+							<em>(This is updated when user clicks a radio button )</em>
+						</span>
+					</p>
 
-			<input type="radio" name="radio-2" id="radio-2" checked="checked" disabled="disabled" />
-			<label for="radio-2">Checked, Disabled</label>
-			<input type="radio" name="radio-3" id="radio-3" disabled="disabled"/>
-			<label for="radio-3">Disabled</label>
-			<input type="radio" name="radio-4" id="radio-4"/>
+					<input type="radio" name="radio-2" id="radio-2" checked="checked" disabled="disabled" />
+					<label for="radio-2">Checked, Disabled</label>
+					<input type="radio" name="radio-3" id="radio-3" disabled="disabled"/>
+					<label for="radio-3">Disabled</label>
+					<input type="radio" name="radio-4" id="radio-4"/>
 
-		</div><!--/content-primary -->
-	</div>
-	<div data-role="footer">
-	</div>
-</div> <!-- page -->
+				</div><!--/content-primary -->
+			</div>
+			<div data-role="footer">
+			</div>
+			<script src="radio.js"></script>
+		</div> <!-- page -->
+	</body>
+</html>

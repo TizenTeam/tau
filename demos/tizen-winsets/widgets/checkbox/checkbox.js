@@ -1,7 +1,6 @@
-$( document ).on( "pagecreate", "#checkbox-demo", function () {
-	$( "#check-1" ).bind('vclick', function () {
-		console.log("clicked...");
-		value = $( "#checkbox-1" ).prop( "checked" );
+$( document ).one( "pagecreate", "#checkbox-demo", function () {
+	$( "#check-1" ).on( "vclick", function () {
+		var value = $( "#checkbox-1" ).prop( "checked" );
 		// change checkbox property and update UI.
 		$( "#checkbox-1" ).prop( "checked", !value );
 		$("#checkbox-1").checkboxradio( "refresh" );
@@ -9,11 +8,11 @@ $( document ).on( "pagecreate", "#checkbox-demo", function () {
 		$( ".checked-value" ).text( $( "#checkbox-1" ).prop( "checked" ) );
 	});
 
-	$( "#get-check-value" ).bind('vclick', function () {
+	$( "#get-check-value" ).on( "vclick", function () {
 		$( ".checked-value" ).text( $( "#checkbox-1" ).prop( "checked" ) );
 	});
 
-	$("input[type='checkbox']").bind( "change", function(event, ui) {
+	$("input[type='checkbox']").on( "change", function (event, ui) {
 		$( ".triggered-check" ).text( this.id + " is " + this.checked );
 	});
 
