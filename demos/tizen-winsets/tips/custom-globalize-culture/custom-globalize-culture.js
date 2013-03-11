@@ -1,4 +1,4 @@
-( function ( $ ) {
+$( document ).one( "pagecreate", "#page-tips-custom-globalize-culture", function () {
 	var customCultureFiles = {
 			"en" : "en.js",
 			"en-US" : "en.js",
@@ -14,6 +14,7 @@
 		.text( "This is a text from custom globalize culture file (key:hello): " + Globalize.localize( 'hello' ) ) );
 	content.append(
 		$( '<div></div>' )
-		.text( "Current lang: " + lang  + ", Custom culture file: " + customCultureFiles[lang] ) );
+			.text( "Current lang: " + lang  + ", Custom culture file: " + customCultureFiles[lang] )
+	);
 	content.trigger( "refresh" );
-} ) ( jQuery );
+});

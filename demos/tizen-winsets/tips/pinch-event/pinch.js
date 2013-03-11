@@ -1,49 +1,41 @@
-$( document ).bind( "pagecreate", function () {
-	$("#pinch_page").bind( "pageshow", function () {
-		var last_ratio = 1,
-			current_ratio;
+$( document ).one( "pageshow", "#pinch_page", function () {
+	var last_ratio = 1,
+		current_ratio;
 
-		function get_ratio ( ratio ) {
-			var v = last_ratio + ratio - 1;
+	function get_ratio ( ratio ) {
+		var v = last_ratio + ratio - 1;
 
-			if ( v < $.mobile.pinch.min ) {
-				v = $.mobile.pinch.min;
-			} else if ( v > $.mobile.pinch.max ) {
-				v = $.mobile.pinch.max;
-			}
-
-			return v;
+		if ( v < $.mobile.pinch.min ) {
+			v = $.mobile.pinch.min;
+		} else if ( v > $.mobile.pinch.max ) {
+			v = $.mobile.pinch.max;
 		}
 
-		$("#pinch_demo").bind( "pinch", function ( e, p ) {
-			var ratio;
+		return v;
+	}
 
-			ratio = get_ratio( p.ratio );
+	$("#pinch_demo").on( "pinch", function ( e, p ) {
+		var ratio;
 
-			if ( current_ratio == ratio ) {
-				return;
-			}
+		ratio = get_ratio( p.ratio );
 
-			current_ratio = ratio;
+		if ( current_ratio == ratio ) {
+			return;
+		}
 
-			$("#pinch_demo").find("img")
-					.css({
-						"-webkit-transform": "scale(" + current_ratio + ")",
-						"-webkit-transition": "-webkit-transform 0.15s ease"
-					});
-		});
+		current_ratio = ratio;
 
-		$("#pinch_demo").bind( "pinchstart", function ( e, p ) {
-		});
-
-		$("#pinch_demo").bind( "pinchend", function ( e, p ) {
-			last_ratio = get_ratio( p.ratio );
-		});
+		$("#pinch_demo").find("img")
+			.css({
+				"-webkit-transform": "scale(" + current_ratio + ")",
+				"-webkit-transition": "-webkit-transform 0.15s ease"
+			});
 	});
 
-	$("#pinch_page").bind( "pagebeforehide", function () {
-		$("#pinch_demo").unbind("pinch")
-				.unbind("pinchstart")
-				.unbind("pinchend");
+	$("#pinch_demo").on( "pinchstart", function ( e, p ) {
+	});
+
+	$("#pinch_demo").on( "pinchend", function ( e, p ) {
+		last_ratio = get_ratio( p.ratio );
 	});
 });
