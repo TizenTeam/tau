@@ -2,7 +2,7 @@
 # author koeun.choi@samsung.com
 # This script processes packaging for all directories under "demos" into web-apps.
 
-import os, sys, shutil
+import os, sys, shutil, md5
 
 def changeIndexFile():
 	filename = "index.html"
@@ -13,6 +13,27 @@ def changeIndexFile():
 	f = open(filename, "w")
 	f.write(after)
 	f.close()
+
+def makePkgID( key ):
+	pkgidlen = 10
+	hashkey = md5.md5(key).digest()	# 16-length string
+	ref = []
+	pkgid = ""
+
+	for i in range(ord('0'), ord('9')+1):
+		ref.append(chr(i))
+
+	for i in range(ord('A'), ord('Z')+1):
+		ref.append(chr(i))
+
+	for i in range(ord('a'), ord('z')+1):
+		ref.append(chr(i))
+
+	reflen = len(ref)
+	for i in range(0, pkgidlen):
+		pkgid += ref[ ord(hashkey[i])%reflen ]
+
+	return pkgid
 
 
 def addConfigFileAndIcon(webAppName):
@@ -26,6 +47,7 @@ def addConfigFileAndIcon(webAppName):
 		f.close()
 		config = config.replace("templateID", webAppName)
 		config = config.replace("@APP_NAME@", webAppName)
+		config = config.replace("@APP_PKGID@", makePkgID( webAppName ))
 		f = open("config.xml", "w")
 		f.write(config)
 		f.close()
