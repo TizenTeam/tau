@@ -1332,10 +1332,10 @@ define( [ ], function ( ) {
 				vh = this._getViewHeight();
 				this._maxY = ch - vh;
 
-				if ( this._maxY > 0 ) {
+				if ( this._maxY > 0 || vh === 0 ) {
 					this._maxY = 0;
 				}
-				if ( this._$vScrollBar && vh ) {
+				if ( ( this._$vScrollBar && vh ) || vh === 0 ) {
 					thumb = this._$vScrollBar.find(".ui-scrollbar-thumb");
 					thumb.css( "height", (ch >= vh ? "0" :
 							(Math.floor(ch / vh * 100) || 1) + "%") );
