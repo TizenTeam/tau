@@ -56,6 +56,7 @@ less: prepare
 		if test "config.less" = "$$f" ; then continue; fi; \
 		echo "	build $$f"; \
 		lessc $$f > $$f.css; \
+		$(CURDIR)/../../../../tools/CSS-trim.sh $$f.css; \
 		done;
 
 css: prepare less
