@@ -36,6 +36,7 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
  * ***************************************************************************
  *
  * Authors: Elliot Smith <elliot.smith@intel.com>
+ *		 Yonghwi Park <yonghwi0324.park@samsung.com>
  */
 
 // fastscroll is a scrollview controller, which binds
@@ -79,12 +80,28 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 	@method fastscroll
 	The shortcut scroll is created for the closest list view with the ui-scrollview-clip class.
 */
+/**
+	@method indexString
+	The indexString method is used to get (if no value is defined) or set the string to present the index.
+
+		<div class="content" data-role="content" data-scroll="y">
+			ul id="contacts" data-role="listview" data-fastscroll="true">
+				<li data-role="list-divider">A</li>
+				<li>Anton</li>
+			</ul>
+		</div>
+
+		$(".selector").fastscroll( "indexString" [, indexAlphabet] );
+*/
 (function ( $, undefined ) {
 
 	$.widget( "tizen.fastscroll", $.mobile.widget, {
 		options: {
-			initSelector: ":jqmData(fastscroll)"
+			initSelector: ":jqmData(fastscroll)",
 		},
+
+		_primaryLanguage: null,
+		_secondLanguage: null,
 
 		_create: function () {
 			var $el = this.element,
@@ -133,11 +150,6 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 				self.scrollview.scrollview( 'scrollTo', 0, -dividerY );
 
 				dstOffset = self.scrollview.offset();
-				$popup
-					.text( $( divider ).text() )
-					.css( { marginLeft: -($popup.width() / 2),
-							marginTop: -($popup.height() / 2) } )
-					.show();
 			};
 
 			this.shortcutsList
@@ -169,8 +181,25 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 							b = t + Math.abs(listItem.outerHeight( true ) );
 
 						if ( coords.x >= l && coords.x <= r && coords.y >= t && coords.y <= b ) {
-							jumpToDivider( $( listItem.data( 'divider' ) ) );
+							if ( typeof listItem.data( 'divider' ) !== "undefined" ) {
+								jumpToDivider( $( listItem.data( 'divider' ) ) );
+							}
+
+							if ( listItem.text() !== "." ) {
+								$popup.text( listItem.text() )
+									.css( { marginLeft: -( $popup.width() / 2 ),
+										marginTop: -( $popup.height() / 2 ),
+										padding: $popup.css( "paddingTop" ) } )
+									.width( $popup.height() )
+									.show();
+							} else {
+								$popup.hide();
+							}
+
 							$( listItem ).addClass( "ui-fastscroll-hover" );
+							if ( listItem.index() === 0 ) {
+								$( listItem ).addClass( "ui-fastscroll-hover-first-item" );
+							}
 							if ( listItem.index() > 0 ) {
 								$( listItem ).siblings().eq( listItem.index() - 1 ).addClass( "ui-fastscroll-hover-up" );
 							}
@@ -180,69 +209,257 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 						return true;
 					} );
 
-
-
 					e.preventDefault();
 					e.stopPropagation();
 				} )
 				// bind mouseout of the fastscroll container to remove popup
 				.bind( 'touchend mouseup vmouseup vmouseout', function () {
 					$popup.hide();
+					$( ".ui-fastscroll-hover" ).removeClass( "ui-fastscroll-hover" );
+					$( ".ui-fastscroll-hover-first-item" ).removeClass( "ui-fastscroll-hover-first-item" );
+					$( ".ui-fastscroll-hover-up" ).removeClass( "ui-fastscroll-hover-up" );
+					$( ".ui-fastscroll-hover-down" ).removeClass( "ui-fastscroll-hover-down" );
 				} );
 
 			if ( page && !( page.is( ':visible' ) ) ) {
 				page.bind( 'pageshow', function () { self.refresh(); } );
 			} else {
-				this.refresh();
+				self.refresh();
 			}
 
 			// refresh the list when dividers are filtered out
 			$el.bind( 'updatelayout', function () {
 				self.refresh();
 			} );
+
+			$( window ).unbind( ".fastscroll" ).bind( "resize.fastscroll", function ( e ) {
+				self.refresh();
+			} );
+		},
+
+		_contentHeight : function () {
+			var self = this,
+				$content = $( '.ui-scrollview-clip' ),
+				header = null,
+				footer = null,
+				paddingValue = 0,
+				clipSize = $( window ).height();
+
+			if ( $content.hasClass( "ui-content" ) ) {
+				paddingValue = parseInt( $content.css( "padding-top" ), 10 );
+				clipSize = clipSize - ( paddingValue || 0 );
+				paddingValue = parseInt( $content.css( "padding-bottom" ), 10 );
+				clipSize = clipSize - ( paddingValue || 0 );
+				header = $content.siblings( ".ui-header:visible" );
+				footer = $content.siblings( ".ui-footer:visible" );
+
+				if ( header ) {
+					if ( header.outerHeight( true ) === null ) {
+						clipSize = clipSize - ( $( ".ui-header" ).outerHeight() || 0 );
+					} else {
+						clipSize = clipSize - header.outerHeight( true );
+					}
+				}
+				if ( footer ) {
+					clipSize = clipSize - footer.outerHeight( true );
+				}
+			} else {
+				clipSize = $content.height();
+			}
+			return clipSize;
+		},
+
+		_omit: function ( numOfItems, maxNumOfItems ) {
+			var maxGroupNum = parseInt( ( maxNumOfItems - 1 ) / 2, 10 ),
+				numOfExtraItems = numOfItems - maxNumOfItems,
+				groupPos = [],
+				omitInfo = [],
+				groupPosLength,
+				group,
+				size,
+				i;
+
+			if ( ( maxNumOfItems < 3 ) || ( numOfItems <= maxNumOfItems ) ) {
+				return;
+			}
+
+			if ( numOfExtraItems >= maxGroupNum ) {
+				size = 2;
+				group = 1;
+				groupPosLength = maxGroupNum;
+			} else {
+				size = maxNumOfItems / ( numOfExtraItems + 1 );
+				group = size;
+				groupPosLength = numOfExtraItems;
+			}
+
+			for ( i = 0; i < groupPosLength; i++ ) {
+				groupPos.push( parseInt( group, 10 ) );
+				group += size;
+			}
+
+			for ( i = 0; i < maxNumOfItems; i++ ) {
+				omitInfo.push( 1 );
+			}
+
+			for ( i = 0; i < numOfExtraItems; i++ ) {
+				omitInfo[ groupPos[ i % maxGroupNum ] ]++;
+			}
+
+			return omitInfo;
+		},
+
+		indexString: function ( indexAlphabet ) {
+			var self = this,
+				characterSet = [];
+
+			if ( typeof indexAlphabet === " undefined" ) {
+				return self._primaryLanguage + ":" + self._secondLanguage;
+			}
+
+			characterSet = indexAlphabet.split( ":" );
+			self._primaryLanguage = characterSet[ 0 ];
+			if ( characterSet.length === 2 ) {
+				self._secondLanguage = characterSet[ 1 ];
+			}
 		},
 
 		refresh: function () {
 			var self = this,
+				primaryCharacterSet = self._primaryLanguage ? self._primaryLanguage.replace( /,/g, "" ) : null,
+				secondCharacterSet = self._secondLanguage ? self._secondLanguage.replace( /,/g, "" ) : null,
+				contentHeight = self._contentHeight(),
+				shapItem = $( '<li>#</li>' ),
+				omitIndex = 0,
+				matchToDivider,
+				containerHeight,
+				shortcutsItems,
+				shortcutItem,
 				shortcutsTop,
 				minClipHeight,
+				maxNumOfItems,
+				numOfItems,
+				minHeight,
+				padding,
+				omitInfo,
 				dividers,
-				listItems;
+				listItems,
+				emptySize,
+				correction,
+				indexChar,
+				lastIndex,
+				seconds,
+				height,
+				size,
+				i;
 
-			this.shortcutsList.find( 'li' ).remove();
+			matchToDivider = function ( index, divider ) {
+				if ( $( divider ).text() === indexChar ) {
+					shortcutItem.data( 'divider', divider );
+				}
+			};
+
+			self.shortcutsList.find( 'li' ).remove();
 
 			// get all the dividers from the list and turn them into shortcuts
-			dividers = this.element.find( '.ui-li-divider' );
+			dividers = self.element.find( '.ui-li-divider' );
 
 			// get all the list items
-			listItems = this.element.find('li').not('.ui-li-divider');
+			listItems = self.element.find('li').not('.ui-li-divider');
 
 			// only use visible dividers
 			dividers = dividers.filter( ':visible' );
 			listItems = listItems.filter( ':visible' );
 
 			if ( dividers.length < 2 ) {
-				this.shortcutsList.hide();
+				self.shortcutsList.hide();
 				return;
 			}
 
-			this.shortcutsList.show();
+			self.shortcutsList.show();
+			self.lastListItem = listItems.last();
+			self.shortcutsList.append( shapItem );
 
-			this.lastListItem = listItems.last();
+			if ( primaryCharacterSet !== null ) {
+				padding = parseInt( shapItem.css( "padding" ), 10 );
+				minHeight = shapItem.height() + ( padding * 2 );
+				maxNumOfItems = parseInt( ( contentHeight / minHeight ) - 1, 10 );
+				numOfItems = primaryCharacterSet.length;
 
-			dividers.each( function ( index, divider ) {
-				self.shortcutsList
-					.append( $( '<li>' + $( divider ).text() + '</li>' )
+				maxNumOfItems = secondCharacterSet ? maxNumOfItems - 2 : maxNumOfItems;
+
+				if ( maxNumOfItems < 3 ) {
+					shapItem.remove();
+					return;
+				}
+
+				omitInfo = self._omit( numOfItems, maxNumOfItems );
+
+				for ( i = 0; i < primaryCharacterSet.length; i++ ) {
+					indexChar = primaryCharacterSet.charAt( i );
+					shortcutItem = $( '<li>' + indexChar + '</li>' );
+
+					dividers.each( matchToDivider );
+
+					if ( typeof omitInfo !== "undefined" && omitInfo[ omitIndex ] > 1 ) {
+						shortcutItem = $( '<li>.</li>' );
+						i += omitInfo[ omitIndex ] - 1;
+					}
+
+					shapItem.before( shortcutItem );
+					omitIndex++;
+				}
+
+				if ( secondCharacterSet !== null ) {
+					lastIndex = secondCharacterSet.length - 1;
+					seconds = [];
+
+					seconds.push( secondCharacterSet.charAt( 0 ) );
+					seconds.push( secondCharacterSet.charAt( lastIndex ) );
+
+					for ( i = 0; i < seconds.length; i++ ) {
+						indexChar = seconds[ i ];
+						shortcutItem = $( '<li>' + indexChar + '</li>' );
+
+						dividers.each( matchToDivider );
+
+						shapItem.before( shortcutItem );
+					}
+				}
+			} else {
+				dividers.each( function ( index, divider ) {
+					shapItem.before( $( '<li>' + $( divider ).text() + '</li>' )
 						.data( 'divider', divider ) );
-			} );
+				} );
+			}
+
+			containerHeight = self.shortcutsContainer.outerHeight();
+			emptySize = contentHeight - containerHeight;
+			shortcutsItems = self.shortcutsList.children();
+			size = parseInt( emptySize / shortcutsItems.length, 10 );
+			correction = emptySize - ( shortcutsItems.length * size );
+
+			if ( emptySize > 0 ) {
+				shortcutsItems.each( function ( index, item ) {
+					height = $( item ).height() + size;
+					if ( correction !== 0 ) {
+						height += 1;
+						correction -= 1;
+					}
+					$( item ).css( {
+						height: height,
+						lineHeight: height + "px"
+					} );
+				} );
+			}
 
 			// position the shortcut flush with the top of the first list divider
 			shortcutsTop = dividers.first().position().top;
-			this.shortcutsContainer.css( 'top', shortcutsTop );
+			self.shortcutsContainer.css( 'top', shortcutsTop );
 
 			// make the scrollview clip tall enough to show the whole of the shortcutslist
-			minClipHeight = shortcutsTop + this.shortcutsContainer.outerHeight() + 'px';
-			this.scrollview.css( 'min-height', minClipHeight );
+			minClipHeight = shortcutsTop + self.shortcutsContainer.outerHeight() + 'px';
+			self.scrollview.css( 'min-height', minClipHeight );
 		}
 	} );
 
