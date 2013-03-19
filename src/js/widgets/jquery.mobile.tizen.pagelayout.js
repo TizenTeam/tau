@@ -242,16 +242,27 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 				});
 
 			window.addEventListener( "softkeyboardchange", function ( e ) {
-				var thisPage = $( ".ui-page-active" );
+				var $elDownBtn = $( "<div class='ui-btn-footer-down'></div>" ),
+					$elPage = $( ".ui-page-active" ),
+					backBtnPosition = "footer";
 
-				if ( e.state == "on" ) {
-					$elCurrentFooter = $( ".ui-page-active .ui-footer" );
-					$elCurrentFooter.hide();
-				} else if (e.state == "off") {
-					$elCurrentFooter.show();
+				if ( $elPage.data( "addBackBtn" ) ) {
+					$elPage.data( "addBackBtn" ) == "header" ? backBtnPosition = "header" : backBtnPosition = "footer";
+
+					if ( e.state == "on" ) {
+						if ( !$elPage.find( ".ui-" + backBtnPosition + " .ui-btn-footer-down" ).length ) {
+							$elDownBtn.buttonMarkup( { icon: "down" } ).appendTo( $elPage.find( ".ui-" + backBtnPosition ) );
+							$( ".ui-btn-footer-down" ).bind( "vclick",  function ( ) {
+								$elPage.find( "input" ).blur();
+							});
+						}
+						$( ".ui-page-active .ui-btn-back" ).remove();
+					} else if ( e.state == "off" ) {
+						$elPage.page( "addBackBtn", backBtnPosition );
+						$( ".ui-btn-footer-down" ).remove();
+					}
 				}
-				self.updatePagePadding( thisPage );
-				self.updatePageLayout( thisPage, true );
+
 			});
 		},
 
