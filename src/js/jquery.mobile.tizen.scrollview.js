@@ -67,7 +67,7 @@ define( [ ], function ( ) {
 
 			showScrollBars:    true,
 			overshootEnable:   false,
-			outerScrollEnable: true,
+			outerScrollEnable: false,
 			overflowEnable:    true,
 			scrollJump:        false,
 		},
