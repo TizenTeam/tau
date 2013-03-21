@@ -1,0 +1,46 @@
+From 61d133a822b45b01bb31985c8b8142457d17b5c7 Mon Sep 17 00:00:00 2001
+From: Woosung Sohn <woosungim.sohn@samsung.com>
+Date: Tue, 19 Mar 2013 15:20:13 +0900
+Subject: [PATCH] JQM Support accessibility for collapsible
+
+Change-Id: Iaa49fa1ff977230320daf9380dfe6ec3cbb72080
+---
+ .../jquery-mobile-1.2.0/js/widgets/collapsible.js  |    8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/collapsible.js b/libs/js/jquery-mobile-1.2.0/js/widgets/collapsible.js
+index 26dbb61..8398de4 100644
+--- a/libs/js/jquery-mobile-1.2.0/js/widgets/collapsible.js
++++ b/libs/js/jquery-mobile-1.2.0/js/widgets/collapsible.js
+@@ -11,8 +11,8 @@ define( [ "jquery", "../jquery.mobile.widget", "../jquery.mobile.buttonMarkup" ]
+ 
+ $.widget( "mobile.collapsible", $.mobile.widget, {
+ 	options: {
+-		expandCueText: " click to expand contents",
+-		collapseCueText: " click to collapse contents",
++		expandCueText: " Expandable list, tap to open list",
++		collapseCueText: " Expandable list, tap to close list",
+ 		collapsed: true,
+ 		heading: "h1,h2,h3,h4,h5,h6,legend",
+ 		theme: null,
+@@ -103,7 +103,8 @@ $.widget( "mobile.collapsible", $.mobile.widget, {
+ 					icon: collapsedIcon,
+ 					mini: o.mini,
+ 					theme: o.theme
+-				});
++				})
++				.attr( "role", "");
+ 
+ 		if ( !!o.inset ) {				
+ 			collapsibleHeading
+@@ -138,6 +139,7 @@ $.widget( "mobile.collapsible", $.mobile.widget, {
+ 
+ 					$this.toggleClass( "ui-collapsible-collapsed", isCollapse );
+ 					collapsibleContent.toggleClass( "ui-collapsible-content-collapsed", isCollapse ).attr( "aria-hidden", isCollapse );
++					collapsibleContent.children( "li" ).not( "ui-collapsible-content" ).attr( "tabindex", isCollapse ? "" : "0" );
+ 
+ 					if ( contentTheme && !!o.inset && ( !collapsibleSet.length || collapsible.jqmData( "collapsible-last" ) ) ) {
+ 						collapsibleHeading
+-- 
+1.7.9.5
+
