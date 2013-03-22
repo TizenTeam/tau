@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.18
+Version:    0.2.19
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -83,6 +83,45 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+
+* Fri Mar 22 2013 Youmin Ha <youmin.ha@samsung.com> 0.2.19
+	- Tizen-winset: Support accessibility for tizen-winset
+	- Orientation : add orientataionchange to tizen-winset
+	- Tokentextarea: Adjusts VI effect for add/remove block
+	- splitview: Support accessibility for splitview
+	- Tizen-winset: Date/time picker guide text has been fixed
+	- Popup: context popup arrow position, setTimeout open method bug have been fixed
+	- fastscroll: Add new indexString API to Fastscroll widget.
+	- splitview: Add new widget
+	- gallery3d: Add new widget
+	- Scrollview : disable VI effect for gesture event
+	- Scrollview : disable SIP outerscroll
+	- Tizen-winset: resize VirtualGrid widget in demo
+	- Tizen-winsets: Refactor searchbar subpages
+	- Tizen-winsets: Remove depracated usage of virtuallist
+	- Tizen-winsets: Move js code from main.js to subpages
+	- Tizen-winsets: Refactor virtual grid demo subpages
+	- Tizen-winsets: Move css files from index to proper subpages
+	- Tizen-winsets: Refactor list dialogue edit subpage
+	- Tizen-winsets: Refactor pagelayout subpages
+	- Tizen-winsets: Refactor tips subpages
+	- Tizen-winsets: Move subpages popup files from index.html
+	- Tizen-winsets: Move subpages javascript files from index.html
+	- virtualgrid: fix improperly merged codes
+	- ColorTheme : remove unused color value(1st)
+	- Scrollview : change scrollbar draw
+	- Popup: Apply popup background dim
+	- Tizen-winsets: Move tokentextarea demo to external page.
+	- Tizen-winsets: Move tabbar persist demo to external page.
+	- Tizen-winsets: Remove notImplemented page
+	- Tizen-winsets: Move slider demo page to external subpage
+	- Tizen-winsets: Fix ids, remove duplicated names for sliders
+	- Tizen-winsets: Remove event for changing theme
+	- tool: Fix wgt sample app generator tool to make apps be installed
+	- demos : change live to on
+	- build: Trim compiled CSS files
+	- Gallery: CSS left -> translate or translate3D
+	- Tokentextarea: Disfunctional APIs fixed.
 
 * Thu Mar 7 2013 Youmin Ha <youmin.ha@samsung.com> 0.2.18
 	- build: Fix Makefile to add globalize to the minified lib
