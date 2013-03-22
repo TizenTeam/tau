@@ -1,12 +1,10 @@
-$( document ).on( "vclick", "#pop_js", function ( e ) {
-	if ( $(e.target).is("#ctxpopup_update") ) {
-		$("#btn_js").text("Peekaboo!");
-		$("#btn_js").buttonMarkup("refresh");
-	}
-});
+$(document).one( "pagecreate", "#ctxpopup-demo", function () {
+	$( "#pop_js" ).on( "vclick", "#ctxpopup_update", function () {
+		$( "#btn_js" ).text( "Peekaboo!" ).buttonMarkup( "refresh" );
+	});
 
-var popupTest = function()
-{
-	$("#pop_text_only").popup("open");
-	return false;
-};
+	$( "#btn_text_only3, #buttonPopup1, #buttonPopup2" ).on( "vclick", function () {
+		$( "#pop_text_only" ).popup( "open" );
+		return false;
+	});
+});

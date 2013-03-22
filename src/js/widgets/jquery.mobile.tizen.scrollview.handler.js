@@ -141,7 +141,10 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 			}
 
 			handler = $( [ prefix, direction, suffix ].join( "" ) ).appendTo( $view.addClass( " ui-handler-" + theme ) );
-			handlerThumb = $view.find( ".ui-handler-thumb" ).hide();
+			handlerThumb = $view.find( ".ui-handler-thumb" ).attr( {
+				"tabindex" : "0",
+				"aria-label" : ( isHorizontal ? "Horizontal handler, double tap and move to scroll" : "Verticalhandler, double tap and move to scroll" )
+			}).hide();
 			handlerHeight = ( isHorizontal ? handlerThumb.width() : handlerThumb.height() );
 			handlerMargin = ( isHorizontal ? parseInt( handler.css( "right" ), 10 ) : parseInt( handler.css( "bottom" ), 10 ) );
 

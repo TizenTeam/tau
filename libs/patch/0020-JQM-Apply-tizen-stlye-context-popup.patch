@@ -1,17 +1,18 @@
-From 2ac5d27aad168598a2504f0ee43952a7043916ec Mon Sep 17 00:00:00 2001
+From 74d2890f4532f8525448fb53d8e648d86f41cd36 Mon Sep 17 00:00:00 2001
 From: "hjnim.kim" <hjnim.kim@samsung.com>
-Date: Fri, 8 Mar 2013 11:24:06 +0900
+Date: Wed, 20 Mar 2013 21:21:51 +0900
 Subject: [PATCH] JQM Apply tizen style popup
 
-Apply tizen style popup ( data-position-to null or origin )
+Apply type style popup
 
-Change-Id: I53553b7fda18f64d7b696fdc8a4eb695046a8db0
+Change-Id: I8c55f10921053f2adbe230b772a3b9a5ad73a232
+Signed-off-by: hyunjung kim<hjnim.kim@samsung.com>
 ---
- libs/js/jquery-mobile-1.2.0/js/widgets/popup.js |   98 ++++++++++++++++++++---
- 1 files changed, 88 insertions(+), 10 deletions(-)
+ libs/js/jquery-mobile-1.2.0/js/widgets/popup.js |  108 ++++++++++++++++++++--
+ 1 files changed, 98 insertions(+), 10 deletions(-)
 
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
-index 8174055..aa71dbc 100644
+index 8174055..32726bc 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
 @@ -58,7 +58,7 @@ define( [ "jquery",
@@ -73,7 +74,7 @@ index 8174055..aa71dbc 100644
  
  			// Clamp the width of the menu before grabbing its size
  			this._ui.container.css( "max-width", rc.cx );
-@@ -389,7 +394,48 @@ define( [ "jquery",
+@@ -389,7 +394,50 @@ define( [ "jquery",
  
  			ret.y -= Math.min( ret.y, Math.max( 0, ret.y + menuSize.cy - docHeight ) );
  
@@ -93,8 +94,10 @@ index 8174055..aa71dbc 100644
 +			{
 +				case 0:
 +					correctionValue = [ -$(this.link).width() , 0];
-+					arrow.attr( "class", "" )
-+									.addClass( "ui-arrow right" );
++					arrowtop = ( linkOffset.top - ret.y  ) + ( $(this.link).height() / 2 ) - parseInt( $(this._ui.arrow).css("border-width") ) ;
++					arrowleft = menuSize.cx;
++					$(this._ui.arrow).attr( "class", "" )
++									.addClass( "ui-arrow left" )
 +					break;
 +				case 1:
 +					correctionValue = [ 0 , -(ret.y + menuSize.cy - linkOffset.top)];
@@ -123,7 +126,7 @@ index 8174055..aa71dbc 100644
  		},
  
  		_createPrereqs: function( screenPrereq, containerPrereq, whenDone ) {
-@@ -569,7 +615,7 @@ define( [ "jquery",
+@@ -569,7 +617,7 @@ define( [ "jquery",
  			this._ui.container
  				.removeClass( "ui-selectmenu-hidden" )
  				.offset( coords );
@@ -132,7 +135,7 @@ index 8174055..aa71dbc 100644
  			if ( this.options.overlayTheme && androidBlacklist ) {
  				/* TODO:
  				The native browser on Android 4.0.X ("Ice Cream Sandwich") suffers from an issue where the popup overlay appears to be z-indexed
-@@ -694,15 +740,47 @@ define( [ "jquery",
+@@ -694,15 +742,55 @@ define( [ "jquery",
  		// what should be in _open. Seems to be "visual" vs "history" for now
  		open: function( options ) {
  			var self = this, opts = this.options, url, hashkey, activePage, currentIsDialog, hasHash, urlHistory;
@@ -148,12 +151,20 @@ index 8174055..aa71dbc 100644
 +			if( !options ) {
 +				options = [];
 +			}
++
 +			if ( !options.link ) {
-+				self.link = ( $(event.target).closest('a')[0] || $(event.target).closest('div')[0] );
++				if ( !event ) {
++					self.positionTo = "window";
++				} else {
++					self.link = ( $(event.target).closest('a')[0] || $(event.target).closest('div')[0] );
++				}
 +			} else {
 +				self.link = options.link;
 +			}
-+			self.positionTo = ( options != null && options.positionTo != null ) ? options.positionTo : "origin";
++			if ( event ) {
++				self.positionTo = ( options != null && options.positionTo != null ) ? options.positionTo : "origin";
++			}
++
 +			if ( $(self.link).jqmData("position-to") !== "window"
 +					&& self.positionTo !== "window" ) {
 +

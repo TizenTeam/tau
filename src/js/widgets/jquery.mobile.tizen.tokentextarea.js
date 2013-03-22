@@ -257,17 +257,17 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 				option = this.options,
 				className = "ui-tokentextarea-link",
 				inputbox = $( document.createElement( "input" ) ),
-				labeltag = $( document.createElement( "label" ) ),
+				labeltag = $( document.createElement( "span" ) ),
 				moreBlock = $( document.createElement( "a" ) );
 
 			$view.hide().empty().addClass( "ui-" + role );
 
 			// create a label tag.
-			$( labeltag ).text( option.label ).addClass( "ui-tokentextarea-label" );
+			$( labeltag ).text( option.label ).addClass( "ui-tokentextarea-label" ).attr( "tabindex", 0 );
 			$view.append( labeltag );
 
 			// create a input tag
-			$( inputbox ).addClass( "ui-tokentextarea-input ui-tokentextarea-input-visible ui-input-text ui-body-s" );
+			$( inputbox ).addClass( "ui-tokentextarea-input ui-tokentextarea-input-visible ui-input-text ui-body-s" ).attr( "role", "textbox" );
 			$view.append( inputbox );
 
 			// create a anchor tag.
@@ -280,9 +280,11 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 					icon: "plus",
 					style: "circle"
 				})
-				.attr( "href", $.trim( option.link ) )
+				.attr( { "href" : $.trim( option.link ), "tabindex" : 0 } )
 				.addClass( "ui-tokentextarea-link-base" )
-				.addClass( className );
+				.addClass( className )
+				.find( "span.ui-btn-text" )
+				.text( "Add recipient" );
 
 			// append default htmlelements to main widget.
 			$view.append( moreBlock );
@@ -292,9 +294,6 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 			self._focusStatus = "init";
 			// display widget
 			$view.show();
-			$view.attr( "tabindex", -1 ).focusin( function ( e ) {
-				self.focusIn();
-			});
 
 			// assign global variables
 			self._viewWidth = $view.innerWidth();
@@ -380,7 +379,6 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 				if ( $view.innerWidth() === 0 ) {
 					return ;
 				}
-				var inputBox = $view.find( ".ui-tokentextarea-input" );
 				self._modifyInputBoxWidth();
 				$( inputbox ).removeClass( "ui-tokentextarea-input-invisible" ).addClass( "ui-tokentextarea-input-visible" );
 			});
@@ -418,7 +416,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 			// Create a new text HTMLDivElement.
 			textBlock = $( document.createElement( 'div' ) );
 
-			textBlock.text( content ).addClass( "ui-tokentextarea-block" );
+			textBlock.text( content ).addClass( "ui-tokentextarea-block" ).attr( { "aria-label" : "double tap to edit", "tabindex" : 0 } );
 			textBlock.css( {'visibility': 'hidden'} );
 
 			blocks = $view.find( "div" );
@@ -431,9 +429,13 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 			textBlock = self._ellipsisTextBlock( textBlock );
 			textBlock.css( {'visibility': 'visible'} );
 
-			self._currentWidth += self._calcBlockWidth( textBlock );
 			self._modifyInputBoxWidth();
-			$view.trigger( "add" );
+
+			textBlock.hide();
+			textBlock.fadeIn( "fast", function() {
+				self._currentWidth += self._calcBlockWidth( textBlock );
+				$view.trigger( "add" );
+			});
 		},
 
 		_removeTextBlock : function () {
@@ -445,8 +447,11 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 
 			if ( lockBlock !== null && lockBlock.length > 0 ) {
 				self._currentWidth -= self._calcBlockWidth( lockBlock );
-				lockBlock.remove();
-				self._modifyInputBoxWidth();
+
+				lockBlock.fadeOut( "fast", function() {
+					lockBlock.remove();
+					self._modifyInputBoxWidth();
+				});
 
 				this._eventRemoveCall = true;
 				if ( $view[0].remove ) {
@@ -543,7 +548,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 						inputBoxWidth = self._viewWidth;
 					}
 				} else {
-					if ( blockWidth >= inputBoxWidth ) {
+					if ( blockWidth > inputBoxWidth ) {
 						inputBoxWidth = self._viewWidth - blockWidth;
 					} else {
 						inputBoxWidth -= blockWidth;
@@ -594,17 +599,18 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 
 			var $view = this.element;
 
-			$view.find( "label" ).show();
+			$view.find( ".ui-tokentextarea-label" ).attr( "tabindex", 0 ).show();
 			$view.find( ".ui-tokentextarea-desclabel" ).remove();
 			$view.find( "div.ui-tokentextarea-sblock" ).removeClass( "ui-tokentextarea-sblock" ).addClass( "ui-tokentextarea-block" );
-			$view.find( "div" ).show();
-			$view.find( ".ui-tokentextarea-input" ).removeClass( "ui-tokentextarea-input-invisible" ).addClass( "ui-tokentextarea-input-visible" );
-			$view.find( "a" ).show();
+			$view.find( "div" ).attr( { "aria-label" : "double tap to edit", "tabindex" : 0 } ).show();
+			$view.find( ".ui-tokentextarea-input" ).removeClass( "ui-tokentextarea-input-invisible" ).addClass( "ui-tokentextarea-input-visible" ).attr( "tabindex", 0 );
+			$view.find( "a" ).attr( "tabindex", 0 ).show();
 
 			// change focus state.
 			this._modifyInputBoxWidth();
 			this._focusStatus = "focusIn";
-			$view.removeClass( "ui-tokentextarea-focusout" ).addClass( "ui-tokentextarea-focusin" );
+			$view.removeClass( "ui-tokentextarea-focusout" ).addClass( "ui-tokentextarea-focusin" ).removeAttr( "tabindex" );
+			$view.find( ".ui-tokentextarea-input" ).focus();
 		},
 
 		focusOut : function () {
@@ -615,18 +621,21 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 			var self = this,
 				$view = self.element,
 				tempBlock = null,
+				stateBlock = null,
+				numBlock = null,
 				statement = "",
 				index = 0,
 				lastIndex = 10,
-				label = $view.find( "label" ),
+				label = $view.find( ".ui-tokentextarea-label" ),
 				more = $view.find( "span" ),
 				blocks = $view.find( "div" ),
 				currentWidth = $view.outerWidth( true ) - more.outerWidth( true ) - label.outerWidth( true ),
 				blockWidth = 0;
 
-			$view.find( ".ui-tokentextarea-input" ).removeClass( "ui-tokentextarea-input-visible" ).addClass( "ui-tokentextarea-input-invisible" );
-			$view.find( "a" ).hide();
-			blocks.hide();
+			label.removeAttr( "tabindex" );
+			$view.find( ".ui-tokentextarea-input" ).removeClass( "ui-tokentextarea-input-visible" ).addClass( "ui-tokentextarea-input-invisible" ).removeAttr( "tabindex" );
+			$view.find( "a" ).removeAttr( "tabindex" ).hide();
+			blocks.removeAttr( "aria-label" ).removeAttr( "tabindex" ).hide();
 
 			currentWidth = currentWidth - self._reservedWidth;
 
@@ -643,15 +652,18 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 
 			if ( lastIndex !== blocks.length ) {
 				statement = self._stringFormat( self.options.description, blocks.length - lastIndex - 1 );
-				tempBlock = $( document.createElement( 'label' ) );
-				tempBlock.text( statement );
-				tempBlock.addClass( "ui-tokentextarea-desclabel" ).addClass( "ui-tokentextarea-desclabel" );
+				tempBlock = $( document.createElement( 'span' ) );
+				tempBlock.addClass( "ui-tokentextarea-desclabel" ).attr( { "aria-label" : "more, double tap to edit", "tabindex" : "-1" } );
+				stateBlock = $( document.createElement( 'span' ) ).text( statement ).attr( "aria-hidden", "true" );
+				numBlock = $( document.createElement( 'span' ) ).text( blocks.length - lastIndex - 1 ).attr( "aria-label", "and" ).css( "visibility", "hidden" );
+				tempBlock.append( stateBlock );
+				tempBlock.append( numBlock );
 				$( blocks[lastIndex] ).after( tempBlock );
 			}
 
 			// update focus state
 			this._focusStatus = "focusOut";
-			$view.removeClass( "ui-tokentextarea-focusin" ).addClass( "ui-tokentextarea-focusout" );
+			$view.removeClass( "ui-tokentextarea-focusin" ).addClass( "ui-tokentextarea-focusout" ).attr( "tabindex", 0 );
 		},
 
 		inputText : function ( message ) {
@@ -713,12 +725,19 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 			}
 
 			if ( arguments.length === 0 ) {
-				blocks.remove();
-				this._trigger( "clear" );
+				blocks.fadeOut( "fast", function() {
+					blocks.remove();
+					self._modifyInputBoxWidth();
+					this._trigger( "clear" );
+				});
 			} else if ( !isNaN( position ) ) {
 				// remove selected button
 				index = ( ( position < blocks.length ) ? position : ( blocks.length - 1 ) );
-				$( blocks[index] ).remove();
+
+				$( blocks[index] ).fadeOut( "fast", function() {
+					$( blocks[index] ).remove();
+					self._modifyInputBoxWidth();
+				});
 
 				this._eventRemoveCall = true;
 				if ( $view[0].remove ) {
@@ -731,7 +750,6 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 				}
 				this._eventRemoveCall = false;
 			}
-			self._modifyInputBoxWidth();
 		},
 
 		length : function () {
@@ -756,7 +774,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 				return;
 			}
 
-			$view.find( "label" ).remove();
+			$view.find( ".ui-tokentextarea-label" ).remove();
 			$view.find( "div" ).undelegate( "click" ).remove();
 			$view.find( "a" ).remove();
 			$view.find( ".ui-tokentextarea-input" ).unbind( "keyup" ).remove();

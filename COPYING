@@ -42,3 +42,5 @@ jQuery (http://jquery.com/) [MIT license]
 (parts of) Underscore (http://documentcloud.github.com/underscore/) [MIT license]
 
 Globalize (http://github.com/jquery/globalize/) [MIT license]
+
+glMatrix 1.3.7 (https://github.com/toji/gl-matrix) [https://github.com/toji/gl-matrix/blob/master/LICENSE.md]

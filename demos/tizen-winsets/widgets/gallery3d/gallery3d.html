@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<div data-role="page" data-add-back-btn="true">
+	<div data-role="header" data-position="fixed" >
+		<h1>Gallery 3D</h1>
+	</div><!-- /header -->
+
+	<div data-role="content">
+		<div id="gallery3d" data-role="gallery3d" style="width: 100%;"></div>
+	</div><!-- /content -->
+
+	<div data-role="footer">
+	</div><!-- /footer -->
+
+	<script>
+		$( "#gallery3d" ).bind( "gallery3dcreate", function () {
+			var widget = $( "#gallery3d" );
+			widget.gallery3d( "add", { src: "../test/01.jpg" } )
+				.gallery3d( "add", { src: "../test/02.jpg" } )
+				.gallery3d( "add", { src: "../test/03.jpg" } );
+		});
+	</script>
+</div><!-- /page -->

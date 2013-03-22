@@ -1,4 +1,4 @@
-<div id="virtualgrid_grid_page" data-role="page" class="virtualgrid_test_demo_page" data-add-back-btn="true">
+<div id="virtualgrid_grid_page" data-role="page" class="virtualgrid_grid_demo" data-add-back-btn="true">
 	<div data-role="header" data-position="fixed">
 		<h1>Virtual Grid - Size</h1>
 	</div>
@@ -13,23 +13,11 @@
 			</div>
 			</div>
 		</script>
-		<div id="virtualgrid-demo" data-role="virtualgrid" data-direction="y" data-rotation="false" data-template="tizen-demo-namecard" style="width:400px; height:400px;">
+		<div id="virtualgrid-demo" data-role="virtualgrid" data-direction="y" data-rotation="false" data-template="tizen-demo-namecard" style="width:250px; height:400px;">
 		</div>
 	</div>
 	<div data-role="footer">
 	</div>
-	<script>
-		$( ".virtualgrid_test_demo_page" ).one( "pagecreate", function() {
-			$.getScript( "./js/virtualgrid-db-demo.js", function( data, textStatus ) {
-				$( ":jqmData(role='virtualgrid')" ).virtualgrid( "create", {
-					itemData: function ( idx ) {
-						return JSON_DATA[ idx ];
-					},
-					numItemData: JSON_DATA.length,
-					cacheItemData: function ( minIdx, maxIdx ) {
-					}
-				});
-			});
-		});
-	</script>
+	<link rel="stylesheet" href="namecard.css" />
+	<script type="text/javascript" src="virtualgrid.js"></script>
 </div>

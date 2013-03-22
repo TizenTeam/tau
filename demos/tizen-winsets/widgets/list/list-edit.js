@@ -1,17 +1,5 @@
-var ContactName = "";
-
-$( document ).on( "vclick", "#genlist-dialog-edit .ui-li-dialogue-edit .ui-btn", function ( e ) {
-	$(e.target).parents(".ui-btn").siblings("input").val("");
-});
-
-$(document).bind("pagebeforechange", function ( event , data ) {
-	if ( $(event.target).children().is("#genlist-dialog-edit") ) {
-		ContactName = $("#genlist-dialog-edit input").eq(4).val();
-	}
-});
-
-$(document).bind("pagebeforeshow", function ( event , data ) {
-	if ( $(event.target).attr("id") == "genlist-dialog-edit" ) {
-		$("#genlist-dialog-edit input").eq(4).val(ContactName);
-	}
+$( document ).one("pagecreate", "#genlist-dialog-edit", function () {
+	$(this).on("vclick", ".ui-li-dialogue-edit .ui-btn", function ( e ) {
+		$(this).siblings("input").val("");
+	});
 });

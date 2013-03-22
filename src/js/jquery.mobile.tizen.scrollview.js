@@ -67,7 +67,7 @@ define( [ ], function ( ) {
 
 			showScrollBars:    true,
 			overshootEnable:   false,
-			outerScrollEnable: true,
+			outerScrollEnable: false,
 			overflowEnable:    true,
 			scrollJump:        false,
 		},
@@ -815,7 +815,6 @@ define( [ ], function ( ) {
 				reset = function () {
 					clearTimeout( self._gesture_timer );
 					self._gesture_dir = 0;
-					self._gesture_count = 0;
 					self._gesture_timer = undefined;
 				},
 				direction = {
@@ -836,7 +835,6 @@ define( [ ], function ( ) {
 			}
 
 			if ( !this._gesture_timer ) {
-				this._gesture_count = 1;
 				this._gesture_dir = dir;
 
 				this._gesture_timer = setTimeout( function () {
@@ -849,32 +847,6 @@ define( [ ], function ( ) {
 			if ( this._gesture_dir !== dir ) {
 				reset();
 				return false;
-			}
-
-			this._gesture_count++;
-
-			if ( this._gesture_count === 3 ) {
-				switch ( dir ) {
-				case direction.top:
-					this.scrollTo( this._sx, 0, this.options.overshootDuration );
-					break;
-				case direction.bottom:
-					this.scrollTo( this._sx, -( this._getViewHeight() - this._$clip.height() ),
-							this.options.overshootDuration );
-					break;
-				case direction.left:
-					this.scrollTo( 0, this._sy, this.options.overshootDuration );
-					break;
-				case direction.right:
-					this.scrollTo( -( this._getViewWidth() - this._$clip.width() ), this._sy,
-							this.options.overshootDuration );
-					break;
-				}
-
-				reset();
-				this._didDrag = true;
-
-				return true;
 			}
 
 			return false;
@@ -1332,10 +1304,10 @@ define( [ ], function ( ) {
 				vh = this._getViewHeight();
 				this._maxY = ch - vh;
 
-				if ( this._maxY > 0 ) {
+				if ( this._maxY > 0 || vh === 0 ) {
 					this._maxY = 0;
 				}
-				if ( this._$vScrollBar && vh ) {
+				if ( ( this._$vScrollBar && vh ) || vh === 0 ) {
 					thumb = this._$vScrollBar.find(".ui-scrollbar-thumb");
 					thumb.css( "height", (ch >= vh ? "0" :
 							(Math.floor(ch / vh * 100) || 1) + "%") );

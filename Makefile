@@ -55,6 +55,7 @@ LIBS_JS_FILES = jquery.easing.1.3.js \
 		jquery.tmpl.js \
 		jquery.mobile.js \
 		globalize/lib/globalize.js \
+		gl-matrix.js \
 		$(NULL)
 
 JQUERY_MOBILE_CSS = submodules/jquery-mobile/compiled/jquery.mobile.structure.css \

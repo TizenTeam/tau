@@ -1,13 +1,9 @@
-$("#popupwindow-demo").bind("pageshow", function() {
-      $('#popupwindow-demo-transition-' + $("#popupContent2").popupwindow("option", "transition"))
-        .attr("checked", "true")
-        .checkboxradio("refresh");
+$( document ).one( "pagecreate", "#popupwindow-demo", function () {
+	$('input[name="popupwindow-demo-transition-choice"]').on("change", function ( e ) {
+		$("#popupContent2").popupwindow("option", "transition", $(this).attr("id").split("-").pop());
+	});
 
-	$(this).find('#progressbar').progressbar('start');
+	$("#btn_textbox_popup_cancel").on("vclick", function ( ev ) {
+		$("#textbox_popup").find("input").val("");
+	});
 });
-
-$('input[name=popupwindow-demo-transition-choice]').bind("change", function(e) {
-      $("#popupContent2").popupwindow("option", "transition", $(this).attr("id").split("-").pop());
-});
-
-

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8" >
+		<script src="../../tizen-web-ui-fw/latest/js/jquery.min.js"></script>
+		<script src="../../configure.js"></script>
+		<script src="../../tizen-web-ui-fw/latest/js/tizen-web-ui-fw-libs.min.js"></script>
+		<script src="../../tizen-web-ui-fw/latest/js/tizen-web-ui-fw.min.js"
+				data-framework-theme="tizen-white"
+				data-framework-viewport-width="device-width">
+		</script>
+		<script src="../../main.js"></script>
+		<title>Tizen UI - Slider</title>
+
+		<!-- for compatibility test -->
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<link rel="apple-touch-icon" href="../../icon-tizen.png" />
+	</head>
+	<body>
+		<div data-role="page" id="slider-demo" data-add-back-btn="true">
+			<div data-role="header" data-position="fixed">
+				<h1>Slider</h1>
+			</div>
+			<div data-role="content">
+				<ul data-role="listview">
+					<li data-role="list-divider">Normal Slider</li>
+					<li><input id="mySlider1" name="mySlider1" data-popup='false' type="range" value="5" min="0" max="10" /></li>
+					<li data-role="list-divider">Popup Slider</li>
+					<li><input id="mySlider2" name="mySlider2" type="range" value="50" min="0" max="100" /></li>
+					<li data-role="list-divider">Icon Slider</li>
+					<li><input id="mySlider3" name="mySlider3" data-popup='false' type="range" value="5" min="0" max="10" data-icon='bright'/></li>
+					<li><input id="mySlider4" name="mySlider4" data-popup='false' type="range" value="5" min="0" max="10" data-icon='volume'/></li>
+					<li data-role="list-divider">Text Slider</li>
+					<li><input id="mySlider5" name="mySlider5" data-popup='false' type="range" value="50" min="0" max="99" data-icon='text' data-text-left='0' data-text-right='99'/></li>
+					<li><input id="mySlider6" name="mySlider6" data-popup='false' type="range" value="5" min="0" max="10" data-icon='text' data-text-left='Min' data-text-right='Max'/></li>
+					<li data-role="list-divider">data-highlight="false"</li>
+					<li><input id="mySlider7" name="mySlider7" data-popup='false' type="range" value="5" min="0" max="10" data-highlight="false" /></li>
+				</ul>
+			</div><!-- /content -->
+			<div data-role="footer">
+			</div>
+		</div> <!-- /page -->
+	</body>
+</html>

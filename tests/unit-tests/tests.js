@@ -8,6 +8,7 @@ var TESTS = {
 		"extendablelist",
 		"handler",
 		"gallery",
+		"gallery3d",
 		"multimediaview",
 		"navigationbar",
 		"notification",
@@ -25,6 +26,7 @@ var TESTS = {
 		"virtuallist",
 		"virtualgrid",
 		"collapsible",
-		"page"
+		"page",
+		"splitview"
 	]
 };

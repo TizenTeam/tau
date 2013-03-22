@@ -281,7 +281,8 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 		},
 		_OVERFLOW_DIR_NONE = 0,		/* ENUM */
 		_OVERFLOW_DIR_UP = 1,		/* ENUM */
-		_OVERFLOW_DIR_DOWN = -1;	/* ENUM */
+		_OVERFLOW_DIR_DOWN = -1,	/* ENUM */
+		imgTagSrcAttrRE = /src\s*=\s*[\"\'][\w\/.]+.[A-z]+[\"\']/;
 
 	function getCurrentTime () {
 		return Date.now();
@@ -317,7 +318,7 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 			elapsed = getCurrentTime () - this.startTime;
 			elapsed = elapsed > duration ? duration : elapsed;
 			dx = this.speed * ( 1 - $.easing[this.easing]( elapsed / duration, elapsed, 0, 1, duration ) );
-			x = this.pos + dx;
+			x = this.pos + ( dx / 2 );
 			this.pos = x;
 
 			if ( elapsed >= duration ) {
@@ -372,7 +373,7 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 				_numItemData : 0,
 				_cacheItemData : function ( minIdx, maxIdx ) { },
 				_totalRowCnt : 0,
-				_template : null,
+				_templateText : null,
 				_maxViewSize : 0,
 				_modifyViewPos : 0,
 				_maxSizeExceptClip : 0,
@@ -425,7 +426,7 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 			self._direction = opts.direction === 'x' ? true : false;
 
 			// make view layer
-			self._$clip = $( self.element ).addClass( "ui-scrollview-clip" ).addClass( "ui-virtualgrid-view" );
+			self._$clip = $dom.addClass( "ui-scrollview-clip" ).addClass( "ui-virtualgrid-view" );
 			$item = $( document.createElement( "div" ) ).addClass( "ui-scrollview-view" );
 			self._clipSize =  self._calculateClipSize();
 			self._$clip.append( $item );
@@ -496,9 +497,9 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 			}
 			self._setElementTransform( -self._cellSize );
 
-			self._replaceRow( self._$view.children().first(), self._totalRowCnt - 1 );
+			self._replaceRow( self._$view[0].firstChild, self._totalRowCnt - 1 );
 			if ( opts.rotation && self._rowsPerView >= self._totalRowCnt ) {
-				self._replaceRow( self._$view.children().last(), 0 );
+				self._replaceRow( self._$view[0].lastChild, 0 );
 			}
 			self._setViewSize();
 		},
@@ -534,12 +535,14 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 			var self = this,
 				opts = self.options,
 				width = 0,
-				height = 0;
+				height = 0,
+				$template = null;
 
-			self._template = $( "#" + opts.template );
-			if ( !self._template ) {
+			$template = $( "#" + opts.template );
+			if ( !$template ) {
 				return ;
 			}
+			self._templateText = self._insertAriaAttrToTmpl( $template.text() );
 
 			width = self._calculateClipWidth();
 			height = self._calculateClipHeight();
@@ -574,8 +577,8 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 			rowsPerView = Math.ceil( rowsPerView );
 			self._rowsPerView = parseInt( rowsPerView, 10 );
 
-			$child = self._makeRows( rowsPerView + 2 );
-			$( self._$view ).append( $child.children() );
+			$child = $( self._makeRows( rowsPerView + 2 ) );
+			self._$view.append( $child.children() );
 			self._$view.children().css( attributeName, self._cellSize + "px" );
 			self._$rows = self._$view.children().detach();
 
@@ -629,7 +632,7 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 			return ret;
 		},
 
-		resize : function ( ) {
+		resize : function () {
 			var self = this,
 				ret = null,
 				rowsPerView = 0,
@@ -649,11 +652,11 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 				clipPosition = self._getClipPosition();
 				self._$view.hide();
 
-				diffRowCnt = self._replaceRows(itemCount, prevcnt, self._totalRowCnt, clipPosition);
+				diffRowCnt = self._replaceRows( itemCount, prevcnt, self._totalRowCnt, clipPosition );
 				self._maxSizeExceptClip = ( self._totalRowCnt - self._rowsPerView ) * self._cellSize;
 				self._maxSize = self._totalRowCnt * self._cellSize;
-				self._scalableSize += (-diffRowCnt) * self._cellSize;
-				self._reservedPos  += (-diffRowCnt) * self._cellSize;
+				self._scalableSize += ( -diffRowCnt ) * self._cellSize;
+				self._reservedPos  += ( -diffRowCnt ) * self._cellSize;
 				self._setScrollBarSize();
 				self._setScrollBarPosition( diffRowCnt );
 
@@ -769,11 +772,11 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 
 			if ( self._direction ) {
 				self._$clip.append( prefix + "x" + suffix );
-				self._hScrollBar = $( self._$clip.children( ".ui-scrollbar-x" ) );
+				self._hScrollBar = self._$clip.children( ".ui-scrollbar-x" );
 				self._hScrollBar.find( ".ui-scrollbar-thumb" ).addClass( "ui-scrollbar-thumb-x" );
 			} else {
 				self._$clip.append( prefix + "y" + suffix );
-				self._vScrollBar = $( self._$clip.children( ".ui-scrollbar-y" ) );
+				self._vScrollBar = self._$clip.children( ".ui-scrollbar-y" );
 				self._vScrollBar.find( ".ui-scrollbar-thumb" ).addClass( "ui-scrollbar-thumb-y" );
 			}
 		},
@@ -820,7 +823,8 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 			var self = this,
 				$sbt = null,
 				x = "0px",
-				y = "0px";
+				y = "0px",
+				translate;
 
 			if ( self.options.rotation ) {
 				return ;
@@ -828,10 +832,10 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 
 			self._currentItemCount = self._currentItemCount + di;
 			if ( self._vScrollBar ) {
-				$sbt = self._vScrollBar .find( ".ui-scrollbar-thumb" );
+				$sbt = self._vScrollBar.find( ".ui-scrollbar-thumb" );
 				y = ( self._currentItemCount * self._itemScrollSize ) + "px";
 			} else {
-				$sbt = self._hScrollBar .find( ".ui-scrollbar-thumb" );
+				$sbt = self._hScrollBar.find( ".ui-scrollbar-thumb" );
 				x = ( self._currentItemCount * self._itemScrollSize ) + "px";
 			}
 			self._setStyleTransform( $sbt, x, y, duration );
@@ -924,13 +928,13 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 				idx = 0,
 				replaceStartIdx = 0,
 				realRowCount = self._rowsPerView + 2,
-				$row = null;
+				rawView = self._$view[0];
 
 			if ( self._blockScroll ) {
 				if ( dy > 0 && distance >= -self._cellSize && self._scalableSize >= -self._cellSize ) {
 					self._overflowDir = _OVERFLOW_DIR_UP;
 				}
-				if ( (dy < 0 && self._scalableSize <= -(self._maxSize + self._cellSize) )) {
+				if ( dy < 0 && self._scalableSize <= -( self._maxSizeExceptClip + self._cellSize ) ) {
 					self._overflowDir = _OVERFLOW_DIR_DOWN;
 				}
 				return;
@@ -947,10 +951,10 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 					}
 					return;
 				}
-				if ( ( dy < 0 && self._scalableSize <= -( self._maxSize + self._cellSize ) ) ) {
+				if ( dy < 0 && self._scalableSize <= -( self._maxSizeExceptClip + self._cellSize ) ) {
 					// bottom
 					self._stopMScroll();
-					self._scalableSize = -(self._maxSizeExceptClip + self._cellSize);
+					self._scalableSize = -( self._maxSizeExceptClip + self._cellSize );
 					self._setElementTransform( self._modifyViewPos );
 					if ( self._overflowDir === _OVERFLOW_DIR_NONE ) {
 						self._overflowDir = _OVERFLOW_DIR_DOWN;
@@ -963,16 +967,14 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 			if ( di > 0 ) { // scroll up
 				for ( i = replaceStartIdx; i < di; i++ ) {
 					idx = -parseInt( ( sy / self._cellSize ) + i + 3, 10 );
-					$row = self._$view.children().last().detach();
-					self._replaceRow( $row, circularNum( idx, self._totalRowCnt ) );
-					self._$view.prepend( $row );
+					self._replaceRow( rawView.lastChild, circularNum( idx, self._totalRowCnt ) );
+					rawView.insertBefore( rawView.lastChild, rawView.firstChild );
 				}
 			} else if ( di < 0 ) { // scroll down
 				for ( i = replaceStartIdx; i > di; i-- ) {
 					idx = self._rowsPerView - parseInt( ( sy / self._cellSize ) + i, 10 );
-					$row = self._$view.children().first().detach();
-					self._replaceRow( $row, circularNum( idx, self._totalRowCnt ) );
-					self._$view.append( $row );
+					self._replaceRow( rawView.firstChild, circularNum( idx, self._totalRowCnt ) );
+					rawView.insertBefore( rawView.firstChild, rawView.lastChild.nextSibling );
 				}
 			}
 			self._setScrollBarPosition( -di );
@@ -1228,8 +1230,7 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 
 		_calculateClipWidth : function () {
 			var self = this,
-				view = $( self.element ),
-				$parent = $( self.element ).parent(),
+				$parent = self._$clip.parent(),
 				paddingValue = 0,
 				clipSize = $( window ).width();
 
@@ -1243,15 +1244,14 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 				paddingValue = parseInt( $parent.css( "padding-right" ), 10 );
 				clipSize = clipSize - ( paddingValue || 0 );
 			} else {
-				clipSize = view.width();
+				clipSize = self._$clip.width();
 			}
 			return clipSize;
 		},
 
 		_calculateClipHeight : function () {
 			var self = this,
-				view = $( self.element ),
-				$parent = view.parent(),
+				$parent = self._$clip.parent(),
 				header = null,
 				footer = null,
 				paddingValue = 0,
@@ -1280,7 +1280,7 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 					clipSize = clipSize - footer.outerHeight( true );
 				}
 			} else {
-				clipSize = view.height();
+				clipSize = self._$clip.height();
 			}
 			return clipSize;
 		},
@@ -1290,7 +1290,7 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 				$tempBlock,
 				$cell;
 
-			$tempBlock = self._makeRows( 1 );
+			$tempBlock = $( self._makeRows( 1 ) );
 			self._$view.append( $tempBlock.children().first() );
 			if ( self._direction ) {
 				// x-axis
@@ -1311,7 +1311,7 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 
 		_calculateColumnCount : function ( ) {
 			var self = this,
-				$view = $( self.element ),
+				$view = self._$clip,
 				viewSize = self._direction ? $view.innerHeight() : $view.innerWidth(),
 				itemCount = 0 ;
 
@@ -1349,59 +1349,99 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 		//----------------------------------------------------//
 		_makeRows : function ( count ) {
 			var self = this,
-				opts = self.options,
 				index = 0,
-				$row = null,
-				$wrapper = null;
+				row = null,
+				wrapper = null;
 
-			$wrapper = $( self._createElement( "div" ) );
-			$wrapper.addClass( "ui-scrollview-view" );
+			wrapper = self._createElement( "div" );
+			wrapper.setAttribute( "class", "ui-scrollview-view" );
 			for ( index = 0; index < count ; index += 1 ) {
-				$row = self._makeRow( self._template, index );
+				row = self._makeRow( index );
 				if ( self._direction ) {
-					$row.css( "top", 0 ).css( "left", ( index * self._cellSize ) );
+					row.style.top = 0;
+					row.style.left = index * self._cellSize;
 				}
-				$wrapper.append( $row );
+				wrapper.appendChild( row );
 			}
-			return $wrapper;
+			return wrapper;
 		},
 
 		// make a single row block
-		_makeRow : function ( myTemplate, rowIndex ) {
+		_makeRow : function ( rowIndex ) {
 			var self = this,
-				opts = self.options,
 				index = rowIndex * self._itemCount,
-				htmlData = null,
-				itemData = null,
 				colIndex = 0,
-				attrName = self._direction ? "top" : "left",
 				blockClassName = self._direction ? "ui-virtualgrid-wrapblock-x" : "ui-virtualgrid-wrapblock-y",
-				blockAttrName = self._direction ? "top" : "left",
-				wrapBlock = $( self._createElement( "div" ) );
+				wrapBlock = self._createElement( "div" ),
+				strWrapInner = "",
+				attrName = self._direction ? "top" : "left";
 
-			wrapBlock.addClass( blockClassName ).attr( "row-index", rowIndex );
 			for ( colIndex = 0; colIndex < self._itemCount; colIndex++ ) {
-				htmlData = self._makeHtmlData( myTemplate, index, colIndex );
-				if ( htmlData ) {
-					wrapBlock.append( htmlData );
-				}
+				strWrapInner += self._makeHtmlData( index, colIndex, attrName );
 				index += 1;
 			}
+			wrapBlock.innerHTML = strWrapInner;
+			wrapBlock.setAttribute( "class", blockClassName );
+			wrapBlock.setAttribute( "row-index", String( rowIndex ) );
+			self._fragment.appendChild( wrapBlock );
 			return wrapBlock;
 		},
 
-		_makeHtmlData : function ( myTemplate, dataIndex, colIndex ) {
+		_makeHtmlData : function ( dataIndex, colIndex, attrName ) {
 			var self = this,
-				htmlData = null,
-				itemData = null,
-				attrName = self._direction ? "top" : "left";
+				htmlStr = "",
+				itemData = null;
 
 			itemData = self._itemData( dataIndex );
 			if ( itemData ) {
-				htmlData = self._tmpl( itemData );
-				htmlData.css( attrName, ( colIndex * self._cellOtherSize ) ).addClass( "virtualgrid-item" );
+				htmlStr = self._getConvertedTmplStr( itemData );
+				htmlStr = self._insertPosToTmplStr( htmlStr, attrName, ( colIndex * self._cellOtherSize ) );
 			}
-			return htmlData;
+			return htmlStr;
+		},
+
+		_insertPosToTmplStr : function ( tmplStr, attrName, posVal ) {
+			var tagCloseIdx = tmplStr.indexOf( '>' ),
+				classIdx = -1,
+				firstPart,
+				lastPart,
+				result,
+				found = false,
+				targetIdx = 0,
+				firstPartLen,
+				i = 0;
+
+			if ( tagCloseIdx === -1 ) {
+				return;
+			}
+
+			firstPart = tmplStr.slice( 0, tagCloseIdx );
+			lastPart = tmplStr.slice( tagCloseIdx, tmplStr.length );
+
+			classIdx = firstPart.indexOf( 'class' );
+
+			if ( classIdx !== -1 ) {
+				firstPartLen = firstPart.length;
+				for ( i = classIdx + 6; i < firstPartLen; i++ ) {
+					if ( firstPart.charAt( i ) === "\"" || firstPart.charAt( i ) === "\'" ) {
+						if ( found === false ) {
+							found = true;
+						} else {
+							targetIdx = i;
+							break;
+						}
+					}
+				}
+				result = firstPart.slice( 0, targetIdx ) + " virtualgrid-item" + firstPart.slice( targetIdx, firstPartLen ) + lastPart;
+			} else {
+				result = firstPart + " class=\"virtualgrid-item\"" + lastPart;
+			}
+
+			if ( !isNaN( posVal ) ) {
+				result = result.replace( '>', " style=\"" + attrName + ": " + String( posVal ) + "px\">");
+			}
+
+			return result;
 		},
 
 		_increaseRow : function ( num ) {
@@ -1419,11 +1459,11 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 
 			for ( idx = 1 ; idx <= num ; idx++ ) {
 				if ( tailItemIndex + idx  >= self._totalRowCnt ) {
-					$row = self._makeRow( self._template, headItemIndex );
+					$row = $( self._makeRow( headItemIndex ) );
 					self._$view.prepend( $row );
 					headItemIndex -= 1;
 				} else {
-					$row = self._makeRow( self._template, tailItemIndex + idx );
+					$row = $( self._makeRow( tailItemIndex + idx ) );
 					self._$view.append( $row );
 				}
 				if ( self._direction ) {
@@ -1480,39 +1520,17 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 
 		_replaceRow : function ( block, index ) {
 			var self = this,
-				opts = self.options,
-				$columns = null,
-				$column = null,
-				$block = block.attr ? block : $( block ),
-				data = null,
-				htmlData = null,
-				myTemplate = null,
-				idx = 0,
-				dataIdx = 0,
 				tempBlocks = null;
 
-			$columns = $block.attr( "row-index", index ).children();
-			if ( $columns.length !== self._itemCount ) {
-				$block.children().remove();
-				tempBlocks = $( self._makeRow( self._template, index ) );
-				$block.append( tempBlocks.children() );
-				tempBlocks.remove();
-				return ;
+			while ( block.hasChildNodes() ) {
+				block.removeChild( block.lastChild );
 			}
 
-			dataIdx = index * self._itemCount;
-			for ( idx = 0; idx < self._itemCount ; idx += 1 ) {
-				$column = $columns.eq( idx );
-				data = self._itemData( dataIdx );
-				if ( $column && data ) {
-					htmlData = self._tmpl( data );
-					self._replace( $column, htmlData, false );
-					htmlData.remove();	// Clear temporary htmlData to free cache
-					dataIdx ++;
-				} else if ( $column && !data ) {
-					$column.remove();
-				}
+			tempBlocks = self._makeRow( index );
+			while ( tempBlocks.children.length ) {
+				block.appendChild( tempBlocks.children[0] );
 			}
+			tempBlocks.parentNode.removeChild( tempBlocks );
 		},
 
 		_createElement : function ( tag ) {
@@ -1521,6 +1539,7 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 			this._fragment.appendChild( element );
 			return element;
 		},
+
 		_getObjectNames : function ( obj ) {
 			var properties = [],
 				name = "";
@@ -1531,20 +1550,98 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 			this._properties = properties;
 		},
 
-		_tmpl : function ( data ) {
+		_getConvertedTmplStr : function ( data ) {
 			var self = this,
-				idx = 0,
+				dataProperties = self._properties,
+				i = 0,
 				plainMsg,
-				ret;
+				ret = "";
+
 			if ( !data ) {
 				return ;
 			}
 
-			plainMsg = self._template.text();
-			for ( idx = 0 ; idx < self._properties.length ; idx++ ) {
-				plainMsg = self._strReplace( plainMsg, "${" + self._properties[ idx ] + "}" , data[ self._properties[ idx ] ] );
+			plainMsg = self._templateText;
+			for ( i = 0; i < dataProperties.length; i++ ) {
+				plainMsg = self._strReplace( plainMsg, "${" + dataProperties[ i ] + "}" , data[ dataProperties[ i ] ] );
 			}
-			ret = $( plainMsg );
+			plainMsg = self._changeImgSrcAriaAttrFromTmpl( plainMsg );
+
+			return plainMsg;
+		},
+
+		_changeImgSrcAriaAttrFromTmpl : function ( plainMsg ) {
+			var self = this,
+				ret = "",
+				targetTagIdx,
+				beforeTargetTag = "",
+				afterTargetTag = "",
+				imgFileName,
+				imgSrcSlashIdx,
+				temp,
+				srcRegExpResult;
+
+			temp = plainMsg;
+			targetTagIdx = temp.indexOf( "$ARIA-IMG-SRC-ALT$" );
+			while ( targetTagIdx !== -1 ) {
+				imgFileName = "";
+				beforeTargetTag = beforeTargetTag + temp.slice( 0, targetTagIdx + 19 );
+				afterTargetTag = temp.slice( targetTagIdx + 19, temp.length );
+				srcRegExpResult = afterTargetTag.match( imgTagSrcAttrRE );
+				if ( srcRegExpResult ) {
+					imgSrcSlashIdx = srcRegExpResult[0].lastIndexOf( "/" );
+					if ( imgSrcSlashIdx !== -1 ) {
+						imgFileName = srcRegExpResult[0].slice( imgSrcSlashIdx + 1, -1 );
+					}
+				}
+				beforeTargetTag = beforeTargetTag.replace( "$ARIA-IMG-SRC-ALT$", imgFileName );
+				temp = afterTargetTag;
+				targetTagIdx = temp.indexOf( "$ARIA-IMG-SRC-ALT$" );
+				ret = beforeTargetTag + afterTargetTag;
+			}
+
+			if ( ret === "" ) {
+				ret = plainMsg;
+			}
+
+			return ret;
+		},
+
+		_insertAriaAttrToTmpl : function ( plainMsg ) {
+			var ret = "",
+				targetTagIdx,
+				beforeTargetTag = "",
+				afterTargetTag = "",
+				temp;
+
+			temp = plainMsg.replace( "<div", "<div tabindex=\"0\" aria-selected=\"true\"" );
+			targetTagIdx = temp.indexOf( "<img" );
+			if ( targetTagIdx !== -1 ) {
+				while ( targetTagIdx !== -1 ) {
+					beforeTargetTag = beforeTargetTag + temp.slice( 0, targetTagIdx + 4 );
+					afterTargetTag = temp.slice( targetTagIdx + 4, temp.length );
+					beforeTargetTag = beforeTargetTag + " role=\"img\" alt=\"$ARIA-IMG-SRC-ALT$\"";
+					temp = afterTargetTag;
+					targetTagIdx = temp.indexOf( "<img" );
+					ret = beforeTargetTag + afterTargetTag;
+				}
+				temp = ret;
+				targetTagIdx = temp.indexOf( "<span" );
+				beforeTargetTag = "";
+				while ( targetTagIdx !== -1 ) {
+					beforeTargetTag = beforeTargetTag + temp.slice( 0, targetTagIdx + 5 );
+					afterTargetTag = temp.slice( targetTagIdx + 5, temp.length );
+					beforeTargetTag = beforeTargetTag + " aria-hidden=\"true\" tabindex=\"-1\"";
+					temp = afterTargetTag;
+					targetTagIdx = temp.indexOf( "<span" );
+					ret = beforeTargetTag + afterTargetTag;
+				}
+			}
+
+			if ( ret === "" ) {
+				ret = plainMsg;
+			}
+
 			return ret;
 		},
 
@@ -1556,38 +1653,15 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 				index = temp.indexOf( stringToFind );
 			}
 			return temp;
-		},
-
-		/* Text & image src replace function */
-		// @param oldItem   : prev HtmlDivElement
-		// @param newItem   : new HtmlDivElement for replace
-		// @param key       :
-		_replace : function ( oldItem, newItem, key ) {
-			var NODETYPE = { ELEMENT_NODE : 1, TEXT_NODE : 3 };
-
-			$( oldItem ).find( ".ui-li-text-main", ".ui-li-text-sub", "ui-btn-text" ).each( function ( index ) {
-				var oldObj = $( this ),
-					newText = $( newItem ).find( ".ui-li-text-main", ".ui-li-text-sub", "ui-btn-text" ).eq( index ).text();
-
-				$( oldObj ).contents().filter( function () {
-					return ( this.nodeType == NODETYPE.TEXT_NODE );
-				}).get( 0 ).data = newText;
-			});
-
-			$( oldItem ).find( "img" ).each( function ( imgIndex ) {
-				var oldObj = $( this ),
-					newImg = $( newItem ).find( "img" ).eq( imgIndex ).attr( "src" );
-
-				$( oldObj ).attr( "src", newImg );
-			});
-			$( oldItem ).removeData();
-			if ( key ) {
-				$( oldItem ).data( key, $( newItem ).data( key ) );
-			}
 		}
+
 	} );
 
 	$( document ).bind( "pagecreate create", function ( e ) {
 		$( ":jqmData(role='virtualgrid')" ).virtualgrid();
 	} );
 } ( jQuery, window, document ) );
+
+//>>excludeStart("jqmBuildExclude", pragmas.jqmBuildExclude);
+} );
+//>>excludeEnd("jqmBuildExclude");

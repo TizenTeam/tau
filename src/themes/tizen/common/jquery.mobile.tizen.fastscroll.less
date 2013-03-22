@@ -17,19 +17,22 @@
 		list-style-type: none;
 		margin: 0;
 		padding: 0;
-
 	}
 	li {
 		cursor: pointer;
 		color: @color_fastscroll_rollover_text;
 		padding: 2*@unit_base 2*@unit_base 2*@unit_base 2*@unit_base;
 		text-align: center;
+		vertical-align: middle;
 		font-size : 16 * @unit_base;
 		font-weight : bold;
 
 		border-left-width : 3 * @unit_base;
 		border-left-color : @color_fastscroll_popup_bg;
 		border-left-style : solid;
+
+		border-top-width : 3 * @unit_base;
+		border-top-color : @color_fastscroll_rollover_bg;
 	}
 }
 
@@ -54,9 +57,6 @@
 		color: @color_fastscroll_rollover_text;
 		padding: 2*@unit_base 2*@unit_base 2*@unit_base 2*@unit_base;
 		text-align: right;
-
-
-
 	}
 }
 
@@ -105,10 +105,21 @@ li.ui-fastscroll-hover-down {
 	border-left-color : @color_list_bg;
 }
 
+li.ui-fastscroll-hover {
+	padding-top : @unit_base;
+	padding-bottom : @unit_base;
+}
+
+li.ui-fastscroll-hover-first-item {
+	padding-top : 2 * @unit_base;
+}
+
 li.ui-fastscroll-hover-up {
 	border-top-width : 3 * @unit_base;
+	padding-top : 0px;
 }
 
 li.ui-fastscroll-hover-down {
 	border-bottom-width : 3 * @unit_base;
+	padding-bottom : 0px;
 }

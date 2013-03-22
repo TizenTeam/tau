@@ -1,0 +1,73 @@
+From 2f68f0cd4b3e55d0e9cc08cb3e9b4b00a45c3674 Mon Sep 17 00:00:00 2001
+From: "sang-hee.lee" <sang-hee.lee@samsung.com>
+Date: Tue, 19 Mar 2013 21:58:18 +0900
+Subject: [PATCH] JQM Support accessibility for listview
+
+---
+ libs/js/jquery-mobile-1.2.0/js/widgets/listview.js |   27 +++++++++++++++++---
+ 1 file changed, 24 insertions(+), 3 deletions(-)
+
+diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/listview.js b/libs/js/jquery-mobile-1.2.0/js/widgets/listview.js
+index 993d03e..4d53d2c 100644
+--- a/libs/js/jquery-mobile-1.2.0/js/widgets/listview.js
++++ b/libs/js/jquery-mobile-1.2.0/js/widgets/listview.js
+@@ -147,7 +147,10 @@ $.widget( "mobile.listview", $.mobile.widget, {
+ 		for ( i = 0; i < len; i++ ) {
+ 			img = $( this._findFirstElementByTagName( containers[ i ].firstChild, "nextSibling", "img", "IMG" ) );
+ 			if ( img.length ) {
+-				img.addClass( "ui-li-thumb" );
++				img.addClass( "ui-li-thumb" ).attr( {
++					"role" : "",
++					"aria-label" : "icon"
++				});
+ 				$( this._findFirstElementByTagName( img[ 0 ].parentNode, "parentNode", "li", "LI" ) ).addClass( img.is( ".ui-li-icon" ) ? "ui-li-has-icon" : "ui-li-has-thumb" );
+ 			}
+ 		}
+@@ -228,9 +231,26 @@ $.widget( "mobile.listview", $.mobile.widget, {
+ 			// If we're creating the element, we update it regardless
+ 			if ( create || !item.hasClass( "ui-li" ) ) {
+ 				itemTheme = $.mobile.getAttrFixed( item[0], "data-" + $.mobile.ns + "theme" ) || o.theme;
+-				a = this._getChildrenByTagName( item[ 0 ], "a", "A" );
++				a = this._getChildrenByTagName( item[ 0 ], "a", "A" ).attr( {
++					"role": "",
++					"tabindex": "0"
++				});
+ 				var isDivider = ( $.mobile.getAttrFixed( item[0], "data-" + $.mobile.ns + "role" ) === "list-divider" );
+ 
++				if ( item.hasClass( "ui-li-has-checkbox" ) || item.hasClass( "ui-li-has-radio" ) ) {
++					item.on( "vclick", function ( e ) {
++						var targetItem = $( e.target );
++						var checkboxradio = targetItem.find( ".ui-checkbox" );
++						if ( !checkboxradio.length ) {
++							checkboxradio = targetItem.find( ".ui-radio" );
++						}
++
++						if ( checkboxradio.length ) {
++							checkboxradio.children( "label" ).trigger( "vclick" );
++						}
++					});
++				}
++
+ 				if ( a.length && !isDivider ) {
+ 					icon = $.mobile.getAttrFixed( item[0], "data-" + $.mobile.ns + "icon" );
+ 
+@@ -287,7 +307,7 @@ $.widget( "mobile.listview", $.mobile.widget, {
+ 				} else if ( isDivider ) {
+ 
+ 					itemClass += " ui-li-divider ui-bar-" + dividertheme;
+-					item.attr( "role", "heading" );
++					item.attr( { "role": "heading", "tabindex": "0" } );
+ 
+ 					if ( ol ) {	
+ 						//reset counter when a divider heading is encountered
+@@ -305,6 +325,7 @@ $.widget( "mobile.listview", $.mobile.widget, {
+ 				
+ 				} else {
+ 					itemClass += " ui-li-static ui-btn-up-" + itemTheme;
++					item.attr( "tabindex", "0" );
+ 				}
+ 			}
+ 
+-- 
+1.7.9.5
+

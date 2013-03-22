@@ -12,15 +12,12 @@
 	</script>
 	<script src="main.js"></script>
 	<script src="webappInit.js"></script>
-	<link rel="stylesheet" href="custom.css" />
-
+	<script src="webappOrientation.js"></script>
 	<title>Tizen UI</title>
-
 	<!-- for compatibility test -->
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
 	<link rel="apple-touch-icon" href="icon-tizen.png" />
-	<link rel="stylesheet" href="./widgets/grid/css/namecard.css" />
 </head>
 
 <body>
@@ -32,21 +29,6 @@
 			<p id="current_date"></p>
 			<p id="html_font_size"></p>
 
-			<script>
-				$( document ).one( "pagecreate", function ( ) {
-					$("#input-select-theme").find("input[name='select-theme']").bind( "change",
-						function ( ev, data ) {
-							var radio = this,
-								theme = "tizen-white";
-							if( radio.checked ) {
-								theme = radio.value;
-								console.log( "Request theme change: " + theme );
-								$.tizen.loadTheme( theme );
-							}
-						}
-					);
-				} );
-			</script>
 			<ul data-role="listview">
 				<li data-role="list-divider">Controls</li>
 				<li><a href="widgets/button/button.html">Button</a></li>
@@ -57,11 +39,11 @@
 				<li><a href="widgets/entry.html">Entry</a></li>
 				<li><a href="widgets/datefield.html">Time picker</a></li>
 				<li><a href="widgets/progressbar.html">Progressbar</a></li>
-				<li><a href="#slider-demo">Slider</a></li>
+				<li><a href="widgets/slider/slider.html">Slider</a></li>
 				<li><a href="widgets/segmentctrl.html">Segment Control</a></li>
 				<li><a href="widgets/buttonGrouping.html">Group Control(new segment)</a></li>
-				<li><a href="#tokentextarea">Token Text Area</a></li>
-
+				<li><a href="widgets/tokentextarea/tokentextarea.html" data-ajax="false">Token Text Area</a></li>
+				<li><a href="widgets/splitview.html">Splitview</a></li>
 				<li data-role="list-divider">Page Layout</li>
 				<li><a href="widgets/naviframe/naviframe.html">Naviframe</a></li>
 				<li><a href="widgets/pagelayout/barcontrol.html">Header/Footer(fixed/non-fixed) Control</a></li>
@@ -69,7 +51,7 @@
 
 				<li data-role="list-divider">Tabbar</li>
 				<li><a href="widgets/tabbar/tabbar.html">Tabbar</a></li>
-				<li><a href="#tabbar_persist_a">Persist toolbar</a></li>
+				<li><a href="widgets/tabbar/tabbar_persist.html" data-ajax="false">Persist toolbar</a></li>
 
 				<li data-role="list-divider">Scrollview</li>
 				<li><a href="widgets/scrollview_x.html">Horizontal Scroll</a></li>
@@ -107,201 +89,21 @@
 				<li><a href="widgets/multimediaview/multimediaview.html">Multimedia view</a></li>
 
 				<li data-role="list-divider">Programming Tips</li>
-				<li><a href="tips/generate-elements-dynamically.html">Generate Elements by JS</a></li>
+				<li><a href="tips/generate-elements-dynamically/generate-elements-dynamically.html">Generate Elements by JS</a></li>
 				<li><a href="tips/custom-globalize-culture/custom-globalize-culture.html">Using custom Globalize culture files</a></li>
 				<li><a href="tips/two-line-text/two-line-text.html">2 line text</a></li>
 				<li><a href="tips/list-sample/list-sample.html">Example for using listview</a></li>
-				<li><a href="tips/page-transition/transition.html">Page transitions</a></li>
+				<li><a href="tips/page-transition/transition.html" data-ajax="false">Page transitions</a></li>
 				<li><a href="tips/pinch-event/pinch.html">Pinch Event</a></li>
 
+<!-- START_PROPRIETARY -->
+				<li data-role="list-divider">Experimental</li>
+				<li><a href="widgets/gallery3d/gallery3d.html">Gallery 3D</a></li>
+<!-- END_PROPRIETARY -->
 			</ul>
 		</div>
 		<div data-role="footer">
 		</div>
 	</div>
-
-<div data-role="page" id="tabbar_persist_a" data-add-back-btn="true">
-	<div data-role="header" data-position="fixed">
-		<div data-role="tabbar" data-id="persist_header" >
-			<ul>
-				<li><a href="#tabbar_persist_a" class="ui-btn-active ui-state-persist">Menu</a></li>
-				<li><a href="#tabbar_persist_b" >Save</a></li>
-				<li><a href="#tabbar_persist_c" >Next</a></li>
-			</ul>
-		</div><!-- /tabbar -->
-	</div>
-
-	<div data-role="content">
-		<p>page a</p>
-	</div>
-
-	<div data-role="footer">
-	</div>
-</div>
-
-<div data-role="page" id="tabbar_persist_b" data-add-back-btn="true">
-	<div data-role="header" data-position="fixed">
-		<div data-role="tabbar" data-id="persist_header" >
-			<ul>
-				<li><a href="#tabbar_persist_a" >Menu</a></li>
-				<li><a href="#tabbar_persist_b" class="ui-btn-active ui-state-persist">Save</a></li>
-				<li><a href="#tabbar_persist_c" >Next</a></li>
-			</ul>
-		</div><!-- /tabbar -->
-	</div>
-
-	<div data-role="content">
-		<p>page b</p>
-	</div>
-
-	<div data-role="footer">
-	</div>
-</div>
-
-<div data-role="page" id="tabbar_persist_c" data-add-back-btn="true">
-	<div data-role="header" data-position="fixed">
-		<div data-role="tabbar" data-id="persist_header" >
-			<ul>
-				<li><a href="#tabbar_persist_a" >Menu</a></li>
-				<li><a href="#tabbar_persist_b" >Save</a></li>
-				<li><a href="#tabbar_persist_c" class="ui-btn-active ui-state-persist">Next</a></li>
-			</ul>
-		</div><!-- /tabbar -->
-	</div>
-
-	<div data-role="content">
-		<p>page c</p>
-	</div>
-
-	<div data-role="footer">
-	</div>
-</div>
-
-
-	<div data-role="page" id="notImplemented" data-add-back-btn="true">
-		<div data-role="header" data-position="fixed">
-			<h1>Not Implemented</h1>
-		</div>
-		<div data-role="content">
-			<p> Not Implemented </p>
-		</div>
-		<div data-role="footer">
-		</div>
-	</div>
-
-	<div data-role="page" id="slider-demo" data-add-back-btn="true">
-		<div data-role="header" data-position="fixed">
-			<h1>Slider</h1>
-		</div>
-		<div data-role="content">
-			<ul data-role="listview">
-				<li data-role="list-divider">Normal Slider</li>
-				<li><input id="mySlider" name="mySlider" data-popup='false' type="range" name="slider" value="5" min="0" max="10" /></li>
-				<li data-role="list-divider">Popup Slider</li>
-				<li><input id="mySlider2" name="mySlider2" type="range" value="50" min="0" max="100" /></li>
-				<li data-role="list-divider">Icon Slider</li>
-				<li><input id="mySlider3" name="mySlider3" data-popup='false' type="range" name="slider" value="5" min="0" max="10" data-icon='bright'/></li>
-				<li><input id="mySlider4" name="mySlider4" data-popup='false' type="range" name="slider" value="5" min="0" max="10" data-icon='volume'/></li>
-				<li data-role="list-divider">Text Slider</li>
-				<li><input id="mySlider5" name="mySlider5" data-popup='false' type="range" name="slider" value="50" min="0" max="99" data-icon='text' data-text-left='0' data-text-right='99'/></li>
-				<li><input id="mySlider5" name="mySlider5" data-popup='false' type="range" name="slider" value="5" min="0" max="10" data-icon='text' data-text-left='Min' data-text-right='Max'/></li>
-				<li data-role="list-divider">data-highlight="false"</li>
-				<li><input id="mySlider" name="mySlider" data-popup='false' type="range" name="slider" value="5" min="0" max="10" data-highlight="false" /></li>
-			</ul>
-		</div><!-- /content -->
-		<div data-role="footer">
-		</div>
-	</div> <!-- /page -->
-
-	<div data-role="page" id="tokentextarea" data-add-back-btn="true">
-		<div data-role="header" data-position="fixed">
-			<h1>Token Text Area</h1>
-		</div>
-		<div data-role="content">
-			<div data-role="tokentextarea" data-link="#addressbook"></div>
-			<br>
-			<ul data-role="listview">
-				<li><a id='MBTaddItemTest'>Append Item</a></li>
-				<li><a id='MBTremoveItemTest'>Remove first Item</a></li>
-				<li><a id='MBTinputTextTest'>Input 'Hello'</a></li>
-				<li><a id='MBTgetInputTextTest'>Get input text</a></li>
-				<li><a id='MBTselectItemTest'>Select 1</a></li>
-				<li><a id='MBTgetSelectedItemTest'>Selected item</a></li>
-				<li><a id='MBTlengthTest'>Length</a></li>
-				<li><a id='MBTfocusOutTest'>Grouping On</a></li>
-				<li><a id='MBTfocusInTest'>Grouping Off</a></li>
-				<li><a id='MBTremoveAllItemTest'>Remove All Item</a></li>
-			</ul>
-		</div>
-		<div data-role="footer">
-		</div>
-	</div>
-	<div data-role="page" id="addressbook">
-		<div data-role="header" data-position="fixed">
-			<h1>Address Book</h1>
-		</div>
-		<div data-role="content" id="contentList">
-			<ul data-role="listview">
-				<li data-role="list-divider">A</li>
-				<li><a href="#tokentextarea">Adam Kinkaid</a></li>
-				<li><a href="#tokentextarea">Alex Wickerham</a></li>
-				<li><a href="#tokentextarea">Avery Johnson</a></li>
-				<li data-role="list-divider">B</li>
-				<li><a href="#tokentextarea">Bob Cabot</a></li>
-				<li data-role="list-divider">C</li>
-				<li><a href="#tokentextarea">Caleb Booth</a></li>
-				<li><a href="#tokentextarea">Christopher Adams</a></li>
-				<li><a href="#tokentextarea">Culver James</a></li>
-				<li data-role="list-divider">D</li>
-				<li><a href="#tokentextarea">David Walsh</a></li>
-				<li><a href="#tokentextarea">Drake Alfred</a></li>
-				<li data-role="list-divider">E</li>
-				<li><a href="#tokentextarea">Elizabeth Bacon</a></li>
-				<li><a href="#tokentextarea">Emery Parker</a></li>
-				<li><a href="#tokentextarea">Enid Voldon</a></li>
-				<li data-role="list-divider">F</li>
-				<li><a href="#tokentextarea">Francis Wall</a></li>
-				<li data-role="list-divider">G</li>
-				<li><a href="#tokentextarea">Graham Smith</a></li>
-				<li><a href="#tokentextarea">Greta Peete</a></li>
-				<li data-role="list-divider">H</li>
-				<li><a href="#tokentextarea">Harvey Walls</a></li>
-				<li data-role="list-divider">M</li>
-				<li><a href="#tokentextarea">Mike Farnsworth</a></li>
-				<li><a href="#tokentextarea">Murray Vanderbuilt</a></li>
-				<li data-role="list-divider">N</li>
-				<li><a href="#tokentextarea">Nathan Williams</a></li>
-				<li data-role="list-divider">P</li>
-				<li><a href="#tokentextarea">Paul Baker</a></li>
-				<li><a href="#tokentextarea">Pete Mason</a></li>
-				<li data-role="list-divider">R</li>
-				<li><a href="#tokentextarea">Rod Tarker</a></li>
-				<li data-role="list-divider">S</li>
-				<li><a href="#tokentextarea">Sawyer Wakefield</a></li>
-			</ul>
-		</div> <!--/content -->
-		<div data-role="footer">
-			<div align="right">
-				<a href="#tokentextarea" data-role="button" style="margin-right : 1em;">Cancel</a>
-			</div>
-		</div>
-	</div> <!--/page -->
-
-	<script src="widgets/checkbox/checkbox.js"></script>
-	<script src="widgets/radio/radio.js"></script>
-	<script src="widgets/progressbar.js"></script>
-	<script src="widgets/ctxpopup.js"></script>
-	<script src="widgets/popupwindow/popupwindow.js"></script>
-	<script src="tips/generate-elements-dynamically.js"></script>
-	<script src="tips/two-line-text/two-line-text.js"></script>
-	<script src="tips/list-sample/list-sample.js"></script>
-	<script src="tips/pinch-event/pinch.js"></script>
-	<script src="widgets/tokentextarea-demo.js"></script>
-	<script src="widgets/pagelayout/barcontrol.js"></script>
-	<script src="widgets/pagelayout/backbutton-control.js"></script>
-	<script src="widgets/list/list-edit.js"></script>
-
-	<link rel="stylesheet" href="./widgets/tabbar/tabbar.css" />
-	<link rel="stylesheet" href="./widgets/switch/toggleswitch.css" />
 </body>
 </html>
