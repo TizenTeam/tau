@@ -17,11 +17,6 @@
 .ui-header .ui-btn, .ui-footer .ui-btn, .ui-bar .ui-btn { display: inline-block; font-size: 13 * @unit_base; margin: 0; }
 .ui-btn-inline { display: inline-block; }
 .ui-btn-inner { padding: .5em 9 * @unit_base; display: block; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; position: relative; zoom: 1; }
-.ui-header .ui-btn-inner, .ui-footer .ui-btn-inner, .ui-bar .ui-btn-inner { padding: 0.7em 0 0.7em; }  /* wongi_1024 : Button text middle align */
-.ui-header .ui-btn-inner.ui-btn-icon-only , .ui-footer .ui-btn-inner, .ui-bar .ui-btn-inner.ui-btn-icon-only 
-{
-	padding: .4em 8 * @unit_base .5em; 
-}	/* wongi_1024 : Button text middle align */
 
 .ui-btn-icon-notext { width: 36 * @unit_base; height: 36 * @unit_base; }
 .ui-btn-icon-notext .ui-btn-inner { padding: 2 * @unit_base 1 * @unit_base 2 * @unit_base 3 * @unit_base; }
@@ -100,7 +95,10 @@
 .ui-header .ui-btn.ui-btn-box-s.ui-btn-down-s:not(.ui-input-cancel):not(.ui-btn-search-front-icon) .ui-btn-inner,
 .ui-btn.ui-btn-back.ui-btn-up-s .ui-btn-inner,
 .ui-btn.ui-btn-back.ui-btn-hover-s .ui-btn-inner,
-.ui-btn.ui-btn-back.ui-btn-down-s .ui-btn-inner
+.ui-btn.ui-btn-back.ui-btn-down-s .ui-btn-inner,
+.ui-btn.ui-btn-footer-down.ui-btn-up-s > .ui-btn-inner,
+.ui-btn.ui-btn-footer-down.ui-btn-hover-s > .ui-btn-inner,
+.ui-btn.ui-btn-footer-down.ui-btn-down-s > .ui-btn-inner
 {
 	background: transparent;
 	border: none;
