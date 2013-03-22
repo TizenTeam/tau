@@ -930,7 +930,7 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 				if ( dy > 0 && distance >= -self._cellSize && self._scalableSize >= -self._cellSize ) {
 					self._overflowDir = _OVERFLOW_DIR_UP;
 				}
-				if ( (dy < 0 && self._scalableSize <= -(self._maxSize + self._cellSize) )) {
+				if ( dy < 0 && self._scalableSize <= -( self._maxSizeExceptClip + self._cellSize ) ) {
 					self._overflowDir = _OVERFLOW_DIR_DOWN;
 				}
 				return;
@@ -947,10 +947,10 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 					}
 					return;
 				}
-				if ( ( dy < 0 && self._scalableSize <= -( self._maxSize + self._cellSize ) ) ) {
+				if ( dy < 0 && self._scalableSize <= -( self._maxSizeExceptClip + self._cellSize ) ) {
 					// bottom
 					self._stopMScroll();
-					self._scalableSize = -(self._maxSizeExceptClip + self._cellSize);
+					self._scalableSize = -( self._maxSizeExceptClip + self._cellSize );
 					self._setElementTransform( self._modifyViewPos );
 					if ( self._overflowDir === _OVERFLOW_DIR_NONE ) {
 						self._overflowDir = _OVERFLOW_DIR_DOWN;
@@ -1591,3 +1591,7 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 		$( ":jqmData(role='virtualgrid')" ).virtualgrid();
 	} );
 } ( jQuery, window, document ) );
+
+//>>excludeStart("jqmBuildExclude", pragmas.jqmBuildExclude);
+} );
+//>>excludeEnd("jqmBuildExclude");
