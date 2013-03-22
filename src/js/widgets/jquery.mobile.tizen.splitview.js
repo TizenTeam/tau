@@ -168,7 +168,7 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 				panesLength = $panes.length;
 			}
 
-			spliters[ 0 ] = $( "<a href='#' class='ui-spliter'></a>" ).insertAfter( $panes[ 0 ] );
+			spliters[ 0 ] = $( "<a href='#' class='ui-spliter' aria-label='Drag scroll, double tap and move to adjust split area'></a>" ).insertAfter( $panes[ 0 ] );
 			spliterBars[ 0 ] = $( "<div class='ui-spliter-bar'></div>" ).appendTo( spliters[ 0 ] );
 			$( "<div class='ui-spliter-handle'></div>" ).appendTo( spliterBars[ 0 ] );
 
