@@ -42,21 +42,36 @@
 		/* Focus In */
 		tokentextarea.tokentextarea( "focusIn" );
 		status = tokentextarea.hasClass( "ui-tokentextarea-focusin" );
-		equal( status, true,  "API : focusIn" );
-
-		/* Remove */
-		tokentextarea.tokentextarea( "remove", 0 );
-		equal( tokentextarea.tokentextarea( "length" ), 2 , "API : remove( 0 )" );
-
-		/* Reamove all */
-		tokentextarea.tokentextarea( "remove" );
-		equal( tokentextarea.tokentextarea( "length" ), 0, "API : remove" );
+		equal( status, true, "API : focusIn" );
 
 		/* input */
 		inputText = "tokentextarea";
 		tokentextarea.tokentextarea( "inputText", inputText );
 		outputText = tokentextarea.tokentextarea( "inputText" );
 		equal( outputText, inputText, "API : input( '" + outputText + "' )" );
+
+		asyncTest("asyncTest", function () {
+			var $widget = $( "<div data-role='tokentextarea'></div>" ).tokentextarea();
+			$( ".ui-page" ).append( $widget );
+
+			$widget.tokentextarea( "add", "string1" );
+			$widget.tokentextarea( "add", "string2" );
+			$widget.tokentextarea( "add", "string3" );
+			$widget.tokentextarea( "remove", 0 );
+
+			setTimeout( function () {
+				/* Remove */
+				equal( $widget.tokentextarea( "length" ), 2,  "API : remove( 0 )" );
+				$widget.tokentextarea( "remove" );
+			}, 400 );
+
+			setTimeout( function () {
+				/* Reamove all */
+				equal( $widget.tokentextarea( "length" ), 0,  "API : remove()" );
+				start();
+				$widget.remove();
+			}, 800 );
+		});
 	};
 
 	test( "Tokentextarea", function () {

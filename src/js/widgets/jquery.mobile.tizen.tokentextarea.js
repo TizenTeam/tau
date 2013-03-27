@@ -433,7 +433,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 			self._modifyInputBoxWidth();
 
 			textBlock.hide();
-			textBlock.fadeIn( "fast", function() {
+			textBlock.fadeIn( "fast", function () {
 				self._currentWidth += self._calcBlockWidth( textBlock );
 				$view.trigger( "add" );
 			});
@@ -449,7 +449,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 			if ( lockBlock !== null && lockBlock.length > 0 ) {
 				self._currentWidth -= self._calcBlockWidth( lockBlock );
 
-				lockBlock.fadeOut( "fast", function() {
+				lockBlock.fadeOut( "fast", function () {
 					lockBlock.remove();
 					self._modifyInputBoxWidth();
 				});
@@ -726,16 +726,16 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 			}
 
 			if ( arguments.length === 0 ) {
-				blocks.fadeOut( "fast", function() {
+				blocks.fadeOut( "fast", function () {
 					blocks.remove();
 					self._modifyInputBoxWidth();
-					this._trigger( "clear" );
+					self._trigger( "clear" );
 				});
 			} else if ( !isNaN( position ) ) {
 				// remove selected button
 				index = ( ( position < blocks.length ) ? position : ( blocks.length - 1 ) );
 
-				$( blocks[index] ).fadeOut( "fast", function() {
+				$( blocks[index] ).fadeOut( "fast", function () {
 					$( blocks[index] ).remove();
 					self._modifyInputBoxWidth();
 				});

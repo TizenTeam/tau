@@ -24,11 +24,11 @@
 
 		/*markup*/
 		equal( widget.jqmData('label'), options.lable, 'Property : data-label') ;
-		equal( widget.find('label.ui-tokentextarea-label').html( ), options.lable, 'Property : data-label') ;
+		equal( widget.find('span.ui-tokentextarea-label').html( ), options.lable, 'Property : data-label') ;
 		equal( widget.jqmData('description'), options.description, 'Property : data-description') ;
 		equal( widget.jqmData('link'), options.link, 'Property : data-link') ;
 		equal( widget.find( "input" ).hasClass('ui-tokentextarea-input'), true, "Markup Check" );
-		equal( widget.find( "label" ).hasClass('ui-tokentextarea-label'), true, "Markup Check" );
+		equal( widget.find( "span" ).hasClass('ui-tokentextarea-label'), true, "Markup Check" );
 		equal( widget.find( "a" ).hasClass('ui-tokentextarea-link-base'), true, "Markup Check" );
 		equal( widget.find( "a" ).attr('href'), '#address', "Markup Check" );
 
@@ -48,7 +48,6 @@
 
 		/* Add */
 		tokentextarea.tokentextarea( "add", "string1" );
-		//equal( addEvent, true, "Event : add" ) ;
 		equal( tokentextarea.tokentextarea( "length" ), 1, "API : add('string1')" );
 		tokentextarea.tokentextarea( "add", "string2" );
 		equal( tokentextarea.tokentextarea( "length" ), 2, "API : add('string2')" );
@@ -59,7 +58,6 @@
 
 		/* Select */
 		tokentextarea.tokentextarea( "select", 1 );
-		//equal( selectEvent, true, "Event : select" ) ;
 		outputText = tokentextarea.tokentextarea( "select" );
 		equal( outputText, "string2", "API : select( 1 )" );
 
@@ -73,22 +71,36 @@
 		status = tokentextarea.hasClass( "ui-tokentextarea-focusin" );
 		equal( status, true, "API : focusIn" );
 
-		/* Remove */
-		tokentextarea.tokentextarea( "remove", 0 );
-		//equal( removeEvent, true, "Event : remove" ) ;
-		equal( tokentextarea.tokentextarea( "length" ), 2 , "API : remove( 0 )" );
-		equal( widget.find(".ui-tokentextarea-block" ).length, 2, 'API : API : remove( 0 )') ;
-
-		/* Reamove all */
-		tokentextarea.tokentextarea( "remove" );
-		equal( tokentextarea.tokentextarea( "length" ), 0, "API : remove" );
-		equal( widget.find(".ui-tokentextarea-block" ).length, 0, 'API : API : remove all') ;
-
 		/* input */
 		inputText = "tokentextarea";
 		tokentextarea.tokentextarea( "inputText", inputText );
 		outputText = tokentextarea.tokentextarea( "inputText" );
 		equal( outputText, inputText, "API : input('" + outputText + "')" );
+
+		asyncTest("asyncTest", function () {
+			var $widget = $( "<div data-role='tokentextarea'></div>" ).tokentextarea();
+			widget.append( $widget );
+
+			$widget.tokentextarea( "add", "string1" );
+			$widget.tokentextarea( "add", "string2" );
+			$widget.tokentextarea( "add", "string3" );
+			$widget.tokentextarea( "remove", 0 );
+
+			setTimeout( function () {
+				/* Remove */
+				equal( $widget.tokentextarea( "length" ), 2 , "API : remove( 0 )" );
+				equal( widget.find(".ui-tokentextarea-block" ).length, 2, 'API : API : remove( 0 )');
+				$widget.tokentextarea( "remove" );
+			}, 400 );
+
+			setTimeout( function () {
+				/* Reamove all */
+				equal( $widget.tokentextarea( "length" ), 0, "API : remove" );
+				equal( widget.find(".ui-tokentextarea-block" ).length, 0, 'API : API : remove all');
+				start();
+				$widget.remove();
+			}, 800 );
+		});
 	};
 
 	test( "Tokentextarea", function ( ) {
