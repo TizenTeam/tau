@@ -85,8 +85,8 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
  *
  *		create : Occur when create TokenTextArea widget.
  *		select : Occur when a button is selected.
- *		add : Occur when new button is inserted.
- *		remove : Occur when a button is removed.
+ *		add : Occur when new button is inserted. (@since Tizen 2.1 deprecated, You can still use this event. But not recommended.)
+ *		remove : Occur when a button is removed. (@since Tizen 2.1 deprecated, You can still use this event. But not recommended.)
  *
  *	Examples:
  *
@@ -147,7 +147,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 		});	
 */
 /**
-	@event add
+	@event add (@since Tizen 2.1 deprecated, You can still use this event. But not recommended.)
 	The add event is fired when a token text area widget button is created:
 
 		<div data-role="tokentextarea">
@@ -158,8 +158,9 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 		});
 */
 /**
-	@event remove
+	@event remove (@since Tizen 2.1 deprecated, You can still use this event. But not recommended.)
 	The remove event is fired when a token text area widget button is removed:
+	Restriction : "remove" event works under only "bind" event handling.
 
 		<div data-role="tokentextarea">
 		</div>
