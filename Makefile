@@ -127,7 +127,7 @@ js: init third_party
 	done; \
 	${NODE} $(CURDIR)/tools/moduledep.js -d ${JS_LIB_OUTPUT_DIR} ${JS_LIB_OUTPUT_DIR}/../depData.json >> ${FW_JS}; \
 	cp -a ${JS_DIR}/* ${JQM_LIB_PATH}/js/* ${JS_LIB_OUTPUT_DIR}/; \
-	${node} $(CURDIR)/tools/moduledep.js -c ${JS_LIB_OUTPUT_DIR} > ${JS_LIB_OUTPUT_DIR}/../depData.json; \
+	${NODE} $(CURDIR)/tools/moduledep.js -c ${JS_LIB_OUTPUT_DIR} > ${JS_LIB_OUTPUT_DIR}/../depData.json; \
 	find ${JS_LIB_OUTPUT_DIR} -iname '*.js' | xargs sed -i -e '/^\/\/>>excludeStart\(.*\);/,/^\/\/>>excludeEnd\(.*\);/d';
 
 widgets: init third_party globalize

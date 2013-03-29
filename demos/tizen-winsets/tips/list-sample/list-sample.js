@@ -27,21 +27,13 @@ $( document ).one( "pagecreate", "#list-sample", function () {
 	});
 
 	$("#new").on( "vclick", function ( e ) {
-		$("#mylist").html("").trigger("create");
-
-		add_item();
-		$("#mylist").listview("refresh");
-	});
-
-	$("#new2").on( "vclick", function ( e ) {
 		var i;
 
 		$("#mylist").html("").trigger("create");
 
-		for ( i = 0; i < 20; i++ ) {
+		for ( i = 0; i < 3; i++ ) {
 			add_item();
 		}
-
 		$("#mylist").listview("refresh");
 	});
 

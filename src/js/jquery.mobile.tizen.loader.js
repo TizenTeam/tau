@@ -431,7 +431,7 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 		 */
 		scaleBaseFontSize: function ( themeDefaultFontSize, ratio ) {
 			tizen.log.debug( "themedefaultfont size: " + themeDefaultFontSize + ", ratio: " + ratio );
-			var scaledFontSize = Math.round( themeDefaultFontSize * ratio );
+			var scaledFontSize = Math.max( Math.floor( themeDefaultFontSize * ratio ), 4 );
 
 			$( 'html.ui-mobile' ).css( { 'font-size': scaledFontSize + "px" } );
 			tizen.log.debug( 'html:font size is set to ' + scaledFontSize );
@@ -448,6 +448,10 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 			// Keep original font size
 			$( 'body' ).attr( 'data-tizen-theme-default-font-size', themeDefaultFontSize );
 
+			if ( !tizen.util.isMobileBrowser() ) {
+				return;
+			}
+
 			// Legacy support: tizen.frameworkData.viewportScale
 			if ( this.frameworkData.viewportScale == true ) {
 				viewportWidth = "screen-width";
@@ -458,11 +462,19 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 			}
 
 			viewportWidth = this.setViewport( viewportWidth );	// If custom viewport setting exists, get viewport width
-			if ( ! isNaN( viewportWidth ) ) {	// fixed width!
+
+			if ( isNaN( viewportWidth ) ) {	// device-width
+				// By default, when the viewport is set to device-width, default font-size is not changed.
+				// However, if current document width is less than defaultViewportWidth(determined by theme),
+				//   default font-size is scaled to scale widgets smaller.
+				if( document.documentElement.clientWidth <  this.frameworkData.defaultViewportWidth ) {
+					ratio = parseFloat( document.documentElement.clientWidth / this.frameworkData.defaultViewportWidth );
+				}
+			} else {	// fixed width!
 				ratio = parseFloat( viewportWidth / this.frameworkData.defaultViewportWidth );
 			}
 			this.scaleBaseFontSize( themeDefaultFontSize, ratio );
-		}
+		},
 	};
 
 	function export2TizenNS ( $, tizen ) {
@@ -483,7 +495,6 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 	tizen.loadTheme( );
 	tizen.setScaling( );	// Run after loadTheme(), for the default font size.
 	tizen.setGlobalize( );
-
 	// Turn off JQM's auto initialization option.
 	// NOTE: This job must be done before domready.
 	$.mobile.autoInitializePage = false;

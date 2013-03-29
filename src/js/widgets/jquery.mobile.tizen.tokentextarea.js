@@ -85,8 +85,8 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
  *
  *		create : Occur when create TokenTextArea widget.
  *		select : Occur when a button is selected.
- *		add : Occur when new button is inserted.
- *		remove : Occur when a button is removed.
+ *		add : Occur when new button is inserted. (@since Tizen 2.1 deprecated, You can still use this event. But not recommended.)
+ *		remove : Occur when a button is removed. (@since Tizen 2.1 deprecated, You can still use this event. But not recommended.)
  *
  *	Examples:
  *
@@ -147,7 +147,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 		});	
 */
 /**
-	@event add
+	@event add (@since Tizen 2.1 deprecated, You can still use this event. But not recommended.)
 	The add event is fired when a token text area widget button is created:
 
 		<div data-role="tokentextarea">
@@ -158,8 +158,9 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 		});
 */
 /**
-	@event remove
+	@event remove (@since Tizen 2.1 deprecated, You can still use this event. But not recommended.)
 	The remove event is fired when a token text area widget button is removed:
+	Restriction : "remove" event works under only "bind" event handling.
 
 		<div data-role="tokentextarea">
 		</div>
@@ -432,7 +433,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 			self._modifyInputBoxWidth();
 
 			textBlock.hide();
-			textBlock.fadeIn( "fast", function() {
+			textBlock.fadeIn( "fast", function () {
 				self._currentWidth += self._calcBlockWidth( textBlock );
 				$view.trigger( "add" );
 			});
@@ -448,7 +449,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 			if ( lockBlock !== null && lockBlock.length > 0 ) {
 				self._currentWidth -= self._calcBlockWidth( lockBlock );
 
-				lockBlock.fadeOut( "fast", function() {
+				lockBlock.fadeOut( "fast", function () {
 					lockBlock.remove();
 					self._modifyInputBoxWidth();
 				});
@@ -725,16 +726,16 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 			}
 
 			if ( arguments.length === 0 ) {
-				blocks.fadeOut( "fast", function() {
+				blocks.fadeOut( "fast", function () {
 					blocks.remove();
 					self._modifyInputBoxWidth();
-					this._trigger( "clear" );
+					self._trigger( "clear" );
 				});
 			} else if ( !isNaN( position ) ) {
 				// remove selected button
 				index = ( ( position < blocks.length ) ? position : ( blocks.length - 1 ) );
 
-				$( blocks[index] ).fadeOut( "fast", function() {
+				$( blocks[index] ).fadeOut( "fast", function () {
 					$( blocks[index] ).remove();
 					self._modifyInputBoxWidth();
 				});

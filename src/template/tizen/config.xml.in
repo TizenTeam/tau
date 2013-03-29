@@ -26,6 +26,6 @@
     <access origin="*"/>
     <tizen:application id="@APP_PKGID@.@APP_NAME@" package="@APP_PKGID@" required_version="1.0"/>
 	<tizen:privilege name="http://tizen.org/privilege/application.read"/>
-	<tizen:setting screen-orientation="portrait" context-menu="enable" background-support="enable" encryption="disable"/>
+	<tizen:setting screen-orientation="portrait" context-menu="disable" background-support="enable" encryption="disable"/>
 	<tizen:privilege name="http://tizen.org/privilege/systeminfo"/>
 </widget>

@@ -378,6 +378,12 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 		destroy: function () {
 			this.element.removeClass( "ui-header-fixed ui-footer-fixed ui-header-fullscreen ui-footer-fullscreen in out fade slidedown slideup ui-fixed-hidden" );
 			this.element.closest( ".ui-page" ).removeClass( "ui-page-header-fixed ui-page-footer-fixed ui-page-header-fullscreen ui-page-footer-fullscreen" );
+		},
+
+		refresh: function () {
+			var $elPage = $( ".ui-page-active" );
+			this.setHeaderFooter( $elPage );
+			this._updateHeaderArea( $elPage );
 		}
 	});
 
