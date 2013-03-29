@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.19
+Version:    0.2.20
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -83,6 +83,21 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+
+* Fri Mar 29 2013 Youmin Ha <youmin.ha@samsung.com> 0.2.20
+	- JQM Navigation : remove page min-height
+	- Pagelayout : add refresh to pagelayout
+	- Tokentextarea: Changes 'remove' tests to asyncTest
+	- Popup: input tag alignment has been fixed
+	- Tokentextarea: add/remove events are deprecated.
+	- Contextpopup: Support horizontal list
+	- Select: icon z-index has been deleted
+	- Tizenwinset: ui widget order has been changed
+	- Tool: make web app template disable context menu by default
+	- Tizen-winset: change tips for using listview
+	- Loader: calculate font size with mobile width
+	- Naviframe : fix header's back button position
+	- TizenWinset : move locale info to another file
 
 * Fri Mar 22 2013 Youmin Ha <youmin.ha@samsung.com> 0.2.19
 	- Tizen-winset: Support accessibility for tizen-winset
