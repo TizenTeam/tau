@@ -1,0 +1,46 @@
+From 79081b53a6708d4391edac5ed6b3981c7ae3616c Mon Sep 17 00:00:00 2001
+From: Jinhyuk Jun <jinhyuk.jun@samsung.com>
+Date: Fri, 29 Mar 2013 16:20:48 +0900
+Subject: [PATCH] JQM remove useless page min-height calculate
+
+Change-Id: I6598b5fafea8463c6714f12a62ad9575d019d4c9
+---
+ .../js/jquery.mobile.navigation.js                 |   15 ---------------
+ 1 file changed, 15 deletions(-)
+
+diff --git a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.navigation.js b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.navigation.js
+index 0a727b4..0be7861 100644
+--- a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.navigation.js
++++ b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.navigation.js
+@@ -579,17 +579,6 @@ define( [
+ 		return promise;
+ 	}
+ 
+-	//simply set the active page's minimum height to screen height, depending on orientation
+-	function resetActivePageHeight() {
+-		var aPage = $( "." + $.mobile.activePageClass ),
+-			aPagePadT = parseFloat( aPage.css( "padding-top" ) ),
+-			aPagePadB = parseFloat( aPage.css( "padding-bottom" ) ),
+-			aPageBorderT = parseFloat( aPage.css( "border-top-width" ) ),
+-			aPageBorderB = parseFloat( aPage.css( "border-bottom-width" ) );
+-
+-		aPage.css( "min-height", getScreenHeight() - aPagePadT - aPagePadB - aPageBorderT - aPageBorderB );
+-	}
+-
+ 	//shared page enhancements
+ 	function enhancePage( $page, role ) {
+ 		// If a role was specified, make sure the data-role attribute
+@@ -1552,10 +1541,6 @@ define( [
+ 			$.mobile._handleHashChange( path.parseLocation().hash );
+ 		});
+ 
+-		//set page min-heights to be device specific
+-		$.mobile.$document.bind( "pageshow", resetActivePageHeight );
+-		$.mobile.$window.bind( "throttledresize", resetActivePageHeight );
+-
+ 	});//navreadyDeferred done callback
+ 
+ })( jQuery );
+-- 
+1.7.9.5
+
