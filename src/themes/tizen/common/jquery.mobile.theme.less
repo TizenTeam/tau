@@ -541,7 +541,16 @@ a.ui-link-inherit {
 
 }
 
-.ui-btn-up-s, .ui-btn-hover-s {
+.ui-btn-up-s { /* less parsing problem : divide css */
+	.ui-icon-header-back-btn { background-image: url(images/page/00_icon_Back.png); }
+	.ui-icon-naviframe-more { background-image: url(images/page/00_icon_more.png); }
+	.ui-icon-naviframe-cancel { background-image: url(images/00_icon_cancel.png); } /* FIXME : check ux if it needs to be deprecated... */
+	.ui-icon-naviframe-edit { background-image: url(images/page/00_icon_edit.png); }
+	.ui-icon-naviframe-plus { background-image: url(images/page/00_icon_plus.png); }
+	.ui-icon-down { background-image: url(images/controls/button/00_button_down.png); }
+}
+
+.ui-btn-hover-s {
 	.ui-icon-header-back-btn { background-image: url(images/page/00_icon_Back.png); }
 	.ui-icon-naviframe-more { background-image: url(images/page/00_icon_more.png); }
 	.ui-icon-naviframe-cancel { background-image: url(images/00_icon_cancel.png); } /* FIXME : check ux if it needs to be deprecated... */
