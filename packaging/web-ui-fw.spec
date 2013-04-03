@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.20
+Version:    0.2.21
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -83,6 +83,14 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+
+* Wed Apr 3 2013 Youmin Ha <youmin.ha@samsung.com> 0.2.21
+ - VirtualGrid: Fix errors on centerTo and resize methods
+ - loader: Fix default font size at device-width viewport
+ - scrollview : remove overflow-x property
+ - Naviframe : fix backbutton position/ change down button icon
+ - Naviframe : bug fix
+ - Tizenwinset : Tizen-winset demo page titles changed Tizen-winset demo page titles changed from lower case to upper case.
 
 * Fri Mar 29 2013 Youmin Ha <youmin.ha@samsung.com> 0.2.20
 	- JQM Navigation : remove page min-height
