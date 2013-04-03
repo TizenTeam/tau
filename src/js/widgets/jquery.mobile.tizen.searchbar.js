@@ -181,6 +181,7 @@ define( [ '../jquery.mobile.tizen.core', 'jquery.mobile.tizen.pagelayout' ], fun
 					.appendTo( focusedEl.parent() )
 					.buttonMarkup( {
 						icon: IconStyle,
+						iconpos: "notext",
 						corners: true,
 						shadow: true
 					} );
