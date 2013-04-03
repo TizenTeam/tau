@@ -457,23 +457,20 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 				viewportWidth = "screen-width";
 			}
 
+			// screen-width support
 			if ( "screen-width" == viewportWidth ) {
-				viewportWidth = document.documentElement.clientWidth;
+				viewportWidth = window.innerWidth;
 			}
 
+			// set viewport meta tag
 			viewportWidth = this.setViewport( viewportWidth );	// If custom viewport setting exists, get viewport width
 
-			if ( isNaN( viewportWidth ) ) {	// device-width
-				// By default, when the viewport is set to device-width, default font-size is not changed.
-				// However, if current document width is less than defaultViewportWidth(determined by theme),
-				//   default font-size is scaled to scale widgets smaller.
-				if( document.documentElement.clientWidth <  this.frameworkData.defaultViewportWidth ) {
-					ratio = parseFloat( document.documentElement.clientWidth / this.frameworkData.defaultViewportWidth );
-				}
+			if ( viewportWidth == "device-width" ) {
+				// Do nothing!
 			} else {	// fixed width!
 				ratio = parseFloat( viewportWidth / this.frameworkData.defaultViewportWidth );
+				this.scaleBaseFontSize( themeDefaultFontSize, ratio );
 			}
-			this.scaleBaseFontSize( themeDefaultFontSize, ratio );
 		},
 	};
 
