@@ -40,7 +40,6 @@
 		.ui-icon {
 			top : 8 * @unit_base;
 			left : auto;
-			right : 13 * @unit_base;
 
 			margin-top : 0px;
 		}
@@ -217,6 +216,17 @@
 			height : 49 * @unit_base;
 			padding : 0px;
 			-webkit-box-shadow : none /* temp code */
+		}
+	}
+
+	>.ui-btn.ui-btn-back,
+	>.ui-btn.ui-btn-footer-down {
+		top : 0px;
+	}
+
+	>.ui-btn.ui-btn-footer-down {
+		.ui-icon {
+			right : 13 * @unit_base;
 		}
 	}
 
@@ -556,7 +566,7 @@ a.ui-link-inherit {
 	.ui-icon-naviframe-cancel { background-image: url(images/00_icon_cancel.png); } /* FIXME : check ux if it needs to be deprecated... */
 	.ui-icon-naviframe-edit { background-image: url(images/page/00_icon_edit.png); }
 	.ui-icon-naviframe-plus { background-image: url(images/page/00_icon_plus.png); }
-	.ui-icon-down { background-image: url(images/controls/button/00_button_down.png); }
+	.ui-icon-down { background-image: url(images/controls/button/00_icon_SIP_close_web_web.png); }
 }
 
 .ui-btn-down-s {
@@ -565,7 +575,7 @@ a.ui-link-inherit {
 	.ui-icon-naviframe-cancel { background-image: url(images/00_icon_cancel_press.png); } /* FIXME: check ux if it needs to be deprecated.. */
 	.ui-icon-naviframe-edit { background-image: url(images/page/00_icon_edit_press.png); }
 	.ui-icon-naviframe-plus { background-image: url(images/page/00_icon_plus_press.png); }
-	.ui-icon-down { background-image: url(images/controls/button/00_button_down_press.png); }
+	.ui-icon-down { background-image: url(images/controls/button/00_icon_SIP_close_press_web.png); }
 }
 
 /* Interaction cues
