@@ -72,10 +72,16 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
  *				Developers can implement this function for preparing data.
  *				Optional.
  *
- *		centerTo ( String )
- *			: Find a DOM Element with the given class name.
- *			This element will be centered on the screen.
- *			Serveral elements were found, the first element is displayed.
+ *		centerTo ( selector )
+ *			: Center the particular item with the class name on the VirtualGrid's display area.;
+ *			i.e., this method selects an item in the data elements of grid using the class name and
+ *			moves the data elements inside the widget to display the row containing the selected item
+ *			in the middle of the screen.
+ *			If multiple items are matched with the class name, the first matched item will be selected.
+ *			This method is only available when "data-rotation" attribute is "true".
+ *
+ *		resize ()
+ *			: Rearrange items to fit a new widget size.
  *
  * Events:
  *		scrollstart : : This event triggers when a user begin to move the scroll on VirtualGrid.
@@ -244,17 +250,17 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 */
 /**
 	@method centerTo
-	The centerTo method is used to search for the DOM element with a specified class name. The retrieved element is placed at the center of the virtual grid. If multiple elements are retrieved, the first element from the result list is placed at the center of the virtual grid.
+	The centerTo method is used to center the particular item with the class name on the VirtualGrid's display area. If multiple items are matched with the class name, the first matched item will be selected. This method is only available when "data-rotation" attribute is "true".
 
-		<div data-role="virtualgrid" data-scroll="y" data-template="tizen-demo-namecard"></div>
-		$(".selector").virtualgrid("centerTo", "selector");
+		<div data-role="virtualgrid" data-scroll="y" data-rotation="true" data-template="tizen-demo-namecard"></div>
+		$(".selector").virtualgrid("centerTo", selector);
 */
 /**
 	@method resize
-	The resize method is used to rearrange the DOM elements to fit a new screen size when the screen is resized:
+	The resize method is used to rearrange items to fit a new widget size. :
 
 		<div data-role="virtualgrid" data-scroll="y" data-template="tizen-demo-namecard"></div>
-		".selector").virtualgrid("resize");
+		$(".selector").virtualgrid("resize");
 
 	@since Tizen2.0
 */
@@ -632,7 +638,7 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 			return ret;
 		},
 
-		resize : function () {
+		_resize : function () {
 			var self = this,
 				ret = null,
 				rowsPerView = 0,
@@ -641,7 +647,20 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 				diffRowCnt = 0,
 				clipSize = 0,
 				prevcnt = 0,
-				clipPosition = 0;
+				clipPosition = 0,
+				rowsLength = 0,
+				row = null,
+				size = 0;
+
+			if ( self._direction ) {
+				size = self._calculateClipHeight();
+				self._$view.height( size );
+				self._$clip.height( size );
+			} else {
+				size = self._calculateClipWidth();
+				self._$view.width( size );
+				self._$clip.width( size );
+			}
 
 			itemCount = self._calculateColumnCount();
 			if ( itemCount != self._itemCount ) {
@@ -675,6 +694,11 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 					// decrease row.
 					self._decreaseRow( self._rowsPerView - rowsPerView );
 				}
+				self._$rows = self._$view.children();
+				self._$rows.sort( function ( a, b ) {
+					return a.getAttribute( "row-index" ) - b.getAttribute( "row-index" );
+				});
+
 				self._rowsPerView = rowsPerView;
 				self._clipSize = clipSize;
 				self._blockScroll = self._rowsPerView > self._totalRowCnt;
@@ -692,6 +716,18 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 				self._setScrollBarSize();
 				self._setScrollBarPosition( 0 );
 				self._setViewSize();
+			}
+		},
+
+		resize : function () {
+			var self = this,
+				height = 0,
+				$virtualgrid = $( ".ui-virtualgrid-view" );
+
+			self._inheritedSize = self._getinheritedSize( self.element );
+
+			if ( $virtualgrid.length !== 0 ) {
+				self._resize();
 			}
 		},
 
@@ -874,27 +910,88 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 		//----------------------------------------------------//
 		//		scroll process		//
 		//----------------------------------------------------//
-		centerTo: function ( selector ) {
+		centerTo : function ( selector ) {
 			var self = this,
-				i,
-				newX = 0,
-				newY = 0;
+				row = null,
+				targetItem = null,
+				targetRowIndex = -1,
+				rowsLength = self._$rows.length,
+				newPosition,
+				i;
 
 			if ( !self.options.rotation ) {
 				return;
 			}
 
-			for ( i = 0; i < self._$rows.length; i++ ) {
-				if ( $( self._$rows[i] ).hasClass( selector ) ) {
-					if ( self._direction ) {
-						newX = -( i * self._cellSize - self._clipSize / 2 + self._cellSize * 2 );
-					} else {
-						newY = -( i * self._cellSize - self._clipSize / 2 + self._cellSize * 2 );
-					}
-					self.scrollTo( newX, newY );
+			for ( i = 0; i < rowsLength; ++i ) {
+				row = $( self._$rows[ i ] );
+				targetItem = row.children( "." + selector );
+				if ( targetItem.length ) {
+					targetRowIndex = parseInt( row.attr( "row-index" ), 10 );
+					break;
+				}
+			}
+
+			if ( targetRowIndex === -1 ) {
+				targetRowIndex = self._getTargetRowIndex( selector );
+				if ( targetRowIndex === -1 ) {
 					return;
 				}
 			}
+
+			newPosition = -( targetRowIndex * self._cellSize - ( self._clipSize - self._cellSize ) / 2 );
+			if ( self._direction ) {
+				self.scrollTo( newPosition, 0 );
+			} else {
+				self.scrollTo( 0, newPosition );
+			}
+		},
+
+		_getTargetRowIndex: function ( selector ) {
+			var self = this,
+				dataCount = self._numItemData,
+				itemCount = self._itemCount,
+				attrName = self._direction ? "top" : "left",
+				html = "",
+				targetRowIndex = self._totalRowCnt,
+				i;
+
+			for ( i = 0; i < dataCount; ++i ) {
+				html = self._makeHtmlData( i, i % itemCount, attrName );
+				if ( self._hasClassItem( html, selector ) ) {
+					targetRowIndex = parseInt( i / itemCount, 10 );
+					break;
+				}
+			}
+
+			if ( targetRowIndex === self._totalRowCnt ) {
+				return -1;
+			}
+
+			return targetRowIndex;
+		},
+
+		_hasClassItem: function ( html, selector ) {
+			var self = this,
+				classString = self._getItemClass( html );
+
+			if ( classString.indexOf( selector ) === -1 ) {
+				return false;
+			}
+
+			if ( classString.indexOf( "virtualgrid-item" ) === -1 ) {
+				return false;
+			}
+
+			return true;
+		},
+
+		_getItemClass: function ( html ) {
+			var classIndex = html.indexOf( "class" ),
+				classBeginIndex = Math.min( html.indexOf( "\"", classIndex ), html.indexOf( "'", classIndex ) ),
+				classEndIndex = Math.min( html.indexOf( "\"", classBeginIndex + 1 ), html.indexOf( "'", classBeginIndex + 1 ) );
+
+			return html.slice( classBeginIndex + 1, classEndIndex );
 		},
 
 		scrollTo: function ( x, y, duration ) {
@@ -965,13 +1062,13 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 
 			replaceStartIdx = ( Math.abs( di ) < realRowCount ) ? 0 : ( di > 0 ) ? di - realRowCount : di + realRowCount;
 			if ( di > 0 ) { // scroll up
-				for ( i = replaceStartIdx; i < di; i++ ) {
+				for ( i = replaceStartIdx; i < di; ++i ) {
 					idx = -parseInt( ( sy / self._cellSize ) + i + 3, 10 );
 					self._replaceRow( rawView.lastChild, circularNum( idx, self._totalRowCnt ) );
 					rawView.insertBefore( rawView.lastChild, rawView.firstChild );
 				}
 			} else if ( di < 0 ) { // scroll down
-				for ( i = replaceStartIdx; i > di; i-- ) {
+				for ( i = replaceStartIdx; i > di; --i ) {
 					idx = self._rowsPerView - parseInt( ( sy / self._cellSize ) + i, 10 );
 					self._replaceRow( rawView.firstChild, circularNum( idx, self._totalRowCnt ) );
 					rawView.insertBefore( rawView.firstChild, rawView.lastChild.nextSibling );
@@ -1185,16 +1282,7 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 				var height = 0,
 					$virtualgrid = $( ".ui-virtualgrid-view" );
 				if ( $virtualgrid.length !== 0 ) {
-					if ( self._direction ) {
-						height = self._calculateClipHeight();
-						self._$view.height( height );
-						self._$clip.height( height );
-					} else {
-						height = self._calculateClipWidth();
-						self._$view.width( height );
-						self._$clip.width( height );
-					}
-					self.resize();
+					self._resize();
 				}
 			} );
 
@@ -1397,6 +1485,7 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 				htmlStr = self._getConvertedTmplStr( itemData );
 				htmlStr = self._insertPosToTmplStr( htmlStr, attrName, ( colIndex * self._cellOtherSize ) );
 			}
+
 			return htmlStr;
 		},
 
@@ -1447,39 +1536,54 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 		_increaseRow : function ( num ) {
 			var self = this,
 				rotation = self.options.rotation,
-				$row = null,
-				headItemIndex = 0,
-				tailItemIndex = 0,
-				itemIndex = 0,
-				size = self._scalableSize,
-				idx = 0;
+				totalRowCnt = self._totalRowCnt,
+				rowView = self._$view[ 0 ],
+				firstRow = null,
+				lastRow = rowView.lastChild,
+				row = null,
+				headRowIndex = 0,
+				tailRowIndex = 0,
+				i;
 
-			headItemIndex = parseInt( $( self._$view.children().first() ).attr( "row-index" ), 10 ) - 1;
-			tailItemIndex = parseInt( $( self._$view.children()[self._rowsPerView] ).attr( "row-index" ), 10 ) + 1;
+			if ( !lastRow ) {
+				return;
+			}
 
-			for ( idx = 1 ; idx <= num ; idx++ ) {
-				if ( tailItemIndex + idx  >= self._totalRowCnt ) {
-					$row = $( self._makeRow( headItemIndex ) );
-					self._$view.prepend( $row );
-					headItemIndex -= 1;
+			tailRowIndex = parseInt( lastRow.getAttribute( "row-index" ), 10 );
+			if ( !rotation ) {
+				firstRow = rowView.firstChild;
+				headRowIndex = parseInt( firstRow.getAttribute( "row-index" ), 10 );
+			}
+
+			for ( i = 0 ; i < num ; ++i ) {
+				if ( tailRowIndex >= totalRowCnt - 1 && !rotation ) {
+					if ( headRowIndex == 0 ) {
+						break;
+					}
+
+					row = self._makeRow( --headRowIndex );
+					rowView.insertBefore( row, firstRow );
+					firstRow = row;
 				} else {
-					$row = $( self._makeRow( tailItemIndex + idx ) );
-					self._$view.append( $row );
+					row = self._makeRow( circularNum( ++tailRowIndex, totalRowCnt ) );
+					rowView.appendChild( row );
 				}
+
 				if ( self._direction ) {
-					$row.width( self._cellSize );
+					$( row ).width( self._cellSize );
 				} else {
-					$row.height( self._cellSize );
+					$( row ).height( self._cellSize );
 				}
 			}
 		},
 
 		_decreaseRow : function ( num ) {
 			var self = this,
-				idx = 0;
+				rowView = self._$view[ 0 ],
+				i;
 
-			for ( idx = 0 ; idx < num ; idx++ ) {
-				self._$view.children().last().remove();
+			for ( i = 0 ; i < num ; ++i ) {
+				rowView.removeChild( rowView.lastChild );
 			}
 		},
 
@@ -1530,6 +1634,7 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 			while ( tempBlocks.children.length ) {
 				block.appendChild( tempBlocks.children[0] );
 			}
+			block.setAttribute( "row-index", tempBlocks.getAttribute( "row-index" ) );
 			tempBlocks.parentNode.removeChild( tempBlocks );
 		},
 

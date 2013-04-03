@@ -11,6 +11,10 @@
 
 /* some unsets - more probably needed */
 .ui-mobile, .ui-mobile body { height: 100%; font-size: @font_size_default; }
+@media all and (max-width:359px) {
+	.ui-mobile, .ui-mobile body { font-size: floor(@font_size_default*320/360); }
+}
+
 .ui-mobile fieldset, .ui-page { padding: 0; margin: 0; }
 .ui-mobile a img, .ui-mobile fieldset { border: 0; }
 
