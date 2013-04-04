@@ -252,13 +252,10 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 					if ( e.state == "on" ) {
 						if ( !$elPage.find( ".ui-" + backBtnPosition + " .ui-btn-footer-down" ).length ) {
 							$elDownBtn.buttonMarkup( { icon: "down" } ).appendTo( $elPage.find( ".ui-" + backBtnPosition ) );
-							$( ".ui-btn-footer-down" ).bind( "vclick",  function ( ) {
-								$elPage.find( "input" ).blur();
-							});
 						}
-						$( ".ui-page-active .ui-btn-back" ).remove();
+						$( ".ui-page-active .ui-btn-back" ).hide();
 					} else if ( e.state == "off" ) {
-						$elPage.page( "addBackBtn", backBtnPosition );
+						$( ".ui-page-active .ui-btn-back" ).show();
 						$( ".ui-btn-footer-down" ).remove();
 					}
 				}
