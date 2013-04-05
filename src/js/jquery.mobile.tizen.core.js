@@ -43,39 +43,33 @@ ensureNS("jQuery.mobile.tizen");
 
 (function () {
 jQuery.extend(jQuery.mobile.tizen, {
-    disableSelection: function (element) {
-	var self = this;
-	$(element).find('*').each( function() {
-		if( ( $(this).get(0).tagName !== 'INPUT' &&
-			$(this).attr("type") !== 'text' ) &&
-			$(this).get(0).tagName !== 'TEXTAREA' ) {
-			self.enableSelection( this, 'none' );
-		}
-	} );
-	return true;
-    },
+	disableSelection: function (element) {
+		this.enableSelection(
+			$(element).find('*').not( 'input, [type="text"], textarea' ),
+			'none'
+		);
+		return true;
+	},
 
-    enableSelection: function (element, value) {
-        return $(element).each( function () {
-		switch( value ) {
+	enableSelection: function (element, value) {
+		var val;
+		switch ( value ) {
 			case 'text' :
 			case 'auto' :
 			case 'none' :
 				val = value;
 			break;
-
 			default :
 				val = 'auto';
 			break;
 		}
-            $(this).css( {
+		return $(element).css( {
 			'user-select': val,
 			'-moz-user-select': val,
 			'-webkit-user-select': val,
 			'-o-user-select': val,
 			'-ms-transform': val
-			} );
-        } );
+		} );
     },
 
     disableContextMenu: function(element) {
