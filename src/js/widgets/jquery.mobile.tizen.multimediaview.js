@@ -291,7 +291,7 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 					};
 				}
 				docWidth = body.clientWidth;
-				docHeight = body.clientHeight;
+				docHeight = body.clientHeight - 1;
 
 				header.hide();
 				footer.hide();
@@ -301,15 +301,10 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 						.siblings()
 						.addClass( "ui-multimediaview-siblings-off" );
 				});
-				this._fitContentArea( currentPage );
 				fullscreenButton.removeClass( "ui-fullscreen-on" ).addClass( "ui-fullscreen-off" );
 
-				view.width( docWidth ).height( docHeight - 1 );
-				wrap.height( docHeight - 1 );
-				view.offset( {
-					top: 0,
-					left: 0
-				}).addClass( "ui-multimediaview-fullscreen" );
+				wrap.height( docHeight );
+				view.width( docWidth ).height( docHeight );
 			} else {
 				if ( !self.backupView ) {
 					return;
@@ -323,7 +318,7 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 						.siblings()
 						.removeClass( "ui-multimediaview-siblings-off" );
 				});
-				this._fitContentArea( currentPage );
+
 				fullscreenButton.removeClass( "ui-fullscreen-off" ).addClass( "ui-fullscreen-on" );
 
 				wrap.css( "height", self.backupView.wrapHeight );
@@ -332,8 +327,10 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 					"height": self.backupView.height,
 					"position": self.backupView.position,
 					"z-index": self.backupView.zindex
-				}).removeClass( "ui-multimediaview-fullscreen" );
+				});
 				self.backupView = null;
+
+				$( window ).trigger( "throttledresize" );
 			}
 		},
 
@@ -357,51 +354,6 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 				durationBar = seekBar.find( ".ui-duration" ),
 				currenttimeBar = seekBar.find( ".ui-currenttime" ),
 				$document = $( document );
-
-			$document.unbind( ".multimediaview" ).bind( "pagechange.multimediaview", function ( e ) {
-				var $page = $( e.target );
-				if ( $page.find( view ).length > 0 && viewElement.autoplay ) {
-					viewElement.play();
-				}
-
-				if ( option.controls ) {
-					self._resize();
-				}
-			}).bind( "pagebeforechange.multimediaview", function ( e ) {
-				if ( option.fullScreen ) {
-					self.fullScreen( !option.fullScreen );
-				}
-
-				if ( viewElement.played.length !== 0 ) {
-					viewElement.pause();
-				}
-			});
-
-			$( window ).unbind( ".multimediaview" ).bind( "resize.multimediaview orientationchange.multimediaview", function ( e ) {
-				if ( !option.controls ) {
-					return;
-				}
-				var $page = $( e.target ),
-					$scrollview = view.parents( ".ui-scrollview-clip" );
-
-				$scrollview.each( function ( i ) {
-					if ( $.data( this, "scrollview" ) ) {
-						$( this ).scrollview( "scrollTo", 0, 0 );
-					}
-				});
-
-				// for maintaining page layout
-				if ( !option.fullScreen ) {
-					$( ".ui-footer:visible" ).show();
-				} else {
-					$( ".ui-footer" ).hide();
-					self._fitContentArea( $page );
-				}
-
-				if ( control.css( "display" ) !== "none" ) {
-					self._resize();
-				}
-			});
 
 			view.bind( "loadedmetadata.multimediaview", function ( e ) {
 				if ( !isNaN( viewElement.duration ) ) {
@@ -472,9 +424,7 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 			fullscreenButton.bind( "click.multimediaview", function ( e ) {
 				e.preventDefault();
 				self.fullScreen( !self.options.fullScreen );
-				control.fadeIn( "fast", function () {
-					self._resize();
-				});
+				self._resize();
 				self._endTimer();
 				e.stopPropagation();
 			});
@@ -582,7 +532,7 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 			var view = this.element,
 				viewElement = view[0],
 				control = $( "<span></span>" ).addClass( "ui-multimediaview-control" ),
-				playpauseButton = $( "<span></span>" ).addClass( "ui-playpausebutton ui-button" ),
+				playpauseButton = $( "<span></span>" ).addClass( "ui-playpausebutton ui-button ui-play-icon" ),
 				seekBar = $( "<span></span>" ).addClass( "ui-seekbar ui-multimediaview-bar" ),
 				timestampLabel = $( "<span><p>00:00:00</p></span>" ).addClass( "ui-timestamplabel" ),
 				durationLabel = $( "<span><p>00:00:00</p></span>" ).addClass( "ui-durationlabel" ),
@@ -598,7 +548,6 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 
 			seekBar.append( durationBar ).append( currenttimeBar ).append( durationLabel ).append( timestampLabel );
 
-			playpauseButton.addClass( "ui-play-icon" );
 			volumeButton.addClass( viewElement.muted ? "ui-mute-icon" : "ui-volume-icon" );
 			volumeBar.append( volumeGuide ).append( volumeValue ).append( volumeHandle );
 			volumeControl.append( volumeBar );
@@ -718,25 +667,6 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 			viewElement.volume = value;
 		},
 
-		_fitContentArea: function ( page, parent ) {
-			if ( typeof parent === "undefined" ) {
-				parent = window;
-			}
-
-			var $page = $( page ),
-				$content = $( ".ui-content:visible:first" ),
-				hh = $( ".ui-header:visible" ).outerHeight() || 0,
-				fh = $( ".ui-footer:visible" ).outerHeight() || 0,
-				pt = parseFloat( $content.css( "padding-top" ) ),
-				pb = parseFloat( $content.css( "padding-bottom" ) ),
-				wh = ( ( parent === window ) ? window.innerHeight : $( parent ).height() ),
-				height = wh - ( hh + fh ) - ( pt + pb );
-
-			$content.offset( {
-				top: ( hh + pt )
-			}).height( height );
-		},
-
 		width: function ( value ) {
 			if ( this.options.fullScreen ) {
 				return;
@@ -798,7 +728,36 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 
 	$( document ).bind( "pagecreate create", function ( e ) {
 		$.tizen.multimediaview.prototype.enhanceWithin( e.target );
+	}).bind( "pagechange", function ( e ) {
+		$( e.target ).find( ".ui-multimediaview" ).each( function () {
+			var view = $( this ),
+				viewElement = view[0];
+
+			if ( viewElement.autoplay ) {
+				viewElement.play();
+			}
+			view.multimediaview( "refresh" );
+		});
+	}).bind( "pagebeforechange", function ( e ) {
+		$( e.target ).find( ".ui-multimediaview" ).each( function () {
+			var view = $( this ),
+				viewElement = view[0],
+				isFullscreen = view.multimediaview( "fullScreen" );
+
+			if ( isFullscreen ) {
+				view.multimediaview( "fullScreen", !isFullscreen );
+			}
+
+			if ( viewElement.played.length !== 0 ) {
+				viewElement.pause();
+			}
+		});
 	});
+
+	$( window ).bind( "resize orientationchange", function ( e ) {
+		$( ".ui-page-active" ).find( ".ui-multimediaview" ).multimediaview( "refresh" );
+	});
+
 } ( jQuery, document, window ) );
 
 //>>excludeStart("jqmBuildExclude", pragmas.jqmBuildExclude);

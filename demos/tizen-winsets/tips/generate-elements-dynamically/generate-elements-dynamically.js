@@ -13,6 +13,7 @@ $( document ).one( "pagecreate", "#dynamical-elements-demo", function () {
 
 	$( '#bAdd' ).on( 'vclick', function () {
 		addCheckbox();
+		return false;
 	} );
 
 	$( "#ButtonAdd" ).on( "vclick", function () {
@@ -21,7 +22,7 @@ $( document ).one( "pagecreate", "#dynamical-elements-demo", function () {
 				"data-icon='call' data-style='circle' " +
 				"data-theme='s' class='newbutton'></div>";
 		$( buttonTemplate ).buttonMarkup().appendTo( "#buttonItems" );
-
+		return false;
 		/* Same works */
 		/*$("#buttonItems").trigger("create");*/
 	} );
@@ -29,5 +30,6 @@ $( document ).one( "pagecreate", "#dynamical-elements-demo", function () {
 	$( "#ListAdd" ).on( "vclick", function () {
 		var listTemplate = "<li>Appended New Item</li>";
 		$( "#listview" ).append( listTemplate ).listview( "refresh");
+		return false;
 	} );
 });

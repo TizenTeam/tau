@@ -716,6 +716,13 @@ define( [ 'jquery.mobile.tizen.widgetex', 'jquery.mobile.tizen.popupwindow', 'jq
 				$( $li[current] ).addClass("current");
 				$div.jqmData( "list", $li );
 				$div.circularview();
+				if( !obj._reflow ) {
+					obj._reflow = function() {
+						$div.circularview( "reflow" );
+						$div.circularview( 'centerTo', '.current', 0 );
+					}
+					$(window).bind( "resize" , obj._reflow );
+				}
 				// cause ctxpopup forced to subtract 10
 				if ( $( window ).width() / 2 < target.offset().left ) {
 					newLeft = -10;

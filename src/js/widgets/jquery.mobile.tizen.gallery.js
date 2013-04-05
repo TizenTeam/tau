@@ -247,7 +247,6 @@ define( [ ], function ( ) {
 
 			obj.css( "display", "block" );
 			obj.append( this.images[index] );
-
 			loading();
 		},
 
@@ -453,6 +452,24 @@ define( [ ], function ( ) {
 			this.container.unbind( 'vmouseup' );
 			this.container.unbind( 'vmouseout' );
 		},
+		_setTranslateposition : function ( $ele, value ) {
+			var translate,
+				cssArray = null;
+
+			if ( $.support.cssTransform3d ) {
+				translate = "translate3d(" + value + ", 0px, 0px)";
+			} else {
+				translate = "translate(" + value + ", 0px)";
+			}
+			cssArray = {"-moz-transform": translate,
+					"-webkit-transform": translate,
+					"-ms-transform": translate,
+					"-o-transform": translate,
+					"transform": translate};
+
+			$ele.css(cssArray);
+			return $ele;
+		},
 		_moveLeft : function ( $ele , value , duration) {
 			var translate,
 				transition = "",
@@ -463,7 +480,7 @@ define( [ ], function ( ) {
 			} else {
 				translate = "translate(" + value + ", 0px)";
 			}
-			if( !duration ||  duration !== undefined ) {
+			if( duration !== undefined ) {
 				transition =  "-webkit-transform " + (duration / 1000)+ "s ease";
 			}
 			cssArray = {"-moz-transform": translate,
@@ -494,12 +511,12 @@ define( [ ], function ( ) {
 			this._attach( this.index + 1, this.next_img );
 
 			if ( this.prev_img.length ) {
-				this._moveLeft( this.prev_img, -this.window_width + 'px');
+				this._setTranslateposition( this.prev_img, -this.window_width + 'px');
 			}
 
 			this._moveLeft( this.cur_img, '0px');
 			if ( this.next_img.length ) {
-				this._moveLeft( this.next_img, this.window_width + 'px' );
+				this._setTranslateposition( this.next_img, this.window_width + 'px' );
 			}
 		},
 

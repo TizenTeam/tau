@@ -252,13 +252,10 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 					if ( e.state == "on" ) {
 						if ( !$elPage.find( ".ui-" + backBtnPosition + " .ui-btn-footer-down" ).length ) {
 							$elDownBtn.buttonMarkup( { icon: "down" } ).appendTo( $elPage.find( ".ui-" + backBtnPosition ) );
-							$( ".ui-btn-footer-down" ).bind( "vclick",  function ( ) {
-								$elPage.find( "input" ).blur();
-							});
 						}
-						$( ".ui-page-active .ui-btn-back" ).remove();
+						$( ".ui-page-active .ui-btn-back" ).hide();
 					} else if ( e.state == "off" ) {
-						$elPage.page( "addBackBtn", backBtnPosition );
+						$( ".ui-page-active .ui-btn-back" ).show();
 						$( ".ui-btn-footer-down" ).remove();
 					}
 				}
@@ -282,9 +279,16 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 				$elHeader = $elPage.find( ":jqmData(role='header')" ),
 				$elFooter = $elPage.find( ":jqmData(role='footer')" ),
 				$elContent = $elPage.find( ":jqmData(role='content')" ),
-				resultMinHeight;
+				resultMinHeight,
+				dpr = 1,
+				layoutInnerHeight = window.innerHeight;
 
-			resultMinHeight = window.innerHeight - $elHeader.height() - $elFooter.height();
+                        if ( !$.support.scrollview ) {
+                                dpr = window.outerWidth / window.innerWidth;
+                                layoutInnerHeight = Math.floor( window.outerHeight / dpr );
+                        }
+
+			resultMinHeight = layoutInnerHeight - $elHeader.height() - $elFooter.height();
 
 			$elContent.css( "min-height", resultMinHeight - parseFloat( $elContent.css("padding-top") ) - parseFloat( $elContent.css("padding-bottom") ) + "px" );
 		},
@@ -330,7 +334,9 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 				$elContent = $elPage.find( ":jqmData(role='content')" ),
 				resultContentHeight = 0,
 				resultFooterHeight = 0,
-				resultHeaderHeight = 0;
+				resultHeaderHeight = 0,
+				layoutInnerHeight = window.innerHeight,
+				dpr = 1;
 
 			if ( $elPage.length ) {
 				$elFooter = $elPage.find( ":jqmData(role='footer')" );
@@ -346,7 +352,12 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 				$elFooter.css( "bottom", 0 );
 			}
 
-			resultContentHeight = window.innerHeight - resultFooterHeight - resultHeaderHeight;
+			if ( !$.support.scrollview ) {
+				dpr = window.outerWidth / window.innerWidth;
+				layoutInnerHeight = Math.floor( window.outerHeight / dpr );
+			}
+
+			resultContentHeight = layoutInnerHeight - resultFooterHeight - resultHeaderHeight;
 
 			if ( $.support.scrollview ) {
 				$elContent.height( resultContentHeight -

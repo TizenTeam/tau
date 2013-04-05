@@ -1,3 +1,11 @@
+//>>excludeStart("jqmBuildExclude", pragmas.jqmBuildExclude);
+//>>description: Tizen core library
+//>>label: Tizen core
+//>>group: Tizen:Core
+
+define( [ 'jquery.mobile.core' ], function ( ) {
+//>>excludeEnd("jqmBuildExclude");
+
 /* ***************************************************************************
  * Copyright (c) 2000 - 2013 Samsung Electronics Co., Ltd.
  *
@@ -169,3 +177,7 @@ $.mobile.pinch = {
 };
 
 })( jQuery, this );
+
+//>>excludeStart("jqmBuildExclude", pragmas.jqmBuildExclude);
+} );
+//>>excludeEnd("jqmBuildExclude");
