@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.21
+Version:    0.2.22
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -83,14 +83,31 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Fri Apr 5 2013 Youmin Ha <youmin.ha@samsung.com> 0.2.22
+	- tizen-winsets: Fix demo menu
+	- Tizenwinset: Reorder tizenwinset menu
+	- SearchBar: Header button size issue has been fixed
+	- Swipe: list item overflow: hidden has been added
+	- Tizenwinset: href has been added in grouped list
+	- Tizenwinset: Page transition page has been added
+	- Tizenwinset: Radio description has been fixed
+	- This patch fixes problem when base url is changed when site is prefetched.
+	- Entry : limit textarea's width (N_SE-28653)
+	- Naviframe : hide backbutton in case SIP up(remove backbutton makes problem in binding event)
+	- Gallery : next, prev images position bug has been fixed
+	- Multimediaview: Fix display error while handling orientationchange event.
+	- Pagelayout : modify innerHeight dpr calculation in non scrollview mode
+	- Datetimepicker: picker position has been fixed when browser resize event fired
+	- Tips: generate elements sample page javascript has been fixed
+	- Tokentextarea: Fix Tizen-winsets demo.
 
 * Wed Apr 3 2013 Youmin Ha <youmin.ha@samsung.com> 0.2.21
- - VirtualGrid: Fix errors on centerTo and resize methods
- - loader: Fix default font size at device-width viewport
- - scrollview : remove overflow-x property
- - Naviframe : fix backbutton position/ change down button icon
- - Naviframe : bug fix
- - Tizenwinset : Tizen-winset demo page titles changed Tizen-winset demo page titles changed from lower case to upper case.
+	- VirtualGrid: Fix errors on centerTo and resize methods
+	- loader: Fix default font size at device-width viewport
+	- scrollview : remove overflow-x property
+	- Naviframe : fix backbutton position/ change down button icon
+	- Naviframe : bug fix
+	- Tizenwinset : Tizen-winset demo page titles changed Tizen-winset demo page titles changed from lower case to upper case.
 
 * Fri Mar 29 2013 Youmin Ha <youmin.ha@samsung.com> 0.2.20
 	- JQM Navigation : remove page min-height
