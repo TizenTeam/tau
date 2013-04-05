@@ -1,5 +1,5 @@
 ( function ( $, window ) {
-	$(document).one("pagecreate", "#tokentextarea", function () {
+	$( document ).one( "pagecreate", "#tokentextarea", function () {
 		$( "#MBTaddItemTest" ).on( "click", function () {
 			$( ":jqmData(role='tokentextarea')" ).tokentextarea( "add", "additem" );
 		});
@@ -49,18 +49,26 @@
 		$( "#MBTdestroyTest" ).on( "click", function () {
 			$( ":jqmData(role='tokentextarea')" ).tokentextarea( "destroy" );
 		});
+	});
 
-		$( "#contentList a" ).on( "click", function () {
-			var arg = $( this ).text();
-			$( ":jqmData(role='tokentextarea')" ).tokentextarea( "add", arg );
+	$( document ).one( "pagecreate", "#addressbook", function () {
+		var self = this;
+		self.itemSelected = false;
+
+		$( "#addressbook" ).on( "mousedown", function () {
+			self.itemSelected = false;
 		});
 
-		$( "#cancelBtn" ).on( "click", function () {
-			$.mobile.changePage( "#tokentextarea", {
-				transition: "reverse slide",
-				reverse: false,
-				changeHash: false
-			} );
+		$( "#addressbook" ).on( "mouseup", function () {
+			self.itemSelected = true;
+		});
+
+		$( "#contentList a" ).on( "click", function () {
+			if ( self.itemSelected ) {
+				var arg = $( this ).text();
+				$( ":jqmData(role='tokentextarea')" ).tokentextarea( "add", arg );
+				history.back();
+			}
 		});
 	});
 } ( jQuery, window ) );
