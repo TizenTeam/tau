@@ -6,66 +6,75 @@
 /*jslint browser: true*/
 /*global $, jQuery, test, equal, ok, JSON_DATA, notEqual*/
 ( function ( $ ) {
-	module("Virtualgrid" );
+	module( "Virtualgrid" );
 
-	var unit_virtualgrid = function ( widget, type ) {
-		var virtualGrid,
+	var startVirtualGridTest = function ( virtualGrid ) {
+		var $vgView,
+			$vgScrollView,
+			$vgWrapBlocks,
+			$vgTmplElement,
+			vgOptions = $( "#virtualgrid-test" ).virtualgrid( "option" ),
+			vgHeight,
 			idx,
-			index = 0,
-			$items,
-			$item;
+			index = -1,
+			$item,
+			prevColCnt = 0;
 
-		/* Create */
-		virtualGrid = widget.virtualgrid( "create" , {
-			itemData : function ( idx ) {
-				return JSON_DATA[ idx ];
-			},
-			numItemData : JSON_DATA.length,
-			cacheItemData : function ( minIdx, maxIdx ) { }
-		} );
-		ok( virtualGrid, "Create" );
+		$vgView = $( ".ui-virtualgrid-view" );
+		$vgScrollView = $vgView.find( ".ui-scrollview-view" );
+		$vgWrapBlocks = $vgView.find( ".ui-virtualgrid-wrapblock-y" );
+		$vgTmplElement = $vgWrapBlocks.find( ".ui-demo-namecard-pic" );
+		vgHeight = $vgView.css( "height" ),
 
-		$(".virtualgrid_demo_page" ).bind("select", function ( event ) {
-			ok( true, "Event : select" );
-		} );
+		test( "Virtualgrid", function () {
+			$vgView.on( "select", function ( event ) {
+				ok( true, "Event : select" );
+			});
 
-		$(".virtualgrid_demo_page" ).bind("test.resize", function ( event ) {
-			var prevColCnt = 0 ;
-			$item = $(".ui-virtualgrid-wrapblock-y:first" );
-			prevColCnt = $item.children( ).length;
-			$("#virtualgrid-test" ).css("width", "1500px" );
-			widget.virtualgrid("resize" );
-			$item = $(".ui-virtualgrid-wrapblock-y:first" );
-			notEqual( $item.children( ).length, prevColCnt, "Event : resize" );
-		} );
+			ok( $vgView, "Markup : View element" );
+			ok( parseInt( vgHeight, 10 ) > 100, "Markup : The height of a view element");
+			ok( $vgScrollView.length, "Markup : A Scrollview inside VirtualGrid" );
+			ok( $vgWrapBlocks.length > 10, "Markup : Wrap block" );
+			ok( $vgWrapBlocks.first().children().length > 1, "Markup : Children nodes of a wrap block");
+			ok( $vgTmplElement.length, "Markup : A div element created via template");
 
-		$( $(".virtualgrid_demo_page" ).find(".ui-scrollview-view" ) ).find(".ui-virtualgrid-wrapblock-y:first" ).addClass("center" );
-		widget.virtualgrid("centerTo", "center" );
-		$items = $( $(".virtualgrid_demo_page" ).find(".ui-scrollview-view" ) ).find(".ui-virtualgrid-wrapblock-y" );
-		for ( idx = 0 ; idx < $items.length ; idx += 1 ) {
-			if ( $( $items[idx] ).hasClass("center" ) ) {
-				index = idx;
-				break;
+			equal( vgOptions.template, "tizen-demo-namecard", "Option : template" );
+			equal( vgOptions.direction, "y", "Option : direction" );
+			equal( vgOptions.rotation, true, "Option : rotation" );
+			equal( virtualGrid.jqmData("dbtable"), "JSON_DATA", "jqmData : dbtable" );
+
+			$( "#virtualgrid-test" ).virtualgrid( "centerTo", "card_0009" );
+			for ( idx = 0 ; idx < $vgWrapBlocks.length ; ++idx ) {
+				if ( $( $vgWrapBlocks[idx] ).hasClass( "card_0000" ) ) {
+					index = idx;
+					break;
+				}
 			}
-		}
 
-		notEqual( index, 0, "API : centerTo" );
+			ok( virtualGrid, "Method : create" );
+			notEqual( index, 0, "Method : centerTo" );
 
-		$item = $( $(".ui-virtualgrid-wrapblock-y:first" ).children( )[0] );
-		$item.trigger("click" );
-		$item.trigger("test.resize" );
+			$item = $vgWrapBlocks.first();
+			prevColCnt = $item.children().length;
+			$( "#virtualgrid-test" ).width( 250 );
+			$( "#virtualgrid-test" ).virtualgrid( "resize" );
+			console.log( "resize : " + $item.children().length + ", " + prevColCnt );
+			notEqual( $item.children().length, prevColCnt, "Method : resize" );
 
-		/*jqmData*/
-		equal( widget.jqmData('direction'), 'y', "jqmData : direction" ) ;
-		equal( widget.jqmData('rotation'), true, "jqmData : rotation" ) ;
-		equal( widget.jqmData('template'), 'tizen-demo-namecard', "jqmData : template" ) ;
-		equal( widget.jqmData('dbtable'), 'JSON_DATA', "jqmData : dbtable" ) ;
-
+			$item = $( $vgWrapBlocks.first().children()[0] );
+			$item.trigger( "click" );
+		});
 	};
 
-	$( document ).bind("dataloaded" , function ( ) {
-		test( "Virtualgrid", function ( ) {
-			unit_virtualgrid( $("#virtualgrid-test" ), "virtualgrid" );
-		} );
-	} );
-} ( jQuery ) );
+	$( document ).bind( "dataloaded" , function () {
+		var virtualGrid = $( "#virtualgrid-test" ).virtualgrid( "create" , {
+			itemData: function ( idx ) {
+				return JSON_DATA[ idx ];
+			},
+			numItemData: JSON_DATA.length,
+			cacheItemData: function ( minIdx, maxIdx ) { }
+		});
+
+		startVirtualGridTest( virtualGrid );
+	});
+}( jQuery ));

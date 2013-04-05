@@ -27,7 +27,7 @@
 				</div>
 				<div data-role="content">
 					<script id="tizen-demo-namecard" type="text/x-jquery-tmpl">
-						<div class="ui-demo-namecard">
+						<div class="ui-demo-namecard ${ID}" style="width:50px">
 							<div class="ui-demo-namecard-pic">
 							</div>
 							<div class="ui-demo-namecard-contents">
@@ -35,11 +35,11 @@
 							</div>
 						</div>
 					</script>
-					<div id="virtualgrid-test" data-direction="y" data-role="virtualgrid" data-rotation="true" data-template="tizen-demo-namecard" data-dbtable="JSON_DATA" style="width: 500px;height:600px;"></div>
+					<div id="virtualgrid-test" data-direction="y" data-role="virtualgrid" data-rotation="true" data-template="tizen-demo-namecard" data-dbtable="JSON_DATA" style="width:600px; height:500px;"></div>
 					<script>
 						$( ".virtualgrid_demo_page" ).live( "pagecreate", function() {
 							console.log("pagecreate...");
-							$.getScript( "../../../demos/tizen-winsets/widgets/grid/js/virtualgrid-db-demo.js", function( data, textStatus ) {
+							$.getScript( "../../../demos/tizen-winsets/widgets/grid/virtualgrid-db-demo.js", function( data, textStatus ) {
 								$(document).trigger("dataloaded");
 							});
 						});
