@@ -72,7 +72,7 @@ define( [ 'jquery.mobile.tizen.widgetex', 'jquery.mobile.tizen.popupwindow', 'jq
  *		: Change Type and Format options. use datetimepicker( "option", "format" ) instead
  *
  * Events:
- *	date-changed: Raised when date/time was changed.
+ *	date-changed: Raised when date/time was changed. Date-changed event will be deprecated
  *
  * Examples:
  *	<ul data-role="listview">
@@ -105,8 +105,8 @@ define( [ 'jquery.mobile.tizen.widgetex', 'jquery.mobile.tizen.popupwindow', 'jq
  * How to get a return value:
  * ==========================
  * Bind to the 'date-changed' event, e.g.:
- *    $("#myDatetimepicker").bind("date-changed", function(e, date) {
- *        alert("New date: " + date.toString());
+ *    $("#myDatetimepicker").bind("change", function() {
+ *			// your code
  *    });
  */
 
