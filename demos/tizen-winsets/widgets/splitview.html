@@ -64,7 +64,9 @@
 						"* Down pane: \n" +
 						( ( typeof downContents === "undefined" || !downContents ) ? "" : downContents[ 0 ].outerHTML );
 
+			contents = contents.substring(0, 120) + "..." ;
 			window.alert( contents );
+
 		});
 
 		$( "#testFixed" ).bind( "vclick", function () {
