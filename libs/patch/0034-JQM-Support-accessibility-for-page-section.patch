@@ -37,7 +37,7 @@ index e00684c..1a7b373 100644
 +						.buttonMarkup( { icon: "header-back-btn", theme: o.backBtnTheme || thisTheme } );
 +
 +					backBtn.find( ".ui-btn-text" ).text( o.backBtnText );
-+ 					backBtn.appendTo( $dest );
++					backBtn.appendTo( $dest );
  				}
  			}
  
