@@ -1,0 +1,28 @@
+From 4c6c887221f11b8fd9496e71a46d8dac7067c3c2 Mon Sep 17 00:00:00 2001
+From: Youmin Ha <youmin.ha@samsung.com>
+Date: Sun, 7 Apr 2013 18:47:25 +0900
+Subject: [PATCH] JQM: Remove ui-btn-icon-only class from select button
+
+Change-Id: Ia68ea5fb23feb0c427d58110e7e70f0a239723c8
+---
+ .../jquery-mobile-1.2.0/js/widgets/forms/select.js |    4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/select.js b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/select.js
+index 9c78a90..06f4c75 100644
+--- a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/select.js
++++ b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/select.js
+@@ -114,6 +114,10 @@ $.widget( "mobile.selectmenu", $.mobile.widget, {
+ 
+ 		this.setButtonText();
+ 
++		// TIZEN fix: The TIZEN buttonMarkup patch adds 'ui-btn-icon-only' class to the ui-btn-inner.
++		// It makes the text not to be shown, so the class must be removed. (Like JQM)
++		button.children('.ui-btn-inner').removeClass('ui-btn-icon-only');
++
+ 		// Opera does not properly support opacity on select elements
+ 		// In Mini, it hides the element, but not its text
+ 		// On the desktop,it seems to do the opposite
+-- 
+1.7.9.5
+
