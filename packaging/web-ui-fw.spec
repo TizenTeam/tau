@@ -29,7 +29,8 @@ make DESTDIR=%{buildroot} install
 
 %files
 %manifest web-ui-fw.manifest
-/usr/share/tizen-web-ui-fw/*/js
+/usr/share/tizen-web-ui-fw/*/js/*.js
+/usr/share/tizen-web-ui-fw/*/js/cultures
 /usr/share/tizen-web-ui-fw/latest
 /usr/share/tizen-web-ui-fw/VERSION
 
@@ -39,6 +40,7 @@ BuildArch:  noarch
 Summary:    Tizen Web UI Framework Theme : tizen-gray
 %Description -n web-ui-fw-theme-tizen-gray
     Tizen Web UI Framework Theme : tizen-gray
+    Deprecated package, but some binaries still refer this.
 
 ###############################
 %package -n web-ui-fw-theme-tizen-white
@@ -50,6 +52,16 @@ Summary:    Tizen Web UI Framework Theme : tizen-white
 %manifest web-ui-fw-theme-tizen-white.manifest
 /usr/share/tizen-web-ui-fw/*/themes/tizen-white
 /usr/share/tizen-web-ui-fw/*/themes/tizen-tizen
+
+###############################
+%package -n web-ui-fw-theme-tizen-black
+BuildArch:  noarch
+Summary:    Tizen Web UI Framework Theme : tizen-black
+%Description -n web-ui-fw-theme-tizen-black
+    Tizen Web UI Framework Theme : tizen-black
+%files -n web-ui-fw-theme-tizen-black
+%manifest web-ui-fw-theme-tizen-black.manifest
+/usr/share/tizen-web-ui-fw/*/themes/tizen-black
 
 ###############################
 %package -n web-ui-fw-theme-default
@@ -70,6 +82,8 @@ Summary:    Tizen Web UI Framework Developer's files
 %files -n web-ui-fw-devel
 /usr/share/tizen-web-ui-fw/bin
 /usr/share/tizen-web-ui-fw/template
+/usr/share/tizen-web-ui-fw/*/js/src
+/usr/share/tizen-web-ui-fw/*/js/depData.json
 
 ###############################
 %package -n web-ui-fw-demo-tizen-winsets
