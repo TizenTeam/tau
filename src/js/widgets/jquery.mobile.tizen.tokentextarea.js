@@ -41,7 +41,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
  *
  *	HTML Attributes:
  *
- *		data-link : Represents the page id.
+ *		data-link : Represents the id of the page or the URL of other HTML file.
  *				The page contains data for the user, for example, an address book.
  *				If the value is null, anchor button doesn't work. (Default : null)
  *		data-label:	Provide a label for a user-guide. (Default : 'To : ')
@@ -83,14 +83,13 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
  *
  *	Events:
  *
- *		create : Occur when create TokenTextArea widget.
  *		select : Occur when a button is selected.
  *		add : Occur when new button is inserted. (@since Tizen 2.1 deprecated, You can still use this event. But not recommended.)
  *		remove : Occur when a button is removed. (@since Tizen 2.1 deprecated, You can still use this event. But not recommended.)
  *
  *	Examples:
  *
- *		<div data-role="tokentextarea" data-label="To : " data-link:"#addressbook" data-description="+ {0}">
+ *		<div data-role="tokentextarea" data-label="To : " data-link="#pageId" data-description="+ {0}">
  *		</div>
  *
  */
@@ -102,46 +101,45 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 
 	To add a token text area widget to the application, use the following code:
 
-		<div data-role="tokentextarea" data-label="To : " data-link="pageId">
+		<div data-role="tokentextarea" data-label="To : " data-link="#pageId">
 		</div>
 */
 
 /**
-	@property {String}  data-label
+	@property {String} data-label
 	Sets a label as a guide for the user.
 	For example, while composing an e-mail message, the 'To : ' label is a guide for the user to enter e-mail addresses.
+
+		<div data-role="tokentextarea" data-label="To : ">
+		</div>
 */
 
 /**
 	@property {String} data-decription
 	Manages the message format.
 	The message is displayed when the widget status changes to focus out
+
+		<div data-role="tokentextarea" data-description=" + {0}">
+		</div>
  */
 /**
 	@property {String} data-link
-	Sets the ID of the page to which the button links.
-*/
-/**
-	@event create
-	The create event is fired when the token text area widget is created:
+	Sets the ID of the page or the URL of other HTML file to which the button links.
+	If the data-link is set with the URL of other HTML file, the 'dom-cache' option of both page - a page containing a Tokentextarea and a page in the target HTML file - must be set as 'true'.
 
-		<div data-role="tokentextarea">
+		<div data-role="tokentextarea" data-link="#pageId">
 		</div>
-		$(".selector").tokentextarea
-		({
-			create: function(event, ui)
-			{
-				// Handle the create event
-			}
-		});
-**/
+
+		<div data-role="tokentextarea" data-link="fileName.html" data-dom-cache="true">
+		</div>
+*/
 /**
 	@event select
 	The select event is fired when a token text area widget button is selected:
 
 		<div data-role="tokentextarea">
 		</div>
-		$(".selector").bind("select", function(event, ui)
+		$(".selector").on("select", function(event, ui)
 		{
 			// Handle the select event
 		});	
@@ -152,7 +150,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 
 		<div data-role="tokentextarea">
 		</div>
-		$(".selector").bind("add", function(event, ui)
+		$(".selector").on("add", function(event, ui)
 		{
 			// Handle the add event
 		});
@@ -172,11 +170,11 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 /**
 	@method destroy
 	The destroy method is used to remove in the current widget all the new DOM elements that you have created.
-	
+
 		<div data-role="tokentextarea">
 		</div>
 		$(".selector").tokentextarea("destroy");
-	
+
 	@since Tizen2.0
 */
 /**
