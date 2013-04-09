@@ -87,7 +87,7 @@ select.ui-slider-switch {
 	height: 37 * @unit_base;
 
 	text-align: center;
-	color: rgb(100, 100, 100);
+	color: @color_slider_left_text;
 }
 
 .ui-slider-right-text {
@@ -97,7 +97,7 @@ select.ui-slider-switch {
 	height: 37 * @unit_base;
 
 	text-align: center;
-	color: rgb(100, 100, 100);
+	color: @color_slider_right_text;
 }
 
 div.ui-slider:not(.ui-toggle-switch) {
@@ -112,7 +112,7 @@ div.ui-slider:not(.ui-toggle-switch) {
 	border: 1px;
 	border-style: solid;
 	border-color: @color_progress_border;
-	.LESSbox-shadow(1px, -1px, 1px, @color_progress_border);
+	.LESSbox-shadow(1px, 1px, 0px, @color_progress_shadow);
 	background-color: @color_progress_bar0;
 
 	.ui-btn {
