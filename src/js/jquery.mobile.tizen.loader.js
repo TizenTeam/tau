@@ -214,25 +214,21 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 
 		loadTheme: function ( theme ) {
 			var themePath,
-				cssPath,
-				jsPath;
+			cssPath,
+			jsPath;
 
 			if ( ! theme ) {
 				theme = tizen.frameworkData.theme;
 			}
-			themePath = [
-				tizen.frameworkData.rootDir,
-				tizen.frameworkData.version,
-				'themes',
-				theme
-			].join( '/' );
-
-			jsPath = [ themePath, 'theme.js' ].join( '/' );
-
+			
+			themePath = tizen.frameworkData.rootDir + '/' + tizen.frameworkData.version + '/themes/' + theme;
+			
+			jsPath = themePath + '/theme.js';
+	
 			if ( tizen.frameworkData.minified ) {
-				cssPath = [themePath, 'tizen-web-ui-fw-theme.min.css'].join( '/' );
+				cssPath = themePath + '/tizen-web-ui-fw-theme.min.css';
 			} else {
-				cssPath = [themePath, 'tizen-web-ui-fw-theme.css'].join( '/' );
+				cssPath = themePath + '/tizen-web-ui-fw-theme.css';
 			}
 			tizen.css.load( cssPath );
 			tizen.util.loadScriptSync( jsPath );
