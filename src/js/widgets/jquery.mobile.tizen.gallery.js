@@ -666,7 +666,7 @@ define( [ ], function ( ) {
 					this.cur_img = this.prev_img;
 					this.prev_img = this.prev_img.prev();
 					if ( this.prev_img.length ) {
-						this._moveLeft( this.prev_img, -this.window_width);
+						this._moveLeft( this.prev_img, -this.window_width + 'px' );
 						this._attach( index - 2, this.prev_img );
 					}
 					this.index--;
@@ -674,7 +674,7 @@ define( [ ], function ( ) {
 					this.cur_img = this.next_img;
 					this.next_img = this.next_img.next();
 					if ( this.next_img.length ) {
-						this._moveLeft( this.next_img, this.window_width);
+						this._moveLeft( this.next_img, this.window_width + 'px' );
 						this._attach( index + 2, this.next_img );
 					}
 				}
@@ -684,7 +684,7 @@ define( [ ], function ( ) {
 				temp_img = this.prev_img;
 				this.prev_img = this.prev_img.prev();
 				if ( this.prev_img.length ) {
-					this._moveLeft( this.prev_img, -this.window_width);
+					this._moveLeft( this.prev_img, -this.window_width + 'px' );
 					this._attach( index - 1, this.prev_img );
 				}
 				this.index--;
@@ -693,7 +693,7 @@ define( [ ], function ( ) {
 				temp_img = this.next_img;
 				this.next_img = this.next_img.next();
 				if ( this.next_img.length ) {
-					this._moveLeft( this.next_img, this.window_width);
+					this._moveLeft( this.next_img, this.window_width + 'px' );
 					this._attach( index + 1, this.next_img );
 				}
 
