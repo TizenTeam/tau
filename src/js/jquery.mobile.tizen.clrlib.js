@@ -3,7 +3,7 @@
 //>>label: Color library
 //>>group: Tizen:Core
 
-define( [ ], function ( ) {
+define( [ 'util/ensurens' ], function ( ) {
 //>>excludeEnd("jqmBuildExclude");
 
 ensureNS("jQuery.mobile.tizen.clrlib");
