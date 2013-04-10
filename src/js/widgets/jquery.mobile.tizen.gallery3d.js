@@ -319,7 +319,7 @@ define( [ "components/imageloader", "components/motionpath", "components/webgl" 
 			"	gl_Position = uPerspectiveMatrix * v_Position;",
 			"	vTextureCoord = aTextureCoord;",
 			"	float fog = 1.0 - ((gl_Position.z + 1.5) / 60.0);",
-			"	vFogWeight = clamp( vec4( fog, fog, fog, 1.0), 0.0, 1.0);",
+			"	vFogWeight = clamp( vec4( fog, fog, fog, 1.0), 0.6, 1.0);",
 			"	vec3 transNormalVector = nNormalMatrix * aVertexNormal;",
 
 			"	float vLightWeightFirst = 0.0;",
@@ -336,7 +336,13 @@ define( [ "components/imageloader", "components/motionpath", "components/webgl" 
 			"varying vec4 vFogWeight;",
 
 			"void main(void) {",
-			"	vec4 TextureColor = (texture2D(uSampler, vec2(vTextureCoord.s, vTextureCoord.t))) * vFogWeight;",
+			"	vec4 TextureColor;",
+			"	if ( vTextureCoord.s <= 0.01 || vTextureCoord.s >= 0.99 || vTextureCoord.t <= 0.01 || vTextureCoord.t >= 0.99 ) {",
+			"		TextureColor = vec4(1.0, 1.0, 1.0, 0.5);",
+			"	} else {",
+			"		TextureColor = texture2D(uSampler, vec2(vTextureCoord.s, vTextureCoord.t));",
+			"	}",
+			"	TextureColor *= vFogWeight;",
 			"	gl_FragColor = vec4(TextureColor.rgb * vLightWeight, TextureColor.a);",
 			"}"
 		].join( "\n" );
@@ -712,7 +718,7 @@ define( [ "components/imageloader", "components/motionpath", "components/webgl" 
 			self._pMatrix = mat4.create();
 			mat4.perspective( 40, gl.viewportWidth / gl.viewportHeight, 0.1, 10000.0, self._pMatrix );
 
-			gl.clearColor( 0.0, 0.0, 0.0, 1.0 );
+			gl.clearColor( 0.15, 0.15, 0.15, 1.0 );
 			gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT );
 
 			return gl;
