@@ -1,18 +1,18 @@
-From 74d2890f4532f8525448fb53d8e648d86f41cd36 Mon Sep 17 00:00:00 2001
+From 3a3b8ea37dbe26879cac7861e4478856bcf91d6e Mon Sep 17 00:00:00 2001
 From: "hjnim.kim" <hjnim.kim@samsung.com>
-Date: Wed, 20 Mar 2013 21:21:51 +0900
-Subject: [PATCH] JQM Apply tizen style popup
+Date: Wed, 10 Apr 2013 13:22:06 +0900
+Subject: [PATCH] JQM Applied tizen style popup, context popup
 
-Apply type style popup
+Apply tizen style popup, context popup
 
-Change-Id: I8c55f10921053f2adbe230b772a3b9a5ad73a232
-Signed-off-by: hyunjung kim<hjnim.kim@samsung.com>
+Change-Id: I757bdf622e4ee106aa3ace5ab6665633879b740f
+Signed-off-by: hyunjung kim <hjnim.kim@samsung.com>
 ---
- libs/js/jquery-mobile-1.2.0/js/widgets/popup.js |  108 ++++++++++++++++++++--
- 1 files changed, 98 insertions(+), 10 deletions(-)
+ libs/js/jquery-mobile-1.2.0/js/widgets/popup.js |  113 +++++++++++++++++++++--
+ 1 files changed, 103 insertions(+), 10 deletions(-)
 
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
-index 8174055..32726bc 100644
+index 8174055..203599d 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
 @@ -58,7 +58,7 @@ define( [ "jquery",
@@ -33,7 +33,19 @@ index 8174055..32726bc 100644
  				// effectively rapid-open the popup while leaving the screen intact
  				this._trigger( "beforeposition" );
  				this._ui.container
-@@ -144,7 +144,8 @@ define( [ "jquery",
+@@ -124,6 +124,11 @@ define( [ "jquery",
+ 
+ 		_handleWindowResize: function( e ) {
+ 			if ( this._isOpen ) {
++				// Context popup close when Window resize event
++				if( this.positionTo !== "window" ) {
++					this.close();
++					return false;
++				}
+ 				this._maybeRefreshTimeout();
+ 			}
+ 		},
+@@ -144,7 +149,8 @@ define( [ "jquery",
  			var ui = {
  					screen: $( "<div class='ui-screen-hidden ui-popup-screen'></div>" ),
  					placeholder: $( "<div style='display: none;'><!-- placeholder --></div>" ),
@@ -43,7 +55,7 @@ index 8174055..32726bc 100644
  				},
  				thisPage = this.element.closest( ".ui-page" ),
  				myId = this.element.attr( "id" ),
-@@ -174,7 +175,7 @@ define( [ "jquery",
+@@ -174,7 +180,7 @@ define( [ "jquery",
  				ui.placeholder.html( "<!-- placeholder for " + myId + " -->" );
  			}
  			ui.container.append( this.element );
@@ -52,7 +64,7 @@ index 8174055..32726bc 100644
  			// Add class to popup element
  			this.element.addClass( "ui-popup" );
  
-@@ -276,7 +277,7 @@ define( [ "jquery",
+@@ -276,7 +282,7 @@ define( [ "jquery",
  		},
  
  		_setTolerance: function( value ) {
@@ -61,7 +73,7 @@ index 8174055..32726bc 100644
  
  			if ( value ) {
  				var ar = String( value ).split( "," );
-@@ -361,7 +362,11 @@ define( [ "jquery",
+@@ -361,7 +367,11 @@ define( [ "jquery",
  					cx: winCoords.cx - this._tolerance.l - this._tolerance.r,
  					cy: winCoords.cy - this._tolerance.t - this._tolerance.b
  				},
@@ -74,7 +86,7 @@ index 8174055..32726bc 100644
  
  			// Clamp the width of the menu before grabbing its size
  			this._ui.container.css( "max-width", rc.cx );
-@@ -389,7 +394,50 @@ define( [ "jquery",
+@@ -389,7 +399,50 @@ define( [ "jquery",
  
  			ret.y -= Math.min( ret.y, Math.max( 0, ret.y + menuSize.cy - docHeight ) );
  
@@ -126,7 +138,7 @@ index 8174055..32726bc 100644
  		},
  
  		_createPrereqs: function( screenPrereq, containerPrereq, whenDone ) {
-@@ -569,7 +617,7 @@ define( [ "jquery",
+@@ -569,7 +622,7 @@ define( [ "jquery",
  			this._ui.container
  				.removeClass( "ui-selectmenu-hidden" )
  				.offset( coords );
@@ -135,7 +147,7 @@ index 8174055..32726bc 100644
  			if ( this.options.overlayTheme && androidBlacklist ) {
  				/* TODO:
  				The native browser on Android 4.0.X ("Ice Cream Sandwich") suffers from an issue where the popup overlay appears to be z-indexed
-@@ -694,15 +742,55 @@ define( [ "jquery",
+@@ -694,15 +747,55 @@ define( [ "jquery",
  		// what should be in _open. Seems to be "visual" vs "history" for now
  		open: function( options ) {
  			var self = this, opts = this.options, url, hashkey, activePage, currentIsDialog, hasHash, urlHistory;
@@ -151,7 +163,7 @@ index 8174055..32726bc 100644
 +			if( !options ) {
 +				options = [];
 +			}
-+
+ 
 +			if ( !options.link ) {
 +				if ( !event ) {
 +					self.positionTo = "window";
@@ -171,7 +183,7 @@ index 8174055..32726bc 100644
 +				$(self.element).addClass("ui-ctxpopup");
 +				$(self._ui.container).removeClass("ui-popup-container")
 +					.addClass("ui-ctxpopup-container");
- 
++
 +				if( self.positionTo !== "origin" ) {
 +					$(self._ui.arrow).hide();
 +				} else {

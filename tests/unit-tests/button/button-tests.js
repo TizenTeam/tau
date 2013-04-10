@@ -8,7 +8,7 @@ $( "#checkboxpage" ).live( "pageinit", function ( event ) {
 
 	module( "button" );
 
-	var unit_button = function ( widget, type ) {
+	var unit_button = function ( widget, type, text ) {
 		var buttonClassPrefix = "ui-btn",
 			buttonText = type,
 			icon,
@@ -30,8 +30,11 @@ $( "#checkboxpage" ).live( "pageinit", function ( event ) {
 		// Text Trim, Cause jQueryMobile(JQM) 1.1 forced to add - "\u00a0" in buttonIcon(ButtonMarkup)
 		// JQM 1.1 buttonMarkup code :
 		// - if( buttonIcon ) buttonIcon.appendChild( document.createTextNode( "\u00a0" ) );
-		equal( widget.text().trim() , buttonText , "Button Text" );
-
+		if ( buttonText == "" ) {
+			equal( widget.text().trim() , text , "Button Text icon only" );
+		} else {
+			equal( widget.text().trim() , buttonText , "Button Text" );
+		}
 		icon = widget.jqmData("icon");
 		if ( icon !== undefined ) {
 			ok( widget.children().children().hasClass("ui-icon-" + icon ) , "Style - Button Icon" );
@@ -87,15 +90,15 @@ $( "#checkboxpage" ).live( "pageinit", function ( event ) {
 	});
 
 	test ( "Button - Inline, Only Icon(Reveal)" , function () {
-		unit_button( $("#button-4"), "Non Text Button" );
+		unit_button( $("#button-4"), "Non Text Button", "reveal" );
 	});
 
 	test ( "Button - Inline, Only Icon(Send), circle" , function () {
-		unit_button( $("#button-5"), "Non Text Button" );
+		unit_button( $("#button-5"), "Non Text Button", "send" );
 	});
 
 	test ( "Button - Inline, Only Icon(Favorite), nobackground" , function () {
-		unit_button( $("#button-6"), "Non Text Button" );
+		unit_button( $("#button-6"), "Non Text Button", "favorite" );
 	});
 
 });

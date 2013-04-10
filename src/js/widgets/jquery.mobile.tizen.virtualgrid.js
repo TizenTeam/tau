@@ -151,16 +151,7 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 	The scrollstart event is fired when the user starts scrolling through the grid:
 
 		<div data-role="virtualgrid" data-scroll="y" data-template="tizen-demo-namecard"></div>
-		// Option 01
-		$(".selector").virtualgrid
-		({
-			scrollstart: function(event, ui)
-			{
-			// Handle the scrollstart event
-			}
-		});
-		// Option 02
-		$(".selector").bind("scrollstart", function(event, ui)
+		$(".selector").on("scrollstart", function(event, ui)
 		{
 		// Handle the scrollstart event
 		});
@@ -170,16 +161,7 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 	The scrollupdate event is fired when the user moves the scroll bar in the grid:
 
 		<div data-role="virtualgrid" data-scroll="y" data-template="tizen-demo-namecard"></div>
-		// Option 01
-		$(".selector").virtualgrid
-		({
-			scrollupdate: function(event, ui)
-			{
-			// Handle the scrollupdate event
-			}
-		});
-		// Option 02
-		$(".selector").bind("scrollupdate", function(event, ui)
+		$(".selector").on("scrollupdate", function(event, ui)
 		{
 		// Handle the scrollupdate event
 		});
@@ -189,16 +171,7 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 	The scrollstop event is fired when the user stops scrolling:
 
 		<div data-role="virtualgrid" data-scroll="y" data-template="tizen-demo-namecard"></div>
-		// Option 01
-		$(".selector").virtualgrid
-		({
-			scrollstop: function(event, ui)
-			{
-			// Handle the scrollstop event
-			}
-		});
-		// Option 02
-		$(".selector").bind("scrollstop", function(event, ui)
+		$(".selector").on("scrollstop", function(event, ui)
 		{
 		// Handle the scrollstop event
 		});
@@ -208,16 +181,7 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 	The select event is fired when a virtual grid cell is selected:
 
 		<div data-role="virtualgrid" data-scroll="y" data-template="tizen-demo-namecard"></div>
-		// Option 01
-		$(".selector").virtualgrid
-		({
-			select: function(event, ui)
-			{
-			// Handle the select event
-			}
-		});
-		// Option 02
-		$(".selector").bind("select", function(event, ui)
+		$(".selector").on("select", function(event, ui)
 		{
 		// Handle the select event
 		});
@@ -732,8 +696,10 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 		},
 
 		_initScrollView : function () {
-			var self = this;
+			var self = this,
+				oldDirection = self.options.direction;
 			$.extend( self.options, self._scrollView.options );
+			self.options.direction = oldDirection;
 			self.options.moveThreshold = 10;
 			self.options.showScrollBars = false;
 			self._getScrollHierarchy = self._scrollView._getScrollHierarchy;

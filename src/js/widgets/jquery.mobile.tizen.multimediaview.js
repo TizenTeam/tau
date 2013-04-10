@@ -62,7 +62,7 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
  *
  * Events:
  *
- *			create :  triggered when a multimediaview is created.
+ *			N/A
  *
  * Examples:
  *
@@ -91,15 +91,6 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 		// Audio player control
 		<audio data-controls="true" style="width:100%;"> <source src="<AUDIO_FILE_URL>" type="audio/mp3" /> Your browser does not support the audio tag.
 		</audio>
-
-	The multimedia view can define a callback for the create event, which is fired when the widget is created.
-		$('.selector').multimediaview({
-			create:function(event, u){...}
-		});
-		$(".selector").bind("create", function(event, ui)
-		{
-			// Respond to the multimedia view widget creation
-		});
 */
 /**
 	@property {Boolean} data-control

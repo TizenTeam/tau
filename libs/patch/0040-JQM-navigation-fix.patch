@@ -1,7 +1,7 @@
 From 35377ae9b70887b91d20b1898dbf903a3a28d03a Mon Sep 17 00:00:00 2001
 From: Przemyslaw Ciezkowski <p.ciezkowski@samsung.com>
 Date: Wed, 3 Apr 2013 12:52:54 +0200
-Subject: [PATCH] navigation-fix
+Subject: [PATCH] JQM: navigation-fix
 
 Change-Id: Id1713bdcb51129043f520e164bf5fbe6fe67727f
 ---

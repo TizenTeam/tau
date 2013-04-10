@@ -1,13 +1,16 @@
 THEMES	= tizen/tizen-*
 export THEME_OUTPUT_ROOT ?= ../build/
 
-all: themes
+all: themes defaulttheme
 
 themes:
 	# Make themes...
 	@for theme in ${THEMES}; do \
 		make -C $$theme || exit $?; \
 		done
+
+defaulttheme: themes
+	ln -sf tizen-white ${THEME_OUTPUT_ROOT}/tizen-tizen
 
 clean:
 	# Clean themes...

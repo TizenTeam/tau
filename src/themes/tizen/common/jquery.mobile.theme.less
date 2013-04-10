@@ -8,7 +8,7 @@
 
 .ui-bar-s {
 	border: none;
-	background : rgba(248, 246, 239, 1); // #F8F6EF /* Header Background */
+	background : @color_bar_naviframe_bg; /* Header Background */
 	color: @color_bar_title_text;
 	font-family: Helvetica, Arial, sans-serif;
 	font-weight: bold;
@@ -39,8 +39,6 @@
 		box-shadow : none;
 		.ui-icon {
 			top : 8 * @unit_base;
-			left : auto;
-
 			margin-top : 0px;
 		}
 	}
@@ -226,6 +224,7 @@
 
 	>.ui-btn.ui-btn-footer-down {
 		.ui-icon {
+			left : auto;
 			right : 13 * @unit_base;
 		}
 	}
@@ -377,7 +376,7 @@
 
 .ui-btn-box-s .ui-btn-inner {
 	border: 1px solid;
-	border-color: rgb(199, 197, 190);
+	border-color: @color_button_inner_border;
 	.LESSborder-radius-all( 0.3rem );
 	.LESSbox-boxsizing( border-box );
 	.LESSbutton_inner_box_style;

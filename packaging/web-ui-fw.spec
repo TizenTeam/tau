@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.22
+Version:    0.2.23
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -29,7 +29,8 @@ make DESTDIR=%{buildroot} install
 
 %files
 %manifest web-ui-fw.manifest
-/usr/share/tizen-web-ui-fw/*/js
+/usr/share/tizen-web-ui-fw/*/js/*.js
+/usr/share/tizen-web-ui-fw/*/js/cultures
 /usr/share/tizen-web-ui-fw/latest
 /usr/share/tizen-web-ui-fw/VERSION
 
@@ -39,6 +40,7 @@ BuildArch:  noarch
 Summary:    Tizen Web UI Framework Theme : tizen-gray
 %Description -n web-ui-fw-theme-tizen-gray
     Tizen Web UI Framework Theme : tizen-gray
+    Deprecated package, but some binaries still refer this.
 
 ###############################
 %package -n web-ui-fw-theme-tizen-white
@@ -50,6 +52,16 @@ Summary:    Tizen Web UI Framework Theme : tizen-white
 %manifest web-ui-fw-theme-tizen-white.manifest
 /usr/share/tizen-web-ui-fw/*/themes/tizen-white
 /usr/share/tizen-web-ui-fw/*/themes/tizen-tizen
+
+###############################
+%package -n web-ui-fw-theme-tizen-black
+BuildArch:  noarch
+Summary:    Tizen Web UI Framework Theme : tizen-black
+%Description -n web-ui-fw-theme-tizen-black
+    Tizen Web UI Framework Theme : tizen-black
+%files -n web-ui-fw-theme-tizen-black
+%manifest web-ui-fw-theme-tizen-black.manifest
+/usr/share/tizen-web-ui-fw/*/themes/tizen-black
 
 ###############################
 %package -n web-ui-fw-theme-default
@@ -70,6 +82,8 @@ Summary:    Tizen Web UI Framework Developer's files
 %files -n web-ui-fw-devel
 /usr/share/tizen-web-ui-fw/bin
 /usr/share/tizen-web-ui-fw/template
+/usr/share/tizen-web-ui-fw/*/js/src
+/usr/share/tizen-web-ui-fw/*/js/depData.json
 
 ###############################
 %package -n web-ui-fw-demo-tizen-winsets
@@ -83,6 +97,36 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Wed Apr 10 2013 Youmin Ha <youmin.ha@samsung.com> 0.2.23
+	- Naviframe : modify SIP down button's position
+	- Core: Performance fix for disableSelection and enableSelection
+	- Tests: Core tests for disableSelection
+	- patch: fix small mistakes on the patches
+	- virtuallist: Change demo button style
+	- Button: btn-icon only css has been changed
+	- loader: Fix screen-width option processing
+	- pagelayout: Remember back key when it is hidden
+	- Tizen Black Theme : Tizen black theme png file changed.
+	- UnitTC: tizen winset unit tc bugs have been fixed
+	- TizenWinset: Swipe list sample has been fixed
+	- Radio : remove default radio's width(N_SE-33579)
+	- Scrollview : divide x/y overflow attribute
+	- Gallery: orientation image showing issue has been fixed
+	- Gallery: remove method bug has been fixed
+	- virtualgrid : fix unit-test error and increase test items
+	- Gallery3d: Modify demo & source codes for visibility enhancement.
+	- Gallery3d: Reduce loading time of widget
+	- Gallery3d: Change files' format to unix
+	- Contextpopup: context popup close when window resize event fire
+	- Popup: reverse orientation bug has been fixed
+	- Tokentextarea: modify description
+	- Multimediaview: modify description
+	- JQM: Do not add ui-btn-icon-only class at the select button
+	- build: tizen-black theme package
+	- Tizenwinset: popup script has been removed
+	- Tizenwinset: substring split view text message
+	- Timepicker: data-changed event will be deprecated
+
 * Fri Apr 5 2013 Youmin Ha <youmin.ha@samsung.com> 0.2.22
 	- tizen-winsets: Fix demo menu
 	- Tizenwinset: Reorder tizenwinset menu

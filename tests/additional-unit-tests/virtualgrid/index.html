@@ -2,12 +2,11 @@
 <html>
 	<head>
 		<script src="../../../build/tizen-web-ui-fw/latest/js/jquery.js"></script>
-		<script src="../../../build/tizen-web-ui-fw/latest/js/tizen-web-ui-fw-libs.min.js"></script>
+		<script src="../../../build/tizen-web-ui-fw/latest/js/tizen-web-ui-fw-libs.js"></script>
 		<script src="../../../build/tizen-web-ui-fw/latest/js/tizen-web-ui-fw.js"
 			data-framework-theme="tizen-white"
 			data-framework-viewport-scale=false>
 		</script>
-
 		<link rel="stylesheet" href="../../../libs/js/jquery-mobile-1.2.0/external/qunit.css" />
 		<script src="../../../libs/js/jquery-mobile-1.2.0/external/qunit.js"></script>
 		<script src="virtualgrid-tests.js"></script>
@@ -28,7 +27,7 @@
 				</div>
 				<div data-role="content">
 					<script id="tizen-demo-namecard" type="text/x-jquery-tmpl">
-						<div class="ui-demo-namecard">
+						<div class="ui-demo-namecard ${ID}" style="width:50px">
 							<div class="ui-demo-namecard-pic">
 							</div>
 							<div class="ui-demo-namecard-contents">
@@ -36,11 +35,11 @@
 							</div>
 						</div>
 					</script>
-					<div id="virtualgrid-test" data-direction="y" data-role="virtualgrid" data-rotation="true" data-template="tizen-demo-namecard" data-dbtable="JSON_DATA" style="width: 500px;height:600px;"></div>
+					<div id="virtualgrid-test" data-direction="y" data-role="virtualgrid" data-rotation="true" data-template="tizen-demo-namecard" data-dbtable="JSON_DATA" style="width:600px; height:500px;"></div>
 					<script>
 						$( ".virtualgrid_demo_page" ).live( "pagecreate", function() {
 							console.log("pagecreate...");
-							$.getScript( "../../../demos/tizen-winsets/widgets/grid/js/virtualgrid-db-demo.js", function( data, textStatus ) {
+							$.getScript( "../../../demos/tizen-winsets/widgets/grid/virtualgrid-db-demo.js", function( data, textStatus ) {
 								$(document).trigger("dataloaded");
 							});
 						});

@@ -459,7 +459,13 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 
 			// screen-width support
 			if ( "screen-width" == viewportWidth ) {
-				viewportWidth = window.innerWidth;
+				if ( window.self == window.top ) {
+					// Top frame: for target. Use window.outerWidth.
+					viewportWidth = window.outerWidth;
+				} else {
+					// iframe: for web simulator. Use clientWidth.
+					viewportWidth = document.documentElement.clientWidth;
+				}
 			}
 
 			// set viewport meta tag

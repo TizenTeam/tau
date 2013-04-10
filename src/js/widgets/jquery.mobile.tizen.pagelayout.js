@@ -102,6 +102,9 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 
 			// only content
 			self._bindContentControlEvents();
+
+			// Store back-button, to show again
+			self._backBtnQueue = [];
 		},
 
 		/* add minimum fixed css style to bar(header/footer) and content
@@ -244,6 +247,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 			window.addEventListener( "softkeyboardchange", function ( e ) {
 				var $elDownBtn = $( "<div class='ui-btn-footer-down'></div>" ),
 					$elPage = $( ".ui-page-active" ),
+					backBtn,
 					backBtnPosition = "footer";
 
 				if ( $elPage.data( "addBackBtn" ) ) {
@@ -253,9 +257,22 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 						if ( !$elPage.find( ".ui-" + backBtnPosition + " .ui-btn-footer-down" ).length ) {
 							$elDownBtn.buttonMarkup( { icon: "down" } ).appendTo( $elPage.find( ".ui-" + backBtnPosition ) );
 						}
-						$( ".ui-page-active .ui-btn-back" ).hide();
+
+						// N_SE-32900: If an app moves a page when the pop is shown, the .ui-page-active page
+						//             is changed.
+						//             In this case, the '.ui-page-active .ui-btn-back' selector indicates a
+						//             new page's one, and the old page's .ui-btn-back button is still hidden.
+						//             So, the current back button is remembered to be shown at the
+						//             softkeyboardchange.off event.
+						backBtn = $( ".ui-page-active .ui-btn-back" );
+						backBtn.hide();
+						self._backBtnQueue.push( backBtn );	// Store hidden backBtn
 					} else if ( e.state == "off" ) {
-						$( ".ui-page-active .ui-btn-back" ).show();
+						self._backBtnQueue.forEach( function ( b ) {
+							b.show();	// Show each backBtn,
+						} );
+						self._backBtnQueue.length = 0;	// and clear queue.
+
 						$( ".ui-btn-footer-down" ).remove();
 					}
 				}

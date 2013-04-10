@@ -163,6 +163,7 @@ define( [ ], function ( ) {
 		align_type: null,
 		direction: 1,
 		container: null,
+		orientationEventFire: false,
 
 		_resize: function ( index ) {
 			var img = this.images[index],
@@ -592,8 +593,20 @@ define( [ ], function ( ) {
 
 			this.align_type = $( this.element ).jqmData( 'vertical-align' );
 
-			$( window ).bind( 'resize', function () {
-				self.refresh();
+			$.extend( this, {
+				_globalHandlers: [
+					{
+						src: $( window ),
+						handler: {
+							orientationchange: $.proxy( this, "_orientationHandler" ),
+							resize: $.proxy( this, "_resizeHandler" )
+						}
+					}
+				]
+			});
+
+			$.each( this._globalHandlers, function( idx, value ) {
+				value.src.bind( value.handler );
 			});
 		},
 
@@ -615,7 +628,18 @@ define( [ ], function ( ) {
 
 			this._detach_all();
 		},
-
+		_resizeHandler: function() {
+			var self = this;
+			if( self.orientationEventFire ) {
+				self.refresh();
+				self.orientationEventFire = false;
+			}
+		},
+		_orientationHandler: function() {
+			var self = this;
+			self.refresh();
+			self.orientationEventFire = true;
+		},
 		refresh: function ( start_index ) {
 			this._update();
 
@@ -666,7 +690,7 @@ define( [ ], function ( ) {
 					this.cur_img = this.prev_img;
 					this.prev_img = this.prev_img.prev();
 					if ( this.prev_img.length ) {
-						this._moveLeft( this.prev_img, -this.window_width);
+						this._moveLeft( this.prev_img, -this.window_width + 'px' );
 						this._attach( index - 2, this.prev_img );
 					}
 					this.index--;
@@ -674,7 +698,7 @@ define( [ ], function ( ) {
 					this.cur_img = this.next_img;
 					this.next_img = this.next_img.next();
 					if ( this.next_img.length ) {
-						this._moveLeft( this.next_img, this.window_width);
+						this._moveLeft( this.next_img, this.window_width + 'px' );
 						this._attach( index + 2, this.next_img );
 					}
 				}
@@ -684,7 +708,7 @@ define( [ ], function ( ) {
 				temp_img = this.prev_img;
 				this.prev_img = this.prev_img.prev();
 				if ( this.prev_img.length ) {
-					this._moveLeft( this.prev_img, -this.window_width);
+					this._moveLeft( this.prev_img, -this.window_width + 'px' );
 					this._attach( index - 1, this.prev_img );
 				}
 				this.index--;
@@ -693,7 +717,7 @@ define( [ ], function ( ) {
 				temp_img = this.next_img;
 				this.next_img = this.next_img.next();
 				if ( this.next_img.length ) {
-					this._moveLeft( this.next_img, this.window_width);
+					this._moveLeft( this.next_img, this.window_width + 'px' );
 					this._attach( index + 1, this.next_img );
 				}
 
@@ -720,7 +744,13 @@ define( [ ], function ( ) {
 			}
 
 			this.refresh( index );
+		},
+
+		destory: function() {
+			$( window ).unbind( 'resize', this._resizeHandler );
+			$( window ).unbind( 'orientationchange' , this._orientationHandler );
 		}
+
 	}); /* End of widget */
 
 	// auto self-init widgets

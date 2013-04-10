@@ -34,9 +34,7 @@ define( [ "components/imageloader", "components/motionpath", "components/webgl" 
  */
 
 /**
- *	'Gallery3D' is a 3D photo gallery widget.
- *	Images are arranged with a S-shaped curve on a 3-dimensional coordinate system.
- *	A user can rotate images by swiping the widget area.
+ *	The gallery3d widget displays images along a curved path on a 3-dimensional coordinate system.
  *	To improve performance, the size of image(s) displayed on the screen should be a square(under
  *	128X128 pixel) as possible. But if a user can't resize the images, this widget supports an image
  *	resizing feature and he/she can use it with "data-thumbnail-cache" option. ("data-thumbnail-cache"
@@ -91,9 +89,7 @@ define( [ "components/imageloader", "components/motionpath", "components/webgl" 
 
 /**
 	@class Gallery3D
-	The gallery3d widget is a 3D photo gallery widget.
-	Images are arranged with a S-shaped curve on a 3-dimensional coordinate system.
-	A user can rotate images by swiping the widget area.
+	The gallery3d widget displays images along a curved path on a 3-dimensional coordinate system.
 	<br/><br/>To add an gallery3d widget to the application, use the following code:
 
 		<script>
@@ -323,7 +319,7 @@ define( [ "components/imageloader", "components/motionpath", "components/webgl" 
 			"	gl_Position = uPerspectiveMatrix * v_Position;",
 			"	vTextureCoord = aTextureCoord;",
 			"	float fog = 1.0 - ((gl_Position.z + 1.5) / 60.0);",
-			"	vFogWeight = clamp( vec4( fog, fog, fog, 1.0), 0.0, 1.0);",
+			"	vFogWeight = clamp( vec4( fog, fog, fog, 1.0), 0.6, 1.0);",
 			"	vec3 transNormalVector = nNormalMatrix * aVertexNormal;",
 
 			"	float vLightWeightFirst = 0.0;",
@@ -340,7 +336,13 @@ define( [ "components/imageloader", "components/motionpath", "components/webgl" 
 			"varying vec4 vFogWeight;",
 
 			"void main(void) {",
-			"	vec4 TextureColor = (texture2D(uSampler, vec2(vTextureCoord.s, vTextureCoord.t))) * vFogWeight;",
+			"	vec4 TextureColor;",
+			"	if ( vTextureCoord.s <= 0.01 || vTextureCoord.s >= 0.99 || vTextureCoord.t <= 0.01 || vTextureCoord.t >= 0.99 ) {",
+			"		TextureColor = vec4(1.0, 1.0, 1.0, 0.5);",
+			"	} else {",
+			"		TextureColor = texture2D(uSampler, vec2(vTextureCoord.s, vTextureCoord.t));",
+			"	}",
+			"	TextureColor *= vFogWeight;",
 			"	gl_FragColor = vec4(TextureColor.rgb * vLightWeight, TextureColor.a);",
 			"}"
 		].join( "\n" );
@@ -484,8 +486,10 @@ define( [ "components/imageloader", "components/motionpath", "components/webgl" 
 			}
 
 			self._nodes = self._initBuffers( self._gl, self._shaderProgram );
+
 			self._initTextures( self._gl, self._nodes );
-			self._path = $.motionpath( "bspline", {
+
+			self._path = $.motionpath( "bezier2d", {
 				points: pathPoints,
 				maxLevel: self._MAX_ITEM_COUNT
 			} );
@@ -688,22 +692,6 @@ define( [ "components/imageloader", "components/motionpath", "components/webgl" 
 		},
 
 		// ----------------------------------------------------------
-		// Data parsing
-		// ----------------------------------------------------------
-		_loadData: function ( jsonUrl, key ) {
-			var self = this;
-
-			$.ajax({
-				async : false,
-				url : jsonUrl,
-				dataType: "json",
-				success : function ( data ) {
-					self._imageList = $.extend( [], data[ key ] );
-				}
-			});
-		},
-
-		// ----------------------------------------------------------
 		// WebGL
 		// ----------------------------------------------------------
 		_initGL: function ( canvas ) {
@@ -730,7 +718,7 @@ define( [ "components/imageloader", "components/motionpath", "components/webgl" 
 			self._pMatrix = mat4.create();
 			mat4.perspective( 40, gl.viewportWidth / gl.viewportHeight, 0.1, 10000.0, self._pMatrix );
 
-			gl.clearColor( 0.0, 0.0, 0.0, 1.0 );
+			gl.clearColor( 0.15, 0.15, 0.15, 1.0 );
 			gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT );
 
 			return gl;

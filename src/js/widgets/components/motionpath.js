@@ -37,11 +37,6 @@ define( [ ], function ( ) {
 		DEFAULT_STEP = 0.001,
 		MotionPath = {},
 		vec3 = window.vec3,
-		arcLength2d = function ( p0, p1 ) {
-			var d = [ p1[0] - p0[0], p1[1] - p0[1] ],
-				value = Math.sqrt( d[0] * d[0] + d[1] * d[1] );
-			return value;
-		},
 		arcLength3d = function ( p0, p1 ) {
 			var d = [ p1[0] - p0[0], p1[1] - p0[1], p1[2] - p0[2] ],
 				value = Math.sqrt( d[0] * d[0] + d[1] * d[1] + d[2] * d[2] );
@@ -96,7 +91,7 @@ define( [ ], function ( ) {
 				percent;
 			for ( percent = step; percent <= 1; percent += step ) {
 				current = this.getPosition( percent );
-				length += arcLength2d( last, current );
+				length += arcLength3d( last, current );
 				last = current;
 			}
 			return length;
@@ -112,9 +107,9 @@ define( [ ], function ( ) {
 				},
 				result = [
 					getValue( points[0][0], points[1][0], points[2][0], points[3][0], percent ),
-					getValue( points[0][1], points[1][1], points[2][1], points[3][1], percent )
+					getValue( points[0][2], points[1][2], points[2][2], points[3][2], percent )
 				];
-			return result;
+			return [ result[0], 0, result[1] ];
 		},
 
 		getPercent: function ( start, interval ) {
@@ -127,7 +122,7 @@ define( [ ], function ( ) {
 
 			for ( percent = start + step; percent <= 1; percent += step ) {
 				current = this.getPosition( percent );
-				length += arcLength2d( last, current );
+				length += arcLength3d( last, current );
 				if ( length >= targetLength ) {
 					return percent;
 				}
@@ -142,7 +137,7 @@ define( [ ], function ( ) {
 					return 3 * t * t * ( -p1 + 3 * c1 - 3 * c2 + p2 ) + 6 * t * ( p1 - 2 * c1 + c2 ) + 3 * ( -p1 + c1 );
 				},
 				tx = getTangent( points[0][0], points[1][0], points[2][0], points[3][0], percent ),
-				ty = getTangent( points[0][1], points[1][1], points[2][1], points[3][1], percent );
+				ty = getTangent( points[0][2], points[1][2], points[2][2], points[3][2], percent );
 			return Math.atan2( tx, ty ) - HALF_PI;
 		}
 
