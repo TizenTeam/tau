@@ -1,6 +1,7 @@
 var TESTS = {
 	"testPages":[
 		// Put your test here
+		"ensurens",
 		"button",
 		"core",
 		"check",
