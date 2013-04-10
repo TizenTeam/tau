@@ -34,9 +34,7 @@ define( [ "components/imageloader", "components/motionpath", "components/webgl" 
  */
 
 /**
- *	'Gallery3D' is a 3D photo gallery widget.
- *	Images are arranged with a S-shaped curve on a 3-dimensional coordinate system.
- *	A user can rotate images by swiping the widget area.
+ *	The gallery3d widget displays images along a curved path on a 3-dimensional coordinate system.
  *	To improve performance, the size of image(s) displayed on the screen should be a square(under
  *	128X128 pixel) as possible. But if a user can't resize the images, this widget supports an image
  *	resizing feature and he/she can use it with "data-thumbnail-cache" option. ("data-thumbnail-cache"
@@ -91,9 +89,7 @@ define( [ "components/imageloader", "components/motionpath", "components/webgl" 
 
 /**
 	@class Gallery3D
-	The gallery3d widget is a 3D photo gallery widget.
-	Images are arranged with a S-shaped curve on a 3-dimensional coordinate system.
-	A user can rotate images by swiping the widget area.
+	The gallery3d widget displays images along a curved path on a 3-dimensional coordinate system.
 	<br/><br/>To add an gallery3d widget to the application, use the following code:
 
 		<script>
@@ -484,8 +480,10 @@ define( [ "components/imageloader", "components/motionpath", "components/webgl" 
 			}
 
 			self._nodes = self._initBuffers( self._gl, self._shaderProgram );
+
 			self._initTextures( self._gl, self._nodes );
-			self._path = $.motionpath( "bspline", {
+
+			self._path = $.motionpath( "bezier2d", {
 				points: pathPoints,
 				maxLevel: self._MAX_ITEM_COUNT
 			} );
@@ -684,22 +682,6 @@ define( [ "components/imageloader", "components/motionpath", "components/webgl" 
 				}).bind( touchLeaveEvt, function ( e ) {
 					view.trigger( touchEndEvt );
 				});
-			});
-		},
-
-		// ----------------------------------------------------------
-		// Data parsing
-		// ----------------------------------------------------------
-		_loadData: function ( jsonUrl, key ) {
-			var self = this;
-
-			$.ajax({
-				async : false,
-				url : jsonUrl,
-				dataType: "json",
-				success : function ( data ) {
-					self._imageList = $.extend( [], data[ key ] );
-				}
 			});
 		},
 
