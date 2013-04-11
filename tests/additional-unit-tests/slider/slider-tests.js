@@ -43,12 +43,13 @@ $( document ).ready( function ( ) {
 		equal( handle.attr("aria-valuemin" ), widget.attr("min" ), "Paramter : min" );
 		equal( handle.attr("aria-valuemax" ), widget.attr("max" ), "Paramter : max" );
 
-		equal( parseInt( handle.css("left") ), handle_left( widget, slider ), "Handle Location: Default" );
+		ok( Math.abs(parseInt( handle.css("left") ) - handle_left( widget, slider ) ) <= 1, "Handle Location: Default" );
 
 		/* Check APIs */
 		widget.val( random_move( widget.attr("min" ), widget.attr("max" ) ) );
 		widget.trigger("change" );
-		equal( parseInt( handle.css("left") ), handle_left( widget, slider ), "Handle Location: Moved" );
+		ok( Math.abs(parseInt( handle.css("left") ) - handle_left( widget, slider ) ) <= 1, "Handle Location: Moved" );
+
 		if ( widget.jqmData('popup') == true ) {
 			popup = slider.find(".ui-slider-handle-press" );
 			ok( popup, "Popup present" );
@@ -68,14 +69,15 @@ $( document ).ready( function ( ) {
 
 	};
 
+	$('#sliderpage1').page( ) ;
+
 	test( "normal slider", function ( ) {
-		$('#sliderpage1').page( ) ;
 		unit_slider( $("#slider0" ) );
 	} );
 
 	test( "icon slider", function ( ) {
-		$('#sliderpage2').page( ) ;
 		unit_slider( $("#slider1" ) );
 	} );
+
 
 } );
