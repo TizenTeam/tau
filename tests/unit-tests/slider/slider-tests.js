@@ -49,4 +49,8 @@
 	test( "icon slider", function () {
 		unit_slider( $("#slider1") );
 	});
+
+	test( "jqm enhancing", function () {
+		ok( $( "#slider3" ).slider(), "JQM slider enhances select elements" );
+	});
 }( jQuery ));
