@@ -103,6 +103,10 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 		_primaryLanguage: null,
 		_secondLanguage: null,
 		_dividerMap: {},
+		_defaultTime: 500,
+		_defaultDuration: 500,
+		_timer: null,
+		_isFadeOut: false,
 
 		_create: function () {
 			var $el = this.element,
@@ -160,6 +164,10 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 					var coords = $.mobile.tizen.targetRelativeCoordsFromEvent( e ),
 						shortcutsListOffset = self.shortcutsList.offset();
 
+					if ( self._isFadeOut === true ) {
+						return;
+					}
+
 					// If the element is a list item, get coordinates relative to the shortcuts list
 					if ( e.target.tagName.toLowerCase() === "li" ) {
 						coords.x += $( e.target ).offset().left - shortcutsListOffset.left;
@@ -210,6 +218,8 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 						return true;
 					} );
 
+					self._setTimer( false );
+
 					e.preventDefault();
 					e.stopPropagation();
 				} )
@@ -220,6 +230,7 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 					$( ".ui-fastscroll-hover-first-item" ).removeClass( "ui-fastscroll-hover-first-item" );
 					$( ".ui-fastscroll-hover-up" ).removeClass( "ui-fastscroll-hover-up" );
 					$( ".ui-fastscroll-hover-down" ).removeClass( "ui-fastscroll-hover-down" );
+					self._setTimer( true );
 				} );
 
 			if ( page && !( page.is( ':visible' ) ) ) {
@@ -236,6 +247,12 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 			$( window ).unbind( ".fastscroll" ).bind( "resize.fastscroll", function ( e ) {
 				self.refresh();
 			} );
+
+			self.scrollview.bind( "scrollstart", function ( e ) {
+				self._setTimer( false );
+			}).bind( "scrollstop", function ( e ) {
+				self._setTimer( true );
+			});
 		},
 
 		_hitOmitItem: function ( listItem, text ) {
@@ -304,6 +321,7 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 			listItem.focusin( function ( e ) {
 				self.shortcutsList.attr( "aria-hidden", false );
 				self._hitItem( listItem );
+				self._setTimer( false );
 			}).focusout( function ( e ) {
 				self.shortcutsList.attr( "aria-hidden", true );
 				$popup.hide();
@@ -311,6 +329,7 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 				$( ".ui-fastscroll-hover-first-item" ).removeClass( "ui-fastscroll-hover-first-item" );
 				$( ".ui-fastscroll-hover-up" ).removeClass( "ui-fastscroll-hover-up" );
 				$( ".ui-fastscroll-hover-down" ).removeClass( "ui-fastscroll-hover-down" );
+				self._setTimer( true );
 			});
 		},
 
@@ -433,6 +452,24 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 			});
 
 			self._dividerMap = map;
+		},
+
+		_setTimer: function ( start ) {
+			var self = this;
+
+			if ( start === true ) {
+				self._timer = setTimeout( function () {
+					self._isFadeOut = true;
+					self.shortcutsContainer.fadeOut( self._defaultDuration, function () {
+						self._isFadeOut = false;
+					});
+				}, self._defaultTime );
+			} else {
+				if ( self._timer !== null ) {
+					clearTimeout( self._timer );
+				}
+				self.shortcutsContainer.show();
+			}
 		},
 
 		indexString: function ( indexAlphabet ) {
@@ -610,6 +647,9 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 			// make the scrollview clip tall enough to show the whole of the shortcutslist
 			minClipHeight = shortcutsTop + self.shortcutsContainer.outerHeight() + 'px';
 			self.scrollview.css( 'min-height', minClipHeight );
+
+			self._setTimer( false );
+			self._setTimer( true );
 		}
 	} );
 
