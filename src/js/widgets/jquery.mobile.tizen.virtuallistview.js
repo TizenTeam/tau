@@ -249,9 +249,11 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 			$( o.id ).height( t._numItemData * t._line_h );
 		},
 
+		// Resize each listitem's width
 		_resize: function ( event ) {
-			var o,
+			var o,	// 'ul'
 				t = this,
+				li,
 				padding,
 				margin;
 
@@ -260,13 +262,14 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 			} else {
 				o = event;
 			}
+			li = $( o ).children( o.childSelector )
 
-			t._container_w = $( o.id ).innerWidth();
+			t._container_w = $( o ).width();
 
-			padding = parseInt( $( o.id + o.childSelector ).css( "padding-left" ), 10 )
-				+ parseInt( $( o.id + o.childSelector ).css( "padding-right" ), 10 );
+			padding = parseInt( li.css( "padding-left" ), 10 )
+				+ parseInt( li.css( "padding-right" ), 10 );
 
-			$( o.id + o.childSelector ).each( function (index) {
+			li.each( function ( index, obj ) {
 				margin = parseInt( $( this ).css( "margin-left" ), 10 )
 					+ parseInt( $( this ).css( "margin-right" ), 10 );
 				$( this ).css( "width", t._container_w - padding - margin );
@@ -536,8 +539,8 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 			// Bind _scrollmove() at 'scrollstart.virtuallist' event
 			$( document ).bind( "scrollstart.virtuallist scrollstop.vrituallist", t, t._scrollmove );
 
-			// Bind _resize() at 'resize.virtuallist'
-			$( window ).bind( "resize.virtuallist", t._resize );
+			// Bind _resize()
+			$( window ).on( "throttledresize", $( o.id ), t._resize );
 
 			// when ul is a childselector, assume that this is also a swipelist,
 			// and run swipelist constructor
@@ -688,7 +691,7 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 
 			$( document ).unbind( "scrollstop" );
 
-			$( window ).unbind( "resize.virtuallist" );
+			$( window ).off( "throttledresize", this._resize );
 
 			$( o.id ).empty();
 
