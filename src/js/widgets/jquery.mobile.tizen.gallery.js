@@ -216,6 +216,7 @@ define( [ ], function ( ) {
 				processing = function () {
 					self._resize( index );
 					self._align( index, obj );
+
 				},
 				loading = function () {
 					if ( self.images[index] === undefined ) {
@@ -247,6 +248,7 @@ define( [ ], function ( ) {
 			}
 
 			obj.css( "display", "block" );
+			obj.css( "visibility", "hidden" );
 			obj.append( this.images[index] );
 			loading();
 		},
@@ -301,7 +303,7 @@ define( [ ], function ( ) {
 
 			coord_x = _x - this.org_x;
 
-			this._moveLeft( this.cur_img , coord_x + 'px');
+			this._moveLeft( this.cur_img , coord_x + 'px' );
 			if ( this.next_img.length ) {
 				this._moveLeft( this.next_img ,  coord_x + this.window_width + 'px' );
 			}
@@ -455,7 +457,8 @@ define( [ ], function ( ) {
 		},
 		_setTranslateposition : function ( $ele, value ) {
 			var translate,
-				cssArray = null;
+				cssArray = null,
+				self = this;
 
 			if ( $.support.cssTransform3d ) {
 				translate = "translate3d(" + value + ", 0px, 0px)";
@@ -471,10 +474,25 @@ define( [ ], function ( ) {
 			$ele.css(cssArray);
 			return $ele;
 		},
-		_moveLeft : function ( $ele , value , duration) {
+		_hidePrevNext : function() {
+			var self = this;
+
+			if( self.next_img )
+				self.next_img.css( "visibility", "hidden" );
+			if( self.prev_img )
+				self.prev_img.css( "visibility", "hidden" );
+
+		},
+		_hideCur : function() {
+			var self = this;
+			if( self.cur_img )
+				self.cur_img.css( "visibility", "hidden" );
+		},
+		_moveLeft : function ( $ele , value , duration ) {
 			var translate,
 				transition = "",
-				cssArray = null;
+				cssArray = null,
+				self = this;
 
 			if ( $.support.cssTransform3d ) {
 				translate = "translate3d(" + value + ", 0px, 0px)";
@@ -491,6 +509,13 @@ define( [ ], function ( ) {
 					"transform": translate};
 			if( transition !== "" ) {
 				cssArray["-webkit-transition"] = transition ;
+				if( value == "0px" )
+					$ele.one( 'webkitTransitionEnd', self._hidePrevNext );
+				else
+					$ele.one( 'webkitTransitionEnd', self._hideCur );
+			}
+			if( value == "0px" ) {
+				$ele.css( "visibility", "visible" );
 			}
 
 			$ele.css(cssArray);
@@ -511,6 +536,7 @@ define( [ ], function ( ) {
 			this._attach( this.index, this.cur_img );
 			this._attach( this.index + 1, this.next_img );
 
+			this.cur_img.css( 'visibility', 'visible' );
 			if ( this.prev_img.length ) {
 				this._setTranslateposition( this.prev_img, -this.window_width + 'px');
 			}
