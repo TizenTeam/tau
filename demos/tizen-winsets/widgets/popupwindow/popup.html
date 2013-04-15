@@ -25,9 +25,6 @@
 	</div>
 	<div class="content" data-role="content">
 		<ul data-role="listview" data-icon="1line-textonly">
-			<li data-role="list-divider">APP SAMPLES</li>
-			<li><a href="#center_social_style1" data-inline="true" data-rel="popup" data-position-to="window">Social Magazine style1</a></li>
-			<li><a href="#center_social_style2" data-inline="true" data-rel="popup" data-position-to="window">Social Magazine style2</a></li>
 			<li data-role="list-divider">NORMAL SAMPLES</li>
 			<li><a href="#center_info" data-inline="true" data-rel="popup" data-position-to="window">Center info popup</a></li>
 			<li><a href="#center_title" data-inline="true" data-rel="popup" data-position-to="window">Center title popup</a></li>
@@ -42,50 +39,9 @@
 			<li><a href="#center_liststyle_1btn" data-inline="true" data-rel="popup" data-position-to="window">Center_list style 1 button popup</a></li>
 			<li><a href="#center_liststyle_2btn" data-inline="true" data-rel="popup" data-position-to="window">Center_list style 2 button popup</a></li>
 			<li><a href="#center_liststyle_3btn" data-inline="true" data-rel="popup" data-position-to="window">Center_list style 3 button popup</a></li>
-			<li><a href="#textbox_popup" data-inline="true" data-rel="popup" data-position-to="window">Popup has textbox</a></li>
+			<li id="go_textbox_popup"><a href="#textbox_popup" data-inline="true" data-rel="popup" data-position-to="window">Popup has textbox</a></li>
 			<li><a href="#positionWindow" data-rel="popup" data-position-to="window">Position</a></li>
 		</ul>
-
-		<!-- Social Magazine font popup -->
-		<div id="center_social_style1" data-role="popup" class="center_title_2btn">
-			<div class="ui-popup-title">
-				<h1>Font Size</h1>
-			</div>
-			<div class="ui-popup-scroller-bg" data-scroll="y"  style="height:auto">
-				<ul data-role="listview">
-					<li class="ui-li-has-radio" id="text_fontSmall">
-						<input type="radio" name="radio-choice-1" id="fontSmall" value="choice-1"/>
-						<label for="choice-1">text_Small</label>
-					</li>
-					<li class="ui-li-has-radio" id="text_fontMedium">
-						<input type="radio" name="radio-choice-1" id="fontMedium" value="choice-2"/>
-						<label for="choice-2">text_Medium</label>
-					</li>
-					<li class="ui-li-has-radio" id="text_fontLarge">
-						<input type="radio" name="radio-choice-1" id="fontLarge" value="choice-3"/>
-						<label for="choice-3">text_Large</label>
-					</li>
-				</ul>
-			</div>
-			<div class="ui-popup-button-bg">
-				<a data-role="button" data-rel="back" data-inline="true">OK</a>
-				<a data-role="button" data-rel="back" data-inline="true">Cancel</a>
-			</div>
-		</div>
-
-		<!-- Social Magazine ime popup -->
-		<div id="center_social_style2" data-role="popup" class="center_title_2btn">
-			<div class="ui-popup-title">
-				<h1>Create new category<h1>
-			</div>
-			<div class="ui-popup-text">
-						<input type="text" id="newCategoryPopupInput" name="newCategoryName" size="20" />
-			</div>
-					<div class="ui-popup-button-bg">
-						<a data-role="button" data-rel="back" data-inline="true">OK</a>
-						<a data-role="button" data-rel="back" data-inline="true">Cancel</a>
-					</div>
-		</div>
 
 		<!-- Center info Popup -->
 		<div id="center_info" data-role="popup" class="center_info">
@@ -311,6 +267,12 @@
 				<a data-role="button" data-rel="back" data-inline="true">OK</a>
 				<a data-role="button" id="btn_textbox_popup_cancel" data-inline="true">Cancel</a>
 			</div>
+		</div>
+
+		<div id="textbox_popup_landscape" data-role="popup" class="center_info">
+                       <div class="ui-popup-text"> <p>
+                                Not enough area. disable scrollview to use entry popup in landscape mode.
+                        </p></div>
 		</div>
 
 		<div data-role="popup" id="positionWindow">
