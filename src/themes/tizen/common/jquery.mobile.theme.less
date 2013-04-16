@@ -113,10 +113,12 @@
 	}
 
 	img {
+		position : absolute;
 		display: inline-block;
 		height: 16 * @unit_base;
 		width: 16 * @unit_base;
 		margin-left: 8 * @unit_base;
+		margin-top : 24 * @unit_base;
 	}
 
 	.ui-title-text-sub {
@@ -181,9 +183,12 @@
 		right : 62 * @unit_base;
 	}
 
+        > img + h1 {
+                padding-left : 24 * @unit_base;
+        }
+
 	> img + h1 + .ui-btn:not(.ui-btn-icon_only):nth-child(3),
 	> img + h1 + .naviframe-button.ui-btn:not(.ui-btn-icon_only):nth-child(3) {
-
 		right : 7 * @unit_base;
 	}
 
@@ -208,6 +213,10 @@
 	}
 	
 	&.ui-title-multiline {
+		img {
+			margin-top : 14 * @unit_base;
+		}
+
 		.ui-title {
 			min-height : 24 * @unit_base;
 			max-height : 24 * @unit_base; /* temporary UX strange */
