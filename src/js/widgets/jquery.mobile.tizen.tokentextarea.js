@@ -309,8 +309,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 				$view = self.element,
 				option = self.options,
 				inputbox = $view.find( ".ui-tokentextarea-input" ),
-				moreBlock = $view.find( ".ui-tokentextarea-link-base" ),
-				isSeparator = false;
+				moreBlock = $view.find( ".ui-tokentextarea-link-base" );
 
 			// delegate a event to HTMLDivElement(each block).
 			$view.delegate( "div", "click", function ( event ) {
@@ -335,7 +334,8 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 				var keyValue = event.keyCode,
 					valueString = $( inputbox ).val(),
 					valueStrings = [],
-					index;
+					index,
+					isSeparator = false;
 
 				if ( keyValue === 8 ) {
 					if ( valueString.length === 0 ) {
@@ -378,7 +378,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 				if ( $view.innerWidth() === 0 ) {
 					return ;
 				}
-				self._modifyInputBoxWidth();
+				self.refresh();
 				$( inputbox ).removeClass( "ui-tokentextarea-input-invisible" ).addClass( "ui-tokentextarea-input-visible" );
 			});
 
@@ -757,9 +757,11 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 
 		refresh : function () {
 			var self = this,
-				$view = this.element;
+				viewWidth = this.element.innerWidth();
 
-			self._viewWidth = $view.innerWidth();
+			if ( viewWidth && self._viewWidth !== viewWidth ) {
+				self._viewWidth = viewWidth;
+			}
 			self._resizeBlocks();
 			self._modifyInputBoxWidth();
 		},
