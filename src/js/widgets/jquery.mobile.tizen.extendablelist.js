@@ -663,10 +663,8 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 		}
 	});
 
-	//auto self-init widgets
-	$( document ).bind( "pagecreate create", function ( e ) {
-		$( $.tizen.extendablelist.prototype.options.initSelector, e.target ).extendablelist();
-	});
+	//delegate self-init widgets
+	$.delegateSelfInitWithSingleSelector( $.tizen.extendablelist );
 
 }( jQuery ));
 

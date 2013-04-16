@@ -992,10 +992,8 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 		}
 	});
 
-	//auto self-init widgets
-	$( document ).bind( "pagecreate create", function ( e ) {
-		$( $.tizen.virtuallistview.prototype.options.initSelector, e.target ).virtuallistview();
-	});
+	//delegate self-init widgets
+	$.delegateSelfInitWithSingleSelector( $.tizen.virtuallistview );
 
 } ( jQuery ) );
 

@@ -1030,9 +1030,9 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 		}
 	});
 
-	$( document ).bind( "pagecreate create", function ( e ) {
-		$.tizen.splitview.prototype.enhanceWithin( e.target );
-	});
+	//delegate self-init widgets
+	$.delegateSelfInitWithSingleSelector( $.tizen.splitview );
+
 } ( jQuery, window, document ) );
 
 //>>excludeStart("jqmBuildExclude", pragmas.jqmBuildExclude);
