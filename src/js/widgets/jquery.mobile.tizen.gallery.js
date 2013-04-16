@@ -477,16 +477,19 @@ define( [ ], function ( ) {
 		_hidePrevNext : function() {
 			var self = this;
 
-			if( self.next_img )
+			if( self.next_img ) {
 				self.next_img.css( "visibility", "hidden" );
-			if( self.prev_img )
+			}
+			if( self.prev_img ) {
 				self.prev_img.css( "visibility", "hidden" );
+			}
 
 		},
 		_hideCur : function() {
 			var self = this;
-			if( self.cur_img )
+			if( self.cur_img ) {
 				self.cur_img.css( "visibility", "hidden" );
+			}
 		},
 		_moveLeft : function ( $ele , value , duration ) {
 			var translate,
@@ -509,10 +512,11 @@ define( [ ], function ( ) {
 					"transform": translate};
 			if( transition !== "" ) {
 				cssArray["-webkit-transition"] = transition ;
-				if( value == "0px" )
+				if( value == "0px" ) {
 					$ele.one( 'webkitTransitionEnd', self._hidePrevNext );
-				else
+				} else {
 					$ele.one( 'webkitTransitionEnd', self._hideCur );
+				}
 			}
 			if( value == "0px" ) {
 				$ele.css( "visibility", "visible" );
