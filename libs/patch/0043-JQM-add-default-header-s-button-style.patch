@@ -1,0 +1,26 @@
+From f26f427a175fce4893bba829db2061d2dfa14cb0 Mon Sep 17 00:00:00 2001
+From: Jinhyuk Jun <jinhyuk.jun@samsung.com>
+Date: Sat, 13 Apr 2013 13:33:21 +0900
+Subject: [PATCH] JQM add default header's button style
+
+Change-Id: Iffcc090fb16f464c4fa970ac9d1ff447fda993ed
+---
+ .../js/widgets/page.sections.js                    |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/page.sections.js b/libs/js/jquery-mobile-1.2.0/js/widgets/page.sections.js
+index 134a059..1ea6479 100644
+--- a/libs/js/jquery-mobile-1.2.0/js/widgets/page.sections.js
++++ b/libs/js/jquery-mobile-1.2.0/js/widgets/page.sections.js
+@@ -54,7 +54,7 @@ $.mobile.$document.bind( "pagecreate", function( e ) {
+ 
+ 			if ( role === "header") {
+ 				// Right,left buttons
+-				$headeranchors	= $this.children( "a, button" );
++				$headeranchors	= $this.children( "a, div.naviframe-button, a.naviframe-button, button" );
+ 				leftbtn	= $headeranchors.hasClass( "ui-btn-left" );
+ 				rightbtn = $headeranchors.hasClass( "ui-btn-right" );
+ 
+-- 
+1.7.9.5
+

@@ -16,8 +16,8 @@
 		equal( widget.hasClass('ui-collapsible'), true, "Markup check") ;
 
 		/* Check Option */
-		equal( obj_collapse.options.expandCueText, " click to expand contents", "Collapsed test -> expandCueText");
-		equal( obj_collapse.options.collapseCueText, " click to collapse contents", "Collapsed test -> collapseCueText");
+		equal( obj_collapse.options.expandCueText, " Expandable list, tap to open list", "Collapsed test -> expandCueText");
+		equal( obj_collapse.options.collapseCueText, " Expandable list, tap to close list", "Collapsed test -> collapseCueText");
 		equal( obj_collapse.options.collapsed, true, "Collapsed test -> collapsed");
 		equal( obj_collapse.options.heading, "h1,h2,h3,h4,h5,h6,legend,li", "Collapsed test -> heading");
 		equal( obj_collapse.options.theme, 's', "Collapsed test -> theme");

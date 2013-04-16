@@ -135,6 +135,8 @@ define( [ 'jquery.mobile.tizen.widgetex', 'jquery.mobile.tizen.popupwindow', 'jq
 			initSelector: "input[type='date'], input[type='datetime'], input[type='time'], :jqmData(role='datetimepicker')"
 		},
 
+		container : null,
+
 		_calendar: function () {
 			return window.Globalize.culture().calendars.standard;
 		},
@@ -553,8 +555,30 @@ define( [ 'jquery.mobile.tizen.widgetex', 'jquery.mobile.tizen.popupwindow', 'jq
 			this.ui.bind('vclick', function ( e ) {
 				obj._showDataSelector( obj, this, e.target );
 			});
-		},
 
+			$.extend( this, {
+				_globalHandlers: [
+					{
+						src: $( window ),
+						handler: {
+							orientationchange: $.proxy( this, "_orientationHandler" )
+						}
+					}
+				]
+			});
+
+			$.each( this._globalHandlers, function( idx, value ) {
+				value.src.bind( value.handler );
+			});
+		},
+		_orientationHandler: function() {
+			var self = this;
+			if( self._popup_open ) {
+				self._popup_open = false;
+				self.container.popupwindow( 'close' );
+			}
+			return false;
+		},
 		_populateDataSelector: function ( field, pat ) {
 			var values,
 				numItems,
@@ -731,6 +755,7 @@ define( [ 'jquery.mobile.tizen.widgetex', 'jquery.mobile.tizen.popupwindow', 'jq
 						target.offset().left + ( target.width() / 2 ) + newLeft - window.pageXOffset ,
 						target.offset().top + target.height() - window.pageYOffset );
 
+				this.container = $ctx;
 				this._popup_open = true;
 
 				$div.bind('popupafterclose', function ( e ) {

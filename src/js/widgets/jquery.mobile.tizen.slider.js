@@ -428,8 +428,14 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 	// initialise sliders with our own slider
 	$( document ).bind( "pagecreate create", function ( e ) {
 		var jqmSliderInitSelector = $.data( window, "jqmSliderInitSelector" );
-		$( e.target ).find(jqmSliderInitSelector).not('select').tizenslider();
-		$( e.target ).find(jqmSliderInitSelector).filter('select').slider();
+		$( e.target ).find(jqmSliderInitSelector).each(function () {
+			var $this = $( this );
+			if ( $this.is("select") ) {
+				$this.slider();
+			} else {
+				$this.tizenslider();
+			}
+		});
 	});
 
 }( jQuery, this ));

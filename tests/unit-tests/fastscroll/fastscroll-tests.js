@@ -10,7 +10,8 @@
 	var unit_fastscroll = function ( list ) {
 		var widget,
 			shortcut,
-			divider;
+			divider,
+			indexString = "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z:ㄱ,ㄴ,ㄷ,ㄹ,ㅁ,ㅂ,ㅅ,ㅇ,ㅈ,ㅊ,ㅋ,ㅌ,ㅍ,ㅎ" ;
 
 		widget = list.parentsUntil(".ui-content").parent().find(".ui-fastscroll");
 
@@ -24,6 +25,10 @@
 		for ( i = 0; i < divider.length; i++ ) {
 			equal( $( divider[i] ).text(), $( shortcut[i] ).text(), "Shortcut");
 		}
+
+		/* indexString */
+		list.fastscroll( "indexString", indexString );
+		equal( list.fastscroll( "indexString" ), indexString, "indexString" );
 	};
 
 	test( "shortcut", function () {

@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.23
+Version:    0.2.24
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -97,6 +97,38 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Tue Apr 16 2013 Youmin Ha <youmin.ha@samsung.com> 0.2.24
+	- SegmentControl: 2-buttons display issue (N_SE-34200)
+	- Naviframe : remove unnecessary img positioning(N_SE-33969)
+	- Gallery: jslint error fix
+	- TizenWinset : remove landscape SIP on mode
+	- Tizen Black Theme png file changed
+	- Gallery: Images showing bug has been fixed
+	- Scrollview : change horizontal scrollview demo(N_SE-33997)
+	- Tizenwinset: added return false in popup sample
+	- Naviframe : support data-role="button" in header
+	- Additional UnitTC: tizen winset unit tc bugs have been fixed
+	- Checkbox : remove favorite button's display:block(N_SE-33896)
+	- UnitTC: QUnit path has been changed. Priority, function type check function has been added
+	- Tizen-winset : Footer changed from lower case to upper case.
+	- Slider: enhance performance fix
+	- UnitTC: Addtional unit tc ref path has been fixed
+	- virtualgrid: apply overscrolling images to the style of widget
+	- Tabbar : Change overscroll image(left/right)
+	- ensurens: optimizations
+	- ensurens: qunit tests
+	- Tokentextarea: Fix block size error
+	- Fastscroll: Add a feature to fade out Fastscroll widget.
+	- Fastscroll: Add a user interaction at the omitted items.
+	- ImageLoader: Performance fix: apply lazy loading for canvas element
+	- Tests: Add tests for $.imageloader
+	- SegmentControl: 2-buttons display issue (N_SE-34200)
+	- virtuallist: fix width resizing trigger
+	- Timepicker: timepicker is closed when orientationchange event fired
+	- TizenWinset : Tabbar-persist issue.(N_SE-33996)
+	- Add Flora license
+	- collapsible: Fix collapsible list animation bug
+
 * Wed Apr 10 2013 Youmin Ha <youmin.ha@samsung.com> 0.2.23
 	- Naviframe : modify SIP down button's position
 	- Core: Performance fix for disableSelection and enableSelection

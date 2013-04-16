@@ -69,7 +69,8 @@
 	}
 
 	/* header button position : need to press area more... */
-	>.ui-btn {
+	>.ui-btn,
+	>.naviframe-button.ui-btn {
 		.ui-btn-inner.ui-btn-icon-only {
 			.LESSbox-boxsizing( border-box );
 			height : 100%;
@@ -79,13 +80,21 @@
 		}
 	}
 
-	>.ui-btn:not(.ui-btn-icon-notext) {
+	>.naviframe-button.ui-btn {
+		.ui-btn-inner .ui-icon {
+			margin-top : 0px;
+		}
+	}
+
+	>.ui-btn:not(.ui-btn-icon-notext),
+	>.naviframe-button.ui-btn:not(.ui-btn-icon-notext) {
 		.ui-btn-inner.ui-btn-icon-only {
 			padding-left : 0px;
 		}
 	}
 
-	>.ui-btn:not(.ui-btn-icon_only) {
+	>.ui-btn:not(.ui-btn-icon_only),
+	>.naviframe-button.ui-btn:not(.ui-btn-icon_only) {
 		width : 53 * @unit_base;
 		height : 18 * @unit_base;
 		top : auto;
@@ -104,10 +113,12 @@
 	}
 
 	img {
+		position : absolute;
 		display: inline-block;
 		height: 16 * @unit_base;
 		width: 16 * @unit_base;
 		margin-left: 8 * @unit_base;
+		margin-top : 24 * @unit_base;
 	}
 
 	.ui-title-text-sub {
@@ -124,7 +135,8 @@
 		}
 	}
 
-	> .ui-btn{
+	> .ui-btn, 
+	> .naviframe-button.ui-btn {
 		position : absolute;
 		top : 16 * @unit_base;
 		margin-top : 0px;
@@ -144,7 +156,8 @@
 		top: 8 * @unit_base;
 	}
 
-	> .ui-btn.ui-btn-icon_only {
+	> .ui-btn.ui-btn-icon_only,
+	> .naviframe-button.ui-btn.ui-btn-icon_only {
 		-o-border-radius : 0px;
 		-ms-border-radius : 0px;
 		-moz-border-radius : 0px;
@@ -160,35 +173,50 @@
 		right : 56 * @unit_base;
 	}
 
-	> .ui-btn:not(.ui-btn-icon_only):nth-child(2) {
+	> .ui-btn:not(.ui-btn-icon_only):nth-child(2),
+	> .naviframe-button.ui-btn:not(.ui-btn-icon_only):nth-child(2) {
 		right : 7 * @unit_base;
 	}
 
-	> .ui-btn:not(.ui-btn-icon_only):nth-child(3) {
+	> .ui-btn:not(.ui-btn-icon_only):nth-child(3),
+	> .naviframe-button.ui-btn:not(.ui-btn-icon_only):nth-child(3) {
 		right : 62 * @unit_base;
 	}
 
-	> img + h1 + .ui-btn:not(.ui-btn-icon_only):nth-child(3) {
+        > img + h1 {
+                padding-left : 24 * @unit_base;
+        }
+
+	> img + h1 + .ui-btn:not(.ui-btn-icon_only):nth-child(3),
+	> img + h1 + .naviframe-button.ui-btn:not(.ui-btn-icon_only):nth-child(3) {
 		right : 7 * @unit_base;
 	}
 
-	> img + h1 + .ui-btn:not(.ui-btn-icon_only):nth-child(3) + .ui-btn:not(.ui-btn-icon_only) {
+	> img + h1 + .ui-btn:not(.ui-btn-icon_only):nth-child(3) + .ui-btn:not(.ui-btn-icon_only),
+	> img + h1 + .naviframe-button.ui-btn:not(.ui-btn-icon_only):nth-child(3) + .naviframe-button.ui-btn:not(.ui-btn-icon_only) {
 		right : 62 * @unit_base;
 	}
 
-	> img + h1 + span.ui-title-text-sub + .ui-btn:not(.ui-btn-icon_only):nth-child(4) {
+	> img + h1 + span.ui-title-text-sub + .ui-btn:not(.ui-btn-icon_only):nth-child(4),
+	> img + h1 + span.ui-title-text-sub + .naviframe-button.ui-btn:not(.ui-btn-icon_only):nth-child(4) {
 		right : 7 * @unit_base;
 	}
 
-	> img + h1 + span.ui-title-text-sub + .ui-btn:not(.ui-btn-icon_only):nth-child(4) + .ui-btn:not(.ui-btn-icon_only) {
+	> img + h1 + span.ui-title-text-sub + .ui-btn:not(.ui-btn-icon_only):nth-child(4) + .ui-btn:not(.ui-btn-icon_only),
+	> img + h1 + span.ui-title-text-sub + .naviframe-button.ui-btn:not(.ui-btn-icon_only):nth-child(4) + .naviframe-button.ui-btn:not(.ui-btn-icon_only) {
 		right : 62 * @unit_base;
 	}
+
 	> .ui-btn.ui-btn-down-s {
 		background : @color_bar_btn_press;
 		color : @color_bar_title_button_text_press;
 	}
 	
 	&.ui-title-multiline {
+		img {
+			margin-top : 14 * @unit_base;
+		}
+
 		.ui-title {
 			min-height : 24 * @unit_base;
 			max-height : 24 * @unit_base; /* temporary UX strange */

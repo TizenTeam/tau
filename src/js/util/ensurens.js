@@ -37,15 +37,25 @@ define( [ ], function ( ) {
 // Ensure that the given namespace is defined. If not, define it to be an empty object.
 // This is kinda like the mkdir -p command.
 
-function ensureNS(ns) {
-    var nsAr = ns.split("."),
-    nsSoFar = "";
-
-    for (var Nix in nsAr) {
-        nsSoFar = nsSoFar + (Nix > 0 ? "." : "") + nsAr[Nix];
-        eval (nsSoFar + " = " + nsSoFar + " || {};");
-    }
-}
+var ensureNS = (function () {
+	var internalCache = {};
+	return function ensureNS (ns) { // name just for debugging purposes
+		var nsArr = ns.split(".").reverse(),
+			nsSoFar = "",
+			buffer = "",
+			leaf = "",
+			l = nsArr.length;
+		while(--l >= 0) {
+			leaf = nsArr[l];
+			nsSoFar = nsSoFar + (nsSoFar.length > 0 ? "." : "") + leaf;
+			if (!internalCache[nsSoFar]) {
+				internalCache[nsSoFar] = true;
+				buffer += "!window." + nsSoFar + ' && (window.' + nsSoFar + " = {});\n";
+			}
+		}
+		buffer.length && (new Function(buffer))();
+	};
+})();
 
 //>>excludeStart("jqmBuildExclude", pragmas.jqmBuildExclude);
 } );
