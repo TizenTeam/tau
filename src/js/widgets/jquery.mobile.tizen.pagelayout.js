@@ -308,6 +308,9 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 			resultMinHeight = layoutInnerHeight - $elHeader.height() - $elFooter.height();
 
 			$elContent.css( "min-height", resultMinHeight - parseFloat( $elContent.css("padding-top") ) - parseFloat( $elContent.css("padding-bottom") ) + "px" );
+			if ( $.support.scrollview ) {
+				$elContent.children( ".ui-scrollview-view" ).css( "min-height", $elContent.css( "min-height" ) );
+			}
 		},
 
 		_updateHeaderArea : function ( thisPage ) {
