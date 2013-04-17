@@ -303,7 +303,9 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
                         if ( !$.support.scrollview ) {
                                 dpr = window.outerWidth / window.innerWidth;
                                 layoutInnerHeight = Math.floor( window.outerHeight / dpr );
-                        }
+                        } else {
+				layoutInnerHeight = window.innerHeight;
+			}
 
 			resultMinHeight = layoutInnerHeight - $elHeader.height() - $elFooter.height();
 
@@ -375,6 +377,8 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 			if ( !$.support.scrollview ) {
 				dpr = window.outerWidth / window.innerWidth;
 				layoutInnerHeight = Math.floor( window.outerHeight / dpr );
+			} else {
+				layoutInnerHeight = window.innerHeight;
 			}
 
 			resultContentHeight = layoutInnerHeight - resultFooterHeight - resultHeaderHeight;
