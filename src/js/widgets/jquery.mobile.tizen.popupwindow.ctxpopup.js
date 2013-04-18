@@ -227,14 +227,14 @@ define( [ '../jquery.mobile.tizen.core', 'jquery.mobile.tizen.popupwindow', 'jqu
 							)
 					),
 					// Triangle points here
-				final = {
+				finalposition = {
 					"x": orig.x + ( isHorizontal ? triangleOffset : 0) + ("r" === arrow ? size.cx : 0),
 					"y": orig.y + (!isHorizontal ? triangleOffset : 0) + ("b" === arrow ? size.cy : 0)
 				},
 				ret = {
 					actual			: orig,
 					triangleOffset	: triangleOffset,
-					absDiff			: Math.abs( x - final.x ) + Math.abs( y - final.y )
+					absDiff			: Math.abs( x - finalposition.x ) + Math.abs( y - finalposition.y )
 				};
 
 			// Hide it back
