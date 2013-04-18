@@ -9,7 +9,7 @@ define( [ 'jquery.mobile.core' ], function ( ) {
 /* ***************************************************************************
 	Flora License
 
-	Version 1.0, May, 2012
+	Version 1.0, April, 2013
 
 	http://floralicense.org/license/
 
@@ -76,8 +76,8 @@ define( [ 'jquery.mobile.core' ], function ( ) {
 	subsequently incorporated within the Work.
 
 	"Tizen Certified Platform" shall mean a software platform that complies
-	with the standards set forth in the Compatibility Definition Document
-	and passes the Compatibility Test Suite as defined from time to time
+	with the standards set forth in the Tizen Compliance Specification
+	and passes the Tizen Compliance Tests as defined from time to time
 	by the Tizen Technical Steering Group and certified by the Tizen
 	Association or its designated agent.
 
@@ -205,7 +205,7 @@ define( [ 'jquery.mobile.core' ], function ( ) {
 	   you may not use this file except in compliance with the License.
 	   You may obtain a copy of the License at
 
-		   http://www.tizenopensource.org/license
+		   http://floralicense.org/license/
 
 	   Unless required by applicable law or agreed to in writing, software
 	   distributed under the License is distributed on an "AS IS" BASIS,
@@ -245,6 +245,7 @@ define( [ 'jquery.mobile.core' ], function ( ) {
  *	$.mobile.pinch.interval: interval for pinch event
  */
 
+
 ( function( $, window, undefined ) {
 
 pinch_event = {
@@ -256,11 +257,11 @@ pinch_event = {
 			return;
 		}
 
-		function getDistance( point ) {
+		function getSize( point ) {
 			var x = point[0].x - point[1].x,
-				y = point[0].y - point[0].y;
+				y = point[0].y - point[1].y;
 
-			return Math.sqrt( ( x * x ) + ( y * y ) );
+			return Math.abs( x * y );
 		}
 
 		function getParameter( point, ratio ) {
@@ -308,9 +309,10 @@ pinch_event = {
 						{ x: data[1].pageX, y: data[1].pageY }
 				];
 
-				delta = getDistance( current ) - getDistance( origin );
-
-				ratio = 1 + delta / factor;
+				delta = Math.sqrt( getSize( current ) / getSize( origin )  ) ;
+				if( delta ) {
+					ratio = delta;
+				}
 
 				if ( ratio < $.mobile.pinch.min ) {
 					ratio = $.mobile.pinch.min;

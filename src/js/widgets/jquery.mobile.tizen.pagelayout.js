@@ -303,11 +303,16 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
                         if ( !$.support.scrollview ) {
                                 dpr = window.outerWidth / window.innerWidth;
                                 layoutInnerHeight = Math.floor( window.outerHeight / dpr );
-                        }
+                        } else {
+				layoutInnerHeight = window.innerHeight;
+			}
 
 			resultMinHeight = layoutInnerHeight - $elHeader.height() - $elFooter.height();
 
 			$elContent.css( "min-height", resultMinHeight - parseFloat( $elContent.css("padding-top") ) - parseFloat( $elContent.css("padding-bottom") ) + "px" );
+			if ( $.support.scrollview ) {
+				$elContent.children( ".ui-scrollview-view" ).css( "min-height", $elContent.css( "min-height" ) );
+			}
 		},
 
 		_updateHeaderArea : function ( thisPage ) {
@@ -372,6 +377,8 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 			if ( !$.support.scrollview ) {
 				dpr = window.outerWidth / window.innerWidth;
 				layoutInnerHeight = Math.floor( window.outerHeight / dpr );
+			} else {
+				layoutInnerHeight = window.innerHeight;
 			}
 
 			resultContentHeight = layoutInnerHeight - resultFooterHeight - resultHeaderHeight;

@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.24
+Version:    0.2.25
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -97,6 +97,16 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Tue Apr 18 2013 Youmin Ha <youmin.ha@samsung.com> 0.2.25
+	- Pinch: pinch event re-implementation to use size
+	- Pagelayout : prevent code inserting window.innerHeight when content calculate
+	- BlachTheme : add missing icon (SIP down)
+	- Scrollview : support absolute position
+	- tizen-winsets: change the font-family in virtualgrid demo to default
+	- TizenWinset : Change default font
+	- tizen-winsets: Change image link
+	- tizenwinset: change images for virtual grid pages
+
 * Tue Apr 16 2013 Youmin Ha <youmin.ha@samsung.com> 0.2.24
 	- SegmentControl: 2-buttons display issue (N_SE-34200)
 	- Naviframe : remove unnecessary img positioning(N_SE-33969)
