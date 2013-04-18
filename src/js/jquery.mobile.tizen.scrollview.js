@@ -69,7 +69,7 @@ define( [ ], function ( ) {
 			overshootEnable:   false,
 			outerScrollEnable: false,
 			overflowEnable:    true,
-			scrollJump:        false,
+			scrollJump:        false
 		},
 
 		_getViewHeight: function () {

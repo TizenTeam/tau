@@ -296,7 +296,7 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 						self.frameworkData.version,
 						'js',
 						'cultures',
-						['globalize.culture.', lang, '.js'].join( '' ),
+						['globalize.culture.', lang, '.js'].join( '' )
 					].join( '/' );
 				}
 				return cFPath;
@@ -477,7 +477,7 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 				ratio = parseFloat( viewportWidth / this.frameworkData.defaultViewportWidth );
 				this.scaleBaseFontSize( themeDefaultFontSize, ratio );
 			}
-		},
+		}
 	};
 
 	function export2TizenNS ( $, tizen ) {
