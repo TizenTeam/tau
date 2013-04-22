@@ -618,7 +618,11 @@ define( [ "components/imageloader", "components/motionpath", "components/webgl" 
 				self.options[ key ] = undefined;
 				self._setOption( key, value );
 			});
+		},
 
+		destroy: function () {
+			this._final();
+			$.mobile.widget.prototype.destroy.call( this );
 		},
 
 		_setOption: function ( key, value ) {
@@ -725,27 +729,11 @@ define( [ "components/imageloader", "components/motionpath", "components/webgl" 
 				touchEndEvt = ( $.support.touch ? "touchend" : "mouseup" ) + ".gallery3d",
 				touchLeaveEvt = ( $.support.touch ? "touchleave" : "mouseout" ) + ".gallery3d";
 
-			$( document ).unbind( ".gallery3d" ).bind( "pagechange.gallery3d", function ( e ) {
-				$( e.target ).find( ".ui-gallery3d" ).gallery3d( "refresh" );
-			}).bind( "pageremove.gallery3d", function ( e ) {
-				$( e.target ).find( ".ui-gallery3d" ).trigger( "_destory" );
-			});
-
-			$( window ).unbind( ".gallery3d" ).bind( "resize.gallery3d orientationchange.gallery3d", function ( e ) {
-				$( ".ui-page-active" ).find( ".ui-gallery3d" ).gallery3d( "refresh" );
-			}).bind( "unload.gallery3d", function ( e ) {
-				$( e.target ).find( ".ui-gallery3d" ).trigger( "_destory" );
-			});
-
-			view.bind( "_destory", function ( e ) {
-				self._final();
-			});
-
-			canvas.bind( "webglcontextlost", function ( e ) {
+			canvas.on( "webglcontextlost", function ( e ) {
 				e.preventDefault();
-			}).bind( "webglcontextrestored", function ( e ) {
+			}).on( "webglcontextrestored", function ( e ) {
 				self._init();
-			}).bind( touchStartEvt, function ( e ) {
+			}).on( touchStartEvt, function ( e ) {
 				var i = 0,
 					startX = 0,
 					deltaMaxSteps = 20,
@@ -775,7 +763,7 @@ define( [ "components/imageloader", "components/motionpath", "components/webgl" 
 
 				deltaIndex += 1;
 
-				view.bind( touchMoveEvt, function ( e ) {
+				view.on( touchMoveEvt, function ( e ) {
 					var x, dx, interval;
 
 					e.preventDefault();
@@ -808,7 +796,7 @@ define( [ "components/imageloader", "components/motionpath", "components/webgl" 
 						startX = x;
 						prevTime = $.now();
 					}
-				}).bind( touchEndEvt, function ( e ) {
+				}).on( touchEndEvt, function ( e ) {
 					var baseTime = 0,
 						recent = -1,
 						index = 0,
@@ -871,7 +859,7 @@ define( [ "components/imageloader", "components/motionpath", "components/webgl" 
 					}
 
 					view.unbind( ".gallery3d" );
-				}).bind( touchLeaveEvt, function ( e ) {
+				}).on( touchLeaveEvt, function ( e ) {
 					view.trigger( touchEndEvt );
 				});
 			});
@@ -1455,8 +1443,14 @@ define( [ "components/imageloader", "components/motionpath", "components/webgl" 
 		}
 	});
 
-	$( document ).bind( "pagecreate create", function ( e ) {
+	$( document ).on( "pagecreate create", function ( e ) {
 		$( ":jqmData(role='gallery3d')" ).gallery3d();
+	}).on( "pagechange", function ( e ) {
+		$( e.target ).find( ".ui-gallery3d" ).gallery3d( "refresh" );
+	});
+
+	$( window ).on( "resize orientationchange", function ( e ) {
+		$( ".ui-page-active" ).find( ".ui-gallery3d" ).gallery3d( "refresh" );
 	});
 
 } ( jQuery, document, window ) );
