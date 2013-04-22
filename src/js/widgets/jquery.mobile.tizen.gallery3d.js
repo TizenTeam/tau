@@ -242,7 +242,7 @@ define( [ "components/imageloader", "components/motionpath", "components/webgl" 
  *		select ( [number] )
  *			: When the "select" method is called with an argument, the method selects the image of given index.
  *			If the method is called with no argument, it will return the Javascript object having "src"
- *			attribute having the selected image’s URL.
+ *			attribute having the selected image's URL.
  *		add ( object or string [, number] )
  *			This method adds an image to Gallery3D widget.
  *			If the second argument isn't inputted, the image is added at the 0th position.
@@ -340,7 +340,7 @@ define( [ "components/imageloader", "components/motionpath", "components/webgl" 
 /**
 	@method select
 	When the "select" method is called with an argument, the method selects the image of given index.
-	If the method is called with no argument, it will return the Javascript object having "src" attribute having the selected image’s URL.
+	If the method is called with no argument, it will return the Javascript object having "src" attribute having the selected image's URL.
 
 		<script>
 			$( "#gallery3d" ).on( "gallery3dcreate", function () {
@@ -449,90 +449,6 @@ define( [ "components/imageloader", "components/motionpath", "components/webgl" 
 */
 
 ( function ( $, document, window, undefined ) {
-	window.requestAnimationFrame = ( function () {
-		return function ( callback ) {
-			var id = window.setTimeout( callback, 1000 / 60 );
-			return id;
-		};
-	} () );
-
-	window.cancelAnimationFrame = ( function () {
-		return function ( id ) {
-			window.clearTimeout( id );
-		};
-	} () );
-
-	var vec3 = window.vec3,
-		mat3 = window.mat3,
-		mat4 = window.mat4,
-		GlArray32 = ( typeof window.Float32Array !== "undefined" ? window.Float32Array : ( typeof window.WebGLFloatArray !== "undefined" ? window.WebGLFloatArray : Array ) ),
-		GlArray16 = ( typeof window.Uint16Array !== "undefined" ? window.Uint16Array : Array ),
-		getContext3D = function ( canvas ) {
-			var gl, i,
-				contextNames = [ "experimental-webgl", "webkit-3d", "webgl", "moz-webgl" ];
-
-			for ( i = 0; i < contextNames.length; i += 1 ) {
-				try {
-					gl = canvas.getContext( contextNames[i] );
-					if ( gl ) {
-						break;
-					}
-				} catch ( e ) {
-					window.alert( "Unfortunately, there's a WebGL compatibility problem. </br> You may want to check your system settings." );
-					return;
-				}
-			}
-			return gl;
-		},
-		VERTEX_SHADER = [
-			"attribute vec3 aVertexPosition;",
-			"attribute vec2 aTextureCoord;",
-			"attribute vec3 aVertexNormal;",
-			"uniform mat4 uMoveMatrix;",
-			"uniform mat4 uPerspectiveMatrix;",
-			"uniform mat3 nNormalMatrix;",
-			"uniform vec3 uAmbientColor;",
-			"uniform vec3 uLightDirection;",
-			"uniform vec3 uDirectionColor;",
-			"uniform vec3 uLightDirection_first;",
-			"uniform vec3 uLightDirection_second;",
-			"varying vec2 vTextureCoord;",
-			"varying vec3 vLightWeight;",
-			"varying vec4 vFogWeight;",
-
-			"void main(void) {",
-			"	vec4 v_Position = uMoveMatrix * vec4(aVertexPosition, 1.0);",
-			"	gl_Position = uPerspectiveMatrix * v_Position;",
-			"	vTextureCoord = aTextureCoord;",
-			"	float fog = 1.0 - ((gl_Position.z + 1.5) / 60.0);",
-			"	vFogWeight = clamp( vec4( fog, fog, fog, 1.0), 0.6, 1.0);",
-			"	vec3 transNormalVector = nNormalMatrix * aVertexNormal;",
-
-			"	float vLightWeightFirst = 0.0;",
-			"	float vLightWeightSecond = max( dot(transNormalVector, uLightDirection_second), 0.0 );",
-
-			"	vLightWeight = uAmbientColor + uDirectionColor * vLightWeightSecond;",
-			"}"
-		].join( "\n" ),
-		FRAGMENT_SHADER = [
-			"precision mediump float;",
-			"varying vec2 vTextureCoord;",
-			"varying vec3 vLightWeight;",
-			"uniform sampler2D uSampler;",
-			"varying vec4 vFogWeight;",
-
-			"void main(void) {",
-			"	vec4 TextureColor;",
-			"	if ( vTextureCoord.s <= 0.01 || vTextureCoord.s >= 0.99 || vTextureCoord.t <= 0.01 || vTextureCoord.t >= 0.99 ) {",
-			"		TextureColor = vec4(1.0, 1.0, 1.0, 0.5);",
-			"	} else {",
-			"		TextureColor = texture2D(uSampler, vec2(vTextureCoord.s, vTextureCoord.t));",
-			"	}",
-			"	TextureColor *= vFogWeight;",
-			"	gl_FragColor = vec4(TextureColor.rgb * vLightWeight, TextureColor.a);",
-			"}"
-		].join( "\n" );
-
 	function Node() {
 		this.vertices = [
 			-1.0, -1.0, 0.0,
@@ -563,6 +479,105 @@ define( [ "components/imageloader", "components/motionpath", "components/webgl" 
 		this.image = null;
 		this.imageID = 0;
 	}
+
+	var isPreInitailization  = false,
+		glMatrix = {},
+		VERTEX_SHADER,
+		FRAGMENT_SHADER,
+		GlArray32,
+		GlArray16,
+		preInitialize = function () {
+			if ( isPreInitailization ) {
+				return;
+			}
+
+			window.initGlMatrix( glMatrix );
+
+			VERTEX_SHADER = [
+				"attribute vec3 aVertexPosition;",
+				"attribute vec2 aTextureCoord;",
+				"attribute vec3 aVertexNormal;",
+				"uniform mat4 uMoveMatrix;",
+				"uniform mat4 uPerspectiveMatrix;",
+				"uniform mat3 nNormalMatrix;",
+				"uniform vec3 uAmbientColor;",
+				"uniform vec3 uLightDirection;",
+				"uniform vec3 uDirectionColor;",
+				"uniform vec3 uLightDirection_first;",
+				"uniform vec3 uLightDirection_second;",
+				"varying vec2 vTextureCoord;",
+				"varying vec3 vLightWeight;",
+				"varying vec4 vFogWeight;",
+
+				"void main(void) {",
+				"	vec4 v_Position = uMoveMatrix * vec4(aVertexPosition, 1.0);",
+				"	gl_Position = uPerspectiveMatrix * v_Position;",
+				"	vTextureCoord = aTextureCoord;",
+				"	float fog = 1.0 - ((gl_Position.z + 1.5) / 60.0);",
+				"	vFogWeight = clamp( vec4( fog, fog, fog, 1.0), 0.6, 1.0);",
+				"	vec3 transNormalVector = nNormalMatrix * aVertexNormal;",
+
+				"	float vLightWeightFirst = 0.0;",
+				"	float vLightWeightSecond = max( dot(transNormalVector, uLightDirection_second), 0.0 );",
+
+				"	vLightWeight = uAmbientColor + uDirectionColor * vLightWeightSecond;",
+				"}"
+			].join( "\n" );
+
+			FRAGMENT_SHADER = [
+				"precision mediump float;",
+				"varying vec2 vTextureCoord;",
+				"varying vec3 vLightWeight;",
+				"uniform sampler2D uSampler;",
+				"varying vec4 vFogWeight;",
+
+				"void main(void) {",
+				"	vec4 TextureColor;",
+				"	if ( vTextureCoord.s <= 0.01 || vTextureCoord.s >= 0.99 || vTextureCoord.t <= 0.01 || vTextureCoord.t >= 0.99 ) {",
+				"		TextureColor = vec4(1.0, 1.0, 1.0, 0.5);",
+				"	} else {",
+				"		TextureColor = texture2D(uSampler, vec2(vTextureCoord.s, vTextureCoord.t));",
+				"	}",
+				"	TextureColor *= vFogWeight;",
+				"	gl_FragColor = vec4(TextureColor.rgb * vLightWeight, TextureColor.a);",
+				"}"
+			].join( "\n" );
+
+			GlArray32 = ( typeof window.Float32Array !== "undefined" ?
+					window.Float32Array :
+						( typeof window.WebGLFloatArray !== "undefined" ? window.WebGLFloatArray : Array ) );
+
+			GlArray16 = ( typeof window.Uint16Array !== "undefined" ? window.Uint16Array : Array );
+
+			isPreInitailization = true;
+		},
+		degreeToRadian = function ( degree ) {
+			return degree * Math.PI / 180;
+		},
+		getContext3D = function ( canvas ) {
+			var gl, i,
+				contextNames = [ "experimental-webgl", "webkit-3d", "webgl", "moz-webgl" ];
+
+			for ( i = 0; i < contextNames.length; i += 1 ) {
+				try {
+					gl = canvas.getContext( contextNames[i] );
+					if ( gl ) {
+						break;
+					}
+				} catch ( e ) {
+					$( canvas ).html( "Unfortunately, there's a WebGL compatibility problem. </br> You may want to check your system settings." );
+					return;
+				}
+			}
+			return gl;
+		},
+		requestAnimationFrame = function ( callback ) {
+			var id = window.setTimeout( callback, 1000 / 60 );
+			return id;
+		},
+		cancelAnimationFrame = function ( id ) {
+			window.clearTimeout( id );
+		};
 
 	$.widget( "tizen.gallery3d", $.mobile.widget, {
 		options: {
@@ -606,6 +621,8 @@ define( [ "components/imageloader", "components/motionpath", "components/webgl" 
 			var self = this,
 				view = self.element,
 				option = self.options;
+
+			preInitialize();
 
 			self._canvas = $( "<canvas class='ui-gallery3d-canvas'></canvas>" );
 
@@ -870,11 +887,11 @@ define( [ "components/imageloader", "components/motionpath", "components/webgl" 
 		// ----------------------------------------------------------
 		_initGL: function ( canvas ) {
 			var self = this,
+				mat4 = glMatrix.mat4,
 				gl;
 
 			gl = getContext3D( canvas );
 			if ( !gl ) {
-				window.alert( "There's no WebGL context available!!!" );
 				return null;
 			}
 
@@ -1071,6 +1088,7 @@ define( [ "components/imageloader", "components/motionpath", "components/webgl" 
 		// ----------------------------------------------------------
 		_setPosition: function ( progress, direction ) {
 			var self = this,
+				mat4 = glMatrix.mat4,
 				nodes = self._nodes,
 				imageList = self._imageList,
 				imageListLength = imageList.length,
@@ -1118,7 +1136,7 @@ define( [ "components/imageloader", "components/motionpath", "components/webgl" 
 
 				mat4.identity( nodes[i].mvMatrix );
 				mat4.translate( nodes[i].mvMatrix, [-2.0, -2.0, 1.0] );
-				mat4.rotate( nodes[i].mvMatrix, self._degreeToRadian( 19 ), [1, 0, 0] );
+				mat4.rotate( nodes[i].mvMatrix, degreeToRadian( 19 ), [1, 0, 0] );
 
 				t = ( current + ( next - current ) * ( ( progress > 1 ) ? 1 : progress ) );
 
@@ -1192,6 +1210,9 @@ define( [ "components/imageloader", "components/motionpath", "components/webgl" 
 		_drawElement: function ( perspectiveMatrix, targetNode ) {
 			var self = this,
 				gl = self._gl,
+				vec3 = glMatrix.vec3,
+				mat3 = glMatrix.mat3,
+				mat4 = glMatrix.mat4,
 				shaderProgram = self._shaderProgram,
 				moveMatrix = targetNode.mvMatrix,
 				texture = targetNode.texture,
@@ -1280,7 +1301,7 @@ define( [ "components/imageloader", "components/motionpath", "components/webgl" 
 				self._setPosition( progress - _removeCount, direction );
 			}
 
-			self._animationID = window.requestAnimationFrame( function () {
+			self._animationID = requestAnimationFrame( function () {
 				self._animate( easingType, duration, direction, repeatCount, startValue, _removeCount );
 			});
 		},
@@ -1317,16 +1338,12 @@ define( [ "components/imageloader", "components/motionpath", "components/webgl" 
 
 		_stop: function () {
 			if ( this._animationID ) {
-				window.cancelAnimationFrame( this._animationID );
+				cancelAnimationFrame( this._animationID );
 			}
 			this._animationID = 0;
 
 			this._startTime = 0;
 			this._sumTime = 0;
-		},
-
-		_degreeToRadian: function ( degree ) {
-			return degree * Math.PI / 180;
 		},
 
 		next: function () {

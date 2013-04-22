@@ -42,8 +42,10 @@
             return factory(root);
         });
     } else {
-        // Browser globals
-        factory(root);
+        // Specific initialization for TIZEN Web UI Framework
+        root.initGlMatrix = function ( targetRoot ) {
+            factory( targetRoot || root );
+        };
     }
 }(this, function (root) {
     "use strict";
