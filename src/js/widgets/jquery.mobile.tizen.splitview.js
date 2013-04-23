@@ -38,7 +38,7 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
  *  The number of panes inside of Splitview is restricted as two.
  *  If a user define only one pane in Splitview, a empty pane will be added automatically,
  *  on the other hand, if 3 or more panes are defined in Splitview, the panes after two will be ignored and removed from the DOM tree.
- *  The HTML fragments of a pane should be composed of elements describing a part of Web page (e.g. <div>…</div>).
+ *  The HTML fragments of a pane should be composed of elements describing a part of Web page (e.g. <div>...</div>).
  *  Also widgets can be included in the HTML fragments.
  *
  *  HTML Attributes:
@@ -189,31 +189,14 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 
 			$el.addClass( "ui-splitview ui-direction-" + self._direction( opt.dividerVertical ) );
 
-			if ( $el.parent().closest( ".ui-splitview" ).length ) {
-				if ( self._getContainerSize( $el[ 0 ].style.width, $el[ 0 ].style.height ) ) {
-					self._layout();
-				}
-			}
+			self._refresh();
 
-			$( window ).bind( "pagechange", function ( e ) {
-				if ( !$el.parent().closest( ".ui-splitview" ).length ) {
-					if ( self._getContainerSize( $el[ 0 ].style.width, $el[ 0 ].style.height ) ) {
-						self._layout();
-					}
-				}
-			}).resize( function () {
-				if ( resizeTimer ) {
-					clearTimeout( resizeTimer );
-				}
-
-				resizeTimer = setTimeout( function () {
-					if ( !$el.parent().closest( ".ui-splitview" ).length ) {
-						if ( self._getContainerSize( $el[ 0 ].style.width, $el[ 0 ].style.height ) ) {
-							self._layout();
-						}
-					}
-				}, 250);
-			});
+			$( window ).unbind( ".splitview" )
+				.bind( "pagechange.splitview resize.splitview", function ( event ) {
+					$( ".ui-page-active .ui-splitview" ).each( function () {
+						$( this ).data( "splitview" )._refresh();
+					});
+				});
 		},
 
 		_addEmptyPanes : function () {
@@ -559,13 +542,8 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 				widthSum = 0,
 				childSplitview = null;
 
-			if ( typeof initRatio === "undefined" ) {
-				initRatio = false;
-			}
-
-			if ( initRatio && typeof fromFirstPane === "undefined" ) {
-				fromFirstPane = false;
-			}
+			initRatio = !!initRatio;
+			fromFirstPane = !!fromFirstPane;
 
 			$el.css( {
 				"min-width" : width,
@@ -636,23 +614,15 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 					spliter.outerWidth( innerSize ).css( "top", posValue );
 				}
 
-				if ( typeof bar !== "undefined" && bar ) {
-					if ( isHorizontal ) {
-						bar.outerHeight( innerSize );
-					} else {
-						bar.outerWidth( innerSize );
-					}
+				if ( bar.length ) {
+					bar[ isHorizontal ? "outerHeight" : "outerWidth" ]( innerSize );
 				}
-				if ( typeof handle !== "undefined" && handle ) {
-					if ( isHorizontal ) {
-						handle.css( "top", ( innerSize - spliterWidth ) / 2 );
-					} else {
-						handle.css( "left", ( innerSize - spliterWidth ) / 2 );
-					}
+				if ( handle.length ) {
+					handle.css( isHorizontal ? "top" : "left", ( innerSize - spliterWidth ) / 2 );
 				}
 			});
 
-			childSplitview = $el.find( ":jqmData(role='splitview'):first" );
+			childSplitview = $el.find( ".ui-splitview:first" );
 			if ( !childSplitview.length ) {
 				return;
 			}
@@ -671,41 +641,33 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 
 			$.each( spliters, function ( i ) {
 				var spliter = $( this );
-				self._bindSpliterTouchEvents( spliter );
-			});
-
-			$el.mouseleave( function () {
-				if ( self.touchStatus ) {
-					$el.children( ".ui-spliter" ).trigger( "vmouseup" );
-				}
-			});
-
-			$panes.bind( "vmousedown", function () {
-				$el.find( ".ui-spliter" ).trigger( "vmouseup" );
+				self._bindSpliterTouchEvents.call( self, spliter );
 			});
 		},
 
 		_bindSpliterTouchEvents : function ( spliter ) {
 			var self = this,
 				$el = self.element,
-				opt = self.options;
+				opt = self.options,
+				touchStartEvt = ( $.support.touch ? "touchstart" : "mousedown" ),
+				touchMoveEvt = ( $.support.touch ? "touchmove" : "mousemove" ) + ".splitview",
+				touchEndEvt = ( $.support.touch ? "touchend" : "mouseup" ) + ".splitview";
 
-			spliter.bind( "vmousedown", { e : spliter }, function ( event ) {
+			spliter.bind( touchStartEvt, { e : spliter }, function ( event ) {
 				if ( self.options.fixed ) {
 					return;
 				}
 
-				var targetSpliter = event.data.e,
+				var realEvent = $.support.touch ? event.originalEvent.changedTouches[0] : event,
+					targetSpliter = event.data.e,
 					prevPane = targetSpliter.prev(),
 					nextPane = targetSpliter.next(),
-					splitviewInPrev = prevPane.find( ":jqmData(role='splitview'):first" ),
-					splitviewInNext = nextPane.find( ":jqmData(role='splitview'):first" ),
+					splitviewInPrev = prevPane.find( ".ui-splitview:first" ),
+					splitviewInNext = nextPane.find( ".ui-splitview:first" ),
 					isHorizontal = opt.dividerVertical,
 					spliterWidth = isHorizontal ?
 									$( self.spliterBars[0] ).outerWidth() :
 									$( self.spliterBars[0] ).outerHeight();
-
-				$el.closest( ".ui-page" ).find( ".ui-spliter" ).trigger( "vmouseup" );
 
 				self.moveTarget = targetSpliter;
 				self.moveData = {
@@ -719,36 +681,30 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 					nextPanePos : parseInt( nextPane.css( isHorizontal ? "left" : "top" ), 10 ) || 0,
 					nextPaneWidth : parseInt( nextPane.css( isHorizontal ? "width" : "height" ), 10 ) || 0,
 					targetPos : parseInt( targetSpliter.css( isHorizontal ? "left" : "top" ), 10 ) || 0,
-					pagePos : isHorizontal ? event.pageX : event.pageY
+					pagePos : isHorizontal ? realEvent.pageX : realEvent.pageY
 				};
 
 				targetSpliter.addClass( "ui-spliter-active" );
 
-				$( document ).bind( "vmousemove.splitview", function ( event ) {
+				$el.bind( touchMoveEvt, function ( event ) {
 					if ( !self.touchStatus ) {
 						return;
 					}
-
-					self._drag( event );
-
-					event.preventDefault();
 					event.stopPropagation();
-				}).bind( "vmouseup.splitview", function ( event ) {
-					if ( !self.touchStatus ) {
-						return;
-					}
-
-					self._stop( event );
-
-					event.preventDefault();
+					self._drag( $.support.touch ? event.originalEvent.changedTouches[0] : event );
+				}).bind( touchEndEvt, function ( event ) {
 					event.stopPropagation();
-
+					self._stop( $.support.touch ? event.originalEvent.changedTouches[0] : event );
 					self.touchStatus = false;
+					$el.unbind( ".splitview" );
+					$( document ).unbind( ".splitview" );
+				});
+
+				$( document ).bind( touchMoveEvt + " " + touchEndEvt, function() {
+					$el.trigger( touchEndEvt );
 				});
 
 				event.preventDefault();
-				event.stopPropagation();
-
 				self.touchStatus = true;
 			});
 		},
@@ -806,7 +762,7 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 		},
 
 		_stop : function ( e ) {
-			if ( !this.moveData || typeof this.moveData === "undefined" ) {
+			if ( !this.moveData || !this.moveTarget ) {
 				return;
 			}
 
@@ -839,7 +795,6 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 									( height - spliterSize ),
 				sum = 0;
 
-			$( document ).unbind( "vmousemove.splitview vmouseup.splitview" );
 			moveTarget.removeClass( "ui-spliter-active" );
 
 			// ratio calculation
@@ -938,13 +893,8 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 			var self = this,
 				$el = self.element;
 
-			if ( typeof initRatio === "undefined" ) {
-				initRatio = false;
-			}
-
-			if ( initRatio && typeof fromFirstPane === "undefined" ) {
-				fromFirstPane = false;
-			}
+			initRatio = !!initRatio;
+			fromFirstPane = !!fromFirstPane;
 
 			if ( self._getContainerSize( $el[ 0 ].style.width, $el[ 0 ].style.height ) ) {
 				self._layout( initRatio, fromFirstPane );
@@ -967,7 +917,7 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 			}
 
 			// getter
-			if ( typeof element === "undefined" || !element ) {
+			if ( !element ) {
 				return $targetPane.contents();
 			}
 
@@ -1019,7 +969,7 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 		restore : function () {
 			var self = this;
 
-			if ( self.savedRatio.length === 0 ) {
+			if ( !self.savedRatio.length ) {
 				return;
 			}
 
