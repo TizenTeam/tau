@@ -115,7 +115,7 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 				page = $el.closest( ':jqmData(role="page")' ),
 				jumpToDivider;
 
-			this.scrollview = $el.closest( '.ui-scrollview-clip' );
+			this.scrollview = $el.addClass( 'ui-fastscroll-target' ).closest( '.ui-scrollview-clip' );
 			this.shortcutsContainer = $( '<div class="ui-fastscroll" aria-label="Fast scroll bar, double tap to fast scroll mode" tabindex="0"/>' );
 			this.shortcutsList = $( '<ul aria-hidden="true"></ul>' );
 
@@ -241,10 +241,6 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 
 			// refresh the list when dividers are filtered out
 			$el.bind( 'updatelayout', function () {
-				self.refresh();
-			} );
-
-			$( window ).unbind( ".fastscroll" ).bind( "resize.fastscroll", function ( e ) {
 				self.refresh();
 			} );
 
@@ -659,6 +655,9 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 			.fastscroll();
 	} );
 
+	$( window ).bind( "resize orientationchange", function ( e ) {
+		$( ".ui-page-active .ui-fastscroll-target" ).fastscroll( "refresh" );
+	} );
 } ( jQuery ) );
 
 //>>excludeStart("jqmBuildExclude", pragmas.jqmBuildExclude);
