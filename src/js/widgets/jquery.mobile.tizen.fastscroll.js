@@ -97,7 +97,7 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 
 	$.widget( "tizen.fastscroll", $.mobile.widget, {
 		options: {
-			initSelector: ":jqmData(fastscroll)",
+			initSelector: ":jqmData(fastscroll)"
 		},
 
 		_primaryLanguage: null,
