@@ -300,7 +300,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 				dpr = 1,
 				layoutInnerHeight = window.innerHeight;
 
-                        if ( !$.support.scrollview ) {
+                        if ( !$.support.scrollview || ($.support.scrollview && $elContent.jqmData("scroll") === "none") ) {
                                 dpr = window.outerWidth / window.innerWidth;
                                 layoutInnerHeight = Math.floor( window.outerHeight / dpr );
                         } else {
@@ -310,7 +310,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 			resultMinHeight = layoutInnerHeight - $elHeader.height() - $elFooter.height();
 
 			$elContent.css( "min-height", resultMinHeight - parseFloat( $elContent.css("padding-top") ) - parseFloat( $elContent.css("padding-bottom") ) + "px" );
-			if ( $.support.scrollview ) {
+			if ( $.support.scrollview && $elContent.jqmData("scroll") !== "none" ) {
 				$elContent.children( ".ui-scrollview-view" ).css( "min-height", $elContent.css( "min-height" ) );
 			}
 		},
@@ -342,7 +342,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 
 			tbPage = tbPage || $el.closest( ".ui-page" );
 
-			if ( $el.siblings( ".ui-header" ).jqmData("position") == "fixed" || $.support.scrollview ) {
+			if ( $el.siblings( ".ui-header" ).jqmData("position") == "fixed" || ($.support.scrollview && $el.jqmData("scroll") !== "none" )) {
 				$( tbPage ).css( "padding-top", ( header ? $el.siblings( ".ui-header" ).outerHeight() : 0 ) );
 			}
 			$( tbPage ).css( "padding-bottom", ( footer ? $el.siblings( ".ui-footer" ).outerHeight() : 0 ) );
@@ -374,7 +374,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 				$elFooter.css( "bottom", 0 );
 			}
 
-			if ( !$.support.scrollview ) {
+			if ( !$.support.scrollview || ($.support.scrollview && $elContent.jqmData("scroll") !== "none") ) {
 				dpr = window.outerWidth / window.innerWidth;
 				layoutInnerHeight = Math.floor( window.outerHeight / dpr );
 			} else {
@@ -383,7 +383,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 
 			resultContentHeight = layoutInnerHeight - resultFooterHeight - resultHeaderHeight;
 
-			if ( $.support.scrollview ) {
+			if ( $.support.scrollview && $elContent.jqmData("scroll") !== "none" ) {
 				$elContent.height( resultContentHeight -
 						parseFloat( $elContent.css("padding-top") ) -
 						parseFloat( $elContent.css("padding-bottom") ) );
