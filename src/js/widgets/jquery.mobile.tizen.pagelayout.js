@@ -309,8 +309,8 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 
 			resultMinHeight = layoutInnerHeight - $elHeader.height() - $elFooter.height();
 
-			$elContent.css( "min-height", resultMinHeight - parseFloat( $elContent.css("padding-top") ) - parseFloat( $elContent.css("padding-bottom") ) + "px" );
-			if ( $.support.scrollview && $elContent.jqmData("scroll") !== "none" ) {
+                        if ( $.support.scrollview && $elContent.jqmData("scroll") !== "none" ) {
+				$elContent.css( "min-height", resultMinHeight - parseFloat( $elContent.css("padding-top") ) - parseFloat( $elContent.css("padding-bottom") ) + "px" );
 				$elContent.children( ".ui-scrollview-view" ).css( "min-height", $elContent.css( "min-height" ) );
 			}
 		},
@@ -374,7 +374,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 				$elFooter.css( "bottom", 0 );
 			}
 
-			if ( !$.support.scrollview || ($.support.scrollview && $elContent.jqmData("scroll") !== "none") ) {
+			if ( !$.support.scrollview || ($.support.scrollview && $elContent.jqmData("scroll") === "none") ) {
 				dpr = window.outerWidth / window.innerWidth;
 				layoutInnerHeight = Math.floor( window.outerHeight / dpr );
 			} else {
