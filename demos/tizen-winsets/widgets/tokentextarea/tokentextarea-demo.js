@@ -14,7 +14,7 @@
 
 		$( "#MBTgetInputTextTest" ).on( "click", function () {
 			var input = $( ":jqmData(role='tokentextarea')" ).tokentextarea( "inputText" );
-			window.alert( "input String : " + input );
+			$( ".tta-popup .ui-popup-text" ).text( "Input string : " + input );
 		});
 
 		$( "#MBTremoveAllItemTest" ).on( "click", function () {
@@ -24,7 +24,7 @@
 
 		$( "#MBTgetSelectedItemTest" ).on( "click", function () {
 			var content = $( ":jqmData(role='tokentextarea')" ).tokentextarea( "select" );
-			window.alert( "Select content : " + content );
+			$( ".tta-popup .ui-popup-text" ).text( "Select content : " + content );
 		});
 
 		$( "#MBTselectItemTest" ).on( "click", function () {
@@ -33,7 +33,7 @@
 
 		$( "#MBTlengthTest" ).on( "click", function () {
 			var length = $( ":jqmData(role='tokentextarea')" ).tokentextarea( "length" );
-			window.alert( "length : " + length );
+			$( ".tta-popup .ui-popup-text" ).text( "Length : " + length );
 		});
 
 		$( "#MBTfocusInTest" ).on( "click", function () {
