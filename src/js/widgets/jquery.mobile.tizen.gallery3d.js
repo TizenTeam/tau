@@ -714,6 +714,8 @@ define( [ "components/imageloader", "components/motionpath", "components/webgl" 
 				return;
 			}
 
+			self._stop();
+
 			canvas = canvas || self._canvas;
 
 			$( self._nodes ).each( function ( i ) {
