@@ -46,18 +46,17 @@
 		widget.gallery3d( "select", 1 );
 		setTimeout( function () {
 			equal( widget.gallery3d( "select" ), imageList[0], "API : select" );
-
 			widget.gallery3d( "next" );
-			setTimeout( function () {
-				equal( widget.gallery3d( "select" ), imageList[1], "API : next" );
+		}, 600 );
 
-				widget.gallery3d( "prev" );
-				setTimeout( function () {
-					equal( widget.gallery3d( "select" ), imageList[0], "API : prev" );
-					start();
+		setTimeout( function () {
+			equal( widget.gallery3d( "select" ), imageList[1], "API : next" );
+			widget.gallery3d( "prev" );
+		}, 1200 );
 
-				}, 340 );
-			}, 340 );
-		}, 340 );
+		setTimeout( function () {
+			equal( widget.gallery3d( "select" ), imageList[0], "API : prev" );
+			start();
+		}, 1800 );
 	});
 }( jQuery ));
