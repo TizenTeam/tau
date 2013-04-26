@@ -69,7 +69,7 @@ define( [ ], function ( ) {
 			overshootEnable:   false,
 			outerScrollEnable: false,
 			overflowEnable:    true,
-			scrollJump:        false,
+			scrollJump:        false
 		},
 
 		_getViewHeight: function () {
@@ -208,16 +208,6 @@ define( [ ], function ( ) {
 				y = 0,
 				scroll_height = 0,
 				self = this,
-				end_effect = function ( dir ) {
-					setTimeout( function () {
-						self._effect_dir = dir;
-						self._setEndEffect( "in" );
-					}, 100 );
-
-					setTimeout( function () {
-						self._setEndEffect( "out" );
-					}, 350 );
-				},
 				vt = this._vTracker,
 				ht = this._hTracker;
 
@@ -242,15 +232,8 @@ define( [ ], function ( ) {
 					} else if ( vt.isMin() ) {
 						this._outerScroll( y - vt.getRemained() / 3, scroll_height );
 
-						if ( scroll_height > 0 ) {
-							end_effect( 1 );
-						}
 					} else if ( vt.isMax() ) {
 						this._outerScroll( vt.getRemained() / 3, scroll_height );
-
-						if ( scroll_height > 0 ) {
-							end_effect( 0 );
-						}
 					}
 				}
 			}
@@ -367,17 +350,13 @@ define( [ ], function ( ) {
 				if ( y > 0 ) {
 					this._sy = 0;
 
-					if ( this._didDrag && scroll_height > 0 ) {
-						this._effect_dir = 0;
-						this._setEndEffect( "in" );
-					}
+					this._effect_dir = 0;
+					this._setEndEffect( "in" );
 				} else if ( y < -scroll_height ) {
 					this._sy = -scroll_height;
 
-					if ( this._didDrag && scroll_height > 0 ) {
-						this._effect_dir = 1;
-						this._setEndEffect( "in" );
-					}
+					this._effect_dir = 1;
+					this._setEndEffect( "in" );
 				} else {
 					if ( this._endEffect && this._sy !== y ) {
 						this._setEndEffect();

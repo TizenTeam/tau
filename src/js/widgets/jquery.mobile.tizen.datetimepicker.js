@@ -258,6 +258,7 @@ define( [ 'jquery.mobile.tizen.widgetex', 'jquery.mobile.tizen.popupwindow', 'jq
 
 			this.ui.find('.ui-datefield-period').buttonMarkup().bind( 'vclick', function ( e ) {
 				obj._switchAmPm( obj );
+				return false;
 			});
 
 			this.element.attr( "data-" + ( $.mobile.ns ? $.mobile.ns + "-" : "" ) + "format", this.options.format );
@@ -554,6 +555,7 @@ define( [ 'jquery.mobile.tizen.widgetex', 'jquery.mobile.tizen.popupwindow', 'jq
 			this._popup_open = false;
 			this.ui.bind('vclick', function ( e ) {
 				obj._showDataSelector( obj, this, e.target );
+				return false;
 			});
 
 			$.extend( this, {

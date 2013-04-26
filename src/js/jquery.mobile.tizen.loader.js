@@ -214,25 +214,21 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 
 		loadTheme: function ( theme ) {
 			var themePath,
-				cssPath,
-				jsPath;
+			cssPath,
+			jsPath;
 
 			if ( ! theme ) {
 				theme = tizen.frameworkData.theme;
 			}
-			themePath = [
-				tizen.frameworkData.rootDir,
-				tizen.frameworkData.version,
-				'themes',
-				theme
-			].join( '/' );
-
-			jsPath = [ themePath, 'theme.js' ].join( '/' );
-
+			
+			themePath = tizen.frameworkData.rootDir + '/' + tizen.frameworkData.version + '/themes/' + theme;
+			
+			jsPath = themePath + '/theme.js';
+	
 			if ( tizen.frameworkData.minified ) {
-				cssPath = [themePath, 'tizen-web-ui-fw-theme.min.css'].join( '/' );
+				cssPath = themePath + '/tizen-web-ui-fw-theme.min.css';
 			} else {
-				cssPath = [themePath, 'tizen-web-ui-fw-theme.css'].join( '/' );
+				cssPath = themePath + '/tizen-web-ui-fw-theme.css';
 			}
 			tizen.css.load( cssPath );
 			tizen.util.loadScriptSync( jsPath );
@@ -296,7 +292,7 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 						self.frameworkData.version,
 						'js',
 						'cultures',
-						['globalize.culture.', lang, '.js'].join( '' ),
+						['globalize.culture.', lang, '.js'].join( '' )
 					].join( '/' );
 				}
 				return cFPath;
@@ -411,7 +407,7 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 				meta = document.createElement( "meta" );
 				if ( meta ) {
 					meta.name = "viewport";
-					content = [ "width=", viewportWidth, ", user-scalable=no" ].join( "" );
+					content = "width=" + viewportWidth + ", user-scalable=no";
 					if ( ! isNaN( viewportWidth ) ) {
 						// Fix scale to 1.0, if viewport width is set to fixed value.
 						// NOTE: Works wrong in Tizen browser!
@@ -433,7 +429,7 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 			tizen.log.debug( "themedefaultfont size: " + themeDefaultFontSize + ", ratio: " + ratio );
 			var scaledFontSize = Math.max( Math.floor( themeDefaultFontSize * ratio ), 4 );
 
-			$( 'html.ui-mobile' ).css( { 'font-size': scaledFontSize + "px" } );
+			$( 'html' ).css( { 'font-size': scaledFontSize + "px" } );
 			tizen.log.debug( 'html:font size is set to ' + scaledFontSize );
 			$( document ).ready( function ( ) {
 				$( '.ui-mobile' ).children( 'body' ).css( { 'font-size': scaledFontSize + "px" } );
@@ -477,7 +473,7 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 				ratio = parseFloat( viewportWidth / this.frameworkData.defaultViewportWidth );
 				this.scaleBaseFontSize( themeDefaultFontSize, ratio );
 			}
-		},
+		}
 	};
 
 	function export2TizenNS ( $, tizen ) {

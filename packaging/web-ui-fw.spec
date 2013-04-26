@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.25
+Version:    0.2.26
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -97,6 +97,25 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Fri Apr 26 2013 Youmin Ha <youmin.ha@samsung.com> 0.2.26
+	- PageLayout : bug fix
+	- Gallery3d: Change timing of 'gl-matrix' library's execution
+	- Replace in LoadTheme function strings build with array join with the string concat
+	- Contextpopup: context popup reposition module has been added
+	- Pagelayout : skip to calculate min-height using data-scroll="none"(Issue: DCM-1453)
+	- Splitview: Fix the touchend event error.
+	- Gallery3d: Change event registration method from $.bind() to $.on()
+	- Scrollview : remove useless setTimeout in case scrolls go outside
+	- Naviframe : adjust new SIP down button
+	- Timepicker: Added return false; after vclick
+	- Popupwindow: reserved words has been removed
+	- minor changes: replace one occurrence of array.join with string concat and simplify jQuery arguments
+	- TizenWinset : set default margin for checkbox demo
+	- Tizenwinset: Context popup demo has been changed
+	- TizenDemo : add initial orientation mode to popup demo
+	- Widgets: removed parsing error for legacy javascript engine
+	- Delegate init of popup widget with delegateSelfInitWithSingleSelector
+
 * Tue Apr 18 2013 Youmin Ha <youmin.ha@samsung.com> 0.2.25
 	- Pinch: pinch event re-implementation to use size
 	- Pagelayout : prevent code inserting window.innerHeight when content calculate

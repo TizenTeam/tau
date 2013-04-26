@@ -4,6 +4,13 @@ $( document ).one( "pageinit", "#popupwindow-demo", function () {
 		$("#textbox_popup").popup("close");
 		return false;
 	});
+
+       if ( $.tizen.__tizen__.util.isMobileBrowser() ) {
+                var direction = window.screen.orientation;
+                if ( direction === "landscape-primary" || direction === "landscape-secondary" ) {
+                        $( "#go_textbox_popup a" ).attr( "href", "#textbox_popup_landscape" );
+                }
+        }
 });
 
 function onSuccessPopupCallback ( ori ) {

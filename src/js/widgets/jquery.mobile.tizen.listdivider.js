@@ -34,7 +34,7 @@ define( [ ], function ( ) {
 		options: {
 			initSelector: ":jqmData(role='list-divider')",
 			folded : false,
-			listDividerLine : true,
+			listDividerLine : true
 		},
 
 		_create: function () {
@@ -73,7 +73,7 @@ define( [ ], function ( ) {
 			$listdivider.bind( "vclick", function ( event, ui ) {
 			/* need to implement expand/collapse divider */
 			});
-		},
+		}
 	});
 
 	//auto self-init widgets
