@@ -980,9 +980,9 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 		}
 	});
 
-	//delegate self-init widgets
-	$.delegateSelfInitWithSingleSelector( $.tizen.splitview );
-
+	$( document ).bind( "pagecreate create", function ( e ) {
+		$.tizen.splitview.prototype.enhanceWithin( e.target );
+	});
 } ( jQuery, window, document ) );
 
 //>>excludeStart("jqmBuildExclude", pragmas.jqmBuildExclude);

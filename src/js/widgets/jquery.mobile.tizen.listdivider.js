@@ -76,9 +76,10 @@ define( [ ], function ( ) {
 		}
 	});
 
-	//delegate self-init widgets
-	$.delegateSelfInitWithSingleSelector( $.tizen.listdivider );
-
+	//auto self-init widgets
+	$( document ).bind( "pagecreate create", function ( e ) {
+		$( $.tizen.listdivider.prototype.options.initSelector, e.target ).listdivider();
+	});
 }( jQuery ) );
 
 //>>excludeStart("jqmBuildExclude", pragmas.jqmBuildExclude);
