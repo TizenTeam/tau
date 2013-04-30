@@ -57,6 +57,7 @@
 .ui-demo-namecard-span-x {
 	color : gray;
 	font-size : 0.6rem;
+	text-align: center;
 	width: 5rem;
 	display: block;
 	white-space : nowrap;
@@ -69,6 +70,7 @@
 .ui-demo-namecard-contents span.name {
 	color : gray;
 	font-size : 0.6rem;
+	text-align: center;
 	width: 4rem;
 	display: inline-block;
 	white-space : nowrap;

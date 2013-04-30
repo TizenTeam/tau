@@ -24,32 +24,35 @@
                    List
 ***************************************************************************/
 @color_list_bg:	rgba(32, 35, 39, 1);								/* B0211 */
-@color_list_press : rgba(87, 135, 194, 1);						/* B041	*/
-@color_list_border_bottom: rgba(45, 45, 45, 0.5);	/* B0221 */
+@color_list_press : rgba(112, 169, 238, 1);						/* B041	*/
+@color_list_border_bottom: rgba(12, 15, 20, 1);	/* B0223 */
 @color_list_main_text_focus: rgba(255, 255, 255, 1);
 @color_list_main_text_unfocus: rgba(215, 215, 215, 1);
 @color_list_sub_text_default: rgba(128, 128, 128, 1);
 
 @color_list_divider_expand_div : rgba(0, 0, 0, 0.5);
-@color_list_divider_bg : rgba(32, 35, 39, 1);			/* W021L1 */
-@color_list_divider_text : rgba(112, 169, 238, 1);			/* W021L2 */
+@color_list_divider_bg : rgba(32, 35, 39, 1);				/* W021L1 */
+@color_list_divider_line : rgba(59, 115, 182, 1);			/* W021L2 */
+@color_list_divider_text : rgba(112, 169, 238, 1);			/* W021L3 */
 
 @color_list_swipe_bg : rgba(23, 25, 28, 1);				/* B0212 */
 
 @color_list_dialogue_bg : rgba(42, 45, 48, 1);
-@color_dialogue_main_text: rgba(59, 115, 182, 1);
+@color_dialogue_main_text: rgba(112, 169, 238, 1);			/* F011L5 */
 @color_dialogue_border_right: rgba(12, 15, 20, 1);
 
 @color_list_expanded_bg : rgba(220, 218, 211, 1);
 
-@color_list_bubble_sent_text:	rgb(0, 0, 0);
-@color_list_bubble_receive_text:	rgb(255, 255, 255);
-@color_list_bubble_sos_text:	rgb(233, 73, 73);
-@color_list_bubble_date_text:	rgb(104, 104, 104);
+@color_list_editfield : rgba(215, 215, 215, 1);				/* F011L1 */
+
+@color_list_bubble_sent_text:	rgb(0, 0, 0);				/* W051 */
+@color_list_bubble_receive_text:	rgb(0, 0, 0);				/* W051 */
+@color_list_bubble_sos_text:	rgb(233, 73, 73);				/* F011L15 */
+@color_list_bubble_date_text:	rgb(104, 104, 104);		/* F011L18 */
 @color_list_bubble_date_bg:		rgba(225, 225, 225, 0);
-@color_list_bubble_time_sent_text:	rgb(57, 166, 215);
-@color_list_bubble_time_receive_text:	rgb(211, 0, 0);
-@color_list_bubble_time_sos_text:	rgb(211, 0, 0);
+@color_list_bubble_time_sent_text:	rgb(139, 139, 139);	/* F011L16 */
+@color_list_bubble_time_receive_text:	rgb(139, 139, 139);	/* F011L17 */
+@color_list_bubble_time_sos_text:	rgb(233, 73, 73);		/* F011L15 */
 @color_list_bubble_name_text:	rgb(139, 139, 139);
 @color_list_bubble_help_text:	rgb(154, 154, 154);
 @color_list_bubble_link_text:	rgb(34, 129, 157);
@@ -98,25 +101,25 @@
 @color_button_EditText:         rgb(249, 249, 249);
 @color_button_EditTextPress:    rgb(61, 61, 61);
 
-@color_button_text_normal:      rgb(58, 58, 58);
+@color_button_text_normal:      rgb(186, 186, 186);
 @color_button_text_press:       rgb(255, 255, 255);
 @color_button_text_white:       rgb(249, 249, 249);
 
-@color_button_normal:           rgb(32, 35, 39);
-@color_button_normal_webkit:    -webkit-linear-gradient(top, rgb(32, 35, 39), rgb(32, 35, 39));
-@color_button_normal_moz:       -moz-linear-gradient(top, rgb(235, 232, 227), rgb(234, 231, 226));
-@color_button_normal_o:         -o-linear-gradient(top, rgb(235, 232, 227), rgb(234, 231, 226));
-@color_button_normal_ms:        -ms-linear-gradient(top, rgb(235, 232, 227), rgb(234, 231, 226));
-@color_button_press:            rgb(59, 115, 182);
+@color_button_normal:           rgb(60, 64, 68);
+@color_button_normal_webkit:    -webkit-linear-gradient(top, rgb(53, 57, 61), rgb(45, 48, 51));
+@color_button_normal_moz:       -moz-linear-gradient(top, rgb(53, 57, 61), rgb(45, 48, 51));
+@color_button_normal_o:         -o-linear-gradient(top, rgb(53, 57, 61), rgb(45, 48, 51));
+@color_button_normal_ms:        -ms-linear-gradient(top, rgb(53, 57, 61), rgb(45, 48, 51));
+@color_button_press:            rgb(51, 99, 157);
 
-@color_button_inner:            rgb(32, 35, 39);
-@color_button_inner_webkit:     -webkit-linear-gradient(top, rgb(32, 35, 39), rgb(32, 35, 39));
-@color_button_inner_moz:        -moz-linear-gradient(top, rgb(250, 247, 242), rgb(248, 245, 240));
-@color_button_inner_o:          -o-linear-gradient(top, rgb(250, 247, 242), rgb(248, 245, 240));
-@color_button_inner_ms:         -ms-linear-gradient(top, rgb(250, 247, 242), rgb(248, 245, 240));
+@color_button_inner:            rgb(60, 64, 68);
+@color_button_inner_webkit:     -webkit-linear-gradient(top, rgb(60, 64, 68), rgb(44, 46, 49));
+@color_button_inner_moz:        -moz-linear-gradient(top, rgb(60, 64, 68), rgb(44, 46, 49));
+@color_button_inner_o:          -o-linear-gradient(top, rgb(60, 64, 68), rgb(44, 46, 49));
+@color_button_inner_ms:         -ms-linear-gradient(top, rgb(60, 64, 68), rgb(44, 46, 49));
 
-@button_shadow_outer:		0 0 1px 1px rgba(0, 0, 0, 1);
-@button_shadow_inner:		none;
+@button_shadow_outer:		0 0 1px 1px rgba(83, 86, 90, 1);
+@button_shadow_inner:		0 0 1px 1px rgba(67, 70, 73, 1);;
 
 @color_button_edit:		rgb(201, 88, 88);
 @color_button_edit_webkit:	-webkit-gradient(linear, left top, left bottom, from(rgb(201, 88, 88)), to(rgb(161, 40, 40)));
@@ -141,7 +144,7 @@
 	background: @color_button_normal_o;
 	background: @color_button_normal_ms;
 	border: 1px solid;
-	border-color: rgba(0, 0, 0, 1);
+	border-color: rgba(42, 44, 47, 1);
 	.LESSbox-shadow-line( @button_shadow_outer );
 }
 .LESSbutton_inner_box_style{
@@ -189,7 +192,7 @@
 @color_ctxpopup_border_top:             rgb(91, 91, 91);
 @color_ctxpopup_border_bottom:          rgb(45, 45, 45);
 
-@color_ctxbutton_press:            rgb(59, 115, 182);
+@color_ctxbutton_press:            rgb(42, 137, 194);		/* B044 */
 
 @color_ctxpopup_timepicker_text:        rgba( 255, 255, 255, 0.7 );
 @color_ctxpopup_timepicker_text_focus:  rgba( 255, 255, 255, 1 );
@@ -201,6 +204,7 @@
 @color_scrollbar: 		rgb(57, 59, 65);
 @color_scrollview_indicator_start:	rgb(186,186,186);
 @color_scrollview_indicator_end:	rgb(32,35,39);
+@color_scrollbar_thumb_shadow:		rgba(0, 0, 0, 50);
 
 /***************************************************************************
                    Date Time picker
@@ -220,6 +224,7 @@
 ***************************************************************************/
 @color_popup_center_progressbar_title:	rgba(153, 153, 153, 1);
 @color_popup_title_bg:		rgba(80, 147, 182, 255);	/* popup_title_bg.png */
+@color_popup_title_text:		rgba(125, 169, 221, 1);	/* B063L9 : Basic Style_title */
 
 @color_popup_button_bg:		rgba(42, 45, 48, 1);
 @color_popup_font: rgba(248, 246, 239, 1); /* maybe not use only popupwindow*/
@@ -274,7 +279,7 @@
 /***************************************************************************
                     Tickernoti
 ***************************************************************************/
-@color_ticker_bg:			rgb(68, 68, 68);
+@color_ticker_bg:			rgb(52, 52, 50);			/* B061L5 */
 @color_ticker_text1:			rgb(255, 255, 255);
 @color_ticker_text2:			rgb(255, 255, 255);
 @color_ticker_btn:			rgb(64, 64, 64);
@@ -284,14 +289,15 @@
 /***************************************************************************
                     Smallpopup
 ***************************************************************************/
-@color_smallpopup_bg:			rgb(68, 68, 68);
+@color_smallpopup_bg:			-webkit-linear-gradient(top, @color_bg 0%, rgb(153, 153, 153
+) 18%, rgb(68, 68, 68) 20%, rgb(68, 68, 68) 100%);
 @color_smallpopup_text:			rgb(255, 255, 255);
 
 /***************************************************************************
                     Slider
 ***************************************************************************/
 @color_slider_handle_text:		rgb(255, 255, 255);
-@color_slider_popup_text:		rgb(249, 249, 249);
+@color_slider_popup_text:		rgb(76, 81, 88);		/* W0632 */
 @color_slider_left_text:		rgb(186, 186, 186);
 @color_slider_right_text:		rgb(186, 186, 186);
 @color_slider_label_text:		rgb(255, 255, 255);
@@ -300,12 +306,13 @@
 /***************************************************************************
                     Progress
 ***************************************************************************/
-@color_progress_bar0:			rgb(0, 0, 0);
-@color_progress_bar1:			rgb(29, 31, 34);
-@color_progress_border:			rgb(29, 31, 34);
-@color_progress_value0:			rgb(54, 119, 195);
-@color_progress_value1:			rgb(29, 31, 34);
-@color_progress_shadow:			rgb(255, 255, 255);
+@color_progress_bar0:			rgb(26, 27, 29);
+@color_progress_bar1:			rgb(46, 47, 51);
+@color_progress_outline:			rgb(57, 59, 63);
+@color_progress_border:			rgb(32, 33, 35);
+@color_progress_value0:			rgb(82, 136, 201);
+@color_progress_value1:			rgb(54, 90, 113);
+@color_progress_shadow:			rgb(60, 62, 67);
 
 
 /***************************************************************************
@@ -349,13 +356,14 @@
                    tokentextarea
 ***************************************************************************/
 @color_tokentextarea_block_text : rgb(255, 255, 255);
-@color_tokentextarea_block_bg : rgb(95, 138, 189);
-@color_tokentextarea_press_bg : rgb(54, 89, 132);
+@color_tokentextarea_block_bg : rgb(118, 157, 204);    /* W0711 : Contact button bg normal */
+@color_tokentextarea_press_bg : rgb(64, 147, 247);     /* W0713 : Contact button bg press */
 @color_tokentextarea_input_text : #222222;
 @color_tokentextarea_label_text : rgb(128, 128, 128);
 
 /***************************************************************************
                    Splitview
 ***************************************************************************/
-@color_splitview_spliter_bar : rgb(179, 179, 179);
-@color_splitview_spliter_bar_active : rgb(87, 135, 194);
+@color_splitview_spliter_bar : rgb(52, 55, 57);				/* W131 */
+@color_splitview_spliter_bar_active : rgb(59, 115, 182);		/* W132 */
+@color_splitview_spliter_border : rgb(58, 62, 67);

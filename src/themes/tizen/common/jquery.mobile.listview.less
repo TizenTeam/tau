@@ -335,6 +335,7 @@ li.ui-li-thumbnail-right {
 
 		padding-top : 0px;
 		padding-bottom : 0px;
+		color : @color_list_editfield;
 	}
 }
 
@@ -444,7 +445,7 @@ li.ui-li-thumbnail-right {
 		width : 100%;
 		height : 2 * @unit_base;
 
-		background : @color_list_divider_text;
+		background : @color_list_divider_line;
 	}
 
 	&.ui-btn-down-s {
@@ -616,7 +617,7 @@ li.ui-li-thumbnail-right {
 
 	position : absolute;
 	right : 0px;
-	top : 16 * @unit_base;
+	top : 12 * @unit_base;
 
 	width : 60%;
 	.LESStext-ellipsis();
@@ -852,6 +853,7 @@ li:not(.ui-li-has-multiline) .ui-li-text-sub {
 		&.ui-li-bubble-left {
 			color: @color_list_bubble_receive_text;
 			> .ui-li-bubble-time {
+				text-align: left;
 				color: @color_list_bubble_time_receive_text;
 			}
 		}
@@ -859,6 +861,7 @@ li:not(.ui-li-has-multiline) .ui-li-text-sub {
 		&.ui-li-bubble-right {
 			color: @color_list_bubble_sent_text;
 			> .ui-li-bubble-time {
+				text-align: right;
 				color: @color_list_bubble_time_sent_text;
 			}
 		}
@@ -877,6 +880,7 @@ li:not(.ui-li-has-multiline) .ui-li-text-sub {
 
 	span.ui-li-bubble-time {
 		font-weight: bold;
+		width: 70 * @unit_base;
 	}
 	// Common
 	.ui-li-bubble-receive,
@@ -902,9 +906,9 @@ li:not(.ui-li-has-multiline) .ui-li-text-sub {
 	.ui-li-bubble-left {
 		//float: left;
 		margin-left: 0px;
-		margin-right: 1.6rem;
+		margin-right: 100 * @unit_base;
 		border-image-source: url(images/00_messagebubble_bg_receive.9.png);
-		border-image-slice: 57 14 21 48 fill;
+		border-image-slice: 60 23 20 57 fill;
 		border-image-width: auto;
 		padding: 9px 14px 21px 48px;
 
@@ -918,7 +922,7 @@ li:not(.ui-li-has-multiline) .ui-li-text-sub {
 	}
 	.ui-li-bubble-sent,
 	.ui-li-bubble-right {
-		margin-left: 1.6rem;
+		margin-left: 100 * @unit_base;
 		margin-right: 0px;
 		border-image-source: url(images/00_messagebubble_bg_sent.9.png);
 		border-image-slice: 55 47 20 13 fill;

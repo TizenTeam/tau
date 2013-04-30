@@ -115,10 +115,10 @@
 	img {
 		position : absolute;
 		display: inline-block;
-		height: 16 * @unit_base;
-		width: 16 * @unit_base;
+		height: 20 * @unit_base;
+		width: 20 * @unit_base;
 		margin-left: 8 * @unit_base;
-		margin-top : 24 * @unit_base;
+		margin-top : 22 * @unit_base;
 	}
 
 	.ui-title-text-sub {
@@ -214,7 +214,7 @@
 	
 	&.ui-title-multiline {
 		img {
-			margin-top : 14 * @unit_base;
+			margin-top : 23 * @unit_base;
 		}
 
 		.ui-title {
@@ -223,6 +223,9 @@
 			font-size  : 22 * @unit_base;
 
 			margin: 9*@unit_base 8*@unit_base 22*@unit_base 8*@unit_base;
+		}
+		img + .ui-title + .ui-title-text-sub {
+			left : 33 * @unit_base;
 		}
 	}
 	
@@ -280,7 +283,7 @@
 	>[data-role="button"] {
 		font-size : 15 * @unit_base;
 		font-weight : bold;
-		color : @color_tabbar_btn_normal;
+		color : @color_button_text_normal;
 	}
 
 	[data-role="controlgroup"] {
@@ -329,7 +332,7 @@
 			}
 			.ui-btn-text {
 				font-size : 17 * @unit_base;
-				color : rgba(58, 58, 58, 1);
+				color : color_button_text_normal;
 			}
 
 			&.ui-corner-right {
