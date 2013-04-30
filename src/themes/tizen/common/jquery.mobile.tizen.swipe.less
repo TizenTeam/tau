@@ -3,12 +3,12 @@
 @list-li-padding-horizontal: 16 * @unit_base;
 
 .ui-swipe {
+	padding: 0 !important;
 	list-style-type: none;
-	overflow: hidden;
 }
 
 .ui-swipe-item {
-	height: 26 * @unit_base;
+	height: 56 * @unit_base;
 	-ms-user-select: none;
 	-o-user-select: none;
 	-moz-user-select: none;
@@ -16,9 +16,12 @@
 	-user-select: none;
 	opacity: 0;
 	text-align : center;
+	background-color: @color_list_swipe_bg;
+	margin-left : -13 * @unit_base;
+	margin-right : -13 * @unit_base;
 
 	.ui-btn {
-		margin-top: -1.5em ! important;
+		margin-top: -1.2em ! important;
 		position: relative ! important;
 	}
 	p {
