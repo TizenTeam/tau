@@ -98,7 +98,7 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 		createHandler = function ( target ) {
 			var $view = target,
 				prefix = "<div class=\"ui-handler ui-handler-direction-",
-				suffix = "\"><div class=\"ui-handler-track\"><div class=\"ui-handler-thumb\"></div></div></div>",
+				suffix = "\"><div class=\"ui-handler-track\"><div class=\"ui-handler-handle\"><div class=\"ui-handler-thumb\"></div></div></div></div>",
 				scrollview = $view.data( "scrollview" ),
 				options = scrollview.options,
 				direction = options.direction,
@@ -109,7 +109,7 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 				_$clip = scrollview._$clip,
 				scrollbar = $view.find( ".ui-scrollbar" ),
 				handler = null,
-				handlerThumb = null,
+				handlerHandle = null,
 				viewLength = 0,
 				clipLength = 0,
 				handlerHeight = 0,
@@ -128,7 +128,7 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 				},
 				setHanderPostion = function ( scrollPos ) {
 					var handlerPos = Math.round( ( isHorizontal ? scrollPos.x : scrollPos.y ) / viewLength * trackLength );
-					handlerThumb[0].style[ ( isHorizontal ? "left" : "top" ) ] = handlerPos + "px";
+					handlerHandle[0].style[ ( isHorizontal ? "left" : "top" ) ] = handlerPos + "px";
 				},
 				stopHandlerScroll = function () {
 					$( document ).unbind( ".handler" );
@@ -136,16 +136,16 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 					_$view.trigger( "scrollstop" );
 				};
 
-			if ( $view.find( ".ui-handler-thumb" ).length !== 0 || typeof direction !== "string" ) {
+			if ( $view.find( ".ui-handler-handle" ).length !== 0 || typeof direction !== "string" ) {
 				return;
 			}
 
 			handler = $( [ prefix, direction, suffix ].join( "" ) ).appendTo( $view.addClass( " ui-handler-" + theme ) );
-			handlerThumb = $view.find( ".ui-handler-thumb" ).attr( {
+			handlerHandle = $view.find( ".ui-handler-handle" ).attr( {
 				"tabindex" : "0",
 				"aria-label" : ( isHorizontal ? "Horizontal handler, double tap and move to scroll" : "Verticalhandler, double tap and move to scroll" )
 			}).hide();
-			handlerHeight = ( isHorizontal ? handlerThumb.width() : handlerThumb.height() );
+			handlerHeight = ( isHorizontal ? handlerHandle.width() : handlerHandle.height() );
 			handlerMargin = ( isHorizontal ? parseInt( handler.css( "right" ), 10 ) : parseInt( handler.css( "bottom" ), 10 ) );
 
 			$.extend( $view, {
@@ -153,8 +153,8 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 			});
 
 			// handler drag
-			handlerThumb.bind( dragStartEvt, {
-				e : handlerThumb[0]
+			handlerHandle.bind( dragStartEvt, {
+				e : handlerHandle[0]
 			}, function ( event ) {
 				scrollview._stopMScroll();
 
@@ -238,7 +238,7 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 				}
 
 				handler.addClass( "ui-handler-visible" );
-				handlerThumb.stop( true, true )
+				handlerHandle.stop( true, true )
 							.fadeIn();
 			}).bind( "scrollupdate", function ( event, data ) {
 				if ( !scrollview.enableHandler() || viewLength < 0 || clipLength < handlerHeight ) {
@@ -265,7 +265,7 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 				}
 				scrollview._handlerTimer = setTimeout( function () {
 					if ( scrollview._timerID === 0 && $view.moveData === null ) {
-						handlerThumb.stop( true, true )
+						handlerHandle.stop( true, true )
 							.css( "opacity", 1.0 )
 							.fadeOut( function () {
 								handler.removeClass( "ui-handler-visible" );
