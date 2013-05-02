@@ -8,9 +8,9 @@
 			<div class="ui-pane" id="menu" data-scroll="y">
 				<ul data-role="listview">
 					<li><a id="testSetRatio"><h2>Ratio setting</h2></a></li>
-					<li><a id="testGetRatio"><h2>Current ratio</h2></a></li>
-					<li><a id="testSetConents"><h2>Set contents of "Up"</h2></a></li>
-					<li><a id="testGetConents"><h2>Get contents</h2></a></li>
+					<li><a id="testGetRatio" href="#splitview_popup" data-rel="popup" data-position-to="window"><h2>Current ratio</h2></a></li>
+					<li><a id="testSetContents"><h2>Set contents of "Up"</h2></a></li>
+					<li><a id="testGetContents" href="#splitview_popup" data-rel="popup" data-position-to="window"><h2>Get contents</h2></a></li>
 					<li><a id="testFixed"><h2>Fixed / Flexible</h2></a></li>
 					<li><a id="testDirection"><h2>Divider: Vertical / Horizontal</h2></a></li>
 					<li><a id="testMaximize"><h2>Maximize "Up" / Restore</h2></a></li>
@@ -24,6 +24,11 @@
 					<div class="ui-pane" id="down" data-scroll="y">
 						<h4>"Down" pane</h4>
 					</div>
+				</div>
+			</div>
+
+			<div id="splitview_popup" data-role="popup">
+				<div class="ui-popup-text">
 				</div>
 			</div>
 		</div>
@@ -46,15 +51,15 @@
 
 		$( "#testGetRatio" ).bind( "vclick", function () {
 			var ratio = testSplitview.splitview( "option", "ratio" );
-			window.alert( "Up : Down = \n" + ratio[ 0 ].toFixed( 2 ) + " : " + ratio[ 1 ].toFixed( 2 ) );
+			$( ".splitview-popup" ).text( "Up : Down = \n" + ratio[ 0 ].toFixed( 2 ) + " : " + ratio[ 1 ].toFixed( 2 ) );
 		});
 
-		$( "#testSetConents" ).bind( "vclick", function () {
+		$( "#testSetContents" ).bind( "vclick", function () {
 			var element = $( "<div><h4>Changed \"Up\" pane</h4> Contents changed!!</div>" );
 			testSplitview.splitview( "pane", "#up", element );
 		});
 
-		$( "#testGetConents" ).bind( "vclick", function () {
+		$( "#testGetContents" ).bind( "vclick", function () {
 			var contents = "",
 				upContents = testSplitview.splitview( "pane", "#up" ),
 				downContents = testSplitview.splitview( "pane", "#down" );
@@ -65,7 +70,7 @@
 						( ( typeof downContents === "undefined" || !downContents ) ? "" : downContents[ 0 ].outerHTML );
 
 			contents = contents.substring(0, 120) + "..." ;
-			window.alert( contents );
+			$( ".splitview-popup" ).text( contents );
 
 		});
 
