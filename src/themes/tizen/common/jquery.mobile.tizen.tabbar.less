@@ -270,3 +270,104 @@
 	right : 0px;
 	background-image: url(images/00_effect_title_tab_bounce_right.png);
 }
+
+
+/************************************************************************
+			Landscape mode
+************************************************************************/
+@media all and (orientation:landscape) and (device-aspect-ratio : 16/9) {
+
+.ui-tabbar {
+	a.ui-btn {
+		padding-top : 14 * @unit_base;
+		padding-bottom : 14 * @unit_base;
+	}
+
+	.ui-btn-inner {
+		.ui-icon {
+			top : 10 * @unit_base;
+		}
+	}
+
+	&.ui-tabbar-notext {
+		a.ui-btn {
+			padding-top : 6 * @unit_base;
+			padding-bottom : 5 * @unit_base;
+		}
+		.ui-btn-inner {
+			height : 34 * @unit_base;
+		}
+	}
+}
+
+/* title font size when title tabbar */
+.ui-header.ui-bar-s.ui-title-tabbar {
+	.ui-title {
+		font-size : 19 * @unit_base;
+		margin-top : 8 * @unit_base;
+	}
+
+	.ui-tabbar {
+		&.ui-tabbar-noicons {
+			a.ui-btn {
+				padding-top : 10 * @unit_base;
+				padding-bottom : 8 * @unit_base;
+			}
+		}
+
+		&.ui-tabbar-notext {
+			a.ui-btn {
+				padding-top : 3 * @unit_base;
+				padding-bottom : 2 * @unit_base;
+			}
+		}
+	}
+}
+
+.ui-header.ui-bar-s {
+	&.ui-title-tabbar-multiline {
+		.ui-tabbar {
+			a.ui-btn {
+				padding-top : 6 * @unit_base;
+				padding-bottom : 5 * @unit_base;
+				.ui-btn-inner {
+					height : 54 * @unit_base;
+					.ui-btn-text {
+						line-height : 15 * @unit_base;
+					}
+				}
+			}
+		}
+	}
+}
+
+.ui-footer.ui-bar-s {
+	.ui-tabbar {
+		height : 42 * @unit_base;
+
+		a.ui-btn {
+			padding-top : 13 * @unit_base;
+			padding-bottom : 12 * @unit_base;
+		}
+
+		&.ui-tabbar-notext {
+			a.ui-btn {
+				padding-top : 4 * @unit_base;
+				padding-bottom : 4 * @unit_base;
+			}
+		}
+	}
+}
+
+.ui-tabbar-s.ui-navbar-noicons {
+	font-size : 19 * @unit_base;
+}
+
+/* Scrollable tabbar */
+
+.ui-tabbar-divider {
+	width : 81 * @unit_base;
+	height : 55 * @unit_base;
+}
+
+}

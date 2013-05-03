@@ -620,3 +620,119 @@ a.ui-link-inherit {
 	pointer-events: none;
 }
 
+
+
+/************************************************************************
+			Landscape mode
+************************************************************************/
+@media all and (orientation:landscape) and (device-aspect-ratio : 16/9) {
+.ui-bar-s {
+	> .ui-btn.ui-btn-back,
+	> .ui-btn.ui-btn-footer-down {
+		.ui-icon-header-back-btn {
+			top : 5 * @unit_base;
+		}
+	}
+}
+
+.ui-header.ui-bar-s{
+	min-height : 45 * @unit_base;
+
+	.ui-title {
+		min-height : 25 * @unit_base;
+		max-height : 29 * @unit_base; /* tuning UX guide(title height too large)*/
+		font-size  : 25 * @unit_base;
+
+		margin: 12*@unit_base 8*@unit_base 4*@unit_base 8*@unit_base;/* tuning UX guide(title height too large)*/
+	}
+
+	>.ui-btn:not(.ui-btn-icon_only),
+	>.naviframe-button.ui-btn:not(.ui-btn-icon_only) {
+		width : 53 * @unit_base;
+		height : 18 * @unit_base;
+
+		bottom : 10 * @unit_base;
+	}
+
+	> .ui-btn.ui-btn-back,
+	> .ui-btn.ui-btn-footer-down {
+		right : 13 * @unit_base;
+	}
+
+	img {
+		margin-top : 16 * @unit_base;
+		height: 22 * @unit_base;
+		width: 22 * @unit_base;
+	}
+
+	.ui-title-text-sub {
+		top : 26 * @unit_base;
+	}
+
+	> .ui-btn,
+	> .naviframe-button.ui-btn {
+		top : 8 * @unit_base;
+
+		height : 34 * @unit_base;
+		width : 34 * @unit_base;
+	}
+	&.ui-title-tabbar >.ui-btn {
+		top: 8 * @unit_base;
+	}
+
+	&.ui-title-multiline {
+		img {
+			margin-top : 12 * @unit_base;
+		}
+
+		.ui-title {
+			min-height : 21 * @unit_base;
+			max-height : 21 * @unit_base; /* temporary UX strange */
+			font-size  : 19 * @unit_base;
+			margin: 5*@unit_base 8*@unit_base 19*@unit_base 8*@unit_base;
+
+			display : block;
+		}
+	}
+}
+
+.ui-footer.ui-bar-s {
+	height : 42 * @unit_base;
+	>.ui-btn.ui-btn-back,
+	>.ui-btn.ui-btn-footer-down,
+	>[data-icon="naviframe-more"] {
+		>.ui-btn-icon-only {
+			width : 56 * @unit_base;
+			height : 42 * @unit_base;
+		}
+                .ui-icon-down {
+                        top : 5 * @unit_base;
+		}
+	}
+
+	[data-icon="naviframe-more"] {
+		.ui-icon-naviframe-more {
+			top : 5 * @unit_base;
+		}
+	}
+
+	[data-role="controlgroup"] {
+		margin-top : 6 * @unit_base; /* temp value */
+		margin-bottom : 6 * @unit_base; /* temp value */
+		padding-left : 58 * @unit_base;
+		padding-right : 58 * @unit_base;
+
+
+		[data-role="button"] {
+			padding : 0px;
+			margin-left : -4 * @unit_base;
+			margin-right : -5 * @unit_base;
+			top : -4 * @unit_base;
+		}
+	}
+
+	> [data-role="button"]:not([data-icon="naviframe-more"]) {
+		top : 3 * @unit_base;
+	}
+}
+}
