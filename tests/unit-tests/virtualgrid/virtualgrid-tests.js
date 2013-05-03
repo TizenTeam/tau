@@ -5,10 +5,12 @@
  * Woosung Sohn <woosungim.sohn@samsung.com>
  */
 
-( function ( $ ) {
+$( document ).ready( function () {
+	var virtualGrid, startVirtualGridTest;
+
 	module( "Virtualgrid" );
 
-	var startVirtualGridTest = function ( virtualGrid ) {
+	startVirtualGridTest = function ( virtualGrid ) {
 		var $vgView,
 			$vgScrollView,
 			$vgWrapBlocks,
@@ -61,19 +63,28 @@
 			notEqual( $item.children().length, prevColCnt, "Method : resize" );
 
 			$item = $( $vgWrapBlocks.first().children()[0] );
-			$item.trigger( "click" );
+			try {
+				$item.trigger( "click" );
+			} catch ( exception ) {
+				console.log( "click event exception : " + exception );
+			}
 		});
 	};
 
-	$( document ).bind( "dataloaded" , function () {
-		var virtualGrid = $( "#virtualgrid-test" ).virtualgrid( "create" , {
+	/* Load Dummy Data and Init Virtual Grid widget*/
+	if ( window.JSON_DATA ) {
+		// trigger pagecreate
+		$( "#virtualgrid_demo_page" ).page();
+
+		virtualGrid = $( "#virtualgrid-test" ).virtualgrid( "create", {
 			itemData: function ( idx ) {
 				return JSON_DATA[ idx ];
 			},
 			numItemData: JSON_DATA.length,
 			cacheItemData: function ( minIdx, maxIdx ) { }
 		});
-
 		startVirtualGridTest( virtualGrid );
-	});
-}( jQuery ));
+	} else {
+		console.log ( "Virtual Grid Init Fail." );
+	}
+} );

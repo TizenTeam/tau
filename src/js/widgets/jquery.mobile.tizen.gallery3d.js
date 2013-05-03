@@ -10,7 +10,7 @@ define( [ "components/imageloader", "components/motionpath", "components/webgl" 
 /* ***************************************************************************
 	Flora License
 
-	Version 1.0, April, 2013
+	Version 1.1, April, 2013
 
 	http://floralicense.org/license/
 
@@ -202,7 +202,7 @@ define( [ "components/imageloader", "components/motionpath", "components/webgl" 
 
 	   Copyright [yyyy] [name of copyright owner]
 
-	   Licensed under the Flora License, Version 1.0 (the "License");
+	   Licensed under the Flora License, Version 1.1 (the "License");
 	   you may not use this file except in compliance with the License.
 	   You may obtain a copy of the License at
 
@@ -713,6 +713,8 @@ define( [ "components/imageloader", "components/motionpath", "components/webgl" 
 			if ( !gl ) {
 				return;
 			}
+
+			self._stop();
 
 			canvas = canvas || self._canvas;
 

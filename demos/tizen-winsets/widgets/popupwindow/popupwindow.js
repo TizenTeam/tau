@@ -15,14 +15,17 @@ $( document ).one( "pageinit", "#popupwindow-demo", function () {
 
 function onSuccessPopupCallback ( ori ) {
         if ( ori.status === "PORTRAIT_PRIMARY" || ori.status === "PORTRAIT_SECONDARY" ) {
-		$("#textbox_popup_landscape").popup("close");
-		$("#go_textbox_popup a").attr("href", "#textbox_popup");
+                if( $( "#textbox_popup_landscape" ).parents( ".ui-popup-container" ).is( ".ui-popup-active" ) ) {
+                        $( "#textbox_popup_landscape" ).popup( "close" );
+                }
+		$( "#go_textbox_popup a" ).attr( "href", "#textbox_popup" );
         }
         else if ( ori.status === "LANDSCAPE_PRIMARY" || ori.status === "LANDSCAPE_SECONDARY" ) {
-		$("#textbox_popup").popup("close");
-		$("#go_textbox_popup a").attr("href", "#textbox_popup_landscape");
+                if( $( "#textbox_popup" ).parents( ".ui-popup-container" ).is( ".ui-popup-active" ) ) {
+                        $( "#textbox_popup" ).popup( "close" );
+                }
+                $( "#go_textbox_popup a" ).attr( "href", "#textbox_popup_landscape" );
         }
-
 }
 
 function onErrorPopupCallback ( error ) {

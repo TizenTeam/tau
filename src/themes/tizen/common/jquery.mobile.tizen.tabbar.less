@@ -28,6 +28,14 @@
 			-0-border-radius : 0px;
 			-ms-border-radius : 0px;
 			-webkit-border-radius : 0px;
+
+			&:not(.ui-btn-icon-only) .ui-btn-text {
+				display: block;
+				vertical-align: middle;
+				padding-bottom : 6 * @unit_base;
+				margin-left: 6 * @unit_base;
+				margin-right: 6 * @unit_base;
+			}
 		}
 
 		.ui-icon {
@@ -45,10 +53,15 @@
 		}
 		a.ui-state-persist, a.ui-state-persist.ui-btn-active, a.ui-btn-show-style {
 			color : @color_tabbar_btn_pressed;
+
+			.ui-btn-text {
+				border-bottom-width: 3 * @unit_base;
+				border-bottom-color: @color_tabbar_btn_pressed;
+				border-bottom-style: solid;
+			}
 		}
 		a.ui-btn-hover-s.ui-btn-down-s {
 			&:not(.ui-state-persist) {
-				color : @color_tabbar_btn_pressed;
 				background: @color_tabbar_btn_tab_press;
 			}
 		}
@@ -60,9 +73,13 @@
 		}
 		a.ui-btn-active, .ui-btn-show-style {
 			color : @color_tabbar_btn_pressed;
+			.ui-btn-text {
+				border-bottom-width: 3 * @unit_base;
+				border-bottom-color: @color_tabbar_btn_pressed;
+				border-bottom-style: solid;
+			}
 		}
 		a.ui-btn.ui-btn-hover-s.ui-btn-down-s {
-			color : @color_tabbar_btn_pressed;
 			background: @color_tabbar_btn_tab_press;
 		}
 	}
@@ -134,8 +151,7 @@
 				.ui-btn-inner {
 					height : 54 * @unit_base;
 					.ui-btn-text {
-						padding-top : 0px;
-						line-height : 85 * @unit_base;
+						padding-bottom: 1 * @unit_base;
 					}
 					.ui-icon {
 						top : 0px;

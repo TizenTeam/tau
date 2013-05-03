@@ -22,7 +22,6 @@
 		color-stop(1, @color_progress_value1)
 	);
 	.LESSborder-radius-all( 10 * @unit_base );
-	.LESSbox-shadow(-1px, -1px, 1px, rgb(179, 200, 226));
 }
 
 .ui-progressbar-bg {
@@ -38,7 +37,6 @@
 	border: 1px;
 	border-style: solid;
 	border-color: @color_progress_border;
-	.LESSbox-shadow(1px, -1px, 1px, @color_progress_border);
 	background-color: @color_progress_bar0;
 }
 
@@ -57,6 +55,6 @@
 		color-stop(0, @color_progress_bar1),
 		color-stop(1, @color_progress_bar0)
 	);
-	.LESSbox-shadow(1px, 1px, 0px, white);
+	.LESSbox-shadow(0px, 0px, 2px, @color_progress_shadow);
 	.LESSborder-radius-all( 10 * @unit_base );
 }

@@ -9,21 +9,21 @@
 }
 
 .ui-handler-visible {
-  opacity: 1;
+	opacity: 1;
 }
 
 .ui-handler-direction-y {
 	top : 10 * @unit_base_handler;
-	right : 10 * @unit_base_handler;
+	right : 0 * @unit_base_handler;
 	bottom : 10 * @unit_base_handler;
-	width : 48 * @unit_base_handler;
+	width : 36 * @unit_base_handler;
 }
 
 .ui-handler-direction-x {
 	right : 10 * @unit_base_handler;
-	bottom : 10 * @unit_base_handler;
+	bottom : 0 * @unit_base_handler;
 	left : 10 * @unit_base_handler;
-	height : 48 * @unit_base_handler;
+	height : 36 * @unit_base_handler;
 }
 
 .ui-handler-track {
@@ -32,19 +32,32 @@
 	height : 100%;
 }
 
-.ui-handler-thumb {
+.ui-handler-handle {
 	position : absolute;
 	top : 0;
 	left : 0;
+}
+
+.ui-handler-direction-x .ui-handler-handle {
+	width : 234 * @unit_base_handler;
+	height : 36 * @unit_base_handler;
+}
+
+.ui-handler-direction-y .ui-handler-handle {
+	width : 36 * @unit_base_handler;
+	height : 234 * @unit_base_handler;
+}
+
+.ui-handler-thumb {
 	background-position : center;
 	background-repeat : no-repeat;
-	.LESSborder-radius-all(5 * @unit_base_handler);
+	.LESSborder-radius-all(11 * @unit_base_handler);
 }
 
 .ui-handler-direction-y .ui-handler-thumb {
-	width : 48 * @unit_base_handler;
-	height : 214 * @unit_base_handler;
-	background-size : 48 * @unit_base_handler	40 * @unit_base_handler;
+	width : 23 * @unit_base_handler;
+	height : 229 * @unit_base_handler;
+	background-size : 23 * @unit_base_handler	37 * @unit_base_handler;
 }
 
 .ui-handler-direction-x .ui-handler-thumb {

@@ -5,8 +5,7 @@
 @popup-ratio: 86.12%;
 
 .ui-popup-screen {
-    background: #000000;
-    opacity: 0;
+	opacity: 0;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -16,7 +15,9 @@
 }
 
 .ui-overlay-dim {
-	opacity: 0.7;
+	background-image: url('images/popup_bg.png');
+	background-size: 100% 100%;
+	opacity: 1;
 }
 
 
@@ -28,7 +29,6 @@
 	position: absolute;
 	width: @popup-ratio;
 	z-index: (@z_base_popup + 1) !important;
-	background:		@color_popup_text_bg;
 	text-align: center;
 	outline-color: @color_list_bg;
 	.LESSdisplaybox();
@@ -46,13 +46,18 @@
 			width : 100%;
 		}
 		word-wrap : break-word;
+		-ms-border-radius : .3em;
+		-o-border-radius : .3em;
+		-webkit-border-radius : .3em;
+		-moz-border-radius : .3em;
+		border-radius : .3em;
 	}
 
 	.ui-popup-title {
 		width: 100%;
 		height: 40 * @unit_base;
 		text-align : left;
-		color : @color_bar_title_text;
+		color : @color_popup_title_text;
 
 		font-size: @font_size_popup_basic_style_title;
 		font-weight : bold;
@@ -60,7 +65,7 @@
 		h1 {
 			font-size: @font_size_popup_basic_style_title;
 			font-weight : bold;
-			color : @color_bar_title_text;
+			color : @color_popup_title_text;
 
 			margin : 0px;
 			padding-top : 10 * @unit_base;

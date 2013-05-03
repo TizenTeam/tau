@@ -60,7 +60,7 @@ index e7f5df0..2e682db 100644
 -			});
 +		if ( imgToggle ) {
 +			appHandle = $( this.handle ).parents( ".ui-slider" );
-+			if ( $( this.handle ).attr("aria-valuenow") === "on" ) {
++			if ( $( this.handle ).attr("aria-valuenow") === "on" || $( this.handle ).attr("aria-valuenow") === $( this.element ).children( "option:last" ).attr( "value" ) ) {
 +				appHandle.children( "span.ui-slider-label-a" ).show();
 +				appHandle.children( "span.ui-slider-label-b" ).hide();
 +			} else {

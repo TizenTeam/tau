@@ -115,7 +115,7 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 				page = $el.closest( ':jqmData(role="page")' ),
 				jumpToDivider;
 
-			this.scrollview = $el.closest( '.ui-scrollview-clip' );
+			this.scrollview = $el.addClass( 'ui-fastscroll-target' ).closest( '.ui-scrollview-clip' );
 			this.shortcutsContainer = $( '<div class="ui-fastscroll" aria-label="Fast scroll bar, double tap to fast scroll mode" tabindex="0"/>' );
 			this.shortcutsList = $( '<ul aria-hidden="true"></ul>' );
 
@@ -183,7 +183,6 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 						var listItem = $( this );
 						$( listItem )
 							.removeClass( "ui-fastscroll-hover" )
-							.removeClass( "ui-fastscroll-hover-up" )
 							.removeClass( "ui-fastscroll-hover-down" );
 					});
 					// Hit test each list item
@@ -228,7 +227,6 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 					$popup.hide();
 					$( ".ui-fastscroll-hover" ).removeClass( "ui-fastscroll-hover" );
 					$( ".ui-fastscroll-hover-first-item" ).removeClass( "ui-fastscroll-hover-first-item" );
-					$( ".ui-fastscroll-hover-up" ).removeClass( "ui-fastscroll-hover-up" );
 					$( ".ui-fastscroll-hover-down" ).removeClass( "ui-fastscroll-hover-down" );
 					self._setTimer( true );
 				} );
@@ -241,10 +239,6 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 
 			// refresh the list when dividers are filtered out
 			$el.bind( 'updatelayout', function () {
-				self.refresh();
-			} );
-
-			$( window ).unbind( ".fastscroll" ).bind( "resize.fastscroll", function ( e ) {
 				self.refresh();
 			} );
 
@@ -265,8 +259,8 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 			}
 
 			$popup.text( text )
-				.css( { marginLeft: -( $popup.width() / 2 ),
-					marginTop: -( $popup.height() / 2 ),
+				.css( { marginLeft: -( $popup.outerWidth() / 2 ),
+					marginTop: -( $popup.outerHeight() / 2 ),
 					padding: $popup.css( "paddingTop" ) } )
 				.width( $popup.height() )
 				.show();
@@ -274,9 +268,6 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 			$( listItem ).addClass( "ui-fastscroll-hover" );
 			if ( listItem.index() === 0 ) {
 				$( listItem ).addClass( "ui-fastscroll-hover-first-item" );
-			}
-			if ( listItem.index() > 0 ) {
-				$( listItem ).siblings().eq( listItem.index() - 1 ).addClass( "ui-fastscroll-hover-up" );
 			}
 			$( listItem ).siblings().eq( listItem.index() ).addClass( "ui-fastscroll-hover-down" );
 		},
@@ -298,8 +289,8 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 			}
 
 			$popup.text( text )
-				.css( { marginLeft: -( $popup.width() / 2 ),
-					marginTop: -( $popup.height() / 2 ),
+				.css( { marginLeft: -( $popup.outerWidth() / 2 ),
+					marginTop: -( $popup.outerHeight() / 2 ),
 					padding: $popup.css( "paddingTop" ) } )
 				.width( $popup.height() )
 				.show();
@@ -307,9 +298,6 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 			$( listItem ).addClass( "ui-fastscroll-hover" );
 			if ( listItem.index() === 0 ) {
 				$( listItem ).addClass( "ui-fastscroll-hover-first-item" );
-			}
-			if ( listItem.index() > 0 ) {
-				$( listItem ).siblings().eq( listItem.index() - 1 ).addClass( "ui-fastscroll-hover-up" );
 			}
 			$( listItem ).siblings().eq( listItem.index() ).addClass( "ui-fastscroll-hover-down" );
 		},
@@ -327,7 +315,6 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 				$popup.hide();
 				$( ".ui-fastscroll-hover" ).removeClass( "ui-fastscroll-hover" );
 				$( ".ui-fastscroll-hover-first-item" ).removeClass( "ui-fastscroll-hover-first-item" );
-				$( ".ui-fastscroll-hover-up" ).removeClass( "ui-fastscroll-hover-up" );
 				$( ".ui-fastscroll-hover-down" ).removeClass( "ui-fastscroll-hover-down" );
 				self._setTimer( true );
 			});
@@ -659,6 +646,9 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 			.fastscroll();
 	} );
 
+	$( window ).bind( "resize orientationchange", function ( e ) {
+		$( ".ui-page-active .ui-fastscroll-target" ).fastscroll( "refresh" );
+	} );
 } ( jQuery ) );
 
 //>>excludeStart("jqmBuildExclude", pragmas.jqmBuildExclude);
