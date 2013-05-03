@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.26
+Version:    0.2.27
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -97,6 +97,27 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Fri May 03 2013 Hyunjung kim <hjnim.kim@samsung.com> 0.2.27
+	- Splitview: Fix popup error
+	- Tests: Add slider tests checking if jqm slider is used for select elements
+	- Adjust the latest GUI
+	- Handler: Adjust the latest GUI
+	- Swipe: Adjust the latest GUI
+	- Fastscroll: Adjust the latest GUI
+	- ToggleSwitch : bug fix
+	- TizenWinset : bug fix(N_SE-36666)
+	- Gallery3d: Fix Gallery3d TC failure
+	- UnitTC: fix virtualgrid test error
+	- Popup: popup background image have been added
+	- Tokentextarea: Use jQM popup instead of window.alert().
+	- Splitview: Use jQM popup instead of window.alert().
+	- Splitview: Change an option name to start with a capital letter
+	- License: Change flora license version
+	- Tabbar: Adjust the latest GUI
+	- Tokentextarea: Change from 'px' to 'em.'
+	- Fastscroll: Add 'orientationchange' event handler.
+	- Gallery3d: Fix null reference error
+
 * Fri Apr 26 2013 Youmin Ha <youmin.ha@samsung.com> 0.2.26
 	- PageLayout : bug fix
 	- Gallery3d: Change timing of 'gl-matrix' library's execution
