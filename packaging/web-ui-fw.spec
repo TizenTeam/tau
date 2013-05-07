@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.27
+Version:    0.2.28
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -97,6 +97,11 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Tue May 07 2013 Hyunjung kim <hjnim.kim@samsung.com> 0.2.28
+	- Orientation : add landscape UX
+	- ToggleSwitch : divide jQM and Tizen slider on dragging outside of toggle area ( N_SE-37574 )
+	- Slider: Popup slider issue has been fixed ( N_SE-36430 )
+
 * Fri May 03 2013 Hyunjung kim <hjnim.kim@samsung.com> 0.2.27
 	- Splitview: Fix popup error
 	- Tests: Add slider tests checking if jqm slider is used for select elements

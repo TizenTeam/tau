@@ -234,17 +234,22 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 			self.updateSlider();
 
 			// bind to changes in the slider's value to update handle text
-			this.element.bind('change', function () {
+			this.element.on('change', function () {
 				self.updateSlider();
+				self.showPopup();
+			});
+			this.element.on( 'slidestart', function( event ) {
+				self.updateSlider();
+				self.showPopup();
 			});
 
 			// bind clicks on the handle to show the popup
-			self.handle.bind('vmousedown', function () {
+			self.handle.on('vmousedown', function () {
 				self.showPopup();
 			});
 
 			// watch events on the document to turn off the slider popup
-			slider.add( document ).bind('vmouseup', function () {
+			slider.add( document ).on('vmouseup', function () {
 				self.hidePopup();
 			});
 		},
@@ -417,7 +422,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 	});
 
 	// stop jqm from initialising sliders
-	$( document ).bind( "pagebeforecreate", function ( e ) {
+	$( document ).on( "pagebeforecreate", function ( e ) {
 		if ( $.data( window, "jqmSliderInitSelector" ) === undefined ) {
 			$.data( window, "jqmSliderInitSelector",
 				$.mobile.slider.prototype.options.initSelector );
@@ -426,7 +431,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 	});
 
 	// initialise sliders with our own slider
-	$( document ).bind( "pagecreate create", function ( e ) {
+	$( document ).on( "pagecreate create", function ( e ) {
 		var jqmSliderInitSelector = $.data( window, "jqmSliderInitSelector" );
 		$( e.target ).find(jqmSliderInitSelector).each(function () {
 			var $this = $( this );
