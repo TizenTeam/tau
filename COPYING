@@ -2,6 +2,7 @@ This software is licensed under the MIT license (as defined
 by the OSI at http://www.opensource.org/licenses/mit-license.php), except for
 following files:
     * src/js/jquery.mobile.tizen.pinch.js.
+    * src/js/widgets/jquery.mobile.tizen.gallery3d.js
 
 ****************************************************************************
 Copyright (c) 2000 - 2011 Samsung Electronics Co., Ltd.
