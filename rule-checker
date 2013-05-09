@@ -8,5 +8,20 @@ if [ $# -lt 1 ]; then
 	echo How to use : ./rule-checker {file-path1 file-path2 file-path3 ...}
 	echo Example : ./rule-checker src/widgets/slider/js/jquery.mobile.tizen.slider.js
 else
-	build-tools/bin/jslint --sloppy --eqeq --bitwise --forin --nomen --predef jQuery --color --plusplus --browser --jqmspace $@
+	#loop over all files given in arguments
+	for file in $@
+	do
+		if [ -f $file ]; then
+			#wrap with comment: excludeStart .. excludeEnd
+			sed -itmp -e '/^\/\/>>excludeStart\(.*\);/,/^\/\/>>excludeEnd\(.*\);/ s/^/\/\//' $file
+			#run jslint
+			build-tools/bin/jslint --sloppy --eqeq --bitwise --forin --nomen --predef jQuery --color --plusplus --browser --jqmspace $file
+			#remove file modified by sed
+			rm $file
+			#restore tmp file created by sed
+			mv ${file}tmp $file
+		else
+			echo "${file} doesn't exist"
+		fi
+	done
 fi
