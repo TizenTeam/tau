@@ -146,7 +146,7 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 				}
 				if ( l ) {	// Found the link element!
 					if ( l.getAttribute( 'href' ) == path ) {
-						tizen.log.warn( "Theme is already loaded. Skip theme loading in the framework." );
+						tizen.log.debug( "Theme is already loaded. Skip theme loading in the framework." );
 					} else {
 						l.setAttribute( 'href', path );
 					}
@@ -401,7 +401,7 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 			if ( meta ) {	// Found custom viewport!
 				content = $( meta ).prop( "content" );
 				viewportWidth = content.replace( /.*width=(device-width|\d+)\s*,?.*$/gi, "$1" );
-				tizen.log.warn( "Viewport is set to '" + viewportWidth + "' in a meta tag. Framework skips viewport setting." );
+				tizen.log.debug( "Viewport is set to '" + viewportWidth + "' in a meta tag. Framework skips viewport setting." );
 			} else {
 				// Create a meta tag
 				meta = document.createElement( "meta" );
