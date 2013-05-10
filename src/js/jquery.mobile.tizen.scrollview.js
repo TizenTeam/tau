@@ -1018,7 +1018,7 @@ define( [ ], function ( ) {
 
 				elem = $c.find(".ui-focus");
 
-				if ( elem === undefined ) {
+				if ( !elem.length ) {
 					return;
 				}
 
