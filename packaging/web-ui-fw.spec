@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.28
+Version:    0.2.29
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -97,6 +97,13 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Fri May 10 2013 Hyunjung Kim <hjnim.kim@samsung.com> 0.2.29
+	- loader: change a warn msg to debug msg
+	- Radio: Radio issue has been fixed ( N_SE-38015 )
+	- Add gallery3D source to the flora license list
+	- Slider: JQM patch fixed ( event.target match )
+	- Tizen-winset: remove unnecessary file
+
 * Tue May 07 2013 Hyunjung kim <hjnim.kim@samsung.com> 0.2.28
 	- Orientation : add landscape UX
 	- ToggleSwitch : divide jQM and Tizen slider on dragging outside of toggle area ( N_SE-37574 )
