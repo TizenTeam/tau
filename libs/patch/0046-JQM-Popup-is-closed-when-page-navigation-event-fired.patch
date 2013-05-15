@@ -1,0 +1,97 @@
+From e1fc24fbeb713af80f30407dd910636aa6565e52 Mon Sep 17 00:00:00 2001
+From: "hjnim.kim" <hjnim.kim@samsung.com>
+Date: Wed, 15 May 2013 15:01:15 +0900
+Subject: [PATCH] JQM Popup is closed when page navigation event fired
+
+JQM Popup will be closed ( when page navigation event fired)
+- pagebeforechange, navigate
+
+Change-Id: Ib078d9f9127eac7f12b37b3605880936d4ebeb39
+Signed-off-by: hyunjung kim <hjnim.kim@samsung.com>
+---
+ libs/js/jquery-mobile-1.2.0/js/widgets/popup.js |   34 +++++++++++++++++++++--
+ 1 file changed, 31 insertions(+), 3 deletions(-)
+
+diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
+index 324b63f..8247bc6 100644
+--- a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
++++ b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
+@@ -504,6 +504,7 @@ define( [ "jquery",
+ 					.addClass( args.containerClassToAdd )
+ 					.removeClass( args.classToRemove );
+ 			} else {
++				this._ui.container.removeClass( args.classToRemove );
+ 				args.prereqs.container.resolve();
+ 			}
+ 		},
+@@ -698,7 +699,7 @@ define( [ "jquery",
+ 			self._trigger( "afterclose" );
+ 		},
+ 
+-		_close: function() {
++		_close: function( immediate ) {
+ 			this._ui.container.removeClass( "ui-popup-active" );
+ 			this._page.removeClass( "ui-popup-open" );
+ 
+@@ -717,7 +718,7 @@ define( [ "jquery",
+ 
+ 			this._animate( {
+ 				additionalCondition: this._ui.screen.hasClass( "in" ),
+-				transition: ( this._currentTransition || this.options.transition ),
++				transition: ( immediate ? "none" : ( this._currentTransition || this.options.transition ) ),
+ 				classToRemove: "in",
+ 				screenClassToAdd: "out",
+ 				containerClassToAdd: "reverse out",
+@@ -749,6 +750,30 @@ define( [ "jquery",
+ 			});
+ 		},
+ 
++		_closePopup: function( e, data ) {
++			var parsedDst, toUrl;
++
++			if ( e.type === "pagebeforechange" && data ) {
++				if ( typeof data.toPage === "string" ) {
++					parsedDst = data.toPage;
++				} else {
++				parsedDst = data.toPage.jqmData( "url" );
++				}
++				parsedDst = $.mobile.path.parseUrl( parsedDst );
++				toUrl = parsedDst.pathname + parsedDst.search + parsedDst.hash;
++
++				if ( this._myUrl !== toUrl ) {
++					this.options.container.unbind( this.options.closeEvents );
++					this._close( true );
++				} else {
++					this._close();
++				}
++				return;	// skip normal close
++			}
++
++			this._close();
++		},
++
+ 		// any navigation event after a popup is opened should close the popup
+ 		// NOTE the pagebeforechange is bound to catch navigation events that don't
+ 		//      alter the url (eg, dialogs from popups)
+@@ -756,7 +781,7 @@ define( [ "jquery",
+ 			var self = this;
+ 
+ 			self.options.container
+-				.one( self.options.closeEvents, $.proxy( self._close, self ));
++				.one( self.options.closeEvents, $.proxy( self, "_closePopup" ) );
+ 		},
+ 
+ 		// TODO no clear deliniation of what should be here and
+@@ -838,6 +863,9 @@ define( [ "jquery",
+ 			hashkey = $.mobile.dialogHashKey;
+ 			activePage = $.mobile.activePage;
+ 			currentIsDialog = activePage.is( ".ui-dialog" );
++			// Set active page url
++			this._myUrl = url = urlHistory.getActive().url;
++			//
+ 			url = $.mobile.urlHistory.getActive().url;
+ 			hasHash = ( url.indexOf( hashkey ) > -1 ) && !currentIsDialog;
+ 			urlHistory = $.mobile.urlHistory;
+-- 
+1.7.9.5
+
