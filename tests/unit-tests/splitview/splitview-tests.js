@@ -42,7 +42,7 @@
 		/* Methods : maximize */
 		splitview.splitview( "maximize", "#pane0" );
 		ratio = splitview.splitview( "option", "ratio" );
-		ok( ratio[ 0 ] === 1 && ratio[ 1 ] === 0, "Method : maximize" );
+		ok( Math.abs( ratio[ 0 ] - 1.0 ) < 0.1 && Math.abs( ratio[ 1 ] ) < 0.1, "Method : maximize" );
 
 		/* Methods : restore */
 		splitview.splitview( "restore" );
