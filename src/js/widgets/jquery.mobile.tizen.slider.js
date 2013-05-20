@@ -249,9 +249,30 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 			});
 
 			// watch events on the document to turn off the slider popup
-			slider.add( document ).on('vmouseup', function () {
+			slider.add( document ).on('vmouseup vmousecancel', function () {
 				self.hidePopup();
 			});
+
+			$.extend( this, {
+				_globalHandler: [
+					{
+						src: $( window ),
+						handler: {
+							orientationchange: $.proxy( this, "_orientationHandler" ),
+						}
+					}
+				]
+			});
+
+			$.each( this._globalHandler, function( idx, value ) {
+				value.src.bind( value.handler );
+			});
+
+		},
+
+		_orientationHandler: function() {
+			var self = this;
+			self.hidePopup();
 		},
 
 		_handle_press_show: function () {
