@@ -17,6 +17,11 @@ define( [ ], function ( ) {
 
 (function ( $, window, document, undefined ) {
 
+	/**
+	 * Resizes page content height according to footer
+	 * header elements, and page padding
+	 * @param {HTMLElement|jQuery} page
+	 */
 	function resizePageContentHeight( page ) {
 		var $page = $( page ),
 			$content = $page.children(".ui-content"),
@@ -29,12 +34,22 @@ define( [ ], function ( ) {
 		$content.height( wh - (hh + fh) - (pt + pb) );
 	}
 
+	/**
+	 * MomentumTracker - helper class to ease momentum
+	 * movement calculations
+	 * @class
+	 * @param {Object} options
+	 */
 	function MomentumTracker( options ) {
 		this.options = $.extend( {}, options );
 		this.easing = "easeOutQuad";
 		this.reset();
 	}
 
+	/**
+	 * Scroll states dictionary
+	 * @type {Object}
+	 */
 	var tstates = {
 		scrolling: 0,
 		overshot:  1,
@@ -42,50 +57,164 @@ define( [ ], function ( ) {
 		done:      3
 	};
 
+	/**
+	 * Returns current time in miliseconds
+	 * @return {number}
+	 */
 	function getCurrentTime() {
 		return Date.now();
 	}
 
 	jQuery.widget( "tizen.scrollview", jQuery.mobile.widget, {
+		/**
+		 * Default options
+		 * @type {Object}
+		 */
 		options: {
+			/**
+			 * Direction of scroll, can be:
+			 * "x" for horizontal scroll
+			 * "y" for vertical scroll
+			 * null for horizontal and vertical scroll
+			 * @type {string|null}
+			 */
 			direction:         null,  // "x", "y", or null for both.
 
+			/**
+			 * Internal timer inteval
+			 * @type {number}
+			 */
 			timerInterval:     10,
-			scrollDuration:    1000,  // Duration of the scrolling animation in msecs.
-			overshootDuration: 250,   // Duration of the overshoot animation in msecs.
-			snapbackDuration:  500,   // Duration of the snapback animation in msecs.
 
-			moveThreshold:     30,   // User must move this many pixels in any direction to trigger a scroll.
-			moveIntervalThreshold:     150,   // Time between mousemoves must not exceed this threshold.
+			/**
+			 * Duration of the scrolling animation in miliseconds
+			 * @type {number}
+			 */
+			scrollDuration:    1000,
 
-			scrollMethod:      "translate",  // "translate", "position"
+			/**
+			 * Duration of the overshoot animation in miliseconds
+			 * @type {number}
+			 */
+			overshootDuration: 250,
+
+			/**
+			 * Duration of snapback animation in miliseconds
+			 * @type {number}
+			 */
+			snapbackDuration:  500,
+
+			/**
+			 * Scroll detection threshold
+			 * @type {number}
+			 */
+			moveThreshold:     30,
+
+			/**
+			 * Maximal time between mouse movements while scrolling
+			 * @type {number}
+			 */
+			moveIntervalThreshold:     150,
+
+			/**
+			 * Scroll method type, can be "translate" or "position"
+			 * @type {string}
+			 */
+			scrollMethod:      "translate",
+
+			/**
+			 * The event fired when started scrolling
+			 * @type {string}
+			 */
 			startEventName:    "scrollstart",
+
+			/**
+			 * The event fired on each scroll update (movement)
+			 * @type {string}
+			 */
 			updateEventName:   "scrollupdate",
+
+			/**
+			 * The event fired after scroll stopped
+			 * @type {string}
+			 */
 			stopEventName:     "scrollstop",
 
+			/**
+			 * Determines the event group for detecting scroll
+			 * if $.support.touch has truthy value the group 
+			 * that starts scroll will be touch events, otherwise
+			 * mouse events will be used
+			 * @type {string}
+			 */
 			eventType:         $.support.touch ? "touch" : "mouse",
 
+			/**
+			 * Determines if we should show the scrollbars
+			 * @type {boolean}
+			 */
 			showScrollBars:    true,
+
+			/**
+			 * Determines if overshoot animation is enabled
+			 * @type {boolean}
+			 */
 			overshootEnable:   false,
+
+			/**
+			 * Determines if we enable the window scroll
+			 * @type {boolean}
+			 */
 			outerScrollEnable: false,
+
+			/**
+			 * Determines if the overflow animation is enabled
+			 * @type {boolean}
+			 */
 			overflowEnable:    true,
+
+			/**
+			 * Determines if we allow scroll jumps
+			 * @type {boolean}
+			 */
 			scrollJump:        false
 		},
 
+		/**
+		 * Returns view height
+		 * @private
+		 * @return {number}
+		 */
 		_getViewHeight: function () {
 			return this._$view.height();
 		},
 
+		/**
+		 * Returns view width
+		 * @private
+		 * @return {number}
+		 */
 		_getViewWidth: function () {
 			return this._$view.width();
 		},
 
+		/**
+		 * Changes specified elements position to relative if
+		 * previous position state was static
+		 * @private
+		 * @param {jQuery} $ele
+		 */
 		_makePositioned: function ( $ele ) {
 			if ( $ele.css("position") === "static" ) {
 				$ele.css( "position", "relative" );
 			}
 		},
 
+		/**
+		 * Creates scrollview widget,
+		 * binds events and initiaties timers
+		 * @private
+		 */
 		_create: function () {
 			var direction,
 				self = this;
@@ -136,7 +265,14 @@ define( [ ], function ( ) {
 			this._add_overflow_indicator();
 		},
 
-		_startMScroll: function ( speedX, speedY ) {
+		/**
+		 * Starts momentum scroll after user stopped
+		 * scrolling
+		 * @private
+		 * @param {number} speedX Horizontal speed
+		 * @param {number} speedY Vertical speed
+		 */
+		_starMScroll: function ( speedX, speedY ) {
 			var keepGoing = false,
 				duration = this.options.scrollDuration,
 				ht = this._hTracker,
@@ -183,6 +319,10 @@ define( [ ], function ( ) {
 			}
 		},
 
+		/**
+		 * Ends momentum scroll
+		 * @private
+		 */
 		_stopMScroll: function () {
 			if ( this._timerID ) {
 				this._$clip.trigger( this.options.stopEventName );
@@ -202,6 +342,10 @@ define( [ ], function ( ) {
 			this._hideOverflowIndicator();
 		},
 
+		/**
+		 * Updates scroll while in momentum scroll mode
+		 * @private
+		 */
 		_handleMomentumScroll: function () {
 			var keepGoing = false,
 				x = 0,
@@ -255,6 +399,13 @@ define( [ ], function ( ) {
 			}
 		},
 
+		/**
+		 * Sets css translate transformation for element
+		 * @param {jQuery} $ele
+		 * @param {number} x
+		 * @param {number} y
+		 * @param {number} duration
+		 */
 		_setElementTransform: function ( $ele, x, y, duration ) {
 			var translate,
 				transition;
@@ -281,6 +432,10 @@ define( [ ], function ( ) {
 			});
 		},
 
+		/**
+		 * Applies scroll end effect according to direction
+		 * @param {string} dir Direction, can be "in" or "out"
+		 */
 		_setEndEffect: function ( dir ) {
 			var scroll_height = this._getViewHeight() - this._$clip.height();
 
@@ -315,6 +470,12 @@ define( [ ], function ( ) {
 			}
 		},
 
+		/**
+		 * Calibrates scroll position and scroll end effect
+		 * @private
+		 * @param {number} x
+		 * @param {number} y
+		 */
 		_setCalibration: function ( x, y ) {
 			if ( this.options.overshootEnable ) {
 				this._sx = x;
@@ -382,6 +543,13 @@ define( [ ], function ( ) {
 			}
 		},
 
+		/**
+		 * Moves scroll to specified position
+		 * @private
+		 * @param {number} x
+		 * @param {number} y
+		 * @param {number} duration
+		 */
 		_setScrollPosition: function ( x, y, duration ) {
 			var $v = this._$view,
 				sm = this.options.scrollMethod,
@@ -425,6 +593,12 @@ define( [ ], function ( ) {
 			}
 		},
 
+		/**
+		 * Handles window scrolling
+		 * @private
+		 * @param {number} y
+		 * @param {number} scroll_height
+		 */
 		_outerScroll: function ( y, scroll_height ) {
 			var self = this,
 				top = $( window ).scrollTop() - window.screenTop,
@@ -472,6 +646,13 @@ define( [ ], function ( ) {
 			this._outerScrolling = setTimeout( tfunc, self._timerInterval );
 		},
 
+		/**
+		 * Scrolls to specified position with easeOutQuad calculations
+		 * @private
+		 * @param {number} x
+		 * @param {number} y
+		 * @param {number} duration
+		 */
 		_scrollTo: function ( x, y, duration ) {
 			var self = this,
 				start = getCurrentTime(),
@@ -503,6 +684,15 @@ define( [ ], function ( ) {
 			this._timerID = setTimeout( tfunc, this._timerInterval );
 		},
 
+		/**
+		 * Scrolls to specified position
+		 * If scroll method is css translation or duration is a
+		 * falsy value, the position is changed via translation,
+		 * otherwise it's animated to that position
+		 * @param {number} x
+		 * @param {number} y
+		 * @param {number} duration
+		 */
 		scrollTo: function ( x, y, duration ) {
 			this._stopMScroll();
 			this._didDrag = false;
@@ -514,14 +704,27 @@ define( [ ], function ( ) {
 			}
 		},
 
+		/**
+		 * Returns current scroll position {x,y}
+		 * @return {Object}
+		 */
 		getScrollPosition: function () {
 			return { x: -this._sx, y: -this._sy };
 		},
 
+		/**
+		 * Skipps dragging
+		 * @param {Boolean}
+		 */
 		skipDragging: function ( value ) {
 			this._skip_dragging = value;
 		},
 
+		/**
+		 * Returns scroll hierarchy in an array of elements
+		 * @private
+		 * @return {Array}
+		 */
 		_getScrollHierarchy: function () {
 			var svh = [],
 				d;
@@ -535,6 +738,11 @@ define( [ ], function ( ) {
 			return svh;
 		},
 
+		/**
+		 * Returns ancestor for specified direction
+		 * @private
+		 * @param {string} dir
+		 */
 		_getAncestorByDirection: function ( dir ) {
 			var svh = this._getScrollHierarchy(),
 				n = svh.length,
@@ -552,6 +760,13 @@ define( [ ], function ( ) {
 			return null;
 		},
 
+		/**
+		 * Handles dragstart event
+		 * @private
+		 * @param {Event} e
+		 * @param {number} ex Event x position
+		 * @param {number} ey Event y position
+		 */
 		_handleDragStart: function ( e, ex, ey ) {
 			this._stopMScroll();
 
@@ -617,6 +832,15 @@ define( [ ], function ( ) {
 			this._set_scrollbar_size();
 		},
 
+		/**
+		 * Propagates dragging
+		 * @private
+		 * @param {jQuery} sv
+		 * @param {Event} e
+		 * @param {number} ex
+		 * @param {number} ey
+		 * @param {string} dir
+		 */
 		_propagateDragMove: function ( sv, e, ex, ey, dir ) {
 			this._hideScrollBars();
 			this._hideOverflowIndicator();
@@ -626,6 +850,14 @@ define( [ ], function ( ) {
 			sv._didDrag = this._didDrag;
 		},
 
+		/**
+		 * Handles drag event
+		 * @private
+		 * @param {Event}
+		 * @param {number} ex
+		 * @param {number} ey
+		 * @return {boolean|undefined}
+		 */
 		_handleDragMove: function ( e, ex, ey ) {
 			if ( this._skip_dragging ) {
 				return;
@@ -760,6 +992,11 @@ define( [ ], function ( ) {
 			}
 		},
 
+		/**
+		 * Handles drag stop event, and returns drag status
+		 * @param {Event} e
+		 * @return {Boolean|undefined}
+		 */
 		_handleDragStop: function ( e ) {
 			var self = this;
 
@@ -800,6 +1037,13 @@ define( [ ], function ( ) {
 			return !this._didDrag;
 		},
 
+		/**
+		 * Detects gestures and sets proper gesture direction
+		 * @private
+		 * @param {number} sx
+		 * @param {number} sy
+		 * @return {boolean}
+		 */
 		_setGestureScroll: function ( sx, sy ) {
 			var self = this,
 				reset = function () {
@@ -842,14 +1086,29 @@ define( [ ], function ( ) {
 			return false;
 		},
 
+		/**
+		 * Enables dragging
+		 * @private
+		 */
 		_enableTracking: function () {
 			this._dragging = true;
 		},
 
+		/**
+		 * Disables dragging
+		 * @private
+		 */
 		_disableTracking: function () {
 			this._dragging = false;
 		},
 
+		/**
+		 * Shows scrollbars
+		 * When interval is specified, the scrollbars will be
+		 * hidden after the specified time in miliseconds
+		 * @private
+		 * @param {number} [interval]
+		 */
 		_showScrollBars: function ( interval ) {
 			var vclass = "ui-scrollbar-visible",
 				self = this;
@@ -877,6 +1136,10 @@ define( [ ], function ( ) {
 			}
 		},
 
+		/**
+		 * Hides scrollbars
+		 * @private
+		 */
 		_hideScrollBars: function () {
 			var vclass = "ui-scrollbar-visible";
 
@@ -897,6 +1160,14 @@ define( [ ], function ( ) {
 			this._scrollbar_showed = false;
 		},
 
+		/**
+		 * Sets opacities for the oveflow indicator
+		 * according to specified direction. The direction
+		 * is optional. Specify 1 for top, 0 for bottom, and
+		 * a falsy value for both
+		 * @private
+		 * @param {number} [dir] 0
+		 */
 		_setOverflowIndicator: function ( dir ) {
 			if ( dir === 1 ) {
 				this._opacity_top = "0";
@@ -910,6 +1181,10 @@ define( [ ], function ( ) {
 			}
 		},
 
+		/**
+		 * Display overflow indicator
+		 * @private
+		 */
 		_showOverflowIndicator: function () {
 			if ( !this.options.overflowEnable || !this._overflowAvail || this._softkeyboard ) {
 				return;
@@ -921,6 +1196,10 @@ define( [ ], function ( ) {
 			this._overflow_showed = true;
 		},
 
+		/**
+		 * Hide overflow indicator
+		 * @private
+		 */
 		_hideOverflowIndicator: function () {
 			if ( !this.options.overflowEnable || !this._overflowAvail || this._softkeyboard ) {
 				return;
@@ -937,6 +1216,11 @@ define( [ ], function ( ) {
 			this._setOverflowIndicator();
 		},
 
+		/**
+		 * Bind events
+		 * @private
+		 * @return {boolean|undefined}
+		 */
 		_add_event: function () {
 			var self = this,
 				$c = this._$clip,
@@ -1193,6 +1477,10 @@ define( [ ], function ( ) {
 				});
 		},
 
+		/**
+		 * Adds scrollbar elements to DOM
+		 * @private
+		 */
 		_add_scrollbar: function () {
 			var $c = this._$clip,
 				prefix = "<div class=\"ui-scrollbar ui-scrollbar-",
@@ -1214,6 +1502,10 @@ define( [ ], function ( ) {
 			this._scrollbar_showed = false;
 		},
 
+		/**
+		 * Adds scroll jump button to DOM
+		 * @private
+		 */
 		_add_scroll_jump: function () {
 			var $c = this._$clip,
 				self = this,
@@ -1245,6 +1537,10 @@ define( [ ], function ( ) {
 			}
 		},
 
+		/**
+		 * Adds overflow indicator to DOM
+		 * @private
+		 */
 		_add_overflow_indicator: function () {
 			if ( !this.options.overflowEnable ) {
 				return;
@@ -1261,6 +1557,10 @@ define( [ ], function ( ) {
 			this._overflow_showed = false;
 		},
 
+		/**
+		 * Sets the size of the scrollbars
+		 * @private
+		 */
 		_set_scrollbar_size: function () {
 			var $c = this._$clip,
 				$v = this._$view,
@@ -1308,7 +1608,18 @@ define( [ ], function ( ) {
 		}
 	});
 
+	/**
+	 * Momentum tracker
+	 */
 	$.extend( MomentumTracker.prototype, {
+		/**
+		 * Starts momentum callculations
+		 * @param {number} pos
+		 * @param {number} speed
+		 * @param {number} duration
+		 * @param {number} minPos
+		 * @param {number} maxPos
+		 */
 		start: function ( pos, speed, duration, minPos, maxPos ) {
 			var tstate = ( pos < minPos || pos > maxPos ) ?
 					tstates.snapback : tstates.scrolling,
@@ -1329,6 +1640,10 @@ define( [ ], function ( ) {
 			this.startTime = getCurrentTime();
 		},
 
+		/**
+		 * Resets momentum tracker calculations and sets
+		 * state to done
+		 */
 		reset: function () {
 			this.state = tstates.done;
 			this.pos = 0;
@@ -1339,6 +1654,11 @@ define( [ ], function ( ) {
 			this.remained = 0;
 		},
 
+		/**
+		 * Recalculate momentum tracker estimates
+		 * @param {boolean} overshootEnable
+		 * @return {number} position
+		 */
 		update: function ( overshootEnable ) {
 			var state = this.state,
 				cur_time = getCurrentTime(),
@@ -1409,26 +1729,50 @@ define( [ ], function ( ) {
 			return this.pos;
 		},
 
+		/**
+		 * Checks if momentum state is done
+		 * @return {boolean}
+		 */
 		done: function () {
 			return this.state === tstates.done;
 		},
 
+		/**
+		 * Checks if the position is minimal
+		 * @return {boolean}
+		 */
 		isMin: function () {
 			return this.pos === this.minPos;
 		},
 
+		/**
+		 * Checks if the position is maximal
+		 * @return {boolean}
+		 */
 		isMax: function () {
 			return this.pos === this.maxPos;
 		},
 
+		/**
+		 * Check if momentum tracking is available
+		 * @return {boolean}
+		 */
 		isAvail: function () {
 			return !( this.minPos === this.maxPos );
 		},
 
+		/**
+		 * Returns remaining time
+		 * @return {number}
+		 */
 		getRemained: function () {
 			return this.remained;
 		},
 
+		/**
+		 * Returns current position
+		 * @return {number}
+		 */
 		getPosition: function () {
 			return this.pos;
 		}
