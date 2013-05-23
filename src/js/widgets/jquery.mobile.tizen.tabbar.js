@@ -42,11 +42,11 @@ define( [
 */
 
 /**
- *  Tabbar can be created using data-role = "tabbar" inside footer 
+ *  Tabbar can be created using data-role = "tabbar" inside footer
  *  Framework determine which tabbar will display with tabbar attribute
  *
  * Examples:
- *         
+ *
  *     HTML markup for creating tabbar: ( 2 ~ 5 li item available )
  *     icon can be changed data-icon attribute (customized icon need)
  *         <div data-role="footer" data-position ="fixed">
@@ -64,12 +64,35 @@ define( [
 
 	$.widget( "tizen.tabbar", $.mobile.widget, {
 		options: {
+			/**
+			 * Icons position
+			 * @type {string}
+			 */
 			iconpos: "top",
+
+			/**
+			 * Gridd type
+			 * @type {string|null}
+			 */
 			grid: null,
+
+			/**
+			 * Default visible elements in tabbar
+			 * @type {number}
+			 */
 			defaultList : 4,
+
+			/**
+			 * The selector which indicates Tabbar class in DOM
+			 * @type {string}
+			 */
 			initSelector: ":jqmData(role='tabbar')"
 		},
 
+		/**
+		 * Creates the whole widget, addes dom and binds event
+		 * @private
+		 */
 		_create: function () {
 
 			var $tabbar = this.element,
@@ -245,6 +268,10 @@ define( [
 			});
 		},
 
+		/**
+		 * Binds tabbar to events (like orientation changes)
+		 * @private
+		 */
 		_bindTabbarEvents: function () {
 			var $tabbar = this.element;
 
@@ -261,16 +288,31 @@ define( [
 			});
 		},
 
+		/**
+		 * Sets tabbar elements disabled and aria-disabled attributes according
+		 * to specified value
+		 * @private
+		 * @param {string} value
+		 * @param {number} cnt the element index
+		 */
 		_setDisabled: function ( value, cnt ) {
 			this.element.find( "li" ).eq( cnt ).attr( "disabled", value );
 			this.element.find( "li" ).eq( cnt ).attr( "aria-disabled", value );
 		},
 
+		/**
+		 * Disables specified element in tabbar
+		 * @param {number} cnt the element index
+		 */
 		disable: function ( cnt ) {
 			this._setDisabled( true, cnt );
 			this.element.find( "li" ).eq( cnt ).addClass( "ui-disabled" );
 		},
 
+		/**
+		 * Enables specified element in tabbar
+		 * @param {number} cnt the element index
+		 */
 		enable: function ( cnt ) {
 			this._setDisabled( false, cnt );
 			this.element.find( "li" ).eq( cnt ).removeClass( "ui-disabled" );
