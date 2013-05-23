@@ -51,8 +51,8 @@ index f8c3a2d..d8a4b42 100644
 +	$( document ).bind( "pagecreate create", function( e ) {
 +		var selector = "*[data-" + $.mobile.ns + "role]";
 +		$( selector, e.target ).each( function () {
-+			dataRoleValue = this.getAttribute( "data-role" );
-+			matchedObj = $.creatorDict[dataRoleValue];
++			var dataRoleValue = this.getAttribute( "data-role" ),
++				matchedObj = $.creatorDict[dataRoleValue];
 +			if ( matchedObj ) {
 +				matchedObj.target.prototype.enhance( this, matchedObj.useKeepNative );
 +			}

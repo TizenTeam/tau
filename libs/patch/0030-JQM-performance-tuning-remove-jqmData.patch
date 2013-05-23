@@ -71,8 +71,8 @@ index 4d07961..7c17ba6 100644
  		}
  
  		/* TIZEN style markup */
--		buttonStyle = el.jqmData("style");
-+		buttonStyle =  $.mobile.getAttrFixed( e, prefix + "style" );
+-		var buttonStyle = el.jqmData("style");
++		var buttonStyle =  $.mobile.getAttrFixed( e, prefix + "style" );
  
  		if ( buttonStyle == "circle" && !($(el).text().length > 0) ) {
  			/* style : no text, Icon only */

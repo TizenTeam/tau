@@ -22,7 +22,7 @@ index 3d7d884..0be6999 100644
 +		}
 +
 +		/* TIZEN style markup */
-+		buttonStyle = el.jqmData("style");
++		var buttonStyle = el.jqmData("style");
 +
 +		if ( buttonStyle == "circle" && !($(el).text().length > 0) ) {
 +			/* style : no text, Icon only */

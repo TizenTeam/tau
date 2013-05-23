@@ -700,7 +700,7 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 					$( document ).unbind( ".splitview" );
 				});
 
-				$( document ).bind( touchMoveEvt + " " + touchEndEvt, function() {
+				$( document ).bind( touchMoveEvt + " " + touchEndEvt, function () {
 					$el.trigger( touchEndEvt );
 				});
 
