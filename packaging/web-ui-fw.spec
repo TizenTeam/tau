@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.29
+Version:    0.2.30
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -97,6 +97,24 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Thu May 23 2013 heeju.joo <heeju.joo@samsung.com> 0.2.30
+	- scrollview: inline documentation
+	- Rulechecker: wrap with comment excludeStart ... excludeEnd automatically
+	- JQM: Remove global variables
+	- Popup : remove duplicated popup style
+	- Scrollview: Fix comparison syntax correctly
+	- Naviframe : N_SE-38077 issue fix.
+	- Controlgroup : add controlgroup widget.
+	- Bubble List: less file for bubble date has been modified
+	- Popup: Close JQM popup when page navigation event fired
+	- Tabbar-Persist: a href url has been modified.
+	- Splitview: Fix lint error
+	- ScrollView : Fixed indicator display error occured (N_SE-36738)
+	- Gallery: set 'DELETE' button enable exception when any images do not exist
+	- Slider: add orientationchange handler
+	- Tabbar footer : Long 1 line text modify 2 line text. (N_SE-36476)
+	- splitview: fix unit test error
+
 * Fri May 10 2013 Hyunjung Kim <hjnim.kim@samsung.com> 0.2.29
 	- loader: change a warn msg to debug msg
 	- Radio: Radio issue has been fixed ( N_SE-38015 )
