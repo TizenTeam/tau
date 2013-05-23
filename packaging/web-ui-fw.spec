@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.30
+Version:    0.2.31
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -97,6 +97,9 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Thu May 23 2013 Hyunjung kim <hyunjung.kim@samsung.com> 0.2.31
+	- Scrollview : fix misspell api name(startMscroll)
+
 * Thu May 23 2013 heeju.joo <heeju.joo@samsung.com> 0.2.30
 	- scrollview: inline documentation
 	- Rulechecker: wrap with comment excludeStart ... excludeEnd automatically

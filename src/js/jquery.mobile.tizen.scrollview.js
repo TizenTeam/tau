@@ -272,7 +272,7 @@ define( [ ], function ( ) {
 		 * @param {number} speedX Horizontal speed
 		 * @param {number} speedY Vertical speed
 		 */
-		_starMScroll: function ( speedX, speedY ) {
+		_startMScroll: function ( speedX, speedY ) {
 			var keepGoing = false,
 				duration = this.options.scrollDuration,
 				ht = this._hTracker,
