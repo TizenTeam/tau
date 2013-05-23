@@ -326,7 +326,9 @@ define( [ ], function ( ) {
 				$c = this._$clip,
 				dirLock = this._directionLock,
 				scroll_height = 0,
-				scroll_width = 0;
+				scroll_width = 0,
+				vh,
+				ch;
 
 			if ( dirLock !== "y" && this._hTracker ) {
 				scroll_width = $v.width() - $c.width();
@@ -345,7 +347,16 @@ define( [ ], function ( ) {
 			}
 
 			if ( dirLock !== "x" && this._vTracker ) {
-				scroll_height = this._getViewHeight() - $c.height();
+				vh = this._getViewHeight();
+				ch = $c.height();
+				/*
+				When used changePage() function, this._getViewHeight() value set 0.
+				So scroll_height has incorrect value and showed indicator incorrectly.
+				Below condition is exception handling that avoid this situation.
+				*/
+				if ( vh != 0 && ch > 0 ) {
+					scroll_height = vh - ch;
+				}
 
 				if ( y > 0 ) {
 					this._sy = 0;
