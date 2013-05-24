@@ -9,3 +9,4 @@ compiled
 *.patch
 *~
 pkged-demo-apps
+tests/style/node_modules/*
