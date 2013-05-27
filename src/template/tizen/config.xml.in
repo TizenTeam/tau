@@ -2,7 +2,7 @@
 
 <widget xmlns="http://www.w3.org/ns/widgets"
         xmlns:tizen="http://tizen.org/ns/widgets"
-        version="0.1"
+        version="0.1.1"
         id="http://www.samsung.com/app/templateID"
         viewmodes="maximized">
     <!-- automatically generated name -->
@@ -25,7 +25,5 @@
     -->
     <access origin="*"/>
     <tizen:application id="@APP_PKGID@.@APP_NAME@" package="@APP_PKGID@" required_version="1.0"/>
-	<tizen:privilege name="http://tizen.org/privilege/application.read"/>
-	<tizen:setting screen-orientation="portrait" context-menu="disable" background-support="enable" encryption="disable"/>
-	<tizen:privilege name="http://tizen.org/privilege/systeminfo"/>
+    <tizen:setting screen-orientation="portrait" context-menu="disable" background-support="enable" encryption="disable"/>
 </widget>
