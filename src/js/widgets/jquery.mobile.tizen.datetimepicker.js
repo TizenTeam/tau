@@ -749,13 +749,9 @@ define( [ 'jquery.mobile.tizen.widgetex', 'jquery.mobile.tizen.popupwindow', 'jq
 					}
 					$(window).bind( "resize" , obj._reflow );
 				}
-				// cause ctxpopup forced to subtract 10
-				if ( $( window ).width() / 2 < target.offset().left ) {
-					newLeft = -10;
-				}
 				$ctx.popupwindow( 'open',
-						target.offset().left + ( target.width() / 2 ) + newLeft - window.pageXOffset ,
-						target.offset().top + target.height() - window.pageYOffset );
+						target.offset().left + ( target.width() / 2 ) - window.pageXOffset ,
+						target.offset().top + target.height() - window.pageYOffset, target.width(), target.height() );
 
 				this.container = $ctx;
 				this._popup_open = true;
