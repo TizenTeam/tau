@@ -105,6 +105,9 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 
 			// Store back-button, to show again
 			self._backBtnQueue = [];
+
+			// HW backkey
+			self._HWkeyPress();
 		},
 
 		/* add minimum fixed css style to bar(header/footer) and content
@@ -210,6 +213,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 					}
 					self.setHeaderFooter( thisPage );
 					self._setContentMinHeight( thisPage );
+					self._setHWKeyLayout( thisPage );
 				} )
 				.bind( "webkitAnimationStart animationstart updatelayout", function ( e, data ) {
 					var thisPage = this;
@@ -224,6 +228,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 					self._setContentMinHeight( thisPage );
 					self.updatePagePadding( thisPage );
 					self._updateHeaderArea( thisPage );
+
 					if ( o.updatePagePadding ) {
 						$( window ).bind( "throttledresize." + self.widgetName, function () {
 							self.updatePagePadding(thisPage);
@@ -291,6 +296,28 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 				});
 		},
 
+		_HWkeyPress: function () {
+			// if HW key not exist 
+			// return true
+			// else
+			$( window ).on( "keydown",  function ( e ) {
+				console.log(e.keyCode);
+				console.log(e.charCode);
+
+				// temp keycode enter
+				if ( e.keyCode == 166 ) {
+					// need to change back button
+					$( ".ui-page-active .ui-footer .ui-btn-back" ).trigger( "click" );
+					
+				} else if ( e.keyCode == 0 ) { //temp keycode 1
+					// need to change more key trigger
+					$( ".ui-page-active .use-hwkey-popup").popup( "open" );
+				}
+				return false;
+			});
+
+		},
+
 		_setContentMinHeight : function ( thisPage ) {
 			var $elPage = $( thisPage ),
 				$elHeader = $elPage.find( ":jqmData(role='header')" ),
@@ -326,6 +353,35 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 			}
 			/* add half width for default space between text and button, and img tag area is too narrow, so multiply three for img width*/
 		},
+
+		_setHWKeyLayout : function ( thisPage ) {
+			var $elPage = $( thisPage ),
+				$elFooter = $elPage.find( ":jqmData(role='footer')" ),
+				$elBackKey = $elFooter.children( ".ui-btn-back" ),
+				$elMoreKey = $elFooter.children(":jqmData(icon='naviframe-more')");
+
+                        // Check HW Key option 
+			if ( !$elFooter.hasClass("use-hwkey") ) {
+				return true;	
+			}
+
+                        // need to add device api to check HW key exist
+                        // Case 1 : footer - BackKey/MoreKey/Button - hide BackKey/MoreKey
+                        if ( $elFooter.children().length - $elBackKey.length - $elMoreKey.length > 0 ) {
+				$elBackKey.hide();
+				$elMoreKey.hide();
+
+                        // Case 2 : footer - BackKey/MoreKey - hide footer
+			} else {
+				$elFooter.hide();
+			}
+
+                        // Case 3 : no footer - do nothing
+
+
+
+		},
+
 
 		_visible: true,
 
