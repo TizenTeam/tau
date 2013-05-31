@@ -211,9 +211,10 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 					if ( !o.visibleOnPageShow ) {
 						self.hide( true );
 					}
+					self._setHWKeyLayout( thisPage );
 					self.setHeaderFooter( thisPage );
 					self._setContentMinHeight( thisPage );
-					self._setHWKeyLayout( thisPage );
+//					self._setHWKeyLayout( thisPage );
 				} )
 				.bind( "webkitAnimationStart animationstart updatelayout", function ( e, data ) {
 					var thisPage = this;
@@ -228,7 +229,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 					self._setContentMinHeight( thisPage );
 					self.updatePagePadding( thisPage );
 					self._updateHeaderArea( thisPage );
-
+//					self._setHWKeyLayout( thisPage );
 					if ( o.updatePagePadding ) {
 						$( window ).bind( "throttledresize." + self.widgetName, function () {
 							self.updatePagePadding(thisPage);
@@ -302,16 +303,18 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 			// else
 			$( window ).on( "keydown",  function ( e ) {
 				console.log(e.keyCode);
-				console.log(e.charCode);
+				if ( $( ".ui-page-active .ui-footer" ).hasClass( "use-swkey" ) ) {
+					return true;
+				}
 
 				// temp keycode enter
-				if ( e.keyCode == 166 ) {
+				if ( e.keyCode == 166 || e.keyCode == 50 ) {
 					// need to change back button
-					$( ".ui-page-active .ui-footer .ui-btn-back" ).trigger( "click" );
+					$( ".ui-page-active .ui-footer .ui-btn-back" ).trigger( "vclick" );
 					
-				} else if ( e.keyCode == 0 ) { //temp keycode 1
+				} else if ( e.keyCode == 0 || e.keyCode == 49 ) { //temp keycode 1
 					// need to change more key trigger
-					$( ".ui-page-active .use-hwkey-popup").popup( "open" );
+					$( ".ui-page-active .hardware").popup( "open" );
 				}
 				return false;
 			});
@@ -323,6 +326,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 				$elHeader = $elPage.find( ":jqmData(role='header')" ),
 				$elFooter = $elPage.find( ":jqmData(role='footer')" ),
 				$elContent = $elPage.find( ":jqmData(role='content')" ),
+				footerHeight,
 				resultMinHeight,
 				dpr = 1,
 				layoutInnerHeight = window.innerHeight;
@@ -334,7 +338,12 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 				layoutInnerHeight = window.innerHeight;
 			}
 
-			resultMinHeight = layoutInnerHeight - $elHeader.height() - $elFooter.height();
+			if ( $elFooter.css( "display" ) === "none" ) {
+				footerHeight = 0;
+			} else {
+				footerHeight = $elFooter.height();
+			}
+			resultMinHeight = layoutInnerHeight - $elHeader.height() - footerHeight;
 
                         if ( $.support.scrollview && $elContent.jqmData("scroll") !== "none" ) {
 				$elContent.css( "min-height", resultMinHeight - parseFloat( $elContent.css("padding-top") ) - parseFloat( $elContent.css("padding-bottom") ) + "px" );
@@ -358,16 +367,23 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 			var $elPage = $( thisPage ),
 				$elFooter = $elPage.find( ":jqmData(role='footer')" ),
 				$elBackKey = $elFooter.children( ".ui-btn-back" ),
-				$elMoreKey = $elFooter.children(":jqmData(icon='naviframe-more')");
+				$elMoreKey = $elFooter.children(":jqmData(icon='naviframe-more')"),
+				cntMore = 0;
 
                         // Check HW Key option 
-			if ( !$elFooter.hasClass("use-hwkey") ) {
+			if ( $elFooter.hasClass("use-swkey") ) {
 				return true;	
+			}
+
+			if ( $elMoreKey.length ) {
+				cntMore = $elMoreKey.length + 1;
+			} else {
+				cntMore = 0;
 			}
 
                         // need to add device api to check HW key exist
                         // Case 1 : footer - BackKey/MoreKey/Button - hide BackKey/MoreKey
-                        if ( $elFooter.children().length - $elBackKey.length - $elMoreKey.length > 0 ) {
+                        if ( $elFooter.children().length - $elBackKey.length - cntMore > 0 ) {
 				$elBackKey.hide();
 				$elMoreKey.hide();
 
@@ -401,7 +417,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 			if ( $el.siblings( ".ui-header" ).jqmData("position") == "fixed" || ($.support.scrollview && $el.jqmData("scroll") !== "none" )) {
 				$( tbPage ).css( "padding-top", ( header ? $el.siblings( ".ui-header" ).outerHeight() : 0 ) );
 			}
-			$( tbPage ).css( "padding-bottom", ( footer ? $el.siblings( ".ui-footer" ).outerHeight() : 0 ) );
+			$( tbPage ).css( "padding-bottom", (( footer && $el.siblings( ".ui-footer" ).css( "display" ) !== "none" ) ? $el.siblings( ".ui-footer" ).outerHeight() : 0 ) );
 		},
 
 		/* 1. Calculate and update content height   */

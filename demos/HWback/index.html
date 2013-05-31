@@ -34,9 +34,9 @@
 			</ul>
 		</div>
 
-		<div data-role="footer" class="use-hwkey">
+		<div data-role="footer">
 			<a href="#menu" data-role="button" data-icon="naviframe-more" data-rel="popup"></a>
-			<div id="menu" data-role="popup" class="use-hwkey-popup">
+			<div id="menu" data-role="popup" class="hardware">
 				<ul data-role="listview">
 					<li><a href="#" data-rel="back">Settings</a></li>
 					<li><a href="#" data-rel="back">Add to contact</a></li>
@@ -56,9 +56,9 @@
 			<p>Case 1 : Footer has BackKey/MoreKey/Button</p>
 		</div>
 
-		<div data-role="footer" class="use-hwkey">
+		<div data-role="footer">
 			<a href="#menu1" data-role="button" data-icon="naviframe-more" data-rel="popup"></a>
-			<div id="menu1" data-role="popup" class="use-hwkey-popup">
+			<div id="menu1" data-role="popup" class="hardware">
 				<ul data-role="listview">
 					<li><a href="#" data-rel="back">Settings</a></li>
 					<li><a href="#" data-rel="back">Add to contact</a></li>
@@ -80,9 +80,9 @@
 			<p>Case 2 : Footer has BackKey/MoreKey</p>
 		</div>
 
-		<div data-role="footer" class="use-hwkey">
+		<div data-role="footer">
 			<a href="#menu2" data-role="button" data-icon="naviframe-more" data-rel="popup"></a>
-			<div id="menu2" data-role="popup" >
+			<div id="menu2" data-role="popup" class="hardware">
 				<ul data-role="listview">
 					<li><a href="#" data-rel="back">Settings</a></li>
 					<li><a href="#" data-rel="back">Add to contact</a></li>
@@ -92,5 +92,29 @@
 			</div>
 		</div>
 	</div>
+
+        <div data-role="page" id="case3" data-add-back-btn="true">
+                <div data-role="header" data-position="fixed">
+                        <h1>Case 3</h1>
+                </div>
+                <div data-role="content">
+                        <p>Case 3 : Use S/W key, igmore H/W key</p>
+                </div>
+
+                <div data-role="footer" class="use-swkey">
+                        <a href="#menu2" data-role="button" data-icon="naviframe-more" data-rel="popup"></a>
+                        <div id="menu2" data-role="popup" class="hardware">
+                                <ul data-role="listview">
+                                        <li><a href="#" data-rel="back">Settings</a></li>
+                                        <li><a href="#" data-rel="back">Add to contact</a></li>
+                                        <li><a href="#" data-rel="back">Call log</a></li>
+                                        <li><a href="#" data-rel="back">Music</a></li>
+                                </ul>
+                        </div>
+                </div>
+        </div>
+
+
+
 </body>
 </html>

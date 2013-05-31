@@ -34,7 +34,7 @@ index 324b63f..0c5f37b 100644
 -			{
 +			if ( this.positionTo !== "origin" ) {
  				return { left: ret.x, top: ret.y , arrowleft: 0 , arrowtop: 0};
-+			} else if( self.options.isHardwarePopup )  {
++			} else if( this.options.isHardwarePopup )  {
 +				return { left: this._tolerance.l, top: $(window).height() - menuSize.cy - this._tolerance.b, arrowleft: 0 , arrowtop: 0 };
  			}
  
