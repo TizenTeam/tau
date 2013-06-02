@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.32
+Version:    0.2.33
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -97,6 +97,11 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Sun June 01 2013 Hyunjung Kim <hjnim.kim@samsung.com> 0.2.33
+	- Loader: fix version and path
+	- Checkbox : Fix incorrect image when favorite checkbox button down
+	- Controlgroup : Fix incorrect background color in horizontal controlgroup
+
 * Thu May 31 2013 Hyeoncheol Choi <hc7.choi@samsung.com> 0.2.32
 	- fastscroll: add a routine for finding a substitution divider
 	- virtualgrid: fix layout issue
