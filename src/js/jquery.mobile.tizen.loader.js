@@ -51,8 +51,8 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 		libFileName : "tizen-web-ui-fw(.min)?.js",
 
 		frameworkData : {
-			rootDir: '/usr/lib/tizen-web-ui-fw',
-			version: '0.1',
+			rootDir: '/usr/share/tizen-web-ui-fw',
+			version: '0.2',
 			theme: "tizen-white",
 			viewportWidth: "device-width",
 			viewportScale: false,
