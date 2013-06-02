@@ -1315,7 +1315,11 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 				return self._inheritedSize.height;
 			}
 
-			if ( $parent.hasClass( "ui-content" ) ) {
+			if ( !$parent.hasClass( "ui-content" ) ) {
+				$parent = $parent.hasClass( "ui-scrollview-view" ) ? $parent.parent() : null;
+			}
+
+			if ( $parent && $parent.length ) {
 				paddingValue = parseInt( $parent.css( "padding-top" ), 10 );
 				clipSize = clipSize - ( paddingValue || 0 );
 				paddingValue = parseInt( $parent.css( "padding-bottom" ), 10 );

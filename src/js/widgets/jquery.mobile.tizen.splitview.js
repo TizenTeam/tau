@@ -567,7 +567,11 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 
 				currentAvailable -= paneWidth;
 				if ( i === ( panesLength - 1 ) ) {
-					paneWidth = Math.max( Math.min( paneWidth, self.minPaneWidth ), paneWidth + currentAvailable );
+					if ( self.touchStatus ) {
+						paneWidth = self.moveData.nextPaneWidth = availableWidth - ( self.moveData.targetPos + spliterWidth );
+					} else {
+						paneWidth = Math.max( Math.min( paneWidth, self.minPaneWidth ), paneWidth + currentAvailable );
+					}
 				}
 
 				widthSum += paneWidth;

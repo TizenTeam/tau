@@ -1417,8 +1417,14 @@ define( [ ], function ( ) {
 
 				/* calibration - after triggered throttledresize */
 				setTimeout( function () {
+					var view_w = self._getViewWidth(),
+						cw = $c.width();
 					if ( self._sy < $c.height() - self._getViewHeight() ) {
 						self.scrollTo( 0, $c.height() - self._getViewHeight(),
+							self.options.overshootDuration );
+					}
+					if ( self._sx < cw - view_w ) {
+						self.scrollTo( cw - view_w, 0,
 							self.options.overshootDuration );
 					}
 				}, 260 );

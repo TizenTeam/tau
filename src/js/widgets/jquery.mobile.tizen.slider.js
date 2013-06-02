@@ -235,9 +235,25 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 
 			// bind to changes in the slider's value to update handle text
 			this.element.on('change', function () {
-				self.updateSlider();
-				self.showPopup();
+				// 2013.05.31 heeju.joo
+				// for "refresh" method, (ex. $("input").val(5).slider("refresh"))
+				// conditional statement has been added ( DCM-1735 )
+				// if this function just call two functions like else statement,
+				// popup and handle displayed in the wrong position because when the variable popupVisible is false, updateSlider() does not call popupPosition().
+				if( !self.popupVisible ) {
+					// it is trick to cheat self.updateSlider()
+					self.popupVisible = true;
+					// updateSlider make the position of handle right
+					self.updateSlider();
+					// for other method, popupVisible variable need to have original value.
+					self.popupVisible = false;
+				}
+				else {
+					self.updateSlider();
+					self.showPopup();
+				}
 			});
+
 			this.element.on( 'slidestart', function( event ) {
 				self.updateSlider();
 				self.showPopup();
@@ -248,8 +264,13 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 				self.showPopup();
 			});
 
+			slider.on('vmousedown', function() {
+				self.updateSlider();
+				self.showPopup();
+			});
+
 			// watch events on the document to turn off the slider popup
-			slider.add( document ).on('vmouseup vmousecancel', function () {
+			slider.add( document ).on('vmouseup', function () {
 				self.hidePopup();
 			});
 
