@@ -3,7 +3,7 @@
 //>>label: Checkbox
 //>>group: Tizen:Widgets
 
-define( [ ], function ( ) {
+define( [ "jqm/widgets/forms/checkboxradio" ], function ( ) {
 //>>excludeEnd("jqmBuildExclude");
 
 /**

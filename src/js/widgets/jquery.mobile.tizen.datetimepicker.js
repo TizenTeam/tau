@@ -3,7 +3,7 @@
 //>>label: Datetime picker
 //>>group: Tizen:Widgets
 
-define( [ 'jquery.mobile.tizen.widgetex', 'jquery.mobile.tizen.popupwindow', 'jquery.mobile.tizen.popupwindow.ctxpopup' ], function ( ) {
+define( [ './jquery.mobile.tizen.widgetex', './jquery.mobile.tizen.popupwindow', './jquery.mobile.tizen.popupwindow.ctxpopup', "libs/globalize/lib/globalize" ], function ( ) {
 //>>excludeEnd("jqmBuildExclude");
 
 /*global Globalize:false, range:false, regexp:false*/

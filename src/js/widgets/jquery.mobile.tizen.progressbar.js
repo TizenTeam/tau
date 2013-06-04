@@ -3,7 +3,7 @@
 //>>label: Progressbar
 //>>group: Tizen:Widgets
 
-define( [ '../jquery.mobile.tizen.core' ], function ( ) {
+define( [ '../jquery.mobile.tizen.core', "jqm/jquery.mobile.widget" ], function ( ) {
 //>>excludeEnd("jqmBuildExclude");
 
 /*

@@ -3,7 +3,7 @@
 //>>label: Tabbar
 //>>group: Tizen:Widgets
 
-define( [ '../jquery.mobile.tizen.core', 'jquery.mobile.tizen.pagelayout' ], function ( ) {
+define( [ "jqm/jquery.mobile.grid", '../jquery.mobile.tizen.core', './jquery.mobile.tizen.pagelayout' ], function ( ) {
 //>>excludeEnd("jqmBuildExclude");
 
 /* ***************************************************************************

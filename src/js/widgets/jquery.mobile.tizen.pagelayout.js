@@ -3,7 +3,7 @@
 //>>label: Pagelayout
 //>>group: Tizen:Widgets
 
-define( [ '../jquery.mobile.tizen.core' ], function ( ) {
+define( [ '../jquery.mobile.tizen.core', "jqm/widgets/page" ], function ( ) {
 //>>excludeEnd("jqmBuildExclude");
 
 /* ***************************************************************************

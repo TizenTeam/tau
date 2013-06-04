@@ -3,7 +3,7 @@
 //>>label: Gallery3d
 //>>group: Tizen:Widgets
 
-define( [ "components/imageloader", "components/motionpath", "components/webgl" ], function ( ) {
+define( [ "jqm/jquery.mobile.widget", "./components/imageloader", "./components/motionpath", "./components/webgl", "libs/gl-matrix" ], function ( ) {
 //>>excludeEnd("jqmBuildExclude");
 
 

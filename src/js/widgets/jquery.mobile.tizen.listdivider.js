@@ -3,7 +3,7 @@
 //>>label: List divider
 //>>group: Tizen:Widgets
 
-define( [ ], function ( ) {
+define( [ "jqm/jquery.mobile.widget" ], function ( ) {
 //>>excludeEnd("jqmBuildExclude");
 
 /* ***************************************************************************

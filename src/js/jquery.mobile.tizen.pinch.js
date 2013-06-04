@@ -3,7 +3,7 @@
 //>>label: Tizen core
 //>>group: Tizen:Core
 
-define( [ 'jquery.mobile.core' ], function ( ) {
+define( [ 'jqm/jquery.mobile.core', "jqm/jquery.mobile.support.touch" ], function ( ) {
 //>>excludeEnd("jqmBuildExclude");
 
 /* ***************************************************************************

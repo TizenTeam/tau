@@ -3,7 +3,7 @@
 //>>label: Scrollview
 //>>group: Tizen:Core
 
-define( [ ], function ( ) {
+define( [ "jqm/jquery", "jqm/jquery.mobile.widget" ], function ( ) {
 //>>excludeEnd("jqmBuildExclude");
 
 /*

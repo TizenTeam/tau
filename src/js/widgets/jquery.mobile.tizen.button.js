@@ -3,7 +3,7 @@
 //>>label: Button
 //>>group: Tizen:Widgets
 
-define( [ ], function ( ) {
+define( [ "jqm/widgets/forms/button" ], function ( ) {
 //>>excludeEnd("jqmBuildExclude");
 
 /**

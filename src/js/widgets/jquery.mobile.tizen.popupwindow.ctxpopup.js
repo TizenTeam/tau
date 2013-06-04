@@ -3,7 +3,7 @@
 //>>label: Context popup
 //>>group: Tizen:Widgets
 
-define( [ '../jquery.mobile.tizen.core', 'jquery.mobile.tizen.popupwindow', 'jquery.mobile.tizen.triangle' ], function ( core, _popupwindow, _triangle ) {
+define( [ '../jquery.mobile.tizen.core', './jquery.mobile.tizen.popupwindow', './jquery.mobile.tizen.triangle' ], function ( core, _popupwindow, _triangle ) {
 //>>excludeEnd("jqmBuildExclude");
 
 /*

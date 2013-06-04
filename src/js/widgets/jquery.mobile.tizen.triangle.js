@@ -3,7 +3,7 @@
 //>>label: Triangle
 //>>group: Tizen:Widgets
 
-define( [ '../jquery.mobile.tizen.core', 'jquery.mobile.tizen.widgetex' ], function ( ) {
+define( [ '../jquery.mobile.tizen.core', './jquery.mobile.tizen.widgetex' ], function ( ) {
 //>>excludeEnd("jqmBuildExclude");
 
 /*

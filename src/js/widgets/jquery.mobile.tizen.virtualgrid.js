@@ -3,7 +3,7 @@
 //>>label: Virtual grid
 //>>group: Tizen:Widgets
 
-define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], function ( ) {
+define( [ "libs/jquery.tmpl", '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], function ( ) {
 //>>excludeEnd("jqmBuildExclude");
 
 /* ***************************************************************************
