@@ -286,12 +286,7 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 				this.jumpToDivider( $( divider ) );
 			}
 
-			$popup.text( text )
-				.css( { marginLeft: -( $popup.outerWidth() / 2 ),
-					marginTop: -( $popup.outerHeight() / 2 ),
-					padding: $popup.css( "paddingTop" ) } )
-				.width( $popup.height() )
-				.show();
+			$popup.text( text ).show();
 
 			$( listItem ).addClass( "ui-fastscroll-hover" );
 			if ( listItem.index() === 0 ) {
@@ -315,12 +310,7 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 				this.jumpToDivider( $( divider ) );
 			}
 
-			$popup.text( text )
-				.css( { marginLeft: -( $popup.outerWidth() / 2 ),
-					marginTop: -( $popup.outerHeight() / 2 ),
-					padding: $popup.css( "paddingTop" ) } )
-				.width( $popup.height() )
-				.show();
+			$popup.text( text ).show();
 
 			$( listItem ).addClass( "ui-fastscroll-hover" );
 			if ( listItem.index() === 0 ) {
@@ -507,6 +497,7 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 				secondCharacterSet = self._secondLanguage ? self._secondLanguage.replace( /,/g, "" ) : null,
 				contentHeight = self._contentHeight(),
 				shapItem = $( '<li tabindex="0" aria-label="double to move Number list"><span aria-hidden="true">#</span><span aria-label="Number"/></li>' ),
+				$popup = this.scrollview.find( '.ui-fastscroll-popup' ),
 				omitIndex = 0,
 				makeCharacterSet,
 				makeOmitSet,
@@ -664,6 +655,11 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 
 			self._setTimer( false );
 			self._setTimer( true );
+
+			$popup.text( "M" ) // Popup size is determined based on "M".
+				.css( { marginLeft: -( $popup.outerWidth() / 2 ),
+					marginTop: -( $popup.outerHeight() / 2 ) } )
+				.width( $popup.height() );
 		}
 	} );
 
