@@ -105,9 +105,6 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 
 			// Store back-button, to show again
 			self._backBtnQueue = [];
-
-			// HW backkey
-			self._HWkeyPress();
 		},
 
 		/* add minimum fixed css style to bar(header/footer) and content
@@ -211,10 +208,8 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 					if ( !o.visibleOnPageShow ) {
 						self.hide( true );
 					}
-					self._setHWKeyLayout( thisPage );
 					self.setHeaderFooter( thisPage );
 					self._setContentMinHeight( thisPage );
-//					self._setHWKeyLayout( thisPage );
 				} )
 				.bind( "webkitAnimationStart animationstart updatelayout", function ( e, data ) {
 					var thisPage = this;
@@ -229,11 +224,16 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 					self._setContentMinHeight( thisPage );
 					self.updatePagePadding( thisPage );
 					self._updateHeaderArea( thisPage );
-//					self._setHWKeyLayout( thisPage );
+
+					/* check device api : HW key existance */
+					if ( $.tizen && $.tizen.deviceCapa && $.tizen.deviceCapa.inputKeyBack ) {
+						self._bindHWkey();
+						self._setHWKeyLayout( thisPage );
+					}
+
 					if ( o.updatePagePadding ) {
 						$( window ).bind( "throttledresize." + self.widgetName, function () {
 							self.updatePagePadding(thisPage);
-
 							self.updatePageLayout( thisPage, false);
 							self._updateHeaderArea( thisPage );
 							self._setContentMinHeight( thisPage );
@@ -242,6 +242,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 				})
 
 				.bind( "pagebeforehide", function ( e, ui ) {
+					$( document ).off( "tizenhwkey" ); /* test unbind code */
 					if ( o.disablePageZoom ) {
 						$.mobile.zoom.enable( true );
 					}
@@ -297,26 +298,37 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 				});
 		},
 
-		_HWkeyPress: function () {
+		_bindHWkey: function () {
 			// if HW key not exist 
 			// return true
 			// else
-			$( window ).on( "keydown",  function ( e ) {
-				console.log(e.keyCode);
-				if ( $( ".ui-page-active .ui-footer" ).hasClass( "use-swkey" ) ) {
+			$( document ).on( "tizenhwkey", function( e ) {
+				var openedpopup = $.mobile.popup.active,
+					$elPage = $( ".ui-page-active" ),
+					$elFooter = $elPage.find( ":jqmData(role='footer')" ),
+					$elMoreKey = $elFooter.children(":jqmData(icon='naviframe-more')"),
+					morePopup;
+
+				if ( $( ".ui-page-active .ui-footer" ).hasClass( "ui-footer-force-btn-show" ) ) {
 					return true;
 				}
 
-				// temp keycode enter
-				if ( e.keyCode == 166 || e.keyCode == 50 ) {
+				if ( e.originalEvent.keyName === "back" ) {
 					// need to change back button
-					$( ".ui-page-active .ui-footer .ui-btn-back" ).trigger( "vclick" );
-					
-				} else if ( e.keyCode == 0 || e.keyCode == 49 ) { //temp keycode 1
+					if( openedpopup ) {
+						openedpopup.close();
+						return false;
+					}
+					//Click trigger
+					 $( ".ui-page-active .ui-footer .ui-btn-back" ).trigger( "click" );
+					return false;
+				} else if ( e.originalEvent.keyName === "menu" ) {
 					// need to change more key trigger
-					$( ".ui-page-active .hardware").popup( "open" );
+					if ( $elMoreKey.get(0) ) {
+						$elMoreKey.trigger( "click" );
+					}
+					return false;
 				}
-				return false;
 			});
 
 		},
@@ -331,10 +343,10 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 				dpr = 1,
 				layoutInnerHeight = window.innerHeight;
 
-                        if ( !$.support.scrollview || ($.support.scrollview && $elContent.jqmData("scroll") === "none") ) {
-                                dpr = window.outerWidth / window.innerWidth;
-                                layoutInnerHeight = Math.floor( window.outerHeight / dpr );
-                        } else {
+			if ( !$.support.scrollview || ($.support.scrollview && $elContent.jqmData("scroll") === "none") ) {
+					dpr = window.outerWidth / window.innerWidth;
+					layoutInnerHeight = Math.floor( window.outerHeight / dpr );
+			} else {
 				layoutInnerHeight = window.innerHeight;
 			}
 
@@ -345,7 +357,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 			}
 			resultMinHeight = layoutInnerHeight - $elHeader.height() - footerHeight;
 
-                        if ( $.support.scrollview && $elContent.jqmData("scroll") !== "none" ) {
+			if ( $.support.scrollview && $elContent.jqmData("scroll") !== "none" ) {
 				$elContent.css( "min-height", resultMinHeight - parseFloat( $elContent.css("padding-top") ) - parseFloat( $elContent.css("padding-bottom") ) + "px" );
 				$elContent.children( ".ui-scrollview-view" ).css( "min-height", $elContent.css( "min-height" ) );
 			}
@@ -368,10 +380,11 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 				$elFooter = $elPage.find( ":jqmData(role='footer')" ),
 				$elBackKey = $elFooter.children( ".ui-btn-back" ),
 				$elMoreKey = $elFooter.children(":jqmData(icon='naviframe-more')"),
-				cntMore = 0;
+				cntMore = 0,
+				morePopup;
 
-                        // Check HW Key option 
-			if ( $elFooter.hasClass("use-swkey") ) {
+				// Check HW Key option 
+			if ( $elFooter.hasClass("ui-footer-force-btn-show") ) {
 				return true;	
 			}
 
@@ -381,20 +394,32 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 				cntMore = 0;
 			}
 
-                        // need to add device api to check HW key exist
-                        // Case 1 : footer - BackKey/MoreKey/Button - hide BackKey/MoreKey
-                        if ( $elFooter.children().length - $elBackKey.length - cntMore > 0 ) {
+			// need to add device api to check HW key exist
+			// Case 1 : footer - BackKey/MoreKey/Button - hide BackKey/MoreKey
+			/*
+			if ( $elFooter.children().length - $elBackKey.length - cntMore > 0 ) {
 				$elBackKey.hide();
 				$elMoreKey.hide();
-
-                        // Case 2 : footer - BackKey/MoreKey - hide footer
+			// Case 2 : footer - BackKey/MoreKey - more, back hide depend on OSP
 			} else {
-				$elFooter.hide();
+				$elBackKey.hide();
+				$elMoreKey.hide();
+			}
+			*/
+			if( $elMoreKey ) {
+				$elMoreKey.hide();
+				if( $elMoreKey.get(0) && $elMoreKey.get(0).hash ) {
+					morePopup =  $( $elMoreKey.get(0).hash );
+					if( morePopup ) {
+						morePopup.addClass ( "hardware" );
+					}
+				}
 			}
 
-                        // Case 3 : no footer - do nothing
-
-
+			if( $elBackKey ) {
+				$elBackKey.hide();
+			}
+			// Case 3 : no footer - do nothing
 
 		},
 

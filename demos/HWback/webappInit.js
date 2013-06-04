@@ -1,6 +1,6 @@
 $(document).on( "pageinit", "#main" , function () {
 	if ( window.tizen && window.tizen.application ) {
-		$( "#main .ui-btn-back" ).on( "vclick", function () {
+		$( "#main .ui-btn-back" ).on( "click", function () {
 			window.tizen.application.getCurrentApplication().exit();
 			return false;
 		});

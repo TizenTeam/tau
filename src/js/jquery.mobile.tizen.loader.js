@@ -59,7 +59,10 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 
 			defaultFontSize: 22,
 			minified: false,
-
+			deviceCapa: tizen ? 
+				( tizen.systeminfo ?
+					tizen.systeminfo.getCapabilities() : null ) 
+				: null,
 			debug: false
 		},
 
