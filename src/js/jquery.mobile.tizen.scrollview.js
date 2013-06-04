@@ -142,7 +142,7 @@ define( [ ], function ( ) {
 
 			/**
 			 * Determines the event group for detecting scroll
-			 * if $.support.touch has truthy value the group 
+			 * if $.support.touch has truthy value the group
 			 * that starts scroll will be touch events, otherwise
 			 * mouse events will be used
 			 * @type {string}
@@ -701,6 +701,80 @@ define( [ ], function ( ) {
 				this._setScrollPosition( x, y, duration );
 			} else {
 				this._scrollTo( x, y, duration );
+			}
+		},
+
+		/**
+		 * Centers scroll to view the specified child element
+		 * @param {Element|jQuery} target
+		 */
+		centerToElement: function ( element ) {
+			var $clip = this._$clip,
+				$view = this._$view,
+				$element = element.get ? element : $( element ),
+				delta = ( $clip.height() / 2 ) - ( element.height() / 2 ),
+				elementPosition = element.position().top;
+
+			element.parentsUntil( $view ).each( function () {
+				var $parent = $( this );
+				elementPosition += ( $parent.position().top + parseFloat( $parent.css( "marginTop" ) ) + parseFloat( $parent.css( "paddingTop" ) ) );
+			});
+
+			this.scrollTo( this._sx, -( elementPosition - delta ) );
+		},
+
+		/**
+		 * Checks if the specified child element is visible
+		 * and centers the scroll on it if it's not visible
+		 * @param {Element|jQuery}
+		 */
+		ensureElementIsVisible: function ( element ) {
+			var $element = element.get ? element : $( element ),
+				$clip = this._$clip,
+				clipHeight = $clip.height(),
+				clipTop = $clip.offset().top,
+				clipBottom = clipTop + clipHeight,
+				elementHeight = $element.height(),
+				elementTop = $element.offset().top,
+				elementBottom = elementTop + elementHeight,
+				elementFits = clipHeight > elementHeight,
+				$anchor,
+				anchorPosition = 0,
+				findPositionAnchor = function ( input ) {
+					var $label,
+						id = input.attr( "id" );
+					if ( input.is( ":input" ) && id ) {
+						$label = input.siblings( "label[for=" + id + "]" );
+						if ( $label.length > 0 ) {
+							return $label.eq( 0 );
+						}
+					}
+					return input;
+				};
+
+			switch( true ) {
+				case elementFits && clipTop < elementTop && clipBottom > elementBottom: // element fits in view is inside clip area
+					// pass, element position is ok
+					break;
+				case elementFits && clipTop < elementTop && clipBottom < elementBottom: // element fits in view but its visible only at top
+				case elementFits && clipTop > elementTop && clipBottom > elementBottom: // element fits in view but its visible only at bottom
+				case elementFits: // element fits in view but is not visible
+					this.centerToElement(element);
+					break;
+				case clipTop < elementTop && clipBottom < elementBottom: // element visible only at top
+				case clipTop > elementTop && clipBottom > elementBottom: // element visible only at bottom
+					// pass, we cant do anything, if we move the scroll
+					// the user could lost view of something he scrolled to
+					break;
+				default: // element is not visible
+					$anchor = findPositionAnchor( $element );
+					anchorPosition = $anchor.position().top + parseFloat( $anchor.css("marginTop" ) );
+					$anchor.parentsUntil($view).each(function () {
+						var $p = $( this );
+						anchorPosition += ( $p.position().top + parseFloat( $p.css("marginTop" ) ) );
+					});
+					this.scrollTo( self._sx, -anchorPosition );
+					break;
 			}
 		},
 
@@ -1290,79 +1364,58 @@ define( [ ], function ( ) {
 
 			$v.bind( this._dragEvt, this._dragCB );
 
+			// N_SE-35696 / N_SE-35800
+			var clipScrollDelta = 0,
+				clipScrollLast = 0;
+			$c.on( "scroll", function () {
+				var clipScrollTop = $c.scrollTop(),
+					currentPositon = self.getScrollPosition(),
+					inputs;
+
+				clipScrollDelta = clipScrollTop - clipScrollLast;
+				clipScrollLast = clipScrollTop;
+
+				if ( clipScrollDelta > 0 ) {
+					inputs = $v.find( ":input.ui-focus" );
+					$c.scrollTop( 0 );
+					if ( inputs.length ) {
+						// CHECK WHERE WE ARE IN THE INPUTS
+						clipScrollDelta = 0;
+					}
+					self.scrollTo( -currentPositon.x, -( currentPositon.y + clipScrollDelta ) );
+				}
+			} );
+
 			$v.bind( "keydown", function ( e ) {
-				var elem,
-					elem_top,
-					scroll_top = $( window ).scrollTop() - window.screenTop,
-					screen_h;
+				var $focusedElement;
 
 				if ( e.keyCode == 9 ) {
 					return false;
 				}
 
-				elem = $c.find(".ui-focus");
-
-				if ( !elem.length ) {
+				$focusedElement = $c.find( ".ui-focus" );
+				if ( !$focusedElement.length ) {
 					return;
 				}
-
-				elem_top = elem.offset().top - scroll_top;
-				screen_h = $c.offset().top + $c.height() - elem.height();
-
-				if ( self._softkeyboard ) {
-					screen_h -= self._softkeyboardHeight;
-				}
-
-				if ( ( elem_top < $c.offset().top ) || ( elem_top > screen_h ) ) {
-					self.scrollTo( 0, self._sy -
-							( elem_top - $c.offset().top - elem.height() ) );
-				}
+				self.ensureElementIsVisible( $focusedElement );
 
 				return;
 			});
 
 			$v.bind( "keyup", function ( e ) {
-				var input,
-					elem,
-					elem_top,
-					scroll_top = $( window ).scrollTop() - window.screenTop,
-					screen_h;
+				var $input;
 
-				if ( e.keyCode != 9 ) {
+				if ( e.keyCode !== 9 ) {
 					return;
 				}
 
 				/* Tab Key */
-
-				input = $( this ).find(":input");
-
-				for ( i = 0; i < input.length; i++ ) {
-					if ( !$( input[i] ).hasClass("ui-focus") ) {
-						continue;
-					}
-
-					if ( i + 1 == input.length ) {
-						elem = $( input[0] );
-					} else {
-						elem = $( input[i + 1] );
-					}
-
-					elem_top = elem.offset().top - scroll_top;
-					screen_h = $c.offset().top + $c.height() - elem.height();
-
-					if ( self._softkeyboard ) {
-						screen_h -= self._softkeyboardHeight;
-					}
-
-					if ( ( elem_top < 0 ) || ( elem_top > screen_h ) ) {
-						self.scrollTo( 0, self._sy - elem_top +
-							elem.height() + $c.offset().top, 0);
-					}
-
-					elem.focus();
-
-					break;
+				$input = $( this ).find( ":input.ui-focus" ).eq( 0 );
+				if ( !$input ) {
+					return;
 				}
+				self.ensureElementIsVisible( $input );
+				$input.focus();
 
 				return false;
 			});
