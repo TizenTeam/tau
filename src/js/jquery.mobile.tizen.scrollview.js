@@ -63,6 +63,10 @@ define( [ ], function ( ) {
 	 */
 	function getCurrentTime() {
 		return Date.now();
+	};
+
+	function bitwiseAbs( e ) {
+		return ( e ^ (e>>31)) - (e>>31);
 	}
 
 	jQuery.widget( "tizen.scrollview", jQuery.mobile.widget, {
@@ -263,6 +267,8 @@ define( [ ], function ( ) {
 			this._add_scrollbar();
 			this._add_scroll_jump();
 			this._add_overflow_indicator();
+			this._moveInterval = 10; /* Add Interval */
+			this._clipHeight = 0;
 		},
 
 		/**
@@ -572,9 +578,13 @@ define( [ ], function ( ) {
 				$sbt = $vsb.find(".ui-scrollbar-thumb");
 
 				if ( sm === "translate" ) {
-					this._setElementTransform( $sbt, "0px",
-						-y / this._getViewHeight() * $sbt.parent().height() + "px",
-						duration );
+					if ( bitwiseAbs( this._moveInterval - bitwiseAbs(y)) > 20 ) {
+						/* update scrollbar every 20(clientY) move*/
+						/* Add Interval */
+						this._setElementTransform( $sbt, "0px",
+							-y / this._view_height * this._clipHeight + "px",
+							duration );
+					}
 				} else {
 					$sbt.css( "top", -y / this._getViewHeight() * 100 + "%" );
 				}
@@ -846,7 +856,7 @@ define( [ ], function ( ) {
 
 			this._didDrag = false;
 			this._skip_dragging = false;
-
+			this._clipHeight = this._$clip.height();
 			var target = $( e.target ),
 				self = this,
 				$c = this._$clip,
@@ -933,6 +943,7 @@ define( [ ], function ( ) {
 		 * @return {boolean|undefined}
 		 */
 		_handleDragMove: function ( e, ex, ey ) {
+			this._moveInterval = ey;
 			if ( this._skip_dragging ) {
 				return;
 			}
@@ -1245,7 +1256,7 @@ define( [ ], function ( ) {
 		_setOverflowIndicator: function ( dir ) {
 			if ( dir === 1 ) {
 				this._opacity_top = "0";
-				this._opacity_bottom = "0.8";
+				this._opacity_bottom = "0.8"; /* Add Interval */
 			} else if ( dir === 0 ) {
 				this._opacity_top = "0.8";
 				this._opacity_bottom = "0";
@@ -1264,8 +1275,8 @@ define( [ ], function ( ) {
 				return;
 			}
 
-			this._overflow_top.animate( { opacity: this._opacity_top }, 300 );
-			this._overflow_bottom.animate( { opacity: this._opacity_bottom }, 300 );
+			this._overflow_top.css( "opacity", this._opacity_top );
+			this._overflow_bottom.css( "opacity", this._opacity_bottom );
 
 			this._overflow_showed = true;
 		},
@@ -1331,6 +1342,7 @@ define( [ ], function ( ) {
 
 				this._dragCB = function ( e ) {
 					var touches = e.originalEvent.touches;
+
 
 					switch ( e.type ) {
 					case "touchstart":
@@ -1483,6 +1495,7 @@ define( [ ], function ( ) {
 				}, 260 );
 
 				self._view_height = view_h;
+				self._clipHeight = self._$clip.height();
 			});
 
 			$( window ).bind( "vmouseout", function ( e ) {
@@ -1526,6 +1539,8 @@ define( [ ], function ( ) {
 
 			$c.closest(".ui-page")
 				.bind( "pageshow", function ( e ) {
+					self._view_height = self._$view.height();
+
 					/* should be called after pagelayout */
 					setTimeout( function () {
 						self._view_height = self._getViewHeight();
