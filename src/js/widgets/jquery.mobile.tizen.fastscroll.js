@@ -165,7 +165,7 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 					var coords = $.mobile.tizen.targetRelativeCoordsFromEvent( e ),
 						shortcutsListOffset = self.shortcutsList.offset();
 
-					if ( self._isFadeOut === true ) {
+					if ( self._isFadeOut ) {
 						return;
 					}
 
@@ -243,7 +243,7 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 				self.refresh();
 			} );
 
-			self.scrollview.bind( "scrollstart", function ( e ) {
+			self.scrollview.bind( "scrollstart scrollupdate", function ( e ) {
 				self._setTimer( false );
 			}).bind( "scrollstop", function ( e ) {
 				self._setTimer( true );
@@ -459,20 +459,22 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 		},
 
 		_setTimer: function ( start ) {
-			var self = this;
+			var self = this,
+				shortcutsContainer = self.shortcutsContainer;
 
-			if ( start === true ) {
+			if ( start ) {
 				self._timer = setTimeout( function () {
 					self._isFadeOut = true;
-					self.shortcutsContainer.fadeOut( self._defaultDuration, function () {
+					shortcutsContainer.fadeOut( self._defaultDuration, function () {
 						self._isFadeOut = false;
 					});
 				}, self._defaultTime );
 			} else {
 				if ( self._timer !== null ) {
 					clearTimeout( self._timer );
+					self._isFadeOut = false;
 				}
-				self.shortcutsContainer.show();
+				shortcutsContainer.show();
 			}
 		},
 
@@ -538,15 +540,6 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 				return omitSet;
 			};
 
-			itemHandler = function ( e ) {
-				var text = $( this ).text(),
-					matchDivider = self._dividerMap[ text ];
-
-				if ( typeof matchDivider !== "undefined" ) {
-					$( matchDivider ).next().focus();
-				}
-			};
-
 			self._createDividerMap();
 
 			self.shortcutsList.find( 'li' ).remove();
@@ -600,8 +593,6 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 					shortcutItem = $( '<li>.</li>' );
 					shortcutItem.data( "omitSet",  makeOmitSet( i, omitInfo[ omitIndex ] ) );
 					i += omitInfo[ omitIndex ] - 1;
-				} else {
-					shortcutItem.bind( 'vclick', itemHandler );
 				}
 
 				shapItem.before( shortcutItem );
