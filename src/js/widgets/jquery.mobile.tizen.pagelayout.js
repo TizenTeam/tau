@@ -226,7 +226,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 					self._updateHeaderArea( thisPage );
 
 					/* check device api : HW key existance */
-					if ( $.tizen && $.tizen.deviceCapa && $.tizen.deviceCapa.inputKeyBack ) {
+					if ( $.tizen && $.tizen.frameworkData.deviceCapa && $.tizen.frameworkData.deviceCapa.inputKeyBack ) {
 						self._bindHWkey();
 						self._setHWKeyLayout( thisPage );
 					}
