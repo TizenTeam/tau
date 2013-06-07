@@ -1,0 +1,69 @@
+From 1db4ac79155d98d09410bc1f97590ed79635d781 Mon Sep 17 00:00:00 2001
+From: "hjnim.kim" <hjnim.kim@samsung.com>
+Date: Mon, 27 May 2013 18:41:30 +0900
+Subject: [PATCH] JQM context popup hardware key support
+
+JQM context popup hardware key support patch
+( Popup is open when hardward key click )
+
+Signed-off-by : hyunjung Kim <hjnim.kim@samsung.com>
+
+Change-Id: I60e5e3cb1710497b8cee27d79e52a1d12f5323af
+---
+ libs/js/jquery-mobile-1.2.0/js/widgets/popup.js |   20 +++++++++++++++-----
+ 1 file changed, 15 insertions(+), 5 deletions(-)
+
+diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
+index 324b63f..0c5f37b 100644
+--- a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
++++ b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
+@@ -52,7 +52,7 @@ define( [ "jquery",
+ 			closeLinkEvents: "click.popup",
+ 			navigateEvents: "navigate.popup",
+ 			closeEvents: "navigate.popup pagebeforechange.popup",
+-
++			isHardwarePopup: false,
+ 			// NOTE Windows Phone 7 has a scroll position caching issue that
+ 			//      requires us to disable popup history management by default
+ 			//      https://github.com/jquery/jquery-mobile/issues/4784
+@@ -399,9 +399,10 @@ define( [ "jquery",
+ 
+ 			ret.y -= Math.min( ret.y, Math.max( 0, ret.y + menuSize.cy - docHeight ) );
+ 
+-			if ( this.positionTo !== "origin" )
+-			{
++			if ( this.positionTo !== "origin" ) {
+ 				return { left: ret.x, top: ret.y , arrowleft: 0 , arrowtop: 0};
++			} else if( this.options.isHardwarePopup )  {
++				return { left: this._tolerance.l, top: $(window).height() - menuSize.cy - this._tolerance.b, arrowleft: 0 , arrowtop: 0 };
+ 			}
+ 
+ 			positionOffsets = [ linkOffset.left,
+@@ -805,13 +806,22 @@ define( [ "jquery",
+ 				this._setOverlayTheme( "dim" );
+ 			}
+ 			if( !options.x
+-				&& self.positionTo === "origin" ) {
++				&& self.positionTo === "origin"
++				&& self.link ) {
+ 				options.x = $(self.link).offset().left + $(self.link).outerWidth() / 2;
+ 			}
+ 			if( !options.y
+-				&& self.positionTo === "origin" ) {
++				&& self.positionTo === "origin" 
++				&& self.link ) {
+ 				options.y = $(self.link).offset().top + $(self.link).outerHeight() / 2;
+ 			}
++
++			// Hadeware key style popup
++			if( $(self.element).hasClass( "hardware" ) ){
++				self.options.isHardwarePopup = true;
++				$( self._ui.arrow).hide();
++			}
++
+ 			// if history alteration is disabled close on navigate events
+ 			// and leave the url as is
+ 			if( !( opts.history ) ) {
+-- 
+1.7.9.5
+
