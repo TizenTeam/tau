@@ -224,16 +224,10 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 					self._setContentMinHeight( thisPage );
 					self.updatePagePadding( thisPage );
 					self._updateHeaderArea( thisPage );
-
-					/* check device api : HW key existance */
-					if ( $.tizen && $.tizen.frameworkData.deviceCapa && $.tizen.frameworkData.deviceCapa.inputKeyBack ) {
-						self._bindHWkey();
-						self._setHWKeyLayout( thisPage );
-					}
-
 					if ( o.updatePagePadding ) {
 						$( window ).bind( "throttledresize." + self.widgetName, function () {
 							self.updatePagePadding(thisPage);
+
 							self.updatePageLayout( thisPage, false);
 							self._updateHeaderArea( thisPage );
 							self._setContentMinHeight( thisPage );
@@ -242,7 +236,6 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 				})
 
 				.bind( "pagebeforehide", function ( e, ui ) {
-					$( document ).off( "tizenhwkey" ); /* test unbind code */
 					if ( o.disablePageZoom ) {
 						$.mobile.zoom.enable( true );
 					}
@@ -298,66 +291,25 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 				});
 		},
 
-		_bindHWkey: function () {
-			// if HW key not exist 
-			// return true
-			// else
-			$( document ).on( "tizenhwkey", function( e ) {
-				var openedpopup = $.mobile.popup.active,
-					$elPage = $( ".ui-page-active" ),
-					$elFooter = $elPage.find( ":jqmData(role='footer')" ),
-					$elMoreKey = $elFooter.children(":jqmData(icon='naviframe-more')"),
-					morePopup;
-
-				if ( $( ".ui-page-active .ui-footer" ).hasClass( "ui-footer-force-btn-show" ) ) {
-					return true;
-				}
-
-				if ( e.originalEvent.keyName === "back" ) {
-					// need to change back button
-					if( openedpopup ) {
-						openedpopup.close();
-						return false;
-					}
-					//Click trigger
-					 $( ".ui-page-active .ui-footer .ui-btn-back" ).trigger( "click" );
-					return false;
-				} else if ( e.originalEvent.keyName === "menu" ) {
-					// need to change more key trigger
-					if ( $elMoreKey.get(0) ) {
-						$elMoreKey.trigger( "click" );
-					}
-					return false;
-				}
-			});
-
-		},
-
 		_setContentMinHeight : function ( thisPage ) {
 			var $elPage = $( thisPage ),
 				$elHeader = $elPage.find( ":jqmData(role='header')" ),
 				$elFooter = $elPage.find( ":jqmData(role='footer')" ),
 				$elContent = $elPage.find( ":jqmData(role='content')" ),
-				footerHeight,
 				resultMinHeight,
 				dpr = 1,
 				layoutInnerHeight = window.innerHeight;
 
-			if ( !$.support.scrollview || ($.support.scrollview && $elContent.jqmData("scroll") === "none") ) {
-					dpr = window.outerWidth / window.innerWidth;
-					layoutInnerHeight = Math.floor( window.outerHeight / dpr );
-			} else {
+                        if ( !$.support.scrollview || ($.support.scrollview && $elContent.jqmData("scroll") === "none") ) {
+                                dpr = window.outerWidth / window.innerWidth;
+                                layoutInnerHeight = Math.floor( window.outerHeight / dpr );
+                        } else {
 				layoutInnerHeight = window.innerHeight;
 			}
 
-			if ( $elFooter.css( "display" ) === "none" ) {
-				footerHeight = 0;
-			} else {
-				footerHeight = $elFooter.height();
-			}
-			resultMinHeight = layoutInnerHeight - $elHeader.height() - footerHeight;
+			resultMinHeight = layoutInnerHeight - $elHeader.height() - $elFooter.height();
 
-			if ( $.support.scrollview && $elContent.jqmData("scroll") !== "none" ) {
+                        if ( $.support.scrollview && $elContent.jqmData("scroll") !== "none" ) {
 				$elContent.css( "min-height", resultMinHeight - parseFloat( $elContent.css("padding-top") ) - parseFloat( $elContent.css("padding-bottom") ) + "px" );
 				$elContent.children( ".ui-scrollview-view" ).css( "min-height", $elContent.css( "min-height" ) );
 			}
@@ -374,55 +326,6 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 			}
 			/* add half width for default space between text and button, and img tag area is too narrow, so multiply three for img width*/
 		},
-
-		_setHWKeyLayout : function ( thisPage ) {
-			var $elPage = $( thisPage ),
-				$elFooter = $elPage.find( ":jqmData(role='footer')" ),
-				$elBackKey = $elFooter.children( ".ui-btn-back" ),
-				$elMoreKey = $elFooter.children(":jqmData(icon='naviframe-more')"),
-				cntMore = 0,
-				morePopup;
-
-				// Check HW Key option 
-			if ( $elFooter.hasClass("ui-footer-force-btn-show") ) {
-				return true;	
-			}
-
-			if ( $elMoreKey.length ) {
-				cntMore = $elMoreKey.length + 1;
-			} else {
-				cntMore = 0;
-			}
-
-			// need to add device api to check HW key exist
-			// Case 1 : footer - BackKey/MoreKey/Button - hide BackKey/MoreKey
-			/*
-			if ( $elFooter.children().length - $elBackKey.length - cntMore > 0 ) {
-				$elBackKey.hide();
-				$elMoreKey.hide();
-			// Case 2 : footer - BackKey/MoreKey - more, back hide depend on OSP
-			} else {
-				$elBackKey.hide();
-				$elMoreKey.hide();
-			}
-			*/
-			if( $elMoreKey ) {
-				$elMoreKey.hide();
-				if( $elMoreKey.get(0) && $elMoreKey.get(0).hash ) {
-					morePopup =  $( $elMoreKey.get(0).hash );
-					if( morePopup ) {
-						morePopup.addClass ( "hardware" );
-					}
-				}
-			}
-
-			if( $elBackKey ) {
-				$elBackKey.hide();
-			}
-			// Case 3 : no footer - do nothing
-
-		},
-
 
 		_visible: true,
 
@@ -442,7 +345,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 			if ( $el.siblings( ".ui-header" ).jqmData("position") == "fixed" || ($.support.scrollview && $el.jqmData("scroll") !== "none" )) {
 				$( tbPage ).css( "padding-top", ( header ? $el.siblings( ".ui-header" ).outerHeight() : 0 ) );
 			}
-			$( tbPage ).css( "padding-bottom", (( footer && $el.siblings( ".ui-footer" ).css( "display" ) !== "none" ) ? $el.siblings( ".ui-footer" ).outerHeight() : 0 ) );
+			$( tbPage ).css( "padding-bottom", ( footer ? $el.siblings( ".ui-footer" ).outerHeight() : 0 ) );
 		},
 
 		/* 1. Calculate and update content height   */
