@@ -1,39 +1,42 @@
 /***************************************************************************
                   Body
 ***************************************************************************/
-@color_bg: rgb(32, 35, 39);					/* B011 : Main Background color */
-@color_text: rgb(249, 249, 249);				/* B012 : Main font color */
+@color_bg: rgb(0, 0, 0);					/* B011 : Main Background color */
+@color_text: rgb(250, 250, 250);				/* B012 : Main font color */
 
 /***************************************************************************
                    Naviframe
 ***************************************************************************/
-@color_bar_title_text : rgba(112, 169, 238, 1);			/* B042 : title text */
+@color_bar_title_text : rgba(250, 250, 250, 1);			/* B042 : title text */
 @color_bar_title_button_text : rgba(58, 58, 58, 1);	/* B052L4 : Title text button */
 @color_bar_title_button_text_press : rgba(59, 115, 182, 1);	/* B052L5 : Title text button press */
-@color_bar_btn_press : rgba(64, 147, 247, 0.1);			/* B052L1P : Title text button press bg */
-@color_bar_divider_line : rgba(59, 62, 64, 1);		/* 00_divider_line.9.png */
-@color_bar_naviframe_bg : rgba(32, 35, 39, 1);
+@color_bar_title_shadow : rgba(0, 0, 0, 0.75);
+@color_bar_btn_press : rgba(49, 63, 102, 1);			/* B052L1P : Title text button press bg */
+@color_bar_divider_line : rgba(255, 255, 255, 1);		/* 00_divider_line.9.png */
+@color_bar_naviframe_bg : rgba(49, 63, 102, 1);
+@color_bar_tabbar_bg : rgba(49, 63, 102, 1);
+@color_bar_toolbar_bg : rgba(70, 76, 94, 1);			/* 00_toolbar_bg.png */
 /***************************************************************************
                    Tabbar
 ***************************************************************************/
 @color_tabbar_btn_tab_press : -webkit-linear-gradient(top, rgba(0, 0, 0,1) 0%, rgba(32, 35, 39,1) 100%); /* B0514P1 : 00_tab_press_ef.9.png */
-@color_tabbar_btn_pressed : rgba(112, 169, 238, 1);	/* B052L6P */
-@color_tabbar_btn_normal : rgba(186, 186, 186, 1);	/* B052L6 */
+@color_tabbar_btn_pressed : rgba(250, 250, 250, 1);	/* B052L6P */
+@color_tabbar_btn_normal : rgba(250, 250, 250, 1);	/* B052L6 */
 
 /***************************************************************************
                    List
 ***************************************************************************/
 @color_list_bg:	rgba(32, 35, 39, 1);								/* B0211 */
-@color_list_press : rgba(112, 169, 238, 1);						/* B041	*/
-@color_list_border_bottom: rgba(12, 15, 20, 1);	/* B0223 */
-@color_list_main_text_focus: rgba(255, 255, 255, 1);
-@color_list_main_text_unfocus: rgba(215, 215, 215, 1);
-@color_list_sub_text_default: rgba(128, 128, 128, 1);
+@color_list_press : rgba(43, 58, 175, 1);						/* B041	*/
+@color_list_border_bottom: rgba(64, 64, 64, 1);	/* B0223 */
+@color_list_main_text_focus: rgba(250, 250, 250, 1);
+@color_list_main_text_unfocus: rgba(250, 250, 250, 1);
+@color_list_sub_text_default: rgba(110, 111, 118, 1);
 
 @color_list_divider_expand_div : rgba(0, 0, 0, 0.5);
-@color_list_divider_bg : rgba(32, 35, 39, 1);				/* W021L1 */
-@color_list_divider_line : rgba(59, 115, 182, 1);			/* W021L2 */
-@color_list_divider_text : rgba(112, 169, 238, 1);			/* W021L3 */
+@color_list_divider_bg : rgba(0, 0, 0, 1);				/* W021L1 */
+@color_list_divider_line : rgba(66, 87, 144, 1);			/* W021L2 */
+@color_list_divider_text : rgba(10, 82, 138, 1);			/* W021L3 */
 
 @color_list_swipe_bg : rgba(23, 25, 28, 1);				/* B0212 */
 
@@ -101,16 +104,16 @@
 @color_button_EditText:         rgb(249, 249, 249);
 @color_button_EditTextPress:    rgb(61, 61, 61);
 
-@color_button_text_normal:      rgb(186, 186, 186);
+@color_button_text_normal:      rgb(250, 250, 250);
 @color_button_text_press:       rgb(255, 255, 255);
 @color_button_text_white:       rgb(249, 249, 249);
 
-@color_button_normal:           rgb(60, 64, 68);
+@color_button_normal:           rgb(98, 105, 127);
 @color_button_normal_webkit:    -webkit-linear-gradient(top, rgb(53, 57, 61), rgb(45, 48, 51));
 @color_button_normal_moz:       -moz-linear-gradient(top, rgb(53, 57, 61), rgb(45, 48, 51));
 @color_button_normal_o:         -o-linear-gradient(top, rgb(53, 57, 61), rgb(45, 48, 51));
 @color_button_normal_ms:        -ms-linear-gradient(top, rgb(53, 57, 61), rgb(45, 48, 51));
-@color_button_press:            rgb(51, 99, 157);
+@color_button_press:            rgb(0, 118, 209);
 
 @color_button_inner:            rgb(60, 64, 68);
 @color_button_inner_webkit:     -webkit-linear-gradient(top, rgb(60, 64, 68), rgb(44, 46, 49));
@@ -172,7 +175,7 @@
 }
 
 .LESSbutton_down_style{
-        background: @color_button_press;
+/*        background: @color_button_press;*/
         color: @color_button_text_press;
 }
 

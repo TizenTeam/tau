@@ -59,6 +59,7 @@
 		font-size  : 28 * @unit_base;
 		font-weight : 500; /* tizen font weight tuning */
 		text-overflow: ellipsis;
+		text-shadow : 0px 2px @color_bar_title_shadow;
 		overflow: hidden;
 		white-space: nowrap;
 		outline: 0 !important;
@@ -127,6 +128,7 @@
 		left : 8 * @unit_base;	
 
 		font-size : 12 * @unit_base;	
+		text-shadow : 0px 2px @color_bar_title_shadow;
 
 		img {
 			height: 16 * @unit_base;
@@ -143,6 +145,9 @@
 
 		height : 34 * @unit_base;
 		width : 34 * @unit_base;
+
+		padding-left : 13 * @unit_base;
+		padding-right : 13 * @unit_base;
 
 		background: transparent;
 		color	: @color_bar_title_button_text;
@@ -166,11 +171,11 @@
 	}
 
 	.ui-btn-right-0 {
-		right : 11 * @unit_base;
+		right : 0 * @unit_base;
 	}
 
 	.ui-btn-right-1 {
-		right : 56 * @unit_base;
+		right : 58 * @unit_base;
 	}
 
 	> .ui-btn:not(.ui-btn-icon_only):nth-child(2),
@@ -235,6 +240,7 @@
 	height : 49 * @unit_base;
 	text-align : center;
 	bottom : 0px;
+	background : @color_bar_toolbar_bg;
 	>.ui-btn.ui-btn-back,
 	>.ui-btn.ui-btn-footer-down,
 	>[data-icon="naviframe-more"] {
@@ -393,12 +399,20 @@
 .ui-br {
 }
 .ui-btn-box-s {
+	background : @color_button_normal;
+	.LESSborder-radius-allimportant( 1.2em );
+
 	padding: 1 * @unit_base;
+	box-shadow : 0px 2px @color_bar_title_shadow;
+	.ui-btn-text {
+		text-shadow : 0px 2px @color_bar_title_shadow;
+	}
+
 }
 .ui-btn-box-s.ui-btn-up-s {
-	.LESSbutton_box_style;
+/*	.LESSbutton_box_style;
 	.LESSborder-radius-all( 0.3rem );
-	.LESSbutton_text1_style;
+	.LESSbutton_text1_style;*/
 }
 
 .ui-btn.ui-btn-corner-all .ui-btn-box-s.ui-btn-up-s {
@@ -406,12 +420,12 @@
 }
 
 .ui-btn-box-s .ui-btn-inner {
-	border: 1px solid;
+/*	border: 1px solid;
 	border-color: @color_button_inner_border;
 	.LESSborder-radius-all( 0.3rem );
 	.LESSbox-boxsizing( border-box );
 	.LESSbutton_inner_box_style;
-	height: 100%;
+	height: 100%;*/
 }
 
 .ui-btn.ui-btn-corner-all.ui-btn-box-s .ui-btn-inner {
@@ -462,7 +476,7 @@
 .ui-btn-box-s.ui-btn-hover-s {
 	.LESSbutton_hover_style;
 	.LESSbutton_text1_style;
-	.LESSborder-radius-allimportant( 0.3em );
+	.LESSborder-radius-allimportant( 1.2em );
 }
 .ui-btn-box-s.ui-btn-hover-s.ui-btn-corner-circle {
 	.LESSborder-radius-allimportant( 1em );
@@ -473,8 +487,11 @@
 .ui-btn-box-s.ui-btn-hover-s.ui-btn-round {
 	.LESSborder-radius-allimportant( 1.2em );
 }
-.ui-btn-box-s.ui-btn-down-s .ui-btn-inner {
-	.LESSbutton_down_style;
+.ui-btn-box-s.ui-btn-down-s {
+	background : @color_button_press;
+	.ui-btn-inner {
+		.LESSbutton_down_style;
+	}
 }
 
 .ui-btn-up-s,
@@ -583,28 +600,43 @@ a.ui-link-inherit {
 .ui-btn-up-s { /* less parsing problem : divide css */
 	.ui-icon-header-back-btn { background-image: url(images/page/00_icon_Back.png); }
 	.ui-icon-naviframe-more { background-image: url(images/page/00_icon_more.png); }
-	.ui-icon-naviframe-cancel { background-image: url(images/00_icon_cancel.png); } /* FIXME : check ux if it needs to be deprecated... */
-	.ui-icon-naviframe-edit { background-image: url(images/page/00_icon_edit.png); }
-	.ui-icon-naviframe-plus { background-image: url(images/page/00_icon_plus.png); }
-	.ui-icon-down { background-image: url(images/controls/button/00_icon_SIP_close_web_web.png); }
+
+	.ui-icon-down { background-image: url(images/page/00_icon_SIP_close_web.png); }
+	.ui-icon-naviframe-cancel { background-image: url(images/page/00_icon_cancel_web.png); } /* FIXME : check ux if it needs to be deprecated... */
+        .ui-icon-naviframe-edit { background-image: url(images/page/00_icon_edit_web.png); }
+        .ui-icon-naviframe-plus { background-image: url(images/page/00_icon_plus_web.png); }
+	.ui-icon-naviframe-delete { background-image: url(images/page/00_icon_delete_web.png); }
+	.ui-icon-naviframe-done { background-image: url(images/page/00_icon_done_web.png); }
+	.ui-icon-naviframe-search { background-image: url(images/page/00_icon_search_web.png); }
+	.ui-icon-naviframe-selectall { background-image: url(images/page/00_icon_select_all_web.png); }
 }
 
 .ui-btn-hover-s {
 	.ui-icon-header-back-btn { background-image: url(images/page/00_icon_Back.png); }
 	.ui-icon-naviframe-more { background-image: url(images/page/00_icon_more.png); }
-	.ui-icon-naviframe-cancel { background-image: url(images/00_icon_cancel.png); } /* FIXME : check ux if it needs to be deprecated... */
-	.ui-icon-naviframe-edit { background-image: url(images/page/00_icon_edit.png); }
-	.ui-icon-naviframe-plus { background-image: url(images/page/00_icon_plus.png); }
-	.ui-icon-down { background-image: url(images/controls/button/00_icon_SIP_close_web_web.png); }
+
+	.ui-icon-down { background-image: url(images/page/00_icon_SIP_close_web.png); }
+        .ui-icon-naviframe-cancel { background-image: url(images/page/00_icon_cancel_web.png); } /* FIXME : check ux if it needs to be deprecated... */
+        .ui-icon-naviframe-edit { background-image: url(images/page/00_icon_edit_web.png); }
+        .ui-icon-naviframe-plus { background-image: url(images/page/00_icon_plus_web.png); }
+        .ui-icon-naviframe-delete { background-image: url(images/page/00_icon_delete_web.png); }
+        .ui-icon-naviframe-done { background-image: url(images/page/00_icon_done_web.png); }
+        .ui-icon-naviframe-search { background-image: url(images/page/00_icon_search_web.png); }
+        .ui-icon-naviframe-selectall { background-image: url(images/page/00_icon_select_all_web.png); }
 }
 
 .ui-btn-down-s {
 	.ui-icon-header-back-btn { background-image: url(images/page/00_icon_Back_press.png); }
 	.ui-icon-naviframe-more { background-image: url(images/page/00_icon_more_press.png); }
-	.ui-icon-naviframe-cancel { background-image: url(images/00_icon_cancel_press.png); } /* FIXME: check ux if it needs to be deprecated.. */
-	.ui-icon-naviframe-edit { background-image: url(images/page/00_icon_edit_press.png); }
-	.ui-icon-naviframe-plus { background-image: url(images/page/00_icon_plus_press.png); }
-	.ui-icon-down { background-image: url(images/controls/button/00_icon_SIP_close_press_web.png); }
+
+	.ui-icon-down { background-image: url(images/page/00_icon_SIP_close_press_web.png); }
+        .ui-icon-naviframe-cancel { background-image: url(images/page/00_icon_cancel_press_web.png); } /* FIXME : check ux if it needs to be deprecated... */
+        .ui-icon-naviframe-edit { background-image: url(images/page/00_icon_edit_press_web.png); }
+        .ui-icon-naviframe-plus { background-image: url(images/page/00_icon_plus_press_web.png); }
+        .ui-icon-naviframe-delete { background-image: url(images/page/00_icon_delete_press_web.png); }
+        .ui-icon-naviframe-done { background-image: url(images/page/00_icon_done_press_web.png); }
+        .ui-icon-naviframe-search { background-image: url(images/page/00_icon_search_press_web.png); }
+        .ui-icon-naviframe-selectall { background-image: url(images/page/00_icon_select_all_press_web.png); }
 }
 
 /* Interaction cues

@@ -4,7 +4,6 @@
                     Tabbar
 ***************************************************************************/
 .ui-tabbar {
-	background : @color_bg;
 	z-index : 1000;
 	&.ui-portrait-tabbar {
 		/* portrait style */
@@ -14,7 +13,7 @@
 	}
 
 	a.ui-btn {
-		background : @color_bg;
+		background : @color_bar_tabbar_bg;
 		color : @color_tabbar_btn_normal;
 
 		padding-top : 19 * @unit_base;
@@ -49,7 +48,7 @@
 
 	&.ui-tabbar-persist {
 		a.ui-btn {
-			background: @color_bg;
+			background: @color_bar_tabbar_bg;
 		}
 		a.ui-state-persist, a.ui-state-persist.ui-btn-active, a.ui-btn-show-style {
 			color : @color_tabbar_btn_pressed;
@@ -69,7 +68,7 @@
 
 	&:not(.ui-tabbar-persist) {
 		a.ui-btn {
-			background: @color_bg;
+			background: @color_bar_tabbar_bg;
 		}
 		a.ui-btn-active, .ui-btn-show-style {
 			color : @color_tabbar_btn_pressed;
@@ -124,8 +123,8 @@
 	.ui-tabbar {
 		&.ui-tabbar-noicons {
 			a.ui-btn {
-				padding-top : 15 * @unit_base;
-				padding-bottom : 13 * @unit_base;
+				padding-top : 6 * @unit_base;
+				padding-bottom : 6 * @unit_base;
 			}
 		}
 
@@ -149,10 +148,10 @@
 	&.ui-title-tabbar-multiline {
 		.ui-tabbar {
 			a.ui-btn {
-				padding-top : 11 * @unit_base;
-				padding-bottom : 10 * @unit_base;
+				padding-top : 7 * @unit_base;
+				padding-bottom : 7 * @unit_base;
 				.ui-btn-inner {
-					height : 54 * @unit_base;
+					height : 49 * @unit_base;
 					.ui-btn-text {
 						padding-bottom: 1 * @unit_base;
 					}
