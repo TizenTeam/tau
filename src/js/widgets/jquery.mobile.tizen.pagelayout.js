@@ -225,11 +225,13 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 					self.updatePagePadding( thisPage );
 					self._updateHeaderArea( thisPage );
 
-					/* check device api : HW key existance */
-					if ( $.tizen && $.tizen.frameworkData.deviceCapa && $.tizen.frameworkData.deviceCapa.inputKeyBack ) {
+					// check device api : HW key existance
+					if ( $.tizen && $.tizen.frameworkData.deviceCapa
+							&& $.tizen.frameworkData.deviceCapa.inputKeyBack ) {
 						self._bindHWkey();
 						self._setHWKeyLayout( thisPage );
 					}
+					self._setMenuPopupLayout( thisPage );
 
 					if ( o.updatePagePadding ) {
 						$( window ).bind( "throttledresize." + self.widgetName, function () {
@@ -299,7 +301,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 		},
 
 		_bindHWkey: function () {
-			// if HW key not exist 
+			// if HW key not exist
 			// return true
 			// else
 			$( document ).on( "tizenhwkey", function( e ) {
@@ -379,15 +381,15 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 			var $elPage = $( thisPage ),
 				$elFooter = $elPage.find( ":jqmData(role='footer')" ),
 				$elBackKey = $elFooter.children( ".ui-btn-back" ),
-				$elMoreKey = $elFooter.children(":jqmData(icon='naviframe-more')"),
-				cntMore = 0,
-				morePopup;
-
-				// Check HW Key option 
+				$elMoreKey = $elFooter.children(":jqmData(icon='naviframe-more')");
+				//cntMore = 0,
+			
+				// Check HW Key option
 			if ( $elFooter.hasClass("ui-footer-force-btn-show") ) {
-				return true;	
+				return true;
 			}
 
+			/*
 			if ( $elMoreKey.length ) {
 				cntMore = $elMoreKey.length + 1;
 			} else {
@@ -396,7 +398,6 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 
 			// need to add device api to check HW key exist
 			// Case 1 : footer - BackKey/MoreKey/Button - hide BackKey/MoreKey
-			/*
 			if ( $elFooter.children().length - $elBackKey.length - cntMore > 0 ) {
 				$elBackKey.hide();
 				$elMoreKey.hide();
@@ -406,23 +407,29 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 				$elMoreKey.hide();
 			}
 			*/
+
 			if( $elMoreKey ) {
 				$elMoreKey.hide();
-				if( $elMoreKey.get(0) && $elMoreKey.get(0).hash ) {
-					morePopup =  $( $elMoreKey.get(0).hash );
-					if( morePopup ) {
-						morePopup.addClass ( "hardware" );
-					}
-				}
 			}
-
 			if( $elBackKey ) {
 				$elBackKey.hide();
 			}
 			// Case 3 : no footer - do nothing
 
+			return true;
 		},
+		_setMenuPopupLayout: function ( thisPage ) {
+			var $page = $( thisPage ),
+				$footer = $page.find( ":jqmData(role='footer')" ),
+				moreKey = $page.find( ":jqmData(icon='naviframe-more')" )[0],
+				//cntMore = 0,
+				$morePopup;
 
+			if( moreKey && moreKey.hash ) {	// moreKey.hash = #morePopupID (from <a href="">)
+				$morePopup =  $( moreKey.hash );
+				$morePopup.addClass ( "hardware" );
+			}
+		 },
 
 		_visible: true,
 
