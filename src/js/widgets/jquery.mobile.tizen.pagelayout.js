@@ -427,7 +427,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 
 			if( moreKey && moreKey.hash ) {	// moreKey.hash = #morePopupID (from <a href="">)
 				$morePopup =  $( moreKey.hash );
-				$morePopup.addClass ( "hardware" );
+				$morePopup.addClass ( "ui-ctxpopup-optionmenu" );
 			}
 		 },
 
