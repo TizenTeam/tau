@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.34
+Version:    0.2.35
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -97,6 +97,10 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Sat Jun 08 2013 Youmin Ha <youmin.ha@samsung.com> 0.2.35
+	- contextpopup: Change option menu class name
+	- pagelayout: more popup style is applied even deviceAPI is not supported
+
 * Sat Jun 08 2013 Youmin Ha <youmin.ha@samsung.com> 0.2.34
 	- HWKey support on pagelayout, ctxpopup and loader
 	- multimediaview: Replace contents of demo
