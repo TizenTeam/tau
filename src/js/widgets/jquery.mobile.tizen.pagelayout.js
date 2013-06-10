@@ -210,6 +210,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 					}
 					self.setHeaderFooter( thisPage );
 					self._setContentMinHeight( thisPage );
+					self._updateHeaderArea( thisPage );
 				} )
 				.bind( "webkitAnimationStart animationstart updatelayout", function ( e, data ) {
 					var thisPage = this;
