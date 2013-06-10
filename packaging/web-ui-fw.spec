@@ -110,7 +110,7 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 	- fastscroll: Fix a position issue by auto scrolling.
 	- fastscroll: fix an issue of a popup position.
 
-* Sun June 01 2013 Hyunjung Kim <hjnim.kim@samsung.com> 0.2.33
+* Sun Jun 01 2013 Hyunjung Kim <hjnim.kim@samsung.com> 0.2.33
 	- Loader: fix version and path
 	- Checkbox : Fix incorrect image when favorite checkbox button down
 	- Controlgroup : Fix incorrect background color in horizontal controlgroup
