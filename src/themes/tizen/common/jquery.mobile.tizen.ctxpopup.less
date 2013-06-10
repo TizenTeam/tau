@@ -44,6 +44,7 @@
     .ui-listview li.ui-btn-up-s, .ui-listview li.ui-btn-hover-s {
         background: transparent;
     }
+
 	.ui-listview li:last-child {
 		border-bottom-left-radius: @border_radius;
 		border-bottom-right-radius: @border_radius;
@@ -62,12 +63,18 @@
 	.ui-listview > .ui-li {
 		color: @color_ctxpopup_text;
 		border-bottom-color: @color_ctxpopup_border_bottom;
-		border-top-width: 1px;
+		border-bottom-width: 1px;
+		border-bottom-style: solid;
 		border-top-color: @color_ctxpopup_border_top;
+		border-top-width: 1px;
+		border-top-style: solid;
 		margin-left: 0;
 		margin-right: 0;
-		&:first-child, &:last-child {
-			border-top-width: 0px;
+		&:first-child {
+			border-top-width: 0;
+		}
+		&:last-child {
+			border-bottom-width: 0;
 		}
 		.ui-btn-inner {
 			margin: 0;
@@ -79,10 +86,6 @@
 	.ui-listview li.ui-btn-up-s > .ui-li > .ui-btn-text > a.ui-link-inherit, .ui-listview li.ui-btn-hover-s > .ui-li > .ui-btn-text > a.ui-link-inherit, .ui-listview li.ui-btn-down-s > .ui-li > .ui-btn-text > a.ui-link-inherit {
 	  color: @color_ctxpopup_text;
 	}
-
-    .ui-listview > .ui-li:last-child {
-        border: none;
-    }
 
     .horizontal {
 		color: @color_ctxpopup_text;
@@ -132,7 +135,10 @@
             float: left;
             display: inline-block;
             border-right: 1px solid @color_ctxpopup_border_right;
+			border-left: 1px solid @color_ctxpopup_border_left;
             text-align: center;
+			border-bottom-width: 0;
+			border-top-width: 0;
         }
 
 		li:first-of-type {
@@ -145,16 +151,19 @@
         li:last-of-type {
 			border-top-right-radius: @border_radius;
 			border-bottom-right-radius: @border_radius;
-
-
+			border-bottom-left-radius: 0px ! important;
             border-right: none;
-            margin-right: 0;
         }
 
 		.ui-li {
-			&:first-child, &:last-child {
+			&:first-child {
 				border-left-width: 0px;
 			}
+			&:last-child {
+				border-right-width: 0px;
+			}
+			border-bottom-width: 0;
+			border-top-width: 0;
 		}
 
 		li:active, td:active {
@@ -171,6 +180,11 @@
         }
     }
 
+	.ui-scrollbar-thumb {
+		background-color: #494949;
+		opacity: 0.7;
+		border: 1px solid #343434;
+	}
 }
 
 .ui-arrow {
@@ -204,11 +218,15 @@
 	{
 		border: none;
 		background: @color_ctxpopup_background;
+		padding : 3px 2px 2px 2px;
 		.LESSborder-radius-all(@border_radius);
 	}
 	.ui-listview li:first-child {
 		border-top-left-radius: @border_radius;
 		border-top-right-radius: @border_radius;
+	}
+	.ui-listview .ui-li .ui-btn-inner {
+		border-width: 0px;
 	}
 }
 

@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.33
+Version:    0.2.34
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -97,6 +97,15 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Sat Jun 08 2013 Youmin Ha <youmin.ha@samsung.com> 0.2.34
+	- HWKey support on pagelayout, ctxpopup and loader
+	- multimediaview: Replace contents of demo
+	- demo: add min and max attributes on the number input entry
+	- Scrollview: Improve scroll performance
+	- scrollview: wrong scroll position after textarea autogrow (N_SE-35696,N_SE-35800)
+	- fastscroll: Fix a position issue by auto scrolling.
+	- fastscroll: fix an issue of a popup position.
+
 * Sun June 01 2013 Hyunjung Kim <hjnim.kim@samsung.com> 0.2.33
 	- Loader: fix version and path
 	- Checkbox : Fix incorrect image when favorite checkbox button down
