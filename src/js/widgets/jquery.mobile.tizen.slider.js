@@ -353,7 +353,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 			// the slider's value changes :(
 			this.handle.removeAttr('title');
 
-			newValue = this.element.val();
+			newValue = parseInt(this.element.val(), 10);
 
 			font_length = get_value_length( newValue );
 
@@ -397,7 +397,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 				break;
 			case 3:
 				font_size = '0.65rem';
-				font_top = '-0.05rem';
+				font_top = '-0.1rem';
 				break;
 			default:
 				font_size = '0.45rem';
@@ -408,7 +408,8 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 			if ( font_size != this.handleText.css('font-size') ) {
 				this.handleText.css({
 					'font-size': font_size,
-					'top': font_top
+					'top': font_top,
+					'position': 'relative'
 				});
 			}
 
