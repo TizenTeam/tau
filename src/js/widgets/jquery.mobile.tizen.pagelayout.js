@@ -370,10 +370,13 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 			var $elPage = $( thisPage ),
 				$elHeader = $elPage.find( ":jqmData(role='header')" ).length ? $elPage.find( ":jqmData(role='header')") : $elPage.siblings( ":jqmData(role='header')"),
 				headerBtnNum = $elHeader.children("a").length,
-				headerSrcNum = $elHeader.children("img").length;
+				headerSrcNum = $elHeader.children("img").length,
+				h1width;
 
 			if ( !$elPage.is( ".ui-dialog" ) ) {
-				$elHeader.find( "h1" ).css( "width", window.innerWidth - parseInt( $elHeader.find( "h1" ).css( "margin-left" ), 10 ) * 2 - $elHeader.children( "a" ).width() * headerBtnNum - $elHeader.children( "a" ).width() / 4 - $elHeader.children( "img" ).width() * headerSrcNum * 4 );
+				h1width = window.innerWidth - parseInt( $elHeader.find( "h1" ).css( "margin-left" ), 10 ) * 2 - $elHeader.children( "a" ).width() * headerBtnNum - $elHeader.children( "a" ).width() / 4 - $elHeader.children( "img" ).width() * headerSrcNum * 4;
+				$elHeader.find( "h1" ).css( "width", h1width );
+				$elHeader.find( '.ui-title-text-sub' ).css( "width", h1width );
 			}
 			/* add half width for default space between text and button, and img tag area is too narrow, so multiply three for img width*/
 		},
