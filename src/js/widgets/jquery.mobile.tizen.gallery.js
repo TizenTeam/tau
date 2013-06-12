@@ -662,6 +662,7 @@ define( [ ], function ( ) {
 			var self = this;
 			if( self.orientationEventFire ) {
 				self.refresh();
+				$( event.target ).trigger( "galleryorientationchanged", this );
 				self.orientationEventFire = false;
 			}
 		},

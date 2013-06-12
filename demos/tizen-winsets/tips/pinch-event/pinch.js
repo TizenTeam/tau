@@ -38,4 +38,8 @@ $( document ).one( "pageshow", "#pinch_page", function () {
 	$("#pinch_demo").on( "pinchend", function ( e, p ) {
 		last_ratio = get_ratio( p.ratio );
 	});
+
+	$( window ).bind( "galleryorientationchanged", function ( e ) {
+		last_ratio = 1;
+	});
 });
