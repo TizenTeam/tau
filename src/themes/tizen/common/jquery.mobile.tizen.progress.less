@@ -1,5 +1,7 @@
 @import "config.less";
 
+@unit_base_progress : @unit_base * 0.5;
+
 /* Progress - circle style */
 @img-height: 32 * @unit_base;
 @img-width: 32 * @unit_base;
@@ -36,41 +38,36 @@
 }
 
 /* Progress - pending style */
-@bar-height: 7 * @unit_base;
-@bar-margin: 21 * @unit_base;
+@bar-height: 13 * @unit_base_progress;
+@bar-margin: 36 * @unit_base_progress;
 
-@-webkit-keyframes ui-move-animation {
-	from {
-		-webkit-transform: translateY(-@bar-height * 2);
-	} to {
-		-webkit-transform: translateY(0);
-	}
+@-webkit-keyframes animate-stripes {
+	0% {background-position: 0 0;} 100% {background-position: 60px 0;}
 }
 
 .ui-progress-pending {
 	position: relative;
 	top: 0;
 	width: 100%;
-	height: @bar-height * 3;
+	height: 100%;
 	padding-top: 0;
 	padding-bottom: 0;
-
-	background: -webkit-gradient(linear,
-				left top,
-				right bottom,
-				color-stop(0%,  rgba(0,0,0,0)),
-				color-stop(25%, rgba(0,0,0,0)),
-				color-stop(25%, @color_progress_value0),
-				color-stop(50%, @color_progress_value0),
-				color-stop(50%, rgba(0,0,0,0)),
-				color-stop(75%, rgba(0,0,0,0)),
-				color-stop(75%, @color_progress_value0));
-
+	background-image: linear-gradient(
+						135deg,
+						@color_progress_value0 25%,
+						transparent 25%,
+						transparent 50%,
+						@color_progress_value0 50%,
+						@color_progress_value0 75%,
+						transparent 75%,
+						transparent);
+	box-shadow: 0 1px 0 @color_progress_value_shadow0 inset;
 	background-color: @color_progress_bar0;
 
+	.LESSborder-radius-all( 10 * @unit_base_progress );
 	.LESSbackground-size(@bar-height * 2, @bar-height * 2);
 }
 
 .ui-progress-pending-running {
-	-webkit-animation: ui-move-animation 0.5s infinite linear;
+	-webkit-animation: animate-stripes 1s linear infinite;
 }
