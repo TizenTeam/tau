@@ -19,7 +19,13 @@ function onErrorCallback ( error ) {
 
 try {
 	if ( $.tizen.__tizen__.util.isMobileBrowser() ) {
-		tizen.systeminfo.addPropertyValueChangeListener( "DEVICE_ORIENTATION", onSuccessCallback, onErrorCallback );
+		/**
+		 * Temporary rotation is blocked as TIZEN API is missing a flag,
+		 * which can help to check if the orientation is locked or unlocked
+		 * 
+		 * JIRA https://tizendev.org/bugs/browse/N_SE-39394
+		 */
+		//tizen.systeminfo.addPropertyValueChangeListener( "DEVICE_ORIENTATION", onSuccessCallback, onErrorCallback );
 	}
 } catch ( exc ) {
 	alert( exc.message );
