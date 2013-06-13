@@ -18,8 +18,13 @@
 		cursor:pointer;
 		position: relative; 
 		vertical-align: middle;
-		.LESSborder-radius-all( 0.2rem );
 } /* wongi_1018 : For button align. */
+
+.ui-btn.ui-btn-box-s {
+		color: @color_text;
+		text-shadow: @color_button_test_shadow;
+		.LESSborder-radius-all( 0.2rem );
+}
 
 .ui-btn:focus, .ui-btn:active { outline: none; }
 .ui-header .ui-btn, .ui-footer .ui-btn, .ui-bar .ui-btn { display: inline-block; font-size: 13 * @unit_base; margin: 0; }
@@ -93,17 +98,17 @@
 {
 	background: transparent ! important;
 }
-.ui-btn-up-s
+.ui-btn-box-s.ui-btn-up-s
 {
 	.LESSbutton_up_style();
 	box-shadow: @button_shadow_inner;
 }
-.ui-btn-hover-s
+.ui-btn-box-s.ui-btn-hover-s
 {
 	.LESSbutton_up_style();
 	box-shadow: @button_shadow_inner;
 }
-.ui-btn-down-s
+.ui-btn-box-s.ui-btn-down-s
 {
 	background: @color_button_press;
 	box-shadow: @button_press_shadow_inner;
