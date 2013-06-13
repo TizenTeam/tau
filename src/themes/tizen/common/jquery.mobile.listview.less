@@ -76,7 +76,7 @@
 
 	 .ui-li.ui-li-has-multiline:not(.ui-li-divider) {
 		&:not(.ui-li-static) {
-			min-height : 64 * @unit_base;
+			min-height : 62 * @unit_base;
 		}
 	}
 
@@ -201,7 +201,7 @@
 			display : inline-block;
 			position : absolute;
 
-			right : 0px;
+			right : -1px;
 		}
 	}
 
@@ -219,7 +219,7 @@
 			top	 : 50%;
 			margin-top : -15 * @unit_base;
 
-			left : -4 * @unit_base;
+			left : -5 * @unit_base;
 
 			width : 30 * @unit_base;
 			height : 30 * @unit_base;
@@ -244,8 +244,8 @@
 	img.ui-li-bigicon {
 		position : absolute;
 
-		width : 35 * @unit_base;
-		height : 35 * @unit_base;
+		width : 36 * @unit_base;
+		height : 36 * @unit_base;
 
 		top : 50%;
 		margin-top : -18 * @unit_base;
@@ -255,7 +255,7 @@
 		}
 
 		&:nth-child(2) {
-			left : 36 * @unit_base;
+			left : 38 * @unit_base;
 		}
 
 		&:last-child {
@@ -284,8 +284,8 @@ li.ui-li-thumbnail-right {
 		left : auto;
 		right : 0px;
 
-		width : 51 * @unit_base;
-		height : 51 * @unit_base;
+		width : 50 * @unit_base;
+		height : 50 * @unit_base;
 
 		margin-top : -25 * @unit_base;
 	}
@@ -384,6 +384,7 @@ li.ui-li-thumbnail-right {
 	&:not(.ui-btn) {
 		margin-left : 12 * @unit_base;
 		margin-right : 12 * @unit_base;
+		margin-top : 16 * @unit_base;
 	}
 
 	&>.ui-btn-text {
@@ -395,10 +396,11 @@ li.ui-li-thumbnail-right {
 	}
 
 	&[data-style="dialogue"] {
-		height: 20 * @unit_base;
+		background-color: black;
+		height: 23 * @unit_base;
 		padding : 0px;
 
-		padding-top : 20 * @unit_base;
+		padding-top : 16 * @unit_base;
 		padding-bottom : 0 * @unit_base;
 		padding-left : 10 * @unit_base;
 	
@@ -409,7 +411,6 @@ li.ui-li-thumbnail-right {
 		font-size : 16 * @unit_base;
 		font-weight : bold;
 		color : @color_dialogue_main_text;
-		background : @color_list_bg;
 	}
 
 	&[data-style="check"] {
@@ -428,7 +429,7 @@ li.ui-li-thumbnail-right {
 				position : absolute;
 				width : 32 * @unit_base;
 				height : 32 * @unit_base;
-				background : @color_list_bg;
+				background : black;
 				padding : 0;
 			}
 		}
@@ -485,7 +486,7 @@ li.ui-li-thumbnail-right {
 .ui-li-has-thumb:not(.ui-li-thumbnail-right) {
 	.ui-btn-inner a.ui-link-inherit,
 	&.ui-li-static  {
-		padding-left: 45 * @unit_base;
+		padding-left: 50 * @unit_base;
 	}
 	.ui-li-text-sub {
 		padding-left: 45 * @unit_base;
@@ -497,10 +498,10 @@ li.ui-li-thumbnail-right {
 .ui-li-has-radio{
 	.ui-btn-inner a.ui-link-inherit,
 	&.ui-li-static  {
-		padding-left: 36 * @unit_base;
+		padding-left: 38 * @unit_base;
 	}
 	.ui-li-text-sub {
-		padding-left: 36 * @unit_base;
+		padding-left: 38 * @unit_base;
 	}
 }
 
@@ -508,11 +509,11 @@ li.ui-li-thumbnail-right {
 .ui-li-has-thumb.ui-li-has-radio {
 	.ui-btn-inner a.ui-link-inherit,
 	&.ui-li-static  {
-		padding-left: 78 * @unit_base;
+		padding-left: 82 * @unit_base;
 	}
 
 	.ui-li-text-sub {
-		padding-left: 78 * @unit_base;
+		padding-left: 82 * @unit_base;
 	}
 }
 
@@ -592,6 +593,7 @@ li.ui-li-thumbnail-right {
 	float: right;
 	text-align: right;
 	font-size: 16 * @unit_base;
+	font-weight: bold;
 	color: @color_list_sub_text_default;
 
 	position : absolute;
@@ -606,13 +608,15 @@ li.ui-li-thumbnail-right {
 		width: @list-smallicon-size;
 		height: @list-smallicon-size;
 		margin: 0 @list-li-padding-horizontal 0 @list-li-padding-horizontal;
+		vertical-align: bottom;
 	}
 }
 
 .ui-li-text-sub2 {
 	float: right;
 	text-align: right;
-	font-size: 16 * @unit_base;
+	font-size: 12 * @unit_base;
+	font-weight: bold;
 	color: @color_list_sub_text_default;
 
 	position : absolute;
@@ -684,6 +688,7 @@ li:not(.ui-li-has-multiline) .ui-li-text-sub {
 	width: @list-smallicon-size;
 	height: @list-smallicon-size;
 	margin: 0 0;
+	margin-left: 8px;
 }
 .ui-li-icon-sub-right {
 	right : 8 * @unit_base;
@@ -696,8 +701,8 @@ li:not(.ui-li-has-multiline) .ui-li-text-sub {
 // =========
 .ui-listview {
 	li.ui-li-dialogue {
-		margin-left: 4 * @unit_base;
-		margin-right : 4 * @unit_base;
+		margin-left: 8 * @unit_base;
+		margin-right : 8 * @unit_base;
 		padding-left : 10 * @unit_base;
 		padding-right : 10 * @unit_base;
 
@@ -742,7 +747,7 @@ li:not(.ui-li-has-multiline) .ui-li-text-sub {
 			}
 			&.ui-li-has-checkbox,
 			&.ui-li-has-radio {
-				padding-left : 36 * @unit_base;
+				padding-left : 44 * @unit_base;
 			}
 			.ui-checkbox, .ui-radio {
 				left : 0px;
