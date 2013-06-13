@@ -163,7 +163,14 @@
 
 			padding-top : 16 * @unit_base;
 			padding-bottom : 16 * @unit_base;
+			&.ui-btn-down-s:not(.ui-btn-icon_only) {
+				background : @color_tabbar_footer_btn_press;
+				.ui-btn-text {
+					background : @color_tabbar_footer_btn_press;
+				}
+			}
 		}
+
 		.ui-btn-inner {
 			.ui-icon {
 				top : 0px;
@@ -275,11 +282,10 @@
 			Landscape mode
 ************************************************************************/
 @media all and (orientation:landscape) and (device-aspect-ratio : 16/9) {
-
 .ui-tabbar {
 	a.ui-btn {
 		padding-top : 14 * @unit_base;
-		padding-bottom : 14 * @unit_base;
+		padding-bottom : 5 * @unit_base;
 	}
 
 	.ui-btn-inner {
@@ -327,8 +333,8 @@
 	&.ui-title-tabbar-multiline {
 		.ui-tabbar {
 			a.ui-btn {
-				padding-top : 6 * @unit_base;
-				padding-bottom : 5 * @unit_base;
+				padding-top : 4 * @unit_base;
+				padding-bottom : 1 * @unit_base;
 				.ui-btn-inner {
 					height : 54 * @unit_base;
 					.ui-btn-text {
