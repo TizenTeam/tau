@@ -87,12 +87,12 @@
 }
 
 .ui-multimediaview-bar-bg {
-	height : 16 * @unit_base_multimediaview;
+	height : 13 * @unit_base_multimediaview;
 	border-radius : 1.5em;
 }
 
 .ui-multimediaview-bar-highlight {
-	height : 16 * @unit_base_multimediaview;
+	height : 13 * @unit_base_multimediaview;
 	position : absolute;
 	border-radius : 1.5em;
 }
@@ -124,9 +124,6 @@
 	padding : 0;
 	width : 30 * @unit_base_multimediaview;
 	height : 30 * @unit_base_multimediaview;
-	border-style: solid;
-	border-width: 1px;
-	border-radius : 1.5em;
 }
 
 .ui-fullscreen-parents {
@@ -154,7 +151,12 @@
 	}
 
 	span.ui-button {
-		background-color : @color_multimediaview_button_bg;
+		background-color : @color_button_normal;
+		.LESSbox-shadow-line( @button_shadow_inner );
+	}
+
+	span.ui-button-down {
+		background-color : @color_button_press;
 	}
 
 	span.ui-play-icon {
@@ -202,7 +204,10 @@
 
 		.ui-handle {
 			.LESSmultimediaview_bar_handle_style();
-			border-color : @color_multimediaview_button_border;
+		}
+
+		.ui-button-down {
+			background: @color_button_press;
 		}
 	}
 }

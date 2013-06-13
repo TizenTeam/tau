@@ -166,9 +166,8 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 			control = self._createControl();
 			control.hide();
 
-			control.find( ".ui-button" ).each( function ( index ) {
-				$( this ).buttonMarkup( { corners: true, theme: theme, shadow: true } );
-			});
+			$( ".ui-button", control ).addClass( "ui-shadow ui-btn-corner-all" );
+			$( ".ui-volumecontrol .ui-handle", control ).addClass( "ui-shadow ui-btn-corner-circle" );
 
 			view.wrap( wrap ).after( control );
 
@@ -398,6 +397,12 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 				self._resize();
 			});
 
+			$( ".ui-button", control ).bind( "vmousedown", function () {
+				$( this ).addClass( "ui-button-down" );
+			}).bind( "vmouseup vmouseout", function () {
+				$( this ).removeClass( "ui-button-down" );
+			});
+
 			playpauseButton.bind( "click.multimediaview", function () {
 				self._endTimer();
 
@@ -484,6 +489,7 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 					currentVolume = ( baseX - volumeGuideLeft ) / volumeGuideWidth;
 
 				self._endTimer();
+				volumeHandle.addClass( "ui-button-down" );
 				self._setVolume( currentVolume.toFixed( 2 ) );
 
 				e.preventDefault();
@@ -497,6 +503,7 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 					e.preventDefault();
 				}).bind( "vmouseup.multimediaview", function () {
 					$document.unbind( "vmousemove.multimediaview vmouseup.multimediaview" );
+					volumeHandle.removeClass( "ui-button-down" );
 				});
 			});
 		},
