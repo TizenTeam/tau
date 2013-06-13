@@ -27,7 +27,7 @@
 }
 
 .ui-btn:focus, .ui-btn:active { outline: none; }
-.ui-header .ui-btn, .ui-footer .ui-btn, .ui-bar .ui-btn { display: inline-block; font-size: 13 * @unit_base; margin: 0; }
+.ui-header .ui-btn, .ui-bar .ui-btn { display: inline-block; font-size: 13 * @unit_base; margin: 0; }
 .ui-btn-inline { display: inline-block; }
 .ui-btn-inner { padding: .5em 9 * @unit_base; display: block; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; position: relative; zoom: 1; }
 
@@ -317,3 +317,28 @@
 {
 	.LESSbutton_edit_style;
 }
+
+/* Footer button */
+.ui-footer > div.ui-btn {
+	position: absolute;
+}
+
+.ui-footer .ui-btn-box-s {
+	background: transparent;
+	background-color: transparent;
+	box-shadow: none;
+	top: 0px !important;
+	bottom: 0px;
+	font-size: 20 * @unit_base !important;
+}
+.ui-footer div.ui-btn-down-s {
+	background-color: @color_list_press !important;
+}
+.ui-footer .ui-btn, .ui-footer .ui-btn .ui-btn-inner {
+	.LESSborder-radius-allimportant( 0em );
+}
+.ui-footer-btn-border {
+	background: url(images/00_toolbar_border.png) no-repeat !important;
+	background-size: contain !important;
+}
+

@@ -211,6 +211,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 					self.setHeaderFooter( thisPage );
 					self._setContentMinHeight( thisPage );
 					self._updateHeaderArea( thisPage );
+					self._updateFooterArea( thisPage );
 				} )
 				.bind( "webkitAnimationStart animationstart updatelayout", function ( e, data ) {
 					var thisPage = this;
@@ -225,6 +226,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 					self._setContentMinHeight( thisPage );
 					self.updatePagePadding( thisPage );
 					self._updateHeaderArea( thisPage );
+					self._updateFooterArea( thisPage );
 
 					// check device api : HW key existance
 					if ( $.tizen && $.tizen.frameworkData.deviceCapa
@@ -239,6 +241,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 							self.updatePagePadding(thisPage);
 							self.updatePageLayout( thisPage, false);
 							self._updateHeaderArea( thisPage );
+							self._updateFooterArea( thisPage );
 							self._setContentMinHeight( thisPage );
 						});
 					}
@@ -385,6 +388,39 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 				$elHeader.find( '.ui-title-text-sub' ).css( "width", h1width );
 			}
 			/* add half width for default space between text and button, and img tag area is too narrow, so multiply three for img width*/
+		},
+
+		_updateFooterArea : function ( thisPage ) {
+			var $elPage = $( thisPage ),
+				$elFooter = $elPage.find( ".ui-footer" ),
+				$elMoreKey = $elFooter.children( ":jqmData(icon='naviframe-more')" ),
+				$elBackKey = $elFooter.children( ".ui-btn-back" ),
+				footerBtn = $elFooter.children( "div.ui-btn" ),
+				btnLength = footerBtn.length,
+				btnWidth = $elFooter.innerWidth(),
+				idx, moreWidth;
+
+			if ( !btnLength ) {
+				return;
+			}
+
+			if ( $elMoreKey.length ) {
+				moreWidth = $elMoreKey.width();
+				btnWidth -= moreWidth;
+				footerBtn.eq( 0 ).css( "left", moreWidth );
+			}
+
+			if ( $elBackKey.length ) {
+				btnWidth -= $elBackKey.width();
+			}
+
+			btnWidth /= btnLength;
+
+			footerBtn.width( btnWidth );
+			for ( idx = 1; idx < btnLength; idx += 1 ) {
+				footerBtn.eq( idx )
+					.addClass( "ui-footer-btn-border" );
+			}
 		},
 
 		_setHWKeyLayout : function ( thisPage ) {
