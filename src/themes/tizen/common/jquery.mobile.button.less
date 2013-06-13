@@ -12,7 +12,15 @@
 @height_buttonEdit:	74 * @unit_base;
 @width_buttonEdit:	@height_buttonEdit;
 
-.ui-btn { display: block; text-align: center; cursor:pointer;  position: relative; /*margin: .2em 0px; padding: 0; */ vertical-align: middle; } /* wongi_1018 : For button align. */
+.ui-btn {
+		display: block; 
+		text-align: center; 
+		cursor:pointer;
+		position: relative; 
+		vertical-align: middle;
+		.LESSborder-radius-all( 0.2rem );
+} /* wongi_1018 : For button align. */
+
 .ui-btn:focus, .ui-btn:active { outline: none; }
 .ui-header .ui-btn, .ui-footer .ui-btn, .ui-bar .ui-btn { display: inline-block; font-size: 13 * @unit_base; margin: 0; }
 .ui-btn-inline { display: inline-block; }
@@ -45,8 +53,8 @@
 
 
 .ui-btn-icon-top .ui-icon, .ui-btn-icon-bottom .ui-icon { position: absolute; left: 50%;  margin-left: -9px; }
-.ui-btn-icon-left .ui-icon { left: /*10px;*/ 0 * @unit_base; } /* wongi_1018 : with 64px icon, left 10 -> 0 for good looking. */
-.ui-btn-icon-circle .ui-icon {left: 0 * @unit_base;} /* wongi_1018 : for circle icon center positioning. */
+.ui-btn-icon-left .ui-icon { left: 5 * @unit_base; }
+.ui-btn-icon-circle .ui-icon {left: 0 * @unit_base; } /* wongi_1018 : for circle icon center positioning. */
 .ui-btn-icon-right .ui-icon { right: 10 * @unit_base; }
 .ui-btn-icon-top .ui-icon { top: 0 * @unit_base; margin-top: 0; }
 .ui-btn-icon-bottom .ui-icon { bottom: 0 * @unit_base; }
@@ -74,7 +82,7 @@
 .ui-li .ui-btn.ui-btn-icon_only
 {
 	top: 50%;
-	margin-top:  (-32 * 1/2)   * @unit_base;
+	margin-top:  -16 * @unit_base;
 }
 
 .ui-li .ui-btn .ui-btn-inner.ui-btn-hastxt
@@ -85,11 +93,25 @@
 {
 	background: transparent ! important;
 }
-.ui-btn.ui-btn-box-s.ui-btn-down-s .ui-btn-inner
+.ui-btn-up-s
 {
-/*	.LESSbutton_inner_pressstyle;*/
+	.LESSbutton_up_style();
+	box-shadow: @button_shadow_inner;
 }
-
+.ui-btn-hover-s
+{
+	.LESSbutton_up_style();
+	box-shadow: @button_shadow_inner;
+}
+.ui-btn-down-s
+{
+	background: @color_button_press;
+	box-shadow: @button_press_shadow_inner;
+}
+.ui-btn-corner-all
+{
+	.LESSborder-radius-all( 0.3rem );
+}
 .ui-header .ui-btn-box-s:not(.ui-input-cancel):not(.ui-btn-search-front-icon),
 .ui-header .ui-btn-box-s:not(.ui-input-cancel):not(.ui-btn-search-front-icon) .ui-btn-inner,
 .ui-header .ui-btn.ui-btn-box-s.ui-btn-down-s:not(.ui-input-cancel):not(.ui-btn-search-front-icon) .ui-btn-inner,
@@ -120,7 +142,7 @@
 
 /* wongi_1017 : Icons */
 /* icons sizing */
-.ui-btn .ui-icon { width: 32 * @unit_base ; height: 32 * @unit_base; }
+.ui-btn .ui-icon { width: 22 * @unit_base ; height: 22 * @unit_base; }
 .ui-btn.ui-btn-edit .ui-icon { width: @width_buttonEdit; height: @height_buttonEdit; }
 
 /* Padding for Icon with text */
@@ -140,20 +162,19 @@
 }
 .ui-btn-box-s.ui-btn-icon-left .ui-icon, .ui-btn-box-s.ui-btn-icon-right .ui-icon
 {
-	margin-top: -32 * @unit_base / 2;
+	margin-top: -10 * @unit_base ;
 	top: 50%;
 }
 .ui-btn-box-s.ui-btn-icon-top .ui-icon, .ui-btn-box-s.ui-btn-icon-bottom .ui-icon
 {
-	margin-left: -32 * @unit_base / 2;
+	margin-left: -10 * @unit_base ;
 	left: 50%;
 }
 .tizen-icon-common
 {
 	/* Overlap original property */
-	width: 32 * @unit_base; height: 32 * @unit_base;
-	/* margin-top : 50 */
-	/* top : -32 * @unit_base; */
+	width: 22 * @unit_base;
+	height: 22 * @unit_base;
 }
 .tizen-smallicon-common
 {
@@ -258,11 +279,6 @@
 	overflow: hidden;
 }
 
-.ui-btn.ui-btn-corner-all
-{
-	.LESSborder-radius-allimportant(1.2em);
-}
-	
 /* No BG button : data-iconbg = "nobg" */
 .ui-btn.ui-btn-icon-nobg
 {
@@ -297,9 +313,3 @@
 {
 	.LESSbutton_edit_style;
 }
-
-.ui-btn-box-s
-{
-/*	.LESSbutton_box_style;*/
-}
-
