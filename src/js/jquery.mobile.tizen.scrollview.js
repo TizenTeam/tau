@@ -1490,15 +1490,20 @@ define( [ ], function ( ) {
 
 				/* calibration - after triggered throttledresize */
 				setTimeout( function () {
-					var view_w = self._getViewWidth(),
-						cw = $c.width();
+					var view_w = $v.outerWidth(),
+						cw = $c.outerWidth(),
+						scroll_x,
+						scroll_y;
 					if ( self._sy < $c.height() - self._getViewHeight() ) {
-						self.scrollTo( 0, $c.height() - self._getViewHeight(),
-							self.options.overshootDuration );
+						scroll_y = $c.height() - self._getViewHeight();
+						scroll_x = 0;
 					}
 					if ( self._sx < cw - view_w ) {
-						self.scrollTo( cw - view_w, 0,
-							self.options.overshootDuration );
+						scroll_x = cw - view_w;
+						scroll_y = scroll_y || 0;
+					}
+					if (scroll_x || scroll_y) {
+						self.scrollTo( scroll_x, scroll_y, self.options.overshootDuration );
 					}
 				}, 260 );
 
