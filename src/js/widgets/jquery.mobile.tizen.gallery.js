@@ -662,6 +662,7 @@ define( [ ], function ( ) {
 			var self = this;
 			if( self.orientationEventFire ) {
 				self.refresh();
+				$( event.target ).trigger( "galleryorientationchanged", this );
 				self.orientationEventFire = false;
 			}
 		},
@@ -776,9 +777,14 @@ define( [ ], function ( ) {
 			this.refresh( index );
 		},
 
+		unbind: function() {
+			$.each( this._globalHandlers, function( idx, value ) {
+				value.src.unbind( value.handler );
+			});
+		},
+
 		destory: function() {
-			$( window ).unbind( 'resize', this._resizeHandler );
-			$( window ).unbind( 'orientationchange' , this._orientationHandler );
+			this.unbind();
 		}
 
 	}); /* End of widget */
@@ -795,6 +801,11 @@ define( [ ], function ( ) {
 	$( document ).bind( "pagebeforehide", function ( e ) {
 		$( e.target ).find( ":jqmData(role='gallery')" ).gallery( 'hide' );
 	} );
+
+	$( document ).bind( "pageremove", function ( e ) {
+		//unbind resize and orientationchange events
+		$( e.target ).find( ":jqmData(role='gallery')" ).gallery( 'unbind' );
+	});
 
 }( jQuery, this ) );
 

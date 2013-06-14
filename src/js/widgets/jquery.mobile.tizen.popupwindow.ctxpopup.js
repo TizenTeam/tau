@@ -212,30 +212,44 @@ define( [ '../jquery.mobile.tizen.core', 'jquery.mobile.tizen.popupwindow', 'jqu
 				payloadBeg = self.element.offset()[coord.beg],
 				payloadSize = self.element[coord.outerSize]( true ),
 				triangleSize = ctxpopup._ui.arrow[arrow][coord.triangleSize](),
-				triangleOffset =
-					Math.max(
-						triangleSize // triangle size
-							+ Math.max( 0, payloadBeg - arrowBeg ), // lowerDiff
-						Math.min(
-								arrowSize // bottom
-									- triangleSize // triangle size
-									- Math.max( 0, arrowBeg + arrowSize - ( payloadBeg + payloadSize ) ), // upperDiff
-								arrowSize / 2 // arrow unrestricted offset
-									+ desired[coord.point]
-									- orig[coord.point]
-									- halfSize[coord.size]
-							)
-					),
+				triangleOffset,
+				finalposition,
+				ret;
+			if (isHorizontal) {
+				orig.x = 0;
+			} else {
+				orig.y = 0;
+			}
+			if (arrow == 'b' && self._target_height) {
+				orig.y -= self._target_height;
+			}
+			if (arrow == 'r' && self._target_width) {
+				orig.x -= self._target_width;
+			}
+			triangleOffset =
+				Math.max(
+					triangleSize // triangle size
+						+ Math.max( 0, payloadBeg - arrowBeg ), // lowerDiff
+					Math.min(
+							arrowSize // bottom
+								- triangleSize // triangle size
+								- Math.max( 0, arrowBeg + arrowSize - ( payloadBeg + payloadSize ) ), // upperDiff
+							arrowSize / 2 // arrow unrestricted offset
+								+ desired[coord.point]
+								- orig[coord.point]
+								- halfSize[coord.size]
+						)
+				);
 					// Triangle points here
-				finalposition = {
-					"x": orig.x + ( isHorizontal ? triangleOffset : 0) + ("r" === arrow ? size.cx : 0),
-					"y": orig.y + (!isHorizontal ? triangleOffset : 0) + ("b" === arrow ? size.cy : 0)
-				},
-				ret = {
-					actual			: orig,
-					triangleOffset	: triangleOffset,
-					absDiff			: Math.abs( x - finalposition.x ) + Math.abs( y - finalposition.y )
-				};
+			finalposition = {
+				"x": orig.x + ( isHorizontal ? triangleOffset : 0) + ("r" === arrow ? size.cx : 0),
+				"y": orig.y + (!isHorizontal ? triangleOffset : 0) + ("b" === arrow ? size.cy : 0)
+			};
+			ret = {
+				actual			: orig,
+				triangleOffset	: triangleOffset,
+				absDiff			: Math.abs( x - finalposition.x ) + Math.abs( y - finalposition.y )
+			};
 
 			// Hide it back
 			ctxpopup._ui.arrow[arrow].hide();
@@ -275,8 +289,11 @@ define( [ '../jquery.mobile.tizen.core', 'jquery.mobile.tizen.popupwindow', 'jqu
 		return orig_placementCoords.call( this, x, y, cx, cy );
 	};
 
-	$.tizen.popupwindow.prototype.open = function ( x, y ) {
+	$.tizen.popupwindow.prototype.open = function ( x, y, target_width, target_height ) {
 		var ctxpopup = this.element.data( "ctxpopup" );
+
+		this._target_width = target_width;
+		this._target_height = target_height;
 
 		if ( ctxpopup ) {
 			this._setFade( false );

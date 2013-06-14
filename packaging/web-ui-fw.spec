@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.35
+Version:    0.2.36
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -97,6 +97,22 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Fri Jun 14 2013 Hyunjung Kim <hjnim.kim@samsung.com> 0.2.36
+	- slider: turn off listener on mouse event when popup is hiden (N_SE-41320)
+	- datetimepicker, ctxpopup: FIX errors with position of ctxpopup in datetimepicker
+	- textarea: change white-space css property (N_SE-40269) (N_SE-40347)
+	- JIRA - FIX N_SE-34055 Resolving problem with the pinch event trigered on the image after orientation change
+	- Gallery: Unbind widget's events properly
+	- slider: fix problem with values sterted from 0 (N_SE-34929)
+	- Collapsible: remove ui-btn-active class when collapse or expand event is cancelled
+	- tabbar: add ellipsis in tabbar items (N_SE-38572)
+	- theme: fix error with display multiline header (N_SE-33971)
+	- JIRA fix - Temporary rotaton is blocked as TIZEN API is missing a flag, which can help to check if the orientation is locked or unlocked
+	- RadioDemo : change to select only controlgroup area(N_SE-38023)
+	- PageLayout : set headerArea in pagebefore(N_SE-36612)
+	- changelog: Fix date format
+	- tabbar: adjust margin-top of title icon img
+
 * Sat Jun 08 2013 Youmin Ha <youmin.ha@samsung.com> 0.2.35
 	- contextpopup: Change option menu class name
 	- pagelayout: more popup style is applied even deviceAPI is not supported
