@@ -77,6 +77,7 @@
 			height : 100%;
 			.ui-icon {
 				top : 0px;
+				left : 0px;
 			}
 		}
 	}
@@ -146,13 +147,6 @@
 		font-size : 16 * @unit_base;
 		font-weight : 500;
 		text-shadow : 0px 2px @color_bar_title_shadow;
-/*
-		img {
-			height: 16 * @unit_base;
-			width: 16 * @unit_base;
-			margin-left: 8 * @unit_base;
-		}
-*/
 	}
 
 	> .ui-btn, 
@@ -182,11 +176,15 @@
 
 	> .ui-btn.ui-btn-icon_only,
 	> .naviframe-button.ui-btn.ui-btn-icon_only {
-		-o-border-radius : 0px;
-		-ms-border-radius : 0px;
-		-moz-border-radius : 0px;
-		-webkit-border-radius : 0px;
-		border-radius : 0px;
+		border-left-width : 1px;
+		border-left-style : solid;
+		border-left-color : @color_bar_divider_line;
+		border-top-left-radius : 0px;
+		border-bottom-left-radius : 0px;
+
+		top : 8 * @unit_base;
+		width : 32 * @unit_base;
+		height : 32 * @unit_base;
 	}
 
 	.ui-btn-right-0 {
