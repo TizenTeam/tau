@@ -139,7 +139,8 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 				elem_left,
 				elem_right,
 				margin_left,
-				margin_right;
+				margin_right,
+				_closePopup;
 
 			// apply jqm slider
 			inputElement.slider();
@@ -233,6 +234,11 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 			// set initial value
 			self.updateSlider();
 
+			_closePopup = function () {
+				self.hidePopup();
+				$.mobile.$document.off('vmouseup.slider');
+			};
+
 			// bind to changes in the slider's value to update handle text
 			this.element.on('change', function () {
 				// 2013.05.31 heeju.joo
@@ -251,35 +257,35 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 				else {
 					self.updateSlider();
 					self.showPopup();
+					$.mobile.$document.on( 'vmouseup.slider', _closePopup );
 				}
 			});
 
 			this.element.on( 'slidestart', function( event ) {
 				self.updateSlider();
 				self.showPopup();
+				$.mobile.$document.on( 'vmouseup.slider', _closePopup );
 			});
 
 			// bind clicks on the handle to show the popup
 			self.handle.on('vmousedown', function () {
 				self.showPopup();
+				$.mobile.$document.on( 'vmouseup.slider', _closePopup );
 			});
 
 			slider.on('vmousedown', function() {
 				self.updateSlider();
 				self.showPopup();
+				$.mobile.$document.on( 'vmouseup.slider', _closePopup );
 			});
 
 			// watch events on the document to turn off the slider popup
-			slider.add( document ).on('vmouseup', function () {
-				self.hidePopup();
-			});
-
 			$.extend( this, {
 				_globalHandler: [
 					{
 						src: $( window ),
 						handler: {
-							orientationchange: $.proxy( this, "_orientationHandler" ),
+							orientationchange: _closePopup,
 						}
 					}
 				]
@@ -289,11 +295,6 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 				value.src.bind( value.handler );
 			});
 
-		},
-
-		_orientationHandler: function() {
-			var self = this;
-			self.hidePopup();
 		},
 
 		_handle_press_show: function () {
@@ -353,7 +354,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 			// the slider's value changes :(
 			this.handle.removeAttr('title');
 
-			newValue = this.element.val();
+			newValue = parseInt(this.element.val(), 10);
 
 			font_length = get_value_length( newValue );
 
@@ -397,7 +398,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 				break;
 			case 3:
 				font_size = '0.65rem';
-				font_top = '-0.05rem';
+				font_top = '-0.1rem';
 				break;
 			default:
 				font_size = '0.45rem';
@@ -408,7 +409,8 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 			if ( font_size != this.handleText.css('font-size') ) {
 				this.handleText.css({
 					'font-size': font_size,
-					'top': font_top
+					'top': font_top,
+					'position': 'relative'
 				});
 			}
 

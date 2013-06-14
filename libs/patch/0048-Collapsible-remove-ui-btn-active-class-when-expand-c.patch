@@ -1,0 +1,32 @@
+From 33ba869404135065a233af08bc1eaca05f435268 Mon Sep 17 00:00:00 2001
+From: Przemyslaw Ciezkowski <p.ciezkowski@samsung.com>
+Date: Wed, 12 Jun 2013 11:15:52 +0200
+Subject: [PATCH] Collapsible: remove ui-btn-active class when expand/collapse
+ is cancelled
+
+Change-Id: Icb8772fa56461ef43e735b72545f0e27a335ff34
+---
+ .../jquery-mobile-1.2.0/js/widgets/collapsible.js  |    5 ++++-
+ 1 files changed, 4 insertions(+), 1 deletions(-)
+
+diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/collapsible.js b/libs/js/jquery-mobile-1.2.0/js/widgets/collapsible.js
+index 8398de4..eee244e 100644
+--- a/libs/js/jquery-mobile-1.2.0/js/widgets/collapsible.js
++++ b/libs/js/jquery-mobile-1.2.0/js/widgets/collapsible.js
+@@ -153,9 +153,12 @@ $.widget( "mobile.collapsible", $.mobile.widget, {
+ 			.trigger( o.collapsed ? "collapse" : "expand" );
+ 
+ 		collapsibleHeading
+-			.bind( "tap", function( event ) {
++			.bind( "tap", function() {
+ 				collapsibleHeading.find( "a" ).first().addClass( $.mobile.activeBtnClass );
+ 			})
++			.bind( "vmousecancel", function() {
++				collapsibleHeading.find( "a" ).first().removeClass( $.mobile.activeBtnClass );
++			})
+ 			.bind( "click", function( event ) {
+ 
+ 				var type = collapsibleHeading.is( ".ui-collapsible-heading-collapsed" ) ? "expand" : "collapse";
+-- 
+1.7.5.4
+
