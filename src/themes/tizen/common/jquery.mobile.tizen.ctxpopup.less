@@ -4,7 +4,11 @@
 
 .ui-ctxpopup {
 	display: table;
-	
+
+	:focus {
+		outline:none;
+	}
+
 	.ui-ctxpopup-row .ui-triangle-top {
 		top: 2px;
 	}
@@ -41,9 +45,9 @@
 
 	}
 
-    .ui-listview li.ui-btn-up-s, .ui-listview li.ui-btn-hover-s {
-        background: transparent;
-    }
+	.ui-listview li.ui-btn-up-s, .ui-listview li.ui-btn-hover-s {
+		background: transparent;
+	}
 
 	.ui-listview li:last-child {
 		border-bottom-left-radius: @border_radius;
@@ -55,10 +59,10 @@
 		border-top-right-radius: @border_radius;
 	}
 	
-    .ui-listview {
+	.ui-listview {
 		max-width: 620 * @unit_base;
-        	border: none;
-    }
+		border: none;
+	}
 	
 	.ui-listview > .ui-li {
 		color: @color_ctxpopup_text;
@@ -87,7 +91,7 @@
 	  color: @color_ctxpopup_text;
 	}
 
-    .horizontal {
+	.horizontal {
 		color: @color_ctxpopup_text;
 		.icon .ui-btn {
 			padding: 0;
@@ -114,46 +118,46 @@
 		}
 
 
-        a.ui-link {
-            color: @color_ctxpopup_text;
-            text-decoration: none;
-        }
+		a.ui-link {
+			color: @color_ctxpopup_text;
+			text-decoration: none;
+		}
 
-        ul {
-            padding: 0;
-            display: inline-block;
-            list-style: none;
-            vertical-align: middle;
-            margin: 0;
-        }
+		ul {
+			padding: 0;
+			display: inline-block;
+			list-style: none;
+			vertical-align: middle;
+			margin: 0;
+		}
 
-        li {
+		li {
 			line-height: 32 * @unit_base;
 			min-height: 32 * @unit_base;
 			min-width: 48 * @unit_base;
 
-            float: left;
-            display: inline-block;
-            border-right: 1px solid @color_ctxpopup_border_right;
+		float: left;
+			display: inline-block;
+			border-right: 1px solid @color_ctxpopup_border_right;
 			border-left: 1px solid @color_ctxpopup_border_left;
-            text-align: center;
+			text-align: center;
 			border-bottom-width: 0;
 			border-top-width: 0;
-        }
+		}
 
 		li:first-of-type {
 			border-top-left-radius: @border_radius;
 			border-bottom-left-radius: @border_radius;
 			border-top-right-radius: 0px ! important;
-            border-left: none;
-        }
-            
-        li:last-of-type {
+			border-left: none;
+		}
+
+		li:last-of-type {
 			border-top-right-radius: @border_radius;
 			border-bottom-right-radius: @border_radius;
 			border-bottom-left-radius: 0px ! important;
-            border-right: none;
-        }
+			border-right: none;
+		}
 
 		.ui-li {
 			&:first-child {
@@ -169,16 +173,16 @@
 		li:active, td:active {
 			background: @color_ctxbutton_press;
 		}
-    }
+	}
 
-    .button {
-        table .ui-btn {
-            margin: 0 * @unit_base;
-            padding: 0;
-            height: 56 * @unit_base;
-            width: 132 * @unit_base;
-        }
-    }
+	.button {
+		table .ui-btn {
+			margin: 0 * @unit_base;
+			padding: 0;
+			height: 56 * @unit_base;
+			width: 132 * @unit_base;
+		}
+	}
 
 	.ui-scrollbar-thumb {
 		background-color: #494949;
@@ -238,7 +242,7 @@
 .poptop.in {
 	-webkit-transform: scale(1);
 	-moz-transform: scale(1);
-    opacity: 1;
+	opacity: 1;
 	-webkit-animation-name: scalepopin;
 	-moz-animation-name: scalepopin;
 	-webkit-animation-duration: 350ms;
@@ -266,14 +270,14 @@
 }
 
 @-webkit-keyframes scalepopin {
-    from {
-        -webkit-transform: scale(.8);
-        opacity: 0;
-    }
-    to {
-        -webkit-transform: scale(1);
-        opacity: 1;
-    }
+	from {
+		-webkit-transform: scale(.8);
+		opacity: 0;
+	}
+	to {
+		-webkit-transform: scale(1);
+		opacity: 1;
+	}
 }
 
 .popbottom {
@@ -284,7 +288,7 @@
 .popbottom.in {
 	-webkit-transform: scale(1);
 	-moz-transform: scale(1);
-    opacity: 1;
+	opacity: 1;
 	-webkit-animation-name: scalepopin;
 	-moz-animation-name: scalepopin;
 	-webkit-animation-duration: 350ms;
@@ -312,34 +316,34 @@
 }
 
 @-moz-keyframes scalepopin {
-    from {
-        -moz-transform: scale(.8);
-        opacity: 0;
-    }
-    to {
-        -moz-transform: scale(1);
-        opacity: 1;
-    }
+	from {
+		-moz-transform: scale(.8);
+		opacity: 0;
+	}
+	to {
+		-moz-transform: scale(1);
+		opacity: 1;
+	}
 }
 
 @-webkit-keyframes scalepopout {
-    from {
-        -webkit-transform: scale(1);
-        opacity: 1;
-    }
-    to {
-        -webkit-transform: scale(.8);
-        opacity: 0;
-    }
+	from {
+		-webkit-transform: scale(1);
+		opacity: 1;
+	}
+	to {
+		-webkit-transform: scale(.8);
+		opacity: 0;
+	}
 }
 
 @-moz-keyframes scalepopout {
-    from {
-        -moz-transform: scale(1);
-        opacity: 1;
-    }
-    to {
-        -moz-transform: scale(.8);
-        opacity: 0;
-    }
+	from {
+		-moz-transform: scale(1);
+		opacity: 1;
+	}
+	to {
+		-moz-transform: scale(.8);
+		opacity: 0;
+	}
 }
