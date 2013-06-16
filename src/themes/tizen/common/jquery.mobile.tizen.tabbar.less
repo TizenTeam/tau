@@ -51,6 +51,14 @@
 		}
 	}
 
+	a.ui-btn.ui-btn-down-s {
+		background : @color_tabbar_btn_pressed;
+		border-bottom-color : @color_bar_tabbar_bg;
+		.ui-btn-text {
+			background : @color_tabbar_btn_pressed;
+		}
+	}
+
 	.ui-btn-inner {
 		font-size : 15 * @unit_base;
 		font-weight : bold;
@@ -120,8 +128,12 @@
 			border-bottom-style: solid;
 
 			&.ui-btn-active {
-				border-bottom-color: @color_tabbar_btn_pressed;
+				border-bottom-color: @color_tabbar_border_active;
 			}
+		}
+
+		a.ui-btn.ui-btn-down-s {
+			border-bottom-color : @color_tabbar_btn_pressed;
 		}
 	}
 		
@@ -246,7 +258,7 @@
 				border-bottom-color : @color_bar_tabbar_bg;
 				
 				&.ui-btn-active {
-					border-bottom-color : @color_tabbar_btn_pressed;
+					border-bottom-color : @color_tabbar_border_active;
 				}
 			}
 		}

@@ -103,15 +103,18 @@
 		padding-right : 0px;
 		top : 0px;
 
-		border-top-left-radius : 0 !important;
-		border-top-right-radius : 0 !important;
-		border-bottom-left-radius : 0 !important;
-		border-bottom-right-radius : 0 !important;
+                border-left-width : 1px;
+                border-left-style : solid;
+                border-left-color : @color_bar_divider_line;
+                border-top-left-radius : 0px;
+                border-bottom-left-radius : 0px;
 
 		.ui-btn-inner {
 			padding : 0;
-			padding-top : 12 * @unit_base;
-			padding-bottom : 12 * @unit_base;
+			padding-top : 0 * @unit_base;
+			padding-bottom : 0 * @unit_base;
+			margin-top : 12 * @unit_base;
+			margin-bottom : 12 * @unit_base;
 			.ui-btn-text {
 				font-size : 16 * @unit_base;
 			}
@@ -176,15 +179,15 @@
 
 	> .ui-btn.ui-btn-icon_only,
 	> .naviframe-button.ui-btn.ui-btn-icon_only {
-		border-left-width : 1px;
-		border-left-style : solid;
-		border-left-color : @color_bar_divider_line;
-		border-top-left-radius : 0px;
-		border-bottom-left-radius : 0px;
-
 		top : 8 * @unit_base;
 		width : 32 * @unit_base;
 		height : 32 * @unit_base;
+
+                border-left-width : 1px;
+                border-left-style : solid;
+                border-left-color : @color_bar_divider_line;
+                border-top-left-radius : 0px;
+                border-bottom-left-radius : 0px;
 	}
 
 	.ui-btn-right-0 {
