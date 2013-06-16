@@ -9,12 +9,22 @@ label.ui-input-text {
 	margin: 0 0 .3em;
 }
 input.ui-input-text, textarea.ui-input-text {
+	background: @color_list_editfield;
 	background-image: none;
 	padding: .4em;
 	line-height: 1.4;
 	font-size: 16 * @unit_base;
 	display: block;
+	-ms-border-radius : .1em;
+	-o-border-radius : .1em;
+	-webkit-border-radius : .1em;
+	-moz-border-radius : .1em;
+	border-radius : .1em;
 }
+input.ui-input-text.ui-focus, textarea.ui-input-text.ui-focus {
+	border : 1px solid @color_editfield_focus_border;
+}
+
 input.ui-input-text {
 	appearance: none;
 	-webkit-appearance: none;
