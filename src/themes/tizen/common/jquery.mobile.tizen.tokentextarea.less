@@ -4,6 +4,7 @@
 	display : table;
 	outline : none;
 	position : relative;
+	background-color : @color_tokentextarea_bg;
 }
 
 .ui-tokentextarea .ui-tokentextarea-label {
@@ -26,6 +27,7 @@
 	padding : 0 !important;
 	margin : .5em;
 	color : @color_tokentextarea_input_text;
+	background-color : @color_tokentextarea_bg;
 	text-align : left;
 	font-size : 1em;
 }
@@ -46,7 +48,7 @@
 	margin : .3em;
 	padding : .2em .5em;
 	font-size : 1em;
-	text-shadow : 0 .1em .1em rgba(0,0,0,.3);
+	text-shadow : 0 2px rgba(0,0,0,.75);
 	-ms-border-radius : .2em;
 	-o-border-radius : .2em;
 	-webkit-border-radius : .2em;
@@ -61,18 +63,12 @@
 
 div.ui-tokentextarea-block {
 	background-color : @color_tokentextarea_block_bg;
-	background-image : -webkit-gradient(linear, left top, left bottom, from(@color_tokentextarea_block_bg), to(rgb(115, 148, 189)));
-	background-size : contain;
-	background-repeat : no-repeat;
-	padding-left : .7em;
+	border : 1px solid @color_tokentextarea_block_border;
 }
 
 div.ui-tokentextarea-sblock {
 	background-color : @color_tokentextarea_press_bg;
-	background-image : -webkit-gradient(linear, left top, left bottom, from(@color_tokentextarea_press_bg), to(rgb(75, 142, 222)));
-	background-size : contain;
-	background-repeat : no-repeat;
-	padding-left : .7em;
+	border : 1px solid @color_tokentextarea_press_border;
 }
 
 .ui-tokentextarea .ui-tokentextarea-desclabel {

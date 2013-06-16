@@ -35,16 +35,17 @@
 	.LESSbox-orient(vertical);
 	.LESSbox-align(center);
 	.LESSbox-pack(center);
-
+	outline : none;
 	.ui-popup {
-		padding : 3px 2px 2px 2px;
-		background:		@color_popup_text_bg;
+		padding : .5px .5px .5px .5px;
+		background: @color_popup_bg;
 		width : 100%;
 		> .ui-popup-title,
 		> .ui-popup-text,
 		> .ui-popup-button-bg {
 			width : 100%;
 		}
+		border : 1px solid @color_border_popup;
 		word-wrap : break-word;
 		-ms-border-radius : .3em;
 		-o-border-radius : .3em;
@@ -58,19 +59,24 @@
 		height: 40 * @unit_base;
 		text-align : left;
 		color : @color_popup_title_text;
-
 		font-size: @font_size_popup_basic_style_title;
 		font-weight : bold;
+		background : @color_popup_title_bg;
 
 		h1 {
 			font-size: @font_size_popup_basic_style_title;
 			font-weight : bold;
 			color : @color_popup_title_text;
-
+			text-shadow : 0px 2px @color_bar_title_shadow;
 			margin : 0px;
-			padding-top : 10 * @unit_base;
+			padding-top : 5 * @unit_base;
 			padding-left : 16 * @unit_base;
 		}
+		-ms-border-radius : .2em;
+		-o-border-radius : .2em;
+		-webkit-border-radius : .2em;
+		-moz-border-radius : .2em;
+		border-radius : .2em;
 	}
 
 	.ui-popup-text {
@@ -78,7 +84,7 @@
 		margin-bottom: @popup-text-padding-vert;
 		color: @color_popup_text_font;
 		font-size: 20 * @unit_base;
-		background: @color_popup_text_bg;
+		background: @color_popup_bg;
 		text-align: center;
 
 		.ui-li .ui-radio, .ui-li .ui-checkbox {
@@ -92,7 +98,9 @@
 	}
 
 	.ui-popup-button-bg {
+			background: @color_popup_button_bg;
 			font-size: @font_size_popup_button_text;
+			font-weight: bold;
 			height : 37 * @unit_base;
 			padding-top: 10 * @unit_base;
 			padding-bottom: 10 * @unit_base;
@@ -100,17 +108,34 @@
 			vertical-align: middle;
 
 			> .ui-btn {
+				width : 40%;
 				display : inline-block;
 				margin:auto;
 				height : 37 * @unit_base;
+				background: @color_popup_buttonbg;
+				color: @color_popup_buttontext;
+				border: 1px solid @color_popup_button_border;
+				box-shadow: @button_shadow_outer;
+			}
+
+			> .ui-btn.ui-btn-down-s {
+				background : @color_popup_buttonbg_press;
+				background : @color_popup_buttonbg_press_webkit;
+				background : @color_popup_buttonbg_press_moz;
+				background : @color_popup_buttonbg_press_ms;
+				background : @color_popup_buttonbg_press_o;
+				color: white;
 			}
 
 			.ui-btn-inner {
-				padding-top: 5 * @unit_base;
-				padding-bottom: 5 * @unit_base;
 				padding-left : 20 * @unit_base;
 				padding-right : 20 * @unit_base;
-		}
+			}
+			-ms-border-radius : .3em;
+			-o-border-radius : .3em;
+			-webkit-border-radius : .3em;
+			-moz-border-radius : .3em;
+			border-radius : .3em;
 	}
 
 
@@ -143,6 +168,8 @@
 			> .ui-btn {
 				display : block;
 				width: 200*@unit_base;
+				margin-top: 5px;
+				margin-bottom: 5px;
 			}
 		}
 	}
@@ -150,7 +177,6 @@
 	.center_checkbox {
 		.ui-popup-check-bg {
 			font-size: 20 * @unit_base;
-			background: @color_popup_text_bg;
 			width: 100%;
 			padding-top: 0*@unit_base;
 			padding-bottom: 22*@unit_base;
@@ -159,7 +185,6 @@
 			.ui-checkbox {
 				.ui-btn {
 					text-align: center;
-					background: @color_popup_text_bg;
 					border: 0*@unit_base;
 
 					.ui-btn-inner {

@@ -326,6 +326,12 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 					 $( ".ui-page-active .ui-footer .ui-btn-back" ).trigger( "click" );
 					return false;
 				} else if ( e.originalEvent.keyName === "menu" ) {
+					// if more button was clicked, all kinds of popups will be closed
+					if ( openedpopup ) {
+						openedpopup.close();
+						return false;
+					}
+
 					// need to change more key trigger
 					if ( $elMoreKey.get(0) ) {
 						$elMoreKey.trigger( "click" );

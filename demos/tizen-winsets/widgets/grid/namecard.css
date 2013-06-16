@@ -11,9 +11,10 @@
 	position : fixed;
 	width : 4.4rem;
 	height : 6.1rem;
+	margin-top: 0.3rem;
 	margin-right: 0.3rem;
 	margin-left: 0.3rem;
-	margin-bottom: 0.5rem;
+	margin-bottom: 0.3rem;
 }
 
 .ui-demo-namecard-pic {
@@ -44,9 +45,10 @@
 	width : 5.1rem;
 	height : 6.1rem;
 	display: block;
+	margin-top: 0.1rem;
 	margin-right: 0.3rem;
 	margin-left: 0.3rem;
-	margin-bottom: 0.6rem;
+	margin-bottom: 0.1rem;
 }
 
 .ui-demo-namecard-contents-x {
@@ -84,6 +86,7 @@
 	height : 70px;
 	display:block;
 	border-bottom-color: #444;
+	padding-top : 0.3rem;
 }
 
 .ui-demo-namecard-list-pic {
