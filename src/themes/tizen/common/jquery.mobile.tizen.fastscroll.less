@@ -18,6 +18,11 @@
 		margin: 0;
 		padding: 0;
 	}
+	ul:hover {
+		li {
+			border-left-color : @color_fastscroll_popup_bg;
+		}
+	}
 	li {
 		cursor: pointer;
 		color: @color_fastscroll_rollover_text;
@@ -28,7 +33,7 @@
 		font-weight : bold;
 
 		border-left-width : 3 * @unit_base;
-		border-left-color : @color_fastscroll_popup_bg;
+		border-left-color : @color_fastscroll_default_border;
 		border-left-style : solid;
 
 		border-top-width : 3 * @unit_base;
@@ -75,8 +80,7 @@
 	color: @color_fastscroll_popup_text;
 	padding: 10*@unit_base;
 	border: 1px solid @color_fastscroll_popup_border;
-	border-radius: .1em;
-	box-shadow: -2px -2px 2px #fff, 8*@unit_base 10*@unit_base 4*@unit_base @color_fastscroll_popup_shadow;
+	border-radius: 2px;
 	text-shadow: 0px -2px -2px @color_fastscroll_popup_shadow;
 	text-align: center;
 	font-size: 75*@unit_base;
@@ -103,7 +107,7 @@ li.ui-fastscroll-hover {
 
 	border-top-width : 3 * @unit_base;
 	border-right-width : 3 * @unit_base;
-	border-left-width : 1px;
+	border-left-width : 0px;
 	border-left-color : @color_list_bg;
 }
 

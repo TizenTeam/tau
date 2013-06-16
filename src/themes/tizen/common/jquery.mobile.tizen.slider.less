@@ -1,11 +1,13 @@
 @import "config.less";
 
+@unit_base_slider : @unit_base * 0.5;
+
 @popup-height: 54 * @unit_base;
 @popup-width: 45 * @unit_base;
-@img-height: 37 * @unit_base;
-@img-width: 37 * @unit_base;
-@handle-height: 36 * @unit_base;
-@handle-width: 36 * @unit_base;
+@img-height: 72 * @unit_base_slider;
+@img-width: 72 * @unit_base_slider;
+@handle-height: 72 * @unit_base_slider;
+@handle-width: 72 * @unit_base_slider;
 
 label.ui-slider {
 	display: block;
@@ -19,21 +21,9 @@ select.ui-slider-switch {
 	position: relative;
 	vertical-align: middle;
 
-	height: 18 * @unit_base;
-	margin-left: 16 * @unit_base;
-	margin-right: 16 * @unit_base;
-	margin-top: 18 * @unit_base;
-	margin-bottom: 18 * @unit_base;
-
-	background-image: -webkit-gradient(
-		linear,
-		left bottom,
-		left top,
-		color-stop(0, @color_progress_bar1),
-		color-stop(1, @color_progress_bar0)
-	);
-	.LESSbox-shadow(0px, 0px, 2px, @color_progress_shadow);
-	.LESSborder-radius-all( 10 * @unit_base );
+	height: 27 * @unit_base_slider;
+	margin-left: 36 * @unit_base_slider;
+	margin-right: 36 * @unit_base_slider;
 }
 
 .ui-li > .ui-slider-container {
@@ -103,15 +93,13 @@ select.ui-slider-switch {
 div.ui-slider:not(.ui-toggle-switch) {
 	position: relative;
 
-	top: 5 * @unit_base;
-	height: 7 * @unit_base;
-	margin-left: 5 * @unit_base;
-	margin-right: 5 * @unit_base;
+	top: 9 * @unit_base_slider;
+	height: 13 * @unit_base_slider;
+	margin-left: 8 * @unit_base_slider;
+	margin-right: 8 * @unit_base_slider;
 
 	.LESSborder-radius-all( 10 * @unit_base );
-	border: 1px;
-	border-style: solid;
-	border-color: @color_progress_border;
+	.LESSbox-shadow(0px, 0px, 2px, @color_progress_shadow);
 	background-color: @color_progress_bar0;
 
 	.ui-btn {
@@ -130,15 +118,21 @@ a.ui-slider-handle {
 	position: relative;
 	z-index: 10;
 
-	width: 36 * @unit_base;
-	height: 36 * @unit_base;
-	margin-left: -19 * @unit_base;
+	width: @handle-width;
+	height: @handle-height;
+	margin-left: -1 * @handle-width / 2;
 
 	color: @color_slider_handle_text;
 	font-size: 0.95rem;
 
 	background: url(images/controls/00_slider_handle.png) no-repeat;
 	.LESSbackground-size(@handle-width, @handle-height);
+
+	-o-box-shadow: none;
+	-ms-box-shadow: none;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
 }
 
 .ui-slider-popup {
@@ -160,27 +154,14 @@ a.ui-slider-handle {
 .ui-slider-bg {
 	position: absolute;
 
-	height: 7 * @unit_base;
+	height: 13 * @unit_base_slider;
 	width: 0;
 
-	background-image: -webkit-gradient(
-		linear,
-		left bottom,
-		left top,
-		color-stop(0, @color_progress_value0),
-		color-stop(1, @color_progress_value1)
-	);
 	.LESSborder-radius-all( 10 * @unit_base );
+	.LESSbox-shadow(0px, 0px, 2px, @color_progress_shadow);
+	background-color: @color_progress_value0;
 }
 
-.ui-slider-handle-press {
-	position: absolute;
-	z-index: 15;
-
-	width: 37 * @unit_base;
-	height: 37 * @unit_base;
-
-	//FIXME
-	background: url(images/controls/00_slider_handle_press.png) no-repeat;
-	.LESSbackground-size(@handle-width, @handle-height);
+a.ui-slider-handle-press {
+	background-image: url(images/controls/00_slider_handle_press.png);
 }

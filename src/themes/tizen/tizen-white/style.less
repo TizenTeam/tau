@@ -10,16 +10,22 @@
 @color_bar_title_text : rgba(59, 115, 182, 1);			/* B042 : title text */
 @color_bar_title_button_text : rgba(58, 58, 58, 1);	/* B052L4 : Title text button */
 @color_bar_title_button_text_press : rgba(59, 115, 182, 1);	/* B052L5 : Title text button press */
+@color_bar_title_shadow : rgba(0, 0, 0, 0.75);
+
 @color_bar_btn_press : rgba(64, 147, 247, 0.1);			/* B052L1P : Title text button press bg */
 @color_bar_divider_line : rgba(178, 177, 174, 1);		/* 00_divider_line.9.png */
 @color_bar_naviframe_bg : rgba(248, 246, 239, 1);
+@color_bar_tabbar_bg : rgba(248, 246, 239, 1);
+@color_bar_toolbar_bg : rgba(248, 246, 239, 1);                  /* 00_toolbar_bg.png */
 
 /***************************************************************************
                    Tabbar
 ***************************************************************************/
 @color_tabbar_btn_tab_press : -webkit-linear-gradient(top, rgba(210,210,200,1) 0%, rgba(246,248,239,1) 100%); /* B0514P1 : 00_tab_press_ef.9.png */
 @color_tabbar_btn_pressed : rgba(59, 115, 182, 1);	/* B052L6P */
+@color_tabbar_border_active : rgba(93, 131, 255, 1);
 @color_tabbar_btn_normal : rgba(153, 153, 153, 1);	/* B052L6 */
+@color_tabbar_footer_btn_press : rgba(39, 53, 163, 1);
 
 /***************************************************************************
                    List
@@ -35,16 +41,22 @@
 @color_list_divider_bg : rgba(248, 246, 239, 1);			/* W021L1 */
 @color_list_divider_line : rgba(59, 115, 182, 1);			/* W021L2 */
 @color_list_divider_text : rgba(59, 115, 182, 1);			/* W021L3 */
+@color_list_divider_bg_press : rgba(43, 58, 175, 1);
+@color_list_divider_text_press : rgba(250, 250, 250, 1);
 
 @color_list_swipe_bg : rgba(237, 235, 228, 1);				/* B0212 */
 
 @color_list_dialogue_bg : rgba(239, 237, 229, 1);
 @color_dialogue_main_text: rgba(59, 115, 182, 1);
 @color_dialogue_border_right: rgba(142, 154, 163, 1);
+@color_dialogue_divider_bg : rgba(248, 246, 239, 1);
 
 @color_list_expanded_bg : rgba(220, 218, 211, 1);
 
 @color_list_editfield : rgba(0, 0, 0, 1);				/* F011L1 */
+@color_editfield_focus_border : rgba(58, 114, 255, 1);
+
+@color_checklist_btn_bg : rgba(248, 246, 239, 1);
 
 @color_list_bubble_sent_text:	rgb(0, 0, 0);				/* W051 */
 @color_list_bubble_receive_text:	rgb(0, 0, 0);			/* W051 */
@@ -61,7 +73,7 @@
 @list-font-size-main:	22 * @unit_base;
 @list-font-size-divider: 16 * @unit_base;	// NOTE: defined in dialogue group
 
-@list-smallicon-size: 17 * @unit_base;
+@list-smallicon-size: 22 * @unit_base;
 @list-li-padding-horizontal: 8 * @unit_base;
 
 @list-bigicon-size2: 72 * @unit_base;
@@ -75,7 +87,7 @@
 @color_fastscroll_popup_shadow: rgba(199, 199, 199, 0.5);
 @color_fastscroll_popup_text: rgba(255, 255, 255, 1);		/* B0732 : Scroll popup text */
 @color_fastscroll_popup_border: rgba(100, 100, 100, 0.5);
-
+@color_fastscroll_default_border: rgba(64, 64, 64, 1);
 
 /***************************************************************************
                    SearchBar(forms.textinput)
@@ -84,6 +96,10 @@
 @color_searchbar_default_text : rgba(121, 131, 138, 1);		/* Search default text */
 @color_searchbar_input_field_bg : rgba(255, 255, 255, 1);	/* W301 : 00_search_edit_field_bg.png */
 @color_searchbar_border : rgba(153, 153, 153, 1);
+@color_searchbar_border_focus : rgba(153, 153, 153, 1);
+@color_searchbar_divider : rgba(59, 69, 98, 1);
+@color_searchbar_button_shadow0 : rgba(122, 125, 134, 1);
+@color_searchbar_button_shadow1 : rgba(34, 34, 34, 1);
 
 
 /***************************************************************************
@@ -91,6 +107,7 @@
 ***************************************************************************/
 @font_size_popup_info_style: 24 * @unit_base;
 @color_popup_text_bg: rgba(248, 246, 239, 1);	/* B061L1 : Popop info */
+@color_border_popup: rgba(98, 105, 127, 1);
 
 
 /***************************************************************************
@@ -98,6 +115,7 @@
 ***************************************************************************/
 
 @color_button_text_black:	rgb(0, 0, 0);
+@color_button_test_shadow:	0px 1px rgb(17, 18, 20);
 
 @color_button_EditText:         rgb(249, 249, 249);
 @color_button_EditTextPress:    rgb(61, 61, 61);
@@ -121,6 +139,7 @@
 
 @button_shadow_outer:		0 0 1px 1px rgba(255, 255, 255, 1);
 @button_shadow_inner:		none;
+@button_press_shadow_inner:             inset 0px 1px 1px rgba(22, 29, 95, 1);
 
 @color_button_edit:		rgb(201, 88, 88);
 @color_button_edit_webkit:	-webkit-gradient(linear, left top, left bottom, from(rgb(201, 88, 88)), to(rgb(161, 40, 40)));
@@ -223,6 +242,7 @@
 /***************************************************************************
                    Popup
 ***************************************************************************/
+@color_popup_bg:                rgba(29, 38, 60, 1);
 @color_popup_center_progressbar_title:	rgba(153, 153, 153, 1);
 @color_popup_title_bg:		rgba(80, 147, 182, 255);	/* popup_title_bg.png */
 @color_popup_title_text:		rgba(59, 115, 182, 1);		/* B063L9 : Basic Style_title */
@@ -238,6 +258,7 @@
 @color_popup_buttonbg_o:	-o-linear-gradient(top, rgb(84, 126, 153), rgb(69, 105, 128));
 @color_popup_buttontext:	rgb(249, 249, 249);
 @color_popup_buttonbg_over:	rgb(94, 136, 163);
+@color_popup_button_border:     rgb(125, 126, 130);
 
 @color_popup_buttonbg_press:	rgb(67, 160, 217);
 @color_popup_buttonbg_press_webkit:	-webkit-gradient(linear, left top, left bottom, from(rgb(67, 160, 217)), to(rgb(56, 139, 185)));
@@ -283,9 +304,6 @@
 @color_ticker_bg:			rgb(68, 68, 68);
 @color_ticker_text1:			rgb(255, 255, 255);
 @color_ticker_text2:			rgb(255, 255, 255);
-@color_ticker_btn:			rgb(64, 64, 64);
-@color_ticker_btn_border:		rgb(50, 50, 50);
-
 
 /***************************************************************************
                     Smallpopup
@@ -312,6 +330,10 @@
 @color_progress_value0:			rgb(54, 119, 195);
 @color_progress_value1:			rgb(150, 184, 224);
 @color_progress_shadow:			rgb(104, 102, 101);
+@color_progress_value_shadow0:	rgb(38, 53, 146);
+@color_progress_value_shadow1:	rgb(98, 127, 203);
+@color_progress_shadow0:			rgb(49, 49, 56);
+@color_progress_shadow1:			rgb(116, 113, 127);
 
 
 /***************************************************************************
@@ -354,9 +376,12 @@
 /***************************************************************************
                    tokentextarea
 ***************************************************************************/
+@color_tokentextarea_bg : @color_bg;
 @color_tokentextarea_block_text : rgb(255, 255, 255);
 @color_tokentextarea_block_bg : rgb(118, 157, 204);	/* W0711 : Contact button bg normal */
 @color_tokentextarea_press_bg : rgb(64, 147, 247);	/* W0713 : Contact button bg press */
+@color_tokentextarea_block_border : rgb(108, 116, 131);
+@color_tokentextarea_press_border : rgb(89, 94, 106);
 @color_tokentextarea_input_text : #222222;
 @color_tokentextarea_label_text : rgb(102, 102, 102);
 
