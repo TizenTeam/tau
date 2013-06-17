@@ -1255,14 +1255,14 @@ define( [ ], function ( ) {
 		 */
 		_setOverflowIndicator: function ( dir ) {
 			if ( dir === 1 ) {
-				this._opacity_top = "0";
-				this._opacity_bottom = "0.8"; /* Add Interval */
+				this._display_indicator_top = "none";
+				this._display_indicator_bottom = "block";
 			} else if ( dir === 0 ) {
-				this._opacity_top = "0.8";
-				this._opacity_bottom = "0";
+				this._display_indicator_top = "block";
+				this._display_indicator_bottom = "none";
 			} else {
-				this._opacity_top = "0.5";
-				this._opacity_bottom = "0.5";
+				this._display_indicator_top = "block";
+				this._display_indicator_bottom = "block";
 			}
 		},
 
@@ -1275,8 +1275,8 @@ define( [ ], function ( ) {
 				return;
 			}
 
-			this._overflow_top.css( "opacity", this._opacity_top );
-			this._overflow_bottom.css( "opacity", this._opacity_bottom );
+			this._overflow_top.css( "display", this._display_indicator_top );
+			this._overflow_bottom.css( "display", this._display_indicator_bottom );
 
 			this._overflow_showed = true;
 		},
@@ -1294,8 +1294,8 @@ define( [ ], function ( ) {
 				return;
 			}
 
-			this._overflow_top.animate( { opacity: 0 }, 300 );
-			this._overflow_bottom.animate( { opacity: 0 }, 300 );
+			this._overflow_top.css( "display", "none" );
+			this._overflow_bottom.css( "display", "none" );
 
 			this._overflow_showed = false;
 			this._setOverflowIndicator();
@@ -1626,8 +1626,8 @@ define( [ ], function ( ) {
 			this._$clip.append( this._overflow_top );
 			this._$clip.append( this._overflow_bottom );
 
-			this._opacity_top = "0.5";
-			this._opacity_bottom = "0.5";
+			this._display_indicator_top = "block";
+			this._display_indicator_bottom = "block";
 			this._overflow_showed = false;
 		},
 
