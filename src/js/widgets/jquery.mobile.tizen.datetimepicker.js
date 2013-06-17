@@ -567,7 +567,6 @@ define( [
 			this._popup_open = false;
 			this.ui.bind('vclick', function ( e ) {
 				obj._showDataSelector( obj, this, e.target );
-				return false;
 			});
 
 			$.extend( this, {
