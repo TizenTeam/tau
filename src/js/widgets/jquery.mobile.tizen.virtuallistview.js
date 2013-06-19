@@ -779,6 +779,7 @@ define( [
 						.not( ".ui-li-icon" )
 						.addClass( "ui-corner-bl" );
 			}
+			this.element.trigger( "updatelayout" );
 		},
 
 		// this		virtuallistview object

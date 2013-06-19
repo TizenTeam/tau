@@ -600,7 +600,7 @@ define( [
 
 				if ( sm === "translate" ) {
 					this._setElementTransform( $sbt,
-						-x / $v.width() * $sbt.parent().width() + "px", "0px",
+						-x / $v.outerWidth() * $sbt.parent().width() + "px", "0px",
 						duration);
 				} else {
 					$sbt.css("left", -x / $v.width() * 100 + "%");
