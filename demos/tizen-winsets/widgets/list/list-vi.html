@@ -1,18 +1,18 @@
 <div data-role="page" id="list_vi_demo">
 	<script type="text/javascript">
 		var add = function() {
-			$("#listvi").listview( 'addItem', '<li>Test<div data-role="button" data-inline="true">TEST</div></li>', 0 );
+			$("#listvi").listview( 'addItem', '<li>Test<div data-role="button" data-inline="true">TEST</div></li>', $("#listvi li").length );
 		}
 		var del = function() {
-			$("#listvi").listview( 'removeItem' , 0 );
+			$("#listvi").listview( 'removeItem' , $("#listvi li").length - 1 );
 		}
 	</script>
 	<div data-role="header" data-position="fixed">
-		<h1>List vi</h1>
+		<h1>LIST VI</h1>
+		<div data-role="button" onclick="del()" data-inline="true">Del</div>
+		<div data-role="button" onclick="add()" data-inline="true">Add</div>
 	</div>
 	<div class="content" data-role="content" data-scroll="y">
-		<div data-role="button" onclick="add()" data-inline="true">Add</div>
-		<div data-role="button" onclick="del()" data-inline="true">Del</div>
 		<ul id="listvi" data-role="listview">
 			<li><a href="#">Normal lists</a></li>
 			<li><a href="#">Normal lists</a></li>
