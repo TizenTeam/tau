@@ -412,12 +412,13 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 
 			if ( $elBackKey.length ) {
 				btnWidth -= $elBackKey.width();
+				$elBackKey.addClass( "ui-footer-btn-border" );
 			}
 
 			btnWidth /= btnLength;
 
 			footerBtn.width( btnWidth );
-			for ( idx = 1; idx < btnLength; idx += 1 ) {
+			for ( idx = 0; idx < btnLength; idx += 1 ) {
 				footerBtn.eq( idx )
 					.addClass( "ui-footer-btn-border" );
 			}
