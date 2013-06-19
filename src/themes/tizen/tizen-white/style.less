@@ -114,47 +114,50 @@
                         Button(connected with other winset)
 ***************************************************************************/
 
+@color_button_text_shadow:	0px 1px rgb(255, 255, 255);
+
+@color_button_EditText:		rgb(249, 249, 249);
+@color_button_EditTextPress:	rgb(61, 61, 61);
+
+@color_button_text_normal:	rgb(58, 58, 58);			/* F031L1 */
+@color_button_text_press:	rgb(255, 255, 255);			/* F031L1P */
 @color_button_text_black:	rgb(0, 0, 0);
-@color_button_test_shadow:	0px 1px rgb(17, 18, 20);
+@color_button_text_white:	rgb(249, 249, 249);
 
-@color_button_EditText:         rgb(249, 249, 249);
-@color_button_EditTextPress:    rgb(61, 61, 61);
+@color_button_normal:		rgb(247, 245, 237);
+@color_button_normal_webkit:	-webkit-linear-gradient(top, rgb(247, 245, 237), rgb(236, 234, 226));
+@color_button_normal_moz:	-moz-linear-gradient(top, rgb(247, 245, 237), rgb(236, 234, 226));
+@color_button_normal_o:		-o-linear-gradient(top, rgb(247, 245, 237), rgb(236, 234, 226));
+@color_button_normal_ms:	-ms-linear-gradient(top, rgb(247, 245, 237), rgb(236, 234, 226));
+@color_button_press:		rgb(0, 122, 216);
 
-@color_button_text_normal:      rgb(58, 58, 58);			/* F031L1 */
-@color_button_text_press:       rgb(255, 255, 255);			/* F031L1P */
-@color_button_text_white:       rgb(249, 249, 249);
+@color_button_inner:	0 0 1px 1px rgba(133, 131, 126, 1);
+@color_button_inner_webkit:	-webkit-linear-gradient(top, rgb(250, 247, 242), rgb(248, 245, 240));
+@color_button_inner_moz:	-moz-linear-gradient(top, rgb(250, 247, 242), rgb(248, 245, 240));
+@color_button_inner_o:	-o-linear-gradient(top, rgb(250, 247, 242), rgb(248, 245, 240));
+@color_button_inner_ms:	-ms-linear-gradient(top, rgb(250, 247, 242), rgb(248, 245, 240));
 
-@color_button_normal:           rgb(235, 232, 227);
-@color_button_normal_webkit:    -webkit-linear-gradient(top, rgb(235, 232, 227), rgb(234, 231, 226));
-@color_button_normal_moz:       -moz-linear-gradient(top, rgb(235, 232, 227), rgb(234, 231, 226));
-@color_button_normal_o:         -o-linear-gradient(top, rgb(235, 232, 227), rgb(234, 231, 226));
-@color_button_normal_ms:        -ms-linear-gradient(top, rgb(235, 232, 227), rgb(234, 231, 226));
-@color_button_press:            rgb(59, 115, 182);
-
-@color_button_inner:            rgb(247, 245, 238);
-@color_button_inner_webkit:     -webkit-linear-gradient(top, rgb(250, 247, 242), rgb(248, 245, 240));
-@color_button_inner_moz:        -moz-linear-gradient(top, rgb(250, 247, 242), rgb(248, 245, 240));
-@color_button_inner_o:          -o-linear-gradient(top, rgb(250, 247, 242), rgb(248, 245, 240));
-@color_button_inner_ms:         -ms-linear-gradient(top, rgb(250, 247, 242), rgb(248, 245, 240));
-
-@button_shadow_outer:		0 0 1px 1px rgba(255, 255, 255, 1);
-@button_shadow_inner:		none;
+@button_border_color:		rgba( 133, 131, 126, 1);
+@button_shadow_outer:		0 0 1px 1px rgba(133, 131, 126, 1);
+@button_shadow_inner:		0.5px 1px 1px rgba(133, 131, 126, 1);
 @button_press_shadow_inner:             inset 0px 1px 1px rgba(22, 29, 95, 1);
 
 @color_button_edit:		rgb(201, 88, 88);
 @color_button_edit_webkit:	-webkit-gradient(linear, left top, left bottom, from(rgb(201, 88, 88)), to(rgb(161, 40, 40)));
 @color_button_edit_moz:		-moz_linear-gradient(top, rgb(201, 88, 88), rgb(161, 40, 40));
 @color_button_inner_border:	rgba(199, 197, 190, 1);
+
 .LESSbutton_box_style{
-        color: @color_button_text_normal;
+	color: @color_button_text_normal;
 }
 
 .LESSbutton_up_style{
-        background: @color_button_normal;
-        background: @color_button_normal_webkit;
-        background: @color_button_normal_moz;
-        background: @color_button_normal_o;
-        background: @color_button_normal_ms;
+	background: @color_button_normal;
+	background: @color_button_normal_webkit;
+	background: @color_button_normal_moz;
+	background: @color_button_normal_o;
+	background: @color_button_normal_ms;
+	border: 1px @button_border_color solid;
 }
 
 .LESSbutton_box_style{
@@ -164,7 +167,7 @@
 	background: @color_button_normal_o;
 	background: @color_button_normal_ms;
 	border: 1px solid;
-	border-color: rgba(220, 218, 211, 1);
+	border-color: @button_border_color;
 	.LESSbox-shadow-line( @button_shadow_outer );
 }
 .LESSbutton_inner_box_style{
@@ -176,24 +179,24 @@
 	.LESSbox-shadow-line( @button_shadow_inner );
 }
 .LESSbutton_inner_pressstyle{
-        color: @color_button_text_press;
+	color: @color_button_text_press;
 }
 
 .LESSbutton_text1_style{
-        font-family: @font_family;
-        font-weight: normal;
-        font-size: 1.0rem;
-        font-style:normal;
-        color: @color_button_text_normal;
+	font-family: @font_family;
+	font-weight: normal;
+	font-size: 1.0rem;
+	font-style:normal;
+	color: @color_button_text_normal;
 }
 
 .LESSbutton_hover_style{
-        color: @color_button_text_normal;
+	color: @color_button_text_normal;
 }
 
 .LESSbutton_down_style{
-        background: @color_button_press;
-        color: @color_button_text_press;
+	background: @color_button_press;
+	color: @color_button_text_press;
 }
 
 .LESSbutton_edit_style{

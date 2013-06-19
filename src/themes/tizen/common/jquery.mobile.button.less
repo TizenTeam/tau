@@ -21,8 +21,8 @@
 } /* wongi_1018 : For button align. */
 
 .ui-btn.ui-btn-box-s {
-		color: @color_text;
-		text-shadow: @color_button_test_shadow;
+		color: @color_button_text_normal;
+		text-shadow: @color_button_text_shadow;
 		.LESSborder-radius-all( 0.2rem );
 }
 
@@ -111,7 +111,8 @@
 .ui-btn-box-s.ui-btn-down-s
 {
 	background: @color_button_press;
-	box-shadow: @button_press_shadow_inner;
+	box-shadow: @button_shadow_inner;
+	text-shadow: none;
 }
 .ui-btn-corner-all
 {
