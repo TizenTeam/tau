@@ -277,19 +277,23 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 						//             new page's one, and the old page's .ui-btn-back button is still hidden.
 						//             So, the current back button is remembered to be shown at the
 						//             softkeyboardchange.off event.
-						backBtn = $( ".ui-page-active .ui-btn-back" );
-						backBtn.hide();
-						self._backBtnQueue.push( backBtn );	// Store hidden backBtn
+						if ( !($.tizen && $.tizen.frameworkData.deviceCapa
+								&& $.tizen.frameworkData.deviceCapa.inputKeyBack ) ) {
+							backBtn = $( ".ui-page-active .ui-btn-back" );
+							backBtn.hide();
+							self._backBtnQueue.push( backBtn );	// Store hidden backBtn
+						}
 					} else if ( e.state == "off" ) {
-						self._backBtnQueue.forEach( function ( b ) {
-							b.show();	// Show each backBtn,
-						} );
-						self._backBtnQueue.length = 0;	// and clear queue.
-
+						if ( !($.tizen && $.tizen.frameworkData.deviceCapa
+								&& $.tizen.frameworkData.deviceCapa.inputKeyBack ) ) {
+							self._backBtnQueue.forEach( function ( b ) {
+								b.show();	// Show each backBtn,
+							} );
+							self._backBtnQueue.length = 0;	// and clear queue.
+						}
 						$( ".ui-btn-footer-down" ).remove();
 					}
 				}
-
 			});
 		},
 
