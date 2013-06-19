@@ -352,6 +352,8 @@
 @color_multimediaview_bar_gray : rgb(85, 88, 97);
 @color_multimediaview_bar_active : rgb(65, 91, 254);
 @color_multimediaview_bar_handle : rgb(60, 64, 68);
+@color_multimediaview_bar_handle_shadow : inset 0px 1px 1px rgba(122, 125, 134, 1);
+@color_multimediaview_bar_handle_shadow_press : inset 0px -1px 1px rgba(122, 125, 134, 1);
 
 .LESSmultimediaview_bar_active_style{
 	background-color : @color_multimediaview_bar_active;
@@ -360,12 +362,14 @@
 
 .LESSmultimediaview_bar_handle_style{
 	background-color : @color_multimediaview_bar_handle;
-	background-image : -webkit-linear-gradient(top, rgb(75, 77, 86), rgb(63, 65, 72));
-	background-image : -moz-linear-gradient(top, rgb(75, 77, 86), rgb(63, 65, 72));
-	background-image : -o-linear-gradient(top, rgb(75, 77, 86), rgb(63, 65, 72));
-	background-image : -ms-linear-gradient(top, rgb(75, 77, 86), rgb(63, 65, 72));
-	.LESSbox-shadow-line( @button_shadow_inner );
+	.LESSbox-shadow-line( @color_multimediaview_bar_handle_shadow );
 }
+
+.LESSmultimediaview_bar_handle_press_style{
+	background-color : @color_button_press;
+	.LESSbox-shadow-line( @color_multimediaview_bar_handle_shadow_press );
+}
+
 
 /***************************************************************************
                    tokentextarea

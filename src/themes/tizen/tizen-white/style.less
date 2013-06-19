@@ -349,28 +349,27 @@
 ***************************************************************************/
 @color_multimediaview_bg : rgb(249, 249, 249);
 @color_multimediaview_control_bg : rgba(248, 246, 239, 0.5);
-@color_multimediaview_button_bg : rgb(248, 246, 239);
 @color_multimediaview_timestamp_text : rgb(74, 132, 201);
 @color_multimediaview_duration_text : rgb(128, 128, 128);
 @color_multimediaview_bar_gray : rgb(203, 200, 197);
 @color_multimediaview_bar_active : rgb(74, 132, 201);
-@color_multimediaview_bar_handle : rgb(249, 249, 249);
-@color_multimediaview_button_border : rgb(186, 185, 180);
+@color_multimediaview_bar_handle : rgb(250, 250, 250);
+@color_multimediaview_bar_handle_shadow : inset 0px -1px 1px rgba(0, 0, 0, 1);
+@color_multimediaview_bar_handle_shadow_press : inset 0px 1px 1px rgba(0, 0, 0, 1);
 
 .LESSmultimediaview_bar_active_style{
 	background-color : @color_multimediaview_bar_active;
-	background-image : -webkit-gradient(linear, left top, left bottom, from(rgb(98, 137, 217)), to(rgb(41, 91, 152)));
-	background-image : -moz-linear-gradient(top, rgb(98, 137, 217), rgb(41, 91, 152));
-	background-image : -o-linear-gradient(top, rgb(98, 137, 217), rgb(41, 91, 152));
-	background-image : -ms-linear-gradient(top, rgb(98, 137, 217), rgb(41, 91, 152));
+	box-shadow: 0px -1px 1px @color_progress_shadow inset;
 }
 
 .LESSmultimediaview_bar_handle_style{
 	background-color : @color_multimediaview_bar_handle;
-	background-image : -webkit-gradient(linear, left top, left bottom, from(rgb(255, 255, 255)), to(rgb(230, 230, 230)));
-	background-image : -moz-linear-gradient(top, rgb(255, 255, 255), rgb(230, 230, 230));
-	background-image : -o-linear-gradient(top, rgb(255, 255, 255), rgb(230, 230, 230));
-	background-image : -ms-linear-gradient(top, rgb(255, 255, 255), rgb(230, 230, 230));
+	.LESSbox-shadow-line( @color_multimediaview_bar_handle_shadow );
+}
+
+.LESSmultimediaview_bar_handle_press_style{
+	background-color : @color_button_press;
+	.LESSbox-shadow-line( @color_multimediaview_bar_handle_shadow_press );
 }
 
 
