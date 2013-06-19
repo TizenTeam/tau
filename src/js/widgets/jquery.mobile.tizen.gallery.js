@@ -176,16 +176,26 @@ define( [ ], function ( ) {
 
 			ratio = height / width;
 
-			if ( width > img_max_width ) {
-				img.width( img_max_width );
-				img.height( img_max_width * ratio );
-			}
+			if( img_max_width == 0 && isNaN( img_max_height ) ) {
+				/*
+				Exception : When image max width and height has incorrect value.
+				This exception is occured when this.max_width value is 0 and this.max_height value is NaN when page transition like rotation.
+				This exception affect that image width and height values are 0.
+				*/
+				img.width( width );
+				img.height( width * ratio );
+			} else {
+				if ( width > img_max_width ) {
+					img.width( img_max_width );
+					img.height( img_max_width * ratio );
+				}
 
-			height = img.height();
+				height = img.height();
 
-			if ( height > img_max_height ) {
-				img.height( img_max_height );
-				img.width( img_max_height / ratio );
+				if ( height > img_max_height ) {
+					img.height( img_max_height );
+					img.width( img_max_height / ratio );
+				}
 			}
 		},
 
