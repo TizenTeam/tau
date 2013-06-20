@@ -69,7 +69,6 @@
 		margin-right : 13 * @unit_base;
 	}
 
-
 	.ui-li:not(.ui-li-divider) {
 		&:not(.ui-li-static) {
 			min-height : 55 * @unit_base;
@@ -84,15 +83,15 @@
 
 	li.ui-btn-up-s, li.ui-btn-hover-s {
 		background: none;
-		background-color: @color_bg;
-		color:		@color_text;
+		background-color: @color_list_bg;
+		color:		@color_list_main_text_unfocus;
 		box-shadow: none;
 		.LESSborder-radius-all(0);
 	}
 	li.ui-btn-down-s {
 		background: none;
 		background-color: @color_list_press;
-		color:		@color_text;
+		color:		@color_list_main_text_focus;
 		box-shadow: none;
 		.LESSborder-radius-all(0);
 	}
