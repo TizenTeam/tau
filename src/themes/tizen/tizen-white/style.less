@@ -245,29 +245,29 @@
 /***************************************************************************
                    Popup
 ***************************************************************************/
-@color_popup_bg:                rgba(29, 38, 60, 1);
+@color_popup_bg:                rgba(248, 246, 239, 1);
 @color_popup_center_progressbar_title:	rgba(153, 153, 153, 1);
-@color_popup_title_bg:		rgba(80, 147, 182, 255);	/* popup_title_bg.png */
-@color_popup_title_text:		rgba(59, 115, 182, 1);		/* B063L9 : Basic Style_title */
+@color_popup_title_bg:		rgba(219, 217, 206, 255);	/* popup_title_bg.png */
+@color_popup_title_text:		rgba(37, 37, 37, 1);		/* B063L9 : Basic Style_title */
 
-@color_popup_button_bg:		rgba(248, 246, 239, 1);
+@color_popup_button_bg:		rgba(214, 211, 201, 1);
 @color_popup_font: rgba(248, 246, 239, 1); /* maybe not use only popupwindow*/
 @color_popup_text_font:		black;
 
-@color_popup_buttonbg:		rgb(84, 126, 153);
-@color_popup_buttonbg_webkit:	-webkit-gradient(linear, left top, left bottom, from(rgb(84, 126, 153)), to(rgb(69, 105, 128)));
-@color_popup_buttonbg_moz:	-moz-linear-gradient(top, rgb(84, 126, 153), rgb(69, 105, 128));
-@color_popup_buttonbg_ms:	-ms-linear-gradient(top, rgb(84, 126, 153), rgb(69, 105, 128));
-@color_popup_buttonbg_o:	-o-linear-gradient(top, rgb(84, 126, 153), rgb(69, 105, 128));
-@color_popup_buttontext:	rgb(249, 249, 249);
-@color_popup_buttonbg_over:	rgb(94, 136, 163);
-@color_popup_button_border:     rgb(125, 126, 130);
+@color_popup_buttonbg:		rgb(247, 245, 237);
+@color_popup_buttonbg_webkit:	-webkit-gradient(linear, left top, left bottom, from(rgb(247, 245, 237)), to(rgb(236, 234, 226)));
+@color_popup_buttonbg_moz:	-moz-linear-gradient(top, rgb(247, 245, 237), rgb(236, 234, 226));
+@color_popup_buttonbg_ms:	-ms-linear-gradient(top, rgb(247, 245, 237), rgb(236, 234, 226));
+@color_popup_buttonbg_o:	-o-linear-gradient(top, rgb(247, 245, 237), rgb(236, 234, 226));
+@color_popup_buttontext:	rgb(58, 58, 58);
+@color_popup_buttonbg_over:	rgb(247, 245, 237);
+@color_popup_button_border:     rgb(133, 131, 126);
 
-@color_popup_buttonbg_press:	rgb(67, 160, 217);
-@color_popup_buttonbg_press_webkit:	-webkit-gradient(linear, left top, left bottom, from(rgb(67, 160, 217)), to(rgb(56, 139, 185)));
-@color_popup_buttonbg_press_moz:	-moz-linear-gradient(top, rgb(67, 160, 217), rgb(56, 139, 185));
-@color_popup_buttonbg_press_ms:		-ms-linear-gradient(top, rgb(67, 160, 217), rgb(56, 139, 185));
-@color_popup_buttonbg_press_o:		-o-linear-gradient(top, rgb(67, 160, 217), rgb(56, 139, 185));
+@color_popup_buttonbg_press:	rgb(0, 122, 216);
+@color_popup_buttonbg_press_webkit:	-webkit-gradient(linear, left top, left bottom, from(rgb(0, 102, 196)), to(rgb(0, 122, 216)));
+@color_popup_buttonbg_press_moz:	-moz-linear-gradient(top, rgb(0, 102, 196), rgb(0, 122, 216));
+@color_popup_buttonbg_press_ms:		-ms-linear-gradient(top, rgb(0, 102, 196), rgb(0, 122, 216));
+@color_popup_buttonbg_press_o:		-o-linear-gradient(top, rgb(0, 102, 196), rgb(0, 122, 216));
 
 @color_popup_scroller_bg:	rgba(248, 246, 239, 1);
 
@@ -275,15 +275,15 @@
 @font_size_popup_basic_style_title:		24 * @unit_base; //1.1875rem;	/* 38px */
 @font_size_popup_center_progressbar_title:	26 * @unit_base; //0.8125rem;	/* 26px */
 @font_size_popup_text_progress_title:		42 * @unit_base; //1.3125rem;	/* 42px */
-@font_size_popup_button_text:			32 * @unit_base; //1.0rem;	/* 32px */
+@font_size_popup_button_text:			18 * @unit_base; //1.0rem;	/* 18px */
 
 .LESSpopup_button_style{
-/*	background: @color_popup_buttonbg;
+	background: @color_popup_buttonbg;
 	background: @color_popup_buttonbg_webkit;
 	background: @color_popup_buttonbg_moz;
 	background: @color_popup_buttonbg_ms;
 	background: @color_popup_buttonbg_o;
-	color: @color_popup_buttontext;*/
+	color: @color_popup_buttontext;
 }
 
 .LESSpopup_button_hover_style{
@@ -296,6 +296,7 @@
 	background: @color_popup_buttonbg_press_moz;
 	background: @color_popup_buttonbg_press_ms;
 	background: @color_popup_buttonbg_press_o;
+	color: rgb(250, 250, 250);
 }
 
 .LESSpopup_padding_style{
