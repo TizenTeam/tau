@@ -890,6 +890,9 @@ li:not(.ui-li-has-multiline) .ui-li-text-sub {
                         min-width: 160 * @unit_base;
                         min-height: 160 * @unit_base;
                 }
+			&:first-child {
+				margin-top: 15 * @unit_base;
+			}
         }
 
 	.ui-li-static {
@@ -904,9 +907,10 @@ li:not(.ui-li-has-multiline) .ui-li-text-sub {
                         color: @color_list_bubble_receive_text;
 
 			> .ui-li-bubble-time {
+					margin-left: 7 * @unit_base;
                         	position: absolute;
                         	display: inline-block;
-                        	bottom: 8 * @unit_base;
+					bottom: 12 * @unit_base;
                         	left: 100%;
                         	font-size: @list-li-bubble-time-font-size;
                                 text-align: left;
@@ -924,11 +928,12 @@ li:not(.ui-li-has-multiline) .ui-li-text-sub {
 			color: @color_list_bubble_sent_text;
 
                 	> .ui-li-bubble-time {
+				margin-right: 7 * @unit_base;
 				text-align: right;
                                 color: @color_list_bubble_time_sent_text;
                         	position: absolute;
                         	display: inline-block;
-                        	bottom: 8 * @unit_base;
+					bottom: 12 * @unit_base;
                         	right: 100%;
                         	font-size: @list-li-bubble-time-font-size;
                 	}
