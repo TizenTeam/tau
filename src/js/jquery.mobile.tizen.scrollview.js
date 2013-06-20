@@ -112,7 +112,7 @@ define( [ ], function ( ) {
 			 * Scroll detection threshold
 			 * @type {number}
 			 */
-			moveThreshold:     30,
+			moveThreshold:     10,
 
 			/**
 			 * Maximal time between mouse movements while scrolling
@@ -1030,7 +1030,7 @@ define( [ ], function ( ) {
 			}
 
 			if ( dirLock !== "x" && this._vTracker ) {
-				if ( Math.abs( this._startY - ey ) < mt && dirLock !== "xy" ) {
+				if ( Math.abs( this._startY - ey ) < mt && dirLock !== "xy" && this._didDrag === false ) {
 					return;
 				}
 
