@@ -789,13 +789,19 @@ li:not(.ui-li-has-multiline) .ui-li-text-sub {
 		border-top-width : 1px;
 	}
 
-	&> li.ui-li-dialogue.ui-body-s,
 	&> li.ui-li-dialogue.ui-btn-hover-up-s:not(.ui-btn-down-s),
 	&> li.ui-li-dialogue.ui-btn-up-s {
 		&:not(.ui-li-expanded){
 			background : @color_list_dialogue_bg;
 		}
 	}
+
+	&> li.ui-li-dialogue.ui-btn-down-s {
+		&:not(.ui-li-expanded){
+			background : @color_list_press;
+		}
+	}
+
 	&> li.ui-li-dialogue.ui-li-expanded {
 		padding-left : 26 * @unit_base;
 		background : @color_list_expanded_bg;
