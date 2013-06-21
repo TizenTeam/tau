@@ -69,7 +69,6 @@
 		margin-right : 13 * @unit_base;
 	}
 
-
 	.ui-li:not(.ui-li-divider) {
 		&:not(.ui-li-static) {
 			min-height : 55 * @unit_base;
@@ -84,15 +83,15 @@
 
 	li.ui-btn-up-s, li.ui-btn-hover-s {
 		background: none;
-		background-color: @color_bg;
-		color:		@color_text;
+		background-color: @color_list_bg;
+		color:		@color_list_main_text_unfocus;
 		box-shadow: none;
 		.LESSborder-radius-all(0);
 	}
 	li.ui-btn-down-s {
 		background: none;
 		background-color: @color_list_press;
-		color:		@color_text;
+		color:		@color_list_main_text_focus;
 		box-shadow: none;
 		.LESSborder-radius-all(0);
 	}
@@ -790,13 +789,19 @@ li:not(.ui-li-has-multiline) .ui-li-text-sub {
 		border-top-width : 1px;
 	}
 
-	&> li.ui-li-dialogue.ui-body-s,
 	&> li.ui-li-dialogue.ui-btn-hover-up-s:not(.ui-btn-down-s),
 	&> li.ui-li-dialogue.ui-btn-up-s {
 		&:not(.ui-li-expanded){
 			background : @color_list_dialogue_bg;
 		}
 	}
+
+	&> li.ui-li-dialogue.ui-btn-down-s {
+		&:not(.ui-li-expanded){
+			background : @color_list_press;
+		}
+	}
+
 	&> li.ui-li-dialogue.ui-li-expanded {
 		padding-left : 26 * @unit_base;
 		background : @color_list_expanded_bg;
@@ -891,6 +896,9 @@ li:not(.ui-li-has-multiline) .ui-li-text-sub {
                         min-width: 160 * @unit_base;
                         min-height: 160 * @unit_base;
                 }
+			&:first-child {
+				margin-top: 15 * @unit_base;
+			}
         }
 
 	.ui-li-static {
@@ -905,9 +913,10 @@ li:not(.ui-li-has-multiline) .ui-li-text-sub {
                         color: @color_list_bubble_receive_text;
 
 			> .ui-li-bubble-time {
+					margin-left: 7 * @unit_base;
                         	position: absolute;
                         	display: inline-block;
-                        	bottom: 8 * @unit_base;
+					bottom: 12 * @unit_base;
                         	left: 100%;
                         	font-size: @list-li-bubble-time-font-size;
                                 text-align: left;
@@ -925,11 +934,12 @@ li:not(.ui-li-has-multiline) .ui-li-text-sub {
 			color: @color_list_bubble_sent_text;
 
                 	> .ui-li-bubble-time {
+				margin-right: 7 * @unit_base;
 				text-align: right;
                                 color: @color_list_bubble_time_sent_text;
                         	position: absolute;
                         	display: inline-block;
-                        	bottom: 8 * @unit_base;
+					bottom: 12 * @unit_base;
                         	right: 100%;
                         	font-size: @list-li-bubble-time-font-size;
                 	}

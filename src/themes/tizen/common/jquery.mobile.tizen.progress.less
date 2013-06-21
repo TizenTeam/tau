@@ -52,20 +52,21 @@
 	height: 100%;
 	padding-top: 0;
 	padding-bottom: 0;
-	background-image: linear-gradient(
-						135deg,
-						@color_progress_value0 25%,
-						transparent 25%,
-						transparent 50%,
-						@color_progress_value0 50%,
-						@color_progress_value0 75%,
-						transparent 75%,
-						transparent);
+	background: -webkit-gradient(linear,
+				left top,
+				right bottom,
+				color-stop(0%,  rgba(0,0,0,0)),
+				color-stop(25%, rgba(0,0,0,0)),
+				color-stop(25%, @color_progress_value),
+				color-stop(50%, @color_progress_value),
+				color-stop(50%, rgba(0,0,0,0)),
+				color-stop(75%, rgba(0,0,0,0)),
+				color-stop(75%, @color_progress_value));
 	box-shadow: 0 1px 0 @color_progress_value_shadow0 inset;
-	background-color: @color_progress_bar0;
+	background-color: @color_progress_bar;
 
 	.LESSborder-radius-all( 10 * @unit_base_progress );
-	.LESSbackground-size(@bar-height * 2, @bar-height * 2);
+	.LESSbackground-size( @bar-height * 2, @bar-height * 2 );
 }
 
 .ui-progress-pending-running {

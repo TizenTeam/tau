@@ -57,13 +57,13 @@
 .ui-handler-direction-y .ui-handler-thumb {
 	width : 23 * @unit_base_handler;
 	height : 229 * @unit_base_handler;
-	background-size : 23 * @unit_base_handler	37 * @unit_base_handler;
+	.LESSbackground-size(23 * @unit_base_handler, 37 * @unit_base_handler);
 }
 
 .ui-handler-direction-x .ui-handler-thumb {
-	width : 214 * @unit_base_handler;
-	height : 48 * @unit_base_handler;
-	background-size : 40 * @unit_base_handler 48 * @unit_base_handler;
+	width : 229 * @unit_base_handler;
+	height : 23 * @unit_base_handler;
+	.LESSbackground-size(37 * @unit_base_handler, 23 * @unit_base_handler);
 }
 
 /* S
@@ -72,7 +72,7 @@
 .ui-handler-s {
 	.ui-handler-thumb {
 		background-color : @color_scrollview_handler_bg;
-		.LESSbox-shadow(1 * @unit_base, 1 * @unit_base, 1 * @unit_base, @color_scrollview_handler_shadow);
+		.LESSbox-shadow(1 * @unit_base, 1 * @unit_base, 2 * @unit_base, @color_scrollview_handler_shadow);
 	}
 
 	.ui-handler-direction-y .ui-handler-thumb {

@@ -131,6 +131,10 @@ textarea.ui-input-text {
 			padding : 0px;
 
 			margin-right : 38 * @unit_base;
+
+			&::-webkit-input-placeholder {
+				color : @color_searchbar_default_text;
+			}
 		}
 
 		.ui-image-search {
@@ -242,4 +246,8 @@ textarea.ui-input-text {
 	background-image: url(images/controls/00_field_btn_clear.png);
 	background-repeat: no-repeat;
 	background-size : 45 * @unit_base_textinput 45 * @unit_base_textinput;
+
+	&:active {
+		background-image: url(images/controls/00_field_btn_clear_press.png);
+	}
 }
