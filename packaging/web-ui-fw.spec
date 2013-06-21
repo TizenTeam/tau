@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.37
+Version:    0.2.38
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -97,6 +97,41 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Fri Jun 21 2013 Hyunjung Kim <hjnim.kim@samsung.com> 0.2.38
+	- slider: Apply light theme
+	- WhiteGUI : add resource
+	- toolbar: Apply dark theme
+	- progress: Rollback the background gradient of progress pending bar
+	- slider: Apply light theme
+	- extendablelist: trigger updatelayout after create/refresh (N_SE-41287)
+	- Naviframe : apply white theme
+	- List : Apply white Theme (light theme in UX guide)
+	- Loader : rollback theme selection code(apply white theme)
+	- tabbar, controlgroup: Check the existence of buttons in footer
+	- search : Apply light theme
+	- radio btn: Apply light theme
+	- splitview: Apply dark theme
+	- bubble: Apply light theme
+	- Entry : Apply white theme (editfield color)
+	- button: Apply light theme for on/off button
+	- multimediaview: Apply light theme
+	- scrollview: Modify the scrollbar color and change the jump icon image
+	- handler: Apply light theme
+	- list divider: Apply light theme
+	- progressbar: Apply light theme
+	- Fastscroll: Border color has been changed
+	- Ticker-noti : modify rgb color for thicker notification (light theme)
+	- List : modify css for extandable and vi list (light theme)
+	- Popup: Apply White Theme (UX Guide)
+	- tokentextarea: Apply light theme
+	- Title Uppercase : Title uppercase change to lowercase
+	- winset: spelling fixes (N_SE-34225)
+	- Slider : modify popup of slider z-index (fixed DCM-1735)
+	- WhiteGUI : add no masking resources to white theme
+	- Button: Apply white theme ( light theme )
+	- Resource : delete unnecessary png files
+	- Resource : delete white resource, change black resource permission
+
 * Sun Jun 16 2013 Hyunjung Kim <hjnim.kim@samsung.com> 0.2.37
 	- ThemeBugFix : add splitview resource, change datetimepicker top position
 	- List : modify dialogue(and collapsible)list background
