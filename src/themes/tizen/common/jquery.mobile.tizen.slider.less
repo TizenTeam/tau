@@ -100,7 +100,7 @@ div.ui-slider:not(.ui-toggle-switch) {
 
 	.LESSborder-radius-all( 10 * @unit_base );
 	.LESSbox-shadow(0px, 0px, 2px, @color_progress_shadow);
-	background-color: @color_progress_bar0;
+	background-color: @color_progress_bar;
 
 	.ui-btn {
 		top: -0.75rem;
@@ -111,6 +111,14 @@ div.ui-slider:not(.ui-toggle-switch) {
 	}
 	.ui-btn-text {
 		color: @color_slider_handle_text;
+	}
+
+	a.ui-slider-handle-press {
+		background-image: url(images/controls/00_slider_handle_press.png);
+
+		.ui-btn-text {
+			color: @color_slider_handle_text_press;
+		}
 	}
 }
 
@@ -137,7 +145,7 @@ a.ui-slider-handle {
 
 .ui-slider-popup {
 	position: absolute !important;
-	z-index: @z_base_popup;
+	z-index: @z_base_slider_popup;
 
 	width: @popup-width;
 	height: @popup-height;
@@ -159,9 +167,5 @@ a.ui-slider-handle {
 
 	.LESSborder-radius-all( 10 * @unit_base );
 	.LESSbox-shadow(0px, 0px, 2px, @color_progress_shadow);
-	background-color: @color_progress_value0;
-}
-
-a.ui-slider-handle-press {
-	background-image: url(images/controls/00_slider_handle_press.png);
+	background-color: @color_progress_value;
 }

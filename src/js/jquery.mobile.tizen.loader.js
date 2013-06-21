@@ -223,7 +223,6 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 			if ( ! theme ) {
 				theme = tizen.frameworkData.theme;
 			}
-			theme = "tizen-black"; /* temporary change to blackTheme(white GUI is not released yet) */
 			
 			themePath = tizen.frameworkData.rootDir + '/' + tizen.frameworkData.version + '/themes/' + theme;
 			

@@ -112,24 +112,23 @@
 				display : inline-block;
 				margin:auto;
 				height : 37 * @unit_base;
-				background: @color_popup_buttonbg;
-				color: @color_popup_buttontext;
+				.LESSpopup_button_style();
 				border: 1px solid @color_popup_button_border;
 				box-shadow: @button_shadow_outer;
 			}
 
 			> .ui-btn.ui-btn-down-s {
-				background : @color_popup_buttonbg_press;
-				background : @color_popup_buttonbg_press_webkit;
-				background : @color_popup_buttonbg_press_moz;
-				background : @color_popup_buttonbg_press_ms;
-				background : @color_popup_buttonbg_press_o;
-				color: white;
+				.LESSpopup_button_press_style();
 			}
 
 			.ui-btn-inner {
 				padding-left : 20 * @unit_base;
 				padding-right : 20 * @unit_base;
+				-ms-border-radius : .2em;
+				-o-border-radius : .2em;
+				-webkit-border-radius : .2em;
+				-moz-border-radius : .2em;
+				border-radius : .2em;
 			}
 			-ms-border-radius : .3em;
 			-o-border-radius : .3em;
