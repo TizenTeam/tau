@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.38
+Version:    0.2.39
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -97,6 +97,9 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Fri Jun 21 2013 Hyunjung Kim <hjnim.kim@samsung.com> 0.2.39
+	- List : DarkTheme background color change
+
 * Fri Jun 21 2013 Hyunjung Kim <hjnim.kim@samsung.com> 0.2.38
 	- slider: Apply light theme
 	- WhiteGUI : add resource
