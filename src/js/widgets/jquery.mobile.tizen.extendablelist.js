@@ -451,6 +451,7 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 						.not( ".ui-li-icon" )
 						.addClass( "ui-corner-bl" );
 			}
+			this.element.trigger( "updatelayout" );
 		},
 
 		refresh: function ( create ) {
