@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.40
+Version:    0.2.41
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -97,6 +97,12 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Sun Jun 23 2013 Hyunjung Kim <hjnim.kim@samsung.com> 0.2.41
+	- pagelayout: not showing back button on keyboard hide (N_SE-41675)
+	- scrollview: N_SE-35649 multitouch scroll bug
+	- progress: update margin values
+	- toolbar: Apply light theme
+
 * Sun Jun 23 2013 Hyunjung Kim <hjnim.kim@samsung.com> 0.2.40
 	- Progress : change white progress resource
 	- Popup : change liststyle height to max-height

@@ -1339,22 +1339,23 @@ define( [ ], function ( ) {
 				};
 			} else {
 				this._dragEvt = "touchstart touchmove touchend click";
-
+				var _in_progress = false;
 				this._dragCB = function ( e ) {
 					var touches = e.originalEvent.touches;
 
-
 					switch ( e.type ) {
 					case "touchstart":
-						if ( touches.length != 1) {
+						if ( touches.length != 1 || _in_progress ) {
 							return;
 						}
+
+						_in_progress = true;
 
 						return self._handleDragStart( e,
 								touches[0].pageX, touches[0].pageY );
 
 					case "touchmove":
-						if ( touches.length != 1) {
+						if ( !_in_progress || touches.length != 1) {
 							return;
 						}
 
@@ -1362,7 +1363,13 @@ define( [ ], function ( ) {
 								touches[0].pageX, touches[0].pageY );
 
 					case "touchend":
-						if ( touches.length != 0) {
+						if ( !_in_progress ) {
+							return;
+						}
+
+						_in_progress = false;
+
+						if ( touches.length != 0 ) {
 							return;
 						}
 
@@ -1372,7 +1379,7 @@ define( [ ], function ( ) {
 						return !self._didDrag;
 					}
 				};
-			}
+			};
 
 			$v.bind( this._dragEvt, this._dragCB );
 
