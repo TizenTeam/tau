@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.39
+Version:    0.2.40
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -97,6 +97,18 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Sun Jun 23 2013 Hyunjung Kim <hjnim.kim@samsung.com> 0.2.40
+	- Progress : change white progress resource
+	- Popup : change liststyle height to max-height
+	- Scrollview : change indicatorbar value from opacity to display
+	- DateTimepicker : change theme color
+	- GUI : change resource/permission change
+	- Extendable list : modify 'Load 50 more items' button position
+	- Fastscroll: modify rollover-border color (black, white)
+	- checkbox: modify favorite icon image (white theme)
+	- ContextPopup: modify rgb color of ctxpopup background (black theme)
+	- Checkbox : modify checkbox press image in black theme
+
 * Fri Jun 21 2013 Hyunjung Kim <hjnim.kim@samsung.com> 0.2.39
 	- List : DarkTheme background color change
 
