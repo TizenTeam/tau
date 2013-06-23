@@ -18,11 +18,6 @@
 		margin: 0;
 		padding: 0;
 	}
-	ul:hover {
-		li {
-			border-left-color : @color_fastscroll_popup_bg;
-		}
-	}
 	li {
 		cursor: pointer;
 		color: @color_fastscroll_rollover_text;
@@ -94,7 +89,7 @@
 li.ui-fastscroll-hover,
 li.ui-fastscroll-hover-down {
 	border-style : solid;
-	border-color : @color_fastscroll_popup_bg;
+	border-top-color : @color_fastscroll_rollover_down_border;
 	border-width : 0px;
 
 	padding-top : 0px;
@@ -103,7 +98,7 @@ li.ui-fastscroll-hover-down {
 
 li.ui-fastscroll-hover {
 	background : @color_list_bg;
-	color : @color_fastscroll_popup_bg;
+	color : @color_fastscroll_rollover_down_border;
 
 	border-top-width : 3 * @unit_base;
 	border-right-width : 3 * @unit_base;
