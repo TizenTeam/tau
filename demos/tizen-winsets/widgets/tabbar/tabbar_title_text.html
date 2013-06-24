@@ -18,7 +18,7 @@
 </head>
 <body>
 
-<div data-role="page" data-add-back-btn="true">
+<div data-role="page" id="tabbar_title_text">
 	<div data-role="header" data-position="fixed">
 		<h1>Tabbar text with title</h1>
 		<div data-role="tabbar">
@@ -34,8 +34,20 @@
 	<div data-role="content">
 	</div>
 
-	<div data-role="footer">
-	</div>
+	<script>
+	$( "#tabbar_title_text" ).on( "pageshow" , function() {
+		$( document ).on( "tizenhwkey", function ( ev ) {
+			if ( ev.originalEvent.keyName === "back" ) {
+				//bind callbacks to the H/W keys
+				window.history.back();
+			}
+		});
+	});
+	$( "#tabbar_title_text" ).on( "pagebeforehide" , function() {
+		//unbind callbacks to the H/W keys
+		$( document ).off( "tizenhwkey" );
+	});
+	</script>
 </div>
 
 </body>

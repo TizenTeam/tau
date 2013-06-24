@@ -18,7 +18,7 @@
 		<link rel="apple-touch-icon" href="../icon-tizen.png" />
 	</head>
 	<body>
-		<div data-role="page" id="progressbar-demo" data-add-back-btn="true">
+		<div data-role="page" id="progressbar-demo">
 			<div data-role="header" data-position="fixed">
 				<h1>Progress bar</h1>
 			</div>
@@ -38,8 +38,20 @@
 					</li>
 				</ul>
 			</div> <!-- /content -->
-			<div data-role="footer">
-			</div>
+			<script>
+			$( "#progressbar-demo" ).on( "pageshow" , function() {
+				$( document ).on( "tizenhwkey", function ( ev ) {
+					if ( ev.originalEvent.keyName === "back" ) {
+						//bind callbacks to the H/W keys
+						window.history.back();
+					}
+				});
+			});
+			$( "#progressbar-demo" ).on( "pagebeforehide" , function() {
+				//unbind callbacks to the H/W keys
+				$( document ).off( "tizenhwkey" );
+			});
+			</script>
 			<script src="progressbar.js"></script>
 		</div> <!-- /page -->
 	</body>

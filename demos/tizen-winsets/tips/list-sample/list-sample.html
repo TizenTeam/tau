@@ -17,7 +17,7 @@
 	<link rel="apple-touch-icon" href="../../icon-tizen.png" />
 </head>
 <body>
-<div data-role="page" data-add-back-btn="true" id="list-sample">
+<div data-role="page" id="list-sample">
 	<style>
 		#new .ui-btn-text {
 			font-size : 12px;
@@ -46,6 +46,20 @@
 			</ul>
 		</div>
 	</div><!-- /footer -->
+	<script>
+	$( "#list-sample" ).on( "pageshow" , function() {
+		$( document ).on( "tizenhwkey", function ( ev ) {
+			if ( ev.originalEvent.keyName === "back" ) {
+				//bind callbacks to the H/W keys
+				window.history.back();
+			}
+		});
+	});
+	$( "#list-sample" ).on( "pagebeforehide" , function() {
+		//unbind callbacks to the H/W keys
+		$( document ).off( "tizenhwkey" );
+	});
+	</script>
 	<script src="list-sample.js"></script>
 </div><!-- /page -->
 </body>

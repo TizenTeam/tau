@@ -18,7 +18,7 @@
 		<link rel="apple-touch-icon" href="../../icon-tizen.png" />
 	</head>
 	<body>
-		<div data-role="page" id="slider-demo" data-add-back-btn="true">
+		<div data-role="page" id="slider-demo">
 			<div data-role="header" data-position="fixed">
 				<h1>Slider</h1>
 			</div>
@@ -38,8 +38,20 @@
 					<li><input id="mySlider7" name="mySlider7" data-popup='false' type="range" value="5" min="0" max="10" data-highlight="false" /></li>
 				</ul>
 			</div><!-- /content -->
-			<div data-role="footer">
-			</div>
+			<script>
+			$( "#slider-demo" ).on( "pageshow" , function() {
+				$( document ).on( "tizenhwkey", function ( ev ) {
+					if ( ev.originalEvent.keyName === "back" ) {
+						//bind callbacks to the H/W keys
+						window.history.back();
+					}
+				});
+			});
+			$( "#slider-demo" ).on( "pagebeforehide" , function() {
+				//unbind callbacks to the H/W keys
+				$( document ).off( "tizenhwkey" );
+			});
+			</script>
 		</div> <!-- /page -->
 	</body>
 </html>

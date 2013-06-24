@@ -18,7 +18,7 @@
 	</head>
 <body>
 
-	<div data-role="page" id="backButtonDemomain" data-add-back-btn="true">
+	<div data-role="page" id="backButtonDemomain">
 		<div data-role="header" data-position="fixed">
 			<h1>Back button control</h1>
 			<span class="ui-title-text-sub">Footer and backbutton demopage</span>
@@ -32,8 +32,20 @@
 				<li><a href="backbutton/dynamically-attatch-backbutton-to-footer.html">5. Dynamically attatch backbutton to footer</a></li>
 				<li><a href="backbutton/dynamically-attatch-backbutton-to-header.html">6. Dynamically attatch backbutton to header</a></li>
 		</div>
-		<div data-role="footer">
-		</div>
+		<script>
+		$( "#backButtonDemomain" ).on( "pageshow" , function() {
+			$( document ).on( "tizenhwkey", function ( ev ) {
+				if ( ev.originalEvent.keyName === "back" ) {
+					//bind callbacks to the H/W keys
+					window.history.back();
+				}
+			});
+		});
+		$( "#backButtonDemomain" ).on( "pagebeforehide" , function() {
+			//unbind callbacks to the H/W keys
+			$( document ).off( "tizenhwkey" );
+		});
+		</script>
 	</div>
 </body>
 </html>

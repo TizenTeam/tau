@@ -18,7 +18,7 @@
 	</head>
 <body>
 
-	<div data-role="page" data-add-back-btn="true">
+	<div data-role="page" id="navi_title_text">
 		<div data-role="header" data-position="fixed">
 			<h1>Title text</h1>
 			<div data-role="button">Cancel</div>
@@ -27,8 +27,20 @@
 		<div data-role="content">
 			<p>title text sample</p>
 		</div>
-		<div data-role="footer">
-		</div>
+		<script>
+		$( "#navi_title_text" ).on( "pageshow" , function() {
+			$( document ).on( "tizenhwkey", function ( ev ) {
+				if ( ev.originalEvent.keyName === "back" ) {
+					//bind callbacks to the H/W keys
+					window.history.back();
+				}
+			});
+		});
+		$( "#navi_title_text" ).on( "pagebeforehide" , function() {
+			//unbind callbacks to the H/W keys
+			$( document ).off( "tizenhwkey" );
+		});
+		</script>
 	</div>
 
 

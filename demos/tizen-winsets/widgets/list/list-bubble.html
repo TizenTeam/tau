@@ -1,4 +1,4 @@
-<div data-role="page" id="genlist-bubble" data-add-back-btn="true">
+<div data-role="page" id="genlist-bubble">
 	<div data-role="header" data-position="fixed">
 		<h1>Bubble list (Message bubble)</h1>
 	</div>
@@ -14,7 +14,19 @@
 			<li class="ui-li-bubble-receive"><p>Picture test</p><img src="list-bubble-sample1.png" /><span class="ui-li-bubble-time">9:40 PM</span></li>
 		</ul>
 	</div>
-	<div data-role="footer">
-	</div>
+	<script>
+	$( "#genlist-bubble" ).on( "pageshow" , function() {
+		$( document ).on( "tizenhwkey", function ( ev ) {
+			if ( ev.originalEvent.keyName === "back" ) {
+				//bind callbacks to the H/W keys
+				window.history.back();
+			}
+		});
+	});
+	$( "#genlist-bubble" ).on( "pagebeforehide" , function() {
+		//unbind callbacks to the H/W keys
+		$( document ).off( "tizenhwkey" );
+	});
+	</script>
 </div>
 
