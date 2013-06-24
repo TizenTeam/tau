@@ -8,7 +8,7 @@
 }
 
 .ui-swipe-item {
-	height: 56 * @unit_base;
+	min-height: 38 * @unit_base;
 	-ms-user-select: none;
 	-o-user-select: none;
 	-moz-user-select: none;
@@ -19,15 +19,23 @@
 	background-color: @color_list_swipe_bg;
 	margin-left : -13 * @unit_base;
 	margin-right : -13 * @unit_base;
+	padding-bottom: 9 * @unit_base;
 
 	.ui-btn {
-		margin-top: -18 * @unit_base ! important;
-		position: relative ! important;
+		margin-top: 9 * @unit_base;
+		top: auto;
+		position: relative;
 	}
+
 	p {
 		margin: 0;
 	}
 }
+
+.ui-listview li [data-role="button"]:last-child {
+		position: relative;
+		right: auto;
+	}
 
 .ui-swipe-item-cover {
 	position: absolute;
