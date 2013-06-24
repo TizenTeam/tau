@@ -1,4 +1,4 @@
-<div data-role="page" id="genlist-swipe" data-add-back-btn="true">
+<div data-role="page" id="genlist-swipe">
 	<script type="text/javascript">
 		var openSwipe = function() {
 			$("#sw").swipe("open");
@@ -105,7 +105,7 @@
 				</li>
 		</ul>
 	</div>
-	<div data-role="footer">
+	<div data-role="footer" data-position ="fixed">
 			API Test:
 			<div data-role="button" data-inline="true" onclick="openSwipe()">
 				Open
@@ -114,4 +114,18 @@
 				Close
 			</div>
 	</div>
+	<script>
+	$( "#genlist-swipe" ).on( "pageshow" , function() {
+		$( document ).on( "tizenhwkey", function ( ev ) {
+			if ( ev.originalEvent.keyName === "back" ) {
+				//bind callbacks to the H/W keys
+				window.history.back();
+			}
+		});
+	});
+	$( "#genlist-swipe" ).on( "pagebeforehide" , function() {
+		//unbind callbacks to the H/W keys
+		$( document ).off( "tizenhwkey" );
+	});
+	</script>
 </div>

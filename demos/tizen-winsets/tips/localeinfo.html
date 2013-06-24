@@ -18,7 +18,7 @@
 </head>
 
 <body>
-	<div data-role="page" id="localepage" data-add-back-btn="true">
+	<div data-role="page" id="localepage">
 		<div data-role="header" data-position="fixed">
 			<h1>Locale information</h1>
 		</div>
@@ -32,8 +32,20 @@
 			<p id="html_font_size"></p>
 		</div>
 
-		<div data-role="footer">
-		</div>
+		<script>
+		$( "#localepage" ).on( "pageshow" , function() {
+			$( document ).on( "tizenhwkey", function ( ev ) {
+				if ( ev.originalEvent.keyName === "back" ) {
+					//bind callbacks to the H/W keys
+					window.history.back();
+				}
+			});
+		});
+		$( "#localepage" ).on( "pagebeforehide" , function() {
+			//unbind callbacks to the H/W keys
+			$( document ).off( "tizenhwkey" );
+		});
+		</script>
 		<script src="localeinfo.js"></script>
 	</div>
 </body>

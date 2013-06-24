@@ -11,7 +11,7 @@
 	</head>
 <body>
 
-<div data-role="page" id="ButtonDemo" data-add-back-btn="true" >
+<div data-role="page" id="ButtonDemo">
 	<div data-role="header" data-position="fixed">
 		<h1>Buttons</h1>
 	</div>
@@ -95,8 +95,20 @@
 			<li><a href="buttonNolist.html">Buttons Pages(not in list) </a></li>
 		</ul>
 	</div>
-	<div data-role="footer">
-	</div>
+	<script>
+	$( "#ButtonDemo" ).on( "pageshow" , function() {
+		$( document ).on( "tizenhwkey", function ( ev ) {
+			if ( ev.originalEvent.keyName === "back" ) {
+				//bind callbacks to the H/W keys
+				window.history.back();
+			}
+		});
+	});
+	$( "#ButtonDemo" ).on( "pagebeforehide" , function() {
+		//unbind callbacks to the H/W keys
+		$( document ).off( "tizenhwkey" );
+	});
+	</script>
 </div>
 
 </body>

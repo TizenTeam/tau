@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<div data-role="page" data-add-back-btn="true">
+<div data-role="page" id="gallery3d-demo">
 	<div data-role="header" data-position="fixed" >
 		<h1>Gallery 3D</h1>
 	</div><!-- /header -->
@@ -8,8 +8,20 @@
 		<div id="gallery3d" data-role="gallery3d" style="width: 100%;"></div>
 	</div><!-- /content -->
 
-	<div data-role="footer">
-	</div><!-- /footer -->
+	<script>
+	$( "#gallery3d-demo" ).on( "pageshow" , function() {
+		$( document ).on( "tizenhwkey", function ( ev ) {
+			if ( ev.originalEvent.keyName === "back" ) {
+				//bind callbacks to the H/W keys
+				window.history.back();
+			}
+		});
+	});
+	$( "#gallery3d-demo" ).on( "pagebeforehide" , function() {
+		//unbind callbacks to the H/W keys
+		$( document ).off( "tizenhwkey" );
+	});
+	</script><!-- /footer -->
 
 	<script>
 		$( "#gallery3d" ).on( "gallery3dcreate", function () {

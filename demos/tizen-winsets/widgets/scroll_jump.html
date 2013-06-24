@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<div data-role="page" data-add-back-btn="true">
+<div data-role="page" id="jump-demo">
 	<div data-role="header" data-position="fixed">
 		<h1>Scroll jump</h1>
 	</div>
@@ -37,6 +37,18 @@
 			<li>item29</li>
 		</ul>
 	</div><!-- /content -->
-	<div data-role="footer">
-	</div>
+	<script>
+	$( "#jump-demo" ).on( "pageshow" , function() {
+		$( document ).on( "tizenhwkey", function ( ev ) {
+			if ( ev.originalEvent.keyName === "back" ) {
+				//bind callbacks to the H/W keys
+				window.history.back();
+			}
+		});
+	});
+	$( "#jump-demo" ).on( "pagebeforehide" , function() {
+		//unbind callbacks to the H/W keys
+		$( document ).off( "tizenhwkey" );
+	});
+	</script>
 </div> <!-- /page -->

@@ -18,18 +18,16 @@
 	</head>
 <body>
 
-<div data-role="page" data-add-back-btn="true">
+<div data-role="page" id="navi_foot_button">
 	<div data-role="header" data-position="fixed">
 		<h1>Footer more</h1>
 	</div>
 	<div data-role="content">
 		<p>Footer more sample</p>
 	</div>
-	<div data-role="footer">
+	<div data-role="footer" data-position="fixed">
 		<div data-role="button" data-inline="true">BUTTON1</div>
 		<div data-role="button" data-inline="true">BUTTON2</div>
-
-		<a href="#pop_js" data-role="button"  data-icon="naviframe-more" data-transition="slidedownfade" data-rel="popup"></a>
 
 		<div id="pop_js" data-role="popup" >
 		<ul data-role="listview">
@@ -38,7 +36,24 @@
 			<li><a href="#" data-rel="back">Call log</a></li>
 			<li><a href="#" data-rel="back">Music</a></li>
 		</ul>
+		</div>
 	</div>
+	<script>
+	$( "#navi_foot_button" ).on( "pageshow" , function() {
+		//bind callbacks to the H/W keys
+		$( document ).on( "tizenhwkey" , function( e ) {
+			if ( e.originalEvent.keyName === "menu" ) {
+				$( "#pop_js" ).popup( "open" );
+			}else if( e.originalEvent.keyName === "back" ) {
+				window.history.back();
+			}
+		});
+	});
+	$( "#navi_foot_button" ).on( "pagebeforehide" , function() {
+		//unbind callbacks to the H/W keys
+		$( document ).off( "tizenhwkey" );
+	});
+	</script>
 </div>
 
 

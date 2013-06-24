@@ -16,28 +16,37 @@
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />
         <link rel="apple-touch-icon" href="../../icon-tizen.png" />
 </head>
-        <body>
+<body>
+<div data-role="page" id="c">
+	<div data-role="header" data-position="fixed">
+		<div data-role="tabbar" data-id="persist_header" >
+			<ul>
+				<li><a href="./tabbar_persist.html" >Menu</a></li>
+				<li><a href="./tabbar_persist_b.html" >Save</a></li>
+				<li><a href="#" class="ui-btn-active ui-state-persist">Next</a></li>
+			</ul>
+		</div><!-- /tabbar -->
+	</div>
 
+	<div data-role="content">
+		<p>page c</p>
+	</div>
 
-
-<div data-role="page" data-add-back-btn="true">
-                        <div data-role="header" data-position="fixed">
-                                <div data-role="tabbar" data-id="persist_header" >
-                                        <ul>
-                                                <li><a href="./tabbar_persist.html" >Menu</a></li>
-                                                <li><a href="./tabbar_persist_b.html" >Save</a></li>
-                                                <li><a href="#" class="ui-btn-active ui-state-persist">Next</a></li>
-                                        </ul>
-                                </div><!-- /tabbar -->
-                        </div>
-
-                        <div data-role="content">
-                                <p>page c</p>
-                        </div>
-
-                        <div data-role="footer">
-                        </div>
-                </div>
-        </body>
+	<script>
+	$( "#c" ).on( "pageshow" , function() {
+		$( document ).on( "tizenhwkey", function ( ev ) {
+			if ( ev.originalEvent.keyName === "back" ) {
+				//bind callbacks to the H/W keys
+				window.history.back();
+			}
+		});
+	});
+	$( "#c" ).on( "pagebeforehide" , function() {
+		//unbind callbacks to the H/W keys
+		$( document ).off( "tizenhwkey" );
+	});
+	</script>
+</div>
+</body>
 </html>
 

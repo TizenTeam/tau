@@ -17,7 +17,7 @@
 		<link rel="apple-touch-icon" href="../../icon-tizen.png" />
 	</head>
 	<body>
-		<div data-role="page" id="checkbox-demo" data-add-back-btn="true">
+		<div data-role="page" id="checkbox-demo">
 			<div data-role="header" data-position="fixed">
 				<h1>Checkbox</h1>
 			</div>
@@ -55,10 +55,22 @@
 					</fieldset>
 				</div><!--/content-primary -->
 			</div>
-			<div data-role="footer">
-			</div>
 			<link rel="stylesheet" href="styles.css" />
 			<script src="checkbox.js"></script>
+			<script>
+			$( "#checkbox-demo" ).on( "pageshow" , function() {
+				$( document ).on( "tizenhwkey", function ( ev ) {
+					if ( ev.originalEvent.keyName === "back" ) {
+						//bind callbacks to the H/W keys
+						window.history.back();
+					}
+				});
+			});
+			$( "#checkbox-demo" ).on( "pagebeforehide" , function() {
+				//unbind callbacks to the H/W keys
+				$( document ).off( "tizenhwkey" );
+			});
+			</script>
 		</div>
 	</body>
 </html>

@@ -18,7 +18,7 @@
 </head>
 <body>
 
-<div data-role="page" data-add-back-btn="true">
+<div data-role="page" id="tabbar_scroll">
 	<div data-role="header" data-position="fixed">
 		<h1>Tabbar scroll</h1>
 
@@ -48,8 +48,20 @@
 		<p>Scroll header tabbar left/right </p>
 	</div>
 
-	<div data-role="footer">
-	</div>
+	<script>
+	$( "#tabbar_scroll" ).on( "pageshow" , function() {
+		$( document ).on( "tizenhwkey", function ( ev ) {
+			if ( ev.originalEvent.keyName === "back" ) {
+				//bind callbacks to the H/W keys
+				window.history.back();
+			}
+		});
+	});
+	$( "#tabbar_scroll" ).on( "pagebeforehide" , function() {
+		//unbind callbacks to the H/W keys
+		$( document ).off( "tizenhwkey" );
+	});
+	</script>
 </div>
 
 </body>

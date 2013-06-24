@@ -18,7 +18,7 @@
 		<link rel="apple-touch-icon" href="../icon-tizen.png" />
 	</head>
 	<body>
-		<div data-role="page" data-add-back-btn="true">
+		<div data-role="page" id="pregress-demo">
 			<script>
 				$(document).bind("pageshow" ,function(){
 					var currentRunning = $("#foo").progress("option", "running");
@@ -33,8 +33,20 @@
 					<div id="foo" data-role="progress" data-style="circle"></div>
 				</div>
 			</div> <!-- /content -->
-			<div data-role="footer">
-			</div>
+			<script>
+			$( "#pregress-demo" ).on( "pageshow" , function() {
+				$( document ).on( "tizenhwkey", function ( ev ) {
+					if ( ev.originalEvent.keyName === "back" ) {
+						//bind callbacks to the H/W keys
+						window.history.back();
+					}
+				});
+			});
+			$( "#pregress-demo" ).on( "pagebeforehide" , function() {
+				//unbind callbacks to the H/W keys
+				$( document ).off( "tizenhwkey" );
+			});
+			</script>
 		</div> <!-- /page -->
 	</body>
 </html>

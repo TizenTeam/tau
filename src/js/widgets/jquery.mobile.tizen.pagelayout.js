@@ -229,8 +229,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 					self._updateFooterArea( thisPage );
 
 					// check device api : HW key existance
-					if ( $.tizen && $.tizen.frameworkData.deviceCapa
-							&& $.tizen.frameworkData.deviceCapa.inputKeyBack ) {
+					if ( false ) {
 						self._bindHWkey();
 						self._setHWKeyLayout( thisPage );
 					}
@@ -277,15 +276,13 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 						//             new page's one, and the old page's .ui-btn-back button is still hidden.
 						//             So, the current back button is remembered to be shown at the
 						//             softkeyboardchange.off event.
-						if ( !($.tizen && $.tizen.frameworkData.deviceCapa
-								&& $.tizen.frameworkData.deviceCapa.inputKeyBack ) ) {
+						if ( true ) {
 							backBtn = $( ".ui-page-active .ui-btn-back" );
 							backBtn.hide();
 							self._backBtnQueue.push( backBtn );	// Store hidden backBtn
 						}
 					} else if ( e.state == "off" ) {
-						if ( !($.tizen && $.tizen.frameworkData.deviceCapa
-								&& $.tizen.frameworkData.deviceCapa.inputKeyBack ) ) {
+						if ( true ) {
 							self._backBtnQueue.forEach( function ( b ) {
 								b.show();	// Show each backBtn,
 							} );

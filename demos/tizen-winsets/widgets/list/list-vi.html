@@ -1,4 +1,4 @@
-<div data-role="page" data-add-back-btn="true">
+<div data-role="page" id="list_vi_demo">
 	<script type="text/javascript">
 		var add = function() {
 			$("#listvi").listview( 'addItem', '<li>Test<div data-role="button" data-inline="true">TEST</div></li>', 0 );
@@ -18,6 +18,18 @@
 			<li><a href="#">Normal lists</a></li>
 		</ul>
 	</div>
-	<div data-role="footer">
-	</div>
+	<script>
+	$( "#list_vi_demo" ).on( "pageshow" , function() {
+		$( document ).on( "tizenhwkey", function ( ev ) {
+			if ( ev.originalEvent.keyName === "back" ) {
+				//bind callbacks to the H/W keys
+				window.history.back();
+			}
+		});
+	});
+	$( "#list_vi_demo" ).on( "pagebeforehide" , function() {
+		//unbind callbacks to the H/W keys
+		$( document ).off( "tizenhwkey" );
+	});
+	</script>
 </div>

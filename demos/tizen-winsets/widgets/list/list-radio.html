@@ -1,4 +1,4 @@
-<div data-role="page" id="genlist-radio" data-add-back-btn="footer">
+<div data-role="page" id="genlist-radio">
 	<div data-role="header" data-position="fixed">
 		<h1>Radio button lists</h1>
 	</div>
@@ -55,7 +55,19 @@
 		</ul>
 	</form>
 	</div>
-	<div data-role="footer">
-	</div>
+	<script>
+	$( "#genlist-radio" ).on( "pageshow" , function() {
+		$( document ).on( "tizenhwkey", function ( ev ) {
+			if ( ev.originalEvent.keyName === "back" ) {
+				//bind callbacks to the H/W keys
+				window.history.back();
+			}
+		});
+	});
+	$( "#genlist-radio" ).on( "pagebeforehide" , function() {
+		//unbind callbacks to the H/W keys
+		$( document ).off( "tizenhwkey" );
+	});
+	</script>
 </div>
 

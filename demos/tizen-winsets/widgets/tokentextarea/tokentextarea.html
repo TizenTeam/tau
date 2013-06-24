@@ -18,7 +18,7 @@
 		<link rel="apple-touch-icon" href="../../icon-tizen.png" />
 	</head>
 	<body>
-		<div data-role="page" id="tokentextarea" data-add-back-btn="true" data-dom-cache="true">
+		<div data-role="page" id="tokentextarea" data-dom-cache="true">
 			<div data-role="header" data-position="fixed">
 				<h1>Token text area</h1>
 			</div>
@@ -46,8 +46,20 @@
 					</div>
 				</div>
 			</div>
-			<div data-role="footer">
-			</div>
+			<script>
+			$( "#tokentextarea" ).on( "pageshow" , function() {
+				$( document ).on( "tizenhwkey", function ( ev ) {
+					if ( ev.originalEvent.keyName === "back" ) {
+						//bind callbacks to the H/W keys
+						window.history.back();
+					}
+				});
+			});
+			$( "#tokentextarea" ).on( "pagebeforehide" , function() {
+				//unbind callbacks to the H/W keys
+				$( document ).off( "tizenhwkey" );
+			});
+			</script>
 			<script src="tokentextarea-demo.js"></script>
 		</div>
 	</body>

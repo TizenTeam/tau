@@ -18,17 +18,15 @@
 	</head>
 <body>
 
-<div data-role="page" data-add-back-btn="true">
+<div data-role="page" id="navi_footer_more">
 	<div data-role="header" data-position="fixed">
 		<h1>Footer more</h1>
 	</div>
 	<div data-role="content">
 		<p>Footer more sample</p>
 	</div>
-	<div data-role="footer">
-		<a href="#pop_js" data-role="button"  data-icon="naviframe-more" data-transition="slideupfade" data-rel="popup"></a>
 
-		<div id="pop_js" data-role="popup" >
+	<div id="pop_js" data-role="popup" >
 		<ul data-role="listview">
 			<li><a href="#" data-rel="back">Settings</a></li>
 			<li><a href="#" data-rel="back">Add to contact</a></li>
@@ -36,6 +34,23 @@
 			<li><a href="#" data-rel="back">Music</a></li>
 		</ul>
 	</div>
+
+	<script>
+	$( "#navi_footer_more" ).on( "pageshow" , function() {
+		//bind callbacks to the H/W keys
+		$( document ).on( "tizenhwkey" , function( e ) {
+			if ( e.originalEvent.keyName === "menu" ) {
+				$( "#pop_js" ).popup( "open" );
+			}else if( e.originalEvent.keyName === "back" ) {
+				window.history.back();
+			}
+		});
+	});
+	$( "#navi_footer_more" ).on( "pagebeforehide" , function() {
+		//unbind callbacks to the H/W keys
+		$( document ).off( "tizenhwkey" );
+	});
+	</script>
 </div>
 
 

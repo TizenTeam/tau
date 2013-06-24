@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<div data-role="page" data-add-back-btn="true" class="noti-demo">
+<div data-role="page" class="noti-demo" id="small-popup-demo">
 	<div data-role="notification" id="notification" data-type="popup">
 		<p>Notification Demo</p>
 	</div>
@@ -9,7 +9,19 @@
 	<div data-role="content">
 		<div data-role="button" id="noti-demo">Show small popup</div>
 	</div><!-- /content -->
-	<div data-role="footer">
-	</div>
+	<script>
+	$( "#small-popup-demo" ).on( "pageshow" , function() {
+		$( document ).on( "tizenhwkey", function ( ev ) {
+			if ( ev.originalEvent.keyName === "back" ) {
+				//bind callbacks to the H/W keys
+				window.history.back();
+			}
+		});
+	});
+	$( "#small-popup-demo" ).on( "pagebeforehide" , function() {
+		//unbind callbacks to the H/W keys
+		$( document ).off( "tizenhwkey" );
+	});
+	</script>
 	<script type="text/javascript" src="noti.js"></script>
 </div> <!-- /page -->

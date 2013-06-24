@@ -1,4 +1,4 @@
-<div data-role="page" data-add-back-btn="true">
+<div data-role="page" id="segmentctrl-demo">
 
 	<div data-role="header" data-position="fixed">
 		<h1>Segment control</h1>
@@ -76,6 +76,18 @@
 		<div id=test> </div>
 
 	</div><!-- /content -->
-	<div data-role="footer">
-	</div>
+	<script>
+	$( "#segmentctrl-demo" ).on( "pageshow" , function() {
+		$( document ).on( "tizenhwkey", function ( ev ) {
+			if ( ev.originalEvent.keyName === "back" ) {
+				//bind callbacks to the H/W keys
+				window.history.back();
+			}
+		});
+	});
+	$( "#segmentctrl-demo" ).on( "pagebeforehide" , function() {
+		//unbind callbacks to the H/W keys
+		$( document ).off( "tizenhwkey" );
+	});
+	</script>
 </div><!-- /page -->

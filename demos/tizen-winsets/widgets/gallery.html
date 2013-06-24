@@ -16,7 +16,7 @@
 	<link rel="apple-touch-icon" href="../icon-tizen.png" />
 </head>
 <body>
-<div data-role="page" id="gallery-demo" data-add-back-btn="true">
+<div data-role="page" id="gallery-demo">
 	<div data-role="header" data-position="fixed">
 		<h1>Gallery</h1>
 	</div>
@@ -33,6 +33,20 @@
 		</div><!-- /navbar -->
 	</div>
 	<script src="gallery.js"></script>
+	<script>
+	$( "#gallery-demo" ).on( "pageshow" , function() {
+		$( document ).on( "tizenhwkey", function ( ev ) {
+			if ( ev.originalEvent.keyName === "back" ) {
+				//bind callbacks to the H/W keys
+				window.history.back();
+			}
+		});
+	});
+	$( "#gallery-demo" ).on( "pagebeforehide" , function() {
+		//unbind callbacks to the H/W keys
+		$( document ).off( "tizenhwkey" );
+	});
+	</script>
 </div> <!-- /page -->
 </body>
 </html>
