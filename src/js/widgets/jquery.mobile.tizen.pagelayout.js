@@ -263,8 +263,9 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 					$elPage = $( ".ui-page-active" ),
 					backBtn,
 					backBtnPosition = "footer";
-
-				if ( $elPage.data( "addBackBtn" ) ) {
+				// N_SE-42987 : If self._backBtnQueue.length has value is not 0, this means .ui-btn-back button is still hidden.
+				//		So, condition that check self._backBtnQueue value add.
+				if ( $elPage.data( "addBackBtn" ) || self._backBtnQueue.length ) {
 					$elPage.data( "addBackBtn" ) == "header" ? backBtnPosition = "header" : backBtnPosition = "footer";
 
 					if ( e.state == "on" ) {
