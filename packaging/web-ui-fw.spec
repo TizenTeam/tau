@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.42
+Version:    0.2.43
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -97,6 +97,16 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Tue Jun 25 2013 Youmin Ha <youmin.ha@samsung.com> 0.2.43
+	- Pagelayout : Add condition check backBtnQueue length (N_SE-42987).
+	- tizen-winsets: fix HW key event binding
+	- pagelayout: Apply HW key policy
+	- Naviframe : change footer theme generate routine
+	- TizenWinset: List vi button position has been changed
+	- Tabbar-Persist : modify <a href> url
+	- Fast scroll: modify 'Fast scroll' title (N_SE-42900)
+	- gallery : modify image size set roution in gallery.(N_SE-36862)
+
 * Mon Jun 24 2013 Hyeoncheol Choi <hc7.choi@samsung.com> 0.2.42
 	- H/W key : delete footer and add H/W key event
 	- HWkey : remove framework's device check routine
