@@ -396,10 +396,11 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 				$elFooter = $elPage.find( ".ui-footer" ),
 				$elMoreKey = $elFooter.children( ":jqmData(icon='naviframe-more')" ),
 				$elBackKey = $elFooter.children( ".ui-btn-back" ),
-				footerBtn = $elFooter.children( "div.ui-btn" ),
+				footerBtn = $elFooter.children( "div.ui-btn, a.ui-btn" ),
 				btnLength = footerBtn.length,
-				btnWidth = $elFooter.innerWidth(),
-				idx, moreWidth;
+				btnWidth = window.innerWidth,
+				realBtnIndex = 0,
+				idx, moreWidth = 0;
 
 			if ( !btnLength ) {
 				return;
@@ -408,7 +409,6 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 			if ( $elMoreKey.length ) {
 				moreWidth = $elMoreKey.width();
 				btnWidth -= moreWidth;
-				footerBtn.eq( 0 ).css( "left", moreWidth );
 			}
 
 			if ( $elBackKey.length ) {
@@ -416,12 +416,21 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 				$elBackKey.addClass( "ui-footer-btn-border" );
 			}
 
-			btnWidth /= btnLength;
+			btnWidth /= btnLength - $elMoreKey.length - $elBackKey.length;
 
-			footerBtn.width( btnWidth );
-			for ( idx = 0; idx < btnLength; idx += 1 ) {
+			for ( idx = 0; idx < btnLength; idx++ ) {
+				if ( footerBtn.eq( idx ).hasClass( "ui-btn-back" ) ) {
+					return true;
+				}
+				if ( footerBtn.eq( idx ).is( ":jqmData(icon='naviframe-more')" ) ){
+					return true;
+				}
 				footerBtn.eq( idx )
-					.addClass( "ui-footer-btn-border" );
+					.addClass( "ui-footer-btn-border" )
+					.width( btnWidth )
+					.css( "position", "absolute" )
+					.css( "left", realBtnIndex * btnWidth + moreWidth );
+				realBtnIndex++;
 			}
 		},
 
