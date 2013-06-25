@@ -43,7 +43,7 @@
 	<script>
 	$( "#tabbar_segment" ).on( "pageshow" , function() {
 		//bind callbacks to the H/W keys
-		$( document ).on( "tizenhwkey" , function( e ) {
+		$( window ).on( "tizenhwkey" , function( e ) {
 			if ( e.originalEvent.keyName === "menu" ) {
 				$( "#pop_js" ).popup( "open" );
 			}else if( e.originalEvent.keyName === "back" ) {
@@ -53,7 +53,7 @@
 	});
 	$( "#tabbar_segment" ).on( "pagebeforehide" , function() {
 		//unbind callbacks to the H/W keys
-		$( document ).off( "tizenhwkey" );
+		$( window ).off( "tizenhwkey" );
 	});
 	</script>
 </div>

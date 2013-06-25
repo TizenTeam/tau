@@ -20,7 +20,7 @@
 	</div>
 	<script>
 	$( "#list_divider_normal" ).on( "pageshow" , function() {
-		$( document ).on( "tizenhwkey", function ( ev ) {
+		$( window ).on( "tizenhwkey", function ( ev ) {
 			if ( ev.originalEvent.keyName === "back" ) {
 				//bind callbacks to the H/W keys
 				window.history.back();
@@ -29,7 +29,7 @@
 	});
 	$( "#list_divider_normal" ).on( "pagebeforehide" , function() {
 		//unbind callbacks to the H/W keys
-		$( document ).off( "tizenhwkey" );
+		$( window ).off( "tizenhwkey" );
 	});
 	</script>
 </div>

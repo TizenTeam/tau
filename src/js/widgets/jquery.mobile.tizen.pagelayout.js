@@ -229,10 +229,12 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 					self._updateFooterArea( thisPage );
 
 					// check device api : HW key existance
+					// TODO: remove these functions, because the HW key is mandatory.
 					if ( false ) {
-						self._bindHWkey();
+						self._bindHWkeyOnSWBtn();
 						self._setHWKeyLayout( thisPage );
 					}
+					self._setHWKeySupport( thisPage );
 					self._setMenuPopupLayout( thisPage );
 
 					if ( o.updatePagePadding ) {
@@ -247,7 +249,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 				})
 
 				.bind( "pagebeforehide", function ( e, ui ) {
-					$( document ).off( "tizenhwkey" ); /* test unbind code */
+					self._unsetHWKeySupport( );
 					if ( o.disablePageZoom ) {
 						$.mobile.zoom.enable( true );
 					}
@@ -261,8 +263,9 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 					$elPage = $( ".ui-page-active" ),
 					backBtn,
 					backBtnPosition = "footer";
-
-				if ( $elPage.data( "addBackBtn" ) ) {
+				// N_SE-42987 : If self._backBtnQueue.length has value is not 0, this means .ui-btn-back button is still hidden.
+				//		So, condition that check self._backBtnQueue value add.
+				if ( $elPage.data( "addBackBtn" ) || self._backBtnQueue.length ) {
 					$elPage.data( "addBackBtn" ) == "header" ? backBtnPosition = "header" : backBtnPosition = "footer";
 
 					if ( e.state == "on" ) {
@@ -305,7 +308,51 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 				});
 		},
 
-		_bindHWkey: function () {
+		_HWKeyHandler: function ( ev ) {
+			var $openedpopup = $.mobile.popup.active,
+				$page,
+				$focused;
+			// NOTE: The 'tizenhwkey' event is passed only document -> window objects.
+			//       Other DOM elements does not receive 'tizenhwkey' event.
+
+			// menu key
+			if( ev.originalEvent.keyName == "menu" ) {
+				// Blur focused element to turn off SIP(IME)
+				$page = $( ev.data ); 	// page object, passed by _setHWKeySupport()
+				$focused = $page.find( ".ui-focus" );
+				if( $focused[0] ) {	// Focused element is found
+					$focused.blur();
+					// NOTE: If a popup is opened and focused element exists in it,
+					//       do not close that popup.
+					//       'false' is returned here, hence popup close routine is not run.
+					return false;
+				}
+				// Close opened popup
+				if( $openedpopup ) {
+					$openedpopup.close();
+					return false;
+				}
+			}
+			// back key
+			else if( ev.originalEvent.keyName == "back" ) {
+				// Close opened popup
+				if( $openedpopup ) {
+					$openedpopup.close();
+					return false;
+				}
+			}
+			return true;	// Otherwise, propagate tizenhwkey event to window object
+		},
+
+		_setHWKeySupport: function( thisPage ) {
+			$( document ).on( "tizenhwkey", thisPage, this._HWKeyHandler );
+		},
+
+		_unsetHWKeySupport: function () {
+			$( document ).off( "tizenhwkey", this._HWKeyHandler );
+		},
+
+		_bindHWkeyOnSWBtn: function () {
 			// if HW key not exist
 			// return true
 			// else
@@ -342,7 +389,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 					}
 					return false;
 				}
-			});
+			} );
 
 		},
 
@@ -396,10 +443,11 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 				$elFooter = $elPage.find( ".ui-footer" ),
 				$elMoreKey = $elFooter.children( ":jqmData(icon='naviframe-more')" ),
 				$elBackKey = $elFooter.children( ".ui-btn-back" ),
-				footerBtn = $elFooter.children( "div.ui-btn" ),
+				footerBtn = $elFooter.children( "div.ui-btn, a.ui-btn" ),
 				btnLength = footerBtn.length,
-				btnWidth = $elFooter.innerWidth(),
-				idx, moreWidth;
+				btnWidth = window.innerWidth,
+				realBtnIndex = 0,
+				idx, moreWidth = 0;
 
 			if ( !btnLength ) {
 				return;
@@ -408,7 +456,6 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 			if ( $elMoreKey.length ) {
 				moreWidth = $elMoreKey.width();
 				btnWidth -= moreWidth;
-				footerBtn.eq( 0 ).css( "left", moreWidth );
 			}
 
 			if ( $elBackKey.length ) {
@@ -416,12 +463,21 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 				$elBackKey.addClass( "ui-footer-btn-border" );
 			}
 
-			btnWidth /= btnLength;
+			btnWidth /= btnLength - $elMoreKey.length - $elBackKey.length;
 
-			footerBtn.width( btnWidth );
-			for ( idx = 0; idx < btnLength; idx += 1 ) {
+			for ( idx = 0; idx < btnLength; idx++ ) {
+				if ( footerBtn.eq( idx ).hasClass( "ui-btn-back" ) ) {
+					return true;
+				}
+				if ( footerBtn.eq( idx ).is( ":jqmData(icon='naviframe-more')" ) ){
+					return true;
+				}
 				footerBtn.eq( idx )
-					.addClass( "ui-footer-btn-border" );
+					.addClass( "ui-footer-btn-border" )
+					.width( btnWidth )
+					.css( "position", "absolute" )
+					.css( "left", realBtnIndex * btnWidth + moreWidth );
+				realBtnIndex++;
 			}
 		},
 

@@ -33,7 +33,7 @@
 		</div><!-- /content -->
 		<script>
 		$( "#page-list-autodivider" ).on( "pageshow" , function() {
-			$( document ).on( "tizenhwkey", function ( ev ) {
+			$( window ).on( "tizenhwkey", function ( ev ) {
 				if ( ev.originalEvent.keyName === "back" ) {
 					//bind callbacks to the H/W keys
 					window.history.back();
@@ -42,7 +42,7 @@
 		});
 		$( "#page-list-autodivider" ).on( "pagebeforehide" , function() {
 			//unbind callbacks to the H/W keys
-			$( document ).off( "tizenhwkey" );
+			$( window ).off( "tizenhwkey" );
 		});
 		</script>
 

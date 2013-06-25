@@ -38,7 +38,7 @@
 	<script>
 	$( "#navi_footer_more" ).on( "pageshow" , function() {
 		//bind callbacks to the H/W keys
-		$( document ).on( "tizenhwkey" , function( e ) {
+		$( window ).on( "tizenhwkey" , function( e ) {
 			if ( e.originalEvent.keyName === "menu" ) {
 				$( "#pop_js" ).popup( "open" );
 			}else if( e.originalEvent.keyName === "back" ) {
@@ -48,7 +48,7 @@
 	});
 	$( "#navi_footer_more" ).on( "pagebeforehide" , function() {
 		//unbind callbacks to the H/W keys
-		$( document ).off( "tizenhwkey" );
+		$( window ).off( "tizenhwkey" );
 	});
 	</script>
 </div>

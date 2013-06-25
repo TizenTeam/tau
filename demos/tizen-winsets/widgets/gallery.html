@@ -35,7 +35,7 @@
 	<script src="gallery.js"></script>
 	<script>
 	$( "#gallery-demo" ).on( "pageshow" , function() {
-		$( document ).on( "tizenhwkey", function ( ev ) {
+		$( window ).on( "tizenhwkey", function ( ev ) {
 			if ( ev.originalEvent.keyName === "back" ) {
 				//bind callbacks to the H/W keys
 				window.history.back();
@@ -44,7 +44,7 @@
 	});
 	$( "#gallery-demo" ).on( "pagebeforehide" , function() {
 		//unbind callbacks to the H/W keys
-		$( document ).off( "tizenhwkey" );
+		$( window ).off( "tizenhwkey" );
 	});
 	</script>
 </div> <!-- /page -->
