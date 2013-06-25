@@ -229,10 +229,12 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 					self._updateFooterArea( thisPage );
 
 					// check device api : HW key existance
+					// TODO: remove these functions, because the HW key is mandatory.
 					if ( false ) {
-						self._bindHWkey();
+						self._bindHWkeyOnSWBtn();
 						self._setHWKeyLayout( thisPage );
 					}
+					self._setHWKeySupport( thisPage );
 					self._setMenuPopupLayout( thisPage );
 
 					if ( o.updatePagePadding ) {
@@ -247,7 +249,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 				})
 
 				.bind( "pagebeforehide", function ( e, ui ) {
-					$( document ).off( "tizenhwkey" ); /* test unbind code */
+					self._unsetHWKeySupport( );
 					if ( o.disablePageZoom ) {
 						$.mobile.zoom.enable( true );
 					}
@@ -305,7 +307,51 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 				});
 		},
 
-		_bindHWkey: function () {
+		_HWKeyHandler: function ( ev ) {
+			var $openedpopup = $.mobile.popup.active,
+				$page,
+				$focused;
+			// NOTE: The 'tizenhwkey' event is passed only document -> window objects.
+			//       Other DOM elements does not receive 'tizenhwkey' event.
+
+			// menu key
+			if( ev.originalEvent.keyName == "menu" ) {
+				// Blur focused element to turn off SIP(IME)
+				$page = $( ev.data ); 	// page object, passed by _setHWKeySupport()
+				$focused = $page.find( ".ui-focus" );
+				if( $focused[0] ) {	// Focused element is found
+					$focused.blur();
+					// NOTE: If a popup is opened and focused element exists in it,
+					//       do not close that popup.
+					//       'false' is returned here, hence popup close routine is not run.
+					return false;
+				}
+				// Close opened popup
+				if( $openedpopup ) {
+					$openedpopup.close();
+					return false;
+				}
+			}
+			// back key
+			else if( ev.originalEvent.keyName == "back" ) {
+				// Close opened popup
+				if( $openedpopup ) {
+					$openedpopup.close();
+					return false;
+				}
+			}
+			return true;	// Otherwise, propagate tizenhwkey event to window object
+		},
+
+		_setHWKeySupport: function( thisPage ) {
+			$( document ).on( "tizenhwkey", thisPage, this._HWKeyHandler );
+		},
+
+		_unsetHWKeySupport: function () {
+			$( document ).off( "tizenhwkey", this._HWKeyHandler );
+		},
+
+		_bindHWkeyOnSWBtn: function () {
 			// if HW key not exist
 			// return true
 			// else
@@ -342,7 +388,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 					}
 					return false;
 				}
-			});
+			} );
 
 		},
 
