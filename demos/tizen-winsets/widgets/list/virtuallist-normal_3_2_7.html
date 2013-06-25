@@ -35,7 +35,7 @@
 	</div>
 	<script>
 	$( "#virtuallist-normal_2line-star1" ).on( "pageshow" , function() {
-		$( document ).on( "tizenhwkey", function ( ev ) {
+		$( window ).on( "tizenhwkey", function ( ev ) {
 			if ( ev.originalEvent.keyName === "back" ) {
 				//bind callbacks to the H/W keys
 				window.history.back();
@@ -44,7 +44,7 @@
 	});
 	$( "#virtuallist-normal_2line-star1" ).on( "pagebeforehide" , function() {
 		//unbind callbacks to the H/W keys
-		$( document ).off( "tizenhwkey" );
+		$( window ).off( "tizenhwkey" );
 	});
 	</script>
 	<script type="text/javascript" src="virtuallist.js"></script>
