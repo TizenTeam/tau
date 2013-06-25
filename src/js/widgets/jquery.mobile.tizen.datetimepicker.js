@@ -749,6 +749,12 @@ define( [ 'jquery.mobile.tizen.widgetex', 'jquery.mobile.tizen.popupwindow', 'jq
 					}
 					$(window).bind( "resize" , obj._reflow );
 				}
+				if( !obj._close ) {
+					obj._close = function() {
+						$div.trigger( "popupafterclose" );
+					}
+					$(window).bind( "navigate", obj._close );
+				}
 				$ctx.popupwindow( 'open',
 						target.offset().left + ( target.width() / 2 ) - window.pageXOffset ,
 						target.offset().top + target.height() - window.pageYOffset, target.width(), target.height() );
@@ -758,8 +764,13 @@ define( [ 'jquery.mobile.tizen.widgetex', 'jquery.mobile.tizen.popupwindow', 'jq
 
 				$div.bind('popupafterclose', function ( e ) {
 					if ( obj._reflow ) {
-						$(window).unbind("resize", obj._reflow);
+						$(window).unbind( "resize", obj._reflow );
 						obj._reflow = null;
+					}
+
+					if ( obj._close ) {
+						$(window).unbind( "navigate", obj._close );
+						obj._close = null;
 					}
 
 					if ( !( target.hasClass("in") || target.hasClass("out") ) ) {
