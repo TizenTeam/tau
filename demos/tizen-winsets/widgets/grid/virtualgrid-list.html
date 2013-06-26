@@ -1,4 +1,4 @@
-<div id="virtualgrid_list_page" data-role="page" class="virtualgrid_grid_demo" data-add-back-btn="true">
+<div id="virtualgrid_list_page" data-role="page" class="virtualgrid_grid_demo">
 	<div id="normal" data-role="header" data-position="fixed">
 		<h1>Virtual grid - list</h1>
 	</div>
@@ -15,8 +15,20 @@
 		</script>
 		<div id="virtualgrid-demo"  data-role="virtualgrid" data-rotation="false" data-template="tizen-demo-namecard"></div>
 	</div>
-	<div data-role="footer">
-	</div>
+	<script>
+	$( "#virtualgrid_list_page" ).on( "pageshow" , function() {
+		$( window ).on( "tizenhwkey", function ( ev ) {
+			if ( ev.originalEvent.keyName === "back" ) {
+				//bind callbacks to the H/W keys
+				window.history.back();
+			}
+		});
+	});
+	$( "#virtualgrid_list_page" ).on( "pagebeforehide" , function() {
+		//unbind callbacks to the H/W keys
+		$( window ).off( "tizenhwkey" );
+	});
+	</script>
 	<link rel="stylesheet" href="namecard.css" />
 	<script type="text/javascript" src="virtualgrid.js"></script>
 </div>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<div data-role="page" data-add-back-btn="true">
+<div data-role="page" id="video">
 	<script>
 		$(document).bind("pageinit", function() {
 			$.mobile.tizen.disableContextMenu( $("div:jqmData(role='page')"));
@@ -14,6 +14,18 @@
 			<p>Your browser does not support the video tag.</p>
 		</video>
 	</div>
-	<div data-role="footer">
-	</div>
+	<script>
+	$( "#video" ).on( "pageshow" , function() {
+		$( window ).on( "tizenhwkey", function ( ev ) {
+			if ( ev.originalEvent.keyName === "back" ) {
+				//bind callbacks to the H/W keys
+				window.history.back();
+			}
+		});
+	});
+	$( "#video" ).on( "pagebeforehide" , function() {
+		//unbind callbacks to the H/W keys
+		$( window ).off( "tizenhwkey" );
+	});
+	</script>
 </div>
