@@ -426,12 +426,14 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 		_updateHeaderArea : function ( thisPage ) {
 			var $elPage = $( thisPage ),
 				$elHeader = $elPage.find( ":jqmData(role='header')" ).length ? $elPage.find( ":jqmData(role='header')") : $elPage.siblings( ":jqmData(role='header')"),
-				headerBtnNum = $elHeader.children("a").length,
+				$headerBtn = $elHeader.children("a,[data-"+$.mobile.ns+"role=button]"),
+				headerBtnWidth = $headerBtn.width(),
+				headerBtnNum = $headerBtn.length,
 				headerSrcNum = $elHeader.children("img").length,
 				h1width;
 
 			if ( !$elPage.is( ".ui-dialog" ) ) {
-				h1width = window.innerWidth - parseInt( $elHeader.find( "h1" ).css( "margin-left" ), 10 ) * 2 - $elHeader.children( "a" ).width() * headerBtnNum - $elHeader.children( "a" ).width() / 4 - $elHeader.children( "img" ).width() * headerSrcNum * 4;
+				h1width = window.innerWidth - parseInt( $elHeader.find( "h1" ).css( "margin-left" ), 10 ) * 2 - headerBtnWidth * headerBtnNum - headerBtnWidth / 4 - $elHeader.children( "img" ).width() * headerSrcNum * 4;
 				$elHeader.find( "h1" ).css( "width", h1width );
 				$elHeader.find( '.ui-title-text-sub' ).css( "width", h1width );
 			}
