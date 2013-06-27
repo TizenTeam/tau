@@ -1342,7 +1342,7 @@ define( [ ], function ( ) {
 					}
 				};
 			} else {
-				this._dragEvt = "touchstart touchmove touchend click";
+				this._dragEvt = "touchstart touchmove touchend";
 				var _in_progress = false;
 				this._dragCB = function ( e ) {
 					var touches = e.originalEvent.touches;
@@ -1378,9 +1378,6 @@ define( [ ], function ( ) {
 						}
 
 						return self._handleDragStop( e );
-
-					case "click":
-						return !self._didDrag;
 					}
 				};
 			};
