@@ -4,6 +4,10 @@ $( document ).one( "pageinit", "#popupwindow-demo", function () {
 		$("#textbox_popup").popup("close");
 		return false;
 	});
+	
+	$('#textbox_popup a').click(function(){
+		$('#textbox_popup input').val('');
+	});
 
        if ( $.tizen.__tizen__.util.isMobileBrowser() ) {
                 var direction = window.screen.orientation;
