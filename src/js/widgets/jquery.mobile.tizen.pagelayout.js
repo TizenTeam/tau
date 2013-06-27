@@ -235,7 +235,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 						self._setHWKeyLayout( thisPage );
 					}
 					self._setHWKeySupport( thisPage );
-					self._setMenuPopupLayout( thisPage );
+					//self._setMenuPopupLayout( thisPage );
 
 					if ( o.updatePagePadding ) {
 						$( window ).bind( "throttledresize." + self.widgetName, function () {
