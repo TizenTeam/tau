@@ -297,11 +297,11 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 			cover.stop();
 			cover.clearQueue();
 			cover.trigger('animationstart');
-			cover.animate( { left: leftPercentage + '%' }, animationOptions );
+			cover.clearQueue().animate( { left: leftPercentage + '%' }, animationOptions );
 			if ( leftPercentage == 0 ) {
-				item.animate({ opacity: 0 }, "slow");
+				item.clearQueue().animate({ opacity: 0 }, "slow");
 			} else {
-				item.animate({ opacity: 1 }, "slow");
+				item.clearQueue().animate({ opacity: 1 }, "slow");
 			}
 
 		},
