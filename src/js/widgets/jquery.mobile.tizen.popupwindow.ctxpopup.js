@@ -283,6 +283,7 @@ define( [ '../jquery.mobile.tizen.core', 'jquery.mobile.tizen.popupwindow', 'jqu
 			ctxpopup._ui.arrow[minDiffIdx]
 				.show()
 				.triangle( "option", "offset", coords[minDiffIdx].triangleOffset );
+			this.element.parents( ".ui-popupwindow" ).addClass( "ui-arrow-" + minDiffIdx );
 			return coords[minDiffIdx].actual;
 		}
 

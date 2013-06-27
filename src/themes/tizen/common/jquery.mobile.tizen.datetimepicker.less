@@ -1,5 +1,7 @@
 @import "config.less";
 
+@unit_base_datetimepicker : @unit_base * 0.5;
+
 @-webkit-keyframes ui-datetime-in {
 	from {
 		-webkit-transform: translateY(14 * @unit_base) scale(.9);
@@ -19,27 +21,51 @@
 }
 
 .ui-datefield {
-	.ui-datefield-seperator {
+	margin-top: 18 * @unit_base_datetimepicker;
+
+	& > div > span {
+		vertical-align: middle;
+		min-width: 69 * @unit_base_datetimepicker;
+		position: relative ! important;
+		padding: 0;
+	}
+
+	.ui-datefield-seperator, .ui-datefield-tab {
+		margin-top: -0.8em;
 		display: inline-block;
-		min-width: 10 * @unit_base;
+		min-width: 22 * @unit_base_datetimepicker;
 		text-align: center;
+	}
+
+	.ui-datefield-tab > div {
+		display: inline-block;
+		width: 17 * @unit_base_datetimepicker;
+		height: 42 * @unit_base_datetimepicker;
+
+		&.ui-divider-1st {
+			border-right:1px solid @color_timepicker_divider_color1;
+		}
+
+		&.ui-divider-2nd {
+			border-left:1px solid @color_timepicker_divider_color2;
+		}
 	}
 
 	.date,.time,.ui-datefield-tab {
 		display: inline-block;
 	}
 
-	.ui-datefield-tab {
-		min-width: 20 * @unit_base;
+	.ui-btn-box-s .ui-btn-inner.ui-btn-hastxt {
+		padding: 0;
 	}
 
-	.ui-btn-box-s .ui-btn-inner.ui-btn-hastxt {
-		padding: 0.1em 0.5em;
+	span.ui-datefield-year, span.ui-datefield-month {
+		min-width: 84 * @unit_base_datetimepicker;  /* except right&left padding */
+		padding: 0 10 * @unit_base_datetimepicker;
 	}
 
 	.ui-datefield-selected {
 		display: inline-block;
-		color: @color_timepicker_selector_color;
 	}
 	.ui-datefield-selected.in {
 		-ms-animation: ui-datetime-in 0.3s 1 ease;
@@ -52,6 +78,18 @@
 		-o-animation: ui-datetime-out 0.3s 1 ease;
 		-moz-animation: ui-datetime-out 0.3s 1 ease;
 		-webkit-animation: ui-datetime-out 0.3s 1 ease;
+	}
+}
+
+@media all and (orientation: landscape) and (device-aspect-ratio: 16/9) {
+	.ui-datefield {
+		& > div > span {
+			min-width: 159 * @unit_base_datetimepicker;
+		}
+
+		span.ui-datefield-year, span.ui-datefield-month {
+			min-width: 229 * @unit_base_datetimepicker;  /* except right&left padding */
+		}
 	}
 }
 
@@ -70,18 +108,22 @@
 	padding-top: 0.3em;
 }
 
+.ui-btn-picker {
+	line-height: 48 * @unit_base_datetimepicker;
+}
+
 .ui-datetime-text-main .ui-datefield-period.ui-btn {
-	margin-top: -0.3em;
-	height: 28 * @unit_base;
+	width: 95 * @unit_base_datetimepicker;
+	line-height: 60 * @unit_base_datetimepicker;
 	right: auto;
 	position: relative ! important;
 }
 
 .ui-datetime-text-sub {
 	top: 5 * @unit_base ! important;
-        color: @color_list_divider_text ! important;
+	color: @color_list_divider_text ! important;
 	background: transparent ! important;
-        font-size: @font_size_datetime_sub_text ! important;
+	font-size: @font_size_datetime_sub_text ! important;
 }
 
 .ui-datetimepicker-selector {
@@ -120,7 +162,15 @@
 .ui-datetimepicker {
 	left: 0 !important;
 	padding: 0;
-	
+
+	&.ui-arrow-t {
+		margin-top: 10 * @unit_base_datetimepicker;
+	}
+
+	&.ui-arrow-b {
+		margin-top: -10 * @unit_base_datetimepicker;
+	}
+
 	.ui-popupwindow-padding {
 		background: @color_timepicker_selector_color !important;
 		border-radius: 0 !important;
