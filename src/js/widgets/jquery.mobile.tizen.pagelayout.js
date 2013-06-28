@@ -469,10 +469,10 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 
 			for ( idx = 0; idx < btnLength; idx++ ) {
 				if ( footerBtn.eq( idx ).hasClass( "ui-btn-back" ) ) {
-					return true;
+					continue;
 				}
 				if ( footerBtn.eq( idx ).is( ":jqmData(icon='naviframe-more')" ) ){
-					return true;
+					continue;
 				}
 				footerBtn.eq( idx )
 					.addClass( "ui-footer-btn-border" )
@@ -481,6 +481,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 					.css( "left", realBtnIndex * btnWidth + moreWidth );
 				realBtnIndex++;
 			}
+			$elFooter.find( ".ui-footer-btn-border" ).eq( 0 ).removeClass( "ui-footer-btn-border" );
 		},
 
 		_setHWKeyLayout : function ( thisPage ) {
