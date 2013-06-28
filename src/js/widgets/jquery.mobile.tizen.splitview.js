@@ -658,7 +658,8 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 				touchEndEvt = ( $.support.touch ? "touchend" : "mouseup" ) + ".splitview";
 
 			spliter.bind( touchStartEvt, { e : spliter }, function ( event ) {
-				if ( self.options.fixed ) {
+				if ( self.options.fixed ||
+					$.support.touch && event.originalEvent.touches.length !== 1 ) {
 					return;
 				}
 
