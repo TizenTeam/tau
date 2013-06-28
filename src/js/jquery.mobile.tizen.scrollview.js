@@ -1271,6 +1271,10 @@ define( [ ], function ( ) {
 		 * @private
 		 */
 		_showOverflowIndicator: function () {
+			if ( !$( this.element ).is( ".ui-content" ) ) {
+				return true;
+			}
+
 			if ( !this.options.overflowEnable || !this._overflowAvail || this._softkeyboard ) {
 				return;
 			}
