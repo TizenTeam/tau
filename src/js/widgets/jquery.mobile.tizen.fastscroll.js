@@ -648,9 +648,9 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 			self._setTimer( true );
 
 			$popup.text( "M" ) // Popup size is determined based on "M".
+				.width( $popup.height() )
 				.css( { marginLeft: -( $popup.outerWidth() / 2 ),
-					marginTop: -( $popup.outerHeight() / 2 ) } )
-				.width( $popup.height() );
+					marginTop: -( $popup.outerHeight() / 2 ) } );
 		}
 	} );
 
