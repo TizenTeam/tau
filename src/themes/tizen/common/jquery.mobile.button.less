@@ -20,7 +20,15 @@
 		vertical-align: middle;
 } /* wongi_1018 : For button align. */
 
+.ui-footer, .ui-ticker-btn {
+	.ui-btn.ui-btn-box-s {
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+}
 .ui-btn.ui-btn-box-s {
+		margin-top: 6 * @unit_base;
+		margin-bottom: 6 * @unit_base;
 		color: @color_button_text_normal;
 		text-shadow: @color_button_text_shadow;
 		.LESSborder-radius-all( 0.2rem );
@@ -29,7 +37,7 @@
 .ui-btn:focus, .ui-btn:active { outline: none; }
 .ui-header .ui-btn, .ui-bar .ui-btn { display: inline-block; font-size: 13 * @unit_base; margin: 0; }
 .ui-btn-inline { display: inline-block; }
-.ui-btn-inner { padding: .5em 9 * @unit_base; display: block; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; position: relative; zoom: 1; }
+.ui-btn-inner { padding: 5 * @unit_base; display: block; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; position: relative; zoom: 1; }
 
 .ui-btn-icon-notext { width: 36 * @unit_base; height: 36 * @unit_base; }
 .ui-btn-icon-notext .ui-btn-inner { padding: 2 * @unit_base 1 * @unit_base 2 * @unit_base 3 * @unit_base; }
@@ -82,6 +90,11 @@
 	margin-left: auto;
 	margin-right: auto;
 	padding:0 1px; /* Webkit width(ellipsis) problem workaround */
+}
+
+.ui-btn .ui-btn-inner.ui-btn-hastxt span.ui-btn-text
+{
+	font-size: 18 * @unit_base;
 }
 
 .ui-li .ui-btn.ui-btn-icon_only
