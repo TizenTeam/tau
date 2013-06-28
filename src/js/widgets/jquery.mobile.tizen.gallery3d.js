@@ -616,6 +616,7 @@ define( [ "components/imageloader", "components/motionpath", "components/webgl" 
 		_maxDrawLength: 0,
 		_firstImageNumber: 0,
 		_lastImageNumber: 0,
+		_operationQueue: [],
 
 		_create: function () {
 			var self = this,
@@ -700,9 +701,16 @@ define( [ "components/imageloader", "components/motionpath", "components/webgl" 
 				points: pathPoints,
 				maxLevel: self._MAX_ITEM_COUNT
 			} );
+
 			for ( i = 0; i < self._nodes.length; i += 1 ) {
 				self._path.levels[i] = self._path.levels[i + 1] || 0;
 				self._nodes[i].level = i;
+			}
+
+			this._setPosition( self._ANIMATION_END, this._DIRECTION_RIGHT );
+
+			while ( this._operationQueue.length ) {
+				this._setPosition( self._ANIMATION_END, this._operationQueue.shift() );
 			}
 		},
 
@@ -746,7 +754,7 @@ define( [ "components/imageloader", "components/motionpath", "components/webgl" 
 				touchStartEvt = ( $.support.touch ? "touchstart" : "mousedown" ),
 				touchMoveEvt = ( $.support.touch ? "touchmove" : "mousemove" ) + ".gallery3d",
 				touchEndEvt = ( $.support.touch ? "touchend" : "mouseup" ) + ".gallery3d",
-				touchLeaveEvt = ( $.support.touch ? "touchleave" : "mouseout" ) + ".gallery3d";
+				$document = $( document );
 
 			canvas.on( "webglcontextlost", function ( e ) {
 				e.preventDefault();
@@ -877,8 +885,11 @@ define( [ "components/imageloader", "components/motionpath", "components/webgl" 
 						self._animate( null, self._DURATION_DEFAULT * ( 1 - dragValue ), dragDirection, 0, dragValue );
 					}
 
-					view.unbind( ".gallery3d" );
-				}).on( touchLeaveEvt, function ( e ) {
+					view.off( ".gallery3d" );
+					$document.off( ".gallery3d" );
+				});
+
+				$document.on( touchMoveEvt + " " + touchEndEvt, function () {
 					view.trigger( touchEndEvt );
 				});
 			});
@@ -1024,10 +1035,10 @@ define( [ "components/imageloader", "components/motionpath", "components/webgl" 
 			isMipmap = isMipmap || false;
 			node = nodes[i];
 			node.image = node.image || new Image();
+			node.imageID = imageID;
 
 			$( node.image ).one( "load", function ( e ) {
 				self._bindTexture( gl, node, this, isMipmap );
-				node.imageID = imageID;
 
 				if ( !self._animationID ) {
 					self._setPosition( 0, 0 );
@@ -1155,7 +1166,7 @@ define( [ "components/imageloader", "components/motionpath", "components/webgl" 
 				}
 
 				if ( progress === self._ANIMATION_END && nodes[i].level === 1 ) {
-					self.element.trigger( "select", imageList[ nodes[i].imageID ], nodes[i].imageID );
+					self.element.trigger( "select", [imageList[nodes[i].imageID], nodes[i].imageID] );
 				}
 
 				position = path.getPosition( t );
@@ -1312,6 +1323,11 @@ define( [ "components/imageloader", "components/motionpath", "components/webgl" 
 			var self = this,
 				repeat = repeatCount || 0,
 				duration = self._DURATION_DEFAULT * ( repeat + 1 );
+
+			if ( !self._gl ) {
+				self._operationQueue.push( direction );
+				return;
+			}
 
 			if ( self._imageList.length <= 1 ) {
 				return;
