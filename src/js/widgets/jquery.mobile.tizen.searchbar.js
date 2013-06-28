@@ -128,16 +128,15 @@ define( [ '../jquery.mobile.tizen.core', 'jquery.mobile.tizen.pagelayout' ], fun
 				focusedEl.addClass( "ui-search-bar-icon" );
 			}
 
-			clearbtn = $( "<a href='#' class='ui-input-clear' title='clear text'>clear text</a>" )
-				.bind('click', function ( event ) {
+			clearbtn = $( "<a href='#' class='ui-input-clear' title='clear text'>clear text</a>" );
+
+			clearbtn.on( "click", function (event) {
 					if ( input.attr( "disabled" ) == "disabled" ) {
 						return false;
 					}
 					input
 						.val( "" )
-						.focus()
-						.trigger( "change" );
-					clearbtn.addClass( "ui-input-clear-hidden" );
+						.focus();
 					event.preventDefault();
 				})
 				.appendTo( focusedEl )
@@ -148,11 +147,13 @@ define( [ '../jquery.mobile.tizen.core', 'jquery.mobile.tizen.pagelayout' ], fun
 					shadow: true
 				});
 
-			function toggleClear() {
+			/* temporarily delete 06.28 Heeju Joo */
+			/*function toggleClear() {
 				setTimeout(function () {
-					clearbtn.toggleClass( "ui-input-clear-hidden", !input.val() );
+					clearbtn.toggleClass( "ui-input-clear-hidden", !input.val()
 				}, 0);
-			}
+			}*/
+
 
 			function showCancel() {
 				focusedEl
@@ -170,7 +171,6 @@ define( [ '../jquery.mobile.tizen.core', 'jquery.mobile.tizen.pagelayout' ], fun
 				cancelbtn
 					.addClass( "ui-btn-cancel-hide" )
 					.removeClass( "ui-btn-cancel-show" );
-				toggleClear();
 			}
 
 			function makeFrontIcon() {
@@ -187,11 +187,16 @@ define( [ '../jquery.mobile.tizen.core', 'jquery.mobile.tizen.pagelayout' ], fun
 					} );
 				frontIcon.addClass( "ui-btn-search-front-icon" );
 			}
-
-			toggleClear();
+			/* temporarily delete - 06.28 Heeju Joo */
+			/*toggleClear();
 
 			input.bind( 'paste cut keyup focus change blur', toggleClear );
+			*/
 
+			/* N_SE-43150 when input get event "focus", it show clearbtn */
+			input.bind( "focus", function() {
+				clearbtn.css("display", "inline-block");
+			});
 			//SLP --start search bar with cancel button
 			focusedEl.wrapAll( "<div class='input-search-bar'></div>" );
 			searchimage = $("<div class='ui-image-search'></div>").appendTo( focusedEl );
@@ -211,8 +216,7 @@ define( [ '../jquery.mobile.tizen.core', 'jquery.mobile.tizen.pagelayout' ], fun
 
 						input
 							.val( "" )
-							.blur()
-							.trigger( "change" );
+							.blur();
 
 						if ( useCancelBtn ) {
 							hideCancel();
