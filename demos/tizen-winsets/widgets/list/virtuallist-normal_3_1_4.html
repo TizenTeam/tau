@@ -24,7 +24,7 @@
 		</ul>
 	</div>
 	<script>
-	$( "#genlist-normal" ).on( "pageshow" , function() {
+	$( "#virtuallist-normal_1line-btn1" ).on( "pageshow" , function() {
 		$( window ).on( "tizenhwkey", function ( ev ) {
 			if ( ev.originalEvent.keyName === "back" ) {
 				//bind callbacks to the H/W keys
@@ -32,7 +32,7 @@
 			}
 		});
 	});
-	$( "#genlist-normal" ).on( "pagebeforehide" , function() {
+	$( "#virtuallist-normal_1line-btn1" ).on( "pagebeforehide" , function() {
 		//unbind callbacks to the H/W keys
 		$( window ).off( "tizenhwkey" );
 	});

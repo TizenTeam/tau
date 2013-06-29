@@ -1271,6 +1271,10 @@ define( [ ], function ( ) {
 		 * @private
 		 */
 		_showOverflowIndicator: function () {
+			if ( !$( this.element ).is( ".ui-content" ) ) {
+				return true;
+			}
+
 			if ( !this.options.overflowEnable || !this._overflowAvail || this._softkeyboard ) {
 				return;
 			}
@@ -1338,7 +1342,7 @@ define( [ ], function ( ) {
 					}
 				};
 			} else {
-				this._dragEvt = "touchstart touchmove touchend click";
+				this._dragEvt = "touchstart touchmove touchend";
 				var _in_progress = false;
 				this._dragCB = function ( e ) {
 					var touches = e.originalEvent.touches;
@@ -1374,9 +1378,6 @@ define( [ ], function ( ) {
 						}
 
 						return self._handleDragStop( e );
-
-					case "click":
-						return !self._didDrag;
 					}
 				};
 			};

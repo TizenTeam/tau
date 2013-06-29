@@ -343,6 +343,9 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 				seekBar = control.find( ".ui-seekbar" ),
 				durationBar = seekBar.find( ".ui-duration" ),
 				currenttimeBar = seekBar.find( ".ui-currenttime" ),
+				touchStartEvt = ( $.support.touch ? "touchstart" : "mousedown" ),
+				touchMoveEvt = ( $.support.touch ? "touchmove" : "mousemove" ) + ".multimediaview",
+				touchEndEvt = ( $.support.touch ? "touchend" : "mouseup" ) + ".multimediaview",
 				$document = $( document );
 
 			view.bind( "loadedmetadata.multimediaview", function ( e ) {
@@ -425,8 +428,8 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 				e.stopPropagation();
 			});
 
-			seekBar.bind( "vmousedown.multimediaview", function ( e ) {
-				var x = e.clientX,
+			seekBar.bind( touchStartEvt, function ( e ) {
+				var x = $.support.touch ? e.originalEvent.changedTouches[0].pageX : e.pageX,
 					duration = viewElement.duration,
 					durationOffset = durationBar.offset(),
 					durationWidth = durationBar.width(),
@@ -443,20 +446,26 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 
 				e.preventDefault();
 
-				$document.bind( "vmousemove.multimediaview", function ( e ) {
-					var x = e.clientX,
+				control.bind( touchMoveEvt, function ( e ) {
+					var x = $.support.touch ? e.originalEvent.changedTouches[0].pageX : e.pageX,
 						timerate = ( x - durationOffset.left ) / durationWidth;
 
 					viewElement.currentTime = duration * timerate;
 
-					e.preventDefault();
-				}).bind( "vmouseup.multimediaview", function () {
-					$document.unbind( "vmousemove.multimediaview vmouseup.multimediaview" );
+					e.stopPropagation();
+				}).bind( touchEndEvt, function () {
+					control.unbind( ".multimediaview" );
+					$document.unbind( touchMoveEvt );
 					if ( viewElement.paused ) {
 						viewElement.pause();
 					} else {
 						viewElement.play();
 					}
+					e.stopPropagation();
+				});
+
+				$document.bind( touchMoveEvt, function () {
+					control.trigger( touchEndEvt );
 				});
 			});
 
@@ -479,8 +488,8 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 				}
 			});
 
-			volumeBar.bind( "vmousedown.multimediaview", function ( e ) {
-				var baseX = e.clientX,
+			volumeBar.bind( touchStartEvt, function ( e ) {
+				var baseX = $.support.touch ? e.originalEvent.changedTouches[0].pageX : e.pageX,
 					volumeGuideLeft = volumeGuide.offset().left,
 					volumeGuideWidth = volumeGuide.width(),
 					volumeBase = volumeGuideLeft + volumeGuideWidth,
@@ -494,16 +503,22 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 
 				e.preventDefault();
 
-				$document.bind( "vmousemove.multimediaview", function ( e ) {
-					var currentX = e.clientX,
-						currentVolume = ( currentX - volumeGuideLeft ) / volumeGuideWidth;
+				control.bind( touchMoveEvt, function ( e ) {
+					var x = $.support.touch ? e.originalEvent.changedTouches[0].pageX : e.pageX,
+						currentVolume = ( x - volumeGuideLeft );
+					currentVolume = ( currentVolume < 0 ) ? 0 : currentVolume / volumeGuideWidth;
+					self._setVolume( ( currentVolume > 1 ) ? 1 : currentVolume.toFixed( 2 ) );
 
-					self._setVolume( currentVolume.toFixed( 2 ) );
-
-					e.preventDefault();
-				}).bind( "vmouseup.multimediaview", function () {
-					$document.unbind( "vmousemove.multimediaview vmouseup.multimediaview" );
+					e.stopPropagation();
+				}).bind( touchEndEvt, function () {
+					control.unbind( ".multimediaview" );
+					$document.unbind( touchMoveEvt );
 					volumeHandle.removeClass( "ui-button-down" );
+					e.stopPropagation();
+				});
+
+				$document.bind( touchMoveEvt, function () {
+					control.trigger( touchEndEvt );
 				});
 			});
 		},

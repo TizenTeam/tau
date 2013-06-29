@@ -14,6 +14,7 @@ $( document ).one( "pagecreate", "#checkbox-demo", function () {
 
 	$("input[type='checkbox']").on( "change", function (event, ui) {
 		$( ".triggered-check" ).text( this.id + " is " + this.checked );
+		$( ".checked-value" ).text( $( "#checkbox-1" ).prop( "checked" ) );
 	});
 
 });

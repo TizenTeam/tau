@@ -46,9 +46,10 @@
 	</div>
 	<script>
 	$( "#tabbar_more" ).on( "pageshow" , function() {
-		$( window ).on( "tizenhwkey", function ( ev ) {
-			if ( ev.originalEvent.keyName === "back" ) {
-				//bind callbacks to the H/W keys
+		$( window ).on( "tizenhwkey" , function( e ) {
+			if ( e.originalEvent.keyName === "menu" ) {
+				$( "#pop_js" ).popup( "open" );
+			}else if( e.originalEvent.keyName === "back" ) {
 				window.history.back();
 			}
 		});

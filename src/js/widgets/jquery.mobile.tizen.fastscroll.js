@@ -512,7 +512,6 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 				maxNumOfItems,
 				numOfItems,
 				minHeight,
-				padding,
 				omitInfo,
 				dividers,
 				listItems,
@@ -569,9 +568,8 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 				dividers.each( makeCharacterSet );
 			}
 
-			padding = parseInt( shapItem.css( "padding" ), 10 );
-			minHeight = shapItem.height() + ( padding * 2 );
-			maxNumOfItems = parseInt( ( contentHeight / minHeight ) - 1, 10 );
+			minHeight = shapItem.outerHeight( true );
+			maxNumOfItems = parseInt( contentHeight / minHeight - 1, 10 );
 			numOfItems = primaryCharacterSet.length;
 
 			maxNumOfItems = secondCharacterSet ? maxNumOfItems - 2 : maxNumOfItems;
@@ -616,7 +614,7 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 				}
 			}
 
-			containerHeight = self.shortcutsContainer.outerHeight();
+			containerHeight = self.shortcutsContainer.outerHeight( true );
 			emptySize = contentHeight - containerHeight;
 			shortcutsItems = self.shortcutsList.children();
 			size = parseInt( emptySize / shortcutsItems.length, 10 );
@@ -648,9 +646,9 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 			self._setTimer( true );
 
 			$popup.text( "M" ) // Popup size is determined based on "M".
+				.width( $popup.height() )
 				.css( { marginLeft: -( $popup.outerWidth() / 2 ),
-					marginTop: -( $popup.outerHeight() / 2 ) } )
-				.width( $popup.height() );
+					marginTop: -( $popup.outerHeight() / 2 ) } );
 		}
 	} );
 

@@ -190,13 +190,16 @@ define( [ 'jquery.mobile.tizen.widgetex', 'jquery.mobile.tizen.popupwindow', 'jq
 				div = document.createElement('div'),
 				pat,
 				tpl,
+				tpl2,
 				period,
 				btn,
 				obj = this;
 
 			while ( token.length > 0 ) {
 				pat = token.shift();
-				tpl = '<span class="ui-datefield-%1" data-pat="' + pat + '">%2</span>';
+				tpl = '<span class="ui-btn-picker ui-datefield-%1"' +
+					'data-role="button" data-inline="true" data-pat="' + pat + '">%2</span>';
+				tpl2= '<span class="ui-datefield-%1" data-pat="' + pat + '">%2</span>';
 				switch ( pat ) {
 				case 'H': //0 1 2 3 ... 21 22 23
 				case 'HH': //00 01 02 ... 21 22 23
@@ -243,10 +246,12 @@ define( [ 'jquery.mobile.tizen.widgetex', 'jquery.mobile.tizen.popupwindow', 'jq
 					$(div).append( tpl.replace('%1', 'era').replace('%2', this._calendar().eras.name) );
 					break;
 				case '\t':
-					$(div).append( tpl.replace('%1', 'tab').replace('%2', pat) );
+					$(div).append( tpl2.replace('%1', 'tab')
+							.replace('%2', "<div class='ui-divider-1st'>&nbsp;</div>" +
+								"<div class='ui-divider-2nd'>&nbsp;</div>") );
 					break;
 				default : // string or any non-clickable object
-					$(div).append( tpl.replace('%1', 'seperator').replace('%2', pat) );
+					$(div).append( tpl2.replace('%1', 'seperator').replace('%2', pat.split(/[\-\/]/).join("") ) );
 					break;
 				}
 			}
@@ -256,6 +261,7 @@ define( [ 'jquery.mobile.tizen.widgetex', 'jquery.mobile.tizen.popupwindow', 'jq
 				this._setDate( this.options.date );
 			}
 
+			this.ui.find('.ui-btn-picker').buttonMarkup();
 			this.ui.find('.ui-datefield-period').buttonMarkup().bind( 'vclick', function ( e ) {
 				obj._switchAmPm( obj );
 				return false;
@@ -749,6 +755,12 @@ define( [ 'jquery.mobile.tizen.widgetex', 'jquery.mobile.tizen.popupwindow', 'jq
 					}
 					$(window).bind( "resize" , obj._reflow );
 				}
+				if( !obj._close ) {
+					obj._close = function() {
+						$div.trigger( "popupafterclose" );
+					}
+					$(window).bind( "navigate", obj._close );
+				}
 				$ctx.popupwindow( 'open',
 						target.offset().left + ( target.width() / 2 ) - window.pageXOffset ,
 						target.offset().top + target.height() - window.pageYOffset, target.width(), target.height() );
@@ -758,8 +770,13 @@ define( [ 'jquery.mobile.tizen.widgetex', 'jquery.mobile.tizen.popupwindow', 'jq
 
 				$div.bind('popupafterclose', function ( e ) {
 					if ( obj._reflow ) {
-						$(window).unbind("resize", obj._reflow);
+						$(window).unbind( "resize", obj._reflow );
 						obj._reflow = null;
+					}
+
+					if ( obj._close ) {
+						$(window).unbind( "navigate", obj._close );
+						obj._close = null;
 					}
 
 					if ( !( target.hasClass("in") || target.hasClass("out") ) ) {
