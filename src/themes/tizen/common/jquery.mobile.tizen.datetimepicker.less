@@ -21,7 +21,7 @@
 }
 
 .ui-datefield {
-	margin-top: 18 * @unit_base_datetimepicker;
+	font-size: @font_size_datetime_main_text;
 
 	& > div > span {
 		vertical-align: middle;
@@ -31,7 +31,6 @@
 	}
 
 	.ui-datefield-seperator, .ui-datefield-tab {
-		margin-top: -0.8em;
 		display: inline-block;
 		min-width: 22 * @unit_base_datetimepicker;
 		text-align: center;
@@ -100,7 +99,6 @@
 
 .ui-datetime-text-main {
 	position: relative;
-	font-size: @font_size_datetime_main_text;
 	top: 0 ;
 	text-overflow: ellipsis;
 	overflow: hidden;
@@ -112,7 +110,7 @@
 	line-height: 48 * @unit_base_datetimepicker;
 }
 
-.ui-datetime-text-main .ui-datefield-period.ui-btn {
+.ui-datefield-period.ui-btn {
 	width: 95 * @unit_base_datetimepicker;
 	line-height: 60 * @unit_base_datetimepicker;
 	right: auto;
@@ -185,5 +183,13 @@
 		div {
 			height: 53 * @unit_base;
 		}
+	}
+}
+
+.ui-li-dialogue .ui-datefield {
+	margin-top: 18 * @unit_base_datetimepicker;
+
+	.ui-datefield-seperator, .ui-datefield-tab {
+		margin-top: -1em;
 	}
 }
