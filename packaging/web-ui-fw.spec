@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.43
+Version:    0.2.44
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -97,6 +97,34 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Sat Jun 29 2013 Hyeoncheol Choi <hc7.choi@samsung.com> 0.2.44
+	- Slider: modify slider-container padding(top, bottom)
+	- Button : modify button size and added margin.
+	- datetimepicker: Fix layout issue.
+	- fastscroll: Apply divider styles to items
+	- winset: clear text field in popup before close (N_SE-43451)
+	- gallery3d: Fix wrong operations of API
+	- datetimepicker: Apply light theme & dark theme
+	- scrollview: Add pressed icon images of the jump-to-scroll button
+	- winset: checkbox page, changing field with value after click on checkbox (N_SE-43429)
+	- winset: correct name of page (N_SE-43471)
+	- Scrollview : Remove click event in touch state(DCM-1690,DCM-2067).
+	- Pagelayout : Invalidate to add ui-ctxpopup-optionalmenu(DCM-2073).
+	- pagelayout: fix width of h1 in header (N_SE-43307,N_SE-42973,N_SE-43556)
+	- splitview: Fix the handler dragging bug caused by multitouches
+	- Tokentextarea: Fix the anchor button position
+	- progress: Fix the end position of the stripe animation
+	- Scrollview : hide overflowIndicator if not jQM content
+	- JQM : remove scrollTo in jquery.mobile.init.js
+	- multimediaview: Improve usability of volume bar
+	- datetimepicker: Fix resize event issue
+	- Searchbar: modify clearbtn appear concept
+	- JQM patch : invalidate 0021,0045 patch and change toggleswitch ux
+	- fastscroll: Modify the popup position to the center
+	- H/W key : add H/W key event and bug fix.
+	- Winsets: Replace double Cancel buttons
+	- Winsets: Fix id of page for h/w event binding
+
 * Tue Jun 25 2013 Youmin Ha <youmin.ha@samsung.com> 0.2.43
 	- Pagelayout : Add condition check backBtnQueue length (N_SE-42987).
 	- tizen-winsets: fix HW key event binding
