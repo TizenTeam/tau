@@ -596,7 +596,8 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 				dpr = window.outerWidth / window.innerWidth;
 				layoutInnerHeight = Math.floor( window.outerHeight / dpr );
 			} else {
-				layoutInnerHeight = window.innerHeight;
+				//#N_SE-43092: window.innerHeight returns incorrect size
+				layoutInnerHeight = $.mobile.$window.height();
 			}
 
 			resultContentHeight = layoutInnerHeight - resultFooterHeight - resultHeaderHeight;
