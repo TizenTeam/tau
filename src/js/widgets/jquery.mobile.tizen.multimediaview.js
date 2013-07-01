@@ -400,10 +400,15 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 				self._resize();
 			});
 
-			$( ".ui-button", control ).bind( "vmousedown", function () {
-				$( this ).addClass( "ui-button-down" );
-			}).bind( "vmouseup vmouseout", function () {
+			$( ".ui-button", control ).bind( touchStartEvt, function () {
+				var button = $( this ).addClass( "ui-button-down" );
+
+				$document.bind( touchMoveEvt, function () {
+					button.trigger( touchEndEvt );
+				});
+			}).bind( touchEndEvt, function () {
 				$( this ).removeClass( "ui-button-down" );
+				$document.unbind( touchMoveEvt );
 			});
 
 			playpauseButton.bind( "click.multimediaview", function () {
