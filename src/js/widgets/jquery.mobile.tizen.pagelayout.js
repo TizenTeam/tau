@@ -240,7 +240,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 					if ( o.updatePagePadding ) {
 						$( window ).bind( "throttledresize." + self.widgetName, function () {
 							self.updatePagePadding(thisPage);
-							self.updatePageLayout( thisPage, false);
+							self.updatePageLayout( thisPage, true);
 							self._updateHeaderArea( thisPage );
 							self._updateFooterArea( thisPage );
 							self._setContentMinHeight( thisPage );

@@ -582,7 +582,7 @@ define( [ ], function ( ) {
 						/* update scrollbar every 20(clientY) move*/
 						/* Add Interval */
 						this._setElementTransform( $sbt, "0px",
-							-y / this._view_height * this._clipHeight + "px",
+							-y / this._getViewHeight() * this._clipHeight + "px",
 							duration );
 					}
 				} else {

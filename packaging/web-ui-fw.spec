@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.44
+Version:    0.2.45
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -97,6 +97,11 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Mon Jul 01 2013 Hyeoncheol Choi <hc7.choi@samsung.com> 0.2.45
+	- JQM patch : add loadPage no options exception hadling.
+	- Scrollview : change scrollbar calculation routine
+	- Pagelayout : recalculate page's min-height on resize event
+
 * Sat Jun 29 2013 Hyeoncheol Choi <hc7.choi@samsung.com> 0.2.44
 	- Slider: modify slider-container padding(top, bottom)
 	- Button : modify button size and added margin.
