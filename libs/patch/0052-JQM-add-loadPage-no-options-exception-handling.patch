@@ -1,0 +1,43 @@
+From 87a20fa69a06ed30c619048312f3928c2ea596d7 Mon Sep 17 00:00:00 2001
+From: "hc7.choi" <hc7choi@hc7.choi>
+Date: Mon, 1 Jul 2013 14:11:31 +0900
+Subject: [PATCH] JQM add loadPage no options exception handling
+
+---
+ .../js/jquery.mobile.navigation.js                 |    6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.navigation.js b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.navigation.js
+index 56564eb..0ae536d 100644
+--- a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.navigation.js
++++ b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.navigation.js
+@@ -753,7 +753,7 @@ define( [
+ 				enhancePage( page, settings.role );
+ 				deferred.resolve( absUrl, options, page );
+ 				//if we are reloading the page make sure we update the base if its not a prefetch
+-				if( base && !options.prefetch ){
++				if( base && ( !options || !options.prefetch ) ){
+ 					base.set(url);
+ 				}
+ 				return deferred.promise();
+@@ -793,7 +793,7 @@ define( [
+ 
+ 		// Reset base to the default document base.
+ 		// only reset if we are not prefetching
+-		if ( base && typeof options.prefetch === "undefined" ) {
++		if ( base && ( typeof options === "undefined" || typeof options.prefetch === "undefined" ) ) {
+ 			base.reset();
+ 		}
+ 
+@@ -829,7 +829,7 @@ define( [
+ 					}
+ 
+ 					//dont update the base tag if we are prefetching
+-					if ( base && typeof options.prefetch === "undefined") {
++					if ( base && ( typeof options === "undefined" || typeof options.prefetch === "undefined" ) ) {
+ 						base.set( fileUrl );
+ 					}
+ 
+-- 
+1.7.9.5
+
