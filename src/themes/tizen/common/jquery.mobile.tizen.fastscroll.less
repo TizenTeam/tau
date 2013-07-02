@@ -12,7 +12,7 @@
 	-webkit-user-select: none;
 	user-select:none;
 	margin:0;
-	padding-left: 3 * @unit_base_fastscroll;
+	padding-left: 1px;
 	padding-right: 2 * @unit_base_fastscroll;
 	opacity: 1;
 	ul {
@@ -34,8 +34,8 @@
 	}
 
 	background: -webkit-linear-gradient(left,
-			transparent 3 * @unit_base_fastscroll,
-			@color_fastscroll_rollover_bg 3 * @unit_base_fastscroll,
+			transparent 1px,
+			@color_fastscroll_rollover_bg 1px,
 			@color_fastscroll_rollover_bg 6 * @unit_base_fastscroll,
 			@color_fastscroll_default_border 6 * @unit_base_fastscroll,
 			@color_fastscroll_default_border 48 * @unit_base_fastscroll,
@@ -50,7 +50,7 @@
 
 li.ui-fastscroll-hover {
 	position:relative;
-	left: -3 * @unit_base_fastscroll;
+	left: -1px;
 	margin-top: -1px;
 	margin-bottom: 0;
 	padding-top: 1px;
@@ -59,7 +59,7 @@ li.ui-fastscroll-hover {
 	color : @color_fastscroll_rollover_text_press;
 	border-color: @color_fastscroll_rollover_down_border;
 	border-left-width: 0;
-	padding-left: 3 * @unit_base_fastscroll;
+	padding-left: 1px;
 }
 
 li.ui-fastscroll-hover-first-item {
