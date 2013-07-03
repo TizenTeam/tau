@@ -427,13 +427,15 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 			var $elPage = $( thisPage ),
 				$elHeader = $elPage.find( ":jqmData(role='header')" ).length ? $elPage.find( ":jqmData(role='header')") : $elPage.siblings( ":jqmData(role='header')"),
 				$headerBtn = $elHeader.children("a,[data-"+$.mobile.ns+"role=button]"),
-				headerBtnWidth = $headerBtn.width(),
+				headerBtnWidth = $headerBtn.width() + parseInt( $headerBtn.css("padding-left") ) + parseInt( $headerBtn.css("padding-right") ),
 				headerBtnNum = $headerBtn.length,
-				headerSrcNum = $elHeader.children("img").length,
+				$headerSrc = $elHeader.children("img"),
+				headerSrcNum = $headerSrc.length,
+				headerSrcWidth = $headerSrc.width() + parseInt( $headerSrc.css("margin-left") ),
 				h1width;
 
 			if ( !$elPage.is( ".ui-dialog" ) ) {
-				h1width = window.innerWidth - parseInt( $elHeader.find( "h1" ).css( "margin-left" ), 10 ) * 2 - headerBtnWidth * headerBtnNum - headerBtnWidth / 4 - $elHeader.children( "img" ).width() * headerSrcNum * 4;
+				h1width = window.innerWidth - parseInt( $elHeader.find( "h1" ).css( "margin-left" ), 10 ) * 2 - headerBtnWidth * headerBtnNum - headerSrcWidth * headerSrcNum;
 				$elHeader.find( "h1" ).css( "width", h1width );
 				$elHeader.find( '.ui-title-text-sub' ).css( "width", h1width );
 			}
