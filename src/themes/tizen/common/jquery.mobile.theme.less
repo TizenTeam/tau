@@ -99,15 +99,14 @@
 	>.naviframe-button.ui-btn:not(.ui-btn-icon_only) {
 		width : 62 * @unit_base;
 		height : 48 * @unit_base;
-		padding-left : 0px;
-		padding-right : 0px;
+		padding : 0px;
 		top : 0px;
 
                 border-left-width : 1px;
                 border-left-style : solid;
                 border-left-color : @color_bar_divider_line;
-                border-top-left-radius : 0px;
-                border-bottom-left-radius : 0px;
+
+		.LESSborder-radius-all(0);
 
 		.ui-btn-inner {
 			padding : 0;
@@ -449,21 +448,6 @@
 	padding: 1 * @unit_base;
 }
 
-.ui-btn-box-s.ui-btn-up-s {
-/*	.LESSbutton_box_style;
-	.LESSborder-radius-all( 0.3rem );
-	.LESSbutton_text1_style;*/
-}
-
-.ui-btn-box-s .ui-btn-inner {
-/*	border: 1px solid;
-	border-color: @color_button_inner_border;
-	.LESSborder-radius-all( 0.3rem );
-	.LESSbox-boxsizing( border-box );
-	.LESSbutton_inner_box_style;
-	height: 100%;*/
-}
-
 .ui-btn.ui-btn-corner-all.ui-btn-box-s .ui-btn-inner {
 	.LESSborder-radius-all( 1.2rem );
 }
@@ -544,25 +528,16 @@ a.ui-link-inherit {
 /* button default color for active state */
 .ui-btn-active {
 	/* global-active */
-	color: 					@color_button_text_normal;
+	color: @color_button_text_normal;
 	cursor: pointer;
 	text-decoration: none;
-	background: 			@color_button_press;
+	background: @color_button_press;
   	outline: none;
 
 	a.ui-link-inherit {
-		color: 					@color_button_text_normal;
+		color: @color_button_text_normal;
 	}
 }
-
-/* button inner top highlight
------------------------------------------------------------------------------------------------------------*/
-
-.ui-btn-inner {
-	//border : none;
-}
-
-
 
 
 /* corner rounding classes
@@ -595,9 +570,6 @@ a.ui-link-inherit {
 .ui-corner-left {
 	.LESSborder-radius-topleft(.3em);
 	.LESSborder-radius-bottomleft(.3em);
-}
-.ui-corner-all {
-	//.LESSborder-radius-all(.3em);
 }
 .ui-corner-none {
 	.LESSborder-radius-all(0); 
