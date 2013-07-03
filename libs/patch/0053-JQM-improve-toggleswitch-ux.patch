@@ -1,0 +1,44 @@
+From 6b2dd832ab185ad44018951a61d325ceff4e29a1 Mon Sep 17 00:00:00 2001
+From: "hc7.choi" <hc7choi@hc7.choi>
+Date: Wed, 3 Jul 2013 11:05:54 +0900
+Subject: [PATCH] JQM improve toggleswitch ux
+
+Change-Id: I1de483c52ec7a6a569d618f4f88d0bcdefb57bd0
+---
+ .../jquery-mobile-1.2.0/js/widgets/forms/slider.js |   13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+
+diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/slider.js b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/slider.js
+index bd75f59..35f1772 100644
+--- a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/slider.js
++++ b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/slider.js
+@@ -83,6 +83,11 @@ $.widget( "mobile.slider", $.mobile.widget, {
+ 		if ( $( control ).find( "option" ).length && $( control ).find( "option" ).text() === "" ) {
+ 			$( domSlider ).addClass( "ui-toggle-switch" );
+ 		}
++		if( val() === "1" ) {
++			$( domHandle ).addClass( "ui-toggle-on" );
++		} else {
++			$( domHandle ).addClass( "ui-toggle-off" );
++		}
+ 		handle.buttonMarkup({ corners: true, theme: theme, shadow: true })
+ 				.attr({
+ 					"role": "slider",
+@@ -401,6 +406,14 @@ $.widget( "mobile.slider", $.mobile.widget, {
+ 				title: cType === "input" ? newval : control.find( "option" ).eq( newval ).getEncodedText()
+ 			});
+ 
++		if( percent === 100 && this.handle.hasClass( "ui-slider-handle-snapping" ) ) {
++			this.handle.removeClass( "ui-toggle-off" );
++			this.handle.addClass( "ui-toggle-on" );
++		} else if ( percent === 0 && this.handle.hasClass( "ui-slider-handle-snapping" ) ) {
++			this.handle.removeClass( "ui-toggle-on" );
++			this.handle.addClass( "ui-toggle-off" );
++		}
++
+ 		if ( this.valuebg ) {
+ 			this.valuebg.css( "width", percent + "%" );
+ 		}
+-- 
+1.7.9.5
+
