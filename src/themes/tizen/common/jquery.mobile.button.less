@@ -115,17 +115,34 @@
 {
 	.LESSbutton_up_style();
 	box-shadow: @button_shadow_inner;
+
+	&[data-icon="alert"],
+	&[data-icon="minus"] {
+		background: @color_button_warning;
+		box-shadow: @button_shadow_warning_inner;
+	}
 }
 .ui-btn-box-s.ui-btn-hover-s
 {
 	.LESSbutton_up_style();
 	box-shadow: @button_shadow_inner;
+	&[data-icon="alert"],
+	&[data-icon="minus"] {
+		background: @color_button_warning;
+		box-shadow: @button_shadow_warning_inner;
+	}
 }
 .ui-btn-box-s.ui-btn-down-s
 {
 	background: @color_button_press;
 	box-shadow: @button_shadow_inner;
 	text-shadow: none;
+	&[data-icon="alert"],
+	&[data-icon="minus"] {
+		background: @color_button_warning_press;
+		box-shadow: @button_shadow_warning_inner;
+		text-shadow: none;
+	}	
 }
 .ui-btn-corner-all
 {
