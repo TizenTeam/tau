@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.45
+Version:    0.2.46
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -97,6 +97,25 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Thu Jul 04 2013 Hyeoncheol Choi <hc7.choi@samsung.com> 0.2.46
+	- Naviframe : fix text overflow option of '.ui-title-text-sub'
+	- Popup : modify popup-text padding(left,right) and modify radius style
+	- searchbar: fix error with wrong value on change event after click clear btn (N_SE-44365,N_SE-44265)
+	- Tabbar : modify padding and margin value of footer tabbar buttons
+	- Tokentextarea: Fix the anchor button position
+	- multidmediaview: Fix a press event issue on a button
+	- Toolbar: Change the divider style of footer buttons
+	- Winsets: Remove footer (N_SE-43651)
+	- Winsets: Restore footer in footer more example
+	- Winsets: Popup opened with menu button should have proper class
+	- fastscroll: Fix the left border width to 1 pixel
+	- Remove unbind code in popup widget (DCM-1984)
+	- JQM patch : Improve toggleswitch ux.
+	- checkboxRadio : change resource sync to GUI Guide v4.8
+	- Naviframe: modify radius and padding value of header button
+	- Delete unnecessary image files
+	- Pagelayout: use jQuery to get window height
+
 * Mon Jul 01 2013 Hyeoncheol Choi <hc7.choi@samsung.com> 0.2.45
 	- JQM patch : add loadPage no options exception hadling.
 	- Scrollview : change scrollbar calculation routine
