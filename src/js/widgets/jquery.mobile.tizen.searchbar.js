@@ -136,6 +136,7 @@ define( [ '../jquery.mobile.tizen.core', 'jquery.mobile.tizen.pagelayout' ], fun
 					}
 					input
 						.val( "" )
+						.trigger('change')
 						.focus();
 					event.preventDefault();
 				})
@@ -216,6 +217,7 @@ define( [ '../jquery.mobile.tizen.core', 'jquery.mobile.tizen.pagelayout' ], fun
 
 						input
 							.val( "" )
+							.trigger('change')
 							.blur();
 
 						if ( useCancelBtn ) {

@@ -427,13 +427,15 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 			var $elPage = $( thisPage ),
 				$elHeader = $elPage.find( ":jqmData(role='header')" ).length ? $elPage.find( ":jqmData(role='header')") : $elPage.siblings( ":jqmData(role='header')"),
 				$headerBtn = $elHeader.children("a,[data-"+$.mobile.ns+"role=button]"),
-				headerBtnWidth = $headerBtn.width(),
+				headerBtnWidth = $headerBtn.width() + parseInt( $headerBtn.css("padding-left") ) + parseInt( $headerBtn.css("padding-right") ),
 				headerBtnNum = $headerBtn.length,
-				headerSrcNum = $elHeader.children("img").length,
+				$headerSrc = $elHeader.children("img"),
+				headerSrcNum = $headerSrc.length,
+				headerSrcWidth = $headerSrc.width() + parseInt( $headerSrc.css("margin-left") ),
 				h1width;
 
 			if ( !$elPage.is( ".ui-dialog" ) ) {
-				h1width = window.innerWidth - parseInt( $elHeader.find( "h1" ).css( "margin-left" ), 10 ) * 2 - headerBtnWidth * headerBtnNum - headerBtnWidth / 4 - $elHeader.children( "img" ).width() * headerSrcNum * 4;
+				h1width = window.innerWidth - parseInt( $elHeader.find( "h1" ).css( "margin-left" ), 10 ) * 2 - headerBtnWidth * headerBtnNum - headerSrcWidth * headerSrcNum;
 				$elHeader.find( "h1" ).css( "width", h1width );
 				$elHeader.find( '.ui-title-text-sub' ).css( "width", h1width );
 			}
@@ -469,10 +471,10 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 
 			for ( idx = 0; idx < btnLength; idx++ ) {
 				if ( footerBtn.eq( idx ).hasClass( "ui-btn-back" ) ) {
-					return true;
+					continue;
 				}
 				if ( footerBtn.eq( idx ).is( ":jqmData(icon='naviframe-more')" ) ){
-					return true;
+					continue;
 				}
 				footerBtn.eq( idx )
 					.addClass( "ui-footer-btn-border" )
@@ -481,6 +483,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 					.css( "left", realBtnIndex * btnWidth + moreWidth );
 				realBtnIndex++;
 			}
+			$elFooter.find( ".ui-footer-btn-border" ).eq( 0 ).removeClass( "ui-footer-btn-border" );
 		},
 
 		_setHWKeyLayout : function ( thisPage ) {
@@ -596,7 +599,8 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 				dpr = window.outerWidth / window.innerWidth;
 				layoutInnerHeight = Math.floor( window.outerHeight / dpr );
 			} else {
-				layoutInnerHeight = window.innerHeight;
+				//#N_SE-43092: window.innerHeight returns incorrect size
+				layoutInnerHeight = $.mobile.$window.height();
 			}
 
 			resultContentHeight = layoutInnerHeight - resultFooterHeight - resultHeaderHeight;

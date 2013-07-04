@@ -1,0 +1,35 @@
+From 650d1f7e2e11364682dadd94877fa5fa66d0ff2f Mon Sep 17 00:00:00 2001
+From: "hjnim.kim" <hjnim.kim@samsung.com>
+Date: Thu, 4 Jul 2013 12:34:42 +0900
+Subject: [PATCH] JQM remove unbind moudle in popup widget
+
+remove unbind module in popup widget
+
+Change-Id: Ic9bf71a13e1f9c67556e144206e0a8b870ff40a3
+---
+ libs/js/jquery-mobile-1.2.0/js/widgets/popup.js |    4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
+index 989288b..b593472 100644
+--- a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
++++ b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
+@@ -744,11 +744,15 @@ define( [ "jquery",
+ 			self._ui.placeholder.remove();
+ 
+ 			// Unbind handlers that were bound to elements outside self.element (the window, in self case)
++			// window history back is call "_destroy method"
++			// if this method is called, all kind of window resize event has been unbind
++			/*
+ 			$.each( self._globalHandlers, function( idx, oneSrc ) {
+ 				$.each( oneSrc.handler, function( eventType, handler ) {
+ 					oneSrc.src.unbind( eventType, handler );
+ 				});
+ 			});
++			*/
+ 		},
+ 
+ 		_closePopup: function( e, data ) {
+-- 
+1.7.9.5
+
