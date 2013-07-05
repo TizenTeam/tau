@@ -34,7 +34,7 @@ define( [
 	"jqm/jquery.mobile.zoom.iosorientationfix",
 	"jqm/jquery.mobile.init",
 	"./jquery.mobile.label",
-	"./jquery.mobile.tizen.clrlib.js",
+	"./jquery.mobile.tizen.clrlib",
 	"./jquery.mobile.tizen.core",
 	"./jquery.mobile.tizen.loader",
 	"./jquery.mobile.tizen.pinch",

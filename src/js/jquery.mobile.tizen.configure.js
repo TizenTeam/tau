@@ -3,7 +3,7 @@
 //>>label: Configuration
 //>>group: Tizen:Core
 
-define( [ "jqm/jquery.mobile.core", "jqm/jquery.mobile.buttonMarkup" ], function ( ) {
+define( [ "jqm/jquery.mobile.core", "jqm/jquery.mobile.transition", "jqm/jquery.mobile.buttonMarkup" ], function ( ) {
 //>>excludeEnd("jqmBuildExclude");
 
 /*

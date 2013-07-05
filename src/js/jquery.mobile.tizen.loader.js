@@ -3,7 +3,7 @@
 //>>label: Loader
 //>>group: Tizen:Core
 
-define( [ 'jquery.mobile.tizen.core', "libs/globalize/lib/globalize" ], function ( ) {
+define( [ 'jquery.mobile.tizen.core', "jqm/jquery.mobile.init", "libs/globalize/lib/globalize" ], function ( ) {
 //>>excludeEnd("jqmBuildExclude");
 
 /**
