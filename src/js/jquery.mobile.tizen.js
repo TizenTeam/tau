@@ -71,7 +71,6 @@ define( [
 //>>excludeEnd("jqmBuildExclude");
 
 //Version: __version__
-(function($){$.tizen.frameworkData.pkgVersion=__version__;}(jQuery));
 
 //>>excludeStart("jqmBuildExclude", pragmas.jqmBuildExclude);
 } );

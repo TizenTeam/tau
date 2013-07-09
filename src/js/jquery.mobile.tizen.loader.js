@@ -3,7 +3,7 @@
 //>>label: Loader
 //>>group: Tizen:Core
 
-define( [ 'jquery.mobile.tizen.core', "jqm/jquery.mobile.init", "libs/globalize/lib/globalize" ], function ( ) {
+define( [ 'jquery.mobile.tizen.core', "jqm/jquery.mobile.init", "globalize/globalize" ], function ( ) {
 //>>excludeEnd("jqmBuildExclude");
 
 /**
@@ -48,7 +48,7 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 ( function ($, Globalize, window, undefined) {
 
 	var tizen = {
-		libFileName : "tizen-web-ui-fw(.min)?.js",
+		libFileName : "tizen-web-ui-fw(.min|.custom)?.js",
 
 		frameworkData : {
 			rootDir: '/usr/share/tizen-web-ui-fw',

@@ -92,14 +92,18 @@ jqm: init
 
 third_party: init jqm globalize
 	# Building third party components...
+	mkdir -p ${JS_OUTPUT_ROOT}/src/;
 	@@cd ${LIBS_DIR}/js; \
 	    for f in ${LIBS_JS_FILES}; do \
 	        cat $$f >> ${FW_LIB_JS}; \
+	        cp $$f ${JS_OUTPUT_ROOT}/src/; \
 		uglifyjs --ascii $$f >> ${FW_LIB_MIN}; \
 		echo "" >> ${FW_LIB_MIN}; \
 	    done; \
 	    cp ${LIBS_DIR}/js/${JQUERY} ${JS_OUTPUT_ROOT}/jquery.js
-	    cp ${LIBS_DIR}/js/${JQUERY_MIN} ${JS_OUTPUT_ROOT}/jquery.min.js
+	    cp ${LIBS_DIR}/js/${JQUERY_MIN} ${JS_OUTPUT_ROOT}/jquery.min.js 
+	cp -a _build  ${JS_OUTPUT_ROOT}/../_build;
+	cp -a build.xml  ${JS_OUTPUT_ROOT}/../build.xml;
 
 js: init third_party
 	# Building JS files...
@@ -109,7 +113,6 @@ js: init third_party
 	find ${JS_LIB_OUTPUT_DIR} -iname '*.js' | sort | \
 	while read JSFILE; do \
 		echo " # Building $$JSFILE"; \
-		sed -i -e '/^\/\/>>excludeStart\(.*\);/,/^\/\/>>excludeEnd\(.*\);/d' $$JSFILE; \
 		if test ${JSLINT_LEVEL} -ge 1; then \
 			${JSLINT} $$JSFILE; \
 			if test ${JSLINT_LEVEL} -ge 2 -a $$? -ne 0; then \
@@ -127,8 +130,7 @@ js: init third_party
 	done; \
 	${NODE} $(CURDIR)/tools/moduledep.js -d ${JS_LIB_OUTPUT_DIR} ${JS_LIB_OUTPUT_DIR}/../depData.json >> ${FW_JS}; \
 	cp -a ${JS_DIR}/* ${JQM_LIB_PATH}/js/* ${JS_LIB_OUTPUT_DIR}/; \
-	${NODE} $(CURDIR)/tools/moduledep.js -c ${JS_LIB_OUTPUT_DIR} > ${JS_LIB_OUTPUT_DIR}/../depData.json; \
-	find ${JS_LIB_OUTPUT_DIR} -iname '*.js' | xargs sed -i -e '/^\/\/>>excludeStart\(.*\);/,/^\/\/>>excludeEnd\(.*\);/d';
+	${NODE} $(CURDIR)/tools/moduledep.js -c ${JS_LIB_OUTPUT_DIR} > ${JS_LIB_OUTPUT_DIR}/../depData.json;
 
 widgets: init third_party globalize
 	# Building widgets...
@@ -188,6 +190,7 @@ themes:
 version: js themes
 	echo '(function($$){$$.tizen.frameworkData.pkgVersion="$(PKG_VERSION)";}(jQuery));' >> ${FW_JS}
 	echo "$(PKG_VERSION)" > ${FRAMEWORK_ROOT}/../VERSION
+	sed -i -e 's/__version__/\"1.2.0\"/g' ${FW_LIBS_JS} ;
 
 compress: third_party js themes
 	# Javacript code compressing
