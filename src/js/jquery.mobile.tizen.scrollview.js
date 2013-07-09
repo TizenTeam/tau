@@ -1562,6 +1562,18 @@ define( [ ], function ( ) {
 						self._showScrollBars( 2000 );
 					}, 0 );
 				});
+
+			$c.closest(".ui-page").find( ".ui-popup" )
+				.bind( "popupafteropen", function ( e ) {
+					if ( !$( self.element ).parents().is( ".ui-ctxpopup" ) ) {
+						return true;
+					}
+
+                                        setTimeout( function () {
+                                                self._setScrollPosition( self._sx, self._sy );
+						self._showScrollBars( 2000 );
+                                        }, 0 );
+				});
 		},
 
 		/**
