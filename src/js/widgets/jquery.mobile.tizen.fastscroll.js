@@ -107,10 +107,6 @@ define( [
 		_primaryLanguage: null,
 		_secondLanguage: null,
 		_dividerMap: {},
-		_defaultTime: 500,
-		_defaultDuration: 500,
-		_timer: null,
-		_isFadeOut: false,
 		_charSet: null,
 
 		_create: function () {
@@ -169,9 +165,7 @@ define( [
 					var coords = $.mobile.tizen.targetRelativeCoordsFromEvent( e ),
 						shortcutsListOffset = self.shortcutsList.offset();
 
-					if ( self._isFadeOut ) {
-						return;
-					}
+					self.shortcutsContainer.addClass( "ui-fastscroll-hover" );
 
 					// If the element is a list item, get coordinates relative to the shortcuts list
 					if ( e.target.tagName.toLowerCase() === "li" ) {
@@ -222,8 +216,6 @@ define( [
 						return true;
 					} );
 
-					self._setTimer( false );
-
 					e.preventDefault();
 					e.stopPropagation();
 				} )
@@ -233,7 +225,7 @@ define( [
 					$( ".ui-fastscroll-hover" ).removeClass( "ui-fastscroll-hover" );
 					$( ".ui-fastscroll-hover-first-item" ).removeClass( "ui-fastscroll-hover-first-item" );
 					$( ".ui-fastscroll-hover-down" ).removeClass( "ui-fastscroll-hover-down" );
-					self._setTimer( true );
+					self.shortcutsContainer.removeClass( "ui-fastscroll-hover" );
 				} );
 
 			if ( page && !( page.is( ':visible' ) ) ) {
@@ -246,12 +238,6 @@ define( [
 			$el.bind( 'updatelayout', function () {
 				self.refresh();
 			} );
-
-			self.scrollview.bind( "scrollstart scrollupdate", function ( e ) {
-				self._setTimer( false );
-			}).bind( "scrollstop", function ( e ) {
-				self._setTimer( true );
-			});
 		},
 
 		_findClosestDivider: function ( targetChar ) {
@@ -330,14 +316,12 @@ define( [
 			listItem.focusin( function ( e ) {
 				self.shortcutsList.attr( "aria-hidden", false );
 				self._hitItem( listItem );
-				self._setTimer( false );
 			}).focusout( function ( e ) {
 				self.shortcutsList.attr( "aria-hidden", true );
 				$popup.hide();
 				$( ".ui-fastscroll-hover" ).removeClass( "ui-fastscroll-hover" );
 				$( ".ui-fastscroll-hover-first-item" ).removeClass( "ui-fastscroll-hover-first-item" );
 				$( ".ui-fastscroll-hover-down" ).removeClass( "ui-fastscroll-hover-down" );
-				self._setTimer( true );
 			});
 		},
 
@@ -462,26 +446,6 @@ define( [
 			this._charSet = primaryCharacterSet + secondCharacterSet;
 		},
 
-		_setTimer: function ( start ) {
-			var self = this,
-				shortcutsContainer = self.shortcutsContainer;
-
-			if ( start ) {
-				self._timer = setTimeout( function () {
-					self._isFadeOut = true;
-					shortcutsContainer.fadeOut( self._defaultDuration, function () {
-						self._isFadeOut = false;
-					});
-				}, self._defaultTime );
-			} else {
-				if ( self._timer !== null ) {
-					clearTimeout( self._timer );
-					self._isFadeOut = false;
-				}
-				shortcutsContainer.show();
-			}
-		},
-
 		indexString: function ( indexAlphabet ) {
 			var self = this,
 				characterSet = [];
@@ -597,7 +561,7 @@ define( [
 					i += omitInfo[ omitIndex ] - 1;
 				}
 
-				shapItem.before( shortcutItem );
+				self.shortcutsList.append( shortcutItem );
 				omitIndex++;
 			}
 
@@ -614,7 +578,7 @@ define( [
 
 					self._focusItem( shortcutItem );
 					shortcutItem.bind( 'vclick', itemHandler );
-					shapItem.before( shortcutItem );
+					self.shortcutsList.append( shortcutItem );
 				}
 			}
 
@@ -645,9 +609,6 @@ define( [
 			// make the scrollview clip tall enough to show the whole of the shortcutslist
 			minClipHeight = shortcutsTop + self.shortcutsContainer.outerHeight() + 'px';
 			self.scrollview.css( 'min-height', minClipHeight );
-
-			self._setTimer( false );
-			self._setTimer( true );
 
 			$popup.text( "M" ) // Popup size is determined based on "M".
 				.width( $popup.height() )
