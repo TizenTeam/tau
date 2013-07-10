@@ -446,7 +446,7 @@ define( [ '../jquery.mobile.tizen.core' ], function ( ) {
 			var $elPage = $( thisPage ),
 				$elFooter = $elPage.find( ".ui-footer" ),
 				$elMoreKey = $elFooter.children( ":jqmData(icon='naviframe-more')" ),
-				$elBackKey = $elFooter.children( ".ui-btn-back" ),
+				$elBackKey = $elFooter.children( ".ui-btn-back, .ui-btn-footer-down" ),
 				footerBtn = $elFooter.children( "div.ui-btn, a.ui-btn" ),
 				btnLength = footerBtn.length,
 				btnWidth = window.innerWidth,
