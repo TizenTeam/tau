@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.46
+Version:    0.2.47
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -97,6 +97,15 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Wed Jul 10 2013 Heeju Joo <heeju.joo@samsung.com> 0.2.47
+	- Scrollview : showOverflowScrollbar when ctxpopup opens
+	- Popup : delete popup_bg resource and modify dim_background color&opacity
+	- Popup: scrollview line separator has been added
+	- checkbox: fix problem with check after click on list with link (N_SE-44086)
+	- Winset : modify generate element dynamically sample code
+	- loader: Ignore routine setting default theme
+	- scrollview: fix focusen on element on window resize (N_SE-41303, N_SE-41364)
+
 * Thu Jul 04 2013 Hyeoncheol Choi <hc7.choi@samsung.com> 0.2.46
 	- Naviframe : fix text overflow option of '.ui-title-text-sub'
 	- Popup : modify popup-text padding(left,right) and modify radius style
