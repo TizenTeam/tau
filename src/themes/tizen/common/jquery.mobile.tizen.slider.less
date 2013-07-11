@@ -22,26 +22,25 @@ select.ui-slider-switch {
 	vertical-align: middle;
 
 	height: 27 * @unit_base_slider;
-	padding-top: 18 * @unit_base_slider;
-	padding-bottom: 18 * @unit_base_slider;
+	padding-top: 21 * @unit_base;
+	padding-bottom: 21 * @unit_base;
 	margin-left: 36 * @unit_base_slider;
 	margin-right: 36 * @unit_base_slider;
 }
 
 .ui-li > .ui-slider-container {
-	margin-top: 0;
-	margin-bottom: 0;
-	padding-top: 0;
-	padding-bottom: 0;
+	margin-top: -14 * @unit_base;
+	margin-bottom: -14 * @unit_base;
 }
 
 .ui-slider-left-volume,
 .ui-slider-left-bright {
 	position: absolute;
 	vertical-align: middle;
-
-	top: -0.5rem;
-	left: -50 * @unit_base;
+	margin-top: 10 * @unit_base;
+	margin-bottom: 10 * @unit_base;
+	margin-left: -44 *@unit_base;
+	top: 0px;
 	height: @img-height;
 	width: @img-width;
 
@@ -57,13 +56,13 @@ select.ui-slider-switch {
 .ui-slider-right-volume,
 .ui-slider-right-bright {
 	position: absolute;
-
-	top: -0.5rem;
-	right: -50 * @unit_base;
+	vertical-align: middle;
+	margin-top: 10 * @unit_base;
+	margin-bottom: 10 * @unit_base;
+	top: 0px;
+	right: -44 * @unit_base;
 	height: @img-height;
 	width: @img-width;
-
-	vertical-align: middle;
 
 	background: url(images/controls/00_slider_button_brightness_02.png) no-repeat;
 	.LESSbackground-size(@img-width, @img-height);
@@ -77,7 +76,7 @@ select.ui-slider-switch {
 .ui-slider-left-text {
 	position: absolute;
 
-	top: -0.5rem;
+	top: 6 * @unit_base;
 	height: 37 * @unit_base;
 
 	text-align: center;
@@ -87,7 +86,7 @@ select.ui-slider-switch {
 .ui-slider-right-text {
 	position: absolute;
 
-	top: -0.5rem;
+	top:  6 * @unit_base;
 	height: 37 * @unit_base;
 
 	text-align: center;
