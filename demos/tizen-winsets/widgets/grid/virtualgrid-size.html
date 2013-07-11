@@ -1,4 +1,4 @@
-<div id="virtualgrid_grid_page" data-role="page" class="virtualgrid_grid_demo">
+<div id="virtualgrid_size_page" data-role="page" class="virtualgrid_grid_demo">
 	<div data-role="header" data-position="fixed">
 		<h1>Virtual grid - size</h1>
 	</div>
@@ -17,7 +17,7 @@
 		</div>
 	</div>
 	<script>
-	$( "#virtualgrid_grid_page" ).on( "pageshow" , function() {
+	$( "#virtualgrid_size_page" ).on( "pageshow" , function() {
 		$( window ).on( "tizenhwkey", function ( ev ) {
 			if ( ev.originalEvent.keyName === "back" ) {
 				//bind callbacks to the H/W keys
@@ -25,7 +25,7 @@
 			}
 		});
 	});
-	$( "#virtualgrid_grid_page" ).on( "pagebeforehide" , function() {
+	$( "#virtualgrid_size_page" ).on( "pagebeforehide" , function() {
 		//unbind callbacks to the H/W keys
 		$( window ).off( "tizenhwkey" );
 	});
