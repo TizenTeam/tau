@@ -3,7 +3,12 @@
 //>>label: Virtual listview
 //>>group: Tizen:Widgets
 
-define( [ "libs/jquery.tmpl", '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], function ( ) {
+define( [ 
+	'jquery',
+	'../jquery.mobile.tizen.core',
+	'../jquery.mobile.tizen.scrollview'
+	], function ( jQuery ) {
+
 //>>excludeEnd("jqmBuildExclude");
 
 /* ***************************************************************************

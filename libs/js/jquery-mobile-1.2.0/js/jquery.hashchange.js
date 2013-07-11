@@ -76,6 +76,18 @@
 //         extra awesomeness that BBQ provides. This plugin will be included as
 //         part of jQuery BBQ, but also be available separately.
 
+
+//>>excludeStart("jqmBuildExclude", pragmas.jqmBuildExclude);
+//>>description: jQuery hashchange event
+//>>label: jQuery hashchange event
+//>>group: Core
+
+define( [ 
+	"jquery" 
+	], function( jQuery ) {
+
+//>>excludeEnd("jqmBuildExclude");
+
 (function( $, window, undefined ) {
   // Reused string.
   var str_hashchange = 'hashchange',
@@ -377,3 +389,6 @@
   })();
   
 })(jQuery,this);
+//>>excludeStart("jqmBuildExclude", pragmas.jqmBuildExclude);
+});
+//>>excludeEnd("jqmBuildExclude");

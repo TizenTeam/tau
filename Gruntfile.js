@@ -14,6 +14,13 @@ module.exports = function( grunt ) {
 						"libs": "../../libs/js",
 						"jqm": "../../libs/js/jquery-mobile-1.2.0/js"
 					},
+					packages: [
+						{
+							name: "jquery",
+							location : '../../libs/js/jquery-mobile-1.2.0/js',
+							main: 'jquery.js'
+						}
+					],
 
 					optimize: "none",
 
@@ -29,9 +36,9 @@ module.exports = function( grunt ) {
 					//together.
 					skipModuleInsertion: true,
 
-					include: ( grunt.option( "modules" ) || "jquery.mobile.tizen" ).split( "," ),
+					include: ( grunt.option( "modules" ) || "jquery.mobile.tizen.full" ).split( "," ),
 
-					out: "tizen-web-ui-fw.js",
+					out: "build/tizen-web-ui-fw/tizen-web-ui-fw.full.js",
 
 					pragmasOnSave: {
 						jqmBuildExclude: true

@@ -3,7 +3,7 @@
 //>>label: Widget prototype loader
 //>>group: Tizen:Core
 
-define( [ 'util/ensurens' ], function ( ) {
+define( [ ], function ( ) {
 //>>excludeEnd("jqmBuildExclude");
 
 (function($, undefined) {

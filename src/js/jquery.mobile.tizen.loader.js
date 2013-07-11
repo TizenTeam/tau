@@ -3,7 +3,24 @@
 //>>label: Loader
 //>>group: Tizen:Core
 
-define( [ 'jquery.mobile.tizen.core', "jqm/jquery.mobile.init", "globalize/globalize" ], function ( ) {
+define( [ 
+	'jquery',
+	'libs/globalize',
+	"jqm/jquery.mobile.init",
+
+	// used by theme.js
+	"jqm/widgets/loader",
+	"jqm/widgets/listview",
+	"jqm/widgets/collapsible",
+	"jqm/widgets/forms/button",
+
+	"jqm/widgets/page.sections",
+
+	'./jquery.mobile.tizen.configure',
+	'./jquery.mobile.tizen.core',
+	'widgets/jquery.mobile.tizen.pagelayout'
+	], function ( jQuery, Globalize ) {
+
 //>>excludeEnd("jqmBuildExclude");
 
 /**
@@ -48,7 +65,7 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 ( function ($, Globalize, window, undefined) {
 
 	var tizen = {
-		libFileName : "tizen-web-ui-fw(.min|.custom)?.js",
+		libFileName : "tizen-web-ui-fw(.custom|.full)?(.min)?.js",
 
 		frameworkData : {
 			rootDir: '/usr/share/tizen-web-ui-fw',
@@ -502,7 +519,7 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 		$.mobile.initializePage( );
 	});
 
-} ( jQuery, window.Globalize, window ) );
+} ( jQuery, Globalize, window ) );
 
 //>>excludeStart("jqmBuildExclude", pragmas.jqmBuildExclude);
 } );

@@ -3,7 +3,9 @@
 //>>label: WebGL
 //>>group: Tizen:Widgets:Lib
 
-define( [ ], function ( ) {
+define( [ 
+	], function ( ) {
+
 //>>excludeEnd("jqmBuildExclude");
 
 /* ***************************************************************************

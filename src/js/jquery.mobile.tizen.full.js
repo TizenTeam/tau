@@ -2,7 +2,7 @@
 //>>description: Config file to build whole tizen web-ui-fw
 
 define( [
-	"jqm/jquery", //make sure that jqeru is loaded before libraries that don"t use requirejs
+	"jquery", //make sure that jqeru is loaded before libraries that don"t use requirejs
 	"libs/jquery.easing.1.3",
 	"jqm/widgets/loader",
 	"jqm/jquery.mobile.navigation",
@@ -33,14 +33,12 @@ define( [
 	"jqm/jquery.mobile.zoom",
 	"jqm/jquery.mobile.zoom.iosorientationfix",
 	"jqm/jquery.mobile.init",
-	"./jquery.mobile.label",
+	"./jquery.mobile.tizen.label",
 	"./jquery.mobile.tizen.clrlib",
 	"./jquery.mobile.tizen.core",
 	"./jquery.mobile.tizen.loader",
 	"./jquery.mobile.tizen.pinch",
 	"./jquery.mobile.tizen.scrollview",
-	"./widgets/jquery.mobile.tizen.button",
-	"./widgets/jquery.mobile.tizen.checkbox",
 	"./widgets/jquery.mobile.tizen.circularview",
 	"./widgets/jquery.mobile.tizen.datetimepicker",
 	"./widgets/jquery.mobile.tizen.extendablelist",

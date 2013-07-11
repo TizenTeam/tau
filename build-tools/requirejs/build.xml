@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="sample-require-js" default="" basedir=".">
 	<!-- properties -->
-	<property name="r.js" value="${basedir}/_build/r.js" />
-	<property name="rhino.jar" value="${basedir}/_build/js.jar" />
-	<property name="js.build" value="${basedir}/_build/js.build.js" />
+	<property name="r.js" value="${basedir}/requirejs/r.js" />
+	<property name="rhino.jar" value="${basedir}/requirejs/rhino.jar" />
+	<property name="js.build" value="${basedir}/requirejs/js.build.js" />
 	<!-- custom tasks -->
 	<!-- targets -->
 	<target name="-optimize" description="Combine and minify files.">
@@ -17,10 +17,14 @@
 		</java>
 		<echo message="optimized ${requirejs.optimizer.settings}" />
 	</target>
-	<target name="optimizeJS">
-		<echo message="Combining and minifying JS files." />
+	<target name="customWebUIFW">
+		<echo message="Create customized WebUIFW library" />
 		<antcall target="-optimize">
 			<param name="requirejs.optimizer.settings" value="${js.build}" />
+		</antcall>
+	</target>
+	<target name="default">
+		<antcall target="customWebUIFW">
 		</antcall>
 	</target>
 </project>

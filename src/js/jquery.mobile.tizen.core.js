@@ -3,7 +3,13 @@
 //>>label: Tizen core
 //>>group: Tizen:Core
 
-define( [ 'jqm/jquery.mobile.core', 'jquery.mobile.tizen.configure', 'util/ensurens' ], function ( ) {
+define( [ 
+	'jquery',
+	'jqm/jquery.mobile.core',
+	'./jquery.mobile.tizen.configure',
+	'./util/ensurens'
+	], function ( jQuery ) {
+
 //>>excludeEnd("jqmBuildExclude");
 
 /*

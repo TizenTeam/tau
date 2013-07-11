@@ -9,15 +9,15 @@
  */
 
 //>>excludeStart("jqmBuildExclude", pragmas.jqmBuildExclude);
-//>>description: 
-//>>label: 
-//>>group: 
-//>>css.structure: 
-//>>css.theme: 
+//>>description: jQuery Templates Plugin
+//>>label: jQuery Templates Plugin
+//>>group: Libs
 
-define( [ "jqm/jquery" ], function( $ ) {
+define( [ 
+	"jquery" 
+	], function( jQuery ) {
+
 //>>excludeEnd("jqmBuildExclude");
-
 
 (function( jQuery, undefined ){
 	var oldManip = jQuery.fn.domManip, tmplItmAtt = "_tmplitem", htmlExpr = /^[^<]*(<[\w\W]+>)[^>]*$|\{\{\! /,

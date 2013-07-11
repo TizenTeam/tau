@@ -3,7 +3,12 @@
 //>>label: Searchbar
 //>>group: Tizen:Widgets
 
-define( [ '../jquery.mobile.tizen.core', './jquery.mobile.tizen.pagelayout' ], function ( ) {
+define( [
+	'jquery',
+	'../jquery.mobile.tizen.core',
+	'./jquery.mobile.tizen.pagelayout'
+], function ( jQuery ) {
+
 //>>excludeEnd("jqmBuildExclude");
 
 /* ***************************************************************************

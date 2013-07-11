@@ -7,6 +7,18 @@
  *
  * http://docs.jquery.com/UI/Widget
  */
+
+//>>excludeStart("jqmBuildExclude", pragmas.jqmBuildExclude);
+//>>description: jQuery UI Widget
+//>>label: jQuery UI Widget
+//>>group: Core
+
+define( [ 
+	"jquery"
+	], function( jQuery ) {
+
+//>>excludeEnd("jqmBuildExclude");
+
 (function( $, undefined ) {
 
 var uuid = 0,
@@ -499,3 +511,6 @@ if ( $.uiBackCompat !== false ) {
 }
 
 })( jQuery );
+//>>excludeStart("jqmBuildExclude", pragmas.jqmBuildExclude);
+});
+//>>excludeEnd("jqmBuildExclude");

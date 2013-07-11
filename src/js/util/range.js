@@ -3,7 +3,9 @@
 //>>label: Range
 //>>group: Tizen:Utilities
 
-define( [ ], function ( ) {
+define( [ 
+	], function ( ) {
+
 //>>excludeEnd("jqmBuildExclude");
 
 /*

@@ -3,7 +3,12 @@
 //>>label: Tabbar
 //>>group: Tizen:Widgets
 
-define( [ "jqm/jquery.mobile.grid", '../jquery.mobile.tizen.core', './jquery.mobile.tizen.pagelayout' ], function ( ) {
+define( [ 
+	'jquery', 
+	'../jquery.mobile.tizen.core',
+	'./jquery.mobile.tizen.pagelayout'
+	], function ( jQuery ) {
+
 //>>excludeEnd("jqmBuildExclude");
 
 /* ***************************************************************************
@@ -30,7 +35,7 @@ define( [ "jqm/jquery.mobile.grid", '../jquery.mobile.tizen.core', './jquery.mob
  *
  * jQuery Mobile Framework : "tabbar" plugin
  * Copyright (c) jQuery Project
- * Dual licensed under the MIT or GPL Version 2 licenses.
+ * licensed under the MIT.
  * http://jquery.org/license
  * Authors: Jinhyuk Jun <jinhyuk.jun@samsung.com>
 */

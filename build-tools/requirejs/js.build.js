@@ -1,10 +1,17 @@
 ({
-	baseUrl: "../js/src",
+	baseUrl: "../js/modules",
 	paths: {
-		"libs": ".",
-		"globalize": ".",
-		"jqm": "."
+		"libs": "libs/",
+		"jqm": "jqm/"
 	},
+
+	packages: [
+		{
+			name: "jquery",
+			location : '..',
+			main: 'jquery.js'
+		}
+	],
 
 	optimize: "none",
 
@@ -18,9 +25,9 @@
 	//does not use require() in the built project or in the JS files, but you
 	//still want to use the optimization tool from RequireJS to concatenate modules
 	//together.
-	skipModuleInsertion: true,
+	skipModuleInsertion: true, 
 
-	include: "../../_build/require",
+	include: "../../requirejs/tizen-web-ui-fw-custom-build",
 
 	out: "../js/tizen-web-ui-fw.custom.js",
 

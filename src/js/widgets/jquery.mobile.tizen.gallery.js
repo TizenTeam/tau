@@ -3,7 +3,11 @@
 //>>label: Gallery
 //>>group: Tizen:Widgets
 
-define( [ "jqm/jquery.mobile.widget" ], function ( ) {
+define( [ 
+	'jquery',
+	"jqm/jquery.mobile.widget"
+	], function ( jQuery ) {
+
 //>>excludeEnd("jqmBuildExclude");
 
 /* ***************************************************************************

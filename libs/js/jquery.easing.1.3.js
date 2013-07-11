@@ -36,13 +36,14 @@
 */
 
 //>>excludeStart("jqmBuildExclude", pragmas.jqmBuildExclude);
-//>>description: 
-//>>label: 
-//>>group: 
-//>>css.structure: 
-//>>css.theme: 
+//>>description: jQuery Easing
+//>>label: jQuery Easing
+//>>group: Core
 
-define( [ "jqm/jquery" ], function( $ ) {
+define( [ 
+	"jquery"
+	], function( jQuery ) {
+
 //>>excludeEnd("jqmBuildExclude");
 
 // t: current time, b: begInnIng value, c: change In value, d: duration

@@ -3,7 +3,11 @@
 //>>label: Progress
 //>>group: Tizen:Widgets
 
-define( [ '../jquery.mobile.tizen.core', "jqm/jquery.mobile.widget" ], function ( ) {
+define( [ 
+	'jquery',
+	'../jquery.mobile.tizen.core'
+	], function ( jQuery ) {
+
 //>>excludeEnd("jqmBuildExclude");
 
 /* ***************************************************************************

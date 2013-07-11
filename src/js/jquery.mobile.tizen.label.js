@@ -3,7 +3,11 @@
 //>>label: Label
 //>>group: Tizen:Core
 
-define( [ "jqm/jquery.mobile.core" ], function ( ) {
+define( [
+	"jquery",
+	"jqm/jquery.mobile.core"
+	], function ( jQuery ) {
+
 //>>excludeEnd("jqmBuildExclude");
 
 /*

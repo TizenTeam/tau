@@ -2,8 +2,10 @@
 //>>description: Tizen button
 //>>label: Button
 //>>group: Tizen:Widgets
-
-define( [ "jqm/widgets/forms/button" ], function ( ) {
+define( [
+	"jqm/widgets/forms/button"
+	], function ( ) {
+} );
 //>>excludeEnd("jqmBuildExclude");
 
 /**
@@ -31,6 +33,3 @@ define( [ "jqm/widgets/forms/button" ], function ( ) {
 
 */
 
-//>>excludeStart("jqmBuildExclude", pragmas.jqmBuildExclude);
-} );
-//>>excludeEnd("jqmBuildExclude");
