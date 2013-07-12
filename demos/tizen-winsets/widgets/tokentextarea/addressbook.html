@@ -1,4 +1,4 @@
-<div data-role="page" id="addressbook" data-add-back-btn="true" data-dom-cache="true">
+<div data-role="page" id="addressbook" data-dom-cache="true">
 	<div data-role="header" data-position="fixed">
 		<h1>ADDRESS BOOK</h1>
 	</div>
@@ -42,6 +42,18 @@
 			<li><a>Sawyer Wakefield</a></li>
 		</ul>
 	</div> <!--/content -->
-	<div data-role="footer">
-	</div>
+	<script>
+	$( "#addressbook" ).on( "pageshow" , function() {
+		$( window ).on( "tizenhwkey", function ( ev ) {
+			if ( ev.originalEvent.keyName === "back" ) {
+				//bind callbacks to the H/W keys
+				window.history.back();
+			}
+		});
+	});
+	$( "#addressbook" ).on( "pagebeforehide" , function() {
+		//unbind callbacks to the H/W keys
+		$( window ).off( "tizenhwkey" );
+	});
+	</script>
 </div> <!--/page -->

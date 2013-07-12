@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.47
+Version:    0.2.48
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -97,6 +97,16 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Fri Jul 12 2013 Heeju Joo <heeju.joo@samsung.com> 0.2.48
+	- Checkbox: Fix background for active checkbox in divider
+	- Swipe: Make sure current animation is stopped
+	- checkbox (with favourite icon): fixed style (bug)
+	- Pagelayout : down button position bug fix(N_SE-45112)
+	- Tokentextarea: Delete footer and add H/W key event
+	- Modify Tabbar-segment footer, popup button css style (N_SE-43789)
+	- Winset: modify back button issue and miss spell issue (N_SE-43352)
+	- JQM closed popup does not add visible class ( orientation change )
+
 * Wed Jul 10 2013 Heeju Joo <heeju.joo@samsung.com> 0.2.47
 	- Scrollview : showOverflowScrollbar when ctxpopup opens
 	- Popup : delete popup_bg resource and modify dim_background color&opacity
