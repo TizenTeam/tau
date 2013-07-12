@@ -53,7 +53,7 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 		frameworkData : {
 			rootDir: '/usr/share/tizen-web-ui-fw',
 			version: '0.2',
-			theme: "tizen-white",
+			theme: "tizen-black",
 			viewportWidth: "device-width",
 			viewportScale: false,
 
@@ -169,7 +169,7 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 				src,
 				tokens,
 				version_idx;
-
+/*
 			function getTizenTheme( ) {
 				var t = navigator.theme ? navigator.theme.split( ':' )[0] : null;
 				if ( t ) {
@@ -180,7 +180,7 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 				}
 				return t;
 			}
-
+*/
 			for ( idx in scriptElems ) {
 				elem = scriptElems[idx];
 				src = elem.src ? elem.getAttribute( 'src' ) : undefined;
@@ -195,7 +195,7 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 						|| tokens[ tokens.length + version_idx ]
 						|| this.frameworkData.version;
 					this.frameworkData.theme = elem.getAttribute( 'data-framework-theme' )
-						|| getTizenTheme( )
+						//|| getTizenTheme( )
 						|| this.frameworkData.theme;
 					this.frameworkData.viewportWidth = elem.getAttribute( 'data-framework-viewport-width' )
 						|| this.frameworkData.viewportWidth;

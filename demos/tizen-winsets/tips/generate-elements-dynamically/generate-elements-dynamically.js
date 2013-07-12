@@ -22,6 +22,7 @@ $( document ).one( "pagecreate", "#dynamical-elements-demo", function () {
 				"data-icon='call' data-style='circle' " +
 				"data-theme='s' class='newbutton'></div>";
 		$( buttonTemplate ).buttonMarkup().appendTo( "#buttonItems" );
+		$( "#buttonItems" ).append( " " );
 		return false;
 		/* Same works */
 		/*$("#buttonItems").trigger("create");*/
