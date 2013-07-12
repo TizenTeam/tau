@@ -152,8 +152,14 @@ define( [
 			}
 
 			$tabbar.delegate( "a", "vclick", function ( event ) {
-				$tabbtns.not( ".ui-state-persist" ).removeClass( $.mobile.activeBtnClass );
-				$( this ).addClass( $.mobile.activeBtnClass );
+                                if ( $tabbtns.parents( "ul" ).is( ".tabbar-scroll-ul" ) ) {
+                                        $tabbtns.removeClass( "ui-tabbar-active" );
+                                        $( event.target ).parents( "a" ).addClass( "ui-tabbar-active" );
+
+                                } else {
+					$tabbtns.not( ".ui-state-persist" ).removeClass( $.mobile.activeBtnClass );
+					$( this ).addClass( $.mobile.activeBtnClass );
+				}
 			});
 
 			$tabbar.addClass( "ui-tabbar");
