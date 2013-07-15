@@ -14,7 +14,7 @@ define( [
 /*
 * jQuery Mobile Framework : scrollview plugin
 * Copyright (c) 2010 Adobe Systems Incorporated - Kin Blas (jblas@adobe.com)
-* Dual licensed under the MIT (MIT-LICENSE.txt) and GPL (GPL-LICENSE.txt) licenses.
+* Licensed under the MIT (MIT-LICENSE.txt) license.
 * Note: Code is in draft form and is subject to change
 * Modified by Koeun Choi <koeun.choi@samsung.com>
 * Modified by Minkyu Kang <mk7.kang@samsung.com>

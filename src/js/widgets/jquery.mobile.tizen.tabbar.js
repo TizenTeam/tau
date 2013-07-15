@@ -35,7 +35,7 @@ define( [
  *
  * jQuery Mobile Framework : "tabbar" plugin
  * Copyright (c) jQuery Project
- * licensed under the MIT.
+ * Licensed under the MIT license.
  * http://jquery.org/license
  * Authors: Jinhyuk Jun <jinhyuk.jun@samsung.com>
 */

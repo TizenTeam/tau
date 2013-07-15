@@ -14,7 +14,7 @@ define( [
  * jQuery UI Progressbar @VERSION
  *
  * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
- * Dual licensed under the MIT or GPL Version 2 licenses.
+ * Licensed under the MIT license.
  * http://jquery.org/license
  *
  * http://docs.jquery.com/UI/Progressbar
