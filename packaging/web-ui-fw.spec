@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.48
+Version:    0.2.50
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -97,6 +97,24 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Mon Jul 15 2013 Heeju Joo <heeju.joo@samsung.com> 0.2.50
+	- Revert "list divider: Update the background color of checkboxes on list dividers when pressed"
+	- controlgroup: Remove invalid css code
+	- fastscroll: Remove features for fade-out
+	- Fastscroll: Remove popup text shadow
+	- list divider: Update the background color of checkboxes on list dividers when pressed
+	- winset: change html of collapsable list to valid HTML5 (N_SE-39338)
+	- datetiempicker: trigger default event after click in datetimepicker (N_SE-39513,N_SE-43673)
+	- scrollview,virtuallist: fix evaluate of scrollbar's thumb position (N_SE-42045)
+	- License: modify license from Dual(MIT,GPL) to MIT
+	- theme: Remove invalid css code
+	- Tabbar : add border-bottom color to scrolling_tabbar (N_SE-34126,N_SE-43442,N_SE-42932)
+	- build system: version 2
+	- build: build system for SDK to create minimal version of framework
+	- build system: fix dependencies for requirejs
+	- Node modules
+	- Grunt build
+
 * Fri Jul 12 2013 Heeju Joo <heeju.joo@samsung.com> 0.2.48
 	- Checkbox: Fix background for active checkbox in divider
 	- Swipe: Make sure current animation is stopped
