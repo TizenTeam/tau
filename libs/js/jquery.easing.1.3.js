@@ -35,6 +35,17 @@
  *
 */
 
+//>>excludeStart("jqmBuildExclude", pragmas.jqmBuildExclude);
+//>>description: jQuery Easing
+//>>label: jQuery Easing
+//>>group: Core
+
+define( [ 
+	"jquery"
+	], function( jQuery ) {
+
+//>>excludeEnd("jqmBuildExclude");
+
 // t: current time, b: begInnIng value, c: change In value, d: duration
 jQuery.easing['jswing'] = jQuery.easing['swing'];
 
@@ -203,3 +214,6 @@ jQuery.extend( jQuery.easing,
  * OF THE POSSIBILITY OF SUCH DAMAGE. 
  *
  */
+//>>excludeStart("jqmBuildExclude", pragmas.jqmBuildExclude);
+});
+//>>excludeEnd("jqmBuildExclude");

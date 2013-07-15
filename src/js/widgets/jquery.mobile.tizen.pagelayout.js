@@ -3,7 +3,16 @@
 //>>label: Pagelayout
 //>>group: Tizen:Widgets
 
-define( [ '../jquery.mobile.tizen.core' ], function ( ) {
+define( [ 
+	'jquery',
+	'../jquery.mobile.tizen.core',
+	'../jquery.mobile.tizen.scrollview',
+	"jqm/widgets/page",
+	"jqm/widgets/page.sections",
+	"jqm/widgets/popup",
+	"jqm/jquery.mobile.zoom"
+	], function ( jQuery ) {
+
 //>>excludeEnd("jqmBuildExclude");
 
 /* ***************************************************************************

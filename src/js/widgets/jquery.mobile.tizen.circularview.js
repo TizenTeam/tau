@@ -3,7 +3,13 @@
 //>>label: Circularview
 //>>group: Tizen:Widgets
 
-define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
+define( [ 
+	"jquery",
+	"jqm/jquery.mobile.widget",
+	'../jquery.mobile.tizen.scrollview',
+	'libs/jquery.easing.1.3'
+	], function ( jQuery ) {
+
 //>>excludeEnd("jqmBuildExclude");
 
 /* ***************************************************************************

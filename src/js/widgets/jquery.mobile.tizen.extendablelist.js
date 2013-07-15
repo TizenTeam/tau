@@ -3,7 +3,12 @@
 //>>label: Extendable list
 //>>group: Tizen:Widgets
 
-define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
+define( [ 
+	'jquery',
+	'../jquery.mobile.tizen.scrollview',
+	'libs/jquery.tmpl'
+	], function ( jQuery ) {
+
 //>>excludeEnd("jqmBuildExclude");
 
 /****************************************************************************

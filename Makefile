@@ -21,7 +21,7 @@ FRAMEWORK_ROOT = ${OUTPUT_ROOT}/${PROJECT_NAME}/${VERSION}
 LATEST_ROOT = ${OUTPUT_ROOT}/${PROJECT_NAME}/latest
 
 JS_OUTPUT_ROOT = ${FRAMEWORK_ROOT}/js
-JS_LIB_OUTPUT_DIR = ${JS_OUTPUT_ROOT}/src
+JS_MODULE_OUTPUT_DIR = ${JS_OUTPUT_ROOT}/modules
 export THEME_OUTPUT_ROOT = ${FRAMEWORK_ROOT}/themes
 CSS_OUTPUT_ROOT = ${FRAMEWORK_ROOT}/themes/${THEME_NAME}
 CSS_IMAGES_OUTPUT_DIR = ${CSS_OUTPUT_ROOT}/images
@@ -69,7 +69,7 @@ JQM_LIB_PATH = $(CURDIR)/libs/js/${JQM_VERSION}
 JQUERY = jquery-1.8.2.js
 JQUERY_MIN = $(subst .js,.min.js,$(JQUERY))
 
-all: libs_prepare third_party js libs_cleanup themes version version_compat compress
+all: libs_prepare src_prepare third_party js custom_module libs_cleanup src_cleanup themes version version_compat compress
 
 libs_prepare:
 	# Prepare libs/ build...
@@ -81,35 +81,54 @@ libs_prepare:
 		cat $$f | patch -p1 -N; \
 	done; \
 
+src_prepare:
+	# Prepare src/ build...
+	@@test -d ${JS_DIR}.bak && rm -rf ${JS_DIR} && mv ${JS_DIR}.bak ${JS_DIR}; \
+	cp -a ${JS_DIR} ${JS_DIR}.bak
+
 libs_cleanup:
 	# Cleanup libs/ directory...
 	@@rm -rf ${LIBS_DIR} && mv ${LIBS_DIR}.bak ${LIBS_DIR}
+
+src_cleanup:
+	# Cleanup src/ directory...
+	@@rm -rf ${JS_DIR} && mv ${JS_DIR}.bak ${JS_DIR}
 
 jqm: init
 	# Building jQuery Mobile...
 	cd ${JQM_LIB_PATH} && make js NODE=/usr/bin/node || exit 1; \
 	cp -f ${JQM_LIB_PATH}/compiled/*.js ${JQM_LIB_PATH}/../; \
 
+full: libs_prepare
+	# Building Full file...
+	$(NODE) node_modules/.bin/grunt js;
+	@@mv -f build/tizen-web-ui-fw/tizen-web-ui-fw.full.js ${FRAMEWORK_ROOT}/js/;
+
 third_party: init jqm globalize
 	# Building third party components...
+	mkdir -p ${JS_MODULE_OUTPUT_DIR}/libs/;
 	@@cd ${LIBS_DIR}/js; \
 	    for f in ${LIBS_JS_FILES}; do \
 	        cat $$f >> ${FW_LIB_JS}; \
-		uglifyjs --ascii $$f >> ${FW_LIB_MIN}; \
-		echo "" >> ${FW_LIB_MIN}; \
+	        echo "" >> ${FW_LIB_JS}; \
+	        cp $$f ${JS_MODULE_OUTPUT_DIR}/libs/; \
 	    done; \
-	    cp ${LIBS_DIR}/js/${JQUERY} ${JS_OUTPUT_ROOT}/jquery.js
-	    cp ${LIBS_DIR}/js/${JQUERY_MIN} ${JS_OUTPUT_ROOT}/jquery.min.js
+	sed -i -e '/^\/\/>>excludeStart\(.*\);/,/^\/\/>>excludeEnd\(.*\);/d' ${FW_LIB_JS};
+	uglifyjs --ascii ${FW_LIB_JS} > ${FW_LIB_MIN};
+	cp ${LIBS_DIR}/js/${JQUERY} ${JS_OUTPUT_ROOT}/jquery.js;
+	cp ${LIBS_DIR}/js/${JQUERY_MIN} ${JS_OUTPUT_ROOT}/jquery.min.js;
+
+custom_module:
+	cp -a build-tools/requirejs  ${FRAMEWORK_ROOT}/requirejs;
+	mv ${FRAMEWORK_ROOT}/requirejs/build.xml  ${FRAMEWORK_ROOT}/build.xml;
+
 
 js: init third_party
 	# Building JS files...
-	mkdir -p ${JS_LIB_OUTPUT_DIR}; \
-	cp -a ${JS_DIR}/* ${JS_LIB_OUTPUT_DIR}/; \
-	${NODE} $(CURDIR)/tools/moduledep.js -c ${JS_LIB_OUTPUT_DIR} > ${JS_LIB_OUTPUT_DIR}/../depData.json; \
-	find ${JS_LIB_OUTPUT_DIR} -iname '*.js' | sort | \
+	mkdir -p ${JS_MODULE_OUTPUT_DIR}; \
+	find ${JS_DIR} -iname '*.js' | sort | \
 	while read JSFILE; do \
 		echo " # Building $$JSFILE"; \
-		sed -i -e '/^\/\/>>excludeStart\(.*\);/,/^\/\/>>excludeEnd\(.*\);/d' $$JSFILE; \
 		if test ${JSLINT_LEVEL} -ge 1; then \
 			${JSLINT} $$JSFILE; \
 			if test ${JSLINT_LEVEL} -ge 2 -a $$? -ne 0; then \
@@ -124,59 +143,13 @@ js: init third_party
 		else \
 			echo "		$$f"; \
 		fi; \
-	done; \
-	${NODE} $(CURDIR)/tools/moduledep.js -d ${JS_LIB_OUTPUT_DIR} ${JS_LIB_OUTPUT_DIR}/../depData.json >> ${FW_JS}; \
-	cp -a ${JS_DIR}/* ${JQM_LIB_PATH}/js/* ${JS_LIB_OUTPUT_DIR}/; \
-	${NODE} $(CURDIR)/tools/moduledep.js -c ${JS_LIB_OUTPUT_DIR} > ${JS_LIB_OUTPUT_DIR}/../depData.json; \
-	find ${JS_LIB_OUTPUT_DIR} -iname '*.js' | xargs sed -i -e '/^\/\/>>excludeStart\(.*\);/,/^\/\/>>excludeEnd\(.*\);/d';
-
-widgets: init third_party globalize
-	# Building widgets...
-	@@ls -l ${WIDGETS_DIR} | grep '^d' | awk '{print $$NF;}' | \
-	    while read REPLY; do \
-	        echo "	# Building widget $$REPLY"; \
-			if test ${JSLINT_LEVEL} -ge 1; then \
-				if test $$REPLY != ${COMMON_WIDGET}; then \
-					for FNAME in ${WIDGETS_DIR}/$$REPLY/js/*.js; do \
-						${JSLINT} $$FNAME; \
-						if test ${JSLINT_LEVEL} -ge 2 -a $$? -ne 0; then \
-							exit 1; \
-						fi; \
-					done; \
-				fi; \
-			fi; \
-			if test "x${INLINE_PROTO}x" = "x1x"; then \
-				./tools/inline-protos.sh ${WIDGETS_DIR}/$$REPLY >> ${WIDGETS_DIR}/$$REPLY/js/$$REPLY.js.compiled; \
-				cat ${WIDGETS_DIR}/$$REPLY/js/$$REPLY.js.compiled >> ${FW_JS}; \
-			else \
-				for f in `find ${WIDGETS_DIR}/$$REPLY -iname 'js/*.js' | sort`; do \
-					echo "		$$f"; \
-					cat $$f >> ${FW_JS}; \
-				done; \
-            fi; \
-	        for f in `find ${WIDGETS_DIR}/$$REPLY -iname '*.js.theme' | sort`; do \
-	            echo "		$$f"; \
-	            cat $$f >> ${FW_JS_THEME}; \
-	        done; \
-	        for f in `find ${WIDGETS_DIR}/$$REPLY -iname '*.less' | sort`; do \
-	            echo "		$$f"; \
-	            lessc $$f > $$f.css; \
-	        done; \
-	        for f in `find ${WIDGETS_DIR}/$$REPLY -iname '*.css' | sort`; do \
-	            echo "		$$f"; \
-	            cat $$f >> ${FW_CSS}; \
-	        done; \
-	        for f in `find ${WIDGETS_DIR}/$$REPLY -iname '*.gif' -or -iname '*.png' -or -iname '*.jpg' | sort`; do \
-	            echo "		$$f"; \
-	            cp $$f ${CSS_IMAGES_OUTPUT_DIR}; \
-	        done; \
-                if test "x${INLINE_PROTO}x" != "x1x"; then \
-	          for f in `find ${WIDGETS_DIR}/$$REPLY -iname '*.prototype.html' | sort`; do \
-	              echo "		$$f"; \
-	              cp $$f ${PROTOTYPE_HTML_OUTPUT_DIR}; \
-	          done; \
-                fi; \
-	    done
+	done;
+	#${NODE} $(CURDIR)/tools/moduledep.js -c ${JS_MODULE_OUTPUT_DIR} > ${JS_MODULE_OUTPUT_DIR}/../depData.json;
+	#${NODE} $(CURDIR)/tools/moduledep.js -d ${JS_MODULE_OUTPUT_DIR} ${JS_MODULE_OUTPUT_DIR}/../depData.json >> ${FW_JS};
+	${NODE} $(CURDIR)/tools/moduledep.js -d $(CURDIR)/src/js/ $(CURDIR)/src/js/depData.json >> ${FW_JS};
+	cp -a ${JS_DIR}/* ${JS_MODULE_OUTPUT_DIR}/;
+	cp -a ${JQM_LIB_PATH}/js ${JS_MODULE_OUTPUT_DIR}/jqm;
+	#${NODE} $(CURDIR)/tools/moduledep.js -c ${JS_MODULE_OUTPUT_DIR} > ${JS_MODULE_OUTPUT_DIR}/../depData.json;
 
 globalize:
 	# copy globalize libs...
@@ -188,14 +161,22 @@ themes:
 version: js themes
 	echo '(function($$){$$.tizen.frameworkData.pkgVersion="$(PKG_VERSION)";}(jQuery));' >> ${FW_JS}
 	echo "$(PKG_VERSION)" > ${FRAMEWORK_ROOT}/../VERSION
+	sed -i -e 's/__version__/\"1.2.0\"/g' ${FW_LIBS_JS} ;
 
 compress: third_party js themes
 	# Javacript code compressing
-	@@echo "	# Compressing...."; \
+	# Remove exxcludeStart/excludeEnd data from the output
+	sed -i -e '/^\/\/>>excludeStart\(.*\);/,/^\/\/>>excludeEnd\(.*\);/d' ${FW_JS};
+	# Add copyright to minified file
 	echo '/*' > ${FW_MIN}; \
 	cat ${COPYING_FILE} >> ${FW_MIN}; \
 	echo '*/' >> ${FW_MIN}; \
-	uglifyjs --ascii -nc ${FW_JS} >> ${FW_MIN}; \
+	# Minify legacy build version
+	uglifyjs --ascii -nc ${FW_JS} >> ${FW_MIN};
+	# Minify full version if exist
+	if test -f "${FRAMEWORK_ROOT}/js/tizen-web-ui-fw.full.js" ; then \
+		uglifyjs --ascii -nc ${FRAMEWORK_ROOT}/js/tizen-web-ui-fw.full.js >> ${FRAMEWORK_ROOT}/js/tizen-web-ui-fw.full.min.js; \
+	fi;
 	# CSS compressing
 	@@cd ${THEME_OUTPUT_ROOT}; \
 	for csspath in */*.css; do \

@@ -3,7 +3,12 @@
 //>>label: Tabbar
 //>>group: Tizen:Widgets
 
-define( [ '../jquery.mobile.tizen.core', 'jquery.mobile.tizen.pagelayout' ], function ( ) {
+define( [ 
+	'jquery', 
+	'../jquery.mobile.tizen.core',
+	'./jquery.mobile.tizen.pagelayout'
+	], function ( jQuery ) {
+
 //>>excludeEnd("jqmBuildExclude");
 
 /* ***************************************************************************
@@ -30,7 +35,7 @@ define( [ '../jquery.mobile.tizen.core', 'jquery.mobile.tizen.pagelayout' ], fun
  *
  * jQuery Mobile Framework : "tabbar" plugin
  * Copyright (c) jQuery Project
- * Dual licensed under the MIT or GPL Version 2 licenses.
+ * Licensed under the MIT license.
  * http://jquery.org/license
  * Authors: Jinhyuk Jun <jinhyuk.jun@samsung.com>
 */
@@ -147,8 +152,14 @@ define( [ '../jquery.mobile.tizen.core', 'jquery.mobile.tizen.pagelayout' ], fun
 			}
 
 			$tabbar.delegate( "a", "vclick", function ( event ) {
-				$tabbtns.not( ".ui-state-persist" ).removeClass( $.mobile.activeBtnClass );
-				$( this ).addClass( $.mobile.activeBtnClass );
+                                if ( $tabbtns.parents( "ul" ).is( ".tabbar-scroll-ul" ) ) {
+                                        $tabbtns.removeClass( "ui-tabbar-active" );
+                                        $( event.target ).parents( "a" ).addClass( "ui-tabbar-active" );
+
+                                } else {
+					$tabbtns.not( ".ui-state-persist" ).removeClass( $.mobile.activeBtnClass );
+					$( this ).addClass( $.mobile.activeBtnClass );
+				}
 			});
 
 			$tabbar.addClass( "ui-tabbar");

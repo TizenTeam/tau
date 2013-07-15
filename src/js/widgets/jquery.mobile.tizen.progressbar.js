@@ -3,14 +3,18 @@
 //>>label: Progressbar
 //>>group: Tizen:Widgets
 
-define( [ '../jquery.mobile.tizen.core' ], function ( ) {
+define( [
+	'jquery',
+	'../jquery.mobile.tizen.core'
+	], function ( jQuery ) {
+
 //>>excludeEnd("jqmBuildExclude");
 
 /*
  * jQuery UI Progressbar @VERSION
  *
  * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
- * Dual licensed under the MIT or GPL Version 2 licenses.
+ * Licensed under the MIT license.
  * http://jquery.org/license
  *
  * http://docs.jquery.com/UI/Progressbar

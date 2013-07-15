@@ -3,7 +3,12 @@
 //>>label: Swipe list
 //>>group: Tizen:Widgets
 
-define( [ '../jquery.mobile.tizen.core' ], function ( ) {
+define( [ 
+	'jquery',
+	'../jquery.mobile.tizen.core',
+	"jqm/jquery.mobile.widget"
+	], function ( jQuery ) {
+
 //>>excludeEnd("jqmBuildExclude");
 
 /*

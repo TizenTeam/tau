@@ -3,7 +3,12 @@
 //>>label: Virtual listview
 //>>group: Tizen:Widgets
 
-define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], function ( ) {
+define( [ 
+	'jquery',
+	'../jquery.mobile.tizen.core',
+	'../jquery.mobile.tizen.scrollview'
+	], function ( jQuery ) {
+
 //>>excludeEnd("jqmBuildExclude");
 
 /* ***************************************************************************
@@ -774,6 +779,7 @@ define( [ '../jquery.mobile.tizen.core', '../jquery.mobile.tizen.scrollview' ], 
 						.not( ".ui-li-icon" )
 						.addClass( "ui-corner-bl" );
 			}
+			this.element.trigger( "updatelayout" );
 		},
 
 		// this		virtuallistview object

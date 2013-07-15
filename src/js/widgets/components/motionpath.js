@@ -3,7 +3,9 @@
 //>>label: Motion path
 //>>group: Tizen:Widgets:Components
 
-define( [ ], function ( ) {
+define( [ 
+	], function ( ) {
+
 //>>excludeEnd("jqmBuildExclude");
 
 /* ***************************************************************************

@@ -3,9 +3,17 @@
 //>>label: Gallery3d
 //>>group: Tizen:Widgets
 
-define( [ "components/imageloader", "components/motionpath", "components/webgl" ], function ( ) {
-//>>excludeEnd("jqmBuildExclude");
+define( [ 
+	'jquery',
+	"jqm/jquery.mobile.widget",
+	'libs/jquery.easing.1.3',
+	"libs/gl-matrix",
+	"./components/imageloader",
+	"./components/motionpath",
+	"./components/webgl"
+	], function ( jQuery ) {
 
+//>>excludeEnd("jqmBuildExclude");
 
 /* ***************************************************************************
 	Flora License

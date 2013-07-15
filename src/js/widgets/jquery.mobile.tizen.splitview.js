@@ -3,7 +3,11 @@
 //>>label: Split view
 //>>group: Tizen:Widgets
 
-define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
+define( [ 
+	'jquery',
+	'../jquery.mobile.tizen.scrollview'
+	], function ( ) {
+
 //>>excludeEnd("jqmBuildExclude");
 
 /* ***************************************************************************
@@ -658,8 +662,7 @@ define( [ '../jquery.mobile.tizen.scrollview' ], function ( ) {
 				touchEndEvt = ( $.support.touch ? "touchend" : "mouseup" ) + ".splitview";
 
 			spliter.bind( touchStartEvt, { e : spliter }, function ( event ) {
-				if ( self.options.fixed ||
-					$.support.touch && event.originalEvent.touches.length !== 1 ) {
+				if ( self.options.fixed ) {
 					return;
 				}
 

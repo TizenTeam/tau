@@ -3,7 +3,13 @@
 //>>label: Datetime picker
 //>>group: Tizen:Widgets
 
-define( [ 'jquery.mobile.tizen.widgetex', 'jquery.mobile.tizen.popupwindow', 'jquery.mobile.tizen.popupwindow.ctxpopup' ], function ( ) {
+define( [ 
+	'jquery',
+	"libs/globalize",
+	'./jquery.mobile.tizen.widgetex',
+	'./jquery.mobile.tizen.popupwindow.ctxpopup',
+	], function ( jQuery, Globalize) {
+
 //>>excludeEnd("jqmBuildExclude");
 
 /*global Globalize:false, range:false, regexp:false*/
@@ -138,7 +144,7 @@ define( [ 'jquery.mobile.tizen.widgetex', 'jquery.mobile.tizen.popupwindow', 'jq
 		container : null,
 
 		_calendar: function () {
-			return window.Globalize.culture().calendars.standard;
+			return Globalize.culture().calendars.standard;
 		},
 
 		_value: {
@@ -561,7 +567,6 @@ define( [ 'jquery.mobile.tizen.widgetex', 'jquery.mobile.tizen.popupwindow', 'jq
 			this._popup_open = false;
 			this.ui.bind('vclick', function ( e ) {
 				obj._showDataSelector( obj, this, e.target );
-				return false;
 			});
 
 			$.extend( this, {

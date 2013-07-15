@@ -1,11 +1,3 @@
-//>>excludeStart("jqmBuildExclude", pragmas.jqmBuildExclude);
-//>>description: Tizen core library
-//>>label: Tizen core
-//>>group: Tizen:Core
-
-define( [ 'jquery.mobile.core' ], function ( ) {
-//>>excludeEnd("jqmBuildExclude");
-
 /* ***************************************************************************
 	Flora License
 
@@ -245,6 +237,17 @@ define( [ 'jquery.mobile.core' ], function ( ) {
  *	$.mobile.pinch.interval: interval for pinch event
  */
 
+//>>excludeStart("jqmBuildExclude", pragmas.jqmBuildExclude);
+//>>description: Pinch Event
+//>>label: Pinch Event
+//>>group: Tizen:Core
+
+define( [ 
+	'jquery',
+	'jqm/jquery.mobile.core'
+	], function ( jQuery ) {
+
+//>>excludeEnd("jqmBuildExclude");
 
 ( function( $, window, undefined ) {
 

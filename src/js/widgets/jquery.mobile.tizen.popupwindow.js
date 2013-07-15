@@ -3,7 +3,12 @@
 //>>label: Popup
 //>>group: Tizen:Widgets
 
-define( [ '../jquery.mobile.tizen.core', 'jquery.mobile.tizen.widgetex' ], function ( ) {
+define( [ 
+	'jquery',
+	'../jquery.mobile.tizen.core',
+	'./jquery.mobile.tizen.widgetex'
+	], function ( jQuery ) {
+
 //>>excludeEnd("jqmBuildExclude");
 
 /*

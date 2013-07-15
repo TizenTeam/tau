@@ -7,6 +7,18 @@
  * Dual licensed under the MIT or GPL Version 2 licenses.
  * http://jquery.org/license
  */
+
+//>>excludeStart("jqmBuildExclude", pragmas.jqmBuildExclude);
+//>>description: jQuery Templates Plugin
+//>>label: jQuery Templates Plugin
+//>>group: Libs
+
+define( [ 
+	"jquery" 
+	], function( jQuery ) {
+
+//>>excludeEnd("jqmBuildExclude");
+
 (function( jQuery, undefined ){
 	var oldManip = jQuery.fn.domManip, tmplItmAtt = "_tmplitem", htmlExpr = /^[^<]*(<[\w\W]+>)[^>]*$|\{\{\! /,
 		newTmplItems = {}, wrappedItems = {}, appendToTmplItems, topTmplItem = { key: 0, data: {} }, itemKey = 0, cloneIndex = 0, stack = [];
@@ -482,3 +494,7 @@
 		jQuery( coll ).remove();
 	}
 })( jQuery );
+
+//>>excludeStart("jqmBuildExclude", pragmas.jqmBuildExclude);
+});
+//>>excludeEnd("jqmBuildExclude");

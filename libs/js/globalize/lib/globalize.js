@@ -1573,4 +1573,10 @@ Globalize.culture = function( cultureSelector ) {
 	return this.findClosestCulture( cultureSelector ) || this.culture[ "default" ];
 };
 
-}( this ));
+window.Globalize = Globalize;
+
+if ( typeof define === "function" ) {
+	define( "globalize/globalize", [], function () { return Globalize; } );
+}
+
+}( window ));

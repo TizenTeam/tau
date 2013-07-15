@@ -3,7 +3,9 @@
 //>>label: Image loader
 //>>group: Tizen:Widgets:Components
 
-define( [ ], function ( ) {
+define( [ 
+	], function ( ) {
+
 //>>excludeEnd("jqmBuildExclude");
 
 /* ***************************************************************************
@@ -33,15 +35,8 @@ define( [ ], function ( ) {
 */
 
 ( function ( $, window, document, undefined ) {
-	var _canvas, _context;
-
-	function initCanvas() {
-		if (_context) {
-			return;
-		}
-		_canvas = document.createElement( 'canvas' );
+	var _canvas = document.createElement( 'canvas' ),
 		_context = _canvas.getContext( '2d' );
-	}
 
 	function fileSystemErrorMessage( e ) {
 		var FileError = window.FileError,
@@ -100,7 +95,6 @@ define( [ ], function ( ) {
 
 	function getThumbnail( img, thumbwidth, thumbheight, fit ) {
 		var dimensions, url;
-		initCanvas();
 		_canvas.width = thumbwidth;
 		_canvas.height = thumbheight;
 		dimensions = resize( img.width, img.height, thumbwidth, thumbheight, fit );

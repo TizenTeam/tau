@@ -3,7 +3,12 @@
 //>>label: Searchbar
 //>>group: Tizen:Widgets
 
-define( [ '../jquery.mobile.tizen.core', 'jquery.mobile.tizen.pagelayout' ], function ( ) {
+define( [
+	'jquery',
+	'../jquery.mobile.tizen.core',
+	'./jquery.mobile.tizen.pagelayout'
+], function ( jQuery ) {
+
 //>>excludeEnd("jqmBuildExclude");
 
 /* ***************************************************************************
@@ -31,7 +36,7 @@ define( [ '../jquery.mobile.tizen.core', 'jquery.mobile.tizen.pagelayout' ], fun
 /*
 * jQuery Mobile Framework : "textinput" plugin for text inputs, textareas
 * Copyright (c) jQuery Project
-* Dual licensed under the MIT or GPL Version 2 licenses.
+* Licensed under the MIT license.
 * http://jquery.org/license
 * Authors: Jinhyuk Jun <jinhyuk.jun@samsung.com>
 *          Wongi Lee <wongi11.lee@samsung.com>
