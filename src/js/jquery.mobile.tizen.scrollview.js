@@ -858,6 +858,7 @@ define( [
 		 */
 		_handleDragStart: function ( e, ex, ey ) {
 			this._stopMScroll();
+			clearTimeout(this._hideScrollBarsTimeout);
 
 			this._didDrag = false;
 			this._skip_dragging = false;
@@ -1117,7 +1118,7 @@ define( [
 			this._disableTracking();
 
 			if ( this._endEffect ) {
-				setTimeout( function () {
+				this._hideScrollBarsTimeout = setTimeout( function () {
 					self._setEndEffect( "out" );
 					self._hideScrollBars();
 					self._hideOverflowIndicator();
