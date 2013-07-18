@@ -13,7 +13,7 @@
 		}
 	],
 
-	optimize: "none",
+	optimize: "uglify",
 	uglify: {
 		ascii_only: true
 	},

@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="sample-require-js" default="" basedir=".">
 	<!-- properties -->
-	<property name="r.js" value="${basedir}/requirejs/r.js" />
-	<property name="rhino.jar" value="${basedir}/requirejs/rhino.jar" />
-	<property name="js.build" value="${basedir}/requirejs/js.build.js" />
+	<property name="project.name" value="${project_name}" />
+	<property name="project.loc" value="${project_loc}" />
+
+	<property name="r.js" value="${eclipse.home}/../tools/web-ui-fw-custom-builder/requirejs/r.js" />
+	<property name="rhino.jar" value="${eclipse.home}/../tools/web-ui-fw-custom-builder/requirejs/rhino.jar" />
+	<property name="js.build" value="${eclipse.home}/../tools/web-ui-fw-custom-builder/requirejs/js.build.js" />
+	<property name="js.build.optimize" value="${eclipse.home}/../tools/web-ui-fw-custom-builder/requirejs/js.build.optimize.js" />
 	<!-- custom tasks -->
 	<!-- targets -->
-	<target name="-optimize" description="Combine and minify files.">
+	<target name="non-optimize" description="Combine files.">
 		<java classname="org.mozilla.javascript.tools.shell.Main">
 			<classpath>
 				<pathelement location="${rhino.jar}" />
@@ -14,14 +18,45 @@
 			<arg value="${r.js}" />
 			<arg value="-o" />
 			<arg value="${requirejs.optimizer.settings}" />
+			<arg value="name=${project.loc}/tizen-web-ui-fw-custom-build.js" />
+			<arg value="out=${project.loc}/tizen-web-ui-fw/latest/js/tizen-web-ui-fw.custom.js" />
 		</java>
 		<echo message="optimized ${requirejs.optimizer.settings}" />
 	</target>
+	<target name="optimize" description="Combine and minify files.">
+		<java classname="org.mozilla.javascript.tools.shell.Main">
+			<classpath>
+				<pathelement location="${rhino.jar}" />
+			</classpath>
+			<arg value="${r.js}" />
+			<arg value="-o" />
+			<arg value="${requirejs.optimizer.settings}" />
+			<arg value="name=${project.loc}/tizen-web-ui-fw-custom-build.js" />
+			<arg value="out=${project.loc}/tizen-web-ui-fw/latest/js/tizen-web-ui-fw.custom.min.js" />
+		</java>
+		<echo message="optimized ${requirejs.optimizer.settings}" />
+	</target>
+	<target name="signing">
+		<echo message="Sign this package. (NOT IMPLEMENTED YET)" />
+	</target>
+	<target name="packaging">
+		<echo message="Create a web runtime package" />
+		<zip
+			destfile="${project.loc}/${project.name}.wgt"
+			basedir="${project.loc}/"
+			excludes="**/modules, ${project.name}.wgt"
+		/>
+	</target>
 	<target name="customWebUIFW">
 		<echo message="Create customized WebUIFW library" />
-		<antcall target="-optimize">
+		<antcall target="non-optimize">
 			<param name="requirejs.optimizer.settings" value="${js.build}" />
 		</antcall>
+		<antcall target="optimize">
+			<param name="requirejs.optimizer.settings" value="${js.build.optimize}" />
+		</antcall>
+		<antcall target="signing" />
+		<antcall target="packaging" />
 	</target>
 	<target name="default">
 		<antcall target="customWebUIFW">

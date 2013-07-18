@@ -17,11 +17,12 @@ COMMON_WIDGET = common
 INLINE_PROTO = 1
 OUTPUT_ROOT = $(CURDIR)/build
 FRAMEWORK_ROOT = ${OUTPUT_ROOT}/${PROJECT_NAME}/${VERSION}
+TOOLS_ROOT = ${OUTPUT_ROOT}/web-ui-fw-custom-builder
 
 LATEST_ROOT = ${OUTPUT_ROOT}/${PROJECT_NAME}/latest
 
 JS_OUTPUT_ROOT = ${FRAMEWORK_ROOT}/js
-JS_MODULE_OUTPUT_DIR = ${JS_OUTPUT_ROOT}/modules
+JS_MODULE_OUTPUT_DIR = ${TOOLS_ROOT}/web-ui-fw-modules
 export THEME_OUTPUT_ROOT = ${FRAMEWORK_ROOT}/themes
 CSS_OUTPUT_ROOT = ${FRAMEWORK_ROOT}/themes/${THEME_NAME}
 CSS_IMAGES_OUTPUT_DIR = ${CSS_OUTPUT_ROOT}/images
@@ -119,13 +120,11 @@ third_party: init jqm globalize
 	cp ${LIBS_DIR}/js/${JQUERY_MIN} ${JS_OUTPUT_ROOT}/jquery.min.js;
 
 custom_module:
-	cp -a build-tools/requirejs  ${FRAMEWORK_ROOT}/requirejs;
-	mv ${FRAMEWORK_ROOT}/requirejs/build.xml  ${FRAMEWORK_ROOT}/build.xml;
-
+	cp -a build-tools/requirejs  ${TOOLS_ROOT}/
+	mv ${TOOLS_ROOT}/requirejs/build.xml ${TOOLS_ROOT}/requirejs/tizen-web-ui-fw-custom-build.js ${TOOLS_ROOT}/
 
 js: init third_party
 	# Building JS files...
-	mkdir -p ${JS_MODULE_OUTPUT_DIR}; \
 	find ${JS_DIR} -iname '*.js' | sort | \
 	while read JSFILE; do \
 		echo " # Building $$JSFILE"; \
@@ -278,4 +277,6 @@ init: clean
 	@@mkdir -p ${CSS_OUTPUT_ROOT}
 	@@mkdir -p ${CSS_IMAGES_OUTPUT_DIR}
 	@@mkdir -p ${PROTOTYPE_HTML_OUTPUT_DIR}
+	@@mkdir -p ${JS_MODULE_OUTPUT_DIR}
+	@@mkdir -p ${TOOLS_ROOT}
 	@@rm -f docs/*.html

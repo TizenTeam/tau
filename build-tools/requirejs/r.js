@@ -23275,7 +23275,7 @@ define('requirePatch', [ 'env!env/file', 'pragma', 'parse', 'lang', 'logger', 'c
 
         function normalizeUrlWithBase(context, moduleName, url) {
             //Adjust the URL if it was not transformed to use baseUrl.
-            if (require.jsExtRegExp.test(moduleName)) {
+            if (require.jsExtRegExp.test(moduleName) && (moduleName != url)) {
                 url = (context.config.dir || context.config.dirBaseUrl) + url;
             }
             return url;
@@ -24061,7 +24061,7 @@ define('build', function (require) {
             if (modules) {
                 modules.forEach(function (module) {
                     if (module.name) {
-                        module._sourcePath = buildContext.nameToUrl(module.name);
+                        module._sourcePath = module.name;
                         //If the module does not exist, and this is not a "new" module layer,
                         //as indicated by a true "create" property on the module, and
                         //it is not a plugin-loaded resource, and there is no
@@ -24098,7 +24098,7 @@ define('build', function (require) {
                 if (modules) {
                     modules.forEach(function (module) {
                         if (module.name) {
-                            module._buildPath = buildContext.nameToUrl(module.name, null);
+                            module._buildPath = module.name;
                             if (!module.create) {
                                 file.copyFile(module._sourcePath, module._buildPath);
                             }
@@ -24586,7 +24586,7 @@ define('build', function (require) {
             }
         }
 
-        build.makeAbsObject(["out", "cssIn"], config, absFilePath);
+        build.makeAbsObject(["cssIn"], config, absFilePath);
         build.makeAbsObject(["startFile", "endFile"], config.wrap, absFilePath);
     };
 

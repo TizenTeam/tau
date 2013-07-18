@@ -6,7 +6,8 @@
 define( [ 
 	'jquery', 
 	'../jquery.mobile.tizen.core',
-	'./jquery.mobile.tizen.pagelayout'
+	'./jquery.mobile.tizen.pagelayout',
+	'jqm/jquery.mobile.grid'
 	], function ( jQuery ) {
 
 //>>excludeEnd("jqmBuildExclude");

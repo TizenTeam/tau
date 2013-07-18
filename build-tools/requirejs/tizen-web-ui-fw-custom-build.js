@@ -2,8 +2,13 @@
 //>>description: Config file to build custom tizen web-ui-fw
 
 require( [
+	"jqm/widgets/listview",
+	"jqm/widgets/forms/button",
+	"jqm/jquery.mobile.links",
 	"jquery.mobile.tizen.loader",
-	"widgets/jquery.mobile.tizen.pagelayout"
+	"widgets/jquery.mobile.tizen.pagelayout",
+	"widgets/jquery.mobile.tizen.tabbar",
+	"widgets/jquery.mobile.tizen.popupwindow.ctxpopup"
 	],
 	function ( ) {
 
