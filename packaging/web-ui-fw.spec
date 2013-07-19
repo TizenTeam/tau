@@ -82,9 +82,6 @@ Summary:    Tizen Web UI Framework Developer's files
 %files -n web-ui-fw-devel
 /usr/share/tizen-web-ui-fw/bin
 /usr/share/tizen-web-ui-fw/template
-/usr/share/tizen-web-ui-fw/*/js/modules
-/usr/share/tizen-web-ui-fw/*/requirejs
-/usr/share/tizen-web-ui-fw/*/build.xml
 
 ###############################
 %package -n web-ui-fw-demo-tizen-winsets

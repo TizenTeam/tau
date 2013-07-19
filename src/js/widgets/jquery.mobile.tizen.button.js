@@ -3,7 +3,8 @@
 //>>label: Button
 //>>group: Tizen:Widgets
 define( [
-	"jqm/widgets/forms/button"
+	"jqm/widgets/forms/button",
+	"jqm/jquery.mobile.buttonMarkup"
 	], function ( ) {
 } );
 //>>excludeEnd("jqmBuildExclude");
