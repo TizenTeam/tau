@@ -1,0 +1,61 @@
+From 2286d9dddcb0fe022b940d998cdfae5dd5ee5592 Mon Sep 17 00:00:00 2001
+From: "hjnim.kim" <hjnim.kim@samsung.com>
+Date: Mon, 22 Jul 2013 15:52:20 +0900
+Subject: [PATCH] JQM Menu popup setTimeout issue has been fixed
+
+Menu popup setTimeout issue has been fixed
+
+Signed-off-by : hyunjung Kim, <hjnim.kim@samsung.com>
+
+Change-Id: I55b454ca7b2babc84a67bcbe1ef75e709e58bf51
+---
+ libs/js/jquery-mobile-1.2.0/js/widgets/popup.js |   18 +++++++++++-------
+ 1 file changed, 11 insertions(+), 7 deletions(-)
+
+diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
+index 0bec1d4..74350e1 100644
+--- a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
++++ b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
+@@ -399,10 +399,10 @@ define( [ "jquery",
+ 
+ 			ret.y -= Math.min( ret.y, Math.max( 0, ret.y + menuSize.cy - docHeight ) );
+ 
+-			if ( this.positionTo !== "origin" ) {
+-				return { left: ret.x, top: ret.y , arrowleft: 0 , arrowtop: 0};
+-			} else if( this.options.isHardwarePopup )  {
++			if ( this.options.isHardwarePopup ) {
+ 				return { left: this._tolerance.l, top: $(window).height() - menuSize.cy - this._tolerance.b, arrowleft: 0 , arrowtop: 0 };
++			} else if( this.positionTo !== "origin"  )  {
++				return { left: ret.x, top: ret.y , arrowleft: 0 , arrowtop: 0};
+ 			}
+ 
+ 			positionOffsets = [ linkOffset.left,
+@@ -817,8 +817,13 @@ define( [ "jquery",
+ 				self.positionTo = ( options != null && options.positionTo != null ) ? options.positionTo : "origin";
+ 			}
+ 
+-			if ( $(self.link).jqmData("position-to") !== "window"
+-					&& self.positionTo !== "window" ) {
++			if( $(self.element).hasClass( "ui-ctxpopup-optionmenu" ) ){
++				self.options.isHardwarePopup = true;
++			}
++
++			if ( ( $(self.link).jqmData("position-to") !== "window"
++					&& self.positionTo !== "window" )
++					|| self.options.isHardwarePopup ) {
+ 
+ 				$(self.element).addClass("ui-ctxpopup");
+ 				$(self._ui.container).removeClass("ui-popup-container")
+@@ -846,8 +851,7 @@ define( [ "jquery",
+ 			}
+ 
+ 			// Hadeware key style popup
+-			if( $(self.element).hasClass( "ui-ctxpopup-optionmenu" ) ){
+-				self.options.isHardwarePopup = true;
++			if( self.options.isHardwarePopup ){
+ 				$( self._ui.arrow).hide();
+ 			}
+ 
+-- 
+1.7.9.5
+
