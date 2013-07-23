@@ -1277,11 +1277,11 @@ define( [
 		 * @private
 		 */
 		_showOverflowIndicator: function () {
-			if ( !$( this.element ).is( ".ui-content" ) ) {
+			if ( !$( this.element ).is( ".ui-content" ) && !$( this.element ).is( ".ui-custom-scrollbar" ) ) {
 				return true;
 			}
 
-			if ( !this.options.overflowEnable || !this._overflowAvail || this._softkeyboard ) {
+			if ( (!this.options.overflowEnable && !$( this.element ).is( ".ui-custom-scrollbar" )) || !this._overflowAvail || this._softkeyboard ) {
 				return;
 			}
 
@@ -1296,7 +1296,7 @@ define( [
 		 * @private
 		 */
 		_hideOverflowIndicator: function () {
-			if ( !this.options.overflowEnable || !this._overflowAvail || this._softkeyboard ) {
+			if ( (!this.options.overflowEnable && !$( this.element ).is( ".ui-custom-scrollbar" ))  || !this._overflowAvail || this._softkeyboard ) {
 				return;
 			}
 
@@ -1667,7 +1667,7 @@ define( [
 		 * @private
 		 */
 		_add_overflow_indicator: function () {
-			if ( !this.options.overflowEnable ) {
+			if ( !this.options.overflowEnable && !$( this.element).is( ".ui-custom-scrollbar" ) ) {
 				return;
 			}
 
