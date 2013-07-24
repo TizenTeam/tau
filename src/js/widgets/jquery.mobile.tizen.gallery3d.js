@@ -654,6 +654,7 @@ define( [
 		},
 
 		destroy: function () {
+			this._imageList.length = 0;
 			this._final();
 			$.mobile.widget.prototype.destroy.call( this );
 		},

@@ -29,7 +29,7 @@
 			var i, j, widget = $( "#gallery3d" );
 
 			for ( i = 0; i <= 2; i += 1 ) {
-				for ( j = 1; j < 10; j += 1 ) {
+				for ( j = 9; j > 0; j -= 1 ) {
 					widget.gallery3d( "add", { src: "../test/0" + j + ".jpg" } );
 				}
 			}
