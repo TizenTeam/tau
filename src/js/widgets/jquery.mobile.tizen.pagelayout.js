@@ -329,15 +329,17 @@ define( [
 				// Blur focused element to turn off SIP(IME)
 				$page = $( ev.data ); 	// page object, passed by _setHWKeySupport()
 				$focused = $page.find( ".ui-focus" );
-				if( $focused[0] ) {	// Focused element is found
+				if ( $focused[0] ) {	// Focused element is found
 					$focused.blur();
 					// NOTE: If a popup is opened and focused element exists in it,
 					//       do not close that popup.
 					//       'false' is returned here, hence popup close routine is not run.
-					return false;
+					if ( $page.find( ".ui-popup-active" ).find( ".ui-focus" ).length ) {
+						return false;
+					}
 				}
 				// Close opened popup
-				if( $openedpopup ) {
+				if ( $openedpopup ) {
 					$openedpopup.close();
 					return false;
 				}
