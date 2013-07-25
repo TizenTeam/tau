@@ -1515,6 +1515,11 @@ define( [
 						cw = $c.outerWidth(),
 						scroll_x,
 						scroll_y;
+
+					if ( !$( self.element ).is( ".ui-content" ) ) {
+						view_w = $v.width();
+						cw = $c.width();
+					}
 					if ( self._sy < clip_h - view_h ) {
 						scroll_y = clip_h - view_h;
 						scroll_x = 0;
