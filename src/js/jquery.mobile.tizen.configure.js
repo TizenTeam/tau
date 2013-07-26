@@ -16,7 +16,7 @@ define( [
  * set TIZEN specific configures
  */
 
-( function( $, window, undefined ) {
+( function ( $, window, undefined ) {
 
 	/* set default transition */
 	$.mobile.defaultPageTransition = "none";
@@ -31,7 +31,7 @@ define( [
 	/* button hover delay */
 	$.mobile.buttonMarkup.hoverDelay = 0;
 
-})( jQuery, this );
+}( jQuery, this ) );
 
 //>>excludeStart("jqmBuildExclude", pragmas.jqmBuildExclude);
 } );

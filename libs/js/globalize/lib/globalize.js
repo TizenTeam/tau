@@ -342,7 +342,9 @@ extend = function( deep ) {
 					target[ name ] = extend( deep, clone, copy );
 
 				// Don't bring in undefined values
-				} else if ( copy !== undefined ) {
+				} else if ( copy || copy === 0 ) {
+					// N_SE-46759 : If overring culture value is 'undefined' or 'null'
+					//              then not copy overring value that remain default value.
 					target[ name ] = copy;
 				}
 			}

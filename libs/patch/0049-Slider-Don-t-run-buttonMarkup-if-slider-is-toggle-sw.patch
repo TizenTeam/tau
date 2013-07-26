@@ -1,0 +1,36 @@
+From 2aa24ddb63ed84419d25ceb98e92c17761b09144 Mon Sep 17 00:00:00 2001
+From: Przemyslaw Ciezkowski <p.ciezkowski@samsung.com>
+Date: Wed, 26 Jun 2013 13:08:57 +0200
+Subject: [PATCH] Slider: Don't run buttonMarkup if slider is toggle switch
+
+Change-Id: Ide59d09336d6207f798591f86088759fef8e0593
+---
+ .../jquery-mobile-1.2.0/js/widgets/forms/slider.js |   10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/slider.js b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/slider.js
+index a56ac51..02ebd16 100644
+--- a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/slider.js
++++ b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/slider.js
+@@ -83,10 +83,16 @@ $.widget( "mobile.slider", $.mobile.widget, {
+ 
+ 		if ( $( control ).find( "option" ).length && $( control ).find( "option" ).text() === "" ) {
+ 			$( domSlider ).addClass( "ui-toggle-switch" );
++		} else {
++			//call buttonMarkup only if not toggle switch
++			//in toggle switch handle is invisible and slider state
++			//is presented with self._labels
++			//Fixes #N_SE-42991 where because of handle, it is outside
++			//listview and causes scrollview content to scrollLeft on focus
++			handle.buttonMarkup({ corners: true, theme: theme, shadow: true });
+ 		}
+ 
+-		handle.buttonMarkup({ corners: true, theme: theme, shadow: true })
+-				.attr({
++		handle.attr({
+ 					"role": "slider",
+ 					"aria-valuemin": min,
+ 					"aria-valuemax": max,
+-- 
+1.7.9.5
+

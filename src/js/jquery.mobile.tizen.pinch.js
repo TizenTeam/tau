@@ -249,124 +249,123 @@ define( [
 
 //>>excludeEnd("jqmBuildExclude");
 
-( function( $, window, undefined ) {
+( function ( $, undefined ) {
 
-pinch_event = {
-	setup: function () {
-		var thisObject = this,
-			$this = $( thisObject );
+	var pinch_event = {
+		setup: function () {
+			var thisObject = this,
+				$this = $( thisObject );
 
-		if ( !$.mobile.support.touch ) {
-			return;
-		}
-
-		function getSize( point ) {
-			var x = point[0].x - point[1].x,
-				y = point[0].y - point[1].y;
-
-			return Math.abs( x * y );
-		}
-
-		function getParameter( point, ratio ) {
-			return { point: point, ratio: ratio };
-		}
-
-		$this.bind( "touchstart", function ( event ) {
-			var data = event.originalEvent.touches,
-				origin,
-				last_ratio = 1,
-				processing = false;
-
-			if ( !$.mobile.pinch.enabled ) {
+			if ( !$.mobile.support.touch ) {
 				return;
 			}
 
-			if ( data.length != 2 ) {
-				return;
+			function getSize( point ) {
+				var x = point[0].x - point[1].x,
+					y = point[0].y - point[1].y;
+
+				return Math.abs( x * y );
 			}
 
-			origin = [
+			function getParameter( point, ratio ) {
+				return { point: point, ratio: ratio };
+			}
+
+			$this.bind( "touchstart", function ( event ) {
+				var data = event.originalEvent.touches,
+					origin,
+					last_ratio = 1,
+					processing = false,
+					current;
+
+				if ( !$.mobile.pinch.enabled ) {
+					return;
+				}
+
+				if ( data.length != 2 ) {
+					return;
+				}
+
+				origin = [
 					{ x: data[0].pageX, y: data[0].pageY },
 					{ x: data[1].pageX, y: data[1].pageY }
-			];
-
-			$( event.target ).trigger( "pinchstart", getParameter( origin, undefined ) );
-
-			function pinchHandler( event ) {
-				var data = event.originalEvent.touches,
-					current,
-					ratio,
-					delta,
-					factor = $( window ).width() / $.mobile.pinch.factor;
-
-				if ( processing ) {
-					return;
-				}
-
-				if ( !origin ) {
-					return;
-				}
-
-				current = [
-						{ x: data[0].pageX, y: data[0].pageY },
-						{ x: data[1].pageX, y: data[1].pageY }
 				];
 
-				delta = Math.sqrt( getSize( current ) / getSize( origin )  ) ;
-				if( delta ) {
-					ratio = delta;
+				$( event.target ).trigger( "pinchstart", getParameter( origin, undefined ) );
+
+				function pinchHandler( event ) {
+					var data = event.originalEvent.touches,
+						ratio,
+						delta;
+
+					if ( processing ) {
+						return;
+					}
+
+					if ( !origin ) {
+						return;
+					}
+
+					current = [
+						{ x: data[0].pageX, y: data[0].pageY },
+						{ x: data[1].pageX, y: data[1].pageY }
+					];
+
+					delta = Math.sqrt( getSize( current ) / getSize( origin )  ) ;
+					if ( delta ) {
+						ratio = delta;
+					}
+
+					if ( ratio < $.mobile.pinch.min ) {
+						ratio = $.mobile.pinch.min;
+					} else if ( ratio > $.mobile.pinch.max ) {
+						ratio = $.mobile.pinch.max;
+					}
+
+					if ( Math.abs( ratio - last_ratio ) < $.mobile.pinch.threshold ) {
+						return;
+					}
+
+					$( event.target ).trigger( "pinch", getParameter( current, ratio ) );
+
+					last_ratio = ratio;
+
+					if ( $.mobile.pinch.interval ) {
+						processing = true;
+
+						setTimeout( function () {
+							processing = false;
+						}, $.mobile.pinch.interval );
+					}
 				}
 
-				if ( ratio < $.mobile.pinch.min ) {
-					ratio = $.mobile.pinch.min;
-				} else if ( ratio > $.mobile.pinch.max ) {
-					ratio = $.mobile.pinch.max;
-				}
+				$this.bind( "touchmove", pinchHandler )
+					.one( "touchend", function ( event ) {
+						$this.unbind( "touchmove", pinchHandler );
+						$( event.target ).trigger( "pinchend",
+									getParameter( undefined, last_ratio ) );
 
-				if ( Math.abs( ratio - last_ratio ) < $.mobile.pinch.threshold ) {
-					return;
-				}
-
-				$( event.target ).trigger( "pinch", getParameter( current, ratio ) );
-
-				last_ratio = ratio;
-
-				if ( $.mobile.pinch.interval ) {
-					processing = true;
-
-					setTimeout( function () {
+						origin = undefined;
+						current = undefined;
+						last_ratio = 1;
 						processing = false;
-					}, $.mobile.pinch.interval );
-				}
-			}
+					});
+			});
+		}
+	};
 
-			$this.bind( "touchmove", pinchHandler )
-				.one( "touchend", function ( event ) {
-					$this.unbind( "touchmove", pinchHandler );
-					$( event.target ).trigger( "pinchend",
-								getParameter( undefined, last_ratio ) );
+	$.event.special.pinch = pinch_event;
 
-					origin = undefined;
-					current = undefined;
-					last_ratio = 1;
-					processing = false;
-				});
-		});
-	}
-};
+	$.mobile.pinch = {
+		enabled: true,
+		min: 0.1,
+		max: 3,
+		factor: 4,
+		threshold: 0.01,
+		interval: 50
+	};
 
-$.event.special["pinch"] = pinch_event;
-
-$.mobile.pinch = {
-	enabled: true,
-	min: 0.1,
-	max: 3,
-	factor: 4,
-	threshold: 0.01,
-	interval: 50
-};
-
-})( jQuery, this );
+}( jQuery, this ) );
 
 //>>excludeStart("jqmBuildExclude", pragmas.jqmBuildExclude);
 } );

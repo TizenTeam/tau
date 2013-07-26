@@ -1,6 +1,6 @@
 Name:       web-ui-fw
-Version:    0.2.50
-Release:    1
+Version:    0.2.51
+Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
 License:    MIT
@@ -82,9 +82,6 @@ Summary:    Tizen Web UI Framework Developer's files
 %files -n web-ui-fw-devel
 /usr/share/tizen-web-ui-fw/bin
 /usr/share/tizen-web-ui-fw/template
-/usr/share/tizen-web-ui-fw/*/js/modules
-/usr/share/tizen-web-ui-fw/*/requirejs
-/usr/share/tizen-web-ui-fw/*/build.xml
 
 ###############################
 %package -n web-ui-fw-demo-tizen-winsets
@@ -98,6 +95,40 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Fri Jul 26 2013 Hyunjung Kim <hjnim.kim@samsung.com> 0.2.51
+	- Swipelist : bug fix( change css selector. check only swipelist)
+	- Scrollview : add custom Overflowscrollbar option
+	- Scrollview : calculate excluding padding in innerScrollview(DCM-2223)
+	- JIRA fix - n_se-47012 Menu button does not respond after tap on BUTTON
+	- Menu popup poisiton problem has been fixed ( when use the timer )
+	- swipe: change height of swipe if in swipe is more than one line (N_SE-36032)
+	- Scrollview : add scrollbar showed routine when resize (N_SE-46664, N_SE-47206)
+	- Revert "Scrollview : add to show scroll bar routine when called resize (N_SE-46664)"
+	- button: fix padding left on button with icon on left side (N_SE-39106)
+	- button: set max-width on button in list (N_SE-41954)
+	- winset: spelling fix in list filter search bar (N_SE-34407)
+	- checkbox: Fix wrong code
+	- Add meta modules and fix dependencies
+	- JQM patch : add touchend event in slider (N_SE-46593)
+	- Collapsible: remove activeBtnClass from collapsible heading
+	- Scrollview: cancel hiding scrollbar when drag start again
+	- tools: automated tests system
+	- LoadPrototype: Fix jslint errors
+	- Configure: Fix jslint errors
+	- Pinch: Fix jslint errors
+	- listview : adding text-overflow property (N_SE-44917)
+	- Winsets: avoid resizing page
+	- Slider: Prevent calling buttonMarkup for toggle switch
+	- Winset: modify title and spell issue (N_SE-46197,N_SE-46399,N_SE-46411)
+	- tizen-winsets: backbutton-control removed in relation to mandatory hw button
+	- JIRA - fix N_SE-46403 removing code from popup message
+	- JIRA - fix N_SE-46874 switch buttons according to new documentation
+	- Globalize : modify culture value exception condition (N_SE-46759)
+	- winset: change wrong number on list (N_SE-35751)
+	- Scrollview : add to show scroll bar routine when called resize (N_SE-46664)
+	- build: change configuration od custom build system
+	- fix included files in devel package
+
 * Mon Jul 15 2013 Heeju Joo <heeju.joo@samsung.com> 0.2.50
 	- Revert "list divider: Update the background color of checkboxes on list dividers when pressed"
 	- controlgroup: Remove invalid css code

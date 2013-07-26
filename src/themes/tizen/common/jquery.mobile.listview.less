@@ -141,6 +141,7 @@
 	.ui-btn {	// NOTE: For vertical aligning buttons. It breaks collapsible size. Refactor it!
 		top: 50%;
 		margin-top: -0.8em;
+		max-width: 100%;
 	}
 }
 .ui-li,
@@ -193,9 +194,12 @@
 		border-right-width : 0px;
 	}
 
-	.ui-btn-inner a.ui-link-inherit,
 	.ui-collapsible-heading-toggle {
 		.LESStext-no-ellipsis();
+	}
+
+	.ui-btn-inner a.ui-link-inherit {
+		.LESStext-ellipsis();
 	}
 
 	.ui-toggle-switch {
