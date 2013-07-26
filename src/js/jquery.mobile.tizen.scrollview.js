@@ -1478,7 +1478,22 @@ define( [
 
 			$( window ).bind( "resize", function ( e ) {
 				var focused,
-					view_h = self._getViewHeight();
+					view_h = self._getViewHeight(),
+					clip_h = $c.height();
+
+				/*
+				 * If (clip_h >= view_h) need not to scroll bar
+				 * else need to show scroll bar that how set it.
+				 */
+				if ( clip_h >= view_h ) {
+					// If Page don't need to scrollbar, scroll position that set before page need to initialization.
+					self.scrollTo(0,0,0);
+					self._hideScrollBars();
+				} else {
+					self._set_scrollbar_size();
+					self._setScrollPosition( self._sx, self._sy );
+					self._showScrollBars( 2000 );
+				}
 
 				if ( $(".ui-page-active").get(0) !== $c.closest(".ui-page").get(0) ) {
 					return;
@@ -1500,8 +1515,8 @@ define( [
 						cw = $c.outerWidth(),
 						scroll_x,
 						scroll_y;
-					if ( self._sy < $c.height() - self._getViewHeight() ) {
-						scroll_y = $c.height() - self._getViewHeight();
+					if ( self._sy < clip_h - view_h ) {
+						scroll_y = clip_h - view_h;
 						scroll_x = 0;
 					}
 					if ( self._sx < cw - view_w ) {
