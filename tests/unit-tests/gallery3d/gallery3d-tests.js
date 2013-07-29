@@ -40,8 +40,8 @@
 		widget.gallery3d( "empty" );
 		equal( widget.gallery3d( "length" ), 0, "API : empty" );
 
-		widget.gallery3d( "add", imageList[1] )
-			.gallery3d( "add", imageList[0] );
+		widget.gallery3d( "add", imageList[0] )
+			.gallery3d( "add", imageList[1] );
 
 		widget.gallery3d( "select", 1 );
 		setTimeout( function () {
