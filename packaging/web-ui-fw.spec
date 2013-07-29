@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.51
+Version:    0.2.52
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -95,6 +95,10 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Mon Jul 29 2013 Heeju Joo <heeju.joo@samsung.com> 0.2.52
+	- toggleswitch : invalidate max-width property in toggle handler (N_SE-42954)
+	- Revert "Slider: Prevent calling buttonMarkup for toggle switch"
+
 * Fri Jul 26 2013 Hyunjung Kim <hjnim.kim@samsung.com> 0.2.51
 	- Swipelist : bug fix( change css selector. check only swipelist)
 	- Scrollview : add custom Overflowscrollbar option
