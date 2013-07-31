@@ -21087,7 +21087,7 @@ define('parse', ['./esprimaAdapter', 'lang'], function (esprima, lang) {
         }, options);
 
         if (options.insertNeedsDefine && needsDefine) {
-            result += 'require.needsDefine("' + moduleName + '");';
+            result += 'require.needsDefine("' + moduleName.replace(/\\/g, '\\\\') + '");';
         }
 
         if (moduleDeps.length || moduleList.length) {
@@ -21106,7 +21106,7 @@ define('parse', ['./esprimaAdapter', 'lang'], function (esprima, lang) {
                 }
 
                 depString = arrayToString(moduleCall.deps);
-                result += 'define("' + moduleCall.name + '",' +
+                result += 'define("' + moduleCall.name.replace(/\\/g, '\\\\') + '",' +
                           depString + ');';
             }
             if (moduleDeps.length) {
@@ -21114,7 +21114,7 @@ define('parse', ['./esprimaAdapter', 'lang'], function (esprima, lang) {
                     result += '\n';
                 }
                 depString = arrayToString(moduleDeps);
-                result += 'define("' + moduleName + '",' + depString + ');';
+                result += 'define("' + moduleName.replace(/\\/g, '\\\\') + '",' + depString + ');';
             }
         }
 
