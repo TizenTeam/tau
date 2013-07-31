@@ -412,13 +412,13 @@ define( [
 				footerHeight,
 				resultMinHeight,
 				dpr = 1,
-				layoutInnerHeight = window.innerHeight;
+				layoutInnerHeight = $.mobile.$window.height();
 
 			if ( !$.support.scrollview || ($.support.scrollview && $elContent.jqmData("scroll") === "none") ) {
 					dpr = window.outerWidth / window.innerWidth;
 					layoutInnerHeight = Math.floor( window.outerHeight / dpr );
 			} else {
-				layoutInnerHeight = window.innerHeight;
+				layoutInnerHeight = $.mobile.$window.height();
 			}
 
 			if ( $elFooter.css( "display" ) === "none" ) {
@@ -589,7 +589,7 @@ define( [
 				resultContentHeight = 0,
 				resultFooterHeight = 0,
 				resultHeaderHeight = 0,
-				layoutInnerHeight = window.innerHeight,
+				layoutInnerHeight = $.mobile.$window.height(),
 				dpr = 1;
 
 			if ( $elPage.length ) {
@@ -623,11 +623,12 @@ define( [
 			}
 
 			// External call page( "refresh") - in case title changed
+
 			if ( receiveType ) {
 				$elPage
-					.css( "min-height", resultContentHeight )
 					.css( "padding-top", resultHeaderHeight )
 					.css( "padding-bottom", resultFooterHeight );
+				$elContent.css( "min-height", resultContentHeight );
 			}
 		},
 
