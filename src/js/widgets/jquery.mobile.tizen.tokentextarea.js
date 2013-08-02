@@ -222,7 +222,7 @@ define( [
 */
 /**
 	@method focusIn
-	The focusIn method is used to set the focus status to "focus in". This focus state enables the user to add or remove buttons in the token text area widget.
+	The focusIn method is used to set the focus on input and set the focus status to "focus in". This focus state enables the user to add or remove buttons in the token text area widget.
 
 		<div data-role="tokentextarea">
 		</div>
@@ -596,11 +596,13 @@ define( [
 		// Focus In Event
 		//
 		focusIn : function () {
+			var $view = this.element;
+
 			if ( this._focusStatus === "focusIn" ) {
+				// N_SE-48198 this function should always set focus on input
+				$view.find( ".ui-tokentextarea-input" ).focus();
 				return;
 			}
-
-			var $view = this.element;
 
 			$view.find( ".ui-tokentextarea-label" ).attr( "tabindex", 0 ).show();
 			$view.find( ".ui-tokentextarea-desclabel" ).remove();
