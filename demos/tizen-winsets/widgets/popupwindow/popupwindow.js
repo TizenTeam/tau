@@ -15,6 +15,10 @@ $( document ).one( "pageinit", "#popupwindow-demo", function () {
                         $( "#go_textbox_popup a" ).attr( "href", "#textbox_popup_landscape" );
                 }
         }
+	//JIRA fix - N_SE-48393
+	$("#textbox_popup").bind('popupafterclose', function ( e ) {
+		$("#textbox_popup").find("input").val("");
+	});
 });
 
 function onSuccessPopupCallback ( ori ) {
