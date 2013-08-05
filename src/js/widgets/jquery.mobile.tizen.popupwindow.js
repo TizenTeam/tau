@@ -372,8 +372,11 @@ define( [
 					if ( !self._isOpen ) {
 						return;
 					}
-
-					self._setPosition( x_where, y_where );
+					var $el = $( ".ui-focus" ),
+						$el_offset = $el.offset(),
+						x = $el_offset.left + $el.outerWidth() / 2,
+						y = $el_offset.top  + $el.outerHeight();
+					self._setPosition( x, y );
 				};
 
 				$( window ).bind( "resize", this._reflow );
