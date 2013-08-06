@@ -319,6 +319,7 @@ define( [
 
 		_HWKeyHandler: function ( ev ) {
 			var $openedpopup = $.mobile.popup.active,
+				$openedpicker = $.mobile.activePage.children( ".ui-popupwindow" ),
 				$page,
 				$focused;
 			// NOTE: The 'tizenhwkey' event is passed only document -> window objects.
@@ -343,12 +344,20 @@ define( [
 					$openedpopup.close();
 					return false;
 				}
+				if ( $openedpicker.hasClass( "in" ) ) {
+					$openedpicker.popupwindow().popupwindow( "close" );
+					return false;
+				}
 			}
 			// back key
 			else if( ev.originalEvent.keyName == "back" ) {
 				// Close opened popup
 				if( $openedpopup ) {
 					$openedpopup.close();
+					return false;
+				}
+				if ( $openedpicker.hasClass( "in" ) ) {
+					$openedpicker.popupwindow().popupwindow( "close" );
 					return false;
 				}
 			}
