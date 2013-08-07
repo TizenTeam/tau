@@ -516,7 +516,7 @@ define( [
 			};
 		},
 
-		_layout : function ( initRatio, fromFirstPane ) {
+		_layout : function ( initRatio, fromFirstPane, saveRatio ) {
 			var self = this,
 				$el = self.element,
 				opt = self.options,
@@ -548,6 +548,7 @@ define( [
 
 			initRatio = !!initRatio;
 			fromFirstPane = !!fromFirstPane;
+			saveRatio = !!saveRatio;
 
 			$el.css( {
 				"min-width" : width,
@@ -600,12 +601,14 @@ define( [
 				$pane.css( ( isHorizontal ? "left" : "top" ), posValue );
 			});
 
-			$panes.each( function ( i ) {
-				var $pane = $( this ),
-					paneWidth = isHorizontal ? $pane.width() : $pane.height();
+			if ( saveRatio ) {
+				$panes.each( function ( i ) {
+					var $pane = $( this ),
+						paneWidth = isHorizontal ? $pane.width() : $pane.height();
 
-				self.options.ratio[ i ] = paneWidth / widthSum;
-			});
+					self.options.ratio[ i ] = paneWidth / widthSum;
+				});
+			}
 
 			$.each( spliters, function ( i ) {
 				var spliter = $( this ),
@@ -905,7 +908,7 @@ define( [
 			fromFirstPane = !!fromFirstPane;
 
 			if ( self._getContainerSize( $el[ 0 ].style.width, $el[ 0 ].style.height ) ) {
-				self._layout( initRatio, fromFirstPane );
+				self._layout( initRatio, fromFirstPane, true );
 			}
 		},
 
