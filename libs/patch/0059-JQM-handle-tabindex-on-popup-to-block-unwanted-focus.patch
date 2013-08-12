@@ -1,0 +1,60 @@
+From 43cc4720ba38954f3926ac178db0343aefb16f01 Mon Sep 17 00:00:00 2001
+From: Jinhyuk Jun <jinhyuk.jun@samsung.com>
+Date: Mon, 12 Aug 2013 16:30:05 +0900
+Subject: [PATCH] JQM handle tabindex on popup to block unwanted focusing by
+ tabkey
+
+Change-Id: I7062cd2435d3adf1122eda3dc512c16acceeb6f8
+---
+ libs/js/jquery-mobile-1.2.0/js/widgets/popup.js |   14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
+index 989288b..c5c6d33 100644
+--- a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
++++ b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
+@@ -154,6 +154,7 @@ define( [ "jquery",
+ 				},
+ 				thisPage = this.element.closest( ".ui-page" ),
+ 				myId = this.element.attr( "id" ),
++				popupInput = $.find( "input" ),
+ 				self = this;
+ 
+ 			// We need to adjust the history option to be false if there's no AJAX nav.
+@@ -219,6 +220,12 @@ define( [ "jquery",
+ 			$.each( this._globalHandlers, function( idx, value ) {
+ 				value.src.bind( value.handler );
+ 			});
++
++                        if ( popupInput.length ) {
++                                $.each( popupInput, function ( i ) {
++                                        $( popupInput ).eq( i ).attr( "tabindex", "-1" );
++                                });
++                        }
+ 		},
+ 
+ 		_applyTheme: function( dst, theme, prefix ) {
+@@ -588,6 +595,7 @@ define( [ "jquery",
+ 
+ 		_open: function( options ) {
+ 			var coords, transition,
++				$popupInput = $( this.element ).find( "input" ),
+ 				androidBlacklist = ( function() {
+ 					var w = window,
+ 						ua = navigator.userAgent,
+@@ -667,6 +675,12 @@ define( [ "jquery",
+ 				applyTransition: false,
+ 				prereqs: this._prereqs
+ 			});
++
++                        if ( $popupInput.length ) {
++                                $.each( $popupInput, function ( i ) {
++                                        $popupInput.eq( i ).removeAttr( "tabindex" );
++                                });
++                        }
+ 		},
+ 
+ 		_closePrereqScreen: function() {
+-- 
+1.7.9.5
+
