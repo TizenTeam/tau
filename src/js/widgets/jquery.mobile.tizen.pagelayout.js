@@ -332,13 +332,13 @@ define( [
 				$page = $( ev.data ); 	// page object, passed by _setHWKeySupport()
 				$focused = $page.find( ".ui-focus" );
 				if ( $focused[0] ) {	// Focused element is found
-					$focused.blur();
 					// NOTE: If a popup is opened and focused element exists in it,
 					//       do not close that popup.
 					//       'false' is returned here, hence popup close routine is not run.
 					if ( $page.find( ".ui-popup-active" ).find( ".ui-focus" ).length ) {
 						return false;
 					}
+					$focused.blur();
 				}
 				// Close opened popup
 				if ( $openedpopup ) {
