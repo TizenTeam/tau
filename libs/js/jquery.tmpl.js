@@ -1,12 +1,8 @@
-/*!
- * jQuery Templates Plugin 1.0.0pre
- * http://github.com/jquery/jquery-tmpl
- * Requires jQuery 1.4.2
- *
- * Copyright Software Freedom Conservancy, Inc.
- * Dual licensed under the MIT or GPL Version 2 licenses.
- * http://jquery.org/license
- */
+/*
+* Module Name : libs/jquery.tmpl
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
 
 //>>excludeStart("jqmBuildExclude", pragmas.jqmBuildExclude);
 //>>description: jQuery Templates Plugin

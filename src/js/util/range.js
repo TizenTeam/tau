@@ -1,19 +1,19 @@
+/*
+* Module Name : util/range
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
 //>>excludeStart("jqmBuildExclude", pragmas.jqmBuildExclude);
 //>>description: Makes array with given range
 //>>label: Range
 //>>group: Tizen:Utilities
 
-define( [ 
+define( [
+	'license/MIT' 
 	], function ( ) {
 
 //>>excludeEnd("jqmBuildExclude");
 
-/*
- * Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) and GPL licenses
- * http://phpjs.org/functions/range
- * original by: Waldo Malqui Silva
- * version: 1107.2516
- */
 function range( low, high, step ) {
     // Create an array containing the range of integers or characters
     // from low to high (inclusive)  

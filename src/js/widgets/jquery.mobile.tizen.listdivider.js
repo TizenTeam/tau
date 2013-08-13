@@ -1,9 +1,15 @@
+/*
+* Module Name : widgets/jquery.mobile.tizen.listdivider
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
 //>>excludeStart("jqmBuildExclude", pragmas.jqmBuildExclude);
 //>>description: Divider listitem in listview
 //>>label: List divider
 //>>group: Tizen:Widgets
 
 define( [ 
+	'license/MIT',
 	'jquery',
 	"jqm/jquery.mobile.widget"
 	], function ( jQuery ) {

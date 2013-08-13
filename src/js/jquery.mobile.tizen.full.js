@@ -1,8 +1,15 @@
+/*
+* Module Name : jquery.mobile.tizen.full
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
 //>>excludeStart("jqmBuildExclude", pragmas.jqmBuildExclude);
 //>>description: Config file to build whole tizen web-ui-fw
 
 define( [
 	"jqm/jquery",
+	'./license/MIT',
+	"jquery", //make sure that jqeru is loaded before libraries that don"t use requirejs
 	"libs/jquery.easing.1.3",
 	"jqm/jquery.mobile",
 	"./jquery.mobile.tizen.label",
