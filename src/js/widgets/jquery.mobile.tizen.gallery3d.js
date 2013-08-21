@@ -564,7 +564,8 @@ define( [
 		},
 		getContext3D = function ( canvas ) {
 			var gl, i,
-				contextNames = [ "experimental-webgl", "webkit-3d", "webgl", "moz-webgl" ];
+				contextNames = [ "experimental-webgl", "webkit-3d", "webgl", "moz-webgl" ],
+				errorMessage = "Unfortunately, there's a WebGL compatibility problem.\nYou may want to check your system settings.";
 
 			for ( i = 0; i < contextNames.length; i += 1 ) {
 				try {
@@ -573,10 +574,16 @@ define( [
 						break;
 					}
 				} catch ( e ) {
-					$( canvas ).html( "Unfortunately, there's a WebGL compatibility problem. </br> You may want to check your system settings." );
+					alert(  errorMessage );
 					return;
 				}
 			}
+
+			if ( !gl ) {
+				alert(  errorMessage );
+				return;
+			}
+
 			return gl;
 		},
 		requestAnimationFrame = function ( callback ) {
@@ -677,7 +684,6 @@ define( [
 				i;
 
 			canvas = canvas || self._canvas;
-
 			if ( !canvas ) {
 				return;
 			}
@@ -1388,7 +1394,7 @@ define( [
 				canvas.width( view.width() );
 			}
 
-			if ( !this._animationID ) {
+			if ( this._gl && !this._animationID ) {
 				this._setPosition( 0, 0 );
 			}
 		},
