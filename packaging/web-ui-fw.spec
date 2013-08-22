@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.52
+Version:    0.2.53
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -95,6 +95,18 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Thu Aug 22 2013 Heeju Joo <heeju.joo@samsung.com> 0.2.53
+	- button : support Enter button when hostkeyboard on (N_SE-48615)
+	- splitview: Fix panes' wrong ratio issue.
+	- module: copy CSS themes into the project directory
+	- popup : handle tabindex on popup to block unwanted focus by tabkey(N_SE-47126)
+	- Scrollview : bug fix
+	- JIRA fix - N_SE-47690 control.show was called before video was rendered
+	- r.js: fix for windows paths
+	- module: fix JQM dependency for full meta module
+	- DateTimePicker : exception handle for HW key(N_SE-48311)
+	- Pagelayout : bug fix
+
 * Mon Jul 29 2013 Heeju Joo <heeju.joo@samsung.com> 0.2.52
 	- toggleswitch : invalidate max-width property in toggle handler (N_SE-42954)
 	- Revert "Slider: Prevent calling buttonMarkup for toggle switch"
