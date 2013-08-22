@@ -36,6 +36,14 @@
 		</java>
 		<echo message="optimized ${requirejs.optimizer.settings}" />
 	</target>
+	<target name="themes">
+		<copy
+			todir="${project.loc}/tizen-web-ui-fw/latest/themes"
+			force="true"
+			overwrite="true">
+			<fileset dir="${eclipse.home}/../tools/web-ui-fw-custom-builder/themes" />
+		</copy>
+	</target>
 	<target name="signing">
 		<echo message="Sign this package. (NOT IMPLEMENTED YET)" />
 	</target>
@@ -55,6 +63,7 @@
 		<antcall target="optimize">
 			<param name="requirejs.optimizer.settings" value="${js.build.optimize}" />
 		</antcall>
+		<antcall target="themes" />
 		<antcall target="signing" />
 		<antcall target="packaging" />
 	</target>

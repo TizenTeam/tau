@@ -536,10 +536,16 @@ define( [
 					this._effect_dir = 0;
 					this._setEndEffect( "in" );
 				} else if ( y < -scroll_height ) {
-					this._sy = -scroll_height;
+					if ( this._sy !== -scroll_height ) {
+                                                this._hideOverflowIndicator();
+                                                this._sy = -scroll_height;
+                                                this._effect_dir = 1;
+                                        } else {
+                                                this._sy = -scroll_height;
 
-					this._effect_dir = 1;
-					this._setEndEffect( "in" );
+                                                this._effect_dir = 1;
+                                                this._setEndEffect( "in" );
+                                        }
 				} else {
 					if ( this._endEffect && this._sy !== y ) {
 						this._setEndEffect();
@@ -1492,7 +1498,6 @@ define( [
 				} else {
 					self._set_scrollbar_size();
 					self._setScrollPosition( self._sx, self._sy );
-					self._showScrollBars( 2000 );
 				}
 
 				if ( $(".ui-page-active").get(0) !== $c.closest(".ui-page").get(0) ) {

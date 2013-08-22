@@ -356,6 +356,10 @@ define( [
 				if ( !isNaN( viewElement.duration ) ) {
 					durationLabel.find( "p" ).text( self._convertTimeFormat( viewElement.duration ) );
 				}
+				//JIRA - N_SE-47690
+				if ( option.controls ) {
+					control.show();
+				}
 				self._resize();
 			}).bind( "timeupdate.multimediaview", function ( e ) {
 				self._updateSeekBar();
@@ -398,9 +402,6 @@ define( [
 				control.fadeToggle( "fast" );
 				self._resize();
 			}).bind( "multimediaviewinit", function ( e ) {
-				if ( option.controls ) {
-					control.show();
-				}
 				self._resize();
 			});
 

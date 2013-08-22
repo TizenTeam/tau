@@ -182,6 +182,10 @@ compress: third_party js themes
 		echo "Compressing $$csspath"; \
 		cleancss -o $${csspath/%.css/.min.css} $$csspath; \
 	done
+	# copy to tools directory
+	mkdir -p ${TOOLS_ROOT}/themes
+	cp -a ${FRAMEWORK_ROOT}/themes/tizen-black ${TOOLS_ROOT}/themes/
+	cp -a ${FRAMEWORK_ROOT}/themes/tizen-white ${TOOLS_ROOT}/themes/
 
 
 docs: init
