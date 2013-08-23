@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.53
+Version:    0.2.54
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -95,6 +95,9 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Fri Aug 23 2013 Heeju Joo <heeju.joo@samsung.com> 0.2.54
+	- Scrollview : fix scroll position when windows rotated and get resize event
+
 * Thu Aug 22 2013 Heeju Joo <heeju.joo@samsung.com> 0.2.53
 	- button : support Enter button when hostkeyboard on (N_SE-48615)
 	- splitview: Fix panes' wrong ratio issue.
