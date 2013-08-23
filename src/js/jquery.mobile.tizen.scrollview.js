@@ -1518,6 +1518,8 @@ define( [
 				setTimeout( function () {
 					var view_w = $v.outerWidth(),
 						cw = $c.outerWidth(),
+						view_h = self._getViewHeight(),
+						clip_h = $c.height(),
 						scroll_x,
 						scroll_y;
 
