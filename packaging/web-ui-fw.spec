@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.55
+Version:    0.2.56
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -95,6 +95,9 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Thu Aug 29 2013 Heeju Joo <heeju.joo@samsung.com> 0.2.56
+	- modify set position of popup-container (P130821-05228)
+
 * Thu Aug 29 2013 Heeju Joo <heeju.joo@samsung.com> 0.2.55
 	- popup: modify popup scrollview bg CSS value
 	- scrollview: fixed error when element was not specified in positioning API functions
