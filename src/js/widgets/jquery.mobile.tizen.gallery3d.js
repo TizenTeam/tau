@@ -564,7 +564,8 @@ define( [
 		},
 		getContext3D = function ( canvas ) {
 			var gl, i,
-				contextNames = [ "experimental-webgl", "webkit-3d", "webgl", "moz-webgl" ];
+				contextNames = [ "experimental-webgl", "webkit-3d", "webgl", "moz-webgl" ],
+				errorMessage = "Unfortunately, there's a WebGL compatibility problem.\nYou may want to check your system settings.";
 
 			for ( i = 0; i < contextNames.length; i += 1 ) {
 				try {
@@ -573,10 +574,16 @@ define( [
 						break;
 					}
 				} catch ( e ) {
-					$( canvas ).html( "Unfortunately, there's a WebGL compatibility problem. </br> You may want to check your system settings." );
+					alert(  errorMessage );
 					return;
 				}
 			}
+
+			if ( !gl ) {
+				alert(  errorMessage );
+				return;
+			}
+
 			return gl;
 		},
 		requestAnimationFrame = function ( callback ) {
@@ -647,6 +654,8 @@ define( [
 		},
 
 		destroy: function () {
+			this._imageList.length = 0;
+			this._path.length = 0;
 			this._final();
 			$.mobile.widget.prototype.destroy.call( this );
 		},
@@ -677,7 +686,6 @@ define( [
 				i;
 
 			canvas = canvas || self._canvas;
-
 			if ( !canvas ) {
 				return;
 			}
@@ -730,16 +738,24 @@ define( [
 				return;
 			}
 
+			clearTimeout( this._imageLoadTimer );
+			this._imageLoadTimer = null;
+
 			self._stop();
 
 			canvas = canvas || self._canvas;
 
 			$( self._nodes ).each( function ( i ) {
 				var node = self._nodes[i];
-				gl.deleteTexture( node.texture );
-				node.texture = null;
+
+				if ( node.texture ) {
+					gl.deleteTexture( node.texture );
+					node.texture = null;
+					delete node.image;
+					node.image = null;
+				}
 			});
-			self._nodes = null;
+			this._nodes.length = 0;
 
 			gl.deleteBuffer( self._positionBuffer );
 			self._positionBuffer = null;
@@ -1016,26 +1032,28 @@ define( [
 		// Texture
 		// ----------------------------------------------------------
 		_initTextures: function ( gl, nodes ) {
-			var self = this;
+			var self = this,
+				count = 0;
 
-			$( nodes ).each( function ( i ) {
-				var node = nodes[i],
-					url;
+			this._imageLoadTimer = setTimeout( function step() {
+				var node = nodes[count], url;
 
-				if ( !self._imageList[i] ) {
-					return false;
+				if ( self._imageList[count] ) {
+					url = self._imageList[count].src;
+					node.texture = gl.createTexture();
+					self._loadImage( url, count, count, gl, nodes );
 				}
 
-				url = self._imageList[i].src;
-				node.texture = gl.createTexture();
-				self._loadImage( url, i, i, gl, nodes );
-			});
+				count++;
+				if ( count < nodes.length ) {
+					self._imageLoadTimer = setTimeout( step, 25 );
+				}
+			}, 25 );
 		},
 
 		_loadImage: function ( url, i, imageID, gl, nodes ) {
 			var self = this,
 				isMipmap = false,
-				image,
 				node;
 
 			gl = gl || self._gl;
@@ -1123,14 +1141,9 @@ define( [
 				current = 0,
 				next = 0,
 				nextLevel = 0,
-				path = self._path,
-				nextImageID = 0;
+				path = self._path;
 
 			nextLevelLenth = ( direction >= 0 ) ? displayLength + 1 : displayLength;
-
-			if ( !nodes[i].level ) {
-				nodes[i].level = displayLength;
-			}
 
 			for ( i = 0; i < displayLength; i += 1 ) {
 				if ( !nodes[i].mvMatrix ) {
@@ -1214,12 +1227,15 @@ define( [
 
 			gl.bindBuffer( gl.ARRAY_BUFFER, self._positionBuffer );
 			gl.vertexAttribPointer( shaderProgram.vertexPositionAttr, self._positionBuffer.itemSize, gl.FLOAT, false, 0, 0 );
+			gl.bindBuffer( gl.ARRAY_BUFFER, null );
 
 			gl.bindBuffer( gl.ARRAY_BUFFER, self._textureCoordBuffer );
 			gl.vertexAttribPointer( shaderProgram.textureCoordAttr, self._textureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0 );
+			gl.bindBuffer( gl.ARRAY_BUFFER, null );
 
 			gl.bindBuffer( gl.ARRAY_BUFFER, self._normalVectorBuffer );
 			gl.vertexAttribPointer( shaderProgram.vertexNormalAttr, self._normalVectorBuffer.itemSize, gl.FLOAT, false, 0, 0 );
+			gl.bindBuffer( gl.ARRAY_BUFFER, null );
 
 			for ( i = 0; i < nodesLength; i += 1 ) {
 				if ( nodes[i].drawable ) {
@@ -1243,14 +1259,12 @@ define( [
 				LightDir,
 				normalMatrix;
 
-			if ( !moveMatrix ) {
+			if ( !moveMatrix || !texture || !texture.loaded ) {
 				return;
 			}
 
 			gl.activeTexture( gl.TEXTURE0 );
-			if ( texture && texture.loaded ) {
-				gl.bindTexture( gl.TEXTURE_2D, texture );
-			}
+			gl.bindTexture( gl.TEXTURE_2D, texture );
 			gl.uniform1i( shaderProgram.sampleUniform, 0 );
 
 			LightDir = vec3.create();
@@ -1274,7 +1288,6 @@ define( [
 			gl.drawElements( gl.TRIANGLES, meshIndexBufferItemSize, gl.UNSIGNED_SHORT, 0 );
 
 			// release buffer memory
-			gl.bindBuffer( gl.ARRAY_BUFFER, null );
 			gl.bindBuffer( gl.ELEMENT_ARRAY_BUFFER, null );
 
 			// release texture memory
@@ -1388,7 +1401,7 @@ define( [
 				canvas.width( view.width() );
 			}
 
-			if ( !this._animationID ) {
+			if ( this._gl && !this._animationID ) {
 				this._setPosition( 0, 0 );
 			}
 		},

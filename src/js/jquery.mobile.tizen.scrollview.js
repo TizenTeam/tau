@@ -732,16 +732,24 @@ define( [
 		centerToElement: function ( element ) {
 			var $clip = this._$clip,
 				$view = this._$view,
-				$element = element.get ? element : $( element ),
-				delta = ( $clip.height() / 2 ) - ( element.height() / 2 ),
-				elementPosition = element.position().top;
+				$element = 0,
+				delta = 0,
+				elementPosition = null,
+				elementPositionTop = 0;
 
-			element.parentsUntil( $view ).each( function () {
-				var $parent = $( this );
-				elementPosition += ( $parent.position().top + parseFloat( $parent.css( "marginTop" ) ) + parseFloat( $parent.css( "paddingTop" ) ) );
-			});
+			if ( element ) {
+				$element = element.get ? element : $( element );
+				delta = ( $clip.height() / 2 ) - ( element.height() / 2 );
+				elementPosition = element.position();
+				elementPositionTop = elementPosition ? elementPosition.top : 0;
 
-			this.scrollTo( this._sx, -( elementPosition - delta ) );
+				element.parentsUntil( $view ).each( function () {
+					var $parent = $( this );
+					elementPosition += ( $parent.position().top + parseFloat( $parent.css( "marginTop" ) ) + parseFloat( $parent.css( "paddingTop" ) ) );
+				});
+
+				this.scrollTo( this._sx, -( elementPosition - delta ) );
+			}
 		},
 
 		/**
@@ -750,16 +758,16 @@ define( [
 		 * @param {Element|jQuery}
 		 */
 		ensureElementIsVisible: function ( element ) {
-			var $element = element.get ? element : $( element ),
+			var $element = null,
 				$clip = this._$clip,
-				clipHeight = $clip.height(),
-				clipTop = $clip.offset().top,
-				clipBottom = clipTop + clipHeight,
-				elementHeight = $element.height(),
-				elementTop = $element.offset().top,
-				elementBottom = elementTop + elementHeight,
-				elementFits = clipHeight > elementHeight,
-				$anchor,
+				clipTop = 0,
+				clipBottom = 0,
+				elementHeight = 0,
+				elementOffset = null,
+				elementTop = 0,
+				elementBottom = 0,
+				elementFits = 0,
+				$anchor = null,
 				anchorPosition = 0,
 				findPositionAnchor = function ( input ) {
 					var $label,
@@ -773,7 +781,17 @@ define( [
 					return input;
 				};
 
-			switch( true ) {
+			if ( element ) {
+				$element = element.get ? element : $( element );
+				clipHeight = $clip.height();
+				clipBottom = clipHeight;
+				elementHeight = $element.height();
+				elementOffset = $element.offset();
+				elementTop = elementOffset ? elementOffset.top : 0;
+				elementBottom = elementTop + elementHeight;
+				elementFits = clipHeight > elementHeight;
+
+				switch( true ) {
 				case elementFits && clipTop < elementTop && clipBottom > elementBottom: // element fits in view is inside clip area
 					// pass, element position is ok
 					break;
@@ -796,6 +814,7 @@ define( [
 					});
 					this.scrollTo( self._sx, -anchorPosition );
 					break;
+				}
 			}
 		},
 

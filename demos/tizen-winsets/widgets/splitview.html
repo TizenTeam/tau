@@ -77,9 +77,9 @@
 				downContents = testSplitview.splitview( "pane", "#down" );
 
 			contents = "* Up pane: \n" +
-						( ( typeof upContents === "undefined" || !upContents ) ? "" : upContents[ 0 ].text() ) + "\n" +
+						( ( typeof upContents === "undefined" || !upContents ) ? "" : upContents[ 0 ].outerHTML ) + "\n" +
 						"* Down pane: \n" +
-						( ( typeof downContents === "undefined" || !downContents ) ? "" : downContents[ 0 ].text() );
+						( ( typeof downContents === "undefined" || !downContents ) ? "" : downContents[ 0 ].outerHTML );
 
 			contents = contents.substring(0, 120) + "..." ;
 			$( ".splitview-popup" ).text( contents );
