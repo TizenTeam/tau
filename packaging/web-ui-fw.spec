@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.54
+Version:    0.2.55
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -95,6 +95,20 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Thu Aug 29 2013 Heeju Joo <heeju.joo@samsung.com> 0.2.55
+	- popup: modify popup scrollview bg CSS value
+	- scrollview: fixed error when element was not specified in positioning API functions
+	- scrollview: fixed N_SE-46434, wrong clip top/bottom boundaries
+	- gallery3d: Apply non-blocking image loading
+	- JIRA fix - N_SE-47115 Abnormal serial wise image showing behavior observe in "Gallery 3D"
+	- JIRA fix - N_SE-48393 popup has textbox
+	- splitiew: modify text() to outerHTML in GetContents function.
+	- JIRA fix - N_SE-48863 Footer more is not displaying for tabbar in TizenWinset
+	- tabbar : adding class for popup (N_SE-49194)
+	- tabbar: inline documentation
+	- gallery3d: Add an error message popup on demo app
+	- winset: fix spelling errors (N_SE-49426)
+
 * Fri Aug 23 2013 Heeju Joo <heeju.joo@samsung.com> 0.2.54
 	- Scrollview : fix scroll position when windows rotated and get resize event
 
