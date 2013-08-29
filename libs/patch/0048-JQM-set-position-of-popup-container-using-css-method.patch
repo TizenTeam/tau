@@ -1,0 +1,30 @@
+From 1c64a40dc578ba7e54d8a67842cc59bbc70d4bd1 Mon Sep 17 00:00:00 2001
+From: "heeju.joo" <heeju.joo@samsung.com>
+Date: Thu, 29 Aug 2013 15:45:13 +0900
+Subject: [PATCH] JQM set position of popup container using css method
+
+Change-Id: I6a2da2991fc4cef37e7d202fb44e16bca1c9bb1f
+---
+ libs/js/jquery-mobile-1.2.0/js/widgets/popup.js |    6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
+index 989288b..85e7daa 100644
+--- a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
++++ b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
+@@ -638,8 +638,10 @@ define( [ "jquery",
+ 			this._ui.screen.removeClass( "ui-screen-hidden" );
+ 
+ 			this._ui.container
+-				.removeClass( "ui-selectmenu-hidden" )
+-				.offset( coords );
++				.removeClass( "ui-selectmenu-hidden" );
++
++			this._ui.container.css( { top : coords.top, left : coords.left } );
++
+ 			this._ui.arrow.css( { top : coords.arrowtop, left : coords.arrowleft } );
+ 			if ( this.options.overlayTheme && androidBlacklist ) {
+ 				/* TODO:
+-- 
+1.7.9.5
+
