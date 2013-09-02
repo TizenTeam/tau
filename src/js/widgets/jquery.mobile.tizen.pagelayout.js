@@ -258,7 +258,8 @@ define( [
 				})
 
 				.bind( "pagebeforehide", function ( e, ui ) {
-					self._unsetHWKeySupport( );
+					var thisPage = this;
+					self._unsetHWKeySupport( thisPage );
 					if ( o.disablePageZoom ) {
 						$.mobile.zoom.enable( true );
 					}
@@ -363,15 +364,17 @@ define( [
 			}
 			return true;	// Otherwise, propagate tizenhwkey event to window object
 		},
-
+		_disableHWKey: function() {
+				return false;
+		},
 		_setHWKeySupport: function( thisPage ) {
+			$( document ).off( "tizenhwkey", this._disableHWKey );
 			$( document ).on( "tizenhwkey", thisPage, this._HWKeyHandler );
 		},
-
-		_unsetHWKeySupport: function () {
+		_unsetHWKeySupport: function ( thisPage ) {
 			$( document ).off( "tizenhwkey", this._HWKeyHandler );
+			$( document ).on( "tizenhwkey", thisPage, this._disableHWKey );
 		},
-
 		_bindHWkeyOnSWBtn: function () {
 			// if HW key not exist
 			// return true
