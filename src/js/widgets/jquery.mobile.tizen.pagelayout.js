@@ -450,12 +450,20 @@ define( [
 			var $elPage = $( thisPage ),
 				$elHeader = $elPage.find( ":jqmData(role='header')" ).length ? $elPage.find( ":jqmData(role='header')") : $elPage.siblings( ":jqmData(role='header')"),
 				$headerBtn = $elHeader.children("a,[data-"+$.mobile.ns+"role=button]"),
-				headerBtnWidth = $headerBtn.width() + parseInt( $headerBtn.css("padding-left") ) + parseInt( $headerBtn.css("padding-right") ),
+				headerBtnWidth = 0,
 				headerBtnNum = $headerBtn.length,
 				$headerSrc = $elHeader.children("img"),
 				headerSrcNum = $headerSrc.length,
-				headerSrcWidth = $headerSrc.width() + parseInt( $headerSrc.css("margin-left") ),
+				headerSrcWidth = 0,
 				h1width;
+
+
+			if ( headerBtnNum ) {
+				headerBtnWidth = $headerBtn.width() + parseInt( $headerBtn.css("padding-left") ) + parseInt( $headerBtn.css("padding-right") );
+			}
+			if( headerSrcNum ) {
+				headerSrcWidth = $headerSrc.width() + parseInt( $headerSrc.css("margin-left") );
+			}
 
 			if ( !$elPage.is( ".ui-dialog" ) ) {
 				h1width = window.innerWidth - parseInt( $elHeader.find( "h1" ).css( "margin-left" ), 10 ) * 2 - headerBtnWidth * headerBtnNum - headerSrcWidth * headerSrcNum;
