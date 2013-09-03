@@ -1,4 +1,4 @@
-From 16a62b49eb87d912f070eb6844ba670b252ac895 Mon Sep 17 00:00:00 2001
+From 38830ad484bdde79281f74e748e9af59fbc7ff83 Mon Sep 17 00:00:00 2001
 From: Youmin Ha <youmin.ha@samsung.com>
 Date: Thu, 27 Dec 2012 19:18:06 +0900
 Subject: [PATCH] JQM: Run custom event handler on collapsible list

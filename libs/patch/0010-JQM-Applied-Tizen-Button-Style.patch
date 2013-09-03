@@ -1,4 +1,4 @@
-From 189014d78087fa36d63f399a0fb756b61252a4dc Mon Sep 17 00:00:00 2001
+From d65dc6321bed661777b5d7d268eb9344de50592e Mon Sep 17 00:00:00 2001
 From: "hjnim.kim" <hjnim.kim@samsung.com>
 Date: Mon, 26 Nov 2012 20:22:14 +0900
 Subject: [PATCH] JQM: Applied Tizen Button Style
@@ -6,10 +6,10 @@ Subject: [PATCH] JQM: Applied Tizen Button Style
 Signed-off-by: hjnim.kim <hjnim.kim@samsung.com>
 ---
  .../js/jquery.mobile.buttonMarkup.js               |   56 ++++++++++++++++++++
- 1 files changed, 56 insertions(+), 0 deletions(-)
+ 1 file changed, 56 insertions(+)
 
 diff --git a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.buttonMarkup.js b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.buttonMarkup.js
-index 3d7d884..0be6999 100644
+index 3d7d884..0e66115 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.buttonMarkup.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.buttonMarkup.js
 @@ -80,6 +80,62 @@ $.fn.buttonMarkup = function( options ) {
@@ -76,5 +76,5 @@ index 3d7d884..0be6999 100644
  			// Used to control styling in headers/footers, where buttons default to `mini` style.
  			buttonClass += o.mini === true ? " ui-mini" : " ui-fullsize";
 -- 
-1.7.5.4
+1.7.9.5
 

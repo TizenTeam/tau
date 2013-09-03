@@ -1,4 +1,4 @@
-From 61d133a822b45b01bb31985c8b8142457d17b5c7 Mon Sep 17 00:00:00 2001
+From 3c90aaf38bad9deacf05f78f1db355b092541deb Mon Sep 17 00:00:00 2001
 From: Woosung Sohn <woosungim.sohn@samsung.com>
 Date: Tue, 19 Mar 2013 15:20:13 +0900
 Subject: [PATCH] JQM Support accessibility for collapsible

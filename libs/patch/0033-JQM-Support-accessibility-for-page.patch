@@ -1,4 +1,4 @@
-From 599c0b39fc2cbbc5977f3b489e8f4c5a739a8c96 Mon Sep 17 00:00:00 2001
+From 0570a02c1a16b32b47cf315736feaf3976752679 Mon Sep 17 00:00:00 2001
 From: Wonseop Kim <wonseop.kim@samsung.com>
 Date: Sat, 16 Mar 2013 17:39:55 +0900
 Subject: [PATCH] JQM: Support accessibility for page

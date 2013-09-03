@@ -1,4 +1,4 @@
-From ef42dc6de8adf6a1f8f8cad660a5a719af98b732 Mon Sep 17 00:00:00 2001
+From eb4c45e4f066e3dec39917e14d7db29fe6120ca0 Mon Sep 17 00:00:00 2001
 From: Minkyu Kang <mk7.kang@samsung.com>
 Date: Thu, 6 Dec 2012 11:39:29 +0900
 Subject: [PATCH] JQM: add refresh and setToolbar API to page
@@ -9,7 +9,7 @@ Signed-off-by: Jun Jinhyuk <jinhyuk.jun@samsung.com>
  1 file changed, 9 insertions(+)
 
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/page.js b/libs/js/jquery-mobile-1.2.0/js/widgets/page.js
-index 256fbb2..38912fb 100644
+index 256fbb2..9ae73ba 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/page.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/page.js
 @@ -35,6 +35,15 @@ $.widget( "mobile.page", $.mobile.widget, {

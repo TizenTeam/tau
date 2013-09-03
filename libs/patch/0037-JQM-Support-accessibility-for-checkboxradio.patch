@@ -1,4 +1,4 @@
-From 15c488ed418fa5c8b5ae562427682f3a4e3bed8c Mon Sep 17 00:00:00 2001
+From 134df0caf4fc0135d2be5aed323e98da2414a1d3 Mon Sep 17 00:00:00 2001
 From: "sang-hee.lee" <sang-hee.lee@samsung.com>
 Date: Tue, 19 Mar 2013 20:05:24 +0900
 Subject: [PATCH] JQM Support accessibility for checkboxradio

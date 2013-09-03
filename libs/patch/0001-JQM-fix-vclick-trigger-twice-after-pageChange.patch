@@ -1,4 +1,4 @@
-From 68d9af646236c33372253f027c5b72cff6bd6fac Mon Sep 17 00:00:00 2001
+From 161caf9335b20f4dfc497fbf887130e38097a518 Mon Sep 17 00:00:00 2001
 From: Minkyu Kang <mk7.kang@samsung.com>
 Date: Mon, 26 Nov 2012 18:55:38 +0900
 Subject: [PATCH] JQM: fix vclick trigger twice after pageChange

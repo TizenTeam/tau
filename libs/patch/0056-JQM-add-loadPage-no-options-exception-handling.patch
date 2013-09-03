@@ -1,4 +1,4 @@
-From 87a20fa69a06ed30c619048312f3928c2ea596d7 Mon Sep 17 00:00:00 2001
+From 1f3b4f442a7b4f5c78acd54b610bfe07217516e0 Mon Sep 17 00:00:00 2001
 From: "hc7.choi" <hc7choi@hc7.choi>
 Date: Mon, 1 Jul 2013 14:11:31 +0900
 Subject: [PATCH] JQM add loadPage no options exception handling
@@ -8,7 +8,7 @@ Subject: [PATCH] JQM add loadPage no options exception handling
  1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.navigation.js b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.navigation.js
-index 56564eb..0ae536d 100644
+index 12d6f84..189dc84 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.navigation.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.navigation.js
 @@ -753,7 +753,7 @@ define( [

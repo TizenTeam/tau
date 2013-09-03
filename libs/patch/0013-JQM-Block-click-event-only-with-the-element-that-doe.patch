@@ -1,4 +1,4 @@
-From b9404d316fb5efbf9fe7c8f3c5dfd02b373eb77d Mon Sep 17 00:00:00 2001
+From df3b31ddfa1ce474fd51bae4265015039b7215f8 Mon Sep 17 00:00:00 2001
 From: Youmin Ha <youmin.ha@samsung.com>
 Date: Wed, 28 Nov 2012 16:14:24 +0900
 Subject: [PATCH] JQM: Block click event only with the element that does

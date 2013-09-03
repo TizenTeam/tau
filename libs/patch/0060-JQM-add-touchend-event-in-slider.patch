@@ -1,4 +1,4 @@
-From 8f4860235c4bc6f9b06f2bbe0e20a90f69f867fa Mon Sep 17 00:00:00 2001
+From 296d17d34fbd5e262b88970d8d4d367633eccda8 Mon Sep 17 00:00:00 2001
 From: "hc7.choi" <hc7choi@hc7.choi>
 Date: Thu, 18 Jul 2013 16:11:35 +0900
 Subject: [PATCH] JQM add touchend event in slider
@@ -9,10 +9,10 @@ Change-Id: Ie549e2f8edeaba1c19f6b7d1f1462b26de789ff2
  1 file changed, 6 insertions(+)
 
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/slider.js b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/slider.js
-index a56ac51..7a55810 100644
+index 4c14574..e5ccaad 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/slider.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/slider.js
-@@ -186,6 +186,12 @@ $.widget( "mobile.slider", $.mobile.widget, {
+@@ -189,6 +189,12 @@ $.widget( "mobile.slider", $.mobile.widget, {
  		// blurred. Here we check thif the value has changed and refresh
  		control.bind( "vmouseup", $.proxy( self._checkedRefresh, self));
  

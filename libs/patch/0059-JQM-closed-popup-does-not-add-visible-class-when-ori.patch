@@ -1,4 +1,4 @@
-From df02d4aadc7b155499d84165eb38a5e99fd71421 Mon Sep 17 00:00:00 2001
+From a0485471b0f7095aba38faae00229247f4e4737d Mon Sep 17 00:00:00 2001
 From: "hjnim.kim" <hjnim.kim@samsung.com>
 Date: Thu, 11 Jul 2013 14:40:12 +0900
 Subject: [PATCH] JQM closed popup does not add "visible" class when
@@ -14,7 +14,7 @@ Change-Id: I390be6236f2a1a41ef0c76b7889fe3e77b727c03
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
-index b593472..0bec1d4 100644
+index 593c134..dec1e47 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
 @@ -109,7 +109,7 @@ define( [ "jquery",

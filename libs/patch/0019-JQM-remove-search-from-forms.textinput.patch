@@ -1,4 +1,4 @@
-From 4b9929185d24ea9230e51bf1f02692e7da69a8cc Mon Sep 17 00:00:00 2001
+From cbf6070352e1e364144b51fe12742dae703a2048 Mon Sep 17 00:00:00 2001
 From: Minkyu Kang <mk7.kang@samsung.com>
 Date: Thu, 29 Nov 2012 10:41:59 +0900
 Subject: [PATCH] JQM: remove search from forms.textinput.
@@ -10,7 +10,7 @@ Signed-off-by: Minkyu Kang <mk7.kang@samsung.com>
  1 file changed, 7 insertions(+), 39 deletions(-)
 
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/textinput.js b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/textinput.js
-index 08505ed..530cdb8 100644
+index 08505ed..05b1b03 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/textinput.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/textinput.js
 @@ -14,8 +14,7 @@ $.widget( "mobile.textinput", $.mobile.widget, {

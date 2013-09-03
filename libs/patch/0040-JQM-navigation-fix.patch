@@ -1,4 +1,4 @@
-From 35377ae9b70887b91d20b1898dbf903a3a28d03a Mon Sep 17 00:00:00 2001
+From 400b92e7ebd25dff357881a8dbfe96bd8f78d47a Mon Sep 17 00:00:00 2001
 From: Przemyslaw Ciezkowski <p.ciezkowski@samsung.com>
 Date: Wed, 3 Apr 2013 12:52:54 +0200
 Subject: [PATCH] JQM: navigation-fix
@@ -6,13 +6,13 @@ Subject: [PATCH] JQM: navigation-fix
 Change-Id: Id1713bdcb51129043f520e164bf5fbe6fe67727f
 ---
  .../js/jquery.mobile.navigation.js                 |   12 +++++++++---
- 1 files changed, 9 insertions(+), 3 deletions(-)
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
 diff --git a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.navigation.js b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.navigation.js
-index 9048789..694a7f0 100644
+index 0be7861..56564eb 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.navigation.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.navigation.js
-@@ -763,6 +763,10 @@ define( [
+@@ -752,6 +752,10 @@ define( [
  			if ( !settings.reloadPage ) {
  				enhancePage( page, settings.role );
  				deferred.resolve( absUrl, options, page );
@@ -23,7 +23,7 @@ index 9048789..694a7f0 100644
  				return deferred.promise();
  			}
  			dupCachedPage = page;
-@@ -799,7 +803,8 @@ define( [
+@@ -788,7 +792,8 @@ define( [
  		}
  
  		// Reset base to the default document base.
@@ -33,7 +33,7 @@ index 9048789..694a7f0 100644
  			base.reset();
  		}
  
-@@ -834,7 +839,8 @@ define( [
+@@ -823,7 +828,8 @@ define( [
  						url = fileUrl = path.getFilePath( $( "<div>" + RegExp.$1 + "</div>" ).text() );
  					}
  
@@ -43,7 +43,7 @@ index 9048789..694a7f0 100644
  						base.set( fileUrl );
  					}
  
-@@ -1442,7 +1448,7 @@ define( [
+@@ -1431,7 +1437,7 @@ define( [
  				if ( url && $.inArray( url, urls ) === -1 ) {
  					urls.push( url );
  
@@ -53,5 +53,5 @@ index 9048789..694a7f0 100644
  			});
  		});
 -- 
-1.7.5.4
+1.7.9.5
 

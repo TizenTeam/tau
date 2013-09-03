@@ -1,41 +1,41 @@
-From 77d1c8c71a7bc71b807e2fe1e0eca3b286bcb04b Mon Sep 17 00:00:00 2001
+From 73cb86cfae7c30cff9148fe2c7bd6098e096c968 Mon Sep 17 00:00:00 2001
 From: Minkyeong Kim <minkyeong.kim@samsung.com>
 Date: Wed, 30 Jan 2013 19:11:23 +0900
 Subject: [PATCH] JQM performance tuning
 
 ---
- .../js/events/orientationchange.js                 |    8 +++---
- libs/js/jquery-mobile-1.2.0/js/events/touch.js     |    4 +-
- .../js/jquery.mobile.buttonMarkup.js               |   23 ++++++++++---------
- .../jquery-mobile-1.2.0/js/jquery.mobile.core.js   |    8 +++++-
+ .../js/events/orientationchange.js                 |    8 +++----
+ libs/js/jquery-mobile-1.2.0/js/events/touch.js     |    4 ++--
+ .../js/jquery.mobile.buttonMarkup.js               |   23 ++++++++++----------
+ .../jquery-mobile-1.2.0/js/jquery.mobile.core.js   |    8 +++++--
  .../js/jquery.mobile.degradeInputs.js              |    2 +-
  .../js/jquery.mobile.fieldContain.js               |    2 +-
  .../jquery-mobile-1.2.0/js/jquery.mobile.init.js   |   12 +++++-----
  .../jquery-mobile-1.2.0/js/jquery.mobile.links.js  |    2 +-
  .../jquery-mobile-1.2.0/js/jquery.mobile.media.js  |    2 +-
  .../js/jquery.mobile.navigation.js                 |   14 ++++++------
- .../js/jquery.mobile.navigation.pushstate.js       |    6 ++--
+ .../js/jquery.mobile.navigation.pushstate.js       |    6 ++---
  .../jquery-mobile-1.2.0/js/jquery.mobile.nojs.js   |    2 +-
- .../js/jquery.mobile.transition.js                 |   10 ++++----
+ .../js/jquery.mobile.transition.js                 |   10 ++++-----
  .../jquery-mobile-1.2.0/js/jquery.mobile.vmouse.js |    2 +-
  .../js/jquery.mobile.zoom.iosorientationfix.js     |    2 +-
  .../jquery-mobile-1.2.0/js/widgets/collapsible.js  |    2 +-
  .../js/widgets/collapsibleSet.js                   |    2 +-
  libs/js/jquery-mobile-1.2.0/js/widgets/dialog.js   |    2 +-
- .../jquery-mobile-1.2.0/js/widgets/fixedToolbar.js |    8 +++---
- .../jquery-mobile-1.2.0/js/widgets/forms/button.js |    4 +-
+ .../jquery-mobile-1.2.0/js/widgets/fixedToolbar.js |    8 +++----
+ .../jquery-mobile-1.2.0/js/widgets/forms/button.js |    4 ++--
  .../js/widgets/forms/checkboxradio.js              |    2 +-
- .../js/widgets/forms/select.custom.js              |    4 +-
+ .../js/widgets/forms/select.custom.js              |    4 ++--
  .../jquery-mobile-1.2.0/js/widgets/forms/select.js |    2 +-
- .../jquery-mobile-1.2.0/js/widgets/forms/slider.js |    4 +-
- .../js/widgets/forms/textinput.js                  |    6 ++--
+ .../jquery-mobile-1.2.0/js/widgets/forms/slider.js |    4 ++--
+ .../js/widgets/forms/textinput.js                  |    6 ++---
  .../js/widgets/listview.autodividers.js            |    2 +-
  .../js/widgets/listview.filter.js                  |    2 +-
  libs/js/jquery-mobile-1.2.0/js/widgets/listview.js |    2 +-
- libs/js/jquery-mobile-1.2.0/js/widgets/loader.js   |    6 ++--
+ libs/js/jquery-mobile-1.2.0/js/widgets/loader.js   |    6 ++---
  libs/js/jquery-mobile-1.2.0/js/widgets/navbar.js   |    2 +-
- .../js/widgets/page.sections.js                    |   11 +++++----
- libs/js/jquery-mobile-1.2.0/js/widgets/popup.js    |    8 +++---
+ .../js/widgets/page.sections.js                    |   11 +++++-----
+ libs/js/jquery-mobile-1.2.0/js/widgets/popup.js    |    8 +++----
  32 files changed, 87 insertions(+), 81 deletions(-)
 
 diff --git a/libs/js/jquery-mobile-1.2.0/js/events/orientationchange.js b/libs/js/jquery-mobile-1.2.0/js/events/orientationchange.js
@@ -92,7 +92,7 @@ index 6083faf..9e616cc 100644
  				timer = setTimeout( function() {
  					triggerCustomEvent( thisObject, "taphold", $.Event( "taphold", { target: origTarget } ) );
 diff --git a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.buttonMarkup.js b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.buttonMarkup.js
-index cd95245..b0b1f19 100644
+index faf8b0f..c91e1ef 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.buttonMarkup.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.buttonMarkup.js
 @@ -11,6 +11,7 @@ define( [ "jquery", "./jquery.mobile.core", "./jquery.mobile.vmouse" ], function
@@ -607,7 +607,7 @@ index 3c70fed..a8b0f9f 100644
  });
  })( jQuery );
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/slider.js b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/slider.js
-index 1bd4adf..c6d4c9b 100644
+index 2afc9be..b28f6a9 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/slider.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/slider.js
 @@ -178,7 +178,7 @@ $.widget( "mobile.slider", $.mobile.widget, {
@@ -684,7 +684,7 @@ index 0774615..0519b9a 100644
  	var list = $( this ),
  		listview = list.data( "listview" );
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/listview.js b/libs/js/jquery-mobile-1.2.0/js/widgets/listview.js
-index ef1e178..e46f842 100644
+index 2df27bb..d11d36e 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/listview.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/listview.js
 @@ -521,7 +521,7 @@ $.widget( "mobile.listview", $.mobile.widget, {
@@ -772,7 +772,7 @@ index 90a298a..e00684c 100644
  
  				if ( o.addBackBtn == "header" ) {
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
-index b9a950e..13cb548 100644
+index d65d1c3..8d03c4d 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
 @@ -28,7 +28,7 @@ define( [ "jquery",
@@ -784,7 +784,7 @@ index b9a950e..13cb548 100644
  
  		return {
  			x: $win.scrollLeft(),
-@@ -192,7 +192,7 @@ define( [ "jquery",
+@@ -197,7 +197,7 @@ define( [ "jquery",
  				_orientationchangeInProgress: false,
  				_globalHandlers: [
  					{
@@ -793,7 +793,7 @@ index b9a950e..13cb548 100644
  						handler: {
  							orientationchange: $.proxy( this, "_handleWindowOrientationchange" ),
  							resize: $.proxy( this, "_handleWindowResize" ),
-@@ -886,14 +886,14 @@ define( [ "jquery",
+@@ -919,14 +919,14 @@ define( [ "jquery",
  	};
  
  	// TODO move inside _create
@@ -811,6 +811,5 @@ index b9a950e..13cb548 100644
  	});
  
 -- 
-1.7.5.4
-
+1.7.9.5
 

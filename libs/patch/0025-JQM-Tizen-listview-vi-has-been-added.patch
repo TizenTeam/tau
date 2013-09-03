@@ -1,4 +1,4 @@
-From 7a14b644b1c924aae78c04ecbb2d399e99f46f8f Mon Sep 17 00:00:00 2001
+From 49eaec63ac6dd4070b58c02b21236967887712fa Mon Sep 17 00:00:00 2001
 From: "hjnim.kim" <hjnim.kim@samsung.com>
 Date: Thu, 3 Jan 2013 16:50:15 +0900
 Subject: [PATCH] JQM Tizen listview vi has been added
@@ -6,10 +6,10 @@ Subject: [PATCH] JQM Tizen listview vi has been added
 Change-Id: I0f62283d2fb05404dc599f8a529078a4972aaf49
 ---
  libs/js/jquery-mobile-1.2.0/js/widgets/listview.js |   44 ++++++++++++++++++++
- 1 files changed, 44 insertions(+), 0 deletions(-)
+ 1 file changed, 44 insertions(+)
 
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/listview.js b/libs/js/jquery-mobile-1.2.0/js/widgets/listview.js
-index 539bf35..f44f6b8 100644
+index a1d7a93..2df27bb 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/listview.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/listview.js
 @@ -468,6 +468,50 @@ $.widget( "mobile.listview", $.mobile.widget, {
@@ -64,5 +64,5 @@ index 539bf35..f44f6b8 100644
  	childPages: function() {
  		var parentUrl = this.parentPage.jqmData( "url" );
 -- 
-1.7.5.4
+1.7.9.5
 

@@ -1,4 +1,4 @@
-From 011bc8a62357881585373870e5d9ab5441bfeb46 Mon Sep 17 00:00:00 2001
+From 4d96721bf7bceea9e0b17ab2975f4260f73a1961 Mon Sep 17 00:00:00 2001
 From: "hc7.choi" <hc7choi@hc7.choi>
 Date: Tue, 18 Jun 2013 11:16:33 +0900
 Subject: [PATCH] JQM change toggleswitch ux
@@ -8,7 +8,7 @@ Subject: [PATCH] JQM change toggleswitch ux
  1 file changed, 11 insertions(+), 3 deletions(-)
 
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/slider.js b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/slider.js
-index 7a519b9..313f3a7 100644
+index 4ce701e..c55c656 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/slider.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/slider.js
 @@ -80,7 +80,9 @@ $.widget( "mobile.slider", $.mobile.widget, {

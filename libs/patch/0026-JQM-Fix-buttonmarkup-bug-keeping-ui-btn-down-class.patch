@@ -1,4 +1,4 @@
-From 5b8a6da21b3c26ca1b2ee6f9c511d8ee5ff1e3db Mon Sep 17 00:00:00 2001
+From bf77e99dfeebb0e72eb90a970e5f0a1e42c9e96e Mon Sep 17 00:00:00 2001
 From: Youmin Ha <youmin.ha@samsung.com>
 Date: Wed, 16 Jan 2013 23:07:12 +0900
 Subject: [PATCH] JQM: Fix buttonmarkup bug keeping ui-btn-down class
@@ -9,7 +9,7 @@ Signed-off-by: Youmin Ha <youmin.ha@samsung.com>
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.buttonMarkup.js b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.buttonMarkup.js
-index e043b10..1794b0b 100644
+index 91ec673..faf8b0f 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.buttonMarkup.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.buttonMarkup.js
 @@ -250,7 +250,7 @@ var attachEvents = function() {

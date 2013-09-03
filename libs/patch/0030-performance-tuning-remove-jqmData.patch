@@ -1,7 +1,7 @@
-From c5e658e96ae2b60731934f6cc0cb8cdf1e515698 Mon Sep 17 00:00:00 2001
+From 7b8beda5443bf4be89a33a2e69dd9e44d95e2c68 Mon Sep 17 00:00:00 2001
 From: Minkyeong Kim <minkyeong.kim@samsung.com>
 Date: Fri, 1 Feb 2013 14:15:11 +0900
-Subject: [PATCH] [JQM] performance tuning : remove jqmData
+Subject: [PATCH] performance tuning : remove jqmData
 
 ---
  .../js/jquery.mobile.buttonMarkup.js               |   26 +++++++++++---------
@@ -21,7 +21,7 @@ Subject: [PATCH] [JQM] performance tuning : remove jqmData
  14 files changed, 70 insertions(+), 60 deletions(-)
 
 diff --git a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.buttonMarkup.js b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.buttonMarkup.js
-index 4d07961..7c17ba6 100644
+index c91e1ef..c3ba956 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.buttonMarkup.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.buttonMarkup.js
 @@ -23,14 +23,14 @@ $.fn.buttonMarkup = function( options ) {
@@ -293,7 +293,7 @@ index a8b0f9f..9c78a90 100644
  			// IE throws an exception at options.item() function when
  			// there is no selected item
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/slider.js b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/slider.js
-index c6d4c9b..6729af7 100644
+index b28f6a9..b189714 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/slider.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/slider.js
 @@ -55,9 +55,9 @@ $.widget( "mobile.slider", $.mobile.widget, {
@@ -344,7 +344,7 @@ index 0519b9a..b1ed1e4 100644
  					if ( item.is( "li:jqmData(role=list-divider)" ) ) {
  
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/listview.js b/libs/js/jquery-mobile-1.2.0/js/widgets/listview.js
-index e46f842..e0d68f7 100644
+index d11d36e..e9ec998 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/listview.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/listview.js
 @@ -188,9 +188,9 @@ $.widget( "mobile.listview", $.mobile.widget, {
@@ -408,10 +408,10 @@ index e46f842..e0d68f7 100644
  
  			//define hasSubPages for use in later removal
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
-index 13cb548..35d1933 100644
+index 8d03c4d..6dbf08f 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
-@@ -873,8 +873,8 @@ define( [ "jquery",
+@@ -906,8 +906,8 @@ define( [ "jquery",
  			popup.popup( "open", {
  				x: offset.left + $link.outerWidth() / 2,
  				y: offset.top + $link.outerHeight() / 2,
@@ -424,5 +424,4 @@ index 13cb548..35d1933 100644
  		}
 -- 
 1.7.9.5
-
 

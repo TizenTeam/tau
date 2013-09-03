@@ -1,4 +1,4 @@
-From b3120cd2bf164dbcb4ee47fe9a5c7b2c945dd494 Mon Sep 17 00:00:00 2001
+From 66675c5f2623341d260a1606df2f0fd4f53a6cc4 Mon Sep 17 00:00:00 2001
 From: Youmin Ha <youmin.ha@samsung.com>
 Date: Thu, 24 Jan 2013 15:51:17 +0900
 Subject: [PATCH] JQM: Trim text in listitem to get index in autodivider

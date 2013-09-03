@@ -1,4 +1,4 @@
-From 51deb5092ff19702d54825e8ce2bea92597f2f72 Mon Sep 17 00:00:00 2001
+From 0600bc71f87f6fce9aef4ccc71e0091e379cdc3b Mon Sep 17 00:00:00 2001
 From: Minkyu Kang <mk7.kang@samsung.com>
 Date: Mon, 26 Nov 2012 18:24:51 +0900
 Subject: [PATCH] JQM: trigger the pageshow event after transitionPages

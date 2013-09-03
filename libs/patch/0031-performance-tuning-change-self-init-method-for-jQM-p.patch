@@ -1,7 +1,7 @@
-From 18454b17fb19e4fa24b151ad377e43252ecf552f Mon Sep 17 00:00:00 2001
+From 34cb0a009cb8826061e3a6762a2f5bc77ee41295 Mon Sep 17 00:00:00 2001
 From: Minkyeong Kim <minkyeong.kim@samsung.com>
 Date: Fri, 1 Feb 2013 15:04:58 +0900
-Subject: [PATCH] [JQM] performance tuning : change self-init method for jQM
+Subject: [PATCH] performance tuning : change self-init method for jQM
  performance
 
 ---
@@ -13,7 +13,7 @@ Subject: [PATCH] [JQM] performance tuning : change self-init method for jQM
  5 files changed, 46 insertions(+), 16 deletions(-)
 
 diff --git a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.core.js b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.core.js
-index f8c3a2d..d8a4b42 100644
+index f8c3a2d..ca682a1 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.core.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.core.js
 @@ -345,6 +345,44 @@ define( [ "jquery", "text!../version.txt" ], function( $, __version__ ) {
@@ -96,7 +96,7 @@ index ebc762d..43975e8 100644
  })( jQuery );
  //>>excludeStart("jqmBuildExclude", pragmas.jqmBuildExclude);
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/listview.js b/libs/js/jquery-mobile-1.2.0/js/widgets/listview.js
-index e0d68f7..58a2d04 100644
+index e9ec998..993d03e 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/listview.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/listview.js
 @@ -520,10 +520,8 @@ $.widget( "mobile.listview", $.mobile.widget, {
@@ -131,5 +131,4 @@ index 29c5057..0b52a06 100644
  //>>excludeStart("jqmBuildExclude", pragmas.jqmBuildExclude);
 -- 
 1.7.9.5
-
 

@@ -1,4 +1,4 @@
-From f5525377fccf6744ad2736399f8aaa6145c0c98e Mon Sep 17 00:00:00 2001
+From bbf69d2dfbb8dfe93a04bece97174add56850054 Mon Sep 17 00:00:00 2001
 From: "heeju.joo" <heeju.joo@samsung.com>
 Date: Thu, 22 Aug 2013 18:22:10 +0900
 Subject: [PATCH] JQM Support hostKeyboard Enter key on button
@@ -8,7 +8,7 @@ Subject: [PATCH] JQM Support hostKeyboard Enter key on button
  1 file changed, 9 insertions(+), 1 deletion(-)
 
 diff --git a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.buttonMarkup.js b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.buttonMarkup.js
-index 8bca1a4..c6ee880 100644
+index 38726a6..7e1bb1f 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.buttonMarkup.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.buttonMarkup.js
 @@ -262,7 +262,7 @@ var attachEvents = function() {

@@ -1,10 +1,10 @@
-From 2abeb06ffb0ef12aa7914ae5bdcc7ad886d09efa Mon Sep 17 00:00:00 2001
+From 648725e359225cb26f617e448a50c98cfd677f7d Mon Sep 17 00:00:00 2001
 From: Maciej Urbanski <m.urbanski@samsung.com>
 Date: Fri, 28 Jun 2013 09:44:16 +0200
 Subject: [PATCH] JQM: refresh listview after remove item
 
 This refresh is necessary to inform scrollview about change of height.
-First and Last element of list have another class and have another formating 
+First and Last element of list have another class and have another formating
 this patch add class to new last and first element.
 
 Change-Id: I90a59e83eee755b9f29f04fa33d7cf8bec471562
@@ -13,7 +13,7 @@ Change-Id: I90a59e83eee755b9f29f04fa33d7cf8bec471562
  1 file changed, 1 insertion(+)
 
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/listview.js b/libs/js/jquery-mobile-1.2.0/js/widgets/listview.js
-index 8d2fe7e..dc13403 100644
+index 9a56d4b..33dc0bd 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/listview.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/listview.js
 @@ -530,6 +530,7 @@ $.widget( "mobile.listview", $.mobile.widget, {

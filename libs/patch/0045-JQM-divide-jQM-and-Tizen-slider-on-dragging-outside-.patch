@@ -1,4 +1,4 @@
-From 7bc858f22f86693de110b1b8186fc0e26f5cccff Mon Sep 17 00:00:00 2001
+From e63b1a91b83e1dd24a157932fcca2ea6c49d54c3 Mon Sep 17 00:00:00 2001
 From: Jinhyuk Jun <jinhyuk.jun@samsung.com>
 Date: Mon, 6 May 2013 22:17:30 +0900
 Subject: [PATCH] JQM divide jQM and Tizen slider on dragging outside of slide
@@ -10,7 +10,7 @@ Change-Id: Ib691ec0f2ae7edacc6f0b98d43231e48933b2afc
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/slider.js b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/slider.js
-index b189714..dae5dce 100644
+index b189714..a56ac51 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/slider.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/slider.js
 @@ -160,8 +160,9 @@ $.widget( "mobile.slider", $.mobile.widget, {

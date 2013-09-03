@@ -1,4 +1,4 @@
-From 6a2454411d5416ec39c53c5fb9532ca68363d504 Mon Sep 17 00:00:00 2001
+From ca0114ebb5ddef5e5f2fc0338510e790c9c3dacc Mon Sep 17 00:00:00 2001
 From: Wonseop Kim <wonseop.kim@samsung.com>
 Date: Wed, 20 Mar 2013 20:44:35 +0900
 Subject: [PATCH] JQM: Support accessibility for page-section
@@ -8,7 +8,7 @@ Subject: [PATCH] JQM: Support accessibility for page-section
  1 file changed, 15 insertions(+), 6 deletions(-)
 
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/page.sections.js b/libs/js/jquery-mobile-1.2.0/js/widgets/page.sections.js
-index e00684c..1a7b373 100644
+index e00684c..134a059 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/page.sections.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/page.sections.js
 @@ -61,6 +61,10 @@ $.mobile.$document.bind( "pagecreate", function( e ) {
@@ -41,7 +41,7 @@ index e00684c..1a7b373 100644
  				}
  			}
  
-@@ -90,9 +94,13 @@ $.mobile.$document.bind( "pagecreate", function( e ) {
+@@ -90,9 +95,13 @@ $.mobile.$document.bind( "pagecreate", function( e ) {
  				// Regardless of h element number in src, it becomes h1 for the enhanced page
  				.attr({
  					"role": "heading",
