@@ -113,9 +113,8 @@
 			vertical-align: middle;
 
 			> .ui-btn {
-				width : 40%;
 				display : inline-block;
-				margin:auto;
+				margin: auto;
 				height : 37 * @unit_base;
 				.LESSpopup_button_style();
 				border: 1px solid @color_popup_button_border;
@@ -151,24 +150,37 @@
 
 /***** Normal Samples *****/
 	.center_info,
-	.center_title,
+	.center_title {}
+
 	.center_basic_1btn,
-	.center_basic_2btn,
-	.center_title_1btn,
-	.center_title_2btn {
+	.center_title_1btn {
+		.ui-btn {
+			max-width: 250 * @unit_base;
+			width: 0.7 * @popup-ratio;
+		}
+
 	}
+
+	.center_basic_2btn,
+	.center_title_2btn {
+                .ui-popup-button-bg {
+                        .ui-btn {
+				width: 0.4 * @popup-ratio;
+                                min-width: 120*@unit_base;
+				margin: 0 2*@unit_base 0 2*@unit_base;
+                        }
+                }
+        }
+
 	.center_basic_3btn,
 	.center_title_3btn {
 		.ui-btn {
-				max-width: 80 * @unit_base;
-				height: 37*@unit_base;
-				margin-top: 0*@unit_base;
-				margin-bottom: 0*@unit_base;
-				margin-left: 5*@unit_base;
-				margin-right: 5*@unit_base;
-
-				display: inline-block;
-			}
+			width: 0.3 * @popup-ratio;
+			max-width: 180 * @unit_base;
+			height: 37*@unit_base;
+			margin: 0 2*@unit_base 0 2*@unit_base;
+			display: inline-block;
+		}
 	}
 
 	.center_button_vertical {
@@ -178,8 +190,7 @@
 			> .ui-btn {
 				display : block;
 				width: 200*@unit_base;
-				margin-top: 5px;
-				margin-bottom: 5px;
+				margin: 5px auto 5px auto;
 			}
 		}
 	}
@@ -206,14 +217,9 @@
 
 		.ui-popup-button-bg {
 			background: @color_popup_button_bg;
-
 			.ui-btn {
 				min-width: 120*@unit_base;
-
-				margin-top: 0*@unit_base;
-				margin-bottom: 0*@unit_base;
-				margin-left: 5*@unit_base;
-				margin-right: 5*@unit_base;
+				margin: 0*unit_base 2*@unit_base 0*@unit_base 2*@unit_base;
 			}
 		}
 	}
@@ -225,6 +231,13 @@
 			background: @color_popup_scroller_bg;
 			max-height: 256 * @unit_base;
 		}
+		.ui-popup-button-bg {
+                        .ui-btn {
+				max-width: 250 * @unit_base;
+				width: 0.7 * @popup-ratio;
+                        }
+                }
+
 	}
 
 	.center_liststyle_2btn {
@@ -236,15 +249,9 @@
 		}
 		.ui-popup-button-bg {
 			.ui-btn {
+				width: 0.4 * @popup-ratio;
 				min-width: 120*@unit_base;
-			}
-		}
-	}
-
-	.center_title_2btn {
-		.ui-popup-button-bg {
-			.ui-btn {
-				min-width: 120*@unit_base;
+				margin: 0*unit_base 2*@unit_base 0*@unit_base 2*@unit_base;
 			}
 		}
 	}
@@ -258,7 +265,12 @@
 		}
 		.ui-popup-button-bg {
 			.ui-btn {
-				max-width: 80 * @unit_base;
+				width: 0.3 * @popup-ratio;
+                                max-width: 180 * @unit_base;
+                                height: 37*@unit_base;
+                                margin: 0 2*@unit_base 0 2*@unit_base;
+                                display: inline-block;
+
 			}
 		}
 	}
