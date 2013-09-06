@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.56
+Version:    0.2.57
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -95,6 +95,25 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Fri Sep 06 2013 Heeju Joo <heeju.joo@samsung.com> 0.2.57
+	- pagelayout : fixed triggering blur event after pressing H/W menu key (connected with N_SE-47012)
+	- gallery3d: Fix unit-test error
+	- tokentextarea: fixed focusIn function (N_SE-48198)
+	- DateTimePicker : bug fix(PLM P130902-01540)
+	- Pagelayout : bug fix
+	- TizenWinset: Extend the input box size ( N_SE-46409 )
+	- Tabbar : bug fix(N_SE-42974)
+	- Popup: modify popup-button css values
+	- SegmentControl : bug fix (PLM P130809-03230)
+	- JQM patch : add touchcancel event handler
+	- Popupwindow: popupwindow is closed when hardware key button has been clicked
+	- winset: modify page title and contents name (N_SE-48217)
+	- Pagelayout: block the hwkeyevent when changing page (DCM-2374)
+	- winset : modify mp4 file (N_SE-46472)
+	- winset: spelling fixes (N_SE-34225)
+	- slider: fixed paddings and margins (N_SE-45407)
+	- tabbar: hide tabbar dividers after mouseup (N_SE-34126,N_SE-43442,N_SE-42932)
+
 * Thu Aug 29 2013 Heeju Joo <heeju.joo@samsung.com> 0.2.56
 	- modify set position of popup-container (P130821-05228)
 
