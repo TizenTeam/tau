@@ -153,6 +153,9 @@ define( [
 */
 
 (function ( $, undefined ) {
+	if ( !$.mobile.popupwindow ) {
+		$.mobile.popupwindow = {};
+	}
 	$.widget( "tizen.popupwindow", $.tizen.widgetex, {
 		options: {
 			theme: null,
@@ -389,6 +392,8 @@ define( [
 				} );
 
 			this._isOpen = true;
+			// Keep the popupwindow object for hardwarekey support
+			$.mobile.popupwindow.active = this;
 
 			if ( !this._reflow ) {
 				this._reflow = function () {
@@ -417,6 +422,7 @@ define( [
 				hideScreen = function () {
 					self._ui.screen.addClass("ui-screen-hidden");
 					self._isOpen = false;
+					$.mobile.popupwindow.active = undefined;
 				};
 
 			this._ui.container.removeClass("in").addClass("reverse out");

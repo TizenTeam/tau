@@ -222,6 +222,10 @@ define( [
 				}
 			});
 
+			$tabbar.bind( "touchend vmouseup", function ( e ) {
+				$( ".ui-tabbar-divider" ).hide();
+			});
+
 			this._bindTabbarEvents();
 			this._initTabbarAnimation();
 		},

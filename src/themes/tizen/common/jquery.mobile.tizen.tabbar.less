@@ -125,17 +125,29 @@
 			border-bottom-width: 5 * @unit_base;
 			border-bottom-color: @color_bar_tabbar_bg;
 			border-bottom-style: solid;
-
-			&.ui-btn-active {
-				border-bottom-color: @color_tabbar_border_active;
-			}
 		}
 
 		a.ui-btn.ui-btn-down-s {
 			border-bottom-color : @color_tabbar_btn_pressed;
 		}
 	}
-		
+
+	.ui-tabbar:not(.ui-tabbar-persist) {
+		a.ui-btn {
+			&.ui-btn-active {
+				border-bottom-color : @color_tabbar_btn_pressed;
+			}
+		}
+	}
+
+	.ui-tabbar.ui-tabbar-persist {
+		a.ui-btn {
+			&.ui-btn-active.ui-state-persist {
+				border-bottom-color : @color_tabbar_btn_pressed;
+			}
+		}
+	}
+
 	&.ui-title-tabbar-multiline {
 		.ui-tabbar {
 			a.ui-btn {

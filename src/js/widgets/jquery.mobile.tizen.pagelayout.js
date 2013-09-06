@@ -258,7 +258,8 @@ define( [
 				})
 
 				.bind( "pagebeforehide", function ( e, ui ) {
-					self._unsetHWKeySupport( );
+					var thisPage = this;
+					self._unsetHWKeySupport( thisPage );
 					if ( o.disablePageZoom ) {
 						$.mobile.zoom.enable( true );
 					}
@@ -319,7 +320,7 @@ define( [
 
 		_HWKeyHandler: function ( ev ) {
 			var $openedpopup = $.mobile.popup.active,
-				$openedpicker = $.mobile.activePage.children( ".ui-popupwindow" ),
+				$openedpopupwindow = $.mobile.popupwindow.active,
 				$page,
 				$focused;
 			// NOTE: The 'tizenhwkey' event is passed only document -> window objects.
@@ -331,21 +332,21 @@ define( [
 				$page = $( ev.data ); 	// page object, passed by _setHWKeySupport()
 				$focused = $page.find( ".ui-focus" );
 				if ( $focused[0] ) {	// Focused element is found
-					$focused.blur();
 					// NOTE: If a popup is opened and focused element exists in it,
 					//       do not close that popup.
 					//       'false' is returned here, hence popup close routine is not run.
 					if ( $page.find( ".ui-popup-active" ).find( ".ui-focus" ).length ) {
 						return false;
 					}
+					$focused.blur();
 				}
 				// Close opened popup
 				if ( $openedpopup ) {
 					$openedpopup.close();
 					return false;
 				}
-				if ( $openedpicker.hasClass( "in" ) ) {
-					$openedpicker.popupwindow().popupwindow( "close" );
+				if ( $openedpopupwindow ) {
+					$openedpopupwindow.close();
 					return false;
 				}
 			}
@@ -356,22 +357,24 @@ define( [
 					$openedpopup.close();
 					return false;
 				}
-				if ( $openedpicker.hasClass( "in" ) ) {
-					$openedpicker.popupwindow().popupwindow( "close" );
+				if ( $openedpopupwindow ) {
+					$openedpopupwindow.close();
 					return false;
 				}
 			}
 			return true;	// Otherwise, propagate tizenhwkey event to window object
 		},
-
+		_disableHWKey: function() {
+				return false;
+		},
 		_setHWKeySupport: function( thisPage ) {
+			$( document ).off( "tizenhwkey", this._disableHWKey );
 			$( document ).on( "tizenhwkey", thisPage, this._HWKeyHandler );
 		},
-
-		_unsetHWKeySupport: function () {
+		_unsetHWKeySupport: function ( thisPage ) {
 			$( document ).off( "tizenhwkey", this._HWKeyHandler );
+			$( document ).on( "tizenhwkey", thisPage, this._disableHWKey );
 		},
-
 		_bindHWkeyOnSWBtn: function () {
 			// if HW key not exist
 			// return true
@@ -447,12 +450,20 @@ define( [
 			var $elPage = $( thisPage ),
 				$elHeader = $elPage.find( ":jqmData(role='header')" ).length ? $elPage.find( ":jqmData(role='header')") : $elPage.siblings( ":jqmData(role='header')"),
 				$headerBtn = $elHeader.children("a,[data-"+$.mobile.ns+"role=button]"),
-				headerBtnWidth = $headerBtn.width() + parseInt( $headerBtn.css("padding-left") ) + parseInt( $headerBtn.css("padding-right") ),
+				headerBtnWidth = 0,
 				headerBtnNum = $headerBtn.length,
 				$headerSrc = $elHeader.children("img"),
 				headerSrcNum = $headerSrc.length,
-				headerSrcWidth = $headerSrc.width() + parseInt( $headerSrc.css("margin-left") ),
+				headerSrcWidth = 0,
 				h1width;
+
+
+			if ( headerBtnNum ) {
+				headerBtnWidth = $headerBtn.width() + parseInt( $headerBtn.css("padding-left") ) + parseInt( $headerBtn.css("padding-right") );
+			}
+			if( headerSrcNum ) {
+				headerSrcWidth = $headerSrc.width() + parseInt( $headerSrc.css("margin-left") );
+			}
 
 			if ( !$elPage.is( ".ui-dialog" ) ) {
 				h1width = window.innerWidth - parseInt( $elHeader.find( "h1" ).css( "margin-left" ), 10 ) * 2 - headerBtnWidth * headerBtnNum - headerSrcWidth * headerSrcNum;
