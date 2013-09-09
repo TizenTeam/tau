@@ -21,6 +21,10 @@ define( [
 ensureNS("jQuery.mobile.tizen");
 
 (function () {
+
+/* Tizen enableHWKeyHandler property */
+$.mobile.tizen.enableHWKeyHandler = true;
+
 jQuery.extend(jQuery.mobile.tizen, {
 	disableSelection: function (element) {
 		this.enableSelection(

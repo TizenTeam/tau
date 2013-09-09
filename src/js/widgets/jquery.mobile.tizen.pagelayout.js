@@ -302,10 +302,16 @@ define( [
 		_HWKeyHandler: function ( ev ) {
 			var $openedpopup = $.mobile.popup.active,
 				$openedpopupwindow = $.mobile.popupwindow.active,
+				$currentPicker = $( ".ui-page-active .ui-popupwindow.ui-datetimepicker" ),
 				$page,
 				$focused;
 			// NOTE: The 'tizenhwkey' event is passed only document -> window objects.
 			//       Other DOM elements does not receive 'tizenhwkey' event.
+
+			// Check enableHWKeyHandler property
+			if( !$.mobile.tizen.enableHWKeyHandler ) {
+				return true;
+			}
 
 			// menu key
 			if( ev.originalEvent.keyName == "menu" ) {
@@ -326,7 +332,7 @@ define( [
 					$openedpopup.close();
 					return false;
 				}
-				if ( $openedpopupwindow ) {
+				if ( $openedpopupwindow && $currentPicker.hasClass( "in" ) ) {
 					$openedpopupwindow.close();
 					return false;
 				}
@@ -338,7 +344,7 @@ define( [
 					$openedpopup.close();
 					return false;
 				}
-				if ( $openedpopupwindow ) {
+				if ( $openedpopupwindow && $currentPicker.hasClass( "in" ) ) {
 					$openedpopupwindow.close();
 					return false;
 				}
