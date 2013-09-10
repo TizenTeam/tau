@@ -1459,7 +1459,7 @@ define( [
 
 				/* Tab Key */
 				$input = $( this ).find( ":input.ui-focus" ).eq( 0 );
-				if ( !$input ) {
+				if ( !$input.length ) {
 					return;
 				}
 				self.ensureElementIsVisible( $input );
