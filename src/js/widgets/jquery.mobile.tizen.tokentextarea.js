@@ -344,6 +344,13 @@ define( [
 				return !isSeparator;
 			});
 
+			inputbox.focus(function() {
+				inputbox.addClass( $.mobile.focusClass );
+			})
+			.blur(function() {
+				inputbox.removeClass( $.mobile.focusClass );
+			});
+
 			moreBlock.click( function () {
 				if ( $( moreBlock ).hasClass( "ui-tokentextarea-link-dim" ) ) {
 					return;
