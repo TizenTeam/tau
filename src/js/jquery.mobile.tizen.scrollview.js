@@ -742,10 +742,10 @@ define( [
 
 				element.parentsUntil( $view ).each( function () {
 					var $parent = $( this );
-					elementPosition += ( $parent.position().top + parseFloat( $parent.css( "marginTop" ) ) + parseFloat( $parent.css( "paddingTop" ) ) );
+					elementPositionTop += ( $parent.position().top + parseFloat( $parent.css( "marginTop" ) ) + parseFloat( $parent.css( "paddingTop" ) ) );
 				});
 
-				this.scrollTo( this._sx, -( elementPosition - delta ) );
+				this.scrollTo( this._sx, -( elementPositionTop - delta ) );
 			}
 		},
 
