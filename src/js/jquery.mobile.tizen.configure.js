@@ -1,9 +1,15 @@
+/*
+* Module Name : jquery.mobile.tizen.configure
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
 //>>excludeStart("jqmBuildExclude", pragmas.jqmBuildExclude);
 //>>description: jQuery Mobile configuration for Tizen widgets
 //>>label: Configuration
 //>>group: Tizen:Core
 
 define( [ 
+	"./license/MIT",
 	"jquery",
 	"jqm/jquery.mobile.core",
 	"jqm/jquery.mobile.transition",

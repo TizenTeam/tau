@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.57
+Version:    0.2.58
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -95,6 +95,15 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Thu Sep 12 2013 Youmin Ha <youmin.ha@samsung.com> 0.2.58
+	- notification: fix styles of valign text (N_SE-49495)
+	- Scrollview : bug fix
+	- Popup : modify to set position values of popup when resize window(N_SE-48208)
+	- listview: refresh listview after remove item (N_SE-46260,N_SE-49476)
+	- Hardwarekey: enableHWKeyHandler property has been added
+	- winset: modify list title (P130910-02834)
+	- Module Build : modify license and License folder and file.
+
 * Fri Sep 06 2013 Heeju Joo <heeju.joo@samsung.com> 0.2.57
 	- pagelayout : fixed triggering blur event after pressing H/W menu key (connected with N_SE-47012)
 	- gallery3d: Fix unit-test error

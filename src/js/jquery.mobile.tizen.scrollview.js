@@ -1,24 +1,21 @@
+/*
+* Module Name : jquery.mobile.tizen.scrollview
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
 //>>excludeStart("jqmBuildExclude", pragmas.jqmBuildExclude);
 //>>description: Implements scroll by javascript
 //>>label: Scrollview
 //>>group: Tizen:Core
 
 define( [ 
+	'./license/MIT',
 	"jquery",
 	"jqm/jquery.mobile.widget",
 	'libs/jquery.easing.1.3'
 	], function ( jQuery ) {
 
 //>>excludeEnd("jqmBuildExclude");
-
-/*
-* jQuery Mobile Framework : scrollview plugin
-* Copyright (c) 2010 Adobe Systems Incorporated - Kin Blas (jblas@adobe.com)
-* Licensed under the MIT (MIT-LICENSE.txt) license.
-* Note: Code is in draft form and is subject to change
-* Modified by Koeun Choi <koeun.choi@samsung.com>
-* Modified by Minkyu Kang <mk7.kang@samsung.com>
-*/
 
 (function ( $, window, document, undefined ) {
 
@@ -1462,7 +1459,7 @@ define( [
 
 				/* Tab Key */
 				$input = $( this ).find( ":input.ui-focus" ).eq( 0 );
-				if ( !$input ) {
+				if ( !$input.length ) {
 					return;
 				}
 				self.ensureElementIsVisible( $input );

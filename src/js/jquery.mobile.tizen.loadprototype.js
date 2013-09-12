@@ -1,9 +1,16 @@
+/*
+* Module Name : jquery.mobile.tizen.loadprototype
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
 //>>excludeStart("jqmBuildExclude", pragmas.jqmBuildExclude);
 //>>description: Loads widget's prototype
 //>>label: Widget prototype loader
 //>>group: Tizen:Core
 
-define( [ ], function ( ) {
+define( [
+	'./license/MIT'
+	], function ( ) {
 //>>excludeEnd("jqmBuildExclude");
 
 ( function ( $, undefined ) {

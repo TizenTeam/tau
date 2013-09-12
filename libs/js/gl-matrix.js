@@ -6,6 +6,7 @@
  */
 
 /*
+ * Module Name : libs/gl-matrix
  * Copyright (c) 2012 Brandon Jones, Colin MacKenzie IV
  *
  * This software is provided 'as-is', without any express or implied

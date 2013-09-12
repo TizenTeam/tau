@@ -1,30 +1,21 @@
+/*
+* Module Name : widgets/jquery.mobile.tizen.progressbar
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
 //>>excludeStart("jqmBuildExclude", pragmas.jqmBuildExclude);
 //>>description: Shows progressbar
 //>>label: Progressbar
 //>>group: Tizen:Widgets
 
 define( [
+	'license/MIT',
 	'jquery',
 	'../jquery.mobile.tizen.core'
 	], function ( jQuery ) {
 
 //>>excludeEnd("jqmBuildExclude");
 
-/*
- * jQuery UI Progressbar @VERSION
- *
- * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
- * Licensed under the MIT license.
- * http://jquery.org/license
- *
- * http://docs.jquery.com/UI/Progressbar
- *
- * Depends:
- *   jquery.ui.core.js
- *   jquery.ui.widget.js
- * Original file:
- *   jquery.ui.progressbar.js
- */
 /* This is from jquery ui plugin - progressbar 11/16/2011 */
 
 

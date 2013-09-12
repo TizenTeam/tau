@@ -1,9 +1,15 @@
+/*
+* Module Name : jquery.mobile.tizen.core
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
 //>>excludeStart("jqmBuildExclude", pragmas.jqmBuildExclude);
 //>>description: Tizen core library
 //>>label: Tizen core
 //>>group: Tizen:Core
 
 define( [ 
+	'./license/MIT',
 	'jquery',
 	'jqm/jquery.mobile.core',
 	'./jquery.mobile.tizen.configure',
@@ -12,42 +18,13 @@ define( [
 
 //>>excludeEnd("jqmBuildExclude");
 
-/*
- * jQuery Mobile Widget @VERSION
- *
- * TODO: remove unnecessary codes....
- *
- * This software is licensed under the MIT licence (as defined by the OSI at
- * http://www.opensource.org/licenses/mit-license.php)
- * 
- * ***************************************************************************
- * Copyright (C) 2011 by Intel Corporation Ltd.
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the "Software"),
- * to deal in the Software without restriction, including without limitation
- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
- * and/or sell copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- * DEALINGS IN THE SOFTWARE.
- * ***************************************************************************
- *
- * Authors: Kalyan Kondapally <kalyan.kondapally@intel.com>
- */
-
 ensureNS("jQuery.mobile.tizen");
 
 (function () {
+
+/* Tizen enableHWKeyHandler property */
+$.mobile.tizen.enableHWKeyHandler = true;
+
 jQuery.extend(jQuery.mobile.tizen, {
 	disableSelection: function (element) {
 		this.enableSelection(

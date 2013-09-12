@@ -1,9 +1,15 @@
+/*
+* Module Name : jquery.mobile.tizen.loader
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
 //>>excludeStart("jqmBuildExclude", pragmas.jqmBuildExclude);
 //>>description: Loader doing theme loading, viewport setting, globalize loading, etc.
 //>>label: Loader
 //>>group: Tizen:Core
 
 define( [ 
+	'./license/MIT',
 	'jquery',
 	'libs/globalize',
 	"jqm/jquery.mobile.init",
