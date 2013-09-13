@@ -1441,7 +1441,7 @@ define( [
 					return false;
 				}
 
-				$focusedElement = $c.find( ".ui-focus" );
+				$focusedElement = $c.find( ":input.ui-focus" );
 				if ( !$focusedElement.length ) {
 					return;
 				}
