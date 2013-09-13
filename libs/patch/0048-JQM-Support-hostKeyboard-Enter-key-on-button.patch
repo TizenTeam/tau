@@ -25,7 +25,7 @@ index 8bca1a4..c6ee880 100644
  						clearTimeout( foc );
  					}
 +				} else if ( evt === "keypress" ) {
-+					if ( event.originalEvent.keyCode == 13 ) { // ENTER keyCode == 13	
++					if ( event.originalEvent.keyCode == 13 ) { // ENTER keyCode == 13
 +						var parent_popup = $btn.parents(".ui-popup");
 +						if ( parent_popup.length && ! parent_popup.parent().hasClass("ui-popup-active") ) {
 +							return;

@@ -1,0 +1,56 @@
+From f344d4297e573ccbe6c1a1048e132dffb9075e11 Mon Sep 17 00:00:00 2001
+From: "hjnim.kim" <hjnim.kim@samsung.com>
+Date: Wed, 11 Sep 2013 16:45:46 +0900
+Subject: [PATCH] JQM Popup reposition is called immediately when window
+ resize event has been fired
+
+Popup reposiiton is called immediately
+
+Signed-off-by : hyunjung kim <hjnim.kim@samsung.com>
+
+Change-Id: I7bcf17b1e076491f3fb22c856c78494120642ce9
+---
+ libs/js/jquery-mobile-1.2.0/js/widgets/popup.js |   12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
+
+diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
+index e477ecb..6a561fc 100644
+--- a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
++++ b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
+@@ -96,14 +96,18 @@ define( [ "jquery",
+ 					return false;
+ 				} else {
+ 					// clear existing timeout - it will be refreshed below
+-					clearTimeout( this._resizeData.timeoutId );
++					// remove clearTimeout
++					//clearTimeout( this._resizeData.timeoutId );
+ 				}
+ 			}
+ 
+ 			this._resizeData = {
+-				timeoutId: setTimeout( $.proxy( this, "_resizeTimeout" ), 200 ),
++			//	timeoutId: setTimeout( $.proxy( this, "_resizeTimeout" ), 200 ),
+ 				winCoords: winCoords
+ 			};
++			
++			// resizeTimeout method is call immediately
++			this._resizeTimeout();
+ 
+ 			return true;
+ 		},
+@@ -137,9 +141,11 @@ define( [ "jquery",
+ 
+ 			if ( !this._orientationchangeInProgress ) {
+ 				// effectively rapid-close the popup while leaving the screen intact
++
++				// remove ui-selectmenu-hidden when orientation event has been fired
+ 				this._ui.container
+-					.addClass( "ui-selectmenu-hidden" )
+ 					.removeAttr( "style" );
++				//	.addClass( "ui-selectmenu-hidden" )
+ 
+ 				this._orientationchangeInProgress = true;
+ 			}
+-- 
+1.7.9.5
+

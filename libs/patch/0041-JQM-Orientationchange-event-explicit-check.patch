@@ -21,7 +21,7 @@ index de903c8..db9e01e 100644
  			// If the event is supported natively, return false so that jQuery
  			// will bind to the event using DOM methods.
 -			if ( $.support.orientation && !$.event.special.orientationchange.disabled ) {
-+			if ( $.support.orientation && 
++			if ( $.support.orientation &&
 +				$.event.special.orientationchange.disabled === false ) {
  				return false;
  			}
