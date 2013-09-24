@@ -55,6 +55,12 @@
 						//bind callbacks to the H/W keys
 						window.history.back();
 					}
+				}).on( "popstate", function( event, state ) {
+					var state = this.history.state;
+					if ( state && state.hash.indexOf( "index.html" ) > -1 ) {
+						$( "#MBTremoveAllItemTest" ).click();
+						$( ":jqmData(role='tokentextarea')" ).tokentextarea( "inputText", "" );
+					}
 				});
 			});
 			$( "#tokentextarea" ).on( "pagebeforehide" , function() {
