@@ -24,6 +24,8 @@ make all
 
 %install
 make DESTDIR=%{buildroot} install
+mkdir -p %{buildroot}/usr/share/license
+cp COPYING %{buildroot}/usr/share/license/%{name}
 
 %post
 
@@ -33,6 +35,7 @@ make DESTDIR=%{buildroot} install
 /usr/share/tizen-web-ui-fw/*/js/cultures
 /usr/share/tizen-web-ui-fw/latest
 /usr/share/tizen-web-ui-fw/VERSION
+/usr/share/license/%{name}
 
 ###############################
 %package -n web-ui-fw-theme-tizen-gray
