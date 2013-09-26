@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.59
+Version:    0.2.60
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -95,6 +95,12 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Thu Sep 26 2013 Heeju Joo <heeju.joo@samsung.com> 0.2.60
+	- scrollview: N_SE-51475; typo fix
+	- Popup: remove whitespace in popup patch
+	- winset: modify change text in ctxpopup widget (N_SE-51878)
+	- winset: delete no-name checkboxes (N_SE-49159)
+
 * Fri Sep 13 2013 Heeju Joo <heeju.joo@samsung.com> 0.2.59
 	- JIRA fix - N_SE-47442 Item getting disappear when popup appear and keyboard disappear in TizenWinset
 	- Popup : remove whitespace in JQM patch
