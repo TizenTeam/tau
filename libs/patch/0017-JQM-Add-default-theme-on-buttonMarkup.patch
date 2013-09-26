@@ -1,4 +1,4 @@
-From e7c4dff9e0c959da3688957c9b1482eceeb58ebf Mon Sep 17 00:00:00 2001
+From 8bfecaa2fafd31d9d134d671d8fd0acaf8eadca6 Mon Sep 17 00:00:00 2001
 From: Youmin Ha <youmin.ha@samsung.com>
 Date: Wed, 28 Nov 2012 20:50:00 +0900
 Subject: [PATCH] JQM: Add default theme on buttonMarkup
@@ -9,7 +9,7 @@ Signed-off-by: Youmin Ha <youmin.ha@samsung.com>
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.buttonMarkup.js b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.buttonMarkup.js
-index 0be6999..c803125 100644
+index 0e66115..91ec673 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.buttonMarkup.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.buttonMarkup.js
 @@ -24,7 +24,7 @@ $.fn.buttonMarkup = function( options ) {

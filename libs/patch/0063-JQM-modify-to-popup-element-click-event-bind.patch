@@ -1,0 +1,30 @@
+From 52056a6c67371e9c07e7624a5701caa75d7a2504 Mon Sep 17 00:00:00 2001
+From: Hyeoncheol Choi <hc7.choi@samsung.com>
+Date: Fri, 13 Sep 2013 14:52:15 +0900
+Subject: [PATCH] JQM modify to popup element click event bind
+
+Change-Id: Id7c6ff388cffe16165eab8978b9c5967eda5ca6c
+---
+ libs/js/jquery-mobile-1.2.0/js/widgets/popup.js |    5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
+index 989288b..efc347c 100644
+--- a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
++++ b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
+@@ -856,8 +856,11 @@ define( [ "jquery",
+ 				// When histoy is disabled we have to grab the data-rel
+ 				// back link clicks so we can close the popup instead of
+ 				// relying on history to do it for us
++
++				// Popup close event need to bind more specific element
++				// because event bubbling occured incorrectly click sound(DCM-2433)
+ 				self.element
+-					.delegate( opts.closeLinkSelector, opts.closeLinkEvents, function( e ) {
++					.find( opts.closeLinkSelector ).on( opts.closeLinkEvents, function( e ) {
+ 						self._close();
+ 
+ 						// NOTE prevent the browser and navigation handlers from
+-- 
+1.7.9.5
+

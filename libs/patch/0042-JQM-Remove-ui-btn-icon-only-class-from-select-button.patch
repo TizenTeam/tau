@@ -1,4 +1,4 @@
-From 4c6c887221f11b8fd9496e71a46d8dac7067c3c2 Mon Sep 17 00:00:00 2001
+From 675efed78a81ee8ed3a62c85fe3bc34b812387ea Mon Sep 17 00:00:00 2001
 From: Youmin Ha <youmin.ha@samsung.com>
 Date: Sun, 7 Apr 2013 18:47:25 +0900
 Subject: [PATCH] JQM: Remove ui-btn-icon-only class from select button

@@ -1,14 +1,11 @@
-From 9180e5bb26137653fb8e2da322a023a8cf7d0a82 Mon Sep 17 00:00:00 2001
+From eac34e826f509950d6f5a42b22a581d118c82827 Mon Sep 17 00:00:00 2001
 From: Przemyslaw Ciezkowski <p.ciezkowski@samsung.com>
 Date: Tue, 4 Jun 2013 08:59:53 +0200
 Subject: [PATCH] prepare jqm to use tizen build
 
 Change-Id: I545e99c1331079ecdf4efafa802f462fbf0bc928
 ---
- .../js/events/orientationchange.js                 |    2 +-
- .../js/events/throttledresize.js                   |    2 +-
  libs/js/jquery-mobile-1.2.0/js/events/touch.js     |    2 +-
- libs/js/jquery-mobile-1.2.0/js/jquery.js           |    2 +-
  .../js/jquery.mobile.buttonMarkup.js               |    2 +-
  .../js/jquery.mobile.controlGroup.js               |    2 +-
  .../jquery-mobile-1.2.0/js/jquery.mobile.core.js   |    2 +-
@@ -16,7 +13,7 @@ Change-Id: I545e99c1331079ecdf4efafa802f462fbf0bc928
  .../jquery-mobile-1.2.0/js/jquery.mobile.events.js |    2 +-
  .../js/jquery.mobile.fieldContain.js               |    2 +-
  .../jquery-mobile-1.2.0/js/jquery.mobile.grid.js   |    2 +-
- .../jquery-mobile-1.2.0/js/jquery.mobile.init.js   |    4 ++--
+ .../jquery-mobile-1.2.0/js/jquery.mobile.init.js   |    2 +-
  .../jquery-mobile-1.2.0/js/jquery.mobile.links.js  |    2 +-
  .../jquery-mobile-1.2.0/js/jquery.mobile.media.js  |    2 +-
  .../js/jquery.mobile.navigation.js                 |    4 ++--
@@ -30,7 +27,6 @@ Change-Id: I545e99c1331079ecdf4efafa802f462fbf0bc928
  .../jquery-mobile-1.2.0/js/jquery.mobile.widget.js |    2 +-
  .../js/jquery.mobile.zoom.iosorientationfix.js     |    2 +-
  .../jquery-mobile-1.2.0/js/jquery.mobile.zoom.js   |    2 +-
- .../jquery-mobile-1.2.0/js/jquery.tag.inserter.js  |    2 +-
  libs/js/jquery-mobile-1.2.0/js/transitions/flip.js |    2 +-
  libs/js/jquery-mobile-1.2.0/js/transitions/flow.js |    2 +-
  libs/js/jquery-mobile-1.2.0/js/transitions/pop.js  |    2 +-
@@ -45,7 +41,7 @@ Change-Id: I545e99c1331079ecdf4efafa802f462fbf0bc928
  .../jquery-mobile-1.2.0/js/widgets/fixedToolbar.js |    2 +-
  .../jquery-mobile-1.2.0/js/widgets/forms/button.js |    2 +-
  .../js/widgets/forms/checkboxradio.js              |    2 +-
- .../js/widgets/forms/select.custom.js              |    4 ++--
+ .../js/widgets/forms/select.custom.js              |    2 +-
  .../jquery-mobile-1.2.0/js/widgets/forms/select.js |    2 +-
  .../jquery-mobile-1.2.0/js/widgets/forms/slider.js |    2 +-
  .../js/widgets/forms/textinput.js                  |    2 +-
@@ -56,37 +52,11 @@ Change-Id: I545e99c1331079ecdf4efafa802f462fbf0bc928
  libs/js/jquery-mobile-1.2.0/js/widgets/navbar.js   |    2 +-
  libs/js/jquery-mobile-1.2.0/js/widgets/page.js     |    2 +-
  .../js/widgets/page.sections.js                    |    2 +-
- libs/js/jquery-mobile-1.2.0/js/widgets/popup.js    |    4 ++--
- 52 files changed, 55 insertions(+), 55 deletions(-)
+ libs/js/jquery-mobile-1.2.0/js/widgets/popup.js    |    2 +-
+ 48 files changed, 49 insertions(+), 49 deletions(-)
 
-diff --git a/libs/js/jquery-mobile-1.2.0/js/events/orientationchange.js b/libs/js/jquery-mobile-1.2.0/js/events/orientationchange.js
-index db9e01e..67c36dc 100644
---- a/libs/js/jquery-mobile-1.2.0/js/events/orientationchange.js
-+++ b/libs/js/jquery-mobile-1.2.0/js/events/orientationchange.js
-@@ -3,7 +3,7 @@
- //>>label: orientationchange
- //>>group: Events
- 
--define( [ "jquery", "../jquery.mobile.support.orientation", "./throttledresize" ], function( jQuery ) {
-+define( [ "jquery", "../jquery.mobile.support.orientation", "./throttledresize" ], function( jQuery ) {
- //>>excludeEnd("jqmBuildExclude");
- 
- (function( $, window ) {
-diff --git a/libs/js/jquery-mobile-1.2.0/js/events/throttledresize.js b/libs/js/jquery-mobile-1.2.0/js/events/throttledresize.js
-index 3efeb46..9e46868 100644
---- a/libs/js/jquery-mobile-1.2.0/js/events/throttledresize.js
-+++ b/libs/js/jquery-mobile-1.2.0/js/events/throttledresize.js
-@@ -3,7 +3,7 @@
- //>>label: throttledresize
- //>>group: Events
- 
--define( [ "jquery" ], function( jQuery ) {
-+define( [ "jquery" ], function( jQuery ) {
- //>>excludeEnd("jqmBuildExclude");
- 
- 	// throttled resize event
 diff --git a/libs/js/jquery-mobile-1.2.0/js/events/touch.js b/libs/js/jquery-mobile-1.2.0/js/events/touch.js
-index 9e616cc..1a08e27 100644
+index 9e616cc..fbd2637 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/events/touch.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/events/touch.js
 @@ -3,7 +3,7 @@
@@ -98,21 +68,8 @@ index 9e616cc..1a08e27 100644
  //>>excludeEnd("jqmBuildExclude");
  
  (function( $, window, undefined ) {
-diff --git a/libs/js/jquery-mobile-1.2.0/js/jquery.js b/libs/js/jquery-mobile-1.2.0/js/jquery.js
-index 12c7797..a5574d5 100644
---- a/libs/js/jquery-mobile-1.2.0/js/jquery.js
-+++ b/libs/js/jquery-mobile-1.2.0/js/jquery.js
-@@ -1518,7 +1518,7 @@ jQuery.extend({
- 
- 	// Unique for each copy of jQuery on the page
- 	// Non-digits removed to match rinlinejQuery
--	expando: "jQuery" + ( jQuery.fn.jquery + Math.random() ).replace( /\D/g, "" ),
-+	expando: "jQuery" + ( jQuery.fn.jquery + Math.random() ).replace( /\D/g, "" ),
- 
- 	// The following elements throw uncatchable exceptions if you
- 	// attempt to add expando properties to them.
 diff --git a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.buttonMarkup.js b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.buttonMarkup.js
-index 8bca1a4..b1df77c 100644
+index 8bca1a4..38726a6 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.buttonMarkup.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.buttonMarkup.js
 @@ -5,7 +5,7 @@
@@ -125,7 +82,7 @@ index 8bca1a4..b1df77c 100644
  (function( $, undefined ) {
  
 diff --git a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.controlGroup.js b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.controlGroup.js
-index 06c5312..6ae2bc4 100644
+index 06c5312..f1c5ba9 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.controlGroup.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.controlGroup.js
 @@ -5,7 +5,7 @@
@@ -138,7 +95,7 @@ index 06c5312..6ae2bc4 100644
  (function( $, undefined ) {
  
 diff --git a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.core.js b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.core.js
-index ca682a1..22a83bc 100644
+index ca682a1..92310f4 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.core.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.core.js
 @@ -5,7 +5,7 @@
@@ -151,7 +108,7 @@ index ca682a1..22a83bc 100644
  (function( $, window, undefined ) {
  
 diff --git a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.degradeInputs.js b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.degradeInputs.js
-index 6951e17..b351123 100644
+index 6951e17..00f277b 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.degradeInputs.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.degradeInputs.js
 @@ -4,7 +4,7 @@
@@ -164,7 +121,7 @@ index 6951e17..b351123 100644
  (function( $, undefined ) {
  
 diff --git a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.events.js b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.events.js
-index 0fc58c1..6d35fba 100644
+index 0fc58c1..02c39bd 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.events.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.events.js
 @@ -3,7 +3,7 @@
@@ -177,7 +134,7 @@ index 0fc58c1..6d35fba 100644
  //>>excludeStart("jqmBuildExclude", pragmas.jqmBuildExclude);
  });
 diff --git a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.fieldContain.js b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.fieldContain.js
-index c7fd931..bc66136 100644
+index c7fd931..63751b0 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.fieldContain.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.fieldContain.js
 @@ -5,7 +5,7 @@
@@ -190,7 +147,7 @@ index c7fd931..bc66136 100644
  (function( $, undefined ) {
  
 diff --git a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.grid.js b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.grid.js
-index 16f3d02..4a1854d 100644
+index 16f3d02..3a25f16 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.grid.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.grid.js
 @@ -5,7 +5,7 @@
@@ -203,22 +160,20 @@ index 16f3d02..4a1854d 100644
  (function( $, undefined ) {
  
 diff --git a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.init.js b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.init.js
-index d31ddf0..920bf6c 100644
+index d31ddf0..39e2d3d 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.init.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.init.js
-@@ -4,8 +4,8 @@
- //>>group: Core
+@@ -5,7 +5,7 @@
  
  
--define( [ "jquery", "./jquery.mobile.core", "./jquery.mobile.support", "./jquery.mobile.navigation",
+ define( [ "jquery", "./jquery.mobile.core", "./jquery.mobile.support", "./jquery.mobile.navigation",
 -	"./jquery.mobile.navigation.pushstate", "./widgets/loader", "./jquery.mobile.vmouse", "depend!./jquery.hashchange[jquery]" ], function( $ ) {
-+define( [ "jquery", "./jquery.mobile.core", "./jquery.mobile.support", "./jquery.mobile.navigation",
 +	"./jquery.mobile.navigation.pushstate", "./widgets/loader", "./jquery.mobile.vmouse", "./jquery.hashchange" ], function( jQuery ) {
  //>>excludeEnd("jqmBuildExclude");
  (function( $, window, undefined ) {
  	var	$html = $( "html" ),
 diff --git a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.links.js b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.links.js
-index 4145d30..7209653 100644
+index 4145d30..1c13bc4 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.links.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.links.js
 @@ -4,7 +4,7 @@
@@ -231,7 +186,7 @@ index 4145d30..7209653 100644
  (function( $, undefined ) {
  
 diff --git a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.media.js b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.media.js
-index 2068ca5..4bf8a70 100644
+index 2068ca5..3ef76e4 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.media.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.media.js
 @@ -4,7 +4,7 @@
@@ -244,10 +199,10 @@ index 2068ca5..4bf8a70 100644
  (function( $, undefined ) {
  
 diff --git a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.navigation.js b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.navigation.js
-index 56564eb..0868ebe 100644
+index 56564eb..12d6f84 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.navigation.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.navigation.js
-@@ -7,9 +7,9 @@
+@@ -8,9 +8,9 @@ define( [
  	"./jquery.mobile.core",
  	"./jquery.mobile.events",
  	"./jquery.mobile.support",
@@ -260,7 +215,7 @@ index 56564eb..0868ebe 100644
  (function( $, undefined ) {
  
 diff --git a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.navigation.pushstate.js b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.navigation.pushstate.js
-index 10761d1..c476426 100644
+index 10761d1..fb72964 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.navigation.pushstate.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.navigation.pushstate.js
 @@ -3,7 +3,7 @@
@@ -273,7 +228,7 @@ index 10761d1..c476426 100644
  (function( $, window ) {
  	// For now, let's Monkeypatch this onto the end of $.mobile._registerInternalEvents
 diff --git a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.nojs.js b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.nojs.js
-index 807a319..9c43bfe 100644
+index 807a319..cffd909 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.nojs.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.nojs.js
 @@ -3,7 +3,7 @@
@@ -286,7 +241,7 @@ index 807a319..9c43bfe 100644
  (function( $, undefined ) {
  
 diff --git a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.support.js b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.support.js
-index 52d6e7a..ba437be 100644
+index 52d6e7a..64f889f 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.support.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.support.js
 @@ -2,7 +2,7 @@
@@ -299,7 +254,7 @@ index 52d6e7a..ba437be 100644
  (function( $, undefined ) {
  
 diff --git a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.support.orientation.js b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.support.orientation.js
-index 0991383..9a31e6b 100644
+index 0991383..5e96fa7 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.support.orientation.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.support.orientation.js
 @@ -3,7 +3,7 @@
@@ -312,7 +267,7 @@ index 0991383..9a31e6b 100644
  	(function( $, undefined ) {
  		$.extend( $.support, {
 diff --git a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.support.touch.js b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.support.touch.js
-index 9cba62a..613d95a 100644
+index 9cba62a..ed21e67 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.support.touch.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.support.touch.js
 @@ -3,7 +3,7 @@
@@ -325,7 +280,7 @@ index 9cba62a..613d95a 100644
  	(function( $, undefined ) {
  		var support = {
 diff --git a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.transition.js b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.transition.js
-index f8edcee..a7c5bc9 100644
+index f8edcee..c0024f3 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.transition.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.transition.js
 @@ -6,7 +6,7 @@
@@ -338,7 +293,7 @@ index f8edcee..a7c5bc9 100644
  (function( $, window, undefined ) {
  
 diff --git a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.vmouse.js b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.vmouse.js
-index a98b73e..9335a36 100644
+index a98b73e..5bdec86 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.vmouse.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.vmouse.js
 @@ -19,7 +19,7 @@
@@ -351,7 +306,7 @@ index a98b73e..9335a36 100644
  (function( $, window, document, undefined ) {
  
 diff --git a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.widget.js b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.widget.js
-index 25d6853..08a27f5 100644
+index 25d6853..adba034 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.widget.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.widget.js
 @@ -4,7 +4,7 @@
@@ -364,7 +319,7 @@ index 25d6853..08a27f5 100644
  (function( $, undefined ) {
  
 diff --git a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.zoom.iosorientationfix.js b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.zoom.iosorientationfix.js
-index 61917f7..d7f7da1 100644
+index 61917f7..eb9fc7a 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.zoom.iosorientationfix.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.zoom.iosorientationfix.js
 @@ -3,7 +3,7 @@
@@ -377,7 +332,7 @@ index 61917f7..d7f7da1 100644
  (function( $, window ) {
  
 diff --git a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.zoom.js b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.zoom.js
-index ed87b51..1404add 100644
+index ed87b51..56906b8 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.zoom.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.zoom.js
 @@ -3,7 +3,7 @@
@@ -389,21 +344,8 @@ index ed87b51..1404add 100644
  //>>excludeEnd("jqmBuildExclude");
  (function( $ ) {
  	var	meta = $( "meta[name=viewport]" ),
-diff --git a/libs/js/jquery-mobile-1.2.0/js/jquery.tag.inserter.js b/libs/js/jquery-mobile-1.2.0/js/jquery.tag.inserter.js
-index 9251675..c9589db 100644
---- a/libs/js/jquery-mobile-1.2.0/js/jquery.tag.inserter.js
-+++ b/libs/js/jquery-mobile-1.2.0/js/jquery.tag.inserter.js
-@@ -19,7 +19,7 @@
- 	document.write(
- 		'<script>' +
- 			'if ( parseInt( jQuery.fn.jquery.replace( /\\./g, "" ), 10 ) < 170 && window.define && window.define.amd ) {' +
--			    'define( "jquery", [], function () { return jQuery; } );'+
-+			    'define( "jquery", [], function () { return jQuery; } );'+
- 			'}'+
- 		'</script>'
- 	);
 diff --git a/libs/js/jquery-mobile-1.2.0/js/transitions/flip.js b/libs/js/jquery-mobile-1.2.0/js/transitions/flip.js
-index 551fc9f..0912350 100644
+index 551fc9f..eb26131 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/transitions/flip.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/transitions/flip.js
 @@ -8,7 +8,7 @@
@@ -416,7 +358,7 @@ index 551fc9f..0912350 100644
  (function( $, window, undefined ) {
  
 diff --git a/libs/js/jquery-mobile-1.2.0/js/transitions/flow.js b/libs/js/jquery-mobile-1.2.0/js/transitions/flow.js
-index be1ce79..4ef1095 100644
+index be1ce79..30f1bb9 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/transitions/flow.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/transitions/flow.js
 @@ -8,7 +8,7 @@
@@ -429,7 +371,7 @@ index be1ce79..4ef1095 100644
  (function( $, window, undefined ) {
  
 diff --git a/libs/js/jquery-mobile-1.2.0/js/transitions/pop.js b/libs/js/jquery-mobile-1.2.0/js/transitions/pop.js
-index 2ade187..7d19861 100644
+index 2ade187..7be8729 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/transitions/pop.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/transitions/pop.js
 @@ -8,7 +8,7 @@
@@ -442,7 +384,7 @@ index 2ade187..7d19861 100644
  (function( $, window, undefined ) {
  
 diff --git a/libs/js/jquery-mobile-1.2.0/js/transitions/slide.js b/libs/js/jquery-mobile-1.2.0/js/transitions/slide.js
-index d45d55c..ebf3f09 100644
+index d45d55c..733ea6d 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/transitions/slide.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/transitions/slide.js
 @@ -8,7 +8,7 @@
@@ -455,7 +397,7 @@ index d45d55c..ebf3f09 100644
  (function( $, window, undefined ) {
  
 diff --git a/libs/js/jquery-mobile-1.2.0/js/transitions/slidedown.js b/libs/js/jquery-mobile-1.2.0/js/transitions/slidedown.js
-index 94d191e..7b81c4f 100644
+index 94d191e..efde6f2 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/transitions/slidedown.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/transitions/slidedown.js
 @@ -8,7 +8,7 @@
@@ -468,7 +410,7 @@ index 94d191e..7b81c4f 100644
  (function( $, window, undefined ) {
  
 diff --git a/libs/js/jquery-mobile-1.2.0/js/transitions/slidefade.js b/libs/js/jquery-mobile-1.2.0/js/transitions/slidefade.js
-index d2b33db..a09f0ef 100644
+index d2b33db..1dfda31 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/transitions/slidefade.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/transitions/slidefade.js
 @@ -8,7 +8,7 @@
@@ -481,7 +423,7 @@ index d2b33db..a09f0ef 100644
  (function( $, window, undefined ) {
  
 diff --git a/libs/js/jquery-mobile-1.2.0/js/transitions/slideup.js b/libs/js/jquery-mobile-1.2.0/js/transitions/slideup.js
-index 881ca3d..10aee32 100644
+index 881ca3d..b0b579f 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/transitions/slideup.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/transitions/slideup.js
 @@ -8,7 +8,7 @@
@@ -494,7 +436,7 @@ index 881ca3d..10aee32 100644
  (function( $, window, undefined ) {
  
 diff --git a/libs/js/jquery-mobile-1.2.0/js/transitions/turn.js b/libs/js/jquery-mobile-1.2.0/js/transitions/turn.js
-index 40ada94..2358e28 100644
+index 40ada94..359fd87 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/transitions/turn.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/transitions/turn.js
 @@ -8,7 +8,7 @@
@@ -507,7 +449,7 @@ index 40ada94..2358e28 100644
  (function( $, window, undefined ) {
  
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/collapsible.js b/libs/js/jquery-mobile-1.2.0/js/widgets/collapsible.js
-index 8398de4..10847af 100644
+index 8398de4..9e29955 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/collapsible.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/collapsible.js
 @@ -5,7 +5,7 @@
@@ -520,7 +462,7 @@ index 8398de4..10847af 100644
  (function( $, undefined ) {
  
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/collapsibleSet.js b/libs/js/jquery-mobile-1.2.0/js/widgets/collapsibleSet.js
-index 43975e8..6e439c9 100644
+index 43975e8..687df67 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/collapsibleSet.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/collapsibleSet.js
 @@ -5,7 +5,7 @@
@@ -533,7 +475,7 @@ index 43975e8..6e439c9 100644
  (function( $, undefined ) {
  
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/dialog.js b/libs/js/jquery-mobile-1.2.0/js/widgets/dialog.js
-index 9e390ef..3fae98c 100644
+index 9e390ef..adcbaf7 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/dialog.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/dialog.js
 @@ -5,7 +5,7 @@
@@ -546,7 +488,7 @@ index 9e390ef..3fae98c 100644
  (function( $, window, undefined ) {
  
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/fixedToolbar.js b/libs/js/jquery-mobile-1.2.0/js/widgets/fixedToolbar.js
-index ea9fe60..bbb788b 100644
+index ea9fe60..880d451 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/fixedToolbar.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/fixedToolbar.js
 @@ -5,7 +5,7 @@
@@ -559,7 +501,7 @@ index ea9fe60..bbb788b 100644
  (function( $, undefined ) {
  
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/button.js b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/button.js
-index fe6d81c..6578475 100644
+index fe6d81c..d390071 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/button.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/button.js
 @@ -5,7 +5,7 @@
@@ -572,7 +514,7 @@ index fe6d81c..6578475 100644
  (function( $, undefined ) {
  
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/checkboxradio.js b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/checkboxradio.js
-index aa6f8a2..86589d0 100644
+index aa6f8a2..a8f0082 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/checkboxradio.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/checkboxradio.js
 @@ -9,7 +9,7 @@
@@ -585,30 +527,20 @@ index aa6f8a2..86589d0 100644
  (function( $, undefined ) {
  
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/select.custom.js b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/select.custom.js
-index 85a024f..ce8ca1a 100644
+index 85a024f..02ae263 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/select.custom.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/select.custom.js
-@@ -10,16 +10,16 @@
- //>>css.theme: ../css/themes/default/jquery.mobile.theme.css
- 
- define( [
--	"jquery",
-+	"jquery",
- 	"../../jquery.mobile.buttonMarkup",
- 	"../../jquery.mobile.core",
- 	"../dialog",
-	"./select",
-	"../listview",
-	"../page",
-	"../popup",
-	// NOTE expects ui content in the defined page, see selector for menuPageContent definition
+@@ -19,7 +19,7 @@ define( [
+ 	"../page",
+ 	"../popup",
+ 	// NOTE expects ui content in the defined page, see selector for menuPageContent definition
 -	"../page.sections" ], function( $ ) {
 +	"../page.sections" ], function( jQuery ) {
  //>>excludeEnd("jqmBuildExclude");
  (function( $, undefined ) {
  	var extendSelect = function( widget ) {
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/select.js b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/select.js
-index 06f4c75..4012e16 100644
+index 06f4c75..fb462c9 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/select.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/select.js
 @@ -5,7 +5,7 @@
@@ -621,7 +553,7 @@ index 06f4c75..4012e16 100644
  (function( $, undefined ) {
  
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/slider.js b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/slider.js
-index a56ac51..f0d7f7c 100644
+index a56ac51..b4046cb 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/slider.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/slider.js
 @@ -5,7 +5,7 @@
@@ -634,7 +566,7 @@ index a56ac51..f0d7f7c 100644
  (function( $, undefined ) {
  
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/textinput.js b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/textinput.js
-index 54c5c5d..803865a 100644
+index 54c5c5d..db404b8 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/textinput.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/textinput.js
 @@ -5,7 +5,7 @@
@@ -647,7 +579,7 @@ index 54c5c5d..803865a 100644
  (function( $, undefined ) {
  
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/listview.autodividers.js b/libs/js/jquery-mobile-1.2.0/js/widgets/listview.autodividers.js
-index ae123a8..e6eb75e 100644
+index ae123a8..474945a 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/listview.autodividers.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/listview.autodividers.js
 @@ -2,7 +2,7 @@
@@ -660,7 +592,7 @@ index ae123a8..e6eb75e 100644
  (function( $, undefined ) {
  
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/listview.filter.js b/libs/js/jquery-mobile-1.2.0/js/widgets/listview.filter.js
-index b1ed1e4..eab181d 100644
+index b1ed1e4..1e0cd73 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/listview.filter.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/listview.filter.js
 @@ -4,7 +4,7 @@
@@ -673,7 +605,7 @@ index b1ed1e4..eab181d 100644
  (function( $, undefined ) {
  
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/listview.js b/libs/js/jquery-mobile-1.2.0/js/widgets/listview.js
-index 8d2fe7e..86b4f75 100644
+index 8d2fe7e..9a56d4b 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/listview.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/listview.js
 @@ -5,7 +5,7 @@
@@ -686,7 +618,7 @@ index 8d2fe7e..86b4f75 100644
  (function( $, undefined ) {
  
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/loader.js b/libs/js/jquery-mobile-1.2.0/js/widgets/loader.js
-index b028698..0bf1d68 100644
+index b028698..ba5c190 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/loader.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/loader.js
 @@ -3,7 +3,7 @@
@@ -699,7 +631,7 @@ index b028698..0bf1d68 100644
  
  (function( $, window ) {
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/navbar.js b/libs/js/jquery-mobile-1.2.0/js/widgets/navbar.js
-index 0b52a06..f4ce803 100644
+index 0b52a06..f4842f8 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/navbar.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/navbar.js
 @@ -6,7 +6,7 @@
@@ -712,7 +644,7 @@ index 0b52a06..f4ce803 100644
  (function( $, undefined ) {
  
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/page.js b/libs/js/jquery-mobile-1.2.0/js/widgets/page.js
-index 55701bc..2d8052e 100644
+index 55701bc..cd7efa6 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/page.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/page.js
 @@ -3,7 +3,7 @@
@@ -725,7 +657,7 @@ index 55701bc..2d8052e 100644
  (function( $, undefined ) {
  
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/page.sections.js b/libs/js/jquery-mobile-1.2.0/js/widgets/page.sections.js
-index 84732e3..e2dc765 100644
+index 84732e3..352355e 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/page.sections.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/page.sections.js
 @@ -3,7 +3,7 @@
@@ -738,15 +670,10 @@ index 84732e3..e2dc765 100644
  (function( $, undefined ) {
  
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
-index 8faa909..9bd522c 100644
+index 96ebb68..88fdbd6 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
-@@ -5,11 +5,11 @@
- //>>css.theme: ../css/themes/default/jquery.mobile.theme.css
- //>>css.structure: ../css/structure/jquery.mobile.popup.css,../css/structure/jquery.mobile.transition.css,../css/structure/jquery.mobile.transition.fade.css
- 
--define( [ "jquery",
-+define( [ "jquery",
+@@ -9,7 +9,7 @@ define( [ "jquery",
  	"../jquery.mobile.widget",
  	"../jquery.mobile.support",
  	"../jquery.mobile.navigation",
@@ -756,5 +683,5 @@ index 8faa909..9bd522c 100644
  (function( $, undefined ) {
  
 -- 
-1.7.5.4
+1.7.9.5
 

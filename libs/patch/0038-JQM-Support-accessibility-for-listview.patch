@@ -1,4 +1,4 @@
-From 2f68f0cd4b3e55d0e9cc08cb3e9b4b00a45c3674 Mon Sep 17 00:00:00 2001
+From 3e72cbc4653a5b0a060745a685983d1b82828e71 Mon Sep 17 00:00:00 2001
 From: "sang-hee.lee" <sang-hee.lee@samsung.com>
 Date: Tue, 19 Mar 2013 21:58:18 +0900
 Subject: [PATCH] JQM Support accessibility for listview
@@ -8,7 +8,7 @@ Subject: [PATCH] JQM Support accessibility for listview
  1 file changed, 24 insertions(+), 3 deletions(-)
 
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/listview.js b/libs/js/jquery-mobile-1.2.0/js/widgets/listview.js
-index 993d03e..4d53d2c 100644
+index 993d03e..8d2fe7e 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/listview.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/listview.js
 @@ -147,7 +147,10 @@ $.widget( "mobile.listview", $.mobile.widget, {

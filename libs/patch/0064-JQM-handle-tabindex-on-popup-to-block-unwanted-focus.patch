@@ -1,4 +1,4 @@
-From 43cc4720ba38954f3926ac178db0343aefb16f01 Mon Sep 17 00:00:00 2001
+From f8197cea75f3c6ea73b64445d1cb8dc6b5768280 Mon Sep 17 00:00:00 2001
 From: Jinhyuk Jun <jinhyuk.jun@samsung.com>
 Date: Mon, 12 Aug 2013 16:30:05 +0900
 Subject: [PATCH] JQM handle tabindex on popup to block unwanted focusing by
@@ -10,10 +10,10 @@ Change-Id: I7062cd2435d3adf1122eda3dc512c16acceeb6f8
  1 file changed, 14 insertions(+)
 
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
-index 989288b..c5c6d33 100644
+index 3a44417..5610bf9 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
-@@ -154,6 +154,7 @@ define( [ "jquery",
+@@ -160,6 +160,7 @@ define( [ "jquery",
  				},
  				thisPage = this.element.closest( ".ui-page" ),
  				myId = this.element.attr( "id" ),
@@ -21,7 +21,7 @@ index 989288b..c5c6d33 100644
  				self = this;
  
  			// We need to adjust the history option to be false if there's no AJAX nav.
-@@ -219,6 +220,12 @@ define( [ "jquery",
+@@ -225,6 +226,12 @@ define( [ "jquery",
  			$.each( this._globalHandlers, function( idx, value ) {
  				value.src.bind( value.handler );
  			});
@@ -34,7 +34,7 @@ index 989288b..c5c6d33 100644
  		},
  
  		_applyTheme: function( dst, theme, prefix ) {
-@@ -588,6 +595,7 @@ define( [ "jquery",
+@@ -594,6 +601,7 @@ define( [ "jquery",
  
  		_open: function( options ) {
  			var coords, transition,
@@ -42,7 +42,7 @@ index 989288b..c5c6d33 100644
  				androidBlacklist = ( function() {
  					var w = window,
  						ua = navigator.userAgent,
-@@ -667,6 +675,12 @@ define( [ "jquery",
+@@ -675,6 +683,12 @@ define( [ "jquery",
  				applyTransition: false,
  				prereqs: this._prereqs
  			});

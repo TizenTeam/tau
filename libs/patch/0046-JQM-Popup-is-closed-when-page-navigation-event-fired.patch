@@ -1,4 +1,4 @@
-From e1fc24fbeb713af80f30407dd910636aa6565e52 Mon Sep 17 00:00:00 2001
+From ba9c0989a6702b74950207ca1e3c750b7ba6a71b Mon Sep 17 00:00:00 2001
 From: "hjnim.kim" <hjnim.kim@samsung.com>
 Date: Wed, 15 May 2013 15:01:15 +0900
 Subject: [PATCH] JQM Popup is closed when page navigation event fired
@@ -13,7 +13,7 @@ Signed-off-by: hyunjung kim <hjnim.kim@samsung.com>
  1 file changed, 31 insertions(+), 3 deletions(-)
 
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
-index 324b63f..8247bc6 100644
+index 324b63f..8faa909 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
 @@ -504,6 +504,7 @@ define( [ "jquery",

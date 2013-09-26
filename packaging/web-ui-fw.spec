@@ -24,6 +24,8 @@ make all
 
 %install
 make DESTDIR=%{buildroot} install
+mkdir -p %{buildroot}/usr/share/license
+cp COPYING %{buildroot}/usr/share/license/%{name}
 
 %post
 
@@ -33,6 +35,7 @@ make DESTDIR=%{buildroot} install
 /usr/share/tizen-web-ui-fw/*/js/cultures
 /usr/share/tizen-web-ui-fw/latest
 /usr/share/tizen-web-ui-fw/VERSION
+/usr/share/license/%{name}
 
 ###############################
 %package -n web-ui-fw-theme-tizen-gray
@@ -95,6 +98,11 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Thu Sep 26 2013 Heeju Joo <heeju.joo@samsung.com> 0.2.61
+	- Add license information in spec and modify COPYING
+	- JQM-patch : modify to popup element click event bind, Popup : delete "ui-btn-ctxpopup-close" class click event bind (DCM-2433)
+	- Cleanup JQM patches
+
 * Thu Sep 26 2013 Heeju Joo <heeju.joo@samsung.com> 0.2.60
 	- scrollview: N_SE-51475; typo fix
 	- Popup: remove whitespace in popup patch

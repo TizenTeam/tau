@@ -1,14 +1,14 @@
-From 79d7d678ec75404aa8a927ec337d8563ed26e9fc Mon Sep 17 00:00:00 2001
+From a3adff79393304590ce5d39263f44c55b8717e1c Mon Sep 17 00:00:00 2001
 From: Wonseop Kim <wonseop.kim@samsung.com>
 Date: Sat, 16 Mar 2013 17:26:01 +0900
 Subject: [PATCH] JQM: Support accessibility for button
 
 ---
- .../js/jquery.mobile.buttonMarkup.js               |    9 +++++++
+ .../js/jquery.mobile.buttonMarkup.js               |    9 +++++++++
  1 file changed, 9 insertions(+)
 
 diff --git a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.buttonMarkup.js b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.buttonMarkup.js
-index 7c17ba6..cd8e39d 100644
+index c3ba956..8bca1a4 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.buttonMarkup.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.buttonMarkup.js
 @@ -52,6 +52,11 @@ $.fn.buttonMarkup = function( options ) {

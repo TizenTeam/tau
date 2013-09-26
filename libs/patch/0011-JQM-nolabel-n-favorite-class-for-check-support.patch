@@ -1,4 +1,4 @@
-From 8692febd91d64010547411d1706eb72fc1fe9601 Mon Sep 17 00:00:00 2001
+From 747d95a11b71539a07e14941e14724a33f0192f7 Mon Sep 17 00:00:00 2001
 From: Youmin Ha <youmin.ha@samsung.com>
 Date: Mon, 26 Nov 2012 22:00:38 +0900
 Subject: [PATCH] JQM:nolabel n favorite class for check support
@@ -10,7 +10,7 @@ Signed-off-by: Youmin Ha <youmin.ha@samsung.com>
  1 file changed, 11 insertions(+), 1 deletion(-)
 
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/checkboxradio.js b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/checkboxradio.js
-index 2e1114f..da00887 100644
+index 762307a..d28cdfb 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/checkboxradio.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/checkboxradio.js
 @@ -27,7 +27,7 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {

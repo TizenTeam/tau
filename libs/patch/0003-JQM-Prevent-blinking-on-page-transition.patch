@@ -1,4 +1,4 @@
-From 294d4afac6c0e00dd1489ad8b23cde0bae0cf459 Mon Sep 17 00:00:00 2001
+From 5d804ee64c4548c7b1fc1231a2a12d81a9e89914 Mon Sep 17 00:00:00 2001
 From: Minkyu Kang <mk7.kang@samsung.com>
 Date: Mon, 26 Nov 2012 19:41:07 +0900
 Subject: [PATCH] JQM: Prevent blinking on page transition

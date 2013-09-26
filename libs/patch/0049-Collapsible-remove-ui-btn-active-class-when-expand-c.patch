@@ -1,4 +1,4 @@
-From 7d2642d5f8a5a714163c7614581c28950e58fe44 Mon Sep 17 00:00:00 2001
+From 70a01f2e8704e5b818451d2892d9da9ed66c37a6 Mon Sep 17 00:00:00 2001
 From: Przemyslaw Ciezkowski <p.ciezkowski@samsung.com>
 Date: Wed, 12 Jun 2013 11:15:52 +0200
 Subject: [PATCH] Collapsible: remove ui-btn-active class when expand/collapse
@@ -7,10 +7,10 @@ Subject: [PATCH] Collapsible: remove ui-btn-active class when expand/collapse
 Change-Id: Icb8772fa56461ef43e735b72545f0e27a335ff34
 ---
  .../jquery-mobile-1.2.0/js/widgets/collapsible.js  |    8 +++++---
- 1 files changed, 5 insertions(+), 3 deletions(-)
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/collapsible.js b/libs/js/jquery-mobile-1.2.0/js/widgets/collapsible.js
-index 8398de4..cb0225b 100644
+index 9e29955..ce384be 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/collapsible.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/collapsible.js
 @@ -134,8 +134,7 @@ $.widget( "mobile.collapsible", $.mobile.widget, {
@@ -38,5 +38,5 @@ index 8398de4..cb0225b 100644
  
  				var type = collapsibleHeading.is( ".ui-collapsible-heading-collapsed" ) ? "expand" : "collapse";
 -- 
-1.7.5.4
+1.7.9.5
 

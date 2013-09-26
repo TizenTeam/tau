@@ -1,4 +1,4 @@
-From 2639086fcc7eb12ab9ef1c8217c048c897e22b61 Mon Sep 17 00:00:00 2001
+From 60648083678e6e6974214353c6619912a759b56e Mon Sep 17 00:00:00 2001
 From: Minkyu Kang <mk7.kang@samsung.com>
 Date: Wed, 2 Jan 2013 17:44:55 +0900
 Subject: [PATCH] JQM: set transition to pop as default
@@ -11,7 +11,7 @@ Signed-off-by: Minkyu Kang <mk7.kang@samsung.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
-index de2af2c..289f4fe 100644
+index 9dde508..d65d1c3 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
 @@ -44,7 +44,7 @@ define( [ "jquery",

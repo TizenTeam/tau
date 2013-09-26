@@ -1,4 +1,4 @@
-From 79081b53a6708d4391edac5ed6b3981c7ae3616c Mon Sep 17 00:00:00 2001
+From 622e323cbbe0eea95b14e7150d316a72ed0fa00a Mon Sep 17 00:00:00 2001
 From: Jinhyuk Jun <jinhyuk.jun@samsung.com>
 Date: Fri, 29 Mar 2013 16:20:48 +0900
 Subject: [PATCH] JQM remove useless page min-height calculate

@@ -1,4 +1,4 @@
-From d96db7f8a2ab691ca92492ac3b0c253afea40250 Mon Sep 17 00:00:00 2001
+From 5bdb0239713239d80f221d22f723b113cdd77496 Mon Sep 17 00:00:00 2001
 From: "hjnim.kim" <hjnim.kim@samsung.com>
 Date: Thu, 25 Apr 2013 12:38:27 +0900
 Subject: [PATCH] JQM Apply Tizen style context popup and window popup
@@ -9,10 +9,10 @@ Change-Id: I73884fd8bd78e4704b1d6357d1c2a10bc6609a4f
 Signed-off-by: hyunjung kim <hjnim.kim@samsung.com>
 ---
  libs/js/jquery-mobile-1.2.0/js/widgets/popup.js |  129 +++++++++++++++++++++--
- 1 files changed, 119 insertions(+), 10 deletions(-)
+ 1 file changed, 119 insertions(+), 10 deletions(-)
 
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
-index 8174055..c4d6a22 100644
+index fbfd84e..9dde508 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
 @@ -58,7 +58,7 @@ define( [ "jquery",
@@ -243,5 +243,5 @@ index 8174055..c4d6a22 100644
  			// and leave the url as is
  			if( !( opts.history ) ) {
 -- 
-1.7.5.4
+1.7.9.5
 

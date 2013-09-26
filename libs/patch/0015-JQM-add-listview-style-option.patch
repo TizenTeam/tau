@@ -1,4 +1,4 @@
-From 3e337ecde5c899c33befb44a4a5426b39f80c5f3 Mon Sep 17 00:00:00 2001
+From a7be86d7f7f20014f723b3803cd2a334596a2e06 Mon Sep 17 00:00:00 2001
 From: Jun Jinhyuk <jinhyuk.jun@samsung.com>
 Date: Wed, 28 Nov 2012 11:18:33 +0900
 Subject: [PATCH] JQM add listview style option
@@ -6,10 +6,10 @@ Subject: [PATCH] JQM add listview style option
 Signed-off-by: Jun Jinhyuk <jinhyuk.jun@samsung.com>
 ---
  libs/js/jquery-mobile-1.2.0/js/widgets/listview.js |   34 ++++++++++++++++++++
- 1 files changed, 34 insertions(+), 0 deletions(-)
+ 1 file changed, 34 insertions(+)
 
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/listview.js b/libs/js/jquery-mobile-1.2.0/js/widgets/listview.js
-index f24699b..d56a7ba 100644
+index f24699b..be69d58 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/listview.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/listview.js
 @@ -153,6 +153,34 @@ $.widget( "mobile.listview", $.mobile.widget, {
@@ -61,5 +61,5 @@ index f24699b..d56a7ba 100644
  
      // autodividers binds to this to redraw dividers after the listview refresh
 -- 
-1.7.4.1
+1.7.9.5
 

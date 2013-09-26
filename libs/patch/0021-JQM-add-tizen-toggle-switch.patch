@@ -1,4 +1,4 @@
-From d91978cf6366c05780ed223264f65869387bc4a4 Mon Sep 17 00:00:00 2001
+From dab357a7c802c4c435e80e37610a06eb446b88ad Mon Sep 17 00:00:00 2001
 From: Jun Jinhyuk <jinhyuk.jun@samsung.com>
 Date: Fri, 7 Dec 2012 10:33:32 +0900
 Subject: [PATCH] JQM: add tizen toggle switch
@@ -6,10 +6,10 @@ Subject: [PATCH] JQM: add tizen toggle switch
 Signed-off-by: Jun Jinhyuk <jinhyuk.jun@samsung.com>
 ---
  .../jquery-mobile-1.2.0/js/widgets/forms/slider.js |   44 +++++++++++++++-----
- 1 files changed, 33 insertions(+), 11 deletions(-)
+ 1 file changed, 33 insertions(+), 11 deletions(-)
 
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/slider.js b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/slider.js
-index e7f5df0..2e682db 100644
+index e7f5df0..bcdfb2e 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/slider.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/slider.js
 @@ -81,6 +81,10 @@ $.widget( "mobile.slider", $.mobile.widget, {
@@ -82,5 +82,5 @@ index e7f5df0..2e682db 100644
  
  		if ( !preventInputUpdate ) {
 -- 
-1.7.4.1
+1.7.9.5
 

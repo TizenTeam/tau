@@ -1,17 +1,16 @@
-From 9194807cb435b256bf5f4d45f585e1ed0bbab303 Mon Sep 17 00:00:00 2001
+From 876b52ddf185f7b0af9f16e6dbf6194f174aa786 Mon Sep 17 00:00:00 2001
 From: Jinhyuk Jun <jinhyuk.jun@samsung.com>
 Date: Wed, 12 Dec 2012 18:34:46 +0900
 Subject: [PATCH] JQM: add TIZEN back btn
 
 Signed-off-by: Jun Jinhyuk <jinhyuk.jun@samsung.com>
 ---
- libs/js/jquery-mobile-1.2.0/js/widgets/page.js     |   13 +++++
- .../js/widgets/page.sections.js                    |   19 ++++++--
- 2 files changed, 27 insertions(+), 56 deletions(-)
- delete mode 100644 libs/patch/0014-JQM-add-back-btn-option-and-remove-jqm-back-btn.patch
+ libs/js/jquery-mobile-1.2.0/js/widgets/page.js     |   13 +++++++++++++
+ .../js/widgets/page.sections.js                    |   19 ++++++++++++++-----
+ 2 files changed, 27 insertions(+), 5 deletions(-)
 
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/page.js b/libs/js/jquery-mobile-1.2.0/js/widgets/page.js
-index 256fbb2..d80bd26 100644
+index 9ae73ba..4e67469 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/page.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/page.js
 @@ -55,6 +55,19 @@ $.widget( "mobile.page", $.mobile.widget, {
@@ -75,8 +74,6 @@ index 7c05ecb..90a298a 100644
  			}
  
  			// Page title
--1.7.4.1
--
 -- 
 1.7.9.5
 

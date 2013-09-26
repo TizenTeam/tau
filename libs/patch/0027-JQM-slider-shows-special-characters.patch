@@ -1,4 +1,4 @@
-From 0399597f166e2145141b52bbf6c10b05d0ba7f2c Mon Sep 17 00:00:00 2001
+From ae80f7d190b981d74674c3f0d151171a79df93a4 Mon Sep 17 00:00:00 2001
 From: Jinhyuk Jun <jinhyuk.jun@samsung.com>
 Date: Sat, 19 Jan 2013 10:25:43 +0900
 Subject: [PATCH] JQM slider shows special characters
@@ -9,7 +9,7 @@ Change-Id: Ia48d4a93f68a0bbc2016d40c60bca3c2b090cd88
  1 file changed, 1 insertion(+)
 
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/slider.js b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/slider.js
-index 537220d..1bd4adf 100644
+index b382f40..2afc9be 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/slider.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/slider.js
 @@ -132,6 +132,7 @@ $.widget( "mobile.slider", $.mobile.widget, {

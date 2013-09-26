@@ -1,4 +1,4 @@
-From e4de6ef9867ec773f2741f42532c364063ce6c2a Mon Sep 17 00:00:00 2001
+From b4a563148f0aaf60514e378be898dc7795ab1a07 Mon Sep 17 00:00:00 2001
 From: "hc7.choi" <hc7choi@hc7.choi>
 Date: Mon, 17 Jun 2013 20:56:18 +0900
 Subject: [PATCH] JQM cancle 0021,0045 patch
@@ -8,7 +8,7 @@ Subject: [PATCH] JQM cancle 0021,0045 patch
  1 file changed, 9 insertions(+), 37 deletions(-)
 
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/slider.js b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/slider.js
-index a56ac51..7a519b9 100644
+index b4046cb..4ce701e 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/slider.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/slider.js
 @@ -81,10 +81,6 @@ $.widget( "mobile.slider", $.mobile.widget, {

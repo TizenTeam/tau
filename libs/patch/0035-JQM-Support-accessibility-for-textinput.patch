@@ -1,14 +1,14 @@
-From 3aef45a3d030e7e723a30b30b901f6c22e7eeadb Mon Sep 17 00:00:00 2001
+From 0042e0737b58f8a9435036aea739f60c5edef714 Mon Sep 17 00:00:00 2001
 From: Minkyeong Kim <minkyeong.kim@samsung.com>
 Date: Tue, 19 Mar 2013 10:46:43 +0900
 Subject: [PATCH] JQM Support accessibility for textinput
 
 ---
  .../js/widgets/forms/textinput.js                  |   15 +++++++++++++++
- 1 files changed, 15 insertions(+), 0 deletions(-)
+ 1 file changed, 15 insertions(+)
 
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/textinput.js b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/textinput.js
-index 05b1b03..8f939b1 100644
+index 9a7765e..54c5c5d 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/textinput.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/textinput.js
 @@ -39,6 +39,21 @@ $.widget( "mobile.textinput", $.mobile.widget, {
@@ -34,5 +34,5 @@ index 05b1b03..8f939b1 100644
  		//      Turn off autocorrect and autocomplete on non-iOS 5 devices
  		//      since the popup they use can't be dismissed by the user. Note
 -- 
-1.7.5.4
+1.7.9.5
 

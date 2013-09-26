@@ -1,4 +1,4 @@
-From 2286d9dddcb0fe022b940d998cdfae5dd5ee5592 Mon Sep 17 00:00:00 2001
+From 7ea7a3393c19877651c12370920fc0d79d918f57 Mon Sep 17 00:00:00 2001
 From: "hjnim.kim" <hjnim.kim@samsung.com>
 Date: Mon, 22 Jul 2013 15:52:20 +0900
 Subject: [PATCH] JQM Menu popup setTimeout issue has been fixed
@@ -13,7 +13,7 @@ Change-Id: I55b454ca7b2babc84a67bcbe1ef75e709e58bf51
  1 file changed, 11 insertions(+), 7 deletions(-)
 
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
-index 0bec1d4..74350e1 100644
+index dec1e47..76e45cb 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
 @@ -399,10 +399,10 @@ define( [ "jquery",
@@ -30,7 +30,7 @@ index 0bec1d4..74350e1 100644
  			}
  
  			positionOffsets = [ linkOffset.left,
-@@ -817,8 +817,13 @@ define( [ "jquery",
+@@ -819,8 +819,13 @@ define( [ "jquery",
  				self.positionTo = ( options != null && options.positionTo != null ) ? options.positionTo : "origin";
  			}
  
@@ -46,7 +46,7 @@ index 0bec1d4..74350e1 100644
  
  				$(self.element).addClass("ui-ctxpopup");
  				$(self._ui.container).removeClass("ui-popup-container")
-@@ -846,8 +851,7 @@ define( [ "jquery",
+@@ -848,8 +853,7 @@ define( [ "jquery",
  			}
  
  			// Hadeware key style popup
