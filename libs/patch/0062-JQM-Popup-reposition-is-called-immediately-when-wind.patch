@@ -32,7 +32,7 @@ index e477ecb..6a561fc 100644
 +			//	timeoutId: setTimeout( $.proxy( this, "_resizeTimeout" ), 200 ),
  				winCoords: winCoords
  			};
-+			
++
 +			// resizeTimeout method is call immediately
 +			this._resizeTimeout();
  
