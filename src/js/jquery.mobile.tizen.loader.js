@@ -373,12 +373,22 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 			return lang;
 		},
 		setGlobalize: function ( ) {
-			var lang = this.loadGlobalizeCulture( );
-
-			// Set culture
-			// NOTE: It is not needed to set with neutral lang.
-			//       Globalize automatically deals with it.
-			Globalize.culture( lang );
+			var lang,
+				self = this;
+			/*
+			* Tizen has rule that language was set by region setting
+			*/
+			if( window.tizen ) {
+				window.tizen.systeminfo.getPropertyValue( "LOCALE" , function( locale ) {
+					var lang = locale.country ? locale.country : undefined;
+					lang = lang.replace("_","-");
+					lang = self.loadGlobalizeCulture( lang );
+					Globalize.culture( lang );
+				});
+			} else {
+				lang = this.loadGlobalizeCulture();
+				Globalize.culture( lang );
+			}
 		},
 		/**
 		 * Load custom globalize culture file
