@@ -1,0 +1,54 @@
+From 928545301cb00fdd4de38c575cab2e8139f0b4f4 Mon Sep 17 00:00:00 2001
+From: Maciej Urbanski <m.urbanski@samsung.com>
+Date: Fri, 27 Sep 2013 08:50:51 +0200
+Subject: [PATCH] Globalize: add AM/PM switcher in hindi language
+
+This patch fix issue N_SE-52707.
+
+Change-Id: I033c3fc3ccb3545c036b43f197b64f0d257e038e
+---
+ .../lib/cultures/globalize.culture.hi-IN.js        |    8 ++++----
+ .../globalize/lib/cultures/globalize.culture.hi.js |    8 ++++----
+ 2 files changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/libs/js/globalize/lib/cultures/globalize.culture.hi-IN.js b/libs/js/globalize/lib/cultures/globalize.culture.hi-IN.js
+index 7e228b2..857e918 100644
+--- a/libs/js/globalize/lib/cultures/globalize.culture.hi-IN.js
++++ b/libs/js/globalize/lib/cultures/globalize.culture.hi-IN.js
+@@ -59,10 +59,10 @@ Globalize.addCultureInfo( "hi-IN", "default", {
+ 			patterns: {
+ 				d: "dd-MM-yyyy",
+ 				D: "dd MMMM yyyy",
+-				t: "HH:mm",
+-				T: "HH:mm:ss",
+-				f: "dd MMMM yyyy HH:mm",
+-				F: "dd MMMM yyyy HH:mm:ss",
++				t: "hh:mm tt",
++				T: "hh:mm:ss tt",
++				f: "dd MMMM yyyy hh:mm tt",
++				F: "dd MMMM yyyy hh:mm:ss tt",
+ 				M: "dd MMMM"
+ 			}
+ 		}
+diff --git a/libs/js/globalize/lib/cultures/globalize.culture.hi.js b/libs/js/globalize/lib/cultures/globalize.culture.hi.js
+index 15dc5d4..91e3f0e 100644
+--- a/libs/js/globalize/lib/cultures/globalize.culture.hi.js
++++ b/libs/js/globalize/lib/cultures/globalize.culture.hi.js
+@@ -59,10 +59,10 @@ Globalize.addCultureInfo( "hi", "default", {
+ 			patterns: {
+ 				d: "dd-MM-yyyy",
+ 				D: "dd MMMM yyyy",
+-				t: "HH:mm",
+-				T: "HH:mm:ss",
+-				f: "dd MMMM yyyy HH:mm",
+-				F: "dd MMMM yyyy HH:mm:ss",
++				t: "hh:mm tt",
++				T: "hh:mm:ss tt",
++				f: "dd MMMM yyyy hh:mm tt",
++				F: "dd MMMM yyyy hh:mm:ss tt",
+ 				M: "dd MMMM"
+ 			}
+ 		}
+-- 
+1.7.9.5
+
