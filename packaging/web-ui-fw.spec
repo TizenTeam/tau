@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.60
+Version:    0.2.61
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
