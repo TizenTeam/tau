@@ -1499,6 +1499,9 @@ define( [
 			});
 
 			$( window ).bind( "resize", function ( e ) {
+				if ( !$( self.element ).parents( ".ui-page" ).hasClass( "ui-page-active" ) ) {
+					return;
+				}
 				var focused,
 					view_h = self._getViewHeight(),
 					clip_h = $c.height();
