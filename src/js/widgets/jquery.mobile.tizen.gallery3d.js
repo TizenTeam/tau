@@ -726,9 +726,13 @@ define( [
 			gl.enable( gl.DEPTH_TEST );
 			gl.depthFunc( gl.LEQUAL );
 
+			// Fit the canvas size to Gallery3d widget
 			canvas.style.width = "100%";
+
+			// Set the drawing buffer size of the canvas
 			canvas.width = self._VIEWPORT_WIDTH;
 			canvas.height = self._VIEWPORT_HEIGHT;
+
 			gl.viewportWidth = canvas.width;
 			gl.viewportHeight = canvas.height;
 			gl.viewport( 0, 0, gl.viewportWidth, gl.viewportHeight );
