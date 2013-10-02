@@ -62,6 +62,14 @@
 		</ul>
 	</div>
 	<script>
+	$( document ).one( "pageinit", "#genlist-expandable", function () {
+		$('.ui-collapsible-content').on("updatelayout", function() {
+			setTimeout( function() {
+				$('.ui-page-active').page("refresh");
+			}, 500);
+		});
+	});
+
 	$( "#genlist-expandable" ).on( "pageshow" , function() {
 		$( window ).on( "tizenhwkey", function ( ev ) {
 			if ( ev.originalEvent.keyName === "back" ) {
