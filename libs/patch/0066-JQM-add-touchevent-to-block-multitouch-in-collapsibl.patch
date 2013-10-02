@@ -1,0 +1,30 @@
+From 615f43a2d9a9124840e64ec25712ee721daf9157 Mon Sep 17 00:00:00 2001
+From: heeju Joo <heeju.joo@samsung.com>
+Date: Wed, 2 Oct 2013 10:07:52 +0900
+Subject: [PATCH] JQM-add touchevent to block multitouch in collapsible
+
+Change-Id: I6ab65ca370bb09c06ca87ac4f723cef1a1e7b2d9
+---
+ .../jquery-mobile-1.2.0/js/widgets/collapsible.js  |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/collapsible.js b/libs/js/jquery-mobile-1.2.0/js/widgets/collapsible.js
+index ce384be..ffceb51 100644
+--- a/libs/js/jquery-mobile-1.2.0/js/widgets/collapsible.js
++++ b/libs/js/jquery-mobile-1.2.0/js/widgets/collapsible.js
+@@ -152,10 +152,10 @@ $.widget( "mobile.collapsible", $.mobile.widget, {
+ 			.trigger( o.collapsed ? "collapse" : "expand" );
+ 
+ 		collapsibleHeading
+-			.bind( "vmousedown", function() {
++			.bind( "vmousedown touchstart", function() {
+ 				collapsibleHeading.find( "a" ).first().addClass( $.mobile.activeBtnClass );
+ 			})
+-			.bind( "vmousecancel vmouseup", function() {
++			.bind( "vmousecancel vmouseup touchmove touchend", function() {
+ 				collapsibleHeading.find( "a" ).first().removeClass( $.mobile.activeBtnClass );
+ 			})
+ 			.bind( "click", function( event ) {
+-- 
+1.7.9.5
+
