@@ -712,6 +712,13 @@ define( [
 			current = data.current;
 			valuesData = data.data;
 
+			obj.getElementPosition = function() {
+				var offset = target.offset();
+				return {
+					x: offset.left + ( target.width() / 2 ) - window.pageXOffset,
+					y: offset.top + target.height() - window.pageYOffset
+				}
+			}
 			if ( values ) {
 				datans = "data-" + ($.mobile.ns ? ($.mobile.ns + '-') : "") + 'val="';
 				for ( i = 0; i < values.length; i++ ) {
@@ -727,10 +734,12 @@ define( [
 				$( $li[current] ).addClass("current");
 				$div.jqmData( "list", $li );
 				$div.circularview();
+
 				if( !obj._reflow ) {
 					obj._reflow = function() {
 						$div.circularview( "reflow" );
 						$div.circularview( 'centerTo', '.current', 0 );
+						$ctx.popupwindow( "setPositionCB", obj.getElementPosition);
 					}
 					$(window).bind( "resize" , obj._reflow );
 				}
