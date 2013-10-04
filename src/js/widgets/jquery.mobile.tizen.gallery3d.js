@@ -732,6 +732,7 @@ define( [
 			gl.enable( gl.DEPTH_TEST );
 			gl.depthFunc( gl.LEQUAL );
 
+			canvas.style.width = "100%";
 			canvas.width = self._VIEWPORT_WIDTH;
 			canvas.height = self._VIEWPORT_HEIGHT;
 			gl.viewportWidth = canvas.width;

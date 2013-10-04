@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.60
+Version:    0.2.62
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -98,6 +98,27 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Fri Oct 04 2013 Heeju Joo <heeju.joo@samsung.com> 0.2.62
+	- Popup : bug fix (VPSS-1212)
+	- JQM: popup resize event handler is called
+	- JQM: orientation change event does not depend on JQM
+	- Collapsible: add touch event to block multitouch (N_SE-42871)
+	- winset: set border of scrollview widget area (N_SE-53042)
+	- datetimepicker: Modify demo codes
+	- winset: delete 'depth' transition for winset (not in JQM demo, P130930-01704)
+	- winset: add page refresh in collapsible (P130809-03286)
+	- scrollview: filtering only inputs that have focus in key callbacks
+	- popupwindow : add setResizePosition function in popupwindow
+	- Loader : change rule that language is set by region setting(N_SE-53277)
+	- scrollview : add condition statement to resize event handler(P130914-01206)
+	- winsets/list: fix vclick trigger after click on subtext in multiline (N_SE-51825)
+	- winset: make  'Get input text popup' scrollable (N_SE-53221)
+	- list bubble: changing small letter to capital letter (N_SE-53212)
+	- web-ui-fw spec file: update missing version (0.2.61)
+	- winset: modify entry field width (N_SE-53312)
+	- gallery3d: Fix an issue of canvas height during initialization.
+	- multimediaview: Remove volume handle's afterimage when volume button is pressed repeatedly.
+
 * Thu Sep 26 2013 Heeju Joo <heeju.joo@samsung.com> 0.2.61
 	- Add license information in spec and modify COPYING
 	- JQM-patch : modify to popup element click event bind, Popup : delete "ui-btn-ctxpopup-close" class click event bind (DCM-2433)

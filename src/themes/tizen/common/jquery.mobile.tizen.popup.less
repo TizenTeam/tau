@@ -22,6 +22,7 @@
 
 .ui-popup-scroller-bg {
 	width : 100%;
+	max-height : 256 * @unit_base;
 }
 
 .ui-popup-container {
@@ -98,7 +99,11 @@
 			}
 		}
 		input {
-			 display : inline-block;
+			display : inline-block;
+		}
+
+		input[type="checkbox"], input[type="radio"] {
+			display : none;
 		}
 	}
 

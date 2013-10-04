@@ -465,7 +465,7 @@ define( [
 						volume = viewElement.volume;
 
 					self.isVolumeHide = false;
-					volumeControl.fadeIn( "fast", function () {
+					volumeControl.stop( true, true ).fadeIn( "fast", function () {
 						self._updateVolumeState();
 						self._updateSeekBar();
 					});

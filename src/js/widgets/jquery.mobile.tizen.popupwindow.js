@@ -215,6 +215,7 @@ define( [
 			this._ui.container.remove();
 			this._ui.screen.remove();
 			this.element.triggerHandler("destroyed");
+			delete this._callback;
 			$.Widget.prototype.destroy.call( this );
 		},
 
@@ -313,6 +314,11 @@ define( [
 
 			this._ui.screen.css( "height", screenHeight );
 		},
+		setPositionCB: function( callback ) {
+			// This function is callback function regist
+			this._callback = callback;
+		},
+
 		open: function ( x_where, y_where, backgroundclose ) {
 			var self = this,
 				zIndexMax = 0;
@@ -367,11 +373,12 @@ define( [
 					if ( !self._isOpen ) {
 						return;
 					}
-					var $el = $( ".ui-focus" ),
-						$el_offset = $el.offset(),
-						x = $el_offset.left + $el.outerWidth() / 2,
-						y = $el_offset.top  + $el.outerHeight();
-					self._setPosition( x, y );
+					if ( !self._callback ) {
+						self._setPosition( x_where, y_where );
+					} else {
+						var _callback = self._callback();
+						self._setPosition( _callback.x, _callback.y );
+					}
 				};
 
 				$( window ).bind( "resize", this._reflow );
