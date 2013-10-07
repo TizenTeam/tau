@@ -1,17 +1,21 @@
-From 1f2577a54657699bebaee135e738478afc73a26f Mon Sep 17 00:00:00 2001
+From c2b88c3e09701c331067d0c2f90ecc2d351c5ca7 Mon Sep 17 00:00:00 2001
 From: "hjnim.kim" <hjnim.kim@samsung.com>
-Date: Wed, 2 Oct 2013 15:09:25 +0900
-Subject: [PATCH] JQM: Popup resize event handler is called once more
+Date: Mon, 7 Oct 2013 16:35:24 +0900
+Subject: [PATCH] JQM Popup resize event handler is called until reisze event
+ is ended
 
-If popup is received resize event during the orientationchange ( resize ) event, resize handler is called once more
+JQM Popup resize event handler is called until resize event is ended
+N_SE-49435
 
-Change-Id: Ib2d9d9ec282aee3a0ac02b929e60653c0d5c854c
+Signed-off-by : hyunjung kim <hjnim.kim@samsung.com>
+
+Change-Id: I625b20d0283cefe13c2eead7dd3c11781145fb5c
 ---
  libs/js/jquery-mobile-1.2.0/js/widgets/popup.js |   12 +++++++++++-
  1 file changed, 11 insertions(+), 1 deletion(-)
 
 diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
-index 3508291..5bc46d9 100644
+index 3508291..0d6aee2 100644
 --- a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
 +++ b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
 @@ -113,7 +113,7 @@ define( [ "jquery",
@@ -23,19 +27,27 @@ index 3508291..5bc46d9 100644
  				// effectively rapid-open the popup while leaving the screen intact
  				this._trigger( "beforeposition" );
  				this._ui.container
-@@ -135,6 +135,11 @@ define( [ "jquery",
+@@ -123,6 +123,8 @@ define( [ "jquery",
+ 				this._resizeScreen();
+ 				this._resizeData = null;
+ 				this._orientationchangeInProgress = false;
++			} else if( !this._isOpen && this._isPreOpen  )  {
++				setTimeout( $.proxy( this, "_resizeTimeout" ), 200 );
+ 			}
+ 		},
+ 
+@@ -135,6 +137,10 @@ define( [ "jquery",
  				}
  				this._maybeRefreshTimeout();
  			}
 +
 +			if ( !this._isOpen && this._isPreOpen && this.positionTo === "window" ) {
-+					setTimeout( $.proxy( this, "_resizeTimeout" ), 200 );
++				 setTimeout( $.proxy( this, "_resizeTimeout" ), 200 );
 +			}
-+
  		},
  
  		_handleWindowOrientationchange: function( e ) {
-@@ -198,6 +203,7 @@ define( [ "jquery",
+@@ -198,6 +204,7 @@ define( [ "jquery",
  				_fallbackTransition: "",
  				_currentTransition: false,
  				_prereqs: null,
@@ -43,14 +55,6 @@ index 3508291..5bc46d9 100644
  				_isOpen: false,
  				_tolerance: null,
  				_resizeData: null,
-@@ -586,6 +592,7 @@ define( [ "jquery",
- 			var self = this;
- 
- 			self._ui.container.addClass( "ui-popup-active" );
-+			self._isPreOpen = false;
- 			self._isOpen = true;
- 			self._resizeScreen();
- 
 @@ -619,6 +626,9 @@ define( [ "jquery",
  					return false;
  				}());
