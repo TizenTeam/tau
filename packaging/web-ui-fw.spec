@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.62
+Version:    0.2.63
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -98,6 +98,22 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Fri Oct 11 2013 Heeju Joo <heeju.joo@samsung.com> 0.2.63
+	- winset/naviframe: changed small letter to capital (N_SE-53904)
+	- searchbar: change small letter to capital (N_SE-53083)
+	- splitview: modify the calculation of panes' sizes
+	- datetimepicker: trigger default click event after click on AM/PM button (N_SE-53036)
+	- Picker : add picker page that has web and native picker widget
+	- gallery3d: add inline comments
+	- JIRA fix - TDIS-6950 The App "TizenWinset" will be pop-up the error
+	- JQM patch : change offset to css in popup when call reposition
+	- Tokentextarea: Clear the input field when reenter Tokentextarea demo
+	- gallery3d: modify comments
+	- scrollview: changing top and bottom position (N_SE_46439)
+	- multimediaview: Fix progress bar issue.(P131008-01234)
+	- JQM: Popup resize event handler is called until resize is ended
+	- Popup : change center_title_1btn's button style(PLM P130918-02212)
+
 * Fri Oct 04 2013 Heeju Joo <heeju.joo@samsung.com> 0.2.62
 	- Popup : bug fix (VPSS-1212)
 	- JQM: popup resize event handler is called

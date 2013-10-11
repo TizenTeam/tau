@@ -343,14 +343,13 @@ define( [
 				self._resize();
 			}).bind( "timeupdate.multimediaview", function ( e ) {
 				self._updateSeekBar();
+				if ( viewElement.currentTime >= viewElement.duration && !viewElement.loop ) {
+					viewElement.pause();
+				}
 			}).bind( "play.multimediaview", function ( e ) {
 				playpauseButton.removeClass( "ui-play-icon" ).addClass( "ui-pause-icon" );
 			}).bind( "pause.multimediaview", function ( e ) {
 				playpauseButton.removeClass( "ui-pause-icon" ).addClass( "ui-play-icon" );
-			}).bind( "ended.multimediaview", function ( e ) {
-				if ( typeof viewElement.loop == "undefined" || viewElement.loop === "" ) {
-					self.stop();
-				}
 			}).bind( "volumechange.multimediaview", function ( e ) {
 				if ( viewElement.muted && viewElement.volume > 0.1 ) {
 					volumeButton.removeClass( "ui-volume-icon" ).addClass( "ui-mute-icon" );
@@ -440,17 +439,26 @@ define( [
 					var x = $.support.touch ? e.originalEvent.changedTouches[0].pageX : e.pageX,
 						timerate = ( x - durationOffset.left ) / durationWidth;
 
-					viewElement.currentTime = duration * timerate;
+					time = duration * timerate;
+					viewElement.currentTime = time;
+					self._updateSeekBar();
 
 					e.stopPropagation();
 				}).bind( touchEndEvt, function () {
 					control.unbind( ".multimediaview" );
 					$document.unbind( touchMoveEvt );
+
 					if ( viewElement.paused ) {
 						viewElement.pause();
+					} else if ( time >= duration && !viewElement.loop ) {
+						// Below codes have low priority to run after the end of the current task.
+						setTimeout( function () {
+							viewElement.pause();
+						}, 0 );
 					} else {
 						viewElement.play();
 					}
+
 					e.stopPropagation();
 				});
 

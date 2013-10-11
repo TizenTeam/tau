@@ -544,7 +544,7 @@ define( [
 			$panes.each( function ( i ) {
 				var $pane = $( this ),
 					paneWidth = initRatio ? initializedWidth[ i ] :
-										Math.floor( availableWidth * self.options.ratio[i] ),
+										Math.round( availableWidth * self.options.ratio[i] ),
 					prevPane = ( ( i ) ? $panes.eq( i - 1 ) : null ),
 					posValue = 0,
 					widthValue = 0,

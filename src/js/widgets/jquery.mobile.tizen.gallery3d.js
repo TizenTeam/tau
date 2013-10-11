@@ -22,42 +22,38 @@ define( [
 //>>excludeEnd("jqmBuildExclude");
 
 /**
- *	The gallery3d widget displays images along a curved path on a 3-dimensional coordinate system.
- *	To improve performance, the size of image(s) displayed on the screen should be a square(under
- *	128X128 pixel) as possible. But if a user can't resize the images, this widget supports an image
- *	resizing feature and he/she can use it with "data-thumbnail-cache" option. ("data-thumbnail-cache"
- *	option resizes the gallery images under 128x128 pixels and stores the images on a local storage.
- *	So when a gallery3D widget is re-launched, the widget reuse the storage and a user can improve
- *	launching time. A browser or web runtime engine should support "Web Storage" feature to use that
- *	option.)
+ *	The gallery 3D widget enables 3-dimensional arranging and handling of images.
  *
  *	HTML Attributes:
  *
  *		data-thumbnail-cache : Determines whether to cache and resize images.
+ *		To improve performance, the size of image(s) displayed on the screen should be a square (under 128X128 pixels).
+ *		"data-thumbnail-cache" option resizes the gallery images under 128x128 pixels and stores the images on a local storage.
+ *		So when a gallery3D widget is re-launched, the widget reuses the storage and the launching time can be improved.
+ *		A browser or web runtime engine must support "Web Storage" feature to use this option.
  *
  *	APIs:
  *
  *		next ( void )
- *			: This method moves each image forward one by one.
+ *			: This method moves each image forward.
  *		prev ( void )
- *			: This method moves each image backward one by one.
+ *			: This method moves each image backward.
  *		select ( [number] )
- *			: When the "select" method is called with an argument, the method selects the image of given index.
- *			If the method is called with no argument, it will return the Javascript object having "src"
- *			attribute having the selected image's URL.
+ *			: When the select method is called with an argument, the method selects the image of a given index.
+ *			If the method is called with no argument, it returns the selected image's object.
  *		add ( object or string [, number] )
- *			This method adds an image to Gallery3D widget.
- *			If the second argument isn't inputted, the image is added at the 0th position.
+ *			This method adds an image to the gallery 3D widget.
+ *			If the second argument is not defined, the image is added at the 0 position.
  *		remove ( [number] )
- *			: This method deletes an image from Gallery3d widget.
+ *			: This method deletes an image from the gallery 3D widget.
  *			The argument defines the index of the image to be deleted.
- *			If an argument isn't inputted, it removes current image.
+ *			If the argument is not defined, the current image is removed.
  *		clearThumbnailCache ( void )
- *			: This method clears the cache data of all images when thumbnailCache option is set as 'true'.
+ *			: This method clears the cache data of all images when the thumbnailCache option is set to true.
  *		refresh ( void )
  *			: This method updates and redraws current widget.
  *		empty ( void )
- *			: This method removes all of images from Gallery3D widget.
+ *			: This method removes all of images from the gallery 3D widget.
  *		length ( void )
  *			: This method gets the number of images.
  *
@@ -113,7 +109,7 @@ define( [
 */
 /**
 	@method next
-	This method moves each image forward one by one.
+	This method moves each image forward.
 
 		<script>
 			$( "#gallery3d" ).on( "gallery3dcreate", function () {
@@ -127,7 +123,7 @@ define( [
 */
 /**
 	@method prev
-	This method moves each image backward one by one.
+	This method moves each image backward.
 
 		<script>
 			$( "#gallery3d" ).on( "gallery3dcreate", function () {
@@ -141,38 +137,36 @@ define( [
 */
 /**
 	@method select
-	When the "select" method is called with an argument, the method selects the image of given index.
-	If the method is called with no argument, it will return the Javascript object having "src" attribute having the selected image's URL.
+	When the select method is called with an argument, the method selects the image of a given index.
+	If the method is called with no argument, it returns the selected image's object.
 
 		<script>
-			$( "#gallery3d" ).on( "gallery3dcreate", function () {
-				$( "#gallery3d" ).gallery3d( "add", { src: "1.jpg" } )
-					.gallery3d( "add", { src: "2.jpg" } )
-					.gallery3d( "add", { src: "3.jpg" } );
-				var selectedImage = $("#gallery3d"). gallery3d( "select" );
-				// selectedImage = { src: "3.jpg" };
+			$("#gallery3d").on("gallery3dcreate", function () {
+				$("#gallery3d").gallery3d("add", {src: "1.jpg"})
+					.gallery3d("add", {src: "2.jpg"})
+					.gallery3d("add", {src: "3.jpg"});
+			}).on( "gallery3dinit", function () {
+				$("#gallery3d").gallery3d("select");
 			});
 		</script>
 		<div id="gallery3d" data-role="gallery3d"></div>
 */
 /**
 	@method add
-	This method adds an image to Gallery3D widget.
-	The first argument is a Javascript object having a "src" attribute or a string of image's path.
-	The second argument is an index of images.
-	If second argument isn't inputted, the image is added at the 0th position.
+	This method adds an image to the gallery 3D widget.
+	If the second argument is not defined, the image is added at the 0 position.
 
 		<script>
 			$( "#gallery3d" ).on( "gallery3dcreate", function () {
-				$( "#gallery3d" ).gallery3d( "add", { src: "1.jpg" } )
-					.gallery3d( "add", "2.jpg", 1 );
+				$( "#gallery3d" ).gallery3d( "add", { src: "1.jpg" } );
+				$( "#gallery3d" ).gallery3d( "add", "2.jpg", 1 );
 			});
 		</script>
 		<div id="gallery3d" data-role="gallery3d"></div>
 */
 /**
 	@method remove
-	This method deletes an image from Gallery3d widget.
+	This method deletes an image from the gallery 3D widget.
 	The argument defines the index of the image to be deleted.
 	If an argument isn't inputted, it removes current image.
 
@@ -190,7 +184,7 @@ define( [
 */
 /**
 	@method clearThumbnailCache
-	This method clears the cache data of all images when thumbnailCache option is set as 'true'
+	This method clears the cache data of all images when the thumbnailCache option is set to true.
 
 		<script>
 			$( "#gallery3d" ).on( "gallery3dcreate", function () {
@@ -212,15 +206,15 @@ define( [
 				$( "#gallery3d" ).gallery3d( "add", { src: "1.jpg" } )
 					.gallery3d( "add", { src: "2.jpg" } )
 					.gallery3d( "add", { src: "3.jpg" } );
-
-				$( "#gallery3d" ).gallery3d( "refresh" );
-			});
+				}).on("gallery3dinit", function () {
+					$("#gallery3d").gallery3d("refresh");
+				});
 		</script>
 		<div id="gallery3d" data-role="gallery3d"></div>
 */
 /**
 	@method empty
-	This method removes all of images from Gallery3D widget.
+	This method removes all of images from the gallery 3D widget.
 
 		<script>
 			$( "#gallery3d" ).on( "gallery3dcreate", function () {
@@ -732,9 +726,13 @@ define( [
 			gl.enable( gl.DEPTH_TEST );
 			gl.depthFunc( gl.LEQUAL );
 
+			// Fit the canvas size to Gallery3d widget
 			canvas.style.width = "100%";
+
+			// Set the drawing buffer size of the canvas
 			canvas.width = self._VIEWPORT_WIDTH;
 			canvas.height = self._VIEWPORT_HEIGHT;
+
 			gl.viewportWidth = canvas.width;
 			gl.viewportHeight = canvas.height;
 			gl.viewport( 0, 0, gl.viewportWidth, gl.viewportHeight );

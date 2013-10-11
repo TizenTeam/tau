@@ -1,0 +1,27 @@
+From 902bbc8f3653d3954727ecb132842fb26e35076c Mon Sep 17 00:00:00 2001
+From: Hyeoncheol Choi <hc7.choi@samsung.com>
+Date: Tue, 8 Oct 2013 19:14:04 +0900
+Subject: [PATCH] JQM change offset to css in popup when call reposition
+ function
+
+Change-Id: I4edb27730aa7a73dc5eeb3d60b8fd7cd477fc1b8
+---
+ libs/js/jquery-mobile-1.2.0/js/widgets/popup.js |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
+index 5bc46d9..e53b7c1 100644
+--- a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
++++ b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
+@@ -584,7 +584,7 @@ define( [ "jquery",
+ 				&& self.positionTo !== "window") {
+ 					coords = self._placementCoords( self._desiredCoords( $(self.link).offset().left + $(self.link).outerWidth() /2 , $(self.link).offset().top + $(self.link).outerHeight() /2 , self.positionTo || self.options.positionTo || "origin" ) );
+ 					self._ui.container
+-						.offset( { top : coords.top } );
++						.css( { top : coords.top } );
+ 			}
+ 		},
+ 
+-- 
+1.7.9.5
+
