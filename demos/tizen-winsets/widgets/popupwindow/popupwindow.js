@@ -32,7 +32,10 @@ function onSuccessPopupCallback ( ori ) {
                 if( $( "#textbox_popup" ).parents( ".ui-popup-container" ).is( ".ui-popup-active" ) ) {
                         $( "#textbox_popup" ).popup( "close" );
                 }
-                $( "#go_textbox_popup a" ).attr( "href", "#textbox_popup_landscape" );
+		var direction = window.screen.orientation;
+		if ( direction.substr( 0, 8 ) === "landscape" ) {
+			$( "#go_textbox_popup a" ).attr( "href", "#textbox_popup_landscape" );
+		}
         }
 }
 
