@@ -248,7 +248,7 @@ define( [
 				self.handle.addClass( "ui-slider-handle-press" );
 				self.showPopup();
 				$.mobile.$document.on( 'vmouseup.slider', _closePopup );
-			}).on( 'vmouseup', function () {
+			}).on( 'mouseup touchend', function () {
 				self.hidePopup();
 				self.handle.removeClass( "ui-slider-handle-press" );
 				$.mobile.$document.off('vmouseup.slider');

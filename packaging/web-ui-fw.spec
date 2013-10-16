@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.63
+Version:    0.2.64
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -98,6 +98,17 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Wed Oct 16 2013 Heeju Joo <heeju.joo@samsung.com> 0.2.64
+	- TizenWinset : add condition popup appear of textbox popup (N_SE-51783)
+	- Globalize: Add AM/PM switcher in hindi language (N_SE-52707)
+	- Tabbar : modify font-size css at tabbar segment text(N_SE-52510)
+	- winset: fix scrollview-horizontal display issue (N_SE-39497)
+	- controlgroup: fixed margins (N_SE-54943)
+	- JIRA fix - N_SE-51795 CheckBox works otsude its area since it overlaps with thumbnail
+	- slider: change event when slider(handle) released (P131008-04153)
+	- checkbox: add ellipsis if label of checkbox is longer than field (N_SE-38978,N_SE-43122)
+	- TizenWinset : popup style change that appeared when icon popup click in searchbar(N_SE-55090)
+
 * Fri Oct 11 2013 Heeju Joo <heeju.joo@samsung.com> 0.2.63
 	- winset/naviframe: changed small letter to capital (N_SE-53904)
 	- searchbar: change small letter to capital (N_SE-53083)

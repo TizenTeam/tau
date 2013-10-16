@@ -4,6 +4,7 @@
 fieldset.ui-controlgroup {
 	padding: 0;
 	margin: .5em 0 1em;
+	width: 100%;
 }
 .ui-bar .ui-controlgroup {
 	margin: 0 .3em;
@@ -125,6 +126,18 @@ fieldset.ui-controlgroup {
 .ui-controlgroup-horizontal {
 
 	padding: 0;
+	.ui-controlgroup-controls {
+		&:first-child {
+			.ui-btn {
+				margin-left: 0;
+			}
+		}
+		&:last-child {
+			.ui-btn {
+				margin-right: 0;
+			}
+		}
+	}
 	.ui-btn {
 		border-radius : 0;
 		display: inline-block;
