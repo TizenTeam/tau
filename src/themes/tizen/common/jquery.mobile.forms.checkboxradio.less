@@ -23,7 +23,7 @@
 @checkbox-radio-icon-internal-bottom: (-@checkbox-radio-size-height/2); //-icon size/2
 @favorite-icon-internal-bottom: (-@favorite-size-height/2); //-icon size/2
 
-@icon-left-margin: (8*@unit_base);
+@icon-left-margin: (24*@unit_base);
 @checkbox-radio-label-left: (@checkbox-radio-size-width/2 + @icon-left-margin);
 @favorite-label-left: (@favorite-size-width/2 + @icon-left-margin);
 
@@ -52,20 +52,23 @@
 	}
 	.ui-btn.ui-btn-icon-left {
 		.ui-btn-inner {
-			min-width: 10*@unit_base; // TODO: check this after layout done.
+			min-width: @checkbox-radio-size-width; // TODO: check this after layout done.
 			min-height: @checkbox-radio-all-height;
 			line-height: @checkbox-radio-all-height;
-			padding: 0 16*@unit_base 0 16*@unit_base;
+			margin: 0 8*@unit_base 0 5*@unit_base;
+			padding : 0;
 			.ui-btn-text {
 				vertical-align: middle;
 				min-height: @checkbox-radio-size-height;
 			}
 			/* TODO : after button fixed, recheck! */
 			.ui-btn-text.ui-btn-text-padding-left {
-				padding-left: @checkbox-radio-label-left; //for test
+				margin-left: @checkbox-radio-label-left; //for test
+				padding-left : 0;
 			}
 			.ui-icon {
 				position: absolute;
+				left: 0;
 				top: 50%;
 				width: @checkbox-radio-size-width;
 				height: @checkbox-radio-size-height;
@@ -86,18 +89,17 @@
 		.ui-btn-inner {
 			display: inline-block;
 			line-height: @checkbox-radio-all-height;
-			padding: 0 0 0 16*@unit_base;
+			margin: 0 0 0 5*@unit_base;
+			padding : 0;
 			.ui-btn-text {
 				display: inline-block;
 				vertical-align: middle;
 				//margin-left: @favorite-label-left;
 			}
 			/* TODO : after button fixed, recheck! */
-			.ui-btn-text.ui-btn-text-padding-left {
-				padding-left: @favorite-label-left;
-			}
 			.ui-icon {
 				position: absolute;
+				left: 0;
 				top: 50%;
 				width: @favorite-size-width;
 				height: @favorite-size-height;
@@ -106,7 +108,6 @@
 		}
 	}
 }
-
 /* put img inside of checkbox(normal, favorite style) */
 
 .ui-icon-checkbox-off, .ui-icon-checkbox-on,
