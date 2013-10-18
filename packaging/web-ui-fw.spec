@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.64
+Version:    0.2.65
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -98,6 +98,10 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Fri Oct 18 2013 Hyeoncheol Choi <hc7.choi@samsung.com> 0.2.65
+	- listview: remove radius at inset mode (P131016-02897)
+	- Checkbox : modify to checkbox and text position css property (P131017-02872)
+
 * Wed Oct 16 2013 Heeju Joo <heeju.joo@samsung.com> 0.2.64
 	- TizenWinset : add condition popup appear of textbox popup (N_SE-51783)
 	- Globalize: Add AM/PM switcher in hindi language (N_SE-52707)
