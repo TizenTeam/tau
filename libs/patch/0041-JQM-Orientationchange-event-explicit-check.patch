@@ -1,0 +1,31 @@
+From 9e249feb26489218803bbe7dbbb61e694e97f567 Mon Sep 17 00:00:00 2001
+From: "hjnim.kim" <hjnim.kim@samsung.com>
+Date: Tue, 9 Apr 2013 21:09:27 +0900
+Subject: [PATCH] JQM Orientationchange event explicit check
+
+Orientationchange event explicit check
+
+Signed-off-by : hyunjung kim<hjnim.kim@samsung.com>
+
+Change-Id: I111f7e26485f88a63dfadf9821234c6b6f971ea2
+---
+ .../js/events/orientationchange.js                 |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/libs/js/jquery-mobile-1.2.0/js/events/orientationchange.js b/libs/js/jquery-mobile-1.2.0/js/events/orientationchange.js
+index de903c8..917d623 100644
+--- a/libs/js/jquery-mobile-1.2.0/js/events/orientationchange.js
++++ b/libs/js/jquery-mobile-1.2.0/js/events/orientationchange.js
+@@ -67,7 +67,8 @@ define( [ "jquery", "../jquery.mobile.support.orientation", "./throttledresize"
+ 		setup: function() {
+ 			// If the event is supported natively, return false so that jQuery
+ 			// will bind to the event using DOM methods.
+-			if ( $.support.orientation && !$.event.special.orientationchange.disabled ) {
++			if ( $.support.orientation &&
++				$.event.special.orientationchange.disabled === false ) {
+ 				return false;
+ 			}
+ 
+-- 
+1.7.9.5
+
