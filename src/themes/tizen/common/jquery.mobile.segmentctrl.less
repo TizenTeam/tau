@@ -23,20 +23,20 @@
 
 }
 
-.ui-controlgroup .ui-btn-inner .ui-corner-left .ui-controlgroup-first {
-	-o-border-radius: .3em;
-	-ms-border-radius: .3em;
-	-moz-border-radius: .3em ;
-	-webkit-border-radius: .3em ;
-	border-radius: .3em ;
+.ui-controlgroup .ui-btn-inner.ui-corner-left {
+	-o-border-radius: 0;
+	-ms-border-radius: 0;
+	-moz-border-radius: 0;
+	-webkit-border-radius: 0;
+	border-radius: 0;
 }
 
-.ui-controlgroup .ui-btn-inner .ui-corner-right .ui-controlgroup-last {
-	-o-border-radius: .3em;
-	-ms-border-radius: .3em;
-	-moz-border-radius: .3em ;
-	-webkit-border-radius: .3em ;
-	border-radius: .3em ;
+.ui-controlgroup .ui-btn-inner.ui-corner-right.ui-controlgroup-last {
+	-o-border-radius: 0;
+	-ms-border-radius: 0;
+	-moz-border-radius: 0;
+	-webkit-border-radius: 0;
+	border-radius: 0;
 }
 
 .ui-controlgroup .ui-radio-off.ui-btn-hover-s.ui-btn-down-s .ui-btn-inner,
@@ -48,6 +48,12 @@
   color: @color_segmentcontrol_Seg_text;
 }
 
-.ui-controlgroup.ui-controlgroup-horizontal .ui-radio .ui-btn-down-s .ui-btn-inner {
-	background : @color_tabbar_btn_tab_press;
+.ui-controlgroup.ui-controlgroup-horizontal {
+	.ui-radio-on .ui-btn-inner {
+		color : #fafafa;
+	}
+	.ui-radio .ui-btn-down-s .ui-btn-inner {
+		color : #fafafa;
+		background : @color_tabbar_btn_tab_press;
+	}
 }
