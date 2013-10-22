@@ -45,7 +45,7 @@
 		padding-left: 40px;
 	}
 	.ui-btn-icon-right .ui-btn-inner {
-		padding-left: 0px; padding-right: 40px;
+		padding-left: 8 * @unit_base; padding-right: 40px;
 	}
 	.ui-btn-icon-top .ui-btn-inner,
 	.ui-btn-icon-bottom .ui-btn-inner { padding-right: 40px; text-align: center; }
@@ -118,6 +118,12 @@
 	-ms-transition: all 0.5s ease;
 	-o-transition: all 0.5s ease;
 	transition: all 0.5s ease;
+
+	.ui-li-dialogue {
+		>.ui-li-text-sub {
+			right : 10 * @unit_base;
+		}
+	}
 }
 .ui-collapsible-inset .ui-collapsible-content {
 	margin: 0;

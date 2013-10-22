@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.65
+Version:    0.2.66
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -98,6 +98,13 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Tue Oct 22 2013 Heeju Joo <heeju.joo@samsung.com> 0.2.66
+	- controlgroup: remove css line cause side-effect (P131021-02618)
+	- collapsible: fix collapsible UI (with UX guide)
+	- Revert "JQM: orientation change event does not depend on JQM"
+	- Listview : add border bottom color on press event (PLM P131010-02793)
+	- winset: change background rgb color in black theme (UX guide)
+
 * Fri Oct 18 2013 Hyeoncheol Choi <hc7.choi@samsung.com> 0.2.65
 	- listview: remove radius at inset mode (P131016-02897)
 	- Checkbox : modify to checkbox and text position css property (P131017-02872)
