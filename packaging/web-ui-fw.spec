@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.66
+Version:    0.2.67
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -98,6 +98,14 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Fri Oct 25 2013 Heeju Joo <heeju.joo@samsung.com> 0.2.67
+	- searchbar: changed small letter to capital one (N_SE-55803)
+	- Checkbox: proper checkbox alignment in popup [N_SE-55967]
+	- Pinch : skip ratio setting when touch value is not valid (PLM P131021-02072)
+	- Segment : fixed segment css issue (N_SE-54943)
+	- Popup : add min-width value of ui-btn (P131022-02077)
+	- Revert "Loader : change rule that language is set by region setting(N_SE-53277)"
+
 * Tue Oct 22 2013 Heeju Joo <heeju.joo@samsung.com> 0.2.66
 	- controlgroup: remove css line cause side-effect (P131021-02618)
 	- collapsible: fix collapsible UI (with UX guide)

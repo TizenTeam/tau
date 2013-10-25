@@ -19,7 +19,7 @@ $( document ).one( "pageshow", "#pinch_page", function () {
 
 		ratio = get_ratio( p.ratio );
 
-		if ( current_ratio == ratio ) {
+		if ( current_ratio == ratio || !ratio) {
 			return;
 		}
 
@@ -36,7 +36,9 @@ $( document ).one( "pageshow", "#pinch_page", function () {
 	});
 
 	$("#pinch_demo").on( "pinchend", function ( e, p ) {
-		last_ratio = get_ratio( p.ratio );
+		if ( p.ratio ) {
+			last_ratio = get_ratio( p.ratio );
+		}
 	});
 
 	$( window ).bind( "galleryorientationchanged", function ( e ) {
