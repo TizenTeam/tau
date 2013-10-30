@@ -205,7 +205,6 @@ define( [
 				self.close();
 				return false;
 			} );
-
 		},
 
 		destroy: function () {

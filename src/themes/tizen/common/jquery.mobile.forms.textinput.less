@@ -9,7 +9,7 @@ label.ui-input-text {
 	font-weight: normal;
 	margin: 0 0 .3em;
 }
-input.ui-input-text, textarea.ui-input-text {
+input.ui-input-text:not(.ui-tokentextarea-input) {
 	background: @color_list_editfield;
 	background-image: none;
 	padding: .4em;
@@ -22,6 +22,11 @@ input.ui-input-text, textarea.ui-input-text {
 	-moz-border-radius : .1em;
 	border-radius : .1em;
 }
+
+input.ui-tokentextarea-input {
+	font-size : 20 * @unit_base;
+}
+
 input.ui-input-text.ui-focus, textarea.ui-input-text.ui-focus {
 	border : 1px solid @color_editfield_focus_border;
 }
@@ -236,4 +241,11 @@ textarea.ui-input-text {
 	&:active {
 		background-image: url(images/controls/00_field_btn_clear_press.png);
 	}
+}
+
+input::-webkit-input-placeholder {
+	max-width : 100% !important;
+	text-overflow : ellipsis !important;
+	white-space : nowrap !important;
+	overflow : hidden !important;
 }

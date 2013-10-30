@@ -454,7 +454,6 @@ define( [
 				} else {
 					this._outerScroll( this._softkeyboardHeight, scroll_height );
 				}
-				return;
 			}
 
 			if ( dir === "in" ) {
@@ -1402,6 +1401,7 @@ define( [
 						_in_progress = false;
 
 						if ( touches.length != 0 ) {
+							self._hideScrollBars();
 							return;
 						}
 
@@ -1531,6 +1531,20 @@ define( [
 
 				if ( focused ) {
 					focused.trigger("resize.scrollview");
+				}
+
+
+
+				/* manual calibration : focus element doesn't catch position when page has footer */
+				if ( focused.length ) {
+					var $elFooter = $c.siblings( ".ui-footer" ),
+						$elFooterHeight = $elFooter.length ? $elFooter.height() : 0,
+						focusHeight = focused.offset().top,
+						$cHeight = $c.height();
+
+					if ( focusHeight > $cHeight - $elFooterHeight ) {
+						self.scrollTo( 0, self._sy - focusHeight + $cHeight - $elFooterHeight, self.options.snapbackDuration );
+					}
 				}
 
 				/* calibration - after triggered throttledresize */

@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.67
+Version:    0.2.68
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -98,6 +98,13 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Tue Oct 29 2013 Hyeoncheol Choi <hc7.choi@samsung.com> 0.2.68
+	- Revert "JQM-patch : modify to popup element click event bind, Popup : delete "ui-btn-ctxpopup-close" class click event bind (DCM-2433)"
+	- popup : modify css of popup button
+	- TokenTextArea : enlarge inner text font size (PLM P131028-03014)
+	- DialogueList : add ellipsis to placeholder text(PLM P131028-02021)
+	- Scrollview : Scrollview bugs fixed (P131023-00924)
+
 * Fri Oct 25 2013 Heeju Joo <heeju.joo@samsung.com> 0.2.67
 	- searchbar: changed small letter to capital one (N_SE-55803)
 	- Checkbox: proper checkbox alignment in popup [N_SE-55967]
