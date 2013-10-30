@@ -538,7 +538,7 @@ define( [
 			$(this.element).after( this.ui );
 
 			this._popup_open = false;
-			this.ui.bind('vclick', function ( e ) {
+			this.ui.bind('click', function ( e ) {
 				obj._showDataSelector( obj, this, e.target );
 			});
 
