@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.68
+Version:    0.2.69
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -98,6 +98,10 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Wed Oct 30 2013 Heeju Joo <heeju.joo@samsung.com> 0.2.69
+	- datetimepicker: modify vlick event to click (N_SE-56430)
+	- slider : slider popup do not disappeared issue when called orientationchange fixed(N_SE-56561)
+
 * Tue Oct 29 2013 Hyeoncheol Choi <hc7.choi@samsung.com> 0.2.68
 	- Revert "JQM-patch : modify to popup element click event bind, Popup : delete "ui-btn-ctxpopup-close" class click event bind (DCM-2433)"
 	- popup : modify css of popup button
