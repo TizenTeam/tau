@@ -1402,6 +1402,7 @@ define( [
 
 						if ( touches.length != 0 ) {
 							self._hideScrollBars();
+							self._hideOverflowIndicator();
 							return;
 						}
 
