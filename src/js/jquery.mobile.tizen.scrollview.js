@@ -368,7 +368,8 @@ define( [
 			var keepGoing = false,
 				x = 0,
 				y = 0,
-				scroll_height = 0,
+				scroll_height = this._getViewHeight() - this._$clip.height(),
+				scroll_width = this._getViewWidth() - this._$clip.width(),
 				self = this,
 				vt = this._vTracker,
 				ht = this._hTracker;
@@ -382,9 +383,7 @@ define( [
 				y = vt.getPosition();
 				keepGoing = !vt.done();
 
-				if ( vt.getRemained() > this.options.overshootDuration ) {
-					scroll_height = this._getViewHeight() - this._$clip.height();
-
+				if ( vt.getRemained() > this.options.overshootDuration && this.options.outerScrollEnable ) {
 					if ( !vt.isAvail() ) {
 						if ( this._speedY > 0 ) {
 							this._outerScroll( vt.getRemained() / 3, scroll_height );
@@ -406,6 +405,13 @@ define( [
 				keepGoing = keepGoing || !ht.done();
 			}
 
+			if ( ( y == 0 && x == 0 ) && keepGoing ) {
+				this._setOverflowIndicator(0);
+				this._showOverflowIndicator();
+			} else if ( ( y == -scroll_height || x == -scroll_width ) && keepGoing ) {
+				this._setOverflowIndicator(1);
+				this._showOverflowIndicator();
+			}
 			this._setScrollPosition( x, y );
 			this._$clip.trigger( this.options.updateEventName,
 					[ { x: x, y: y } ] );
@@ -457,10 +463,9 @@ define( [
 		_setEndEffect: function ( dir ) {
 			var scroll_height = this._getViewHeight() - this._$clip.height();
 
-			if ( this._softkeyboard ) {
+			if ( this._softkeyboard && this.options.outerScrollEnable ) {
 				if ( this._effect_dir ) {
-					this._outerScroll( -scroll_height - this._softkeyboardHeight,
-							scroll_height );
+					this._outerScroll( -scroll_height - this._softkeyboardHeight, scroll_height );
 				} else {
 					this._outerScroll( this._softkeyboardHeight, scroll_height );
 				}
@@ -538,7 +543,6 @@ define( [
 
 				if ( y > 0 ) {
 					this._sy = 0;
-
 					this._effect_dir = 0;
 					this._setEndEffect( "in" );
 				} else if ( y < -scroll_height ) {
@@ -549,7 +553,6 @@ define( [
                                                 this._effect_dir = 1;
                                         } else {
                                                 this._sy = -scroll_height;
-
                                                 this._effect_dir = 1;
                                                 this._setEndEffect( "in" );
                                         }
@@ -1030,8 +1033,8 @@ define( [
 			this._lastMove = getCurrentTime();
 
 			if ( !this._directionLock ) {
-				x = Math.abs( dx );
-				y = Math.abs( dy );
+				x = bitwiseAbs( dx );
+				y = bitwiseAbs( dy );
 
 				if ( x < mt && y < mt ) {
 					return false;
@@ -1127,7 +1130,6 @@ define( [
 			if ( this._didDrag === false ) {
 				this._didDrag = true;
 				this._showScrollBars();
-				this._showOverflowIndicator();
 
 				this._$clip.parents(".ui-scrollview-clip").each( function () {
 					$( this ).scrollview( "skipDragging", true );
@@ -1802,7 +1804,7 @@ define( [
 				if ( this._$hScrollBar && vw ) {
 					thumb = this._$hScrollBar.find(".ui-scrollbar-thumb");
 					thumb.css( "width", (cw >= vw ? "0" :
-							(Math.floor(cw / vw * 100) || 1) + "%") );
+							( ( (cw / vw * 100) | 0 ) || 1) + "%") );
 				}
 			}
 
@@ -1817,7 +1819,7 @@ define( [
 				if ( ( this._$vScrollBar && vh ) || vh === 0 ) {
 					thumb = this._$vScrollBar.find(".ui-scrollbar-thumb");
 					thumb.css( "height", (ch >= vh ? "0" :
-							(Math.floor(ch / vh * 100) || 1) + "%") );
+							( ( (ch / vh * 100) | 0 ) || 1) + "%") );
 
 					this._overflowAvail = !!thumb.height();
 				}
