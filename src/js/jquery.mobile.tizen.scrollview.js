@@ -779,11 +779,12 @@ define( [
 
 			if ( element ) {
 				$element = element.get ? element : $( element );
+				clipTop = $clip.offset().top;
 				clipHeight = $clip.height();
 				clipBottom = clipHeight;
 				elementHeight = $element.height();
 				elementOffset = $element.offset();
-				elementTop = elementOffset ? elementOffset.top : 0;
+				elementTop = elementOffset ? elementOffset.top - clipTop : 0;
 				elementBottom = elementTop + elementHeight;
 				elementFits = clipHeight > elementHeight;
 
