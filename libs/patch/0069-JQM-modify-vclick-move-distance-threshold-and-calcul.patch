@@ -46,7 +46,7 @@ index 4ecefdb..6f99d4b 100644
  
  
  	if ( didScroll && !didCancel ) {
-@@ -305,22 +306,28 @@ function handleTouchEnd( event ) {
+@@ -305,22 +306,26 @@ function handleTouchEnd( event ) {
  	disableTouchBindings();
  
  	var flags = getVirtualBindingFlags( event.target ),
@@ -55,9 +55,7 @@ index 4ecefdb..6f99d4b 100644
 +		endX = t.screenX,
 +		endY = t.screenY,
 +		moveThresholdPow = $.vmouse.moveDistanceThresholdPow,
-+		isVclickIgnoreBound = false;
-+
-+	isVclickBound = ( ( endX - startX ) * ( endX - startX ) ) + ( ( endY - startY ) * ( endY - startY ) ) < moveThresholdPow;
++		isVclickBound = ( ( endX - startX ) * ( endX - startX ) ) + ( ( endY - startY ) * ( endY - startY ) ) < moveThresholdPow;
 +
  	triggerVirtualEvent( "vmouseup", event, flags );
  
