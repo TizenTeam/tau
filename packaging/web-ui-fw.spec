@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.69
+Version:    0.2.70
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -98,6 +98,15 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Fri Nov 08 2013 Heeju Joo <heeju.joo@samsung.com> 0.2.70
+	- Revert "datetimepicker: modify vlick event to click (N_SE-56430)"
+	- Fix vclick distance patch
+	- JQM path: modify vclick move distance threshold and calulation way.(P131106-04132,N_SE-56430)
+	- popupwindow : disabled changing popup on screen rotation (N_SE-55951)
+	- JIRA fix - N_SE-51838 Cursor focus does not go TO field while inserting text after scroll the window in TizenWinset
+	- JIRA fix N_SE-41915 - fix will prevent cursor from hiding when more lines is given
+	- slider: modify popup position method for slider-popup
+
 * Wed Oct 30 2013 Heeju Joo <heeju.joo@samsung.com> 0.2.69
 	- datetimepicker: modify vlick event to click (N_SE-56430)
 	- slider : slider popup do not disappeared issue when called orientationchange fixed(N_SE-56561)

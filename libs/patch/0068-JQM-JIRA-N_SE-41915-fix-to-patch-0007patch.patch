@@ -1,0 +1,45 @@
+From 888dab7b191fe273bbb1c1cf33d28383e75d5981 Mon Sep 17 00:00:00 2001
+From: maciej moczulski <m.moczulski@samsung.com>
+Date: Tue, 2 Jul 2013 10:10:51 +0200
+Subject: [PATCH] 0053-JQM-JIRA-N_SE-41915-fix to patch 0007patch.patch
+
+https://bugs.tizendev.org/jira/browse/N_SE-41915 - fix will prevent cursor from hiding when more lines is given
+
+Change-Id: I1f450b08ac77fff02701d2f7924654421f64e816
+---
+ .../js/widgets/forms/textinput.js                  |   17 +++++++++++++++--
+ 1 file changed, 15 insertions(+), 2 deletions(-)
+
+diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/textinput.js b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/textinput.js
+index 54c5c5d..cf2f46f 100644
+--- a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/textinput.js
++++ b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/textinput.js
+@@ -94,10 +94,23 @@ $.widget( "mobile.textinput", $.mobile.widget, {
+ 
+ 			this._keyup = function() {
+ 				var scrollHeight = input[ 0 ].scrollHeight,
+-					clientHeight = input[ 0 ].clientHeight;
++					clientHeight = input[ 0 ].clientHeight,
++					lineNumber,
++					rows,
++					relevantLineHeight = parseInt(input.css('line-height'),10);
+ 
+ 				if ( clientHeight < scrollHeight && window.innerHeight / 2 > scrollHeight ) {
+-					input.height(scrollHeight + extraLineHeight);
++					input.height( scrollHeight );
++					input[ 0 ].rows += 1;
++				} else {
++					// Current cursor position
++					lineNumber = input[ 0 ].value.substr( 0, input[ 0 ].selectionStart ).split( "\n" ).length;
++					// Total number of rows
++					rows = input[ 0 ].value.split( "\n" ).length;
++					// If we are at the end of the line, scroll down
++					if( lineNumber === rows ) {
++						input[ 0 ].scrollTop =  ( lineNumber * ( relevantLineHeight ) );
++					}
+ 				}
+ 			};
+ 
+-- 
+1.7.9.5
+

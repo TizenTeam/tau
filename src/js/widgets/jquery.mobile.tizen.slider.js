@@ -275,7 +275,7 @@ define( [
 		positionPopup: function () {
 			var dstOffset = this.handle.offset();
 
-			this.popup.offset({
+			this.popup.css({
 				left: dstOffset.left + ( this.handle.width() - this.popup.width() ) / 2,
 				top: dstOffset.top - this.popup.height()
 			});

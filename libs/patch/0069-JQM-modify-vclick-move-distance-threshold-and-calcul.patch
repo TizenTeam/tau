@@ -1,0 +1,83 @@
+From 18412a91a11b6278e156c08663c990b95b5ee97c Mon Sep 17 00:00:00 2001
+From: heeju Joo <heeju.joo@samsung.com>
+Date: Fri, 8 Nov 2013 16:10:34 +0900
+Subject: [PATCH] JQM-modify vclick move distance threshold and calculation
+
+Signed-off-by: Heeju Joo <heeju.joo@samsung.com>
+---
+ .../jquery-mobile-1.2.0/js/jquery.mobile.vmouse.js |   29 ++++++++++++--------
+ 1 file changed, 18 insertions(+), 11 deletions(-)
+
+diff --git a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.vmouse.js b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.vmouse.js
+index 4ecefdb..6f99d4b 100644
+--- a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.vmouse.js
++++ b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.vmouse.js
+@@ -43,8 +43,9 @@ var dataPropertyName = "virtualMouseBindings",
+ 	lastTouchID = 0, threshold;
+ 
+ $.vmouse = {
+-	moveDistanceThreshold: 10,
+-	clickDistanceThreshold: 10,
++	moveDistanceThreshold: 15,
++	moveDistanceThresholdPow: moveDistanceThreshold * moveDistanceThreshold,
++	clickDistanceThreshold: 15,
+ 	resetTimerDuration: 1500
+ };
+ 
+@@ -236,8 +237,8 @@ function handleTouchStart( event ) {
+ 			didScroll = false;
+ 
+ 			var t = getNativeEvent( event ).touches[ 0 ];
+-			startX = t.pageX;
+-			startY = t.pageY;
++			startX = t.screenX;
++			startY = t.screenY;
+ 
+ 			triggerVirtualEvent( "vmouseover", event, flags );
+ 			triggerVirtualEvent( "vmousedown", event, flags );
+@@ -269,8 +270,8 @@ function handleTouchMove( event ) {
+ 		flags = getVirtualBindingFlags( event.target );
+ 
+ 		didScroll = didScroll ||
+-			( Math.abs( t.pageX - startX ) > moveThreshold ||
+-				Math.abs( t.pageY - startY ) > moveThreshold );
++			( ( t.screenX - startX ) * ( t.screenX - startX ) )
++				+ ( ( t.screenY - startY ) * ( t.screenY - startY ) ) > $.vmouse.moveDistanceThresholdPow;
+ 
+ 
+ 	if ( didScroll && !didCancel ) {
+@@ -305,22 +306,26 @@ function handleTouchEnd( event ) {
+ 	disableTouchBindings();
+ 
+ 	var flags = getVirtualBindingFlags( event.target ),
+-		t;
++		t = getNativeEvent( event ).changedTouches[ 0 ],
++		endX = t.screenX,
++		endY = t.screenY,
++		moveThresholdPow = $.vmouse.moveDistanceThresholdPow,
++		isVclickBound = ( ( endX - startX ) * ( endX - startX ) ) + ( ( endY - startY ) * ( endY - startY ) ) < moveThresholdPow;
++
+ 	triggerVirtualEvent( "vmouseup", event, flags );
+ 
+-	if ( !didScroll ) {
++	if ( !didScroll && isVclickBound ) {
+ 		var ve = triggerVirtualEvent( "vclick", event, flags );
+ 		if ( ve && ve.isDefaultPrevented() ) {
+ 			// The target of the mouse events that follow the touchend
+ 			// event don't necessarily match the target used during the
+ 			// touch. This means we need to rely on coordinates for blocking
+ 			// any click that is generated.
+-			t = getNativeEvent( event ).changedTouches[ 0 ];
+ 			clickBlockList.push({
+ 				touchID: lastTouchID,
+ 				target: event.target,
+-				x: t.clientX,
+-				y: t.clientY
++				x: endX,
++				y: endY
+ 			});
+ 
+ 			// Prevent any mouse events that follow from triggering
+-- 
+1.7.9.5
+
