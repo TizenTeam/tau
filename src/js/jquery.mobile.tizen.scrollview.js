@@ -357,7 +357,7 @@ define( [
 			}
 
 			this._hideScrollBars();
-			this._hideOverflowIndicator();
+			//this._hideOverflowIndicator();
 		},
 
 		/**
@@ -460,7 +460,7 @@ define( [
 		 * Applies scroll end effect according to direction
 		 * @param {string} dir Direction, can be "in" or "out"
 		 */
-		_setEndEffect: function ( dir ) {
+		_setEndEffect: function ( dir , calcY) {
 			var scroll_height = this._getViewHeight() - this._$clip.height();
 
 			if ( this._softkeyboard && this.options.outerScrollEnable ) {
@@ -472,13 +472,9 @@ define( [
 			}
 
 			if ( dir === "in" ) {
-				if ( this._endEffect ) {
-					return;
-				}
-
-				this._endEffect = true;
 				this._setOverflowIndicator( this._effect_dir );
-				this._showOverflowIndicator();
+				this._showOverflowEffect( calcY );
+				this._endEffect = true;
 			} else if ( dir === "out" ) {
 				if ( !this._endEffect ) {
 					return;
@@ -487,8 +483,9 @@ define( [
 				this._endEffect = false;
 			} else {
 				this._endEffect = false;
-				this._setOverflowIndicator();
-				this._showOverflowIndicator();
+				//this._setOverflowIndicator();
+				//this._showOverflowIndicator();
+				this._hideOverflowIndicator();
 			}
 		},
 
@@ -511,7 +508,8 @@ define( [
 				scroll_height = 0,
 				scroll_width = 0,
 				vh,
-				ch;
+				ch,
+				calc;
 
 			if ( dirLock !== "y" && this._hTracker ) {
 				scroll_width = $v.width() - $c.width();
@@ -541,11 +539,34 @@ define( [
 					scroll_height = vh - ch;
 				}
 
+
+
 				if ( y > 0 ) {
+					if(this._flag == true ){
+						this._flag = false;
+						this._ly = this._lastY;
+					} else if(this._flag == undefined ){
+						this._flag = true;
+					}
+					if((this._lastY - this._ly) > 100){
+						calc = 100;
+					} else {
+						calc = this._lastY - this._ly;
+					}
 					this._sy = 0;
 					this._effect_dir = 0;
-					this._setEndEffect( "in" );
+					this._setEndEffect( "in" ,calc);
 				} else if ( y < -scroll_height ) {
+					if( this._flag == true ){
+						this._flag = false;
+						this._ly = this._lastY;
+					}
+
+					if( ( this._ly - this._lastY ) > 100){
+						calc = 100;
+					} else {
+						calc = this._ly - this._lastY;
+					}
 					if ( this._sy !== -scroll_height ) {
                                                 this._hideScrollBars();
 						this._hideOverflowIndicator();
@@ -554,10 +575,14 @@ define( [
                                         } else {
                                                 this._sy = -scroll_height;
                                                 this._effect_dir = 1;
-                                                this._setEndEffect( "in" );
+                                                this._setEndEffect( "in" ,calc);
                                         }
 				} else {
 					if ( this._endEffect && this._sy !== y ) {
+						/*
+						This condition means that user scrolled to end
+						and scrolled to inside area continuously
+						*/
 						this._setEndEffect();
 					}
 
@@ -1145,6 +1170,8 @@ define( [
 		_handleDragStop: function ( e ) {
 			var self = this;
 
+			this._flag=true;
+
 			if ( this._skip_dragging ) {
 				return;
 			}
@@ -1345,11 +1372,30 @@ define( [
 			this._overflow_showed = true;
 		},
 
+		_showOverflowEffect : function ( calcY ) {
+			if ( !$( this.element ).is( ".ui-content" ) && !$( this.element ).is( ".ui-custom-scrollbar" ) ) {
+				return true;
+			}
+
+			if ( (!this.options.overflowEnable && !$( this.element ).is( ".ui-custom-scrollbar" )) || !this._overflowAvail || this._softkeyboard ) {
+				return;
+			}
+			$(".ui-overflow-top").css("height", calcY);
+			$(".ui-overflow-bottom").css("height", calcY);
+
+			this._overflow_top_effect.css( "display", this._display_indicator_top );
+			this._overflow_bottom_effect.css( "display", this._display_indicator_bottom );
+
+			this._overflow_showed = true;
+		},
 		/**
 		 * Hide overflow indicator
 		 * @private
 		 */
 		_hideOverflowIndicator: function () {
+
+			var self = this;
+
 			if ( (!this.options.overflowEnable && !$( this.element ).is( ".ui-custom-scrollbar" ))  || !this._overflowAvail || this._softkeyboard ) {
 				return;
 			}
@@ -1358,8 +1404,23 @@ define( [
 				return;
 			}
 
-			this._overflow_top.css( "display", "none" );
-			this._overflow_bottom.css( "display", "none" );
+			//this._overflow_top.css( "display", "none" );
+			//this._overflow_bottom.css( "display", "none" );
+
+			/*
+			When hide overflowIndicator, animation add that height decrease smoothly.
+			*/
+
+			$(".ui-overflow-top").addClass("ui-overflow-top-hide");
+			$(".ui-overflow-bottom").addClass("ui-overflow-bottom-hide");
+
+			setTimeout( function(){
+				$(".ui-overflow-top").removeClass("ui-overflow-top-hide");
+				$(".ui-overflow-bottom").removeClass("ui-overflow-bottom-hide");
+
+				self._overflow_top_effect.css( "display", "none" );
+				self._overflow_bottom_effect.css( "display", "none" );
+			}, 500 );
 
 			this._overflow_showed = false;
 			this._setOverflowIndicator();
@@ -1768,8 +1829,13 @@ define( [
 			this._overflow_top = $( '<div class="ui-overflow-indicator-top"></div>' );
 			this._overflow_bottom = $( '<div class="ui-overflow-indicator-bottom"></div>' );
 
-			this._$clip.append( this._overflow_top );
-			this._$clip.append( this._overflow_bottom );
+			this._overflow_top_effect = $( '<div class="ui-overflow-effect-top ui-overflow-top"></div>' );
+			this._overflow_bottom_effect = $( '<div class="ui-overflow-effect-bottom ui-overflow-bottom"></div>' );
+
+			//this._$clip.append( this._overflow_top );
+			//this._$clip.append( this._overflow_bottom );
+			this._$clip.append( this._overflow_top_effect );
+			this._$clip.append( this._overflow_bottom_effect );
 
 			this._display_indicator_top = "block";
 			this._display_indicator_bottom = "block";
