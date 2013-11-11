@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.70
+Version:    0.2.71
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -98,6 +98,14 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Mon Nov 11 2013 Heeju Joo <heeju.joo@samsung.com> 0.2.71
+	- Scrollview : add header height calculation in ensureElementIsVisible(P131107-00742)
+	- Popup: popup ststus value has been fixed.
+	- Popup: popup bg close event handler is works when popup is opened ( DCMADD-113 )
+	- scrollview: hide indicator when bind touchend event
+	- datetimepicker: add return false when am/pm button clicked.(N_SE-55784)
+	- JQM patch - fix assignment fault
+
 * Fri Nov 08 2013 Heeju Joo <heeju.joo@samsung.com> 0.2.70
 	- Revert "datetimepicker: modify vlick event to click (N_SE-56430)"
 	- Fix vclick distance patch

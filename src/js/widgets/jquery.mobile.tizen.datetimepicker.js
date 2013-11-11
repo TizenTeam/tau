@@ -244,6 +244,7 @@ define( [
 			this.ui.find('.ui-btn-picker').buttonMarkup();
 			this.ui.find('.ui-datefield-period').buttonMarkup().bind( 'vclick', function ( e ) {
 				obj._switchAmPm( obj );
+				return false;
 			});
 
 			this.element.attr( "data-" + ( $.mobile.ns ? $.mobile.ns + "-" : "" ) + "format", this.options.format );
