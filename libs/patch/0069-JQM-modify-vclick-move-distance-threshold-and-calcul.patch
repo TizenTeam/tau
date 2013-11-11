@@ -19,7 +19,7 @@ index 4ecefdb..6f99d4b 100644
 -	moveDistanceThreshold: 10,
 -	clickDistanceThreshold: 10,
 +	moveDistanceThreshold: 15,
-+	moveDistanceThresholdPow: moveDistanceThreshold * moveDistanceThreshold,
++	moveDistanceThresholdPow: 15 * 15, //moveDistanceThreshold * moveDistanceThreshold
 +	clickDistanceThreshold: 15,
  	resetTimerDuration: 1500
  };
