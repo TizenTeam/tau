@@ -1,0 +1,38 @@
+From 8bf75b63dd643f684d90f6366ba72fc51a2fd406 Mon Sep 17 00:00:00 2001
+From: "hjnim.kim" <hjnim.kim@samsung.com>
+Date: Tue, 12 Nov 2013 18:32:54 +0900
+Subject: [PATCH] JQM Popup pre status value is set false when popup is opened
+
+JQM Popup pre status ( isPreOpen ) value is set false
+when popup is opened
+
+Signed-off-by : hyunjung kim <hjnim.kim@samsung.com>
+
+Change-Id: I3e4530bac9383a76a588177e6c6b4462baa9c1c2
+---
+ libs/js/jquery-mobile-1.2.0/js/widgets/popup.js |    2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
+index 7661836..5e2c277 100644
+--- a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
++++ b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
+@@ -596,6 +596,7 @@ define( [ "jquery",
+ 
+ 			self._ui.container.addClass( "ui-popup-active" );
+ 			self._isOpen = true;
++			self._isPreOpen = false;
+ 			self._resizeScreen();
+ 
+ 			// Android appears to trigger the animation complete before the popup
+@@ -739,6 +740,7 @@ define( [ "jquery",
+ 			this._page.removeClass( "ui-popup-open" );
+ 
+ 			this._isOpen = false;
++			this._isPreOpen = false;
+ 
+ 			// IME hide when popup is closed
+ 			this.element.find("input").blur();
+-- 
+1.7.9.5
+
