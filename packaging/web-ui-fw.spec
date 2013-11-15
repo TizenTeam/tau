@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.71
+Version:    0.2.72
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -98,6 +98,12 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Fri Nov 15 2013 Heeju Joo <heeju.joo@samsung.com> 0.2.72
+	- popupwindow: add exception handling when removed placeholder tag.(P131020-00096)
+	- Checkboxradio: event sync ( vmouseevent, ui-btn-down class)
+	- Popup: popup ststus value has been fixed
+	- Revert "Popup: popup ststus value has been fixed."
+
 * Mon Nov 11 2013 Heeju Joo <heeju.joo@samsung.com> 0.2.71
 	- Scrollview : add header height calculation in ensureElementIsVisible(P131107-00742)
 	- Popup: popup ststus value has been fixed.
