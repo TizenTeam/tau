@@ -208,7 +208,13 @@ define( [
 		},
 
 		destroy: function () {
-			this.element.insertBefore( this._ui.placeholder );
+			if(this._ui.placeholder.parent().get(0)) {
+				this.element.insertBefore( this._ui.placeholder );
+			} else {
+				// if removed placeholder tag when popupwindow opened,
+				// then popupwindow element append to body.
+				this.element.appendTo(document.body);
+			}
 
 			this._ui.placeholder.remove();
 			this._ui.container.remove();
