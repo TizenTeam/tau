@@ -778,14 +778,20 @@ define( [
 				};
 
 			if ( element ) {
+				/*
+				 * Below valuable name has rules
+				 * 1) ~Top is calculated offset().top value
+				 * 2) ~Height is calculated height() function return value
+				 * 3) ~Bottom is calculated only based clip's top
+				 */
 				$element = element.get ? element : $( element );
 				clipTop = $clip.offset().top;
 				clipHeight = $clip.height();
 				clipBottom = clipHeight;
 				elementHeight = $element.height();
 				elementOffset = $element.offset();
-				elementTop = elementOffset ? elementOffset.top - clipTop : 0;
-				elementBottom = elementTop + elementHeight;
+				elementTop = elementOffset ? elementOffset.top : 0;
+				elementBottom = elementTop - clipTop + elementHeight;
 				elementFits = clipHeight > elementHeight;
 
 				switch( true ) {
@@ -1439,7 +1445,7 @@ define( [
 			$v.bind( "keydown", function ( e ) {
 				var $focusedElement;
 
-				if ( e.keyCode == 9 ) {
+				if ( e.keyCode ==  9 || e.keyCode == 0 ) {
 					return false;
 				}
 
