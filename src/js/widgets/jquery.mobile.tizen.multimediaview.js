@@ -589,8 +589,9 @@ define( [
 			self.controlTimer = setTimeout( function () {
 				self.isVolumeHide = true;
 				self.controlTimer = null;
-				volumeControl.hide();
-				control.fadeOut( "fast" );
+				control.fadeOut( "fast", function () {
+					volumeControl.hide();
+				} );
 			}, duration );
 		},
 
