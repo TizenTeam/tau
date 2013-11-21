@@ -183,7 +183,17 @@ define( [
 			 * Determines if we allow scroll jumps
 			 * @type {boolean}
 			 */
-			scrollJump:        false
+			scrollJump:        false,
+
+			/**
+			 * Determines if we scroll when element to receive focus is hidden.
+			 */
+			scrollToFocusEnable:     true,
+
+			/**
+			 * Scroll Distance when arrow key pressed
+			 */
+			scrollDistance: 30
 		},
 
 		/**
@@ -739,11 +749,11 @@ define( [
 
 			if ( element ) {
 				$element = element.get ? element : $( element );
-				delta = ( $clip.height() / 2 ) - ( element.height() / 2 );
-				elementPosition = element.position();
+				delta = ( $clip.height() / 2 ) - ( $element.height() / 2 );
+				elementPosition = $element.position();
 				elementPositionTop = elementPosition ? elementPosition.top : 0;
 
-				element.parentsUntil( $view ).each( function () {
+				$element.parentsUntil( $view ).each( function () {
 					var $parent = $( this );
 					elementPositionTop += ( $parent.position().top + parseFloat( $parent.css( "marginTop" ) ) + parseFloat( $parent.css( "paddingTop" ) ) );
 				});
@@ -762,24 +772,13 @@ define( [
 				$clip = this._$clip,
 				clipTop = 0,
 				clipBottom = 0,
+				clipHeight = 0,
 				elementHeight = 0,
-				elementOffset = null,
 				elementTop = 0,
 				elementBottom = 0,
 				elementFits = 0,
 				$anchor = null,
-				anchorPosition = 0,
-				findPositionAnchor = function ( input ) {
-					var $label,
-						id = input.attr( "id" );
-					if ( input.is( ":input" ) && id ) {
-						$label = input.siblings( "label[for=" + id + "]" );
-						if ( $label.length > 0 ) {
-							return $label.eq( 0 );
-						}
-					}
-					return input;
-				};
+				anchorPosition = 0;
 
 			if ( element ) {
 				/*
@@ -789,13 +788,12 @@ define( [
 				 * 3) ~Bottom is calculated only based clip's top
 				 */
 				$element = element.get ? element : $( element );
-				clipTop = $clip.offset().top;
+				elementHeight = $element.outerHeight(true);
+				elementTop = $element.offset().top;
+				elementBottom = elementTop + elementHeight;
 				clipHeight = $clip.height();
-				clipBottom = clipHeight;
-				elementHeight = $element.height();
-				elementOffset = $element.offset();
-				elementTop = elementOffset ? elementOffset.top : 0;
-				elementBottom = elementTop - clipTop + elementHeight;
+				clipTop = $clip.offset().top;
+				clipBottom = clipTop + clipHeight;
 				elementFits = clipHeight > elementHeight;
 
 				switch( true ) {
@@ -805,21 +803,12 @@ define( [
 				case elementFits && clipTop < elementTop && clipBottom < elementBottom: // element fits in view but its visible only at top
 				case elementFits && clipTop > elementTop && clipBottom > elementBottom: // element fits in view but its visible only at bottom
 				case elementFits: // element fits in view but is not visible
-					this.centerToElement(element);
+					this.centerToElement($element);
 					break;
 				case clipTop < elementTop && clipBottom < elementBottom: // element visible only at top
 				case clipTop > elementTop && clipBottom > elementBottom: // element visible only at bottom
 					// pass, we cant do anything, if we move the scroll
 					// the user could lost view of something he scrolled to
-					break;
-				default: // element is not visible
-					$anchor = findPositionAnchor( $element );
-					anchorPosition = $anchor.position().top + parseFloat( $anchor.css("marginTop" ) );
-					$anchor.parentsUntil($view).each(function () {
-						var $p = $( this );
-						anchorPosition += ( $p.position().top + parseFloat( $p.css("marginTop" ) ) );
-					});
-					this.scrollTo( self._sx, -anchorPosition );
 					break;
 				}
 			}
@@ -1462,7 +1451,17 @@ define( [
 		_add_event: function () {
 			var self = this,
 				$c = this._$clip,
-				$v = this._$view;
+				$v = this._$view,
+				keyCodes = $.mobile.keyCode,
+				moveFocusKeycode = [
+				                    keyCodes.TAB,
+				                    keyCodes.UP,
+				                    keyCodes.DOWN,
+				                    keyCodes.LEFT,
+				                    keyCodes.RIGHT
+				],
+				movedFocusByKeyboard = false,
+				checkFocusOutTimeId;
 
 			if ( this.options.eventType === "mouse" ) {
 				this._dragEvt = "mousedown mousemove mouseup click mousewheel";
@@ -1536,68 +1535,68 @@ define( [
 			$v.bind( this._dragEvt, this._dragCB );
 
 			// N_SE-35696 / N_SE-35800
-			var clipScrollDelta = 0,
-				clipScrollLast = 0;
 			$c.on( "scroll", function () {
-				var clipScrollTop = $c.scrollTop(),
-					currentPositon = self.getScrollPosition(),
-					inputs;
-
-				clipScrollDelta = clipScrollTop - clipScrollLast;
-				clipScrollLast = clipScrollTop;
-
-				if ( clipScrollDelta > 0 ) {
-					inputs = $v.find( ":input.ui-focus" );
+				if ( $c.scrollTop() != 0 ) {
 					$c.scrollTop( 0 );
-					if ( inputs.length ) {
-						// CHECK WHERE WE ARE IN THE INPUTS
-						clipScrollDelta = 0;
-					}
-					self.scrollTo( -currentPositon.x, -( currentPositon.y + clipScrollDelta ) );
 				}
 			} );
 
 			$v.bind( "keydown", function ( e ) {
-				var $focusedElement;
-
-				if ( e.keyCode ==  9 ) {
-					//keyCode '9' is tab key
-					return false;
+				var $target = $( e.target );
+				if ( moveFocusKeycode.indexOf( e.keyCode ) === -1 && $target.is( ":input" ) ) {
+					if ( $target.is( "textarea" ) ) {
+						self._setTextareaPosition( $target, e );
+						return;
+					}
+					self.ensureElementIsVisible( $target );
 				}
-
-				$focusedElement = $c.find( ":input.ui-focus" );
-				if ( !$focusedElement.length ) {
-					return;
-				} else if ( $focusedElement.is( "textarea" ) ) {
-					self._setTextareaPosition( $focusedElement, e );
-					return;
-				}
-				self.ensureElementIsVisible( $focusedElement );
-
-				return;
 			});
 
-			$v.bind( "keyup", function ( e ) {
-				var $input;
+			if ( this.options.scrollToFocusEnable ) {
+				$v.bind({
+					"keydown": function ( e ) {
+						var $target = $( e.target );
+						if ( !e.isDefaultPrevented() && moveFocusKeycode.indexOf( e.keyCode ) > -1 ) {
+							movedFocusByKeyboard = true;
 
-				if ( e.keyCode !== 9 ) {
-					//keyCode '9' is tab key
-					return;
-				}
+							if ( e.keyCode == keyCodes.TAB ) {
+								return;
+							}
 
-				/* Tab Key */
-				$input = $( this ).find( ":input.ui-focus" ).eq( 0 );
-				if ( !$input.length ) {
-					return;
-				} else if ( $input.is( "textarea" ) ) {
-					self._setTextareaPosition( $input, e );
-					return;
-				}
-				self.ensureElementIsVisible( $input );
-				$input.focus();
+							checkFocusOutTimeId = window.setTimeout( $.proxy( function( ) {
+								var hasFocus = $target.is( ":focus" ),
+									orgOffset = {
+										top: this._sy,
+										left: this._sx
+									},
+									offset = this._getChangedScrollOffsetByKeyboard( e.keyCode, $target, !hasFocus );
 
-				return false;
-			});
+								if ( offset ) {
+									this.scrollTo( offset.left, offset.top );
+									if ( ( this._sx != orgOffset.left || this._sy != orgOffset.top ) && !hasFocus ) {
+										movedFocusByKeyboard = false;
+										$target.focus( );
+									}
+								}
+							}, self ), 0 );
+						}
+					},
+					"keyup": function ( e ) {
+						movedFocusByKeyboard = false;
+					},
+					"focusin focus": function ( e ) {
+						var $target = $( e.target );
+						if ( movedFocusByKeyboard ) {
+							if ( $target.is( "textarea" ) ) {
+								self._setTextareaPosition( $target, e );
+							} else {
+								self.ensureElementIsVisible( $target );
+							}
+							window.clearTimeout( checkFocusOutTimeId );
+						}
+					}
+				});
+			}
 
 			$c.bind( "updatelayout", function ( e ) {
 				self.refresh();
@@ -1606,7 +1605,7 @@ define( [
 			$( window ).bind( "resize", function ( e ) {
 				var $input = $v.find( ":input.ui-focus" ).eq(0);
 
-				self.refresh();
+				self.refresh( );
 
 				if( $input.is( "textarea" ) ) {
 					// if input is textarea tag, scrollview scroll to position
@@ -1809,6 +1808,77 @@ define( [
 					this._overflowAvail = !!thumb.height();
 				}
 			}
+		},
+
+		_getChangedScrollOffsetByKeyboard: function ( keyCode, targetElem, isIgnoreDefault) {
+			var $target = $(targetElem),
+				dist = this.options.scrollDistance,
+				keyCodes = $.mobile.keyCode,
+				flags = {
+					NONE: 0,
+					LEFT: 1,
+					RIGHT: 2,
+					UP: 4,
+					DOWN: 8
+				},
+				keyFlag = {},
+				top = this._sy,
+				left = this._sx,
+				flag = flags.NONE,
+				inputType;
+
+			if ( !isIgnoreDefault ) {
+				if( $target.is(":input") ) {
+					flag = flags.UP|flags.DOWN|flags.LEFT|flags.RIGHT;
+
+					if ( $target.is("input") ) {
+						inputType = " "+$target.attr("type").trim();
+
+						if ( " number ".indexOf(inputType) > -1 ) {
+						} else if ( " checkbox radio color time date month week datetime datetime-local ".indexOf(inputType) > -1 ) {
+							flag = flags.NONE;
+						} else if ( $target.val().length === 0 ) { // text, password, url, email, tel, etc...
+							flag = flags.NONE;
+						}
+
+					} else if ( $target.is("textarea") ) {
+						if ( $target.val().length === 0 ) {
+							flag = flags.NONE;
+						}
+					} else if ( $target.is("select") ) {
+					}
+				}
+			}
+
+			// keycode and flag mapping.
+			keyFlag[keyCodes.LEFT] = flags.LEFT;
+			keyFlag[keyCodes.RIGHT] = flags.RIGHT;
+			keyFlag[keyCodes.UP] = flags.UP;
+			keyFlag[keyCodes.DOWN] = flags.DOWN;
+
+			if ( !!(flag & keyFlag[keyCode]) ) {
+				return null;
+			}
+
+			switch( keyCode ) {
+			case keyCodes.UP:
+				top += dist;
+				break;
+			case keyCodes.DOWN:
+				top -= dist;
+				break;
+			case keyCodes.LEFT:
+				left += dist;
+				break;
+			case keyCodes.RIGHT:
+				left -= dist;
+				break;
+			}
+
+			return {
+				top: top,
+				left: left
+			};
 		}
 	});
 
