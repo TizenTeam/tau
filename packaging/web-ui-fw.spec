@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.72
+Version:    0.2.73
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -98,6 +98,11 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Fri Nov 22 2013 Hyeoncheol Choi <hc7.choi@samsung.com> 0.2.73
+	- Scrollview : modify to calculated rules in ensureElementIsVisible (P131030-03129)
+	- cleanup: delete stupid widget
+	- multimediaview: Fix the wrong layout with controlbar disappearing (P131120-02333)
+
 * Fri Nov 15 2013 Heeju Joo <heeju.joo@samsung.com> 0.2.72
 	- popupwindow: add exception handling when removed placeholder tag.(P131020-00096)
 	- Checkboxradio: event sync ( vmouseevent, ui-btn-down class)
