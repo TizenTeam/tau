@@ -1445,7 +1445,7 @@ define( [
 			$v.bind( "keydown", function ( e ) {
 				var $focusedElement;
 
-				if ( e.keyCode ==  9 || e.keyCode == 0 ) {
+				if ( e.keyCode ==  9 ) {
 					return false;
 				}
 
