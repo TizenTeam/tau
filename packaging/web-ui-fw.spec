@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.73
+Version:    0.2.74
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -98,6 +98,9 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Sat Nov 23 2013 Youmin Ha <youmin.ha@samsung.com> 0.2.74
+	- Fix bug that input preedit is not shown
+
 * Fri Nov 22 2013 Hyeoncheol Choi <hc7.choi@samsung.com> 0.2.73
 	- Scrollview : modify to calculated rules in ensureElementIsVisible (P131030-03129)
 	- cleanup: delete stupid widget
