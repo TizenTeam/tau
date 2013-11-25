@@ -32,13 +32,15 @@ module.exports = function (grunt) {
         systemPath.forEach(function (directory) {
             var file = path.join(directory, 'sdb');
             if (env.sdkPath === null && fileExists(file)) {
+                directory = directory.replace(/\\/g, '/').split('/');
+                directory.pop();
                 env.sdkPath = directory;
             }
         });
     }
-
-    grunt.config('env', env);
-    grunt.config('widget', getWidgetConfig());
+    if (env.sdkPath === null) {
+        grunt.fatal("ERROR: Path to Tizen SDK not found. Please use --tizen_sdk to set it manually".red, 1);
+    }
 
     grunt.initConfig({
         path: {
@@ -54,18 +56,34 @@ module.exports = function (grunt) {
                         cwd: '<%= path.build %>'
                     }
                 },
-                command: '<%= env.sdkPath %>/web-signing -p <%= env.signProfile %> -n'
+                command: '<%= env.sdkPath %>/tools/ide/bin/web-signing -p <%= env.signProfile %> -n'
             },
             pack: {
                 options: {
                     stdout: true
 
                 },
-                command: '<%= env.sdkPath %>/web-packaging -o -n <%= pkg.name %>.wgt <%= path.build %>'
+                command: '<%= env.sdkPath %>/tools/ide/bin/web-packaging -o -n <%= widget.name %>.wgt <%= path.build %>'
             }
         },
+
         tizen_configuration: {
-            tizenAppScriptDir: '<%= path.device %>'
+            tizenAppScriptDir: '<%= path.device %>',
+            sdbCmd: '<%= env.sdkPath %>/tools/sdb'
+        },
+        clean: {
+            build: {
+                src: ['<%= path.build %>/*']
+            }
+        },
+        copy: {
+            main: {
+                files: [
+                    {expand: true, src: ['src/**'], dest: 'build/'},
+                    {expand: true, src: ['lib/**'], dest: 'build/'},
+                    {expand: true, src: ['*', '!Gruntfile.js', '!package.json'], dest: 'build/', filter: 'isFile'}
+                ]
+            }
         },
         tizen: {
             push: {
@@ -78,13 +96,13 @@ module.exports = function (grunt) {
             install: {
                 action: 'install',
                 remoteFiles: {
-                    pattern: '<%= path.device %>/<%= pkg.name %>.wgt'
+                    pattern: '<%= path.device %>/<%= widget.name %>.wgt'
                 }
             },
             uninstall: {
                 action: 'uninstall',
                 remoteFiles: {
-                    pattern: '<%= path.device %>/<%= pkg.name %>.wgt'
+                    pattern: '<%= path.device %>/<%= widget.name %>.wgt'
                 }
             },
             start: {
@@ -104,7 +122,12 @@ module.exports = function (grunt) {
         }
     });
 
+    grunt.config('env', env);
+    grunt.config('widget', getWidgetConfig());
+
     grunt.registerTask('package', [
+        'clean:build',
+        'copy',
         'shell:sign',
         'shell:pack'
     ]);
