@@ -1564,6 +1564,17 @@ define( [
 						scroll_x,
 						scroll_y;
 
+					/*
+					 * When resize event handler called, view height was set '0' sometimes.
+					 * But, view height have to min-height that is same clip height.
+					 * If view height was set '0', this means clip do not ready.
+					 * So, we first used to setTimeout function but sometimes still return '0'
+					 * Below condition exception handling to this condition.
+					 */
+					if ( view_h === 0 ) {
+						return;
+					}
+
 					if ( !$( self.element ).is( ".ui-content" ) ) {
 						view_w = $v.width();
 						cw = $c.width();
