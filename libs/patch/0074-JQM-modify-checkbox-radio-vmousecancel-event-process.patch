@@ -1,0 +1,89 @@
+From 37c3f3dac5278db4eb8a799dc847458e64afa64c Mon Sep 17 00:00:00 2001
+From: Hyeoncheol Choi <hc7.choi@samsung.com>
+Date: Thu, 28 Nov 2013 15:01:03 +0900
+Subject: [PATCH] JQM modify checkbox radio vmousecancel event process routine
+
+Change-Id: I70bccc73be22247b0a9395045a778cde86760a8b
+---
+ .../js/widgets/forms/checkboxradio.js              |   55 +++++++++++---------
+ 1 file changed, 31 insertions(+), 24 deletions(-)
+
+diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/checkboxradio.js b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/checkboxradio.js
+index f9a4b98..c4933d6 100644
+--- a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/checkboxradio.js
++++ b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/checkboxradio.js
+@@ -94,33 +94,13 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
+ 					event.stopPropagation();
+ 				}
+ 			},
++
+ 			vmousecancel: function ( event ) {
+-				self.refresh();
++				self._changeChecked();
+ 			},
+-			vclick: function( event ) {
+-				if ( input.is( ":disabled" ) ) {
+-					event.preventDefault();
+-					return;
+-				}
+-
+-				self._cacheVals();
+ 
+-				input.prop( "checked", inputtype === "radio" && true || !input.prop( "checked" ) );
+-
+-				// trigger click handler's bound directly to the input as a substitute for
+-				// how label clicks behave normally in the browsers
+-				// TODO: it would be nice to let the browser's handle the clicks and pass them
+-				//       through to the associate input. we can swallow that click at the parent
+-				//       wrapper element level
+-				input.triggerHandler( 'click' );
+-
+-				// Input set for common radio buttons will contain all the radio
+-				// buttons, but will not for checkboxes. clearing the checked status
+-				// of other radios ensures the active button state is applied properly
+-				self._getInputSet().not( input ).prop( "checked", false );
+-
+-				self._updateAll();
+-				return false;
++			vclick: function( event ) {
++				self._changeChecked();
+ 			}
+ 		});
+ 
+@@ -158,6 +138,33 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
+ 		this.refresh();
+ 	},
+ 
++
++	_changeChecked: function( event ) {
++		var input = this.element,
++			inputtype = input[0].type;
++
++		if ( input.is( ":disabled" ) ) {
++			event.preventDefault();
++			return;
++		}
++
++		this._cacheVals();
++		input.prop( "checked", inputtype === "radio" && true || !input.prop( "checked" ) );
++		// trigger click handler's bound directly to the input as a substitute for
++		// how label clicks behave normally in the browsers
++		// TODO: it would be nice to let the browser's handle the clicks and pass them
++		//       through to the associate input. we can swallow that click at the parent
++		//       wrapper element level
++		input.triggerHandler( 'click' );
++		// Input set for common radio buttons will contain all the radio
++		// buttons, but will not for checkboxes. clearing the checked status
++		// of other radios ensures the active button state is applied properly
++		this._getInputSet().not( input ).prop( "checked", false );
++
++		this._updateAll();
++		return false;
++	},
++
+ 	_cacheVals: function() {
+ 		this._getInputSet().each(function() {
+ 			$( this ).jqmData( "cacheVal", this.checked );
+-- 
+1.7.9.5
+
