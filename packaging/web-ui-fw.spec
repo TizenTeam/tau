@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.74
+Version:    0.2.75
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -98,6 +98,14 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+
+* Fri Nov 29 2013 Hyeoncheol Choi <hc7.choi@samsung.com> 0.2.75
+	- Scrollview : add exception handling when resize (P131030-03129)
+	- JQM patch : modify checkboxradio vmousecancel event process routine(P131126-04253)
+	- Gallery: button disable bug fix
+	- Tizen-winset: modify ok text in popup (P131119-05953)
+	- datetimepicker: change behavior od long text in circular view (N_SE-43215)
+
 * Sat Nov 23 2013 Youmin Ha <youmin.ha@samsung.com> 0.2.74
 	- Fix bug that input preedit is not shown
 
