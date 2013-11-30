@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.75
+Version:    0.2.76
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -98,6 +98,8 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Sat Nov 30 2013 Hyeoncheol Choi <hc7.choi@samsung.com> 0.2.76
+	- JQM patch : add return false when vclick called in checkboxradio
 
 * Fri Nov 29 2013 Hyeoncheol Choi <hc7.choi@samsung.com> 0.2.75
 	- Scrollview : add exception handling when resize (P131030-03129)
