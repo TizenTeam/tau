@@ -733,6 +733,10 @@ define( [
 				elementPosition = null,
 				elementPositionTop = 0;
 
+			if ( element.is( "textarea" ) ) {
+				return;
+			}
+
 			if ( element ) {
 				$element = element.get ? element : $( element );
 				delta = ( $clip.height() / 2 ) - ( element.height() / 2 );
@@ -821,6 +825,44 @@ define( [
 			}
 		},
 
+		_setTextareaPosition: function ( element , event ) {
+			// textarea set position why ensure textarea visible
+			var $input = element,
+				input = $input.get( 0 ),
+				$c = this._$clip,
+				clipHeight = $c.height(),
+				dit = $input.offset().top - $c.offset().top,	// input's top position from clip
+				lh,	// input's line height for calculating caret's Y position
+				lhCSS = $input.css( "line-height" ),	// CSS value of line-height
+				cp,	// caret's position in px
+				dct;	// caret's top from clip
+
+			if ( lhCSS === "normal" ) {
+				lh = $input.css( "font-size" ).replace( "px" , "" ) * 1.23;
+			} else {
+				//css( "line-height" ) returns "normal" or actual value in px unit
+				lh = parseInt( lhCSS );
+			}
+
+			// current relative vertical caret position
+			// = estimated line number * line-height
+			cp = input.value.substr( 0, input.selectionStart ).split( "\n" ).length * lh;
+
+			dct = dit + cp;
+			if ( cp > $input.height() ){
+				// Overflow scroll in the input area. No need to move.
+				return;
+			} else if ( dct + lh < clipHeight && dct - lh >= 0 ) {
+				// caret position is shown on the clip. No need to move.
+				return;
+			} else {
+				// caret position doesn't be shown. Need to move.
+				this.scrollTo( 0 , - ( dit - this._sy + cp - lh ), 0 );
+				return;
+			}
+
+			return;
+		},
 		/**
 		 * Returns current scroll position {x,y}
 		 * @return {Object}
@@ -921,15 +963,6 @@ define( [
 			 */
 			this._is_inputbox = target.is(':input') ||
 					target.parents(':input').length > 0;
-
-			if ( this._is_inputbox ) {
-				target.one( "resize.scrollview", function () {
-					if ( ey > $c.height() ) {
-						self.scrollTo( -ex, self._sy - ey + $c.height(),
-							self.options.snapbackDuration );
-					}
-				});
-			}
 
 			if ( this.options.eventType === "mouse" && !this._is_inputbox && !this._is_button ) {
 				e.preventDefault();
@@ -1446,11 +1479,15 @@ define( [
 				var $focusedElement;
 
 				if ( e.keyCode ==  9 ) {
+					//keyCode '9' is tab key
 					return false;
 				}
 
 				$focusedElement = $c.find( ":input.ui-focus" );
 				if ( !$focusedElement.length ) {
+					return;
+				} else if ( $focusedElement.is( "textarea" ) ) {
+					self._setTextareaPosition( $focusedElement, e );
 					return;
 				}
 				self.ensureElementIsVisible( $focusedElement );
@@ -1462,12 +1499,16 @@ define( [
 				var $input;
 
 				if ( e.keyCode !== 9 ) {
+					//keyCode '9' is tab key
 					return;
 				}
 
 				/* Tab Key */
 				$input = $( this ).find( ":input.ui-focus" ).eq( 0 );
 				if ( !$input.length ) {
+					return;
+				} else if ( $input.is( "textarea" ) ) {
+					self._setTextareaPosition( $input, e );
 					return;
 				}
 				self.ensureElementIsVisible( $input );
@@ -1512,7 +1553,8 @@ define( [
 				}
 				var focused,
 					view_h = self._getViewHeight(),
-					clip_h = $c.height();
+					clip_h = $c.height(),
+					$input = $v.find( ":input.ui-focus" ).eq(0);
 
 				/*
 				 * If (clip_h >= view_h) need not to scroll bar
@@ -1537,11 +1579,14 @@ define( [
 
 				focused = $c.find(".ui-focus");
 
-				if ( focused ) {
-					focused.trigger("resize.scrollview");
+				if( $input.is( "textarea" ) ) {
+					// if input is textarea tag, scrollview scroll to position
+					// that user can show textarea carret position
+
+					setTimeout( function() {
+						self._setTextareaPosition( $input, e );
+					}, 500 );
 				}
-
-
 
 				/* manual calibration : focus element doesn't catch position when page has footer */
 				if ( focused.length ) {
