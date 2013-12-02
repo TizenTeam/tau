@@ -1372,6 +1372,88 @@ define( [
 			this._setOverflowIndicator();
 		},
 
+		refresh: function () {
+			var $c = this._$clip,
+				$v = this._$view,
+				focused,
+				view_h = this._getViewHeight(),
+				clip_h = $c.height(),
+				view_w = $v.outerWidth(),
+				cw = $c.outerWidth(),
+				view_h = this._getViewHeight(),
+				clip_h = $c.height(),
+				scroll_x,
+				scroll_y;
+
+			if ( !$( this.element ).parents( ".ui-page" ).hasClass( "ui-page-active" ) ) {
+				return;
+			}
+			/*
+			 * If (clip_h >= view_h) need not to scroll bar
+			 * else need to show scroll bar that how set it.
+			 */
+			if ( clip_h >= view_h ) {
+				// If Page don't need to scrollbar, scroll position that set before page need to initialization.
+				this.scrollTo(0,0,0);
+				this._hideScrollBars();
+			} else {
+				this._set_scrollbar_size();
+				this._setScrollPosition( this._sx, this._sy );
+			}
+
+			if ( $(".ui-page-active").get(0) !== $c.closest(".ui-page").get(0) ) {
+				return;
+			}
+
+			if ( !$c.height() || !view_h ) {
+				return;
+			}
+
+			focused = $c.find(".ui-focus");
+
+			/* manual calibration : focus element doesn't catch position when page has footer */
+			if ( focused.length ) {
+				var $elFooter = $c.siblings( ".ui-footer" ),
+					$elFooterHeight = $elFooter.length ? $elFooter.height() : 0,
+					focusHeight = focused.offset().top,
+					$cHeight = $c.height();
+
+				if ( focusHeight > $cHeight - $elFooterHeight ) {
+					this.scrollTo( 0, this._sy - focusHeight + $cHeight - $elFooterHeight, this.options.snapbackDuration );
+				}
+			}
+
+			/*
+			 * When resize event handler called, view height was set '0' sometimes.
+			 * But, view height have to min-height that is same clip height.
+			 * If view height was set '0', this means clip do not ready.
+			 * So, we first used to setTimeout function but sometimes still return '0'
+			 * Below condition exception handling to this condition.
+			 */
+			if ( view_h === 0 ) {
+				return;
+			}
+
+			if ( !$( this.element ).is( ".ui-content" ) ) {
+				view_w = $v.width();
+				cw = $c.width();
+			}
+			if ( this._sy < clip_h - view_h ) {
+				scroll_y = clip_h - view_h;
+				scroll_x = 0;
+			}
+			if ( this._sx < cw - view_w ) {
+				scroll_x = cw - view_w;
+				scroll_y = scroll_y || 0;
+			}
+			if (scroll_x || scroll_y) {
+				this.scrollTo( scroll_x, scroll_y, this.options.overshootDuration );
+			}
+
+			this._view_height = view_h;
+			this._clipHeight = this._$clip.height();
+		},
+
 		/**
 		 * Bind events
 		 * @private
@@ -1518,127 +1600,20 @@ define( [
 			});
 
 			$c.bind( "updatelayout", function ( e ) {
-				var sy,
-					vh,
-					view_h = self._getViewHeight();
-
-				if ( !$c.height() || !view_h ) {
-					self.scrollTo( 0, 0, 0 );
-					return;
-				}
-
-				sy = $c.height() - view_h;
-				vh = view_h - self._view_height;
-
-				self._view_height = view_h;
-
-				if ( vh == 0 || vh > $c.height() / 2 ) {
-					return;
-				}
-
-				if ( sy > 0 ) {
-					self.scrollTo( 0, 0, 0 );
-				} else if ( self._sy - sy <= -vh ) {
-					self.scrollTo( 0, self._sy,
-						self.options.snapbackDuration );
-				} else if ( self._sy - sy <= vh + self.options.moveThreshold ) {
-					self.scrollTo( 0, sy,
-						self.options.snapbackDuration );
-				}
+				self.refresh();
 			});
 
 			$( window ).bind( "resize", function ( e ) {
-				if ( !$( self.element ).parents( ".ui-page" ).hasClass( "ui-page-active" ) ) {
-					return;
-				}
-				var focused,
-					view_h = self._getViewHeight(),
-					clip_h = $c.height(),
-					$input = $v.find( ":input.ui-focus" ).eq(0);
+				var $input = $v.find( ":input.ui-focus" ).eq(0);
 
-				/*
-				 * If (clip_h >= view_h) need not to scroll bar
-				 * else need to show scroll bar that how set it.
-				 */
-				if ( clip_h >= view_h ) {
-					// If Page don't need to scrollbar, scroll position that set before page need to initialization.
-					self.scrollTo(0,0,0);
-					self._hideScrollBars();
-				} else {
-					self._set_scrollbar_size();
-					self._setScrollPosition( self._sx, self._sy );
-				}
-
-				if ( $(".ui-page-active").get(0) !== $c.closest(".ui-page").get(0) ) {
-					return;
-				}
-
-				if ( !$c.height() || !view_h ) {
-					return;
-				}
-
-				focused = $c.find(".ui-focus");
+				self.refresh();
 
 				if( $input.is( "textarea" ) ) {
 					// if input is textarea tag, scrollview scroll to position
 					// that user can show textarea carret position
 
-					setTimeout( function() {
-						self._setTextareaPosition( $input, e );
-					}, 500 );
+					self._setTextareaPosition( $input, e );
 				}
-
-				/* manual calibration : focus element doesn't catch position when page has footer */
-				if ( focused.length ) {
-					var $elFooter = $c.siblings( ".ui-footer" ),
-						$elFooterHeight = $elFooter.length ? $elFooter.height() : 0,
-						focusHeight = focused.offset().top,
-						$cHeight = $c.height();
-
-					if ( focusHeight > $cHeight - $elFooterHeight ) {
-						self.scrollTo( 0, self._sy - focusHeight + $cHeight - $elFooterHeight, self.options.snapbackDuration );
-					}
-				}
-
-				/* calibration - after triggered throttledresize */
-				setTimeout( function () {
-					var view_w = $v.outerWidth(),
-						cw = $c.outerWidth(),
-						view_h = self._getViewHeight(),
-						clip_h = $c.height(),
-						scroll_x,
-						scroll_y;
-
-					/*
-					 * When resize event handler called, view height was set '0' sometimes.
-					 * But, view height have to min-height that is same clip height.
-					 * If view height was set '0', this means clip do not ready.
-					 * So, we first used to setTimeout function but sometimes still return '0'
-					 * Below condition exception handling to this condition.
-					 */
-					if ( view_h === 0 ) {
-						return;
-					}
-
-					if ( !$( self.element ).is( ".ui-content" ) ) {
-						view_w = $v.width();
-						cw = $c.width();
-					}
-					if ( self._sy < clip_h - view_h ) {
-						scroll_y = clip_h - view_h;
-						scroll_x = 0;
-					}
-					if ( self._sx < cw - view_w ) {
-						scroll_x = cw - view_w;
-						scroll_y = scroll_y || 0;
-					}
-					if (scroll_x || scroll_y) {
-						self.scrollTo( scroll_x, scroll_y, self.options.overshootDuration );
-					}
-				}, 260 );
-
-				self._view_height = view_h;
-				self._clipHeight = self._$clip.height();
 			});
 
 			$( window ).bind( "vmouseout", function ( e ) {
