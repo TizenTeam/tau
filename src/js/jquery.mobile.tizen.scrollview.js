@@ -729,6 +729,7 @@ define( [
 			} else {
 				this._scrollTo( x, y, duration );
 			}
+			this._hideOverflowIndicator();
 		},
 
 		/**
