@@ -785,25 +785,34 @@ define( [
 				availableWidth = isHorizontal ?
 									( width - spliterSize ) :
 									( height - spliterSize ),
-				sum = 0;
+				sum = 0,
+				i;
 
 			moveTarget.removeClass( "ui-spliter-active" );
 
-			// ratio calculation
-			$panes.each( function ( i ) {
-				var $pane = $( this ),
-					paneWidth = isHorizontal ? $pane.width() : $pane.height();
+			for( i = 0; i < $panes.length; i++ ) {
+				var $pane,
+					paneWidth;
 
+				$pane = $( $panes[i] );
+				paneWidth = isHorizontal ? $pane.width() : $pane.height();
+
+				// Get sum for ratio calculation
 				sum += paneWidth;
-			});
 
-			$panes.each( function ( i ) {
-				var $pane = $( this ),
-					paneWidth = isHorizontal ? $pane.width() : $pane.height();
+				// Optimization: Remember width here to calculate ratio later
+				self.options.ratio[ i ] = paneWidth;
 
-				self.options.ratio[ i ] = paneWidth / sum;
-			});
-
+				// Call refresh for all scrollview panes
+				$pane.find( ".ui-scrollview-clip" )
+					.scrollview( "refresh" );
+			}
+			if( sum ) {	// Prevent DivideByZero. if sum==0, each ratio will be 0 already.
+				for( i = 0; i < self.options.ratio.length; i++ ) {
+					// Actual ratio calculation
+					self.options.ratio[ i ] /= sum;
+				}
+			}
 			self.moveData = null;
 		},
 
