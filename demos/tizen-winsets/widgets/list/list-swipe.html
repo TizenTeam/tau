@@ -7,13 +7,30 @@
 			$("#sw").swipe("close");
 		}
 
+		function updateBtnStatus() {
+			var sw = $( "#sw" );
+			if( sw.swipe( "opened" ) ) {
+				$( "#swipe_btn_open" ).addClass( "ui-disabled" );
+				$( "#swipe_btn_close" ).removeClass( "ui-disabled" );
+			} else {
+				$( "#swipe_btn_open" ).removeClass( "ui-disabled" );
+				$( "#swipe_btn_close" ).addClass( "ui-disabled" );
+			}
+		}
+
 		$("#covertest").bind("animationstart", function (ev) {
 			console.log("Swipe cover's animation is start.");
 		});
 
 		$("#covertest").bind("animationend", function (ev) {
+			updateBtnStatus();
 			console.log("Swipe cover's animation is complete.");
 		});
+
+		$( "#genlist-swipe" ).on( "pageshow" , function() {
+			updateBtnStatus();
+		} );
+
 
 
 	</script>
@@ -106,10 +123,10 @@
 		</ul>
 	</div>
 	<div data-role="footer">
-		<a data-role="button" data-inline="true" onclick="openSwipe()">
+		<a data-role="button" id="swipe_btn_open" data-inline="true" onclick="openSwipe()">
 		Open
 		</a>
-		<a data-role="button" data-inline="true" onclick="closeSwipe()">
+		<a data-role="button" id="swipe_btn_close" data-inline="true" onclick="closeSwipe()">
 		Close
 		</a>
 	</div>
