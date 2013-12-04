@@ -1,0 +1,210 @@
+/* FIXME : developer can control ratio of main content and sub content.
+		   Currently, It is fixed with 7:3.
+*/
+
+html, body {	margin: 0;	padding: 0;	}
+body {
+	background-color: black;
+	text-align: center;
+	color: white;
+	overflow: hidden;
+}
+h1, h2, h3, h4, h5, h6, p { margin: 0; font-family: Sans-Serif; }
+fieldset,img { border: 0; }
+
+.container, .header, .content, .main, .sub {	height:100%;	width: 100%;	}
+
+.header {	height: 10%;	}
+.header + .content {	height: 90%;	}
+
+.main {
+	height: 70%;
+	border-bottom: 1px solid gray;
+}
+.sub {
+	height: 30%;
+}
+.current-weather {
+	width: 30%;
+	float: left;
+	margin-left: 18%;
+	margin-top: 12%;
+}
+.current-degree {
+	font-size: 3em;
+	width: 18%;
+	float: left;
+	margin-top: 18%;
+}
+.current-temp {
+	width: 13%;
+	float: left;
+	margin-top: 16%;
+}
+.differ {
+	position: absolute;
+	font-size: 1.5em;
+	top: 55%;
+	right: 16%;
+}
+.subWeather1 {
+	width: 33%;
+	height: 81%;
+	float: left;
+	border-right: 1px solid gray;
+	margin-top: 3%;
+}
+.subWeather2 {
+	width: 33%;
+	height: 81%;
+	float: left;
+	margin-top: 3%;
+}
+.subWeather3 {
+	width: 33%;
+	height: 81%;
+	float: left;
+	border-left: 1px solid gray;
+	margin-top: 3%;
+}
+.date {
+	margin-bottom: 5px;
+}
+.high_temp,
+.low_temp {
+	width: 40%;
+}
+.humid {
+	width: 45%;
+}
+
+/* landscape : 320 x 160 */
+@media all and (min-width: 161px) and (max-height: 160px)
+/* @media all and (orientation: landscape)*/
+{
+	.header {
+		margin-bottom: 5%;
+	}
+	.main {
+		float: right;
+		width: 69%;
+		height: 81%;
+		display: inline-block;
+		border-bottom: 0;
+		border-left: 1px solid gray;
+	}
+	.sub {
+		float: left;
+		width: 30%;
+		height: 81%;
+		display: inline-block;
+	}
+	.current-weather {
+		width: 40%;
+		float: left;
+		margin-left: 10%;
+		margin-top: 3%;
+	}
+	.current-degree {
+		width: 23%;
+		margin-top: 10%;
+	}
+	.current-temp {
+		width: 17%;
+		margin-top: 8%;
+	}
+	.subWeather1 {
+		width: 97%;
+		height: 80%;
+		border: 0;
+		float: left;
+		margin-top: 10%;
+	}
+	.differ {
+		font-size: 1.3em;
+		top: 78%;
+		right: 2%;
+	}
+	.date {
+		margin-bottom: 10px;
+	}
+	.todayT,
+	.todayH {
+		margin-bottom: 5px;
+	}
+	.high_temp,
+	.low_temp {
+		width: 45%;
+	}
+	.humid {
+		width: 50%;
+	}
+	.subWeather2 {
+		display: none;
+	}
+	.subWeather3 {
+		display: none;
+	}
+}
+
+/* portrait : 160 x 320 */
+@media all and (max-width: 160px) and (min-height:161px)
+/*@media all and (orientation: portrait) */
+{
+	.main {
+		height: 70%;
+	}
+	.sub {
+		height: 30%;
+	}
+	.current-weather {
+		margin-left: 2%;
+		width: 40%;
+		margin-top: 22%;
+	}
+	.current-degree {
+		width: 30%;
+		margin-top: 28%;
+	}
+	.current-temp {
+		width: 25%;
+		margin-top: 25%;
+	}
+	.differ {
+		font-size: 1em;
+		top: 60%;
+		right: 7%;
+	}
+	.subWeather1 {
+		width: 32%;
+		height: 81%;
+		float: left;
+		border-right: 1px solid gray;
+		margin-top: 6%;
+	}
+	.subWeather2 {
+		width: 33%;
+		height: 81%;
+		float: left;
+		margin-top: 6%;
+	}
+	.subWeather3 {
+		width: 32%;
+		height: 81%;
+		float: left;
+		border-left: 1px solid gray;
+		margin-top: 6%;
+	}
+	.date {
+		font-size: .8em;
+		margin-top: 5%;
+		margin-bottom: 5%;
+	}
+	.high_temp,
+	.low_temp {
+		width: 55%;
+	}
+	.humid {
+		width: 55%;
+	}
+}
