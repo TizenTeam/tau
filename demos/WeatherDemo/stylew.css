@@ -1,0 +1,294 @@
+html, body {	margin: 0;	padding: 0;	 	background-color: #e3e3e3;}
+body {
+	background-size: 100% 100%;
+	font-family: sans-serif;
+}
+ul { margin: 0; padding: 0; }
+ul li { list-style: none; }
+.container {
+	width: 940px;
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+.relative { position: relative; }
+.height70 { height: 70%; }
+.height60 { height: 60%; }
+.height55 { height: 55%; }
+.height50 { height: 50%; }
+.height45 { height: 45%; }
+.height40 { height: 40%; }
+.height30 { height: 30%; }
+.height20 { height: 20%; }
+.height10 { height: 10%; }
+.mainheight { height: 55%; }
+
+
+.boxshadowborder { box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33); }
+.innerpadding5 {
+	padding: 5px;
+}
+
+.container .first, .container .third {
+	background-color: white;
+}
+
+h1,h2,h3,h4,h5,h6 {color: #717171;  }
+.guide { color: #717171; }
+.view {
+	position: relative;
+	float: left;
+	width: 100%;
+	padding-left: 50px;
+}
+.view .inner{
+
+	float: left;
+}
+.view .condi{
+	float: left;as
+	width: 130px;
+}
+.backgroundwhite { 	background-color: white; }
+.view .tempe{
+	font-size: 85px;
+	margin-top : -20px;
+	position : relative;
+	float: left;
+	width: 40px;
+	margin-top: 10px;
+}
+.view .cel {
+	position: relative;
+	left: 10px;
+	float: left;
+	margin-top: 10px;
+}
+
+.textright { text-align: right }
+.leftpadding20 { padding-left: 20px; }
+.leftmargin20 { margin-left: 20px; }
+.top20 { top: 20px; }
+.width33 { text-align:center;	width: 33%; float: left;}
+.width33 img { width: 70%; }
+.container .first, .container .second, .container .third { float: left;}
+.headline { 	width: 100%; 	font-weight: bold;}
+
+
+.map img {
+	height: 80%;
+	width: 70%;
+	padding-left: 65px;
+	text-align: center;
+}
+.nowpic img {
+	height: 75%;
+	width: 80%;
+	padding-left: 40px;
+}
+/* W device : 320x320 ****************************************/
+@media only screen and (max-device-width: 320px) {
+    body, html { overflow:hidden; }
+	h2 {
+		margin: 0;
+		padding-left: 20px;
+		padding-top: 5px;
+		padding-bottom: 5px;
+	}
+	.boxshadowborder {
+		box-shadow: none;
+	}
+	.guide {
+		padding-left: 20px;
+	}
+	.innerpadding5 {
+		padding: 0;
+	}
+	.leftmargin20 {
+		margin-left: 0;
+	}
+	.container {
+		width: 2570px;
+		height: 320px;
+		margin: 0;
+	}
+	.container .first {
+		width: 640px;
+		height: 320px;
+		float: left;
+	}
+	.container .first .height60 {
+		width: 320px;
+		height: 320px;
+		float: left;
+	}
+	.container .first .height60 .innerpadding5 {
+		width: 320px;
+		height: 320px;
+		padding: 0;
+	}
+	.view .condi {
+		width: 120px;
+	}
+	.map img {
+		padding-left: 30px;
+	}
+	.container .first .height30 {
+		width: 320px;
+		height: 320px;
+		float: left;
+	}
+	.container .second {
+		width: 640px;
+		height: 320px;
+		float: left;
+		padding-left: 0;
+	}
+	.container .second .mainheight {
+		width: 320px;
+		height: 320px;
+		float: left;
+	}
+	.container .second .subheight {
+		width: 320px;
+		height: 320px;
+		float: left;
+		top: 0;
+	}
+	.container .third {
+		width: 1290px;
+		height: 320px;
+		float: left;
+	}
+	.box {
+		width: 320px;
+		height: 260px;
+		float: left;
+	}
+	.headline {
+		padding-left: 5px;
+	}
+	.box p {
+		margin-left: 5px;
+		margin-right: 5px;
+	}
+
+}
+
+/* mobile portrait ********************************************/
+/* REDWOOD device-width: 720px, Note3 stock browser device-width: 360px */
+@media screen and (min-device-width:321px) and (max-device-width:720px) and (orientation : portrait) {
+	html, body{ overflow-x:hidden; }
+	.container {
+		width: 340px;
+	}
+	.container .first {
+		width: 100%;
+	}
+	.container .second {
+		width: 100%;
+		margin-top: 10px;
+	}
+	.container .third {
+		width: 100%;
+		margin-top: 40px;
+	}
+	.leftpadding20 {
+		padding-left: 0;
+	}
+	.leftmargin20 { margin-left: 0px; }
+}
+
+/* mobile landscape ********************************************/
+/* REDWOOD device-width: 1280px, Note3 stock browser device-width: 700px??<- fix me */
+@media screen and (min-device-width:600px) and (max-device-width:1280px) and (orientation : landscape)  {
+	.container {
+		width: 650px;
+	}
+	.container .first {
+		width: 47%;
+		height: 180%;
+		float :left;
+	}
+	.container .second {
+		width: 45%;
+		margin-left: 10px;
+		height: 180%;
+		float :left;
+	}
+	.subheight { height: 42%; }
+	.third {
+		margin-top: 25px;
+		width: 98% ! important;
+	}
+	.leftmargin20 { margin-left: 2px; }
+	.nowpic img { height: 73%; 	}
+	.map img { height: 78%; 	}
+	.box {
+		width: 47%;
+		float: left;
+		margin-left: 10px;
+	}
+}
+
+/* Tab portrait ********************************************/
+/* Tab device-width: 800 */
+@media screen and (min-device-width:800px) and (max-device-width:1279px) and (orientation : portrait) {
+	.container {
+		width: 750px;
+	}
+	.container .first {
+		width: 47%;
+		height: 50%;
+		float :left;
+	}
+	.container .second {
+		width: 49%;
+		margin-left: 15px;
+		height: 50%;
+		float :left;
+	}
+	.subheight { height: 42%; }
+	.third {
+		margin-top: 25px;
+		width: 98% ! important;
+	}
+	.leftmargin20 { margin-left: 2px; }
+	.leftpadding20 { padding: 0;}
+	.nowpic img { height: 73%; 	}
+	.map img { height: 78%; 	}
+	.box {
+		width: 47%;
+		float: left;
+		margin-left: 10px;
+	}
+}
+
+/* Tab landscape ********************************************/
+/* Tab device-width: 1280 */
+@media screen and (min-device-width:1281px) and (orientation : landscape) {
+	.container {
+		width: 1200px;
+	}
+	.container .first {
+		width: 30%;
+	}
+	.container .second {
+		width: 35%;
+		margin-left: 20px;
+	}
+	.container .third {
+		width: 30%;
+	}
+	.labelw {
+		width: 250px;
+		display: inline-block;
+	}
+	.nowpic img { height: 71%; 	}
+	.subheight { height: 35%; }
+	.box { width: 100%; }
+	.notland { display: none; }
+}
+
+
