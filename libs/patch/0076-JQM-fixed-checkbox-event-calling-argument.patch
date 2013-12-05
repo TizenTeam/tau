@@ -1,0 +1,31 @@
+From 731a24d661e4056af96874946f3223d25e424510 Mon Sep 17 00:00:00 2001
+From: Hyeoncheol Choi <hc7.choi@samsung.com>
+Date: Wed, 4 Dec 2013 20:02:28 +0900
+Subject: [PATCH] JQM fixed checkbox event calling argument
+
+Change-Id: I3902f3d2fb56df4d104f129833ceda569ca23598
+---
+ .../js/widgets/forms/checkboxradio.js              |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/checkboxradio.js b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/checkboxradio.js
+index add7bf7..1cdb7d8 100644
+--- a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/checkboxradio.js
++++ b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/checkboxradio.js
+@@ -96,11 +96,11 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
+ 			},
+ 
+ 			vmousecancel: function ( event ) {
+-				self._changeChecked();
++				self._changeChecked( event );
+ 			},
+ 
+ 			vclick: function( event ) {
+-				self._changeChecked();
++				self._changeChecked( event );
+ 				return false;
+ 			}
+ 		});
+-- 
+1.7.9.5
+
