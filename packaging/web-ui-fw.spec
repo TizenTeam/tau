@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.76
+Version:    0.2.77
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -98,6 +98,10 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Thu Dec 05 2013 Hyeoncheol Choi <hc7.choi@samsung.com> 0.2.77
+	- JQM patch : fixed checkbox event calling argument
+	- Add dev tools to make merged js file without build.
+
 * Sat Nov 30 2013 Hyeoncheol Choi <hc7.choi@samsung.com> 0.2.76
 	- JQM patch : add return false when vclick called in checkboxradio
 
