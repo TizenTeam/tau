@@ -1603,7 +1603,7 @@ define( [
 				self.refresh();
 			});
 
-			$( window ).bind( "resize", function ( e ) {
+			$( window ).bind( "throttledresize", function ( e ) {
 				var $input = $v.find( ":input.ui-focus" ).eq(0);
 
 				self.refresh( );
@@ -1611,8 +1611,9 @@ define( [
 				if( $input.is( "textarea" ) ) {
 					// if input is textarea tag, scrollview scroll to position
 					// that user can show textarea carret position
-
-					self._setTextareaPosition( $input, e );
+					setTimeout( function() {
+						self._setTextareaPosition( $input, e );
+					}, 500 );
 				}
 			});
 
