@@ -815,7 +815,7 @@ define( [
 			}
 		},
 
-		_setTextareaPosition: function ( element , event ) {
+		_setTextareaPosition: function ( element ) {
 			// textarea set position why ensure textarea visible
 			var $input = element,
 				input = $input.get( 0 ),
@@ -1362,6 +1362,10 @@ define( [
 			this._setOverflowIndicator();
 		},
 
+		_isVisible: function ( ) {
+			return $( this.element ).parents( ".ui-page" ).hasClass( "ui-page-active" );
+		},
+
 		refresh: function () {
 			var $c = this._$clip,
 				$v = this._$view,
@@ -1375,7 +1379,7 @@ define( [
 				scroll_x,
 				scroll_y;
 
-			if ( !$( this.element ).parents( ".ui-page" ).hasClass( "ui-page-active" ) ) {
+			if ( !this._isVisible() ) {
 				return;
 			}
 			/*
@@ -1546,7 +1550,7 @@ define( [
 				var $target = $( e.target );
 				if ( moveFocusKeycode.indexOf( e.keyCode ) === -1 && $target.is( ":input" ) ) {
 					if ( $target.is( "textarea" ) ) {
-						self._setTextareaPosition( $target, e );
+						self._setTextareaPosition( $target );
 						return;
 					}
 					self.ensureElementIsVisible( $target );
@@ -1589,7 +1593,7 @@ define( [
 						var $target = $( e.target );
 						if ( movedFocusByKeyboard ) {
 							if ( $target.is( "textarea" ) ) {
-								self._setTextareaPosition( $target, e );
+								self._setTextareaPosition( $target );
 							} else {
 								self.ensureElementIsVisible( $target );
 							}
@@ -1604,17 +1608,26 @@ define( [
 			});
 
 			$( window ).bind( "throttledresize", function ( e ) {
-				var $input = $v.find( ":input.ui-focus" ).eq(0);
+				var $input;
 
-				self.refresh( );
-
-				if( $input.is( "textarea" ) ) {
-					// if input is textarea tag, scrollview scroll to position
-					// that user can show textarea carret position
-					setTimeout( function() {
-						self._setTextareaPosition( $input, e );
-					}, 500 );
+				if ( ! self._isVisible() ) {
+					return;
 				}
+
+				$input = $v.find( ":input.ui-focus" ).eq(0);
+
+				setTimeout ( function() {
+					self.refresh( );
+					if( $input.is( "textarea" ) ) {
+						// if input is textarea tag, scrollview scroll to position
+						// that user can show textarea carret position
+						setTimeout( function() {
+							self._setTextareaPosition( $input );
+						}, 500 );
+					} else if ( $input.length ) {
+						self.ensureElementIsVisible( $input );
+					}
+				}, 250 );
 			});
 
 			$( window ).bind( "vmouseout", function ( e ) {
