@@ -1404,11 +1404,11 @@ define( [
 			if ( focused.length ) {
 				var $elFooter = $c.siblings( ".ui-footer" ),
 					$elFooterHeight = $elFooter.length ? $elFooter.height() : 0,
-					focusHeight = focused.offset().top,
+					dft = focused.offset().top - $c.offset().top, // focused element delta top from clip top
 					$cHeight = $c.height();
 
-				if ( focusHeight > $cHeight - $elFooterHeight ) {
-					this.scrollTo( 0, this._sy - focusHeight + $cHeight - $elFooterHeight, this.options.snapbackDuration );
+				if ( dft > $cHeight - $elFooterHeight ) {
+					this.scrollTo( 0, this._sy - dft + $cHeight - $elFooterHeight, this.options.snapbackDuration );
 				}
 			}
 
