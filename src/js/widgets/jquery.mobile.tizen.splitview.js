@@ -804,8 +804,10 @@ define( [
 				self.options.ratio[ i ] = paneWidth;
 
 				// Call refresh for all scrollview panes
-				$pane.find( ".ui-scrollview-clip" )
-					.scrollview( "refresh" );
+				if ( $pane.hasClass( "ui-scrollview-clip" ) ) {
+					$pane.scrollview( "refresh" );
+				}
+				$pane.find( ".ui-scrollview-clip" ).scrollview( "refresh" );
 			}
 			if( sum ) {	// Prevent DivideByZero. if sum==0, each ratio will be 0 already.
 				for( i = 0; i < self.options.ratio.length; i++ ) {
