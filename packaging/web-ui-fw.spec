@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.77
+Version:    0.2.78
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -98,6 +98,28 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+
+* Fri Dec 06 2013 Hyeoncheol Choi <hc7.choi@samsung.com> 0.2.78
+	- Scrollview : fixed scrollview reposition bugs
+	- Remove input scrollTop adjust routine
+	- winset: listvi - add button disabled status when it has no item on list.(P131205-02495)
+	- Tokentextarea: Remove unnecessary demos
+	- Tokentextarea: Set margin value whether using scrollview or not
+	- Scorllview : textarea repositon called after 500ms timeout
+	- Scrollview : add hideOverflowIndicator called in scrollTo(P131125-04191)
+	- Scrollview : modify reposition routine when footer exist(P131204-07568)
+	- Splitview : add scrollview refresh call when pane has scrollview clip
+	- demo: Disable API test button status (P131203-05244)
+	- Focus UI: Remove unnecessary tabindex.
+	- Popup: modify popup hide style.
+	- Popup patch fix to find input element in popup
+	- Support hostKeyboard Enter key on Tizen form elements.
+	- Scrollview : add support key navigation.
+	- JQM patch: modify checkboxradio vmousecancel event patches (P131205-07096)
+	- splitview: Call refresh for all children scrollview clip (P131121-03957)
+	- Scrollview : make refresh method in scrollview
+	- scrollview : add resize operation in which textarea has focus(P131129-05497)
+
 * Thu Dec 05 2013 Hyeoncheol Choi <hc7.choi@samsung.com> 0.2.77
 	- JQM patch : fixed checkbox event calling argument
 	- Add dev tools to make merged js file without build.
