@@ -1,0 +1,78 @@
+From b0a3340c30d296aab7de33da0edf6b9b0b589bf1 Mon Sep 17 00:00:00 2001
+From: "hk0713.cho" <hk0713.cho@samsung.com>
+Date: Wed, 4 Dec 2013 17:48:03 +0900
+Subject: [PATCH] JQM Remove unnecessary tabindex.
+
+- header title and sub title
+- listview divider and list items that do not have A tags.
+- add ".ui-divider-btn" style when divider has a tag.
+---
+ libs/js/jquery-mobile-1.2.0/js/widgets/listview.js |   14 ++++++++------
+ .../js/widgets/page.sections.js                    |    5 ++---
+ 2 files changed, 10 insertions(+), 9 deletions(-)
+
+diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/listview.js b/libs/js/jquery-mobile-1.2.0/js/widgets/listview.js
+index 33dc0bd..bc96f6a 100644
+--- a/libs/js/jquery-mobile-1.2.0/js/widgets/listview.js
++++ b/libs/js/jquery-mobile-1.2.0/js/widgets/listview.js
+@@ -232,8 +232,7 @@ $.widget( "mobile.listview", $.mobile.widget, {
+ 			if ( create || !item.hasClass( "ui-li" ) ) {
+ 				itemTheme = $.mobile.getAttrFixed( item[0], "data-" + $.mobile.ns + "theme" ) || o.theme;
+ 				a = this._getChildrenByTagName( item[ 0 ], "a", "A" ).attr( {
+-					"role": "",
+-					"tabindex": "0"
++					"role": ""
+ 				});
+ 				var isDivider = ( $.mobile.getAttrFixed( item[0], "data-" + $.mobile.ns + "role" ) === "list-divider" );
+ 
+@@ -307,9 +306,13 @@ $.widget( "mobile.listview", $.mobile.widget, {
+ 				} else if ( isDivider ) {
+ 
+ 					itemClass += " ui-li-divider ui-bar-" + dividertheme;
+-					item.attr( { "role": "heading", "tabindex": "0" } );
++					if(a.length) {
++						itemClass += " ui-divider-btn";
++						a.first().removeClass( "ui-link" ).addClass( "ui-link-inherit" );
++					}
++					item.attr( { "role": "heading" } );
+ 
+-					if ( ol ) {	
++					if ( ol ) {
+ 						//reset counter when a divider heading is encountered
+ 						if ( start || start === 0 ) {
+ 							if ( !jsCount ) {
+@@ -320,12 +323,11 @@ $.widget( "mobile.listview", $.mobile.widget, {
+ 							}
+ 						} else if ( jsCount ) {
+ 								counter = 1;
+-						}	
++						}
+ 					}
+ 				
+ 				} else {
+ 					itemClass += " ui-li-static ui-btn-up-" + itemTheme;
+-					item.attr( "tabindex", "0" );
+ 				}
+ 			}
+ 
+diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/page.sections.js b/libs/js/jquery-mobile-1.2.0/js/widgets/page.sections.js
+index 352355e..a49ee2d 100644
+--- a/libs/js/jquery-mobile-1.2.0/js/widgets/page.sections.js
++++ b/libs/js/jquery-mobile-1.2.0/js/widgets/page.sections.js
+@@ -96,11 +96,10 @@ $.mobile.$document.bind( "pagecreate", function( e ) {
+ 				.attr({
+ 					"role": "heading",
+ 					"aria-level": "1",
+-					"aria-label": "title",
+-					"tabindex": "0"
++					"aria-label": "title"
+ 				});
+ 
+-			$( ".ui-title-text-sub" ).attr( { "tabindex": "0", "aria-label": "subtitle" } );
++			$( ".ui-title-text-sub" ).attr( { "aria-label": "subtitle" } );
+ 
+ 		} else if ( role === "content" ) {
+ 			if ( contentTheme ) {
+-- 
+1.7.9.5
+

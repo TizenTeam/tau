@@ -183,7 +183,17 @@ define( [
 			 * Determines if we allow scroll jumps
 			 * @type {boolean}
 			 */
-			scrollJump:        false
+			scrollJump:        false,
+
+			/**
+			 * Determines if we scroll when element to receive focus is hidden.
+			 */
+			scrollToFocusEnable:     true,
+
+			/**
+			 * Scroll Distance when arrow key pressed
+			 */
+			scrollDistance: 30
 		},
 
 		/**
@@ -719,6 +729,7 @@ define( [
 			} else {
 				this._scrollTo( x, y, duration );
 			}
+			this._hideOverflowIndicator();
 		},
 
 		/**
@@ -733,13 +744,17 @@ define( [
 				elementPosition = null,
 				elementPositionTop = 0;
 
+			if ( element.is( "textarea" ) ) {
+				return;
+			}
+
 			if ( element ) {
 				$element = element.get ? element : $( element );
-				delta = ( $clip.height() / 2 ) - ( element.height() / 2 );
-				elementPosition = element.position();
+				delta = ( $clip.height() / 2 ) - ( $element.height() / 2 );
+				elementPosition = $element.position();
 				elementPositionTop = elementPosition ? elementPosition.top : 0;
 
-				element.parentsUntil( $view ).each( function () {
+				$element.parentsUntil( $view ).each( function () {
 					var $parent = $( this );
 					elementPositionTop += ( $parent.position().top + parseFloat( $parent.css( "marginTop" ) ) + parseFloat( $parent.css( "paddingTop" ) ) );
 				});
@@ -758,24 +773,13 @@ define( [
 				$clip = this._$clip,
 				clipTop = 0,
 				clipBottom = 0,
+				clipHeight = 0,
 				elementHeight = 0,
-				elementOffset = null,
 				elementTop = 0,
 				elementBottom = 0,
 				elementFits = 0,
 				$anchor = null,
-				anchorPosition = 0,
-				findPositionAnchor = function ( input ) {
-					var $label,
-						id = input.attr( "id" );
-					if ( input.is( ":input" ) && id ) {
-						$label = input.siblings( "label[for=" + id + "]" );
-						if ( $label.length > 0 ) {
-							return $label.eq( 0 );
-						}
-					}
-					return input;
-				};
+				anchorPosition = 0;
 
 			if ( element ) {
 				/*
@@ -785,13 +789,12 @@ define( [
 				 * 3) ~Bottom is calculated only based clip's top
 				 */
 				$element = element.get ? element : $( element );
-				clipTop = $clip.offset().top;
+				elementHeight = $element.outerHeight(true);
+				elementTop = $element.offset().top;
+				elementBottom = elementTop + elementHeight;
 				clipHeight = $clip.height();
-				clipBottom = clipHeight;
-				elementHeight = $element.height();
-				elementOffset = $element.offset();
-				elementTop = elementOffset ? elementOffset.top : 0;
-				elementBottom = elementTop - clipTop + elementHeight;
+				clipTop = $clip.offset().top;
+				clipBottom = clipTop + clipHeight;
 				elementFits = clipHeight > elementHeight;
 
 				switch( true ) {
@@ -801,26 +804,55 @@ define( [
 				case elementFits && clipTop < elementTop && clipBottom < elementBottom: // element fits in view but its visible only at top
 				case elementFits && clipTop > elementTop && clipBottom > elementBottom: // element fits in view but its visible only at bottom
 				case elementFits: // element fits in view but is not visible
-					this.centerToElement(element);
+					this.centerToElement($element);
 					break;
 				case clipTop < elementTop && clipBottom < elementBottom: // element visible only at top
 				case clipTop > elementTop && clipBottom > elementBottom: // element visible only at bottom
 					// pass, we cant do anything, if we move the scroll
 					// the user could lost view of something he scrolled to
 					break;
-				default: // element is not visible
-					$anchor = findPositionAnchor( $element );
-					anchorPosition = $anchor.position().top + parseFloat( $anchor.css("marginTop" ) );
-					$anchor.parentsUntil($view).each(function () {
-						var $p = $( this );
-						anchorPosition += ( $p.position().top + parseFloat( $p.css("marginTop" ) ) );
-					});
-					this.scrollTo( self._sx, -anchorPosition );
-					break;
 				}
 			}
 		},
 
+		_setTextareaPosition: function ( element ) {
+			// textarea set position why ensure textarea visible
+			var $input = element,
+				input = $input.get( 0 ),
+				$c = this._$clip,
+				clipHeight = $c.height(),
+				dit = $input.offset().top - $c.offset().top,	// input's top position from clip
+				lh,	// input's line height for calculating caret's Y position
+				lhCSS = $input.css( "line-height" ),	// CSS value of line-height
+				cp,	// caret's position in px
+				dct;	// caret's top from clip
+
+			if ( lhCSS === "normal" ) {
+				lh = $input.css( "font-size" ).replace( "px" , "" ) * 1.23;
+			} else {
+				//css( "line-height" ) returns "normal" or actual value in px unit
+				lh = parseInt( lhCSS );
+			}
+
+			// current relative vertical caret position
+			// = estimated line number * line-height
+			cp = input.value.substr( 0, input.selectionStart ).split( "\n" ).length * lh;
+
+			dct = dit + cp;
+			if ( cp > $input.height() ){
+				// Overflow scroll in the input area. No need to move.
+				return;
+			} else if ( dct + lh < clipHeight && dct - lh >= 0 ) {
+				// caret position is shown on the clip. No need to move.
+				return;
+			} else {
+				// caret position doesn't be shown. Need to move.
+				this.scrollTo( 0 , - ( dit - this._sy + cp - lh ), 0 );
+				return;
+			}
+
+			return;
+		},
 		/**
 		 * Returns current scroll position {x,y}
 		 * @return {Object}
@@ -921,15 +953,6 @@ define( [
 			 */
 			this._is_inputbox = target.is(':input') ||
 					target.parents(':input').length > 0;
-
-			if ( this._is_inputbox ) {
-				target.one( "resize.scrollview", function () {
-					if ( ey > $c.height() ) {
-						self.scrollTo( -ex, self._sy - ey + $c.height(),
-							self.options.snapbackDuration );
-					}
-				});
-			}
 
 			if ( this.options.eventType === "mouse" && !this._is_inputbox && !this._is_button ) {
 				e.preventDefault();
@@ -1339,6 +1362,92 @@ define( [
 			this._setOverflowIndicator();
 		},
 
+		_isVisible: function ( ) {
+			return $( this.element ).parents( ".ui-page" ).hasClass( "ui-page-active" );
+		},
+
+		refresh: function () {
+			var $c = this._$clip,
+				$v = this._$view,
+				focused,
+				view_h = this._getViewHeight(),
+				clip_h = $c.height(),
+				view_w = $v.outerWidth(),
+				cw = $c.outerWidth(),
+				view_h = this._getViewHeight(),
+				clip_h = $c.height(),
+				scroll_x,
+				scroll_y;
+
+			if ( !this._isVisible() ) {
+				return;
+			}
+			/*
+			 * If (clip_h >= view_h) need not to scroll bar
+			 * else need to show scroll bar that how set it.
+			 */
+			if ( clip_h >= view_h ) {
+				// If Page don't need to scrollbar, scroll position that set before page need to initialization.
+				this.scrollTo(0,0,0);
+				this._hideScrollBars();
+			} else {
+				this._set_scrollbar_size();
+				this._setScrollPosition( this._sx, this._sy );
+			}
+
+			if ( $(".ui-page-active").get(0) !== $c.closest(".ui-page").get(0) ) {
+				return;
+			}
+
+			if ( !$c.height() || !view_h ) {
+				return;
+			}
+
+			focused = $c.find(".ui-focus");
+
+			/* manual calibration : focus element doesn't catch position when page has footer */
+			if ( focused.length ) {
+				var $elFooter = $c.siblings( ".ui-footer" ),
+					$elFooterHeight = $elFooter.length ? $elFooter.height() : 0,
+					dft = focused.offset().top - $c.offset().top, // focused element delta top from clip top
+					$cHeight = $c.height();
+
+				if ( dft > $cHeight - $elFooterHeight ) {
+					this.scrollTo( 0, this._sy - dft + $cHeight - $elFooterHeight, this.options.snapbackDuration );
+				}
+			}
+
+			/*
+			 * When resize event handler called, view height was set '0' sometimes.
+			 * But, view height have to min-height that is same clip height.
+			 * If view height was set '0', this means clip do not ready.
+			 * So, we first used to setTimeout function but sometimes still return '0'
+			 * Below condition exception handling to this condition.
+			 */
+			if ( view_h === 0 ) {
+				return;
+			}
+
+			if ( !$( this.element ).is( ".ui-content" ) ) {
+				view_w = $v.width();
+				cw = $c.width();
+			}
+			if ( this._sy < clip_h - view_h ) {
+				scroll_y = clip_h - view_h;
+				scroll_x = 0;
+			}
+			if ( this._sx < cw - view_w ) {
+				scroll_x = cw - view_w;
+				scroll_y = scroll_y || 0;
+			}
+			if (scroll_x || scroll_y) {
+				this.scrollTo( scroll_x, scroll_y, this.options.overshootDuration );
+			}
+
+			this._view_height = view_h;
+			this._clipHeight = this._$clip.height();
+		},
+
 		/**
 		 * Bind events
 		 * @private
@@ -1347,7 +1456,17 @@ define( [
 		_add_event: function () {
 			var self = this,
 				$c = this._$clip,
-				$v = this._$view;
+				$v = this._$view,
+				keyCodes = $.mobile.keyCode,
+				moveFocusKeycode = [
+				                    keyCodes.TAB,
+				                    keyCodes.UP,
+				                    keyCodes.DOWN,
+				                    keyCodes.LEFT,
+				                    keyCodes.RIGHT
+				],
+				movedFocusByKeyboard = false,
+				checkFocusOutTimeId;
 
 			if ( this.options.eventType === "mouse" ) {
 				this._dragEvt = "mousedown mousemove mouseup click mousewheel";
@@ -1421,179 +1540,94 @@ define( [
 			$v.bind( this._dragEvt, this._dragCB );
 
 			// N_SE-35696 / N_SE-35800
-			var clipScrollDelta = 0,
-				clipScrollLast = 0;
 			$c.on( "scroll", function () {
-				var clipScrollTop = $c.scrollTop(),
-					currentPositon = self.getScrollPosition(),
-					inputs;
-
-				clipScrollDelta = clipScrollTop - clipScrollLast;
-				clipScrollLast = clipScrollTop;
-
-				if ( clipScrollDelta > 0 ) {
-					inputs = $v.find( ":input.ui-focus" );
+				if ( $c.scrollTop() != 0 ) {
 					$c.scrollTop( 0 );
-					if ( inputs.length ) {
-						// CHECK WHERE WE ARE IN THE INPUTS
-						clipScrollDelta = 0;
-					}
-					self.scrollTo( -currentPositon.x, -( currentPositon.y + clipScrollDelta ) );
 				}
 			} );
 
 			$v.bind( "keydown", function ( e ) {
-				var $focusedElement;
-
-				if ( e.keyCode ==  9 ) {
-					return false;
-				}
-
-				$focusedElement = $c.find( ":input.ui-focus" );
-				if ( !$focusedElement.length ) {
-					return;
-				}
-				self.ensureElementIsVisible( $focusedElement );
-
-				return;
-			});
-
-			$v.bind( "keyup", function ( e ) {
-				var $input;
-
-				if ( e.keyCode !== 9 ) {
-					return;
-				}
-
-				/* Tab Key */
-				$input = $( this ).find( ":input.ui-focus" ).eq( 0 );
-				if ( !$input.length ) {
-					return;
-				}
-				self.ensureElementIsVisible( $input );
-				$input.focus();
-
-				return false;
-			});
-
-			$c.bind( "updatelayout", function ( e ) {
-				var sy,
-					vh,
-					view_h = self._getViewHeight();
-
-				if ( !$c.height() || !view_h ) {
-					self.scrollTo( 0, 0, 0 );
-					return;
-				}
-
-				sy = $c.height() - view_h;
-				vh = view_h - self._view_height;
-
-				self._view_height = view_h;
-
-				if ( vh == 0 || vh > $c.height() / 2 ) {
-					return;
-				}
-
-				if ( sy > 0 ) {
-					self.scrollTo( 0, 0, 0 );
-				} else if ( self._sy - sy <= -vh ) {
-					self.scrollTo( 0, self._sy,
-						self.options.snapbackDuration );
-				} else if ( self._sy - sy <= vh + self.options.moveThreshold ) {
-					self.scrollTo( 0, sy,
-						self.options.snapbackDuration );
-				}
-			});
-
-			$( window ).bind( "resize", function ( e ) {
-				if ( !$( self.element ).parents( ".ui-page" ).hasClass( "ui-page-active" ) ) {
-					return;
-				}
-				var focused,
-					view_h = self._getViewHeight(),
-					clip_h = $c.height();
-
-				/*
-				 * If (clip_h >= view_h) need not to scroll bar
-				 * else need to show scroll bar that how set it.
-				 */
-				if ( clip_h >= view_h ) {
-					// If Page don't need to scrollbar, scroll position that set before page need to initialization.
-					self.scrollTo(0,0,0);
-					self._hideScrollBars();
-				} else {
-					self._set_scrollbar_size();
-					self._setScrollPosition( self._sx, self._sy );
-				}
-
-				if ( $(".ui-page-active").get(0) !== $c.closest(".ui-page").get(0) ) {
-					return;
-				}
-
-				if ( !$c.height() || !view_h ) {
-					return;
-				}
-
-				focused = $c.find(".ui-focus");
-
-				if ( focused ) {
-					focused.trigger("resize.scrollview");
-				}
-
-
-
-				/* manual calibration : focus element doesn't catch position when page has footer */
-				if ( focused.length ) {
-					var $elFooter = $c.siblings( ".ui-footer" ),
-						$elFooterHeight = $elFooter.length ? $elFooter.height() : 0,
-						focusHeight = focused.offset().top,
-						$cHeight = $c.height();
-
-					if ( focusHeight > $cHeight - $elFooterHeight ) {
-						self.scrollTo( 0, self._sy - focusHeight + $cHeight - $elFooterHeight, self.options.snapbackDuration );
-					}
-				}
-
-				/* calibration - after triggered throttledresize */
-				setTimeout( function () {
-					var view_w = $v.outerWidth(),
-						cw = $c.outerWidth(),
-						view_h = self._getViewHeight(),
-						clip_h = $c.height(),
-						scroll_x,
-						scroll_y;
-
-					/*
-					 * When resize event handler called, view height was set '0' sometimes.
-					 * But, view height have to min-height that is same clip height.
-					 * If view height was set '0', this means clip do not ready.
-					 * So, we first used to setTimeout function but sometimes still return '0'
-					 * Below condition exception handling to this condition.
-					 */
-					if ( view_h === 0 ) {
+				var $target = $( e.target );
+				if ( moveFocusKeycode.indexOf( e.keyCode ) === -1 && $target.is( ":input" ) ) {
+					if ( $target.is( "textarea" ) ) {
+						self._setTextareaPosition( $target );
 						return;
 					}
+					self.ensureElementIsVisible( $target );
+				}
+			});
 
-					if ( !$( self.element ).is( ".ui-content" ) ) {
-						view_w = $v.width();
-						cw = $c.width();
-					}
-					if ( self._sy < clip_h - view_h ) {
-						scroll_y = clip_h - view_h;
-						scroll_x = 0;
-					}
-					if ( self._sx < cw - view_w ) {
-						scroll_x = cw - view_w;
-						scroll_y = scroll_y || 0;
-					}
-					if (scroll_x || scroll_y) {
-						self.scrollTo( scroll_x, scroll_y, self.options.overshootDuration );
-					}
-				}, 260 );
+			if ( this.options.scrollToFocusEnable ) {
+				$v.bind({
+					"keydown": function ( e ) {
+						var $target = $( e.target );
+						if ( !e.isDefaultPrevented() && moveFocusKeycode.indexOf( e.keyCode ) > -1 ) {
+							movedFocusByKeyboard = true;
 
-				self._view_height = view_h;
-				self._clipHeight = self._$clip.height();
+							if ( e.keyCode == keyCodes.TAB ) {
+								return;
+							}
+
+							checkFocusOutTimeId = window.setTimeout( $.proxy( function( ) {
+								var hasFocus = $target.is( ":focus" ),
+									orgOffset = {
+										top: this._sy,
+										left: this._sx
+									},
+									offset = this._getChangedScrollOffsetByKeyboard( e.keyCode, $target, !hasFocus );
+
+								if ( offset ) {
+									this.scrollTo( offset.left, offset.top );
+									if ( ( this._sx != orgOffset.left || this._sy != orgOffset.top ) && !hasFocus ) {
+										movedFocusByKeyboard = false;
+										$target.focus( );
+									}
+								}
+							}, self ), 0 );
+						}
+					},
+					"keyup": function ( e ) {
+						movedFocusByKeyboard = false;
+					},
+					"focusin focus": function ( e ) {
+						var $target = $( e.target );
+						if ( movedFocusByKeyboard ) {
+							if ( $target.is( "textarea" ) ) {
+								self._setTextareaPosition( $target );
+							} else {
+								self.ensureElementIsVisible( $target );
+							}
+							window.clearTimeout( checkFocusOutTimeId );
+						}
+					}
+				});
+			}
+
+			$c.bind( "updatelayout", function ( e ) {
+				self.refresh();
+			});
+
+			$( window ).bind( "throttledresize", function ( e ) {
+				var $input;
+
+				if ( ! self._isVisible() ) {
+					return;
+				}
+
+				$input = $v.find( ":input.ui-focus" ).eq(0);
+
+				setTimeout ( function() {
+					self.refresh( );
+					if( $input.is( "textarea" ) ) {
+						// if input is textarea tag, scrollview scroll to position
+						// that user can show textarea carret position
+						setTimeout( function() {
+							self._setTextareaPosition( $input );
+						}, 500 );
+					} else if ( $input.length ) {
+						self.ensureElementIsVisible( $input );
+					}
+				}, 250 );
 			});
 
 			$( window ).bind( "vmouseout", function ( e ) {
@@ -1789,6 +1823,77 @@ define( [
 					this._overflowAvail = !!thumb.height();
 				}
 			}
+		},
+
+		_getChangedScrollOffsetByKeyboard: function ( keyCode, targetElem, isIgnoreDefault) {
+			var $target = $(targetElem),
+				dist = this.options.scrollDistance,
+				keyCodes = $.mobile.keyCode,
+				flags = {
+					NONE: 0,
+					LEFT: 1,
+					RIGHT: 2,
+					UP: 4,
+					DOWN: 8
+				},
+				keyFlag = {},
+				top = this._sy,
+				left = this._sx,
+				flag = flags.NONE,
+				inputType;
+
+			if ( !isIgnoreDefault ) {
+				if( $target.is(":input") ) {
+					flag = flags.UP|flags.DOWN|flags.LEFT|flags.RIGHT;
+
+					if ( $target.is("input") ) {
+						inputType = " "+$target.attr("type").trim();
+
+						if ( " number ".indexOf(inputType) > -1 ) {
+						} else if ( " checkbox radio color time date month week datetime datetime-local ".indexOf(inputType) > -1 ) {
+							flag = flags.NONE;
+						} else if ( $target.val().length === 0 ) { // text, password, url, email, tel, etc...
+							flag = flags.NONE;
+						}
+
+					} else if ( $target.is("textarea") ) {
+						if ( $target.val().length === 0 ) {
+							flag = flags.NONE;
+						}
+					} else if ( $target.is("select") ) {
+					}
+				}
+			}
+
+			// keycode and flag mapping.
+			keyFlag[keyCodes.LEFT] = flags.LEFT;
+			keyFlag[keyCodes.RIGHT] = flags.RIGHT;
+			keyFlag[keyCodes.UP] = flags.UP;
+			keyFlag[keyCodes.DOWN] = flags.DOWN;
+
+			if ( !!(flag & keyFlag[keyCode]) ) {
+				return null;
+			}
+
+			switch( keyCode ) {
+			case keyCodes.UP:
+				top += dist;
+				break;
+			case keyCodes.DOWN:
+				top -= dist;
+				break;
+			case keyCodes.LEFT:
+				left += dist;
+				break;
+			case keyCodes.RIGHT:
+				left -= dist;
+				break;
+			}
+
+			return {
+				top: top,
+				left: left
+			};
 		}
 	});
 

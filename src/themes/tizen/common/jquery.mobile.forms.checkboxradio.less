@@ -36,13 +36,20 @@
 	input {
 		z-index: 1;
 		margin: 0px;
-		left: 10*@unit_base;
 		position: absolute;
-		outline: 0 !important;
+		/*
+			checkbox can receive focus when tab or arrow key pressed.
+			so, set same size and position with fake checkbox for focus highlight.
+		*/
+		left: 5*@unit_base;
+		top: 50%;
+		margin-top: @checkbox-radio-icon-internal-bottom;
+		width: @checkbox-radio-size-width;
+		height: @checkbox-radio-size-height;
 	}
 
 	> input {
-		display : none;
+		opacity: .1;
 	}
 	.ui-btn {
 		z-index: 2;		// checkbox,radio input z-index: 1
@@ -80,9 +87,11 @@
 .ui-checkbox.favorite {
 	input {
 		position: absolute;
-		left: -10000px;
-		height: 100%;
-		outline: 0 !important;
+		left: 5*@unit_base;
+		top: 50%;
+		width: @favorite-size-width;
+		height: @favorite-size-height;
+		margin-top: @favorite-icon-internal-bottom;
 	}
 
 	.ui-btn.ui-btn-icon-left {

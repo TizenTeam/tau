@@ -1,0 +1,87 @@
+From ad0f78cab7fd25ee91629fc1316a3dd77024f525 Mon Sep 17 00:00:00 2001
+From: "hk0713.cho" <hk0713.cho@samsung.com>
+Date: Wed, 27 Nov 2013 17:58:25 +0900
+Subject: [PATCH] [PATCH] JQM Support hostKeyboard Enter key on button
+
+keyboard accessibility apply to fake button.(div, span ...)
+- set tabindex attribute.
+- perform click event when fake button has focus and key pressed.
+
+Change-Id: Icb1f0120d95ba2269edd19bdadb0704448ac0988
+---
+ .../js/jquery.mobile.buttonMarkup.js               |   25 ++++++++++----------
+ .../jquery-mobile-1.2.0/js/widgets/forms/button.js |    1 +
+ 2 files changed, 14 insertions(+), 12 deletions(-)
+
+diff --git a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.buttonMarkup.js b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.buttonMarkup.js
+index e7925f5..86a0604 100644
+--- a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.buttonMarkup.js
++++ b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.buttonMarkup.js
+@@ -52,9 +52,10 @@ $.fn.buttonMarkup = function( options ) {
+ 			e.setAttribute( "aria-owns", e.getAttribute( "href" ) );
+ 		}
+ 
+-		if ( e.tagName !== "LI" && e.tagName !== "LABEL" ) {
+-			e.setAttribute( "role", "button" );
+-			e.setAttribute( "tabindex", "0" );
++		// keyboard accessibility apply to fake button. 
++		if (!el.is(":input,[tabindex],a,li,label")) {
++			el.attr( "role", "button" )
++				.attr( "tabindex", "0" );
+ 		}
+ 
+ 		// Check if this element is already enhanced
+@@ -262,7 +263,7 @@ var attachEvents = function() {
+ 	var hoverDelay = $.mobile.buttonMarkup.hoverDelay, hov, foc;
+ 
+ 	$.mobile.$document.bind( {
+-		"vmousedown vmousecancel vmouseup vmouseover vmouseout focus blur scrollstart touchend touchcancel keypress": function( event ) {
++		"vmousedown vmousecancel vmouseup vmouseover vmouseout focus blur scrollstart touchend touchcancel": function( event ) {
+ 			var theme,
+ 				$btn = $( closestEnabledButton( event.target ) ),
+ 				isTouchEvent = event.originalEvent && /^touch/.test( event.originalEvent.type ),
+@@ -305,14 +306,6 @@ var attachEvents = function() {
+ 					if ( foc ) {
+ 						clearTimeout( foc );
+ 					}
+-				} else if ( evt === "keypress" ) {
+-					if ( event.originalEvent.keyCode == 13 ) { // ENTER keyCode == 13
+-						var parent_popup = $btn.parents(".ui-popup");
+-						if ( parent_popup.length && ! parent_popup.parent().hasClass("ui-popup-active") ) {
+-							return;
+-						}
+-						$btn.click();
+-					}
+ 				}
+ 			}
+ 		},
+@@ -321,6 +314,14 @@ var attachEvents = function() {
+ 		},
+ 		"focusout blur": function( event ) {
+ 			$( closestEnabledButton( event.target ) ).removeClass( $.mobile.focusClass );
++		},
++		// keyboard accessibility apply to fake button.
++		"keypress": function(event) {
++			var $btn = $(event.target);
++			
++			if(event.keyCode === $.mobile.keyCode.ENTER && $btn.is(".ui-btn[tabindex=0]")) {
++				$btn.trigger( "click" );
++			}
+ 		}
+ 	});
+ 
+diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/button.js b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/button.js
+index d390071..1995639 100644
+--- a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/button.js
++++ b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/button.js
+@@ -77,6 +77,7 @@ $.widget( "mobile.button", $.mobile.widget, {
+ 				mini: mini
+ 			})
+ 			.addClass( classes )
++			.removeAttr( "tabindex" )
+ 			.append( $el.addClass( "ui-btn-hidden" ) );
+ 
+         $button = this.button;
+-- 
+1.7.9.5
+
