@@ -1370,8 +1370,6 @@ define( [
 			var $c = this._$clip,
 				$v = this._$view,
 				focused,
-				view_h = this._getViewHeight(),
-				clip_h = $c.height(),
 				view_w = $v.outerWidth(),
 				cw = $c.outerWidth(),
 				view_h = this._getViewHeight(),
