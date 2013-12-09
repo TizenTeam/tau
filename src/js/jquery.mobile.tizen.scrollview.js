@@ -59,6 +59,9 @@ define( [
 		done:      3
 	};
 
+	var animationID = 0;
+	var animationPrevID = 0;
+
 	/**
 	 * Returns current time in miliseconds
 	 * @return {number}
@@ -405,13 +408,6 @@ define( [
 				keepGoing = keepGoing || !ht.done();
 			}
 
-			if ( ( y == 0 && x == 0 ) && keepGoing ) {
-				this._setOverflowIndicator(0);
-				this._showOverflowIndicator();
-			} else if ( ( y == -scroll_height || x == -scroll_width ) && keepGoing ) {
-				this._setOverflowIndicator(1);
-				this._showOverflowIndicator();
-			}
 			this._setScrollPosition( x, y );
 			this._$clip.trigger( this.options.updateEventName,
 					[ { x: x, y: y } ] );
@@ -473,7 +469,7 @@ define( [
 
 			if ( dir === "in" ) {
 				this._setOverflowIndicator( this._effect_dir );
-				this._showOverflowEffect( calcY );
+				this._showOverflowEffect( calcY, this._effect_dir );
 				this._endEffect = true;
 			} else if ( dir === "out" ) {
 				if ( !this._endEffect ) {
@@ -483,9 +479,7 @@ define( [
 				this._endEffect = false;
 			} else {
 				this._endEffect = false;
-				//this._setOverflowIndicator();
-				//this._showOverflowIndicator();
-				this._hideOverflowIndicator();
+				this._hideOverflowIndicator( this._effect_dir );
 			}
 		},
 
@@ -509,7 +503,8 @@ define( [
 				scroll_width = 0,
 				vh,
 				ch,
-				calc;
+				calc,
+				overflowMax = 140;
 
 			if ( dirLock !== "y" && this._hTracker ) {
 				scroll_width = $v.width() - $c.width();
@@ -539,8 +534,6 @@ define( [
 					scroll_height = vh - ch;
 				}
 
-
-
 				if ( y > 0 ) {
 					if(this._flag == true ){
 						this._flag = false;
@@ -548,8 +541,8 @@ define( [
 					} else if(this._flag == undefined ){
 						this._flag = true;
 					}
-					if((this._lastY - this._ly) > 100){
-						calc = 100;
+					if((this._lastY - this._ly) > overflowMax){
+						calc = overflowMax;
 					} else {
 						calc = this._lastY - this._ly;
 					}
@@ -562,21 +555,21 @@ define( [
 						this._ly = this._lastY;
 					}
 
-					if( ( this._ly - this._lastY ) > 100){
-						calc = 100;
+					if( ( this._ly - this._lastY ) > overflowMax ){
+						calc = overflowMax;
 					} else {
 						calc = this._ly - this._lastY;
 					}
 					if ( this._sy !== -scroll_height ) {
-                                                this._hideScrollBars();
-						this._hideOverflowIndicator();
-                                                this._sy = -scroll_height;
-                                                this._effect_dir = 1;
-                                        } else {
-                                                this._sy = -scroll_height;
-                                                this._effect_dir = 1;
-                                                this._setEndEffect( "in" ,calc);
-                                        }
+						this._hideScrollBars();
+						this._hideOverflowIndicator( this._effect_dir );
+						this._sy = -scroll_height;
+						this._effect_dir = 1;
+					} else {
+						this._sy = -scroll_height;
+						this._effect_dir = 1;
+						this._setEndEffect( "in" ,calc);
+					}
 				} else {
 					if ( this._endEffect && this._sy !== y ) {
 						/*
@@ -1193,17 +1186,15 @@ define( [
 				}
 			} else {
 				this._hideScrollBars();
-				this._hideOverflowIndicator();
+				this._hideOverflowIndicator( this._effect_dir );
 			}
 
 			this._disableTracking();
 
 			if ( this._endEffect ) {
-				this._hideScrollBarsTimeout = setTimeout( function () {
-					self._setEndEffect( "out" );
-					self._hideScrollBars();
-					self._hideOverflowIndicator();
-				}, 300 );
+				self._setEndEffect( "out" );
+				self._hideScrollBars();
+				self._hideOverflowIndicator( self._effect_dir );
 			}
 
 			return !this._didDrag;
@@ -1358,6 +1349,9 @@ define( [
 		 * @private
 		 */
 		_showOverflowIndicator: function () {
+			/* 1126_UX change */
+			return true;
+
 			if ( !$( this.element ).is( ".ui-content" ) && !$( this.element ).is( ".ui-custom-scrollbar" ) ) {
 				return true;
 			}
@@ -1372,7 +1366,11 @@ define( [
 			this._overflow_showed = true;
 		},
 
-		_showOverflowEffect : function ( calcY ) {
+		_showOverflowEffect : function ( calcY, effectDirection ) {
+			var calCount = 0,
+				prevCount = 0,
+				startImageMAX = 8,
+				aniDirection = "top";
 			if ( !$( this.element ).is( ".ui-content" ) && !$( this.element ).is( ".ui-custom-scrollbar" ) ) {
 				return true;
 			}
@@ -1380,21 +1378,57 @@ define( [
 			if ( (!this.options.overflowEnable && !$( this.element ).is( ".ui-custom-scrollbar" )) || !this._overflowAvail || this._softkeyboard ) {
 				return;
 			}
-			$(".ui-overflow-top").css("height", calcY);
-			$(".ui-overflow-bottom").css("height", calcY);
 
-			this._overflow_top_effect.css( "display", this._display_indicator_top );
-			this._overflow_bottom_effect.css( "display", this._display_indicator_bottom );
+			if ( !this._overflowAvail || this._softkeyboard ) {
+				return;
+			}
 
+			if ( effectDirection ) {
+				aniDirection = "bottom";
+			}
+			calCount = parseInt( calcY / 9 , 10 ) + 1;
+			if ( calCount > startImageMAX ) {
+				calCount = startImageMAX;
+			}
+
+			if ( calCount <= 0 ) {
+				calCount = 0;
+				prevCount = 0;
+			} else {
+				prevCount = calCount - 1;
+			}
+
+			if ( aniDirection === "top" ) {
+				$( ".ui-overflow-indicator-bar-" + prevCount ).css( "display", "none" );
+				$( ".ui-overflow-indicator-bar-" + calCount ).css( "display", "block" );
+			} else {
+				$( ".ui-overflow-indicator-b-bar-" + prevCount ).css( "display", "none" );
+				$( ".ui-overflow-indicator-b-bar-" + calCount ).css( "display", "block" );
+			}
 			this._overflow_showed = true;
 		},
+
+		_stopOverflowAnimation: function ( id ) {
+			var self = this,
+				AniImageMAX = 17;
+
+			clearInterval( id );
+
+			for (var i=1; i<= AniImageMAX; i++) {
+				$( ".ui-overflow-indicator-bar-" + i ).css( "display", "none" );
+			        $( ".ui-overflow-indicator-b-bar-" + i ).css( "display", "none" );
+			}
+		},
+
 		/**
 		 * Hide overflow indicator
 		 * @private
 		 */
-		_hideOverflowIndicator: function () {
+		_hideOverflowIndicator: function ( effectDirection ) {
+			var self = this,
+				AniImageMAX = 17
+				EndAniImageMAX = 8;
 
-			var self = this;
 
 			if ( (!this.options.overflowEnable && !$( this.element ).is( ".ui-custom-scrollbar" ))  || !this._overflowAvail || this._softkeyboard ) {
 				return;
@@ -1404,23 +1438,33 @@ define( [
 				return;
 			}
 
-			//this._overflow_top.css( "display", "none" );
-			//this._overflow_bottom.css( "display", "none" );
-
 			/*
 			When hide overflowIndicator, animation add that height decrease smoothly.
 			*/
+			animationID = setInterval( function () {
+				if ( !effectDirection ) {
+					$( ".ui-overflow-indicator-bar-" + (EndAniImageMAX-1) ).css( "display", "none" );
+					$( ".ui-overflow-indicator-bar-" + EndAniImageMAX ).css( "display", "block" );
+				} else {
+					$( ".ui-overflow-indicator-b-bar-" + (EndAniImageMAX-1) ).css( "display", "none" );
+					$( ".ui-overflow-indicator-b-bar-" + EndAniImageMAX ).css( "display", "block" );
+				}
 
-			$(".ui-overflow-top").addClass("ui-overflow-top-hide");
-			$(".ui-overflow-bottom").addClass("ui-overflow-bottom-hide");
+				if ( animationID !== 0 && animationID !== animationPrevID ) {
+					self._stopOverflowAnimation( animationPrevID );
+				}
 
-			setTimeout( function(){
-				$(".ui-overflow-top").removeClass("ui-overflow-top-hide");
-				$(".ui-overflow-bottom").removeClass("ui-overflow-bottom-hide");
+				if ( EndAniImageMAX === AniImageMAX ) {
+					setTimeout( function() {
+						self._stopOverflowAnimation( animationID );
+					}, 200 );
+				}
 
-				self._overflow_top_effect.css( "display", "none" );
-				self._overflow_bottom_effect.css( "display", "none" );
-			}, 500 );
+				if ( EndAniImageMAX < AniImageMAX ) {
+					EndAniImageMAX++;
+				}
+				animationPrevID = animationID;
+			}, 35 );
 
 			this._overflow_showed = false;
 			this._setOverflowIndicator();
@@ -1822,20 +1866,23 @@ define( [
 		 * @private
 		 */
 		_add_overflow_indicator: function () {
+			AniImageMAX = 17;
 			if ( !this.options.overflowEnable && !$( this.element).is( ".ui-custom-scrollbar" ) ) {
 				return;
 			}
 
-			this._overflow_top = $( '<div class="ui-overflow-indicator-top"></div>' );
-			this._overflow_bottom = $( '<div class="ui-overflow-indicator-bottom"></div>' );
 
-			this._overflow_top_effect = $( '<div class="ui-overflow-effect-top ui-overflow-top"></div>' );
-			this._overflow_bottom_effect = $( '<div class="ui-overflow-effect-bottom ui-overflow-bottom"></div>' );
 
-			//this._$clip.append( this._overflow_top );
-			//this._$clip.append( this._overflow_bottom );
-			this._$clip.append( this._overflow_top_effect );
-			this._$clip.append( this._overflow_bottom_effect );
+//			this._overflow_top_effect = $( '<div class="ui-overflow-indicator-top ui-overflow-top"></div>' );
+//			this._overflow_bottom_effect = $( '<div class="ui-overflow-indicator-bottom ui-overflow-bottom"></div>' );			
+
+//			this._$clip.append( this._overflow_top_effect );
+//			this._$clip.append( this._overflow_bottom_effect );
+
+			for ( var i = 1 ; i <= AniImageMAX ; i++ ) {
+				this._$clip.append( $( '<div class="ui-overflow-indicator-top ui-overflow-top ui-overflow-indicator-bar-' + i + '"></div>' ) );
+				this._$clip.append( $( '<div class="ui-overflow-indicator-bottom ui-overflow-bottom ui-overflow-indicator-b-bar-' + i + '"></div>' ) );
+			}
 
 			this._display_indicator_top = "block";
 			this._display_indicator_bottom = "block";
