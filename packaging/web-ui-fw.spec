@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.78
+Version:    0.2.79
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -99,6 +99,8 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 ###############################
 %changelog
 
+* Mon Dec 09 2013 Hyeoncheol Choi <hc7.choi@samsung.com> 0.2.79
+	- JQM fix vclick trigger twice after pageChange
 * Fri Dec 06 2013 Hyeoncheol Choi <hc7.choi@samsung.com> 0.2.78
 	- Scrollview : fixed scrollview reposition bugs
 	- Remove input scrollTop adjust routine
