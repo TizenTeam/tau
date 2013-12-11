@@ -543,7 +543,8 @@ define( [
 					this._setEndEffect( "in" );
 				} else if ( y < -scroll_height ) {
 					if ( this._sy !== -scroll_height ) {
-                                                this._hideOverflowIndicator();
+                                                this._hideScrollBars();
+						this._hideOverflowIndicator();
                                                 this._sy = -scroll_height;
                                                 this._effect_dir = 1;
                                         } else {
