@@ -543,7 +543,8 @@ define( [
 					this._setEndEffect( "in" );
 				} else if ( y < -scroll_height ) {
 					if ( this._sy !== -scroll_height ) {
-                                                this._hideOverflowIndicator();
+                                                this._hideScrollBars();
+						this._hideOverflowIndicator();
                                                 this._sy = -scroll_height;
                                                 this._effect_dir = 1;
                                         } else {
@@ -1370,8 +1371,6 @@ define( [
 			var $c = this._$clip,
 				$v = this._$view,
 				focused,
-				view_h = this._getViewHeight(),
-				clip_h = $c.height(),
 				view_w = $v.outerWidth(),
 				cw = $c.outerWidth(),
 				view_h = this._getViewHeight(),

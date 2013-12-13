@@ -1,0 +1,32 @@
+From 4916052e95ab54ea806c27b5f5607cef8cb2d5a6 Mon Sep 17 00:00:00 2001
+From: "hk0713.cho" <hk0713.cho@samsung.com>
+Date: Thu, 12 Dec 2013 18:02:01 +0900
+Subject: [PATCH] JQM modify checkbox set focus on click.
+
+focus event should occur before change event.
+becuse some apps change focus when recive change event.
+You can see example to eventManager sample apps
+
+Change-Id: I4aec57c6d781f56db9e55cee7e7f83d3dfca5e9d
+---
+ .../js/widgets/forms/checkboxradio.js              |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/checkboxradio.js b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/checkboxradio.js
+index f241bd9..658a23e 100644
+--- a/libs/js/jquery-mobile-1.2.0/js/widgets/forms/checkboxradio.js
++++ b/libs/js/jquery-mobile-1.2.0/js/widgets/forms/checkboxradio.js
+@@ -186,9 +186,9 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
+ 			var $this = $( this );
+ 
+ 			if ( this.checked || self.inputtype === "checkbox" ) {
++				$this.focus();
+ 				$this.trigger( "change" );
+ 			}
+-			$this.focus();
+ 		})
+ 		.checkboxradio( "refresh" );
+ 	},
+-- 
+1.7.9.5
+
