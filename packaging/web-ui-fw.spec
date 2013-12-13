@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.80
+Version:    0.2.81
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -99,6 +99,10 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 ###############################
 %changelog
 
+* Fri Dec 13 2013 Hyeoncheol Choi <hc7.choi@samsung.com> 0.2.81
+	- ScrollView : Bouncing effect prototyping(1st draft)
+	- scrollview : new overflow indicator prototype
+	- Scrollview : scrollview performance improve and change VI
 * Fri Dec 13 2013 Hyeoncheol Choi <hc7.choi@samsung.com> 0.2.80
 	- DateTimePicker : remove focus color on native type pickerbox
 	- listview: add css style for ui-li-last item.(P131209-07607)
