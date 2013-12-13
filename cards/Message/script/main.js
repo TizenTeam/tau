@@ -1,4 +1,3 @@
-/*jslint browser: true */
 (function (window, document) {
 	'use strict';
 
@@ -16,25 +15,23 @@
 	}, false);
 
 	window.addEventListener('carddata', function (evt) {
-		var JSONData = JSON.parse(evt) , bindedArray = document.querySelectorAll('[data-bind]'), tempObj, bind, tagName, value;
+		var data = evt.detail,
+			rcv = document.getElementById('received'),
+			sender = document.getElementById('sender'),
+			rcvtime = document.getElementById('rcvtime'),
+			rcvmsg = document.getElementById('rcvmsg'),
+			dateTime = new Date(data.time * 1000),
+			hour = dateTime.getHours(),
+			dayPart = hour >= 0 && hour < 12 ? 0 : 1,
+			dayPartString = dayPart === 0 ? 'a.m.' : 'p.m.';
 
-		for (var i in bindedArray) {
-			if( !isNaN( i ) ) {
-				if (bindedArray.hasOwnProperty(i)) {
-					tempObj = bindedArray[i];
-					bind = JSON.parse(tempObj.getAttribute('data-bind'));
-					tagName =tempObj.tagName;
-					if( !bind.key ) {
-						value = JSONData[bind.text];
-						switch( tagName ) {
-							case "IMG" : tempObj.setAttribute("src", value); break;
-							default : tempObj.innerText = value; break;
-						}
-					} else {
-						tempObj.innerText = bind.key;
-					}
-				}
-			}
+		if (dayPart === 1) {
+			hour -= 12;
 		}
+
+		sender.innerHTML = data.sender;
+		rcv.innerHTML = 'Received ' + data.typeOfCard;
+		rcvtime.innerHTML = dayPartString + ' ' + hour + ':' + pad(dateTime.getMinutes());
+		rcvmsg.innerHTML = data.rcvmsg;
 	}, false);
 }(window, window.document));

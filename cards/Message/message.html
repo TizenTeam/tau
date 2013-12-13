@@ -1,26 +1,22 @@
 <html>
 <head>
 	<link rel="stylesheet" type="text/css" href="css/message.css" />
-	<script>
-		var data='{ "NAME": "Suzy Bae", "MESSAGE_TYPE": "Received msg", "RCV_TIME": "p.m. 5:00", "RCV_MESSAGE": "Ok, I\'ll go with Min. Let\'s meet at 3:00 p.m. I\'ll call you again. :)" }';
-	</script>
 	<script src="script/main.js"></script>
 </head>
 <body>
 <div class="container">
 	<div class="header">
-		<h2 data-bind='{ "text" : "NAME" }'></h2>
+		<h2 id="sender"></h2>
 	</div>
 	<div class="content">
 		<div class="main">
 			<div class="msg" id="inmsg">
-				<div class="rcv" id="received" data-bind='{ "text" : "MESSAGE_TYPE" }'></div>
-				<div class="rcvtime" id="rcvtime" data-bind='{ "text" : "RCV_TIME" }'></div>
-				<div class="rcvmsg" id="rcvmsg" data-bind='{ "text": "RCV_MESSAGE" }'></div>
+				<div class="rcv" id="received" ></div>
+				<div class="rcvtime" id="rcvtime" ></div>
+				<div class="rcvmsg" id="rcvmsg" ></div>
 			</div>
 		</div>
 	</div>
-
 </div>
 </body>
 </html>
