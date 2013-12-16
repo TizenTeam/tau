@@ -1710,7 +1710,15 @@ define( [
 			}
 
 			$c.bind( "updatelayout", function ( e ) {
-				self.refresh();
+				// When application started, updatelayout event triggered
+				// Sometimes layout has especial element, for example iframe tag.
+				// In this case, scrollview need to wait that this element set completely
+				// because scrollview's view need to information that how this element set layout.
+				// Usually case, waiting time is enough to 50ms but If especial element need to more time that this element layout set,
+				// developer implement to trigger updatelayout event after efficient times
+				setTimeout( function() {
+					self.refresh();
+				}, 50 );
 			});
 
 			$( window ).bind( "throttledresize", function ( e ) {
