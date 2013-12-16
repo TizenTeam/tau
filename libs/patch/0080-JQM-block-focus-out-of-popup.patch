@@ -1,0 +1,72 @@
+From c942937ee753bd4b5788101b74a4a98ea236baaa Mon Sep 17 00:00:00 2001
+From: "Hyunkook, Cho" <hk0713.cho@samsung.com>
+Date: Mon, 16 Dec 2013 16:37:20 +0900
+Subject: [PATCH] JQM block focus out of popup.
+
+Change-Id: If54f03274c41d047af9c31f68628848f2402d45b
+---
+ libs/js/jquery-mobile-1.2.0/js/widgets/popup.js |   34 +++++++++++++++++++++++
+ 1 file changed, 34 insertions(+)
+
+diff --git a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
+index 9138675..c6564db 100644
+--- a/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
++++ b/libs/js/jquery-mobile-1.2.0/js/widgets/popup.js
+@@ -159,6 +159,32 @@ define( [ "jquery",
+ 			}
+ 		},
+ 
++		_handleDocumentFocusIn: function( e ) {
++			var target,
++				targetElement = e.target,
++				$document = $.mobile.$document,
++				ui = this._ui;
++
++			if ( !this._isOpen ) {
++				return;
++			}
++
++			if ( targetElement !== ui.container[ 0 ] ) {
++				target = $( targetElement );
++				if ( 0 === target.parents().filter( ui.container[ 0 ] ).length ) {
++					$( $document[ 0 ].activeElement ).one( "focus", function(/* e */) {
++						target.blur();
++					});
++					ui.focusElement.focus();
++					e.preventDefault();
++					e.stopImmediatePropagation();
++					return false;
++				} else if ( ui.focusElement[ 0 ] === ui.container[ 0 ] ) {
++					ui.focusElement = target;
++				}
++			}
++		},
++
+ 		_create: function() {
+ 			var ui = {
+ 					screen: $( "<div class='ui-screen-hidden ui-popup-screen'></div>" ),
+@@ -198,6 +224,8 @@ define( [ "jquery",
+ 			// Add class to popup element
+ 			this.element.addClass( "ui-popup" );
+ 
++			ui.focusElement = ui.container;
++
+ 			// Define instance variables
+ 			$.extend( this, {
+ 				_page: thisPage,
+@@ -218,6 +246,12 @@ define( [ "jquery",
+ 							resize: $.proxy( this, "_handleWindowResize" ),
+ 							keyup: $.proxy( this, "_handleWindowKeyUp" )
+ 						}
++					},
++					{
++						src: $.mobile.$document,
++						handler: {
++							focusin: $.proxy( this, "_handleDocumentFocusIn" )
++						}
+ 					}
+ 				]
+ 			});
+-- 
+1.7.9.5
+
