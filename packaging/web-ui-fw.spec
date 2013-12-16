@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.81
+Version:    0.2.82
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -99,18 +99,25 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 ###############################
 %changelog
 
+* Fri Dec 13 2013 Hyeoncheol Choi <hc7.choi@samsung.com> 0.2.82
+	- Popup : block focus out of popup.
+	- Scrollview : add setTimeout function when updatelayout event triggered(P131214-01615)
+
 * Fri Dec 13 2013 Hyeoncheol Choi <hc7.choi@samsung.com> 0.2.81
 	- ScrollView : Bouncing effect prototyping(1st draft)
 	- scrollview : new overflow indicator prototype
 	- Scrollview : scrollview performance improve and change VI
+
 * Fri Dec 13 2013 Hyeoncheol Choi <hc7.choi@samsung.com> 0.2.80
 	- DateTimePicker : remove focus color on native type pickerbox
 	- listview: add css style for ui-li-last item.(P131209-07607)
 	- scrollview: hide scrollbar when overflowIndicator hide (P131206-02916)
 	- checkboxradio: modify set focus when click the checkbox.
 	- Scrollview : delete duplicate variable defined
+
 * Mon Dec 09 2013 Hyeoncheol Choi <hc7.choi@samsung.com> 0.2.79
 	- JQM fix vclick trigger twice after pageChange
+
 * Fri Dec 06 2013 Hyeoncheol Choi <hc7.choi@samsung.com> 0.2.78
 	- Scrollview : fixed scrollview reposition bugs
 	- Remove input scrollTop adjust routine
