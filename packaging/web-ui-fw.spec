@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:    0.2.82
+Version:    0.2.83
 Release:    0
 Summary:    Tizen Web UI Framework Library
 Group:      Development/Other
@@ -98,6 +98,8 @@ Summary:    Tizen Web UI Framework Demo Application: tizen winset demo
 
 ###############################
 %changelog
+* Thu Dec 19 2013 Heeju Joo <heeju.joo@samsung.com> 0.2.83
+	- JQM fix vevent trigger twice after touch event.
 
 * Fri Dec 13 2013 Hyeoncheol Choi <hc7.choi@samsung.com> 0.2.82
 	- Popup : block focus out of popup.
