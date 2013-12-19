@@ -1,0 +1,109 @@
+From 08a8eedd6d9c4be7c085218c8c680149eb1e290b Mon Sep 17 00:00:00 2001
+From: "hk0713.cho" <hk0713.cho@samsung.com>
+Date: Thu, 12 Dec 2013 11:35:47 +0900
+Subject: [PATCH] JQM fix vevent trigger twice after touch event.
+
+touch event raise mouse events include click event.
+but vmouse module trigger vmouse events on touchend.
+so, we should block the mouse events that follow the touchend to trigger vevent.
+even if click event target is different from touch event target.
+
+Change-Id: I526e2160be19549049f643d30fb4ce3d18afee45
+---
+ .../jquery-mobile-1.2.0/js/jquery.mobile.vmouse.js |   37 +++++++++++++++-----
+ 1 file changed, 29 insertions(+), 8 deletions(-)
+
+diff --git a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.vmouse.js b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.vmouse.js
+index 893e6c1..961a32b 100644
+--- a/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.vmouse.js
++++ b/libs/js/jquery-mobile-1.2.0/js/jquery.mobile.vmouse.js
+@@ -35,6 +35,7 @@ var dataPropertyName = "virtualMouseBindings",
+ 	startY = 0,
+ 	didScroll = false,
+ 	clickBlockList = [],
++	vclickBlockList = [],
+ 	blockMouseTriggers = false,
+ 	blockTouchTriggers = false,
+ 	eventCaptureSupported = "addEventListener" in document,
+@@ -151,6 +152,7 @@ function disableTouchBindings() {
+ function enableMouseBindings() {
+ 	lastTouchID = 0;
+ 	clickBlockList.length = 0;
++	vclickBlockList.length = 0;
+ 	blockMouseTriggers = false;
+ 
+ 	// When mouse bindings are enabled, our
+@@ -194,13 +196,23 @@ function triggerVirtualEvent( eventType, event, flags ) {
+ }
+ 
+ function mouseEventCallback( event ) {
+-	var touchID = $.data( event.target, touchTargetPropertyName );
+-
+-	if ( ( $.support.touch === true ) && ( touchID === undefined ) ) {
+-		return;
+-	}
++	var touchID = $.data( event.target, touchTargetPropertyName ),
++		threshold = $.vmouse.clickDistanceThreshold,
++		x = event.clientX,
++		y = event.clientY,
++		cnt=vclickBlockList.length,
++		i, o;
+ 
+ 	if ( !blockMouseTriggers && ( !lastTouchID || lastTouchID !== touchID ) ) {
++		if( !!cnt && typeof x === "number" && typeof y === "number" ) {
++			for ( i=0; i < cnt; i++ ) {
++				o = vclickBlockList[ i ];
++				if( Math.abs( o.x - x ) < threshold && Math.abs( o.y - y ) < threshold ) {
++					return;
++				}
++			}
++		}
++
+ 		var ve = triggerVirtualEvent( "v" + event.type, event );
+ 		if ( ve ) {
+ 			if ( ve.isDefaultPrevented() ) {
+@@ -273,7 +285,6 @@ function handleTouchMove( event ) {
+ 			( ( t.screenX - startX ) * ( t.screenX - startX ) )
+ 				+ ( ( t.screenY - startY ) * ( t.screenY - startY ) ) > $.vmouse.moveDistanceThresholdPow;
+ 
+-
+ 	if ( didScroll && !didCancel ) {
+ 		triggerVirtualEvent( "vmousecancel", event, flags );
+ 	}
+@@ -309,6 +320,11 @@ function handleTouchEnd( event ) {
+ 		t = getNativeEvent( event ).changedTouches[ 0 ],
+ 		endX = t.screenX,
+ 		endY = t.screenY,
++		// client positions are not necessarily.
++		// but screen position is supported only touch event on tizen 2.2.1
++		// if screen position will be supported on mouse event, we need to remove client positions.
++		endCX = t.clientX,
++		endCY = t.clientY,
+ 		moveThresholdPow = $.vmouse.moveDistanceThresholdPow,
+ 		isVclickBound = ( ( endX - startX ) * ( endX - startX ) ) + ( ( endY - startY ) * ( endY - startY ) ) < moveThresholdPow;
+ 
+@@ -324,14 +340,19 @@ function handleTouchEnd( event ) {
+ 			clickBlockList.push({
+ 				touchID: lastTouchID,
+ 				target: event.target,
+-				x: endX,
+-				y: endY
++				x: endCX,
++				y: endCY
+ 			});
+ 
+ 			// Prevent any mouse events that follow from triggering
+ 			// virtual event notifications.
+ 			blockMouseTriggers = true;
+ 		}
++		
++		vclickBlockList.push({
++			x: endCX,
++			y: endCY
++		});
+ 	}
+ 	triggerVirtualEvent( "vmouseout", event, flags);
+ 	didScroll = false;
+-- 
+1.7.9.5
+
