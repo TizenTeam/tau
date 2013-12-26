@@ -16,25 +16,25 @@
 	}, false);
 
 	window.addEventListener('carddata', function (evt) {
-		var JSONData = JSON.parse(evt) , bindedArray = document.querySelectorAll('[data-bind]'), tempObj, bind, tagName, value;
+		var data = evt.detail,
+			title = document.getElementById('title'),
+			time = document.getElementById('time'),
+			dateTime = new Date(data.from * 1000),
+			place = document.getElementById('where'),
+			comrade = document.getElementById('with'),
+			etc = document.getElementById('etc'),
+			hour = dateTime.getHours(),
+			dayPart = hour >= 0 && hour < 12 ? 0 : 1,
+			dayPartString = dayPart === 0 ? 'a.m.' : 'p.m.';
 
-		for (var i in bindedArray) {
-			if( !isNaN( i ) ) {
-				if (bindedArray.hasOwnProperty(i)) {
-					tempObj = bindedArray[i];
-					bind = JSON.parse(tempObj.getAttribute('data-bind'));
-					tagName =tempObj.tagName;
-					if( !bind.key ) {
-						value = JSONData[bind.text];
-						switch( tagName ) {
-							case "IMG" : tempObj.setAttribute("src", value); break;
-							default : tempObj.innerText = value; break;
-						}
-					} else {
-						tempObj.innerText = bind.key;
-					}
-				}
-			}
+		if (dayPart === 1) {
+			hour -= 12;
 		}
+
+		title.innerHTML = data.title;
+		place.innerHTML = data.place;
+		comrade.innerHTML = data.companion;
+		etc.innerHTML = !data.description || data.description.length === 0 ? 'N/A' : data.description;
+		time.innerHTML = dayPartString + ' ' + hour + ':' + pad(dateTime.getMinutes());
 	}, false);
 }(window, window.document));
