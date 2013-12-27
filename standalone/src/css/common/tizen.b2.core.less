@@ -1,0 +1,37 @@
+/*
+ * Common definition for theme
+ */
+
+@font_size_default: 22px;	// Default unit font size. DO NOT USE THIS VALUE IN WIDGET CSS!
+
+@rem_base: (1rem/@font_size_default);
+@em_base: 1em/@font_size_default;	// WARNING: Don't use em unit!	This value is to be removed.
+@px_base: 1px;
+
+@unit_base: @rem_base;
+
+@font_family: Samsung Sans, Helvetica;
+
+/******************************
+  z-index order collection
+ ******************************/
+@z_base_maximum: 2147483647;
+@z_base_header_footer: 1000;
+@z_base_popup: @z_base_header_footer + 100;
+
+
+/***************************************************************************
+                   Common Style
+***************************************************************************/
+.screen-hidden { visibility: hidden; position: absolute; top: -10000em; left: -10000em;}
+
+
+/***************************************************************************
+                   Default Style.
+***************************************************************************/
+button, input {
+	outline: none;
+	cursor: pointer;
+	
+
+}
