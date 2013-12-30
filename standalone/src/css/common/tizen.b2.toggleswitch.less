@@ -1,1 +1,146 @@
-button {font-size:1px;};
+/*
+ * toggle switch
+ */
+
+
+
+.ui-switch {
+	width: inherit;
+	height: inherit;
+	position: fixed;
+	color: @color_switch_text;
+}
+
+.ui-switch-text {
+	margin: 70 auto 34;
+	padding: 0 30;
+	font-size: 34 * @unit_base;
+	text-align: center;
+}
+
+.ui-toggleswitch {
+	width: 120 * @unit_base;
+	height: 60 * @unit_base;
+	border-radius: 30 * @unit_base;
+	background-color: @color_switch_bg;
+}
+
+.ui-switch-input {
+	display: none;
+}
+
+.ui-switch-inneroffset {
+	width: 50%;
+	height: 100%;
+}
+
+.ui-switch-activation {
+	width: 120 * @unit_base;
+	height: 60 * @unit_base;
+	border-radius: 30 * @unit_base;
+	background-color: @color_switch_activation_bg;
+	margin: 0 auto;
+
+	.ui-switch-handler {
+		position: relative;
+		width: 60 * @unit_base;
+		height: 60 * @unit_base;
+		border-radius: 30 * @unit_base;
+		border: 2 * @unit_base solid @color_switch_activation_bg;
+		background-color: @color_switch_handler_bg;
+		left: 0%;
+	}
+}
+
+.ui-switch-activation:active {
+	width: 120 * @unit_base;
+	height: 60 * @unit_base;
+	border-radius: 30 * @unit_base;
+	background-color: @color_swtich_activation_active_bg;
+	margin: 0 auto;
+
+	.ui-switch-handler:active {
+		position: relative;
+		width: 60 * @unit_base;
+		height: 60 * @unit_base;
+		border-radius: 30 * @unit_base;
+		border: 2 * @unit_base solid @color_swtich_activation_active_bg;
+		background-color: @color_switch_handler_bg;
+		left: 0%
+	}
+}
+
+.ui-switch-activation:disable {
+	width: 120 * @unit_base;
+	height: 60 * @unit_base;
+	border-radius: 30 * @unit_base;
+	background-color: @color_switch_activation_disable_bg;
+	margin: 0 auto;
+
+	.ui-switch-handler:disable {
+		position: relative;
+		width: 60 * @unit_base;
+		height: 60 * @unit_base;
+		border-radius: 30 * @unit_base;
+		border: 2 * @unit_base solid @color_switch_activation_disable_bg;
+		background-color: @color_switch_handler_bg;
+		left: 0%;
+	}
+}
+
+.ui-switch-input:checked ~ & {
+	display: none;
+
+	.ui-switch-activation {
+		width: 120 * @unit_base;
+		height: 60 * @unit_base;
+		border-radius: 30 * @unit_base;
+		background-color: @color_switch_activation_checked_bg;
+		margin: 0 auto;
+
+		.ui-switch-handler {
+			position: relative;
+			width: 60 * @unit_base;
+			height: 60 * @unit_base;
+			border-radius: 30 * @unit_base;
+			border: 2 * @unit_base solid @color_switch_activation_checked_bg;
+			background-color: @color_switch_handler_bg;
+			left: 100%;
+		}
+	}
+	.ui-switch-activation:active {
+		width: 120 * @unit_base;
+		height: 60 * @unit_base;
+		border-radius: 30 * @unit_base;
+		background-color: @color_switch_activation_active_checked_bg;
+		margin: 0 auto;
+
+		.ui-switch-handler:active {
+			position: relative;
+			width: 60 * @unit_base;
+			height: 60 * @unit_base;
+			border-radius: 30 * @unit_base;
+			border: 2 * @unit_base solid @color_switch_activation_active_checked_bg;
+			background-color: @color_switch_handler_bg;
+			left: 100%;
+		}
+	}
+	.ui-switch-activation:disable {
+		width: 120 * @unit_base;
+		height: 60 * @unit_base;
+		border-radius: 30 * @unit_base;
+		background-color: @color_switch_activation_disable_checked_bg;
+		margin: 0 auto;
+
+		.ui-switch-handler:disable {
+			position: relative;
+			width: 60 * @unit_base;
+			height: 60 * @unit_base;
+			border-radius: 30 * @unit_base;
+			border: 2 * @unit_base solid @color_switch_activation_disable_checked_bg;
+			background-color: @color_switch_handler_bg;
+			left: 100%;
+		}
+	}
+}
+

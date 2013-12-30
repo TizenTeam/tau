@@ -3,28 +3,31 @@
 ***************************************************************************/
 body { 
 	height: 100%;
-	font-size: 40 * @unit_base;
+	font-size: 30 * @unit_base;
 	font-family: @font_family;
 	background: @color_bg;
 	color : @color_text;
 }
 
-body > .section, .page {
-	
+.page {
+	width: 100%;
+	height: 100%;
+	overflow-y: hidden;
+}
+
+.page-scroll {
+	width: 100%;
+	height: auto;
 }
 
 .section {
 	display: block;
 	float:left;
 	width: 320 * @unit_base;
-	height: 320 * @unit_base;
 	overflow: hidden;
 }
 
-.contents {
-	width: 100%;
-	height: 100%;
-	overflow: auto;
+.scrolling-mode-touch {
 	-webkit-overflow-scrolling: touch;
 	-moz-overflow-scrolling: touch;
 	-o-overflow-scrolling: touch;
@@ -32,8 +35,17 @@ body > .section, .page {
 	overflow-scrolling: touch;
 }
 
-.actionbar + .contents {
-	height: 268 * @unit_base;
+.main {
+	width:auto;
+	height: 100%;
+	overflow: auto;
+}
+
+.main.content {
+	margin-top: 16 * @unit_base;
+	margin-bottom: 16 * @unit_base;
+	padding-left: 16 * @unit_base;
+	padding-right: 16 * @unit_base;
 }
 
 .actionbar {
@@ -41,6 +53,7 @@ body > .section, .page {
 	width: 100%;
 	height: 52 * @unit_base;
 	line-height: 52 * @unit_base;
+	background-color: @color_bg;
 	
 	.icon {
 		display: block;
@@ -52,8 +65,8 @@ body > .section, .page {
 	}
 	
 	.title {
-		color: @actionbar_title_text;
-		font-size: 34 * @unit_base;
+		color: @color_actionbar_title_text;
+		font-size: 24 * @unit_base;
 		white-space: nowrap;
 		margin: 0px;
 		padding-left: 16 * @unit_base;
@@ -67,7 +80,6 @@ body > .section, .page {
 	button.more, input.more {
 		border:0 none;
 		padding: 0;
-		
 	}
 
 	.more-disable {
@@ -89,42 +101,71 @@ body > .section, .page {
 		cursor: pointer;
 
 		&:active {
-			background-color: @actionbar_more_pressed_bg;
+			background-color: @color_actionbar_more_pressed_bg;
 		}
 
 		&.ico-detail {
-			background-image: url(@actionbar_more_icon_detail_normal);
-			&[disabled="disabled"] {
-				background-image: url(@actionbar_more_icon_detail_disable);
+			background-image: url(@icon_actionbar_more_detail_normal);
+			&[disabled="disabled"], &.ui-state-disabled {
+				background-image: url(@icon_actionbar_more_detail_disable);
 				.more-disable;
 			}
 		}
 
 		&.ico-detail {
-			background-image: url(@actionbar_more_icon_detail_normal);
-			&[disabled="disabled"] {
+			background-image: url(@icon_actionbar_more_detail_normal);
+			&[disabled="disabled"], &.ui-state-disabled {
 				.more-disable;
-				background-image: url(@actionbar_more_icon_detail_disable);
+				background-image: url(@icon_actionbar_more_detail_disable);
 			}
 		}
 
 		&.ico-overflow {
-			background-image: url(@actionbar_more_icon_overflow_normal);
-			&[disabled="disabled"] {
+			background-image: url(@icon_actionbar_more_overflow_normal);
+			&[disabled="disabled"], &.ui-state-disabled {
 				.more-disable;
-				background-image: url(@actionbar_more_icon_overflow_disable);
+				background-image: url(@icon_actionbar_more_overflow_disable);
 			}
 		}
 
 		&.ico-selectall {
-			background-image: url(@actionbar_more_icon_selectall_normal);
-			&[disabled="disabled"] {
+			background-image: url(@icon_actionbar_more_selectall_normal);
+			&[disabled="disabled"], &.ui-state-disabled {
 				.more-disable;
-				background-image: url(@actionbar_more_icon_selectall_disable);
+				background-image: url(@icon_actionbar_more_selectall_disable);
 			}
 		}
 	}
 
 }
 
+.page > .actionbar {
+	position: fixed;
+	top: 0px;
+	left: 0px;
 
+	.tab-nav {
+		width:100%;
+		height: 6 * @unit_base;
+
+		a {
+			float: left;
+			height: 6 * @unit_base;
+			overflow: hidden;
+			text-indent: -10000em;
+			outline: none;
+
+			&.active {
+				background-color: @color_actionbar_tab_nav_active_bg;
+			}
+		}
+	}
+}
+
+.actionbar + .page-scroll {
+	margin-top: 58 * @unit_base;
+}
+
+.actionbar.has-tab + .page-scroll {
+	margin-top: 64 * @unit_base;
+}

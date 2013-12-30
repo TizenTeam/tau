@@ -1,0 +1,27 @@
+@-webkit-keyframes rotating {
+	from { -webkit-transform: rotate(0deg); }
+	to { -webkit-transform: rotate(360deg); }
+}
+.ui-processing {
+	color: @color_processing_text;
+}
+.ui-popup-no-title {
+	.ui-popup-body {
+		.ui-processing-activity {
+			margin: 63 auto 14;
+		}
+	}
+}
+.ui-processing-activity {
+	background-image: url("./images/Progress/tw_widget_popup_activity.png");
+	-webkit-animation: rotating 1s linear infinite;
+	width:80 * @unit_base;
+	height:80 * @unit_base;
+	margin: 38 auto 14;
+}
+.ui-processing-text {
+	margin: 0 auto;
+	text-align: center;
+	width: 168 * @unit_base;
+	font-size: 24 * @unit_base;
+}

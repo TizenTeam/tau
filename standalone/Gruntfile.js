@@ -109,7 +109,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks( "grunt-contrib-cssmin" );
 	grunt.loadNpmTasks("grunt-contrib-watch");
 
-	grunt.registerTask("css", [ "less", "cssmin" ]);
+	grunt.registerTask("css", [ "less", "cssmin", "copy" ]);
 
-	grunt.registerTask("default", [ "css", "copy" ]);
+	grunt.registerTask("default", [ "css" ]);
 };

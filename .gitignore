@@ -10,3 +10,5 @@ compiled
 *~
 pkged-demo-apps
 tests/style/node_modules/*
+standalone/dist
+standalone/node_modules

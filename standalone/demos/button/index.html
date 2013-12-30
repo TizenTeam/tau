@@ -2,76 +2,59 @@
 <html>
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8" >
+	<meta name="viewport" content="width=device-width, user-scalable=no"/>
 	<title>Tizen B2 UI</title>
 	<link rel="stylesheet"  href="../../dist/themes/default/tizen.b2.css">
 </head>
 
 <body>
 <div class="page">
-	<h1 class="screen-hidden">Call phone</h1>
-	<section class="section">
-		<div class="actionbar">
-			<h2 class="title">Call menu</h2>
-		</div>
-		<div class="contents">
-			It was a real pleasure for me to finally get to meet you. My colleagues join me in sending you our holiday greetings.
-		</div>
-	</section>
-	<section class="section">
-		<div class="actionbar">
-			<img class="icon" />
-			<h2 class="title">Call menu</h2>
-			<button type="button" class="more ico-detail">More Options</button>
-		</div>
-		<div class="contents">
-			It was a real pleasure for me to finally get to meet you. My colleagues join me in sending you our holiday greetings.
-		</div>
-	</section>
-	<section class="section">
-		<div class="actionbar">
-			<h2 class="title">Call menu</h2>
-			<button type="button" class="more ico-detail" disabled="disabled">More Options</button>
-		</div>
-		<div class="contents">
-			It was a real pleasure for me to finally get to meet you. My colleagues join me in sending you our holiday greetings.
-		</div>
-	</section>
-	<section class="section">
-		<div class="actionbar">
-			<h2 class="title">Emily Blunt</h2>
-			<a href="#" class="more ico-overflow" >More Options</a>
-		</div>
-		<div class="contents">
-			It was a real pleasure for me to finally get to meet you. My colleagues join me in sending you our holiday greetings.
-		</div>
-	</section>
-	<section class="section">
-		<div class="actionbar">
-			<h2 class="title">Emily Blunt</h2>
-			<a href="#" class="more ico-overflow" disabled="disabled" >More Options</a>
-		</div>
-		<div class="contents">
-			It was a real pleasure for me to finally get to meet you. My colleagues join me in sending you our holiday greetings.
-		</div>
-	</section>
-	<section class="section">
-		<div class="actionbar">
-			<h2 class="title">Emily Blunt</h2>
-			<input type="button" class="more ico-selectall" value="Select All" />
-		</div>
-		<div class="contents">
-			It was a real pleasure for me to finally get to meet you. My colleagues join me in sending you our holiday greetings.
-		</div>
-	</section>
-	<section class="section">
-		<div class="actionbar">
-			<h2 class="title">Emily Blunt</h2>
-			<input type="button" class="more ico-selectall" disabled="disabled" value="Select All" />
-		</div>
-		<div class="contents">
-			It was a real pleasure for me to finally get to meet you. My colleagues join me in sending you our holiday greetings.
-		</div>
-	</section>
+	<header class="actionbar">
+		<h2 class="title">Buttons</h2>
+	</header>
+	<div class="page-scroll">
+		<section class="section">
+			<ul class="main content">
+			<li>Buttons</li>
+			<li><button type="button" class="ui-btn">Button Default</button></li>
+			<li><a href="#" class="ui-btn ui-red">A Button red</a></li>
+			<li><input type="button" class="ui-btn ui-orange" value="Input Button Orange" /></li>
+			<li><button type="button" class="ui-btn ui-green">Button Green</button></li>
+
+			<li>Disabled</li>
+			<li><button type="button" class="ui-btn" disabled="disabled">Button disabled</button></li>
+			<li><a class="ui-btn ui-red ui-state-disabled" >A Button disabled</a></li>
+			<li><input type="button" class="ui-btn ui-orange" value="Input Button disabled" disabled="disabled" /></li>
+
+			<li>Multi Line buttons</li>
+			<li><button type="button" class="ui-btn ui-multiline">Button<br />Icon</button></li>
+			<li><a href="#" class="ui-btn ui-red ui-multiline" >A Button<br />Icon</a></li>
+
+			<li>inline buttons</li>
+			<li>
+				<input type="button" class="ui-btn ui-orange ui-inline" value="Button" />
+				<a href="#" class="ui-btn ui-red ui-multiline ui-inline">A Button<br />Icon</a>
+			</li>
+
+			<li>Icon buttons</li>
+			<li><button type="button" class="ui-btn ui-icon-notext">Button Icon</button></li>
+			<li><a href="#" class="ui-btn ui-red ui-icon-notext" >A Button Icon</a></li>
+			<li><input type="button" class="ui-btn ui-orange ui-icon-notext" value="Input Button Icon" /></li>
+
+			<li>Circle buttons</li>
+			<li><button type="button" class="ui-btn">Button Circle</button></li>
+			<li><a href="#" class="ui-btn ui-red" >A Button Circle</a></li>
+			<li><input type="button" class="ui-btn ui-orange" value="Input Button Circle" /></li>
+
+			<li>buttons</li>
+			<li class="ui-btn-group ui-n3">
+				<button type="button" class="ui-btn">Button Circle</button>
+				<a href="#" class="ui-btn ui-red" >A Button Circle</a>
+				<input type="button" class="ui-btn ui-orange" value="Input Button Circle" />
+			</li>
+			</ul>
+		</section>
+	</div>
 </div>
 </body>
 </html>
