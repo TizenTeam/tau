@@ -1,0 +1,108 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="stylew.css" />
+	<script src="swipe.js"></script>
+	<script>
+		document.addEventListener ( "tizenhwkey", function(ev){
+			if( ev.keyName == "back" ) {
+				window.tizen.application.getCurrentApplication().exit();
+			}
+		} );
+	</script>
+</head>
+<body>
+	<div class="container" id="container">
+		<div class="first boxshadowborder">
+			<div class="height60">
+				<div class="innerpadding5">
+					<h2>Seoul</h2>
+					<div class="guide">
+						<div> Tuesday 5:00 PM </div>
+						<div> Mostly Cloudy </div>
+					</div>
+					<br/>
+					<div class="view">
+						<img class="condi" src="images/condition1.png">
+						<span class="tempe">4</span>
+						<img class="cel" src="images/weather_tem_c.png" >
+					</div>
+					<div class="guide leftpadding20">
+						<div><span class="labelw">highest temperature: </span>4C</div>
+						<div><span class="labelw">lowest temperature: </span>6C</div>
+						<div><span class="labelw">Precipitation: </span>30%</div>
+						<div><span class="labelw">Humidity: </span>75%</div>
+						<div><span class="labelw">Wind: </span>1m/s</div>
+					</div>
+				</div>
+			</div>
+			<div class="height30">
+				<div class="guide innerpadding5 backgroundwhite">
+					<h3>Weekly Weather</h3>
+					<div class="content">
+						<div class="width33 imgwidth60">
+							<img src="images/condition2.png">
+							<div class="toppadding15">Wed</div>
+							<div> 4C / 7C </div>
+						</div>
+						<div class="width33 imgwidth60">
+							<img src="images/condition3.png">
+							<div class="toppadding15">Thu</div>
+							<div> 4C / 7C </div>
+						</div>
+						<div class="width33 imgwidth60">
+							<img src="images/condition4.png">
+							<div  class="toppadding15">Fri</div>
+							<div> 4C / 7C </div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div class="second relative leftpadding20">
+			<div class="mainheight relative boxshadowborder backgroundwhite">
+				<div class="innerpadding5">
+					<h3>Now Temperature</h3>
+					<div class="map relative">
+						<img src="images/map_weather.PNG">
+					</div>
+				</div>
+			</div>
+			<div class="subheight relative top20 boxshadowborder backgroundwhite">
+				<div class="innerpadding5">
+					<h3>Now Picture</h3>
+					<div class="nowpic">
+						<img src="images/seoul.PNG">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="third leftmargin20 boxshadowborder">
+			<div class="innerpadding5">
+				<h3>News</h3>
+				<div class="box">
+					<div class="headline">Seoul to Provide US$500 Mln Loan to Philippines</div>
+					<p>The Finance Ministry says it is holding talks with Manila on providing the Philippines a 500 million U.S. dollar loan for typhoon relief.</p>
+				</div>
+				<div class="box">
+						<div class="headline">Outcry as China maps new air defense zone</div>
+						<p>The Korean government yesterday expressed regret that China’s newly declared air defense zone includes airspace around Korea’s Ieodo, which could potentially heighten military tensions in the region.</p>
+				</div>
+				<div class="box">
+						<div class="headline">Bank teller arrested after hiding for 8 years</div>
+						<p>A former bank teller who has been in hiding for more than eight years after being accused of withdrawing 5 billion won ($4.71 million) from nearly 120 clients’ accounts over a four-year period in the early 2000s has been caught by the police in Jeonju, North Jeolla.
+						</p>
+				</div>
+				<div class="box notland">
+						<div class="headline">Gov’t boosts its goals for space</div>
+						<p>Korea plans to launch an exploratory lunar probe aboard its own launch vehicle by June 2020 and later embark on missions to Mars and asteroids by 2040, the Ministry of Science, ICT and Future Planning announced yesterday.
+						</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
