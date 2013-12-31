@@ -1,11 +1,11 @@
 module.exports = function(grunt) {
 	"use strict";
 	
-	var utils = grunt.util._,
-		path = require("path"),
+	var path = require("path"),
 		dist = "dist" + path.sep,
 		name = "tizen.b2",
-		themesPath = dist + path.sep + "themes",
+		jsPath = path.join(dist, "js"),
+		themesPath = path.join(dist, "themes"),
 		themes = {
 			"default" : "src/css/themes/black",
 			"black" : "src/css/themes/black",
@@ -33,7 +33,7 @@ module.exports = function(grunt) {
 				getMinifiedCSSFiles : function( ) {
 					var list = [],
 						css = files.css,
-						key, value;
+						key;
 					
 					for(key in themes) {
 						list.push({
@@ -67,11 +67,119 @@ module.exports = function(grunt) {
 		};
 
 	grunt.initConfig({
+		pkg: grunt.file.readJSON( "package.json" ),
+		
+		version: "<%= pkg.version %>",
+		
+		jshint: {
+			js: {
+				options: {
+					jshintrc: "src/js/.jshintrc"
+				},
+				files: {
+					src: [
+						"src/js/**/*.js"
+					]
+				}
+			},
+			grunt: {
+				options: {
+					jshintrc: "src/js/.jshintrc"
+				},
+				files: {
+					src: [ "Gruntfile.js" ]
+				}
+			}
+		},
+		
+		requirejs: {
+			js: {
+				options: {
+					baseUrl: "src/js",
+
+					optimize: "none",
+
+					//Finds require() dependencies inside a require() or define call.
+					findNestedDependencies: true,
+
+					//If skipModuleInsertion is false, then files that do not use define()
+					//to define modules will get a define() placeholder inserted for them.
+					//Also, require.pause/resume calls will be inserted.
+					//Set it to true to avoid this. This is useful if you are building code that
+					//does not use require() in the built project or in the JS files, but you
+					//still want to use the optimization tool from RequireJS to concatenate modules
+					//together.
+					skipModuleInsertion: true,
+
+					mainConfigFile: "src/js/requirejs.config.js",
+
+					include: [ name ],
+
+					exclude: [
+						"jquery",
+						"jquery.ui.core",
+						"jquery.ui.widget",
+						"jquery.hashchange"
+					],
+
+					out: path.join( jsPath, name ) + ".js",
+
+					pragmasOnSave: {
+						b2BuildExclude: true
+					},
+
+					//File paths are relative to the build file, or if running a commmand
+					//line build, the current directory.
+					wrap: {
+						startFile: "build/wrap.start",
+						endFile: "build/wrap.end"
+					}
+				}
+			},
+
+			libs: {
+				options: {
+					baseUrl: "src/js",
+					optimize: "none",
+					findNestedDependencies: true,
+					skipModuleInsertion: true,
+					mainConfigFile: "src/js/requirejs.config.js",
+					include: [
+						"jquery.hashchange",
+						"jquery.ui.widget"
+					],
+					out: path.join( jsPath, name ) + ".libs.js"
+
+				}
+			}
+		},
+
+		uglify: {
+			all: {
+				options: {
+					beautify: {
+						ascii_only: true
+					}
+				},
+				files: [
+					{
+						src: path.join( jsPath, name ) + ".js",
+						dest: path.join( jsPath, name ) + ".min.js",
+					},
+					{
+						src: path.join( jsPath, name ) + ".libs.js",
+						dest: path.join( jsPath, name ) + ".libs.min.js",
+					}
+				]
+			}
+		},
+
 		less : {
 			style : {
 				files : files.css.getCssFiles()
 			}
 		},
+
 		cssmin: {
 			options: {
 				keepSpecialComments: 0
@@ -80,15 +188,17 @@ module.exports = function(grunt) {
 				files: files.css.getMinifiedCSSFiles()
 			}
 		},
+
 		copy: {
 			images: {
 				files: files.images.getImagesFolder()
 			}
 		},
+
 		watch : {
 			css : {
-				files : [ "src/css/**/*" ],
-				tasks : [ "less" ],
+				files : [ "src/css/**/*", "src/js/**/*" ],
+				tasks : [ "less", "requirejs:js" ],
 				options: {
 					// Start a live reload server on the default port 35729
 					livereload: true,
@@ -101,15 +211,19 @@ module.exports = function(grunt) {
 
 	grunt.loadNpmTasks( "grunt-contrib-clean" );
 	grunt.loadNpmTasks( "grunt-contrib-copy" );
-	grunt.loadNpmTasks("grunt-contrib-concat");
+	grunt.loadNpmTasks( "grunt-contrib-concat" );
 	grunt.loadNpmTasks( "grunt-contrib-requirejs" );
 	grunt.loadNpmTasks( "grunt-contrib-jshint" );
-	grunt.loadNpmTasks("grunt-contrib-uglify");
-	grunt.loadNpmTasks("grunt-contrib-less");
+	grunt.loadNpmTasks( "grunt-contrib-uglify" );
+	grunt.loadNpmTasks( "grunt-contrib-less" );
 	grunt.loadNpmTasks( "grunt-contrib-cssmin" );
-	grunt.loadNpmTasks("grunt-contrib-watch");
+	grunt.loadNpmTasks( "grunt-contrib-watch" );
 
+	grunt.registerTask( "lint", [ "jshint" ] );
 	grunt.registerTask("css", [ "less", "cssmin", "copy" ]);
+	grunt.registerTask("js", [ "requirejs", "uglify" ]);
+	
+	grunt.registerTask("release", [ "lint", "css", "js" ]);
 
-	grunt.registerTask("default", [ "css" ]);
+	grunt.registerTask("default", [ "release" ]);
 };
