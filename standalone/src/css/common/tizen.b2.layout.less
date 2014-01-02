@@ -9,19 +9,20 @@ body {
 	color : @color_text;
 }
 
-.page {
+.ui-page {
 	width: 100%;
 	height: 100%;
 	overflow-y: hidden;
 }
 
-.page-scroll {
+.ui-page-scroll {
 	width: 100%;
 	height: auto;
 }
 
-.section {
+.ui-section {
 	display: block;
+	position:relative;
 	float:left;
 	width: 320 * @unit_base;
 	overflow: hidden;
@@ -35,59 +36,76 @@ body {
 	overflow-scrolling: touch;
 }
 
-.main {
+.ui-main {
 	width:auto;
 	height: 100%;
 	overflow: auto;
+
+	.ui-actionbar + .ui-page-scroll &,
+	.ui-actionbar + & {
+		margin-top: 52 * @unit_base;
+
+		&.ui-content {
+			margin-top: 52 + 16 * @unit_base;
+		}
+	}
+
+	.ui-actionbar.ui-has-tab + .ui-page-scroll & {
+		margin-top: 52 + 6 * @unit_base;
+
+		&.ui-content {
+			margin-top: 52 + 6 + 16 * @unit_base;
+		}
+	}
+
+	&.ui-content {
+		margin-top: 16 * @unit_base;
+		margin-bottom: 16 * @unit_base;
+		padding-left: 16 * @unit_base;
+		padding-right: 16 * @unit_base;
+	}
 }
 
-.main.content {
-	margin-top: 16 * @unit_base;
-	margin-bottom: 16 * @unit_base;
-	padding-left: 16 * @unit_base;
-	padding-right: 16 * @unit_base;
-}
-
-.actionbar {
-	position: relative;
+.ui-actionbar {
+	position: absolute;
 	width: 100%;
 	height: 52 * @unit_base;
 	line-height: 52 * @unit_base;
 	background-color: @color_bg;
-	
-	.icon {
-		display: block;
-		position: absolute;
-		top: 9 * @unit_base;
-		left: 16 * @unit_base;
-		width: 34 * @unit_base;
-		height: 34 * @unit_base;
-	}
-	
-	.title {
+
+	.ui-title {
 		color: @color_actionbar_title_text;
 		font-size: 24 * @unit_base;
 		white-space: nowrap;
 		margin: 0px;
 		padding-left: 16 * @unit_base;
 		padding-right: 16 * @unit_base;
+
+		&.ui-icon {
+			padding-left: 60 * @unit_base;
+			background-position: 16 * @unit_base 9 * @unit_base;
+			background-size: 34 * @unit_base 34 * @unit_base;
+			background-repeat: no-repeat;
+		}
 	}
 
-	.icon + .title {
-		padding-left: 60 * @unit_base;
+	&.ui-has-more {
+		.ui-title {
+			padding-right: 68 * @unit_base;
+		}
 	}
 
-	button.more, input.more {
+	button.ui-more, input.ui-more {
 		border:0 none;
 		padding: 0;
 	}
 
-	.more-disable {
+	.ui-more-disable {
 		cursor: default;
 		background-color: @color_bg;
 	}
 
-	.more {
+	.ui-more {
 		display: block;
 		position: absolute;
 		top: 0px;
@@ -104,34 +122,34 @@ body {
 			background-color: @color_actionbar_more_pressed_bg;
 		}
 
-		&.ico-detail {
+		&.ui-ico-detail {
 			background-image: url(@icon_actionbar_more_detail_normal);
 			&[disabled="disabled"], &.ui-state-disabled {
 				background-image: url(@icon_actionbar_more_detail_disable);
-				.more-disable;
+				.ui-more-disable;
 			}
 		}
 
-		&.ico-detail {
+		&.ui-ico-detail {
 			background-image: url(@icon_actionbar_more_detail_normal);
 			&[disabled="disabled"], &.ui-state-disabled {
-				.more-disable;
+				.ui-more-disable;
 				background-image: url(@icon_actionbar_more_detail_disable);
 			}
 		}
 
-		&.ico-overflow {
+		&.ui-ico-overflow {
 			background-image: url(@icon_actionbar_more_overflow_normal);
 			&[disabled="disabled"], &.ui-state-disabled {
-				.more-disable;
+				.ui-more-disable;
 				background-image: url(@icon_actionbar_more_overflow_disable);
 			}
 		}
 
-		&.ico-selectall {
+		&.ui-ico-selectall {
 			background-image: url(@icon_actionbar_more_selectall_normal);
 			&[disabled="disabled"], &.ui-state-disabled {
-				.more-disable;
+				.ui-more-disable;
 				background-image: url(@icon_actionbar_more_selectall_disable);
 			}
 		}
@@ -139,12 +157,12 @@ body {
 
 }
 
-.page > .actionbar {
+.ui-page > .ui-actionbar {
 	position: fixed;
 	top: 0px;
 	left: 0px;
 
-	.tab-nav {
+	.ui-tab {
 		width:100%;
 		height: 6 * @unit_base;
 
@@ -155,17 +173,9 @@ body {
 			text-indent: -10000em;
 			outline: none;
 
-			&.active {
+			&.ui-state-active {
 				background-color: @color_actionbar_tab_nav_active_bg;
 			}
 		}
 	}
-}
-
-.actionbar + .page-scroll {
-	margin-top: 58 * @unit_base;
-}
-
-.actionbar.has-tab + .page-scroll {
-	margin-top: 64 * @unit_base;
 }
