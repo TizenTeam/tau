@@ -3,7 +3,7 @@ module.exports = function(grunt) {
 	
 	var path = require("path"),
 		dist = "dist" + path.sep,
-		name = "tizen.b2",
+		name = "tizen.micro",
 		jsPath = path.join(dist, "js"),
 		themesPath = path.join(dist, "themes"),
 		themes = {
@@ -125,7 +125,7 @@ module.exports = function(grunt) {
 					out: path.join( jsPath, name ) + ".js",
 
 					pragmasOnSave: {
-						b2BuildExclude: true
+						microBuildExclude: true
 					},
 
 					//File paths are relative to the build file, or if running a commmand

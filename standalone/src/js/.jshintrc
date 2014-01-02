@@ -14,8 +14,6 @@
 	"undef": true,
 	"unused": true,
 	"node": true,
-	"indent": true,
-	"strict": true,
 	"shadow": true,
 
 	"globals": {
