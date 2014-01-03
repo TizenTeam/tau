@@ -70,7 +70,7 @@ Normal Popup
 list-checkbox list-radio  Popup
 *********************************/
 .ui-popup-list.ui-popup-checkboxradio.ui-popup-container {
-	.ui-popup-list li {
+	.ui-listview li {
 		padding: 0;
 	}
 
@@ -86,11 +86,11 @@ list-checkbox list-radio  Popup
 	}
 
 	label.ui-popup-radio-label {
-		background: url(./images/Controller_icon/tw_btn_radio_off_holo_dark.png) 90% 50% no-repeat;
+		background: url(./images/Controller_icon/tw_btn_radio_off_holo_dark.png) 99% 50% no-repeat;
 	}
 
 	label.ui-popup-checkbox-label {
-		background: url(./images/Controller_icon/tw_btn_check_off_holo_dark.png) 90% 50% no-repeat;
+		background: url(./images/Controller_icon/tw_btn_check_off_holo_dark.png) 99% 50% no-repeat;
 	}
 
 	input[type="radio"] {
@@ -102,7 +102,7 @@ list-checkbox list-radio  Popup
 
 	input[type="radio"]:checked {
 		+ .ui-popup-radio-label {
-			background: url(./images/Controller_icon/tw_btn_radio_on_holo_dark.png) 90% 50% no-repeat;
+			background: url(./images/Controller_icon/tw_btn_radio_on_holo_dark.png) 99% 50% no-repeat;
 		}
 	}
 
@@ -115,7 +115,7 @@ list-checkbox list-radio  Popup
 
 	input[type="checkbox"]:checked {
 		+ .ui-popup-checkbox-label {
-			background: url(./images/Controller_icon/tw_btn_check_on_holo_dark.png) 90% 50% no-repeat;
+			background: url(./images/Controller_icon/tw_btn_check_on_holo_dark.png) 99% 50% no-repeat;
 		}
 	}
 }
@@ -146,17 +146,14 @@ device option popup
 		padding: 0;
 	}
 
-	.ui-popup-list li {
+	.ui-listview li {
 		width: 100%;
 		height: 33.3%;
 		font-size: @font_size_popup_body;
+		padding: 0;
 	}
 
-	.ui-popup-list li:active {
-		background-color: @color_popup_list_press_bg;
-	}
-
-	.ui-popup-list {
+	.ui-listview {
 		.ui-half-list {
 			width: 50%;
 			height: 96 * @unit_base;
@@ -176,7 +173,7 @@ device option popup
 			height: 100%;
 			float: left;
 			padding-top: 10 * @unit_base;
-			border-left: 1px solid @color_popup_border;
+			border-left: 1px solid @color_list_border;
 		}
 
 		.ui-text-sound,
@@ -207,20 +204,20 @@ device option popup
 		padding-right: 10 * @unit_base;
 		padding-top: 12 * @unit_base;
 		padding-bottom: 12 * @unit_base;
-		border-bottom: 1px solid @color_popup_border;
+		border-bottom: 1px solid @color_list_border;
 
 		.ui-popup-left-option {
 			width: 50%;
 			height: 100%;
 			float: left;
-			border-right: 1px solid @color_popup_border;
+			border-right: 1px solid @color_list_border;
 		}
 
 		.ui-popup-right-option {
 			width: 50%;
 			height: 100%;
 			float: left;
-			border-left: 1px solid @color_popup_border;
+			border-left: 1px solid @color_list_border;
 		}
 
 		.ui-icon-power-off {
@@ -278,38 +275,8 @@ list popup
 	.ui-popup-body {
 		padding: 0;
 	}
-	.ui-popup-list li {
-		width: 100%;
-		height: 90 * @unit_base;
-		font-size: @font_size_popup_body;
-		padding: 25*@unit_base 16*@unit_base 25*@unit_base 16*@unit_base;
-		border-bottom: 1px solid @color_popup_border;
-	}
-
-	.ui-popup-list li:active {
-		background-color: @color_popup_list_press_bg;
-	}
-
-	&.ui-popup-no-title {
-		.ui-popup-body {
-			width: 100%;
-			height: 231 * @unit_base;
-		}
-	}
-	&.ui-popup-nobtn {
-		.ui-popup-body {
-			width: 100%;
-			height: 237 * @unit_base;
-		}
-	}
-
-	&.ui-popup-no-title.ui-popup-nobtn {
-		.ui-popup-body {
-			width: 100%;
-			height: 100%;
-		}
-	}
 }
+
 /****************************************
 Popup Toast
 ****************************************/
