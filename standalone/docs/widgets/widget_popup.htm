@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head><script type="text/javascript" src="../snippet.js"></script>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link href="../styles.css" rel="StyleSheet" type="text/css">
+<link href="../snippet.css" rel="StyleSheet" type="text/css">
+  <title>Popup</title>
+</head>
+
+<body onload="prettyPrint()">
+
+
+<h1>Popup</h1>
+
+<p>The popup widget shows a list of items in a pop-up window in the middle of the screen. It automatically optimizes the pop-up window size within the screen.</p>
+
+<p>To add a popup widget to the application, use the following code:</p>
+
+<pre class="prettyprint">&lt;a href=&quot;#center_info&quot; data-inline=&quot;true&quot; data-rel=&quot;popup&quot; data-position-to=&quot;window&quot;&gt;Popup&lt;/a&gt;
+
+// Basic pop-up
+&lt;div id=&quot;center_info&quot; data-role=&quot;popup&quot; data-style=&quot;center_info&quot;&gt;
+&nbsp;&nbsp;&nbsp;&lt;div data-role=&quot;text&quot;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pop-up dialog box, a child window that blocks user interaction in the parent window
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/p&gt;
+&nbsp;&nbsp;&nbsp;&lt;/div&gt;
+&lt;/div&gt;
+
+// Pop-up with a title and button
+&lt;div id=&quot;center_title_1btn&quot; data-role=&quot;popup&quot; data-style=&quot;center_title_1btn&quot;&gt;
+&nbsp;&nbsp;&nbsp;&lt;p data-role=&quot;title&quot;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pop-up title
+&nbsp;&nbsp;&nbsp;&lt;/p&gt;
+&nbsp;&nbsp;&nbsp;&lt;p data-role=&quot;text&quot;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pop-up dialog box
+&nbsp;&nbsp;&nbsp;&lt;/p&gt;
+&nbsp;&nbsp;&nbsp;&lt;div data-role=&quot;button-bg&quot;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;input type=&quot;button&quot; value=&quot;Text Button&quot; /&gt;
+&nbsp;&nbsp;&nbsp;&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+
+<p>The following table describes the popup options.</p>
+
+<table>
+<tbody>
+	<tr>
+		<th>Option</th>
+		<th>Input type</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+      <td><span style="font-family: Courier New,Courier,monospace">data-style</span></td>
+	  <td>String</td>
+	  <td>Defines the pop-up window style.
+	  <p>The following styles are available:</p>
+	  <ul>
+	  <li><span style="font-family: Courier New,Courier,monospace">center_info</span>: basic pop-up message</li>
+	  <li><span style="font-family: Courier New,Courier,monospace">center_title</span>: pop-up message with a title</li>
+	  <li><span style="font-family: Courier New,Courier,monospace">center_basic_1btn</span>: pop-up message with 1 button</li>
+	  <li><span style="font-family: Courier New,Courier,monospace">center_basic_2btn</span>: pop-up message with 2 horizontal buttons</li>
+	  <li><span style="font-family: Courier New,Courier,monospace">center_title_1btn</span>: pop-up message with a title and 1 button</li>
+	  <li><span style="font-family: Courier New,Courier,monospace">center_title_2btn</span>: pop-up message with a title and 2 horizontal buttons</li>
+	  <li><span style="font-family: Courier New,Courier,monospace">center_title_3btn</span>: pop-up message with a title and 3 horizontal buttons</li>
+	  <li><span style="font-family: Courier New,Courier,monospace">center_button_vertical</span>: pop-up message with vertical buttons</li>
+	  <li><span style="font-family: Courier New,Courier,monospace">center_checkbox</span>: pop-up message with a check box</li>
+	  <li><span style="font-family: Courier New,Courier,monospace">center_liststyle_1btn></span>: pop-up message with a list and 1 button</li>
+	  <li><span style="font-family: Courier New,Courier,monospace">center_liststyle_2btn</span>: pop-up message with a list and 2 horizontal buttons</li>
+	  <li><span style="font-family: Courier New,Courier,monospace">center_liststyle_3btn</span>: pop-up message with a list and 3 horizontal buttons</li>
+	  </ul>
+	  </td>
+	</tr>
+</tbody>
+</table>
+
+<p>The popup can define callbacks for events as described in the <a href="http://jquerymobile.com/demos/1.2.0-alpha.1/docs/pages/popup/events.html" target="_blank">jQueryMobile documentation for pop-up events</a>.</p>
+
+<p>You can use methods with the popup as described in the <a href="http://jquerymobile.com/demos/1.2.0-alpha.1/docs/pages/popup/methods.html" target="_blank">jQueryMobile documentation for pop-up methods</a>.</p>
+
+
+<h2>Where to Go Next</h2>
+<ul>
+ <li><a href="widget_reference.htm">Widget Reference</a></li>
+
+</ul>
+
+<div id="footer">
+<hr size="1" /><font size="1">Except as noted, this content is licensed under <a href="http://creativecommons.org/licenses/by/3.0/legalcode" target="_blank">Creative Commons Attribution 3.0</a>.<br />For details, see the <a href="https://www.tizen.org/content-license" target="_blank">Content License</a>.</font> </div>
+<!--start-->
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-25976949-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+<!--end-->
+
+
+
+</body>
+</html>

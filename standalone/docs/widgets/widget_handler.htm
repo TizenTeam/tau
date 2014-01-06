@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head><script type="text/javascript" src="../snippet.js"></script>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link href="../styles.css" rel="StyleSheet" type="text/css">
+<link href="../snippet.css" rel="StyleSheet" type="text/css">
+  <title>Handler</title>
+</head>
+
+<body onload="prettyPrint()">
+<!--<div id="banner">
+Tizen</div>-->
+
+<h1>Handler</h1>
+
+<p>The handler widget enables the user to vertically scroll through a page or panel using a fixed-size handle. The widget indicates the position of the scrolled window, and only appears on the screen if the parent page or panel&#39;s scroll size is larger than the screen size.</p>
+
+<p>To add a handler widget to the application, use the following code:</p>
+<pre class="prettyprint">&lt;div data-role=&quot;content&quot; data-scroll=&quot;y&quot; data-handler=&quot;true&quot;&gt;
+ &lt;ul data-role=&quot;listview&quot;&gt;
+ &lt;li data-role=&quot;list-divider&quot;&gt;A&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Adam Kinkaid&lt;/a&gt;&lt;/li&gt;
+
+ ...
+ 
+&lt;/ul&gt;
+&lt;/div&gt;
+</pre>
+
+<p>The following table describes the handler options.</p>
+
+<table>
+<tbody>
+	<tr>
+		<th>Option</th>
+		<th>Input type</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+      <td><span style="font-family: Courier New,Courier,monospace">data-handler</span></td>
+	  <td>Boolean</td>
+	  <td>Enables the handler widget. The value must be set to <span style="font-family: Courier New,Courier,monospace">true</span>.</td>
+	</tr>
+	<tr>
+      <td><span style="font-family: Courier New,Courier,monospace">data-handler-theme</span> (optional)</td>
+	  <td>String</td>
+	  <td>Sets the handler widget theme.</td>
+	</tr>
+</tbody>
+</table>
+
+<p>You can use the <span style="font-family: Courier New,Courier,monospace">enableHandler</span> method with the handler widget to get (if no value is defined) or set the handler usage status. If the <span style="font-family: Courier New,Courier,monospace">[enable]</span> value is <span style="font-family: Courier New,Courier,monospace">true</span>, the handler is enabled; otherwise the handler is not used.</p>
+<pre class="prettyprint">$(&quot;#.selector&quot;).scrollview(&quot;enableHandler&quot;, [enable]);
+</pre>
+
+<h2>Where to Go Next</h2>
+<ul>
+ <li><a href="widget_reference.htm">Widget Reference</a></li>
+
+</ul>
+
+<div id="footer">
+<hr size="1" /><font size="1">Except as noted, this content is licensed under <a href="http://creativecommons.org/licenses/by/3.0/legalcode" target="_blank">Creative Commons Attribution 3.0</a>.<br />For details, see the <a href="https://www.tizen.org/content-license" target="_blank">Content License</a>.</font> </div>
+<!--start-->
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-25976949-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+<!--end-->
+
+
+
+</body>
+</html>

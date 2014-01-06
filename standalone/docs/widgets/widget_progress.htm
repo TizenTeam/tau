@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head><script type="text/javascript" src="../snippet.js"></script>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link href="../styles.css" rel="StyleSheet" type="text/css">
+<link href="../snippet.css" rel="StyleSheet" type="text/css">
+  <title>Progress</title>
+</head>
+
+<body onload="prettyPrint()">
+<!--<div id="banner">
+Tizen</div>-->
+
+<h1>Progress</h1>
+
+<p>The progress widget shows that an operation is in progress.</p>
+
+<p>To add a progress widget to the application, use the following code:</p>
+<pre class="prettyprint">&lt;div data-role=&quot;progress&quot; data-style=&quot;circle&quot;&gt;&lt;/div&gt;</pre>
+
+<p>The following table describes the progress options.</p>
+
+<table>
+<tbody>
+	<tr>
+		<th>Option</th>
+		<th>Input type</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+      <td><span style="font-family: Courier New,Courier,monospace">data-style</span></td>
+	  <td>String</td>
+	  <td>Sets the style of the progress widget. The style options are <span style="font-family: Courier New,Courier,monospace">pending</span> (pending progress style) and <span style="font-family: Courier New,Courier,monospace">circle</span> (circular progress status style).</td>
+	</tr>
+</tbody>
+</table>
+
+
+<p>The progress widget can define a callback for the <span style="font-family: Courier New,Courier,monospace">change</span> event, which is fired when the progress value is changed:</p>
+
+<pre class="prettyprint">&lt;div id=&quot;foo&quot; data-role=&quot;progress&quot;&gt;&lt;/div&gt;
+
+$(&quot;#foo&quot;).bind(&quot;change&quot;, function(ev, val)
+{
+&nbsp;&nbsp;&nbsp;Console.log(&quot;Value is changed to &quot; + val);
+});
+</pre>
+
+<p>The following list describes methods that can be used with a progress widget:</p>
+
+<ul>
+<li><p><span style="font-family: Courier New,Courier,monospace">value</span></p>
+<p>The <span style="font-family: Courier New,Courier,monospace">value</span> method is used to set or get the current default progress widget value:</p></li>
+<pre class="prettyprint">&lt;div id=&quot;foo&quot; data-role=&quot;progress&quot;&gt;&lt;/div&gt;
+
+var oldVal = $(&quot;#foo&quot;).progress(&quot;option&quot;, &quot;value&quot;);
+$(&quot;#foo&quot;).progress(&quot;option&quot;, &quot;value&quot;, 50);
+</pre>
+
+<li><p><span style="font-family: Courier New,Courier,monospace">running</span></p>
+<p>The <span style="font-family: Courier New,Courier,monospace">running</span> method is used to set or get the current running state of the pending or circular progress widget:</p></li>
+<pre class="prettyprint">&lt;div id=&quot;foo&quot; data-role=&quot;progress&quot; data-style=&quot;pending&quot;&gt;&lt;/div&gt;
+
+var currentRunning = $(&quot;#foo&quot;).progress(&quot;option&quot;, &quot;running&quot;);
+$(&quot;#foo&quot;).progress(&quot;option&quot;, &quot;running&quot;, true);
+</pre>
+</ul>
+
+<h2>Where to Go Next</h2>
+<ul>
+ <li><a href="widget_reference.htm">Widget Reference</a></li>
+
+</ul>
+
+<div id="footer">
+<hr size="1" /><font size="1">Except as noted, this content is licensed under <a href="http://creativecommons.org/licenses/by/3.0/legalcode" target="_blank">Creative Commons Attribution 3.0</a>.<br />For details, see the <a href="https://www.tizen.org/content-license" target="_blank">Content License</a>.</font> </div>
+<!--start-->
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-25976949-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+<!--end-->
+
+
+
+</body>
+</html>

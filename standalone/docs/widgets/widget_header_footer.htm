@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head><script type="text/javascript" src="../snippet.js"></script>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link href="../styles.css" rel="StyleSheet" type="text/css">
+<link href="../snippet.css" rel="StyleSheet" type="text/css">
+  <title>Header and Footer</title>
+</head>
+
+<body onload="prettyPrint()">
+<!--<div id="banner">
+Tizen</div>-->
+
+<h1>Header and Footer</h1>
+
+<p>The header and footer widget is used to set the default bar on the page. They are closely connected with the page winset because most options are defined in the page. The header and footer widget styles are defined in the HTML markup of the page.</p>
+
+    <table class="note"> 
+     <tbody> 
+      <tr> 
+       <th class="note">Note</th> 
+      </tr> 
+      <tr> 
+       <td class="note">The default button style (<span style="font-family: Courier New,Courier,monospace">data-role=&quot;button&quot;</span>) is not supported in the header. You must use the <span style="font-family: Courier New,Courier,monospace">&lt;a&gt;</span> tag to add a button.</td> 
+      </tr> 
+     </tbody> 
+    </table>
+
+<p>To add a header widget to the application, use the following code:</p>
+<pre class="prettyprint">&lt;div id=&quot;foo&quot; data-role=&quot;header&quot; data-position=&quot;fixed&quot;&gt;
+&nbsp;&nbsp;&nbsp;&lt;h1&gt;NBeat UI&lt;/h1&gt;
+&nbsp;&nbsp;&nbsp;&lt;a&gt;Button 1&lt;/a&gt;
+&lt;/div&gt;
+
+$(&quot;#foo&quot;).barlayout(&#39;show&#39;);
+</pre>
+
+<p>The following list describes header styles:</p>
+<table border="1" id="controls"> 
+     <caption>Table: Header styles</caption>
+	 <tbody>
+		<tr>
+			<th>Header style</th>
+			<th>HTML code</th>
+		</tr>
+		<tr>
+			<td>Title with 1 button</td>
+			<td><pre class="prettyprint">&lt;div data-role=&quot;header&quot; data-position=&quot;fixed&quot;&gt;
+&nbsp;&nbsp;&nbsp;&lt;h1&gt;NBeat UI&lt;/h1&gt;
+&nbsp;&nbsp;&nbsp;&lt;a&gt;Button&lt;/a&gt;
+&lt;/div&gt;</pre></td>
+		</tr>
+		<tr>
+			<td>Title with 2 buttons</td>
+			<td><pre class="prettyprint">&lt;div data-role=&quot;header&quot; data-position=&quot;fixed&quot;&gt;
+&nbsp;&nbsp;&nbsp;&lt;h1&gt;NBeat UI&lt;/h1&gt;
+&nbsp;&nbsp;&nbsp;&lt;a&gt;Button 1&lt;/a&gt;
+&nbsp;&nbsp;&nbsp;&lt;a&gt;Button 2&lt;/a&gt;
+&lt;/div&gt;</pre></td>
+		</tr>
+		<tr>
+			<td>Title with an icon and button</td>
+			<td><pre class="prettyprint">&lt;div data-role=&quot;header&quot; data-position=&quot;fixed&quot;&gt;
+&nbsp;&nbsp;&nbsp;&lt;img src=&quot;icon-tizen.png&quot; /&gt;
+&nbsp;&nbsp;&nbsp;&lt;h1&gt;Icon Title&lt;/h1&gt;
+&nbsp;&nbsp;&nbsp;&lt;a&gt;text1&lt;/a&gt;
+&lt;/div&gt;</pre></td>
+		</tr>
+		<tr>
+			<td>Title with subtext(multiline)</td>
+			<td><pre class="prettyprint">&lt;div data-role=&quot;header&quot; data-position=&quot;fixed&quot;&gt;
+&nbsp;&nbsp;&nbsp;&lt;h1&gt;Title Text multiline&lt;/h1&gt;
+&nbsp;&nbsp;&nbsp;&lt;span class=&quot;ui-title-text-sub&quot;&gt;tizen@samsung.com&lt;/span&gt;
+&lt;/div&gt;</pre></td>
+		</tr>
+		<tr>
+			<td>Title with subtext and image (multiline)</td>
+			<td><pre class="prettyprint">&lt;div data-role=&quot;header&quot; data-position=&quot;fixed&quot;&gt;
+&nbsp;&nbsp;&nbsp;&lt;img src=&quot;icon-tizen.png&quot;/&gt;
+&nbsp;&nbsp;&nbsp;&lt;h1&gt;Title demo&lt;/h1&gt;
+&nbsp;&nbsp;&nbsp;&lt;span class=&quot;ui-title-text-sub&quot;&gt;Title image multiline 2 Buttons&lt;/span&gt;
+&nbsp;&nbsp;&nbsp;&lt;a data-icon=&quot;naviframe-more&quot;&gt;&lt;/a&gt;
+&nbsp;&nbsp;&nbsp;&lt;a data-icon=&quot;naviframe-edit&quot;&gt;&lt;/a&gt;
+&lt;/div&gt;</pre></td>
+		</tr>
+	 </tbody>
+</table>
+
+<p>The header and footer can define callbacks for events as described in the <a href="http://jquerymobile.com/demos/1.2.0/docs/api/events.html" target="_blank">jQueryMobile documentation for events</a>.</p>
+
+<h2>Where to Go Next</h2>
+<ul>
+ <li><a href="widget_reference.htm">Widget Reference</a></li>
+
+</ul>
+
+<div id="footer">
+<hr size="1" /><font size="1">Except as noted, this content is licensed under <a href="http://creativecommons.org/licenses/by/3.0/legalcode" target="_blank">Creative Commons Attribution 3.0</a>.<br />For details, see the <a href="https://www.tizen.org/content-license" target="_blank">Content License</a>.</font> </div>
+<!--start-->
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-25976949-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+<!--end-->
+
+
+
+</body>
+</html>

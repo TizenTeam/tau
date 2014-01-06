@@ -1,0 +1,231 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head><script type="text/javascript" src="../snippet.js"></script>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link href="../styles.css" rel="StyleSheet" type="text/css">
+<link href="../snippet.css" rel="StyleSheet" type="text/css">
+  <title>Widget Options</title>
+</head>
+
+<body onload="prettyPrint()">
+<!--<div id="banner">
+Tizen</div>-->
+
+<h1>Widget Options</h1>
+
+<p>The following table lists the additional jQueryMobile options that are supported for the widgets.</p>
+<table>
+<tbody>
+	<tr>
+		<th>Widget</th>
+		<th>Attribute</th>
+		<th>Value</th>
+	</tr>
+	<tr>
+		<td rowspan="4">Button</td>
+		<td><span style="font-family: Courier New,Courier,monospace">data-corners</span></td>
+		<td><span style="font-family: Courier New,Courier,monospace">true</span> or <span style="font-family: Courier New,Courier,monospace">false</span></td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">data-icon</span></td>
+		<td><span style="font-family: Courier New,Courier,monospace">home</span>, <span style="font-family: Courier New,Courier,monospace">delete</span>, <span style="font-family: Courier New,Courier,monospace">plus</span>, <span style="font-family: Courier New,Courier,monospace">arrow-u</span>, <span style="font-family: Courier New,Courier,monospace">arrow-d</span>, <span style="font-family: Courier New,Courier,monospace">check</span>, <span style="font-family: Courier New,Courier,monospace">gear</span>, <span style="font-family: Courier New,Courier,monospace">grid</span>, <span style="font-family: Courier New,Courier,monospace">star</span>, <span style="font-family: Courier New,Courier,monospace">custom</span>, <span style="font-family: Courier New,Courier,monospace">arrow-r</span>, <span style="font-family: Courier New,Courier,monospace">arrow-l</span>, <span style="font-family: Courier New,Courier,monospace">minus</span>, <span style="font-family: Courier New,Courier,monospace">refresh</span>, <span style="font-family: Courier New,Courier,monospace">forward</span>, <span style="font-family: Courier New,Courier,monospace">back</span>, <span style="font-family: Courier New,Courier,monospace">alert</span>, <span style="font-family: Courier New,Courier,monospace">info</span>, or <span style="font-family: Courier New,Courier,monospace">search</span></td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">data-iconpos</span></td>
+		<td><span style="font-family: Courier New,Courier,monospace">left</span>, <span style="font-family: Courier New,Courier,monospace">right</span>, <span style="font-family: Courier New,Courier,monospace">top</span>, <span style="font-family: Courier New,Courier,monospace">bottom</span>, or <span style="font-family: Courier New,Courier,monospace">notext</span></td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">data-inline</span></td>
+		<td><span style="font-family: Courier New,Courier,monospace">true</span> or <span style="font-family: Courier New,Courier,monospace">false</span></td>
+	</tr>
+	<tr>
+		<td>Check box</td>
+		<td><span style="font-family: Courier New,Courier,monospace">data-role</span></td>
+		<td>None</td>
+	</tr>
+	<tr>
+		<td rowspan="2">Enhancement</td>
+		<td><span style="font-family: Courier New,Courier,monospace">data-enhance</span></td>
+		<td><span style="font-family: Courier New,Courier,monospace">true</span> or <span style="font-family: Courier New,Courier,monospace">false</span></td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">data-ajax</span></td>
+		<td><span style="font-family: Courier New,Courier,monospace">true</span> or <span style="font-family: Courier New,Courier,monospace">false</span></td>
+	</tr>
+	<tr>
+		<td rowspan="3">Fixed toolbar</td>
+		<td><span style="font-family: Courier New,Courier,monospace">data-disable-page-zoom</span></td>
+		<td><span style="font-family: Courier New,Courier,monospace">true</span> or <span style="font-family: Courier New,Courier,monospace">false</span></td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">data-fullscreen</span></td>
+		<td><span style="font-family: Courier New,Courier,monospace">true</span> or <span style="font-family: Courier New,Courier,monospace">false</span></td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">data-visible-on-page-show</span></td>
+		<td><span style="font-family: Courier New,Courier,monospace">true</span> or <span style="font-family: Courier New,Courier,monospace">false</span></td>
+	</tr>
+	<tr>
+		<td>Flip toggle switch</td>
+		<td><span style="font-family: Courier New,Courier,monospace">data-role</span></td>
+		<td>None</td>
+	</tr>
+	<tr>
+		<td rowspan="3">Footer</td>
+		<td><span style="font-family: Courier New,Courier,monospace">data-id</span></td>
+		<td>String: unique ID required for persistent footers.</td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">data-position</span></td>
+		<td><span style="font-family: Courier New,Courier,monospace">fixed</span></td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">data-full-screen</span></td>
+		<td><span style="font-family: Courier New,Courier,monospace">true</span> or <span style="font-family: Courier New,Courier,monospace">false</span></td>
+	</tr>
+	<tr>
+		<td rowspan="3">Header</td>
+		<td><span style="font-family: Courier New,Courier,monospace">data-id</span></td>
+		<td>String: unique ID required for persistent headers.</td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">data-position</span></td>
+		<td><span style="font-family: Courier New,Courier,monospace">fixed</span></td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">data-full-screen</span></td>
+		<td><span style="font-family: Courier New,Courier,monospace">true</span> or <span style="font-family: Courier New,Courier,monospace">false</span></td>
+	</tr>
+	<tr>
+		<td rowspan="7">Link</td>
+		<td><span style="font-family: Courier New,Courier,monospace">data-ajax</span></td>
+		<td><span style="font-family: Courier New,Courier,monospace">true</span> or <span style="font-family: Courier New,Courier,monospace">false</span></td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">data-direction</span></td>
+		<td><span style="font-family: Courier New,Courier,monospace">reverse</span>: reverse transition animation (only for page or dialog).</td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">data-dom-cache</span></td>
+		<td><span style="font-family: Courier New,Courier,monospace">true</span> or <span style="font-family: Courier New,Courier,monospace">false</span></td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">data-prefetch</span></td>
+		<td><span style="font-family: Courier New,Courier,monospace">true</span> or <span style="font-family: Courier New,Courier,monospace">false</span></td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">data-rel</span></td>
+		<td><span style="font-family: Courier New,Courier,monospace">back</span>: to move one step back in history.</td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">data-transition</span></td>
+		<td><span style="font-family: Courier New,Courier,monospace">fade</span>, <span style="font-family: Courier New,Courier,monospace">flip</span>, <span style="font-family: Courier New,Courier,monospace">flow</span>, <span style="font-family: Courier New,Courier,monospace">pop</span>, <span style="font-family: Courier New,Courier,monospace">slide</span>, <span style="font-family: Courier New,Courier,monospace">slidedown</span>, <span style="font-family: Courier New,Courier,monospace">slidefade</span>, <span style="font-family: Courier New,Courier,monospace">slideup</span>, <span style="font-family: Courier New,Courier,monospace">turn</span>, or <span style="font-family: Courier New,Courier,monospace">none</span></td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">data-position-to</span></td>
+		<td><span style="font-family: Courier New,Courier,monospace">origin</span>, <span style="font-family: Courier New,Courier,monospace">window</span>, or <span style="font-family: Courier New,Courier,monospace">jQueryObject</span></td>
+	</tr>
+	<tr>
+		<td>List view</td>
+		<td><span style="font-family: Courier New,Courier,monospace">data-autodividers</span></td>
+		<td><span style="font-family: Courier New,Courier,monospace">true</span> or <span style="font-family: Courier New,Courier,monospace">false</span></td>
+	</tr>
+	<tr>
+		<td>List view item</td>
+		<td><span style="font-family: Courier New,Courier,monospace">data-role</span></td>
+		<td><span style="font-family: Courier New,Courier,monospace">list-divider</span></td>
+	</tr>
+	<tr>
+		<td rowspan="5">Page</td>
+		<td><span style="font-family: Courier New,Courier,monospace">data-add-back-btn</span></td>
+		<td><span style="font-family: Courier New,Courier,monospace">true</span> or <span style="font-family: Courier New,Courier,monospace">false</span></td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">data-back-btn-text</span></td>
+		<td>String</td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">data-dom-cache</span></td>
+		<td><span style="font-family: Courier New,Courier,monospace">true</span> or <span style="font-family: Courier New,Courier,monospace">false</span></td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">data-title</span></td>
+		<td>String: title used when a page is shown.</td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">data-url</span></td>
+		<td>URL: value for updating the URL, instead of the URL used to request the page.</td>
+	</tr>
+	<tr>
+		<td rowspan="4">Popup</td>
+		<td><span style="font-family: Courier New,Courier,monospace">data-tolerance</span></td>
+		<td><span style="font-family: Courier New,Courier,monospace">30, 15, 30, 15</span>: distance from the edges of the window (top, right, bottom, left)</td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">data-position-to</span></td>
+		<td><span style="font-family: Courier New,Courier,monospace">origin</span>, <span style="font-family: Courier New,Courier,monospace">window</span>, or <span style="font-family: Courier New,Courier,monospace">jQueryObject</span></td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">data-rel</span></td>
+		<td><span style="font-family: Courier New,Courier,monospace">popup</span>: for opening a pop-up</td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">data-transition</span></td>
+		<td><span style="font-family: Courier New,Courier,monospace">fade</span>, <span style="font-family: Courier New,Courier,monospace">flip</span>, <span style="font-family: Courier New,Courier,monospace">flow</span>, <span style="font-family: Courier New,Courier,monospace">pop</span>, <span style="font-family: Courier New,Courier,monospace">slide</span>, <span style="font-family: Courier New,Courier,monospace">slidedown</span>, <span style="font-family: Courier New,Courier,monospace">slidefade</span>, <span style="font-family: Courier New,Courier,monospace">slideup</span>, <span style="font-family: Courier New,Courier,monospace">turn</span>, or <span style="font-family: Courier New,Courier,monospace">none</span></td>
+	</tr>
+	<tr>
+		<td rowspan="3">Select</td>
+		<td><span style="font-family: Courier New,Courier,monospace">data-icon</span></td>
+		<td><span style="font-family: Courier New,Courier,monospace">home</span>, <span style="font-family: Courier New,Courier,monospace">delete</span>, <span style="font-family: Courier New,Courier,monospace">plus</span>, <span style="font-family: Courier New,Courier,monospace">arrow-u</span>, <span style="font-family: Courier New,Courier,monospace">arrow-d</span>, <span style="font-family: Courier New,Courier,monospace">check</span>, <span style="font-family: Courier New,Courier,monospace">gear</span>, <span style="font-family: Courier New,Courier,monospace">grid</span>, <span style="font-family: Courier New,Courier,monospace">star</span>, <span style="font-family: Courier New,Courier,monospace">custom</span>, <span style="font-family: Courier New,Courier,monospace">arrow-r</span>, <span style="font-family: Courier New,Courier,monospace">arrow-l</span>, <span style="font-family: Courier New,Courier,monospace">minus</span>, <span style="font-family: Courier New,Courier,monospace">refresh</span>, <span style="font-family: Courier New,Courier,monospace">forward</span>, <span style="font-family: Courier New,Courier,monospace">back</span>, <span style="font-family: Courier New,Courier,monospace">alert</span>, <span style="font-family: Courier New,Courier,monospace">info</span>, <span style="font-family: Courier New,Courier,monospace">search</span>, or <span style="font-family: Courier New,Courier,monospace">false</span></td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">data-inline</span></td>
+		<td><span style="font-family: Courier New,Courier,monospace">true</span> or <span style="font-family: Courier New,Courier,monospace">false</span></td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">data-role</span></td>
+		<td>None: prevents auto-enhancement from using the native control.</td>
+	</tr>
+	<tr>
+		<td rowspan="2">Slider</td>
+		<td><span style="font-family: Courier New,Courier,monospace">data-highlight</span></td>
+		<td><span style="font-family: Courier New,Courier,monospace">true</span> or <span style="font-family: Courier New,Courier,monospace">false</span>: adds an active state fill on the track to handle.</td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">data-role</span></td>
+		<td>None: prevents auto-enhancement from using the native control.</td>
+	</tr>
+	<tr>
+		<td>Text input and text area</td>
+		<td><span style="font-family: Courier New,Courier,monospace">data-role</span></td>
+		<td>None: prevents auto-enhancement from using the native control.</td>
+	</tr>
+</tbody>
+</table>
+
+
+<h2>Where to Go Next</h2>
+<ul>
+ <li><a href="widget_reference.htm">Widget Reference</a></li>
+
+</ul>
+
+<div id="footer">
+<hr size="1" /><font size="1">Except as noted, this content is licensed under <a href="http://creativecommons.org/licenses/by/3.0/legalcode" target="_blank">Creative Commons Attribution 3.0</a>.<br />For details, see the <a href="https://www.tizen.org/content-license" target="_blank">Content License</a>.</font> </div>
+<!--start-->
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-25976949-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+<!--end-->
+
+
+
+</body>
+</html>

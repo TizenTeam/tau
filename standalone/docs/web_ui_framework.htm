@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head><script type="text/javascript" src="snippet.js"></script>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link href="styles.css" rel="StyleSheet" type="text/css">
+<link href="snippet.css" rel="StyleSheet" type="text/css">
+  <title>Web UI Framework Reference</title>
+</head>
+
+<body onload="prettyPrint()">
+<!--<div id="banner">
+Tizen</div>-->
+
+<h1>Web UI Framework Reference</h1>
+
+<p>The Web UI framework provides tools, such as widgets, events, effects, and animations, for Web application development. You can leverage these tools by just selecting the required screen elements and creating applications.</p>
+
+<p>The Web UI service is based on a <a href="../../org.tizen.web.appprogramming/html/app_dev_process/templates_samples.htm">template</a> and works on a Web browser, which runs on the <a href="http://www.webkit.org/" target="_blank">WebKit</a> engine. You can code Web applications using the Web UI, standard HTML5, and Tizen APIs. You can also use different <a href="widgets/widget_reference.htm">widgets</a> with CSS animations and rendering optimized for Tizen Web browsers.</p>
+
+<p>For more information about the basic structure of a page in the Web application using the Web UI service, see <a href="page/app_page_structure.htm">Application Page Structure</a>.</p>
+
+<h2>Framework Services</h2>
+
+<p>The Web UI framework consists of the following services:</p>
+<ul>
+<li>Web widgets
+<p>Tizen widgets, such as control bar and virtual list, and <a href="http://jquerymobile.com/demos/1.2.0/" target="_blank">jQuery Mobile</a> widgets are available.</p></li>
+<li>Web themes
+<p>CSS themes and resources for Tizen Web widgets (compatible with the widget source code) are available.</p></li>
+<li>Loader
+<p>Configurations, such as Web theme and internationalization set-up, can be loaded.</p></li>
+</ul>
+
+<p>The Web UI framework services are supported by the following JavaScript projects:</p>
+<ul>
+<li><a href="http://jquery.com/" target="_blank">jQuery version 1.8.2</a>
+<p>jQuery is a JavaScript library used for selecting HTML elements, traversing through HTML pages, and handling events.</p></li>
+<li>jQuery Mobile version 1.2.0
+<p>jQuery Mobile is an HTML5-based mobile Web framework for responding to touch events.</p></li>
+<li>Globalize version 0.1.0a2
+<p>Globalize is a JavaScript library that supports globalization and localization.</p></li>
+</ul>
+
+<h2>Limitations</h2>
+<p>The Web UI framework has the following limitations:</p>
+<ul>
+<li>The framework runs only on browsers supporting the HTML5/CSS standards. The draft version of the W3C specification is not fully supported.</li>
+<li>The Tizen Web widgets are optimized for 1280 x 720 (720p) display resolution target screen with high-definition (HD) dpi. The widgets are scaled down for lower display resolution targets.</li>
+<li>Resource files per resolution (High-Medium-Low) are currently not supported.</li>
+<li>Browser-specific zoom options, such as pinch zoom and smart zoom, are not supported for scaling titles and tool bars.</li>
+<li>The jQM swatch feature is not supported. Therefore, the layout is broken if you change the default <span style="font-family: Courier New,Courier,monospace">data-theme</span> value and the <span style="font-family: Courier New,Courier,monospace">data-mini</span> attribute is not supported.</li>
+</ul>
+
+<h2>Where to Go Next</h2>
+<ul>
+ <li><a href="../../org.tizen.web.appprogramming/html/api_reference/api_reference.htm">Web API References</a></li>
+
+</ul>
+
+<div id="footer">
+<hr size="1" /><font size="1">Except as noted, this content is licensed under <a href="http://creativecommons.org/licenses/by/3.0/legalcode" target="_blank">Creative Commons Attribution 3.0</a>.<br />For details, see the <a href="https://www.tizen.org/content-license" target="_blank">Content License</a>.</font> </div>
+<!--start-->
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-25976949-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+<!--end-->
+
+
+
+</body>
+</html>

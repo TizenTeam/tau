@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head><script type="text/javascript" src="../snippet.js"></script>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link href="../styles.css" rel="StyleSheet" type="text/css">
+<link href="../snippet.css" rel="StyleSheet" type="text/css">
+  <title>Tabbar</title>
+</head>
+
+<body onload="prettyPrint()">
+<!--<div id="banner">
+Tizen</div>-->
+
+<h1>Tabbar</h1>
+
+<p>The tabbar widget shows an unordered list of buttons in a header or footer wrapped together in a single group.</p>
+
+<p>To add a tabbar widget to the application, use the following code:</p>
+<pre class="prettyprint">&lt;div data-role=&quot;tabbar&quot;&gt;
+&nbsp;&nbsp;&nbsp;&lt;ul&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;&lt;a data-icon=&quot;edit&quot;&gt;Tabbar1&lt;/a&gt;&lt;/li&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;&lt;a data-icon=&quot;cancel&quot;&gt;Tabbar2&lt;/a&gt;&lt;/li&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;&lt;a data-icon=&quot;call&quot;&gt;Tabbar3&lt;/a&gt;&lt;/li&gt;
+&nbsp;&nbsp;&nbsp;&lt;/ul&gt;
+&lt;/div&gt;
+</pre>
+
+<p>The following table describes the tabbar options.</p>
+
+<table>
+<tbody>
+	<tr>
+		<th>Option</th>
+		<th>Input type</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+      <td><span style="font-family: Courier New,Courier,monospace">data-icon</span></td>
+	  <td><span style="font-family: Courier New,Courier,monospace">&lt;ICON_NAME&gt;</span></td>
+	  <td>Sets an icon for each tabbar button.</td>
+	</tr>
+</tbody>
+</table>
+
+<p>The following list describes methods that can be used with tabbars:</p>
+
+<ul>
+<li><p><span style="font-family: Courier New,Courier,monospace">enable</span></p>
+<p>The <span style="font-family: Courier New,Courier,monospace">enable</span> method is used to enable buttons in the tabbar list:</p></li>
+<pre class="prettyprint">&lt;div id=&quot;foo&quot; data-role=&quot;tabbar&quot;&gt;&lt;/div&gt;
+
+$(&quot;#foo&quot;).tabbar(&#39;enable&#39;, list_index);
+</pre>
+
+<li><p><span style="font-family: Courier New,Courier,monospace">disable</span></p>
+<p>The <span style="font-family: Courier New,Courier,monospace">disable</span> method is used to disable buttons in the tabbar list:</p></li>
+<pre class="prettyprint">&lt;div id=&quot;foo&quot; data-role=&quot;tabbar&quot;&gt;&lt;/div&gt;
+
+$(&quot;#foo&quot;).tabbar(&#39;disable&#39;, list_index);
+</pre>
+</ul>
+
+<h2>Where to Go Next</h2>
+<ul>
+ <li><a href="widget_reference.htm">Widget Reference</a></li>
+
+</ul>
+
+<div id="footer">
+<hr size="1" /><font size="1">Except as noted, this content is licensed under <a href="http://creativecommons.org/licenses/by/3.0/legalcode" target="_blank">Creative Commons Attribution 3.0</a>.<br />For details, see the <a href="https://www.tizen.org/content-license" target="_blank">Content License</a>.</font> </div>
+<!--start-->
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-25976949-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+<!--end-->
+
+
+
+</body>
+</html>

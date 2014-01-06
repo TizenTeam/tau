@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head><script type="text/javascript" src="../snippet.js"></script>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link href="../styles.css" rel="StyleSheet" type="text/css">
+<link href="../snippet.css" rel="StyleSheet" type="text/css">
+  <title>Date Picker, Time Picker, and Date Time Picker</title>
+</head>
+
+<body onload="prettyPrint()">
+<!--<div id="banner">
+Tizen</div>-->
+
+<h1>Date Picker, Time Picker, and Date Time Picker</h1>
+
+<p>The picker widgets show a control that you can use to enter date and time values.</p>
+
+<table class="note">
+<tbody>
+	<tr>
+		<th class="note">Note</th>
+	</tr>
+	<tr>
+		<td class="note">To auto-initialize form elements (without using picker widgets), use input elements with the <span style="font-family: Courier New,Courier,monospace">type=date/time/datetime</span> option within the form element.</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>To add a date time picker widget to the application, use the following code:</p>
+<pre class="prettyprint">&lt;li data-role=&quot;list-divider&quot; data-line=&quot;false&quot; class=&quot;ui-datetime-text-sub&quot; &gt; Date/Time Picker(Custom) - &lt;span id=&quot;selected-date1&quot;&gt;&lt;em&gt;(select a date first)&lt;/em&gt;&lt;/span&gt;&lt;/li&gt;
+&lt;li class=&quot;ui-li-dialogue ui-datetime&quot;&gt;
+&nbsp;&nbsp;&nbsp;&lt;div class=&quot;ui-datetime-text-main&quot;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;input type=&quot;datetime&quot; name=&quot;demo-date&quot; id=&quot;demo-date&quot; 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data-format=&quot;MMM dd yyyy	hh:mm tt&quot; value=&quot;2012-06-30T00:00:00+09:00&quot; /&gt;
+&nbsp;&nbsp;&nbsp;&lt;/div&gt;
+&lt;/li&gt;</pre>
+
+<p>The following table describes the picker options.</p>
+
+<table>
+<tbody>
+	<tr>
+		<th>Option</th>
+		<th>Input type</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+      <td><span style="font-family: Courier New,Courier,monospace">data-format</span></td>
+	  <td>String</td>
+	  <td>Sets the date and time format.
+	  <p>The default value is the system locale&#39;s date and time setting.</p></td>
+	</tr>
+	<tr>
+      <td><span style="font-family: Courier New,Courier,monospace">type</span></td>
+	  <td>String</td>
+	  <td>Defines the picker style. The style options are <span style="font-family: Courier New,Courier,monospace">date</span> (displays a date only), <span style="font-family: Courier New,Courier,monospace">time</span> (displays a time only), and <span style="font-family: Courier New,Courier,monospace">datetime</span> (displays both date and time). 
+	  <p>The default value is <span style="font-family: Courier New,Courier,monospace">datetime</span>.</p></td>
+	</tr>
+	<tr>
+      <td><span style="font-family: Courier New,Courier,monospace">value</span></td>
+	  <td>String</td>
+	  <td>Sets the picker value.
+	  <p>The default value is the current system time.</p></td>
+	</tr>
+</tbody>
+</table>
+
+<p>The pickers can define a callback for the <span style="font-family: Courier New,Courier,monospace">change</span> event, which is fired when the picker value is changed:</p>
+
+<pre class="prettyprint">&lt;li data-role=&quot;list-divider&quot; data-line=&quot;false&quot;  class=&quot;ui-datetime-text-sub&quot; &gt; Data Format(MMMM) - &lt;span id=&quot;selected-date6&quot;&gt;&lt;em&gt;(select a date first)&lt;/em&gt;&lt;/span&gt; &lt;/li&gt;
+&lt;li class=&quot;ui-li-dialogue ui-datetime ui-datetime&quot;&gt;
+&nbsp;&nbsp;&nbsp;&lt;div class=&quot;ui-datetime-text-main&quot;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;input data-format=&quot;MMMM/dd/yyyy hh:mm tt&quot; id=&quot;datetest&quot; value=&quot;2013/1/31 15:08:44&quot; type=&quot;datetime&quot;&gt;
+&nbsp;&nbsp;&nbsp;&lt;/div&gt;
+&lt;/li&gt;
+
+&lt;script&gt;
+&nbsp;&nbsp;&nbsp;$(&quot;#datetest&quot;).bind( &quot;change&quot;, function( )
+&nbsp;&nbsp;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(&quot;#selected-date6&quot;).text($(&quot;#datetest&quot;).datetimepicker(&quot;value&quot;)) ;
+&nbsp;&nbsp;&nbsp;});
+&lt;/script&gt;
+</pre>
+
+<p>You can use the <span style="font-family: Courier New,Courier,monospace">value</span> method with the pickers to set or get the current date and time in the W3C DTF format:</p>
+
+<pre class="prettyprint">$(&quot;#selected-date1&quot;).datetimepicker(&quot;value&quot;); // 2012-05-30T01:23:45
+$(&quot;#selected-date1&quot;).datetimepicker(&quot;value&quot;, &quot;Jun 30, 2012 09:00&quot;);
+</pre>
+
+<h2>Where to Go Next</h2>
+<ul>
+ <li><a href="widget_reference.htm">Widget Reference</a></li>
+
+</ul>
+
+<div id="footer">
+<hr size="1" /><font size="1">Except as noted, this content is licensed under <a href="http://creativecommons.org/licenses/by/3.0/legalcode" target="_blank">Creative Commons Attribution 3.0</a>.<br />For details, see the <a href="https://www.tizen.org/content-license" target="_blank">Content License</a>.</font> </div>
+<!--start-->
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-25976949-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+<!--end-->
+
+
+
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head><script type="text/javascript" src="../snippet.js"></script>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link href="../styles.css" rel="StyleSheet" type="text/css">
+<link href="../snippet.css" rel="StyleSheet" type="text/css">
+  <title>Fast Scroll</title>
+</head>
+
+<body onload="prettyPrint()">
+<!--<div id="banner">
+Tizen</div>-->
+
+<h1>Fast Scroll</h1>
+
+<p>The fast scroll is a scroll view controller, which binds a scroll view to a list of shortcuts. It jumps the scroll view to the selected list divider. If you move the mouse on the shortcut column, the scroll view is moved to the list divider matching the text currently under the mouse cursor. A pop-up with the text currently under the cursor is also displayed. To use the fast scroll widget, add the <span style="font-family: Courier New,Courier,monospace">data-fastscroll=&quot;true&quot;</span> attribute to a list view. You can also call the <span style="font-family: Courier New,Courier,monospace">shortcutscroll()</span> method on an element. The closest element of the <span style="font-family: Courier New,Courier,monospace">ui-scrollview-clip</span> class is used as the scroll view to be controlled. If a list view has no dividers or has only a single divider, then the widget will not display.</p>
+
+<table class="note">
+			<tbody>
+				<tr>
+					<th class="note">Note</th>
+				</tr>
+				<tr>
+					<td class="note">The fast scroll widget is supported since Tizen 2.0.</td>
+</tr>
+</tbody>
+</table>
+
+<p>To add a fast scroll widget to the application, use the following code:</p>
+<pre class="prettyprint">&lt;div class=&quot;content&quot; data-role=&quot;content&quot; data-scroll=&quot;y&quot;&gt;
+&nbsp;&nbsp;&nbsp;&lt;ul id=&quot;contacts&quot; data-role=&quot;listview&quot; data-fastscroll=&quot;true&quot;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;Anton&lt;/li&gt;
+&nbsp;&nbsp;&nbsp;&lt;/ul&gt;
+&lt;/div&gt;
+</pre>
+
+<p>The following table describes the fast scroll options.</p>
+
+<table>
+<tbody>
+	<tr>
+		<th>Option</th>
+		<th>Input type</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+      <td><span style="font-family: Courier New,Courier,monospace">data-fastscroll</span></td>
+	  <td>Boolean</td>
+	  <td>When set to <span style="font-family: Courier New,Courier,monospace">true</span>, creates a fast scroll using the HTML unordered list (<span style="font-family: Courier New,Courier,monospace">&lt;ul&gt;</span>) element.</td>
+	</tr>
+ </tbody>
+</table>
+
+<p>You can also create the fast scroll by calling the <span style="font-family: Courier New,Courier,monospace">fastscroll()</span> method on a list view element. The fast scroll is created for the closest list view with the <span style="font-family: Courier New,Courier,monospace">ui-scrollview-clip</span> class.</p>
+
+<table class="note">
+<tbody>
+	<tr>
+		<th class="note">Note</th>
+	</tr>
+	<tr>
+		<td class="note">For the fast scroll widget to be visible, the parent list view must have multiple list dividers.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Where to Go Next</h2>
+<ul>
+ <li><a href="widget_reference.htm">Widget Reference</a></li>
+
+</ul>
+
+<div id="footer">
+<hr size="1" /><font size="1">Except as noted, this content is licensed under <a href="http://creativecommons.org/licenses/by/3.0/legalcode" target="_blank">Creative Commons Attribution 3.0</a>.<br />For details, see the <a href="https://www.tizen.org/content-license" target="_blank">Content License</a>.</font> </div>
+<!--start-->
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-25976949-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+<!--end-->
+
+
+
+</body>
+</html>
