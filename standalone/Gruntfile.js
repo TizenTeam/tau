@@ -118,8 +118,7 @@ module.exports = function(grunt) {
 					exclude: [
 						"jquery",
 						"jquery.ui.core",
-						"jquery.ui.widget",
-						"jquery.hashchange"
+						"jquery.ui.widget"
 					],
 
 					out: path.join( jsPath, name ) + ".js",
@@ -145,7 +144,6 @@ module.exports = function(grunt) {
 					skipModuleInsertion: true,
 					mainConfigFile: "src/js/requirejs.config.js",
 					include: [
-						"jquery.hashchange",
 						"jquery.ui.widget"
 					],
 					out: path.join( jsPath, name ) + ".libs.js"

@@ -18,7 +18,10 @@
 
 	"globals": {
 		"define": false,
-		"requirejs": false
+		"requirejs": false,
+		"window": false,
+		"location": false,
+		"document": false
 	}
 
 }
