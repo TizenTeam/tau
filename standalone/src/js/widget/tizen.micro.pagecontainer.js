@@ -37,11 +37,6 @@ $.widget( "micro.pagecontainer", {
 
 		this._include(toPage);
 
-		if (fromPage) {
-			$(fromPage).page( "beforeHide" );
-		}
-
-		$(toPage).page( "beforeShow" );
 		this.changePage(fromPage, toPage);
 	},
 
