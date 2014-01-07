@@ -23,7 +23,7 @@ var EventType = {
 	BEFORE_HIDE: "beforehide"
 };
 
-$.widget( "micro.page", {
+$.widget( "micro.popup", {
 
 	options: {
 	},
@@ -38,7 +38,7 @@ $.widget( "micro.page", {
 		this._on(this.window, {
 			"resize": $.proxy( this._initLayout, this )
 		});
-
+		
 		this._trigger( EventType.CREATE );
 	},
 
@@ -46,58 +46,61 @@ $.widget( "micro.page", {
 	},
 
 	_init: function() {
-
 	},
 
 	_getCreateOptions: function() {
 	},
 
 	_initLayout: function() {
-		var $hscroll = $( $.micro.selectors.pageScroll ),
-			$sections = this.element.find( $.micro.selectors.section ),
-			sectionLength = $sections.length,
-			screenWidth = $(this.window).width(),
+		var screenWidth = $(this.window).width(),
 			screenHeight = $(this.window).height(),
-			$element = this.element;
-
-		$element.css({
-				overflow: "hidden-y",
-				width: screenWidth + "px",
-				height: screenHeight + "px",
+			paddingTop = window.parseFloat(this.element.css("margin-top")),
+			paddingBottom = window.parseFloat(this.element.css("margin-bottom")),
+			paddingLeft = window.parseFloat(this.element.css("margin-left")),
+			paddingRight = window.parseFloat(this.element.css("margin-right")),
+			borderWidth = window.parseFloat(this.element.css("borderWidth")),
+			contentWidth = screenWidth - ( paddingLeft + paddingRight + borderWidth*2 ),
+			contentHeight = screenHeight - ( paddingTop + paddingBottom + borderWidth*2 ),
+			headerHeight = this.element.find(".ui-popup-header").outerHeight(),
+			footerHeight = this.element.find(".ui-popup-footer").outerHeight();
+		
+		this.element
+			.css({
+				width: contentWidth,
+				height: contentHeight
 			})
-			.find( $.micro.selectors.content ).each(function( idx, content) {
-				var $contentElement = $(content),
-					marginTop = window.parseFloat($contentElement.css("margin-top")),
-					paddingTop = window.parseFloat($contentElement.css("padding-top")),
-					marginBottom = window.parseFloat($contentElement.css("margin-bottom")),
-					paddingBottom = window.parseFloat($contentElement.css("padding-bottom"));
-				$contentElement.height( screenHeight - marginTop - paddingTop - marginBottom - paddingBottom);
-			});
+			.find(".ui-popup-content")
+				.css({
+					"height": contentHeight - headerHeight - footerHeight,
+					"overflow-y": "scroll"
+				});
+	},
 
-		if( sectionLength ) {
-			$hscroll.width( screenWidth * sectionLength );
-			$sections.width( screenWidth );
-		}
+	open: function(/* options */) {
+		this.show();
+	},
 
+	close: function() {
+		this.hide();
 	},
 
 	setActive: function(active) {
 		if(active) {
-			this.element.addClass("ui-page-active");
+			this.element.addClass("ui-popup-active");
 		} else {
-			this.element.removeClass("ui-page-active");
+			this.element.removeClass("ui-popup-active");
 		}
 	},
 
 	show: function() {
 		this._trigger(EventType.BEFORE_SHOW);
-		this.element.show();
+		this.setActive(true);
 		this._trigger(EventType.SHOW);
 	},
 
 	hide: function() {
 		this._trigger(EventType.BEFORE_HIDE);
-		this.element.hide();
+		this.setActive(false);
 		this._trigger(EventType.HIDE);
 	}
 

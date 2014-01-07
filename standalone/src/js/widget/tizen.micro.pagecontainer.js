@@ -37,7 +37,15 @@ $.widget( "micro.pagecontainer", {
 
 		this._include(toPage);
 
-		this.changePage(fromPage, toPage);
+		if (fromPage) {
+			fromPage.page("setActive", false);
+		}
+		if (toPage) {
+			toPage.page("setActive", true);
+		}
+
+		this.changePageFinish(fromPage, toPage);
+
 	},
 
 	changePageFinish: function (fromPage, toPage) {
@@ -50,19 +58,6 @@ $.widget( "micro.pagecontainer", {
 
 		this.element.trigger( EventType.PAGE_CHANGE );
 		this._removeExternalPage();
-	},
-
-	changePage: function (fromPage, toPage) {
-		var fromPage,
-			toPage;
-
-		if (fromPage) {
-			fromPage.page("setActive", false);
-		}
-		if (toPage) {
-			toPage.page("setActive", true);
-		}
-		this.changePageFinish(fromPage, toPage);
 	},
 
 	_setActivePage: function(page) {
@@ -78,7 +73,7 @@ $.widget( "micro.pagecontainer", {
 
 	_removeExternalPage: function() {
 		this.element
-			.find( $.micro.page.prototype.initSelector )
+			.find( $.micro.selectors.page )
 			.filter( "[data-external-page=true]" )
 			.not(this.getActivePage())
 			.remove();

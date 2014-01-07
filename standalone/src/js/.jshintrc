@@ -21,7 +21,8 @@
 		"requirejs": false,
 		"window": false,
 		"location": false,
-		"document": false
+		"document": false,
+		"Error": false
 	}
 
 }

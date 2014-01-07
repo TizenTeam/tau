@@ -4,11 +4,18 @@ define([
 	"./tizen.micro.core",
 	"./tizen.micro.helper",
 	"./utils/path.js",
+	"./router/page",
+	"./router/popup",
 	"./widget/tizen.micro.page"], function( jQuery ) {
 //>>excludeEnd("microBuildExclude");
 
 (function( $, undefined ) {
 
+	var $window = $.micro.$window,
+		$document = $.micro.$document,
+		historyUid = 0,
+		currentHistoryUid = 0;
+	
 	function findClosestLink( ele )	{
 		while ( ele ) {
 			if ( ( typeof ele.nodeName === "string" ) && ele.nodeName.toLowerCase() === "a" ) {
@@ -28,46 +35,65 @@ define([
 			return;
 		}
 
+		href = $link.attr("href");
 		useDefaultUrlHandling = $link.is( "[rel='external']" ) || $link.is( "[target]" );
 		if(useDefaultUrlHandling) {
 			return;
 		}
 
-		options = {
-			transition: $link.data( "transition" ),
-			role: $link.attr( "data-rel" )
-		};
+		options = $.micro.getData($link);
 
-		href = $link.attr("href");
 		$.micro.router.open(href, options);
 		event.preventDefault();
 	}
 
 	function popStateHandler( event ) {
 		var state = event.originalEvent.state,
-			options, to;
+			rules = $.micro.router.rule,
+			options, to, uid, url;
 
 		if (!state) {
 			return;
 		}
 
+		uid = state.uid;
 		to = state.url;
-		options = {
-			transition: state.transition,
+		options = $.extend({}, state, {
+			reverse: currentHistoryUid > uid,
 			fromHashChange: true
-		};
+		});
+
+		currentHistoryUid = uid;
+		url = $.micro.path.getLocation();
+
+		$.each(rules, function(name, rule) {
+			rule.onHashChange(url, options);
+		});
+
 		$.micro.router.open(to, options);
 
 	}
 
 	$.micro.router = $.micro.router || {};
+	$.micro.router.rule = $.micro.router.rule || {};
 
 	$.micro.router.defaults = {
-		transition: undefined,
-		reverse: false,
 		fromHashChange: false,
+		reverse: false,
 		showLoadMsg: true,
 		loadMsgDelay: 0
+	};
+
+	$.micro.changePage = function( to, options) {
+		$.micro.router.open( to, options );
+	};
+
+	$.micro.openPopup = function( to, options) {
+		$.micro.router.open( to, $.extend({}, {rel: "popup"}, options) );
+	};
+
+	$.micro.back = function() {
+		$.micro.router.back();
 	};
 
 	$.extend( $.micro.router, {
@@ -79,11 +105,11 @@ define([
 			this.linkClickHandler = $.proxy( linkClickHandler, this );
 			this.popStateHandler = $.proxy( popStateHandler, this );
 
-			$.micro.$document.bind({
+			$document.bind({
 				"click": this.linkClickHandler,
 			});
 
-			$.micro.$window.bind({
+			$window.bind({
 				"popstate": this.popStateHandler
 			});
 
@@ -91,107 +117,90 @@ define([
 		},
 
 		destroy: function () {
-			$.micro.$document.unbind({
+			$document.unbind({
 				"click": this.linkClickHandler,
 			});
 
-			$.micro.$window.unbind({
+			$window.unbind({
 				"popstate": this.popStateHandler
 			});
 		},
 
 		open: function ( to, options ) {
-			var settings = $.extend({}, $.micro.router.defaults, options);
+			var rel = options.rel || "page",
+				rule = $.micro.router.rule[rel],
+				deferred, filter, settings;
 
-			this._closePop();
-			if ( $.type(to) === "string" ) {
-				if ( to.indexOf( "#" ) === 0 ) {
-					if( $(to).hasClass( "ui-popup" ) ) {
-						this._openPop(to, settings);
+			if(rule) {
+
+				settings = $.extend( {
+						rel: rel
+					},
+					$.micro.router.defaults,
+					rule.defaults,
+					options );
+				
+				filter = rule.filter;
+				
+				if ( $.type(to) === "string" ) {
+
+					if(!to.replace(/[#|\s]/g, "")) {
 						return;
 					}
-				}
-				this._loadPage(to, settings);
-			} else {
-				this._replacePage(to, settings);
-			}
-		},
 
-		_openPop: function(to, options) {
-			var url = $.micro.path.getLocation(),
-				state;
+					deferred = $.Deferred();
+					deferred.done(function(url, options, content) {
+						rule.open(content, options);
+					});
+					deferred.fail(function(/* url, options */) {
+					});
 
-			$(to).addClass("ui-state-active");
-			if ( !options.fromHashChange ) {
-
-				if(url.indexOf("#") > -1) {
-					url += "&" + $.micro.dialogHashKey  + "=" + to.replace("#", "");
+					this._loadUrl(to, settings, filter, deferred);
+					
 				} else {
-					url += "#&" + $.micro.dialogHashKey  + "=" + to.replace("#", "");
+					rule.open(to, settings);
 				}
 
-				state = $.extend({
-					url: url,
-					transition: options.transition
-				}, options);
-
-				$.micro.$window[0].history.pushState(state, "", url);
+			} else {
+				throw new Error("Not defined router rule ["+ rel +"]");
 			}
+
 		},
 
-		_closePop: function() {
-			$(".ui-popup.ui-state-active").removeClass("ui-state-active");
+		back: function() {
+			$window[0].history.back();
 		},
 
-		_replacePage: function(toPage, options) {
-			var $toPage = $(toPage),
-				pageTitle = $.micro.$document[0].title,
-				url, state = {};
-
-			if ( $toPage[0] === $.micro.$firstPage[0] && !options.dataUrl ) {
-				options.dataUrl = $.micro.path.documentUrl.hrefNoHash;
-			}
-
-			url = options.dataUrl && $.micro.path.convertUrlToDataUrl(options.dataUrl) || $toPage.data( "url" );
-
-			pageTitle = $toPage.data( "title" ) || ($toPage.children( ".ui-actionbar" ).find( ".ui-title" ).text()) || pageTitle;
-			if( !$toPage.data( "title" ) ) {
-				$toPage.data( "title", pageTitle );
-			}
-
-			if ( url && !options.fromHashChange ) {
-
-				if ( !$.micro.path.isPath( url ) && url.indexOf( "#" ) < 0 ) {
-					url = "#" + url;
-				}
-
-				state = $.extend({
-					url: url,
-					transition: options.transition
-				}, options);
-
-				$.micro.$window[0].history.pushState(state, pageTitle, url);
-			}
-
-			//set page title
-			$.micro.$document[0].title = pageTitle;
-
-			this.container.pagecontainer("change", toPage, options);
+		pushHistory: function(state, pageTitle, url) {
+			var newState = $.extend({}, state, {
+				uid: historyUid++
+			});
+			
+			currentHistoryUid = newState.uid;
+			
+			$window[0].history.pushState(newState, pageTitle, url);
 		},
 
-		_loadPage: function( url, options) {
+		replaceHistory: function(state, pageTitle, url) {
+			var newState = $.extend({}, state, {
+				uid: currentHistoryUid
+			});
+			$window[0].history.replaceState(newState, pageTitle, url);
+		},
+
+		_loadUrl: function( url, options, filter, deferred) {
 			var absUrl = $.micro.path.makeUrlAbsolute( url, this._findBaseWithDefault() ),
 				fileUrl = this._createFileUrl( absUrl ),
 				content;
 
-			content = this._find( absUrl );
+			content = this._find( absUrl, filter );
 
 			// If the content we are interested in is already in the DOM,
 			// and the caller did not indicate that we should force a
 			// reload of the file, we are done. Resolve the deferrred so that
 			// users can bind to .done on the promise
 			if ( content.length ) {
-				this._replacePage(content, options);
+				deferred.resolve( absUrl, options, content );
 				return;
 			}
 
@@ -206,12 +215,12 @@ define([
 				data: options.data,
 				contentType: options.contentType,
 				dataType: "html",
-				success: this._loadSuccess( absUrl, options ),
-				error: this._loadError( absUrl, options )
+				success: this._loadSuccess( absUrl, options, filter, deferred ),
+				error: this._loadError( absUrl, options, deferred )
 			});
 		},
 
-		_loadError: function( absUrl, settings ) {
+		_loadError: function( absUrl, settings, deferred ) {
 			return $.proxy(function(/* xhr, textStatus, errorThrown */) {
 
 				// Remove loading message.
@@ -219,31 +228,33 @@ define([
 					this._showError();
 				}
 
+				deferred.reject( absUrl, settings );
+
 			}, this);
 		},
 
 		// TODO it would be nice to split this up more but everything appears to be "one off"
 		//      or require ordering such that other bits are sprinkled in between parts that
 		//      could be abstracted out as a group
-		_loadSuccess: function( absUrl, settings ) {
+		_loadSuccess: function( absUrl, settings, filter, deferred ) {
 			var fileUrl = this._createFileUrl( absUrl );
 
 			return $.proxy(function( html/*, textStatus, xhr */) {
 				var content;
 
-				content = this._parse( html, fileUrl );
-
-				this._replacePage(content, settings);
+				content = this._parse( html, fileUrl, filter );
 
 				// Remove loading message.
 				if ( settings.showLoadMsg ) {
 					this._hideLoading();
 				}
 
+				deferred.resolve( absUrl, settings, content );
+
 			}, this);
 		},
 
-		_parse: function( html, fileUrl ) {
+		_parse: function( html, fileUrl, filter ) {
 			// TODO consider allowing customization of this method. It's very JQM specific
 			var page, all = $( "<div></div>" ),
 				dataUrl;
@@ -251,7 +262,9 @@ define([
 			//workaround to allow scripts to execute when included in page divs
 			all.get( 0 ).innerHTML = html;
 
-			page = all.find( $.micro.page.prototype.initSelector ).first();
+			page = all.find( $.micro.selectors.page )
+				.filter( filter )
+				.first();
 
 			//if page elem couldn't be found, create one and insert the body element's contents
 			if ( !page.length ) {
@@ -272,24 +285,34 @@ define([
 			return page;
 		},
 
-		_find: function( absUrl ) {
+		_find: function( absUrl, filter ) {
 			// TODO consider supporting a custom callback
 			var fileUrl = this._createFileUrl( absUrl ),
 				dataUrl = this._createDataUrl( absUrl ),
+				hash = absUrl.replace( /[^#]*#/, "" ),
 				page, initialContent = this._getInitialContent();
+
+			if( hash && !$.micro.path.isPath( hash ) ) {
+				page = this.container.find( $.micro.path.hashToSelector("#" + hash) );
+			}
 
 			// Check to see if the page already exists in the DOM.
 			// NOTE do _not_ use the :jqmData pseudo selector because parenthesis
 			//      are a valid url char and it breaks on the first occurence
-			page = this.container
-				.children( "[data-url='" + dataUrl + "']" );
+			if ( !page || page.length === 0 ) {
+				page = this.container
+					.find( "[data-url='" + dataUrl + "']" )
+					.filter( filter );
+			}
 
 			// If we failed to find the page, check to see if the url is a
 			// reference to an embedded page. If so, it may have been dynamically
 			// injected by a developer, in which case it would be lacking a
 			// data-url attribute and in need of enhancement.
 			if ( page.length === 0 && dataUrl && !$.micro.path.isPath( dataUrl ) ) {
-				page = this.container.children( $.micro.path.hashToSelector("#" + dataUrl) )
+				page = this.container
+					.find( $.micro.path.hashToSelector("#" + dataUrl) )
+					.filter( filter )
 					.attr( "data-url", dataUrl )
 					.data( "url", dataUrl );
 			}
