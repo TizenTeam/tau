@@ -115,12 +115,6 @@ module.exports = function(grunt) {
 
 					include: [ name ],
 
-					exclude: [
-						"jquery",
-						"jquery.ui.core",
-						"jquery.ui.widget"
-					],
-
 					out: path.join( jsPath, name ) + ".js",
 
 					pragmasOnSave: {
@@ -134,22 +128,8 @@ module.exports = function(grunt) {
 						endFile: "build/wrap.end"
 					}
 				}
-			},
-
-			libs: {
-				options: {
-					baseUrl: "src/js",
-					optimize: "none",
-					findNestedDependencies: true,
-					skipModuleInsertion: true,
-					mainConfigFile: "src/js/requirejs.config.js",
-					include: [
-						"jquery.ui.widget"
-					],
-					out: path.join( jsPath, name ) + ".libs.js"
-
-				}
 			}
+
 		},
 
 		uglify: {
@@ -163,10 +143,6 @@ module.exports = function(grunt) {
 					{
 						src: path.join( jsPath, name ) + ".js",
 						dest: path.join( jsPath, name ) + ".min.js",
-					},
-					{
-						src: path.join( jsPath, name ) + ".libs.js",
-						dest: path.join( jsPath, name ) + ".libs.min.js",
 					}
 				]
 			}
