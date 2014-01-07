@@ -3,21 +3,13 @@
 	to { -webkit-transform: rotate(360deg); }
 }
 .ui-processing {
-	color: @color_processing_text;
-}
-.ui-popup-no-title {
-	.ui-popup-body {
-		.ui-processing-activity {
-			margin: 63 auto 14;
-		}
-	}
-}
-.ui-processing-activity {
 	background-image: url("./images/Progress/tw_widget_popup_activity.png");
 	-webkit-animation: rotating 1s linear infinite;
 	width:80 * @unit_base;
 	height:80 * @unit_base;
-	margin: 38 auto 14;
+	margin: 0 auto;
+	margin-top: 34 * @unit_base;
+	margin-bottom: 14 * @unit_base;
 }
 .ui-processing-text {
 	margin: 0 auto;
