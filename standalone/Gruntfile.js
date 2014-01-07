@@ -3,7 +3,7 @@ module.exports = function(grunt) {
 	
 	var path = require("path"),
 		dist = "dist" + path.sep,
-		name = "tizen.micro",
+		name = "gear.ui",
 		jsPath = path.join(dist, "js"),
 		themesPath = path.join(dist, "themes"),
 		themes = {

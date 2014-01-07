@@ -1,2 +1,7 @@
 
+
+window.gear = {
+	ui: $.micro
+};
+
 })(this);
