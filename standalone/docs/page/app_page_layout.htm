@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head><script type="text/javascript" src="../snippet.js"></script>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link href="../styles.css" rel="StyleSheet" type="text/css">
+<link href="../snippet.css" rel="StyleSheet" type="text/css">
+  <title>Application Page Layout</title>
+</head>
+
+<body onload="prettyPrint()">
+<!--<div id="banner">
+Tizen</div>-->
+
+<h1>Application Page Layout</h1>
+
+<p>In the Gear Web UI framework, the application page structure is based on header, content elements</p>
+
+<p>The header is placed at the top, and displays the page title. The content is the area below the header, showing the main content of the page.</p>
+
+<p>To add a Gear page to the application, use the following code:</p>
+<pre class="prettyprint">
+&lt;!--Page Layout--&gt;
+
+&lt;div class=&quot;ui-page&quot;&gt;
+ &lt;header class=&quot;ui-header&quot;&gt;&lt;/header&gt;
+ &lt;div class=&quot;ui-content&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!--Page Layout with more--&gt;
+&lt;div class=&quot;ui-page&quot;&gt;
+  &lt;header class=&quot;ui-header ui-has-more&quot;&gt;
+   &lt;h2 class=&quot;ui-title&quot;&gt;Call menu&lt;/h2&gt;
+   &lt;button type=&quot;button&quot; class=&quot;ui-more ui-icon-overflow&quot;&gt;More Options&lt;/button&gt;
+  &lt;/header&gt;
+  &lt;div class=&quot;ui-content content-padding&quot;&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+
+<p>
+<h1>Grid Layout</h1>
+<p>There is a grid support that is column based. Grid systems are used for creating layouts through a series of columns that house your content.
+</p>
+
+<table>
+<tbody>
+	<tr>
+		<th>Option</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">grid-col-1</span></td>
+		<td>width : 100%</td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">grid-col-2</span></td>
+		<td>width : 50%</td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">grid-col-3</span></td>
+		<td>width : 33%</td>
+	</tr>
+
+</tbody>
+</table>
+<pre class="prettyprint">
+&lt;div class=&quot;grid-col-3 button-group-height&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;ui-btn&quot;&gt;Button Circle&lt;/button&gt;
+  &lt;a href=&quot;#&quot; class=&quot;ui-btn ui-color-red&quot; &gt;A Button Circle&lt;/a&gt;
+  &lt;input type=&quot;button&quot; class=&quot;ui-btn ui-color-orange&quot; value=&quot;Input Button Circle&quot; /&gt;
+&lt;/div&gt;
+</pre>
+<h1>Color theme</h1>
+<p>To optimize color support for the gear, the following styles below are supported</p>
+<table>
+<tbody>
+	<tr>
+		<th>Option</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">ui-color-red</span></td>
+		<td>Red color</td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">ui-color-orange</span></td>
+		<td>Orange color</td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">ui-color-green</span></td>
+		<td>Green color</td>
+	</tr>
+</tbody>
+</table>
+
+<h1>Binding an event callback on the Back key</h1>
+<div>
+	<pre class="prettyprint">/* JavaScript code */
+$(window).on("tizenhwkey", function(ev) 
+{
+   if (ev.originalEvent.keyName === "back") 
+   {
+		/* Call window.history.back() to go to previous browser window */
+		/* Call window.close() to exit appliaction */
+		/* or add script to add another behavior */
+
+   }
+}
+	</pre>
+</div>
+
+<h2>Where to Go Next</h2>
+<ul>
+<li><a href="../widgets/widget_reference.htm">Web UI Framework Reference</a></li></ul>
+
+<div id="footer">
+<hr size="1" /><font size="1">Except as noted, this content is licensed under <a href="http://creativecommons.org/licenses/by/3.0/legalcode" target="_blank">Creative Commons Attribution 3.0</a>.<br />For details, see the <a href="https://www.tizen.org/content-license" target="_blank">Content License</a>.</font> </div>
+
+</body>
+</html>

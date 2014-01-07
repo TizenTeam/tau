@@ -1,10 +1,10 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
 <head><script type="text/javascript" src="../snippet.js"></script>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <link href="../styles.css" rel="StyleSheet" type="text/css">
-<link href="../snippet.css" rel="StyleSheet" type="text/css">
-  <title>Button</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link href="../styles.css" rel="StyleSheet" type="text/css">
+	<link href="../snippet.css" rel="StyleSheet" type="text/css">
+	<title>Button</title>
 </head>
 
 <body onload="prettyPrint()">
@@ -13,42 +13,49 @@ Tizen</div>-->
 
 <h1>Button</h1>
 
-<p>The button widget shows a control on the screen that you can use to generate an action event when it is pressed and released. This widget is coded with standard HTML anchor and input elements and then enhanced by jQueryMobile to make it more attractive and usable on a mobile device. Buttons can be used in Tizen as described in the <a href="http://jquerymobile.com/demos/1.2.0/docs/buttons/buttons-types.html" target="_blank">jQueryMobile documentation for buttons</a>.</p>
+<p>The button widget shows a control on the screen that you can use to generate an action event when it is pressed and released. This widget is coded with standard HTML anchor and input elements</p>
 
 <p>To add a button widget to the application, use the following code:</p>
 
-<pre class="prettyprint">&lt;div data-role=&quot;button&quot; data-inline=&quot;true&quot;&gt;Text Button Test&lt;/div&gt;
-&lt;div data-role=&quot;button&quot; data-inline=&quot;true&quot; data-icon=&quot;plus&quot; data-style=&quot;circle&quot;&gt;&lt;/div&gt;
-&lt;div data-role=&quot;button&quot; data-inline=&quot;true&quot; data-icon=&quot;plus&quot; data-style=&quot;nobg&quot;&gt;&lt;/div&gt;
+<pre class="prettyprint">
+&lt;button type=&quot;button&quot; class=&quot;ui-btn&quot;&gt;Button&lt;/button&gt;
+&lt;a href=&quot;#&quot; class=&quot;ui-btn&quot;&gt;Button&lt;/a&gt;
+&lt;input type=&quot;button&quot; class=&quot;ui-btn&quot; value=&quot;Button&quot; /&gt;
+
+/* inline button */
+&lt;input type=&quot;button&quot; class=&quot;ui-btn ui-inline&quot; value=&quot;Button&quot; /&gt;
+
+/* Multiline text button */
+&lt;a href=&quot;#&quot; class=&quot;ui-btn ui-multiline ui-inline&quot;&gt;A Button&lt;br /&gt;Icon&lt;/a&gt;
 </pre>
 
-<p>The following table describes the button options.</p>
+<p>The following table describes the button styles</p>
 
 <table>
 <tbody>
 	<tr>
 		<th>Option</th>
-		<th>Input type</th>
 		<th>Description</th>
 	</tr>
 	<tr>
-      <td><span style="font-family: Courier New,Courier,monospace">data-style</span></td>
-	  <td>String</td>
-	  <td>Defines the button style.
-	  <p>The default value is <span style="font-family: Courier New,Courier,monospace">box</span>. If the value is set to <span style="font-family: Courier New,Courier,monospace">circle</span>, a circle-shaped button is created. If the value is set to <span style="font-family: Courier New,Courier,monospace">nobg</span>, a button is created without a background. If the value is set to <span style="font-family: Courier New,Courier,monospace">round</span>, a round box-shaped button is created.</p> <p>If the <span style="font-family: Courier New,Courier,monospace">data-corner</span> attribute of JQM is set to <span style="font-family: Courier New,Courier,monospace">true</span>, this option is ignored.</p></td>
+		<td><span style="font-family: Courier New,Courier,monospace">ui-icon-*</span></td>
+		<td>Defines an icon for a button.
+		<p>Gear supports 3 icon css styles: <span style="font-family: Courier New,Courier,monospace">ui-icon-detail</span>, <span style="font-family: Courier New,Courier,monospace">ui-icon-overflow</span>, <span style="font-family: Courier New,Courier,monospace">ui-icon-selectall</span></p></td>
 	</tr>
 	<tr>
-      <td><span style="font-family: Courier New,Courier,monospace">data-icon</span></td>
-	  <td>String</td>
-	  <td>Defines an icon for a button.
-	  <p>Tizen supports 12 icon styles: <span style="font-family: Courier New,Courier,monospace">reveal</span>, <span style="font-family: Courier New,Courier,monospace">closed</span>, <span style="font-family: Courier New,Courier,monospace">opened</span>, <span style="font-family: Courier New,Courier,monospace">info</span>, <span style="font-family: Courier New,Courier,monospace">rename</span>, <span style="font-family: Courier New,Courier,monospace">call</span>, <span style="font-family: Courier New,Courier,monospace">warning</span>, <span style="font-family: Courier New,Courier,monospace">plus</span>, <span style="font-family: Courier New,Courier,monospace">minus</span>, <span style="font-family: Courier New,Courier,monospace">cancel</span>, <span style="font-family: Courier New,Courier,monospace">send</span>, and <span style="font-family: Courier New,Courier,monospace">favorite</span>.</p></td>
+		<td>disabled</td>
+		<td>disabled="disabled"<br><br>If you want to make disabled button, add this attribute in button tag </td>
+	</tr>
+	<tr>
+		<td>inline button</td>
+		<td>ui-inline<br><br>If you want to make disabled button, add this css style</td>
+	</tr>
+	<tr>
+		<td>Multiline text button</td>
+		<td>ui-multiline<br><br>If you want to make multiline text button, add this css style</td>
 	</tr>
  </tbody>
 </table>
-
-<p>The button can define callbacks for events as described in the <a href="http://jquerymobile.com/demos/1.2.0/docs/buttons/buttons-events.html" target="_blank">jQueryMobile documentation for button events</a>.</p>
-
-<p>You can use methods with the button as described in the <a href="http://jquerymobile.com/demos/1.2.0/docs/buttons/buttons-methods.html" target="_blank">jQueryMobile documentation for button methods</a>.</p>
 
 <h2>Where to Go Next</h2>
 <ul>
@@ -58,18 +65,6 @@ Tizen</div>-->
 
 <div id="footer">
 <hr size="1" /><font size="1">Except as noted, this content is licensed under <a href="http://creativecommons.org/licenses/by/3.0/legalcode" target="_blank">Creative Commons Attribution 3.0</a>.<br />For details, see the <a href="https://www.tizen.org/content-license" target="_blank">Content License</a>.</font> </div>
-<!--start-->
-<script type="text/javascript">
-var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-25976949-1']);
-_gaq.push(['_trackPageview']);
-(function() {
-var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-})();
-</script>
-<!--end-->
 
 
 
