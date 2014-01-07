@@ -127,7 +127,7 @@ define([
 		},
 
 		open: function ( to, options ) {
-			var rel = options.rel || "page",
+			var rel = options && options.rel || "page",
 				rule = $.micro.router.rule[rel],
 				deferred, filter, settings;
 
