@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, user-scalable=no"/>
+	<title>Tizen micro UI</title>
+	<link rel="stylesheet"  href="../../dist/themes/default/tizen.micro.css">
+	<link rel="stylesheet"  href="../css/style.css">
+</head>
+
+<body>
+<div class="ui-page">
+	<header class="ui-header">
+		<h2 class="ui-title">Popup</h2>
+	</header>
+	<div class="ui-content content-padding">
+		<h3>Buttons</h3>
+		<a href="#1btnPopup" class="ui-btn" data-rel="popup">1btn popup</a>
+		<a href="#2btnPopup" class="ui-btn" data-rel="popup">2btn popup</a>
+
+		<h3>Input popup</h3>
+		<a href="#radioPopup" class="ui-btn" data-rel="popup">Radio popup</a>
+		<a href="#checkPopup" class="ui-btn" data-rel="popup">Checkbox popup</a>
+
+		<h3>List popup</h3>
+		<a href="#listPopup" class="ui-btn" data-rel="popup">Radio popup</a>
+		<a href="#listNoTitlePopup" class="ui-btn" data-rel="popup">Checkbox popup</a>
+		<a href="#listNoBtnPopup" class="ui-btn" data-rel="popup">Checkbox popup</a>
+		<a href="#listNoTitleNoBtnPopup" class="ui-btn" data-rel="popup">Checkbox popup</a>
+
+	</div>
+
+	<div id="1btnPopup" class="ui-popup">
+		<div class="ui-popup-header">Power saving mode</div>
+		<div class="ui-popup-content">
+			Turning on Power
+			saving mode will
+			limit the maximum
+			per
+			<a href="../button/button.html">Go</a>
+		</div>
+		<div class="ui-popup-footer">
+			<button id="cancel" class="ui-btn">Cancel</button>
+		</div>
+	</div>
+
+	<div id="2btnPopup" class="ui-popup">
+		<div class="ui-popup-header">Power saving mode</div>
+		<div class="ui-popup-content">
+			Turning on Power
+			saving mode will
+			limit the maximum
+			per
+		</div>
+		<div class="ui-popup-footer">
+			<div class="grid-col-2 button-group-height">
+				<button id="cancel" class="ui-btn">Cancel</button>
+				<button id="ok" class="ui-btn">OK</button>
+			</div>
+		</div>
+	</div>
+
+	<div id="radioPopup" class="ui-popup">
+		<div class="ui-popup-header">Ringtones</div>
+		<div class="ui-popup-content" style="height:243px; overflow-y:scroll;">
+			<ul class="ui-listview">
+				<li>
+					<label for="radio-1" class="ui-popup-radio-label">Ringtones 1</label>
+					<input type="radio" name="radioset" id="radio-1" />
+				</li>
+				<li>
+					<label for="radio-2" class="ui-popup-radio-label">Ringtones 2</label>
+					<input type="radio" name="radioset" id="radio-2" />
+				</li>
+				<li>
+					<label for="radio-3" class="ui-popup-radio-label">Ringtones 3</label>
+					<input type="radio" name="radioset" id="radio-3" />
+				</li>
+				<li>
+					<label for="radio-4" class="ui-popup-radio-label">Ringtones 4</label>
+					<input type="radio" name="radioset" id="radio-4" />
+				</li>
+				<li>
+					<label for="radio-5" class="ui-popup-radio-label">Ringtones 5</label>
+					<input type="radio" name="radioset" id="radio-5" />
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<div id="checkPopup" class="ui-popup">
+		<div class="ui-popup-header">When?</div>
+		<div class="ui-popup-content" style="height:243px; overflow-y:scroll;">
+			<ul class="ui-listview">
+				<li>
+					<label for="check-1" class="ui-popup-checkbox-label">Monday</label>
+					<input type="checkbox" name="checkset" id="check-1" />
+				</li>
+				<li>
+					<label for="check-2" class="ui-popup-checkbox-label">Tuesday</label>
+					<input type="checkbox" name="checkset" id="check-2" />
+				</li>
+				<li>
+					<label for="check-3" class="ui-popup-checkbox-label">Wednesday</label>
+					<input type="checkbox" name="checkset" id="check-3" />
+				</li>
+				<li>
+					<label for="check-4" class="ui-popup-checkbox-label">Thursday</label>
+					<input type="checkbox" name="checkset" id="check-4" />
+				</li>
+				<li>
+					<label for="check-5" class="ui-popup-checkbox-label">Friday</label>
+					<input type="checkbox" name="checkset" id="check-5" />
+				</li>
+				<li>
+					<label for="check-6" class="ui-popup-checkbox-label">Saturday</label>
+					<input type="checkbox" name="checkset" id="check-6" />
+				</li>
+				<li>
+					<label for="check-7" class="ui-popup-checkbox-label">Sunday</label>
+					<input type="checkbox" name="checkset" id="check-7" />
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<div id="listPopup" class="ui-popup">
+		<div class="ui-popup-header">Change to</div>
+		<div class="ui-popup-content" style="height:180px; overflow-y:scroll;">
+			<ul class="ui-listview">
+				<li><a href="">Phone</a></li>
+				<li><a href="">Headset</a></li>
+				<li><a href="">keyboard</a></li>
+				<li><a href="">touchpad</a></li>
+				<li><a href="">touchball</a></li>
+			</ul>
+		</div>
+		<div class="ui-popup-footer">
+			<button id="cancel" class="ui-btn">Cancel</button>
+		</div>
+	</div>
+
+	<div id="listNoTitlePopup" class="ui-popup">
+		<div class="ui-popup-content" style="height:231px; overflow-y:scroll;">
+			<ul class="ui-listview">
+				<li>Ringtones 1</li>
+				<li>Ringtones 2</li>
+				<li>Ringtones 3</li>
+				<li>Ringtones 4</li>
+				<li>Ringtones 5</li>
+				<li>Ringtones 6</li>
+				<li>Ringtones 7</li>
+			</ul>
+		</div>
+		<div class="ui-popup-footer">
+			<button id="cancel" class="ui-btn">Cancel</button>
+		</div>
+	</div>
+
+	<div id="listNoBtnPopup" class="ui-popup">
+		<div class="ui-popup-header">Change to</div>
+		<div class="ui-popup-content" style="height:243px; overflow-y:scroll;">
+			<ul class="ui-listview">
+				<li>Phone</li>
+				<li>Headset</li>
+				<li>keyboard</li>
+				<li>touchpad</li>
+				<li>touchball</li>
+			</ul>
+		</div>
+	</div>
+
+	<div id="listNoTitleNoBtnPopup" class="ui-popup">
+		<div class="ui-popup-content" style="height:294px; overflow-y:scroll;">
+			<ul class="ui-listview">
+				<li>Ringtones 1</li>
+				<li>Ringtones 2</li>
+				<li>Ringtones 3</li>
+				<li>Ringtones 4</li>
+				<li>Ringtones 5</li>
+				<li>Ringtones 6</li>
+				<li>Ringtones 7</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="../../dist/js/tizen.micro.libs.js"></script>
+<script type="text/javascript" src="../../dist/js/tizen.micro.js"></script>
+</body>
+</html>

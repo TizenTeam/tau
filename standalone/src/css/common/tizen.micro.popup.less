@@ -17,6 +17,7 @@ Normal Popup
 	margin: 13*@unit_base 13*@unit_base 13*@unit_base 13*@unit_base;
 	background-color: @color_popup_bg;
 	border: 3px solid @color_popup_border;
+	visibility: hidden;
 
 	.ui-popup-header {
 		width: 100%;
@@ -45,11 +46,8 @@ Normal Popup
 		height: 63 * @unit_base;
 	}
 
-	&.ui-state-active {
+	&.ui-popup-active {
 		visibility: visible;
-		top: 0%;
-		left: 50%;
-		margin: 4% 0 4% -46%;
 	}
 }
 
