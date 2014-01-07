@@ -1,0 +1,14 @@
+.content-padding {
+	margin-top: 16px;
+	margin-bottom: 16px;
+	padding-left: 16px;
+	padding-right: 16px;
+}
+
+.button-group-height {
+	height: 72px;
+}
+
+.ico-sample {background-image: url(../images/icon.png);}
+.ico-btn-sample1 {background-image: url(../images/00_icon_back_ef.png);}
+.ico-btn-sample2 {background-image: url(../images/00_icon_cancel_ef.png);}

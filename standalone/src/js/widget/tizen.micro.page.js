@@ -63,7 +63,7 @@ $.widget( "micro.page", {
 				width: screenWidth + "px",
 				height: screenHeight + "px",
 			})
-			.find( ".ui-main" ).each(function( idx, content) {
+			.find( ".ui-content" ).each(function( idx, content) {
 				var $contentElement = $(content),
 					marginTop = window.parseFloat($contentElement.css("margin-top")),
 					paddingTop = window.parseFloat($contentElement.css("padding-top")),
