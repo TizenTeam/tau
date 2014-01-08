@@ -27,6 +27,9 @@ define([
 			$.micro.$window.trigger( "pagecontainercreate" );
 
 			$.micro.router.register($.micro.pageContainer, $.micro.firstPage);
+
+			// for :hover css effect, touch event need binding
+			$.micro.$document.on( "touchstart", function() { } );
 		}
 	});
 
