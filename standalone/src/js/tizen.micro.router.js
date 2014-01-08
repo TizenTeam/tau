@@ -91,6 +91,10 @@ define([
 		$.micro.router.open( to, $.extend({}, {rel: "popup"}, options) );
 	};
 
+	$.micro.closePopup = function() {
+		$.micro.router.back();
+	};
+
 	$.micro.back = function() {
 		$.micro.router.back();
 	};
