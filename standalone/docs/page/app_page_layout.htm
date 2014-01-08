@@ -17,7 +17,7 @@ Tizen</div>-->
 
 <p>The header is placed at the top, and displays the page title. The content is the area below the header, showing the main content of the page.</p>
 
-<p>To add a Gear page to the application, use the following code:</p>
+<p>To add a page to the application, use the following code:</p>
 <pre class="prettyprint">
 &lt;!--Page Layout--&gt;
 
@@ -26,13 +26,14 @@ Tizen</div>-->
  &lt;div class=&quot;ui-content&quot;&gt;&lt;/div&gt;
 &lt;/div&gt;
 
-&lt;!--Page Layout with more--&gt;
+&lt;!--Page Layout with more button in header--&gt;
 &lt;div class=&quot;ui-page&quot;&gt;
   &lt;header class=&quot;ui-header ui-has-more&quot;&gt;
    &lt;h2 class=&quot;ui-title&quot;&gt;Call menu&lt;/h2&gt;
    &lt;button type=&quot;button&quot; class=&quot;ui-more ui-icon-overflow&quot;&gt;More Options&lt;/button&gt;
   &lt;/header&gt;
-  &lt;div class=&quot;ui-content content-padding&quot;&gt;
+  &lt;div class=&quot;ui-content&quot;&gt;
+	Content message
   &lt;/div&gt;
 &lt;/div&gt;
 </pre>
@@ -42,7 +43,7 @@ Tizen</div>-->
 <table>
 <tbody>
 	<tr>
-		<th>Interface</th>
+		<th style="width:40%;">Interface</th>
 		<th>Description</th>
 	</tr>
 	<tr>
@@ -66,7 +67,7 @@ Tizen</div>-->
 <table>
 <tbody>
 	<tr>
-		<th>Option</th>
+		<th style="width:40%;">Option</th>
 		<th>Description</th>
 	</tr>
 	<tr>
@@ -96,43 +97,40 @@ Tizen</div>-->
 <table>
 <tbody>
 	<tr>
-		<th>Option</th>
+		<th style="width:40%;">Option</th>
 		<th>Description</th>
 	</tr>
 	<tr>
 		<td><span style="font-family: Courier New,Courier,monospace">ui-color-red</span></td>
-		<td>Red color</td>
+		<td>Red color (#cd2201)</td>
 	</tr>
 	<tr>
 		<td><span style="font-family: Courier New,Courier,monospace">ui-color-orange</span></td>
-		<td>Orange color</td>
+		<td>Orange color (#ec8500)</td>
 	</tr>
 	<tr>
 		<td><span style="font-family: Courier New,Courier,monospace">ui-color-green</span></td>
-		<td>Green color</td>
+		<td>Green color (#61a310)</td>
 	</tr>
 </tbody>
 </table>
 
 <h1>Binding an event callback on the Back key</h1>
 <div>
-	<pre class="prettyprint">/* JavaScript code */
-$(window).on("tizenhwkey", function(ev) 
-{
-   if (ev.originalEvent.keyName === "back") 
-   {
+<pre class="prettyprint">/* JavaScript code */
+window.addEventListener( 'tizenhwkey', function( ev ) {
+	if( ev.keyName == "back" ) {
 		/* Call window.history.back() to go to previous browser window */
-		/* Call window.close() to exit appliaction */
+		/* Call window.close() to exit application */
 		/* or add script to add another behavior */
-
-   }
+	}
 }
-	</pre>
+</pre>
 </div>
 
 <h2>Where to Go Next</h2>
 <ul>
-<li><a href="../widgets/widget_reference.htm">Web UI Framework Reference</a></li></ul>
+<li><a href="../widgets/widget_reference.htm">Gear Web UI Framework Widget Reference</a></li></ul>
 
 <div id="footer">
 <hr size="1" /><font size="1">Except as noted, this content is licensed under <a href="http://creativecommons.org/licenses/by/3.0/legalcode" target="_blank">Creative Commons Attribution 3.0</a>.<br />For details, see the <a href="https://www.tizen.org/content-license" target="_blank">Content License</a>.</font> </div>
