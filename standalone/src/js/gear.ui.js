@@ -1,6 +1,9 @@
 //>>excludeStart("microBuildExclude", pragmas.microBuildExclude);
 define([
-	"require"
+	"require",
+	"jquery",
+	"jquery.ui.core",
+	"jquery.ui.widget"
 ], function( require ) {
 	require( [ "./init" ], function() {} );
 });

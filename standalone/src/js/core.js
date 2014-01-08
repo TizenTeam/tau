@@ -9,9 +9,6 @@ define([
 
 	$.extend($.micro, {
 		autoInitializePage: true,
-		dynamicBaseEnabled: true,
-
-		dialogHashKey: "ui-dialog",
 	});
 
 })( jQuery, this );

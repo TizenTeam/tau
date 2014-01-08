@@ -8,11 +8,9 @@ define([
 //>>excludeEnd("microBuildExclude");
 
 (function( $, undefined ) {
-		var path, $base, dialogHashKey = "&ui-state=dialog";
+		var path;
 
 		$.micro.path = path = {
-			uiStateKey: "&ui-state",
-
 			// This scary looking regular expression parses an absolute URL or its relative
 			// variants (protocol, site, document, query, and hash), into the various
 			// components (protocol, host, path, query, fragment, etc that make up the
@@ -185,17 +183,23 @@ define([
 				return u.hrefNoSearch + s + ( s.charAt( s.length - 1 ) !== "?" ? "&" : "" ) + p + ( u.hash || "" );
 			},
 
+			addHashSearchParams: function( url, params ) {
+				var u = path.parseUrl( url ),
+					p = ( typeof params === "object" ) ? $.param( params ) : params,
+					h = u.hash,
+					s = h ? ( h.indexOf("?") < 0 ? h + "?" : h + "&" ) : "#?";
+				return u.hrefNoHash + s + ( s.charAt( s.length - 1 ) !== "?" ? "&" : "" ) + p;
+			},
+
 			convertUrlToDataUrl: function( absUrl ) {
 				var u = path.parseUrl( absUrl );
-				if ( path.isEmbeddedPage( u ) ) {
-					// For embedded pages, remove the dialog hash key as in getFilePath(),
-					// and remove otherwise the Data Url won't match the id of the embedded Page.
+				if ( path.isEmbedded( u ) ) {
+					// remove otherwise the Data Url won't match the id of the embedded Page.
 					return u.hash
-						.split( dialogHashKey )[0]
 						.replace( /^#/, "" )
 						.replace( /\?.*$/, "" );
 				} else if ( path.isSameDomain( u, this.documentBase ) ) {
-					return u.hrefNoHash.replace( this.documentBase.domain, "" ).split( dialogHashKey )[0];
+					return u.hrefNoHash.replace( this.documentBase.domain, "" );
 				}
 
 				return window.decodeURIComponent(absUrl);
@@ -207,11 +211,6 @@ define([
 					newPath = path.parseLocation().hash;
 				}
 				return path.stripHash( newPath ).replace( /[^\/]*\.[^\/*]+$/, "" );
-			},
-
-			//set location hash to path
-			set: function( path ) {
-				location.hash = path;
 			},
 
 			//test if a given url (string) is a path
@@ -234,11 +233,6 @@ define([
 				return url.replace( /\?.*$/, "" );
 			},
 
-			//remove the preceding hash, any query params, and dialog notations
-			cleanHash: function( hash ) {
-				return path.stripHash( hash.replace( /\?.*$/, "" ).replace( dialogHashKey, "" ) );
-			},
-
 			isHashValid: function( hash ) {
 				return ( /^#[^#]+$/ ).test( hash );
 			},
@@ -254,16 +248,11 @@ define([
 				return ( /^(:?\w+:)/ ).test( url );
 			},
 
-			isEmbeddedPage: function( url ) {
+			isEmbedded: function( url ) {
 				var u = path.parseUrl( url );
 
-				//if the path is absolute, then we need to compare the url against
-				//both the this.documentUrl and the documentBase. The main reason for this
-				//is that links embedded within external documents will refer to the
-				//application document, whereas links embedded within the application
-				//document will be resolved against the document base.
 				if ( u.protocol !== "" ) {
-					return ( !this.isPath(u.hash) && u.hash && ( u.hrefNoHash === this.documentUrl.hrefNoHash || ( this.documentBaseDiffers && u.hrefNoHash === this.documentBase.hrefNoHash ) ) );
+					return ( !this.isPath(u.hash) && u.hash && ( u.hrefNoHash === this.parseLocation().hrefNoHash ) );
 				}
 				return ( /^#/ ).test( u.href );
 			},
@@ -344,12 +333,6 @@ define([
 				return ( hasHash ? "#" : "" ) + hash.replace( /([!"#$%&'()*+,./:;<=>?@[\]^`{|}~])/g, "\\$1" );
 			},
 
-			// return the substring of a filepath before the sub-page key, for making
-			// a server request
-			getFilePath: function( path ) {
-				return path && path.split( dialogHashKey )[0];
-			},
-
 			// check if the specified url refers to the first page in the main
 			// application document.
 			isFirstPageUrl: function( url ) {
@@ -357,9 +340,7 @@ define([
 				var u = path.parseUrl( path.makeUrlAbsolute( url, this.documentBase ) ),
 
 					// Does the url have the same path as the document?
-					samePath = u.hrefNoHash === this.documentUrl.hrefNoHash ||
-						( this.documentBaseDiffers &&
-							u.hrefNoHash === this.documentBase.hrefNoHash ),
+					samePath = u.hrefNoHash === this.documentUrl.hrefNoHash,
 
 					// Get the first page element.
 					fp = $.micro.firstPage,
@@ -374,31 +355,12 @@ define([
 					( !u.hash ||
 						u.hash === "#" ||
 						( fpId && u.hash.replace( /^#/, "" ) === fpId ) );
-			},
-
-			// Some embedded browsers, like the web view in Phone Gap, allow
-			// cross-domain XHR requests if the document doing the request was loaded
-			// via the file:// protocol. This is usually to allow the application to
-			// "phone home" and fetch app specific data. We normally let the browser
-			// handle external/cross-domain urls, but if the allowCrossDomainPages
-			// option is true, we will allow cross-domain http/https requests to go
-			// through our page loading logic.
-			isPermittedCrossDomainRequest: function( docUrl, reqUrl ) {
-				return $.mobile.allowCrossDomainPages &&
-					(docUrl.protocol === "file:" || docUrl.protocol === "content:") &&
-					reqUrl.search( /^https?:/ ) !== -1;
 			}
+
 		};
 
 		path.documentUrl = path.parseLocation();
-
-		$base = $( "head" ).find( "base" );
-
-		path.documentBase = $base.length ?
-			path.parseUrl( path.makeUrlAbsolute( $base.attr( "href" ), path.documentUrl.href ) ) :
-			path.documentUrl;
-
-		path.documentBaseDiffers = (path.documentUrl.hrefNoHash !== path.documentBase.hrefNoHash);
+		path.documentBase = path.documentUrl;
 
 		//return the original document base url
 		path.getDocumentBase = function( asParsedObject ) {

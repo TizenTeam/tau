@@ -34,7 +34,8 @@ $.widget( "micro.popup", {
 		this._initLayout();
 
 		this._on(this.window, {
-			"resize": $.proxy( this._initLayout, this )
+			"resize": $.proxy( this._initLayout, this ),
+			"pagebeforehide" : $.proxy( this.close, this )
 		});
 		
 		$.micro.fireEvent(this.element, EventType.CREATE);

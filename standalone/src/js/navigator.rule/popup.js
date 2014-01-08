@@ -14,63 +14,67 @@ define([
 	$.micro.navigator = $.micro.navigator || {};
 	$.micro.navigator.rule = $.micro.navigator.rule || {};
 
-	var popupHashKey = "&popup=";
+	var popupHashKey = "popup=true",
+		popupHashKeyReg = /([&|\?]popup=true)/;
 
 	$.micro.navigator.rule.popup = {
 		filter: $.micro.selectors.popup,
-		
+
 		defaults: {
-			transition: undefined
+			transition: undefined,
+			container: undefined,
+			volatileRecord: true
 		},
 
 		open: function( to, options ) {
-			var $toPage = $(to),
+			var $to = $(to),
 				state = {},
-				url = $.micro.path.getLocation(),
-				hasActivePopup, url, id, popupKey;
+				documentUrl = $.micro.path.getLocation().replace( popupHashKeyReg, "" ),
+				activePage = $.micro.pageContainer.pagecontainer("getActivePage"),
+				url, popupKey, $container;
 
-			id = $toPage.attr("id");
-			popupKey = popupHashKey + id;
+			url = $to.data( "url" );
+			popupKey = popupHashKey;
 
-			if ( id && !options.fromHashChange ) {
+			this._closeActivePopup();
 
-				hasActivePopup = url.indexOf( popupHashKey ) > -1;
-				if ( url.indexOf("#") === -1 ) {
-					popupKey = "#" + popupKey;
-				}
+			if ( url && !options.fromHashChange ) {
 
 				state = $.extend({}, options, {
-					url: id
+					url: url
 				});
 
-				if( hasActivePopup ) {
-					this._closeActivePopup();
-				}
-
-				$.micro.navigator[ !hasActivePopup ? "pushHistory" : "replaceHistory" ]( state, "", popupKey );
+				url = $.micro.path.addHashSearchParams( documentUrl, popupKey );
+				$.micro.navigator.history.replace( state, "", url );
 			}
 
-			$toPage.popup().popup("open");
+			if( $(to).is( "[data-external=true]" ) ) {
+				$container = options.container ?
+								$(activePage).find(options.container).first() :
+								$(activePage);
+				$container.append($to);
+				$to.one( "popuphide", function() {
+					$to.remove();
+				});
+			}
+
+			$to.popup().popup("open");
 		},
 
 		onHashChange: function(/* url, state */) {
-			var activePopup = $.micro.pageContainer
-				.find( $.micro.selectors.popup )
-				.filter( ".ui-popup-active" );
+			var activePopup = $.micro.pageContainer.find( ".ui-popup-active" );
 
 			if (activePopup.length) {
 				this._closeActivePopup(activePopup);
 				return true;
 			}
-			
+
 			return false;
 		},
 
 		_closeActivePopup: function(activePopup) {
 			activePopup = activePopup ||
-				$.micro.pageContainer
-					.find( $.micro.selectors.popup )
-					.filter( ".ui-popup-active" );
+				$.micro.pageContainer.find( ".ui-popup-active" );
 			if(activePopup.length) {
 				activePopup.popup().popup("close");
 			}

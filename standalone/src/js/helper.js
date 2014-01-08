@@ -13,18 +13,6 @@ define([
 		$window: $(window),
 		$document: $(window.document),
 
-		getClosestBaseUrl: function( ele )	{
-			// Find the closest page and extract out its url.
-			var url = $( ele ).closest( $.micro.selectors.page ).data( "url" ),
-				base = $.micro.path.documentBase.hrefNoHash;
-
-			if ( !$.micro.dynamicBaseEnabled || !url || !$.micro.path.isPath( url ) ) {
-				url = base;
-			}
-
-			return $.micro.path.makeUrlAbsolute( url, base );
-		},
-
 		getData: function( element ) {
 			var dataPrefix = "data-",
 				data = {},
@@ -51,6 +39,9 @@ define([
 					"detail": detail
 				});
 
+			//>>excludeStart("microBuildExclude", pragmas.microBuildExclude);
+			console.debug(eventName, detail);
+			//>>excludeEnd("microBuildExclude");
 			ele.dispatchEvent(evt);
 		}
 

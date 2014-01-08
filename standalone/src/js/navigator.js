@@ -14,8 +14,9 @@ define([
 	var $window = $.micro.$window,
 		$document = $.micro.$document,
 		historyUid = 0,
-		currentHistoryUid = 0;
-	
+		historyActiveIndex = 0,
+		historyVolatileMode = false;
+
 	function findClosestLink( ele )	{
 		while ( ele ) {
 			if ( ( typeof ele.nodeName === "string" ) && ele.nodeName.toLowerCase() === "a" ) {
@@ -43,29 +44,26 @@ define([
 
 		options = $.micro.getData($link);
 
-		$.micro.navigator.open(href, options);
 		event.preventDefault();
+		$.micro.navigator.open(href, options);
 	}
 
 	function popStateHandler( event ) {
 		var state = event.originalEvent.state,
 			rules = $.micro.navigator.rule,
-			options, to, uid, url, isContinue = true;
+			options, to, url, isContinue = true;
 
 		if (!state) {
 			return;
 		}
 
-		uid = state.uid;
 		to = state.url;
 		options = $.extend({}, state, {
-			reverse: currentHistoryUid > uid,
+			reverse: $.micro.navigator.history.getDirection( state ) === "back",
 			fromHashChange: true
 		});
 
-		currentHistoryUid = uid;
 		url = $.micro.path.getLocation();
-
 		$.each(rules, function(name, rule) {
 			if ( rule.onHashChange(url, options) ) {
 				isContinue = false;
@@ -76,6 +74,7 @@ define([
 			$.micro.navigator.open(to, options);
 		}
 
+		$.micro.navigator.history.setActive(state);
 	}
 
 	$.micro.navigator = $.micro.navigator || {};
@@ -83,6 +82,7 @@ define([
 
 	$.micro.navigator.defaults = {
 		fromHashChange: false,
+		volatileRecord: false,
 		reverse: false,
 		showLoadMsg: true,
 		loadMsgDelay: 0
@@ -97,11 +97,11 @@ define([
 	};
 
 	$.micro.closePopup = function() {
-		$.micro.navigator.back();
+		$.micro.back();
 	};
 
 	$.micro.back = function() {
-		$.micro.navigator.back();
+		$.micro.navigator.history.back();
 	};
 
 	$.extend( $.micro.navigator, {
@@ -121,6 +121,7 @@ define([
 				"popstate": this.popStateHandler
 			});
 
+			$.micro.navigator.history.enableVolatileRecord();
 			this.open( $.micro.$firstPage, { transition: undefined } );
 		},
 
@@ -143,12 +144,17 @@ define([
 
 				settings = $.extend( {
 						rel: rel
-					},
-					$.micro.navigator.defaults,
-					rule.defaults,
-					options );
+				}, $.micro.navigator.defaults, rule.defaults, options );
 
 				filter = rule.filter;
+
+				deferred = $.Deferred();
+				deferred.done( function( options, content ) {
+					rule.open( content, options );
+				});
+				deferred.fail(function( options ) {
+					$.micro.fireEvent($.micro.pageContainer, "changefailed", options);
+				});
 
 				if ( $.type(to) === "string" ) {
 
@@ -156,17 +162,14 @@ define([
 						return;
 					}
 
-					deferred = $.Deferred();
-					deferred.done(function(url, options, content) {
-						rule.open(content, options);
-					});
-					deferred.fail(function(/* url, options */) {
-					});
-
 					this._loadUrl(to, settings, filter, deferred);
-					
+
 				} else {
-					rule.open(to, settings);
+					if( $(to).filter(filter).length ) {
+						deferred.resolve( settings, to );
+					} else {
+						deferred.reject( settings );
+					}
 				}
 
 			} else {
@@ -175,31 +178,9 @@ define([
 
 		},
 
-		back: function() {
-			$window[0].history.back();
-		},
-
-		pushHistory: function(state, pageTitle, url) {
-			var newState = $.extend({}, state, {
-				uid: historyUid++
-			});
-			
-			currentHistoryUid = newState.uid;
-			
-			$window[0].history.pushState(newState, pageTitle, url);
-		},
-
-		replaceHistory: function(state, pageTitle, url) {
-			var newState = $.extend({}, state, {
-				uid: currentHistoryUid
-			});
-			$window[0].history.replaceState(newState, pageTitle, url);
-		},
-
 		_loadUrl: function( url, options, filter, deferred) {
-			var absUrl = $.micro.path.makeUrlAbsolute( url, this._findBaseWithDefault() ),
-				fileUrl = this._createFileUrl( absUrl ),
-				content;
+			var absUrl = $.micro.path.makeUrlAbsolute( url, $.micro.path.getLocation() ),
+				content, detail;
 
 			content = this._find( absUrl, filter );
 			// If the content we are interested in is already in the DOM,
@@ -207,7 +188,8 @@ define([
 			// reload of the file, we are done. Resolve the deferrred so that
 			// users can bind to .done on the promise
 			if ( content.length ) {
-				deferred.resolve( absUrl, options, content );
+				detail = $.extend({absUrl: absUrl}, options);
+				deferred.resolve( detail, content );
 				return;
 			}
 
@@ -217,7 +199,7 @@ define([
 
 			// Load the new content.
 			$.ajax({
-				url: fileUrl,
+				url: absUrl,
 				type: options.type,
 				data: options.data,
 				contentType: options.contentType,
@@ -229,13 +211,15 @@ define([
 
 		_loadError: function( absUrl, settings, deferred ) {
 			return $.proxy(function(/* xhr, textStatus, errorThrown */) {
+				var detail = $.extend({url: absUrl}, settings);
 
 				// Remove loading message.
 				if ( settings.showLoadMsg ) {
 					this._showError();
 				}
 
-				deferred.reject( absUrl, settings );
+				$.micro.fireEvent(this.container, "loadfailed", detail);
+				deferred.reject( detail );
 
 			}, this);
 		},
@@ -244,49 +228,42 @@ define([
 		//      or require ordering such that other bits are sprinkled in between parts that
 		//      could be abstracted out as a group
 		_loadSuccess: function( absUrl, settings, filter, deferred ) {
-			var fileUrl = this._createFileUrl( absUrl );
+			var dataUrl = this._createDataUrl( absUrl ),
+				detail = $.extend({url: absUrl}, settings);
 
 			return $.proxy(function( html/*, textStatus, xhr */) {
 				var content;
 
-				content = this._parse( html, fileUrl, filter );
+				content = this._parse( html, dataUrl, filter );
 
 				// Remove loading message.
 				if ( settings.showLoadMsg ) {
 					this._hideLoading();
 				}
 
-				deferred.resolve( absUrl, settings, content );
+				if( $(content).length ) {
+					deferred.resolve( detail, content );
+				} else {
+					deferred.reject( detail );
+				}
 
 			}, this);
 		},
 
-		_parse: function( html, fileUrl, filter ) {
+		_parse: function( html, dataUrl, filter ) {
 			// TODO consider allowing customization of this method. It's very JQM specific
-			var page, all = $( "<div></div>" ),
-				dataUrl;
+			var page, all = $( "<div></div>" );
 
 			//workaround to allow scripts to execute when included in page divs
 			all.get( 0 ).innerHTML = html;
 
-			page = all.find( $.micro.selectors.page )
-				.filter( filter )
-				.first();
-
-			//if page elem couldn't be found, create one and insert the body element's contents
-			if ( !page.length ) {
-				page = $( "<div class='ui-page'>" +
-					( html.split( /<\/?body[^>]*>/gmi )[1] || "" ) +
-					"</div>" );
-			}
-
-			dataUrl = $.micro.path.convertUrlToDataUrl(fileUrl);
+			page = all.find( filter ).first();
 
 			// TODO tagging a page with external to make sure that embedded pages aren't
 			// removed by the various page handling code is bad. Having page handling code
 			// in many places is bad. Solutions post 1.0
 			page.attr( "data-url", dataUrl )
-				.attr( "data-external-page", true )
+				.attr( "data-external", true )
 				.data( "url", dataUrl );
 
 			return page;
@@ -294,26 +271,15 @@ define([
 
 		_find: function( absUrl, filter ) {
 			// TODO consider supporting a custom callback
-			var fileUrl = this._createFileUrl( absUrl ),
-				dataUrl = this._createDataUrl( absUrl ),
-				hash = absUrl.replace( /[^#]*#/, "" ),
+			var dataUrl = this._createDataUrl( absUrl ),
 				page, initialContent = this._getInitialContent();
-
-			if( hash && !$.micro.path.isPath( hash ) ) {
-				page = this.container.find( $.micro.path.hashToSelector("#" + hash) )
-					.filter( filter )
-					.attr( "data-url", hash )
-					.data( "url", hash );
-			}
 
 			// Check to see if the page already exists in the DOM.
 			// NOTE do _not_ use the :jqmData pseudo selector because parenthesis
 			//      are a valid url char and it breaks on the first occurence
-			if ( !page || page.length === 0 ) {
-				page = this.container
-					.find( "[data-url='" + dataUrl + "']" )
-					.filter( filter );
-			}
+			page = this.container
+				.find( filter )
+				.filter( "[data-url='" + dataUrl + "']" );
 
 			// If we failed to find the page, check to see if the url is a
 			// reference to an embedded page. If so, it may have been dynamically
@@ -321,8 +287,8 @@ define([
 			// data-url attribute and in need of enhancement.
 			if ( page.length === 0 && dataUrl && !$.micro.path.isPath( dataUrl ) ) {
 				page = this.container
-					.find( $.micro.path.hashToSelector("#" + dataUrl) )
-					.filter( filter )
+					.find( filter )
+					.filter( $.micro.path.hashToSelector("#" + dataUrl) )
 					.attr( "data-url", dataUrl )
 					.data( "url", dataUrl );
 			}
@@ -334,10 +300,10 @@ define([
 			// We check for this case here because we don't want a first-page with
 			// an id falling through to the non-existent embedded page error case.
 			if ( page.length === 0 &&
-				$.micro.path.isFirstPageUrl( fileUrl ) &&
+				$.micro.path.isFirstPageUrl( dataUrl ) &&
 				initialContent &&
 				initialContent.parent().length ) {
-				page = $( initialContent );
+				page = $( initialContent ).filter( filter );
 			}
 
 			return page;
@@ -347,21 +313,10 @@ define([
 			return $.micro.path.convertUrlToDataUrl( absoluteUrl );
 		},
 
-		_createFileUrl: function( absoluteUrl ) {
-			return $.micro.path.getFilePath( absoluteUrl );
-		},
-
 		// TODO the first page should be a property set during _create using the logic
 		//      that currently resides in init
 		_getInitialContent: function() {
 			return $.micro.firstPage;
-		},
-
-		// determine the current base url
-		_findBaseWithDefault: function() {
-			var activePage = this.container.pagecontainer( "getActivePage" ),
-				closestBase = ( activePage && $.micro.getClosestBaseUrl( activePage ) );
-			return closestBase || $.micro.path.documentBase.hrefNoHash;
 		},
 
 		_showLoading: function( delay ) {
@@ -369,13 +324,62 @@ define([
 		},
 
 		_showError: function() {
-			console.debug("load error");
+
 		},
 
 		_hideLoading: function() {
 
 		}
 	});
+
+	$.micro.navigator.history = {
+
+		replace: function(state, pageTitle, url) {
+			var newState = $.extend({}, state, {
+				uid: historyVolatileMode ? historyActiveIndex : ++historyUid
+			});
+
+			$window[0].history[ historyVolatileMode ? "replaceState" : "pushState" ](newState, pageTitle, url);
+
+			this.setActive(newState);
+		},
+
+		back: function() {
+			$window[0].history.back();
+		},
+
+		setActive: function( state ) {
+			if ( state ) {
+				historyActiveIndex = state.uid;
+
+				if(state.volatileRecord) {
+					this.enableVolatileRecord();
+					return;
+				}
+			}
+
+			this.disableVolatileMode();
+		},
+
+		getDirection: function( state ) {
+			var direction;
+
+			if ( state ) {
+				direction = state.uid < historyActiveIndex ? "back" : "forward";
+				return direction;
+			}
+
+			return "back";
+		},
+
+		enableVolatileRecord: function() {
+			historyVolatileMode = true;
+		},
+
+		disableVolatileMode: function() {
+			historyVolatileMode = false;
+		},
+	};
 
 })( jQuery );
 

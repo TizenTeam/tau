@@ -74,7 +74,7 @@ $.widget( "micro.pagecontainer", {
 	_removeExternalPage: function() {
 		this.element
 			.find( $.micro.selectors.page )
-			.filter( "[data-external-page=true]" )
+			.filter( "[data-external=true]" )
 			.not(this.getActivePage())
 			.remove();
 	}
