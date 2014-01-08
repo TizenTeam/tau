@@ -51,7 +51,6 @@ define([
 			}
 
 			$toPage.popup().popup("open");
-			$.micro.pageContainer.one("pagehide", this._closeActivePopup);
 		},
 
 		onHashChange: function(/* url, state */) {
