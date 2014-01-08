@@ -29,7 +29,7 @@ define([
 				url = $.micro.path.getLocation(),
 				hasActivePopup, url, id, popupKey;
 
-			id = to.attr("id");
+			id = $toPage.attr("id");
 			popupKey = popupHashKey + id;
 
 			if ( id && !options.fromHashChange ) {
