@@ -10,17 +10,17 @@ define([
 
 var EventType = {
 
-	SHOW: "show",
+	SHOW: "popupshow",
 
-	HIDE: "hide",
+	HIDE: "popuphide",
 
-	CREATE: "create",
+	CREATE: "popupcreate",
 
-	BEFORE_CREATE: "beforecreate",
+	BEFORE_CREATE: "popupbeforecreate",
 
-	BEFORE_SHOW: "beforeshow",
+	BEFORE_SHOW: "popupbeforeshow",
 
-	BEFORE_HIDE: "beforehide"
+	BEFORE_HIDE: "popupbeforehide"
 };
 
 $.widget( "micro.popup", {

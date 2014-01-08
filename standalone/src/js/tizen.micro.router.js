@@ -50,7 +50,7 @@ define([
 	function popStateHandler( event ) {
 		var state = event.originalEvent.state,
 			rules = $.micro.router.rule,
-			options, to, uid, url;
+			options, to, uid, url, isContinue = true;
 
 		if (!state) {
 			return;
@@ -67,10 +67,15 @@ define([
 		url = $.micro.path.getLocation();
 
 		$.each(rules, function(name, rule) {
-			rule.onHashChange(url, options);
+			if ( rule.onHashChange(url, options) ) {
+				isContinue = false;
+			}
 		});
 
-		$.micro.router.open(to, options);
+		if ( isContinue ) {
+			$.micro.router.open(to, options);
+		}
+
 	}
 
 	$.micro.router = $.micro.router || {};

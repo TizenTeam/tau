@@ -59,6 +59,7 @@ define([
 		},
 
 		onHashChange: function(/* url, state */) {
+			return false;
 		}
 
 	};

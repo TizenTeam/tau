@@ -54,15 +54,26 @@ define([
 		},
 
 		onHashChange: function(/* url, state */) {
-			this._closeActivePopup();
+			var activePopup = $.micro.pageContainer
+				.find( $.micro.selectors.popup )
+				.filter( ".ui-popup-active" );
+
+			if (activePopup.length) {
+				this._closeActivePopup(activePopup);
+				return true;
+			}
+			
+			return false;
 		},
 
-		_closeActivePopup: function() {
-			$.micro.pageContainer
-				.find( $.micro.selectors.popup )
-				.filter( ".ui-popup-active" )
-				.popup()
-				.popup("close");
+		_closeActivePopup: function(activePopup) {
+			activePopup = activePopup ||
+				$.micro.pageContainer
+					.find( $.micro.selectors.popup )
+					.filter( ".ui-popup-active" );
+			if(activePopup.length) {
+				activePopup.popup().popup("close");
+			}
 		}
 	};
 
