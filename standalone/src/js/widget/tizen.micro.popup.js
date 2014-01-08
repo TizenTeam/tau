@@ -29,9 +29,7 @@ $.widget( "micro.popup", {
 	},
 
 	_create: function() {
-		if ( this._trigger( EventType.BEFORE_CREATE ) === false ) {
-			return false;
-		}
+		$.micro.fireEvent(this.element, EventType.BEFORE_CREATE);
 
 		this._initLayout();
 
@@ -39,7 +37,7 @@ $.widget( "micro.popup", {
 			"resize": $.proxy( this._initLayout, this )
 		});
 		
-		this._trigger( EventType.CREATE );
+		$.micro.fireEvent(this.element, EventType.CREATE);
 	},
 
 	_destroy: function() {
@@ -93,15 +91,15 @@ $.widget( "micro.popup", {
 	},
 
 	show: function() {
-		this._trigger(EventType.BEFORE_SHOW);
+		$.micro.fireEvent(this.element, EventType.BEFORE_SHOW);
 		this.setActive(true);
-		this._trigger(EventType.SHOW);
+		$.micro.fireEvent(this.element, EventType.SHOW);
 	},
 
 	hide: function() {
-		this._trigger(EventType.BEFORE_HIDE);
+		$.micro.fireEvent(this.element, EventType.BEFORE_HIDE);
 		this.setActive(false);
-		this._trigger(EventType.HIDE);
+		$.micro.fireEvent(this.element, EventType.HIDE);
 	}
 
 });

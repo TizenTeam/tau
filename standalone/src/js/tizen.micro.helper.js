@@ -41,6 +41,17 @@ define([
 			}
 
 			return data;
+		},
+
+		fireEvent: function(element, eventName, detail) {
+			var ele = element.jquery ? element[0] : element,
+				evt = new CustomEvent(eventName, {
+					"bubbles": true,
+					"cancelable": true,
+					"detail": detail
+				});
+
+			ele.dispatchEvent(evt);
 		}
 
 	});

@@ -22,7 +22,8 @@
 		"window": false,
 		"location": false,
 		"document": false,
-		"Error": false
+		"Error": false,
+		"CustomEvent": false
 	}
 
 }

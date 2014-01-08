@@ -10,17 +10,17 @@ define([
 
 var EventType = {
 
-	SHOW: "show",
+	SHOW: "pageshow",
 
-	HIDE: "hide",
+	HIDE: "paghide",
 
-	CREATE: "create",
+	CREATE: "pagcreate",
 
-	BEFORE_CREATE: "beforecreate",
+	BEFORE_CREATE: "pagbeforecreate",
 
-	BEFORE_SHOW: "beforeshow",
+	BEFORE_SHOW: "pagbeforeshow",
 
-	BEFORE_HIDE: "beforehide"
+	BEFORE_HIDE: "pagbeforehide"
 };
 
 $.widget( "micro.page", {
@@ -29,9 +29,7 @@ $.widget( "micro.page", {
 	},
 
 	_create: function() {
-		if ( this._trigger( EventType.BEFORE_CREATE ) === false ) {
-			return false;
-		}
+		$.micro.fireEvent(this.element, EventType.BEFORE_CREATE);
 
 		this._initLayout();
 
@@ -39,7 +37,7 @@ $.widget( "micro.page", {
 			"resize": $.proxy( this._initLayout, this )
 		});
 
-		this._trigger( EventType.CREATE );
+		$.micro.fireEvent(this.element, EventType.CREATE);
 	},
 
 	_destroy: function() {
@@ -90,15 +88,15 @@ $.widget( "micro.page", {
 	},
 
 	show: function() {
-		this._trigger(EventType.BEFORE_SHOW);
+		$.micro.fireEvent(this.element,EventType.BEFORE_SHOW);
 		this.element.show();
-		this._trigger(EventType.SHOW);
+		$.micro.fireEvent(this.element,EventType.SHOW);
 	},
 
 	hide: function() {
-		this._trigger(EventType.BEFORE_HIDE);
+		$.micro.fireEvent(this.element, EventType.BEFORE_HIDE);
 		this.element.hide();
-		this._trigger(EventType.HIDE);
+		$.micro.fireEvent(this.element,EventType.HIDE);
 	}
 
 });
