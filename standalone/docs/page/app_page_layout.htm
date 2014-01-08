@@ -39,6 +39,9 @@ Tizen</div>-->
 </pre>
 
 <p>
+To find the current active page, use the 'ui-page-active' css class.
+</p>
+<p>
 <h1>Page Interface</h1>
 <table>
 <tbody>
@@ -47,12 +50,12 @@ Tizen</div>-->
 		<th>Description</th>
 	</tr>
 	<tr>
-		<td><span style="font-family: Courier New,Courier,monospace">$.micro.changePage ( to )</span></td>
-		<td>Programmatically change to another page. argument 'to' is String or Object</td>
+		<td><span style="font-family: Courier New,Courier,monospace">gear.ui.changePage ( to )</span></td>
+		<td>Programmatically change to another page. argument 'to' is a page object or string.</td>
 	</tr>
 	<tr>
-		<td><span style="font-family: Courier New,Courier,monospace">$.micro.back()</span></td>
-		<td>browser history back</td>
+		<td><span style="font-family: Courier New,Courier,monospace">gear.ui.back()</span></td>
+		<td>This method loads the previous page in the history list.</td>
 	</tr>
 </tbody>
 </table>
@@ -82,7 +85,6 @@ Tizen</div>-->
 		<td><span style="font-family: Courier New,Courier,monospace">grid-col-3</span></td>
 		<td>width : 33%</td>
 	</tr>
-
 </tbody>
 </table>
 <pre class="prettyprint">
