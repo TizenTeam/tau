@@ -24,7 +24,8 @@ define([
 		open: function( to, options ) {
 			var $toPage = $(to),
 				pageTitle = $.micro.$document[0].title,
-				url, state = {}, isFirstpage = false;
+				url, state = {}, isFirstpage = false,
+				hasActivePopup = $.micro.path.getLocation().indexOf( "&popup=" ) > -1;
 
 			if ( $toPage[0] === $.micro.$firstPage[0] && !options.dataUrl ) {
 				options.dataUrl = $.micro.path.documentUrl.hrefNoHash;
@@ -48,7 +49,7 @@ define([
 					url: url
 				});
 
-				$.micro.router[ !isFirstpage ? "pushHistory" : "replaceHistory" ]( state, pageTitle, url );
+				$.micro.router[ isFirstpage || hasActivePopup ? "replaceHistory" : "pushHistory" ]( state, pageTitle, url );
 			}
 
 			//set page title
@@ -59,7 +60,7 @@ define([
 
 		onHashChange: function(/* url, state */) {
 		}
-		
+
 	};
 
 })( jQuery );

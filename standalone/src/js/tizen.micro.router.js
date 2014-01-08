@@ -71,7 +71,6 @@ define([
 		});
 
 		$.micro.router.open(to, options);
-
 	}
 
 	$.micro.router = $.micro.router || {};
@@ -139,9 +138,9 @@ define([
 					$.micro.router.defaults,
 					rule.defaults,
 					options );
-				
+
 				filter = rule.filter;
-				
+
 				if ( $.type(to) === "string" ) {
 
 					if(!to.replace(/[#|\s]/g, "")) {
@@ -194,7 +193,6 @@ define([
 				content;
 
 			content = this._find( absUrl, filter );
-
 			// If the content we are interested in is already in the DOM,
 			// and the caller did not indicate that we should force a
 			// reload of the file, we are done. Resolve the deferrred so that
@@ -293,7 +291,10 @@ define([
 				page, initialContent = this._getInitialContent();
 
 			if( hash && !$.micro.path.isPath( hash ) ) {
-				page = this.container.find( $.micro.path.hashToSelector("#" + hash) );
+				page = this.container.find( $.micro.path.hashToSelector("#" + hash) )
+					.filter( filter )
+					.attr( "data-url", hash )
+					.data( "url", hash );
 			}
 
 			// Check to see if the page already exists in the DOM.
