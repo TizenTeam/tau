@@ -60,7 +60,7 @@ $.widget( "micro.popup", {
 			contentHeight = screenHeight - ( paddingTop + paddingBottom ),
 			headerHeight = this.element.find(".ui-popup-header").outerHeight(),
 			footerHeight = this.element.find(".ui-popup-footer").outerHeight();
-		
+
 		this.element
 			.css({
 				width: contentWidth,
@@ -68,7 +68,7 @@ $.widget( "micro.popup", {
 			})
 			.find(".ui-popup-content")
 				.css({
-					"height": contentHeight - headerHeight - footerHeight,
+					"height": Math.floor(contentHeight - headerHeight - footerHeight - borderWidth * 2),
 					"overflow-y": "scroll"
 				});
 	},
