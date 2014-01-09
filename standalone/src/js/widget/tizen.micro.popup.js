@@ -50,27 +50,31 @@ $.widget( "micro.popup", {
 	},
 
 	_initLayout: function() {
-		var screenWidth = $(this.window).width(),
-			screenHeight = $(this.window).height(),
-			paddingTop = window.parseFloat(this.element.css("margin-top")),
-			paddingBottom = window.parseFloat(this.element.css("margin-bottom")),
-			paddingLeft = window.parseFloat(this.element.css("margin-left")),
-			paddingRight = window.parseFloat(this.element.css("margin-right")),
+		var element = this.element[0],
+			globalWindow = window,
+			screenWidth = globalWindow.innerWidth,
+			screenHeight = globalWindow.innerHeight,
+			elementStyles = globalWindow.getComputedStyle( element ),
+			paddingTop = parseFloat(elementStyles.marginTop),
+			paddingBottom = parseFloat(elementStyles.marginBottom),
+			paddingLeft = parseFloat(elementStyles.marginLeft),
+			paddingRight = parseFloat(elementStyles.marginRight),
+			borderWidth = parseFloat(elementStyles.borderWidth),
 			contentWidth = screenWidth - ( paddingLeft + paddingRight ),
 			contentHeight = screenHeight - ( paddingTop + paddingBottom ),
-			headerHeight = this.element.find(".ui-popup-header").outerHeight(),
-			footerHeight = this.element.find(".ui-popup-footer").outerHeight();
+			header = element.querySelector(".ui-popup-header"),
+			footer = element.querySelector(".ui-popup-footer"),
+			headerHeight = header && header.offsetHeight || 0,
+			footerHeight = footer && footer.offsetHeight || 0,
+			popupContentHeight = Math.floor(contentHeight - headerHeight - footerHeight - borderWidth * 2) + "px";
 
-		this.element
-			.css({
-				width: contentWidth,
-				height: contentHeight
-			})
-			.find(".ui-popup-content")
-				.css({
-					"height": Math.floor(contentHeight - headerHeight - footerHeight - borderWidth * 2),
-					"overflow-y": "scroll"
-				});
+		element.style.width = contentWidth + "px";
+		element.style.height = contentHeight + "px";
+
+		Array.prototype.slice.call( element.querySelectorAll(".ui-popup-content") ).forEach( function (content) {
+			content.style.height = popupContentHeight;
+			content.style.overflowY = "scroll";
+		});
 	},
 
 	open: function(/* options */) {
