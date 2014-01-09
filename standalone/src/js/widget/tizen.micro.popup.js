@@ -56,9 +56,8 @@ $.widget( "micro.popup", {
 			paddingBottom = window.parseFloat(this.element.css("margin-bottom")),
 			paddingLeft = window.parseFloat(this.element.css("margin-left")),
 			paddingRight = window.parseFloat(this.element.css("margin-right")),
-			borderWidth = window.parseFloat(this.element.css("borderWidth")),
-			contentWidth = screenWidth - ( paddingLeft + paddingRight + borderWidth*2 ),
-			contentHeight = screenHeight - ( paddingTop + paddingBottom + borderWidth*2 ),
+			contentWidth = screenWidth - ( paddingLeft + paddingRight ),
+			contentHeight = screenHeight - ( paddingTop + paddingBottom ),
 			headerHeight = this.element.find(".ui-popup-header").outerHeight(),
 			footerHeight = this.element.find(".ui-popup-footer").outerHeight();
 		
