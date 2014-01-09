@@ -51,36 +51,45 @@ $.widget( "micro.page", {
 	},
 
 	_initLayout: function() {
-		var $hscroll = $( $.micro.selectors.pageScroll ),
-			$sections = this.element.find( $.micro.selectors.section ),
-			sectionLength = $sections.length,
-			screenWidth = $(this.window).width(),
-			screenHeight = $(this.window).height(),
-			$element = this.element;
+		var slice = [].slice,
+			element = this.element[0],
+			microSelectors = $.micro.selectors,
+			hscroll = slice.call( document.querySelectorAll( microSelectors.pageScroll ) ),
+			sections = slice.call( element.querySelectorAll( microSelectors.section ) ),
+			sectionLength = sections.length,
+			screenWidth = window.innerWidth,
+			screenHeight = window.innerHeight,
+			hscrollWidth;
 
-		$element.css({
-				'overflow-y': "hidden",
-				width: screenWidth + "px",
-				height: screenHeight + "px",
-			})
-			.find( $.micro.selectors.content ).each(function( idx, content) {
-				var $contentElement = $(content),
-					marginTop = window.parseFloat($contentElement.css("margin-top")),
-					paddingTop = window.parseFloat($contentElement.css("padding-top")),
-					marginBottom = window.parseFloat($contentElement.css("margin-bottom")),
-					paddingBottom = window.parseFloat($contentElement.css("padding-bottom"));
-				$contentElement.height( screenHeight - marginTop - paddingTop - marginBottom - paddingBottom);
-			});
+		element.style.overflowY = "hidden";
+		element.style.width = screenWidth + "px";
+		element.style.height = screenHeight + "px";
+
+		slice.call( element.querySelectorAll( microSelectors.content ) ).forEach(function (content) {
+			var contentStyle = window.getComputedStyle(content),
+				marginTop = parseFloat(contentStyle.marginTop),
+				paddingTop = parseFloat(contentStyle.paddingTop),
+				marginBottom = parseFloat(contentStyle.marginBottom),
+				paddingBottom = parseFloat(contentStyle.paddingBottom);
+
+			content.style.height = (screenHeight - marginTop - paddingTop - marginBottom - paddingBottom) + "px";
+		});
 
 		if( sectionLength ) {
-			$hscroll.width( screenWidth * sectionLength );
-			$sections.width( screenWidth );
+			hscrollWidth = screenWidth * sectionLength;
+
+			hscroll.forEach(function (scroll) {
+				scroll.style.width = hscrollWidth + "px";
+			});
+			sections.forEach(function (section) {
+				section.style.width = screenWidth + "px";
+			});
 		}
 
 	},
 
 	setActive: function(active) {
-		this.element[0].classList.toggle('ui-page-active', active);
+		this.element[0].classList.toggle("ui-page-active", active);
 	},
 
 	show: function() {
