@@ -56,7 +56,7 @@ $.widget( "micro.pagecontainer", {
 		}
 		$(toPage).page("show");
 
-		$.micro.fireEvent(this.element, EventType.CREATE);
+		$.micro.fireEvent(this.element, EventType.PAGE_CHANGE);
 		this._removeExternalPage();
 	},
 
