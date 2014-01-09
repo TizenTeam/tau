@@ -83,11 +83,7 @@ $.widget( "micro.popup", {
 	},
 
 	setActive: function(active) {
-		if(active) {
-			this.element.addClass("ui-popup-active");
-		} else {
-			this.element.removeClass("ui-popup-active");
-		}
+		this.element[0].classList.toggle("ui-popup-active", active);
 	},
 
 	show: function() {

@@ -80,11 +80,7 @@ $.widget( "micro.page", {
 	},
 
 	setActive: function(active) {
-		if(active) {
-			this.element.addClass("ui-page-active");
-		} else {
-			this.element.removeClass("ui-page-active");
-		}
+		this.element[0].classList.toggle('ui-page-active', active);
 	},
 
 	show: function() {
