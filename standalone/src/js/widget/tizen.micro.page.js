@@ -12,9 +12,9 @@ var EventType = {
 
 	SHOW: "pageshow",
 
-	HIDE: "paghide",
+	HIDE: "pagehide",
 
-	CREATE: "pagcreate",
+	CREATE: "pagecreate",
 
 	BEFORE_CREATE: "pagbeforecreate",
 
