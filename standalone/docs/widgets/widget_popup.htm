@@ -33,13 +33,12 @@
 			&lt;button id=&quot;cancel&quot; class=&quot;ui-btn&quot;&gt;Cancel&lt;/button&gt;
 		&lt;/div&gt;
 	&lt;/div&gt;
-&lt;/div&gt;
 
+//            ...
 
 // if you want make popup with list checkbox(or radio),
 // just include checkbox(or radio) to popup.
 // and add class="ui-popup-checkbox-label" for style
-&lt;div class=&quot;ui-page&quot;&gt;
 	&lt;div class=&quot;ui-popup&quot;&gt;
 		&lt;div class=&quot;ui-popup-header&quot;&gt;When?&lt;/div&gt;
 		&lt;div class=&quot;ui-popup-content&quot; style=&quot;overflow-y:scroll;&quot;&gt;
@@ -58,6 +57,35 @@
 &lt;/div&gt;
 </pre>
 
+<p>
+To open popup from "a" link using html markup, use the following code:
+</p>
+<pre class="prettyprint">
+// basic popup with header, content, footer
+&lt;div class=&quot;ui-page&quot;&gt;
+	&lt;header class=&quot;ui-header&quot;&gt;
+		&lt;h2 class=&quot;ui-title&quot;&gt;Call menu&lt;/h2&gt;
+	&lt;/header&gt;
+	&lt;div class=&quot;ui-content&quot;&gt;
+		&lt;a href=&quot;#popup&quot; class=&quot;ui-btn&quot; data-rel=&quot;popup&quot; &gt;Open Popup&lt;/a&gt;
+	&lt;/div&gt;
+
+//      ...
+
+	&lt;div id=&quot;popup&quot; class=&quot;ui-popup&quot;&gt;
+		&lt;div class=&quot;ui-popup-header&quot;&gt;Power saving mode&lt;/div&gt;
+		&lt;div class=&quot;ui-popup-content&quot;&gt;
+			Turning on Power
+			saving mode will
+			limit the maximum
+			per
+		&lt;/div&gt;
+		&lt;div class=&quot;ui-popup-footer&quot;&gt;
+			&lt;button id=&quot;cancel&quot; class=&quot;ui-btn&quot;&gt;Cancel&lt;/button&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+</pre>
 
 <p>
 <h1>Popup Interface</h1>
