@@ -16,11 +16,11 @@ var EventType = {
 
 	CREATE: "pagecreate",
 
-	BEFORE_CREATE: "pagbeforecreate",
+	BEFORE_CREATE: "pagebeforecreate",
 
-	BEFORE_SHOW: "pagbeforeshow",
+	BEFORE_SHOW: "pagebeforeshow",
 
-	BEFORE_HIDE: "pagbeforehide"
+	BEFORE_HIDE: "pagebeforehide"
 };
 
 $.widget( "micro.page", {
