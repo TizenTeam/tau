@@ -59,7 +59,7 @@ $.widget( "micro.page", {
 			$element = this.element;
 
 		$element.css({
-				overflow: "hidden-y",
+				'overflow-y': "hidden",
 				width: screenWidth + "px",
 				height: screenHeight + "px",
 			})
