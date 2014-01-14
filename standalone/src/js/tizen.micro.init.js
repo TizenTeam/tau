@@ -2,7 +2,7 @@
 define([
 	"jquery",
 	"./tizen.micro.core",
-	"./tizen.micro.router",
+	"./tizen.micro.navigator",
 	"./widget/tizen.micro.page",
 	"./widget/tizen.micro.pagecontainer"], function( jQuery ) {
 //>>excludeEnd("microBuildExclude");
@@ -26,7 +26,7 @@ define([
 			// to events triggered on it
 			$.micro.$window.trigger( "pagecontainercreate" );
 
-			$.micro.router.register($.micro.pageContainer, $.micro.firstPage);
+			$.micro.navigator.register($.micro.pageContainer, $.micro.firstPage);
 
 			// for :hover css effect, touch event need binding
 			$.micro.$document.on( "touchstart", function() { } );

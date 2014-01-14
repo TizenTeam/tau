@@ -4,8 +4,8 @@ define([
 	"./tizen.micro.core",
 	"./tizen.micro.helper",
 	"./utils/path.js",
-	"./router/page",
-	"./router/popup",
+	"./navigator.rule/page",
+	"./navigator.rule/popup",
 	"./widget/tizen.micro.page"], function( jQuery ) {
 //>>excludeEnd("microBuildExclude");
 
@@ -43,13 +43,13 @@ define([
 
 		options = $.micro.getData($link);
 
-		$.micro.router.open(href, options);
+		$.micro.navigator.open(href, options);
 		event.preventDefault();
 	}
 
 	function popStateHandler( event ) {
 		var state = event.originalEvent.state,
-			rules = $.micro.router.rule,
+			rules = $.micro.navigator.rule,
 			options, to, uid, url, isContinue = true;
 
 		if (!state) {
@@ -73,15 +73,15 @@ define([
 		});
 
 		if ( isContinue ) {
-			$.micro.router.open(to, options);
+			$.micro.navigator.open(to, options);
 		}
 
 	}
 
-	$.micro.router = $.micro.router || {};
-	$.micro.router.rule = $.micro.router.rule || {};
+	$.micro.navigator = $.micro.navigator || {};
+	$.micro.navigator.rule = $.micro.navigator.rule || {};
 
-	$.micro.router.defaults = {
+	$.micro.navigator.defaults = {
 		fromHashChange: false,
 		reverse: false,
 		showLoadMsg: true,
@@ -89,22 +89,22 @@ define([
 	};
 
 	$.micro.changePage = function( to, options) {
-		$.micro.router.open( to, options );
+		$.micro.navigator.open( to, options );
 	};
 
 	$.micro.openPopup = function( to, options) {
-		$.micro.router.open( to, $.extend({}, {rel: "popup"}, options) );
+		$.micro.navigator.open( to, $.extend({}, {rel: "popup"}, options) );
 	};
 
 	$.micro.closePopup = function() {
-		$.micro.router.back();
+		$.micro.navigator.back();
 	};
 
 	$.micro.back = function() {
-		$.micro.router.back();
+		$.micro.navigator.back();
 	};
 
-	$.extend( $.micro.router, {
+	$.extend( $.micro.navigator, {
 
 		register: function( container, firstPage ) {
 			this.container = container;
@@ -136,7 +136,7 @@ define([
 
 		open: function ( to, options ) {
 			var rel = options && options.rel || "page",
-				rule = $.micro.router.rule[rel],
+				rule = $.micro.navigator.rule[rel],
 				deferred, filter, settings;
 
 			if(rule) {
@@ -144,7 +144,7 @@ define([
 				settings = $.extend( {
 						rel: rel
 					},
-					$.micro.router.defaults,
+					$.micro.navigator.defaults,
 					rule.defaults,
 					options );
 
@@ -170,7 +170,7 @@ define([
 				}
 
 			} else {
-				throw new Error("Not defined router rule ["+ rel +"]");
+				throw new Error("Not defined navigator rule ["+ rel +"]");
 			}
 
 		},

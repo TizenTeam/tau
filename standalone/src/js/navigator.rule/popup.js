@@ -5,18 +5,18 @@ define([
 	"./../tizen.micro.helper",
 	"./../var/selectors",
 	"./../utils/path.js",
-	"./../tizen.micro.router",
+	"./../tizen.micro.navigator",
 	"./../widget/tizen.micro.popup"], function( jQuery ) {
 //>>excludeEnd("microBuildExclude");
 
 (function( $, undefined ) {
 
-	$.micro.router = $.micro.router || {};
-	$.micro.router.rule = $.micro.router.rule || {};
+	$.micro.navigator = $.micro.navigator || {};
+	$.micro.navigator.rule = $.micro.navigator.rule || {};
 
 	var popupHashKey = "&popup=";
 
-	$.micro.router.rule.popup = {
+	$.micro.navigator.rule.popup = {
 		filter: $.micro.selectors.popup,
 		
 		defaults: {
@@ -47,7 +47,7 @@ define([
 					this._closeActivePopup();
 				}
 
-				$.micro.router[ !hasActivePopup ? "pushHistory" : "replaceHistory" ]( state, "", popupKey );
+				$.micro.navigator[ !hasActivePopup ? "pushHistory" : "replaceHistory" ]( state, "", popupKey );
 			}
 
 			$toPage.popup().popup("open");

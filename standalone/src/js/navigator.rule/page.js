@@ -5,15 +5,15 @@ define([
 	"./../tizen.micro.helper",
 	"./../var/selectors",
 	"./../utils/path.js",
-	"./../tizen.micro.router"], function( jQuery ) {
+	"./../tizen.micro.navigator"], function( jQuery ) {
 //>>excludeEnd("microBuildExclude");
 
 (function( $, undefined ) {
 
-	$.micro.router = $.micro.router || {};
-	$.micro.router.rule = $.micro.router.rule || {};
+	$.micro.navigator = $.micro.navigator || {};
+	$.micro.navigator.rule = $.micro.navigator.rule || {};
 
-	$.micro.router.rule.page = {
+	$.micro.navigator.rule.page = {
 
 		filter: $.micro.selectors.page,
 		
@@ -49,7 +49,7 @@ define([
 					url: url
 				});
 
-				$.micro.router[ isFirstpage || hasActivePopup ? "replaceHistory" : "pushHistory" ]( state, pageTitle, url );
+				$.micro.navigator[ isFirstpage || hasActivePopup ? "replaceHistory" : "pushHistory" ]( state, pageTitle, url );
 			}
 
 			//set page title
