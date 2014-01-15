@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:tizen="http://tizen.org/ns/widgets" id="http://samsung.com/weather-card" version="0.1.4" viewmodes="maximized">
+    <tizen:application id="8kPZDKdhWQ.WeatherCard" package="8kPZDKdhWQ" required_version="2.1"/>
+    <content src="src/weather.html"/>
+    <icon src="src/icon.png"/>
+    <name>WeatherCard</name>
+    <tizen:privilege name="http://tizen.org/privilege/content.read"/>
+    <tizen:privilege name="http://tizen.org/privilege/content.write"/>
+    <tizen:setting screen-orientation="portrait" context-menu="disable" background-support="disable" encryption="disable" install-location="auto" nodisplay="true"/>
+</widget>
