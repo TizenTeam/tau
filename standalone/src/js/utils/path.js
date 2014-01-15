@@ -4,7 +4,7 @@
 //>>group: Navigation
 define([
 	"jquery",
-	"./../tizen.micro.core" ], function( jQuery ) {
+	"../core" ], function( jQuery ) {
 //>>excludeEnd("microBuildExclude");
 
 (function( $, undefined ) {

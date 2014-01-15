@@ -2,8 +2,8 @@
 define([
 	"jquery",
 	"jquery.ui.widget",
-	"./../tizen.micro.core",
-	"./../var/selectors"], function( jQuery ) {
+	"../core",
+	"../var/selectors"], function( jQuery ) {
 //>>excludeEnd("microBuildExclude");
 
 (function( $, undefined ) {

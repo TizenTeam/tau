@@ -1,11 +1,11 @@
 //>>excludeStart("microBuildExclude", pragmas.microBuildExclude);
 define([
 	"jquery",
-	"./../tizen.micro.core",
-	"./../tizen.micro.helper",
-	"./../var/selectors",
-	"./../utils/path.js",
-	"./../tizen.micro.navigator"], function( jQuery ) {
+	"../core",
+	"../helper",
+	"../var/selectors",
+	"../utils/path.js",
+	"../navigator"], function( jQuery ) {
 //>>excludeEnd("microBuildExclude");
 
 (function( $, undefined ) {

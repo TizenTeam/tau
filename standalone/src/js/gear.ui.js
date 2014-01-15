@@ -2,6 +2,6 @@
 define([
 	"require"
 ], function( require ) {
-	require( [ "./tizen.micro.init" ], function() {} );
+	require( [ "./init" ], function() {} );
 });
 //>>excludeEnd("microBuildExclude");

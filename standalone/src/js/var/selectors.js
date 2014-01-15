@@ -1,7 +1,7 @@
 //>>excludeStart("microBuildExclude", pragmas.microBuildExclude);
 define([
 	"jquery",
-	"./../tizen.micro.core"], function( jQuery ) {
+	"../core"], function( jQuery ) {
 //>>excludeEnd("microBuildExclude");
 
 (function( $, window, undefined ) {
