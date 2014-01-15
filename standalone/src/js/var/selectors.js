@@ -10,6 +10,7 @@ define([
 		page: ".ui-page",
 		content: ".ui-content",
 		header: ".ui-header",
+		footer: ".ui-footer",
 		popup: ".ui-popup"
 	};
 

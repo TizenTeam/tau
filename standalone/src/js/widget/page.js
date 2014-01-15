@@ -56,6 +56,7 @@ $.widget( "micro.page", {
 			uiSelector = $.micro.selectors,
 			contentSelector = uiSelector.content.substr(1),
 			headerSelector = uiSelector.header.substr(1),
+			footerSelector = uiSelector.footer.substr(1),
 			extraHeight = 0;
 
 		element.style.width = screenWidth + "px";
@@ -63,7 +64,8 @@ $.widget( "micro.page", {
 
 		filter.call( element.children, function( node ) {
 			return node.nodeType === 1 &&
-				( node.className.indexOf( headerSelector ) > -1 );
+				( node.className.indexOf( headerSelector ) > -1 ||
+						node.className.indexOf( footerSelector ) > -1 );
 		} ).forEach(function ( node ) {
 			extraHeight += node.offsetHeight;
 		});
