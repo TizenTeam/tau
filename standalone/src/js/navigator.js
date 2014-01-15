@@ -50,16 +50,21 @@ define([
 
 	function popStateHandler( event ) {
 		var state = event.originalEvent.state,
+			prevState = $.micro.navigator.history.activeState,
 			rules = $.micro.navigator.rule,
-			options, to, url, isContinue = true;
+			options, to, url, isContinue = true, reverse, transition;
 
 		if (!state) {
 			return;
 		}
 
 		to = state.url;
+		reverse = $.micro.navigator.history.getDirection( state ) === "back";
+		transition = !reverse ? state.transition : prevState && prevState.transition || "none";
+
 		options = $.extend({}, state, {
-			reverse: $.micro.navigator.history.getDirection( state ) === "back",
+			reverse: reverse,
+			transition: transition,
 			fromHashChange: true
 		});
 
@@ -70,11 +75,12 @@ define([
 			}
 		});
 
+		$.micro.navigator.history.setActive(state);
+
 		if ( isContinue ) {
 			$.micro.navigator.open(to, options);
 		}
 
-		$.micro.navigator.history.setActive(state);
 	}
 
 	$.micro.navigator = $.micro.navigator || {};
@@ -144,7 +150,7 @@ define([
 
 				settings = $.extend( {
 						rel: rel
-				}, $.micro.navigator.defaults, rule.defaults, options );
+				}, $.micro.navigator.defaults, rule.option(), options );
 
 				filter = rule.filter;
 
@@ -333,6 +339,7 @@ define([
 	});
 
 	$.micro.navigator.history = {
+		activeState : null,
 
 		replace: function(state, pageTitle, url) {
 			var newState = $.extend({}, state, {
@@ -350,6 +357,7 @@ define([
 
 		setActive: function( state ) {
 			if ( state ) {
+				this.activeState = state;
 				historyActiveIndex = state.uid;
 
 				if(state.volatileRecord) {

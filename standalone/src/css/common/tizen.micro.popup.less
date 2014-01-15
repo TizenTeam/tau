@@ -12,8 +12,8 @@ Normal Popup
 	width: 92%;
 	height: 92%;
 	position: absolute;
-	top: 0;
-	left: 0;
+	top: -10000em;
+	left: -10000em;
 	margin: 13*@unit_base 13*@unit_base 13*@unit_base 13*@unit_base;
 	background-color: @color_popup_bg;
 	border: 3px solid @color_popup_border;
@@ -53,6 +53,8 @@ Normal Popup
 
 	&.ui-popup-active {
 		visibility: visible;
+		top: 0px;
+		left: 0px;
 	}
 }
 
@@ -203,6 +205,10 @@ Popup Toast
 	bottom: 0;
 	top: auto;
 	height: auto;
+}
+
+.ui-popup-toast.ui-popup-active {
+	top: auto;
 }
 
 .ui-popup-toast .ui-popup-content {

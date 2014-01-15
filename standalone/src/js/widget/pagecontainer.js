@@ -9,8 +9,8 @@ define([
 (function( $, undefined ) {
 
 var EventType = {
-	PAGE_CHANGE: "pagechange"
-};
+		PAGE_CHANGE: "pagechange",
+	};
 
 $.widget( "micro.pagecontainer", {
 
@@ -27,41 +27,82 @@ $.widget( "micro.pagecontainer", {
 	_init: function() {
 	},
 
-	_include: function( page/*, options */) {
-		$(page).prependTo( this.element )
-			.page();
+	_include: function( page ) {
+		$(page).prependTo( this.element ).page();
 	},
 
-	change: function (toPage/*, options */) {
+	change: function (toPage, options ) {
 		var fromPage = this.getActivePage();
+
+		options = options || {};
+
+		if ( $(fromPage).length && $(toPage)[0] === $(fromPage)[0] ) {
+			return;
+		}
 
 		this._include(toPage);
 
 		if (fromPage) {
-			fromPage.page("setActive", false);
+			fromPage.page("onBeforeHide");
 		}
-		if (toPage) {
-			toPage.page("setActive", true);
-		}
+		toPage.page("onBeforeShow");
 
-		this.changePageFinish(fromPage, toPage);
+		options.deferred = $.Deferred();
+		this._transition(toPage, fromPage, options);
+		options.deferred.done( $.proxy( function() {
+			this._setActivePage(toPage);
+			if ( fromPage ) {
+				fromPage.page("onHide");
+				this._removeExternalPage();
+			}
+			toPage.page("onShow");
+			$.micro.fireEvent(this.element, EventType.PAGE_CHANGE);
+		}, this ) );
 
 	},
 
-	changePageFinish: function (fromPage, toPage) {
-		this._setActivePage(toPage);
+	_transition: function( to, from, options) {
+		var $element = this.element,
+			transition = !from ? "none" : options.transition,
+			deferred = options.deferred,
+			reverse = options.reverse ? " reverse " : "",
+			clearClass = " in out ui-pre-in " + transition + reverse;
 
-		if (fromPage) {
-			$(fromPage).page("hide");
+		$element.addClass( "ui-viewport-transitioning" );
+		deferred.done(function() {
+			$element.removeClass( "ui-viewport-transitioning" );
+			$(from).removeClass( clearClass );
+			$(to).removeClass( clearClass );
+		});
+
+		if (transition !== "none") {
+			$(options.reverse ? from : to).one("animationend webkitAnimationEnd", function() {
+				deferred.resolve();
+			});
+
+			if (from) {
+				$(from).addClass( transition + " out " + reverse );
+			}
+
+			// TODO why needs timeout??
+			// if it make without timeout, it has some bugs when call external page or press forward button on browser.
+			window.setTimeout(function() {
+				$(to).addClass( transition + " in ui-pre-in " + reverse );
+			}, 0);
+		} else {
+			window.setTimeout(function() {
+				deferred.resolve();
+			}, 0);
 		}
-		$(toPage).page("show");
 
-		$.micro.fireEvent(this.element, EventType.PAGE_CHANGE);
-		this._removeExternalPage();
 	},
 
 	_setActivePage: function(page) {
+		if ( this.activePage ) {
+			this.activePage.page("setActive", false);
+		}
 		this.activePage = page;
+		this.activePage.page("setActive", true);
 	},
 
 	getActivePage: function() {

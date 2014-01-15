@@ -15,15 +15,18 @@ define([
 	$.micro.navigator.rule = $.micro.navigator.rule || {};
 
 	var popupHashKey = "popup=true",
-		popupHashKeyReg = /([&|\?]popup=true)/;
+		popupHashKeyReg = /([&|\?]popup=true)/,
+		$document = $.micro.$document;
 
 	$.micro.navigator.rule.popup = {
 		filter: $.micro.selectors.popup,
 
-		defaults: {
-			transition: undefined,
-			container: undefined,
-			volatileRecord: true
+		option: function() {
+			return {
+				transition: $.micro.defaults.popupTransition,
+				container: undefined,
+				volatileRecord: true
+			};
 		},
 
 		open: function( to, options ) {
@@ -35,8 +38,6 @@ define([
 
 			url = $to.data( "url" );
 			popupKey = popupHashKey;
-
-			this._closeActivePopup();
 
 			if ( url && !options.fromHashChange ) {
 
@@ -58,7 +59,15 @@ define([
 				});
 			}
 
-			$to.popup().popup("open");
+			if(this._hasActivePopup()) {
+				$document.one( "popuphide", function() {
+					$to.popup(options).popup("open", options);
+				} );
+				this._closeActivePopup();
+			} else {
+				$to.popup(options).popup("open", options);
+			}
+
 		},
 
 		onHashChange: function(/* url, state */) {
@@ -78,6 +87,10 @@ define([
 			if(activePopup.length) {
 				activePopup.popup().popup("close");
 			}
+		},
+
+		_hasActivePopup: function() {
+			return $.micro.pageContainer.find( ".ui-popup-active" ).length > 0;
 		}
 	};
 

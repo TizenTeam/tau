@@ -33,7 +33,7 @@ define([
 	$(function() {
 		window.scrollTo( 0, 1 );
 
-		if ( $.micro.autoInitializePage ) {
+		if ( $.micro.defaults.autoInitializePage ) {
 			$.micro.initializePage();
 		}
 	});

@@ -17,8 +17,10 @@ define([
 
 		filter: $.micro.selectors.page,
 
-		defaults: {
-			transition: undefined
+		option: function() {
+			return {
+				transition: $.micro.defaults.pageTransition
+			};
 		},
 
 		open: function( to, options ) {

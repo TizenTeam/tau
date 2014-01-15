@@ -8,7 +8,17 @@ define([
 	$.micro = $.micro || {};
 
 	$.extend($.micro, {
+	});
+
+	$.micro.defaults = $.micro.defaults || {};
+
+	$.extend($.micro.defaults, {
 		autoInitializePage: true,
+		
+		// transition
+		pageTransition: "none",
+		popupTransition: "none"
+
 	});
 
 })( jQuery, this );

@@ -10,17 +10,18 @@ define([
 
 var EventType = {
 
-	SHOW: "pageshow",
-
-	HIDE: "pagehide",
-
 	CREATE: "pagecreate",
 
 	BEFORE_CREATE: "pagebeforecreate",
 
+	SHOW: "pageshow",
+
+	HIDE: "pagehide",
+
 	BEFORE_SHOW: "pagebeforeshow",
 
 	BEFORE_HIDE: "pagebeforehide"
+
 };
 
 $.widget( "micro.page", {
@@ -30,6 +31,8 @@ $.widget( "micro.page", {
 
 	_create: function() {
 		$.micro.fireEvent(this.element, EventType.BEFORE_CREATE);
+
+		this._initLayout();
 
 		this._on(this.window, {
 			"resize": $.proxy( this._initLayout, this )
@@ -57,7 +60,13 @@ $.widget( "micro.page", {
 			contentSelector = uiSelector.content.substr(1),
 			headerSelector = uiSelector.header.substr(1),
 			footerSelector = uiSelector.footer.substr(1),
+			isDisplayNone = window.getComputedStyle(element).display === "none",
 			extraHeight = 0;
+
+		if ( isDisplayNone ) {
+			element.style.visibility = "hidden";
+			element.style.display = "block";
+		}
 
 		element.style.width = screenWidth + "px";
 		element.style.height = screenHeight + "px";
@@ -80,23 +89,30 @@ $.widget( "micro.page", {
 			content.style.height = (screenHeight - extraHeight - marginTop - marginBottom) + "px";
 		});
 
+		if ( isDisplayNone ) {
+			element.style.display = "";
+			element.style.visibility = "";
+		}
 	},
 
 	setActive: function(active) {
 		this.element[0].classList.toggle("ui-page-active", active);
 	},
 
-	show: function() {
-		$.micro.fireEvent(this.element,EventType.BEFORE_SHOW);
-		this.element.show();
-		this._initLayout();
-		$.micro.fireEvent(this.element,EventType.SHOW);
+	onBeforeShow: function() {
+		$.micro.fireEvent(this.element, EventType.BEFORE_SHOW);
 	},
 
-	hide: function() {
+	onBeforeHide: function() {
 		$.micro.fireEvent(this.element, EventType.BEFORE_HIDE);
-		this.element.hide();
-		$.micro.fireEvent(this.element,EventType.HIDE);
+	},
+
+	onShow: function() {
+		$.micro.fireEvent(this.element, EventType.SHOW);
+	},
+
+	onHide: function() {
+		$.micro.fireEvent(this.element, EventType.HIDE);
 	}
 
 });
