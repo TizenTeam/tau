@@ -31,8 +31,6 @@ $.widget( "micro.page", {
 	_create: function() {
 		$.micro.fireEvent(this.element, EventType.BEFORE_CREATE);
 
-		this._initLayout();
-
 		this._on(this.window, {
 			"resize": $.proxy( this._initLayout, this )
 		});
@@ -51,40 +49,36 @@ $.widget( "micro.page", {
 	},
 
 	_initLayout: function() {
-		var slice = [].slice,
+		var filter = [].filter,
 			element = this.element[0],
-			microSelectors = $.micro.selectors,
-			hscroll = slice.call( document.querySelectorAll( microSelectors.pageScroll ) ),
-			sections = slice.call( element.querySelectorAll( microSelectors.section ) ),
-			sectionLength = sections.length,
 			screenWidth = window.innerWidth,
 			screenHeight = window.innerHeight,
-			hscrollWidth;
+			uiSelector = $.micro.selectors,
+			contentSelector = uiSelector.content.substr(1),
+			headerSelector = uiSelector.header.substr(1),
+			extraHeight = 0;
 
-		element.style.overflowY = "hidden";
 		element.style.width = screenWidth + "px";
 		element.style.height = screenHeight + "px";
 
-		slice.call( element.querySelectorAll( microSelectors.content ) ).forEach(function (content) {
+		filter.call( element.children, function( node ) {
+			return node.nodeType === 1 &&
+				( node.className.indexOf( headerSelector ) > -1 );
+		} ).forEach(function ( node ) {
+			extraHeight += node.offsetHeight;
+		});
+
+		filter.call( element.children, function( node ) {
+			return node.nodeType === 1 && node.className.indexOf( contentSelector ) > -1;
+		} ).forEach(function ( content ) {
 			var contentStyle = window.getComputedStyle(content),
 				marginTop = parseFloat(contentStyle.marginTop),
 				paddingTop = parseFloat(contentStyle.paddingTop),
 				marginBottom = parseFloat(contentStyle.marginBottom),
 				paddingBottom = parseFloat(contentStyle.paddingBottom);
 
-			content.style.height = (screenHeight - marginTop - paddingTop - marginBottom - paddingBottom) + "px";
+			content.style.height = (screenHeight - extraHeight - marginTop - paddingTop - marginBottom - paddingBottom) + "px";
 		});
-
-		if( sectionLength ) {
-			hscrollWidth = screenWidth * sectionLength;
-
-			hscroll.forEach(function (scroll) {
-				scroll.style.width = hscrollWidth + "px";
-			});
-			sections.forEach(function (section) {
-				section.style.width = screenWidth + "px";
-			});
-		}
 
 	},
 
@@ -95,6 +89,7 @@ $.widget( "micro.page", {
 	show: function() {
 		$.micro.fireEvent(this.element,EventType.BEFORE_SHOW);
 		this.element.show();
+		this._initLayout();
 		$.micro.fireEvent(this.element,EventType.SHOW);
 	},
 
