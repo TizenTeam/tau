@@ -169,7 +169,31 @@
 .next-depth.disabled {
     background-image: url(../images/Controller_icon/tw_btn_next_depth_disabled_holo_dark.png);
 }
-/* ------------------------------------------------------------------------------ */
 .disabled {
     pointer-events: none;
+
+/*Basic Text*/
+.basic-text-s-title {
+	margin:16px 16px;
+	line-height: 40px;
+	font-size: 30px;
+	color: #FFF;
+}
+.basic-text-m-title {
+	margin:16px 16px;
+	line-height: 44px;
+	font-size: 34px;
+	color: #FFF;
+}
+.basic-text-l-title {
+	margin:16px 16px;
+	line-height: 48px;
+	font-size: 38px;
+	color: #FFF;
+}
+.basic-text-notitle{
+	margin:16px 16px;
+	line-height: 48px;
+	font-size: 38px;
+	color: #FFF;
 }

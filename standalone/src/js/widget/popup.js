@@ -67,15 +67,19 @@ $.widget( "micro.popup", {
 			footer = element.querySelector(".ui-popup-footer"),
 			headerHeight = header && header.offsetHeight || 0,
 			footerHeight = footer && footer.offsetHeight || 0,
+			isToast = element.classList.contains("ui-popup-toast"),
 			popupContentHeight = Math.floor(contentHeight - headerHeight - footerHeight - borderWidth * 2) + "px";
 
 		element.style.width = contentWidth + "px";
-		element.style.height = contentHeight + "px";
 
-		Array.prototype.slice.call( element.querySelectorAll(".ui-popup-content") ).forEach( function (content) {
-			content.style.height = popupContentHeight;
-			content.style.overflowY = "scroll";
-		});
+		if (!isToast) {
+			element.style.height = contentHeight + "px";
+
+			Array.prototype.slice.call( element.querySelectorAll(".ui-popup-content") ).forEach( function (content) {
+				content.style.height = popupContentHeight;
+				content.style.overflowY = "scroll";
+			});
+		}
 	},
 
 	open: function(/* options */) {

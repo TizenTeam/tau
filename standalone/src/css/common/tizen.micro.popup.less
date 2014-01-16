@@ -199,7 +199,12 @@ Popup Toast
 	font-size: @font_size_popup_toast;
 	background-color: @color_popup_bg;
 	border: 3px solid @color_popup_border;
-	padding: 10*@unit_base 16*@unit_base 10*@unit_base 16*@unit_base;
 	position: absolute;
 	bottom: 0;
+	top: auto;
+	height: auto;
+}
+
+.ui-popup-toast .ui-popup-content {
+	padding: 10*@unit_base 16*@unit_base 10*@unit_base 16*@unit_base;
 }
