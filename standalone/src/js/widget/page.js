@@ -75,11 +75,9 @@ $.widget( "micro.page", {
 		} ).forEach(function ( content ) {
 			var contentStyle = window.getComputedStyle(content),
 				marginTop = parseFloat(contentStyle.marginTop),
-				paddingTop = parseFloat(contentStyle.paddingTop),
-				marginBottom = parseFloat(contentStyle.marginBottom),
-				paddingBottom = parseFloat(contentStyle.paddingBottom);
+				marginBottom = parseFloat(contentStyle.marginBottom);
 
-			content.style.height = (screenHeight - extraHeight - marginTop - paddingTop - marginBottom - paddingBottom) + "px";
+			content.style.height = (screenHeight - extraHeight - marginTop - marginBottom) + "px";
 		});
 
 	},
