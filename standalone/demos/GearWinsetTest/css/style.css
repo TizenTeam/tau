@@ -85,6 +85,9 @@
 .ui-listview li.li-has-radio {
         padding-right: 68px;
 }
+.ui-listview li.ui-li-has-next {
+        padding-right: 60px;
+}
 /* ------------------------------------------------------------------------------ */
 /* ---------------------------------- CHECKBOX ---------------------------------- */
 .checkbox {
@@ -146,5 +149,27 @@
 	background-image: url(../images/Controller_icon/tw_btn_radio_on_disabled_holo_dark.png);
 }
 /* ------------------------------------------------------------------------------ */
-
-
+/* -----------------------------------  NEXT DEPTH------------------------------------ */
+.next-depth {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    margin: 19px 0 0 0 !important;
+    padding: 0 !important;
+    width: 50px !important;
+    height: 50px !important;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    background-image: url(../images/Controller_icon/tw_btn_next_depth_holo_dark.png);
+    -webkit-tap-highlight-color: transparent;
+}
+.next-depth:active, .next-depth:focus {
+    background-image: url(../images/Controller_icon/tw_btn_next_depth_focused_holo_dark.png);
+}
+.next-depth.disabled {
+    background-image: url(../images/Controller_icon/tw_btn_next_depth_disabled_holo_dark.png);
+}
+/* ------------------------------------------------------------------------------ */
+.disabled {
+    pointer-events: none;
+}
