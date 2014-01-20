@@ -1,0 +1,134 @@
+.ui-btn {
+	display: block;
+	padding-top: 24 * @unit_base;
+	padding-right: 10 * @unit_base;
+	padding-bottom: 24 * @unit_base;
+	padding-left: 10 * @unit_base;
+	margin: 0px;
+	font-size: 24 * @unit_base;
+	line-height: 24 * @unit_base;
+	text-align: center;
+	white-space: nowrap;
+	cursor:pointer;
+	vertical-align: middle;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	border:0 none;
+	.ui-default;
+
+	&.ui-multiline {
+		padding-top: 12 * @unit_base;
+		padding-bottom: 12 * @unit_base;
+	}
+
+	&.ui-inline {
+		display: inline-block;
+	}
+
+	&.ui-btn-icon {
+		background-position: center center;
+		height: 76 * @unit_base;
+		text-indent: -1000em;
+		overflow: hidden;
+		background-repeat: no-repeat;
+		background-size: 60 * @unit_base 60 * @unit_base;
+	}
+}
+
+.ui-default {
+	color: @color_button_default_text;
+	background-color: @color_button_default_normal_bg;
+	.LESSbox-border-shadow(2px, @color_button_default_border);
+
+	a&:active:hover, &:enabled:active:hover {
+		background-color: @color_button_default_press_bg;
+	}
+
+	&:enabled:focus {
+		background-color: @color_button_default_focus_bg;
+	}
+
+	a&.ui-state-disabled, &:disabled {
+		color: @color_button_default_text_disable;
+		background-color: @color_button_default_disable_bg;
+		cursor: default;
+	}
+}
+
+.ui-color-red {
+	color: @color_button_red_text;
+	background-color: @color_button_red_normal_bg;
+	.LESSbox-border-shadow(2px, @color_button_red_border);
+
+	a&:active:hover, &:enabled:active:hover {
+		background-color: @color_button_red_press_bg;
+	}
+
+	&:enabled:focus {
+		background-color: @color_button_red_focus_bg;
+	}
+
+	a&.ui-state-disabled, &:disabled {
+		color: @color_button_red_text_disable;
+		background-color: @color_button_red_disable_bg;
+		cursor: default;
+	}
+}
+
+.ui-color-orange {
+	color: @color_button_orange_text;
+	background-color: @color_button_orange_normal_bg;
+	.LESSbox-border-shadow(2px, @color_button_orange_border);
+
+	a&:active:hover, &:enabled:active:hover {
+		background-color: @color_button_orange_press_bg;
+	}
+
+	&:enabled:focus {
+		background-color: @color_button_orange_focus_bg;
+	}
+
+	a&.ui-state-disabled, &:disabled {
+		color: @color_button_orange_text_disable;
+		background-color: @color_button_orange_disable_bg;
+		cursor: default;
+	}
+}
+
+.ui-color-green {
+	color: @color_button_green_text;
+	background-color: @color_button_green_normal_bg;
+	.LESSbox-border-shadow(2px, @color_button_green_border);
+
+	a&:active:hover, &:enabled:active:hover {
+		background-color: @color_button_green_press_bg;
+	}
+
+	&:enabled:focus {
+		background-color: @color_button_green_focus_bg;
+	}
+
+	a&.ui-state-disabled, &:disabled {
+		color: @color_button_green_text_disable;
+		background-color: @color_button_green_disable_bg;
+		cursor: default;
+	}
+}
+
+.ui-btn:focus, .ui-btn:active { outline: none; }
+
+a.ui-btn {
+	text-decoration: none;
+	box-sizing: border-box;
+}
+button.ui-btn, input.ui-btn {
+	box-sizing: border-box;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	width: 100%;
+
+	&.ui-inline {
+		display: inline-block;
+		width:auto;
+	}
+}
