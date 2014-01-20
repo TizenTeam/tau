@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(function() {
 	var Runner = function( ) {
 		var self = this;
 
@@ -82,15 +82,15 @@ $(document).ready(function() {
 
 	// prevent qunit from starting the test suite until all tests are defined
 	QUnit.begin = function(  ) {
-		this.config.autostart = false;
+		//this.config.autostart = false;
 	};
 
 	QUnit.done = function( details ) {
-		setCookie( "TizenP", details.passed );
-		setCookie( "TizenF", details.failed );
-		setCookie( "TizenR", details.runtime );
-		setCookie( "TizenT", details.total );
-		location.href = "../unit-tests-runner/result.php";
+//		setCookie( "TizenP", details.passed );
+//		setCookie( "TizenF", details.failed );
+//		setCookie( "TizenR", details.runtime );
+//		setCookie( "TizenT", details.total );
+		//location.href = "../unit-tests-runner/result.php";
 	}
 	// get the test directories
 	new Runner().exec(TESTS);
