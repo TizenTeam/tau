@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:tizen="http://tizen.org/ns/widgets" id="http://yourdomain/media-content-new" version="0.1.4" viewmodes="maximized">
+    <tizen:application id="ybSccnaed9.EventCard" package="ybSccnaed9" required_version="2.1"/>
+    <content src="src/event.html"/>
+    <icon src="src/icon.png"/>
+    <name>EventCard</name>
+</widget>
