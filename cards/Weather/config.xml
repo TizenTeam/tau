@@ -6,5 +6,4 @@
     <name>WeatherCard</name>
     <tizen:privilege name="http://tizen.org/privilege/content.read"/>
     <tizen:privilege name="http://tizen.org/privilege/content.write"/>
-    <tizen:setting screen-orientation="portrait" context-menu="disable" background-support="disable" encryption="disable" install-location="auto" nodisplay="true"/>
 </widget>

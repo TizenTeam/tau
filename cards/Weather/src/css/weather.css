@@ -161,15 +161,15 @@ fieldset,img { border: 0; }
 /*** /icons ***/
 
 #updateButton {
-	width: 16px;
-	height: 16px;
+	width: 48px;
+	height: 48px;
 	position: absolute;
 	right: 3px;
 	top: 3px;
 	background-image: url('../images/icons_128.png');
 	background-repeat: no-repeat;
-	background-size: 18px 97px;
-	background-position: -1px -80px;
+	background-size: 46px 241px;
+	background-position: -3px -199px;
 }
 
 /* landscape : 320 x 160 */
