@@ -20,6 +20,7 @@
         text-overflow: ellipsis;
         -o-text-overflow: ellipsis;
         overflow: hidden!important;
+        -webkit-user-select: none;
 }
 .ui-listview li .ui-li-text-sub {
         display: block;
@@ -63,6 +64,47 @@
         padding-top: 38px;
         padding-bottom: 14px;
 }
+.ui-listview li {
+        position: relative;
+}
+.ui-listview li .checkbox {
+        position: absolute;
+        right: 8px;
+        top: 0px;
+        margin-top: 19px;
+}
+.ui-listview li.li-has-checkbox {
+        padding-right: 68px;
+}
 /* ------------------------------------------------------------------------------ */
-
+/* ---------------------------------- CHECKBOX ---------------------------------- */
+.checkbox {
+	position: relative;
+	display: inline-block;
+}
+.checkbox input[type="checkbox"] {
+	display: none;
+}
+.checkbox span {
+	width: 50px;
+	height: 50px;
+	background-image: url(../images/Controller_icon/tw_btn_check_off_holo_dark.png);
+	float: left;
+}
+.checkbox input[type="checkbox"]:checked ~ span{
+	background-image: url(../images/Controller_icon/tw_btn_check_on_holo_dark.png);
+}
+.checkbox:active input[type="checkbox"] ~ span{
+	background-image: url(../images/Controller_icon/tw_btn_check_off_pressed_holo_dark.png);
+}
+.checkbox:active input[type="checkbox"]:checked ~ span{
+	background-image: url(../images/Controller_icon/tw_btn_check_on_pressed_holo_dark.png);
+}
+.checkbox input[type="checkbox"]:disabled ~ span {
+	background-image: url(../images/Controller_icon/tw_btn_check_off_disabled_holo_dark.png);
+}
+.checkbox input[type="checkbox"]:disabled:checked ~ span {
+	background-image: url(../images/Controller_icon/tw_btn_check_on_disabled_holo_dark.png);
+}
+/* ------------------------------------------------------------------------------ */
 
