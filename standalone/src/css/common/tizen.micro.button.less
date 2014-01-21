@@ -130,10 +130,10 @@ button.ui-btn, input.ui-btn {
 	}
 }
 
-.grid-col-btn (@counter) when (@counter > 0) {
-	.grid-col-btn((@counter - 1));
+.ui-grid-col-btn (@counter) when (@counter > 0) {
+	.ui-grid-col-btn((@counter - 1));
 
-	.grid-col-@{counter} > .ui-btn {
+	.ui-grid-col-@{counter} > .ui-btn {
 		border-right:solid 1px @color_bg;
 		&:last-child {
 			border-right:0px none;
@@ -141,9 +141,9 @@ button.ui-btn, input.ui-btn {
 	}
 }
 
-.grid-col-btn(3);
+.ui-grid-col-btn(3);
 
-.grid-row > .ui-btn {
+.ui-grid-row > .ui-btn {
 	margin-top: 1px;
 
 	&:first-child {
