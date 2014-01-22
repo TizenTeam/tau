@@ -1,5 +1,5 @@
 var helper = {
-	timeout: 5 * 1000,
+	timeout: 2 * 1000,
 
 	path: location.pathname,
 
@@ -10,6 +10,10 @@ var helper = {
 			});
 		}
 		this.eventSequence( "pagechange changefailed", sequence, autoStart );
+	},
+
+	popupSequence: function ( sequence, autoStart ) {
+		helper.eventSequence( "popupshow popuphide changefailed", sequence, autoStart );
 	},
 
 	eventSequence: function ( eventName, sequence, autoStart ) {
@@ -39,6 +43,16 @@ var helper = {
 		});
 
 		execute();
+	},
+
+	one: function( elem, eventName, handler ) {
+		var timeoutId;
+
+		timeoutId = window.setTimeout(handler, helper.timeout);
+		$(elem).one(eventName, function(event) {
+			window.clearTimeout(timeoutId);
+			handler(event);
+		});
 	},
 
 	assertUrlLocation: function( arg ) {

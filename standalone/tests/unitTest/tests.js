@@ -2,6 +2,7 @@ var TESTS = {
 	"testPages":[
 		// Put your test here
 		"navigation",
-		"page"
+		"page",
+		"popup"
 	]
 };
