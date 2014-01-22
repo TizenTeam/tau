@@ -1,150 +1,260 @@
-/*
- *
- * Simple properties
- var properties = {
-	'Body': {
-	'Default Font': {
-		lessVar: '@less-variable-name',
-		widgets: [
-			{type: 'text', default: 'normal'},
-			{type: 'slider', default: '10px', min: '5px', max: '30px'},
-			{type: 'text', default: 'Verdana'}
-		]
-	},
+/*jslint browser: true */
+/*global $, window */
 
-	}
-}
- *
- *
- */
+(function (window, $) {
+    'use strict';
 
-(function(window){
-	var cssClasses = {
-		themeEditor: 'themeEditor',
-		categoryPanel: 'category-panel',
-		labelName: 'label-name'
-	};
+    var cssClasses = {
+            themeEditor: 'themeEditor',
+            categoryPanel: 'category-panel',
+            labelName: 'label-name',
+            labelSelected: 'label-name-selected'
+        },
+        ThemeEditor = function () {
+            /**
+             * Configuration of Theme Editor
+             */
+            this.config = {
+                /**
+                 * Configuration of properties/variables that can be changed by editor
+                 */
+                themeProperties: {},
+                /**
+                 * URL to preview page - used by badge
+                 */
+                previewUrl: 'resources/preview.html',
+                /**
+                 * workspace {HTMLElement} workspace container
+                 */
+                workspace: null,
+                /**
+                 * cssVariablePanel {HTMLElement} left panel container
+                 */
+                cssVariablePanel: null
+            };
 
-	/**
-	 * Constructor
-	 * @returns {ThemeEditor}
-	 */
-	var ThemeEditor = function () {
-		return this;
-	};
+           /**
+         * Holds all css variables that could by changed
+         */
+            this.cssVariables = {};
 
-	function createWidgetText(lessVariable, defaultValue) {
-		return '<input type="text" data-default="' + defaultValue + '" data-lessvar="' + lessVariable + '" value="' + defaultValue + '" onchange="changeText(this);">';
-	}
+            // Imports
+            this.badgePreview = {}; //themeEditor.badgePreview.js
+            return this;
+        };
 
-	function createWidgetColorPicker(lessVariable, defaultValue) {
-		return '<input type="text" data-default="' + defaultValue + '" data-lessvar="' + lessVariable + '" value="' + defaultValue + '" onclick="changeColor(this);">';
-	}
+    function prepareWidgetText(defaultValue) {
+        var widget = document.getElementById('widgetText');
+        widget.value = defaultValue;
+    }
 
-	function createWidgetSlider(lessVariable, defaultValue, rangeMin, rangeMax) {
-		var sliderValue = parseInt(defaultValue, 10) * 100 / (rangeMax - rangeMin) - rangeMin;
+    function prepareWidgetColorPicker(defaultValue) {
+        $('#panelColorpicker').ColorPickerSetColor($.xcolor.test(defaultValue).getHex());
+    }
 
-		return '<input type="range" data-default="' + defaultValue + '" data-lessvar="' + lessVariable + '" min="0" max="100" value="' + sliderValue + '" data-min="' + rangeMin + '"  data-max="' + rangeMax + '" onclick="changeSlider(this);">';
-	}
+    function prepareWidgetSlider(defaultValue, rangeMin, rangeMax) {
+        var widget = document.getElementById('widgetSlider'),
+            parent = widget.parentNode,
+            sliderValue = parseInt(defaultValue, 10) * 100 / (rangeMax - rangeMin) - rangeMin;
 
-	function parseWidget(container, lessVar, widgetParams) {
-		var widgetType = widgetParams.type.toLowerCase(),
-			widgetDefault = widgetParams.default,
-			widget;
+        widget.setAttribute('data-min', rangeMin);
+        widget.setAttribute('data-max', rangeMax);
 
-		switch (widgetType) {
-			case 'text':
-				widget = createWidgetText(lessVar, widgetDefault);
-				break;
+        parent.querySelector('.range-min').innerHTML = rangeMin;
+        parent.querySelector('.range-max').innerHTML = rangeMax;
+        parent.querySelector('.range-current').innerHTML = defaultValue;
 
-			case 'slider':
-				widget = createWidgetSlider(lessVar, widgetDefault, widgetParams.min, widgetParams.max);
-				break;
+        widget.value = sliderValue;
+    }
 
-			case 'color':
-				widget = createWidgetColorPicker(lessVar, widgetDefault);
-				break;
+    // TODO: rebuild choosing css variable
+    function setCssVariable(self, event) {
+        var element = event.currentTarget,
+            cssVarName = element.getAttribute('data-css'),
+            themeProperties = self.config.themeProperties,
+            categoryProperties,
+            categoryKey,
+            label,
+            labelKey;
 
-			default:
-				widget = 'Unrecognized widget: ' + widgetType;
-		}
+        $('.' + cssClasses.labelSelected).removeClass(cssClasses.labelSelected).addClass(cssClasses.labelName);
+        element.className = cssClasses.labelSelected;
 
-		container.insertAdjacentHTML('beforeend', widget);
-	}
-	/**
-	 * Add variable item to panel
-	 * @param {type} container
-	 * @param {type} labelTitle
-	 * @param {type} widgets
-	 */
-	function addVariableItem(container, labelTitle, members) {
-		var label = document.createElement('div'),
-			widgetContainer = document.createElement('div'),
-			classes = cssClasses,
-			lessVar = members.lessVar,
-			widgets = members.widgets,
-			widgetParams;
+        if (event.detail.historyAction !== true) {
+            self.badgePreview.saveHistory(self.badgePreview.currentCssVar);
+        }
+        self.parseWidget(self.cssVariables[cssVarName], cssVarName);
+        self.badgePreview.currentCssVar = cssVarName;
+        // TODO: do it more efficient
+        // Search for all categories
+        for (categoryKey in themeProperties) {
+            if (themeProperties.hasOwnProperty(categoryKey)) {
+                categoryProperties = themeProperties[categoryKey];
+                // Search for all labels
+                for (labelKey in categoryProperties) {
+                    if (categoryProperties.hasOwnProperty(labelKey)) {
+                        label = categoryProperties[labelKey];
+                        if (label.lessVar === cssVarName) {
+                            $('.panel-window').removeClass('hidden');
+                            if (label.widget.type === 'slider') {
+                                $('#panelColorpicker').closest('.panel-window').addClass('hidden');
+                            }
+                            if (label.widget.type === 'color') {
+                                $('#widgetSlider').closest('.panel-window').addClass('hidden');
+                            }
+                            if (label.widget.type === 'text') {
+                                $('#widgetSlider').closest('.panel-window').addClass('hidden');
+                                $('#panelColorpicker').closest('.panel-window').addClass('hidden');
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 
-		label.className = classes.labelName;
-		label.innerHTML = labelTitle;
-		for(widget in widgets) {
-			parseWidget(widgetContainer, lessVar, widgets[widget]);
-		}
+    ThemeEditor.prototype.parseWidget = function (widgetParams, cssVarName) {
+        var widgetType = widgetParams.type.toLowerCase(),
+            widgetDefault,
+            modifiedVariables = this.badgePreview.getActive().modifiedVariables;
 
-		container.appendChild(label);
-		container.appendChild(widgetContainer);
-	}
+        widgetDefault = modifiedVariables[cssVarName] || widgetParams.default;
+        switch (widgetType) {
+        case 'text':
+            prepareWidgetText(widgetDefault);
+            break;
 
-	function addCategoryItem(panel, title, members) {
-		var panelTitle = document.createElement('h3'),
-			panelContent = document.createElement('div'),
-			labelName;
+        case 'slider':
+            prepareWidgetSlider(widgetDefault, widgetParams.min, widgetParams.max);
+            break;
 
-		panelTitle.innerHTML = title;
+        case 'color':
+            prepareWidgetColorPicker(widgetDefault);
+            break;
 
-		for(labelName in members) {
-			addVariableItem(panelContent, labelName, members[labelName]);
-		}
-
-		panel.appendChild(panelTitle);
-		panel.appendChild(panelContent);
-	}
-
-	ThemeEditor.prototype.buildLeftColumn = function () {
-		var configProperties = this.configProperties,
-			classes = cssClasses,
-			categoryName,
-			container = this.container,
-			leftColumn = document.createDocumentFragment(),
-			categoryPanel = document.createElement('div');
-
-		categoryPanel.className = classes.categoryPanel;
-
-		for(categoryName in configProperties) {
-			addCategoryItem(categoryPanel, categoryName, configProperties[categoryName]);
-		}
-
-		leftColumn.appendChild(categoryPanel);
-
-
-
-		// Finally add all pannels to container
-		container.classList.add(classes.themeEditor);
-		container.appendChild(leftColumn);
-
-		//Enhance by UI Widgets
-		$(categoryPanel).accordion();
-
-	}
-
-
-	ThemeEditor.prototype.init = function (configProperties) {
-		this.configProperties = configProperties;
-		this.container = document.getElementById('leftPanel');
+        default:
+            console.warn('Unrecognized widget: ' + widgetType);
+        }
+        $('#widgetText').val(widgetDefault);
+    };
 
 
-		this.buildLeftColumn();
-	}
+    /**
+     * Add variable item to panel
+     * @param {type} container
+     * @param {type} labelTitle
+     * @param {type} members
+     */
+    ThemeEditor.prototype.addLabel = function (container, labelTitle, members) {
+        var label = document.createElement('a'),
+            classes = cssClasses,
+            lessVar = members.lessVar;
 
-	window.themeEditor = new ThemeEditor();
-})(window);
+        label.className = classes.labelName;
+        label.innerHTML = labelTitle;
+        label.setAttribute('data-css', lessVar);
+        label.setAttribute('title', lessVar);
+        container.appendChild(label);
+
+
+        $(label).tooltip();
+        $(label).tooltip('option', 'content', 'Less variable: <b>' + lessVar + '</b>'
+                + '<br>Default Value: <b>' + members.widget.default + '</b>');
+        //+ '<br>Current Value: <b data-bind="current-value">' + members.widget.default + '</b>');
+
+        label.addEventListener('click', setCssVariable.bind(null, this), false);
+        this.cssVariables[lessVar] = members.widget;
+    };
+
+    ThemeEditor.prototype.addCategoryItem = function (panel, title, members) {
+        var panelTitle = document.createElement('h3'),
+            panelContent = document.createElement('div'),
+            labelName;
+
+        panelTitle.innerHTML = title;
+
+        for (labelName in members) {
+            if (members.hasOwnProperty(labelName)) {
+                this.addLabel(panelContent, labelName, members[labelName]);
+            }
+        }
+
+        panel.appendChild(panelTitle);
+        panel.appendChild(panelContent);
+    };
+
+    /**
+     * Build left column
+     * @method buildVariablePanel
+     */
+    ThemeEditor.prototype.buildVariablePanel = function () {
+        var themeProperties = this.config.themeProperties,
+            classes = cssClasses,
+            categoryName,
+            container = this.config.cssVariablePanel,
+            leftColumn = document.createDocumentFragment(),
+            categoryPanel = document.createElement('div');
+
+        categoryPanel.className = classes.categoryPanel;
+
+        for (categoryName in themeProperties) {
+            if (themeProperties.hasOwnProperty(categoryName)) {
+                this.addCategoryItem(categoryPanel, categoryName, themeProperties[categoryName]);
+            }
+        }
+
+        leftColumn.appendChild(categoryPanel);
+
+        // Finally add all pannels to container
+        container.classList.add(classes.themeEditor);
+        container.appendChild(leftColumn);
+
+        //Enhance by UI Widgets
+        $(categoryPanel).accordion();
+    };
+
+    /**
+     * Shows an alert
+     * @method alert
+     * @param {string} message
+     */
+    ThemeEditor.prototype.alert = function (message) {
+        // TODO: do it more cool
+        window.alert(message);
+    };
+
+    /**
+     * Builds widgets
+     */
+    ThemeEditor.prototype.buildWidgets = function () {
+        var widgetText = document.getElementById('widgetText'),
+            widgetSlider = document.getElementById('widgetSlider');
+        // Build Color Picker
+        $('#panelColorpicker').ColorPicker({
+            flat: true,
+            onChange: this.badgePreview.changeColor.bind(this.badgePreview)
+        });
+
+        widgetText.addEventListener('change', this.badgePreview.changeText.bind(this.badgePreview), false);
+        widgetSlider.addEventListener('change', this.badgePreview.changeSlider.bind(this.badgePreview), false);
+    };
+
+    /**
+     * Initialize theme editor.
+     * @method init
+     * @param {Object} themeProperties
+     */
+    ThemeEditor.prototype.init = function (themeProperties) {
+        var config = this.config;
+
+        config.themeProperties = themeProperties;
+        config.cssVariablePanel = document.getElementById('leftPanel');
+        config.workspace = document.getElementById('workspace');
+
+        this.buildVariablePanel();
+        this.buildWidgets();
+        this.badgePreview.init();
+    };
+
+    window.themeEditor = new ThemeEditor();
+}(window, $));
