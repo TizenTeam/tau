@@ -5,6 +5,7 @@
 	<title>Tizen micro UI</title>
 	<link rel="stylesheet"  href="../../lib/gear-ui/themes/default/gear.ui.css">
 	<link rel="stylesheet"  href="../../css/style.css">
+	<script type="text/javascript" src="../../lib/gear-ui/js/gear.ui.js"></script>
 </head>
 
 <body>
@@ -14,22 +15,29 @@
 	</header>
 	<div class="ui-content content-padding">
 		<h3>popup toast</h3>
-		<a href="#popupToast" class="ui-btn" data-rel="popup">Popup toast</a>
+		<div class="ui-grid-row">
+			<a href="#popupToast" class="ui-btn" data-rel="popup">Popup toast</a>
+		</div>
 	
 		<h3>Buttons</h3>
-		<a href="#1btnPopup" class="ui-btn" data-rel="popup">1btn popup</a>
-		<a href="#2btnPopup" class="ui-btn" data-rel="popup">2btn popup</a>
+		<div class="ui-grid-row">
+			<a href="#1btnPopup" class="ui-btn" data-rel="popup">1btn popup</a>
+			<a href="#2btnPopup" class="ui-btn" data-rel="popup">2btn popup</a>
+		</div>
 
 		<h3>Input popup</h3>
-		<a href="#radioPopup" class="ui-btn" data-rel="popup">Radio popup</a>
-		<a href="#checkPopup" class="ui-btn" data-rel="popup">Checkbox popup</a>
+		<div class="ui-grid-row">
+			<a href="#radioPopup" class="ui-btn" data-rel="popup">Radio popup</a>
+			<a href="#checkPopup" class="ui-btn" data-rel="popup">Checkbox popup</a>
+		</div>
 
 		<h3>List popup</h3>
-		<a href="#listPopup" class="ui-btn" data-rel="popup">List popup1</a>
-		<a href="#listNoTitlePopup" class="ui-btn" data-rel="popup">List popup2</a>
-		<a href="#listNoBtnPopup" class="ui-btn" data-rel="popup">List popup3</a>
-		<a href="#listNoTitleNoBtnPopup" class="ui-btn" data-rel="popup">List popup4</a>
-
+		<div class="ui-grid-row">
+			<a href="#listPopup" class="ui-btn" data-rel="popup">List popup1</a>
+			<a href="#listNoTitlePopup" class="ui-btn" data-rel="popup">List popup2</a>
+			<a href="#listNoBtnPopup" class="ui-btn" data-rel="popup">List popup3</a>
+			<a href="#listNoTitleNoBtnPopup" class="ui-btn" data-rel="popup">List popup4</a>
+		</div>
 
 	</div>
 
@@ -54,11 +62,9 @@
 			limit the maximum
 			per
 		</div>
-		<div class="ui-popup-footer">
-			<div class="ui-grid-col-2 button-group-height">
-				<button id="2btnPopup-cancel" class="ui-btn">Cancel</button>
-				<button id="2btnPopup-ok" class="ui-btn">OK</button>
-			</div>
+		<div class="ui-popup-footer ui-grid-col-2">
+			<button id="2btnPopup-cancel" class="ui-btn">Cancel</button>
+			<button id="2btnPopup-ok" class="ui-btn">OK</button>
 		</div>
 	</div>
 
@@ -197,9 +203,7 @@
 			Saving contacts to sim on Samsung 
 		</div>
 	</div>
-
+	<script type="text/javascript" src="popup.js"></script>
 </div>
-<script type="text/javascript" src="../../lib/gear-ui/js/gear.ui.js"></script>
-<script type="text/javascript" src="popup.js"></script>
 </body>
 </html>
