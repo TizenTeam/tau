@@ -9,10 +9,6 @@
 	height: 72px;
 }
 
-.ico-sample {background-image: url(../basic/header/images/icon.png);}
-.ico-btn-sample1 {background-image: url(../basic/button/images/00_icon_back_ef.png);}
-.ico-btn-sample2 {background-image: url(../basic/button/images/00_icon_cancel_ef.png);}
-
 /* ---------------------------------- LISTVIEW ---------------------------------- */
 .ui-listview li, .ui-listview li > * {
         white-space: nowrap;
