@@ -35,6 +35,9 @@ SwipeList.prototype = {
 			this._genlistCall = callElem;
 			this._genlistMessage = messageElem;
 		}
+		if ( !this._genlistUl || !this._genlistCall || !this._genlistMessage ) {
+			return;
+		}
 		this._genlistCallStyle = this._genlistCall.style;
 		this._genlistMessageStyle = this._genlistMessage.style;
 
