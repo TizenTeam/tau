@@ -34,9 +34,9 @@
 }
 .ui-listview li.li-has-multiline > a {
         margin-top: -14px;
-        margin-bottom: -38px;
+        margin-bottom: -14px;
         padding-top: 14px;
-        padding-bottom: 38px;
+        padding-bottom: 14px;
 }
 .ui-listview li.li-has-multiline.2lines > a {
         margin-bottom: -62px;
@@ -79,31 +79,28 @@
 }
 /* ------------------------------------------------------------------------------ */
 /* -----------------------------------  NEXT DEPTH------------------------------------ */
-.ui-listview li.li-has-next-depth {
-        padding-right: 60px;
-}
-.next-depth {
-    position: absolute;
-    right: 0px;
-    top: 0px;
-    margin: 19px 0 0 0 !important;
-    padding: 0 !important;
-    width: 50px !important;
-    height: 50px !important;
+.ui-listview li.li-has-next-depth a,
+.ui-listview li.li-has-next-depth.disabled {
     background-repeat: no-repeat;
-    background-color: transparent;
-    background-image: url(../extra/images/Controller_icon/tw_btn_next_depth_holo_dark.png);
-    -webkit-tap-highlight-color: transparent;
+    background-size: 50px 50px;
+    background-position: right center;
 }
-.next-depth:active, .next-depth:focus {
+.ui-listview li.li-has-next-depth a {
+    background-image: url(../extra/images/Controller_icon/tw_btn_next_depth_holo_dark.png);
+}
+.ui-listview li.li-has-next-depth a:active, 
+.ui-listview li.li-has-next-depth a:focus {
     background-image: url(../extra/images/Controller_icon/tw_btn_next_depth_focused_holo_dark.png);
 }
-.next-depth.disabled {
+.ui-listview li.li-has-next-depth.disabled,
+.ui-listview li.li-has-next-depth.disabled a {
     background-image: url(../extra/images/Controller_icon/tw_btn_next_depth_disabled_holo_dark.png);
 }
 .disabled {
     pointer-events: none;
 }
+/* ------------------------------------------------------------------------------ */
+
 /*Basic Text*/
 .basic-text-s-title {
 	margin:16px 16px;
