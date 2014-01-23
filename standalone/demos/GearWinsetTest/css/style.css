@@ -62,89 +62,26 @@
 .ui-listview li {
         position: relative;
 }
-.ui-listview li .checkbox {
+.ui-listview li input[type="checkbox"],
+.ui-listview li input[type="radio"] {
         position: absolute;
         right: 8px;
         top: 0px;
         margin-top: 19px;
 }
-.ui-listview li.li-has-checkbox {
-        padding-right: 68px;
-}
-.ui-listview li .radio {
-        position: absolute;
-        right: 8px;
-        top: 0px;
-        margin-top: 19px;
-}
+.ui-listview li.li-has-checkbox,
 .ui-listview li.li-has-radio {
         padding-right: 68px;
 }
-.ui-listview li.li-has-next-depth {
-        padding-right: 60px;
-}
-/* ------------------------------------------------------------------------------ */
-/* ---------------------------------- CHECKBOX ---------------------------------- */
-.checkbox {
-	position: relative;
-	display: inline-block;
-}
-.checkbox input[type="checkbox"] {
-	display: none;
-}
-.checkbox span {
-	width: 50px;
-	height: 50px;
-	background-image: url(../extra/images/Controller_icon/tw_btn_check_off_holo_dark.png);
-	float: left;
-}
-.checkbox input[type="checkbox"]:checked ~ span{
-	background-image: url(../extra/images/Controller_icon/tw_btn_check_on_holo_dark.png);
-}
-.checkbox:active input[type="checkbox"] ~ span{
-	background-image: url(../extra/images/Controller_icon/tw_btn_check_off_pressed_holo_dark.png);
-}
-.checkbox:active input[type="checkbox"]:checked ~ span{
-	background-image: url(../extra/images/Controller_icon/tw_btn_check_on_pressed_holo_dark.png);
-}
-.checkbox input[type="checkbox"]:disabled ~ span {
-	background-image: url(../extra/images/Controller_icon/tw_btn_check_off_disabled_holo_dark.png);
-}
-.checkbox input[type="checkbox"]:disabled:checked ~ span {
-	background-image: url(../extra/images/Controller_icon/tw_btn_check_on_disabled_holo_dark.png);
-}
-/* ------------------------------------------------------------------------------ */
-/* ----------------------------------- RADIO ------------------------------------ */
-.radio {
-	position: relative;
-	display: inline-block;
-}
-.radio input[type="radio"] {
-	display: none;
-}
-.radio span {
-	width: 50px;
-	height: 50px;
-	background-image: url(../extra/images/Controller_icon/tw_btn_radio_off_holo_dark.png);
-	float: left;
-}
-.radio input[type="radio"]:checked ~ span{
-	background-image: url(../extra/images/Controller_icon/tw_btn_radio_on_holo_dark.png);
-}
-.radio:active input[type="radio"] ~ span{
-	background-image: url(../extra/images/Controller_icon/tw_btn_radio_off_pressed_holo_dark.png);
-}
-.radio:active input[type="radio"]:checked ~ span{
-	background-image: url(../extra/images/Controller_icon/tw_btn_radio_on_pressed_holo_dark.png);
-}
-.radio input[type="radio"]:disabled ~ span {
-	background-image: url(../extra/images/Controller_icon/tw_btn_radio_off_disabled_holo_dark.png);
-}
-.radio input[type="radio"]:disabled:checked ~ span {
-	background-image: url(../extra/images/Controller_icon/tw_btn_radio_on_disabled_holo_dark.png);
+.ui-listview li.li-has-checkbox label,
+.ui-listview li.li-has-radio label{
+        display: block;
 }
 /* ------------------------------------------------------------------------------ */
 /* -----------------------------------  NEXT DEPTH------------------------------------ */
+.ui-listview li.li-has-next-depth {
+        padding-right: 60px;
+}
 .next-depth {
     position: absolute;
     right: 0px;
