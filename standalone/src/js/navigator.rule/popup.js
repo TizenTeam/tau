@@ -31,22 +31,15 @@ define([
 
 		open: function( to, options ) {
 			var $to = $(to),
-				state = {},
 				documentUrl = $.micro.path.getLocation().replace( popupHashKeyReg, "" ),
 				activePage = $.micro.pageContainer.pagecontainer("getActivePage"),
 				url, popupKey, $container;
 
-			url = $to.data( "url" );
 			popupKey = popupHashKey;
 
-			if ( url && !options.fromHashChange ) {
-
-				state = $.extend({}, options, {
-					url: url
-				});
-
+			if ( !options.fromHashChange ) {
 				url = $.micro.path.addHashSearchParams( documentUrl, popupKey );
-				$.micro.navigator.history.replace( state, "", url );
+				$.micro.navigator.history.replace( null, "", url );
 			}
 
 			if( $(to).is( "[data-external=true]" ) ) {
