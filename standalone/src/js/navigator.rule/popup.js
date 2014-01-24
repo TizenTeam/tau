@@ -80,6 +80,45 @@ define([
 			return false;
 		},
 
+		find: function( absUrl ) {
+
+			var dataUrl = this._createDataUrl( absUrl ),
+				activePage = ns.pageContainer.pagecontainer("getActivePage"),
+				popup;
+
+			popup = activePage.find( this.filter )
+				.filter( "[data-url='" + dataUrl + "']" );
+
+			if ( popup.length === 0 && dataUrl && !ns.path.isPath( dataUrl ) ) {
+				popup = activePage.find( this.filter )
+					.filter( ns.path.hashToSelector("#" + dataUrl) )
+					.attr( "data-url", dataUrl )
+					.data( "url", dataUrl );
+			}
+
+			return popup;
+		},
+
+		parse: function( html, absUrl ) {
+			var dataUrl = this._createDataUrl( absUrl ),
+				popup, all = $( "<div></div>" );
+
+			//workaround to allow scripts to execute when included in page divs
+			all.get( 0 ).innerHTML = html;
+
+			popup = all.find( this.filter ).first();
+
+			popup.attr( "data-url", dataUrl )
+				.attr( "data-external", true )
+				.data( "url", dataUrl );
+
+			return popup;
+		},
+
+		_createDataUrl: function( absoluteUrl ) {
+			return ns.path.convertUrlToDataUrl( absoluteUrl );
+		},
+
 		_closeActivePopup: function(activePopup) {
 			activePopup = activePopup ||
 				ns.pageContainer.find( ".ui-popup-active" );

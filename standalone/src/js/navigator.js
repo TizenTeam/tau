@@ -9,10 +9,7 @@ define([
 	"./ns",
 	"./core",
 	"./helper",
-	"./utils/path.js",
-	"./navigator.rule/page",
-	"./navigator.rule/popup",
-	"./widget/page"], function( jQuery, ns ) {
+	"./utils/path.js"], function( jQuery, ns ) {
 //>>excludeEnd("microBuildExclude");
 
 (function( $, ns, undefined ) {
@@ -118,9 +115,8 @@ define([
 
 	$.extend( ns.navigator, {
 
-		register: function( container, firstPage ) {
+		register: function( container ) {
 			this.container = container;
-			ns.$firstPage = $(firstPage);
 
 			this.linkClickHandler = $.proxy( linkClickHandler, this );
 			this.popStateHandler = $.proxy( popStateHandler, this );
@@ -133,8 +129,6 @@ define([
 				"popstate": this.popStateHandler
 			});
 
-			ns.navigator.history.enableVolatileRecord();
-			this.open( ns.$firstPage, { transition: undefined } );
 		},
 
 		destroy: function () {
@@ -170,11 +164,11 @@ define([
 
 				if ( $.type(to) === "string" ) {
 
-					if(!to.replace(/[#|\s]/g, "")) {
+					if ( !to.replace( /[#|\s]/g, "" ) ) {
 						return;
 					}
 
-					this._loadUrl(to, settings, filter, deferred);
+					this._loadUrl(to, settings, rule, deferred);
 
 				} else {
 					if( $(to).filter(filter).length ) {
@@ -190,16 +184,23 @@ define([
 
 		},
 
-		_loadUrl: function( url, options, filter, deferred) {
-			var absUrl = ns.path.makeUrlAbsolute( url, ns.path.getLocation() ),
+		_loadUrl: function( url, options, rule, deferred) {
+			var absUrl = ns.path.makeUrlAbsolute( url, ns.path.parseLocation() ),
 				content, detail;
 
-			content = this._find( absUrl, filter );
+			content = rule.find( absUrl );
+
+			if ( ( !content || content.length === 0 ) &&
+					ns.path.isEmbedded( absUrl ) ) {
+				deferred.reject( detail );
+				return;
+			}
+
 			// If the content we are interested in is already in the DOM,
 			// and the caller did not indicate that we should force a
 			// reload of the file, we are done. Resolve the deferrred so that
 			// users can bind to .done on the promise
-			if ( content.length ) {
+			if ( content && content.length ) {
 				detail = $.extend({absUrl: absUrl}, options);
 				deferred.resolve( detail, content );
 				return;
@@ -216,7 +217,7 @@ define([
 				data: options.data,
 				contentType: options.contentType,
 				dataType: "html",
-				success: this._loadSuccess( absUrl, options, filter, deferred ),
+				success: this._loadSuccess( absUrl, options, rule, deferred ),
 				error: this._loadError( absUrl, options, deferred )
 			});
 		},
@@ -239,14 +240,13 @@ define([
 		// TODO it would be nice to split this up more but everything appears to be "one off"
 		//      or require ordering such that other bits are sprinkled in between parts that
 		//      could be abstracted out as a group
-		_loadSuccess: function( absUrl, settings, filter, deferred ) {
-			var dataUrl = this._createDataUrl( absUrl ),
-				detail = $.extend({url: absUrl}, settings);
+		_loadSuccess: function( absUrl, settings, rule, deferred ) {
+			var detail = $.extend({url: absUrl}, settings);
 
 			return $.proxy(function( html/*, textStatus, xhr */) {
 				var content;
 
-				content = this._parse( html, dataUrl, filter );
+				content = rule.parse( html, absUrl );
 
 				// Remove loading message.
 				if ( settings.showLoadMsg ) {
@@ -260,75 +260,6 @@ define([
 				}
 
 			}, this);
-		},
-
-		_parse: function( html, dataUrl, filter ) {
-			// TODO consider allowing customization of this method. It's very JQM specific
-			var page, all = $( "<div></div>" );
-
-			//workaround to allow scripts to execute when included in page divs
-			all.get( 0 ).innerHTML = html;
-
-			page = all.find( filter ).first();
-
-			// TODO tagging a page with external to make sure that embedded pages aren't
-			// removed by the various page handling code is bad. Having page handling code
-			// in many places is bad. Solutions post 1.0
-			page.attr( "data-url", dataUrl )
-				.attr( "data-external", true )
-				.data( "url", dataUrl );
-
-			return page;
-		},
-
-		_find: function( absUrl, filter ) {
-			// TODO consider supporting a custom callback
-			var dataUrl = this._createDataUrl( absUrl ),
-				page, initialContent = this._getInitialContent();
-
-			// Check to see if the page already exists in the DOM.
-			// NOTE do _not_ use the :jqmData pseudo selector because parenthesis
-			//      are a valid url char and it breaks on the first occurence
-			page = this.container
-				.find( filter )
-				.filter( "[data-url='" + dataUrl + "']" );
-
-			// If we failed to find the page, check to see if the url is a
-			// reference to an embedded page. If so, it may have been dynamically
-			// injected by a developer, in which case it would be lacking a
-			// data-url attribute and in need of enhancement.
-			if ( page.length === 0 && dataUrl && !ns.path.isPath( dataUrl ) ) {
-				page = this.container
-					.find( filter )
-					.filter( ns.path.hashToSelector("#" + dataUrl) )
-					.attr( "data-url", dataUrl )
-					.data( "url", dataUrl );
-			}
-
-			// If we failed to find a page in the DOM, check the URL to see if it
-			// refers to the first page in the application. Also check to make sure
-			// our cached-first-page is actually in the DOM. Some user deployed
-			// apps are pruning the first page from the DOM for various reasons.
-			// We check for this case here because we don't want a first-page with
-			// an id falling through to the non-existent embedded page error case.
-			if ( page.length === 0 &&
-				ns.path.isFirstPageUrl( dataUrl ) &&
-				initialContent &&
-				initialContent.parent().length ) {
-				page = $( initialContent ).filter( filter );
-			}
-
-			return page;
-		},
-
-		_createDataUrl: function( absoluteUrl ) {
-			return ns.path.convertUrlToDataUrl( absoluteUrl );
-		},
-
-		// TODO the first page should be a property set during _create using the logic
-		//      that currently resides in init
-		_getInitialContent: function() {
-			return ns.firstPage;
 		},
 
 		_showLoading: function( delay ) {

@@ -9,7 +9,8 @@ define([
 	"./ns",
 	"./core",
 	"./navigator",
-	"./widget/page",
+	"./navigator.rule/page",
+	"./navigator.rule/popup",
 	"./widget/pagecontainer",
 	"./widget/indexScrollbar",
 	"./utils/anchorHighlightController"], function( jQuery, ns ) {
@@ -22,13 +23,17 @@ define([
 
 	$.extend( ns, {
 		initializePage: function() {
-			var $pages = $( ns.selectors.activePage );
+			var $pages = $( ns.selectors.activePage ),
+				hash = ns.path.stripQueryParams(location.hash);
 
 			// define first page in dom case one backs out to the directory root (not always the first page visited, but defined as fallback)
 			if( !$pages.length ) {
 				$pages = $( ns.selectors.page );
 			}
 			ns.firstPage = $pages.first();
+
+			// define page container
+			ns.pageContainer = ns.firstPage.parent().pagecontainer();
 
 			// set data-url attrs
 			$pages.each(function() {
@@ -40,14 +45,14 @@ define([
 				}
 			});
 
-			// define page container
-			ns.pageContainer = ns.firstPage.parent().pagecontainer();
+			ns.navigator.register(ns.pageContainer);
+			ns.navigator.history.enableVolatileRecord();
 
-			// alert listeners that the pagecontainer has been determined for binding
-			// to events triggered on it
-			ns.$window.trigger( "pagecontainercreate" );
-
-			ns.navigator.register(ns.pageContainer, ns.firstPage);
+			if ( $( hash ).is( ns.selectors.page ) ) {
+				ns.changePage( $( hash ) );
+			} else {
+				ns.changePage( ns.firstPage );
+			}
 		}
 	});
 

@@ -194,9 +194,9 @@ define([
 				return u.hrefNoHash + s + ( s.charAt( s.length - 1 ) !== "?" ? "&" : "" ) + p;
 			},
 
-			convertUrlToDataUrl: function( absUrl ) {
+			convertUrlToDataUrl: function( absUrl, allowEmbeddedOnlyBaseDoc ) {
 				var u = path.parseUrl( absUrl );
-				if ( path.isEmbedded( u ) ) {
+				if ( path.isEmbedded( u, allowEmbeddedOnlyBaseDoc ) ) {
 					// remove otherwise the Data Url won't match the id of the embedded Page.
 					return u.hash
 						.replace( /^#/, "" )
@@ -240,91 +240,20 @@ define([
 				return ( /^#[^#]+$/ ).test( hash );
 			},
 
-			//check whether a url is referencing the same domain, or an external domain or different protocol
-			//could be mailto, etc
-			isExternal: function( url ) {
-				var u = path.parseUrl( url );
-				return u.protocol && u.domain !== this.documentUrl.domain ? true : false;
-			},
-
 			hasProtocol: function( url ) {
 				return ( /^(:?\w+:)/ ).test( url );
 			},
 
-			isEmbedded: function( url ) {
+			isEmbedded: function( url, allowEmbeddedOnlyBaseDoc ) {
 				var u = path.parseUrl( url );
 
 				if ( u.protocol !== "" ) {
-					return ( !this.isPath(u.hash) && u.hash && ( u.hrefNoHash === this.parseLocation().hrefNoHash ) );
+					return u.hash &&
+								( allowEmbeddedOnlyBaseDoc ?
+										u.hrefNoHash === path.documentUrl.hrefNoHash :
+										u.hrefNoHash === path.parseLocation().hrefNoHash );
 				}
 				return ( /^#/ ).test( u.href );
-			},
-
-			squash: function( url, resolutionUrl ) {
-				var href, cleanedUrl, search, stateIndex,
-					isPath = this.isPath( url ),
-					uri = this.parseUrl( url ),
-					preservedHash = uri.hash,
-					uiState = "";
-
-				// produce a url against which we can resole the provided path
-				resolutionUrl = resolutionUrl || (path.isPath(url) ? path.getLocation() : path.getDocumentUrl());
-
-				// If the url is anything but a simple string, remove any preceding hash
-				// eg #foo/bar -> foo/bar
-				//    #foo -> #foo
-				cleanedUrl = isPath ? path.stripHash( url ) : url;
-
-				// If the url is a full url with a hash check if the parsed hash is a path
-				// if it is, strip the #, and use it otherwise continue without change
-				cleanedUrl = path.isPath( uri.hash ) ? path.stripHash( uri.hash ) : cleanedUrl;
-
-				// Split the UI State keys off the href
-				stateIndex = cleanedUrl.indexOf( this.uiStateKey );
-
-				// store the ui state keys for use
-				if ( stateIndex > -1 ) {
-					uiState = cleanedUrl.slice( stateIndex );
-					cleanedUrl = cleanedUrl.slice( 0, stateIndex );
-				}
-
-				// make the cleanedUrl absolute relative to the resolution url
-				href = path.makeUrlAbsolute( cleanedUrl, resolutionUrl );
-
-				// grab the search from the resolved url since parsing from
-				// the passed url may not yield the correct result
-				search = this.parseUrl( href ).search;
-
-				// TODO all this crap is terrible, clean it up
-				if ( isPath ) {
-					// reject the hash if it's a path or it's just a dialog key
-					if ( path.isPath( preservedHash ) || preservedHash.replace("#", "").indexOf( this.uiStateKey ) === 0) {
-						preservedHash = "";
-					}
-
-					// Append the UI State keys where it exists and it's been removed
-					// from the url
-					if ( uiState && preservedHash.indexOf( this.uiStateKey ) === -1) {
-						preservedHash += uiState;
-					}
-
-					// make sure that pound is on the front of the hash
-					if ( preservedHash.indexOf( "#" ) === -1 && preservedHash !== "" ) {
-						preservedHash = "#" + preservedHash;
-					}
-
-					// reconstruct each of the pieces with the new search string and hash
-					href = path.parseUrl( href );
-					href = href.protocol + "//" + href.host + href.pathname + search + preservedHash;
-				} else {
-					href += href.indexOf( "#" ) > -1 ? uiState : "#" + uiState;
-				}
-
-				return href;
-			},
-
-			isPreservableHash: function( hash ) {
-				return hash.replace( "#", "" ).indexOf( this.uiStateKey ) === 0;
 			},
 
 			// Escape weird characters in the hash if it is to be used as a selector
