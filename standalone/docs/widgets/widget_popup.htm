@@ -111,6 +111,40 @@ To open popup from "a" link using html markup, use the following code:
 To find the current active page, use the 'ui-popup-active' css class.
 </p>
 
+<h1>Popup Events</h1>
+<table>
+<tbody>
+	<tr>
+		<th style="width:40%;">Event name</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">popupbeforecreate</span></td>
+		<td>Triggered on the popup being initialized, before most plugin auto-initialization occurs.</td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">popupcreate</span></td>
+		<td>Triggered when the popup has been created in the DOM (via ajax or other) but before all widgets have had an opportunity to enhance the contained markup.</td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">popupbeforehide</span></td>
+		<td>Triggered on the popup we are transitioning away from, before the actual transition animation is kicked off.</td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">popuphide</span></td>
+		<td>Triggered on the popup after the transition animation has completed.</td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">popupbeforeshow</span></td>
+		<td>Triggered on the popup we are transitioning to, before the actual transition animation is kicked off.</td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">popupshow</span></td>
+		<td>Triggered on the popup after the transition animation has completed.</td>
+	</tr>
+</tbody>
+</table>
+
 <h2>Where to Go Next</h2>
 <ul>
  <li><a href="widget_reference.htm">Widget Reference</a></li>
