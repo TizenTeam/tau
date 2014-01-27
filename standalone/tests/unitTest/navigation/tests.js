@@ -2,6 +2,7 @@
  * mobile navigation base tag unit tests
  */
 (function($){
+
 	asyncTest( "can navigate internal pages", function(){
 
 		helper.pageSequence([
@@ -54,6 +55,18 @@
 					msg: "gear.ui.back() from internal to internal page",
 					path: helper.path,
 					id: "main"
+				});
+
+				gear.ui.changePage( $("#internal-page-2")[0] );
+
+			},
+
+			function() {
+
+				helper.assertUrlLocation({
+					msg: "navigate to internal page by element",
+					hash:"#internal-page-2",
+					id: "internal-page-2"
 				});
 
 			}
@@ -174,7 +187,29 @@
 					id: "path-test-path-test2"
 				});
 
-				helper.virtualLinkClick( "sub-dir/../parent/index.html" );
+				helper.virtualLinkClick( "#internal-page-1" );
+			},
+
+			function(){
+
+				helper.assertUrlLocation({
+					msg: "fail to navigate when use only id in external page.",
+					path: "path-test/index2.html",
+					id: "path-test-path-test2"
+				});
+
+				helper.virtualLinkClick( "../index.html#internal-page-1" );
+			},
+
+			function(){
+
+				helper.assertUrlLocation({
+					msg: "navigate to internal page from external page",
+					hash:"#internal-page-1",
+					id: "internal-page-1"
+				});
+
+				helper.virtualLinkClick( "path-test/sub-dir/../parent/index.html" );
 			},
 
 			function(){
@@ -311,7 +346,7 @@
 					id: "path-test-path-test2"
 				});
 
-				gear.ui.changePage( "#internal-page-1" );
+				gear.ui.changePage( "../index.html#internal-page-1" );
 			},
 
 			function() {
@@ -370,5 +405,31 @@
 			}
 		], true);
 	});
+
+	asyncTest( "failed to navigate", function(){
+		var firedLoadFailEvent = false;
+
+		document.addEventListener("loadfailed", function( event ) {
+			firedLoadFailEvent = true;
+		}, false);
+
+		helper.eventSequence("changefailed", [
+			function() {
+				firedLoadFailEvent = false;
+				gear.ui.changePage( "#internal-not-exist" );
+			},
+
+			function() {
+				ok( !firedLoadFailEvent, "page change failed and doesn't load page." );
+				firedLoadFailEvent = false;
+				gear.ui.changePage( "external-not-exist.html" );
+			},
+
+			function() {
+				ok( firedLoadFailEvent, "page change failed and recived loadfail event." );
+				firedLoadFailEvent = false;
+			}
+		], true);
+	});	
 
 })(jQuery);

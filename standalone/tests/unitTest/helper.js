@@ -9,7 +9,7 @@ var helper = {
 				gear.ui.changePage( helper.path );
 			});
 		}
-		this.eventSequence( "pagechange", sequence, autoStart );
+		this.eventSequence( "pagechange changefailed", sequence, autoStart );
 	},
 
 	eventSequence: function ( eventName, sequence, autoStart ) {
@@ -19,11 +19,12 @@ var helper = {
 				window.clearTimeout(timeout);
 				if ( !seq.length ) return;
 
-				(seq.shift())( event );
-				if ( seq.length > 0 ) {
+				if ( seq.length > 1 ) {
 					timeout = window.setTimeout(execute, helper.timeout);
+					$(document).unbind( eventName, execute);
 					$(document).one( eventName, execute);
 				}
+				(seq.shift())( event );
 			};
 
 		$.each(sequence, function( i, fn ) {
