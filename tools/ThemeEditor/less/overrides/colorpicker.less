@@ -1,0 +1,52 @@
+#panelColorpicker {
+    padding: 0;
+    .colorpicker {
+        margin: 0 auto;
+        background-image: none;
+        width: 210px;
+        height: 220px;
+
+        .colorpicker_hue {
+            background-image: url('../images/slider.png');
+            background-size: 42px 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .colorpicker_color {
+            border: 3px solid #c2c2c2;
+        }
+
+        .colorpicker_rgb_r, .colorpicker_rgb_g, .colorpicker_rgb_b,
+        .colorpicker_hsb_h, .colorpicker_hsb_s, .colorpicker_hsb_b {
+            display: none;
+        }
+
+        .colorpicker_hex {
+            background-image: url('../images/custom_hex.png');
+            left: 12px;
+            top: 178px;
+        }
+
+        .colorpicker_submit {
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            background: url(../images/custom_submit.png) top;
+            left: 322px;
+            top: 142px;
+            overflow: hidden;
+        }
+
+        .colorpicker_new_color {
+            left: 146px;
+            top: 172px;
+        }
+
+        .colorpicker_current_color {
+            left: 85px;
+            top: 172px;
+        }
+
+    }
+}

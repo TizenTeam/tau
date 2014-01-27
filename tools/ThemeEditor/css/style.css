@@ -45,9 +45,9 @@ iframe{
 .content-page{
     padding: 15px;
 
-/**
-jquer-ui styles override
-*/
-.ui-accordion .ui-accordion-content {
-    padding: 0.5em 1em;
-}
+    /**
+    jquer-ui styles override
+    */
+    .ui-accordion .ui-accordion-content {
+        padding: 0.5em 1em;
+    }
