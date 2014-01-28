@@ -251,10 +251,10 @@
   background-color: #f2f2f2;
   border: 1px solid #d9d9d9;
   background-color: #d9d9d9;
-  border: 1px solid #bfbfbf;
-  -moz-box-shadow: 0 0 9px rgba(0, 0, 0, 0.5);
-  -webkit-box-shadow: 0 0 9px rgba(0, 0, 0, 0.5);
-  box-shadow: 0 0 9px rgba(0, 0, 0, 0.5);
+  border: 1px solid #1400ff;
+  -moz-box-shadow: 0 0 40px rgb(0, 173, 255);
+  -webkit-box-shadow: 0 0 40px rgb(0, 173, 255);
+  box-shadow: 0 0 40px rgb(0, 173, 255);
 }
 #workspace .theme-badge-active:first-of-type {
   margin-left: 20px;
@@ -278,6 +278,7 @@
   margin-top: 0.5rem;
   font-size: 14px;
   font-weight: bold;
+  text-decoration: underline;
 }
 .label-name-selected:hover {
   cursor: pointer;
