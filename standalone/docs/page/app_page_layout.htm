@@ -147,6 +147,42 @@ window.addEventListener( 'tizenhwkey', function( ev ) {
 </pre>
 </div>
 
+<h1>Page Transitions</h1>
+<div>
+<p>
+By default, the framework doesn't apply transition. To set a custom transition effect, add the data-transition attribute to the link.
+</p>
+<pre class="prettyprint">
+&lt;a href=&quot;index.html&quot; data-transition=&quot;slideup&quot;&gt;I'll slide up&lt;/a&gt;
+</pre>
+
+<p>
+Global configuration
+</p>
+<pre class="prettyprint">/* JavaScript code */
+gear.ui.defaults.pageTransition = "slideup";
+</pre>
+
+<table>
+<tbody>
+	<tr>
+		<th style="width:40%;">option</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">none</span></td>
+		<td>default</td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">slideup</span></td>
+		<td></td>
+	</tr>
+</tbody>
+</table>
+
+
+</div>
+
 <h2>Where to Go Next</h2>
 <ul>
 <li><a href="../widgets/widget_reference.htm">Samsung Gear Web UI Framework Widget Reference</a></li></ul>
