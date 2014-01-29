@@ -15,9 +15,12 @@ define([
 
 	$.extend( $.micro, {
 		initializePage: function() {
-			var $pages = $( $.micro.selectors.page );
+			var $pages = $( $.micro.selectors.activePage );
 
 			// define first page in dom case one backs out to the directory root (not always the first page visited, but defined as fallback)
+			if( !$pages.length ) {
+				$pages = $( $.micro.selectors.page );
+			}
 			$.micro.firstPage = $pages.first();
 
 			// set data-url attrs

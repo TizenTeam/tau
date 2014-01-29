@@ -98,9 +98,20 @@ $.widget( "micro.pagecontainer", {
 	},
 
 	_setActivePage: function(page) {
-		if ( this.activePage ) {
-			this.activePage.page("setActive", false);
-		}
+		var activeClass = $.micro.selectors.activePage.substr(1),
+			pages = $( $.micro.selectors.activePage )
+				.not( page );
+
+		$.each( pages, function(idx, page) {
+			var $page = $(page);
+
+			if ( typeof $page.data( "page" ) !== "undefied" ) {
+				$page.page("setActive", false);
+			} else {
+				$page.removeClass(activeClass);
+			}
+		});
+
 		this.activePage = page;
 		this.activePage.page("setActive", true);
 	},

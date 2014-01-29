@@ -8,6 +8,7 @@ define([
 
 	$.micro.selectors = {
 		page: ".ui-page",
+		activePage: ".ui-page-active",
 		content: ".ui-content",
 		header: ".ui-header",
 		footer: ".ui-footer",
