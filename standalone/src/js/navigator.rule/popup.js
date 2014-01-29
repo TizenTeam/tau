@@ -39,7 +39,7 @@ define([
 
 			if ( !options.fromHashChange ) {
 				url = $.micro.path.addHashSearchParams( documentUrl, popupKey );
-				$.micro.navigator.history.replace( null, "", url );
+				$.micro.navigator.history.replace( options, "", url );
 			}
 
 			if( $(to).is( "[data-external=true]" ) ) {
