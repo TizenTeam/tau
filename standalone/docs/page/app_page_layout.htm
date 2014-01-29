@@ -19,14 +19,16 @@
 <pre class="prettyprint">
 &lt;!--Page Layout--&gt;
 
-&lt;div class=&quot;ui-page&quot;&gt;
+&lt;div class=&quot;ui-page ui-page-active&quot;&gt;
  &lt;header class=&quot;ui-header&quot;&gt;&lt;/header&gt;
  &lt;div class=&quot;ui-content&quot;&gt;&lt;/div&gt;
  &lt;footer class=&quot;ui-footer&quot;&gt;&lt;/footer&gt;
 &lt;/div&gt;
+</pre>
 
+<pre class="prettyprint">
 &lt;!--Page Layout with more button in header--&gt;
-&lt;div class=&quot;ui-page&quot;&gt;
+&lt;div class=&quot;ui-page ui-page-active&quot;&gt;
   &lt;header class=&quot;ui-header ui-has-more&quot;&gt;
    &lt;h2 class=&quot;ui-title&quot;&gt;Call menu&lt;/h2&gt;
    &lt;button type=&quot;button&quot; class=&quot;ui-more ui-icon-overflow&quot;&gt;More Options&lt;/button&gt;
@@ -40,10 +42,38 @@
 &lt;/div&gt;
 </pre>
 
+<h1>Multi-page Layout</h1>
+<p>This template contains multiple "page" containers inside, unlike a single page template that has just one page within it.</p>
+<p>
+the main page is set up the page that has "ui-page-active" class.
+If there is no one that has "ui-page-active" class, the page what is first in source order set up main page.
+but it's good to set up "ui-page-active" class at least one page for performance.
+</p>
+<p>
+You link to internal pages by referring to the id of the page you want to show.
+For example, to link to the page with an id of "two", my link would have a href="#two" in the code.
+</p>
+
+<pre class="prettyprint">
+&lt;!--Main Page--&gt;
+&lt;div id=&quot;one&quot; class=&quot;ui-page ui-page-active&quot;&gt;
+ &lt;header class=&quot;ui-header&quot;&gt;&lt;/header&gt;
+ &lt;div class=&quot;ui-content&quot;&gt;&lt;/div&gt;
+ &lt;footer class=&quot;ui-footer&quot;&gt;&lt;/footer&gt;
+&lt;/div&gt;
+
+&lt;!--Secondary Page--&gt;
+&lt;div id=&quot;two&quot; class=&quot;ui-page&quot;&gt;
+ &lt;header class=&quot;ui-header&quot;&gt;&lt;/header&gt;
+ &lt;div class=&quot;ui-content&quot;&gt;&lt;/div&gt;
+ &lt;footer class=&quot;ui-footer&quot;&gt;&lt;/footer&gt;
+&lt;/div&gt;
+</pre>
+
 <p>
 To find the current active page, use the 'ui-page-active' css class.
 </p>
-<p>
+
 <h1>Page Interface</h1>
 <table>
 <tbody>
@@ -61,7 +91,6 @@ To find the current active page, use the 'ui-page-active' css class.
 	</tr>
 </tbody>
 </table>
-</p>
 
 <h1>Page Events</h1>
 <table>
