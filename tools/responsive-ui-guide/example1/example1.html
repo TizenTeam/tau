@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en-US">
+	<head>
+		<title>Responsive UI example</title>
+		<meta charset="UTF-8">
+		<style type="text/css">   
+			.menu {
+				background: lightgreen;
+				float: left;
+				margin-right: 10px;
+				padding: 10px;
+			}
+
+			.header {
+				background: yellow;
+				display: block;
+				height: 200px;
+			}
+
+			.columns > p {
+				float: left;
+			}
+
+			.columns > p:nth-child(1) {
+				background: pink;
+			}
+
+			.columns > p:nth-child(2) {
+				background: lightblue;
+			}
+
+			.columns > p:nth-child(3) {
+				background: orange;
+			}
+
+			.columns:after {
+				content: ".";
+				display: block;
+				visibility: hidden;
+				width: 0;
+				height: 0;
+				clear: left;
+			}
+
+			.footer {
+				background: lightgray;
+			}
+
+			@media only screen and (max-width:600px),
+			@media only screen and (max-width: 320px) {
+
+				.menu { 
+					float: none;
+					position: fixed;
+					top: 0;
+					left: 0;
+					padding: 0;
+					margin: 0;
+					margin-bottom: 10px;
+					width: 100%;
+				}
+
+				.menu > ul {
+					display: block;
+					overflow: auto;
+					margin: 0;
+					padding: 0;
+					list-style-type: none;
+				}
+
+				.menu > ul > li {
+					float: left; 
+					margin-left: 5px;
+					padding: 0;
+				}
+
+				.header {
+					height: 50px;
+				}
+
+				.menu > ul > li:first-child {
+					margin-left: 0;
+				}
+
+				.columns > p {
+					float: none;
+				}
+
+				.columns:after {
+					display: none;
+				}
+
+				.footer {
+					position: fixed;
+					bottom: 0;
+					left: 0;
+					display: block;
+					height: 25px;
+					width: 100%;
+					z-index: 1;
+				}
+
+				body {
+					padding-bottom: 25px;
+					padding-top: 25px;
+				}
+
+			}
+
+			@media only screen and (max-width: 320px) {
+				body {
+					background: red;
+					padding-top: 5px;
+				}
+
+				.header {
+					height: auto;
+				}
+
+				.menu {
+					display: block;
+					position: fixed;
+					bottom: -10px;
+					right: 0;
+					top: auto;
+					left: auto;
+					overflow: hidden;
+					width: 25px;
+					height: 25px;
+					border: 1px solid red;
+					z-index: 5;
+				}
+
+				.menu > *:first-child:before {
+					content: "<<";
+					display: block;
+					padding-top: 4px;
+					padding-left: 4px;
+				}
+
+				.menu:hover {
+					width: 70px;
+					height: 125px;
+				}
+
+				.menu:hover > *:first-child:before {
+					display:none;
+				}
+
+				.menu > ul {
+					display: block;
+					overflow: auto;
+					margin: auto;
+					padding: auto;
+					list-style-type: circle;
+				}
+
+				.menu > ul > li {
+					float: none; 
+					margin-left: 5px;
+					padding: 0;
+				}
+
+			}
+
+		</style>
+	</head>
+	<body>
+		<div class="menu">
+			<ul>
+				<li><a href="#">index<a></li>
+				<li><a href="#">link 1<a></li>
+				<li><a href="#">cats<a></li>
+				<li><a href="#">puppies<a></li>
+				<li><a href="#">about us<a></li>
+				<li><a href="#">contact<a></li>
+			</ul>
+		</div>
+		<div class="header">Responsive header</div>
+		<div class="columns">
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur mattis augue ac libero commodo pellentesque. Cras sollicitudin sapien sed dui mollis egestas. Ut mattis lorem vitae dui lacinia vulputate. Duis non ante et turpis pretium hendrerit eu vitae est. Cras commodo massa vel risus facilisis, vitae tristique tortor aliquam. Maecenas vulputate mauris ipsum. Phasellus ut metus rhoncus, vehicula leo in, vehicula quam. Donec suscipit vitae neque quis viverra. Duis a purus metus.</p>
+			<p>Sed posuere turpis vel lacus mattis, vitae porta nisi laoreet. Suspendisse tincidunt porttitor molestie. Suspendisse at turpis pharetra, lacinia ligula sed, euismod erat. Aenean elementum ligula quis faucibus egestas. Morbi sapien lectus, pharetra at fringilla ac, dapibus et odio. Praesent dignissim odio sed orci tempor pellentesque. Sed erat libero, aliquet at gravida nec, rutrum sed felis. Morbi sodales ipsum nulla, et venenatis tortor pharetra sed.
+			<p>Aliquam sit amet molestie odio. Donec id mauris sit amet neque adipiscing venenatis eu eu tortor. Cras dignissim, eros ac ultricies ultricies, tortor nisl pretium sapien, eu mollis neque est eu enim. Aliquam tellus sem, ornare quis diam non, lacinia tempus tortor. Suspendisse nec placerat mauris. Phasellus et eleifend lectus. Aliquam erat volutpat. Maecenas ac cursus libero, vitae accumsan est. Nam interdum, justo vitae imperdiet lobortis, mauris lacus auctor quam, in congue nisl erat et nisi. Nam a suscipit lorem. Aenean aliquam ante tellus, vitae rhoncus eros eleifend ac. Proin quis sodales erat.</p>
+		</div>
+		<div class="footer">Copyright &copy; <a href="mailto:f@o.b.a.r">foo-bar</a></div>
+	</body>
+</html>

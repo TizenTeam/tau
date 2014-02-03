@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Responsive to px density</title>
+		<style type="text/css">
+			html, body {
+				height: 100%;
+			}
+
+			.image {
+				display: block;
+				width: 50%;
+				height: 50%;
+				background: url("../assets/triangle-1.png") no-repeat;
+				background-size: 100%;
+			}
+
+			@media (-webkit-min-device-pixel-ratio: 2),
+				(min--moz-device-pixel-ratio: 2),
+				(min-resolution: 2dppx) {
+				.image {
+					background-image: url("../assets/triangle-2.png");
+				}
+			}
+
+			@media (-webkit-min-device-pixel-ratio: 4),
+				(min--moz-device-pixel-ratio: 4),
+				(min-resolution: 4dppx) {
+				.image {
+					background-image: url("../assets/triangle-3.png");
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="image"></div>
+	</body>
+</html>

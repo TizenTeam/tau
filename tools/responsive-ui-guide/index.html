@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en-US">
+	<head>
+		<title>Responsive UI</title>		
+		<meta charset="UTF-8">
+		<script type="text/javascript" src="snippet.js"></script>
+		<link rel="stylesheet" type="text/css" href="styles.css">
+		<link rel="stylesheet" type="text/css" href="snippet.css">
+		<style type="text/css">
+			.content_center {
+				text-align: center;
+			}
+
+			.mono {
+				font-family: Courier New, Courier, monospace;
+			}
+		</style>
+	</head>
+	<body onload="prettyPrint()">
+		<h1>Responsive UI</h1>
+		<nav id="table-of-contents">
+			<h2>Table of Contents</h2>
+			<ul>
+				<li><a href="#what-is-responsive-ui">What is Responsive UI?</a></li>
+				<li><a href="#tools">Tools</a></li>
+				<li><a href="#simple-example">Simple example</a></li>
+				<li><a href="#patterns">Patterns</a></li>
+				<li><a href="#relative-units">Relative Units</a></li>
+				<li><a href="#how-big-is-a-pixel">How big is a pixel (screen density)</a></li>
+				<li><a href="#css-regions">CSS Regions</a></li>
+				<li><a href="#dos-and-donts">Do's and Dont's</a></li>
+				<li><a href="#clock-tutorial">Clock&Calendar Application tutorial</a></li>
+				<li><a href="#useful-information">Useful information</a></li>
+			</ul>
+		</nav>
+
+		<article>
+			<section id="what-is-responsive-ui">
+				<h2>What is responsive UI</h2>
+				<p>
+					In simple terms, a responsive UI defines rule sets for displaying a UI element (page, widget) on different
+					devices and resolutions without the need of changing the element itself. The best example would be the same
+					webpage displayed on a mobile phone and a pc computer. Please look on the screenshots below, notice how the
+					url changed dependant on the device used in first pair of images and compare it with the second pair of
+					screenshots.
+				</p>
+
+				<p class="figure">Figure: This is not responsive UI (PC and Galaxy III)</strong>
+				<p class="content_center">
+					<a href="assets/yahoo-1.png" target="_blank"><img src="assets/yahoo-1.png" width="320" height="240" alt="Yahoo on PC"></a>
+					<a href="assets/yahoo-2.png" target="_blank"><img src="assets/yahoo-2.png" width="120" height="240" alt="Yahoo on Mobile"></a>				
+				</p>
+
+				<p class="figure">Figure: This <strong>is</strong> responsive UI (PC and Galaxy III)</p>
+				<p class="content_center">
+					<a href="assets/google-1.png" target="_blank"><img src="assets/google-1.png" width="320" height="240" alt="Google on PC"></a>
+					<a href="assets/google-2.png" target="_blank"><img src="assets/google-2.png" width="120" height="240" alt="Google on Mobile"></a>
+				</p>
+
+				<p>
+					So, how is it posible? The answer is <strong>media queries</strong>. As we know all web pages,
+					web apps use stylesheets to define their user interface. We can alter specific style rules dependant of the
+					device viewing the page/app or resolution the user has set the screen to (or even the size of the browser
+					window).
+				</p>
+			</section>
+
+			<section id="tools">
+				<h2>Tools</h2>
+				<h3>Firefox</h3>
+				<p>
+					Press CTR+SHIFT+M to access the responsive design view or go to "Tools" &gt; "Web Developer" &gt; "Responsive Design View"
+				</p>
+				<p class="content_center">
+					<a href="assets/firefox-responsive-view.png" target="_blank"><img src="assets/firefox-responsive-view.png" width="320" alt="Firefox responsive view"></a>
+				</p>
+				<h3>Chrome/Chromium (as of v 33.0.*)</h3>
+				<p>
+					The device and resolution emulation is located on icon emphasised in the screenshot below. As for older
+					versions the same settings (without device emulation) are located on the gear icon (developer tools settings
+					page)
+				</p>
+				<p class="content_center">
+					<a href="assets/chrome-dev-tools-1.png" target="_blank"><img src="assets/chrome-dev-tools-1.png" width="320" height="262" alt="Gear icon in dev tools"></a>
+					<a href="assets/chrome-dev-tools-2.png" target="_blank"><img src="assets/chrome-dev-tools-2.png" width="320" height="262" alt="Device emulation on dev tools"></a>
+					<a href="assets/chrome-dev-tools-3.png" target="_blank"><img src="assets/chrome-dev-tools-3.png" width="320" height="262" alt="Resolution change on dev tools"></a>
+				</p>
+			</section>
+
+			<section id="media-query">
+				<h2>Basics about media queries</h2>
+				<p>
+					Media query consist of a media type followed by one or more expressions which evaluate to a boolean value and a block scope
+					with css rules in it. Those css rules will be applied if all (or one if specified) expresion of the query evaluates to true.
+				</p>
+				<p>
+					The following example demonstrates a simple media query in which we change the background color for displays smaller than
+					321 pixels (max-width expression applies to viewport, not the device screen).
+				</p>
+				<pre class="prettyprint">
+@media (max-width:320px) {
+	body: {
+		background: green;
+	}
+}
+				</pre>
+				<p>
+					There are basically two ways to use media queries. The first one includes setting an attribute of the rel tag:
+				</p>
+				<pre class="prettyprint">
+&lt;link rel="stylesheet" media="(max-width: 320px)" href="style.css" /&gt;
+				</pre>
+				<p>
+					Rules from "style.css" file will take effect only for a screen smaller than 321 pixels.
+				</p>
+				<p>
+					The second way is to specify the query directly in the css file:
+				</p>
+				<pre class="prettyprint">
+@media (max-width: 320px) {
+	body {
+		background: blue;
+	}
+}
+				</pre>
+				<p>
+					Expressions support the following logical operators:
+					<ul>
+						<li>and</li>
+						<li>"," which acts like "or"</li>
+						<li>not which negates expressions</li>
+					</ul>
+				</p>
+				<p>
+					For example, let's say we want our rules to execute on a screen with a width bigger than 320px that is in a landscape
+					orientation and is a handheld device. We write:
+				</p>
+				<pre class="prettyprint">
+@media handheld and (min-width: 320px) and (orientation: landscape) {
+	body {
+		background: red;
+	}
+}
+				</pre>
+				<p>
+					Or we want rule that execute on all devices with width bigger than 1920px but not TV's, we write:
+				</p>
+				<pre class="prettyprint">
+@media not tv and (min-width: 1920px) {
+	body {
+		background: pink;
+	}
+}
+				</pre>
+				<p>
+					And the last, we wan't to execute our rules on handheld devices or devices in landscape mode.
+				</p>
+				<pre class="prettyprint">
+@media handheld, (orientation: landscape) {
+	body {
+		background: violet;
+	}
+}
+				</pre>
+			</section>
+
+			<section id="simple-example">
+				<h2>Simple example</h2>
+				<p>
+					The example located at <a href="example1/example1.html" target="_blank">example1/example1.html</a> should tell You what
+					we wan't to achieve. At start the UI looks like a normal web-page, menu to the left, header at top, footer at bottom.
+				</p>
+				<p>
+					Now, resize the window down (or use Developer Tools screen resize, without viewport emulation). After You get
+					beyond 500px the UI will start to change, first to look like a normal mobile app (static header and footer) to
+					a compact micro app in a resolution lower than 320px (menu condensed to a hover button).
+				</p>
+				<p>
+					As You can see all of the unnecessary clutter UI elements were removed or changed to look differently.
+				</p>
+				<p class="figure">Figure: Example UI progression in different resolutions</p>
+				<p class="content_center">
+					<a href="assets/example-1.png" target="_blank"><img src="assets/example-1.png" width="320" height="262" alt="Full view"></a>
+					<a href="assets/example-2.png" target="_blank"><img src="assets/example-2.png" width="320" height="262" alt="Mobile view"></a>
+					<a href="assets/example-3.png" target="_blank"><img src="assets/example-3.png" width="320" height="262" alt="Micro view"></a>
+				</p>
+			</section>
+
+			<section id="patterns">
+				<h2>Patterns</h2>
+				<p>
+					You can find extensive pattern lists in the <a href="#useful-information">Useful Information</a> section. We will look
+					through a simple three column layout, please check it out in <a href="example2/index.html" target="_blank">example 2</a>.
+				</p>
+				<p>
+					As You look in too the code, You will notice that in the default view, the columns are not columns but are displayed top down.
+					This is because we defaine the default view for the slowest device (in this case for a handeld phone with a resolution below 640px),
+					as we should limit the css rules it has to process. Next query is for smaller tablets (640px up) and the final is for all big screens
+					like desktop, TV devices and other.
+				</p>
+				<p>
+					The rules for bigger devices, than handheld phones, are specified below. It's really simple, we make 2 of the paraghraphs inside floating left, leaving
+					the third clearing the float rule.
+				</p>
+				<pre class="prettyprint">
+@media all and (min-width: 640px) {
+	.columns > p:nth-child(1),
+	.columns > p:nth-child(2) {
+		width: 48%;
+		float: left;
+		margin-left: 1%;
+	}
+
+	.columns > p:nth-child(3) {
+		clear: left;
+	}
+}
+				</pre>
+				<p>
+					For bigger devices we make all paraghraphs float left and add an clearing element using the ":after" selector.
+				</p>
+				<pre class="prettyprint">
+@media all and (min-width: 1024px) {
+	.columns > p {
+		width: 30% !important;
+		float: left;
+		margin-left: 1% !important;
+		clear: none !important;
+	}
+	.columns:after {
+		content: "";
+		clear: left;
+		width: 0;
+		visibility: hidden;
+	}
+}
+				</pre>
+				<p class="content_center">
+					<a href="assets/example-2-1.png" target="_blank"><img src="assets/example-2-1.png" width="320" alt="example"></a>
+					<a href="assets/example-2-2.png" target="_blank"><img src="assets/example-2-2.png" width="320" alt="example"></a>
+					<a href="assets/example-2-3.png" target="_blank"><img src="assets/example-2-3.png" width="320" alt="example"></a>
+				</p>
+				<p>
+					Again I encourage You to look into <a href="#useful-information">Useful Information</a> section section for a more comprehensive
+					list of patterns.
+				</p>
+			</section>
+
+			<section id="relative-units">
+				<h2>Relative units</h2>
+				<p>
+					The key thing is to use relative units. For example, we want a big white square that is the size of the viewport and it's
+
+					at the center of the page, we want it to be
+					evenly positioned on the page. We could use JS for this, to automatically resize the square according to viewports width and height
+					but the browsers CSS engine can do it also and many times faster. First how do we make a "square", we can not use the same percentage
+					for width and height since the sizes depend on the resolution? To do this we have to use a trick and make two elements. Since height,
+					percentage is relative to elements parent, we have to use padding to size the element inside, which has width and height set to 100%.
+					Second, how to position it? We don not know really what is the specified size of the margin, so we should set it to auto from
+					left and right and let the browser decide.
+				</p>
+				<p>
+					Here is the css for the example:
+				</p>
+				<pre class="prettyprint">
+.square {
+	width: 50%;
+	position: relative;
+	padding-bottom: 50%;
+	margin: 0 auto;
+}
+
+.square > .square_content {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+				</pre>
+				<p>
+					And the html:
+				</p>
+				<pre class="prettyprint">
+&lt;div class="square"&gt;
+	&lt;div class="square_content"&gt;
+		I'm 50% of your window!
+	&lt;/div&gt;
+&lt;/div&gt;
+				</pre>
+				<p>
+					You can resize the window and see that the square size always changes according to Your screen size, but there is a problem.
+					The font stays the same, and it is not very readable. We can change it by using "em" or even better "rem" units to make
+					relative font sizes. The difference between the two is that "em" size is defined by the size of the parent element's font size
+					and "rem" size is defined by the global font-size.
+				</p>
+				<p>
+					So lets define that the global font is 50% and then use rems to define the font size for all elements. When the resolution changes,
+					we can modify the base font size and all other font's will change acording to it. See the <a href="example3/index.html" target="_blank">example 3</a>
+				</p>
+				<p>
+					But this forces us to create rules for some resolutions. There are other units wchich will scale to viewports resolution. Please look
+					at <a href="example4/index.html" target="_blank">example 4</a>.
+				</p>
+				<pre class="prettyprint">
+html {
+	font-size: 3vw;
+}
+				</pre>
+				<p>
+					This defines the base font as 3vw. What is "vw"? This is a relative and variable length unit. It exactly means "viewports width"
+					and 1 unit is equal to 1% of the viewports width. This helps when You want to achievie sizes relative to the window size.
+					Please look into the <a href="#useful-information">Useful Information</a> section for more information.
+				</p>
+			</section>
+
+			<section id="how-big-is-a-pixel">
+				<h2>How big is a pixel (screen density)</h2>
+				<p>
+					If your page/app is all text and boxes and You are using relative font sizes, You are fine. But if You use
+					images pixel density is a big deal if Your work should look great.
+				</p>
+				<p>
+					According to  CSS 2.1 Specification a pixel is a relative unit to the resolution of the viewing device. So for
+					example, 1 pixel according to your browser could result of a 1.5 real pixel on the display device.
+				</p>
+				<p>
+					<a href="example5/index.html" target="_blank">Example 5</a> shows a page that if we open on a device that has 2dppx
+					set, we will see a jagged edge as presented on the image below:
+				</p>
+				<p class="content_center">
+					<a href="assets/triangle-aliased.png" target="_blank"><img src="assets/triangle-aliased.png" width="200" alt="example"></a>
+				</p>
+				<p>
+					To fix this we need to change the images for devices that use more pixels to display 1 "virtual pixel". We do it by
+					using the min-resolution or max-resolution expressions. <strong>This is not fully supported yet so we
+					also need to specify the vendor prefixed expressions</strong>
+				</p>
+				<pre class="prettyprint">
+
+@media (-webkit-min-device-pixel-ratio: DPPX NUMBER),
+	(min--moz-device-pixel-ratio: DPPX NUMBER),
+	(min-resolution: DPPX NUMBER) {
+		/** change images here */
+}
+				</pre>
+				<p>
+					As you can see in the <a href="example6/index.html" target="_blank">example 6</a> we do it here:
+				</p>
+				<pre class="prettyprint">
+
+@media (-webkit-min-device-pixel-ratio: 2),
+	(min--moz-device-pixel-ratio: 2),
+	(min-resolution: 2dppx) {
+	.image {
+		background-image: url("../assets/triangle-2.png");
+	}
+}
+				</pre>
+				<p>
+					The base image is 256x256, the image for 2dppx is 512x512 and the image for 4dppx is 1024x1024. So we should get a smooth image on more dppx
+				</p>
+				<p class="content_center">
+					<a href="assets/triangle-antialiased.png" target="_blank"><img src="assets/triangle-antialiased.png" width="200" alt="example"></a>
+				</p>
+				<p>
+					What is a dppx unit? It represents the number of dots per px unit. Note: due to the 1:96 ratio of "in" to "px" relation 1dppx is equivalent to 96dpi,
+					which is the default value for "image-resolution" css property for images.
+				</p>
+			</section>
+
+			<section id="css-regions">
+				<h2>CSS Regions</h2>
+				<p>
+					<strong>This is a highly experimental feature as of the moment of writing this guide</strong> so if You are interested in compatibility You can skip this
+					section. <strong>The example is written in Chrome/Webkit in mind</strong>. To use CSS Regions you propably will have to enable "#enable-experimental-web-platform-features"
+					or "#enable-experimental-webkit-features" flag in about:flags page.
+				</p>
+				<p>
+					<a href="example7/index.html" target="_blank">Example 7</a> shows the usage of CSS Regions. To see the text flowing change the page width from 120px across 320px to 640px,
+					You should see the text jump into different elements, but only if your browser supports it.
+				</p>
+				<p>
+					So exactly what are CSS Regions? Simply we define a source region, that is bound to a named flow and we use that identifier to push the data to a different element.
+				</p>
+				<pre class="prettyprint">
+.source {
+	-webkit-flow-into: testflow;
+}
+
+.target {
+	-webkit-flow-from: testflow;
+}
+				</pre>
+				<p>
+					The content from the .source element will appear inside .target element
+				</p>
+			</section>
+
+			<section id="dos-and-donts">
+				<h2>Do's and Dont's</h2>
+				<h4>Take care of the little guy</h4>
+				<p>
+					You have to remember that mobile and weareable devices are less powerfull than PC desktops, so the
+					less rules to parse the better. The key is to start a layout for a small device and then build up
+					the css rules for bigger screens.
+				</p>
+				<h4>Don't trap Yourself</h4>
+				<p>
+					The most nautal thing is to create a base layout for a full resolution device (HD/HDready) and then
+					create some rulesets for specific devices. This is a obvious trap. With more devices and more and more
+					resolutions You will have to create more and more device specific queries. Instead rethink the design,
+					create rules that naturally reflow the information of the app/webpage according to visibility and information
+					importance.
+				</p>
+				<p>
+					Organize rules in few simple groups like: hd devices, handheld devices and micro devices (like a watch), and
+					keep the rules only applied to those three groups. In this way the amount the work you will put into an
+					app UI won't overglow the amount of profit You will gain from it.
+				</p>
+				<h4>Decide what's important</h4>
+				<p>
+					For example, let's say You have a hyper-cool-neat logo that You wan't to show of on the first screen but
+					You don't want to crunch the information on the same screen and You put it aside the first paragraph. Great,
+					but then there's a watch device that has a really small resolution. So what do you do? You stack the logo and
+					the paragraph top down, change the image size etc. Ask Yourself, is the logo that important that the user looses
+					track what's important on the screen? If so, maybe You should consider making the logo an intro screen? Or maybe
+					the logo should go at the bottom of the page, change it to a watermark or even hide it. You have to decide what is
+					really important.
+				</p>
+				<h4>Keep it simple</h4>
+				<p>
+					There should be a rule, the smaller the size, the more scrolling there is. Organize the screen in small parts and
+					hide/show change them acordingly to users resolution. If Your app is being viewed on a micro device, the chances are,
+					nobody will want to go through last paragraphs of Your elaborate if theres an hour of just scrolling to get there.
+					If there is nothing You can do about it, remember that easy navigation is key here (ex. table of contents layer hidden in a
+					small button).
+				</p>
+				<h4>It's all about layout</h4>
+				<p>
+					One would think so. But that's not really the case. Let's image we have a beautifull web application let's say
+					about Shakespeare's work. Some fragments here an there. Creamy background, light font, stylized colors. Looks great.
+					But will that look great on na wearable device like a watch? Not really, the colors will merge the text will imperceptible.
+					This is about layout as well as fonts and not to be forgotten: <strong>colors</strong>. The smaller the screen,
+					the bigger the contrast has to be.
+				</p>
+				<h4>Avoid pixels</h4>
+				<p>
+					If possible, avoid them. Allow the browser engine to scale and change the content. There are %, rem, pt which are
+					perfectly ok, and allow flexible scaling
+				</p>
+				<h4>Enjoying the small things</h4>
+				<p>
+					Be aware of nature constraints. The smaller the resolution, the bigger interactive elements have to be. Don't force the user to
+					accurately try to pin point a 2x2 button with there finger on a watch device.
+				</p>
+			</section>
+
+			<section id="clock-tutorial">
+				<h2>Clock&Calendar Application tutorial</h2>
+				<p>
+					So how about making yourself an app? Let's make a simple futuristic clock application with 3 monthly calendars.
+				</p>
+				<p>
+					<strong>Note</strong>: all the code below can be viewed in "clock/" subfolder, it has been splitted into steps. The finished application
+					can be viewed by navigating your browser to <a href="clock/index_finished.html" target="_blank">clock/index_finished.html</a>. The app supports square screen devices (like watches), landscape and
+					portrait screens and television screens.
+				</p>
+				<p>
+					All of the media query settings and resolutions can be set in the dev tools drawer which can be seen on the figure below. Let us start by setting the resolution
+					to a small screen which has an aspect ratio of 1/1. Let it be 320x320. Please remember, we have to start writing our css for the slowest device and then
+					build up for more powerful devices.
+				</p>
+				<p class="figure">
+				    Figure: DevTools screen emulation drawer
+				</p>
+				<p class="content_center">
+				    <img src="assets/clock-tutorial-1.png">
+				</p>
+				<p>
+					Let's start with our basic app structure. Also let's define some basic styles. We are going for a "page model" by default,
+					that means only one page can be visible at a time, and other can be accessed through navigation, so wee need to hide the oveflow to
+					disable scrollbars. We also reset margins and paddings and strech our &lt;body&gt; element.
+				</p>
+				<pre class="prettyprint">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+    &lt;head&gt;
+        &lt;title&gt;Clock&Calendar&lt;/title&gt;
+        &lt;meta name="viewport" content="width=device-width, user-scalable=no"&gt;
+        &lt;style type="text/css"&gt;
+            body {
+                background: rgb(15,15,15);
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+                width: 100%;
+                height: 100%;
+            }
+        &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+				<p>
+					Ok, now we can add our widgets. Since this tutorial is focused on media queries, not javascript, the widgets are standalone
+					JS widgets. Let's also make container elements for the widgets.					
+				</p>
+				<pre class="prettyprint">
+&lt;div id="clock"&gt;
+	&lt;div class="clock-widget"&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id="calendar"&gt;
+	&lt;div class="calendar-widget"&gt;&lt;/calendar&gt;
+&lt;/div&gt;
+&lt;div id="calendar_1month"&gt;
+	&lt;div class="calendar-widget" data-monthOffset="1"&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id="calendar_2month"&gt;
+	&lt;div class="calendar-widget" data-monthOffset="2"&gt;&lt;/div&gt;
+&lt;/div&gt;
+				</pre>
+				<p>
+					This widgets exceed the scope of this tutorial, but remember that they are written to be standalone, resolution and font scaled,
+					and the code should not interfere with your app. Just rememver to include the css files in "clock/css/*" in the head and js files
+					"clock/js/*" files befor the &lt;/body&gt; tag.
+				</p>
+				<p>
+					We also want our widgets to strech inside their containers so let's style the &lt;object&gt; tag.
+				</p>
+				<pre class="prettyprint">
+object {
+	width: 100%;
+	height: 100%;
+}
+				</pre>
+				<p>
+					Now we add a "page" class to all the containers to properly style them all.
+				</p>
+				<pre class="prettyprint">
+&lt;div id="clock" class="page"&gt;
+	&lt;div class="clock-widget"&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id="calendar" class="page"&gt;
+	&lt;div class="calendar-widget"&gt;&lt;/calendar&gt;
+&lt;/div&gt;
+&lt;div id="calendar_1month" class="page"&gt;
+	&lt;div class="calendar-widget" data-monthOffset="1"&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id="calendar_2month" class="page"&gt;
+	&lt;div class="calendar-widget" data-monthOffset="2"&gt;&lt;/div&gt;
+&lt;/div&gt;
+				</pre>
+				<p>
+					We want the pages to be as flexible as possible, so we fill them to the whole screen using "vh" unit which means
+					that 1vh is equal to 1% of viewport height and 1vw is equal to 1% of viewport width.
+				</p>
+				<pre class="prettyprint">
+.page {
+	padding: 10vw;
+	z-index: 1;
+	width: 80vw;
+	height: 80vh;
+}
+				</pre>
+				<p>
+					You can change the pages by adding a hastag to the url in the browser, so #clock will show the clock and #calendar will show the calendar. 
+					This works because the pages have id attributes which act like anchors and the browser scrolls the body element to an anchor specified by
+					a hashtag.
+				</p>
+				<p>
+					Now we would need a proper navigation element. Let's use a list of empty links, we will style them as blocks to be easily clickable/touchable for the
+					user.
+				</p>
+				<pre class="prettyprint">
+&lt;ul id="navigation"&gt;
+	&lt;li class="clock"&gt;
+		&lt;a href="#clock"&gt;&lt;/a&gt;
+	&lt;/li&gt;
+	&lt;li class="calendar"&gt;
+		&lt;a href="#calendar"&gt;&lt;/a&gt;
+	&lt;/li&gt;
+	&lt;li class="calendar_1month"&gt;
+		&lt;a href="#calendar_1month"&gt;&lt;/a&gt;
+	&lt;/li&gt;
+	&lt;li class="calendar_2month"&gt;
+		&lt;a href="#calendar_2month"&gt;&lt;/a&gt;
+	&lt;/li&gt;
+&lt;/ul&gt;
+				</pre>
+				<p>
+					The navigation will be a bar of square buttons, so we style them acordingly. The position of the navigation
+					element will be fixed on the screen so changing the page will not move it.
+				</p>
+				<pre class="prettyprint">
+#navigation {
+	display: block;
+	position: fixed;
+	height: 100vh;            
+	width: 5vw;
+	right: 0;
+	top: 0;
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	z-index: 5;
+}
+
+li {
+	margin: 0;
+	padding: 0;
+	position: relative;
+	width: 100%;
+	height: 25vw;
+}
+
+li &gt; a,
+li &gt; a:link,
+li &gt; a:visited {
+	display: block;
+	border: 1px solid rgb(70, 70, 70);
+	background: rgb(30, 30, 30);
+	width: 100%;
+	height: 100%;
+}
+
+li &gt; a:active,
+li &gt; a:hover {
+	background: rgb(134, 193, 222);
+}
+				</pre>
+				<p>
+					Now we have a full application that would work well on square screen devices like a watch. The css is simple, the page could have some js to
+					ease up the annoyances like no startup focus on the navigation etc but thats exceeds the purpose of this tutorial.
+				</p>
+				<p>
+					And the purpose is? <strong>media queries</strong>. We want our application to look good on mobile and tv devices. Now we will add a media query for landscape and
+					portrait devices. But there is a problem. Let's say we have a square screen smart watch. The orientation is always set (ther is no "null" orientation) so we
+					can't really rely on that. Look at the code below and I will try to explain why such an approach was chosen.
+				</p>				
+				<pre class="prettyprint">
+@media handheld and (orientation: landscape), screen and (orientation: landscape) {
+	/** our rules */
+}
+
+@media handheld and (orientation: portrait), screen and (orientation: landscape) {
+	/** our rules */
+}
+				</pre>
+				<p>
+					Why such a weird rule? We are selecting specific devices to apply our rulesets for, that is handheld (phones, tablets) and screen (desktops). It's not really bulletproof but it will work.
+				</p>
+				<p>
+					That's perfectly valid, but a more clean approach would be:
+				</p>
+				<pre class="prettyprint">
+@media (not watch) and (orientation: landscape) {
+	/** our rules */
+}
+
+@media (not watch) and (orientation: portrait) {
+	/** our rules */
+}
+				</pre>
+				<p>
+					The watch media type is a new media type only supported for now on webkit browser on watch devices. But there is a problem with this query. The negation operator <strong>does not work in some implementations</strong> properly
+					for example on a chrome v33 the css inside that query will never be applied on any devices. Just rememer that sometimes You will have to find a more clever way of writing Your queries.
+				</p>
+				<p>
+					Of cource you could write:
+				</p>
+				<pre class="prettyprint">
+@media watch {
+}
+				</pre>
+				<p>
+					But this will brake the rule of writing css for slowest devices first.
+				</p>
+				<p>
+					Ok, so we have our queries now let's write some css. We want our application to always display the clock and 1 of the calendars (specified by the navigation) in
+					horizontal or vertical layout according to orientation.
+				</p>
+				<pre class="prettyprint">
+@media hanheld and (orientation: landscape), screen and (orientation: landscape) {
+	#navigation {
+		right: auto;
+		left: 0;
+		width: 100vw;
+		height: 5vh;
+		margin: 0 auto;
+	}
+
+	#navigation &gt; li {
+		float: left;
+		width: 33vw;
+		height: 100%;
+	}
+
+	#navigation &gt; li.clock {
+		display: none;
+	}
+
+	.page {
+		width: 50%;
+		margin-left: 50%;
+		padding-top: 12vh;
+		height: 78vh;
+		padding-left: 0;
+	}
+
+	#clock {
+		position: fixed;
+		left: 0;
+		top: 12vh;
+		margin: 0;
+		padding: 0;                    
+	}
+}
+
+@media handheld and (orientation: portrait), screen and (orientation: portrait),
+	#navigation {
+		right: auto;
+		left: 0;
+		width: 100vw;
+		height: 5vh;
+		margin: 0 auto;
+	}
+
+	#navigation &gt; li {
+		float: left;
+		width: 33vw;
+		height: 100%;
+	}
+
+	#navigation &gt; li.clock {
+		display: none;
+	}
+
+	.page {
+		height: 50vh;
+		padding: 50vh 10vw 10vh 10vw;
+	}
+
+	#clock {
+		position: fixed;
+		left: 0;
+		top: 12vh;
+		margin: 0;
+		padding: 0;                    
+	}
+}
+				</pre>
+				<p>
+					The last thing we need to do is support television displays. This is the easiest think to do, since we only need to
+					specify a media type in the query. In this query scope we just change the size of the pages and make them float to left,
+					by that we are making them appear inline to each other. We also disable (hide) to navigation element which in this case is useless.
+				</p>
+				<pre class="prettyprint">
+@media tv {
+	body {
+		padding-top: 10vh;
+		padding-left: 10vw;
+	}
+	.page,
+	#clock {
+		height: 40vh;
+		width: 40vw;
+		margin: 0;
+		float: left;
+		padding: 0;
+		position: relative;
+		top: auto;
+		left: auto;
+	}
+
+	#navigation {
+		display: none;
+	}
+}
+
+				</pre>
+				<p>
+					Like mentioned before, the parts of the tutorial code are available in the clock directory and the finished example is the <a href="clock/index_finished.html">clock/index_finished.html</a> file.
+				</p>
+			</section>
+
+			<section id="useful-information">
+				<h2>Useful information</h2>
+				<ul>
+					<li>
+						<p>Mozilla Developer Network extensive media query guide</p>
+						<a href="https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Media_queries">https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Media_queries</a>
+					</li>
+					<li>
+						<p>W3 Formal Specification</p>
+						<a href="http://www.w3.org/TR/css3-mediaqueries/">http://www.w3.org/TR/css3-mediaqueries/</a>
+					</li>
+					<li>
+						<p>Brad Frost'spattern list</p>
+						<a href="http://bradfrost.github.io/this-is-responsive/patterns.html">http://bradfrost.github.io/this-is-responsive/patterns.html</a>
+					</li>
+					<li>
+						<p>Luke Wroblewski's patterns</p>
+						<a href="http://www.lukew.com/ff/entry.asp?1514">http://www.lukew.com/ff/entry.asp?1514</a>
+					</li>
+					<li>
+						<p>W3 guide on units</p>
+						<a href="http://www.w3.org/Style/Examples/007/units.en.html">http://www.w3.org/Style/Examples/007/units.en.html</a>
+					</li>
+					<li>
+						<p>W3 guide on relative units</p>
+						<a href="http://www.w3.org/TR/css3-values/#lengths">http://www.w3.org/TR/css3-values/#lengths</a>
+					</li>
+					<li>
+						<p>Jonathan Snook, the creator of SMACSS, article about font sizing units</p>
+						<a href="http://snook.ca/archives/html_and_css/font-size-with-rem">http://snook.ca/archives/html_and_css/font-size-with-rem</a>
+					</li>
+					<li>
+						<p>Quircksmode article about pixel density</p>
+						<a href="http://www.quirksmode.org/blog/archives/2010/04/a_pixel_is_not.html">http://www.quirksmode.org/blog/archives/2010/04/a_pixel_is_not.html</a>
+					</li>
+					<li>
+						<p>Optimizing for hight density displays</p>
+						<a href="http://menacingcloud.com/?c=highPixelDensityDisplays">http://menacingcloud.com/?c=highPixelDensityDisplays</a>
+					</li>
+				</ul>
+			</section>
+		</article>
+	</body>
+</html>

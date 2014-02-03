@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>CSS Regions</title>
+		<style type="text/css">
+			.zero {
+				-webkit-flow-into: testflow;
+				margin: 0;
+				padding: 0;
+				color: blue;
+			}
+
+			.first {
+				-webkit-flow-from: testflow;
+				background: lightgreen;
+			}
+
+			.second {
+				background: yellow;
+			}
+
+			.third {
+				background: lightblue;
+			}
+
+			.first,
+			.second,
+			.third {
+				height: 120px;
+				width: 100%;
+				overflow: hidden;
+			}
+
+			@media all and (min-width: 320px) {
+				.first {
+					-webkit-flow-from: none;
+				}
+				.second {
+					-webkit-flow-from: testflow;
+				}
+			}
+
+			@media all and (min-width: 640px) {
+				.first,
+				.second {
+					-webkit-flow-from: none;
+				}
+				.third {
+					-webkit-flow-from: testflow;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="zero">
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc cursus imperdiet purus ac eleifend. Vivamus posuere pellentesque nibh vel laoreet. Donec et sem odio. Donec sit amet lorem hendrerit, faucibus libero et, mattis lacus. Suspendisse dapibus rutrum felis quis interdum. Integer tincidunt, orci at condimentum placerat, est nulla sollicitudin velit, vitae gravida nisi odio ac ligula. Sed hendrerit ac massa vel ultricies. Vestibulum commodo, orci et tincidunt laoreet, enim tellus aliquet orci, quis dapibus sapien tellus eu felis. Etiam non arcu at eros luctus consectetur vitae eget nunc. In felis ipsum, vehicula ac mauris vel, porttitor gravida neque. Quisque orci turpis, aliquam vel tortor convallis, ullamcorper molestie nisl. Sed aliquet dignissim lorem non fringilla. In hac habitasse platea dictumst. In hac habitasse platea dictumst. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi congue erat ac hendrerit ullamcorper. Morbi facilisis urna nunc, eget pretium lectus congue vitae.
+		</div>
+		<div class="first"></div>
+		<div class="second"></div>
+		<div class="third"></div>
+	</body>
+</html>

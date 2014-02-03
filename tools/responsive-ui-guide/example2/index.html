@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Example 2, three column layout</title>
+		<style type="text/css">
+			.columns > p:nth-child(1) {
+				background-color: lightgreen;
+			}
+			.columns > p:nth-child(2) {
+				background-color: lightblue;
+			}
+			.columns > p:nth-child(3) {
+				background-color: orange;
+			}
+
+			@media all and (min-width: 640px) {
+				.columns > p:nth-child(1),
+				.columns > p:nth-child(2) {
+					width: 48%;
+					float: left;
+					margin-left: 1%;
+				}
+
+				.columns > p:nth-child(3) {
+					clear: left;
+				}
+			}
+
+			@media all and (min-width: 1024px) {
+				.columns > p {
+					width: 32% !important;
+					float: left;
+					margin-left: 1% !important;
+					clear: none !important;
+				}
+				.columns:after {
+					content: ".";
+					clear: left;
+					width: 0;
+					visibility: hidden;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="columns">
+			<p>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ullamcorper facilisis arcu at sagittis. Maecenas elit tortor, sagittis ac bibendum eu, ultricies non sem. Sed pharetra felis vitae arcu pretium sollicitudin. Ut faucibus sem id neque scelerisque, vitae fringilla tellus ultrices. Suspendisse nec mattis est. Sed egestas auctor lectus, vitae aliquet tortor gravida ut. Integer consequat iaculis metus ut commodo. Nulla libero elit, convallis ut hendrerit ut, mollis vitae libero. Sed semper dolor at consequat aliquet. Cras aliquet sapien eros, quis sollicitudin risus imperdiet eget. Integer vitae ipsum ut nulla vestibulum faucibus quis ac quam. Donec id diam sit amet nisi convallis mattis.
+			</p>
+			<p>
+				Morbi aliquet scelerisque libero, quis varius mauris semper eu. Vivamus volutpat nunc sit amet mi interdum gravida. Etiam sit amet ante tempor eros imperdiet vulputate. Praesent magna leo, mollis vel tempus ut, consequat sed ipsum. Ut fermentum justo sit amet libero iaculis ultrices. Duis tempor nulla nec eros porttitor, et placerat risus mollis. Nulla accumsan, dui a gravida tristique, quam nisl egestas dolor, eu sollicitudin odio risus ac nibh.
+			</p>
+			<p>
+				Nullam vitae arcu pretium augue venenatis volutpat eu et justo. In in lacinia sem. Mauris gravida urna a leo tincidunt, in accumsan orci dignissim. Proin non fringilla ipsum. Proin at tincidunt sem. In accumsan, est vel posuere tempor, lacus orci gravida libero, sed tincidunt elit arcu et nisi. Donec scelerisque enim et purus cursus eleifend. Sed interdum et orci nec mattis. Nulla interdum condimentum tortor, quis fringilla tortor tincidunt aliquam. Sed ut dui condimentum, sagittis diam et, varius leo. Nam tincidunt leo lacus, in sodales risus ultricies nec. Vestibulum eu porta erat, vitae porta turpis. Nulla lobortis euismod condimentum. Suspendisse tristique, nisi id porta adipiscing, tellus neque faucibus libero, vitae commodo diam nibh ac turpis.
+			</p>
+		</div>
+	</body>
+</html>
