@@ -1,0 +1,172 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head><script type="text/javascript" src="../../snippet.js"></script>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link href="../../styles.css" rel="StyleSheet" type="text/css">
+<link href="../../snippet.css" rel="StyleSheet" type="text/css">
+  <title>IndexScrollbar</title>
+</head>
+
+<body onload="prettyPrint()">
+
+
+<h1>IndexScrollbar</h1>
+
+<p>The IndexScrollbar widget shows a scrollbar that has indices on it, and fires an 'select' event when the index characters are clicked.</p>
+
+<p>To add an IndexScrollbar widget to the application, use the following code:
+<pre class="prettyprint">
+&lt;div id=&quot;foo&quot; class=&quot;ui-indexscrollbar&quot; data-index=&quot;A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z&quot;&gt;&lt;/div&gt;
+
+&lt;script&gt;
+(function() {
+  var elem = document.getElementById(&quot;foo&quot;);
+  gear.ui.IndexScrollbar(elem);
+  elem.addEventListener(&quot;select&quot;, function(ev){
+    var index=ev.detail.index;
+    console.log(index);
+  });
+}());
+&lt;/script&gt;
+</pre>
+The index value can be retrieved by accessing event.detail.index property.</p>
+
+<p>The next example is a bit much complicated one, which scrolls a list to the position of the listitem having "li-divider" class, selected by the IndexScrollbar.</p>
+<pre class="prettyprint">
+&lt;div style=&quot;overflow-y:scroll;&quot;&gt;
+	&lt;div id=&quot;indexscrollbar1&quot;
+		 class=&quot;ui-indexscrollbar&quot;
+		 data-index=&quot;A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z&quot;&gt;
+	&lt;/div&gt;
+	&lt;ul class=&quot;ui-listview&quot; id=&quot;list1&quot;&gt;
+		&lt;li class=&quot;li-divider&quot;&gt;A&lt;/li&gt;
+		&lt;li&gt;Anton&lt;/li&gt;
+		&lt;li&gt;Arabella&lt;/li&gt;
+		&lt;li&gt;Art&lt;/li&gt;
+		&lt;li class=&quot;li-divider&quot;&gt;B&lt;/li&gt;
+		&lt;li&gt;Barry&lt;/li&gt;
+		&lt;li&gt;Bibi&lt;/li&gt;
+		&lt;li&gt;Billy&lt;/li&gt;
+		&lt;li&gt;Bob&lt;/li&gt;
+		&lt;li class=&quot;li-divider&quot;&gt;D&lt;/li&gt;
+		&lt;li&gt;Daisy&lt;/li&gt;
+		&lt;li&gt;Derek&lt;/li&gt;
+		&lt;li&gt;Desmond&lt;/li&gt;
+		&lt;li class=&quot;li-divider&quot;&gt;E&lt;/li&gt;
+		&lt;li&gt;Eric&lt;/li&gt;
+		&lt;li&gt;Ernie&lt;/li&gt;
+		&lt;li&gt;Esme&lt;/li&gt;
+		&lt;li class=&quot;li-divider&quot;&gt;F&lt;/li&gt;
+		&lt;li&gt;Fay&lt;/li&gt;
+		&lt;li&gt;Felicity&lt;/li&gt;
+		&lt;li&gt;Francis&lt;/li&gt;
+		&lt;li&gt;Frank&lt;/li&gt;
+		&lt;li class=&quot;li-divider&quot;&gt;H&lt;/li&gt;
+		&lt;li&gt;Harry&lt;/li&gt;
+		&lt;li&gt;Herman&lt;/li&gt;
+		&lt;li&gt;Horace&lt;/li&gt;
+		&lt;li class=&quot;li-divider&quot;&gt;J&lt;/li&gt;
+		&lt;li&gt;Jack&lt;/li&gt;
+		&lt;li&gt;Jane&lt;/li&gt;
+		&lt;li&gt;Jill&lt;/li&gt;
+		&lt;li class=&quot;li-divider&quot;&gt;K&lt;/li&gt;
+		&lt;li&gt;Katherine&lt;/li&gt;
+		&lt;li&gt;Katy&lt;/li&gt;
+		&lt;li&gt;Keith&lt;/li&gt;
+		&lt;li class=&quot;li-divider&quot;&gt;L&lt;/li&gt;
+		&lt;li&gt;Larry&lt;/li&gt;
+		&lt;li&gt;Lee&lt;/li&gt;
+		&lt;li&gt;Lola&lt;/li&gt;
+		&lt;li class=&quot;li-divider&quot;&gt;M&lt;/li&gt;
+		&lt;li&gt;Mark&lt;/li&gt;
+		&lt;li&gt;Milly&lt;/li&gt;
+		&lt;li&gt;Mort&lt;/li&gt;
+		&lt;li class=&quot;li-divider&quot;&gt;N&lt;/li&gt;
+		&lt;li&gt;Nigel&lt;/li&gt;
+		&lt;li&gt;Norman&lt;/li&gt;
+		&lt;li class=&quot;li-divider&quot;&gt;O&lt;/li&gt;
+		&lt;li&gt;Organza&lt;/li&gt;
+		&lt;li&gt;Orlando&lt;/li&gt;
+		&lt;li class=&quot;li-divider&quot;&gt;1&lt;/li&gt;
+		&lt;li&gt;1st Store&lt;/li&gt;
+	&lt;/ul&gt;
+&lt;/div&gt;
+&lt;script&gt;
+(function() {
+	var page = document.getElementById(&quot;pageIndexScrollbar&quot;);
+	page.addEventListener(&quot;pagecreate&quot;, function(ev) {
+
+		var elem = document.getElementById(&quot;indexscrollbar1&quot;),	// indexScrollbar element
+		    elList = document.getElementById(&quot;list1&quot;),	// list element
+		    elDividers = elList.getElementsByClassName(&quot;li-divider&quot;),	// listitems(dividers)
+		    elScroller = elList.parentElement,	// the list's parent item (overflow-y:scroll)
+		    dividers = {},	// collection of list dividers
+		    indices = [],	// list of index
+		    elDivider,
+		    i, idx;
+
+		// For all list dividers,
+		for(i=0; i &lt; elDividers.length; i++) {
+			// Add the list divider elements to the collection
+			elDivider = elDividers[i];	// a li element having li-divider class
+			idx = elDivider.innerText;	// get a text(index value)
+			dividers[idx] = elDivider;	// remember the element
+
+			// Add the index to the index list
+			indices.push(idx);
+		}
+
+		// Chage the data-index attribute to the indexscrollbar element, before initializing IndexScrollbar widget.
+		elem.setAttribute(&quot;data-index&quot;, indices.join(&quot;,&quot;));
+
+		// Create IndexScrollbar
+		gear.ui.IndexScrollbar(elem);
+
+		// Bind a 'select' callback
+		elem.addEventListener(&quot;select&quot;, function(ev) {
+			var elDivider,
+			    idx = ev.detail.index;
+			elDivider = dividers[idx];
+			if(elDivider) {
+				// Scroll to the li-divider element
+				elScroller.scrollTop = elDivider.offsetTop - elScroller.offsetTop;
+			}
+		});
+	});
+} ());
+&lt;/script&gt;
+</pre>
+
+<p>
+<h1>IndexScrollbar Interface</h1>
+<table>
+<tbody>
+	<tr>
+		<th>Interface</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">&lt;div class="ui-indexscrollbar" data-index="A,B,C,D"&gt;</span></td>
+		<td>Show an IndexScrollbar element on the webview.<br>The "ui-indexscrollbar" class must be given.<br>"data-index" attribute has a list of index strings, divided by ',' character.</td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">gear.ui.IndexScrollbar( element )</span></td>
+		<td>Create an IndexScrollbar widget on the given element.<br>Argument 'element' is an element having class="ui-indexscrollbar".
+		</td>
+	</tr>
+</tbody>
+</table>
+</p>
+
+<h2>Where to Go Next</h2>
+<ul>
+ <li><a href="widget_reference.htm">Widget Reference</a></li>
+
+</ul>
+
+<div id="footer">
+   <hr size="1" />
+   <font size="1">Except as noted, this content - excluding the Code Examples - is licensed under <a href="http://creativecommons.org/licenses/by/3.0/legalcode" target="_blank">Creative Commons Attribution 3.0</a>.</font>
+
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head><script type="text/javascript" src="../snippet.js"></script>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link href="../styles.css" rel="StyleSheet" type="text/css">
+<link href="../snippet.css" rel="StyleSheet" type="text/css">
+  <title>Virtual List</title>
+</head>
+
+<body onload="prettyPrint()">
+
+<h1>Virtual List</h1>
+
+<p>In the Web environment, it is challenging to display a large amount of data in a list, such as displaying a contact list of over 1000 list items. It takes time to display the entire list in HTML and the DOM manipulation is complex.</p>
+
+<p>The virtual list widget is used to display a list of unlimited data elements on the screen for better performance. This widget provides easy access to databases to retrieve and display data. Virtual lists are based on the <span style="font-family: Courier New,Courier,monospace">jQuery.template</span> plugin as described in the <a href="https://github.com/jquery/jquery-tmpl" target="_blank">jQuery documentation for jQuery.template plugin</a>.</p>
+
+<p>To add a virtual list widget to the application, use the following code:</p>
+<pre class="prettyprint">&lt;script id=&quot;tmp-3-2-7&quot; type=&quot;text/x-jquery-tmpl&quot;&gt;
+&nbsp;&nbsp;&nbsp;&lt;li class=&quot;ui-li-3-2-7&quot;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;span class=&quot;ui-li-text-main&quot;&gt;${NAME}&lt;/span&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;img src=&quot;00_winset_icon_favorite_on.png&quot; class=&quot;ui-li-icon-sub&quot;/&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;span class=&quot;ui-li-text-sub&quot;&gt;${ACTIVE}&lt;/span&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;span class=&quot;ui-li-text-sub2&quot;&gt;${FROM}&lt;/span&gt;
+&nbsp;&nbsp;&nbsp;&lt;/li&gt;
+&lt;/script&gt;
+ 
+&lt;ul id=&quot;vlist&quot; data-role=&quot;virtuallistview&quot; data-template=&quot;tmp-3-2-7&quot;
+&nbsp;data-dbtable=&quot;JSON_DATA&quot; data-row=&quot;100&quot;&gt;&lt;/ul&gt;
+</pre>
+
+<p>The following table describes the virtual list options.</p>
+
+<table>
+<tbody>
+	<tr>
+		<th>Option</th>
+		<th>Input type</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+      <td><span style="font-family: Courier New,Courier,monospace">data-role</span></td>
+	  <td>String</td>
+	  <td>Creates the virtual list view. The value must be set to <span style="font-family: Courier New,Courier,monospace">virtuallistview</span>.
+	  <p>Only the <span style="font-family: Courier New,Courier,monospace">&lt;ul&gt;</span> element, which a <span style="font-family: Courier New,Courier,monospace">id</span> attribute defined, supports this option. Also, the <span style="font-family: Courier New,Courier,monospace">vlLoadSuccess</span> class attribute must be defined in the <span style="font-family: Courier New,Courier,monospace">&lt;ul&gt;</span> element to ensure that loading data from the database is complete.</p></td>
+	</tr>
+	<tr>
+      <td><span style="font-family: Courier New,Courier,monospace">data-template</span></td>
+	  <td>String</td>
+	  <td>Defines the <span style="font-family: Courier New,Courier,monospace">jQuery.template</span> element ID.
+	  <p>The <span style="font-family: Courier New,Courier,monospace">jQuery.template</span> must be defined. The template style can use rem units to support scalability.</p></td>
+	</tr>
+	<tr>
+      <td><span style="font-family: Courier New,Courier,monospace">data-row</span> (optional)</td>
+	  <td>Integer</td>
+	  <td>Defines the number of virtual list child elements.
+	  <p>The minimum value is 20 and the default value is 100. As the value gets higher, the loading time increases while the system performance improves. So you need to pick  a value that provides the best performance without excessive loading time.</p></td>
+	</tr>
+</tbody>
+</table>
+
+<p>The following method can be used with virtual lists to call the jQuery <span style="font-family: Courier New,Courier,monospace">_create</span> method to create a virtual list:</p>
+
+<p><span style="font-family: Courier New,Courier,monospace">create(function itemData(index), number numItemData, function cacheItemData(minIndex, maxIndex))</span></p>
+
+<p>In the method parameters:</p>
+<ul>
+<li><span style="font-family: Courier New,Courier,monospace">function itemData(index)</span> returns the JSON object matched with the given index. The index value is between 0 and <span style="font-family: Courier New,Courier,monospace">numItemData-1</span>.</li>
+<li><span style="font-family: Courier New,Courier,monospace">number numItemData</span> or <span style="font-family: Courier New,Courier,monospace">function numItemData()</span> defines or returns a static number of items.</li>
+<li><span style="font-family: Courier New,Courier,monospace">function cacheItemData(minIndex, maxIndex)</span> prepares the JSON data. This method is called before calling the <span style="font-family: Courier New,Courier,monospace">itemData()</span> method with index values between <span style="font-family: Courier New,Courier,monospace">minIndex</span> and <span style="font-family: Courier New,Courier,monospace">maxIndex</span>.</li>
+</ul>
+
+
+<h2>Where to Go Next</h2>
+<ul>
+ <li><a href="widget_reference.htm">Widget Reference</a></li>
+
+</ul>
+
+<div id="footer">
+<hr size="1" />
+   <font size="1">Except as noted, this content - excluding the Code Examples - is licensed under <a href="http://creativecommons.org/licenses/by/3.0/legalcode" target="_blank">Creative Commons Attribution 3.0</a>.</font> 
+</div>
+<!--start-->
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-25976949-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+<!--end-->
+
+
+
+</body>
+</html>
