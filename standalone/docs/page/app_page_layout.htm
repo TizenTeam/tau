@@ -63,6 +63,48 @@ To find the current active page, use the 'ui-page-active' css class.
 </table>
 </p>
 
+<h1>Page Events</h1>
+<table>
+<tbody>
+	<tr>
+		<th style="width:40%;">Event name</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">mobileinit</span></td>
+		<td>Event indicating that Gear UI has finished loading.</td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">pagebeforecreate</span></td>
+		<td>Triggered on the page being initialized, before most plugin auto-initialization occurs.</td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">pagecreate</span></td>
+		<td>Triggered when the page has been created in the DOM (via ajax or other) but before all widgets have had an opportunity to enhance the contained markup.</td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">pagebeforeshow</span></td>
+		<td>Triggered on the “toPage” we are transitioning to, before the actual transition animation is kicked off.</td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">pageshow</span></td>
+		<td>Triggered on the “toPage” after the transition animation has completed.</td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">pagebeforehide</span></td>
+		<td>Triggered on the “fromPage” we are transitioning away from, before the actual transition animation is kicked off.</td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">pagehide</span></td>
+		<td>Triggered on the “fromPage” after the transition animation has completed.</td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">pagechange</span></td>
+		<td>This event is triggered after the changePage() request has finished loading the page into the DOM and all page transition animations have completed.</td>
+	</tr>
+</tbody>
+</table>
+
 <h1>Binding an event callback on the Back key</h1>
 <div>
 <pre class="prettyprint">/* JavaScript code */
