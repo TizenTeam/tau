@@ -2,28 +2,20 @@
  * toggle switch
  */
 
-
-
 .ui-switch {
-	width: inherit;
+	width: 288 * @unit_base;
 	height: inherit;
 	position: fixed;
 	color: @color_switch_text;
 }
 
 .ui-switch-text {
-	margin: 70 auto 34;
+	margin-top: 30 * @unit_base;
+	margin-bottom: 40 * @unit_base;
 	padding: 0 30;
 	font-size: 34 * @unit_base;
 	text-align: center;
 }
-
-.ui-toggleswitch {
-	width: 120 * @unit_base;
-	height: 60 * @unit_base;
-	border-radius: 30 * @unit_base;
-}
-
 .ui-switch-input {
 	display: none;
 }
@@ -34,56 +26,49 @@
 }
 
 .ui-switch-activation {
-	display: inline-block;
-	width: 120 * @unit_base;
-	height: 60 * @unit_base;
-	border-radius: 30 * @unit_base;
-	background-color: @color_switch_activation_bg;
+	width: 140 * @unit_base;
+	height: 70 * @unit_base;
+	background-image: url("./images/Controller_icon/tw_btn_toggle_bg_normal_holo_dark.png");
 	margin: 0 auto;
+	margin-top: 23 * @unit_base;
 
 	.ui-switch-handler {
 		position: relative;
-		width: 60 * @unit_base;
-		height: 60 * @unit_base;
-		border-radius: 30 * @unit_base;
-		border: 2 * @unit_base solid @color_switch_activation_bg;
-		background-color: @color_switch_handler_bg;
+		width: 86 * @unit_base;
+		height: 70 * @unit_base;
+		background-image: url("./images/Controller_icon/tw_btn_toggle_off_normal_holo_dark.png");
 		left: 0%;
 	}
 }
 
 .ui-switch-activation:active {
-	width: 120 * @unit_base;
-	height: 60 * @unit_base;
-	border-radius: 30 * @unit_base;
-	background-color: @color_swtich_activation_active_bg;
+	width: 140 * @unit_base;
+	height: 70 * @unit_base;
+	background-image: url("./images/Controller_icon/tw_btn_toggle_bg_pressed_holo_dark.png");
 	margin: 0 auto;
+	margin-top: 23 * @unit_base;
 
 	.ui-switch-handler:active {
 		position: relative;
-		width: 60 * @unit_base;
-		height: 60 * @unit_base;
-		border-radius: 30 * @unit_base;
-		border: 2 * @unit_base solid @color_swtich_activation_active_bg;
-		background-color: @color_switch_handler_bg;
+		width: 86 * @unit_base;
+		height: 70 * @unit_base;
+		background-image: url("./images/Controller_icon/tw_btn_toggle_off_pressed_holo_dark.png");
 		left: 0%
 	}
 }
 
 .ui-switch-activation:disable {
-	width: 120 * @unit_base;
-	height: 60 * @unit_base;
-	border-radius: 30 * @unit_base;
-	background-color: @color_switch_activation_disable_bg;
+	width: 140 * @unit_base;
+	height: 70 * @unit_base;
+	background-image: url("./images/Controller_icon/tw_btn_toggle_bg_disabled_holo_dark.png");
 	margin: 0 auto;
+	margin-top: 23 * @unit_base;
 
 	.ui-switch-handler:disable {
 		position: relative;
-		width: 60 * @unit_base;
-		height: 60 * @unit_base;
-		border-radius: 30 * @unit_base;
-		border: 2 * @unit_base solid @color_switch_activation_disable_bg;
-		background-color: @color_switch_handler_bg;
+		width: 86 * @unit_base;
+		height: 70 * @unit_base;
+		background-image: url("./images/Controller_icon/tw_btn_toggle_off_disabled_holo_dark.png");
 		left: 0%;
 	}
 }
@@ -92,54 +77,48 @@
 	display: none;
 
 	.ui-switch-activation {
-		width: 120 * @unit_base;
-		height: 60 * @unit_base;
-		border-radius: 30 * @unit_base;
-		background-color: @color_switch_activation_checked_bg;
+		width: 140 * @unit_base;
+		height: 70 * @unit_base;
+		background-image: url("./images/Controller_icon/tw_btn_toggle_bg_normal_holo_dark.png");
 		margin: 0 auto;
+		margin-top: 23 * @unit_base;
 
 		.ui-switch-handler {
 			position: relative;
-			width: 60 * @unit_base;
-			height: 60 * @unit_base;
-			border-radius: 30 * @unit_base;
-			border: 2 * @unit_base solid @color_switch_activation_checked_bg;
-			background-color: @color_switch_handler_bg;
-			left: 100%;
+			width: 86 * @unit_base;
+			height: 70 * @unit_base;
+			background-image: url("./images/Controller_icon/tw_btn_toggle_on_normal_holo_dark.png");
+			left: 74%;
 		}
 	}
 	.ui-switch-activation:active {
-		width: 120 * @unit_base;
-		height: 60 * @unit_base;
-		border-radius: 30 * @unit_base;
-		background-color: @color_switch_activation_active_checked_bg;
+		width: 140 * @unit_base;
+		height: 70 * @unit_base;
+		background-image: url("./images/Controller_icon/tw_btn_toggle_bg_pressed_holo_dark.png");
 		margin: 0 auto;
+		margin-top: 23 * @unit_base;
 
 		.ui-switch-handler:active {
 			position: relative;
-			width: 60 * @unit_base;
-			height: 60 * @unit_base;
-			border-radius: 30 * @unit_base;
-			border: 2 * @unit_base solid @color_switch_activation_active_checked_bg;
-			background-color: @color_switch_handler_bg;
-			left: 100%;
+			width: 86 * @unit_base;
+			height: 70 * @unit_base;
+			background-image: url("./images/Controller_icon/tw_btn_toggle_on_pressed_holo_dark.png");
+			left: 74%;
 		}
 	}
 	.ui-switch-activation:disable {
-		width: 120 * @unit_base;
-		height: 60 * @unit_base;
-		border-radius: 30 * @unit_base;
-		background-color: @color_switch_activation_disable_checked_bg;
+		width: 140 * @unit_base;
+		height: 70 * @unit_base;
+		background-image: url("./images/Controller_icon/tw_btn_toggle_bg_disabled_holo_dark.png");
 		margin: 0 auto;
+		margin-top: 23 * @unit_base;
 
 		.ui-switch-handler:disable {
 			position: relative;
-			width: 60 * @unit_base;
-			height: 60 * @unit_base;
-			border-radius: 30 * @unit_base;
-			border: 2 * @unit_base solid @color_switch_activation_disable_checked_bg;
-			background-color: @color_switch_handler_bg;
-			left: 100%;
+			width: 86 * @unit_base;
+			height: 70 * @unit_base;
+			background-image: url("./images/Controller_icon/tw_btn_toggle_on_disabled_holo_dark.png");
+			left: 74%;
 		}
 	}
 }
