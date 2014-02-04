@@ -69,6 +69,9 @@ define([
 
 		},
 
+		onOpenFailed: function(/* options */) {
+		},
+
 		onHashChange: function(/* url, state */) {
 			var activePopup = ns.pageContainer.find( ".ui-popup-active" );
 

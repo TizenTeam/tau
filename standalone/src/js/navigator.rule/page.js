@@ -16,6 +16,8 @@ define([
 
 (function( $, ns, undefined ) {
 
+	var baseElement;
+
 	ns.navigator = ns.navigator || {};
 	ns.navigator.rule = ns.navigator.rule || {};
 
@@ -58,10 +60,17 @@ define([
 				ns.navigator.history.replace( state, pageTitle, url );
 			}
 
+			// write base element
+			this._setBase( ns.path.parseLocation().hrefNoSearch );
+
 			//set page title
 			ns.$document[0].title = pageTitle;
 
 			ns.pageContainer.pagecontainer("change", $toPage, options);
+		},
+
+		onOpenFailed: function(/* options */) {
+			this._setBase( ns.path.parseLocation().hrefNoSearch );
 		},
 
 		onHashChange: function(/* url, state */) {
@@ -117,6 +126,9 @@ define([
 			var dataUrl = this._createDataUrl( absUrl ),
 				page, all = $( "<div></div>" );
 
+			// write base element
+			this._setBase(dataUrl);
+
 			//workaround to allow scripts to execute when included in page divs
 			all.get( 0 ).innerHTML = html;
 
@@ -134,7 +146,29 @@ define([
 
 		_createDataUrl: function( absoluteUrl ) {
 			return ns.path.convertUrlToDataUrl( absoluteUrl, true );
+		},
+
+		_getBaseElement: function() {
+			if ( !baseElement ) {
+				baseElement = $( "head" ).children( "base" );
+				baseElement = baseElement.length ? baseElement :
+					$( "<base>", { href: ns.path.documentBase.hrefNoHash } ).prependTo( $( "head" ) );
+			}
+			return baseElement;
+		},
+
+		_setBase: function( url ) {
+			var base = this._getBaseElement(),
+				baseHref = base.attr("href");
+
+			if ( ns.path.isPath( url ) ) {
+				url = ns.path.makeUrlAbsolute( url, ns.path.documentBase );
+				if ( ns.path.parseUrl(baseHref).hrefNoSearch !== ns.path.parseUrl(url).hrefNoSearch ) {
+					base.attr( "href", url );
+				}
+			}
 		}
+
 	};
 
 })( jQuery, ns );

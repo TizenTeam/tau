@@ -159,6 +159,7 @@ define([
 					rule.open( content, options );
 				});
 				deferred.fail(function( options ) {
+					rule.onOpenFailed( options );
 					ns.fireEvent(ns.pageContainer, "changefailed", options);
 				});
 
