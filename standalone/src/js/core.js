@@ -5,19 +5,15 @@
 
 //>>excludeStart("microBuildExclude", pragmas.microBuildExclude);
 define([
-	"jquery" ], function( jQuery ) {
+	"jquery",
+	"./ns" ], function( jQuery, ns ) {
 //>>excludeEnd("microBuildExclude");
 
-(function( $, window, undefined ) {
+(function( $, ns, window, undefined ) {
 
-	$.micro = $.micro || {};
+	ns.defaults = ns.defaults || {};
 
-	$.extend($.micro, {
-	});
-
-	$.micro.defaults = $.micro.defaults || {};
-
-	$.extend($.micro.defaults, {
+	$.extend(ns.defaults, {
 		autoInitializePage: true,
 		
 		// transition
@@ -26,7 +22,7 @@ define([
 
 	});
 
-})( jQuery, this );
+})( jQuery, ns, this );
 
 //>>excludeStart("microBuildExclude", pragmas.microBuildExclude);
 });

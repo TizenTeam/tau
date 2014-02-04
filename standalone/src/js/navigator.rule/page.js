@@ -6,38 +6,39 @@
 //>>excludeStart("microBuildExclude", pragmas.microBuildExclude);
 define([
 	"jquery",
+	"../ns",
 	"../core",
 	"../helper",
 	"../var/selectors",
 	"../utils/path.js",
-	"../navigator"], function( jQuery ) {
+	"../navigator"], function( jQuery, ns ) {
 //>>excludeEnd("microBuildExclude");
 
-(function( $, undefined ) {
+(function( $, ns, undefined ) {
 
-	$.micro.navigator = $.micro.navigator || {};
-	$.micro.navigator.rule = $.micro.navigator.rule || {};
+	ns.navigator = ns.navigator || {};
+	ns.navigator.rule = ns.navigator.rule || {};
 
-	$.micro.navigator.rule.page = {
+	ns.navigator.rule.page = {
 
-		filter: $.micro.selectors.page,
+		filter: ns.selectors.page,
 
 		option: function() {
 			return {
-				transition: $.micro.defaults.pageTransition
+				transition: ns.defaults.pageTransition
 			};
 		},
 
 		open: function( to, options ) {
 			var $toPage = $(to),
-				pageTitle = $.micro.$document[0].title,
+				pageTitle = ns.$document[0].title,
 				url, state = {};
 
-			if ( $toPage[0] === $.micro.$firstPage[0] && !options.dataUrl ) {
-				options.dataUrl = $.micro.path.documentUrl.hrefNoHash;
+			if ( $toPage[0] === ns.$firstPage[0] && !options.dataUrl ) {
+				options.dataUrl = ns.path.documentUrl.hrefNoHash;
 			}
 
-			url = options.dataUrl && $.micro.path.convertUrlToDataUrl(options.dataUrl) || $toPage.data( "url" );
+			url = options.dataUrl && ns.path.convertUrlToDataUrl(options.dataUrl) || $toPage.data( "url" );
 
 			pageTitle = $toPage.data( "title" ) || ($toPage.children( ".ui-header" ).find( ".ui-title" ).text()) || pageTitle;
 			if( !$toPage.data( "title" ) ) {
@@ -46,7 +47,7 @@ define([
 
 			if ( url && !options.fromHashChange ) {
 
-				if ( !$.micro.path.isPath( url ) && url.indexOf( "#" ) < 0 ) {
+				if ( !ns.path.isPath( url ) && url.indexOf( "#" ) < 0 ) {
 					url = "#" + url;
 				}
 
@@ -54,13 +55,13 @@ define([
 					url: url
 				});
 
-				$.micro.navigator.history.replace( state, pageTitle, url );
+				ns.navigator.history.replace( state, pageTitle, url );
 			}
 
 			//set page title
-			$.micro.$document[0].title = pageTitle;
+			ns.$document[0].title = pageTitle;
 
-			$.micro.pageContainer.pagecontainer("change", $toPage, options);
+			ns.pageContainer.pagecontainer("change", $toPage, options);
 		},
 
 		onHashChange: function(/* url, state */) {
@@ -69,7 +70,7 @@ define([
 
 	};
 
-})( jQuery );
+})( jQuery, ns );
 
 //>>excludeStart("microBuildExclude", pragmas.microBuildExclude);
 });

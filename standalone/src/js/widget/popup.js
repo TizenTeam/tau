@@ -6,12 +6,13 @@
 //>>excludeStart("microBuildExclude", pragmas.microBuildExclude);
 define([
 	"jquery",
+	"../ns",
 	"jquery.ui.widget",
 	"../core",
-	"../var/selectors"], function( jQuery ) {
+	"../var/selectors"], function( jQuery, ns ) {
 //>>excludeEnd("microBuildExclude");
 
-(function( $, undefined ) {
+(function( $, ns, undefined ) {
 
 var EventType = {
 
@@ -28,13 +29,13 @@ var EventType = {
 	BEFORE_HIDE: "popupbeforehide"
 };
 
-$.widget( "micro.popup", {
+$.widget( "ui.popup", {
 
 	options: {
 	},
 
 	_create: function() {
-		$.micro.fireEvent(this.element, EventType.BEFORE_CREATE);
+		ns.fireEvent(this.element, EventType.BEFORE_CREATE);
 
 		this._initLayout();
 
@@ -45,7 +46,7 @@ $.widget( "micro.popup", {
 			}, this )
 		});
 
-		$.micro.fireEvent(this.element, EventType.CREATE);
+		ns.fireEvent(this.element, EventType.CREATE);
 	},
 
 	_destroy: function() {
@@ -103,20 +104,20 @@ $.widget( "micro.popup", {
 	open: function( options ) {
 		var toptions = $.extend({}, options, {ext: " in ui-pre-in "});
 
-		$.micro.fireEvent(this.element, EventType.BEFORE_SHOW);
+		ns.fireEvent(this.element, EventType.BEFORE_SHOW);
 		this._transition( toptions ).done( $.proxy( function() {
 			this._setActive(true);
-			$.micro.fireEvent(this.element, EventType.SHOW);
+			ns.fireEvent(this.element, EventType.SHOW);
 		}, this));
 	},
 
 	close: function( options ) {
 		var toptions = $.extend({}, options, {ext: " out reverse "});
 
-		$.micro.fireEvent(this.element, EventType.BEFORE_HIDE);
+		ns.fireEvent(this.element, EventType.BEFORE_HIDE);
 		this._transition( toptions ).done( $.proxy( function() {
 			this._setActive(false);
-			$.micro.fireEvent(this.element, EventType.HIDE);
+			ns.fireEvent(this.element, EventType.HIDE);
 		}, this));
 	},
 
@@ -132,12 +133,12 @@ $.widget( "micro.popup", {
 
 		if(transition !== "none") {
 			$element.one("animationend webkitAnimationEnd", function() {
-				$.micro.pageContainer.removeClass( "ui-viewport-transitioning" );
+				ns.pageContainer.removeClass( "ui-viewport-transitioning" );
 				$element.removeClass( transitionClass );
 				deferred.resolve();
 			});
 
-			$.micro.pageContainer.addClass( "ui-viewport-transitioning" );
+			ns.pageContainer.addClass( "ui-viewport-transitioning" );
 			$element.addClass( transitionClass );
 		} else {
 			window.setTimeout(function() {
@@ -149,7 +150,7 @@ $.widget( "micro.popup", {
 	}
 });
 
-})( jQuery );
+})( jQuery, ns );
 
 //>>excludeStart("microBuildExclude", pragmas.microBuildExclude);
 });

@@ -6,18 +6,19 @@
 //>>excludeStart("microBuildExclude", pragmas.microBuildExclude);
 define([
 	"jquery",
+	"../ns",
 	"jquery.ui.widget",
 	"../core",
-	"./page"], function( jQuery ) {
+	"./page"], function( jQuery, ns ) {
 //>>excludeEnd("microBuildExclude");
 
-(function( $, undefined ) {
+(function( $, ns, undefined ) {
 
 var EventType = {
 		PAGE_CHANGE: "pagechange",
 	};
 
-$.widget( "micro.pagecontainer", {
+$.widget( "ui.pagecontainer", {
 
 	options: {
 	},
@@ -67,7 +68,7 @@ $.widget( "micro.pagecontainer", {
 				this._removeExternalPage();
 			}
 			toPage.page("onShow");
-			$.micro.fireEvent(this.element, EventType.PAGE_CHANGE);
+			ns.fireEvent(this.element, EventType.PAGE_CHANGE);
 		}, this ) );
 
 	},
@@ -109,8 +110,8 @@ $.widget( "micro.pagecontainer", {
 	},
 
 	_setActivePage: function(page) {
-		var activeClass = $.micro.selectors.activePage.substr(1),
-			pages = $( $.micro.selectors.activePage )
+		var activeClass = ns.selectors.activePage.substr(1),
+			pages = $( ns.selectors.activePage )
 				.not( page );
 
 		$.each( pages, function(idx, page) {
@@ -136,14 +137,14 @@ $.widget( "micro.pagecontainer", {
 
 	_removeExternalPage: function() {
 		this.element
-			.find( $.micro.selectors.page )
+			.find( ns.selectors.page )
 			.filter( "[data-external=true]" )
 			.not(this.getActivePage())
 			.remove();
 	}
 });
 
-})( jQuery );
+})( jQuery, ns );
 
 //>>excludeStart("microBuildExclude", pragmas.microBuildExclude);
 });

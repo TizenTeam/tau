@@ -6,14 +6,15 @@
 //>>excludeStart("microBuildExclude", pragmas.microBuildExclude);
 define([
 	"jquery",
+	"./ns",
 	"./core",
 	"./utils/path",
-	"./var/selectors"], function( jQuery ) {
+	"./var/selectors"], function( jQuery, ns ) {
 //>>excludeEnd("microBuildExclude");
 
-(function( $, window, undefined ) {
+(function( $, ns, window, undefined ) {
 
-	$.extend($.micro, {
+	$.extend(ns, {
 
 		$window: $(window),
 		$document: $(window.document),
@@ -52,7 +53,7 @@ define([
 
 	});
 
-})( jQuery, this );
+})( jQuery, ns, this );
 
 //>>excludeStart("microBuildExclude", pragmas.microBuildExclude);
 });

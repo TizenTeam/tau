@@ -6,29 +6,30 @@
 //>>excludeStart("microBuildExclude", pragmas.microBuildExclude);
 define([
 	"jquery",
+	"../ns",
 	"../core",
 	"../helper",
 	"../var/selectors",
 	"../utils/path.js",
 	"../navigator",
-	"../widget/popup"], function( jQuery ) {
+	"../widget/popup"], function( jQuery, ns ) {
 //>>excludeEnd("microBuildExclude");
 
-(function( $, undefined ) {
+(function( $, ns, undefined ) {
 
-	$.micro.navigator = $.micro.navigator || {};
-	$.micro.navigator.rule = $.micro.navigator.rule || {};
+	ns.navigator = ns.navigator || {};
+	ns.navigator.rule = ns.navigator.rule || {};
 
 	var popupHashKey = "popup=true",
 		popupHashKeyReg = /([&|\?]popup=true)/,
-		$document = $.micro.$document;
+		$document = ns.$document;
 
-	$.micro.navigator.rule.popup = {
-		filter: $.micro.selectors.popup,
+	ns.navigator.rule.popup = {
+		filter: ns.selectors.popup,
 
 		option: function() {
 			return {
-				transition: $.micro.defaults.popupTransition,
+				transition: ns.defaults.popupTransition,
 				container: undefined,
 				volatileRecord: true
 			};
@@ -36,15 +37,15 @@ define([
 
 		open: function( to, options ) {
 			var $to = $(to),
-				documentUrl = $.micro.path.getLocation().replace( popupHashKeyReg, "" ),
-				activePage = $.micro.pageContainer.pagecontainer("getActivePage"),
+				documentUrl = ns.path.getLocation().replace( popupHashKeyReg, "" ),
+				activePage = ns.pageContainer.pagecontainer("getActivePage"),
 				url, popupKey, $container;
 
 			popupKey = popupHashKey;
 
 			if ( !options.fromHashChange ) {
-				url = $.micro.path.addHashSearchParams( documentUrl, popupKey );
-				$.micro.navigator.history.replace( options, "", url );
+				url = ns.path.addHashSearchParams( documentUrl, popupKey );
+				ns.navigator.history.replace( options, "", url );
 			}
 
 			if( $(to).is( "[data-external=true]" ) ) {
@@ -69,7 +70,7 @@ define([
 		},
 
 		onHashChange: function(/* url, state */) {
-			var activePopup = $.micro.pageContainer.find( ".ui-popup-active" );
+			var activePopup = ns.pageContainer.find( ".ui-popup-active" );
 
 			if (activePopup.length) {
 				this._closeActivePopup(activePopup);
@@ -81,18 +82,18 @@ define([
 
 		_closeActivePopup: function(activePopup) {
 			activePopup = activePopup ||
-				$.micro.pageContainer.find( ".ui-popup-active" );
+				ns.pageContainer.find( ".ui-popup-active" );
 			if(activePopup.length) {
 				activePopup.popup().popup("close");
 			}
 		},
 
 		_hasActivePopup: function() {
-			return $.micro.pageContainer.find( ".ui-popup-active" ).length > 0;
+			return ns.pageContainer.find( ".ui-popup-active" ).length > 0;
 		}
 	};
 
-})( jQuery );
+})( jQuery, ns );
 
 //>>excludeStart("microBuildExclude", pragmas.microBuildExclude);
 });

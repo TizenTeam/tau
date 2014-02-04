@@ -6,13 +6,14 @@
 //>>excludeStart("microBuildExclude", pragmas.microBuildExclude);
 define([
 	"jquery",
-	"../core" ], function( jQuery ) {
+	"../ns",
+	"../core" ], function( jQuery, ns ) {
 //>>excludeEnd("microBuildExclude");
 
-(function( $, undefined ) {
+(function( $, ns, undefined ) {
 		var path;
 
-		$.micro.path = path = {
+		ns.path = path = {
 			// This scary looking regular expression parses an absolute URL or its relative
 			// variants (protocol, site, document, query, and hash), into the various
 			// components (protocol, host, path, query, fragment, etc that make up the
@@ -345,7 +346,7 @@ define([
 					samePath = u.hrefNoHash === this.documentUrl.hrefNoHash,
 
 					// Get the first page element.
-					fp = $.micro.firstPage,
+					fp = ns.firstPage,
 
 					// Get the id of the first page element if it has one.
 					fpId = fp && fp[0] ? fp[0].id : undefined;
@@ -369,7 +370,7 @@ define([
 			return asParsedObject ? $.extend( {}, path.documentBase ) : path.documentBase.href;
 		};
 
-})( jQuery );
+})( jQuery, ns );
 
 //>>excludeStart("microBuildExclude", pragmas.microBuildExclude);
 });

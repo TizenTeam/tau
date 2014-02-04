@@ -6,12 +6,13 @@
 //>>excludeStart("microBuildExclude", pragmas.microBuildExclude);
 define([
 	"jquery",
+	"../ns",
 	"jquery.ui.widget",
 	"../core",
-	"../var/selectors"], function( jQuery ) {
+	"../var/selectors"], function( jQuery, ns ) {
 //>>excludeEnd("microBuildExclude");
 
-(function( $, undefined ) {
+(function( $, ns, undefined ) {
 
 var EventType = {
 
@@ -29,13 +30,13 @@ var EventType = {
 
 };
 
-$.widget( "micro.page", {
+$.widget( "ui.page", {
 
 	options: {
 	},
 
 	_create: function() {
-		$.micro.fireEvent(this.element, EventType.BEFORE_CREATE);
+		ns.fireEvent(this.element, EventType.BEFORE_CREATE);
 
 		this._initLayout();
 
@@ -43,7 +44,7 @@ $.widget( "micro.page", {
 			"resize": $.proxy( this._initLayout, this )
 		});
 
-		$.micro.fireEvent(this.element, EventType.CREATE);
+		ns.fireEvent(this.element, EventType.CREATE);
 	},
 
 	_destroy: function() {
@@ -61,7 +62,7 @@ $.widget( "micro.page", {
 			element = this.element[0],
 			screenWidth = window.innerWidth,
 			screenHeight = window.innerHeight,
-			uiSelector = $.micro.selectors,
+			uiSelector = ns.selectors,
 			contentSelector = uiSelector.content.substr(1),
 			headerSelector = uiSelector.header.substr(1),
 			footerSelector = uiSelector.footer.substr(1),
@@ -105,24 +106,24 @@ $.widget( "micro.page", {
 	},
 
 	onBeforeShow: function() {
-		$.micro.fireEvent(this.element, EventType.BEFORE_SHOW);
+		ns.fireEvent(this.element, EventType.BEFORE_SHOW);
 	},
 
 	onBeforeHide: function() {
-		$.micro.fireEvent(this.element, EventType.BEFORE_HIDE);
+		ns.fireEvent(this.element, EventType.BEFORE_HIDE);
 	},
 
 	onShow: function() {
-		$.micro.fireEvent(this.element, EventType.SHOW);
+		ns.fireEvent(this.element, EventType.SHOW);
 	},
 
 	onHide: function() {
-		$.micro.fireEvent(this.element, EventType.HIDE);
+		ns.fireEvent(this.element, EventType.HIDE);
 	}
 
 });
 
-})( jQuery );
+})( jQuery, ns );
 
 //>>excludeStart("microBuildExclude", pragmas.microBuildExclude);
 });

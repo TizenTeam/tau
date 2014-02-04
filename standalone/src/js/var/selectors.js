@@ -6,12 +6,13 @@
 //>>excludeStart("microBuildExclude", pragmas.microBuildExclude);
 define([
 	"jquery",
-	"../core"], function( jQuery ) {
+	"../ns",
+	"../core"], function( jQuery, ns ) {
 //>>excludeEnd("microBuildExclude");
 
-(function( $, window, undefined ) {
+(function( $, ns, window, undefined ) {
 
-	$.micro.selectors = {
+	ns.selectors = {
 		page: ".ui-page",
 		activePage: ".ui-page-active",
 		content: ".ui-content",
@@ -20,7 +21,7 @@ define([
 		popup: ".ui-popup"
 	};
 
-})( jQuery, this );
+})( jQuery, ns, this );
 
 //>>excludeStart("microBuildExclude", pragmas.microBuildExclude);
 });

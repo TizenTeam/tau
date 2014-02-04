@@ -3,7 +3,12 @@
 * License : MIT License V2
 */
 
-( function ( window, $, ns, undefined ) {
+//>>excludeStart("microBuildExclude", pragmas.microBuildExclude);
+define([
+	"../ns"], function( ns ) {
+//>>excludeEnd("microBuildExclude");
+
+( function ( ns, window, undefined ) {
 
 /*
  * IndexScrollbar
@@ -531,4 +536,8 @@ IndexScrollbar.prototype = {
 // Export indexscrollbar to the namespace
 ns.IndexScrollbar = IndexScrollbar;
 
-} ( window, jQuery, $.micro ) );
+} ( ns, window ) );
+
+//>>excludeStart("microBuildExclude", pragmas.microBuildExclude);
+});
+//>>excludeEnd("microBuildExclude");

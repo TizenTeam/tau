@@ -1,9 +1,2 @@
-
-
-window.gear = {
-	ui: $.micro
-};
-
 $.noConflict(true);
-
 })(this);

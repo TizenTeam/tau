@@ -6,18 +6,19 @@
 //>>excludeStart("microBuildExclude", pragmas.microBuildExclude);
 define([
 	"jquery",
+	"./ns",
 	"./core",
 	"./helper",
 	"./utils/path.js",
 	"./navigator.rule/page",
 	"./navigator.rule/popup",
-	"./widget/page"], function( jQuery ) {
+	"./widget/page"], function( jQuery, ns ) {
 //>>excludeEnd("microBuildExclude");
 
-(function( $, undefined ) {
+(function( $, ns, undefined ) {
 
-	var $window = $.micro.$window,
-		$document = $.micro.$document,
+	var $window = ns.$window,
+		$document = ns.$document,
 		historyUid = 0,
 		historyActiveIndex = 0,
 		historyVolatileMode = false;
@@ -47,16 +48,16 @@ define([
 			return;
 		}
 
-		options = $.micro.getData($link);
+		options = ns.getData($link);
 
 		event.preventDefault();
-		$.micro.navigator.open(href, options);
+		ns.navigator.open(href, options);
 	}
 
 	function popStateHandler( event ) {
 		var state = event.originalEvent.state,
-			prevState = $.micro.navigator.history.activeState,
-			rules = $.micro.navigator.rule,
+			prevState = ns.navigator.history.activeState,
+			rules = ns.navigator.rule,
 			options, to, url, isContinue = true, reverse, transition;
 
 		if (!state) {
@@ -64,7 +65,7 @@ define([
 		}
 
 		to = state.url;
-		reverse = $.micro.navigator.history.getDirection( state ) === "back";
+		reverse = ns.navigator.history.getDirection( state ) === "back";
 		transition = !reverse ? state.transition : prevState && prevState.transition || "none";
 
 		options = $.extend({}, state, {
@@ -73,25 +74,25 @@ define([
 			fromHashChange: true
 		});
 
-		url = $.micro.path.getLocation();
+		url = ns.path.getLocation();
 		$.each(rules, function(name, rule) {
 			if ( rule.onHashChange(url, options) ) {
 				isContinue = false;
 			}
 		});
 
-		$.micro.navigator.history.setActive(state);
+		ns.navigator.history.setActive(state);
 
 		if ( isContinue ) {
-			$.micro.navigator.open(to, options);
+			ns.navigator.open(to, options);
 		}
 
 	}
 
-	$.micro.navigator = $.micro.navigator || {};
-	$.micro.navigator.rule = $.micro.navigator.rule || {};
+	ns.navigator = ns.navigator || {};
+	ns.navigator.rule = ns.navigator.rule || {};
 
-	$.micro.navigator.defaults = {
+	ns.navigator.defaults = {
 		fromHashChange: false,
 		volatileRecord: false,
 		reverse: false,
@@ -99,27 +100,27 @@ define([
 		loadMsgDelay: 0
 	};
 
-	$.micro.changePage = function( to, options) {
-		$.micro.navigator.open( to, options );
+	ns.changePage = function( to, options) {
+		ns.navigator.open( to, options );
 	};
 
-	$.micro.openPopup = function( to, options) {
-		$.micro.navigator.open( to, $.extend({}, {rel: "popup"}, options) );
+	ns.openPopup = function( to, options) {
+		ns.navigator.open( to, $.extend({}, {rel: "popup"}, options) );
 	};
 
-	$.micro.closePopup = function() {
-		$.micro.back();
+	ns.closePopup = function() {
+		ns.back();
 	};
 
-	$.micro.back = function() {
-		$.micro.navigator.history.back();
+	ns.back = function() {
+		ns.navigator.history.back();
 	};
 
-	$.extend( $.micro.navigator, {
+	$.extend( ns.navigator, {
 
 		register: function( container, firstPage ) {
 			this.container = container;
-			$.micro.$firstPage = $(firstPage);
+			ns.$firstPage = $(firstPage);
 
 			this.linkClickHandler = $.proxy( linkClickHandler, this );
 			this.popStateHandler = $.proxy( popStateHandler, this );
@@ -132,8 +133,8 @@ define([
 				"popstate": this.popStateHandler
 			});
 
-			$.micro.navigator.history.enableVolatileRecord();
-			this.open( $.micro.$firstPage, { transition: undefined } );
+			ns.navigator.history.enableVolatileRecord();
+			this.open( ns.$firstPage, { transition: undefined } );
 		},
 
 		destroy: function () {
@@ -148,14 +149,14 @@ define([
 
 		open: function ( to, options ) {
 			var rel = options && options.rel || "page",
-				rule = $.micro.navigator.rule[rel],
+				rule = ns.navigator.rule[rel],
 				deferred, filter, settings;
 
 			if(rule) {
 
 				settings = $.extend( {
 						rel: rel
-				}, $.micro.navigator.defaults, rule.option(), options );
+				}, ns.navigator.defaults, rule.option(), options );
 
 				filter = rule.filter;
 
@@ -164,7 +165,7 @@ define([
 					rule.open( content, options );
 				});
 				deferred.fail(function( options ) {
-					$.micro.fireEvent($.micro.pageContainer, "changefailed", options);
+					ns.fireEvent(ns.pageContainer, "changefailed", options);
 				});
 
 				if ( $.type(to) === "string" ) {
@@ -190,7 +191,7 @@ define([
 		},
 
 		_loadUrl: function( url, options, filter, deferred) {
-			var absUrl = $.micro.path.makeUrlAbsolute( url, $.micro.path.getLocation() ),
+			var absUrl = ns.path.makeUrlAbsolute( url, ns.path.getLocation() ),
 				content, detail;
 
 			content = this._find( absUrl, filter );
@@ -229,7 +230,7 @@ define([
 					this._showError();
 				}
 
-				$.micro.fireEvent(this.container, "loadfailed", detail);
+				ns.fireEvent(this.container, "loadfailed", detail);
 				deferred.reject( detail );
 
 			}, this);
@@ -296,10 +297,10 @@ define([
 			// reference to an embedded page. If so, it may have been dynamically
 			// injected by a developer, in which case it would be lacking a
 			// data-url attribute and in need of enhancement.
-			if ( page.length === 0 && dataUrl && !$.micro.path.isPath( dataUrl ) ) {
+			if ( page.length === 0 && dataUrl && !ns.path.isPath( dataUrl ) ) {
 				page = this.container
 					.find( filter )
-					.filter( $.micro.path.hashToSelector("#" + dataUrl) )
+					.filter( ns.path.hashToSelector("#" + dataUrl) )
 					.attr( "data-url", dataUrl )
 					.data( "url", dataUrl );
 			}
@@ -311,7 +312,7 @@ define([
 			// We check for this case here because we don't want a first-page with
 			// an id falling through to the non-existent embedded page error case.
 			if ( page.length === 0 &&
-				$.micro.path.isFirstPageUrl( dataUrl ) &&
+				ns.path.isFirstPageUrl( dataUrl ) &&
 				initialContent &&
 				initialContent.parent().length ) {
 				page = $( initialContent ).filter( filter );
@@ -321,13 +322,13 @@ define([
 		},
 
 		_createDataUrl: function( absoluteUrl ) {
-			return $.micro.path.convertUrlToDataUrl( absoluteUrl );
+			return ns.path.convertUrlToDataUrl( absoluteUrl );
 		},
 
 		// TODO the first page should be a property set during _create using the logic
 		//      that currently resides in init
 		_getInitialContent: function() {
-			return $.micro.firstPage;
+			return ns.firstPage;
 		},
 
 		_showLoading: function( delay ) {
@@ -343,7 +344,7 @@ define([
 		}
 	});
 
-	$.micro.navigator.history = {
+	ns.navigator.history = {
 		activeState : null,
 
 		replace: function(state, pageTitle, url) {
@@ -394,7 +395,7 @@ define([
 		},
 	};
 
-})( jQuery );
+})( jQuery, ns );
 
 //>>excludeStart("microBuildExclude", pragmas.microBuildExclude);
 });
