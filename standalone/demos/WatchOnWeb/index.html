@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=320, height=320, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=yes" />
+	<title>Gear UI</title>
+
+	<link rel="stylesheet" href="lib/gear-ui/themes/default/gear.ui.min.css">
+	<link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+
+<!----------------------------- Intro Page ------------------------>
+	<div class="ui-page" id="main">
+		<header class="ui-header ui-has-more">
+			<h2 class="ui-title">Set up</h2>
+		</header>
+		<div class="ui-content">
+			<div id="introLabel" class="contentLabel Basic_text_s_default_FONT tmpFontSize">
+				Set up the remote control on your device?
+			</div>
+		</div>
+		<footer class="ui-footer">
+			<a type="button" class="ui-btn" id="tvOnlyBtn">TV only</a>
+			<a type="button" class="ui-btn" id="tvAndStbBtn">TV & STB</a>
+		</footer>
+	</div>
+
+<!----------------------------- dummy Page ------------------------>
+	<div class="ui-page" id="dummyPage">
+		<header class="ui-header">
+			<h2 class="ui-title">Remocon pages</h2>
+			<div class="titleMenuImg"></div>
+		</header>
+		<div class="ui-content">
+			<ul class="ui-listview" id="mainmenu">
+				<li id="dummy">Dummy</li>
+				<li id="remote">remote</li>
+				<li id="intro">SetUpIntro</li>
+				<li id="brandList">BrandList</li>
+				<li id="dynamicSetting">SetUpStart</li>
+			</ul>
+		</div>
+	</div>
+	
+<!----------------------------- remote popup Page ------------------------>
+	<div class="ui-page" id="remotePopup">
+		<div class="ui-popup popup" id="popup">
+			<div class="ui-popup-header">Select device</div>
+			<div class="ui-popup-center"></div>
+			<div class="ui-popup-footer">
+				<a id="tv" class="ui-btn">tv</a>
+				<a id="tvStb" class="ui-btn">tv & stb</a>
+			</div>
+		</div>
+	</div>
+
+<!----------------------------- remote Page ------------------------>
+	<div class="ui-page swipeParent" id="remotePage">
+
+		<div class="ui-page swipePage right">
+			<header class="ui-header">
+				<h2 class="ui-title">Channel input</h2>
+				<a class="more ui-more ui-icon-overflow" id="titleMenuButton"></a>
+			</header>
+			<div class="ui-content" id="chKeypad">
+				<div id="chKeypadLeft">
+					<a type="button" id="ch1Btn" class="ui-btn chBtn">1</a>
+					<a type="button" id="ch4Btn" class="ui-btn chBtn">4</a>
+					<a type="button" id="ch7Btn" class="ui-btn chBtn">7</a>
+					<a type="button" id="ch-Btn" class="ui-btn chBtn">-</a>
+				</div>
+				<div id="chKeypadCenter">
+					<a type="button" id="ch2Btn" class="ui-btn chBtn">2</a>
+					<a type="button" id="ch5Btn" class="ui-btn chBtn">5</a>
+					<a type="button" id="ch8Btn" class="ui-btn chBtn">8</a>
+					<a type="button" id="ch0Btn" class="ui-btn chBtn">0</a>
+				</div>
+				<div id="chKeypadRight">
+					<a type="button" id="ch3Btn" class="ui-btn chBtn">3</a>
+					<a type="button" id="ch6Btn" class="ui-btn chBtn">6</a>
+					<a type="button" id="ch9Btn" class="ui-btn chBtn">9</a>
+					<a type="button" id="chpreBtn" class="ui-btn chBtn">pre-ch</a>
+				</div>
+			</div>
+			<div id="chKeypadCenter">
+				<a type="button" id="btn-ch-2" class="ui-btn ch-btn">2</a>
+				<a type="button" id="btn-ch-5" class="ui-btn ch-btn">5</a>
+				<a type="button" id="btn-ch-8" class="ui-btn ch-btn">8</a>
+				<a type="button" id="btn-ch-0" class="ui-btn ch-btn">0</a>
+			</div>
+			<div id="chKeypadRight">
+				<a type="button" id="btn-ch-3" class="ui-btn ch-btn">3</a>
+				<a type="button" id="btn-ch-6" class="ui-btn ch-btn">6</a>
+				<a type="button" id="btn-ch-9" class="ui-btn ch-btn">9</a>
+				<a type="button" id="btn-ch-pre" class="ui-btn ch-btn">pre-ch</a>
+			</div>
+		</div>
+	</div>
+
+
+<!----------------------------- brand list Page ------------------------>
+	<div class="ui-page" id="brandListPage">
+		<header class="ui-header">
+			<h2 class="ui-title" id="titleType">TV brand list</h2>
+		</header>
+		<div class="ui-content">
+			<ul class="ui-listview" id="brandList">
+			</ul>
+			<h3 class="ui-title" id="loading">
+				Loading...
+			</h3>
+		</div>
+	</div>
+<!----------------------------- Remote setting Page ------------------------>
+	<div class="ui-page" id="remoconManagePage">
+		<header class="ui-header ui-has-more">
+			<h2 class="ui-title">Setting</h2>
+		</header>
+		<div class="ui-content">
+			<ul class="ui-listview" id="remoteList">
+			</ul>
+		</div>
+		<footer class="ui-footer ui-grid-col-2">
+			<a type="button" class="ui-btn" id="addTvBtn">TV</a>
+			<a type="button" class="ui-btn" id="addStbBtn">STB</a>
+		</footer>
+	</div>
+
+	<div class="ui-page" id="deleteRemoconPage">
+		<header class="ui-header ui-has-more">
+			<h2 class="ui-title">Setting</h2>
+		</header>
+		<div class="ui-content">
+			<div class="Basic_text_s_default_FONT contentLabel">
+				Are you sure to remove this item?
+			</div>
+		</div>
+		<footer class="ui-footer ui-grid-col-2">
+			<a type="button" class="ui-btn" id="noBtn">No</a>
+			<a type="button" class="ui-btn" id="yesBtn">Yes</a>
+		</footer>
+	</div>
+<!----------------------------- Dynamic Setting Page ------------------------>
+	<div class="ui-page" id="dynamicSettingPage">
+		<header class="ui-header">
+			<h2 class="ui-title">Set up</h2>
+		</header>
+		<div class="ui-content">
+			<div class="Basic_text_s_default_FONT contentLabel">
+				Point your device towards the TV and press the button.
+			</div>
+		</div>
+		<footer class="ui-footer ui-grid-col-1">
+			<a type="button" id="introOkBtn" class="yes ui-btn">OK</a>
+		</footer>
+	</div>
+
+	<div class="ui-page" id="dynamicSettingPage2">
+		<header class="ui-header">
+			<h2 class="ui-title">POWER</h2>
+		</header>
+		<div class="ui-content">
+			<div class="buttonBox">
+				<div id="imgBtn" class="fgBtnImg"></div>
+				<div class="bgBtnImg"></div>
+			</div>
+			<div class="commandLabel">Press the button</div>
+			<footer class="ui-footer ui-grid-col-2">
+				<a type="button" id="noBtn" class="ui-btn ui-state-disabled">No</a>
+				<a type="button" id="yesBtn" class="ui-btn ui-state-disabled">Yes</a>
+			</footer>
+		</div>
+	</div>
+
+	<div class="ui-page" id="dynamicSettingPage3">
+		<header class="ui-header">
+			<h2 class="ui-title">Complete</h2>
+		</header>
+		<div class="ui-content">
+			<div id="completeLabel" class="contentLabel Basic_text_s_default_FONT">
+				Remote control setup is complete.
+			</div>
+		</div>
+		<footer class="ui-footer ui-grid-col-1">
+			<a type="button" id="doneBtn" class="ui-btn">DONE</a>
+		</footer>
+	</div>
+
+<!----------------------------- Hidden Page ------------------------>
+	<div class="ui-page" id="hiddenPage">
+
+		<div id="tv-controller" class="ui-page swipePage remocon center">
+
+			<header class="ui-header">
+				<h2 id="header-title" class="ui-title">Remote Control</h2>
+				<a class="ui-more ui-icon-overflow" id="titleMenuButton"></a>
+			</header>
+
+			<div class="ui-content">
+				<div id="left">
+					<div id="volUpBtn" class="remoteBtn volUp"></div>
+					<div class="remote-text Remote_control_FONT">VOL</div>
+					<div id="volDownBtn" class="remoteBtn volDown"></div>
+				</div>
+				<div id="dividerV1"></div>
+				<div id="center">
+					<div id="onBtn" class="remoteBtn2 on"></div>
+					<div id="dividerH"></div>
+					<div id="addBtn" class="remoteBtn2 add"></div>
+					<div id="dividerH"></div>
+					<div id="muteBtn" class="remoteBtn2 mute"></div>
+				</div>
+				<div id="dividerV2"></div>
+				<div id="right">
+					<div id="chUpBtn" class="remoteBtn chUp"></div>
+					<div class="remote-text Remote_control_FONT">CH</div>
+					<div id="chDownBtn" class="remoteBtn chDown"></div>
+				</div>
+			</div>	
+		</div>
+
+		<div id="tv-stb-controller" class="ui-page swipePage remocon center">
+
+			<header class="ui-header">
+				<h2 id="header-title" class="ui-title">Remote Control</h2>
+				<a class="ui-more ui-icon-overflow" id="titleMenuButton"></a>
+			</header>
+
+			<div class="ui-content">
+				<div id="left">
+					<div id="volUpBtn" class="remoteBtn volUp"></div>
+					<div class="remote-text Remote_control_FONT">VOL</div>
+					<div id="volDownBtn" class="remoteBtn volDown"></div>
+				</div>
+				<div id="dividerV1"></div>
+				<div id="center">
+					<div id="spaceH"></div>
+					<div id="onBtn" class="remoteBtn2 on"></div>
+					<div id="dividerH"></div>
+					<div id="muteBtn" class="remoteBtn2 mute"></div>
+				</div>
+				<div id="dividerV2"></div>
+				<div id="right">
+					<div id="chUpBtn" class="remoteBtn chUp"></div>
+					<div class="remote-text Remote_control_FONT">CH</div>
+					<div id="chDownBtn" class="remoteBtn chDown"></div>
+				</div>
+			</div>  
+		</div>
+
+	</div>
+
+	<script type="text/javascript" src="lib/gear-ui/js/gear.ui.min.js"></script>
+	<script type="text/javascript" src="js/jquery-1.9.1.js"></script>
+	<script type="text/javascript" src="js/jquery.event.move.js"></script>
+	<script type="text/javascript" src="js/jquery.event.swipe.js"></script>
+
+	<script type="text/javascript" src="js/common/Sandbox.js"></script>
+	<script type="text/javascript" src="js/common/SwipeView.js"></script>
+	<script type="text/javascript" src="js/common/Remocon.js"></script>
+	<script type="text/javascript" src="js/common/SceneManager.js"></script>
+
+	<script type="text/javascript" src="js/WR.events.js"></script>
+	<script type="text/javascript" src="js/view_list.js"></script>
+	<script type="text/javascript" src="js/view_remote.js"></script>
+	<script type="text/javascript" src="js/view_dynamic_setting.js"></script>
+
+	<script type="text/javascript" src="js/app.js"></script>
+</body>
+
+</html>
