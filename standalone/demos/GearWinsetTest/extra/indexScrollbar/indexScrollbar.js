@@ -1,6 +1,7 @@
 (function() {
-	var page = document.getElementById("pageIndexScrollbar");
-	page.addEventListener("pagecreate", function(ev) {
+	var page = document.getElementById("pageIndexScrollbar"),
+		isb;
+	page.addEventListener("pageshow", function(ev) {
 
 /*****************************************************************
 	IndexScrollbar example
@@ -38,7 +39,6 @@ el.addEventListener("select", function( ev ) {
 ******************************************************************/
 
 		var elisb = document.getElementById("indexscrollbar1"),
-			isb,
 			elList = document.getElementById("list1"),	// list
 			elDividers = elList.getElementsByClassName("li-divider"),	// list dividers
 			elScroller = elList.parentElement,	// the scroller (overflow-y:hidden)
@@ -63,6 +63,7 @@ el.addEventListener("select", function( ev ) {
 
 		// Create IndexScrollbar
 		isb = new gear.ui.IndexScrollbar(elisb);
+		window.testisb = isb;
 
 		// Bind a 'select' callback
 		elisb.addEventListener("select", function(ev) {
@@ -74,6 +75,10 @@ el.addEventListener("select", function( ev ) {
 				elScroller.scrollTop = elDivider.offsetTop - elScroller.offsetTop;
 			}
 		});
+	});
+
+	page.addEventListener("pagehide", function(ev) {
+		isb.destroy();
 	});
 } ());
 
