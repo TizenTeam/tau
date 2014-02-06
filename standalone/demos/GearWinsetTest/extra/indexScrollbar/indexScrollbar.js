@@ -39,6 +39,7 @@ el.addEventListener("select", function( ev ) {
 ******************************************************************/
 
 		var elisb = document.getElementById("indexscrollbar1"),
+			isb,
 			elList = document.getElementById("list1"),	// list
 			elDividers = elList.getElementsByClassName("li-divider"),	// list dividers
 			elScroller = elList.parentElement,	// the scroller (overflow-y:hidden)

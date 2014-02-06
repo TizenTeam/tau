@@ -14,6 +14,7 @@
 			"./widget/micro/Popup",
 			"./widget/micro/PageContainer",
 			"./widget/micro/IndexScrollbar",
+			"./widget/micro/VirtualListview",
 			"./router/micro/Router",
 			"./router/micro/route/page",
 			"./router/micro/route/popup",

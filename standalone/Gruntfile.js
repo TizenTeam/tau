@@ -156,6 +156,34 @@ module.exports = function(grunt) {
 						ejDebug: true
 					},
 				}
+			},
+			jsejvl: {
+				options: {
+					baseUrl: "src/ej",
+
+					optimize: "none",
+
+					//Finds require() dependencies inside a require() or define call.
+					findNestedDependencies: true,
+
+					//If skipModuleInsertion is false, then files that do not use define()
+					//to define modules will get a define() placeholder inserted for them.
+					//Also, require.pause/resume calls will be inserted.
+					//Set it to true to avoid this. This is useful if you are building code that
+					//does not use require() in the built project or in the JS files, but you
+					//still want to use the optimization tool from RequireJS to concatenate modules
+					//together.
+					skipModuleInsertion: true,
+
+					name: "virtuallist",
+
+					out: path.join( jsPath, "virtuallist" ) + ".js",
+
+					pragmasOnSave: {
+						ejBuildExclude: true,
+						ejDebug: true
+					},
+				}
 			}
 
 		},
@@ -226,7 +254,7 @@ module.exports = function(grunt) {
 	grunt.registerTask("js", [ "requirejs:js", "uglify" ]);
 	grunt.registerTask("jsej", [ "requirejs:jsej", "uglify" ]);
 	
-	grunt.registerTask("release", [ "lint", "css", "js" ]);
+	grunt.registerTask("release", [ "lint", "css", "js", "requirejs:jsejvl"]);
 	grunt.registerTask("releaseej", [ "lint", "css", "jsej" ]);
 
 	grunt.registerTask("default", [ "release" ]);

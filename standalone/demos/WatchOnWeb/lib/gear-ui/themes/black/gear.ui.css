@@ -1397,11 +1397,16 @@ Listview
 }
 .ui-indexscrollbar {
   display: block;
+<<<<<<< HEAD
   position: absolute;
+=======
+  position: fixed;
+>>>>>>> b7942f1... WatchOnWeb working application
   right: 0;
   top: 0;
   height: 100%;
   background-color: #2c2c2c;
+<<<<<<< HEAD
   overflow-y: scroll;
   z-index: 10;
 }
@@ -1409,15 +1414,27 @@ Listview
   display: inline-block;
   width: 40px;
   height: 101%;
+=======
+  z-index: 10;
+}
+.ui-indexscrollbar ul {
+  width: 40px;
+>>>>>>> b7942f1... WatchOnWeb working application
   top: 0;
 }
 .ui-indexscrollbar ul li {
   color: #585858;
   display: block;
   width: 100%;
+<<<<<<< HEAD
   height: 36px;
 }
 .ui-indexscrollbar ul li.selected {
+=======
+  text-align: center;
+}
+.ui-indexscrollbar ul li.ui-state-selected {
+>>>>>>> b7942f1... WatchOnWeb working application
   background-color: #ff9000;
   color: #ffffff;
 }
@@ -1425,3 +1442,28 @@ Listview
   height: auto;
   top: 0;
 }
+<<<<<<< HEAD
+=======
+.ui-indexscrollbar-indicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9;
+  display: none;
+}
+.ui-indexscrollbar-indicator span {
+  width: 120px;
+  height: 96px;
+  position: absolute;
+  display: block;
+  top: 50%;
+  left: 50%;
+  margin-left: -60px;
+  margin-top: -48px;
+  line-height: 96px;
+  font-size: 70px;
+  text-align: center;
+  background-color: #58493a;
+  color: #ff9000;
+}
+>>>>>>> b7942f1... WatchOnWeb working application

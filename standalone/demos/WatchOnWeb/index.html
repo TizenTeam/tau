@@ -42,7 +42,6 @@
 			</ul>
 		</div>
 	</div>
-	
 <!----------------------------- remote popup Page ------------------------>
 	<div class="ui-page" id="remotePopup">
 		<div class="ui-popup popup" id="popup">
@@ -104,7 +103,7 @@
 		<header class="ui-header">
 			<h2 class="ui-title" id="titleType">TV brand list</h2>
 		</header>
-		<div class="ui-content">
+		<div class="ui-content" style="overflow-x: hidden; overflow-y: auto;">
 			<ul class="ui-listview" id="brandList">
 			</ul>
 			<h3 class="ui-title" id="loading">
@@ -217,7 +216,7 @@
 					<div class="remote-text Remote_control_FONT">CH</div>
 					<div id="chDownBtn" class="remoteBtn chDown"></div>
 				</div>
-			</div>	
+			</div>
 		</div>
 
 		<div id="tv-stb-controller" class="ui-page swipePage remocon center">
@@ -252,6 +251,8 @@
 	</div>
 
 	<script type="text/javascript" src="lib/gear-ui/js/gear.ui.min.js"></script>
+	<script type="text/javascript" src="lib/gear-ui/js/virtuallist.js"></script>
+	<script src="lib/gear-ui/js/escapens.js"></script>
 	<script type="text/javascript" src="js/jquery-1.9.1.js"></script>
 	<script type="text/javascript" src="js/jquery.event.move.js"></script>
 	<script type="text/javascript" src="js/jquery.event.swipe.js"></script>

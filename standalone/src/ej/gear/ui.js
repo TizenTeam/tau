@@ -12,7 +12,7 @@
 			window.gear = gear;
 
 			gear.ui = {};
-			gear.ui.noConflict = function () {
+			gear.noConflict = function () {
 				var newGear = window.gear;
 				window.gear = orgGear;
 				return newGear;
