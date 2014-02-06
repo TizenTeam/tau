@@ -5,7 +5,8 @@ define([
 	"./navigator",
 	"./widget/page",
 	"./widget/pagecontainer",
-	"./widget/indexScrollbar"], function( jQuery ) {
+	"./widget/indexScrollbar",
+	"./utils/anchorHighlightController"], function( jQuery ) {
 //>>excludeEnd("microBuildExclude");
 
 (function( $, window, undefined ) {
