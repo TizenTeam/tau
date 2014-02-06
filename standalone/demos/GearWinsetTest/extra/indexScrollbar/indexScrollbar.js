@@ -63,7 +63,6 @@ el.addEventListener("select", function( ev ) {
 
 		// Create IndexScrollbar
 		isb = new gear.ui.IndexScrollbar(elisb);
-		window.testisb = isb;
 
 		// Bind a 'select' callback
 		elisb.addEventListener("select", function(ev) {
