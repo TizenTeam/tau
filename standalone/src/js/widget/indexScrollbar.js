@@ -19,17 +19,18 @@ function IndexScrollbar (element, options) {
 	this.indicator = null;
 	this.index = null;
 	this.isShowIndicator = false;
-	this.touchMoveableArea = 0;
+	this.touchAreaOffsetLeft = 0;
+	this.indexElements = null;
 
 	this.indexCellInfomations = {
 		indices: [],
 		mergedIndices: [],
-		indexCellRectTable: [],
+		indexLookupTable: [],
 
 		clear: function() {
 			this.indices.length = 0;
 			this.mergedIndices.length = 0;
-			this.indexCellRectTable.length = 0;
+			this.indexLookupTable.length = 0;
 		}
 	};
 
@@ -113,7 +114,7 @@ IndexScrollbar.prototype = {
 		this._draw();
 		this._updateIndexCellRectInfomation();
 
-		this.touchMoveableArea = this.element.offsetLeft - 10;
+		this.touchAreaOffsetLeft = this.element.offsetLeft - 10;
 	},
 
 	_updateIndexCellInfomation: function() {
@@ -152,7 +153,7 @@ IndexScrollbar.prototype = {
 		var el = this.element,
 			mergedIndices = this.indexCellInfomations.mergedIndices,
 			containerOffset = this._getOffset(this._getContainer()).top,
-			indexCellRectTable = [];
+			indexLookupTable = [];
 
 		[].forEach.call(el.querySelectorAll("li"), function(node, idx) {
 			var m = mergedIndices[idx],
@@ -162,7 +163,7 @@ IndexScrollbar.prototype = {
 				height = node.offsetHeight / m.length;
 
 			for ( ; i < len; i++ ) {
-				indexCellRectTable.push({
+				indexLookupTable.push({
 					cellIndex: idx,
 					top: top,
 					range: height
@@ -173,7 +174,8 @@ IndexScrollbar.prototype = {
 
 		});
 
-		this.indexCellInfomations.indexCellRectTable = indexCellRectTable;
+		this.indexCellInfomations.indexLookupTable = indexLookupTable;
+		this.indexElements = el.children[0].children;
 	},
 
 	/**	Draw additinoal sub-elements
@@ -227,8 +229,7 @@ IndexScrollbar.prototype = {
 	},
 
 	_changeIndicator: function( idx/*, cellElement */) {
-		var el = this.element,
-			selectedClass = this.options.selectedClass,
+		var selectedClass = this.options.selectedClass,
 			cellInfomations = this.indexCellInfomations,
 			cellElement, val;
 
@@ -238,7 +239,7 @@ IndexScrollbar.prototype = {
 
 		// TODO currently touch event target is not correct. it's browser bugs.
 		// if the bug is fixed, this logic that find cellelem have to be removed.
-		cellElement = el.querySelectorAll("li")[cellInfomations.indexCellRectTable[idx].cellIndex];
+		cellElement = this.indexElements[cellInfomations.indexLookupTable[idx].cellIndex];
 		this._clearSelected();
 		cellElement.classList.add(selectedClass);
 
@@ -305,9 +306,12 @@ IndexScrollbar.prototype = {
 		pos = this._getPositionFromEvent( ev );
 		idx = this._findIndexByPosition( pos.y );
 
-		if ( idx > -1 && pos.x > this.touchMoveableArea ) {
+		if ( idx > -1 && pos.x > this.touchAreaOffsetLeft ) {
 			this._changeIndicator(idx, ev.target);
 		}
+
+		ev.preventDefault();
+		ev.stopPropagation();
 	},
 
 	_bindEvent: function() {
@@ -436,7 +440,7 @@ IndexScrollbar.prototype = {
 	},
 
 	_findIndexByPosition: function( posY ) {
-		var rectTable = this.indexCellInfomations.indexCellRectTable,
+		var rectTable = this.indexCellInfomations.indexLookupTable,
 			i, len, info, range;
 
 		for ( i=0, len=rectTable.length; i < len; i++) {
@@ -475,6 +479,7 @@ IndexScrollbar.prototype = {
 
 	_clear: function () {
 		this.indexCellInfomations.clear();
+		this.indexElements = null;
 
 		var el = this.element;
 		while(el.firstChild) {
