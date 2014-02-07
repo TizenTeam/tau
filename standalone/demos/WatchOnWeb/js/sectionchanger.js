@@ -141,7 +141,7 @@ SectionChanger.prototype = {
 		if ( flick ){
 			//move next section
 			if ( flick < 0 ) {
-				this.scroller.scrollTo( fitValue, 0, 300 );
+				this.scroller.scrollTo( fitValue, 0, 100 );
 				this._lastX = fitValue;
 			} else {
 				this.scroller.scrollTo( lastX + interval, 0, 100 );
