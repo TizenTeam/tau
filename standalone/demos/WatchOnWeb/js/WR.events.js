@@ -72,7 +72,7 @@ WR.func.loadLSData = function( m ) {
 
 	if( Remocon.remoconList.length > 0 ) {
 		Remocon.remoconList[0].createRemoteDiv( "#remotePage" );
-		remoteSV.update();
+		//remoteSV.update();
 		sm.moveTo( "#remotePage" );
 	}
 };

@@ -6,6 +6,7 @@
 
 	<link rel="stylesheet" href="lib/gear-ui/themes/default/gear.ui.min.css">
 	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/sectionchanger.css">
 
 </head>
 <body>
@@ -63,6 +64,29 @@
 				<a class="more ui-more ui-icon-overflow" id="titleMenuButton"></a>
 			</header>
 			<div class="ui-content" id="chKeypad">
+				<div class="scroller" data-auto-fitting="true" data-circular-element="false">
+<section>
+				<div id="left">
+					<div id="volUpBtn" class="remoteBtn volUp"></div>
+					<div class="remote-text Remote_control_FONT">VOL</div>
+					<div id="volDownBtn" class="remoteBtn volDown"></div>
+				</div>
+				<div id="dividerV1"></div>
+				<div id="center">
+					<div id="onBtn" class="remoteBtn2 on"></div>
+					<div id="dividerH"></div>
+					<div id="addBtn" class="remoteBtn2 add"></div>
+					<div id="dividerH"></div>
+					<div id="muteBtn" class="remoteBtn2 mute"></div>
+				</div>
+				<div id="dividerV2"></div>
+				<div id="right">
+					<div id="chUpBtn" class="remoteBtn chUp"></div>
+					<div class="remote-text Remote_control_FONT">CH</div>
+					<div id="chDownBtn" class="remoteBtn chDown"></div>
+				</div>
+</section>
+<section id="chKeypad">
 				<div id="chKeypadLeft">
 					<a type="button" id="ch1Btn" class="ui-btn chBtn">1</a>
 					<a type="button" id="ch4Btn" class="ui-btn chBtn">4</a>
@@ -81,18 +105,8 @@
 					<a type="button" id="ch9Btn" class="ui-btn chBtn">9</a>
 					<a type="button" id="chpreBtn" class="ui-btn chBtn">pre-ch</a>
 				</div>
+</section>
 			</div>
-			<div id="chKeypadCenter">
-				<a type="button" id="btn-ch-2" class="ui-btn ch-btn">2</a>
-				<a type="button" id="btn-ch-5" class="ui-btn ch-btn">5</a>
-				<a type="button" id="btn-ch-8" class="ui-btn ch-btn">8</a>
-				<a type="button" id="btn-ch-0" class="ui-btn ch-btn">0</a>
-			</div>
-			<div id="chKeypadRight">
-				<a type="button" id="btn-ch-3" class="ui-btn ch-btn">3</a>
-				<a type="button" id="btn-ch-6" class="ui-btn ch-btn">6</a>
-				<a type="button" id="btn-ch-9" class="ui-btn ch-btn">9</a>
-				<a type="button" id="btn-ch-pre" class="ui-btn ch-btn">pre-ch</a>
 			</div>
 		</div>
 	</div>
@@ -186,8 +200,8 @@
 		</footer>
 	</div>
 
-<!----------------------------- Hidden Page ------------------------>
-	<div class="ui-page" id="hiddenPage">
+<!----------------------------- Hidden Page -----------------------
+	<div class="ui-page" id="hiddenPage sectionchager">
 
 		<div id="tv-controller" class="ui-page swipePage remocon center">
 
@@ -197,6 +211,8 @@
 			</header>
 
 			<div class="ui-content">
+			<div class="scroller" data-auto-fitting="true" data-circular-element="false">
+<section>
 				<div id="left">
 					<div id="volUpBtn" class="remoteBtn volUp"></div>
 					<div class="remote-text Remote_control_FONT">VOL</div>
@@ -216,8 +232,32 @@
 					<div class="remote-text Remote_control_FONT">CH</div>
 					<div id="chDownBtn" class="remoteBtn chDown"></div>
 				</div>
+</section>
+<section id="chKeypad">
+				<div id="chKeypadLeft">
+					<a type="button" id="ch1Btn" class="ui-btn chBtn">1</a>
+					<a type="button" id="ch4Btn" class="ui-btn chBtn">4</a>
+					<a type="button" id="ch7Btn" class="ui-btn chBtn">7</a>
+					<a type="button" id="ch-Btn" class="ui-btn chBtn">-</a>
+				</div>
+				<div id="chKeypadCenter">
+					<a type="button" id="ch2Btn" class="ui-btn chBtn">2</a>
+					<a type="button" id="ch5Btn" class="ui-btn chBtn">5</a>
+					<a type="button" id="ch8Btn" class="ui-btn chBtn">8</a>
+					<a type="button" id="ch0Btn" class="ui-btn chBtn">0</a>
+				</div>
+				<div id="chKeypadRight">
+					<a type="button" id="ch3Btn" class="ui-btn chBtn">3</a>
+					<a type="button" id="ch6Btn" class="ui-btn chBtn">6</a>
+					<a type="button" id="ch9Btn" class="ui-btn chBtn">9</a>
+					<a type="button" id="chpreBtn" class="ui-btn chBtn">pre-ch</a>
+				</div>
+</section>
+			</div>
 			</div>
 		</div>
+
+
 
 		<div id="tv-stb-controller" class="ui-page swipePage remocon center">
 
@@ -249,16 +289,18 @@
 		</div>
 
 	</div>
+-->
 
 	<script type="text/javascript" src="lib/gear-ui/js/gear.ui.min.js"></script>
 	<script type="text/javascript" src="lib/gear-ui/js/virtuallist.js"></script>
 	<script src="lib/gear-ui/js/escapens.js"></script>
 	<script type="text/javascript" src="js/jquery-1.9.1.js"></script>
 	<script type="text/javascript" src="js/jquery.event.move.js"></script>
-	<script type="text/javascript" src="js/jquery.event.swipe.js"></script>
 
 	<script type="text/javascript" src="js/common/Sandbox.js"></script>
-	<script type="text/javascript" src="js/common/SwipeView.js"></script>
+
+	<script type="text/javascript" src="js/scroller.js"></script>
+	<script type="text/javascript" src="js/sectionchanger.js"></script>
 	<script type="text/javascript" src="js/common/Remocon.js"></script>
 	<script type="text/javascript" src="js/common/SceneManager.js"></script>
 

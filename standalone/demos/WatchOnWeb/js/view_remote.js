@@ -5,7 +5,7 @@ WR.init = WR.init || {};
 WR.view = WR.view || {};
 WR.func = WR.func || {};
 
-var remoteSV = null;
+//var remoteSV = null;
 
 //localStorage.setItem("device_type", ""); localStorage.setItem("brand_name", ""); localStorage.setItem("code_set_name", ""); localStorage.setItem("model", "");
 
@@ -18,15 +18,15 @@ WR.init.remotePage = function( m ) {
 		SwipeView = m.SwipeView,
 		Remocon = m.Remocon;
 
-	remoteSV = new SwipeView( "#remotePage" );
+//	remoteSV = new SwipeView( "#remotePage" );
 
 	var remoconList = Remocon.remoconList;
 
 	if( remoconList[ lastUseRemoconId ] ) {
 		remoconList[ lastUseRemoconId ].createRemoteDiv();
-		remoteSV.update();
+//		remoteSV.update();
 	} else {
-		remoteSV.update();
+//		remoteSV.update();
 	}
 
 	
@@ -39,7 +39,7 @@ WR.events.remotePage = function( m ) {
 
 	remotePage$[0].beforeChange = function() {
 
-		remoteSV.moveTo( 0 );
+//		remoteSV.moveTo( 0 );
 		sm.clearStack();
 	};
 

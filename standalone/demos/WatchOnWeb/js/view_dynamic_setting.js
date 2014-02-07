@@ -46,7 +46,7 @@ WR.events.dynamicSettingPage = function( m )
 
 		newRemocon.saveToLocalStorage();
 		newRemocon.createRemoteDiv( "#remotePage" );
-		remoteSV.update();
+//		remoteSV.update();
 		WatchOnSandbox( "Remocon", func.updateRemoconManagePage );
 
 		if( deviceType === "STB" )

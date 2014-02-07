@@ -36,6 +36,13 @@ $( document ).ready( function() {
 	});
 });
 
+var page = document.getElementById( "remotePage" );
+page.addEventListener( "pageshow", function() {
+	// make SectionChanger object
+	var sectionChanger = new SectionChanger();
+});
+
+
 WR.enums.init = function( m ) {
 	
 	var wr = WR,
