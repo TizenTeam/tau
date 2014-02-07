@@ -46,12 +46,8 @@ function Scroller( elem ) {
 	return this;
 }
 
-var     G_oldTouchX,
-G_oldTimeStamp,
-G_lastX,
-G_lastVelocity;
-
 Scroller.prototype = {
+
 	init: function( elem ) {
 		var page;
 
@@ -70,11 +66,15 @@ Scroller.prototype = {
 		this._height = screen.height;
 		this._lastX = 0;
 
+		// vars for getting estimated point position
+		this.lastVelocity = 0;
+		this.lastEstimatedPointX = 0;
+		this.lastTouchPointX = -1;
+
 		this.options.autoFitting = this._scroller.getAttribute("data-auto-fitting");
 		this.options.circularElement = this._scroller.getAttribute("data-circular-element");
 
 		this._scroller.style.height = this._scroller.parentElement.clientHeight + "px";
-
 		this._scrollerDirection = "horizontal"; // default scroller direction is horizontal
 		this._addEvent();
 	},
@@ -144,34 +144,31 @@ Scroller.prototype = {
 		scrollerStyle["-webkit-transition"] = transition;
 	},
 
-	getEstimatedCurrentPoint: function( currentX, currentTimeStamp) {
+	_getEstimatedCurrentPoint: function( currentX ) {
 		var velocity,
-			estimatedX = G_lastX,
-			date = new Date(),
-			currentTime = date.getTime();
-		//item1 : currentX, item2: oldX
-		//var timeDifference = currentTime - currentTimeStamp;
-		var timeDifference = 10;
+			estimatedPointX = this.lastEstimatedPointX,
+			timeDifference = 15, /* pause time threshold.. tune the number to up if it is slow */
+			x;
 
-		if ( timeDifference < 50 /*pause time threshold */) {
-			velocity = (currentX - G_oldTouchX ) / 22; /*( currentTimeStamp - G_oldTimeStamp )*//*46.8 s_moveEventPerSecond*/
-			var x = currentX + (timeDifference + (-5) /*s_extraPredictionTime*/) * velocity;
+		velocity = ( currentX - this.lastTouchPointX ) / 22; /*46.8 s_moveEventPerSecond*/
+		x = currentX + ( timeDifference * velocity );
 
-			// Prevent that point goes back even though direction of velocity is not changed.
-			if ((G_lastVelocity  * velocity >= 0)
-					&& (!velocity || (velocity < 0 && x > G_lastX) || (velocity > 0 && x < G_lastX)))
-				x = G_lastX;
-
-			estimatedX = x;
+		// Prevent that point goes back even though direction of velocity is not changed.
+		if ( (this.lastVelocity  * velocity >= 0)
+				&& (!velocity || (velocity < 0 && x > this.lastEstimatedPointX)
+				|| (velocity > 0 && x < this.lastEstimatedPointX)) ) {
+			x = this.lastEstimatedPointX;
 		}
-		G_lastVelocity = velocity;
 
-		return estimatedX;
+		estimatedPointX = x;
+		this.lastVelocity = velocity;
+
+		return estimatedPointX;
 	},
 	_addEvent: function( ) {
 		var self = this,
-		startTime,
-		endTime;
+		startTime;
+
 		self._ex = 0;
 		self._ey = 0;
 		self._sy = 0;
@@ -179,10 +176,10 @@ Scroller.prototype = {
 		self._beforeX = 0;
 
 		self._scroller.addEventListener( "touchstart", function( e ) {
-			var touches = e.touches;
-			startTime = new Date();
-			// set oldTouchX to -1 if it starts touch.
-			G_oldTouchX = -1;
+			var touches = e.touches,
+				startTime = new Date();
+			// set oldTouchPointX to -1 if it starts touch.
+			self.lastTouchPointX = -1;
 			self.lastVelocity = 0;
 			self.lastX = touches[0].pageX;
 
@@ -202,28 +199,28 @@ Scroller.prototype = {
 		});
 
 		self._scroller.addEventListener( "touchmove", function( e ) {
-			var touches = e.touches;
-			self._hInterval = touches[0].pageX - self._ex; // horizontal move interval
+			var touches = e.touches,
+				estimatedPointX = touches[0].pageX;
+			self._hInterval = 0;	// horizontal move interval
 			self._vInterval = touches[0].pageY - self._ey; // vertical move interval
 
-			var estimatedX = touches[0].pageX;
-			if ( G_oldTouchX != -1 )
-					estimatedX= self.getEstimatedCurrentPoint( touches[0].pageX, e.timeStamp );
+			if ( self.lastTouchPointX != -1 ) {
+				estimatedPointX= self._getEstimatedCurrentPoint( touches[0].pageX );
+			}
+			self._hInterval =  estimatedPointX - self._ex;
 
-			self._hInterval =  estimatedX - self._ex;
-			G_oldTimeStamp = e.timeStamp;
-			G_oldTouchX = touches[0].pageX;
-			G_lastX = estimatedX;
+			self.lastTouchPointX = touches[0].pageX;
+			self.lastEstimatedPointX = estimatedPointX;
 
-			if ( self._beforeX > estimatedX ){
+			if ( self._beforeX > estimatedPointX ){
 				// move left
 				self._dir = "left";
-			} else if ( self._beforeX < estimatedX) {
+			} else if ( self._beforeX < estimatedPointX) {
 				self._dir = "right";
 			} else {
 				self._dir = "none";
 			}
-			self._beforeX = estimatedX;
+			self._beforeX = estimatedPointX;
 
 			if ( self._dragging ) {
 				switch( self._scrollerDirection ) {
@@ -266,7 +263,7 @@ Scroller.prototype = {
 		});
 
 		self._scroller.addEventListener( "touchend", function( e ) {
-			endTime = new Date();
+			var endTime = new Date();
 			if ( !self._scrollerDirection || self._scrollerDirection === "vertical" ) {
 				// don't need to scroller
 				return;
