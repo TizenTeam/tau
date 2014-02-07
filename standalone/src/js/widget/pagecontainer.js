@@ -28,7 +28,13 @@ $.widget( "micro.pagecontainer", {
 	},
 
 	_include: function( page ) {
-		$(page).prependTo( this.element ).page();
+		var $page = $( page );
+		if ( $page.parent().filter( this.element ).length === 0 ) {
+			$page.prependTo( this.element );
+		}
+		if ( typeof $page.data( "page" ) !== "undefied" ) {
+			$page.page();
+		}
 	},
 
 	change: function (toPage, options ) {
