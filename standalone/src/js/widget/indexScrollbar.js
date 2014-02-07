@@ -353,10 +353,6 @@ IndexScrollbar.prototype = {
 		this.eventHandlers.touchEnd = this._onTouchEndHandler.bind(this);
 		this.eventHandlers.touchMove = this._onTouchMoveHandler.bind(this);
 
-//		this.element.addEventListener("mousedown", this.eventHandlers.touchStart);
-//		this.element.addEventListener("mouseover", this.eventHandlers.touchMove);
-//		document.addEventListener("mouseup", this.eventHandlers.touchEnd);
-
 		this.element.addEventListener("touchstart", this.eventHandlers.touchStart);
 		this.element.addEventListener("touchmove", this.eventHandlers.touchMove);
 		document.addEventListener("touchend", this.eventHandlers.touchEnd);
@@ -364,14 +360,10 @@ IndexScrollbar.prototype = {
 	},
 
 	_unbindEventToTriggerSelectEvent: function() {
-//		document.removeEventListener("mousedown", this.eventHandlers.touchStart);
-//		document.removeEventListener("mouseup", this.eventHandlers.touchEnd);
-//		this.element.removeEventListener("mouseover", this.eventHandlers.touchMove);
-
-		document.removeEventListener("touchstart", this.eventHandlers.touchStart);
+		this.element.removeEventListener("touchstart", this.eventHandlers.touchStart);
+		this.element.removeEventListener("touchmove", this.eventHandlers.touchMove);
 		document.removeEventListener("touchend", this.eventHandlers.touchEnd);
 		document.removeEventListener("touchcancel", this.eventHandlers.touchEnd);
-		this.element.removeEventListener("touchmove", this.eventHandlers.touchMove);
 	},
 
 	/**
