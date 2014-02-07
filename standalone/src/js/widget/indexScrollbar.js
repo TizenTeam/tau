@@ -21,6 +21,7 @@ function IndexScrollbar (element, options) {
 	this.isShowIndicator = false;
 	this.touchAreaOffsetLeft = 0;
 	this.indexElements = null;
+	this.selectEventTriggerTimeoutId = null;
 
 	this.indexCellInfomations = {
 		indices: [],
@@ -63,6 +64,7 @@ IndexScrollbar.prototype = {
 			"R", "S", "T", "U", "V", "W", "X", "Y", "Z", "1"
 		],
 		maxIndexSize: 9,
+		delayTime: 50,
 		container: null
 	},
 
@@ -245,9 +247,17 @@ IndexScrollbar.prototype = {
 
 		val = cellInfomations.indices[idx];
 		this.indicator.firstChild.innerHTML = val;
-		this._trigger(this.element, "select", {index: val});
 
 		this.index = idx;
+
+		if ( this.selectEventTriggerTimeoutId ) {
+			window.clearTimeout(this.selectEventTriggerTimeoutId);
+		}
+		this.selectEventTriggerTimeoutId = window.setTimeout(function() {
+			this._trigger(this.element, "select", {index: val});
+			this.selectEventTriggerTimeoutId = null;
+		}.bind(this), this.options.delayTime);
+
 	},
 
 	_clearSelected: function() {
