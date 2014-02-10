@@ -75,7 +75,13 @@ SectionChanger.prototype = {
 
 		scrollerElement.addEventListener( "scroller.end", function( e ){
 			if ( self.scroller.options.autoFitting === "true" ) {
-				self._fitSectionPosition( e.lastX );
+				self._fitSectionPosition( e.lastX, 0 );
+			}
+		});
+
+		scrollerElement.addEventListener( "scroller.flick", function( e ){
+			if ( self.scroller.options.autoFitting === "true" ) {
+				self._fitSectionPosition( e.lastX, e.interval );
 			}
 		});
 
@@ -127,15 +133,28 @@ SectionChanger.prototype = {
 		this.scroller.getElement().scrollTop = 0;
 	},
 
-	_fitSectionPosition: function( lastX ) {
+	_fitSectionPosition: function( lastX, flick ) {
+		// If flick event called this method, flick value is true
 		var interval = -lastX % this._width,
 			fitValue = lastX - ( this._width - interval );
 
-		if ( interval <= this._width / 2 ) {
-			this.scroller.scrollTo( lastX + interval, 0, 300 );
+		if ( flick ){
+			//move next section
+			if ( flick < 0 ) {
+				this.scroller.scrollTo( fitValue, 0, 100 );
+				this._lastX = fitValue;
+			} else {
+				this.scroller.scrollTo( lastX + interval, 0, 100 );
+				this._lastX = lastX + interval;
+			}
+
+		} else if ( interval <= this._width / 2 ) {
+			// don't move next section
+			this.scroller.scrollTo( lastX + interval, 0, 100 );
 			this._lastX = lastX + interval;
 		} else {
-			this.scroller.scrollTo( fitValue, 0, 300 );
+			// move next section
+			this.scroller.scrollTo( fitValue, 0, 100 );
 			this._lastX = fitValue;
 		}
 	},

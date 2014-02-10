@@ -175,6 +175,8 @@ Scroller.prototype = {
 		self._ex = 0;
 		self._ey = 0;
 		self._sy = 0;
+		self._dir = "none";
+		self._beforeX = 0;
 
 		self._scroller.addEventListener( "touchstart", function( e ) {
 			var touches = e.touches;
@@ -182,7 +184,7 @@ Scroller.prototype = {
 			// set oldTouchX to -1 if it starts touch.
 			G_oldTouchX = -1;
 			self.lastVelocity = 0;
-			self.lastX = e.touches[0].pageX;
+			self.lastX = touches[0].pageX;
 
 			if ( !self._scrollerDirection || self._scrollerDirection === "vertical" ) {
 				// don't need to scroller
@@ -191,9 +193,12 @@ Scroller.prototype = {
 			self._ex = touches[0].pageX;
 			self._ey = touches[0].pageY;
 			self._sx = self._lastX;
+			self._dir = "none";
+			self._beforeX = self._lastX;
 			self._dragging = true;
 			scrollerStart.lastX = self._ex;
 			self._scroller.dispatchEvent( scrollerStart );
+
 		});
 
 		self._scroller.addEventListener( "touchmove", function( e ) {
@@ -204,19 +209,28 @@ Scroller.prototype = {
 			var estimatedX = touches[0].pageX;
 			if ( G_oldTouchX != -1 )
 					estimatedX= self.getEstimatedCurrentPoint( touches[0].pageX, e.timeStamp );
-				
+
 			self._hInterval =  estimatedX - self._ex;
 			G_oldTimeStamp = e.timeStamp;
 			G_oldTouchX = touches[0].pageX;
 			G_lastX = estimatedX;
 
+			if ( self._beforeX > estimatedX ){
+				// move left
+				self._dir = "left";
+			} else if ( self._beforeX < estimatedX) {
+				self._dir = "right";
+			} else {
+				self._dir = "none";
+			}
+			self._beforeX = estimatedX;
 
 			if ( self._dragging ) {
 				switch( self._scrollerDirection ) {
 				case !self._scrollerDirection || "vertical":
 					return;
 				case "horizontal":
-					if ( 2 * Math.abs( self._vInterval ) > Math.abs( self._hInterval ) ) {
+					if ( Math.abs( self._vInterval ) > 2 * Math.abs( self._hInterval ) ) {
 						// invalid degree
 						self._sx = self._lastX;
 						e.preventDefault();
@@ -232,16 +246,22 @@ Scroller.prototype = {
 				}
 				//valid degree and over horizontal threshold
 				self._sx = self._lastX + self._hInterval;
-				if ( self._sx > 0 ) {
+				if ( self._sx > 0 && self._dir !== "left" ) {
 					// left side
 					self._sx = 0;
-				} else if ( self._sx < -self._lsw ) {
+				} else if ( self._sx < -self._lsw && self._dir !== "right" ) {
 					self._sx = -self._lsw;
+				} else if ( ( self._sx > 0 && self._dir !== "right") || ( self._sx < -self._lsw && self._dir !== "left" ) ){
+					self.lastX = touches[0].pageX;
+					self._ex = touches[0].pageX;
+					self._ey = touches[0].pageY;
+					self._sx = self._lastX;
 				}
 				self._setElementTransform( self._sx, 0 );
 				scrollerMove.lastX = self._sx;
 				self._scroller.dispatchEvent( scrollerMove );
 				e.preventDefault(); //this function make overflow scroll don't used
+
 			}
 		});
 
@@ -263,6 +283,7 @@ Scroller.prototype = {
 				scrollerEnd.lastX = self._lastX;
 				self._scroller.dispatchEvent( scrollerEnd );
 			}
+
 		});
 	}
 }
