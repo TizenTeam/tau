@@ -64,7 +64,7 @@ IndexScrollbar.prototype = {
 			"R", "S", "T", "U", "V", "W", "X", "Y", "Z", "1"
 		],
 		maxIndexSize: 9,
-		delayTime: 50,
+		keepSelectEventDelay: 50,
 		container: null
 	},
 
@@ -256,7 +256,7 @@ IndexScrollbar.prototype = {
 		this.selectEventTriggerTimeoutId = window.setTimeout(function() {
 			this._trigger(this.element, "select", {index: val});
 			this.selectEventTriggerTimeoutId = null;
-		}.bind(this), this.options.delayTime);
+		}.bind(this), this.options.keepSelectEventDelay);
 
 	},
 
