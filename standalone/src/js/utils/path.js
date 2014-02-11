@@ -1,7 +1,9 @@
+/*
+* Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
+
 //>>excludeStart("microBuildExclude", pragmas.microBuildExclude);
-//>>description: Path parsing and manipulation helpers
-//>>label: Path Helpers
-//>>group: Navigation
 define([
 	"jquery",
 	"../core" ], function( jQuery ) {

@@ -1,3 +1,8 @@
+/*
+* Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
+
 module.exports = function(grunt) {
 	"use strict";
 	
@@ -204,6 +209,18 @@ module.exports = function(grunt) {
 			}
 		},
 
+		concat: {
+			normal: {
+				src: [path.join( "license", "MIT" ) + ".txt", path.join( jsPath, name ) + ".js"],
+				dest: path.join( jsPath, name ) + ".js",
+			},
+
+			min: {
+				src: [path.join( "license", "MIT" ) + ".txt", path.join( jsPath, name ) + ".min.js"],
+				dest: path.join( jsPath, name ) + ".min.js"
+			}
+		},
+
 		less : {
 			style : {
 				files : files.css.getCssFiles()
@@ -251,7 +268,7 @@ module.exports = function(grunt) {
 
 	grunt.registerTask( "lint", [ "jshint" ] );
 	grunt.registerTask("css", [ "less", "cssmin", "copy" ]);
-	grunt.registerTask("js", [ "requirejs:js", "uglify" ]);
+	grunt.registerTask("js", [ "requirejs:js", "uglify", "concat" ]);
 	grunt.registerTask("jsej", [ "requirejs:jsej", "uglify" ]);
 	
 	grunt.registerTask("release", [ "lint", "css", "js", "requirejs:jsejvl"]);
