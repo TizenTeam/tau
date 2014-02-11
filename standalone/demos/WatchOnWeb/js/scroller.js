@@ -167,7 +167,8 @@ Scroller.prototype = {
 	},
 	_addEvent: function( ) {
 		var self = this,
-		startTime;
+		startTime,
+		endTime;
 
 		self._ex = 0;
 		self._ey = 0;
@@ -176,8 +177,8 @@ Scroller.prototype = {
 		self._beforeX = 0;
 
 		self._scroller.addEventListener( "touchstart", function( e ) {
-			var touches = e.touches,
-				startTime = new Date();
+			var touches = e.touches;
+			startTime = new Date();
 			// set oldTouchPointX to -1 if it starts touch.
 			self.lastTouchPointX = -1;
 			self.lastVelocity = 0;
@@ -263,7 +264,7 @@ Scroller.prototype = {
 		});
 
 		self._scroller.addEventListener( "touchend", function( e ) {
-			var endTime = new Date();
+			endTime = new Date();
 			if ( !self._scrollerDirection || self._scrollerDirection === "vertical" ) {
 				// don't need to scroller
 				return;
