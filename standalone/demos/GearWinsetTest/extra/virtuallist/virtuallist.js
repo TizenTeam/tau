@@ -1,12 +1,15 @@
 (function() {
-	var page = document.getElementById("pageTestVirtualList");
+	var page = document.getElementById("pageTestVirtualList"),
+		vlist;
+
 	page.addEventListener("pageshow", function() {
-		var elList = document.getElementById("vlist1"),
-			vlist = gear.ui.VirtualListview(elList, {
+		var elList = document.getElementById("vlist1");
+
+		vlist = gear.ui.VirtualListview(elList, {
 				dataLength: JSON_DATA.length,
 				bufferSize: 40
 		});
-	
+
 		// Update listitem
 		vlist.setListItemUpdater(function(elListItem, newIndex) {
 			//TODO: Update listitem here

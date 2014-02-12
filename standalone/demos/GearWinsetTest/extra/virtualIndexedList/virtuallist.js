@@ -1,18 +1,19 @@
 (function() {
-	var page = document.getElementById("pageTestVirtualList");
+	var page = document.getElementById("pageTestVirtualList"),
+		isb, vlist;
 
 	page.addEventListener("pageshow", function() {
 		var elisb = document.getElementById("indexscrollbar1"),
 			elList = document.getElementById("vlist1"),
 			listSize = JSON_DATA.length,
-			isb,
-			vlist = gear.ui.VirtualListview(elList, {
+			lastOccuredChar = null,
+			sideIndex = {},
+			i;
+
+		vlist = gear.ui.VirtualListview(elList, {
 				dataLength: listSize,
 				bufferSize: 40
-		}),
-		lastOccuredChar = null,
-		sideIndex = {},
-		i;
+		});
 
 		for (i = 0; i < listSize; i++){
 			firstChar = JSON_DATA[i].NAME[0];
@@ -49,5 +50,6 @@
 	page.addEventListener("pagehide", function() {
 		// Remove all children in the vlist
 		vlist.destroy();
+		isb.destroy();
 	});
 }());
