@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
-        <title>Gear Extra UI</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+	<title>Gear Extra UI</title>
+	<link rel="stylesheet"  href="../../lib/gear-ui/themes/default/gear.ui.css">
 </head>
 <body>
-	<div id="sectionchanger" class="ui-page">
+	<div id="sectionchangerPage" class="ui-page">
 	<link rel="stylesheet"  href="./css/sectionchanger.css">
 		<header class="ui-header">
 			<h2 class="ui-title">Gear Extra UI</h2>
 		</header>
-		<div class="ui-content">
-			<div class="scroller" data-auto-fitting="true" data-circular-element="true">
+		<div id="sectionchanger" class="ui-content">
+			<!-- section changer has only one child. -->
+			<div id="sectionWrap">
 				<section style="text-align:center" >
 					<h3> LEFT2 PAGE </h3>
 				</section>
 				<section style="text-align:center">
 					<h3> LEFT1 PAGE </h3>
 				</section>
-				<section class="section-start" style="text-align:center">
+				<section class="section-active" style="text-align:center">
 					<h3> MAIN PAGE </h3>
 				</section>
 				<section style="text-align:center">
@@ -41,9 +43,14 @@
 				</section>
 			</div>
 		</div>
-		<script src="./js/sectionchanger.js"></script>
+		<footer class="ui-footer ui-grid-col-2">
+			<button id="addBtn" class="ui-btn" >Add</button>
+			<button id="removeBtn" class="ui-btn" >Remove</button>
+		</footer>
 		<script src="./js/scroller.js"></script>
+		<script src="./js/sectionchanger.js"></script>
 		<script src="./app.js"></script>
 	</div>
+<script src="../../lib/gear-ui/js/gear.ui.js"></script>
 </body>
 </html>

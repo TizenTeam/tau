@@ -1,10 +1,4 @@
-.ui-page.ui-page-active {
-	overflow-x: hidden;
-}
-.scroller {
-	position: fixed;
-	overflow-x: hidden;
-}
-.scroller > section {
-	position: absolute;
+#sectionWrap > section {
+	overflow: hidden;
+	overflow-y: auto;
 }
