@@ -7,7 +7,7 @@
 	<link rel="stylesheet"  href="../../css/style.css">
 </head>
 <body>
-	<div class="ui-page">
+	<div class="ui-page" id="page_webkitui">
 		<header class="ui-header">
 			<h2 class="ui-title">Webkit UI demos</h2>
 		</header>
@@ -85,8 +85,41 @@
 					<div class="scroll">You can use the overflow property when you want to have better control of the layout. The default value is visible.</div>
 				</div>
 			</div>
+			<div class="sample">
+				<h3>Date/Time picker</h3>
+				<div>
+					Date: <input type="date"></input>
+				</div>
+				<div>
+					Time: <input type="time"></input>
+				</div>
+				<div>
+					Hidden time: <button id="button_webkitui_hiddendateopener">Open timepicker</button><span id="webkitui_hiddentime_value"></span><input type="time" id="input_webkitui_hiddentime" style="visibility:hidden"></input>
+				</div>
+<script>
+(function() {
+	var page = document.getElementById("page_webkitui");
+	page.addEventListener("pagecreate", function(ev) {
+		console.log(ev.type);
+		var btn = document.getElementById("button_webkitui_hiddendateopener"),
+			itime = document.getElementById("input_webkitui_hiddentime"),
+			val = document.getElementById("webkitui_hiddentime_value");
+		btn.addEventListener("click", function(e) {
+			console.log('click');
+			itime.click();
+		});
+		itime.addEventListener("change", function(ev) {
+			console.log('change');
+			val.innerText = itime.value;
+		});
+	});
+}());
+</script>
+
+			</div>
 		</div>
 	</div>
+
 <script type="text/javascript" src="../../lib/gear-ui/js/gear.ui.js"></script>
 </body>
 </html>
