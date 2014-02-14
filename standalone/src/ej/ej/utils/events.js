@@ -13,7 +13,7 @@
 		],
 		function () {
 			//>>excludeEnd("ejBuildExclude");
-			ej.utils.events = {
+			var events = {
 					/**
 					* @method trigger
 					* Triggers custom event on element
@@ -31,11 +31,11 @@
 					*/
 				trigger: function ejUtilsEvents_trigger(element, type, data, bubbles, cancelable) {
 					var evt = new CustomEvent(type, {
-						"detail": data,
-						//allow event to bubble up, required if we want to allow to listen on document etc
-						bubbles: typeof bubbles === "boolean" ? bubbles : true,
-						cancelable: typeof cancelable === "boolean" ? cancelable : true
-					});
+							"detail": data,
+							//allow event to bubble up, required if we want to allow to listen on document etc
+							bubbles: typeof bubbles === "boolean" ? bubbles : true,
+							cancelable: typeof cancelable === "boolean" ? cancelable : true
+						});
 					//>>excludeStart("ejDebug", pragmas.ejDebug);
 					ej.log("triggered event " + type + " on:", element.tagName + '#' + (element.id || "--no--id--"));
 					//>>excludeEnd("ejDebug");
@@ -52,13 +52,12 @@
 				stopPropagation: function (event) {
 					var originalEvent = event._originalEvent;
 					// @todo this.isPropagationStopped = returnTrue;
-					if (!originalEvent) {
-						return;
+					if (originalEvent) {
+						if (originalEvent.stopPropagation) {
+							originalEvent.stopPropagation();
+						}
+						event.stopPropagation();
 					}
-					if (originalEvent.stopPropagation) {
-						originalEvent.stopPropagation();
-					}
-					event.stopPropagation();
 				},
 
 				/**
@@ -70,11 +69,12 @@
 				*/
 				stopImmediatePropagation: function (event) {
 					// @todo this.isImmediatePropagationStopped = returnTrue;
-					this.stopPropagation(event);
+					events.stopPropagation(event);
 				}
 			};
+			ej.utils.events = events;
 			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
-			return ej.utils.events;
+			return events;
 		}
 	);
 	//>>excludeEnd("ejBuildExclude");

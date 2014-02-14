@@ -67,7 +67,7 @@
 			Page.events = EventType;
 
 			selectors.page = '.' + classes.uiPage;
-			selectors.pageActive = '.' + classes.uiPageActive;
+			selectors.activePage = '.' + classes.uiPageActive;
 			selectors.section = '.' + classes.uiSection;
 			selectors.header = '.' + classes.uiHeader;
 			selectors.footer = '.' + classes.uiFooter;
@@ -115,6 +115,7 @@
 						marginTop = parseFloat(contentStyle.marginTop);
 						marginBottom = parseFloat(contentStyle.marginBottom);
 						node.style.height = (screenHeight - extraHeight - marginTop - marginBottom) + "px";
+						node.style.width = screenWidth + "px";
 					}
 				});
 			}

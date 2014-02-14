@@ -1,6 +1,5 @@
 /*global window, define */
-/** @namespace ej.router */
-(function (ej) {
+(function (router) {
 	"use strict";
 	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 	define(
@@ -9,11 +8,11 @@
 		],
 		function () {
 			//>>excludeEnd("ejBuildExclude");
-			/** @namespace ej.router */
-			ej.router.micro = {};
+			/** @namespace ej.router.micro */
+			router.micro = {};
 			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
-			return ej.router.micro;
+			return router.micro;
 		}
 	);
 	//>>excludeEnd("ejBuildExclude");
-}(window.ej));
+}(window.ej.router));

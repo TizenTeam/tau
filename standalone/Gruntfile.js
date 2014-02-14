@@ -346,16 +346,18 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks( "grunt-contrib-watch" );
 
 	grunt.registerTask( "lint", [ "jshint" ] );
+
 	grunt.registerTask( "jsmin", [ "findFiles:js.setMinifiedFiles", "uglify" ] );
 
 	grunt.registerTask("css", [ "clean:css", "less", "cssmin" ]);
 	grunt.registerTask("js", [ "clean:js", "requirejs:full", "requirejs:core", "widget", "requirejs:virtuallist", "jsmin" ]);
-	grunt.registerTask("jsej", [ "clean:js", "requirejs:jsej", "uglify" ]);
+	grunt.registerTask("jsej", [ "clean:js", "requirejs:full", "requirejs:ej", "widget", "jsmin" ]);
 
 	grunt.registerTask("license", [ "findFiles:js.setLicenseFiles", "findFiles:css.setLicenseFiles", "concat" ]);
 
 	grunt.registerTask("release", [ "clean", "lint", "css", "js", "license", "copy" ]);
-	grunt.registerTask("releaseej", [ "lint", "css", "jsej" ]);
+
+	grunt.registerTask("releaseej", [ "clean", "lint", "css", "jsej", "license", "copy"  ]);
 
 	grunt.registerTask("default", [ "release" ]);
 };

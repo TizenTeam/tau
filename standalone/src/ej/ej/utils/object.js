@@ -6,7 +6,7 @@
  * @class ej.utils.object
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
-(function (window, document, ej) {
+(function (ej) {
 	"use strict";
 	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 	define(
@@ -15,7 +15,7 @@
 		],
 		function () {
 			//>>excludeEnd("ejBuildExclude");
-			ej.utils.object = {
+			var object = {
 				/**
 				* Copy object to new object
 				* @method copy
@@ -25,7 +25,7 @@
 				* @memberOf ej.utils.object
 				*/
 				copy: function (orgObject) {
-					return this.merge({}, orgObject);
+					return object.merge({}, orgObject);
 				},
 
 				/**
@@ -74,9 +74,10 @@
 					return newObject;
 				}
 			};
+			ej.utils.object = object;
 			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
-			return ej.utils.object;
+			return object;
 		}
 	);
 	//>>excludeEnd("ejBuildExclude");
-}(window, window.document, window.ej));
+}(window.ej));

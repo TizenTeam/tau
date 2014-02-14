@@ -67,7 +67,8 @@
 				* @static
 				*/
 				isNumber: function (query) {
-					return !isNaN(parseFloat(query)) && isFinite(query);
+					var parsed = parseFloat(query);
+					return !isNaN(parsed) && isFinite(parsed);
 				}
 			};
 

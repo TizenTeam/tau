@@ -166,37 +166,8 @@
 				BaseWidget = function () {
 					this.options = {};
 					return this;
-				};
-
-			/*
-			* @TODO
-			* jquery.widget properies:
-			*
-			* document: The document that the widget's element is within. Useful if you need to interact with widgets within iframes.
-			* element: A jQuery object containing the element used to instantiate the widget. If you select multiple elements and call .myWidget(), a separate widget instance will be created for each element. Therefore, this property will always contain one element.
-			* namespace: The location on the global jQuery object that the widget's prototype is stored on. For example a namespace of "ui" indicates that the widget's prototype is stored on $.ui.
-			* options: An object containing the options currently being used by the widget. On instantiation, any options provided by the user will automatically be merged with any default values defined in $.myNamespace.myWidget.prototype.options. User specified options override the defaults.
-			* uuid: A unique integer identifier for the widget.
-			* version: The string version of the widget. For jQuery UI widgets this will be set to the version of jQuery UI the widget is using. Widget developers have to set this property in their prototype explicitly.
-			* widgetEventPrefix: The prefix prepended to the name of events fired from this widget. For example the widgetEventPrefix of the draggable widget is "drag", therefore when a draggable is created, the name of the event fired is "dragcreate". By default the widgetEventPrefix of a widget is its name. Note: This property is deprecated and will be removed in a later release. Event names will be changed to widgetName:eventName (e.g. "draggable:create".
-			* widgetName: The name of the widget. For $.widget( "myNamespace.myWidget", {} ), widgetName will be "myWidget".
-			* window: The window that the widget's element is within. Useful if you need to interact with widgets within iframes.
-			*/
-
-			/*
-			* @todo default options
-			* disabled: false
-			* hide
-			* show
-			*/
-
-			/*
-			@todo methods:
-			widget
-
-			more information at:
-			http://api.jqueryui.com/jQuery.widget/
-			*/
+				},
+				prototype = {};
 
 			/**
 			* configure widget object from definition
@@ -210,7 +181,7 @@
 			* @chainable
 			* @instance
 			*/
-			BaseWidget.prototype.configure = function (definition, element, options) {
+			prototype.configure = function (definition, element, options) {
 				var widgetOptions = this.options || {};
 				this.options = widgetOptions;
 				if (definition) {
@@ -227,13 +198,6 @@
 					* @instance
 					*/
 					this.widgetName = definition.name.toLowerCase();
-
-					/**
-					* @property {number} uuid Number id of widget instance
-					* @memberOf ej.widget.BaseWidget
-					* @instance
-					*/
-					this.uuid = ej.getNumberUniqueId();
 
 					/**
 					* @property {string} eventNamespace Namespace of widget events (suffix for events)
@@ -333,7 +297,7 @@
 			* @protected
 			* @instance
 			*/
-			BaseWidget.prototype._getCreateOptions = function (element) {
+			prototype._getCreateOptions = function (element) {
 				var options = this.options;
 				if (options !== undefined) {
 					Object.keys(options).forEach(function (option) {
@@ -370,7 +334,7 @@
 			* @memberOf ej.widget.BaseWidget
 			* @instance
 			*/
-			BaseWidget.prototype.build = function (template, element) {
+			prototype.build = function (template, element) {
 				var id,
 					node,
 					name = this.widgetName,
@@ -397,7 +361,6 @@
 					if (node) {
 						this.element = node;
 					}
-					return node;
 				}
 				return node;
 			};
@@ -419,7 +382,7 @@
 			* @chainable
 			* @instance
 			*/
-			BaseWidget.prototype.init = function (element) {
+			prototype.init = function (element) {
 				var id = element.getAttribute("id");
 				if (!id) {
 					id = this.id;
@@ -471,7 +434,7 @@
 			* @chainable
 			* @instance
 			*/
-			BaseWidget.prototype.bindEvents = function (element, onlyBuild) {
+			prototype.bindEvents = function (element, onlyBuild) {
 				if (!onlyBuild) {
 					element.setAttribute("data-ej-bound", "true");
 				}
@@ -502,7 +465,7 @@
 			* @memberOf ej.widget.BaseWidget
 			* @instance
 			*/
-			BaseWidget.prototype.destroy = function () {
+			prototype.destroy = function () {
 				if (typeof this._destroy === "function") {
 					this._destroy();
 				}
@@ -526,20 +489,12 @@
 			* @chainable
 			* @instance
 			*/
-			BaseWidget.prototype.disable = function () {
-				var element = this.element,
-					elementClasses = element.classList;
+			prototype.disable = function () {
+				var element = this.element;
 
 				if (typeof this._disable === "function") {
 					this._disable(element);
 				}
-				elementClasses.add(this.widgetFullName + "-disabled");
-				elementClasses.add("ui-state-disabled");
-				element.setAttribute("aria-disabled", true);
-				// @TODO
-				//this.hoverable.removeClass( "ui-state-hover" );
-				//this.focusable.removeClass( "ui-state-focus" );
-
 				return this;
 			};
 
@@ -558,20 +513,12 @@
 			* @chainable
 			* @instance
 			*/
-			BaseWidget.prototype.enable = function () {
-				var element = this.element,
-					elementClasses = element.classList;
+			prototype.enable = function () {
+				var element = this.element;
 
 				if (typeof this._enable === "function") {
 					this._enable(element);
 				}
-				elementClasses.remove(this.widgetFullName + "-disabled");
-				elementClasses.remove("ui-state-disabled");
-				element.setAttribute("aria-disabled", false);
-				// @TODO
-				//this.hoverable.removeClass( "ui-state-hover" );
-				//this.focusable.removeClass( "ui-state-focus" );
-
 				return this;
 			};
 
@@ -590,7 +537,7 @@
 			* @chainable
 			* @instance
 			*/
-			BaseWidget.prototype.refresh = function () {
+			prototype.refresh = function () {
 				if (typeof this._refresh === "function") {
 					this._refresh();
 				}
@@ -604,7 +551,7 @@
 			* @memberOf ej.widget.BaseWidget
 			* @instance
 			*/
-			BaseWidget.prototype.option = function () {
+			prototype.option = function () {
 				var args = slice.call(arguments),
 					firstArgument = args.shift(),
 					secondArgument = args.shift(),
@@ -635,14 +582,26 @@
 				}
 			};
 
-			BaseWidget.prototype.isBound = function () {
+			prototype.isBound = function () {
 				var element = this.element;
 				return element && element.getAttribute('data-ej-bound') ? true : false;
 			};
 
-			BaseWidget.prototype.isBuilt = function () {
+			prototype.isBuilt = function () {
 				var element = this.element;
 				return element && element.getAttribute('data-ej-built') ? true : false;
+			};
+			
+
+			/**
+			* Return element of widget
+			* @method widget
+			* @memberOf ej.widget.BaseWidgetMobile
+			* @return {HTMLElement}
+			* @instance
+			*/
+			prototype.widget = function () {
+				return this.element;
 			};
 
 			/**
@@ -672,7 +631,7 @@
 			* @return {Mixed}
 			* @instance
 			*/
-			BaseWidget.prototype.value = function (value) {
+			prototype.value = function (value) {
 				if (value !== undefined) {
 					if (typeof this._setValue === "function") {
 						return this._setValue(value);
@@ -685,46 +644,7 @@
 				return this;
 			};
 
-			/**
-			* Return element of widget
-			* @method widget
-			* @memberOf ej.widget.BaseWidget
-			* @return {HTMLElement}
-			* @instance
-			*/
-			BaseWidget.prototype.widget = function () {
-				return this.element;
-			};
-
-			/**
-			* Throw exception
-			* @method raise
-			* @param {string?} msg Message of throw
-			* @memberOf ej.widget.BaseWidget
-			* @return {Mixed}
-			* @instance
-			*/
-			BaseWidget.prototype.raise = function (msg) {
-				throw "Widget [" + this.widgetName + "]: " + msg;
-			};
-
-			/**
-			* @method enhanceWithin
-			* @memberOf ej.widget.BaseWidget
-			* @instance
-			*/
-			BaseWidget.prototype.enhanceWithin = function () {
-				ej.log('method enhanceWithin is deprecated');
-			};
-
-			/**
-			* @method enhance
-			* @memberOf ej.widget.BaseWidget
-			* @instance
-			*/
-			BaseWidget.prototype.enhance = function () {
-				ej.log('method enhance is deprecated');
-			};
+			BaseWidget.prototype = prototype;
 
 			// definition
 			ej.widget.BaseWidget = BaseWidget;

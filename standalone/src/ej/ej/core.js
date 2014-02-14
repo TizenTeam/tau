@@ -9,6 +9,10 @@
 			idNumberCounter = 0,
 			currentDate = (new Date()).getTime(),
 			slice = [].slice,
+			infoForLog = function (args) {
+				var dateNow = new Date();
+				args.unshift('[ej][' + dateNow.toLocaleString() + ']');
+			},
 			/**
 			* Ej core namespace
 			* @class ej
@@ -48,9 +52,8 @@
 				* @memberOf ej
 				*/
 				log: function () {
-					var args = slice.call(arguments),
-						dateNow = new Date();
-					args.unshift('[ej][' + dateNow.toLocaleString() + ']');
+					var args = slice.call(arguments);
+					infoForLog(args);
 					if (console) {
 						console.log.apply(console, args);
 					}
@@ -64,9 +67,8 @@
 				* @memberOf ej
 				*/
 				warn: function () {
-					var args = slice.call(arguments),
-						dateNow = new Date();
-					args.unshift('[ej][' + dateNow.toLocaleString() + ']');
+					var args = slice.call(arguments);
+					infoForLog(args);
 					if (console) {
 						console.warn.apply(console, args);
 					}
@@ -80,9 +82,8 @@
 				* @memberOf ej
 				*/
 				error: function () {
-					var args = slice.call(arguments),
-						dateNow = new Date();
-					args.unshift('[ej][' + dateNow.toLocaleString() + ']');
+					var args = slice.call(arguments);
+					infoForLog(args);
 					if (console) {
 						console.error.apply(console, args);
 					}

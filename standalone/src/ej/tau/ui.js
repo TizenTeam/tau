@@ -1,24 +1,27 @@
 /*global window, define */
-(function (ej, window) {
+(function (window) {
 	"use strict";
 	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 	define(
 		[],
 		function () {
 			//>>excludeEnd("ejBuildExclude");
-			/** @namespace tau */
-			var orgTau = window.tau,
-				tau = {};
-			window.tau = tau;
-
-			tau.noConflict = function () {
-				var newTau = window.tau;
-				window.tau = orgTau;
-				return newTau;
-			};
+			/** @namespace gear.ui */
+			var orgGear = window.gear,
+				ui = {
+					noConflict: function () {
+						var newGear = window.gear;
+						window.gear = orgGear;
+						return newGear;
+					}
+				},
+				gear = {
+					ui: ui
+				};
+			window.gear = gear;
 			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
-			return tau;
+			return ui;
 		}
 	);
 	//>>excludeEnd("ejBuildExclude");
-}(window.ej, window));
+}(window));

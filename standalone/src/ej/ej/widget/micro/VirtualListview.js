@@ -11,13 +11,14 @@
 	"use strict";
 	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 	define(
-			[
-				"../../core",
-				"../../engine",
-				"../micro", // fetch namespace
-				"../BaseWidget"
-			],
-			function() {
+		[
+			"../../core",
+			"../../engine",
+			"../../utils/events",
+			"../micro", // fetch namespace
+			"../BaseWidget"
+		],
+		function() {
 				//>>excludeEnd("ejBuildExclude");
 				var BaseWidget = ej.widget.BaseWidget,
 						/**
@@ -26,6 +27,7 @@
 						 * @static
 						 */
 						engine = ej.engine,
+						events = ej.utils.events,
 						// Constants definition
 						/**
 						 * @property {number} SCROLL_UP defines index of scroll `{@link ej.widget.VirtualListview._scroll#direction}.direction`
@@ -56,6 +58,12 @@
 						 */
 						SCROLL_LEFT = 3,
 						blockEvent = false,
+						timer,
+						origTarget,
+						tapholdThreshold = 250,
+						tapHandlerBound = null,
+						lastTouchPos = {},
+
 						/**
 						 * Local constructor function
 						 * @method VirtualListview
@@ -122,6 +130,7 @@
 							this.options = {
 								bufferSize: 100,
 								dataLength: 0,
+								orientation: 'y',
 								/**
 								 * Method which modifies list item, depended at specified index from database.
 								 * **Method should overrided by developer using {@link ej.widget.VirtualListview#create .create} method.**
@@ -137,8 +146,64 @@
 
 							//Event function handler
 							this._scrollEventBound = null;
+							this._touchStartEventBound = null;
 							return this;
 						};
+
+				function _removeHighlight (self) {
+					var childrenNodes,
+							i;
+
+					childrenNodes = self.element.children;
+					for (i = childrenNodes.length - 1; i > 0; i -= 1) {
+						childrenNodes[i].classList.remove('ui-listview-active');
+					}
+				}
+				function _tapHandler (self, event) {
+					var eventTouch = event.changedTouches[0];
+
+					if (event.type === 'touchmove') {
+						if (Math.abs(lastTouchPos.clientX - eventTouch.clientX) > 10 && Math.abs(lastTouchPos.clientY - eventTouch.clientY) > 10) {
+							_removeHighlight(self);
+							window.clearTimeout(timer);
+						}
+					} else {
+						_removeHighlight(self);
+						window.clearTimeout(timer);
+					}
+
+				}
+
+				function tapholdListener(self) {
+					var liElement;
+
+					liElement = origTarget.tagName === 'LI' ? origTarget : origTarget.parentNode;
+
+					origTarget.removeEventListener('touchmove', tapHandlerBound, false);
+					origTarget.removeEventListener('touchend', tapHandlerBound, false);
+					tapHandlerBound = null;
+
+
+					_removeHighlight(self);
+					liElement.classList.add('ui-listview-active');
+					lastTouchPos = {};
+
+				}
+
+				function _touchStartHandler (self, event) {
+					origTarget = event.target;
+					window.clearTimeout(timer);
+					timer = window.setTimeout(tapholdListener.bind('', self), tapholdThreshold);
+
+					lastTouchPos.clientX = event.touches[0].clientX;
+					lastTouchPos.clientY = event.touches[0].clientY;
+
+					//Add touch listeners
+					tapHandlerBound = _tapHandler.bind('', self);
+					origTarget.addEventListener('touchmove', tapHandlerBound, false);
+					origTarget.addEventListener('touchend', tapHandlerBound, false);
+
+				}
 
 
 				//@TODO: Maybe this information should by provided by Scrollview
@@ -190,68 +255,58 @@
 					scrollInfo.clipWidth = scrollViewElement.clientWidth;
 				}
 
-				/**
-				 * Updates list item with data using defined template
-				 * @method _updateListItem
-				 * @param {ej.widget.VirtualListview} self VirtualListview widget reference
-				 * @param {HTMLElement} element List element to update
-				 * @param {number} index Data row index
-				 * @private
-				 */
-				function _updateListItem(self, element, index) {
-					self.options.listItemUpdater(element, index);
+				function _computeElementSize(element, orientation) {
+					return parseInt(orientation === 'y' ? element.clientHeight : element.clientWidth, 10) + 1;
 				}
 
-				function _computeElementHeight(element) {
-					return parseInt(element.clientHeight, 10) + 1;
-				}
-
-				function _orderElementsByIndex(self, toIndex) {
+				function _orderElementsByIndex(self, index) {
 					var element = self.element,
-							options = self.options,
-							scrollInfo = self._scroll,
-							scrollClipHeight = scrollInfo.clipHeight,
-							dataLength = options.dataLength,
-							indexCorrection = 0,
-							bufferedElements = 0,
-							avgListItemSize = 0,
-							bufferSize = options.bufferSize,
-							i,
-							offset = 0,
-							index;
+						options = self.options,
+						scrollInfo = self._scroll,
+						scrollClipSize = options.orientation === 'y' ? scrollInfo.clipHeight : scrollInfo.clipWidth,
+						dataLength = options.dataLength,
+						indexCorrection = 0,
+						avgListItemSize = 0,
+						bufferSize = options.bufferSize,
+						i,
+						offset = 0;
 
 					//Compute average list item size
-					avgListItemSize = _computeElementHeight(element) / bufferSize;
+					avgListItemSize = _computeElementSize(element, options.orientation) / bufferSize;
 
-					//Compute average number of elements in each buffer (before and after clip)
-					bufferedElements = Math.floor((bufferSize - Math.floor(scrollClipHeight / avgListItemSize)) / 2);
+					//Compute count of element in buffer
+					indexCorrection = Math.floor((bufferSize - Math.floor(scrollClipSize / avgListItemSize)) / 2);
 
-					if (toIndex - bufferedElements <= 0) {
+					if (index - indexCorrection <= 0) {
 						index = 0;
 						indexCorrection = 0;
 					} else {
-						index = toIndex - bufferedElements;
+						index -= indexCorrection;
 					}
 
 					if (index + bufferSize >= dataLength) {
 						index = dataLength - bufferSize;
+						indexCorrection = bufferSize;
 					}
-					indexCorrection = toIndex - index;
 
 					self._loadData(index);
 					blockEvent = true;
 					offset = index * avgListItemSize;
-					if (offset < 0) {
-						offset = 0;
+					if (options.orientation === 'y') {
+						element.style.top = offset + "px";
+					} else {
+						element.style.left = offset + "px";
 					}
-					element.style.top = offset + "px";
 
 					for (i = 0; i < indexCorrection; i += 1) {
-						offset += _computeElementHeight(element.children[i]);
+						offset += _computeElementSize(element.children[i], options.orientation);
 					}
 
-
-					self.ui.scrollview.scrollTop = offset;
+					if (options.orientation === 'y') {
+						self.ui.scrollview.scrollTop = offset;
+					} else {
+						self.ui.scrollview.scrollLeft = offset;
+					}
 					blockEvent = false;
 					self._currentIndex = index;
 				}
@@ -290,12 +345,15 @@
 							childrenNodes,
 							i = 0,
 							jump = 0,
-							hiddenPart = 0,
-							newPosition;
+							hiddenPart = 0;
 
 					childrenNodes = element.children;
 					for (i = childrenNodes.length - 1; i > 0; i -= 1) {
-						resultsetSize += childrenNodes[i].clientHeight;
+						if (options.orientation === 'y') {
+							resultsetSize += childrenNodes[i].clientHeight;
+						} else {
+							resultsetSize += childrenNodes[i].clientWidth;
+						}
 					}
 					avgListItemSize = resultsetSize / options.bufferSize;
 
@@ -358,7 +416,7 @@
 								++currentIndex;
 
 								//Updates list item using template
-								_updateListItem.call(null, self, temporaryElement, currentIndex);
+								self._updateListItem(temporaryElement, currentIndex);
 								jump += temporaryElement.clientHeight;
 							}
 
@@ -367,26 +425,16 @@
 								--currentIndex;
 
 								//Updates list item using template
-								_updateListItem.call(null, self, temporaryElement, currentIndex);
+								self._updateListItem(temporaryElement, currentIndex);
 								jump -= temporaryElement.clientHeight;
 							}
 						}
 						if (scrollDirection[SCROLL_UP] || scrollDirection[SCROLL_DOWN]) {
-							newPosition = elementPositionTop + jump;
-							if (newPosition < 0 || currentIndex <= 0) {
-								newPosition = 0;
-							}
-							elementStyle.top = newPosition + "px";
+							elementStyle.top = (elementPositionTop + jump) + "px";
 						}
 
 						if (scrollDirection[SCROLL_LEFT] || scrollDirection[SCROLL_RIGHT]) {
-							newPosition = elementPositionLeft + jump;
-
-							if (newPosition < 0 || currentIndex <= 0) {
-								newPosition = 0;
-							}
-
-							elementStyle.left = newPosition + "px";
+							elementStyle.left = (elementPositionLeft + jump) + "px";
 						}
 
 						if (scrollDirection[SCROLL_DOWN] || scrollDirection[SCROLL_RIGHT]) {
@@ -399,6 +447,18 @@
 				}
 
 				VirtualListview.prototype = new BaseWidget();
+
+				/**
+				 * Updates list item with data using defined template
+				 * @method _updateListItem
+				 * @param {ej.widget.VirtualListview} self VirtualListview widget reference
+				 * @param {HTMLElement} element List element to update
+				 * @param {number} index Data row index
+				 * @private
+				 */
+				VirtualListview.prototype._updateListItem = function (element, index) {
+					this.options.listItemUpdater(element, index);
+				};
 
 				/**
 				 * @property {Object} classes Dictionary object containing commonly used wiget classes
@@ -450,26 +510,26 @@
 				 * @memberOf ej.widget.VirtualListview
 				 */
 				VirtualListview.prototype._init = function(element) {
-					var ui = this.ui,
-							options = this.options,
-							scrollview,
-							spacer;
+					var self = this,
+						ui = self.ui,
+						scrollview,
+						spacer;
 
 					//Get scrollview instance
-					scrollview = this.element.parentElement;
+					scrollview = self.element.parentElement;
 					spacer = document.createElement("div");
 					scrollview.appendChild(spacer);
 					spacer.style.display = "block";
 					spacer.style.position = "static";
+					if (self.options.orientation === 'x') {
+						spacer.style.float = 'left';
+					}
 					//Prepare element
 					element.style.position = "relative";
 					ui.spacer = spacer;
 					ui.scrollview = scrollview;
-					this.element = element;
+					self.element = element;
 
-					if (options.dataLength < options.bufferSize) {
-						options.bufferSize = options.dataLength;
-					}
 				};
 
 				/**
@@ -483,15 +543,21 @@
 							list = this.element,
 							numberOfItems = this.options.bufferSize,
 							documentFragment = document.createDocumentFragment(),
+							touchStartEventBound = _touchStartHandler.bind(null, this),
 							i;
 
 					for (i = 0; i < numberOfItems; ++i) {
 						listItem = document.createElement("li");
-						_updateListItem.call(null, this, listItem, i);
+						if (this.options.orientation === 'x') {
+							listItem.style.float = 'left';
+						}
+						this._updateListItem(listItem, i);
 						documentFragment.appendChild(listItem);
+						listItem.addEventListener('touchstart', touchStartEventBound, false);
 					}
 
 					list.appendChild(documentFragment);
+					this._touchStartEventBound = touchStartEventBound;
 					this._refresh(true);
 				};
 
@@ -518,14 +584,12 @@
 				VirtualListview.prototype._loadData = function(index) {
 					var children = this.element.firstElementChild;
 
-					if (this._currentIndex !== index) {
-						this._currentIndex = index;
-						do {
-							_updateListItem.call(null, this, children, index);
-							++index;
-							children = children.nextElementSibling;
-						} while (children);
-					}
+					this._currentIndex = index;
+					do {
+						this._updateListItem(children, index);
+						++index;
+						children = children.nextElementSibling;
+					} while (children);
 				};
 
 				/**
@@ -535,23 +599,24 @@
 				 * @memberOf ej.widget.VirtualListview
 				 */
 				VirtualListview.prototype._refreshScrollbar = function() {
-					var scrollingHorizontally = false,
-						element = this.element,
-						options = this.options,
+					var self = this,
+						element = self.element,
+						options = self.options,
 						bufferSizePx,
-						ui = this.ui,
+						ui = self.ui,
 						spacerStyle = ui.spacer.style;
 
 					/**
 					 * @TODO: add checking horizontal / vertical scroll
 					 */
-					if (scrollingHorizontally) {
-						//Note: element.clientWidth is variable
-						spacerStyle.width = (parseFloat(element.clientWidth) / options.bufferSize * (options.dataLength - 1) - (parseFloat(element.clientWidth) || 0)) + "px";
-					} else {
+					if (options.orientation === 'y') {
 						bufferSizePx = parseFloat(element.clientHeight) || 0;
 						//Note: element.clientHeight is variable
 						spacerStyle.height = (bufferSizePx / options.bufferSize * (options.dataLength - 1) - 4 / 3 * bufferSizePx) + "px";
+					} else {
+						bufferSizePx = parseFloat(element.clientWidth) || 0;
+						//Note: element.clientWidth is variable
+						spacerStyle.width = (bufferSizePx / options.bufferSize * (options.dataLength - 1) - 4 / 3 * bufferSizePx) + "px";
 					}
 				};
 
@@ -563,11 +628,12 @@
 				 */
 				VirtualListview.prototype._bindEvents = function() {
 					var scrollEventBound = _updateList.bind(null, this),
-							scrollviewClip = this.ui.scrollview;
+							scrollviewClip = this.ui.scrollview,
+							self = this;
 
 					if (scrollviewClip) {
 						scrollviewClip.addEventListener("scroll", scrollEventBound, false);
-						this._scrollEventBound = scrollEventBound;
+						self._scrollEventBound = scrollEventBound;
 					}
 				};
 
@@ -578,14 +644,25 @@
 				 * @memberOf ej.widget.VirtualListview
 				 */
 				VirtualListview.prototype._destroy = function() {
-					var scrollviewClip = this.ui.scrollview,
-							uiSpacer = this.ui.spacer,
-							element = this.element;
+					var self = this,
+							scrollviewClip = self.ui.scrollview,
+							childrenNodes,
+							i,
+							uiSpacer = self.ui.spacer,
+							litsItem,
+							element = self.element;
 
 					element.style.top = 0;
 					if (scrollviewClip) {
-						scrollviewClip.removeEventListener("scroll", this._scrollEventBound, false);
+						scrollviewClip.removeEventListener("scroll", self._scrollEventBound, false);
 					}
+
+					childrenNodes = element.children;
+					for (i = childrenNodes.length - 1; i > 0; --i) {
+						litsItem = childrenNodes[i];
+						litsItem.removeEventListener('touchstart', self._touchStartEventBound, false);
+					}
+
 					//Remove spacer element
 					if (uiSpacer.parentNode) {
 						uiSpacer.parentNode.removeChild(uiSpacer);
@@ -602,36 +679,14 @@
 					this.ui.scrollview.scrollTop = position;
 				};
 
-				VirtualListview.prototype.getTopByIndex = function(index) {
-					var childrenNodes,
-							element = this.element,
-							resultsetSize = 0,
-							options = this.options,
-							avgListItemSize,
-							i;
-
-					childrenNodes = element.children;
-					for (i = childrenNodes.length - 1; i > 0; --i) {
-						resultsetSize += childrenNodes[i].clientHeight;
-					}
-					avgListItemSize = resultsetSize / options.bufferSize;
-
-					return (index * avgListItemSize);
-				};
-
 				VirtualListview.prototype.scrollToIndex = function(index) {
-					if (index < 0) {
-						index = 0;
-					}
-					if (index > this.options.dataLength) {
-						index = this.options.dataLength;
-					}
 					_updateScrollInfo.call(null, this);
 					_orderElementsByIndex(this, index);
 				};
 
 				VirtualListview.prototype.draw = function() {
 					this._buildList();
+					events.trigger(this.element, 'draw');
 				};
 
 				VirtualListview.prototype.setListItemUpdater = function(updateFunction) {

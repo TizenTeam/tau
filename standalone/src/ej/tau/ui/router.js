@@ -11,10 +11,10 @@
 	define(
 		[
 			"../ui",
-			"../../core",
-			"../../engine",
-			"../../router/micro/route",
-			"../../router/micro/history"
+			"../../ej/core",
+			"../../ej/engine",
+			"../../ej/router/micro/route",
+			"../../ej/router/micro/history"
 		],
 		function () {
 			//>>excludeEnd("ejBuildExclude");

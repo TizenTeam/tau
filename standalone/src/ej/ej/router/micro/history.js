@@ -1,6 +1,5 @@
 /*global window, define */
-/** @namespace ej.router */
-(function (ej) {
+(function (window, ej) {
 	"use strict";
 	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 	define(
@@ -10,11 +9,12 @@
 		],
 		function () {
 			//>>excludeEnd("ejBuildExclude");
-			/** @namespace ej.router */
+			/** @namespace ej.router.micro.route */
 			var historyVolatileMode,
 				object = ej.utils.object,
 				historyUid = 0,
 				historyActiveIndex = 0,
+				windowHistory = window.history,
 				history = {
 					activeState : null,
 					replace: function (state, pageTitle, url) {
@@ -23,12 +23,12 @@
 								{
 							uid: historyVolatileMode ? historyActiveIndex : ++historyUid
 						});
-						window.history[historyVolatileMode ? "replaceState" : "pushState"](newState, pageTitle, url);
+						windowHistory[historyVolatileMode ? "replaceState" : "pushState"](newState, pageTitle, url);
 						history.setActive(newState);
 					},
 
 					back: function () {
-						window.history.back();
+						windowHistory.back();
 					},
 
 					setActive: function (state) {
@@ -62,8 +62,8 @@
 				};
 			ej.router.micro.history = history;
 			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
-			return ej.router.micro.route;
+			return history;
 		}
 	);
 	//>>excludeEnd("ejBuildExclude");
-}(window.ej));
+}(window, window.ej));

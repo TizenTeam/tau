@@ -7,15 +7,15 @@
 			"require",
 			"./tau/ui/widget",
 			// widget list
-			"./widget/micro/VirtualListview"
+			"./ej/widget/micro/VirtualListview"
 		],
 		function (require) {
-			require(["./init"], function () {
+			require(["./ej/init"], function () {
 //>>excludeEnd("ejBuildExclude");
-(function() {
-var newTau = tau.noConflict();
-tau.VirtualListview = newTau.VirtualListview.bind(newTau);
-}());
+				(function() {
+					var newTau = tau.noConflict();
+					tau.VirtualListview = newTau.VirtualListview.bind(newTau);
+				}());
 //>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 				return true;
 			});

@@ -5,23 +5,25 @@
 	define(
 		[
 			"require",
-			"./core",
-			"./config",
+			"./ej/core",
+			"./ej/config",
 			"./tau/ui/all",
-			"./engine",
+			"./ej/engine",
 			// widget list
-			"./widget/micro/Page",
-			"./widget/micro/Popup",
-			"./widget/micro/PageContainer",
-			"./widget/micro/IndexScrollbar",
-			"./widget/micro/VirtualListview",
-			"./router/micro/Router",
-			"./router/micro/route/page",
-			"./router/micro/route/popup",
-			"./router/micro/history"
+			"./ej/widget/micro/Page",
+			"./ej/widget/micro/Popup",
+			"./ej/widget/micro/PageContainer",
+			"./ej/widget/micro/IndexScrollbar",
+			"./ej/widget/micro/VirtualListview",
+			"./ej/widget/micro/Datetimepicker",
+			"./ej/widget/micro/VirtualGrid",
+			"./ej/router/micro/Router",
+			"./ej/router/micro/route/page",
+			"./ej/router/micro/route/popup",
+			"./ej/router/micro/history"
 		],
 		function (require) {
-			require(["./init"], function () {
+			require(["./ej/init"], function () {
 				return true;
 			});
 		}

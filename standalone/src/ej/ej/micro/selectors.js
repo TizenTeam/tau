@@ -3,7 +3,7 @@
 /**
  * @class ej.support
  */
-(function (window, document, ej) {
+(function (ej) {
 	"use strict";
 //>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 	define(
@@ -12,10 +12,11 @@
 		],
 		function () {
 			//>>excludeEnd("ejBuildExclude");
-			ej.micro = ej.micro || {};
-			ej.micro.selectors = {};
+			var micro = ej.micro || {};
+			micro.selectors = {};
+			ej.micro = micro;
 			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 		}
 	);
 	//>>excludeEnd("ejBuildExclude");
-}(window, window.document, window.ej));
+}(window.ej));

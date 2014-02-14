@@ -17,19 +17,23 @@
 			"../../utils/path",
 			"../../utils/object",
 			"../../widget/micro/Page",
-			"../../widget/micro/PageContainer"
+			"../../widget/micro/PageContainer",
+			"../../micro/selectors"
 		],
 		function () {
 			//>>excludeEnd("ejBuildExclude");
-			var eventUtils = ej.utils.events,
-				DOM = ej.utils.DOM,
-				path = ej.utils.path,
-				selectors = ej.utils.selectors,
-				object = ej.utils.object,
+			var utils = ej.utils,
+				eventUtils = utils.events,
+				DOM = utils.DOM,
+				path = utils.path,
+				selectors = utils.selectors,
+				object = utils.object,
 				engine = ej.engine,
-				history = ej.router.micro.history,
+				routerMicro = ej.router.micro,
+				microSelectors = ej.micro.selectors,
+				history = routerMicro.history,
+				route = routerMicro.route,
 				body = document.body,
-				route = ej.router.micro.route,
 				slice = [].slice,
 				Router = function () {
 					this.activePage = null;
@@ -77,7 +81,7 @@
 			function popStateHandler(router, event) {
 				var state = event.state,
 					prevState = history.activeState,
-					rules = ej.router.micro.route,
+					rules = routerMicro.route,
 					ruleKey,
 					options,
 					to,
@@ -119,7 +123,7 @@
 			* @private
 			* @param {HTMLElement} page reference to page variable
 			* @param {string} id
-			* @memberOf ej.router.micro.Router
+			* @memberOf routerMicro.Router
 			*/
 			function findPageAndSetDataUrl(id, filter) {
 				var page = document.getElementById(id);
@@ -191,18 +195,23 @@
 					container,
 					firstPage,
 					pages,
+					activePages,
 					location = window.location;
 
 				body = document.body;
 				containerElement = ej.get('pageContainer') || body;
-				pages = slice.call(containerElement.querySelectorAll(ej.micro.selectors.page));
+				pages = slice.call(containerElement.querySelectorAll(microSelectors.page));
 
-				firstPage = containerElement.querySelector(ej.micro.selectors.pageActive);
+				firstPage = containerElement.querySelector(microSelectors.activePage);
 				if (!firstPage) {
 					firstPage = pages[0];
 				}
 
 				if (firstPage) {
+					activePages = containerElement.querySelectorAll(microSelectors.activePage);
+					slice.call(activePages).forEach(function (page) {
+						page.classList.remove(microSelectors.activePage);
+					});
 					containerElement = firstPage.parentNode;
 					container = engine.instanceWidget(containerElement, 'pagecontainer');
 				}
@@ -210,7 +219,7 @@
 				if (justBuild) {
 					this.justBuild = justBuild;
 					//>>excludeStart("ejDebug", pragmas.ejDebug);
-					ej.log('ej.router.micro.Router just build');
+					ej.log('routerMicro.Router just build');
 					//>>excludeEnd("ejDebug");
 					engine.createWidgets(container.element, true);
 					if (firstPage) {
@@ -222,7 +231,7 @@
 				if (location.hash) {
 					//simple check to determine if we should show firstPage or other
 					page = document.getElementById(location.hash.replace('#', ''));
-					if (page && selectors.matchesSelector(page, ej.micro.selectors.page)) {
+					if (page && selectors.matchesSelector(page, microSelectors.page)) {
 						firstPage = page;
 					}
 				}
@@ -375,7 +384,11 @@
 						xhrObj,
 						attribute;
 
-					src = path.makeUrlAbsolute(src, baseUrl);
+					// 'src' may become null when none src attribute is set 
+					if (src !== null) {
+						src = path.makeUrlAbsolute(src, baseUrl);
+					}
+
 					//Copy script tag attributes
 					for (i = scriptAttributes.length - 1; i >= 0; i -= 1) {
 						attribute = scriptAttributes[i];
@@ -472,11 +485,11 @@
 				this.container.hideLoading();
 			};
 
-			ej.router.micro.Router = Router;
+			routerMicro.Router = Router;
 
 			engine.initRouter(Router);
 			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
-			return ej.router.micro.Router;
+			return routerMicro.Router;
 		}
 	);
 	//>>excludeEnd("ejBuildExclude");
