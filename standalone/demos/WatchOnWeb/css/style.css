@@ -1,0 +1,276 @@
+* {
+    font-family: Verdana, Lucida Sans, Arial, Helvetica, sans-serif;
+}
+
+body {
+    margin: 0px;
+    background-color:#222;
+	-webkit-user-select: none;
+}
+
+.contents {
+	display: flex;
+	display: -webkit-flex;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	height:320px;
+}
+
+/************************************************
+****************  Swipe view ********************
+************************************************/
+
+.swipePage.center {
+	display: block;
+	visibility: visible;
+/* 	-webkit-transform: translate3d( 0, 0, 0); */
+}
+.swipePage.left {
+	display: block;
+	visibility: visible;
+/* 	-webkit-transform: translate3d( -100%, 0, 0); */
+}
+.swipePage.right {
+	display: block;
+	visibility: visible;
+/* 	-webkit-transform: translate3d( 100%, 0, 0); */
+}
+.swipeParent {
+	overflow: visible;
+}
+
+.swipePage {
+	width: 320px;
+	display: block;
+	visibility: hidden;
+}
+/************************************************
+******************* Intro Page ******************
+************************************************/
+#main > footer {
+	height: 153px;
+}
+#main > footer > :first-child {
+	margin-bottom: 1px;
+}
+#main .tmpFontSize {
+	font-size: 27px;
+}
+/************************************************
+**************** Dynamic Setting ****************
+************************************************/
+.buttonBox {
+	height: 96px;
+	margin: 19px 112px 19px 112px;
+}
+
+.buttonBox > .bgBtnImg {
+	width: 100%;
+	height: 100%;
+	background-image: url('../images/watch_remote_setup_btn_bg.png');
+	background-repeat: no-repeat;
+	z-index: 1;
+	top: -100%;
+	position: relative;
+	pointer-events: none;
+}
+.buttonBox:hover > .bgBtnImg {
+	background-image: url('../images/watch_remote_setup_btn_bg_press.png');
+}
+
+.buttonBox > .fgBtnImg {
+	width: 100%;
+	height: 100%;
+	background-image: url('../images/watch_ic_remote_setup.png');
+	background-repeat: no-repeat;
+	z-index: 2;
+	position: relative;
+	pointer-events: none;
+}
+.buttonBox:hover > .fgBtnImg {
+	background-image: url('../images/watch_ic_remote_setup_press.png');
+}
+
+#dynamicSettingPage2 .commandLabel {
+	height: 38px;
+	line-height: 38px;
+	margin: 0px 16px 20px 16px;
+	text-align: center;
+}
+.titleMenuImg {
+	width: 52px;
+	height: 51px;
+	position: absolute;
+	right: 0px;
+	background-image: url('../images/tw_ic_menu_moreoverflow_holo_dark.png');
+	background-repeat: no-repeat;
+	top: 0px;
+	margin: 0px 8px 0px 8px;
+}
+/************************************************
+****************** Remote View ******************
+************************************************/
+
+#remotePage #left {
+	width: 100px;
+	height: 100%;
+	position: absolute;
+}
+#remotePage #dividerV1 {
+        width: 2px;
+        height: 100%;
+        background: #1a1a1a;
+	position: absolute;
+	left: 100px;
+}
+#remotePage #center {
+	width: 116px;
+	height: 100%;
+	position: absolute;
+	left: 102px;
+}
+#remotePage #dividerV2 {
+        width: 2px;
+        height: 100%;
+        background: #1a1a1a;
+	position: absolute;
+	right: 102px;
+}
+#remotePage #right {
+	width: 100px;
+	height: 100%;
+	position: absolute;
+	right: 0px;
+}
+#remotePage #dividerH {
+        width: 100%;
+        height: 2px;
+        background: #1a1a1a;
+}
+#remotePage #spaceH {
+	width: 100%;
+	height: 45px;
+}
+
+#remotePage .remote-text {
+	width: 68px;
+	height: 38px;
+	margin: 3px 16px 3px 16px;
+}
+
+#remotePage .remoteBtn {
+	width: 68px;
+	height: 68px;
+	background-repeat: no-repeat;
+	margin: 22px 16px 22px 16px; 
+}
+
+#remotePage .remoteBtn2 {
+	width: 116px;
+	height: 88px;
+	background-repeat: no-repeat;
+}
+
+
+#remotePage .remoteBtn2.on {
+	background-image: url('../images/watch_ic_remote_btn_on_normal.png');
+}
+#remotePage .remoteBtn2.on:hover {
+	background-image: url('../images/watch_ic_remote_btn_on_pressed.png');
+}
+#remotePage .remoteBtn2.add {
+	background-image: url('../images/watch_ic_remote_btn_add_normal.png');
+}
+#remotePage .remoteBtn2.add:hover {
+	background-image: url('../images/watch_ic_remote_btn_add_pressed.png');
+}
+#remotePage .remoteBtn2.mute {
+	background-image: url('../images/watch_ic_remote_btn_mute_normal.png');
+}
+#remotePage .remoteBtn2.mute:hover {
+	background-image: url('../images/watch_ic_remote_btn_mute_pressed.png');
+}
+
+#remotePage .remoteBtn.volUp {
+	background-image: url('../images/watch_ic_remote_btn_plus_normal.png');
+}
+#remotePage .remoteBtn.volUp:hover { 
+	background-image: url('../images/watch_ic_remote_btn_plus_pressed.png');
+}
+#remotePage .remoteBtn.volDown { 
+	background-image: url('../images/watch_ic_remote_btn_minus_normal.png');
+}
+#remotePage .remoteBtn.volDown:hover { 
+	background-image: url('../images/watch_ic_remote_btn_minus_pressed.png');
+}
+#remotePage .remoteBtn.chUp { 
+	background-image: url('../images/watch_ic_remote_btn_up_normal.png');
+}
+#remotePage .remoteBtn.chUp:hover { 
+	background-image: url('../images/watch_ic_remote_btn_up_pressed.png');
+}
+#remotePage .remoteBtn.chDown { 
+	background-image: url('../images/watch_ic_remote_btn_down_normal.png');
+}
+#remotePage .remoteBtn.chDown:hover { 
+	background-image: url('../images/watch_ic_remote_btn_down_pressed.png');
+}
+
+#remotePage #chKeypadLeft {
+	width: 100px;
+	height: 100%;
+	position: absolute;
+	left : 5px;
+}
+#remotePage #chKeypadCenter {
+	width: 100px;
+	height: 100%;
+	position: absolute;
+	left : 110px;
+}
+#remotePage #chKeypadRight {
+	width: 100px;
+	height: 100%;
+	position: absolute;
+	right : 5px;
+}
+
+#remotePage .chBtn {
+	width: 100px;
+	height: 62px;
+	margin: 5px 0px 0px 0px; 
+}
+
+/**************************************************
+**************** Define Font Sytle ****************
+**************************************************/
+
+.contentLabel {
+	margin: 16px;
+}
+.Basic_text_s_default_FONT {
+	font-size: 33px;
+	color: rgb(255,255,255);
+}
+.Title_FONT {
+	font-size: 24px;
+	color: rgb(255,255,255);
+}
+.Remote_control_FONT {
+	text-align: center;
+	font-size: 34px;
+	color: rgb(255,255,255);
+}
+
+/**************************************************
+**************** theme custumizing ****************
+**************************************************/
+.ui-state-disabled {
+	pointer-events: none;
+}
+.ui-title {
+	pointer-events: none;
+}
+.ui-listview > li:hover {
+	background: #635d59
+}

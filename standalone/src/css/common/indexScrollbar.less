@@ -1,0 +1,53 @@
+.ui-indexscrollbar {
+	display: block;
+	position: fixed;
+	right: 0;	//TODO:bidi
+	top: 0;
+	height: 100%;
+	background-color: @color_indexscrollbar_bg;
+	z-index: 10;
+
+	ul {
+		width: 40*@unit_base;
+		top:0;
+		li {
+			color: @color_indexscrollbar_text;
+			display: block;
+			width: 100%;
+			text-align: center;
+		}
+		li.ui-state-selected {
+			background-color: @color_indexscrollbar_selected_bg;
+			color: @color_indexscrollbar_selected_text;
+		}
+	}
+	ul.ui-indexscrollbar-2nd {
+		height: auto;
+		top: 0;
+	}
+
+}
+
+.ui-indexscrollbar-indicator {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 9;
+	display: none;
+	
+	span {
+		width: 120px;
+		height: 96px;
+		position: absolute;
+		display: block;
+		top: 50%;
+		left: 50%;
+		margin-left: -60px;
+		margin-top: -48px;
+		line-height: 96px;
+		font-size: 70px;
+		text-align: center;
+		background-color: rgb( 88, 73, 58 );
+		color: rgb( 255, 144, 0 );
+	}
+}

@@ -1,0 +1,128 @@
+.content-padding {
+	margin-top: 16px;
+	margin-bottom: 16px;
+	padding-left: 16px;
+	padding-right: 16px;
+}
+
+.button-group-height {
+	height: 72px;
+}
+
+/* ---------------------------------- LISTVIEW ---------------------------------- */
+.ui-listview li, .ui-listview li > * {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        -o-text-overflow: ellipsis;
+        overflow: hidden!important;
+        -webkit-user-select: none;
+}
+.ui-listview li .li-text-sub {
+        display: block;
+        color: rgb(255, 255, 255);
+        font-size: 20px;
+        opacity: 0.5;
+}
+.ui-listview li.li-has-multiline {
+        padding-top: 14px;
+        padding-bottom: 14px;
+        min-height: 90px;
+}
+.ui-listview li.li-has-multiline.disabled,
+.ui-listview li.li-has-multiline.disabled > * {
+        color: rgb(51, 51, 51);
+}
+.ui-listview li.li-has-multiline > a {
+        margin-top: -14px;
+        margin-bottom: -14px;
+        padding-top: 14px;
+        padding-bottom: 14px;
+}
+.ui-listview li.li-has-multiline.2lines > a {
+        margin-bottom: -62px;
+        padding-bottom: 62px;
+}
+.ui-listview li.li-has-multiline.disabled .li-text-sub {
+        color: rgb(31, 31, 31);
+}
+.ui-listview li.li-has-multiline-sup {
+        padding-top: 14px;
+        padding-bottom: 14px;
+        min-height: 90px;
+}
+.ui-listview li.li-has-multiline-sup.disabled {
+        color: rgb(51, 51, 51);
+}
+.ui-listview li.li-has-multiline-sup > a {
+        margin-top: -38px;
+        margin-bottom: -14px;
+        padding-top: 38px;
+        padding-bottom: 14px;
+}
+.ui-listview li {
+        position: relative;
+}
+.ui-listview li input[type="checkbox"],
+.ui-listview li input[type="radio"] {
+        position: absolute;
+        right: 8px;
+        top: 0px;
+        margin-top: 19px;
+}
+.ui-listview li.li-has-checkbox,
+.ui-listview li.li-has-radio {
+        padding-right: 68px;
+}
+.ui-listview li.li-has-checkbox label,
+.ui-listview li.li-has-radio label{
+        display: block;
+}
+/* ------------------------------------------------------------------------------ */
+/* -----------------------------------  NEXT DEPTH------------------------------------ */
+.ui-listview li.li-has-next-depth a,
+.ui-listview li.li-has-next-depth.disabled {
+    background-repeat: no-repeat;
+    background-size: 50px 50px;
+    background-position: right center;
+}
+.ui-listview li.li-has-next-depth a {
+    background-image: url(../extra/images/Controller_icon/tw_btn_next_depth_holo_dark.png);
+}
+.ui-listview li.li-has-next-depth a:active, 
+.ui-listview li.li-has-next-depth a:focus {
+    background-image: url(../extra/images/Controller_icon/tw_btn_next_depth_focused_holo_dark.png);
+}
+.ui-listview li.li-has-next-depth.disabled,
+.ui-listview li.li-has-next-depth.disabled a {
+    background-image: url(../extra/images/Controller_icon/tw_btn_next_depth_disabled_holo_dark.png);
+}
+.disabled {
+    pointer-events: none;
+}
+/* ------------------------------------------------------------------------------ */
+
+/*Basic Text*/
+.basic-text-s-title {
+	margin:16px 16px;
+	line-height: 40px;
+	font-size: 30px;
+	color: #FFF;
+}
+.basic-text-m-title {
+	margin:16px 16px;
+	line-height: 44px;
+	font-size: 34px;
+	color: #FFF;
+}
+.basic-text-l-title {
+	margin:16px 16px;
+	line-height: 48px;
+	font-size: 38px;
+	color: #FFF;
+}
+.basic-text-notitle{
+	margin:16px 16px;
+	line-height: 48px;
+	font-size: 38px;
+	color: #FFF;
+}

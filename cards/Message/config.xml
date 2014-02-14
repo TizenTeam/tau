@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns:tizen="http://tizen.org/ns/widgets" xmlns="http://www.w3.org/ns/widgets" id="http://yourdomain/MessageCard" version="1.0.0" viewmodes="maximized">
+    <tizen:application id="BoKGHmsA6K.MessageCard" package="BoKGHmsA6K" required_version="2.2"/>
+    <content src="src/message.html"/>
+    <feature name="http://tizen.org/feature/screen.size.all"/>
+    <icon src="src/icon.png"/>
+    <name>MessageCard</name>
+</widget>

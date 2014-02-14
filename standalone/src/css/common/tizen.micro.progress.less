@@ -1,0 +1,57 @@
+/*
+ * Progressbar
+ */
+
+@-webkit-keyframes indeterminate {
+	0% {background-image: url('./images/Progress/tw_progressbar_indeterminate1_holo_dark.png');}
+	50% {background-image: url('./images/Progress/tw_progressbar_indeterminate2_holo_dark.png');}
+	100% {background-image: url('./images/Progress/tw_progressbar_indeterminate1_holo_dark.png');}
+}
+
+progress {
+	position: relative;
+	padding-left: 16 * @unit_base;
+	padding-right:16 * @unit_base;
+	margin-top: 14 * @unit_base;
+	margin-bottom: 14 * @unit_base;
+	color: @color_progressbar_text;
+	width: 100%;
+	height: 6 * @unit_base;
+	-webkit-appearance: none;
+	border: none;
+}
+
+progress::-webkit-progress-bar {
+	position: relative;
+	background-color: @color_progressbar_normal_bg;
+	border-radius: 2 * @unit_base;
+	overflow: hidden;
+}
+
+progress::-webkit-progress-value {
+	background-color: @color_progressbar_value_bg;
+	height:6 * @unit_base;
+	border-radius: 2 * @unit_base;
+	overflow: hidden;
+}
+progress.ui-progress-indeterminate::-webkit-progress-value {
+	-webkit-animation: indeterminate 1s infinite;
+}
+
+.ui-progress-proportion {
+	display: inline-block;
+	float: left;
+	font-size: 20 * @unit_base;
+	padding-left: 16 * @unit_base;
+	padding-right: 16 * @unit_base;
+	margin-top: -10 * @unit_base;
+}
+
+.ui-progress-ratio {
+	display: inline-block;
+	float: right;
+	font-size: 20 * @unit_base;
+	padding-left: 16 * @unit_base;
+	padding-right: 16 * @unit_base;
+	margin-top: -10 * @unit_base;
+}

@@ -1,0 +1,27 @@
+<html class="ui-mobile"><head>
+	<meta charset="utf-8">
+	<meta name="description" content="Alerts">
+	<meta name="viewport" content="width=320, user-scalable=no">
+	<title>WeatherCard</title>
+	<link rel="stylesheet" type="text/css" href="../lib/themes/tizen-micro/theme.min.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="ui-mobile-viewport">
+	<div id="weather" class="ui-page ui-body-s ui-page-header-fixed ui-page-footer-fixed ui-page-active">
+		<div class="ui-layout ui-vertical-layout ui-layout-fill">
+			<div class="ui-layout ui-horizontal-layout ui-layout-fill">
+				<div id="weatherIcon" class="ui-weather ui-weather-icon-sunny"></div>
+				<div class="ui-layout ui-vertical-layout ui-layout-fill">
+					<div id="weatherTime"></div>
+					<div id="weatherDate"></div>
+				</div>
+			</div>
+			<div class="ui-layout ui-horizontal-layout ui-layout-fill">
+				<div id="weatherCity"></div>
+				<div id="weatherTemp"></div>
+			</div>
+		</div>
+	</div>
+	<script src="js/weather.js"></script>
+</body></html>

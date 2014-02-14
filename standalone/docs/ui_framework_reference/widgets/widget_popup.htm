@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+ <head> 
+  <script type="text/javascript" src="../../snippet.js"></script> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <link href="../../styles.css" rel="StyleSheet" type="text/css" /> 
+  <link href="../../snippet.css" rel="StyleSheet" type="text/css" /> 
+  <title>Popup</title> 
+ </head> 
+ <body onload="prettyPrint()"> 
+
+<h1>Popup</h1>
+
+<p>The popup widget shows a list of items in a pop-up window in the middle of the screen. It automatically optimizes the pop-up window size within the screen.</p>
+
+<p>The popup contains header, content and footer area</p>
+
+<p>To add a popup widget to the application, use the following code:</p>
+
+<pre class="prettyprint">
+// basic popup with header, content, footer
+&lt;div class=&quot;ui-page&quot;&gt;
+	&lt;div class=&quot;ui-popup&quot;&gt;
+		&lt;div class=&quot;ui-popup-header&quot;&gt;Power saving mode&lt;/div&gt;
+		&lt;div class=&quot;ui-popup-content&quot;&gt;
+			Turning on Power
+			saving mode will
+			limit the maximum
+			per
+		&lt;/div&gt;
+		&lt;div class=&quot;ui-popup-footer&quot;&gt;
+			&lt;button id=&quot;cancel&quot; class=&quot;ui-btn&quot;&gt;Cancel&lt;/button&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+
+//            ...
+
+// if you want make popup with list checkbox(or radio),
+// just include checkbox(or radio) to popup.
+// and add class="ui-popup-checkbox-label" for style
+	&lt;div class=&quot;ui-popup&quot;&gt;
+		&lt;div class=&quot;ui-popup-header&quot;&gt;When?&lt;/div&gt;
+		&lt;div class=&quot;ui-popup-content&quot; style=&quot;overflow-y:scroll;&quot;&gt;
+			&lt;ul class=&quot;ui-listview&quot;&gt;
+				&lt;li&gt;
+					&lt;label for=&quot;check-1&quot; class=&quot;ui-popup-checkbox-label&quot;&gt;Monday&lt;/label&gt;
+					&lt;input type=&quot;checkbox&quot; name=&quot;checkset&quot; id=&quot;check-1&quot; /&gt;
+				&lt;/li&gt;
+				&lt;li&gt;
+					&lt;label for=&quot;check-2&quot; class=&quot;ui-popup-checkbox-label&quot;&gt;Tuesday&lt;/label&gt;
+					&lt;input type=&quot;checkbox&quot; name=&quot;checkset&quot; id=&quot;check-2&quot; /&gt;
+				&lt;/li&gt;
+			&lt;/ul&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+
+<p>
+To open popup from "a" link using html markup, use the following code:
+</p>
+<pre class="prettyprint">
+// basic popup with header, content, footer
+&lt;div class=&quot;ui-page&quot;&gt;
+	&lt;header class=&quot;ui-header&quot;&gt;
+		&lt;h2 class=&quot;ui-title&quot;&gt;Call menu&lt;/h2&gt;
+	&lt;/header&gt;
+	&lt;div class=&quot;ui-content&quot;&gt;
+		&lt;a href=&quot;#popup&quot; class=&quot;ui-btn&quot; data-rel=&quot;popup&quot; &gt;Open Popup&lt;/a&gt;
+	&lt;/div&gt;
+
+//      ...
+
+	&lt;div id=&quot;popup&quot; class=&quot;ui-popup&quot;&gt;
+		&lt;div class=&quot;ui-popup-header&quot;&gt;Power saving mode&lt;/div&gt;
+		&lt;div class=&quot;ui-popup-content&quot;&gt;
+			Turning on Power
+			saving mode will
+			limit the maximum
+			per
+		&lt;/div&gt;
+		&lt;div class=&quot;ui-popup-footer&quot;&gt;
+			&lt;button id=&quot;cancel&quot; class=&quot;ui-btn&quot;&gt;Cancel&lt;/button&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+
+<p>
+<h1>Popup Interface</h1>
+<table>
+<tbody>
+	<tr>
+		<th>Interface</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">gear.ui.openPopup( to )</span></td>
+		<td> To open a popup programmatically, call the openPopup method. Argument 'to' is a popup container object or string</td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">gear.ui.closePopup( )</span></td>
+		<td> To close a popup programmatically, call the closePopup method.</td>
+	</tr>
+</tbody>
+</table>
+</p>
+
+<p>
+To find the current active page, use the 'ui-popup-active' css class.
+</p>
+
+<h1>Popup Events</h1>
+<table>
+<tbody>
+	<tr>
+		<th style="width:40%;">Event name</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">popupbeforecreate</span></td>
+		<td>Triggered on the popup being initialized, before most plugin auto-initialization occurs.</td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">popupcreate</span></td>
+		<td>Triggered when the popup has been created in the DOM (via ajax or other) but before all widgets have had an opportunity to enhance the contained markup.</td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">popupbeforehide</span></td>
+		<td>Triggered on the popup we are transitioning away from, before the actual transition animation is kicked off.</td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">popuphide</span></td>
+		<td>Triggered on the popup after the transition animation has completed.</td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">popupbeforeshow</span></td>
+		<td>Triggered on the popup we are transitioning to, before the actual transition animation is kicked off.</td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">popupshow</span></td>
+		<td>Triggered on the popup after the transition animation has completed.</td>
+	</tr>
+</tbody>
+</table>
+
+<h1>Popup Transitions</h1>
+<div>
+<p>
+By default, the framework doesn't apply transition. To set a custom transition effect, add the data-transition attribute to the link.
+</p>
+<pre class="prettyprint">
+&lt;a href=&quot;index.html&quot; data-rel=&quot;popup&quot; data-transition=&quot;slideup&quot;&gt;I'll slide up&lt;/a&gt;
+</pre>
+
+<p>
+Global configuration
+</p>
+<pre class="prettyprint">/* JavaScript code */
+gear.ui.defaults.popupTransition = "slideup";
+</pre>
+
+<table>
+<tbody>
+	<tr>
+		<th style="width:40%;">option</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">none</span></td>
+		<td>default</td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">slideup</span></td>
+		<td></td>
+	</tr>
+</tbody>
+</table>
+
+<h2>Where to Go Next</h2>
+<ul>
+ <li><a href="widget_reference.htm">Widget Reference</a></li>
+
+</ul>
+
+ <div id="footer"> 
+   <hr size="1" /> 
+   <font size="1">Except as noted, this content - excluding the Code Examples - is licensed under <a href="http://creativecommons.org/licenses/by/3.0/legalcode" target="_blank">Creative Commons Attribution 3.0</a>.</font> 
+  </div> 
+  <!--start--> 
+  <script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-25976949-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script> 
+  <!--end-->  
+ </body>
+</html>
