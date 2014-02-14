@@ -2,13 +2,13 @@
  * Common definition for theme
  */
 
-@font_size_default: 16px;	// Default unit font size. DO NOT USE THIS VALUE IN WIDGET CSS!
+@font_size_default: 15px;	// Default unit font size. DO NOT USE THIS VALUE IN WIDGET CSS!
 
 @rem_base: (1rem/@font_size_default);
 @em_base: 1em/@font_size_default;	// WARNING: Don't use em unit!	This value is to be removed.
 @px_base: 1px;
 
-@unit_base: @px_base;
+@unit_base: @rem_base;
 
 @font_family: Samsung Sans, Helvetica;
 
@@ -19,6 +19,9 @@
 @z_base_header_footer: 1000;
 @z_base_popup: @z_base_header_footer + 100;
 
+html {
+	font-size: @font_size_default;
+}
 
 /***************************************************************************
                    Common Style
