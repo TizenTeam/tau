@@ -81,6 +81,9 @@
 }
 /* ------------------------------------------------------------------------------ */
 /* -----------------------------------  NEXT DEPTH------------------------------------ */
+.ui-listview li.li-has-next-depth .li-text-sub{
+        padding-right: 20px;
+}
 .ui-listview li.li-has-next-depth a,
 .ui-listview li.li-has-next-depth.disabled {
     background-repeat: no-repeat;
