@@ -482,7 +482,7 @@ IndexScrollbar.prototype = {
 		for ( i=0, len=rectTable.length; i < len; i++) {
 			info = rectTable[i];
 			range = posY - info.top;
-			if ( range > 0 && range < info.range ) {
+			if ( range >= 0 && range < info.range ) {
 				return i;
 			}
 		}
