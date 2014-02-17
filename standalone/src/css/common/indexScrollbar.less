@@ -26,6 +26,10 @@
 		height: auto;
 		top: 0;
 	}
+
+	& + .ui-listview li {
+		padding-right: 40*@unit_base;
+    }
 }
 
 .ui-indexscrollbar-indicator {
@@ -34,7 +38,7 @@
 	left: 0;
 	z-index: 9;
 	display: none;
-	
+
 	span {
 		width: 120 * @unit_base;
 		height: 96 * @unit_base;
