@@ -32,6 +32,7 @@ function IndexScrollbar (element, options) {
 	this.touchAreaOffsetLeft = 0;
 	this.indexElements = null;
 	this.selectEventTriggerTimeoutId = null;
+	this.ulMarginTop = 0;
 
 	this.indexCellInfomations = {
 		indices: [],
@@ -73,7 +74,8 @@ IndexScrollbar.prototype = {
 			"I", "J", "K", "L", "M", "N", "O", "P", "Q",
 			"R", "S", "T", "U", "V", "W", "X", "Y", "Z", "1"
 		],
-		maxIndexSize: 9,
+		maxIndexLen: 0,
+		indexHeight: 36,
 		keepSelectEventDelay: 50,
 		container: null
 	},
@@ -105,7 +107,7 @@ IndexScrollbar.prototype = {
 		}
 	},
 
-	_updateLayout: function() {
+	_setLayoutValues: function () {
 		var container = this._getContainer(),
 			positionStyle = window.getComputedStyle(container).position,
 			containerOffsetTop = container.offsetTop,
@@ -121,7 +123,24 @@ IndexScrollbar.prototype = {
 			this.indicator.style.top = containerOffsetTop + "px";
 			this.indicator.style.left = containerOffsetLeft + "px";
 		}
+	},
 
+	_setMaxIndexLen: function() {
+		var maxIndexLen = this.options.maxIndexLen,
+			container = this._getContainer(),
+			containerHeight = container.offsetHeight;
+		if(maxIndexLen <= 0) {
+			maxIndexLen = Math.floor( containerHeight / this.options.indexHeight );
+		}
+		if(maxIndexLen > 0 && maxIndexLen%2 === 0) {
+			maxIndexLen -= 1;	// Ensure odd number
+		}
+		this.options.maxIndexLen = maxIndexLen;
+	},
+
+	_updateLayout: function() {
+		this._setLayoutValues();
+		this._setMaxIndexLen();
 		this._updateIndexCellInfomation();
 		this._draw();
 		this._updateIndexCellRectInfomation();
@@ -130,11 +149,11 @@ IndexScrollbar.prototype = {
 	},
 
 	_updateIndexCellInfomation: function() {
-		var maxIndexSize = this.options.maxIndexSize,
+		var maxIndexLen = this.options.maxIndexLen,
 			indices = this._getIndex(),
-			showIndexSize = Math.min( indices.length, maxIndexSize ),
+			showIndexSize = Math.min( indices.length, maxIndexLen ),
 			indexSize = indices.length,
-			totalLeft = indexSize - maxIndexSize,
+			totalLeft = indexSize - maxIndexLen,
 			leftPerItem = window.parseInt(totalLeft / (window.parseInt(showIndexSize/2))),
 			left = totalLeft % (window.parseInt(showIndexSize/2)),
 			indexItemSizeArr = [],
@@ -200,9 +219,9 @@ IndexScrollbar.prototype = {
 			indices = this.indexCellInfomations.indices,
 			mergedIndices = this.indexCellInfomations.mergedIndices,
 			indexSize = mergedIndices.length,
-			indexHeight = container.offsetHeight,
-			indexItemHeight = window.parseInt(indexHeight / indexSize),
-			leftHeight = indexHeight - indexItemHeight*indexSize,
+			containerHeight = container.offsetHeight,
+			indexHeight = this.options.indexHeight,
+			leftHeight = containerHeight - indexHeight * indexSize,
 			addHeightOffset = leftHeight,
 			indexCellHeight, text, ul, li, frag, i, m;
 
@@ -212,7 +231,7 @@ IndexScrollbar.prototype = {
 		for(i=0; i < indexSize; i++) {
 			m = mergedIndices[i];
 			text = m.length === 1 ? indices[m.start] : moreChar;
-			indexCellHeight = i < addHeightOffset ? indexItemHeight + 1 : indexItemHeight;
+			indexCellHeight = i < addHeightOffset ? indexHeight + 1 : indexHeight;
 
 			li = document.createElement("li");
 			li.innerText = text;
@@ -220,6 +239,11 @@ IndexScrollbar.prototype = {
 			li.style.lineHeight = indexCellHeight + "px";
 			ul.appendChild(li);
 		}
+
+		// Set ul's margin-top
+		this.ulMarginTop = Math.floor((parseInt(containerHeight, 10) - indexSize * indexHeight)/2);
+		ul.style.marginTop = this.ulMarginTop + "px";
+
 		el.appendChild(frag);
 
 		return this;
