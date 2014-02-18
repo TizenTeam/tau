@@ -27,7 +27,7 @@ function removeSection() {
 page.addEventListener( "pageshow", function() {
 	// make SectionChanger object
 	sectionChanger = new SectionChanger(changer, {
-		circular: true,
+		circular: false,
 		orientation: "horizontal"
 	});
 
