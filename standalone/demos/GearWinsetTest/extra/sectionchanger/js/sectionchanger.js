@@ -311,31 +311,39 @@ extend(SectionChanger, Scroller, {
 		var sectionLength = this.sections.length,
 			curPosition = this.sectionPositions[this.activeIndex],
 			centerPosition = window.parseInt(sectionLength/2, 10),
-			i, sectionStyle, sIdx, top, left;
+			circular = this.options.circular,
+			i, sectionStyle, sIdx, top, left, newX, newY;
 
-		if ( !this.options.circular ) {
-			this.scrollTo( -(this.width * this.activeIndex), 0 );
-			return;
+		if ( this.orientation === Scroller.Orientation.HORIZONTAL ) {
+			newX = -(this.width * ( circular ? centerPosition : this.activeIndex) );
+			newY = 0;
+		} else {
+			newX = 0;
+			newY = -(this.height * ( circular ? centerPosition : this.activeIndex) );
 		}
 
 		if ( init || ( curPosition === 0 || curPosition === sectionLength - 1) ) {
-			this.scrollTo( -(this.width * centerPosition), 0 );
-			for ( i = 0; i < sectionLength; i++ ) {
-				sIdx = ( sectionLength + this.activeIndex - centerPosition + i ) % sectionLength;
-				sectionStyle = this.sections[ sIdx ].style;
 
-				this.sectionPositions[sIdx] = i;
+			this.scrollTo( newX, newY );
 
-				if ( this.orientation === Scroller.Orientation.HORIZONTAL ) {
-					top = 0;
-					left = this.width * i;
-				} else {
-					top = this.height * i;
-					left = 0;
+			if ( circular ) {
+				for ( i = 0; i < sectionLength; i++ ) {
+					sIdx = ( sectionLength + this.activeIndex - centerPosition + i ) % sectionLength;
+					sectionStyle = this.sections[ sIdx ].style;
+
+					this.sectionPositions[sIdx] = i;
+
+					if ( this.orientation === Scroller.Orientation.HORIZONTAL ) {
+						top = 0;
+						left = this.width * i;
+					} else {
+						top = this.height * i;
+						left = 0;
+					}
+
+					sectionStyle["top"] = top + "px";
+					sectionStyle["left"] = left + "px";
 				}
-
-				sectionStyle["top"] = top + "px";
-				sectionStyle["left"] = left + "px";
 			}
 		}
 	},
