@@ -1,8 +1,8 @@
 (function() {
 
-var page = document.getElementById( "sectionchangerPage" ),
-	changer = document.getElementById( "sectionchanger" ),
-	sectionWrap = document.getElementById( "sectionWrap" ),
+var page = document.getElementById( "addSectionchangerPage" ),
+	changer = document.getElementById( "addSectionchanger" ),
+	sectionWrap = document.getElementById( "addSectionWrap" ),
 	addBtn = document.getElementById( "addBtn" ),
 	removeBtn = document.getElementById( "removeBtn" ),
 	sectionChanger, idx=1;
