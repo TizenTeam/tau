@@ -95,7 +95,7 @@ SwipeList.prototype = {
 			}
 		});
 
-		document.addEventListener( "touchend", function( e ) {
+		function swipeEndFunction( e ) {
 			var callBPX = self._genlistCallStyle["background-position-x"],
 			messageBPX = self._genlistMessageStyle["background-position-x"],
 			interval;
@@ -139,6 +139,9 @@ SwipeList.prototype = {
 			}
 
 			dragging = false;
-		});
+		}
+
+		document.addEventListener( "touchend", swipeEndFunction);
+		this._genlistUl.parentNode.addEventListener( "scroll", swipeEndFunction);
 	}
 }
