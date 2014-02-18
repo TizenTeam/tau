@@ -49,8 +49,6 @@ body {
 		color: @color_actionbar_title_text;
 		font-size: 30 * @unit_base;
 		white-space: nowrap;
-		text-overflow: ellipsis;
-		overflow: hidden;
 		margin: 0px;
 		padding-left: 16 * @unit_base;
 		padding-right: 16 * @unit_base;
@@ -63,9 +61,16 @@ body {
 		}
 	}
 
+	.ui-title-text-fadeout {
+		-webkit-mask-image: -webkit-linear-gradient(left, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 95%);
+	}
+
 	&.ui-has-more {
 		.ui-title {
 			padding-right: 68 * @unit_base;
+		}
+		.ui-title-text-fadeout {
+			-webkit-mask-image: -webkit-linear-gradient(left, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 80%);
 		}
 	}
 
