@@ -76,8 +76,9 @@ Scroller.prototype = {
 
 	_initOptions: function( options ) {
 		this.options = {
-			scrollDelay: 10,
-			threshold: 5,
+			scrollDelay: 300,
+			threshold: 10,
+			minThreshold: 5,
 			flickThreshold: 0,
 			orientation: "vertical",		// vertical or horizontal,
 			// TODO implement scroll momentum.
@@ -286,10 +287,12 @@ Scroller.prototype = {
 		var timestamp	= (new Date()).getTime(),
 			scrollDelay = this.options.scrollDelay || 0,
 			threshold = this.options.threshold || 0,
+			minThreshold = this.options.minThreshold || 0,
 			distX = this.startTouchPointX - pos.x,
 			distY = this.startTouchPointY - pos.y,
 			absDistX = Math.abs( distX ),
 			absDistY = Math.abs( distY ),
+			maxDist = Math.max( absDistX, absDistY ),
 			absDist = this.orientation === Scroller.Orientation.HORIZONTAL ? absDistX : absDistY,
 			newX, newY;
 
@@ -301,7 +304,9 @@ Scroller.prototype = {
 		this.lastTouchPointY = pos.y;
 
 		// We need to move at least 10 pixels, delay 300ms for the scrolling to initiate
-		if ( ( absDistX < threshold && absDistY < threshold ) || (scrollDelay && timestamp - this.startTime < scrollDelay) ) {
+		if ( !this.scrolled &&
+				( maxDist < minThreshold ||
+						( maxDist < threshold && ( !scrollDelay || timestamp - this.startTime < scrollDelay ) ) ) ) {
 			e.preventDefault();
 			return;
 		}
@@ -323,6 +328,7 @@ Scroller.prototype = {
 			}
 
 			this._fireEvent( eventType.START );
+
 			this.startTouchPointX = pos.x;
 			this.startTouchPointY = pos.y;
 		}
@@ -350,7 +356,6 @@ Scroller.prototype = {
 			// TODO to dispatch move event is too expansive. it is better to use callback.
 			//this._fireEvent( eventType.MOVE );
 		}
-
 		e.preventDefault(); //this function make overflow scroll don't used
 	},
 
