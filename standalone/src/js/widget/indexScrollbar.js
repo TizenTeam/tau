@@ -1,15 +1,317 @@
 //>>excludeStart("microBuildExclude", pragmas.microBuildExclude);
 define([
-	"../ns"], function( ns ) {
+	"../ns",
+	"../helper"], function( ns ) {
 //>>excludeEnd("microBuildExclude");
 
 ( function ( ns, window, undefined ) {
 
-/*
+
+/*********************************************************
+ * IndexBar
+ * Shows index list on the bar, and receives touch events
+ *
+ * Spec
+ *  - Get index array
+ *  - draw index list on the bar
+ *  - show/hide
+ *  - receive touch event
+ *  - calculate pressed index
+ *  - notify pressed index
+ *********************************************************/
+function IndexBar(element, options) {
+	this.element = element;
+	this.options = ns.extendObject(options, this._options);
+	this.container = this.options.container;
+
+	this.indices = {
+		original: this.options.index,
+		merged: []
+	};
+	this.maxIndexLen = 0;
+	this.indexLookupTable = [];
+	this.indexElements = null;
+	this.selectedIndex = -1;
+
+	this._init();
+
+	return this;
+}
+IndexBar.prototype = {
+	_options: {
+		container: null,
+		offsetLeft: 0,
+		index: [],
+		moreChar: "*",
+		indexHeight: 36,
+		selectedClass: "ui-state-selected"
+	},
+	_init: function() {
+		this._setMaxIndexLen();
+		this._makeMergedIndices();
+		this._drawDOM();
+		this._appendToContainer();
+		this._adjustVerticalCenter();
+		this._setIndexCellInfo();
+	},
+
+	_setMaxIndexLen: function() {
+		var maxIndexLen,
+			containerHeight = this.container.offsetHeight;
+		maxIndexLen = Math.floor( containerHeight / this.options.indexHeight );
+		if(maxIndexLen > 0 && maxIndexLen%2 === 0) {
+			maxIndexLen -= 1;	// Ensure odd number
+		}
+		this.maxIndexLen = maxIndexLen;
+	},
+
+	_makeMergedIndices: function() {
+		var origIndices = this.indices.original,
+			origIndexLen = origIndices.length,
+			visibleIndexLen = Math.min(this.maxIndexLen, origIndexLen),
+			totalLeft = origIndexLen - visibleIndexLen,
+			nIndexPerItem = parseInt(totalLeft / parseInt(visibleIndexLen/2, 10), 10),
+			leftItems = totalLeft % parseInt(visibleIndexLen/2, 10),
+			indexItemSize = [],
+			mergedIndices = [],
+			i, len, position=0;
+
+		for(i = 0, len = visibleIndexLen; i < len; i++) {
+			indexItemSize[i] = 1;
+			if(i % 2) {	// even number: omitter
+				indexItemSize[i] += nIndexPerItem + (leftItems-- > 0 ? 1 : 0);
+			}
+			position +=  indexItemSize[i];
+			mergedIndices.push( {
+				start: position-1,
+				length: indexItemSize[i]
+			});
+		}
+		this.indices.merged = mergedIndices;
+	},
+
+	_drawDOM: function() {
+		var origIndices = this.indices.original,
+			indices = this.indices.merged,
+			indexLen = indices.length,
+			//container = this.container,
+			//containerHeight = container.offsetHeight,
+			indexHeight = this.options.indexHeight,
+			//maxIndexLen = Math.min(this.maxIndexLen, indices.length),
+			indexHeight = this.options.indexHeight,
+			moreChar = this.options.moreChar,
+			addMoreCharLineHeight = 9,
+			text,
+			frag,
+			li,
+			i,
+			m;
+
+		frag = document.createDocumentFragment();
+		for(i=0; i < indexLen; i++) {
+			m = indices[i];
+			text = m.length === 1 ? origIndices[m.start] : moreChar;
+			li = document.createElement("li");
+			li.innerText = text;
+			li.style.height = indexHeight + "px";
+			li.style.lineHeight = text === moreChar ? indexHeight + addMoreCharLineHeight + "px" : indexHeight + "px";
+			frag.appendChild(li);
+		}
+		this.element.appendChild(frag);
+	},
+
+	_adjustVerticalCenter: function() {
+		var nItem = this.indices.merged.length,
+			totalIndexLen = nItem * this.options.indexHeight,
+			vPadding = parseInt((this.container.offsetHeight - totalIndexLen) / 2, 10);
+		this.element.style.paddingTop = vPadding + "px";
+		this.element.style.paddingBottom = vPadding + "px";
+	},
+
+	_appendToContainer: function() {
+		this.container.appendChild(this.element);
+	},
+
+	_setIndexCellInfo: function() {
+		var element = this.element,
+			//origIndices = this.indices.original,
+			mergedIndices = this.indices.merged,
+			containerOffsetTop = ns.dom.getOffset(this.container).top,
+			listitems = this.element.querySelectorAll("LI"),
+			lookupTable = [];
+
+		[].forEach.call(listitems, function(node, idx) {
+			var m = mergedIndices[idx],
+			i = m.start,
+			len = i + m.length,
+			top = containerOffsetTop + node.offsetTop,
+			height = node.offsetHeight / m.length;
+
+			for ( ; i < len; i++ ) {
+				lookupTable.push({
+					cellIndex: idx,
+					top: top,
+					range: height
+				});
+				top += height;
+			}
+		});
+		this.indexLookupTable = lookupTable;
+		this.indexElements = element.children;
+	},
+
+	getIndexByPosition: function(posY) {
+		var table = this.indexLookupTable,
+			info,
+			i, len, range;
+
+		for ( i=0, len=table.length; i < len; i++) {
+			info = table[i];
+			range = posY - info.top;
+			if ( range >= 0 && range < info.range ) {
+				return i;
+			}
+		}
+		return 0;
+	},
+
+	getValueByIndex: function(idx) {
+		if(idx < 0) { idx = 0; }
+		return this.indices.original[idx];
+	},
+
+	select: function(idx) {
+		var cellIndex,
+			eCell;
+
+		this.clearSelected();
+
+		if(this.selectedIndex === idx) {
+			return;
+		}
+		this.selectedIndex = idx;
+
+		cellIndex = this.indexLookupTable[idx].cellIndex;
+		eCell = this.indexElements[cellIndex];
+		eCell.classList.add(this.options.selectedClass);
+	},
+
+	/* Clear selected class
+	 */
+	clearSelected: function() {
+		var el = this.element,
+			selectedClass = this.options.selectedClass,
+			selectedElement = el.querySelectorAll("."+selectedClass);
+
+		[].forEach.call(selectedElement, function(node) {
+			node.classList.remove(selectedClass);
+		});
+		this.selectedIndex = -1;
+	},
+
+	refresh: function() {
+		// Cleanup current listitems, and recreate them
+	},
+	show: function() {
+		this.element.style.visibility="visible";
+	},
+	hide: function() {
+		this.element.syle.visibility="hidden";
+	},
+	destroy: function() {
+		while(this.element.firstChild) {
+			this.element.removeChild(this.element.firstChild);
+		}
+
+		this.indexElements = null;
+
+		this.element = null;
+		this.options = null;
+		this.container = null;
+
+		this.indices.original = null;
+		this.indices.merged.length = 0;
+		this.indices = null;
+
+		this.indexLookupTable.length = 0;
+		this.indexElements = null;
+		this.selectedIndex = -1;
+	}
+};
+
+/****************************************************
+ * IndexIndicator
+ * Card indicator shown when the indexBar is pressed
+ *
+ * Spec
+ *   - Get text
+ *   - Show/hide
+ ****************************************************/
+function IndexIndicator(element, options) {
+	this.element = element;
+	this.options = ns.extendObject(options, this._options);
+	this.value = null;
+
+	this._init();
+
+	return this;
+}
+IndexIndicator.prototype = {
+	_options: {
+		className: "ui-indexscrollbar-indicator",
+		selectedClass: "ui-state-selected",
+		container: null
+	},
+	_init: function() {
+		var element = this.element;
+		element.className = this.options.className;
+		element.innerHTML = "<span></span>";
+
+		// Add to DOM tree
+		this.options.container.appendChild(element);
+		this.fitToContainer();
+	},
+
+	fitToContainer: function() {
+		var element = this.element,
+			container = this.options.container,
+			containerPosition = window.getComputedStyle(container).position;
+
+		element.style.width = container.offsetWidth + "px";
+		element.style.height = container.offsetHeight + "px";
+
+		if ( containerPosition !== "absolute" && containerPosition !== "relative" ) {
+			element.style.top = container.offsetTop + "px";
+			element.style.left = container.offsetLeft + "px";
+		}
+	},
+
+	setValue: function( value ) {
+		this.element.firstChild.innerHTML = value;	// Set indicator text
+		this.value = value;	// remember value
+	},
+
+	show: function() {
+		//this.element.style.visibility="visible";
+		this.element.style.display="block";
+	},
+	hide: function() {
+		this.element.style.display="none";
+	},
+	destroy: function() {
+		while(this.element.firstChild) {
+			this.element.removeChild(this.element.firstChild);
+		}
+		this.element = null;	// unreference element
+	}
+};
+
+
+/*********************************************************
  * IndexScrollbar
  *
  * Shows an index scrollbar, and triggers 'select' event.
- */
+ *********************************************************/
 function IndexScrollbar (element, options) {
 	// Support calling without 'new' keyword
 	if(ns === this) {
@@ -22,24 +324,16 @@ function IndexScrollbar (element, options) {
 
 	this.element = element;
 	this.indicator = null;
+	this.indexBar1 = null;	// First IndexBar. Always shown.
+	this.indexBar2 = null;	// 2-depth IndexBar. shown if needed.
+
+
 	this.index = null;
 	this.isShowIndicator = false;
 	this.touchAreaOffsetLeft = 0;
 	this.indexElements = null;
 	this.selectEventTriggerTimeoutId = null;
 	this.ulMarginTop = 0;
-
-	this.indexCellInfomations = {
-		indices: [],
-		mergedIndices: [],
-		indexLookupTable: [],
-
-		clear: function() {
-			this.indices.length = 0;
-			this.mergedIndices.length = 0;
-			this.indexLookupTable.length = 0;
-		}
-	};
 
 	this.eventHandlers = {};
 
@@ -61,7 +355,6 @@ IndexScrollbar.prototype = {
 
 	options: {
 		moreChar: "*",
-		indicatorClass: "ui-indexscrollbar-indicator",
 		selectedClass: "ui-state-selected",
 		delimeter: ",",
 		index: [
@@ -76,12 +369,11 @@ IndexScrollbar.prototype = {
 	},
 
 	_create: function () {
-		this._createIndicator();
+		this._setInitialLayout();	// This is needed for creating sub objects
+		this._createSubObjects();
 
-		// Read index, and add supplement elements
 		this._updateLayout();
 
-		// Bind event handler:
 		this._bindEvent();
 
 		// Mark as extended
@@ -92,6 +384,30 @@ IndexScrollbar.prototype = {
 
 	},
 
+	refresh: function () {
+		if( this._isExtended() ) {
+			this._unbindEvent();
+			this.indicator.hide();
+			this._extended( false );
+		}
+
+		this._updateLayout();
+		this._extended( true );
+	},
+
+	destroy: function() {
+		this._unbindEvent();
+		this._extended( false );
+
+		this._destroySubObjects();
+		this.element = null;
+		this.indicator = null;
+		this.index = null;
+		this.isShowIndicator = false;
+		this.indexCellInfomations = null;
+		this.eventHandlers = null;
+	},
+
 	_setOptions: function (options) {
 		var name;
 
@@ -100,26 +416,63 @@ IndexScrollbar.prototype = {
 				this.options[name] = options[name];
 			}
 		}
+
+		// data-* attributes
+		this.options.index = this._getIndex();
 	},
 
-	_setLayoutValues: function () {
-		var container = this._getContainer(),
-			positionStyle = window.getComputedStyle(container).position,
-			containerOffsetTop = container.offsetTop,
-			containerOffsetLeft = container.offsetLeft;
+	/* Create indexBar1 and indicator in the indexScrollbar
+	 */
+	_createSubObjects: function() {
+		// indexBar1
+		this.indexBar1 = new IndexBar( document.createElement("UL"), {
+			container: this.element,
+			offsetLeft: 0,
+			index: this.options.index,
+			indexHeight: this.options.indexHeight
+		});
 
-		if ( this.indicator ) {
-			this.indicator.style.width = container.offsetWidth + "px";
-			this.indicator.style.height = container.offsetHeight + "px";
-		}
+		// indicator
+		this.indicator = new IndexIndicator(document.createElement("DIV"), {
+			container: this._getContainer()
+		});
+	},
 
-		if ( positionStyle !== "absolute" && positionStyle !== "relative" ) {
-			this.element.style.top = containerOffsetTop + "px";
-			this.indicator.style.top = containerOffsetTop + "px";
-			this.indicator.style.left = containerOffsetLeft + "px";
+	_destroySubObjects: function() {
+		var subObjs = {
+				iBar1: this.indexBar1,
+				iBar2: this.indexBar2,
+				indicator: this.indicator
+			},
+			subObj,
+			el,
+			i;
+		for(i in subObjs) {
+			subObj = subObjs[i];
+			if(subObj) {
+				el = subObj.element;
+				subObj.destroy();
+				el.parentNode.removeChild(el);
+			}
 		}
 	},
 
+	/* Set initial layout
+	 */
+	_setInitialLayout: function () {
+		var indexScrollbar = this.element,
+			container = this._getContainer(),
+			containerPosition = window.getComputedStyle(container).position;
+
+		// Set the indexScrollbar's position, if needed
+		if (containerPosition !== "absolute" && containerPosition !== "relative") {
+			indexScrollbar.style.top = container.offsetTop + "px";
+			indexScrollbar.style.height = container.style.height;
+		}
+	},
+
+	/* Calculate maximum index length
+	 */
 	_setMaxIndexLen: function() {
 		var maxIndexLen = this.options.maxIndexLen,
 			container = this._getContainer(),
@@ -134,237 +487,119 @@ IndexScrollbar.prototype = {
 	},
 
 	_updateLayout: function() {
-		this._setLayoutValues();
-		this._setMaxIndexLen();
-		this._updateIndexCellInfomation();
+		this._setInitialLayout();
 		this._draw();
-		this._updateIndexCellRectInfomation();
 
 		this.touchAreaOffsetLeft = this.element.offsetLeft - 10;
-	},
-
-	_updateIndexCellInfomation: function() {
-		var maxIndexLen = this.options.maxIndexLen,
-			indices = this._getIndex(),
-			showIndexSize = Math.min( indices.length, maxIndexLen ),
-			indexSize = indices.length,
-			totalLeft = indexSize - maxIndexLen,
-			leftPerItem = window.parseInt(totalLeft / (window.parseInt(showIndexSize/2))),
-			left = totalLeft % (window.parseInt(showIndexSize/2)),
-			indexItemSizeArr = [],
-			mergedIndices = [],
-			i, len, pos=0;
-
-		for ( i=0, len=showIndexSize; i < len; i++ ) {
-			indexItemSizeArr[i] = 1;
-			if ( i % 2 ) {
-				indexItemSizeArr[i] += leftPerItem + ( left-- > 0 ? 1 : 0);
-			}
-		}
-
-		for ( i=0, len=showIndexSize; i < len; i++) {
-			pos += indexItemSizeArr[i];
-
-			mergedIndices.push({
-				start: pos - 1,
-				length: indexItemSizeArr[i]
-			});
-		}
-
-		this.indexCellInfomations.indices = indices;
-		this.indexCellInfomations.mergedIndices = mergedIndices;
-	},
-
-	_updateIndexCellRectInfomation: function() {
-		var el = this.element,
-			mergedIndices = this.indexCellInfomations.mergedIndices,
-			containerOffset = this._getOffset(this._getContainer()).top,
-			indexLookupTable = [];
-
-		[].forEach.call(el.querySelectorAll("li"), function(node, idx) {
-			var m = mergedIndices[idx],
-				i = m.start,
-				len = i + m.length,
-				top = containerOffset + node.offsetTop,
-				height = node.offsetHeight / m.length;
-
-			for ( ; i < len; i++ ) {
-				indexLookupTable.push({
-					cellIndex: idx,
-					top: top,
-					range: height
-				});
-
-				top += height;
-			}
-
-		});
-
-		this.indexCellInfomations.indexLookupTable = indexLookupTable;
-		this.indexElements = el.children[0].children;
 	},
 
 	/**	Draw additinoal sub-elements
 	 *	@param {array} indices	List of index string
 	 */
 	_draw: function () {
-		var el = this.element,
-			container = this._getContainer(),
-			moreChar = this.options.moreChar,
-			indices = this.indexCellInfomations.indices,
-			mergedIndices = this.indexCellInfomations.mergedIndices,
-			indexSize = mergedIndices.length,
-			containerHeight = container.offsetHeight,
-			indexHeight = this.options.indexHeight,
-			leftHeight = containerHeight - indexHeight * indexSize,
-			addHeightOffset = leftHeight,
-			indexCellHeight, text, ul, li, frag, i, m,
-			addMoreCharLineHeight = 9; // to adjust position of morechar
-
-		frag = document.createDocumentFragment();
-		ul = document.createElement("ul");
-		frag.appendChild(ul);
-		for(i=0; i < indexSize; i++) {
-			m = mergedIndices[i];
-			text = m.length === 1 ? indices[m.start] : moreChar;
-			indexCellHeight = i < addHeightOffset ? indexHeight + 1 : indexHeight;
-
-			li = document.createElement("li");
-			li.innerText = text;
-			li.style.height = indexCellHeight + "px";
-			li.style.lineHeight = text === moreChar ? indexCellHeight + addMoreCharLineHeight + "px" : indexCellHeight + "px";
-			ul.appendChild(li);
-		}
-
-		// Set ul's margin-top
-		this.ulMarginTop = Math.floor((parseInt(containerHeight, 10) - indexSize * indexHeight)/2);
-		ul.style.marginTop = this.ulMarginTop + "px";
-
-		el.appendChild(frag);
-
+		this.indexBar1.show();
 		return this;
 	},
 
-	_createIndicator: function() {
-		var indicator = document.createElement("DIV"),
-			container = this._getContainer();
-
-		indicator.className = this.options.indicatorClass;
-		indicator.innerHTML = "<span></span>";
-		container.insertBefore(indicator, this.element);
-
-		this.indicator = indicator;
-	},
-
 	_removeIndicator: function() {
-		this.indicator.parentNode.removeChild(this.indicator);
+		var indicator = this.indicator,
+			parentElem = indicator.element.parentNode;
+
+		parentElem.removeChild(indicator.element);
+		indicator.destroy();
+		this.indicator = null;
 	},
 
-	_changeIndicator: function( idx/*, cellElement */) {
-		var selectedClass = this.options.selectedClass,
-			cellInfomations = this.indexCellInfomations,
-			cellElement, val;
+	_getEventReceiverByPosition: function( posX ) {
+		var windowWidth = window.innerWidth,
+			elementWidth = this.element.clientWidth,
+			receiver;
 
-		if ( !this.indicator || idx === this.index ) {
-			return false;
+		if( this.indexBar2 ) {
+			if( windowWidth - elementWidth <= posX && posX <= windowWidth) {
+				receiver = this.indexBar1;
+			} else {
+				receiver = this.indexBar2;
+			}
+		} else {
+			receiver = this.indexBar1;
 		}
+		return receiver;
+	},
 
-		// TODO currently touch event target is not correct. it's browser bugs.
-		// if the bug is fixed, this logic that find cellelem have to be removed.
-		cellElement = this.indexElements[cellInfomations.indexLookupTable[idx].cellIndex];
-		this._clearSelected();
-		cellElement.classList.add(selectedClass);
-
-		val = cellInfomations.indices[idx];
-		this.indicator.firstChild.innerHTML = val;
-
-		this.index = idx;
-
-		if ( this.selectEventTriggerTimeoutId ) {
+	_updateIndicatorAndTriggerEvent: function( val ) {
+		this.indicator.setValue(val);
+		this.indicator.show();
+		if(this.selectEventTriggerTimeoutId) {
 			window.clearTimeout(this.selectEventTriggerTimeoutId);
 		}
 		this.selectEventTriggerTimeoutId = window.setTimeout(function() {
 			this._trigger(this.element, "select", {index: val});
-			this.selectEventTriggerTimeoutId = null;
 		}.bind(this), this.options.keepSelectEventDelay);
-
-	},
-
-	_clearSelected: function() {
-		var el = this.element,
-			selectedClass = this.options.selectedClass,
-			selectedElement = el.querySelectorAll("."+selectedClass);
-
-		[].forEach.call(selectedElement, function(node/*, idx */) {
-			node.classList.remove(selectedClass);
-		});
-	},
-
-	_showIndicator: function() {
-		if ( this.isShowIndicator || !this.indicator ) {
-			return false;
-		}
-
-		this.indicator.style.display = "block";
-		this.isShowIndicator = true;
-	},
-
-	_hideIndicator: function() {
-		if ( !this.isShowIndicator || !this.indicator ) {
-			return false;
-		}
-
-		this._clearSelected();
-		this.indicator.style.display = "none";
-		this.isShowIndicator = false;
-		this.index = null;
 	},
 
 	_onTouchStartHandler: function( ev ) {
+		if (ev.touches.length > 1) {
+			ev.preventDefault();
+			ev.stopPropagation();
+			return;
+		}
 		var pos = this._getPositionFromEvent( ev ),
-			idx = this._findIndexByPosition( pos.y );
+			// At touchstart, only indexbar1 is shown.
+			iBar1 = this.indexBar1,
+			idx = iBar1.getIndexByPosition( pos.y ),
+			val = iBar1.getValueByIndex( idx );
 
-		if (ev.touches.length > 1) {
-			ev.preventDefault();
-			ev.stopPropagation();
-			return;
-		}
+		iBar1.select( idx );	// highlight selected value
 
-		if ( idx < 0 ) {
-			idx = 0;
-		}
-
-		this._changeIndicator(idx, ev.target);
-		this._showIndicator();
+		this._updateIndicatorAndTriggerEvent( val );
 	},
 
-	_onTouchEndHandler: function(ev) {
-		if (ev.touches.length > 1) {
-			ev.preventDefault();
-			ev.stopPropagation();
-			return;
-		}
-		this._hideIndicator();
-	},
 
 	_onTouchMoveHandler: function( ev ) {
-		var pos, idx;
-
-		if ( !this.isShowIndicator || ev.touches.length > 1) {
+		if (ev.touches.length > 1 || !this.isShowIndicator) {
 			ev.preventDefault();
 			ev.stopPropagation();
 			return;
 		}
 
-		pos = this._getPositionFromEvent( ev );
-		idx = this._findIndexByPosition( pos.y );
+		var pos = this._getPositionFromEvent( ev ),
+			//iBar1 = this.indexBar1,
+			//iBar2 = this.indexBar2,
+			idx,
+			iBar,
+			val;
 
-		if ( idx > -1 && pos.x > this.touchAreaOffsetLeft ) {
-			this._changeIndicator(idx, ev.target);
-		}
+		// 1. Check event receiver: ibar1 or ibar2
+		iBar = this._getEventReceiverByPosition( pos.x );
+
+		// 2. get index and value from ibar1 or ibar2
+		idx = iBar.getIndexByPosition( pos.y );
+		val = iBar.getValueByIndex( idx );
+
+		// 3. update ibars
+		iBar.select(idx);	// highlight selected value
+
+		// 4. update indicator
+		this._updateIndicatorAndTriggerEvent( val );
 
 		ev.preventDefault();
 		ev.stopPropagation();
+	},
+
+	_onTouchEndHandler: function( ev ) {
+		if (ev.touches.length > 1) {
+			return;
+		}
+		window.clearTimeout(this.selectEventTriggerTimeoutId);
+		this.selectEventTriggerTimeoutId = null;
+
+		this.indicator.hide();
+		this.indexBar1.clearSelected();
+		if(this.indexBar2) {
+			this.indexBar2.clearSelected();
+			this.indexBar2.hide();
+		}
 	},
 
 	_bindEvent: function() {
@@ -484,21 +719,6 @@ IndexScrollbar.prototype = {
 		return indices;
 	},
 
-	_findIndexByPosition: function( posY ) {
-		var rectTable = this.indexCellInfomations.indexLookupTable,
-			i, len, info, range;
-
-		for ( i=0, len=rectTable.length; i < len; i++) {
-			info = rectTable[i];
-			range = posY - info.top;
-			if ( range >= 0 && range < info.range ) {
-				return i;
-			}
-		}
-
-		return -1;
-	},
-
 	_getOffset: function( el ) {
 		var left=0, top=0 ;
 		do {
@@ -522,16 +742,6 @@ IndexScrollbar.prototype = {
 				{x: ev.clientX, y: ev.clientY};
 	},
 
-	_clear: function () {
-		this.indexCellInfomations.clear();
-		this.indexElements = null;
-
-		var el = this.element;
-		while(el.firstChild) {
-			el.removeChild(el.firstChild);
-		}
-	},
-
 	addEventListener: function (type, listener) {
 		this.element.addEventListener(type, listener);
 	},
@@ -540,31 +750,6 @@ IndexScrollbar.prototype = {
 		this.element.removeEventListener(type, listener);
 	},
 
-	refresh: function () {
-		if( this._isExtended() ) {
-			this._unbindEvent();
-			this._hideIndicator();
-			this._clear();
-			this._extended( false );
-		}
-
-		this._updateLayout();
-		this._extended( true );
-	},
-
-	destroy: function() {
-		this._unbindEvent();
-		this._removeIndicator();
-		this._clear();
-		this._extended( false );
-
-		this.element = null;
-		this.indicator = null;
-		this.index = null;
-		this.isShowIndicator = false;
-		this.indexCellInfomations = null;
-		this.eventHandlers = null;
-	}
 };
 // Export indexscrollbar to the namespace
 ns.IndexScrollbar = IndexScrollbar;

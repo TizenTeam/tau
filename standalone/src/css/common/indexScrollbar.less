@@ -3,12 +3,14 @@
 	position: fixed;
 	right: 0;	//TODO:bidi
 	top: 0;
+	width: 40*@unit_base;
 	height: 100%;
 	background-color: @color_indexscrollbar_bg;
 	z-index: 10;
+	overflow: visible;	// To show 2nd indexbar
 
 	ul {
-		width: 40*@unit_base;
+		width: 100%;
 		top:0;
 		li {
 			color: @color_indexscrollbar_text;
@@ -24,8 +26,12 @@
 		}
 	}
 	ul.ui-indexscrollbar-2nd {
+		position: relative;
 		height: auto;
 		top: 0;
+		right: -40 * @unit_base;
+		width: 100%;
+
 	}
 
 	& + .ui-listview li {
