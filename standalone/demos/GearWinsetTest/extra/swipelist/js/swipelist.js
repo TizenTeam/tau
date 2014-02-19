@@ -50,7 +50,7 @@ SwipeList.prototype = {
 
 		this._genlistLi = this._genlistUl.getElementsByTagName("li");
 		this._genlistCallStyle["background-position-x"] = "-400px";
-		this._genlistMessageStyle["background-position-x"] = "-20px";
+		this._genlistMessageStyle["background-position-x"] = "-80px";
 
 		this._addEvent();
 	},
@@ -127,7 +127,7 @@ SwipeList.prototype = {
 						i-=20;
 						webkitRequestAnimationFrame( animate );
 					} else {
-						self._genlistMessageStyle["background-position-x"] = "-20px";
+						self._genlistMessageStyle["background-position-x"] = "-80px";
 						self._genlistMessage.style.display = "none";
 						// fired custom event
 						self._genlistCall.dispatchEvent( messaging );
