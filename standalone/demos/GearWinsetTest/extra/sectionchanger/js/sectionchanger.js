@@ -61,6 +61,7 @@ extend(SectionChanger, Scroller, {
 		options.animate = options.animate || true;
 		options.animateDuration = options.animateDuration || 100;
 		options.orientation = options.orientation || "horizontal";
+		options.changeThreshold = options.changeThreshold || -1;
 
 		this._super( options );
 	},
@@ -76,11 +77,6 @@ extend(SectionChanger, Scroller, {
 
 		if (  this.options.circular && sectionLength < 3 ) {
 			throw "if you use circular option, you must have at least three sections.";
-		}
-
-		// set corret options values.
-		if ( !this.options.animate ) {
-			this.options.animateDuration = 0;
 		}
 
 		if ( this.activeIndex >= sectionLength ) {
@@ -100,6 +96,14 @@ extend(SectionChanger, Scroller, {
 		this._prepareLayout();
 		this._super();
 		this._repositionSections( true );
+
+		// set corret options values.
+		if ( !this.options.animate ) {
+			this.options.animateDuration = 0;
+		}
+		if ( this.options.changeThreshold < 0 ) {
+			this.options.changeThreshold = this.width / 5;
+		}
 
 		if ( sectionLength > 1 ) {
 			this.enable();
@@ -271,6 +275,8 @@ extend(SectionChanger, Scroller, {
 			flick = duration < 300 && endOffset < 0 && endOffset > maxDistance && distance > this.options.flickThreshold,
 			requestScrollEnd = this.initiated && ( this.moved || flick ),
 			sectionLength = this.sections.length,
+			changeThreshold = this.options.changeThreshold,
+			cancel = !flick && changeThreshold > distance,
 			newIndex=0;
 
 		this.touching = false;
@@ -280,9 +286,9 @@ extend(SectionChanger, Scroller, {
 			return;
 		}
 
-		if ( dist < 0 && this.direction < 0 && this.lastDirection < 0 ) {
+		if ( !cancel && dist < 0 && this.direction < 0 && this.lastDirection < 0 ) {
 			newIndex = this.activeIndex + 1;
-		} else if ( dist > 0 && this.direction > 0 && this.lastDirection > 0 ){
+		} else if ( !cancel && dist > 0 && this.direction > 0 && this.lastDirection > 0 ){
 			newIndex = this.activeIndex - 1;
 		} else {
 			// canceled

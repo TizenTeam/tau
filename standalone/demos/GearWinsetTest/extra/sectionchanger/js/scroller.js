@@ -79,7 +79,7 @@ Scroller.prototype = {
 			scrollDelay: 300,
 			threshold: 10,
 			minThreshold: 5,
-			flickThreshold: 0,
+			flickThreshold: 30,
 			orientation: "vertical",		// vertical or horizontal,
 			// TODO implement scroll momentum.
 			momentum: true
@@ -112,10 +112,6 @@ Scroller.prototype = {
 		} else {
 			this.maxScrollX = 0;
 			this.scrollerWidth = this.width;
-		}
-
-		if ( !this.options.flickThreshold ) {
-			this.options.flickThreshold = this.width / 3;
 		}
 
 		this._initLayout();
