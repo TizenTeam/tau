@@ -37,6 +37,8 @@ Scroller.prototype = {
 		this.scroller = this.element.children[0];
 		this.scrollerStyle = this.scroller.style;
 
+		this.scrollbar = null;
+
 		this.width = 0;
 		this.height = 0;
 
@@ -80,6 +82,7 @@ Scroller.prototype = {
 			threshold: 10,
 			minThreshold: 5,
 			flickThreshold: 30,
+			scrollbar: false,
 			orientation: "vertical",		// vertical or horizontal,
 			// TODO implement scroll momentum.
 			momentum: true
@@ -115,6 +118,7 @@ Scroller.prototype = {
 		}
 
 		this._initLayout();
+		this._initScrollbar();
 	},
 
 	_initLayout: function() {
@@ -122,6 +126,18 @@ Scroller.prototype = {
 
 		elementStyle.overflow = "hidden";
 		elementStyle.position = "relative";
+	},
+
+	_initScrollbar: function() {
+		var scrollbarType = this.options.scrollbar,
+			orientation = this.options.orientation;
+
+		if ( scrollbarType ) {
+			this.scrollbar = new Scroller.Scrollbar(this.element, {
+				type: scrollbarType,
+				orientation : orientation
+			});
+		}
 	},
 
 	_resetLayout: function() {
@@ -204,6 +220,7 @@ Scroller.prototype = {
 
 	scrollTo: function( x, y, duration ) {
 		this._translate( x, y, duration );
+		this._translateScrollbar( x, y, duration );
 	},
 
 	_translate: function( x, y, duration ) {
@@ -223,6 +240,22 @@ Scroller.prototype = {
 
 		scrollerStyle["-webkit-transform"] = translate;
 		scrollerStyle["-webkit-transition"] = transition;
+	},
+
+	_translateScrollbar: function( x, y, duration ) {
+		var offset;
+
+		if ( !this.scrollbar ) {
+			return;
+		}
+
+		if ( this.orientation === Scroller.Orientation.HORIZONTAL ) {
+			offset = -x * this.width / this.scrollerWidth;
+		} else {
+			offset = -y * this.height / this.scrollerHeight;
+		}
+
+		this.scrollbar.translate( offset, duration );
 	},
 
 	_getEstimatedCurrentPoint: function( current, last ) {
@@ -349,6 +382,7 @@ Scroller.prototype = {
 		if ( newX != this.scrollerOffsetX || newY != this.scrollerOffsetY ) {
 			this.moved = true;
 			this._translate( newX, newY );
+			this._translateScrollbar( newX, newY );
 			// TODO to dispatch move event is too expansive. it is better to use callback.
 			//this._fireEvent( eventType.MOVE );
 		}
@@ -410,6 +444,7 @@ Scroller.prototype = {
 
 		if ( this.initiated ) {
 			this._translate( this.startScrollerOffsetX, this.startScrollerOffsetY );
+			this._translateScrollbar( this.startScrollerOffsetX, this.startScrollerOffsetY );
 			this._fireEvent( eventType.CANCEL );
 		}
 
@@ -445,6 +480,11 @@ Scroller.prototype = {
 		this.touching = false;
 
 		this._resetLayout();
+
+		if ( this.scrollbar ) {
+			this.scrollbar.destroy();
+		}
+		this.scrollbar = null;
 	},
 
 	disable: function () {
@@ -458,6 +498,9 @@ Scroller.prototype = {
 	destroy: function() {
 		this._clear();
 		this._unbindEvents();
+
+		this.scrollerStyle = null;
+		this.scroller = null;
 	}
 }
 
