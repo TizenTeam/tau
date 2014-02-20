@@ -135,6 +135,11 @@ SwipeList.prototype = {
 		return target;
 	},
 
+	_setMovingElementTop: function( element, lastScrollTop, lastElementTop ){
+		var diff = lastScrollTop - this.callElement.parentNode.scrollTop;
+		element.style.top = parseInt( lastElementTop,10 ) + diff + "px";
+	},
+
 	_start: function( e, pos ) {
 
 		if ( this._detectLiTarget( e.target ) ) {
@@ -170,14 +175,17 @@ SwipeList.prototype = {
 
 	_end: function( e ) {
 		var interval,
+		lastScrollTop = this.callElement.parentNode.scrollTop,
+		lastElementTop,
 		self = this;
 
 		if( parseInt( self._callElementStyle["background-position-x"], 10 ) > -250 ) {
 			// animate call background x position
 			var i = parseInt( self._callElementStyle["background-position-x"], 10 );
-
+			lastElementTop = this.callElement.style.top;
 			(function animate(){
 				if ( i < 0 ){
+					self._setMovingElementTop( self.callElement, lastScrollTop, lastElementTop );
 					self._callElementStyle["background-position-x"] = i + "px";
 					i+=20;
 					webkitRequestAnimationFrame( animate );
@@ -192,9 +200,10 @@ SwipeList.prototype = {
 		} else if( parseInt( self._messageElementStyle["background-position-x"] ) < -250 ) {
 			// animate message background x position
 			var i = parseInt( self._messageElementStyle["background-position-x"], 10 );
-
+			lastElementTop = this.messageElement.style.top;
 			(function animate(){
 				if ( i > -400 ){
+					self._setMovingElementTop( self.messageElement, lastScrollTop, lastElementTop );
 					self._messageElementStyle["background-position-x"] = i + "px";
 					i-=20;
 					webkitRequestAnimationFrame( animate );
