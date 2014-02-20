@@ -1,0 +1,212 @@
+html, body {
+	margin: 0;
+	padding: 0;
+	background-color: black;
+	font-family: Sans-Serif;
+	color: white;
+	/*overflow: hidden;*/
+}
+#container {
+	height:100%;
+	width: 100%;
+}
+#head {
+	height: 10%;
+	width: 100%;
+}
+
+
+h2 {
+	padding:5px;
+	text-align: center;
+}
+
+/**/
+ul {
+	margin: 0px;
+	padding: 0px;
+}
+ul {
+	list-style: none;
+	font-size:20px;
+}
+ul li{
+	padding-left: 5px;
+	padding-bottom: 7px;
+}
+.spandefault {
+	display: block;
+}
+.small {
+	font-size:12px;
+}
+/**/
+.wideonly {
+	display:none;
+}
+.verticalonly {
+	display:none;
+}
+
+.labelw {
+	width: 60px;
+	display: inline-block;
+}
+.noside .lablew {
+	width:80px;
+}
+
+#maincontent {
+	height: 50%;
+}
+
+#maincontent .inner {
+	padding-top: 15%;
+	text-align: center;
+}
+#maincontent .inner .event {
+	font-size:40px;
+}
+#maincontent .inner .time {
+	font-size: 20px;
+	margin-top: 20px;
+}
+
+#maincontent,
+#subcontent {
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#subcontent ul {
+	margin: 10px;
+	margin-top: 15px;
+}
+
+#subcontent .inner {
+	margin-top: 19px;
+	border-top: 1px white solid;
+}
+
+.wideonly {
+	display: block;
+}
+#sidemenu {
+	width:24%;
+	height:90%;
+	float: right;
+	border-left: 1px solid white;
+}
+#sidemenu .inner{
+	text-align:center;
+}
+
+.noside #maincontent {
+	width: 100%;
+}
+.noside #subcontent {
+	width: 100%;
+}
+.noside ul {
+	font-size:20px;
+}
+.verticalonly {
+	display:block;
+}
+.addBr {
+	overflow: hidden;
+}
+
+
+.nosub.noside #maincontent .inner {
+	padding-top:100px;
+}
+
+/* 320 160 */
+@media all and (device-height: 160px) and (device-width: 320px) {
+
+	h2, #head {
+		margin: 0;
+		height: auto;
+		padding: 0;
+	}
+
+	#maincontent {
+		float: right;
+		width: 65%;
+		height: auto;
+	}
+
+	#maincontent .inner {
+		padding-top: 0;
+		text-align: left;
+		padding-left: 10px;
+	}
+
+	#maincontent .inner .event {
+		font-size: 34px;
+	}
+
+	#maincontent .inner .time {
+		margin-top: 0;
+	}
+
+	#subcontent {
+		float: left;
+		width: 35%;
+		height: auto;
+	}
+
+	#subcontent .inner {
+		height: 75%;
+		margin-top: 0;
+		border-top: 0;
+		border-right: 1px white solid;
+	}
+
+	.wideonly {
+		display: none;
+	}
+
+	ul li {
+		margin-top: 3px;
+	}
+
+	ul li span {
+		display: block;
+	}
+
+	.addBr {
+		margin-top: 10px;
+	}
+
+	#subcontent ul {
+		margin: 0;
+	}
+
+	#subcontent:after {
+		content: "";
+		height: 0;
+		width: 0;
+		display: block;
+		visibility: hidden;
+		clear: both;
+	}
+}
+
+/* 160 320 */
+
+@media all and (device-width: 160px) and (device-height: 320px) {
+	#maincontent {
+		height: 42%;
+	}
+
+	#maincontent .inner .time {
+		margin-top: 8px;
+	}
+
+	ul {
+		font-size: 14px;
+	}
+}

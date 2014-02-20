@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:tizen="http://tizen.org/ns/widgets" id="http://samsung.com/card-app" version="0.1.4" viewmodes="maximized">
+    <tizen:application id="8kPZDKdhWQ.CardApp" package="8kPZDKdhWQ" required_version="2.1"/>
+	<tizen:card name="weather" type="weather" src="src/weather.html"/>    
+	<tizen:card name="contact" type="contact" src="src/contact.html"/>    
+	<tizen:card name="message" type="message" src="src/message.html"/>
+	<tizen:card name="event" type="event" src="src/event.html"/>
+        <tizen:privilege name="http://tizen.org/privilege/cardapp.read"/>
+        <tizen:privilege name="http://tizen.org/privilege/cardapp.write"/>
+        <tizen:setting nodisplay="true"/>
+</widget>
