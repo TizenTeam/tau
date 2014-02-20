@@ -264,9 +264,11 @@ module.exports = function(grunt) {
 		},
 
 		copy: {
-
 			images: {
 				files: files.images.getImagesFolder()
+			},
+			license: {
+				src: "LICENSE.Flora", dest: path.join( dist, "LICENSE" ) + ".Flora"
 			}
 		},
 
@@ -295,11 +297,11 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks( "grunt-contrib-watch" );
 
 	grunt.registerTask( "lint", [ "jshint" ] );
-	grunt.registerTask("css", [ "less", "cssmin", "copy" ]);
+	grunt.registerTask("css", [ "less", "cssmin" ]);
 	grunt.registerTask("js", [ "requirejs:js", "uglify" ]);
 	grunt.registerTask("jsej", [ "requirejs:jsej", "uglify" ]);
 	
-	grunt.registerTask("release", [ "lint", "css", "js", "requirejs:jsejvl", "concat" ]);
+	grunt.registerTask("release", [ "lint", "css", "js", "requirejs:jsejvl", "concat", "copy" ]);
 	grunt.registerTask("releaseej", [ "lint", "css", "jsej" ]);
 
 	grunt.registerTask("default", [ "release" ]);
