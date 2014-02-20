@@ -9,7 +9,7 @@ page.addEventListener( "pageshow", function() {
 	sectionChanger = new SectionChanger(changer, {
 		circular: false,
 		orientation: "horizontal",
-		scrollbar: "over"
+		scrollbar: "bar"
 	});
 });
 

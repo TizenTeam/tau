@@ -46,7 +46,7 @@ Scroller.Scrollbar.prototype = {
 
 	_initOptions: function( options ) {
 		options = extend({
-			type: "default",
+			type: false,
 			displayDelay: 700,
 			sections: null
 		}, options);
@@ -184,7 +184,7 @@ Scroller.Scrollbar.Type.Interface = {
 	end: function( scrollbarElement, barElement ) {}
 };
 
-Scroller.Scrollbar.Type["over"] = extend( {}, Scroller.Scrollbar.Type.Interface, {
+Scroller.Scrollbar.Type["bar"] = extend( {}, Scroller.Scrollbar.Type.Interface, {
 	options: {
 		wrapperClass: "scrollbar-over-type",
 		barClass: "scrollbar-indicator",
@@ -223,7 +223,7 @@ Scroller.Scrollbar.Type["over"] = extend( {}, Scroller.Scrollbar.Type.Interface,
 	}
 });
 
-Scroller.Scrollbar.Type["bar"] = extend( {}, Scroller.Scrollbar.Type.Interface, {
+Scroller.Scrollbar.Type["tab"] = extend( {}, Scroller.Scrollbar.Type.Interface, {
 	options: {
 		wrapperClass: "scrollbar-bar-type",
 		barClass: "scrollbar-indicator"
