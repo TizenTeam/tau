@@ -12,6 +12,7 @@
 	startY,
 	didScroll,
 	target,
+	touchLength,
 	addActiveClassTimerID,
 	options = {
 		scrollThreshold: 5,
@@ -22,28 +23,34 @@
 		"A": "ui-a-active"
 	};
 
-	function touchstartHandler(e) {
-		didScroll = false;
-		startX = e.touches[0].clientX;
-		startY = e.touches[0].clientY;
-		target = e.target;
+	function touchstartHandler( e ) {
+		touchLength = e.touches.length;
 
-		document.addEventListener( "touchmove", touchmoveHandler );
-		addActiveClassTimerID = setTimeout(addActiveClass, options.addActiveClassDelay);
+		if( touchLength !== 1 ) {
+			return;
+		} else {
+			didScroll = false;
+			startX = e.touches[0].clientX;
+			startY = e.touches[0].clientY;
+			target = e.target;
+
+			document.addEventListener( "touchmove", touchmoveHandler );
+			addActiveClassTimerID = setTimeout( addActiveClass, options.addActiveClassDelay );
+		}
 	}
 
-	function touchmoveHandler(e) {
+	function touchmoveHandler( e ) {
 		didScroll = didScroll ||
-		(Math.abs(e.touches[0].clientX - startX) > options.scrollThreshold || Math.abs(e.touches[0].clientY - startY) > options.scrollThreshold);
+		( Math.abs( e.touches[0].clientX - startX ) > options.scrollThreshold || Math.abs( e.touches[0].clientY - startY ) > options.scrollThreshold );
 
-		if(didScroll) {
+		if( didScroll ) {
 			removeTouchMove();
 			removeActiveClass();
 		}
 	}
 
 	function removeTouchMove() {
-		document.removeEventListener("touchmove", touchmoveHandler);
+		document.removeEventListener( "touchmove", touchmoveHandler );
 	}
 
 	function detectATarget (target) {
@@ -64,29 +71,33 @@
 		var activeA = getActiveElements(),
 			i;
 		for( i=0; i<activeA.length; i++ ) {
-			activeA[i].classList.remove(activeClass.A);
+			activeA[i].classList.remove( activeClass.A );
 		}
 	}
 
 	function getActiveElements() {
-		return document.getElementsByClassName(activeClass.A);
+		return document.getElementsByClassName( activeClass.A );
 	}
 
 	function touchendHandler() {
-		clearTimeout(addActiveClassTimerID);
-		addActiveClassTimerID = null;
-		if (!didScroll) {
-			setTimeout(removeActiveClass, options.keepActiveClassDelay);
+		if( touchLength !== 1 ) {
+			return;
+		} else {
+			clearTimeout( addActiveClassTimerID );
+			addActiveClassTimerID = null;
+			if ( !didScroll ) {
+				setTimeout( removeActiveClass, options.keepActiveClassDelay );
+			}
+			didScroll = false;
 		}
-		didScroll = false;
 	}
 
 	function eventBinding() {
 		document.addEventListener( "touchstart", touchstartHandler );
 		document.addEventListener( "touchend", touchendHandler );
-		window.addEventListener("pagehide", removeActiveClass );
+		window.addEventListener( "pagehide", removeActiveClass );
 	}
 
-	window.addEventListener("DOMContentLoaded", eventBinding );
+	window.addEventListener( "DOMContentLoaded", eventBinding );
 
 }());
