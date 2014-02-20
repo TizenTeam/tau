@@ -46,8 +46,16 @@
 		document.removeEventListener("touchmove", touchmoveHandler);
 	}
 
+	function detectATarget (target) {
+		while (target && target.tagName !== "A") {
+			target = target.parentNode;
+		}
+		return target;
+	}
+
 	function addActiveClass() {
-		if(!didScroll && target.nodeName === "A") {
+		target = detectATarget(target);
+		if(!didScroll && target.tagName === "A") {
 			target.classList.add(activeClass.A);
 		}
 	}
