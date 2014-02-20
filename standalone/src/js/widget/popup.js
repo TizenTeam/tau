@@ -105,15 +105,15 @@ $.widget( "ui.popup", {
 
 	open: function( options ) {
 		var toptions = $.extend({}, options, {ext: " in ui-pre-in "}),
-			container;
+			container = document.createElement("div");
+
+		container.classList.add("ui-popup-background");
+		container.appendChild(this.element[0].parentElement.replaceChild(container, this.element[0]));
 
 		if ( this.element.hasClass("ui-popup-toast") ) {
-			container = document.createElement("div");
-			container.classList.add("ui-popup-background");
-			container.appendChild(this.element[0].parentElement.replaceChild(container, this.element[0]));
 			container.addEventListener("click", this.closePopup, false);
-			this.background = container;
 		}
+		this.background = container;
 
 		ns.fireEvent(this.element, EventType.BEFORE_SHOW);
 		this._transition( toptions ).done( $.proxy( function() {
@@ -125,16 +125,16 @@ $.widget( "ui.popup", {
 	close: function( options ) {
 		var toptions = $.extend({}, options, {ext: " out reverse "}),
 			container = this.background,
-			parent;
+			parent = container.parentElement;
 
-		if ( container ) {
-			parent = container.parentElement;
+		if ( this.element.hasClass("ui-popup-toast") ) {
 			container.removeEventListener("click", this.closePopup, false);
-			parent = container.parentElement;
-			parent.appendChild(this.element[0]);
-			parent.removeChild(container);
-			container = null;
 		}
+
+		parent = container.parentElement;
+		parent.appendChild(this.element[0]);
+		parent.removeChild(container);
+		container = null;
 
 		ns.fireEvent(this.element, EventType.BEFORE_HIDE);
 		this._transition( toptions ).done( $.proxy( function() {
