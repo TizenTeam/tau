@@ -1,147 +1,219 @@
-var calling =  new CustomEvent(
-	// This custom event is called when user calling swipe
-	"swipelist.call",
-	{
-		bubbles: true,
-		cancelable: true
-	}
-), messaging =  new CustomEvent(
-	// This custom event is called when user message swipe
-	"swipelist.message",
-	{
-		bubbles: true,
-		cancelable: true
-	}
-)
+(function(window, undefined) {
+	'use strict';
 
-function SwipeList( liElem, callElem, messageElem ) {
-	this.options = {
-		threshold: 50
-	}
-	this.init( liElem, callElem, messageElem );
-}
+var eventType = {
+		//swipelist provide two event 
+		CALL: "swipelist.call",
+		MESSAGE: "swipelist.message"
+};
 
-function detectLiTarget (target) {
-	while (target && target.tagName !== 'LI') {
-		target = target.parentNode;
-	}
-	return target;
+var SwipeList = function ( listElement, callElement, messageElement, options ){
+	this._create( listElement, callElement, messageElement, options );
+	return this;
 }
 
 SwipeList.prototype = {
-	init: function( liElem, callElem, messageElem ) {
-		var page;
-		if( !liElem || !callElem || !messageElem ) {
-			// If developer don't give parameter, this object set default section
-			page = document.getElementsByClassName("ui-page-active");
-			this._genlistUl = page[0].getElementsByClassName("genlist","ul")[0];
-			this._genlistCall = page[0].getElementsByClassName("genlist-call","div")[0];
-			this._genlistMessage = page[0].getElementsByClassName("genlist-message","div")[0];
-		} else {
-			this._genlistUl = liElem;
-			this._genlistCall = callElem;
-			this._genlistMessage = messageElem;
-		}
-		if ( !this._genlistUl || !this._genlistCall || !this._genlistMessage ) {
-			return;
-		}
-		this._genlistCallStyle = this._genlistCall.style;
-		this._genlistMessageStyle = this._genlistMessage.style;
+	_create: function( listElement, callElement, messageElement, options ) {
+		this.listElement = listElement;
+		this.callElement = callElement;
+		this.messageElement = messageElement;
 
-		this._genlistLi = this._genlistUl.getElementsByTagName("li");
-		this._genlistCallStyle["background-position-x"] = "-400px";
-		this._genlistMessageStyle["background-position-x"] = "-80px";
+		this.options = {};
 
-		this._addEvent();
+		this.startX = 0;
+		this.dragging = 0;
+
+		this._callElementStyle = this.callElement.style;
+		this._messageElementStyle = this.messageElement.style;
+
+
+		this._initOptions( options );
+		this._bindEvents();
+		this._init();
 	},
 
-	_addEvent: function() {
-		var self = this,
-		startX,
-		dragging,
-		callBPX = self._genlistCallStyle["background-position-x"],
-		messageBPX = self._genlistMessageStyle["background-position-x"];
-
-		document.addEventListener( "touchstart", function( e ) {
-			var touches = e.touches;
-			if (detectLiTarget(e.target)) {
-				startX = touches[0].pageX;
-				dragging = true;
-			}
-		});
-		document.addEventListener( "touchmove", function( e ) {
-			var touches = e.touches,
-				target = detectLiTarget(e.target),
-				sx = touches[0].pageX - startX,
-				top;
-			if( dragging && target) {
-				top = target.offsetTop - self._genlistCall.parentNode.scrollTop + "px";
-				if ( sx > self.options.threshold ){
-					// appear call scroller
-					var bpx = self._genlistCallStyle["background-position-x"];
-					self._genlistCallStyle["top"] = top;
-					self._genlistCallStyle["display"] = "block";
-					self._genlistCallStyle["background-position-x"] = parseInt( callBPX ) + sx + "px";
-
-					e.preventDefault();
-				} else if ( sx < -self.options.threshold ) {
-					var bpx = self._genlistMessageStyle["background-position-x"];
-					self._genlistMessageStyle["top"] = top;
-					self._genlistMessageStyle["display"] = "block";
-					self._genlistMessageStyle["background-position-x"] = parseInt( messageBPX ) + sx + "px";
-
-					e.preventDefault();
-				}
-			}
-		});
-
-		function swipeEndFunction( e ) {
-			var callBPX = self._genlistCallStyle["background-position-x"],
-			messageBPX = self._genlistMessageStyle["background-position-x"],
-			interval;
-
-			if( parseInt( callBPX ) > -200 ) {
-				// animate call background x position
-				var i = parseInt( callBPX );
-
-				(function animate(){
-					if ( i < 0 ){
-						self._genlistCallStyle["background-position-x"] = i + "px"
-						i+=20;
-						webkitRequestAnimationFrame( animate );
-					} else {
-						self._genlistCallStyle["background-position-x"] = "-400px";
-						self._genlistCall.style.display = "none";
-						// fired custom event
-						self._genlistCall.dispatchEvent( calling );
-					}
-				})();
-
-			} else if( parseInt( messageBPX ) < -200 ) {
-				// animate message background x position
-				var i = parseInt( messageBPX );
-
-				(function animate(){
-					if ( i > -400 ){
-						self._genlistMessageStyle["background-position-x"] = i + "px"
-						i-=20;
-						webkitRequestAnimationFrame( animate );
-					} else {
-						self._genlistMessageStyle["background-position-x"] = "-80px";
-						self._genlistMessage.style.display = "none";
-						// fired custom event
-						self._genlistCall.dispatchEvent( messaging );
-					}
-				})();
-			} else {
-				self._genlistCall.style.display = "none";
-				self._genlistMessage.style.display = "none";
-			}
-
-			dragging = false;
+	_init: function() {
+		var page;
+		if( !this.listElement || !this.callElement || !this.messageElement ) {
+			// If developer don't give parameter, this object set default section
+			page = document.getElementsByClassName("ui-page-active");
+			this.listElement = page[0].getElementsByClassName("genlist","ul")[0];
+			this.callElement = page[0].getElementsByClassName("genlist-call","div")[0];
+			this.messageElement = page[0].getElementsByClassName("genlist-message","div")[0];
+			this._create( listElement, callElement, messageElement );
 		}
 
-		document.addEventListener( "touchend", swipeEndFunction);
-		this._genlistUl.parentNode.addEventListener( "scroll", swipeEndFunction);
+		this._callElementStyle["background-position-x"] = "-400px";
+		this._messageElementStyle["background-position-x"] = "-80px";
+		this._callElementBPX = this._callElementStyle["background-position-x"];
+		this._messageElementBPX = this._messageElementStyle["background-position-x"];
+	},
+
+	_initOptions: function( options ){
+		this.options = {
+			threshold: 50
+		}
+		this.setOptions( options );
+	},
+	setOptions: function (options) {
+		var name;
+		for ( name in options ) {
+			if ( options.hasOwnProperty(name) && !!options[name] ) {
+				this.options[name] = options[name];
+			}
+		}
+	},
+
+	_bindEvents: function( ) {
+		if ('ontouchstart' in window) {
+			this.listElement.addEventListener( "touchstart", this);
+			this.listElement.addEventListener( "touchmove", this);
+			this.listElement.addEventListener( "touchend", this);
+		} else {
+			this.listElement.addEventListener( "mousedown", this);
+			document.addEventListener( "mousemove", this);
+			document.addEventListener( "mouseup", this);
+		}
+
+		window.addEventListener( "resize", this);
+	},
+
+	_unbindEvents: function() {
+		if ('ontouchstart' in window) {
+			this.listElement.removeEventListener( "touchstart", this);
+			this.listElement.removeEventListener( "touchmove", this);
+			this.listElement.removeEventListener( "touchend", this);
+		} else {
+			this.listElement.removeEventListener( "mousedown", this);
+			document.removeEventListener( "mousemove", this);
+			document.removeEventListener( "mouseup", this);
+		}
+
+		window.removeEventListener( "resize", this);
+	},
+
+	handleEvent: function( event ) {
+		var pos = this._getPointPositionFromEvent( event );
+
+		switch (event.type) {
+		case "mousedown":
+		case "touchstart":
+			this._start( event, pos );
+			break;
+		case "mousemove":
+		case "touchmove":
+			this._move( event, pos );
+			break;
+		case "mouseup":
+		case "touchend":
+			this._end( event, pos );
+			break;
+		case "scroll":
+			this._end( event, pos );
+		}
+	},
+
+	_getPointPositionFromEvent: function ( ev ) {
+		return ev.type.search(/^touch/) !== -1 && ev.touches && ev.touches.length ?
+				{x: ev.touches[0].clientX, y: ev.touches[0].clientY} :
+				{x: ev.clientX, y: ev.clientY};
+	},
+
+	_fireEvent: function( eventName, detail ) {
+		var evt = new CustomEvent( eventName, {
+				"bubbles": true,
+				"cancelable": true,
+				"detail": detail
+			});
+		this.listElement.dispatchEvent(evt);
+	},
+
+	_detectLiTarget: function( target ) {
+		while (target && target.tagName !== 'LI') {
+			target = target.parentNode;
+		}
+		return target;
+	},
+
+	_start: function( e, pos ) {
+
+		if ( this._detectLiTarget( e.target ) ) {
+			this.startX = pos.x;
+			this.dragging = true;
+		}
+	},
+
+	_move: function( e, pos ) {
+
+		var target = this._detectLiTarget(e.target),
+		sx = pos.x - this.startX,
+		top;
+
+		if( this.dragging && target ) {
+			top = target.offsetTop - this.callElement.parentNode.scrollTop + "px";
+			if ( sx > this.options.threshold ) {
+				// appear call scroller
+				this._callElementStyle["top"] = top;
+				this._callElementStyle["display"] = "block";
+				this._callElementStyle["background-position-x"] = parseInt( this._callElementBPX, 10 ) + sx + "px";
+
+				e.preventDefault();
+			} else if ( sx < -this.options.threshold ) {
+				this._messageElementStyle["top"] = top;
+				this._messageElementStyle["display"] = "block";
+				this._messageElementStyle["background-position-x"] = parseInt( this._messageElementBPX, 10 ) + sx + "px";
+
+				e.preventDefault();
+			}
+		}
+	},
+
+	_end: function( e ) {
+		var interval,
+		self = this;
+
+		if( parseInt( self._callElementStyle["background-position-x"], 10 ) > -250 ) {
+			// animate call background x position
+			var i = parseInt( self._callElementStyle["background-position-x"], 10 );
+
+			(function animate(){
+				if ( i < 0 ){
+					self._callElementStyle["background-position-x"] = i + "px";
+					i+=20;
+					webkitRequestAnimationFrame( animate );
+				} else {
+					self._callElementStyle["background-position-x"] = "-400px";
+					self._callElementStyle[ "display" ] = "none";
+					// fired custom event
+					self._fireEvent( eventType.CALL );
+				}
+			})();
+
+		} else if( parseInt( self._messageElementStyle["background-position-x"] ) < -250 ) {
+			// animate message background x position
+			var i = parseInt( self._messageElementStyle["background-position-x"], 10 );
+
+			(function animate(){
+				if ( i > -400 ){
+					self._messageElementStyle["background-position-x"] = i + "px";
+					i-=20;
+					webkitRequestAnimationFrame( animate );
+				} else {
+					self._messageElementStyle["background-position-x"] = "-80px";
+					self._messageElementStyle[ "display" ] = "none";
+					// fired custom event
+					self._fireEvent( eventType.MESSAGE );
+				}
+			})();
+		} else {
+			this.callElement.style.display = "none";
+			this.messageElement.style.display = "none";
+		}
+
+		this.dragging = false;
 	}
 }
+
+window.SwipeList = SwipeList;
+
+})(this);
