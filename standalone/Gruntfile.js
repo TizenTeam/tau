@@ -11,6 +11,8 @@ module.exports = function(grunt) {
 		name = "gear.ui",
 		jsPath = path.join(dist, "js"),
 		themesPath = path.join(dist, "themes"),
+		themesDefaultPath = path.join(themesPath, "default"),
+		themesBlackPath = path.join(themesPath, "black"),
 		themes = {
 			"default" : "src/css/themes/black",
 			"black" : "src/css/themes/black",
@@ -208,18 +210,43 @@ module.exports = function(grunt) {
 				]
 			}
 		},
-
+		
 		concat: {
-			normal: {
-				src: [path.join( "license", "MIT" ) + ".txt", path.join( jsPath, name ) + ".js"],
-				dest: path.join( jsPath, name ) + ".js",
-			},
+                        normaljs: {
+					src: [path.join( "license", "Flora" ) + ".txt", path.join( jsPath, name ) + ".js"],
+					dest: path.join( jsPath, name ) + ".js"
+                        },
 
-			min: {
-				src: [path.join( "license", "MIT" ) + ".txt", path.join( jsPath, name ) + ".min.js"],
-				dest: path.join( jsPath, name ) + ".min.js"
+			minjs: {
+					src: [path.join( "license", "Flora" ) + ".txt", path.join( jsPath, name ) + ".min.js"],
+					dest: path.join( jsPath, name ) + ".min.js"
+                        },
+			
+			normalcss: {
+                                files: [
+                                        {
+                                                src: [path.join( "license", "Flora" ) + ".txt", path.join( themesDefaultPath, name ) + ".css"],
+                                                dest: path.join( themesDefaultPath, name ) + ".css"
+                                        },
+                                        {
+                                                src: [path.join( "license", "Flora" ) + ".txt", path.join( themesBlackPath, name ) + ".css"],
+                                                dest: path.join( themesBlackPath, name ) + ".css"
+                                        }
+                                ],
+                        },
+
+			mincss: {
+                                files: [
+                                        {
+                                                src: [path.join( "license", "Flora" ) + ".txt", path.join( themesDefaultPath, name ) + ".min.css"],
+                                                dest: path.join( themesDefaultPath, name ) + ".min.css"
+                                        },
+                                        {       src: [path.join( "license", "Flora" ) + ".txt", path.join( themesBlackPath, name ) + ".min.css"],
+                                                dest: path.join( themesBlackPath, name ) + ".min.css"
+                                        }
+                                ],
 			}
-		},
+                },
 
 		less : {
 			style : {
@@ -237,6 +264,7 @@ module.exports = function(grunt) {
 		},
 
 		copy: {
+
 			images: {
 				files: files.images.getImagesFolder()
 			}
@@ -268,10 +296,10 @@ module.exports = function(grunt) {
 
 	grunt.registerTask( "lint", [ "jshint" ] );
 	grunt.registerTask("css", [ "less", "cssmin", "copy" ]);
-	grunt.registerTask("js", [ "requirejs:js", "uglify", "concat" ]);
+	grunt.registerTask("js", [ "requirejs:js", "uglify" ]);
 	grunt.registerTask("jsej", [ "requirejs:jsej", "uglify" ]);
 	
-	grunt.registerTask("release", [ "lint", "css", "js", "requirejs:jsejvl"]);
+	grunt.registerTask("release", [ "lint", "css", "js", "requirejs:jsejvl", "concat" ]);
 	grunt.registerTask("releaseej", [ "lint", "css", "jsej" ]);
 
 	grunt.registerTask("default", [ "release" ]);
