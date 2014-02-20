@@ -41,7 +41,6 @@ module.exports = function(grunt) {
 					var list = [],
 						css = files.css,
 						key;
-					
 					for(key in themes) {
 						list.push({
 							src: path.join( themesPath, key, name ) + css.unminifiedSuffix,
@@ -210,43 +209,44 @@ module.exports = function(grunt) {
 				]
 			}
 		},
-		
 		concat: {
-                        normaljs: {
-					src: [path.join( "license", "Flora" ) + ".txt", path.join( jsPath, name ) + ".js"],
-					dest: path.join( jsPath, name ) + ".js"
-                        },
-
+			normaljs: {
+				src: [path.join( "license", "Flora" ) + ".txt", path.join( jsPath, name ) + ".js"],
+				dest: path.join( jsPath, name ) + ".js"
+			},
 			minjs: {
-					src: [path.join( "license", "Flora" ) + ".txt", path.join( jsPath, name ) + ".min.js"],
-					dest: path.join( jsPath, name ) + ".min.js"
-                        },
-			
+				src: [path.join( "license", "Flora" ) + ".txt", path.join( jsPath, name ) + ".min.js"],
+				dest: path.join( jsPath, name ) + ".min.js"
+			},
+			virtuallist: {
+				src: [path.join( "license", "Flora" ) + ".txt", path.join( jsPath, "virtuallist" ) + ".js"],
+				dest: path.join( jsPath, "virtuallist" ) + ".js"
+			},
 			normalcss: {
-                                files: [
-                                        {
-                                                src: [path.join( "license", "Flora" ) + ".txt", path.join( themesDefaultPath, name ) + ".css"],
-                                                dest: path.join( themesDefaultPath, name ) + ".css"
-                                        },
-                                        {
-                                                src: [path.join( "license", "Flora" ) + ".txt", path.join( themesBlackPath, name ) + ".css"],
-                                                dest: path.join( themesBlackPath, name ) + ".css"
-                                        }
-                                ],
-                        },
-
+				files: [
+					{
+						src: [path.join( "license", "Flora" ) + ".txt", path.join( themesDefaultPath, name ) + ".css"],
+						dest: path.join( themesDefaultPath, name ) + ".css"
+					},
+					{
+						src: [path.join( "license", "Flora" ) + ".txt", path.join( themesBlackPath, name ) + ".css"],
+						dest: path.join( themesBlackPath, name ) + ".css"
+					}
+				],
+			},
 			mincss: {
-                                files: [
-                                        {
-                                                src: [path.join( "license", "Flora" ) + ".txt", path.join( themesDefaultPath, name ) + ".min.css"],
-                                                dest: path.join( themesDefaultPath, name ) + ".min.css"
-                                        },
-                                        {       src: [path.join( "license", "Flora" ) + ".txt", path.join( themesBlackPath, name ) + ".min.css"],
-                                                dest: path.join( themesBlackPath, name ) + ".min.css"
-                                        }
-                                ],
+				files: [
+					{
+						src: [path.join( "license", "Flora" ) + ".txt", path.join( themesDefaultPath, name ) + ".min.css"],
+						dest: path.join( themesDefaultPath, name ) + ".min.css"
+					},
+					{
+						src: [path.join( "license", "Flora" ) + ".txt", path.join( themesBlackPath, name ) + ".min.css"],
+						dest: path.join( themesBlackPath, name ) + ".min.css"
+					}
+				],
 			}
-                },
+		},
 
 		less : {
 			style : {
