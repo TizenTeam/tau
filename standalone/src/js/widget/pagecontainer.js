@@ -65,7 +65,7 @@ $.widget( "ui.pagecontainer", {
 			this._setActivePage(toPage);
 			if ( fromPage ) {
 				fromPage.page("onHide");
-				this._removeExternalPage();
+				this._removeExternalPage( fromPage, options );
 			}
 			toPage.page("onShow");
 			ns.fireEvent(this.element, EventType.PAGE_CHANGE);
@@ -135,12 +135,11 @@ $.widget( "ui.pagecontainer", {
 	showLoading: function(/* delay */) {
 	},
 
-	_removeExternalPage: function() {
-		this.element
-			.find( ns.selectors.page )
-			.filter( "[data-external=true]" )
-			.not(this.getActivePage())
-			.remove();
+	_removeExternalPage: function( fromPage, options ) {
+		var $fromPage = $(fromPage);
+		if ( options.reverse && $fromPage.is( "[data-external=true]" ) ) {
+			$fromPage.remove();
+		}
 	}
 });
 
