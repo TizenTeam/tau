@@ -102,7 +102,11 @@ $.widget( "ui.page", {
 	},
 
 	setActive: function(active) {
-		this.element[0].classList.toggle("ui-page-active", active);
+		if ( active ) {
+			this.element[0].classList.add("ui-page-active");
+		} else {
+			this.element[0].classList.remove("ui-page-active");
+		}
 	},
 
 	onBeforeShow: function() {
