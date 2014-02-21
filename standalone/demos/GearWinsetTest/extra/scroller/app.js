@@ -8,12 +8,15 @@
 	page.addEventListener( "pageshow", function() {
 		// make SectionChanger object
 		if ( vele ) {
-			vscroller = new Scroller(vele);
+			vscroller = new Scroller(vele, {
+				scrollbar: "bar"
+			});
 		}
 
 		if ( hele ) {
 			hscroller = new Scroller(hele, {
-				orientation: "horizontal"
+				orientation: "horizontal",
+				scrollbar: "tab"
 			});
 		}
 	});

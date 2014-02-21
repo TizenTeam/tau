@@ -185,6 +185,17 @@ extend(SectionChanger, Scroller, {
 		}
 	},
 
+	_initBouncingEffect: function() {
+		var o = this.options;
+		if ( o.useBouncingEffect && !o.circular ) {
+			this.bouncingEffect = new Scroller.Effect.Bouncing(this.element, {
+				maxScrollX: this.maxScrollX,
+				maxScrollY: this.maxScrollY,
+				orientation: this.orientation
+			});
+		}
+	},
+
 	_translateScrollbar: function( x, y, duration ) {
 		var offset, preOffset, fixedOffset;
 
@@ -353,6 +364,11 @@ extend(SectionChanger, Scroller, {
 			newIndex=0;
 
 		this.touching = false;
+
+		// bouncing effect
+		if ( this.bouncingEffect ) {
+			this.bouncingEffect.dragEnd();
+		}
 
 		if ( !requestScrollEnd ) {
 			this._endScroll();

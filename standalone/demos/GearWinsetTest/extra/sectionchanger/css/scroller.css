@@ -1,0 +1,239 @@
+/***************************************************************************
+                   Scrollbar Style
+***************************************************************************/
+.scrollbar-tab-type {
+	height: 6px;
+	background-color: rgb(53, 48, 44);
+}
+
+.scrollbar-tab-type .scrollbar-indicator {
+	position: absolute;
+	height: 6px;
+	margin-right: 1px;
+	margin-left: 1px;
+	background-color: rgb(255, 144, 0);
+}
+
+.scrollbar-bar-type {
+	position: absolute;
+	left: 0px;
+	bottom: 0px;
+	width: 100%;
+	height: 8px;
+}
+
+.scrollbar-bar-type .scrollbar-indicator {
+	position: absolute;
+	height: 4px;
+	margin: 2px;
+	background-color: #666666;
+}
+
+/***************************************************************************
+                   Scrollbar Bouncing Effect
+***************************************************************************/
+.scrollbar-bouncing-effect {
+	display: none;
+	position: absolute;
+	background-repeat: no-repeat;
+	-webkit-animation-duration: 0.47s;
+	-webkit-animation-timing-function: step-start;
+	-webkit-animation-fill-mode: forwards;
+}
+
+.scrollbar-bouncing-effect.top {
+	width: 100%;
+	height: 56px;
+	top:0px;
+	left:0px;
+	background-image: url(../images/scrollbar-bouncing-effect-top.png);
+}
+
+.scrollbar-bouncing-effect.bottom {
+	width: 100%;
+	height: 56px;
+	bottom:0px;
+	left:0px;
+	background-image: url(../images/scrollbar-bouncing-effect-bottom.png);
+}
+
+.scrollbar-bouncing-effect.left {
+	width: 56px;
+	height: 100%;
+	top:0px;
+	left:0px;
+	background-image: url(../images/scrollbar-bouncing-effect-left.png);
+}
+
+.scrollbar-bouncing-effect.right {
+	width: 56px;
+	height: 100%;
+	top:0px;
+	right:0px;
+	background-image: url(../images/scrollbar-bouncing-effect-right.png);
+}
+
+@-webkit-keyframes vertical-show {
+	0% {
+		background-position: center -0px;
+	}
+	10% {
+		background-position: center -60px;
+	}
+	20% {
+		background-position: center -120px;
+	}
+	30% {
+		background-position: center -180px;
+	}
+	40% {
+		background-position: center -240px;
+	}
+	50% {
+		background-position: center -300px;
+	}
+	60% {
+		background-position: center -360px;
+	}
+	70% {
+		background-position: center -420px;
+	}
+	80% {
+		background-position: center -480px;
+	}
+	90% {
+		background-position: center -540px;
+	}
+	100% {
+		background-position: center -540px;
+	}
+}
+
+@-webkit-keyframes vertical-hide {
+	0% {
+		background-position: center -600px;
+	}
+	10% {
+		background-position: center -660px;
+	}
+	20% {
+		background-position: center -720px;
+	}
+	30% {
+		background-position: center -780px;
+	}
+	40% {
+		background-position: center -840px;
+	}
+	50% {
+		background-position: center -900px;
+	}
+	60% {
+		background-position: center -960px;
+	}
+	70% {
+		background-position: center -1020px;
+	}
+	80% {
+		background-position: center -1080px;
+	}
+	90% {
+		background-position: center -1140px;
+	}
+	100% {
+		background-position: center -1140px;
+	}
+}
+
+@-webkit-keyframes horizontal-show {
+	0% {
+		background-position: -0px center;
+	}
+	10% {
+		background-position: -60px center;
+	}
+	20% {
+		background-position: -120px center;
+	}
+	30% {
+		background-position: -180px center;
+	}
+	40% {
+		background-position: -240px center;
+	}
+	50% {
+		background-position: -300px center;
+	}
+	60% {
+		background-position: -360px center;
+	}
+	70% {
+		background-position: -420px center;
+	}
+	80% {
+		background-position: -480px center;
+	}
+	90% {
+		background-position: -540px center;
+	}
+	100% {
+		background-position: -540px center;
+	}
+}
+
+@-webkit-keyframes horizontal-hide {
+	0% {
+		background-position: -600px center;
+	}
+	10% {
+		background-position: -660px center;
+	}
+	20% {
+		background-position: -720px center;
+	}
+	30% {
+		background-position: -780px center;
+	}
+	40% {
+		background-position: -840px center;
+	}
+	50% {
+		background-position: -900px center;
+	}
+	60% {
+		background-position: -960px center;
+	}
+	70% {
+		background-position: -1020px center;
+	}
+	80% {
+		background-position: -1080px center;
+	}
+	90% {
+		background-position: -1140px center;
+	}
+	100% {
+		background-position: -1140px center;
+	}
+}
+
+.scrollbar-bouncing-effect.top.show,
+.scrollbar-bouncing-effect.bottom.show {
+	display: block;
+	-webkit-animation-name: vertical-show;
+}
+.scrollbar-bouncing-effect.top.hide,
+.scrollbar-bouncing-effect.bottom.hide {
+	display: block;
+	-webkit-animation-name: vertical-hide;
+}
+.scrollbar-bouncing-effect.left.show,
+.scrollbar-bouncing-effect.right.show {
+	display: block;
+	-webkit-animation-name: horizontal-show;
+}
+.scrollbar-bouncing-effect.left.hide,
+.scrollbar-bouncing-effect.right.hide {
+	display: block;
+	-webkit-animation-name: horizontal-hide;
+}

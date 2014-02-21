@@ -53,6 +53,7 @@ Scroller.prototype = {
 		this.scroller = this.element.children[0];
 		this.scrollerStyle = this.scroller.style;
 
+		this.bouncingEffect = null;
 		this.scrollbar = null;
 
 		this.width = 0;
@@ -99,6 +100,7 @@ Scroller.prototype = {
 			minThreshold: 5,
 			flickThreshold: 30,
 			scrollbar: false,
+			useBouncingEffect: false,
 			orientation: "vertical",		// vertical or horizontal,
 			// TODO implement scroll momentum.
 			momentum: true
@@ -135,13 +137,21 @@ Scroller.prototype = {
 
 		this._initLayout();
 		this._initScrollbar();
+		this._initBouncingEffect();
 	},
 
 	_initLayout: function() {
-		var elementStyle = this.element.style;
+		var elementStyle = this.element.style,
+			scrollerStyle = this.scroller.style;
 
 		elementStyle.overflow = "hidden";
 		elementStyle.position = "relative";
+
+		scrollerStyle.position = "absolute";
+		scrollerStyle.top = "0px";
+		scrollerStyle.left = "0px";
+		scrollerStyle.width = this.scrollerWidth + "px";
+		scrollerStyle.height = this.scrollerHeight + "px";
 	},
 
 	_initScrollbar: function() {
@@ -152,6 +162,17 @@ Scroller.prototype = {
 			this.scrollbar = new Scroller.Scrollbar(this.element, {
 				type: scrollbarType,
 				orientation: orientation
+			});
+		}
+	},
+
+	_initBouncingEffect: function() {
+		var o = this.options;
+		if ( o.useBouncingEffect ) {
+			this.bouncingEffect = new Scroller.Effect.Bouncing(this.element, {
+				maxScrollX: this.maxScrollX,
+				maxScrollY: this.maxScrollY,
+				orientation: this.orientation
 			});
 		}
 	},
@@ -349,6 +370,9 @@ Scroller.prototype = {
 		if ( !this.scrolled &&
 				( maxDist < minThreshold ||
 						( maxDist < threshold && ( !scrollDelay || timestamp - this.startTime < scrollDelay ) ) ) ) {
+			/* TODO if touchmove event is preventDefaulted, click event not performed.
+			 * but to keep touch mode on android have to prevent default.
+			 * some idea are using ua or to change webkit threshold.*/ 
 			//e.preventDefault();
 			return;
 		}
@@ -398,7 +422,16 @@ Scroller.prototype = {
 			this._translateScrollbar( newX, newY );
 			// TODO to dispatch move event is too expansive. it is better to use callback.
 			//this._fireEvent( eventType.MOVE );
+
+			if ( this.bouncingEffect ) {
+				this.bouncingEffect.hide();
+			}
+		} else {
+			if ( this.bouncingEffect ) {
+				this.bouncingEffect.drag( newX, newY );
+			}
 		}
+
 		e.preventDefault(); //this function make overflow scroll don't used
 	},
 
@@ -418,6 +451,11 @@ Scroller.prototype = {
 		if ( !requestScrollEnd || this.scrollCanceled ) {
 			this.initiated = false;
 			return;
+		}
+
+		// bouncing effect
+		if ( this.bouncingEffect ) {
+			this.bouncingEffect.dragEnd();
 		}
 
 		if ( !this.moved ) {
@@ -493,11 +531,22 @@ Scroller.prototype = {
 		this.touching = false;
 
 		this._resetLayout();
+		this._clearScrollbar();
+		this._clearBouncingEffect();
+	},
 
+	_clearScrollbar: function() {
 		if ( this.scrollbar ) {
 			this.scrollbar.destroy();
 		}
 		this.scrollbar = null;
+	},
+
+	_clearBouncingEffect: function() {
+		if ( this.bouncingEffect ) {
+			this.bouncingEffect.destroy();
+		}
+		this.bouncingEffect = null;
 	},
 
 	disable: function () {
@@ -511,11 +560,199 @@ Scroller.prototype = {
 	destroy: function() {
 		this._clear();
 		this._unbindEvents();
-
 		this.scrollerStyle = null;
 		this.scroller = null;
 	}
-}
+};
+
+Scroller.Effect = {};
+Scroller.Effect.Bouncing = function( scrollerElement, options ) {
+
+	this.orientation;
+	this.maxValue;
+
+	this.container;
+	this.minEffectElement;
+	this.maxEffectElement;
+	this.targetElement;
+
+	this.isShow = false;
+	this.isDrag = false;
+	this.isShowAnimating = false;
+	this.isHideAnimating = false;
+
+	this._create( scrollerElement, options );
+};
+
+Scroller.Effect.Bouncing.prototype = {
+	options : {
+		className: "scrollbar-bouncing-effect",
+		duration: 500,
+	},
+
+	_create: function(scrollerElement, options) {
+		this.container = scrollerElement;
+
+		this.orientation = options.orientation;
+		this.maxValue = this._getValue( options.maxScrollX, options.maxScrollY);
+
+		this._initLayout();
+	},
+
+	_initLayout: function() {
+		var minElement = this.minEffectElement = document.createElement("DIV"),
+			maxElement = this.maxEffectElement = document.createElement("DIV"),
+			className = this.options.className;
+
+		if ( this.orientation === Scroller.Orientation.HORIZONTAL ) {
+			minElement.className = className + " left"
+			maxElement.className = className + " right"
+		} else {
+			minElement.className = className + " top"
+			maxElement.className = className + " bottom"
+		}
+
+		this.container.appendChild( minElement );
+		this.container.appendChild( maxElement );
+
+		minElement.addEventListener("webkitAnimationEnd", this);
+		maxElement.addEventListener("webkitAnimationEnd", this);
+	},
+
+	drag: function( x, y ) {
+		this.isDrag = true;
+		this._checkAndShow( x, y );
+	},
+
+	dragEnd: function() {
+		if ( this.isShow && !this.isShowAnimating && !this.isHideAnimating ) {
+			this._beginHide();
+		}
+
+		this.isDrag = false;
+	},
+
+	end: function(x, y) {
+		this._checkAndShow( x, y );
+	},
+
+	show: function() {
+		if ( this.targetElement ) {
+			this.isShow = true;
+			this._beginShow();
+		}
+	},
+
+	hide: function() {
+		if ( this.isShow ) {
+			this.minEffectElement.style.display = "none";
+			this.maxEffectElement.style.display = "none";
+			this.targetElement.classList.remove("hide");
+			this.targetElement.classList.remove("show");
+		}
+		this.isShow = false;
+		this.isShowAnimating = false;
+		this.isHideAnimating = false;
+		this.targetElement = null;
+	},
+
+	_checkAndShow: function( x, y ) {
+		var val = this._getValue(x, y);
+		if ( !this.isShow ) {
+			if ( val >= 0 ) {
+				this.targetElement = this.minEffectElement;
+				this._beginShow();
+			} else if ( val <= this.maxValue ) {
+				this.targetElement = this.maxEffectElement;
+				this._beginShow();
+			}
+
+		} else if ( this.isShow && !this.isDrag && !this.isShowAnimating && !this.isHideAnimating ) {
+			this._beginHide();
+		}
+	},
+
+	_getValue: function(x, y) {
+		return this.orientation === Scroller.Orientation.HORIZONTAL ? x : y;
+	},
+
+	_beginShow: function() {
+		var orientation = this.orientation === Scroller.Orientation.HORIZONTAL ? "horizontal" : "vertical",
+			duration = this.options.duration;
+
+		if ( !this.targetElement || this.isShowAnimating ) {
+			return;
+		}
+
+		this.targetElement.style.display = "block";
+
+		this.targetElement.classList.remove("hide");
+		this.targetElement.classList.add("show");
+
+		this.isShow = true;
+		this.isShowAnimating = true;
+		this.isHideAnimating = false;
+	},
+
+	_finishShow: function() {
+		this.isShowAnimating = false;
+		if ( !this.isDrag ) {
+			this.targetElement.classList.remove("show");
+			this._beginHide();
+		}
+	},
+
+	_beginHide: function() {
+		var orientation = this.orientation === Scroller.Orientation.HORIZONTAL ? "horizontal" : "vertical",
+			duration = this.options.duration;
+
+		if ( this.isHideAnimating ) {
+			return;
+		}
+
+		this.targetElement.classList.remove("show");
+		this.targetElement.classList.add("hide");
+
+		this.isHideAnimating = true;
+		this.isShowAnimating = false;
+	},
+
+	_finishHide: function() {
+		this.isHideAnimating = false;
+		this.targetElement.classList.remove("hide");
+		this.hide();
+		this._checkAndShow();
+	},
+
+	handleEvent: function( event ) {
+		switch (event.type) {
+		case "webkitAnimationEnd":
+			if ( this.isShowAnimating ) {
+				this._finishShow();
+			} else if ( this.isHideAnimating ) {
+				this._finishHide();
+			}
+			break;
+		}
+	},
+
+	destroy: function() {
+		this.minEffectElement.removeEventListener("webkitAnimationEnd", this);
+		this.maxEffectElement.removeEventListener("webkitAnimationEnd", this);
+
+		this.container.removeChild( this.minEffectElement );
+		this.container.removeChild( this.maxEffectElement );
+
+		this.container = null;
+		this.minEffectElement = null;
+		this.maxEffectElement = null;
+		this.targetElement = null;
+
+		this.isShow = null;
+		this.orientation = null;
+		this.maxValue = null;
+	}
+};
 
 window.Scroller = Scroller;
 
