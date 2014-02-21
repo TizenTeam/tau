@@ -62,7 +62,7 @@
 
 	function addActiveClass() {
 		target = detectATarget(target);
-		if(!didScroll && target.tagName === "A") {
+		if(!didScroll && target && target.tagName === "A") {
 			target.classList.add(activeClass.A);
 		}
 	}
