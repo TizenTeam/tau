@@ -132,8 +132,10 @@ $.widget( "ui.popup", {
 		}
 
 		parent = container.parentElement;
-		parent.appendChild(this.element[0]);
-		parent.removeChild(container);
+		if ( parent ) {
+			parent.appendChild(this.element[0]);
+			parent.removeChild(container);
+		}
 		container = null;
 
 		ns.fireEvent(this.element, EventType.BEFORE_HIDE);
