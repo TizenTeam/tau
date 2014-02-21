@@ -48,7 +48,7 @@
         color: rgb(31, 31, 31);
 }
 .ui-listview li.li-has-multiline-sup {
-        padding-top: 8px;
+        padding-top: 0px;
         padding-bottom: 9px;
         min-height: 90px;
 }
@@ -57,9 +57,9 @@
 }
 .ui-listview li.li-has-multiline-sup > a {
         margin-top: -38px;
-        margin-bottom: -14px;
-        padding-top: 38px;
-        padding-bottom: 14px;
+        margin-bottom: -10px;
+        padding-top: 45px;
+        padding-bottom: 20px;
 }
 .ui-listview li {
         position: relative;
@@ -78,6 +78,11 @@
 .ui-listview li.li-has-checkbox label,
 .ui-listview li.li-has-radio label{
         display: block;
+        height: 45px;
+}
+.ui-listview li.li-has-multiline.li-has-checkbox label,
+.ui-listview li.li-has-multiline.li-has-radio label {
+	height: 76px;
 }
 /* ------------------------------------------------------------------------------ */
 /* -----------------------------------  NEXT DEPTH------------------------------------ */
