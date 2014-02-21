@@ -352,7 +352,7 @@ Scroller.prototype = {
 		if ( !this.scrolled &&
 				( maxDist < minThreshold ||
 						( maxDist < threshold && ( !scrollDelay || timestamp - this.startTime < scrollDelay ) ) ) ) {
-			e.preventDefault();
+			//e.preventDefault();
 			return;
 		}
 
