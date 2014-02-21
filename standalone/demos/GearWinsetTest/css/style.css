@@ -94,25 +94,54 @@
 }
 /* ------------------------------------------------------------------------------ */
 /* -----------------------------------  NEXT DEPTH------------------------------------ */
-.ui-listview li.li-has-next-depth .li-text-sub{
-        padding-right: 20px;
+.ui-listview li.li-has-next-depth {
+        padding-right: 60px;
 }
 .ui-listview li.li-has-next-depth a,
 .ui-listview li.li-has-next-depth.disabled {
+	position: relative;
+	margin-right: -60px;
+	padding-right: 60px;
+}
+.ui-listview li.li-has-next-depth a:after {
+	position: absolute;
+	content: "";
+	right: 0;
+	width: 50px;
+	height: 50px;
+	top: 50%;
+	margin-top: -25px;
+	background-repeat: no-repeat;
+    background-size: 50px 50px;
+    background-position: right center;
+    background-image: url(../extra/images/Controller_icon/tw_btn_next_depth_holo_dark.png);
+}
+.ui-listview li.li-has-next-depth.disabled a:after {
+	position: absolute;
+	right: 0;
+	content: "";
+	width: 50px;
+	height: 50px;
+	top: 50%;
+	margin-top: -25px;
     background-repeat: no-repeat;
     background-size: 50px 50px;
     background-position: right center;
-}
-.ui-listview li.li-has-next-depth a {
-    background-image: url(../extra/images/Controller_icon/tw_btn_next_depth_holo_dark.png);
-}
-.ui-listview li.li-has-next-depth a:active, 
-.ui-listview li.li-has-next-depth a:focus {
-    background-image: url(../extra/images/Controller_icon/tw_btn_next_depth_focused_holo_dark.png);
-}
-.ui-listview li.li-has-next-depth.disabled,
-.ui-listview li.li-has-next-depth.disabled a {
     background-image: url(../extra/images/Controller_icon/tw_btn_next_depth_disabled_holo_dark.png);
+}
+.ui-listview li.li-has-next-depth a:active:after,
+.ui-listview li.li-has-next-depth a:focus:after {
+	position: absolute;
+	content: "";
+	right: 0;
+	width: 50px;
+	height: 50px;
+	top: 50%;
+	margin-top: -25px;
+    background-repeat: no-repeat;
+    background-size: 50px 50px;
+    background-position: right center;
+    background-image: url(../extra/images/Controller_icon/tw_btn_next_depth_focused_holo_dark.png);
 }
 .disabled {
     pointer-events: none;
