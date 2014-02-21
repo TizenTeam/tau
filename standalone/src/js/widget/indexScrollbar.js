@@ -328,6 +328,10 @@ IndexScrollbar.prototype = {
 		var pos = this._getPositionFromEvent( ev ),
 			idx = this._findIndexByPosition( pos.y );
 
+		if (ev.touches.length > 1) {
+			return;
+		}
+
 		if ( idx < 0 ) {
 			idx = 0;
 		}
@@ -336,14 +340,17 @@ IndexScrollbar.prototype = {
 		this._showIndicator();
 	},
 
-	_onTouchEndHandler: function(/* ev */) {
+	_onTouchEndHandler: function(ev) {
+		if (ev.touches.length > 1) {
+			return;
+		}
 		this._hideIndicator();
 	},
 
 	_onTouchMoveHandler: function( ev ) {
 		var pos, idx;
 
-		if ( !this.isShowIndicator ) {
+		if ( !this.isShowIndicator || ev.touches.length > 1) {
 			return;
 		}
 
