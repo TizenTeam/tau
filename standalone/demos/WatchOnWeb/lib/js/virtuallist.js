@@ -2327,6 +2327,9 @@
 					self._loadData(index);
 					blockEvent = true;
 					offset = index * avgListItemSize;
+					if (offset < 0) {
+						offset = 0;
+					}
 					element.style.top = offset + "px";
 
 					for (i = 0; i < indexCorrection; i += 1) {
@@ -2373,7 +2376,8 @@
 							childrenNodes,
 							i = 0,
 							jump = 0,
-							hiddenPart = 0;
+							hiddenPart = 0,
+							top;
 
 					childrenNodes = element.children;
 					for (i = childrenNodes.length - 1; i > 0; i -= 1) {
@@ -2454,7 +2458,11 @@
 							}
 						}
 						if (scrollDirection[SCROLL_UP] || scrollDirection[SCROLL_DOWN]) {
-							elementStyle.top = (elementPositionTop + jump) + "px";
+							top = elementPositionTop + jump;
+							if (top < 0) {
+								top = 0;
+							}
+							elementStyle.top = top + "px";
 						}
 
 						if (scrollDirection[SCROLL_LEFT] || scrollDirection[SCROLL_RIGHT]) {
