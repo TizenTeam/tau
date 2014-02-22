@@ -98,6 +98,10 @@
 		window.addEventListener( "pagehide", removeActiveClass );
 	}
 
-	window.addEventListener( "DOMContentLoaded", eventBinding );
+	if(document.readyState === "complete") {
+		eventBinding();
+	} else {
+		window.addEventListener( "load", eventBinding );
+	}
 
 }());
