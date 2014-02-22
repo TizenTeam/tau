@@ -285,7 +285,8 @@
 							childrenNodes,
 							i = 0,
 							jump = 0,
-							hiddenPart = 0;
+							hiddenPart = 0,
+							newPosition;
 
 					childrenNodes = element.children;
 					for (i = childrenNodes.length - 1; i > 0; i -= 1) {
@@ -366,11 +367,19 @@
 							}
 						}
 						if (scrollDirection[SCROLL_UP] || scrollDirection[SCROLL_DOWN]) {
-							elementStyle.top = (elementPositionTop + jump) + "px";
+							newPosition = elementPositionTop + jump;
+							if (newPosition < 0) {
+								newPosition = 0;
+							}
+							elementStyle.top = newPosition + "px";
 						}
 
 						if (scrollDirection[SCROLL_LEFT] || scrollDirection[SCROLL_RIGHT]) {
-							elementStyle.left = (elementPositionLeft + jump) + "px";
+							newPosition = elementPositionLeft + jump;
+							if (newPosition < 0) {
+								newPosition = 0;
+							}
+							elementStyle.left = newPosition + "px";
 						}
 
 						if (scrollDirection[SCROLL_DOWN] || scrollDirection[SCROLL_RIGHT]) {
