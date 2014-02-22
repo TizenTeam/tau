@@ -6,285 +6,286 @@ WR.func = WR.func || {};
 
 WR.ENUM = WR.ENUM || {};
 
-SELECTED_MODE = {
+SELECTED_MODE = { 
 	TV_ONLY: 0,
-	TV_AND_STB: 1
+	TV_AND_STB: 1,
+	AIR: 2
 };
 
 var setarr = [];
-Object.freeze(WR.ENUM);
-
-var vlist = vlist || null;	// virtuallist object
+Object.freeze( WR.ENUM );
 
 // 정리 해야하는 전역변수들------------
 selectedSettingMode = SELECTED_MODE.TV_ONLY;
 deviceType = "TV";
+deviceTypeId = "IDS_SR_BUTTON_TV";
 brandListStatus = "top_brand";
 tmpRemoconData = {};
 var documentsDir;
 deleteIdx = -1;
-lastUseRemoconId = 0;
+var curCodeSet = "";
+var curKey;
+var next_codeset_name;
+var selectedBrand = "";
+var selectedCountry = "";
+WR.allBrandList = [];
+WR.sideIndex = {};
+WR.popupTapHandler = null;
 //-----------------------------------------
 
-WR.events.brandListDiv = function(m)
+WR.events.brandListPage = function( m )
 {
-	var brandListPage$ = $("#brandListPage"),
-			brandList$ = brandListPage$.find("#brandList"),
-			sm = m.SceneManager;
+	var wr = WR,
+		func = wr.func,
+		brandListPage$ = $( "#brandListPage" ),
+		sm = m.SceneManager,
+		isAllBrand = false;
+
 
 	brandListPage$[0].beforeChange = function() {
+
+		isAllBrand = false;
 		brandListStatus = "top_brand";
-		addBrandItem();
-	};
 
-	brandList$[0].addEventListener("click", function(e) {
-
-		console.log("brand item click : " + e.target.id);
-
-		if (e.target.id === "allBrand")
+		if( $( "#vlistScript" ).length < 1 )
 		{
-			brandListStatus = "all_brand";
-			addBrandItem();
-		}
-		else if (e.target.id === "id_s_voice")
-		{
-			// s voice 페이지로 이동
+			var jsList = [ "lib/js/virtuallist.js" ],
+				length = jsList.length,
+				i = 0;
+
+			var script = document.createElement('script');
+
+			script.onload = function onLoadHandler(){
+
+				if( !( i < length-1 ) ) {
+					// all finish
+					WatchOnSandbox( "UEI", "STMS", func.createTopBrandList );
+					return;
+				}
+				var script = document.createElement('script');
+				script.onload = function() {
+					onLoadHandler();
+				};
+				script.src = jsList[ ++i ];
+				document.body.appendChild( script );
+			};
+
+			script.src = jsList[ i ];
+			document.body.appendChild( script) ;
 		}
 		else
 		{
-			console.log("insert to tmpRemoconData ");
+			WatchOnSandbox( "UEI", "STMS", func.createTopBrandList );
+		}
+	};
+	brandListPage$[0].beforeComeBack = function() {
+
+		isAllBrand = false;
+
+		brandListStatus = "top_brand";
+		WatchOnSandbox( "UEI", "STMS", func.createTopBrandList );
+	};
+
+	new MyTap( brandListPage$[0], {
+			parentIdList: [ "brandList" ],
+			enableHover: true,
+			minPressTime: 100,
+			enableHoverDelay: true
+		});
+	
+	brandListPage$[0].addEventListener( "mytap", function( e ) {
+
+		if( e.target.parentNode.id !== "brandList" ) return;
+
+		selectedBrand = e.target.id;
+		console.log( "brand item click : " + e.target.id );
+
+		if( e.target.id === "allBrand" )
+		{
+			isAllBrand = true;
+			brandListStatus = "all_brand";
+			WatchOnSandbox( "UEI", func.createAllBrandList );
+		}
+		else if( e.target.id === "id_s_voice" )
+		{
+			// s voice 페이지로 이동
+			console.log("will be moved to the s voice page");
+		}
+		else
+		{
 			tmpRemoconData = {
 				type: deviceType,
 				brandName: e.target.id,
-				model: "[]",
-				codeSet: "[]",
+				model: "[]"
 			};
 
-			sm.moveTo("#dynamicSettingPage");
+			sm.moveTo( "#dynamicSettingPage" );
 		}
 	});
-}
 
-WR.events.remoconManagePage = function(m)
-{
-	var sm = m.SceneManager,
-			Remocon = m.Remocon;
-	var remoconManagePage$ = $("#remoconManagePage");
-
-	remoconManagePage$.find("#remoteList").click(function(e) {
-
-		console.log(e.target.id);
-		if (e.target.parentNode.id !== "remoteList")
-			return;
-		var remocon = Remocon.remoconObjs[ e.target.id ];
-		remocon.createRemoteDiv("#remotePage");
-		sm.moveTo("#remotePage", true);
-	});
-
-	var startDelY = 0;
-	var longPressTimer = null;
-
-	remoconManagePage$.find("#remoteList")[0].addEventListener("touchstart", function(e) {
-
-		if (e.target.parentNode.id !== "remoteList")
-			return;
-
-		deleteIdx = e.target.id;
-		startDelY = e.touches[0].clientY;
-
-
-		longPressTimer = setTimeout(function() {
-			sm.moveTo("#deleteRemoconPage");
-		}, 700);
-	});
-	remoconManagePage$.find("#remoteList")[0].addEventListener("touchmove", function(e) {
-		var y = e.touches[0].clientY;
-		if (Math.abs(startDelY - y) > 40)
+	brandListPage$[0].backEvent = function() {
+		
+		if( isAllBrand ) 
 		{
-			clearTimeout(longPressTimer);
+			brandListStatus = "top_brand";
+			
+			brandListPage$.find( "#brandList" ).remove();
+			brandListPage$.find(".ui-content").prepend( "<ul class='ui-listview' id='brandList'></ul>" );
+			
+			var contentEle = brandListPage$.find(".ui-content")[0];
+			contentEle.scrollTop = 0;
+			
+			WatchOnSandbox( "UEI", "STMS", func.createTopBrandList );
+			isAllBrand = false;
+
+			gear.ui.fireEvent( brandListPage$[0], 'pagehide', null);
 		}
-	});
-	remoconManagePage$.find("#remoteList").on("mouseup", function() {
-
-		clearTimeout(longPressTimer);
-	});
-
-	remoconManagePage$.find("#addTvBtn").click(function(e) {
-		console.log(e.target.id);
-		deviceType = "TV";
-		sm.moveTo("#brandListPage");
-		return false;
-	});
-	remoconManagePage$.find("#addStbBtn").click(function(e) {
-		console.log(e.target.id);
-		deviceType = "STB";
-		sm.moveTo("#brandListPage");
-		return false;
-	});
-
-}
-
-WR.events.deletePage = function(m)
-{
-	var wr = WR,
-			func = wr.func,
-			sm = m.SceneManager,
-			Remocon = m.Remocon;
-
-	var deleteRemoconPage$ = $("#deleteRemoconPage");
-
-	console.log(Remocon.remoconList);
-	deleteRemoconPage$.find("footer").click(function(e) {
-
-		if (e.target.id === "yesBtn")
+		else
 		{
-			Remocon.remoconObjs[ deleteIdx ].removeItSelf();
-			WatchOnSandbox("Remocon", func.updateRemoconManagePage);
-
-			if (Remocon.remoconList.length < 1)
-			{
-				sm.clearStack();
-				sm.moveTo("#main", true);
-				return false;
-			}
+			sm.back({ disableBackEvent: true });
 		}
-		window.a = sm;
-		sm.back();
-
-		return false;
-	});
-
+	};
 };
 
+
 //---------- fileRead Modules 로 만들어야함--------//
-function addBrandItem()
+WR.func.createAllBrandList = function( m )
 {
-	var brandListPage$ = $("#brandListPage");
-	brandListPage$.find("#titleType").html(deviceType + " brand list");
+	var wr = WR,
+		func = wr.func,
+		brandListPage$ = $( "#brandListPage" ),
+		brandList$ = brandListPage$.find( "#brandList" ),
+		loading$ = brandListPage$.find("#loading"),
+		UEI = m.UEI;
 
-	brandListPage$.find("#brandList").empty();
-	brandListPage$.find("#brandList").hide();
-	brandListPage$.find("#loading").show();
+	if( vlist ) {
+		vlist.destroy();
+		vlist = null;
+	}
 
-	if (brandListStatus === "all_brand")
+	if( deviceType === "AIR" )
 	{
-		var resAddr = "file:///opt/usr/apps/S8UVkC4ryF/res/wgt/resource/";
-		tizen.filesystem.resolve(resAddr, //dump_tv_58850.csv',
-				function(dir) {
-					documentsDir = dir;
-					dir.listFiles(onsuccessFile, onerrorFile);
-				}, function(e) {
+		var allList = [];
+		allList = UEI.getAllBrands( "Aircon" );
+
+		/*
+		var domStr = "";
+		allList.forEach( function( brand ) {
+			domStr += "<li id='"+brand+"'>"+brand+"</li>";
+		});
+		brandList$.html( domStr );
+		*/
+		
+		brandList$.html( "" );
+		func.insertAllBrandToListInPage( allList, brandList$, brandListPage$, true );
+		return;
+	}
+
+	loading$.show();
+	brandList$.hide();
+	brandList$.html( "" );
+
+	if( !CHROME_MODE_FLAG )
+	{
+		var path = {
+			fileName: "",
+			dirStr: ""
+		};
+
+		path = UEI.getSavedAllBrandsFile( deviceType );
+		console.log( "UEI.getSavedAllBrandsFile(): "+ path.fileName + "// " + path.dirStr );
+
+		tizen.filesystem.resolve( path.dirStr, function( dir ) {
+
+			dir.listFiles( onsuccessFile, function() {
+
+				console.error( "Can not read files" );
+			});
+
+		}, function( e ) {
+
 			console.log("Error" + e.message);
+
 		}, "r");
 	}
 	else
 	{
-		if (deviceType == "TV")
-		{
-			$("#brandListPage #brandList").hide();
-			$("#brandListPage #loading").show();
-			$("#brandListPage #brandList").append('<li id="Samsung">Samsung</li>');
-			$("#brandListPage #brandList").append('<li id="Panasonic">Panasonic</li>');
-			$("#brandListPage #brandList").append('<li id="Sony">Sony</li>');
-			$("#brandListPage #brandList").append('<li id="Toshiba">Toshiba</li>');
-			$("#brandListPage #brandList").append('<li id="Toshiba">LG</li>');
-			$("#brandListPage #brandList").append('<li id="Sharp">Sharp</li>');
-			$("#brandListPage #brandList").append('<li id="allBrand">Show all brands</li>');
-			$("#brandListPage #brandList").show();
-			$("#brandListPage #loading").hide();
-		}
-		else
-		{
-			$("#brandListPage #brandList").hide();
-			$("#brandListPage #loading").show();
-			$("#brandListPage #brandList").append('<li id="Samsung">Samsung</li>');
-			$("#brandListPage #brandList").append('<li id="Comcast">Comcast</li>');
-			$("#brandListPage #brandList").append('<li id="Cox">Cox</li>');
-			$("#brandListPage #brandList").append('<li id="Dish Network">Dish Network</li>');
-			$("#brandListPage #brandList").append('<li id="Time Warner">Time Warner</li>');
-			$("#brandListPage #brandList").append('<li id="Verizon">Verizon</li>');
-			$("#brandListPage #brandList").append('<li id="allBrand">Show all brands</li>');
-			$("#brandListPage #brandList").show();
-			$("#brandListPage #loading").hide();
-		}
-
+		brandList$.html( "Turn on the CHROME_MODE_FLAG!" );
+		console.error( "Turn on the CHROME_MODE_FLAG!" );
 	}
+	brandList$.show();	
+	loading$.hide();
 
-	function onsuccessFile(files)
+	// callback Function
+	function onsuccessFile( files )
 	{
 		for (var i = 0; i < files.length; i++)
 		{
-			if (files[i].isDirectory == false)
+			if ( files[i].isDirectory ) continue;
+
+			var filename = "";
+			if (deviceType == "TV")
+				filename = "dump_tv_brandlist.csv";
+			else
+				filename = "dump_stb_brandlist.csv";
+
+			if (files[i].name == filename) 
 			{
-				var filename = "";
-				if (deviceType == "TV")
-					filename = "dump_tv_brandlist.csv";
-				else
-					filename = "dump_stb_brandlist.csv";
+				files[i].readAsText( function( str ) {
 
-				if (files[i].name == filename) {
-					files[i].readAsText(
-							function(str) {
-								var arr = str.split("\n"),
-										arrLen = arr.length,
-										elisb = document.createElement('div'),
-										isb,
-										sideIndex = {},
-										firstChar,
-										lastOccuredChar,
-										brandList = $("#brandListPage #brandList")[0];
-								elisb.className = 'ui-indexscrollbar';
-								brandList.parentNode.appendChild(elisb);
-								for (i = 0; i < arrLen; i++) {
-									firstChar = arr[i].substring(0, 1).toUpperCase();
-									if (firstChar !== lastOccuredChar) {
-										sideIndex[firstChar] = i;
-										lastOccuredChar = firstChar;
-									}
-								}
-								elisb.setAttribute("data-index", Object.keys(sideIndex).join(","));
-								isb = gear.ui.IndexScrollbar(elisb);
-								// Add a virtuallist
-								vlist = gear.ui.VirtualListview(brandList, {
-									dataLength: arrLen,
-									bufferSize: 40
-								});
-								vlist.setListItemUpdater(function(li, index) {
-									var data = arr[index];
-									li.innerText = data;
-									li.id = data;
-								});
-								vlist.draw();
+					var arr = str.split( "\n" );
+//					arr.splice( 30, arr.length - 30 );
+//					console.log( arr.length );
+					func.insertAllBrandToListInPage( arr, brandList$, brandListPage$ );
 
-								var selectIndexHandler = function(ev) {
-									var idx = ev.detail.index;
-									vlist.scrollToIndex(sideIndex[idx]);
-								};
-								elisb.addEventListener("select", selectIndexHandler, false);
-								$("#brandListPage #loading").hide();
-								$("#brandListPage #brandList").show();
+				}, function( e ) {
 
-								var pageHideHandler = (function(vlist, isb) {
-									vlist.destroy();
-									elisb.removeEventListener("select", selectIndexHandler, false);
-									isb.destroy();
-									elisb.parentNode.removeChild(elisb);
-									brandListPage$[0].removeEventListener('pagehide', pageHideHandler, false);
-								}).bind(null, vlist, isb);
-								brandListPage$[0].addEventListener('pagehide', pageHideHandler, false);
-							}, function(e) {
-						console.log("Error " + e.message);
-					}, "UTF-8");
-					break;
-				}
+					console.log("Error " + e.message);
+
+				}, "UTF-8");
+
+				break;
 			}
 		}
 		console.log("success");
 	}
-
-	function onerrorFile(error) {
-		console.log("The error " + error.message + " occurred when listing the files in the selected folder");
-	}
-
 }
 
+WR.func.createTopBrandList = function( m )
+{
+	var brandListPage$ = $( "#brandListPage" ),
+		brandList$ = brandListPage$.find( "#brandList" ),
+		loading$ = brandListPage$.find( "#loading" ),
+		domStr = "",
+		brandList = [],
+		UEI = m.UEI,
+		STMS = m.STMS;
+
+	if( deviceType === "TV" )
+	{
+		brandList = UEI.getTopBrands( "TV" );
+	}	
+	else if( deviceType === "STB" )
+	{
+		brandList = UEI.getTopBrands( "STB", selectedCountry );
+	}
+	else if( deviceType === "AIR" )
+	{
+		brandList = UEI.getTopBrands( "Aircon", selectedCountry );
+	}
+	else
+	{
+		console.error( "Unknown deviceType: '"+deviceType+"'" );
+	}
+
+	brandList.forEach( function( brand ) {
+		domStr += "<li id='"+brand+"'>"+brand+"</li>";
+	});
+	domStr += "<a id='allBrand' class='ui-btn'>"+STMS.getStrById("IDS_YSM_OPT_SHOW_ALL_BRANDS_ABB")+"</a>";
+	
+//	domStr += "<div id='allBrand' class='ui-btn'>"+STMS.getStrById("IDS_YSM_OPT_SHOW_ALL_BRANDS_ABB")+"</div>";
+
+	brandList$.html( domStr );	
+	brandList$.show();	
+	loading$.hide();
+};

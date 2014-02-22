@@ -1,196 +1,426 @@
-function SectionChanger( elem ) {
-	// This constructor has section element parameter in active page
-	this.init( elem );
-	return this;
-}
+/*
+  * Copyright (c) 2013 Samsung Electronics Co., Ltd
+  *
+  * Licensed under the Flora License, Version 1.1 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *     http://floralicense.org/license/
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+  */
 
-SectionChanger.prototype = {
-	init: function( elem ) {
-		var sectionLength;
+(function(window, undefined) {
+	'use strict';
 
-		if( !elem ) {
-			// If developer don't give parameter, this object set default section
-			this._page = document.getElementsByClassName("ui-page-active");
-			this._sections = this._page[0].getElementsByTagName("section");
-		} else {
-			this._sections = elem;
-		}
+function extend( newObject, base, prototype ) {
+	var basePrototype = new base(),
+		prop, value;
+	for ( prop in prototype ) {
+		if ( prototype.hasOwnProperty(prop) ) {
+			value = prototype[ prop ];
+			if ( typeof value === "function" ) {
+				basePrototype[ prop ] = (function( prop, value ) {
+					var _super = function() {
+							return base.prototype[ prop ].apply( this, arguments );
+						};
+					return function() {
+						var __super = this._super,
+							returnValue;
 
-		sectionLength = this._sections.length;
-		this.scroller = new Scroller();
-
-		if( !this.scroller.getElement() || sectionLength === 1 ) {
-			// If section element exist only one, don't need swipe event
-			return;
-		}
-
-		this._dragging = false;
-		this._lsw = 0;
-		this._ex = 0; // user click x position in element
-		this._sx = 0; // last x position plus move space between last x position and current x position
-		this._lastX = 0;
-		this._width = screen.width;
-		if ( this.scroller.options.circularElement === "true" ) {
-			// circular option is true.
-			this.scroller.setWidth( this._width * 3 + "px" ); //set Scroller width
-		} else {
-			// circular option is false.
-			this.scroller.setWidth( this._width * sectionLength + "px" );
-		}
-		//section element has absolute position
-		for( var i = 0; i < this._sections.length; i++ ){
-			//Each section set initialize left position
-			var sectionStyle = this._sections[i].style;
-			sectionStyle["width"] = this._width + "px";
-			sectionStyle["left"] = this._width * i + "px";
-
-			if ( new RegExp( "section-start" ).test( this._sections[i].className ) ) {
-				// set start position
-				var startX = this._width * -i;
-				this._lastX = startX;
-				this._sx = this._lastX; // last x position plus move space between last x position and current x position
-				this._activeSection = this._sections[i];
-				this._activeSection.className += " section-active";
-				this.scroller.scrollTo( startX, 0, 1 ); //  For webkitTransitionEnd event fire, duration value '1' needed
-			}
-		}
-		if ( !this._activeSection ) {
-			// Developer don't implement section-start class
-			this._activeSection = this._sections[0];
-			this._activeSection.className += " section-active";
-			this.scroller.scrollTo( 0, 0, 1 );
-		}
-		this._addEvent();
-	},
-
-	_addEvent: function() {
-		var ew,
-			sectionStyle,
-			startX,
-			scrollerElement = this.scroller.getElement(),
-			self = this;
-
-		ew = parseInt( self.scroller.getWidth() );
-		self._lsw = ew - self._width; // limit scroll width
-
-		scrollerElement.addEventListener( "scroller.end", function( e ){
-			if ( self.scroller.options.autoFitting === "true" ) {
-				self._fitSectionPosition( e.lastX, 0 );
-			}
-		});
-
-		scrollerElement.addEventListener( "scroller.flick", function( e ){
-			if ( self.scroller.options.autoFitting === "true" ) {
-				self._fitSectionPosition( e.lastX, e.interval );
-			}
-		});
-
-		scrollerElement.addEventListener( "webkitTransitionEnd", function( e ){
-
-			self._lastX = self.scroller.getLastXPosition();
-			if ( self.scroller.options.circularElement === "true" ) {
-				if ( self._lastX === 0 ) {
-					self._moveCircularElement( "left" );
-				} else if ( self._lastX === -self._lsw ) {
-					self._moveCircularElement( "right" );
-				}
+						this._super = _super;
+						returnValue = value.apply( this, arguments );
+						this._super = __super;
+						return returnValue;
+					};
+				})( prop, value );
 			} else {
-				// circular element options is false
-				for( var i = 0; i < self._sections.length; i++ ){
-					// find now showing section
-					var sectionStyle = self._sections[i].style;
-					if ( parseInt( sectionStyle["left"] ) === -self._lastX ) {
-						self._activeSection = self._sections[i];
-						break;
-					}
-				}
-			}
-			self._setScrollerStatus();
-		});
-	},
-
-	_setScrollerStatus: function() {
-		// This method set scroller status, none or horizontal or vertical or all.
-		// Scroller has forth status.
-		// 1) page don't need to scroller
-		// 2) page only need to horizontal scroller
-		// 3) page only need to vertical scroller
-		// 4) page only need to all direction scroller
-		var originActiveSection = document.getElementsByClassName("section-active", "div" )[0];
-
-		if ( this._sections.length > 1 ) {
-			if ( this._activeSection.scrollHeight > parseInt( this.scroller.getHeight() ) ) {
-				// set all
-				this.scroller.setDirection( "all" );
-			} else {
-				// horizontal
-				this.scroller.setDirection( "horizontal" );
-			}
-		}
-		// remove section-active class
-		originActiveSection.className = originActiveSection.className.replace(" section-active","");
-		this._activeSection.className += " section-active";
-		this.scroller.getElement().scrollTop = 0;
-	},
-
-	_fitSectionPosition: function( lastX, flick ) {
-		// If flick event called this method, flick value is true
-		var interval = -lastX % this._width,
-			fitValue = lastX - ( this._width - interval );
-
-		if ( flick ){
-			//move next section
-			if ( flick < 0 ) {
-				this.scroller.scrollTo( fitValue, 0, 100 );
-				this._lastX = fitValue;
-			} else {
-				this.scroller.scrollTo( lastX + interval, 0, 100 );
-				this._lastX = lastX + interval;
-			}
-
-		} else if ( interval <= this._width / 2 ) {
-			// don't move next section
-			this.scroller.scrollTo( lastX + interval, 0, 100 );
-			this._lastX = lastX + interval;
-		} else {
-			// move next section
-			this.scroller.scrollTo( fitValue, 0, 100 );
-			this._lastX = fitValue;
-		}
-	},
-
-	_moveCircularElement: function( direction ) {
-		// if developer set circular option is true, this method used when webkitTransitionEnd event fired
-		var sectionLength = this._sections.length,
-		sectionStyle,
-		containerWidth = sectionLength * this._width,
-		deltaX,
-		left;
-		if ( direction === "left" ) {
-			deltaX = this._width;
-			this.scroller.scrollTo( -this._width, 0 );
-			this._lastX = -this._width;
-		} else {
-			deltaX = -this._width;
-			this.scroller.scrollTo( -this._lsw + this._width, 0 );
-			this._lastX = -this._lsw + this._width;
-		}
-
-		for ( var i = 0; i < sectionLength; i++ ) {
-			// This loop need to circular view of sections
-			// deltaX value add to correct section x position, left side deltaX value is section width and right side deltaX value is minus section width.
-			// In order to remove negative values, containerWidth variable add and modular operate for this value.
-			// For example, var temp = [ one(0), two(300), three(600), four(900), five(1200) ] each element has width value '300' and has 'left' value in parentheses and 'two' is main page
-			// If user move left side, user want to one element, each element left value plus element width.
-			// Then each element has value [ one(300), two(600), three(600), four(1200), five(1500) ] and operate modular operation for container width, width is '1500', each value.
-			// Then, this array section has value [ one(300), two(600), three(600), four(1200), five(0) ]
-			sectionStyle = this._sections[i].style;
-			left = ( parseInt( sectionStyle["left"], 10) + deltaX + containerWidth ) % containerWidth;
-			sectionStyle["left"] = left + "px";
-			if ( left === this._width ) {
-				// set activeSection
-				this._activeSection = this._sections[i];
+				basePrototype[ prop ] = value;
 			}
 		}
 	}
+
+	newObject.prototype = basePrototype;
+	newObject.prototype.constructor = newObject;
 }
+
+var eventType = {
+	CHANGE: "sectionchange"
+};
+
+function SectionChanger( elem, options ) {
+	this._create( elem, options );
+	return this;
+}
+
+extend(SectionChanger, Scroller, {
+	_create: function( elem, options ) {
+
+		this.sections = null;
+		this.sectionPositions = [];
+		this.activeIndex = 0;
+		this.lastDirection = 0;
+		this.direction = 0;
+
+		this._super( elem, options );
+	},
+
+	_initOptions : function( options ) {
+		options = options || {};
+		options.items = options.items || "section";
+		options.activeClass = options.activeClass || "section-active";
+		options.circular = options.circular || false;
+		options.animate = options.animate || true;
+		options.animateDuration = options.animateDuration || 100;
+		options.orientation = options.orientation || "horizontal";
+		options.changeThreshold = options.changeThreshold || -1;
+
+		this._super( options );
+	},
+
+	_init: function() {
+		var sectionLength, i, className;
+
+		this.sections = typeof this.options.items === "string" ?
+			this.scroller.querySelectorAll( this.options.items ) :
+			this.options.items;
+
+		sectionLength = this.sections.length;
+
+		if (  this.options.circular && sectionLength < 3 ) {
+			throw "if you use circular option, you must have at least three sections.";
+		}
+
+		if ( this.activeIndex >= sectionLength ) {
+			this.activeIndex = sectionLength - 1;
+		}
+
+		for( i = 0; i < sectionLength; i++ ) {
+			className = this.sections[i].className;
+			if ( className && className.indexOf( this.options.activeClass ) > -1 ) {
+				this.activeIndex = i;
+			}
+
+			this.sectionPositions[i] = i;
+		}
+
+		this.setActiveSection( this.activeIndex );
+		this._prepareLayout();
+		this._super();
+		this._repositionSections( true );
+
+		// set corret options values.
+		if ( !this.options.animate ) {
+			this.options.animateDuration = 0;
+		}
+		if ( this.options.changeThreshold < 0 ) {
+			this.options.changeThreshold = this.width / 5;
+		}
+
+		if ( sectionLength > 1 ) {
+			this.enable();
+		} else {
+			this.disable();
+		}
+	},
+
+	_prepareLayout: function() {
+		var sectionLength = this.sections.length,
+			width = this.element.offsetWidth,
+			height = this.element.offsetHeight,
+			orientation = this.options.orientation === "horizontal" ? Scroller.Orientation.HORIZONTAL : Scroller.Orientation.VERTICAL,
+			scrollerStyle = this.scroller.style;
+
+		// circular option is false.
+		if ( orientation === Scroller.Orientation.HORIZONTAL ) {
+			scrollerStyle["width"] = width * sectionLength + "px"; //set Scroller width
+			scrollerStyle["height"] = height + "px"; //set Scroller width
+		} else {
+			scrollerStyle["width"] = width + "px"; //set Scroller width
+			scrollerStyle["height"] = height * sectionLength + "px"; //set Scroller width
+		}
+	},
+
+	_initLayout: function() {
+		var sectionStyle = this.sections.style,
+			i, sectionLength, top, left, right, bottom;
+
+		//section element has absolute position
+		for( i = 0, sectionLength = this.sections.length; i < sectionLength; i++ ){
+			//Each section set initialize left position
+			sectionStyle = this.sections[i].style;
+
+			sectionStyle["position"] = "absolute";
+			sectionStyle["width"] = this.width + "px";
+			sectionStyle["height"] = this.height + "px";
+			if ( this.orientation === Scroller.Orientation.HORIZONTAL ) {
+				top = 0;
+				left = this.width * i;
+			} else {
+				top = this.height * i;
+				left = 0;
+			}
+
+			sectionStyle["top"] = top + "px";
+			sectionStyle["left"] = left + "px";
+		}
+
+		this._super();
+	},
+
+	_initScrollbar: function() {
+		var scrollbarType = this.options.scrollbar,
+			orientation = this.options.orientation;
+
+		if ( scrollbarType ) {
+			this.scrollbar = new Scroller.Scrollbar(this.element, {
+				type: scrollbarType,
+				orientation: orientation,
+				sections: this.sections
+			});
+		}
+	},
+
+	_translateScrollbar: function( x, y, duration ) {
+		var offset, preOffset, fixedOffset;
+
+		if ( !this.scrollbar ) {
+			return;
+		}
+
+		if ( this.orientation === Scroller.Orientation.HORIZONTAL ) {
+			preOffset = this.sectionPositions[this.activeIndex] * this.width;
+			offset = this.activeIndex * this.width;
+			fixedOffset = offset - preOffset;
+			offset = (-x + fixedOffset) * this.width / this.scrollerWidth;
+		} else {
+			offset = -y * this.height / this.scrollerHeight;
+		}
+
+		this.scrollbar.translate( offset, duration );
+	},
+
+	_translateScrollbarWithPageIndex: function(pageIndex) {
+		var offset;
+
+		if ( !this.scrollbar ) {
+			return;
+		}
+
+		offset = pageIndex * this.width * this.width / this.scrollerWidth;
+		this.scrollbar.translate( offset );
+	},
+
+	_resetLayout: function() {
+		var scrollerStyle = this.scroller.style,
+			sectionStyle = this.sections.style,
+			i, sectionLength;
+
+		scrollerStyle["width"] = "";
+		scrollerStyle["height"] = "";
+
+		for( i = 0, sectionLength = this.sections.length; i < sectionLength; i++ ){
+			sectionStyle = this.sections[i].style;
+
+			sectionStyle["position"] = "";
+			sectionStyle["width"] = "";
+			sectionStyle["height"] = "";
+			sectionStyle["top"] = "";
+			sectionStyle["left"] = "";
+		}
+
+		this._super();
+	},
+
+	_bindEvents: function() {
+		this._super();
+		this.scroller.addEventListener( "webkitTransitionEnd", this);
+	},
+
+	_unbindEvents: function() {
+		this._super();
+		this.scroller.removeEventListener( "webkitTransitionEnd", this);
+	},
+
+	handleEvent: function( event ) {
+		this._super( event );
+		switch (event.type) {
+		case "webkitTransitionEnd":
+			this._endScroll();
+			break;
+		}
+	},
+
+	setActiveSection: function( index, duration ) {
+		var activeClass = this.options.activeClass,
+			section, sectionLength, position, newX, newY, i;
+
+		sectionLength = this.sections.length;
+		position = this.sectionPositions[ index ];
+
+		if ( this.orientation === Scroller.Orientation.HORIZONTAL ) {
+			newY = 0;
+			newX = -this.width * position;
+		} else {
+			newY = -this.height * position;
+			newX = 0;
+		}
+
+		this.activeIndex = index;
+
+		for ( i=0; i < sectionLength; i++) {
+			section = this.sections[i];
+			section.classList.remove(activeClass);
+			if (i === this.activeIndex) {
+				section.classList.add(activeClass);
+			}
+		}
+
+		if ( newX != this.scrollerOffsetX || newY != this.scrollerOffsetY ) {
+			this._translate( newX, newY, duration);
+			this._translateScrollbar( newX, newY, duration );
+		} else {
+			this._endScroll();
+		}
+	},
+
+	getActiveSectionIndex: function() {
+		return this.activeIndex;
+	},
+
+	_start: function( e, pos ) {
+		this._super( e, pos );
+
+		this.direction = 0;
+		this.lastDirection = 0;
+	},
+
+	_move: function( e, pos ) {
+		var beforeMoved = this.moved;
+
+		if ( this.orientation === Scroller.Orientation.HORIZONTAL ) {
+			this.lastDirection = pos.x - this.lastTouchPointX;
+		} else {
+			this.lastDirection = pos.y - this.lastTouchPointY;
+		}
+
+		this._super( e, pos );
+
+		if ( beforeMoved !== this.moved) {
+			if ( this.orientation === Scroller.Orientation.HORIZONTAL ) {
+				this.direction = pos.x - this.startTouchPointX;
+			} else {
+				this.direction = pos.y - this.startTouchPointY;
+			}
+		}
+	},
+
+	_end: function( e ) {
+		var lastX = Math.round(this.lastTouchPointX),
+			lastY = Math.round(this.lastTouchPointX),
+			distX = this.lastTouchPointX - this.startTouchPointX,
+			distY = this.lastTouchPointX - this.startTouchPointY,
+			dist = this.orientation === Scroller.Orientation.HORIZONTAL ? distX : distY,
+			distanceX = Math.abs(lastX - this.startTouchPointX),
+			distanceY = Math.abs(lastY - this.startTouchPointY),
+			distance = this.orientation === Scroller.Orientation.HORIZONTAL ? distanceX : distanceY,
+			maxDistance = this.orientation === Scroller.Orientation.HORIZONTAL ? this.maxScrollX : this.maxScrollY,
+			endOffset = this.orientation === Scroller.Orientation.HORIZONTAL ? this.scrollerOffsetX : this.scrollerOffsetY,
+			endTime = (new Date()).getTime(),
+			duration = endTime - this.startTime,
+			flick = duration < 300 && endOffset < 0 && endOffset > maxDistance && distance > this.options.flickThreshold,
+			requestScrollEnd = this.initiated && ( this.moved || flick ),
+			sectionLength = this.sections.length,
+			changeThreshold = this.options.changeThreshold,
+			cancel = !flick && changeThreshold > distance,
+			newIndex=0;
+
+		this.touching = false;
+
+		if ( !requestScrollEnd ) {
+			this._endScroll();
+			return;
+		}
+
+		if ( !cancel && dist < 0 && this.direction < 0 && this.lastDirection < 0 ) {
+			newIndex = this.activeIndex + 1;
+		} else if ( !cancel && dist > 0 && this.direction > 0 && this.lastDirection > 0 ){
+			newIndex = this.activeIndex - 1;
+		} else {
+			// canceled
+			newIndex = this.activeIndex;
+		}
+
+		if (this.options.circular) {
+			newIndex = (sectionLength + newIndex) % sectionLength;
+		} else {
+			newIndex = newIndex < 0 ? 0 : (newIndex > sectionLength - 1 ? sectionLength - 1 : newIndex);
+		}
+
+		this.setActiveSection( newIndex, this.options.animateDuration );
+	},
+
+	_endScroll: function() {
+		this._repositionSections();
+		this._fireEvent( eventType.CHANGE, {
+			active: this.activeIndex
+		});
+		this._super();
+	},
+
+	_repositionSections: function( init ) {
+		// if developer set circular option is true, this method used when webkitTransitionEnd event fired
+		var sectionLength = this.sections.length,
+			curPosition = this.sectionPositions[this.activeIndex],
+			centerPosition = window.parseInt(sectionLength/2, 10),
+			circular = this.options.circular,
+			i, sectionStyle, sIdx, top, left, newX, newY;
+
+		if ( this.orientation === Scroller.Orientation.HORIZONTAL ) {
+			newX = -(this.width * ( circular ? centerPosition : this.activeIndex) );
+			newY = 0;
+		} else {
+			newX = 0;
+			newY = -(this.height * ( circular ? centerPosition : this.activeIndex) );
+		}
+
+		if ( init || ( curPosition === 0 || curPosition === sectionLength - 1) ) {
+
+			this._translate( newX, newY );
+			this._translateScrollbarWithPageIndex(this.activeIndex);
+
+			if ( circular ) {
+				for ( i = 0; i < sectionLength; i++ ) {
+					sIdx = ( sectionLength + this.activeIndex - centerPosition + i ) % sectionLength;
+					sectionStyle = this.sections[ sIdx ].style;
+
+					this.sectionPositions[sIdx] = i;
+
+					if ( this.orientation === Scroller.Orientation.HORIZONTAL ) {
+						top = 0;
+						left = this.width * i;
+					} else {
+						top = this.height * i;
+						left = 0;
+					}
+
+					sectionStyle["top"] = top + "px";
+					sectionStyle["left"] = left + "px";
+				}
+			}
+		}
+	},
+
+	_clear: function() {
+		this._super();
+		this.sectionPositions.length = 0;
+	}
+});
+
+window.SectionChanger = SectionChanger;
+
+})(this);

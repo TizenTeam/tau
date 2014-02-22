@@ -1,317 +1,446 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta name="viewport" content="width=320, height=320, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=yes" />
+	<meta name='viewport' content='width=320, height=320, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=yes' />
 	<title>Gear UI</title>
+	<script>
 
-	<link rel="stylesheet" href="lib/gear-ui/themes/default/gear.ui.min.css">
-	<link rel="stylesheet" href="css/style.css">
-	<link rel="stylesheet" href="css/sectionchanger.css">
+	var WR = WR || {};
 
+	(function() {
+
+		WR.lastUseRemoconId = localStorage[ 'lastUseRemoconId' ];
+		WR.remoconStrData = localStorage[ 'Remocon' ];
+		WR.setStrData = localStorage[ 'RemoconSet' ];
+		
+		if( WR.lastUseRemoconId ) WR.lastUseRemoconId = WR.lastUseRemoconId.replace( "[]", "" );
+		if( WR.setStrData ) WR.setStrData = WR.setStrData.replace( "[]", "" );
+		if( WR.remoconStrData ) WR.remoconStrData = WR.remoconStrData.replace( "[]", "" );
+
+		WR.hasRemocon = false;
+
+		if( WR.lastUseRemoconId && WR.setStrData && WR.remoconStrData )
+		{
+			WR.hasRemocon = true;
+//			document.getElementsByTagName("html")[0].style.opacity = 0;
+			var remoteCss=document.createElement("link");
+			remoteCss.setAttribute("rel", "stylesheet");
+			remoteCss.setAttribute("type", "text/css");
+			remoteCss.setAttribute("href", "./css/remotePage.css");
+			remoteCss.onload = function() {
+				console.log(" opacity=1");
+			};
+			document.getElementsByTagName("head")[0].appendChild( remoteCss );
+		}
+	}());
+
+	</script>
+
+	<!--<link rel='stylesheet' href='lib/themes/default/gear.ui.css'>
+	<link rel='stylesheet' href='css/style.css'>-->
+	<link rel='stylesheet' href='css/firstPage.css'>
+
+	<!--<object id='watchon_lib' type='application/com-samsung-watchon' style='width: 0; height: 0;'>
+	</object>-->
 </head>
+
 <body>
 
 <!----------------------------- Intro Page ------------------------>
-	<div class="ui-page" id="main">
-		<header class="ui-header ui-has-more">
-			<h2 class="ui-title">Set up</h2>
+	<div class='ui-page ui-page-active' id='main'>
+		<header class='ui-header'>
+			<h2 class='ui-title STMS' data-stmsid='IDS_SR_BODY_SET_UP'></h2>
 		</header>
-		<div class="ui-content">
-			<div id="introLabel" class="contentLabel Basic_text_s_default_FONT tmpFontSize">
+		<div class='ui-content'>
+			<div id='introLabel' data-stmsid='IDS_YSM_POP_SET_UP_THE_REMOTE_CONTROL_ON_YOUR_DEVICE_Q' class='contentLabel Basic_text_s_default_FONT STMS'>
+			</div>
+
+			<ul class='ui-listview' id='introList'>
+				<a id='TV' class='ui-btn STMS' data-stmsid='IDS_SR_BUTTON_TV'></a>
+				<a id='TV_STB' class='ui-btn STMS' data-stmsid='IDS_YSM_HEADER_TV_AND_STB_ABB'></a>
+				<a id='AIR' class='ui-btn STMS' data-stmsid='IDS_SR_BODY_AIR_CONDITIONER'></a>
+			</ul>
+		</div>
+	</div>
+<!----------------------------- remote Page ------------------------>
+	<div class='ui-page' id='remotePage'>
+		<header class='ui-header ui-has-more'>
+			<!--<div class='titleLogoImg'></div>-->
+			<h2 id='header-title' class='ui-title ui-title-text-fadeout STMS'></h2>
+			<div class='titleFadeOut'></div>
+			<div id='titleMenuBox' class='ui-more ui-icon-overflow'></div>
+
+			<!--
+			<div class='titleMenuBox' id='titleMenuBox'>
+				<div class='titleMenuImg'></div>
+			</div>
+			-->
+		</header>
+
+		<div id='removeContent' class='ui-content'>
+		<div class='scroller' id='scroller'>
+		</div>
+		</div>
+	</div>
+
+<!----------------------------- button1 popup Page ------------------------>
+	<div class='ui-page' id='popupPage'>
+		<header class='ui-header ui-has-more'>
+			<h2 class='ui-title STMS' data-stmsid='IDS_SR_BODY_SET_UP' id='title'>Set up</h2>
+		</header>
+		<div class='ui-content'>
+			<div id='contentLabel' class='contentLabel Basic_text_s_default_FONT tmpFontSize STMS' data-stmsid='IDS_YSM_BODY_SET_UP_THE_REMOTE_CONTROL_ON_YOUR_DEVICE_Q'>
 				Set up the remote control on your device?
 			</div>
 		</div>
-		<footer class="ui-footer">
-			<a type="button" class="ui-btn" id="tvOnlyBtn">TV only</a>
-			<a type="button" class="ui-btn" id="tvAndStbBtn">TV & STB</a>
+		<footer class='ui-footer ui-grid-col-1' id='footer'>
+			<a id='btn' class='ui-btn STMS' data-stmsid='IDS_YSM_BUTTON_DONE'>Done</a>
 		</footer>
 	</div>
-
-<!----------------------------- dummy Page ------------------------>
-	<div class="ui-page" id="dummyPage">
-		<header class="ui-header">
-			<h2 class="ui-title">Remocon pages</h2>
-			<div class="titleMenuImg"></div>
+<!----------------------------- option Page ------------------------>
+	<div class='ui-page' id='optionPage'>
+		<header class='ui-header'>
+			<h2 class='ui-title STMS' id='titleType' data-stmsid='IDS_MSGF_HEADER_OPTION'>Option</h2>
 		</header>
-		<div class="ui-content">
-			<ul class="ui-listview" id="mainmenu">
-				<li id="dummy">Dummy</li>
-				<li id="remote">remote</li>
-				<li id="intro">SetUpIntro</li>
-				<li id="brandList">BrandList</li>
-				<li id="dynamicSetting">SetUpStart</li>
+		<div class='ui-content'>
+			<ul class='ui-listview STMS' id='optionList'>
+				<li>Reset</li>
 			</ul>
 		</div>
 	</div>
-<!----------------------------- remote popup Page ------------------------>
-	<div class="ui-page" id="remotePopup">
-		<div class="ui-popup popup" id="popup">
-			<div class="ui-popup-header">Select device</div>
-			<div class="ui-popup-center"></div>
-			<div class="ui-popup-footer">
-				<a id="tv" class="ui-btn">tv</a>
-				<a id="tvStb" class="ui-btn">tv & stb</a>
+<!----------------------------- addDevice Page ------------------------>
+<!-- 여기 부터시작!! -->
+	<div class='ui-page' id='addDevicePage'>
+		<header class='ui-header'>
+			<h2 class='ui-title STMS' id='titleType' data-stmsid='IDS_SR_BODY_SET_UP'>Set up</h2>
+		</header>
+		<div class='ui-content'>
+			<div class='contentLabel Basic_text_s_default_FONT tmpFontSize STMS' data-stmsid='IDS_YSM_POP_SET_UP_THE_REMOTE_CONTROL_ON_YOUR_DEVICE_Q'>
+				Set up the remote control on your device?
 			</div>
+			<ul class='ui-listview' id='deviceList'>
+			</ul>
 		</div>
 	</div>
-
-<!----------------------------- remote Page ------------------------>
-	<div class="ui-page swipeParent" id="remotePage">
-
-		<div class="ui-page swipePage right">
-			<header class="ui-header">
-				<h2 class="ui-title">Channel input</h2>
-				<a class="more ui-more ui-icon-overflow" id="titleMenuButton"></a>
-			</header>
-			<div class="ui-content" id="chKeypad">
-				<div class="scroller" data-auto-fitting="true" data-circular-element="false">
-<section>
-				<div id="left">
-					<div id="volUpBtn" class="remoteBtn volUp"></div>
-					<div class="remote-text Remote_control_FONT">VOL</div>
-					<div id="volDownBtn" class="remoteBtn volDown"></div>
-				</div>
-				<div id="dividerV1"></div>
-				<div id="center">
-					<div id="onBtn" class="remoteBtn2 on"></div>
-					<div id="dividerH"></div>
-					<div id="addBtn" class="remoteBtn2 add"></div>
-					<div id="dividerH"></div>
-					<div id="muteBtn" class="remoteBtn2 mute"></div>
-				</div>
-				<div id="dividerV2"></div>
-				<div id="right">
-					<div id="chUpBtn" class="remoteBtn chUp"></div>
-					<div class="remote-text Remote_control_FONT">CH</div>
-					<div id="chDownBtn" class="remoteBtn chDown"></div>
-				</div>
-</section>
-<section id="chKeypad">
-				<div id="chKeypadLeft">
-					<a type="button" id="ch1Btn" class="ui-btn chBtn">1</a>
-					<a type="button" id="ch4Btn" class="ui-btn chBtn">4</a>
-					<a type="button" id="ch7Btn" class="ui-btn chBtn">7</a>
-					<a type="button" id="ch-Btn" class="ui-btn chBtn">-</a>
-				</div>
-				<div id="chKeypadCenter">
-					<a type="button" id="ch2Btn" class="ui-btn chBtn">2</a>
-					<a type="button" id="ch5Btn" class="ui-btn chBtn">5</a>
-					<a type="button" id="ch8Btn" class="ui-btn chBtn">8</a>
-					<a type="button" id="ch0Btn" class="ui-btn chBtn">0</a>
-				</div>
-				<div id="chKeypadRight">
-					<a type="button" id="ch3Btn" class="ui-btn chBtn">3</a>
-					<a type="button" id="ch6Btn" class="ui-btn chBtn">6</a>
-					<a type="button" id="ch9Btn" class="ui-btn chBtn">9</a>
-					<a type="button" id="chpreBtn" class="ui-btn chBtn">pre-ch</a>
-				</div>
-</section>
-			</div>
-			</div>
+<!----------------------------- select remocon Page ------------------------>
+	<div class='ui-page' id='selectRemoconPage'>
+		<header class='ui-header'>
+			<h2 class='ui-title STMS' data-stmsid='IDS_YSM_BODY_SELECT'>Select</h2>
+		</header>
+		<div class='ui-content'>
+			<ul class='ui-listview STMS' id='remoconList'>
+			</ul>
+		</div>
+		<footer class='ui-footer ui-grid-col-1'>
+			<a id='cancelBtn' class='ui-btn STMS' data-stmsid='IDS_SR_BUTTON_CANCEL_ABB'>Cancel</a>
+		</footer>
+	</div>
+<!----------------------------- select country Page ------------------------>
+	<div class='ui-page' id='selectCountryPage'>
+		<header class='ui-header'>
+			<h2 class='ui-title STMS' data-stmsid='IDS_YSM_BODY_SELECT'>Select</h2>
+		</header>
+		<div class='ui-content'>
+			<ul class='ui-listview STMS' id='countryList'>
+			</ul>
 		</div>
 	</div>
-
-
 <!----------------------------- brand list Page ------------------------>
-	<div class="ui-page" id="brandListPage">
-		<header class="ui-header">
-			<h2 class="ui-title" id="titleType">TV brand list</h2>
+	<div class='ui-page' id='brandListPage'>
+		<header class='ui-header'>
+			<h2 class='ui-title STMS' id='titleType' data-stmsid='IDS_YSM_BODY_SELECT'>Select</h2>
 		</header>
-		<div class="ui-content" style="overflow-x: hidden; overflow-y: auto;">
-			<ul class="ui-listview" id="brandList">
-			</ul>
-			<h3 class="ui-title" id="loading">
-				Loading...
-			</h3>
+		<div class='ui-content' style='overflow-x: hidden; overflow-y: auto;'>
+		<!--<div class='ui-content'>-->
+			<ul class='ui-listview' id='brandList'></ul>
+			<h3 class='ui-title STMS' id='loading'>Loading...</h3>
 		</div>
-	</div>
-<!----------------------------- Remote setting Page ------------------------>
-	<div class="ui-page" id="remoconManagePage">
-		<header class="ui-header ui-has-more">
-			<h2 class="ui-title">Setting</h2>
-		</header>
-		<div class="ui-content">
-			<ul class="ui-listview" id="remoteList">
-			</ul>
-		</div>
-		<footer class="ui-footer ui-grid-col-2">
-			<a type="button" class="ui-btn" id="addTvBtn">TV</a>
-			<a type="button" class="ui-btn" id="addStbBtn">STB</a>
-		</footer>
 	</div>
 
-	<div class="ui-page" id="deleteRemoconPage">
-		<header class="ui-header ui-has-more">
-			<h2 class="ui-title">Setting</h2>
-		</header>
-		<div class="ui-content">
-			<div class="Basic_text_s_default_FONT contentLabel">
-				Are you sure to remove this item?
-			</div>
-		</div>
-		<footer class="ui-footer ui-grid-col-2">
-			<a type="button" class="ui-btn" id="noBtn">No</a>
-			<a type="button" class="ui-btn" id="yesBtn">Yes</a>
-		</footer>
-	</div>
 <!----------------------------- Dynamic Setting Page ------------------------>
-	<div class="ui-page" id="dynamicSettingPage">
-		<header class="ui-header">
-			<h2 class="ui-title">Set up</h2>
+	<div class='ui-page' id='dynamicSettingPage'>
+		<header class='ui-header'>
+			<h2 class='ui-title STMS' data-stmsid='IDS_SR_BODY_SET_UP'>Set up</h2>
 		</header>
-		<div class="ui-content">
-			<div class="Basic_text_s_default_FONT contentLabel">
+		<div class='ui-content'>
+			<div class='Basic_text_s_default_FONT contentLabel STMS'>
 				Point your device towards the TV and press the button.
 			</div>
 		</div>
-		<footer class="ui-footer ui-grid-col-1">
-			<a type="button" id="introOkBtn" class="yes ui-btn">OK</a>
+		<footer class='ui-footer ui-grid-col-1'>
+			<a id='okBtn' class='yes ui-btn STMS' data-stmsid='IDS_SR_BUTTON_OK'>OK</a>
 		</footer>
 	</div>
 
-	<div class="ui-page" id="dynamicSettingPage2">
-		<header class="ui-header">
-			<h2 class="ui-title">POWER</h2>
+	<div class='ui-page' id='dynamicSettingPage2'>
+		<header class='ui-header'>
+			<h2 class='ui-title STMS'>Power</h2>
 		</header>
-		<div class="ui-content">
-			<div class="buttonBox">
-				<div id="imgBtn" class="fgBtnImg"></div>
-				<div class="bgBtnImg"></div>
+		<div class='ui-content'>
+			<div class='buttonBox' id='buttonBox'>
+				<div class='bgBtnImg' id='bgBtnImg'>
+					<div id='imgBtn' class='fgBtnImg'></div>
+				</div>
 			</div>
-			<div class="commandLabel">Press the button</div>
-			<footer class="ui-footer ui-grid-col-2">
-				<a type="button" id="noBtn" class="ui-btn ui-state-disabled">No</a>
-				<a type="button" id="yesBtn" class="ui-btn ui-state-disabled">Yes</a>
-			</footer>
+			<div class='commandLabel Button_test_FONT STMS' data-stmsid='IDS_YSM_BODY_TAP_THE_BUTTON_ABB'>Tap the button</div>
 		</div>
-	</div>
-
-	<div class="ui-page" id="dynamicSettingPage3">
-		<header class="ui-header">
-			<h2 class="ui-title">Complete</h2>
-		</header>
-		<div class="ui-content">
-			<div id="completeLabel" class="contentLabel Basic_text_s_default_FONT">
-				Remote control setup is complete.
-			</div>
-		</div>
-		<footer class="ui-footer ui-grid-col-1">
-			<a type="button" id="doneBtn" class="ui-btn">DONE</a>
+		<footer id='textFooter' class='ui-footer ui-grid-col-1 none'>
+			<a id='tryText' class='try Button_test_FONT STMS' data-stmsid='IDS_COM_POP_TRY_AGAIN'>Try again.</a>
+		</footer>
+		<footer id='btnFooter' class='ui-footer ui-grid-col-2 none'>
+			<a id='noBtn' class='ui-btn Button_general_FONT STMS' data-stmsid='IDS_YSM_BUTTON_NO'>No</a>
+			<a id='yesBtn' class='ui-btn Button_general_FONT STMS' data-stmsid='IDS_SR_BUTTON_YES'>Yes</a>
 		</footer>
 	</div>
 
-<!----------------------------- Hidden Page -----------------------
-	<div class="ui-page" id="hiddenPage sectionchager">
+<!----------------------------- Hidden Page ------------------------>
+	<div class='ui-page' id='hiddenPage'>
 
-		<div id="tv-controller" class="ui-page swipePage remocon center">
-
-			<header class="ui-header">
-				<h2 id="header-title" class="ui-title">Remote Control</h2>
-				<a class="ui-more ui-icon-overflow" id="titleMenuButton"></a>
-			</header>
-
-			<div class="ui-content">
-			<div class="scroller" data-auto-fitting="true" data-circular-element="false">
-<section>
-				<div id="left">
-					<div id="volUpBtn" class="remoteBtn volUp"></div>
-					<div class="remote-text Remote_control_FONT">VOL</div>
-					<div id="volDownBtn" class="remoteBtn volDown"></div>
+		<section id='TV' class='mainRemocon'>
+			<div id='left' class='remoteBgImg'>
+				<div class='labelBox'>
+					<div id='tvVolLabel' class='verticalLabel Remote_control_01_FONT STMS' data-stmsFormat='%s' data-stmsid='IDS_YSM_BODY_VOL_M_VOLUME_ABB'>Vol</div>
 				</div>
-				<div id="dividerV1"></div>
-				<div id="center">
-					<div id="onBtn" class="remoteBtn2 on"></div>
-					<div id="dividerH"></div>
-					<div id="addBtn" class="remoteBtn2 add"></div>
-					<div id="dividerH"></div>
-					<div id="muteBtn" class="remoteBtn2 mute"></div>
+				<div id='volUpBtn' class='rBtn remoteBtn remoteUpBtnBgImg' data-key='15'>
+					<div class='remoteBtn volUp'></div>
 				</div>
-				<div id="dividerV2"></div>
-				<div id="right">
-					<div id="chUpBtn" class="remoteBtn chUp"></div>
-					<div class="remote-text Remote_control_FONT">CH</div>
-					<div id="chDownBtn" class="remoteBtn chDown"></div>
+				<div id='volDownBtn' class='rBtn remoteBtn remoteDownBtnBgImg' data-key='16'>
+					<div class='remoteBtn volDown'></div>
 				</div>
-</section>
-<section id="chKeypad">
-				<div id="chKeypadLeft">
-					<a type="button" id="ch1Btn" class="ui-btn chBtn">1</a>
-					<a type="button" id="ch4Btn" class="ui-btn chBtn">4</a>
-					<a type="button" id="ch7Btn" class="ui-btn chBtn">7</a>
-					<a type="button" id="ch-Btn" class="ui-btn chBtn">-</a>
-				</div>
-				<div id="chKeypadCenter">
-					<a type="button" id="ch2Btn" class="ui-btn chBtn">2</a>
-					<a type="button" id="ch5Btn" class="ui-btn chBtn">5</a>
-					<a type="button" id="ch8Btn" class="ui-btn chBtn">8</a>
-					<a type="button" id="ch0Btn" class="ui-btn chBtn">0</a>
-				</div>
-				<div id="chKeypadRight">
-					<a type="button" id="ch3Btn" class="ui-btn chBtn">3</a>
-					<a type="button" id="ch6Btn" class="ui-btn chBtn">6</a>
-					<a type="button" id="ch9Btn" class="ui-btn chBtn">9</a>
-					<a type="button" id="chpreBtn" class="ui-btn chBtn">pre-ch</a>
-				</div>
-</section>
 			</div>
+			<div id='center'>
+				<div id='onBtn' class='rBtn on' data-key='10'></div>
+				<div id='addBtn' class='rBtn remoteBtn2 remoteBtn2BgImg' data-key='33'>
+					<div class='remoteBtn2 remoteBtn2PressImg'>
+						<div class='remoteBtn2 add'></div>
+					</div>
+				</div>
+				<div id='muteBtn' class='rBtn remoteBtn2 remoteBtn2BgImg' data-key='17'>
+					<div class='remoteBtn2 remoteBtn2PressImg'>
+						<div class='remoteBtn2 mute'></div>
+					</div>
+				</div>
 			</div>
-		</div>
-
-
-
-		<div id="tv-stb-controller" class="ui-page swipePage remocon center">
-
-			<header class="ui-header">
-				<h2 id="header-title" class="ui-title">Remote Control</h2>
-				<a class="ui-more ui-icon-overflow" id="titleMenuButton"></a>
-			</header>
-
-			<div class="ui-content">
-				<div id="left">
-					<div id="volUpBtn" class="remoteBtn volUp"></div>
-					<div class="remote-text Remote_control_FONT">VOL</div>
-					<div id="volDownBtn" class="remoteBtn volDown"></div>
+			<div id='right' class='remoteBgImg'>
+				<div class='labelBox'>
+					<div id='tvChLabel' class='verticalLabel Remote_control_01_FONT STMS' data-stmsid='IDS_YSM_BUTTON_CH'>CH</div>
 				</div>
-				<div id="dividerV1"></div>
-				<div id="center">
-					<div id="spaceH"></div>
-					<div id="onBtn" class="remoteBtn2 on"></div>
-					<div id="dividerH"></div>
-					<div id="muteBtn" class="remoteBtn2 mute"></div>
+				<div id='chUpBtn' class='rBtn remoteBtn remoteUpBtnBgImg' data-key='13'>
+					<div class='remoteBtn chUp'></div>
 				</div>
-				<div id="dividerV2"></div>
-				<div id="right">
-					<div id="chUpBtn" class="remoteBtn chUp"></div>
-					<div class="remote-text Remote_control_FONT">CH</div>
-					<div id="chDownBtn" class="remoteBtn chDown"></div>
+				<div id='chDownBtn' class='rBtn remoteBtn remoteDownBtnBgImg' data-key='14'>
+					<div class='remoteBtn chDown'></div>
 				</div>
-			</div>  
-		</div>
+			</div>
+		</section>	
 
+		<section id='STB' class='mainRemocon'>
+			<div id='powerSelectorBack'>
+				<div id='centerBack'>
+					<div id='tvPowerBtn' class='rBtn remoteBtn2 remoteBtn2BgImg' data-key='10'>
+						<div class='remoteBtn2 remoteBtn2PressImg'>
+							<div class='remoteBtn2 powerTV'></div>
+						</div>
+					</div>
+					<div id='stbPowerBtn' class='rBtn remoteBtn2 remoteBtn2BgImg' data-key='10'>
+						<div class='remoteBtn2 remoteBtn2PressImg'>
+							<div class='remoteBtn2 powerStb'></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id='left' class='remoteBgImg'>
+				<div class='labelBox'>
+					<div id='volLabel' class='verticalLabel Remote_control_01_FONT STMS' data-stmsid='IDS_YSM_BODY_VOL_M_VOLUME_ABB'>Vol</div>
+				</div>
+				<div id='volUpBtn' class='rBtn remoteBtn remoteUpBtnBgImg' data-key='15'>
+					<div class='remoteBtn volUp'></div>
+				</div>
+				<div id='volDownBtn' class='rBtn remoteBtn remoteDownBtnBgImg' data-key='16'>
+					<div class='remoteBtn volDown'></div>
+				</div>
+			</div>
+			<div id='center'>
+				<a type='button' id='powerSelBtn' class='on' data-key='POWER'></a>
+				<div id='addBtn' class='rBtn remoteBtn2 remoteBtn2BgImg' data-key='33'>
+					<div class='remoteBtn2 remoteBtn2PressImg'>
+						<div class='remoteBtn2 add'></div>
+					</div>
+				</div>
+				<div id='muteBtn' class='rBtn remoteBtn2 remoteBtn2BgImg' data-key='17'>
+					<div class='remoteBtn2 remoteBtn2PressImg'>
+						<div class='remoteBtn2 mute'></div>
+					</div>
+				</div>
+			</div>
+			<div id='right' class='remoteBgImg'>
+				<div class='labelBox'>
+					<div id='chLabel' class='verticalLabel Remote_control_01_FONT STMS' data-stmsid='IDS_YSM_BUTTON_CH'>CH</div>
+				</div>
+				<div id='chUpBtn' class='rBtn remoteBtn remoteUpBtnBgImg' data-key='13'>
+					<div class='remoteBtn chUp'></div>
+				</div>
+				<div id='chDownBtn' class='rBtn remoteBtn remoteDownBtnBgImg' data-key='14'>
+					<div class='remoteBtn chDown'></div>
+				</div>
+			</div>
+		</section>	
+
+		<section id='AIR' class='mainRemocon'>
+			<div id='left' class='remoteBgImg'>
+				<div class='labelBox'>
+					<div id='tempLabel' class='verticalLabel Remote_control_01_FONT STMS' data-stmsid='IDS_YSM_BODY_TEMP_M_TEMPERATURE_ABB'>TEMP</div>
+				</div>
+				<div id='tempUpBtn' class='rBtn remoteBtn remoteUpBtnBgImg' data-key='13'>
+					<div class='remoteBtn volUp'></div>
+				</div>
+				<div id='tempDownBtn' class='rBtn remoteBtn remoteDownBtnBgImg' data-key='14'>
+					<div class='remoteBtn volDown'></div>
+				</div>
+			</div>
+			<div id='center'>
+				<div id='onBtn' class='rBtn onAc' data-key='10'></div>
+			</div>
+			<div id='right' class='remoteBgImg'>
+				<div class='labelBox'>
+					<div class='dividerH'></div>
+				</div>
+				<div id='fanUpBtn' class='rBtn remoteBtn remoteBtnAcUpBgImg' data-key='15'>
+					<div class='remoteBtn fan'></div>
+				</div>
+				<div id='modeBtn' class='rBtn remoteBtn remoteBtnAcDownBgImg' data-key='33'>
+					<div class='remoteBtn mode'></div>
+				</div>
+			</div>
+		</section>	
+
+		<section class='ui-content Remote_control_FONT' id='chKeypad'>
+			<div id='chKeypadLeft'>
+				<div id='ch1Btn' class='chBtn' data-key='1'>
+					<div class='popImg top'></div>
+					<div class='label'></div>
+				</div>
+				<div id='ch4Btn' class='chBtn' data-key='4'>
+					<div class='popImg topMiddle'></div>
+					<div class='label'></div>
+				</div>
+				<div id='ch7Btn' class='chBtn' data-key='7'>
+					<div class='popImg bottomMiddle'></div>
+					<div class='label'></div>
+				</div>
+				<div id='ch-Btn' class='chBtn bottom' data-key='43'>
+					<div class='popImg bottom'></div>
+					<div class='label'></div>
+				</div>
+			</div>
+			<div id='chKeypadCenter'>
+				<div id='ch2Btn' class='chBtn' data-key='2'>
+					<div class='popImg top'></div>
+					<div class='label'></div>
+				</div>
+				<div id='ch5Btn' class='chBtn' data-key='5'>
+					<div class='popImg topMiddle'></div>
+					<div class='label'></div>
+				</div>
+				<div id='ch8Btn' class='chBtn' data-key='8'>
+					<div class='popImg bottomMiddle'></div>
+					<div class='label'></div>
+				</div>
+				<div id='ch0Btn' class='chBtn bottom' data-key='0'>
+					<div class='popImg bottom'></div>
+					<div class='label'></div>
+				</div>
+			</div>
+			<div id='chKeypadRight'>
+				<div id='ch3Btn' class='chBtn' data-key='3'>
+					<div class='popImg top'></div>
+					<div class='label'></div>
+				</div>
+				<div id='ch6Btn' class='chBtn' data-key='6'>
+					<div class='popImg topMiddle'></div>
+					<div class='label'></div>
+				</div>
+				<div id='ch9Btn' class='chBtn' data-key='9'>
+					<div class='popImg bottomMiddle'></div>
+					<div class='label'></div>
+				</div>
+				<div id='chPreBtn' class='chBtn chPreBtn bottom' data-key='25'>
+					<div class='popImg bottom'></div>
+					<div class='label'></div>
+				</div>
+			</div>
+		</section>
 	</div>
--->
 
-	<script type="text/javascript" src="lib/gear-ui/js/gear.ui.min.js"></script>
-	<script type="text/javascript" src="lib/gear-ui/js/virtuallist.js"></script>
-<!--
-	<script src="lib/gear-ui/js/escapens.js"></script>
--->
-	<script type="text/javascript" src="js/jquery-1.9.1.js"></script>
-	<script type="text/javascript" src="js/jquery.event.move.js"></script>
+	<script>
+	(function () {
+		 if( WR.lastUseRemoconId ) {
+			document.getElementById('main').classList.remove('ui-page-active');
+			var remotePageEle = document.getElementById('remotePage');
+			remotePageEle.classList.add('ui-page-active');
+		}
+	}());
 
-	<script type="text/javascript" src="js/common/Sandbox.js"></script>
 
-	<script type="text/javascript" src="js/scroller.js"></script>
-	<script type="text/javascript" src="js/sectionchanger.js"></script>
-	<script type="text/javascript" src="js/common/Remocon.js"></script>
-	<script type="text/javascript" src="js/common/SceneManager.js"></script>
+	//document.addEventListener('DOMContentLoaded', function() {
+	window.addEventListener( 'load', function() {
+		setTimeout(function() {
+			var jsList = [
+					//  동적로드
+//					'lib/gear-ui/js/virtuallist.js',
+					'js/common/sprintf.js',
+					'js/common/Sandbox.js',
 
-	<script type="text/javascript" src="js/WR.events.js"></script>
-	<script type="text/javascript" src="js/view_list.js"></script>
-	<script type="text/javascript" src="js/view_remote.js"></script>
-	<script type="text/javascript" src="js/view_dynamic_setting.js"></script>
+					// 종속되는 모듈을 앞에
+					'js/common/STMS.js',
+					'js/firstPage.js',
 
-	<script type="text/javascript" src="js/app.js"></script>
+					'lib/js/gear.ui.js',
+
+					'js/common/UEI.js',
+					'js/common/SceneManager.js',
+					
+					// WR.func, WR.event, WR.init 순서.
+					'js/WR.func.js',
+					'js/WR.events.js',
+					'js/WR.init.js',
+					'js/view_list.js',
+					'js/view_remote.js',
+					'js/view_dynamic_setting.js',
+
+					'js/scroller.js',
+					'js/sectionchanger.js',
+
+					'js/myTap.js',
+					
+					'js/app.js'
+				],
+				length = jsList.length,
+				i = 0;
+
+			var script = document.createElement('script');
+
+			script.onload = function onLoadHandler(){
+
+				console.log( "main script load " + i + "th" );
+				if( !( i < length-1 ) ) {
+					return;
+				}
+				var script = document.createElement('script');
+				script.onload = function() {
+					onLoadHandler();
+				};
+				script.src = jsList[ ++i ];
+				document.body.appendChild( script );
+			};
+
+			script.src = jsList[ i ];
+			document.body.appendChild( script) ;
+
+		}, 0);
+	});
+	</script>
+
 </body>
 
 </html>

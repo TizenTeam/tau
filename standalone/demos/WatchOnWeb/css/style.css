@@ -1,7 +1,5 @@
-* {
-    font-family: Verdana, Lucida Sans, Arial, Helvetica, sans-serif;
-}
-
+ 
+/*
 body {
     margin: 0px;
     background-color:#222;
@@ -14,6 +12,34 @@ body {
 	box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	height:320px;
+}
+*/
+
+#sendBack {
+	position: absolute;
+	width: 320px;
+	height: 320px;
+	top: 0px;
+	left: 0px;
+	z-index: 2000;
+	pointer-events: none;
+	background: green;
+	opacity: 0;
+}
+#sendBack.press {
+	-webkit-animation-name: sendAni;
+	-webkit-animation-iteration-count: 1;
+	-webkit-animation-duration: .5s;
+}
+@-webkit-keyframes sendAni {
+	from { opacity: .5; }
+	to { opacity: 0; }
+}
+/************************************************
+*****************  popupPage ********************
+************************************************/
+
+#popupPage {
 }
 
 /************************************************
@@ -28,11 +54,13 @@ body {
 .swipePage.left {
 	display: block;
 	visibility: visible;
+	top: 0px;
 /* 	-webkit-transform: translate3d( -100%, 0, 0); */
 }
 .swipePage.right {
 	display: block;
 	visibility: visible;
+	top: 0px;
 /* 	-webkit-transform: translate3d( 100%, 0, 0); */
 }
 .swipeParent {
@@ -43,6 +71,7 @@ body {
 	width: 320px;
 	display: block;
 	visibility: hidden;
+	position: absolute;
 }
 /************************************************
 ******************* Intro Page ******************
@@ -61,185 +90,96 @@ body {
 ************************************************/
 .buttonBox {
 	height: 96px;
-	margin: 19px 112px 19px 112px;
+	margin: 19px auto 19px auto;
+	text-align: center;
+	pointer-events: none;
+}
+.buttonBox.hover {
 }
 
-.buttonBox > .bgBtnImg {
-	width: 100%;
-	height: 100%;
+.buttonBox .bgBtnImg {
+	width: 96px;
+	height: 96px;
 	background-image: url('../images/watch_remote_setup_btn_bg.png');
 	background-repeat: no-repeat;
 	z-index: 1;
-	top: -100%;
 	position: relative;
-	pointer-events: none;
+	margin: auto;
+	pointer-events: all;
 }
-.buttonBox:hover > .bgBtnImg {
-	background-image: url('../images/watch_remote_setup_btn_bg_press.png');
-}
-
-.buttonBox > .fgBtnImg {
-	width: 100%;
-	height: 100%;
-	background-image: url('../images/watch_ic_remote_setup.png');
+.buttonBox .fgBtnImg {
+	width: 96px;
+	height: 96px;
+	background-image: url('../images/remote_setup/watch_remote_setup_ic_on.png');
 	background-repeat: no-repeat;
 	z-index: 2;
-	position: relative;
+	position: absolute;
 	pointer-events: none;
 }
-.buttonBox:hover > .fgBtnImg {
-	background-image: url('../images/watch_ic_remote_setup_press.png');
+.buttonBox.hover .bgBtnImg {
+	background-image: url('../images/watch_remote_setup_btn_bg_press.png');
+}
+.buttonBox.hover .fgBtnImg {
+	background-image: url('../images/remote_setup/watch_remote_setup_ic_on_press.png');
 }
 
+
 #dynamicSettingPage2 .commandLabel {
-	height: 38px;
+	height: 43px;
 	line-height: 38px;
 	margin: 0px 16px 20px 16px;
-	text-align: center;
+	text-align: center;	
+}
+
+
+/**************************************************
+****************** Common Sytle *******************
+**************************************************/
+body {
+/* 	background-image: url('../images/watch_bg.png'); */
+}
+
+.titleMenuBox {
+	width: 68px;
+	height: 62px;
+	position: absolute;
+	right: 0px;
+	margin: 0px 0px 0px 0px;
+}
+.titleMenuBox.hover > .titleMenuImg {
+	opacity: .2;
 }
 .titleMenuImg {
 	width: 52px;
 	height: 51px;
-	position: absolute;
-	right: 0px;
 	background-image: url('../images/tw_ic_menu_moreoverflow_holo_dark.png');
 	background-repeat: no-repeat;
-	top: 0px;
+	pointer-events: none;
 	margin: 0px 8px 0px 8px;
 }
-/************************************************
-****************** Remote View ******************
-************************************************/
-
-#remotePage #left {
-	width: 100px;
-	height: 100%;
+.titleFadeOut {
+	width: 14px;
+	height: 52px;
+	background-image: url(../images/tw_action_text_fadeout_right_holo_dark.png);
+	float: right;
 	position: absolute;
+	right: 78px;
+	display: none;
 }
-#remotePage #dividerV1 {
-        width: 2px;
-        height: 100%;
-        background: #1a1a1a;
-	position: absolute;
-	left: 100px;
-}
-#remotePage #center {
-	width: 116px;
-	height: 100%;
-	position: absolute;
-	left: 102px;
-}
-#remotePage #dividerV2 {
-        width: 2px;
-        height: 100%;
-        background: #1a1a1a;
-	position: absolute;
-	right: 102px;
-}
-#remotePage #right {
-	width: 100px;
-	height: 100%;
-	position: absolute;
-	right: 0px;
-}
-#remotePage #dividerH {
-        width: 100%;
-        height: 2px;
-        background: #1a1a1a;
-}
-#remotePage #spaceH {
-	width: 100%;
-	height: 45px;
-}
-
-#remotePage .remote-text {
-	width: 68px;
-	height: 38px;
-	margin: 3px 16px 3px 16px;
-}
-
-#remotePage .remoteBtn {
-	width: 68px;
-	height: 68px;
-	background-repeat: no-repeat;
-	margin: 22px 16px 22px 16px; 
-}
-
-#remotePage .remoteBtn2 {
-	width: 116px;
-	height: 88px;
+.titleLogoImg {
+	width: 34px;
+	height: 34px;
+	margin: 9px 0px 8px 16px;
+	float: left;
+	background-image: url('../images/watch_ic_header_remotecontrol.png');
 	background-repeat: no-repeat;
 }
 
-
-#remotePage .remoteBtn2.on {
-	background-image: url('../images/watch_ic_remote_btn_on_normal.png');
-}
-#remotePage .remoteBtn2.on:hover {
-	background-image: url('../images/watch_ic_remote_btn_on_pressed.png');
-}
-#remotePage .remoteBtn2.add {
-	background-image: url('../images/watch_ic_remote_btn_add_normal.png');
-}
-#remotePage .remoteBtn2.add:hover {
-	background-image: url('../images/watch_ic_remote_btn_add_pressed.png');
-}
-#remotePage .remoteBtn2.mute {
-	background-image: url('../images/watch_ic_remote_btn_mute_normal.png');
-}
-#remotePage .remoteBtn2.mute:hover {
-	background-image: url('../images/watch_ic_remote_btn_mute_pressed.png');
+.none {
+	display: none;
 }
 
-#remotePage .remoteBtn.volUp {
-	background-image: url('../images/watch_ic_remote_btn_plus_normal.png');
-}
-#remotePage .remoteBtn.volUp:hover { 
-	background-image: url('../images/watch_ic_remote_btn_plus_pressed.png');
-}
-#remotePage .remoteBtn.volDown { 
-	background-image: url('../images/watch_ic_remote_btn_minus_normal.png');
-}
-#remotePage .remoteBtn.volDown:hover { 
-	background-image: url('../images/watch_ic_remote_btn_minus_pressed.png');
-}
-#remotePage .remoteBtn.chUp { 
-	background-image: url('../images/watch_ic_remote_btn_up_normal.png');
-}
-#remotePage .remoteBtn.chUp:hover { 
-	background-image: url('../images/watch_ic_remote_btn_up_pressed.png');
-}
-#remotePage .remoteBtn.chDown { 
-	background-image: url('../images/watch_ic_remote_btn_down_normal.png');
-}
-#remotePage .remoteBtn.chDown:hover { 
-	background-image: url('../images/watch_ic_remote_btn_down_pressed.png');
-}
 
-#remotePage #chKeypadLeft {
-	width: 100px;
-	height: 100%;
-	position: absolute;
-	left : 5px;
-}
-#remotePage #chKeypadCenter {
-	width: 100px;
-	height: 100%;
-	position: absolute;
-	left : 110px;
-}
-#remotePage #chKeypadRight {
-	width: 100px;
-	height: 100%;
-	position: absolute;
-	right : 5px;
-}
-
-#remotePage .chBtn {
-	width: 100px;
-	height: 62px;
-	margin: 5px 0px 0px 0px; 
-}
 
 /**************************************************
 **************** Define Font Sytle ****************
@@ -249,28 +189,165 @@ body {
 	margin: 16px;
 }
 .Basic_text_s_default_FONT {
-	font-size: 33px;
+	font-size: 30px;
 	color: rgb(255,255,255);
 }
-.Title_FONT {
-	font-size: 24px;
-	color: rgb(255,255,255);
+.Title_FONT {	/* .ui-title */
+	font-size: 30px;
+	color: rgb( 195,184,255 );
 }
-.Remote_control_FONT {
+.Button_test_FONT {
 	text-align: center;
 	font-size: 34px;
+	color: rgb( 255, 255, 255 );
+	line-height: 38px;
+}
+
+.Button_general_FONT {
+	text-align: center;
+	font-size: 32px;
 	color: rgb(255,255,255);
 }
+.Button_general_FONT.ui-state-disabled {
+	color: rgba(255,255,255,0.8);
+}
+/**************************************************
+****************** IndicatorTab *******************
+**************************************************/
+
+.indicatorTab {
+	height: 6px;
+}
+.eachBar {
+	height: 100%;
+  	background-color: #35302c;  
+/*  	background: #363663;  */
+	float: left;
+	border-right: 1px solid transparent;
+	border-left: 1px solid transparent;
+	background-clip: padding-box;
+}
+.eachBar:first-child {
+	border-left: none;
+}
+.eachBar:last-child {
+	border-right: none;
+}
+.eachBar.active {
+/* 	background-color: #7259ff; */
+ 	background-color: #f99107; 
+}
+
+
+/*
+.scrollbar-bar-type {
+	height: 6px;
+	background: #35302c;
+}
+.scrollbar-indicator {
+	background-color: #f99107;
+	height: 6px;
+	position: absolute;
+}
+*/
 
 /**************************************************
 **************** theme custumizing ****************
 **************************************************/
+
 .ui-state-disabled {
 	pointer-events: none;
 }
-.ui-title {
+
+.ui-header {
+	line-height: 51px;
+	position: relative;
+/* 	background-color: #0b0c38; */
+/*  	background-color: #1e1e1e;  */
+/* 	border-bottom: 1px solid #363663; */
+/*  	border-bottom: 1px solid #323232;  */
+	text-overflow: clip;
+}
+.ui-header .ui-title {
+	pointer-events: none;
+/* 	color: rgb( 195,184,255 ); */
+}
+.ui-title.withLogo {
+	float: left;
+	margin: 0px 10px 0px 10px;
+	width: 182px;
+	overflow-x: hidden;
+	padding: 0px;
+	text-overflow: clip;
+}
+.ui-btn.hover {
+	background-color: #635d59;
+}
+.ui-listview > .ui-btn {
+/* 	min-height: 76px; */
+	border-bottom: 1px solid black;
+}
+.ui-listview > .ui-btn:last-child {
+	border-bottom: none;
+}
+.ui-listview > .ui-btn.hover {
+/*  background-color: #565269;   */
+	background-color: #635d59;
+}
+.ui-listview > li.hover {
+/* 	background-color: #565269; */
+/* 	background-color: #635d59; */
+ 	background-color: #584a3a; 
+}
+.ui-listview > li.diable {
+/* 	background-color: #565269; */
+/* 	background-color: #635d59; */
+ 	background-color: #262626; 
+}
+.ui-listview li input[type=radio] {
+	float: right;
+	width: 40px;
+	height: 40px;
+	margin-top: 0px;
+}
+.ui-listview li label.ui-popup-radio-label, 
+.ui-listview li label.ui-popup-checkbox-label {
+	float: none;
+}
+#selectRemoconPage input {
 	pointer-events: none;
 }
-.ui-listview > li:hover {
-	background: #635d59
+#selectRemoconPage label {
+	pointer-events: none;
 }
+#removeContent {
+	overflow: visible !important;
+}
+
+.ui-header .ui-more.hover {
+	opacity: .2;
+}
+
+/* index scrollerbar */
+/*
+.ui-indexscrollbar {
+	background-color: #000000;
+	opacity: .7;
+}
+
+.ui-indexscrollbar ul li {
+  color: rgb(114,114,139);
+  border-bottom: 1px solid rgba(97,97,97,.2);
+}
+
+.ui-indexscrollbar ul li.ui-state-selected {
+  background-color: #9c8cf5;
+  color: #ffffff;
+}
+
+.ui-indexscrollbar-indicator span {
+  background-color: rgb(6, 0, 48);
+  color: rgb(156,140,245);
+}
+*/
+

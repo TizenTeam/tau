@@ -1,0 +1,303 @@
+/*
+ * STMS Module
+ *
+ * There are public APIs in last part of the file
+ *
+ * 2014.02.11
+ *
+ */
+
+define({
+
+	name: "STMS",
+	def: ( function () {
+
+		var stmsMap = {
+			IDS_B2_POPUP_SETUP: "set up",
+			IDS_B2_POPUP_START: "start"
+		};
+
+		function settingStr( ele, stmsId ) {
+
+			var ele$ = $( ele );
+			ele$.addClass( "STMS" );
+			ele$.attr( "stmsId", stmsId );
+			ele$.html( g_message_string_map[ stmsId ] );
+		}
+
+		function refreshStr( ele ) {
+
+			var ele$ = $( ele );
+			ele$.html( stmsMap[ ele$.attr( "data-stmsId" ) ] );
+		}
+
+		function check_file_exist(file_path) {
+			var bExist = false;
+			tizen.filesystem.resolve( file_path, 
+			function( file ) 
+			{
+				// SUCCESS resolve()
+				bExist = true;
+			}, 
+			function( e ) 
+			{
+				bExit = false;
+			}, "r" );
+		
+			return bExist;
+		}
+		
+		function refreshAllStr() {
+<<<<<<< .mine
+
+			$( ".STMS" ).each( function() {
+=======
+>>>>>>> .r240
+			var system_country_code = WR.LANGUAGE;
+			system_country_code = system_country_code.replace("-","_");
+			
+			var lang="";
+			var lang_path = "file:///opt/usr/apps/S8UVkC4ryF/string/";
+			
+			if( check_file_exist(lang_path+system_country_code+".js") == true )
+			{
+				lang = lang_path+WR.LANGUAGE;
+			}
+			else 
+			{
+				if(system_country_code.length>2 && check_file_exist(lang_path+system_country_code.substr(0,2)+".js") == true )
+				{
+					lang = lang_path+lang_path+system_country_code.substr(0,2)+".js"
+				}
+				else
+				{
+					lang = lang_path+"en.js";
+				}
+			}
+			
+			//using lang file in here
+			
+		}
+
+		function disableSTMS( ele ) {
+
+			$( ele ).removeClass( "STMS" );
+		}
+		function getStrById( id ) {
+
+			return stmsMap[ id ];
+		}
+		
+		function stmsHtml( ele$, id ) {
+
+			var str = getStrById( id );
+			if( ele$.length < 1 )
+			{
+				str = "stmsHtml() : Can not find ele$";
+				console.error( str );
+				return str;
+			}
+			else
+			{
+				ele$.attr( "data-stmsId", id );
+				ele$.html( str );
+				return str;
+			}
+		}
+
+		// public APIs
+		return {
+			refreshAllStr: refreshAllStr,
+			settingStr: settingStr,
+			getStrById: getStrById
+		};
+	}())
+});
+
+
+
+var g_message_string_map;
+
+function message_file_read_complete_callback(msg_map){
+	
+	g_message_string_map ={};	
+	
+	console.log("on message_file_read_success_callback");
+	for(var key in msg_map){
+		console.log(key + "=" + msg_map[key]);
+		g_message_string_map[key] = msg_map[key];
+	}
+}
+
+function get_stms_string(complete_callback)
+{
+	try{
+		var lang_val = navigator.language;
+		lang_val = "en-us";
+		var lang_file = "file:///opt/usr/apps/S8UVkC4ryF/string/" + lang_val + ".xml";
+
+		console.log( lang_file );
+		
+		tizen.filesystem.resolve( lang_file, function( file ) {
+
+			// SUCCESS resolve()
+			if(file)
+			{
+				console.log("file.path:" + file.fullPath);
+
+				file.readAsText( function( str ) {
+
+					// SUCCESS readAsText()
+
+					var parser = new DOMParser();
+					var xmlDoc = parser.parseFromString( str, "text/xml" );
+					var string_count = xmlDoc.evaluate( "count(/string_table/text)", xmlDoc, null, XPathResult.NUMBER_TYPE, null);
+
+					console.log( "string item count:" + string_count.numberValue );
+
+					var i = 0;
+					var string_map = {};
+
+					for(i = 1; i <= string_count.numberValue; i++) 
+					{
+						var xpath_attr = "/string_table/text[" + i + "]/@id";
+						var xpath_val = "/string_table/text[" + i + "]";
+						var attr_result = xmlDoc.evaluate( xpath_attr, xmlDoc, null, XPathResult.STRING_TYPE, null);
+						var val_result = xmlDoc.evaluate( xpath_val, xmlDoc, null, XPathResult.STRING_TYPE, null);
+						string_map[ attr_result.stringValue ] = val_result.stringValue;						 
+					}
+					complete_callback(string_map);
+				}, function( e ) {
+
+					// FAIL readAsText()
+					console.error( "resolve() is SUCCESS but can not read(readAsText()) the file" );
+
+				}, "UTF-8" );			
+			}
+
+		}, function( e ) {
+
+			// FAIL resolve()
+			console.error( "Can not read(resolve()) a string file" );
+
+		}, "r" );	
+	
+	} catch( e ) {
+		console.log(e);
+	}	
+}
+
+function system_local_changed( locale ){
+
+	// check locale.country and locale.language	
+	get_stms_string( message_file_read_complete_callback );
+}
+
+
+
+/*
+ * STMS Module
+ *
+ * There are public APIs in last part of the file
+ *
+ * 2014.02.11
+ *
+ */
+
+define({
+
+	name: "STMS",
+	def: ( function () {
+
+		var stmsMap = {};
+
+		function settingStr( ele, stmsId ) {
+
+			var ele$ = $( ele );
+			ele$.addClass( "STMS" );
+			ele$.attr( "stmsId", stmsId );
+			ele$.html( g_message_string_map[ stmsId ] );
+		}
+
+		function refreshStr( ele ) {
+
+			var ele$ = $( ele );
+			ele$.html( stmsMap[ ele$.attr( "stmsId" ) ] );
+		}
+
+		function refreshAllStr() {
+			$( ".STMS" ).each( function() {
+
+				refreshStr( this );
+			});
+		}
+
+		function disableSTMS( ele ) {
+
+			$( ele ).removeClass( "STMS" );
+		}
+
+		// public APIs
+		return {
+			refreshAllStr: refreshAllStr,
+			settingStr: settingStr
+		};
+	}())
+});
+
+var g_message_string_map;
+
+function message_file_read_complete_callback(msg_map){
+	
+	g_message_string_map ={};	
+	
+	console.log("on message_file_read_success_callback");
+	for(var key in msg_map){
+		console.log(key + "=" + msg_map[key]);
+		g_message_string_map[key] = msg_map[key];
+	}
+}
+
+
+function get_stms_string(complete_callback)
+{
+	try{
+		var lang_val = navigator.language;
+		console.log("navigator.language:" + lang_val);
+		lang_val = "en-us";
+		var string_files_dir = "file:///opt/usr/apps/S8UVkC4ryF/string";		
+		
+		tizen.filesystem.resolve( string_files_dir, function( dir ) {
+
+			if(typeof dir == undefined){
+				console.log("dir == undefined");
+				return;
+			}
+			
+			dir.listFiles(function(files){
+				var file_count = files.length;
+				var i = 0;
+				for(i = 0; i < file_count; i++){
+					console.log("string file name:" + files[i].name);					
+				}
+				
+			}, null, {"name" : "*.po"});							
+
+		}, function( e ) {
+			// FAIL resolve()
+			console.error( "Can not read(resolve()) a string file" );
+
+		}, "r" );
+	
+	} catch( e ) {
+		console.log(e);
+	}	
+}
+
+function system_local_changed( locale ){
+
+	// check locale.country and locale.language	
+	get_stms_string( message_file_read_complete_callback );
+}
+
+

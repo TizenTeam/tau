@@ -7,303 +7,446 @@
 
 define({
 
+	requires: [ "STMS" ],
 	name: "RemoconSet",
 
-	def: (function () {
+	def: function ( m ) {
 
+//		var UEI = m.UEI;
+		var STMS = m.STMS;
 		var count = 0;
 		var RemoconSet;
 
-		RemoconSet = function() {
+		RemoconSet = function( data ) {
 
-			var type = "unnamed setType",
+			var type = (data && data.type) ? data.type : "unnamed setType",
+				id = "",
 				remoconList = [],
-				remoconSetId = (new Date()).getTime();
+				name = (data && data.type) ? data.type : "unnamed",
+				curRemocon = null;
+
+			// getTime() 으로하면 같은 아이디가 나올 확률이 있기 때문에 count를 더해
+			id = (data && data.id) ? data.id : "s"+(new Date()).getTime() + (++count);
 
 			this.getType = function() { return type; };
 			this.getRemoconArr = function() { return remoconList; };
-			this.getRemoconSetId = function() { return remoconSetId; };
+			this.getId = function() { return id; };
+			this.getName = function() { return name; };
+			this.getCurRemocon = function() { return curRemocon; };
+
+			this.setType = function( p ) { 
+				type = p; 
+				name = p;
+				RemoconSet.saveToLs();
+			};
+			this.setCurRemocon = function( p ) { curRemocon = p; };
 
 			RemoconSet.remoconSetList.push( this );
-			RemoconSet.remoconSetObjs[ remoconSetId ] = this;
+			RemoconSet.remoconSetObjs[ id ] = this;
+			RemoconSet.saveToLs();
 		};
 
+		// 스태틱
 		RemoconSet.remoconSetList = [];
-		RemoconSet.remoconSetObjs = {}
+		RemoconSet.remoconSetObjs = {};
+
+		RemoconSet.clear = function()
+		{
+			var list = RemoconSet.remoconSetList,
+				length = list.length;
+			
+			for( var i=0, rs; rs = list[ i ]; i++ )
+			{
+				rs.removeItSelf();
+			}
+		}
+		RemoconSet.saveToLs = function()
+		{
+			var tmpArr = [];
+			for( var i=0, set; set = RemoconSet.remoconSetList[ i ]; i++)
+			{
+				tmpArr.push( set.getObjData() );
+			}
+//			UEI.saveStrToFile( "RemoconSet", JSON.stringify( tmpArr ) );
+			localStorage[ 'RemoconSet' ] = JSON.stringify( tmpArr );
+		};
+		RemoconSet.prototype.getLiStr = function()
+		{
+			console.log( "set getlistr ");
+//			return "<li id='"+this.getId()+"'>["+this.getType()+"] "+this.getName()+"</li>";
+			var name = "";
+			var deviceId= "";
+
+			if( this.getType() === "STB" ) {
+				name = "TV and STB";
+				deviceId = "IDS_YSM_HEADER_TV_AND_STB_ABB";
+			}
+			else if( this.getType() === "AIR" ) {
+				name = "Air conditioner";
+				deviceId = "IDS_SR_BODY_AIR_CONDITIONER";
+			}
+			else {
+				name = this.getType();
+				deviceId = "IDS_SR_BUTTON_TV";
+			}
+
+			var domStr = "";
+			domStr += "<li id='"+this.getId()+"'>";
+			domStr += "<input type='radio' name='radioset' id='"+this.getId()+"' />";
+			domStr += "<label for='"+this.getId()+"' class='ui-popup-radio-label STMS' data-stmsid='"+deviceId+"'>";
+			domStr += STMS.getStrById(deviceId)+"</label>";
+			domStr += "</li>";
+			return domStr;
+		};
+		RemoconSet.prototype.getRemoconByType = function( type )
+		{
+			var rList = this.getRemoconArr();
+
+			for( var i=0, rm; rm = rList[ i ]; i ++ )
+			{
+				if( rm.getType() === type ) return rm;
+			}
+			console.error( "Can not find remocon by type: " + type );
+			return false;
+		};
+		RemoconSet.prototype.getObjData = function()
+		{
+			var tmp = {
+				type: this.getType(),
+				id: this.getId(),
+				name: this.getName(),
+			};
+
+			return JSON.stringify( tmp );
+		}
 
 		RemoconSet.prototype.addRemocon = function( remocon )
 		{
-			remocon.setParentId( this.getRemoconSetId() );
+			remocon.setSetId( this.getId() );
+			remocon.setSet( this );
 			this.getRemoconArr().push( remocon );
-		}
-		RemoconSet.prototype.saveToLocalStorage = function()
-		{
-			// remoconSet이라는 로컬 스토리지에 저장하자 
-		}
-
-		RemoconSet.prototype.getLiStr = function()
-		{
-			return "<li id='"+this.getRemoconSetId()+"'>["+this.getType()+"] "+this.getBrandName()+"</li>";
+			this.setCurRemocon = remocon;
 		}
 
 		RemoconSet.prototype.removeItSelf = function()
 		{
-			var remoconList = this.getRemoconArr();
+			var rList = this.getRemoconArr();
 
-			for( var remocon in remoconList ) {
-				remocon.removeItSelf();
+			for( var i = rList.length-1; i > -1; i-- )
+			{
+				rList[i].removeItSelf();
 			}
+
+			var idx = RemoconSet.remoconSetList.lastIndexOf( this );
+			RemoconSet.remoconSetList.splice( idx, 1 );
+			delete RemoconSet.remoconSetObjs[ this.getId() ];
+			delete this;
+
+			RemoconSet.saveToLs();
 		}
 
+		window.S = RemoconSet;
 		return RemoconSet;
-	}())
+	}
 });
 
 define({
 
-	requires: ["RemoconSet"],
+	requires: [ "STMS" ],
 	name: "Remocon",
 	def: function ( m ) {
 
+//		var UEI = m.UEI;
+		var STMS = m.STMS;
 		var count = 0;
 		var Remocon;
 
 		Remocon = function( data ) {
 
+			'use strict'
+
 			// 비공개 함수 & 변수
-			var type = data.type;
-
-			if( Remocon.TYPE_LIST.lastIndexOf( type ) < 0 ) {
-				console.error( "Can not create remocon instance including unknown remocon type '"+type+"'" );
-				// 문법 확인
-				delete this;
-				return;
-			}
-
-			var brandName = data.brandName,
+			var type = data.type,
+				brandName = data.brandName,
 				model = data.model,
 				codeSet = data.codeSet,
-				parentId = data.parentId || 0,
-				remoconId = ( new Date() ).getTime();
+				setId = data.setId || 0,
+				set = data.set || null,
+				signalSet = data.signalSet || {},
+				keyList = data.keyList || [],
+				id = "";
+			
+			// getTime() 으로하면 같은 아이디가 나올 확률이 있기 때문에
+			// TV: t, STB:b, air:a
 
-			this.getRemoconId = function() { return remoconId; };
+			var typeInitial = "";
+
+			if( type === "TV" ) typeInitial = "t";
+			else if( type === "STB" ) typeInitial = "b";
+			else if( type === "AIR" ) typeInitial = "a";
+			else console.error( "Error: typeInitial" );
+
+			id = data.id || typeInitial + ( new Date() ).getTime() + (++count);
+
+			this.getId = function() { return id; };
 			this.getType = function() { return type; };
 			this.getBrandName = function() { return brandName; };
 			this.getModel = function() { return model; };
 			this.getCodeSet = function() { return codeSet; };
-			this.getParentId = function() { return parentId; };
-			this.setParentId = function( p ) { parentId = p; };
+			this.getSetId = function() { return setId; };
+			this.getSet = function() { return set; };
+			this.getKeyList = function() { return keyList; };
 
-			Remocon.remoconList.push( this );
-			Remocon.remoconObjs[ this.getRemoconId() ] = this;
-		};
-
-		Remocon.prototype = ( function () {
-			// 공개 메서드
-			return {
-
-
+			this.setSetId = function( p ) { 
+				setId = p;
+				Remocon.saveToLs();
+			};
+			this.setSet = function( p ) { set = p; };
+			this.setSignalSet = function( p ) { 
+				console.log( p );
+				signalSet = p;
 			};
 
-		}());
+			this.getSignalByKey = function( key )
+			{
+				console.log( "getSignalByKey( " + key +")");
+				console.log( "return" + signalSet[ key ]+")");
+
+				return signalSet[ key ];
+			};
+
+			Remocon.remoconList.push( this );
+			Remocon.remoconObjs[ this.getId() ] = this;
+			Remocon.saveToLs();
+		};
 
 		// 스태틱 멤버
-		//WR.func.createRemoconFromLS = function( m )
-		Remocon.TYPE_LIST = ["TV","STB","AIR"];
 		Remocon.remoconList = [];
 		Remocon.remoconObjs = {};
-
-		Remocon.createRemoconFromLS = function() 
+		Remocon.remoconChangedCb = null;
+		Remocon.setRemoconChangedCb = function( callback )
 		{
-			var RemoconSet = m.RemoconSet,
-				typeList = Remocon.TYPE_LIST,
-				length = typeList.length,
-				tmpMap = {};
+			Remocon.remoconChangedCb = callback;
+		}
 
-			for( var i=0; i < length; i++ )
+
+		Remocon.clear = function()
+		{
+			var list = Remocon.remoconList,
+				length = list.length;
+			
+			for( var i=0, rm; rm = list[ i ]; i++ )
 			{
-				var strData = localStorage[ typeList[i] ];
-
-				if( strData && strData !== "undefined" )
-				{
-					var j=0;
-					var objList = JSON.parse( strData );
-
-					for( var j=0, remo; remo = objList[ j ]; j++ ) {
-						var remocon = new Remocon( JSON.parse( remo ));
-					}
-
-					var id = remocon.getRemoconId(),
-						setId = remocon.getParentId(),
-						remoconSet = null;
-					
-					if( tmpMap[ setId ] ) {
-
-						console.log( setId );
-						console.log( tmpMap[ setId ]);
-						remoconSet = RemoconSet.remoconSetObjs[ tmpMap[ setId ] ];
-						
-					} else {
-
-						remoconSet = new RemoconSet();
-						tmpMap[ setId ] = remoconSet.getRemoconSetId();
-					}
-
-					remoconSet.addRemocon( remocon );
-					remocon.setParentId( remoconSet.getRemoconSetId() );
-				}
+				rm.removeItSelf();
 			}
 		}
 
 		// 공개 메서드
-		Remocon.prototype.getObjData = function() 
+		Remocon.prototype.getObjData = function()
 		{
 			var tmp = {
 				type: this.getType(),
 				brandName: this.getBrandName(),
 				model: this.getModel(),
 				codeSet: this.getCodeSet(),
-				remoconId: this.getRemoconId(),
-				parentId: this.getParentId()
+				id: this.getId(),
+				setId: this.getSetId()
 			};
+
+			if( this.getKeyList() )
+			{
+				tmp.keyList = this.getKeyList();
+			}
+			else
+			{
+				tmp.keyList = "";
+			}
 
 			return JSON.stringify( tmp );
 		};
 
-		Remocon.saveToLocalStorage = function( type ) 
+		Remocon.saveToLs = function() 
 		{
-			// save 라고 생각해도 되고 localstorage refresh 라고 생각해도 되고
-			// type을 주면 해당 type만 갱신(저장), 
-			// 안주면 모든 리모콘 갱신
-
-			var rList = Remocon.remoconList,
-				tmpObj = {};
-
-			if( type )
+			var tmpArr = [];
+			for( var i=0, remo; remo = Remocon.remoconList[ i ]; i++)
 			{
-				for( var i=0, remocon; remocon = rList[ i ]; i++ )
-				{
-					if( remocon.getType() !== type ) continue;
-
-					if( !tmpObj[ type ] ) {
-						console.log( type );
-						tmpObj[ type ] = [];
-					}
-
-					tmpObj[ type ].push( remocon.getObjData() );
-				}
-
-				localStorage[ type ] = JSON.stringify( tmpObj[ type ] );
+				tmpArr.push( remo.getObjData() );
 			}
-			else
-			{
-				for( var i=0, remocon; remocon = rList[ i ]; i++ )
-				{
-					if( tmpObj[ type ] )
-					{
-						tmpObj[ type ] = [];
-					}
-
-					tmpObj[ type ].push( remocon.getObjData() );
-				}
-
-				for( var j=0, t; t = Remocon.TYPE_LIST[ j ]; j++ )
-				{
-					localStorage[ t ] = JSON.stringify( tmpObj[ t ] );
-				}
-			}
-
+//			UEI.saveStrToFile( "Remocon", JSON.stringify( tmpArr ) );
+			localStorage[ 'Remocon' ] = JSON.stringify( tmpArr );
 		}
-
-		Remocon.prototype.saveToLocalStorage = function() 
-		{
-			// 현재 LS가 TV, STB, AIR 3개 있으므로 하나를 저장할때 마다
-			// 그 타입의 LS를 싹 갱신 ( 리모콘이 몇개 안되서 이게 더 빠름 )
-
-			var rList = Remocon.remoconList,
-				type = this.getType(),
-				tmpArr = [];
-
-			console.log( rList );
-			for( var i=0, remocon; remocon = rList[ i ]; i++ )
-			{
-				if( remocon.getType() === type ) {
-					console.log( i +" insert");
-					tmpArr.push( remocon.getObjData() );
-				}
-			}
-
-			localStorage[ type ] = JSON.stringify( tmpArr );
-		};
 
 		Remocon.prototype.getLiStr = function()
 		{
-			return "<li id='"+this.getRemoconId()+"'>["+this.getType()+"] "+this.getBrandName()+"</li>";
+//			return "<li id='"+this.getId()+"'>["+this.getType()+"] "+this.getBrandName()+"</li>";
+			var name = "";
+			var deviceId = "";
+
+			if( this.getType() === "STB" ) {
+				name = "TV and STB";
+				deviceId = "IDS_YSM_HEADER_TV_AND_STB_ABB";
+			}
+			else if( this.getType() === "AIR" ) {
+				name = "Air conditioner";
+				deviceId = "IDS_SR_BODY_AIR_CONDITIONER";
+			}
+			else {
+				name = this.getType();
+				deviceId = "IDS_SR_BUTTON_TV";
+			}
+
+			var domStr = "";
+			domStr += "<li id='"+this.getId()+"'>";
+			domStr += "<input type='radio' name='radioset' id='"+this.getId()+"' />";
+			domStr += "<label for='"+this.getId()+"' class='ui-popup-radio-label STMS' data-stmsid='"+deviceId+"'>";
+			domStr += STMS.getStrById(deviceId)+"</label>";
+			domStr += "</li>";
+			return domStr;
 		};
 
 		Remocon.prototype.removeItSelf = function()
 		{
-			var page$ = $( "#remoconManagePage" ),
-				list$ = page$.find( "#remoteList" ),
-				remoconList = Remocon.remoconList,
+			var remoconList = Remocon.remoconList,
 				remoconObjs = Remocon.remoconObjs,
-				remoconId = this.getRemoconId(),
-				type = this.getType();
+				id = this.getId();
 
-			list$.find( "#"+remoconId ).remove();
+			var rs = this.getSet();
+			var listOfSet = rs.getRemoconArr();
+			listOfSet.splice( listOfSet.lastIndexOf( this ), 1 );
 
 			var idx = remoconList.lastIndexOf( this );
 			remoconList.splice( idx, 1 );
-			remoconObjs[ remoconId ] = null;
 
-			Remocon.saveToLocalStorage( type );
+			delete remoconObjs[ id ];
+			delete this;
 
-			if( remoconList.length < 1 )
+			Remocon.saveToLs();
+
+		};
+
+		Remocon.prototype.createRemoteDiv = function( parentNodeId ) 
+		{
+			var remotePage = parentNodeId ? 
+					document.getElementById( parentNodeId ) : document.getElementById( "remotePage" ),
+
+				hiddenPage = document.getElementById( "hiddenPage" ),
+				scroller = document.getElementById( "scroller" ),
+				titleStmsIdMap = {
+					TV: "IDS_SR_BUTTON_TV",
+					STB: "IDS_YSM_HEADER_TV_AND_STB_ABB",
+					AIR: "IDS_SR_BODY_AIR_CONDITIONER"
+				},
+				type = this.getType();
+
+			console.log("RemoconType:" + this.getType());
+
+			var clone = null,
+				chKeypad = null;
+
+			for( var i=0, child; child = hiddenPage.children[ i ]; i++ )
 			{
-				// 리모콘이 하나도 없으면 어케?
-				lastUseRemoconId = 0;
+				if( child.id === type )
+				{
+					clone = child;
+				}
+				if( child.id === "chKeypad" )
+				{
+					chKeypad = child;
+				}
+			}
+			var child2 = null;
+			for( i=0; child2= scroller.children[ i ]; i++ )
+			{
+				if( child2.id === type )
+				{
+					clone = child2;
+				}
+				if( child2.id === "chKeypad" )
+				{
+					chKeypad = child2;
+				}
+			}
+
+			if( !(clone && chKeypad) ) {
+				console.error( "Can not make clone" );
 				return;
 			}
 
-			if( lastUseRemoconId === remoconId )
-			{
-				lastUseRemoconId = 0;
-				remoconList[ 0 ].createRemoteDiv( "#remotePage" );
-			}
-		};
+			var child3 = null,
+				length = scroller.children.length;
 
-		Remocon.prototype.createRemoteDiv = function( parentNodeSelStr ) 
-		{
-			var remotePage$ = $( parentNodeSelStr ),
-				hiddenPage$ = $( "#hiddenPage" );
-
-			if( this.getType() === "TV" )
+			if( length > 0 )
 			{
-				var tv$ = hiddenPage$.children( "#tv-controller" );
-				var clone$ = tv$.clone();
-				clone$.find( "#header-title" ).html( this.getType() + " " + this.getBrandName() );
-				remotePage$.find( ".ui-title" ).html( this.getType() + " " + this.getBrandName() );
-				remotePage$.find( ".remocon" ).remove();
-				remotePage$.prepend( clone$ );
+				for( i=length-1; child3 = scroller.children[ i ]; i--)
+				{
+					console.log( child3 );
+					hiddenPage.appendChild( child3 );
+				}
 			}
-			else if( this.getType() === "STB" )
+			
+			console.log( type );
+			console.log( remotePage.getElementsByClassName( "ui-title" )[0] );
+			STMS.stmsHtml( remotePage.getElementsByClassName( "ui-title" )[0], titleStmsIdMap[type]);
+
+			
+			var keyLi = clone.getElementsByClassName( "rBtn");
+			var keyLen = keyLi.length, i = 0, btn;
+			
+			var keyList = this.getKeyList();
+			
+			console.log( keyLen );
+			
+			
+			if( type === "AIR" ) {
+				var result = -1;
+				if( keyLen > 0 ) {
+					for( i = keyLen-1; btn = keyLi[i]; i-- ) {
+						console.log( btn );
+						result = keyList.indexOf( btn.dataset.key );
+						console.log( btn.dataset.key );
+						console.log( result );
+						if( btn.dataset.key === "10" ) continue;					
+						if( result < 0 ) {
+							btn.classList.add( "disable" );
+						} else { 
+							btn.classList.remove( "disable" );
+						}
+						
+					}
+				}
+			}
+			
+			scroller.appendChild( clone );
+
+			if( type === "TV" )
 			{
-				var tv$ = hiddenPage$.children( "#tv-stb-controller" );
-				var clone$ = tv$.clone();
-				clone$.find( "#header-title" ).html( this.getType() + " " + this.getBrandName() );
-				clone$.find( ".ui-title" ).html( this.getType() + " " + this.getBrandName() );
-				remotePage$.find( ".this" ).remove();
-				remotePage$.prepend( clone$ );
+				scroller.appendChild( chKeypad );
+			}
+			else if( type === "STB" )
+			{
+				scroller.appendChild( chKeypad );
+			}
+			else if( type === "AIR" )
+			{
+				//
 			}
 			else
 			{
-				console.error( "ERROR!" );
+				console.error( "Unknown type: '"+type+"'" );
 			}
+
+			WR.curRemocon = this;
+
+//			UEI.saveStrToFile( "lastUseRemoconId", this.getId() );
+			localStorage[ 'lastUseRemoconId' ] = this.getId();
+
+			if( Remocon.remoconChangedCb )
+				Remocon.remoconChangedCb( this );
+
+			return this;
 		}
 
+		window.R = Remocon;
 		return Remocon;
 	}
 });
-
-
-

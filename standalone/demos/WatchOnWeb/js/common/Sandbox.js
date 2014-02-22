@@ -22,7 +22,7 @@
      * Merge the contents of two objects into the first object
 	 *
 	 * ex)	var publicNamespace = { PublicNS : "MyApp" };
-	 * 		extend( window, publicNamespace ); ===> window.PublicNS
+	 * 	extend( window, publicNamespace ); ===> window.PublicNS
 	 *
      * @param {Object} target Target object
      * @param {Object} source Source object

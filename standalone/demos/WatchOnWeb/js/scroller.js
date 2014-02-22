@@ -1,287 +1,525 @@
-// Make scroller custom events
-var scrollerStart =  new CustomEvent(
-	// scroller.start event trigger when user try to move scroller
-	"scroller.start",
-	{
-		lastX: 0,
-		bubbles: true,
-		cancelable: true
-	}
-), scrollerMove =  new CustomEvent(
-	// scroller.move event trigger when scroller move
-	"scroller.move",
-	{
-		lastX: 0,
-		bubbles: true,
-		cancelable: true
-	}
-), scrollerEnd =  new CustomEvent(
-	// scroller.end event trigger when scroller end
-	"scroller.end",
-	{
-		lastX: 0,
-		bubbles: true,
-		cancelable: true
-	}
-), flick =  new CustomEvent(
-	// scroller.end event trigger when scroller end
-	"scroller.flick",
-	{
-		lastX: 0,
-		interval: 0,
-		bubbles: true,
-		cancelable: true
-	}
-)
-;
+/*
+  * Copyright (c) 2013 Samsung Electronics Co., Ltd
+  *
+  * Licensed under the Flora License, Version 1.1 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  *     http://floralicense.org/license/
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+  */
 
-function Scroller( elem ) {
-	this.options = {
-		autoFitting: "true",
-		circularElement: "true",
-		threshold: 50,
-		flickThreshold: 28
+(function(window, undefined) {
+	'use strict';
+
+// scroller.start event trigger when user try to move scroller
+var eventType = {
+	// scroller.move event trigger when scroller start
+	START: "scrollstart",
+	// scroller.move event trigger when scroller move
+	//MOVE: "scroller.move",
+	// scroller.move event trigger when scroller end
+	END: "scrollend",
+	// scroller.move event trigger when scroller canceled
+	CANCEL: "scrollcancel",
+};
+
+var	Scroller = function ( elem, options ) {
+	if ( arguments.length ) {
+		this._create( elem, options );
 	}
-	this.init( elem );
 	return this;
-}
+};
+
+Scroller.Orientation = {
+	VERTICAL: 1,
+	HORIZONTAL: 2
+};
 
 Scroller.prototype = {
+	_create: function( elem, options ) {
+		this.element = elem;
+		this.options = {};
 
-	init: function( elem ) {
-		var page;
-
-		if( !elem ) {
-			// If developer don't give parameter, this object set default section
-			page = document.getElementsByClassName("ui-page-active");
-			this._scroller = page[0].getElementsByClassName("scroller","div")[0];
-		} else {
-			this._scroller = elem;
+		if ( this.element.children.length !== 1 ) {
+			throw "scroller has only one child.";
 		}
 
-		if ( !this._scroller ){
-			return;
-		}
-		this._width = screen.width;
-		this._height = screen.height;
-		this._lastX = 0;
+		this.scroller = this.element.children[0];
+		this.scrollerStyle = this.scroller.style;
 
-		// vars for getting estimated point position
+		this.scrollbar = null;
+
+		this.width = 0;
+		this.height = 0;
+
+		this.scrollerWidth = 0;
+		this.scrollerHeight = 0;
+		this.scrollerOffsetX = 0;
+		this.scrollerOffsetY = 0;
+
+		this.maxScrollX = 0;
+		this.maxScrollY = 0;
+
+		this.startTouchPointX = 0;
+		this.startTouchPointY = 0;
+		this.startScrollerOffsetX = 0;
+		this.startScrollerOffsetY = 0;
+
 		this.lastVelocity = 0;
-		this.lastEstimatedPointX = 0;
+		this.lastEstimatedPoint = 0;
+
 		this.lastTouchPointX = -1;
+		this.lastTouchPointY = -1;
 
-		this.options.autoFitting = this._scroller.getAttribute("data-auto-fitting");
-		this.options.circularElement = this._scroller.getAttribute("data-circular-element");
+		this.orientation;
 
-		this._scroller.style.height = this._scroller.parentElement.clientHeight + "px";
-		this._scrollerDirection = "horizontal"; // default scroller direction is horizontal
-		this._addEvent();
+		this.initiated = false;
+		this.enabled = true;
+		this.scrolled = false;
+		this.moved = false;
+		this.scrollCanceled = false;
+
+		this.startTime;
+
+		this._initOptions( options );
+		this._bindEvents();
+		this._init();
 	},
 
-	setDirection: function( direction ) {
-		// Scroller has forth status.
-		// 1) 0 or 'undefined' : page don't need to scroller
-		// 2) 'horizontal' : page only need to horizontal scroller
-		// 3) 'vertical' : page only need to vertical scroller
-		// 4) 'all' : page only need to all direction scroller
+	_initOptions: function( options ) {
+		this.options = {
+			scrollDelay: 300,
+			threshold: 10,
+			minThreshold: 5,
+			flickThreshold: 30,
+			scrollbar: false,
+			orientation: "vertical",		// vertical or horizontal,
+			// TODO implement scroll momentum.
+			momentum: true
+		};
 
-		if ( !direction || direction === undefined ) {
-			this._scrollerDirection = 0;
+		this.setOptions( options );
+	},
+
+	_init: function() {
+		this.width = this.element.offsetWidth;
+		this.height = this.element.offsetHeight;
+
+		this.scrollerWidth = this.scroller.offsetWidth;
+		this.scrollerHeight = this.scroller.offsetHeight;
+
+		this.maxScrollX = this.width - this.scrollerWidth;
+		this.maxScrollY = this.height - this.scrollerHeight;
+
+		this.orientation = this.options.orientation === "horizontal" ? Scroller.Orientation.HORIZONTAL : Scroller.Orientation.VERTICAL;
+
+		this.initiated = false;
+		this.scrolled = false;
+		this.moved = false;
+		this.touching = true;
+		this.scrollCanceled = false;
+
+		if ( this.orientation === Scroller.Orientation.HORIZONTAL ) {
+			this.maxScrollY = 0;
+			this.scrollerHeight = this.height;
+		} else {
+			this.maxScrollX = 0;
+			this.scrollerWidth = this.width;
 		}
 
-		this._scrollerDirection = direction;
+		this._initLayout();
+		this._initScrollbar();
 	},
 
-	setWidth: function( value ) {
-		this._scroller.style.width = value;
-		this._lsw = parseInt( value ) - this._width;
+	_initLayout: function() {
+		var elementStyle = this.element.style;
+
+		elementStyle.overflow = "hidden";
+		elementStyle.position = "relative";
 	},
 
-	setHeight: function( value ) {
-		this._scroller.style.height = value;
+	_initScrollbar: function() {
+		var scrollbarType = this.options.scrollbar,
+			orientation = this.options.orientation;
+
+		if ( scrollbarType ) {
+			this.scrollbar = new Scroller.Scrollbar(this.element, {
+				type: scrollbarType,
+				orientation : orientation
+			});
+		}
 	},
 
-	getWidth: function() {
-		return this._scroller.style.width;
+	_resetLayout: function() {
+		var elementStyle = this.element.style;
+
+		elementStyle.overflow = "";
+		elementStyle.position = "";
 	},
 
-	getHeight: function() {
-		return this._scroller.style.height;
+	_bindEvents: function( ) {
+		if ('ontouchstart' in window) {
+			this.scroller.addEventListener( "touchstart", this);
+			this.scroller.addEventListener( "touchmove", this);
+			this.scroller.addEventListener( "touchend", this);
+			this.scroller.addEventListener( "touchcancel", this);
+		} else {
+			this.scroller.addEventListener( "mousedown", this);
+			document.addEventListener( "mousemove", this);
+			document.addEventListener( "mouseup", this);
+			document.addEventListener( "mousecancel", this);
+		}
+
+		window.addEventListener( "resize", this);
 	},
 
-	getLastXPosition: function() {
-		return this._lastX;
+	_unbindEvents: function() {
+		if ('ontouchstart' in window) {
+			this.scroller.removeEventListener( "touchstart", this);
+			this.scroller.removeEventListener( "touchmove", this);
+			this.scroller.removeEventListener( "touchend", this);
+			this.scroller.removeEventListener( "touchcancel", this);
+		} else {
+			this.scroller.removeEventListener( "mousedown", this);
+			document.removeEventListener( "mousemove", this);
+			document.removeEventListener( "mouseup", this);
+			document.removeEventListener( "mousecancel", this);
+		}
+
+		window.removeEventListener( "resize", this);
 	},
 
-	getElement: function() {
-		return this._scroller;
+	handleEvent: function( event ) {
+		var pos = this._getPointPositionFromEvent( event );
+
+		switch (event.type) {
+		case "mousedown":
+		case "touchstart":
+			this._start( event, pos );
+			break;
+		case "mousemove":
+		case "touchmove":
+			this._move( event, pos );
+			break;
+		case "mouseup":
+		case "touchend":
+			this._end( event, pos );
+			break;
+		case "mousecancel":
+		case "touchcancel":
+			this.cancel( event );
+			break;
+		case "resize":
+			this.refresh();
+		}
+	},
+
+	setOptions: function (options) {
+		var name;
+		for ( name in options ) {
+			if ( options.hasOwnProperty(name) && !!options[name] ) {
+				this.options[name] = options[name];
+			}
+		}
+	},
+
+	refresh: function () {
+		this._clear();
+		this._init();
 	},
 
 	scrollTo: function( x, y, duration ) {
-		//This method try to move scroller
-		this._setElementTransform( x, y, duration );
+		this._translate( x, y, duration );
+		this._translateScrollbar( x, y, duration );
 	},
 
-	_setElementTransform: function( x, y, duration ) {
-
+	_translate: function( x, y, duration ) {
 		var translate,
 			transition,
-			scrollerStyle = this._scroller.style;
+			scrollerStyle = this.scrollerStyle;
 
-		if ( !this._dragging ){
-			this._lastX = x;
-		}
-
-		if ( !duration || duration === undefined ) {
+		if ( !duration ) {
 			transition = "none";
 		} else {
 			transition = "-webkit-transform " + duration / 1000 + "s ease-out";
 		}
 		translate = "translate3d(" + x + "px," + y + "px, 0)";
 
+		this.scrollerOffsetX = window.parseInt(x, 10);
+		this.scrollerOffsetY = window.parseInt(y, 10);
+
 		scrollerStyle["-webkit-transform"] = translate;
 		scrollerStyle["-webkit-transition"] = transition;
 	},
 
-	_getEstimatedCurrentPoint: function( currentX ) {
-		var velocity,
-			estimatedPointX = this.lastEstimatedPointX,
-			timeDifference = 15, /* pause time threshold.. tune the number to up if it is slow */
-			x;
+	_translateScrollbar: function( x, y, duration ) {
+		var offset;
 
-		velocity = ( currentX - this.lastTouchPointX ) / 22; /*46.8 s_moveEventPerSecond*/
-		x = currentX + ( timeDifference * velocity );
+		if ( !this.scrollbar ) {
+			return;
+		}
+
+		if ( this.orientation === Scroller.Orientation.HORIZONTAL ) {
+			offset = -x * this.width / this.scrollerWidth;
+		} else {
+			offset = -y * this.height / this.scrollerHeight;
+		}
+
+		this.scrollbar.translate( offset, duration );
+	},
+
+	_getEstimatedCurrentPoint: function( current, last ) {
+		var velocity,
+			timeDifference = 15, /* pause time threshold.. tune the number to up if it is slow */
+			estimated;
+
+		if (last === current) {
+			this.lastVelocity = 0;
+			this.lastEstimatedPoint = current;
+			return current;
+		}
+
+		velocity = ( current - last ) / 22; /*46.8 s_moveEventPerSecond*/
+		estimated = current + ( timeDifference * velocity );
 
 		// Prevent that point goes back even though direction of velocity is not changed.
 		if ( (this.lastVelocity  * velocity >= 0)
-				&& (!velocity || (velocity < 0 && x > this.lastEstimatedPointX)
-				|| (velocity > 0 && x < this.lastEstimatedPointX)) ) {
-			x = this.lastEstimatedPointX;
+				&& (!velocity || (velocity < 0 && estimated > this.lastEstimatedPoint)
+				|| (velocity > 0 && estimated < this.lastEstimatedPoint)) ) {
+			estimated = this.lastEstimatedPoint;
 		}
 
-		estimatedPointX = x;
 		this.lastVelocity = velocity;
+		this.lastEstimatedPoint = estimated;
 
-		return estimatedPointX;
+		return estimated;
 	},
-	_addEvent: function( ) {
-		var self = this,
-		startTime,
-		endTime;
 
-		self._ex = 0;
-		self._ey = 0;
-		self._sy = 0;
-		self._dir = "none";
-		self._beforeX = 0;
+	_getPointPositionFromEvent: function ( ev ) {
+		return ev.type.search(/^touch/) !== -1 && ev.touches && ev.touches.length ?
+				{x: ev.touches[0].clientX, y: ev.touches[0].clientY} :
+				{x: ev.clientX, y: ev.clientY};
+	},
 
-		self._scroller.addEventListener( "touchstart", function( e ) {
-			var touches = e.touches;
-			startTime = new Date();
-			// set oldTouchPointX to -1 if it starts touch.
-			self.lastTouchPointX = -1;
-			self.lastVelocity = 0;
-			self.lastX = touches[0].pageX;
+	_start: function( e, pos ) {
+		if ( this.initiated || !this.enabled ) {
+			return;
+		}
 
-			if ( !self._scrollerDirection || self._scrollerDirection === "vertical" ) {
-				// don't need to scroller
-				return;
-			}
-			self._ex = touches[0].pageX;
-			self._ey = touches[0].pageY;
-			self._sx = self._lastX;
-			self._dir = "none";
-			self._beforeX = self._lastX;
-			self._dragging = true;
-			scrollerStart.lastX = self._ex;
-			self._scroller.dispatchEvent( scrollerStart );
+		this.startTime = (new Date()).getTime();
 
-		});
+		this.startTouchPointX = pos.x;
+		this.startTouchPointY = pos.y;
+		this.startScrollerOffsetX = this.scrollerOffsetX;
+		this.startScrollerOffsetY = this.scrollerOffsetY;
+		this.lastTouchPointX = pos.x;
+		this.lastTouchPointY = pos.y;
 
-		self._scroller.addEventListener( "touchmove", function( e ) {
-			var touches = e.touches,
-				estimatedPointX = touches[0].pageX;
-			self._hInterval = 0;	// horizontal move interval
-			self._vInterval = touches[0].pageY - self._ey; // vertical move interval
+		this.initiated = true;
+		this.scrollCanceled = false;
+		this.scrolled = false;
+		this.moved = false;
+		this.touching = true;
+	},
 
-			if ( self.lastTouchPointX != -1 ) {
-				estimatedPointX= self._getEstimatedCurrentPoint( touches[0].pageX );
-			}
-			self._hInterval =  estimatedPointX - self._ex;
+	_move: function( e, pos ) {
+		var timestamp	= (new Date()).getTime(),
+			scrollDelay = this.options.scrollDelay || 0,
+			threshold = this.options.threshold || 0,
+			minThreshold = this.options.minThreshold || 0,
+			distX = this.startTouchPointX - pos.x,
+			distY = this.startTouchPointY - pos.y,
+			absDistX = Math.abs( distX ),
+			absDistY = Math.abs( distY ),
+			maxDist = Math.max( absDistX, absDistY ),
+			absDist = this.orientation === Scroller.Orientation.HORIZONTAL ? absDistX : absDistY,
+			newX, newY;
 
-			self.lastTouchPointX = touches[0].pageX;
-			self.lastEstimatedPointX = estimatedPointX;
+		if ( !this.initiated || !this.touching || this.scrollCanceled ) {
+			return;
+		}
 
-			if ( self._beforeX > estimatedPointX ){
-				// move left
-				self._dir = "left";
-			} else if ( self._beforeX < estimatedPointX) {
-				self._dir = "right";
-			} else {
-				self._dir = "none";
-			}
-			self._beforeX = estimatedPointX;
+		this.lastTouchPointX = pos.x;
+		this.lastTouchPointY = pos.y;
 
-			if ( self._dragging ) {
-				switch( self._scrollerDirection ) {
-				case !self._scrollerDirection || "vertical":
+		// We need to move at least 10 pixels, delay 300ms for the scrolling to initiate
+		if ( !this.scrolled &&
+				( maxDist < minThreshold ||
+						( maxDist < threshold && ( !scrollDelay || timestamp - this.startTime < scrollDelay ) ) ) ) {
+			//e.preventDefault();
+			return;
+		}
+
+		if ( !this.scrolled ) {
+			switch ( this.orientation ) {
+			case Scroller.Orientation.HORIZONTAL:
+				if ( absDistX < absDistY ) {
+					this.cancel();
 					return;
-				case "horizontal":
-					if ( Math.abs( self._vInterval ) > 2 * Math.abs( self._hInterval ) ) {
-						// invalid degree
-						self._sx = self._lastX;
-						e.preventDefault();
-						return;
-					}
-					break;
-				case "all":
-					// This condition need to threshold
-					if ( Math.abs( self._hInterval ) < self.options.threshold ) {
-						self._sx = self._lastX;
-						return;
-					}
 				}
-				//valid degree and over horizontal threshold
-				self._sx = self._lastX + self._hInterval;
-				if ( self._sx > 0 && self._dir !== "left" ) {
-					// left side
-					self._sx = 0;
-				} else if ( self._sx < -self._lsw && self._dir !== "right" ) {
-					self._sx = -self._lsw;
-				} else if ( ( self._sx > 0 && self._dir !== "right") || ( self._sx < -self._lsw && self._dir !== "left" ) ){
-					self.lastX = touches[0].pageX;
-					self._ex = touches[0].pageX;
-					self._ey = touches[0].pageY;
-					self._sx = self._lastX;
+				break;
+			case Scroller.Orientation.VERTICAL:
+				if ( absDistY < absDistX ) {
+					this.cancel();
+					return;
 				}
-				self._setElementTransform( self._sx, 0 );
-				scrollerMove.lastX = self._sx;
-				self._scroller.dispatchEvent( scrollerMove );
-				e.preventDefault(); //this function make overflow scroll don't used
-
-			}
-		});
-
-		self._scroller.addEventListener( "touchend", function( e ) {
-			endTime = new Date();
-			if ( !self._scrollerDirection || self._scrollerDirection === "vertical" ) {
-				// don't need to scroller
-				return;
-			}
-			self._dragging = false;
-			self._ex = 0;
-			self._lastX = self._sx;
-			if ( ( endTime - startTime ) <= 500 && Math.abs(self._hInterval) > self.options.flickThreshold && self._sx > -self._lsw && self._sx < 0) {
-				//flick
-				flick.interval = self._hInterval;
-				flick.lastX = self._lastX;
-				self._scroller.dispatchEvent( flick );
-			} else {
-				scrollerEnd.lastX = self._lastX;
-				self._scroller.dispatchEvent( scrollerEnd );
+				break;
 			}
 
-		});
+			this._fireEvent( eventType.START );
+
+			this.startTouchPointX = pos.x;
+			this.startTouchPointY = pos.y;
+		}
+
+		this.scrolled = true;
+
+		if ( this.orientation === Scroller.Orientation.HORIZONTAL ) {
+			newX = this.startScrollerOffsetX + this._getEstimatedCurrentPoint( pos.x, this.lastTouchPointX ) - this.startTouchPointX;
+			newY = this.startScrollerOffsetY;
+		} else {
+			newX = this.startScrollerOffsetX;
+			newY = this.startScrollerOffsetY + this._getEstimatedCurrentPoint( pos.y, this.lastTouchPointY ) - this.startTouchPointY;
+		}
+
+		if ( newX > 0 || newX < this.maxScrollX ) {
+			newX = newX > 0 ? 0 : this.maxScrollX;
+		}
+		if ( newY > 0 || newY < this.maxScrollY ) {
+			newY = newY > 0 ? 0 : this.maxScrollY;
+		}
+
+		if ( newX != this.scrollerOffsetX || newY != this.scrollerOffsetY ) {
+			this.moved = true;
+			this._translate( newX, newY );
+			this._translateScrollbar( newX, newY );
+			// TODO to dispatch move event is too expansive. it is better to use callback.
+			//this._fireEvent( eventType.MOVE );
+		}
+		e.preventDefault(); //this function make overflow scroll don't used
+	},
+
+	_end: function( e ) {
+		var lastX = Math.round(this.lastTouchPointX),
+			lastY = Math.round(this.lastTouchPointY),
+			distanceX = Math.abs(lastX - this.startTouchPointX),
+			distanceY = Math.abs(lastY - this.startTouchPointY),
+			distance = this.orientation === Scroller.Orientation.HORIZONTAL ? distanceX : distanceY,
+			maxDistance = this.orientation === Scroller.Orientation.HORIZONTAL ? this.maxScrollX : this.maxScrollY,
+			endOffset = this.orientation === Scroller.Orientation.HORIZONTAL ? this.scrollerOffsetX : this.scrollerOffsetY,
+			requestScrollEnd = this.initiated && this.scrolled,
+			endTime, duration, momentumX, momentumY;
+
+		this.touching = false;
+
+		if ( !requestScrollEnd || this.scrollCanceled ) {
+			this.initiated = false;
+			return;
+		}
+
+		if ( !this.moved ) {
+			this._endScroll();
+			return;
+		}
+
+		endTime = (new Date()).getTime();
+		duration = endTime - this.startTime;
+
+		// start momentum animation if needed
+		if ( this.options.momentum &&
+				duration < 300 &&
+				( endOffset < 0 && endOffset > maxDistance ) &&
+				( distance > this.options.flickThreshold )) {
+			this._startMomentumScroll();
+		} else {
+			this._endScroll();
+		}
+
+		e.preventDefault();
+	},
+
+	_endScroll: function() {
+		if ( this.scrolled ) {
+			this._fireEvent( eventType.END );
+		}
+
+		this.moved = false;
+		this.scrolled = false;
+		this.scrollCanceled = false;
+		this.initiated = false;
+	},
+
+	cancel: function() {
+		this.scrollCanceled = true;
+
+		if ( this.initiated ) {
+			this._translate( this.startScrollerOffsetX, this.startScrollerOffsetY );
+			this._translateScrollbar( this.startScrollerOffsetX, this.startScrollerOffsetY );
+			this._fireEvent( eventType.CANCEL );
+		}
+
+		this.initiated = false;
+		this.scrolled = false;
+		this.moved = false;
+		this.touching = false;
+	},
+
+	// TODO implement _startMomentumScroll method
+	_startMomentumScroll: function() {
+		this._endMomentumScroll();
+	},
+
+	_endMomentumScroll: function() {
+		this._endScroll();
+	},
+
+	_fireEvent: function(eventName, detail) {
+		var evt = new CustomEvent(eventName, {
+				"bubbles": true,
+				"cancelable": true,
+				"detail": detail
+			});
+		this.element.dispatchEvent(evt);
+	},
+
+	_clear: function() {
+		this.initiated = false;
+		this.scrolled = false;
+		this.moved = false;
+		this.scrollCanceled = false;
+		this.touching = false;
+
+		this._resetLayout();
+
+		if ( this.scrollbar ) {
+			this.scrollbar.destroy();
+		}
+		this.scrollbar = null;
+	},
+
+	disable: function () {
+		this.enabled = false;
+	},
+
+	enable: function () {
+		this.enabled = true;
+	},
+
+	destroy: function() {
+		this._clear();
+		this._unbindEvents();
+
+		this.scrollerStyle = null;
+		this.scroller = null;
 	}
 }
+
+window.Scroller = Scroller;
+
+})(this);
