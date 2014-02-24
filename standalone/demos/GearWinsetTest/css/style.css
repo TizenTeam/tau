@@ -56,10 +56,10 @@
         color: rgb(51, 51, 51);
 }
 .ui-listview li.li-has-multiline-sup > a {
-        margin-top: -38px;
-        margin-bottom: -10px;
-        padding-top: 45px;
-        padding-bottom: 20px;
+        margin-top: -47px;
+        margin-bottom: -14px;
+        padding-top: 38px;
+        padding-bottom: 14px;
 }
 .ui-listview li {
         position: relative;
