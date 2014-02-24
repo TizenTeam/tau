@@ -371,6 +371,9 @@
 							if (newPosition < 0) {
 								newPosition = 0;
 							}
+							if (currentIndex === 0) {
+								top = 0;
+							}
 							elementStyle.top = newPosition + "px";
 						}
 

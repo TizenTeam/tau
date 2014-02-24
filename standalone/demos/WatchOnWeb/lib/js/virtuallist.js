@@ -2462,6 +2462,9 @@
 							if (top < 0) {
 								top = 0;
 							}
+							if (currentIndex === 0) {
+								top = 0;
+							}
 							elementStyle.top = top + "px";
 						}
 
