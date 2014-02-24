@@ -30,14 +30,30 @@ var SwipeList = function ( listElement, callElement, messageElement, options ){
 
 SwipeList.prototype = {
 	_create: function( listElement, callElement, messageElement, options ) {
+		var page;
+		if( !this.listElement || !this.callElement || !this.messageElement ) {
+			// If developer don't give parameter, this object set default section
+			page = document.getElementsByClassName("ui-page-active");
+			this.listElement = page[0].getElementsByClassName("genlist","ul")[0];
+			this.callElement = page[0].getElementsByClassName("genlist-call","div")[0];
+			this.messageElement = page[0].getElementsByClassName("genlist-message","div")[0];
+		}
+
+		this.callElementBG = page[0].getElementsByClassName("genlist-call-background")[0];
+		this.messageElementBG = page[0].getElementsByClassName("genlist-message-background")[0];
 		this.listElement = listElement;
 		this.callElement = callElement;
 		this.messageElement = messageElement;
+		this.activeElement = callElement;
 
 		this.options = {};
 
+		this._multitouch = false;
 		this.startX = 0;
 		this.dragging = 0;
+		this._interval = 0;
+		this._lastScrollTop = 0;
+		this._lastElementTop = 0;
 
 		this._callElementStyle = this.callElement.style;
 		this._messageElementStyle = this.messageElement.style;
@@ -49,29 +65,26 @@ SwipeList.prototype = {
 	},
 
 	_init: function() {
-		var page;
-		if( !this.listElement || !this.callElement || !this.messageElement ) {
-			// If developer don't give parameter, this object set default section
-			page = document.getElementsByClassName("ui-page-active");
-			this.listElement = page[0].getElementsByClassName("genlist","ul")[0];
-			this.callElement = page[0].getElementsByClassName("genlist-call","div")[0];
-			this.messageElement = page[0].getElementsByClassName("genlist-message","div")[0];
-			this._create( listElement, callElement, messageElement );
-		}
+		this._callElementStyle["display"] = "none";
+		this._messageElementStyle["display"] = "none";
+		this._translate( this.callElementBG, this.options.callStartPosition, 0, 0 ) ;
+		this._translate( this.messageElementBG, this.options.messageStartPosition, 0, 0 ) ;
 
-		this._callElementStyle["background-position-x"] = "-400px";
-		this._messageElementStyle["background-position-x"] = "-80px";
-		this._callElementBPX = this._callElementStyle["background-position-x"];
-		this._messageElementBPX = this._messageElementStyle["background-position-x"];
 	},
 
 	_initOptions: function( options ){
 		this.options = {
-			threshold: 50
+			threshold: 50,
+			animationThreshold: 150,
+			animationDuration: 300,
+			callStartPosition: -320,
+			messageStartPosition: 0,
+			callEndPosition: 0,
+			messageEndPosition: -320
 		}
 		this.setOptions( options );
 	},
-	setOptions: function (options) {
+	setOptions: function ( options ) {
 		var name;
 		for ( name in options ) {
 			if ( options.hasOwnProperty(name) && !!options[name] ) {
@@ -82,16 +95,16 @@ SwipeList.prototype = {
 
 	_bindEvents: function( ) {
 		if ('ontouchstart' in window) {
-			this.listElement.addEventListener( "touchstart", this);
-			this.listElement.addEventListener( "touchmove", this);
-			this.listElement.addEventListener( "touchend", this);
+			this.listElement.addEventListener( "touchstart", this );
+			this.listElement.addEventListener( "touchmove", this );
+			this.listElement.addEventListener( "touchend", this );
 		} else {
-			this.listElement.addEventListener( "mousedown", this);
-			document.addEventListener( "mousemove", this);
-			document.addEventListener( "mouseup", this);
+			this.listElement.addEventListener( "mousedown", this );
+			document.addEventListener( "mousemove", this );
+			document.addEventListener( "mouseup", this );
 		}
 
-		window.addEventListener( "resize", this);
+		document.addEventListener( "webkitTransitionEnd", this );
 	},
 
 	_unbindEvents: function() {
@@ -105,7 +118,7 @@ SwipeList.prototype = {
 			document.removeEventListener( "mouseup", this);
 		}
 
-		window.removeEventListener( "resize", this);
+		document.removeEventListener( "webkitTransitionEnd", this );
 	},
 
 	handleEvent: function( event ) {
@@ -124,12 +137,34 @@ SwipeList.prototype = {
 		case "touchend":
 			this._end( event, pos );
 			break;
-		case "scroll":
-			this._end( event, pos );
+		case "webkitTransitionEnd":
+			this._transitionEnd( event );
 		}
 	},
 
+	_translate: function( elem, x, y, duration ) {
+		var translate,
+			transition,
+			elemStyle = elem.style;
+
+		if ( !duration ) {
+			transition = "none";
+		} else {
+			transition = "-webkit-transform " + duration / 1000 + "s ease-out";
+		}
+		translate = "translate3d(" + x + "px," + y + "px, 0)";
+
+		this.scrollerOffsetX = window.parseInt(x, 10);
+		this.scrollerOffsetY = window.parseInt(y, 10);
+
+		elemStyle["-webkit-transform"] = translate;
+		elemStyle["-webkit-transition"] = transition;
+	},
+
 	_getPointPositionFromEvent: function ( ev ) {
+		if ( ev.touches && ev.touches.length > 1) {
+			this._multitouch = true;
+		}
 		return ev.type.search(/^touch/) !== -1 && ev.touches && ev.touches.length ?
 				{x: ev.touches[0].clientX, y: ev.touches[0].clientY} :
 				{x: ev.clientX, y: ev.clientY};
@@ -151,91 +186,99 @@ SwipeList.prototype = {
 		return target;
 	},
 
-	_setMovingElementTop: function( element, lastScrollTop, lastElementTop ){
-		var diff = lastScrollTop - this.callElement.parentNode.scrollTop;
-		element.style.top = parseInt( lastElementTop,10 ) + diff + "px";
+	_setMovingElementTop: function( element ){
+
+		var diff = this._lastScrollTop - element.parentNode.scrollTop;
+		element.style.top = parseInt( this._lastElementTop, 10 ) + diff + "px";
 	},
 
 	_start: function( e, pos ) {
+		if ( this._multitouch === true ){
+			return;
+		}
 
 		if ( this._detectLiTarget( e.target ) ) {
 			this.startX = pos.x;
 			this.dragging = true;
 		}
+
 	},
 
 	_move: function( e, pos ) {
+		if ( this._multitouch === true ){
+			return;
+		}
 
-		var target = this._detectLiTarget(e.target),
-		sx = pos.x - this.startX,
-		top;
+		var target = this._detectLiTarget(e.target);
+
+		this._interval = pos.x - this.startX;
 
 		if( this.dragging && target ) {
-			top = target.offsetTop - this.callElement.parentNode.scrollTop + "px";
-			if ( sx > this.options.threshold ) {
-				// appear call scroller
-				this._callElementStyle["top"] = top;
-				this._callElementStyle["display"] = "block";
-				this._callElementStyle["background-position-x"] = parseInt( this._callElementBPX, 10 ) + sx + "px";
 
-				e.preventDefault();
-			} else if ( sx < -this.options.threshold ) {
-				this._messageElementStyle["top"] = top;
-				this._messageElementStyle["display"] = "block";
-				this._messageElementStyle["background-position-x"] = parseInt( this._messageElementBPX, 10 ) + sx + "px";
+			if ( Math.abs( this._interval ) > this.options.threshold ) {
+				if ( this._interval > 0 ) {
+					this.activeElement = this.callElement;
+					this._translate( this.callElementBG, this.options.callStartPosition + this._interval, 0, 0 );
+				} else {
+					this.activeElement = this.messageElement;
+					this._translate( this.messageElementBG, this.options.messageStartPosition + this._interval, 0, 0 );
+				}
+				this.activeElement.style.top = target.offsetTop - this.activeElement.parentNode.scrollTop + "px";
 
+				this.activeElement.style.display = "block";
+
+				this._activeFlag = true;
 				e.preventDefault();
+			} else {
+				this._setMovingElementTop( this.activeElement );
 			}
 		}
 	},
 
 	_end: function( e ) {
-		var interval,
-		lastScrollTop = this.callElement.parentNode.scrollTop,
-		lastElementTop,
-		self = this;
+		if ( this._multitouch === true ){
+			this._multitouch = false;
+			this.dragging = false;
+			return;
+		}
 
-		if( parseInt( self._callElementStyle["background-position-x"], 10 ) > -250 ) {
-			// animate call background x position
-			var i = parseInt( self._callElementStyle["background-position-x"], 10 );
-			lastElementTop = this.callElement.style.top;
-			(function animate(){
-				if ( i < 0 ){
-					self._setMovingElementTop( self.callElement, lastScrollTop, lastElementTop );
-					self._callElementStyle["background-position-x"] = i + "px";
-					i+=20;
-					webkitRequestAnimationFrame( animate );
-				} else {
-					self._callElementStyle["background-position-x"] = "-400px";
-					self._callElementStyle[ "display" ] = "none";
-					// fired custom event
-					self._fireEvent( eventType.CALL );
-				}
-			})();
+		this._lastScrollTop = this.activeElement.parentNode.scrollTop;
+		this._lastElementTop = this.activeElement.style.top;
 
-		} else if( parseInt( self._messageElementStyle["background-position-x"] ) < -250 ) {
-			// animate message background x position
-			var i = parseInt( self._messageElementStyle["background-position-x"], 10 );
-			lastElementTop = this.messageElement.style.top;
-			(function animate(){
-				if ( i > -400 ){
-					self._setMovingElementTop( self.messageElement, lastScrollTop, lastElementTop );
-					self._messageElementStyle["background-position-x"] = i + "px";
-					i-=20;
-					webkitRequestAnimationFrame( animate );
-				} else {
-					self._messageElementStyle["background-position-x"] = "-80px";
-					self._messageElementStyle[ "display" ] = "none";
-					// fired custom event
-					self._fireEvent( eventType.MESSAGE );
-				}
-			})();
+		if( this._interval > this.options.animationThreshold ) {
+			this._translate( this.callElementBG, this.options.callEndPosition, 0, this.options.animationDuration );
+			this._fireEvent( eventType.CALL );
+		} else if( this._interval < -this.options.animationThreshold ) {
+			this._translate( this.messageElementBG, this.options.messageEndPosition, 0, this.options.animationDuration );
+			this._fireEvent( eventType.MESSAGE );
 		} else {
+			this._translate( this.callElementBG, this.options.callStartPosition, 0, 0);
+			this._translate( this.messageElementBG, this.options.messageStartPosition, 0, 0);
 			this.callElement.style.display = "none";
 			this.messageElement.style.display = "none";
 		}
 
 		this.dragging = false;
+	},
+
+	_transitionEnd: function() {
+		if ( this._multitouch === true ){
+			return;
+		}
+		this.callElement.style.display = "none";
+		this.messageElement.style.display = "none";
+		this._translate( this.callElementBG, this.options.callStartPosition, 0, 0);
+		this._translate( this.messageElementBG, this.options.messageStartPosition, 0, 0);
+		this._activeFlag = false;
+	},
+
+	destroy: function() {
+
+		this._unbindEvents();
+
+		this.listElement = null;
+		this.callElement = null;
+		this.messageElement = null;
 	}
 }
 
