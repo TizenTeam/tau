@@ -72,17 +72,25 @@
         margin-top: 19px;
 }
 .ui-listview li.li-has-checkbox,
-.ui-listview li.li-has-radio {
-        padding-right: 68px;
+.ui-listview li.li-has-radio,
+.ui-listview li.li-has-multiline.li-has-radio,
+.ui-listview li.li-has-multiline.li-has-checkbox {
+        padding: 0;
 }
 .ui-listview li.li-has-checkbox label,
 .ui-listview li.li-has-radio label{
         display: block;
-        height: 45px;
+        line-height: 45px;
+        padding-bottom: 22px;
+        padding-left: 16px;
+        padding-right: 68px;
+        padding-top: 23px;
 }
 .ui-listview li.li-has-multiline.li-has-checkbox label,
 .ui-listview li.li-has-multiline.li-has-radio label {
-	height: 76px;
+        padding-left: 16px;
+        padding-top: 10px;
+        padding-bottom: 10px;
 }
 /* ------------------------------------------------------------------------------ */
 /* -----------------------------------  NEXT DEPTH------------------------------------ */
