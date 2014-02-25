@@ -223,7 +223,8 @@ IndexScrollbar.prototype = {
 			indexHeight = this.options.indexHeight,
 			leftHeight = containerHeight - indexHeight * indexSize,
 			addHeightOffset = leftHeight,
-			indexCellHeight, text, ul, li, frag, i, m;
+			indexCellHeight, text, ul, li, frag, i, m,
+			addMoreCharLineHeight = 9; // to adjust position of morechar
 
 		frag = document.createDocumentFragment();
 		ul = document.createElement("ul");
@@ -236,7 +237,7 @@ IndexScrollbar.prototype = {
 			li = document.createElement("li");
 			li.innerText = text;
 			li.style.height = indexCellHeight + "px";
-			li.style.lineHeight = indexCellHeight + "px";
+			li.style.lineHeight = text === moreChar ? indexCellHeight + addMoreCharLineHeight + "px" : indexCellHeight + "px";
 			ul.appendChild(li);
 		}
 
