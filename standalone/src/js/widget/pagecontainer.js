@@ -38,7 +38,7 @@ $.widget( "ui.pagecontainer", {
 		if ( $page.parent().filter( this.element ).length === 0 ) {
 			$page.prependTo( this.element );
 		}
-		if ( typeof $page.data( "page" ) !== "undefied" ) {
+		if ( typeof $page.data( "page" ) !== "undefined" ) {
 			$page.page();
 		}
 	},
@@ -117,7 +117,7 @@ $.widget( "ui.pagecontainer", {
 		$.each( pages, function(idx, page) {
 			var $page = $(page);
 
-			if ( typeof $page.data( "page" ) !== "undefied" ) {
+			if ( typeof $page.data( "page" ) !== "undefined" ) {
 				$page.page("setActive", false);
 			} else {
 				$page.removeClass(activeClass);
