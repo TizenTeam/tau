@@ -196,23 +196,27 @@ extend(SectionChanger, Scroller, {
 			preOffset = this.sectionPositions[this.activeIndex] * this.width;
 			offset = this.activeIndex * this.width;
 			fixedOffset = offset - preOffset;
-			offset = (-x + fixedOffset) * this.width / this.scrollerWidth;
+			offset = -x + fixedOffset;
 		} else {
-			offset = -y * this.height / this.scrollerHeight;
+			preOffset = this.sectionPositions[this.activeIndex] * this.height;
+			offset = this.activeIndex * this.height;
+			fixedOffset = offset - preOffset;
+			offset = -y + fixedOffset;
 		}
 
 		this.scrollbar.translate( offset, duration );
 	},
 
-	_translateScrollbarWithPageIndex: function(pageIndex) {
-		var offset;
+	_translateScrollbarWithPageIndex: function(pageIndex, duration) {
+		var sectionLength = this.sections.length,
+			barwidth,offset;
 
 		if ( !this.scrollbar ) {
 			return;
 		}
 
-		offset = pageIndex * this.width * this.width / this.scrollerWidth;
-		this.scrollbar.translate( offset );
+		offset = pageIndex * this.width;
+		this.scrollbar.translate( offset, duration );
 	},
 
 	_resetLayout: function() {
@@ -257,7 +261,7 @@ extend(SectionChanger, Scroller, {
 
 	setActiveSection: function( index, duration ) {
 		var activeClass = this.options.activeClass,
-			section, sectionLength, position, newX, newY, i;
+			scrollbarIndex, section, sectionLength, position, newX, newY, i;
 
 		sectionLength = this.sections.length;
 		position = this.sectionPositions[ index ];
@@ -268,6 +272,15 @@ extend(SectionChanger, Scroller, {
 		} else {
 			newY = -this.height * position;
 			newX = 0;
+		}
+
+		// scrollbar index when circular option is true.
+		if ( this.activeIndex - index > 1 ) {
+			scrollbarIndex = this.activeIndex + 1;
+		} else if ( this.activeIndex - index < -1 ) {
+			scrollbarIndex = this.activeIndex - 1;
+		} else {
+			scrollbarIndex = index;
 		}
 
 		this.activeIndex = index;
@@ -282,7 +295,7 @@ extend(SectionChanger, Scroller, {
 
 		if ( newX != this.scrollerOffsetX || newY != this.scrollerOffsetY ) {
 			this._translate( newX, newY, duration);
-			this._translateScrollbar( newX, newY, duration );
+			this._translateScrollbarWithPageIndex( scrollbarIndex, duration);
 		} else {
 			this._endScroll();
 		}
@@ -346,9 +359,9 @@ extend(SectionChanger, Scroller, {
 			return;
 		}
 
-		if ( !cancel && dist < 0 && this.direction < 0 && this.lastDirection < 0 ) {
+		if ( dist < 0 && this.direction < 0 && this.lastDirection < 0 ) {
 			newIndex = this.activeIndex + 1;
-		} else if ( !cancel && dist > 0 && this.direction > 0 && this.lastDirection > 0 ){
+		} else if ( dist > 0 && this.direction > 0 && this.lastDirection > 0 ){
 			newIndex = this.activeIndex - 1;
 		} else {
 			// canceled
@@ -388,10 +401,11 @@ extend(SectionChanger, Scroller, {
 			newY = -(this.height * ( circular ? centerPosition : this.activeIndex) );
 		}
 
+		this._translateScrollbarWithPageIndex(this.activeIndex);
+
 		if ( init || ( curPosition === 0 || curPosition === sectionLength - 1) ) {
 
 			this._translate( newX, newY );
-			this._translateScrollbarWithPageIndex(this.activeIndex);
 
 			if ( circular ) {
 				for ( i = 0; i < sectionLength; i++ ) {

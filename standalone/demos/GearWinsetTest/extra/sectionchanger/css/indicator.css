@@ -1,15 +1,17 @@
-.scrollbar-bar-type {
+.scrollbar-tab-type {
 	height: 6px;
 	background-color: rgb(53, 48, 44);
 }
 
-.scrollbar-bar-type .scrollbar-indicator {
+.scrollbar-tab-type .scrollbar-indicator {
 	position: absolute;
 	height: 6px;
+	margin-right: 1px;
+	margin-left: 1px;
 	background-color: rgb(255, 144, 0);
 }
 
-.scrollbar-over-type {
+.scrollbar-bar-type {
 	position: absolute;
 	left: 0px;
 	bottom: 0px;
@@ -17,9 +19,9 @@
 	height: 8px;
 }
 
-.scrollbar-over-type .scrollbar-indicator {
+.scrollbar-bar-type .scrollbar-indicator {
 	position: absolute;
 	height: 4px;
-	margin-top: 2px;
+	margin: 2px;
 	background-color: #666666;
 }

@@ -151,7 +151,7 @@ Scroller.prototype = {
 		if ( scrollbarType ) {
 			this.scrollbar = new Scroller.Scrollbar(this.element, {
 				type: scrollbarType,
-				orientation : orientation
+				orientation: orientation
 			});
 		}
 	},
@@ -200,10 +200,12 @@ Scroller.prototype = {
 
 		switch (event.type) {
 		case "mousedown":
+			event.preventDefault();
 		case "touchstart":
 			this._start( event, pos );
 			break;
 		case "mousemove":
+			event.preventDefault();
 		case "touchmove":
 			this._move( event, pos );
 			break;
@@ -217,6 +219,7 @@ Scroller.prototype = {
 			break;
 		case "resize":
 			this.refresh();
+			break;
 		}
 	},
 
@@ -265,13 +268,7 @@ Scroller.prototype = {
 			return;
 		}
 
-		if ( this.orientation === Scroller.Orientation.HORIZONTAL ) {
-			offset = -x * this.width / this.scrollerWidth;
-		} else {
-			offset = -y * this.height / this.scrollerHeight;
-		}
-
-		this.scrollbar.translate( offset, duration );
+		this.scrollbar.translate( this.orientation === Scroller.Orientation.HORIZONTAL ? -x : -y, duration );
 	},
 
 	_getEstimatedCurrentPoint: function( current, last ) {
