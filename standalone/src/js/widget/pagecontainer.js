@@ -38,7 +38,7 @@ $.widget( "ui.pagecontainer", {
 		if ( $page.parent().filter( this.element ).length === 0 ) {
 			$page.prependTo( this.element );
 		}
-		if ( typeof $page.data( "page" ) !== "undefined" ) {
+		if ( typeof $page.data( "page" ) === "undefined" ) {
 			$page.page();
 		}
 	},
