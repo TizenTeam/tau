@@ -1,6 +1,14 @@
-/*global window, define */
-/*jslint nomen: true */
-(function (window, ns) {
+/*jslint nomen: true, plusplus: true */
+/*
+* Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
+/**
+ * @class ej.widget.micro.VirtualGrid
+ * @extends @class ej.widget.micro.VirtualList
+ * @author Maciej Urbanski <m.urbanski@samsung.com>
+ */
+(function (window, document, ns) {
 	"use strict";
 	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 	define(
@@ -26,9 +34,9 @@
 						 * @method
 						 * @param {HTMLElement} element List item to be modified.
 						 * @param {number} index Index of data set.
-						 * @memberOf ej.widget.VirtualListview
+						 * @memberOf ej.widget.micro.VirtualGrid
 						 */
-						listItemUpdater: function() {
+						listItemUpdater: function () {
 							return null;
 						}
 					};
@@ -40,13 +48,16 @@
 				parent_refreshScrollbar = VirtualListPrototype._refreshScrollbar;
 
 			prototype.draw = function () {
-				var newDiv = document.createElement('div');
+				var newDiv = null,
+					newDivStyle = null;
 				if (this.options.orientation === 'x') {
+					newDiv = document.createElement('div');
+					newDivStyle = newDiv.style;
 					this.element.parentNode.appendChild(newDiv);
 					newDiv.appendChild(this.element);
 					newDiv.appendChild(this.ui.spacer);
-					newDiv.style.width = '10000px';
-					newDiv.style.height = '100%';
+					newDivStyle.width = '10000px';
+					newDivStyle.height = '100%';
 					this.ui.container = newDiv;
 				}
 				this._initListItem();
@@ -54,41 +65,46 @@
 			};
 			
 			prototype._refreshScrollbar = function () {
-				var width = 0;
+				var width = 0,
+					ui = this.ui;
 				parent_refreshScrollbar.call(this);
-				if (this.ui.container) {
-					width = this.element.clientWidth + this.ui.spacer.clientWidth;
-					this.ui.container.style.width = width + 'px';
+				if (ui.container) {
+					width = this.element.clientWidth + ui.spacer.clientWidth;
+					ui.container.style.width = width + 'px';
 				}
 			};
 
-			prototype._initListItem = function() {
+			prototype._initListItem = function () {
 				var self = this,
 					thisElement = self.element,
 					element = document.createElement('div'),
 					rowElement = document.createElement('div'),
 					elementStyle = element.style,
-					orientation = self.options.orientation;
+					orientation = self.options.orientation,
+					thisElementStyle = thisElement.style,
+					rowElementStyle = rowElement.style;
+
 				elementStyle.overflow = 'hidden';
 				elementStyle.float = 'left';
 				rowElement.style.overflow = 'hidden';
 				thisElement.appendChild(rowElement);
 				rowElement.appendChild(element);
 				self.options.listItemUpdater(element, 0);
+
 				if (orientation === 'y') {
-					thisElement.style.overflowY = 'auto';
-					thisElement.style.overflowX = 'hidden';
-					rowElement.style.overflow = 'hidden';
+					thisElementStyle.overflowY = 'auto';
+					thisElementStyle.overflowX = 'hidden';
+					rowElementStyle.overflow = 'hidden';
 					element.style.float = 'left';
 					self._cellSize = DOM.getElementWidth(element);
 					self._columnsCount = Math.floor(DOM.getElementWidth(thisElement) / self._cellSize);
 				} else {
-					thisElement.style.overflowX = 'auto';
-					thisElement.style.overflowY = 'hidden';
-					rowElement.style.overflow = 'hidden';
-					rowElement.style.float = 'left';
-					thisElement.style.height = '100%';
-					rowElement.style.height = '100%';
+					thisElementStyle.overflowX = 'auto';
+					thisElementStyle.overflowY = 'hidden';
+					rowElementStyle.overflow = 'hidden';
+					rowElementStyle.float = 'left';
+					thisElementStyle.height = '100%';
+					rowElementStyle.height = '100%';
 					self._cellSize = DOM.getElementHeight(element);
 					self._columnsCount = Math.floor(DOM.getElementHeight(thisElement) / self._cellSize);
 				}
@@ -97,7 +113,7 @@
 				self.options.dataLength /= self._columnsCount;
 			};
 
-			prototype._updateListItem = function(element, index) {
+			prototype._updateListItem = function (element, index) {
 				var elementI,
 					i,
 					count,
@@ -143,4 +159,4 @@
 		}
 	);
 	//>>excludeEnd("ejBuildExclude");
-}(window, window.ej));
+}(window, window.document, window.ej));

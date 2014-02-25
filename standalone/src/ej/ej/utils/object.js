@@ -1,10 +1,15 @@
 /*global window, define */
+/*
+* Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
 /**
  * #Object utilities
  * Namespace with helpers function connected with objects.
  *
  * @class ej.utils.object
  * @author Maciej Urbanski <m.urbanski@samsung.com>
+ * @author Piotr Karny <p.karny@samsung.com>
  */
 (function (ej) {
 	"use strict";

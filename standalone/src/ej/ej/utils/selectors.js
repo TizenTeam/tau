@@ -1,10 +1,16 @@
 /*global define: true, window: true */
-
+/*
+* Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
 /**
- * @class ej.utils.selectors
+ * @class ns.utils.selectors
  * Utils class with selectors functions
+ * @author Maciej Urbanski <m.urbanski@samsung.com>
+ * @author Krzysztof Antoszek <k.antoszek@samsung.com>
+ * @author Jadwiga Sosnowska <j.sosnowska@partner.samsung.com>
  */
-(function (document, ej) {
+(function (document, ns) {
 	"use strict";
 	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 	define(
@@ -19,7 +25,7 @@
 				* @return {string}
 				* @private
 				* @static
-				* @memberOf ej.utils.selectors
+				* @memberOf ns.utils.selectors
 				*/
 				matchesSelectorType = (function () {
 					var el = document.createElement("div");
@@ -68,7 +74,7 @@
 			* @return {?HTMLElement}
 			* @static
 			* @private
-			* @memberOf ej.utils.selectors
+			* @memberOf ns.utils.selectors
 			*/
 			function closest(element, testFunction) {
 				var current = element;
@@ -93,7 +99,7 @@
 				return node.tagName.toLowerCase() === tagName;
 			}
 
-			ej.utils.selectors = {
+			ns.utils.selectors = {
 				/**
 				* Runs matches implementation of matchesSelector
 				* method on specified element
@@ -102,7 +108,7 @@
 				* @param {string} Selector
 				* @return {boolean}
 				* @static
-				* @memberOf ej.utils.selectors
+				* @memberOf ns.utils.selectors
 				*/
 				matchesSelector: matchesSelector,
 
@@ -113,7 +119,7 @@
 				* @param {string} selector
 				* @return {Array}
 				* @static
-				* @memberOf ej.utils.selectors
+				* @memberOf ns.utils.selectors
 				*/
 				getChildrenBySelector: function (context, selector) {
 					return slice.call(context.children).filter(testSelector.bind(null, selector));
@@ -126,10 +132,10 @@
 				* @param {string} dataSelector
 				* @return {Array}
 				* @static
-				* @memberOf ej.utils.selectors
+				* @memberOf ns.utils.selectors
 				*/
 				getChildrenByDataNS: function (context, dataSelector) {
-					var namespace = ej.get('namespace'),
+					var namespace = ns.get('namespace'),
 						fullDataSelector = '[data-' + (namespace ? namespace + '-' : '') + dataSelector + ']';
 					return slice.call(context.children).filter(testSelector.bind(null, fullDataSelector));
 				},
@@ -141,7 +147,7 @@
 				* @param {string} className
 				* @return {Array}
 				* @static
-				* @memberOf ej.utils.selectors
+				* @memberOf ns.utils.selectors
 				*/
 				getChildrenByClass: function (context, className) {
 					return slice.call(context.children).filter(testClass.bind(null, className));
@@ -154,7 +160,7 @@
 				* @param {string} tagName
 				* @return {Array}
 				* @static
-				* @memberOf ej.utils.selectors
+				* @memberOf ns.utils.selectors
 				*/
 				getChildrenByTag: function (context, tagName) {
 					return slice.call(context.children).filter(testTag.bind(null, tagName));
@@ -167,7 +173,7 @@
 				* @param {string} selector
 				* @return {Array}
 				* @static
-				* @memberOf ej.utils.selectors
+				* @memberOf ns.utils.selectors
 				*/
 				getParents: parents,
 
@@ -178,7 +184,7 @@
 				* @param {string} selector
 				* @return {Array}
 				* @static
-				* @memberOf ej.utils.selectors
+				* @memberOf ns.utils.selectors
 				*/
 				getParentsBySelector: function (context, selector) {
 					return parents(context).filter(testSelector.bind(null, selector));
@@ -191,10 +197,10 @@
 				* @param {string} selector
 				* @return {Array}
 				* @static
-				* @memberOf ej.utils.selectors
+				* @memberOf ns.utils.selectors
 				*/
 				getParentsBySelectorNS: function (context, selector) {
-					var namespace = ej.get('namespace'),
+					var namespace = ns.get('namespace'),
 						fullSelector = '[data-' + (namespace ? namespace + '-' : '') + selector + ']';
 					return parents(context).filter(testSelector.bind(null, fullSelector));
 				},
@@ -206,7 +212,7 @@
 				* @param {string} className
 				* @return {Array}
 				* @static
-				* @memberOf ej.utils.selectors
+				* @memberOf ns.utils.selectors
 				*/
 				getParentsByClass: function (context, className) {
 					return parents(context).filter(testClass.bind(null, className));
@@ -219,7 +225,7 @@
 				* @param {string} tagName
 				* @return {Array}
 				* @static
-				* @memberOf ej.utils.selectors
+				* @memberOf ns.utils.selectors
 				*/
 				getParentsByTag: function (context, tagName) {
 					return parents(context).filter(testTag.bind(null, tagName));
@@ -232,7 +238,7 @@
 				* @param {string} selector
 				* @return {HTMLElement}
 				* @static
-				* @memberOf ej.utils.selectors
+				* @memberOf ns.utils.selectors
 				*/
 				getClosestBySelector: function (context, selector) {
 					return closest(context, testSelector.bind(null, selector));
@@ -245,10 +251,10 @@
 				* @param {string} selector
 				* @return {HTMLElement}
 				* @static
-				* @memberOf ej.utils.selectors
+				* @memberOf ns.utils.selectors
 				*/
 				getClosestBySelectorNS: function (context, selector) {
-					var namespace = ej.get('namespace'),
+					var namespace = ns.get('namespace'),
 						fullSelector = '[data-' + (namespace ? namespace + '-' : '') + selector + ']';
 					return closest(context, testSelector.bind(null, fullSelector));
 				},
@@ -260,7 +266,7 @@
 				* @param {string} selector
 				* @return {HTMLElement}
 				* @static
-				* @memberOf ej.utils.selectors
+				* @memberOf ns.utils.selectors
 				*/
 				getClosestByClass: function (context, selector) {
 					return closest(context, testClass.bind(null, selector));
@@ -273,7 +279,7 @@
 				* @param {string} selector
 				* @return {HTMLElement}
 				* @static
-				* @memberOf ej.utils.selectors
+				* @memberOf ns.utils.selectors
 				*/
 				getClosestByTag: function (context, selector) {
 					return closest(context, testTag.bind(null, selector));
@@ -286,16 +292,16 @@
 				* @param {string} dataSelector
 				* @return {Array}
 				* @static
-				* @memberOf ej.utils.selectors
+				* @memberOf ns.utils.selectors
 				*/
 				getAllByDataNS: function (context, dataSelector) {
-					var namespace = ej.get('namespace'),
+					var namespace = ns.get('namespace'),
 						fullDataSelector = '[data-' + (namespace ? namespace + '-' : '') + dataSelector + ']';
 					return slice.call(context.querySelectorAll(fullDataSelector));
 				}
 			};
 			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
-			return ej.utils.selectors;
+			return ns.utils.selectors;
 		}
 	);
 	//>>excludeEnd("ejBuildExclude");

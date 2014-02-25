@@ -1,7 +1,12 @@
 /*global window, define*/
 /*jslint bitwise: true */
-/**
- * @class ej.support
+/*
+* Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
+/** @namespace ej.micro.selectors */
+/*
+ * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
 (function (ej) {
 	"use strict";

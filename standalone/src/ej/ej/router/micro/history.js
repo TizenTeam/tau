@@ -1,5 +1,13 @@
 /*global window, define */
-(function (window, ej) {
+/*
+* Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
+/**
+ * @class ns.router.micro.history
+ * @author Maciej Urbanski <m.urbanski@samsung.com>
+ */
+(function (window, ns) {
 	"use strict";
 	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 	define(
@@ -9,14 +17,28 @@
 		],
 		function () {
 			//>>excludeEnd("ejBuildExclude");
-			/** @namespace ej.router.micro.route */
 			var historyVolatileMode,
-				object = ej.utils.object,
+				object = ns.utils.object,
 				historyUid = 0,
 				historyActiveIndex = 0,
 				windowHistory = window.history,
 				history = {
+					/**
+					 * Active state in history
+					 * @property {Object} activeState
+					 * @public
+					 * @static
+					 * @memberOf ns.router.micro.history
+					 */
 					activeState : null,
+
+					/**
+					 * Replace or push to history
+					 * @param {Object} state
+					 * @public
+					 * @static
+					 * @memberOf ns.router.micro.history
+					 */
 					replace: function (state, pageTitle, url) {
 						var newState = object.multiMerge({},
 								state,
@@ -60,9 +82,8 @@
 						historyVolatileMode = false;
 					}
 				};
-			ej.router.micro.history = history;
+			ns.router.micro.history = history;
 			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
-			return history;
 		}
 	);
 	//>>excludeEnd("ejBuildExclude");

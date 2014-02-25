@@ -1,6 +1,13 @@
 /*global window, define*/
 /*jslint bitwise: true */
-(function (window, document, ej) {
+/*
+* Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
+/*
+ * @author Maciej Urbanski <m.urbanski@samsung.com>
+ */
+(function (window, document, ns) {
 	"use strict";
 	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 	define(
@@ -9,10 +16,10 @@
 		],
 		function () {
 			//>>excludeEnd("ejBuildExclude");
-			ej.set('rootDir', ej.getFrameworkPath());
-			ej.set('version', '');
-			ej.set('allowCrossDomainPages', false);
-			ej.set('domCache', false);
+			ns.set('rootDir', ns.getFrameworkPath());
+			ns.set('version', '');
+			ns.set('allowCrossDomainPages', false);
+			ns.set('domCache', false);
 			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 			return window.ejConfig;
 		}

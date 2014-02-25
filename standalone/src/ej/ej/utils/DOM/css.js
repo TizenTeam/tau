@@ -1,7 +1,17 @@
 /*global window, define */
 /*jslint plusplus: true */
 /*jshint -W069 */
-(function (window, document, ej) {
+/*
+* Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
+/*
+ * @author Jadwiga Sosnowska <j.sosnowska@partner.samsung.com>
+ * @author Krzysztof Antoszek <k.antoszek@samsung.com>
+ * @author Maciej Moczulski <m.moczulski@samsung.com>
+ * @author Piotr Karny <p.karny@samsung.com>
+ */
+(function (window, document, ns) {
 	"use strict";
 	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 	define(
@@ -11,18 +21,18 @@
 		function () {
 			//>>excludeEnd("ejBuildExclude");
 
-			var DOM = ej.utils.DOM;
+			var DOM = ns.utils.DOM;
 
 			/**
-			* Returns css property for element
-			* @param {HTMLElement} element
-			* @param {string} property
-			* @param {string=} [def] default returned value
-			* @param {string=} [type] auto type casting
-			* @return {string|number|null}
-			* @memberOf ej.utils.DOM
-			* @static
-			*/
+			 * Returns css property for element
+			 * @param {HTMLElement} element
+			 * @param {string} property
+			 * @param {string=} [def] default returned value
+			 * @param {string=} [type] auto type casting
+			 * @return {string|number|null}
+			 * @memberOf ns.utils.DOM
+			 * @static
+			 */
 			DOM.getCSSProperty = function (element, property, def, type) {
 				var style = window.getComputedStyle(element),
 					value = null,
@@ -53,21 +63,21 @@
 			};
 
 			/**
-			* Extracts css properties from computed css for an element
-			* The properties values are applied to the specified
-			* properties list (dictionary)
-			* @param {HTMLElement} element
-			* @param {Object} properties
-			* @param {string=} [pseudoSelector]
-			* @param {boolean=} [noConversion]
-			* @memberOf ej.utils.DOM
-			* @static
-			*/
+			 * Extracts css properties from computed css for an element.
+			 * The properties values are applied to the specified
+			 * properties list (dictionary)
+			 * @param {HTMLElement} element
+			 * @param {Object} properties
+			 * @param {string=} [pseudoSelector]
+			 * @param {boolean=} [noConversion]
+			 * @memberOf ns.utils.DOM
+			 * @static
+			 */
 			DOM.extractCSSProperties = function (element, properties, pseudoSelector, noConversion) {
 				var style = window.getComputedStyle(element, pseudoSelector),
 					property = null,
 					value = null,
-					utils = ej.utils;
+					utils = ns.utils;
 				for (property in properties) {
 					if (properties.hasOwnProperty(property)) {
 						value = style.getPropertyValue(property);
@@ -85,38 +95,38 @@
 			};
 
 			/**
-			* Returns elements height from computed style
-			* @param {HTMLElement} element
-			* @param {string=} [type] outer|inner
-			* @param {boolean=} [includeOffset]
-			* @param {boolean=} [includeMargin]
-			* @param {string=} [pseudoSelector]
-			* @param {boolean=} [force] check even if element is hidden
-			* @return {number}
-			* @memberOf ej.utils.DOM
-			* @static
-			*/
+			 * Returns elements height from computed style
+			 * @param {HTMLElement} element
+			 * @param {string=} [type] outer|inner
+			 * @param {boolean=} [includeOffset]
+			 * @param {boolean=} [includeMargin]
+			 * @param {string=} [pseudoSelector]
+			 * @param {boolean=} [force] check even if element is hidden
+			 * @return {number}
+			 * @memberOf ns.utils.DOM
+			 * @static
+			 */
 			DOM.getElementHeight = function (element, type, includeOffset, includeMargin, pseudoSelector, force) {
 				var height = 0,
 					style,
 					originalDisplay = null,
 					originalVisibility = null,
 					originalPosition = null,
-					outer = (type && type === 'outer') || false,
+					outer = (type && type === "outer") || false,
 					offsetHeight = 0,
 					props = {
-						'height': 0,
-						'margin-top': 0,
-						'margin-bottom': 0,
-						'padding-top': 0,
-						'padding-bottom': 0,
-						'border-top-width': 0,
-						'border-bottom-width': 0
+						"height": 0,
+						"margin-top": 0,
+						"margin-bottom": 0,
+						"padding-top": 0,
+						"padding-bottom": 0,
+						"border-top-width": 0,
+						"border-bottom-width": 0
 					};
 				if (element) {
 					style = element.style;
 					
-					if (style.display !== 'none') {
+					if (style.display !== "none") {
 						this.extractCSSProperties(element, props, pseudoSelector);
 						offsetHeight = element.offsetHeight;
 					} else if (force) {
@@ -124,9 +134,9 @@
 						originalVisibility = style.visibility;
 						originalPosition = style.position;
 
-						style.display = 'block';
-						style.visibility = 'hidden';
-						style.position = 'relative';
+						style.display = "block";
+						style.visibility = "hidden";
+						style.position = "relative";
 
 						this.extractCSSProperties(element, props, pseudoSelector);
 						offsetHeight = element.offsetHeight;
@@ -136,9 +146,9 @@
 						style.position = originalPosition;
 					}
 
-					height += props['height'] + props['padding-top'] + props['padding-bottom'];
+					height += props["height"] + props["padding-top"] + props["padding-bottom"];
 					if (outer) {
-						height += props['border-top-width'] + props['border-bottom-width'];
+						height += props["border-top-width"] + props["border-bottom-width"];
 					}
 
 					if (includeOffset) {
@@ -146,24 +156,24 @@
 					}
 
 					if (includeMargin) {
-						height += props['margin-top'] + props['margin-bottom'];
+						height += props["margin-top"] + props["margin-bottom"];
 					}
 				}
 				return height;
 			};
 
 			/**
-			* Returns elements width from computed style
-			* @param {HTMLElement} element
-			* @param {string=} [type] outer|inner
-			* @param {boolean=} [includeOffset]
-			* @param {boolean=} [includeMargin]
-			* @param {string=} [pseudoSelector]
-			* @param {boolean=} [force] check even if element is hidden
-			* @return {number}
-			* @memberOf ej.utils.DOM
-			* @static
-			*/
+			 * Returns elements width from computed style
+			 * @param {HTMLElement} element
+			 * @param {string=} [type] outer|inner
+			 * @param {boolean=} [includeOffset]
+			 * @param {boolean=} [includeMargin]
+			 * @param {string=} [pseudoSelector]
+			 * @param {boolean=} [force] check even if element is hidden
+			 * @return {number}
+			 * @memberOf ns.utils.DOM
+			 * @static
+			 */
 			DOM.getElementWidth = function (element, type, includeOffset, includeMargin, pseudoSelector, force) {
 				var width = 0,
 					style,
@@ -171,20 +181,20 @@
 					originalVisibility = null,
 					originalPosition = null,
 					offsetWidth = 0,
-					outer = (type && type === 'outer') || false,
+					outer = (type && type === "outer") || false,
 					props = {
-						'width': 0,
-						'margin-left': 0,
-						'margin-right': 0,
-						'padding-left': 0,
-						'padding-right': 0,
-						'border-left-width': 0,
-						'border-right-width': 0
+						"width": 0,
+						"margin-left": 0,
+						"margin-right": 0,
+						"padding-left": 0,
+						"padding-right": 0,
+						"border-left-width": 0,
+						"border-right-width": 0
 					};
 				if (element) {
 					style = element.style;
 					
-					if (style.display !== 'none') {
+					if (style.display !== "none") {
 						this.extractCSSProperties(element, props, pseudoSelector);
 						offsetWidth = element.offsetWidth;
 					} else if (force) {
@@ -192,9 +202,9 @@
 						originalVisibility = style.visibility;
 						originalPosition = style.position;
 
-						style.display = 'block';
-						style.visibility = 'hidden';
-						style.position = 'relative';
+						style.display = "block";
+						style.visibility = "hidden";
+						style.position = "relative";
 
 						this.extractCSSProperties(element, props, pseudoSelector);
 						
@@ -203,9 +213,9 @@
 						style.position = originalPosition;
 					}
 
-					width += props['width'] + props['padding-left'] + props['padding-right'];
+					width += props["width"] + props["padding-left"] + props["padding-right"];
 					if (outer) {
-						width += props['border-left-width'] + props['border-right-width'];
+						width += props["border-left-width"] + props["border-right-width"];
 					}
 
 					if (includeOffset) {
@@ -213,14 +223,14 @@
 					}
 
 					if (includeMargin) {
-						width += props['margin-left'] + props['margin-right'];
+						width += props["margin-left"] + props["margin-right"];
 					}
 				}
 				return width;
 			};
 
 			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
-			return ej.utils.DOM;
+			return ns.utils.DOM;
 		}
 	);
 	//>>excludeEnd("ejBuildExclude");

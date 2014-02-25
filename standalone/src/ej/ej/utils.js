@@ -1,8 +1,14 @@
 /*global window, define */
 /*jslint nomen: true */
+/*
+* Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
 /** @namespace ej.utils */
 /**
  * @class ej.utils
+ * @author Maciej Urbanski <m.urbanski@samsung.com>
+ * @author Krzysztof Antoszek <k.antoszek@samsung.com>
  */
 (function (window, ej) {
 	"use strict";
@@ -13,65 +19,66 @@
 		],
 		function () {
 		//>>excludeEnd("ejBuildExclude");
+			var currentFrame = null,
 				/**
-				* return requestAnimationFrame function
+				* requestAnimationFrame function
 				* @method requestAnimationFrame
 				* @return {Function}
 				* @memberOf ej.utils
 				* @static
 				*/
-			var requestAnimationFrame = (function () {
-					return window.requestAnimationFrame
-						|| window.webkitRequestAnimationFrame
-						|| window.mozRequestAnimationFrame
-						|| window.oRequestAnimationFrame
-						|| function (callback) {
-							window.setTimeout(callback, 1000 / 60);
-						};
-				}()).bind(window),
+				requestAnimationFrame = window.requestAnimationFrame ||
+					window.webkitRequestAnimationFrame ||
+					window.mozRequestAnimationFrame ||
+					window.oRequestAnimationFrame ||
+					function (callback) {
+						currentFrame = window.setTimeout(callback.bind(callback, +new Date()), 1000 / 60);
+					},
+
 				/**
-				* return cancelAnimationFrame function
-				* @method requestAnimationFrame
-				* @return {Function}
-				* @memberOf ej.utils
-				* @static
+				* Class with utils functions
+				* @class ej.utils
 				*/
-				cancelAnimationFrame = (function () {
-					return window.cancelAnimationFrame
-						|| window.webkitCancelAnimationFrame
-						|| window.mozCancelAnimationFrame
-						|| window.oCancelAnimationFrame
-						|| function (id) {
-							window.clearTimeout(id);
-						};
-				}()).bind(window);
+				/** @namespace ej.utils */
+				utils = ej.utils || {};
+
+			utils.requestAnimationFrame = requestAnimationFrame;
 
 			/**
-			* Class with utils functions
-			* @class ej.utils
+			* cancelAnimationFrame function
+			* @method requestAnimationFrame
+			* @return {Function}
+			* @memberOf ej.utils
+			* @static
 			*/
-			/** @namespace ej.utils */
-			ej.utils = {
-				requestAnimationFrame: requestAnimationFrame,
-				cancelAnimationFrame: cancelAnimationFrame,
-				/**
-				* @alias requestAnimationFrame
-				*/
-				async: requestAnimationFrame,
+			utils.cancelAnimationFrame = window.cancelAnimationFrame ||
+					window.webkitCancelAnimationFrame ||
+					window.mozCancelAnimationFrame ||
+					window.oCancelAnimationFrame ||
+					function () {
+						// propably wont work if there is any more than 1
+						// active animationFrame but we are trying anyway
+						window.clearTimeout(currentFrame);
+					};
 
-				/**
-				* Checks if specified string is a number or not
-				* @method isNumber
-				* @return {boolean}
-				* @memberOf ej.utils
-				* @static
-				*/
-				isNumber: function (query) {
-					var parsed = parseFloat(query);
-					return !isNaN(parsed) && isFinite(parsed);
-				}
+			/**
+			* @alias requestAnimationFrame
+			*/
+			utils.async = requestAnimationFrame;
+
+			/**
+			* Checks if specified string is a number or not
+			* @method isNumber
+			* @return {boolean}
+			* @memberOf ej.utils
+			* @static
+			*/
+			utils.isNumber = function (query) {
+				var parsed = parseFloat(query);
+				return !isNaN(parsed) && isFinite(parsed);
 			};
 
+			ej.utils = utils;
 			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 			return ej.utils;
 		}

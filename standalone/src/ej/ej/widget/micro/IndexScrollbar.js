@@ -1,5 +1,12 @@
 /*global window, define */
 /*jslint nomen: true, plusplus: true */
+/*
+* Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
+/*
+ * @author Maciej Urbanski <m.urbanski@samsung.com>
+ */
 (function (document, ns) {
 	"use strict";
 	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
@@ -17,13 +24,13 @@
 				events = ns.utils.events,
 				/**
 				* IndexScrollbar widget
-				* @class ej.widget.micro.IndexScrollbar
-				* @extends ej.widget.BaseWidget
+				* @class ns.widget.micro.IndexScrollbar
+				* @extends ns.widget.BaseWidget
 				*/
 				IndexScrollbar = function () {
 					var self = this;
 					/**
-					* @memberOf ej.widget.micro.IndexScrollbar
+					* @memberOf ns.widget.micro.IndexScrollbar
 					*/
 
 					self.options = {
@@ -34,7 +41,8 @@
 						index: [ "A", "B", "C", "D", "E", "F", "G", "H",
 								"I", "J", "K", "L", "M", "N", "O", "P", "Q",
 								"R", "S", "T", "U", "V", "W", "X", "Y", "Z", "1"],
-						maxIndexSize: 9,
+						maxIndexLen: 0,
+						indexHeight: 36,
 						delayTime: 50,
 						container: null
 					};
@@ -45,13 +53,15 @@
 					self.touchAreaOffsetLeft = 0;
 					self.indexElements = null;
 					self.selectEventTriggerTimeoutId = null;
+					self.ulMarginTop = 0;
+					self._extended = false;
 
 					self.indexCellInfomations = {
 						indices: [],
 						mergedIndices: [],
 						indexLookupTable: [],
 
-						clear: function() {
+						clear: function () {
 							var indexCellInfomations = this;
 							indexCellInfomations.indices.length = 0;
 							indexCellInfomations.mergedIndices.length = 0;
@@ -78,7 +88,6 @@
 					self._updateLayout(element);
 					self._setExtended(true);
 				}
-				self.widgetName = "IndexScrollbar";
 				return element;
 			};
 
@@ -91,7 +100,7 @@
 			};
 
 			prototype._setExtended = function (flag) {
-				this.extended = flag;
+				this._extended = flag;
 				return this;
 			};
 
@@ -100,48 +109,66 @@
 					index = options.index;
 				if (typeof index === 'string') {
 					index = index.split(options.delimeter);
+					options.index = index;
 				}
 				return index;
 			};
 
-			/**	Draw additinoal sub-elements
-			*	@param {array} indices	List of index string
+			prototype._getContainer = function (element) {
+				return this.options.container || element.parentNode;
+			},
+
+			/** Draw additinonal sub-elements
+			* @param {Array} indices List of index string
+			* @memberOf ns.widget.micro.IndexScrollbar
 			*/
 			prototype._draw = function (element) {
 				var self = this,
-					container = element.parentNode,
-					moreChar = self.options.moreChar,
-					indices = self.indexCellInfomations.indices,
-					mergedIndices = self.indexCellInfomations.mergedIndices,
+					options = self.options,
+					indexCellInfomations = self.indexCellInfomations,
+					container = self._getContainer(element),
+					moreChar = options.moreChar,
+					indices = indexCellInfomations.indices,
+					mergedIndices = indexCellInfomations.mergedIndices,
 					indexSize = mergedIndices.length,
-					indexHeight = container.offsetHeight,
-					indexItemHeight = window.parseInt(indexHeight / indexSize),
-					leftHeight = indexHeight - indexItemHeight*indexSize,
+					containerHeight = container.offsetHeight,
+					indexHeight = options.indexHeight,
+					leftHeight = containerHeight - indexHeight * indexSize,
 					addHeightOffset = leftHeight,
-					indexCellHeight, text, ul, li, i, m;
+					indexCellHeight,
+					text,
+					ul,
+					li,
+					i,
+					m,
+					addMoreCharLineHeight = 9; // to adjust position of morechar
 
 				ul = document.createElement("ul");
-				for (i=0; i < indexSize; i++) {
+				for (i = 0; i < indexSize; i++) {
 					m = mergedIndices[i];
 					text = m.length === 1 ? indices[m.start] : moreChar;
-					indexCellHeight = i < addHeightOffset ? indexItemHeight + 1 : indexItemHeight;
+					indexCellHeight = i < addHeightOffset ? indexHeight + 1 : indexHeight;
 
 					li = document.createElement("li");
 					li.textContent = text;
 					li.style.height = indexCellHeight + "px";
-					li.style.lineHeight = indexCellHeight + "px";
+					li.style.lineHeight = text === moreChar ? indexCellHeight + addMoreCharLineHeight + "px" : indexCellHeight + "px";
 					ul.appendChild(li);
 				}
+				// Set ul's margin-top
+				self.ulMarginTop = Math.floor((parseInt(containerHeight, 10) - indexSize * indexHeight)/2);
+				ul.style.marginTop = self.ulMarginTop + "px";
 				element.appendChild(ul);
 
 				return self;
 			};
 
-			prototype._createIndicator = function(element) {
+			prototype._createIndicator = function (element) {
 				var self = this,
 					indicator = document.createElement("DIV"),
-					container = element.parentNode;
+					container = self._getContainer(element);
 
+				indicator.setAttribute("id", element.id + "-div-indicator");
 				indicator.className = self.options.indicatorClass;
 				indicator.innerHTML = "<span></span>";
 				container.insertBefore(indicator, element);
@@ -149,18 +176,19 @@
 				self.indicator = indicator;
 			};
 
-			prototype._removeIndicator = function() {
+			prototype._removeIndicator = function () {
 				this.indicator.parentNode.removeChild(this.indicator);
 			};
 
-			prototype._changeIndicator = function( idx/*, cellElement */) {
+			prototype._changeIndicator = function (idx/*, cellElement */) {
 				var self = this,
-					selectedClass = self.options.selectedClass,
+					options = self.options,
+					selectedClass = options.selectedClass,
 					cellInfomations = self.indexCellInfomations,
 					cellElement,
 					val;
 
-				if ( !self.indicator || idx === self.index ) {
+				if (!self.indicator || idx === self.index) {
 					return false;
 				}
 
@@ -175,49 +203,53 @@
 
 				self.index = idx;
 
-				if ( self.selectEventTriggerTimeoutId ) {
+				if (self.selectEventTriggerTimeoutId) {
 					window.clearTimeout(self.selectEventTriggerTimeoutId);
 				}
-				self.selectEventTriggerTimeoutId = window.setTimeout(function() {
+				self.selectEventTriggerTimeoutId = window.setTimeout(function () {
 					events.trigger(self.element, "select", {index: val});
 					self.selectEventTriggerTimeoutId = null;
-				}.bind(self), self.options.delayTime);
+				}.bind(self), options.delayTime);
 
 			};
 
-			prototype._clearSelected = function() {
+			prototype._clearSelected = function () {
 				var el = this.element,
 					selectedClass = this.options.selectedClass,
-					selectedElement = el.getElementByClassName(selectedClass),
+					selectedElements = el.getElementsByClassName(selectedClass),
+					selectedElementsLen = selectedElements.length,
 					i;
 
-				for (i=0; i<selectedElement; i++) {
-					selectedElement[i].classList.remove(selectedClass);
+				for (i = 0; i < selectedElementsLen; i++) {
+					selectedElements[i].classList.remove(selectedClass);
 				}
 			};
 
-			prototype._getPositionFromEvent = function( ev ) {
+			prototype._getPositionFromEvent = function (ev) {
 				return ev.type.search(/^touch/) !== -1 ?
 						{x: ev.touches[0].clientX, y: ev.touches[0].clientY} :
 						{x: ev.clientX, y: ev.clientY};
 			};
 
-			prototype._findIndexByPosition = function( posY ) {
+			prototype._findIndexByPosition = function (posY) {
 				var rectTable = this.indexCellInfomations.indexLookupTable,
-					i, len, info, range;
-				for ( i=0, len=rectTable.length; i < len; i++) {
+					i,
+					len,
+					info,
+					range;
+				for (i = 0, len = rectTable.length; i < len; i++) {
 					info = rectTable[i];
 					range = posY - info.top;
-					if ( range > 0 && range < info.range ) {
+					if (range >= 0 && range < info.range) {
 						return i;
 					}
 				}
 				return -1;
 			};
 
-			prototype._showIndicator = function() {
+			prototype._showIndicator = function () {
 				var self = this;
-				if ( self.isShowIndicator || !this.indicator ) {
+				if (self.isShowIndicator || !self.indicator) {
 					return false;
 				}
 
@@ -225,9 +257,9 @@
 				self.isShowIndicator = true;
 			};
 
-			prototype._hideIndicator = function() {
+			prototype._hideIndicator = function () {
 				var self = this;
-				if ( !self.isShowIndicator || !self.indicator ) {
+				if (!self.isShowIndicator || !self.indicator) {
 					return false;
 				}
 
@@ -237,55 +269,54 @@
 				self.index = null;
 			};
 
-			prototype._onTouchStartHandler = function( ev ) {
-				var self = this,
-					pos = self._getPositionFromEvent( ev ),
-					idx = self._findIndexByPosition( pos.y );
+			prototype._onTouchStartHandler = function ( self, event ) {
+				var pos = self._getPositionFromEvent(event),
+					idx = self._findIndexByPosition(pos.y);
 
-				if ( idx < 0 ) {
+				if (idx < 0) {
 					idx = 0;
 				}
 
-				self._changeIndicator(idx, ev.target);
+				self._changeIndicator(idx, event.target);
 				self._showIndicator();
 			};
 
-			prototype._onTouchEndHandler = function(/* ev */) {
-				this._hideIndicator();
+			prototype._onTouchEndHandler = function ( self, event) {
+				if ( event.touches.length <= 1 ) {
+					self._hideIndicator();
+				}
 			};
 
-			prototype._onTouchMoveHandler = function( ev ) {
-				var self,
-					pos,
+			prototype._onTouchMoveHandler = function ( self, event ) {
+				var pos,
 					idx;
 
-				if ( !self.isShowIndicator ) {
-					return;
+				if (self.isShowIndicator && event.touches.length === 1 ) {
+					pos = self._getPositionFromEvent(event);
+					idx = self._findIndexByPosition(pos.y);
+
+					if (idx > -1 && pos.x > self.touchAreaOffsetLeft) {
+						self._changeIndicator(idx, event.target);
+					}
+
+					event.preventDefault();
+					event.stopPropagation();
 				}
-
-				pos = self._getPositionFromEvent( ev );
-				idx = self._findIndexByPosition( pos.y );
-
-				if ( idx > -1 && pos.x > self.touchAreaOffsetLeft ) {
-					self._changeIndicator(idx, ev.target);
-				}
-
-				ev.preventDefault();
-				ev.stopPropagation();
 			};
 
-			prototype._bindResizeEvent = function() {
+			prototype._bindResizeEvent = function () {
 				var self = this;
-				self.eventHandlers.onresize = function(/* ev */) {
+				self.eventHandlers.onresize = function (/* ev */) {
 					self.refresh();
 				};
 
-				window.addEventListener( "resize", self.eventHandlers.onresize );
+				window.addEventListener("resize", self.eventHandlers.onresize, false);
 			};
 
-			prototype._unbindResizeEvent = function() {
-				if ( this.eventHandlers.onresize ) {
-					window.removeEventListener( "resize", this.eventHandlers.onresize );
+			prototype._unbindResizeEvent = function () {
+				var event = this.eventHandlers.onresize;
+				if (event) {
+					window.removeEventListener("resize", event, false);
 				}
 			};
 
@@ -305,54 +336,78 @@
 				}
 			}
 
-			prototype._updateLayout = function(element) {
-				var self = this,
-					container = element.parentNode,
+			prototype._setLayoutValues = function (element) {
+				var indicator = this.indicator,
+					container = this._getContainer(element),
 					positionStyle = window.getComputedStyle(container).position,
 					containerOffsetTop = container.offsetTop,
 					containerOffsetLeft = container.offsetLeft,
-					indicatorStyle = self.indicator.style;
-	
-				if (self.indicator) {
+					indicatorStyle = indicator.style;
+
+				if (indicator) {
 					indicatorStyle.width = container.offsetWidth + "px";
 					indicatorStyle.height = container.offsetHeight + "px";
 				}
-	
+
 				if (positionStyle !== "absolute" && positionStyle !== "relative") {
 					element.style.top = containerOffsetTop + "px";
 					indicatorStyle.top = containerOffsetTop + "px";
 					indicatorStyle.left = containerOffsetLeft + "px";
 				}
-	
+			};
+
+			prototype._setMaxIndexLen = function(element) {
+				var options = this.options,
+					maxIndexLen = options.maxIndexLen,
+					container = this._getContainer(element),
+					containerHeight = container.offsetHeight;
+
+				// this should be counted always (during initialization and resizing)
+				maxIndexLen = Math.floor( containerHeight / options.indexHeight );
+
+				if(maxIndexLen > 0 && maxIndexLen%2 === 0) {
+					maxIndexLen -= 1;	// Ensure odd number
+				}
+				options.maxIndexLen = maxIndexLen;
+			},
+
+			prototype._updateLayout = function(element) {
+				var self = this;
+				self._setLayoutValues(element);
+				self._setMaxIndexLen(element);
 				self._updateIndexCellInfomation();
 				self._draw(element);
 				self._updateIndexCellRectInfomation(element);
-	
-				self.touchAreaOffsetLeft = element.offsetLeft - 10;
-			};
 
-			prototype._updateIndexCellInfomation = function() {
+				self.touchAreaOffsetLeft = element.offsetLeft - 10;
+			},
+
+			prototype._updateIndexCellInfomation = function () {
 				var self = this,
-					maxIndexSize = self.options.maxIndexSize,
+					indexCellInfomations = self.indexCellInfomations,
+					maxIndexLen = self.options.maxIndexLen,
 					indices = self._getIndex(),
-					showIndexSize = Math.min( indices.length, maxIndexSize ),
 					indexSize = indices.length,
-					totalLeft = indexSize - maxIndexSize,
-					leftPerItem = window.parseInt(totalLeft / (window.parseInt(showIndexSize/2))),
-					left = totalLeft % (window.parseInt(showIndexSize/2)),
+					showIndexSize = Math.min(indexSize, maxIndexLen),
+					totalLeft = indexSize - maxIndexLen,
+					leftPerItem = window.parseInt(totalLeft / (window.parseInt(showIndexSize / 2, 10)), 10),
+					left = totalLeft % (window.parseInt(showIndexSize / 2, 10)),
 					indexItemSizeArr = [],
 					mergedIndices = [],
-					i, len, pos=0;
+					i,
+					len,
+					pos = 0;
 
-				for ( i=0, len=showIndexSize; i < len; i++ ) {
+				for (i = 0, len = showIndexSize; i < len; i++) {
 					indexItemSizeArr[i] = 1;
-					if ( i % 2 ) {
-						indexItemSizeArr[i] += leftPerItem + ( left > 0 ? 1 : 0);
+					// if counter is even, we will put 'moreChar' sign, which symbolizes for leftPerItem[+1] items
+					if (i % 2) {
+						indexItemSizeArr[i] += leftPerItem + (left > 0 ? 1 : 0);
 						left--;
 					}
 				}
 
-				for ( i=0, len=showIndexSize; i < len; i++) {
+				for (i = 0, len = showIndexSize; i < len; i++) {
 					pos += indexItemSizeArr[i];
 
 					mergedIndices.push({
@@ -361,24 +416,25 @@
 					});
 				}
 
-				self.indexCellInfomations.indices = indices;
-				self.indexCellInfomations.mergedIndices = mergedIndices;
+				indexCellInfomations.indices = indices;
+				indexCellInfomations.mergedIndices = mergedIndices;
 			};
 
-			prototype._updateIndexCellRectInfomation = function(element) {
+			prototype._updateIndexCellRectInfomation = function (element) {
 				var self = this,
 					mergedIndices = self.indexCellInfomations.mergedIndices,
-					containerOffset = self._getOffset(element.parentNode).top,
+					containerOffset = self._getOffset(self._getContainer(element)).top,
 					indexLookupTable = [];
 
-				[].forEach.call(element.querySelectorAll("li"), function(node, idx) {
-					var m = mergedIndices[idx],
-						i = m.start,
-						len = i + m.length,
+				[].forEach.call(element.getElementsByTagName("li"), function (node, idx) {
+					var mergedIndice = mergedIndices[idx],
+						mergedIndiceLen = mergedIndice.length,
+						i = mergedIndice.start,
+						len = i + mergedIndiceLen,
 						top = containerOffset + node.offsetTop,
-						height = node.offsetHeight / m.length;
-	
-					for ( ; i < len; i++ ) {
+						height = node.offsetHeight / mergedIndiceLen;
+
+					for ( ; i < len; i++) {
 						indexLookupTable.push({
 							cellIndex: idx,
 							top: top,
@@ -387,7 +443,7 @@
 						top += height;
 					}
 				});
-	
+
 				self.indexCellInfomations.indexLookupTable = indexLookupTable;
 				self.indexElements = element.children[0].children;
 			};
@@ -402,9 +458,14 @@
 				return self;
 			};
 
-			prototype._getOffset = function( element ) {
-				var left=0,
-					top=0 ;
+			prototype._unbindEvent = function () {
+				this._unbindResizeEvent();
+				this._unbindEventToTriggerSelectEvent();
+			};
+
+			prototype._getOffset = function (element) {
+				var left = 0,
+					top = 0;
 				do {
 					top += element.offsetTop;
 					left += element.offsetLeft;
@@ -418,44 +479,69 @@
 			};
 
 			prototype._refresh = function () {
-				var self = this;
-				if( self._isExtended() ) {
+				var self = this,
+					bindEvents = false;
+				if (self._isExtended()) {
 					self._unbindEvent();
 					self._hideIndicator();
 					self._clear();
-					self._extended( false );
+					self._setExtended(false);
+					bindEvents = true;
 				}
 
 				self._updateLayout(self.element);
-				self._extended( true );
+				if (bindEvents) {
+					self._bindResizeEvent();
+					self._bindEventToTriggerSelectEvent();
+				}
+				self._setExtended(true);
 			};
 
-			prototype._bindEventToTriggerSelectEvent = function() {
-				var self = this;
-				self.eventHandlers.touchStart = self._onTouchStartHandler.bind(self);
-				self.eventHandlers.touchEnd = self._onTouchEndHandler.bind(self);
-				self.eventHandlers.touchMove = self._onTouchMoveHandler.bind(self);
+			prototype._bindEventToTriggerSelectEvent = function () {
+				var self = this,
+					element = self.element;
+				self.eventHandlers.touchStart = self._onTouchStartHandler.bind(null, self);
+				self.eventHandlers.touchEnd = self._onTouchEndHandler.bind(null, self);
+				self.eventHandlers.touchMove = self._onTouchMoveHandler.bind(null, self);
 
-				self.element.addEventListener("touchstart", self.eventHandlers.touchStart);
-				self.element.addEventListener("touchmove", self.eventHandlers.touchMove);
-				document.addEventListener("touchend", self.eventHandlers.touchEnd);
-				document.addEventListener("touchcancel", self.eventHandlers.touchEnd);
+				element.addEventListener("touchstart", self.eventHandlers.touchStart, false);
+				element.addEventListener("touchmove", self.eventHandlers.touchMove, false);
+				document.addEventListener("touchend", self.eventHandlers.touchEnd, false);
+				document.addEventListener("touchcancel", self.eventHandlers.touchEnd, false);
 			};
 
-			prototype._unbindEventToTriggerSelectEvent = function() {
-				var self = this;
-				self.element.removeEventListener("touchstart", self.eventHandlers.touchStart);
-				self.element.removeEventListener("touchmove", self.eventHandlers.touchMove);
-				document.removeEventListener("touchend", self.eventHandlers.touchEnd);
-				document.removeEventListener("touchcancel", self.eventHandlers.touchEnd);
+			prototype._unbindEventToTriggerSelectEvent = function () {
+				var self = this,
+					element = self.element;
+				element.removeEventListener("touchstart", self.eventHandlers.touchStart, false);
+				element.removeEventListener("touchmove", self.eventHandlers.touchMove, false);
+				document.removeEventListener("touchend", self.eventHandlers.touchEnd, false);
+				document.removeEventListener("touchcancel", self.eventHandlers.touchEnd, false);
 			};
 
-			prototype.addEventListener = function (type, listener) {
-				this.element.addEventListener(type, listener);
+
+			/* This method registers the specified listener
+			 * @method addEventListener
+			 * @param {string} type name of the event to listen for
+			 * @param {Function} listener event handler function to associate with the event
+			 * @param {boolean} [capture] specifies whether the event needs to be captured or not
+			 * @memberOf ns.widget.micro.IndexScrollbar,
+			 * @instance
+			 */
+			prototype.addEventListener = function (type, listener, capture) {
+				this.element.addEventListener(type, listener, capture);
 			};
 
-			prototype.removeEventListener = function (type, listener) {
-				this.element.removeEventListener(type, listener);
+			/* This method removes the specified listener
+			 * @method removeEventListener
+			 * @param {string} type name of the event being registered
+			 * @param {Function} listener event handler function to associate with the event
+			 * @param {boolean} [capture] specifies whether the event needs to be captured or not
+			 * @memberOf ns.widget.micro.IndexScrollbar
+			 * @instance
+			 */
+			prototype.removeEventListener = function (type, listener, capture) {
+				this.element.removeEventListener(type, listener, capture);
 			};
 
 			/**
@@ -463,25 +549,27 @@
 			* @method _init
 			* @param {HTMLElement} element
 			* @new
-			* @memberOf ej.widget.micro.IndexScrollbar
+			* @memberOf ns.widget.micro.IndexScrollbar
 			*/
 			prototype._init = function (element) {
+				var self = this;
+				self._setExtended(true);
+				self.indicator = document.getElementById(element.id + "-div-indicator");
 				return element;
 			};
 
 			/**
 			* @method _destroy
 			* @private
-			* @memberOf ej.widget.micro.IndexScrollbar
+			* @memberOf ns.widget.micro.IndexScrollbar
 			*/
 			prototype._destroy = function () {
 				var self = this;
 				self._unbindEvent();
 				self._removeIndicator();
 				self._clear();
-				self._extended( false );
+				self._setExtended(false);
 
-				self.element = null;
 				self.indicator = null;
 				self.index = null;
 				self.isShowIndicator = false;

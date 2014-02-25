@@ -1,7 +1,15 @@
 /*global window, define */
 /*jslint plusplus: true, nomen: true */
-//  * @TODO add support of $.mobile.buttonMarkup.hoverDelay
-(function (document, frameworkNamespace, namespace) {
+/*
+* Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
+/**
+ * @class gear.ui.utils
+ * @override gear.ui
+ * @author Maciej Urbanski <m.urbanski@samsung.com>
+ */
+(function (document, frameworkNamespace, ns) {
 	"use strict";
 	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 	define(
@@ -17,7 +25,7 @@
 					name = definition.name,
 					engine = frameworkNamespace.engine;
 
-				namespace[name] = (function (definitionName) {
+				ns[name] = (function (definitionName) {
 					return function (element, options) {
 						return engine.instanceWidget(element, definitionName, options);
 					};

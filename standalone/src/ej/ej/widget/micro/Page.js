@@ -1,6 +1,14 @@
 /*global window, define */
 /*jslint nomen: true */
-(function (document, ej) {
+/*
+* Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
+/*
+ * @author Maciej Urbanski <m.urbanski@samsung.com>
+ * @author Piotr Karny <p.karny@samsung.com>
+ */
+(function (document, ns) {
 	"use strict";
 	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 	define(
@@ -10,19 +18,21 @@
 			"../../engine",
 			"../../utils/selectors",
 			"../../utils/events",
+			"../../utils/DOM",
 			"../micro",
 			"../BaseWidget"
 		],
 		function () {
 			//>>excludeEnd("ejBuildExclude");
-			var BaseWidget = ej.widget.BaseWidget,
-				selectors = ej.micro.selectors,
-				engine = ej.engine,
-				events = ej.utils.events,
+			var BaseWidget = ns.widget.BaseWidget,
+				selectors = ns.micro.selectors,
+				doms = ns.utils.DOM,
+				engine = ns.engine,
+				events = ns.utils.events,
 				/**
 				* Page widget
-				* @class ej.widget.micro.Page
-				* @extends ej.widget.BaseWidget
+				* @class ns.widget.micro.Page
+				* @extends ns.widget.BaseWidget
 				*/
 				Page = function () {
 					this.pageSetHeight = false;
@@ -36,7 +46,7 @@
 					* @property {string} [options.headerTheme='s'] Page header theme. If headerTheme is empty `theme` will be used
 					* @property {string} [options.footerTheme='s'] Page footer theme. If footerTheme is empty `theme` will be used
 					* @property {boolean} [options.addBackBtn=false] **[REMOVED]** Add back button
-					* @memberOf ej.widget.micro.Page
+					* @memberOf ns.widget.micro.Page
 					*/
 					this.options = {
 					};
@@ -51,7 +61,7 @@
 				},
 				/**
 				* @property {Object} classes Dictionary for button related css class names
-				* @memberOf ej.widget.micro.Page
+				* @memberOf ns.widget.micro.Page
 				* @static
 				*/
 				classes = {
@@ -62,7 +72,9 @@
 					uiFooter: 'ui-footer',
 					uiContent: 'ui-content',
 					uiPageScroll: 'ui-page-scroll'
-				};
+				},
+				prototype = new BaseWidget();
+
 			Page.classes = classes;
 			Page.events = EventType;
 
@@ -74,14 +86,12 @@
 			selectors.content = '.' + classes.uiContent;
 			selectors.pageScroll = '.' + classes.uiPageScroll;
 
-			Page.prototype = new BaseWidget();
-
 			/**
 			* Sets top-bottom css attributes for content element
 			* to allow it to fill the page dynamically
 			* @method contentFill
-			* @param {ej.widget.micro.Page} self
-			* @memberOf ej.widget.micro.Page
+			* @param {ns.widget.micro.Page} self
+			* @memberOf ns.widget.micro.Page
 			* @private
 			* @static
 			*/
@@ -103,7 +113,7 @@
 					if (node.nodeType === 1 &&
 							(node.classList.contains(headerSelector) ||
 								node.classList.contains(footerSelector))) {
-						extraHeight += node.offsetHeight;
+						extraHeight += doms.getElementHeight(node);
 					}
 				});
 				children.forEach(function (node) {
@@ -127,9 +137,9 @@
 			* @param {string} template
 			* @param {HTMLElement} element
 			* @return {HTMLElement}
-			* @memberOf ej.widget.micro.Page
+			* @memberOf ns.widget.micro.Page
 			*/
-			Page.prototype._build = function (template, element) {
+			prototype._build = function (template, element) {
 				element.classList.add(Page.classes.uiPage);
 				return element;
 			};
@@ -141,13 +151,18 @@
 			* @private
 			* @param {boolean} value if true then page will be active if false page will be unactive
 			* @instance
-			* @memberOf ej.widget.micro.Page
+			* @memberOf ns.widget.micro.Page
 			*/
-			Page.prototype.setActive = function (value) {
-				this.element.classList.toggle(classes.uiPageActive, value);
+			prototype.setActive = function (value) {
+				var elementClassList = this.element.classList;
+				if ( value ) {
+					elementClassList.add("ui-page-active");
+				} else {
+					elementClassList.remove("ui-page-active");
+				}
 			};
 
-			Page.prototype._bindEvents = function (element) {
+			prototype._bindEvents = function (element) {
 				var self = this;
 				this.contentFillCallback = contentFill.bind(null, this);
 				this.contentFillAfterResizeCallback = function () {
@@ -162,9 +177,9 @@
 			* refresh structure
 			* @method _refresh
 			* @new
-			* @memberOf ej.widget.micro.Page
+			* @memberOf ns.widget.micro.Page
 			*/
-			Page.prototype._refresh = function () {
+			prototype._refresh = function () {
 				contentFill(this);
 			};
 
@@ -173,38 +188,38 @@
 			* @method _init
 			* @param {HTMLElement} element
 			* @new
-			* @memberOf ej.widget.micro.Page
+			* @memberOf ns.widget.micro.Page
 			*/
-			Page.prototype._init = function (element) {
+			prototype._init = function (element) {
 				this.element = element;
 				contentFill(this);
 			};
 
-			Page.prototype.onBeforeShow = function () {
+			prototype.onBeforeShow = function () {
 				events.trigger(this.element, EventType.BEFORE_SHOW);
 			};
 
-			Page.prototype.onShow = function () {
+			prototype.onShow = function () {
 				events.trigger(this.element, EventType.SHOW);
 			};
 
-			Page.prototype.onBeforeHide = function () {
+			prototype.onBeforeHide = function () {
 				events.trigger(this.element, EventType.BEFORE_HIDE);
 			};
 
-			Page.prototype.onHide = function () {
+			prototype.onHide = function () {
 				events.trigger(this.element, EventType.HIDE);
 			};
 			/**
 			* @method _destroy
 			* @private
-			* @memberOf ej.widget.micro.Page
+			* @memberOf ns.widget.micro.Page
 			*/
-			Page.prototype._destroy = function () {
+			prototype._destroy = function () {
 				var childWidgets = this.element.querySelectorAll("[data-ej-built='true']");
 
 				//>>excludeStart("ejDebug", pragmas.ejDebug);
-				ej.log("Called _destroy in ej.widget.micro.Page");
+				ns.log("Called _destroy in ns.widget.micro.Page");
 				//>>excludeEnd("ejDebug");
 
 				window.removeEventListener("resize", this.contentFillAfterResizeCallback, false);
@@ -214,15 +229,17 @@
 					var binding = engine.getBinding(widgetElement);
 					if (binding) {
 						//>>excludeStart("ejDebug", pragmas.ejDebug);
-						ej.log("Called .destroy() on Page child widget: " + binding.name + " with id: " + binding.id);
+						ns.log("Called .destroy() on Page child widget: " + binding.name + " with id: " + binding.id);
 						//>>excludeEnd("ejDebug");
 						binding.destroy();
 					}
 				});
 			};
 
+			Page.prototype = prototype;
+
 			// definition
-			ej.widget.micro.Page = Page;
+			ns.widget.micro.Page = Page;
 			engine.defineWidget(
 				"page",
 				"",
@@ -232,7 +249,6 @@
 				'micro'
 			);
 			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
-			return ej.widget.micro.Page;
 		}
 	);
 	//>>excludeEnd("ejBuildExclude");

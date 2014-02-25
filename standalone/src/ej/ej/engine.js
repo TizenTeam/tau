@@ -1,10 +1,23 @@
-/*global window, define, console */
+/*global window, define */
 /*jslint nomen: true, plusplus: true */
+/*
+* Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
+
 /**
- * @class ej.engine
+ * @class ns.engine
  * Main class with engine of library
+ * @author Maciej Urbanski <m.urbanski@samsung.com>
+ * @author Krzysztof Antoszek <k.antoszek@samsung.com>
+ * @author Michal Szepielak <m.szepielak@samsung.com>
+ * @author Jadwiga Sosnowska <j.sosnowska@partner.samsung.com>
+ * @author Maciej Moczulski <m.moczulski@samsung.com>
+ * @author Piotr Karny <p.karny@samsung.com>
+ * @author Tomasz Lukawski <t.lukawski@samsung.com>
+ * @author Przemyslaw Ciezkowski <p.ciezkowski@samsung.com>
  */
-(function (window, document, ej) {
+(function (window, document, ns) {
 	"use strict";
 	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 	define(
@@ -16,8 +29,7 @@
 		function (require) {
 			//>>excludeEnd("ejBuildExclude");
 			var slice = [].slice,
-				eventUtils = ej.utils.events,
-				globalBindings = {},
+				eventUtils = ns.utils.events,
 				widgetDefs = {},
 				widgetBindingMap = {},
 				body = document.body,
@@ -39,8 +51,8 @@
 				dataEjBound = "data-ej-bound",
 				dataEjSelector = "data-ej-selector",
 				dataEjBinding = "data-ej-binding",
-				querySelectorWidgets = '*['+dataEjBuilt+'=true]['+dataEjBinding+']['+dataEjSelector+']['+dataEjName+']:not(['+dataEjBound+'])',
-				excludeBuiltAndBound = ":not(["+dataEjBuilt+"]):not(["+dataEjBound+"])",
+				querySelectorWidgets = '*[' + dataEjBuilt + '=true][' + dataEjBinding + '][' + dataEjSelector + '][' + dataEjName + ']:not([' + dataEjBound + '])',
+				excludeBuiltAndBound = ":not([" + dataEjBuilt + "]):not([" + dataEjBound + "])",
 				eventBound = "bound",
 				eventWidgetBuilt = "widgetbuilt",
 				eventWidgetBound = "widgetbound",
@@ -56,14 +68,14 @@
 			* @param {string} [namespace]
 			* @param {boolean} [redefine]
 			* @return {boolean}
-			* @memberOf ej.engine
+			* @memberOf ns.engine
 			* @static
 			*/
 			function defineWidget(name, binding, selector, methods, widgetClass, namespace, redefine) {
 				var definition;
 				if (!widgetDefs[name] || redefine) {
 					//>>excludeStart("ejDebug", pragmas.ejDebug);
-					ej.log('defining widget:', name);
+					ns.log('defining widget:', name);
 					//>>excludeEnd("ejDebug");
 					methods.push('destroy', 'disable', 'enable', 'option', 'refresh', 'value');
 					definition = {
@@ -81,7 +93,7 @@
 					return true;
 				}
 				//>>excludeStart("ejDebug", pragmas.ejDebug);
-				ej.warn('widget already defined:', name);
+				ns.warn('widget already defined:', name);
 				//>>excludeEnd("ejDebug");
 				return false;
 			}
@@ -94,7 +106,7 @@
 			* @param element
 			* @param {Object} [options]
 			* @private
-			* @memberOf ej.engine
+			* @memberOf ns.engine
 			*/
 			function processWidget(definition, template, element, options) {
 				//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
@@ -104,12 +116,11 @@
 						createFunction = widgetOptions.create,
 						Widget = definition.widgetClass,
 						widgetInstance = Widget ? new Widget(element) : false,
-						id = widgetInstance.id,
 						postBuildCallback;
 
 					if (widgetInstance) {
 						//>>excludeStart("ejDebug", pragmas.ejDebug);
-						ej.log("processing widget:", definition.name);
+						ns.log("processing widget:", definition.name);
 						//>>excludeEnd("ejDebug");
 						widgetInstance.configure(definition, element, options);
 						if (typeof createFunction === "function") {
@@ -122,29 +133,21 @@
 							if (element.getAttribute(dataEjBuilt) !== "true") {
 								element = widgetInstance.build(template, element);
 							}
+							setBinding(element, widgetInstance);
 						}
 						postBuildCallback = function (element) {
-							element.removeEventListener(eventWidgetBuilt, postBuildCallback, true);
-							if (!justBuild) {
-								widgetInstance.init(element);
-								widgetInstance.bindEvents(element);
+							if (element) {
+								element.removeEventListener(eventWidgetBuilt, postBuildCallback, true);
+								if (!justBuild) {
+									widgetInstance.init(element);
+									widgetInstance.bindEvents(element);
+								} else {
+									widgetInstance.bindEvents(element, true);
+								}
+								eventUtils.trigger(element, eventWidgetBound, widgetInstance, false);
 							} else {
-								widgetInstance.bindEvents(element, true);
+								body.removeEventListener(eventWidgetBuilt, postBuildCallback, true);
 							}
-
-							if (widgetBindingMap[id] === undefined) {
-								widgetBindingMap[id] = {
-									'elementId': id,
-									'binding': widgetInstance.binding,
-									'instance': widgetInstance
-								};
-							} else {
-								//>>excludeStart("ejDebug", pragmas.ejDebug);
-								ej.log('Duplicate widget binding for element:', element);
-								//>>excludeEnd("ejDebug");
-							}
-
-							eventUtils.trigger(element, eventWidgetBound, widgetInstance, false);
 							eventUtils.trigger(body, eventWidgetBound, widgetInstance);
 						}.bind(null, element);
 						if (element) {
@@ -161,18 +164,19 @@
 			}
 
 			/**
-			* Call destroy method of widget and it's child. Remove bindings.
-			* @param {type} widgetId
+			* @method Call destroy method of widget and it's child. Remove bindings.
+			* @param {string} widgetId
+			* @memberOf ns.engine
 			*/
 			function destroyWidget(widgetId) {
-				var widgetMap = widgetBindingMap[widgetId],
+				var widgetMap = getBinding(widgetId),
 					widgetInstance,
 					childWidgets,
 					elementCache,
 					i;
 
 				//>>excludeStart("ejDebug", pragmas.ejDebug);
-				ej.log('removing widget:', widgetId);
+				ns.log('removing widget:', widgetId);
 				//>>excludeEnd("ejDebug");
 				if (widgetMap) {
 					widgetInstance = widgetMap.instance;
@@ -184,7 +188,7 @@
 						widgetInstance.destroy();
 
 						//Destroy child widgets, if there something left.
-						childWidgets = slice.call(elementCache.querySelectorAll('['+dataEjBound+'="true"]'));
+						childWidgets = slice.call(elementCache.querySelectorAll('[' + dataEjBound + '="true"]'));
 						for (i = childWidgets.length - 1; i >= 0; i -= 1) {
 							if (childWidgets[i]) {
 								destroyWidget(childWidgets[i].id);
@@ -192,7 +196,7 @@
 						}
 					}
 
-					delete widgetBindingMap[widgetId];
+					removeBinding(widgetId);
 				}
 			}
 
@@ -203,10 +207,10 @@
 			* @param element
 			* @param {Object} [options]
 			* @private
-			* @memberOf ej.engine
+			* @memberOf ns.engine
 			*/
 			function processHollowWidget(_definition, element, options) {
-				var name = element.getAttribute(),
+				var name = element.getAttribute(dataEjName),
 					definition = _definition || (name && widgetDefs[name] ?
 							widgetDefs[name] : {
 						"name": name,
@@ -220,7 +224,7 @@
 			* Build page
 			* @method createWidgets
 			* @param context
-			* @memberOf ej.engine
+			* @memberOf ns.engine
 			*/
 			function createWidgets(context) {
 				var builtWithoutTemplates = slice.call(context.querySelectorAll(querySelectorWidgets)),
@@ -235,7 +239,7 @@
 					buildQueue = [];
 
 				//>>excludeStart("ejDebug", pragmas.ejDebug);
-				ej.log("start creating widgets on:", context.tagName + '#' + (context.id || '--no-id--'));
+				ns.log("start creating widgets on:", context.tagName + '#' + (context.id || '--no-id--'));
 				//>>excludeEnd("ejDebug");
 
 				// @TODO EXPERIMENTAL WIDGETS WITHOUT TEMPLATE DEFINITION
@@ -249,7 +253,7 @@
 						normal = context.querySelectorAll(selectors.join(excludeBuiltAndBound + ",") + excludeBuiltAndBound);
 						for (j = 0, lenNormal = normal.length; j < lenNormal; ++j) {
 							//>>excludeStart("ejDebug", pragmas.ejDebug);
-							ej.log("Found widget to build " + definition.name + " on:", normal[j].tagName + '#' + (normal[j].id || '--no-id--'));
+							ns.log("Found widget to build " + definition.name + " on:", normal[j].tagName + '#' + (normal[j].id || '--no-id--'));
 							//>>excludeEnd("ejDebug");
 							buildQueue.push(processHollowWidget.bind(null, definition, normal[j]));
 						}
@@ -263,7 +267,7 @@
 				eventUtils.trigger(body, "built");
 				eventUtils.trigger(body, eventBound);
 				//>>excludeStart("ejDebug", pragmas.ejDebug);
-				ej.log("finish creating widgets on:", context.tagName + '#' + (context.id || '--no-id--'));
+				ns.log("finish creating widgets on:", context.tagName + '#' + (context.id || '--no-id--'));
 				//>>excludeEnd("ejDebug");
 			}
 
@@ -272,42 +276,99 @@
 			* @method getBinding
 			* @param element
 			* @return {?Object}
-			* @memberOf ej.engine
+			* @memberOf ns.engine
 			*/
 			function getBinding(element) {
-				var id = !element || typeof element === typeString ? element : element.id;
-				return (globalBindings[id] || null);
+				var id = !element || typeof element === typeString ? element : element.id,
+						binding,
+						bindingInstance,
+						bindingElement;
+
+				if (typeof element === 'string') {
+					element = document.getElementById(id);
+				}
+
+				binding = widgetBindingMap[id];
+
+				if (typeof binding === 'object') {
+					bindingInstance = binding.instance;
+					//>>excludeStart("ejDebug", pragmas.ejDebug);
+					// NOTE: element can exists outside document
+					bindingElement = bindingInstance.element;
+					if (bindingElement && !bindingElement.ownerDocument.getElementById(bindingElement.id)) {
+						ns.warn('Element', bindingElement.id, 'is outside DOM!');
+					}
+					//>>excludeEnd("ejDebug");
+
+					if (bindingInstance.element === element && bindingInstance.element.getAttribute(dataEjBinding) === 'true') {
+						return bindingInstance;
+					}
+					// Remove garbage
+					if (element) {
+						bindingInstance.destroy(element);
+					}
+					bindingInstance.destroy();
+				}
+
+				return null;
 			}
 
 			/**
 			* Set binding of widget
 			* @method setBinding
 			* @param element
-			* @param binding
-			* @memberOf ej.engine
+			* @param widgetInstance
+			* @memberOf ns.engine
 			*/
-			function setBinding(element, binding) {
-				var id = typeof element === typeString ? element : element.id || binding.id;
-				if (globalBindings[id]) {
-					//>>excludeStart("ejDebug", pragmas.ejDebug);
-					console.error('Fail set binding, binding on id ' + id + ' exists.');
-					//>>excludeEnd("ejDebug");
-				} else {
-					globalBindings[id] = binding;
+			function setBinding(element, widgetInstance) {
+				var id = (typeof element === typeString) ? element : (element && element.id) || widgetInstance.id;
+
+				//>>excludeStart("ejDebug", pragmas.ejDebug);
+				if (getBinding(id)) {
+					ns.error('Duplicated, binding. Binding on id ' + id + ' was overwritten.');
+				}
+				//>>excludeEnd("ejDebug");
+
+				widgetBindingMap[id] = {
+					'elementId': id,
+					'element': widgetInstance.element,
+					'binding': widgetInstance.binding,
+					'instance': widgetInstance
+				};
+				if (element) {
+					element.setAttribute(dataEjBinding, 'true');
 				}
 			}
 
+			function removeBindingAttributes(element) {
+				element.removeAttribute(dataEjBuilt);
+				element.removeAttribute(dataEjBound);
+				element.removeAttribute(dataEjBinding);
+				element.removeAttribute(dataEjName);
+				element.removeAttribute(dataEjSelector);
+			}
 			/**
 			* remove binding
 			* @method removeBinding
 			* @param element
 			* @return {boolean}
-			* @memberOf ej.engine
+			* @memberOf ns.engine
 			*/
 			function removeBinding(element) {
 				var id = typeof element === typeString ? element : element.id;
-				if (globalBindings[id]) {
-					delete globalBindings[id];
+
+				if (typeof element === 'string') {
+					element = document.getElementById(id);
+				}
+
+				if (element) {
+					removeBindingAttributes(element);
+				}
+				if (widgetBindingMap[id]) {
+					if (widgetBindingMap[id].element && typeof widgetBindingMap[id].element.setAttribute === 'function') {
+						removeBindingAttributes(widgetBindingMap[id].element);
+					}
+					delete widgetBindingMap[id];
 					return true;
 				}
 				return false;
@@ -316,13 +377,13 @@
 			function createEventHandler(event) {
 				createWidgets(event.target, false);
 			}
-
+/*
 			document.addEventListener(eventBound, function () {
+				//@TODO dump it to file for faster binding by ids
 				window.ejWidgetBindingMap = widgetBindingMap;
 			}, false);
-
-			ej.globalBindings = {};
-			ej.widgetDefinitions = {};
+*/
+			ns.widgetDefinitions = {};
 			engine = {
 				destroyWidget: destroyWidget,
 				createWidgets: createWidgets,
@@ -331,7 +392,7 @@
 				* Method to get all definitions of widgets
 				* @method getDefinitions
 				* @return {Array}
-				* @memberOf ej.engine
+				* @memberOf ns.engine
 				*/
 				getDefinitions: function () {
 					return widgetDefs;
@@ -347,13 +408,13 @@
 				//INTERNAL: only for tests:
 				_clearBindings: function () {
 					//clear and set references to the same object
-					globalBindings = window.ej.globalBindings = {};
+					widgetBindingMap = window.ejWidgetBindingMap = {};
 				},
 
 				build: function () {
 					var router = engine.router;
 					body = document.body;
-					if (router && ej.get('autoInitializePage', true)) {
+					if (router) {
 						router.init(justBuild);
 					}
 					eventUtils.trigger(document, "initrouter", router, false);
@@ -362,23 +423,25 @@
 				/**
 				* Run engine
 				* @method run
-				* @memberOf ej.engine
+				* @memberOf ns.engine
 				*/
 				run: function () {
 					var router = engine.getRouter();
-					engine.stop();
-					body = document.body;
-					document.addEventListener('create', createEventHandler, false);
+					if (!ns.get('enginestarted', false)) {
+						body = document.body;
+						document.addEventListener('create', createEventHandler, false);
 
-					eventUtils.trigger(document, "initengine", engine, false);
-					eventUtils.trigger(document, "initevents", ej.events, false);
-					eventUtils.trigger(document, "initjqm");
-					eventUtils.trigger(document, 'mobileinit');
-					eventUtils.trigger(document, "beforeinitrouter", router, false);
-					if (document.readyState === 'complete') {
-						engine.build();
-					} else {
-						document.addEventListener('DOMContentLoaded', engine.build.bind(engine));
+						eventUtils.trigger(document, "initengine", engine, false);
+						eventUtils.trigger(document, "initevents", ns.events, false);
+						eventUtils.trigger(document, "initjqm");
+						eventUtils.trigger(document, 'mobileinit');
+						eventUtils.trigger(document, "beforeinitrouter", router, false);
+						if (document.readyState === 'complete') {
+							engine.build();
+						} else {
+							document.addEventListener('DOMContentLoaded', engine.build.bind(engine));
+						}
+						ns.set('enginestarted', true);
 					}
 				},
 
@@ -393,7 +456,7 @@
 				/**
 				* Build instance of widget and binding events
 				* @method instanceWidget
-				* @memberOf {ej.engine}
+				* @memberOf {ns.engine}
 				* @param {HTMLElement} element
 				* @param {String} name
 				* @param {Object} options
@@ -401,10 +464,9 @@
 				*/
 				instanceWidget: function (element, name, options) {
 					var binding = getBinding(element),
-						built = element.getAttribute(dataEjBuilt) === "true",
 						definition;
 
-					if ((!binding || !built) && widgetDefs[name]) {
+					if (!binding && widgetDefs[name]) {
 						definition = widgetDefs[name];
 						processHollowWidget(definition, element, options);
 						binding = getBinding(element);
@@ -416,7 +478,7 @@
 				* Method to remove all listeners binded in run
 				* @method stop
 				* @static
-				* @memberOf ej.engine
+				* @memberOf ns.engine
 				*/
 				stop: function () {
 					var router = engine.getRouter();
@@ -426,9 +488,10 @@
 				},
 				_createEventHandler : createEventHandler
 			};
-			ej.engine = engine;
+			window.ejWidgetBindingMap = widgetBindingMap;
+			ns.engine = engine;
 			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
-			return ej.engine;
+			return ns.engine;
 		}
 	);
 	//>>excludeEnd("ejBuildExclude");

@@ -1,22 +1,29 @@
 /*global window, console, define */
-/** @namespace ej */
-(function (window) {
+/*
+* Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
+/**
+ * Ej core namespace
+ * @class ej
+ * @author Maciej Urbanski <m.urbanski@samsung.com>
+ * @author Krzysztof Antoszek <k.antoszek@samsung.com>
+ * @author Maciej Moczulski <m.moczulski@samsung.com>
+ * @author Piotr Karny <p.karny@samsung.com>
+ * @author Tomasz Lukawski <t.lukawski@samsung.com>
+ */
+(function (window, document) {
 	"use strict";
 	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 	define(function () {
 		//>>excludeEnd("ejBuildExclude");
-		var idCounter = 0,
-			idNumberCounter = 0,
-			currentDate = (new Date()).getTime(),
+		var idNumberCounter = 0,
+			currentDate = +new Date(),
 			slice = [].slice,
 			infoForLog = function (args) {
 				var dateNow = new Date();
 				args.unshift('[ej][' + dateNow.toLocaleString() + ']');
 			},
-			/**
-			* Ej core namespace
-			* @class ej
-			*/
 			ej = {
 				/**
 				* Return unique id
@@ -26,9 +33,7 @@
 				* @memberOf ej
 				*/
 				getUniqueId: function () {
-					var uniqueId = "ej-" + idCounter + "-" + currentDate;
-					idCounter += 1;
-					return uniqueId;
+					return "ej-" + this.getNumberUniqueId() + "-" + currentDate;
 				},
 
 				/**
@@ -39,9 +44,7 @@
 				* @memberOf ej
 				*/
 				getNumberUniqueId: function () {
-					var uniqueId = idNumberCounter;
-					idNumberCounter += 1;
-					return uniqueId;
+					return idNumberCounter++;
 				},
 
 				/**
@@ -99,10 +102,8 @@
 				* @memberOf ej
 				*/
 				get: function (key, defaultValue) {
-					if (typeof window.ejConfig === "object") {
-						return window.ejConfig[key] !== undefined ? window.ejConfig[key] : defaultValue;
-					}
-					return defaultValue;
+					var config = window.ejConfig || {};
+					return config[key] !== undefined ? config[key] : defaultValue || undefined;
 				},
 
 				/**
@@ -115,11 +116,10 @@
 				* @memberOf ej
 				*/
 				set: function (key, value) {
-					if (typeof window.ejConfig === "object") {
-						window.ejConfig[key] = value;
-						return true;
-					}
-					return false;
+					var config = window.ejConfig || {};
+					config[key] = value;
+					window.ejConfig = config;
+					return true;
 				},
 
 				getFrameworkPath : function () {
@@ -147,4 +147,4 @@
 		return ej;
 	});
 	//>>excludeEnd("ejBuildExclude");
-}(window));
+}(window, window.document));

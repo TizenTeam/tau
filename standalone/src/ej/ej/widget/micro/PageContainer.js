@@ -1,6 +1,14 @@
 /*global window, define */
-/*jslint nomen: true */
-(function (document, ej) {
+/*jslint nomen: true, plusplus: true */
+/*
+* Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
+/*
+ * @author Maciej Urbanski <m.urbanski@samsung.com>
+ * @author Piotr Karny <p.karny@samsung.com>
+ */
+(function (document, ns) {
 	"use strict";
 	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 	define(
@@ -9,21 +17,24 @@
 			"../../micro/selectors",
 			"../../engine",
 			"../../utils/events",
+			"../../utils/DOM/attributes",
 			"../micro",
 			"../BaseWidget",
 			"./Page"
 		],
 		function () {
 			//>>excludeEnd("ejBuildExclude");
-			var BaseWidget = ej.widget.BaseWidget,
-				Page = ej.widget.micro.Page,
-				selectors = ej.micro.selectors,
-				events = ej.utils.events,
-				engine = ej.engine,
+			var BaseWidget = ns.widget.BaseWidget,
+				Page = ns.widget.micro.Page,
+				selectors = ns.micro.selectors,
+				utils = ns.utils,
+				events = utils.events,
+				DOM = utils.DOM,
+				engine = ns.engine,
 				/**
 				* PageContainer widget
-				* @class ej.widget.PageContainer
-				* @extends ej.widget.BaseWidget
+				* @class ns.widget.PageContainer
+				* @extends ns.widget.BaseWidget
 				*/
 				PageContainer = function () {
 					this.activePage = null;
@@ -31,9 +42,8 @@
 				},
 				EventType = {
 					PAGE_CHANGE: "pagechange"
-				};
-
-			PageContainer.prototype = new BaseWidget();
+				},
+				prototype = new BaseWidget();
 
 			PageContainer.events = EventType;
 
@@ -44,13 +54,13 @@
 			* @param {string} template
 			* @param {HTMLElement} element
 			* @return {HTMLElement}
-			* @memberOf ej.widget.PageContainer
+			* @memberOf ns.widget.PageContainer
 			*/
-			PageContainer.prototype._build = function (template, element) {
+			prototype._build = function (template, element) {
 				return element;
 			};
 
-			PageContainer.prototype.change = function (toPage, options) {
+			prototype.change = function (toPage, options) {
 				var fromPageWidget = this.getActivePage(),
 					toPageWidget,
 					self = this;
@@ -63,7 +73,7 @@
 
 				toPageWidget = engine.instanceWidget(toPage, 'page');
 
-				if (!fromPageWidget || (fromPageWidget.element != toPage)) {
+				if (!fromPageWidget || (fromPageWidget.element !== toPage)) {
 					this._include(toPage);
 					if (fromPageWidget) {
 						fromPageWidget.onBeforeHide();
@@ -76,7 +86,7 @@
 						self._setActivePage(toPageWidget);
 						if (fromPageWidget) {
 							fromPageWidget.onHide();
-							self._removeExternalPage();
+							self._removeExternalPage( fromPageWidget, options);
 						}
 						toPageWidget.onShow();
 						events.trigger(self.element, EventType.PAGE_CHANGE);
@@ -85,7 +95,7 @@
 				this._transition(toPageWidget, fromPageWidget, options);
 			};
 
-			PageContainer.prototype._transition = function (toPageWidget, fromPageWidget, options) {
+			prototype._transition = function (toPageWidget, fromPageWidget, options) {
 				var element = this.element,
 					elementClassList = element.classList,
 					transition = !fromPageWidget ? "none" : options.transition,
@@ -149,23 +159,13 @@
 				}
 			};
 
-			PageContainer.prototype._include = function (page) {
-				this.element.appendChild(page);
-			};
-
-			PageContainer.prototype.changePageFinish = function (fromPageWidget, toPageWidget) {
-				this._setActivePage(toPageWidget);
-
-				if (fromPageWidget) {
-					fromPageWidget.onBeforeHide();
+			prototype._include = function (page) {
+				if (page.parentNode !== this.element) {
+					this.element.appendChild(page);
 				}
-				toPageWidget.onBeforeShow();
-
-				events.trigger(this.element, PageContainer.events.PAGE_CHANGE);
-				this._removeExternalPage();
 			};
 
-			PageContainer.prototype._setActivePage = function (page) {
+			prototype._setActivePage = function (page) {
 				if (this.activePage) {
 					this.activePage.setActive(false);
 				}
@@ -173,37 +173,33 @@
 				page.setActive(true);
 			};
 
-			PageContainer.prototype.getActivePage = function () {
+			prototype.getActivePage = function () {
 				return this.activePage;
 			};
 
-			PageContainer.prototype._bindEvents = function (element) {
+			prototype._bindEvents = function (element) {
 				return element;
 			};
 
-			PageContainer.prototype.showLoading = function () {
-				ej.warn('PageContainer.prototype.showLoading not yet implemented');
+			prototype.showLoading = function () {
+				//>>excludeStart("ejDebug", pragmas.ejDebug);
+				ns.warn('prototype.showLoading not yet implemented');
+				//>>excludeEnd("ejDebug");
 				return null;
 			};
 
-			PageContainer.prototype.hideLoading = function () {
-				ej.warn('PageContainer.prototype.hideLoading not yet implemented');
+			prototype.hideLoading = function () {
+				//>>excludeStart("ejDebug", pragmas.ejDebug);
+				ns.warn('prototype.hideLoading not yet implemented');
+				//>>excludeEnd("ejDebug");
 				return null;
 			};
 
-			PageContainer.prototype._removeExternalPage = function () {
-				var pages = this.element.querySelectorAll(selectors.page + '[data-external-page=true]:not(.' + Page.classes.uiPageActive + ')'),
-					i,
-					pagesLength = pages.length,
-					page;
-
-				for (i = 0; i < pagesLength; i++) {
-					page = engine.getBinding(pages[i]);
-					// If page exists run destroy
-					if (page) {
-						page.destroy();
-					}
-					pages[i].parentNode.removeChild(pages[i]);
+			prototype._removeExternalPage = function ( fromPageWidget, options) {
+				var fromPage = fromPageWidget.element;
+				if (options.reverse && DOM.hasNSData(fromPage, 'external')) {
+					fromPageWidget.destroy();
+					fromPage.parentNode.removeChild(fromPage);
 				}
 			};
 
@@ -211,34 +207,35 @@
 			* refresh structure
 			* @method _refresh
 			* @new
-			* @memberOf ej.widget.PageContainer
+			* @memberOf ns.widget.PageContainer
 			*/
-			PageContainer.prototype._refresh = function () {
+			prototype._refresh = function () {
 				return null;
 			};
 
 			/**
 			* @method _destroy
 			* @private
-			* @memberOf ej.widget.PageContainer
+			* @memberOf ns.widget.PageContainer
 			*/
-			PageContainer.prototype._destroy = function () {
+			prototype._destroy = function () {
 				return null;
 			};
 
+			PageContainer.prototype = prototype;
+
 			// definition
-			ej.widget.micro.PageContainer = PageContainer;
+			ns.widget.micro.PageContainer = PageContainer;
 
 			engine.defineWidget(
 				"pagecontainer",
-				"./widget/ej.widget.micro.PageContainer",
+				"./widget/ns.widget.micro.PageContainer",
 				"",
 				[],
 				PageContainer,
 				'micro'
 			);
 			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
-			return ej.widget.micro.PageContainer;
 		}
 	);
 	//>>excludeEnd("ejBuildExclude");

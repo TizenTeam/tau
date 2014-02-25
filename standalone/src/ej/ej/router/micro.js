@@ -1,4 +1,12 @@
 /*global window, define */
+/*
+* Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
+/** @namespace ej.router.micro */
+/*
+ * @author Maciej Urbanski <m.urbanski@samsung.com>
+ */
 (function (router) {
 	"use strict";
 	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
@@ -8,8 +16,7 @@
 		],
 		function () {
 			//>>excludeEnd("ejBuildExclude");
-			/** @namespace ej.router.micro */
-			router.micro = {};
+			router.micro = router.micro || {};
 			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 			return router.micro;
 		}

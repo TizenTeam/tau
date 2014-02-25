@@ -1,9 +1,14 @@
 /*global window, define */
 /*jslint plusplus: true, nomen: true */
 //  * @TODO add support of $.mobile.buttonMarkup.hoverDelay
+/*
+* Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
 /**
  *
  * @class gear.ui.defaults
+ * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
 (function (document, frameworkNamespace, ns) {
 	"use strict";
@@ -17,10 +22,11 @@
 		function () {
 			//>>excludeEnd("ejBuildExclude");
 
-			document.addEventListener("initjqm", function () {
+			function initGearDefaults() {
 				var navigator,
 					selectors = frameworkNamespace.micro.selectors;
 
+				document.removeEventListener("initjqm", initGearDefaults, false);
 				ns.defaults = {
 					autoInitializePage: true,
 					pageTransition: 'none',
@@ -36,7 +42,9 @@
 					loadMsgDelay: 0
 				};
 				ns.navigator = navigator;
-			}, false);
+			}
+
+			document.addEventListener("initjqm", initGearDefaults, false);
 
 			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 		}

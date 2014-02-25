@@ -1,13 +1,20 @@
 /*global window, define */
 /*jslint nomen: true, white: true, plusplus: true*/
-
+/*
+* Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
 /**
+ * @class ns.widget.micro.VirtualListview
+ * @author Maciej Urbanski <m.urbanski@samsung.com>
+ * @author Piotr Karny <p.karny@samsung.com>
  * @author Michał Szepielak <m.szepielak@samsung.com>
- *
+ */
+/**
  * @TODO: update docs
  */
 
-(function(document, ej) {
+(function(document, ns) {
 	"use strict";
 	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 	define(
@@ -20,41 +27,46 @@
 		],
 		function() {
 				//>>excludeEnd("ejBuildExclude");
-				var BaseWidget = ej.widget.BaseWidget,
+				var BaseWidget = ns.widget.BaseWidget,
 						/**
-						 * @property {ej.engine} engine alias variable
+						 * @property {ns.engine} engine alias variable
 						 * @private
 						 * @static
+						 * @memberOf ns.widget.micro.VirtualListview
 						 */
-						engine = ej.engine,
-						events = ej.utils.events,
+						engine = ns.engine,
+						events = ns.utils.events,
 						// Constants definition
 						/**
-						 * @property {number} SCROLL_UP defines index of scroll `{@link ej.widget.VirtualListview._scroll#direction}.direction`
+						 * @property {number} SCROLL_UP defines index of scroll `{@link ns.widget.VirtualListview._scroll#direction}.direction`
 						 * to retrive if user is scrolling up
 						 * @private
 						 * @static
+						 * @memberOf ns.widget.micro.VirtualListview
 						 */
 						SCROLL_UP = 0,
 						/**
-						 * @property {number} SCROLL_RIGHT defines index of scroll {@link ej.widget.VirtualListview._scroll#direction _scroll.direction}.direction
+						 * @property {number} SCROLL_RIGHT defines index of scroll {@link ns.widget.VirtualListview._scroll#direction _scroll.direction}.direction
 						 * to retrive if user is scrolling right
 						 * @private
 						 * @static
+						 * @memberOf ns.widget.micro.VirtualListview
 						 */
 						SCROLL_RIGHT = 1,
 						/**
-						 * @property {number} SCROLL_DOWN defines index of scroll {@link ej.widget.VirtualListview._scroll#direction _scroll.direction}
+						 * @property {number} SCROLL_DOWN defines index of scroll {@link ns.widget.VirtualListview._scroll#direction _scroll.direction}
 						 * to retrive if user is scrolling down
 						 * @private
 						 * @static
+						 * @memberOf ns.widget.micro.VirtualListview
 						 */
 						SCROLL_DOWN = 2,
 						/**
-						 * @property {number} SCROLL_LEFT defines index of scroll {@link ej.widget.VirtualListview._scroll#direction _scroll.direction}
+						 * @property {number} SCROLL_LEFT defines index of scroll {@link ns.widget.VirtualListview._scroll#direction _scroll.direction}
 						 * to retrive if user is scrolling left
 						 * @private
 						 * @static
+						 * @memberOf ns.widget.micro.VirtualListview
 						 */
 						SCROLL_LEFT = 3,
 						blockEvent = false,
@@ -68,17 +80,17 @@
 						 * Local constructor function
 						 * @method VirtualListview
 						 * @private
-						 * @memberOf ej.widget.VirtualListview
+						 * @memberOf ns.widget.micro.VirtualListview
 						 */
 						VirtualListview = function() {
 							/**
 							 * @property {Object} ui VirtualListview widget's properties associated with
 							 * User Interface
 							 * @property {?HTMLElement} [ui.scrollview=null] Reference to associated
-							 * {@link ej.widget.Scrollview Scrollview widget}
+							 * {@link ns.widget.Scrollview Scrollview widget}
 							 * @property {number} [ui.itemSize=0] Size of list element in piksels. If scrolling is
 							 * vertically it's item width in other case it"s height of item element
-							 * @memberOf ej.widget.VirtualListview
+							 * @memberOf ns.widget.micro.VirtualListview
 							 */
 							this.ui = {
 								scrollview: null,
@@ -98,7 +110,7 @@
 							 * position of vertical scroll.
 							 * @property {number} [_scroll.clipWidth=0] Width of clip - visible area for user.
 							 * @property {number} [_scroll.clipHeight=0] Height of clip - visible area for user.
-							 * @memberOf ej.widget.VirtualListview
+							 * @memberOf ns.widget.micro.VirtualListview
 							 */
 							this._scroll = {
 								direction: [0, 0, 0, 0],
@@ -115,7 +127,7 @@
 
 							/**
 							 * @property {number} _currentIndex Current zero-based index of data set.
-							 * @memberOf ej.widget.VirtualListview
+							 * @memberOf ns.widget.micro.VirtualListview
 							 */
 							this._currentIndex = 0;
 
@@ -133,11 +145,11 @@
 								orientation: 'y',
 								/**
 								 * Method which modifies list item, depended at specified index from database.
-								 * **Method should overrided by developer using {@link ej.widget.VirtualListview#create .create} method.**
+								 * **Method should overrided by developer using {@link ns.widget.VirtualListview#create .create} method.**
 								 * @method
 								 * @param {HTMLElement} element List item to be modified.
 								 * @param {number} index Index of data set.
-								 * @memberOf ej.widget.VirtualListview
+								 * @memberOf ns.widget.micro.VirtualListview
 								 */
 								listItemUpdater: function() {
 									return null;
@@ -148,17 +160,17 @@
 							this._scrollEventBound = null;
 							this._touchStartEventBound = null;
 							return this;
-						};
+						},
+						prototype = new BaseWidget();
 
 				function _removeHighlight (self) {
-					var childrenNodes,
-							i;
-
-					childrenNodes = self.element.children;
-					for (i = childrenNodes.length - 1; i > 0; i -= 1) {
-						childrenNodes[i].classList.remove('ui-listview-active');
+					var children = self.element.children,
+						i = children.length;
+					while (--i > 0) {
+						children[i].classList.remove('ui-listview-active');
 					}
 				}
+
 				function _tapHandler (self, event) {
 					var eventTouch = event.changedTouches[0];
 
@@ -209,7 +221,7 @@
 				//@TODO: Maybe this information should by provided by Scrollview
 				/**
 				 * Updates scroll information about position, direction and jump size.
-				 * @param {ej.widget.VirtualListview} self VirtualListview widget reference
+				 * @param {ns.widget.micro.VirtualListview} self VirtualListview widget reference
 				 * @method _updateScrollInfo
 				 * @private
 				 */
@@ -314,7 +326,7 @@
 				/**
 				 * Orders elements. Controls resultset visibility and does DOM manipulation.
 				 * @method _orderElements
-				 * @param {ej.widget.VirtualListview} self VirtualListview widget reference
+				 * @param {ns.widget.micro.VirtualListview} self VirtualListview widget reference
 				 * @private
 				 */
 				function _orderElements(self) {
@@ -446,24 +458,22 @@
 					}
 				}
 
-				VirtualListview.prototype = new BaseWidget();
-
 				/**
 				 * Updates list item with data using defined template
 				 * @method _updateListItem
-				 * @param {ej.widget.VirtualListview} self VirtualListview widget reference
+				 * @param {ns.widget.micro.VirtualListview} self VirtualListview widget reference
 				 * @param {HTMLElement} element List element to update
 				 * @param {number} index Data row index
 				 * @private
 				 */
-				VirtualListview.prototype._updateListItem = function (element, index) {
+				prototype._updateListItem = function (element, index) {
 					this.options.listItemUpdater(element, index);
 				};
 
 				/**
 				 * @property {Object} classes Dictionary object containing commonly used wiget classes
 				 * @static
-				 * @memberOf ej.widget.VirtualListview
+				 * @memberOf ns.widget.micro.VirtualListview
 				 */
 				VirtualListview.classes = {
 					uiVirtualListContainer: "ui-virtual-list-container"
@@ -476,9 +486,9 @@
 				 * @param {string} template
 				 * @param {HTMLElement} element
 				 * @return {HTMLElement}
-				 * @memberOf ej.widget.VirtualListview
+				 * @memberOf ns.widget.micro.VirtualListview
 				 */
-				VirtualListview.prototype._build = function(template, element) {
+				prototype._build = function(template, element) {
 					var classes = VirtualListview.classes;
 
 					element.classList.add(classes.uiVirtualListContainer);
@@ -489,12 +499,13 @@
 				 * Updates list if it needed.
 				 * @method _updateList
 				 * @protected
-				 * @param {ej.widget.VirtualListview} self VirtualListview widget reference
-				 * @memberOf ej.widget.VirtualListview
+				 * @param {ns.widget.micro.VirtualListview} self VirtualListview widget reference
+				 * @memberOf ns.widget.micro.VirtualListview
 				 */
 				function _updateList(self) {
+					var _scroll = self._scroll;
 					_updateScrollInfo.call(null, self);
-					if (self._scroll.lastJumpY > 0 || self._scroll.lastJumpX > 0) {
+					if (_scroll.lastJumpY > 0 || _scroll.lastJumpX > 0) {
 						if (!blockEvent) {
 							_orderElements.call(null, self);
 						}
@@ -507,22 +518,24 @@
 				 * @method _init
 				 * @protected
 				 * @param {HTMLElement} element
-				 * @memberOf ej.widget.VirtualListview
+				 * @memberOf ns.widget.micro.VirtualListview
 				 */
-				VirtualListview.prototype._init = function(element) {
+				prototype._init = function(element) {
 					var self = this,
 						ui = self.ui,
 						scrollview,
-						spacer;
+						spacer,
+						spacerStyle;
 
 					//Get scrollview instance
 					scrollview = self.element.parentElement;
 					spacer = document.createElement("div");
 					scrollview.appendChild(spacer);
-					spacer.style.display = "block";
-					spacer.style.position = "static";
+					spacerStyle = spacer.style;
+					spacerStyle.display = "block";
+					spacerStyle.position = "static";
 					if (self.options.orientation === 'x') {
-						spacer.style.float = 'left';
+						spacerStyle.float = 'left';
 					}
 					//Prepare element
 					element.style.position = "relative";
@@ -536,9 +549,9 @@
 				 * Builds list items
 				 * @method _buildList
 				 * @protected
-				 * @memberOf ej.widget.VirtualListview
+				 * @memberOf ns.widget.micro.VirtualListview
 				 */
-				VirtualListview.prototype._buildList = function() {
+				prototype._buildList = function() {
 					var listItem,
 							list = this.element,
 							numberOfItems = this.options.bufferSize,
@@ -566,9 +579,9 @@
 				 * @method _refresh
 				 * @protected
 				 * @param {boolean} create If it's true items will be recreated. Default is false.
-				 * @memberOf ej.widget.VirtualListview
+				 * @memberOf ns.widget.micro.VirtualListview
 				 */
-				VirtualListview.prototype._refresh = function(create) {
+				prototype._refresh = function(create) {
 					//Set default value of variable create
 					create = create || false;
 					this._refreshScrollbar();
@@ -579,9 +592,9 @@
 				 * @method _loadData
 				 * @protected
 				 * @param {number} index Index of first row
-				 * @memberOf ej.widget.VirtualListview
+				 * @memberOf ns.widget.micro.VirtualListview
 				 */
-				VirtualListview.prototype._loadData = function(index) {
+				prototype._loadData = function(index) {
 					var children = this.element.firstElementChild;
 
 					this._currentIndex = index;
@@ -596,9 +609,9 @@
 				 * Sets proper scrollbar size: height (vertical), width (horizontal)
 				 * @method _refreshScrollbar
 				 * @protected
-				 * @memberOf ej.widget.VirtualListview
+				 * @memberOf ns.widget.micro.VirtualListview
 				 */
-				VirtualListview.prototype._refreshScrollbar = function() {
+				prototype._refreshScrollbar = function() {
 					var self = this,
 						element = self.element,
 						options = self.options,
@@ -624,9 +637,9 @@
 				 * Binds VirtualListview events
 				 * @method _bindEvents
 				 * @protected
-				 * @memberOf ej.widget.VirtualListview
+				 * @memberOf ns.widget.micro.VirtualListview
 				 */
-				VirtualListview.prototype._bindEvents = function() {
+				prototype._bindEvents = function() {
 					var scrollEventBound = _updateList.bind(null, this),
 							scrollviewClip = this.ui.scrollview,
 							self = this;
@@ -641,9 +654,9 @@
 				 * Cleans widget's resources
 				 * @method _destroy
 				 * @protected
-				 * @memberOf ej.widget.VirtualListview
+				 * @memberOf ns.widget.micro.VirtualListview
 				 */
-				VirtualListview.prototype._destroy = function() {
+				prototype._destroy = function() {
 					var self = this,
 							scrollviewClip = self.ui.scrollview,
 							childrenNodes,
@@ -675,26 +688,28 @@
 
 				};
 
-				VirtualListview.prototype.scrollTo = function(position) {
+				prototype.scrollTo = function(position) {
 					this.ui.scrollview.scrollTop = position;
 				};
 
-				VirtualListview.prototype.scrollToIndex = function(index) {
+				prototype.scrollToIndex = function(index) {
 					_updateScrollInfo.call(null, this);
 					_orderElementsByIndex(this, index);
 				};
 
-				VirtualListview.prototype.draw = function() {
+				prototype.draw = function() {
 					this._buildList();
 					events.trigger(this.element, 'draw');
 				};
 
-				VirtualListview.prototype.setListItemUpdater = function(updateFunction) {
+				prototype.setListItemUpdater = function(updateFunction) {
 					this.options.listItemUpdater = updateFunction;
 				};
 
+				VirtualListview.prototype = prototype;
+
 				// definition
-				ej.widget.micro.VirtualListview = VirtualListview;
+				ns.widget.micro.VirtualListview = VirtualListview;
 
 				engine.defineWidget(
 						"VirtualListview",

@@ -1,6 +1,15 @@
 /*global window, define */
 /*jslint nomen: true, plusplus: true */
-(function (window, document, screen, ej) {
+/*
+* Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
+/*
+ * @author Maciej Urbanski <m.urbanski@samsung.com>
+ * @author Krzysztof Antoszek <k.antoszek@samsung.com>
+ * @author Piotr Karny <p.karny@samsung.com>
+ */
+(function (window, document, screen, ns) {
 	"use strict";
 	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 	define(
@@ -16,11 +25,11 @@
 		],
 		function () {
 			//>>excludeEnd("ejBuildExclude");
-			var BaseWidget = ej.widget.BaseWidget,
-				engine = ej.engine,
-				eventUtils = ej.utils.events,
-				object = ej.utils.object,
-				selectors = ej.micro.selectors,
+			var BaseWidget = ns.widget.BaseWidget,
+				engine = ns.engine,
+				eventUtils = ns.utils.events,
+				object = ns.utils.object,
+				selectors = ns.micro.selectors,
 				Popup = function () {
 					this.options = {
 						header: false,
@@ -33,6 +42,15 @@
 					this.ui.footer = null;
 					this.ui.content = null;
 					this.active = false;
+				},
+				prototype = new BaseWidget(),
+				classes = {
+					active: 'ui-popup-active',
+					header: 'ui-popup-header',
+					footer: 'ui-popup-footer',
+					content: 'ui-popup-content',
+					background: "ui-popup-background",
+					toast: "ui-popup-toast"
 				};
 
 			Popup.events = {
@@ -41,23 +59,16 @@
 				BEFORE_SHOW: 'popupbeforeshow',
 				BEFORE_HIDE: 'popupbeforehide'
 			};
-			Popup.classes = {
-				ACTIVE: 'ui-popup-active',
-				HEADER: 'ui-popup-header',
-				FOOTER: 'ui-popup-footer',
-				CONTENT: 'ui-popup-content'
-			};
+			Popup.classes = classes;
 
 			selectors.popup = '.ui-popup';
 
-			Popup.prototype = new BaseWidget();
-
-			Popup.prototype._build = function (template, element) {
+			prototype._build = function (template, element) {
 				var classes = Popup.classes,
 					options = this.options,
-					header = element.querySelector('.' + classes.HEADER),
-					content = element.querySelector('.' + classes.CONTENT),
-					footer = element.querySelector('.' + classes.FOOTER),
+					header = element.querySelector('.' + classes.header),
+					content = element.querySelector('.' + classes.content),
+					footer = element.querySelector('.' + classes.footer),
 					i,
 					l,
 					node;
@@ -65,7 +76,7 @@
 
 				if (!content) {
 					content = document.createElement('div');
-					content.className = classes.CONTENT;
+					content.className = classes.content;
 					if (element.children.length > 0) {
 						for (i = 0, l = element.children.length; i < l; ++i) {
 							node = element.children[i];
@@ -79,7 +90,7 @@
 
 				if (!header && options.header !== false) {
 					header = document.createElement('div');
-					header.className = classes.HEADER;
+					header.className = classes.header;
 					if (typeof options.header !== 'boolean') {
 						header.innerHTML = options.header;
 					}
@@ -88,7 +99,7 @@
 
 				if (!footer && options.footer !== false) {
 					footer = document.createElement('div');
-					footer.className = classes.FOOTER;
+					footer.className = classes.footer;
 					if (typeof options.footer !== 'boolean') {
 						footer.innerHTML = options.footer;
 					}
@@ -101,38 +112,44 @@
 
 				return element;
 			};
-			Popup.prototype._init = function (element) {
+			prototype._init = function (element) {
 				var classes = Popup.classes,
 					ui = this.ui;
 
 				// re-init if already built
 				if (!ui.header) {
-					ui.header = element.querySelector('.' + classes.HEADER);
+					ui.header = element.querySelector('.' + classes.header);
 				}
 				if (!ui.footer) {
-					ui.footer = element.querySelector('.' + classes.FOOTER);
+					ui.footer = element.querySelector('.' + classes.footer);
 				}
 				if (!ui.content) {
-					ui.content = element.querySelector('.' + classes.CONTENT);
+					ui.content = element.querySelector('.' + classes.content);
 				}
 				ui.content.style.overflowY = 'scroll';
 				this._elementClassList = element.classList;
 
 				this._refresh();
 			};
-			Popup.prototype._bindEvents = function () {
-				var self = this;
+
+			prototype._bindEvents = function () {
+				var self = this,
+					closeFunction = function() {
+						self.close({transition: "none"});
+					};
 				window.addEventListener("resize", function () {
 					if (self.active === true) {
 						self._refresh();
 					}
 				}, false);
+				document.addEventListener("pagebeforehide", closeFunction, false);
 			};
-			Popup.prototype._destroy = function () {
+
+			prototype._destroy = function () {
 				return null;
 			};
 
-			Popup.prototype._refresh = function () {
+			prototype._refresh = function () {
 				var ui = this.ui,
 					header = ui.header,
 					footer = ui.footer,
@@ -143,20 +160,23 @@
 						'margin-bottom': 0,
 						'margin-left': 0,
 						'margin-right': 0,
+						'border-width': 0,
 						'display': null
 					},
 					elementStyle = element.style,
 					contentStyle = content.style,
-					borderWidth = parseFloat(elementStyle.borderWidth) || 0,
+					borderWidth,
 					headerHeight = 0,
 					footerHeight = 0,
 					contentHeight = 0,
 					contentWidth = 0,
-					isToast = element.classList.contains("ui-popup-toast"),
-					dom = ej.utils.DOM,
+					isToast = element.classList.contains(classes.toast),
+					dom = ns.utils.DOM,
 					isDisplayNone;
 
 				dom.extractCSSProperties(element, props);
+
+				borderWidth = parseFloat(props['border-width']) || 0;
 
 				isDisplayNone = props.display === 'none';
 
@@ -165,20 +185,19 @@
 					elementStyle.display = "block";
 				}
 
-
-				contentWidth = screen.width - (parseInt(props['margin-left'], 10) + parseInt(props['margin-right'], 10));
+				contentWidth = window.innerWidth - (parseInt(props['margin-left'], 10) + parseInt(props['margin-right'], 10));
 				elementStyle.width = contentWidth + 'px';
 
 				if (!isToast) {
 					if (header) {
-						headerHeight = dom.getElementHeight(header);
+						headerHeight = header.offsetHeight;
 					}
 
 					if (footer) {
-						footerHeight = dom.getElementHeight(footer);
+						footerHeight = footer.offsetHeight;
 					}
 
-					contentHeight = screen.height - (parseInt(props['margin-top'], 10) + parseInt(props['margin-bottom'], 10));
+					contentHeight = window.innerHeight - (parseInt(props['margin-top'], 10) + parseInt(props['margin-bottom'], 10));
 
 					elementStyle.height = contentHeight + 'px';
 					contentStyle.height = (contentHeight - headerHeight - footerHeight - borderWidth * 2) + 'px';
@@ -191,8 +210,8 @@
 				}
 			};
 
-			Popup.prototype._setActive = function (active) {
-				var activeClass = Popup.classes.ACTIVE,
+			prototype._setActive = function (active) {
+				var activeClass = Popup.classes.active,
 					elementCls = this._elementClassList;
 				if (!active) {
 					elementCls.remove(activeClass);
@@ -203,24 +222,46 @@
 				this.active = elementCls.contains(activeClass);
 			};
 
-			Popup.prototype.open = function (options) {
+			prototype.open = function (options) {
 				var transitionOptions = object.multiMerge({}, options, {ext: " in ui-pre-in "}),
 					events = Popup.events,
 					self = this,
-					element = self.element;
+					element = self.element,
+					container = document.createElement("div");
+
+				container.classList.add(classes.background);
+				container.appendChild(element.parentElement.replaceChild(container, element));
+
+				if ( element.classList.contains(classes.toast) ) {
+					container.addEventListener("click", self.closePopup, false);
+				}
+				self.background = container;
 
 				eventUtils.trigger(element, events.BEFORE_SHOW);
-				this._transition(transitionOptions, function () {
+				self._transition(transitionOptions, function () {
 					self._setActive(true);
 					eventUtils.trigger(element, events.SHOW);
 				});
 			};
 
-			Popup.prototype.close = function (options) {
+			prototype.close = function (options) {
 				var transitionOptions = object.multiMerge({}, options, {ext: " in ui-pre-in "}),
 					events = Popup.events,
 					self = this,
-					element = self.element;
+					element = self.element,
+					container = self.background,
+					parent = container.parentElement;
+
+				if ( element.classList.contains(classes.toast) ) {
+					container.removeEventListener("click", self.closePopup, false);
+				}
+
+				parent = container.parentElement;
+				if ( parent ) {
+					parent.appendChild(element);
+					parent.removeChild(container);
+				}
+				container = null;
 
 				eventUtils.trigger(element, events.BEFORE_HIDE);
 				this._transition(transitionOptions, function () {
@@ -229,7 +270,7 @@
 				});
 			};
 
-			Popup.prototype._transition = function (options, resolve) {
+			prototype._transition = function (options, resolve) {
 				var self = this,
 					transition = options.transition || self.options.transition,
 					transitionClass = transition + options.ext,
@@ -257,6 +298,8 @@
 				return deferred;
 			};
 
+			Popup.prototype = prototype;
+
 			engine.defineWidget(
 				'popup',
 				'',
@@ -265,9 +308,8 @@
 				Popup,
 				"micro"
 			);
-			ej.widget.micro.Popup = Popup;
+			ns.widget.micro.Popup = Popup;
 			//>>excludeStart('ejBuildExclude', pragmas.ejBuildExclude);
-			return ej.widget.micro.Popup;
 		}
 	);
 	//>>excludeEnd('ejBuildExclude');

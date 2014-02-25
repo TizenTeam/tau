@@ -10,12 +10,12 @@
 			"./tau/ui/all",
 			"./ej/engine",
 			// widget list
+			"./ej/utils/anchorHighlight",
 			"./ej/widget/micro/Page",
 			"./ej/widget/micro/Popup",
 			"./ej/widget/micro/PageContainer",
 			"./ej/widget/micro/IndexScrollbar",
 			"./ej/widget/micro/VirtualListview",
-			"./ej/widget/micro/Datetimepicker",
 			"./ej/widget/micro/VirtualGrid",
 			"./ej/router/micro/Router",
 			"./ej/router/micro/route/page",

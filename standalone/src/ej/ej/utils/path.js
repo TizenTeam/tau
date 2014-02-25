@@ -1,5 +1,14 @@
 /*global window, define, RegExp */
-(function (window, document, ej) {
+/*
+* Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
+/*
+ * @author Tomasz Lukawski <t.lukawski@samsung.com>
+ * @author Maciej Urbanski <m.urbanski@samsung.com>
+ * @author Piotr Karny <p.karny@samsung.com>
+ */
+(function (window, document, ns) {
 	"use strict";
 	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 	define(
@@ -13,40 +22,40 @@
 		function () {
 			//>>excludeEnd("ejBuildExclude");
 				/**
-				* Local alias for ej.engine
-				* @property {Object} engine Alias for {@link ej.engine}
-				* @memberOf ej.utils.path
+				* Local alias for ns.engine
+				* @property {Object} engine Alias for {@link ns.engine}
+				* @memberOf ns.utils.path
 				* @static
 				* @private
 				*/
-			var engine = ej.engine,
+			var engine = ns.engine,
 				/**
-				* Local alias for ej.utils.object
-				* @property {Object} object Alias for {@link ej.utils.object}
-				* @memberOf ej.utils.path
+				* Local alias for ns.utils.object
+				* @property {Object} object Alias for {@link ns.utils.object}
+				* @memberOf ns.utils.path
 				* @static
 				* @private
 				*/
-				object = ej.utils.object,
+				object = ns.utils.object,
 				/**
-				* Local alias for ej.utils.selectors
-				* @property {Object} selectors Alias for {@link ej.utils.selectors}
-				* @memberOf ej.utils.path
+				* Local alias for ns.utils.selectors
+				* @property {Object} selectors Alias for {@link ns.utils.selectors}
+				* @memberOf ns.utils.path
 				* @static
 				* @private
 				*/
-				selectors = ej.utils.selectors,
+				selectors = ns.utils.selectors,
 				/**
-				* Local alias for ej.utils.DOM
-				* @property {Object} DOM Alias for {@link ej.utils.DOM}
-				* @memberOf ej.utils.path
+				* Local alias for ns.utils.DOM
+				* @property {Object} DOM Alias for {@link ns.utils.DOM}
+				* @memberOf ns.utils.path
 				* @static
 				* @private
 				*/
-				DOM = ej.utils.DOM,
+				DOM = ns.utils.DOM,
 				/**
 				*
-				* @memberOf ej.utils.path
+				* @memberOf ns.utils.path
 				* @property {HTMLBaseElement} base
 				* @static
 				* @private
@@ -54,7 +63,7 @@
 				base,
 				/**
 				*
-				* @memberOf ej.utils.path
+				* @memberOf ns.utils.path
 				* @property {Object} location
 				* @static
 				* @private
@@ -62,13 +71,13 @@
 				location = {},
 				/**
 				* Ej utils path namespace
-				* @class ej.utils.path
+				* @class ns.utils.path
 				* @static
 				*/
 				path = {
 					/**
 					*
-					* @memberOf ej.utils.path
+					* @memberOf ns.utils.path
 					* @property {string} [uiStateKey="&ui-state"]
 					* @static
 					*/
@@ -101,7 +110,7 @@
 					//
 					/**
 					* @poperty {RegExp} urlParseRE
-					* @memberOf ej.utils.path
+					* @memberOf ns.utils.path
 					* @static
 					*/
 					urlParseRE: /^(((([^:\/#\?]+:)?(?:(\/\/)((?:(([^:@\/#\?]+)(?:\:([^:@\/#\?]+))?)@)?(([^:\/#\?\]\[]+|\[[^\/\]@#?]+\])(?:\:([0-9]+))?))?)?)?((\/?(?:[^\/\?#]+\/+)*)([^\?#]*)))?(\?[^#]+)?)(#.*)?/,
@@ -113,7 +122,7 @@
 					* @method getLocation
 					* @param {string|Object} url
 					* @return {string}
-					* @memberOf ej.utils.path
+					* @memberOf ns.utils.path
 					*/
 					getLocation: function (url) {
 						var uri = this.parseUrl(url || window.location.href),
@@ -130,7 +139,7 @@
 					/**
 					*
 					* @method getDocumentUrl
-					* @memberOf ej.utils.path
+					* @memberOf ns.utils.path
 					* @param {boolean} [asParsedObject=false]
 					* @return {string|Object}
 					* @static
@@ -143,7 +152,7 @@
 					*
 					* @method parseLocation
 					* @return {Object}
-					* @memberOf ej.utils.path
+					* @memberOf ns.utils.path
 					*/
 					parseLocation: function () {
 						return this.parseUrl(this.getLocation());
@@ -155,7 +164,7 @@
 					* If we're passed an object, we'll assume that it is
 					* a parsed url object and just return it back to the caller.
 					* @method parseUrl
-					* @memberOf ej.utils.path
+					* @memberOf ns.utils.path
 					* @param {string|Object} url
 					* @return {Object} uri record
 					* @return {string} return.href
@@ -215,7 +224,7 @@
 					* an optional absolute path which describes what
 					* relPath is relative to.
 					* @method makePathAbsolute
-					* @memberOf ej.utils.path
+					* @memberOf ns.utils.path
 					* @param {string} relPath
 					* @param {string} absPath
 					* @return {string}
@@ -256,7 +265,7 @@
 					/**
 					* Returns true if both urls have the same domain.
 					* @method isSameDomain
-					* @memberOf ej.utils.path
+					* @memberOf ns.utils.path
 					* @param {string|Object} absUrl1
 					* @param {string|Object} absUrl2
 					* @return {boolean}
@@ -269,7 +278,7 @@
 					/**
 					* Returns true for any relative variant.
 					* @method isRelativeUrl
-					* @memberOf ej.utils.path
+					* @memberOf ns.utils.path
 					* @param {string|Object} url
 					* @return {boolean}
 					* @static
@@ -281,7 +290,7 @@
 
 					/**
 					* Returns true for an absolute url.
-					* @memberOf ej.utils.path
+					* @memberOf ns.utils.path
 					* @param {string} url
 					* @return {boolean}
 					* @static
@@ -294,7 +303,7 @@
 					* Turn the specified realtive URL into an absolute one. This function
 					* can handle all relative variants (protocol, site, document, query, fragment).
 					* @method makeUrlAbsolute
-					* @memberOf ej.utils.path
+					* @memberOf ns.utils.path
 					* @param {string} relUrl
 					* @param {string} absUrl
 					* @return {string}
@@ -321,7 +330,7 @@
 					/**
 					* Add search (aka query) params to the specified url.
 					* @method addSearchParams
-					* @memberOf ej.utils.path
+					* @memberOf ns.utils.path
 					* @param {string|Object} url
 					* @param {Object|string} params
 					* @return {string}
@@ -344,7 +353,7 @@
 					/**
 					*
 					* @method convertUrlToDataUrl
-					* @memberOf ej.utils.path
+					* @memberOf ns.utils.path
 					* @param {string} absUrl
 					* @param {string} dialogHashKey
 					* @param {Object} documentBase  uri structure
@@ -352,17 +361,16 @@
 					* @return {string}
 					* @static
 					*/
-					convertUrlToDataUrl: function (absUrl, dialogHashKey, documentBase, documentUrl) {
-						var urlObject = path.parseUrl(absUrl);
-						documentBase = documentBase || path.documentBase;
-						documentUrl = documentUrl || path.documentUrl;
-						if (path.isEmbeddedPage(urlObject, documentBase, false, documentUrl)) {
+					convertUrlToDataUrl: function (absUrl, allowEmbeddedOnlyBaseDoc) {
+						var urlObject = path.parseUrl(absUrl),
+							documentBase = path.documentBase;
+						if (path.isEmbeddedPage(urlObject, allowEmbeddedOnlyBaseDoc)) {
 							// For embedded pages, remove the dialog hash key as in getFilePath(),
 							// otherwise the Data Url won't match the id of the embedded Page.
-							return urlObject.hash.split(dialogHashKey)[0].replace(/^#/, "").replace(/\?.*$/, "");
+							return urlObject.hash.replace( /^#/, "" ).replace( /\?.*$/, "" );
 						}
 						if (path.isSameDomain(urlObject, documentBase)) {
-							return urlObject.hrefNoHash.replace(documentBase.domain, "").split(dialogHashKey)[0];
+							return urlObject.hrefNoHash.replace(documentBase.domain, "" );
 						}
 
 						return window.decodeURIComponent(absUrl);
@@ -371,7 +379,7 @@
 					/**
 					* Get path from current hash, or from a file path
 					* @method get
-					* @memberOf ej.utils.path
+					* @memberOf ns.utils.path
 					* @param {string} newPath
 					* @return {string}
 					*/
@@ -386,7 +394,7 @@
 					* Test if a given url (string) is a path
 					* NOTE might be exceptionally naive
 					* @method isPath
-					* @memberOf ej.utils.path
+					* @memberOf ns.utils.path
 					* @param {string} url
 					* @return {boolean}
 					* @static
@@ -398,7 +406,7 @@
 					/**
 					* Return a url path with the window's location protocol/hostname/pathname removed
 					* @method clean
-					* @memberOf ej.utils.path
+					* @memberOf ns.utils.path
 					* @param {string} url
 					* @param {Object} documentBase  uri structure
 					* @return {string}
@@ -411,7 +419,7 @@
 					/**
 					* Just return the url without an initial #
 					* @method stripHash
-					* @memberOf ej.utils.path
+					* @memberOf ns.utils.path
 					* @param {string} url
 					* @return {string}
 					* @static
@@ -423,7 +431,7 @@
 					/**
 					*
 					* @method stripQueryParams
-					* @memberOf ej.utils.path
+					* @memberOf ns.utils.path
 					* @param {string} url
 					* @return {string}
 					* @static
@@ -435,7 +443,7 @@
 					/**
 					*
 					* @method isHashValid
-					* @memberOf ej.utils.path
+					* @memberOf ns.utils.path
 					* @param {string} hash
 					* @param {boolean}
 					* @static
@@ -448,7 +456,7 @@
 					* check whether a url is referencing the same domain, or an external domain or different protocol
 					* could be mailto, etc
 					* @method isExternal
-					* @memberOf ej.utils.path
+					* @memberOf ns.utils.path
 					* @param {string|Object} url
 					* @param {Object} documentUrl uri object
 					* @return {boolean}
@@ -462,7 +470,7 @@
 					/**
 					*
 					* @method hasProtocol
-					* @memberOf ej.utils.path
+					* @memberOf ns.utils.path
 					* @param {string} url
 					* @return {boolean}
 					* @static
@@ -483,7 +491,7 @@
 					/**
 					*
 					* @method squash
-					* @memberOf ej.utils.path
+					* @memberOf ns.utils.path
 					* @param {string} url
 					* @param {string} resolutionUrl
 					* @return {string}
@@ -557,7 +565,7 @@
 					/**
 					*
 					* @method isPreservableHash
-					* @memberOf ej.utils.path
+					* @memberOf ns.utils.path
 					* @param {string} hash
 					* @return {boolean}
 					*/
@@ -568,7 +576,7 @@
 					/**
 					* Escape weird characters in the hash if it is to be used as a selector
 					* @method hashToSelector
-					* @memberOf ej.utils.path
+					* @memberOf ns.utils.path
 					* @param {string} hash
 					* @return {string}
 					* @static
@@ -584,7 +592,7 @@
 					/**
 					* Check if the specified url refers to the first page in the main application document.
 					* @method isFirstPageUrl
-					* @memberOf ej.utils.path
+					* @memberOf ns.utils.path
 					* @param {string} url
 					* @param {Object} documentBase uri structure
 					* @param {boolean} documentBaseDiffers
@@ -630,14 +638,14 @@
 					* allowCrossDomainPages option is true, we will allow cross-domain http/https
 					* requests to go through our page loading logic.
 					* @method isPermittedCrossDomainRequest
-					* @memberOf ej.utils.path
+					* @memberOf ns.utils.path
 					* @param {Object} docUrl
 					* @param {string} reqUrl
 					* @return {boolean}
 					* @static
 					*/
 					isPermittedCrossDomainRequest: function (docUrl, reqUrl) {
-						return ej.get('allowCrossDomainPages') &&
+						return ns.get('allowCrossDomainPages', false) &&
 							docUrl.protocol === "file:" &&
 							reqUrl.search(/^https?:/) !== -1;
 					},
@@ -645,7 +653,7 @@
 					/**
 					*
 					* @method getAsURIParameters
-					* @memberOf ej.utils.path
+					* @memberOf ns.utils.path
 					* @param {Object} data
 					* @return {string}
 					* @static
@@ -661,14 +669,14 @@
 
 					/**
 					*
-					* @memberOf ej.utils.path
+					* @memberOf ns.utils.path
 					* @property {string|null} documentUrl
 					*/
 					documentUrl: null,
 
 					/**
 					*
-					* @memberOf ej.utils.path
+					* @memberOf ns.utils.path
 					* @property {boolean} documentBaseDiffers
 					*/
 					documentBaseDiffers: false,
@@ -676,7 +684,7 @@
 					/**
 					* Set location hash to path
 					* @method set
-					* @memberOf ej.utils.path
+					* @memberOf ns.utils.path
 					* @param {string} path
 					* @static
 					*/
@@ -687,21 +695,21 @@
 					/**
 					* Return the substring of a filepath before the sub-page key, for making a server request
 					* @method getFilePath
-					* @memberOf ej.utils.path
+					* @memberOf ns.utils.path
 					* @param {string} path
 					* @param {string} dialogHashKey
 					* @return {string}
 					* @static
 					*/
 					getFilePath: function (path, dialogHashKey) {
-						var splitkey = '&' + ej.get('subPageUrlKey');
+						var splitkey = '&' + ns.get('subPageUrlKey');
 						return path && path.split(splitkey)[0].split(dialogHashKey)[0];
 					},
 
 					/**
 					* Remove the preceding hash, any query params, and dialog notations
 					* @method cleanHash
-					* @memberOf ej.utils.path
+					* @memberOf ns.utils.path
 					* @param {string} hash
 					* @param {string} dialogHashKey
 					* @return {string}
@@ -714,7 +722,7 @@
 					/**
 					*
 					* @method isEmbeddedPage
-					* @memberOf ej.utils.path
+					* @memberOf ns.utils.path
 					* @param {string} url
 					* @param {Object} documentBase uri structure
 					* @param {boolean} documentBaseDiffers
@@ -722,7 +730,7 @@
 					* @return {boolean}
 					* @static
 					*/
-					isEmbeddedPage: function (url, documentBase, documentBaseDiffers, documentUrl) {
+					isEmbeddedPage: function (url, allowEmbeddedOnlyBaseDoc) {
 						var urlObject = path.parseUrl(url);
 
 						//if the path is absolute, then we need to compare the url against
@@ -732,8 +740,9 @@
 						//document will be resolved against the document base.
 						if (urlObject.protocol !== "") {
 							return (urlObject.hash &&
-								((documentUrl && urlObject.hrefNoHash === documentUrl.hrefNoHash) ||
-									(documentBase && documentBaseDiffers && urlObject.hrefNoHash === documentBase.hrefNoHash)));
+									( allowEmbeddedOnlyBaseDoc ?
+											urlObject.hrefNoHash === path.documentUrl.hrefNoHash :
+											urlObject.hrefNoHash === path.parseLocation().hrefNoHash ));
 						}
 						return (/^#/).test(urlObject.href);
 					}
@@ -745,7 +754,7 @@
 
 			/**
 			*
-			* @memberOf ej.utils.path
+			* @memberOf ns.utils.path
 			* @property {Object} documentBase uri structure
 			* @static
 			*/
@@ -756,7 +765,7 @@
 			/**
 			*
 			* @method getDocumentBase
-			* @memberOf ej.utils.path
+			* @memberOf ns.utils.path
 			* @param {boolean} [asParsedObject=false]
 			* @return {string|Object}
 			* @static
@@ -768,24 +777,24 @@
 			/**
 			*
 			* @method getClosestBaseUrl
-			* @memberOf ej.utils.path
+			* @memberOf ns.utils.path
 			* @param {HTMLElement} element
 			* @return {string}
 			* @static
 			*/
 			path.getClosestBaseUrl = function (element) {
 				// Find the closest page and extract out its url.
-				var url = DOM.getNSData(selectors.getClosestBySelector(element, ej.micro.selectors.page), "url"),
+				var url = DOM.getNSData(selectors.getClosestBySelector(element, ns.micro.selectors.page), "url"),
 					baseUrl = path.documentBase.hrefNoHash;
 
-				if (!ej.get('dynamicBaseEnabled') || !url || !path.isPath(url)) {
+				if (!ns.get('dynamicBaseEnabled') || !url || !path.isPath(url)) {
 					url = baseUrl;
 				}
 
 				return path.makeUrlAbsolute(url, baseUrl);
 			};
 
-			ej.utils.path = path;
+			ns.utils.path = path;
 			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 			return path;
 		}

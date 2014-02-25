@@ -1,10 +1,16 @@
 /*global window, define, CustomEvent */
 /*jslint nomen: true */
+/*
+* Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
 /**
- * @class ej.utils.events
+ * @class ns.utils.events
  * Utils class with events functions
+ * @author Maciej Urbanski <m.urbanski@samsung.com>
+ * @author Krzysztof Antoszek <k.antoszek@samsung.com>
  */
-(function (ej) {
+(function (ns) {
 	"use strict";
 	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 	define(
@@ -26,7 +32,7 @@
 					* @param {Boolean=} bubbles default true
 					* @param {Boolean=} cancelable default true
 					* @return {Boolean=}
-					* @memberOf ej.utils.event
+					* @memberOf ns.utils.event
 					* @static
 					*/
 				trigger: function ejUtilsEvents_trigger(element, type, data, bubbles, cancelable) {
@@ -37,7 +43,7 @@
 							cancelable: typeof cancelable === "boolean" ? cancelable : true
 						});
 					//>>excludeStart("ejDebug", pragmas.ejDebug);
-					ej.log("triggered event " + type + " on:", element.tagName + '#' + (element.id || "--no--id--"));
+					ns.log("triggered event " + type + " on:", element.tagName + '#' + (element.id || "--no--id--"));
 					//>>excludeEnd("ejDebug");
 					return element.dispatchEvent(evt);
 				},
@@ -46,33 +52,35 @@
 				* Stop event propagation
 				* @method stopPropagation
 				* @param {CustomEvent} event
-				* @memberOf ej.utils.events
+				* @memberOf ns.utils.events
 				* @static
 				*/
 				stopPropagation: function (event) {
 					var originalEvent = event._originalEvent;
 					// @todo this.isPropagationStopped = returnTrue;
-					if (originalEvent) {
-						if (originalEvent.stopPropagation) {
-							originalEvent.stopPropagation();
-						}
-						event.stopPropagation();
+					if (originalEvent && originalEvent.stopPropagation) {
+						originalEvent.stopPropagation();
 					}
+					event.stopPropagation();
 				},
 
 				/**
 				* Stop event propagation immediately
 				* @method stopImmediatePropagation
 				* @param {CustomEvent} event
-				* @memberOf ej.utils.events
+				* @memberOf ns.utils.events
 				* @static
 				*/
 				stopImmediatePropagation: function (event) {
-					// @todo this.isImmediatePropagationStopped = returnTrue;
-					events.stopPropagation(event);
+					var originalEvent = event._originalEvent;
+					// @todo this.isPropagationStopped = returnTrue;
+					if (originalEvent && originalEvent.stopImmediatePropagation) {
+						originalEvent.stopImmediatePropagation();
+					}
+					event.stopImmediatePropagation();
 				}
 			};
-			ej.utils.events = events;
+			ns.utils.events = events;
 			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 			return events;
 		}
