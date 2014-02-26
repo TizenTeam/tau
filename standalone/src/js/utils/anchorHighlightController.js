@@ -17,7 +17,7 @@
 	addActiveClassTimerID,
 	options = {
 		scrollThreshold: 5,
-		addActiveClassDelay: 50,	// wait before adding activeClass
+		addActiveClassDelay: 10,	// wait before adding activeClass
 		keepActiveClassDelay: 100	// stay activeClass after touchend
 	},
 	activeClass = {
