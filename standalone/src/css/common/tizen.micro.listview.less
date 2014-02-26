@@ -4,10 +4,10 @@ Listview
 *************************/
 .ui-listview li {
 	font-size: @font_size_list_item;
-	line-height: @font_size_list_item;
+	line-height: 48 * @unit_base;
 	width: 100%;
 	min-height: 90 * @unit_base;
-	padding: 22*@unit_base 16*@unit_base 22*@unit_base;
+	padding: 21*@unit_base 16*@unit_base 20*@unit_base;
 	border-bottom: 1px solid @color_listview_border;
 
 	label.ui-popup-radio-label,
@@ -33,9 +33,8 @@ Listview
 	display: block;
 	width: 100%;
 	height: 100%;
-	line-height: 40 * @unit_base;
-	margin: -23*@unit_base -16*@unit_base;	// Fill-up to the parent li
-	padding: 25*@unit_base 16*@unit_base;	// Compensate lost padding of li
+	margin: -21*@unit_base -16*@unit_base;	// Fill-up to the parent li
+	padding: 21*@unit_base 16*@unit_base;	// Compensate lost padding of li
 	.LESSbox-boxsizing( content-box );	// Change size calculation criteria
 }
 
