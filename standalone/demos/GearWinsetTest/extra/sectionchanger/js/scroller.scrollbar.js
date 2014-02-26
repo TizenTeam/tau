@@ -65,7 +65,8 @@ Scroller.Scrollbar.prototype = {
 		options = extend({
 			type: false,
 			displayDelay: 700,
-			sections: null
+			sections: null,
+			orientation: Scroller.Orientation.VERTICAL
 		}, options);
 
 		this.setOptions( options );
@@ -75,8 +76,7 @@ Scroller.Scrollbar.prototype = {
 		var type = this.options.type,
 			orientation = this.options.orientation;
 
-		// TODO we must implement vertical mode.
-		if ( !type || orientation == "vertical" ) {
+		if ( !type ) {
 			return;
 		} 
 
@@ -90,13 +90,21 @@ Scroller.Scrollbar.prototype = {
 
 	_createScrollbar: function() {
 		var sections = this.options.sections,
+			orientation = this.options.orientation,
 			wrapper = document.createElement("DIV"),
 			bar = document.createElement("span"),
 			height, i, len;
 
 		wrapper.appendChild(bar);
 
-		this.type.insertAndDecorate(wrapper, bar, this.container, this.clip, sections);
+		this.type.insertAndDecorate({
+			orientation: orientation,
+			wrapper: wrapper,
+			bar: bar,
+			container: this.container,
+			clip: this.clip,
+			sections: sections
+		});
 
 		this.element = wrapper;
 		this.barElement = bar;
@@ -120,14 +128,15 @@ Scroller.Scrollbar.prototype = {
 		this.init();
 	},
 
-	translate: function( offset, duration, options ) {
-		var translate, transition, barStyle, endDelay;
+	translate: function( offset, duration ) {
+		var orientation = this.options.orientation,
+			translate, transition, barStyle, endDelay;
 
 		if ( !this.element || !this.type ) {
 			return;
 		}
 
-		offset = this.type.offset( offset );
+		offset = this.type.offset( orientation, offset );
 
 		barStyle = this.barElement.style;
 		if ( !duration ) {
@@ -135,41 +144,45 @@ Scroller.Scrollbar.prototype = {
 		} else {
 			transition = "-webkit-transform " + duration / 1000 + "s ease-out";
 		}
-		translate = "translate3d(" + offset + "px," + 0 + "px, 0)";
+
+		translate = "translate3d(" + offset.x + "px," + offset.y + "px, 0)";
 
 		barStyle["-webkit-transform"] = translate;
 		barStyle["-webkit-transition"] = transition;
 
 		if ( !this.started ) {
-			this.type.start(this.element, this.barElement);
-		}
-
-		this.started = true;
-
-		if ( this.displayDelayTimeoutId !== null ) {
-			window.clearTimeout( this.displayDelayTimeoutId );
+			this._start();
 		}
 
 		endDelay = ( duration || 0 ) + this.options.displayDelay;
+		if ( this.displayDelayTimeoutId !== null ) {
+			window.clearTimeout( this.displayDelayTimeoutId );
+		}
+		this.displayDelayTimeoutId = window.setTimeout(this._end.bind(this), endDelay);
+	},
 
-		this.displayDelayTimeoutId = window.setTimeout(function() {
-			this.started = false;
-			this.displayDelayTimeoutId = null;
-
-			if ( this.type ) {
-				this.type.end(this.element, this.barElement);
-			}
-		}.bind(this), endDelay);
+	_start: function() {
+		this.type.start(this.element, this.barElement);
+		this.started = true;
 	},
 
 	_end : function() {
+		this.started = false;
+		this.displayDelayTimeoutId = null;
+
+		if ( this.type ) {
+			this.type.end(this.element, this.barElement);
+		}
 	},
 
 	_clear: function() {
 		this._removeScrollbar();
 
+		this.started = false;
 		this.type = null;
 		this.element = null;
+		this.barElement = null;
+		this.displayDelayTimeoutId = null;
 	},
 
 	destroy: function() {
@@ -178,9 +191,6 @@ Scroller.Scrollbar.prototype = {
 		this.options = null;
 		this.container = null;
 		this.clip = null;
-		this.element = null;
-		this.barElement = null;
-		this.displayDelayTimeoutId = null;
 	}
 };
 
@@ -188,45 +198,72 @@ Scroller.Scrollbar.Type = {};
 
 //interface Scroller.Indicator.Type 
 Scroller.Scrollbar.Type.Interface = {
-	decorate: function( wrapper, bar, container, clip ) {},
+	insertAndDecorate: function( options ) {},
 	start: function( scrollbarElement, barElement ) {},
-	end: function( scrollbarElement, barElement ) {}
+	end: function( scrollbarElement, barElement ) {},
+	offset: function( orientation, offset ) {}
 };
 
 Scroller.Scrollbar.Type["bar"] = extend( {}, Scroller.Scrollbar.Type.Interface, {
 	options: {
 		wrapperClass: "scrollbar-bar-type",
 		barClass: "scrollbar-indicator",
+		orientationClass: "scrollbar-",
 		margin: 2,
 		animationDuration: 500
 	},
 
-	insertAndDecorate: function(scrollbarElement, barElement, container, clip, sections) {
-		var containerWidth = container.offsetWidth,
-			containerHeight = container.offsetHeight,
-			clipWidth = clip.offsetWidth,
-			clipHeight = clip.offsetHeight,
-			barStyle = barElement.style,
-			barWidth, height, i, len;
+	insertAndDecorate: function( data ) {
+		var scrollbarElement = data.wrapper,
+			barElement = data.bar,
+			container = data.container,
+			clip = data.clip,
+			sections = data.sections,
+			orientation = data.orientation,
+			margin = this.options.margin,
+			clipSize = orientation === Scroller.Orientation.VERTICAL ? clip.offsetHeight : clip.offsetWidth,
+			containerSize = orientation === Scroller.Orientation.VERTICAL ? container.offsetHeight : container.offsetWidth,
+			orientationClass = this.options.orientationClass + (orientation === Scroller.Orientation.VERTICAL ? "vertical" : "horizontal"),
+			barStyle = barElement.style;
 
-		this.containerWidth = containerWidth;
-		this.maxScrollOffset = clipWidth - containerWidth;
-		this.scrollZoomRate = containerWidth / clipWidth;
-		this.barWidth = barWidth = window.parseInt( containerWidth / (clipWidth/containerWidth)  ) - ( this.options.margin * 2 );
+		this.containerSize = containerSize;
+		this.maxScrollOffset = clipSize - containerSize;
+		this.scrollZoomRate = containerSize / clipSize;
+		this.barSize = window.parseInt( containerSize / (clipSize/containerSize)  ) - ( margin * 2 );
 
-		scrollbarElement.className = this.options.wrapperClass;
+		scrollbarElement.className = this.options.wrapperClass + " " + orientationClass;
 		barElement.className = this.options.barClass;
 
-		barStyle.width =  barWidth + "px"
-		barStyle.left = "0px";
+		if ( orientation === Scroller.Orientation.VERTICAL ) {
+			barStyle["height"] =  this.barSize + "px"
+			barStyle["top"] = "0px";
+		} else {
+			barStyle["width"] =  this.barSize + "px"
+			barStyle["left"] = "0px";
+		}
 
 		container.appendChild(scrollbarElement);
 	},
 
-	offset: function( offset ) {
-		return offset !== this.maxScrollOffset ?
+	offset: function( orientation, offset ) {
+		var x, y, offset;
+
+		offset = offset !== this.maxScrollOffset ?
 				offset * this.scrollZoomRate :
-				this.containerWidth - this.barWidth - this.options.margin * 2;
+				this.containerSize - this.barSize - this.options.margin * 2;
+
+		if ( orientation === Scroller.Orientation.VERTICAL ) {
+			x = 0;
+			y = offset;
+		} else {
+			x = offset;
+			y = 0;
+		}
+
+		return {
+			x: x,
+			y: y
+		};
 	},
 
 	start: function( scrollbarElement, barElement ) {
@@ -251,24 +288,32 @@ Scroller.Scrollbar.Type["tab"] = extend( {}, Scroller.Scrollbar.Type.Interface, 
 		margin: 1
 	},
 
-	insertAndDecorate: function(scrollbarElement, barElement, container, clip, sections) {
-		var containerWidth = container.offsetWidth,
-			containerHeight = container.offsetHeight,
+	insertAndDecorate: function( data ) {
+		var scrollbarElement = data.wrapper,
+			barElement = data.bar,
+			container = data.container,
+			clip = data.clip,
+			sections = data.sections,
+			orientation = data.orientation,
+			margin = this.options.margin,
 			clipWidth = clip.offsetWidth,
 			clipHeight = clip.offsetHeight,
-			sectionSize = clipWidth/containerWidth,
+			containerWidth = container.offsetWidth,
+			containerHeight = container.offsetHeight,
+			clipSize = orientation === Scroller.Orientation.VERTICAL ? clipHeight : clipWidth,
+			containerSize = orientation === Scroller.Orientation.VERTICAL ? containerHeight : containerWidth,
+			sectionSize = clipSize / containerSize,
 			barWidth, height, i, len;
 
-		this.containerWidth = containerWidth;
-		this.maxScrollOffset = clipWidth - containerWidth;
-		this.scrollZoomRate = containerWidth / clipWidth;
-		this.barWidth = barWidth = window.parseInt( (containerWidth - this.options.margin * 2 * (sectionSize-1)) / sectionSize  );
+		this.containerSize = containerWidth;
+		this.maxScrollOffset = clipSize - containerSize;
+		this.scrollZoomRate = containerWidth / clipSize;
+		this.barSize = window.parseInt( (containerWidth - margin * 2 * (sectionSize-1)) / sectionSize  );
 
 		scrollbarElement.className = this.options.wrapperClass;
 		barElement.className = this.options.barClass;
 
-		scrollbarElement.style.width = containerWidth;
-		barElement.style.width = barWidth + "px";
+		barElement.style.width = this.barSize + "px";
 		barElement.style.left = "0px";
 
 		container.insertBefore(scrollbarElement, clip);
@@ -283,10 +328,13 @@ Scroller.Scrollbar.Type["tab"] = extend( {}, Scroller.Scrollbar.Type.Interface, 
 		}
 	},
 
-	offset: function( offset ) {
-		return offset === 0 ? -1 :
-			offset !== this.maxScrollOffset ? offset * this.scrollZoomRate :
-				this.containerWidth - this.barWidth - this.options.margin;
+	offset: function( orientation, offset ) {
+		return {
+			x: offset === 0 ? -1 :
+				offset !== this.maxScrollOffset ? offset * this.scrollZoomRate :
+					this.containerSize - this.barSize - this.options.margin,
+			y: 0
+		};
 	}
 
 });

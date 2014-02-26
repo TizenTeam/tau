@@ -16,7 +16,7 @@
 		if ( hele ) {
 			hscroller = new Scroller(hele, {
 				orientation: "horizontal",
-				scrollbar: "tab"
+				scrollbar: "bar"
 			});
 		}
 	});

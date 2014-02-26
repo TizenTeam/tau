@@ -173,13 +173,12 @@ extend(SectionChanger, Scroller, {
 	},
 
 	_initScrollbar: function() {
-		var scrollbarType = this.options.scrollbar,
-			orientation = this.options.orientation;
+		var scrollbarType = this.options.scrollbar;
 
 		if ( scrollbarType ) {
 			this.scrollbar = new Scroller.Scrollbar(this.element, {
 				type: scrollbarType,
-				orientation: orientation,
+				orientation: this.orientation,
 				sections: this.sections
 			});
 		}
@@ -226,7 +225,12 @@ extend(SectionChanger, Scroller, {
 			return;
 		}
 
-		offset = pageIndex * this.width;
+		if ( this.orientation === Scroller.Orientation.HORIZONTAL ) {
+			offset = pageIndex * this.width;
+		} else {
+			offset = pageIndex * this.height;
+		}
+
 		this.scrollbar.translate( offset, duration );
 	},
 
@@ -345,9 +349,9 @@ extend(SectionChanger, Scroller, {
 
 	_end: function( e ) {
 		var lastX = Math.round(this.lastTouchPointX),
-			lastY = Math.round(this.lastTouchPointX),
+			lastY = Math.round(this.lastTouchPointY),
 			distX = this.lastTouchPointX - this.startTouchPointX,
-			distY = this.lastTouchPointX - this.startTouchPointY,
+			distY = this.lastTouchPointY - this.startTouchPointY,
 			dist = this.orientation === Scroller.Orientation.HORIZONTAL ? distX : distY,
 			distanceX = Math.abs(lastX - this.startTouchPointX),
 			distanceY = Math.abs(lastY - this.startTouchPointY),
@@ -356,7 +360,7 @@ extend(SectionChanger, Scroller, {
 			endOffset = this.orientation === Scroller.Orientation.HORIZONTAL ? this.scrollerOffsetX : this.scrollerOffsetY,
 			endTime = (new Date()).getTime(),
 			duration = endTime - this.startTime,
-			flick = duration < 300 && endOffset < 0 && endOffset > maxDistance && distance > this.options.flickThreshold,
+			flick = duration < 300 && endOffset <= 0 && endOffset >= maxDistance && distance > this.options.flickThreshold,
 			requestScrollEnd = this.initiated && ( this.moved || flick ),
 			sectionLength = this.sections.length,
 			changeThreshold = this.options.changeThreshold,

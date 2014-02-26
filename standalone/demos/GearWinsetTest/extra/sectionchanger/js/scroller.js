@@ -155,13 +155,12 @@ Scroller.prototype = {
 	},
 
 	_initScrollbar: function() {
-		var scrollbarType = this.options.scrollbar,
-			orientation = this.options.orientation;
+		var scrollbarType = this.options.scrollbar;
 
 		if ( scrollbarType ) {
 			this.scrollbar = new Scroller.Scrollbar(this.element, {
 				type: scrollbarType,
-				orientation: orientation
+				orientation: this.orientation
 			});
 		}
 	},
