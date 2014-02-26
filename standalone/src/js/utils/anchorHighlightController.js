@@ -12,6 +12,7 @@
 	startY,
 	didScroll,
 	target,
+	liTarget,
 	touchLength,
 	addActiveClassTimerID,
 	options = {
@@ -20,7 +21,7 @@
 		keepActiveClassDelay: 100	// stay activeClass after touchend
 	},
 	activeClass = {
-		"A": "ui-a-active"
+		"LI": "ui-li-active"
 	};
 
 	function touchstartHandler( e ) {
@@ -53,17 +54,35 @@
 		document.removeEventListener( "touchmove", touchmoveHandler );
 	}
 
-	function detectATarget (target) {
-		while (target && target.tagName !== "A") {
-			target = target.parentNode;
+	function detectHighlightTarget ( target ) {
+		while ( target ) {
+			if( (target.tagName === "A") || (target.tagName === "LABEL") ) {
+				break;
+			} else {
+				target = target.parentNode;
+			}
+		}
+		return target;
+	}
+
+	function detectLiElement ( target ) {
+		while ( target ) {
+			if( target.tagName === "LI" ) {
+				break;
+			} else {
+				target = target.parentNode;
+			}
 		}
 		return target;
 	}
 
 	function addActiveClass() {
-		target = detectATarget(target);
-		if(!didScroll && target && target.tagName === "A") {
-			target.classList.add(activeClass.A);
+		target = detectHighlightTarget(target);
+		if(!didScroll && target && ((target.tagName === "A") || (target.tagName === "LABEL"))) {
+			liTarget = detectLiElement(target);
+			if( liTarget ) {
+				liTarget.classList.add(activeClass.LI);
+			}
 		}
 	}
 
@@ -71,12 +90,12 @@
 		var activeA = getActiveElements(),
 			i;
 		for( i=0; i<activeA.length; i++ ) {
-			activeA[i].classList.remove( activeClass.A );
+			activeA[i].classList.remove( activeClass.LI );
 		}
 	}
 
 	function getActiveElements() {
-		return document.getElementsByClassName( activeClass.A );
+		return document.getElementsByClassName( activeClass.LI );
 	}
 
 	function touchendHandler() {
