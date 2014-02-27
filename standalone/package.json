@@ -2,7 +2,7 @@
 	"name": "w-web-ui-fw",
 	"title": "Tizen W",
 	"description": "Tizen W",
-	"version": "0.0.1",
+	"version": "0.3.0",
 	"devDependencies": {
 		"grunt-cli": "latest",
 		"grunt-contrib-clean": "0.5.0",
