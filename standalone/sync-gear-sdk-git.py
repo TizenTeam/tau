@@ -58,29 +58,15 @@ jobs = {
 			SrcDest("standalone/demos/TemplateList", "samples/web/Template/Tizen/Gear\ UI/List/project"),
 			SrcDest("standalone/demos/GearWinsetTest", "samples/web/Sample/Tizen/Web\ App/GearWinsetTest/project")
 		], None),
-	"2_sampleapp": Job(
-		webapp,
-		sdk,
-		[
-			SrcDest("Calendar", "samples/web/Sample/Tizen/Web\ App/Calendar/project"),
-			SrcDest("Camera", "samples/web/Sample/Tizen/Web\ App/Camera/project"),
-			SrcDest("MediaControl", "samples/web/Sample/Tizen/Web\ App/MediaControl/project"),
-			SrcDest("Pedometer", "samples/web/Sample/Tizen/Web\ App/Pedometer/project"),
-			SrcDest("StopWatch", "samples/web/Sample/Tizen/Web\ App/StopWatch/project")
-		], None),
-	"3_gearui_sdk": Job(
+	"2_gearui_sdk": Job(
 		webuifw,
 		sdk,
 		[
 			SrcDest("standalone/dist", "samples/web/Template/Tizen/Gear\ UI/Basic/project/lib/gear-ui"),
 			SrcDest("standalone/dist", "samples/web/Template/Tizen/Gear\ UI/List/project/lib/gear-ui"),
-			SrcDest("standalone/dist", "samples/web/Sample/Tizen/Web\ App/GearWinsetTest/project/lib/gear-ui"),
-			SrcDest("standalone/dist", "samples/web/Sample/Tizen/Web\ App/Calendar/project/lib/gear-ui"),
-			SrcDest("standalone/dist", "samples/web/Sample/Tizen/Web\ App/Camera/project/lib/gear-ui"),
-			SrcDest("standalone/dist", "samples/web/Sample/Tizen/Web\ App/Pedometer/project/lib/gear-ui"),
-			SrcDest("standalone/dist", "samples/web/Sample/Tizen/Web\ App/StopWatch/project/lib/gear-ui")
+			SrcDest("standalone/dist", "samples/web/Sample/Tizen/Web\ App/GearWinsetTest/project/lib/gear-ui")
 		], ["cd web-ui-fw/standalone", "npm install", "grunt"]),
-	"4_gearui_webapp": Job(
+	"3_gearui_webapp": Job(
 		webuifw,
 		webapp,
 		[
@@ -94,7 +80,6 @@ jobs = {
 			SrcDest("standalone/dist", "TouchPaint/lib/gear-ui"),
 			SrcDest("standalone/dist", "WatchOnWeb/lib/gear-ui"),
 			SrcDest("standalone/dist", "Weather/lib/gear-ui"),
-			SrcDest("standalone/dist", "MediaControl/lib/gear-ui"),
 			SrcDest("standalone/dist", "Pedometer/lib/gear-ui"),
 			SrcDest("standalone/dist", "Camera/lib/gear-ui"),
 			SrcDest("standalone/dist", "StopWatch/lib/gear-ui"),
