@@ -6,14 +6,16 @@
 */
 /**
  * @class ns.widget.micro.VirtualListview
+ * @extend ns.widget.BaseWidget
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Piotr Karny <p.karny@samsung.com>
  * @author Michał Szepielak <m.szepielak@samsung.com>
  */
 /**
- * @TODO: update docs
- */
-
+* @class gear.ui.VirtualListview
+* @inheritdoc ns.widget.micro.VirtualListview
+* @extends ns.widget.micro.VirtualListview
+*/
 (function(document, ns) {
 	"use strict";
 	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
@@ -357,7 +359,8 @@
 							childrenNodes,
 							i = 0,
 							jump = 0,
-							hiddenPart = 0;
+							hiddenPart = 0,
+							newPosition;
 
 					childrenNodes = element.children;
 					for (i = childrenNodes.length - 1; i > 0; i -= 1) {
@@ -442,11 +445,25 @@
 							}
 						}
 						if (scrollDirection[SCROLL_UP] || scrollDirection[SCROLL_DOWN]) {
-							elementStyle.top = (elementPositionTop + jump) + "px";
+							newPosition = elementPositionTop + jump;
+							if (newPosition < 0) {
+								newPosition = 0;
+							}
+							if (currentIndex === 0) {
+								newPosition = 0;
+							}
+							elementStyle.top = newPosition + "px";
 						}
 
 						if (scrollDirection[SCROLL_LEFT] || scrollDirection[SCROLL_RIGHT]) {
-							elementStyle.left = (elementPositionLeft + jump) + "px";
+							newPosition = elementPositionTop + jump;
+							if (newPosition < 0) {
+								newPosition = 0;
+							}
+							if (currentIndex === 0) {
+								newPosition = 0;
+							}
+							elementStyle.left = newPosition + "px";
 						}
 
 						if (scrollDirection[SCROLL_DOWN] || scrollDirection[SCROLL_RIGHT]) {
@@ -619,7 +636,7 @@
 						ui = self.ui,
 						spacerStyle = ui.spacer.style;
 
-					/**
+					/*
 					 * @TODO: add checking horizontal / vertical scroll
 					 */
 					if (options.orientation === 'y') {

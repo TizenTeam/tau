@@ -10,7 +10,7 @@
  * @author Maciej Moczulski <m.moczulski@samsung.com>
  * @author Piotr Karny <p.karny@samsung.com>
  */
-(function (window, document, ej) {
+(function () {
 	"use strict";
 	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 	define(
@@ -21,10 +21,8 @@
 		],
 		function () {
 			//>>excludeEnd("ejBuildExclude");
-			ej.utils.DOM = ej.utils.DOM || {};
-			return ej.utils.DOM;
 			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 		}
 	);
 	//>>excludeEnd("ejBuildExclude");
-}(window, window.document, window.ej));
+}());

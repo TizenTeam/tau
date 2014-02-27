@@ -35,12 +35,23 @@ if (!CustomEvent) {
 	}
 }
 org_pushstate = window.history.pushState;
-window.history.pushState = function () {
+window.history.pushState = function (state) {
 	try {
 		org_pushstate.apply(window.history, arguments);
 	}
 	catch (e) {
 	}
+	window.history.state = state;
+};
+
+org_replace = window.history.replaceState;
+window.history.replaceState = function (state) {
+	try {
+		org_replace.apply(window.history, arguments);
+	}
+	catch (e) {
+	}
+	window.history.state = state;
 };
 
 

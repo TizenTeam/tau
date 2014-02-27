@@ -3,10 +3,10 @@ module("engine");
 (function () {
 	var widget1;
 
-	asyncTest("generating widgets", 9, function () {
+	asyncTest("Generating widgets", 9, function () {
 		document.addEventListener("mobileinit", function test1() {
 			// @NOTE: ACTUAL TESTS HERE!
-			document.body.removeEventListener("mobileinit", test1, false);
+			document.removeEventListener("mobileinit", test1, false);
 			var engine = ej.engine,
 				eventUtils = ej.utils.events,
 				el1 = document.getElementById("test1-test-widget"),
@@ -50,18 +50,25 @@ module("engine");
 		ej.engine.run();
 	});
 
-	console = {
-			log: function (arg1, arg2, arg3) {
-				ej.utils.events.trigger(document.body, 'consolelog', arg1+' '+arg2+' '+arg3);
-			},
-			warn: function (arg1, arg2, arg3) {
-				ej.utils.events.trigger(document.body, 'consolewarn', arg1+' '+arg2+' '+arg3);
-			},
-			error: function (arg1, arg2, arg3) {
-				ej.utils.events.trigger(document.body, 'consoleerror', arg1+' '+arg2+' '+arg3);
-			}
-		};
+	test('Define widgets without method array', function (){
+		var testWidget = function () {},
+			def;
+		testWidget.prototype = new ej.widget.BaseWidget();
+		
+		ej.engine.defineWidget(
+			"Test2",
+			"ej.test.widget2",
+			"div.just-to-run-with-empty-methods",
+			null,
+			testWidget
+		);
 
+		def = ej.engine.getWidgetDefinition('Test2');
+		ok(def, "Definition exists");
+		ok(def.methods, "Definition methods exists");
+		equal(def.methods && def.methods.length, 6, "Definition has 6 basic methods");
+	});
+	
 	test('redefine widget', function () {
 		var NewWidget = function () { return this; };
 		NewWidget.prototype = new ej.widget.BaseWidget();
@@ -86,14 +93,74 @@ module("engine");
 	});
 	
 	test('create/destroy widgets', function() {
-		var widget = ej.engine.getBinding("test1-test-widget");
+		var widget = ej.engine.getBinding("test1-test-widget"),
+			buildChild;
+
 		ok(!widget, 'widget not created');
 		ej.utils.events.trigger(document.body, 'create');
 		widget = ej.engine.getBinding("test1-test-widget");
 		ok(widget, 'widget Test1 created');
 		widget = ej.engine.getBinding("page1");
 		ok(widget, 'widget page created');
-		widget = ej.engine.destroyWidget("test1-test-widget");
-		ok(!widget, 'widget Test1 destroyed');
+
+		ej.engine.destroyWidget("test1-test-widget");
+		ok(!ej.engine.getBinding("test1-test-widget"), 'widget Test1 destroyed');
+
+		widget = ej.engine.getBinding("test3-test-widget");
+		ok(widget, 'widget Test3 created');
+		buildChild = widget.element.querySelector('[data-ej-built]');
+		ok(buildChild, "One build child inside");
+
+		ej.engine.destroyWidget("test3-test-widget");
+		ok(!ej.engine.getBinding("test3-test-widget"), 'widget Test3 destroyed');
+
+		ok(!buildChild.getAttribute('data-ej-built'), "Widget has no property 'data-ej-built' (is destroyed)");
 	});
+
+	test('Checking engine.justBuild method', function(){
+		var engine = ej.engine;
+
+		equal(engine.justBuild, false, "Default justBuild value is 'false'");
+
+		engine.setJustBuild(true);
+		equal(engine.justBuild, true, "Value changed to 'true'");
+		equal(window.location.hash, "#build", "Hash changed to '#build'");
+
+		engine.setJustBuild(false);
+		equal(engine.justBuild, false, "Value changed to 'false'");
+		equal(window.location.hash, "", "Hash changed to ''");
+	});
+
+	test('Creating widgets with "justBuild"', function() {
+		var element, widget,
+			boundAttr = ej.engine.dataEj.bound;
+
+			// Set justBuild
+			ej.engine.setJustBuild(true);
+
+			element = document.getElementById("test2-test-widget");
+			widget = ej.engine.instanceWidget(element, "Test1");
+
+			ok(widget, 'Widget Test2 created');
+			equal(element.getAttribute(boundAttr), null, "Widget not bound");
+
+			// Unset justBuild
+			ej.engine.setJustBuild(false);
+	});
+
+	test('Check instanceWidget creation with empty element', function() {
+		var oldErrorLog = console.error,
+			logSpy = function() {
+				ok(true, "Error was thrown");
+			};
+
+		// Change internal method (used inside instanceWidget) into spy function
+		console.error = logSpy;
+
+		ej.engine.instanceWidget(null, 'Button');
+
+		// Restore real method
+		console.error = oldErrorLog;
+	});
+
 }());

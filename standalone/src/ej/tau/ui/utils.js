@@ -4,9 +4,7 @@
 * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
 * License : MIT License V2
 */
-/**
- * @class gear.ui.utils
- * @override gear.ui
+/*
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
 (function (document, frameworkNamespace, ns) {
@@ -28,15 +26,19 @@
 					events = utils.events;
 				/**
 				 * @class gear.ui.path
+				 * @inheritdoc ns.utils.path
+				 * @extends ns.utils.path
 				 */
 				ns.path = utils.path;
 				/**
 				 * @method fireEvent
+				 * @inheritdoc ns.utils.events.trigger
 				 * @memberOf gear.ui
 				 */
 				ns.fireEvent = events.trigger.bind(events.trigger);
 				/**
 				 * @method getData
+				 * @inheritdoc ns.utils.DOM.getData
 				 * @memberOf gear.ui
 				 */
 				ns.getData = DOM.getData.bind(DOM);

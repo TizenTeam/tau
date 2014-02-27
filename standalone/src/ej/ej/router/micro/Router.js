@@ -4,6 +4,7 @@
 * License : MIT License V2
 */
 /**
+ * Main class to navigate between pages and popups.
  * @class ns.router.micro.Router
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Piotr Karny <p.karny@samsung.com>
@@ -42,13 +43,24 @@
 				body = document.body,
 				slice = [].slice,
 				Router = function () {
-					this.activePage = null;
-					this.firstPage = null;
-					this.container = null;
-					this.settings = {};
-					this.rule = {};
+					var self = this;
+					self.activePage = null;
+					self.firstPage = null;
+					self.container = null;
+					self.settings = {};
+					self.rule = {};
 				};
 
+			/**
+			* @property {Object} defaults
+			* @property {boolean} [defaults.fromHashChange = false]
+			* @property {boolean} [defaults.reverse = false]
+			* @property {boolean} [defaults.showLoadMsg]
+			* @property {number} [defaults.loadMsgDelay = 0]
+			* @property {boolean} [defaults.volatileRecord = false]
+			* @instance
+			* @memberOf ns.router.micro.Router
+			*/
 			Router.prototype.defaults = {
 				fromHashChange: false,
 				reverse: false,
@@ -123,12 +135,12 @@
 			}
 
 			/**
-			* Change page
+			* Change page to page given in parameter to.
 			* @method open
-			* @param {HTMLElement|string} toPage
+			* @param {HTMLElement|string} to Id of page or file url or HTMLElement of page
 			* @param {Object} options
-			* @static
-			* @memberOf ns.router.Page
+			* @instance
+			* @memberOf ns.router.micro.Router
 			*/
 			Router.prototype.open = function (to, options) {
 				var rel = ((options && options.rel) || "page"),
@@ -170,6 +182,13 @@
 				}
 			};
 
+			/**
+			* Method initialize page container and build first page is is set flag autoInitializePage
+			* @method init
+			* @param {boolean} justBuild
+			* @instance
+			* @memberOf ns.router.micro.Router
+			*/
 			Router.prototype.init = function (justBuild) {
 				var page,
 					containerElement,
@@ -228,6 +247,12 @@
 				this.register(container, firstPage);
 			};
 
+			/**
+			* Remove all events listners set by router
+			* @method destroy
+			* @instance
+			* @memberOf ns.router.micro.Router
+			*/
 			Router.prototype.destroy = function () {
 				window.removeEventListener('popstate', this.popStateHandler, false);
 				if (body) {
@@ -236,18 +261,45 @@
 				}
 			};
 
+			/**
+			* Set container
+			* @method setContainer
+			* @param {HTMLElement} element
+			* @instance
+			* @memberOf ns.router.micro.Router
+			*/
 			Router.prototype.setContainer = function (element) {
 				this.container = element;
 			};
 
+			/**
+			* Get container
+			* @method getContainer
+			* @instance
+			* @memberOf ns.router.micro.Router
+			*/
 			Router.prototype.getContainer = function () {
 				return this.container;
 			};
 
+			/**
+			* Get first page
+			* @method getFirstPage
+			* @instance
+			* @memberOf ns.router.micro.Router
+			*/
 			Router.prototype.getFirstPage = function () {
 				return this.firstPage;
 			};
 
+			/**
+			* Register page container and first page
+			* @method setContainer
+			* @param {ns.widget.PageContainer} container
+			* @param {HTMLElement} firstPage
+			* @instance
+			* @memberOf ns.router.micro.Router
+			*/
 			Router.prototype.register = function (container, firstPage) {
 				this.container = container;
 				this.firstPage = firstPage;

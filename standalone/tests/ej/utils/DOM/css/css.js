@@ -8,26 +8,32 @@ var testElement1 = document.getElementById("test1"),
 	testElement6 = document.getElementById("test6"),
 	testElement7 = document.getElementById("test7"),
 	testElement8 = null,
+	testElement9 = document.getElementById("test9"),
 	dom = ej.utils.DOM;
 
 test("utils.DOM.css", function () {
 	// basic props check
 	var props = {
 		"width": 0,
-		"height": 0,
-		"content": "testContent"
+		"height": 0
 	};
-	equal(dom.getCSSProperty(testElement1, "content", false), "testContent", "fetching css property value");
-	equal(dom.getCSSProperty(testElement1, "content", false), $(testElement1).css("content"), "compare with jquery");
+
+
+	floatValue = dom.getCSSProperty(testElement9, "opacity", 0, "float");
+	floatValueRound = Math.round(floatValue);
+	floatInit = parseInt($(testElement9).css("width"));
+	equal(dom.getCSSProperty(testElement1, "display", false), "block", "fetching css property value");
+	equal(dom.getCSSProperty(testElement1, "display", false), $(testElement1).css("display"), "compare with jquery");
 	deepEqual(dom.getCSSProperty(testElement1, "width", 0, "integer"), 50, "fetching css propety value and matching types");
+
+	ok(floatValueRound !== floatValue, "checks if float");
 
 	dom.extractCSSProperties(testElement1, props);
 	deepEqual(
 		props, 
 		{
 			"width": 50,
-			"height": 50,
-			"content": "testContent"
+			"height": 50
 		},
 		"fetching multiple props at once"
 	);

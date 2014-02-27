@@ -1,11 +1,12 @@
 /*global window, define */
 /*
-* Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
-* License : MIT License V2
-*/
+ * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
+ */
 /**
  * @class ns.router.micro.route.popup
  * @author Maciej Urbanski <m.urbanski@samsung.com>
+ * @author Damian Osipiuk <d.osipiuk@samsung.com>
  */
 (function (window, document, ns) {
 	"use strict";
@@ -24,36 +25,116 @@
 		function () {
 			//>>excludeEnd("ejBuildExclude");
 			var RoutePopup = {
+					/**
+					 * @property {Object} defaults Object with default options
+					 * @property {string} [defaults.transition='none']
+					 * @property {?HTMLElement} [defaults.container=null]
+					 * @property {boolean} [defaults.volatileRecord=true]
+					 * @memberOf ns.router.micro.route.popup
+					 * @static
+					 */
 					defaults: {
 						transition: 'none',
 						container: null,
 						volatileRecord: true
 					},
+					/**
+					 * @property {string} filter Alias for {@link ns.micro.selectors.popup}
+					 * @memberOf ns.router.micro.route.popup
+					 * @static
+					 */
 					filter: ns.micro.selectors.popup,
+					/**
+					 * @property {?HTMLElement} activePopup Storage variable for active popup
+					 * @memberOf ns.router.micro.route.popup
+					 * @static
+					 */
 					activePopup: null,
+					/**
+					 * @property {Object} events Dictionary for popup related event types
+					 * @property {string} [events.popup_hide='popuphide']
+					 * @memberOf ns.router.micro.route.popup
+					 * @static
+					 */
 					events: {
-						POPUP_HIDE: 'popuphide'
+						popup_hide: 'popuphide'
 					}
 				},
+				/**
+				 * @property {Object} engine Alias for {@link ns.engine}
+				 * @memberOf ns.router.micro.route.popup
+				 * @private
+				 * @static
+				 */
 				engine = ns.engine,
+				/**
+				 * @property {Object} path Alias for {@link ns.utils.path}
+				 * @memberOf ns.router.micro.route.popup
+				 * @private
+				 * @static
+				 */
 				path = ns.utils.path,
+				/**
+				 * @property {Object} utilSelector Alias for {@link ns.utils.selectors}
+				 * @memberOf ns.router.micro.route.popup
+				 * @private
+				 * @static
+				 */
 				utilSelector = ns.utils.selectors,
+				/**
+				 * @property {Object} history Alias for {@link ns.router.micro.history}
+				 * @memberOf ns.router.micro.route.popup
+				 * @private
+				 * @static
+				 */
 				history = ns.router.micro.history,
+				/**
+				 * @property {Object} pathUtils Alias for {@link ns.utils.path}
+				 * @memberOf ns.router.micro.route.popup
+				 * @private
+				 * @static
+				 */
 				pathUtils = ns.utils.path,
+				/**
+				 * @property {Object} DOM Alias for {@link ns.utils.DOM}
+				 * @memberOf ns.router.micro.route.popup
+				 * @private
+				 * @static
+				 */
 				DOM = ns.utils.DOM,
+				/**
+				 * @method slice Alias for array slice method
+				 * @memberOf ns.router.micro.route.popup
+				 * @private
+				 * @static
+				 */
 				slice = [].slice,
+				/**
+				 * @property {string} popupHashKey
+				 * @memberOf ns.router.micro.route.popup
+				 * @private
+				 * @static
+				 */
 				popupHashKey = "popup=true",
+				/**
+				 * @property {RegExp} popupHashKeyReg
+				 * @memberOf ns.router.micro.route.popup
+				 * @private
+				 * @static
+				 */
 				popupHashKeyReg = /([&|\?]popup=true)/;
 
 			/**
-			* Tries to find a popup element matching id and filter (selector).
-			* Adds data url attribute to found page, sets page = null when nothing found
-			* @method findPopupAndSetDataUrl
-			* @private
-			* @param {string} id
-			* @param {string} filter
-			* @memberOf ns.router.micro.route.popup
-			*/
+			 * Tries to find a popup element matching id and filter (selector).
+			 * Adds data url attribute to found page, sets page = null when nothing found
+			 * @method findPopupAndSetDataUrl
+			 * @param {string} id
+			 * @param {string} filter
+			 * @return {HTMLElement}
+			 * @memberOf ns.router.micro.route.popup
+			 * @private
+			 * @static
+			 */
 			function findPopupAndSetDataUrl(id, filter) {
 				var popup = document.getElementById(path.hashToSelector(id));
 
@@ -70,29 +151,37 @@
 				return popup;
 			}
 
+			/**
+			 * Returns default options
+			 * @method option
+			 * @return {Object}
+			 * @memberOf ns.router.micro.route.popup
+			 * @static
+			 */
 			RoutePopup.option = function () {
 				return RoutePopup.defaults;
 			};
+
 			/**
-			* Change page
-			* @method open
-			* @param {HTMLElement|string} toPopup
-			* @param {Object} options
-			* @static
-			* @memberOf ns.router.micro.route.popup
-			*/
+			 * Change page
+			 * @method open
+			 * @param {HTMLElement|string} toPopup
+			 * @param {Object} options
+			 * @memberOf ns.router.micro.route.popup
+			 * @static
+			 */
 			RoutePopup.open = function (toPopup, options) {
 				var popup,
 					popupKey,
 					router = engine.getRouter(),
 					url = pathUtils.getLocation(),
 					removePopup = function () {
-						document.removeEventListener(RoutePopup.events.POPUP_HIDE, removePopup, false);
+						document.removeEventListener(RoutePopup.events.popup_hide, removePopup, false);
 						toPopup.parentNode.removeChild(toPopup);
 						RoutePopup.activePopup = null;
 					},
 					openPopup = function () {
-						document.removeEventListener(RoutePopup.events.POPUP_HIDE, openPopup, false);
+						document.removeEventListener(RoutePopup.events.popup_hide, openPopup, false);
 						popup = engine.instanceWidget(toPopup, 'popup', options);
 						popup.open();
 						RoutePopup.activePopup = popup;
@@ -111,17 +200,25 @@
 				if (DOM.getNSData(toPopup, "external") === true) {
 					container = options.container ? activePage.element.querySelector(options.container) : activePage.element;
 					container.appendChild(toPopup);
-					document.addEventListener(RoutePopup.events.POPUP_HIDE, removePopup, false);
+					document.addEventListener(RoutePopup.events.popup_hide, removePopup, false);
 				}
 
 				if (RoutePopup._hasActivePopup()) {
-					document.addEventListener(RoutePopup.events.POPUP_HIDE, openPopup, false);
+					document.addEventListener(RoutePopup.events.popup_hide, openPopup, false);
 					RoutePopup._closeActivePopup();
 				} else {
 					openPopup();
 				}
 			};
 
+			/**
+			 * Close active popup
+			 * @method _closeActivePopup
+			 * @param {HTMLElement} activePopup
+			 * @memberOf ns.router.micro.route.popup
+			 * @protected
+			 * @static
+			 */
 			RoutePopup._closeActivePopup = function (activePopup) {
 				activePopup = activePopup || RoutePopup.activePopup;
 
@@ -132,6 +229,13 @@
 				}
 			};
 
+			/**
+			 * Close active popup
+			 * @method onHashChange
+			 * @return {boolean}
+			 * @memberOf ns.router.micro.route.popup
+			 * @static
+			 */
 			RoutePopup.onHashChange = function () {
 				var activePopup = RoutePopup.activePopup;
 
@@ -146,9 +250,24 @@
 				return false;
 			};
 
+			/**
+			 * @method onOpenFailed
+			 * @memberOf ns.router.micro.route.popup
+			 * @return {null}
+			 * @static
+			 */
 			RoutePopup.onOpenFailed = function(/* options */) {
+				return null;
 			};
 
+			/**
+			 * Find popup by data-url
+			 * @method find
+			 * @param {string} absUrl
+			 * @return {HTMLElement}
+			 * @memberOf ns.router.micro.route.popup
+			 * @static
+			 */
 			RoutePopup.find = function( absUrl ) {
 				var dataUrl = this._createDataUrl( absUrl ),
 					activePage = engine.getRouter().getContainer().getActivePage(),
@@ -163,6 +282,14 @@
 				return popup;
 			};
 
+			/**
+			 * @method parse
+			 * @param {string} html
+			 * @param {string} absUrl
+			 * @return {HTMLElement}
+			 * @memberOf ns.router.micro.route.popup
+			 * @static
+			 */
 			RoutePopup.parse = function( html, absUrl ) {
 				var popup,
 					dataUrl = this._createDataUrl( absUrl ),
@@ -226,10 +353,26 @@
 				return popup;
 			};
 
+			/**
+			 * Convert url to data-url
+			 * @method _createDataUrl
+			 * @param {string} absoluteUrl
+			 * @return {string}
+			 * @memberOf ns.router.micro.route.popup
+			 * @protected
+			 * @static
+			 */
 			RoutePopup._createDataUrl = function( absoluteUrl ) {
 				return path.convertUrlToDataUrl( absoluteUrl );
 			};
 
+			/**
+			 * @method _hasActivePopup
+			 * @return {boolean}
+			 * @memberOf ns.router.micro.route.popup
+			 * @protected
+			 * @static
+			 */
 			RoutePopup._hasActivePopup = function () {
 				var popup = document.querySelector('.ui-popup-active');
 				RoutePopup.activePopup = popup && engine.instanceWidget(popup, 'popup');

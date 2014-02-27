@@ -23,7 +23,8 @@
 
 
 			var selectors = ns.utils.selectors,
-				DOM = ns.utils.DOM;
+				DOM = ns.utils.DOM,
+				namespace = "namespace";
 
 			/**
 			 * Returns given attribute from element or the closest parent,
@@ -79,6 +80,11 @@
 				return result;
 			};
 
+			function getDataName(name) {
+				var namespace = ns.get(namespace);
+				return "data-" + (namespace ? namespace + "-" : "") + name;
+			}
+
 			/**
 			 * This function sets value of attribute data-{namespace}-{name} for element.
 			 * If the namespace is empty, the attribute data-{name} is used.
@@ -90,9 +96,7 @@
 			 * @static
 			 */
 			DOM.setNSData = function (element, name, value) {
-				var namespace = ns.get("namespace"),
-					dataNamespaceName = "data-" + (namespace ? namespace + "-" : "") + name;
-				element.setAttribute(dataNamespaceName, value);
+				element.setAttribute(getDataName(name), value);
 			};
 
 			/**
@@ -107,9 +111,7 @@
 			 * @static
 			 */
 			DOM.getNSData = function (element, name) {
-				var namespace = ns.get("namespace"),
-					dataNamespaceName = "data-" + (namespace ? namespace + "-" : "") + name,
-					value = element.getAttribute(dataNamespaceName);
+				var value = element.getAttribute(getDataName(name));
 
 				if (value === "true") {
 					return true;
@@ -133,9 +135,7 @@
 			 * @static
 			 */
 			DOM.hasNSData = function (element, name) {
-				var namespace = ns.get("namespace"),
-					dataNamespaceName = "data-" + (namespace ? namespace + "-" : "") + name;
-				return element.hasAttribute(dataNamespaceName);
+				return element.hasAttribute(getDataName(name));
 			};
 
 			/**
@@ -148,9 +148,7 @@
 			 * @static
 			 */
 			DOM.removeNSData = function (element, name) {
-				var namespace = ns.get("namespace"),
-					dataNamespaceName = "data-" + (namespace ? namespace + "-" : "") + name;
-				element.removeAttribute(dataNamespaceName);
+				element.removeAttribute(getDataName(name));
 			};
 
 			/**

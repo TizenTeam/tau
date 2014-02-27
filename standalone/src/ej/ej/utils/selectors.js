@@ -1,14 +1,15 @@
 /*global define: true, window: true */
 /*
-* Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
-* License : MIT License V2
-*/
+ * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
+ */
 /**
  * @class ns.utils.selectors
  * Utils class with selectors functions
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>
  * @author Jadwiga Sosnowska <j.sosnowska@partner.samsung.com>
+ * @author Damian Osipiuk <d.osipiuk@samsung.com>
  */
 (function (document, ns) {
 	"use strict";
@@ -19,14 +20,20 @@
 		],
 		function () {
 			//>>excludeEnd("ejBuildExclude");
+			/**
+			 * @method slice Alias for array slice method
+			 * @memberOf ns.utils.selectors
+			 * @private
+			 * @static
+			 */
 			var slice = [].slice,
 				/**
-				* @method matchesSelectorType
-				* @return {string}
-				* @private
-				* @static
-				* @memberOf ns.utils.selectors
-				*/
+				 * @method matchesSelectorType
+				 * @return {string|boolean}
+				 * @memberOf ns.utils.selectors
+				 * @private
+				 * @static
+				 */
 				matchesSelectorType = (function () {
 					var el = document.createElement("div");
 
@@ -49,6 +56,29 @@
 					return false;
 				}());
 
+			/**
+			 * Prefix selector with 'data-' and namespace if present
+			 * @method getDataSelector
+			 * @param {string} selector
+			 * @return {string}
+			 * @memberOf ns.utils.selectors
+			 * @private
+			 * @static
+			 */
+			function getDataSelector(selector) {
+				var namespace = ns.get(namespace);
+				return '[data-' + (namespace ? namespace + '-' : '') + selector + ']';
+			}
+
+			/**
+			 * @method matchesSelector
+			 * @param {HTMLElement} element
+			 * @param {string} selector
+			 * @return {boolean}
+			 * @memberOf ns.utils.selectors
+			 * @private
+			 * @static
+			 */
 			function matchesSelector(element, selector) {
 				if (matchesSelectorType) {
 					return element[matchesSelectorType](selector);
@@ -56,6 +86,15 @@
 				return false;
 			}
 
+			/**
+			 * Return array with all parents of element.
+			 * @method parents
+			 * @param {HTMLElement} element
+			 * @return {Array}
+			 * @memberOf ns.utils.selectors
+			 * @private
+			 * @static
+			 */
 			function parents(element) {
 				var items = [],
 					current = element.parentNode;
@@ -67,15 +106,15 @@
 			}
 
 			/**
-			* Checks if given element and its ancestors matches given function
-			* @method closest
-			* @param {HTMLElement} element
-			* @param {Function} testFunction
-			* @return {?HTMLElement}
-			* @static
-			* @private
-			* @memberOf ns.utils.selectors
-			*/
+			 * Checks if given element and its ancestors matches given function
+			 * @method closest
+			 * @param {HTMLElement} element
+			 * @param {Function} testFunction
+			 * @return {?HTMLElement}
+			 * @memberOf ns.utils.selectors
+			 * @static
+			 * @private
+			 */
 			function closest(element, testFunction) {
 				var current = element;
 				while (current && current !== document) {
@@ -87,18 +126,48 @@
 				return null;
 			}
 
+			/**
+			 * @method testSelector
+			 * @param {string} selector
+			 * @param {HTMLElement} node
+			 * @return {boolean}
+			 * @memberOf ns.utils.selectors
+			 * @static
+			 * @private
+			 */
 			function testSelector(selector, node) {
 				return matchesSelector(node, selector);
 			}
 
+			/**
+			 * @method testClass
+			 * @param {string} className
+			 * @param {HTMLElement} node
+			 * @return {boolean}
+			 * @memberOf ns.utils.selectors
+			 * @static
+			 * @private
+			 */
 			function testClass(className, node) {
 				return node.classList.contains(className);
 			}
 
+			/**
+			 * @method testTag
+			 * @param {string} tagName
+			 * @param {HTMLElement} node
+			 * @return {boolean}
+			 * @memberOf ns.utils.selectors
+			 * @static
+			 * @private
+			 */
 			function testTag(tagName, node) {
 				return node.tagName.toLowerCase() === tagName;
 			}
 
+			/**
+			 * @namespace ns.utils.selectors
+			 */
 			ns.utils.selectors = {
 				/**
 				* Runs matches implementation of matchesSelector
@@ -135,9 +204,7 @@
 				* @memberOf ns.utils.selectors
 				*/
 				getChildrenByDataNS: function (context, dataSelector) {
-					var namespace = ns.get('namespace'),
-						fullDataSelector = '[data-' + (namespace ? namespace + '-' : '') + dataSelector + ']';
-					return slice.call(context.children).filter(testSelector.bind(null, fullDataSelector));
+					return slice.call(context.children).filter(testSelector.bind(null, getDataSelector(dataSelector)));
 				},
 
 				/**
@@ -200,9 +267,7 @@
 				* @memberOf ns.utils.selectors
 				*/
 				getParentsBySelectorNS: function (context, selector) {
-					var namespace = ns.get('namespace'),
-						fullSelector = '[data-' + (namespace ? namespace + '-' : '') + selector + ']';
-					return parents(context).filter(testSelector.bind(null, fullSelector));
+					return parents(context).filter(testSelector.bind(null, getDataSelector(selector)));
 				},
 
 				/**
@@ -254,9 +319,7 @@
 				* @memberOf ns.utils.selectors
 				*/
 				getClosestBySelectorNS: function (context, selector) {
-					var namespace = ns.get('namespace'),
-						fullSelector = '[data-' + (namespace ? namespace + '-' : '') + selector + ']';
-					return closest(context, testSelector.bind(null, fullSelector));
+					return closest(context, testSelector.bind(null, getDataSelector(selector)));
 				},
 
 				/**
@@ -295,9 +358,7 @@
 				* @memberOf ns.utils.selectors
 				*/
 				getAllByDataNS: function (context, dataSelector) {
-					var namespace = ns.get('namespace'),
-						fullDataSelector = '[data-' + (namespace ? namespace + '-' : '') + dataSelector + ']';
-					return slice.call(context.querySelectorAll(fullDataSelector));
+					return slice.call(context.querySelectorAll(getDataSelector(dataSelector)));
 				}
 			};
 			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);

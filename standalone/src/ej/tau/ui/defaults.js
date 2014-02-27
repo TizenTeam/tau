@@ -5,9 +5,7 @@
 * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
 * License : MIT License V2
 */
-/**
- *
- * @class gear.ui.defaults
+/*
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
 (function (document, frameworkNamespace, ns) {
@@ -16,25 +14,42 @@
 	define(
 		[
 			"../ui",
+			"./navigator",
 			"../../ej/micro/selectors",
 			"../../ej/engine"
 		],
 		function () {
 			//>>excludeEnd("ejBuildExclude");
 
-			function initGearDefaults() {
+			document.addEventListener("initjqm", function () {
 				var navigator,
 					selectors = frameworkNamespace.micro.selectors;
 
-				document.removeEventListener("initjqm", initGearDefaults, false);
 				ns.defaults = {
 					autoInitializePage: true,
 					pageTransition: 'none',
 					popupTransition: 'none'
 				};
+				/**
+				 * @property {boolean} [dynamicBaseEnabled = true]
+				 * @memberOf gear.ui
+				 */
 				ns.dynamicBaseEnabled = true;
+				/**
+				 * @class gear.ui.selectors
+				 * @inheritdoc ns.micro.selectors
+				 * @extend ns.micro.selectors
+				 */
 				ns.selectors = selectors;
 				navigator = ns.navigator || {};
+				/**
+				 * @property {object} defaults
+				 * @property {boolean} [defaults.fromHashChange = false]
+				 * @property {boolean} [defaults.reverse = false]
+				 * @property {boolean} [defaults.showLoadMsg = true]
+				 * @property {number} [defaults.loadMsgDelay = 0]
+				 * @memberOf gear.ui.navigator
+				 */
 				navigator.defaults = {
 					fromHashChange: false,
 					reverse: false,
@@ -42,9 +57,7 @@
 					loadMsgDelay: 0
 				};
 				ns.navigator = navigator;
-			}
-
-			document.addEventListener("initjqm", initGearDefaults, false);
+			}, false);
 
 			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 		}

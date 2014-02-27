@@ -27,14 +27,13 @@
 				* @memberOf ej.utils
 				* @static
 				*/
-				requestAnimationFrame = window.requestAnimationFrame ||
+				requestAnimationFrame = (window.requestAnimationFrame ||
 					window.webkitRequestAnimationFrame ||
 					window.mozRequestAnimationFrame ||
 					window.oRequestAnimationFrame ||
 					function (callback) {
 						currentFrame = window.setTimeout(callback.bind(callback, +new Date()), 1000 / 60);
-					},
-
+					}).bind(window),
 				/**
 				* Class with utils functions
 				* @class ej.utils
@@ -51,7 +50,7 @@
 			* @memberOf ej.utils
 			* @static
 			*/
-			utils.cancelAnimationFrame = window.cancelAnimationFrame ||
+			utils.cancelAnimationFrame = (window.cancelAnimationFrame ||
 					window.webkitCancelAnimationFrame ||
 					window.mozCancelAnimationFrame ||
 					window.oCancelAnimationFrame ||
@@ -59,7 +58,7 @@
 						// propably wont work if there is any more than 1
 						// active animationFrame but we are trying anyway
 						window.clearTimeout(currentFrame);
-					};
+					}).bind(window);
 
 			/**
 			* @alias requestAnimationFrame

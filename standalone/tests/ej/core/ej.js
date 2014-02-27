@@ -13,9 +13,9 @@ test ("ej" , function () {
 	notEqual(id1, id3, 'id1 != id3');
 	notEqual(id3, id2, 'id3 != id2');
 
-	equal(ej.set("test1", true), true, 'Method ej.set("test1", true)');
-	equal(ej.set("test2", "val"), true, 'Method ej.set("test2", "val")');
-	equal(ej.set("test3", {val: 0}), true, 'Method ej.set("test3", {val: 0})');
+	equal(ej.set("test1", true), undefined, 'Method ej.set("test1", true)');
+	equal(ej.set("test2", "val"), undefined, 'Method ej.set("test2", "val")');
+	equal(ej.set("test3", {val: 0}), undefined, 'Method ej.set("test3", {val: 0})');
 	equal(ej.get("test1"), true, 'Method ej.get("test1")');
 	equal(ej.get("test2"), "val", 'Method ej.get("test2")');
 	equal(ej.get("test3").val, 0, 'Method ej.get("test3")');

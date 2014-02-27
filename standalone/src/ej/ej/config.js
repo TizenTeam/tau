@@ -7,7 +7,7 @@
 /*
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
-(function (window, document, ns) {
+(function (ns) {
 	"use strict";
 	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 	define(
@@ -21,8 +21,7 @@
 			ns.set('allowCrossDomainPages', false);
 			ns.set('domCache', false);
 			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
-			return window.ejConfig;
 		}
 	);
 	//>>excludeEnd("ejBuildExclude");
-}(window, window.document, window.ej));
+}(window.ej));

@@ -44,8 +44,8 @@
 					 * @memberOf gear.ui
 					 */
 					createNewNamespace: function() {
-						var orgGear = orgGear || window.gear,
-							gear = {
+						orgGear = orgGear || window.gear;
+						gear = {
 								ui: ui,
 								noConflict: ui.noConflict.bind(ui)
 							};
@@ -53,7 +53,7 @@
 					}
 				};
 				ui.createNewNamespace();
-				//document.addEventListener('initengine', ui.createNewNamespace, false);
+				document.addEventListener('initengine', ui.createNewNamespace, false);
 			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 			return ui;
 		}

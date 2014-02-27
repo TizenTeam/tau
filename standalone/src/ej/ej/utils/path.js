@@ -39,12 +39,12 @@
 				object = ns.utils.object,
 				/**
 				* Local alias for ns.utils.selectors
-				* @property {Object} selectors Alias for {@link ns.utils.selectors}
+				* @property {Object} utilsSelectors Alias for {@link ns.utils.selectors}
 				* @memberOf ns.utils.path
 				* @static
 				* @private
 				*/
-				selectors = ns.utils.selectors,
+				utilsSelectors = ns.utils.selectors,
 				/**
 				* Local alias for ns.utils.DOM
 				* @property {Object} DOM Alias for {@link ns.utils.DOM}
@@ -357,14 +357,14 @@
 					* @param {string} absUrl
 					* @param {string} dialogHashKey
 					* @param {Object} documentBase  uri structure
-					* @param {Object} documentUrl uri structure
 					* @return {string}
 					* @static
 					*/
-					convertUrlToDataUrl: function (absUrl, allowEmbeddedOnlyBaseDoc) {
-						var urlObject = path.parseUrl(absUrl),
-							documentBase = path.documentBase;
-						if (path.isEmbeddedPage(urlObject, allowEmbeddedOnlyBaseDoc)) {
+					convertUrlToDataUrl: function (absUrl, dialogHashKey, documentBase) {
+						var urlObject = path.parseUrl(absUrl);
+
+						documentBase = documentBase || path.documentBase;
+						if (path.isEmbeddedPage(urlObject, dialogHashKey)) {
 							// For embedded pages, remove the dialog hash key as in getFilePath(),
 							// otherwise the Data Url won't match the id of the embedded Page.
 							return urlObject.hash.replace( /^#/, "" ).replace( /\?.*$/, "" );
@@ -483,7 +483,7 @@
 						var u = path.parseUrl(url);
 
 						if (u.protocol !== "") {
-							return (!path.isPath(u.hash) && u.hash && (u.hrefNoHash === path.parseLocation().hrefNoHash));
+							return (!path.isPath(u.hash) && !!u.hash && (u.hrefNoHash === path.parseLocation().hrefNoHash));
 						}
 						return (/^#/).test(u.href);
 					},
@@ -702,7 +702,7 @@
 					* @static
 					*/
 					getFilePath: function (path, dialogHashKey) {
-						var splitkey = '&' + ns.get('subPageUrlKey');
+						var splitkey = '&' + ns.get('subPageUrlKey', '');
 						return path && path.split(splitkey)[0].split(dialogHashKey)[0];
 					},
 
@@ -779,12 +779,13 @@
 			* @method getClosestBaseUrl
 			* @memberOf ns.utils.path
 			* @param {HTMLElement} element
+			* @param {string} selector
 			* @return {string}
 			* @static
 			*/
-			path.getClosestBaseUrl = function (element) {
+			path.getClosestBaseUrl = function (element, selector) {
 				// Find the closest page and extract out its url.
-				var url = DOM.getNSData(selectors.getClosestBySelector(element, ns.micro.selectors.page), "url"),
+				var url = DOM.getNSData(utilsSelectors.getClosestBySelector(element, selector), "url"),
 					baseUrl = path.documentBase.hrefNoHash;
 
 				if (!ns.get('dynamicBaseEnabled') || !url || !path.isPath(url)) {

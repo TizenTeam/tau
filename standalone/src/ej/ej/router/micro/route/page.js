@@ -4,7 +4,7 @@
 * License : MIT License V2
 */
 /**
- * @class ej.router.micro.route.page
+ * @class ns.router.micro.route.page
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
 (function (window, document, ns) {
@@ -31,7 +31,7 @@
 				utilSelector = utils.selectors,
 				history = ns.router.micro.history,
 				engine = ns.engine,
-				router = engine.getRouter(),
+				router = null,
 				baseElement,
 				slice = [].slice,
 				RouterPage = {},
@@ -44,7 +44,7 @@
 			* @private
 			* @param {string} id Id of searching element
 			* @param {string} filter Query selector for searching page
-			* @memberOf ej.router.micro.route.page
+			* @memberOf ns.router.micro.route.page
 			*/
 			function findPageAndSetDataUrl(id, filter) {
 				var page = document.getElementById(id);
@@ -78,12 +78,13 @@
 			* @param {HTMLElement|string} toPage
 			* @param {Object} options
 			* @static
-			* @memberOf ej.router.micro.route.page
+			* @memberOf ns.router.micro.route.page
 			*/
 			RouterPage.open = function (toPage, options) {
 				var pageTitle = document.title,
 					url,
-					state = {};
+					state = {},
+					router = engine.getRouter();
 
 				if (toPage === router.firstPage && !options.dataUrl) {
 					url = path.documentUrl.hrefNoHash;
@@ -121,7 +122,8 @@
 			};
 
 			RouterPage.find = function( absUrl ) {
-				var dataUrl = this._createDataUrl( absUrl ),
+				var router = engine.getRouter(),
+					dataUrl = this._createDataUrl( absUrl ),
 					initialContent = router.getFirstPage(),
 					pageContainer = router.getContainer(),
 					page;

@@ -160,14 +160,6 @@ test ("Function value", 15, function () {
 	deepEqual(widget.value(10), widget, "Function value(10) returns widget's object if _setValue isn't defined");
 });
 
-test ("Function widget", function () {
-	var elem = document.getElementById("widget"),
-		widget;
-
-	widget = ej.engine.instanceWidget(elem, "BasicWidget");
-	deepEqual(widget.widget(), elem, "Function widget returns HTML element of widget");
-});
-
 test ("Functions: isBound, isBuilt", function () {
 	var elem = document.getElementById("test"),
 		widget;
@@ -191,9 +183,9 @@ test ("Functions: option", 8, function () {
 	equal(widget.option("property"), 1, "Function option with 1 arguments calls _getProperty (if exists) or returns value of given option");
 	equal(typeof widget.option("property", 4), "undefined", "Function option with 2 arguments calls _setProperty (if exists) and returns nothing");
 
-	equal(typeof widget.option("newproperty", 1), "undefined", "Function with 2 arguments calls _setNewproperty (if exists) and returns nothing");
-	equal(widget.option("newproperty"), 1, "Function with 1 arguments calls _getNewproperty (if exists) and returns value of given property");
-	equal(elem.getAttribute("data-newproperty"), 1, "New attribute is set");
+	equal(typeof widget.option("newProperty", 1), "undefined", "Function with 2 arguments calls _setNewproperty (if exists) and returns nothing");
+	equal(widget.option("newProperty"), 1, "Function with 1 arguments calls _getNewproperty (if exists) and returns value of given property");
+	equal(elem.getAttribute("data-new-property"), 1, "New attribute is set");
 });
 
 test ("Function destroy", function () {
@@ -215,5 +207,16 @@ test ("Function bindEvents - event create", 1, function () {
 		ok(true, "create event");
 	});
 	widget = ej.engine.instanceWidget(elem, "BasicWidget");
+});
+
+test ("Function trigger event", 1, function () {
+	var elem = document.getElementById("widget"),
+		widget;
+
+	elem.addEventListener("testevent", function(){
+		ok(true, "Event caught!");
+	});
+	widget = ej.engine.instanceWidget(elem, "BasicWidget");
+	widget.trigger("testevent", null);
 });
 

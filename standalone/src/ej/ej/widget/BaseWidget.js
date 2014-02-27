@@ -64,34 +64,34 @@
  *
  *                 Button.prototype = new BaseWidget(); // add ns.widget as prototype to widget's object
  *
- *                 Button.prototype.options = { //add default options read from data- attributes
+ *                 Button.prototype.options = { //add default options to be read from data- attributes
  *                     theme: 's',
  *                     ...
  *                 };
  *
- *                 Button.prototype._build = function (template, element) { // method call on build of widget, should contains all HTML manipulation actions
+ *                 Button.prototype._build = function (template, element) { // method called when the widget is being built, should contain all HTML manipulation actions
  *                     ...
  *                     return element;
  *                 };
  *
- *                 Button.prototype._init = function (element) { // method call on initialize of widget, should contains all action necessary on application start
+ *                 Button.prototype._init = function (element) { // method called during initialization of widget, should contain all actions necessary on application start
  *                     ...
  *                     return element;
  *                 };
  *
- *                 Button.prototype._bindEvents = function (element) { // method to bind all events, should contains all event bindings
+ *                 Button.prototype._bindEvents = function (element) { // method to bind all events, should contain all event bindings
  *                     ...
  *                 };
  *
- *                 Button.prototype._buildBindEvents = function (element) { // method to bind all events, should contains all event bindings necessary on build
+ *                 Button.prototype._buildBindEvents = function (element) { // method to bind all events, should contain all event bindings necessary during build
  *                     ...
  *                 };
  *
- *                 Button.prototype._enable = function (element) { // method call on disable method invoke
+ *                 Button.prototype._enable = function (element) { // method called during invocation of enable() method
  *                     ...
  *                 };
  *
- *                 Button.prototype._disable = function (element) { // method call on enable method invoke
+ *                 Button.prototype._disable = function (element) { // method called during invocation of disable() method
  *                     ...
  *                 };
  *
@@ -160,6 +160,7 @@
 				* @static
 				*/
 				engine = ns.engine,
+				engineDataEj = engine.dataEj,
 				/**
 				* @property {ns.utils.events} eventUtils Alias to ns.utils.events
 				* @memberOf ns.widget.BaseWidget
@@ -186,12 +187,12 @@
 				prototype = {};
 
 			/**
-			* configure widget object from definition
+			* Configure widget object from definition
 			* @method configure
 			* @param {Object} definition
-			* @param {string} definition.name Name of widget
-			* @param {string} definition.selector Selector of widget
-			* @param {string} definition.binding Path to file with widget (without extension)
+			* @param {string} definition.name Name of the widget
+			* @param {string} definition.selector Selector of the widget
+			* @param {string} definition.binding Path to a file with the widget (without extension)
 			* @param {Object} options Configure options
 			* @memberOf ns.widget.BaseWidget
 			* @chainable
@@ -202,14 +203,14 @@
 				this.options = widgetOptions;
 				if (definition) {
 					/**
-					* @property {string} name Name of widget
+					* @property {string} name Name of the widget
 					* @memberOf ns.widget.BaseWidget
 					* @instance
 					*/
 					this.name = definition.name;
 
 					/**
-					* @property {string} widgetName Name of widget (in lower case)
+					* @property {string} widgetName Name of the widget (in lower case)
 					* @memberOf ns.widget.BaseWidget
 					* @instance
 					*/
@@ -230,14 +231,14 @@
 					this.widgetEventPrefix = definition.name.toLowerCase();
 
 					/**
-					* @property {string} namespace Namespace of widget
+					* @property {string} namespace Namespace of the widget
 					* @memberOf ns.widget.BaseWidget
 					* @instance
 					*/
 					this.namespace = definition.namespace;
 
 					/**
-					* @property {string} widgetFullName Full name of widget
+					* @property {string} widgetFullName Full name of the widget
 					* @memberOf ns.widget.BaseWidget
 					* @instance
 					*/
@@ -256,20 +257,20 @@
 					*/
 					this.selector = definition.selector;
 					/**
-					* @property {string} binding Path to file with widget (without extension)
+					* @property {string} binding Path to a file with the widget (without extension)
 					* @memberOf ns.widget.BaseWidget
 					* @instance
 					*/
 					this.binding = definition.binding;
 					/**
-					* @property {HTMLElement} element Base element of widget
+					* @property {HTMLElement} element Base element of the widget
 					* @memberOf ns.widget.BaseWidget
 					* @instance
 					*/
 					this.element = null;
 
 					/**
-					* @property {string} [defaultElement='<div>'] Default element for widget
+					* @property {string} [defaultElement='<div>'] Default element for the widget
 					* @memberOf ns.widget.BaseWidget
 					* @instance
 					*/
@@ -292,7 +293,7 @@
 			};
 
 			/**
-			* @property {Object} options Default options for widget
+			* @property {Object} options Default options for the widget
 			* @memberOf ns.widget.BaseWidget
 			* @template
 			* @instance
@@ -300,7 +301,7 @@
 			/**
 			* Read data-* attributes and save to #options object
 			* @method _getCreateOptions
-			* @param {HTMLElement} element Base element of widget
+			* @param {HTMLElement} element Base element of the widget
 			* @return {Object}
 			* @memberOf ns.widget.BaseWidget
 			* @protected
@@ -324,11 +325,11 @@
 				return options;
 			};
 			/**
-			* Protected method to build widget
+			* Protected method building the widget
 			* @method _build
 			* @param template
 			* @param {HTMLElement} element
-			* @return {HTMLElement}
+			* @return {HTMLElement} widget's element
 			* @memberOf ns.widget.BaseWidget
 			* @protected
 			* @template
@@ -339,45 +340,41 @@
 			* @method build
 			* @param template
 			* @param {HTMLElement} element
-			* @return {HTMLElement}
+			* @return {HTMLElement} widget's element
 			* @memberOf ns.widget.BaseWidget
 			* @instance
 			*/
 			prototype.build = function (template, element) {
-				var id,
+				var self = this,
+					id,
 					node,
 					elementContainer;
-				if (!element) {
-					elementContainer = document.createElement('div');
-					elementContainer.innerHTML = this.defaultElement;
-					element = elementContainer.firstChild;
-				}
 				eventUtils.trigger(element, this.widgetEventPrefix + "beforecreate");
-				element.setAttribute("data-ej-built", true);
-				element.setAttribute("data-ej-binding", this.binding);
-				element.setAttribute("data-ej-name", this.name);
-				element.setAttribute("data-ej-selector", this.selector);
+				element.setAttribute(engineDataEj.built, true);
+				element.setAttribute(engineDataEj.binding, self.binding);
+				element.setAttribute(engineDataEj.name, self.name);
+				element.setAttribute(engineDataEj.selector, self.selector);
 				id = element.getAttribute('id');
 				if (!id) {
-					element.setAttribute("id", this.id);
+					element.setAttribute("id", self.id);
 				} else {
-					this.id = id;
+					self.id = id;
 				}
 
-				if (typeof this._build === "function") {
-					node = this._build(template, element);
+				if (typeof self._build === "function") {
+					node = self._build(template, element);
 					if (node) {
-						this.element = node;
+						self.element = node;
 					}
 				} else {
 					node = element;
-					this.element = element;
+					self.element = element;
 				}
 				return node;
 			};
 
 			/**
-			* Protected method to init widget
+			* Protected method initializing the widget
 			* @method _init
 			* @param {HTMLElement} element
 			* @memberOf ns.widget.BaseWidget
@@ -394,16 +391,7 @@
 			* @instance
 			*/
 			prototype.init = function (element) {
-				var id = element.getAttribute("id");
-				if (!id) {
-					id = this.id;
-				} else {
-					this.id = id;
-				}
-
-				if (!this.element) {
-					this.element = element;
-				}
+				this.id = element.getAttribute("id");
 
 				if (typeof this._init === "function") {
 					this._init(element);
@@ -439,15 +427,15 @@
 			/**
 			* Bind widget events, call: #\_buildBindEvents, #\_bindEvents
 			* @method bindEvents
-			* @param {HTMLElement} element Base element of widget
-			* @param {Boolean} onlyBuild Inform about type of bindings: build/init
+			* @param {HTMLElement} element Base element of the widget
+			* @param {boolean} onlyBuild Inform about the type of bindings: build/init
 			* @memberOf ns.widget.BaseWidget
 			* @chainable
 			* @instance
 			*/
 			prototype.bindEvents = function (element, onlyBuild) {
 				if (!onlyBuild) {
-					element.setAttribute("data-ej-bound", "true");
+					element.setAttribute(engineDataEj.bound, "true");
 				}
 				if (typeof this._buildBindEvents === "function") {
 					this._buildBindEvents(element);
@@ -462,7 +450,7 @@
 			};
 
 			/**
-			* Protected method to destroy widget
+			* Protected method destroying the widget
 			* @method _destroy
 			* @template
 			* @protected
@@ -480,11 +468,13 @@
 					this._destroy(element);
 				}
 				element = element || this.element;
-				engine.removeBinding(element);
+				if (element) {
+					engine.removeBinding(element);
+				}
 			};
 
 			/**
-			* Protected method to enable widget
+			* Protected method disabling the widget
 			* @method _disable
 			* @protected
 			* @memberOf ns.widget.BaseWidget
@@ -510,7 +500,7 @@
 			};
 
 			/**
-			* Protected method to enable widget
+			* Protected method enabling the widget
 			* @method _enable
 			* @protected
 			* @memberOf ns.widget.BaseWidget
@@ -536,7 +526,7 @@
 			};
 
 			/**
-			* Protected method to refresh widget
+			* Protected method causing the widget to refresh
 			* @method _refresh
 			* @protected
 			* @memberOf ns.widget.BaseWidget
@@ -559,7 +549,7 @@
 
 
 			/**
-			* Get/Set options of widget
+			* Get/Set options of the widget
 			* @method option
 			* @memberOf ns.widget.BaseWidget
 			* @instance
@@ -595,30 +585,32 @@
 				}
 			};
 
+			/**
+			* Checks if the widget has bounded events through the {@link ns.widget.BaseWidget#method-bindEvents} method.
+			* @method isBound
+			* @memberOf ns.widget.BaseWidget
+			* @instance
+			* @return {boolean} true if events are bounded
+			*/
 			prototype.isBound = function () {
 				var element = this.element;
-				return element && element.getAttribute('data-ej-bound') ? true : false;
+				return element && element.getAttribute(engineDataEj.bound) ? true : false;
 			};
 
+			/**
+			* Checks if the widget was built through the {@link ns.widget.BaseWidget#method-build} method.
+			* @method isBuilt
+			* @memberOf ns.widget.BaseWidget
+			* @instance
+			* @return {boolean} true if the widget was built
+			*/
 			prototype.isBuilt = function () {
 				var element = this.element;
-				return element && element.getAttribute('data-ej-built') ? true : false;
-			};
-
-
-			/**
-			* Return element of widget
-			* @method widget
-			* @memberOf ns.widget.BaseWidgetMobile
-			* @return {HTMLElement}
-			* @instance
-			*/
-			prototype.widget = function () {
-				return this.element;
+				return element && element.getAttribute(engineDataEj.built) ? true : false;
 			};
 
 			/**
-			* Protected method to get value of widget
+			* Protected method getting the value of widget
 			* @method _getValue
 			* @return {Mixed}
 			* @memberOf ns.widget.BaseWidget
@@ -627,7 +619,7 @@
 			* @instance
 			*/
 			/**
-			* Protected method to set value of widget
+			* Protected method setting the value of widget
 			* @method _setValue
 			* @param {Mixed} value
 			* @return {Mixed}
@@ -637,7 +629,7 @@
 			* @instance
 			*/
 			/**
-			* Get/Set value of widget
+			* Get/Set value of the widget
 			* @method value
 			* @param {Mixed} [value]
 			* @memberOf ns.widget.BaseWidget
@@ -655,6 +647,19 @@
 					return this._getValue();
 				}
 				return this;
+			};
+
+			/**
+			* Trigger an event on widget's element.
+			* @method trigger
+			* @param {string} eventName the name of event to trigger
+			* @param {Object} [data] additional object to be carried with the event
+			* @memberOf ns.widget.BaseWidget
+			* @return {boolean} false, if any callback invoked preventDefault on event object
+			* @instance
+			*/
+			prototype.trigger = function (eventName, data) {
+				return eventUtils.trigger(this.element, eventName, data);
 			};
 
 			BaseWidget.prototype = prototype;

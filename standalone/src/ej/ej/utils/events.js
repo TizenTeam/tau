@@ -5,8 +5,8 @@
 * License : MIT License V2
 */
 /**
- * @class ns.utils.events
  * Utils class with events functions
+ * @class ns.utils.events
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>
  */
@@ -20,21 +20,21 @@
 		function () {
 			//>>excludeEnd("ejBuildExclude");
 			var events = {
-					/**
-					* @method trigger
-					* Triggers custom event on element
-					* The return value is false, if at least one of the event
-					* handlers which handled this event, called preventDefault.
-					* Otherwise it returns true.
-					* @param {HTMLElement} element
-					* @param {string} type
-					* @param {Mixed} data
-					* @param {Boolean=} bubbles default true
-					* @param {Boolean=} cancelable default true
-					* @return {Boolean=}
-					* @memberOf ns.utils.event
-					* @static
-					*/
+				/**
+				* @method trigger
+				* Triggers custom event on element
+				* The return value is false, if at least one of the event
+				* handlers which handled this event, called preventDefault.
+				* Otherwise it returns true.
+				* @param {HTMLElement} element
+				* @param {string} type
+				* @param {Mixed} data
+				* @param {Boolean=} bubbles default true
+				* @param {Boolean=} cancelable default true
+				* @return {Boolean=}
+				* @memberOf ns.utils.events
+				* @static
+				*/
 				trigger: function ejUtilsEvents_trigger(element, type, data, bubbles, cancelable) {
 					var evt = new CustomEvent(type, {
 							"detail": data,

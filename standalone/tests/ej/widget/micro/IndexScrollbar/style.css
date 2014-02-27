@@ -3,3 +3,11 @@
 	top: -99999em;
 	left: -99999em;
 }
+
+.ui-content {
+	height: 500px !important;
+}
+
+.ui-page {
+	height: 500px !important;
+}

@@ -8,7 +8,7 @@
 /*
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
-(function (ej) {
+(function (ns) {
 	"use strict";
 //>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 	define(
@@ -17,11 +17,11 @@
 		],
 		function () {
 			//>>excludeEnd("ejBuildExclude");
-			var micro = ej.micro || {};
+			var micro = ns.micro || {};
 			micro.selectors = {};
-			ej.micro = micro;
+			ns.micro = micro;
 			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 		}
 	);
 	//>>excludeEnd("ejBuildExclude");
-}(window.ej));
+}(ns));

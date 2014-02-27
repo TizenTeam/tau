@@ -19,6 +19,5 @@ module("api.ej.widget", {
 		equal(typeof widget.option, "function", "Method widget.option exists");
 		equal(typeof widget.isBound, "function", "Method widget.isBound exists");
 		equal(typeof widget.isBuilt, "function", "Method widget.isBuilt exists");
-		equal(typeof widget.widget, "function", "Method widget.widget exists");
 		equal(typeof widget.value, "function", "Method widget.value exists");
 	});

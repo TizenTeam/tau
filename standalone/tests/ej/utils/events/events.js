@@ -149,3 +149,78 @@
 
 		events.trigger(element, 'testEvent1');
 	});
+
+	test('stop Immediate propagation', 2, function() {
+		var element = document.getElementById('test4'),
+			testEvent,
+			events = ej.utils.events;;
+
+		element.addEventListener("click", function (event) {
+			ok('First callback');
+		}, true);
+		element.addEventListener("click", function (event) {
+			ej.utils.events.stopImmediatePropagation(event);
+			ok('Second callback');
+		}, true);
+		element.addEventListener("click", function (event) {
+			ok('Third callback');
+		}, true);
+
+		mouseEvent(element, 'click');
+	});
+
+	test('stop Immediate propagation', 2, function() {
+		var element = document.getElementById('test4'),
+			testEvent,
+			events = ej.utils.events;;
+
+		element.addEventListener("click", function (event) {
+			ok('First first callback');
+		}, true);
+		element.addEventListener("click", function (event) {
+			ej.utils.events.stopImmediatePropagation(event);
+			ok('First second callback');
+		}, true);
+		element.addEventListener("click", function (event) {
+			ok('First third callback');
+		}, false);
+
+		mouseEvent(element, 'click');
+	});
+	test('stop Immediate propagation', 1, function() {
+		var element = document.getElementById('test3'),
+			testEvent,
+			events = ej.utils.events;
+
+		element.addEventListener("testEvent2", function (event) {
+			ok('First event');
+			ej.utils.events.stopImmediatePropagation(event);
+		}, false);
+		document.addEventListener("testEvent1", function (event) {
+			createEvent("testEvent2", event);
+		}, true);
+		document.addEventListener("testEvent1", function (event) {
+			ok('Second event');
+		}, false);
+
+		events.trigger(element, 'testEvent1');
+	});
+
+	test('stop Immediate propagation', 1, function() {
+		var element = document.getElementById('test3'),
+			testEvent,
+			events = ej.utils.events;
+
+		element.addEventListener("testEvent2", function (event) {
+			ok('First event');
+			ej.utils.events.stopImmediatePropagation(event);
+		}, false);
+		document.addEventListener("testEvent1", function (event) {
+			createEvent("testEvent2", event);
+		}, false);
+		document.addEventListener("testEvent1", function (event) {
+			ok('Second event');
+		}, false);
+
+		events.trigger(element, 'testEvent1');
+	});

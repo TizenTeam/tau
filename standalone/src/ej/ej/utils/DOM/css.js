@@ -229,6 +229,29 @@
 				return width;
 			};
 
+			/**
+			 * Returns offset of element
+			 * @method getElementOffset
+			 * @param {HTMLElement} element
+			 * @return {Object}
+			 * @memberOf ns.utils.DOM
+			 * @static
+			 */
+			DOM.getElementOffset = function (element) {
+				var left = 0,
+					top = 0;
+				do {
+					top += element.offsetTop;
+					left += element.offsetLeft;
+					element = element.offsetParent;
+				} while (element !== null);
+
+				return {
+					top: top,
+					left: left
+				};
+			};
+
 			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 			return ns.utils.DOM;
 		}

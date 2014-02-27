@@ -7,11 +7,11 @@
  * #Object utilities
  * Namespace with helpers function connected with objects.
  *
- * @class ej.utils.object
+ * @class ns.utils.object
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Piotr Karny <p.karny@samsung.com>
  */
-(function (ej) {
+(function (ns) {
 	"use strict";
 	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 	define(
@@ -27,7 +27,7 @@
 				* @param {Object} orgObject
 				* @return {Object}
 				* @static
-				* @memberOf ej.utils.object
+				* @memberOf ns.utils.object
 				*/
 				copy: function (orgObject) {
 					return object.merge({}, orgObject);
@@ -40,7 +40,7 @@
 				* @param {Object} orgObject
 				* @return {Object}
 				* @static
-				* @memberOf ej.utils.object
+				* @memberOf ns.utils.object
 				*/
 				merge: function (newObject, orgObject) {
 					var key;
@@ -59,7 +59,7 @@
 				* @param {Object} orgObject
 				* @return {Object}
 				* @static
-				* @memberOf ej.utils.object
+				* @memberOf ns.utils.object
 				*/
 				multiMerge: function () {
 					var key,
@@ -79,10 +79,9 @@
 					return newObject;
 				}
 			};
-			ej.utils.object = object;
+			ns.utils.object = object;
 			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
-			return object;
 		}
 	);
 	//>>excludeEnd("ejBuildExclude");
-}(window.ej));
+}(ns));

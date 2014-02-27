@@ -1,11 +1,17 @@
 /*jslint nomen: true, plusplus: true */
 /*
-* Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
-* License : MIT License V2
-*/
+ * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
+ */
 /**
- * @class ej.widget.micro.VirtualGrid
- * @extends @class ej.widget.micro.VirtualList
+ * @class gear.ui.VirtualGrid
+ * @inheritdoc ns.widget.micro.VirtualGrid
+ * @extends ns.widget.micro.VirtualGrid
+ * @author Maciej Urbanski <m.urbanski@samsung.com>
+ */
+/**
+ * @class ns.widget.micro.VirtualGrid
+ * @extends ns.widget.micro.VirtualListview
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
 (function (window, document, ns) {
@@ -20,21 +26,54 @@
 		],
 		function () {
 			//>>excludeEnd("ejBuildExclude");
+			/**
+			 * @property {Object} VirtualList Alias for {@link ns.widget.micro.VirtualListview}
+			 * @memberOf ns.widget.micro.VirtualGrid
+			 * @private
+			 * @static
+			 */
 			var VirtualList = ns.widget.micro.VirtualListview,
+				/**
+				 * @property {Object} engine Alias for class {@link ns.engine}
+				 * @memberOf ns.widget.micro.VirtualGrid
+				 * @private
+				 * @static
+				 */
 				engine = ns.engine,
+				/**
+				 * @property {Object} DOM Alias for class {@link ns.utils.DOM}
+				 * @memberOf ns.widget.micro.VirtualGrid
+				 * @private
+				 * @static
+				 */
 				DOM = ns.utils.DOM,
+				/**
+				 * Alias for class VirtualGrid
+				 * @method VirtualGrid
+				 * @memberOf ns.widget.micro.VirtualGrid
+				 * @private
+				 * @static
+				 */
 				VirtualGrid = function () {
+					/**
+					 * @property {Object} options Object with default options
+					 * @property {number} [options.bufferSize=100] Element count in buffer
+					 * @property {number} [options.dataLength=0] Element count in list
+					 * @property {number} [options.orientation='y'] Orientation : horizontal ('x'), vertical ('y')
+					 * @memberOf ns.widget.micro.VirtualGrid
+					 * @instance
+					 */
 					this.options = {
 						bufferSize: 100,
 						dataLength: 0,
 						orientation: 'y',
 						/**
 						 * Method which modifies list item, depended at specified index from database.
-						 * **Method should overrided by developer using {@link ej.widget.VirtualListview#create .create} method.**
+						 * **Method should overrided by developer using {@link ns.widget.VirtualListview#create .create} method.**
 						 * @method
 						 * @param {HTMLElement} element List item to be modified.
 						 * @param {number} index Index of data set.
-						 * @memberOf ej.widget.micro.VirtualGrid
+						 * @memberOf ns.widget.micro.VirtualGrid
 						 */
 						listItemUpdater: function () {
 							return null;
@@ -42,28 +81,63 @@
 					};
 					return this;
 				},
+
 				prototype = new VirtualList(),
+				/**
+				 * @property {Object} VirtualListPrototype Alias for VirtualList prototype
+				 * @memberOf ns.widget.micro.VirtualGrid
+				 * @private
+				 * @static
+				 */
 				VirtualListPrototype = VirtualList.prototype,
+				/**
+				 * @method parent_draw alias for {@link ns.widget.micro.VirtualListview#draw VirtualList.draw}
+				 * @memberOf ns.widget.micro.VirtualGrid
+				 * @private
+				 * @static
+				 */
 				parent_draw = VirtualListPrototype.draw,
+				/**
+				 * @method parent_refreshScrollbar alias for {@link ns.widget.micro.VirtualListview#_refreshScrollbar VirtualList.\_refreshScrollbar}
+				 * @memberOf ns.widget.micro.VirtualGrid
+				 * @private
+				 * @static
+				 */
 				parent_refreshScrollbar = VirtualListPrototype._refreshScrollbar;
 
+			/**
+			 * Draw item
+			 * @method draw
+			 * @instance
+			 * @memberOf ns.widget.micro.VirtualGrid
+			 */
 			prototype.draw = function () {
-				var newDiv = null,
+				var self = this,
+					element = self.element,
+					ui = self.ui,
+					newDiv = null,
 					newDivStyle = null;
-				if (this.options.orientation === 'x') {
+				if (self.options.orientation === 'x') {
 					newDiv = document.createElement('div');
 					newDivStyle = newDiv.style;
-					this.element.parentNode.appendChild(newDiv);
-					newDiv.appendChild(this.element);
-					newDiv.appendChild(this.ui.spacer);
+					element.parentNode.appendChild(newDiv);
+					newDiv.appendChild(element);
+					newDiv.appendChild(ui.spacer);
 					newDivStyle.width = '10000px';
 					newDivStyle.height = '100%';
-					this.ui.container = newDiv;
+					ui.container = newDiv;
 				}
-				this._initListItem();
-				parent_draw.call(this);
+				self._initListItem();
+				parent_draw.call(self);
 			};
-			
+
+			/**
+			 * Sets proper scrollbar size: width (horizontal)
+			 * @method _refreshScrollbar
+			 * @protected
+			 * @memberOf ns.widget.micro.VirtualGrid
+			 * @instance
+			 */
 			prototype._refreshScrollbar = function () {
 				var width = 0,
 					ui = this.ui;
@@ -74,6 +148,13 @@
 				}
 			};
 
+			/**
+			 * Initializes list item
+			 * @method _initListItem
+			 * @protected
+			 * @memberOf ns.widget.micro.VirtualGrid
+			 * @instance
+			 */
 			prototype._initListItem = function () {
 				var self = this,
 					thisElement = self.element,
@@ -113,6 +194,15 @@
 				self.options.dataLength /= self._columnsCount;
 			};
 
+			/**
+			 * Updates list item with data using defined template
+			 * @method _updateListItem
+			 * @param {HTMLElement} element List element to update
+			 * @param {number} index Data row index
+			 * @protected
+			 * @instance
+			 * @memberOf ns.widget.micro.VirtualGrid
+			 */
 			prototype._updateListItem = function (element, index) {
 				var elementI,
 					i,

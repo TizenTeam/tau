@@ -4,9 +4,7 @@
 * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
 * License : MIT License V2
 */
-/**
- * @class gear.ui.utils
- * @override gear.ui
+/*
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
 (function (document, frameworkNamespace, ns) {

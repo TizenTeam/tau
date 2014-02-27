@@ -3,11 +3,11 @@
 * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
 * License : MIT License V2
 */
-/**  @namespace ej.router.micro.route */
+/**  @namespace ns.router.micro.route */
 /*
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
-(function (micro) {
+(function (ns) {
 	"use strict";
 	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 	define(
@@ -16,10 +16,9 @@
 		],
 		function () {
 			//>>excludeEnd("ejBuildExclude");
-			micro.route = {};
+			ns.router.micro.route = ns.router.micro.route || {};
 			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
-			return micro.route;
 		}
 	);
 	//>>excludeEnd("ejBuildExclude");
-}(window.ej.router.micro));
+}(ns));

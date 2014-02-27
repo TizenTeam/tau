@@ -13,7 +13,7 @@
 	define(
 		[
 			"./defaults",
-			"./router",
+			"./navigator",
 			"./utils",
 			"./widget"
 		],

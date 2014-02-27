@@ -24,18 +24,17 @@
 				windowHistory = window.history,
 				history = {
 					/**
-					 * Active state in history
+					 * Property contains active state in history.
 					 * @property {Object} activeState
-					 * @public
 					 * @static
 					 * @memberOf ns.router.micro.history
 					 */
 					activeState : null,
 
 					/**
-					 * Replace or push to history
+					 * Replace or push to history.
+					 * @method replace
 					 * @param {Object} state
-					 * @public
 					 * @static
 					 * @memberOf ns.router.micro.history
 					 */
@@ -49,10 +48,23 @@
 						history.setActive(newState);
 					},
 
+					/**
+					 * Back in history.
+					 * @method back
+					 * @static
+					 * @memberOf ns.router.micro.history
+					 */
 					back: function () {
 						windowHistory.back();
 					},
 
+					/**
+					 * Set active state.
+					 * @method setActive
+					 * @param {Object} state
+					 * @static
+					 * @memberOf ns.router.micro.history
+					 */
 					setActive: function (state) {
 						if (state) {
 							history.activeState = state;
@@ -67,6 +79,14 @@
 						history.disableVolatileMode();
 					},
 
+					/**
+					 * Return "back" if state is in history or "forward" if it is new state.
+					 * @method getDirection
+					 * @param {Object} state
+					 * @return {string}
+					 * @static
+					 * @memberOf ns.router.micro.history
+					 */
 					getDirection: function (state) {
 						if (state) {
 							return state.uid < historyActiveIndex ? "back" : "forward";
@@ -74,10 +94,22 @@
 						return "back";
 					},
 
+					/**
+					 * Set volatile mode to true.
+					 * @method enableVolatileRecord
+					 * @static
+					 * @memberOf ns.router.micro.history
+					 */
 					enableVolatileRecord: function () {
 						historyVolatileMode = true;
 					},
 
+					/**
+					 * Set volatile mode to true.
+					 * @method disableVolatileMode
+					 * @static
+					 * @memberOf ns.router.micro.history
+					 */
 					disableVolatileMode: function () {
 						historyVolatileMode = false;
 					}

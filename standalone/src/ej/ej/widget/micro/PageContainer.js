@@ -4,9 +4,10 @@
 * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
 * License : MIT License V2
 */
-/*
+/* 
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Piotr Karny <p.karny@samsung.com>
+ * @author Krzysztof Głodowski <k.glodowski@samsung.com>
  */
 (function (document, ns) {
 	"use strict";
@@ -31,10 +32,22 @@
 				events = utils.events,
 				DOM = utils.DOM,
 				engine = ns.engine,
+				classes = {
+					uiViewportTransitioning: "ui-viewport-transitioning",
+					out: "out",
+					in: "in",
+					uiPreIn: "ui-pre-in"
+				},
 				/**
-				* PageContainer widget
-				* @class ns.widget.PageContainer
+				* PageContainer is a widget, which is supposed to have multiple child pages but display only one at a time.
+				* It allows for adding new pages, switching between them and displaying progress bars indicating loading process.
+				* @class ns.widget.micro.PageContainer
 				* @extends ns.widget.BaseWidget
+				*/
+				/**
+				* @class gear.ui.PageContainer
+				* @inheritdoc ns.widget.micro.PageContainer
+				* @extends ns.widget.micro.PageContainer
 				*/
 				PageContainer = function () {
 					this.activePage = null;
@@ -43,38 +56,35 @@
 				EventType = {
 					PAGE_CHANGE: "pagechange"
 				},
+				animationend = "animationend",
+				webkitAnimationEnd = "webkitAnimationEnd",
 				prototype = new BaseWidget();
 
 			PageContainer.events = EventType;
 
 			/**
-			* build PageContainer
-			* @method _build
-			* @private
-			* @param {string} template
-			* @param {HTMLElement} element
-			* @return {HTMLElement}
-			* @memberOf ns.widget.PageContainer
+			* Changes active page to specified element
+			* @method change
+			* @param {HTMLElement} toPage the element to set
+			* @param {Object} [options] additional options for the transition
+			* @memberOf ns.widget.micro.PageContainer
+			* @instance
 			*/
-			prototype._build = function (template, element) {
-				return element;
-			};
-
 			prototype.change = function (toPage, options) {
-				var fromPageWidget = this.getActivePage(),
-					toPageWidget,
-					self = this;
+				var self = this,
+					fromPageWidget = self.getActivePage(),
+					toPageWidget;
 
 				options = options || {};
 
-				if (toPage.parentNode !== this.element) {
-					this._include(toPage);
+				if (toPage.parentNode !== self.element) {
+					self._include(toPage);
 				}
 
-				toPageWidget = engine.instanceWidget(toPage, 'page');
+				toPageWidget = engine.instanceWidget(toPage, "page");
 
 				if (!fromPageWidget || (fromPageWidget.element !== toPage)) {
-					this._include(toPage);
+					self._include(toPage);
 					if (fromPageWidget) {
 						fromPageWidget.onBeforeHide();
 					}
@@ -89,27 +99,40 @@
 							self._removeExternalPage( fromPageWidget, options);
 						}
 						toPageWidget.onShow();
-						events.trigger(self.element, EventType.PAGE_CHANGE);
+						self.trigger(EventType.PAGE_CHANGE);
 					}
 				};
-				this._transition(toPageWidget, fromPageWidget, options);
+				self._transition(toPageWidget, fromPageWidget, options);
 			};
-
+			/**
+			* Performs transition between the old and a new page.
+			* @method _transition
+			* @param {ns.widget.micro.Page} toPageWidget the new page
+			* @param {ns.widget.micro.Page} fromPageWidget the page to be replaced
+			* @param {Object} [options] additional options for the transition
+			* @param {string} [options.transition=none] the type of transition
+			* @param {boolean} [options.reverse=false] specifies transition direction
+			* @param {Object} [options.deferred] deferred object
+			* @memberOf ns.widget.micro.PageContainer
+			* @protected
+			* @instance
+			*/
 			prototype._transition = function (toPageWidget, fromPageWidget, options) {
 				var element = this.element,
 					elementClassList = element.classList,
 					transition = !fromPageWidget ? "none" : options.transition,
 					deferred = options.deferred,
 					reverse = "reverse",
-					clearClasses = ["in", "out", "ui-pre-in", transition],
+					clearClasses = [classes.in, classes.out, classes.uiPreIn, transition],
 					oldDeferredResolve,
 					target,
+					classlist,
 					oneEvent;
 
 				if (options.reverse) {
 					clearClasses.push(reverse);
 				}
-				elementClassList.add("ui-viewport-transitioning");
+				elementClassList.add(classes.uiViewportTransitioning);
 				oldDeferredResolve = deferred.resolve;
 				deferred.resolve = function () {
 					var i,
@@ -117,7 +140,7 @@
 						fromPageWidgetClassList = fromPageWidget && fromPageWidget.element.classList,
 						toPageWidgetClassList = toPageWidget.element.classList;
 
-					elementClassList.remove("ui-viewport-transitioning");
+					elementClassList.remove(classes.uiViewportTransitioning);
 					for (i = 0; i < clearClassesLength; i++) {
 						if (fromPageWidgetClassList) {
 							fromPageWidgetClassList.remove(clearClasses[i]);
@@ -130,96 +153,119 @@
 				if (transition !== "none") {
 					target = options.reverse ? fromPageWidget : toPageWidget;
 					oneEvent = function () {
-						target.removeEventListener('animationend', oneEvent, false);
-						target.removeEventListener('webkitAnimationEnd', oneEvent, false);
+						target.removeEventListener(animationend, oneEvent, false);
+						target.removeEventListener(webkitAnimationEnd, oneEvent, false);
 						deferred.resolve();
 					};
-					target.addEventListener('animationend', oneEvent, false);
-					target.addEventListener('webkitAnimationEnd', oneEvent, false);
+					target.addEventListener(animationend, oneEvent, false);
+					target.addEventListener(webkitAnimationEnd, oneEvent, false);
 
 					if (fromPageWidget) {
-						fromPageWidget.element.classlist.add(transition);
-						fromPageWidget.element.classlist.add('out');
+						classlist = fromPageWidget.element.classlist;
+						classlist.add(transition);
+						classlist.add(classes.out);
 						if (options.reverse) {
-							fromPageWidget.element.classlist.add(reverse);
+							classlist.add(reverse);
 						}
 					}
 
 					// TODO why needs timeout??
 					// if it make without timeout, it has some bugs when call external page or press forward button on browser.
 					window.setTimeout(function () {
-						toPageWidget.element.classlist.add(transition);
-						toPageWidget.element.classlist.add('out');
+						classlist = toPageWidget.element.classlist;
+						classlist.add(transition);
+						classlist.add(classes.out);
 						if (options.reverse) {
-							toPageWidget.element.classlist.add(reverse);
+							classlist.add(reverse);
 						}
 					}, 0);
 				} else {
 					window.setTimeout(deferred.resolve, 0);
 				}
 			};
-
+			/**
+			* Adds an element as a page
+			* @method _include
+			* @param {HTMLElement} page an element to add
+			* @memberOf ns.widget.micro.PageContainer
+			* @protected
+			* @instance
+			*/
 			prototype._include = function (page) {
-				if (page.parentNode !== this.element) {
-					this.element.appendChild(page);
+				var element = this.element;
+				if (page.parentNode !== element) {
+					element.appendChild(page);
 				}
 			};
-
+			/**
+			* Sets currently active page
+			* @method _setActivePage
+			* @param {ns.widget.micro.Page} page a widget to set as the active page
+			* @memberOf ns.widget.micro.PageContainer
+			* @instance
+			*/
 			prototype._setActivePage = function (page) {
-				if (this.activePage) {
-					this.activePage.setActive(false);
+				var self = this;
+				if (self.activePage) {
+					self.activePage.setActive(false);
 				}
-				this.activePage = page;
+				self.activePage = page;
 				page.setActive(true);
 			};
-
+			/**
+			* Returns active page element
+			* @method getActivePage
+			* @memberOf ns.widget.micro.PageContainer
+			* @return {ns.widget.micro.Page} currently active page
+			* @instance
+			*/
 			prototype.getActivePage = function () {
 				return this.activePage;
 			};
 
-			prototype._bindEvents = function (element) {
-				return element;
-			};
-
+			/**
+			* Displays a progress bar indicating loading process
+			* @method showLoading
+			* @memberOf ns.widget.micro.PageContainer
+			* @return null
+			* @instance
+			*/
 			prototype.showLoading = function () {
 				//>>excludeStart("ejDebug", pragmas.ejDebug);
-				ns.warn('prototype.showLoading not yet implemented');
+				ns.warn("prototype.showLoading not yet implemented");
 				//>>excludeEnd("ejDebug");
 				return null;
 			};
-
+			/**
+			* Hides any active progress bar
+			* @method hideLoading
+			* @memberOf ns.widget.micro.PageContainer
+			* @return null
+			* @instance
+			*/
 			prototype.hideLoading = function () {
 				//>>excludeStart("ejDebug", pragmas.ejDebug);
-				ns.warn('prototype.hideLoading not yet implemented');
+				ns.warn("prototype.hideLoading not yet implemented");
 				//>>excludeEnd("ejDebug");
 				return null;
 			};
-
+			/**
+			* Removes page element from the given widget and destroys it
+			* @method _removeExternalPage
+			* @param {ns.widget.micro.Page} fromPageWidget the widget to destroy
+			* @param {Object} [options] transition options 
+			* @param {boolean} [options.reverse=false] specifies transition direction
+			* @memberOf ns.widget.micro.PageContainer
+			* @instance
+			* @protected
+			*/
 			prototype._removeExternalPage = function ( fromPageWidget, options) {
 				var fromPage = fromPageWidget.element;
-				if (options.reverse && DOM.hasNSData(fromPage, 'external')) {
+				options = options || {};
+				if (options.reverse && DOM.hasNSData(fromPage, "external")) {
 					fromPageWidget.destroy();
 					fromPage.parentNode.removeChild(fromPage);
 				}
-			};
-
-			/**
-			* refresh structure
-			* @method _refresh
-			* @new
-			* @memberOf ns.widget.PageContainer
-			*/
-			prototype._refresh = function () {
-				return null;
-			};
-
-			/**
-			* @method _destroy
-			* @private
-			* @memberOf ns.widget.PageContainer
-			*/
-			prototype._destroy = function () {
-				return null;
 			};
 
 			PageContainer.prototype = prototype;
@@ -231,9 +277,9 @@
 				"pagecontainer",
 				"./widget/ns.widget.micro.PageContainer",
 				"",
-				[],
+				["change", "getActivePage", "showLoading", "hideLoading"],
 				PageContainer,
-				'micro'
+				"micro"
 			);
 			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 		}

@@ -6,7 +6,7 @@
 /*
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
-(function (window, ej) {
+(function (window, ns) {
 	"use strict";
 	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 	define(
@@ -15,11 +15,11 @@
 		],
 		function () {
 			//>>excludeEnd("ejBuildExclude");
-			/** @namespace ej.widget.micro */
-			ej.widget.micro = ej.widget.micro || {};
+			/** @namespace ns.widget.micro */
+			ns.widget.micro = ns.widget.micro || {};
 			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
-			return ej.widget.micro;
+			return ns.widget.micro;
 		}
 	);
 	//>>excludeEnd("ejBuildExclude");
-}(window, window.ej));
+}(window, ns));

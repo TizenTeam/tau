@@ -1,17 +1,22 @@
 /*
-* Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
-* License : MIT License V2
-*/
-/*
- * @author Maciej Urbanski <m.urbanski@samsung.com>
+ * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
  */
-//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
-define(
-	[],
-	function (document, window) {
-		'use strict';
-		//>>excludeEnd("ejBuildExclude");
-		(function () {
+/*
+ * @class ns.utils.anchorHighlight
+ * @author Maciej Urbanski <m.urbanski@samsung.com>
+ * @author Damian Osipiuk <d.osipiuk@samsung.com>
+ */
+(function (document, window, ns) {
+	'use strict';
+	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+	define(
+		[
+			"../core",
+			"./selectors"
+		],
+		function () {
+			//>>excludeEnd("ejBuildExclude");
 			/* anchorHighlightController.js
 			To prevent perfomance regression when scrolling,
 			do not apply hover class in anchor.
@@ -21,35 +26,122 @@ define(
 			While it helps to improve scroll performance,
 			it lowers responsiveness of the element for 50msec.
 			*/
+
+			/**
+			 * @property {number} startX Touch start x
+			 * @memberOf ns.utils.anchorHighlight
+			 * @private
+			 * @static
+			 */
 			var startX,
+				/**
+				 * @property {number} startY Touch start y
+				 * @memberOf ns.utils.anchorHighlight
+				 * @private
+				 * @static
+				 */
 				startY,
+				/**
+				 * @property {boolean} didScroll Did page scrolled
+				 * @memberOf ns.utils.anchorHighlight
+				 * @private
+				 * @static
+				 */
 				didScroll,
+				/**
+				 * @property {HTMLElement} target Touch target element
+				 * @memberOf ns.utils.anchorHighlight
+				 * @private
+				 * @static
+				 */
 				target,
+				/**
+				 * @property {number} touchLength Length of touch
+				 * @memberOf ns.utils.anchorHighlight
+				 * @private
+				 * @static
+				 */
 				touchLength,
+				/**
+				 * @property {number} addActiveClassTimerID Timer id of adding activeClass delay
+				 * @memberOf ns.utils.anchorHighlight
+				 * @private
+				 * @static
+				 */
 				addActiveClassTimerID,
+				/**
+				 * @property {Object} options Object with default options
+				 * @property {number} [options.scrollThreshold=5] Treshold after which didScroll will be set
+				 * @property {number} [options.addActiveClassDelay=10] Time to wait before adding activeClass
+				 * @property {number} [options.keepActiveClassDelay=100] Time to stay activeClass after touch end
+				 * @memberOf ns.utils.anchorHighlight
+				 * @private
+				 * @static
+				 */
 				options = {
 					scrollThreshold: 5,
-					addActiveClassDelay: 10,	// wait before adding activeClass
-					keepActiveClassDelay: 100	// stay activeClass after touchend
+					addActiveClassDelay: 10,
+					keepActiveClassDelay: 100
 				},
+				/**
+				 * @property {string} [activeClassLI='ui-li-active'] Class used to mark element as active
+				 * @memberOf ns.utils.anchorHighlight
+				 * @private
+				 * @static
+				 */
 				activeClassLI = "ui-li-active",
-				removeTouchMove;
+				/**
+				 * Function invoked after touch move ends
+				 * @method removeTouchMove
+				 * @memberOf ns.utils.anchorHighlight
+				 * @private
+				 * @static
+				 */
+				removeTouchMove,
+				/**
+				 * @property {Object} selectors Alias for class {@link ns.utils.selectors}
+				 * @memberOf ns.utils.anchorHighlight
+				 * @private
+				 * @static
+				 */
+				selectors = ns.utils.selectors;
 
 
+			/**
+			 * Get closest highlightable element
+			 * @method detectHighlightTarget
+			 * @param {HTMLElement} target
+			 * @return {HTMLElement}
+			 * @memberOf ns.utils.anchorHighlight
+			 * @private
+			 * @static
+			 */
 			function detectHighlightTarget(target) {
-				while (target && target.tagName !== "A" && target && target.tagName !== "LABEL") {
-					target = target.parentNode;
-				}
+				target = selectors.getClosestBySelector(target, 'a, label');
 				return target;
 			}
 
+			/**
+			 * Get closest li element
+			 * @method detectLiElement
+			 * @param {HTMLElement} target
+			 * @return {HTMLElement}
+			 * @memberOf ns.utils.anchorHighlight
+			 * @private
+			 * @static
+			 */
 			function detectLiElement(target) {
-				while (target && target.tagName !== "LI") {
-					target = target.parentNode;
-				}
+				target = selectors.getClosestByTag(target, 'li');
 				return target;
 			}
 
+			/**
+			 * Add active class to touched element
+			 * @method addActiveClass
+			 * @memberOf ns.utils.anchorHighlight
+			 * @private
+			 * @static
+			 */
 			function addActiveClass() {
 				var liTarget;
 				target = detectHighlightTarget(target);
@@ -61,10 +153,25 @@ define(
 				}
 			}
 
+			/**
+			 * Get all active elements
+			 * @method getActiveElements
+			 * @return {Array}
+			 * @memberOf ns.utils.anchorHighlight
+			 * @private
+			 * @static
+			 */
 			function getActiveElements() {
 				return document.getElementsByClassName(activeClassLI);
 			}
 
+			/**
+			 * Remove active class from active elements
+			 * @method removeActiveClass
+			 * @memberOf ns.utils.anchorHighlight
+			 * @private
+			 * @static
+			 */
 			function removeActiveClass() {
 				var activeA = getActiveElements(),
 					activeALength = activeA.length,
@@ -74,6 +181,14 @@ define(
 				}
 			}
 
+			/**
+			 * Function invoked during touch move
+			 * @method touchmoveHandler
+			 * @param {Event} event
+			 * @memberOf ns.utils.anchorHighlight
+			 * @private
+			 * @static
+			 */
 			function touchmoveHandler(event) {
 				var touch = event.touches[0];
 				didScroll = didScroll ||
@@ -85,6 +200,14 @@ define(
 				}
 			}
 
+			/**
+			 * Function invoked after touch start
+			 * @method touchstartHandler
+			 * @param {Event} event
+			 * @memberOf ns.utils.anchorHighlight
+			 * @private
+			 * @static
+			 */
 			function touchstartHandler(event) {
 				var touches = event.touches,
 					touch = touches[0];
@@ -106,6 +229,13 @@ define(
 				document.removeEventListener("touchmove", touchmoveHandler, false);
 			};
 
+			/**
+			 * Function invoked after touch
+			 * @method touchendHandler
+			 * @memberOf ns.utils.anchorHighlight
+			 * @private
+			 * @static
+			 */
 			function touchendHandler() {
 				if (touchLength === 1) {
 					clearTimeout(addActiveClassTimerID);
@@ -117,19 +247,23 @@ define(
 				}
 			}
 
+			/**
+			 * Bind events to document
+			 * @method eventBinding
+			 * @memberOf ns.utils.anchorHighlight
+			 * @private
+			 * @static
+			 */
 			function eventBinding() {
 				document.addEventListener("touchstart", touchstartHandler, false);
 				document.addEventListener("touchend", touchendHandler, false);
 				window.addEventListener("pagehide", removeActiveClass, false);
 			}
 
-			if (document.readyState === "complete") {
-				eventBinding();
-			} else {
-				window.addEventListener("load", eventBinding);
-			}
-		}(document, window));
-//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
-	}
-);
-//>>excludeEnd("ejBuildExclude");
+			eventBinding();
+
+			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+		}
+	);
+	//>>excludeEnd("ejBuildExclude");
+}(document, window, ns));
