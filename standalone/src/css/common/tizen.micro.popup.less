@@ -1,7 +1,7 @@
-@font_size_popup_title: 24 * @unit_base;
+@font_size_popup_title: 30 * @unit_base;
 @font_size_popup_toast: 24 * @unit_base;
-@font_size_popup_button: 24 * @unit_base;
-@font_size_popup_body: 30 * @unit_base;
+@font_size_popup_button: 30 * @unit_base;
+@font_size_popup_body: 34 * @unit_base;
 @font_size_full_option: 34 * @unit_base;
 @font_size_half_option: 20 * @unit_base;
 
@@ -9,24 +9,24 @@
 Normal Popup
 ***********************/
 .ui-popup {
-	width: 92%;
-	height: 92%;
 	position: absolute;
 	top: -10000em;
 	left: -10000em;
-	margin: 13*@unit_base 13*@unit_base 13*@unit_base 13*@unit_base;
-	background-color: @color_popup_bg;
+	margin: 0;
+	padding: 6 * @unit_base;
+	background-color: rgb(0, 0, 0);
 	border: 3px solid @color_popup_border;
 	visibility: hidden;
 
 	.ui-popup-header {
 		width: 100%;
-		min-height: 51 * @unit_base;
+		min-height: 54 * @unit_base;
 		font-size: @font_size_popup_title;
 		text-align: left;
+		background-color: @color_popup_bg;
 		color: @color_popup_title_text;
 		padding: 9*@unit_base 16*@unit_base 9*@unit_base 16*@unit_base;
-		border-bottom: 2px solid @color_popup_border;
+		border-bottom: 1px solid @color_popup_header_border;
 	}
 
 	.ui-popup-content {
@@ -34,6 +34,7 @@ Normal Popup
 		font-size: @font_size_popup_body;
 		text-align: left;
 		color: @color_text;
+		background-color: @color_popup_bg;
 		padding: 9*@unit_base 16*@unit_base 9*@unit_base 16*@unit_base;
 
 		.ui-listview {
@@ -43,11 +44,11 @@ Normal Popup
 
 	.ui-popup-footer {
 		width: 100%;
-		height: 63 * @unit_base;
+		height: 70 * @unit_base;
 
 		.ui-btn {
-			padding-top: 18*@unit_base;
-			padding-bottom: 17*@unit_base;
+			padding-top: 21 * @unit_base;
+			padding-bottom: 21 * @unit_base;
 		}
 	}
 
@@ -194,12 +195,10 @@ device option popup
 Popup Toast
 ****************************************/
 .ui-popup-toast {
-	width: 90%;
-	margin-left: 16 * @unit_base;
-	margin-right: 16 * @unit_base;
-	margin-bottom: 16 * @unit_base;
+	margin-left: 0;
+	margin-right: 0;
+	margin-bottom: 0;
 	font-size: @font_size_popup_toast;
-	background-color: @color_popup_bg;
 	border: 3px solid @color_popup_border;
 	position: absolute;
 	bottom: 0;
@@ -213,6 +212,9 @@ Popup Toast
 
 .ui-popup-toast .ui-popup-content {
 	padding: 10*@unit_base 16*@unit_base 10*@unit_base 16*@unit_base;
+	background-color: @color_popup_bg;
+	margin: 6 * @unit_base;
+	width: 96%;
 }
 
 .ui-popup-background {
