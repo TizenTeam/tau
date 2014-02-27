@@ -41,6 +41,7 @@ SwipeList.prototype = {
 
 		this.callElementBG = page[0].getElementsByClassName("genlist-call-background")[0];
 		this.messageElementBG = page[0].getElementsByClassName("genlist-message-background")[0];
+		this.contentElement = page[0].getElementsByClassName("ui-content")[0];
 		this.listElement = listElement;
 		this.callElement = callElement;
 		this.messageElement = messageElement;
@@ -104,6 +105,7 @@ SwipeList.prototype = {
 			document.addEventListener( "mouseup", this );
 		}
 
+		this.contentElement.addEventListener( "scroll", this);
 		document.addEventListener( "webkitTransitionEnd", this );
 	},
 
@@ -118,6 +120,7 @@ SwipeList.prototype = {
 			document.removeEventListener( "mouseup", this);
 		}
 
+		this.contentElement.removeEventListener( "scroll", this );
 		document.removeEventListener( "webkitTransitionEnd", this );
 	},
 
@@ -139,6 +142,9 @@ SwipeList.prototype = {
 			break;
 		case "webkitTransitionEnd":
 			this._transitionEnd( event );
+			break;
+		case "scroll":
+			this._scroll = true;
 		}
 	},
 
@@ -193,7 +199,7 @@ SwipeList.prototype = {
 	},
 
 	_start: function( e, pos ) {
-		if ( this._multitouch === true ){
+		if ( this._multitouch === true || this._scroll ){
 			return;
 		}
 
@@ -205,7 +211,7 @@ SwipeList.prototype = {
 	},
 
 	_move: function( e, pos ) {
-		if ( this._multitouch === true ){
+		if ( this._multitouch === true || this._scroll){
 			return;
 		}
 
@@ -236,9 +242,10 @@ SwipeList.prototype = {
 	},
 
 	_end: function( e ) {
-		if ( this._multitouch === true ){
+		if ( this._multitouch === true || this._scroll){
 			this._multitouch = false;
 			this.dragging = false;
+			this._scroll = false;
 			return;
 		}
 
