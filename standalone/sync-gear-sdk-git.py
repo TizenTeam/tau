@@ -68,22 +68,32 @@ jobs = {
 			SrcDest("Pedometer", "samples/web/Sample/Tizen/Web\ App/Pedometer/project"),
 			SrcDest("StopWatch", "samples/web/Sample/Tizen/Web\ App/StopWatch/project")
 		], None),
-	"3_gearui": Job(
+	"3_gearui_sdk": Job(
 		webuifw,
 		sdk,
 		[
 			SrcDest("standalone/dist", "samples/web/Template/Tizen/Gear\ UI/Basic/project/lib/gear-ui"),
 			SrcDest("standalone/dist", "samples/web/Template/Tizen/Gear\ UI/List/project/lib/gear-ui"),
+			SrcDest("standalone/dist", "samples/web/Sample/Tizen/Web\ App/GearWinsetTest/project/lib/gear-ui"),
 			SrcDest("standalone/dist", "samples/web/Sample/Tizen/Web\ App/Calendar/project/lib/gear-ui"),
 			SrcDest("standalone/dist", "samples/web/Sample/Tizen/Web\ App/Camera/project/lib/gear-ui"),
 			SrcDest("standalone/dist", "samples/web/Sample/Tizen/Web\ App/Pedometer/project/lib/gear-ui"),
 			SrcDest("standalone/dist", "samples/web/Sample/Tizen/Web\ App/StopWatch/project/lib/gear-ui")
 		], ["cd web-ui-fw/standalone", "npm install", "grunt"]),
-	"4_gearui": Job(
+	"4_gearui_webapp": Job(
 		webuifw,
 		webapp,
 		[
 			SrcDest("standalone/dist", "Calendar/lib/gear-ui"),
+			SrcDest("standalone/dist", "Camera/lib/gear-ui"),
+			SrcDest("standalone/dist", "DigitalAlarmLED/lib/gear-ui"),
+			SrcDest("standalone/dist", "Evernote/lib/gear-ui"),
+			SrcDest("standalone/dist", "QRCodeReader/lib/gear-ui"),
+			SrcDest("standalone/dist", "ScanAndPlay/lib/gear-ui"),
+			SrcDest("standalone/dist", "ShoppingList/lib/gear-ui"),
+			SrcDest("standalone/dist", "TouchPaint/lib/gear-ui"),
+			SrcDest("standalone/dist", "WatchOnWeb/lib/gear-ui"),
+			SrcDest("standalone/dist", "Weather/lib/gear-ui"),
 			SrcDest("standalone/dist", "MediaControl/lib/gear-ui"),
 			SrcDest("standalone/dist", "Pedometer/lib/gear-ui"),
 			SrcDest("standalone/dist", "Camera/lib/gear-ui"),
@@ -109,6 +119,7 @@ def cloneGit(git, targetdir):
 		cmd("git fetch origin")
 		cmd("git checkout "+git.branch)
 		cmd("git rebase origin/"+git.branch)
+	cmd("cp ../../commit-msg .git/hooks/")
 	os.chdir(cwd)
 
 
