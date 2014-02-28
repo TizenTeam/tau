@@ -168,8 +168,14 @@ SwipeList.prototype = {
 	},
 
 	_getPointPositionFromEvent: function ( ev ) {
-		if ( ev.touches && ev.touches.length > 1) {
+		var multiTouchThreshold = 1;
+		if(ev.type === "touchend") {
+			multiTouchThreshold = 0;
+		}
+		if ( ev.touches && ev.touches.length > multiTouchThreshold) {
 			this._multitouch = true;
+		} else {
+			this._multitouch = false;
 		}
 		return ev.type.search(/^touch/) !== -1 && ev.touches && ev.touches.length ?
 				{x: ev.touches[0].clientX, y: ev.touches[0].clientY} :
@@ -194,11 +200,12 @@ SwipeList.prototype = {
 
 	_setMovingElementTop: function( element ){
 
-		var diff = this._lastScrollTop - element.parentNode.scrollTop;
+		var diff = this._lastScrollTop - this.contentElement.scrollTop;
 		element.style.top = parseInt( this._lastElementTop, 10 ) + diff + "px";
 	},
 
 	_start: function( e, pos ) {
+
 		if ( this._multitouch === true || this._scroll ){
 			return;
 		}
@@ -211,7 +218,7 @@ SwipeList.prototype = {
 	},
 
 	_move: function( e, pos ) {
-		if ( this._multitouch === true || this._scroll){
+		if ( this._multitouch === true || this._scroll ){
 			return;
 		}
 
@@ -229,7 +236,7 @@ SwipeList.prototype = {
 					this.activeElement = this.messageElement;
 					this._translate( this.messageElementBG, this.options.messageStartPosition + this._interval, 0, 0 );
 				}
-				this.activeElement.style.top = target.offsetTop - this.activeElement.parentNode.scrollTop + "px";
+				this.activeElement.style.top = target.offsetTop - this.contentElement.scrollTop + "px";
 
 				this.activeElement.style.display = "block";
 
@@ -242,14 +249,13 @@ SwipeList.prototype = {
 	},
 
 	_end: function( e ) {
-		if ( this._multitouch === true || this._scroll){
-			this._multitouch = false;
+		if ( this._multitouch === true || this._scroll ){
 			this.dragging = false;
 			this._scroll = false;
 			return;
 		}
 
-		this._lastScrollTop = this.activeElement.parentNode.scrollTop;
+		this._lastScrollTop = this.contentElement.scrollTop;
 		this._lastElementTop = this.activeElement.style.top;
 
 		if( this._interval > this.options.animationThreshold ) {
