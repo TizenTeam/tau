@@ -1,8 +1,3 @@
-/*
-* Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
-* License : MIT License V2
-*/
-
 module.exports = function(grunt) {
 	"use strict";
 	
