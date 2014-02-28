@@ -241,6 +241,9 @@
 					self._loadData(index);
 					blockEvent = true;
 					offset = index * avgListItemSize;
+					if (offset < 0) {
+						offset = 0;
+					}
 					element.style.top = offset + "px";
 
 					for (i = 0; i < indexCorrection; i += 1) {
@@ -373,7 +376,6 @@
 							if (newPosition < 0 || currentIndex <= 0) {
 								newPosition = 0;
 							}
-
 							elementStyle.top = newPosition + "px";
 						}
 
