@@ -46,18 +46,56 @@ define([
 			ele.dispatchEvent(evt);
 		},
 
-		extendObject: function(orig, ext) {
-			var key, val;
-			if(!orig) {
-				orig = {};
-			}
-			for(key in ext) {
-				val = ext[key];
-				if(ext.hasOwnProperty(key) && !orig[key]) {
-					orig[key] = val;
+		extendObject: function(/* target, dest ..., override  */) {
+			var options, name,
+				target = arguments[0] || {},
+				length = arguments.length,
+				override = typeof arguments[length-1] === "boolean" ? arguments[length-1] : true,
+				i;
+
+			for ( i = 1 ; i < length; i++ ) {
+				if ( (options = arguments[ i ]) != null ) {
+					for ( name in options ) {
+						if ( options.hasOwnProperty(name) && !!options[name] && ( override || !target[name] ) ) {
+							target[ name ] = options[ name ];
+						}
+					}
 				}
 			}
-			return orig;
+
+			return target;
+		},
+
+		/* jshint -W083 */
+		inherit: function( constructor, base, prototype ) {
+			var basePrototype = new base(),
+				prop, value;
+			for ( prop in prototype ) {
+				if ( prototype.hasOwnProperty(prop) ) {
+					value = prototype[ prop ];
+					if ( typeof value === "function" ) {
+						basePrototype[ prop ] = (function( prop, value ) {
+							var _super = function() {
+									return base.prototype[ prop ].apply( this, arguments );
+								};
+							return function() {
+								var __super = this._super,
+									returnValue;
+
+								this._super = _super;
+								returnValue = value.apply( this, arguments );
+								this._super = __super;
+								return returnValue;
+							};
+						})( prop, value );
+					} else {
+						basePrototype[ prop ] = value;
+					}
+				}
+			}
+
+			constructor.prototype = basePrototype;
+			constructor.prototype.constructor = constructor;
 		},
 
 		dom: {

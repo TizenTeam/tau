@@ -25,7 +25,7 @@ define([
  *********************************************************/
 function IndexBar(element, options) {
 	this.element = element;
-	this.options = ns.extendObject(options, this._options);
+	this.options = ns.extendObject(options, this._options, false);
 	this.container = this.options.container;
 
 	this.indices = {
@@ -312,7 +312,7 @@ IndexBar.prototype = {
  ****************************************************/
 function IndexIndicator(element, options) {
 	this.element = element;
-	this.options = ns.extendObject(options, this._options);
+	this.options = ns.extendObject(options, this._options, false);
 	this.value = null;
 
 	this._init();
@@ -475,7 +475,7 @@ IndexScrollbar.prototype = {
 	},
 
 	_setOptions: function (options) {
-		this.options = ns.extendObject(options, this._options);
+		this.options = ns.extendObject(options, this._options, false);
 
 		// data-* attributes
 		this.options.index = this._getIndex();
