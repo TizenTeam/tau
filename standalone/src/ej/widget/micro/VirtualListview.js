@@ -239,6 +239,9 @@
 					self._loadData(index);
 					blockEvent = true;
 					offset = index * avgListItemSize;
+					if (offset < 0) {
+						offset = 0;
+					}
 					element.style.top = offset + "px";
 
 					for (i = 0; i < indexCorrection; i += 1) {
@@ -368,11 +371,8 @@
 						}
 						if (scrollDirection[SCROLL_UP] || scrollDirection[SCROLL_DOWN]) {
 							newPosition = elementPositionTop + jump;
-							if (newPosition < 0) {
+							if (newPosition < 0 || currentIndex === 0) {
 								newPosition = 0;
-							}
-							if (currentIndex === 0) {
-								top = 0;
 							}
 							elementStyle.top = newPosition + "px";
 						}
