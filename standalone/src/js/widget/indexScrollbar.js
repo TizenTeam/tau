@@ -325,6 +325,8 @@ IndexScrollbar.prototype = {
 			idx = this._findIndexByPosition( pos.y );
 
 		if (ev.touches.length > 1) {
+			ev.preventDefault();
+			ev.stopPropagation();
 			return;
 		}
 
@@ -338,6 +340,8 @@ IndexScrollbar.prototype = {
 
 	_onTouchEndHandler: function(ev) {
 		if (ev.touches.length > 1) {
+			ev.preventDefault();
+			ev.stopPropagation();
 			return;
 		}
 		this._hideIndicator();
@@ -347,6 +351,8 @@ IndexScrollbar.prototype = {
 		var pos, idx;
 
 		if ( !this.isShowIndicator || ev.touches.length > 1) {
+			ev.preventDefault();
+			ev.stopPropagation();
 			return;
 		}
 
