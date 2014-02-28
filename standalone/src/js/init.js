@@ -6,9 +6,7 @@ define([
 	"./navigator",
 	"./navigator.rule/page",
 	"./navigator.rule/popup",
-	"./widget/pagecontainer",
-	"./widget/indexScrollbar",
-	"./utils/listHighlightController"], function( jQuery, ns ) {
+	"./widget/pagecontainer"], function( jQuery, ns ) {
 //>>excludeEnd("microBuildExclude");
 
 (function( $, ns, window, undefined ) {

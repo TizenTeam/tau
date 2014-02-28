@@ -6,7 +6,7 @@ var page = document.getElementById( "bouncingsectionchangerPage" ),
 
 page.addEventListener( "pageshow", function() {
 	// make SectionChanger object
-	sectionChanger = new SectionChanger(changer, {
+	sectionChanger = new gear.ui.SectionChanger(changer, {
 		circular: false,
 		orientation: "horizontal",
 		scrollbar: "bar",

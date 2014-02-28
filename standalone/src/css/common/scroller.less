@@ -1,59 +1,59 @@
 /***************************************************************************
                    Scrollbar Style
 ***************************************************************************/
-.scrollbar-tab-type {
+.ui-scrollbar-tab-type {
 	height: 6px;
-	background-color: rgb(53, 48, 44);
+	background-color: @color_scroller_tab_bg;
 }
 
-.scrollbar-tab-type + * {
+.ui-scrollbar-tab-type + * {
 	margin-top: 6px;
 }
 
-.scrollbar-tab-type .scrollbar-indicator {
+.ui-scrollbar-tab-type .ui-scrollbar-indicator {
 	position: absolute;
 	height: 6px;
 	margin-right: 1px;
 	margin-left: 1px;
-	background-color: rgb(255, 144, 0);
+	background-color: @color_scroller_tab_indicator;
 }
 
-.scrollbar-bar-type {
+.ui-scrollbar-bar-type {
 	position: absolute;
 }
 
-.scrollbar-bar-type.scrollbar-horizontal {
+.ui-scrollbar-bar-type.ui-scrollbar-horizontal {
 	left: 0px;
 	bottom: 0px;
 	width: 100%;
 	height: 8px;
 }
 
-.scrollbar-bar-type.scrollbar-vertical {
+.ui-scrollbar-bar-type.ui-scrollbar-vertical {
 	right: 0px;
 	top: 0px;
 	width: 8px;
 	height: 100%;
 }
 
-.scrollbar-bar-type .scrollbar-indicator {
+.ui-scrollbar-bar-type .ui-scrollbar-indicator {
 	position: absolute;
 	margin: 2px;
-	background-color: #666666;
+	background-color: @color_scroller_scrollbar_color;
 }
 
-.scrollbar-bar-type.scrollbar-horizontal .scrollbar-indicator {
+.ui-scrollbar-bar-type.ui-scrollbar-horizontal .ui-scrollbar-indicator {
 	height: 4px;
 }
 
-.scrollbar-bar-type.scrollbar-vertical .scrollbar-indicator {
+.ui-scrollbar-bar-type.ui-scrollbar-vertical .ui-scrollbar-indicator {
 	width: 4px;
 }
 
 /***************************************************************************
                    Scrollbar Bouncing Effect
 ***************************************************************************/
-.scrollbar-bouncing-effect {
+.ui-scrollbar-bouncing-effect {
 	display: none;
 	position: absolute;
 	background-repeat: no-repeat;
@@ -62,39 +62,39 @@
 	-webkit-animation-fill-mode: forwards;
 }
 
-.scrollbar-bouncing-effect.top {
+.ui-scrollbar-bouncing-effect.ui-top {
 	width: 100%;
 	height: 56px;
 	top:0px;
 	left:0px;
-	background-image: url(../images/scrollbar-bouncing-effect-top.png);
+	background-image: url(@bg_scroller_bouncing_effect_top);
 }
 
-.scrollbar-bouncing-effect.bottom {
+.ui-scrollbar-bouncing-effect.ui-bottom {
 	width: 100%;
 	height: 56px;
 	bottom:0px;
 	left:0px;
-	background-image: url(../images/scrollbar-bouncing-effect-bottom.png);
+	background-image: url(@bg_scroller_bouncing_effect_bottom);
 }
 
-.scrollbar-bouncing-effect.left {
+.ui-scrollbar-bouncing-effect.ui-left {
 	width: 56px;
 	height: 100%;
 	top:0px;
 	left:0px;
-	background-image: url(../images/scrollbar-bouncing-effect-left.png);
+	background-image: url(@bg_scroller_bouncing_effect_left);
 }
 
-.scrollbar-bouncing-effect.right {
+.ui-scrollbar-bouncing-effect.ui-right {
 	width: 56px;
 	height: 100%;
 	top:0px;
 	right:0px;
-	background-image: url(../images/scrollbar-bouncing-effect-right.png);
+	background-image: url(@bg_scroller_bouncing_effect_right);
 }
 
-@-webkit-keyframes vertical-show {
+@-webkit-keyframes ui-vertical-show {
 	0% {
 		background-position: center -0px;
 	}
@@ -130,7 +130,7 @@
 	}
 }
 
-@-webkit-keyframes vertical-hide {
+@-webkit-keyframes ui-vertical-hide {
 	0% {
 		background-position: center -600px;
 	}
@@ -166,7 +166,7 @@
 	}
 }
 
-@-webkit-keyframes horizontal-show {
+@-webkit-keyframes ui-horizontal-show {
 	0% {
 		background-position: -0px center;
 	}
@@ -202,7 +202,7 @@
 	}
 }
 
-@-webkit-keyframes horizontal-hide {
+@-webkit-keyframes ui-horizontal-hide {
 	0% {
 		background-position: -600px center;
 	}
@@ -238,23 +238,23 @@
 	}
 }
 
-.scrollbar-bouncing-effect.top.show,
-.scrollbar-bouncing-effect.bottom.show {
+.ui-scrollbar-bouncing-effect.ui-top.ui-show,
+.ui-scrollbar-bouncing-effect.ui-bottom.ui-show {
 	display: block;
-	-webkit-animation-name: vertical-show;
+	-webkit-animation-name: ui-vertical-show;
 }
-.scrollbar-bouncing-effect.top.hide,
-.scrollbar-bouncing-effect.bottom.hide {
+.ui-scrollbar-bouncing-effect.ui-top.ui-hide,
+.ui-scrollbar-bouncing-effect.ui-bottom.ui-hide {
 	display: block;
-	-webkit-animation-name: vertical-hide;
+	-webkit-animation-name: ui-vertical-hide;
 }
-.scrollbar-bouncing-effect.left.show,
-.scrollbar-bouncing-effect.right.show {
+.ui-scrollbar-bouncing-effect.ui-left.ui-show,
+.ui-scrollbar-bouncing-effect.ui-right.ui-show {
 	display: block;
-	-webkit-animation-name: horizontal-show;
+	-webkit-animation-name: ui-horizontal-show;
 }
-.scrollbar-bouncing-effect.left.hide,
-.scrollbar-bouncing-effect.right.hide {
+.ui-scrollbar-bouncing-effect.ui-left.ui-hide,
+.ui-scrollbar-bouncing-effect.ui-right.ui-hide {
 	display: block;
-	-webkit-animation-name: horizontal-hide;
+	-webkit-animation-name: ui-horizontal-hide;
 }

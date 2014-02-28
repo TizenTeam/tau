@@ -8,15 +8,15 @@
 	page.addEventListener( "pageshow", function() {
 		// make SectionChanger object
 		if ( vele ) {
-			vscroller = new Scroller(vele, {
-				scrollbar: "bar"
+			vscroller = new gear.ui.Scroller(vele, {
+				scrollbar: "tab"
 			});
 		}
 
 		if ( hele ) {
-			hscroller = new Scroller(hele, {
+			hscroller = new gear.ui.Scroller(hele, {
 				orientation: "horizontal",
-				scrollbar: "bar"
+				scrollbar: "tab"
 			});
 		}
 	});
@@ -25,10 +25,12 @@
 		// release object
 		if ( vscroller ) {
 			vscroller.destroy();
+			vscroller = null;
 		}
 
 		if ( hscroller ) {
 			hscroller.destroy();
+			hscroller = null;
 		}
 	});
 

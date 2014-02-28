@@ -6,6 +6,10 @@ define([
 	"jquery.ui.widget",
 	"./ns"
 ], function( require ) {
-	require( [ "./init" ], function() {} );
+	require( [ "./init",
+				"./widget/indexScrollbar",
+				"./widget/scroller",
+				"./widget/sectionchanger",
+				"./utils/listHighlightController" ], function() {} );
 });
 //>>excludeEnd("microBuildExclude");

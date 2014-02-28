@@ -1,3 +1,5 @@
+//>>excludeStart("microBuildExclude", pragmas.microBuildExclude);
+
 /*
   * Copyright (c) 2013 Samsung Electronics Co., Ltd
   *
@@ -14,41 +16,18 @@
   * limitations under the License.
   */
 
-(function(window, undefined) {
-	'use strict';
+define([
+	"../ns",
+	"../helper",
+	"./scroller"], function( ns ) {
+//>>excludeEnd("microBuildExclude");
 
-function extend( newObject, base, prototype ) {
-	var basePrototype = new base(),
-		prop, value;
-	for ( prop in prototype ) {
-		if ( prototype.hasOwnProperty(prop) ) {
-			value = prototype[ prop ];
-			if ( typeof value === "function" ) {
-				basePrototype[ prop ] = (function( prop, value ) {
-					var _super = function() {
-							return base.prototype[ prop ].apply( this, arguments );
-						};
-					return function() {
-						var __super = this._super,
-							returnValue;
+( function ( ns, window, undefined ) {
+"use strict";
 
-						this._super = _super;
-						returnValue = value.apply( this, arguments );
-						this._super = __super;
-						return returnValue;
-					};
-				})( prop, value );
-			} else {
-				basePrototype[ prop ] = value;
-			}
-		}
-	}
+var Scroller = ns.Scroller,
 
-	newObject.prototype = basePrototype;
-	newObject.prototype.constructor = newObject;
-}
-
-var eventType = {
+eventType = {
 	CHANGE: "sectionchange"
 };
 
@@ -57,7 +36,7 @@ function SectionChanger( elem, options ) {
 	return this;
 }
 
-extend(SectionChanger, Scroller, {
+ns.inherit(SectionChanger, Scroller, {
 	_create: function( elem, options ) {
 
 		this.sections = null;
@@ -137,26 +116,26 @@ extend(SectionChanger, Scroller, {
 
 		// circular option is false.
 		if ( orientation === Scroller.Orientation.HORIZONTAL ) {
-			scrollerStyle["width"] = width * sectionLength + "px"; //set Scroller width
-			scrollerStyle["height"] = height + "px"; //set Scroller width
+			scrollerStyle.width = width * sectionLength + "px"; //set Scroller width
+			scrollerStyle.height = height + "px"; //set Scroller width
 		} else {
-			scrollerStyle["width"] = width + "px"; //set Scroller width
-			scrollerStyle["height"] = height * sectionLength + "px"; //set Scroller width
+			scrollerStyle.width = width + "px"; //set Scroller width
+			scrollerStyle.height = height * sectionLength + "px"; //set Scroller width
 		}
 	},
 
 	_initLayout: function() {
 		var sectionStyle = this.sections.style,
-			i, sectionLength, top, left, right, bottom;
+			i, sectionLength, top, left;
 
 		//section element has absolute position
 		for( i = 0, sectionLength = this.sections.length; i < sectionLength; i++ ){
 			//Each section set initialize left position
 			sectionStyle = this.sections[i].style;
 
-			sectionStyle["position"] = "absolute";
-			sectionStyle["width"] = this.width + "px";
-			sectionStyle["height"] = this.height + "px";
+			sectionStyle.position = "absolute";
+			sectionStyle.width = this.width + "px";
+			sectionStyle.height = this.height + "px";
 			if ( this.orientation === Scroller.Orientation.HORIZONTAL ) {
 				top = 0;
 				left = this.width * i;
@@ -165,8 +144,8 @@ extend(SectionChanger, Scroller, {
 				left = 0;
 			}
 
-			sectionStyle["top"] = top + "px";
-			sectionStyle["left"] = left + "px";
+			sectionStyle.top = top + "px";
+			sectionStyle.left = left + "px";
 		}
 
 		this._super();
@@ -218,8 +197,7 @@ extend(SectionChanger, Scroller, {
 	},
 
 	_translateScrollbarWithPageIndex: function(pageIndex, duration) {
-		var sectionLength = this.sections.length,
-			barwidth,offset;
+		var offset;
 
 		if ( !this.scrollbar ) {
 			return;
@@ -239,17 +217,17 @@ extend(SectionChanger, Scroller, {
 			sectionStyle = this.sections.style,
 			i, sectionLength;
 
-		scrollerStyle["width"] = "";
-		scrollerStyle["height"] = "";
+		scrollerStyle.width = "";
+		scrollerStyle.height = "";
 
 		for( i = 0, sectionLength = this.sections.length; i < sectionLength; i++ ){
 			sectionStyle = this.sections[i].style;
 
-			sectionStyle["position"] = "";
-			sectionStyle["width"] = "";
-			sectionStyle["height"] = "";
-			sectionStyle["top"] = "";
-			sectionStyle["left"] = "";
+			sectionStyle.position = "";
+			sectionStyle.width = "";
+			sectionStyle.height = "";
+			sectionStyle.top = "";
+			sectionStyle.left = "";
 		}
 
 		this._super();
@@ -308,7 +286,7 @@ extend(SectionChanger, Scroller, {
 			}
 		}
 
-		if ( newX != this.scrollerOffsetX || newY != this.scrollerOffsetY ) {
+		if ( newX !== this.scrollerOffsetX || newY !== this.scrollerOffsetY ) {
 			this._translate( newX, newY, duration);
 			this._translateScrollbarWithPageIndex( scrollbarIndex, duration);
 		} else {
@@ -347,7 +325,7 @@ extend(SectionChanger, Scroller, {
 		}
 	},
 
-	_end: function( e ) {
+	_end: function(/* e */) {
 		var lastX = Math.round(this.lastTouchPointX),
 			lastY = Math.round(this.lastTouchPointY),
 			distX = this.lastTouchPointX - this.startTouchPointX,
@@ -379,9 +357,9 @@ extend(SectionChanger, Scroller, {
 			return;
 		}
 
-		if ( dist < 0 && this.direction < 0 && this.lastDirection < 0 ) {
+		if ( !cancel && dist < 0 && this.direction < 0 && this.lastDirection < 0 ) {
 			newIndex = this.activeIndex + 1;
-		} else if ( dist > 0 && this.direction > 0 && this.lastDirection > 0 ){
+		} else if ( !cancel && dist > 0 && this.direction > 0 && this.lastDirection > 0 ){
 			newIndex = this.activeIndex - 1;
 		} else {
 			// canceled
@@ -442,8 +420,8 @@ extend(SectionChanger, Scroller, {
 						left = 0;
 					}
 
-					sectionStyle["top"] = top + "px";
-					sectionStyle["left"] = left + "px";
+					sectionStyle.top = top + "px";
+					sectionStyle.left = left + "px";
 				}
 			}
 		}
@@ -455,6 +433,11 @@ extend(SectionChanger, Scroller, {
 	}
 });
 
-window.SectionChanger = SectionChanger;
+//Export SectionChanger to the namespace
+ns.SectionChanger = SectionChanger;
 
-})(this);
+} ( ns, window ) );
+
+//>>excludeStart("microBuildExclude", pragmas.microBuildExclude);
+});
+//>>excludeEnd("microBuildExclude");

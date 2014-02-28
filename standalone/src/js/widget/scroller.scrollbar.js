@@ -1,3 +1,5 @@
+//>>excludeStart("microBuildExclude", pragmas.microBuildExclude);
+
 /*
   * Copyright (c) 2013 Samsung Electronics Co., Ltd
   *
@@ -14,25 +16,16 @@
   * limitations under the License.
   */
 
-(function(window, Scroller, undefined) {
-	'use strict';
+define([
+	"../ns",
+	"../helper",
+	"./scroller.core"], function( ns ) {
+//>>excludeEnd("microBuildExclude");
 
-	var extend = function() {
-			var options, name,
-				target = arguments[0] || {},
-				i, length = arguments.length;
+( function( ns, window, undefined ) {
+"use strict";
 
-		for ( i = 1 ; i < length; i++ ) {
-			if ( (options = arguments[ i ]) != null ) {
-				for ( name in options ) {
-					if ( options.hasOwnProperty(name) && !!options[name] ) {
-						target[ name ] = options[ name ];
-					}
-				}
-			}
-		}
-		return target;
-	};
+var Scroller = ns.Scroller;
 
 Scroller.Scrollbar = function( scrollElement, options ) {
 
@@ -62,7 +55,7 @@ Scroller.Scrollbar.prototype = {
 	},
 
 	_initOptions: function( options ) {
-		options = extend({
+		options = ns.extendObject({
 			type: false,
 			displayDelay: 700,
 			sections: null,
@@ -73,12 +66,11 @@ Scroller.Scrollbar.prototype = {
 	},
 
 	_init: function() {
-		var type = this.options.type,
-			orientation = this.options.orientation;
+		var type = this.options.type;
 
 		if ( !type ) {
 			return;
-		} 
+		}
 
 		this.type = Scroller.Scrollbar.Type[type];
 		if ( !this.type ) {
@@ -92,8 +84,7 @@ Scroller.Scrollbar.prototype = {
 		var sections = this.options.sections,
 			orientation = this.options.orientation,
 			wrapper = document.createElement("DIV"),
-			bar = document.createElement("span"),
-			height, i, len;
+			bar = document.createElement("span");
 
 		wrapper.appendChild(bar);
 
@@ -120,7 +111,7 @@ Scroller.Scrollbar.prototype = {
 	},
 
 	setOptions: function (options) {
-		extend(this.options, options);
+		ns.extendObject(this.options, options);
 	},
 
 	refresh: function () {
@@ -198,17 +189,17 @@ Scroller.Scrollbar.Type = {};
 
 //interface Scroller.Indicator.Type 
 Scroller.Scrollbar.Type.Interface = {
-	insertAndDecorate: function( options ) {},
-	start: function( scrollbarElement, barElement ) {},
-	end: function( scrollbarElement, barElement ) {},
-	offset: function( orientation, offset ) {}
+	insertAndDecorate: function(/* options */) {},
+	start: function(/* scrollbarElement, barElement */) {},
+	end: function(/* scrollbarElement, barElement */) {},
+	offset: function(/* orientation, offset  */) {}
 };
 
-Scroller.Scrollbar.Type["bar"] = extend( {}, Scroller.Scrollbar.Type.Interface, {
+Scroller.Scrollbar.Type.bar = ns.extendObject( {}, Scroller.Scrollbar.Type.Interface, {
 	options: {
-		wrapperClass: "scrollbar-bar-type",
-		barClass: "scrollbar-indicator",
-		orientationClass: "scrollbar-",
+		wrapperClass: "ui-scrollbar-bar-type",
+		barClass: "ui-scrollbar-indicator",
+		orientationClass: "ui-scrollbar-",
 		margin: 2,
 		animationDuration: 500
 	},
@@ -218,7 +209,6 @@ Scroller.Scrollbar.Type["bar"] = extend( {}, Scroller.Scrollbar.Type.Interface, 
 			barElement = data.bar,
 			container = data.container,
 			clip = data.clip,
-			sections = data.sections,
 			orientation = data.orientation,
 			margin = this.options.margin,
 			clipSize = orientation === Scroller.Orientation.VERTICAL ? clip.offsetHeight : clip.offsetWidth,
@@ -235,11 +225,11 @@ Scroller.Scrollbar.Type["bar"] = extend( {}, Scroller.Scrollbar.Type.Interface, 
 		barElement.className = this.options.barClass;
 
 		if ( orientation === Scroller.Orientation.VERTICAL ) {
-			barStyle["height"] =  this.barSize + "px"
-			barStyle["top"] = "0px";
+			barStyle.height =  this.barSize + "px";
+			barStyle.top = "0px";
 		} else {
-			barStyle["width"] =  this.barSize + "px"
-			barStyle["left"] = "0px";
+			barStyle.width =  this.barSize + "px";
+			barStyle.left = "0px";
 		}
 
 		container.appendChild(scrollbarElement);
@@ -266,25 +256,25 @@ Scroller.Scrollbar.Type["bar"] = extend( {}, Scroller.Scrollbar.Type.Interface, 
 		};
 	},
 
-	start: function( scrollbarElement, barElement ) {
+	start: function( scrollbarElement/*, barElement */) {
 		var style = scrollbarElement.style,
 		duration = this.options.animationDuration;
 		style["-webkit-transition"] = "opacity " + duration / 1000 + "s ease";
-		style["opacity"] = 1;
+		style.opacity = 1;
 	},
 
-	end: function( scrollbarElement, barElement ) {
+	end: function( scrollbarElement/*, barElement */) {
 		var style = scrollbarElement.style,
 		duration = this.options.animationDuration;
 		style["-webkit-transition"] = "opacity " + duration / 1000 + "s ease";
-		style["opacity"] = 0;
+		style.opacity = 0;
 	}
 });
 
-Scroller.Scrollbar.Type["tab"] = extend( {}, Scroller.Scrollbar.Type.Interface, {
+Scroller.Scrollbar.Type.tab = ns.extendObject( {}, Scroller.Scrollbar.Type.Interface, {
 	options: {
-		wrapperClass: "scrollbar-tab-type",
-		barClass: "scrollbar-indicator",
+		wrapperClass: "ui-scrollbar-tab-type",
+		barClass: "ui-scrollbar-indicator",
 		margin: 1
 	},
 
@@ -303,7 +293,7 @@ Scroller.Scrollbar.Type["tab"] = extend( {}, Scroller.Scrollbar.Type.Interface, 
 			clipSize = orientation === Scroller.Orientation.VERTICAL ? clipHeight : clipWidth,
 			containerSize = orientation === Scroller.Orientation.VERTICAL ? containerHeight : containerWidth,
 			sectionSize = clipSize / containerSize,
-			height, barWidth, barHeight, i, len;
+			height,  barHeight, i, len;
 
 		this.containerSize = containerWidth;
 		this.maxScrollOffset = clipSize - containerSize;
@@ -340,4 +330,8 @@ Scroller.Scrollbar.Type["tab"] = extend( {}, Scroller.Scrollbar.Type.Interface, 
 
 });
 
-})(this, Scroller);
+} ( ns, window ) );
+
+//>>excludeStart("microBuildExclude", pragmas.microBuildExclude);
+});
+//>>excludeEnd("microBuildExclude");

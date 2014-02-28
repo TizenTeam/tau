@@ -2,11 +2,11 @@
 
 var page = document.getElementById( "tabsectionchangerPage" ),
 	changer = document.getElementById( "tabsectionchanger" ),
-	sectionChanger, idx=1;
+	sectionChanger;
 
 page.addEventListener( "pageshow", function() {
 	// make SectionChanger object
-	sectionChanger = new SectionChanger(changer, {
+	sectionChanger = new gear.ui.SectionChanger(changer, {
 		circular: true,
 		orientation: "horizontal",
 		scrollbar: "tab"
