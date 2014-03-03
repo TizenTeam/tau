@@ -303,7 +303,7 @@ Scroller.Scrollbar.Type["tab"] = extend( {}, Scroller.Scrollbar.Type.Interface, 
 			clipSize = orientation === Scroller.Orientation.VERTICAL ? clipHeight : clipWidth,
 			containerSize = orientation === Scroller.Orientation.VERTICAL ? containerHeight : containerWidth,
 			sectionSize = clipSize / containerSize,
-			barWidth, height, i, len;
+			height, barWidth, barHeight, i, len;
 
 		this.containerSize = containerWidth;
 		this.maxScrollOffset = clipSize - containerSize;
@@ -319,7 +319,9 @@ Scroller.Scrollbar.Type["tab"] = extend( {}, Scroller.Scrollbar.Type.Interface, 
 		container.insertBefore(scrollbarElement, clip);
 
 		// reset page container and section layout.
-		height = clipHeight - barElement.offsetHeight;
+		barHeight = barElement.offsetHeight;
+		height = clipHeight - barHeight;
+		clip.style.marginTop = barHeight + "px";
 		clip.style.height = height + "px";
 		if ( sections && sections.length ) {
 			for ( i=0, len=sections.length; i <len; i++ ) {
