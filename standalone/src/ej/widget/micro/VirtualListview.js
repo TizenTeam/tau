@@ -206,42 +206,41 @@
 					return parseInt(element.clientHeight, 10) + 1;
 				}
 
-				function _orderElementsByIndex(self, index) {
+				function _orderElementsByIndex(self, toIndex) {
 					var element = self.element,
 							options = self.options,
 							scrollInfo = self._scroll,
 							scrollClipHeight = scrollInfo.clipHeight,
 							dataLength = options.dataLength,
 							indexCorrection = 0,
+							bufferedElements = 0,
 							avgListItemSize = 0,
 							bufferSize = options.bufferSize,
 							i,
-							offset = 0;
+							offset = 0,
+							index;
 
 					//Compute average list item size
 					avgListItemSize = _computeElementHeight(element) / bufferSize;
 
-					//Compute count of element in buffer
-					indexCorrection = Math.floor((bufferSize - Math.floor(scrollClipHeight / avgListItemSize)) / 2);
+					//Compute average number of elements in each buffer (before and after clip)
+					bufferedElements = Math.floor((bufferSize - Math.floor(scrollClipHeight / avgListItemSize)) / 2);
 
-					if (index - indexCorrection <= 0) {
+					if (toIndex - bufferedElements <= 0) {
 						index = 0;
 						indexCorrection = 0;
 					} else {
-						index -= indexCorrection;
+						index = toIndex - bufferedElements;
 					}
 
 					if (index + bufferSize >= dataLength) {
 						index = dataLength - bufferSize;
-						indexCorrection = bufferSize;
 					}
+					indexCorrection = toIndex - index;
 
 					self._loadData(index);
 					blockEvent = true;
 					offset = index * avgListItemSize;
-					if (offset < 0) {
-						offset = 0;
-					}
 					element.style.top = offset + "px";
 
 					for (i = 0; i < indexCorrection; i += 1) {
@@ -371,17 +370,20 @@
 						}
 						if (scrollDirection[SCROLL_UP] || scrollDirection[SCROLL_DOWN]) {
 							newPosition = elementPositionTop + jump;
-							if (newPosition < 0 || currentIndex === 0) {
+							if (newPosition < 0 || currentIndex <= 0) {
 								newPosition = 0;
 							}
+
 							elementStyle.top = newPosition + "px";
 						}
 
 						if (scrollDirection[SCROLL_LEFT] || scrollDirection[SCROLL_RIGHT]) {
 							newPosition = elementPositionLeft + jump;
-							if (newPosition < 0) {
+
+							if (newPosition < 0 || currentIndex <= 0) {
 								newPosition = 0;
 							}
+
 							elementStyle.left = newPosition + "px";
 						}
 
@@ -447,6 +449,7 @@
 				 */
 				VirtualListview.prototype._init = function(element) {
 					var ui = this.ui,
+							options = this.options,
 							scrollview,
 							spacer;
 
@@ -462,6 +465,9 @@
 					ui.scrollview = scrollview;
 					this.element = element;
 
+					if (options.dataLength < options.bufferSize) {
+						options.bufferSize = options.dataLength;
+					}
 				};
 
 				/**
@@ -510,12 +516,14 @@
 				VirtualListview.prototype._loadData = function(index) {
 					var children = this.element.firstElementChild;
 
-					this._currentIndex = index;
-					do {
-						_updateListItem.call(null, this, children, index);
-						++index;
-						children = children.nextElementSibling;
-					} while (children);
+					if (this._currentIndex !== index) {
+						this._currentIndex = index;
+						do {
+							_updateListItem.call(null, this, children, index);
+							++index;
+							children = children.nextElementSibling;
+						} while (children);
+					}
 				};
 
 				/**
@@ -610,6 +618,12 @@
 				};
 
 				VirtualListview.prototype.scrollToIndex = function(index) {
+					if (index < 0) {
+						index = 0;
+					}
+					if (index > this.options.dataLength) {
+						index = this.options.dataLength;
+					}
 					_updateScrollInfo.call(null, this);
 					_orderElementsByIndex(this, index);
 				};
