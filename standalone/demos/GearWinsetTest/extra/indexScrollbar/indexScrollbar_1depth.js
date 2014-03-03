@@ -1,5 +1,5 @@
 (function() {
-	var page = document.getElementById("pageIndexScrollbar"),
+	var page = document.getElementById("pageIndexScrollbar1"),
 		isb;
 	page.addEventListener("pageshow", function(ev) {
 

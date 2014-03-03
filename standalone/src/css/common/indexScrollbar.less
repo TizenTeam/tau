@@ -10,6 +10,7 @@
 	overflow: visible;	// To show 2nd indexbar
 
 	ul {
+		position:absolute;
 		width: 100%;
 		top:0;
 		li {
@@ -25,12 +26,20 @@
 			color: @color_indexscrollbar_selected_text;
 		}
 	}
-	ul.ui-indexscrollbar-2nd {
+	ul.ui-indexscrollbar-supplementary {
 		position: relative;
 		height: auto;
 		top: 0;
 		right: -40 * @unit_base;
 		width: 100%;
+		li {
+			background-color: @color_indexscrollbar_bg_supplementary;
+			color: @color_indexscrollbar_text;
+		}
+		li.ui-state-selected {
+			background-color: @color_indexscrollbar_bg_supplementary;
+			color: @color_indexscrollbar_selected_text_supplementary;
+		}
 
 	}
 
@@ -46,7 +55,7 @@
 	z-index: 9;
 	display: none;
 
-	span {
+	>span {
 		width: 120 * @unit_base;
 		height: 96 * @unit_base;
 		position: absolute;
@@ -59,6 +68,11 @@
 		font-size: 70 * @unit_base;
 		text-align: center;
 		background-color: @color_indexscrollbar_indicator_bg;
-		color: @color_indexscrollbar_indicator_text;
+		color: @color_indexscrollbar_indicator_text_normal;
+
+		>span.ui-selected {
+			color: @color_indexscrollbar_indicator_text_selected;
+		}
+
 	}
 }

@@ -53,7 +53,7 @@ define([
 			}
 			for(key in ext) {
 				val = ext[key];
-				if(!orig[key]) {
+				if(ext.hasOwnProperty(key) && !orig[key]) {
 					orig[key] = val;
 				}
 			}
@@ -118,8 +118,6 @@ define([
 			}
 		}
 	});
-
-	
 
 })( jQuery, ns, this );
 
