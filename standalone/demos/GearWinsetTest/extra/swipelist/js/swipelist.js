@@ -107,6 +107,7 @@ SwipeList.prototype = {
 
 		this.contentElement.addEventListener( "scroll", this);
 		document.addEventListener( "webkitTransitionEnd", this );
+		document.addEventListener( "touchcancel", this );
 	},
 
 	_unbindEvents: function() {
@@ -122,6 +123,7 @@ SwipeList.prototype = {
 
 		this.contentElement.removeEventListener( "scroll", this );
 		document.removeEventListener( "webkitTransitionEnd", this );
+		document.removeEventListener( "touchcancel", this );
 	},
 
 	handleEvent: function( event ) {
@@ -142,6 +144,9 @@ SwipeList.prototype = {
 			break;
 		case "webkitTransitionEnd":
 			this._transitionEnd( event );
+			break;
+		case "touchcancel":
+			this._cancel();
 			break;
 		case "scroll":
 			this._scroll = true;
@@ -249,9 +254,8 @@ SwipeList.prototype = {
 	},
 
 	_end: function( e ) {
-		if ( this._multitouch === true || this._scroll ){
+		if ( this._multitouch === true ){
 			this.dragging = false;
-			this._scroll = false;
 			return;
 		}
 
@@ -270,7 +274,7 @@ SwipeList.prototype = {
 			this.callElement.style.display = "none";
 			this.messageElement.style.display = "none";
 		}
-
+		this._scroll = false;
 		this.dragging = false;
 	},
 
@@ -283,6 +287,15 @@ SwipeList.prototype = {
 		this._translate( this.callElementBG, this.options.callStartPosition, 0, 0);
 		this._translate( this.messageElementBG, this.options.messageStartPosition, 0, 0);
 		this._activeFlag = false;
+	},
+
+	_cancel: function() {
+		// This handler method was called when touchcancel event fired.
+		// touchcancel event fired when user click home button.
+		this._translate( this.callElementBG, this.options.callStartPosition, 0, 0);
+		this._translate( this.messageElementBG, this.options.messageStartPosition, 0, 0);
+		this.callElement.style.display = "none";
+		this.messageElement.style.display = "none";
 	},
 
 	destroy: function() {
