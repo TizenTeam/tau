@@ -127,7 +127,6 @@ el.addEventListener("select", function( ev ) {
 	});
 
 	page.addEventListener("pagehide", function(ev) {
-		console.log('isb2:destroy');
 		isb.destroy();
 		index.length = 0;
 		supIndex = {};
