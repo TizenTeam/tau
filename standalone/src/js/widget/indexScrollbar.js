@@ -721,14 +721,14 @@ IndexScrollbar.prototype = {
 
 		this.element.addEventListener("touchstart", this.eventHandlers.touchStart);
 		this.element.addEventListener("touchmove", this.eventHandlers.touchMove);
-		document.addEventListener("touchend", this.eventHandlers.touchEnd);
+		this.element.addEventListener("touchend", this.eventHandlers.touchEnd);
 		document.addEventListener("touchcancel", this.eventHandlers.touchEnd);
 	},
 
 	_unbindEventToTriggerSelectEvent: function() {
 		this.element.removeEventListener("touchstart", this.eventHandlers.touchStart);
 		this.element.removeEventListener("touchmove", this.eventHandlers.touchMove);
-		document.removeEventListener("touchend", this.eventHandlers.touchEnd);
+		this.element.removeEventListener("touchend", this.eventHandlers.touchEnd);
 		document.removeEventListener("touchcancel", this.eventHandlers.touchEnd);
 	},
 
