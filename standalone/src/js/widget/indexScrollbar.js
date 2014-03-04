@@ -253,7 +253,7 @@ IndexBar.prototype = {
 		}
 		if( table[table.length -1] ) {
 			info = table[table.length -1];
-			if(posY > info.top + info.range) {
+			if(posY >= info.top + info.range) {
 				return table.length - 1;
 			}
 		}
