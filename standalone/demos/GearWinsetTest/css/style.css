@@ -10,13 +10,6 @@
 }
 
 /* ---------------------------------- LISTVIEW ---------------------------------- */
-.ui-listview li, .ui-listview li > * {
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        -o-text-overflow: ellipsis;
-        overflow: hidden!important;
-        -webkit-user-select: none;
-}
 .ui-listview li .li-text-sub {
         display: block;
         color: rgb(189, 167, 146);

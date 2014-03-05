@@ -9,6 +9,13 @@ Listview
 	min-height: 90 * @unit_base;
 	padding: 21*@unit_base 16*@unit_base 20*@unit_base;
 	border-bottom: 1px solid @color_listview_border;
+
+	> * {
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		-webkit-user-select: none;
+	}
 }
 .ui-listview li > a {
 	display: block;
