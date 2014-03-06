@@ -65,7 +65,7 @@ jobs = {
 			SrcDest("standalone/dist", "samples/web/Template/Tizen/Gear\ UI/Basic/project/lib/gear-ui"),
 			SrcDest("standalone/dist", "samples/web/Template/Tizen/Gear\ UI/List/project/lib/gear-ui"),
 			SrcDest("standalone/dist", "samples/web/Sample/Tizen/Web\ App/GearWinsetTest/project/lib/gear-ui")
-		], ["cd web-ui-fw/standalone", "npm install", "grunt"]),
+		], ["cd web-ui-fw/standalone", "npm install", "git checkout node_modules", "grunt"]),
 	"3_gearui_webapp": Job(
 		webuifw,
 		webapp,
@@ -83,7 +83,7 @@ jobs = {
 			SrcDest("standalone/dist", "Pedometer/lib/gear-ui"),
 			SrcDest("standalone/dist", "Camera/lib/gear-ui"),
 			SrcDest("standalone/dist", "StopWatch/lib/gear-ui"),
-		], ["cd web-ui-fw/standalone", "npm install", "grunt"])
+		], ["cd web-ui-fw/standalone", "npm install", "git checkout node_modules", "grunt"])
 
 }
 
