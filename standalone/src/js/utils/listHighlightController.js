@@ -1,12 +1,12 @@
 (function() {
-	/* anchorHighlightController.js
+	/* listHighlightController.js
 	To prevent perfomance regression when scrolling,
-	do not apply hover class in anchor.
+	do not apply hover class in anchor and label.
 	Instead, this code checks scrolling for time threshold and
 	decide how to handle the color.
-	When scrolling with anchor, it checks flag and decide to highlight anchor.
+	When scrolling with anchor or label, it checks flag and decide to highlight them.
 	While it helps to improve scroll performance,
-	it lowers responsiveness of the element for 50msec.
+	it lowers responsiveness of the element for 10msec.
 	*/
 	var startX,
 	startY,
@@ -36,6 +36,7 @@
 			target = e.target;
 
 			document.addEventListener( "touchmove", touchmoveHandler );
+			document.addEventListener( "touchcancel", touchcancelHandler );
 			addActiveClassTimerID = setTimeout( addActiveClass, options.addActiveClassDelay );
 		}
 	}
@@ -50,8 +51,17 @@
 		}
 	}
 
+	function touchcancelHandler( ) {
+		removeTouchCancel();
+		removeActiveClass();
+	}
+
 	function removeTouchMove() {
 		document.removeEventListener( "touchmove", touchmoveHandler );
+	}
+
+	function removeTouchCancel() {
+		document.removeEventListener( "touchcancel", touchcancelHandler );
 	}
 
 	function detectHighlightTarget ( target ) {

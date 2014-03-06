@@ -8,7 +8,7 @@ define([
 	"./navigator.rule/popup",
 	"./widget/pagecontainer",
 	"./widget/indexScrollbar",
-	"./utils/anchorHighlightController"], function( jQuery, ns ) {
+	"./utils/listHighlightController"], function( jQuery, ns ) {
 //>>excludeEnd("microBuildExclude");
 
 (function( $, ns, window, undefined ) {
