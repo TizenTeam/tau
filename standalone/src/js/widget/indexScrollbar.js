@@ -6,6 +6,11 @@ define([
 
 
 ( function ( ns, window, undefined ) {
+
+	if ( ns.IndexScrollbar ) {
+		return;
+	}
+
 /*********************************************************
  * IndexScrollbar widget
  *

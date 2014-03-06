@@ -25,6 +25,10 @@ define([
 ( function ( ns, window, undefined ) {
 "use strict";
 
+if ( ns.SectionChanger ) {
+	return;
+}
+
 var Scroller = ns.Scroller,
 
 eventType = {

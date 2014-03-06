@@ -7,9 +7,6 @@ define([
 	"./ns"
 ], function( require ) {
 	require( [ "./init",
-				"./widget/indexScrollbar",
-				"./widget/scroller",
-				"./widget/sectionchanger",
 				"./utils/listHighlightController" ], function() {} );
 });
 //>>excludeEnd("microBuildExclude");

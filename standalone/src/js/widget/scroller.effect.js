@@ -27,6 +27,10 @@ define([
 
 var Scroller = ns.Scroller;
 
+if ( Scroller.Effect ) {
+	return;
+}
+
 Scroller.Effect = {};
 Scroller.Effect.Bouncing = function( scrollerElement, options ) {
 

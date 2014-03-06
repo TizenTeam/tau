@@ -1,33 +1,71 @@
 module.exports = function(grunt) {
 	"use strict";
 
-	var path = require("path"),
+	var pkg = grunt.file.readJSON("package.json"),
+		path = require("path"),
 		dist = "dist" + path.sep,
-		name = "gear.ui",
-		pkginfo = grunt.file.readJSON( "package.json" ),
+
+		name = pkg.name,
+		version = pkg.version,
+
 		jsPath = path.join(dist, "js"),
+		widgetPath = path.join(jsPath, "widget"),
 		themesPath = path.join(dist, "themes"),
-		themesDefaultPath = path.join(themesPath, "default"),
-		themesBlackPath = path.join(themesPath, "black"),
+
+		widgets = {
+			"indexScrollbar": "widget/indexScrollbar",
+			"sectionchanger": "widget/sectionchanger"
+		},
+
 		themes = {
 			"default" : "src/css/themes/black",
-			"black" : "src/css/themes/black",
+			"black" : "src/css/themes/black"
 		},
-		files = {
-			css: {
-				lessSuffix: ".less",
-				unminifiedSuffix: ".css",
-				minifiedSuffix: ".min.css",
 
+		files = {
+			js: {
+				getWidgetFiles: function() {
+					var list = [],
+						key, value;
+					for ( key in widgets ) {
+						value = widgets[key];
+						list.push(value);
+					}
+					return list;
+				},
+				licenseFiles: [],
+				setLicenseFiles: function() {
+					files.js.licenseFiles.length = 0;
+					grunt.file.recurse(jsPath, function(abspath/*, rootdir, subdir, filename */) {
+						files.js.licenseFiles.push({
+							src: [path.join( "license", "Flora" ) + ".txt", abspath],
+							dest: abspath,
+						});
+					});
+				},
+				minifiedFiles: [],
+				setMinifiedFiles: function() {
+					files.js.minifiedFiles.length = 0;
+					grunt.file.recurse(jsPath, function(abspath/*, rootdir, subdir, filename */) {
+						if ( !/.min.js/.test( abspath ) ) {
+							files.js.minifiedFiles.push({
+								src: abspath,
+								dest: abspath.replace(".js", ".min.js")
+							});
+						}
+					});
+				}
+			},
+
+			css: {
 				getCssFiles: function( ) {
 					var list = [],
-						css = files.css,
 						key, value;
 					for(key in themes) {
 						value = themes[key];
 						list.push({
-							src: path.join(value, name) + css.lessSuffix,
-							dest: path.join( themesPath, key, name ) + css.unminifiedSuffix
+							src: path.join(value, name) + ".less",
+							dest: path.join( themesPath, key, name ) + ".css"
 						});
 					}
 					return list;
@@ -35,15 +73,27 @@ module.exports = function(grunt) {
 
 				getMinifiedCSSFiles : function( ) {
 					var list = [],
-						css = files.css,
 						key;
 					for(key in themes) {
 						list.push({
-							src: path.join( themesPath, key, name ) + css.unminifiedSuffix,
-							dest: path.join( themesPath, key, name ) + css.minifiedSuffix
+							src: path.join( themesPath, key, name ) + ".css",
+							dest: path.join( themesPath, key, name ) + ".min.css"
 						});
 					}
 					return list;
+				},
+
+				licenseFiles: [],
+				setLicenseFiles: function() {
+					files.css.licenseFiles.length = 0;
+					grunt.file.recurse(themesPath, function(abspath, rootdir, subdir, filename) {
+						if ( /.css$/.test(filename) ) {
+							files.css.licenseFiles.push({
+								src: [path.join( "license", "Flora" ) + ".txt", abspath],
+								dest: abspath
+							});
+						}
+					});
 				}
 			},
 
@@ -66,220 +116,221 @@ module.exports = function(grunt) {
 				}
 			}
 
-		};
-
-	grunt.initConfig({
-		pkg: pkginfo,
-
-		version: "<%= pkg.version %>",
-
-		writeVersion: grunt.file.write(path.join( dist, "VERSION" ), pkginfo.version + "\n"),
-
-		jshint: {
-			js: {
-				options: {
-					jshintrc: "src/js/.jshintrc"
-				},
-				files: {
-					src: [
-						"src/js/**/*.js"
-					]
-				}
-			},
-			grunt: {
-				options: {
-					jshintrc: "src/js/.jshintrc"
-				},
-				files: {
-					src: [ "Gruntfile.js" ]
-				}
-			}
 		},
 
-		requirejs: {
-			js: {
+		initConfig = {
+			version: version,
+
+			writeVersion: grunt.file.write(path.join( dist, "VERSION" ), pkg.version + "\n"),
+
+			jshint: {
+				js: {
+					options: {
+						jshintrc: "src/js/.jshintrc"
+					},
+					files: {
+						src: [
+							"src/js/**/*.js"
+						]
+					}
+				},
+				grunt: {
+					options: {
+						jshintrc: "src/js/.jshintrc"
+					},
+					files: {
+						src: [ "Gruntfile.js" ]
+					}
+				}
+			},
+
+			requirejs: {
+				core: {
+					options: {
+						baseUrl: "src/js",
+						optimize: "none",
+						findNestedDependencies: true,
+						skipModuleInsertion: true,
+						mainConfigFile: "src/js/requirejs.config.js",
+						include: [ name ],
+						out: path.join( jsPath, name ) + ".core.js",
+						pragmasOnSave: {
+							microBuildExclude: true
+						},
+						wrap: {
+							startFile: "build/wrap.start",
+							endFile: "build/wrap.end"
+						}
+					}
+				},
+
+				full: {
+					options: {
+						baseUrl: "src/js",
+						optimize: "none",
+						findNestedDependencies: true,
+						skipModuleInsertion: true,
+						mainConfigFile: "src/js/requirejs.config.js",
+						include: [ name ].concat( files.js.getWidgetFiles() ),
+						out: path.join( jsPath, name ) + ".js",
+						pragmasOnSave: {
+							microBuildExclude: true
+						},
+						wrap: {
+							startFile: "build/wrap.start",
+							endFile: "build/wrap.end"
+						}
+					}
+				},
+
+				ej: {
+					options: {
+						baseUrl: "src/ej",
+						optimize: "none",
+						findNestedDependencies: true,
+						skipModuleInsertion: true,
+						name: "micro",
+						out: path.join( jsPath, name ) + ".js",
+						pragmasOnSave: {
+							ejBuildExclude: true,
+							ejDebug: true
+						}
+					}
+				},
+
+				virtuallist: {
+					options: {
+						baseUrl: "src/ej",
+						optimize: "none",
+						findNestedDependencies: true,
+						skipModuleInsertion: true,
+						name: "virtuallist",
+						out: path.join( widgetPath, "virtuallist" ) + ".js",
+						pragmasOnSave: {
+							ejBuildExclude: true,
+							ejDebug: true
+						}
+					}
+				}
+			},
+
+			uglify: {
+				all: {
+					options: {
+						beautify: {
+							ascii_only: true
+						},
+						compress: {
+							drop_console: true
+						}
+					},
+
+					files: files.js.minifiedFiles
+				}
+			},
+
+			less : {
+				style : {
+					files : files.css.getCssFiles()
+				}
+			},
+
+			cssmin: {
+				options: {
+					keepSpecialComments: 0
+				},
+				minify: {
+					files: files.css.getMinifiedCSSFiles()
+				}
+			},
+
+			copy: {
+				images: {
+					files: files.images.getImagesFolder()
+				},
+				license: {
+					src: "LICENSE.Flora", dest: path.join( dist, "LICENSE" ) + ".Flora"
+				}
+			},
+
+			concat: {
+				licenseJs: {
+					files: files.js.licenseFiles
+				},
+				licenseCss: {
+					files: files.css.licenseFiles
+				}
+			},
+
+			watch : {
+				all : {
+					files : [ "src/css/**/*", "src/js/**/*" ],
+					tasks : [ "less", "requirejs:js" ],
+					options: {
+						// Start a live reload server on the default port 35729
+						livereload: true,
+						interrupt: true,
+					}
+				}
+			},
+
+			clean: {
+				js: [ jsPath ],
+				css: [ themesPath ]
+			}
+
+		};
+
+	// add requirejs tasks to build widget library.
+	(function() {
+		var requirejs = initConfig.requirejs,
+			key, value;
+
+		for ( key in widgets ) {
+			value = widgets[key];
+
+			requirejs["widget_" + key] = {
 				options: {
 					baseUrl: "src/js",
-
 					optimize: "none",
-
-					//Finds require() dependencies inside a require() or define call.
 					findNestedDependencies: true,
-
-					//If skipModuleInsertion is false, then files that do not use define()
-					//to define modules will get a define() placeholder inserted for them.
-					//Also, require.pause/resume calls will be inserted.
-					//Set it to true to avoid this. This is useful if you are building code that
-					//does not use require() in the built project or in the JS files, but you
-					//still want to use the optimization tool from RequireJS to concatenate modules
-					//together.
 					skipModuleInsertion: true,
-
 					mainConfigFile: "src/js/requirejs.config.js",
-
-					include: [ name ],
-
-					out: path.join( jsPath, name ) + ".js",
-
 					pragmasOnSave: {
 						microBuildExclude: true
 					},
-
-					//File paths are relative to the build file, or if running a commmand
-					//line build, the current directory.
+					include: [ value ],
+					exclude: [ name ],
+					out: path.join( widgetPath, key ) + ".js",
 					wrap: {
-						startFile: "build/wrap.start",
-						endFile: "build/wrap.end"
+						start: [
+							";(function(window, undefined) {",
+							"	var ns = "+ name +";",
+							""].join( grunt.util.linefeed ),
+						end: "})(this);"
 					}
 				}
-			},
-			jsej: {
-				options: {
-					baseUrl: "src/ej",
+			};
+		}
 
-					optimize: "none",
+	})();
 
-					//Finds require() dependencies inside a require() or define call.
-					findNestedDependencies: true,
+	grunt.initConfig(initConfig);
 
-					//If skipModuleInsertion is false, then files that do not use define()
-					//to define modules will get a define() placeholder inserted for them.
-					//Also, require.pause/resume calls will be inserted.
-					//Set it to true to avoid this. This is useful if you are building code that
-					//does not use require() in the built project or in the JS files, but you
-					//still want to use the optimization tool from RequireJS to concatenate modules
-					//together.
-					skipModuleInsertion: true,
+	grunt.registerTask("findFiles", "Initialize Target Files.", function( name ) {
+		var name, obj = files;
+		name = name.split( "." );
+		name.forEach(function(key) {
+			obj = obj[key];
+		});
+		obj();
+	});
 
-					name: "micro",
+	grunt.registerTask("widget", "Generate widget files using requirejs", function() {
+		var key;
 
-					out: path.join( jsPath, name ) + ".js",
-
-					pragmasOnSave: {
-						ejBuildExclude: true,
-						ejDebug: true
-					},
-				}
-			},
-			jsejvl: {
-				options: {
-					baseUrl: "src/ej",
-
-					optimize: "none",
-
-					//Finds require() dependencies inside a require() or define call.
-					findNestedDependencies: true,
-
-					//If skipModuleInsertion is false, then files that do not use define()
-					//to define modules will get a define() placeholder inserted for them.
-					//Also, require.pause/resume calls will be inserted.
-					//Set it to true to avoid this. This is useful if you are building code that
-					//does not use require() in the built project or in the JS files, but you
-					//still want to use the optimization tool from RequireJS to concatenate modules
-					//together.
-					skipModuleInsertion: true,
-
-					name: "virtuallist",
-
-					out: path.join( jsPath, "virtuallist" ) + ".js",
-
-					pragmasOnSave: {
-						ejBuildExclude: true,
-						ejDebug: true
-					},
-				}
-			}
-
-		},
-
-		uglify: {
-			all: {
-				options: {
-					beautify: {
-						ascii_only: true
-					}
-				},
-				files: [
-					{
-						src: path.join( jsPath, name ) + ".js",
-						dest: path.join( jsPath, name ) + ".min.js",
-					}
-				]
-			}
-		},
-		concat: {
-			normaljs: {
-				src: [path.join( "license", "Flora" ) + ".txt", path.join( jsPath, name ) + ".js"],
-				dest: path.join( jsPath, name ) + ".js"
-			},
-			minjs: {
-				src: [path.join( "license", "Flora" ) + ".txt", path.join( jsPath, name ) + ".min.js"],
-				dest: path.join( jsPath, name ) + ".min.js"
-			},
-			virtuallist: {
-				src: [path.join( "license", "Flora" ) + ".txt", path.join( jsPath, "virtuallist" ) + ".js"],
-				dest: path.join( jsPath, "virtuallist" ) + ".js"
-			},
-			normalcss: {
-				files: [
-					{
-						src: [path.join( "license", "Flora" ) + ".txt", path.join( themesDefaultPath, name ) + ".css"],
-						dest: path.join( themesDefaultPath, name ) + ".css"
-					},
-					{
-						src: [path.join( "license", "Flora" ) + ".txt", path.join( themesBlackPath, name ) + ".css"],
-						dest: path.join( themesBlackPath, name ) + ".css"
-					}
-				],
-			},
-			mincss: {
-				files: [
-					{
-						src: [path.join( "license", "Flora" ) + ".txt", path.join( themesDefaultPath, name ) + ".min.css"],
-						dest: path.join( themesDefaultPath, name ) + ".min.css"
-					},
-					{
-						src: [path.join( "license", "Flora" ) + ".txt", path.join( themesBlackPath, name ) + ".min.css"],
-						dest: path.join( themesBlackPath, name ) + ".min.css"
-					}
-				],
-			}
-		},
-
-		less : {
-			style : {
-				files : files.css.getCssFiles()
-			}
-		},
-
-		cssmin: {
-			options: {
-				keepSpecialComments: 0
-			},
-			minify: {
-				files: files.css.getMinifiedCSSFiles()
-			}
-		},
-
-		copy: {
-			images: {
-				files: files.images.getImagesFolder()
-			},
-			license: {
-				src: "LICENSE.Flora", dest: path.join( dist, "LICENSE" ) + ".Flora"
-			}
-		},
-
-		watch : {
-			css : {
-				files : [ "src/css/**/*", "src/js/**/*" ],
-				tasks : [ "less", "requirejs:js" ],
-				options: {
-					// Start a live reload server on the default port 35729
-					livereload: true,
-					interrupt: true,
-				}
-			}
+		for ( key in widgets ) {
+			grunt.task.run("requirejs:widget_" + key);
 		}
 
 	});
@@ -295,11 +346,15 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks( "grunt-contrib-watch" );
 
 	grunt.registerTask( "lint", [ "jshint" ] );
-	grunt.registerTask("css", [ "less", "cssmin" ]);
-	grunt.registerTask("js", [ "requirejs:js", "uglify" ]);
-	grunt.registerTask("jsej", [ "requirejs:jsej", "uglify" ]);
+	grunt.registerTask( "jsmin", [ "findFiles:js.setMinifiedFiles", "uglify" ] );
 
-	grunt.registerTask("release", [ "lint", "css", "js", "requirejs:jsejvl", "concat", "copy" ]);
+	grunt.registerTask("css", [ "clean:css", "less", "cssmin" ]);
+	grunt.registerTask("js", [ "clean:js", "requirejs:full", "requirejs:core", "widget", "requirejs:virtuallist", "jsmin" ]);
+	grunt.registerTask("jsej", [ "clean:js", "requirejs:jsej", "uglify" ]);
+
+	grunt.registerTask("license", [ "findFiles:js.setLicenseFiles", "findFiles:css.setLicenseFiles", "concat" ]);
+
+	grunt.registerTask("release", [ "clean", "lint", "css", "js", "license", "copy" ]);
 	grunt.registerTask("releaseej", [ "lint", "css", "jsej" ]);
 
 	grunt.registerTask("default", [ "release" ]);

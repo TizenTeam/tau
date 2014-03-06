@@ -25,6 +25,10 @@ define([
 ( function ( ns, window, undefined ) {
 "use strict";
 
+if ( ns.Scroller ) {
+	return;
+}
+
 // scroller.start event trigger when user try to move scroller
 var eventType = {
 	// scroller.move event trigger when scroller start

@@ -27,6 +27,10 @@ define([
 
 var Scroller = ns.Scroller;
 
+if ( Scroller.Scrollbar ) {
+	return;
+}
+
 Scroller.Scrollbar = function( scrollElement, options ) {
 
 	this.element = null;
