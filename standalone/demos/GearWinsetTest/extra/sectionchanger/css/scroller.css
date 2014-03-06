@@ -6,6 +6,10 @@
 	background-color: rgb(53, 48, 44);
 }
 
+.scrollbar-tab-type + * {
+	margin-top: 6px;
+}
+
 .scrollbar-tab-type .scrollbar-indicator {
 	position: absolute;
 	height: 6px;

@@ -321,7 +321,6 @@ Scroller.Scrollbar.Type["tab"] = extend( {}, Scroller.Scrollbar.Type.Interface, 
 		// reset page container and section layout.
 		barHeight = barElement.offsetHeight;
 		height = clipHeight - barHeight;
-		clip.style.marginTop = barHeight + "px";
 		clip.style.height = height + "px";
 		if ( sections && sections.length ) {
 			for ( i=0, len=sections.length; i <len; i++ ) {
