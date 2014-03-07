@@ -1,9 +1,10 @@
 module.exports = function(grunt) {
 	"use strict";
-	
+
 	var path = require("path"),
 		dist = "dist" + path.sep,
 		name = "gear.ui",
+		pkginfo = grunt.file.readJSON( "package.json" ),
 		jsPath = path.join(dist, "js"),
 		themesPath = path.join(dist, "themes"),
 		themesDefaultPath = path.join(themesPath, "default"),
@@ -68,10 +69,12 @@ module.exports = function(grunt) {
 		};
 
 	grunt.initConfig({
-		pkg: grunt.file.readJSON( "package.json" ),
-		
+		pkg: pkginfo,
+
 		version: "<%= pkg.version %>",
-		
+
+		writeVersion: grunt.file.write(path.join( dist, "VERSION" ), pkginfo.version + "\n"),
+
 		jshint: {
 			js: {
 				options: {
@@ -92,7 +95,7 @@ module.exports = function(grunt) {
 				}
 			}
 		},
-		
+
 		requirejs: {
 			js: {
 				options: {
@@ -295,7 +298,7 @@ module.exports = function(grunt) {
 	grunt.registerTask("css", [ "less", "cssmin" ]);
 	grunt.registerTask("js", [ "requirejs:js", "uglify" ]);
 	grunt.registerTask("jsej", [ "requirejs:jsej", "uglify" ]);
-	
+
 	grunt.registerTask("release", [ "lint", "css", "js", "requirejs:jsejvl", "concat", "copy" ]);
 	grunt.registerTask("releaseej", [ "lint", "css", "jsej" ]);
 
