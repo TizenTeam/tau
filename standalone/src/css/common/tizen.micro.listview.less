@@ -2,6 +2,10 @@
 /************************
 Listview
 *************************/
+.ui-listview {
+	width:100%;
+}
+
 .ui-listview li {
 	font-size: @font_size_list_item;
 	line-height: 48 * @unit_base;
@@ -9,6 +13,8 @@ Listview
 	min-height: 90 * @unit_base;
 	padding: 21*@unit_base 16*@unit_base 20*@unit_base;
 	border-bottom: 1px solid @color_listview_border;
+	overflow: hidden;
+	text-overflow: ellipsis;
 
 	> * {
 		white-space: nowrap;
