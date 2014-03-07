@@ -265,7 +265,7 @@ module.exports = function(grunt) {
 			watch : {
 				all : {
 					files : [ "src/css/**/*", "src/js/**/*" ],
-					tasks : [ "less", "requirejs:js" ],
+					tasks : [ "less", "requirejs:full" ],
 					options: {
 						// Start a live reload server on the default port 35729
 						livereload: true,
