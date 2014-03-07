@@ -75,7 +75,7 @@ SwipeList.prototype = {
 
 	_initOptions: function( options ){
 		this.options = {
-			threshold: 50,
+			threshold: 20,
 			animationThreshold: 150,
 			animationDuration: 300,
 			callStartPosition: -320,
@@ -224,6 +224,7 @@ SwipeList.prototype = {
 
 	_move: function( e, pos ) {
 		if ( this._multitouch === true || this._scroll ){
+			this._setMovingElementTop( this.activeElement );
 			return;
 		}
 
@@ -236,19 +237,20 @@ SwipeList.prototype = {
 			if ( Math.abs( this._interval ) > this.options.threshold ) {
 				if ( this._interval > 0 ) {
 					this.activeElement = this.callElement;
+					this.messageElement.style.display = "none";
 					this._translate( this.callElementBG, this.options.callStartPosition + this._interval, 0, 0 );
 				} else {
 					this.activeElement = this.messageElement;
+					this.callElement.style.display = "none";
 					this._translate( this.messageElementBG, this.options.messageStartPosition + this._interval, 0, 0 );
 				}
 				this.activeElement.style.top = target.offsetTop - this.contentElement.scrollTop + "px";
-
 				this.activeElement.style.display = "block";
-
 				this._activeFlag = true;
 				e.preventDefault();
 			} else {
-				this._setMovingElementTop( this.activeElement );
+				this._lastScrollTop = this.contentElement.scrollTop;
+				this._lastElementTop = this.activeElement.style.top;
 			}
 		}
 	},
@@ -273,6 +275,7 @@ SwipeList.prototype = {
 			this._translate( this.messageElementBG, this.options.messageStartPosition, 0, 0);
 			this.callElement.style.display = "none";
 			this.messageElement.style.display = "none";
+			this._activeFlag = false;
 		}
 		this._scroll = false;
 		this.dragging = false;
