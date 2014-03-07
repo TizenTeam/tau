@@ -34,7 +34,11 @@
 			/**
 			 * root {string} Root path of Theme Editor
 			 */
-			root: ''
+			root: '',
+			/**
+			 * themeRoot {string} Root path theme less files
+			 */
+			themeRoot: ''
 		};
 
 		/**
@@ -122,6 +126,54 @@
 			}
 		}
 	}
+
+
+	ThemeEditor.prototype.resolvePath = function (rootPath, queryPath) {
+		var rootPieces,
+			queryPieces,
+			path = [],
+			relative,
+			i;
+
+		// Check if queryPath is relative or absolute path
+		relative = !(/^[a-z]*:?\/\/?/.test(queryPath));
+
+		rootPieces = rootPath.split('/');
+		queryPieces = queryPath.split('/');
+
+		// Check if paths are in the same domain
+		if (relative !== true && rootPath.match(/https?:\/\/[^\/]+/)[0] !== queryPath.match(/https?:\/\/[^\/]+/)[0]) {
+			return queryPath;
+		}
+
+		// Omit last element (file name)
+		rootPieces.pop();
+
+		if (relative) {
+			for (i = 0; i < queryPieces.length; i += 1) {
+				if (queryPieces[i] === '..') {
+					// Go back
+					rootPieces.pop();
+					// Remove first element
+					queryPieces.shift();
+					i -= 1;
+				}
+			}
+			return rootPieces.join('/') + '/' + queryPieces.join('/');
+		} else {
+			// Find common pieces
+			for (i = 0; i < rootPieces.length; i += 1) {
+				if (rootPieces[i] !== queryPieces[i]) {
+					if (rootPieces[i] === '..') {
+						path.pop();
+					} else {
+						path.push('..');
+					}
+				}
+			}
+		}
+		return path.concat(queryPieces.splice(i - path.length)).join('/');
+	};
 
 	ThemeEditor.prototype.parseWidget = function(widgetParams, cssVarName) {
 		var widgetType = widgetParams.type.toLowerCase(),
@@ -262,6 +314,7 @@
 		var config = this.config;
 
 		config.root = window.location.href.replace(/[^/]+\.html?$/, '');
+		config.themeRoot = this.resolvePath(config.root, '../../standalone/src/css/themes/black/');
 		config.themeProperties = themeProperties;
 		config.cssVariablePanel = document.getElementById('leftPanel');
 		config.workspace = document.getElementById('workspace');

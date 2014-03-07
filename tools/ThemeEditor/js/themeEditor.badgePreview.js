@@ -1,5 +1,5 @@
 /*jslint browser: true */
-/*global $, CustomEvent*/
+/*global $, CustomEvent, Uint8Array, JSZip*/
 (function (window) {
 	'use strict';
 
@@ -20,14 +20,66 @@
 			this.badgeList = [];
 			this.activeBadgeIndex = null;
 			this.styleSheet = null;
-			this.cachedRules = {},
+			this.cachedRules = {};
 			this.colorSwatches = {};
 
 			/**
 			 * Current modified CSS / Less variable
 			 */
 			this.currentCssVar = null;
-		};
+		},
+		// Number of files needed to be load for ZIP archive
+		filesToLoad = 0;
+
+	function addToZip(httpRequest, fileName, zipFolder, zipRoot) {
+		if (httpRequest.readyState === 4) {
+			var fileData = new Uint8Array(httpRequest.response);
+
+			// Add new file to zip
+			zipFolder.file(fileName, fileData, {base64: true, binary: true});
+
+			// Decrement number of files to load
+			filesToLoad -= 1;
+
+			// Download ZIP file if all files were downloaded
+			if (filesToLoad === 0) {
+				saveAs(new Blob([zipRoot.generate({type:"blob"})], {type: "application/zip;base64"}), "custom-theme.zip");
+			}
+		}
+
+	}
+
+	function prepareToZip(url, destinationPath, zip, zipDir) {
+		var httpRequest,
+			path,
+			fileName,
+			dirName = '',
+			zipRoot,
+			i;
+
+		path = destinationPath.split('/');
+
+		// remove '..'
+		path.shift();
+		fileName = path.pop();
+
+		// Save root of a ZIP archive
+		zipRoot = zip;
+		for (i = 0; i < path.length; i += 1) {
+			dirName = dirName + '/' + path[i];
+			if (zipDir[dirName] === undefined) {
+				zipDir[dirName] = zip.folder(path[i]);
+			}
+			zip = zipDir[dirName];
+		}
+
+		httpRequest = new XMLHttpRequest();
+		httpRequest.onreadystatechange = addToZip.bind('', httpRequest, fileName, zip, zipRoot);
+		httpRequest.open("GET", url, true);
+		httpRequest.setRequestHeader("Cache-Control", "no-cache");
+		httpRequest.responseType = "arraybuffer";
+		httpRequest.send();
+	}
 
 	BadgePreview.prototype.historyJump = function (jump) {
 		var badge = this.getActive(),
@@ -215,50 +267,26 @@
 	/* **********************************************
 	 *
 	 ***********************************************/
-	function resolveRelativePath(rootPath, absolutePath) {
-		var rootPieces,
-			absolutePieces,
-			relativePieces = [],
-			i;
-
-		rootPieces = rootPath.replace(/\/$/, '').split('/');
-		absolutePieces = absolutePath.replace(/\/$/, '').split('/');
-
-		// Check if paths are in the same domain
-		if (rootPath.match(/https?:\/\/[^\/]+/)[0] !== absolutePath.match(/https?:\/\/[^\/]+/)[0]) {
-			return absolutePath;
-		}
-
-		// Find common pieces
-		for (i = 0; i < rootPieces.length; i += 1) {
-			if (rootPieces[i] !== absolutePieces[i]) {
-				relativePieces.push('..');
-			}
-		}
-
-		relativePieces = relativePieces.concat(absolutePieces.splice(i - relativePieces.length)).join('/');
-		return relativePieces;
-	}
-
 
 	BadgePreview.prototype.saveFile = function () {
 		var iframe = this.getActive().element.querySelector('iframe'),
 			contentDocument = iframe.contentDocument,
-			contentWindow = iframe.contentWindow,
 			styleSheets = contentDocument.styleSheets,
+			themeRoot = themeEditor.config.themeRoot,
 			absolutePaths,
-			themePath,
+			fileRelativePath,
+			filePath,
 			cssRules,
 			css,
+			zip,
+			zipDir = {},
 			i,
 			j;
 
-		// TODO fix absolute to relative paths
 		css = '';
 		for (i = styleSheets.length - 1; i >= 0; i -= 1) {
-			if (styleSheets[i].href && styleSheets[i].href.search(/gear\.ui(\.min)?\.css$/)) {
+			if (styleSheets[i].ownerNode && styleSheets[i].ownerNode.id.search(/^less/) >= 0) {
 				cssRules = styleSheets[i].cssRules;
-				themePath = styleSheets[i].href;
 
 				for (j = cssRules.length - 1; j >= 0; j -= 1) {
 					css += cssRules[j].cssText + "\n";
@@ -266,16 +294,37 @@
 			}
 		}
 
-		// Remove file name from path
-		themePath = themePath.substring(0, themePath.lastIndexOf('/'));
+		//prepare ZIP archive
+		zip = new JSZip();
 
-		// Match urls
-		absolutePaths = css.match(/url\(([^)]+)\)/gi);
-		for (i = absolutePaths.length-1; i >= 0; i -= 1) {
-			css = css.replace(absolutePaths[i], resolveRelativePath(themePath, absolutePaths[i]));
+		// Match urls - search for resources
+		absolutePaths = css.match(/url\(([^)]+)\)/gi) || [];
+
+		// Remove duplicates
+		absolutePaths = absolutePaths.filter(function(value, index, array){
+			return array.indexOf(value) === index;
+		});
+
+		filesToLoad = absolutePaths.length;
+		for (i = filesToLoad - 1; i >= 0; i -= 1) {
+			// Remove url() wrapper
+			filePath = absolutePaths[i].replace(/^url *\(\'?/i, '').replace(/\'?\)$/, '');
+
+			// Resolve relative path to themeRoot
+			fileRelativePath = themeEditor.resolvePath(themeRoot + 'css/', filePath);
+
+			// Replace ALL relative path with absolute path
+			css = css.split(absolutePaths[i]).join('url(' + fileRelativePath + ')');
+
+			// Prepare file to adding it to ZIP archive
+			prepareToZip(filePath, fileRelativePath, zip, zipDir);
+
+
 		}
-		saveAs(new Blob([css], {type: "text/css;charset=utf-8"}), "style.css");
+		// Add css file
+		zip.folder('css').file('gear.ui.css', css);
 	};
+
 
 	BadgePreview.prototype.zoomViewport = function (zoomValue) {
 		var workspaceStyle = this.workspaceContainer.style;

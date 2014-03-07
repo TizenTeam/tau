@@ -286,7 +286,12 @@ var properties = {
 		'Background color': {
 			lessVar: '@color_list_press_bg',
 			widget: {type: 'color', default: 'rgb(99, 93, 89)'}
+		},
+		'Border color': {
+			lessVar: '@color_listview_border',
+			widget: {type: 'color', default: 'rgb(64, 64, 64)'}
 		}
+
 	},
 	/* ----------------------- Index Scrollbar (vertical) ----------------------- */
 	'Index Scrollbar': {

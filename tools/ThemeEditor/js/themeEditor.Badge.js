@@ -64,14 +64,25 @@
 			lessConfig,
 			frameDocument = iframe.contentDocument,
 			frameDocumentHead = frameDocument.head,
+			frameStyleSheets = frameDocument.styleSheets,
 			root = themeEditor.config.root,
-			badgePreview = self.badgePreview;
+			themeRoot = themeEditor.config.themeRoot,
+			badgePreview = self.badgePreview,
+			i;
+
+		// Remove current gear.css stylesheet
+		for (i = frameStyleSheets.length - 1; i >= 0; i -= 1) {
+			if (frameStyleSheets[i].href && frameStyleSheets[i].href.search(/gear\.ui(\.min)?\.css$/) > 0) {
+				frameStyleSheets[i].disabled = true;
+				frameStyleSheets[i].ownerNode.parentNode.removeChild(frameStyleSheets[i].ownerNode);
+			}
+		}
 
 		// Add LESS file
 		linkTag = frameDocument.createElement('link');
 		linkTag.setAttribute('rel', 'stylesheet/less');
 		linkTag.setAttribute('type', 'text/css');
-		linkTag.setAttribute('href', root + '../../standalone/src/css/themes/black/gear.ui.less');
+		linkTag.setAttribute('href', themeRoot + 'gear.ui.less');
 		frameDocumentHead.appendChild(linkTag);
 
 		// Add LESS configuration
@@ -81,7 +92,7 @@
 			fileAsync: false, // load imports async when in a page under a file protocol
 			poll: 1000, // when in watch mode, time in ms between polls
 			functions: {}, // user functions, keyed by name
-			dumpLineNumbers: "all", // or "mediaQuery" or "all"
+			dumpLineNumbers: "", // or "mediaQuery" or "all"
 			errorReporting: 'console',
 			relativeUrls: false // whether to adjust url's to be relative if false, url's are already relative to the entry less file
 		};
@@ -99,13 +110,12 @@
 
 		// Add LESS library
 		scriptTag = frameDocument.createElement('script');
-		scriptTag.src = root + 'lib/less-1.6.0.min.js';
-		//scriptTag.src = root + 'lib/less-1.6.3.js';
+		scriptTag.src = root + 'lib/less-1.6.3.min.js';
 		frameDocumentHead.appendChild(scriptTag);
 
 		// Cache contentWindow
 		self.contentWindow = iframe.contentWindow;
-		//iframe.contentDocument.addEventListener('click', function(e){console.log(e.srcElement, e)}, false);
+
 		// Refresh baddge if less is loaded
 		scriptTag.onload = badgePreview.changeText.bind(badgePreview, true);
 
@@ -135,7 +145,7 @@
 		this.element.appendChild(container);
 	};
 
-	Badge.prototype.build = function (parentElement, url, badgePreview) {
+	Badge.prototype.build = function (workspace, url, badgePreview) {
 		var badgeElement,
 			iframe;
 
@@ -160,7 +170,7 @@
 		workspace.appendChild(badgeElement);
 	};
 
-	Badge.prototype.changeUrl = function (url, root) {
+	Badge.prototype.changeUrl = function (url) {
 		var self = this,
 			element = self.element,
 			iframe;
@@ -180,7 +190,7 @@
 
 	Badge.prototype.destroy = function () {
 		//@TODO write destroy method
-		this.element.removeEventListener('click', badgeClickHandler.bind(null, badgePreview), false);
+		this.element.removeEventListener('click', badgeClickHandler.bind(null, this.badgePreview), false);
 	};
 
 	themeEditor.Badge = Badge;
