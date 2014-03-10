@@ -1,6 +1,10 @@
 /*
  * toggle switch
  */
+.ui-switch-activation, .ui-switch-handler {
+	display: block;
+	background: url('images/Controller_icon/tw_btn_toggle_dark.png') no-repeat;
+}
 
 .ui-switch {
 	width: 100%;
@@ -31,7 +35,7 @@
 .ui-switch-activation {
 	width: 140 * @unit_base;
 	height: 70 * @unit_base;
-	background-image: url("./images/Controller_icon/tw_btn_toggle_bg_normal_holo_dark.png");
+	background-position: -2px -72px;
 	margin: 0 auto;
 	margin-top: 23 * @unit_base;
 
@@ -39,7 +43,7 @@
 		position: relative;
 		width: 86 * @unit_base;
 		height: 70 * @unit_base;
-		background-image: url("./images/Controller_icon/tw_btn_toggle_off_normal_holo_dark.png");
+		background-position: -2px -288px;
 		left: 0%;
 	}
 }
@@ -47,7 +51,7 @@
 .ui-switch-activation:active {
 	width: 140 * @unit_base;
 	height: 70 * @unit_base;
-	background-image: url("./images/Controller_icon/tw_btn_toggle_bg_pressed_holo_dark.png");
+	background-position: -2px -144px;
 	margin: 0 auto;
 	margin-top: 23 * @unit_base;
 
@@ -55,7 +59,7 @@
 		position: relative;
 		width: 86 * @unit_base;
 		height: 70 * @unit_base;
-		background-image: url("./images/Controller_icon/tw_btn_toggle_off_pressed_holo_dark.png");
+		background-position: -2px -360px;
 		left: 0%
 	}
 }
@@ -63,7 +67,7 @@
 .ui-switch-activation:disable {
 	width: 140 * @unit_base;
 	height: 70 * @unit_base;
-	background-image: url("./images/Controller_icon/tw_btn_toggle_bg_disabled_holo_dark.png");
+	background-position: -2px -0px;
 	margin: 0 auto;
 	margin-top: 23 * @unit_base;
 
@@ -71,7 +75,7 @@
 		position: relative;
 		width: 86 * @unit_base;
 		height: 70 * @unit_base;
-		background-image: url("./images/Controller_icon/tw_btn_toggle_off_disabled_holo_dark.png");
+		background-position: -2px -216px;
 		left: 0%;
 	}
 }
@@ -82,7 +86,7 @@
 	.ui-switch-activation {
 		width: 140 * @unit_base;
 		height: 70 * @unit_base;
-		background-image: url("./images/Controller_icon/tw_btn_toggle_bg_normal_holo_dark.png");
+		background-position: -2px -72px;
 		margin: 0 auto;
 		margin-top: 23 * @unit_base;
 
@@ -90,14 +94,14 @@
 			position: relative;
 			width: 86 * @unit_base;
 			height: 70 * @unit_base;
-			background-image: url("./images/Controller_icon/tw_btn_toggle_on_normal_holo_dark.png");
-			left: 74%;
+			background-position: -2px -504px;
+			left: 72%;
 		}
 	}
 	.ui-switch-activation:active {
 		width: 140 * @unit_base;
 		height: 70 * @unit_base;
-		background-image: url("./images/Controller_icon/tw_btn_toggle_bg_pressed_holo_dark.png");
+		background-position: -2px -144px;
 		margin: 0 auto;
 		margin-top: 23 * @unit_base;
 
@@ -105,14 +109,14 @@
 			position: relative;
 			width: 86 * @unit_base;
 			height: 70 * @unit_base;
-			background-image: url("./images/Controller_icon/tw_btn_toggle_on_pressed_holo_dark.png");
-			left: 74%;
+			background-position: -2px -576px;
+			left: 72%;
 		}
 	}
 	.ui-switch-activation:disable {
 		width: 140 * @unit_base;
 		height: 70 * @unit_base;
-		background-image: url("./images/Controller_icon/tw_btn_toggle_bg_disabled_holo_dark.png");
+		background-position: -2px -0px;
 		margin: 0 auto;
 		margin-top: 23 * @unit_base;
 
@@ -120,8 +124,8 @@
 			position: relative;
 			width: 86 * @unit_base;
 			height: 70 * @unit_base;
-			background-image: url("./images/Controller_icon/tw_btn_toggle_on_disabled_holo_dark.png");
-			left: 74%;
+			background-position: -2px -432px;
+			left: 72%;
 		}
 	}
 }
