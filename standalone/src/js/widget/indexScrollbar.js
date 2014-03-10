@@ -614,6 +614,7 @@ IndexScrollbar.prototype = {
 		}
 		this.selectEventTriggerTimeoutId = window.setTimeout(function() {
 			this._trigger(this.element, "select", {index: val});
+			this.selectEventTriggerTimeoutId = null;
 		}.bind(this), this.options.keepSelectEventDelay);
 	},
 
@@ -684,8 +685,6 @@ IndexScrollbar.prototype = {
 		if (ev.touches.length > 1) {
 			return;
 		}
-		window.clearTimeout(this.selectEventTriggerTimeoutId);
-		this.selectEventTriggerTimeoutId = null;
 
 		this.indicator.hide();
 		this.indexBar1.clearSelected();
