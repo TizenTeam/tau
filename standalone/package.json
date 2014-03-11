@@ -2,7 +2,7 @@
 	"name": "gear.ui",
 	"title": "Gear UI",
 	"description": "Gear UI",
-	"version": "0.9.1",
+	"version": "0.9.2",
 	"devDependencies": {
 		"grunt-cli": "latest",
 		"grunt-contrib-clean": "0.5.0",
