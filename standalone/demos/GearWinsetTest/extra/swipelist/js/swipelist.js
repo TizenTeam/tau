@@ -251,6 +251,10 @@ SwipeList.prototype = {
 			} else {
 				this._lastScrollTop = this.contentElement.scrollTop;
 				this._lastElementTop = this.activeElement.style.top;
+				if ( this._activeFlag ){
+					e.preventDefault();
+				}
+
 			}
 		}
 	},
@@ -299,12 +303,12 @@ SwipeList.prototype = {
 		this._translate( this.messageElementBG, this.options.messageStartPosition, 0, 0);
 		this.callElement.style.display = "none";
 		this.messageElement.style.display = "none";
+		this._activeFlag = false;
 	},
 
 	destroy: function() {
 
 		this._unbindEvents();
-
 		this.listElement = null;
 		this.callElement = null;
 		this.messageElement = null;
