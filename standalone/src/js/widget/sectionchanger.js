@@ -46,8 +46,6 @@ ns.inherit(SectionChanger, Scroller, {
 		this.sections = null;
 		this.sectionPositions = [];
 		this.activeIndex = 0;
-		this.lastDirection = 0;
-		this.direction = 0;
 
 		this._super( elem, options );
 	},
@@ -101,7 +99,7 @@ ns.inherit(SectionChanger, Scroller, {
 			this.options.animateDuration = 0;
 		}
 		if ( this.options.changeThreshold < 0 ) {
-			this.options.changeThreshold = this.width / 5;
+			this.options.changeThreshold = this.width / 3;
 		}
 
 		if ( sectionLength > 1 ) {
@@ -302,33 +300,6 @@ ns.inherit(SectionChanger, Scroller, {
 		return this.activeIndex;
 	},
 
-	_start: function( e, pos ) {
-		this._super( e, pos );
-
-		this.direction = 0;
-		this.lastDirection = 0;
-	},
-
-	_move: function( e, pos ) {
-		var beforeMoved = this.moved;
-
-		if ( this.orientation === Scroller.Orientation.HORIZONTAL ) {
-			this.lastDirection = pos.x - this.lastTouchPointX;
-		} else {
-			this.lastDirection = pos.y - this.lastTouchPointY;
-		}
-
-		this._super( e, pos );
-
-		if ( beforeMoved !== this.moved) {
-			if ( this.orientation === Scroller.Orientation.HORIZONTAL ) {
-				this.direction = pos.x - this.startTouchPointX;
-			} else {
-				this.direction = pos.y - this.startTouchPointY;
-			}
-		}
-	},
-
 	_end: function(/* e */) {
 		var lastX = Math.round(this.lastTouchPointX),
 			lastY = Math.round(this.lastTouchPointY),
@@ -361,9 +332,9 @@ ns.inherit(SectionChanger, Scroller, {
 			return;
 		}
 
-		if ( !cancel && dist < 0 && this.direction < 0 && this.lastDirection < 0 ) {
+		if ( !cancel && dist < 0 ) {
 			newIndex = this.activeIndex + 1;
-		} else if ( !cancel && dist > 0 && this.direction > 0 && this.lastDirection > 0 ){
+		} else if ( !cancel && dist > 0 ){
 			newIndex = this.activeIndex - 1;
 		} else {
 			// canceled
