@@ -535,23 +535,23 @@
 				 * @memberOf ej.widget.VirtualListview
 				 */
 				VirtualListview.prototype._refreshScrollbar = function() {
-					var scrollingVertically = true,
-							element = this.element,
-							options = this.options,
-							bufferSizePx,
-							ui = this.ui,
-							spacerStyle = ui.spacer.style;
+					var scrollingHorizontally = false,
+						element = this.element,
+						options = this.options,
+						bufferSizePx,
+						ui = this.ui,
+						spacerStyle = ui.spacer.style;
 
 					/**
 					 * @TODO: add checking horizontal / vertical scroll
 					 */
-					if (scrollingVertically) {
+					if (scrollingHorizontally) {
+						//Note: element.clientWidth is variable
+						spacerStyle.width = (parseFloat(element.clientWidth) / options.bufferSize * (options.dataLength - 1) - (parseFloat(element.clientWidth) || 0)) + "px";
+					} else {
 						bufferSizePx = parseFloat(element.clientHeight) || 0;
 						//Note: element.clientHeight is variable
 						spacerStyle.height = (bufferSizePx / options.bufferSize * (options.dataLength - 1) - 4 / 3 * bufferSizePx) + "px";
-					} else {
-						//Note: element.clientWidth is variable
-						spacerStyle.width = (parseFloat(element.clientWidth) / options.bufferSize * (options.dataLength - 1) - (parseFloat(element.clientWidth) || 0)) + "px";
 					}
 				};
 
