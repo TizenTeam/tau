@@ -248,14 +248,11 @@ SwipeList.prototype = {
 				this.activeElement.style.display = "block";
 				this._activeFlag = true;
 				e.preventDefault();
-			} else {
-				this._lastScrollTop = this.contentElement.scrollTop;
-				this._lastElementTop = this.activeElement.style.top;
-				if ( this._activeFlag ){
-					e.preventDefault();
-				}
-
+			} else if ( this._activeFlag ) {
+				e.preventDefault();
 			}
+			this._lastScrollTop = this.contentElement.scrollTop;
+			this._lastElementTop = this.activeElement.style.top;
 		}
 	},
 
