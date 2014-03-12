@@ -765,10 +765,10 @@ IndexScrollbar.prototype = {
 
 	_data: function (key, val) {
 		var el = this.element,
-			d = el._gearui_data,
+			d = el.__data,
 			idx;
 		if(!d) {
-			d = el._gearui_data = {};
+			d = el.__data = {};
 		}
 		if(typeof key === "object") {
 			// Support data collection

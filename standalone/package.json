@@ -1,7 +1,7 @@
 {
-	"name": "gear.ui",
-	"title": "Gear UI",
-	"description": "Gear UI",
+	"name": "tau",
+	"title": "tau",
+	"description": "Tizen Advanced UI",
 	"version": "0.9.3",
 	"devDependencies": {
 		"grunt-cli": "latest",

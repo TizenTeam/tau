@@ -7,7 +7,7 @@
 			"require",
 			"./core",
 			"./config",
-			"./gear/ui/all",
+			"./tau/ui/all",
 			"./engine",
 			// widget list
 			"./widget/micro/Page",

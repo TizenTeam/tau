@@ -1,12 +1,12 @@
 /*global window, define */
 /*jslint nomen: true, plusplus: true */
-(function (document, ej, gear) {
+(function (document, ej, tau) {
 	"use strict";
 	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 	define(
 		[
 			"../../engine",
-			"../../gear/ui",
+			"../../tau",
 			"../../utils/events",
 			"../micro",
 			"../BaseWidget"
@@ -16,7 +16,7 @@
 			var BaseWidget = ej.widget.BaseWidget,
 				engine = ej.engine,
 				events = ej.utils.events,
-				namespace = gear.ui,
+				namespace = tau,
 				/**
 				* IndexScrollbar widget
 				* @class ej.widget.micro.IndexScrollbar
@@ -178,4 +178,4 @@
 		}
 	);
 	//>>excludeEnd("ejBuildExclude");
-}(window.document, window.ej, window.gear));
+}(window.document, window.ej, window.tau));

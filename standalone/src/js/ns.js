@@ -20,7 +20,7 @@ function ensureNS( name ) {
 	return obj;
 }
 
-var namespace = "gear.ui",
+var namespace = "tau",
 
 	ns = ensureNS( namespace );
 

@@ -5,7 +5,7 @@
 	define(
 		[
 			"require",
-			"./gear/ui/widget",
+			"./tau/ui/widget",
 			// widget list
 			"./widget/micro/VirtualListview"
 		],
@@ -13,8 +13,8 @@
 			require(["./init"], function () {
 //>>excludeEnd("ejBuildExclude");
 (function() {
-var newGear = gear.noConflict();
-gear.ui.VirtualListview = newGear.ui.VirtualListview.bind(newGear.ui);
+var newTau = tau.noConflict();
+tau.VirtualListview = newTau.VirtualListview.bind(newTau);
 }());
 //>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 				return true;
