@@ -62,27 +62,28 @@ jobs = {
 		webuifw,
 		sdk,
 		[
-			SrcDest("standalone/dist", "samples/web/Template/Tizen/Gear\ UI/Basic/project/lib/gear-ui"),
-			SrcDest("standalone/dist", "samples/web/Template/Tizen/Gear\ UI/List/project/lib/gear-ui"),
-			SrcDest("standalone/dist", "samples/web/Sample/Tizen/Web\ App/GearWinsetTest/project/lib/gear-ui")
+			SrcDest("standalone/dist", "samples/web/Template/Tizen/Gear\ UI/Basic/project/lib/tau"),
+			SrcDest("standalone/dist", "samples/web/Template/Tizen/Gear\ UI/List/project/lib/tau"),
+			SrcDest("standalone/dist", "samples/web/Sample/Tizen/Web\ App/GearWinsetTest/project/lib/tau")
 		], ["cd web-ui-fw/standalone", "npm install", "git checkout node_modules", "grunt"]),
 	"3_gearui_webapp": Job(
 		webuifw,
 		webapp,
 		[
-			SrcDest("standalone/dist", "Calendar/lib/gear-ui"),
-			SrcDest("standalone/dist", "Camera/lib/gear-ui"),
-			SrcDest("standalone/dist", "DigitalAlarmLED/lib/gear-ui"),
-			SrcDest("standalone/dist", "Evernote/lib/gear-ui"),
-			SrcDest("standalone/dist", "QRCodeReader/lib/gear-ui"),
-			SrcDest("standalone/dist", "ScanAndPlay/lib/gear-ui"),
-			SrcDest("standalone/dist", "ShoppingList/lib/gear-ui"),
-			SrcDest("standalone/dist", "TouchPaint/lib/gear-ui"),
-			SrcDest("standalone/dist", "WatchOnWeb/lib/gear-ui"),
-			SrcDest("standalone/dist", "Weather/lib/gear-ui"),
-			SrcDest("standalone/dist", "Pedometer/lib/gear-ui"),
-			SrcDest("standalone/dist", "Camera/lib/gear-ui"),
-			SrcDest("standalone/dist", "StopWatch/lib/gear-ui"),
+			SrcDest("standalone/dist", "Calendar/lib/tau"),
+			SrcDest("standalone/dist", "Camera/lib/tau"),
+			SrcDest("standalone/dist", "DigitalAlarmLED/lib/tau"),
+			SrcDest("standalone/dist", "MediaControl/lib/tau"),
+			SrcDest("standalone/dist", "Evernote/lib/tau"),
+			SrcDest("standalone/dist", "QRCodeReader/lib/tau"),
+			SrcDest("standalone/dist", "ScanAndPlay/lib/tau"),
+			SrcDest("standalone/dist", "ShoppingList/lib/tau"),
+			SrcDest("standalone/dist", "TouchPaint/lib/tau"),
+			SrcDest("standalone/dist", "WatchOnWeb/lib/tau"),
+			SrcDest("standalone/dist", "Weather/lib/tau"),
+			SrcDest("standalone/dist", "Pedometer/lib/tau"),
+			SrcDest("standalone/dist", "Camera/lib/tau"),
+			SrcDest("standalone/dist", "StopWatch/lib/tau"),
 		], ["cd web-ui-fw/standalone", "npm install", "git checkout node_modules", "grunt"])
 
 }
