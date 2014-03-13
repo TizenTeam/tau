@@ -682,7 +682,7 @@ IndexScrollbar.prototype = {
 	},
 
 	_onTouchEndHandler: function( ev ) {
-		if (ev.touches.length > 1) {
+		if (ev.touches.length > 0) {
 			return;
 		}
 
