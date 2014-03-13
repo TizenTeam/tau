@@ -75,7 +75,7 @@ SwipeList.prototype = {
 
 	_initOptions: function( options ){
 		this.options = {
-			threshold: 20,
+			threshold: 10,
 			animationThreshold: 150,
 			animationDuration: 300,
 			callStartPosition: -320,
