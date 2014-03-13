@@ -11,7 +11,7 @@ Normal Popup
 	top: -10000em;
 	left: -10000em;
 	margin: 0;
-	padding: 6 * @unit_base;
+	padding: 3 * @unit_base;
 	background-color: rgb(0, 0, 0);
 	border: 3px solid @color_popup_border;
 	visibility: hidden;
@@ -23,7 +23,7 @@ Normal Popup
 		text-align: left;
 		background-color: @color_popup_bg;
 		color: @color_popup_title_text;
-		padding: 9*@unit_base 16*@unit_base 9*@unit_base 16*@unit_base;
+		padding: 7*@unit_base 16*@unit_base 7*@unit_base 16*@unit_base;
 		border-bottom: 1px solid @color_popup_header_border;
 		overflow: hidden;
 		text-overflow: ellipsis;
@@ -36,10 +36,13 @@ Normal Popup
 		text-align: left;
 		color: @color_text;
 		background-color: @color_popup_bg;
-		padding: 9*@unit_base 16*@unit_base 9*@unit_base 16*@unit_base;
+		padding: 10*@unit_base 16*@unit_base 9*@unit_base 16*@unit_base;
 
 		.ui-listview {
 			margin: -9*@unit_base -16*@unit_base -9*@unit_base -16*@unit_base;
+			li {
+				font-size: @font_size_popup_body;
+			}
 		}
 	}
 
@@ -50,6 +53,7 @@ Normal Popup
 		.ui-btn {
 			padding-top: 21 * @unit_base;
 			padding-bottom: 21 * @unit_base;
+			font-size: 30 * @unit_base;
 		}
 	}
 
@@ -82,8 +86,6 @@ Popup Toast
 .ui-popup-toast .ui-popup-content {
 	padding: 10*@unit_base 16*@unit_base 10*@unit_base 16*@unit_base;
 	background-color: @color_popup_bg;
-	margin: 6 * @unit_base;
-	width: 96%;
 }
 
 .ui-popup-background {

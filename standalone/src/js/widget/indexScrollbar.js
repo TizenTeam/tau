@@ -177,7 +177,6 @@ IndexBar.prototype = {
 
 	_appendToContainer: function() {
 		this.container.appendChild(this.element);
-
 		this.element.style.left = this.options.offsetLeft + "px";
 	},
 
@@ -438,7 +437,8 @@ IndexScrollbar.prototype = {
 		indexHeight: 36,
 		keepSelectEventDelay: 50,
 		container: null,
-		supplementaryIndex: null
+		supplementaryIndex: null,
+		supplementaryIndexMargin: 1
 	},
 
 	_create: function () {
@@ -502,7 +502,7 @@ IndexScrollbar.prototype = {
 		if(this.options.supplementaryIndex) {
 			this.indexBar2 = new IndexBar( document.createElement("UL"), {
 				container: this.element,
-				offsetLeft: -this.element.clientWidth,
+				offsetLeft: -this.element.clientWidth - this.options.supplementaryIndexMargin,
 				index: [],	// empty index
 				indexHeight: this.options.indexHeight,
 				ulClass: "ui-indexscrollbar-supplementary"

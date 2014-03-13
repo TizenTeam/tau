@@ -134,9 +134,9 @@ button.ui-btn, input.ui-btn {
 	.ui-grid-col-btn((@counter - 1));
 
 	.ui-grid-col-@{counter} > .ui-btn {
-		border-right:solid 1px @color_bg;
-		&:last-child {
-			border-right:0px none;
+		border-left:solid 1px @color_bg;
+		&:first-child {
+			border-left:0px none;
 		}
 	}
 }
