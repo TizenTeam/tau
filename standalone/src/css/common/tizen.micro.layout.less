@@ -42,23 +42,23 @@ body {
 .ui-header {
 	position: relative;
 	width: 100%;
-	height: 52 * @unit_base;
-	line-height: 52 * @unit_base;
+	height: @fixed_header_height;
+	line-height: @fixed_header_line_height;
 	background-color: @color_actionbar_title_bg;
 	border-bottom: 1px solid @color_actionbar_border;
 
 	.ui-title {
 		color: @color_actionbar_title_text;
-		font-size: 30 * @unit_base;
+		font-size: @fixed_header_title_font_size;
 		white-space: nowrap;
 		margin: 0px;
-		padding-left: 16 * @unit_base;
-		padding-right: 16 * @unit_base;
+		padding-left: @fixed_header_title_padding;
+		padding-right: @fixed_header_title_padding;
 
 		&.ui-icon {
-			padding-left: 60 * @unit_base;
-			background-position: 16 * @unit_base 9 * @unit_base;
-			background-size: 34 * @unit_base 34 * @unit_base;
+			padding-left: @fixed_header_title_icon_padding;
+			background-position: @fixed_header_title_icon_position_x @fixed_header_title_icon_position_y;
+			background-size: @fixed_header_title_icon_size @fixed_header_title_icon_size;
 			background-repeat: no-repeat;
 		}
 	}
@@ -69,7 +69,7 @@ body {
 
 	&.ui-has-more {
 		.ui-title {
-			padding-right: 78 * @unit_base;
+			padding-right: @fixed_header_more_title_padding;
 		}
 		.ui-title-text-fadeout {
 			-webkit-mask-image: -webkit-linear-gradient(left, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 80%);
@@ -91,7 +91,7 @@ body {
 		position: absolute;
 		top: 0px;
 		right: 0px;
-		width: 68 * @unit_base;
+		width: @fixed_header_more_width;
 		height: 100%;
 		overflow: hidden;
 		text-indent: -1000em;
@@ -132,7 +132,7 @@ body {
 
 .ui-footer {
 	width: 100%;
-	height: 76 * @unit_base;
+	height: @fixed_footer_height;
 	position: absolute;
 	bottom: 0;
 	left: 0;
