@@ -41,7 +41,7 @@ class webuifw(Git):
 
 class webapp(Git):
 	addr="slp-info.sec.samsung.net:29418/tizenw/sdk-web-apps"
-	branch="w/master"
+	branch="devel/webappfw/tizenw"
 
 class sdk(Git):
 	addr="121.133.176.96:29429/profile/tizenw/sdk/web-ide-resources"
