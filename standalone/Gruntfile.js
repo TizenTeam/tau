@@ -15,6 +15,14 @@ module.exports = function(grunt) {
 		rootNamespace = "ej",
 		fileName = "tau",
 
+		wrapStart = "(function(window, document, undefined) {\n" +
+			"'use strict';\n" +
+			"var ns = window." + rootNamespace + " = window." + rootNamespace + " || {},\n" +
+			"	nsConfig = window." + rootNamespace + "Config = window." + rootNamespace + "Config || {};\n" +
+			"nsConfig.rootNamespace = '" + rootNamespace + "';\n" +
+			"nsConfig.fileName = '" + fileName + "';\n",
+		wrapEnd = "}(window, window.document));\n",
+
 		widgets = {
 			"indexScrollbar": "widget/indexScrollbar",
 			"sectionchanger": "widget/sectionchanger"
@@ -199,13 +207,8 @@ module.exports = function(grunt) {
 							ejDebug: true
 						},
 						wrap: {
-							start: "(function(window, document, undefined) {\n" +
-								"'use strict';\n" +
-								"var ns = window." + rootNamespace + " = window." + rootNamespace + " || {},\n" +
-								"	nsConfig = window." + rootNamespace + "Config = window." + rootNamespace + "Config || {};\n" +
-								"nsConfig.rootNamespace = '" + rootNamespace + "';\n" +
-								"nsConfig.fileName = '" + fileName + "';\n",
-							end: "}(window, window.document));\n"
+							start: wrapStart,
+							end: wrapEnd
 						}
 					}
 				},
@@ -221,6 +224,10 @@ module.exports = function(grunt) {
 						pragmasOnSave: {
 							ejBuildExclude: true,
 							ejDebug: true
+						},
+						wrap: {
+							start: wrapStart,
+							end: wrapEnd
 						}
 					}
 				}
