@@ -7,7 +7,7 @@
 			"require",
 			"./ej/core",
 			"./ej/config",
-			"./tau/ui/all",
+			"./tau/all",
 			"./ej/engine",
 			// widget list
 			"./ej/utils/anchorHighlight",

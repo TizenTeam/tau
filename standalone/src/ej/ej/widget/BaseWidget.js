@@ -15,11 +15,12 @@
  */
 /**
  * @class ns.widget.BaseWidget
+ * @alias BaseWidget
  *
  * # Prototype class of widget
  * ## How to invoke creation of widget from JavaScript
  *
- * To build and initialize widget in JavaScript you have to use method {@link ns.engine#method-instanceWidget} . First argument for method
+ * To build and initialize widget in JavaScript you have to use method {@link ns.engine#instanceWidget} . First argument for method
  * is HTMLElement, which specifies the element of widget. Second parameter is name of widget to create.
  *
  * If you load jQuery before initializing ej library, you can use standard jQuery UI Widget notation.
@@ -39,7 +40,7 @@
  * ## How to create new widget
  *
  *     @example
- *     (function (ej) {
+ *     (function (ns) {
  *         "use strict";
  *         //>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
  *         define(
@@ -52,62 +53,63 @@
  *                 //>>excludeEnd("ejBuildExclude");
  *                 var BaseWidget = ns.widget.BaseWidget, // create alias to main objects
  *                     ...
- *                     arrayOfElements, // example of private property
+ *                     arrayOfElements, // example of private property, common for all instances of widget
  *                     Button = function () { // create local object with widget
  *                         ...
- *                     };
+ *                     },
+ *                     prototype = new BaseWidget(); // add ns.widget.BaseWidget as prototype to widget's object, for better minification this should be assign to local variable and next variable should be assign to prototype of object
  *
  *                 function closestEnabledButton(element) { // example of private method
  *                     ...
  *                 }
  *                 ...
  *
- *                 Button.prototype = new BaseWidget(); // add ns.widget as prototype to widget's object
- *
- *                 Button.prototype.options = { //add default options to be read from data- attributes
+ *                 prototype.options = { //add default options to be read from data- attributes
  *                     theme: 's',
  *                     ...
  *                 };
  *
- *                 Button.prototype._build = function (template, element) { // method called when the widget is being built, should contain all HTML manipulation actions
+ *                 prototype._build = function (template, element) { // method called when the widget is being built, should contain all HTML manipulation actions
  *                     ...
  *                     return element;
  *                 };
  *
- *                 Button.prototype._init = function (element) { // method called during initialization of widget, should contain all actions necessary on application start
+ *                 prototype._init = function (element) { // method called during initialization of widget, should contain all actions necessary on application start
  *                     ...
  *                     return element;
  *                 };
  *
- *                 Button.prototype._bindEvents = function (element) { // method to bind all events, should contain all event bindings
+ *                 prototype._bindEvents = function (element) { // method to bind all events, should contain all event bindings
  *                     ...
  *                 };
  *
- *                 Button.prototype._buildBindEvents = function (element) { // method to bind all events, should contain all event bindings necessary during build
+ *                 prototype._buildBindEvents = function (element) { // method to bind all events, should contain all event bindings necessary during build
  *                     ...
  *                 };
  *
- *                 Button.prototype._enable = function (element) { // method called during invocation of enable() method
+ *                 prototype._enable = function (element) { // method called during invocation of enable() method
  *                     ...
  *                 };
  *
- *                 Button.prototype._disable = function (element) { // method called during invocation of disable() method
+ *                 prototype._disable = function (element) { // method called during invocation of disable() method
  *                     ...
  *                 };
  *
- *                 Button.prototype.refresh = function (element) { // example of public method
+ *                 prototype.refresh = function (element) { // example of public method
  *                     ...
  *                 };
  *
- *                 Button.prototype._refresh = function () { // example of protected method
+ *                 prototype._refresh = function () { // example of protected method
  *                     ...
  *                 };
+ *
+ *                 Button.prototype = prototype;
  *
  *                 engine.defineWidget( // define widget
  *                     "Button", //name of widget
- *                     "./widget/ns.widget.Button", // name of widget's module (name of file)
+ *                     "./widget/ns.widget.Button", // name of widget's module (name of file), deprecated
  *                     "[data-role='button'],button,[type='button'],[type='submit'],[type='reset']",  //widget's selector
- *                     [ // public methods
+ *                     [ // public methods, here should be list all public method, without that method will not be available
  *                         "enable",
  *                         "disable",
  *                         "refresh"
@@ -121,17 +123,7 @@
  *             }
  *         );
  *         //>>excludeEnd("ejBuildExclude");
- *     }(window.ej));
- */
-/**
- * Triggered before the widget will be created.
- * @event beforecreate
- * @memberOf ns.widget.BaseWidget
- */
-/**
- * Triggered when the widget is created.
- * @event create
- * @memberOf ns.widget.BaseWidget
+ *     }(ns));
  */
 (function (document, ns) {
 	"use strict";
@@ -140,8 +132,9 @@
 		[
 			"../engine",
 			"../utils/events",
+			"../utils/object",
 			"../utils/DOM/attributes",
-			"../widget" // fetch namespace
+			"../widget"
 		],
 		function () {
 			//>>excludeEnd("ejBuildExclude");
@@ -161,143 +154,134 @@
 				*/
 				engine = ns.engine,
 				engineDataEj = engine.dataEj,
+				utils = ns.utils,
 				/**
-				* @property {ns.utils.events} eventUtils Alias to ns.utils.events
+				* @property {Object} eventUtils Alias to {@link ns.utils.events}
 				* @memberOf ns.widget.BaseWidget
 				* @private
 				* @static
 				*/
-				eventUtils = ns.utils.events,
+				eventUtils = utils.events,
 				/**
-				* @property {ns.utils.DOM} domUtils Alias to ns.utils.DOM
+				* @property {Object} domUtils Alias to {@link ns.utils.DOM}
 				* @private
 				* @static
 				*/
-				domUtils = ns.utils.DOM,
+				domUtils = utils.DOM,
 				/**
-				* @property {Object} BaseWidget Alias to ns.widget
-				* @memberOf ns.widget.BaseWidget
-				* @private
-				* @static
-				*/
+				 * @property {Object} objectUtils Alias to {@link ns.utils.object}
+				 * @private
+				 * @static
+				 */
+				objectUtils = utils.object,
 				BaseWidget = function () {
-					this.options = {};
 					return this;
 				},
-				prototype = {};
+				prototype = {},
+				/**
+				 * @property {string} [TYPE_FUNCTION="function"] property with string represent function type (for better minification)
+				 * @private
+				 * @static
+				 * @readonly
+				 */
+				TYPE_FUNCTION = "function";
 
 			/**
-			* Configure widget object from definition
-			* @method configure
-			* @param {Object} definition
-			* @param {string} definition.name Name of the widget
-			* @param {string} definition.selector Selector of the widget
-			* @param {string} definition.binding Path to a file with the widget (without extension)
-			* @param {Object} options Configure options
-			* @memberOf ns.widget.BaseWidget
-			* @chainable
-			* @instance
-			*/
+			 * Configure widget object from definition
+			 * @method configure
+			 * @param {Object} definition
+			 * @param {string} definition.name Name of the widget
+			 * @param {string} definition.selector Selector of the widget
+			 * @param {HTMLElement} element
+			 * @param {Object} options Configure options
+			 * @memberOf ns.widget.BaseWidget
+			 * @chainable
+			 * @instance
+			 */
+			/**
+			 * Protected method configuring the widget
+			 * @method _configure
+			 * @memberOf ns.widget.BaseWidget
+			 * @template
+			 * @instance
+			 */
 			prototype.configure = function (definition, element, options) {
-				var widgetOptions = this.options || {};
-				this.options = widgetOptions;
+				var self = this,
+					definitionName,
+					definitionNamespace;
+				/**
+				 * @property {Object} [options={}] Object with options for widget
+				 * @memberOf ns.widget.BaseWidget
+				 * @instance
+				 */
+				self.options = self.options || {};
+				/**
+				 * @property {?HTMLElement} [element=null] Base element of widget
+				 * @memberOf ns.widget.BaseWidget
+				 * @instance
+				 */
+				self.element = self.element || null;
 				if (definition) {
+					definitionName = definition.name;
+					definitionNamespace = definition.namespace;
 					/**
 					* @property {string} name Name of the widget
 					* @memberOf ns.widget.BaseWidget
 					* @instance
 					*/
-					this.name = definition.name;
+					self.name = definitionName;
 
 					/**
 					* @property {string} widgetName Name of the widget (in lower case)
 					* @memberOf ns.widget.BaseWidget
 					* @instance
 					*/
-					this.widgetName = definition.name;
-
-					/**
-					* @property {string} eventNamespace Namespace of widget events (suffix for events)
-					* @memberOf ns.widget.BaseWidget
-					* @instance
-					*/
-					this.eventNamespace = '.' + this.widgetName + (this.uuid || '');
+					self.widgetName = definitionName;
 
 					/**
 					* @property {string} widgetEventPrefix Namespace of widget events
 					* @memberOf ns.widget.BaseWidget
 					* @instance
 					*/
-					this.widgetEventPrefix = definition.name.toLowerCase();
+					self.widgetEventPrefix = definitionName.toLowerCase();
 
 					/**
 					* @property {string} namespace Namespace of the widget
 					* @memberOf ns.widget.BaseWidget
 					* @instance
 					*/
-					this.namespace = definition.namespace;
+					self.namespace = definitionNamespace;
 
 					/**
 					* @property {string} widgetFullName Full name of the widget
 					* @memberOf ns.widget.BaseWidget
 					* @instance
 					*/
-					this.widgetFullName = ((definition.namespace ? definition.namespace + '-' : "") + this.name).toLowerCase();
+					self.widgetFullName = ((definitionNamespace ? definitionNamespace + '-' : "") + definitionName).toLowerCase();
 					/**
 					* @property {string} id Id of widget instance
 					* @memberOf ns.widget.BaseWidget
 					* @instance
 					*/
-					this.id = ns.getUniqueId();
+					self.id = ns.getUniqueId();
 
 					/**
 					* @property {string} selector widget's selector
 					* @memberOf ns.widget.BaseWidget
 					* @instance
 					*/
-					this.selector = definition.selector;
-					/**
-					* @property {string} binding Path to a file with the widget (without extension)
-					* @memberOf ns.widget.BaseWidget
-					* @instance
-					*/
-					this.binding = definition.binding;
-					/**
-					* @property {HTMLElement} element Base element of the widget
-					* @memberOf ns.widget.BaseWidget
-					* @instance
-					*/
-					this.element = null;
-
-					/**
-					* @property {string} [defaultElement='<div>'] Default element for the widget
-					* @memberOf ns.widget.BaseWidget
-					* @instance
-					*/
-					this.defaultElement = '<div>';
+					self.selector = definition.selector;
 				}
 
-				if (typeof this._configure === "function") {
-					this._configure();
+				if (typeof self._configure === TYPE_FUNCTION) {
+					self._configure();
 				}
 
-				this._getCreateOptions(element);
+				self._getCreateOptions(element);
 
-				if (typeof options === 'object') {
-					Object.keys(options).forEach(function (key) {
-						widgetOptions[key] = options[key];
-					});
-				}
-				this.options = widgetOptions;
-				return this;
+				objectUtils.merge(self.options, options);
 			};
 
-			/**
-			* @property {Object} options Default options for the widget
-			* @memberOf ns.widget.BaseWidget
-			* @template
-			* @instance
-			*/
 			/**
 			* Read data-* attributes and save to #options object
 			* @method _getCreateOptions
@@ -308,12 +292,13 @@
 			* @instance
 			*/
 			prototype._getCreateOptions = function (element) {
-				var options = this.options;
+				var options = this.options,
+					bigRegexp = new RegExp(/[A-Z]/g);
 				if (options !== undefined) {
 					Object.keys(options).forEach(function (option) {
 						// Get value from data-{namespace}-{name} element's attribute
 						// based on widget.options property keys
-						var value = domUtils.getNSData(element, (option.replace(/[A-Z]/g, function (c) {
+						var value = domUtils.getNSData(element, (option.replace(bigRegexp, function (c) {
 							return "-" + c.toLowerCase();
 						})));
 
@@ -347,28 +332,23 @@
 			prototype.build = function (template, element) {
 				var self = this,
 					id,
-					node,
-					elementContainer;
+					node;
 				eventUtils.trigger(element, this.widgetEventPrefix + "beforecreate");
 				element.setAttribute(engineDataEj.built, true);
 				element.setAttribute(engineDataEj.binding, self.binding);
 				element.setAttribute(engineDataEj.name, self.name);
 				element.setAttribute(engineDataEj.selector, self.selector);
-				id = element.getAttribute('id');
-				if (!id) {
-					element.setAttribute("id", self.id);
-				} else {
+				id = element.id;
+				if (id) {
 					self.id = id;
+				} else {
+					element.id = self.id;
 				}
 
-				if (typeof self._build === "function") {
+				if (typeof self._build === TYPE_FUNCTION) {
 					node = self._build(template, element);
-					if (node) {
-						self.element = node;
-					}
 				} else {
 					node = element;
-					self.element = element;
 				}
 				return node;
 			};
@@ -391,19 +371,20 @@
 			* @instance
 			*/
 			prototype.init = function (element) {
-				this.id = element.getAttribute("id");
+				var self = this;
+				self.id = element.id;
 
-				if (typeof this._init === "function") {
-					this._init(element);
+				if (typeof self._init === TYPE_FUNCTION) {
+					self._init(element);
 				}
 
 				if (element.getAttribute("disabled")) {
-					this.disable();
+					self.disable();
 				} else {
-					this.enable();
+					self.enable();
 				}
 
-				return this;
+				return self;
 			};
 
 			/**
@@ -434,19 +415,20 @@
 			* @instance
 			*/
 			prototype.bindEvents = function (element, onlyBuild) {
+				var self = this;
 				if (!onlyBuild) {
 					element.setAttribute(engineDataEj.bound, "true");
 				}
-				if (typeof this._buildBindEvents === "function") {
-					this._buildBindEvents(element);
+				if (typeof self._buildBindEvents === TYPE_FUNCTION) {
+					self._buildBindEvents(element);
 				}
-				if (!onlyBuild && typeof this._bindEvents === "function") {
-					this._bindEvents(element);
+				if (!onlyBuild && typeof self._bindEvents === TYPE_FUNCTION) {
+					self._bindEvents(element);
 				}
 
-				eventUtils.trigger(element, this.widgetEventPrefix + "create", this);
+				self.trigger(self.widgetEventPrefix + "create", self);
 
-				return this;
+				return self;
 			};
 
 			/**
@@ -464,10 +446,14 @@
 			* @instance
 			*/
 			prototype.destroy = function (element) {
-				if (typeof this._destroy === "function") {
-					this._destroy(element);
+				var self = this;
+				if (typeof self._destroy === TYPE_FUNCTION) {
+					self._destroy(element);
 				}
-				element = element || this.element;
+				if (self.element) {
+					self.trigger(self.widgetEventPrefix + "destroy");
+				}
+				element = element || self.element;
 				if (element) {
 					engine.removeBinding(element);
 				}
@@ -489,12 +475,13 @@
 			* @instance
 			*/
 			prototype.disable = function () {
-				var element = this.element,
+				var self = this,
+					element = self.element,
 					args = slice.call(arguments);
 
-				if (typeof this._disable === "function") {
+				if (typeof self._disable === TYPE_FUNCTION) {
 					args.unshift(element);
-					this._disable.apply(this, args);
+					self._disable.apply(self, args);
 				}
 				return this;
 			};
@@ -515,12 +502,13 @@
 			* @instance
 			*/
 			prototype.enable = function () {
-				var element = this.element,
+				var self = this,
+					element = self.element,
 					args = slice.call(arguments);
 
-				if (typeof this._enable === "function") {
+				if (typeof self._enable === TYPE_FUNCTION) {
 					args.unshift(element);
-					this._enable.apply(this, args);
+					self._enable.apply(self, args);
 				}
 				return this;
 			};
@@ -541,21 +529,24 @@
 			* @instance
 			*/
 			prototype.refresh = function () {
-				if (typeof this._refresh === "function") {
-					this._refresh();
+				var self = this;
+				if (typeof self._refresh === TYPE_FUNCTION) {
+					self._refresh();
 				}
-				return this;
+				return self;
 			};
 
 
 			/**
-			* Get/Set options of the widget
-			* @method option
-			* @memberOf ns.widget.BaseWidget
-			* @instance
-			*/
+			 * Get/Set options of the widget
+			 * @method option
+			 * @memberOf ns.widget.BaseWidget
+			 * @return {*}
+			 * @instance
+			 */
 			prototype.option = function () {
-				var args = slice.call(arguments),
+				var self = this,
+					args = slice.call(arguments),
 					firstArgument = args.shift(),
 					secondArgument = args.shift(),
 					methodName;
@@ -565,28 +556,28 @@
 				if (typeof firstArgument === "string") {
 					if (secondArgument === undefined) {
 						methodName = '_get' + (firstArgument[0].toUpperCase() + firstArgument.slice(1));
-						if (typeof this[methodName] === "function") {
-							return this[methodName]();
+						if (typeof self[methodName] === TYPE_FUNCTION) {
+							return self[methodName]();
 						}
-						return this.options[firstArgument];
+						return self.options[firstArgument];
 					}
 					methodName = '_set' + (firstArgument[0].toUpperCase() + firstArgument.slice(1));
-					if (typeof this[methodName] === "function") {
-						this[methodName](this.element, secondArgument);
+					if (typeof self[methodName] === TYPE_FUNCTION) {
+						self[methodName](self.element, secondArgument);
 					} else {
 						this.options[firstArgument] = secondArgument;
-						if (this.element) {
-							this.element.setAttribute('data-' + (firstArgument.replace(/[A-Z]/g, function (c) {
+						if (self.element) {
+							self.element.setAttribute('data-' + (firstArgument.replace(/[A-Z]/g, function (c) {
 								return "-" + c.toLowerCase();
 							})), secondArgument);
-							this.refresh();
+							self.refresh();
 						}
 					}
 				}
 			};
 
 			/**
-			* Checks if the widget has bounded events through the {@link ns.widget.BaseWidget#method-bindEvents} method.
+			* Checks if the widget has bounded events through the {@link ns.widget.BaseWidget#bindEvents} method.
 			* @method isBound
 			* @memberOf ns.widget.BaseWidget
 			* @instance
@@ -594,11 +585,11 @@
 			*/
 			prototype.isBound = function () {
 				var element = this.element;
-				return element && element.getAttribute(engineDataEj.bound) ? true : false;
+				return element && element.hasAttribute(engineDataEj.bound);
 			};
 
 			/**
-			* Checks if the widget was built through the {@link ns.widget.BaseWidget#method-build} method.
+			* Checks if the widget was built through the {@link ns.widget.BaseWidget#build} method.
 			* @method isBuilt
 			* @memberOf ns.widget.BaseWidget
 			* @instance
@@ -606,13 +597,13 @@
 			*/
 			prototype.isBuilt = function () {
 				var element = this.element;
-				return element && element.getAttribute(engineDataEj.built) ? true : false;
+				return element && element.hasAttribute(engineDataEj.built);
 			};
 
 			/**
 			* Protected method getting the value of widget
 			* @method _getValue
-			* @return {Mixed}
+			* @return {*}
 			* @memberOf ns.widget.BaseWidget
 			* @template
 			* @protected
@@ -621,8 +612,8 @@
 			/**
 			* Protected method setting the value of widget
 			* @method _setValue
-			* @param {Mixed} value
-			* @return {Mixed}
+			* @param {*} value
+			* @return {*}
 			* @memberOf ns.widget.BaseWidget
 			* @template
 			* @protected
@@ -631,35 +622,64 @@
 			/**
 			* Get/Set value of the widget
 			* @method value
-			* @param {Mixed} [value]
+			* @param {*} [value]
 			* @memberOf ns.widget.BaseWidget
-			* @return {Mixed}
+			* @return {*}
 			* @instance
 			*/
 			prototype.value = function (value) {
+				var self = this;
 				if (value !== undefined) {
-					if (typeof this._setValue === "function") {
-						return this._setValue(value);
+					if (typeof self._setValue === TYPE_FUNCTION) {
+						return self._setValue(value);
 					}
-					return this;
+					return self;
 				}
-				if (typeof this._getValue === "function") {
-					return this._getValue();
+				if (typeof self._getValue === TYPE_FUNCTION) {
+					return self._getValue();
 				}
-				return this;
+				return self;
 			};
 
 			/**
-			* Trigger an event on widget's element.
-			* @method trigger
-			* @param {string} eventName the name of event to trigger
-			* @param {Object} [data] additional object to be carried with the event
-			* @memberOf ns.widget.BaseWidget
-			* @return {boolean} false, if any callback invoked preventDefault on event object
-			* @instance
+			 * Trigger an event on widget's element.
+			 * @method trigger
+			 * @param {string} eventName the name of event to trigger
+			 * @param {?*} [data] additional object to be carried with the event
+			 * @param {Boolean=} [bubbles=true]
+			 * @param {Boolean=} [cancelable=true]
+			 * @memberOf ns.widget.BaseWidget
+			 * @return {boolean} false, if any callback invoked preventDefault on event object
+			 * @instance
 			*/
-			prototype.trigger = function (eventName, data) {
-				return eventUtils.trigger(this.element, eventName, data);
+			prototype.trigger = function (eventName, data, bubbles, cancelable) {
+				return eventUtils.trigger(this.element, eventName, data, bubbles, cancelable);
+			};
+
+			/**
+			 * Add event listener to this.element.
+			 * @method on
+			 * @param {string} eventName the name of event
+			 * @param {Function} listener function call after event will be trigger
+			 * @param {boolean} [useCapture=false] useCapture param tu addEventListener
+			 * @memberOf ns.widget.BaseWidget
+			 * @instance
+			 */
+			prototype.on = function (eventName, listener, useCapture) {
+				eventUtils.on(this.element, eventName, listener, useCapture);
+			};
+
+			/**
+			 * Remove event listener to this.element.
+			 * @method off
+			 * @param {string} eventName the name of event
+			 * @param {Function} listener function call after event will be trigger
+			 * @param {boolean} [useCapture=false] useCapture param tu addEventListener
+			 * @memberOf ns.widget.BaseWidget
+			 * @instance
+			 */
+			prototype.off = function (eventName, listener, useCapture) {
+				eventUtils.off(this.element, eventName, listener, useCapture);
 			};
 
 			BaseWidget.prototype = prototype;

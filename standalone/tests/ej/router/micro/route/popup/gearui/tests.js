@@ -57,53 +57,53 @@
 				start();
 			});
 
-			gear.ui.closePopup();
+			tau.closePopup();
 		});
 
 		eventStack.length = 0;
-		gear.ui.openPopup(popup);
+		tau.openPopup(popup);
 	});
 
 	asyncTest( "test popup apis", function(){
 		helper.popupSequence([
 			function() {
-				gear.ui.openPopup( "#layout-test-header-footer" );
+				tau.openPopup( "#layout-test-header-footer" );
 			},
 
 			function() {
-				ok(checkActivePopup("#layout-test-header-footer"), "call gear.ui.openPopup() with dom element id");
-				gear.ui.closePopup();
+				ok(checkActivePopup("#layout-test-header-footer"), "call tau.openPopup() with dom element id");
+				tau.closePopup();
 			},
 
 			function() {
-				gear.ui.openPopup( "path-test/external.html" );
+				tau.openPopup( "path-test/external.html" );
 			},
 
 			function() {
 				ok(checkActivePopup("#externalPopup"), "open external popup.");
-				gear.ui.closePopup();
+				tau.closePopup();
 			},
 
 			function() {
-				gear.ui.openPopup( "#layout-test-header" );
+				tau.openPopup( "#layout-test-header" );
 			},
 
 			function() {
 				ok(checkActivePopup("#layout-test-header"), "call open popup alreay another popup is opend");
-				gear.ui.closePopup();
+				tau.closePopup();
 			},
 
 			function() {
-				gear.ui.openPopup( $("#layout-test-footer")[0] );
+				tau.openPopup( $("#layout-test-footer")[0] );
 			},
 
 			function() {
-				ok(checkActivePopup("#layout-test-footer"), "call gear.ui.openPopup() with dom element ");
-				gear.ui.closePopup();
+				ok(checkActivePopup("#layout-test-footer"), "call tau.openPopup() with dom element ");
+				tau.closePopup();
 			},
 
 			function() {
-				ok(checkHasNotActivePopup(), "call gear.ui.closePopup()");
+				ok(checkHasNotActivePopup(), "call tau.closePopup()");
 			}
 
 		], true);
@@ -112,39 +112,39 @@
 	asyncTest( "various popup layout", function(){
 		helper.popupSequence([
 			function() {
-				gear.ui.openPopup( "#layout-test-header-footer" );
+				tau.openPopup( "#layout-test-header-footer" );
 			},
 
 			function() {
 				ok(checkPopupLayout("#layout-test-header-footer"), "set popup layout with header and footer");
-				gear.ui.closePopup();
+				tau.closePopup();
 			},
 
 			function() {
-				gear.ui.openPopup( "#layout-test-header" );
+				tau.openPopup( "#layout-test-header" );
 			},
 
 			function() {
 				ok(checkPopupLayout("#layout-test-header"), "set popup layout with header");
-				gear.ui.closePopup();
+				tau.closePopup();
 			},
 
 			function() {
-				gear.ui.openPopup( "#layout-test-footer" );
+				tau.openPopup( "#layout-test-footer" );
 			},
 
 			function() {
 				ok(checkPopupLayout("#layout-test-footer"), "set popup layout with footer");
-				gear.ui.closePopup();
+				tau.closePopup();
 			},
 
 			function() {
-				gear.ui.openPopup( "#layout-test-content-padding" );
+				tau.openPopup( "#layout-test-content-padding" );
 			},
 
 			function() {
 				ok(checkPopupLayout("#layout-test-content-padding"), "set popup layout with custom content");
-				gear.ui.closePopup();
+				tau.closePopup();
 			},
 
 			function() {
@@ -156,22 +156,22 @@
 	asyncTest( "Open internal popup in external page", function() {
 		helper.pageSequence([
 			function() {
-				gear.ui.changePage( "path-test/externalPage.html" );
+				tau.changePage( "path-test/externalPage.html" );
 			},
 
 			function() {
 				helper.popupSequence([
 					function() {
-						gear.ui.openPopup( "#popup-in-externl-page" );
+						tau.openPopup( "#popup-in-externl-page" );
 					},
 
 					function() {
 						ok(checkActivePopup("#popup-in-externl-page"), "open internal popup in external page");
-						gear.ui.closePopup();
+						tau.closePopup();
 					},
 
 					function() {
-						gear.ui.back();
+						tau.back();
 					}
 				]);
 			},
@@ -190,21 +190,21 @@
 					popup.find("a")[0].click();
 				});
 
-				gear.ui.openPopup( popup );
+				tau.openPopup( popup );
 			},
 
 			function() {
 				ok(checkHasNotActivePopup(), "closed popup on page change.");
 
 				helper.one(document, "popupshow", function() {
-					gear.ui.changePage( "../index.html" );
+					tau.changePage( "../index.html" );
 				});
 
-				gear.ui.openPopup( "#popup-in-externl-page" );
+				tau.openPopup( "#popup-in-externl-page" );
 			},
 
 			function() {
-				ok(checkHasNotActivePopup(), "closed popup on gear.ui.back().");
+				ok(checkHasNotActivePopup(), "closed popup on tau.back().");
 			}
 		], true);
 	});
@@ -214,7 +214,7 @@
 
 		helper.popupSequence([
 			function() {
-				gear.ui.openPopup( popup );
+				tau.openPopup( popup );
 			},
 
 			function() {
@@ -228,7 +228,7 @@
 
 			function() {
 				ok(checkActivePopup("#another-popup"), "new popup opened ");
-				gear.ui.closePopup();
+				tau.closePopup();
 			},
 
 			function() {
@@ -246,12 +246,12 @@
 					popup.find("a")[0].click();
 				});
 
-				gear.ui.openPopup( popup );
+				tau.openPopup( popup );
 			},
 
 			function() {
 				ok(checkHasNotActivePopup(), "closed popup on page change.");
-				gear.ui.back();
+				tau.back();
 			},
 
 			function() {

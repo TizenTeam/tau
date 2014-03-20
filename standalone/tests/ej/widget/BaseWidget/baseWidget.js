@@ -112,13 +112,11 @@ test ("Function build", function () {
 		widget;
 
 	equal(elem.hasAttribute("data-ej-built"), false, "Element doesn't have attribute data-ej-built before building");
-	equal(elem.hasAttribute("data-ej-binding"), false, "Element doesn't have attribute data-ej-binding before building");
 	equal(elem.hasAttribute("data-ej-name"), false, "Element doesn't have attribute data-ej-name before building");
 	equal(elem.hasAttribute("data-ej-selector"), false, "Element doesn't have attribute data-ej-selector before building");
 	equal(elem.hasAttribute("id"), false, "Element doesn't have id before building");
 	widget = ej.engine.instanceWidget(elem, "BasicWidget");
 	equal(elem.hasAttribute("data-ej-built"), true, "Element doesn't have attribute data-ej-built before building");
-	equal(elem.hasAttribute("data-ej-binding"), true, "Element doesn't have attribute data-ej-binding before building");
 	equal(elem.hasAttribute("data-ej-name"), true, "Element doesn't have attribute data-ej-name before building");
 	equal(elem.hasAttribute("data-ej-selector"), true, "Element doesn't have attribute data-ej-selector before building");
 	equal(elem.hasAttribute("id"), true, "Element doesn't have id before building");

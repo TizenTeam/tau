@@ -1,3 +1,4 @@
+/*global window, define */
 /*jslint nomen: true, plusplus: true */
 /*
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
@@ -8,11 +9,15 @@
  * @inheritdoc ns.widget.micro.VirtualGrid
  * @extends ns.widget.micro.VirtualGrid
  * @author Maciej Urbanski <m.urbanski@samsung.com>
+ * @author Krzysztof Antoszek <k.antoszek@samsung.com>
+ * @author Piotr Karny <p.karny@samsung.com>
  */
 /**
  * @class ns.widget.micro.VirtualGrid
  * @extends ns.widget.micro.VirtualListview
  * @author Maciej Urbanski <m.urbanski@samsung.com>
+ * @author Krzysztof Antoszek <k.antoszek@samsung.com>
+ * @author Piotr Karny <p.karny@samsung.com>
  */
 (function (window, document, ns) {
 	"use strict";
@@ -48,6 +53,20 @@
 				 */
 				DOM = ns.utils.DOM,
 				/**
+				 * @property {string} HORIZONTAL="x" constans for horizontal virtual grid
+				 * @private
+				 * @memberOf ns.widget.micro.VirtualGrid
+				 * @static
+				 */
+				HORIZONTAL = "x",
+				/**
+				 * @property {string} VERTICAL="y" constans for vertical virtual grid
+				 * @private
+				 * @memberOf ns.widget.micro.VirtualGrid
+				 * @static
+				 */
+				VERTICAL = "y",
+				/**
 				 * Alias for class VirtualGrid
 				 * @method VirtualGrid
 				 * @memberOf ns.widget.micro.VirtualGrid
@@ -66,7 +85,7 @@
 					this.options = {
 						bufferSize: 100,
 						dataLength: 0,
-						orientation: 'y',
+						orientation: VERTICAL,
 						/**
 						 * Method which modifies list item, depended at specified index from database.
 						 * **Method should overrided by developer using {@link ns.widget.VirtualListview#create .create} method.**
@@ -117,7 +136,8 @@
 					ui = self.ui,
 					newDiv = null,
 					newDivStyle = null;
-				if (self.options.orientation === 'x') {
+
+				if (self.options.orientation === HORIZONTAL) {
 					newDiv = document.createElement('div');
 					newDivStyle = newDiv.style;
 					element.parentNode.appendChild(newDiv);
@@ -166,13 +186,12 @@
 					rowElementStyle = rowElement.style;
 
 				elementStyle.overflow = 'hidden';
-				elementStyle.float = 'left';
 				rowElement.style.overflow = 'hidden';
 				thisElement.appendChild(rowElement);
 				rowElement.appendChild(element);
 				self.options.listItemUpdater(element, 0);
 
-				if (orientation === 'y') {
+				if (orientation === VERTICAL) {
 					thisElementStyle.overflowY = 'auto';
 					thisElementStyle.overflowX = 'hidden';
 					rowElementStyle.overflow = 'hidden';
@@ -214,19 +233,23 @@
 				element.innerHTML = '';
 				elementStyle.overflow = 'hidden';
 				elementStyle.position = 'relative';
+				if (options.orientation === HORIZONTAL) {
+					elementStyle.height = "100%";
+				}
 				count = this._columnsCount;
 				size = (100 / count);
 				for (i = 0; i < count; i++) {
 					elementI = document.createElement('div');
 					elementIStyle = elementI.style;
 					elementIStyle.overflow = 'hidden';
-					elementIStyle.float = 'left';
-					if (options.orientation === 'y') {
+
+					if (options.orientation === VERTICAL) {
 						elementI.style.float = 'left';
 						elementI.style.width = size + '%';
 					} else {
 						elementI.style.height = size + '%';
 					}
+
 					this.options.listItemUpdater(elementI, count * index + i);
 					element.appendChild(elementI);
 				}

@@ -70,9 +70,9 @@
 		list = widget.element.children[0];
 		equal(list.tagName, "UL", "Element has child, which is a list");
 		equal(list.children.length, 3, "List has 3 children");
-		equal(list.children[0].innerText, "X", "First child is 'X'");
-		equal(list.children[1].innerText, "Y", "Second child is 'Y'");
-		equal(list.children[2].innerText, "Z", "Third child is 'Z'");
+		equal(list.children[0].textContent, "X", "First child is 'X'");
+		equal(list.children[1].textContent, "Y", "Second child is 'Y'");
+		equal(list.children[2].textContent, "Z", "Third child is 'Z'");
 
 		widget = ej.engine.instanceWidget(elem2, "IndexScrollbar", {maxIndexLen: 12});
 		// widget with default index (olny A, G, L, Q, V and 1 are shown)
@@ -80,17 +80,17 @@
 		equal(list.tagName, "UL", "Element has child, which is a list");
 		equal(widget.options.maxIndexLen, 11, "maxIndexLen was corrected");
 		equal(list.children.length, 11, "List has 11 children");
-		equal(list.children[0].innerText, "A", "First child is 'A'");
-		equal(list.children[1].innerText, "*", "Second child is '*'");
-		equal(list.children[2].innerText, "G", "Third child is 'G");
-		equal(list.children[3].innerText, "*", "4. child is '*'");
-		equal(list.children[4].innerText, "L", "5. child is 'L'");
-		equal(list.children[5].innerText, "*", "6. child is '*'");
-		equal(list.children[6].innerText, "Q", "7. child is 'Q'");
-		equal(list.children[7].innerText, "*", "8. child is '*'");
-		equal(list.children[8].innerText, "V", "9. child is 'V'");
-		equal(list.children[9].innerText, "*", "10. child is '*'");
-		equal(list.children[10].innerText, "1", "11. child is '1'");
+		equal(list.children[0].textContent, "A", "First child is 'A'");
+		equal(list.children[1].textContent, "*", "Second child is '*'");
+		equal(list.children[2].textContent, "G", "Third child is 'G");
+		equal(list.children[3].textContent, "*", "4. child is '*'");
+		equal(list.children[4].textContent, "L", "5. child is 'L'");
+		equal(list.children[5].textContent, "*", "6. child is '*'");
+		equal(list.children[6].textContent, "Q", "7. child is 'Q'");
+		equal(list.children[7].textContent, "*", "8. child is '*'");
+		equal(list.children[8].textContent, "V", "9. child is 'V'");
+		equal(list.children[9].textContent, "*", "10. child is '*'");
+		equal(list.children[10].textContent, "1", "11. child is '1'");
 	});
 
 	test ("Refresh", function () {
@@ -140,7 +140,7 @@
 			elemA = elem1.children[0].children[0],
 			elemAtext;
 
-		elemAtext = elemA.innerText;
+		elemAtext = elemA.textContent;
 
 		elem1.addEventListener("select", function (options) {
 			equal(options.detail.index, elemAtext, "First element is checked");
@@ -152,7 +152,7 @@
 
 	function touchevent (elem1, widget) {
 		var indicator = widget.indicator,
-			value = indicator.innerText,
+			value = indicator.textContent,
 			lastElementOffset,
 			list = elem1.children[0].children;
 
@@ -161,7 +161,7 @@
 		lastElementOffset = ej.utils.DOM.getElementOffset(list[list.length -1]);
 
 		fireEvent(elem1, "touchmove", {touches: [{clientX: lastElementOffset.left, clientY: lastElementOffset.top}]});
-		ok(indicator.innerText !== value, "Indicator has different text");
+		ok(indicator.textContent !== value, "Indicator has different text");
 
 		fireEvent(elem1, "touchend", {touches: []});
 		equal(window.getComputedStyle(indicator).display, "none", "Indicatior is not displayed");
@@ -193,4 +193,31 @@
 		document.addEventListener("touchstart", toucheventHandler);
 
 		fireEvent(elem1, "touchstart", {touches: [{clientX: elemOffset.left, clientY: elemOffset.top}]});
+	});
+
+	test ("Resize", function () {
+		var elem1 = document.getElementById("resize");
+
+		widget = ej.engine.instanceWidget(elem1, "IndexScrollbar", {index: "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15", maxIndexLen: 15});
+
+		equal(widget.options.maxIndexLen, 13,"maxIndexLen before resize");
+		document.getElementById("container").classList.add("small");
+		ej.utils.events.trigger(window, "resize");
+		equal(widget.options.maxIndexLen, 5,"maxIndexLen after resize - small container");
+		list = widget.element.children[0];
+		equal(list.children.length, 5, "List has 5 children");
+		equal(list.children[0].textContent, "1", "First child is '1'");
+		equal(list.children[1].textContent, "*", "Second child is '*'");
+		equal(list.children[2].textContent, "8", "Third child is '8");
+		equal(list.children[3].textContent, "*", "4. child is '*'");
+		equal(list.children[4].textContent, "15", "5. child is '15'");
+
+		document.getElementById("container").classList.remove("small");
+		document.getElementById("container").classList.add("big");
+		ej.utils.events.trigger(window, "resize");
+		equal(widget.options.maxIndexLen, 15,"maxIndexLen after resize - big container");
+
+		document.getElementById("container").classList.remove("big");
+		ej.utils.events.trigger(window, "resize");
+		equal(widget.options.maxIndexLen, 13,"maxIndexLen after resize - normal container");
 	});

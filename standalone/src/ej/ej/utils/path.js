@@ -31,12 +31,12 @@
 			var engine = ns.engine,
 				/**
 				* Local alias for ns.utils.object
-				* @property {Object} object Alias for {@link ns.utils.object}
+				* @property {Object} utilsObject Alias for {@link ns.utils.object}
 				* @memberOf ns.utils.path
 				* @static
 				* @private
 				*/
-				object = ns.utils.object,
+				utilsObject = ns.utils.object,
 				/**
 				* Local alias for ns.utils.selectors
 				* @property {Object} utilsSelectors Alias for {@link ns.utils.selectors}
@@ -47,14 +47,14 @@
 				utilsSelectors = ns.utils.selectors,
 				/**
 				* Local alias for ns.utils.DOM
-				* @property {Object} DOM Alias for {@link ns.utils.DOM}
+				* @property {Object} utilsDOM Alias for {@link ns.utils.DOM}
 				* @memberOf ns.utils.path
 				* @static
 				* @private
 				*/
-				DOM = ns.utils.DOM,
+				utilsDOM = ns.utils.DOM,
 				/**
-				*
+				* Cache for document base element
 				* @memberOf ns.utils.path
 				* @property {HTMLBaseElement} base
 				* @static
@@ -117,7 +117,7 @@
 
 					/**
 					* Abstraction to address xss (Issue #4787) by removing the authority in
-					* browsers that auto	decode it. All references to location.href should be
+					* browsers that auto decode it. All references to location.href should be
 					* replaced with a call to this method so that it can be dealt with properly here
 					* @method getLocation
 					* @param {string|Object} url
@@ -137,7 +137,7 @@
 					},
 
 					/**
-					*
+					* Return the original document url
 					* @method getDocumentUrl
 					* @memberOf ns.utils.path
 					* @param {boolean} [asParsedObject=false]
@@ -145,11 +145,11 @@
 					* @static
 					*/
 					getDocumentUrl: function (asParsedObject) {
-						return asParsedObject ? object.copy(path.documentUrl) : path.documentUrl.href;
+						return asParsedObject ? utilsObject.copy(path.documentUrl) : path.documentUrl.href;
 					},
 
 					/**
-					*
+					* Parse a location into a structure
 					* @method parseLocation
 					* @return {Object}
 					* @memberOf ns.utils.path
@@ -226,7 +226,7 @@
 					* @method makePathAbsolute
 					* @memberOf ns.utils.path
 					* @param {string} relPath
-					* @param {string} absPath
+					* @param {string} [absPath=""]
 					* @return {string}
 					* @static
 					*/
@@ -339,38 +339,48 @@
 						var urlObject = path.parseUrl(url),
 							paramsString = (typeof params === "object") ? this.getAsURIParameters(params) : params,
 							searchChar = urlObject.search || "?";
-						return urlObject.hrefNoSearch + searchChar + (searchChar.charAt(searchChar.length - 1) !== "?" ? "&" : "") + paramsString + (urlObject.hash || "");
-					},
-
-					addHashSearchParams: function (url, params) {
-						var u = path.parseUrl(url),
-							p = (typeof params === "object") ? path.getAsURIParameters(params) : params,
-							h = u.hash,
-							s = h ? (h.indexOf("?") < 0 ? h + "?" : h + "&") : "#?";
-						return u.hrefNoHash + s + (s.charAt(s.length - 1) !== "?" ? "&" : "") + p;
+						return urlObject.hrefNoSearch + searchChar + (searchChar.charAt(searchChar.length - 1) === "?" ? "" : "&") + paramsString + (urlObject.hash || "");
 					},
 
 					/**
-					*
+					 * Add search params to the specified url with hash
+					 * @memberOf ns.utils.path
+					 * @param {string|Object} url
+					 * @param {Object|string} params
+					 * @returns {string}
+					 */
+					addHashSearchParams: function (url, params) {
+						var urlObject = path.parseUrl(url),
+							paramsString = (typeof params === "object") ? path.getAsURIParameters(params) : params,
+							hash = urlObject.hash,
+							searchChar = hash ? (hash.indexOf("?") < 0 ? hash + "?" : hash + "&") : "#?";
+						return urlObject.hrefNoHash + searchChar + (searchChar.charAt(searchChar.length - 1) === "?" ? "" : "&") + paramsString;
+					},
+
+					/**
+					* Convert absolute Url to data Url
+					* - for embedded pages strips hash and paramters
+					* - for the same domain as document base remove domain
+					* otherwise returns decoded absolute Url
 					* @method convertUrlToDataUrl
 					* @memberOf ns.utils.path
 					* @param {string} absUrl
 					* @param {string} dialogHashKey
-					* @param {Object} documentBase  uri structure
+					* @param {Object} documentBase uri structure
 					* @return {string}
 					* @static
 					*/
 					convertUrlToDataUrl: function (absUrl, dialogHashKey, documentBase) {
 						var urlObject = path.parseUrl(absUrl);
 
-						documentBase = documentBase || path.documentBase;
 						if (path.isEmbeddedPage(urlObject, dialogHashKey)) {
 							// For embedded pages, remove the dialog hash key as in getFilePath(),
 							// otherwise the Data Url won't match the id of the embedded Page.
-							return urlObject.hash.replace( /^#/, "" ).replace( /\?.*$/, "" );
+							return urlObject.hash.replace(/^#|\?.*$/g, "");
 						}
+						documentBase = documentBase || path.documentBase;
 						if (path.isSameDomain(urlObject, documentBase)) {
-							return urlObject.hrefNoHash.replace(documentBase.domain, "" );
+							return urlObject.hrefNoHash.replace(documentBase.domain, "");
 						}
 
 						return window.decodeURIComponent(absUrl);
@@ -429,7 +439,7 @@
 					},
 
 					/**
-					*
+					* Return the url without an query params
 					* @method stripQueryParams
 					* @memberOf ns.utils.path
 					* @param {string} url
@@ -441,11 +451,10 @@
 					},
 
 					/**
-					*
+					* Validation proper hash
 					* @method isHashValid
 					* @memberOf ns.utils.path
 					* @param {string} hash
-					* @param {boolean}
 					* @static
 					*/
 					isHashValid: function (hash) {
@@ -453,7 +462,7 @@
 					},
 
 					/**
-					* check whether a url is referencing the same domain, or an external domain or different protocol
+					* Check whether a url is referencing the same domain, or an external domain or different protocol
 					* could be mailto, etc
 					* @method isExternal
 					* @memberOf ns.utils.path
@@ -468,7 +477,7 @@
 					},
 
 					/**
-					*
+					* Check if the url has protocol
 					* @method hasProtocol
 					* @memberOf ns.utils.path
 					* @param {string} url
@@ -479,21 +488,29 @@
 						return (/^(:?\w+:)/).test(url);
 					},
 
+					/**
+					 * Check if the url refers to embedded content
+					 * @method isEmbedded
+					 * @memberOf ns.utils.path
+					 * @param {string} url
+					 * @returns {boolean}
+					 * @static
+					 */
 					isEmbedded: function (url) {
-						var u = path.parseUrl(url);
+						var urlObject = path.parseUrl(url);
 
-						if (u.protocol !== "") {
-							return (!path.isPath(u.hash) && !!u.hash && (u.hrefNoHash === path.parseLocation().hrefNoHash));
+						if (urlObject.protocol !== "") {
+							return (!path.isPath(urlObject.hash) && !!urlObject.hash && (urlObject.hrefNoHash === path.parseLocation().hrefNoHash));
 						}
-						return (/^#/).test(u.href);
+						return (/^#/).test(urlObject.href);
 					},
 
 					/**
-					*
+					* Get the url as it would look squashed on to the current resolution url
 					* @method squash
 					* @memberOf ns.utils.path
 					* @param {string} url
-					* @param {string} resolutionUrl
+					* @param {string} [resolutionUrl=undefined]
 					* @return {string}
 					*/
 					squash: function (url, resolutionUrl) {
@@ -563,7 +580,7 @@
 					},
 
 					/**
-					*
+					* Check if the hash is preservable
 					* @method isPreservableHash
 					* @memberOf ns.utils.path
 					* @param {string} hash
@@ -607,9 +624,9 @@
 							firstPageId,
 							hash;
 
-						documentBase = documentBase !== undefined ? documentBase : path.documentBase;
-						documentBaseDiffers = documentBaseDiffers !== undefined ? documentBaseDiffers : path.documentBaseDiffers;
-						documentUrl = documentUrl !== undefined ? documentUrl : path.documentUrl;
+						documentBase = documentBase === undefined ? path.documentBase : documentBase;
+						documentBaseDiffers = documentBaseDiffers === undefined ? path.documentBaseDiffers : documentBaseDiffers;
+						documentUrl = documentUrl === undefined ? path.documentUrl : documentUrl;
 
 						// We only deal with absolute paths.
 						urlStructure = path.parseUrl(path.makeUrlAbsolute(url, documentBase));
@@ -651,7 +668,7 @@
 					},
 
 					/**
-					*
+					* Convert a object data to URI parameters
 					* @method getAsURIParameters
 					* @memberOf ns.utils.path
 					* @param {Object} data
@@ -662,20 +679,22 @@
 						var url = '',
 							key;
 						for (key in data) {
-							url += encodeURIComponent(key) + '=' + encodeURIComponent(data[key]) + '&';
+							if (data.hasOwnProperty(key)) {
+								url += encodeURIComponent(key) + '=' + encodeURIComponent(data[key]) + '&';
+							}
 						}
 						return url.substring(0, url.length - 1);
 					},
 
 					/**
-					*
+					* Document Url
 					* @memberOf ns.utils.path
 					* @property {string|null} documentUrl
 					*/
 					documentUrl: null,
 
 					/**
-					*
+					* The document base differs
 					* @memberOf ns.utils.path
 					* @property {boolean} documentBaseDiffers
 					*/
@@ -693,7 +712,8 @@
 					},
 
 					/**
-					* Return the substring of a filepath before the sub-page key, for making a server request
+					* Return the substring of a filepath before the sub-page key,
+					* for making a server request
 					* @method getFilePath
 					* @memberOf ns.utils.path
 					* @param {string} path
@@ -720,13 +740,11 @@
 					},
 
 					/**
-					*
+					* Check if url refers to the embedded page
 					* @method isEmbeddedPage
 					* @memberOf ns.utils.path
 					* @param {string} url
-					* @param {Object} documentBase uri structure
-					* @param {boolean} documentBaseDiffers
-					* @param {Object} documentUrl uri structure
+					* @param {boolean} allowEmbeddedOnlyBaseDoc
 					* @return {boolean}
 					* @static
 					*/
@@ -753,7 +771,9 @@
 			base = document.querySelector('base');
 
 			/**
-			*
+			* The document base URL for the purposes of resolving relative URLs,
+			* and the name of the default browsing context for the purposes of
+			* following hyperlinks
 			* @memberOf ns.utils.path
 			* @property {Object} documentBase uri structure
 			* @static
@@ -763,7 +783,7 @@
 			path.documentBaseDiffers = (path.documentUrl.hrefNoHash !== path.documentBase.hrefNoHash);
 
 			/**
-			*
+			* Get document base
 			* @method getDocumentBase
 			* @memberOf ns.utils.path
 			* @param {boolean} [asParsedObject=false]
@@ -771,11 +791,11 @@
 			* @static
 			*/
 			path.getDocumentBase = function (asParsedObject) {
-				return asParsedObject ? object.copy(path.documentBase) : path.documentBase.href;
+				return asParsedObject ? utilsObject.copy(path.documentBase) : path.documentBase.href;
 			};
 
 			/**
-			*
+			* Find the closest page and extract out its url
 			* @method getClosestBaseUrl
 			* @memberOf ns.utils.path
 			* @param {HTMLElement} element
@@ -785,10 +805,10 @@
 			*/
 			path.getClosestBaseUrl = function (element, selector) {
 				// Find the closest page and extract out its url.
-				var url = DOM.getNSData(utilsSelectors.getClosestBySelector(element, selector), "url"),
+				var url = utilsDOM.getNSData(utilsSelectors.getClosestBySelector(element, selector), "url"),
 					baseUrl = path.documentBase.hrefNoHash;
 
-				if (!ns.get('dynamicBaseEnabled') || !url || !path.isPath(url)) {
+				if (!ns.get('dynamicBaseEnabled', true) || !url || !path.isPath(url)) {
 					url = baseUrl;
 				}
 

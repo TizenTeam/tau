@@ -3,12 +3,12 @@
 	<head>
 		<title>IndexScrollbar</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<link rel="stylesheet" href="../../../../../dist/themes/default/gear.ui.css">
+		<link rel="stylesheet" href="../../../../../dist/themes/default/tau.css">
 		<link rel="stylesheet" href="../../../../../libs/qunit-1.11.0.css">
 		<link rel="stylesheet" href="style.css">
 		<script src="../../../../../libs/qunit-1.11.0.js" type="text/javascript"></script>
 		<script src="../../../../support.js"></script>
-		<script type="text/javascript" src="../../../../../dist/js/gear.ui.js"></script>
+		<script type="text/javascript" src="../../../../../dist/js/tau.js"></script>
 	</head>
 	<body>
 		<div id="qunit"></div>
@@ -18,7 +18,7 @@
 			<header class="ui-header">
 				<h2 class="ui-title">IndexScrollbar</h2>
 			</header>
-			<section class="ui-content">
+			<section class="ui-content" id="container">
 				<div id="notvalid"></div>
 				<div id="withdata" class="ui-indexscrollbar" data-index="A,B,C"></div>
 				<div id="settings1" class="ui-indexscrollbar"></div>
@@ -28,6 +28,7 @@
 				<div id="click" class="ui-indexscrollbar"></div>
 				<div id="touch" class="ui-indexscrollbar"></div>
 				<div id="addevent" class="ui-indexscrollbar"></div>
+				<div id="resize" class="ui-indexscrollbar"></div>
 			</section>
 		</div>
 		<script type="text/javascript">

@@ -163,5 +163,4 @@ document.addEventListener('DOMContentLoaded', function () {
 			'Return the substring of a filepath before the sub-page key, for making a server request'
 		);
 	});
-
 });

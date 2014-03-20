@@ -9,7 +9,7 @@
 
 			function() {
 
-				gear.ui.changePage( "#internal-page-1" );
+				tau.changePage( "#internal-page-1" );
 
 			},
 
@@ -45,19 +45,19 @@
 					id: "internal-page-1"
 				});
 
-				gear.ui.back();
+				tau.back();
 
 			},
 
 			function() {
 
 				helper.assertUrlLocation({
-					msg: "gear.ui.back() from internal to internal page",
+					msg: "tau.back() from internal to internal page",
 					path: helper.path,
 					id: "main"
 				});
 
-				gear.ui.changePage( $("#internal-page-2")[0] );
+				tau.changePage( $("#internal-page-2")[0] );
 
 			},
 
@@ -80,7 +80,7 @@
 
 			function() {
 
-				gear.ui.changePage( "path-test/index.html" );
+				tau.changePage( "path-test/index.html" );
 
 			},
 
@@ -92,7 +92,7 @@
 					id: "path-test-path-test"
 				});
 
-				gear.ui.changePage( "sub-dir/index.html" );
+				tau.changePage( "sub-dir/index.html" );
 
 			},
 
@@ -128,14 +128,14 @@
 					id: "path-test-sub-dir"
 				});
 
-				gear.ui.back();
+				tau.back();
 
 			},
 
 			function() {
 
 				helper.assertUrlLocation({
-					msg: "gear.ui.back() from external to external page",
+					msg: "tau.back() from external to external page",
 					path: "path-test/index.html",
 					id: "path-test-path-test"
 				});
@@ -151,7 +151,7 @@
 
 			function(){
 
-				gear.ui.changePage( "#internal-page-2" );
+				tau.changePage( "#internal-page-2" );
 
 			},
 
@@ -242,7 +242,7 @@
 					id: "internal-page-2"
 				});
 
-				gear.ui.changePage("internal-page-1");
+				tau.changePage("internal-page-1");
 			},
 
 			function(){
@@ -257,10 +257,10 @@
 		], true);
 	});
 
-	asyncTest( "can gear.ui.back() in pages", function(){
+	asyncTest( "can tau.back() in pages", function(){
 		helper.pageSequence([
 			function() {
-				gear.ui.changePage( "#internal-page-1" );
+				tau.changePage( "#internal-page-1" );
 			},
 
 			function() {
@@ -270,7 +270,7 @@
 					id: "internal-page-1"
 				});
 
-				gear.ui.changePage( "#internal-page-2" );
+				tau.changePage( "#internal-page-2" );
 			},
 
 			function() {
@@ -280,18 +280,18 @@
 					id: "internal-page-2"
 				});
 
-				gear.ui.back();
+				tau.back();
 			},
 
 			function() {
 
 				helper.assertUrlLocation({
-					msg: "gear.ui.back() from internal to internal page",
+					msg: "tau.back() from internal to internal page",
 					hash:"#internal-page-1",
 					id: "internal-page-1"
 				});
 
-				gear.ui.changePage( helper.makePathAbsolute("path-test/index.html", helper.path) );
+				tau.changePage( helper.makePathAbsolute("path-test/index.html", helper.path) );
 
 			},
 
@@ -302,7 +302,7 @@
 					id: "path-test-path-test"
 				});
 
-				gear.ui.changePage( helper.makePathAbsolute("path-test/index2.html", helper.path) );
+				tau.changePage( helper.makePathAbsolute("path-test/index2.html", helper.path) );
 			},
 
 			function() {
@@ -312,30 +312,30 @@
 					id: "path-test-path-test2"
 				});
 
-				gear.ui.back();
+				tau.back();
 			},
 
 			function(){
 
 				helper.assertUrlLocation({
-					msg: "gear.ui.back() from external page to external page",
+					msg: "tau.back() from external page to external page",
 					path: "path-test/index.html",
 					id: "path-test-path-test"
 				});
 
-				gear.ui.back();
+				tau.back();
 
 			},
 
 			function() {
 
 				helper.assertUrlLocation({
-					msg: "gear.ui.back() from external page to internal page",
+					msg: "tau.back() from external page to internal page",
 					hash:"#internal-page-1",
 					id: "internal-page-1"
 				});
 
-				gear.ui.changePage( helper.makePathAbsolute("path-test/index2.html", helper.path) );
+				tau.changePage( helper.makePathAbsolute("path-test/index2.html", helper.path) );
 			},
 
 			function() {
@@ -346,7 +346,7 @@
 					id: "path-test-path-test2"
 				});
 
-				gear.ui.changePage( "../index.html#internal-page-1" );
+				tau.changePage( "../index.html#internal-page-1" );
 			},
 
 			function() {
@@ -356,13 +356,13 @@
 					id: "internal-page-1"
 				});
 
-				gear.ui.back();
+				tau.back();
 			},
 
 			function() {
 
 				helper.assertUrlLocation({
-					msg: "gear.ui.back() from internal page to external page",
+					msg: "tau.back() from internal page to external page",
 					path: "path-test/index2.html",
 					id: "path-test-path-test2"
 				});
@@ -374,7 +374,7 @@
 	asyncTest( "external empty page does not result in any contents", function() {
 		helper.pageSequence([
 			function() {
-				gear.ui.changePage( helper.makePathAbsolute("path-test/blank.html", helper.path) );
+				tau.changePage( helper.makePathAbsolute("path-test/blank.html", helper.path) );
 			},
 
 			function() {
@@ -390,13 +390,13 @@
 	asyncTest( "external page is removed from the DOM after pagehide", function(){
 		helper.pageSequence([
 			function() {
-				gear.ui.changePage( helper.makePathAbsolute("path-test/index.html", helper.path) );
+				tau.changePage( helper.makePathAbsolute("path-test/index.html", helper.path) );
 			},
 
 			// page is pulled and displayed in the dom
 			function() {
 				deepEqual( $( "#path-test-path-test" ).length, 1 );
-				gear.ui.back();
+				tau.back();
 			},
 
 			// external-test is *NOT* cached in the dom after transitioning away
@@ -416,13 +416,13 @@
 		helper.eventSequence("changefailed", [
 			function() {
 				firedLoadFailEvent = false;
-				gear.ui.changePage( "#internal-not-exist" );
+				tau.changePage( "#internal-not-exist" );
 			},
 
 			function() {
 				ok( !firedLoadFailEvent, "page change failed and doesn't load page." );
 				firedLoadFailEvent = false;
-				gear.ui.changePage( "external-not-exist.html" );
+				tau.changePage( "external-not-exist.html" );
 			},
 
 			function() {

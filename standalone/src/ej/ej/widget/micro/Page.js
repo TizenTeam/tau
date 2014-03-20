@@ -28,8 +28,7 @@
 			"../../micro/selectors",
 			"../../engine",
 			"../../utils/selectors",
-			"../../utils/events",
-			"../../utils/DOM",
+			"../../utils/DOM/css",
 			"../micro",
 			"../BaseWidget"
 		],
@@ -70,13 +69,6 @@
 				 * @static
 				 */
 				engine = ns.engine,
-				/**
-				 * @property {Object} events Alias for {@link ns.utils.events}
-				 * @memberOf ns.widget.micro.Page
-				 * @private
-				 * @static
-				 */
-				events = utils.events,
 
 				Page = function () {
 					var self = this;
@@ -171,31 +163,36 @@
 					footerSelector = classes.uiFooter,
 					extraHeight = 0,
 					children = [].slice.call(element.children),
-					elementStyle = element.style;
+					childrenLength = children.length,
+					elementStyle = element.style,
+					i,
+					node,
+					contentStyle,
+					marginTop,
+					marginBottom,
+					nodeStyle;
 
 				elementStyle.width = screenWidth + "px";
 				elementStyle.height = screenHeight + "px";
 
-				children.forEach(function (node) {
-					if (node.nodeType === 1 &&
-							(node.classList.contains(headerSelector) ||
-								node.classList.contains(footerSelector))) {
+				for (i = 0; i < childrenLength; i++) {
+					node = children[i];
+					if (node.classList.contains(headerSelector) ||
+								node.classList.contains(footerSelector)) {
 						extraHeight += doms.getElementHeight(node);
 					}
-				});
-				children.forEach(function (node) {
-					var contentStyle,
-						marginTop,
-						marginBottom,
-						nodeStyle = node.style;
-					if (node.nodeType === 1 && node.classList.contains(contentSelector)) {
+				}
+				for (i = 0; i < childrenLength; i++) {
+					node = children[i];
+					nodeStyle = node.style;
+					if (node.classList.contains(contentSelector)) {
 						contentStyle = window.getComputedStyle(node);
 						marginTop = parseFloat(contentStyle.marginTop);
 						marginBottom = parseFloat(contentStyle.marginBottom);
 						nodeStyle.height = (screenHeight - extraHeight - marginTop - marginBottom) + "px";
 						nodeStyle.width = screenWidth + "px";
 					}
-				});
+				}
 			}
 
 			/**
@@ -322,8 +319,7 @@
 			 */
 			prototype._destroy = function () {
 				var self = this,
-					element = self.element,
-					childWidgets = element.querySelectorAll("[data-ej-built='true']");
+					element = self.element;
 
 				element = element || self.element;
 				//>>excludeStart("ejDebug", pragmas.ejDebug);

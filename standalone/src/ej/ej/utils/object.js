@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, define, ns */
 /*
 * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
 * License : MIT License V2
@@ -20,6 +20,7 @@
 		],
 		function () {
 			//>>excludeEnd("ejBuildExclude");
+
 			var object = {
 				/**
 				* Copy object to new object
@@ -56,27 +57,79 @@
 				* Attach fields from second and next object to first object.
 				* @method multiMerge
 				* @param {Object} newObject
-				* @param {Object} orgObject
+				* @param {...Object} orgObject
+				* @param {?boolean} [override=true]
 				* @return {Object}
 				* @static
 				* @memberOf ns.utils.object
 				*/
-				multiMerge: function () {
+				multiMerge: function (newObject, orgObject, override) {
 					var key,
 						args = [].slice.call(arguments),
-						newObject = args.shift(),
-						orgObject,
 						argsLength = args.length,
 						i;
+					newObject = args.shift();
+					override = true;
+					if (typeof arguments[argsLength-1] === "boolean") {
+						override = arguments[argsLength-1];
+						argsLength--;
+					}
 					for (i = 0; i < argsLength; i++) {
 						orgObject = args.shift();
-						for (key in orgObject) {
-							if (orgObject.hasOwnProperty(key)) {
-								newObject[key] = orgObject[key];
+						if (orgObject !== null) {
+							for (key in orgObject) {
+								if (orgObject.hasOwnProperty(key) && ( override || orgObject[key] === undefined )) {
+									newObject[key] = orgObject[key];
+								}
 							}
 						}
 					}
 					return newObject;
+				},
+
+				/**
+				 * @method inherit
+				 * @param {Function} Constructor
+				 * @param {Function} Base
+				 * @param {Object} prototype
+				 * @static
+				 * @memberOf ns.utils.object
+				 */
+				/* jshint -W083 */
+				inherit: function( Constructor, Base, prototype ) {
+					var basePrototype = new Base(),
+						property,
+						value;
+					for (property in prototype) {
+						if (prototype.hasOwnProperty(property)) {
+							value = prototype[property];
+							if ( typeof value === "function" ) {
+								basePrototype[property] = (function createFunctionWithSuper(Base, property, value) {
+									var _super = function() {
+										var superFunction = Base.prototype[property];
+										if (superFunction) {
+											return superFunction.apply(this, arguments);
+										}
+										return null;
+									};
+									return function() {
+										var __super = this._super,
+											returnValue;
+
+										this._super = _super;
+										returnValue = value.apply(this, arguments);
+										this._super = __super;
+										return returnValue;
+									};
+								}(Base, property, value));
+							} else {
+								basePrototype[property] = value;
+							}
+						}
+					}
+
+					Constructor.prototype = basePrototype;
+					Constructor.prototype.constructor = Constructor;
 				}
 			};
 			ns.utils.object = object;

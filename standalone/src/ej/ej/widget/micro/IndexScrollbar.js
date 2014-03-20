@@ -1,4 +1,4 @@
-/*global window, define */
+/*global define, ns, document, window */
 /*jslint nomen: true, plusplus: true */
 /*
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
@@ -6,6 +6,7 @@
  */
 /*
  * @author Maciej Urbanski <m.urbanski@samsung.com>
+ * @author Jadwiga Sosnowska <j.sosnowska@samsung.com>
  */
 (function (document, ns) {
 	"use strict";
@@ -14,7 +15,7 @@
 		[
 			"../../engine",
 			"../../utils/events",
-			"../../utils/DOM",
+			"../../utils/DOM/css",
 			"../micro",
 			"../BaseWidget"
 		],
@@ -74,9 +75,8 @@
 				 */
 				doms = ns.utils.DOM,
 				EventType = {},
-				classes = {},
 				prototype = new BaseWidget();
-			IndexScrollbar.classes = classes;
+			IndexScrollbar.classes = {};
 			IndexScrollbar.events = EventType;
 
 			prototype.widgetClass = "ui-indexscrollbar";
@@ -156,7 +156,7 @@
 				options.delayTime = 50;
 				/**
 				 * Widget element
-				 * @property {?object} [options.container=null]
+				 * @property {?Object} [options.container=null]
 				 * @memberOf ns.widget.micro.IndexScrollbar
 				 * @instance
 				 */
@@ -203,7 +203,7 @@
 				var self = this;
 				self._setExtended(true);
 				self.indicator = document.getElementById(element.id + "-div-indicator");
-				self.defaultMaxIndexLen = self.options.maxIndexLen;
+				self.defaultMaxIndexLen = self.defaultMaxIndexLen || self.options.maxIndexLen;
 				return element;
 			};
 
@@ -275,7 +275,7 @@
 			 */
 			prototype._getContainer = function (element) {
 				return this.options.container || element.parentNode;
-			},
+			};
 
 			/**
 			 * Function draws additinonal sub-elements
@@ -341,7 +341,7 @@
 					indicator = document.createElement("DIV"),
 					container = self._getContainer(element);
 
-				indicator.setAttribute("id", element.id + "-div-indicator");
+				indicator.id = element.id + "-div-indicator";
 				indicator.className = self.options.indicatorClass;
 				indicator.innerHTML = "<span></span>";
 				container.insertBefore(indicator, element);
@@ -432,9 +432,9 @@
 			 * @instance
 			 */
 			prototype._getPositionFromEvent = function (ev) {
-				return ev.type.search(/^touch/) !== -1 ?
-						{x: ev.touches[0].clientX, y: ev.touches[0].clientY} :
-						{x: ev.clientX, y: ev.clientY};
+				return ev.type.search(/^touch/) === -1 ?
+						{x: ev.clientX, y: ev.clientY} :
+						{x: ev.touches[0].clientX, y: ev.touches[0].clientY};
 			};
 
 			/**
@@ -497,7 +497,7 @@
 			/**
 			 * Function fires on touch start event
 			 * @method _onTouchStartHandler
-			 * @param {ns.widget.micro.IndexScrollbars} self
+			 * @param {ns.widget.micro.IndexScrollbar} self
 			 * @param {Event} event
 			 * @protected
 			 * @memberOf ns.widget.micro.IndexScrollbar
@@ -518,7 +518,7 @@
 			/**
 			 * Function fires on touch end and touch cancel events
 			 * @method _onTouchEndHandler
-			 * @param {ns.widget.micro.IndexScrollbars} self
+			 * @param {ns.widget.micro.IndexScrollbar} self
 			 * @param {Event} event
 			 * @protected
 			 * @memberOf ns.widget.micro.IndexScrollbar
@@ -533,7 +533,7 @@
 			/**
 			 * Function fires on touch move event
 			 * @method _onTouchMoveHandler
-			 * @param {ns.widget.micro.IndexScrollbars} self
+			 * @param {ns.widget.micro.IndexScrollbar} self
 			 * @param {Event} event
 			 * @protected
 			 * @memberOf ns.widget.micro.IndexScrollbar
@@ -607,7 +607,7 @@
 			/**
 			 * Function fires on click event
 			 * @method clickCallback
-			 * @param {ns.widget.micro.IndexScrollbars} self
+			 * @param {ns.widget.micro.IndexScrollbar} self
 			 * @param {Event} event
 			 * @private
 			 * @memberOf ns.widget.micro.IndexScrollbar
@@ -761,15 +761,19 @@
 					i,
 					mergedIndice,
 					mergedIndiceLen,
-					j;
+					top,
+					j,
+					len,
+					height,
+					node;
 
 				for (i = 0; i < liLength; i++) {
 					node = li[i];
-					mergedIndice = mergedIndices[i],
-					mergedIndiceLen = mergedIndice.length,
-					j = mergedIndice.start,
-					len = j + mergedIndiceLen,
-					top = containerOffset + node.offsetTop,
+					mergedIndice = mergedIndices[i];
+					mergedIndiceLen = mergedIndice.length;
+					j = mergedIndice.start;
+					len = j + mergedIndiceLen;
+					top = containerOffset + node.offsetTop;
 					height = node.offsetHeight / mergedIndiceLen;
 
 					for ( ; j < len; j++) {
@@ -868,7 +872,7 @@
 			/**
 			 * Function removes touch events' listeners
 			 * @method _unbindEventToTriggerSelectEvent
-			 *  @param {HTMLElement} element
+			 * @param {HTMLElement} element
 			 * @protected
 			 * @memberOf ns.widget.micro.IndexScrollbar
 			 * @instance
@@ -893,8 +897,8 @@
 			 * @param {Function} listener event handler function to associate with the event
 			 * @param {boolean} [capture] specifies whether the event needs to be captured or not
 			 * @memberOf ns.widget.micro.IndexScrollbar,
-			 * @public
 			 * @instance
+			 * @todo maybe it should be deprecated
 			 */
 			prototype.addEventListener = function (type, listener, capture) {
 				this.element.addEventListener(type, listener, capture);
@@ -907,16 +911,18 @@
 			 * @param {Function} listener event handler function to associate with the event
 			 * @param {boolean} [capture] specifies whether the event needs to be captured or not
 			 * @memberOf ns.widget.micro.IndexScrollbar
-			 * @public
 			 * @instance
+			 * @todo maybe it should be deprecated
 			 */
 			prototype.removeEventListener = function (type, listener, capture) {
 				this.element.removeEventListener(type, listener, capture);
 			};
 
+
 			/**
 			 * Function destroys widget
 			 * @method _destroy
+			 * @param {HTMLElement} element
 			 * @protected
 			 * @memberOf ns.widget.micro.IndexScrollbar
 			 * @instance

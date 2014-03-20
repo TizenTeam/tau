@@ -8,7 +8,7 @@
 				//Set buffer size
 				bufferSize: 30
 			},
-			vGrid = gear.ui.VirtualGrid(elGrid, config);
+			vGrid = tau.VirtualGrid(elGrid, config);
 	
 		// Update listitem
 		vGrid.setListItemUpdater(function(elItem, newIndex) {
@@ -16,7 +16,7 @@
 			var data =  JSON_DATA[newIndex];
 			elItem.innerHTML = '<div class="ui-demo-rotation-namecard">' +
 			'<div class="ui-demo-namecard-pic">' +
-			'<img class="ui-demo-namecard-pic-img" src="' + data.TEAM_LOGO + '"  /> '+
+			'<img class="ui-demo-namecard-pic-img" /> '+
 			'</div>' +
 			'<div class="ui-demo-namecard-contents">' +
 			'<span class="name ui-li-text-main">' + data.NAME + '</span>' +

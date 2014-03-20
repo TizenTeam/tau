@@ -57,7 +57,7 @@
 		* @param {...*} argument
 		* @memberOf ej
 		*/
-		ns.log = function () {
+		ns.log = function (argument) {
 			var args = slice.call(arguments);
 			infoForLog(args);
 			if (console) {
@@ -72,7 +72,7 @@
 		* @param {...*} argument
 		* @memberOf ej
 		*/
-		ns.warn = function () {
+		ns.warn = function (argument) {
 			var args = slice.call(arguments);
 			infoForLog(args);
 			if (console) {
@@ -87,7 +87,7 @@
 		* @param {...*} argument
 		* @memberOf ej
 		*/
-		ns.error = function () {
+		ns.error = function (argument) {
 			var args = slice.call(arguments);
 			infoForLog(args);
 			if (console) {
@@ -105,7 +105,7 @@
 		* @memberOf ej
 		*/
 		ns.get = function (key, defaultValue) {
-			return nsConfig[key] !== undefined ? nsConfig[key] : defaultValue;
+			return nsConfig[key] === undefined ? defaultValue : nsConfig[key];
 		};
 
 		/**
@@ -113,7 +113,6 @@
 		* @method set
 		* @param {string} key
 		* @param {Mixed} value
-		* @return {boolean}
 		* @static
 		* @memberOf ej
 		*/
@@ -121,6 +120,11 @@
 			nsConfig[key] = value;
 		};
 
+		/**
+		 * @method getFrameworkPath
+		 * @returns {?string}
+		 * @memberOf ej
+		 */
 		ns.getFrameworkPath = function () {
 			var scripts = document.getElementsByTagName('script'),
 				countScripts = scripts.length,
@@ -136,6 +140,7 @@
 					return arrayUrl.slice(0, count - 1).join('/');
 				}
 			}
+			return null;
 		};
 
 		//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);

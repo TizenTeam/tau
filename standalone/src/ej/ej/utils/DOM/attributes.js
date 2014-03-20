@@ -16,7 +16,7 @@
 	define(
 		[
 			"../selectors",
-			"./core"
+			"../DOM"
 		],
 		function () {
 			//>>excludeEnd("ejBuildExclude");
@@ -139,6 +139,25 @@
 			};
 
 			/**
+			 * @method nsData
+			 * @param {HTMLElement} element
+			 * @param {string} name
+			 * @param {?Mixed} [value]
+			 * @static
+			 * @memberOf ns.utils.DOM
+			 */
+			DOM.nsData = function (element, name, value) {
+				/**
+				 * @TODO add support for object in value
+				 */
+				if (value === undefined) {
+					return DOM.getNSData(element, name);
+				} else {
+					return DOM.setNSdata(element, name, value);
+				}
+			};
+
+			/**
 			 * This function removes attribute data-{namespace}-{name} from element.
 			 * If the namespace is empty, attribute data-{name} is used.
 			 * @method removeNSData
@@ -210,4 +229,4 @@
 		}
 	);
 	//>>excludeEnd("ejBuildExclude");
-}(window, window.document, window.ej));
+}(window, window.document, ns));

@@ -58,6 +58,8 @@ test("utils.DOM.attributes - check function getNSData", function () {
 	equal(dom.getNSData(div, "nothing"), null, "getNSData returns null if element doesn't have such attribute");
 	equal(dom.getNSData(div, "id"), "5", "getNSData(div, 'id')");
 	equal(dom.getNSData(div, "build"), true, "getNSData(div, 'build')");
+	dom.setNSData(div, "build", false);
+	equal(dom.getNSData(div, "build"), false, "getNSData(div, 'build')");
 	equal(dom.getNSData(div, "text"), "test", "getNSData(div, 'text')");
 });
 

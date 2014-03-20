@@ -41,7 +41,6 @@
 			"../../core",
 			"../../micro/selectors",
 			"../../engine",
-			"../../utils/events",
 			"../../utils/object",
 			"../../utils/DOM/css",
 			"../micro",
@@ -140,12 +139,6 @@
 				*/
 				engine = ns.engine,
 				/**
-				* @property {ns.utils.events} events Alias for class ns.utils.events
-				* @memberOf ns.widget.micro.Popup
-				* @private
-				*/
-				eventUtils = ns.utils.events,
-				/**
 				* @property {ns.utils.object} object Alias for class ns.utils.events
 				* @memberOf ns.widget.micro.Popup
 				* @private
@@ -203,7 +196,6 @@
 			*/
 			prototype._build = function (template, element) {
 				var ui = this.ui,
-					classes = Popup.classes,
 					options = this.options,
 					header = element.querySelector("." + classes.header),
 					content = element.querySelector("." + classes.content),
@@ -338,7 +330,7 @@
 					headerHeight = 0,
 					footerHeight = 0,
 					contentHeight = 0,
-					contentWidth = 0,
+					contentWidth,
 					isToast = element.classList.contains(classes.toast),
 					dom = ns.utils.DOM,
 					originalDisplay = '',
@@ -392,12 +384,12 @@
 			* @memberOf ns.widget.micro.Popup
 			*/
 			prototype._setActive = function (active) {
-				var activeClass = Popup.classes.active,
+				var activeClass = classes.active,
 					elementCls = this._elementClassList;
-				if (!active) {
-					elementCls.remove(activeClass);
-				} else {
+				if (active) {
 					elementCls.add(activeClass);
+				} else {
+					elementCls.remove(activeClass);
 				}
 
 				this.active = elementCls.contains(activeClass);
@@ -455,8 +447,7 @@
 					container.removeEventListener("click", self.closePopup, false);
 				}
 
-				parent = container.parentElement;
-				if (parent) {
+				if ( parent ) {
 					parent.appendChild(element);
 					parent.removeChild(container);
 				}

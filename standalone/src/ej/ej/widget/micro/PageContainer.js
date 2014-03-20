@@ -15,9 +15,7 @@
 	define(
 		[
 			"../../core",
-			"../../micro/selectors",
 			"../../engine",
-			"../../utils/events",
 			"../../utils/DOM/attributes",
 			"../micro",
 			"../BaseWidget",
@@ -27,9 +25,7 @@
 			//>>excludeEnd("ejBuildExclude");
 			var BaseWidget = ns.widget.BaseWidget,
 				Page = ns.widget.micro.Page,
-				selectors = ns.micro.selectors,
 				utils = ns.utils,
-				events = utils.events,
 				DOM = utils.DOM,
 				engine = ns.engine,
 				classes = {
@@ -67,6 +63,8 @@
 			* @method change
 			* @param {HTMLElement} toPage the element to set
 			* @param {Object} [options] additional options for the transition
+			* @param {string} [options.transition=none] the type of transition
+			* @param {boolean} [options.reverse=false] specifies transition direction
 			* @memberOf ns.widget.micro.PageContainer
 			* @instance
 			*/
@@ -93,7 +91,6 @@
 
 				options.deferred = {
 					resolve: function () {
-						self._setActivePage(toPageWidget);
 						if (fromPageWidget) {
 							fromPageWidget.onHide();
 							self._removeExternalPage( fromPageWidget, options);
@@ -120,7 +117,7 @@
 			prototype._transition = function (toPageWidget, fromPageWidget, options) {
 				var element = this.element,
 					elementClassList = element.classList,
-					transition = !fromPageWidget ? "none" : options.transition,
+					transition = !fromPageWidget || !options.transition ? "none" : options.transition,
 					deferred = options.deferred,
 					reverse = "reverse",
 					clearClasses = [classes.in, classes.out, classes.uiPreIn, transition],
@@ -153,15 +150,15 @@
 				if (transition !== "none") {
 					target = options.reverse ? fromPageWidget : toPageWidget;
 					oneEvent = function () {
-						target.removeEventListener(animationend, oneEvent, false);
-						target.removeEventListener(webkitAnimationEnd, oneEvent, false);
+						target.element.removeEventListener(animationend, oneEvent, false);
+						target.element.removeEventListener(webkitAnimationEnd, oneEvent, false);
 						deferred.resolve();
 					};
-					target.addEventListener(animationend, oneEvent, false);
-					target.addEventListener(webkitAnimationEnd, oneEvent, false);
+					target.element.addEventListener(animationend, oneEvent, false);
+					target.element.addEventListener(webkitAnimationEnd, oneEvent, false);
 
 					if (fromPageWidget) {
-						classlist = fromPageWidget.element.classlist;
+						classlist = fromPageWidget.element.classList;
 						classlist.add(transition);
 						classlist.add(classes.out);
 						if (options.reverse) {
@@ -169,17 +166,15 @@
 						}
 					}
 
-					// TODO why needs timeout??
-					// if it make without timeout, it has some bugs when call external page or press forward button on browser.
-					window.setTimeout(function () {
-						classlist = toPageWidget.element.classlist;
-						classlist.add(transition);
-						classlist.add(classes.out);
-						if (options.reverse) {
-							classlist.add(reverse);
-						}
-					}, 0);
+					classlist = target.element.classList;
+					classlist.add(transition);
+					classlist.add(classes.in);
+					if (options.reverse) {
+						classlist.add(reverse);
+					}
+					this._setActivePage(target);
 				} else {
+					this._setActivePage(toPageWidget);
 					window.setTimeout(deferred.resolve, 0);
 				}
 			};
@@ -227,7 +222,7 @@
 			* Displays a progress bar indicating loading process
 			* @method showLoading
 			* @memberOf ns.widget.micro.PageContainer
-			* @return null
+			* @return {null}
 			* @instance
 			*/
 			prototype.showLoading = function () {
@@ -240,7 +235,7 @@
 			* Hides any active progress bar
 			* @method hideLoading
 			* @memberOf ns.widget.micro.PageContainer
-			* @return null
+			* @return {null}
 			* @instance
 			*/
 			prototype.hideLoading = function () {

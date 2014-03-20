@@ -1,3 +1,4 @@
+/*global test, ok, equal, module, ej */
 module("engine");
 
 (function () {
@@ -30,7 +31,7 @@ module("engine");
 					var page1 = document.getElementById('page1'),
 						el1 = document.getElementById("test1-test-widget"),
 						widget2 = ej.engine.instanceWidget(el1, 'Test1');
-					ok(widget2 != widget1, 'get binding return new widget');
+					ok(widget2 !== widget1, 'get binding return new widget');
 					equal(ej.engine.getBinding(el1), widget2, 'get binding return new widget at second time');
 					equal(ej.engine.getBinding(el1.id), widget2, 'get binding return new widget third time');
 					equal(ej.engine.removeBinding(el1.id), true, 'remove binding return true');
@@ -120,14 +121,14 @@ module("engine");
 	test('Checking engine.justBuild method', function(){
 		var engine = ej.engine;
 
-		equal(engine.justBuild, false, "Default justBuild value is 'false'");
+		equal(engine.getJustBuild(), false, "Default justBuild value is 'false'");
 
 		engine.setJustBuild(true);
-		equal(engine.justBuild, true, "Value changed to 'true'");
+		equal(engine.getJustBuild(), true, "Value changed to 'true'");
 		equal(window.location.hash, "#build", "Hash changed to '#build'");
 
 		engine.setJustBuild(false);
-		equal(engine.justBuild, false, "Value changed to 'false'");
+		equal(engine.getJustBuild(), false, "Value changed to 'false'");
 		equal(window.location.hash, "", "Hash changed to ''");
 	});
 

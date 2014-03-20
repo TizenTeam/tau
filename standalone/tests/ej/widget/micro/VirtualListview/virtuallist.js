@@ -8,15 +8,14 @@
 				//Set buffer size
 				bufferSize: 100
 			},
-			vList = gear.ui.VirtualListview(elList, config);
+			vList = tau.VirtualListview(elList, config);
 	
 		// Update listitem
 		vList.setListItemUpdater(function(elListItem, newIndex) {
 			//TODO: Update listitem here
 			var data =  JSON_DATA[newIndex];
 			elListItem.classList.add('ui-li-1line-bigicon5');
-			elListItem.innerHTML = '<img src="' + data.TEAM_LOGO+'" alt="icon" class="ui-li-bigicon">' +
-				'<span class="ui-li-text-main">' + data.NAME+'</span>' +
+			elListItem.innerHTML = '<span class="ui-li-text-main">' + data.NAME+'</span>' +
 				'<div data-role="button" data-inline="true" data-icon="plus" data-style="box"></div>';
 		});
 		// Draw child elements

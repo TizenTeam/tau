@@ -6,7 +6,7 @@ var helper = {
 	pageSequence: function ( sequence, autoStart ) {
 		if(!$("#main").hasClass("ui-page-active")) {
 			sequence.unshift(function() {
-				gear.ui.changePage( helper.path );
+				tau.changePage( helper.path );
 			});
 		}
 		this.eventSequence( "pagechange changefailed", sequence, autoStart );

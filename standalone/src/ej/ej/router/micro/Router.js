@@ -8,6 +8,7 @@
  * @class ns.router.micro.Router
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Piotr Karny <p.karny@samsung.com>
+ * @author Tomasz Lukawski <t.lukawski@samsung.com>
  */
 (function (window, document, ns) {
 	"use strict";
@@ -29,19 +30,110 @@
 		],
 		function () {
 			//>>excludeEnd("ejBuildExclude");
+				/**
+				* Local alias for ns.utils
+				* @property {Object} utils Alias for {@link ns.utils}
+				* @memberOf ns.micro.router.Router
+				* @static
+				* @private
+				*/
 			var utils = ns.utils,
+				/**
+				* Local alias for ns.utils.events
+				* @property {Object} eventUtils Alias for {@link ns.utils.events}
+				* @memberOf ns.micro.router.Router
+				* @static
+				* @private
+				*/
 				eventUtils = utils.events,
+				/**
+				* @property {Object} DOM Alias for {@link ns.utils.DOM}
+				* @memberOf ns.micro.router.Router
+				* @static
+				* @private
+				*/
 				DOM = utils.DOM,
+				/**
+				* Local alias for ns.utils.path
+				* @property {Object} path Alias for {@link ns.utils.path}
+				* @memberOf ns.micro.router.Router
+				* @static
+				* @private
+				*/
 				path = utils.path,
+				/**
+				* Local alias for ns.utils.selectors
+				* @property {Object} selectors Alias for {@link ns.utils.selectors}
+				* @memberOf ns.micro.router.Router
+				* @static
+				* @private
+				*/
 				selectors = utils.selectors,
+				/**
+				* Local alias for ns.utils.object
+				* @property {Object} DOM Alias for {@link ns.utils.object}
+				* @memberOf ns.micro.router.Router
+				* @static
+				* @private
+				*/
 				object = utils.object,
+				/**
+				* Local alias for ns.engine
+				* @property {Object} engine Alias for {@link ns.utils.engine}
+				* @memberOf ns.micro.router.Router
+				* @static
+				* @private
+				*/
 				engine = ns.engine,
+				/**
+				* Local alias for ns.router.micro
+				* @property {Object} routerMicro Alias for {@link ns.router.micro}
+				* @memberOf ns.micro.router.Router
+				* @static
+				* @private
+				*/
 				routerMicro = ns.router.micro,
+				/**
+				* Local alias for ns.micro.selectors
+				* @property {Object} microSelectors Alias for {@link ns.micro.selectors}
+				* @memberOf ns.micro.router.Router
+				* @static
+				* @private
+				*/
 				microSelectors = ns.micro.selectors,
+				/**
+				* Local alias for ns.router.micro.history
+				* @property {Object} history Alias for {@link ns.router.micro.history}
+				* @memberOf ns.micro.router.Router
+				* @static
+				* @private
+				*/
 				history = routerMicro.history,
+				/**
+				* Local alias for ns.router.micro.route
+				* @property {Object} route Alias for {@link ns.router.micro.route}
+				* @memberOf ns.micro.router.Router
+				* @static
+				* @private
+				*/
 				route = routerMicro.route,
+				/**
+				* Local alias for document body element
+				* @property {HTMLElement} body
+				* @memberOf ns.micro.router.Router
+				* @static
+				* @private
+				*/
 				body = document.body,
+				/**
+				 * Alias to Array.slice method
+				 * @method slice
+				 * @memberOf ns.micro.router.Router
+				 * @private
+				 * @static
+				 */
 				slice = [].slice,
+
 				Router = function () {
 					var self = this;
 					self.activePage = null;
@@ -55,7 +147,7 @@
 			* @property {Object} defaults
 			* @property {boolean} [defaults.fromHashChange = false]
 			* @property {boolean} [defaults.reverse = false]
-			* @property {boolean} [defaults.showLoadMsg]
+			* @property {boolean} [defaults.showLoadMsg = true]
 			* @property {number} [defaults.loadMsgDelay = 0]
 			* @property {boolean} [defaults.volatileRecord = false]
 			* @instance
@@ -69,6 +161,14 @@
 				volatileRecord: false
 			};
 
+			/**
+			 * Find the closest link for element
+			 * @method findClosestLink
+			 * @param {HTMLElement} element
+			 * @return {HTMLElement}
+			 * @private
+			 * @static
+			 */
 			function findClosestLink(element) {
 				while (element) {
 					if ((typeof element.nodeName === "string") && element.nodeName.toLowerCase() === "a") {
@@ -79,6 +179,14 @@
 				return element;
 			}
 
+			/**
+			 * Handle event link click
+			 * @method linkClickHandler
+			 * @param {ns.router.micro.Router} router
+			 * @param {Event} event
+			 * @private
+			 * @static
+			 */
 			function linkClickHandler(router, event) {
 				var link = findClosestLink(event.target),
 					href,
@@ -96,6 +204,14 @@
 				}
 			}
 
+			/**
+			 * Handle event for pop state
+			 * @method popStateHandler
+			 * @param {ns.router.micro.Router} router
+			 * @param {Event} event
+			 * @private
+			 * @static
+			 */
 			function popStateHandler(router, event) {
 				var state = event.state,
 					prevState = history.activeState,
@@ -111,7 +227,7 @@
 				if (state) {
 					to = state.url;
 					reverse = history.getDirection(state) === "back";
-					transition = !reverse ? state.transition : ((prevState && prevState.transition) || "none");
+					transition = reverse ? ((prevState && prevState.transition) || "none") : state.transition;
 					options = object.multiMerge({}, state, {
 						reverse: reverse,
 						transition: transition,
@@ -137,9 +253,18 @@
 			/**
 			* Change page to page given in parameter to.
 			* @method open
-			* @param {HTMLElement|string} to Id of page or file url or HTMLElement of page
-			* @param {Object} options
-			* @instance
+			* @param {string|HTMLElement} to Id of page or file url or HTMLElement of page
+			* @param {Object} [options]
+			* @param {string} [options.rel = 'page'] represents kind of link as 'page' or 'popup' or 'external' for linking to another domain
+			* @param {string} [options.transition = 'none'] the animation used during change of page
+			* @param {boolean} [options.reverse = false] the direction of change
+			* @param {boolean} [options.fromHashChange = false] the change route after hashchange
+			* @param {boolean} [options.showLoadMsg = true] show message during loading
+			* @param {number} [options.loadMsgDelay = 0] delay time for the show message during loading
+			* @param {boolean} [options.volatileRecord = false]
+			* @param {boolean} [options.dataUrl] page has url attribute
+			* @param {string} [options.container = null] uses in RoutePopup as container selector
+			 * @instance
 			* @memberOf ns.router.micro.Router
 			*/
 			Router.prototype.open = function (to, options) {
@@ -147,11 +272,10 @@
 					rule = route[rel],
 					deferred = {},
 					filter,
-					settings,
 					self = this;
 
 				if (rule) {
-					settings = object.multiMerge(
+					options = object.multiMerge(
 						{
 							rel: rel
 						},
@@ -168,13 +292,13 @@
 					};
 					if (typeof to === "string") {
 						if (to.replace(/[#|\s]/g, "")) {
-							this._loadUrl(to, settings, rule, deferred);
+							this._loadUrl(to, options, rule, deferred);
 						}
 					} else {
 						if (to && selectors.matchesSelector(to, filter)) {
-							deferred.resolve(settings, to);
+							deferred.resolve(options, to);
 						} else {
-							deferred.reject(settings);
+							deferred.reject(options);
 						}
 					}
 				} else {
@@ -201,6 +325,7 @@
 				body = document.body;
 				containerElement = ns.get('pageContainer') || body;
 				pages = slice.call(containerElement.querySelectorAll(microSelectors.page));
+				this.justBuild = justBuild;
 
 				if (ns.get('autoInitializePage', true)) {
 					firstPage = containerElement.querySelector(microSelectors.activePage);
@@ -217,11 +342,11 @@
 					}
 
 					if (justBuild) {
-						this.justBuild = justBuild;
 						//>>excludeStart("ejDebug", pragmas.ejDebug);
 						ns.log('routerMicro.Router just build');
 						//>>excludeEnd("ejDebug");
-						engine.createWidgets(container.element, true);
+						//engine.createWidgets(containerElement, true);
+						container = engine.instanceWidget(containerElement, 'pagecontainer');
 						if (firstPage) {
 							this.register(container, firstPage);
 						}
@@ -264,17 +389,18 @@
 			/**
 			* Set container
 			* @method setContainer
-			* @param {HTMLElement} element
+			* @param {ns.widget.micro.PageContainer} container
 			* @instance
 			* @memberOf ns.router.micro.Router
 			*/
-			Router.prototype.setContainer = function (element) {
-				this.container = element;
+			Router.prototype.setContainer = function (container) {
+				this.container = container;
 			};
 
 			/**
 			* Get container
 			* @method getContainer
+			* @return {ns.widget.micro.PageContainer} container
 			* @instance
 			* @memberOf ns.router.micro.Router
 			*/
@@ -285,6 +411,7 @@
 			/**
 			* Get first page
 			* @method getFirstPage
+			* @return {HTMLElement} page
 			* @instance
 			* @memberOf ns.router.micro.Router
 			*/
@@ -294,8 +421,8 @@
 
 			/**
 			* Register page container and first page
-			* @method setContainer
-			* @param {ns.widget.PageContainer} container
+			* @method register
+			* @param {ns.widget.micro.PageContainer} container
 			* @param {HTMLElement} firstPage
 			* @instance
 			* @memberOf ns.router.micro.Router
@@ -316,14 +443,61 @@
 				}
 			};
 
+			/**
+			 * Open popup
+			 * @method openPopup
+			 * @param {HTMLElement|string} to
+			 * @param {Object} [options]
+			 * @param {string} [options.rel = 'page'] represents kind of link as 'page' or 'popup' or 'external' for linking to another domain
+			 * @param {string} [options.transition = 'none'] the animation used during change of page
+			 * @param {boolean} [options.reverse = false] the direction of change
+			 * @param {boolean} [options.fromHashChange = false] the change route after hashchange
+			 * @param {boolean} [options.showLoadMsg = true] show message during loading
+			 * @param {number} [options.loadMsgDelay = 0] delay time for the show message during loading
+			 * @param {boolean} [options.volatileRecord = false]
+			 * @param {boolean} [options.dataUrl] page has url attribute
+			 * @param {string} [options.container = null] uses in RoutePopup as container selector
+			 * @instance
+			 * @memberOf ns.router.micro.Router
+			 */
 			Router.prototype.openPopup = function (to, options) {
 				this.open(to, object.merge({rel: "popup"}, options));
 			};
 
+			/**
+			 * Close popup
+			 * @method closePopup
+			 * @instance
+			 * @memberOf ns.router.micro.Router
+			 */
 			Router.prototype.closePopup = function () {
-				this.back();
+				// @TODO add checking is popup active
+				history.back();
 			};
 
+			/**
+			 * Load content from url
+			 * @method _loadUrl
+			 * @param {string} url
+			 * @param {Object} options
+			 * @param {string} [options.rel = 'page'] represents kind of link as 'page' or 'popup' or 'external' for linking to another domain
+			 * @param {string} [options.transition = 'none'] the animation used during change of page
+			 * @param {boolean} [options.reverse = false] the direction of change
+			 * @param {boolean} [options.fromHashChange = false] the change route after hashchange
+			 * @param {boolean} [options.showLoadMsg = true] show message during loading
+			 * @param {number} [options.loadMsgDelay = 0] delay time for the show message during loading
+			 * @param {boolean} [options.volatileRecord = false]
+			 * @param {boolean} [options.dataUrl] page has url attribute
+			 * @param {string} [options.container = null] uses in RoutePopup as container selector
+			 * @param {string} [options.absUrl] absolute Url for content used by deferred object
+			 * @param {Object} rule
+			 * @param {Object} deferred
+			 * @param {Function} deferred.reject
+			 * @param {Function} deferred.resolve
+			 * @instance
+			 * @memberOf ns.router.micro.Router
+			 * @protected
+			 */
 			Router.prototype._loadUrl = function (url, options, rule, deferred) {
 				var absUrl = path.makeUrlAbsolute(url, path.getLocation()),
 					content,
@@ -368,10 +542,31 @@
 				}
 			};
 
-			Router.prototype._loadError = function (absUrl, settings, deferred) {
-				var detail = object.merge({url: absUrl}, settings);
+			/**
+			 * Error handler for loading content by AJAX
+			 * @method _loadError
+			 * @param {string} absUrl
+			 * @param {Object} options
+			 * @param {string} [options.rel = 'page'] represents kind of link as 'page' or 'popup' or 'external' for linking to another domain
+			 * @param {string} [options.transition = 'none'] the animation used during change of page
+			 * @param {boolean} [options.reverse = false] the direction of change
+			 * @param {boolean} [options.fromHashChange = false] the change route after hashchange
+			 * @param {boolean} [options.showLoadMsg = true] show message during loading
+			 * @param {number} [options.loadMsgDelay = 0] delay time for the show message during loading
+			 * @param {boolean} [options.volatileRecord = false]
+			 * @param {boolean} [options.dataUrl] page has url attribute
+			 * @param {string} [options.container = null] uses in RoutePopup as container selector
+			 * @param {string} [options.absUrl] absolute Url for content used by deferred object
+			 * @param {Object} deferred
+			 * @param {Function} deferred.reject
+			 * @instance
+			 * @memberOf ns.router.micro.Router
+			 * @protected
+			 */
+			Router.prototype._loadError = function (absUrl, options, deferred) {
+				var detail = object.merge({url: absUrl}, options);
 				// Remove loading message.
-				if (settings.showLoadMsg) {
+				if (options.showLoadMsg) {
 					this._showError(absUrl);
 				}
 
@@ -382,12 +577,36 @@
 			// TODO it would be nice to split this up more but everything appears to be "one off"
 			//	or require ordering such that other bits are sprinkled in between parts that
 			//	could be abstracted out as a group
-			Router.prototype._loadSuccess = function (absUrl, settings, rule, deferred, html) {
-				var detail = object.merge({url: absUrl}, settings),
+			/**
+			 * Success handler for loading content by AJAX
+			 * @method _loadSuccess
+			 * @param {string} absUrl
+			 * @param {Object} options
+			 * @param {string} [options.rel = 'page'] represents kind of link as 'page' or 'popup' or 'external' for linking to another domain
+			 * @param {string} [options.transition = 'none'] the animation used during change of page
+			 * @param {boolean} [options.reverse = false] the direction of change
+			 * @param {boolean} [options.fromHashChange = false] the change route after hashchange
+			 * @param {boolean} [options.showLoadMsg = true] show message during loading
+			 * @param {number} [options.loadMsgDelay = 0] delay time for the show message during loading
+			 * @param {boolean} [options.volatileRecord = false]
+			 * @param {boolean} [options.dataUrl] page has url attribute
+			 * @param {string} [options.container = null] uses in RoutePopup as container selector
+			 * @param {string} [options.absUrl] absolute Url for content used by deferred object
+			 * @param {Object} rule
+			 * @param {Object} deferred
+			 * @param {Function} deferred.reject
+			 * @param {Function} deferred.resolve
+			 * @param {string} html
+			 * @instance
+			 * @memberOf ns.router.micro.Router
+			 * @protected
+			 */
+			Router.prototype._loadSuccess = function (absUrl, options, rule, deferred, html) {
+				var detail = object.merge({url: absUrl}, options),
 					content = rule.parse(html, absUrl);
 
 				// Remove loading message.
-				if (settings.showLoadMsg) {
+				if (options.showLoadMsg) {
 					this._hideLoading();
 				}
 
@@ -400,20 +619,62 @@
 
 			// TODO the first page should be a property set during _create using the logic
 			//	that currently resides in init
+			/**
+			 * Get initial content
+			 * @method _getInitialContent
+			 * @instance
+			 * @memberOf ns.router.micro.Router
+			 * @return {HTMLElement} first page
+			 * @protected
+			 */
 			Router.prototype._getInitialContent = function () {
 				return this.firstPage;
 			};
 
+			/**
+			 * Show the loading indicator
+			 * @method _showLoading
+			 * @param {number} delay
+			 * @instance
+			 * @memberOf ns.router.micro.Router
+			 * @protected
+			 */
 			Router.prototype._showLoading = function (delay) {
 				this.container.showLoading(delay);
 			};
 
+			/**
+			 * Report an error loading
+			 * @method _showError
+			 * @param {string} absUrl
+			 * @instance
+			 * @memberOf ns.router.micro.Router
+			 * @protected
+			 */
 			Router.prototype._showError = function (absUrl) {
 				ns.error("load error, file: ", absUrl);
 			};
 
+			/**
+			 * Hide the loading indicator
+			 * @method _hideLoading
+			 * @instance
+			 * @memberOf ns.router.micro.Router
+			 * @protected
+			 */
 			Router.prototype._hideLoading = function () {
 				this.container.hideLoading();
+			};
+
+			/**
+			 * Return true if popup is active
+			 * @method hasActivePopup
+			 * @return {boolean}
+			 * @instance
+			 * @memberOf ns.router.micro.Router
+			 */
+			Router.prototype.hasActivePopup = function () {
+				return this.rule.popup && this.rule.popup._hasActivePopup();
 			};
 
 			routerMicro.Router = Router;

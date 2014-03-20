@@ -12,6 +12,9 @@ module.exports = function(grunt) {
 		widgetPath = path.join(jsPath, "widget"),
 		themesPath = path.join(dist, "themes"),
 
+		rootNamespace = "ej",
+		fileName = "tau",
+
 		widgets = {
 			"indexScrollbar": "widget/indexScrollbar",
 			"sectionchanger": "widget/sectionchanger"
@@ -39,7 +42,7 @@ module.exports = function(grunt) {
 					grunt.file.recurse(jsPath, function(abspath/*, rootdir, subdir, filename */) {
 						files.js.licenseFiles.push({
 							src: [path.join( "license", "Flora" ) + ".txt", abspath],
-							dest: abspath,
+							dest: abspath
 						});
 					});
 				},
@@ -194,6 +197,15 @@ module.exports = function(grunt) {
 						pragmasOnSave: {
 							ejBuildExclude: true,
 							ejDebug: true
+						},
+						wrap: {
+							start: "(function(window, document, undefined) {\n" +
+								"'use strict';\n" +
+								"var ns = window." + rootNamespace + " = window." + rootNamespace + " || {},\n" +
+								"	nsConfig = window." + rootNamespace + "Config = window." + rootNamespace + "Config || {};\n" +
+								"nsConfig.rootNamespace = '" + rootNamespace + "';\n" +
+								"nsConfig.fileName = '" + fileName + "';\n",
+							end: "}(window, window.document));\n"
 						}
 					}
 				},
@@ -269,7 +281,7 @@ module.exports = function(grunt) {
 					options: {
 						// Start a live reload server on the default port 35729
 						livereload: true,
-						interrupt: true,
+						interrupt: true
 					}
 				}
 			},

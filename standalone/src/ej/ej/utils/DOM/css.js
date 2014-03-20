@@ -16,7 +16,7 @@
 	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 	define(
 		[
-			"./core"
+			"../DOM"
 		],
 		function () {
 			//>>excludeEnd("ejBuildExclude");
@@ -75,7 +75,7 @@
 			 */
 			DOM.extractCSSProperties = function (element, properties, pseudoSelector, noConversion) {
 				var style = window.getComputedStyle(element, pseudoSelector),
-					property = null,
+					property,
 					value = null,
 					utils = ns.utils;
 				for (property in properties) {
@@ -121,11 +121,12 @@
 						"padding-top": 0,
 						"padding-bottom": 0,
 						"border-top-width": 0,
-						"border-bottom-width": 0
+						"border-bottom-width": 0,
+						"box-sizing": ""
 					};
 				if (element) {
 					style = element.style;
-					
+
 					if (style.display !== "none") {
 						this.extractCSSProperties(element, props, pseudoSelector);
 						offsetHeight = element.offsetHeight;
@@ -147,16 +148,15 @@
 					}
 
 					height += props["height"] + props["padding-top"] + props["padding-bottom"];
-					if (outer) {
+
+					if (includeOffset) {
+						height = offsetHeight;
+					} else if (outer && props["box-sizing"] !== 'border-box') {
 						height += props["border-top-width"] + props["border-bottom-width"];
 					}
 
-					if (includeOffset) {
-						height += offsetHeight;
-					}
-
 					if (includeMargin) {
-						height += props["margin-top"] + props["margin-bottom"];
+						height += Math.max(0, props["margin-top"]) + Math.max(0, props["margin-bottom"]);
 					}
 				}
 				return height;
@@ -189,11 +189,13 @@
 						"padding-left": 0,
 						"padding-right": 0,
 						"border-left-width": 0,
-						"border-right-width": 0
+						"border-right-width": 0,
+						"box-sizing": ""
 					};
+
 				if (element) {
 					style = element.style;
-					
+
 					if (style.display !== "none") {
 						this.extractCSSProperties(element, props, pseudoSelector);
 						offsetWidth = element.offsetWidth;
@@ -214,16 +216,15 @@
 					}
 
 					width += props["width"] + props["padding-left"] + props["padding-right"];
-					if (outer) {
+
+					if (includeOffset) {
+						width = offsetWidth;
+					} else if (outer && props["box-sizing"] !== 'border-box') {
 						width += props["border-left-width"] + props["border-right-width"];
 					}
 
-					if (includeOffset) {
-						width += offsetWidth;
-					}
-
 					if (includeMargin) {
-						width += props["margin-left"] + props["margin-right"];
+						width += Math.max(0, props["margin-left"]) + Math.max(0, props["margin-right"]);
 					}
 				}
 				return width;
@@ -257,4 +258,4 @@
 		}
 	);
 	//>>excludeEnd("ejBuildExclude");
-}(window, window.document, window.ej));
+}(window, window.document, ns));

@@ -15,7 +15,8 @@ test("utils.DOM.css", function () {
 	// basic props check
 	var props = {
 		"width": 0,
-		"height": 0
+		"height": 0,
+		"opacity": 0
 	};
 
 
@@ -29,11 +30,13 @@ test("utils.DOM.css", function () {
 	ok(floatValueRound !== floatValue, "checks if float");
 
 	dom.extractCSSProperties(testElement1, props);
+	props['opacity'] = Number(props['opacity'].toFixed(1));
 	deepEqual(
 		props, 
 		{
 			"width": 50,
-			"height": 50
+			"height": 50,
+			"opacity": 0.3
 		},
 		"fetching multiple props at once"
 	);
@@ -50,15 +53,15 @@ test("utils.DOM.css", function () {
 	equal(dom.getElementHeight(testElement3), 200, "check element 3 height");
 	equal(dom.getElementHeight(testElement3), $(testElement3).height(), "compare with jquery");
 
-	equal(dom.getElementHeight(testList1, "outer"), 22, "check list 1 height");
-	equal(dom.getElementHeight(testList1, "outer"), $(testList1).outerHeight(), "compare with jquery");
+	equal(dom.getElementHeight(testList1, "outer"), 30, "check list 1 height");
+	equal(Math.ceil(dom.getElementHeight(testList1, "outer")),  $(testList1).outerHeight(), "compare with jquery");
 	equal(dom.getElementWidth(testList1, "outer"), 30, "check list 1 width");
 	equal(dom.getElementWidth(testList1, "outer"), $(testList1).outerWidth(), "compare with jquery");
 
 	equal(dom.getElementWidth(testList1Li1), 10, "check list 1 element 1 width");
 	equal(dom.getElementHeight(testList1Li1), 15, "check list 1 element 1 height");
 
-	equal(dom.getElementHeight(testList2), 42, "check list 2 height");
+	equal(parseInt(dom.getElementHeight(testList2), 10), 42, "check list 2 height");
 
 	equal(dom.getElementWidth(testList2Li1), 100, "check list 2 element 1 width");
 
@@ -66,13 +69,13 @@ test("utils.DOM.css", function () {
 	testElement6.style.border = "1px solid black";
 	testElement6.style.margin = "0px";
 	testElement6.style.padding = "0px";
-	equal(dom.getElementWidth(testElement6, "outer", false, true), 57, "check element 6 dynamic set width");
-	equal(dom.getElementWidth(testElement6, "outer", false, true), $(testElement6).outerWidth(true), "compare with jquery");
+	equal(parseInt(dom.getElementWidth(testElement6, "outer", false, true), 10), 57, "check element 6 dynamic set width");
+	equal(Math.ceil(dom.getElementWidth(testElement6, "outer", false, true), 10), $(testElement6).outerWidth(true), "compare with jquery");
 
-	equal(dom.getElementWidth(testElement7, "outer", false, true, null, true), 72, "check hidden element 7 width");
-	equal(dom.getElementWidth(testElement7, "outer", false, true, null, true), $(testElement7).outerWidth(true), "compare with jquery");
-	equal(dom.getElementHeight(testElement7, "outer", false, true, null, true), 72, "check hidden element 7 height");
-	equal(dom.getElementHeight(testElement7, "outer", false, true, null, true), $(testElement7).outerHeight(true), "compare with jquery");
+	equal(parseInt(dom.getElementWidth(testElement7, "outer", false, true, null, true), 10), 72, "check hidden element 7 width");
+	equal(parseInt(dom.getElementWidth(testElement7, "outer", false, true, null, true), 10), $(testElement7).outerWidth(true), "compare with jquery");
+	equal(parseInt(dom.getElementHeight(testElement7, "outer", false, true, null, true), 10), 72, "check hidden element 7 height");
+	equal(parseInt(dom.getElementHeight(testElement7, "outer", false, true, null, true), 10), $(testElement7).outerHeight(true), "compare with jquery");
 	equal(testElement7.style.display, "none", "check testElement7 display style attribute modification");
 
 	$("#qunit-fixture").append("<div id='test8'></div>");
@@ -81,11 +84,35 @@ test("utils.DOM.css", function () {
 		"height": "100px",
 		"margin": "10px",
 		"padding": "0",
-		"border": "1px solid black"
+		"border": "1px solid black",
+		"max-height": "10px",
+		"height": "10px",
+		"border": "0",
+		"line-height": "10px",
+		"font-size": "8px",
 	});
 	testElement8 = document.getElementById("test8");
-	equal(dom.getElementWidth(testElement8, "outer", false, true), 122, "check created element 8 width");
-	equal(dom.getElementWidth(testElement8, "outer", false, true), $("#test8").outerWidth(true), "compare with jquery");
-	equal(dom.getElementHeight(testElement8, "outer", false, true), 122, "check created element 8 height");
-	equal(dom.getElementHeight(testElement8, "outer", false, true), $("#test8").outerWidth(true), "compare with jquery");
+	equal(parseInt(dom.getElementHeight(testElement8, "outer", false, true), 10), $("#test8").outerHeight(true), "compare with jquery method 'outerWidth'");
+	equal(parseInt(dom.getElementWidth(testElement8, "outer", false, true), 10), $("#test8").outerWidth(true), "compare with jquery method 'outerWidth'");
+	equal(dom.getElementWidth(testElement8, "outer", false, true), 120, "check width of the created element");
+	equal(dom.getElementHeight(testElement8, "outer", false, true), 30, "check height of the created element");
+	
+	$("#test8").css({
+		"width": "100px",
+		"height": "100px",
+		"margin": "10px",
+		"padding": "10px",
+		"border": "1px solid black",
+		"max-height": "10px",
+		"height": "10px",
+		"border": "0",
+		"line-height": "10px",
+		"font-size": "8px",
+	});
+	equal(dom.getElementWidth(testElement8, false, true), 120, "check width of the created element with offset");
+	equal(dom.getElementHeight(testElement8, false, true), 30, "check height of the created element with offset");
+	equal(dom.getElementWidth(testElement8, 'outer', false), 120,"check width of the created element with outer");
+	equal(dom.getElementHeight(testElement8, 'outer', false), 30, "check height of the created element with outer");
+	equal(dom.getElementWidth(testElement8, false, false, true), 140, "check width of the created element with margin");
+	equal(dom.getElementHeight(testElement8, false, false, true), 50, "check height of the created element with margin");
 });

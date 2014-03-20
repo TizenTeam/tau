@@ -1,3 +1,6 @@
+
+/** @TODO delete tau namespace from this file */
+
 module('router.micro.route.popup');
 
 asyncTest( "test loading scripts in external files", 3, function(){
@@ -9,12 +12,12 @@ asyncTest( "test loading scripts in external files", 3, function(){
 		start();
 	};
 	document.addEventListener('popupshow', testExternalPopup, false);
-	gear.ui.openPopup( "path-test/external.html" );
+	tau.openPopup( "path-test/external.html" );
 });
 
 asyncTest( "test loading scripts in external files", 1, function(){
 	var popupElement = document.getElementById('popup');
-	gear.ui.openPopup( '#popup' );
+	tau.openPopup( '#popup' );
 	setTimeout(function() {
 		ok(!popupElement.classList.contains('ui-popup-active'), 'popup not open');
 		start();

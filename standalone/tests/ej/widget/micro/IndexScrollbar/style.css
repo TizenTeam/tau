@@ -8,6 +8,14 @@
 	height: 500px !important;
 }
 
+.ui-content.small {
+	height: 200px !important;
+}
+
+.ui-content.big {
+	height: 1000px !important;
+}
+
 .ui-page {
 	height: 500px !important;
 }

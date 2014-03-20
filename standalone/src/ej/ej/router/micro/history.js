@@ -35,6 +35,8 @@
 					 * Replace or push to history.
 					 * @method replace
 					 * @param {Object} state
+					 * @param {string} pageTitle
+					 * @param {string} url
 					 * @static
 					 * @memberOf ns.router.micro.history
 					 */

@@ -1,8 +1,9 @@
+/*global window, define, ns */
 /*
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
-/*
+/**
  * @class ns.utils.anchorHighlight
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Damian Osipiuk <d.osipiuk@samsung.com>

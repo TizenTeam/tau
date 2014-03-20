@@ -31,7 +31,6 @@
 				utilSelector = utils.selectors,
 				history = ns.router.micro.history,
 				engine = ns.engine,
-				router = null,
 				baseElement,
 				slice = [].slice,
 				RouterPage = {},
@@ -44,6 +43,7 @@
 			* @private
 			* @param {string} id Id of searching element
 			* @param {string} filter Query selector for searching page
+			* @static
 			* @memberOf ns.router.micro.route.page
 			*/
 			function findPageAndSetDataUrl(id, filter) {
@@ -62,12 +62,33 @@
 				return page;
 			}
 
+			/**
+			 * Property containing default properties
+			 * @property {Object} defaults
+			 * @property {string} defaults.transition='none'
+			 * @static
+			 * @memberOf ns.router.micro.route.page
+			 */
 			RouterPage.defaults = {
 				transition: 'none'
 			};
 
+			/**
+			 * Property defining selector for filtering only page elements
+			 * @property {string} filter
+			 * @memberOf ns.router.micro.route.page
+			 * @inheritdoc ns.micro.selectors.page
+			 * @static
+			 */
 			RouterPage.filter = ns.micro.selectors.page;
 
+			/**
+			 * Returns default route options used inside Router
+			 * @method option
+			 * @static
+			 * @memberOf ns.router.micro.route.page
+			 * @return {Object}
+			 */
 			RouterPage.option = function () {
 				return RouterPage.defaults;
 			};
@@ -76,7 +97,9 @@
 			* Change page
 			* @method open
 			* @param {HTMLElement|string} toPage
-			* @param {Object} options
+			* @param {Object} [options]
+			* @param {boolean} [options.fromHashChange] call was made when on hash change
+			* @param {string} [options.dataUrl]
 			* @static
 			* @memberOf ns.router.micro.route.page
 			*/
@@ -121,6 +144,14 @@
 				router.container.change(toPage, options);
 			};
 
+			/**
+			 * Determines target page to open
+			 * @method find
+			 * @param {string} absUrl absolute path to opened page
+			 * @static
+			 * @memberOf ns.router.micro.route.page
+			 * @return {?HTMLElement}
+			 */
 			RouterPage.find = function( absUrl ) {
 				var router = engine.getRouter(),
 					dataUrl = this._createDataUrl( absUrl ),
@@ -129,7 +160,7 @@
 					page;
 
 				if ( /#/.test( absUrl ) && path.isPath(dataUrl) ) {
-					return;
+					return null;
 				}
 
 				// Check to see if the page already exists in the DOM.
@@ -159,8 +190,19 @@
 				}
 
 				return page;
-			},
+			};
 
+			/**
+			 * Parses HTML and runs scripts from parsed code. 
+			 * Fetched external scripts if required.
+			 * Sets document base to parsed document absolute path.
+			 * @method parse
+			 * @param {string} html HTML code to parse
+			 * @param {string} absUrl Absolute url for parsed page
+			 * @static
+			 * @memberOf ns.router.micro.route.page
+			 * @return {?HTMLElement}
+			 */
 			RouterPage.parse = function( html, absUrl ) {
 				var page,
 					dataUrl = this._createDataUrl( absUrl ),
@@ -168,13 +210,16 @@
 					all = document.createElement('div');
 
 				// write base element
+				// @TODO shouldn't base be set if a page was found?
 				this._setBase( absUrl );
 
 				//workaround to allow scripts to execute when included in page divs
 				all.innerHTML = html;
 
+				// Finding matching page inside created element
 				page = all.querySelector(this.filter);
 
+				// If a page exists...
 				if (page) {
 					// TODO tagging a page with external to make sure that embedded pages aren't
 					// removed by the various page handling code is bad. Having page handling code
@@ -182,6 +227,7 @@
 					DOM.setNSData(page, 'url', dataUrl);
 					DOM.setNSData(page, 'external', true);
 
+					// Check if parsed page contains scripts
 					scripts = page.querySelectorAll('script');
 					slice.call(scripts).forEach(function (baseUrl, script) {
 						var newscript = document.createElement('script'),
@@ -205,6 +251,7 @@
 							}
 						}
 
+						// If external script exists, fetch and insert it inline
 						if (src) {
 							try {
 								// get some kind of XMLHttpRequest
@@ -226,24 +273,57 @@
 					}.bind(null, dataUrl));
 				}
 				return page;
-			},
+			};
 
+			/**
+			 * Handles hash change, **currently does nothing**.
+			 * @method onHashChange
+			 * @static
+			 * @memberOf ns.router.micro.route.page
+			 * @return {null}
+			 */
 			RouterPage.onHashChange = function () {
 				return null;
 			};
 
+			/**
+			 * Created data url from absolute url given as argument
+			 * @method _createDataUrl
+			 * @param {string} absoluteUrl
+			 * @protected
+			 * @static
+			 * @memberOf ns.router.micro.route.page
+			 * @return {string}
+			 */
 			RouterPage._createDataUrl = function( absoluteUrl ) {
 				return path.convertUrlToDataUrl( absoluteUrl, true );
 			};
 
+			/**
+			 * On open fail, currently never used
+			 * @method onOpenFailed 
+			 * @static
+			 * @memberOf ns.router.micro.route.page
+			 */
 			RouterPage.onOpenFailed = function(/* options */) {
 				this._setBase( path.parseLocation().hrefNoSearch );
 			};
 
+			/**
+			 * Returns base element from document head.
+			 * If no base element is found, one is created based on current location
+			 * @method _getBaseElement
+			 * @protected
+			 * @static
+			 * @memberOf ns.router.micro.route.page
+			 * @return {HTMLElement}
+			 */
 			RouterPage._getBaseElement = function() {
+				// Fetch document head if never cached before
 				if (!head) {
 					head = document.querySelector("head");
 				}
+				// Find base element
 				if ( !baseElement ) {
 					baseElement = document.querySelector("base");
 					if (!baseElement) {
@@ -255,6 +335,14 @@
 				return baseElement;
 			};
 
+			/**
+			 * Sets document base to url given as argument
+			 * @method _setBase
+			 * @param {string} url
+			 * @protected
+			 * @static
+			 * @memberOf ns.router.micro.route.page
+			 */
 			RouterPage._setBase = function( url ) {
 				var base = this._getBaseElement(),
 					baseHref = base.href;
