@@ -387,7 +387,7 @@ IndexIndicator.prototype = {
 function IndexScrollbar (element, options) {
 	// Support calling without 'new' keyword
 	if(ns === this) {
-		return new IndexScrollbar(element);
+		return new IndexScrollbar(element, options);
 	}
 
 	if(!this._isValidElement(element)) {
