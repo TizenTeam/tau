@@ -139,6 +139,7 @@
 			};
 
 			/**
+			 * Get or set value on data attribute.
 			 * @method nsData
 			 * @param {HTMLElement} element
 			 * @param {string} name
@@ -147,9 +148,7 @@
 			 * @memberOf ns.utils.DOM
 			 */
 			DOM.nsData = function (element, name, value) {
-				/**
-				 * @TODO add support for object in value
-				 */
+				// @TODO add support for object in value
 				if (value === undefined) {
 					return DOM.getNSData(element, name);
 				} else {

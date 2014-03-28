@@ -4,6 +4,7 @@
  * License : MIT License V2
  */
 /**
+ * Utility enable highlight links.
  * @class ns.utils.anchorHighlight
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Damian Osipiuk <d.osipiuk@samsung.com>
@@ -13,7 +14,6 @@
 	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 	define(
 		[
-			"../core",
 			"./selectors"
 		],
 		function () {

@@ -4,6 +4,8 @@
 * License : MIT License V2
 */
 /**
+ * #History
+ * Object controls history changes.
  * @class ns.router.micro.history
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */

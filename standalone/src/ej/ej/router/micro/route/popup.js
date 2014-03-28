@@ -4,6 +4,7 @@
  * License : MIT License V2
  */
 /**
+ * Support class for router to control change pupups.
  * @class ns.router.micro.route.popup
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Damian Osipiuk <d.osipiuk@samsung.com>
@@ -24,7 +25,7 @@
 		],
 		function () {
 			//>>excludeEnd("ejBuildExclude");
-			var RoutePopup = {
+			var routePopup = {
 					/**
 					 * @property {Object} defaults Object with default options
 					 * @property {string} [defaults.transition='none']
@@ -39,7 +40,7 @@
 						volatileRecord: true
 					},
 					/**
-					 * @property {string} filter Alias for {@link ns.micro.selectors.popup}
+					 * @property {string} filter Alias for {@link ns.micro.selectors#popup}
 					 * @memberOf ns.router.micro.route.popup
 					 * @static
 					 */
@@ -158,8 +159,8 @@
 			 * @memberOf ns.router.micro.route.popup
 			 * @static
 			 */
-			RoutePopup.option = function () {
-				return RoutePopup.defaults;
+			routePopup.option = function () {
+				return routePopup.defaults;
 			};
 
 			/**
@@ -170,21 +171,21 @@
 			 * @memberOf ns.router.micro.route.popup
 			 * @static
 			 */
-			RoutePopup.open = function (toPopup, options) {
+			routePopup.open = function (toPopup, options) {
 				var popup,
 					popupKey,
 					router = engine.getRouter(),
 					url = pathUtils.getLocation(),
 					removePopup = function () {
-						document.removeEventListener(RoutePopup.events.popup_hide, removePopup, false);
+						document.removeEventListener(routePopup.events.popup_hide, removePopup, false);
 						toPopup.parentNode.removeChild(toPopup);
-						RoutePopup.activePopup = null;
+						routePopup.activePopup = null;
 					},
 					openPopup = function () {
-						document.removeEventListener(RoutePopup.events.popup_hide, openPopup, false);
+						document.removeEventListener(routePopup.events.popup_hide, openPopup, false);
 						popup = engine.instanceWidget(toPopup, 'popup', options);
 						popup.open();
-						RoutePopup.activePopup = popup;
+						routePopup.activePopup = popup;
 					},
 					documentUrl = path.getLocation().replace(popupHashKeyReg, ""),
 					activePage = router.container.getActivePage(),
@@ -200,12 +201,12 @@
 				if (DOM.getNSData(toPopup, "external") === true) {
 					container = options.container ? activePage.element.querySelector(options.container) : activePage.element;
 					container.appendChild(toPopup);
-					document.addEventListener(RoutePopup.events.popup_hide, removePopup, false);
+					document.addEventListener(routePopup.events.popup_hide, removePopup, false);
 				}
 
-				if (RoutePopup._hasActivePopup()) {
-					document.addEventListener(RoutePopup.events.popup_hide, openPopup, false);
-					RoutePopup._closeActivePopup();
+				if (routePopup._hasActivePopup()) {
+					document.addEventListener(routePopup.events.popup_hide, openPopup, false);
+					routePopup._closeActivePopup();
 				} else {
 					openPopup();
 				}
@@ -219,13 +220,13 @@
 			 * @protected
 			 * @static
 			 */
-			RoutePopup._closeActivePopup = function (activePopup) {
-				activePopup = activePopup || RoutePopup.activePopup;
+			routePopup._closeActivePopup = function (activePopup) {
+				activePopup = activePopup || routePopup.activePopup;
 
 				if (activePopup) {
 					// Close and clean up
 					activePopup.close();
-					RoutePopup.activePopup = null;
+					routePopup.activePopup = null;
 				}
 			};
 
@@ -236,11 +237,11 @@
 			 * @memberOf ns.router.micro.route.popup
 			 * @static
 			 */
-			RoutePopup.onHashChange = function () {
-				var activePopup = RoutePopup.activePopup;
+			routePopup.onHashChange = function () {
+				var activePopup = routePopup.activePopup;
 
 				if (activePopup) {
-					RoutePopup._closeActivePopup(activePopup);
+					routePopup._closeActivePopup(activePopup);
 					// Default routing setting cause to rewrite further window history
 					// even if popup has been closed
 					// To prevent this onHashChange after closing popup we need to change
@@ -251,12 +252,13 @@
 			};
 
 			/**
+			 * On open fail, currently never used
 			 * @method onOpenFailed
 			 * @memberOf ns.router.micro.route.popup
 			 * @return {null}
 			 * @static
 			 */
-			RoutePopup.onOpenFailed = function(/* options */) {
+			routePopup.onOpenFailed = function(/* options */) {
 				return null;
 			};
 
@@ -268,7 +270,7 @@
 			 * @memberOf ns.router.micro.route.popup
 			 * @static
 			 */
-			RoutePopup.find = function( absUrl ) {
+			routePopup.find = function( absUrl ) {
 				var dataUrl = this._createDataUrl( absUrl ),
 					activePage = engine.getRouter().getContainer().getActivePage(),
 					popup;
@@ -283,6 +285,8 @@
 			};
 
 			/**
+			 * Parses HTML and runs scripts from parsed code.
+			 * Fetched external scripts if required.
 			 * @method parse
 			 * @param {string} html
 			 * @param {string} absUrl
@@ -290,7 +294,7 @@
 			 * @memberOf ns.router.micro.route.popup
 			 * @static
 			 */
-			RoutePopup.parse = function( html, absUrl ) {
+			routePopup.parse = function( html, absUrl ) {
 				var popup,
 					dataUrl = this._createDataUrl( absUrl ),
 					scripts,
@@ -362,27 +366,28 @@
 			 * @protected
 			 * @static
 			 */
-			RoutePopup._createDataUrl = function( absoluteUrl ) {
+			routePopup._createDataUrl = function( absoluteUrl ) {
 				return path.convertUrlToDataUrl( absoluteUrl );
 			};
 
 			/**
+			 * Return true if active popup exists.
 			 * @method _hasActivePopup
 			 * @return {boolean}
 			 * @memberOf ns.router.micro.route.popup
 			 * @protected
 			 * @static
 			 */
-			RoutePopup._hasActivePopup = function () {
+			routePopup._hasActivePopup = function () {
 				var popup = document.querySelector('.ui-popup-active');
-				RoutePopup.activePopup = popup && engine.instanceWidget(popup, 'popup');
-				return !!RoutePopup.activePopup;
+				routePopup.activePopup = popup && engine.instanceWidget(popup, 'popup');
+				return !!routePopup.activePopup;
 			};
 
-			ns.router.micro.route.popup = RoutePopup;
+			ns.router.micro.route.popup = routePopup;
 
 			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
-			return RoutePopup;
+			return routePopup;
 		}
 	);
 	//>>excludeEnd("ejBuildExclude");

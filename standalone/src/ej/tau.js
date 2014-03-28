@@ -4,7 +4,8 @@
 * License : MIT License V2
 */
 /**
- * @class gear.ui
+ * #Tizen Advanced UI Framework main namespace
+ * @class tau
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
 (function (window, document) {
@@ -20,7 +21,7 @@
 					 * revert changes in gear namespace make by framework and return framework object
 					 * @method noConflict
 					 * @return {Object}
-					 * @memberOf gear.ui
+					 * @memberOf tau
 					 */
 					noConflict: function () {
 						var newTau = window.tau;
@@ -32,7 +33,7 @@
 					 * Return original window.gear object;
 					 * @method getOrginalNamespace
 					 * @return {Object}
-					 * @memberOf gear.ui
+					 * @memberOf tau
 					 */
 					getOrginalNamespace: function () {
 						return orgTau;
@@ -40,7 +41,7 @@
 					/**
 					 * Create new window.gear object;
 					 * @method createNewNamespace
-					 * @memberOf gear.ui
+					 * @memberOf tau
 					 */
 					createNewNamespace: function() {
 						orgTau = orgTau || window.tau;

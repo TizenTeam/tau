@@ -35,49 +35,49 @@
 				ns.path = utils.path;
 				/**
 				 * @method fireEvent
-				 * @inheritdoc ns.utils.events.trigger
+				 * @inheritdoc ns.utils.events#trigger
 				 * @memberOf tau
 				 */
 				ns.fireEvent = events.trigger.bind(events);
 				/**
 				 * @method getData
-				 * @inheritdoc ns.utils.DOM.getData
+				 * @inheritdoc ns.utils.DOM#getData
 				 * @memberOf tau
 				 */
 				ns.getData = utilsDOM.getData.bind(utilsDOM);
 				/**
 				 * @method extendObject
-				 * @inheritdoc ns.utils.object.multiMerge
+				 * @inheritdoc ns.utils.object#multiMerge
 				 * @memberOf tau
 				 */
 				ns.extendObject = utilsObject.multiMerge.bind(utilsObject);
 				/**
 				 * @method inherit
-				 * @inheritdoc ns.utils.object.multiMerge
+				 * @inheritdoc ns.utils.object#inherit
 				 * @memberOf tau
 				 */
 				ns.inherit = utilsObject.inherit.bind(utilsObject);
 				/**
-				 * @class dom
-				 * @memberOf tau
+				 * Namespace with DOM utilities.
+				 * @class tau.dom
 				 */
 				ns.dom = {
 					/**
 					 * @method getElementOffset
-					 * @inheritdoc ns.utils.DOM.getElementOffset
+					 * @inheritdoc ns.utils.DOM#getElementOffset
 					 * @static
 					 * @memberOf tau.dom
 					 */
 					getOffset: utilsDOM.getElementOffset.bind(utilsDOM),
 					/**
 					 * @method triggerCustomEvent
-					 * @inheritdoc ns.utils.events.trigger
+					 * @inheritdoc ns.utils.events#trigger
 					 * @memberOf tau.dom
 					 */
 					triggerCustomEvent: events.trigger.bind(events),
 					/**
 					 * @method data
-					 * @inheritdoc ns.utils.DOM.data
+					 * @inheritdoc ns.utils.DOM#nsData
 					 * @static
 					 * @memberOf tau.dom
 					 */

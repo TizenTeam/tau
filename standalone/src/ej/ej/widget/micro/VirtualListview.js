@@ -5,12 +5,6 @@
 * License : MIT License V2
 */
 /**
- * @class ns.widget.micro.VirtualListview
- * @extend ns.widget.BaseWidget
- * @author Maciej Urbanski <m.urbanski@samsung.com>
- * @author Piotr Karny <p.karny@samsung.com>
- * @author Michał Szepielak <m.szepielak@samsung.com>
- *
  *#Virtual List
  *
  * In the Web environment, it is challenging to display a large amount of data in a list, such as
@@ -45,7 +39,7 @@
 												data.NAME + '</span>';
 			}
 		};
-	vlist = gear.ui.VirtualListview(elList, vListConfig);
+	vlist = tau.VirtualListview(elList, vListConfig);
  *
  * More config options can be found in {@link ns.widget.micro.VirtualListview#options}
  *
@@ -92,7 +86,7 @@
 		page.addEventListener("pageshow", function() {
 			var elList = document.getElementById("vlist");
 
-			vlist = gear.ui.VirtualListview(elList, {
+			vlist = tau.VirtualListview(elList, {
 					dataLength: JSON_DATA.length,
 					bufferSize: 40
 			});
@@ -112,18 +106,17 @@
 			vlist.destroy();
 		});
  *
+ * @class ns.widget.micro.VirtualListview
+ * @extend ns.widget.BaseWidget
+ * @author Maciej Urbanski <m.urbanski@samsung.com>
+ * @author Piotr Karny <p.karny@samsung.com>
+ * @author Michał Szepielak <m.szepielak@samsung.com>
  */
-/**
-* @class ns.ui.micro.VirtualListview
-* @inheritdoc ns.widget.micro.VirtualListview
-* @extends ns.widget.micro.VirtualListview
-*/
 (function(document, ns) {
 	"use strict";
 	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 	define(
 			[
-				"../../core",
 				"../../engine",
 				"../../utils/events",
 				"../micro", // fetch namespace
@@ -142,7 +135,7 @@
 						events = ns.utils.events,
 						// Constants definition
 						/**
-						 * @property {number} SCROLL_UP Defines index of scroll `{@link ns.widget.micro.VirtualListview._scroll#direction}.direction`
+						 * @property {number} SCROLL_UP Defines index of scroll `{@link ns.widget.micro.VirtualListview#_scroll}.direction`
 						 * to retrive if user is scrolling up
 						 * @private
 						 * @static
@@ -150,7 +143,7 @@
 						 */
 						SCROLL_UP = 0,
 						/**
-						 * @property {number} SCROLL_RIGHT Defines index of scroll `{@link ns.widget.micro.VirtualListview._scroll#direction}.direction`
+						 * @property {number} SCROLL_RIGHT Defines index of scroll `{@link ns.widget.micro.VirtualListview#_scroll}.direction`
 						 * to retrive if user is scrolling right
 						 * @private
 						 * @static
@@ -158,7 +151,7 @@
 						 */
 						SCROLL_RIGHT = 1,
 						/**
-						 * @property {number} SCROLL_DOWN Defines index of scroll {@link ns.widget.micro.VirtualListview._scroll#direction _scroll.direction}
+						 * @property {number} SCROLL_DOWN Defines index of scroll {@link ns.widget.micro.VirtualListview#_scroll}
 						 * to retrive if user is scrolling down
 						 * @private
 						 * @static
@@ -166,7 +159,7 @@
 						 */
 						SCROLL_DOWN = 2,
 						/**
-						 * @property {number} SCROLL_LEFT Defines index of scroll {@link ns.widget.micro.VirtualListview._scroll#direction _scroll.direction}
+						 * @property {number} SCROLL_LEFT Defines index of scroll {@link ns.widget.micro.VirtualListview#_scroll}
 						 * to retrive if user is scrolling left
 						 * @private
 						 * @static
@@ -233,8 +226,7 @@
 							/**
 							 * @property {Object} ui VirtualListview widget's properties associated with
 							 * User Interface
-							 * @property {?HTMLElement} [ui.scrollview=null] Reference to associated
-							 * {@link ns.widget.Scrollview Scrollview widget}
+							 * @property {?HTMLElement} [ui.scrollview=null] Scroll element
 							 * @property {number} [ui.itemSize=0] Size of list element in piksels. If scrolling is
 							 * vertically it's item width in other case it"s height of item element
 							 * @memberOf ns.widget.micro.VirtualListview
@@ -290,7 +282,7 @@
 							 * @property {string} [options.orientation='y'] Scrolling orientation. Default vertical scrolling enabled.
 							 * @property {Object} options.listItemUpdater Holds reference to method which modifies list item, depended
 							 * at specified index from database. **Method should be overridden by developer using
-							 * {@link ns.widget.VirtualListview#setListItemUpdater} method.** or defined as a config
+							 * {@link ns.widget.micro.VirtualListview#setListItemUpdater} method.** or defined as a config
 							 * object. Method takes two parameters:
 							 *  -  element {HTMLElement} List item to be modified
 							 *  -  index {number} Index of data set
@@ -304,14 +296,14 @@
 							};
 
 							/**
-							* @property {Object} _scrollEventBound Binding for scroll event listener.
+							* @method _scrollEventBound Binding for scroll event listener.
 							* @memberOf ns.widget.micro.VirtualListview
 							* @protected
 							* @instance
 							*/
 							self._scrollEventBound = null;
 							/**
-							* @property {Object} _scrollEventBound Binding for touch start event listener.
+							* @method _touchStartEventBound Binding for touch start event listener.
 							* @memberOf ns.widget.micro.VirtualListview
 							* @protected
 							* @instance

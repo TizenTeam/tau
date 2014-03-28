@@ -4,6 +4,7 @@
 * License : MIT License V2
 */
 /**
+ * Support class for router to control change pages.
  * @class ns.router.micro.route.page
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
@@ -33,7 +34,7 @@
 				engine = ns.engine,
 				baseElement,
 				slice = [].slice,
-				RouterPage = {},
+				routePage = {},
 				head;
 
 			/**
@@ -69,7 +70,7 @@
 			 * @static
 			 * @memberOf ns.router.micro.route.page
 			 */
-			RouterPage.defaults = {
+			routePage.defaults = {
 				transition: 'none'
 			};
 
@@ -77,10 +78,10 @@
 			 * Property defining selector for filtering only page elements
 			 * @property {string} filter
 			 * @memberOf ns.router.micro.route.page
-			 * @inheritdoc ns.micro.selectors.page
+			 * @inheritdoc ns.micro.selectors#page
 			 * @static
 			 */
-			RouterPage.filter = ns.micro.selectors.page;
+			routePage.filter = ns.micro.selectors.page;
 
 			/**
 			 * Returns default route options used inside Router
@@ -89,8 +90,8 @@
 			 * @memberOf ns.router.micro.route.page
 			 * @return {Object}
 			 */
-			RouterPage.option = function () {
-				return RouterPage.defaults;
+			routePage.option = function () {
+				return routePage.defaults;
 			};
 
 			/**
@@ -103,7 +104,7 @@
 			* @static
 			* @memberOf ns.router.micro.route.page
 			*/
-			RouterPage.open = function (toPage, options) {
+			routePage.open = function (toPage, options) {
 				var pageTitle = document.title,
 					url,
 					state = {},
@@ -152,7 +153,7 @@
 			 * @memberOf ns.router.micro.route.page
 			 * @return {?HTMLElement}
 			 */
-			RouterPage.find = function( absUrl ) {
+			routePage.find = function( absUrl ) {
 				var router = engine.getRouter(),
 					dataUrl = this._createDataUrl( absUrl ),
 					initialContent = router.getFirstPage(),
@@ -203,7 +204,7 @@
 			 * @memberOf ns.router.micro.route.page
 			 * @return {?HTMLElement}
 			 */
-			RouterPage.parse = function( html, absUrl ) {
+			routePage.parse = function( html, absUrl ) {
 				var page,
 					dataUrl = this._createDataUrl( absUrl ),
 					scripts,
@@ -282,7 +283,7 @@
 			 * @memberOf ns.router.micro.route.page
 			 * @return {null}
 			 */
-			RouterPage.onHashChange = function () {
+			routePage.onHashChange = function () {
 				return null;
 			};
 
@@ -295,7 +296,7 @@
 			 * @memberOf ns.router.micro.route.page
 			 * @return {string}
 			 */
-			RouterPage._createDataUrl = function( absoluteUrl ) {
+			routePage._createDataUrl = function( absoluteUrl ) {
 				return path.convertUrlToDataUrl( absoluteUrl, true );
 			};
 
@@ -305,7 +306,7 @@
 			 * @static
 			 * @memberOf ns.router.micro.route.page
 			 */
-			RouterPage.onOpenFailed = function(/* options */) {
+			routePage.onOpenFailed = function(/* options */) {
 				this._setBase( path.parseLocation().hrefNoSearch );
 			};
 
@@ -318,7 +319,7 @@
 			 * @memberOf ns.router.micro.route.page
 			 * @return {HTMLElement}
 			 */
-			RouterPage._getBaseElement = function() {
+			routePage._getBaseElement = function() {
 				// Fetch document head if never cached before
 				if (!head) {
 					head = document.querySelector("head");
@@ -343,7 +344,7 @@
 			 * @static
 			 * @memberOf ns.router.micro.route.page
 			 */
-			RouterPage._setBase = function( url ) {
+			routePage._setBase = function( url ) {
 				var base = this._getBaseElement(),
 					baseHref = base.href;
 
@@ -356,10 +357,10 @@
 				}
 			};
 
-			ns.router.micro.route.page = RouterPage;
+			ns.router.micro.route.page = routePage;
 
 			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
-			return RouterPage;
+			return routePage;
 		}
 	);
 	//>>excludeEnd("ejBuildExclude");

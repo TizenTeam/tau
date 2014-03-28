@@ -21,10 +21,10 @@
  * ##Manual constructor
  * To create the widget manually you can use the instanceWidget method
  *
- * @example
- * var popup = ej.engine.instanceWidget(document.getElementById('popup'), 'Popup');
- * //or
- * var popup = gear.ui.popup(document.getElementById('popup'));
+ *     @example
+ *         var popup = ej.engine.instanceWidget(document.getElementById('popup'), 'popup');
+ *         //or
+ *         var popup = tau.popup(document.getElementById('popup'));
  * 
  * #HTML Examples
  *
@@ -32,13 +32,14 @@
  * <div id="popup-example" class="ui-popup">
  *		Hello world!
  * </div>
+ * @class ns.widget.micro.Popup
+ * @extends ns.widget.BaseWidget
  */
 (function (window, document, screen, ns) {
 	"use strict";
 	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 	define(
 		[
-			"../../core",
 			"../../micro/selectors",
 			"../../engine",
 			"../../utils/object",
@@ -48,76 +49,42 @@
 		],
 		function () {
 			//>>excludeEnd("ejBuildExclude");
-			var /**
-				* Popup widget
-				* @class ns.widget.micro.Popup
-				* @extends ns.widget.BaseWidget
-				*/
-				/**
-				* @class gear.ui.Popup
-				* @inheritdoc ns.widget.micro.Popup
-				* @extends ns.widget.micro.Popup
-				*/
-				Popup = function () {
+			var Popup = function () {
 					var self = this,
-						/**
-						 * @property {Object} ui A collection of UI elements
-						 * @memberOf ns.widet.micro.Popup
-						 * @instance
-						 */
 						ui = {};
 
 					/**
-					 * @property {Object} options
+					 * @property {Object} options Options for widget
+					 * @property {string|boolean} [options.header=false] Header content
+					 * @property {string|boolean} [options.footer=false] Footer content
 					 * @memberOf ns.widget.micro.Popup
 					 * @instance
 					 */
 					self.options = {
-						/**
-						 * @property {string|boolean} [options.header=false] Header content
-						 * @memberOf ns.widget.micro.Popup
-						 * @instance
-						 */
 						header: false,
-						/**
-						 * @property {string|boolean} [options.footer=false] Footer content
-						 * @memberOf ns.widget.micro.Popup
-						 * @instance
-						 */
 						footer: false
 					};
 
 					/**
 					 * @private
-					 * @property {DOMTokenList?} [_elementClassList=null] Popup element classList 
+					 * @property {?DOMTokenList} [_elementClassList=null] Popup element classList 
 					 * @memberOf ns.widget.micro.Popup
 					 * @instance
 					 */
 					self._elementClassList = null;
 
-					// public html elements					
 					/**
-					* @property {HTMLElement?} [ui.header=null] Header element 
-					* @memberOf ns.widget.micro.Popup
-					* @instance
-					*/
-					ui.header = null;
-					
-					/**
-					* @property {HTMLElement?} [ui.header=null] Footer element
-					* @memberOf ns.widget.micro.Popup
-					* @instance
-					*/
-					ui.footer = null;
-				
-					/**
-					* @property {HTMLElement?} [ui.content=HTMLElement] Content element
-					* @memberOf ns.widget.micro.Popup
-					* @instance
-					*/
-					ui.content = null;
-									
+					 * @property {Object} ui A collection of UI elements
+					 * @property {?HTMLElement} [ui.header=null] Header element
+					 * @property {?HTMLElement} [ui.footer=null] Footer element
+					 * @property {?HTMLElement} [ui.content=null] Content element
+					 * @memberOf ns.widget.micro.Popup
+					 * @instance
+					 */
 					self.ui = ui;
+					ui.header = null;
+					ui.footer = null;
+					ui.content = null;
 
 					/**
 					 * @property {boolean} [active=false] Popup state flag
@@ -127,7 +94,7 @@
 					self.active = false;
 				},
 				/**
-				* @property {Object} BaseWidget Alias for {@link ns.widget.BaseWidget}
+				* @property {Function} BaseWidget Alias for {@link ns.widget.BaseWidget}
 				* @memberOf ns.widget.micro.Popup
 				* @private
 				*/
@@ -179,7 +146,7 @@
 			Popup.classes = classes;
 
 			/**
-			 * @property {string} [popup=".ui-popup"]
+			 * @property {string} [popup=".ui-popup"] Selector for popup element
 			 * @memberOf ns.micro.selectors
 			 */
 			selectors.popup = ".ui-popup";
@@ -462,13 +429,13 @@
 
 			/**
 			* Animate popup opening/closing
-			* @method close
+			* @method _transition
 			* @protected
 			* @instance
-			* @param {Object=} [options]
+			* @param {Object} [options]
 			* @param {string=} [options.transition]
 			* @param {string=} [options.ext]
-			* @param {Function} resolve
+			* @param {?Function} [resolve]
 			* @memberOf ns.widget.micro.Popup
 			*/
 

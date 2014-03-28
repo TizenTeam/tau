@@ -5,19 +5,10 @@
 * License : MIT License V2
 */
 /*
- * @author Jadwiga Sosnowska <j.sosnowska@samsung.com>
- * @author Krzysztof Antoszek <k.antoszek@samsung.com>
- * @author Tomasz Lukawski <t.lukawski@samsung.com>
- * @author Przemyslaw Ciezkowski <p.ciezkowski@samsung.com>
- * @author Maciej Urbanski <m.urbanski@samsung.com>
- * @author Piotr Karny <p.karny@samsung.com>
- * @author Michał Szepielak <m.szepielak@samsung.com>
  */
 /**
- * @class ns.widget.BaseWidget
- * @alias BaseWidget
- *
- * # Prototype class of widget
+ * #BaseWidget
+ * Prototype class of widget
  * ## How to invoke creation of widget from JavaScript
  *
  * To build and initialize widget in JavaScript you have to use method {@link ns.engine#instanceWidget} . First argument for method
@@ -124,6 +115,15 @@
  *         );
  *         //>>excludeEnd("ejBuildExclude");
  *     }(ns));
+ * @author Jadwiga Sosnowska <j.sosnowska@samsung.com>
+ * @author Krzysztof Antoszek <k.antoszek@samsung.com>
+ * @author Tomasz Lukawski <t.lukawski@samsung.com>
+ * @author Przemyslaw Ciezkowski <p.ciezkowski@samsung.com>
+ * @author Maciej Urbanski <m.urbanski@samsung.com>
+ * @author Piotr Karny <p.karny@samsung.com>
+ * @author Michał Szepielak <m.szepielak@samsung.com>
+ * @class ns.widget.BaseWidget
+ * @alias BaseWidget
  */
 (function (document, ns) {
 	"use strict";

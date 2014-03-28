@@ -14,7 +14,6 @@
 	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 	define(
 		[
-			"../../core",
 			"../../engine",
 			"../../utils/DOM/attributes",
 			"../micro",
@@ -39,11 +38,6 @@
 				* It allows for adding new pages, switching between them and displaying progress bars indicating loading process.
 				* @class ns.widget.micro.PageContainer
 				* @extends ns.widget.BaseWidget
-				*/
-				/**
-				* @class gear.ui.PageContainer
-				* @inheritdoc ns.widget.micro.PageContainer
-				* @extends ns.widget.micro.PageContainer
 				*/
 				PageContainer = function () {
 					this.activePage = null;

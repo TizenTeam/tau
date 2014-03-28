@@ -4,8 +4,9 @@
  * License : MIT License V2
  */
 /**
- * @class ns.utils.selectors
+ * #Selectors
  * Utils class with selectors functions
+ * @class ns.utils.selectors
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>
  * @author Jadwiga Sosnowska <j.sosnowska@partner.samsung.com>
@@ -71,13 +72,14 @@
 			}
 
 			/**
+			 * Runs matches implementation of matchesSelector
+			 * method on specified element
 			 * @method matchesSelector
 			 * @param {HTMLElement} element
-			 * @param {string} selector
+			 * @param {string} Selector
 			 * @return {boolean}
-			 * @memberOf ns.utils.selectors
-			 * @private
 			 * @static
+			 * @memberOf ns.utils.selectors
 			 */
 			function matchesSelector(element, selector) {
 				if (matchesSelectorType) {
@@ -149,7 +151,7 @@
 			 * @private
 			 */
 			function testClass(className, node) {
-				return node.classList.contains(className);
+				return node && node.classList && node.classList.contains(className);
 			}
 
 			/**
@@ -166,19 +168,9 @@
 			}
 
 			/**
-			 * @namespace ns.utils.selectors
+			 * @class ns.utils.selectors
 			 */
 			ns.utils.selectors = {
-				/**
-				* Runs matches implementation of matchesSelector
-				* method on specified element
-				* @method matchesSelector
-				* @param {HTMLElement} element
-				* @param {string} Selector
-				* @return {boolean}
-				* @static
-				* @memberOf ns.utils.selectors
-				*/
 				matchesSelector: matchesSelector,
 
 				/**

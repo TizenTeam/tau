@@ -3,7 +3,11 @@
 * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
 * License : MIT License V2
 */
-/**  @namespace ns.router.micro.route */
+/**
+ * #route
+ * Object contains rules for router.
+ * @class ns.router.micro.route
+ */
 /*
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */

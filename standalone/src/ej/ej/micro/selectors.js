@@ -4,7 +4,9 @@
 * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
 * License : MIT License V2
 */
-/** @namespace ej.micro.selectors */
+/**
+ * Object contains selectors used in widgets.
+ * @class ns.micro.selectors */
 /*
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
@@ -13,7 +15,7 @@
 //>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 	define(
 		[
-			"../core"
+			"../../ej"
 		],
 		function () {
 			//>>excludeEnd("ejBuildExclude");

@@ -5,14 +5,25 @@
  * License : MIT License V2
  */
 /**
- * @class gear.ui.Page
- * @inheritdoc ns.widget.micro.Page
- * @extends ns.widget.micro.Page
- * @author Maciej Urbanski <m.urbanski@samsung.com>
- * @author Piotr Karny <p.karny@samsung.com>
- * @author Damian Osipiuk <d.osipiuk@samsung.com>
- */
-/**
+ * #PAge widget
+ *
+ * ##Default selectors
+ * All elements with class=ui-page will be become Page widgets
+ *
+ * ##Manual constructor
+ * To create the widget manually you can use the instanceWidget method
+ *
+ *     @example
+ *         var page = ej.engine.instanceWidget(document.getElementById('page'), 'page');
+ *         //or
+ *         var page = tau.page(document.getElementById('page'));
+ *
+ * #HTML Examples
+ *
+ * ###Simple popup
+ * <div id="popup-example" class="ui-popup">
+ *		Hello world!
+ * </div>
  * @class ns.widget.micro.Page
  * @extends ns.widget.BaseWidget
  * @author Maciej Urbanski <m.urbanski@samsung.com>
@@ -24,7 +35,6 @@
 	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 	define(
 		[
-			"../../core",
 			"../../micro/selectors",
 			"../../engine",
 			"../../utils/selectors",
@@ -110,37 +120,37 @@
 			Page.events = EventType;
 
 			/**
-			 * @property {string} [page=".ui-page"]
+			 * @property {string} [page=".ui-page"] Selector for page element
 			 * @memberOf ns.micro.selectors
 			 */
 			selectors.page = "." + classes.uiPage;
 			/**
-			 * @property {string} [activePage=".ui-page-active"]
+			 * @property {string} [activePage=".ui-page-active"] Selector for active page element
 			 * @memberOf ns.micro.selectors
 			 */
 			selectors.activePage = "." + classes.uiPageActive;
 			/**
-			 * @property {string} [section=".ui-section"]
+			 * @property {string} [section=".ui-section"] Selector for section element
 			 * @memberOf ns.micro.selectors
 			 */
 			selectors.section = "." + classes.uiSection;
 			/**
-			 * @property {string} [header=".ui-header"]
+			 * @property {string} [header=".ui-header"] Selector for header element
 			 * @memberOf ns.micro.selectors
 			 */
 			selectors.header = "." + classes.uiHeader;
 			/**
-			 * @property {string} [footer=".ui-footer"]
+			 * @property {string} [footer=".ui-footer"] Selector for footer element
 			 * @memberOf ns.micro.selectors
 			 */
 			selectors.footer = "." + classes.uiFooter;
 			/**
-			 * @property {string} [content=".ui-content"]
+			 * @property {string} [content=".ui-content"] Selector for content element
 			 * @memberOf ns.micro.selectors
 			 */
 			selectors.content = "." + classes.uiContent;
 			/**
-			 * @property {string} [pageScroll=".ui-page-scroll"]
+			 * @property {string} [pageScroll=".ui-page-scroll"] selector for page scroll element
 			 * @memberOf ns.micro.selectors
 			 */
 			selectors.pageScroll = "." + classes.uiPageScroll;

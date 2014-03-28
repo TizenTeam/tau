@@ -4,6 +4,7 @@
 * License : MIT License V2
 */
 /**
+ * #Router
  * Main class to navigate between pages and popups.
  * @class ns.router.micro.Router
  * @author Maciej Urbanski <m.urbanski@samsung.com>
@@ -33,7 +34,7 @@
 				/**
 				* Local alias for ns.utils
 				* @property {Object} utils Alias for {@link ns.utils}
-				* @memberOf ns.micro.router.Router
+				* @memberOf ns.router.micro.Router
 				* @static
 				* @private
 				*/
@@ -41,14 +42,14 @@
 				/**
 				* Local alias for ns.utils.events
 				* @property {Object} eventUtils Alias for {@link ns.utils.events}
-				* @memberOf ns.micro.router.Router
+				* @memberOf ns.router.micro.Router
 				* @static
 				* @private
 				*/
 				eventUtils = utils.events,
 				/**
 				* @property {Object} DOM Alias for {@link ns.utils.DOM}
-				* @memberOf ns.micro.router.Router
+				* @memberOf ns.router.micro.Router
 				* @static
 				* @private
 				*/
@@ -56,7 +57,7 @@
 				/**
 				* Local alias for ns.utils.path
 				* @property {Object} path Alias for {@link ns.utils.path}
-				* @memberOf ns.micro.router.Router
+				* @memberOf ns.router.micro.Router
 				* @static
 				* @private
 				*/
@@ -64,31 +65,31 @@
 				/**
 				* Local alias for ns.utils.selectors
 				* @property {Object} selectors Alias for {@link ns.utils.selectors}
-				* @memberOf ns.micro.router.Router
+				* @memberOf ns.router.micro.Router
 				* @static
 				* @private
 				*/
 				selectors = utils.selectors,
 				/**
 				* Local alias for ns.utils.object
-				* @property {Object} DOM Alias for {@link ns.utils.object}
-				* @memberOf ns.micro.router.Router
+				* @property {Object} object Alias for {@link ns.utils.object}
+				* @memberOf ns.router.micro.Router
 				* @static
 				* @private
 				*/
 				object = utils.object,
 				/**
 				* Local alias for ns.engine
-				* @property {Object} engine Alias for {@link ns.utils.engine}
-				* @memberOf ns.micro.router.Router
+				* @property {Object} engine Alias for {@link ns.engine}
+				* @memberOf ns.router.micro.Router
 				* @static
 				* @private
 				*/
 				engine = ns.engine,
 				/**
 				* Local alias for ns.router.micro
-				* @property {Object} routerMicro Alias for {@link ns.router.micro}
-				* @memberOf ns.micro.router.Router
+				* @property {Object} routerMicro Alias for namespace ns.router.micro
+				* @memberOf ns.router.micro.Router
 				* @static
 				* @private
 				*/
@@ -96,7 +97,7 @@
 				/**
 				* Local alias for ns.micro.selectors
 				* @property {Object} microSelectors Alias for {@link ns.micro.selectors}
-				* @memberOf ns.micro.router.Router
+				* @memberOf ns.router.micro.Router
 				* @static
 				* @private
 				*/
@@ -104,15 +105,15 @@
 				/**
 				* Local alias for ns.router.micro.history
 				* @property {Object} history Alias for {@link ns.router.micro.history}
-				* @memberOf ns.micro.router.Router
+				* @memberOf ns.router.micro.Router
 				* @static
 				* @private
 				*/
 				history = routerMicro.history,
 				/**
 				* Local alias for ns.router.micro.route
-				* @property {Object} route Alias for {@link ns.router.micro.route}
-				* @memberOf ns.micro.router.Router
+				* @property {Object} route Alias for namespace ns.router.micro.route
+				* @memberOf ns.router.micro.Router
 				* @static
 				* @private
 				*/
@@ -120,7 +121,7 @@
 				/**
 				* Local alias for document body element
 				* @property {HTMLElement} body
-				* @memberOf ns.micro.router.Router
+				* @memberOf ns.router.micro.Router
 				* @static
 				* @private
 				*/
@@ -128,7 +129,7 @@
 				/**
 				 * Alias to Array.slice method
 				 * @method slice
-				 * @memberOf ns.micro.router.Router
+				 * @memberOf ns.router.micro.Router
 				 * @private
 				 * @static
 				 */
@@ -137,14 +138,34 @@
 				Router = function () {
 					var self = this;
 					self.activePage = null;
+					/**
+					 * @property {?HTMLElement} [firstPage] First page lement
+					 * @instance
+					 * @memberOf ns.router.micro.Router
+					 */
 					self.firstPage = null;
+					/**
+					 * @property {?ns.widget.micro.PageContainer} [container] Container widget
+					 * @instance
+					 * @memberOf ns.router.micro.Router
+					 */
 					self.container = null;
+					/**
+					 * @property {Object} [settings] Settings for last open method
+					 * @instance
+					 * @memberOf ns.router.micro.Router
+					 */
 					self.settings = {};
+					/**
+					 * @property {Object} [rule] rulses for widget navigation
+					 * @instance
+					 * @memberOf ns.router.micro.Router
+					 */
 					self.rule = {};
 				};
 
 			/**
-			* @property {Object} defaults
+			* @property {Object} defaults Default values for router
 			* @property {boolean} [defaults.fromHashChange = false]
 			* @property {boolean} [defaults.reverse = false]
 			* @property {boolean} [defaults.showLoadMsg = true]
@@ -168,6 +189,7 @@
 			 * @return {HTMLElement}
 			 * @private
 			 * @static
+			 * @memberOf ns.router.micro.Router
 			 */
 			function findClosestLink(element) {
 				while (element) {
@@ -186,6 +208,7 @@
 			 * @param {Event} event
 			 * @private
 			 * @static
+			 * @memberOf ns.router.micro.Router
 			 */
 			function linkClickHandler(router, event) {
 				var link = findClosestLink(event.target),
@@ -211,6 +234,7 @@
 			 * @param {Event} event
 			 * @private
 			 * @static
+			 * @memberOf ns.router.micro.Router
 			 */
 			function popStateHandler(router, event) {
 				var state = event.state,

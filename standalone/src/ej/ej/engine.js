@@ -6,8 +6,8 @@
 */
 
 /**
- * @class ns.engine
  * Main class with engine of library
+ * @class ns.engine
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>
  * @author Michal Szepielak <m.szepielak@samsung.com>
@@ -23,7 +23,7 @@
 	define(
 		[
 			"require",
-			"./core",
+			"../ej",
 			"./utils/events"
 		],
 		function (require) {
@@ -65,13 +65,14 @@
 				 */
 				justBuild = location.hash === "#build",
 				/**
-				* Returns trimmed value
-				* @method trim
-				* @param {string} value
-				* @return {string} trimmed string
-				* @static
-				* @private
-				*/
+				 * Returns trimmed value
+				 * @method trim
+				 * @param {string} value
+				 * @return {string} trimmed string
+				 * @static
+				 * @private
+				 * @memberOf ns.engine
+				 */
 				trim = function (value) {
 					return value.trim();
 				},
@@ -282,13 +283,14 @@
 							}.bind(null, element);
 
 							eventUtils.one(element, EVENT_WIDGET_BUILT, postBuildCallback, true);
-							eventUtils.trigger(element, EVENT_WIDGET_BUILT, widgetInstance, false);
+							widgetInstance.trigger(EVENT_WIDGET_BUILT, widgetInstance, false);
 						} else {
 							//>>excludeStart("ejDebug", pragmas.ejDebug);
 							ns.error("There was problem with building widget " + widgetInstance.widgetName + " on element with id " + widgetInstance.id + ".");
 							//>>excludeEnd("ejDebug");
 						}
 					}
+					return widgetInstance.element;
 					//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 				});
 				//>>excludeEnd("ejBuildExclude");
@@ -339,6 +341,7 @@
 			* @param {Object} definition widget definition
 			* @param {HTMLElement} element base element of widget
 			* @param {Object} [options] options for create widget
+			* @return {HTMLElement} base element of widget
 			* @private
 			* @static
 			* @memberOf ns.engine
@@ -347,9 +350,10 @@
 				var name = element.getAttribute(DATA_NAME);
 					definition = definition || (name && widgetDefs[name]) || {
 						"name": name,
-						"selector": element.getAttribute(DATA_SELECTOR)
+						"selector": element.getAttribute(DATA_SELECTOR),
+						"binding": element.getAttribute(DATA_SELECTOR)
 					};
-				processWidget(definition, null, element, options);
+				return processWidget(definition, null, element, options);
 			}
 
 			/**
@@ -548,38 +552,18 @@
 			engine = {
 				justBuild: location.hash === "#build",
 				/**
-				* @property {Object} dataEj object with names of engine attributes
-				* @static
-				* @memberOf ns.engine
-				*/
+				 * @property {Object} dataEj object with names of engine attributes
+				 * @property {string} [dataEj.built="data-ej-built"] attribute inform that widget id build
+				 * @property {string} [dataEj.name="data-ej-name"] attribute contains widget name
+				 * @property {string} [dataEj.bound="data-ej-bound"] attribute inform that widget id bound
+				 * @property {string} [dataEj.selector="data-ej-selector"] attribute contains widget selector
+				 * @static
+				 * @memberOf ns.engine
+				 */
 				dataEj: {
-					/**
-					 * @property {string} [dataEj.built="data-ej-built"] attribute inform that widget id build
-					 * @private
-					 * @static
-					 * @memberOf ns.engine
-					 */
 					built: DATA_BUILT,
-					/**
-					 * @property {string} [dataEj.name="data-ej-name"] attribute contains widget name
-					 * @private
-					 * @static
-					 * @memberOf ns.engine
-					 */
 					name: DATA_NAME,
-					/**
-					 * @property {string} [dataEj.bound="data-ej-bound"] attribute inform that widget id bound
-					 * @private
-					 * @static
-					 * @memberOf ns.engine
-					 */
 					bound: DATA_BOUND,
-					/**
-					 * @property {string} [dataEj.selector="data-ej-selector"] attribute contains widget selector
-					 * @private
-					 * @static
-					 * @memberOf ns.engine
-					 */
 					selector: DATA_SELECTOR
 				},
 				destroyWidget: destroyWidget,
@@ -671,7 +655,7 @@
 				* @param {Object} options
 				* @return {?Object}
 				* @static
-				* @memberOf {ns.engine}
+				* @memberOf ns.engine
 				*/
 				instanceWidget: function (element, name, options) {
 					var binding = getBinding(element),
@@ -684,7 +668,7 @@
 
 					if (!binding && widgetDefs[name]) {
 						definition = widgetDefs[name];
-						processHollowWidget(definition, element, options);
+						element = processHollowWidget(definition, element, options);
 						binding = getBinding(element);
 					}
 					return binding;

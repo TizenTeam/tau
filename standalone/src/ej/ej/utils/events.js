@@ -49,6 +49,22 @@
 				},
 
 				/**
+				 * Prevent default on original event
+				 * @method preventDefault
+				 * @param {CustomEvent} event
+				 * @memberOf ns.utils.events
+				 * @static
+				 */
+				preventDefault: function (event) {
+					var originalEvent = event._originalEvent;
+					// @todo this.isPropagationStopped = returnTrue;
+					if (originalEvent && originalEvent.preventDefault) {
+						originalEvent.preventDefault();
+					}
+					event.preventDefault();
+				},
+
+				/**
 				* Stop event propagation
 				* @method stopPropagation
 				* @param {CustomEvent} event

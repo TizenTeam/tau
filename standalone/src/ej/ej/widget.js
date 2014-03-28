@@ -11,7 +11,7 @@
 	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 	define(
 		[
-			"./core"
+			"../ej"
 		],
 		function () {
 			//>>excludeEnd("ejBuildExclude");

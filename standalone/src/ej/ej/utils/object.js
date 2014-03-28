@@ -88,6 +88,8 @@
 				},
 
 				/**
+				 * Function add to Constructor prototype Base object and add to prototype properties and methods from
+				 * prototype object.
 				 * @method inherit
 				 * @param {Function} Constructor
 				 * @param {Function} Base

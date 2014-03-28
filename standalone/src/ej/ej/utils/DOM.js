@@ -4,18 +4,12 @@
 * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
 * License : MIT License V2
 */
-/*
- * @author Jadwiga Sosnowska <j.sosnowska@partner.samsung.com>
- * @author Krzysztof Antoszek <k.antoszek@samsung.com>
- * @author Maciej Moczulski <m.moczulski@samsung.com>
- * @author Piotr Karny <p.karny@samsung.com>
- */
 /**
  * # DOM Object
  * Utilities object with function to manipulation DOM
  *
  * # How to replace jQuery methods  by ns methods
- * ## append vs {@link ns.utils.DOM#method-appendNodes}
+ * ## append vs {@link #appendNodes}
  *
  * #### HTML code before manipulation
  *
@@ -50,7 +44,7 @@
  *        <div id="third">Goodbye</div>
  *     </div>
  *
- * ## replaceWith vs {@link ns.utils.DOM#method-replaceWithNodes}
+ * ## replaceWith vs {@link #replaceWithNodes}
  *
  * #### HTML code before manipulation
  *
@@ -83,7 +77,7 @@
  *         <div id="third">Goodbye</div>
  *     </div>
  *
- * ## before vs {@link ns.utils.DOM#method-insertNodesBefore}
+ * ## before vs {@link #insertNodesBefore}
  *
  * #### HTML code before manipulation
  *
@@ -117,7 +111,7 @@
  *         <div id="third">Goodbye</div>
  *     </div>
  *
- * ## wrapInner vs {@link ns.utils.DOM#method-wrapInHTML}
+ * ## wrapInner vs {@link #wrapInHTML}
  *
  * #### HTML code before manipulation
  *
@@ -151,6 +145,10 @@
  *     </div>
  *
  * @class ns.utils.DOM
+ * @author Jadwiga Sosnowska <j.sosnowska@partner.samsung.com>
+ * @author Krzysztof Antoszek <k.antoszek@samsung.com>
+ * @author Maciej Moczulski <m.moczulski@samsung.com>
+ * @author Piotr Karny <p.karny@samsung.com>
  */
 (function (ns) {
 	"use strict";

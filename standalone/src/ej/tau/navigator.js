@@ -17,7 +17,7 @@
 	define(
 		[
 			"../tau",
-			"../ej/core",
+			"../ej",
 			"../ej/engine",
 			"../ej/router/micro/route",
 			"../ej/router/micro/history"
@@ -57,32 +57,34 @@
 					ns.activePage = document.querySelector('.' + frameworkNamespace.widget.micro.Page.classes.uiPageActive);
 				});
 				/**
-				 * @property {HTMLElement} firstPage
+				 * First page element
 				 * @inheritdoc ns.router.micro.Router#firstPage
+				 * @property {HTMLElement} firstPage
 				 * @memberOf tau
 				 */
 				ns.firstPage = router.getFirstPage();
 				/**
-				 * @method back
 				 * @inheritdoc ns.router.micro.history#back
+				 * @method back
 				 * @memberOf tau
 				 */
 				ns.back = back;
 				/**
-				 * @method initializePage
 				 * @inheritdoc ns.router.micro.Router#init
+				 * @method initializePage
 				 * @memberOf tau
 				 */
 				ns.initializePage = router.init.bind(router);
 				/**
+				 * Page Container widget
 				 * @property {HTMLElement} pageContainer
-				 * @inheritdoc ns.router.micro.Router#pageContainer
+				 * @inheritdoc ns.router.micro.Router#container
 				 * @memberOf tau
 				 */
 				ns.pageContainer = router.container;
 				/**
 				 * @property {Object} rule
-				 * @inheritdoc ns.router.micro.route
+				 * @extends ns.router.micro.route
 				 * @memberOf tau
 				 */
 				ns.rule = rule;
@@ -107,6 +109,12 @@
 				 */
 				ns.closePopup = router.closePopup.bind(router);
 
+				/**
+				 * @property {Object} navigator
+				 * @extends ns.router.micro.Router
+				 * @instance
+				 * @memberOf tau
+				 */
 				navigator = router;
 				/**
 				 * @property {Object} rule object contains rules for navigator
@@ -122,8 +130,8 @@
 				 */
 				navigator.back = back;
 				/**
+				 * Object to change history of browsing pages or popups
 				 * @property {Object} history
-				 * @inheritdoc ns.router.micro.history
 				 * @extends ns.router.micro.history
 				 * @memberOf tau.navigator
 				 */

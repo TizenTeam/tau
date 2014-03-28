@@ -4,28 +4,29 @@
 * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
 * License : MIT License V2
 */
-/** @namespace ej.utils */
 /**
- * @class ej.utils
+ * #Utils
+ * Namespace for all utils class
+ * @class ns.utils
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>
  */
-(function (window, ej) {
+(function (window, ns) {
 	"use strict";
 	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 	define(
 		[
-			"./core"
+			"../ej"
 		],
 		function () {
 		//>>excludeEnd("ejBuildExclude");
 			var currentFrame = null,
 				/**
-				* requestAnimationFrame function
-				* @method requestAnimationFrame
-				* @return {Function}
-				* @memberOf ej.utils
-				* @static
+				 * requestAnimationFrame function
+				 * @method requestAnimationFrame
+				 * @return {Function}
+				 * @static
+				 * @memberOf ns.utils
 				*/
 				requestAnimationFrame = (window.requestAnimationFrame ||
 					window.webkitRequestAnimationFrame ||
@@ -36,18 +37,18 @@
 					}).bind(window),
 				/**
 				* Class with utils functions
-				* @class ej.utils
+				* @class ns.utils
 				*/
-				/** @namespace ej.utils */
-				utils = ej.utils || {};
+				/** @namespace ns.utils */
+				utils = ns.utils || {};
 
 			utils.requestAnimationFrame = requestAnimationFrame;
 
 			/**
 			* cancelAnimationFrame function
-			* @method requestAnimationFrame
+			* @method cancelAnimationFrame
 			* @return {Function}
-			* @memberOf ej.utils
+			* @memberOf ns.utils
 			* @static
 			*/
 			utils.cancelAnimationFrame = (window.cancelAnimationFrame ||
@@ -61,15 +62,19 @@
 					}).bind(window);
 
 			/**
-			* @alias requestAnimationFrame
-			*/
+			 * Method make asynchronous call of function
+			 * @method async
+			 * @inheritdoc #requestAnimationFrame
+			 * @memberOf ns.utils
+			 * @static
+			 */
 			utils.async = requestAnimationFrame;
 
 			/**
 			* Checks if specified string is a number or not
 			* @method isNumber
 			* @return {boolean}
-			* @memberOf ej.utils
+			* @memberOf ns.utils
 			* @static
 			*/
 			utils.isNumber = function (query) {
@@ -77,10 +82,10 @@
 				return !isNaN(parsed) && isFinite(parsed);
 			};
 
-			ej.utils = utils;
+			ns.utils = utils;
 			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
-			return ej.utils;
+			return ns.utils;
 		}
 	);
 	//>>excludeEnd("ejBuildExclude");
-}(window, window.ej));
+}(window, ns));

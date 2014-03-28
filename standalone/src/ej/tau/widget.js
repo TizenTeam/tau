@@ -7,6 +7,36 @@
 /*
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
+/**
+ * @class tau.VirtualGrid
+ * @inheritdoc ns.widget.micro.VirtualGrid
+ * @extends ns.widget.micro.VirtualGrid
+ */
+/**
+ * @class tau.VirtualListview
+ * @inheritdoc ns.widget.micro.VirtualListview
+ * @extends ns.widget.micro.VirtualListview
+ */
+/**
+ * @class tau.Popup
+ * @inheritdoc ns.widget.micro.Popup
+ * @extends ns.widget.micro.Popup
+ */
+/**
+ * @class tau.Page
+ * @inheritdoc ns.widget.micro.Page
+ * @extends ns.widget.micro.Page
+ */
+/**
+ * @class tau.PageContainer
+ * @inheritdoc ns.widget.micro.PageContainer
+ * @extends ns.widget.micro.PageContainer
+ */
+/**
+ * @class tau.IndexScrollbar
+ * @inheritdoc ns.widget.micro.IndexScrollbar
+ * @extends ns.widget.micro.IndexScrollbar
+ */
 (function (document, frameworkNamespace, ns) {
 	"use strict";
 	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);

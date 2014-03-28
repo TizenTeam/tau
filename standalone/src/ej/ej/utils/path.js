@@ -4,6 +4,11 @@
 * License : MIT License V2
 */
 /*
+/**
+ * #Path
+ * Ej utils path namespace
+ * @class ns.utils.path
+ * @static
  * @author Tomasz Lukawski <t.lukawski@samsung.com>
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Piotr Karny <p.karny@samsung.com>
@@ -62,25 +67,20 @@
 				*/
 				base,
 				/**
-				*
-				* @memberOf ns.utils.path
-				* @property {Object} location
-				* @static
-				* @private
-				*/
+				 * location object
+				 * @property {Object} location
+				 * @static
+				 * @private
+				 * @memberOf ns.utils.path
+				 */
 				location = {},
-				/**
-				* Ej utils path namespace
-				* @class ns.utils.path
-				* @static
-				*/
 				path = {
 					/**
-					*
-					* @memberOf ns.utils.path
-					* @property {string} [uiStateKey="&ui-state"]
-					* @static
-					*/
+					 * href part for mark state
+					 * @property {string} [uiStateKey="&ui-state"]
+					 * @static
+					 * @memberOf ns.utils.path
+					 */
 					uiStateKey: "&ui-state",
 
 					// This scary looking regular expression parses an absolute URL or its relative
@@ -109,7 +109,7 @@
 					//	[17]: #msg-content
 					//
 					/**
-					* @poperty {RegExp} urlParseRE
+					* @property {RegExp} urlParseRE Regular expression for parse URL
 					* @memberOf ns.utils.path
 					* @static
 					*/

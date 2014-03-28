@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, define, ns */
 /*jslint plusplus: true, nomen: true */
 //  * @TODO add support of $.mobile.buttonMarkup.hoverDelay
 /*
@@ -31,24 +31,25 @@
 					popupTransition: 'none'
 				};
 				/**
-				 * @property {boolean} [dynamicBaseEnabled = true]
-				 * @memberOf gear.ui
+				 * Set dynamic base tag changes.
+				 * @property {boolean} [dynamicBaseEnabled=true]
+				 * @memberOf tau
 				 */
 				ns.dynamicBaseEnabled = true;
 				/**
-				 * @class tau.selectors
 				 * @inheritdoc ns.micro.selectors
+				 * @class tau.selectors
 				 * @extend ns.micro.selectors
 				 */
 				ns.selectors = selectors;
 				navigator = ns.navigator || {};
 				/**
-				 * @property {object} defaults
+				 * @property {Object} defaults Default values for router
 				 * @property {boolean} [defaults.fromHashChange = false]
 				 * @property {boolean} [defaults.reverse = false]
 				 * @property {boolean} [defaults.showLoadMsg = true]
 				 * @property {number} [defaults.loadMsgDelay = 0]
-				 * @memberOf gear.ui.navigator
+				 * @memberOf tau.navigator
 				 */
 				navigator.defaults = {
 					fromHashChange: false,

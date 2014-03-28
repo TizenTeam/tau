@@ -5,14 +5,7 @@
  * License : MIT License V2
  */
 /**
- * @class gear.ui.VirtualGrid
- * @inheritdoc ns.widget.micro.VirtualGrid
- * @extends ns.widget.micro.VirtualGrid
- * @author Maciej Urbanski <m.urbanski@samsung.com>
- * @author Krzysztof Antoszek <k.antoszek@samsung.com>
- * @author Piotr Karny <p.karny@samsung.com>
- */
-/**
+ * #Virtual grid widget
  * @class ns.widget.micro.VirtualGrid
  * @extends ns.widget.micro.VirtualListview
  * @author Maciej Urbanski <m.urbanski@samsung.com>
@@ -88,8 +81,7 @@
 						orientation: VERTICAL,
 						/**
 						 * Method which modifies list item, depended at specified index from database.
-						 * **Method should overrided by developer using {@link ns.widget.VirtualListview#create .create} method.**
-						 * @method
+						 * @method listItemUpdater
 						 * @param {HTMLElement} element List item to be modified.
 						 * @param {number} index Index of data set.
 						 * @memberOf ns.widget.micro.VirtualGrid
