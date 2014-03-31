@@ -63,8 +63,9 @@
 				* @static
 				* @memberOf ns.utils.object
 				*/
-				multiMerge: function (newObject, orgObject, override) {
-					var key,
+				multiMerge: function ( /* newObject, orgObject, override */ ) {
+					var newObject, orgObject, override,
+						key,
 						args = [].slice.call(arguments),
 						argsLength = args.length,
 						i;
@@ -78,7 +79,7 @@
 						orgObject = args.shift();
 						if (orgObject !== null) {
 							for (key in orgObject) {
-								if (orgObject.hasOwnProperty(key) && ( override || orgObject[key] === undefined )) {
+								if (orgObject.hasOwnProperty(key) && ( override || newObject[key] === undefined )) {
 									newObject[key] = orgObject[key];
 								}
 							}
