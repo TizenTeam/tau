@@ -1,6 +1,18 @@
 /*jslint browser: true */
 /*global themeEditor, properties*/
 
+function openImportDialog() {
+    var dialog = document.getElementById('importDialog');
+    dialog.classList.toggle('hidden');
+    dialog.querySelector('[type="button"]').click();
+}
+
+function resizeBadge(width, height) {
+    var globalSettings = document.getElementById('globalBadgeSize').checked;
+
+    themeEditor.badgePreview.resizeViewport(width, height, undefined, globalSettings);
+}
+
 window.onload = function () {
 	'use strict';
 	themeEditor.init(properties);

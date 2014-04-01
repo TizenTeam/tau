@@ -1,4 +1,4 @@
-/*jslint browser: true */
+/*jslint browser: true, white: true */
 /*global $, window */
 
 (function(window, $) {
@@ -56,10 +56,10 @@
 		widget.value = defaultValue;
 	}
 
-	function prepareWidgetColorPicker(defaultValue) {
+	function prepareWidgetColorPicker(self, defaultValue) {
 		var colorPicker;
 
-		colorPicker = new themeEditor.ColorPicker(document.getElementById('panelColorpicker'));
+		colorPicker = new self.ColorPicker(document.getElementById('panelColorpicker'));
 		colorPicker.setColor(defaultValue);
 	}
 
@@ -133,16 +133,21 @@
 			queryPieces,
 			path = [],
 			relative,
+			queryPathMatch,
+			rootPathMatch,
 			i;
 
 		// Check if queryPath is relative or absolute path
-		relative = !(/^[a-z]*:?\/\/?/.test(queryPath));
+		relative = !(/^[a-z]+:\/\//.test(queryPath));
 
 		rootPieces = rootPath.split('/');
 		queryPieces = queryPath.split('/');
 
+		rootPathMatch = rootPath.match(/https?:\/\/[^\/]+/);
+		queryPathMatch = queryPath.match(/https?:\/\/[^\/]+/);
+
 		// Check if paths are in the same domain
-		if (relative !== true && rootPath.match(/https?:\/\/[^\/]+/)[0] !== queryPath.match(/https?:\/\/[^\/]+/)[0]) {
+		if (relative !== true && rootPathMatch && queryPathMatch && rootPathMatch[0] !== queryPathMatch[0]) {
 			return queryPath;
 		}
 
@@ -160,15 +165,15 @@
 				}
 			}
 			return rootPieces.join('/') + '/' + queryPieces.join('/');
-		} else {
-			// Find common pieces
-			for (i = 0; i < rootPieces.length; i += 1) {
-				if (rootPieces[i] !== queryPieces[i]) {
-					if (rootPieces[i] === '..') {
-						path.pop();
-					} else {
-						path.push('..');
-					}
+		}
+
+		// Find common pieces
+		for (i = 0; i < rootPieces.length; i += 1) {
+			if (rootPieces[i] !== queryPieces[i]) {
+				if (rootPieces[i] === '..') {
+					path.pop();
+				} else {
+					path.push('..');
 				}
 			}
 		}
@@ -191,7 +196,7 @@
 				break;
 
 			case 'color':
-				prepareWidgetColorPicker(widgetDefault);
+				prepareWidgetColorPicker(this, widgetDefault);
 				break;
 
 			default:
@@ -313,7 +318,7 @@
 	ThemeEditor.prototype.init = function(themeProperties) {
 		var config = this.config;
 
-		config.root = window.location.href.replace(/[^/]+\.html?$/, '');
+		config.root = window.location.href.replace(/[^\/]+\.html?$/, '');
 		config.themeRoot = this.resolvePath(config.root, '../../standalone/src/css/themes/black/');
 		config.themeProperties = themeProperties;
 		config.cssVariablePanel = document.getElementById('leftPanel');

@@ -23,19 +23,27 @@
 	<script type="text/javascript" src="js/themeEditor.ColorPicker.js"></script>
 	<script type="text/javascript" src="js/themeEditor.badgePreview.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
-
 </head>
 <body>
 	<div id="topPanel">
 		<ul>
 			<li><a href="javascript:void(0)" onclick="themeEditor.badgePreview.saveFile()" class="save-css-icon" title="Save your work to CSS file"></a></li>
+            <li>
+                <a href="javascript:void(0)" onclick="openImportDialog()">import</a>
+                <div class="panel-submenu center">
+                    <textarea id="importDialog"></textarea>
+                    <input type="button" class="button" onclick="themeEditor.badgePreview.importTheme(this)" value="import theme">
+                </div>
+            </li>
 			<li><a href="javascript:void(0)" onclick="themeEditor.badgePreview.historyUndo()" id="historyUndo" class="disabled" title="Get previous configuration from history">&laquo; undo</a></li>
 			<li><a href="javascript:void(0)" onclick="themeEditor.badgePreview.historyRedo()" id="historyRedo" class="disabled" title="Get next configuration from history">redo &raquo;</a></li>
 		</ul>
 		<ul style="float: right;">
 			<li>App to preview:
 				<select id="themeSelect" onchange="themeEditor.badgePreview.changePreview(this.value)">
-					<option selected="selected" value="../../standalone/demos/GearWinsetTest">GearWinsetTest</option>
+					<option selected="selected" value="../../standalone/demos/WearableWidgetSample/">WearableWidgetSample</option>
+					<option value="../../standalone/demos/WatchOnWeb/index.html">WatchOnWeb</option>
+					<option value="../../standalone/demos/WeatherDemo/index.html">WeatherDemo</option>
 					<option value="../../standalone/demos/Fallback/index.html">Fallback</option>
 					<option value="../../standalone/demos/TemplateBasic/index.html">TemplateBasic</option>
 					<option value="../../standalone/demos/TemplateList/index.html">TemplateList</option>
@@ -47,8 +55,8 @@
 				<a href="javascript:void(0)" title="Set height of badge" class="width-badge-icon"></a>
 				<div class="panel-submenu">
 					<div class="row">
-						<div class="range-max">320</div><br>
-						<input type="range" min="160" max="320" value="320" name="rangeViewportWidth" class="vertical-slider" id="badgeWidthSlider"><br>
+						<div class="range-max">1920</div><br>
+						<input type="range" min="160" max="1920" value="320" name="rangeViewportWidth" class="vertical-slider" id="badgeWidthSlider"><br>
 						<div class="range-min">160</div><br>
 						<hr>
 						<span class="current-value">320px</span>
@@ -62,8 +70,8 @@
 				<a href="javascript:void(0)" title="Set height of badge" class="height-badge-icon"></a>
 				<div class="panel-submenu">
 					<div class="row">
-						<div class="range-max">900</div><br>
-						<input type="range" min="160" max="900" value="320" class="vertical-slider" id="badgeHeightSlider"><br>
+						<div class="range-max">1920</div><br>
+						<input type="range" min="160" max="1920" value="320" class="vertical-slider" id="badgeHeightSlider"><br>
 						<div class="range-min">160</div><br>
 						<hr>
 						<span class="current-value">320px</span>
@@ -74,17 +82,32 @@
 				</div>
 			</li>
 			<li>
-				<a href="javascript:void(0)" title="Zoom current view" class="zoom-badge-icon"></a>
+				<a href="javascript:void(0)" title="Set badge size from presets" class="">Devices</a>
 				<div class="panel-submenu">
-					<div class="row">
-						<div class="range-max">200</div><br>
-						<input type="range" min="20" max="200" value="100" name="rangeViewportZoom" class="vertical-slider" id="zoomSlider"><br>
-						<div class="range-min">20</div><br>
-						<hr>
-						<span class="current-value">100%</span>
-					</div>
+					<ul>
+                        <li onclick="resizeBadge(320, 160)">Gear Neo <br><small>320 x 160</small></li>
+                        <li onclick="resizeBadge(320, 320)">Gear <br><small>320 x 320</small></li>
+						<li onclick="resizeBadge(1920, 1080)">HD Ready<br><small>1280 x 720</small></li>
+                        <li onclick="resizeBadge(1280, 800)">Full HD<br><small>1920 x 1080</small></li>
+                        <li class="global-settings">
+                            <input type="checkbox" id="globalBadgeSize">
+                            <label for="globalBadgeSize"><small>global</small></label>
+                        </li>
+					</ul>
 				</div>
 			</li>
+            <li>
+                <a href="javascript:void(0)" title="Zoom current view" class="zoom-badge-icon"></a>
+                <div class="panel-submenu">
+                    <div class="row">
+                        <div class="range-max">200</div><br>
+                        <input type="range" min="10" max="200" value="100" name="rangeViewportZoom" class="vertical-slider" id="zoomSlider"><br>
+                        <div class="range-min">1</div><br>
+                        <hr>
+                        <span class="current-value">100%</span>
+                    </div>
+                </div>
+            </li>
 		</ul>
 	</div>
 	<div class="flex-row">
@@ -113,6 +136,12 @@
 						<div id="colorProposal"></div>
 					</div>
 				</div>
+                <div class="panel-window">
+                    <h3>Device properties</h3>
+                    <div>
+                        <input type="button" value="Swap Badge Dimensions" onclick="themeEditor.badgePreview.swapDimensions()">
+                    </div>
+                </div>
 			</div>
 		</div>
 	</div>

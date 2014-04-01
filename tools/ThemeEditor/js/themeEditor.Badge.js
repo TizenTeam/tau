@@ -1,4 +1,4 @@
-/*jslint browser: true */
+/*jslint browser: true, white: true */
 /*global $, CustomEvent*/
 (function (window) {
 	'use strict';
@@ -14,6 +14,7 @@
 		Badge = function () {
 			this.badgePreview = null;
 			this.element = null;
+            this.iframeElement = null;
 			this.modifiedVariables = {};
 			this.modificationHistory = [{}]; // {cssVar: value}
 			this.modificationHistoryIndex = 0;
@@ -48,7 +49,7 @@
 
 		switch (direction) {
 			case 'back':
-				self.contentWindow.gear.ui.back();
+				self.contentWindow.tau.back();
 				break;
 			case 'forward':
 				history.forward();
@@ -70,9 +71,9 @@
 			badgePreview = self.badgePreview,
 			i;
 
-		// Remove current gear.css stylesheet
+		// Remove current tau.css stylesheet
 		for (i = frameStyleSheets.length - 1; i >= 0; i -= 1) {
-			if (frameStyleSheets[i].href && frameStyleSheets[i].href.search(/gear\.ui(\.min)?\.css$/) > 0) {
+			if (frameStyleSheets[i].href && frameStyleSheets[i].href.search(/tau(\.min)?\.css$/) > 0) {
 				frameStyleSheets[i].disabled = true;
 				frameStyleSheets[i].ownerNode.parentNode.removeChild(frameStyleSheets[i].ownerNode);
 			}
@@ -82,7 +83,7 @@
 		linkTag = frameDocument.createElement('link');
 		linkTag.setAttribute('rel', 'stylesheet/less');
 		linkTag.setAttribute('type', 'text/css');
-		linkTag.setAttribute('href', themeRoot + 'gear.ui.less');
+		linkTag.setAttribute('href', themeRoot + 'tau.less');
 		frameDocumentHead.appendChild(linkTag);
 
 		// Add LESS configuration
@@ -101,22 +102,26 @@
 		frameDocumentHead.appendChild(scriptTag);
 
 		styleTag = frameDocument.createElement('style');
+
+		// @TODO: remove when scrollbar will be styled in tau less files
 		styleTag.textContent = '::-webkit-scrollbar{ width: 5px; border-radius:3px; }' +
 			'::-webkit-scrollbar-track{ border-radius:3px; background: transparent; }' +
 			'::-webkit-scrollbar-thumb{ border-radius: 2px; background: #777777; }' +
 			'::-webkit-scrollbar-track-piece { height: 30px; }';
+
 		frameDocumentHead.appendChild(styleTag);
 
 
 		// Add LESS library
 		scriptTag = frameDocument.createElement('script');
-		scriptTag.src = root + 'lib/less-1.6.3.min.js';
+		//scriptTag.src = root + 'lib/less-1.6.3.min.js';
+		scriptTag.src = root + 'lib/less-1.6.3.js';
 		frameDocumentHead.appendChild(scriptTag);
 
 		// Cache contentWindow
 		self.contentWindow = iframe.contentWindow;
 
-		// Refresh baddge if less is loaded
+		// Refresh badge if less is loaded
 		scriptTag.onload = badgePreview.changeText.bind(badgePreview, true);
 
 	}
@@ -142,6 +147,10 @@
 		el.addEventListener('click', self.historyForwardBound);
 		container.appendChild(el);
 
+        el = document.createElement('span');
+        el.className = 'badge-size';
+        container.appendChild(el);
+
 		this.element.appendChild(container);
 	};
 
@@ -165,6 +174,7 @@
 		iframe.setAttribute('src', url);
 		badgeElement.appendChild(iframe);
 		iframe.onload = badgeLoad.bind('', this);
+        this.iframeElement = iframe;
 
 		// Append to workspace
 		workspace.appendChild(badgeElement);
@@ -177,13 +187,14 @@
 
 
 		// Replace current iframe...
-		iframe = element.querySelector('iframe');
+		iframe = this.iframeElement;
 		iframe.parentNode.removeChild(iframe);
 
 		// ... with new one.
 		iframe = document.createElement('iframe');
 		iframe.setAttribute('src', url);
 		element.appendChild(iframe);
+        this.iframeElement = iframe;
 
 		iframe.onload = badgeLoad.bind('', this);
 	};
