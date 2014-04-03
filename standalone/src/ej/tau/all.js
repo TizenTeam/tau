@@ -14,7 +14,8 @@
 			"./defaults",
 			"./navigator",
 			"./utils",
-			"./widget"
+			"./widget",
+            "./export"
 		],
 		function () {
 			return true;

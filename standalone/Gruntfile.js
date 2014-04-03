@@ -13,19 +13,36 @@ module.exports = function(grunt) {
 		themesPath = path.join(dist, "themes"),
 
 		rootNamespace = "ns",
+        exportNamespace = "tau",
+        config = exportNamespace + "Config",
 		fileName = "tau",
 
 		wrapStart = "(function(window, document, undefined) {\n" +
 			"'use strict';\n" +
 			"var ns = {},\n" +
-			"	nsConfig = window." + rootNamespace + "Config = window." + rootNamespace + "Config || {};\n" +
+			"	nsConfig = window." + config + " = window." + config + " || {};\n" +
 			"nsConfig.rootNamespace = '" + rootNamespace + "';\n" +
 			"nsConfig.fileName = '" + fileName + "';\n",
 		wrapEnd = "}(window, window.document));\n",
 
+        wrapStartWidget = "(function(window, document, undefined) {\n" +
+            "'use strict';\n" +
+            "var ns = " + exportNamespace + "._export || {},\n" +
+            "	nsConfig = window." + config + " = window." + config + " || {};\n" +
+            "nsConfig.rootNamespace = '" + rootNamespace + "';\n" +
+            "nsConfig.fileName = '" + fileName + "';\n",
+        wrapEndWidget = wrapEnd,
+
 		widgets = {
 			"indexScrollbar": "widget/indexScrollbar",
 			"sectionchanger": "widget/sectionchanger"
+		},
+
+		ejWidgets = {
+			"indexScrollbar": "ej/widget/wearable/indexscrollbar/IndexScrollbar",
+			"sectionchanger": "ej/widget/wearable/SectionChanger",
+			"virtuallist": "ej/widget/wearable/VirtualListview",
+			"virtualgrid": "ej/widget/wearable/VirtualGrid"
 		},
 
 		themes = {
@@ -194,7 +211,7 @@ module.exports = function(grunt) {
 					}
 				},
 
-				ej: {
+				ejfull: {
 					options: {
 						baseUrl: "src/ej",
 						optimize: "none",
@@ -202,6 +219,25 @@ module.exports = function(grunt) {
 						skipModuleInsertion: true,
 						name: "wearable",
 						out: path.join( jsPath, name ) + ".js",
+						pragmasOnSave: {
+							ejBuildExclude: true,
+							ejDebug: true
+						},
+						wrap: {
+							start: wrapStart,
+							end: wrapEnd
+						}
+					}
+				},
+
+				ejcore: {
+					options: {
+						baseUrl: "src/ej",
+						optimize: "none",
+						findNestedDependencies: true,
+						skipModuleInsertion: true,
+						name: "wearable.core",
+						out: path.join( jsPath, name ) + ".core.js",
 						pragmasOnSave: {
 							ejBuildExclude: true,
 							ejDebug: true
@@ -332,6 +368,30 @@ module.exports = function(grunt) {
 			};
 		}
 
+		for ( key in ejWidgets ) {
+			value = ejWidgets[key];
+
+			requirejs["ej_widget_" + key] = {
+				options: {
+					baseUrl: "src/ej",
+					optimize: "none",
+					findNestedDependencies: true,
+					skipModuleInsertion: true,
+					include: [ value ],
+					exclude: [ "wearable.core" ],
+					out: path.join( widgetPath, key ) + ".js",
+					pragmasOnSave: {
+						ejBuildExclude: true,
+						ejDebug: true
+					},
+					wrap: {
+						start: wrapStartWidget,
+						end: wrapEndWidget
+					}
+				}
+			};
+		}
+
 	})();
 
 	grunt.initConfig(initConfig);
@@ -354,6 +414,14 @@ module.exports = function(grunt) {
 
 	});
 
+	grunt.registerTask("ejwidget", "Generate widget files using requirejs", function() {
+		var key;
+
+		for ( key in ejWidgets ) {
+			grunt.task.run("requirejs:ej_widget_" + key);
+		}
+
+	});
 	grunt.loadNpmTasks( "grunt-contrib-clean" );
 	grunt.loadNpmTasks( "grunt-contrib-copy" );
 	grunt.loadNpmTasks( "grunt-contrib-concat" );
@@ -370,7 +438,7 @@ module.exports = function(grunt) {
 
 	grunt.registerTask("css", [ "clean:css", "less", "cssmin" ]);
 	grunt.registerTask("js", [ "clean:js", "requirejs:full", "requirejs:core", "widget", "requirejs:virtuallist", "jsmin" ]);
-	grunt.registerTask("jsej", [ "clean:js", "requirejs:full", "requirejs:ej", "widget", "jsmin" ]);
+	grunt.registerTask("jsej", [ "clean:js", "requirejs:ejfull", "requirejs:ejcore", "ejwidget", "jsmin" ]);
 
 	grunt.registerTask("license", [ "findFiles:js.setLicenseFiles", "findFiles:css.setLicenseFiles", "concat" ]);
 
