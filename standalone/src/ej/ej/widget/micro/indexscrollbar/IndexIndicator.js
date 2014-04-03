@@ -25,7 +25,7 @@
 
 			function IndexIndicator(element, options) {
 				this.element = element;
-				this.options = utilsObject.multiMerge(this._options, options, false);
+				this.options = utilsObject.multiMerge(options, this._options, false);
 				this.value = null;
 
 				this._init();

@@ -131,7 +131,8 @@
 				},
 
 				_setOptions: function (options) {
-					this.options = ns.extendObject(options, this._options, false);
+					options = options || {};
+					this.options = ns.utils.object.multiMerge(options, this._options, false);
 
 					// data-* attributes
 					this.options.index = this._getIndex();
