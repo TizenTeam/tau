@@ -99,6 +99,7 @@
 				},
 
 				_init: function () {
+					this.options.index = this._getIndex();
 					this._setInitialLayout();	// This is needed for creating sub objects
 					this._createSubObjects();
 
@@ -131,11 +132,15 @@
                     }
                 },
 
-				_setOptions: function (options) {
-					options = options || {};
-					this.options = ns.utils.object.merge(options, this._options, false);
-
-					// data-* attributes
+				/**
+				 * Protected method be a interface for method options to set option index
+				 * If you want set index option please call widgetInstane.option('index', 'A,B,C');
+				 * This method automaticly convert string to array and set this to this.option.index
+				 * @param {HTMLElement} element
+				 * @param {string} value
+				 * @protected
+				 */
+				_setIndex: function (element, value) {
 					this.options.index = this._getIndex();
 				},
 
