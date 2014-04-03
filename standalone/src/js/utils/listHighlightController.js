@@ -13,7 +13,6 @@
 	didScroll,
 	target,
 	liTarget,
-	touchLength,
 	addActiveClassTimerID,
 	options = {
 		scrollThreshold: 5,
@@ -25,9 +24,7 @@
 	};
 
 	function touchstartHandler( e ) {
-		touchLength = e.touches.length;
-
-		if( touchLength !== 1 ) {
+		if( e.touches.length !== 1 ) {
 			return;
 		} else {
 			didScroll = false;
@@ -108,8 +105,8 @@
 		return document.getElementsByClassName( activeClass.LI );
 	}
 
-	function touchendHandler() {
-		if( touchLength !== 1 ) {
+	function touchendHandler( e ) {
+		if( e.touches.length >= 1 ) {
 			return;
 		} else {
 			clearTimeout( addActiveClassTimerID );
