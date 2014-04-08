@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>Device Viewer</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="stylesheet" href="css/normalize.css" type="text/css">
+	<link rel="stylesheet" href="css/deviceViewer.css" type="text/css" title="deviceViewer">
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+
+	<script type="text/javascript" src="js/config.js"></script>
+	<script type="text/javascript" src="js/deviceViewer.js"></script>
+	<script type="text/javascript" src="js/deviceViewer.Badge.js"></script>
+	<script type="text/javascript" src="js/deviceViewer.BadgePreview.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+</head>
+<body>
+	<div id="topPanel">
+		<ul style="float: right;">
+			<li>App to preview:
+				<select id="appSelect" onchange="deviceViewer.badgePreview.changePreview(this.value)">
+					<option selected="selected" value="../../standalone/demos/WearableWidgetSample/">WearableWidgetSample</option>
+					<option value="../../standalone/demos/WatchOnWeb/index.html">WatchOnWeb</option>
+					<option value="../../standalone/demos/WeatherDemo/index.html">WeatherDemo</option>
+					<option value="../../standalone/demos/Fallback/index.html">Fallback</option>
+					<option value="../../standalone/demos/TemplateBasic/index.html">TemplateBasic</option>
+					<option value="../../standalone/demos/TemplateList/index.html">TemplateList</option>
+				</select>
+			</li>
+			<li><a href="javascript:void(0)" onclick="deviceViewer.badgePreview.add()" title="Add new theme badge" class="new-badge-icon"></a></li>
+			<li><a href="javascript:void(0)" onclick="deviceViewer.badgePreview.remove()" title="Remove current theme badge" class="remove-badge-icon"></a></li>
+			<li>
+				<a href="javascript:void(0)" title="Set height of badge" class="width-badge-icon"></a>
+				<div class="panel-submenu">
+					<div class="row">
+						<div class="range-max">1920</div><br>
+						<input type="range" min="160" max="1920" value="320" name="rangeViewportWidth" class="vertical-slider" id="badgeWidthSlider"><br>
+						<div class="range-min">160</div><br>
+						<hr>
+						<span class="current-value">320px</span>
+						<br>
+						<input type="checkbox" id="globalBadgeWidth" class="global-settings-checkbox"><br>
+						<label for="globalBadgeWidth"><small>global</small></label>
+					</div>
+				</div>
+			</li>
+			<li>
+				<a href="javascript:void(0)" title="Set height of badge" class="height-badge-icon"></a>
+				<div class="panel-submenu">
+					<div class="row">
+						<div class="range-max">1920</div><br>
+						<input type="range" min="160" max="1920" value="320" class="vertical-slider" id="badgeHeightSlider"><br>
+						<div class="range-min">160</div><br>
+						<hr>
+						<span class="current-value">320px</span>
+						<br>
+						<input type="checkbox" id="globalBadgeHeight" class="global-settings-checkbox"><br>
+						<label for="globalBadgeHeight"><small>global</small></label>
+					</div>
+				</div>
+			</li>
+			<li>
+				<a href="javascript:void(0)" title="Set badge size from presets" class="">Devices</a>
+				<div class="panel-submenu">
+					<ul>
+                        <li onclick="resizeBadge(320, 160)">Gear Neo <br><small>320 x 160</small></li>
+                        <li onclick="resizeBadge(320, 320)">Gear <br><small>320 x 320</small></li>
+                        <li onclick="resizeBadge(320, 569)">Mobile <br><small>320 x 569</small></li>
+						<li onclick="resizeBadge(1920, 1080)">HD Ready<br><small>1280 x 720</small></li>
+                        <li onclick="resizeBadge(1280, 800)">Full HD<br><small>1920 x 1080</small></li>
+                        <li class="global-settings">
+                            <input type="checkbox" id="globalBadgeSize">
+                            <label for="globalBadgeSize"><small>global</small></label>
+                        </li>
+					</ul>
+				</div>
+			</li>
+            <li>
+                <a href="javascript:void(0)" title="Zoom current view" class="zoom-badge-icon"></a>
+                <div class="panel-submenu">
+                    <div class="row">
+                        <div class="range-max">200</div><br>
+                        <input type="range" min="10" max="200" value="100" name="rangeViewportZoom" class="vertical-slider" id="zoomSlider"><br>
+                        <div class="range-min">1</div><br>
+                        <hr>
+                        <span class="current-value">100%</span>
+                    </div>
+                </div>
+            </li>
+		</ul>
+	</div>
+	<div class="flex-row">
+		<div id="centerPanel">
+			<div id="workspace"><!-- container for workspace --></div>
+		</div>
+		<div id="rightPanel" class="panel-container">
+			<div class="panel-box">
+                <div class="panel-window">
+                    <h3>Device properties</h3>
+                    <div>
+                        <input type="button" value="Swap Badge Dimensions" onclick="deviceViewer.badgePreview.swapDimensions()">
+                    </div>
+                </div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
