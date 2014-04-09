@@ -189,30 +189,29 @@ html, body {
 		}
 	}
 
-    ul {
-      display: block;
-      li {
-        line-height: 1.4em;
-        font-weight: bold;
-        display: block !important;
-        padding: 10px 5px !important;
-        border-bottom: 1px solid lighten(@panel-top-background, 30%);
-        &:last-child {
-          border-bottom-width: 0;
-        }
-        small {
-          font-weight: normal;
-        }
+	ul {
+		display: block;
+	 	 li {
+			line-height: 1.4em;
+			font-weight: bold;
+			display: block !important;
+			padding: 10px 5px !important;
+			border-bottom: 1px solid lighten(@panel-top-background, 30%);
+			&:last-child {
+				border-bottom-width: 0;
+			}
+			small {
+				font-weight: normal;
+			}
 
-        &.global-settings {
-
-          input, label {
-            margin: 5px 2px;
-            display: inline-block;
-          }
-        }
-      }
-    }
+			&.global-settings {
+				input, label {
+					margin: 5px 2px;
+					display: inline-block;
+				}
+			}
+		}
+	}
 }
 
 li:hover > .panel-submenu {
@@ -306,7 +305,7 @@ li:hover > .panel-submenu {
 
 	.theme-badge {
 		position: relative;
-        .transition(all 0.3s ease-out);
+		.transition(all 0.3s ease-out);
 
 		&:first-of-type {
 			margin-left: 20px;
@@ -321,9 +320,9 @@ li:hover > .panel-submenu {
 		border: 1px solid darken(@theme-badge-background-color, 10%);
 
 		iframe {
-            .transition(all 0.3s ease-out);
-            width: 320px;
-            height: 320px;
+			.transition(all 0.3s ease-out);
+			width: 320px;
+			height: 320px;
 		}
 	}
 
@@ -417,26 +416,26 @@ li:hover > .panel-submenu {
 }
 
 #importDialog {
-  display: block;
-  padding: 20px;
-  margin: 5px;
-  width: 300px;
-  height: 100px;
-  background-color: fade(@panel-top-background, 20%);
-  border: 1px solid fade(@panel-top-background, 60%);
-  color: @panel-top-color;
+	display: block;
+	padding: 20px;
+	margin: 5px;
+	width: 300px;
+	height: 100px;
+	background-color: fade(@panel-top-background, 20%);
+	border: 1px solid fade(@panel-top-background, 60%);
+	color: @panel-top-color;
 }
 
 .center {
-  text-align: center;
+	text-align: center;
 }
 
 input.button {
-  display: inline-block;
-  padding: 5px 20px;
-  width: auto;
-  margin: 10px auto;
-  background-color: fade(@panel-background, 20%);
-  border: 1px solid fade(@panel-top-background, 60%);
-  color: @panel-top-color;
+	display: inline-block;
+	padding: 5px 20px;
+	width: auto;
+	margin: 10px auto;
+	background-color: fade(@panel-background, 20%);
+	border: 1px solid fade(@panel-top-background, 60%);
+	color: @panel-top-color;
 }

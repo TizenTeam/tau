@@ -1,6 +1,5 @@
 .icon {
-  background-image: url('../images/iconset.png');
-  background-repeat: no-repeat;
+  background: url('../images/iconset.png') no-repeat;
   display: inline-block;
   width: 31px;
   height: 31px;
@@ -13,8 +12,7 @@ li:hover .icon {
   background-position-y: -48px;
 }
 .new-badge-icon {
-  background-image: url('../images/iconset.png');
-  background-repeat: no-repeat;
+  background: url('../images/iconset.png') no-repeat;
   display: inline-block;
   width: 31px;
   height: 31px;
@@ -28,8 +26,7 @@ li:hover .new-badge-icon {
   background-position-y: -48px;
 }
 .remove-badge-icon {
-  background-image: url('../images/iconset.png');
-  background-repeat: no-repeat;
+  background: url('../images/iconset.png') no-repeat;
   display: inline-block;
   width: 31px;
   height: 31px;
@@ -43,8 +40,7 @@ li:hover .remove-badge-icon {
   background-position-y: -48px;
 }
 .height-badge-icon {
-  background-image: url('../images/iconset.png');
-  background-repeat: no-repeat;
+  background: url('../images/iconset.png') no-repeat;
   display: inline-block;
   width: 31px;
   height: 31px;
@@ -58,8 +54,7 @@ li:hover .height-badge-icon {
   background-position-y: -48px;
 }
 .width-badge-icon {
-  background-image: url('../images/iconset.png');
-  background-repeat: no-repeat;
+  background: url('../images/iconset.png') no-repeat;
   display: inline-block;
   width: 31px;
   height: 31px;
@@ -73,8 +68,7 @@ li:hover .width-badge-icon {
   background-position-y: -48px;
 }
 .zoom-badge-icon {
-  background-image: url('../images/iconset.png');
-  background-repeat: no-repeat;
+  background: url('../images/iconset.png') no-repeat;
   display: inline-block;
   width: 31px;
   height: 31px;
@@ -89,8 +83,7 @@ li:hover .zoom-badge-icon {
   background-position-y: -48px;
 }
 .save-css-icon {
-  background-image: url('../images/iconset.png');
-  background-repeat: no-repeat;
+  background: url('../images/iconset.png') no-repeat;
   display: inline-block;
   width: 31px;
   height: 31px;

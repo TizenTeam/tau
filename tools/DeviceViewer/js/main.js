@@ -1,20 +1,13 @@
 /*jslint browser: true, white: true */
 /*global deviceViewer, properties*/
 
-function resizeBadge(width, height) {
-    'use strict';
-
-    var globalSettings = document.getElementById('globalBadgeSize').checked;
-
-    deviceViewer.badgePreview.resizeViewport(width, height, undefined, globalSettings);
-}
 
 window.onload = function () {
 	'use strict';
 
-    /*
-     * Initialize device viewer on desired properties
-     */
+	/*
+	 * Initialize device viewer on desired properties
+	 */
 	deviceViewer.init(properties);
 
 	document.getElementById('badgeHeightSlider').onchange = function (e) {

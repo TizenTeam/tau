@@ -19,14 +19,7 @@
 	<div id="topPanel">
 		<ul style="float: right;">
 			<li>App to preview:
-				<select id="appSelect" onchange="deviceViewer.badgePreview.changePreview(this.value)">
-					<option selected="selected" value="../../standalone/demos/WearableWidgetSample/">WearableWidgetSample</option>
-					<option value="../../standalone/demos/WatchOnWeb/index.html">WatchOnWeb</option>
-					<option value="../../standalone/demos/WeatherDemo/index.html">WeatherDemo</option>
-					<option value="../../standalone/demos/Fallback/index.html">Fallback</option>
-					<option value="../../standalone/demos/TemplateBasic/index.html">TemplateBasic</option>
-					<option value="../../standalone/demos/TemplateList/index.html">TemplateList</option>
-				</select>
+				<select id="appSelect" onchange="deviceViewer.badgePreview.changePreview(this.value)"></select>
 			</li>
 			<li><a href="javascript:void(0)" onclick="deviceViewer.badgePreview.add()" title="Add new theme badge" class="new-badge-icon"></a></li>
 			<li><a href="javascript:void(0)" onclick="deviceViewer.badgePreview.remove()" title="Remove current theme badge" class="remove-badge-icon"></a></li>
@@ -63,31 +56,21 @@
 			<li>
 				<a href="javascript:void(0)" title="Set badge size from presets" class="">Devices</a>
 				<div class="panel-submenu">
-					<ul>
-                        <li onclick="resizeBadge(320, 160)">Gear Neo <br><small>320 x 160</small></li>
-                        <li onclick="resizeBadge(320, 320)">Gear <br><small>320 x 320</small></li>
-                        <li onclick="resizeBadge(320, 569)">Mobile <br><small>320 x 569</small></li>
-						<li onclick="resizeBadge(1920, 1080)">HD Ready<br><small>1280 x 720</small></li>
-                        <li onclick="resizeBadge(1280, 800)">Full HD<br><small>1920 x 1080</small></li>
-                        <li class="global-settings">
-                            <input type="checkbox" id="globalBadgeSize">
-                            <label for="globalBadgeSize"><small>global</small></label>
-                        </li>
-					</ul>
+					<ul id="devicesList"></ul>
 				</div>
 			</li>
-            <li>
-                <a href="javascript:void(0)" title="Zoom current view" class="zoom-badge-icon"></a>
-                <div class="panel-submenu">
-                    <div class="row">
-                        <div class="range-max">200</div><br>
-                        <input type="range" min="10" max="200" value="100" name="rangeViewportZoom" class="vertical-slider" id="zoomSlider"><br>
-                        <div class="range-min">1</div><br>
-                        <hr>
-                        <span class="current-value">100%</span>
-                    </div>
-                </div>
-            </li>
+			<li>
+				<a href="javascript:void(0)" title="Zoom current view" class="zoom-badge-icon"></a>
+				<div class="panel-submenu">
+					<div class="row">
+						<div class="range-max">200</div><br>
+						<input type="range" min="10" max="200" value="100" name="rangeViewportZoom" class="vertical-slider" id="zoomSlider"><br>
+						<div class="range-min">1</div><br>
+						<hr>
+						<span class="current-value">100%</span>
+					</div>
+				</div>
+			</li>
 		</ul>
 	</div>
 	<div class="flex-row">
@@ -96,12 +79,17 @@
 		</div>
 		<div id="rightPanel" class="panel-container">
 			<div class="panel-box">
-                <div class="panel-window">
-                    <h3>Device properties</h3>
-                    <div>
-                        <input type="button" value="Swap Badge Dimensions" onclick="deviceViewer.badgePreview.swapDimensions()">
-                    </div>
-                </div>
+				<div class="panel-window">
+					<h3>Device properties (<span id="badge-name"></span>)</h3>
+					<div>
+						<div>
+							CSS resolution: <b><span id="badge-width"></span> x <span id="badge-height"></span> px</b><br>
+							Device resolution: <b><span id="badge-resolution"></span> px</b><br>
+							Pixel ratio: <span id="badge-pixel-ratio"></span><br>
+						</div>
+						<input type="button" value="Change orientation" onclick="deviceViewer.badgePreview.swapDimensions()">
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

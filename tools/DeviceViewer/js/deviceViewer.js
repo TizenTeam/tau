@@ -5,46 +5,77 @@
 	'use strict';
 
 	var DeviceViewer = function() {
-		/**
-		 * Configuration of Theme Editor
-		 */
-		this.config = {
 			/**
-			 * Configuration of properties/variables that can be changed by editor
+			 * Configuration of Device Viewer
 			 */
-			themeProperties: {},
-			/**
-			 * URL to preview page - used by badge
-			 */
-			previewUrl: '',
-			/**
-			 * workspace {HTMLElement} workspace container
-			 */
-			workspace: null,
-            /**
-             * appSelect {HTMLElement} select with application list ready to preview
-             */
-            appSelect: null,
-			/**
-			 * cssVariablePanel {HTMLElement} left panel container
-			 */
-			cssVariablePanel: null,
-			/**
-			 * root {string} Root path of Device Viewer
-			 */
-			root: ''
-		};
+			this.config = {
+				/**
+				 * URL to preview page - used by badge
+				 */
+				previewUrl: '',
+				/**
+				 * workspace {HTMLElement} workspace container
+				 */
+				workspace: null,
+				/**
+				 * appSelect {HTMLElement} select with application list ready to preview
+				 */
+				appSelect: null,
+				/**
+				 * root {string} Root path of Device Viewer
+				 */
+				root: ''
+			};
 
-		/**
-		 * Holds all css variables that could by changed
-		 */
-		this.cssVariables = {};
+			// Imports
+			this.badgePreview = {}; //deviceViewer.badgePreview.js
+			return this;
+	},
+	/**
+	 * @type {?HTMLElement} globalBadgeSize
+	 * Reference to HTML Element wit global badge size flag
+	 */
+	globalBadgeSize = null;
 
-		// Imports
-		this.badgePreview = {}; //deviceViewer.badgePreview.js
-		return this;
-	};
+	/**
+	 * @method setBadgeProperties
+	 * Changes current badge or all (if globalBadgeSize is set) badges properties
+	 * @param {DeviceViewer} self Instance of Device Viewer
+	 * @param {Object} properties New badge properties
+	 */
+	function setBadgeProperties(self, properties) {
+		var i,
+			badgePreview = self.badgePreview,
+			badge,
+			badgeList = badgePreview.badgeList,
+			width,
+			height,
+			globalChange = globalBadgeSize.checked;
 
+		if (globalChange) {
+			for (i = badgeList.length - 1; i >= 0; i -= 1) {
+				badge = badgeList[i].setProperties(properties);
+			}
+			badge = badgeList[0];
+			badgePreview.properties.defaultBadge = properties;
+		} else {
+			badge = badgePreview.getActive();
+			badge.setProperties(properties);
+		}
+
+		width = badge.properties.width;
+		height = badge.properties.height;
+		badgePreview.resizeViewport(width, height, undefined, globalChange);
+	}
+
+
+	/**
+	 * @method resolvePath
+	 * Resolves path relative to root path
+	 * @param {string} rootPath The root path
+	 * @param {string} queryPath The path that should be resolved relative to root path
+	 * @returns {string} Resolved path
+	 */
 	DeviceViewer.prototype.resolvePath = function (rootPath, queryPath) {
 		var rootPieces,
 			queryPieces,
@@ -98,9 +129,9 @@
 	};
 
 	/**
-	 * Shows an alert
 	 * @method alert
-	 * @param {string} message
+	 * Shows an alert
+	 * @param {string} message Message text
 	 */
 	DeviceViewer.prototype.alert = function(message) {
 		// TODO: do it more cool
@@ -108,21 +139,106 @@
 	};
 
 	/**
-	 * Setup properties and initialize theme editor.
+	 * @method fillDevicePresets
+	 * Fills list of preset devices as li elements
+	 * @param {Array} devList List of devices
+	 * @param {HTMLElement} devListContainer List element
+	 */
+	DeviceViewer.prototype.fillDevicePresets = function (devList, devListContainer) {
+		var devListLength = devList.length,
+			self = this,
+			tmpElement,
+			tmpContainer,
+			displayWidth,
+			displayHeight,
+			i;
+
+		for (i = 0; i < devListLength; i += 1) {
+			displayWidth = devList[i].displayWidth;
+			displayHeight = devList[i].displayHeight;
+			tmpElement = document.createElement('li');
+			tmpElement.innerHTML = devList[i].name + ' <br><small>' + displayWidth + ' x ' + displayHeight + '</small> ';
+			devListContainer.appendChild(tmpElement);
+			tmpElement.addEventListener('click', setBadgeProperties.bind(null, self, devList[i]));
+		}
+
+		// Create global badge size container
+		tmpContainer = document.createElement('li');
+		tmpContainer.className = 'global-settings';
+
+		// Create global badge size checkbox
+		tmpElement = document.createElement('input');
+		tmpElement.setAttribute('type', 'checkbox');
+		tmpElement.setAttribute('id', 'globalBadgeSize');
+		tmpContainer.appendChild(tmpElement);
+
+		// Assign checkbox reference to Device Viewer protected variable
+		globalBadgeSize = tmpElement;
+
+		// Create global badge size label
+		tmpElement = document.createElement('label');
+		tmpElement.setAttribute('for', 'globalBadgeSize');
+		tmpElement.innerText = 'global';
+		tmpContainer.appendChild(tmpElement);
+
+		// Append container to devices list
+		devListContainer.appendChild(tmpContainer);
+	};
+
+	/**
+	 * @method buildAppSelect
+	 * Fills select element with application as HTML options
+	 * @param {Array} appList List of applications ready to preview
+	 * @returns {HTMLElement} Application HTML Select reference
+	 */
+	DeviceViewer.prototype.buildAppSelect = function (appList) {
+		var appSelect,
+			appListLength = appList.length,
+			tmpElement,
+			i;
+
+		if (appListLength <= 0) {
+			throw "No preview app was define! You have to define at least one app to preview.";
+		}
+
+		appSelect = document.getElementById(this.config.appSelectElementId || 'appSelect');
+		for (i = 0; i < appListLength; i += 1) {
+			tmpElement = document.createElement('option');
+			tmpElement.value = appList[i].path;
+			tmpElement.innerText = appList[i].name;
+			if (appList[i].selected === true) {
+				tmpElement.setAttribute('selected', 'selected');
+			}
+			appSelect.appendChild(tmpElement);
+		}
+		return appSelect;
+	};
+
+	/**
+	 * Setup properties and initialize Device Viewer.
 	 * @method init
 	 * @param {Object} properties
 	 */
 	DeviceViewer.prototype.init = function(properties) {
 		var config = this.config;
 
-        // Prepare config
+		// Set Device's Viewer root path defined by properties or set default (current location href).
 		config.root = properties.root || window.location.href.replace(/[^\/]+\.html?$/, '');
+
+		// Set workspace defined by properties or get default workspace
 		config.workspace = document.getElementById(properties.workspaceElementId || "workspace");
-        config.appSelect = document.getElementById(properties.appSelectElementId || 'appSelect');
+
+		// Fill select options with app names, that are ready to preview. Assign reference to select with app list.
+		config.appSelect = this.buildAppSelect(properties.appList);
+
+		// Set preview url of selected app
 		config.previewUrl = config.appSelect.value;
 
-        // Ready to go, let's init Badge Preview!
-		this.badgePreview.init();
+		this.fillDevicePresets(properties.devList, document.getElementById('devicesList'));
+
+		// Ready to go, let's init Badge Preview!
+		this.badgePreview.init(properties.previewProperties);
+
 	};
 
 	window.deviceViewer = new DeviceViewer();
