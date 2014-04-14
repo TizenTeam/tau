@@ -19,7 +19,49 @@
 		],
 		function () {
 			//>>excludeEnd("ejBuildExclude");
-			var events = {
+				/**
+				* Checks if specified variable is a array or not
+				* @method isArray
+				* @return {boolean}
+				* @memberOf ns.utils.events
+				* @private
+				* @static
+				*/
+			var isArray = Array.isArray,
+				/**
+				 * @property {RegExp} SPLIT_BY_SPACES_REGEXP
+				 */
+				SPLIT_BY_SPACES_REGEXP = /\s+/g,
+				/**
+				 * Returns trimmed value
+				 * @method trim
+				 * @param {string} value
+				 * @return {string} trimmed string
+				 * @static
+				 * @private
+				 * @memberOf ns.utils.events
+				 */
+				trim = function (value) {
+					return value.trim();
+				},
+				/**
+				 * Split string to array
+				 * @method trim
+				 * @param {string|Array} value if value is array returns it directly
+				 * @param {string} [regexp=SPLIT_BY_SPACES_REGEXP]
+				 * @return {Array}
+				 * @static
+				 * @private
+				 * @memberOf ns.utils.events
+				 */
+				splitToArray = function (value, regexp) {
+					regexp = regexp || SPLIT_BY_SPACES_REGEXP;
+					return isArray(value) ? value :
+							typeof value === 'string' ?
+								value.split(regexp).map(trim) :
+									[];
+				},
+				events = {
 				/**
 				* @method trigger
 				* Triggers custom event on element
@@ -234,6 +276,44 @@
 						length = elements.length;
 					for (i = 0; i < length; i++) {
 						events.off(elements[i], type, listener, useCapture);
+					}
+				},
+
+				/**
+				 * Add events listener to element
+				 * @method onManyEvents
+				 * @param {HTMLElement} element
+				 * @param {array} types array of strings
+				 * @param {Function|Object} listener If listener is type of Object, it must have "handleEvent" method
+				 * @param {boolean} [useCapture=false]
+				 * @memberOf ns.utils.events
+				 * @static
+				 */
+				onManyEvents: function(element, types, listener, useCapture) {
+					var i,
+						length;
+					types = splitToArray(types);
+					for (i = 0, length = types.length; i < length; i++) {
+						events.on(element, types[i], listener, useCapture);
+					}
+				},
+
+				/**
+				 * Remove event listener to element
+				 * @method offManyEvents
+				 * @param {HTMLElement} element
+				 * @param {array} types array of strings
+				 * @param {Function|Object} listener If listener is type of Object, it must have "handleEvent" method
+				 * @param {boolean} [useCapture=false]
+				 * @memberOf ns.utils.events
+				 * @static
+				 */
+				offManyEvents: function(element, types, listener, useCapture) {
+					var i,
+						length;
+					types = splitToArray(types);
+					for (i = 0, length = types.length; i < length; i++) {
+						events.off(element, types[i], listener, useCapture);
 					}
 				},
 
