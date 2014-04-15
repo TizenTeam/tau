@@ -74,10 +74,6 @@
  *                     ...
  *                 };
  *
- *                 prototype._buildBindEvents = function (element) { // method to bind all events, should contain all event bindings necessary during build
- *                     ...
- *                 };
- *
  *                 prototype._enable = function (element) { // method called during invocation of enable() method
  *                     ...
  *                 };
@@ -387,15 +383,6 @@
 				return self;
 			};
 
-			/**
-			* Bind widget events attached in build mode
-			* @method _buildBindEvents
-			* @param {HTMLElement} element Base element of widget
-			* @memberOf ns.widget.BaseWidget
-			* @template
-			* @protected
-			* @instance
-			*/
 			/**
 			* Bind widget events attached in init mode
 			* @method _bindEvents
