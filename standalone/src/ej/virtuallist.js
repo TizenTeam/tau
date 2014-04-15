@@ -8,7 +8,7 @@
 			"./ej/widget",
 			"./tau/widget",
 			// widget list
-			"./ej/widget/micro/VirtualListview"
+			"./ej/widget/wearable/VirtualListview"
 		],
 		function (require) {
 //>>excludeEnd("ejBuildExclude");

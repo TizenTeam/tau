@@ -15,7 +15,7 @@
 		[
 			"../tau",
 			"./navigator",
-			"../ej/micro/selectors",
+			"../ej/wearable/selectors",
 			"../ej/engine"
 		],
 		function () {
@@ -23,7 +23,7 @@
 
 			document.addEventListener("mobileinit", function () {
 				var navigator,
-					selectors = frameworkNamespace.micro.selectors;
+					selectors = frameworkNamespace.wearable.selectors;
 
 				ns.defaults = {
 					autoInitializePage: true,
@@ -37,9 +37,9 @@
 				 */
 				ns.dynamicBaseEnabled = true;
 				/**
-				 * @inheritdoc ns.micro.selectors
+				 * @inheritdoc ns.wearable.selectors
 				 * @class tau.selectors
-				 * @extend ns.micro.selectors
+				 * @extend ns.wearable.selectors
 				 */
 				ns.selectors = selectors;
 				navigator = ns.navigator || {};

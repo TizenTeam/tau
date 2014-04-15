@@ -19,98 +19,98 @@
  * ### Examples
  * #### Build widget from JavaScript
  *
- *     @example
- *     var element = document.getElementById('id'),
- *         ns.engine.instanceWidget(element, 'Button');
+ *	 @example
+ *	 var element = document.getElementById('id'),
+ *		 ns.engine.instanceWidget(element, 'Button');
  *
  * #### Build widget from jQuery
  *
- *     @example
- *     var element = $('#id').button();
+ *	 @example
+ *	 var element = $('#id').button();
  *
  * ## How to create new widget
  *
- *     @example
- *     (function (ns) {
- *         "use strict";
- *         //>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
- *         define(
- *             [
- *                 "../ns.core", always necessary
- *                 "../widget", // fetch namespace, always necessary
- *                 "../utils/selectors" // all other necessary modules
- *             ],
- *             function () {
- *                 //>>excludeEnd("ejBuildExclude");
- *                 var BaseWidget = ns.widget.BaseWidget, // create alias to main objects
- *                     ...
- *                     arrayOfElements, // example of private property, common for all instances of widget
- *                     Button = function () { // create local object with widget
- *                         ...
- *                     },
- *                     prototype = new BaseWidget(); // add ns.widget.BaseWidget as prototype to widget's object, for better minification this should be assign to local variable and next variable should be assign to prototype of object
+ *	 @example
+ *	 (function (ns) {
+ *		 "use strict";
+ *		 //>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+ *		 define(
+ *			 [
+ *				 "../ns.core", always necessary
+ *				 "../widget", // fetch namespace, always necessary
+ *				 "../utils/selectors" // all other necessary modules
+ *			 ],
+ *			 function () {
+ *				 //>>excludeEnd("ejBuildExclude");
+ *				 var BaseWidget = ns.widget.BaseWidget, // create alias to main objects
+ *					 ...
+ *					 arrayOfElements, // example of private property, common for all instances of widget
+ *					 Button = function () { // create local object with widget
+ *						 ...
+ *					 },
+ *					 prototype = new BaseWidget(); // add ns.widget.BaseWidget as prototype to widget's object, for better minification this should be assign to local variable and next variable should be assign to prototype of object
  *
- *                 function closestEnabledButton(element) { // example of private method
- *                     ...
- *                 }
- *                 ...
+ *				 function closestEnabledButton(element) { // example of private method
+ *					 ...
+ *				 }
+ *				 ...
  *
- *                 prototype.options = { //add default options to be read from data- attributes
- *                     theme: 's',
- *                     ...
- *                 };
+ *				 prototype.options = { //add default options to be read from data- attributes
+ *					 theme: 's',
+ *					 ...
+ *				 };
  *
- *                 prototype._build = function (template, element) { // method called when the widget is being built, should contain all HTML manipulation actions
- *                     ...
- *                     return element;
- *                 };
+ *				 prototype._build = function (template, element) { // method called when the widget is being built, should contain all HTML manipulation actions
+ *					 ...
+ *					 return element;
+ *				 };
  *
- *                 prototype._init = function (element) { // method called during initialization of widget, should contain all actions necessary on application start
- *                     ...
- *                     return element;
- *                 };
+ *				 prototype._init = function (element) { // method called during initialization of widget, should contain all actions necessary on application start
+ *					 ...
+ *					 return element;
+ *				 };
  *
- *                 prototype._bindEvents = function (element) { // method to bind all events, should contain all event bindings
- *                     ...
- *                 };
+ *				 prototype._bindEvents = function (element) { // method to bind all events, should contain all event bindings
+ *					 ...
+ *				 };
  *
- *                 prototype._enable = function (element) { // method called during invocation of enable() method
- *                     ...
- *                 };
+ *				 prototype._enable = function (element) { // method called during invocation of enable() method
+ *					 ...
+ *				 };
  *
- *                 prototype._disable = function (element) { // method called during invocation of disable() method
- *                     ...
- *                 };
+ *				 prototype._disable = function (element) { // method called during invocation of disable() method
+ *					 ...
+ *				 };
  *
- *                 prototype.refresh = function (element) { // example of public method
- *                     ...
- *                 };
+ *				 prototype.refresh = function (element) { // example of public method
+ *					 ...
+ *				 };
  *
- *                 prototype._refresh = function () { // example of protected method
- *                     ...
- *                 };
+ *				 prototype._refresh = function () { // example of protected method
+ *					 ...
+ *				 };
  *
- *                 Button.prototype = prototype;
+ *				 Button.prototype = prototype;
  *
- *                 engine.defineWidget( // define widget
- *                     "Button", //name of widget
- *                     "./widget/ns.widget.Button", // name of widget's module (name of file), deprecated
- *                     "[data-role='button'],button,[type='button'],[type='submit'],[type='reset']",  //widget's selector
- *                     [ // public methods, here should be list all public method, without that method will not be available
- *                         "enable",
- *                         "disable",
- *                         "refresh"
- *                     ],
- *                     Button, // widget's object
- *                     "mobile" // widget's namespace
- *                 );
- *                 ns.widget.Button = Button;
- *                 //>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
- *                 return ns.widget.Button;
- *             }
- *         );
- *         //>>excludeEnd("ejBuildExclude");
- *     }(ns));
+ *				 engine.defineWidget( // define widget
+ *					 "Button", //name of widget
+ *					 "./widget/ns.widget.Button", // name of widget's module (name of file), deprecated
+ *					 "[data-role='button'],button,[type='button'],[type='submit'],[type='reset']",  //widget's selector
+ *					 [ // public methods, here should be list all public method, without that method will not be available
+ *						 "enable",
+ *						 "disable",
+ *						 "refresh"
+ *					 ],
+ *					 Button, // widget's object
+ *					 "mobile" // widget's namespace
+ *				 );
+ *				 ns.widget.Button = Button;
+ *				 //>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+ *				 return ns.widget.Button;
+ *			 }
+ *		 );
+ *		 //>>excludeEnd("ejBuildExclude");
+ *	 }(ns));
  * @author Jadwiga Sosnowska <j.sosnowska@samsung.com>
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>
  * @author Tomasz Lukawski <t.lukawski@samsung.com>
@@ -536,29 +536,50 @@
 					args = slice.call(arguments),
 					firstArgument = args.shift(),
 					secondArgument = args.shift(),
-					methodName;
-				/*
-				* @TODO fill content of function
-				*/
+					key,
+					result = null;
 				if (typeof firstArgument === "string") {
-					if (secondArgument === undefined) {
-						methodName = '_get' + (firstArgument[0].toUpperCase() + firstArgument.slice(1));
-						if (typeof self[methodName] === TYPE_FUNCTION) {
-							return self[methodName]();
+					result = self._oneOption(firstArgument, secondArgument);
+				}
+				if (typeof firstArgument === "object") {
+					for (key in firstArgument) {
+						if (firstArgument.hasOwnProperty(key)) {
+							self._oneOption(key, firstArgument[key]);
 						}
-						return self.options[firstArgument];
 					}
-					methodName = '_set' + (firstArgument[0].toUpperCase() + firstArgument.slice(1));
+				}
+				self.refresh();
+				return result;
+			};
+
+			/**
+			 * Get/Set option of the widget
+			 * @method _oneOption
+			 * @param {string} field
+			 * @param {*} value
+			 * @memberOf ns.widget.BaseWidget
+			 * @return {*}
+			 * @instance
+			 */
+			prototype._oneOption = function (field, value) {
+				var self = this,
+					methodName;
+				if (value === undefined) {
+					methodName = '_get' + (field[0].toUpperCase() + field.slice(1));
 					if (typeof self[methodName] === TYPE_FUNCTION) {
-						self[methodName](self.element, secondArgument);
-					} else {
-						this.options[firstArgument] = secondArgument;
-						if (self.element) {
-							self.element.setAttribute('data-' + (firstArgument.replace(/[A-Z]/g, function (c) {
-								return "-" + c.toLowerCase();
-							})), secondArgument);
-							self.refresh();
-						}
+						return self[methodName]();
+					}
+					return self.options[field];
+				}
+				methodName = '_set' + (field[0].toUpperCase() + field.slice(1));
+				if (typeof self[methodName] === TYPE_FUNCTION) {
+					self[methodName](self.element, value);
+				} else {
+					self.options[field] = value;
+					if (self.element) {
+						self.element.setAttribute('data-' + (field.replace(/[A-Z]/g, function (c) {
+							return "-" + c.toLowerCase();
+						})), value);
 					}
 				}
 			};

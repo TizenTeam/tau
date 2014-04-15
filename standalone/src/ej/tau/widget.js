@@ -9,32 +9,32 @@
  */
 /**
  * @class tau.VirtualGrid
- * @inheritdoc ns.widget.micro.VirtualGrid
+ * @inheritdoc ns.widget.wearable.VirtualGrid
  * @extends ns.widget.micro.VirtualGrid
  */
 /**
  * @class tau.VirtualListview
- * @inheritdoc ns.widget.micro.VirtualListview
+ * @inheritdoc ns.widget.wearable.VirtualListview
  * @extends ns.widget.micro.VirtualListview
  */
 /**
  * @class tau.Popup
- * @inheritdoc ns.widget.micro.Popup
+ * @inheritdoc ns.widget.wearable.Popup
  * @extends ns.widget.micro.Popup
  */
 /**
  * @class tau.Page
- * @inheritdoc ns.widget.micro.Page
+ * @inheritdoc ns.widget.wearable.Page
  * @extends ns.widget.micro.Page
  */
 /**
  * @class tau.PageContainer
- * @inheritdoc ns.widget.micro.PageContainer
+ * @inheritdoc ns.widget.wearable.PageContainer
  * @extends ns.widget.micro.PageContainer
  */
 /**
  * @class tau.IndexScrollbar
- * @inheritdoc ns.widget.micro.IndexScrollbar
+ * @inheritdoc ns.widget.wearable.IndexScrollbar
  * @extends ns.widget.micro.IndexScrollbar
  */
 (function (document, frameworkNamespace, ns) {
