@@ -106,18 +106,18 @@
 				*/
 				engine = ns.engine,
 				/**
-				* @property {ns.utils.object} object Alias for class ns.utils.events
+				* @property {ns.utils.utilsObject} utilsObject Alias for class ns.utils.events
 				* @memberOf ns.widget.micro.Popup
 				* @private
 				*/
-				object = ns.utils.object,
+				utilsObject = ns.utils.object,
 				/**
 				* @property {ns.utils.selectors} selectors Alias for class ns.selectors
 				* @memberOf ns.widget.micro.Popup
 				* @private
 				*/
 				selectors = ns.micro.selectors,
-				prototype = new BaseWidget(),
+				prototype = {},
 				/**
 				* @property {Object} classes Dictionary for popup related css class names
 				* @memberOf ns.widget.micro.Popup
@@ -372,7 +372,7 @@
 			* @memberOf ns.widget.micro.Popup
 			*/
 			prototype.open = function (options) {
-				var transitionOptions = object.multiMerge({}, options, {ext: " in ui-pre-in "}),
+				var transitionOptions = utilsObject.multiMerge({}, options, {ext: " in ui-pre-in "}),
 					events = Popup.events,
 					self = this,
 					element = self.element,
@@ -403,7 +403,7 @@
 			* @memberOf ns.widget.micro.Popup
 			*/
 			prototype.close = function (options) {
-				var transitionOptions = object.multiMerge({}, options, {ext: " in ui-pre-in "}),
+				var transitionOptions = utilsObject.multiMerge({}, options, {ext: " in ui-pre-in "}),
 					events = Popup.events,
 					self = this,
 					element = self.element,
@@ -478,7 +478,7 @@
 				return deferred;
 			};
 
-			Popup.prototype = prototype;
+            utilsObject.inherit(Popup, BaseWidget, prototype);
 
 			engine.defineWidget(
 				"popup",
@@ -494,4 +494,4 @@
 		}
 	);
 	//>>excludeEnd("ejBuildExclude");
-}(window, window.document, window.screen, window.ej));
+}(window, window.document, window.screen, ns));

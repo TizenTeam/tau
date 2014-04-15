@@ -123,4 +123,4 @@
 		}
 	);
 	//>>excludeEnd("ejBuildExclude");
-}(window, window.ej));
+}(window, ns));

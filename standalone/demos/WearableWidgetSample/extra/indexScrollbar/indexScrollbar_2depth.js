@@ -18,7 +18,7 @@ to be included.
 
 // Create an IndexScrollbar
 var el = document.getElementById("foo"),
-    indexScrollBar = tau.IndexScrollbar(el);
+    indexScrollBar = tau.widget.IndexScrollbar(el);
 
 // Bind select event callback
 el.addEventListener("select", function( ev ) {
@@ -107,7 +107,7 @@ el.addEventListener("select", function( ev ) {
 		elisb.setAttribute("data-index", indexData.firstIndex);
 
 		// Create IndexScrollbar
-		isb = new tau.IndexScrollbar(elisb, {
+		isb = new tau.widget.IndexScrollbar(elisb, {
 			index: indexData.firstIndex,
 			supplementaryIndex: function(firstIndex) {
 				return indexData.secondIndex[firstIndex];

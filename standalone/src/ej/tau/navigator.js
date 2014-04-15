@@ -143,4 +143,4 @@
 		}
 	);
 	//>>excludeEnd("ejBuildExclude");
-}(window.document, window.ej, window.tau));
+}(window.document, ns, window.tau));

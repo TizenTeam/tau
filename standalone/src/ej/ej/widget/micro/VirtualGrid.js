@@ -19,6 +19,7 @@
 		[
 			"../../engine",
 			"../../utils/DOM/css",
+            "../../utils/object",
 			"../micro",
 			"./VirtualListview"
 		],
@@ -45,6 +46,7 @@
 				 * @static
 				 */
 				DOM = ns.utils.DOM,
+                utilsObject = ns.utils.object,
 				/**
 				 * @property {string} HORIZONTAL="x" constans for horizontal virtual grid
 				 * @private
@@ -247,7 +249,7 @@
 				}
 			};
 
-			VirtualGrid.prototype = prototype;
+            utilsObject.inherit(VirtualGrid, VirtualList, prototype);
 
 			ns.widget.micro.VirtualGrid = VirtualGrid;
 
@@ -264,4 +266,4 @@
 		}
 	);
 	//>>excludeEnd("ejBuildExclude");
-}(window, window.document, window.ej));
+}(window, window.document, ns));

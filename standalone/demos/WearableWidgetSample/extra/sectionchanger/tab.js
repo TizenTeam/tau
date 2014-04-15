@@ -6,7 +6,7 @@ var page = document.getElementById( "tabsectionchangerPage" ),
 
 page.addEventListener( "pageshow", function() {
 	// make SectionChanger object
-	sectionChanger = new tau.SectionChanger(changer, {
+	sectionChanger = new tau.widget.SectionChanger(changer, {
 		circular: true,
 		orientation: "horizontal",
 		scrollbar: "tab"

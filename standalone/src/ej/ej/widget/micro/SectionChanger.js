@@ -415,4 +415,4 @@
 		}
 	);
 	//>>excludeEnd("ejBuildExclude");
-}(window.document, window.ej));
+}(window.document, ns));

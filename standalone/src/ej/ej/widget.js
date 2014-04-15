@@ -22,4 +22,4 @@
 		}
 	);
 	//>>excludeEnd("ejBuildExclude");
-}(window.ej));
+}(ns));

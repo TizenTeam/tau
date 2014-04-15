@@ -12,7 +12,7 @@
 	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 	define(
 		[
-			"."
+			"../ej"
 		],
 		function () {
 			//>>excludeEnd("ejBuildExclude");
@@ -24,4 +24,4 @@
 		}
 	);
 	//>>excludeEnd("ejBuildExclude");
-}(window.ej));
+}(ns));

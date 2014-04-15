@@ -10,7 +10,7 @@
 			sideIndex = {},
 			i;
 
-		vlist = tau.VirtualListview(elList, {
+		vlist = tau.widget.VirtualListview(elList, {
 				dataLength: listSize,
 				bufferSize: 40
 		});
@@ -38,7 +38,7 @@
 		elisb.setAttribute("data-index", Object.keys(sideIndex).join(","));
 
 		// Create IndexScrollbar
-		isb = new tau.IndexScrollbar(elisb);
+		isb = new tau.widget.IndexScrollbar(elisb);
 
 		// Bind a 'select' callback
 		elisb.addEventListener("select", function(ev) {

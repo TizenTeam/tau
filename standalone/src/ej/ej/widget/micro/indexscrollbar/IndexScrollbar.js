@@ -120,15 +120,16 @@
 				},
 
 				_destroy: function() {
-					this._unbindEvent();
-					this._extended( false );
-
-					this._destroySubObjects();
-					this.element = null;
-					this.indicator = null;
-					this.index = null;
-					this.eventHandlers = null;
-				},
+                    if (this.isBound()) {
+                        this._unbindEvent();
+                        this._extended(false);
+                        this._destroySubObjects();
+                        this.element = null;
+                        this.indicator = null;
+                        this.index = null;
+                        this.eventHandlers = {};
+                    }
+                },
 
 				_setOptions: function (options) {
 					options = options || {};
@@ -512,4 +513,4 @@
 		}
 	);
 	//>>excludeEnd("ejBuildExclude");
-}(window.document, window.ej));
+}(window.document, ns));

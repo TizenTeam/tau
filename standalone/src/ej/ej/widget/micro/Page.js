@@ -39,6 +39,7 @@
 			"../../engine",
 			"../../utils/selectors",
 			"../../utils/DOM/css",
+            "../../utils/object",
 			"../micro",
 			"../BaseWidget"
 		],
@@ -72,6 +73,7 @@
 				 * @static
 				 */
 				doms = utils.DOM,
+                utilsObject = utils.object,
 				/**
 				 * @property {Object} engine Alias for {@link ns.engine}
 				 * @memberOf ns.widget.micro.Page
@@ -114,7 +116,7 @@
 					uiContent: "ui-content",
 					uiPageScroll: "ui-page-scroll"
 				},
-				prototype = new BaseWidget();
+				prototype = {};
 
 			Page.classes = classes;
 			Page.events = EventType;
@@ -343,8 +345,7 @@
 				engine.destroyWidget(element, true);
 			};
 
-			Page.prototype = prototype;
-
+            utilsObject.inherit(Page, BaseWidget, prototype);
 			// definition
 			ns.widget.micro.Page = Page;
 			engine.defineWidget(
@@ -359,4 +360,4 @@
 		}
 	);
 	//>>excludeEnd("ejBuildExclude");
-}(window.document, window.ej));
+}(window.document, ns));

@@ -5,7 +5,7 @@
 	page.addEventListener("pageshow", function() {
 		var elList = document.getElementById("vlist1");
 
-		vlist = tau.VirtualListview(elList, {
+		vlist = tau.widget.VirtualListview(elList, {
 				dataLength: JSON_DATA.length,
 				bufferSize: 40
 		});

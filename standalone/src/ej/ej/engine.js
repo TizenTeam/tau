@@ -319,9 +319,11 @@
 				// no need to access .instance property manually
 				if (!childOnly) {
 					widgetInstance = getBinding(element);
-					//Destroy widget
-					widgetInstance.destroy();
-					widgetInstance.trigger("widgetdestroyed");
+                    if( widgetInstance) {
+                        //Destroy widget
+                        widgetInstance.destroy();
+                        widgetInstance.trigger("widgetdestroyed");
+                    }
 				}
 
 				//Destroy child widgets, if there something left.
@@ -545,7 +547,7 @@
 /*
 			document.addEventListener(EVENT_BOUND, function () {
 				//@TODO dump it to file for faster binding by ids
-				window.ejWidgetBindingMap = widgetBindingMap;
+				nsWidgetBindingMap = widgetBindingMap;
 			}, false);
 */
 			ns.widgetDefinitions = {};
@@ -599,7 +601,7 @@
 				*/
 				_clearBindings: function () {
 					//clear and set references to the same object
-					widgetBindingMap = window.ejWidgetBindingMap = {};
+					widgetBindingMap = {};
 				},
 
 				build: build,
@@ -706,7 +708,6 @@
 				},
 				_createEventHandler : createEventHandler
 			};
-			window.ejWidgetBindingMap = widgetBindingMap;
 			ns.engine = engine;
 			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 			return ns.engine;

@@ -16,6 +16,7 @@
 		[
 			"../../engine",
 			"../../utils/DOM/attributes",
+            "../../utils/object",
 			"../micro",
 			"../BaseWidget",
 			"./Page"
@@ -25,6 +26,7 @@
 			var BaseWidget = ns.widget.BaseWidget,
 				Page = ns.widget.micro.Page,
 				utils = ns.utils,
+                utilsObject = utils.object,
 				DOM = utils.DOM,
 				engine = ns.engine,
 				classes = {
@@ -48,7 +50,7 @@
 				},
 				animationend = "animationend",
 				webkitAnimationEnd = "webkitAnimationEnd",
-				prototype = new BaseWidget();
+				prototype = {};
 
 			PageContainer.events = EventType;
 
@@ -257,8 +259,7 @@
 				}
 			};
 
-			PageContainer.prototype = prototype;
-
+            utilsObject.inherit(PageContainer, BaseWidget, prototype);
 			// definition
 			ns.widget.micro.PageContainer = PageContainer;
 
@@ -274,4 +275,4 @@
 		}
 	);
 	//>>excludeEnd("ejBuildExclude");
-}(window.document, window.ej));
+}(window.document, ns));

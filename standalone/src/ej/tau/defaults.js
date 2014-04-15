@@ -64,4 +64,4 @@
 		}
 	);
 	//>>excludeEnd("ejBuildExclude");
-}(document, window.ej, window.tau));
+}(document, ns, window.tau));

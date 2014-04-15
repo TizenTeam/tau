@@ -47,13 +47,14 @@
 		],
 		function () {
 			//>>excludeEnd("ejBuildExclude");
+            ns.widget = {};
 
 			document.addEventListener("widgetdefined", function (evt) {
 				var definition = evt.detail,
 					name = definition.name,
 					engine = frameworkNamespace.engine;
 
-				ns[name] = (function (definitionName) {
+				ns.widget[name] = (function (definitionName) {
 					return function (element, options) {
 						return engine.instanceWidget(element, definitionName, options);
 					};
@@ -64,4 +65,4 @@
 		}
 	);
 	//>>excludeEnd("ejBuildExclude");
-}(window.document, window.ej, window.tau));
+}(window.document, ns, window.tau));
