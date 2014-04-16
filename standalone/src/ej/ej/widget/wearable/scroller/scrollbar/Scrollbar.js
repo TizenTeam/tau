@@ -53,7 +53,7 @@
 			};
 
 			prototype._configure = function () {
-				this.options = utilsObject.multiMerge({}, this.options, {
+				this.options = utilsObject.merge({}, this.options, {
 					type: false,
 					displayDelay: 700,
 					sections: null,

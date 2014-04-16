@@ -54,6 +54,8 @@
 					name = definition.name,
 					engine = frameworkNamespace.engine;
 
+                ns.defineWidget = engine.defineWidget.bind(engine);
+
 				ns.widget[name] = (function (definitionName) {
 					return function (element, options) {
 						return engine.instanceWidget(element, definitionName, options);

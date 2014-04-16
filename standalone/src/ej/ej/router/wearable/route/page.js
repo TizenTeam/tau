@@ -126,7 +126,7 @@
 						url = path.makeUrlAbsolute( "#" + url, path.documentUrl.hrefNoHash );
 					}
 
-					state = object.multiMerge(
+					state = object.merge(
 						{},
 						options,
 						{

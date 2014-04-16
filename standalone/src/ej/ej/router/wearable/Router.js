@@ -252,7 +252,7 @@
 					to = state.url;
 					reverse = history.getDirection(state) === "back";
 					transition = reverse ? ((prevState && prevState.transition) || "none") : state.transition;
-					options = object.multiMerge({}, state, {
+					options = object.merge({}, state, {
 						reverse: reverse,
 						transition: transition,
 						fromHashChange: true
@@ -299,7 +299,7 @@
 					self = this;
 
 				if (rule) {
-					options = object.multiMerge(
+					options = object.merge(
 						{
 							rel: rel
 						},
@@ -485,7 +485,7 @@
 			 * @memberOf ns.router.wearable.Router
 			 */
 			Router.prototype.openPopup = function (to, options) {
-				this.open(to, object.merge({rel: "popup"}, options));
+				this.open(to, object.simpleMerge({rel: "popup"}, options));
 			};
 
 			/**
@@ -540,7 +540,7 @@
 				// reload of the file, we are done. Resolve the deferrred so that
 				// users can bind to .done on the promise
 				if (content) {
-					detail = object.merge({absUrl: absUrl}, options);
+					detail = object.simpleMerge({absUrl: absUrl}, options);
 					deferred.resolve(detail, content);
 					return;
 				}
@@ -588,7 +588,7 @@
 			 * @protected
 			 */
 			Router.prototype._loadError = function (absUrl, options, deferred) {
-				var detail = object.merge({url: absUrl}, options);
+				var detail = object.simpleMerge({url: absUrl}, options);
 				// Remove loading message.
 				if (options.showLoadMsg) {
 					this._showError(absUrl);
@@ -626,7 +626,7 @@
 			 * @protected
 			 */
 			Router.prototype._loadSuccess = function (absUrl, options, rule, deferred, html) {
-				var detail = object.merge({url: absUrl}, options),
+				var detail = object.simpleMerge({url: absUrl}, options),
 					content = rule.parse(html, absUrl);
 
 				// Remove loading message.

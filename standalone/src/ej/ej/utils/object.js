@@ -43,7 +43,7 @@
 				* @static
 				* @memberOf ns.utils.object
 				*/
-				merge: function (newObject, orgObject) {
+				simpleMerge: function (newObject, orgObject) {
 					var key;
 					for (key in orgObject) {
 						if (orgObject.hasOwnProperty(key)) {
@@ -55,7 +55,7 @@
 
 				/**
 				* Attach fields from second and next object to first object.
-				* @method multiMerge
+				* @method merge
 				* @param {Object} newObject
 				* @param {...Object} orgObject
 				* @param {?boolean} [override=true]
@@ -63,7 +63,7 @@
 				* @static
 				* @memberOf ns.utils.object
 				*/
-				multiMerge: function ( /* newObject, orgObject, override */ ) {
+				merge: function ( /* newObject, orgObject, override */ ) {
 					var newObject, orgObject, override,
 						key,
 						args = [].slice.call(arguments),

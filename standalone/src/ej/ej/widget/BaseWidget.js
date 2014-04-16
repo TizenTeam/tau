@@ -275,7 +275,7 @@
 
 				self._getCreateOptions(element);
 
-				objectUtils.merge(self.options, options);
+				objectUtils.simpleMerge(self.options, options);
 			};
 
 			/**

@@ -89,7 +89,7 @@
 			};
 
 			prototype._configure = function () {
-				this.options = utilsObject.multiMerge({}, this.options, {
+				this.options = utilsObject.merge({}, this.options, {
 					scrollDelay: 300,
 					threshold: 10,
 					minThreshold: 5,

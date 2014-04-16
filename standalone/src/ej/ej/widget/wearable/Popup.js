@@ -372,7 +372,7 @@
 			* @memberOf ns.widget.wearable.Popup
 			*/
 			prototype.open = function (options) {
-				var transitionOptions = utilsObject.multiMerge({}, options, {ext: " in ui-pre-in "}),
+				var transitionOptions = utilsObject.merge({}, options, {ext: " in ui-pre-in "}),
 					events = Popup.events,
 					self = this,
 					element = self.element,
@@ -403,7 +403,7 @@
 			* @memberOf ns.widget.wearable.Popup
 			*/
 			prototype.close = function (options) {
-				var transitionOptions = utilsObject.multiMerge({}, options, {ext: " in ui-pre-in "}),
+				var transitionOptions = utilsObject.merge({}, options, {ext: " in ui-pre-in "}),
 					events = Popup.events,
 					self = this,
 					element = self.element,

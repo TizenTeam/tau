@@ -48,10 +48,10 @@
 				ns.getData = utilsDOM.getData.bind(utilsDOM);
 				/**
 				 * @method extendObject
-				 * @inheritdoc ns.utils.object#multiMerge
+				 * @inheritdoc ns.utils.object#merge
 				 * @memberOf tau
 				 */
-				ns.extendObject = utilsObject.multiMerge.bind(utilsObject);
+				ns.extendObject = utilsObject.merge.bind(utilsObject);
 				/**
 				 * @method inherit
 				 * @inheritdoc ns.utils.object#inherit

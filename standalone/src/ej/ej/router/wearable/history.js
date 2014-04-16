@@ -43,7 +43,7 @@
 					 * @memberOf ns.widget.wearable.history
 					 */
 					replace: function (state, pageTitle, url) {
-						var newState = object.multiMerge({},
+						var newState = object.merge({},
 								state,
 								{
 							uid: historyVolatileMode ? historyActiveIndex : ++historyUid

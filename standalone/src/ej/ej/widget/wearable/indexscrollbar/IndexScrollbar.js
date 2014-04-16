@@ -133,7 +133,7 @@
 
 				_setOptions: function (options) {
 					options = options || {};
-					this.options = ns.utils.object.multiMerge(options, this._options, false);
+					this.options = ns.utils.object.merge(options, this._options, false);
 
 					// data-* attributes
 					this.options.index = this._getIndex();

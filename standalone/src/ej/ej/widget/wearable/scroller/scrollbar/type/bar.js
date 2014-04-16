@@ -23,7 +23,7 @@
 				typeInterface = type.interface,
 				Scroller = ns.widget.wearable.scroller.Scroller;
 
-			type.bar = utilsObject.multiMerge({}, typeInterface, {
+			type.bar = utilsObject.merge({}, typeInterface, {
 				options: {
 					wrapperClass: "ui-scrollbar-bar-type",
 					barClass: "ui-scrollbar-indicator",

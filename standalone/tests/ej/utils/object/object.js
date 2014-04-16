@@ -37,7 +37,7 @@ test("ej.utils.object.merge - checking merge function", function () {
 	orgObject.prop2 = "twooriginal";
 	orgObject.prop3 = [1,2,3];
 
-	data.merge(newObject, orgObject);
+	data.simpleMerge(newObject, orgObject);
 	equal(newObject.propertyToMerge, orgObject.propertyToMerge, "New Object has same properties as orginal Object properties by copy");
 	equal(newObject.prop2, orgObject.prop2, "New Object has same properties as orginal Object properties by copy");
 	equal(newObject.prop3, orgObject.prop3, "New Object has same properties as orginal Object properties by copy");
@@ -45,7 +45,7 @@ test("ej.utils.object.merge - checking merge function", function () {
 	equal(newObject.prop3, orgObject.prop3, "Both objects point to this same array, its not a deep copy");
 });
 
-test("ej.utils.object.multiMerge - checking multimerge function", function () {
+test("ej.utils.object.merge - checking multimerge function", function () {
 	var data = ej.utils.object,
 		newObject,
 		orgObject1,
@@ -58,7 +58,7 @@ test("ej.utils.object.multiMerge - checking multimerge function", function () {
 	orgObject2.prop2o = "orgObject2";
 	newObject.prop1 = "newObject";
 
-	data.multiMerge(newObject, orgObject1, orgObject2);
+	data.merge(newObject, orgObject1, orgObject2);
 	equal(newObject.prop1o, orgObject1.prop1o, "New Object has same properties as orgObject1 Object properties by copy");
 	equal(newObject.prop2o, orgObject2.prop2o, "New Object has same properties as orgObject2 Object properties by copy");
 
