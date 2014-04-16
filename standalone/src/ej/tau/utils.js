@@ -17,7 +17,8 @@
 			"../ej/utils/DOM/attributes",
 			"../ej/utils/DOM/css",
 			"../ej/utils/events",
-			"../ej/utils/object"
+			"../ej/utils/object",
+            "../ej/utils/selectors"
 		],
 		function () {
 			//>>excludeEnd("ejBuildExclude");
@@ -83,6 +84,14 @@
 					 */
 					data: utilsDOM.nsData.bind(utilsDOM)
 				};
+
+                ns.utils = {
+                    DOM: utilsDOM,
+                    event: utils.events,
+                    object: utils.object,
+                    path: utils.path,
+                    selector: utils.selectors
+                };
 			}, false);
 
 			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);

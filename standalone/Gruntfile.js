@@ -12,12 +12,12 @@ module.exports = function(grunt) {
 		widgetPath = path.join(jsPath, "widget"),
 		themesPath = path.join(dist, "themes"),
 
-		rootNamespace = "ej",
+		rootNamespace = "ns",
 		fileName = "tau",
 
 		wrapStart = "(function(window, document, undefined) {\n" +
 			"'use strict';\n" +
-			"var ns = window." + rootNamespace + " = window." + rootNamespace + " || {},\n" +
+			"var ns = {},\n" +
 			"	nsConfig = window." + rootNamespace + "Config = window." + rootNamespace + "Config || {};\n" +
 			"nsConfig.rootNamespace = '" + rootNamespace + "';\n" +
 			"nsConfig.fileName = '" + fileName + "';\n",
@@ -200,7 +200,7 @@ module.exports = function(grunt) {
 						optimize: "none",
 						findNestedDependencies: true,
 						skipModuleInsertion: true,
-						name: "micro",
+						name: "wearable",
 						out: path.join( jsPath, name ) + ".js",
 						pragmasOnSave: {
 							ejBuildExclude: true,
