@@ -269,7 +269,7 @@
 				on: function(element, type, listener, useCapture) {
 					var i,
                         j,
-						elementsLength = elements.length,
+						elementsLength,
                         typesLength,
                         elements,
                         listeners;
@@ -278,7 +278,7 @@
                     } else {
                         elements = element;
                     }
-
+                    elementsLength = elements.length;
                     listeners = getEventsListeners(type, listener);
                     typesLength = listeners.length;
 					for (i = 0; i < elementsLength; i++) {
@@ -301,7 +301,7 @@
 				off: function(element, type, listener, useCapture) {
                     var i,
                         j,
-                        elementsLength = elements.length,
+                        elementsLength,
                         typesLength,
                         elements,
                         listeners;
@@ -310,7 +310,7 @@
                     } else {
                         elements = element;
                     }
-
+                    elementsLength = elements.length;
                     listeners = getEventsListeners(type, listener);
                     typesLength = listeners.length;
                     for (i = 0; i < elementsLength; i++) {
@@ -333,7 +333,7 @@
 				one: function(element, type, listener, useCapture) {
                     var i,
                         j,
-                        elementsLength = elements.length,
+                        elementsLength,
                         typesLength,
                         elements,
                         types,
@@ -344,15 +344,15 @@
                     } else {
                         elements = element;
                     }
-
+                    elementsLength = elements.length;
                     listeners = getEventsListeners(type, listener);
                     typesLength = listeners.length;
                     for (i = 0; i < elementsLength; i++) {
                         for (j = 0; j < typesLength; j++) {
-                            callback = function() {
+                            callback = (function(i, j) {
                                 events.fastOff(elements[i], listeners[j].type, callback, useCapture);
                                 listeners[j].callback.apply(this, arguments);
-                            }
+                            }).bind(null, i, j);
                             events.fastOn(elements[i], listeners[j].type, callback, useCapture);
                         }
                     }

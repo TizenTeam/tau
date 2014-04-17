@@ -117,7 +117,7 @@
 					uiContent: "ui-content",
 					uiPageScroll: "ui-page-scroll"
 				},
-				prototype = {};
+				prototype = new BaseWidget();
 
 			Page.classes = classes;
 			Page.events = EventType;
@@ -344,7 +344,8 @@ ns.wearableemberOf ns.micro.selectors
 				engine.destroyWidget(element, true);
 			};
 
-            utilsObject.inherit(Page, BaseWidget, prototype);
+            Page.prototype = prototype;
+
 			// definition
 			ns.widget.wearable.Page = Page;
 			engine.defineWidget(

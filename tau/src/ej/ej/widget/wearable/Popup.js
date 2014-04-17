@@ -117,7 +117,7 @@
 				* @private
 				*/
 				selectors = ns.wearable.selectors,
-				prototype = {},
+				prototype = new BaseWidget(),
 				/**
 				* @property {Object} classes Dictionary for popup related css class names
 				* @memberOf ns.widget.wearable.Popup
@@ -478,7 +478,7 @@
 				return deferred;
 			};
 
-            utilsObject.inherit(Popup, BaseWidget, prototype);
+            Popup.prototype = prototype;
 
 			engine.defineWidget(
 				"popup",

@@ -249,7 +249,7 @@
 				}
 			};
 
-            utilsObject.inherit(VirtualGrid, VirtualList, prototype);
+            VirtualGrid.prototype = prototype;
 
 			ns.widget.wearable.VirtualGrid = VirtualGrid;
 

@@ -50,7 +50,7 @@
 				},
 				animationend = "animationend",
 				webkitAnimationEnd = "webkitAnimationEnd",
-				prototype = {};
+				prototype = new BaseWidget();
 
 			PageContainer.events = EventType;
 
@@ -259,7 +259,7 @@
 				}
 			};
 
-            utilsObject.inherit(PageContainer, BaseWidget, prototype);
+            PageContainer.prototype = prototype;
 			// definition
 			ns.widget.wearable.PageContainer = PageContainer;
 
