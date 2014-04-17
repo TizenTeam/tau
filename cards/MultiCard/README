@@ -1,0 +1,25 @@
+/**
+ * Test script
+ * Run this script to test card (e.g. copy/paste & run it in Tizen SDK Emulator Console)
+//--- Start of test script
+ var cardData = {
+		"msgId":"card-contact-req",
+		"name": "Suzy, Bae",
+		"photo": "images/tizen_32.png",
+		"description": "reporter from magazine",
+		"contacts": [{
+			"type": "mobile",
+			"value": "+82-12345-6789"
+		},{
+			"type": "home",
+			"value": "031-12345-6789"
+		},{
+			"type": "office",
+			"value": "02-8888-9954"
+		}]
+};
+
+var e = new CustomEvent('carddata', {detail: cardData});
+window.dispatchEvent(e);
+ //--- End of test script
+ */

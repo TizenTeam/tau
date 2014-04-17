@@ -1,0 +1,190 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head><script type="text/javascript" src="../snippet.js"></script>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link href="../styles.css" rel="StyleSheet" type="text/css">
+<link href="../snippet.css" rel="StyleSheet" type="text/css">
+  <title>Application Page Layout</title>
+</head>
+
+<body onload="prettyPrint()">
+
+<h1>Application Page</h1>
+<h1>Page Layout</h1>
+<p>In the Samsung Gear Web UI framework, the application page structure is based on header, content elements</p>
+
+<p>The header is placed at the top, and displays the page title. The content is the area below the header, showing the main content of the page.</p>
+
+<p>To add a page to the application, use the following code:</p>
+<pre class="prettyprint">
+&lt;!--Page Layout--&gt;
+
+&lt;div class=&quot;ui-page ui-page-active&quot;&gt;
+ &lt;header class=&quot;ui-header&quot;&gt;&lt;/header&gt;
+ &lt;div class=&quot;ui-content&quot;&gt;&lt;/div&gt;
+ &lt;footer class=&quot;ui-footer&quot;&gt;&lt;/footer&gt;
+&lt;/div&gt;
+</pre>
+
+<pre class="prettyprint">
+&lt;!--Page Layout with more button in header--&gt;
+&lt;div class=&quot;ui-page ui-page-active&quot;&gt;
+  &lt;header class=&quot;ui-header ui-has-more&quot;&gt;
+   &lt;h2 class=&quot;ui-title&quot;&gt;Call menu&lt;/h2&gt;
+   &lt;button type=&quot;button&quot; class=&quot;ui-more ui-icon-overflow&quot;&gt;More Options&lt;/button&gt;
+  &lt;/header&gt;
+  &lt;div class=&quot;ui-content&quot;&gt;
+	Content message
+  &lt;/div&gt;
+  &lt;footer class=&quot;ui-footer&quot;&gt;
+   &lt;button type=&quot;button&quot; class=&quot;ui-btn&quot;&gt;Footer Button&lt;/button&gt;
+  &lt;/footer&gt;
+&lt;/div&gt;
+</pre>
+
+<h1>Multi-page Layout</h1>
+<p>This template contains multiple "page" containers inside, unlike a single page template that has just one page within it.</p>
+<p>
+the main page is set up the page that has "ui-page-active" class.
+If there is no one that has "ui-page-active" class, the page what is first in source order set up main page.
+but it's good to set up "ui-page-active" class at least one page for performance.
+</p>
+<p>
+You link to internal pages by referring to the id of the page you want to show.
+For example, to link to the page with an id of "two", my link would have a href="#two" in the code.
+</p>
+
+<pre class="prettyprint">
+&lt;!--Main Page--&gt;
+&lt;div id=&quot;one&quot; class=&quot;ui-page ui-page-active&quot;&gt;
+ &lt;header class=&quot;ui-header&quot;&gt;&lt;/header&gt;
+ &lt;div class=&quot;ui-content&quot;&gt;&lt;/div&gt;
+ &lt;footer class=&quot;ui-footer&quot;&gt;&lt;/footer&gt;
+&lt;/div&gt;
+
+&lt;!--Secondary Page--&gt;
+&lt;div id=&quot;two&quot; class=&quot;ui-page&quot;&gt;
+ &lt;header class=&quot;ui-header&quot;&gt;&lt;/header&gt;
+ &lt;div class=&quot;ui-content&quot;&gt;&lt;/div&gt;
+ &lt;footer class=&quot;ui-footer&quot;&gt;&lt;/footer&gt;
+&lt;/div&gt;
+</pre>
+
+<p>
+To find the current active page, use the 'ui-page-active' css class.
+</p>
+
+<h1>Page Interface</h1>
+<table>
+<tbody>
+	<tr>
+		<th style="width:40%;">Interface</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">gear.ui.changePage ( to )</span></td>
+		<td>Programmatically change to another page. argument 'to' is a page object or string.</td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">gear.ui.back()</span></td>
+		<td>This method loads the previous page in the history list.</td>
+	</tr>
+</tbody>
+</table>
+
+<h1>Page Events</h1>
+<table>
+<tbody>
+	<tr>
+		<th style="width:40%;">Event name</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">pagebeforecreate</span></td>
+		<td>Triggered on the page being initialized, before most plugin auto-initialization occurs.</td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">pagecreate</span></td>
+		<td>Triggered when the page has been created in the DOM (via ajax or other) but before all widgets have had an opportunity to enhance the contained markup.</td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">pagebeforeshow</span></td>
+		<td>Triggered on the “toPage” we are transitioning to, before the actual transition animation is kicked off.</td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">pageshow</span></td>
+		<td>Triggered on the “toPage” after the transition animation has completed.</td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">pagebeforehide</span></td>
+		<td>Triggered on the “fromPage” we are transitioning away from, before the actual transition animation is kicked off.</td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">pagehide</span></td>
+		<td>Triggered on the “fromPage” after the transition animation has completed.</td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">pagechange</span></td>
+		<td>This event is triggered after the changePage() request has finished loading the page into the DOM and all page transition animations have completed.</td>
+	</tr>
+</tbody>
+</table>
+
+<h1>Binding an event callback on the Back key</h1>
+<div>
+<pre class="prettyprint">/* JavaScript code */
+window.addEventListener( 'tizenhwkey', function( ev ) {
+	if( ev.keyName == "back" ) {
+		/* Call window.history.back() to go to previous browser window */
+		/* Call window.close() to exit application */
+		/* or add script to add another behavior */
+	}
+}
+</pre>
+</div>
+
+<h1>Page Transitions</h1>
+<div>
+<p>
+By default, the framework doesn't apply transition. To set a custom transition effect, add the data-transition attribute to the link.
+</p>
+<pre class="prettyprint">
+&lt;a href=&quot;index.html&quot; data-transition=&quot;slideup&quot;&gt;I'll slide up&lt;/a&gt;
+</pre>
+
+<p>
+Global configuration
+</p>
+<pre class="prettyprint">/* JavaScript code */
+gear.ui.defaults.pageTransition = "slideup";
+</pre>
+
+<table>
+<tbody>
+	<tr>
+		<th style="width:40%;">option</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">none</span></td>
+		<td>default</td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">slideup</span></td>
+		<td></td>
+	</tr>
+</tbody>
+</table>
+
+
+</div>
+
+<h2>Where to Go Next</h2>
+<ul>
+<li><a href="../widgets/widget_reference.htm">Samsung Gear Web UI Framework Widget Reference</a></li></ul>
+
+<div id="footer">
+<hr size="1" /><font size="1">Except as noted, this content is licensed under <a href="http://creativecommons.org/licenses/by/3.0/legalcode" target="_blank">Creative Commons Attribution 3.0</a>.</font> </div>
+
+</body>
+</html>

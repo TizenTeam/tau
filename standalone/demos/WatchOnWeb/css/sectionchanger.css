@@ -1,0 +1,10 @@
+.ui-page.ui-page-active {
+	overflow-x: hidden;
+}
+.scroller {
+	position: fixed;
+	overflow-x: hidden;
+}
+.scroller > section {
+	position: absolute;
+}

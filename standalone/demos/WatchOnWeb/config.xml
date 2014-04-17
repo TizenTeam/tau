@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns:tizen="http://tizen.org/ns/widgets" xmlns="http://www.w3.org/ns/widgets" id="http://yourdomain/WatchONWeb" version="1.0.1" viewmodes="maximized">
+    <tizen:application id="S8UVkC4ryF.WatchONWeb" package="S8UVkC4ryF" required_version="1.0"/>
+    <content src="index.html"/>
+    <feature name="http://tizen.org/feature/screen.size.all"/>
+    <icon src="icon.png"/>
+    <name>WatchON Remote</name>
+    <name xml:lang="en-gb">WatchON Remote</name>
+    <name xml:lang="en-us">WatchON Remote</name>
+    <tizen:privilege name="http://tizen.org/privilege/application.launch"/>
+    <tizen:privilege name="http://tizen.org/privilege/filesystem.read"/>
+    <tizen:privilege name="http://tizen.org/privilege/system"/>
+    <tizen:setting hwkey-event="enable"/>
+</widget>

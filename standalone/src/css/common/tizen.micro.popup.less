@@ -1,0 +1,98 @@
+@font_size_popup_toast: 24 * @unit_base;
+@font_size_popup_body: 34 * @unit_base;
+
+/***********************
+Normal Popup
+***********************/
+.ui-popup {
+	position: absolute;
+	top: -10000em;
+	left: -10000em;
+	margin: 0;
+	padding: 3 * @unit_base;
+	background-color: rgb(0, 0, 0);
+	border: 3px solid @color_popup_border;
+	visibility: hidden;
+
+	.ui-popup-header {
+		width: 100%;
+		min-height: @fixed_popup_header_height;
+		font-size: @fixed_popup_header_font_size;
+		text-align: left;
+		background-color: @color_popup_bg;
+		color: @color_popup_title_text;
+		padding-top: @fixed_popup_header_padding_top;
+		padding-right: @fixed_popup_header_padding_right;
+		padding-bottom: @fixed_popup_header_padding_bottom;
+		padding-left: @fixed_popup_header_padding_left;
+		border-bottom: 1px solid @color_popup_header_border;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.ui-popup-content {
+		width: 100%;
+		font-size: @font_size_popup_body;
+		text-align: left;
+		color: @color_text;
+		background-color: @color_popup_bg;
+		padding: 10*@unit_base 16*@unit_base 9*@unit_base 16*@unit_base;
+
+		.ui-listview {
+			margin: -9*@unit_base -16*@unit_base -9*@unit_base -16*@unit_base;
+			li {
+				font-size: @font_size_popup_body;
+			}
+		}
+	}
+
+	.ui-popup-footer {
+		width: 100%;
+		height: @fixed_popup_footer_height;
+
+		.ui-btn {
+			padding-top: @fixed_popup_footer_btn_padding_top;
+			padding-bottom: @fixed_popup_footer_btn_padding_bottom;
+			font-size: @fixed_popup_footer_btn_font_size;
+		}
+	}
+
+	&.ui-popup-active {
+		visibility: visible;
+		top: 0px;
+		left: 0px;
+	}
+}
+
+/****************************************
+Popup Toast
+****************************************/
+.ui-popup-toast {
+	margin-left: 0;
+	margin-right: 0;
+	margin-bottom: 0;
+	font-size: @font_size_popup_toast;
+	border: 3px solid @color_popup_border;
+	position: absolute;
+	bottom: 0;
+	top: auto;
+	height: auto;
+}
+
+.ui-popup-toast.ui-popup-active {
+	top: auto;
+}
+
+.ui-popup-toast .ui-popup-content {
+	padding: 10*@unit_base 16*@unit_base 10*@unit_base 16*@unit_base;
+	background-color: @color_popup_bg;
+}
+
+.ui-popup-background {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
