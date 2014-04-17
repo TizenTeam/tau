@@ -537,18 +537,27 @@
 					firstArgument = args.shift(),
 					secondArgument = args.shift(),
 					key,
-					result = null;
+					result = null,
+                    refresh = false;
 				if (typeof firstArgument === "string") {
 					result = self._oneOption(firstArgument, secondArgument);
+                    if (firstArgument !== undefined && secondArgument !== undefined) {
+                        refresh = true;
+                    }
 				}
 				if (typeof firstArgument === "object") {
 					for (key in firstArgument) {
 						if (firstArgument.hasOwnProperty(key)) {
 							self._oneOption(key, firstArgument[key]);
+                            if (key !== undefined && firstArgument[key] !== undefined) {
+                                refresh = true;
+                            }
 						}
 					}
 				}
-				self.refresh();
+                if (refresh) {
+                    self.refresh();
+                }
 				return result;
 			};
 

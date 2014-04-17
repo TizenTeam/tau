@@ -553,9 +553,10 @@
 				try {
 					request = new XMLHttpRequest();
 					request.open('GET', absUrl, false);
+                    request.onerror = self._loadError.bind(self, absUrl, options, deferred);
 					request.send('');
 					if (request.readyState === 4) {
-						if (request.status === 200 || request.status === 0) {
+						if (request.status === 200 || (request.status === 0 && request.responseText)) {
 							self._loadSuccess(absUrl, options, rule, deferred, request.responseText);
 						} else {
 							self._loadError(absUrl, options, deferred);

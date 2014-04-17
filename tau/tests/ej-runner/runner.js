@@ -15,7 +15,8 @@ $(document).ready(function () {
 
 			onTimeout: QUnit.start,
 
-			onFrameLoad: function () {
+			onFrameLoad: function (event) {
+                event.target.removeEventListener("load", self.onFrameLoad);
 				// establish a timeout for a given suite in case of async tests hanging
 				self.testTimer = setTimeout(self.onTimeout, self.testTimeout);
 
@@ -69,7 +70,7 @@ $(document).ready(function () {
 					QUnit.asyncTest(file, function () {
 						console.log('Test start: ' + file);
 						self.file = file;
-						self.$frameElem.one("load", self.onFrameLoad);
+						self.$frameElem[0].addEventListener("load", self.onFrameLoad);
 						self.$frameElem.attr("src", '../../' + file);
 					});
 				});
