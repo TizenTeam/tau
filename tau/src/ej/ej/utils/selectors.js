@@ -73,7 +73,7 @@
 
 			/**
 			 * Runs matches implementation of matchesSelector
-			 * method on specified element
+			 * method fastOn specified element
 			 * @method matchesSelector
 			 * @param {HTMLElement} element
 			 * @param {string} Selector

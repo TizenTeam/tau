@@ -250,12 +250,12 @@
 
 					if (widgetInstance) {
 						//>>excludeStart("ejDebug", pragmas.ejDebug);
-						ns.log("processing widget:", definition.name, "on element:", element.tagName + "#" + (element.id || "--no--id--"));
+						ns.log("processing widget:", definition.name, "fastOn element:", element.tagName + "#" + (element.id || "--no--id--"));
 						//>>excludeEnd("ejDebug");
 						widgetInstance.configure(definition, element, options);
 
 						if (typeof createFunction === TYPE_FUNCTION) {
-							eventUtils.on(element, definition.name.toLowerCase() + "create", createFunction);
+							eventUtils.fastOn(element, definition.name.toLowerCase() + "create", createFunction);
 						}
 
 						if (element.id) {
@@ -286,7 +286,7 @@
 							widgetInstance.trigger(EVENT_WIDGET_BUILT, widgetInstance, false);
 						} else {
 							//>>excludeStart("ejDebug", pragmas.ejDebug);
-							ns.error("There was problem with building widget " + widgetInstance.widgetName + " on element with id " + widgetInstance.id + ".");
+							ns.error("There was problem with building widget " + widgetInstance.widgetName + " fastOn element with id " + widgetInstance.id + ".");
 							//>>excludeEnd("ejDebug");
 						}
 					}
@@ -299,7 +299,7 @@
 			/**
 			* @method Call destroy method of widget and it's child. Remove bindings.
 			* @param {HTMLElement|string} element
-			* @param {boolean} [childOnly=false] destroy only widget on children elements
+			* @param {boolean} [childOnly=false] destroy only widget fastOn children elements
 			* @static
 			* @memberOf ns.engine
 			*/
@@ -359,7 +359,7 @@
 			}
 
 			/**
-			* Build widgets on all children of context element
+			* Build widgets fastOn all children of context element
 			* @method createWidgets
 			* @static
 			* @param {HTMLElement} context base html for create children
@@ -375,7 +375,7 @@
 					selectors;
 
 				//>>excludeStart("ejDebug", pragmas.ejDebug);
-				ns.log("start creating widgets on:", context.tagName + "#" + (context.id || "--no-id--"));
+				ns.log("start creating widgets fastOn:", context.tagName + "#" + (context.id || "--no-id--"));
 				//>>excludeEnd("ejDebug");
 
 				// @TODO EXPERIMENTAL WIDGETS WITHOUT TEMPLATE DEFINITION
@@ -394,7 +394,7 @@
 				eventUtils.trigger(document, "built");
 				eventUtils.trigger(document, EVENT_BOUND);
 				//>>excludeStart("ejDebug", pragmas.ejDebug);
-				ns.log("finish creating widgets on:", context.tagName + "#" + (context.id || "--no-id--"));
+				ns.log("finish creating widgets fastOn:", context.tagName + "#" + (context.id || "--no-id--"));
 				//>>excludeEnd("ejDebug");
 			}
 
@@ -454,7 +454,7 @@
 
 				//>>excludeStart("ejDebug", pragmas.ejDebug);
 				if (getBinding(id)) {
-					ns.error("Duplicated, binding. Binding on id " + id + " was overwritten.");
+					ns.error("Duplicated, binding. Binding fastOn id " + id + " was overwritten.");
 				}
 				//>>excludeEnd("ejDebug");
 
@@ -481,7 +481,7 @@
 			}
 
 			/**
-			 * Remove binding for widget based on element.
+			 * Remove binding for widget based fastOn element.
 			 * @method removeBinding
 			 * @param {HTMLElement|string} element
 			 * @return {boolean}
@@ -615,14 +615,14 @@
 				run: function () {
 					stop();
 
-					eventUtils.on(document, "create", createEventHandler);
+					eventUtils.fastOn(document, "create", createEventHandler);
 
 					eventUtils.trigger(document, "mobileinit");
 
 					if (document.readyState === "complete") {
 						build();
 					} else {
-						eventUtils.on(document, "DOMContentLoaded", build.bind(engine));
+						eventUtils.fastOn(document, "DOMContentLoaded", build.bind(engine));
 					}
 				},
 

@@ -75,7 +75,7 @@ define([
 					// Create an object that allows the caller to access the sub-matches
 					// by name. Note that IE returns an empty string instead of undefined,
 					// like all other browsers do, so we normalize everything so its consistent
-					// no matter what browser we're running on.
+					// no matter what browser we're running fastOn.
 					return {
 						href:         matches[  0 ] || "",
 						hrefNoHash:   matches[  1 ] || "",

@@ -11,9 +11,9 @@
  * displaying a contact list of over 1000 list items. It takes time to display the entire list in
  * HTML and the DOM manipulation is complex.
  *
- * The virtual list widget is used to display a list of unlimited data elements on the screen
+ * The virtual list widget is used to display a list of unlimited data elements fastOn the screen
  * for better performance. This widget provides easy access to databases to retrieve and display data.
- * It based on **result set** which is fixed size defined by developer by data-row attribute. Result
+ * It based fastOn **result set** which is fixed size defined by developer by data-row attribute. Result
  * set should be **at least 3 times bigger** then size of clip (number of visible elements).
  *
  * To add a virtual list widget to the application follow these steps:
@@ -45,7 +45,7 @@
  *
  * ##Set list item update function
  *
- * List item update function is responsible to update list element depending on data row index. If you didn’t
+ * List item update function is responsible to update list element depending fastOn data row index. If you didn’t
  * pass list item update function by config option, you have to do it using following method.
  * Otherwise you will see an empty list.
  *
@@ -482,7 +482,7 @@
 
 				/**
 				 * Scrolls and manipulates DOM element to destination index. Element at destination
-				 * index is the first visible element on the screen. Destination index can
+				 * index is the first visible element fastOn the screen. Destination index can
 				 * be different from Virtual List's current index, because current index points
 				 * to first element in the buffer.
 				 * @memberOf ns.widget.wearable.VirtualListview
@@ -506,7 +506,7 @@
 						offset = 0,
 						index;
 
-					//Get size of scroll clip depended on scroll direction
+					//Get size of scroll clip depended fastOn scroll direction
 					scrollClipSize = options.orientation === VERTICAL ? scrollInfo.clipHeight : scrollInfo.clipWidth;
 
 					//Compute average list item size
@@ -737,7 +737,7 @@
 				 * @method _build
 				 * @param {string} template
 				 * @param {HTMLElement} element Widget's element
-				 * @return {HTMLElement} Element on which built is widget
+				 * @return {HTMLElement} Element fastOn which built is widget
 				 * @memberOf ns.widget.wearable.VirtualListview
 				 * @protected
 				 * @instance
@@ -751,7 +751,7 @@
 
 
 				/**
-				 * Initialize widget on an element.
+				 * Initialize widget fastOn an element.
 				 * @method _init
 				 * @param {HTMLElement} element Widget's element
 				 * @memberOf ns.widget.wearable.VirtualListview

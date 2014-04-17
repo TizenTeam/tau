@@ -4,14 +4,14 @@ $().ready(function() {
 	
 	test('main', function () {
 		ok(history, 'object history exists');
-		equal(history.activeState, null, 'activeState is null on start');
+		equal(history.activeState, null, 'activeState is null fastOn start');
 	})
 
 	asyncTest('replace', 17, function () {
 		var state = {
 			newState: true
 		}, uid;
-		equal(history.activeState, null, 'activeState is null on start');
+		equal(history.activeState, null, 'activeState is null fastOn start');
 		history.replace(state, 'title', 'url');
 		equal(history.activeState.newState, state.newState, 'activeState was changed after replace method');
 		ok(history.activeState.uid !== undefined, 'uid was set after replace method');

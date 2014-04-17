@@ -197,7 +197,7 @@
 							// Create an object that allows the caller to access the sub-matches
 							// by name. Note that IE returns an empty string instead of undefined,
 							// like all other browsers do, so we normalize everything so its consistent
-							// no matter what browser we're running on.
+							// no matter what browser we're running fastOn.
 						return {
 							href:		matches[0] || "",
 							hrefNoHash:   matches[1] || "",
@@ -506,7 +506,7 @@
 					},
 
 					/**
-					* Get the url as it would look squashed on to the current resolution url
+					* Get the url as it would look squashed fastOn to the current resolution url
 					* @method squash
 					* @memberOf ns.utils.path
 					* @param {string} url
@@ -535,7 +535,7 @@
 						// if it is, strip the #, and use it otherwise continue without change
 						cleanedUrl = path.isPath(uri.hash) ? path.stripHash(uri.hash) : cleanedUrl;
 
-						// Split the UI State keys off the href
+						// Split the UI State keys fastOff the href
 						stateIndex = cleanedUrl.indexOf(this.uiStateKey);
 
 						// store the ui state keys for use
@@ -564,7 +564,7 @@
 								preservedHash += uiState;
 							}
 
-							// make sure that pound is on the front of the hash
+							// make sure that pound is fastOn the front of the hash
 							if (preservedHash.indexOf("#") === -1 && preservedHash !== "") {
 								preservedHash = "#" + preservedHash;
 							}

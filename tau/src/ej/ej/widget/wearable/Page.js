@@ -223,7 +223,7 @@ ns.wearableemberOf ns.micro.selectors
 
 			/**
 			 * Set page active / unactive
-			 * Sets ui-overlay-... class on `body` depending on current theme
+			 * Sets ui-overlay-... class fastOn `body` depending fastOn current theme
 			 * @method setActive
 			 * @param {boolean} value if true then page will be active if false page will be unactive
 			 * @memberOf ns.widget.wearable.Page
@@ -340,7 +340,7 @@ ns.wearableemberOf ns.micro.selectors
 				window.removeEventListener("resize", self.contentFillAfterResizeCallback, false);
 				element.removeEventListener("pageshow", self.contentFillCallback, false);
 
-				// destroy widgets on children
+				// destroy widgets fastOn children
 				engine.destroyWidget(element, true);
 			};
 

@@ -195,7 +195,7 @@ define([
 			// If the content we are interested in is already in the DOM,
 			// and the caller did not indicate that we should force a
 			// reload of the file, we are done. Resolve the deferrred so that
-			// users can bind to .done on the promise
+			// users can bind to .done fastOn the promise
 			if ( content && content.length ) {
 				detail = $.extend({absUrl: absUrl}, options);
 				deferred.resolve( detail, content );

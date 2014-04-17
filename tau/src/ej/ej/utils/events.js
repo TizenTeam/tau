@@ -47,24 +47,37 @@
 				/**
 				 * Split string to array
 				 * @method trim
-				 * @param {string|Array} value if value is array returns it directly
-				 * @param {string} [regexp=SPLIT_BY_SPACES_REGEXP]
+				 * @param {string|Array|Object} names string with one name of event, many names of events divided by spaces, array with names of widgets or object in which keys are names of events and values are callbacks
+				 * @param {Function} globalListener
 				 * @return {Array}
 				 * @static
 				 * @private
 				 * @memberOf ns.utils.events
 				 */
-				splitToArray = function (value, regexp) {
-					regexp = regexp || SPLIT_BY_SPACES_REGEXP;
-					return isArray(value) ? value :
-							typeof value === 'string' ?
-								value.split(regexp).map(trim) :
-									[];
+				getEventsListeners = function (names, globalListener) {
+                    var name,
+                        result = [],
+                        i;
+                    if (typeof names === 'string') {
+                        names = names.split(SPLIT_BY_SPACES_REGEXP).map(trim);
+                    }
+					if (isArray(names)) {
+                        for (i=0; i<names.length; i++) {
+                            result.push({type: names[i], callback: globalListener});
+                        }
+                    } else {
+                        for (name in names) {
+                            if (names.hasOwnProperty(name)) {
+                                result.push({type: name, callback: names[name]});
+                            }
+                        }
+                    }
+                    return result;
 				},
 				events = {
 				/**
 				* @method trigger
-				* Triggers custom event on element
+				* Triggers custom event fastOn element
 				* The return value is false, if at least one of the event
 				* handlers which handled this event, called preventDefault.
 				* Otherwise it returns true.
@@ -80,7 +93,7 @@
 				trigger: function ejUtilsEvents_trigger(element, type, data, bubbles, cancelable) {
 					var evt = new CustomEvent(type, {
 							"detail": data,
-							//allow event to bubble up, required if we want to allow to listen on document etc
+							//allow event to bubble up, required if we want to allow to listen fastOn document etc
 							bubbles: typeof bubbles === "boolean" ? bubbles : true,
 							cancelable: typeof cancelable === "boolean" ? cancelable : true
 						});
@@ -91,7 +104,7 @@
 				},
 
 				/**
-				 * Prevent default on original event
+				 * Prevent default fastOn original event
 				 * @method preventDefault
 				 * @param {CustomEvent} event
 				 * @memberOf ns.utils.events
@@ -217,122 +230,132 @@
 
 				/**
 				 * Add event listener to element
-				 * @method on
+				 * @method fastOn
 				 * @param {HTMLElement} element
 				 * @param {string} type
+				 * @param {Function} listener
+				 * @param {boolean} [useCapture=false]
+				 * @memberOf ns.utils.events
+				 * @static
+				 */
+				fastOn: function(element, type, listener, useCapture) {
+					element.addEventListener(type, listener, useCapture || false);
+				},
+
+				/**
+				 * Remove event listener to element
+				 * @method fastOff
+				 * @param {HTMLElement} element
+				 * @param {string} type
+				 * @param {Function} listener
+				 * @param {boolean} [useCapture=false]
+				 * @memberOf ns.utils.events
+				 * @static
+				 */
+				fastOff: function(element, type, listener, useCapture) {
+					element.removeEventListener(type, listener, useCapture || false);
+				},
+
+				/**
+				 * Add event listener to element
+				 * @method on
+                 * @param {HTMLElement|HTMLCollection} element
+                 * @param {string|Array|Object} type
 				 * @param {Function} listener
 				 * @param {boolean} [useCapture=false]
 				 * @memberOf ns.utils.events
 				 * @static
 				 */
 				on: function(element, type, listener, useCapture) {
-					element.addEventListener(type, listener, useCapture || false);
+					var i,
+                        j,
+						elementsLength = elements.length,
+                        typesLength,
+                        elements,
+                        listeners;
+                    if (element instanceof HTMLElement) {
+                        elements = [element];
+                    } else {
+                        elements = element;
+                    }
+
+                    listeners = getEventsListeners(type, listener);
+                    typesLength = listeners.length;
+					for (i = 0; i < elementsLength; i++) {
+                        for (j = 0; j < typesLength; j++) {
+                            events.fastOn(elements[i], listeners[j].type, listeners[j].callback, useCapture);
+                        }
+					}
 				},
 
 				/**
 				 * Remove event listener to element
 				 * @method off
-				 * @param {HTMLElement} element
-				 * @param {string} type
+                 * @param {HTMLElement|HTMLCollection} element
+                 * @param {string|Array|Object} type
 				 * @param {Function} listener
 				 * @param {boolean} [useCapture=false]
 				 * @memberOf ns.utils.events
 				 * @static
 				 */
 				off: function(element, type, listener, useCapture) {
-					element.removeEventListener(type, listener, useCapture || false);
-				},
+                    var i,
+                        j,
+                        elementsLength = elements.length,
+                        typesLength,
+                        elements,
+                        listeners;
+                    if (element instanceof HTMLElement) {
+                        elements = [element];
+                    } else {
+                        elements = element;
+                    }
 
-				/**
-				 * Add event listener to element
-				 * @method onMany
-				 * @param {HTMLCollection} elements
-				 * @param {string} type
-				 * @param {Function} listener
-				 * @param {boolean} [useCapture=false]
-				 * @memberOf ns.utils.events
-				 * @static
-				 */
-				onMany: function(elements, type, listener, useCapture) {
-					var i,
-						length = elements.length;
-					for (i = 0; i < length; i++) {
-						events.on(elements[i], type, listener, useCapture);
-					}
-				},
-
-				/**
-				 * Remove event listener to element
-				 * @method offMany
-				 * @param {HTMLCollection} elements
-				 * @param {string} type
-				 * @param {Function} listener
-				 * @param {boolean} [useCapture=false]
-				 * @memberOf ns.utils.events
-				 * @static
-				 */
-				offMany: function(elements, type, listener, useCapture) {
-					var i,
-						length = elements.length;
-					for (i = 0; i < length; i++) {
-						events.off(elements[i], type, listener, useCapture);
-					}
-				},
-
-				/**
-				 * Add events listener to element
-				 * @method onManyEvents
-				 * @param {HTMLElement} element
-				 * @param {array} types array of strings
-				 * @param {Function|Object} listener If listener is type of Object, it must have "handleEvent" method
-				 * @param {boolean} [useCapture=false]
-				 * @memberOf ns.utils.events
-				 * @static
-				 */
-				onManyEvents: function(element, types, listener, useCapture) {
-					var i,
-						length;
-					types = splitToArray(types);
-					for (i = 0, length = types.length; i < length; i++) {
-						events.on(element, types[i], listener, useCapture);
-					}
-				},
-
-				/**
-				 * Remove event listener to element
-				 * @method offManyEvents
-				 * @param {HTMLElement} element
-				 * @param {array} types array of strings
-				 * @param {Function|Object} listener If listener is type of Object, it must have "handleEvent" method
-				 * @param {boolean} [useCapture=false]
-				 * @memberOf ns.utils.events
-				 * @static
-				 */
-				offManyEvents: function(element, types, listener, useCapture) {
-					var i,
-						length;
-					types = splitToArray(types);
-					for (i = 0, length = types.length; i < length; i++) {
-						events.off(element, types[i], listener, useCapture);
-					}
+                    listeners = getEventsListeners(type, listener);
+                    typesLength = listeners.length;
+                    for (i = 0; i < elementsLength; i++) {
+                        for (j = 0; j < typesLength; j++) {
+                            events.fastOn(elements[i], listeners[j].type, listeners[j].callback, useCapture);
+                        }
+                    }
 				},
 
 				/**
 				 * Add event listener to element only for one trigger
 				 * @method one
-				 * @param {HTMLElement} element
-				 * @param {string} type
+				 * @param {HTMLElement|HTMLCollection} element
+				 * @param {string|Array|Object} type
 				 * @param {Function} listener
 				 * @param {boolean} [useCapture=false]
 				 * @memberOf ns.utils.events
 				 * @static
 				 */
 				one: function(element, type, listener, useCapture) {
-					var callback = function() {
-						events.off(element, type, callback, useCapture);
-						listener.apply(this, arguments);
-					};
-					events.on(element, type, callback, useCapture);
+                    var i,
+                        j,
+                        elementsLength = elements.length,
+                        typesLength,
+                        elements,
+                        types,
+                        listeners,
+                        callback;
+                    if (element instanceof HTMLElement) {
+                        elements = [element];
+                    } else {
+                        elements = element;
+                    }
+
+                    listeners = getEventsListeners(type, listener);
+                    typesLength = listeners.length;
+                    for (i = 0; i < elementsLength; i++) {
+                        for (j = 0; j < typesLength; j++) {
+                            callback = function() {
+                                events.fastOff(elements[i], listeners[j].type, callback, useCapture);
+                                listeners[j].callback.apply(this, arguments);
+                            }
+                            events.fastOn(elements[i], listeners[j].type, callback, useCapture);
+                        }
+                    }
 				}
 			};
 			ns.utils.events = events;

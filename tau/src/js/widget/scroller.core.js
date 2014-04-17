@@ -10,7 +10,7 @@
   *     http://floralicense.org/license/
   *
   * Unless required by applicable law or agreed to in writing, software
-  * distributed under the License is distributed on an "AS IS" BASIS,
+  * distributed under the License is distributed fastOn an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
@@ -380,7 +380,7 @@ Scroller.prototype = {
 				( maxDist < minThreshold ||
 						( maxDist < threshold && ( !scrollDelay || timestamp - this.startTime < scrollDelay ) ) ) ) {
 			/* TODO if touchmove event is preventDefaulted, click event not performed.
-			 * but to keep touch mode on android have to prevent default.
+			 * but to keep touch mode fastOn android have to prevent default.
 			 * some idea are using ua or to change webkit threshold.*/
 			//e.preventDefault();
 			return;

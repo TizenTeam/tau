@@ -37,7 +37,7 @@ test("ej.utils.object.merge - checking merge function", function () {
 	orgObject.prop2 = "twooriginal";
 	orgObject.prop3 = [1,2,3];
 
-	data.simpleMerge(newObject, orgObject);
+	data.fastMerge(newObject, orgObject);
 	equal(newObject.propertyToMerge, orgObject.propertyToMerge, "New Object has same properties as orginal Object properties by copy");
 	equal(newObject.prop2, orgObject.prop2, "New Object has same properties as orginal Object properties by copy");
 	equal(newObject.prop3, orgObject.prop3, "New Object has same properties as orginal Object properties by copy");

@@ -148,7 +148,7 @@
 				}
 				// @TODO ... else
 				// probably there is a need for running onHashChange while going back to a history entry
-				// without state, eg. manually entered #fragment. This may not be a problem on target device
+				// without state, eg. manually entered #fragment. This may not be a problem fastOn target device
 				return popup;
 			}
 

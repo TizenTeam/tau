@@ -16,7 +16,7 @@ var
 	// A central reference to the root jQuery(document)
 	rootjQuery,
 
-	// The deferred used on DOM ready
+	// The deferred used fastOn DOM ready
 	readyList,
 
 	// Use the correct document accordingly with window argument (sandbox)
@@ -413,7 +413,7 @@ jQuery.extend({
 
 	// See test/unit/core.js for details concerning isFunction.
 	// Since version 1.3, DOM methods and functions like alert
-	// aren't supported. They return false on IE (#2968).
+	// aren't supported. They return false fastOn IE (#2968).
 	isFunction: function( obj ) {
 		return jQuery.type(obj) === "function";
 	},
@@ -452,7 +452,7 @@ jQuery.extend({
 				return false;
 			}
 		} catch ( e ) {
-			// IE8,9 Will throw exceptions on certain host objects #9897
+			// IE8,9 Will throw exceptions fastOn certain host objects #9897
 			return false;
 		}
 
@@ -553,11 +553,11 @@ jQuery.extend({
 	noop: function() {},
 
 	// Evaluates a script in a global context
-	// Workarounds based on findings by Jim Driscoll
+	// Workarounds based fastOn findings by Jim Driscoll
 	// http://weblogs.java.net/blog/driscoll/archive/2009/09/08/eval-javascript-global-context
 	globalEval: function( data ) {
 		if ( data && core_rnotwhite.test( data ) ) {
-			// We use execScript on Internet Explorer
+			// We use execScript fastOn Internet Explorer
 			// We use an anonymous function so that context is window
 			// rather than jQuery in Firefox
 			( window.execScript || function( data ) {
@@ -734,7 +734,7 @@ jQuery.extend({
 				}
 			}
 
-		// Go through every key on the object,
+		// Go through every key fastOn the object,
 		} else {
 			for ( key in elems ) {
 				value = callback( elems[ key ], key, arg );
@@ -1230,7 +1230,7 @@ jQuery.extend({
 			}
 		}
 
-		// if we're not waiting on anything, resolve the master
+		// if we're not waiting fastOn anything, resolve the master
 		if ( !remaining ) {
 			deferred.resolveWith( resolveContexts, resolveValues );
 		}
@@ -1301,7 +1301,7 @@ jQuery.support = (function() {
 		cssFloat: !!a.style.cssFloat,
 
 		// Make sure that if no value is specified for a checkbox
-		// that it defaults to "on".
+		// that it defaults to "fastOn".
 		// (WebKit defaults to "" instead)
 		checkOn: ( input.value === "on" ),
 
@@ -1309,10 +1309,10 @@ jQuery.support = (function() {
 		// (WebKit defaults to false instead of true, IE too, if it's in an optgroup)
 		optSelected: opt.selected,
 
-		// Test setAttribute on camelCase class. If it works, we need attrFixes when doing get/setAttribute (ie6/7)
+		// Test setAttribute fastOn camelCase class. If it works, we need attrFixes when doing get/setAttribute (ie6/7)
 		getSetAttribute: div.className !== "t",
 
-		// Tests for enctype support on a form(#6743)
+		// Tests for enctype support fastOn a form(#6743)
 		enctype: !!document.createElement("form").enctype,
 
 		// Makes sure cloning an html5 element does not cause problems
@@ -1455,13 +1455,13 @@ jQuery.support = (function() {
 		support.doesNotIncludeMarginInBodyOffset = ( body.offsetTop !== 1 );
 
 		// NOTE: To any future maintainer, we've window.getComputedStyle
-		// because jsdom on node.js will break without it.
+		// because jsdom fastOn node.js will break without it.
 		if ( window.getComputedStyle ) {
 			support.pixelPosition = ( window.getComputedStyle( div, null ) || {} ).top !== "1%";
 			support.boxSizingReliable = ( window.getComputedStyle( div, null ) || { width: "4px" } ).width === "4px";
 
 			// Check if div with explicit width and no margin-right incorrectly
-			// gets computed margin-right based on width of container. For more
+			// gets computed margin-right based fastOn width of container. For more
 			// info see bug #3333
 			// Fails in WebKit before Feb 2011 nightlies
 			// WebKit Bug 13343 - getComputedStyle returns wrong value for margin-right
@@ -1516,7 +1516,7 @@ jQuery.extend({
 	// Remove at next major release (1.9/2.0)
 	uuid: 0,
 
-	// Unique for each copy of jQuery on the page
+	// Unique for each copy of jQuery fastOn the page
 	// Non-digits removed to match rinlinejQuery
 	expando: "jQuery" + ( jQuery.fn.jquery + Math.random() ).replace( /\D/g, "" ),
 
@@ -1552,10 +1552,10 @@ jQuery.extend({
 			cache = isNode ? jQuery.cache : elem,
 
 			// Only defining an ID for JS objects if its cache already exists allows
-			// the code to shortcut on the same path as a DOM node with no cache
+			// the code to shortcut fastOn the same path as a DOM node with no cache
 			id = isNode ? elem[ internalKey ] : elem[ internalKey ] && internalKey;
 
-		// Avoid doing any more work than we need to when trying to get data on an
+		// Avoid doing any more work than we need to when trying to get data fastOn an
 		// object that has no data at all
 		if ( (!id || !cache[id] || (!pvt && !cache[id].data)) && getByName && data === undefined ) {
 			return;
@@ -1574,7 +1574,7 @@ jQuery.extend({
 		if ( !cache[ id ] ) {
 			cache[ id ] = {};
 
-			// Avoids exposing jQuery metadata on plain JS objects when the object
+			// Avoids exposing jQuery metadata fastOn plain JS objects when the object
 			// is serialized using JSON.stringify
 			if ( !isNode ) {
 				cache[ id ].toJSON = jQuery.noop;
@@ -2017,7 +2017,7 @@ jQuery.fn.extend({
 	removeProp: function( name ) {
 		name = jQuery.propFix[ name ] || name;
 		return this.each(function() {
-			// try/catch handles cases where IE balks (such as removing a property on window)
+			// try/catch handles cases where IE balks (such as removing a property fastOn window)
 			try {
 				this[ name ] = undefined;
 				delete this[ name ];
@@ -2281,7 +2281,7 @@ jQuery.extend({
 		var ret, hooks, notxml,
 			nType = elem.nodeType;
 
-		// don't get/set attributes on text, comment and attribute nodes
+		// don't get/set attributes fastOn text, comment and attribute nodes
 		if ( !elem || nType === 3 || nType === 8 || nType === 2 ) {
 			return;
 		}
@@ -2370,7 +2370,7 @@ jQuery.extend({
 				if ( rtype.test( elem.nodeName ) && elem.parentNode ) {
 					jQuery.error( "type property can't be changed" );
 				} else if ( !jQuery.support.radioValue && value === "radio" && jQuery.nodeName(elem, "input") ) {
-					// Setting the type on a radio button after the value resets the value in IE6-9
+					// Setting the type fastOn a radio button after the value resets the value in IE6-9
 					// Reset value to it's default in case type is set after value
 					// This is for element creation
 					var val = elem.value;
@@ -2422,7 +2422,7 @@ jQuery.extend({
 		var ret, hooks, notxml,
 			nType = elem.nodeType;
 
-		// don't get/set properties on text, comment and attribute nodes
+		// don't get/set properties fastOn text, comment and attribute nodes
 		if ( !elem || nType === 3 || nType === 8 || nType === 2 ) {
 			return;
 		}
@@ -2491,7 +2491,7 @@ boolHook = {
 			// Set boolean attributes to the same name and set the DOM property
 			propName = jQuery.propFix[ name ] || name;
 			if ( propName in elem ) {
-				// Only set the IDL specifically if it already exists on the element
+				// Only set the IDL specifically if it already exists fastOn the element
 				elem[ propName ] = true;
 			}
 
@@ -2531,7 +2531,7 @@ if ( !getSetAttribute ) {
 		}
 	};
 
-	// Set width and height to auto instead of 0 on empty string( Bug #8150 )
+	// Set width and height to auto instead of 0 fastOn empty string( Bug #8150 )
 	// This is for removals
 	jQuery.each([ "width", "height" ], function( i, name ) {
 		jQuery.attrHooks[ name ] = jQuery.extend( jQuery.attrHooks[ name ], {
@@ -2544,7 +2544,7 @@ if ( !getSetAttribute ) {
 		});
 	});
 
-	// Set contenteditable to false on removals(#10429)
+	// Set contenteditable to false fastOn removals(#10429)
 	// Setting to empty string throws an error as an invalid value
 	jQuery.attrHooks.contenteditable = {
 		get: nodeHook.get,
@@ -2558,7 +2558,7 @@ if ( !getSetAttribute ) {
 }
 
 
-// Some attributes require a special call on IE
+// Some attributes require a special call fastOn IE
 if ( !jQuery.support.hrefNormalized ) {
 	jQuery.each([ "href", "src", "width", "height" ], function( i, name ) {
 		jQuery.attrHooks[ name ] = jQuery.extend( jQuery.attrHooks[ name ], {
@@ -2613,7 +2613,7 @@ if ( !jQuery.support.checkOn ) {
 	jQuery.each([ "radio", "checkbox" ], function() {
 		jQuery.valHooks[ this ] = {
 			get: function( elem ) {
-				// Handle the case where in Webkit "" is returned instead of "on" if a value isn't specified
+				// Handle the case where in Webkit "" is returned instead of "fastOn" if a value isn't specified
 				return elem.getAttribute("value") === null ? "on" : elem.value;
 			}
 		};
@@ -2700,7 +2700,7 @@ jQuery.event = {
 			// If selector defined, determine special event api type, otherwise given type
 			type = ( selector ? special.delegateType : special.bindType ) || type;
 
-			// Update special based on newly reset type
+			// Update special based fastOn newly reset type
 			special = jQuery.event.special[ type ] || {};
 
 			// handleObj is passed to all event handlers
@@ -2776,7 +2776,7 @@ jQuery.event = {
 			type = origType = tns[1];
 			namespaces = tns[2];
 
-			// Unbind all events (on this namespace, if provided) for the element
+			// Unbind all events (fastOn this namespace, if provided) for the element
 			if ( !type ) {
 				for ( type in events ) {
 					jQuery.event.remove( elem, type + types[ t ], handler, selector, true );
@@ -2839,7 +2839,7 @@ jQuery.event = {
 	},
 
 	trigger: function( event, data, elem, onlyHandlers ) {
-		// Don't do events on text and comment nodes
+		// Don't do events fastOn text and comment nodes
 		if ( elem && (elem.nodeType === 3 || elem.nodeType === 8) ) {
 			return;
 		}
@@ -2935,7 +2935,7 @@ jQuery.event = {
 			}
 		}
 
-		// Fire handlers on the event path
+		// Fire handlers fastOn the event path
 		for ( i = 0; i < eventPath.length && !event.isPropagationStopped(); i++ ) {
 
 			cur = eventPath[i][0];
@@ -2959,10 +2959,10 @@ jQuery.event = {
 			if ( (!special._default || special._default.apply( elem.ownerDocument, data ) === false) &&
 				!(type === "click" && jQuery.nodeName( elem, "a" )) && jQuery.acceptData( elem ) ) {
 
-				// Call a native DOM method on the target with the same name name as the event.
+				// Call a native DOM method fastOn the target with the same name name as the event.
 				// Can't use an .isFunction() check here because IE6/7 fails that test.
-				// Don't do default actions on window, that's where global variables be (#6170)
-				// IE<9 dies on focus/blur to hidden element (#1486)
+				// Don't do default actions fastOn window, that's where global variables be (#6170)
+				// IE<9 dies fastOn focus/blur to hidden element (#1486)
 				if ( ontype && elem[ type ] && ((type !== "focus" && type !== "blur") || event.target.offsetWidth !== 0) && !jQuery.isWindow( elem ) ) {
 
 					// Don't re-trigger an onFOO event when we call its FOO() method
@@ -3015,7 +3015,7 @@ jQuery.event = {
 
 			for ( cur = event.target; cur != this; cur = cur.parentNode || this ) {
 
-				// Don't process clicks (ONLY) on disabled elements (#6911, #8165, #11382, #11764)
+				// Don't process clicks (ONLY) fastOn disabled elements (#6911, #8165, #11382, #11764)
 				if ( cur.disabled !== true || event.type !== "click" ) {
 					selMatch = {};
 					matches = [];
@@ -3181,7 +3181,7 @@ jQuery.event = {
 
 		beforeunload: {
 			setup: function( data, namespaces, eventHandle ) {
-				// We only want to do this special case on windows
+				// We only want to do this special case fastOn windows
 				if ( jQuery.isWindow( this ) ) {
 					this.onbeforeunload = eventHandle;
 				}
@@ -3196,9 +3196,9 @@ jQuery.event = {
 	},
 
 	simulate: function( type, elem, event, bubble ) {
-		// Piggyback on a donor event to simulate a different one.
+		// Piggyback fastOn a donor event to simulate a different one.
 		// Fake originalEvent to avoid donor's stopPropagation, but if the
-		// simulated event prevents default then we do the same on the donor.
+		// simulated event prevents default then we do the same fastOn the donor.
 		var e = jQuery.extend(
 			new jQuery.Event(),
 			event,
@@ -3234,7 +3234,7 @@ jQuery.removeEvent = document.removeEventListener ?
 		if ( elem.detachEvent ) {
 
 			// #8545, #7054, preventing memory leaks for custom events in IE6-8 –
-			// detachEvent needed property on element, by name of that event, to properly expose it to GC
+			// detachEvent needed property fastOn element, by name of that event, to properly expose it to GC
 			if ( typeof elem[ name ] === "undefined" ) {
 				elem[ name ] = null;
 			}
@@ -3283,7 +3283,7 @@ function returnTrue() {
 	return true;
 }
 
-// jQuery.Event is based on DOM3 Events as specified by the ECMAScript Language Binding
+// jQuery.Event is based fastOn DOM3 Events as specified by the ECMAScript Language Binding
 // http://www.w3.org/TR/2003/WD-DOM-Level-3-Events-20030331/ecma-script-binding.html
 jQuery.Event.prototype = {
 	preventDefault: function() {
@@ -3294,7 +3294,7 @@ jQuery.Event.prototype = {
 			return;
 		}
 
-		// if preventDefault exists run it on the original event
+		// if preventDefault exists run it fastOn the original event
 		if ( e.preventDefault ) {
 			e.preventDefault();
 
@@ -3310,7 +3310,7 @@ jQuery.Event.prototype = {
 		if ( !e ) {
 			return;
 		}
-		// if stopPropagation exists run it on the original event
+		// if stopPropagation exists run it fastOn the original event
 		if ( e.stopPropagation ) {
 			e.stopPropagation();
 		}
@@ -3409,7 +3409,7 @@ if ( !jQuery.support.changeBubbles ) {
 		setup: function() {
 
 			if ( rformElems.test( this.nodeName ) ) {
-				// IE doesn't fire change on a check/radio until blur; trigger it on click
+				// IE doesn't fire change fastOn a check/radio until blur; trigger it fastOn click
 				// after a propertychange. Eat the blur-change in special.change.handle.
 				// This still fires onchange a second time for check/radio after blur.
 				if ( this.type === "checkbox" || this.type === "radio" ) {
@@ -3428,7 +3428,7 @@ if ( !jQuery.support.changeBubbles ) {
 				}
 				return false;
 			}
-			// Delegated event; lazy-add a change handler on descendant inputs
+			// Delegated event; lazy-add a change handler fastOn descendant inputs
 			jQuery.event.add( this, "beforeactivate._change", function( e ) {
 				var elem = e.target;
 
@@ -3487,7 +3487,7 @@ if ( !jQuery.support.focusinBubbles ) {
 
 jQuery.fn.extend({
 
-	on: function( types, selector, data, fn, /*INTERNAL*/ one ) {
+	fastOn: function( types, selector, data, fn, /*INTERNAL*/ one ) {
 		var origFn, type;
 
 		// Types can be a map of types/handlers
@@ -3740,7 +3740,7 @@ var cachedruns,
 	// http://www.w3.org/TR/css3-syntax/#characters
 	characterEncoding = "(?:\\\\.|[-\\w]|[^\\x00-\\xa0])+",
 
-	// Loosely modeled on CSS identifier characters
+	// Loosely modeled fastOn CSS identifier characters
 	// An unquoted value should be a CSS identifier (http://www.w3.org/TR/css3-selectors/#attribute-selectors)
 	// Proper syntax: http://www.w3.org/TR/CSS21/syndata.html#value-def-identifier
 	identifier = characterEncoding.replace( "w", "w#" ),
@@ -3797,7 +3797,7 @@ var cachedruns,
 
 	// Support
 
-	// Used for testing something on an element
+	// Used for testing something fastOn an element
 	assert = function( fn ) {
 		var div = document.createElement("div");
 
@@ -4597,7 +4597,7 @@ sortOrder = docElem.compareDocumentPosition ?
 			hasDuplicate = true;
 			return 0;
 
-		// Fallback to using sourceIndex (in IE) if it's available on both nodes
+		// Fallback to using sourceIndex (in IE) if it's available fastOn both nodes
 		} else if ( a.sourceIndex && b.sourceIndex ) {
 			return a.sourceIndex - b.sourceIndex;
 		}
@@ -4758,7 +4758,7 @@ function addCombinator( matcher, combinator, base ) {
 
 		// Check against all ancestor/preceding elements
 		function( elem, context, xml ) {
-			// We can't set arbitrary data on XML nodes, so they don't benefit from dir caching
+			// We can't set arbitrary data fastOn XML nodes, so they don't benefit from dir caching
 			if ( !xml ) {
 				var cache,
 					dirkey = dirruns + " " + doneName + " ",
@@ -5185,7 +5185,7 @@ if ( document.querySelectorAll ) {
 		// Build QSA regex
 		// Regex strategy adopted from Diego Perini
 		assert(function( div ) {
-			// Select is set to empty string on purpose
+			// Select is set to empty string fastOn purpose
 			// This is to test IE's treatment of not explictly
 			// setting a boolean content attribute,
 			// since its presence should be enough
@@ -5236,10 +5236,10 @@ if ( document.querySelectorAll ) {
 					newContext = context,
 					newSelector = context.nodeType === 9 && selector;
 
-				// qSA works strangely on Element-rooted queries
-				// We can work around this by specifying an extra ID on the root
+				// qSA works strangely fastOn Element-rooted queries
+				// We can work around this by specifying an extra ID fastOn the root
 				// and working up from there (Thanks to Andrew Dupont for the technique)
-				// IE 8 doesn't work on object elements
+				// IE 8 doesn't work fastOn object elements
 				if ( context.nodeType === 1 && context.nodeName.toLowerCase() !== "object" ) {
 					groups = tokenize( selector );
 
@@ -5279,7 +5279,7 @@ if ( document.querySelectorAll ) {
 		if ( matches ) {
 			assert(function( div ) {
 				// Check to see if it's possible to do matchesSelector
-				// on a disconnected node (IE 9)
+				// fastOn a disconnected node (IE 9)
 				disconnectedMatch = matches.call( div, "div" );
 
 				// This should fail with an exception
@@ -5302,7 +5302,7 @@ if ( document.querySelectorAll ) {
 					try {
 						var ret = matches.call( elem, expr );
 
-						// IE 9's matchesSelector returns false on disconnected nodes
+						// IE 9's matchesSelector returns false fastOn disconnected nodes
 						if ( ret || disconnectedMatch ||
 								// As well, disconnected nodes are said to be in a document
 								// fragment in IE 9
@@ -6063,7 +6063,7 @@ function cloneFixAttributes( src, dest ) {
 		dest.clearAttributes();
 	}
 
-	// mergeAttributes, in contrast, only merges back on the
+	// mergeAttributes, in contrast, only merges back fastOn the
 	// original attributes, not the events
 	if ( dest.mergeAttributes ) {
 		dest.mergeAttributes( src );
@@ -6094,7 +6094,7 @@ function cloneFixAttributes( src, dest ) {
 		dest.defaultChecked = dest.checked = src.checked;
 
 		// IE6-7 get confused and end up setting the value of a cloned
-		// checkbox/radio button to an empty string instead of "on"
+		// checkbox/radio button to an empty string instead of "fastOn"
 		if ( dest.value !== src.value ) {
 			dest.value = src.value;
 		}
@@ -6133,7 +6133,7 @@ jQuery.buildFragment = function( args, context, scripts ) {
 	// Only cache "small" (1/2 KB) HTML strings that are associated with the main document
 	// Cloning options loses the selected state, so don't cache them
 	// IE 6 doesn't like it when you put <object> or <embed> elements in a fragment
-	// Also, WebKit does not clone 'checked' attributes on cloneNode, so don't cache
+	// Also, WebKit does not clone 'checked' attributes fastOn cloneNode, so don't cache
 	// Lastly, IE6,7,8 will not correctly reuse cached fragments that were created from unknown elems #10501
 	if ( args.length === 1 && typeof first === "string" && first.length < 512 && context === document &&
 		first.charAt(0) === "<" && !rnocache.test( first ) &&
@@ -6230,7 +6230,7 @@ jQuery.extend({
 		if ( (!jQuery.support.noCloneEvent || !jQuery.support.noCloneChecked) &&
 				(elem.nodeType === 1 || elem.nodeType === 11) && !jQuery.isXMLDoc(elem) ) {
 			// IE copies events bound via attachEvent when using cloneNode.
-			// Calling detachEvent on the clone will also remove the events
+			// Calling detachEvent fastOn the clone will also remove the events
 			// from the original. In order to get around this, we use some
 			// proprietary methods to clear the events. Thanks to MooTools
 			// guys for this hotness.
@@ -6243,7 +6243,7 @@ jQuery.extend({
 
 			// Weird iteration because IE will replace the length property
 			// with an element if you are cloning the body and one of the
-			// elements on the page has a name or id of "length"
+			// elements fastOn the page has a name or id of "length"
 			for ( i = 0; srcElements[i]; ++i ) {
 				// Ensure that the destination node is not null; Fixes #9587
 				if ( destElements[i] ) {
@@ -6440,7 +6440,7 @@ jQuery.extend({
 						delete cache[ id ];
 
 						// IE does not allow us to delete expando properties from nodes,
-						// nor does it have a removeAttribute function on Document nodes;
+						// nor does it have a removeAttribute function fastOn Document nodes;
 						// we must handle all of these cases
 						if ( deleteExpando ) {
 							delete elem[ internalKey ];
@@ -6689,9 +6689,9 @@ jQuery.extend({
 		"float": jQuery.support.cssFloat ? "cssFloat" : "styleFloat"
 	},
 
-	// Get and set the style property on a DOM Node
+	// Get and set the style property fastOn a DOM Node
 	style: function( elem, name, value, extra ) {
-		// Don't set styles on text and comment nodes
+		// Don't set styles fastOn text and comment nodes
 		if ( !elem || elem.nodeType === 3 || elem.nodeType === 8 || !elem.style ) {
 			return;
 		}
@@ -6805,7 +6805,7 @@ jQuery.extend({
 });
 
 // NOTE: To any future maintainer, we've window.getComputedStyle
-// because jsdom on node.js will break without it.
+// because jsdom fastOn node.js will break without it.
 if ( window.getComputedStyle ) {
 	curCSS = function( elem, name ) {
 		var ret, width, minWidth, maxWidth,
@@ -6906,7 +6906,7 @@ function augmentWidthOrHeight( elem, name, extra, isBorderBox ) {
 			val += jQuery.css( elem, extra + cssExpand[ i ], true );
 		}
 
-		// From this point on we use curCSS for maximum performance (relevant in animations)
+		// From this point fastOn we use curCSS for maximum performance (relevant in animations)
 		if ( isBorderBox ) {
 			// border-box includes padding, so remove it if we want content
 			if ( extra === "content" ) {
@@ -6995,7 +6995,7 @@ function css_defaultDisplay( nodeName ) {
 			})
 		);
 
-		// Create a cacheable copy of the iframe document on first call.
+		// Create a cacheable copy of the iframe document fastOn first call.
 		// IE and Opera will allow us to reuse the iframeDoc without re-writing the fake HTML
 		// document to it; WebKit & Firefox won't allow reusing the iframe document.
 		if ( !iframeDoc || !iframe.createElement ) {
@@ -7106,7 +7106,7 @@ jQuery(function() {
 
 	// Webkit bug: https://bugs.webkit.org/show_bug.cgi?id=29084
 	// getComputedStyle returns percent when specified for top/left/bottom/right
-	// rather than make the css module depend on the offset module, we just check for it here
+	// rather than make the css module depend fastOn the offset module, we just check for it here
 	if ( !jQuery.support.pixelPosition && jQuery.fn.position ) {
 		jQuery.each( [ "top", "left" ], function( i, prop ) {
 			jQuery.cssHooks[ prop ] = {
@@ -7916,7 +7916,7 @@ jQuery.extend({
 			}
 		}
 
-		// Set the Accepts header for the server, depending on the dataType
+		// Set the Accepts header for the server, depending fastOn the dataType
 		jqXHR.setRequestHeader(
 			"Accept",
 			s.dataTypes[ 0 ] && s.accepts[ s.dataTypes[0] ] ?
@@ -7939,7 +7939,7 @@ jQuery.extend({
 		// aborting is no longer a cancellation
 		strAbort = "abort";
 
-		// Install callbacks on deferreds
+		// Install callbacks fastOn deferreds
 		for ( i in { success: 1, error: 1, complete: 1 } ) {
 			jqXHR[ i ]( s[ i ] );
 		}
@@ -8313,7 +8313,7 @@ jQuery.ajaxTransport( "script", function(s) {
 	}
 });
 var xhrCallbacks,
-	// #5280: Internet Explorer will keep connections alive if we don't abort on unload
+	// #5280: Internet Explorer will keep connections alive if we don't abort fastOn unload
 	xhrOnUnloadAbort = window.ActiveXObject ? function() {
 		// Abort all pending requests
 		for ( var key in xhrCallbacks ) {
@@ -8375,7 +8375,7 @@ if ( jQuery.support.ajax ) {
 						xhr = s.xhr();
 
 					// Open the socket
-					// Passing null username, generates a login popup on Opera (#2865)
+					// Passing null username, generates a login popup fastOn Opera (#2865)
 					if ( s.username ) {
 						xhr.open( s.type, s.url, s.async, s.username, s.password );
 					} else {
@@ -8397,7 +8397,7 @@ if ( jQuery.support.ajax ) {
 					// X-Requested-With header
 					// For cross-domain requests, seeing as conditions for a preflight are
 					// akin to a jigsaw puzzle, we simply never set it to be sure.
-					// (it can always be set on a per-request basis or even using ajaxSetup)
+					// (it can always be set fastOn a per-request basis or even using ajaxSetup)
 					// For same-domain requests, won't change header if already provided.
 					if ( !s.crossDomain && !headers["X-Requested-With"] ) {
 						headers[ "X-Requested-With" ] = "XMLHttpRequest";
@@ -8461,7 +8461,7 @@ if ( jQuery.support.ajax ) {
 									}
 
 									// When requesting binary data, IE6-9 will throw an exception
-									// on any attempt to access responseText (#11426)
+									// fastOn any attempt to access responseText (#11426)
 									try {
 										responses.text = xhr.responseText;
 									} catch( _ ) {
@@ -8811,7 +8811,7 @@ function defaultPrefilter( elem, props, opts ) {
 		opts.overflow = [ style.overflow, style.overflowX, style.overflowY ];
 
 		// Set display property to inline-block for height/width
-		// animations on inline elements that are having width/height animated
+		// animations fastOn inline elements that are having width/height animated
 		if ( jQuery.css( elem, "display" ) === "inline" &&
 				jQuery.css( elem, "float" ) === "none" ) {
 
@@ -8967,7 +8967,7 @@ Tween.propHooks = {
 };
 
 // Remove in 2.0 - this supports IE8's panic based approach
-// to setting things on disconnected nodes
+// to setting things fastOn disconnected nodes
 
 Tween.propHooks.scrollTop = Tween.propHooks.scrollLeft = {
 	set: function( tween ) {
@@ -9001,7 +9001,7 @@ jQuery.fn.extend({
 		var empty = jQuery.isEmptyObject( prop ),
 			optall = jQuery.speed( speed, easing, callback ),
 			doAnimation = function() {
-				// Operate on a copy of prop so per-property easing won't be lost
+				// Operate fastOn a copy of prop so per-property easing won't be lost
 				var anim = Animation( this, jQuery.extend( {}, prop ), optall );
 
 				// Empty animations resolve immediately
@@ -9256,7 +9256,7 @@ jQuery.offset = {
 	setOffset: function( elem, options, i ) {
 		var position = jQuery.css( elem, "position" );
 
-		// set position first, in-case top/left are set even on static elem
+		// set position first, in-case top/left are set even fastOn static elem
 		if ( position === "static" ) {
 			elem.style.position = "relative";
 		}
@@ -9409,10 +9409,10 @@ jQuery.each( { Height: "height", Width: "width" }, function( name, type ) {
 				}
 
 				return value === undefined ?
-					// Get width or height on the element, requesting but not forcing parseFloat
+					// Get width or height fastOn the element, requesting but not forcing parseFloat
 					jQuery.css( elem, type, value, extra ) :
 
-					// Set width or height on the element
+					// Set width or height fastOn the element
 					jQuery.style( elem, type, value, extra );
 			}, type, chainable ? margin : undefined, chainable, null );
 		};

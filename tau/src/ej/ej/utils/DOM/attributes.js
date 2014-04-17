@@ -139,7 +139,7 @@
 			};
 
 			/**
-			 * Get or set value on data attribute.
+			 * Get or set value fastOn data attribute.
 			 * @method nsData
 			 * @param {HTMLElement} element
 			 * @param {string} name

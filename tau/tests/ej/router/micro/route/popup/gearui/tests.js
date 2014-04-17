@@ -194,7 +194,7 @@
 			},
 
 			function() {
-				ok(checkHasNotActivePopup(), "closed popup on page change.");
+				ok(checkHasNotActivePopup(), "closed popup fastOn page change.");
 
 				helper.one(document, "popupshow", function() {
 					tau.changePage( "../index.html" );
@@ -204,7 +204,7 @@
 			},
 
 			function() {
-				ok(checkHasNotActivePopup(), "closed popup on tau.back().");
+				ok(checkHasNotActivePopup(), "closed popup fastOn tau.back().");
 			}
 		], true);
 	});
@@ -250,7 +250,7 @@
 			},
 
 			function() {
-				ok(checkHasNotActivePopup(), "closed popup on page change.");
+				ok(checkHasNotActivePopup(), "closed popup fastOn page change.");
 				tau.back();
 			},
 

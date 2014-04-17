@@ -42,7 +42,7 @@
 			pageWidth = $page.outerWidth(),
 			pageHeight = $page.outerHeight();
 
-		ok($page.hasClass("ui-page-active"), "set active class on changed page.");
+		ok($page.hasClass("ui-page-active"), "set active class fastOn changed page.");
 		ok(screenWidth === pageWidth && screenHeight === pageHeight, "set page width and height");
 	});
 

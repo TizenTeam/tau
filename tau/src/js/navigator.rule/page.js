@@ -84,7 +84,7 @@ define([
 
 			// Check to see if the page already exists in the DOM.
 			// NOTE do _not_ use the :jqmData pseudo selector because parenthesis
-			//      are a valid url char and it breaks on the first occurence
+			//      are a valid url char and it breaks fastOn the first occurence
 			page = pageContainer
 						.children( this.filter )
 						.filter( "[data-url='" + dataUrl + "']" );

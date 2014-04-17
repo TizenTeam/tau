@@ -41,7 +41,7 @@ var QUnit,
 	 * with IE 7 (and prior) where Error.prototype.toString is
 	 * not properly implemented
 	 *
-	 * Based on http://es5.github.com/#x15.11.4.4
+	 * Based fastOn http://es5.github.com/#x15.11.4.4
 	 *
 	 * @param {String|Error} error
 	 * @return {String} error message
@@ -91,7 +91,7 @@ var QUnit,
 // `QUnit` initialized at top of scope
 QUnit = {
 
-	// call on start of module test to prepend name to all tests
+	// call fastOn start of module test to prepend name to all tests
 	module: function( name, testEnvironment ) {
 		config.currentModule = name;
 		config.currentModuleTestEnvironment = testEnvironment;
@@ -282,7 +282,7 @@ config = {
 		for ( i = 0; i < length; i++ ) {
 			current = params[ i ].split( "=" );
 			current[ 0 ] = decodeURIComponent( current[ 0 ] );
-			// allow just a key to turn on a flag, e.g., test.html?noglobals
+			// allow just a key to turn fastOn a flag, e.g., test.html?noglobals
 			current[ 1 ] = current[ 1 ] ? decodeURIComponent( current[ 1 ] ) : true;
 			urlParams[ current[ 0 ] ] = current[ 1 ];
 		}
@@ -522,7 +522,7 @@ extend( QUnit, {
  * @deprecated: Created for backwards compatibility with test runner that set the hook function
  * into QUnit.{hook}, instead of invoking it and passing the hook function.
  * QUnit.constructor is set to the empty F() above so that we can add to it's prototype here.
- * Doing this allows us to tell if the following methods have been overwritten on the actual
+ * Doing this allows us to tell if the following methods have been overwritten fastOn the actual
  * QUnit object.
  */
 extend( QUnit.constructor.prototype, {

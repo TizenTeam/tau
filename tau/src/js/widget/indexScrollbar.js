@@ -20,11 +20,11 @@ define([
 
 /*********************************************************
  * IndexBar
- * Shows merged index list on the bar, and returns index and value from the touch position
+ * Shows merged index list fastOn the bar, and returns index and value from the touch position
  *
  * Spec
  *  - Get index array
- *  - draw index list on the bar
+ *  - draw index list fastOn the bar
  *  - show/hide
  *  - calculate pressed index
  *********************************************************/

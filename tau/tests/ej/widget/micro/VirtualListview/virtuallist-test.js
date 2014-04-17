@@ -84,7 +84,7 @@
 	});
 
 	// RUN TEST 3
-	test("ej.widget.micro.VirtualList on scroll action", 2, function () {
+	test("ej.widget.micro.VirtualList fastOn scroll action", 2, function () {
 		var scrollview = elList.parentNode,
 			li,
 			vList = tau.VirtualListview(elList);

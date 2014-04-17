@@ -56,7 +56,7 @@
 			ok(scrollview.scrollTop >= 14399, 'scrollTop is set to >= 14399');
 		});
 
-		test("ej.widget.micro.VirtualList on scroll action", 2, function () {
+		test("ej.widget.micro.VirtualList fastOn scroll action", 2, function () {
 			var scrollview = elList.parentNode,
 				top,
 				li;

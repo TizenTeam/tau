@@ -65,7 +65,7 @@
  *					 return element;
  *				 };
  *
- *				 prototype._init = function (element) { // method called during initialization of widget, should contain all actions necessary on application start
+ *				 prototype._init = function (element) { // method called during initialization of widget, should contain all actions necessary fastOn application start
  *					 ...
  *					 return element;
  *				 };
@@ -275,7 +275,7 @@
 
 				self._getCreateOptions(element);
 
-				objectUtils.simpleMerge(self.options, options);
+				objectUtils.fastMerge(self.options, options);
 			};
 
 			/**
@@ -293,7 +293,7 @@
 				if (options !== undefined) {
 					Object.keys(options).forEach(function (option) {
 						// Get value from data-{namespace}-{name} element's attribute
-						// based on widget.options property keys
+						// based fastOn widget.options property keys
 						var value = domUtils.getNSData(element, (option.replace(bigRegexp, function (c) {
 							return "-" + c.toLowerCase();
 						})));
@@ -650,14 +650,14 @@
 			};
 
 			/**
-			 * Trigger an event on widget's element.
+			 * Trigger an event fastOn widget's element.
 			 * @method trigger
 			 * @param {string} eventName the name of event to trigger
 			 * @param {?*} [data] additional object to be carried with the event
 			 * @param {Boolean=} [bubbles=true]
 			 * @param {Boolean=} [cancelable=true]
 			 * @memberOf ns.widget.BaseWidget
-			 * @return {boolean} false, if any callback invoked preventDefault on event object
+			 * @return {boolean} false, if any callback invoked preventDefault fastOn event object
 			 * @instance
 			*/
 			prototype.trigger = function (eventName, data, bubbles, cancelable) {
@@ -666,28 +666,28 @@
 
 			/**
 			 * Add event listener to this.element.
-			 * @method on
+			 * @method fastOn
 			 * @param {string} eventName the name of event
 			 * @param {Function} listener function call after event will be trigger
 			 * @param {boolean} [useCapture=false] useCapture param tu addEventListener
 			 * @memberOf ns.widget.BaseWidget
 			 * @instance
 			 */
-			prototype.on = function (eventName, listener, useCapture) {
-				eventUtils.on(this.element, eventName, listener, useCapture);
+			prototype.fastOn = function (eventName, listener, useCapture) {
+				eventUtils.fastOn(this.element, eventName, listener, useCapture);
 			};
 
 			/**
 			 * Remove event listener to this.element.
-			 * @method off
+			 * @method fastOff
 			 * @param {string} eventName the name of event
 			 * @param {Function} listener function call after event will be trigger
 			 * @param {boolean} [useCapture=false] useCapture param tu addEventListener
 			 * @memberOf ns.widget.BaseWidget
 			 * @instance
 			 */
-			prototype.off = function (eventName, listener, useCapture) {
-				eventUtils.off(this.element, eventName, listener, useCapture);
+			prototype.fastOff = function (eventName, listener, useCapture) {
+				eventUtils.fastOff(this.element, eventName, listener, useCapture);
 			};
 
 			BaseWidget.prototype = prototype;

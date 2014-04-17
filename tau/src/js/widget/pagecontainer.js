@@ -92,7 +92,7 @@ $.widget( "ui.pagecontainer", {
 			}
 
 			// TODO why needs timeout??
-			// if it make without timeout, it has some bugs when call external page or press forward button on browser.
+			// if it make without timeout, it has some bugs when call external page or press forward button fastOn browser.
 			window.setTimeout(function() {
 				$(to).addClass( transition + " in ui-pre-in " + reverse );
 			}, 0);

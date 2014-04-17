@@ -59,7 +59,7 @@
 				}
 				// @TODO ... else
 				// probably there is a need for running onHashChange while going back to a history entry
-				// without state, eg. manually entered #fragment. This may not be a problem on target device
+				// without state, eg. manually entered #fragment. This may not be a problem fastOn target device
 				return page;
 			}
 
@@ -99,7 +99,7 @@
 			* @method open
 			* @param {HTMLElement|string} toPage
 			* @param {Object} [options]
-			* @param {boolean} [options.fromHashChange] call was made when on hash change
+			* @param {boolean} [options.fromHashChange] call was made when fastOn hash change
 			* @param {string} [options.dataUrl]
 			* @static
 			* @memberOf ns.widget.wearable.route.page
@@ -166,7 +166,7 @@
 
 				// Check to see if the page already exists in the DOM.
 				// NOTE do _not_ use the :jqmData pseudo selector because parenthesis
-				//      are a valid url char and it breaks on the first occurence
+				//      are a valid url char and it breaks fastOn the first occurence
 				page = pageContainer.element.querySelector("[data-url='" + dataUrl + "']" + this.filter);
 
 				// If we failed to find the page, check to see if the url is a
@@ -312,7 +312,7 @@
 
 			/**
 			 * Returns base element from document head.
-			 * If no base element is found, one is created based on current location
+			 * If no base element is found, one is created based fastOn current location
 			 * @method _getBaseElement
 			 * @protected
 			 * @static

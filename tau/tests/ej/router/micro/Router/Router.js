@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function () {
  * #issue: event.which is never equal 1 in method linkClickHandler
  */
 /*
-	asyncTest('open enbedded #secondPage by click on link', function () {
+	asyncTest('open enbedded #secondPage by click fastOn link', function () {
 		var link = document.getElementById('linkToSecondPage'),
 			onFirstPageShow = function () {
 				document.removeEventListener('pageshow', onFirstPageShow, true);

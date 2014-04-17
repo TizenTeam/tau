@@ -36,14 +36,14 @@
 
 				/**
 				* Attach fields from second object to first object.
-				* @method merge
+				* @method fastMerge
 				* @param {Object} newObject
 				* @param {Object} orgObject
 				* @return {Object}
 				* @static
 				* @memberOf ns.utils.object
 				*/
-				simpleMerge: function (newObject, orgObject) {
+				fastMerge: function (newObject, orgObject) {
 					var key;
 					for (key in orgObject) {
 						if (orgObject.hasOwnProperty(key)) {

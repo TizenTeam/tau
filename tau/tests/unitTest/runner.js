@@ -48,7 +48,7 @@ $(function() {
 				// to the suite level test
 				self.hideAssertionResults();
 
-				// continue on to the next suite
+				// continue fastOn to the next suite
 				QUnit.start();
 			},
 

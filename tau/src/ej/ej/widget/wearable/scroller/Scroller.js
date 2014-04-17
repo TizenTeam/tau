@@ -368,7 +368,7 @@
 					( maxDist < minThreshold ||
 						( maxDist < threshold && ( !scrollDelay || timestamp - this.startTime < scrollDelay ) ) )) {
 					/* TODO if touchmove event is preventDefaulted, click event not performed.
-					 * but to keep touch mode on android have to prevent default.
+					 * but to keep touch mode fastOn android have to prevent default.
 					 * some idea are using ua or to change webkit threshold.*/
 					//e.preventDefault();
 					return;
