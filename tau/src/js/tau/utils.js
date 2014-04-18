@@ -13,12 +13,12 @@
 	define(
 		[
 			"../tau",
-			"../ej/utils/path",
-			"../ej/utils/DOM/attributes",
-			"../ej/utils/DOM/css",
-			"../ej/utils/events",
-			"../ej/utils/object",
-			"../ej/utils/selectors"
+			"../core/utils/path",
+			"../core/utils/DOM/attributes",
+			"../core/utils/DOM/css",
+			"../core/utils/events",
+			"../core/utils/object",
+			"../core/utils/selectors"
 		],
 		function () {
 			//>>excludeEnd("ejBuildExclude");

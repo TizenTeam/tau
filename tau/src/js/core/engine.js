@@ -23,7 +23,7 @@
 	define(
 		[
 			"require",
-			"../ej",
+			"../core",
 			"./utils/events"
 		],
 		function (require) {

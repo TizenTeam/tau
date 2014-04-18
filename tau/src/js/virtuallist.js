@@ -5,10 +5,10 @@
 	define(
 		[
 			"require",
-			"./ej/widget",
+			"./core/widget",
 			"./tau/widget",
 			// widget list
-			"./ej/widget/wearable/VirtualListview"
+			"./core/widget/wearable/VirtualListview"
 		],
 		function (require) {
 //>>excludeEnd("ejBuildExclude");

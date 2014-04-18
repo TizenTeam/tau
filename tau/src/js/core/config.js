@@ -1,27 +1,25 @@
-/*global window, define, ns*/
+/*global window, define*/
 /*jslint bitwise: true */
 /*
 * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
 * License : MIT License V2
 */
-/**
- * Object contains selectors used in widgets.
- * @class ns.wearable.selectors */
 /*
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
 (function (ns) {
 	"use strict";
-//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 	define(
 		[
-			"../../ej"
+			"../core"
 		],
 		function () {
 			//>>excludeEnd("ejBuildExclude");
-			var wearable = ns.wearable || {};
-			wearable.selectors = {};
-			ns.wearable = wearable;
+			ns.set('rootDir', ns.getFrameworkPath());
+			ns.set('version', '');
+			ns.set('allowCrossDomainPages', false);
+			ns.set('domCache', false);
 			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 		}
 	);

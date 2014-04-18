@@ -1,9 +1,10 @@
-/*global window, define */
+/*global window, define, ns */
 /*
 * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
 * License : MIT License V2
 */
 /*
+ * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>
  */
 (function (ns) {
@@ -11,14 +12,14 @@
 	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 	define(
 		[
-			"../ej"
+			"../core"
 		],
 		function () {
 			//>>excludeEnd("ejBuildExclude");
-			/** @namespace ns.widget */
-			ns.widget = ns.widget || {};
+			/** @namespace ns.router */
+			ns.router = ns.router || {};
 			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
-			return ns.widget;
+			return ns.router;
 		}
 	);
 	//>>excludeEnd("ejBuildExclude");

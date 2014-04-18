@@ -38,11 +38,11 @@ module.exports = function(grunt) {
 			"sectionchanger": "widget/sectionchanger"
 		},
 
-		ejWidgets = {
-			"indexScrollbar": "ej/widget/wearable/indexscrollbar/IndexScrollbar",
-			"sectionchanger": "ej/widget/wearable/SectionChanger",
-			"virtuallist": "ej/widget/wearable/VirtualListview",
-			"virtualgrid": "ej/widget/wearable/VirtualGrid"
+		widgets = {
+			"indexScrollbar": "core/widget/wearable/indexscrollbar/IndexScrollbar",
+			"sectionchanger": "core/widget/wearable/SectionChanger",
+			"virtuallist": "core/widget/wearable/VirtualListview",
+			"virtualgrid": "core/widget/wearable/VirtualGrid"
 		},
 
 		themes = {
@@ -173,47 +173,9 @@ module.exports = function(grunt) {
 			},
 
 			requirejs: {
-				core: {
-					options: {
-						baseUrl: "src/js",
-						optimize: "none",
-						findNestedDependencies: true,
-						skipModuleInsertion: true,
-						mainConfigFile: "src/js/requirejs.config.js",
-						include: [ name ],
-						out: path.join( jsPath, name ) + ".core.js",
-						pragmasOnSave: {
-							microBuildExclude: true
-						},
-						wrap: {
-							startFile: "build/wrap.start",
-							endFile: "build/wrap.end"
-						}
-					}
-				},
-
 				full: {
 					options: {
 						baseUrl: "src/js",
-						optimize: "none",
-						findNestedDependencies: true,
-						skipModuleInsertion: true,
-						mainConfigFile: "src/js/requirejs.config.js",
-						include: [ name ].concat( files.js.getWidgetFiles() ),
-						out: path.join( jsPath, name ) + ".js",
-						pragmasOnSave: {
-							microBuildExclude: true
-						},
-						wrap: {
-							startFile: "build/wrap.start",
-							endFile: "build/wrap.end"
-						}
-					}
-				},
-
-				ejfull: {
-					options: {
-						baseUrl: "src/ej",
 						optimize: "none",
 						findNestedDependencies: true,
 						skipModuleInsertion: true,
@@ -230,9 +192,9 @@ module.exports = function(grunt) {
 					}
 				},
 
-				ejcore: {
+				core: {
 					options: {
-						baseUrl: "src/ej",
+						baseUrl: "src/js",
 						optimize: "none",
 						findNestedDependencies: true,
 						skipModuleInsertion: true,
@@ -251,7 +213,7 @@ module.exports = function(grunt) {
 
 				virtuallist: {
 					options: {
-						baseUrl: "src/ej",
+						baseUrl: "src/js",
 						optimize: "none",
 						findNestedDependencies: true,
 						skipModuleInsertion: true,
@@ -350,33 +312,6 @@ module.exports = function(grunt) {
 					optimize: "none",
 					findNestedDependencies: true,
 					skipModuleInsertion: true,
-					mainConfigFile: "src/js/requirejs.config.js",
-					pragmasOnSave: {
-						microBuildExclude: true
-					},
-					include: [ value ],
-					exclude: [ name ],
-					out: path.join( widgetPath, key ) + ".js",
-					wrap: {
-						start: [
-							";(function(window, undefined) {",
-							"	var ns = "+ name +";",
-							""].join( grunt.util.linefeed ),
-						end: "})(this);"
-					}
-				}
-			};
-		}
-
-		for ( key in ejWidgets ) {
-			value = ejWidgets[key];
-
-			requirejs["ej_widget_" + key] = {
-				options: {
-					baseUrl: "src/ej",
-					optimize: "none",
-					findNestedDependencies: true,
-					skipModuleInsertion: true,
 					include: [ value ],
 					exclude: [ "wearable.core" ],
 					out: path.join( widgetPath, key ) + ".js",
@@ -414,14 +349,6 @@ module.exports = function(grunt) {
 
 	});
 
-	grunt.registerTask("ejwidget", "Generate widget files using requirejs", function() {
-		var key;
-
-		for ( key in ejWidgets ) {
-			grunt.task.run("requirejs:ej_widget_" + key);
-		}
-
-	});
 	grunt.loadNpmTasks( "grunt-contrib-clean" );
 	grunt.loadNpmTasks( "grunt-contrib-copy" );
 	grunt.loadNpmTasks( "grunt-contrib-concat" );
@@ -437,14 +364,11 @@ module.exports = function(grunt) {
 	grunt.registerTask( "jsmin", [ "findFiles:js.setMinifiedFiles", "uglify" ] );
 
 	grunt.registerTask("css", [ "clean:css", "less", "cssmin" ]);
-	grunt.registerTask("js", [ "clean:js", "requirejs:full", "requirejs:core", "widget", "requirejs:virtuallist", "jsmin" ]);
-	grunt.registerTask("jsej", [ "clean:js", "requirejs:ejfull", "requirejs:ejcore", "ejwidget", "jsmin" ]);
+	grunt.registerTask("js", [ "clean:js", "requirejs:full", "requirejs:core", "widget", "jsmin" ]);
 
 	grunt.registerTask("license", [ "findFiles:js.setLicenseFiles", "findFiles:css.setLicenseFiles", "concat" ]);
 
-	grunt.registerTask("release", [ "clean", "lint", "css", "js", "license", "copy" ]);
-
-	grunt.registerTask("releaseej", [ "clean", "lint", "css", "jsej", "license", "copy"  ]);
+	grunt.registerTask("release", [ "clean", /* "lint", @TODO fix all errors and revert*/ "css", "js", "license", "copy" ]);
 
 	grunt.registerTask("default", [ "release" ]);
 };

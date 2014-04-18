@@ -15,8 +15,8 @@
 		[
 			"../tau",
 			"./navigator",
-			"../ej/wearable/selectors",
-			"../ej/engine"
+			"../core/wearable/selectors",
+			"../core/engine"
 		],
 		function () {
 			//>>excludeEnd("ejBuildExclude");

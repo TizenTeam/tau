@@ -43,7 +43,7 @@
 	define(
 		[
 			"../tau",
-			"../ej/widget/BaseWidget"
+			"../core/widget/BaseWidget"
 		],
 		function () {
 			//>>excludeEnd("ejBuildExclude");

@@ -17,10 +17,10 @@
 	define(
 		[
 			"../tau",
-			"../ej",
-			"../ej/engine",
-			"../ej/router/wearable/route",
-			"../ej/router/wearable/history"
+			"../core",
+			"../core/engine",
+			"../core/router/wearable/route",
+			"../core/router/wearable/history"
 		],
 		function () {
 			//>>excludeEnd("ejBuildExclude");

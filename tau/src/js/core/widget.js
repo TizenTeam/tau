@@ -1,26 +1,24 @@
-/*global window, define*/
-/*jslint bitwise: true */
+/*global window, define */
 /*
 * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
 * License : MIT License V2
 */
 /*
- * @author Maciej Urbanski <m.urbanski@samsung.com>
+ * @author Krzysztof Antoszek <k.antoszek@samsung.com>
  */
 (function (ns) {
 	"use strict";
 	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
 	define(
 		[
-			"../ej"
+			"../core"
 		],
 		function () {
 			//>>excludeEnd("ejBuildExclude");
-			ns.set('rootDir', ns.getFrameworkPath());
-			ns.set('version', '');
-			ns.set('allowCrossDomainPages', false);
-			ns.set('domCache', false);
+			/** @namespace ns.widget */
+			ns.widget = ns.widget || {};
 			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+			return ns.widget;
 		}
 	);
 	//>>excludeEnd("ejBuildExclude");
