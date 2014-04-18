@@ -5,7 +5,7 @@
  * License : MIT License V2
  */
 /**
- * #PAge widget
+ * #Page widget
  *
  * ##Default selectors
  * All elements with class=ui-page will be become Page widgets
@@ -13,10 +13,10 @@
  * ##Manual constructor
  * To create the widget manually you can use the instanceWidget method
  *
- *     @example
- *         var page = ej.engine.instanceWidget(document.getElementById('page'), 'page');
- *         //or
- *         var page = tau.page(document.getElementById('page'));
+ *	 @example
+ *		 var page = ej.engine.instanceWidget(document.getElementById('page'), 'page');
+ *		 //or
+ *		 var page = tau.page(document.getElementById('page'));
  *
  * #HTML Examples
  *
@@ -39,8 +39,7 @@
 			"../../engine",
 			"../../utils/selectors",
 			"../../utils/DOM/css",
-            "../../utils/object",
-            "../../wearable/selectors",
+			"../../wearable/selectors",
 			"../wearable",
 			"../BaseWidget"
 		],
@@ -74,7 +73,6 @@
 				 * @static
 				 */
 				doms = utils.DOM,
-                utilsObject = utils.object,
 				/**
 				 * @property {Object} engine Alias for {@link ns.engine}
 				 * @memberOf ns.widget.wearable.Page
@@ -344,7 +342,7 @@ ns.wearableemberOf ns.micro.selectors
 				engine.destroyWidget(element, true);
 			};
 
-            Page.prototype = prototype;
+			Page.prototype = prototype;
 
 			// definition
 			ns.widget.wearable.Page = Page;

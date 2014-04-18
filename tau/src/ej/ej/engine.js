@@ -319,11 +319,11 @@
 				// no need to access .instance property manually
 				if (!childOnly) {
 					widgetInstance = getBinding(element);
-                    if( widgetInstance) {
-                        //Destroy widget
-                        widgetInstance.destroy();
-                        widgetInstance.trigger("widgetdestroyed");
-                    }
+					if( widgetInstance) {
+						//Destroy widget
+						widgetInstance.destroy();
+						widgetInstance.trigger("widgetdestroyed");
+					}
 				}
 
 				//Destroy child widgets, if there something left.

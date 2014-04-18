@@ -1,12 +1,5 @@
 /*jslint browser: true, white: true */
 /*global deviceViewer, properties*/
-document.querySelector('iframe').addEventListener('popstate', function(event) {
-    [].slice.apply(document.querySelectorAll('iframe')).forEach(function(iframe){
-        console.log(iframe);
-        iframe.src = event.state
-    });
-    event.preventDefault()
-});
 
 window.onload = function () {
 	'use strict';

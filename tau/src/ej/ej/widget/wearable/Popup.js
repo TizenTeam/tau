@@ -106,7 +106,7 @@
 				*/
 				engine = ns.engine,
 				/**
-				* @property {ns.utils.utilsObject} utilsObject Alias for class ns.utils.events
+				* @property {Object} utilsObject Alias for class ns.utils.events
 				* @memberOf ns.widget.wearable.Popup
 				* @private
 				*/

@@ -16,7 +16,6 @@
 		[
 			"../../engine",
 			"../../utils/DOM/attributes",
-            "../../utils/object",
 			"../wearable",
 			"../BaseWidget",
 			"./Page"
@@ -24,9 +23,7 @@
 		function () {
 			//>>excludeEnd("ejBuildExclude");
 			var BaseWidget = ns.widget.BaseWidget,
-				Page = ns.widget.wearable.Page,
 				utils = ns.utils,
-                utilsObject = utils.object,
 				DOM = utils.DOM,
 				engine = ns.engine,
 				classes = {
@@ -259,7 +256,7 @@
 				}
 			};
 
-            PageContainer.prototype = prototype;
+			PageContainer.prototype = prototype;
 			// definition
 			ns.widget.wearable.PageContainer = PageContainer;
 

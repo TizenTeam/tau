@@ -10,32 +10,32 @@
 /**
  * @class tau.VirtualGrid
  * @inheritdoc ns.widget.wearable.VirtualGrid
- * @extends ns.widget.micro.VirtualGrid
+ * @extends ns.widget.wearable.VirtualGrid
  */
 /**
  * @class tau.VirtualListview
  * @inheritdoc ns.widget.wearable.VirtualListview
- * @extends ns.widget.micro.VirtualListview
+ * @extends ns.widget.wearable.VirtualListview
  */
 /**
  * @class tau.Popup
  * @inheritdoc ns.widget.wearable.Popup
- * @extends ns.widget.micro.Popup
+ * @extends ns.widget.wearable.Popup
  */
 /**
  * @class tau.Page
  * @inheritdoc ns.widget.wearable.Page
- * @extends ns.widget.micro.Page
+ * @extends ns.widget.wearable.Page
  */
 /**
  * @class tau.PageContainer
  * @inheritdoc ns.widget.wearable.PageContainer
- * @extends ns.widget.micro.PageContainer
+ * @extends ns.widget.wearable.PageContainer
  */
 /**
  * @class tau.IndexScrollbar
  * @inheritdoc ns.widget.wearable.IndexScrollbar
- * @extends ns.widget.micro.IndexScrollbar
+ * @extends ns.widget.wearable.IndexScrollbar
  */
 (function (document, frameworkNamespace, ns) {
 	"use strict";
@@ -47,14 +47,14 @@
 		],
 		function () {
 			//>>excludeEnd("ejBuildExclude");
-            ns.widget = {};
+			ns.widget = {};
 
 			document.addEventListener("widgetdefined", function (evt) {
 				var definition = evt.detail,
 					name = definition.name,
 					engine = frameworkNamespace.engine;
 
-                ns.defineWidget = engine.defineWidget.bind(engine);
+				ns.defineWidget = engine.defineWidget.bind(engine);
 
 				ns.widget[name] = (function (definitionName) {
 					return function (element, options) {

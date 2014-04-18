@@ -19,7 +19,6 @@
 		[
 			"../../engine",
 			"../../utils/DOM/css",
-            "../../utils/object",
 			"../wearable",
 			"./VirtualListview"
 		],
@@ -46,7 +45,6 @@
 				 * @static
 				 */
 				DOM = ns.utils.DOM,
-                utilsObject = ns.utils.object,
 				/**
 				 * @property {string} HORIZONTAL="x" constans for horizontal virtual grid
 				 * @private
@@ -249,7 +247,7 @@
 				}
 			};
 
-            VirtualGrid.prototype = prototype;
+			VirtualGrid.prototype = prototype;
 
 			ns.widget.wearable.VirtualGrid = VirtualGrid;
 

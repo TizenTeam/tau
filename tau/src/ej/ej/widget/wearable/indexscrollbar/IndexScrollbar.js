@@ -121,16 +121,17 @@
 				},
 
 				_destroy: function() {
-                    if (this.isBound()) {
-                        this._unbindEvent();
-                        this._extended(false);
-                        this._destroySubObjects();
-                        this.element = null;
-                        this.indicator = null;
-                        this.index = null;
-                        this.eventHandlers = {};
-                    }
-                },
+					var self = this;
+					if (self.isBound()) {
+						self._unbindEvent();
+						self._extended(false);
+						self._destroySubObjects();
+						self.element = null;
+						self.indicator = null;
+						self.index = null;
+						self.eventHandlers = {};
+					}
+				},
 
 				/**
 				 * Protected method be a interface for method options to set option index
