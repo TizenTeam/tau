@@ -13,20 +13,20 @@
  */
 (function (window, ns) {
 	"use strict";
-	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
 			"../core"
 		],
 		function () {
-		//>>excludeEnd("ejBuildExclude");
+		//>>excludeEnd("tauBuildExclude");
 			var currentFrame = null,
 				/**
 				 * requestAnimationFrame function
 				 * @method requestAnimationFrame
 				 * @return {Function}
 				 * @static
-				 * @memberOf ns.utils
+				 * @member ns.utils
 				*/
 				requestAnimationFrame = (window.requestAnimationFrame ||
 					window.webkitRequestAnimationFrame ||
@@ -48,7 +48,7 @@
 			* cancelAnimationFrame function
 			* @method cancelAnimationFrame
 			* @return {Function}
-			* @memberOf ns.utils
+			* @member ns.utils
 			* @static
 			*/
 			utils.cancelAnimationFrame = (window.cancelAnimationFrame ||
@@ -65,7 +65,7 @@
 			 * Method make asynchronous call of function
 			 * @method async
 			 * @inheritdoc #requestAnimationFrame
-			 * @memberOf ns.utils
+			 * @member ns.utils
 			 * @static
 			 */
 			utils.async = requestAnimationFrame;
@@ -74,7 +74,7 @@
 			* Checks if specified string is a number or not
 			* @method isNumber
 			* @return {boolean}
-			* @memberOf ns.utils
+			* @member ns.utils
 			* @static
 			*/
 			utils.isNumber = function (query) {
@@ -82,10 +82,63 @@
 				return !isNaN(parsed) && isFinite(parsed);
 			};
 
+			utils.runScript = function (baseUrl, script) {
+				var newscript = document.createElement('script'),
+					i,
+					scriptAttributes = script.attributes,
+					count = script.childNodes.length,
+					src = script.getAttribute("src"),
+					path = utils.path,
+					xhrObj,
+					attribute,
+					status;
+
+				// 'src' may become null when none src attribute is set
+				if (src !== null) {
+					src = path.makeUrlAbsolute(src, baseUrl);
+				}
+
+				//Copy script tag attributes
+				for (i = scriptAttributes.length - 1; i >= 0; i -= 1) {
+					attribute = scriptAttributes[i];
+					if (attribute.name !== 'src') {
+						newscript.setAttribute(attribute.name, attribute.value);
+					}
+				}
+
+				// If external script exists, fetch and insert it inline
+				if (src) {
+					try {
+						// get some kind of XMLHttpRequest
+						xhrObj = new XMLHttpRequest();
+						// open and send a synchronous request
+						xhrObj.open('GET', src, false);
+						xhrObj.send('');
+						status = xhrObj.status;
+						if (status === 200 || status === 0) {
+							// add the returned content to a newly created script tag
+							newscript.type = "text/javascript";
+							newscript.text = xhrObj.responseText;
+						}
+						//>>excludeStart("tauDebug", pragmas.tauDebug);
+						if (xhrObj.status !== 200) {
+							ns.warn("Failed to fetch and append external script. URL: " + src + "; response status: " + xhrObj.status);
+						}
+						//>>excludeEnd("tauDebug");
+					} catch (ignore) {
+					}
+				} else {
+					for (i = 0; i < count; i++) {
+						newscript.appendChild(script.childNodes[i]);
+					}
+				}
+				script.parentNode.replaceChild(newscript, script);
+			};
+
 			ns.utils = utils;
-			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.utils;
 		}
 	);
-	//>>excludeEnd("ejBuildExclude");
+	//>>excludeEnd("tauBuildExclude");
 }(window, ns));

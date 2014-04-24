@@ -1,5 +1,5 @@
 /*global define */
-//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 (function () {
 	"use strict";
 	define(
@@ -26,4 +26,4 @@
 		}
 	);
 }());
-//>>excludeEnd("ejBuildExclude");
+//>>excludeEnd("tauBuildExclude");

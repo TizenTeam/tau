@@ -5,12 +5,12 @@
 */
 /**
  * Support class for router to control change pages.
- * @class ns.widget.wearable.route.page
+ * @class ns.router.wearable.route.page
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
-(function (window, document, ns) {
+(function (document, ns) {
 	"use strict";
-	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
 			"../../../engine",
@@ -24,7 +24,7 @@
 			"../../../widget/wearable/Page"
 		],
 		function () {
-			//>>excludeEnd("ejBuildExclude");
+			//>>excludeEnd("tauBuildExclude");
 			var utils = ns.utils,
 				path = utils.path,
 				DOM = utils.DOM,
@@ -45,7 +45,7 @@
 			* @param {string} id Id of searching element
 			* @param {string} filter Query selector for searching page
 			* @static
-			* @memberOf ns.widget.wearable.route.page
+			* @member ns.router.wearable.route.page
 			*/
 			function findPageAndSetDataUrl(id, filter) {
 				var page = document.getElementById(id);
@@ -59,7 +59,7 @@
 				}
 				// @TODO ... else
 				// probably there is a need for running onHashChange while going back to a history entry
-				// without state, eg. manually entered #fragment. This may not be a problem fastOn target device
+				// without state, eg. manually entered #fragment. This may not be a problem on target device
 				return page;
 			}
 
@@ -68,7 +68,7 @@
 			 * @property {Object} defaults
 			 * @property {string} defaults.transition='none'
 			 * @static
-			 * @memberOf ns.widget.wearable.route.page
+			 * @member ns.router.wearable.route.page
 			 */
 			routePage.defaults = {
 				transition: 'none'
@@ -77,7 +77,7 @@
 			/**
 			 * Property defining selector for filtering only page elements
 			 * @property {string} filter
-			 * @memberOf ns.widget.wearable.route.page
+			 * @member ns.router.wearable.route.page
 			 * @inheritdoc ns.wearable.selectors#page
 			 * @static
 			 */
@@ -87,7 +87,7 @@
 			 * Returns default route options used inside Router
 			 * @method option
 			 * @static
-			 * @memberOf ns.widget.wearable.route.page
+			 * @member ns.router.wearable.route.page
 			 * @return {Object}
 			 */
 			routePage.option = function () {
@@ -99,10 +99,10 @@
 			* @method open
 			* @param {HTMLElement|string} toPage
 			* @param {Object} [options]
-			* @param {boolean} [options.fromHashChange] call was made when fastOn hash change
+			* @param {boolean} [options.fromHashChange] call was made when on hash change
 			* @param {string} [options.dataUrl]
 			* @static
-			* @memberOf ns.widget.wearable.route.page
+			* @member ns.router.wearable.route.page
 			*/
 			routePage.open = function (toPage, options) {
 				var pageTitle = document.title,
@@ -150,12 +150,13 @@
 			 * @method find
 			 * @param {string} absUrl absolute path to opened page
 			 * @static
-			 * @memberOf ns.widget.wearable.route.page
+			 * @member ns.router.wearable.route.page
 			 * @return {?HTMLElement}
 			 */
 			routePage.find = function( absUrl ) {
-				var router = engine.getRouter(),
-					dataUrl = this._createDataUrl( absUrl ),
+				var self = this,
+					router = engine.getRouter(),
+					dataUrl = self._createDataUrl( absUrl ),
 					initialContent = router.getFirstPage(),
 					pageContainer = router.getContainer(),
 					page;
@@ -166,15 +167,15 @@
 
 				// Check to see if the page already exists in the DOM.
 				// NOTE do _not_ use the :jqmData pseudo selector because parenthesis
-				//      are a valid url char and it breaks fastOn the first occurence
-				page = pageContainer.element.querySelector("[data-url='" + dataUrl + "']" + this.filter);
+				//      are a valid url char and it breaks on the first occurence
+				page = pageContainer.element.querySelector("[data-url='" + dataUrl + "']" + self.filter);
 
 				// If we failed to find the page, check to see if the url is a
 				// reference to an embedded page. If so, it may have been dynamically
 				// injected by a developer, in which case it would be lacking a
 				// data-url attribute and in need of enhancement.
 				if ( !page && dataUrl && !path.isPath( dataUrl ) ) {
-					page = findPageAndSetDataUrl(dataUrl, this.filter);
+					page = findPageAndSetDataUrl(dataUrl, self.filter);
 				}
 
 				// If we failed to find a page in the DOM, check the URL to see if it
@@ -201,24 +202,25 @@
 			 * @param {string} html HTML code to parse
 			 * @param {string} absUrl Absolute url for parsed page
 			 * @static
-			 * @memberOf ns.widget.wearable.route.page
+			 * @member ns.router.wearable.route.page
 			 * @return {?HTMLElement}
 			 */
 			routePage.parse = function( html, absUrl ) {
-				var page,
-					dataUrl = this._createDataUrl( absUrl ),
+				var self = this,
+					page,
+					dataUrl = self._createDataUrl( absUrl ),
 					scripts,
 					all = document.createElement('div');
 
 				// write base element
 				// @TODO shouldn't base be set if a page was found?
-				this._setBase( absUrl );
+				self._setBase( absUrl );
 
 				//workaround to allow scripts to execute when included in page divs
 				all.innerHTML = html;
 
 				// Finding matching page inside created element
-				page = all.querySelector(this.filter);
+				page = all.querySelector(self.filter);
 
 				// If a page exists...
 				if (page) {
@@ -230,48 +232,7 @@
 
 					// Check if parsed page contains scripts
 					scripts = page.querySelectorAll('script');
-					slice.call(scripts).forEach(function (baseUrl, script) {
-						var newscript = document.createElement('script'),
-							i,
-							scriptAttributes = script.attributes,
-							count = script.childNodes.length,
-							src = script.getAttribute("src"),
-							xhrObj,
-							attribute;
-
-						// 'src' may become null when none src attribute is set
-						if (src !== null) {
-							src = path.makeUrlAbsolute(src, baseUrl);
-						}
-
-						//Copy script tag attributes
-						for (i = scriptAttributes.length - 1; i >= 0; i -= 1) {
-							attribute = scriptAttributes[i];
-							if (attribute.name !== 'src') {
-								newscript.setAttribute(attribute.name, attribute.value);
-							}
-						}
-
-						// If external script exists, fetch and insert it inline
-						if (src) {
-							try {
-								// get some kind of XMLHttpRequest
-								xhrObj = new XMLHttpRequest();
-								// open and send a synchronous request
-								xhrObj.open('GET', src, false);
-								xhrObj.send('');
-								// add the returned content to a newly created script tag
-								newscript.type = "text/javascript";
-								newscript.text = xhrObj.responseText;
-							} catch (ignore) {
-							}
-						} else {
-							for (i = 0; i < count; i++) {
-								newscript.appendChild(script.childNodes[i]);
-							}
-						}
-						script.parentNode.replaceChild(newscript, script);
-					}.bind(null, dataUrl));
+					slice.call(scripts).forEach(utils.runScript.bind(null, dataUrl));
 				}
 				return page;
 			};
@@ -280,7 +241,7 @@
 			 * Handles hash change, **currently does nothing**.
 			 * @method onHashChange
 			 * @static
-			 * @memberOf ns.widget.wearable.route.page
+			 * @member ns.router.wearable.route.page
 			 * @return {null}
 			 */
 			routePage.onHashChange = function () {
@@ -293,7 +254,7 @@
 			 * @param {string} absoluteUrl
 			 * @protected
 			 * @static
-			 * @memberOf ns.widget.wearable.route.page
+			 * @member ns.router.wearable.route.page
 			 * @return {string}
 			 */
 			routePage._createDataUrl = function( absoluteUrl ) {
@@ -304,7 +265,7 @@
 			 * On open fail, currently never used
 			 * @method onOpenFailed 
 			 * @static
-			 * @memberOf ns.widget.wearable.route.page
+			 * @member ns.router.wearable.route.page
 			 */
 			routePage.onOpenFailed = function(/* options */) {
 				this._setBase( path.parseLocation().hrefNoSearch );
@@ -312,11 +273,11 @@
 
 			/**
 			 * Returns base element from document head.
-			 * If no base element is found, one is created based fastOn current location
+			 * If no base element is found, one is created based on current location
 			 * @method _getBaseElement
 			 * @protected
 			 * @static
-			 * @memberOf ns.widget.wearable.route.page
+			 * @member ns.router.wearable.route.page
 			 * @return {HTMLElement}
 			 */
 			routePage._getBaseElement = function() {
@@ -342,7 +303,7 @@
 			 * @param {string} url
 			 * @protected
 			 * @static
-			 * @memberOf ns.widget.wearable.route.page
+			 * @member ns.router.wearable.route.page
 			 */
 			routePage._setBase = function( url ) {
 				var base = this._getBaseElement(),
@@ -359,9 +320,9 @@
 
 			ns.router.wearable.route.page = routePage;
 
-			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return routePage;
 		}
 	);
-	//>>excludeEnd("ejBuildExclude");
-}(window, window.document, ns));
+	//>>excludeEnd("tauBuildExclude");
+}(window.document, ns));

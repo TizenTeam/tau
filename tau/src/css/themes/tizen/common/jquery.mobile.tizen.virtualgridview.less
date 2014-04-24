@@ -1,0 +1,94 @@
+/*
+ * jQuery Mobile Framework
+ * Copyright (c) jQuery Project
+ * Dual licensed under the MIT (MIT-LICENSE.txt) or GPL (GPL-LICENSE.txt)
+ * licenses.
+ */
+
+/*** less definitions ***/
+
+
+
+.ui-virtualgrid {
+	overflow : hidden;
+	position : absolute;
+}
+
+.ui-virtualgrid-wrapblock {
+	position : absolute;
+	left : 0;
+}
+
+.ui-virtualgrid-wrapblock-x {
+	float : left;
+	overflow: hidden;
+}
+
+.ui-scrollbar-thumb-x {
+	width : 1.5rem !important;
+}
+
+.ui-scrollbar-thumb-y {
+	height : 1.5rem !important;
+}
+
+.ui-virtualgrid-overflow-indicator-x-top {
+	position : absolute;
+	display : block;
+	left : 0;
+	top : 0;
+	width : 56%;
+	height : 100%;
+	opacity : 0;
+	background-repeat : no-repeat;
+	-webkit-background-size: 100% 100%;
+	background-image: url(./images/00_grid_overscrolling_left.png);
+	pointer-events : none;
+}
+
+.ui-virtualgrid-overflow-indicator-x-bottom {
+	position : absolute;
+	display : block;
+	right : 0;
+	bottom : 0;
+	width : 56%;
+	height : 100%;
+	opacity : 0;
+	background-repeat : no-repeat;
+	-webkit-background-size: 100% 100%;
+	background-image: url(./images/00_grid_overscrolling_right.png);
+	pointer-events : none;
+}
+
+.ui-virtualgrid-overflow-indicator-y-top {
+	position : absolute;
+	display : block;
+	top : 0;
+	width : 100%;
+	height : 32%;
+	opacity : 0;
+	background-repeat : no-repeat;
+	-webkit-background-size: 100% 100%;
+	background-image: url(./images/00_grid_overscrolling_top.png);
+	pointer-events : none;
+}
+
+.ui-virtualgrid-overflow-indicator-y-bottom {
+	position : absolute;
+	display : block;
+	bottom : 0;
+	width : 100%;
+	height : 32%;
+	opacity : 0;
+	background-repeat : no-repeat;
+	-webkit-background-size: 100% 100%;
+	background-image: url(./images/00_grid_overscrolling_bottom.png);
+	pointer-events : none;
+}
+
+/*
+ * padding here set to zero - otherwise the list scrolls underneith the top heading and can be seen above it
+ */
+.ui-content.ui-virtualgrid-content {
+  padding : 0;
+}

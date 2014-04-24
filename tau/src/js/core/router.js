@@ -9,18 +9,18 @@
  */
 (function (ns) {
 	"use strict";
-	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
 			"../core"
 		],
 		function () {
-			//>>excludeEnd("ejBuildExclude");
+			//>>excludeEnd("tauBuildExclude");
 			/** @namespace ns.router */
 			ns.router = ns.router || {};
-			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.router;
 		}
 	);
-	//>>excludeEnd("ejBuildExclude");
+	//>>excludeEnd("tauBuildExclude");
 }(ns));

@@ -9,7 +9,7 @@
  */
 (function (document, frameworkNamespace, ns) {
 	"use strict";
-	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
 			"../tau",
@@ -21,7 +21,7 @@
 			"../core/utils/selectors"
 		],
 		function () {
-			//>>excludeEnd("ejBuildExclude");
+			//>>excludeEnd("tauBuildExclude");
 
 			document.addEventListener("mobileinit", function () {
 				var utils = frameworkNamespace.utils,
@@ -37,25 +37,25 @@
 				/**
 				 * @method fireEvent
 				 * @inheritdoc ns.utils.events#trigger
-				 * @memberOf tau
+				 * @member tau
 				 */
 				ns.fireEvent = events.trigger.bind(events);
 				/**
 				 * @method getData
 				 * @inheritdoc ns.utils.DOM#getData
-				 * @memberOf tau
+				 * @member tau
 				 */
 				ns.getData = utilsDOM.getData.bind(utilsDOM);
 				/**
 				 * @method extendObject
 				 * @inheritdoc ns.utils.object#merge
-				 * @memberOf tau
+				 * @member tau
 				 */
 				ns.extendObject = utilsObject.merge.bind(utilsObject);
 				/**
 				 * @method inherit
 				 * @inheritdoc ns.utils.object#inherit
-				 * @memberOf tau
+				 * @member tau
 				 */
 				ns.inherit = utilsObject.inherit.bind(utilsObject);
 				/**
@@ -67,20 +67,20 @@
 					 * @method getElementOffset
 					 * @inheritdoc ns.utils.DOM#getElementOffset
 					 * @static
-					 * @memberOf tau.dom
+					 * @member tau.dom
 					 */
 					getOffset: utilsDOM.getElementOffset.bind(utilsDOM),
 					/**
 					 * @method triggerCustomEvent
 					 * @inheritdoc ns.utils.events#trigger
-					 * @memberOf tau.dom
+					 * @member tau.dom
 					 */
 					triggerCustomEvent: events.trigger.bind(events),
 					/**
 					 * @method data
 					 * @inheritdoc ns.utils.DOM#nsData
 					 * @static
-					 * @memberOf tau.dom
+					 * @member tau.dom
 					 */
 					data: utilsDOM.nsData.bind(utilsDOM)
 				};
@@ -94,8 +94,8 @@
 				};
 			}, false);
 
-			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
 	);
-	//>>excludeEnd("ejBuildExclude");
+	//>>excludeEnd("tauBuildExclude");
 }(window.document, ns, window.tau));

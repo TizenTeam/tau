@@ -14,7 +14,7 @@
  * To create the widget manually you can use the instanceWidget method
  *
  *	 @example
- *		 var page = ej.engine.instanceWidget(document.getElementById('page'), 'page');
+ *		 var page = ns.engine.instanceWidget(document.getElementById('page'), 'page');
  *		 //or
  *		 var page = tau.page(document.getElementById('page'));
  *
@@ -32,50 +32,49 @@
  */
 (function (document, ns) {
 	"use strict";
-	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
 			"../../wearable/selectors",
 			"../../engine",
 			"../../utils/selectors",
 			"../../utils/DOM/css",
-			"../../wearable/selectors",
 			"../wearable",
 			"../BaseWidget"
 		],
 		function () {
-			//>>excludeEnd("ejBuildExclude");
+			//>>excludeEnd("tauBuildExclude");
 			/**
 			 * @property {Object} BaseWidget Alias for {@link ns.widget.BaseWidget}
-			 * @memberOf ns.widget.wearable.Page
+			 * @member ns.widget.wearable.Page
 			 * @private
 			 * @static
 			 */
 			var BaseWidget = ns.widget.BaseWidget,
 				/**
 				 * @property {Object} selectors Alias for {@link ns.wearable.selectors}
-				 * @memberOf ns.widget.wearable.Page
+				 * @member ns.widget.wearable.Page
 				 * @private
 				 * @static
 				 */
 				selectors = ns.wearable.selectors,
 				/**
 				 * @property {Object} utils Alias for {@link ns.utils}
-				 * @memberOf ns.widget.wearable.Page
+				 * @member ns.widget.wearable.Page
 				 * @private
 				 * @static
 				 */
 				utils = ns.utils,
 				/**
 				 * @property {Object} doms Alias for {@link ns.utils.DOM}
-				 * @memberOf ns.widget.wearable.Page
+				 * @member ns.widget.wearable.Page
 				 * @private
 				 * @static
 				 */
 				doms = utils.DOM,
 				/**
 				 * @property {Object} engine Alias for {@link ns.engine}
-				 * @memberOf ns.widget.wearable.Page
+				 * @member ns.widget.wearable.Page
 				 * @private
 				 * @static
 				 */
@@ -90,7 +89,7 @@
 				},
 				/**
 				 * @property {Object} EventType Dictionary for page related event types
-				 * @memberOf ns.widget.wearable.Page
+				 * @member ns.widget.wearable.Page
 				 * @static
 				 */
 				EventType = {
@@ -103,7 +102,7 @@
 				},
 				/**
 				 * @property {Object} classes Dictionary for page related css class names
-				 * @memberOf ns.widget.wearable.Page
+				 * @member ns.widget.wearable.Page
 				 * @static
 				 */
 				classes = {
@@ -122,35 +121,37 @@
 
 			/**
 			 * @property {string} [page=".ui-page"] Selector for page element
-			 * @mns.wearablens.micro.selectors
+			 * @member ns.wearable.selectors
 			 */
 			selectors.page = "." + classes.uiPage;
 			/**
 			 * @property {string} [activePage=".ui-page-active"] Selector for active page element
-			 ns.wearablerOf ns.micro.selectors
+			 * @member ns.wearable.selectors
 			 */
 			selectors.activePage = "." + classes.uiPageActive;
 			/**
 			 * @property {string} [section=".ui-section"] Selector for section element
-ns.wearableemberOf ns.micro.selectors
+			 * @member ns.wearable.selectors
 			 */
 			selectors.section = "." + classes.uiSection;
 			/**
-			 * @property {string} [header=".ui-header"] Selector for header elemns.wearable* @memberOf ns.micro.selectors
+			 * @property {string} [header=".ui-header"] Selector for header element
+			 * @member ns.wearable.selectors
 			 */
 			selectors.header = "." + classes.uiHeader;
 			/**
-			 * @property {string} [footer=".ui-footer"] Selector for footer ns.wearable			 * @memberOf ns.micro.selectors
+			 * @property {string} [footer=".ui-footer"] Selector for footer element
+			 * @member ns.wearable.selectors
 			 */
 			selectors.footer = "." + classes.uiFooter;
 			/**
-			 * @property {string} [content=".ui-content"] Selector for contns.wearableent
-			 * @memberOf ns.micro.selectors
+			 * @property {string} [content=".ui-content"] Selector for content element
+			 * @member ns.wearable.selectors
 			 */
 			selectors.content = "." + classes.uiContent;
 			/**
-			 * @property {string} [pageScroll=".ui-page-scroll"] selector for pagens.wearableelement
-			 * @memberOf ns.micro.selectors
+			 * @property {string} [pageScroll=".ui-page-scroll"] selector for page scroll element
+			 * @member ns.wearable.selectors
 			 */
 			selectors.pageScroll = "." + classes.uiPageScroll;
 
@@ -159,7 +160,7 @@ ns.wearableemberOf ns.micro.selectors
 			 * to allow it to fill the page dynamically
 			 * @method contentFill
 			 * @param {ns.widget.wearable.Page} self
-			 * @memberOf ns.widget.wearable.Page
+			 * @member ns.widget.wearable.Page
 			 * @private
 			 * @static
 			 */
@@ -207,24 +208,23 @@ ns.wearableemberOf ns.micro.selectors
 			/**
 			 * Build page
 			 * @method _build
-			 * @param {string} template
 			 * @param {HTMLElement} element
 			 * @return {HTMLElement}
 			 * @protected
-			 * @memberOf ns.widget.wearable.Page
+			 * @member ns.widget.wearable.Page
 			 * @instance
 			 */
-			prototype._build = function (template, element) {
+			prototype._build = function (element) {
 				element.classList.add(classes.uiPage);
 				return element;
 			};
 
 			/**
 			 * Set page active / unactive
-			 * Sets ui-overlay-... class fastOn `body` depending fastOn current theme
+			 * Sets ui-overlay-... class on `body` depending on current theme
 			 * @method setActive
 			 * @param {boolean} value if true then page will be active if false page will be unactive
-			 * @memberOf ns.widget.wearable.Page
+			 * @member ns.widget.wearable.Page
 			 * @instance
 			 */
 			prototype.setActive = function (value) {
@@ -241,7 +241,7 @@ ns.wearableemberOf ns.micro.selectors
 			 * @method _bindEvents
 			 * @param {HTMLElement} element
 			 * @protected
-			 * @memberOf ns.widget.wearable.Page
+			 * @member ns.widget.wearable.Page
 			 * @instance
 			 */
 			prototype._bindEvents = function (element) {
@@ -259,7 +259,7 @@ ns.wearableemberOf ns.micro.selectors
 			 * Refresh widget structure
 			 * @method _refresh
 			 * @protected
-			 * @memberOf ns.widget.wearable.Page
+			 * @member ns.widget.wearable.Page
 			 * @instance
 			 */
 			prototype._refresh = function () {
@@ -271,7 +271,7 @@ ns.wearableemberOf ns.micro.selectors
 			 * @method _init
 			 * @param {HTMLElement} element
 			 * @protected
-			 * @memberOf ns.widget.wearable.Page
+			 * @member ns.widget.wearable.Page
 			 * @instance
 			 */
 			prototype._init = function (element) {
@@ -282,7 +282,7 @@ ns.wearableemberOf ns.micro.selectors
 			/**
 			 * Triggers BEFORE_SHOW event
 			 * @method onBeforeShow
-			 * @memberOf ns.widget.wearable.Page
+			 * @member ns.widget.wearable.Page
 			 * @instance
 			 */
 			prototype.onBeforeShow = function () {
@@ -292,7 +292,7 @@ ns.wearableemberOf ns.micro.selectors
 			/**
 			 * Triggers SHOW event
 			 * @method onShow
-			 * @memberOf ns.widget.wearable.Page
+			 * @member ns.widget.wearable.Page
 			 * @instance
 			 */
 			prototype.onShow = function () {
@@ -302,7 +302,7 @@ ns.wearableemberOf ns.micro.selectors
 			/**
 			 * Triggers BEFORE_HIDE event
 			 * @method onBeforeHide
-			 * @memberOf ns.widget.wearable.Page
+			 * @member ns.widget.wearable.Page
 			 * @instance
 			 */
 			prototype.onBeforeHide = function () {
@@ -312,7 +312,7 @@ ns.wearableemberOf ns.micro.selectors
 			/**
 			 * Triggers HIDE event
 			 * @method onHide
-			 * @memberOf ns.widget.wearable.Page
+			 * @member ns.widget.wearable.Page
 			 * @instance
 			 */
 			prototype.onHide = function () {
@@ -323,7 +323,7 @@ ns.wearableemberOf ns.micro.selectors
 			 * Destroy widget
 			 * @method _destroy
 			 * @protected
-			 * @memberOf ns.widget.wearable.Page
+			 * @member ns.widget.wearable.Page
 			 * @instance
 			 */
 			prototype._destroy = function () {
@@ -331,15 +331,15 @@ ns.wearableemberOf ns.micro.selectors
 					element = self.element;
 
 				element = element || self.element;
-				//>>excludeStart("ejDebug", pragmas.ejDebug);
+				//>>excludeStart("tauDebug", pragmas.tauDebug);
 				ns.log("Called _destroy in ns.widget.wearable.Page");
-				//>>excludeEnd("ejDebug");
+				//>>excludeEnd("tauDebug");
 
 				window.removeEventListener("resize", self.contentFillAfterResizeCallback, false);
 				element.removeEventListener("pageshow", self.contentFillCallback, false);
 
-				// destroy widgets fastOn children
-				engine.destroyWidget(element, true);
+				// destroy widgets on children
+				engine.destroyAllWidgets(element, true);
 			};
 
 			Page.prototype = prototype;
@@ -348,14 +348,13 @@ ns.wearableemberOf ns.micro.selectors
 			ns.widget.wearable.Page = Page;
 			engine.defineWidget(
 				"page",
-				"",
 				"[data-role=page],.ui-page",
 				["onBeforeShow", "onShow", "onBeforeHide", "onHide", "setActive"],
 				Page,
-				"micro"
+				"wearable"
 			);
-			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
 	);
-	//>>excludeEnd("ejBuildExclude");
+	//>>excludeEnd("tauBuildExclude");
 }(window.document, ns));

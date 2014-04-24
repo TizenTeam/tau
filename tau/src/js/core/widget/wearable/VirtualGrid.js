@@ -14,7 +14,7 @@
  */
 (function (window, document, ns) {
 	"use strict";
-	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
 			"../../engine",
@@ -23,24 +23,24 @@
 			"./VirtualListview"
 		],
 		function () {
-			//>>excludeEnd("ejBuildExclude");
+			//>>excludeEnd("tauBuildExclude");
 			/**
 			 * @property {Object} VirtualList Alias for {@link ns.widget.wearable.VirtualListview}
-			 * @memberOf ns.widget.wearable.VirtualGrid
+			 * @member ns.widget.wearable.VirtualGrid
 			 * @private
 			 * @static
 			 */
 			var VirtualList = ns.widget.wearable.VirtualListview,
 				/**
 				 * @property {Object} engine Alias for class {@link ns.engine}
-				 * @memberOf ns.widget.wearable.VirtualGrid
+				 * @member ns.widget.wearable.VirtualGrid
 				 * @private
 				 * @static
 				 */
 				engine = ns.engine,
 				/**
 				 * @property {Object} DOM Alias for class {@link ns.utils.DOM}
-				 * @memberOf ns.widget.wearable.VirtualGrid
+				 * @member ns.widget.wearable.VirtualGrid
 				 * @private
 				 * @static
 				 */
@@ -48,21 +48,21 @@
 				/**
 				 * @property {string} HORIZONTAL="x" constans for horizontal virtual grid
 				 * @private
-				 * @memberOf ns.widget.wearable.VirtualGrid
+				 * @member ns.widget.wearable.VirtualGrid
 				 * @static
 				 */
 				HORIZONTAL = "x",
 				/**
 				 * @property {string} VERTICAL="y" constans for vertical virtual grid
 				 * @private
-				 * @memberOf ns.widget.wearable.VirtualGrid
+				 * @member ns.widget.wearable.VirtualGrid
 				 * @static
 				 */
 				VERTICAL = "y",
 				/**
 				 * Alias for class VirtualGrid
 				 * @method VirtualGrid
-				 * @memberOf ns.widget.wearable.VirtualGrid
+				 * @member ns.widget.wearable.VirtualGrid
 				 * @private
 				 * @static
 				 */
@@ -72,7 +72,7 @@
 					 * @property {number} [options.bufferSize=100] Element count in buffer
 					 * @property {number} [options.dataLength=0] Element count in list
 					 * @property {number} [options.orientation='y'] Orientation : horizontal ('x'), vertical ('y')
-					 * @memberOf ns.widget.wearable.VirtualGrid
+					 * @member ns.widget.wearable.VirtualGrid
 					 * @instance
 					 */
 					this.options = {
@@ -84,7 +84,7 @@
 						 * @method listItemUpdater
 						 * @param {HTMLElement} element List item to be modified.
 						 * @param {number} index Index of data set.
-						 * @memberOf ns.widget.wearable.VirtualGrid
+						 * @member ns.widget.wearable.VirtualGrid
 						 */
 						listItemUpdater: function () {
 							return null;
@@ -96,21 +96,21 @@
 				prototype = new VirtualList(),
 				/**
 				 * @property {Object} VirtualListPrototype Alias for VirtualList prototype
-				 * @memberOf ns.widget.wearable.VirtualGrid
+				 * @member ns.widget.wearable.VirtualGrid
 				 * @private
 				 * @static
 				 */
 				VirtualListPrototype = VirtualList.prototype,
 				/**
 				 * @method parent_draw alias for {@link ns.widget.wearable.VirtualListview#draw VirtualList.draw}
-				 * @memberOf ns.widget.wearable.VirtualGrid
+				 * @member ns.widget.wearable.VirtualGrid
 				 * @private
 				 * @static
 				 */
 				parent_draw = VirtualListPrototype.draw,
 				/**
 				 * @method parent_refreshScrollbar alias for {@link ns.widget.wearable.VirtualListview#_refreshScrollbar VirtualList.\_refreshScrollbar}
-				 * @memberOf ns.widget.wearable.VirtualGrid
+				 * @member ns.widget.wearable.VirtualGrid
 				 * @private
 				 * @static
 				 */
@@ -120,7 +120,7 @@
 			 * Draw item
 			 * @method draw
 			 * @instance
-			 * @memberOf ns.widget.wearable.VirtualGrid
+			 * @member ns.widget.wearable.VirtualGrid
 			 */
 			prototype.draw = function () {
 				var self = this,
@@ -147,7 +147,7 @@
 			 * Sets proper scrollbar size: width (horizontal)
 			 * @method _refreshScrollbar
 			 * @protected
-			 * @memberOf ns.widget.wearable.VirtualGrid
+			 * @member ns.widget.wearable.VirtualGrid
 			 * @instance
 			 */
 			prototype._refreshScrollbar = function () {
@@ -164,7 +164,7 @@
 			 * Initializes list item
 			 * @method _initListItem
 			 * @protected
-			 * @memberOf ns.widget.wearable.VirtualGrid
+			 * @member ns.widget.wearable.VirtualGrid
 			 * @instance
 			 */
 			prototype._initListItem = function () {
@@ -212,7 +212,7 @@
 			 * @param {number} index Data row index
 			 * @protected
 			 * @instance
-			 * @memberOf ns.widget.wearable.VirtualGrid
+			 * @member ns.widget.wearable.VirtualGrid
 			 */
 			prototype._updateListItem = function (element, index) {
 				var elementI,
@@ -242,7 +242,9 @@
 						elementI.style.height = size + '%';
 					}
 
-					this.options.listItemUpdater(elementI, count * index + i);
+					if (count * index + i < options.originalDataLength) {
+						this.options.listItemUpdater(elementI, count * index + i);
+					}
 					element.appendChild(elementI);
 				}
 			};
@@ -253,15 +255,14 @@
 
 			engine.defineWidget(
 				"VirtualGrid",
-				"",
 				".ui-virtualgrid",
 				[],
 				VirtualGrid
 			);
 
-			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return VirtualGrid;
 		}
 	);
-	//>>excludeEnd("ejBuildExclude");
+	//>>excludeEnd("tauBuildExclude");
 }(window, window.document, ns));

@@ -6,22 +6,31 @@
 */
 /*
  * @author Maciej Urbanski <m.urbanski@samsung.com>
+ * @author Piotr Karny <p.karny@samsung.com>
  */
 (function (ns) {
 	"use strict";
-	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
 			"../core"
 		],
 		function () {
-			//>>excludeEnd("ejBuildExclude");
+			//>>excludeEnd("tauBuildExclude");
+
+			// Default configuration properties
 			ns.set('rootDir', ns.getFrameworkPath());
 			ns.set('version', '');
 			ns.set('allowCrossDomainPages', false);
 			ns.set('domCache', false);
-			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+			ns.set('autoBuildOnPageChange', true);
+			// .. other possible options
+			// ns.set('autoInitializePage', true);
+			// ns.set('container', ...); // for defining application container
+			// ns.set('pageContainer', ...); // same as above, but for micro version
+
+			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
 	);
-	//>>excludeEnd("ejBuildExclude");
+	//>>excludeEnd("tauBuildExclude");
 }(ns));

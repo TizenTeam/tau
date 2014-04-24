@@ -395,7 +395,7 @@
 							if (id) {
 								widgetInstance.id = id;
 							}
-							if (element.getAttribute("data-ej-built") !== "true") {
+							if (element.getAttribute("data-tau-built") !== "true") {
 								element = widgetInstance.build(template, element);
 							}
 						}
@@ -451,7 +451,7 @@
 						widgetInstance.destroy();
 
 						//Destroy child widgets, if there something left.
-						childWidgets = slice.call(elementCache.querySelectorAll('[data-ej-bound="true"]'));
+						childWidgets = slice.call(elementCache.querySelectorAll('[data-tau-bound="true"]'));
 						for (i = childWidgets.length - 1; i >= 0; i -= 1) {
 							if (childWidgets[i]) {
 								destroyWidget(childWidgets[i].id);
@@ -473,12 +473,12 @@
 			* @memberOf ej.engine
 			*/
 			function processHollowWidget(_definition, element, options) {
-				var name = element.getAttribute("data-ej-name"),
+				var name = element.getAttribute("data-tau-name"),
 					definition = _definition || (name && widgetDefs[name] ?
 							widgetDefs[name] : {
-						"name": element.getAttribute("data-ej-name"),
-						"selector": element.getAttribute("data-ej-selector"),
-						"binding": element.getAttribute("data-ej-binding")
+						"name": element.getAttribute("data-tau-name"),
+						"selector": element.getAttribute("data-tau-selector"),
+						"binding": element.getAttribute("data-tau-binding")
 					});
 				processWidget(definition, null, element, options);
 			}
@@ -490,10 +490,10 @@
 			* @memberOf ej.engine
 			*/
 			function createWidgets(context) {
-				var builtWithoutTemplates = slice.call(context.querySelectorAll('*[data-ej-built=true][data-ej-binding][data-ej-selector][data-ej-name]:not([data-ej-bound])')),
+				var builtWithoutTemplates = slice.call(context.querySelectorAll('*[data-tau-built=true][data-tau-binding][data-tau-selector][data-tau-name]:not([data-tau-bound])')),
 					selectorKeys = Object.keys(widgetDefs),
 					normal = [],
-					excludeBuiltAndBound = ":not([data-ej-built]):not([data-ej-bound])",
+					excludeBuiltAndBound = ":not([data-tau-built]):not([data-tau-bound])",
 					i,
 					j,
 					len = selectorKeys.length,
@@ -656,7 +656,7 @@
 				*/
 				instanceWidget: function (element, name, options) {
 					var binding = getBinding(element),
-						built = element.getAttribute("data-ej-built") === "true",
+						built = element.getAttribute("data-tau-built") === "true",
 						definition;
 
 					if ((!binding || !built) && widgetDefs[name]) {
@@ -1677,10 +1677,10 @@
 					element = elementContainer.firstChild;
 				}
 				eventUtils.trigger(element, name + "beforecreate");
-				element.setAttribute("data-ej-built", true);
-				element.setAttribute("data-ej-binding", this.binding);
-				element.setAttribute("data-ej-name", this.name);
-				element.setAttribute("data-ej-selector", this.selector);
+				element.setAttribute("data-tau-built", true);
+				element.setAttribute("data-tau-binding", this.binding);
+				element.setAttribute("data-tau-name", this.name);
+				element.setAttribute("data-tau-selector", this.selector);
 				id = element.getAttribute('id');
 				if (!id) {
 					element.setAttribute("id", this.id);
@@ -1769,7 +1769,7 @@
 			*/
 			BaseWidget.prototype.bindEvents = function (element, onlyBuild) {
 				if (!onlyBuild) {
-					element.setAttribute("data-ej-bound", "true");
+					element.setAttribute("data-tau-bound", "true");
 				}
 				engine.setBinding(element, this);
 				if (typeof this._buildBindEvents === "function") {
@@ -1803,7 +1803,7 @@
 					this._destroy();
 				}
 				// TODO: clean html markup
-				this.element.removeAttribute("data-ej-bound");
+				this.element.removeAttribute("data-tau-bound");
 				engine.removeBinding(this.element);
 			};
 
@@ -1933,12 +1933,12 @@
 
 			BaseWidget.prototype.isBound = function () {
 				var element = this.element;
-				return element && element.getAttribute('data-ej-bound') ? true : false;
+				return element && element.getAttribute('data-tau-bound') ? true : false;
 			};
 
 			BaseWidget.prototype.isBuilt = function () {
 				var element = this.element;
-				return element && element.getAttribute('data-ej-built') ? true : false;
+				return element && element.getAttribute('data-tau-built') ? true : false;
 			};
 
 			/**

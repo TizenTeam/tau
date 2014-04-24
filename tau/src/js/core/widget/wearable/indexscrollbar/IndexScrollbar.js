@@ -13,7 +13,7 @@
  */
 (function (document, ns) {
 	"use strict";
-	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
 			"../../../engine",
@@ -25,7 +25,7 @@
 			"../../BaseWidget"
 		],
 		function () {
-			//>>excludeEnd("ejBuildExclude");
+			//>>excludeEnd("tauBuildExclude");
 			var IndexScrollbar = function() {
 				// Support calling without 'new' keyword
 				this.element = null;
@@ -46,21 +46,21 @@
 			BaseWidget = ns.widget.BaseWidget,
 			/**
 			 * @property {Object} engine Alias for class {@link ns.engine}
-			 * @memberOf ns.widget.wearable.IndexScrollbar
+			 * @member ns.widget.wearable.IndexScrollbar
 			 * @private
 			 * @static
 			 */
 				engine = ns.engine,
 			/**
 			 * @property {Object} events Alias for class {@link ns.utils.events}
-			 * @memberOf ns.widget.wearable.IndexScrollbar
+			 * @member ns.widget.wearable.IndexScrollbar
 			 * @private
 			 * @static
 			 */
 				events = ns.utils.events,
 			/**
 			 * @property {Object} doms Alias for class {@link ns.utils.DOM}
-			 * @memberOf ns.widget.wearable.IndexScrollbar
+			 * @member ns.widget.wearable.IndexScrollbar
 			 * @private
 			 * @static
 			 */
@@ -94,7 +94,7 @@
 					};
 				},
 
-				_build: function (template, element) {
+				_build: function (element) {
 					return element;
 				},
 
@@ -126,7 +126,6 @@
 						self._unbindEvent();
 						self._extended(false);
 						self._destroySubObjects();
-						self.element = null;
 						self.indicator = null;
 						self.index = null;
 						self.eventHandlers = {};
@@ -508,15 +507,14 @@
 			ns.widget.wearable.IndexScrollbar = IndexScrollbar;
 			engine.defineWidget(
 				"IndexScrollbar",
-				"",
 				".ui-indexscrollbar",
 				[],
 				IndexScrollbar,
-				'micro'
+				"wearable"
 			);
-			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return IndexScrollbar;
 		}
 	);
-	//>>excludeEnd("ejBuildExclude");
+	//>>excludeEnd("tauBuildExclude");
 }(window.document, ns));

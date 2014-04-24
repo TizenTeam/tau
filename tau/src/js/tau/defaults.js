@@ -10,7 +10,7 @@
  */
 (function (document, frameworkNamespace, ns) {
 	"use strict";
-	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
 			"../tau",
@@ -19,7 +19,7 @@
 			"../core/engine"
 		],
 		function () {
-			//>>excludeEnd("ejBuildExclude");
+			//>>excludeEnd("tauBuildExclude");
 
 			document.addEventListener("mobileinit", function () {
 				var navigator,
@@ -33,7 +33,7 @@
 				/**
 				 * Set dynamic base tag changes.
 				 * @property {boolean} [dynamicBaseEnabled=true]
-				 * @memberOf tau
+				 * @member tau
 				 */
 				ns.dynamicBaseEnabled = true;
 				/**
@@ -49,7 +49,7 @@
 				 * @property {boolean} [defaults.reverse = false]
 				 * @property {boolean} [defaults.showLoadMsg = true]
 				 * @property {number} [defaults.loadMsgDelay = 0]
-				 * @memberOf tau.navigator
+				 * @member tau.navigator
 				 */
 				navigator.defaults = {
 					fromHashChange: false,
@@ -60,8 +60,8 @@
 				ns.navigator = navigator;
 			}, false);
 
-			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
 	);
-	//>>excludeEnd("ejBuildExclude");
+	//>>excludeEnd("tauBuildExclude");
 }(document, ns, window.tau));

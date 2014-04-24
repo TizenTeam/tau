@@ -13,14 +13,14 @@
  */
 (function (document, ns) {
 	"use strict";
-	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
 			"../indexscrollbar",
 			"../../../utils/object"
 		],
 		function () {
-			//>>excludeEnd("ejBuildExclude");
+			//>>excludeEnd("tauBuildExclude");
 			var utilsObject = ns.utils.object;
 
 			function IndexIndicator(element, options) {
@@ -87,9 +87,9 @@
 				}
 			};
 			ns.widget.wearable.indexscrollbar.IndexIndicator = IndexIndicator;
-			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return IndexIndicator;
 		}
 	);
-	//>>excludeEnd("ejBuildExclude");
+	//>>excludeEnd("tauBuildExclude");
 }(window.document, ns));

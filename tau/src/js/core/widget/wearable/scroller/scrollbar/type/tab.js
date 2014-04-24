@@ -3,11 +3,11 @@
 /**
  * section Changer widget
  * @class ns.widget.SectionChanger
- * @extends ej.widget.BaseWidget
+ * @extends ns.widget.BaseWidget
  */
 (function (document, ns) {
 	"use strict";
-	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
 			"../type",
@@ -16,7 +16,7 @@
 			"../../../../../utils/object"
 		],
 		function () {
-			//>>excludeEnd("ejBuildExclude");
+			//>>excludeEnd("tauBuildExclude");
 			// scroller.start event trigger when user try to move scroller
 			var utilsObject = ns.utils.object,
 				type = ns.widget.wearable.scroller.scrollbar.type,
@@ -80,8 +80,8 @@
 				}
 
 			});
-			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
 	);
-	//>>excludeEnd("ejBuildExclude");
+	//>>excludeEnd("tauBuildExclude");
 }(window.document, ns));

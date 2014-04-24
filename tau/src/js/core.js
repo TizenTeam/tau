@@ -5,7 +5,7 @@
 * License : MIT License V2
 */
 /**
- * Ej core namespace
+ * #Core namespace
  * @class ns
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>
@@ -15,9 +15,9 @@
  */
 (function (window, document, ns, nsConfig) {
 	"use strict";
-	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(function () {
-		//>>excludeEnd("ejBuildExclude");
+		//>>excludeEnd("tauBuildExclude");
 		var idNumberCounter = 0,
 			currentDate = +new Date(),
 			slice = [].slice,
@@ -33,7 +33,7 @@
 		* @method getUniqueId
 		* @static
 		* @return {string}
-		* @memberOf ns
+		* @member ns
 		*/
 		ns.getUniqueId = function () {
 			return rootNamespace + "-" + ns.getNumberUniqueId() + "-" + currentDate;
@@ -44,7 +44,7 @@
 		* @method getNumberUniqueId
 		* @static
 		* @return {number}
-		* @memberOf ns
+		* @member ns
 		*/
 		ns.getNumberUniqueId = function () {
 			return idNumberCounter++;
@@ -55,7 +55,7 @@
 		* @method log
 		* @static
 		* @param {...*} argument
-		* @memberOf ns
+		* @member ns
 		*/
 		ns.log = function (argument) {
 			var args = slice.call(arguments);
@@ -70,7 +70,7 @@
 		* @method warn
 		* @static
 		* @param {...*} argument
-		* @memberOf ns
+		* @member ns
 		*/
 		ns.warn = function (argument) {
 			var args = slice.call(arguments);
@@ -85,7 +85,7 @@
 		* @method error
 		* @static
 		* @param {...*} argument
-		* @memberOf ns
+		* @member ns
 		*/
 		ns.error = function (argument) {
 			var args = slice.call(arguments);
@@ -96,25 +96,25 @@
 		};
 
 		/**
-		* get from ejConfig
+		* get from nsConfig
 		* @method get
 		* @param {string} key
 		* @param {Mixed} defaultValue
 		* @return {Mixed}
 		* @static
-		* @memberOf ns
+		* @member ns
 		*/
 		ns.get = function (key, defaultValue) {
 			return nsConfig[key] === undefined ? defaultValue : nsConfig[key];
 		};
 
 		/**
-		* set in ejConfig
+		* set in nsConfig
 		* @method set
 		* @param {string} key
 		* @param {Mixed} value
 		* @static
-		* @memberOf ns
+		* @member ns
 		*/
 		ns.set = function (key, value) {
 			nsConfig[key] = value;
@@ -124,7 +124,7 @@
 		 * Return path for framework script file.
 		 * @method getFrameworkPath
 		 * @returns {?string}
-		 * @memberOf ns
+		 * @member ns
 		 */
 		ns.getFrameworkPath = function () {
 			var scripts = document.getElementsByTagName('script'),
@@ -144,8 +144,8 @@
 			return null;
 		};
 
-		//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+		//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		return ns;
 	});
-	//>>excludeEnd("ejBuildExclude");
+	//>>excludeEnd("tauBuildExclude");
 }(window, window.document, ns, nsConfig));

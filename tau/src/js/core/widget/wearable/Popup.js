@@ -22,7 +22,7 @@
  * To create the widget manually you can use the instanceWidget method
  *
  *     @example
- *         var popup = ej.engine.instanceWidget(document.getElementById('popup'), 'popup');
+ *         var popup = ns.engine.instanceWidget(document.getElementById('popup'), 'popup');
  *         //or
  *         var popup = tau.popup(document.getElementById('popup'));
  * 
@@ -37,7 +37,7 @@
  */
 (function (window, document, screen, ns) {
 	"use strict";
-	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
 			"../../wearable/selectors",
@@ -48,7 +48,7 @@
 			"../BaseWidget"
 		],
 		function () {
-			//>>excludeEnd("ejBuildExclude");
+			//>>excludeEnd("tauBuildExclude");
 			var Popup = function () {
 					var self = this,
 						ui = {};
@@ -57,7 +57,7 @@
 					 * @property {Object} options Options for widget
 					 * @property {string|boolean} [options.header=false] Header content
 					 * @property {string|boolean} [options.footer=false] Footer content
-					 * @memberOf ns.widget.wearable.Popup
+					 * @member ns.widget.wearable.Popup
 					 * @instance
 					 */
 					self.options = {
@@ -68,7 +68,7 @@
 					/**
 					 * @private
 					 * @property {?DOMTokenList} [_elementClassList=null] Popup element classList 
-					 * @memberOf ns.widget.wearable.Popup
+					 * @member ns.widget.wearable.Popup
 					 * @instance
 					 */
 					self._elementClassList = null;
@@ -78,7 +78,7 @@
 					 * @property {?HTMLElement} [ui.header=null] Header element
 					 * @property {?HTMLElement} [ui.footer=null] Footer element
 					 * @property {?HTMLElement} [ui.content=null] Content element
-					 * @memberOf ns.widget.wearable.Popup
+					 * @member ns.widget.wearable.Popup
 					 * @instance
 					 */
 					self.ui = ui;
@@ -88,39 +88,39 @@
 
 					/**
 					 * @property {boolean} [active=false] Popup state flag
-					 * @memberOf ns.widget.wearable.Popup
+					 * @member ns.widget.wearable.Popup
 					 * @instance
 					 */
 					self.active = false;
 				},
 				/**
 				* @property {Function} BaseWidget Alias for {@link ns.widget.BaseWidget}
-				* @memberOf ns.widget.wearable.Popup
+				* @member ns.widget.wearable.Popup
 				* @private
 				*/
 				BaseWidget = ns.widget.BaseWidget,
 				/**
 				* @property {ns.engine} engine Alias for class ns.engine
-				* @memberOf ns.widget.wearable.Popup
+				* @member ns.widget.wearable.Popup
 				* @private
 				*/
 				engine = ns.engine,
 				/**
 				* @property {Object} utilsObject Alias for class ns.utils.events
-				* @memberOf ns.widget.wearable.Popup
+				* @member ns.widget.wearable.Popup
 				* @private
 				*/
 				utilsObject = ns.utils.object,
 				/**
 				* @property {ns.utils.selectors} selectors Alias for class ns.selectors
-				* @memberOf ns.widget.wearable.Popup
+				* @member ns.widget.wearable.Popup
 				* @private
 				*/
 				selectors = ns.wearable.selectors,
 				prototype = new BaseWidget(),
 				/**
 				* @property {Object} classes Dictionary for popup related css class names
-				* @memberOf ns.widget.wearable.Popup
+				* @member ns.widget.wearable.Popup
 				* @static
 				*/
 				classes = {
@@ -134,7 +134,7 @@
 
 			/**
 			* @property {Object} events Dictionary for popup related events
-			* @memberOf ns.widget.wearable.Popup
+			* @member ns.widget.wearable.Popup
 			* @static
 			*/
 			Popup.events = {
@@ -147,7 +147,7 @@
 
 			/**
 			 * @property {string} [popup=".ui-popup"] Selector for popup element
-			 * @memberOf ns.wearable.selectors
+			 * @member ns.wearable.selectors
 			 */
 			selectors.popup = ".ui-popup";
 
@@ -156,12 +156,11 @@
 			* @method _build
 			* @protected
 			* @instance
-			* @param {string} template
 			* @param {HTMLElement} element
 			* @return {HTMLElement}
-			* @memberOf ns.widget.wearable.Popup
+			* @member ns.widget.wearable.Popup
 			*/
-			prototype._build = function (template, element) {
+			prototype._build = function ( element) {
 				var ui = this.ui,
 					options = this.options,
 					header = element.querySelector("." + classes.header),
@@ -216,7 +215,7 @@
 			* @protected
 			* @instance
 			* @param {HTMLElement} element
-			* @memberOf ns.widget.wearable.Popup
+			* @member ns.widget.wearable.Popup
 			*/
 			prototype._init = function (element) {
 				var self = this,
@@ -242,7 +241,7 @@
 			* @method _bindEvents
 			* @protected
 			* @instance
-			* @memberOf ns.widget.wearable.Popup
+			* @member ns.widget.wearable.Popup
 			*/
 			prototype._bindEvents = function () {
 				var self = this;
@@ -263,7 +262,7 @@
 			* @method _destroy
 			* @protected
 			* @instance
-			* @memberOf ns.widget.wearable.Popup
+			* @member ns.widget.wearable.Popup
 			*/
 			prototype._destroy = function () {
 				window.removeEventListener("resize", this.onResize, false);
@@ -275,7 +274,7 @@
 			* @method _refresh
 			* @protected
 			* @instance
-			* @memberOf ns.widget.wearable.Popup
+			* @member ns.widget.wearable.Popup
 			*/
 			prototype._refresh = function () {
 				var ui = this.ui,
@@ -348,7 +347,7 @@
 			* @param {boolean} active
 			* @protected
 			* @instance
-			* @memberOf ns.widget.wearable.Popup
+			* @member ns.widget.wearable.Popup
 			*/
 			prototype._setActive = function (active) {
 				var activeClass = classes.active,
@@ -369,7 +368,7 @@
 			* @param {string=} [options.transition] options.transition
 			* @param {string=} [options.ext= in ui-pre-in] options.ext
 			* @instance
-			* @memberOf ns.widget.wearable.Popup
+			* @member ns.widget.wearable.Popup
 			*/
 			prototype.open = function (options) {
 				var transitionOptions = utilsObject.merge({}, options, {ext: " in ui-pre-in "}),
@@ -400,7 +399,7 @@
 			* @param {string=} [options.transition]
 			* @param {string=} [options.ext= in ui-pre-in] options.ext 
 			* @instance
-			* @memberOf ns.widget.wearable.Popup
+			* @member ns.widget.wearable.Popup
 			*/
 			prototype.close = function (options) {
 				var transitionOptions = utilsObject.merge({}, options, {ext: " in ui-pre-in "}),
@@ -436,7 +435,7 @@
 			* @param {string=} [options.transition]
 			* @param {string=} [options.ext]
 			* @param {?Function} [resolve]
-			* @memberOf ns.widget.wearable.Popup
+			* @member ns.widget.wearable.Popup
 			*/
 
 			prototype._transition = function (options, resolve) {
@@ -482,16 +481,15 @@
 
 			engine.defineWidget(
 				"popup",
-				"",
 				".ui-popup",
 				["setActive", "show", "hide", "open", "close"],
 				Popup,
-				"micro"
+				"wearable"
 			);
 			ns.widget.wearable.Popup = Popup;
-			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return Popup;
 		}
 	);
-	//>>excludeEnd("ejBuildExclude");
+	//>>excludeEnd("tauBuildExclude");
 }(window, window.document, window.screen, ns));

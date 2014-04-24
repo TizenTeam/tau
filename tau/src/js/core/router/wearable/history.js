@@ -6,19 +6,19 @@
 /**
  * #History
  * Object controls history changes.
- * @class ns.widget.wearable.history
+ * @class ns.router.wearable.history
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
 (function (window, ns) {
 	"use strict";
-	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
 			"../wearable",
 			"../../utils/object"
 		],
 		function () {
-			//>>excludeEnd("ejBuildExclude");
+			//>>excludeEnd("tauBuildExclude");
 			var historyVolatileMode,
 				object = ns.utils.object,
 				historyUid = 0,
@@ -29,7 +29,7 @@
 					 * Property contains active state in history.
 					 * @property {Object} activeState
 					 * @static
-					 * @memberOf ns.widget.wearable.history
+					 * @member ns.router.wearable.history
 					 */
 					activeState : null,
 
@@ -40,7 +40,7 @@
 					 * @param {string} pageTitle
 					 * @param {string} url
 					 * @static
-					 * @memberOf ns.widget.wearable.history
+					 * @member ns.router.wearable.history
 					 */
 					replace: function (state, pageTitle, url) {
 						var newState = object.merge({},
@@ -56,7 +56,7 @@
 					 * Back in history.
 					 * @method back
 					 * @static
-					 * @memberOf ns.widget.wearable.history
+					 * @member ns.router.wearable.history
 					 */
 					back: function () {
 						windowHistory.back();
@@ -67,7 +67,7 @@
 					 * @method setActive
 					 * @param {Object} state
 					 * @static
-					 * @memberOf ns.widget.wearable.history
+					 * @member ns.router.wearable.history
 					 */
 					setActive: function (state) {
 						if (state) {
@@ -89,7 +89,7 @@
 					 * @param {Object} state
 					 * @return {string}
 					 * @static
-					 * @memberOf ns.widget.wearable.history
+					 * @member ns.router.wearable.history
 					 */
 					getDirection: function (state) {
 						if (state) {
@@ -102,7 +102,7 @@
 					 * Set volatile mode to true.
 					 * @method enableVolatileRecord
 					 * @static
-					 * @memberOf ns.widget.wearable.history
+					 * @member ns.router.wearable.history
 					 */
 					enableVolatileRecord: function () {
 						historyVolatileMode = true;
@@ -112,15 +112,15 @@
 					 * Set volatile mode to true.
 					 * @method disableVolatileMode
 					 * @static
-					 * @memberOf ns.widget.wearable.history
+					 * @member ns.router.wearable.history
 					 */
 					disableVolatileMode: function () {
 						historyVolatileMode = false;
 					}
 				};
 			ns.router.wearable.history = history;
-			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
 	);
-	//>>excludeEnd("ejBuildExclude");
+	//>>excludeEnd("tauBuildExclude");
 }(window, ns));

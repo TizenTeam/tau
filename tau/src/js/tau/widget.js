@@ -39,22 +39,24 @@
  */
 (function (document, frameworkNamespace, ns) {
 	"use strict";
-	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
 			"../tau",
-			"../core/widget/BaseWidget"
+			"../core/widget/BaseWidget",
+			"../core/engine"
 		],
 		function () {
-			//>>excludeEnd("ejBuildExclude");
+			//>>excludeEnd("tauBuildExclude");
+			var engine = frameworkNamespace.engine;
+
 			ns.widget = {};
+
+			ns.defineWidget = engine.defineWidget.bind(engine);
 
 			document.addEventListener("widgetdefined", function (evt) {
 				var definition = evt.detail,
-					name = definition.name,
-					engine = frameworkNamespace.engine;
-
-				ns.defineWidget = engine.defineWidget.bind(engine);
+					name = definition.name;
 
 				ns.widget[name] = (function (definitionName) {
 					return function (element, options) {
@@ -63,8 +65,8 @@
 				}(name));
 			}, false);
 
-			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
 	);
-	//>>excludeEnd("ejBuildExclude");
+	//>>excludeEnd("tauBuildExclude");
 }(window.document, ns, window.tau));

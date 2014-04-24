@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8" >
+	<script src="../../tizen-web-ui-fw/latest/js/jquery.min.js"></script>
+	<script src="../../configure.js"></script>
+	<script src="../../tizen-web-ui-fw/latest/js/tizen-web-ui-fw-libs.min.js"></script>
+	<script src="../../tizen-web-ui-fw/latest/js/tizen-web-ui-fw.min.js"
+			data-framework-theme="tizen-white"
+			data-framework-viewport-width="device-width">
+	</script>
+	<script src="../../main.js"></script>
+	<title>Tizen UI - List sample</title>
+	<!-- for compatibility test -->
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<link rel="apple-touch-icon" href="../../icon-tizen.png" />
+</head>
+<body>
+<div data-role="page" id="list-sample">
+	<style>
+		#new .ui-btn-text {
+			font-size : 12px;
+		}
+		#new span {
+			line-height : 8px;
+			padding-top : 2px;
+			padding-bottom : 2px;
+		}
+	</style>
+	<div data-role="header" data-position="fixed">
+		<h1>Single-page application</h1>
+	</div><!-- /header -->
+
+	<div data-role="content">
+		<ul data-role="listview" id="mylist">
+		</ul>
+	</div><!-- /content -->
+
+	<div data-role="footer" data-position="fixed">
+		<div data-role="tabbar">
+			<ul>
+				<li id="add"><a>+1</a></li>
+				<li id="add2"><a>+20</a></li>
+				<li id="new"><a>reset &<br> create +3</a></li>
+			</ul>
+		</div>
+	</div><!-- /footer -->
+	<script>
+	$( "#list-sample" ).on( "pageshow" , function() {
+		$( window ).on( "tizenhwkey", function ( ev ) {
+			if ( ev.originalEvent.keyName === "back" ) {
+				//bind callbacks to the H/W keys
+				window.history.back();
+			}
+		});
+	});
+	$( "#list-sample" ).on( "pagebeforehide" , function() {
+		//unbind callbacks to the H/W keys
+		$( window ).off( "tizenhwkey" );
+	});
+	</script>
+	<script src="list-sample.js"></script>
+</div><!-- /page -->
+</body>
+</html>

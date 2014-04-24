@@ -3,11 +3,11 @@
 /**
  * section Changer widget
  * @class ns.widget.SectionChanger
- * @extends ej.widget.BaseWidget
+ * @extends ns.widget.BaseWidget
  */
 (function (document, ns) {
 	"use strict";
-	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
 			"../../../../engine",
@@ -208,5 +208,5 @@
 			ns.widget.wearable.scroller.effect.Bouncing = Bouncing;
 		}
 	);
-	//>>excludeEnd("ejBuildExclude");
+	//>>excludeEnd("tauBuildExclude");
 }(window.document, ns));

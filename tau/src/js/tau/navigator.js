@@ -7,13 +7,13 @@
 /**
  * @class tau.navigator
  * @inheritdoc ns.router.wearable.Router
- * @extends ns.router.wearable.Router
+ * @extends ns.router.wearable.router
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
 //  * @TODO add support of $.mobile.buttonMarkup.hoverDelay
 (function (document, frameworkNamespace, ns) {
 	"use strict";
-	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
 			"../tau",
@@ -23,7 +23,7 @@
 			"../core/router/wearable/history"
 		],
 		function () {
-			//>>excludeEnd("ejBuildExclude");
+			//>>excludeEnd("tauBuildExclude");
 
 			document.addEventListener("beforerouterinit", function (evt) {
 				var tau = ns.getOrginalNamespace();
@@ -45,14 +45,14 @@
 				/**
 				 * @method changePage
 				 * @inheritdoc ns.router.wearable.Router#open
-				 * @memberOf tau
+				 * @member tau
 				 */
 				ns.changePage = router.open.bind(router);
 				document.addEventListener('pageshow', function () {
 					/**
 					 * Current active page
 					 * @property {HTMLElement} activePage
-					 * @memberOf tau
+					 * @member tau
 					 */
 					ns.activePage = document.querySelector('.' + frameworkNamespace.widget.wearable.Page.classes.uiPageActive);
 				});
@@ -60,38 +60,38 @@
 				 * First page element
 				 * @inheritdoc ns.router.wearable.Router#firstPage
 				 * @property {HTMLElement} firstPage
-				 * @memberOf tau
+				 * @member tau
 				 */
 				ns.firstPage = router.getFirstPage();
 				/**
 				 * @inheritdoc ns.router.wearable.history#back
 				 * @method back
-				 * @memberOf tau
+				 * @member tau
 				 */
 				ns.back = back;
 				/**
 				 * @inheritdoc ns.router.wearable.Router#init
 				 * @method initializePage
-				 * @memberOf tau
+				 * @member tau
 				 */
 				ns.initializePage = router.init.bind(router);
 				/**
 				 * Page Container widget
 				 * @property {HTMLElement} pageContainer
 				 * @inheritdoc ns.router.wearable.Router#container
-				 * @memberOf tau
+				 * @member tau
 				 */
 				ns.pageContainer = router.container;
 				/**
 				 * @property {Object} rule
 				 * @extends ns.router.wearable.route
-				 * @memberOf tau
+				 * @member tau
 				 */
 				ns.rule = rule;
 				/**
 				 * @method openPopup
 				 * @inheritdoc ns.router.wearable.Router#openPopup
-				 * @memberOf tau
+				 * @member tau
 				 */
 				ns.openPopup = function(to, options) {
 					var htmlElementTo;
@@ -105,42 +105,42 @@
 				/**
 				 * @method closePopup
 				 * @inheritdoc ns.router.wearable.Router#closePopup
-				 * @memberOf tau
+				 * @member tau
 				 */
 				ns.closePopup = router.closePopup.bind(router);
 
 				/**
 				 * @property {Object} navigator
-				 * @extends ns.router.wearable.Router
+				 * @extends ns.router.wearable.router
 				 * @instance
-				 * @memberOf tau
+				 * @member tau
 				 */
 				navigator = router;
 				/**
 				 * @property {Object} rule object contains rules for navigator
 				 * @extends ns.router.wearable.rule
 				 * @instance
-				 * @memberOf tau.navigator
+				 * @member tau.navigator
 				 */
 				navigator.rule = rule;
 				/**
 				 * @method back
 				 * @inheritdoc ns.router.wearable.history#back
-				 * @memberOf tau.navigator
+				 * @member tau.navigator
 				 */
 				navigator.back = back;
 				/**
 				 * Object to change history of browsing pages or popups
 				 * @property {Object} history
 				 * @extends ns.router.wearable.history
-				 * @memberOf tau.navigator
+				 * @member tau.navigator
 				 */
 				navigator.history = history;
 				ns.navigator = navigator;
 			}, false);
 
-			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
 	);
-	//>>excludeEnd("ejBuildExclude");
+	//>>excludeEnd("tauBuildExclude");
 }(window.document, ns, window.tau));

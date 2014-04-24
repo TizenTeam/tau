@@ -6,23 +6,23 @@
 /**
  * #route
  * Object contains rules for router.
- * @class ns.widget.wearable.route
+ * @class ns.router.wearable.route
  */
 /*
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
 (function (ns) {
 	"use strict";
-	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
 			"../wearable"
 		],
 		function () {
-			//>>excludeEnd("ejBuildExclude");
+			//>>excludeEnd("tauBuildExclude");
 			ns.router.wearable.route = ns.router.wearable.route || {};
-			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
 	);
-	//>>excludeEnd("ejBuildExclude");
+	//>>excludeEnd("tauBuildExclude");
 }(ns));

@@ -1,5 +1,5 @@
 /*global define */
-//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 (function () {
 	"use strict";
 	define(
@@ -7,6 +7,7 @@
 			"require",
 			"./core",
 			"./core/config",
+			"./core/wearable/config",
 			"./tau/all",
 			"./core/engine",
 			// widget list
@@ -32,4 +33,4 @@
 		}
 	);
 }());
-//>>excludeEnd("ejBuildExclude");
+//>>excludeEnd("tauBuildExclude");

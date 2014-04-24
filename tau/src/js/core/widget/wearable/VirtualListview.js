@@ -11,9 +11,9 @@
  * displaying a contact list of over 1000 list items. It takes time to display the entire list in
  * HTML and the DOM manipulation is complex.
  *
- * The virtual list widget is used to display a list of unlimited data elements fastOn the screen
+ * The virtual list widget is used to display a list of unlimited data elements on the screen
  * for better performance. This widget provides easy access to databases to retrieve and display data.
- * It based fastOn **result set** which is fixed size defined by developer by data-row attribute. Result
+ * It based on **result set** which is fixed size defined by developer by data-row attribute. Result
  * set should be **at least 3 times bigger** then size of clip (number of visible elements).
  *
  * To add a virtual list widget to the application follow these steps:
@@ -45,7 +45,7 @@
  *
  * ##Set list item update function
  *
- * List item update function is responsible to update list element depending fastOn data row index. If you didn’t
+ * List item update function is responsible to update list element depending on data row index. If you didn’t
  * pass list item update function by config option, you have to do it using following method.
  * Otherwise you will see an empty list.
  *
@@ -114,7 +114,7 @@
  */
 (function(document, ns) {
 	"use strict";
-	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 			[
 				"../../engine",
@@ -123,13 +123,13 @@
 				"../BaseWidget"
 			],
 			function() {
-				//>>excludeEnd("ejBuildExclude");
+				//>>excludeEnd("tauBuildExclude");
 				var BaseWidget = ns.widget.BaseWidget,
 						/**
 						 * @property {Object} engine Alias for class {@link ns.engine}
 						 * @private
 						 * @static
-						 * @memberOf ns.widget.wearable.VirtualListview
+						 * @member ns.widget.wearable.VirtualListview
 						 */
 						engine = ns.engine,
 						events = ns.utils.events,
@@ -139,7 +139,7 @@
 						 * to retrive if user is scrolling up
 						 * @private
 						 * @static
-						 * @memberOf ns.widget.wearable.VirtualListview
+						 * @member ns.widget.wearable.VirtualListview
 						 */
 						SCROLL_UP = 0,
 						/**
@@ -147,7 +147,7 @@
 						 * to retrive if user is scrolling right
 						 * @private
 						 * @static
-						 * @memberOf ns.widget.wearable.VirtualListview
+						 * @member ns.widget.wearable.VirtualListview
 						 */
 						SCROLL_RIGHT = 1,
 						/**
@@ -155,7 +155,7 @@
 						 * to retrive if user is scrolling down
 						 * @private
 						 * @static
-						 * @memberOf ns.widget.wearable.VirtualListview
+						 * @member ns.widget.wearable.VirtualListview
 						 */
 						SCROLL_DOWN = 2,
 						/**
@@ -163,7 +163,7 @@
 						 * to retrive if user is scrolling left
 						 * @private
 						 * @static
-						 * @memberOf ns.widget.wearable.VirtualListview
+						 * @member ns.widget.wearable.VirtualListview
 						 */
 						SCROLL_LEFT = 3,
 						/**
@@ -219,7 +219,7 @@
 						 * Local constructor function
 						 * @method VirtualListview
 						 * @private
-						 * @memberOf ns.widget.wearable.VirtualListview
+						 * @member ns.widget.wearable.VirtualListview
 						 */
 						VirtualListview = function() {
 							var self = this;
@@ -229,7 +229,7 @@
 							 * @property {?HTMLElement} [ui.scrollview=null] Scroll element
 							 * @property {number} [ui.itemSize=0] Size of list element in piksels. If scrolling is
 							 * vertically it's item width in other case it"s height of item element
-							 * @memberOf ns.widget.wearable.VirtualListview
+							 * @member ns.widget.wearable.VirtualListview
 							 */
 							self.ui = {
 								scrollview: null,
@@ -249,7 +249,7 @@
 							 * position of vertical scroll.
 							 * @property {number} [_scroll.clipWidth=0] Width of clip - visible area for user.
 							 * @property {number} [_scroll.clipHeight=0] Height of clip - visible area for user.
-							 * @memberOf ns.widget.wearable.VirtualListview
+							 * @member ns.widget.wearable.VirtualListview
 							 */
 							self._scroll = {
 								direction: [0, 0, 0, 0],
@@ -265,7 +265,7 @@
 
 							/**
 							 * @property {number} _currentIndex Current zero-based index of data set.
-							 * @memberOf ns.widget.wearable.VirtualListview
+							 * @member ns.widget.wearable.VirtualListview
 							 * @protected
 							 * @instance
 							 */
@@ -286,7 +286,7 @@
 							 * object. Method takes two parameters:
 							 *  -  element {HTMLElement} List item to be modified
 							 *  -  index {number} Index of data set
-							 * @memberOf ns.widget.wearable.VirtualListview
+							 * @member ns.widget.wearable.VirtualListview
 							 */
 							self.options = {
 								bufferSize: 100,
@@ -297,14 +297,14 @@
 
 							/**
 							* @method _scrollEventBound Binding for scroll event listener.
-							* @memberOf ns.widget.wearable.VirtualListview
+							* @member ns.widget.wearable.VirtualListview
 							* @protected
 							* @instance
 							*/
 							self._scrollEventBound = null;
 							/**
 							* @method _touchStartEventBound Binding for touch start event listener.
-							* @memberOf ns.widget.wearable.VirtualListview
+							* @member ns.widget.wearable.VirtualListview
 							* @protected
 							* @instance
 							*/
@@ -318,7 +318,7 @@
 				/**
 				 * @property {Object} classes Dictionary object containing commonly used wiget classes
 				 * @static
-				 * @memberOf ns.widget.wearable.VirtualListview
+				 * @member ns.widget.wearable.VirtualListview
 				 */
 				VirtualListview.classes = {
 					uiVirtualListContainer: "ui-virtual-list-container",
@@ -329,7 +329,7 @@
 				 * Remove highlight from items.
 				 * @method _removeHighlight
 				 * @param {Object} self Reference to VirtualListview object.
-				 * @memberOf ns.widget.wearable.VirtualListview
+				 * @member ns.widget.wearable.VirtualListview
 				 * @private
 				 * @static
 				 */
@@ -346,7 +346,7 @@
 				 * @method _tapHandler
 				 * @param {Object} self Reference to VirtualListview object.
 				 * @param {Event} event Received Touch event
-				 * @memberOf ns.widget.wearable.VirtualListview
+				 * @member ns.widget.wearable.VirtualListview
 				 * @private
 				 * @static
 				 */
@@ -369,7 +369,7 @@
 				 * Adds highlight
 				 * @method tapholdListener
 				 * @param {Object} self Reference to VirtualListview object.
-				 * @memberOf ns.widget.wearable.VirtualListview
+				 * @member ns.widget.wearable.VirtualListview
 				 * @private
 				 * @static
 				 */
@@ -391,7 +391,7 @@
 				 * Binds touching events to examine tap event.
 				 * @method _touchStartHandler
 				 * @param {Object} self Reference to VirtualListview object.
-				 * @memberOf ns.widget.wearable.VirtualListview
+				 * @member ns.widget.wearable.VirtualListview
 				 * @private
 				 * @static
 				 */
@@ -419,7 +419,7 @@
 				 * Updates scroll information about position, direction and jump size.
 				 * @method _updateScrollInfo
 				 * @param {ns.widget.wearable.VirtualListview} self VirtualListview widget reference
-				 * @memberOf ns.widget.wearable.VirtualListview
+				 * @member ns.widget.wearable.VirtualListview
 				 * @private
 				 * @static
 				 */
@@ -471,7 +471,7 @@
 				 * @param {HTMLElement} element Element whose size should be computed
 				 * @param {string} orientation Scrolling orientation
 				 * @return {number} Size of element in pixels
-				 * @memberOf ns.widget.wearable.VirtualListview
+				 * @member ns.widget.wearable.VirtualListview
 				 * @private
 				 * @static
 				 */
@@ -482,10 +482,10 @@
 
 				/**
 				 * Scrolls and manipulates DOM element to destination index. Element at destination
-				 * index is the first visible element fastOn the screen. Destination index can
+				 * index is the first visible element on the screen. Destination index can
 				 * be different from Virtual List's current index, because current index points
 				 * to first element in the buffer.
-				 * @memberOf ns.widget.wearable.VirtualListview
+				 * @member ns.widget.wearable.VirtualListview
 				 * @param {ns.widget.wearable.VirtualListview} self VirtualListview widget reference
 				 * @param {number} toIndex Destination index.
 				 * @method _orderElementsByIndex
@@ -506,7 +506,7 @@
 						offset = 0,
 						index;
 
-					//Get size of scroll clip depended fastOn scroll direction
+					//Get size of scroll clip depended on scroll direction
 					scrollClipSize = options.orientation === VERTICAL ? scrollInfo.clipHeight : scrollInfo.clipWidth;
 
 					//Compute average list item size
@@ -554,7 +554,7 @@
 				 * method is used during normal scrolling.
 				 * @method _orderElements
 				 * @param {ns.widget.wearable.VirtualListview} self VirtualListview widget reference
-				 * @memberOf ns.widget.wearable.VirtualListview
+				 * @member ns.widget.wearable.VirtualListview
 				 * @private
 				 * @static
 				 */
@@ -705,7 +705,7 @@
 				 * Check if scrolling position is changed and updates list if it needed.
 				 * @method _updateList
 				 * @param {ns.widget.wearable.VirtualListview} self VirtualListview widget reference
-				 * @memberOf ns.widget.wearable.VirtualListview
+				 * @member ns.widget.wearable.VirtualListview
 				 * @private
 				 * @static
 				 */
@@ -724,7 +724,7 @@
 				 * @method _updateListItem
 				 * @param {HTMLElement} element List element to update
 				 * @param {number} index Data row index
-				 * @memberOf ns.widget.wearable.VirtualListview
+				 * @member ns.widget.wearable.VirtualListview
 				 * @protected
 				 * @instance
 				 */
@@ -735,14 +735,13 @@
 				/**
 				 * Build widget structure
 				 * @method _build
-				 * @param {string} template
 				 * @param {HTMLElement} element Widget's element
-				 * @return {HTMLElement} Element fastOn which built is widget
-				 * @memberOf ns.widget.wearable.VirtualListview
+				 * @return {HTMLElement} Element on which built is widget
+				 * @member ns.widget.wearable.VirtualListview
 				 * @protected
 				 * @instance
 				 */
-				prototype._build = function(template, element) {
+				prototype._build = function(element) {
 					var classes = VirtualListview.classes;
 
 					element.classList.add(classes.uiVirtualListContainer);
@@ -751,10 +750,10 @@
 
 
 				/**
-				 * Initialize widget fastOn an element.
+				 * Initialize widget on an element.
 				 * @method _init
 				 * @param {HTMLElement} element Widget's element
-				 * @memberOf ns.widget.wearable.VirtualListview
+				 * @member ns.widget.wearable.VirtualListview
 				 * @protected
 				 * @instance
 				 */
@@ -813,7 +812,7 @@
 				/**
 				 * Builds Virtual List structure
 				 * @method _buildList
-				 * @memberOf ns.widget.wearable.VirtualListview
+				 * @member ns.widget.wearable.VirtualListview
 				 * @protected
 				 * @instance
 				 */
@@ -848,7 +847,7 @@
 				/**
 				 * Refresh list
 				 * @method _refresh
-				 * @memberOf ns.widget.wearable.VirtualListview
+				 * @member ns.widget.wearable.VirtualListview
 				 * @protected
 				 * @instance
 				 */
@@ -861,7 +860,7 @@
 				 * Loads data from specified index to result set.
 				 * @method _loadData
 				 * @param {number} index Index of first row
-				 * @memberOf ns.widget.wearable.VirtualListview
+				 * @member ns.widget.wearable.VirtualListview
 				 * @protected
 				 * @instance
 				 */
@@ -881,7 +880,7 @@
 				/**
 				 * Sets proper scrollbar size: height (vertical), width (horizontal)
 				 * @method _refreshScrollbar
-				 * @memberOf ns.widget.wearable.VirtualListview
+				 * @member ns.widget.wearable.VirtualListview
 				 * @protected
 				 * @instance
 				 */
@@ -907,7 +906,7 @@
 				/**
 				 * Binds VirtualListview events
 				 * @method _bindEvents
-				 * @memberOf ns.widget.wearable.VirtualListview
+				 * @member ns.widget.wearable.VirtualListview
 				 * @protected
 				 * @instance
 				 */
@@ -924,7 +923,7 @@
 				/**
 				 * Cleans widget's resources
 				 * @method _destroy
-				 * @memberOf ns.widget.wearable.VirtualListview
+				 * @member ns.widget.wearable.VirtualListview
 				 * @protected
 				 * @instance
 				 */
@@ -966,7 +965,7 @@
 				 * Scrolls list to defined position in pixels.
 				 * @method scrollTo
 				 * @param {number} position Scroll position expressed in pixels.
-				 * @memberOf ns.widget.wearable.VirtualListview
+				 * @member ns.widget.wearable.VirtualListview
 				 */
 				prototype.scrollTo = function(position) {
 					this.ui.scrollview.scrollTop = position;
@@ -976,7 +975,7 @@
 				 * Scrolls list to defined index.
 				 * @method scrollToIndex
 				 * @param {number} index Scroll Destination index.
-				 * @memberOf ns.widget.wearable.VirtualListview
+				 * @member ns.widget.wearable.VirtualListview
 				 */
 				prototype.scrollToIndex = function(index) {
 					if (index < 0) {
@@ -992,7 +991,7 @@
 				/**
 				 * Builds widget
 				 * @method draw
-				 * @memberOf ns.widget.wearable.VirtualListview
+				 * @member ns.widget.wearable.VirtualListview
 				 */
 				prototype.draw = function() {
 					this._buildList();
@@ -1004,7 +1003,7 @@
 				 * visit Virtual List User Guide
 				 * @method setListItemUpdater
 				 * @param {Object} updateFunction Function reference.
-				 * @memberOf ns.widget.wearable.VirtualListview
+				 * @member ns.widget.wearable.VirtualListview
 				 */
 				prototype.setListItemUpdater = function(updateFunction) {
 					this.options.listItemUpdater = updateFunction;
@@ -1019,14 +1018,13 @@
 				engine.defineWidget(
 						"VirtualListview",
 						"",
-						"",
 						["draw", "setListItemUpdater", "getTopByIndex", "scrollTo", "scrollToIndex"],
 						VirtualListview,
-						"micro"
+						"wearable"
 						);
-				//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+				//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 				return VirtualListview;
 			}
 	);
-	//>>excludeEnd("ejBuildExclude");
+	//>>excludeEnd("tauBuildExclude");
 }(window.document, ns));

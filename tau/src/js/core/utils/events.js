@@ -12,18 +12,18 @@
  */
 (function (ns) {
 	"use strict";
-	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
 			"../utils" // fetch namespace
 		],
 		function () {
-			//>>excludeEnd("ejBuildExclude");
+			//>>excludeEnd("tauBuildExclude");
 				/**
 				* Checks if specified variable is a array or not
 				* @method isArray
 				* @return {boolean}
-				* @memberOf ns.utils.events
+				* @member ns.utils.events
 				* @private
 				* @static
 				*/
@@ -39,7 +39,7 @@
 				 * @return {string} trimmed string
 				 * @static
 				 * @private
-				 * @memberOf ns.utils.events
+				 * @member ns.utils.events
 				 */
 				trim = function (value) {
 					return value.trim();
@@ -52,7 +52,7 @@
 				 * @return {Array}
 				 * @static
 				 * @private
-				 * @memberOf ns.utils.events
+				 * @member ns.utils.events
 				 */
 				getEventsListeners = function (names, globalListener) {
                     var name,
@@ -87,7 +87,7 @@
 				* @param {boolean=} [bubbles=true]
 				* @param {boolean=} [cancelable=true]
 				* @return {boolean=}
-				* @memberOf ns.utils.events
+				* @member ns.utils.events
 				* @static
 				*/
 				trigger: function ejUtilsEvents_trigger(element, type, data, bubbles, cancelable) {
@@ -97,17 +97,17 @@
 							bubbles: typeof bubbles === "boolean" ? bubbles : true,
 							cancelable: typeof cancelable === "boolean" ? cancelable : true
 						});
-					//>>excludeStart("ejDebug", pragmas.ejDebug);
+					//>>excludeStart("tauDebug", pragmas.tauDebug);
 					ns.log("triggered event " + type + " on:", element.tagName + '#' + (element.id || "--no--id--"));
-					//>>excludeEnd("ejDebug");
+					//>>excludeEnd("tauDebug");
 					return element.dispatchEvent(evt);
 				},
 
 				/**
-				 * Prevent default fastOn original event
+				 * Prevent default on original event
 				 * @method preventDefault
 				 * @param {CustomEvent} event
-				 * @memberOf ns.utils.events
+				 * @member ns.utils.events
 				 * @static
 				 */
 				preventDefault: function (event) {
@@ -123,7 +123,7 @@
 				* Stop event propagation
 				* @method stopPropagation
 				* @param {CustomEvent} event
-				* @memberOf ns.utils.events
+				* @member ns.utils.events
 				* @static
 				*/
 				stopPropagation: function (event) {
@@ -139,7 +139,7 @@
 				* Stop event propagation immediately
 				* @method stopImmediatePropagation
 				* @param {CustomEvent} event
-				* @memberOf ns.utils.events
+				* @member ns.utils.events
 				* @static
 				*/
 				stopImmediatePropagation: function (event) {
@@ -158,7 +158,7 @@
 				 * @return {Object}
 				 * @return {number} return.x
 				 * @return {number} return.y
-				 * @memberOf ns.utils.events
+				 * @member ns.utils.events
 				 * @static
 				 */
 				documentRelativeCoordsFromEvent: function(event) {
@@ -208,7 +208,7 @@
 				 * @return {Object}
 				 * @return {number} return.x
 				 * @return {number} return.y
-				 * @memberOf ns.utils.events
+				 * @member ns.utils.events
 				 * @static
 				 */
 				targetRelativeCoordsFromEvent: function(event) {
@@ -235,7 +235,7 @@
 				 * @param {string} type
 				 * @param {Function} listener
 				 * @param {boolean} [useCapture=false]
-				 * @memberOf ns.utils.events
+				 * @member ns.utils.events
 				 * @static
 				 */
 				fastOn: function(element, type, listener, useCapture) {
@@ -249,7 +249,7 @@
 				 * @param {string} type
 				 * @param {Function} listener
 				 * @param {boolean} [useCapture=false]
-				 * @memberOf ns.utils.events
+				 * @member ns.utils.events
 				 * @static
 				 */
 				fastOff: function(element, type, listener, useCapture) {
@@ -263,7 +263,7 @@
                  * @param {string|Array|Object} type
 				 * @param {Function} listener
 				 * @param {boolean} [useCapture=false]
-				 * @memberOf ns.utils.events
+				 * @member ns.utils.events
 				 * @static
 				 */
 				on: function(element, type, listener, useCapture) {
@@ -295,7 +295,7 @@
                  * @param {string|Array|Object} type
 				 * @param {Function} listener
 				 * @param {boolean} [useCapture=false]
-				 * @memberOf ns.utils.events
+				 * @member ns.utils.events
 				 * @static
 				 */
 				off: function(element, type, listener, useCapture) {
@@ -327,7 +327,7 @@
 				 * @param {string|Array|Object} type
 				 * @param {Function} listener
 				 * @param {boolean} [useCapture=false]
-				 * @memberOf ns.utils.events
+				 * @member ns.utils.events
 				 * @static
 				 */
 				one: function(element, type, listener, useCapture) {
@@ -359,9 +359,9 @@
 				}
 			};
 			ns.utils.events = events;
-			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return events;
 		}
 	);
-	//>>excludeEnd("ejBuildExclude");
+	//>>excludeEnd("tauBuildExclude");
 }(ns));

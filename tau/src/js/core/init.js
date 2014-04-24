@@ -7,21 +7,21 @@
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>
  */
-(function (ej) {
+(function (ns) {
 	"use strict";
-	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
 			"../core",
 			"./engine"
 		],
 		function () {
-			//>>excludeEnd("ejBuildExclude");
-			if (ej.get("autorun", true) === true) {
-				ej.engine.run();
+			//>>excludeEnd("tauBuildExclude");
+			if (ns.get("autorun", true) === true) {
+				ns.engine.run();
 			}
-			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
 	);
-	//>>excludeEnd("ejBuildExclude");
+	//>>excludeEnd("tauBuildExclude");
 }(ns));

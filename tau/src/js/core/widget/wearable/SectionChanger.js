@@ -3,11 +3,11 @@
 /**
  * section Changer widget
  * @class ns.widget.SectionChanger
- * @extends ej.widget.BaseWidget
+ * @extends ns.widget.BaseWidget
  */
 (function (document, ns) {
 	"use strict";
-	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
 			"../../engine",
@@ -17,7 +17,7 @@
 			"../wearable"
 		],
 		function () {
-			//>>excludeEnd("ejBuildExclude");
+			//>>excludeEnd("tauBuildExclude");
 			var Scroller = ns.widget.wearable.scroller.Scroller,
 				engine = ns.engine,
 				utilsObject = ns.utils.object,
@@ -30,13 +30,13 @@
 			}
 
 			utilsObject.inherit(SectionChanger, Scroller, {
-				_build: function( template, element ) {
+				_build: function( element ) {
 
 					this.sections = null;
 					this.sectionPositions = [];
 					this.activeIndex = 0;
 
-					this._super( template, element );
+					this._super( element );
 					return element;
 				},
 
@@ -406,13 +406,12 @@
 
 			engine.defineWidget(
 				"SectionChanger",
-				"",
 				".scroller",
 				[],
 				SectionChanger
 			);
-			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
 	);
-	//>>excludeEnd("ejBuildExclude");
+	//>>excludeEnd("tauBuildExclude");
 }(window.document, ns));

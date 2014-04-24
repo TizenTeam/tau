@@ -11,7 +11,7 @@
  */
 (function (document, ns) {
 	"use strict";
-	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
 			"../../engine",
@@ -21,8 +21,9 @@
 			"./Page"
 		],
 		function () {
-			//>>excludeEnd("ejBuildExclude");
+			//>>excludeEnd("tauBuildExclude");
 			var BaseWidget = ns.widget.BaseWidget,
+				Page = ns.widget.wearable.Page,
 				utils = ns.utils,
 				DOM = utils.DOM,
 				engine = ns.engine,
@@ -58,7 +59,7 @@
 			* @param {Object} [options] additional options for the transition
 			* @param {string} [options.transition=none] the type of transition
 			* @param {boolean} [options.reverse=false] specifies transition direction
-			* @memberOf ns.widget.wearable.PageContainer
+			* @member ns.widget.wearable.PageContainer
 			* @instance
 			*/
 			prototype.change = function (toPage, options) {
@@ -74,6 +75,10 @@
 
 				toPageWidget = engine.instanceWidget(toPage, "page");
 
+				if (ns.get("autoBuildOnPageChange", false)) {
+					engine.createWidgets(toPage);
+				}
+
 				if (!fromPageWidget || (fromPageWidget.element !== toPage)) {
 					self._include(toPage);
 					if (fromPageWidget) {
@@ -86,7 +91,7 @@
 					resolve: function () {
 						if (fromPageWidget) {
 							fromPageWidget.onHide();
-							self._removeExternalPage( fromPageWidget, options);
+							self._removeExternalPage(fromPageWidget, options);
 						}
 						toPageWidget.onShow();
 						self.trigger(EventType.PAGE_CHANGE);
@@ -103,7 +108,7 @@
 			* @param {string} [options.transition=none] the type of transition
 			* @param {boolean} [options.reverse=false] specifies transition direction
 			* @param {Object} [options.deferred] deferred object
-			* @memberOf ns.widget.wearable.PageContainer
+			* @member ns.widget.wearable.PageContainer
 			* @protected
 			* @instance
 			*/
@@ -175,7 +180,7 @@
 			* Adds an element as a page
 			* @method _include
 			* @param {HTMLElement} page an element to add
-			* @memberOf ns.widget.wearable.PageContainer
+			* @member ns.widget.wearable.PageContainer
 			* @protected
 			* @instance
 			*/
@@ -189,7 +194,7 @@
 			* Sets currently active page
 			* @method _setActivePage
 			* @param {ns.widget.wearable.Page} page a widget to set as the active page
-			* @memberOf ns.widget.wearable.PageContainer
+			* @member ns.widget.wearable.PageContainer
 			* @instance
 			*/
 			prototype._setActivePage = function (page) {
@@ -203,7 +208,7 @@
 			/**
 			* Returns active page element
 			* @method getActivePage
-			* @memberOf ns.widget.wearable.PageContainer
+			* @member ns.widget.wearable.PageContainer
 			* @return {ns.widget.wearable.Page} currently active page
 			* @instance
 			*/
@@ -214,36 +219,36 @@
 			/**
 			* Displays a progress bar indicating loading process
 			* @method showLoading
-			* @memberOf ns.widget.wearable.PageContainer
+			* @member ns.widget.wearable.PageContainer
 			* @return {null}
 			* @instance
 			*/
 			prototype.showLoading = function () {
-				//>>excludeStart("ejDebug", pragmas.ejDebug);
-				ns.warn("prototype.showLoading not yet implemented");
-				//>>excludeEnd("ejDebug");
+				//>>excludeStart("tauDebug", pragmas.tauDebug);
+				ns.warn("PageContainer.prototype.showLoading not yet implemented");
+				//>>excludeEnd("tauDebug");
 				return null;
 			};
 			/**
 			* Hides any active progress bar
 			* @method hideLoading
-			* @memberOf ns.widget.wearable.PageContainer
+			* @member ns.widget.wearable.PageContainer
 			* @return {null}
 			* @instance
 			*/
 			prototype.hideLoading = function () {
-				//>>excludeStart("ejDebug", pragmas.ejDebug);
-				ns.warn("prototype.hideLoading not yet implemented");
-				//>>excludeEnd("ejDebug");
+				//>>excludeStart("tauDebug", pragmas.tauDebug);
+				ns.warn("PageContainer.prototype.hideLoading not yet implemented");
+				//>>excludeEnd("tauDebug");
 				return null;
 			};
 			/**
 			* Removes page element from the given widget and destroys it
 			* @method _removeExternalPage
 			* @param {ns.widget.wearable.Page} fromPageWidget the widget to destroy
-			* @param {Object} [options] transition options 
+			* @param {Object} [options] transition options
 			* @param {boolean} [options.reverse=false] specifies transition direction
-			* @memberOf ns.widget.wearable.PageContainer
+			* @member ns.widget.wearable.PageContainer
 			* @instance
 			* @protected
 			*/
@@ -257,19 +262,19 @@
 			};
 
 			PageContainer.prototype = prototype;
+
 			// definition
 			ns.widget.wearable.PageContainer = PageContainer;
 
 			engine.defineWidget(
 				"pagecontainer",
-				"./widget/ns.widget.wearable.PageContainer",
 				"",
 				["change", "getActivePage", "showLoading", "hideLoading"],
 				PageContainer,
-				"micro"
+				"wearable"
 			);
-			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
 	);
-	//>>excludeEnd("ejBuildExclude");
+	//>>excludeEnd("tauBuildExclude");
 }(window.document, ns));

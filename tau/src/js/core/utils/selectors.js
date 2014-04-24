@@ -14,16 +14,16 @@
  */
 (function (document, ns) {
 	"use strict";
-	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
 			"../utils" // fetch namespace
 		],
 		function () {
-			//>>excludeEnd("ejBuildExclude");
+			//>>excludeEnd("tauBuildExclude");
 			/**
 			 * @method slice Alias for array slice method
-			 * @memberOf ns.utils.selectors
+			 * @member ns.utils.selectors
 			 * @private
 			 * @static
 			 */
@@ -31,7 +31,7 @@
 				/**
 				 * @method matchesSelectorType
 				 * @return {string|boolean}
-				 * @memberOf ns.utils.selectors
+				 * @member ns.utils.selectors
 				 * @private
 				 * @static
 				 */
@@ -62,27 +62,27 @@
 			 * @method getDataSelector
 			 * @param {string} selector
 			 * @return {string}
-			 * @memberOf ns.utils.selectors
+			 * @member ns.utils.selectors
 			 * @private
 			 * @static
 			 */
 			function getDataSelector(selector) {
-				var namespace = ns.get(namespace);
+				var namespace = ns.get('namespace');
 				return '[data-' + (namespace ? namespace + '-' : '') + selector + ']';
 			}
 
 			/**
 			 * Runs matches implementation of matchesSelector
-			 * method fastOn specified element
+			 * method on specified element
 			 * @method matchesSelector
 			 * @param {HTMLElement} element
-			 * @param {string} Selector
+			 * @param {string} selector
 			 * @return {boolean}
 			 * @static
-			 * @memberOf ns.utils.selectors
+			 * @member ns.utils.selectors
 			 */
 			function matchesSelector(element, selector) {
-				if (matchesSelectorType) {
+				if (matchesSelectorType && element[matchesSelectorType]) {
 					return element[matchesSelectorType](selector);
 				}
 				return false;
@@ -93,7 +93,7 @@
 			 * @method parents
 			 * @param {HTMLElement} element
 			 * @return {Array}
-			 * @memberOf ns.utils.selectors
+			 * @member ns.utils.selectors
 			 * @private
 			 * @static
 			 */
@@ -113,7 +113,7 @@
 			 * @param {HTMLElement} element
 			 * @param {Function} testFunction
 			 * @return {?HTMLElement}
-			 * @memberOf ns.utils.selectors
+			 * @member ns.utils.selectors
 			 * @static
 			 * @private
 			 */
@@ -133,7 +133,7 @@
 			 * @param {string} selector
 			 * @param {HTMLElement} node
 			 * @return {boolean}
-			 * @memberOf ns.utils.selectors
+			 * @member ns.utils.selectors
 			 * @static
 			 * @private
 			 */
@@ -146,7 +146,7 @@
 			 * @param {string} className
 			 * @param {HTMLElement} node
 			 * @return {boolean}
-			 * @memberOf ns.utils.selectors
+			 * @member ns.utils.selectors
 			 * @static
 			 * @private
 			 */
@@ -159,7 +159,7 @@
 			 * @param {string} tagName
 			 * @param {HTMLElement} node
 			 * @return {boolean}
-			 * @memberOf ns.utils.selectors
+			 * @member ns.utils.selectors
 			 * @static
 			 * @private
 			 */
@@ -180,7 +180,7 @@
 				* @param {string} selector
 				* @return {Array}
 				* @static
-				* @memberOf ns.utils.selectors
+				* @member ns.utils.selectors
 				*/
 				getChildrenBySelector: function (context, selector) {
 					return slice.call(context.children).filter(testSelector.bind(null, selector));
@@ -193,7 +193,7 @@
 				* @param {string} dataSelector
 				* @return {Array}
 				* @static
-				* @memberOf ns.utils.selectors
+				* @member ns.utils.selectors
 				*/
 				getChildrenByDataNS: function (context, dataSelector) {
 					return slice.call(context.children).filter(testSelector.bind(null, getDataSelector(dataSelector)));
@@ -206,7 +206,7 @@
 				* @param {string} className
 				* @return {Array}
 				* @static
-				* @memberOf ns.utils.selectors
+				* @member ns.utils.selectors
 				*/
 				getChildrenByClass: function (context, className) {
 					return slice.call(context.children).filter(testClass.bind(null, className));
@@ -219,7 +219,7 @@
 				* @param {string} tagName
 				* @return {Array}
 				* @static
-				* @memberOf ns.utils.selectors
+				* @member ns.utils.selectors
 				*/
 				getChildrenByTag: function (context, tagName) {
 					return slice.call(context.children).filter(testTag.bind(null, tagName));
@@ -232,7 +232,7 @@
 				* @param {string} selector
 				* @return {Array}
 				* @static
-				* @memberOf ns.utils.selectors
+				* @member ns.utils.selectors
 				*/
 				getParents: parents,
 
@@ -243,7 +243,7 @@
 				* @param {string} selector
 				* @return {Array}
 				* @static
-				* @memberOf ns.utils.selectors
+				* @member ns.utils.selectors
 				*/
 				getParentsBySelector: function (context, selector) {
 					return parents(context).filter(testSelector.bind(null, selector));
@@ -256,7 +256,7 @@
 				* @param {string} selector
 				* @return {Array}
 				* @static
-				* @memberOf ns.utils.selectors
+				* @member ns.utils.selectors
 				*/
 				getParentsBySelectorNS: function (context, selector) {
 					return parents(context).filter(testSelector.bind(null, getDataSelector(selector)));
@@ -269,7 +269,7 @@
 				* @param {string} className
 				* @return {Array}
 				* @static
-				* @memberOf ns.utils.selectors
+				* @member ns.utils.selectors
 				*/
 				getParentsByClass: function (context, className) {
 					return parents(context).filter(testClass.bind(null, className));
@@ -282,7 +282,7 @@
 				* @param {string} tagName
 				* @return {Array}
 				* @static
-				* @memberOf ns.utils.selectors
+				* @member ns.utils.selectors
 				*/
 				getParentsByTag: function (context, tagName) {
 					return parents(context).filter(testTag.bind(null, tagName));
@@ -295,7 +295,7 @@
 				* @param {string} selector
 				* @return {HTMLElement}
 				* @static
-				* @memberOf ns.utils.selectors
+				* @member ns.utils.selectors
 				*/
 				getClosestBySelector: function (context, selector) {
 					return closest(context, testSelector.bind(null, selector));
@@ -308,7 +308,7 @@
 				* @param {string} selector
 				* @return {HTMLElement}
 				* @static
-				* @memberOf ns.utils.selectors
+				* @member ns.utils.selectors
 				*/
 				getClosestBySelectorNS: function (context, selector) {
 					return closest(context, testSelector.bind(null, getDataSelector(selector)));
@@ -321,7 +321,7 @@
 				* @param {string} selector
 				* @return {HTMLElement}
 				* @static
-				* @memberOf ns.utils.selectors
+				* @member ns.utils.selectors
 				*/
 				getClosestByClass: function (context, selector) {
 					return closest(context, testClass.bind(null, selector));
@@ -334,7 +334,7 @@
 				* @param {string} selector
 				* @return {HTMLElement}
 				* @static
-				* @memberOf ns.utils.selectors
+				* @member ns.utils.selectors
 				*/
 				getClosestByTag: function (context, selector) {
 					return closest(context, testTag.bind(null, selector));
@@ -347,15 +347,15 @@
 				* @param {string} dataSelector
 				* @return {Array}
 				* @static
-				* @memberOf ns.utils.selectors
+				* @member ns.utils.selectors
 				*/
 				getAllByDataNS: function (context, dataSelector) {
 					return slice.call(context.querySelectorAll(getDataSelector(dataSelector)));
 				}
 			};
-			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.utils.selectors;
 		}
 	);
-	//>>excludeEnd("ejBuildExclude");
+	//>>excludeEnd("tauBuildExclude");
 }(window.document, ns));

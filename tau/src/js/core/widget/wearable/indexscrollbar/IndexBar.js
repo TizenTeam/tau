@@ -13,7 +13,7 @@
  */
 (function (document, ns) {
 	"use strict";
-	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
 			"../indexscrollbar",
@@ -21,7 +21,7 @@
 			"../../../utils/DOM/css"
 		],
 		function () {
-			//>>excludeEnd("ejBuildExclude");
+			//>>excludeEnd("tauBuildExclude");
 			var utilsObject = ns.utils.object,
 				utilsDOM = ns.utils.DOM;
 
@@ -85,7 +85,6 @@
 
 				destroy: function() {
 					this._clear();
-					this.element = null;
 				},
 
 				show: function() {
@@ -304,8 +303,8 @@
 
 			ns.widget.wearable.indexscrollbar.IndexBar = IndexBar;
 
-			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
 	);
-	//>>excludeEnd("ejBuildExclude");
+	//>>excludeEnd("tauBuildExclude");
 }(window.document, ns));

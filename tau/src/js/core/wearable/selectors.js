@@ -12,18 +12,18 @@
  */
 (function (ns) {
 	"use strict";
-//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
 			"../../core"
 		],
 		function () {
-			//>>excludeEnd("ejBuildExclude");
+			//>>excludeEnd("tauBuildExclude");
 			var wearable = ns.wearable || {};
 			wearable.selectors = {};
 			ns.wearable = wearable;
-			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
 	);
-	//>>excludeEnd("ejBuildExclude");
+	//>>excludeEnd("tauBuildExclude");
 }(ns));

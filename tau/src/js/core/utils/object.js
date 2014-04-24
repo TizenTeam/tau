@@ -13,13 +13,13 @@
  */
 (function (ns) {
 	"use strict";
-	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
 			"../utils" // fetch namespace
 		],
 		function () {
-			//>>excludeEnd("ejBuildExclude");
+			//>>excludeEnd("tauBuildExclude");
 
 			var object = {
 				/**
@@ -28,7 +28,7 @@
 				* @param {Object} orgObject
 				* @return {Object}
 				* @static
-				* @memberOf ns.utils.object
+				* @member ns.utils.object
 				*/
 				copy: function (orgObject) {
 					return object.merge({}, orgObject);
@@ -41,7 +41,7 @@
 				* @param {Object} orgObject
 				* @return {Object}
 				* @static
-				* @memberOf ns.utils.object
+				* @member ns.utils.object
 				*/
 				fastMerge: function (newObject, orgObject) {
 					var key;
@@ -61,7 +61,7 @@
 				* @param {?boolean} [override=true]
 				* @return {Object}
 				* @static
-				* @memberOf ns.utils.object
+				* @member ns.utils.object
 				*/
 				merge: function ( /* newObject, orgObject, override */ ) {
 					var newObject, orgObject, override,
@@ -96,7 +96,7 @@
 				 * @param {Function} Base
 				 * @param {Object} prototype
 				 * @static
-				 * @memberOf ns.utils.object
+				 * @member ns.utils.object
 				 */
 				/* jshint -W083 */
 				inherit: function( Constructor, Base, prototype ) {
@@ -136,8 +136,8 @@
 				}
 			};
 			ns.utils.object = object;
-			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
 	);
-	//>>excludeEnd("ejBuildExclude");
+	//>>excludeEnd("tauBuildExclude");
 }(ns));

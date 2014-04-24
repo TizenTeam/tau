@@ -3,11 +3,11 @@
 /**
  * section Changer widget
  * @class ns.widget.SectionChanger
- * @extends ej.widget.BaseWidget
+ * @extends ns.widget.BaseWidget
  */
 (function (document, ns) {
 	"use strict";
-	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
 			"../../../../engine",
@@ -20,7 +20,7 @@
 			"../Scroller"
 		],
 		function () {
-			//>>excludeEnd("ejBuildExclude");
+			//>>excludeEnd("tauBuildExclude");
 			// scroller.start event trigger when user try to move scroller
 			var BaseWidget = ns.widget.BaseWidget,
 				engine = ns.engine,
@@ -46,7 +46,7 @@
 
 				};
 
-			prototype._build = function (template, scrollElement) {
+			prototype._build = function (scrollElement) {
 				this.container = scrollElement;
 				this.clip = scrollElement.children[0];
 				return scrollElement;
@@ -183,12 +183,11 @@
 			engine.defineWidget(
 				"Scrollbar",
 				"",
-				"",
 				[],
 				ScrollerScrollBar
 			);
-			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
 	);
-	//>>excludeEnd("ejBuildExclude");
+	//>>excludeEnd("tauBuildExclude");
 }(window.document, ns));

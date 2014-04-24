@@ -1,0 +1,33 @@
+/****************************
+ tizen.multimediaview
+****************************/
+:-webkit-full-screen {
+	height: 100%;
+}
+:-webkit-full-screen video{
+	height: 100%;
+}
+.ui-multimediaview-wrap .fade-out {
+	transition-property: opacity;
+	transition-timing-function: ease-out;
+	transition-duration: 0.25s;
+}
+.ui-multimediaview-control {
+	bottom: 0;
+	opacity: 1.0;
+}
+.ui-multimediaview-control .ui-volumecontrol .ui-slider-container .ui-slider {
+	top: -0.05rem;
+}
+
+.ui-multimediaview-control .ui-seekbar .ui-duration {
+	background-color: transparent;
+}
+
+.ui-multimediaview-control .ui-duration .ui-progressbar-value {
+	pointer-events: none;
+}
+
+.ui-multimediaview-control .ui-duration .ui-progressbar-bg {
+	top: 0px;
+}

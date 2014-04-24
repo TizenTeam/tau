@@ -3,11 +3,11 @@
 /**
  * section Changer widget
  * @class ns.widget.SectionChanger
- * @extends ej.widget.BaseWidget
+ * @extends ns.widget.BaseWidget
  */
 (function (document, ns) {
 	"use strict";
-	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
 			"../../../engine",
@@ -17,7 +17,7 @@
 			"../scroller"
 		],
 		function () {
-			//>>excludeEnd("ejBuildExclude");
+			//>>excludeEnd("tauBuildExclude");
 			// scroller.start event trigger when user try to move scroller
 			var BaseWidget = ns.widget.BaseWidget,
 				engine = ns.engine,
@@ -43,7 +43,7 @@
 				HORIZONTAL: 2
 			};
 
-			prototype._build = function (template, element) {
+			prototype._build = function (element) {
 				if (element.children.length !== 1) {
 					throw "scroller has only one child.";
 				}
@@ -368,7 +368,7 @@
 					( maxDist < minThreshold ||
 						( maxDist < threshold && ( !scrollDelay || timestamp - this.startTime < scrollDelay ) ) )) {
 					/* TODO if touchmove event is preventDefaulted, click event not performed.
-					 * but to keep touch mode fastOn android have to prevent default.
+					 * but to keep touch mode on android have to prevent default.
 					 * some idea are using ua or to change webkit threshold.*/
 					//e.preventDefault();
 					return;
@@ -569,13 +569,12 @@
 
 			engine.defineWidget(
 				"Scroller",
-				"",
 				".scroller",
 				[],
 				Scroller
 			);
-			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
 	);
-	//>>excludeEnd("ejBuildExclude");
+	//>>excludeEnd("tauBuildExclude");
 }(window.document, ns));

@@ -11,10 +11,11 @@ module.exports = function(grunt) {
 		jsPath = path.join(dist, "js"),
 		widgetPath = path.join(jsPath, "widget"),
 		themesPath = path.join(dist, "themes"),
+		tizenTheme = "tizen-black",
 
 		rootNamespace = "ns",
-        exportNamespace = "tau",
-        config = exportNamespace + "Config",
+		exportNamespace = "tau",
+		config = exportNamespace + "Config",
 		fileName = "tau",
 
 		wrapStart = "(function(window, document, undefined) {\n" +
@@ -25,13 +26,13 @@ module.exports = function(grunt) {
 			"nsConfig.fileName = '" + fileName + "';\n",
 		wrapEnd = "}(window, window.document));\n",
 
-        wrapStartWidget = "(function(window, document, undefined) {\n" +
-            "'use strict';\n" +
-            "var ns = " + exportNamespace + "._export || {},\n" +
-            "	nsConfig = window." + config + " = window." + config + " || {};\n" +
-            "nsConfig.rootNamespace = '" + rootNamespace + "';\n" +
-            "nsConfig.fileName = '" + fileName + "';\n",
-        wrapEndWidget = wrapEnd,
+		wrapStartWidget = "(function(window, document, undefined) {\n" +
+			"'use strict';\n" +
+			"var ns = " + exportNamespace + "._export || {},\n" +
+			"	nsConfig = window." + config + " = window." + config + " || {};\n" +
+			"nsConfig.rootNamespace = '" + rootNamespace + "';\n" +
+			"nsConfig.fileName = '" + fileName + "';\n",
+		wrapEndWidget = wrapEnd,
 
 		widgets = {
 			"indexScrollbar": "widget/indexScrollbar",
@@ -47,7 +48,8 @@ module.exports = function(grunt) {
 
 		themes = {
 			"default" : "src/css/themes/black",
-			"black" : "src/css/themes/black"
+			"black" : "src/css/themes/black",
+			"mobile-white" : "src/css/themes/tizen/tizen-white"
 		},
 
 		files = {
@@ -146,6 +148,23 @@ module.exports = function(grunt) {
 
 		},
 
+		qunitPrepare = function (done, output) {
+			var result = require('rjs-build-analysis').parse(output),
+				slice = [].slice,
+				testModules = [],
+				jsAddTests = [];
+			if (result && result.bundles.length > 0) {
+				slice.call(result.bundles[0].children).forEach(function (modulePath) {
+					testModules.push(path.join('tests', path.relative('src/', modulePath).replace(/(\.js)+/gi, ''), '*.html'));
+					jsAddTests.forEach(function (oneDirectory) {
+						testModules.push(path.join('tests', path.relative('src/', modulePath).replace(/(\.js)+/gi, ''), '/' + oneDirectory + '/*.html'));
+					});
+				});
+				grunt.config('qunit.main', testModules);
+			}
+			done();
+		},
+
 		initConfig = {
 			version: version,
 
@@ -182,13 +201,14 @@ module.exports = function(grunt) {
 						name: "wearable",
 						out: path.join( jsPath, name ) + ".js",
 						pragmasOnSave: {
-							ejBuildExclude: true,
-							ejDebug: true
+							tauBuildExclude: true,
+							tauDebug: true
 						},
 						wrap: {
 							start: wrapStart,
 							end: wrapEnd
-						}
+						},
+						done: qunitPrepare
 					}
 				},
 
@@ -201,8 +221,8 @@ module.exports = function(grunt) {
 						name: "wearable.core",
 						out: path.join( jsPath, name ) + ".core.js",
 						pragmasOnSave: {
-							ejBuildExclude: true,
-							ejDebug: true
+							tauBuildExclude: true,
+							tauDebug: true
 						},
 						wrap: {
 							start: wrapStart,
@@ -220,13 +240,36 @@ module.exports = function(grunt) {
 						name: "virtuallist",
 						out: path.join( widgetPath, "virtuallist" ) + ".js",
 						pragmasOnSave: {
-							ejBuildExclude: true,
-							ejDebug: true
+							tauBuildExclude: true,
+							tauDebug: true
 						},
 						wrap: {
 							start: wrapStart,
 							end: wrapEnd
 						}
+					}
+				},
+
+				mobile: {
+					options: {
+						baseUrl: "src/js",
+						optimize: "none",
+						findNestedDependencies: true,
+						skipModuleInsertion: true,
+						name: "mobile",
+						out: path.join( jsPath, name ) + ".js",
+						pragmasOnSave: {
+							tauBuildExclude: true,
+							tauDebug: true
+						},
+						wrap: {
+							start: wrapStart,
+							end: wrapEnd
+						},
+						paths: {
+							"themesrc" : path.join("..", "..", "src", "css", "themes", "tizen", tizenTheme)
+						},
+						done: qunitPrepare
 					}
 				}
 			},
@@ -267,6 +310,9 @@ module.exports = function(grunt) {
 				},
 				license: {
 					src: "LICENSE.Flora", dest: path.join( dist, "LICENSE" ) + ".Flora"
+				},
+				globalize: {
+					expand: true, cwd: "libs/globalize/lib/", src: "cultures/**/*", dest: path.join(dist, "js" )
 				}
 			},
 
@@ -294,8 +340,13 @@ module.exports = function(grunt) {
 			clean: {
 				js: [ jsPath ],
 				css: [ themesPath ]
-			}
+			},
 
+			qunit: {
+				options: {
+					'--web-security': 'no'
+				}
+			}
 		};
 
 	// add requirejs tasks to build widget library.
@@ -316,8 +367,8 @@ module.exports = function(grunt) {
 					exclude: [ "wearable.core" ],
 					out: path.join( widgetPath, key ) + ".js",
 					pragmasOnSave: {
-						ejBuildExclude: true,
-						ejDebug: true
+						tauBuildExclude: true,
+						tauDebug: true
 					},
 					wrap: {
 						start: wrapStartWidget,
@@ -358,6 +409,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks( "grunt-contrib-less" );
 	grunt.loadNpmTasks( "grunt-contrib-cssmin" );
 	grunt.loadNpmTasks( "grunt-contrib-watch" );
+	grunt.loadNpmTasks( "grunt-contrib-qunit" );
 
 	grunt.registerTask( "lint", [ "jshint" ] );
 
@@ -365,10 +417,15 @@ module.exports = function(grunt) {
 
 	grunt.registerTask("css", [ "clean:css", "less", "cssmin" ]);
 	grunt.registerTask("js", [ "clean:js", "requirejs:full", "requirejs:core", "widget", "jsmin" ]);
+	grunt.registerTask("jsmobile", [ "clean:js", "requirejs:mobile" ]);
 
 	grunt.registerTask("license", [ "findFiles:js.setLicenseFiles", "findFiles:css.setLicenseFiles", "concat" ]);
 
-	grunt.registerTask("release", [ "clean", /* "lint", @TODO fix all errors and revert*/ "css", "js", "license", "copy" ]);
+	grunt.registerTask("release", [ "clean", /* "lint", @TODO fix all errors and revert*/ "css", "js", "license", "copy:images", "copy:license" ]);
+	grunt.registerTask("releasemobile", [ "clean", /* "lint", @TODO fix all errors and revert*/ "css", "jsmobile", "license", "copy:images", "copy:license", "copy:globalize" ]);
+
+	grunt.registerTask("test", [ "release", "qunit" ]);
+	grunt.registerTask("testmobile", [ "releasemobile", "qunit" ]);
 
 	grunt.registerTask("default", [ "release" ]);
 };

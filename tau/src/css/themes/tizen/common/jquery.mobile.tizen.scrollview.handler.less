@@ -1,0 +1,85 @@
+
+
+@unit_base_handler : @unit_base * 0.5;
+
+.ui-handler {
+	position : absolute;
+	overflow : hidden;
+	opacity: 0;
+}
+
+.ui-handler-visible {
+	opacity: 1;
+}
+
+.ui-handler-direction-y {
+	top : 10 * @unit_base_handler;
+	right : 0 * @unit_base_handler;
+	bottom : 10 * @unit_base_handler;
+	width : 36 * @unit_base_handler;
+}
+
+.ui-handler-direction-x {
+	right : 10 * @unit_base_handler;
+	bottom : 0 * @unit_base_handler;
+	left : 10 * @unit_base_handler;
+	height : 36 * @unit_base_handler;
+}
+
+.ui-handler-track {
+	position : relative;
+	width : 100%;
+	height : 100%;
+}
+
+.ui-handler-handle {
+	position : absolute;
+	top : 0;
+	left : 0;
+}
+
+.ui-handler-direction-x .ui-handler-handle {
+	width : 234 * @unit_base_handler;
+	height : 36 * @unit_base_handler;
+}
+
+.ui-handler-direction-y .ui-handler-handle {
+	width : 36 * @unit_base_handler;
+	height : 234 * @unit_base_handler;
+}
+
+.ui-handler-thumb {
+	background-position : center;
+	background-repeat : no-repeat;
+	.LESSborder-radius-all(11 * @unit_base_handler);
+}
+
+.ui-handler-direction-y .ui-handler-thumb {
+	width : 23 * @unit_base_handler;
+	height : 229 * @unit_base_handler;
+	.LESSbackground-size(23 * @unit_base_handler, 37 * @unit_base_handler);
+}
+
+.ui-handler-direction-x .ui-handler-thumb {
+	width : 229 * @unit_base_handler;
+	height : 23 * @unit_base_handler;
+	.LESSbackground-size(37 * @unit_base_handler, 23 * @unit_base_handler);
+}
+
+/* S
+-----------------------------------------------------------------------------------------------------------*/
+
+.ui-handler-s {
+	.ui-handler-thumb {
+		background-color : @color_scrollview_handler_bg;
+		.LESSbox-shadow(1 * @unit_base, 1 * @unit_base, 2 * @unit_base, @color_scrollview_handler_shadow);
+	}
+
+	.ui-handler-direction-y .ui-handler-thumb {
+		background-image : url("images/00_scroll_bar_handler.png");
+	}
+
+	.ui-handler-direction-x .ui-handler-thumb {
+		background-image : url("images/00_scroll_bar_handler_hor.png");
+	}
+}

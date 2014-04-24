@@ -10,18 +10,18 @@
  */
 (function (window, document) {
 	"use strict";
-	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[],
 		function () {
-			//>>excludeEnd("ejBuildExclude");
+			//>>excludeEnd("tauBuildExclude");
 			var orgTau,
 				tau = {
 					/**
 					 * revert changes in gear namespace make by framework and return framework object
 					 * @method noConflict
 					 * @return {Object}
-					 * @memberOf tau
+					 * @member tau
 					 */
 					noConflict: function () {
 						var newTau = window.tau;
@@ -33,7 +33,7 @@
 					 * Return original window.gear object;
 					 * @method getOrginalNamespace
 					 * @return {Object}
-					 * @memberOf tau
+					 * @member tau
 					 */
 					getOrginalNamespace: function () {
 						return orgTau;
@@ -41,7 +41,7 @@
 					/**
 					 * Create new window.gear object;
 					 * @method createNewNamespace
-					 * @memberOf tau
+					 * @member tau
 					 */
 					createNewNamespace: function() {
 						orgTau = orgTau || window.tau;
@@ -50,9 +50,9 @@
 				};
 				tau.createNewNamespace();
 				document.addEventListener('mobileinit', tau.createNewNamespace, false);
-			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return tau;
 		}
 	);
-	//>>excludeEnd("ejBuildExclude");
+	//>>excludeEnd("tauBuildExclude");
 }(window, document));

@@ -1,5 +1,5 @@
 /*global define */
-//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 (function () {
 	"use strict";
 	define(
@@ -11,13 +11,13 @@
 			"./core/widget/wearable/VirtualListview"
 		],
 		function (require) {
-//>>excludeEnd("ejBuildExclude");
+//>>excludeEnd("tauBuildExclude");
 (function() {
 	var newTau = tau.noConflict();
 	tau.VirtualListview = newTau.VirtualListview.bind(newTau);
 }());
-//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
 	);
 }());
-//>>excludeEnd("ejBuildExclude");
+//>>excludeEnd("tauBuildExclude");

@@ -13,13 +13,13 @@
  */
 (function (window, document, ns) {
 	"use strict";
-	//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
 			"../DOM"
 		],
 		function () {
-			//>>excludeEnd("ejBuildExclude");
+			//>>excludeEnd("tauBuildExclude");
 
 			var DOM = ns.utils.DOM;
 
@@ -30,10 +30,10 @@
 			 * @param {string=} [def] default returned value
 			 * @param {string=} [type] auto type casting
 			 * @return {string|number|null}
-			 * @memberOf ns.utils.DOM
+			 * @member ns.utils.DOM
 			 * @static
 			 */
-			DOM.getCSSProperty = function (element, property, def, type) {
+			function getCSSProperty(element, property, def, type) {
 				var style = window.getComputedStyle(element),
 					value = null,
 					result = def;
@@ -60,7 +60,7 @@
 					}
 				}
 				return result;
-			};
+			}
 
 			/**
 			 * Extracts css properties from computed css for an element.
@@ -70,14 +70,16 @@
 			 * @param {Object} properties
 			 * @param {string=} [pseudoSelector]
 			 * @param {boolean=} [noConversion]
-			 * @memberOf ns.utils.DOM
+			 * @member ns.utils.DOM
 			 * @static
 			 */
-			DOM.extractCSSProperties = function (element, properties, pseudoSelector, noConversion) {
+			function extractCSSProperties (element, properties, pseudoSelector, noConversion) {
 				var style = window.getComputedStyle(element, pseudoSelector),
 					property,
 					value = null,
 					utils = ns.utils;
+
+				// @TODO extractCSSProperties should rather return raw values (with units)
 				for (property in properties) {
 					if (properties.hasOwnProperty(property)) {
 						value = style.getPropertyValue(property);
@@ -92,7 +94,7 @@
 						}
 					}
 				}
-			};
+			}
 
 			/**
 			 * Returns elements height from computed style
@@ -103,17 +105,19 @@
 			 * @param {string=} [pseudoSelector]
 			 * @param {boolean=} [force] check even if element is hidden
 			 * @return {number}
-			 * @memberOf ns.utils.DOM
+			 * @member ns.utils.DOM
 			 * @static
 			 */
-			DOM.getElementHeight = function (element, type, includeOffset, includeMargin, pseudoSelector, force) {
+			function getElementHeight(element, type, includeOffset, includeMargin, pseudoSelector, force) {
 				var height = 0,
 					style,
+					value,
 					originalDisplay = null,
 					originalVisibility = null,
 					originalPosition = null,
 					outer = (type && type === "outer") || false,
 					offsetHeight = 0,
+					property,
 					props = {
 						"height": 0,
 						"margin-top": 0,
@@ -128,7 +132,7 @@
 					style = element.style;
 
 					if (style.display !== "none") {
-						this.extractCSSProperties(element, props, pseudoSelector);
+						extractCSSProperties(element, props, pseudoSelector, true);
 						offsetHeight = element.offsetHeight;
 					} else if (force) {
 						originalDisplay = style.display;
@@ -139,12 +143,28 @@
 						style.visibility = "hidden";
 						style.position = "relative";
 
-						this.extractCSSProperties(element, props, pseudoSelector);
+						extractCSSProperties(element, props, pseudoSelector, true);
 						offsetHeight = element.offsetHeight;
-						
+
 						style.display = originalDisplay;
 						style.visibility = originalVisibility;
 						style.position = originalPosition;
+					}
+
+					// We are extracting raw values to be able to check the units
+					if(props["height"].indexOf("px") === -1){
+						//ignore non px values such as auto or %
+						props["height"] = 0;
+					}
+
+					for (property in props) {
+						if (props.hasOwnProperty(property) && property !== "box-sizing"){
+							value = parseFloat(props[property]);
+							if (isNaN(value)) {
+								value = 0;
+							}
+							props[property] = value;
+						}
 					}
 
 					height += props["height"] + props["padding-top"] + props["padding-bottom"];
@@ -160,7 +180,7 @@
 					}
 				}
 				return height;
-			};
+			}
 
 			/**
 			 * Returns elements width from computed style
@@ -171,16 +191,18 @@
 			 * @param {string=} [pseudoSelector]
 			 * @param {boolean=} [force] check even if element is hidden
 			 * @return {number}
-			 * @memberOf ns.utils.DOM
+			 * @member ns.utils.DOM
 			 * @static
 			 */
-			DOM.getElementWidth = function (element, type, includeOffset, includeMargin, pseudoSelector, force) {
+			function getElementWidth(element, type, includeOffset, includeMargin, pseudoSelector, force) {
 				var width = 0,
 					style,
+					value,
 					originalDisplay = null,
 					originalVisibility = null,
 					originalPosition = null,
 					offsetWidth = 0,
+					property,
 					outer = (type && type === "outer") || false,
 					props = {
 						"width": 0,
@@ -197,7 +219,7 @@
 					style = element.style;
 
 					if (style.display !== "none") {
-						this.extractCSSProperties(element, props, pseudoSelector);
+						extractCSSProperties(element, props, pseudoSelector, true);
 						offsetWidth = element.offsetWidth;
 					} else if (force) {
 						originalDisplay = style.display;
@@ -208,11 +230,25 @@
 						style.visibility = "hidden";
 						style.position = "relative";
 
-						this.extractCSSProperties(element, props, pseudoSelector);
-						
+						extractCSSProperties(element, props, pseudoSelector, true);
+
 						style.display = originalDisplay;
 						style.visibility = originalVisibility;
 						style.position = originalPosition;
+					}
+
+					if(props["width"].indexOf("px") === -1) {
+						//ignore non px values such as auto or %
+						props["width"] = 0;
+					}
+					for (property in props) {
+						if (props.hasOwnProperty(property) && property !== "box-sizing"){
+							value = parseFloat(props[property]);
+							if (isNaN(value)) {
+								value = 0;
+							}
+							props[property] = value;
+						}
 					}
 
 					width += props["width"] + props["padding-left"] + props["padding-right"];
@@ -228,17 +264,17 @@
 					}
 				}
 				return width;
-			};
+			}
 
 			/**
 			 * Returns offset of element
 			 * @method getElementOffset
 			 * @param {HTMLElement} element
 			 * @return {Object}
-			 * @memberOf ns.utils.DOM
+			 * @member ns.utils.DOM
 			 * @static
 			 */
-			DOM.getElementOffset = function (element) {
+			function getElementOffset(element) {
 				var left = 0,
 					top = 0;
 				do {
@@ -251,11 +287,31 @@
 					top: top,
 					left: left
 				};
-			};
+			}
 
-			//>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+			/**
+			 * Check if element occupies place at view
+			 * @method isOccupiedPlace
+			 * @param {HTMLElement} element
+			 * @return {boolean}
+			 * @member ns.utils.DOM
+			 * @static
+			 */
+			function isOccupiedPlace(element) {
+				return !(element.offsetWidth <= 0 && element.offsetHeight <= 0);
+			}
+
+			// assign methods to namespace
+			DOM.getCSSProperty = getCSSProperty;
+			DOM.extractCSSProperties = extractCSSProperties;
+			DOM.getElementHeight = getElementHeight;
+			DOM.getElementWidth = getElementWidth;
+			DOM.getElementOffset = getElementOffset;
+			DOM.isOccupiedPlace = isOccupiedPlace;
+
+			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.utils.DOM;
 		}
 	);
-	//>>excludeEnd("ejBuildExclude");
+	//>>excludeEnd("tauBuildExclude");
 }(window, window.document, ns));
