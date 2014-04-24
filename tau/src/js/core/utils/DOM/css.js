@@ -237,7 +237,7 @@
 						style.position = originalPosition;
 					}
 
-					if(props["width"].indexOf("px") === -1) {
+					if(typeof props["width"] === 'string' && props["width"].indexOf("px") === -1) {
 						//ignore non px values such as auto or %
 						props["width"] = 0;
 					}

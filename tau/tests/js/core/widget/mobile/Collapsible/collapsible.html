@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Collapsible widget tests</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<link rel="stylesheet" href="../../../../../../libs/qunit-1.11.0.css">
+	</head>
+	<body>
+		<div id="qunit"></div>
+		<div id="qunit-fixture">
+			<div data-role="page">
+				<div data-role="content">
+					<div data-role="collapsible" id="collapsible1">
+						<h1 id="c-head-1">Collapsible h1</h1>
+					</div>
+					<div data-role="collapsible" id="collapsible2">
+						<h2 id="c-head-2">Collapsible h2</h2>
+					</div>
+					<div data-role="collapsible" id="collapsible3">
+						<h3 id="c-head-3">Collapsible h3</h3>
+					</div>
+					<div data-role="collapsible" id="collapsible4">
+						<h4 id="c-head-4">Collapsible h4</h4>
+					</div>
+					<div data-role="collapsible" id="collapsible5">
+						<h5 id="c-head-5">Collapsible h5</h5>
+					</div>
+					<div data-role="collapsible" id="collapsible6">
+						<h6 id="c-head-6">Collapsible h6</h6>
+					</div>
+					<div data-role="collapsible" id="collapsible7">
+						<legend id="c-head-7">Collapsible <span class="a">Legend</span></legend>
+						<div>lorem ipsum</div>
+					</div>
+					<div data-role="collapsible" id="collapsible8">
+						<h2 id="c-head-8">Collapsible content check</h2>
+						<div id="moved-content">
+							Lorem ipsum dolore
+						</div>
+					</div>
+					<div data-role="collapsible-set" id="collapsible-set1" data-theme="z" data-content-theme="x" data-collapsed-icon="back" data-expanded-icon="forward" data-iconpos="bottom" data-inset="false" data-mini="true">
+						<div data-role="collapsible" id="collapsible9">
+							<h1 id="c-head-9">Collapsible content check</h1>
+						</div>
+						<div data-role="collapsible" id="collapsible10">
+							<h1 id="c-head-10">Collapsible content check</h1>
+						</div>
+					</div>
+					<div data-role="collapsible" id="collapsible11">
+						<h2 id="c-head-11">Collapsible content check</h2>
+						<div>
+							Lorem ipsum dolore
+						</div>
+					</div>
+					<div data-role="collapsible" id="collapsible12" data-inset="true" data-content-theme="f">
+						<h2 id="c-head-12">Collapsible content check</h2>
+						<div>
+							Lorem ipsum dolore
+						</div>
+					</div>
+					<div data-role="collapsible" id="collapsible13" data-inset="false">
+						<h2 id="c-head-13">Collapsible content check</h2>
+						<div>
+							Lorem ipsum dolore
+						</div>
+					</div>
+
+					<div data-role="collapsible" id="collapsible14" data-inset="false">
+						<h2 id="c-head-14">Collapsible content check</h2>
+						<div>
+							Lorem ipsum dolore
+						</div>
+					</div>
+
+					<div data-role="collapsible" id="collapsible15" data-inset="false">
+						<h2 id="c-head-15">Collapsible content check</h2>
+						<div>
+							Lorem ipsum dolore
+						</div>
+					</div>
+
+					<div data-role="collapsible" id="collapsible16" data-inset="false">
+						<h2 id="c-head-16">Collapsible content check</h2>
+						<div>
+							Lorem ipsum dolore
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../../../../../../libs/jquery.js"></script>
+		<script src="../../../../../../libs/qunit-1.11.0.js" type="text/javascript"></script>
+		<script src="../../../../../support.js"></script>
+		<script>
+			var tauConfig = {
+				"autorun": false
+			};
+		</script>
+		<script src="collapsible.js"></script>
+		<script type="text/javascript" src="../../../../../../dist/js/tau.js"></script>
+        <script src="../../../../../namespace.js"></script>
+	</body>
+</html>

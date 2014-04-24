@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="../../../build/tizen-web-ui-fw/latest/js/jquery.js"></script>
+		<script src="../../../build/tizen-web-ui-fw/latest/js/tizen-web-ui-fw-libs.js"></script>
+		<script src="../../../build/tizen-web-ui-fw/latest/js/tizen-web-ui-fw.js"
+			data-framework-theme="tizen-white"
+			data-framework-viewport-scale=false>
+		</script>
+		<link rel="stylesheet" href="../../../libs/js/jquery-mobile-1.2.0/external/qunit.css" />
+		<script src="../../../libs/js/jquery-mobile-1.2.0/external/qunit.js"></script>
+		<script src="virtualgrid-tests.js"></script>
+		<title>Virtualgrid</title>
+	</head>
+
+	<body>
+		<h1 id="qunit-header">Virtualgrid</h1>
+		<h2 id="qunit-banner"></h2>
+		<div id="qunit-testrunner-toolbar"></div>
+		<h2 id="qunit-userAgent"></h2>
+		<ol id="qunit-tests"></ol>
+
+		<div id="qunit-fixture">
+			<div data-role="page" id="virtualgrid_demo_page" class="virtualgrid_demo_page">
+				<div data-role="header" data-position="fixed">
+					<h1>Virtualgrid</h1>
+				</div>
+				<div data-role="content">
+					<script id="tizen-demo-namecard" type="text/x-jquery-tmpl">
+						<div class="ui-demo-namecard ${ID}" style="width:50px">
+							<div class="ui-demo-namecard-pic">
+							</div>
+							<div class="ui-demo-namecard-contents">
+								<span class="name ui-li-text-main">${NAME}</span>
+							</div>
+						</div>
+					</script>
+					<div id="virtualgrid-test" data-direction="y" data-role="virtualgrid" data-rotation="true" data-template="tizen-demo-namecard" data-dbtable="JSON_DATA" style="width:600px; height:500px;"></div>
+					<script>
+						$( ".virtualgrid_demo_page" ).live( "pagecreate", function() {
+							console.log("pagecreate...");
+							$.getScript( "../../../demos/tizen-winsets/widgets/grid/virtualgrid-db-demo.js", function( data, textStatus ) {
+								$(document).trigger("dataloaded");
+							});
+						});
+					</script>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

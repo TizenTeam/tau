@@ -18,6 +18,16 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 
+//			function setFrameworkExport() {
+//				document.removeEventListener('mobileinit', setFrameworkExport, true);
+//
+//				ns._export = frameworkNamespace;
+//			}
+//
+//			// When framework doesn't start automatically wait for mobileinit
+//			document.addEventListener('mobileinit', setFrameworkExport, true);
+
+			// We need to set this if framework has autostarted
 			ns._export = frameworkNamespace;
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);

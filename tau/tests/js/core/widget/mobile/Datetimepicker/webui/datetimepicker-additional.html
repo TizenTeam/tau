@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="../../../../../../../libs/qunit-1.11.0.css">
+	<script src="../../../../../../../libs/jquery.js"></script>
+	<script src="../../../../../../../libs/qunit-1.11.0.js" type="text/javascript"></script>
+	<script src="../../../../../../support.js"></script>
+	<script src="datetimepicker-additional-tests.js"></script>
+	<title>Date Time Picker</title>
+</head>
+
+<body>
+	<h1 id="qunit-header">Date Time Picker</h1>
+	<h2 id="qunit-banner"></h2>
+	<div id="qunit-testrunner-toolbar"></div>
+	<h2 id="qunit-userAgent"></h2>
+	<ol id="qunit-tests"></ol>
+
+	<div id="qunit-fixture">
+		<div data-role="page" id="page-1">
+			<div data-role="header" data-position="fixed">
+				<h1>Date Time Picker</h1>
+			</div>
+			<div data-role="content">
+				<ul data-role="listview">
+					<li class="ui-li-2line-sub-main"><span class="ui-li-text-main">
+							<input type="datetime" id="datetime" />
+					</span> <span class="ui-li-text-sub">DateTimePicker</span></li>
+					<li class="ui-li-2line-sub-main"><span class="ui-li-text-main">
+							<input type="date" id="date" />
+					</span> <span class="ui-li-text-sub">DatePicker</span></li>
+					<li class="ui-li-2line-sub-main"><span class="ui-li-text-main">
+							<input type="time" id="time" />
+					</span> <span class="ui-li-text-sub">TimePicker</span></li>
+					<li class="ui-li-2line-sub-main"><span class="ui-li-text-main">
+							<input type="datetime" id="custom"
+							data-format="MMM dd yyyy hh:mm tt"
+							value="2012-06-30T00:00:00+00:00" />
+					</span> <span class="ui-li-text-sub">DateTimePicker</span></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="../../../../../../../dist/js/tau.js"></script>
+</body>
+</html>
+

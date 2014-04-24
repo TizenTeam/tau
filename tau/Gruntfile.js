@@ -152,7 +152,7 @@ module.exports = function(grunt) {
 			var result = require('rjs-build-analysis').parse(output),
 				slice = [].slice,
 				testModules = [],
-				jsAddTests = [];
+				jsAddTests = ['api'];
 			if (result && result.bundles.length > 0) {
 				slice.call(result.bundles[0].children).forEach(function (modulePath) {
 					testModules.push(path.join('tests', path.relative('src/', modulePath).replace(/(\.js)+/gi, ''), '*.html'));
@@ -164,7 +164,6 @@ module.exports = function(grunt) {
 			}
 			done();
 		},
-
 		initConfig = {
 			version: version,
 

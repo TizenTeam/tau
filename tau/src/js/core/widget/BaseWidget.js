@@ -120,7 +120,7 @@
  * @class ns.widget.BaseWidget
  * @alias BaseWidget
  */
-(function (document, ns) {
+(function (document, ns, undefined) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -413,6 +413,9 @@
 					dataBound = !dataBound ? self.name : dataBound + engineDataTau.separator + self.name;
 					element.setAttribute(engineDataTau.bound, dataBound);
 				}
+				if (typeof self._buildBindEvents === TYPE_FUNCTION) {
+					self._buildBindEvents(element);
+				}
 				if (!onlyBuild && typeof self._bindEvents === TYPE_FUNCTION) {
 					self._bindEvents(element);
 				}
@@ -541,20 +544,21 @@
 					firstArgument = args.shift(),
 					secondArgument = args.shift(),
 					key,
-					result = null,
+					result,
+					partResult,
 					refresh = false;
 				if (typeof firstArgument === "string") {
 					result = self._oneOption(firstArgument, secondArgument);
 					if (firstArgument !== undefined && secondArgument !== undefined) {
-						refresh = true;
+						refresh = result;
+						result = undefined;
 					}
-				}
-				if (typeof firstArgument === "object") {
+				} else if (typeof firstArgument === "object") {
 					for (key in firstArgument) {
 						if (firstArgument.hasOwnProperty(key)) {
-							self._oneOption(key, firstArgument[key]);
+							partResult = partResult || self._oneOption(key, firstArgument[key]);
 							if (key !== undefined && firstArgument[key] !== undefined) {
-								refresh = true;
+								refresh = refresh || partResult;
 							}
 						}
 					}
@@ -576,7 +580,8 @@
 			 */
 			prototype._oneOption = function (field, value) {
 				var self = this,
-					methodName;
+					methodName,
+					refresh = false;
 				if (value === undefined) {
 					methodName = '_get' + (field[0].toUpperCase() + field.slice(1));
 					if (typeof self[methodName] === TYPE_FUNCTION) {
@@ -593,8 +598,10 @@
 						self.element.setAttribute('data-' + (field.replace(/[A-Z]/g, function (c) {
 							return "-" + c.toLowerCase();
 						})), value);
+						refresh = true;
 					}
 				}
+				return refresh;
 			};
 
 			/**

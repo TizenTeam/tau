@@ -13,6 +13,7 @@
 	define(
 		[
 			"../tau",
+			"../core/engine",
 			"../core/utils/path",
 			"../core/utils/DOM/attributes",
 			"../core/utils/DOM/css",
@@ -23,7 +24,7 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 
-			document.addEventListener("mobileinit", function () {
+			document.addEventListener(frameworkNamespace.engine.eventType.INIT, function () {
 				var utils = frameworkNamespace.utils,
 					utilsDOM = utils.DOM,
 					events = utils.events,

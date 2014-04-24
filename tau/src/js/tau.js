@@ -8,11 +8,13 @@
  * @class tau
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
-(function (window, document) {
+(function (window, document, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
-		[],
+		[
+			"./core/engine"
+		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var orgTau,
@@ -49,10 +51,10 @@
 					}
 				};
 				tau.createNewNamespace();
-				document.addEventListener(orgTau.engine.eventType.INIT, tau.createNewNamespace, false);
+				document.addEventListener(ns.engine.eventType.INIT, tau.createNewNamespace, false);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return tau;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window, document));
+}(window, document, ns));

@@ -18,9 +18,9 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 
-			ns.tizen = ns.tizen || {};
-
-			ns.tizen._export = frameworkNamespace;
+			document.addEventListener("mobileinit", function () {
+				ns._export = frameworkNamespace;
+			}, false);
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}

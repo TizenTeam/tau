@@ -1014,19 +1014,19 @@
 					volumeBar = self.ui.volumeBar,
 					progressBarBackgruond = self.ui.progressBar;
 
-				events.onManyEvents(
+				events.on(
 					view,
 					["loadedmetadata", "timeupdate", "play", "pause", "volumechange", "durationchange", POINTER_CLICK_EVENT, "multimediaviewinit"],
 					self,
 					true
 				);
-				events.onManyEvents(
+				events.on(
 					progressBarBackgruond,
 					[POINTER_MOVE_EVENT, POINTER_DOWN_EVENT, POINTER_UP_EVENT],
 					self,
 					true
 				);
-				events.onManyEvents(
+				events.on(
 					control,
 					[POINTER_CLICK_EVENT, POINTER_DOWN_EVENT, POINTER_UP_EVENT],
 					self,
@@ -1054,19 +1054,19 @@
 					volumeBar = self.ui.volumeBar,
 					progressBarBackgruond = self.ui.progressBar;
 
-				events.offManyEvents(
+				events.off(
 					view,
 					["loadedmetadata", "timeupdate", "play", "pause", "volumechange", "durationchange", POINTER_CLICK_EVENT, "multimediaviewinit"],
 					self,
 					true
 				);
-				events.offManyEvents(
+				events.off(
 					progressBarBackgruond,
 					[POINTER_MOVE_EVENT, POINTER_DOWN_EVENT, POINTER_UP_EVENT],
 					self,
 					true
 				);
-				events.offManyEvents(
+				events.off(
 					control,
 					[POINTER_CLICK_EVENT, POINTER_DOWN_EVENT, POINTER_UP_EVENT],
 					self,

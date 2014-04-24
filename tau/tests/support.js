@@ -67,3 +67,29 @@ ev.initMouseEvent(
 );
 this.dispatchEvent(ev);
 }
+
+// Support for many arguments for .add method of classList
+
+orgTokenListAdd = window.DOMTokenList.prototype.add;
+window.DOMTokenList.prototype.add = function () {
+	var args = [].slice.call(arguments),
+		argsLength = args.length,
+		i;
+
+	for (i = 0; i < argsLength; i++) {
+		orgTokenListAdd.call(this, args[i]);
+	}
+};
+
+// Support for many arguments for .remove method of classList
+orgTokenListRemove = window.DOMTokenList.prototype.remove;
+window.DOMTokenList.prototype.remove = function () {
+	var args = [].slice.call(arguments),
+		argsLength = args.length,
+		i;
+
+	for (i = 0; i < argsLength; i++) {
+		orgTokenListRemove.call(this, args[i]);
+	}
+};
+
