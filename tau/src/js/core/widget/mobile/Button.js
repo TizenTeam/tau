@@ -718,9 +718,9 @@
 					container = this.ui.container;
 				if (element) {
 					if (element.getAttribute("disabled")) {
-						disableElement(element, container);
+						this.disable(element);
 					} else {
-						enableElement(element, container);
+						this.enable(element);
 					}
 					if (element.innerHTML) {
 						container.firstChild.firstChild.innerHTML = element.innerHTML;
