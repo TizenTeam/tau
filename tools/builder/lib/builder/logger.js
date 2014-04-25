@@ -18,8 +18,8 @@
 		Logger.info(message);
 	};
 
-	exports.warning = function (message) {
-		Logger.warning(message);
+	exports.warning = function (message, error) {
+		Logger.warning(message + (error ? ": " + error.message : ""));
 	};
 
 	exports.error = function (message, error) {
@@ -49,7 +49,7 @@
 			break;
 		}
 	};
-	
+
 	handler.setFormatter(new Formatter({
 		format: function (record) {
 			return record.getLevel() + ": " + record.getMessage() + "\r\n";

@@ -24,6 +24,7 @@
 		phantom = require("./phantom.js"),
 		appConfig = require("./appconfig.js"),
 		common = require("./common.js"),
+		cleaner = require("./cleaner.js"),
 		FileFilterUtils = org.apache.commons.io.filefilter.FileFilterUtils,
 		File = java.io.File;
 
@@ -34,7 +35,8 @@
 			appConfigFile = source + sep + "config.xml",
 			htmlBuildPath,
 			sourceHTMLRelPath = null,
-			time = +new Date();
+			time = +new Date(),
+			scriptsReplaced = false;
 
 		if (!source || source.length === 0) {
 			return printHelp();
@@ -89,8 +91,16 @@
 				)
 			);
 		} catch (e) {
-			logger.error("copy operation failed", e)
+			logger.error("copy operation failed", e);
 			return false;
+		}
+
+		try {
+			// Removes all scripts from processed path beside framework library
+			logger.info("Replacing scripts inside build path");
+			scriptsReplaced = cleaner.replaceScripts(htmlBuildPath);
+		} catch (e) {
+			logger.warning("Replacing scripts failed", e);
 		}
 
 		try {
@@ -101,6 +111,15 @@
 		} catch (e) {
 			logger.error("PhantomJS failed", e);
 			return false;
+		}
+
+		if (scriptsReplaced) {
+			try {
+				logger.info("Restoring scripts inside build path");
+				cleaner.restoreScripts(htmlBuildPath);
+			} catch (e) {
+				logger.warning("Restoring scripts inside build path failed", e);
+			}
 		}
 
 		logger.info("build finished in " + (((+new Date()) - time) / 1000).toFixed(2) + "s");
