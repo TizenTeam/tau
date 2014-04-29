@@ -186,11 +186,11 @@
 					}
 				};
 
-			document.addEventListener("widgetdefined", function (evt) {
+			document.addEventListener(engine.eventType.WIDGET_DEFINED, function (evt) {
 				jqmWidget.init(engine, evt.detail);
 			}, false);
 
-			document.addEventListener("mobileinit", function () {
+			document.addEventListener(engine.eventType.INIT, function () {
 				engine.defineWidget(
 					"FixedToolbar",
 					"",

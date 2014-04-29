@@ -4,6 +4,7 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
+			"../engine",
 			"../events", // fetch namespace
 			"../utils/events"
 		],
@@ -60,7 +61,7 @@
 			*/
 			ns.events.hwkey = hwkey;
 
-			document.addEventListener("mobileinit", function() {
+			document.addEventListener(ns.engine.eventType.INIT, function() {
 				hwkey.unbind();
 				hwkey.bind();
 			}, false);

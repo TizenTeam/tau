@@ -11,6 +11,7 @@
 	define(
 		[
 			"../jqm",
+			"../core/engine",
 			"../core/utils/colors"
 		],
 		function () {
@@ -28,7 +29,8 @@
 					}
 				}
 			};
-			document.addEventListener("mobileinit", function () {
+			// Listen when framework is ready
+			document.addEventListener(ns.engine.eventType.INIT, function () {
 				ns.jqm.colors.init();
 			}, false);
 

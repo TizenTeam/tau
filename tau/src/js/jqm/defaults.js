@@ -9,7 +9,8 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../jqm"
+			"../jqm",
+			"../core/engine"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -95,7 +96,8 @@
 					}
 				}
 			};
-			document.addEventListener("mobileinit", function () {
+			// Listen when framework is ready
+			document.addEventListener(ns.engine.eventType.INIT, function () {
 				ns.jqm.defaults.init();
 			}, false);
 

@@ -11,6 +11,7 @@
 	define(
 		[
 			"../jqm",
+			"../core/engine",
 			"../core/widget/mobile/Loader"
 		],
 		function () {
@@ -60,7 +61,9 @@
 				}
 			};
 
-			document.addEventListener("mobileinit", initLoader, false);
+			// Listen when framework is ready
+			document.addEventListener(ns.engine.eventType.INIT, initLoader, false);
+
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
 	);

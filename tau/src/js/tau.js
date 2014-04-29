@@ -49,7 +49,7 @@
 					}
 				};
 				tau.createNewNamespace();
-				document.addEventListener('mobileinit', tau.createNewNamespace, false);
+				document.addEventListener(orgTau.engine.eventType.INIT, tau.createNewNamespace, false);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return tau;
 		}

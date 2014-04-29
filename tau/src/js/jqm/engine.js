@@ -413,7 +413,8 @@
 				}
 			};
 
-			document.addEventListener("mobileinit", function (evt) {
+			// Listen when framework is ready
+			document.addEventListener(ns.engine.eventType.INIT, function () {
 				ns.jqm.engine.init();
 			}, false);
 

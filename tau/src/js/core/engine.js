@@ -1,9 +1,9 @@
 /*global window, define, ns, Node */
 /*jslint nomen: true, plusplus: true, bitwise: false */
 /*
-* Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
-* License : MIT License V2
-*/
+ * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
+ */
 
 /**
  * Main class with engine of library
@@ -27,7 +27,7 @@
 			"./utils/events",
 			"./utils/selectors"
 		],
-		function (require) {
+		function () {
 			//>>excludeEnd("tauBuildExclude");
 			/**
 			 * @method slice Array.slice
@@ -131,7 +131,7 @@
 				 * @static
 				 * @member ns.engine
 				 */
-				// @TODO this selector is not valid ...
+					// @TODO this selector is not valid ...
 				querySelectorWidgets = "*[" + DATA_BUILT + "][" + DATA_NAME + "]:not([" + DATA_BOUND + "])",
 				/**
 				 * @method excludeBuildAndBound
@@ -143,30 +143,25 @@
 				excludeBuiltAndBound = function (widgetType) {
 					return ":not([" + DATA_BUILT + "*='" + widgetType +"']):not([" + DATA_BOUND + "*='" + widgetType +"'])";
 				},
+
 				/**
-				 * @property {string} [EVENT_BOUND="bound"] name of bound event
-				 * @private
+				 * @property {Object} eventType Engine event types
+				 * @property {string} eventType.INIT="tauinit" INIT of framework init event
+				 * @property {string} eventType.WIDGET_BOUND="widgetbound" WIDGET_BOUND of widget bound event
+				 * @property {string} eventType.WIDGET_DEFINED="widgetdefined" WIDGET_DEFINED of widget built event
+				 * @property {string} eventType.WIDGET_BUILT="widgetbuilt" WIDGET_BUILT of widget built event
+				 * @property {string} eventType.BOUND="bound" BOUND of bound event
 				 * @static
 				 * @readonly
 				 * @member ns.engine
 				 */
-				EVENT_BOUND = "bound",
-				/**
-				 * @property {string} [EVENT_WIDGET_BUILT="widgetbuilt"] name of widget built event
-				 * @private
-				 * @static
-				 * @readonly
-				 * @member ns.engine
-				 */
-				EVENT_WIDGET_BUILT = "widgetbuilt",
-				/**
-				 * @property {string} [EVENT_WIDGET_BOUND="widgetbound"] name of widget bound event
-				 * @private
-				 * @static
-				 * @readonly
-				 * @member ns.engine
-				 */
-				EVENT_WIDGET_BOUND = "widgetbound",
+				eventType = {
+					INIT: "tauinit",
+					WIDGET_BOUND: "widgetbound",
+					WIDGET_DEFINED: "widgetdefined",
+					WIDGET_BUILT: "widgetbuilt",
+					BOUND: "bound"
+				},
 				engine,
 				/**
 				 * @property {Object} router Router object
@@ -221,279 +216,6 @@
 					ns.error("Widget with selector [" + selector + "] defined without a name, aborting!");
 				}
 				return false;
-			}
-
-			/**
-			 * Load widget
-			 * @method processWidget
-			 * @param {HTMLElement} element base element of widget
-			 * @param {Object} definition definition of widget
-			 * @param {ns.widget.BaseWidget} definition.widgetClass
-			 * @param {string} definition.name
-			 * @param {Object} [options] options for widget
-			 * @private
-			 * @static
-			 * @member ns.engine
-			 */
-			function processWidget(element, definition, options) {
-				var widgetOptions = options || {},
-					createFunction = widgetOptions.create,
-					Widget = definition.widgetClass,
-					/**
-					 * @type {ns.widget.BaseWidget}
-					 */
-					widgetInstance = Widget ? new Widget(element) : false,
-					buildAttribute,
-					parentEnhance = selectors.getParentsBySelectorNS(element, 'enhance=false'),
-					existingBinding;
-
-				// While processing widgets queue other widget may built this one before
-				// it reaches it's turn
-				existingBinding = getBinding(element, definition.name);
-				if (existingBinding && existingBinding.element === element) {
-					return existingBinding.element;
-				}
-
-				if (widgetInstance && !parentEnhance.length) {
-					//>>excludeStart("tauDebug", pragmas.tauDebug);
-					ns.log("Processing widget:", definition.name, "on element:", element.tagName + "#" + (element.id || "--no--id--"));
-					//>>excludeEnd("tauDebug");
-					widgetInstance.configure(definition, element, options);
-
-					// Run .create method from widget options when a [widgetName]create event is triggered
-					if (typeof createFunction === TYPE_FUNCTION) {
-						eventUtils.one(element, definition.name.toLowerCase() + "create", createFunction);
-					}
-
-					if (element.id) {
-						widgetInstance.id = element.id;
-					}
-
-					// Check if this type of widget was build for this element before
-					buildAttribute = element.getAttribute(DATA_BUILT);
-					if (!buildAttribute || (buildAttribute && buildAttribute.split(NAMES_SEPARATOR).indexOf(widgetInstance.name) === -1)) {
-						element = widgetInstance.build(element);
-					}
-
-					if (element) {
-						widgetInstance.element = element;
-
-						setBinding(widgetInstance);
-
-						widgetInstance.trigger(EVENT_WIDGET_BUILT, widgetInstance, false);
-
-						if (!justBuild) {
-							widgetInstance.init(element);
-						}
-
-						widgetInstance.bindEvents(element, justBuild);
-
-						eventUtils.trigger(element, EVENT_WIDGET_BOUND, widgetInstance, false);
-						eventUtils.trigger(document, EVENT_WIDGET_BOUND, widgetInstance);
-					} else {
-						//>>excludeStart("tauDebug", pragmas.tauDebug);
-						ns.error("There was problem with building widget " + widgetInstance.widgetName + " on element with id " + widgetInstance.id + ".");
-						//>>excludeEnd("tauDebug");
-					}
-				}
-				return widgetInstance.element;
-			}
-
-			/**
-			 * Destroys widget of given 'type' for given HTMLElement.
-			 * [NOTICE] This method won't destroy any children widgets.
-			 * @method _destroyWidget
-			 * @param {HTMLElement|string} element
-			 * @param {string} type
-			 * @private
-			 * @static
-			 */
-			function destroyWidget(element, type) {
-				var widgetInstance;
-
-				if (typeof element === TYPE_STRING) {
-					element = document.getElementById(element);
-				}
-
-				//>>excludeStart("tauDebug", pragmas.tauDebug);
-				ns.log("Removing all widgets for element:", element);
-				//>>excludeEnd("tauDebug");
-
-				// If type is not defined all widgets should be removed
-				// this is for backward compatibility
-				widgetInstance = getBinding(element, type);
-
-				if (widgetInstance) {
-					//Destroy widget
-					widgetInstance.destroy();
-					widgetInstance.trigger("widgetdestroyed");
-
-					removeBinding(element, type);
-				}
-			}
-
-			/**
-			 * Calls destroy on widget (or widgets) connected with given HTMLElement
-			 * Removes child widgets as well.
-			 * @method destroyWidget
-			 * @param {HTMLElement|string} element
-			 * @param {boolean} [childOnly=false] destroy only widgets on children elements
-			 * @static
-			 * @member ns.engine
-			 */
-			function destroyAllWidgets(element, childOnly) {
-				var widgetName,
-					widgetInstance,
-					widgetGroup,
-					childWidgets,
-					i;
-
-				if (typeof element === TYPE_STRING) {
-					element = document.getElementById(element);
-				}
-
-				//>>excludeStart("tauDebug", pragmas.tauDebug);
-				ns.log("Removing all widgets for element:", element);
-				//>>excludeEnd("tauDebug");
-
-				if (!childOnly) {
-					// If type is not defined all widgets should be removed
-					// this is for backward compatibility
-					widgetGroup = getAllBindings(element);
-					for (widgetName in widgetGroup) {
-						if (widgetGroup.hasOwnProperty(widgetName)) {
-							widgetInstance = widgetGroup[widgetName];
-
-							//Destroy widget
-							widgetInstance.destroy();
-							widgetInstance.trigger("widgetdestroyed");
-						}
-					}
-				}
-
-				//Destroy child widgets, if something left.
-				childWidgets = slice.call(element.querySelectorAll("[" + DATA_BOUND + "]"));
-				for (i = childWidgets.length - 1; i >= 0; i -= 1) {
-					if (childWidgets[i]) {
-						destroyAllWidgets(childWidgets[i], false);
-					}
-				}
-
-				removeAllBindings(element);
-			}
-
-			/**
-			 * Load widgets from data-* definition
-			 * @method processHollowWidget
-			 * @param {HTMLElement} element base element of widget
-			 * @param {Object} definition widget definition
-			 * @param {Object} [options] options for create widget
-			 * @return {HTMLElement} base element of widget
-			 * @private
-			 * @static
-			 * @member ns.engine
-			 */
-			function processHollowWidget(element, definition, options) {
-				var name = element.getAttribute(DATA_NAME) || (definition && definition.name);
-				//>>excludeStart("tauDebug", pragmas.tauDebug);
-				if (!name) {
-					ns.error("Processing hollow widget without name on element:", element);
-				}
-				//>>excludeEnd("tauDebug");
-				definition = definition || (name && widgetDefs[name]) || {
-					"name": name
-				};
-				return processWidget(element, definition, options);
-			}
-
-			/**
-			 * Compare function for nodes on build queue
-			 * @param {object} nodeA
-			 * @param {object} nodeB
-			 * @return {number}
-			 * @private
-			 * @static
-			 */
-			function compareByDepth(nodeA, nodeB) {
-				var mask = Node.DOCUMENT_POSITION_CONTAINS | Node.DOCUMENT_POSITION_PRECEDING;
-
-				if (nodeA.element.compareDocumentPosition(nodeB.element) & mask) {
-					return 1;
-				}
-
-				return -1;
-			}
-
-			/**
-			 * Processes one build queue item. Runs processHollowWidget underneath
-			 * @param {object|HTMLElement} queueItem
-			 * @private
-			 * @static
-			 */
-			function processBuildQueueItem(queueItem) {
-				// HTMLElement doesn't have .element property
-				// widgetDefs will return undefined when called widgetDefs[undefined]
-				processHollowWidget(queueItem.element || queueItem, widgetDefs[queueItem.widgetName]);
-			}
-
-			/**
-			 * Build widgets on all children of context element
-			 * @method createWidgets
-			 * @static
-			 * @param {HTMLElement} context base html for create children
-			 * @member ns.engine
-			 */
-			function createWidgets(context) {
-				var builtWithoutTemplates = slice.call(context.querySelectorAll(querySelectorWidgets)),
-					normal = [],
-					buildQueue = [],
-					selectorKeys = Object.keys(widgetDefs),
-					excludeSelector,
-					i,
-					j,
-					len = selectorKeys.length,
-					definition,
-					widgetName,
-					selectors;
-
-				//>>excludeStart("tauDebug", pragmas.tauDebug);
-				ns.log("Start creating widgets on:", (context.tagName || (context.documentElement && "document")) + "#" + (context.id || "--no-id--"));
-				//>>excludeEnd("tauDebug");
-
-				// @TODO EXPERIMENTAL WIDGETS WITHOUT TEMPLATE DEFINITION
-				builtWithoutTemplates.forEach(processBuildQueueItem);
-
-				/* NORMAL */
-				for (i = 0; i < len; ++i) {
-					widgetName = selectorKeys[i];
-					definition = widgetDefs[widgetName];
-					selectors = definition.selectors;
-					if (selectors.length) {
-						excludeSelector = excludeBuiltAndBound(widgetName);
-
-						normal = slice.call(context.querySelectorAll(selectors.join(excludeSelector + ",") + excludeSelector));
-						j = normal.length;
-
-						while (--j >= 0) {
-							buildQueue.push({
-								element: normal[j],
-								widgetName: widgetName
-							});
-						}
-					}
-				}
-
-				// Sort queue by depth, on every DOM branch outer most element go first
-				buildQueue.sort(compareByDepth);
-
-				// Build all widgets from queue
-				buildQueue.forEach(processBuildQueueItem);
-
-				eventUtils.trigger(document, "built");
-				eventUtils.trigger(document, EVENT_BOUND);
-				//>>excludeStart("tauDebug", pragmas.tauDebug);
-				ns.log("Finish creating widgets on:", context.tagName || (context.documentElement && "document") + "#" + (context.id || "--no-id--"));
-				//>>excludeEnd("tauDebug");
 			}
 
 			/**
@@ -766,6 +488,279 @@
 			}
 
 			/**
+			 * Load widget
+			 * @method processWidget
+			 * @param {HTMLElement} element base element of widget
+			 * @param {Object} definition definition of widget
+			 * @param {ns.widget.BaseWidget} definition.widgetClass
+			 * @param {string} definition.name
+			 * @param {Object} [options] options for widget
+			 * @private
+			 * @static
+			 * @member ns.engine
+			 */
+			function processWidget(element, definition, options) {
+				var widgetOptions = options || {},
+					createFunction = widgetOptions.create,
+					Widget = definition.widgetClass,
+					/**
+					 * @type {ns.widget.BaseWidget}
+					 */
+					widgetInstance = Widget ? new Widget(element) : false,
+					buildAttribute,
+					parentEnhance = selectors.getParentsBySelectorNS(element, 'enhance=false'),
+					existingBinding;
+
+				// While processing widgets queue other widget may built this one before
+				// it reaches it's turn
+				existingBinding = getBinding(element, definition.name);
+				if (existingBinding && existingBinding.element === element) {
+					return existingBinding.element;
+				}
+
+				if (widgetInstance && !parentEnhance.length) {
+					//>>excludeStart("tauDebug", pragmas.tauDebug);
+					ns.log("Processing widget:", definition.name, "on element:", element.tagName + "#" + (element.id || "--no--id--"));
+					//>>excludeEnd("tauDebug");
+					widgetInstance.configure(definition, element, options);
+
+					// Run .create method from widget options when a [widgetName]create event is triggered
+					if (typeof createFunction === TYPE_FUNCTION) {
+						eventUtils.one(element, definition.name.toLowerCase() + "create", createFunction);
+					}
+
+					if (element.id) {
+						widgetInstance.id = element.id;
+					}
+
+					// Check if this type of widget was build for this element before
+					buildAttribute = element.getAttribute(DATA_BUILT);
+					if (!buildAttribute || (buildAttribute && buildAttribute.split(NAMES_SEPARATOR).indexOf(widgetInstance.name) === -1)) {
+						element = widgetInstance.build(element);
+					}
+
+					if (element) {
+						widgetInstance.element = element;
+
+						setBinding(widgetInstance);
+
+						widgetInstance.trigger(eventType.WIDGET_BUILT, widgetInstance, false);
+
+						if (!justBuild) {
+							widgetInstance.init(element);
+						}
+
+						widgetInstance.bindEvents(element, justBuild);
+
+						eventUtils.trigger(element, eventType.WIDGET_BOUND, widgetInstance, false);
+						eventUtils.trigger(document, eventType.WIDGET_BOUND, widgetInstance);
+					} else {
+						//>>excludeStart("tauDebug", pragmas.tauDebug);
+						ns.error("There was problem with building widget " + widgetInstance.widgetName + " on element with id " + widgetInstance.id + ".");
+						//>>excludeEnd("tauDebug");
+					}
+				}
+				return widgetInstance.element;
+			}
+
+			/**
+			 * Destroys widget of given 'type' for given HTMLElement.
+			 * [NOTICE] This method won't destroy any children widgets.
+			 * @method _destroyWidget
+			 * @param {HTMLElement|string} element
+			 * @param {string} type
+			 * @private
+			 * @static
+			 */
+			function destroyWidget(element, type) {
+				var widgetInstance;
+
+				if (typeof element === TYPE_STRING) {
+					element = document.getElementById(element);
+				}
+
+				//>>excludeStart("tauDebug", pragmas.tauDebug);
+				ns.log("Removing all widgets for element:", element);
+				//>>excludeEnd("tauDebug");
+
+				// If type is not defined all widgets should be removed
+				// this is for backward compatibility
+				widgetInstance = getBinding(element, type);
+
+				if (widgetInstance) {
+					//Destroy widget
+					widgetInstance.destroy();
+					widgetInstance.trigger("widgetdestroyed");
+
+					removeBinding(element, type);
+				}
+			}
+
+			/**
+			 * Calls destroy on widget (or widgets) connected with given HTMLElement
+			 * Removes child widgets as well.
+			 * @method destroyWidget
+			 * @param {HTMLElement|string} element
+			 * @param {boolean} [childOnly=false] destroy only widgets on children elements
+			 * @static
+			 * @member ns.engine
+			 */
+			function destroyAllWidgets(element, childOnly) {
+				var widgetName,
+					widgetInstance,
+					widgetGroup,
+					childWidgets,
+					i;
+
+				if (typeof element === TYPE_STRING) {
+					element = document.getElementById(element);
+				}
+
+				//>>excludeStart("tauDebug", pragmas.tauDebug);
+				ns.log("Removing all widgets for element:", element);
+				//>>excludeEnd("tauDebug");
+
+				if (!childOnly) {
+					// If type is not defined all widgets should be removed
+					// this is for backward compatibility
+					widgetGroup = getAllBindings(element);
+					for (widgetName in widgetGroup) {
+						if (widgetGroup.hasOwnProperty(widgetName)) {
+							widgetInstance = widgetGroup[widgetName];
+
+							//Destroy widget
+							widgetInstance.destroy();
+							widgetInstance.trigger("widgetdestroyed");
+						}
+					}
+				}
+
+				//Destroy child widgets, if something left.
+				childWidgets = slice.call(element.querySelectorAll("[" + DATA_BOUND + "]"));
+				for (i = childWidgets.length - 1; i >= 0; i -= 1) {
+					if (childWidgets[i]) {
+						destroyAllWidgets(childWidgets[i], false);
+					}
+				}
+
+				removeAllBindings(element);
+			}
+
+			/**
+			 * Load widgets from data-* definition
+			 * @method processHollowWidget
+			 * @param {HTMLElement} element base element of widget
+			 * @param {Object} definition widget definition
+			 * @param {Object} [options] options for create widget
+			 * @return {HTMLElement} base element of widget
+			 * @private
+			 * @static
+			 * @member ns.engine
+			 */
+			function processHollowWidget(element, definition, options) {
+				var name = element.getAttribute(DATA_NAME) || (definition && definition.name);
+				//>>excludeStart("tauDebug", pragmas.tauDebug);
+				if (!name) {
+					ns.error("Processing hollow widget without name on element:", element);
+				}
+				//>>excludeEnd("tauDebug");
+				definition = definition || (name && widgetDefs[name]) || {
+					"name": name
+				};
+				return processWidget(element, definition, options);
+			}
+
+			/**
+			 * Compare function for nodes on build queue
+			 * @param {object} nodeA
+			 * @param {object} nodeB
+			 * @return {number}
+			 * @private
+			 * @static
+			 */
+			function compareByDepth(nodeA, nodeB) {
+				var mask = Node.DOCUMENT_POSITION_CONTAINS | Node.DOCUMENT_POSITION_PRECEDING;
+
+				if (nodeA.element.compareDocumentPosition(nodeB.element) & mask) {
+					return 1;
+				}
+
+				return -1;
+			}
+
+			/**
+			 * Processes one build queue item. Runs processHollowWidget underneath
+			 * @param {object|HTMLElement} queueItem
+			 * @private
+			 * @static
+			 */
+			function processBuildQueueItem(queueItem) {
+				// HTMLElement doesn't have .element property
+				// widgetDefs will return undefined when called widgetDefs[undefined]
+				processHollowWidget(queueItem.element || queueItem, widgetDefs[queueItem.widgetName]);
+			}
+
+			/**
+			 * Build widgets on all children of context element
+			 * @method createWidgets
+			 * @static
+			 * @param {HTMLElement} context base html for create children
+			 * @member ns.engine
+			 */
+			function createWidgets(context) {
+				var builtWithoutTemplates = slice.call(context.querySelectorAll(querySelectorWidgets)),
+					normal = [],
+					buildQueue = [],
+					selectorKeys = Object.keys(widgetDefs),
+					excludeSelector,
+					i,
+					j,
+					len = selectorKeys.length,
+					definition,
+					widgetName,
+					definitionSelectors;
+
+				//>>excludeStart("tauDebug", pragmas.tauDebug);
+				ns.log("Start creating widgets on:", (context.tagName || (context.documentElement && "document")) + "#" + (context.id || "--no-id--"));
+				//>>excludeEnd("tauDebug");
+
+				// @TODO EXPERIMENTAL WIDGETS WITHOUT TEMPLATE DEFINITION
+				builtWithoutTemplates.forEach(processBuildQueueItem);
+
+				/* NORMAL */
+				for (i = 0; i < len; ++i) {
+					widgetName = selectorKeys[i];
+					definition = widgetDefs[widgetName];
+					definitionSelectors = definition.selectors;
+					if (definitionSelectors.length) {
+						excludeSelector = excludeBuiltAndBound(widgetName);
+
+						normal = slice.call(context.querySelectorAll(definitionSelectors.join(excludeSelector + ",") + excludeSelector));
+						j = normal.length;
+
+						while (--j >= 0) {
+							buildQueue.push({
+								element: normal[j],
+								widgetName: widgetName
+							});
+						}
+					}
+				}
+
+				// Sort queue by depth, on every DOM branch outer most element go first
+				buildQueue.sort(compareByDepth);
+
+				// Build all widgets from queue
+				buildQueue.forEach(processBuildQueueItem);
+
+				eventUtils.trigger(document, "built");
+				eventUtils.trigger(document, eventType.BOUND);
+				//>>excludeStart("tauDebug", pragmas.tauDebug);
+				ns.log("Finish creating widgets on:", context.tagName || (context.documentElement && "document") + "#" + (context.id || "--no-id--"));
+				//>>excludeEnd("tauDebug");
+			}
+
+			/**
 			 * Handler for event create
 			 * @method createEventHandler
 			 * @param {Event} event
@@ -843,12 +838,12 @@
 					router.destroy();
 				}
 			}
-/*
-			document.addEventListener(EVENT_BOUND, function () {
-				//@TODO dump it to file for faster binding by ids
-				nsWidgetBindingMap = widgetBindingMap;
-			}, false);
-*/
+			/*
+			 document.addEventListener(eventType.BOUND, function () {
+			 //@TODO dump it to file for faster binding by ids
+			 nsWidgetBindingMap = widgetBindingMap;
+			 }, false);
+			 */
 			ns.widgetDefinitions = {};
 			engine = {
 				justBuild: location.hash === "#build",
@@ -895,11 +890,11 @@
 				removeAllBindings: removeAllBindings,
 
 				/**
-				* Clear bindings of widgets
-				* @method _clearBindings
-				* @static
-				* @member ns.engine
-				*/
+				 * Clear bindings of widgets
+				 * @method _clearBindings
+				 * @static
+				 * @member ns.engine
+				 */
 				_clearBindings: function () {
 					//clear and set references to the same object
 					widgetBindingMap = {};
@@ -908,17 +903,17 @@
 				build: build,
 
 				/**
-				* Run engine
-				* @method run
-				* @static
-				* @member ns.engine
-				*/
+				 * Run engine
+				 * @method run
+				 * @static
+				 * @member ns.engine
+				 */
 				run: function () {
 					stop();
 
 					eventUtils.fastOn(document, "create", createEventHandler);
 
-					eventUtils.trigger(document, "mobileinit");
+					eventUtils.trigger(document, eventType.INIT);
 
 					if (document.body) {
 						build();
@@ -940,27 +935,27 @@
 				},
 
 				/**
-				* Initialize router. This method should be call in file with router class definition.
-				* @method initRouter
-				* @param {Function} RouterClass Router class
-				* @static
-				* @member ns.engine
-				*/
+				 * Initialize router. This method should be call in file with router class definition.
+				 * @method initRouter
+				 * @param {Function} RouterClass Router class
+				 * @static
+				 * @member ns.engine
+				 */
 				initRouter: function (RouterClass) {
 					router = new RouterClass();
 				},
 
 				/**
-				* Build instance of widget and binding events
-				* Returns error when empty element is passed
-				* @method instanceWidget
-				* @param {HTMLElement} element
-				* @param {string} name
-				* @param {Object} options
-				* @return {?Object}
-				* @static
-				* @member ns.engine
-				*/
+				 * Build instance of widget and binding events
+				 * Returns error when empty element is passed
+				 * @method instanceWidget
+				 * @param {HTMLElement} element
+				 * @param {string} name
+				 * @param {Object} options
+				 * @return {?Object}
+				 * @static
+				 * @member ns.engine
+				 */
 				instanceWidget: function (element, name, options) {
 					var binding = getBinding(element, name),
 						definition;
@@ -1010,6 +1005,8 @@
 				},
 				_createEventHandler : createEventHandler
 			};
+
+			engine.eventType = eventType;
 			ns.engine = engine;
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.engine;

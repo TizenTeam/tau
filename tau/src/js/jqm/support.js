@@ -11,6 +11,7 @@
 	define(
 		[
 			"../jqm",
+			"../core/engine",
 			"../core/utils/object"
 		],
 		function () {
@@ -48,7 +49,8 @@
 				}
 			};
 
-			document.addEventListener("mobileinit", function (event) {
+			// Listen when framework is ready
+			document.addEventListener(ns.engine.eventType.INIT, function () {
 				ns.jqm.support.init();
 			}, false);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);

@@ -11,6 +11,7 @@
 	define(
 		[
 			"../jqm",
+			"../core/engine",
 			"../core/events/vmouse",
 			"../core/events/orientationchange",
 			"../core/events/pinch",
@@ -19,7 +20,8 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 
-			var orginalTrigger,
+			var utilsEvent = ns.utils.events,
+				orginalTrigger,
 				orginalDispatch,
 				eventType = {
 					CLICK: "click",
@@ -30,8 +32,7 @@
 					VCLICK: "vclick",
 					MOUSEDOWN: "mousedown",
 					MOUSEUP: "mouseup",
-					PAGEBEFORESHOW: "pagebeforeshow",
-					MOBILEINIT: "mobileinit"
+					PAGEBEFORESHOW: "pagebeforeshow"
 				};
 
 			ns.jqm.events = {
@@ -73,7 +74,7 @@
 					}
 
 					for (i = 0; i < elementsLength; i++) {
-						ns.utils.events.trigger($elements.get(i), type);
+						utilsEvent.trigger($elements.get(i), type);
 					}
 
 					return chain;
@@ -167,12 +168,14 @@
 								html.removeEventListener(blockedEvents[i], removeEvents, true);
 							}
 						};
-						$.mobile.tizen.documentRelativeCoordsFromEvent = ns.utils.events.documentRelativeCoordsFromEvent.bind(ns.utils.events);
-						$.mobile.tizen.targetRelativeCoordsFromEvent = ns.utils.events.targetRelativeCoordsFromEvent.bind(ns.utils.events);
+						$.mobile.tizen.documentRelativeCoordsFromEvent = utilsEvent.documentRelativeCoordsFromEvent.bind(utilsEvent);
+						$.mobile.tizen.targetRelativeCoordsFromEvent = utilsEvent.targetRelativeCoordsFromEvent.bind(utilsEvent);
 					}
 				}
 			};
-			document.addEventListener(eventType.MOBILEINIT, function () {
+
+			// Listen when framework is ready
+			document.addEventListener(ns.engine.eventType.INIT, function () {
 				ns.jqm.events.init();
 			}, false);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
