@@ -54,35 +54,54 @@
 				events = ns.utils.events,
 				themes = ns.theme,
 				selectors = ns.utils.selectors,
-				DOMutils = ns.utils.DOM;
-
-			Slider.prototype = new BaseWidget();
+				DOMutils = ns.utils.DOM,
+				classes = {
+					theme: 'ui-body-',
+					mini: 'ui-mini',
+					sliderSnapping : 'ui-slider-handle-snapping',
+					sliderSwitch: 'ui-slider-switch',
+					sliderInline: 'ui-slider-inline',
+					sliderMini: 'ui-slider-mini',
+					slider: 'ui-slider',
+					sliderHandle: 'ui-slider-handle',
+					sliderBg: 'ui-slider-bg',
+					sliderToggle: 'ui-toggle-switch',
+					sliderToggleOn: 'ui-toggle-on',
+					sliderToggleOff: 'ui-toggle-off',
+					sliderInneroffset: 'ui-slider-inneroffset',
+					sliderInput: 'ui-slider-input',
+					sliderLabel: 'ui-slider-label',
+					sliderLabelTheme: 'ui-slider-label-',
+					sliderContainer: 'ui-slider-container',
+					sliderLabelA: "ui-slider-label-a",
+					sliderStateActive: "ui-state-active"
+				},
+				keyCode = {
+					HOME: 36,
+					END: 35,
+					PAGE_UP : 33,
+					PAGE_DOWN: 34,
+					UP: 38,
+					RIGHT: 39,
+					DOWN: 40,
+					LEFT: 37
+				};
 
 			/**
 			* @property {Object} classes Dictionary for slider related css class names
 			* @member ns.widget.mobile.Slider
 			* @static
 			*/
-			Slider.classes = {
-				theme: 'ui-body-',
-				mini: 'ui-mini',
-				sliderSnapping : 'ui-slider-handle-snapping',
-				sliderSwitch: 'ui-slider-switch',
-				sliderInline: 'ui-slider-inline',
-				sliderMini: 'ui-slider-mini',
-				slider: 'ui-slider',
-				sliderHandle: 'ui-slider-handle',
-				sliderBg: 'ui-slider-bg',
-				sliderToggle: 'ui-toggle-switch',
-				sliderToggleOn: 'ui-toggle-on',
-				sliderToggleOff: 'ui-toggle-off',
-				sliderInneroffset: 'ui-slider-inneroffset',
-				sliderInput: 'ui-slider-input',
-				sliderLabel: 'ui-slider-label',
-				sliderLabelTheme: 'ui-slider-label-',
-				sliderContainer: 'ui-slider-container',
-				sliderLabelA: "ui-slider-label-a"
-			};
+			Slider.classes = classes;
+
+			Slider.prototype = new BaseWidget();
+
+			/**
+			* @property {Object} keyCode Dictionary for keyboard codes
+			* @member ns.widget.mobile.Slider
+			* @static
+			*/
+			Slider.keyCode = keyCode;
 
 			function onTouchMove(event) {
 				event.stopPropagation();
@@ -94,7 +113,6 @@
 			}
 			function refreshLabels(self, percent) {
 				var shandle = self.handle,
-					classes = Slider.classes,
 					getElementWidth = DOMutils.getElementWidth.bind(DOMutils),
 					handlePercent = getElementWidth(shandle, 'outer') / getElementWidth(self.slider, 'outer') * 100,
 					aPercent = percent && handlePercent + (100 - handlePercent) * percent / 100,
@@ -117,7 +135,6 @@
 
 			function createBackground(domSlider) {
 				var background = document.createElement('div'),
-					classes = Slider.classes,
 					cList = background.classList,
 					btnClasses = Button.classes;
 
@@ -254,8 +271,7 @@
 
 			function onVmouseMove(self, event) {
 				var tagName = self.element.nodeName.toLowerCase(),
-					handle = self.handle,
-					classes = Slider.classes;
+					handle = self.handle;
 				// NOTE: we don't do this in refresh because we still want to
 				//	support programmatic alteration of disabled inputs
 				if (self.dragging && !self.options.disabled) {
@@ -285,7 +301,7 @@
 
 					if (self.element.nodeName.toLowerCase() === "select") {
 						// make the handle move with a smooth transition
-						self.handle.classList.add(Slider.classes.sliderSnapping);
+						self.handle.classList.add(classes.sliderSnapping);
 
 						if (self.mouseMoved) {
 							// this is a drag, change the value only if user dragged enough
@@ -303,8 +319,7 @@
 			}
 
 			Slider.prototype._build = function (element) {
-				var classes = Slider.classes,
-					options = this.options,
+				var options = this.options,
 					protoOptions = Slider.prototype.options,
 					/*TODO - add support disabled */
 					parentTheme = themes.getInheritedTheme(element, (protoOptions && protoOptions.theme) || 's'),
@@ -513,7 +528,10 @@
 				var self = this,
 					handle = self.handle,
 					tagName = element.nodeName.toLowerCase(),
-					slider = self.slider;
+					slider = self.slider,
+					step = parseFloat( self.element.getAttribute( "step" ) || 1 ),
+					min = tagName === "input" ? parseFloat(element.getAttribute("min")) : 0,
+					max = tagName === "input" ? parseFloat(element.getAttribute("max")) : element.getElementsByTagName("option").length - 1;
 
 				element.addEventListener('change', function () {
 					if (!self.mouseMoved) {
@@ -537,62 +555,59 @@
 					event.preventDefault();
 				}, false);
 				handle.addEventListener('keydown', function () {
-					// @todo
-					/*
-					var index = val();
-					*/
+					var index = getInitialValue(tagName, element),
+						keyCode = Slider.keyCode,
+						classList = event.target.classList;
 
 					if (self.options.disabled) {
 						return;
 					}
 
-
-					/*
-					* @todo
 					// In all cases prevent the default and mark the handle as active
 					switch (event.keyCode) {
-						case $.mobile.keyCode.HOME:
-						case $.mobile.keyCode.END:
-						case $.mobile.keyCode.PAGE_UP:
-						case $.mobile.keyCode.PAGE_DOWN:
-						case $.mobile.keyCode.UP:
-						case $.mobile.keyCode.RIGHT:
-						case $.mobile.keyCode.DOWN:
-						case $.mobile.keyCode.LEFT:
+						case keyCode.HOME:
+						case keyCode.END:
+						case keyCode.PAGE_UP:
+						case keyCode.PAGE_DOWN:
+						case keyCode.UP:
+						case keyCode.RIGHT:
+						case keyCode.DOWN:
+						case keyCode.LEFT:
 							event.preventDefault();
 
 							if (!self._keySliding) {
 								self._keySliding = true;
-								$(this).addClass("ui-state-active");
+								classList.add(classes.sliderStateActive);
 							}
 							break;
 					}
-
 					// move the slider according to the keypress
 					switch (event.keyCode) {
-						case $.mobile.keyCode.HOME:
-							self.refresh(min);
+						case keyCode.HOME:
+							refresh(self, min);
 							break;
-						case $.mobile.keyCode.END:
-							self.refresh(max);
+						case keyCode.END:
+							refresh(self, max);
 							break;
-						case $.mobile.keyCode.PAGE_UP:
-						case $.mobile.keyCode.UP:
-						case $.mobile.keyCode.RIGHT:
-							self.refresh(index + step);
+						case keyCode.PAGE_UP:
+						case keyCode.UP:
+						case keyCode.RIGHT:
+							refresh(self, index + step);
 							break;
-						case $.mobile.keyCode.PAGE_DOWN:
-						case $.mobile.keyCode.DOWN:
-						case $.mobile.keyCode.LEFT:
-							self.refresh(index - step);
+						case keyCode.PAGE_DOWN:
+						case keyCode.DOWN:
+						case keyCode.LEFT:
+							//self.refresh(index - step);
+							refresh(self, index - step);
 							break;
 					}
-					*/
+
+
 				}, false);
 				handle.addEventListener('keyup', function () {
 					if (self._keySliding) {
 						self._keySliding = false;
-						handle.classList.remove("ui-state-active");
+						handle.classList.remove(classes.sliderStateActive);
 					}
 				}, false);
 				slider.addEventListener("touchend", function () {
