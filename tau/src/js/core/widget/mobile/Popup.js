@@ -438,6 +438,22 @@
 				events.one(element, "animationend", callback);
 			}
 
+			/**
+			* This function starts opening popup by seting global property 'activePopup'
+			* and calling '_open' method
+			* @method startOpeningPopup
+			* @param {ns.widget.Popup} instance
+			* @param {Object} options opening options
+			* @param {Event} event
+			* @private
+			* @memberOf ns.widget.Popup
+			*/
+			function startOpeningPopup(instance, options, event) {
+				ns.activePopup = instance;
+				events.trigger(document, "activePopup", instance);
+				instance._open(options, event);
+			}
+
 			Popup.prototype = new BaseWidget();
 
 			/**
@@ -1317,15 +1333,24 @@
 			* @member ns.widget.mobile.Popup
 			*/
 			Popup.prototype.open = function (options, event) {
-				// @todo define mutex $.mobile.popup.active
-				if (ns.activePopup) {
+				var activePopup = ns.activePopup,
+					closePopup,
+					startOpeningCallback = startOpeningPopup.bind(null, this, options, event);
+
+				if (activePopup === this) {
 					return;
+				} else if (activePopup) {
+					events.one(activePopup.element, "popupafterclose", startOpeningCallback);
+					if (activePopup._isOpen) {
+						activePopup.close();
+					} else {
+						closePopup = activePopup.close.bind(activePopup);
+						events.one(activePopup.element, "popupafteropen", closePopup);
+					}
+				} else {
+					startOpeningCallback();
 				}
-
 				ns.activePopup = this;
-				events.trigger(document, "activePopup", this);
-
-				this._open(options, event);
 			};
 
 			/**
