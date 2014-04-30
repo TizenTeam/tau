@@ -1,20 +1,28 @@
-/*global java, JavaImporter, exports, require, org, JavaAdapter */
+/*global java, JavaImporter, exports, require, org, JavaAdapter, environment, System */
 /*jslint plusplus: true */
 (function (exports) {
 	"use strict";
 	JavaImporter(
+		java.lang.System,
 		java.io.File,
 		org.apache.commons.io.FileUtils,
-		org.apache.commons.io.filefilter.FileFilterUtils,
-		java.util.regex.Pattern
+		org.apache.commons.io.filefilter.FileFilterUtils
 	);
 	var File = java.io.File,
+		System = java.lang.System,
 		FileUtils = org.apache.commons.io.FileUtils,
 		FileFilterUtils = org.apache.commons.io.filefilter.FileFilterUtils,
-		Pattern = java.util.regex.Pattern,
 		logger = require("./logger.js"),
-		filterDefault = Pattern.compile(".*"),
-		filterFlags = Pattern.CASE_INSENSITIVE;
+		osName = environment["os.name"].toLowerCase(),
+		os = osName.indexOf("window") > -1 ? "win" :
+				osName.indexOf("linux") > -1 ? "lin" :
+						osName.indexOf("darwin") > -1 ? "osx" : "unknown",
+		archName = System.getenv("PROCESSOR_ARCHITECTURE"),
+		wow64ArchName = System.getenv("PROCESSOR_ARCHITEW6432"),
+		arch = (archName !== null && archName.lastIndexOf("64") > -1) ||
+			(wow64ArchName !== null && wow64ArchName.lastIndexOf("64") > -1) ||
+					environment["os.arch"].indexOf("64") > -1 ?
+							"64" : "32";
 
 	function mkdir(path) {
 		var dir = new File(path);
@@ -61,6 +69,38 @@
 		}
 	}
 
+	function parseArguments(args) {
+		var parsed = {},
+			arg,
+			prop,
+			cleanprop,
+			spl;
+
+		for (prop in args) {
+			if (args.hasOwnProperty(prop)) {
+				arg = args[prop];
+				if (arg.indexOf("--") > -1) {
+					cleanprop = arg.replace(/--/i, "");
+					if (cleanprop.indexOf("=") > -1) {
+						spl = cleanprop.split("=");
+						parsed[spl[0].trim()] = spl[1].trim();
+					} else {
+						parsed[cleanprop] = true;
+					}
+				}
+			}
+		}
+
+		return parsed;
+	}
+
 	exports.copyContents = copyContents;
 	exports.mkdir = mkdir;
+	exports.parseArguments = parseArguments;
+	exports.getArchitecture = function () {
+		return arch;
+	};
+	exports.getOS = function () {
+		return os;
+	};
 }(exports));

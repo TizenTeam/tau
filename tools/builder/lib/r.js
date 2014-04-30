@@ -1,5 +1,5 @@
 /**
- * @license r.js 2.1.11 Copyright (c) 2010-2014, The Dojo Foundation All Rights Reserved.
+ * @license r.js 2.1.11+ Mon, 24 Mar 2014 17:44:01 GMT Copyright (c) 2010-2014, The Dojo Foundation All Rights Reserved.
  * Available via the MIT or new BSD license.
  * see: http://github.com/jrburke/requirejs for details
  */
@@ -20,7 +20,7 @@ var requirejs, require, define, xpcUtil;
 (function (console, args, readFileFunc) {
     var fileName, env, fs, vm, path, exec, rhinoContext, dir, nodeRequire,
         nodeDefine, exists, reqMain, loadedOptimizedLib, existsForNode, Cc, Ci,
-        version = '2.1.11',
+        version = '2.1.11+ Mon, 24 Mar 2014 17:44:01 GMT',
         jsSuffixRegExp = /\.js$/,
         commandOption = '',
         useLibLoaded = {},
@@ -51,36 +51,6 @@ var requirejs, require, define, xpcUtil;
             return false;
         };
 
-    } else if (typeof Packages !== 'undefined') {
-        env = 'rhino';
-
-        fileName = args[0];
-
-        if (fileName && fileName.indexOf('-') === 0) {
-            commandOption = fileName.substring(1);
-            fileName = args[1];
-        }
-
-        //Set up execution context.
-        rhinoContext = Packages.org.mozilla.javascript.ContextFactory.getGlobal().enterContext();
-
-        exec = function (string, name) {
-            return rhinoContext.evaluateString(this, string, name, 0, null);
-        };
-
-        exists = function (fileName) {
-            return (new java.io.File(fileName)).exists();
-        };
-
-        //Define a console.log for easier logging. Don't
-        //get fancy though.
-        if (typeof console === 'undefined') {
-            console = {
-                log: function () {
-                    print.apply(undefined, arguments);
-                }
-            };
-        }
     } else if (typeof process !== 'undefined' && process.versions && !!process.versions.node) {
         env = 'node';
 
@@ -120,6 +90,37 @@ var requirejs, require, define, xpcUtil;
         if (fileName && fileName.indexOf('-') === 0) {
             commandOption = fileName.substring(1);
             fileName = process.argv[3];
+        }
+    } else if (typeof Packages !== 'undefined') {
+        env = 'rhino';
+
+        //@TAU: disabled
+        //fileName = args[0];
+
+        //if (fileName && fileName.indexOf('-') === 0) {
+        //    commandOption = fileName.substring(1);
+        //    fileName = args[1];
+        //}
+
+        //Set up execution context.
+        rhinoContext = Packages.org.mozilla.javascript.ContextFactory.getGlobal().enterContext();
+
+        exec = function (string, name) {
+            return rhinoContext.evaluateString(this, string, name, 0, null);
+        };
+
+        exists = function (fileName) {
+            return (new java.io.File(fileName)).exists();
+        };
+
+        //Define a console.log for easier logging. Don't
+        //get fancy though.
+        if (typeof console === 'undefined') {
+            console = {
+                log: function () {
+                    print.apply(undefined, arguments);
+                }
+            };
         }
     } else if (typeof Components !== 'undefined' && Components.classes && Components.interfaces) {
         env = 'xpconnect';
@@ -2600,10 +2601,10 @@ var requirejs, require, define, xpcUtil;
     var pathRegExp = /(\/|^)env\/|\{env\}/,
         env = 'unknown';
 
-    if (typeof Packages !== 'undefined') {
-        env = 'rhino';
-    } else if (typeof process !== 'undefined' && process.versions && !!process.versions.node) {
+    if (typeof process !== 'undefined' && process.versions && !!process.versions.node) {
         env = 'node';
+    } else if (typeof Packages !== 'undefined') {
+        env = 'rhino';
     } else if ((typeof navigator !== 'undefined' && typeof document !== 'undefined') ||
             (typeof importScripts !== 'undefined' && typeof self !== 'undefined')) {
         env = 'browser';
@@ -2635,7 +2636,8 @@ var requirejs, require, define, xpcUtil;
             });
         }
     });
-}());/**
+}());
+/**
  * @license Copyright (c) 2010-2014, The Dojo Foundation All Rights Reserved.
  * Available via the MIT or new BSD license.
  * see: http://github.com/jrburke/requirejs for details
@@ -24100,12 +24102,12 @@ define('pragma', ['parse', 'logger'], function (parse, logger) {
         configRegExp: /(^|[^\.])(requirejs|require)(\.config)\s*\(/g,
         nsWrapRegExp: /\/\*requirejs namespace: true \*\//,
         apiDefRegExp: /var requirejs,\s*require,\s*define;/,
-        defineCheckRegExp: /typeof\s+define\s*===\s*["']function["']\s*&&\s*define\s*\.\s*amd/g,
-        defineStringCheckRegExp: /typeof\s+define\s*===\s*["']function["']\s*&&\s*define\s*\[\s*["']amd["']\s*\]/g,
+        defineCheckRegExp: /typeof\s+define\s*===?\s*["']function["']\s*&&\s*define\s*\.\s*amd/g,
+        defineStringCheckRegExp: /typeof\s+define\s*===?\s*["']function["']\s*&&\s*define\s*\[\s*["']amd["']\s*\]/g,
         defineTypeFirstCheckRegExp: /\s*["']function["']\s*==(=?)\s*typeof\s+define\s*&&\s*define\s*\.\s*amd/g,
-        defineJQueryRegExp: /typeof\s+define\s*===\s*["']function["']\s*&&\s*define\s*\.\s*amd\s*&&\s*define\s*\.\s*amd\s*\.\s*jQuery/g,
+        defineJQueryRegExp: /typeof\s+define\s*===?\s*["']function["']\s*&&\s*define\s*\.\s*amd\s*&&\s*define\s*\.\s*amd\s*\.\s*jQuery/g,
         defineHasRegExp: /typeof\s+define\s*==(=)?\s*['"]function['"]\s*&&\s*typeof\s+define\.amd\s*==(=)?\s*['"]object['"]\s*&&\s*define\.amd/g,
-        defineTernaryRegExp: /typeof\s+define\s*===\s*['"]function["']\s*&&\s*define\s*\.\s*amd\s*\?\s*define/,
+        defineTernaryRegExp: /typeof\s+define\s*===?\s*['"]function["']\s*&&\s*define\s*\.\s*amd\s*\?\s*define/,
         amdefineRegExp: /if\s*\(\s*typeof define\s*\!==\s*'function'\s*\)\s*\{\s*[^\{\}]+amdefine[^\{\}]+\}/g,
 
         removeStrict: function (contents, config) {
@@ -24403,8 +24405,14 @@ define('rhino/optimize', ['logger', 'env!env/file'], function (logger, file) {
 
     //Bind to Closure compiler, but if it is not available, do not sweat it.
     try {
-        JSSourceFilefromCode = java.lang.Class.forName('com.google.javascript.jscomp.SourceFile').getMethod('fromCode', [java.lang.String, java.lang.String]);
-    } catch (e) {}
+        // Try older closure compiler that worked on Java 6
+        JSSourceFilefromCode = java.lang.Class.forName('com.google.javascript.jscomp.JSSourceFile').getMethod('fromCode', [java.lang.String, java.lang.String]);
+    } catch (e) {
+        try {
+            // Try for newer closure compiler that needs Java 7+
+            JSSourceFilefromCode = java.lang.Class.forName('com.google.javascript.jscomp.SourceFile').getMethod('fromCode', [java.lang.String, java.lang.String]);
+        } catch (e) {}
+    }
 
     //Helper for closure compiler, because of weird Java-JavaScript interactions.
     function closurefromCode(filename, content) {
@@ -26826,7 +26834,7 @@ define('build', function (require) {
         }
         if (config.out && config.dir) {
             throw new Error('The "out" and "dir" options are incompatible.' +
-                            ' Use "out" if you are targeting a single file for' +
+                            ' Use "out" if you are targeting a single file' +
                             ' for optimization, and "dir" if you want the appDir' +
                             ' or baseUrl directories optimized.');
         }
