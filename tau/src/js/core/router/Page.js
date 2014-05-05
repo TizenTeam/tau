@@ -156,12 +156,6 @@
 				return false;
 			}
 
-			function getLoader() {
-				var loaderElement = document.createElement('div');
-				DOM.setNSData(loaderElement, 'role', 'loader');
-				return loaderElement;
-			}
-
 			function popStateHandler(router, event) {
 				var eventState = event.state,
 					toPageId = (eventState && eventState.pageId) || window.location.hash.substr(1),
@@ -199,6 +193,17 @@
 					settings.fromPage = null;
 					settings.toPage = null;
 				}
+			};
+
+			RouterPage.prototype.getLoader = function() {
+				var loaderElement = document.querySelector("[data-role=loader]");
+
+				if (!loaderElement) {
+					loaderElement = document.createElement("div");
+					DOM.setNSData(loaderElement, "role", "loader");
+				}
+
+				return engine.instanceWidget(loaderElement, "Loader");
 			};
 
 			RouterPage.prototype.focusPage = function (page) {
@@ -320,9 +325,9 @@
 					settings = {},
 					continuation,
 					triggerData = {
-									toPage: toPage,
-									options: options
-								},
+						toPage: toPage,
+						options: options
+					},
 					historyState = window.history.state || {},
 					historyStateUrl = historyState.url,
 					pageRole,
@@ -427,7 +432,7 @@
 						}
 					}
 
-					container.appendChild(getLoader());
+					container.appendChild(self.getLoader().element);
 
 					//@todo add loader only if html is not built
 					//find a way to determine if html is built

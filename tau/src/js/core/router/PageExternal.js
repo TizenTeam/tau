@@ -11,6 +11,7 @@
 			"../router", // fetch namespace
 			"./Page",
 			"../widget/mobile/Page",
+			"../widget/mobile/Loader",
 			"../utils",
 			"../utils/events",
 			"../utils/DOM/attributes",
@@ -154,7 +155,9 @@
 					hideMsg,
 					request,
 					connectionType,
-					self = this;
+					self = this,
+					loader = self.getLoader(),
+					loaderProperties = ns.widget.mobile.Loader.properties;
 
 				settings = object.merge(loadPageDefaults, options || {});
 				settings.pageContainer = this.container;
@@ -265,7 +268,7 @@
 				if (settings.showLoadMsg) {
 					// This configurable timeout allows cached pages a brief delay to load without showing a message
 					loadMsgDelay = setTimeout(function () {
-// @todo						ns.loader.showPageLoadingMsg();
+						loader.show();
 						return false;
 					}, settings.loadMsgDelay);
 
@@ -274,7 +277,7 @@
 						// Stop message show timer
 						clearTimeout(loadMsgDelay);
 						// Hide loading message
-// @todo						ns.loader.hidePageLoadingMsg();
+						loader.hide();
 					};
 				}
 
@@ -432,10 +435,10 @@
 									// Remove loading message.
 									hideMsg();
 									// show error message
-									//ns.loader.showPageLoadingMsg(ns.get('pageLoadErrorMessageTheme'), ns.get('pageLoadErrorMessage'), true);
+									loader.show(loaderProperties.pageLoadErrorMessageTheme, loaderProperties.pageLoadErrorMessage, true);
 
 									// hide after delay
-									setTimeout(ns.get('hidePageLoadingMsg'), HIDE_PAGE_LOADING_TIMEOUT);
+									setTimeout(loader.hide, HIDE_PAGE_LOADING_TIMEOUT);
 								}
 
 								deferred.reject(absUrl, settings);

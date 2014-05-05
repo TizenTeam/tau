@@ -48,11 +48,13 @@
 					$.mobile.loading = function () {
 						var args = Array.prototype.slice.call(arguments),
 							method = args[0],
-							options = args[1],
+							theme = args[1],
+							msgText = args[2],
+							textonly = args[3],
 							element = document.querySelector('[data-role=loader]') || document.createElement('div'),
 							loader = ns.engine.instanceWidget(element, 'Loader');
 						if (method === 'show') {
-							loader.show(options);
+							loader.show(theme, msgText, textonly);
 						} else if (method === 'hide') {
 							loader.hide();
 						}

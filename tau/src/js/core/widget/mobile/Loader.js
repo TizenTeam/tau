@@ -34,8 +34,8 @@
  *	<div data-role="loader"></div>
  *
  *
- * @extends ns.widget.BaseWidget
- * @class ns.widget.Loader
+ * @extends ns.widget.mobile.BaseWidget
+ * @class ns.widget.mobile.Loader
  */
 
 (function (window, ns) {
@@ -48,73 +48,37 @@
 		[
 			'../../engine',
 			'../mobile',
+			'../../utils/object',
 			'./BaseWidgetMobile'
 		],
 		function () {
 			//>>excludeEnd('tauBuildExclude');
 
 			/**
-			 * {Object} Widget Alias for {@link ns.widget.BaseWidget}
-			 * @member ns.widget.Loader
+			 * {Object} Widget Alias for {@link ns.widget.mobile.BaseWidget}
+			 * @member ns.widget.mobile.Loader
 			 * @private
 			 */
 			var BaseWidget = ns.widget.mobile.BaseWidgetMobile,
 				/**
 				 * @property {Object} engine Alias for class ns.engine
-				 * @member ns.widget.Loader
+				 * @member ns.widget.mobile.Loader
 				 * @private
 				 */
 				engine = ns.engine,
 				object = ns.utils.object,
 				/**
-				 * Alias for class ns.widget.Loader
+				 * Alias for class ns.widget.mobile.Loader
 				 * @method Loader
-				 * @member ns.widget.Loader
+				 * @member ns.widget.mobile.Loader
 				 * @private
 				 */
 				Loader = function () {
 					var self = this;
 					self.action = '';
 					self.label = null;
-					/**
-					 * @property {Object} options Object with default options
-					 * @member ns.widget.Loader
-					 * @instance
-					 */
-					self.options = {
-						/**
-						 * the theme for the loading message
-						 * @property {string} [options.theme=a]
-						 * @member ns.widget.Loader
-						 * @instance
-						 */
-						theme: 'a',
-
-						/**
-						 * whether the text in the loading message is shown
-						 * @property {string} [options.textVisible=false]
-						 * @member ns.widget.Loader
-						 * @instance
-						 */
-						textVisible: false,
-
-						/**
-						 * custom html for the inner content of the loading message
-						 * @property {string} [options.html='']
-						 * @member ns.widget.Loader
-						 * @instance
-						 */
-						html: '',
-
-						/**
-						 * the text to be displayed when the popup is shown
-						 * @property {string} [options.text='loading']
-						 * @member ns.widget.Loader
-						 * @instance
-						 */
-						text: 'loading'
-					};
 					self.defaultHtml = '';
+					self.options = object.copy(Loader.prototype.options);
 				},
 				classes = {
 					uiLoader: 'ui-loader',
@@ -125,16 +89,42 @@
 					uiLoaderIcon: 'ui-icon-loading',
 					uiLoading: 'ui-loading',
 					uiTextOnly: 'ui-loader-textonly'
-				};
-
-			Loader.prototype = new BaseWidget();
+				},
+				properties = {
+					pageLoadErrorMessageTheme: 'e',
+					pageLoadErrorMessage: 'Error Loading Page'
+				},
+				prototype = new BaseWidget();
 
 			/**
 			 * @property {Object} classes Dictionary for loader related css class names
-			 * @member ns.widget.Loader
+			 * @member ns.widget.mobile.Loader
 			 * @static
 			 */
 			Loader.classes = classes;
+
+			/**
+			 * @property {Object} properties Dictionary for loader related properties such as messages and themes
+			 * @member ns.widget.mobile.Loader
+			 * @static
+			 */
+			Loader.properties = properties;
+
+			/**
+			 * @property {Object} options Object with default options
+			 * @property {string} [options.theme=a] the theme for the loading messages
+			 * @property {string} [options.textVisible=false] whether the text in the loading message is shown
+			 * @property {string} [options.html=''] custom html for the inner content of the loading messages
+			 * @property {string} [options.text='loading'] the text to be displayed when the popup is shown
+			 * @member ns.widget.mobile.Loader
+			 * @instanceWidget
+			 */
+			prototype.options = {
+				theme: 'a',
+				textVisible: false,
+				html: '',
+				text: 'loading'
+			};
 
 			/**
 			 * Build structure of loader widget
@@ -142,10 +132,10 @@
 			 * @param {HTMLElement} element
 			 * @return {HTMLElement}
 			 * @protected
-			 * @member ns.widget.Loader
+			 * @member ns.widget.mobile.Loader
 			 * @instance
 			 */
-			Loader.prototype._build = function (element) {
+			prototype._build = function (element) {
 				var options = this.options,
 					loaderElementSpan = document.createElement('span'),
 					loaderElementTile = document.createElement('h1'),
@@ -174,10 +164,10 @@
 			 * @param {HTMLElement} element
 			 * @return {HTMLElement}
 			 * @protected
-			 * @member ns.widget.Loader
+			 * @member ns.widget.mobile.Loader
 			 * @instance
 			 */
-			Loader.prototype._init = function (element) {
+			prototype._init = function (element) {
 				this.defaultHtml = element.innerHTML;
 				return element;
 			};
@@ -185,10 +175,10 @@
 			/**
 			 * Reset HTML
 			 * @method resetHtml
-			 * @member ns.widget.Loader
+			 * @member ns.widget.mobile.Loader
 			 * @instance
 			 */
-			Loader.prototype.resetHtml = function (element) {
+			prototype.resetHtml = function (element) {
 				element = element || this.element;
 				element.innerHTML = this.defaultHtml;
 			};
@@ -196,10 +186,10 @@
 			/**
 			 * Show loader
 			 * @method Show
-			 * @member ns.widget.Loader
+			 * @member ns.widget.mobile.Loader
 			 * @instance
 			 */
-			Loader.prototype.show = function (theme, msgText, textonly) {
+			prototype.show = function (theme, msgText, textonly) {
 				var classes = Loader.classes,
 					self = this,
 					element = self.element,
@@ -210,58 +200,67 @@
 					textVisible,
 					message;
 
-				element.parentNode.removeChild(element);
-
 				self.resetHtml(element);
 
 				if (theme !== undefined && theme.constructor === Object) {
 					copySettings = object.copy(self.options);
 					loadSettings = object.merge(copySettings, theme);
-					theme = loadSettings.theme;
+					// @todo remove $.mobile.loadingMessageTheme
+					theme = loadSettings.theme || $.mobile.loadingMessageTheme;
 				} else {
 					loadSettings = self.options;
-					theme = theme || loadSettings.theme;
+					// @todo remove $.mobile.loadingMessageTheme
+					theme = theme || $.mobile.loadingMessageTheme || loadSettings.theme;
 				}
 
-				message = msgText || loadSettings.text;
-
+				// @todo remove $.mobile.loadingMessage
+				message = msgText || $.mobile.loadingMessage || loadSettings.text;
 				document.documentElement.classList.add(classes.uiLoading);
 
-				textVisible = loadSettings.textVisible;
-
-				element.className = '';
-				elementClassList.add(classes.uiLoader);
-				elementClassList.add(classes.uiCorner);
-				elementClassList.add(classes.uiBodyPrefix + theme);
-				elementClassList.add(classes.uiLoaderPrefix + (textVisible || msgText || theme.text ? 'verbose' : 'default'));
-
-				if ((loadSettings.textonly !== undefined && loadSettings.textonly) || textonly) {
-					elementClassList.add(classes.uiTextOnly);
-				}
-
-				if (loadSettings.html) {
-					element.innerHTML = loadSettings.html;
+				// @todo remove $.mobile.loadingMessage
+				if ($.mobile.loadingMessage === false && !loadSettings.html) {
+					element.getElementsByTagName('h1')[0].innerHTML = "";
 				} else {
-					element.getElementsByTagName('h1')[0].innerText = message;
-				}
+					// @todo remove $.mobile.loadingMessageTextVisible
+					if ($.mobile.loadingMessageTextVisible !== undefined) {
+						textVisible = $.mobile.loadingMessageTextVisible;
+					} else {
+						textVisible = loadSettings.textVisible;
+					}
 
-				body.appendChild(element);
+					element.className = '';
+					elementClassList.add(classes.uiLoader);
+					elementClassList.add(classes.uiCorner);
+					elementClassList.add(classes.uiBodyPrefix + theme);
+					elementClassList.add(classes.uiLoaderPrefix + (textVisible || msgText || theme.text ? 'verbose' : 'default'));
+
+					if ((loadSettings.textonly !== undefined && loadSettings.textonly) || textonly) {
+						elementClassList.add(classes.uiTextOnly);
+					}
+
+					if (loadSettings.html) {
+						element.innerHTML = loadSettings.html;
+					} else {
+						element.getElementsByTagName('h1')[0].textContent = message;
+					}
+				}
 
 			};
 
 			/**
 			 * Hide loader
 			 * @method hide
-			 * @member ns.widget.Loader
+			 * @member ns.widget.mobile.Loader
 			 * @instance
 			 */
-			Loader.prototype.hide = function () {
+			prototype.hide = function () {
 				var classes = Loader.classes;
 				document.documentElement.classList.remove(classes.uiLoading);
 			};
 
 
 			// definition
+			Loader.prototype = prototype;
 			ns.widget.mobile.Loader = Loader;
 			engine.defineWidget(
 				'Loader',
