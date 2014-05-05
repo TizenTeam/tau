@@ -24,7 +24,7 @@
  *     @example
  *         var popup = ns.engine.instanceWidget(document.getElementById('popup'), 'popup');
  *         //or
- *         var popup = tau.popup(document.getElementById('popup'));
+ *         var popup = tau.widget.popup(document.getElementById('popup'));
  * 
  * #HTML Examples
  *

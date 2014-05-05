@@ -16,7 +16,7 @@
  *	 @example
  *		 var page = ns.engine.instanceWidget(document.getElementById('page'), 'page');
  *		 //or
- *		 var page = tau.page(document.getElementById('page'));
+ *		 var page = tau.widget.page(document.getElementById('page'));
  *
  * #HTML Examples
  *

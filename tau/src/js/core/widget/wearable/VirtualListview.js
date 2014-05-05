@@ -39,7 +39,7 @@
 												data.NAME + '</span>';
 			}
 		};
-	vlist = tau.VirtualListview(elList, vListConfig);
+	vlist = tau.widget.VirtualListview(elList, vListConfig);
  *
  * More config options can be found in {@link ns.widget.wearable.VirtualListview#options}
  *
@@ -86,7 +86,7 @@
 		page.addEventListener("pageshow", function() {
 			var elList = document.getElementById("vlist");
 
-			vlist = tau.VirtualListview(elList, {
+			vlist = tau.widget.VirtualListview(elList, {
 					dataLength: JSON_DATA.length,
 					bufferSize: 40
 			});
