@@ -60,12 +60,12 @@
 					* @property {boolean} [options.shadow=true] Shadow of popup
 					* @property {boolean} [options.corners=true]
 					* @property {string} [options.transition='none']
-					* @property {string} [options.positionTo='origin'] Element relative to which popup is positioned
+					* @property {string} [options.positionTo='origin'] Selector for element relative to which popup is positioned
 					* @property {Object} [options.tolerance]
 					* @property {Array} [options.directionPriority] Array containing directions sorted in by priority.
 					* First one has the highest priority, last the lowest. Default to: bottom, top, right, left.
 					* @property {string} [options.closeLinkSelector] Selector for buttons in popup
-					* @property {string} [options.link=null] Element used as reference for relative popup placement
+					* @property {string} [options.link=null] Id of element used as reference for relative popup placement
 					* @property {boolean} [options.isHardwarePopup=false]
 					* @member ns.widget.mobile.Popup
 					* @instance
@@ -229,19 +229,24 @@
 			/**
 			* Return element relative to which popup must be positioned
 			* @method findPositionToElement
-			* @param {string} elementId
+			* @param {string} elementSelector
 			* @return {HTMLElement}
 			* @private
 			* @member ns.widget.mobile.Popup
 			*/
-			function findPositionToElement(elementId) {
-				var positionToElement;
+			function findPositionToElement(elementSelector) {
+				var positionToElement = null;
 
-				positionToElement = document.getElementById(elementId);
-
-				// :visible - in jq (>=1.3.2) an element is visible if its browser-reported offsetWidth or offsetHeight is greater than 0
-				if (positionToElement && positionToElement.offsetWidth <= 0 && positionToElement.offsetHeight <= 0) {
-					positionToElement = null;
+				if (elementSelector) {
+					if (elementSelector[0] === "#") {
+						positionToElement = document.getElementById(elementSelector.slice(1));
+					} else {
+						positionToElement = document.querySelector(elementSelector);
+					}
+					// :visible - in jq (>=1.3.2) an element is visible if its browser-reported offsetWidth or offsetHeight is greater than 0
+					if (positionToElement && positionToElement.offsetWidth <= 0 && positionToElement.offsetHeight <= 0) {
+						positionToElement = null;
+					}
 				}
 
 				return positionToElement;
@@ -311,7 +316,7 @@
 				return false;
 			}
 
-			function removeProperties(popup) {
+			function removeProperties() {
 				var page = document.getElementsByClassName(pageActiveClass)[0],
 					tabindexElements = page ? page.querySelectorAll("[tabindex]") : null,
 					hrefElements = page ? page.querySelectorAll("[href]") : null,
@@ -339,7 +344,7 @@
 				}
 			}
 
-			function restoreProperties(popup) {
+			function restoreProperties() {
 				var page = document.getElementsByClassName(ns.widget.mobile.Page.classes.uiPageActive)[0],
 					tabindexElements = page ? selectors.getAllByDataNS(page, "tabindex") : null,
 					hrefElements = page ? page.querySelectorAll("[href]") : null,
@@ -505,7 +510,6 @@
 					uiContainer = document.createElement("div"),
 					uiContainerClasses = uiContainer.classList,
 					uiArrow = document.createElement("div"),
-					options = this.options,
 					myId = element.id,
 					fragment = document.createDocumentFragment();
 
@@ -630,24 +634,25 @@
 			/**
 			* Return desired coordinates of popup
 			* @method _desiredCoords
-			* @param {HTMLElement} positionToElement
+			* @param {string|HTMLElement} positionTo
 			* @param {Number} x
 			* @param {Number} y
 			* @return {Object}
 			* @protected
 			* @member ns.widget.mobile.Popup
 			*/
-			Popup.prototype._desiredCoords = function (positionToElement, x, y) {
+			Popup.prototype._desiredCoords = function (positionTo, x, y) {
 				var winCoords = windowCoords(),
 					offset;
 
-				if (positionToElement === "window") {
+				if (positionTo === "window") {
 					x = winCoords.elementWidth / 2 + winCoords.x;
 					y = winCoords.elementHeight / 2 + winCoords.y;
-				} else if (positionToElement && positionToElement !== "origin") {
-					offset = getOffsetOfElement(positionToElement, this.options.link);
-					x = offset.left + positionToElement.offsetWidth / 2;
-					y = offset.top + positionToElement.offsetHeight / 2;
+				} else if (positionTo) {
+					// In this case, positionTo is HTML element, to which popup is positioned
+					offset = getOffsetOfElement(positionTo, this.options.link);
+					x = offset.left + positionTo.offsetWidth / 2;
+					y = offset.top + positionTo.offsetHeight / 2;
 				}
 
 				// Make sure x and y are valid numbers - center over the window
@@ -864,7 +869,7 @@
 					left = desired.left;
 				} else if (positionToOption === "origin") {
 					// popup with arrow
-					positionToElement = findPositionToElement(options.link);
+					positionToElement = findPositionToElement("#" + options.link);
 					desired = this._placementCoords(desired || this._desiredCoords(positionToElement));
 					top = desired.top;
 					left = desired.left;
@@ -894,7 +899,7 @@
 						correctionValue = this._setArrowPosition(arrowType, positionToElement, left, top, positionToElementOffset);
 					}
 				} else {
-					// position to element with options.positionTo id
+					// position to element which matches to options.positionTo selector
 					positionToElement = findPositionToElement(options.positionTo);
 					desired = this._placementCoords(desired || this._desiredCoords(positionToElement));
 					top = desired.top;
@@ -1072,7 +1077,6 @@
 					classesToRemoveLen = classesToRemove.length,
 					classes,
 					classesLen,
-					len,
 					i;
 
 				for (i = 0; i < classesToRemoveLen; i++) {
@@ -1136,7 +1140,7 @@
 					container.focus();
 					events.trigger(self.element, "popupafteropen");
 				});
-			},
+			};
 
 			/**
 			* Set popup, which will be opened
@@ -1219,7 +1223,7 @@
 				});
 
 				// This fix problem with host keyboard
-				removeProperties(element);
+				removeProperties();
 			};
 
 			/**
@@ -1251,7 +1255,7 @@
 				containerClasses.remove(classes.OUT);
 				containerClasses.add(classes.uiSelectmenuHidden);
 				container.removeAttribute("style");
-			},
+			};
 
 			/**
 			* Animation's callbacl on completed closing
@@ -1276,7 +1280,7 @@
 				ns.activePopup = null;
 				events.trigger(document, "activePopup", null);
 				events.trigger(this.element, "popupafterclose");		// this event must be triggered after setting mobile.popup.active
-			},
+			};
 
 			/**
 			* Set popup, which will be closed
@@ -1321,7 +1325,7 @@
 					prereqs: this._prereqs
 				});
 
-				restoreProperties(element);
+				restoreProperties();
 			};
 
 			/**
