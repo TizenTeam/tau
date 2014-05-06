@@ -11,6 +11,11 @@
 	function printHelp() {
 		print("");
 		print("TAU framework builder");
+		print("---------------------");
+		print("")
+		print("Available options:");
+		print("--profile=NAME       Profile of framework (NAME = wearable|mobile|custom)");
+		print("--custom-file=PATH   Path for entry file (it only works with option --profile=custom)");
 		print("");
 		return false;
 	}
@@ -31,14 +36,16 @@
 	exports.buildProfile = function (profile) {
 		var sep = config.get("separator"),
 			rootNamespace = config.get("root-namespace"),
+			customProfileFile,
 			currentDir = config.get("current-dir"),
-			source = currentDir + sep + "src" + sep + "js",
-			entry = new File(source + sep + profile + ".js"),
-			profileDestination = config.get("destination") + sep + profile,
-			output = new File(profileDestination + sep + rootNamespace + ".js"),
-			outputMin = rootNamespace + ".min.js",
+			filename,
+			source,
+			entry,
+			profileDestination,
+			output,
+			outputMin,
 			profileCfg = profileConfig[profile],
-			themes = profileCfg.themes,
+			themes = profileCfg && profileCfg.themes,
 			themeBase,
 			themeOutBase,
 			themeIn,
@@ -47,7 +54,29 @@
 			lessInput,
 			i;
 
-		logger.info("Building profile: " + profile);
+		if (profile == "custom") {
+			customProfileFile = config.get("custom-file");
+
+			logger.info("Building profile: " + profile + " defined in file [" + customProfileFile + "]");
+
+			if (customProfileFile) {
+				entry = new File(customProfileFile);
+			} else {
+				logger.error("missing argument --custom-file with path for entry file");
+				printHelp();
+				return false;
+			}
+		} else {
+			logger.info("Building profile: " + profile);
+
+			source = currentDir + sep + "src" + sep + "js";
+			entry = new File(source + sep + profile + ".js");
+		}
+
+		filename = entry.getName();
+		profileDestination = config.get("destination") + sep + profile;
+		output = new File(profileDestination + sep + rootNamespace + ".js");
+		outputMin = rootNamespace + ".min.js";
 
 		if (!entry.exists() || !entry.canRead() || !themes) {
 			logger.error("profile does not exist or entry file is not readable [" + entry.getPath() + "]");

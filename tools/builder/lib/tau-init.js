@@ -7,7 +7,8 @@
 		args = common.parseArguments(commandLineArguments),
 		os = common.getOS(),
 		profiles = args.profile ? [args.profile.split(",")] : ['wearable', 'mobile'],
-		rootNamespace = args['root-namespace'] || "tau";
+		rootNamespace = args['root-namespace'] || "tau",
+		customFile = (args["custom-file"] || "").replace(/^~/i, environment["user.home"]);
 
 	profiles.map(function (p) {
 		return (p + "").trim();
@@ -23,6 +24,8 @@
 	config.set("current-dir", environment["user.dir"]);
 	config.set("profiles", profiles);
 	config.set("root-namespace", rootNamespace);
+
+	config.set("custom-file", customFile);
 
 	if (!builder.start()) {
 		quit(1);
