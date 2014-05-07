@@ -67,7 +67,7 @@
 
 		reloadModule: function(libName){
 			var deferred = $.Deferred(),
-				ejscript = document.querySelector('[src$="ej.js"]'),
+				ejscript = document.querySelector('[src$="tau.js"]'),
 				script = document.createElement('script');
 				src = ejscript.src;
 			ejscript.parentNode.removeChild(ejscript);

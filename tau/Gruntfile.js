@@ -3,7 +3,15 @@ module.exports = function(grunt) {
 
 	var pkg = grunt.file.readJSON("package.json"),
 		path = require("path"),
+
+		// Path to build framework
 		dist = "dist" + path.sep,
+
+		// Path to directory with tests
+		testsPath = "tests" + path.sep,
+
+		// Path to framework JS sources
+		srcJs = path.join( "src", "js" ),
 
 		name = pkg.name,
 		version = pkg.version,
@@ -35,11 +43,6 @@ module.exports = function(grunt) {
 		wrapEndWidget = wrapEnd,
 
 		widgets = {
-			"indexScrollbar": "widget/indexScrollbar",
-			"sectionchanger": "widget/sectionchanger"
-		},
-
-		widgets = {
 			"indexScrollbar": "core/widget/wearable/indexscrollbar/IndexScrollbar",
 			"sectionchanger": "core/widget/wearable/SectionChanger",
 			"virtuallist": "core/widget/wearable/VirtualListview",
@@ -54,15 +57,6 @@ module.exports = function(grunt) {
 
 		files = {
 			js: {
-				getWidgetFiles: function() {
-					var list = [],
-						key, value;
-					for ( key in widgets ) {
-						value = widgets[key];
-						list.push(value);
-					}
-					return list;
-				},
 				licenseFiles: [],
 				setLicenseFiles: function() {
 					files.js.licenseFiles.length = 0;
@@ -172,17 +166,15 @@ module.exports = function(grunt) {
 			jshint: {
 				js: {
 					options: {
-						jshintrc: "src/js/.jshintrc"
+						jshintrc: path.join(srcJs, ".jshintrc")
 					},
 					files: {
-						src: [
-							"src/js/**/*.js"
-						]
+						src: [ path.join(srcJs, "**/*.js") ]
 					}
 				},
 				grunt: {
 					options: {
-						jshintrc: "src/js/.jshintrc"
+						jshintrc: srcJs + ".jshintrc"
 					},
 					files: {
 						src: [ "Gruntfile.js" ]
@@ -193,7 +185,7 @@ module.exports = function(grunt) {
 			requirejs: {
 				full: {
 					options: {
-						baseUrl: "src/js",
+						baseUrl: srcJs,
 						optimize: "none",
 						findNestedDependencies: true,
 						skipModuleInsertion: true,
@@ -213,7 +205,7 @@ module.exports = function(grunt) {
 
 				core: {
 					options: {
-						baseUrl: "src/js",
+						baseUrl: srcJs,
 						optimize: "none",
 						findNestedDependencies: true,
 						skipModuleInsertion: true,
@@ -230,28 +222,9 @@ module.exports = function(grunt) {
 					}
 				},
 
-				virtuallist: {
-					options: {
-						baseUrl: "src/js",
-						optimize: "none",
-						findNestedDependencies: true,
-						skipModuleInsertion: true,
-						name: "virtuallist",
-						out: path.join( widgetPath, "virtuallist" ) + ".js",
-						pragmasOnSave: {
-							tauBuildExclude: true,
-							tauDebug: true
-						},
-						wrap: {
-							start: wrapStart,
-							end: wrapEnd
-						}
-					}
-				},
-
 				mobile: {
 					options: {
-						baseUrl: "src/js",
+						baseUrl: srcJs,
 						optimize: "none",
 						findNestedDependencies: true,
 						skipModuleInsertion: true,
@@ -324,18 +297,6 @@ module.exports = function(grunt) {
 				}
 			},
 
-			watch : {
-				all : {
-					files : [ "src/css/**/*", "src/js/**/*" ],
-					tasks : [ "less", "requirejs:full" ],
-					options: {
-						// Start a live reload server on the default port 35729
-						livereload: true,
-						interrupt: true
-					}
-				}
-			},
-
 			clean: {
 				js: [ jsPath ],
 				css: [ themesPath ]
@@ -358,7 +319,7 @@ module.exports = function(grunt) {
 
 			requirejs["widget_" + key] = {
 				options: {
-					baseUrl: "src/js",
+					baseUrl: srcJs,
 					optimize: "none",
 					findNestedDependencies: true,
 					skipModuleInsertion: true,
@@ -390,6 +351,7 @@ module.exports = function(grunt) {
 		obj();
 	});
 
+	// Generate separate widget files
 	grunt.registerTask("widget", "Generate widget files using requirejs", function() {
 		var key;
 
@@ -407,8 +369,9 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks( "grunt-contrib-uglify" );
 	grunt.loadNpmTasks( "grunt-contrib-less" );
 	grunt.loadNpmTasks( "grunt-contrib-cssmin" );
-	grunt.loadNpmTasks( "grunt-contrib-watch" );
-	grunt.loadNpmTasks( "grunt-contrib-qunit" );
+
+	// Load framework custom tasks
+	grunt.loadTasks('tools/grunt/tasks');
 
 	grunt.registerTask( "lint", [ "jshint" ] );
 
@@ -422,9 +385,6 @@ module.exports = function(grunt) {
 
 	grunt.registerTask("release", [ "clean", /* "lint", @TODO fix all errors and revert*/ "css", "js", "license", "copy:images", "copy:license" ]);
 	grunt.registerTask("releasemobile", [ "clean", /* "lint", @TODO fix all errors and revert*/ "css", "jsmobile", "license", "copy:images", "copy:license", "copy:globalize" ]);
-
-	grunt.registerTask("test", [ "release", "qunit" ]);
-	grunt.registerTask("testmobile", [ "releasemobile", "qunit" ]);
 
 	grunt.registerTask("default", [ "release" ]);
 };

@@ -3,7 +3,7 @@
 	<head>
 		<title>Checkboxradio tests</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<link rel="stylesheet" href="../../../../../../../libs/qunit-1.11.0.css">
+		<link rel="stylesheet" href="../../../../../libs/qunit-1.11.0.css">
 	</head>
 	<body>
 		<div id="qunit"></div>
@@ -57,9 +57,9 @@
 				</form>
 			</div>
 		</div>
-		<script src="../../../../../../../libs/jquery.js"></script>
-		<script src="../../../../../../../libs/qunit-1.11.0.js" type="text/javascript"></script>
-		<script src="../../../../../../support.js"></script>
+		<script src="../../../../../libs/jquery.js"></script>
+		<script src="../../../../../libs/qunit-1.11.0.js" type="text/javascript"></script>
+		<script src="../../../../../libs/support.js"></script>
 		<script>
 			module('Checkboxradio', {
 				teardown: function () {
@@ -171,7 +171,7 @@
 				equal(labelDisabled.getElementsByClassName('ui-icon-checkbox-off').length, 1, "There is a proper icon");
 				equal(labelDisabled.getElementsByClassName('ui-icon-checkbox-on').length, 0, "There is a proper icon");
 			});
-../
+
 			test('Radio label events', function () {
 				var check1 = document.getElementById('test8a'),
 					check2 = document.getElementById('test8b'),
@@ -251,6 +251,6 @@
 				"autorun": false
 			};
 		</script>
-		<script type="text/javascript" src="../../../../../../../dist/js/tau.js"></script>
+		<script type="text/javascript" src="../../../../../libs/dist/js/tau.js"></script>
 	</body>
 </html>
