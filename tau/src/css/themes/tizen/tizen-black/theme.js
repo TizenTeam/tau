@@ -3,18 +3,18 @@
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
-		[],
+		[
+			"../../../../js/core/theme/ThemeCommon"
+		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var THEME = 's',
 				ThemeCommon = ns.theme.ThemeCommon,
-				Page = ns.widget.mobile.Page,
-				Listview = ns.widget.mobile.Listview,
-				Button = ns.widget.mobile.Button,
 				theme = new ThemeCommon(),
 
 				customizePage = function () {
-					if (Page) {
+					var Page = ns.widget.mobile.Page;
+						if (Page) {
 						// Clear default theme for child elements
 						(function (o) {
 							o.backBtnTheme= THEME;
@@ -26,6 +26,7 @@
 				},
 
 				customizeListview = function () {
+					var Listview = ns.widget.mobile.Listview;
 					if (Listview) {
 						// clear listview
 						(function (o) {
@@ -39,6 +40,7 @@
 				},
 
 				customizeButton = function () {
+					var Button = ns.widget.mobile.Button;
 					if (Button) {
 						//clear button theme
 						Button.prototype.options.theme = THEME;
@@ -130,6 +132,7 @@
 
 			// activate theme;
 			theme.enable();
+			return theme;
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
 	);
