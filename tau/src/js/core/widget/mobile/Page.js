@@ -13,6 +13,7 @@
 			"../../engine",
 			"../../utils/selectors",
 			"../../utils/DOM/attributes",
+            "../../utils/DOM/css",
 			"../../utils/object",
 			"../../events/orientationchange",
 			"../mobile",
