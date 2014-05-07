@@ -229,7 +229,7 @@
 				}
 			};
 
-			document.addEventListener("routerinit", function (evt) {
+			document.addEventListener("themeinit", function (evt) {
 				var router = evt.detail;
 				if (router && ns.get('autoInitializePage', true)) {
 					ns.theme.init(router.getContainer());

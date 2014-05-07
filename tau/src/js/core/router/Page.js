@@ -395,6 +395,8 @@
 				RouterPage.defaults.container = container;
 				self.container = container;
 
+				eventUtils.trigger(document, 'themeinit', this);
+
 				//>>excludeStart("tauDebug", pragmas.tauDebug);
 				ns.log('just build: ' + justBuild);
 				//>>excludeEnd("tauDebug");
