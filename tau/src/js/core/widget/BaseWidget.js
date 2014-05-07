@@ -33,7 +33,7 @@
  *	 @example
  *	 (function (ns) {
  *		 "use strict";
- *		 //>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+ *		 //>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
  *		 define(
  *			 [
  *				 "../ns.core", always necessary
@@ -41,7 +41,7 @@
  *				 "../utils/selectors" // all other necessary modules
  *			 ],
  *			 function () {
- *				 //>>excludeEnd("ejBuildExclude");
+ *				 //>>excludeEnd("tauBuildExclude");
  *				 var BaseWidget = ns.widget.BaseWidget, // create alias to main objects
  *					 ...
  *					 arrayOfElements, // example of private property, common for all instances of widget
@@ -104,11 +104,11 @@
  *					 "mobile" // widget's namespace
  *				 );
  *				 ns.widget.Button = Button;
- *				 //>>excludeStart("ejBuildExclude", pragmas.ejBuildExclude);
+ *				 //>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
  *				 return ns.widget.Button;
  *			 }
  *		 );
- *		 //>>excludeEnd("ejBuildExclude");
+ *		 //>>excludeEnd("tauBuildExclude");
  *	 }(ns));
  * @author Jadwiga Sosnowska <j.sosnowska@samsung.com>
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>
