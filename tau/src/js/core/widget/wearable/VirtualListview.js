@@ -587,6 +587,7 @@
 						i = 0,
 						jump = 0,
 						hiddenPart = 0,
+						direction,
 						newPosition;
 
 					childrenNodes = element.children;
@@ -597,7 +598,9 @@
 							resultsetSize += childrenNodes[i].clientWidth;
 						}
 					}
-					avgListItemSize = resultsetSize / options.bufferSize;
+
+					//Compute average list item size
+					avgListItemSize = _computeElementSize(element, options.orientation) / bufferSize;
 
 					//Compute hidden part of result set and number of elements, that needed to be loaded, while user is scrolling DOWN
 					if (scrollDirection[SCROLL_DOWN]) {
@@ -635,18 +638,22 @@
 
 						// Scrolling more then buffer
 						if (bufferToLoad > 0) {
-							self._loadData(currentIndex + bufferToLoad * bufferSize);
 							if (scrollDirection[SCROLL_DOWN] || scrollDirection[SCROLL_RIGHT]) {
-								if (scrollDirection[SCROLL_DOWN] || scrollDirection[SCROLL_RIGHT]) {
-									jump += bufferToLoad * bufferSize * avgListItemSize;
-								}
-
-								if (scrollDirection[SCROLL_UP] || scrollDirection[SCROLL_LEFT]) {
-									jump -= bufferToLoad * bufferSize * avgListItemSize;
-								}
+								direction = 1;
 							}
-						}
 
+							if (scrollDirection[SCROLL_UP] || scrollDirection[SCROLL_LEFT]) {
+								direction = -1;
+							}
+
+							// Load data to buffer according to jumped index
+							self._loadData(currentIndex + direction * bufferToLoad * bufferSize);
+
+							// Refresh current index after buffer jump
+							currentIndex = self._currentIndex;
+
+							jump += direction * bufferToLoad * bufferSize * avgListItemSize;
+						}
 
 						if (scrollDirection[SCROLL_DOWN] || scrollDirection[SCROLL_RIGHT]) {
 							//Switch currentIndex to last
@@ -865,12 +872,13 @@
 				 * @instance
 				 */
 				prototype._loadData = function(index) {
-					var children = this.element.firstElementChild;
+					var self = this,
+						children = self.element.firstElementChild;
 
-					if (this._currentIndex !== index) {
-						this._currentIndex = index;
+					if (self._currentIndex !== index) {
+						self._currentIndex = index;
 						do {
-							this._updateListItem(children, index);
+							self._updateListItem(children, index);
 							++index;
 							children = children.nextElementSibling;
 						} while (children);
