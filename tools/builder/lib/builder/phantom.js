@@ -14,6 +14,8 @@
 
 	exports.run = function (params) {
 		var separator = config.get("separator"),
+			src = new File(params.input),
+			dst = new File(params.output),
 			phantomPath = config.get("builder-path") +
 				separator +
 				"bin" +
@@ -43,8 +45,8 @@
 				"--local-to-remote-url-access=true",
 				jsFile,
 				'"' + phantomFix + '"',
-				'"' + params.input + '"',
-				'"' + params.output + '"'
+				'"' + src.getAbsolutePath() + '"',
+				'"' + dst.getAbsolutePath() + '"'
 			).inheritIO(),
 			p;
 		logger.info("initializing PhantomJS, path: " + phantomPath);
