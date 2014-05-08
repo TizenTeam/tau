@@ -1,0 +1,58 @@
+.ui-indexscrollbar {
+	display: block;
+	position: fixed;
+	right: 0;	//TODO:bidi
+	top: 0;
+	height: 100%;
+	background-color: @color_indexscrollbar_bg;
+	z-index: 10;
+
+	ul {
+		width: 40*@unit_base;
+		top:0;
+		li {
+			color: @color_indexscrollbar_text;
+			display: block;
+			width: 100%;
+			text-align: center;
+			font-size: 22 * @unit_base;
+			height: 36 * @unit_base;
+		}
+		li.ui-state-selected {
+			background-color: @color_indexscrollbar_selected_bg;
+			color: @color_indexscrollbar_selected_text;
+		}
+	}
+	ul.ui-indexscrollbar-2nd {
+		height: auto;
+		top: 0;
+	}
+
+	& + .ui-listview li {
+		padding-right: 40*@unit_base;
+    }
+}
+
+.ui-indexscrollbar-indicator {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 9;
+	display: none;
+
+	span {
+		width: 120 * @unit_base;
+		height: 96 * @unit_base;
+		position: absolute;
+		display: block;
+		top: 50%;
+		left: 50%;
+		margin-left: -60 * @unit_base;
+		margin-top: -48 * @unit_base;
+		line-height: 96 * @unit_base;
+		font-size: 70 * @unit_base;
+		text-align: center;
+		background-color: @color_indexscrollbar_indicator_bg;
+		color: @color_indexscrollbar_indicator_text;
+	}
+}

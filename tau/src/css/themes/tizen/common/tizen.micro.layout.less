@@ -1,5 +1,5 @@
 /***************************************************************************
-				Common Style
+                   Common Style
 ***************************************************************************/
 body {
 	height: 100%;
@@ -14,25 +14,14 @@ body {
 	height: 100%;
 	overflow: hidden;
 	display:none;
-
+	position: absolute;
+	top:0;
+	left:0;
+	background: @color_bg;
 	&.ui-page-active {
 		display: block;
-		overflow-y: hidden;
-		overflow-x: auto;
 	}
-}
-
-.ui-page-scroll {
-	width: 100%;
-	height: auto;
-}
-
-.ui-section {
-	display: block;
-	position:relative;
-	float:left;
-	width: 320 * @unit_base;
-	overflow: hidden;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);	/* overrides webkit link color */
 }
 
 .scrolling-mode-touch {
@@ -47,31 +36,19 @@ body {
 	width:auto;
 	height: 100%;
 	overflow: auto;
-
-	.ui-header + .ui-page-scroll &,
-	.ui-header + & {
-		margin-top: 52 * @unit_base;
-	}
-
-	.ui-header.ui-has-tab + .ui-page-scroll & {
-		margin-top: 52 + 6 * @unit_base;
-
-		&.ui-content {
-			margin-top: 52 + 6 + 16 * @unit_base;
-		}
-	}
+	.scrolling-mode-touch;
 }
 
 .ui-header {
-	position: absolute;
+	position: relative;
 	width: 100%;
 	height: 52 * @unit_base;
 	line-height: 52 * @unit_base;
-	background-color: @color_bg;
+	background-color: @color_actionbar_title_bg;
 
 	.ui-title {
 		color: @color_actionbar_title_text;
-		font-size: 24 * @unit_base;
+		font-size: 30 * @unit_base;
 		white-space: nowrap;
 		margin: 0px;
 		padding-left: 16 * @unit_base;
@@ -85,9 +62,16 @@ body {
 		}
 	}
 
+	.ui-title-text-fadeout {
+		-webkit-mask-image: -webkit-linear-gradient(left, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 95%);
+	}
+
 	&.ui-has-more {
 		.ui-title {
 			padding-right: 68 * @unit_base;
+		}
+		.ui-title-text-fadeout {
+			-webkit-mask-image: -webkit-linear-gradient(left, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 80%);
 		}
 	}
 
@@ -145,58 +129,42 @@ body {
 
 }
 
-.ui-page > .ui-header {
-	position: fixed;
-	top: 0px;
-	left: 0px;
-
-	.ui-tab {
-		width:100%;
-		height: 6 * @unit_base;
-
-		a {
-			float: left;
-			height: 6 * @unit_base;
-			overflow: hidden;
-			text-indent: -10000em;
-			outline: none;
-
-			&.ui-state-active {
-				background-color: @color_actionbar_tab_nav_active_bg;
-			}
-		}
-	}
+.ui-footer {
+	width: 100%;
+	height: 76 * @unit_base;
+	position: absolute;
+	bottom: 0;
+	left: 0;
 }
 
-.grid-col {
+/***************************************************************************
+                   Grid layout
+***************************************************************************/
+.ui-grid-col {
 	> * {
 		float: left;
-		border-right:solid 1px @color_bg;
-
-		&:last-child {
-			border-right:0px none;
-		}
 	}
 }
 
 .ui-page {
-	.grid-col-1 {
-		.grid-col;
+	.ui-grid-col-1 {
+		.ui-grid-col;
 		& > * { width:100% }
 	}
 
-	.grid-col-2 {
-		.grid-col;
+	.ui-grid-col-2 {
+		.ui-grid-col;
 		& > * { width:100/2% }
 	}
 
-	.grid-col-3 {
-		.grid-col;
+	.ui-grid-col-3 {
+		.ui-grid-col;
 		& > * { width:100/3% }
 	}
+}
 
-	.grid-col-4 {
-		.grid-col;
-		& > * { width:100/4% }
+.ui-grid-row {
+	> * {
+		display: block;
 	}
 }

@@ -81,7 +81,7 @@
 			"./core/widget/mobile/TizenSlider",
 			"./core/widget/mobile/SplitView",
 			"./core/widget/mobile/ScrollHandler",
-			"themesrc/theme"
+			"../css/themes/tizen/tizen-black/theme"
 		],
 		function (require) {
 			require(["./core/init"], function () {

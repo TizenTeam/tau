@@ -2,15 +2,15 @@
  * Common definition for theme
  */
 
-@font_size_default: 16px;	// Default unit font size. DO NOT USE THIS VALUE IN WIDGET CSS!
+@font_size_default: 15px;	// Default unit font size. DO NOT USE THIS VALUE IN WIDGET CSS!
 
 @rem_base: (1rem/@font_size_default);
 @em_base: 1em/@font_size_default;	// WARNING: Don't use em unit!	This value is to be removed.
 @px_base: 1px;
 
-@unit_base: @px_base;
+@unit_base: @rem_base;
 
-@font_family: Samsung Sans, Helvetica;
+@font_family: Tizen, Samsung Sans, Helvetica;
 
 /******************************
   z-index order collection
@@ -19,14 +19,17 @@
 @z_base_header_footer: 1000;
 @z_base_popup: @z_base_header_footer + 100;
 
+html {
+	font-size: @font_size_default;
+}
 
 /***************************************************************************
-				Common Style
+                   Common Style
 ***************************************************************************/
 .screen-hidden { visibility: hidden; position: absolute; top: -10000em; left: -10000em;}
 
 /***************************************************************************
-				Default Style.
+                   Default Style.
 ***************************************************************************/
 button, input {
 	outline: none;
@@ -39,7 +42,7 @@ button, input {
 	box-sizing: border-box;
 }
 
-a, a:hover {
+a {
 	text-decoration: none !important;
 	color: @color_text;
 }
@@ -63,10 +66,10 @@ img {
 .LESSbackground-img-with-gradient(@from: top, @startcolor: #3c3c3c, @endcolor: #111) {
 	background-image: -webkit-gradient(linear, left top, left bottom, from(@startcolor), to(@endcolor)); /* Saf4+, Chrome */
 	background-image: -webkit-linear-gradient(@from, @startcolor, @endcolor);
-	background-image:	-moz-linear-gradient(@from, @startcolor, @endcolor);
-	background-image:	-ms-linear-gradient(@from, @startcolor, @endcolor);
-	background-image:	-o-linear-gradient(@from, @startcolor, @endcolor);
-	background-image:		linear-gradient(@from, @startcolor, @endcolor);
+	background-image:    -moz-linear-gradient(@from, @startcolor, @endcolor);
+	background-image:     -ms-linear-gradient(@from, @startcolor, @endcolor);
+	background-image:      -o-linear-gradient(@from, @startcolor, @endcolor);
+	background-image:         linear-gradient(@from, @startcolor, @endcolor);
 }
 
 .LESSbackground-with-gradient(@from: top, @startcolor: #3c3c3c, @endcolor: #5c5c5c) {

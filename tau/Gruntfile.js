@@ -50,9 +50,10 @@ module.exports = function(grunt) {
 		},
 
 		themes = {
-			"default" : "src/css/themes/black",
-			"black" : "src/css/themes/black",
-			"mobile-white" : "src/css/themes/tizen/tizen-white"
+			"default" : "src/css/themes/tizen",
+			"tizen-micro" : "src/css/themes/tizen",
+			"tizen-black" : "src/css/themes/tizen",
+			"tizen-white" : "src/css/themes/tizen"
 		},
 
 		files = {
@@ -88,7 +89,7 @@ module.exports = function(grunt) {
 					for(key in themes) {
 						value = themes[key];
 						list.push({
-							src: path.join(value, name) + ".less",
+							src: path.join(value, key) + ".less",
 							dest: path.join( themesPath, key, name ) + ".css"
 						});
 					}

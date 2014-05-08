@@ -3,7 +3,13 @@
 /* ==========================================================================
    HTML5 display definitions
    ========================================================================== */
- 
+/*
+ * default outline set none
+ */
+
+* {
+	outline: none;
+}
 /*
  * Corrects `block` display not defined in IE 6/7/8/9 and Firefox 3.
  */
@@ -81,7 +87,7 @@ button,
 input,
 select,
 textarea {
-	font-family: sans-serif;
+	font-family: @font_family;
 }
  
 /*
@@ -97,21 +103,8 @@ body {
    ========================================================================== */
  
 /*
- * Addresses `outline` inconsistency between Chrome and other browsers.
- */
- 
-a:focus {
-	outline: thin dotted;
-}
- 
-/*
  * Improves readability when focused and also mouse hovered in all browsers.
  */
- 
-a:active,
-a:hover {
-	outline: 0;
-}
  
 /* ==========================================================================
    Typography
@@ -479,3 +472,4 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
