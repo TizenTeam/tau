@@ -27,20 +27,14 @@
 			writer,
 			doc = Jsoup.parse(fin, null),
 			htmlDump,
-			tempScript,
 			i,
-			frameworkLib = doc.select("script[data-framework=tau]"),
 			allScripts = doc.select("script");
-
-		if (frameworkLib.size() < 1) {
-			throw new Error("Aborting replace scripts. Framework library not found.");
-		}
 
 		function replaceTag(replacedElement) {
 			var tempNode,
 				encodedHTML;
 
-			if(replacedElement.attr("data-framework") != "tau") {
+			if(replacedElement.attr("data-build-remove") != "false") {
 				tempNode = doc.createElement("script");
 
 				encodedHTML = Base64.encodeBase64String(replacedElement.outerHtml().toString().getBytes());
@@ -55,8 +49,7 @@
 		i = allScripts.size();
 
 		while (i--) {
-			tempScript = allScripts.get(i);
-			replaceTag(tempScript);
+			replaceTag(allScripts.get(i));
 		}
 
 		htmlDump = doc.toString();
