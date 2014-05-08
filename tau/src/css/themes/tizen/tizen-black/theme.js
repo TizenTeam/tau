@@ -4,7 +4,7 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../../../js/core/theme/ThemeCommon"
+			"core/theme/ThemeCommon"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
