@@ -30,12 +30,12 @@
 				engine = ns.engine,
 				domUtils = ns.utils.DOM,
 				/**
-				 * @property {ns.utils.object} objectUtils
+				 * @property {Function} utilsObjectMerge
 				 * @private
 				 * @member ns.widget.VirtualGrid
 				 * @static
 				 */
-				objectUtils = ns.utils.object,
+				utilsObjectMerge = ns.utils.object.merge,
 				// @TODO HORIZONTAL is currently not used, it will be used when horizontal scrolling is ready
 				/**
 				 * @property {string} HORIZONTAL="x" constans for horizontal virtual grid
@@ -83,7 +83,7 @@
 				 * @property {boolean} [options.standalone=false] If true scrollview instance will be created inside of the widget
 				 * **Method may be overriden by developer using {@link ns.widget.mobile.VirtualListview#create .create} method with proper arguments.**
 				 */
-				self.options = objectUtils.merge({}, self.options, {
+				self.options = utilsObjectMerge({}, self.options, {
 					numItemData: 0,
 					direction: VERTICAL,
 					row: 50,
@@ -96,7 +96,7 @@
 				 * @property {Object} ui Holds UI elements of the widget
 				 * @member ns.widget.VirtualGrid
 				 */
-				self.ui = objectUtils.merge({}, self.ui);
+				self.ui = utilsObjectMerge({}, self.ui);
 
 				/**
 				 * @property {number} _currentIndex Current zero-based index of data set.
