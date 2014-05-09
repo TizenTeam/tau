@@ -31,8 +31,7 @@
 					TOUCHEND: "touchend",
 					VCLICK: "vclick",
 					MOUSEDOWN: "mousedown",
-					MOUSEUP: "mouseup",
-					PAGEBEFORESHOW: "pagebeforeshow"
+					MOUSEUP: "mouseup"
 				};
 
 			ns.jqm.events = {
@@ -64,21 +63,21 @@
 				* @return {jQuery}
 				*/
 				proxyTrigger: function (type, data) {
-					var chain,
-						$elements = this,
+					var $elements = this,
 						elementsLength = $elements.length,
 						i;
 
-					if (type !== eventType.CLICK && type !== eventType.SUBMIT && type !== eventType.KEYUP && type !== eventType.PAGEBEFORESHOW) {
-						chain = orginalTrigger.call($elements, type, data);
+					if(!eventType[type.toUpperCase()]){
+						orginalTrigger.call($elements, type, data);
 					}
 
 					for (i = 0; i < elementsLength; i++) {
 						utilsEvent.trigger($elements.get(i), type);
 					}
 
-					return chain;
+					return this;
 				},
+
 				/**
 				* Method read additional data from event.detail and move these data as additional argument to jQuery.event.dispatch
 				* @method proxyDispatch
