@@ -32,7 +32,7 @@
 					animationDuration: 500
 				},
 
-				insertAndDecorate: function (data) {
+				insertAndDecorate: function( data ) {
 					var scrollbarElement = data.wrapper,
 						barElement = data.bar,
 						container = data.container,
@@ -47,12 +47,12 @@
 					this.containerSize = containerSize;
 					this.maxScrollOffset = clipSize - containerSize;
 					this.scrollZoomRate = containerSize / clipSize;
-					this.barSize = window.parseInt(containerSize / (clipSize / containerSize)) - ( margin * 2 );
+					this.barSize = window.parseInt( containerSize / (clipSize/containerSize) ) - ( margin * 2 );
 
 					scrollbarElement.className = this.options.wrapperClass + " " + orientationClass;
 					barElement.className = this.options.barClass;
 
-					if (orientation === Scroller.Orientation.VERTICAL) {
+					if ( orientation === Scroller.Orientation.VERTICAL ) {
 						barStyle.height = this.barSize + "px";
 						barStyle.top = "0px";
 					} else {
@@ -63,12 +63,14 @@
 					container.appendChild(scrollbarElement);
 				},
 
-				offset: function (orientation, offset) {
+				offset: function( orientation, offset ) {
 					var x, y;
 
-					offset = offset === this.maxScrollOffset ? this.containerSize - this.barSize - this.options.margin * 2 : offset * this.scrollZoomRate;
+					offset = offset !== this.maxScrollOffset ?
+						offset * this.scrollZoomRate :
+						this.containerSize - this.barSize - this.options.margin * 2;
 
-					if (orientation === Scroller.Orientation.VERTICAL) {
+					if ( orientation === Scroller.Orientation.VERTICAL ) {
 						x = 0;
 						y = offset;
 					} else {
@@ -82,14 +84,14 @@
 					};
 				},
 
-				start: function (scrollbarElement/*, barElement */) {
+				start: function( scrollbarElement/*, barElement */) {
 					var style = scrollbarElement.style,
 						duration = this.options.animationDuration;
 					style["-webkit-transition"] = "opacity " + duration / 1000 + "s ease";
 					style.opacity = 1;
 				},
 
-				end: function (scrollbarElement/*, barElement */) {
+				end: function( scrollbarElement/*, barElement */) {
 					var style = scrollbarElement.style,
 						duration = this.options.animationDuration;
 					style["-webkit-transition"] = "opacity " + duration / 1000 + "s ease";

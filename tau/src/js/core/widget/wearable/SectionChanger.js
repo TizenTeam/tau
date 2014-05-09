@@ -12,15 +12,19 @@
 		[
 			"../../engine",
 			"../../utils/selectors",
+			"../../events/gesture",
 			"../BaseWidget",
 			"./scroller/Scroller",
+			"./TabIndicator",
 			"../wearable"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var Scroller = ns.widget.wearable.scroller.Scroller,
+				Gesture = ns.events.gesture,
 				engine = ns.engine,
 				utilsObject = ns.utils.object,
+				utilsEvents = ns.utils.events,
 				eventType = {
 					CHANGE: "sectionchange"
 				};
@@ -32,9 +36,14 @@
 			utilsObject.inherit(SectionChanger, Scroller, {
 				_build: function( element ) {
 
+					this.tabIndicatorElement = null;
+					this.tabIndicator = null;
+
 					this.sections = null;
 					this.sectionPositions = [];
+
 					this.activeIndex = 0;
+					this.beforeIndex = 0;
 
 					this._super( element );
 					return element;
@@ -50,18 +59,25 @@
 					options.animateDuration = 100;
 					options.orientation = "horizontal";
 					options.changeThreshold = -1;
+					options.useTab = false;
 				},
 
-				_init: function() {
-					var sectionLength, i, className;
+				_init: function(element) {
+					var o = this.options,
+						sectionLength, i, className;
 
-					this.sections = typeof this.options.items === "string" ?
-						this.scroller.querySelectorAll( this.options.items ) :
-						this.options.items;
+					if ( o.scrollbar === "tab" ) {
+						o.scrollbar = false;
+						o.useTab = true;
+					}
+
+					this.sections = typeof o.items === "string" ?
+						this.scroller.querySelectorAll( o.items ) :
+						o.items;
 
 					sectionLength = this.sections.length;
 
-					if (  this.options.circular && sectionLength < 3 ) {
+					if ( o.circular && sectionLength < 3 ) {
 						throw "if you use circular option, you must have at least three sections.";
 					}
 
@@ -71,7 +87,7 @@
 
 					for( i = 0; i < sectionLength; i++ ) {
 						className = this.sections[i].className;
-						if ( className && className.indexOf( this.options.activeClass ) > -1 ) {
+						if ( className && className.indexOf( o.activeClass ) > -1 ) {
 							this.activeIndex = i;
 						}
 
@@ -79,16 +95,17 @@
 					}
 
 					this.setActiveSection( this.activeIndex );
+
 					this._prepareLayout();
 					this._super();
 					this._repositionSections( true );
 
-					// set corret options values.
-					if ( !this.options.animate ) {
-						this.options.animateDuration = 0;
+// set corret options values.
+					if ( !o.animate ) {
+						o.animateDuration = 0;
 					}
-					if ( this.options.changeThreshold < 0 ) {
-						this.options.changeThreshold = this.width / 3;
+					if ( o.changeThreshold < 0 ) {
+						o.changeThreshold = this.width / 2;
 					}
 
 					if ( sectionLength > 1 ) {
@@ -96,16 +113,25 @@
 					} else {
 						this.disable();
 					}
+					return element;
 				},
 
 				_prepareLayout: function() {
-					var sectionLength = this.sections.length,
+					var o = this.options,
+						sectionLength = this.sections.length,
 						width = this.element.offsetWidth,
 						height = this.element.offsetHeight,
-						orientation = this.options.orientation === "horizontal" ? Scroller.Orientation.HORIZONTAL : Scroller.Orientation.VERTICAL,
-						scrollerStyle = this.scroller.style;
+						orientation = o.orientation === "horizontal" ? Scroller.Orientation.HORIZONTAL : Scroller.Orientation.VERTICAL,
+						scrollerStyle = this.scroller.style,
+						tabHeight;
 
-					// circular option is false.
+					if ( o.useTab ) {
+						this._initTabIndicator();
+						tabHeight = this.tabIndicatorElement.offsetHeight;
+						this.element.style.height = (height - tabHeight) + "px";
+						height -= tabHeight;
+					}
+
 					if ( orientation === Scroller.Orientation.HORIZONTAL ) {
 						scrollerStyle.width = width * sectionLength + "px"; //set Scroller width
 						scrollerStyle.height = height + "px"; //set Scroller width
@@ -117,21 +143,23 @@
 
 				_initLayout: function() {
 					var sectionStyle = this.sections.style,
+						width = this.width,
+						height = this.height,
 						i, sectionLength, top, left;
 
-					//section element has absolute position
+//section element has absolute position
 					for( i = 0, sectionLength = this.sections.length; i < sectionLength; i++ ){
-						//Each section set initialize left position
+//Each section set initialize left position
 						sectionStyle = this.sections[i].style;
 
 						sectionStyle.position = "absolute";
-						sectionStyle.width = this.width + "px";
-						sectionStyle.height = this.height + "px";
+						sectionStyle.width = width + "px";
+						sectionStyle.height = height + "px";
 						if ( this.orientation === Scroller.Orientation.HORIZONTAL ) {
 							top = 0;
-							left = this.width * i;
+							left = width * i;
 						} else {
-							top = this.height * i;
+							top = height * i;
 							left = 0;
 						}
 
@@ -142,50 +170,26 @@
 					this._super();
 				},
 
-				_initScrollbar: function() {
-					var scrollbarType = this.options.scrollbar,
-						i;
-
-					this.scrollbarelement = document.createElement('div');
-					for (i=0; i<this.element.children.length; i++) {
-						this.scrollbarelement.appendChild(this.element.children[i]);
-					}
-					this.element.appendChild(this.scrollbarelement);
-					if (scrollbarType) {
-						this.scrollbar = engine.instanceWidget(this.scrollbarelement, 'Scrollbar', {
-							type: scrollbarType,
-							orientation: this.orientation
-						});
-					}
-				},
-
 				_initBouncingEffect: function() {
 					var o = this.options;
-					if ( o.useBouncingEffect && !o.circular ) {
-						this.bouncingEffect = new Scroller.Effect.Bouncing(this.element, {
-							maxScrollX: this.maxScrollX,
-							maxScrollY: this.maxScrollY,
-							orientation: this.orientation
-						});
+					if ( !o.circular ) {
+						this._super();
 					}
 				},
 
 				_translateScrollbar: function( x, y, duration ) {
-					var offset, preOffset, fixedOffset;
+					var standard = this.orientation === Scroller.Orientation.HORIZONTAL ? this.width : this.height,
+						preOffset = this.sectionPositions[this.activeIndex] * standard,
+						offset = this.activeIndex * standard,
+						fixedOffset = offset - preOffset;
 
 					if ( !this.scrollbar ) {
 						return;
 					}
 
 					if ( this.orientation === Scroller.Orientation.HORIZONTAL ) {
-						preOffset = this.sectionPositions[this.activeIndex] * this.width;
-						offset = this.activeIndex * this.width;
-						fixedOffset = offset - preOffset;
 						offset = -x + fixedOffset;
 					} else {
-						preOffset = this.sectionPositions[this.activeIndex] * this.height;
-						offset = this.activeIndex * this.height;
-						fixedOffset = offset - preOffset;
 						offset = -y + fixedOffset;
 					}
 
@@ -193,28 +197,48 @@
 				},
 
 				_translateScrollbarWithPageIndex: function(pageIndex, duration) {
-					var offset;
+					var standard = this.orientation === Scroller.Orientation.HORIZONTAL ? this.width : this.height,
+						offset = pageIndex * standard;
 
 					if ( !this.scrollbar ) {
 						return;
 					}
 
-					if ( this.orientation === Scroller.Orientation.HORIZONTAL ) {
-						offset = pageIndex * this.width;
-					} else {
-						offset = pageIndex * this.height;
-					}
-
 					this.scrollbar.translate( offset, duration );
 				},
 
+				_initTabIndicator: function() {
+					var elem = this.tabIndicatorElement = document.createElement("div");
+					this.element.parentNode.insertBefore(elem, this.element);
+
+					this.tabIndicator = new engine.instanceWidget(elem, "TabIndicator");
+					this.tabIndicator.setSize( this.sections.length );
+					this.tabIndicator.setActive( this.activeIndex );
+					this.tabIndicatorHandler = function( e ){
+						this.tabIndicator.setActive( e.detail.active );
+					}.bind(this);
+					this.element.addEventListener(eventType.CHANGE, this.tabIndicatorHandler, false);
+				},
+
+				_clearTabIndicator: function() {
+					if ( this.tabIndicator ) {
+						this.element.parentNode.removeChild( this.tabIndicatorElement );
+						this.element.removeEventListener(eventType.CHANGE, this.tabIndicatorHandler, false);
+						this.tabIndicator.destroy();
+						this.tabIndicator = null;
+						this.tabIndicatorElement = null;
+						this.tabIndicatorHandler = null;
+					}
+				},
+
 				_resetLayout: function() {
-					var scrollerStyle = this.scroller.style,
+					var //scrollerStyle = this.scroller.style,
 						sectionStyle = this.sections.style,
 						i, sectionLength;
 
-					scrollerStyle.width = "";
-					scrollerStyle.height = "";
+					//scrollerStyle.width = "";
+					//scrollerStyle.height = "";
+					//this.scroller || this.scroller._resetLayout();
 
 					for( i = 0, sectionLength = this.sections.length; i < sectionLength; i++ ){
 						sectionStyle = this.sections[i].style;
@@ -231,48 +255,46 @@
 
 				_bindEvents: function() {
 					this._super();
-					this.scroller.addEventListener( "webkitTransitionEnd", this);
+
+					ns.events.enableGesture(
+						this.scroller,
+
+						new ns.events.gesture.Swipe({
+							orientation: this.orientation === Scroller.Orientation.HORIZONTAL ?
+								Gesture.Orientation.HORIZONTAL :
+								Gesture.Orientation.VERTICAL
+						})
+					);
+
+					utilsEvents.on( this.scroller, "swipe webkitTransitionEnd", this);
 				},
 
 				_unbindEvents: function() {
 					this._super();
-					this.scroller.removeEventListener( "webkitTransitionEnd", this);
+
+					if (this.scroller) {
+						ns.events.disableGesture( this.scroller );
+						utilsEvents.off( this.scroller, "swipe webkitTransitionEnd", this);
+					}
 				},
 
 				handleEvent: function( event ) {
 					this._super( event );
+
 					switch (event.type) {
+						case "swipe":
+							this._swipe( event );
+							break;
 						case "webkitTransitionEnd":
 							this._endScroll();
 							break;
 					}
 				},
 
-				setActiveSection: function( index, duration ) {
+				_notifyChanagedSection: function( index ) {
 					var activeClass = this.options.activeClass,
-						scrollbarIndex, section, sectionLength, position, newX, newY, i;
-
-					sectionLength = this.sections.length;
-					position = this.sectionPositions[ index ];
-
-					if ( this.orientation === Scroller.Orientation.HORIZONTAL ) {
-						newY = 0;
-						newX = -this.width * position;
-					} else {
-						newY = -this.height * position;
-						newX = 0;
-					}
-
-					// scrollbar index when circular option is true.
-					if ( this.activeIndex - index > 1 ) {
-						scrollbarIndex = this.activeIndex + 1;
-					} else if ( this.activeIndex - index < -1 ) {
-						scrollbarIndex = this.activeIndex - 1;
-					} else {
-						scrollbarIndex = index;
-					}
-
-					this.activeIndex = index;
+						sectionLength = this.sections.length,
+						i=0, section;
 
 					for ( i=0; i < sectionLength; i++) {
 						section = this.sections[i];
@@ -282,9 +304,33 @@
 						}
 					}
 
+					this._fireEvent( eventType.CHANGE, {
+						active: index
+					});
+				},
+
+				setActiveSection: function( index, duration ) {
+					var position = this.sectionPositions[ index ],
+						scrollbarDuration = duration,
+						newX=0,
+						newY=0;
+
+					if ( this.orientation === Scroller.Orientation.HORIZONTAL ) {
+						newX = -this.width * position;
+					} else {
+						newY = -this.height * position;
+					}
+
+					if ( this.beforeIndex - index > 1 || this.beforeIndex - index < -1 ) {
+						scrollbarDuration = 0;
+					}
+
+					this.activeIndex = index;
+					this.beforeIndex = this.activeIndex;
+
 					if ( newX !== this.scrollerOffsetX || newY !== this.scrollerOffsetY ) {
 						this._translate( newX, newY, duration);
-						this._translateScrollbarWithPageIndex( scrollbarIndex, duration);
+						this._translateScrollbarWithPageIndex( index, scrollbarDuration);
 					} else {
 						this._endScroll();
 					}
@@ -294,66 +340,84 @@
 					return this.activeIndex;
 				},
 
+				_start: function( e ) {
+					this._super( e );
+
+					this.beforeIndex = this.activeIndex;
+				},
+
+				_move: function(e) {
+					var changeThreshold = this.options.changeThreshold,
+						delta = this.orientation === Scroller.Orientation.HORIZONTAL ? e.detail.deltaX : e.detail.deltaY,
+						oldActiveIndex = this.activeIndex;
+
+					this._super( e );
+
+					if ( !this.scrolled ) {
+						return;
+					}
+
+					if ( delta > changeThreshold ) {
+						this.activeIndex = this._calculateIndex(this.beforeIndex - 1);
+					} else if ( delta < -changeThreshold ) {
+						this.activeIndex = this._calculateIndex(this.beforeIndex + 1);
+					} else {
+						this.activeIndex = this.beforeIndex;
+					}
+
+// notify changed section.
+					if ( this.activeIndex !== oldActiveIndex ) {
+						this._notifyChanagedSection( this.activeIndex );
+					}
+				},
+
 				_end: function(/* e */) {
-					var lastX = Math.round(this.lastTouchPointX),
-						lastY = Math.round(this.lastTouchPointY),
-						distX = this.lastTouchPointX - this.startTouchPointX,
-						distY = this.lastTouchPointY - this.startTouchPointY,
-						dist = this.orientation === Scroller.Orientation.HORIZONTAL ? distX : distY,
-						distanceX = Math.abs(lastX - this.startTouchPointX),
-						distanceY = Math.abs(lastY - this.startTouchPointY),
-						distance = this.orientation === Scroller.Orientation.HORIZONTAL ? distanceX : distanceY,
-						maxDistance = this.orientation === Scroller.Orientation.HORIZONTAL ? this.maxScrollX : this.maxScrollY,
-						endOffset = this.orientation === Scroller.Orientation.HORIZONTAL ? this.scrollerOffsetX : this.scrollerOffsetY,
-						endTime = (new Date()).getTime(),
-						duration = endTime - this.startTime,
-						flick = duration < 300 && endOffset <= 0 && endOffset >= maxDistance && distance > this.options.flickThreshold,
-						requestScrollEnd = this.initiated && ( this.moved || flick ),
-						sectionLength = this.sections.length,
-						changeThreshold = this.options.changeThreshold,
-						cancel = !flick && changeThreshold > distance,
-						newIndex=0;
+					if ( this.scrollCanceled || !this.dragging ) {
+						return;
+					}
 
-					this.touching = false;
-
-					// bouncing effect
+// bouncing effect
 					if ( this.bouncingEffect ) {
 						this.bouncingEffect.dragEnd();
 					}
 
-					if ( !requestScrollEnd ) {
-						this._endScroll();
+					this.setActiveSection( this.activeIndex, this.options.animateDuration );
+					this.dragging = false;
+				},
+
+				_swipe: function( e ) {
+					var offset = e.detail.direction === Gesture.Direction.UP || e.detail.direction === Gesture.Direction.LEFT ? 1 : -1,
+						newIndex = this._calculateIndex(this.beforeIndex + offset);
+
+					if ( this.scrollCanceled || !this.dragging) {
 						return;
 					}
 
-					if ( !cancel && dist < 0 ) {
-						newIndex = this.activeIndex + 1;
-					} else if ( !cancel && dist > 0 ){
-						newIndex = this.activeIndex - 1;
-					} else {
-						// canceled
-						newIndex = this.activeIndex;
+// bouncing effect
+					if ( this.bouncingEffect ) {
+						this.bouncingEffect.dragEnd();
 					}
 
-					if (this.options.circular) {
-						newIndex = (sectionLength + newIndex) % sectionLength;
-					} else {
-						newIndex = newIndex < 0 ? 0 : (newIndex > sectionLength - 1 ? sectionLength - 1 : newIndex);
+					if ( this.activeIndex !== newIndex ) {
+						this.activeIndex = newIndex;
+						this._notifyChanagedSection( newIndex );
 					}
 
 					this.setActiveSection( newIndex, this.options.animateDuration );
+					this.dragging = false;
 				},
 
 				_endScroll: function() {
+					if ( !this.scrolled || this.scrollCanceled ) {
+						return;
+					}
+
 					this._repositionSections();
-					this._fireEvent( eventType.CHANGE, {
-						active: this.activeIndex
-					});
 					this._super();
 				},
 
 				_repositionSections: function( init ) {
-					// if developer set circular option is true, this method used when webkitTransitionEnd event fired
+// if developer set circular option is true, this method used when webkitTransitionEnd event fired
 					var sectionLength = this.sections.length,
 						curPosition = this.sectionPositions[this.activeIndex],
 						centerPosition = window.parseInt(sectionLength/2, 10),
@@ -396,7 +460,20 @@
 					}
 				},
 
+				_calculateIndex: function( newIndex ) {
+					var sectionLength = this.sections.length;
+
+					if (this.options.circular) {
+						newIndex = (sectionLength + newIndex) % sectionLength;
+					} else {
+						newIndex = newIndex < 0 ? 0 : (newIndex > sectionLength - 1 ? sectionLength - 1 : newIndex);
+					}
+
+					return newIndex;
+				},
+
 				_clear: function() {
+					this._clearTabIndicator();
 					this._super();
 					this.sectionPositions.length = 0;
 				}

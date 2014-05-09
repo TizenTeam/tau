@@ -8,15 +8,13 @@
 /*
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
-(function (document, frameworkNamespace, ns) {
+(function (window, frameworkNamespace, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
 			"../tau",
-			"./navigator",
-			"../core/wearable/selectors",
-			"../core/engine"
+			"../core/wearable/selectors"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

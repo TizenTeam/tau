@@ -15,7 +15,8 @@
 			"./navigator",
 			"./utils",
 			"./widget",
-            "./export"
+			"./export",
+			"./support"
 		],
 		function () {
 			return true;

@@ -13,6 +13,8 @@
 			"../../../engine",
 			"../../../utils/selectors",
 			"../../../utils/object",
+			"../../../utils/events",
+			"../../../events/gesture",
 			"./effect/Bouncing",
 			"../scroller"
 		],
@@ -20,8 +22,11 @@
 			//>>excludeEnd("tauBuildExclude");
 			// scroller.start event trigger when user try to move scroller
 			var BaseWidget = ns.widget.BaseWidget,
+				Gesture = ns.events.gesture,
 				engine = ns.engine,
 				utilsObject = ns.utils.object,
+				utilsEvents = ns.utils.events,
+				eventTrigger = ns.utils.events.trigger,
 				prototype = new BaseWidget(),
 				EffectBouncing = ns.widget.wearable.scroller.effect.Bouncing,
 				eventType = {
@@ -65,40 +70,26 @@
 				this.maxScrollX = 0;
 				this.maxScrollY = 0;
 
-				this.startTouchPointX = 0;
-				this.startTouchPointY = 0;
 				this.startScrollerOffsetX = 0;
 				this.startScrollerOffsetY = 0;
 
-				this.lastVelocity = 0;
-				this.lastEstimatedPoint = 0;
-
-				this.lastTouchPointX = -1;
-				this.lastTouchPointY = -1;
-
 				this.orientation = null;
 
-				this.initiated = false;
 				this.enabled = true;
 				this.scrolled = false;
-				this.moved = false;
+				this.dragging = false;
 				this.scrollCanceled = false;
 
-				this.startTime = null;
 				return element;
 			};
 
 			prototype._configure = function () {
 				this.options = utilsObject.merge({}, this.options, {
-					scrollDelay: 300,
+					scrollDelay: 0,
 					threshold: 10,
-					minThreshold: 5,
-					flickThreshold: 30,
 					scrollbar: false,
 					useBouncingEffect: false,
-					orientation: "vertical",		// vertical or horizontal,
-					// TODO implement scroll momentum.
-					momentum: true
+					orientation: "vertical"	// vertical or horizontal,
 				});
 			};
 
@@ -114,18 +105,14 @@
 
 				this.orientation = this.options.orientation === "horizontal" ? Scroller.Orientation.HORIZONTAL : Scroller.Orientation.VERTICAL;
 
-				this.initiated = false;
 				this.scrolled = false;
-				this.moved = false;
 				this.touching = true;
 				this.scrollCanceled = false;
 
-				if (this.orientation === Scroller.Orientation.HORIZONTAL) {
+				if ( this.orientation === Scroller.Orientation.HORIZONTAL ) {
 					this.maxScrollY = 0;
-					this.scrollerHeight = this.height;
 				} else {
 					this.maxScrollX = 0;
-					this.scrollerWidth = this.width;
 				}
 
 				this._initLayout();
@@ -148,25 +135,23 @@
 			};
 
 			prototype._initScrollbar = function () {
-				var scrollbarType = this.options.scrollbar,
-					i;
+				var type = this.options.scrollbar,
+					scrollbarType;
 
-				this.scrollbarelement = document.createElement('div');
-				for (i=0; i<this.element.children.length; i++) {
-					this.scrollbarelement.appendChild(this.element.children[i]);
-				}
-				this.element.appendChild(this.scrollbarelement);
-				if (scrollbarType) {
-					this.scrollbar = engine.instanceWidget(this.scrollbarelement, 'Scrollbar', {
-						type: scrollbarType,
-						orientation: this.orientation
-					});
+				if ( type ) {
+					scrollbarType = ns.widget.wearable.scroller.scrollbar.type[type];
+					if ( scrollbarType ) {
+						this.scrollbar = engine.instanceWidget(this.element, "ScrollBar", {
+							type: scrollbarType,
+							orientation: this.orientation
+						});
+					}
 				}
 			};
 
 			prototype._initBouncingEffect = function () {
 				var o = this.options;
-				if (o.useBouncingEffect) {
+				if ( o.useBouncingEffect ) {
 					this.bouncingEffect = new EffectBouncing(this.element, {
 						maxScrollX: this.maxScrollX,
 						maxScrollY: this.maxScrollY,
@@ -176,66 +161,65 @@
 			};
 
 			prototype._resetLayout = function () {
-				var elementStyle = this.element.style;
+				var elementStyle = this.element.style,
+					scrollerStyle = this.scrollerStyle;
 
 				elementStyle.overflow = "";
 				elementStyle.position = "";
+
+				elementStyle.overflow = "hidden";
+				elementStyle.position = "relative";
+
+				if (scrollerStyle) {
+					scrollerStyle.position = "";
+					scrollerStyle.top = "";
+					scrollerStyle.left = "";
+					scrollerStyle.width = "";
+					scrollerStyle.height = "";
+
+					scrollerStyle["-webkit-transform"] = "";
+					scrollerStyle["-webkit-transition"] = "";
+				}
 			};
 
 			prototype._bindEvents = function () {
-				if ("ontouchstart" in window) {
-					this.scroller.addEventListener("touchstart", this);
-					this.scroller.addEventListener("touchmove", this);
-					this.scroller.addEventListener("touchend", this);
-					this.scroller.addEventListener("touchcancel", this);
-				} else {
-					this.scroller.addEventListener("mousedown", this);
-					document.addEventListener("mousemove", this);
-					document.addEventListener("mouseup", this);
-					document.addEventListener("mousecancel", this);
-				}
+				ns.events.enableGesture(
+					this.scroller,
 
+					new ns.events.gesture.Drag({
+						threshold: this.options.threshold,
+						delay: this.options.scrollDelay,
+						blockVertical: this.orientation === Scroller.Orientation.HORIZONTAL,
+						blockHorizontal: this.orientation === Scroller.Orientation.VERTICAL
+					})
+				);
+
+				utilsEvents.on( this.scroller, "drag dragstart dragend dragcancel", this );
 				window.addEventListener("resize", this);
 			};
 
 			prototype._unbindEvents = function () {
-				if ("ontouchstart" in window) {
-					this.scroller.removeEventListener("touchstart", this);
-					this.scroller.removeEventListener("touchmove", this);
-					this.scroller.removeEventListener("touchend", this);
-					this.scroller.removeEventListener("touchcancel", this);
-				} else {
-					this.scroller.removeEventListener("mousedown", this);
-					document.removeEventListener("mousemove", this);
-					document.removeEventListener("mouseup", this);
-					document.removeEventListener("mousecancel", this);
+				if (this.scroller) {
+					ns.events.disableGesture( this.scroller );
+					utilsEvents.off( this.scroller, "drag dragstart dragend dragcancel", this );
+					window.removeEventListener("resize", this);
 				}
-
-				window.removeEventListener("resize", this);
 			};
 
 			/* jshint -W086 */
 			prototype.handleEvent = function (event) {
-				var pos = this._getPointPositionFromEvent(event);
-
 				switch (event.type) {
-					case "mousedown":
-						event.preventDefault();
-					case "touchstart":
-						this._start(event, pos);
+					case "dragstart":
+						this._start( event );
 						break;
-					case "mousemove":
-						event.preventDefault();
-					case "touchmove":
-						this._move(event, pos);
+					case "drag":
+						this._move( event );
 						break;
-					case "mouseup":
-					case "touchend":
-						this._end(event, pos);
+					case "dragend":
+						this._end( event );
 						break;
-					case "mousecancel":
-					case "touchcancel":
-						this.cancel(event);
+					case "dragcancel":
+						this.cancel( event );
 						break;
 					case "resize":
 						this.refresh();
@@ -245,8 +229,8 @@
 
 			prototype.setOptions = function (options) {
 				var name;
-				for (name in options) {
-					if (options.hasOwnProperty(name) && !!options[name]) {
+				for ( name in options ) {
+					if ( options.hasOwnProperty(name) && !!options[name] ) {
 						this.options[name] = options[name];
 					}
 				}
@@ -267,18 +251,18 @@
 					transition,
 					scrollerStyle = this.scrollerStyle;
 
-				if (duration) {
-					transition = "-webkit-transform " + duration / 1000 + "s ease-out";
-				} else {
+				if ( !duration ) {
 					transition = "none";
+				} else {
+					transition = "-webkit-transform " + duration / 1000 + "s ease-out";
 				}
 				translate = "translate3d(" + x + "px," + y + "px, 0)";
 
-				this.scrollerOffsetX = window.parseInt(x, 10);
-				this.scrollerOffsetY = window.parseInt(y, 10);
-
 				scrollerStyle["-webkit-transform"] = translate;
 				scrollerStyle["-webkit-transition"] = transition;
+
+				this.scrollerOffsetX = window.parseInt(x, 10);
+				this.scrollerOffsetY = window.parseInt(y, 10);
 			};
 
 			prototype._translateScrollbar = function (x, y, duration) {
@@ -289,191 +273,67 @@
 				this.scrollbar.translate(this.orientation === Scroller.Orientation.HORIZONTAL ? -x : -y, duration);
 			};
 
-			prototype._getEstimatedCurrentPoint = function (current, last) {
-				var velocity,
-					timeDifference = 15, /* pause time threshold.. tune the number to up if it is slow */
-					estimated;
-
-				if (last === current) {
-					this.lastVelocity = 0;
-					this.lastEstimatedPoint = current;
-					return current;
-				}
-
-				velocity = ( current - last ) / 22;
-				/*46.8 s_moveEventPerSecond*/
-				estimated = current + ( timeDifference * velocity );
-
-				// Prevent that point goes back even though direction of velocity is not changed.
-				if ((this.lastVelocity * velocity >= 0) &&
-					(!velocity || (velocity < 0 && estimated > this.lastEstimatedPoint) ||
-						(velocity > 0 && estimated < this.lastEstimatedPoint))) {
-					estimated = this.lastEstimatedPoint;
-				}
-
-				this.lastVelocity = velocity;
-				this.lastEstimatedPoint = estimated;
-
-				return estimated;
-			};
-
-			prototype._getPointPositionFromEvent = function (ev) {
-				return ev.type.search(/^touch/) !== -1 && ev.touches && ev.touches.length ?
-				{x: ev.touches[0].clientX, y: ev.touches[0].clientY} :
-				{x: ev.clientX, y: ev.clientY};
-			};
-
-			prototype._start = function (e, pos) {
-				if (this.initiated || !this.enabled) {
-					return;
-				}
-
-				this.startTime = (new Date()).getTime();
-
-				this.startTouchPointX = pos.x;
-				this.startTouchPointY = pos.y;
+			prototype._start = function(/* e */) {
+				this.scrolled = false;
+				this.dragging = true;
 				this.startScrollerOffsetX = this.scrollerOffsetX;
 				this.startScrollerOffsetY = this.scrollerOffsetY;
-				this.lastTouchPointX = pos.x;
-				this.lastTouchPointY = pos.y;
-
-				this.initiated = true;
-				this.scrollCanceled = false;
-				this.scrolled = false;
-				this.moved = false;
-				this.touching = true;
 			};
 
 			prototype._move = function (e, pos) {
-				var timestamp = (new Date()).getTime(),
-					scrollDelay = this.options.scrollDelay || 0,
-					threshold = this.options.threshold || 0,
-					minThreshold = this.options.minThreshold || 0,
-					distX = this.startTouchPointX - pos.x,
-					distY = this.startTouchPointY - pos.y,
-					absDistX = Math.abs(distX),
-					absDistY = Math.abs(distY),
-					maxDist = Math.max(absDistX, absDistY),
-					newX, newY;
-
-				if (!this.initiated || !this.touching || this.scrollCanceled) {
-					return;
-				}
-
-				this.lastTouchPointX = pos.x;
-				this.lastTouchPointY = pos.y;
-
-				// We need to move at least 10 pixels, delay 300ms for the scrolling to initiate
-				if (!this.scrolled &&
-					( maxDist < minThreshold ||
-						( maxDist < threshold && ( !scrollDelay || timestamp - this.startTime < scrollDelay ) ) )) {
-					/* TODO if touchmove event is preventDefaulted, click event not performed.
-					 * but to keep touch mode on android have to prevent default.
-					 * some idea are using ua or to change webkit threshold.*/
-					//e.preventDefault();
-					return;
-				}
-
-				if (!this.scrolled) {
-					switch (this.orientation) {
-						case Scroller.Orientation.HORIZONTAL:
-							if (absDistX < absDistY) {
-								this.cancel();
-								return;
-							}
-							break;
-						case Scroller.Orientation.VERTICAL:
-							if (absDistY < absDistX) {
-								this.cancel();
-								return;
-							}
-							break;
-					}
-
-					this._fireEvent(eventType.START);
-
-					this.startTouchPointX = pos.x;
-					this.startTouchPointY = pos.y;
-				}
-
-				this.scrolled = true;
-
-				if (this.orientation === Scroller.Orientation.HORIZONTAL) {
-					newX = this.startScrollerOffsetX + this._getEstimatedCurrentPoint(pos.x, this.lastTouchPointX) - this.startTouchPointX;
+				var newX = this.startScrollerOffsetX,
 					newY = this.startScrollerOffsetY;
-				} else {
-					newX = this.startScrollerOffsetX;
-					newY = this.startScrollerOffsetY + this._getEstimatedCurrentPoint(pos.y, this.lastTouchPointY) - this.startTouchPointY;
+
+				if ( !this.enabled || this.scrollCanceled || !this.dragging ) {
+					return;
 				}
 
-				if (newX > 0 || newX < this.maxScrollX) {
+				if ( this.orientation === Scroller.Orientation.HORIZONTAL ) {
+					newX += e.detail.estimatedDeltaX;
+				} else {
+					newY += e.detail.estimatedDeltaY;
+				}
+
+				if ( newX > 0 || newX < this.maxScrollX ) {
 					newX = newX > 0 ? 0 : this.maxScrollX;
 				}
-				if (newY > 0 || newY < this.maxScrollY) {
+				if ( newY > 0 || newY < this.maxScrollY ) {
 					newY = newY > 0 ? 0 : this.maxScrollY;
 				}
 
-				if (newX !== this.scrollerOffsetX || newY !== this.scrollerOffsetY) {
-					this.moved = true;
-					this._translate(newX, newY);
-					this._translateScrollbar(newX, newY);
-					// TODO to dispatch move event is too expansive. it is better to use callback.
-					//this._fireEvent( eventType.MOVE );
+				if ( newX !== this.scrollerOffsetX || newY !== this.scrollerOffsetY ) {
+					if ( !this.scrolled ) {
+						this._fireEvent( eventType.START );
+					}
+					this.scrolled = true;
 
-					if (this.bouncingEffect) {
+					this._translate( newX, newY );
+					this._translateScrollbar( newX, newY );
+// TODO to dispatch move event is too expansive. it is better to use callback.
+					this._fireEvent( eventType.MOVE );
+
+					if ( this.bouncingEffect ) {
 						this.bouncingEffect.hide();
 					}
 				} else {
-					if (this.bouncingEffect) {
-						this.bouncingEffect.drag(newX, newY);
+					if ( this.bouncingEffect ) {
+						this.bouncingEffect.drag( newX, newY );
 					}
 				}
-
-				e.preventDefault(); //this function make overflow scroll don't used
 			};
 
-			prototype._end = function (e) {
-				var lastX = Math.round(this.lastTouchPointX),
-					lastY = Math.round(this.lastTouchPointY),
-					distanceX = Math.abs(lastX - this.startTouchPointX),
-					distanceY = Math.abs(lastY - this.startTouchPointY),
-					distance = this.orientation === Scroller.Orientation.HORIZONTAL ? distanceX : distanceY,
-					maxDistance = this.orientation === Scroller.Orientation.HORIZONTAL ? this.maxScrollX : this.maxScrollY,
-					endOffset = this.orientation === Scroller.Orientation.HORIZONTAL ? this.scrollerOffsetX : this.scrollerOffsetY,
-					requestScrollEnd = this.initiated && this.scrolled,
-					endTime, duration;
-
-				this.touching = false;
-
-				if (!requestScrollEnd || this.scrollCanceled) {
-					this.initiated = false;
+			prototype._end = function (/* e */) {
+				if ( !this.dragging ) {
 					return;
 				}
 
-				// bouncing effect
-				if (this.bouncingEffect) {
+// bouncing effect
+				if ( this.bouncingEffect ) {
 					this.bouncingEffect.dragEnd();
 				}
 
-				if (!this.moved) {
-					this._endScroll();
-					return;
-				}
-
-				endTime = (new Date()).getTime();
-				duration = endTime - this.startTime;
-
-				// start momentum animation if needed
-				if (this.options.momentum &&
-					duration < 300 &&
-					( endOffset < 0 && endOffset > maxDistance ) &&
-					( distance > this.options.flickThreshold )) {
-					this._startMomentumScroll();
-				} else {
-					this._endScroll();
-				}
-
-				e.preventDefault();
+				this._endScroll();
+				this.dragging = false;
 			};
 
 			prototype._endScroll = function () {
@@ -481,51 +341,29 @@
 					this._fireEvent(eventType.END);
 				}
 
-				this.moved = false;
 				this.scrolled = false;
-				this.scrollCanceled = false;
-				this.initiated = false;
 			};
 
 			prototype.cancel = function () {
 				this.scrollCanceled = true;
 
-				if (this.initiated) {
-					this._translate(this.startScrollerOffsetX, this.startScrollerOffsetY);
-					this._translateScrollbar(this.startScrollerOffsetX, this.startScrollerOffsetY);
-					this._fireEvent(eventType.CANCEL);
+				if ( this.scrolled ) {
+					this._translate( this.startScrollerOffsetX, this.startScrollerOffsetY );
+					this._translateScrollbar( this.startScrollerOffsetX, this.startScrollerOffsetY );
+					this._fireEvent( eventType.CANCEL );
 				}
 
-				this.initiated = false;
 				this.scrolled = false;
-				this.moved = false;
-				this.touching = false;
-			};
-
-			// TODO implement _startMomentumScroll method
-			prototype._startMomentumScroll = function () {
-				this._endMomentumScroll();
-			};
-
-			prototype._endMomentumScroll = function () {
-				this._endScroll();
+				this.dragging = false;
 			};
 
 			prototype._fireEvent = function (eventName, detail) {
-				var evt = new CustomEvent(eventName, {
-					"bubbles": true,
-					"cancelable": true,
-					"detail": detail
-				});
-				this.element.dispatchEvent(evt);
+				eventTrigger( this.element, eventName, detail );
 			};
 
 			prototype._clear = function () {
-				this.initiated = false;
 				this.scrolled = false;
-				this.moved = false;
 				this.scrollCanceled = false;
-				this.touching = false;
 
 				this._resetLayout();
 				this._clearScrollbar();
@@ -533,7 +371,7 @@
 			};
 
 			prototype._clearScrollbar = function () {
-				if (this.scrollbar) {
+				if ( this.scrollbar ) {
 					this.scrollbar.destroy();
 				}
 				this.scrollbar = null;
@@ -547,12 +385,10 @@
 			};
 
 			prototype._disable = function () {
-				this.element.setAttribute("disabled", "disabled");
 				this.enabled = false;
 			};
 
 			prototype._enable = function () {
-				this.element.removeAttribute("disabled");
 				this.enabled = true;
 			};
 

@@ -19,7 +19,8 @@
 			"../core/utils/DOM/css",
 			"../core/utils/events",
 			"../core/utils/object",
-			"../core/utils/selectors"
+			"../core/utils/selectors",
+			"../core/events/gesture"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -93,6 +94,13 @@
 					path: utils.path,
 					selector: utils.selectors
 				};
+
+				/**
+				 * Namespace with Gesture utilities.
+				 * @class tau.gesture
+				 */
+				ns.gesture = frameworkNamespace.events.gesture;
+
 			}, false);
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);

@@ -441,13 +441,13 @@
 			*/
 			prototype.destroy = function (element) {
 				var self = this;
+				element = element || self.element;
 				if (typeof self._destroy === TYPE_FUNCTION) {
 					self._destroy(element);
 				}
 				if (self.element) {
 					self.trigger(self.widgetEventPrefix + "destroy");
 				}
-				element = element || self.element;
 				if (element) {
 					engine.removeBinding(element, self.name);
 				}
