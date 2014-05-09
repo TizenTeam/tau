@@ -371,6 +371,14 @@
 						* @TODO this is temporary fix, we have to think about this function
 						*/
 						$(document).bind('create', ns.engine._createEventHandler);
+						// support creating widgets by triggering pagecreate
+						$(document).bind('pagecreate', function (event) {
+							var originalEvent = event.originalEvent || event,
+								isPage = originalEvent.detail instanceof ns.widget.mobile.Page;
+							if (!isPage) { // trigger create when the pagecrate trigger is from outside
+								ns.engine._createEventHandler(originalEvent);
+							}
+						});
 						$(document).bind('activePopup', function (event) {
 							$.mobile.popup.active = $.mobile.popupwindow.active = event.originalEvent.detail;
 						});
