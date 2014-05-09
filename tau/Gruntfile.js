@@ -327,7 +327,7 @@ module.exports = function(grunt) {
 					skipModuleInsertion: true,
 					include: [ value ],
 					exclude: [ "wearable.core" ],
-					out: path.join( widgetPath, key ) + ".js",
+					out: path.join( widgetPath, name + "." + key ) + ".js",
 					pragmasOnSave: {
 						tauBuildExclude: true,
 						tauDebug: true
@@ -345,7 +345,7 @@ module.exports = function(grunt) {
 	grunt.initConfig(initConfig);
 
 	grunt.registerTask("findFiles", "Initialize Target Files.", function( name ) {
-		var name, obj = files;
+		var obj = files;
 		name = name.split( "." );
 		name.forEach(function(key) {
 			obj = obj[key];

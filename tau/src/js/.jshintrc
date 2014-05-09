@@ -14,7 +14,9 @@
 	"undef": true,
 	"unused": true,
 	"node": true,
-	"shadow": true,
+	"latedef": true,
+	"noempty": true,
+	"sub": true,
 
 	"globals": {
 		"define": false,
