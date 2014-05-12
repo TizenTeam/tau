@@ -13,7 +13,7 @@
 			"../utils/selectors",
 			"../utils/DOM/attributes",
 			"../utils/deferred",
-			"./Page"
+			"../../profile/mobile/router/Page"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

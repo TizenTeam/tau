@@ -74,7 +74,7 @@
 			"./core/widget/mobile/VirtualListview",
 			"./core/widget/mobile/VirtualGrid",
 			"./core/widget/mobile/Loader",
-			"./core/router/Page",
+			"./profile/mobile/router/Page",
 			"./core/router/PageExternal",
 			"./core/router/PageTransition",
 			"./core/widget/mobile/Gallery3d",

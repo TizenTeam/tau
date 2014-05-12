@@ -14,18 +14,18 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../engine",
-			"../router", // fetch namespace
-			"../utils/events",
-			"../utils/DOM/attributes",
-			"../utils/DOM/manipulation",
-			"../utils/selectors",
-			"../utils/path",
-			"../utils/object",
-			"../utils/deferred",
-			"../widget/mobile/Page",
-			"../events/page",
-			"../router/urlHistory"
+			"../../../core/engine",
+			"../../../core/router", // fetch namespace
+			"../../../core/utils/events",
+			"../../../core/utils/DOM/attributes",
+			"../../../core/utils/DOM/manipulation",
+			"../../../core/utils/selectors",
+			"../../../core/utils/path",
+			"../../../core/utils/object",
+			"../../../core/utils/deferred",
+			"../../../core/widget/mobile/Page",
+			"../../../core/events/page",
+			"../../../core/router/urlHistory"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

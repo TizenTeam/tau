@@ -9,7 +9,7 @@
 		[
 			"../engine",
 			"../router", // fetch namespace
-			"./Page",
+			"../../profile/mobile/router/Page",
 			"../widget/mobile/Page",
 			"../widget/mobile/Loader",
 			"../utils",
