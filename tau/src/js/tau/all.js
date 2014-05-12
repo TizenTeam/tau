@@ -13,7 +13,7 @@
 		[
 			"./defaults",
 			"./navigator",
-			"./utils",
+			"../profile/wearable/utils",
 			"../profile/wearable/widget"
 		],
 		function () {

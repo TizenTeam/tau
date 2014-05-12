@@ -12,15 +12,15 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../core/conflict",
-			"../core/engine",
-			"../core/utils/path",
-			"../core/utils/DOM/attributes",
-			"../core/utils/DOM/css",
-			"../core/utils/events",
-			"../core/utils/object",
-			"../core/utils/selectors",
-			"../core/events/gesture"
+			"../../core/conflict",
+			"../../core/engine",
+			"../../core/utils/path",
+			"../../core/utils/DOM/attributes",
+			"../../core/utils/DOM/css",
+			"../../core/utils/events",
+			"../../core/utils/object",
+			"../../core/utils/selectors",
+			"../../core/events/gesture"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
