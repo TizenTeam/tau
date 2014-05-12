@@ -31,8 +31,10 @@
 					TOUCHEND: "touchend",
 					VCLICK: "vclick",
 					MOUSEDOWN: "mousedown",
-					MOUSEUP: "mouseup"
-				};
+					MOUSEUP: "mouseup",
+					BEFOREROUTERINIT: "beforerouterinit"
+				},
+				registerEventNames = ["touchstart", "touchmove", "touchend", "tap", "taphold", "swipe", "swipeleft", "swiperight", "scrollstart", "scrollstop"];
 
 			ns.jqm.event = {
 				/**
@@ -132,10 +134,22 @@
 						},
 						blockedEvents = [eventType.TOUCHSTART, eventType.TOUCHEND, eventType.VCLICK, eventType.MOUSEDOWN, eventType.MOUSEUP, eventType.CLICK],
 						blockedEventsLength = blockedEvents.length,
-						html = document.getElementsByTagName("html")[0];
+						html = document.body.parentNode;
+
 					if ($) {
-						this.copyEventProperties(window, 'orientationchange', event.orientationchange.properties);
-						this.proxyEventTriggerMethod('orientationchange', event.orientationchange.trigger);
+						// setup new event shortcuts
+						registerEventNames.forEach(function(name) {
+							$.fn[name] = function(fn) {
+								return fn ? this.bind(name, fn) : this.trigger(name);
+							};
+							// jQuery < 1.8
+							if ($.attrFn) {
+								$.attrFn[name] = true;
+							}
+						});
+
+						this.copyEventProperties(window, 'orientationchange', events.orientationchange.properties);
+						this.proxyEventTriggerMethod('orientationchange', events.orientationchange.trigger);
 
 						// Proxied jQuery's trigger method to fire swipe event
 						if (orginalTrigger === undefined) {
@@ -174,7 +188,7 @@
 			};
 
 			// Listen when framework is ready
-			document.addEventListener(ns.engine.eventType.INIT, function () {
+			document.addEventListener(eventType.BEFOREROUTERINIT, function () {
 				ns.jqm.event.init();
 			}, false);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
