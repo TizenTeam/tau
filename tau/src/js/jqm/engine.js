@@ -9,7 +9,7 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../jqm",
+			"./jqm",
 			"../core/engine",
 			"../core/utils/selectors",
 			"../core/utils/globalize",
