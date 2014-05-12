@@ -13,8 +13,8 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../core/conflict",
-			"../core/wearable/selectors"
+			"../../core/conflict",
+			"../../core/wearable/selectors"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

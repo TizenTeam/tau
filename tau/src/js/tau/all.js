@@ -11,7 +11,7 @@
 	"use strict";
 	define(
 		[
-			"./defaults",
+			"../profile/wearable/defaults",
 			"../profile/wearable/navigator",
 			"../profile/wearable/utils",
 			"../profile/wearable/widget"
