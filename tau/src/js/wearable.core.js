@@ -15,10 +15,10 @@
 			"./core/widget/wearable/Page",
 			"./core/widget/wearable/Popup",
 			"./core/widget/wearable/PageContainer",
-			"./core/router/wearable/Router",
-			"./core/router/wearable/route/page",
-			"./core/router/wearable/route/popup",
-			"./core/router/wearable/history"
+			"./profile/wearable/router/Router",
+			"./profile/wearable/router/route/page",
+			"./profile/wearable/router/route/popup",
+			"./profile/wearable/router/history"
 		],
 		function (require) {
 			require(["./core/init"], function () {

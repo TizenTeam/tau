@@ -5,7 +5,7 @@
  */
 /**
  * Support class for router to control change pupups.
- * @class ns.router.wearable.route.popup
+ * @class ns.router.route.popup
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Damian Osipiuk <d.osipiuk@samsung.com>
  */
@@ -14,14 +14,14 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../../engine",
-			"../../../utils/path",
-			"../../../utils/DOM/attributes",
-			"../../../utils/selectors",
-			"../../../../profile/wearable/selectors",
+			"../../../../core/engine",
+			"../../../../core/utils/path",
+			"../../../../core/utils/DOM/attributes",
+			"../../../../core/utils/selectors",
+			"../../selectors",
 			"../history",
 			"../route",
-			"../../../widget/wearable/Popup"
+			"../../../../core/widget/wearable/Popup"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -31,7 +31,7 @@
 					 * @property {string} [defaults.transition='none']
 					 * @property {?HTMLElement} [defaults.container=null]
 					 * @property {boolean} [defaults.volatileRecord=true]
-					 * @member ns.router.wearable.route.popup
+					 * @member ns.router.route.popup
 					 * @static
 					 */
 					defaults: {
@@ -41,20 +41,20 @@
 					},
 					/**
 					 * @property {string} filter Alias for {@link ns.wearable.selectors#popup}
-					 * @member ns.router.wearable.route.popup
+					 * @member ns.router.route.popup
 					 * @static
 					 */
 					filter: ns.wearable.selectors.popup,
 					/**
 					 * @property {?HTMLElement} activePopup Storage variable for active popup
-					 * @member ns.router.wearable.route.popup
+					 * @member ns.router.route.popup
 					 * @static
 					 */
 					activePopup: null,
 					/**
 					 * @property {Object} events Dictionary for popup related event types
 					 * @property {string} [events.POPUP_HIDE='popuphide']
-					 * @member ns.router.wearable.route.popup
+					 * @member ns.router.route.popup
 					 * @static
 					 */
 					events: {
@@ -63,63 +63,63 @@
 				},
 				/**
 				 * @property {Object} engine Alias for {@link ns.engine}
-				 * @member ns.router.wearable.route.popup
+				 * @member ns.router.route.popup
 				 * @private
 				 * @static
 				 */
 				engine = ns.engine,
 				/**
 				 * @property {Object} path Alias for {@link ns.utils.path}
-				 * @member ns.router.wearable.route.popup
+				 * @member ns.router.route.popup
 				 * @private
 				 * @static
 				 */
 				path = ns.utils.path,
 				/**
 				 * @property {Object} utilSelector Alias for {@link ns.utils.selectors}
-				 * @member ns.router.wearable.route.popup
+				 * @member ns.router.route.popup
 				 * @private
 				 * @static
 				 */
 				utilSelector = ns.utils.selectors,
 				/**
-				 * @property {Object} history Alias for {@link ns.router.wearable.history}
-				 * @member ns.router.wearable.route.popup
+				 * @property {Object} history Alias for {@link ns.router.history}
+				 * @member ns.router.route.popup
 				 * @private
 				 * @static
 				 */
-				history = ns.router.wearable.history,
+				history = ns.router.history,
 				/**
 				 * @property {Object} pathUtils Alias for {@link ns.utils.path}
-				 * @member ns.router.wearable.route.popup
+				 * @member ns.router.route.popup
 				 * @private
 				 * @static
 				 */
 				pathUtils = ns.utils.path,
 				/**
 				 * @property {Object} DOM Alias for {@link ns.utils.DOM}
-				 * @member ns.router.wearable.route.popup
+				 * @member ns.router.route.popup
 				 * @private
 				 * @static
 				 */
 				DOM = ns.utils.DOM,
 				/**
 				 * @method slice Alias for array slice method
-				 * @member ns.router.wearable.route.popup
+				 * @member ns.router.route.popup
 				 * @private
 				 * @static
 				 */
 				slice = [].slice,
 				/**
 				 * @property {string} popupHashKey
-				 * @member ns.router.wearable.route.popup
+				 * @member ns.router.route.popup
 				 * @private
 				 * @static
 				 */
 				popupHashKey = "popup=true",
 				/**
 				 * @property {RegExp} popupHashKeyReg
-				 * @member ns.router.wearable.route.popup
+				 * @member ns.router.route.popup
 				 * @private
 				 * @static
 				 */
@@ -132,7 +132,7 @@
 			 * @param {string} id
 			 * @param {string} filter
 			 * @return {HTMLElement}
-			 * @member ns.router.wearable.route.popup
+			 * @member ns.router.route.popup
 			 * @private
 			 * @static
 			 */
@@ -156,7 +156,7 @@
 			 * Returns default options
 			 * @method option
 			 * @return {Object}
-			 * @member ns.router.wearable.route.popup
+			 * @member ns.router.route.popup
 			 * @static
 			 */
 			routePopup.option = function () {
@@ -168,7 +168,7 @@
 			 * @method open
 			 * @param {HTMLElement|string} toPopup
 			 * @param {Object} options
-			 * @member ns.router.wearable.route.popup
+			 * @member ns.router.route.popup
 			 * @static
 			 */
 			routePopup.open = function (toPopup, options) {
@@ -216,7 +216,7 @@
 			 * Close active popup
 			 * @method _closeActivePopup
 			 * @param {HTMLElement} activePopup
-			 * @member ns.router.wearable.route.popup
+			 * @member ns.router.route.popup
 			 * @protected
 			 * @static
 			 */
@@ -234,7 +234,7 @@
 			 * Close active popup
 			 * @method onHashChange
 			 * @return {boolean}
-			 * @member ns.router.wearable.route.popup
+			 * @member ns.router.route.popup
 			 * @static
 			 */
 			routePopup.onHashChange = function () {
@@ -254,7 +254,7 @@
 			/**
 			 * On open fail, currently never used
 			 * @method onOpenFailed
-			 * @member ns.router.wearable.route.popup
+			 * @member ns.router.route.popup
 			 * @return {null}
 			 * @static
 			 */
@@ -267,7 +267,7 @@
 			 * @method find
 			 * @param {string} absUrl
 			 * @return {HTMLElement}
-			 * @member ns.router.wearable.route.popup
+			 * @member ns.router.route.popup
 			 * @static
 			 */
 			routePopup.find = function( absUrl ) {
@@ -292,7 +292,7 @@
 			 * @param {string} html
 			 * @param {string} absUrl
 			 * @return {HTMLElement}
-			 * @member ns.router.wearable.route.popup
+			 * @member ns.router.route.popup
 			 * @static
 			 */
 			routePopup.parse = function( html, absUrl ) {
@@ -325,7 +325,7 @@
 			 * @method _createDataUrl
 			 * @param {string} absoluteUrl
 			 * @return {string}
-			 * @member ns.router.wearable.route.popup
+			 * @member ns.router.route.popup
 			 * @protected
 			 * @static
 			 */
@@ -337,7 +337,7 @@
 			 * Return true if active popup exists.
 			 * @method _hasActivePopup
 			 * @return {boolean}
-			 * @member ns.router.wearable.route.popup
+			 * @member ns.router.route.popup
 			 * @protected
 			 * @static
 			 */
@@ -347,7 +347,7 @@
 				return !!routePopup.activePopup;
 			};
 
-			ns.router.wearable.route.popup = routePopup;
+			ns.router.route.popup = routePopup;
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return routePopup;

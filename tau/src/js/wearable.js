@@ -20,12 +20,12 @@
 			"./core/widget/wearable/SectionChanger",
 			"./core/widget/wearable/VirtualGrid",
 			"./core/widget/wearable/scroller/Scroller",
-			"./core/widget/wearable/scroller/scrollbar/ScrollBar",
-			"./core/widget/wearable/SwipeList",
-			"./core/router/wearable/Router",
-			"./core/router/wearable/route/page",
-			"./core/router/wearable/route/popup",
-			"./core/router/wearable/history"
+			"./core/widget/wearable/scroller/scrollbar/Scrollbar",
+                        "./core/widget/wearable/SwipeList",
+			"./profile/wearable/router/Router",
+			"./profile/wearable/router/route/page",
+			"./profile/wearable/router/route/popup",
+			"./profile/wearable/router/history"
 		],
 		function (require) {
 			require(["./core/init"], function () {

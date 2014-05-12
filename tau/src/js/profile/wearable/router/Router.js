@@ -6,7 +6,7 @@
 /**
  * #Router
  * Main class to navigate between pages and popups.
- * @class ns.router.wearable.Router
+ * @class ns.router.Router
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Piotr Karny <p.karny@samsung.com>
  * @author Tomasz Lukawski <t.lukawski@samsung.com>
@@ -16,18 +16,18 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../engine",
-			"../wearable", // fetch namespace
+			"../../../core/engine",
+			"../../../core/router",
 			"./route", // fetch namespace
 			"./history",
-			"../../utils/events",
-			"../../utils/DOM/attributes",
-			"../../utils/selectors",
-			"../../utils/path",
-			"../../utils/object",
-			"../../widget/wearable/Page",
-			"../../widget/wearable/PageContainer",
-			"../../../profile/wearable/selectors"
+			"../../../core/utils/events",
+			"../../../core/utils/DOM/attributes",
+			"../../../core/utils/selectors",
+			"../../../core/utils/path",
+			"../../../core/utils/object",
+			"../../../core/widget/wearable/Page",
+			"../../../core/widget/wearable/PageContainer",
+			"../selectors"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -93,7 +93,7 @@
 				* @static
 				* @private
 				*/
-				routerMicro = ns.router.wearable,
+				routerMicro = ns.router,
 				/**
 				* Local alias for ns.wearable.selectors
 				* @property {Object} microSelectors Alias for {@link ns.wearable.selectors}
@@ -289,7 +289,7 @@
 			* @param {boolean} [options.dataUrl] page has url attribute
 			* @param {string} [options.container = null] uses in RoutePopup as container selector
 			 * @instance
-			* @member ns.router.wearable.Router
+			* @member ns.router.Router
 			*/
 			Router.prototype.open = function (to, options) {
 				var rel = ((options && options.rel) || "page"),
@@ -335,7 +335,7 @@
 			* @method init
 			* @param {boolean} justBuild
 			* @instance
-			* @member ns.router.wearable.Router
+			* @member ns.router.Router
 			*/
 			Router.prototype.init = function (justBuild) {
 				var page,
@@ -401,7 +401,7 @@
 			* Remove all events listners set by router
 			* @method destroy
 			* @instance
-			* @member ns.router.wearable.Router
+			* @member ns.router.Router
 			*/
 			Router.prototype.destroy = function () {
 				var self = this;
@@ -415,9 +415,9 @@
 			/**
 			* Set container
 			* @method setContainer
-			* @param {ns.widget.wearable.PageContainer} container
+			* @param {ns.widget.PageContainer} container
 			* @instance
-			* @member ns.router.wearable.Router
+			* @member ns.router.Router
 			*/
 			Router.prototype.setContainer = function (container) {
 				this.container = container;
@@ -426,9 +426,9 @@
 			/**
 			* Get container
 			* @method getContainer
-			* @return {ns.widget.wearable.PageContainer} container
+			* @return {ns.widget.PageContainer} container
 			* @instance
-			* @member ns.router.wearable.Router
+			* @member ns.router.Router
 			*/
 			Router.prototype.getContainer = function () {
 				return this.container;
@@ -439,7 +439,7 @@
 			* @method getFirstPage
 			* @return {HTMLElement} page
 			* @instance
-			* @member ns.router.wearable.Router
+			* @member ns.router.Router
 			*/
 			Router.prototype.getFirstPage = function () {
 				return this.firstPage;
@@ -448,10 +448,10 @@
 			/**
 			* Register page container and first page
 			* @method register
-			* @param {ns.widget.wearable.PageContainer} container
+			* @param {ns.widget.PageContainer} container
 			* @param {HTMLElement} firstPage
 			* @instance
-			* @member ns.router.wearable.Router
+			* @member ns.router.Router
 			*/
 			Router.prototype.register = function (container, firstPage) {
 				var self = this;
@@ -485,7 +485,7 @@
 			 * @param {boolean} [options.dataUrl] page has url attribute
 			 * @param {string} [options.container = null] uses in RoutePopup as container selector
 			 * @instance
-			 * @member ns.router.wearable.Router
+			 * @member ns.router.Router
 			 */
 			Router.prototype.openPopup = function (to, options) {
 				this.open(to, object.fastMerge({rel: "popup"}, options));
@@ -495,7 +495,7 @@
 			 * Close popup
 			 * @method closePopup
 			 * @instance
-			 * @member ns.router.wearable.Router
+			 * @member ns.router.Router
 			 */
 			Router.prototype.closePopup = function () {
 				// @TODO add checking is popup active
@@ -522,7 +522,7 @@
 			 * @param {Function} deferred.reject
 			 * @param {Function} deferred.resolve
 			 * @instance
-			 * @member ns.router.wearable.Router
+			 * @member ns.router.Router
 			 * @protected
 			 */
 			Router.prototype._loadUrl = function (url, options, rule, deferred) {
@@ -588,7 +588,7 @@
 			 * @param {Object} deferred
 			 * @param {Function} deferred.reject
 			 * @instance
-			 * @member ns.router.wearable.Router
+			 * @member ns.router.Router
 			 * @protected
 			 */
 			Router.prototype._loadError = function (absUrl, options, deferred) {
@@ -627,7 +627,7 @@
 			 * @param {Function} deferred.resolve
 			 * @param {string} html
 			 * @instance
-			 * @member ns.router.wearable.Router
+			 * @member ns.router.Router
 			 * @protected
 			 */
 			Router.prototype._loadSuccess = function (absUrl, options, rule, deferred, html) {
@@ -652,7 +652,7 @@
 			 * Get initial content
 			 * @method _getInitialContent
 			 * @instance
-			 * @member ns.router.wearable.Router
+			 * @member ns.router.Router
 			 * @return {HTMLElement} first page
 			 * @protected
 			 */
@@ -665,7 +665,7 @@
 			 * @method _showLoading
 			 * @param {number} delay
 			 * @instance
-			 * @member ns.router.wearable.Router
+			 * @member ns.router.Router
 			 * @protected
 			 */
 			Router.prototype._showLoading = function (delay) {
@@ -677,7 +677,7 @@
 			 * @method _showError
 			 * @param {string} absUrl
 			 * @instance
-			 * @member ns.router.wearable.Router
+			 * @member ns.router.Router
 			 * @protected
 			 */
 			Router.prototype._showError = function (absUrl) {
@@ -688,7 +688,7 @@
 			 * Hide the loading indicator
 			 * @method _hideLoading
 			 * @instance
-			 * @member ns.router.wearable.Router
+			 * @member ns.router.Router
 			 * @protected
 			 */
 			Router.prototype._hideLoading = function () {
@@ -700,7 +700,7 @@
 			 * @method hasActivePopup
 			 * @return {boolean}
 			 * @instance
-			 * @member ns.router.wearable.Router
+			 * @member ns.router.Router
 			 */
 			Router.prototype.hasActivePopup = function () {
 				var popup = this.rule.popup;

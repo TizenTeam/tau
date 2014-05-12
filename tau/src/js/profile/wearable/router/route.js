@@ -16,11 +16,11 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../wearable"
+			"../../../core/router"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			ns.router.wearable.route = ns.router.wearable.route || {};
+			ns.router.route = ns.router.route || {};
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
 	);

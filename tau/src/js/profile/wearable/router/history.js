@@ -6,7 +6,7 @@
 /**
  * #History
  * Object controls history changes.
- * @class ns.router.wearable.history
+ * @class ns.router.history
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
 (function (window, ns) {
@@ -14,8 +14,8 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../wearable",
-			"../../utils/object"
+			"../../../core/router",
+			"../../../core/utils/object"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -29,7 +29,7 @@
 					 * Property contains active state in history.
 					 * @property {Object} activeState
 					 * @static
-					 * @member ns.router.wearable.history
+					 * @member ns.router.history
 					 */
 					activeState : null,
 
@@ -40,7 +40,7 @@
 					 * @param {string} pageTitle
 					 * @param {string} url
 					 * @static
-					 * @member ns.router.wearable.history
+					 * @member ns.router.history
 					 */
 					replace: function (state, pageTitle, url) {
 						var newState = object.merge({},
@@ -56,7 +56,7 @@
 					 * Back in history.
 					 * @method back
 					 * @static
-					 * @member ns.router.wearable.history
+					 * @member ns.router.history
 					 */
 					back: function () {
 						windowHistory.back();
@@ -67,7 +67,7 @@
 					 * @method setActive
 					 * @param {Object} state
 					 * @static
-					 * @member ns.router.wearable.history
+					 * @member ns.router.history
 					 */
 					setActive: function (state) {
 						if (state) {
@@ -89,7 +89,7 @@
 					 * @param {Object} state
 					 * @return {string}
 					 * @static
-					 * @member ns.router.wearable.history
+					 * @member ns.router.history
 					 */
 					getDirection: function (state) {
 						if (state) {
@@ -102,7 +102,7 @@
 					 * Set volatile mode to true.
 					 * @method enableVolatileRecord
 					 * @static
-					 * @member ns.router.wearable.history
+					 * @member ns.router.history
 					 */
 					enableVolatileRecord: function () {
 						historyVolatileMode = true;
@@ -112,13 +112,13 @@
 					 * Set volatile mode to true.
 					 * @method disableVolatileMode
 					 * @static
-					 * @member ns.router.wearable.history
+					 * @member ns.router.history
 					 */
 					disableVolatileMode: function () {
 						historyVolatileMode = false;
 					}
 				};
-			ns.router.wearable.history = history;
+			ns.router.history = history;
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
 	);

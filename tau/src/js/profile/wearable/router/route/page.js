@@ -5,7 +5,7 @@
 */
 /**
  * Support class for router to control change pages.
- * @class ns.router.wearable.route.page
+ * @class ns.router.route.page
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
 (function (document, ns) {
@@ -13,15 +13,15 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../../engine",
-			"../../../../profile/wearable/selectors",
+			"../../../../core/engine",
+			"../../selectors",
 			"../route",
-			"../../../utils/DOM/attributes",
-			"../../../utils/path",
-			"../../../utils/selectors",
-			"../../../utils/object",
+			"../../../../core/utils/DOM/attributes",
+			"../../../../core/utils/path",
+			"../../../../core/utils/selectors",
+			"../../../../core/utils/object",
 			"../history",
-			"../../../widget/wearable/Page"
+			"../../../../core/widget/wearable/Page"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -30,7 +30,7 @@
 				DOM = utils.DOM,
 				object = utils.object,
 				utilSelector = utils.selectors,
-				history = ns.router.wearable.history,
+				history = ns.router.history,
 				engine = ns.engine,
 				baseElement,
 				slice = [].slice,
@@ -45,7 +45,7 @@
 			* @param {string} id Id of searching element
 			* @param {string} filter Query selector for searching page
 			* @static
-			* @member ns.router.wearable.route.page
+			* @member ns.router.route.page
 			*/
 			function findPageAndSetDataUrl(id, filter) {
 				var page = document.getElementById(id);
@@ -68,7 +68,7 @@
 			 * @property {Object} defaults
 			 * @property {string} defaults.transition='none'
 			 * @static
-			 * @member ns.router.wearable.route.page
+			 * @member ns.router.route.page
 			 */
 			routePage.defaults = {
 				transition: 'none'
@@ -77,7 +77,7 @@
 			/**
 			 * Property defining selector for filtering only page elements
 			 * @property {string} filter
-			 * @member ns.router.wearable.route.page
+			 * @member ns.router.route.page
 			 * @inheritdoc ns.wearable.selectors#page
 			 * @static
 			 */
@@ -87,7 +87,7 @@
 			 * Returns default route options used inside Router
 			 * @method option
 			 * @static
-			 * @member ns.router.wearable.route.page
+			 * @member ns.router.route.page
 			 * @return {Object}
 			 */
 			routePage.option = function () {
@@ -102,7 +102,7 @@
 			* @param {boolean} [options.fromHashChange] call was made when on hash change
 			* @param {string} [options.dataUrl]
 			* @static
-			* @member ns.router.wearable.route.page
+			* @member ns.router.route.page
 			*/
 			routePage.open = function (toPage, options) {
 				var pageTitle = document.title,
@@ -150,7 +150,7 @@
 			 * @method find
 			 * @param {string} absUrl absolute path to opened page
 			 * @static
-			 * @member ns.router.wearable.route.page
+			 * @member ns.router.route.page
 			 * @return {?HTMLElement}
 			 */
 			routePage.find = function( absUrl ) {
@@ -202,7 +202,7 @@
 			 * @param {string} html HTML code to parse
 			 * @param {string} absUrl Absolute url for parsed page
 			 * @static
-			 * @member ns.router.wearable.route.page
+			 * @member ns.router.route.page
 			 * @return {?HTMLElement}
 			 */
 			routePage.parse = function( html, absUrl ) {
@@ -241,7 +241,7 @@
 			 * Handles hash change, **currently does nothing**.
 			 * @method onHashChange
 			 * @static
-			 * @member ns.router.wearable.route.page
+			 * @member ns.router.route.page
 			 * @return {null}
 			 */
 			routePage.onHashChange = function () {
@@ -254,7 +254,7 @@
 			 * @param {string} absoluteUrl
 			 * @protected
 			 * @static
-			 * @member ns.router.wearable.route.page
+			 * @member ns.router.route.page
 			 * @return {string}
 			 */
 			routePage._createDataUrl = function( absoluteUrl ) {
@@ -265,7 +265,7 @@
 			 * On open fail, currently never used
 			 * @method onOpenFailed 
 			 * @static
-			 * @member ns.router.wearable.route.page
+			 * @member ns.router.route.page
 			 */
 			routePage.onOpenFailed = function(/* options */) {
 				this._setBase( path.parseLocation().hrefNoSearch );
@@ -277,7 +277,7 @@
 			 * @method _getBaseElement
 			 * @protected
 			 * @static
-			 * @member ns.router.wearable.route.page
+			 * @member ns.router.route.page
 			 * @return {HTMLElement}
 			 */
 			routePage._getBaseElement = function() {
@@ -303,7 +303,7 @@
 			 * @param {string} url
 			 * @protected
 			 * @static
-			 * @member ns.router.wearable.route.page
+			 * @member ns.router.route.page
 			 */
 			routePage._setBase = function( url ) {
 				var base = this._getBaseElement(),
@@ -318,7 +318,7 @@
 				}
 			};
 
-			ns.router.wearable.route.page = routePage;
+			ns.router.route.page = routePage;
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return routePage;
