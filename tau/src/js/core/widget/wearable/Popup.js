@@ -287,6 +287,8 @@
 						"margin-bottom": 0,
 						"margin-left": 0,
 						"margin-right": 0,
+						"padding-top": 0,
+						"padding-bottom": 0,
 						"border-width": 0,
 						"display": null
 					},
@@ -331,7 +333,7 @@
 					contentHeight = window.innerHeight - (parseInt(props["margin-top"], 10) + parseInt(props["margin-bottom"], 10));
 
 					elementStyle.height = contentHeight + "px";
-					contentStyle.height = (contentHeight - headerHeight - footerHeight - borderWidth * 2) + "px";
+					contentStyle.height = (contentHeight - headerHeight - footerHeight - borderWidth * 2 - (parseFloat(props["padding-top"]) + parseFloat(props["padding-bottom"]))) + "px";
 					contentStyle.overflowY = "scroll";
 				}
 
@@ -381,7 +383,7 @@
 				container.appendChild(element.parentElement.replaceChild(container, element));
 
 				if (element.classList.contains(classes.toast)) {
-					container.addEventListener("click", self.closePopup, false);
+					container.addEventListener("click", self.closeFunction, false);
 				}
 				self.background = container;
 
@@ -410,7 +412,7 @@
 					parent = container.parentElement;
 
 				if (element.classList.contains(classes.toast)) {
-					container.removeEventListener("click", self.closePopup, false);
+					container.removeEventListener("click", self.closeFunction, false);
 				}
 
 				if ( parent ) {
