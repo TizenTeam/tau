@@ -5,7 +5,7 @@
 	define(
 		[
 			"require",
-			"./core",
+			"./core/core",
 			"./core/config",
 			"./tau/all",
 			"./core/engine",

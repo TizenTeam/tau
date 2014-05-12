@@ -17,7 +17,7 @@
 	define(
 		[
 			"../tau",
-			"../core",
+			"../core/core",
 			"../core/engine",
 			"../core/router/wearable/route",
 			"../core/router/wearable/history"

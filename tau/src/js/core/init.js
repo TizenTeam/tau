@@ -12,7 +12,7 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../core",
+			"./core",
 			"./engine"
 		],
 		function () {

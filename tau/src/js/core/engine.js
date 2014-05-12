@@ -23,7 +23,7 @@
 	define(
 		[
 			"require",
-			"../core",
+			"./core",
 			"./utils/events",
 			"./utils/selectors"
 		],

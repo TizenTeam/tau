@@ -9,7 +9,7 @@
 //>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../core",
+			"./core",
 			"./utils/DOM/attributes",
 			"./utils/load"
 		],
