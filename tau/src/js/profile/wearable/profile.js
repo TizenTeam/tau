@@ -13,6 +13,7 @@
 		[
 		 	"./config",
 			"./defaults",
+			"./selectors",
 			"./navigator",
 			"./utils",
 			"./widget"

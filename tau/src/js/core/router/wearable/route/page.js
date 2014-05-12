@@ -14,7 +14,7 @@
 	define(
 		[
 			"../../../engine",
-			"../../../wearable/selectors",
+			"../../../../profile/wearable/selectors",
 			"../route",
 			"../../../utils/DOM/attributes",
 			"../../../utils/path",

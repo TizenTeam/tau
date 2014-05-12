@@ -14,7 +14,7 @@
 	define(
 		[
 			"../../core/conflict",
-			"../../core/wearable/selectors"
+			"./selectors"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

@@ -18,7 +18,7 @@
 			"../../../utils/path",
 			"../../../utils/DOM/attributes",
 			"../../../utils/selectors",
-            "../../../wearable/selectors",
+			"../../../../profile/wearable/selectors",
 			"../history",
 			"../route",
 			"../../../widget/wearable/Popup"

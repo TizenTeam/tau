@@ -35,7 +35,7 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../wearable/selectors",
+			"../../../profile/wearable/selectors",
 			"../../engine",
 			"../../utils/selectors",
 			"../../utils/DOM/css",

@@ -27,7 +27,7 @@
 			"../../utils/object",
 			"../../widget/wearable/Page",
 			"../../widget/wearable/PageContainer",
-			"../../wearable/selectors"
+			"../../../profile/wearable/selectors"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
