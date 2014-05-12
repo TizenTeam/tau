@@ -42,9 +42,9 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../core/conflict",
-			"../core/widget/BaseWidget",
-			"../core/engine"
+			"../../core/conflict",
+			"../../core/widget/BaseWidget",
+			"../../core/engine"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

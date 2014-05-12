@@ -14,7 +14,7 @@
 			"./defaults",
 			"./navigator",
 			"./utils",
-			"./widget"
+			"../profile/wearable/widget"
 		],
 		function () {
 			return true;
