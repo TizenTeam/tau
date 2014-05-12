@@ -11,10 +11,10 @@
 	"use strict";
 	define(
 		[
-			"../profile/wearable/defaults",
-			"../profile/wearable/navigator",
-			"../profile/wearable/utils",
-			"../profile/wearable/widget"
+			"./defaults",
+			"./navigator",
+			"./utils",
+			"./widget"
 		],
 		function () {
 			return true;

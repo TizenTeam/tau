@@ -7,7 +7,7 @@
 			"require",
 			"./core/core",
 			"./core/config",
-			"./tau/all",
+			"./profile/wearable/profile",
 			"./core/export",
 			"./core/engine",
 			// widget list
