@@ -11,6 +11,7 @@
 	"use strict";
 	define(
 		[
+		 	"./config",
 			"./defaults",
 			"./navigator",
 			"./utils",

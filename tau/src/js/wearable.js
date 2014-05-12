@@ -7,7 +7,6 @@
 			"require",
 			"./core/core",
 			"./core/config",
-			"./core/wearable/config",
 			"./profile/wearable/profile",
 			"./core/export",
 			"./core/engine",
