@@ -168,6 +168,11 @@
 												// wrap first argument of callback method in JQuery object
 												args[1] = wrapFn(args[1]);
 										}
+										if (name === "popup" && method === "open") {
+											// window.event is used because in Winset we open context popup by
+											// $("#pop_text_only").popup("open") after clicking on input
+											args[1] = window.event;
+										}
 										resultValue = instance[method].apply(instance, args);
 										if (resultValue !== undefined) {
 											if (resultValue !== instance) {

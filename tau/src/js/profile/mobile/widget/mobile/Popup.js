@@ -59,6 +59,7 @@
 					* @property {string} [options.overlayTheme=''] color scheme (swatch) for the popup background
 					* @property {boolean} [options.shadow=true] Shadow of popup
 					* @property {boolean} [options.corners=true]
+					* @property {boolean} [options.noScreen=false] Set screen to be always hidden
 					* @property {string} [options.transition='none']
 					* @property {string} [options.positionTo='origin'] Selector for element relative to which popup is positioned
 					* @property {Object} [options.tolerance]
@@ -75,6 +76,7 @@
 						overlayTheme: null,
 						shadow: true,
 						corners: true,
+						noScreen: false,
 						transition: "pop",
 						positionTo: "origin",
 						tolerance: { t: 10, r: 10, b: 10, l: 10 },
@@ -1088,7 +1090,9 @@
 				classes = typeof options.screenClassToAdd === "string" ? options.screenClassToAdd.split(" ") : options.screenClassToAdd;
 				classesLen = classes.length;
 				for (i = 0; i < classesLen; i++) {
-					screenClasses.add(classes[i]);
+					if (classes[i]) {
+						screenClasses.add(classes[i]);
+					}
 				}
 
 				options.prereqs.screen.resolve();
@@ -1170,12 +1174,12 @@
 				top = savedOptions.positionY = options.positionY;
 				left = savedOptions.positionX = options.positionX;
 				transition = options.transition || savedOptions.transition;
+				options.noScreen = options.noScreen || savedOptions.noScreen;
 
 				this._setTolerance(element, options.tolerance);
 
 				// Give applications a chance to modify the contents of the container before it appears
 				events.trigger(this.element, "beforeposition");
-
 
 				if (options.link) {
 					savedOptions.link = options.link;
@@ -1192,7 +1196,7 @@
 					savedOptions.isHardwarePopup = true;
 				}
 
-				this._setContextStyle(options.popupwindow);
+				this._setContextStyle(options.popupwindow || savedOptions.popupwindow);
 				this._setPosition(left, top);
 				this._setCorners(options.corners || savedOptions.corners);
 
@@ -1208,7 +1212,9 @@
 					element.classList.add(classes.uiBodyPrefix + elementTheme);
 				}
 
-				ui.screen.classList.remove(classes.SCREEN_HIDDEN);
+				if (!options.noScreen) {
+					ui.screen.classList.remove(classes.SCREEN_HIDDEN);
+				}
 				uiContainerClasses.remove(classes.uiSelectmenuHidden);
 				this._page.classList.add(classes.uiPopupOpen);
 
@@ -1216,7 +1222,7 @@
 					additionalCondition: true,
 					transition: transition,
 					classToRemove: "",
-					screenClassToAdd: classes.IN,
+					screenClassToAdd: (options.noScreen) ? "" :  classes.IN,
 					containerClassToAdd: classes.IN,
 					applyTransition: false,
 					prereqs: this._prereqs

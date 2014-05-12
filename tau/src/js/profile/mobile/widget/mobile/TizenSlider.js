@@ -100,17 +100,16 @@
 				container.appendChild(popup);
 				// Create widget instance out of popup element
 				popupInstance = engine.instanceWidget(popup, 'Popup', {
-					positionTo: this.handle.id,
+					positionTo: "origin", // popup with arrow
+					link: this.handle.id, // positioned to slider's element
 					transition: "none",
+					noScreen: true,
 					directionPriority: [
 						'top',
 						'bottom'
 					]
 				});
 				popup.classList.add(TizenSlider.classes.uiSliderPopup);
-
-				// Hide as default
-				popupInstance.close();
 
 				return popupInstance;
 			};
