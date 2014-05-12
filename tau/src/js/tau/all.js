@@ -12,7 +12,7 @@
 	define(
 		[
 			"./defaults",
-			"./navigator",
+			"../profile/wearable/navigator",
 			"../profile/wearable/utils",
 			"../profile/wearable/widget"
 		],

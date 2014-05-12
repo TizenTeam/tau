@@ -16,11 +16,11 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../core/conflict",
-			"../core/core",
-			"../core/engine",
-			"../core/router/wearable/route",
-			"../core/router/wearable/history"
+			"../../core/conflict",
+			"../../core/core",
+			"../../core/engine",
+			"../../core/router/wearable/route",
+			"../../core/router/wearable/history"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
