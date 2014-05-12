@@ -25,7 +25,7 @@
 			"../../../core/utils/deferred",
 			"../../../core/widget/mobile/Page",
 			"../../../core/events/page",
-			"../../../core/router/urlHistory"
+			"./urlHistory"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

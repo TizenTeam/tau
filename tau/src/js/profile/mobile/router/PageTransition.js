@@ -7,13 +7,13 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../engine",
-			"../router", // fetch namespace
-			"../utils",
-			"../utils/selectors",
-			"../utils/DOM/attributes",
-			"../utils/deferred",
-			"../../profile/mobile/router/Page"
+			"../../../core/engine",
+			"../../../core/router", // fetch namespace
+			"../../../core/utils",
+			"../../../core/utils/selectors",
+			"../../../core/utils/DOM/attributes",
+			"../../../core/utils/deferred",
+			"./Page"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

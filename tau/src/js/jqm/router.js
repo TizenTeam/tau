@@ -12,7 +12,7 @@
 		[
 			"../core/engine",
 			"../core/utils/path",
-			"../core/router/urlHistory",
+			"../profile/mobile/router/urlHistory",
 			"./jqm"
 		],
 		function () {

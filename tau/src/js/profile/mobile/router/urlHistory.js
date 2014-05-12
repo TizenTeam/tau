@@ -7,7 +7,7 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../router", // fetch namespace
+			"../../../core/router", // fetch namespace
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
