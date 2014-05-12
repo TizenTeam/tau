@@ -16,7 +16,7 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../tau",
+			"../core/conflict",
 			"../core/core",
 			"../core/engine",
 			"../core/router/wearable/route",

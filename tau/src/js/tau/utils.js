@@ -12,7 +12,7 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../tau",
+			"../core/conflict",
 			"../core/engine",
 			"../core/utils/path",
 			"../core/utils/DOM/attributes",

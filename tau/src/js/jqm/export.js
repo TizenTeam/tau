@@ -13,7 +13,7 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../tau"
+			"../core/conflict"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
