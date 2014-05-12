@@ -9,7 +9,7 @@
 			"./core/config",
 			"./core/support",
 			"./jqm/all",
-			"./tau/export",
+			"./core/export",
 			"./core/engine",
 			"./core/frameworkData",
 			"./core/theme",

@@ -8,6 +8,7 @@
 			"./core/core",
 			"./core/config",
 			"./tau/all",
+			"./core/export",
 			"./core/engine",
 			// widget list
 			"./core/utils/anchorHighlight",

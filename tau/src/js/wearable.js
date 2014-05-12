@@ -9,6 +9,7 @@
 			"./core/config",
 			"./core/wearable/config",
 			"./tau/all",
+			"./core/export",
 			"./core/engine",
 			// widget list
 			"./core/utils/anchorHighlight",
