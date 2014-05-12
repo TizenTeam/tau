@@ -42,7 +42,7 @@
 					},
 					handleChangePage = function () {
 						window.callPhantom({event: "pagechange"});
-						document.removeEventListener("pagechange", handleBound, true);
+						document.removeEventListener("pagechange", handleChangePage, true);
 					};
 				document.addEventListener("bound", handleBound, true);
 				document.addEventListener("pagechange", handleChangePage, true);
@@ -54,6 +54,8 @@
 				eventsHandled.push(data.event);
 			} else if (data.message) {
 				info(data.message);
+			} else if (data.control === 'exit') {
+				phantom.exit(0);
 			}
 
 			if (eventsHandled.length === 2) {
@@ -76,6 +78,10 @@
 					window.callPhantom({message: "TAU framework not found in page"});
 				} else {
 					window.callPhantom({message: "TAU framework exists"});
+					if (window.tau._export.get('autoBuildOnPageChange') === false) {
+						window.callPhantom({message: "PhanomJS: Exiting because TAU config.autoBuildOnPageChange is set to false"});
+						window.callPhantom({control: 'exit'});
+					}
 				}
 			});
 
