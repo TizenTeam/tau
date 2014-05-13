@@ -117,10 +117,10 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 			[
-				"../../engine",
-				"../../utils/events",
-				"../wearable", // fetch namespace
-				"../BaseWidget"
+				"../../../../core/engine",
+				"../../../../core/utils/events",
+				"../../../../core/widget/BaseWidget",
+				"../wearable" // fetch namespace
 			],
 			function() {
 				//>>excludeEnd("tauBuildExclude");

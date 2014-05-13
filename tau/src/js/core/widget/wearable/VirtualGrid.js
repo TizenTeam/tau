@@ -20,7 +20,7 @@
 			"../../engine",
 			"../../utils/DOM/css",
 			"../wearable",
-			"./VirtualListview"
+			"../../../profile/wearable/widget/wearable/VirtualListview"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
