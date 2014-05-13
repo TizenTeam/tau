@@ -26,7 +26,7 @@
 			"../../../core/utils/path",
 			"../../../core/utils/object",
 			"../widget/wearable/Page",
-			"../../../core/widget/wearable/PageContainer",
+			"../widget/wearable/PageContainer",
 			"../selectors"
 		],
 		function () {

@@ -14,7 +14,7 @@
 			"./core/utils/anchorHighlight",
 			"./profile/wearable/widget/wearable/Page",
 			"./core/widget/wearable/Popup",
-			"./core/widget/wearable/PageContainer",
+			"./profile/wearable/widget/wearable/PageContainer",
 			"./profile/wearable/router/Router",
 			"./profile/wearable/router/route/page",
 			"./profile/wearable/router/route/popup",

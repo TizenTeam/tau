@@ -14,11 +14,11 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../engine",
-			"../../utils/DOM/attributes",
+			"../../../../core/engine",
+			"../../../../core/utils/DOM/attributes",
+			"../../../../core/widget/BaseWidget",
 			"../wearable",
-			"../BaseWidget",
-			"../../../profile/wearable/widget/wearable/Page"
+			"./Page"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
