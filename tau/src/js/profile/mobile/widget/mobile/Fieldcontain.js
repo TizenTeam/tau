@@ -64,7 +64,7 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../engine",
+			"../../../../core/engine",
 			"../mobile", // fetch namespace
 			"./BaseWidgetMobile"
 		],
