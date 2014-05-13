@@ -21,7 +21,7 @@
 			"../../selectors",
 			"../history",
 			"../route",
-			"../../../../core/widget/wearable/Popup"
+			"../../widget/wearable/Popup"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

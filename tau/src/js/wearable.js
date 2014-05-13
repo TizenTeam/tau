@@ -13,7 +13,7 @@
 			// widget list
 			"./core/utils/anchorHighlight",
 			"./profile/wearable/widget/wearable/Page",
-			"./core/widget/wearable/Popup",
+			"./profile/wearable/widget/wearable/Popup",
 			"./profile/wearable/widget/wearable/PageContainer",
 			"./core/widget/wearable/indexscrollbar/IndexScrollbar",
 			"./core/widget/wearable/VirtualListview",
