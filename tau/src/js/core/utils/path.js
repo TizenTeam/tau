@@ -662,7 +662,7 @@
 					* @static
 					*/
 					isPermittedCrossDomainRequest: function (docUrl, reqUrl) {
-						return ns.get('allowCrossDomainPages', false) &&
+						return ns.getConfig('allowCrossDomainPages', false) &&
 							docUrl.protocol === "file:" &&
 							reqUrl.search(/^https?:/) !== -1;
 					},
@@ -722,7 +722,7 @@
 					* @static
 					*/
 					getFilePath: function (path, dialogHashKey) {
-						var splitkey = '&' + ns.get('subPageUrlKey', '');
+						var splitkey = '&' + ns.getConfig('subPageUrlKey', '');
 						return path && path.split(splitkey)[0].split(dialogHashKey)[0];
 					},
 
@@ -808,7 +808,7 @@
 				var url = utilsDOM.getNSData(utilsSelectors.getClosestBySelector(element, selector), "url"),
 					baseUrl = path.documentBase.hrefNoHash;
 
-				if (!ns.get('dynamicBaseEnabled', true) || !url || !path.isPath(url)) {
+				if (!ns.getConfig('dynamicBaseEnabled', true) || !url || !path.isPath(url)) {
 					url = baseUrl;
 				}
 

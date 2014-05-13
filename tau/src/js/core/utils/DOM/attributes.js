@@ -81,7 +81,7 @@
 			};
 
 			function getDataName(name) {
-				var namespace = ns.get(namespace);
+				var namespace = ns.getConfig(namespace);
 				return "data-" + (namespace ? namespace + "-" : "") + name;
 			}
 

@@ -231,7 +231,7 @@
 
 			document.addEventListener("themeinit", function (evt) {
 				var router = evt.detail;
-				if (router && ns.get('autoInitializePage', true)) {
+				if (router && ns.getConfig('autoInitializePage', true)) {
 					ns.theme.init(router.getContainer());
 				}
 			}, false);

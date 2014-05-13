@@ -19,15 +19,15 @@
 			//>>excludeEnd("tauBuildExclude");
 
 			// Default configuration properties
-			ns.set('rootDir', ns.getFrameworkPath());
-			ns.set('version', '');
-			ns.set('allowCrossDomainPages', false);
-			ns.set('domCache', false);
-			ns.set('autoBuildOnPageChange', true);
+			ns.setConfig('rootDir', ns.getFrameworkPath(), true);
+			ns.setConfig('version', '');
+			ns.setConfig('allowCrossDomainPages', false, true);
+			ns.setConfig('domCache', false, true);
 			// .. other possible options
-			// ns.set('autoInitializePage', true);
-			// ns.set('container', ...); // for defining application container
-			// ns.set('pageContainer', ...); // same as above, but for micro version
+			// ns.setConfig('autoBuildOnPageChange', true);
+			// ns.setConfig('autoInitializePage', true);
+			// ns.setConfig('container', document.body); // for defining application container
+			// ns.setConfig('pageContainer', document.body); // same as above, but for wearable version
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}

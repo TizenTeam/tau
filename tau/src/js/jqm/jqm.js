@@ -11,7 +11,7 @@
 			//>>excludeEnd("tauBuildExclude");
 			/** @namespace ns.jqm */
 			ns.jqm = {
-				jQuery: ns.get('jQuery') || window.jQuery
+				jQuery: ns.getConfig('jQuery') || window.jQuery
 			};
 			document.addEventListener(ns.engine.eventType.INIT, function () {
 				// Tell the world that JQM is ready to serve Tau

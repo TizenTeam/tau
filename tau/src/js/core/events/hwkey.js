@@ -17,7 +17,7 @@
 						containerClass,
 						focused;
 					// Check enableHWKeyHandler property
-					if (ns.get("enableHWKeyHandler", true) && activePopup) {
+					if (ns.getConfig("enableHWKeyHandler", true) && activePopup) {
 						container = activePopup._ui.container;
 						containerClass = container && container.classList;
 						if (keyName === "menu") {

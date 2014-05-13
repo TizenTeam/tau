@@ -97,27 +97,30 @@
 
 		/**
 		* get from nsConfig
-		* @method get
+		* @method getConfig
 		* @param {string} key
-		* @param {Mixed} defaultValue
-		* @return {Mixed}
+		* @param {*} defaultValue
+		* @return {*}
 		* @static
 		* @member ns
 		*/
-		ns.get = function (key, defaultValue) {
+		ns.getConfig = function (key, defaultValue) {
 			return nsConfig[key] === undefined ? defaultValue : nsConfig[key];
 		};
 
 		/**
-		* set in nsConfig
-		* @method set
-		* @param {string} key
-		* @param {Mixed} value
-		* @static
-		* @member ns
+		 * set in nsConfig
+		 * @method setConfig
+		 * @param {string} key
+		 * @param {*} value
+		 * @param {boolean} [asDefault=false] value should be treated as default (doesn't overwrites the config[key] if it already exists)
+		 * @static
+		 * @member ns
 		*/
-		ns.set = function (key, value) {
-			nsConfig[key] = value;
+		ns.setConfig = function (key, value, asDefault) {
+			if (!asDefault || (asDefault && nsConfig[key] === undefined)) {
+				nsConfig[key] = value;
+			}
 		};
 
 		/**

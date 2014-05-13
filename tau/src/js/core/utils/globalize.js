@@ -52,8 +52,8 @@
 					} else {
 						// Default Globalize culture file path
 						path = [
-							ns.get('rootDir'),
-							//ns.get('version'),
+							ns.getConfig('rootDir'),
+							//ns.getConfig('version'),
 							'cultures',
 							['globalize', 'culture', lang, 'js'].join('.')
 						].join('/');

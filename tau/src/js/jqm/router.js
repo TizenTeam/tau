@@ -39,15 +39,15 @@
 								if (!container instanceof HTMLElement) {
 									container = document.body;
 								}
-								ns.set('container', container);
+								ns.setConfig('container', container);
 								$.mobile.pageContainer = $(container);
 								router.setContainer(container);
 							}
 							if ($.mobile.autoInitializePage !== undefined) {
-								ns.set('autoInitializePage', $.mobile.autoInitializePage);
+								ns.setConfig('autoInitializePage', $.mobile.autoInitializePage);
 							}
 							if ($.mobile._bindPageRemove !== undefined) {
-								ns.set('_bindPageRemove', $.mobile._bindPageRemove);
+								ns.setConfig('_bindPageRemove', $.mobile._bindPageRemove);
 							}
 							$.mobile.changePage = function (toPage, options) {
 								var htmlElementToPage;

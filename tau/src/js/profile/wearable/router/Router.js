@@ -348,11 +348,11 @@
 					self = this;
 
 				body = document.body;
-				containerElement = ns.get('pageContainer') || body;
+				containerElement = ns.getConfig('pageContainer') || body;
 				pages = slice.call(containerElement.querySelectorAll(microSelectors.page));
 				self.justBuild = justBuild;
 
-				if (ns.get('autoInitializePage', true)) {
+				if (ns.getConfig('autoInitializePage', true)) {
 					firstPage = containerElement.querySelector(microSelectors.activePage);
 					if (!firstPage) {
 						firstPage = pages[0];

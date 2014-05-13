@@ -75,7 +75,7 @@
 
 				toPageWidget = engine.instanceWidget(toPage, "page");
 
-				if (ns.get("autoBuildOnPageChange", false)) {
+				if (ns.getConfig("autoBuildOnPageChange", false)) {
 					engine.createWidgets(toPage);
 				}
 

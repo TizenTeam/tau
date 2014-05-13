@@ -17,7 +17,7 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			if (ns.get("autorun", true) === true) {
+			if (ns.getConfig("autorun", true) === true) {
 				ns.engine.run();
 			}
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);

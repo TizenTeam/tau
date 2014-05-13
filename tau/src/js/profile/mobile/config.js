@@ -1,5 +1,4 @@
 /*global window, define*/
-/*jslint bitwise: true */
 /*
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
@@ -17,11 +16,8 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 
-			// Default configuration properties for wearable
-			ns.setConfig('autoBuildOnPageChange', false, true);
-			// .. other possible options
-			// ns.setConfig('autoInitializePage', true);
-			// ns.setConfig('pageContainer', document.body); // defining application container for wearable
+			// Default configuration properties for mobile
+			ns.setConfig('autoBuildOnPageChange', true, true);
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}

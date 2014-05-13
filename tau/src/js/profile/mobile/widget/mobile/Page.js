@@ -122,7 +122,7 @@
 				fullscreen: false,
 				theme: 'a',
 				domCache: false,
-				keepNativeDefault: ns.get('keepNative'),
+				keepNativeDefault: ns.getConfig('keepNative'),
 				contentTheme: null,
 				headerTheme: 'a',
 				footerTheme: 'a',

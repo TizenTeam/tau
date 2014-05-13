@@ -32,7 +32,7 @@
 				} else {
 					ns.autoInitializePage = true;
 				}
-				frameworkNamespace.set('autoInitializePage', ns.autoInitializePage);
+				frameworkNamespace.setConfig('autoInitializePage', ns.autoInitializePage);
 			}, false);
 
 			document.addEventListener("routerinit", function (evt) {

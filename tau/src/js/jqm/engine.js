@@ -419,7 +419,7 @@
 						tizen.setScaling = ns.theme.setScaling.bind(ns.theme);
 						tizen.getParams = ns.frameworkData.getParams.bind(ns.frameworkData);
 
-						ns.set('enableHWKeyHandler', $.mobile.tizen.enableHWKeyHandler);
+						ns.setConfig('enableHWKeyHandler', $.mobile.tizen.enableHWKeyHandler);
 					}
 				}
 			};

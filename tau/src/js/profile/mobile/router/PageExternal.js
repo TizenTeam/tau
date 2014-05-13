@@ -31,7 +31,7 @@
 				Page = ns.widget.mobile.Page,
 				body = document.body,
 				firstPage = null,
-				container = ns.get('container') || body,
+				container = ns.getConfig('container') || body,
 				loadPageDefaults = {
 					type: "get",
 					data: undefined,
@@ -70,8 +70,8 @@
 			 * @static
 			 */
 			function removeActiveLinkClass(forceRemoval) {
-				if (!!activeClickedLink && (!selectors.getClosestByClass(activeClickedLink, ns.get('activePageClass')).length || forceRemoval)) {
-					activeClickedLink.classList.remove(ns.get('activeBtnClass'));
+				if (!!activeClickedLink && (!selectors.getClosestByClass(activeClickedLink, ns.getConfig('activePageClass')).length || forceRemoval)) {
+					activeClickedLink.classList.remove(ns.getConfig('activeBtnClass'));
 				}
 				activeClickedLink = null;
 			}
@@ -190,7 +190,7 @@
 				dataUrl = path.convertUrlToDataUrl(absUrl, dialogHashKey, documentBase, documentUrl);
 
 				// Make sure we have a pageContainer to work with.
-				//settings.pageContainer = settings.pageContainer || ns.get('pageContainer');
+				//settings.pageContainer = settings.pageContainer || ns.getConfig('pageContainer');
 
 				// Check to see if the page already exists in the DOM.
 				// NOTE do _not_ use the :jqmData psuedo selector because parenthesis
@@ -287,13 +287,13 @@
 					this.resetBase();
 				}
 
-				if ((ns.get('allowCrossDomainPages') || path.isSameDomain(documentUrl, absUrl))) {
+				if ((ns.getConfig('allowCrossDomainPages') || path.isSameDomain(documentUrl, absUrl))) {
 					// Load the new page.
 					request = new XMLHttpRequest();
 					request.onreadystatechange = function () {
 						var all = document.createElement('div'),
 							html = request.responseText,
-							namespace = ns.get('namespace') ? ns.get('namespace') + '-' : '',
+							namespace = ns.getConfig('namespace') ? ns.getConfig('namespace') + '-' : '',
 							pageTmpContainer = document.createElement('div'),
 							newPageTitle,
 							pageElemRegex = new RegExp("(<[^>]+\\bdata-" + namespace + "role=[\"']?page[\"']?[^>]*>)"),
@@ -350,7 +350,7 @@
 								}
 
 								//rewrite src and href attrs to use a base url
-								if (!ns.get('supportDynamicBaseTag')) {
+								if (!ns.getConfig('supportDynamicBaseTag')) {
 									newPath = path.get(fileUrl);
 									elements = selectors.getChildrenByDataNS(page, "ajax='false'");
 									elements.concat(selectors.getChildrenBySelector(page, "[src], link[href], a[rel='external'], a[target]"));
@@ -382,7 +382,7 @@
 								onPageCreate = function () {
 									page.removeEventListener(pageEvents.PAGE_CREATE, onPageCreate, false);
 									// in jqm interface function _bindPageRemove have in this current page, in new interface page is call as first argument
-									ns.get('_bindPageRemove', self._bindPageRemove).call(page, page);
+									ns.getConfig('_bindPageRemove', self._bindPageRemove).call(page, page);
 								};
 
 								page.addEventListener(pageEvents.PAGE_CREATE, onPageCreate, false);
@@ -390,7 +390,7 @@
 								// Enhancing the page may result in new dialogs/sub pages being inserted
 								// into the DOM. If the original absUrl refers to a sub-page, that is the
 								// real page we are interested in.
-								if (absUrl.indexOf("&" + ns.get('subPageUrlKey')) > -1) {
+								if (absUrl.indexOf("&" + ns.getConfig('subPageUrlKey')) > -1) {
 									page = selectors.getChildrenByDataNS("url='" + dataUrl)[0];
 								}
 

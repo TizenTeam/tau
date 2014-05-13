@@ -7,6 +7,7 @@
 			"require",
 			"./core/core",
 			"./core/config",
+			"./profile/mobile/config",
 			"./core/support",
 			"./jqm/all",
 			"./core/export",

@@ -57,7 +57,7 @@
 				fromHashChange: false,
 				role: undefined, // By default we rely on the role defined by the @data-role attribute.
 				duplicateCachedPage: undefined,
-				container: ns.get('container') || body,
+				container: ns.getConfig('container') || body,
 				showLoadMsg: true, //loading message shows by default when pages are being fetched during changePage
 				dataUrl: undefined,
 				fromPage: undefined,
@@ -271,7 +271,7 @@
 						page.removeEventListener(events.WIDGET_BOUND, eventBound, false);
 
 						// If autoBuild is turned off do not build widgets on newly activated page
-						if (ns.get("autoBuildOnPageChange", true)) {
+						if (ns.getConfig("autoBuildOnPageChange", true)) {
 							engine.createWidgets(page);
 						}
 
@@ -395,7 +395,7 @@
 			RouterPage.prototype.init = function (justBuild) {
 				var page,
 					self = this,
-					container = ns.get('container') || RouterPage.defaults.container || document.body;
+					container = ns.getConfig('container') || RouterPage.defaults.container || document.body;
 
 				RouterPage.defaults.container = container;
 				self.container = container;
@@ -410,7 +410,7 @@
 					engine.createWidgets(container);
 				}
 
-				if (ns.get('autoInitializePage', true)) {
+				if (ns.getConfig('autoInitializePage', true)) {
 					self.firstPage = container.querySelector(pageDefinition.selector);
 					if (!self.firstPage) {
 						DOM.wrapInHTML(container.childNodes, '<div data-role="page" id="' + ns.getUniqueId() + '"></div>');

@@ -10,7 +10,7 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var throttledresize = { // referenced throttledresize
-					"enabled": ns.get("enableThrottleResize", true),
+					"enabled": ns.getConfig("enableThrottleResize", true),
 					"ttl": 250
 				},
 				timerID,

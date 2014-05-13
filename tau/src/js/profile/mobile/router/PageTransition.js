@@ -87,14 +87,14 @@
 
 								// By using scrollTo instead of silentScroll, we can keep things better in order
 								// Just to be precautios, disable scrollstart listening like silentScroll would
-								ns.set('event.special.scrollstart.enabled', false);
+								ns.setConfig('event.special.scrollstart.enabled', false);
 
 								window.scrollTo(0, toScroll);
 
 								// reenable scrollstart listening like silentScroll would
 								// 150ms timeout ensures that the scrolling will be complete
 								setTimeout(function () {
-									ns.set('event.special.scrollstart.enabled', true);
+									ns.setConfig('event.special.scrollstart.enabled', true);
 								}, 150);
 							},
 							cleanFrom = function () {
@@ -274,8 +274,8 @@
 			 * @static
 			 */
 			function removeActiveLinkClass(forceRemoval) {
-				if (!!activeClickedLink && (!selectors.getClosestByClass(activeClickedLink, ns.get('activePageClass')).length || forceRemoval)) {
-					activeClickedLink.classList.remove(ns.get('activeBtnClass'));
+				if (!!activeClickedLink && (!selectors.getClosestByClass(activeClickedLink, ns.getConfig('activePageClass')).length || forceRemoval)) {
+					activeClickedLink.classList.remove(ns.getConfig('activeBtnClass'));
 				}
 				activeClickedLink = null;
 			}
