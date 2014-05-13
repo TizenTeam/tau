@@ -6,31 +6,31 @@
 	define(
 		[
 			"../wearable",
-			"../BaseWidget"
+			"../../../../core/widget/BaseWidget"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var BaseWidget = ns.widget.BaseWidget,
 				engine = ns.engine,
 				/**
-				* Button widget
-				* @class ns.widget.Button
+				* Progressing widget
+				* @class ns.widget.Progressing
 				* @extends ns.widget.BaseWidget
 				*/
-				Button = function () {
+				Progressing = function () {
 					return this;
 				},
 				prototype = new BaseWidget();
 
-			Button.events = {};
+			Progressing.events = {};
 
 			/**
-			* build Button
+			* build Progressing
 			* @method _build
 			* @private
 			* @param {HTMLElement} element
 			* @return {HTMLElement}
-			* @member ns.widget.Button
+			* @member ns.widget.Progressing
 			*/
 			prototype._build = function (element) {
 				return element;
@@ -48,7 +48,7 @@
 			* refresh structure
 			* @method _refresh
 			* @new
-			* @member ns.widget.Button
+			* @member ns.widget.Progressing
 			*/
 			prototype._refresh = function () {
 				return null;
@@ -57,24 +57,24 @@
 			/**
 			* @method _destroy
 			* @private
-			* @member ns.widget.Button
+			* @member ns.widget.Progressing
 			*/
 			prototype._destroy = function () {
 				return null;
 			};
 
-			Button.prototype = prototype;
-			ns.widget.wearable.Button = Button;
+			Progressing.prototype = prototype;
+			ns.widget.wearable.Progressing = Progressing;
 
 			engine.defineWidget(
-				"Button",
-				".ui-btn",
+				"Progressing",
+				".ui-progress",
 				[],
-				Button,
+				Progressing,
 				"wearable"
 			);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return Button;
+			return Progressing;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

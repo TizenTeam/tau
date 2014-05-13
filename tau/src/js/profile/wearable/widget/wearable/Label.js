@@ -9,9 +9,9 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../engine",
+			"../../../../core/engine",
 			"../wearable",
-			"../BaseWidget"
+			"../../../../core/widget/BaseWidget"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

@@ -6,31 +6,31 @@
 	define(
 		[
 			"../wearable",
-			"../BaseWidget"
+			"../../../../core/widget/BaseWidget"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var BaseWidget = ns.widget.BaseWidget,
 				engine = ns.engine,
 				/**
-				* Listview widget
-				* @class ns.widget.Listview
+				* Button widget
+				* @class ns.widget.Button
 				* @extends ns.widget.BaseWidget
 				*/
-				Listview = function () {
+				Button = function () {
 					return this;
 				},
 				prototype = new BaseWidget();
 
-			Listview.events = {};
+			Button.events = {};
 
 			/**
-			* build Listview
+			* build Button
 			* @method _build
 			* @private
 			* @param {HTMLElement} element
 			* @return {HTMLElement}
-			* @member ns.widget.Listview
+			* @member ns.widget.Button
 			*/
 			prototype._build = function (element) {
 				return element;
@@ -48,7 +48,7 @@
 			* refresh structure
 			* @method _refresh
 			* @new
-			* @member ns.widget.Listview
+			* @member ns.widget.Button
 			*/
 			prototype._refresh = function () {
 				return null;
@@ -57,24 +57,24 @@
 			/**
 			* @method _destroy
 			* @private
-			* @member ns.widget.Listview
+			* @member ns.widget.Button
 			*/
 			prototype._destroy = function () {
 				return null;
 			};
 
-			Listview.prototype = prototype;
-			ns.widget.wearable.Listview = Listview;
+			Button.prototype = prototype;
+			ns.widget.wearable.Button = Button;
 
 			engine.defineWidget(
-				"Listview",
-				".ui-listview",
+				"Button",
+				".ui-btn",
 				[],
-				Listview,
+				Button,
 				"wearable"
 			);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return Listview;
+			return Button;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

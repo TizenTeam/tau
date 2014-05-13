@@ -5,32 +5,32 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../wearable",
-			"../BaseWidget"
+			"../../../../core/wearable",
+			"../../../../core/widget/BaseWidget"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var BaseWidget = ns.widget.BaseWidget,
 				engine = ns.engine,
 				/**
-				* Progressing widget
-				* @class ns.widget.Progressing
+				* Listview widget
+				* @class ns.widget.Listview
 				* @extends ns.widget.BaseWidget
 				*/
-				Progressing = function () {
+				Listview = function () {
 					return this;
 				},
 				prototype = new BaseWidget();
 
-			Progressing.events = {};
+			Listview.events = {};
 
 			/**
-			* build Progressing
+			* build Listview
 			* @method _build
 			* @private
 			* @param {HTMLElement} element
 			* @return {HTMLElement}
-			* @member ns.widget.Progressing
+			* @member ns.widget.Listview
 			*/
 			prototype._build = function (element) {
 				return element;
@@ -48,7 +48,7 @@
 			* refresh structure
 			* @method _refresh
 			* @new
-			* @member ns.widget.Progressing
+			* @member ns.widget.Listview
 			*/
 			prototype._refresh = function () {
 				return null;
@@ -57,24 +57,24 @@
 			/**
 			* @method _destroy
 			* @private
-			* @member ns.widget.Progressing
+			* @member ns.widget.Listview
 			*/
 			prototype._destroy = function () {
 				return null;
 			};
 
-			Progressing.prototype = prototype;
-			ns.widget.wearable.Progressing = Progressing;
+			Listview.prototype = prototype;
+			ns.widget.wearable.Listview = Listview;
 
 			engine.defineWidget(
-				"Progressing",
-				".ui-progress",
+				"Listview",
+				".ui-listview",
 				[],
-				Progressing,
+				Listview,
 				"wearable"
 			);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return Progressing;
+			return Listview;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

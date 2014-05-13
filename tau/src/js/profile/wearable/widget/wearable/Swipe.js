@@ -6,31 +6,31 @@
 	define(
 		[
 			"../wearable",
-			"../BaseWidget"
+			"../../../../core/widget/BaseWidget"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var BaseWidget = ns.widget.BaseWidget,
 				engine = ns.engine,
 				/**
-				* Progress widget
-				* @class ns.widget.Progress
+				* Swipe widget
+				* @class ns.widget.Swipe
 				* @extends ns.widget.BaseWidget
 				*/
-				Progress = function () {
+				Swipe = function () {
 					return this;
 				},
 				prototype = new BaseWidget();
 
-			Progress.events = {};
+			Swipe.events = {};
 
 			/**
-			* build Progress
+			* build Swipe
 			* @method _build
 			* @private
 			* @param {HTMLElement} element
 			* @return {HTMLElement}
-			* @member ns.widget.Progress
+			* @member ns.widget.Swipe
 			*/
 			prototype._build = function (element) {
 				return element;
@@ -48,7 +48,7 @@
 			* refresh structure
 			* @method _refresh
 			* @new
-			* @member ns.widget.Progress
+			* @member ns.widget.Swipe
 			*/
 			prototype._refresh = function () {
 				return null;
@@ -57,24 +57,24 @@
 			/**
 			* @method _destroy
 			* @private
-			* @member ns.widget.Progress
+			* @member ns.widget.Swipe
 			*/
 			prototype._destroy = function () {
 				return null;
 			};
 
-			Progress.prototype = prototype;
-			ns.widget.wearable.Progress = Progress;
+			Swipe.prototype = prototype;
+			ns.widget.wearable.Swipe = Swipe;
 
 			engine.defineWidget(
-				"Progress",
-				"progress",
+				"Swipe",
+				".ui-swipe",
 				[],
-				Progress,
+				Swipe,
 				"wearable"
 			);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return Progress;
+			return Swipe;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
