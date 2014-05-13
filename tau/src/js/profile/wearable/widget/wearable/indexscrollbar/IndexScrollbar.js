@@ -16,13 +16,13 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../../engine",
-			"../../../utils/events",
-			"../../../utils/DOM/css",
+			"../../../../../core/engine",
+			"../../../../../core/utils/events",
+			"../../../../../core/utils/DOM/css",
 			"../indexscrollbar",
 			"./IndexBar",
 			"./IndexIndicator",
-			"../../BaseWidget"
+			"../../../../../core/widget/BaseWidget"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

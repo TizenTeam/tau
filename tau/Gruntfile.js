@@ -43,7 +43,7 @@ module.exports = function(grunt) {
 		wrapEndWidget = wrapEnd,
 
 		widgets = {
-			"indexScrollbar": "core/widget/wearable/indexscrollbar/IndexScrollbar",
+			"indexScrollbar": "profile/wearable/widget/wearable/indexscrollbar/IndexScrollbar",
 			"sectionchanger": "profile/wearable/widget/wearable/SectionChanger",
 			"virtuallist": "profile/wearable/widget/wearable/VirtualListview",
 			"virtualgrid": "profile/wearable/widget/wearable/VirtualGrid",

@@ -17,8 +17,8 @@
 	define(
 		[
 			"../indexscrollbar",
-			"../../../utils/object",
-			"../../../utils/DOM/css"
+			"../../../../../core/utils/object",
+			"../../../../../core/utils/DOM/css"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

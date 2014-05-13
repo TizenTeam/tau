@@ -15,7 +15,7 @@
 			"./profile/wearable/widget/wearable/Page",
 			"./profile/wearable/widget/wearable/Popup",
 			"./profile/wearable/widget/wearable/PageContainer",
-			"./core/widget/wearable/indexscrollbar/IndexScrollbar",
+			"./profile/wearable/widget/wearable/indexscrollbar/IndexScrollbar",
 			"./profile/wearable/widget/wearable/VirtualListview",
 			"./profile/wearable/widget/wearable/SectionChanger",
 			"./profile/wearable/widget/wearable/VirtualGrid",
