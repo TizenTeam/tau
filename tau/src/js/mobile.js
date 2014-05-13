@@ -54,7 +54,7 @@
 			"./profile/mobile/widget/mobile/ListviewFilter",
 			"./profile/mobile/widget/mobile/ExtendableList",
 			"./core/widget/mobile/Fastscroll",
-			"./core/widget/mobile/Tabbar",
+			"./profile/mobile/widget/mobile/Tabbar",
 			"./core/widget/mobile/Fieldcontain",
 			"./core/widget/mobile/Controlgroup",
 			"./core/widget/mobile/Textinput",

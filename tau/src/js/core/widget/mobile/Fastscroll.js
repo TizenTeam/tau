@@ -42,7 +42,7 @@
 			"../../utils/DOM/attributes",
                         "../../utils/DOM/manipulation",
                         "../../utils/DOM/css",
-			"./Tabbar",
+			"../../../profile/mobile/widget/mobile/Tabbar",
 			"../../../profile/mobile/widget/mobile/Page",
 			'../../../profile/mobile/widget/mobile/Listview',
 			"../../utils/selectors",
