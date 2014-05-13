@@ -44,7 +44,7 @@
 			"./profile/mobile/widget/mobile/Scrollview",
 			"./profile/mobile/widget/mobile/Circularview",
 			"./core/widget/mobile/Collapsibleset",
-			"./core/widget/mobile/Collapsible",
+			"./profile/mobile/widget/mobile/Collapsible",
 			"./profile/mobile/widget/mobile/Button",
 			"./profile/mobile/widget/mobile/Dialog",
 			"./profile/mobile/widget/mobile/Checkboxradio",

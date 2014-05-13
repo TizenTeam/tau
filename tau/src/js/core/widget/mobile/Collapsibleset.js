@@ -19,7 +19,7 @@
 			"../../utils/events",
 			"../../utils/selectors",
 			"./BaseWidgetMobile",
-			"./Collapsible"
+			"../../../profile/mobile/widget/mobile/Collapsible"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
