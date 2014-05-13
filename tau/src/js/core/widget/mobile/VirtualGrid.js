@@ -19,7 +19,7 @@
 			"../../utils/DOM/css",
 			// ScrollHandler and ScrollView are required before because widget those must
 			// be created before VirtualGrid
-			"./Scrollview",
+			"../../../profile/mobile/widget/mobile/Scrollview",
 			"./ScrollHandler",
 			"./VirtualListview"
 		],

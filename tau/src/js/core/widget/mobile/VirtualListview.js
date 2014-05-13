@@ -93,7 +93,7 @@
 			"../../utils/events",
 			"../../theme",
 			"../mobile", // fetch namespace
-			"./Scrollview",
+			"../../../profile/mobile/widget/mobile/Scrollview",
 			"./Listview",
 			"./BaseWidgetMobile"
 		],

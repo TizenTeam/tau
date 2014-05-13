@@ -18,7 +18,7 @@
 			'../mobile', // fetch namespace
 			'../../events',
 			'./BaseWidgetMobile',
-			'./Scrollview'
+			'../../../profile/mobile/widget/mobile/Scrollview'
 		],
 		function () {
 			//>>excludeEnd('tauBuildExclude');

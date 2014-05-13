@@ -30,7 +30,7 @@
 			'./BaseWidgetMobile',
 			"../../../profile/mobile/widget/mobile/Button",
 			'../../../profile/mobile/widget/mobile/Page',
-			'./Scrollview',
+			'../../../profile/mobile/widget/mobile/Scrollview',
 			'./Slider',
 			'./Progressbar'
 		],

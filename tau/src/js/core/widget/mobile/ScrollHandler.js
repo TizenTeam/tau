@@ -47,7 +47,7 @@
 			"../../utils/DOM/css",
 			"../../utils/selectors",
 			"../mobile",
-			"./Scrollview",
+			"../../../profile/mobile/widget/mobile/Scrollview",
 			"../../../profile/mobile/widget/mobile/Page"
 		],
 		function () {

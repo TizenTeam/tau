@@ -41,7 +41,7 @@
 			"./core/events/hwkey",
 			// widget list
 			"./profile/mobile/widget/mobile/Page",
-			"./core/widget/mobile/Scrollview",
+			"./profile/mobile/widget/mobile/Scrollview",
 			"./core/widget/mobile/Circularview",
 			"./core/widget/mobile/Collapsibleset",
 			"./core/widget/mobile/Collapsible",

@@ -10,18 +10,18 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../engine",
-			"../../utils/easing",
-			"../../utils/events",
-			"../../utils/DOM/css",
-			"../../utils/DOM/attributes",
-			"../../utils/selectors",
-			"../../events/orientationchange",
-			"../../events/vmouse",
+			"../../../../core/engine",
+			"../../../../core/utils/easing",
+			"../../../../core/utils/events",
+			"../../../../core/utils/DOM/css",
+			"../../../../core/utils/DOM/attributes",
+			"../../../../core/utils/selectors",
+			"../../../../core/events/orientationchange",
+			"../../../../core/events/vmouse",
 			"../mobile", // fetch namespace
 			"./BaseWidgetMobile",
-			"../../../profile/mobile/widget/mobile/Button",
-			"../../../profile/mobile/widget/mobile/Page"
+			"./Button",
+			"./Page"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
