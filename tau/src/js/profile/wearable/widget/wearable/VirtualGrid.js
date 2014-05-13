@@ -17,10 +17,10 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../engine",
-			"../../utils/DOM/css",
+			"../../../../core/engine",
+			"../../../../core/utils/DOM/css",
 			"../wearable",
-			"../../../profile/wearable/widget/wearable/VirtualListview"
+			"./VirtualListview"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
