@@ -50,7 +50,10 @@
 			//>>excludeEnd("tauBuildExclude");
 			var engine = frameworkNamespace.engine;
 
-			ns.widget = {};
+			ns.widget = {
+				getInstance: engine.getBinding.bind(engine),
+				getAllInstances: engine.getAllBindings.bind(engine)
+			};
 
 			ns.defineWidget = engine.defineWidget.bind(engine);
 
