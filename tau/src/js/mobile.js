@@ -52,7 +52,7 @@
 			"./profile/mobile/widget/mobile/Listdivider",
 			"./profile/mobile/widget/mobile/ListviewAutodivider",
 			"./profile/mobile/widget/mobile/ListviewFilter",
-			"./core/widget/mobile/ExtendableList",
+			"./profile/mobile/widget/mobile/ExtendableList",
 			"./core/widget/mobile/Fastscroll",
 			"./core/widget/mobile/Tabbar",
 			"./core/widget/mobile/Fieldcontain",

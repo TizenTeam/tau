@@ -19,12 +19,12 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../engine",
-			"../../utils",
-			"../../utils/DOM",
-			"../../theme",
+			"../../../../core/engine",
+			"../../../../core/utils",
+			"../../../../core/utils/DOM",
+			"../../../../core/theme",
 			"../mobile", // fetch namespace
-			"../../../profile/mobile/widget/mobile/Listview",
+			"./Listview",
 			"./BaseWidgetMobile"
 		],
 		function() {
