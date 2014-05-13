@@ -199,7 +199,7 @@
 			ns.support = {
 				media: media,
 				cssTransitions: (window.WebKitTransitionEvent !== undefined || validStyle('transition', 'height 100ms linear')) && !opera,
-				pushState: history.pushState && history.replaceState && true,
+				pushState: window.history.pushState && window.history.replaceState && true,
 				mediaquery: media("only all"),
 				cssPseudoElement: !!propExists("content"),
 				touchOverflow: !!propExists("overflowScrolling"),

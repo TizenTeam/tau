@@ -21,16 +21,18 @@
 				"compiler" + (config.get("os") === 'win' ? '.bat' : '.sh'),
 			pb = new ProcessBuilder(
 				compilerExecutable,
+				"--language_in",
+				"ECMASCRIPT5_STRICT",
 				"--compilation_level",
 				"SIMPLE_OPTIMIZATIONS",
+				"--formatting",
+				"PRETTY_PRINT",
+				"--warning_level",
+				"DEFAULT",
 				"--js",
 				inFile,
 				"--js_output_file",
-				outFile,
-				"--language_in",
-				"ECMASCRIPT5_STRICT",
-				"--warning_level",
-				"VERBOSE"
+				outFile
 			).inheritIO(),
 			p;
 		pb.redirectErrorStream(true);
