@@ -56,7 +56,7 @@
 			"./profile/mobile/widget/mobile/Fastscroll",
 			"./profile/mobile/widget/mobile/Tabbar",
 			"./profile/mobile/widget/mobile/Fieldcontain",
-			"./core/widget/mobile/Controlgroup",
+			"./profile/mobile/widget/mobile/Controlgroup",
 			"./core/widget/mobile/Textinput",
 			"./profile/mobile/widget/mobile/Popup",
 			"./core/widget/mobile/Datetimepicker",

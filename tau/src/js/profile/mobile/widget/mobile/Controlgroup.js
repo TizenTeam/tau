@@ -26,9 +26,9 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../engine",
-			"../../utils/selectors",
-			"../../utils/DOM/manipulation",
+			"../../../../core/engine",
+			"../../../../core/utils/selectors",
+			"../../../../core/utils/DOM/manipulation",
 			"../mobile", // fetch namespace
 			"./BaseWidgetMobile"
 		],
