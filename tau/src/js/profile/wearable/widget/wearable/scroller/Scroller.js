@@ -10,11 +10,11 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../../engine",
-			"../../../utils/selectors",
-			"../../../utils/object",
-			"../../../utils/events",
-			"../../../events/gesture",
+			"../../../../../core/engine",
+			"../../../../../core/utils/selectors",
+			"../../../../../core/utils/object",
+                        "../../../../../core/utils/events",
+                        "../../../../../core/events/gesture",
 			"./effect/Bouncing",
 			"../scroller"
 		],

@@ -10,12 +10,13 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../../../engine",
-			"../../../../utils/selectors",
-			"../../../../utils/object",
+			"../../../../../../core/engine",
+			"../../../../../../core/utils/selectors",
+			"../../../../../../core/utils/object",
 			"../scrollbar",
 			"./type/bar",
-			"../../../BaseWidget",
+			"./type/tab",
+			"../../../../../../core/widget/BaseWidget",
 			"../Scroller"
 		],
 		function () {
@@ -55,21 +56,29 @@
 				this.options = utilsObject.merge({}, this.options, {
 					type: false,
 					displayDelay: 700,
+					sections: null,
 					orientation: Scroller.Orientation.VERTICAL
 				});
 			};
 
 			prototype._init = function () {
-				this.type = this.options.type;
+				var type = this.options.type;
 
-				if ( !this.type ) {
+				if (!type) {
 					return;
 				}
+
+				this.type = scrollbarType[type];
+				if (!this.type) {
+					throw "Bad options. [type : " + this.options.type + "]";
+				}
+
 				this._createScrollbar();
 			};
 
 			prototype._createScrollbar = function () {
-				var orientation = this.options.orientation,
+				var sections = this.options.sections,
+					orientation = this.options.orientation,
 					wrapper = document.createElement("DIV"),
 					bar = document.createElement("span");
 
@@ -80,7 +89,8 @@
 					wrapper: wrapper,
 					bar: bar,
 					container: this.container,
-					clip: this.clip
+					clip: this.clip,
+					sections: sections
 				});
 
 				this.wrapper = wrapper;
@@ -88,7 +98,7 @@
 			};
 
 			prototype._removeScrollbar = function () {
-				if ( this.wrapper ) {
+				if (this.wrapper) {
 					this.wrapper.parentNode.removeChild(this.wrapper);
 				}
 
@@ -105,17 +115,17 @@
 				var orientation = this.options.orientation,
 					translate, transition, barStyle, endDelay;
 
-				if ( !this.wrapper || !this.type ) {
+				if (!this.wrapper || !this.type) {
 					return;
 				}
 
-				offset = this.type.offset( orientation, offset );
+				offset = this.type.offset(orientation, offset);
 
 				barStyle = this.barElement.style;
-				if ( !duration ) {
-					transition = "none";
-				} else {
+				if (duration) {
 					transition = "-webkit-transform " + duration / 1000 + "s ease-out";
+				} else {
+					transition = "none";
 				}
 
 				translate = "translate3d(" + offset.x + "px," + offset.y + "px, 0)";
@@ -123,13 +133,13 @@
 				barStyle["-webkit-transform"] = translate;
 				barStyle["-webkit-transition"] = transition;
 
-				if ( !this.started ) {
+				if (!this.started) {
 					this._start();
 				}
 
 				endDelay = ( duration || 0 ) + this.options.displayDelay;
-				if ( this.displayDelayTimeoutId !== null ) {
-					window.clearTimeout( this.displayDelayTimeoutId );
+				if (this.displayDelayTimeoutId !== null) {
+					window.clearTimeout(this.displayDelayTimeoutId);
 				}
 				this.displayDelayTimeoutId = window.setTimeout(this._end.bind(this), endDelay);
 			};
@@ -143,7 +153,7 @@
 				this.started = false;
 				this.displayDelayTimeoutId = null;
 
-				if ( this.type ) {
+				if (this.type) {
 					this.type.end(this.wrapper, this.barElement);
 				}
 			};
@@ -153,6 +163,7 @@
 
 				this.started = false;
 				this.type = null;
+				this.wrapper = null;
 				this.barElement = null;
 				this.displayDelayTimeoutId = null;
 			};
@@ -170,7 +181,7 @@
 			ns.widget.wearable.ScrollerScrollBar = ScrollerScrollBar;
 
 			engine.defineWidget(
-				"ScrollBar",
+				"Scrollbar",
 				"",
 				[],
 				ScrollerScrollBar

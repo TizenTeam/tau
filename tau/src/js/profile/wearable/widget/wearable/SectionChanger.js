@@ -10,10 +10,10 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../engine",
-			"../../utils/selectors",
-			"../../events/gesture",
-			"../BaseWidget",
+			"../../../../core/engine",
+			"../../../../core/utils/selectors",
+			"../../../../core/events/gesture",
+			"../../../../core/widget/BaseWidget",
 			"./scroller/Scroller",
 			"./TabIndicator",
 			"../wearable"

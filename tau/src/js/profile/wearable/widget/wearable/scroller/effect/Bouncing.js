@@ -10,11 +10,11 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../../../engine",
-			"../../../../utils/selectors",
-			"../../../../utils/object",
+			"../../../../../../core/engine",
+			"../../../../../../core/utils/selectors",
+			"../../../../../../core/utils/object",
 			"../effect",
-			"../../../BaseWidget"
+			"../../../../../../core/widget/BaseWidget"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

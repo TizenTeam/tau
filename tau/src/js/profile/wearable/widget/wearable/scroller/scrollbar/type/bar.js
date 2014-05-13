@@ -13,7 +13,7 @@
 			"../type",
 			"./interface",
 			"../../Scroller",
-			"../../../../../utils/object"
+			"../../../../../../../core/utils/object"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
