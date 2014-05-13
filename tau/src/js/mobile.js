@@ -47,7 +47,7 @@
 			"./core/widget/mobile/Collapsible",
 			"./profile/mobile/widget/mobile/Button",
 			"./core/widget/mobile/Dialog",
-			"./core/widget/mobile/Checkboxradio",
+			"./profile/mobile/widget/mobile/Checkboxradio",
 			"./core/widget/mobile/Listview",
 			"./core/widget/mobile/Listdivider",
 			"./core/widget/mobile/ListviewAutodivider",

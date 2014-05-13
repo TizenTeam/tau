@@ -24,12 +24,12 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../engine",
-			"../../utils/selectors",
-			"../../utils/DOM/attributes",
-			"../../utils/DOM/manipulation",
-			"../../utils/events",
-			"../../../profile/mobile/widget/mobile/Button",
+			"../../../../core/engine",
+			"../../../../core/utils/selectors",
+			"../../../../core/utils/DOM/attributes",
+			"../../../../core/utils/DOM/manipulation",
+			"../../../../core/utils/events",
+			"./Button",
 			"../mobile", // fetch namespace
 			"./BaseWidgetMobile"
 		],
