@@ -454,7 +454,8 @@
 					container,
 					innerTextLength,
 					label,
-					protoOptions = prototype.options;
+					protoOptions = prototype.options,
+					i;
 
 				// Set theme
 				options.theme = options.theme || themes.getInheritedTheme(element, (protoOptions && protoOptions.theme) || 's');
@@ -617,7 +618,10 @@
 				buttonClassList.remove(classes.uiLink);
 
 				// Copy all classes from buttonClassArray to buttonClassList
-				DOMTokenList.prototype.add.apply(buttonClassList, buttonClassArray);
+				i = buttonClassArray.length;
+				while (--i >= 0) {
+					buttonClassList.add(buttonClassArray[i]);
+				}
 
 				buttonInner.className = innerClass;
 				buttonText.className = textClass;
