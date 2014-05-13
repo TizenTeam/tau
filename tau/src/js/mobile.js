@@ -50,7 +50,7 @@
 			"./profile/mobile/widget/mobile/Checkboxradio",
 			"./profile/mobile/widget/mobile/Listview",
 			"./profile/mobile/widget/mobile/Listdivider",
-			"./core/widget/mobile/ListviewAutodivider",
+			"./profile/mobile/widget/mobile/ListviewAutodivider",
 			"./core/widget/mobile/ListviewFilter",
 			"./core/widget/mobile/ExtendableList",
 			"./core/widget/mobile/Fastscroll",

@@ -10,11 +10,11 @@
 	//>>excludeStart('tauBuildExclude', pragmas.tauBuildExclude);
 	define(
 		[
-			"../../engine",
-			"../../utils/selectors",
+			"../../../../core/engine",
+			"../../../../core/utils/selectors",
 			"../mobile",
-			"../../../profile/mobile/widget/mobile/Listview",
-			"../../../profile/mobile/widget/mobile/Listdivider"
+			"./Listview",
+			"./Listdivider"
 		],
 		function () {
 			//>>excludeEnd('tauBuildExclude');
