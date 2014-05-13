@@ -63,7 +63,7 @@
 			"./core/widget/mobile/Slider",
 			"./core/widget/mobile/Swipe",
 			"./core/widget/mobile/Selectmenu",
-			"./core/widget/mobile/Searchbar",
+			"./profile/mobile/widget/mobile/Searchbar",
 			"./core/widget/mobile/Progress",
 			"./core/widget/mobile/Navbar",
 			"./core/widget/mobile/MultimediaView",

@@ -10,10 +10,10 @@
 //>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../engine",
-			"../../theme",
-			"../../utils/DOM/attributes",
-			"../../utils/events",
+			"../../../../core/engine",
+			"../../../../core/theme",
+			"../../../../core/utils/DOM/attributes",
+			"../../../../core/utils/events",
 			"../mobile",  // fetch namespace
 			"./BaseWidgetMobile"
 		],

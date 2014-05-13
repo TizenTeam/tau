@@ -17,7 +17,7 @@
 			"../../utils/selectors",
 			"../mobile",
 			"../../../profile/mobile/widget/mobile/Listview",
-			"./Searchbar"
+			"../../../profile/mobile/widget/mobile/Searchbar"
 		],
 		function () {
 			//>>excludeEnd('tauBuildExclude');
