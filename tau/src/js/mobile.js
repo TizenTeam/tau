@@ -49,7 +49,7 @@
 			"./profile/mobile/widget/mobile/Dialog",
 			"./profile/mobile/widget/mobile/Checkboxradio",
 			"./profile/mobile/widget/mobile/Listview",
-			"./core/widget/mobile/Listdivider",
+			"./profile/mobile/widget/mobile/Listdivider",
 			"./core/widget/mobile/ListviewAutodivider",
 			"./core/widget/mobile/ListviewFilter",
 			"./core/widget/mobile/ExtendableList",

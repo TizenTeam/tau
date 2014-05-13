@@ -14,7 +14,7 @@
 			"../../utils/selectors",
 			"../mobile",
 			"../../../profile/mobile/widget/mobile/Listview",
-			"./Listdivider"
+			"../../../profile/mobile/widget/mobile/Listdivider"
 		],
 		function () {
 			//>>excludeEnd('tauBuildExclude');
