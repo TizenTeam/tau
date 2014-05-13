@@ -53,7 +53,7 @@
 			"./profile/mobile/widget/mobile/ListviewAutodivider",
 			"./profile/mobile/widget/mobile/ListviewFilter",
 			"./profile/mobile/widget/mobile/ExtendableList",
-			"./core/widget/mobile/Fastscroll",
+			"./profile/mobile/widget/mobile/Fastscroll",
 			"./profile/mobile/widget/mobile/Tabbar",
 			"./core/widget/mobile/Fieldcontain",
 			"./core/widget/mobile/Controlgroup",

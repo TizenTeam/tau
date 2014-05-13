@@ -36,17 +36,17 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../engine",
-			"../../theme",
-			"../../widget",
-			"../../utils/DOM/attributes",
-                        "../../utils/DOM/manipulation",
-                        "../../utils/DOM/css",
-			"../../../profile/mobile/widget/mobile/Tabbar",
-			"../../../profile/mobile/widget/mobile/Page",
-			'../../../profile/mobile/widget/mobile/Listview',
-			"../../utils/selectors",
-			"../../utils/events"
+			"../../../../core/engine",
+			"../../../../core/theme",
+			"../../../../core/widget",
+			"../../../../core/utils/DOM/attributes",
+			"../../../../core/utils/DOM/manipulation",
+			"../../../../core/utils/DOM/css",
+			"./Tabbar",
+			"./Page",
+			'./Listview',
+			"../../../../core/utils/selectors",
+			"../../../../core/utils/events"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
