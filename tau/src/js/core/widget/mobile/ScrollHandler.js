@@ -48,7 +48,7 @@
 			"../../utils/selectors",
 			"../mobile",
 			"./Scrollview",
-			"./Page"
+			"../../../profile/mobile/widget/mobile/Page"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

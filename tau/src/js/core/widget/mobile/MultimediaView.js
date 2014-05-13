@@ -29,7 +29,7 @@
 			'../../utils/events',
 			'./BaseWidgetMobile',
 			"../../../profile/mobile/widget/mobile/Button",
-			'./Page',
+			'../../../profile/mobile/widget/mobile/Page',
 			'./Scrollview',
 			'./Slider',
 			'./Progressbar'

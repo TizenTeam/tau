@@ -23,7 +23,7 @@
 			"../../../core/utils/path",
 			"../../../core/utils/object",
 			"../../../core/utils/deferred",
-			"../../../core/widget/mobile/Page",
+			"../widget/mobile/Page",
 			"../../../core/events/page",
 			"./urlHistory"
 		],

@@ -10,7 +10,7 @@
 			"../../../core/engine",
 			"../../../core/router", // fetch namespace
 			"./Page",
-			"../../../core/widget/mobile/Page",
+			"../widget/mobile/Page",
 			"../../../core/widget/mobile/Loader",
 			"../../../core/utils",
 			"../../../core/utils/events",

@@ -17,7 +17,7 @@
 			"../mobile", // fetch namespace
 			"./BaseWidgetMobile",
 			"../../../profile/mobile/widget/mobile/Button",
-			"./Page"
+			"../../../profile/mobile/widget/mobile/Page"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

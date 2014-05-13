@@ -40,7 +40,7 @@
 			"./core/events/pinch",
 			"./core/events/hwkey",
 			// widget list
-			"./core/widget/mobile/Page",
+			"./profile/mobile/widget/mobile/Page",
 			"./core/widget/mobile/Scrollview",
 			"./core/widget/mobile/Circularview",
 			"./core/widget/mobile/Collapsibleset",

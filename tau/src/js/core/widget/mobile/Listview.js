@@ -25,7 +25,7 @@
 			"./BaseWidgetMobile",
 			"../../../profile/mobile/widget/mobile/Button",
 			"./Scrollview",
-			"./Page"
+			"../../../profile/mobile/widget/mobile/Page"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

@@ -10,16 +10,16 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../engine",
-			"../../utils/selectors",
-			"../../utils/DOM/attributes",
-            "../../utils/DOM/css",
-			"../../utils/object",
-			"../../events/orientationchange",
+			"../../../../core/engine",
+			"../../../../core/utils/selectors",
+			"../../../../core/utils/DOM/attributes",
+			"../../../../core/utils/DOM/css",
+			"../../../../core/utils/object",
+			"../../../../core/events/orientationchange",
 			"../mobile",
-			"../../theme",
+			"../../../../core/theme",
 			"./BaseWidgetMobile",
-			"../../../profile/mobile/widget/mobile/Button",
+			"./Button",
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

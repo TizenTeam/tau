@@ -43,7 +43,7 @@
                         "../../utils/DOM/manipulation",
                         "../../utils/DOM/css",
 			"./Tabbar",
-			"./Page",
+			"../../../profile/mobile/widget/mobile/Page",
 			'./Listview',
 			"../../utils/selectors",
 			"../../utils/events"

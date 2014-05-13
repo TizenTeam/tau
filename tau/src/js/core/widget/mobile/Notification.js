@@ -70,7 +70,7 @@
 			"../../theme",
 			"../mobile", // fetch namespace
 			"./BaseWidgetMobile",
-			"./Page"
+			"../../../profile/mobile/widget/mobile/Page"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
