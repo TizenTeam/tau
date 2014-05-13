@@ -43,7 +43,7 @@
 			"./profile/mobile/widget/mobile/Page",
 			"./profile/mobile/widget/mobile/Scrollview",
 			"./profile/mobile/widget/mobile/Circularview",
-			"./core/widget/mobile/Collapsibleset",
+			"./profile/mobile/widget/mobile/Collapsibleset",
 			"./profile/mobile/widget/mobile/Collapsible",
 			"./profile/mobile/widget/mobile/Button",
 			"./profile/mobile/widget/mobile/Dialog",

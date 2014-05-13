@@ -12,14 +12,14 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../engine",
+			"../../../../core/engine",
 			"../mobile",
-			"../../theme",
-			"../../utils/DOM/attributes",
-			"../../utils/events",
-			"../../utils/selectors",
+			"../../../../core/theme",
+			"../../../../core/utils/DOM/attributes",
+			"../../../../core/utils/events",
+			"../../../../core/utils/selectors",
 			"./BaseWidgetMobile",
-			"../../../profile/mobile/widget/mobile/Collapsible"
+			"./Collapsible"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
