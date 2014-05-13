@@ -51,7 +51,7 @@
 			"../mobile",
 			"./BaseWidgetMobile",
 			"../../../profile/mobile/widget/mobile/Button",
-			"./Listview"
+			"../../../profile/mobile/widget/mobile/Listview"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

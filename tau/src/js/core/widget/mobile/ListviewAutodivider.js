@@ -13,7 +13,7 @@
 			"../../engine",
 			"../../utils/selectors",
 			"../mobile",
-			"./Listview",
+			"../../../profile/mobile/widget/mobile/Listview",
 			"./Listdivider"
 		],
 		function () {

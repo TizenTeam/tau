@@ -94,7 +94,7 @@
 			"../../theme",
 			"../mobile", // fetch namespace
 			"../../../profile/mobile/widget/mobile/Scrollview",
-			"./Listview",
+			"../../../profile/mobile/widget/mobile/Listview",
 			"./BaseWidgetMobile"
 		],
 		function () {

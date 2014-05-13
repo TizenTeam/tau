@@ -48,7 +48,7 @@
 			"./profile/mobile/widget/mobile/Button",
 			"./profile/mobile/widget/mobile/Dialog",
 			"./profile/mobile/widget/mobile/Checkboxradio",
-			"./core/widget/mobile/Listview",
+			"./profile/mobile/widget/mobile/Listview",
 			"./core/widget/mobile/Listdivider",
 			"./core/widget/mobile/ListviewAutodivider",
 			"./core/widget/mobile/ListviewFilter",

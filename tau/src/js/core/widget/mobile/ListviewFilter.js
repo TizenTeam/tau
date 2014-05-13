@@ -16,7 +16,7 @@
                         "../../utils/DOM/manipulation",
 			"../../utils/selectors",
 			"../mobile",
-			"./Listview",
+			"../../../profile/mobile/widget/mobile/Listview",
 			"./Searchbar"
 		],
 		function () {

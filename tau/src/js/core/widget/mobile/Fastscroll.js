@@ -44,7 +44,7 @@
                         "../../utils/DOM/css",
 			"./Tabbar",
 			"../../../profile/mobile/widget/mobile/Page",
-			'./Listview',
+			'../../../profile/mobile/widget/mobile/Listview',
 			"../../utils/selectors",
 			"../../utils/events"
 		],

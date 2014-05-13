@@ -24,7 +24,7 @@
 			"../../utils/DOM",
 			"../../theme",
 			"../mobile", // fetch namespace
-			"./Listview",
+			"../../../profile/mobile/widget/mobile/Listview",
 			"./BaseWidgetMobile"
 		],
 		function() {
