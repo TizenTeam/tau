@@ -9,7 +9,7 @@
 			"../mobile", // fetch namespace
 			"./BaseWidgetMobile",
 			"./Popup",
-			"./Button",
+			"../../../profile/mobile/widget/mobile/Button",
 			"./Circularview",
 			"../../events/vmouse",
 			"../../utils/DOM/attributes",

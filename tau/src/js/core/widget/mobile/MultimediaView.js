@@ -28,7 +28,7 @@
 			'../../utils/object',
 			'../../utils/events',
 			'./BaseWidgetMobile',
-			'./Button',
+			"../../../profile/mobile/widget/mobile/Button",
 			'./Page',
 			'./Scrollview',
 			'./Slider',

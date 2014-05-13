@@ -50,7 +50,7 @@
 			"../../utils/DOM/manipulation",
 			"../mobile",
 			"./BaseWidgetMobile",
-			"./Button",
+			"../../../profile/mobile/widget/mobile/Button",
 			"./Listview"
 		],
 		function () {

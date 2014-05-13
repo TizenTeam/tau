@@ -92,11 +92,11 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../engine",
-			"../../utils/selectors",
-			"../../utils/DOM/manipulation",
-			"../../events/vmouse",
-			"../../theme",
+			"../../../../core/engine",
+			"../../../../core/utils/selectors",
+			"../../../../core/utils/DOM/manipulation",
+			"../../../../core/events/vmouse",
+			"../../../../core/theme",
 			"../mobile", // fetch namespace
 			"./BaseWidgetMobile"
 		],

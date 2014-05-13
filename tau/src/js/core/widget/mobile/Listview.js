@@ -23,7 +23,7 @@
 			"../../events/vmouse",
 			"../mobile",
 			"./BaseWidgetMobile",
-			"./Button",
+			"../../../profile/mobile/widget/mobile/Button",
 			"./Scrollview",
 			"./Page"
 		],

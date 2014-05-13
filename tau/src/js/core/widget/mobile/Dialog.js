@@ -16,7 +16,7 @@
 			"../../utils/selectors",
 			"../mobile", // fetch namespace
 			"./BaseWidgetMobile",
-			"./Button",
+			"../../../profile/mobile/widget/mobile/Button",
 			"./Page"
 		],
 		function () {

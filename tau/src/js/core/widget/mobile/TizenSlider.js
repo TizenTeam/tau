@@ -18,7 +18,7 @@
 			"../../utils/DOM/css",
 			"../mobile",
 			"./Slider",
-			"./Button",
+			"../../../profile/mobile/widget/mobile/Button",
 			"./Popup"
 		],
 		function () {

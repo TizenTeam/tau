@@ -47,7 +47,7 @@
 			"../../utils/selectors",
 			"../../events/vmouse",
 			"../mobile",
-			"./Button",
+			"../../../profile/mobile/widget/mobile/Button",
 			"./BaseWidgetMobile"
 		],
 		function () {

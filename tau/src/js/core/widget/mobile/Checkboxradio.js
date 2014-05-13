@@ -27,9 +27,9 @@
 			"../../engine",
 			"../../utils/selectors",
 			"../../utils/DOM/attributes",
-                        "../../utils/DOM/manipulation",
+			"../../utils/DOM/manipulation",
 			"../../utils/events",
-			"./Button",
+			"../../../profile/mobile/widget/mobile/Button",
 			"../mobile", // fetch namespace
 			"./BaseWidgetMobile"
 		],

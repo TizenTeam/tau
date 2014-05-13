@@ -19,7 +19,7 @@
 			"../mobile",
 			"../../theme",
 			"./BaseWidgetMobile",
-			"./Button"
+			"../../../profile/mobile/widget/mobile/Button",
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

@@ -45,7 +45,7 @@
 			"./core/widget/mobile/Circularview",
 			"./core/widget/mobile/Collapsibleset",
 			"./core/widget/mobile/Collapsible",
-			"./core/widget/mobile/Button",
+			"./profile/mobile/widget/mobile/Button",
 			"./core/widget/mobile/Dialog",
 			"./core/widget/mobile/Checkboxradio",
 			"./core/widget/mobile/Listview",
