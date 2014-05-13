@@ -8,7 +8,7 @@
 			"../../engine",
 			"../mobile", // fetch namespace
 			"./BaseWidgetMobile",
-			"./Popup",
+			"../../../profile/mobile/widget/mobile/Popup",
 			"../../../profile/mobile/widget/mobile/Button",
 			"./Circularview",
 			"../../events/vmouse",

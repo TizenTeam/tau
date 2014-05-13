@@ -58,7 +58,7 @@
 			"./core/widget/mobile/Fieldcontain",
 			"./core/widget/mobile/Controlgroup",
 			"./core/widget/mobile/Textinput",
-			"./core/widget/mobile/Popup",
+			"./profile/mobile/widget/mobile/Popup",
 			"./core/widget/mobile/Datetimepicker",
 			"./core/widget/mobile/Slider",
 			"./core/widget/mobile/Swipe",

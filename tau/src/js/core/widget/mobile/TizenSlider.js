@@ -19,7 +19,7 @@
 			"../mobile",
 			"./Slider",
 			"../../../profile/mobile/widget/mobile/Button",
-			"./Popup"
+			"../../../profile/mobile/widget/mobile/Popup"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

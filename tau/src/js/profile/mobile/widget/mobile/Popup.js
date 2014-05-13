@@ -37,15 +37,15 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../engine",
-			"../../theme",
-			"../../utils/selectors",
-			"../../utils/DOM/attributes",
-			"../../utils/DOM/manipulation",
-			"../../utils/DOM/css",
-			"../../utils/events",
-			"../../utils/deferred",
-			"../../utils/deferredWhen",
+			"../../../../core/engine",
+			"../../../../core/theme",
+			"../../../../core/utils/selectors",
+			"../../../../core/utils/DOM/attributes",
+			"../../../../core/utils/DOM/manipulation",
+			"../../../../core/utils/DOM/css",
+			"../../../../core/utils/events",
+			"../../../../core/utils/deferred",
+			"../../../../core/utils/deferredWhen",
 			"../mobile",
 			"./BaseWidgetMobile"
 		],
