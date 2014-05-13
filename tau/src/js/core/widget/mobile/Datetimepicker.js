@@ -10,7 +10,7 @@
 			"./BaseWidgetMobile",
 			"../../../profile/mobile/widget/mobile/Popup",
 			"../../../profile/mobile/widget/mobile/Button",
-			"./Circularview",
+			"../../../profile/mobile/widget/mobile/Circularview",
 			"../../events/vmouse",
 			"../../utils/DOM/attributes",
 			"../../utils/DOM/manipulation",

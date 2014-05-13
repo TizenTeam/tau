@@ -42,7 +42,7 @@
 			// widget list
 			"./profile/mobile/widget/mobile/Page",
 			"./profile/mobile/widget/mobile/Scrollview",
-			"./core/widget/mobile/Circularview",
+			"./profile/mobile/widget/mobile/Circularview",
 			"./core/widget/mobile/Collapsibleset",
 			"./core/widget/mobile/Collapsible",
 			"./profile/mobile/widget/mobile/Button",
