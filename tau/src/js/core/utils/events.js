@@ -90,7 +90,7 @@
 				* @member ns.utils.events
 				* @static
 				*/
-				trigger: function ejUtilsEvents_trigger(element, type, data, bubbles, cancelable) {
+				trigger: function (element, type, data, bubbles, cancelable) {
 					var evt = new CustomEvent(type, {
 							"detail": data,
 							//allow event to bubble up, required if we want to allow to listen fastOn document etc
