@@ -51,7 +51,7 @@
 			"./profile/mobile/widget/mobile/Listview",
 			"./profile/mobile/widget/mobile/Listdivider",
 			"./profile/mobile/widget/mobile/ListviewAutodivider",
-			"./core/widget/mobile/ListviewFilter",
+			"./profile/mobile/widget/mobile/ListviewFilter",
 			"./core/widget/mobile/ExtendableList",
 			"./core/widget/mobile/Fastscroll",
 			"./core/widget/mobile/Tabbar",
