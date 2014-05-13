@@ -12,12 +12,12 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../engine",
-			"../../utils/selectors",
+			"../../../../core/engine",
+			"../../../../core/utils/selectors",
 			"../mobile", // fetch namespace
 			"./BaseWidgetMobile",
-			"../../../profile/mobile/widget/mobile/Button",
-			"../../../profile/mobile/widget/mobile/Page"
+			"./Button",
+			"./Page"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
