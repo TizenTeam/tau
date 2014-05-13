@@ -35,12 +35,12 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../../profile/wearable/selectors",
-			"../../engine",
-			"../../utils/selectors",
-			"../../utils/DOM/css",
+			"../../selectors",
+			"../../../../core/engine",
+			"../../../../core/utils/selectors",
+			"../../../../core/utils/DOM/css",
 			"../wearable",
-			"../BaseWidget"
+			"../../../../core/widget/BaseWidget"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

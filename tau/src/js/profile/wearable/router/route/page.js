@@ -21,7 +21,7 @@
 			"../../../../core/utils/selectors",
 			"../../../../core/utils/object",
 			"../history",
-			"../../../../core/widget/wearable/Page"
+			"../../widget/wearable/Page"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

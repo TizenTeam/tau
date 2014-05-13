@@ -12,7 +12,7 @@
 			"./core/engine",
 			// widget list
 			"./core/utils/anchorHighlight",
-			"./core/widget/wearable/Page",
+			"./profile/wearable/widget/wearable/Page",
 			"./core/widget/wearable/Popup",
 			"./core/widget/wearable/PageContainer",
 			"./core/widget/wearable/indexscrollbar/IndexScrollbar",

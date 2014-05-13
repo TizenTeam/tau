@@ -25,7 +25,7 @@
 			"../../../core/utils/selectors",
 			"../../../core/utils/path",
 			"../../../core/utils/object",
-			"../../../core/widget/wearable/Page",
+			"../widget/wearable/Page",
 			"../../../core/widget/wearable/PageContainer",
 			"../selectors"
 		],

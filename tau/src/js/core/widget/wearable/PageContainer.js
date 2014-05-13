@@ -18,7 +18,7 @@
 			"../../utils/DOM/attributes",
 			"../wearable",
 			"../BaseWidget",
-			"./Page"
+			"../../../profile/wearable/widget/wearable/Page"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
