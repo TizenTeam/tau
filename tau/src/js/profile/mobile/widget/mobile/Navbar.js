@@ -42,12 +42,12 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../engine",
-			"../../utils/grid",
-			"../../utils/selectors",
-			"../../events/vmouse",
+			"../../../../core/engine",
+			"../../../../core/utils/grid",
+			"../../../../core/utils/selectors",
+			"../../../../core/events/vmouse",
 			"../mobile",
-			"../../../profile/mobile/widget/mobile/Button",
+			"./Button",
 			"./BaseWidgetMobile"
 		],
 		function () {
