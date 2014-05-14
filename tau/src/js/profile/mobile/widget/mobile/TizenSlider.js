@@ -29,6 +29,23 @@
 				events = ns.utils.events,
 				objectUtils = ns.utils.object,
 				DOM = ns.utils.DOM,
+				POPUP_WIDTH = {
+					'SMALL': '2.3rem',
+					'MEDIUM': '2.8rem',
+					'LARGE': '3.0rem'
+				},
+				FONT_SIZE = {
+					'SMALL': '0.95rem',
+					'MEDIUM': '0.85rem',
+					'LARGE': '0.65rem',
+					'DEFAULT': '0.45rem'
+				},
+				FONT_TOP = {
+					'SMALL': '0',
+					'MEDIUM': '-0.01rem',
+					'LARGE': '-0.1rem',
+					'DEFAULT': '-0.15rem'
+				},
 				/**
 				* TizenSlider widget
 				* @class ns.widget.TizenSlider
@@ -119,6 +136,7 @@
 					font_size,
 					font_length,
 					font_top,
+					popup_width,
 					newValue,
 					element = self.element,
 					handleTextStyle = self.handleText.style,
@@ -149,35 +167,35 @@
 						switch (font_length) {
 						case 1:
 						case 2:
-							font_size = '1.5rem';
+							popup_width = POPUP_WIDTH.SMALL;
 							break;
 						case 3:
-							font_size = '1rem';
+							popup_width = POPUP_WIDTH.MEDIUM;
 							break;
 						default:
-							font_size = '0.8rem';
+							popup_width = POPUP_WIDTH.SMALL;
 							break;
 						}
 
-						popupStyle.fontSize = font_size;
+						popupStyle.width = popup_width;
 					}
 
 					switch (font_length) {
 					case 1:
-						font_size = '0.95rem';
-						font_top = '0';
+						font_size = FONT_SIZE.SMALL;
+						font_top = FONT_TOP.SMALL;
 						break;
 					case 2:
-						font_size = '0.85rem';
-						font_top = '-0.01rem';
+						font_size = FONT_SIZE.MEDIUM;
+						font_top = FONT_TOP.MEDIUM;
 						break;
 					case 3:
-						font_size = '0.65rem';
-						font_top = '-0.1rem';
+						font_size = FONT_SIZE.LARGE;
+						font_top = FONT_TOP.LARGE;
 						break;
 					default:
-						font_size = '0.45rem';
-						font_top = '-0.15rem';
+						font_size = FONT_SIZE.DEFAULT;
+						font_top = FONT_TOP.DEFAULT;
 						break;
 					}
 
