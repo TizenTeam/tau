@@ -184,7 +184,14 @@
 					scrollview = selectors.getParentsByClass(element, classes.uiScrollviewView),
 					li = slice.call(element.getElementsByTagName("li")),
 					iconpos,
-					textpos;
+					textpos,
+					instanceButtonOptions = {
+						shadow: false,
+						corners: false,
+						inline: false,
+						bar: true,
+						role: 'button'
+					};
 
 				if (links.length) {
 					iconpos = hasIcon(links) ? this.iconpos : undefined;
@@ -248,15 +255,11 @@
 				}
 
 				if (links.length) {
+					if (iconpos) {
+						instanceButtonOptions.iconpos = iconpos;
+					}
 					links.forEach(function (item) {
-						item.setAttribute('data-shadow', 'false');
-						item.setAttribute('data-corners', 'false');
-						item.setAttribute('data-bar', 'true');
-						item.setAttribute('data-role', 'button');
-						if (iconpos) {
-							item.setAttribute('data-iconpos', iconpos);
-						}
-						engine.instanceWidget(item, "Button");
+						engine.instanceWidget(item, "Button", instanceButtonOptions);
 					});
 				}
 
