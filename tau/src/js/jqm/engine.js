@@ -374,8 +374,11 @@
 						// support creating widgets by triggering pagecreate
 						$(document).bind('pagecreate', function (event) {
 							var originalEvent = event.originalEvent || event,
-								isPage = originalEvent.detail instanceof ns.widget.mobile.Page;
+								isPage = originalEvent.detail instanceof ns.widget.mobile.Page,
+								pageWidget;
 							if (!isPage) { // trigger create when the pagecrate trigger is from outside
+								pageWidget = engine.instanceWidget(originalEvent.target, "Page");
+								pageWidget.refresh();
 								ns.engine._createEventHandler(originalEvent);
 							}
 						});

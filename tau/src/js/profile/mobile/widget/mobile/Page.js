@@ -188,16 +188,166 @@
 			}
 
 			/**
-			 * Build page
-			 * @method _build
-			 * @param {HTMLElement} element
-			 * @return {HTMLElement}
+			 * Build header/footer/content
+			 * @method buildSections
+             * @param {Object} options Object with options for widget
+			 * @param {HTMLElement} pageElement main element of widget
+			 * @param {string} pageTheme page theme name
 			 * @protected
 			 * @member ns.widget.mobile.Page
 			 * @instance
 			 */
-			Page.prototype._build = function (element) {
-				var pageTheme = this.options.theme,
+			function buildSections(options, pageElement, pageTheme) {
+				var pageClassList = pageElement.classList,
+					pageClasses = Page.classes,
+					fullscreen = options.fullscreen;
+
+				if (fullscreen) {
+					// "fullscreen" overlay positioning
+					pageClassList.add(pageClasses.uiPageHeaderFullscreen);
+					pageClassList.add(pageClasses.uiPageFooterFullscreen);
+				} else {
+					// If not fullscreen, add class to page to set top or bottom padding
+					pageClassList.add(pageClasses.uiPageHeaderFixed);
+					pageClassList.add(pageClasses.uiPageFooterFixed);
+				}
+
+				[].slice.call(pageElement.querySelectorAll("[data-role='header'],[data-role='content'],[data-role='footer']"))
+					.forEach(function (section) {
+						var role = section.getAttribute("data-role"),
+							sectionTheme = section.getAttribute("data-theme"),
+							currentTheme,
+							sectionClassList = section.classList,
+							transition,
+							headerButtons,
+							headerAnchors,
+							footerButtons,
+							footerWidth,
+							footerButtonWidth,
+							moreButton,
+							leftButton,
+							rightButton;
+
+						sectionClassList.add(pageClasses.uiPrefix + role);
+
+						// Adding transition classes for all matched elements
+						// @todo support transition form config
+						transition = section.getAttribute('data-transition') || '';
+
+						if (transition && transition !== "none") {
+							if (transition === "slide") {
+								transition = role === "header" ? "slidedown" : "slideup";
+							}
+							sectionClassList.add(transition);
+						}
+
+						if (role === 'content') {
+							section.setAttribute("role", "main");
+							currentTheme = sectionTheme || options.contentTheme;
+							if (currentTheme) {
+								sectionClassList.add(pageClasses.uiBodyPrefix + currentTheme);
+							}
+						} else {
+							currentTheme = sectionTheme || (role === "header" ? options.headerTheme : options.footerTheme) || pageTheme;
+							sectionClassList.add(pageClasses.uiBarPrefix + currentTheme);
+
+							// We always set the ui-[header|footer]-fixed class to match Tizen design needs
+							sectionClassList.add(pageClasses.uiPrefix + role + pageClasses.fixedSuffix);
+
+							if (fullscreen) {
+								sectionClassList.add(pageClasses.uiPrefix + role + pageClasses.fullscreenSuffix);
+							}
+
+							section.setAttribute("role", role === "header" ? "banner" : "contentinfo");
+
+							if (role === "header") {
+								headerAnchors = selectors.getChildrenBySelector(section, "a, div.naviframe-button, button");
+								headerAnchors.forEach(function (anchor) {
+									var anchorClassList = anchor.classList;
+									leftButton = anchorClassList.contains(pageClasses.uiBtnLeft);
+									rightButton = anchorClassList.contains(pageClasses.uiBtnRight);
+								});
+
+								if (!leftButton && headerAnchors[0] && !headerAnchors[0].classList.contains(pageClasses.uiBtnRight)) {
+									leftButton = headerAnchors[0];
+									leftButton.classList.add(pageClasses.uiBtnLeft);
+								}
+
+								if (!rightButton && headerAnchors[1]) {
+									rightButton = headerAnchors[1];
+									rightButton.classList.add(pageClasses.uiBtnRight);
+								}
+
+								headerAnchors.reverse().forEach(function (element, index) {
+									element.classList.add(pageClasses.uiBtnRightPrefix + index);
+								});
+
+								headerButtons = selectors.getChildrenByTag(section, "a");
+								if (headerButtons.length) {
+									headerButtons.forEach(function (button) {
+										engine.instanceWidget(button, "Button", {
+											corners: false,
+											bar: true,
+											role: 'button'
+										});
+									});
+								}
+								if (section.querySelector('.' + pageClasses.uiTitleTextSub)) {
+									sectionClassList.add(pageClasses.uiTitleMultiline);
+								}
+							}else if (role === "footer"){
+								footerButtons = selectors.getChildrenBySelector(section, "a,div.naviframe-button,[data-role='button'],button,[type='button'],[type='submit'],[type='reset']");
+								if (footerButtons.length) {
+									//TODO rethink this solution
+									footerWidth = section.offsetWidth ? section.offsetWidth : window.innerWidth;
+									moreButton = selectors.getChildrenBySelector(section, "[data-icon='naviframe-more']");
+									if(moreButton.length){
+										footerWidth -= utilsDOM.getElementWidth(moreButton[0]);
+									}origin/devel/webappfw/tau
+									footerButtonWidth = footerWidth/footerButtons.length;
+									footerButtons.forEach(function (button) {
+										var buttonStyle = button.style;
+										engine.instanceWidget(button, "Button", {
+											corners: false,
+											bar: true,
+											role: 'button'
+										});
+										buttonStyle.width = footerButtonWidth + "px";
+									});
+								}
+							}
+
+							selectors.getChildrenBySelector(section, "h1, h2, h3, h4, h5, h6").forEach(function (title) {
+								var headerBtnsWidth = 0,
+									headerBtnNum = 0,
+									headerImgsWidth = 0,
+									headerSrcNum = 0,
+									width,
+									titleStyle = title.style;
+
+								title.classList.add(pageClasses.uiTitle);
+								title.setAttribute('role', 'heading');
+								title.setAttribute('aria-level', '1');
+								title.setAttribute('aria-label', 'title');
+								width = window.innerWidth - parseInt((titleStyle && titleStyle.marginLeft) || "8", 10) * 2 - headerBtnsWidth * headerBtnNum - headerBtnsWidth / 4 - headerImgsWidth * headerSrcNum * 4;
+								titleStyle.width = width + 'px';
+							});
+						}
+					});
+			};
+
+			/**
+			 * Method builds widget.
+             *
+			 * @method buildStructure
+			 * @param {Object} options object with options for create page
+			 * @param {HTMLElement} element base element of page
+			 * @protected
+			 * @member ns.widget.mobile.Page
+			 * @instance
+			 */
+			function buildStructure(options, element) {
+				var pageTheme = options.theme,
 					dataPageTitle = utilsDOM.getNSData(element, "title"),
 					pageTitle = dataPageTitle,
 					titleElement,
@@ -219,8 +369,20 @@
 				if (!dataPageTitle && pageTitle) {
 					utilsDOM.setNSData(element, "title", pageTitle);
 				}
-				this._buildSections(element, pageTheme);
+				buildSections(options, element, pageTheme);
+			}
 
+			/**
+			 * Build page
+			 * @method _build
+			 * @param {HTMLElement} element
+			 * @return {HTMLElement}
+			 * @protected
+			 * @member ns.widget.mobile.Page
+			 * @instance
+			 */
+			Page.prototype._build = function (element) {
+				buildStructure(this.options, element);
 				return element;
 			};
 
@@ -375,156 +537,6 @@
 			};
 
 			/**
-			 * Build header/footer/content
-			 * @method _buildSections
-			 * @param {HTMLElement} pageElement
-			 * @param {string} pageTheme
-			 * @protected
-			 * @member ns.widget.mobile.Page
-			 * @instance
-			 */
-			Page.prototype._buildSections = function (pageElement, pageTheme) {
-				var pageClassList = pageElement.classList,
-					pageClasses = Page.classes,
-					fullscreen = this.options.fullscreen;
-
-				if (fullscreen) {
-					// "fullscreen" overlay positioning
-					pageClassList.add(pageClasses.uiPageHeaderFullscreen);
-					pageClassList.add(pageClasses.uiPageFooterFullscreen);
-				} else {
-					// If not fullscreen, add class to page to set top or bottom padding
-					pageClassList.add(pageClasses.uiPageHeaderFixed);
-					pageClassList.add(pageClasses.uiPageFooterFixed);
-				}
-
-				[].slice.call(pageElement.querySelectorAll("[data-role='header'],[data-role='content'],[data-role='footer']"))
-					.forEach(function (section) {
-						var role = section.getAttribute("data-role"),
-							sectionTheme = section.getAttribute("data-theme"),
-							currentTheme,
-							sectionClassList = section.classList,
-							transition,
-							options = this.options,
-							headerButtons,
-							headerAnchors,
-							footerButtons,
-							footerWidth,
-							footerButtonWidth,
-							moreButton,
-							leftButton,
-							rightButton;
-
-						sectionClassList.add(pageClasses.uiPrefix + role);
-
-						// Adding transition classes for all matched elements
-						// @todo support transition form config
-						transition = section.getAttribute('data-transition') || '';
-
-						if (transition && transition !== "none") {
-							if (transition === "slide") {
-								transition = role === "header" ? "slidedown" : "slideup";
-							}
-							sectionClassList.add(transition);
-						}
-
-						if (role === 'content') {
-							section.setAttribute("role", "main");
-							currentTheme = sectionTheme || options.contentTheme;
-							if (currentTheme) {
-								sectionClassList.add(pageClasses.uiBodyPrefix + currentTheme);
-							}
-						} else {
-							currentTheme = sectionTheme || (role === "header" ? options.headerTheme : options.footerTheme) || pageTheme;
-							sectionClassList.add(pageClasses.uiBarPrefix + currentTheme);
-
-							// We always set the ui-[header|footer]-fixed class to match Tizen design needs
-							sectionClassList.add(pageClasses.uiPrefix + role + pageClasses.fixedSuffix);
-
-							if (fullscreen) {
-								sectionClassList.add(pageClasses.uiPrefix + role + pageClasses.fullscreenSuffix);
-							}
-
-							section.setAttribute("role", role === "header" ? "banner" : "contentinfo");
-
-							if (role === "header") {
-								headerAnchors = selectors.getChildrenBySelector(section, "a, div.naviframe-button, button");
-								headerAnchors.forEach(function (anchor) {
-									var anchorClassList = anchor.classList;
-									leftButton = anchorClassList.contains(pageClasses.uiBtnLeft);
-									rightButton = anchorClassList.contains(pageClasses.uiBtnRight);
-								});
-
-								if (!leftButton && headerAnchors[0] && !headerAnchors[0].classList.contains(pageClasses.uiBtnRight)) {
-									leftButton = headerAnchors[0];
-									leftButton.classList.add(pageClasses.uiBtnLeft);
-								}
-
-								if (!rightButton && headerAnchors[1]) {
-									rightButton = headerAnchors[1];
-									rightButton.classList.add(pageClasses.uiBtnRight);
-								}
-
-								headerAnchors.reverse().forEach(function (element, index) {
-									element.classList.add(pageClasses.uiBtnRightPrefix + index);
-								});
-
-								headerButtons = selectors.getChildrenByTag(section, "a");
-								if (headerButtons.length) {
-									headerButtons.forEach(function (button) {
-										engine.instanceWidget(button, "Button", {
-											corners: false,
-											bar: true,
-											role: 'button'
-										});
-									});
-								}
-								if (section.querySelector('.' + pageClasses.uiTitleTextSub)) {
-									sectionClassList.add(pageClasses.uiTitleMultiline);
-								}
-							}else if (role === "footer"){
-								footerButtons = selectors.getChildrenBySelector(section, "a,div.naviframe-button,[data-role='button'],button,[type='button'],[type='submit'],[type='reset']");
-								if (footerButtons.length) {
-									//TODO rethink this solution
-									footerWidth = section.offsetWidth ? section.offsetWidth : window.innerWidth;
-									moreButton = selectors.getChildrenBySelector(section, "[data-icon='naviframe-more']");
-									if(moreButton.length){
-										footerWidth -= utilsDOM.getElementWidth(moreButton[0]);
-									}
-									footerButtonWidth = footerWidth/footerButtons.length;
-									footerButtons.forEach(function (button) {
-										var buttonStyle = button.style;
-										engine.instanceWidget(button, "Button", {
-											corners: false,
-											bar: true,
-											role: 'button'
-										});
-										buttonStyle.width = footerButtonWidth + "px";
-									});
-								}
-							}
-
-							selectors.getChildrenBySelector(section, "h1, h2, h3, h4, h5, h6").forEach(function (title) {
-								var headerBtnsWidth = 0,
-									headerBtnNum = 0,
-									headerImgsWidth = 0,
-									headerSrcNum = 0,
-									width,
-									titleStyle = title.style;
-
-								title.classList.add(pageClasses.uiTitle);
-								title.setAttribute('role', 'heading');
-								title.setAttribute('aria-level', '1');
-								title.setAttribute('aria-label', 'title');
-								width = window.innerWidth - parseInt((titleStyle && titleStyle.marginLeft) || "8", 10) * 2 - headerBtnsWidth * headerBtnNum - headerBtnsWidth / 4 - headerImgsWidth * headerSrcNum * 4;
-								titleStyle.width = width + 'px';
-
-							});
-						}
-					}, this);
-			};
-
-			/**
 			 * Bind events to widget
 			 * @method _bindEvents
 			 * @param {HTMLElement} element
@@ -575,6 +587,7 @@
 			 * @instance
 			 */
 			Page.prototype._refresh = function () {
+				buildStructure(this.options, this.element);
 				this.pageSetHeight = false;
 				contentFill(this);
 			};
