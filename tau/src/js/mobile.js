@@ -79,7 +79,7 @@
 			"./profile/mobile/router/PageTransition",
 			"./core/widget/mobile/Gallery3d",
 			"./core/widget/mobile/TizenSlider",
-			"./core/widget/mobile/SplitView",
+			"./profile/mobile/widget/mobile/SplitView",
 			"./profile/mobile/widget/mobile/ScrollHandler",
                         "../css/themes/tizen/tizen-black/theme"
 		],
