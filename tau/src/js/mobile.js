@@ -69,7 +69,7 @@
 			"./profile/mobile/widget/mobile/MultimediaView",
 			"./profile/mobile/widget/mobile/Progressbar",
 			"./profile/mobile/widget/mobile/Tokentextarea",
-			"./core/widget/mobile/Notification",
+			"./profile/mobile/widget/mobile/Notification",
 			"./core/widget/mobile/Gallery",
 			"./core/widget/mobile/VirtualListview",
 			"./core/widget/mobile/VirtualGrid",
