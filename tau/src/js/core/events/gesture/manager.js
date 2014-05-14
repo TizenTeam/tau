@@ -41,15 +41,9 @@
 					this.gestureEvents = null;
 					this.velocity = null;
 
-					if (typeof this._init === 'function') {
-						this.init();
-					};
 				};
 
 				Manager.prototype = {
-
-					_init: function() {
-					},
 
 					_bindStartEvents: function( instance ) {
 						var element = instance.getElement();
@@ -147,7 +141,7 @@
 
 						isReadyDetecting = true;
 
-						startEvent = ns.extendObject(startEvent, this._createGestureEvent(Gesture.Event.START, event));
+						startEvent = objectMerge(startEvent, this._createGestureEvent(Gesture.Event.START, event));
 
 						this.instances.forEach(function( instance ) {
 							if ( instance.getElement() === elem ) {
@@ -182,7 +176,7 @@
 
 					_end: function( event ) {
 
-						event = ns.extendObject(
+						event = objectMerge(
 							{},
 							this.gestureEvents.last,
 							this._createDefaultEventData(Gesture.Event.END, event)
@@ -194,7 +188,7 @@
 
 						this._detect(this.gestureDetectors, event);
 
-						this.unregistBlockList.forEach(function( instance ) {
+						this.unregisterBlockList.forEach(function( instance ) {
 							this.unregist( instance );
 						}, this);
 
@@ -204,7 +198,7 @@
 
 					_cancel: function( event ) {
 
-						event = ns.extendObject(
+						event = objectMerge(
 							{},
 							this.gestureEvents.last,
 							this._createDefaultEventData(Gesture.Event.CANCEL, event)
@@ -212,7 +206,7 @@
 
 						this._detect(this.gestureDetectors, event);
 
-						this.unregistBlockList.forEach(function( instance ) {
+						this.unregisterBlockList.forEach(function( instance ) {
 							this.unregist( instance );
 						}, this);
 
@@ -266,7 +260,7 @@
 						if ( this.detectorRequestedBlock ) {
 							// send to cancel event.
 							this.runningDetectors.forEach(function( detector ) {
-								var cancelEvent = ns.extendObject({}, event, {
+								var cancelEvent = objectMerge({}, event, {
 									eventType: Gesture.Event.BLOCKED
 								});
 								detector.detect( cancelEvent );
@@ -339,7 +333,7 @@
 						if( startEvent && ev.pointers.length !== startEvent.pointers.length ) {
 							startEvent.pointers = [];
 							[].forEach.call(ev.pointers, function( pointer ) {
-								startEvent.pointers.push( ns.extendObject({}, pointer) );
+								startEvent.pointers.push( objectMerge({}, pointer) );
 							});
 						}
 
@@ -350,7 +344,7 @@
 									ev.pointer.clientY - velocityEvent.pointer.clientY
 							);
 
-							ns.extendObject(this.velocity, velocity, {
+							objectMerge(this.velocity, velocity, {
 								event: ev
 							});
 						}
@@ -371,7 +365,7 @@
 							estimated.y = lastEvent.estimatedY;
 						}
 
-						ns.extendObject(ev, {
+						objectMerge(ev, {
 							deltaTime: delta.time,
 							deltaX: delta.x,
 							deltaY: delta.y,
@@ -400,7 +394,7 @@
 						return ev;
 					},
 
-					regist: function( instance ) {
+					register: function( instance ) {
 						var idx = this.instances.indexOf( instance );
 						if ( idx < 0 ) {
 							this.instances.push( instance );
@@ -408,11 +402,11 @@
 						}
 					},
 
-					unregist: function( instance ) {
+					unregister: function( instance ) {
 						var idx;
 
 						if ( !!this.gestureDetectors.length ) {
-							this.unregistBlockList.push( instance );
+							this.unregisterBlockList.push( instance );
 							return;
 						}
 
@@ -431,7 +425,7 @@
 						this._resetDetecting();
 
 						this.instances.length = 0;
-						this.unregistBlockList.length = 0;
+						this.unregisterBlockList.length = 0;
 
 						blockMouseEvent = false;
 						instance = null;
