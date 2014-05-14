@@ -80,8 +80,8 @@
 			"./core/widget/mobile/Gallery3d",
 			"./core/widget/mobile/TizenSlider",
 			"./core/widget/mobile/SplitView",
-			"./core/widget/mobile/ScrollHandler",
-			"../css/themes/tizen/tizen-black/theme"
+			"./profile/mobile/widget/mobile/ScrollHandler",
+                        "../css/themes/tizen/tizen-black/theme"
 		],
 		function (require) {
 			require(["./core/init"], function () {

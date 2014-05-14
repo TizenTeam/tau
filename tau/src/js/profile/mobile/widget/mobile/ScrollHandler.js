@@ -43,12 +43,12 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../engine",
-			"../../utils/DOM/css",
-			"../../utils/selectors",
+			"../../../../core/engine",
+			"../../../../core/utils/DOM/css",
+			"../../../../core/utils/selectors",
 			"../mobile",
-			"../../../profile/mobile/widget/mobile/Scrollview",
-			"../../../profile/mobile/widget/mobile/Page"
+			"./Scrollview",
+			"./Page"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

@@ -20,7 +20,7 @@
 			// ScrollHandler and ScrollView are required before because widget those must
 			// be created before VirtualGrid
 			"../../../profile/mobile/widget/mobile/Scrollview",
-			"./ScrollHandler",
+			"../../../profile/mobile/widget/mobile/ScrollHandler",
 			"../../../profile/mobile/widget/mobile/VirtualListview"
 		],
 		function () {
