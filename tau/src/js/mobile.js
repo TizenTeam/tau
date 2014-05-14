@@ -66,7 +66,7 @@
 			"./profile/mobile/widget/mobile/Searchbar",
 			"./profile/mobile/widget/mobile/Progress",
 			"./profile/mobile/widget/mobile/Navbar",
-			"./core/widget/mobile/MultimediaView",
+			"./profile/mobile/widget/mobile/MultimediaView",
 			"./profile/mobile/widget/mobile/Progressbar",
 			"./core/widget/mobile/Tokentextarea",
 			"./core/widget/mobile/Notification",
