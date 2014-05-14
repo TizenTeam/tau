@@ -21,7 +21,7 @@
 			// be created before VirtualGrid
 			"../../../profile/mobile/widget/mobile/Scrollview",
 			"./ScrollHandler",
-			"./VirtualListview"
+			"../../../profile/mobile/widget/mobile/VirtualListview"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

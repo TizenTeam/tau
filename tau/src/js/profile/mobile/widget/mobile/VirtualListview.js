@@ -87,14 +87,14 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../engine",
-			"../../utils/selectors",
-			"../../utils/DOM/css",
-			"../../utils/events",
-			"../../theme",
+			"../../../../core/engine",
+			"../../../../core/utils/selectors",
+			"../../../../core/utils/DOM/css",
+			"../../../../core/utils/events",
+			"../../../../core/theme",
 			"../mobile", // fetch namespace
-			"../../../profile/mobile/widget/mobile/Scrollview",
-			"../../../profile/mobile/widget/mobile/Listview",
+			"./Scrollview",
+			"./Listview",
 			"./BaseWidgetMobile"
 		],
 		function () {

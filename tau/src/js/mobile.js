@@ -71,7 +71,7 @@
 			"./profile/mobile/widget/mobile/Tokentextarea",
 			"./profile/mobile/widget/mobile/Notification",
 			"./profile/mobile/widget/mobile/Gallery",
-			"./core/widget/mobile/VirtualListview",
+			"./profile/mobile/widget/mobile/VirtualListview",
 			"./core/widget/mobile/VirtualGrid",
 			"./core/widget/mobile/Loader",
 			"./profile/mobile/router/Page",
