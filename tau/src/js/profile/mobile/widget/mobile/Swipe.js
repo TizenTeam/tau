@@ -10,9 +10,9 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../engine",
-			"../../utils/events",
-			"../../events/touch",
+			"../../../../core/engine",
+			"../../../../core/utils/events",
+			"../../../../core/events/touch",
 			"../mobile", //namespace
 			"./BaseWidgetMobile"
 		],

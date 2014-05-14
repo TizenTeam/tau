@@ -61,7 +61,7 @@
 			"./profile/mobile/widget/mobile/Popup",
 			"./profile/mobile/widget/mobile/Datetimepicker",
 			"./profile/mobile/widget/mobile/Slider",
-			"./core/widget/mobile/Swipe",
+			"./profile/mobile/widget/mobile/Swipe",
 			"./core/widget/mobile/Selectmenu",
 			"./profile/mobile/widget/mobile/Searchbar",
 			"./core/widget/mobile/Progress",
