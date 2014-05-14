@@ -64,7 +64,7 @@
 			"./profile/mobile/widget/mobile/Swipe",
 			"./profile/mobile/widget/mobile/Selectmenu",
 			"./profile/mobile/widget/mobile/Searchbar",
-			"./core/widget/mobile/Progress",
+			"./profile/mobile/widget/mobile/Progress",
 			"./core/widget/mobile/Navbar",
 			"./core/widget/mobile/MultimediaView",
 			"./core/widget/mobile/Progressbar",

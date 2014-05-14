@@ -79,7 +79,7 @@
 
 	define(
 		[
-			"../../engine",
+			"../../../../core/engine",
 			"../mobile",
 			"./BaseWidgetMobile"
 		],
