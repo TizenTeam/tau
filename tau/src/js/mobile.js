@@ -77,8 +77,8 @@
 			"./profile/mobile/router/Page",
 			"./profile/mobile/router/PageExternal",
 			"./profile/mobile/router/PageTransition",
-			"./core/widget/mobile/Gallery3d",
-			"./core/widget/mobile/TizenSlider",
+			"./profile/mobile/widget/mobile/Gallery3d",
+			"./profile/mobile/widget/mobile/TizenSlider",
 			"./profile/mobile/widget/mobile/SplitView",
 			"./profile/mobile/widget/mobile/ScrollHandler",
                         "../css/themes/tizen/tizen-black/theme"

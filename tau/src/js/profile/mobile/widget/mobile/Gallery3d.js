@@ -213,15 +213,15 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../engine",
-			"../../utils/DOM/css",
-			"../../utils/object",
-			"../../utils/easing",
-			"../../utils/bezierCurve",
-			"../../../jqm/support",
+			"../../../../core/engine",
+			"../../../../core/utils/DOM/css",
+			"../../../../core/utils/object",
+			"../../../../core/utils/easing",
+			"../../../../core/utils/bezierCurve",
+			"../../../../jqm/support",
 			"../mobile", // fetch namespace
 			"./BaseWidgetMobile",
-			"../../../../../libs/gl-matrix.1.3.7.js"
+			"../../../../../../libs/gl-matrix.1.3.7.js"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
