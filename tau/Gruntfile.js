@@ -2,6 +2,7 @@ module.exports = function(grunt) {
 	"use strict";
 
 	var pkg = grunt.file.readJSON("package.json"),
+		themes = grunt.file.readJSON("themes.json"),
 		path = require("path"),
 
 		// Path to build framework
@@ -18,13 +19,12 @@ module.exports = function(grunt) {
 
 		jsPath = path.join(dist, "js"),
 		widgetPath = path.join(jsPath, "widget"),
-		themesPath = path.join(dist, "themes"),
-		tizenTheme = "tizen-black",
+		themesPath = path.join(dist, "theme"),
 
 		rootNamespace = "ns",
-		exportNamespace = "tau",
+		exportNamespace = name,
 		config = exportNamespace + "Config",
-		fileName = "tau",
+		fileName = name,
 
 		wrapStart = "(function(window, document, undefined) {\n" +
 			"'use strict';\n" +
@@ -48,13 +48,6 @@ module.exports = function(grunt) {
 			"virtuallist": "profile/wearable/widget/wearable/VirtualListview",
 			"virtualgrid": "profile/wearable/widget/wearable/VirtualGrid",
 			"swipelist": "profile/wearable/widget/wearable/SwipeList"
-		},
-
-		themes = {
-			"default" : "src/css/themes/tizen",
-			"tizen-micro" : "src/css/themes/tizen",
-			"tizen-black" : "src/css/themes/tizen",
-			"tizen-white" : "src/css/themes/tizen"
 		},
 
 		files = {
@@ -84,29 +77,18 @@ module.exports = function(grunt) {
 			},
 
 			css: {
-				getCssFiles: function( ) {
-					var list = [],
-						key, value;
-					for(key in themes) {
-						value = themes[key];
-						list.push({
-							src: path.join(value, key) + ".less",
-							dest: path.join( themesPath, key, name ) + ".css"
+				getCssFiles: function( device ) {
+					var rtn = [],
+						list = themes.device[device],
+						i=0, len=list.length, theme;
+					for(; i < len; i++) {
+						theme = list[i];
+						rtn.push({
+							src: path.join(themes.path, theme.src),
+							dest: path.join( themesPath, device, theme.name, name ) + ".css"
 						});
 					}
-					return list;
-				},
-
-				getMinifiedCSSFiles : function( ) {
-					var list = [],
-						key;
-					for(key in themes) {
-						list.push({
-							src: path.join( themesPath, key, name ) + ".css",
-							dest: path.join( themesPath, key, name ) + ".min.css"
-						});
-					}
-					return list;
+					return rtn;
 				},
 
 				licenseFiles: [],
@@ -123,22 +105,21 @@ module.exports = function(grunt) {
 				}
 			},
 
-			images: {
-				folder: "images",
-
-				getImagesFolder: function() {
-					var list = [],
-						key, value;
-					for(key in themes) {
-						value = themes[key];
-						list.push({
+			image: {
+				getImageFiles: function( device ) {
+					var rtn = [],
+						list = themes.device[device],
+						i=0, len=list.length, theme;
+					for(; i < len; i++) {
+						theme = list[i];
+						rtn.push({
 							expand: true,
-							cwd: path.join( value, files.images.folder ),
+							cwd: path.join( themes.path, theme.images ),
 							src: "**",
-							dest: path.join( themesPath, key, files.images.folder )
+							dest: path.join( themesPath, device, theme.name, theme.images.split("/").pop() )
 						});
 					}
-					return list;
+					return rtn;
 				}
 			}
 
@@ -160,6 +141,7 @@ module.exports = function(grunt) {
 			}
 			done();
 		},
+
 		initConfig = {
 			version: version,
 
@@ -240,9 +222,6 @@ module.exports = function(grunt) {
 							start: wrapStart,
 							end: wrapEnd
 						},
-						paths: {
-							"themesrc" : path.join("..", "..", "src", "css", "themes", "tizen", tizenTheme)
-						},
 						done: qunitPrepare
 					}
 				}
@@ -264,8 +243,12 @@ module.exports = function(grunt) {
 			},
 
 			less : {
-				style : {
-					files : files.css.getCssFiles()
+				wearable : {
+					files : files.css.getCssFiles("wearable")
+				},
+
+				mobile: {
+					files : files.css.getCssFiles("mobile")
 				}
 			},
 
@@ -273,20 +256,35 @@ module.exports = function(grunt) {
 				options: {
 					keepSpecialComments: 0
 				},
+
 				minify: {
-					files: files.css.getMinifiedCSSFiles()
+					expand: true,
+					cwd: themesPath,
+					src: ["**/*.css", "!**/*.min.css"],
+					dest: themesPath,
+					ext: ".min.css"
 				}
 			},
 
 			copy: {
-				images: {
-					files: files.images.getImagesFolder()
+				wimages: {
+					files: files.image.getImageFiles( "wearable" )
 				},
+
+				mimages: {
+					files: files.image.getImageFiles( "mobile" )
+				},
+
 				license: {
-					src: "LICENSE.Flora", dest: path.join( dist, "LICENSE" ) + ".Flora"
+					src: "LICENSE.Flora",
+					dest: path.join( dist, "LICENSE" ) + ".Flora"
 				},
+
 				globalize: {
-					expand: true, cwd: "libs/globalize/lib/", src: "cultures/**/*", dest: path.join(dist, "js" )
+					expand: true,
+					cwd: "libs/globalize/lib/",
+					src: "cultures/**/*",
+					dest: path.join(dist, "js" )
 				}
 			},
 
@@ -385,8 +383,8 @@ module.exports = function(grunt) {
 
 	grunt.registerTask("license", [ "findFiles:js.setLicenseFiles", "findFiles:css.setLicenseFiles", "concat" ]);
 
-	grunt.registerTask("release", [ "clean", /* "lint", @TODO fix all errors and revert*/ "css", "js", "license", "copy:images", "copy:license" ]);
-	grunt.registerTask("releasemobile", [ "clean", /* "lint", @TODO fix all errors and revert*/ "css", "jsmobile", "license", "copy:images", "copy:license", "copy:globalize" ]);
+	grunt.registerTask("release", [ "clean", /* "lint", @TODO fix all errors and revert*/ "css", "js", "license", "copy:wimages", "copy:license" ]);
+	grunt.registerTask("releasemobile", [ "clean", /* "lint", @TODO fix all errors and revert*/ "css", "jsmobile", "license", "copy:mimages", "copy:license", "copy:globalize" ]);
 
 	grunt.registerTask("default", [ "release" ]);
 };

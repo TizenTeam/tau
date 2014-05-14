@@ -81,7 +81,7 @@
 			"./profile/mobile/widget/mobile/TizenSlider",
 			"./profile/mobile/widget/mobile/SplitView",
 			"./profile/mobile/widget/mobile/ScrollHandler",
-                        "../css/themes/tizen/tizen-black/theme"
+			"../css/profile/mobile/theme-black/theme"
 		],
 		function (require) {
 			require(["./core/init"], function () {
