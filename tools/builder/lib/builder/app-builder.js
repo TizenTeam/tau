@@ -36,7 +36,8 @@
 			htmlBuildPath,
 			sourceHTMLRelPath = null,
 			time = +new Date(),
-			scriptsReplaced = false;
+			scriptsReplaced = false,
+			processStatus = true;
 
 		if (!source || source.length === 0) {
 			return printHelp();
@@ -109,8 +110,8 @@
 				output: htmlBuildPath // overwrite
 			});
 		} catch (e) {
-			logger.error("PhantomJS failed", e);
-			return false;
+			logger.error("Building failed", e);
+			processStatus = false;
 		}
 
 		if (scriptsReplaced) {
@@ -122,6 +123,7 @@
 			}
 		}
 
-		logger.info("build finished in " + (((+new Date()) - time) / 1000).toFixed(2) + "s");
+		logger.info("build" + (!processStatus ? ' with errors' : '') + " finished in " + (((+new Date()) - time) / 1000).toFixed(2) + "s");
+		return processStatus;
 	};
 }(exports));
