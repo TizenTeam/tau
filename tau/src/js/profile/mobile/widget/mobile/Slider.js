@@ -13,16 +13,16 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../engine",
-			"../../theme",
-			"../../utils/DOM/attributes",
-            "../../utils/DOM/css",
-			"../../utils/events",
-			"../../utils/selectors",
-			"../../events/vmouse",
+			"../../../../core/engine",
+			"../../../../core/theme",
+			"../../../../core/utils/DOM/attributes",
+			"../../../../core/utils/DOM/css",
+			"../../../../core/utils/events",
+			"../../../../core/utils/selectors",
+			"../../../../core/events/vmouse",
 			"../mobile", // fetch namespace
 			"./BaseWidgetMobile",
-			"../../../profile/mobile/widget/mobile/Button"
+			"./Button"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

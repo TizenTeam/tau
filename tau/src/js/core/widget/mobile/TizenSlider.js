@@ -17,7 +17,7 @@
 			"../../utils/events",
 			"../../utils/DOM/css",
 			"../mobile",
-			"./Slider",
+			"../../../profile/mobile/widget/mobile/Slider",
 			"../../../profile/mobile/widget/mobile/Button",
 			"../../../profile/mobile/widget/mobile/Popup"
 		],

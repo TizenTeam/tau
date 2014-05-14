@@ -60,7 +60,7 @@
 			"./profile/mobile/widget/mobile/Textinput",
 			"./profile/mobile/widget/mobile/Popup",
 			"./profile/mobile/widget/mobile/Datetimepicker",
-			"./core/widget/mobile/Slider",
+			"./profile/mobile/widget/mobile/Slider",
 			"./core/widget/mobile/Swipe",
 			"./core/widget/mobile/Selectmenu",
 			"./profile/mobile/widget/mobile/Searchbar",

@@ -31,7 +31,7 @@
 			"../../../profile/mobile/widget/mobile/Button",
 			'../../../profile/mobile/widget/mobile/Page',
 			'../../../profile/mobile/widget/mobile/Scrollview',
-			'./Slider',
+			'../../../profile/mobile/widget/mobile/Slider',
 			'./Progressbar'
 		],
 		function () {
