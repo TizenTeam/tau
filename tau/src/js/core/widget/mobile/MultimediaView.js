@@ -32,7 +32,7 @@
 			'../../../profile/mobile/widget/mobile/Page',
 			'../../../profile/mobile/widget/mobile/Scrollview',
 			'../../../profile/mobile/widget/mobile/Slider',
-			'./Progressbar'
+			'../../../profile/mobile/widget/mobile/Progressbar'
 		],
 		function () {
 			//>>excludeEnd('tauBuildExclude');

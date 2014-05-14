@@ -85,10 +85,10 @@
 
 	define(
 		[
-			"../../engine",
+			"../../../../core/engine",
 			"../mobile",
 			"./BaseWidgetMobile",
-			"../../utils/events"
+			"../../../../core/utils/events"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
