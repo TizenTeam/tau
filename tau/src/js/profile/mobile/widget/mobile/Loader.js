@@ -46,9 +46,9 @@
 
 	define(
 		[
-			'../../engine',
+			'../../../../core/engine',
 			'../mobile',
-			'../../utils/object',
+			'../../../../core/utils/object',
 			'./BaseWidgetMobile'
 		],
 		function () {

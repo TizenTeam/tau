@@ -11,7 +11,7 @@
 			"../../../core/router", // fetch namespace
 			"./Page",
 			"../widget/mobile/Page",
-			"../../../core/widget/mobile/Loader",
+			"../widget/mobile/Loader",
 			"../../../core/utils",
 			"../../../core/utils/events",
 			"../../../core/utils/DOM/attributes",

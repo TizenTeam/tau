@@ -12,7 +12,7 @@
 		[
 			"./jqm",
 			"../core/engine",
-			"../core/widget/mobile/Loader"
+			"../profile/mobile/widget/mobile/Loader"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
