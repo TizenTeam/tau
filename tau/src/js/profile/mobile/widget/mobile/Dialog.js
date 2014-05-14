@@ -2,6 +2,7 @@
 /*jslint nomen: true, plusplus: true */
 
 /**
+ * #Dialog Widget
  * Display div as a model dialog page with inset appearance.
  *
  * @class ns.widget.Dialog

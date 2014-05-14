@@ -5,7 +5,9 @@
  * License : MIT License V2
  */
 /**
- * #Virtual grid widget
+ * #VirtualGrid Widget
+ *
+ *
  * @class ns.widget.wearable.VirtualGrid
  * @extends ns.widget.wearable.VirtualListview
  * @author Maciej Urbanski <m.urbanski@samsung.com>

@@ -1,6 +1,9 @@
 /*global window, define */
 /*jslint nomen: true, plusplus: true */
 /**
+ * #Fastscroll Widget
+ * The fast scroll widget shows a shortcut list that is bound to its parent scroll bar and respective list view.
+ *
   * Fastscroll is a scrollview controller. It binds scrollview to a list of short cuts.
   * Short cuts list based on scrollview dividers list. Clicking on a shortcut immediately jumps
   * the scrollview to the selected divider. Same action is on mouse movements.

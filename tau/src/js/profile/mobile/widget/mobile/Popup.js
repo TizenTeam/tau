@@ -1,7 +1,7 @@
 /*global window, define */
 /*jslint nomen: true, plusplus: true */
 /**
- * #Popup widget
+ * #Popup Widget
  *
  * ##Default selectors
  * In default all elements with _data-role=popup_ are changed to Tizen WebUI popups.

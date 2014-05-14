@@ -1,7 +1,7 @@
 /*global window, define */
 /*jslint plusplus: true, nomen: true */
 /**
- * #Field containers
+ * #Fieldcontainer Widget
  * Fieldcontain widget improves the styling of labels and form elements on wider screens. It aligns the input and associated label side-by-side and breaks to stacked block-level elements below ~480px. Moreover, it adds a thin bottom border to act as a field separator.
  *
  * ##Default selectors

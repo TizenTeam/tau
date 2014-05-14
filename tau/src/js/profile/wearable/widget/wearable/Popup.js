@@ -5,15 +5,8 @@
 * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
 * License : MIT License V2
 */
-
-/*
- * @author Maciej Urbanski <m.urbanski@samsung.com>
- * @author Krzysztof Antoszek <k.antoszek@samsung.com>
- * @author Piotr Karny <p.karny@samsung.com>
- */
-
 /**
- * #Popup widget
+ * #Popup Widget
  *
  * ##Default selectors
  * All elements with class=ui-popup will be become Popup widgets
@@ -32,6 +25,9 @@
  * <div id="popup-example" class="ui-popup">
  *		Hello world!
  * </div>
+ * @author Maciej Urbanski <m.urbanski@samsung.com>
+ * @author Krzysztof Antoszek <k.antoszek@samsung.com>
+ * @author Piotr Karny <p.karny@samsung.com>
  * @class ns.widget.wearable.Popup
  * @extends ns.widget.BaseWidget
  */

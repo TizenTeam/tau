@@ -1,7 +1,9 @@
 /*global window, define, Event, console */
 /*jslint nomen: true, plusplus: true */
 /**
- * section Changer widget
+ * #SectionChanger Widget
+ *
+ *
  * @class ns.widget.SectionChanger
  * @extends ns.widget.BaseWidget
  */

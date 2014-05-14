@@ -2,7 +2,7 @@
 /*jslint nomen: true, plusplus: true */
 
 /**
- * #Progress widget
+ * #Progress Widget
  *
  * ##Manual constructor
  * For manual creation of progress widget you can use constructor of widget:

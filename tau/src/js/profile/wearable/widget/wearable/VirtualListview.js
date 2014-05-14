@@ -5,7 +5,7 @@
 * License : MIT License V2
 */
 /**
- *#Virtual List
+ *#VirtualListView Widget
  *
  * In the Web environment, it is challenging to display a large amount of data in a list, such as
  * displaying a contact list of over 1000 list items. It takes time to display the entire list in

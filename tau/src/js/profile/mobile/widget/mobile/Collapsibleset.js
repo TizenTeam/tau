@@ -1,7 +1,9 @@
 /*global window, define */
 /*jslint nomen: true */
 /**
- * Collapsibleset widget
+ * #Collapsible Set Widget
+ *
+ *
  * @author Marcin Jakuszko <m.jakuszko@samsung.com>
  * @class ns.widget.Collapsibleset
  * @extends ns.widget.BaseWidget

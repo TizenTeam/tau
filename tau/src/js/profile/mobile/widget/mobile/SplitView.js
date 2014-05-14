@@ -1,6 +1,8 @@
 /*global window, define */
 /*jslint nomen: true, plusplus: true */
 /**
+ * #Split View Widget
+ *
  * SplitView is a widget, which displays two children separated with a movable divider.
  * It allows to change the size ratio of its children and supports two orientations.
  * @class ns.widget.SplitView
@@ -135,6 +137,7 @@
 			 * @param {HTMLElement} element
 			 * @return {HTMLElement}
 			 * @member ns.widget.SplitView
+			 * @protected
 			 * @instance
 			 */
 			prototype._build = function (element) {
@@ -195,6 +198,7 @@
 			 * @param {HTMLElement} element
 			 * @return {HTMLElement}
 			 * @member ns.widget.SplitView
+			 * @protected
 			 * @instance
 			 */
 			prototype._init = function (element) {

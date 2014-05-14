@@ -119,6 +119,7 @@
  * @author Michał Szepielak <m.szepielak@samsung.com>
  * @class ns.widget.BaseWidget
  * @alias BaseWidget
+ * @internal
  */
 (function (document, ns, undefined) {
 	"use strict";
@@ -192,13 +193,16 @@
 			 * @member ns.widget.BaseWidget
 			 * @chainable
 			 * @instance
+			 * @internal
 			 */
 			/**
 			 * Protected method configuring the widget
 			 * @method _configure
 			 * @member ns.widget.BaseWidget
+			 * @protected
 			 * @template
 			 * @instance
+			 * @internal
 			 */
 			prototype.configure = function (definition, element, options) {
 				var self = this,
@@ -321,6 +325,7 @@
 			* @return {HTMLElement} widget's element
 			* @member ns.widget.BaseWidget
 			* @instance
+			 * @internal
 			*/
 			prototype.build = function (element) {
 				var self = this,
@@ -369,6 +374,7 @@
 			* @member ns.widget.BaseWidget
 			* @chainable
 			* @instance
+			 * @internal
 			*/
 			prototype.init = function (element) {
 				var self = this;
@@ -404,6 +410,7 @@
 			* @member ns.widget.BaseWidget
 			* @chainable
 			* @instance
+			 * @internal
 			*/
 			prototype.bindEvents = function (element, onlyBuild) {
 				var self = this,
@@ -462,7 +469,7 @@
 			* @instance
 			*/
 			/**
-			* Disable widget, call: #\_disable
+			* Disable widget
 			* @method disable
 			* @member ns.widget.BaseWidget
 			* @chainable
@@ -532,10 +539,21 @@
 
 
 			/**
-			 * Get/Set options of the widget
+			 * Get/Set options of the widget.
+			 *
+			 * This method can work in many context.
+			 *
+			 * If first argument is type of object them, method set values for options given in object. Keys of object are names of options and values from object are values to set.
+			 *
+			 * If you give only one string argument then method return value for given option.
+			 *
+			 * If you give two arguments and first argument will be a string then second argument will be intemperate as value to set.
+			 *
 			 * @method option
+			 * @param {string|Object} [name] name of option
+			 * @param {*} value value to set
 			 * @member ns.widget.BaseWidget
-			 * @return {*}
+			 * @return {*} return value of option or undefined if method is called in setter context
 			 * @instance
 			 */
 			prototype.option = function () {
@@ -577,6 +595,7 @@
 			 * @member ns.widget.BaseWidget
 			 * @return {*}
 			 * @instance
+			 * @protected
 			 */
 			prototype._oneOption = function (field, value) {
 				var self = this,
@@ -610,6 +629,7 @@
 			 * @param {string} [type]
 			 * @member ns.widget.BaseWidget
 			 * @instance
+			 * @internal
 			 * @return {boolean} true if events are bounded
 			 */
 			prototype.isBound = function (type) {
@@ -624,6 +644,7 @@
 			 * @param {string} [type]
 			 * @member ns.widget.BaseWidget
 			 * @instance
+			 * @internal
 			 * @return {boolean} true if the widget was built
 			 */
 			prototype.isBuilt = function (type) {
@@ -678,8 +699,8 @@
 			 * @method trigger
 			 * @param {string} eventName the name of event to trigger
 			 * @param {?*} [data] additional object to be carried with the event
-			 * @param {Boolean=} [bubbles=true]
-			 * @param {Boolean=} [cancelable=true]
+			 * @param {boolean} [bubbles=true] indicating whether the event bubbles up through the DOM or not
+			 * @param {boolean} [cancelable=true] indicating whether the event is cancelable
 			 * @member ns.widget.BaseWidget
 			 * @return {boolean} false, if any callback invoked preventDefault on event object
 			 * @instance

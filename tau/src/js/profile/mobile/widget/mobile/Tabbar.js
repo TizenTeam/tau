@@ -1,7 +1,8 @@
 /*global window, define */
 /*jslint nomen: true, plusplus: true */
 /**
- * Tabbar widget
+ * #Tab Bar Widget
+ *
  * @class ns.widget.Tabbar
  * @extends ns.widget.BaseWidget
  */

@@ -1,7 +1,7 @@
 /*global window, define */
 /*jslint nomen: true, plusplus: true */
 /**
- * #Searchbar widget
+ * #Search Bar Widget
  * @class ns.widget.Searchbar
  * @extends ns.widget.BaseWidget
  */

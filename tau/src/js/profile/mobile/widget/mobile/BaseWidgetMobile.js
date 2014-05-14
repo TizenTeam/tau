@@ -5,6 +5,7 @@
  * This class has compability properties and methods with jQuery Mobile Widget.
  * @class ns.widget.mobile.BaseWidgetMobile
  * @alias BaseWidgetMobile
+ * @internal
  * @extend ns.widget.BaseWidget
  */
 (function (document, ns) {

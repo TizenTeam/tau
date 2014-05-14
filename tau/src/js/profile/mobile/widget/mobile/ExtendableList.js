@@ -5,14 +5,12 @@
  * License : MIT License V2
  */
 /**
+ * #Extendable List Widget
+ * The extendable list is used to display a list of data elements that can be extended.
+ *
  * @class ns.widget.ExtendableList
  * @extend ns.widget.BaseWidget
  * @author Michał Szepielak <m.szepielak@samsung.com>
- */
-/**
- * @class ns.ui.ExtendableList
- * @inheritdoc ns.widget.ExtendableList
- * @extends ns.widget.ExtendableList
  */
 (function(document, ns) {
 	"use strict";

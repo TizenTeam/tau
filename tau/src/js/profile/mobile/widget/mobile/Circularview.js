@@ -1,5 +1,12 @@
 /*global window, define */
 /*jslint nomen: true, plusplus: true */
+/**
+ * #Circular View Widget
+ * The circular view widget shows a special scroll box which can be scroll in circle.
+ *
+ * @class ns.widget.Circularview
+ * @extend ns.widget.mobile.BaseWidgetMobile
+ */
 (function (document, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
@@ -16,11 +23,6 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			/**
-			 * #Circularview widget
-			 * @class ns.widget.Circularview
-			 * @extend ns.widget.mobile.BaseWidgetMobile
-			 */
 			var CircularView = function () {
 					this.options = {
 						"fps": 60,

@@ -1,6 +1,8 @@
 /*global window, define */
 /*jslint nomen: true, plusplus: true */
 /**
+ * #Filter Extension For ListView Widget
+ *
 * @author Maciej Urbanski <m.urbanski@samsung.com>
 * @class ns.widget.mobile.Listview.Filter
 * @override ns.widget.mobile.Listview

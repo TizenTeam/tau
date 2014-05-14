@@ -2,7 +2,7 @@
 /*jslint nomen: true, plusplus: true */
 
 /**
- * #Progressbar widget
+ * #Progress Bar Widget
  *
  * ##Manual constructor
  * ###For manual creation of progressbar widget you can use constructor of widget:
@@ -93,11 +93,6 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 
-			/**
-			* {Object} Widget Alias for {@link ns.widget.BaseWidget}
-			* @member ns.widget.mobile.Progressbar
-			* @private
-			*/
 			var BaseWidget = ns.widget.mobile.BaseWidgetMobile,
 
 
@@ -109,11 +104,6 @@
 				*/
 				engine = ns.engine,
 
-				/**
-				* Alias for class ns.widget.mobile.Progressbar
-				* @class ns.widget.mobile.Progressbar
-				* @extends ns.widget.BaseWidget
-				*/
 				Progressbar = function () {
 
 					/**

@@ -5,7 +5,8 @@
 * License : MIT License V2
 */
 /**
-* MultimediaView widget
+* #Multimedia View widget
+ * The multimedia view widget displays the audio and video player.
 * @class ns.widget.MultimediaView
 * @extends ns.widget.mobile.BaseWidgetMobile
 * @author Maciej Urbanski <m.urbanski@samsung.com>

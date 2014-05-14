@@ -1,8 +1,9 @@
 /*global window, define */
 /*jslint nomen: true, plusplus: true */
 /**
- * #Gallery widget
-
+ * #Gallery Widget
+ * The gallery widget shows images in a gallery on the screen.
+ *
  * @class ns.widget.mobile.Gallery
  * @extends ns.widget.BaseWidget
  */

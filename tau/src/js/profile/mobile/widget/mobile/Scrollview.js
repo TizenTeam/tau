@@ -1,7 +1,8 @@
 /*global window, define, ns*/
 /*jslint nomen: true, plusplus: true */
 /**
- * scrollview
+ * #Scroll View Widget
+ *
  * @class ns.widget.mobile.Scrollview
  * @extends ns.widget.BaseWidget
  */

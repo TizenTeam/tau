@@ -1,7 +1,7 @@
 /*global window, define */
 /*jslint nomen: true */
 /**
- * #Selectmenu widget
+ * #Select Menu Widget
  *
  * ##Default selectors
  * In default all elements with _data-role=select_ are changed to Tizen WebUI selectmenu.

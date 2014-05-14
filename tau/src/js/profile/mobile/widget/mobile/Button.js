@@ -1,50 +1,68 @@
 /*global window, define, ns, DOMTokenList */
 /*jslint nomen: true, plusplus: true */
 /**
- * # Button widget
+ * # Button Widget
  * Button widget changes default browser buttons to special buttons with additional opportunities like icon, corners, shadow.
  *
  * ## Default selectors
  * In default all **BUTTON** tags and all **INPUT** tags with type equals _button_, _submit_ or _reset_ are change to Tizen WebUI buttons.
- * In addition all elements with _data-role=button_ are changed to Tizen WebUI buttons.
+ * In addition all elements with _data-role=button_ and class _ui-btn_ are changed to Tizen Web UI buttons.
+ * To prevent auto enhance element to Tizen Web UI buttons you can use _data-role=none_ attribute on **BUTTON** or **INPUT** element.
  *
- * ## Manual constructor
- * For manual creation of button widget you can use constructor of widget:
+ * ###HTML Examples
  *
- *		@example
- *		var button = ns.engine.instanceWidget(document.getElementById('button'), 'Button');
- *
- * If jQuery library is loaded, its method can be used:
- *
- *		@example
- *		var button = $('#button').button();
- *
- * ##HTML Examples
- *
- * ###Create simple button from link using data-role
+ * ####Create simple button from link using data-role
  *
  *		@example
  *		<a href="#page2" data-role="button">Link button</a>
  *
- * ###Create simple button using button's tag
+ * ####Create simple button from link using class selector
+ *
+ *		@example
+ *		<a href="#page2" class="ui-btn">Link button</a>
+ *
+ * ####Create simple button using button's tag
  *
  *		@example
  *		<button>Button element</button>
  *
- * ###Create simple button from input using type
+ * ####Create simple button from input using type
  *
  *		@example
  *		<input type="button" value="Button" />
  *		<input type="submit" value="Submit Button" />
  *		<input type="reset" value="Reset Button" />
  *
- * ##Mini version
+ * ## Manual constructor
+ * For manual creation of button widget you can use constructor of widget from **tau** namespace:
+ *
+ *		@example
+ *		var buttonElement = document.getElementById('button'),
+ *			button = tau.widget.button(buttonElement, {mini: true});
+ *
+ * Constructor has one require parameter **element** which are base **HTMLElement** to create widget. We recommend get this element by method *document.getElementById*. Second parameter is **options** and it is a object with options for widget.
+ *
+ * If jQuery library is loaded, its method can be used:
+ *
+ *		@example
+ *		var button = $('#button').button({mini: true});
+ *
+ * jQuery Mobile constructor has one optional parameter is **options** and it is a object with options for widget.
+ *
+ * ##Options for Button Widget
+ *
+ * Options for widget can be defined as _data-..._ attributes or give as parameter in constructor.
+ *
+ * You can change option for widget using method **option**.
+ *
+ * ###Mini version
  * For a more compact version that is useful in toolbars and tight spaces, add the data-mini="true" attribute to the button to create a mini version. This will produce a button that is not as tall as the standard version and has a smaller text size.
  *
  *		@example
  *		<a href="index.html" data-role="button" data-mini="true">Link button</a>
  *
- * ##Inline buttons
+ *
+ * ###Inline buttons
  * By default, all buttons in the body content are styled as block-level elements so they fill the width of the screen. However, if you want a more compact button that is only as wide as the text and icons inside, add the data-inline="true" attribute to the button.
  *
  *		@example
@@ -56,22 +74,40 @@
  *		<a href="index.html" data-role="button" data-inline="true">Cancel</a>
  *		<a href="index.html" data-role="button" data-inline="true" data-theme="b">Save</a>
  *
- * ##Icon positioning
+ * ###Icon positioning
  * By default, all icons in buttons are placed to the left of the button text. This default may be overridden using the data-iconpos attribute.
  *
  *		@example
  *		<a href="index.html" data-role="button" data-icon="delete" data-iconpos="right">Delete</a>
  *
  * Possible values of data-iconpos:<br>
- * * "left"  - creates the button with left-aligned icon<br>
- * * "right"  - creates the button with right-aligned icon<br>
- * * "top"  - creates the button with icon positioned above the text<br>
- * * "bottom"  - creates the button with icon positioned below the text
+ *
+ *  - "left"  - creates the button with left-aligned icon<br>
+ *  - "right"  - creates the button with right-aligned icon<br>
+ *  - "top"  - creates the button with icon positioned above the text<br>
+ *  - "bottom"  - creates the button with icon positioned below the text
  *
  * You can also create an icon-only button, by setting the data-iconpos attribute to notext. The button plugin will hide the text on-screen, but add it as a title attribute on the link to provide context for screen readers and devices that support tooltips.
  *
  *		@example
  *		<a href="index.html" data-role="button" data-icon="delete" data-iconpos="notext">Delete</a>
+ *
+ * ##Methods
+ *
+ * To call method on widget you can use one of existing API:
+ *
+ * First API is from tau namespace:
+ *
+ *		@example
+ *		var buttonElement = document.getElementById('button'),
+ *			button = tau.widget.button(buttonElement, 'Button');
+ *
+ *		button.methodName(methodArgument1, methodArgument2, ...);
+ *
+ * Second API is jQuery Mobile API and for call _methodName_ you can use:
+ *
+ *		@example
+ *		$(".selector").button('methodName', methodArgument1, methodArgument2, ...);
  *
  * @class ns.widget.mobile.Button
  * @extends ns.widget.BaseWidget
@@ -139,7 +175,7 @@
 					uiIcon: 'ui-icon',
 					uiIconPositionPrefix: 'ui-icon-',
 					uiIconShadow: 'ui-icon-shadow',
-					uiBtnIconPostionPrefix: 'ui-btn-icon-',
+					uiBtnIconPositionPrefix: 'ui-btn-icon-',
 					uiLink: 'ui-link',
 					uiBtnInner: 'ui-btn-inner',
 					uiBtnText: 'ui-btn-text',
@@ -395,17 +431,17 @@
 			prototype._configure = function () {
 				/**
 				 * @property {object} options All possible widget options
-				 * @property {string|null} [options.theme=null] theme of widget
-				 * @property {string|null} [options.icon=null] icon type
-				 * @property {string|null} [options.iconpos=null] position of icon
-				 * @property {string|null} [options.inline=null] if value is "true" then button has css property display = "inline"
+				 * @property {?string} [options.theme=null] theme of widget
+				 * @property {?string} [options.icon=null] icon type
+				 * @property {"left"|"right"|"top"|"bottom"|null} [options.iconpos=null] position of icon
+				 * @property {?string} [options.inline=null] if value is "true" then button has css property display = "inline"
 				 * @property {boolean} [options.shadow=true] shadow of button
 				 * @property {boolean} [options.iconshadow=true] shadow of button's icon
 				 * @property {boolean} [options.corners=false] corners of button
-				 * @property {boolean|null} [options.mini=null] size of button
+				 * @property {?boolean} [options.mini=null] size of button
 				 * @property {boolean} [options.bar=false] if button is part of bar then you should set true
-				 * @property {string|null} [options.style=null] style of button ("circle" or "nobg")
-				 * @property {string} [options.wrapperEls='span'] wrapper tag name of button ("span" or "div")
+				 * @property {"circle"|"nobg"|null} [options.style=null] style of button
+				 * @property {"span"|"div"} [options.wrapperEls="span"] wrapper tag name of button
 				 * @member ns.widget.mobile.Button
 				 */
 				ns.utils.object.merge(this.options, {
@@ -429,7 +465,7 @@
 			/**
 			* Build structure of button widget
 			* @method _build
-			* @param {HTMLElement} element
+			* @param {HTMLElement|HTMLInputElement} element
 			* @return {HTMLElement}
 			* @protected
 			* @member ns.widget.mobile.Button
@@ -454,15 +490,18 @@
 					container,
 					innerTextLength,
 					label,
-					protoOptions = prototype.options,
+					prototypeOptions = prototype.options,
 					i;
 
 				// Set theme
-				options.theme = options.theme || themes.getInheritedTheme(element, (protoOptions && protoOptions.theme) || 's');
+				options.theme = options.theme || themes.getInheritedTheme(element, (prototypeOptions && prototypeOptions.theme) || 's');
 
 				// Create default structure of button
 				buttonInner = document.createElement(options.wrapperEls);
 				buttonText = document.createElement(options.wrapperEls);
+				buttonText.id = element.id + "-div-text";
+
+				this.ui.buttonText = buttonText;
 
 				elementTagName = element.tagName.toLowerCase();
 				buttonClassList = element.classList;
@@ -598,7 +637,7 @@
 					}
 
 					// Set iconpos
-					buttonClassArray.push(classes.uiBtnIconPostionPrefix + options.iconpos);
+					buttonClassArray.push(classes.uiBtnIconPositionPrefix + options.iconpos);
 					if (options.iconpos === "notext" && !element.getAttribute("title")) {
 						element.setAttribute("title", element.textContent);
 					}
@@ -639,7 +678,7 @@
 				}
 
 				if (!buttonText.innerHTML.length && buttonIcon && elementTagName !== "label") {
-					buttonText.innerHTML = options.icon.replace("naviframe-", "");
+					this._setValue(options.icon.replace("naviframe-", ""), element);
 				}
 
 				if (elementTagName === "button" || elementTagName === "input") {
@@ -673,6 +712,7 @@
 					container = element;
 				}
 				this.ui.container = container;
+				this.ui.buttonText = document.getElementById(element.id + "-div-text");
 			};
 
 			/**
@@ -684,6 +724,24 @@
 			prototype._bindEvents = function () {
 				addGlobalEvents();
 			};
+
+			/**
+			 * Enable the button
+			 *
+			 * Method removes disabled attribute on button and changes look of button to enabled state.
+			 *
+			 *      @example
+			 *      var buttonWidget = tau.widget.Button(document.getElementById("button"));
+			 *      buttonWidget.enable();
+			 *
+			 *      // or
+			 *
+			 *      $( "#button" ).button( "enable" );
+			 *
+			 * @method enable
+			 * @chainable
+			 * @member ns.widget.mobile.Button
+			 */
 
 			/**
 			* Enable button
@@ -699,6 +757,79 @@
 			};
 
 			/**
+			 * Get or set value
+			 *
+			 * Return inner text of button or set text on button
+			 *
+			 *      @example
+			 *      var buttonWidget = tau.widget.Button(document.getElementById("button")),
+			 *          value = buttonWidget.value(); // value contains inner text of button
+			 *
+			 *      buttonWidget.value( "New text" ); // "New text" will be text of button
+			 *
+			 *      // or
+			 *
+			 *      $( "#button" ).button( "value" ); // value contains inner text of button
+			 *
+			 *      $( "#button" ).button( "value", "New text" ); // "New text" will be text of button
+			 *
+			 * @method value
+			 * @param {string} [value] Value to set on button
+			 * @return {string} In get mode return inner text of button.
+			 * @since 2.3
+			 * @member ns.widget.mobile.Button
+			 */
+
+			/**
+			 * Get value of button
+			 * @method _getValue
+			 * @protected
+			 * @member ns.widget.mobile.Button
+			 */
+			prototype._getValue = function () {
+				return this.ui.buttonText.innerText;
+			};
+
+			/**
+			 * Set value of button
+			 * @method _setValue
+			 * @param {string} value
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.mobile.Button
+			 */
+			prototype._setValue = function (value, element) {
+				var elementTagName;
+				element = element || this.element;
+				elementTagName = element.tagName.toLowerCase();
+
+				this.ui.buttonText.innerText = value;
+
+				if (elementTagName === "button" || elementTagName === "input") {
+					element.innerText = value;
+					element.value = value;
+				}
+			};
+
+			/**
+			 * Disable the button
+			 *
+			 * Method sets disabled attribute on button and changes look of button to disabled state.
+			 *
+			 *      @example
+			 *      var buttonWidget = tau.widget.Button(document.getElementById("button"));
+			 *      buttonWidget.disable();
+			 *
+			 *      // or
+			 *
+			 *      $( "#button" ).button( "disable" );
+			 *
+			 * @method disable
+			 * @chainable
+			 * @member ns.widget.mobile.Button
+			 */
+
+			/**
 			* Disable button
 			* @method _disable
 			* @param {HTMLElement} element
@@ -710,6 +841,32 @@
 					disableElement(element, this.ui.container);
 				}
 			};
+
+			/**
+			 * Refresh a button markup.
+			 *
+			 * This method will rebuild while DOM structure of widget.
+			 *
+			 * This method should be called after are manually change in HTML attributes of widget DOM structure.
+			 *
+			 * This method is called automatically after change any option of widget.
+			 *
+			 *      @example
+			 *      var buttonWidget = tau.widget.Button(document.getElementById("button"));
+			 *      buttonWidget.refresh();
+			 *
+			 *      // or
+			 *
+			 *      $( "#button" ).button( "refresh" );
+			 *
+			 *      // also will be called after
+			 *
+			 *      buttonWidget.option("mini", true);
+			 *
+			 * @method refresh
+			 * @chainable
+			 * @member ns.widget.mobile.Button
+			 */
 
 			/**
 			* Refresh button
@@ -734,11 +891,28 @@
 				}
 			};
 
+			/**
+			 * Removes the button functionality completely.
+			 *
+			 * This will return the element back to its pre-init state.
+			 *
+			 *      @example
+			 *      var buttonWidget = tau.widget.Button(document.getElementById("button"));
+			 *      buttonWidget.destroy();
+			 *
+			 *      // or
+			 *
+			 *      $( "#button" ).button( "destroy" );
+			 *
+			 * @method destroy
+			 * @member ns.widget.mobile.Button
+			 */
+
 			// definition
 			ns.widget.mobile.Button = Button;
 			engine.defineWidget(
 				"Button",
-				"[data-role='button'],button,[type='button'],[type='submit'],[type='reset']",
+				"[data-role='button'], button, [type='button'], [type='submit'], [type='reset'], .ui-btn",
 				[],
 				Button,
 				'mobile'

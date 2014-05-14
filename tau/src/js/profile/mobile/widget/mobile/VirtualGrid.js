@@ -5,6 +5,8 @@
  * License : MIT License V2
  */
 /**
+ * #Virtual Grid Widget
+ *
  * @class ns.widget.VirtualGrid
  * @extends ns.widget.VirtualList
  * @author Maciej Urbanski <m.urbanski@samsung.com>
@@ -56,11 +58,6 @@
 					WRAP_BLOCK_X: "ui-virtualgrid-wrapblock-x",
 					ITEM: "virtualgrid-item"
 				},
-				/**
-				 * VirtualGrid widget
-				 * @class ns.widget.VirtualGrid
-				 * @extends ns.widget.mobile.VirtualListview
-				 */
 				VirtualGrid = function () {
 					return this;
 				},

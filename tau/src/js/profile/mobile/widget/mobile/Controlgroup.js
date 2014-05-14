@@ -1,7 +1,7 @@
 /*global window, define */
 /*jslint nomen: true */
 /**
- * #Controlgroup widget
+ * #Control Group Widget
  * Controlgroup widget improves the styling of a group of buttons by grouping them to form a single block.
  *
  * ##Default selectors

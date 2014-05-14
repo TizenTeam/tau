@@ -1,8 +1,8 @@
 /*global window, define */
 /*jslint nomen: true, plusplus: true */
-
 /**
- * #Loader widget
+ * #Loader Widget
+ * Widget displaying loader popup on page changes.
  *
  * ##Manual constructor
  * For manual creation of loader widget you can use constructor of widget:

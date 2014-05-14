@@ -128,9 +128,9 @@ module.exports = function(grunt) {
 				grunt.config('qunit.main', testModules);
 			}
 			done();
-		};
+        },
 
-	grunt.initConfig({
+	initConfig = {
 		version: version,
 
 		jshint: {
@@ -244,7 +244,14 @@ module.exports = function(grunt) {
 				cwd: "libs/globalize/lib/",
 				src: "cultures/**/*",
 				dest: buildMobileJs
-			}
+			},
+
+            "sdk-docs": {
+                files: [
+                    {expand: true, cwd: "build/grunt/doc/tasks/templates/files", src: "**/*", dest: "docs/sdk/mobile/html/widgets"},
+                    {expand: true, cwd: "build/grunt/doc/tasks/templates/files", src: "**/*", dest: "docs/sdk/wearable/html/widgets"}
+                ]
+            }
 		},
 
 		"string-replace": {
@@ -303,6 +310,21 @@ module.exports = function(grunt) {
 			}
 		},
 
+        "sdk-docs-html": {
+            mobile: {
+                profile: "mobile",
+                files: {
+                    src: ['dist/js/mobile/tau.js']
+                }
+            },
+            wearable: {
+                profile: "wearable",
+                files: {
+                    src: ['dist/js/wearable/tau.js']
+                }
+            }
+        },
+
 		watch: {
 			options: {
 				// Start a live reload server on the default port 35729
@@ -330,7 +352,11 @@ module.exports = function(grunt) {
 				tasks : [ "image" ]
 			}
 		}
-	});
+	};
+
+    grunt.loadTasks('build/grunt/doc/tasks');
+
+	grunt.initConfig(initConfig);
 
 	grunt.registerTask("version", "create version files.", function( name ) {
 		grunt.file.write(path.join( dist, "VERSION" ), pkg.version + "\n");
@@ -412,4 +438,5 @@ module.exports = function(grunt) {
 	grunt.registerTask("release", [ "clean", "lint", "css", "js", "license", "version" ]);
 
 	grunt.registerTask("default", [ "release" ]);
+    grunt.registerTask("sdk-docs", [ "sdk-docs-html:mobile", "sdk-docs-html:wearable", "copy:sdk-docs" ]);
 };

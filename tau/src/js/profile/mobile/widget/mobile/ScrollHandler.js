@@ -4,13 +4,8 @@
 * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
 * License : MIT License V2
 */
-
-/*
- * @author Krzysztof Antoszek <k.antoszek@samsung.com>
- */
-
 /**
- * #Scrollview extended with scroll hander widget
+ * #Scroll Handler Extension for Scroll View Widget
  *
  * ##Default selectors
  * All scrollview selectors with added data-scroll none or data-hander=[DIRECTION] will become this widget
@@ -37,6 +32,10 @@
  *		<ul>example</ul>
  *		<ul>example</ul>
  * </div>
+ * @class ns.widget.wearable.ScrollHandler
+ * @inheritdoc ns.widget.mobile.Scrollview
+ * @extends ns.widget.mobile.Scrollview
+ * @author Krzysztof Antoszek <k.antoszek@samsung.com>
  */
 (function (window, document, ns) {
 	"use strict";
@@ -52,12 +51,6 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			/**
-			 * ScrollHandler widget
-			 * @class ns.widget.wearable.ScrollHandler
-			 * @inheritdoc ns.widget.mobile.Scrollview
-			 * @extends ns.widget.mobile.Scrollview
-			 */
 			var ScrollHandler = function () {
 					var self = this;
 					/**

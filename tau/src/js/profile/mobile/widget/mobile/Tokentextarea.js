@@ -20,7 +20,7 @@
  */
 
 /**
- * #Tokentextarea widget
+ * #Token Textarea Widget
  *
  *
  *  ##Manual constuctor

@@ -1,5 +1,12 @@
 /*global window, define */
 /*jslint nomen: true, plusplus: true */
+/**
+ * #Date-time Picker Widget
+ * The picker widget shows a control that you can use to enter date and time values.
+ *
+ * @class ns.widget.Datetimepicker
+ * @extends ns.widget.mobile.BaseWidgetMobile
+ */
 (function (document, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
@@ -20,11 +27,6 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			/**
-			 * DateTimePicker widget
-			 * @class ns.widget.Datetimepicker
-			 * @extends ns.widget.mobile.BaseWidgetMobile
-			 */
 			var Datetimepicker = function () {
 					this.options = {
 						type: null, // date, time, datetime applicable

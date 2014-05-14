@@ -1,7 +1,9 @@
 /*global window, define */
 /*jslint nomen: true, plusplus: true */
 /**
- * Listview widget.
+ * #Listview Widget
+ * The list widget displays a list view.
+ *
  * @class ns.widget.mobile.Listview
  * @extends ns.widget.BaseWidget
  */
@@ -561,6 +563,7 @@
 			 * @param {HTMLElement} ul
 			 * @param {Boolean} create
 			 * @instance
+			 * @protected
 			 * @member ns.widget.mobile.Listview
 			 */
 			Listview.prototype._refreshItems = function (ul, create) {

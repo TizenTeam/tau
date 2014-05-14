@@ -1,9 +1,33 @@
 /*global window, define */
 /*jslint nomen: true, plusplus: true */
 /**
-* @author Tomasz Lukawski <t.lukawski@samsung.com>
-* @class ns.widget.mobile.Listview.Autodividers
-* @override ns.widget.mobile.Listview
+ * #Autodividers extension for ListView Widget
+ * The Autodividers widget extension automatically creates dividers for a ListView Widget.
+ *
+ * A list can be configured to automatically generate dividers for its items. This is done by adding the **data-autodividers="true"** attribute to the ListView element. This is similar to jQueryMobile version 1.2.0.
+ *
+ * To add an autodividers widget to the application, use the following code:
+ *
+ *      @example
+ *      <ul data-role="listview" data-autodividers="true" id="listview-with-autodividers">
+ *          <li><a href="#">Amy</a></li>
+ *          <li><a href="#">Arabella</a></li>
+ *          <li><a href="#">Barry</a></li>
+ *      </ul>
+ *
+ * Autodividers is not  independent widget, this is extension for [ListView widget](ns_widget_mobile_Listview.htm).
+ *
+ * ##Methods
+ *
+ * Listview with autodividers has interface to call methods the same as ListView widget. To call method use:
+ *
+ *      @example
+ *      $("#listview-with-autodividers").listview('methodname', methodArgument1, methodArgument2, ...);
+ *
+ * @author Tomasz Lukawski <t.lukawski@samsung.com>
+ * @class ns.widget.mobile.Listview.Autodividers
+ * @since Tizen 2.0
+ * @override ns.widget.mobile.Listview
  */
 (function (document, ns) {
 	'use strict';
@@ -57,7 +81,7 @@
 				*/
 				beforeRefreshListItems = function beforeRefreshListItems(listview, element) {
 					if (listview.options.autodividers) {
-						listview.addAutodividers(element);
+						listview._addAutodividers(element);
 					}
 				},
 
@@ -221,9 +245,8 @@
 					var onBeforeRefreshListItems = beforeRefreshListItems.bind(null, self, element);
 					beforeRefreshListItemsHandlers[self.id] = onBeforeRefreshListItems;
 					/**
-					* Adding new property for Widget's options
-					* @expose
-					* @property {Boolean} [options.autodividers=false]
+					* This option enables creating autodividers on ListView
+					* @property {boolean} [options.autodividers=false]
 					* @member ns.widget.mobile.Listview.Autodividers
 					* @instance
 					*/
@@ -235,12 +258,13 @@
 
 			/**
 			* Rebuilding html list element
-			* @method addAutodividers
+			* @method _addAutodividers
 			* @member ns.widget.mobile.Listview.Autodividers
 			* @param {HTMLUListElement|HTMLOListElement} list bound UList or OList HTMLElement.
+			 * @protected
 			* @instance
 			*/
-			Listview.prototype.addAutodividers = function addAutodividers(list) {
+			Listview.prototype._addAutodividers = function addAutodividers(list) {
 				replaceDividers.call(null, this, list);
 			};
 

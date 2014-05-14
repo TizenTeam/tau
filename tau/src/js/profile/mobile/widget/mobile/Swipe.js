@@ -1,7 +1,8 @@
 /*global window, define */
 /*jslint nomen: true, plusplus: true */
 /**
- * Swipe Widget
+ * #Swipe Widget
+ *
  * @class ns.widget.Swipe
  * @extends ns.widget.BaseWidget
  */

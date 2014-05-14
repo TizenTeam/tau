@@ -3,11 +3,8 @@
   console: false */
 /*jslint nomen: true, plusplus: true, bitwise: true */
 /**
- * @class ns.widget.mobile.Gallery3d
- * @extends ns.widget.BaseWidget
- *
  * # Gallery3d widget
- *	The gallery 3D widget enables 3-dimensional arranging and handling of images.
+ * The gallery 3D widget enables 3-dimensional arranging and handling of images.
  *
  * ## HTML Attributes
  *
@@ -207,6 +204,8 @@
  *	</script>
  *	<div id="gallery3d" data-role="gallery3d"></div>
  *
+ * @class ns.widget.mobile.Gallery3d
+ * @extends ns.widget.BaseWidget
  */
 (function (window, document, ns, Math, localStorage) {
 	"use strict";

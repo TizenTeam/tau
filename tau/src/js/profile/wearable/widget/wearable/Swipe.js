@@ -1,5 +1,12 @@
 /*global window, define */
 /*jslint nomen: true */
+/**
+ * #Swipe Widget
+ *
+ *
+ * @class ns.widget.Swipe
+ * @extends ns.widget.BaseWidget
+ */
 (function (document, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);

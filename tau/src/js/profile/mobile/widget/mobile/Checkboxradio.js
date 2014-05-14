@@ -1,9 +1,8 @@
 /*global window, define */
 /*jslint nomen: true, plusplus: true */
 /**
- * #Checkboxradio widget
- * Checkboxradio widget changes default browser checkboxes and radios to form more adapted to mobile environment
- * (larger labels looks clickable)
+ * #Checkbox-radio Widget
+ * Checkboxradio widget changes default browser checkboxes and radios to form more adapted to mobile environment.
  *
  * ##Default selectors
  * In default all inputs with type _checkbox_ or _radio_ are changed to checkboxradio widget.
@@ -549,6 +548,7 @@
 			* @method _getValue
 			* @member ns.widget.Checkboxradio
 			* @return {?string}
+			 * @protected
 			* @instance
 			* @new
 			*/
@@ -569,6 +569,7 @@
 			* @member ns.widget.Checkboxradio
 			* @chainable
 			* @instance
+			 * @protected
 			* @new
 			*/
 			Checkboxradio.prototype._setValue = function (value) {

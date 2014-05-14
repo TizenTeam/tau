@@ -4,7 +4,15 @@
 * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
 * License : MIT License V2
 */
-/* 
+/**
+ * #PageContainer Widget
+ *
+ * PageContainer is a widget, which is supposed to have multiple child pages but display only one at a time.
+ *
+ * It allows for adding new pages, switching between them and displaying progress bars indicating loading process.
+ *
+ * @class ns.widget.wearable.PageContainer
+ * @extends ns.widget.BaseWidget
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Piotr Karny <p.karny@samsung.com>
  * @author Krzysztof Głodowski <k.glodowski@samsung.com>
@@ -33,12 +41,6 @@
 					in: "in",
 					uiPreIn: "ui-pre-in"
 				},
-				/**
-				* PageContainer is a widget, which is supposed to have multiple child pages but display only one at a time.
-				* It allows for adding new pages, switching between them and displaying progress bars indicating loading process.
-				* @class ns.widget.wearable.PageContainer
-				* @extends ns.widget.BaseWidget
-				*/
 				PageContainer = function () {
 					this.activePage = null;
 					return this;

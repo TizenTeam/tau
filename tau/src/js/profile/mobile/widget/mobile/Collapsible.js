@@ -1,7 +1,9 @@
 /*global window, define */
 /*jslint nomen: true */
 /**
- * Collapsible widget
+ * #Collapsible Widget
+ *
+ *
  * @author Piotr Karny <p.karny@samsung.com>
  * @class ns.widget.mobile.Collapsible
  * @extends ns.widget.BaseWidget

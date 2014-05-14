@@ -1,7 +1,8 @@
 /*global window, define */
 /*jslint nomen: true */
 /**
- * #Tizen Slider widget
+ * #Tizen Slider Widget
+ *
  * @class ns.widget.TizenSlider
  * @extends ns.widget.mobile.Slider
  * @author Maciej Urbanski <m.urbanski@samsung.com>

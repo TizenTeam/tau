@@ -1,7 +1,7 @@
 /*global window, define */
 /*jslint nomen: true, plusplus: true */
 /**
- * #Slider widget
+ * #Slider Widget
  * @class ns.widget.mobile.Slider
  * @extends ns.widget.BaseWidget
  * @author Maciej Urbanski <m.urbanski@samsung.com>

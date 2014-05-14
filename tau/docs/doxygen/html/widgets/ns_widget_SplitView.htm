@@ -1,0 +1,734 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+    <script type="text/javascript" src="snippet.js"></script>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <link href="styles.css" rel="StyleSheet" type="text/css">
+    <link href="snippet.css" rel="StyleSheet" type="text/css">
+    <title>SplitView Widget</title>
+</head>
+<body onload="prettyPrint()" id="content">
+<div><a href="/dev-guide/2.2.1/org.tizen.web.appprogramming/html/cover_page.htm">Tizen Web App Programming</a> &gt; <a
+        href="/dev-guide/2.2.1/org.tizen.web.appprogramming/html/api_reference/api_reference.htm">API References</a>
+    &gt;
+    <a href="web_ui_framework.htm">UI
+        Framework Reference</a>
+    &gt;
+    <a href="widget_reference.htm">Widget Reference</a>
+
+</div>
+
+<h1>SplitView Widget</h1>
+
+
+
+<h2>Table of Contents</h2>
+<ol class="toc">
+    
+    <li><a href="#options-list">Options list</a>
+        
+    </li>
+    
+    <li><a href="#methods-list">Methods list</a>
+        
+        <ol class="toc">
+        
+            <li><a href="#method-configure">configure</a>
+            </li>
+        
+            <li><a href="#method-disable">disable</a>
+            </li>
+        
+            <li><a href="#method-enable">enable</a>
+            </li>
+        
+            <li><a href="#method-enhance">enhance</a>
+            </li>
+        
+            <li><a href="#method-enhanceWithin">enhanceWithin</a>
+            </li>
+        
+            <li><a href="#method-maximize">maximize</a>
+            </li>
+        
+            <li><a href="#method-pane">pane</a>
+            </li>
+        
+            <li><a href="#method-raise">raise</a>
+            </li>
+        
+            <li><a href="#method-restore">restore</a>
+            </li>
+        
+            <li><a href="#method-widget">widget</a>
+            </li>
+        
+        </ol>
+        
+    </li>
+    
+</ol>
+
+<p>SplitView is a widget, which displays two children separated with a movable divider.<br />It allows to change the size ratio of its children and supports two orientations.</p>
+
+
+<h2><a id="options-list"></a>Options list</h2>
+
+<table><tbody>
+<tr>
+    <th>Option</th>
+    <th>Input type</th>
+    <th>Default value</th>
+    <th>Description</th>
+</tr>
+    
+        <tr>
+            <td><span style="font-family: Courier New,Courier,monospace">data-divider-vertical</span></td>
+            <td>boolean</td>
+            <td>false</td>
+            <td>specifies divider orientation</td>
+        </tr>
+    
+        <tr>
+            <td><span style="font-family: Courier New,Courier,monospace">data-fixed</span></td>
+            <td>boolean</td>
+            <td>false</td>
+            <td>if true, the divider can't be manipulated</td>
+        </tr>
+    
+        <tr>
+            <td><span style="font-family: Courier New,Courier,monospace">data-ratio</span></td>
+            <td>Array</td>
+            <td>0.5,</td>
+            <td>0.5]] width/height distribution between panes</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+<h2><a id="methods-list"></a>Methods list</h2>
+<h3>Summary</h3>
+<table class="informaltable">
+    <thead><tr>
+        <th>Method</th>
+        <th>Description</th>
+    </tr></thead>
+    <tbody>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <tr>
+        <td><pre class="intable prettyprint">BaseWidgetMobile <a href="#method-configure">configure</a> ( Object definition, string definition.name, string definition.selector, string definition.binding, HTMLElement element, Object options ) </pre></td>
+        <td><p>configure widget object from definition</p></td>
+    </tr>
+    
+
+    
+
+    
+    <tr>
+        <td><pre class="intable prettyprint"><a href="#method-disable">disable</a> (  ) </pre></td>
+        <td><p>Disable widget, call: #_disable</p></td>
+    </tr>
+    
+
+    
+    <tr>
+        <td><pre class="intable prettyprint"><a href="#method-enable">enable</a> (  ) </pre></td>
+        <td><p>Enable widget, call: #_enable</p></td>
+    </tr>
+    
+
+    
+    <tr>
+        <td><pre class="intable prettyprint"><a href="#method-enhance">enhance</a> (  ) </pre></td>
+        <td><p>Enhance all the children of all elements in the set of matched elements.</p></td>
+    </tr>
+    
+
+    
+    <tr>
+        <td><pre class="intable prettyprint"><a href="#method-enhanceWithin">enhanceWithin</a> (  ) </pre></td>
+        <td><p>Enhance all the children of all elements in the set of matched elements.</p></td>
+    </tr>
+    
+
+    
+
+    
+
+    
+    <tr>
+        <td><pre class="intable prettyprint"><a href="#method-maximize">maximize</a> ( string id ) </pre></td>
+        <td><p>Maximizes a pane with specified id by setting its ratio to 1.</p></td>
+    </tr>
+    
+
+    
+
+    
+
+    
+    <tr>
+        <td><pre class="intable prettyprint">HTMLCollection <a href="#method-pane">pane</a> ( string id, HTMLElement element ) </pre></td>
+        <td><p>Gets element in pane specified by id or replaces it with given element as a second argument.</p></td>
+    </tr>
+    
+
+    
+    <tr>
+        <td><pre class="intable prettyprint"><a href="#method-raise">raise</a> ( string msg ) </pre></td>
+        <td><p>Throw exception</p></td>
+    </tr>
+    
+
+    
+    <tr>
+        <td><pre class="intable prettyprint"><a href="#method-restore">restore</a> (  ) </pre></td>
+        <td><p>Restores to original ratio set through HTML document or option setter.</p></td>
+    </tr>
+    
+
+    
+    <tr>
+        <td><pre class="intable prettyprint">HTMLElement <a href="#method-widget">widget</a> (  ) </pre></td>
+        <td><p>Return element of widget</p></td>
+    </tr>
+    
+
+    </tbody>
+</table>
+<dl>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <dt class="method" id="addidp28072"><code><b><span class="methodName" id="method-configure">configure</span></b></code></dt>
+        <dd>
+            <div class="brief">
+                <p>configure widget object from definition</p>
+            </div>
+            <div class="synopsis"><pre class="signature prettyprint">BaseWidgetMobile configure ( Object definition, string definition.name, string definition.selector, string definition.binding, HTMLElement element, Object options) </pre></div>
+            
+            <div class="description">
+                <p>
+                    
+                </p>
+            </div>
+                
+                <div class="parameters">
+                    <p><span class="param">Parameters:</span></p>
+                <table><tbody>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Required / optional</th>
+                    <th>Default value</th>
+                    <th>Description</th>
+                </tr>
+                
+                
+                <tr>
+                    <td><span style="font-family: Courier New,Courier,monospace">definition</span></td>
+                    <td>Object</td>
+                    <td>required</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                
+                <tr>
+                    <td><span style="font-family: Courier New,Courier,monospace">definition.name</span></td>
+                    <td>string</td>
+                    <td>required</td>
+                    <td></td>
+                    <td>Name of widget</td>
+                </tr>
+                
+                <tr>
+                    <td><span style="font-family: Courier New,Courier,monospace">definition.selector</span></td>
+                    <td>string</td>
+                    <td>required</td>
+                    <td></td>
+                    <td>Selector of widget</td>
+                </tr>
+                
+                <tr>
+                    <td><span style="font-family: Courier New,Courier,monospace">definition.binding</span></td>
+                    <td>string</td>
+                    <td>required</td>
+                    <td></td>
+                    <td>Path to file with widget (without extension)</td>
+                </tr>
+                
+                <tr>
+                    <td><span style="font-family: Courier New,Courier,monospace">element</span></td>
+                    <td>HTMLElement</td>
+                    <td>required</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                
+                <tr>
+                    <td><span style="font-family: Courier New,Courier,monospace">options</span></td>
+                    <td>Object</td>
+                    <td>required</td>
+                    <td></td>
+                    <td>Configure options</td>
+                </tr>
+                
+                
+                </tbody>
+                </table>
+                </div>
+                
+            <div class="returntype">
+                <p><span class="return">Return value:</span></p>
+        
+    <table><tbody>
+    <tr>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>BaseWidgetMobile</td>
+        <td>return this</td>
+    </tr>
+    </tbody></table>
+        
+        
+            </div>
+            
+        </dd>
+    
+
+    
+
+    
+        <dt class="method" id="addidp28072"><code><b><span class="methodName" id="method-disable">disable</span></b></code></dt>
+        <dd>
+            <div class="brief">
+                <p>Disable widget, call: #_disable</p>
+            </div>
+            <div class="synopsis"><pre class="signature prettyprint">disable ( ) </pre></div>
+            
+            <div class="description">
+                <p>
+                    
+                </p>
+            </div>
+                
+                
+                
+            <div class="returntype">
+                <p><span class="return">Return value:</span></p>
+        
+        
+            No Return Value
+        
+            </div>
+            
+        </dd>
+    
+
+    
+        <dt class="method" id="addidp28072"><code><b><span class="methodName" id="method-enable">enable</span></b></code></dt>
+        <dd>
+            <div class="brief">
+                <p>Enable widget, call: #_enable</p>
+            </div>
+            <div class="synopsis"><pre class="signature prettyprint">enable ( ) </pre></div>
+            
+            <div class="description">
+                <p>
+                    
+                </p>
+            </div>
+                
+                
+                
+            <div class="returntype">
+                <p><span class="return">Return value:</span></p>
+        
+        
+            No Return Value
+        
+            </div>
+            
+        </dd>
+    
+
+    
+        <dt class="method" id="addidp28072"><code><b><span class="methodName" id="method-enhance">enhance</span></b></code></dt>
+        <dd>
+            <div class="brief">
+                <p>Enhance all the children of all elements in the set of matched elements.</p>
+            </div>
+            <div class="synopsis"><pre class="signature prettyprint">enhance ( ) </pre></div>
+            
+            <div class="description">
+                <p>
+                    
+                </p>
+            </div>
+                
+                
+                
+            <div class="returntype">
+                <p><span class="return">Return value:</span></p>
+        
+        
+            No Return Value
+        
+            </div>
+            
+        </dd>
+    
+
+    
+        <dt class="method" id="addidp28072"><code><b><span class="methodName" id="method-enhanceWithin">enhanceWithin</span></b></code></dt>
+        <dd>
+            <div class="brief">
+                <p>Enhance all the children of all elements in the set of matched elements.</p>
+            </div>
+            <div class="synopsis"><pre class="signature prettyprint">enhanceWithin ( ) </pre></div>
+            
+            <div class="description">
+                <p>
+                    
+                </p>
+            </div>
+                
+                
+                
+            <div class="returntype">
+                <p><span class="return">Return value:</span></p>
+        
+        
+            No Return Value
+        
+            </div>
+            
+        </dd>
+    
+
+    
+
+    
+
+    
+        <dt class="method" id="addidp28072"><code><b><span class="methodName" id="method-maximize">maximize</span></b></code></dt>
+        <dd>
+            <div class="brief">
+                <p>Maximizes a pane with specified id by setting its ratio to 1.</p>
+            </div>
+            <div class="synopsis"><pre class="signature prettyprint">maximize ( string id) </pre></div>
+            
+            <div class="description">
+                <p>
+                    
+                </p>
+            </div>
+                
+                <div class="parameters">
+                    <p><span class="param">Parameters:</span></p>
+                <table><tbody>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Required / optional</th>
+                    <th>Default value</th>
+                    <th>Description</th>
+                </tr>
+                
+                
+                <tr>
+                    <td><span style="font-family: Courier New,Courier,monospace">id</span></td>
+                    <td>string</td>
+                    <td>required</td>
+                    <td></td>
+                    <td>the id of a pane to maximize</td>
+                </tr>
+                
+                
+                </tbody>
+                </table>
+                </div>
+                
+            <div class="returntype">
+                <p><span class="return">Return value:</span></p>
+        
+        
+            No Return Value
+        
+            </div>
+            
+        </dd>
+    
+
+    
+
+    
+
+    
+        <dt class="method" id="addidp28072"><code><b><span class="methodName" id="method-pane">pane</span></b></code></dt>
+        <dd>
+            <div class="brief">
+                <p>Gets element in pane specified by id or replaces it with given element as a second argument.</p>
+            </div>
+            <div class="synopsis"><pre class="signature prettyprint">HTMLCollection pane ( string id, HTMLElement element) </pre></div>
+            
+            <div class="description">
+                <p>
+                    
+                </p>
+            </div>
+                
+                <div class="parameters">
+                    <p><span class="param">Parameters:</span></p>
+                <table><tbody>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Required / optional</th>
+                    <th>Default value</th>
+                    <th>Description</th>
+                </tr>
+                
+                
+                <tr>
+                    <td><span style="font-family: Courier New,Courier,monospace">id</span></td>
+                    <td>string</td>
+                    <td>required</td>
+                    <td></td>
+                    <td>the id of a pane to get the content from</td>
+                </tr>
+                
+                <tr>
+                    <td><span style="font-family: Courier New,Courier,monospace">element</span></td>
+                    <td>HTMLElement</td>
+                    <td>required</td>
+                    <td></td>
+                    <td>the new element to be inserted</td>
+                </tr>
+                
+                
+                </tbody>
+                </table>
+                </div>
+                
+            <div class="returntype">
+                <p><span class="return">Return value:</span></p>
+        
+    <table><tbody>
+    <tr>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>HTMLCollection</td>
+        <td>a collection of pane's child elements</td>
+    </tr>
+    </tbody></table>
+        
+        
+            </div>
+            
+        </dd>
+    
+
+    
+        <dt class="method" id="addidp28072"><code><b><span class="methodName" id="method-raise">raise</span></b></code></dt>
+        <dd>
+            <div class="brief">
+                <p>Throw exception</p>
+            </div>
+            <div class="synopsis"><pre class="signature prettyprint">raise ( string msg) </pre></div>
+            
+            <div class="description">
+                <p>
+                    
+                </p>
+            </div>
+                
+                <div class="parameters">
+                    <p><span class="param">Parameters:</span></p>
+                <table><tbody>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Required / optional</th>
+                    <th>Default value</th>
+                    <th>Description</th>
+                </tr>
+                
+                
+                <tr>
+                    <td><span style="font-family: Courier New,Courier,monospace">msg</span></td>
+                    <td>string</td>
+                    <td>required</td>
+                    <td></td>
+                    <td>Message of throw</td>
+                </tr>
+                
+                
+                </tbody>
+                </table>
+                </div>
+                
+            <div class="returntype">
+                <p><span class="return">Return value:</span></p>
+        
+        
+            No Return Value
+        
+            </div>
+            
+        </dd>
+    
+
+    
+        <dt class="method" id="addidp28072"><code><b><span class="methodName" id="method-restore">restore</span></b></code></dt>
+        <dd>
+            <div class="brief">
+                <p>Restores to original ratio set through HTML document or option setter.</p>
+            </div>
+            <div class="synopsis"><pre class="signature prettyprint">restore ( ) </pre></div>
+            
+            <div class="description">
+                <p>
+                    
+                </p>
+            </div>
+                
+                
+                
+            <div class="returntype">
+                <p><span class="return">Return value:</span></p>
+        
+        
+            No Return Value
+        
+            </div>
+            
+        </dd>
+    
+
+    
+        <dt class="method" id="addidp28072"><code><b><span class="methodName" id="method-widget">widget</span></b></code></dt>
+        <dd>
+            <div class="brief">
+                <p>Return element of widget</p>
+            </div>
+            <div class="synopsis"><pre class="signature prettyprint">HTMLElement widget ( ) </pre></div>
+            
+            <div class="description">
+                <p>
+                    
+                </p>
+            </div>
+                
+                
+                
+            <div class="returntype">
+                <p><span class="return">Return value:</span></p>
+        
+    <table><tbody>
+    <tr>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>HTMLElement</td>
+        <td></td>
+    </tr>
+    </tbody></table>
+        
+        
+            </div>
+            
+        </dd>
+    
+
+</dl>
+<h2>Where to Go Next</h2>
+<ul>
+    
+</ul>
+<div id="footer">
+    <hr size="1">
+    <font size="1">Except as noted, this content - excluding the Code Examples - is licensed under <a
+            href="http://creativecommons.org/licenses/by/3.0/legalcode" target="_blank">Creative Commons Attribution
+        3.0</a> and all of the Code Examples contained herein are licensed under <a
+            href="https://www.tizen.org/bsd-3-clause-license" target="_blank">BSD-3-Clause</a>.<br>For details, see the
+        <a href="https://www.tizen.org/content-license" target="_blank">Content License</a>.</font>
+    <!--start-->
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-25976949-1']);
+        _gaq.push(['_trackPageview']);
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!--end-->
+</div>
+</body>
+</html>

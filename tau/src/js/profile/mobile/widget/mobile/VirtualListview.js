@@ -2,11 +2,7 @@
 /*jslint nomen: true, plusplus: true */
 
 /**
- * @author Michał Szepielak <m.szepielak@samsung.com>
- * @author Mateusz Ciepliński <m.cieplinski@samsung.com> [add jQuery template functionality]
- * @author Piotr Karny <p.karny@samsung.com>
- *
- * #Virtual List Widget for unlimited data.
+ * #Virtual List Widget
  *
  * In the Web environment, it is challenging to display a large amount of data in a list, such as
  * displaying a contact list of over 1000 list items. It takes time to display the entire list in
@@ -69,6 +65,9 @@
  * **NOTE:** after construct of widget should be create method called with proper parameters.
  *
  *
+ * @author Michał Szepielak <m.szepielak@samsung.com>
+ * @author Mateusz Ciepliński <m.cieplinski@samsung.com> [add jQuery template functionality]
+ * @author Piotr Karny <p.karny@samsung.com>
  * @class ns.widget.mobile.VirtualListview
  * @extends ns.widget.mobile.Listview
  */

@@ -20,7 +20,7 @@
  *
  * ##HTML Examples
  *
- * ####Create divider
+ * ###Create divider
  *
  *	@example
  *	<ul data-role="listview">

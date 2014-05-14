@@ -1,6 +1,8 @@
 /*global window, define */
 /*jslint nomen: true */
 /**
+ * #Page Widget
+ *
  * @class ns.widget.mobile.Page
  * @extends ns.widget.mobile.BaseWidgetMobile
  * @alias Page

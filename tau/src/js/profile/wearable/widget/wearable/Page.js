@@ -5,7 +5,7 @@
  * License : MIT License V2
  */
 /**
- * #Page widget
+ * #Page Widget
  *
  * ##Default selectors
  * All elements with class=ui-page will be become Page widgets

@@ -16,7 +16,9 @@
 		"grunt-contrib-cssmin": "0.6.1",
 		"grunt-contrib-watch": "latest",
 		"grunt-string-replace": "~0.2.4",
-		"grunt-jsduck": "~1.0.0"
+		"grunt-jsduck": "~1.0.0",
+		"mu2": "*",
+		"dox": "*"
 	},
 	"main": "Gruntfile.js"
 }

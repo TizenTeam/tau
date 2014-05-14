@@ -5,9 +5,7 @@
 * License : MIT License V2
 */
 /**
- * #Navbar widget
- * @class ns.widget.Navbar
- * @extends ns.widget.BaseWidget
+ * #Navbar Widget
  *
  * To create navbar using engine methods use:
  *
@@ -32,6 +30,8 @@
  *			</ul>
  *		</div>
  *
+ * @class ns.widget.Navbar
+ * @extends ns.widget.BaseWidget
  * @author Maciej Moczulski <m.moczulski@samsung.com>
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Piotr Karny <p.karny@samsung.com>

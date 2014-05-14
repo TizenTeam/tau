@@ -1,7 +1,9 @@
 /*global window, define */
 /*jslint nomen: true, plusplus: true */
 /**
- * #Textinput widget
+ * #Text Input Widget
+ * Decorator for inputs elements.
+ *
  * @class ns.widget.Textinput
  * @extends ns.widget.BaseWidget
  */
