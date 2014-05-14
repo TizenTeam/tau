@@ -47,7 +47,7 @@ module.exports = function(grunt) {
 			"sectionchanger": "profile/wearable/widget/wearable/SectionChanger",
 			"virtuallist": "profile/wearable/widget/wearable/VirtualListview",
 			"virtualgrid": "profile/wearable/widget/wearable/VirtualGrid",
-			"swipelist": "core/widget/wearable/SwipeList"
+			"swipelist": "profile/wearable/widget/wearable/SwipeList"
 		},
 
 		themes = {
