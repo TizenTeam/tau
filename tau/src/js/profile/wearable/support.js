@@ -13,10 +13,8 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../tau",
 			"./navigator",
-			"../core/wearable/selectors",
-			"../core/engine"
+			"../../core/engine"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

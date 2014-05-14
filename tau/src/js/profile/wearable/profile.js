@@ -16,6 +16,7 @@
 			"./selectors",
 			"./navigator",
 			"./utils",
+			"./support",
 			"./widget"
 		],
 		function () {
