@@ -42,7 +42,7 @@
 
 				THEMES_DIRECTORY = 'themes',
 				THEME_JS_FILE_NAME = 'theme.js',
-				THEME_CSS_FILE_NAME = 'tizen-web-ui-fw-theme',
+				THEME_CSS_FILE_NAME = 'tau',
 
 				themeRegex =  /ui-(bar|body|overlay)-([a-z])\b/,
 				deviceWidthRegex = /.*width=(device-width|\d+)\s*,?.*$/gi;
