@@ -43,13 +43,13 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../engine",
-			"../../theme",
-			"../../utils/selectors",
-			"../../utils/events",
+			"../../../../core/engine",
+			"../../../../core/theme",
+			"../../../../core/utils/selectors",
+			"../../../../core/utils/events",
 			"../mobile",
 			"./BaseWidgetMobile",
-			"../../../profile/mobile/widget/mobile/Button"
+			"./Button"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
