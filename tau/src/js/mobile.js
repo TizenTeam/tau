@@ -59,7 +59,7 @@
 			"./profile/mobile/widget/mobile/Controlgroup",
 			"./profile/mobile/widget/mobile/Textinput",
 			"./profile/mobile/widget/mobile/Popup",
-			"./core/widget/mobile/Datetimepicker",
+			"./profile/mobile/widget/mobile/Datetimepicker",
 			"./core/widget/mobile/Slider",
 			"./core/widget/mobile/Swipe",
 			"./core/widget/mobile/Selectmenu",

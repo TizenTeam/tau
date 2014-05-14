@@ -5,18 +5,18 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../engine",
+			"../../../../core/engine",
 			"../mobile", // fetch namespace
 			"./BaseWidgetMobile",
-			"../../../profile/mobile/widget/mobile/Popup",
-			"../../../profile/mobile/widget/mobile/Button",
-			"../../../profile/mobile/widget/mobile/Circularview",
-			"../../events/vmouse",
-			"../../utils/DOM/attributes",
-			"../../utils/DOM/manipulation",
-			"../../utils/array",
-			"../../utils/events",
-			"../../utils/globalize"
+			"./Popup",
+			"./Button",
+			"./Circularview",
+			"../../../../core/events/vmouse",
+			"../../../../core/utils/DOM/attributes",
+			"../../../../core/utils/DOM/manipulation",
+			"../../../../core/utils/array",
+			"../../../../core/utils/events",
+			"../../../../core/utils/globalize"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
