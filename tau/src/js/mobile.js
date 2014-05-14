@@ -72,7 +72,7 @@
 			"./profile/mobile/widget/mobile/Notification",
 			"./profile/mobile/widget/mobile/Gallery",
 			"./profile/mobile/widget/mobile/VirtualListview",
-			"./core/widget/mobile/VirtualGrid",
+			"./profile/mobile/widget/mobile/VirtualGrid",
 			"./core/widget/mobile/Loader",
 			"./profile/mobile/router/Page",
 			"./profile/mobile/router/PageExternal",

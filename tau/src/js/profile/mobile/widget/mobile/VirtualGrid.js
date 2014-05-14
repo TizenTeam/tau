@@ -15,13 +15,13 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../engine",
-			"../../utils/DOM/css",
+			"../../../../core/engine",
+			"../../../../core/utils/DOM/css",
 			// ScrollHandler and ScrollView are required before because widget those must
 			// be created before VirtualGrid
-			"../../../profile/mobile/widget/mobile/Scrollview",
-			"../../../profile/mobile/widget/mobile/ScrollHandler",
-			"../../../profile/mobile/widget/mobile/VirtualListview"
+			"./Scrollview",
+			"./ScrollHandler",
+			"./VirtualListview"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -83,7 +83,7 @@
 				 * @property {boolean} [options.standalone=false] If true scrollview instance will be created inside of the widget
 				 * **Method may be overriden by developer using {@link ns.widget.mobile.VirtualListview#create .create} method with proper arguments.**
 				 */
-				self.options = objectUtils.multiMerge({}, self.options, {
+				self.options = objectUtils.merge({}, self.options, {
 					numItemData: 0,
 					direction: VERTICAL,
 					row: 50,
