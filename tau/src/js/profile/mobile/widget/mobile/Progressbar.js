@@ -252,7 +252,7 @@
 			ns.widget.mobile.Progressbar = Progressbar;
 			engine.defineWidget(
 				"Progressbar",
-				"[data-role='progressbar'], .ui-progressbar",
+				"[data-role='progressbar'], .ui-progressbar-container",
 				["value"],
 				Progressbar,
 				"tizen"
