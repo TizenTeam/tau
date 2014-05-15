@@ -336,7 +336,7 @@
 					url,
 					self = this;
 
-				settings = object.merge(options || {}, RouterPage.defaults);
+				settings = object.merge({}, RouterPage.defaults, options);
 				settings.pageContainer = self.container;
 
 				settings.toPage = toPage;
