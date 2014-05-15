@@ -1,2 +1,0 @@
-$.noConflict(true);
-})(this);

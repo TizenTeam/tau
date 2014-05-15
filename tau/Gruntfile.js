@@ -5,21 +5,25 @@ module.exports = function(grunt) {
 		themes = grunt.file.readJSON("themes.json"),
 		path = require("path"),
 
+		name = pkg.name,
+		version = pkg.version,
+
 		// Path to build framework
-		dist = "dist" + path.sep,
+		dist = "dist",
+		src = "src",
 
 		// Path to directory with tests
 		testsPath = "tests" + path.sep,
 
 		// Path to framework JS sources
-		srcJs = path.join( "src", "js" ),
+		srcJs = path.join( src, "js" ),
+		srcCss = themes.path,
 
-		name = pkg.name,
-		version = pkg.version,
+		buildJs = path.join(dist, "js"),
+		buildMobileJs = path.join(buildJs, "mobile"),
+		buildWearableJs = path.join(buildJs, "wearable"),
 
-		jsPath = path.join(dist, "js"),
-		widgetPath = path.join(jsPath, "widget"),
-		themesPath = path.join(dist, "theme"),
+		buildCss = path.join(dist, "theme"),
 
 		rootNamespace = "ns",
 		exportNamespace = name,
@@ -29,33 +33,18 @@ module.exports = function(grunt) {
 		wrapStart = "(function(window, document, undefined) {\n" +
 			"'use strict';\n" +
 			"var ns = {},\n" +
-			"	nsConfig = window." + config + " = window." + config + " || {};\n" +
+			"nsConfig = window." + config + " = window." + config + " || {};\n" +
 			"nsConfig.rootNamespace = '" + rootNamespace + "';\n" +
 			"nsConfig.fileName = '" + fileName + "';\n",
+
 		wrapEnd = "}(window, window.document));\n",
-
-		wrapStartWidget = "(function(window, document, undefined) {\n" +
-			"'use strict';\n" +
-			"var ns = " + exportNamespace + "._export || {},\n" +
-			"	nsConfig = window." + config + " = window." + config + " || {};\n" +
-			"nsConfig.rootNamespace = '" + rootNamespace + "';\n" +
-			"nsConfig.fileName = '" + fileName + "';\n",
-		wrapEndWidget = wrapEnd,
-
-		widgets = {
-			"indexScrollbar": "profile/wearable/widget/wearable/indexscrollbar/IndexScrollbar",
-			"sectionchanger": "profile/wearable/widget/wearable/SectionChanger",
-			"virtuallist": "profile/wearable/widget/wearable/VirtualListview",
-			"virtualgrid": "profile/wearable/widget/wearable/VirtualGrid",
-			"swipelist": "profile/wearable/widget/wearable/SwipeList"
-		},
 
 		files = {
 			js: {
 				licenseFiles: [],
 				setLicenseFiles: function() {
 					files.js.licenseFiles.length = 0;
-					grunt.file.recurse(jsPath, function(abspath/*, rootdir, subdir, filename */) {
+					grunt.file.recurse(buildJs, function(abspath/*, rootdir, subdir, filename */) {
 						files.js.licenseFiles.push({
 							src: [path.join( "license", "Flora" ) + ".txt", abspath],
 							dest: abspath
@@ -65,7 +54,7 @@ module.exports = function(grunt) {
 				minifiedFiles: [],
 				setMinifiedFiles: function() {
 					files.js.minifiedFiles.length = 0;
-					grunt.file.recurse(jsPath, function(abspath/*, rootdir, subdir, filename */) {
+					grunt.file.recurse(buildJs, function(abspath/*, rootdir, subdir, filename */) {
 						if ( !/.min.js/.test( abspath ) ) {
 							files.js.minifiedFiles.push({
 								src: abspath,
@@ -84,8 +73,8 @@ module.exports = function(grunt) {
 					for(; i < len; i++) {
 						theme = list[i];
 						rtn.push({
-							src: path.join(themes.path, theme.src),
-							dest: path.join( themesPath, device, theme.name, name ) + ".css"
+							src: path.join(srcCss, theme.src),
+							dest: path.join( buildCss, device, theme.name, name ) + ".css"
 						});
 					}
 					return rtn;
@@ -94,7 +83,7 @@ module.exports = function(grunt) {
 				licenseFiles: [],
 				setLicenseFiles: function() {
 					files.css.licenseFiles.length = 0;
-					grunt.file.recurse(themesPath, function(abspath, rootdir, subdir, filename) {
+					grunt.file.recurse(buildCss, function(abspath, rootdir, subdir, filename) {
 						if ( /.css$/.test(filename) ) {
 							files.css.licenseFiles.push({
 								src: [path.join( "license", "Flora" ) + ".txt", abspath],
@@ -114,15 +103,14 @@ module.exports = function(grunt) {
 						theme = list[i];
 						rtn.push({
 							expand: true,
-							cwd: path.join( themes.path, theme.images ),
+							cwd: path.join( srcCss, theme.images ),
 							src: "**",
-							dest: path.join( themesPath, device, theme.name, theme.images.split("/").pop() )
+							dest: path.join( buildCss, device, theme.name, theme.images.split("/").pop() )
 						});
 					}
 					return rtn;
 				}
 			}
-
 		},
 
 		qunitPrepare = function (done, output) {
@@ -140,225 +128,185 @@ module.exports = function(grunt) {
 				grunt.config('qunit.main', testModules);
 			}
 			done();
-		},
-
-		initConfig = {
-			version: version,
-
-			writeVersion: grunt.file.write(path.join( dist, "VERSION" ), pkg.version + "\n"),
-
-			jshint: {
-				js: {
-					options: {
-						jshintrc: path.join(srcJs, ".jshintrc")
-					},
-					files: {
-						src: [ path.join(srcJs, "**/*.js") ]
-					}
-				},
-				grunt: {
-					options: {
-						jshintrc: srcJs + ".jshintrc"
-					},
-					files: {
-						src: [ "Gruntfile.js" ]
-					}
-				}
-			},
-
-			requirejs: {
-				full: {
-					options: {
-						baseUrl: srcJs,
-						optimize: "none",
-						findNestedDependencies: true,
-						skipModuleInsertion: true,
-						name: "wearable",
-						out: path.join( jsPath, name ) + ".js",
-						pragmasOnSave: {
-							tauBuildExclude: true,
-							tauDebug: true
-						},
-						wrap: {
-							start: wrapStart,
-							end: wrapEnd
-						},
-						done: qunitPrepare
-					}
-				},
-
-				core: {
-					options: {
-						baseUrl: srcJs,
-						optimize: "none",
-						findNestedDependencies: true,
-						skipModuleInsertion: true,
-						name: "wearable.core",
-						out: path.join( jsPath, name ) + ".core.js",
-						pragmasOnSave: {
-							tauBuildExclude: true,
-							tauDebug: true
-						},
-						wrap: {
-							start: wrapStart,
-							end: wrapEnd
-						}
-					}
-				},
-
-				mobile: {
-					options: {
-						baseUrl: srcJs,
-						optimize: "none",
-						findNestedDependencies: true,
-						skipModuleInsertion: true,
-						name: "mobile",
-						out: path.join( jsPath, name ) + ".js",
-						pragmasOnSave: {
-							tauBuildExclude: true,
-							tauDebug: true
-						},
-						wrap: {
-							start: wrapStart,
-							end: wrapEnd
-						},
-						done: qunitPrepare
-					}
-				}
-			},
-
-			uglify: {
-				all: {
-					options: {
-						beautify: {
-							ascii_only: true
-						},
-						compress: {
-							drop_console: true
-						}
-					},
-
-					files: files.js.minifiedFiles
-				}
-			},
-
-			less : {
-				wearable : {
-					files : files.css.getCssFiles("wearable")
-				},
-
-				mobile: {
-					files : files.css.getCssFiles("mobile")
-				}
-			},
-
-			cssmin: {
-				options: {
-					keepSpecialComments: 0
-				},
-
-				minify: {
-					expand: true,
-					cwd: themesPath,
-					src: ["**/*.css", "!**/*.min.css"],
-					dest: themesPath,
-					ext: ".min.css"
-				}
-			},
-
-			copy: {
-				wimages: {
-					files: files.image.getImageFiles( "wearable" )
-				},
-
-				mimages: {
-					files: files.image.getImageFiles( "mobile" )
-				},
-
-				license: {
-					src: "LICENSE.Flora",
-					dest: path.join( dist, "LICENSE" ) + ".Flora"
-				},
-
-				globalize: {
-					expand: true,
-					cwd: "libs/globalize/lib/",
-					src: "cultures/**/*",
-					dest: path.join(dist, "js" )
-				}
-			},
-
-			concat: {
-				licenseJs: {
-					files: files.js.licenseFiles
-				},
-				licenseCss: {
-					files: files.css.licenseFiles
-				}
-			},
-
-			clean: {
-				js: [ jsPath ],
-				css: [ themesPath ]
-			},
-
-			qunit: {
-				options: {
-					'--web-security': 'no'
-				}
-			}
 		};
 
-	// add requirejs tasks to build widget library.
-	(function() {
-		var requirejs = initConfig.requirejs,
-			key, value;
+	grunt.initConfig({
+		version: version,
 
-		for ( key in widgets ) {
-			value = widgets[key];
+		jshint: {
+			js: {
+				options: {
+					jshintrc: path.join(srcJs, ".jshintrc")
+				},
+				files: {
+					src: [ path.join(srcJs, "**/*.js") ]
+				}
+			}
+		},
 
-			requirejs["widget_" + key] = {
+		requirejs: {
+			wearable: {
 				options: {
 					baseUrl: srcJs,
 					optimize: "none",
 					findNestedDependencies: true,
 					skipModuleInsertion: true,
-					include: [ value ],
-					exclude: [ "wearable.core" ],
-					out: path.join( widgetPath, name + "." + key ) + ".js",
+					name: "wearable",
+					out: path.join( buildWearableJs, name ) + ".js",
 					pragmasOnSave: {
 						tauBuildExclude: true,
 						tauDebug: true
 					},
 					wrap: {
-						start: wrapStartWidget,
-						end: wrapEndWidget
-					}
+						start: wrapStart,
+						end: wrapEnd
+					},
+					done: qunitPrepare
 				}
-			};
+			},
+
+			mobile: {
+				options: {
+					baseUrl: srcJs,
+					optimize: "none",
+					findNestedDependencies: true,
+					skipModuleInsertion: true,
+					name: "mobile",
+					out: path.join( buildMobileJs, name ) + ".js",
+					pragmasOnSave: {
+						tauBuildExclude: true,
+						tauDebug: true
+					},
+					wrap: {
+						start: wrapStart,
+						end: wrapEnd
+					},
+					done: qunitPrepare
+				}
+			}
+		},
+
+		less : {
+			wearable : {
+				files : files.css.getCssFiles("wearable")
+			},
+
+			mobile: {
+				files : files.css.getCssFiles("mobile")
+			}
+		},
+
+		uglify: {
+			options: {
+				beautify: {
+					ascii_only: true
+				},
+				compress: {
+					drop_console: true
+				}
+			},
+
+			all: {
+				files: files.js.minifiedFiles
+			}
+		},
+
+		cssmin: {
+			options: {
+				keepSpecialComments: 0
+			},
+
+			all: {
+				expand: true,
+				cwd: buildCss,
+				src: ["**/*.css", "!**/*.min.css"],
+				dest: buildCss,
+				ext: ".min.css"
+			}
+		},
+
+		copy: {
+			wimages: {
+				files: files.image.getImageFiles( "wearable" )
+			},
+
+			mimages: {
+				files: files.image.getImageFiles( "mobile" )
+			},
+
+			license: {
+				src: "LICENSE.Flora",
+				dest: path.join( dist, "LICENSE" ) + ".Flora"
+			},
+
+			globalize: {
+				expand: true,
+				cwd: "libs/globalize/lib/",
+				src: "cultures/**/*",
+				dest: buildMobileJs
+			}
+		},
+
+		concat: {
+			licenseJs: {
+				files: files.js.licenseFiles
+			},
+			licenseCss: {
+				files: files.css.licenseFiles
+			}
+		},
+
+		clean: {
+			js: [ buildJs ],
+			css: [ buildCss ]
+		},
+
+		qunit: {
+			options: {
+				'--web-security': 'no'
+			}
+		},
+
+		watch: {
+			options: {
+				// Start a live reload server on the default port 35729
+				livereload: true,
+				interrupt: true
+			},
+
+			js: {
+				files : [ "src/js/**/*.js" ],
+				tasks : [ "requirejs" ]
+			},
+
+			wcss: {
+				files : [ "src/css/profile/wearable/**/*.less" ],
+				tasks : [ "less:wearable" ]
+			},
+
+			mcss: {
+				files : [ "src/css/profile/mobile/**/*.less" ],
+				tasks : [ "less:mobile" ]
+			},
+
+			image: {
+				files : [ "src/css/**/*.png" ],
+				tasks : [ "image" ]
+			}
 		}
+	});
 
-	})();
+	grunt.registerTask("version", "create version files.", function( name ) {
+		grunt.file.write(path.join( dist, "VERSION" ), pkg.version + "\n");
+	});
 
-	grunt.initConfig(initConfig);
-
-	grunt.registerTask("findFiles", "Initialize Target Files.", function( name ) {
+	grunt.registerTask("findFiles", "initialize target files.", function( name ) {
 		var obj = files;
 		name = name.split( "." );
 		name.forEach(function(key) {
 			obj = obj[key];
 		});
 		obj();
-	});
-
-	// Generate separate widget files
-	grunt.registerTask("widget", "Generate widget files using requirejs", function() {
-		var key;
-
-		for ( key in widgets ) {
-			grunt.task.run("requirejs:widget_" + key);
-		}
-
 	});
 
 	grunt.loadNpmTasks( "grunt-contrib-clean" );
@@ -369,22 +317,20 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks( "grunt-contrib-uglify" );
 	grunt.loadNpmTasks( "grunt-contrib-less" );
 	grunt.loadNpmTasks( "grunt-contrib-cssmin" );
+	grunt.loadNpmTasks( "grunt-contrib-watch" );
 
 	// Load framework custom tasks
 	grunt.loadTasks('tools/grunt/tasks');
 
-	grunt.registerTask( "lint", [ "jshint" ] );
-
+	grunt.registerTask( "lint", [ /* "jshint", @TODO fix all errors and revert*/ ] );
 	grunt.registerTask( "jsmin", [ "findFiles:js.setMinifiedFiles", "uglify" ] );
+	grunt.registerTask( "image", [ "copy:wimages", "copy:mimages" ] );
 
-	grunt.registerTask("css", [ "clean:css", "less", "cssmin" ]);
-	grunt.registerTask("js", [ "clean:js", "requirejs:full", "requirejs:core", "widget", "jsmin" ]);
-	grunt.registerTask("jsmobile", [ "clean:js", "requirejs:mobile" ]);
+	grunt.registerTask("css", [ "clean:css", "less", "cssmin", "image" ]);
+	grunt.registerTask("js", [ "clean:js", "requirejs", "jsmin", "copy:globalize" ]);
+	grunt.registerTask("license", [ "findFiles:js.setLicenseFiles", "findFiles:css.setLicenseFiles", "concat", "copy:license" ]);
 
-	grunt.registerTask("license", [ "findFiles:js.setLicenseFiles", "findFiles:css.setLicenseFiles", "concat" ]);
-
-	grunt.registerTask("release", [ "clean", /* "lint", @TODO fix all errors and revert*/ "css", "js", "license", "copy:wimages", "copy:license" ]);
-	grunt.registerTask("releasemobile", [ "clean", /* "lint", @TODO fix all errors and revert*/ "css", "jsmobile", "license", "copy:mimages", "copy:license", "copy:globalize" ]);
+	grunt.registerTask("release", [ "clean", "lint", "css", "js", "license", "version" ]);
 
 	grunt.registerTask("default", [ "release" ]);
 };
