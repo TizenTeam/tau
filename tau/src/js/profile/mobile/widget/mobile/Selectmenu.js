@@ -862,7 +862,7 @@
 			ns.widget.mobile.Selectmenu = Selectmenu;
 			engine.defineWidget(
 				"SelectMenu",
-				"select:not([data-role='select']), .ui-selectmenu",
+				"select:not([data-role='slider']):not([data-role='range']), .ui-selectmenu",
 				['open', 'close'],
 				Selectmenu,
 				'mobile'
