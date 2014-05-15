@@ -172,6 +172,21 @@
 				router;
 
 			/**
+			 * This function prepares selector for widget' definition
+			 * @method selectorChange
+			 * @param {string} selectorName
+			 * @return {string} new selector
+			 * @member ns.engine
+			 * @static
+			 */
+			function selectorChange (selectorName) {
+				if (selectorName.match(/\[data-role=/) && !selectorName.match(/:not\(\[data-role=/)) {
+					return selectorName.trim();
+				}
+				return selectorName.trim() + ":not([data-role='none'])";
+			};
+
+			/**
 			 * Function to define widget
 			 * @method defineWidget
 			 * @param {string} name
@@ -199,7 +214,7 @@
 							name: name,
 							methods: methods,
 							selector: selector || "",
-							selectors: selector ? selector.split(",").map(trim) : [],
+							selectors: selector ? selector.split(",").map(selectorChange) : [],
 							widgetClass: widgetClass || null,
 							namespace: namespace || "",
 							widgetNameToLowercase: widgetNameToLowercase === undefined ? true : !!widgetNameToLowercase
