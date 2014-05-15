@@ -65,10 +65,19 @@
 				 * Add element to head tag
 				 * @method addElementToHead
 				 * @param {HTMLElement} element
+				 * @param {boolean} [asFirstChildElement=false]
 				 * @member ns.utils.load
 				 */
-				addElementToHead: function (element) {
+				addElementToHead: function (element, asFirstChildElement) {
+					var firstElement;
 					if (head) {
+						if (asFirstChildElement) {
+							firstElement = head.firstElementChild;
+							if (firstElement) {
+								head.insertBefore(element, firstElement);
+								return;
+							}
+						}
 						head.appendChild(element);
 					}
 				},
@@ -116,7 +125,7 @@
 							link.setAttribute('href', path);
 						}
 					} else {
-						this.addElementToHead(this.makeLink(path));
+						this.addElementToHead(this.makeLink(path), true);
 					}
 				}
 			};
