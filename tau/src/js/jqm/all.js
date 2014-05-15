@@ -8,7 +8,7 @@
 			"./defaults",
 			"./widget",
 			"./engine",
-			"./events",
+			"./event",
 			"./loader",
 			"./router",
 			"./support",

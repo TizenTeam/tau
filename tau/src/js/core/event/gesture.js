@@ -11,7 +11,7 @@
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define([
-            "../events",
+				"../event",
 				"./gesture/core",
 				"./gesture/utils",
 				"./gesture/instance",
@@ -22,7 +22,7 @@
 			//>>excludeEnd("tauBuildExclude");
 			var GESTURE_ElEMENT_DATA_KEY = "gestureElementDataKey",
 				instances = [],
-				gesture = ns.events.gesture || {},
+				gesture = ns.event.gesture || {},
 				Gesture = gesture.Gesture;
 
 			function findInstance(element) {
@@ -44,7 +44,7 @@
 				});
 			}
 
-			ns.events.enableGesture = function(/* element, gesture object ... */) {
+			ns.event.enableGesture = function(/* element, gesture object ... */) {
 				var element = arguments[0],
 					gestureInstance = findInstance( element ),
 					length = arguments.length,
@@ -60,7 +60,7 @@
 				}
 			};
 
-			ns.events.disableGesture = function(/* element, gesture object ... */) {
+			ns.event.disableGesture = function(/* element, gesture object ... */) {
 				var element = arguments[0],
 					gestureInstance = findInstance( element ),
 					length = arguments.length,
@@ -78,9 +78,9 @@
 				}
 			};
 
-			ns.events.gesture = gesture;
+			ns.event.gesture = gesture;
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ns.events.gesture;
+			return ns.event.gesture;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

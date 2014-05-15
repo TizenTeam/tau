@@ -5,8 +5,7 @@
 	define(
 		[
 			"../engine",
-			"../events", // fetch namespace
-			"../utils/events"
+			"../event" // fetch namespace
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -52,14 +51,14 @@
 
 			/**
 			* Namespace to support tizenhwkey event
-			* @class ns.events.hwkey
+			* @class ns.event.hwkey
 			*/
 			/**
 			* Event tizenhwkey
 			* @event tizenhwkey
-			* @member ns.events.hwkey
+			* @member ns.event.hwkey
 			*/
-			ns.events.hwkey = hwkey;
+			ns.event.hwkey = hwkey;
 
 			document.addEventListener(ns.engine.eventType.INIT, function() {
 				hwkey.unbind();

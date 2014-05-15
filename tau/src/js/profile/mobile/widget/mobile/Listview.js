@@ -22,7 +22,7 @@
 			"../../../../core/utils/DOM/css",
 			"../../../../core/utils/selectors",
 			"../../../../core/utils/events",
-			"../../../../core/events/vmouse",
+			"../../../../core/event/vmouse",
 			"../mobile",
 			"./BaseWidgetMobile",
 			"./Button",
@@ -31,8 +31,7 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var eventUtils = ns.utils.events,
-				Listview = function () {
+			var Listview = function () {
 					var self = this;
 					self.options = {
 						theme: null,
@@ -88,7 +87,7 @@
 				floor = Math.floor,
 				buttonClasses = Button.classes,
 				selectors = ns.utils.selectors,
-				events = ns.utils.events,
+				eventUtils = ns.utils.events,
 				/**
 				 * Alias to Array.slice
 				 * @method slice
@@ -553,7 +552,7 @@
 					}
 				}
 				if (!create) {
-					events.trigger(ul, "updatelayout");
+					eventUtils.trigger(ul, "updatelayout");
 				}
 			};
 

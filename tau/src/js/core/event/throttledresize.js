@@ -4,7 +4,7 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../events", // fetch namespace
+			"../event", // fetch namespace
 			"../utils/events"
 		],
 		function () {
@@ -38,17 +38,17 @@
 
 			/**
 			* Namespace to support throttledresize event
-			* @class ns.events.throttledresize
+			* @class ns.event.throttledresize
 			*/
 			/**
 			* Event throttledresize
 			* @event throttledresize
-			* @member ns.events.throttledresize
+			* @member ns.event.throttledresize
 			*/
-			ns.events.throttledresize = throttledresize;
+			ns.event.throttledresize = throttledresize;
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ns.events.throttledresize;
+			return ns.event.throttledresize;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

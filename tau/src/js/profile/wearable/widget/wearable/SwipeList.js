@@ -11,7 +11,7 @@
 	define(
 		[
 			"../../../../core/engine",
-			"../../../../core/events/gesture",
+			"../../../../core/event/gesture",
 			"../../../../core/utils/selectors",
 			"../../../../core/utils/events",
 			"../../../../core/widget/BaseWidget",
@@ -19,7 +19,7 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var Gesture = ns.events.gesture,
+			var Gesture = ns.event.gesture,
 				utilsEvents = ns.utils.events,
 				engine = ns.engine,
 				selectors = ns.utils.selectors,
@@ -159,7 +159,7 @@
 
 			prototype._bindEvents = function () {
 
-				ns.events.enableGesture(
+				ns.event.enableGesture(
 					this.element,
 
 					new Gesture.Drag({
@@ -177,7 +177,7 @@
 			};
 
 			prototype._unbindEvents = function () {
-				ns.events.disableGesture(this.element);
+				ns.event.disableGesture(this.element);
 
 				utilsEvents.off(this.element, "drag dragstart dragend dragcancel swipe", this);
 				utilsEvents.off(document, "scroll touchcancel", this);

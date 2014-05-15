@@ -18,7 +18,6 @@
 	define(
 		[
 			'../../../../core/engine',
-			'../../../../core/events',
 			'../../../../core/widget',
 			'../../../../core/theme',
 			'../../../../core/support',

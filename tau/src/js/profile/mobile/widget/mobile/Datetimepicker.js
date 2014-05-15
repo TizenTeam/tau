@@ -18,7 +18,7 @@
 			"./Popup",
 			"./Button",
 			"./Circularview",
-			"../../../../core/events/vmouse",
+			"../../../../core/event/vmouse",
 			"../../../../core/utils/DOM/attributes",
 			"../../../../core/utils/DOM/manipulation",
 			"../../../../core/utils/array",
@@ -38,7 +38,7 @@
 				engine = ns.engine,
 				dom = ns.utils.DOM,
 				globalize = ns.utils.globalize,
-				events = ns.utils.events,
+				eventUtils = ns.utils.events,
 				range = ns.utils.array.range,
 				daysInMonth = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ],
 				parsePatternRegexp = /\/|\s|dd|d|MMMM|MMM|MM|M|yyyy|yy|y|hh|h|HH|H|mm|m|ss|s|tt|t|f|gg|g|'[\w\W]*'$|[\w\W]/g,
@@ -278,11 +278,11 @@
 
 				newValue = this._getValue();
 
-				events.trigger(element, 'change', {
+				eventUtils.trigger(element, 'change', {
 					oldValue: oldValue,
 					newValue: newValue
 				});
-				events.trigger(element, 'date-changed', newValue);
+				eventUtils.trigger(element, 'date-changed', newValue);
 				return this;
 			};
 

@@ -18,11 +18,11 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var Gesture = ns.events.gesture,
+			var Gesture = ns.event.gesture,
 
-				Detector = ns.events.gesture.Detector,
+				Detector = ns.event.gesture.Detector,
 
-				Manager = ns.events.gesture.Manager,
+				Manager = ns.event.gesture.Manager,
 				merge = ns.utils.object.merge,
 				events = ns.utils.events;
 

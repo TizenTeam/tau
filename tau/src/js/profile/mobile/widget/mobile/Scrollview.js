@@ -17,8 +17,8 @@
 			"../../../../core/utils/DOM/css",
 			"../../../../core/utils/DOM/attributes",
 			"../../../../core/utils/selectors",
-			"../../../../core/events/orientationchange",
-			"../../../../core/events/vmouse",
+			"../../../../core/event/orientationchange",
+			"../../../../core/event/vmouse",
 			"../mobile", // fetch namespace
 			"./BaseWidgetMobile",
 			"./Button",

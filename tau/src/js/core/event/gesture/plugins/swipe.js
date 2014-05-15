@@ -17,10 +17,10 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 
-			var Gesture = ns.events.gesture,
-				Detector = ns.events.gesture.Detector;
+			var Gesture = ns.event.gesture,
+				Detector = ns.event.gesture.Detector;
 
-			ns.events.gesture.Swipe = Detector.plugin.create({
+			ns.event.gesture.Swipe = Detector.plugin.create({
 
 				name: "swipe",
 

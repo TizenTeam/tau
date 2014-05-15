@@ -4,7 +4,7 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../events", // fetch namespace
+			"../event", // fetch namespace
 			"../utils/events"
 		],
 		function () {
@@ -17,12 +17,12 @@
 					properties: ['options']
 				};
 
-			ns.events.page = {
+			ns.event.page = {
 				pagebeforechange: pagebeforechange
 			};
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ns.events.orientationchange;
+			return ns.event.page;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

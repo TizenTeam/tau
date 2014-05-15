@@ -11,9 +11,7 @@
 	define(
 		[
 			"../../../../core/engine",
-			"../../../../core/events/gesture",
 			"../../../../core/utils/selectors",
-			"../../../../core/utils/events",
 			"../../../../core/utils/object",
 			"../../../../core/widget/BaseWidget",
 			"../wearable"

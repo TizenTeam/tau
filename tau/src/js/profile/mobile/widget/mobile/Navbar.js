@@ -45,7 +45,7 @@
 			"../../../../core/engine",
 			"../../../../core/utils/grid",
 			"../../../../core/utils/selectors",
-			"../../../../core/events/vmouse",
+			"../../../../core/event/vmouse",
 			"../mobile",
 			"./Button",
 			"./BaseWidgetMobile"

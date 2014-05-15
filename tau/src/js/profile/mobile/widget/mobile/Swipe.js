@@ -13,7 +13,7 @@
 		[
 			"../../../../core/engine",
 			"../../../../core/utils/events",
-			"../../../../core/events/touch",
+			"../../../../core/event/touch",
 			"../mobile", //namespace
 			"./BaseWidgetMobile"
 		],

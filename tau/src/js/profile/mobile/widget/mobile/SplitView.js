@@ -13,14 +13,14 @@
 	//>>excludeStart('tauBuildExclude', pragmas.tauBuildExclude);
 	define(
 		[
-			'../../../../core/engine',
-			'../../../../core/utils/DOM',
-			'../../../../core/theme',
-			'../../../../core/utils/selectors',
-			'../mobile', // fetch namespace
-			'../../../../core/events',
-			'./BaseWidgetMobile',
-			'./Scrollview'
+			"../../../../core/engine",
+			"../../../../core/utils/DOM",
+			"../../../../core/theme",
+			"../../../../core/utils/selectors",
+			"../../../../core/utils/events",
+			"../mobile", // fetch namespace
+			"./BaseWidgetMobile",
+			"./Scrollview"
 		],
 		function () {
 			//>>excludeEnd('tauBuildExclude');

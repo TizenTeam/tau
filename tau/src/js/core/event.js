@@ -16,7 +16,7 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var events = ns.events || {};
+			var event = ns.event || {};
 
 			/**
 			* Device is supporting touches or not.
@@ -25,11 +25,11 @@
 			* @memberOf ns.events
 			* @static
 			*/
-			events.touchDevice = 'ontouchstart' in window;
+			event.touchDevice = 'ontouchstart' in window;
 
-			ns.events = events;
+			ns.event = event;
             //>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ns.events;
+			return ns.event;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

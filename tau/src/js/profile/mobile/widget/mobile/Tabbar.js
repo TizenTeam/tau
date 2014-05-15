@@ -15,7 +15,7 @@
 			"../../../../core/utils/selectors",
 			"../../../../core/utils/grid",
 			"../../../../core/utils/DOM/attributes",
-			"../../../../core/events/vmouse",
+			"../../../../core/event/vmouse",
 			"../mobile",  // fetch namespace
 			"./BaseWidgetMobile",
 			"./Button"

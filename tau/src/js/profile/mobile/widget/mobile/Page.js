@@ -17,7 +17,7 @@
 			"../../../../core/utils/DOM/attributes",
 			"../../../../core/utils/DOM/css",
 			"../../../../core/utils/object",
-			"../../../../core/events/orientationchange",
+			"../../../../core/event/orientationchange",
 			"../mobile",
 			"../../../../core/theme",
 			"./BaseWidgetMobile",

@@ -15,7 +15,7 @@
 			//>>excludeEnd("tauBuildExclude");
 
 			var Gesture = function( elem, options ) {
-				return new ns.events.gesture.Instance( elem, options );
+				return new ns.event.gesture.Instance( elem, options );
 			};
 
 			Gesture.defaults = {
@@ -67,7 +67,7 @@
 				return new Gesture.plugin[gesture]( eventSender, options );
 			};
 
-			ns.events.gesture = Gesture;
+			ns.event.gesture = Gesture;
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
 	);

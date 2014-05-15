@@ -15,7 +15,7 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var Gesture = ns.events.gesture,
+			var Gesture = ns.event.gesture,
 				objectMerge = ns.utils.object.merge,
 				Detector = function( strategy, sender ) {
 					this.sender = sender;

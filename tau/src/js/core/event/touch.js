@@ -4,7 +4,7 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../events", // fetch namespace
+			"../event", // fetch namespace
 			"../utils/events"
 		],
 		function () {
@@ -22,7 +22,7 @@
 				},
 				timer,
 				origTarget,
-				events = ns.utils.events,
+				eventUtils = ns.utils.events,
 				swipeStart = {},
 				swipeStop = {},
 				clickHandler;
@@ -43,12 +43,12 @@
 				// ONLY trigger a 'tap' event if the start target is
 				// the same as the stop target.
 				if (origTarget === event.target) {
-					events.trigger(event.target, 'tap');
+					eventUtils.trigger(event.target, 'tap');
 				}
 			};
 
 			function tiemoutFunction() {
-				events.trigger(origTarget, 'taphold');
+				eventUtils.trigger(origTarget, 'taphold');
 			}
 
 			function handleTap(event) {
@@ -82,8 +82,8 @@
 					if (swipeStop.time - swipeStart.time < Touch.swipe.durationThreshold &&
 							Math.abs(swipeStart.coords[0] - swipeStop.coords[0]) > Touch.swipe.horizontalDistanceThreshold &&
 							Math.abs(swipeStart.coords[1] - swipeStop.coords[1]) < Touch.swipe.verticalDistanceThreshold) {
-						events.trigger(swipeStart.origin, "swipe");
-						events.trigger(swipeStart.origin, swipeStart.coords[0] > swipeStop.coords[0] ? "swipeleft" : "swiperight");
+						eventUtils.trigger(swipeStart.origin, "swipe");
+						eventUtils.trigger(swipeStart.origin, swipeStart.coords[0] > swipeStop.coords[0] ? "swipeleft" : "swiperight");
 						swipeStart = swipeStop = {};
 					}
 				}
@@ -105,21 +105,21 @@
 			/**
 			* #Touch events
 			* Reimplementation of jQuery Mobile virtual mouse events.
-			* @class ns.events.touch
+			* @class ns.event.touch
 			*/
 			/**
 			* Short tap event
 			* @event tap
-			* @member ns.events.touch
+			* @member ns.event.touch
 			*/
 			/**
 			* Long tap event
 			* @event taphold
-			* @member ns.events.touch
+			* @member ns.event.touch
 			*/
-			ns.events.touch = Touch;
+			ns.event.touch = Touch;
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ns.events.touch;
+			return ns.event.touch;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

@@ -17,9 +17,9 @@
 		function() {
 			//>>excludeEnd("tauBuildExclude");
 
-			var Gesture = ns.events.gesture,
+			var Gesture = ns.event.gesture,
 				objectMerge = ns.utils.object.merge,
-				TOUCH_DEVICE = ns.events.touchDevice;
+				TOUCH_DEVICE = ns.event.touchDevice;
 
 			Gesture.Manager = (function() {
 				var instance = null,

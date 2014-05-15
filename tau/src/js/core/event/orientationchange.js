@@ -4,19 +4,19 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../events", // fetch namespace
+			"../event", // fetch namespace
 			"../utils/events"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			/**
 			* Namespace to support orientationchange event
-			* @class ns.events.orientationchange
+			* @class ns.event.orientationchange
 			*/
 			/**
 			* Event orientation change
 			* @event orientationchange
-			* @member ns.events.orientationchange
+			* @member ns.event.orientationchange
 			*/
 			var body = document.body,
 				orientation = null,
@@ -93,10 +93,10 @@
 				}
 			}
 
-			ns.events.orientationchange = orientationchange;
+			ns.event.orientationchange = orientationchange;
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ns.events.orientationchange;
+			return ns.event.orientationchange;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

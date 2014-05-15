@@ -1,14 +1,14 @@
 /*global window, define */
 /*jslint nomen: true*/
 /**
- * @class ns.events.pinch
+ * @class ns.event.pinch
  */
 (function (window, document, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../events", // fetch namespace
+			"../event", // fetch namespace
 			"./touch",
 			"../utils/events"
 		],
@@ -39,7 +39,7 @@
 			* Computes distance between two touch points
 			* @param {Object} points
 			* @returns {number}
-			* @member ns.events.pinch
+			* @member ns.event.pinch
 			*/
 			function getDistance(points) {
 				var x = points[0].x - points[1].x,
@@ -51,7 +51,7 @@
 			/**
 			* Handle touch move event. Triggers pinch event if occurs
 			* @param {TouchEvent} event
-			* @member ns.events.pinch
+			* @member ns.event.pinch
 			*/
 			function handleTouchMove(event) {
 				var touchList = event.touches,
@@ -87,7 +87,7 @@
 			/**
 			* Handle touch end, clean up
 			* @param {Event} event
-			* @member ns.events.pinch
+			* @member ns.event.pinch
 			*/
 			function handleTouchEnd(event) {
 				utilsEvents.trigger(event.target, 'pinchend', pinchDetails);
@@ -104,7 +104,7 @@
 			/**
 			* Handle touch start, set up pinch tracking
 			* @param {Event} event
-			* @member ns.events.pinch
+			* @member ns.event.pinch
 			*/
 			function handleTouchStart(event) {
 				var touchList = event.touches;
@@ -136,9 +136,9 @@
 			// Init pinch event
 			document.addEventListener("touchstart", handleTouchStart, true);
 
-			ns.events.pinch = pinch;
+			ns.event.pinch = pinch;
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ns.events.pinch;
+			return ns.event.pinch;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

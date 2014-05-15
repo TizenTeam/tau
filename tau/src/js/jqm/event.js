@@ -12,10 +12,10 @@
 		[
 			"./jqm",
 			"../core/engine",
-			"../core/events/vmouse",
-			"../core/events/orientationchange",
-			"../core/events/pinch",
-			"../core/events/touch"
+			"../core/event/vmouse",
+			"../core/event/orientationchange",
+			"../core/event/pinch",
+			"../core/event/touch"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -34,7 +34,7 @@
 					MOUSEUP: "mouseup"
 				};
 
-			ns.jqm.events = {
+			ns.jqm.event = {
 				/**
 				* Create method on jQuery object with name represent event.
 				* @method proxyEventTriggerMethod
@@ -119,25 +119,25 @@
 				/**
 				* Proxy events from ns namespace to jQM namespace
 				* @method init
-				* @param {Object} events Alias to {@link ns.events}
+				* @param {Object} events Alias to {@link ns.event}
 				* @member ns.jqm
 				* @static
 				*/
 				init: function () {
-					var events = ns.events,
+					var event = ns.event,
 						removeEvents = function (event) {
 							event.stopPropagation();
 							event.preventDefault();
 							return false;
 						},
-						blockedEvents = [events.TOUCHSTART, events.TOUCHEND, events.VCLICK, events.MOUSEDOWN, events.MOUSEUP, events.CLICK],
+						blockedEvents = [eventType.TOUCHSTART, eventType.TOUCHEND, eventType.VCLICK, eventType.MOUSEDOWN, eventType.MOUSEUP, eventType.CLICK],
 						blockedEventsLength = blockedEvents.length,
 						html = document.getElementsByTagName("html")[0];
 					if ($) {
-						this.copyEventProperties(window, 'orientationchange', events.orientationchange.properties);
-						this.proxyEventTriggerMethod('orientationchange', events.orientationchange.trigger);
+						this.copyEventProperties(window, 'orientationchange', event.orientationchange.properties);
+						this.proxyEventTriggerMethod('orientationchange', event.orientationchange.trigger);
 
-						// Proxied jQuery's trigger method to fire swipe events
+						// Proxied jQuery's trigger method to fire swipe event
 						if (orginalTrigger === undefined) {
 							orginalTrigger = $.fn.trigger;
 							$.fn.trigger = this.proxyTrigger;
@@ -149,7 +149,7 @@
 						}
 
 						$.mobile = $.mobile || {};
-						$.mobile.pinch = ns.events.pinch || {};
+						$.mobile.pinch = ns.event.pinch || {};
 						$.mobile.tizen = $.mobile.tizen || {};
 						$.mobile.tizen.documentRelativeCoordsFromEvent = null;
 						$.mobile.tizen.targetRelativeCoordsFromEvent = null;
@@ -175,10 +175,10 @@
 
 			// Listen when framework is ready
 			document.addEventListener(ns.engine.eventType.INIT, function () {
-				ns.jqm.events.init();
+				ns.jqm.event.init();
 			}, false);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ns.jqm.events;
+			return ns.jqm.event;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

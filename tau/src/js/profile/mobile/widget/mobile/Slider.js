@@ -19,7 +19,7 @@
 			"../../../../core/utils/DOM/css",
 			"../../../../core/utils/events",
 			"../../../../core/utils/selectors",
-			"../../../../core/events/vmouse",
+			"../../../../core/event/vmouse",
 			"../mobile", // fetch namespace
 			"./BaseWidgetMobile",
 			"./Button"

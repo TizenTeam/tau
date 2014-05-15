@@ -13,7 +13,7 @@
 	define(
 		[
 			"../../../../core/engine",
-			"../../../../core/events/vmouse",
+			"../../../../core/event/vmouse",
 			"../../../../core/utils/events",
 			"../../../../core/utils/easing",
 			"../../../../core/utils/DOM/css",
@@ -32,7 +32,7 @@
 						"startEventName": "scrollstart",
 						"updateEventName": "scrollupdate",
 						"stopEventName": "scrollstop",
-						"eventType": ns.events.vmouse.touchSupport ? "touch" : "mouse",
+						"eventType": ns.event.vmouse.touchSupport ? "touch" : "mouse",
 						"delaydedClickSelector": "a, .ui-btn",
 						"delayedClickEnabled": false,
 						"list": "> *"

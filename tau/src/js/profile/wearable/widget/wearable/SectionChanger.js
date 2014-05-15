@@ -14,7 +14,7 @@
 		[
 			"../../../../core/engine",
 			"../../../../core/utils/selectors",
-			"../../../../core/events/gesture",
+			"../../../../core/event/gesture",
 			"../../../../core/widget/BaseWidget",
 			"./scroller/Scroller",
 			"./TabIndicator",
@@ -23,7 +23,7 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var Scroller = ns.widget.wearable.scroller.Scroller,
-				Gesture = ns.events.gesture,
+				Gesture = ns.event.gesture,
 				engine = ns.engine,
 				utilsObject = ns.utils.object,
 				utilsEvents = ns.utils.events,
@@ -258,10 +258,10 @@
 				_bindEvents: function() {
 					this._super();
 
-					ns.events.enableGesture(
+					ns.event.enableGesture(
 						this.scroller,
 
-						new ns.events.gesture.Swipe({
+						new ns.event.gesture.Swipe({
 							orientation: this.orientation === Scroller.Orientation.HORIZONTAL ?
 								Gesture.Orientation.HORIZONTAL :
 								Gesture.Orientation.VERTICAL
@@ -275,7 +275,7 @@
 					this._super();
 
 					if (this.scroller) {
-						ns.events.disableGesture( this.scroller );
+						ns.event.disableGesture( this.scroller );
 						utilsEvents.off( this.scroller, "swipe webkitTransitionEnd", this);
 					}
 				},

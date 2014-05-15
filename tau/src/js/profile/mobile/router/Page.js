@@ -24,7 +24,6 @@
 			"../../../core/utils/object",
 			"../../../core/utils/deferred",
 			"../widget/mobile/Page",
-			"../../../core/events/page",
 			"./urlHistory"
 		],
 		function () {

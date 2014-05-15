@@ -131,7 +131,7 @@
 			"../../../../core/engine",
 			"../../../../core/utils/selectors",
 			"../../../../core/utils/DOM/manipulation",
-			"../../../../core/events/vmouse",
+			"../../../../core/event/vmouse",
 			"../../../../core/theme",
 			"../mobile", // fetch namespace
 			"./BaseWidgetMobile"

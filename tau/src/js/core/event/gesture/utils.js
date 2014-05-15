@@ -15,7 +15,7 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 
-			var Gesture = ns.events.gesture;
+			var Gesture = ns.event.gesture;
 
 			Gesture.utils = {
 

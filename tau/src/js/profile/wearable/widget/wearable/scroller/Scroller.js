@@ -13,8 +13,8 @@
 			"../../../../../core/engine",
 			"../../../../../core/utils/selectors",
 			"../../../../../core/utils/object",
-                        "../../../../../core/utils/events",
-                        "../../../../../core/events/gesture",
+			"../../../../../core/utils/events",
+			"../../../../../core/event/gesture",
 			"./effect/Bouncing",
 			"../scroller"
 		],
@@ -22,7 +22,7 @@
 			//>>excludeEnd("tauBuildExclude");
 			// scroller.start event trigger when user try to move scroller
 			var BaseWidget = ns.widget.BaseWidget,
-				Gesture = ns.events.gesture,
+				Gesture = ns.event.gesture,
 				engine = ns.engine,
 				utilsObject = ns.utils.object,
 				utilsEvents = ns.utils.events,
@@ -183,10 +183,10 @@
 			};
 
 			prototype._bindEvents = function () {
-				ns.events.enableGesture(
+				ns.event.enableGesture(
 					this.scroller,
 
-					new ns.events.gesture.Drag({
+					new ns.event.gesture.Drag({
 						threshold: this.options.threshold,
 						delay: this.options.scrollDelay,
 						blockVertical: this.orientation === Scroller.Orientation.HORIZONTAL,
@@ -200,7 +200,7 @@
 
 			prototype._unbindEvents = function () {
 				if (this.scroller) {
-					ns.events.disableGesture( this.scroller );
+					ns.event.disableGesture( this.scroller );
 					utilsEvents.off( this.scroller, "drag dragstart dragend dragcancel", this );
 					window.removeEventListener("resize", this);
 				}

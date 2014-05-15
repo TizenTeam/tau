@@ -4,7 +4,7 @@
 
 $().ready(function(){
 	var libName = "jquery.mobile.events.js",
-		components = [ "events/touch.js", "events/throttledresize.js", "events/orientationchange.js" ],
+		components = [ "event/touch.js", "event/throttledresize.js", "event/orientationchange.js" ],
 		absFn = Math.abs,
 		originalEventFn = $.Event.prototype.originalEvent,
 		preventDefaultFn = $.Event.prototype.preventDefault,
