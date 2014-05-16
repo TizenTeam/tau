@@ -75,7 +75,8 @@
 				uiSliderRightPrefix: "ui-slider-right-",
 				uiSliderLeftText: "ui-slider-left-text",
 				uiSliderRightText: "ui-slider-right-text",
-				uiSliderHandlePress: "ui-slider-handle-press"
+				uiSliderHandlePress: "ui-slider-handle-press",
+				uiSliderCenter: "ui-slider-center"
 			};
 
 			TizenSlider.prototype = new Slider();
@@ -92,6 +93,7 @@
 					sliderConfigure.call(this);
 				}
 				options.popup = true;
+				options.center = false;
 				options.icon = "";
 				options.textLeft = "";
 				options.textRight = "";
@@ -130,6 +132,13 @@
 				popup.classList.add(TizenSlider.classes.uiSliderPopup);
 
 				return popupInstance;
+			};
+
+			TizenSlider.prototype._createCenter = function (slider) {
+				var centerElement = document.createElement('div');
+				centerElement.className = TizenSlider.classes.uiSliderCenter;
+
+				return slider.insertBefore(centerElement, slider.childNodes[0]);
 			};
 
 			TizenSlider.prototype._updateSlider = function () {
@@ -257,6 +266,8 @@
 							this._hidePopup();
 						}
 						break;
+					case "center":
+						this.options.center = value;
 					}
 				}
 			};
@@ -287,6 +298,8 @@
 					marginRight,
 					sliderContainer,
 					inner,
+					minValue,
+					maxValue,
 					classes = TizenSlider.classes,
 					btnClasses = Button.classes,
 					sliderContainerStyle,
@@ -305,6 +318,13 @@
 				if (options.popup) {
 					self.popup = self._createPopup(sliderContainer);
 				}
+
+				if (options.center) {
+					ui.centerElement = self._createCenter(slider);
+				}
+
+				maxValue = parseInt(element.getAttribute("max"), 10);
+				minValue = parseInt(element.getAttribute("min"), 10);
 
 				// Set default visibility for popup
 				// @TODO  consider removing this property and use popup widget instance

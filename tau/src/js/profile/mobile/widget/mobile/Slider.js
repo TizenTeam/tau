@@ -102,6 +102,27 @@
 			* @static
 			*/
 			Slider.keyCode = keyCode;
+			Slider.classes = {
+				theme: 'ui-body-',
+				mini: 'ui-mini',
+				sliderSnapping : 'ui-slider-handle-snapping',
+				sliderSwitch: 'ui-slider-switch',
+				sliderInline: 'ui-slider-inline',
+				sliderMini: 'ui-slider-mini',
+				slider: 'ui-slider',
+				sliderHandle: 'ui-slider-handle',
+				sliderBg: 'ui-slider-bg',
+				sliderToggle: 'ui-toggle-switch',
+				sliderToggleOn: 'ui-toggle-on',
+				sliderToggleOff: 'ui-toggle-off',
+				sliderInneroffset: 'ui-slider-inneroffset',
+				sliderInput: 'ui-slider-input',
+				sliderLabel: 'ui-slider-label',
+				sliderLabelTheme: 'ui-slider-label-',
+				sliderContainer: 'ui-slider-container',
+				sliderLabelA: "ui-slider-label-a",
+				sliderBgHasCenter: "ui-slider-bg-has-center"
+			};
 
 			function onTouchMove(event) {
 				event.stopPropagation();
@@ -148,10 +169,15 @@
 			function refresh(self, val, isfromControl, preventInputUpdate) {
 				var control = self.element,
 					percent,
+					centerPercent,
+					halfPercent = 50,
 					shandle = self.handle,
+					sliderBackground = self._ui.background,
+					sliderBackgroundStyle,
 					cType = control.nodeName.toLowerCase(),
 					min = 0,
 					max = control.querySelectorAll("option").length - 1,
+					avg = Math.round((max + min) / 2),
 					stepValue = DOMutils.getNumberFromAttribute(control, "step", "float", 0),
 					step = (cType === "input" && stepValue > 0) ? stepValue : 1,
 					data,
@@ -167,6 +193,7 @@
 				if (cType === "input") {
 					min = DOMutils.getNumberFromAttribute(control, "min",  "float", min);
 					max = DOMutils.getNumberFromAttribute(control, "max", "float", max);
+					avg = Math.round((max + min) / 2);
 				}
 
 				if (isNaN(step)) {
@@ -214,6 +241,7 @@
 				// Make sure percent is a value between 0 - 100;
 				percent = Math.max(0, Math.min(percent, 100));
 				self._lastPercent = percent;
+				centerPercent = halfPercent - percent;
 
 				newval = (percent / 100) * (max - min) + min;
 
@@ -244,8 +272,21 @@
 					localClasses.add("ui-toggle-off");
 				}
 
-				if (self._ui.background) {
-					self._ui.background.style.width = percent + "%";
+				if (sliderBackground) {
+					sliderBackgroundStyle = sliderBackground.style;
+					if (self.options.center) {
+						if (centerPercent >= 0) {
+							sliderBackgroundStyle.right = "50%";
+							sliderBackgroundStyle.left = "initial";
+							sliderBackgroundStyle.width = centerPercent + "%";
+						} else {
+							sliderBackgroundStyle.right = "initial";
+							sliderBackgroundStyle.left = "50%";
+							sliderBackgroundStyle.width = Math.abs(centerPercent) + "%";
+						}
+					} else {
+						sliderBackgroundStyle.width = percent + "%";
+					}
 				}
 
 				// drag the label widths
@@ -509,7 +550,8 @@
 				self._ui.background = self.slider.querySelector('.' + Slider.classes.sliderBg);
 				self._type = element.tagName.toLowerCase();
 				self._labels = selectors.getChildrenByClass(self.slider, Slider.classes.sliderLabel);
-
+				if ( self.options.center )
+					self._ui.background.classList.add(Slider.classes.sliderBgHasCenter);
 				refresh(self, self._getValue());
 			};
 
