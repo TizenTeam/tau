@@ -63,8 +63,8 @@
 			"./Tabbar",
 			"./Page",
 			'./Listview',
-			"../../../../core/utils/selectors",
-			"../../../../core/utils/events"
+			"../../../../core/event",
+			"../../../../core/utils/selectors"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -111,7 +111,7 @@
 				* @static
 				* @private
 				*/
-				events = ns.utils.events,
+				events = ns.event,
 				/**
 				* @property {Function} Page Alias for class ns.widget.mobile.Page
 				* @member ns.widget.mobile.Listview.Fastscroll

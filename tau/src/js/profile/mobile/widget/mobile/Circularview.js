@@ -28,8 +28,8 @@
 	define(
 		[
 			"../../../../core/engine",
+			"../../../../core/event",
 			"../../../../core/event/vmouse",
-			"../../../../core/utils/events",
 			"../../../../core/utils/easing",
 			"../../../../core/utils/DOM/css",
 			"../../../../core/utils/selectors",
@@ -75,7 +75,7 @@
 				domutils = ns.utils.DOM,
 				selectors = ns.utils.selectors,
 				utils = ns.utils,
-				eventUtils = ns.utils.events,
+				eventUtils = ns.event,
 				engine = ns.engine,
 				easingUtils = ns.utils.easing,
 				dragEvents = {

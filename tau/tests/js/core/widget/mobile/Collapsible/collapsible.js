@@ -257,7 +257,7 @@
 		collapsible14.addEventListener('collapsed', handlers.checkIfProperlyCollapsed, false);
 		$("#collapsible14").collapsible();
 
-		ej.utils.events.trigger(collapsible14, 'collapse');
+		ej.event.trigger(collapsible14, 'collapse');
 		//checkIfProperlyCollapsed(collapsible14);
 	});
 
@@ -270,7 +270,7 @@
 		collapsible15.addEventListener('expanded', handlers.checkIfProperlyExpanded, false);
 
 		$("#collapsible15").collapsible();
-		ej.utils.events.trigger(collapsible15, 'expand');
+		ej.event.trigger(collapsible15, 'expand');
 		//checkIfProperlyExpanded(collapsible15);
 	});
 }());

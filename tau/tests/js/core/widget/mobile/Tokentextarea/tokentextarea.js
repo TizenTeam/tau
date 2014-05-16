@@ -61,14 +61,14 @@ var blockEventTests = function (element) {
 
     elementQux = element.getElementsByTagName("div")[0];
     elementCorge = element.getElementsByTagName("div")[1];
-    ej.utils.events.trigger(elementQux, "vclick");
+    ej.event.trigger(elementQux, "vclick");
     equal(ej.engine.instanceWidget(element).select(), "qux", "Block selected by click");
 
-    ej.utils.events.trigger(elementCorge, "vclick");
+    ej.event.trigger(elementCorge, "vclick");
     equal(ej.engine.instanceWidget(element).select(), "corge", "Block change selected by click");
 
-    ej.utils.events.trigger(elementQux, "vclick");
-    ej.utils.events.trigger(elementQux, "vclick");
+    ej.event.trigger(elementQux, "vclick");
+    ej.event.trigger(elementQux, "vclick");
     equal(ej.engine.instanceWidget(element).length(), 1, "Block remove by click");
     ej.engine.instanceWidget(element).destroy();
 };

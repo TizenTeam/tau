@@ -4,8 +4,7 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../event", // fetch namespace
-			"../utils/events"
+			"../event" // fetch namespace
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -22,7 +21,7 @@
 				},
 				timer,
 				origTarget,
-				eventUtils = ns.utils.events,
+				eventUtils = ns.event,
 				swipeStart = {},
 				swipeStop = {},
 				clickHandler;

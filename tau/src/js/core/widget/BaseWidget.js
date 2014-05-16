@@ -127,7 +127,7 @@
 	define(
 		[
 			"../engine",
-			"../utils/events",
+			"../event",
 			"../utils/object",
 			"../utils/DOM/attributes",
 			"../widget"
@@ -152,12 +152,12 @@
 				engineDataTau = engine.dataTau,
 				utils = ns.utils,
 				/**
-				* @property {Object} eventUtils Alias to {@link ns.utils.events}
+				* @property {Object} eventUtils Alias to {@link ns.event}
 				* @member ns.widget.BaseWidget
 				* @private
 				* @static
 				*/
-				eventUtils = utils.events,
+				eventUtils = ns.event,
 				/**
 				* @property {Object} domUtils Alias to {@link ns.utils.DOM}
 				* @private

@@ -12,6 +12,7 @@
 		[
 			"./jqm",
 			"../core/engine",
+			"../core/event",
 			"../core/event/vmouse",
 			"../core/event/orientationchange",
 			"../core/event/pinch",
@@ -20,7 +21,7 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 
-			var utilsEvent = ns.utils.events,
+			var utilsEvent = ns.event,
 				orginalTrigger,
 				orginalDispatch,
 				eventType = {
@@ -126,7 +127,7 @@
 				* @static
 				*/
 				init: function () {
-					var event = ns.event,
+					var events = ns.event,
 						removeEvents = function (event) {
 							event.stopPropagation();
 							event.preventDefault();

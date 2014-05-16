@@ -104,7 +104,7 @@
 			"../../../../core/engine",
 			"../../../../core/utils/selectors",
 			"../../../../core/utils/DOM/css",
-			"../../../../core/utils/events",
+			"../../../../core/event",
 			"../../../../core/theme",
 			"../mobile", // fetch namespace
 			"./Scrollview",

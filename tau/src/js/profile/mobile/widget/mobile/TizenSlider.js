@@ -30,7 +30,7 @@
 	define(
 		[
 			"../../../../core/engine",
-			"../../../../core/utils/events",
+			"../../../../core/event",
 			"../../../../core/utils/DOM/css",
 			"../mobile",
 			"./Slider",
@@ -42,7 +42,7 @@
 			var Slider = ns.widget.mobile.Slider,
 				Button = ns.widget.mobile.Button,
 				engine = ns.engine,
-				events = ns.utils.events,
+				events = ns.event,
 				objectUtils = ns.utils.object,
 				DOM = ns.utils.DOM,
 				POPUP_WIDTH = {

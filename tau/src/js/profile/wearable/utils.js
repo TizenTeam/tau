@@ -28,9 +28,9 @@
 			"../../core/utils/path",
 			"../../core/utils/DOM/attributes",
 			"../../core/utils/DOM/css",
-			"../../core/utils/events",
 			"../../core/utils/object",
 			"../../core/utils/selectors",
+			"../../core/event",
 			"../../core/event/gesture"
 		],
 		function () {
@@ -38,8 +38,8 @@
 
 			document.addEventListener(frameworkNamespace.engine.eventType.INIT, function () {
 				var utils = frameworkNamespace.utils,
+					events = frameworkNamespace.event,
 					utilsDOM = utils.DOM,
-					events = utils.events,
 					utilsObject = utils.object;
 				/**
 				 * @class tau.path

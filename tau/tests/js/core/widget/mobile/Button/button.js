@@ -165,16 +165,16 @@ $().ready(function() {
 	test('vmouse events', function () {
 		var buttonA = $('#button-10a');
 		buttonA.button();
-		ej.utils.events.trigger(buttonA[0], 'vmousedown')
+		ej.event.trigger(buttonA[0], 'vmousedown')
 		ok(buttonA.parent().hasClass('ui-btn-down-s'), 'Button is pressed');
 		ok(!buttonA.parent().hasClass('ui-btn-up-s'), 'Button is pressed');
-		ej.utils.events.trigger(buttonA[0], 'vmouseup')
+		ej.event.trigger(buttonA[0], 'vmouseup')
 		ok(buttonA.parent().hasClass('ui-btn-up-s'), 'Button is not pressed');
 		ok(!buttonA.parent().hasClass('ui-btn-down-s'), 'Button is not pressed');
-		ej.utils.events.trigger(buttonA[0], 'vmouseover')
+		ej.event.trigger(buttonA[0], 'vmouseover')
 		ok(buttonA.parent().hasClass('ui-btn-hover-s'), 'Button is in hover state');
 		ok(!buttonA.parent().hasClass('ui-btn-up-s'), 'Button is in hover state');
-		ej.utils.events.trigger(buttonA[0], 'vmouseout')
+		ej.event.trigger(buttonA[0], 'vmouseout')
 		ok(buttonA.parent().hasClass('ui-btn-up-s'), 'Button is not in hover state');
 		ok(!buttonA.parent().hasClass('ui-btn-hover-s'), 'Button is not in hover state');
 	});

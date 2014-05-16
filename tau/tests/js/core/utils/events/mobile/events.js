@@ -1,4 +1,4 @@
-	module('ej.utils.events');
+	module('ej.event');
 
 	function mouseEvent(el, type){
 		var ev = document.createEvent("MouseEvent");
@@ -16,7 +16,7 @@
 	asyncTest('stop propagation', 1, function() {
 		var element = document.getElementById('test1');
 		element.addEventListener('vclick', function (event) {
-			ej.utils.events.stopPropagation(event);
+			ej.event.stopPropagation(event);
 			ok('First event');
 		}, true);
 		document.body.addEventListener('mouseup', function (event) {

@@ -27,8 +27,8 @@
 		[
 			"../../../../core/engine",
 			"../../../../core/theme",
+			"../../../../core/event",
 			"../../../../core/utils/DOM/attributes",
-			"../../../../core/utils/events",
 			"../mobile",  // fetch namespace
 			"./BaseWidgetMobile"
 		],
@@ -41,7 +41,7 @@
 				engine = ns.engine,
 				themes = ns.theme,
 				DOM = ns.utils.DOM,
-				events = ns.utils.events;
+				events = ns.event;
 
 			Searchbar.prototype = new BaseWidget();
 

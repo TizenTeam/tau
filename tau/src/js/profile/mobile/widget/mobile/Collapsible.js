@@ -30,10 +30,10 @@
 		[
 			"../../../../core/engine",
 			"../../../../core/theme",
+			"../../../../core/event",
 			"../../../../core/utils/selectors",
 			"../../../../core/utils/DOM/attributes",
 			"../../../../core/utils/DOM/manipulation",
-			"../../../../core/utils/events",
 			"../mobile",
 			"./BaseWidgetMobile",
 			"./Button"
@@ -69,7 +69,7 @@
 				* @private
 				* @static
 				*/
-				events = ns.utils.events,
+				events = ns.event,
 				/**
 				* Shortcut for slice method from Array.prototype
 				* @method slice

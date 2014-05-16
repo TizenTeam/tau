@@ -64,7 +64,7 @@
 		children = widget.element.children;
 		loader = element.lastElementChild;
 		button = document.getElementById('load_more_message').firstElementChild.firstElementChild;
-		trigger = ns.utils.events.trigger;
+		trigger = ns.event.trigger;
 
 		equal(children.length, 51, 'Initial number of elements is correct');
 		trigger(loader, 'click');
@@ -116,7 +116,7 @@
 
 		children = widget.element.children;
 		loader = element.lastElementChild;
-		trigger = ns.utils.events.trigger;
+		trigger = ns.event.trigger;
 
 		equal(children.length, 51, 'Initial number of elements is correct');
 		trigger(loader, 'click');
@@ -153,7 +153,7 @@
 
 		children = widget.element.children;
 		loader = element.lastElementChild;
-		trigger = ns.utils.events.trigger;
+		trigger = ns.event.trigger;
 
 		equal(children.length, 101, 'Initial number of elements is correct');
 		trigger(loader, 'click');

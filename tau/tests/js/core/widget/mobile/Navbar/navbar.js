@@ -164,15 +164,15 @@ module("Navbar", {
 				btn1 = navbar.getElementsByTagName('a')[1],
 				widget = ej.engine.instanceWidget(navbar, 'Navbar');
 
-			ej.utils.events.trigger(btn, 'vclick');
+			ej.event.trigger(btn, 'vclick');
 			ok (btn.classList.contains(ej.widget.mobile.Button.classes.uiBtnActive), 'Button has active class');
-			ej.utils.events.trigger(btn1, 'vclick');
+			ej.event.trigger(btn1, 'vclick');
 			ok (!btn.classList.contains(ej.widget.mobile.Button.classes.uiBtnActive), 'Button has not active class');
 			ok (btn1.classList.contains(ej.widget.mobile.Button.classes.uiBtnActive), 'Button has active class');
 			widget.destroy();
-			ej.utils.events.trigger(btn, 'vclick');
+			ej.event.trigger(btn, 'vclick');
 			ok (!btn.classList.contains(ej.widget.mobile.Button.classes.uiBtnActive), 'Button has not active class');
-			ej.utils.events.trigger(btn1, 'vclick');
+			ej.event.trigger(btn1, 'vclick');
 			ok (btn1.classList.contains(ej.widget.mobile.Button.classes.uiBtnActive), 'Button has active class');
 		});
 	});

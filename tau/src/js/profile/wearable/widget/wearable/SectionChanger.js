@@ -41,7 +41,7 @@
 				Gesture = ns.event.gesture,
 				engine = ns.engine,
 				utilsObject = ns.utils.object,
-				utilsEvents = ns.utils.events,
+				utilsEvents = ns.event,
 				eventType = {
 					CHANGE: "sectionchange"
 				};

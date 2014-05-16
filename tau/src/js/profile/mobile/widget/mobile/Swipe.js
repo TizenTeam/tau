@@ -27,7 +27,7 @@
 	define(
 		[
 			"../../../../core/engine",
-			"../../../../core/utils/events",
+			"../../../../core/event",
 			"../../../../core/event/touch",
 			"../mobile", //namespace
 			"./BaseWidgetMobile"
@@ -56,7 +56,7 @@
 				* @static
 				*/
 				engine = ns.engine,
-				events = ns.utils.events,
+				events = ns.event,
 				slice = [].slice,
 				swipePrototype,
 				classPrefix = 'ui-swipe',

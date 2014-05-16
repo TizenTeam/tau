@@ -1,5 +1,5 @@
 /*global module, asyncTest, $, equal, ej, ok, start, stop, MouseEvent */
-var events = ej.utils.events;
+var events = ej.event;
 document.addEventListener('DOMContentLoaded', function(){
 	"use strict";
 	asyncTest("Contacts", function(){

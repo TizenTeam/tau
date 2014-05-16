@@ -13,7 +13,7 @@
 	define([ "./core",
 			"./manager",
 			"./detector",
-			"../../utils/events",
+			"../../event",
 			"../../utils/object"
 		],
 		function () {
@@ -23,8 +23,8 @@
 				Detector = ns.event.gesture.Detector,
 
 				Manager = ns.event.gesture.Manager,
-				merge = ns.utils.object.merge,
-				events = ns.utils.events;
+				events = ns.event,
+				merge = ns.utils.object.merge;
 
 			Gesture.Instance = function( element, options ) {
 

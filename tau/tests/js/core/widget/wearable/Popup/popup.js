@@ -124,7 +124,7 @@
 
 		display = style.display;
 		visibility = style.visibility;
-		ej.utils.events.trigger(window, 'resize');
+		ej.event.trigger(window, 'resize');
 		popup1Widget.close();
 		equal(style.display, display, 'display the same after refresh');
 		equal(style.visibility, visibility, 'visibility the same after refresh');

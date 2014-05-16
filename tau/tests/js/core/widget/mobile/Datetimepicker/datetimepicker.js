@@ -337,7 +337,7 @@
 			document.removeEventListener('circularviewcreate', popupCreate, false);
 			ok(true, 'Popup was created');
 			equal($datetimepicker.datetimepicker('option', 'date').getMonth(), date.getMonth(), 'Datetimepicker get value');
-			ej.utils.events.trigger($('.ui-datetimepicker-selector a').get(3), 'vclick');
+			ej.event.trigger($('.ui-datetimepicker-selector a').get(3), 'vclick');
 		}
 
 		change = function(event) {
@@ -351,7 +351,7 @@
 
 		$datetimepicker.datetimepicker();
 		btn = $('.ui-datefield-' + field).get(0);
-		ej.utils.events.trigger(btn, 'vclick');
+		ej.event.trigger(btn, 'vclick');
 	}
 
 	//asyncTest ( "Datetimepicker, click month" ,3, testClick.bind(null, 'month'));

@@ -29,6 +29,7 @@
 	define(
 		[
 			"../../../../core/engine",
+			"../../../../core/event",
 			"../../../../core/utils/selectors",
 			"../mobile", // fetch namespace
 			"./BaseWidgetMobile",
@@ -63,7 +64,7 @@
 				 * @private
 				 * @static
 				 */
-				events = ns.utils.events,
+				events = ns.event,
 				/**
 				* @property {Object} buttonClasses Alias to {@link ns.widget.mobile.Button.classes}
 				* @member ns.widget.Dialog

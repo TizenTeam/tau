@@ -15,7 +15,6 @@
 			"./core/frameworkData",
 			"./core/theme",
 			"./core/theme/ThemeCommon",
-			"./core/utils/events",
 			"./core/utils/grid",
 			"./core/utils/data",
 			"./core/utils/array",

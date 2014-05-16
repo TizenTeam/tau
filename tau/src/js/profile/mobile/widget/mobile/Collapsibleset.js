@@ -32,8 +32,8 @@
 			"../../../../core/engine",
 			"../mobile",
 			"../../../../core/theme",
+			"../../../../core/event",
 			"../../../../core/utils/DOM/attributes",
-			"../../../../core/utils/events",
 			"../../../../core/utils/selectors",
 			"./BaseWidgetMobile",
 			"./Collapsible"
@@ -54,11 +54,11 @@
 				*/
 				widget = ns.widget,
 				/**
-				* @property {ns.utils.events} events alias variable
+				* @property {ns.event} events alias variable
 				* @private
 				* @static
 				*/
-				events = ns.utils.events,
+				events = ns.event,
 				/**
 				* @property {ns.utils.selectors} selectors alias variable
 				* @private

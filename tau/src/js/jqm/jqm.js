@@ -15,7 +15,7 @@
 			};
 			document.addEventListener(ns.engine.eventType.INIT, function () {
 				// Tell the world that JQM is ready to serve Tau
-				ns.utils.events.trigger(document, 'mobileinit');
+				ns.event.trigger(document, 'mobileinit');
 			}, false);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.jqm;

@@ -28,7 +28,7 @@
 			"../widget/mobile/Page",
 			"../widget/mobile/Loader",
 			"../../../core/utils",
-			"../../../core/utils/events",
+			"../../../core/event",
 			"../../../core/utils/DOM/attributes",
 			"../../../core/utils/selectors",
 			"../../../core/utils/deferred",
@@ -58,7 +58,7 @@
 				},
 				path = utils.path,
 				UtilsDeferred = ns.utils.deferred,
-				events = utils.events,
+				events = ns.event,
 				//existing base tag?
 				base = document.getElementsByTagName('base')[0],
 

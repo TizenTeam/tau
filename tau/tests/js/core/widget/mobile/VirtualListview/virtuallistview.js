@@ -97,7 +97,7 @@ var unit_virtuallistview = function (element, templateName) {
 	 * You should manually trigger event in qUnit test.
 	 *
 	 *  virtuallistview.ui.scrollview.scrollTo(0, 400, 0);
-	 *  ej.utils.events.trigger(virtuallistview.ui.scrollview.element, 'scrollstart');
+	 *  ej.event.trigger(virtuallistview.ui.scrollview.element, 'scrollstart');
 	 */
 
 		//clipHeight = virtuallistview.ui.scrollview.element.clientHeight;
@@ -109,7 +109,7 @@ var unit_virtuallistview = function (element, templateName) {
 
 	jump = Math.floor(resultsetHeight / 3) - 10;
 	virtuallistview.ui.scrollview.scrollTo(0, jump, 0);
-	ej.utils.events.trigger(virtuallistview.ui.scrollview.element, 'scrollstart');
+	ej.event.trigger(virtuallistview.ui.scrollview.element, 'scrollstart');
 	spanText = virtuallistview.element.firstChild.firstElementChild.innerText;
 	equal(virtuallistview._currentIndex, 0, '[Event] Data index after jump < 1/3 is correct');
 	equal(spanText, 'Abdelnaby, Alaa', '[DB] Data value at index 0 is correct');
@@ -119,7 +119,7 @@ var unit_virtuallistview = function (element, templateName) {
 
 	jump = Math.round(resultsetHeight / 3 * 2) * 2 + 10;
 	virtuallistview.ui.scrollview.scrollTo(0, jump, 0);
-	ej.utils.events.trigger(virtuallistview.ui.scrollview.element, 'scrollstart');
+	ej.event.trigger(virtuallistview.ui.scrollview.element, 'scrollstart');
 	spanText = virtuallistview.element.firstChild.firstElementChild.innerText;
 	equal(virtuallistview._currentIndex, 66, '[Event] Data index after 2/3 scroll from top is correct');
 	equal(spanText, 'Ball, Cedric', '[DB] Data value at index 66 is correct');
@@ -130,7 +130,7 @@ var unit_virtuallistview = function (element, templateName) {
 
 	jump = Math.round(resultsetHeight + resultsetHeight / 3 * 2);
 	virtuallistview.ui.scrollview.scrollTo(0, jump, 0);
-	ej.utils.events.trigger(virtuallistview.ui.scrollview.element, 'scrollstart');
+	ej.event.trigger(virtuallistview.ui.scrollview.element, 'scrollstart');
 	spanText = virtuallistview.element.firstChild.firstElementChild.innerText;
 	equal(virtuallistview._currentIndex, 116, '[Event] Data index after 4/3 scroll from top is correct');
 	equal(spanText, 'Cambridge, Dexter', '[DB] Data value at index 116 is correct');
@@ -142,10 +142,10 @@ var unit_virtuallistview = function (element, templateName) {
 
 	jump = 300;
 	virtuallistview.ui.scrollview.scrollTo(0, jump, 0);
-	ej.utils.events.trigger(virtuallistview.ui.scrollview.element, 'scrollstart');
+	ej.event.trigger(virtuallistview.ui.scrollview.element, 'scrollstart');
 
 	virtuallistview.ui.scrollview.scrollTo(0, 0, 0);
-	ej.utils.events.trigger(virtuallistview.ui.scrollview.element, 'scrollupdate');
+	ej.event.trigger(virtuallistview.ui.scrollview.element, 'scrollupdate');
 	spanText = virtuallistview.element.firstChild.firstElementChild.innerText;
 	equal(virtuallistview._currentIndex, 0, '[Event] Data index after TOP scroll from top is correct');
 	equal(spanText, 'Abdelnaby, Alaa', '[DB] Data value at index 0 is correct');

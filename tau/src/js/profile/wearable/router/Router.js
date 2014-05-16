@@ -31,7 +31,7 @@
 			"../../../core/router",
 			"./route", // fetch namespace
 			"./history",
-			"../../../core/utils/events",
+			"../../../core/event",
 			"../../../core/utils/DOM/attributes",
 			"../../../core/utils/selectors",
 			"../../../core/utils/path",
@@ -51,13 +51,13 @@
 				*/
 			var utils = ns.utils,
 				/**
-				* Local alias for ns.utils.events
-				* @property {Object} eventUtils Alias for {@link ns.utils.events}
+				* Local alias for ns.event
+				* @property {Object} eventUtils Alias for {@link ns.event}
 				* @member ns.router.wearable.Router
 				* @static
 				* @private
 				*/
-				eventUtils = utils.events,
+				eventUtils = ns.event,
 				/**
 				* @property {Object} DOM Alias for {@link ns.utils.DOM}
 				* @member ns.router.wearable.Router

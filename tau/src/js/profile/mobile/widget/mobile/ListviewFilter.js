@@ -28,7 +28,7 @@
 	define(
 		[
 			"../../../../core/engine",
-			"../../../../core/utils/events",
+			"../../../../core/event",
 			"../../../../core/utils/DOM/attributes",
 			"../../../../core/utils/DOM/manipulation",
 			"../../../../core/utils/selectors",
@@ -39,13 +39,13 @@
 		function () {
 			//>>excludeEnd('tauBuildExclude');
 			/**
-			* Local alias for ns.utils.events
-			* @property {Object} events Alias for {@link ns.utils.events}
+			* Local alias for ns.event
+			* @property {Object} events Alias for {@link ns.event}
 			* @member ns.widget.mobile.Listview.Filter
 			* @static
 			* @private
 			*/
-			var events = ns.utils.events,
+			var events = ns.event,
 
 				/**
 				* Local alias for ns.engine

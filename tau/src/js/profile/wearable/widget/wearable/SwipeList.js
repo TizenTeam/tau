@@ -26,16 +26,16 @@
 	define(
 		[
 			"../../../../core/engine",
+			"../../../../core/event",
 			"../../../../core/event/gesture",
 			"../../../../core/utils/selectors",
-			"../../../../core/utils/events",
 			"../../../../core/widget/BaseWidget",
 			"../wearable"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var Gesture = ns.event.gesture,
-				utilsEvents = ns.utils.events,
+				utilsEvents = ns.event,
 				engine = ns.engine,
 				selectors = ns.utils.selectors,
 

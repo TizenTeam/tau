@@ -125,11 +125,11 @@
 
 		widget.addEventListener("test", testEvent);
 
-		ej.utils.events.trigger(elem1, "test");
+		ej.event.trigger(elem1, "test");
 
 		setTimeout(function(){
 			widget.removeEventListener("test", testEvent);
-			ej.utils.events.trigger(elem1, "test");
+			ej.event.trigger(elem1, "test");
 			start();
 		}, 100);
 	});
@@ -147,7 +147,7 @@
 			start();
 		});
 
-		ej.utils.events.trigger(elemA, "click");
+		ej.event.trigger(elemA, "click");
 	});
 
 	function touchevent (elem1, widget) {
@@ -202,7 +202,7 @@
 
 		equal(widget.options.maxIndexLen, 13,"maxIndexLen before resize");
 		document.getElementById("container").classList.add("small");
-		ej.utils.events.trigger(window, "resize");
+		ej.event.trigger(window, "resize");
 		equal(widget.options.maxIndexLen, 5,"maxIndexLen after resize - small container");
 		list = widget.element.children[0];
 		equal(list.children.length, 5, "List has 5 children");
@@ -214,10 +214,10 @@
 
 		document.getElementById("container").classList.remove("small");
 		document.getElementById("container").classList.add("big");
-		ej.utils.events.trigger(window, "resize");
+		ej.event.trigger(window, "resize");
 		equal(widget.options.maxIndexLen, 15,"maxIndexLen after resize - big container");
 
 		document.getElementById("container").classList.remove("big");
-		ej.utils.events.trigger(window, "resize");
+		ej.event.trigger(window, "resize");
 		equal(widget.options.maxIndexLen, 13,"maxIndexLen after resize - normal container");
 	});

@@ -146,36 +146,36 @@
 			vList = tau.widget.VirtualListview(elList);
 
 		vList.scrollTo(0);
-		ns.utils.events.trigger(scrollview, 'scroll');
+		ns.event.trigger(scrollview, 'scroll');
 
 		vList.scrollTo(300);
-		ns.utils.events.trigger(scrollview, 'scroll');
+		ns.event.trigger(scrollview, 'scroll');
 		ok(scrollview.scrollTop === 300, 'scrollTop is set to 300');
 
 		vList.scrollTo(500);
-		ns.utils.events.trigger(scrollview, 'scroll');
+		ns.event.trigger(scrollview, 'scroll');
 
 		ok(scrollview.scrollTop === 500, 'scrollTop is set to 500');
-		ns.utils.events.trigger(scrollview, 'scroll');
+		ns.event.trigger(scrollview, 'scroll');
 
 		vList.scrollTo(2000);
-		ns.utils.events.trigger(scrollview, 'scroll');
+		ns.event.trigger(scrollview, 'scroll');
 		ok(scrollview.scrollTop === 2000, 'scrollTop is set to 2000');
 
 		vList.scrollTo(5000);
-		ns.utils.events.trigger(scrollview, 'scroll');
+		ns.event.trigger(scrollview, 'scroll');
 		ok(scrollview.scrollTop === 5000, 'scrollTop is set to 5000');
 
 		vList.scrollTo(3000);
-		ns.utils.events.trigger(scrollview, 'scroll');
+		ns.event.trigger(scrollview, 'scroll');
 		ok(scrollview.scrollTop === 3000, 'scrollTop is set to 3000');
 
 		vList.scrollTo(0);
-		ns.utils.events.trigger(scrollview, 'scroll');
+		ns.event.trigger(scrollview, 'scroll');
 		ok(scrollview.scrollTop === 0, 'scrollTop is set to 0');
 
 		vList.scrollTo(30000000);
-		ns.utils.events.trigger(scrollview, 'scroll');
+		ns.event.trigger(scrollview, 'scroll');
 		ok(scrollview.scrollTop > 30000 && scrollview.scrollTop < 20000000, 'scrollTop is set to max');
 	});
 

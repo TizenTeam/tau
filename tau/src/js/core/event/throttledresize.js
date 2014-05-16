@@ -4,8 +4,7 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../event", // fetch namespace
-			"../utils/events"
+			"../event" // fetch namespace
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -14,7 +13,7 @@
 					"ttl": 250
 				},
 				timerID,
-				eventUtils = ns.utils.events,
+				eventUtils = ns.event,
 				resizeHandler = function () {
 					if (timerID) {
 						window.clearTimeout(timerID);

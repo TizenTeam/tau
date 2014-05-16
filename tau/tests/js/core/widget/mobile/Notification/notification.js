@@ -100,7 +100,7 @@ var unit_notification = function (element, type, icon, interval) {
 
 	/* Hide when click */
 	notification.open();
-	ej.utils.events.trigger(notification.element, 'vmouseup');
+	ej.event.trigger(notification.element, 'vmouseup');
 	ok(notification._ui.wrapper.classList.contains("hide"), "[Event] vmouseup");
 
 	if (interval === true) {

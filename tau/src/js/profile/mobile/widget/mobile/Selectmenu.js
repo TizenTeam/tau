@@ -60,8 +60,8 @@
 		[
 			"../../../../core/engine",
 			"../../../../core/theme",
+			"../../../../core/event",
 			"../../../../core/utils/selectors",
-			"../../../../core/utils/events",
 			"../mobile",
 			"./BaseWidgetMobile",
 			"./Button"
@@ -85,7 +85,7 @@
 				* @private
 				* @static
 				*/
-				events = ns.utils.events,
+				events = ns.event,
 				/**
 				* @property {Object} selectors alias variable
 				* @private

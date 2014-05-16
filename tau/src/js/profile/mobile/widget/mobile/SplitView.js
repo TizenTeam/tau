@@ -32,7 +32,7 @@
 			"../../../../core/utils/DOM",
 			"../../../../core/theme",
 			"../../../../core/utils/selectors",
-			"../../../../core/utils/events",
+			"../../../../core/event",
 			"../mobile", // fetch namespace
 			"./BaseWidgetMobile",
 			"./Scrollview"
@@ -43,7 +43,7 @@
 				engine = ns.engine,
 				selectors = ns.utils.selectors,
 				DOM = ns.utils.DOM,
-				events = ns.utils.events,
+				events = ns.event,
 				classes,
 
 				SplitView = function () {

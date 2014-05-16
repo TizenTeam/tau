@@ -35,7 +35,7 @@
 		testWidget.prototype._bindEvents = function (element) {
 			element.addEventListener("test-event", function (evt) {
 				var data = evt.detail.testData;
-				ej.utils.events.trigger(element, "test-event-bounce", {"testData": data*data});
+				ej.event.trigger(element, "test-event-bounce", {"testData": data*data});
 			}, false);
 		};
 		testWidget.prototype._destroy = function (element) {

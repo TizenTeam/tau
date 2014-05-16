@@ -159,16 +159,16 @@
 	test('vmouse events', function () {
 		var buttonA = document.getElementById('button-10a');
 		ej.engine.instanceWidget(buttonA, 'Button');
-		ej.utils.events.trigger(buttonA, 'vmousedown');
+		ej.event.trigger(buttonA, 'vmousedown');
 		ok(buttonA.parentNode.classList.contains('ui-btn-down-s'), 'Button is pressed');
 		ok(!buttonA.parentNode.classList.contains('ui-btn-up-s'), 'Button is pressed');
-		ej.utils.events.trigger(buttonA, 'vmouseup');
+		ej.event.trigger(buttonA, 'vmouseup');
 		ok(buttonA.parentNode.classList.contains('ui-btn-up-s'), 'Button is not pressed');
 		ok(!buttonA.parentNode.classList.contains('ui-btn-down-s'), 'Button is not pressed');
-		ej.utils.events.trigger(buttonA, 'vmouseover');
+		ej.event.trigger(buttonA, 'vmouseover');
 		ok(buttonA.parentNode.classList.contains('ui-btn-hover-s'), 'Button is in hover state');
 		ok(!buttonA.parentNode.classList.contains('ui-btn-up-s'), 'Button is in hover state');
-		ej.utils.events.trigger(buttonA, 'vmouseout');
+		ej.event.trigger(buttonA, 'vmouseout');
 		ok(buttonA.parentNode.classList.contains('ui-btn-up-s'), 'Button is not in hover state');
 		ok(!buttonA.parentNode.classList.contains('ui-btn-hover-s'), 'Button is not in hover state');
 	});

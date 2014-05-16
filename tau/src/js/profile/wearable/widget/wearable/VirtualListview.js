@@ -129,7 +129,7 @@
 	define(
 			[
 				"../../../../core/engine",
-				"../../../../core/utils/events",
+				"../../../../core/event",
 				"../../../../core/widget/BaseWidget",
 				"../wearable" // fetch namespace
 			],
@@ -143,7 +143,7 @@
 						 * @member ns.widget.wearable.VirtualListview
 						 */
 						engine = ns.engine,
-						events = ns.utils.events,
+						events = ns.event,
 						// Constants definition
 						/**
 						 * @property {number} SCROLL_UP Defines index of scroll `{@link ns.widget.wearable.VirtualListview#_scroll}.direction`

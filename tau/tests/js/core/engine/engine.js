@@ -11,7 +11,7 @@
 			// @NOTE: ACTUAL TESTS HERE!
 			document.removeEventListener("tauinit", test1, false);
 			var engine = ej.engine,
-				eventUtils = ej.utils.events,
+				eventUtils = ej.event,
 				el1 = document.getElementById("test1-test-widget"),
 				el3 = document.body.querySelector(".test-widget-built"),
 				widget1 = engine.instanceWidget(el1, 'Test1', {
@@ -98,7 +98,7 @@
 			buildChild;
 
 		ok(!widget, 'widget not created');
-		ej.utils.events.trigger(document.body, 'create');
+		ej.event.trigger(document.body, 'create');
 		widget = engine.getBinding("test1-test-widget");
 		ok(widget, 'widget Test1 created');
 		//widget = engine.getBinding("page1");

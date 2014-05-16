@@ -28,7 +28,7 @@
 			"../../../../../core/engine",
 			"../../../../../core/utils/selectors",
 			"../../../../../core/utils/object",
-			"../../../../../core/utils/events",
+			"../../../../../core/event",
 			"../../../../../core/event/gesture",
 			"./effect/Bouncing",
 			"../scroller"
@@ -40,8 +40,8 @@
 				Gesture = ns.event.gesture,
 				engine = ns.engine,
 				utilsObject = ns.utils.object,
-				utilsEvents = ns.utils.events,
-				eventTrigger = ns.utils.events.trigger,
+				utilsEvents = ns.event,
+				eventTrigger = utilsEvents.trigger,
 				prototype = new BaseWidget(),
 				EffectBouncing = ns.widget.wearable.scroller.effect.Bouncing,
 				eventType = {

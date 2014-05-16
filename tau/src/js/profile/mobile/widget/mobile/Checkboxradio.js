@@ -39,10 +39,10 @@
 	define(
 		[
 			"../../../../core/engine",
+			"../../../../core/event",
 			"../../../../core/utils/selectors",
 			"../../../../core/utils/DOM/attributes",
 			"../../../../core/utils/DOM/manipulation",
-			"../../../../core/utils/events",
 			"./Button",
 			"../mobile", // fetch namespace
 			"./BaseWidgetMobile"
@@ -113,7 +113,7 @@
 				* @private
 				* @static
 				*/
-				events = ns.utils.events,
+				events = ns.event,
 				/**
 				* @property {Function} slice Alias for function Array.slice
 				* @member ns.widget.Checkboxradio

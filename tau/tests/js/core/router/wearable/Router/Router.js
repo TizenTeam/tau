@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	'use strict';
 	var Router = ej.router.wearable.Router,
 		engine = ej.engine,
-		utilsEvent = ej.utils.events,
+		utilsEvent = ej.event,
 		router = engine.getRouter(),
 		helper = {
 			createPage: function (id) {

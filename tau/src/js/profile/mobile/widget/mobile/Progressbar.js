@@ -103,7 +103,7 @@
 			"../../../../core/engine",
 			"../mobile",
 			"./BaseWidgetMobile",
-			"../../../../core/utils/events"
+			"../../../../core/event"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -111,7 +111,7 @@
 			var BaseWidget = ns.widget.mobile.BaseWidgetMobile,
 
 
-				events = ns.utils.events,
+				events = ns.event,
 				/**
 				* @property {ns.engine} engine Alias for class ns.engine
 				* @member ns.widget.mobile.Progressbar

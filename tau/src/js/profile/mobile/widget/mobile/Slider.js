@@ -32,7 +32,7 @@
 			"../../../../core/theme",
 			"../../../../core/utils/DOM/attributes",
 			"../../../../core/utils/DOM/css",
-			"../../../../core/utils/events",
+			"../../../../core/event",
 			"../../../../core/utils/selectors",
 			"../../../../core/event/vmouse",
 			"../mobile", // fetch namespace
@@ -66,7 +66,7 @@
 				BaseWidget = ns.widget.mobile.BaseWidgetMobile,
 				Button = ns.widget.mobile.Button,
 				engine = ns.engine,
-				events = ns.utils.events,
+				events = ns.event,
 				themes = ns.theme,
 				selectors = ns.utils.selectors,
 				DOMutils = ns.utils.DOM,

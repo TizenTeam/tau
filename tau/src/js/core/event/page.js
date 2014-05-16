@@ -4,12 +4,11 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../event", // fetch namespace
-			"../utils/events"
+			"../event" // fetch namespace
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var eventUtils = ns.utils.events,
+			var eventUtils = ns.event,
 				pagebeforechange = {
 					trigger: function (element, options) {
 						eventUtils.trigger(element, "orientationchange", {'options': options});

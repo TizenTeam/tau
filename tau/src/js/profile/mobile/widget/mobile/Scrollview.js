@@ -26,8 +26,8 @@
 	define(
 		[
 			"../../../../core/engine",
+			"../../../../core/event",
 			"../../../../core/utils/easing",
-			"../../../../core/utils/events",
 			"../../../../core/utils/DOM/css",
 			"../../../../core/utils/DOM/attributes",
 			"../../../../core/utils/selectors",
@@ -65,11 +65,11 @@
 				 */
 					easingUtils = ns.utils.easing,
 				/**
-				 * @property {Object} eventUtils Alias to ns.utils.events
+				 * @property {Object} eventUtils Alias to ns.event
 				 * @private
 				 * @member ns.widget.mobile.Scrollview
 				 */
-					eventUtils = ns.utils.events,
+					eventUtils = ns.event,
 				/**
 				 * @property {Object} DOMUtils Alias to ns.utils.DOM
 				 * @private

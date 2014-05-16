@@ -55,11 +55,11 @@
 		[
 			"../../../../core/engine",
 			"../../../../core/theme",
+			"../../../../core/event",
 			"../../../../core/utils/selectors",
 			"../../../../core/utils/DOM/attributes",
 			"../../../../core/utils/DOM/manipulation",
 			"../../../../core/utils/DOM/css",
-			"../../../../core/utils/events",
 			"../../../../core/utils/deferred",
 			"../../../../core/utils/deferredWhen",
 			"../mobile",
@@ -193,11 +193,11 @@
 				*/
 				themes = ns.theme,
 				/**
-				* @property {Object} events Alias for class ns.utils.events
+				* @property {Object} events Alias for class ns.event
 				* @member ns.widget.mobile.Popup
 				* @private
 				*/
-				events = ns.utils.events,
+				events = ns.event,
 				scrollviewClipClass = ns.widget.mobile.Scrollview.classes.clip,
 				pageActiveClass = ns.widget.mobile.Page.classes.uiPageActive,
 				/**

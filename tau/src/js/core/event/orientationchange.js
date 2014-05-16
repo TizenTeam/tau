@@ -4,8 +4,7 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../event", // fetch namespace
-			"../utils/events"
+			"../event" // fetch namespace
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -20,7 +19,7 @@
 			*/
 			var body = document.body,
 				orientation = null,
-				eventUtils = ns.utils.events,
+				eventUtils = ns.event,
 				orientationchange = {
 					supported: (window.orientation !== undefined) && (window.onorientationchange !== undefined),
 					getOrientation: function () {

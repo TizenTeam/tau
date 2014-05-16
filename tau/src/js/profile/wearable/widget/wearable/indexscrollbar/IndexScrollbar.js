@@ -30,7 +30,7 @@
 	define(
 		[
 			"../../../../../core/engine",
-			"../../../../../core/utils/events",
+			"../../../../../core/event",
 			"../../../../../core/utils/DOM/css",
 			"../indexscrollbar",
 			"./IndexBar",
@@ -65,12 +65,12 @@
 			 */
 				engine = ns.engine,
 			/**
-			 * @property {Object} events Alias for class {@link ns.utils.events}
+			 * @property {Object} events Alias for class {@link ns.event}
 			 * @member ns.widget.wearable.IndexScrollbar
 			 * @private
 			 * @static
 			 */
-				events = ns.utils.events,
+				events = ns.event,
 			/**
 			 * @property {Object} doms Alias for class {@link ns.utils.DOM}
 			 * @member ns.widget.wearable.IndexScrollbar

@@ -36,7 +36,7 @@
 			"../../../../core/utils/DOM/attributes",
 			"../../../../core/utils/DOM/css",
 			"../../../../core/utils/selectors",
-			"../../../../core/utils/events",
+			"../../../../core/event",
 			"../../../../core/event/vmouse",
 			"../mobile",
 			"./BaseWidgetMobile",
@@ -94,7 +94,7 @@
 				},
 				buttonClasses = Button.classes,
 				selectors = ns.utils.selectors,
-				eventUtils = ns.utils.events,
+				eventUtils = ns.event,
 				/**
 				 * Alias to Array.slice
 				 * @method slice

@@ -24,8 +24,7 @@
 	define(
 		[
 			"../event", // fetch namespace
-			"./touch",
-			"../utils/events"
+			"./touch"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -43,7 +42,7 @@
 					processing : false,
 					current : []
 				},
-				utilsEvents = ns.utils.events,
+				utilsEvents = ns.event,
 				pinchMin,
 				pinchMax,
 				threshold,

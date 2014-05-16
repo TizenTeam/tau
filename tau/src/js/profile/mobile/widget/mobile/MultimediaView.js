@@ -37,7 +37,7 @@
 			'../../../../core/utils/DOM/attributes',
 			'../../../../core/utils/selectors',
 			'../../../../core/utils/object',
-			'../../../../core/utils/events',
+			'../../../../core/event',
 			'./BaseWidgetMobile',
 			"./Button",
 			'./Page',
@@ -64,13 +64,13 @@
 				*/
 				engine = ns.engine,
 				/**
-				* Local alias for ns.utils.events
-				* @property {Object} engine Alias for {@link ns.utils.events}
+				* Local alias for ns.event
+				* @property {Object} engine Alias for {@link ns.event}
 				* @member ns.widget.MultimediaView
 				* @static
 				* @private
 				*/
-				events = ns.utils.events,
+				events = ns.event,
 				/**
 				* Local alias for ns.utils
 				* @property {Object} engine Alias for {@link ns.utils}

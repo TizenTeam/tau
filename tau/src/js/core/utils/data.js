@@ -5,12 +5,12 @@
 	define(
 		[
 			"../utils", // fetch namespace
-			"./events"
+			"../event"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var hashMap = {},
-				eventUtils = ns.utils.events,
+				eventUtils = ns.event,
 				body = document.body,
 				fetchDom = function (element, key) {
 					var dataKey = 'data-' + key,

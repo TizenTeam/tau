@@ -24,7 +24,7 @@
 		[
 			"require",
 			"./core",
-			"./utils/events",
+			"./event",
 			"./utils/selectors"
 		],
 		function () {
@@ -37,12 +37,12 @@
 			 */
 			var slice = [].slice,
 				/**
-				 * @property {Object} eventUtils {@link ns.utils.events}
+				 * @property {Object} eventUtils {@link ns.event}
 				 * @private
 				 * @static
 				 * @member ns.engine
 				 */
-				eventUtils = ns.utils.events,
+				eventUtils = ns.event,
 				selectors = ns.utils.selectors,
 				/**
 				 * @property {Object} widgetDefs Object with widgets definitions

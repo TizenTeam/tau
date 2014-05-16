@@ -27,13 +27,13 @@ test ("ej" , function () {
 	var orgConsole = window.console;
 	window.console = {
 		log: function (arg1, arg2, arg3) {
-			ej.utils.events.trigger(document.body, 'consolelog', arg1+' '+arg2+' '+arg3);
+			ej.event.trigger(document.body, 'consolelog', arg1+' '+arg2+' '+arg3);
 		},
 		warn: function (arg1, arg2, arg3) {
-			ej.utils.events.trigger(document.body, 'consolewarn', arg1+' '+arg2+' '+arg3);
+			ej.event.trigger(document.body, 'consolewarn', arg1+' '+arg2+' '+arg3);
 		},
 		error: function (arg1, arg2, arg3) {
-			ej.utils.events.trigger(document.body, 'consoleerror', arg1+' '+arg2+' '+arg3);
+			ej.event.trigger(document.body, 'consoleerror', arg1+' '+arg2+' '+arg3);
 		}
 	}
 

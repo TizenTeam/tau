@@ -31,7 +31,7 @@
 		[
 			"../../../core/engine",
 			"../../../core/router", // fetch namespace
-			"../../../core/utils/events",
+			"../../../core/event",
 			"../../../core/utils/DOM/attributes",
 			"../../../core/utils/DOM/manipulation",
 			"../../../core/utils/selectors",
@@ -43,7 +43,7 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var eventUtils = ns.utils.events,
+			var eventUtils = ns.event,
 				DOM = ns.utils.DOM,
 				selectors = ns.utils.selectors,
 				object = ns.utils.object,

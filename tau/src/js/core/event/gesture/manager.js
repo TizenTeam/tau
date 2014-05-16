@@ -19,7 +19,7 @@
 
 			var Gesture = ns.event.gesture,
 				objectMerge = ns.utils.object.merge,
-				TOUCH_DEVICE = ns.event.touchDevice;
+				TOUCH_DEVICE = "ontouchstart" in window;
 
 			Gesture.Manager = (function() {
 				var instance = null,

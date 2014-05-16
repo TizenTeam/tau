@@ -14,7 +14,7 @@
 			"../core/utils/selectors",
 			"../core/utils/globalize",
 			"../core/utils/object",
-			"../core/utils/events",
+			"../core/event",
 			"../core/utils/zoom",
 			"../core/utils/load"
 		],
@@ -37,7 +37,7 @@
 				nsNormalizeDict = {},
 				utils = ns.utils,
 				zoom = utils.zoom,
-				events = utils.events,
+				events = ns.event,
 				load = utils.load,
 				utilsObject = utils.object,
 				engine = ns.engine;
