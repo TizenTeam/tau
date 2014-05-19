@@ -69,7 +69,10 @@ module.exports = function(grunt) {
 				getCssFiles: function( device ) {
 					var rtn = [],
 						list = themes.device[device],
-						i=0, len=list.length, theme;
+						i=0,
+						len=list.length,
+						theme;
+
 					for(; i < len; i++) {
 						theme = list[i];
 						rtn.push({
@@ -77,7 +80,25 @@ module.exports = function(grunt) {
 							dest: path.join( buildCss, device, theme.name, name ) + ".css"
 						});
 					}
+
 					return rtn;
+				},
+
+				getDefault: function( device ) {
+					var list = themes.device[device],
+						i=0,
+						len=list.length,
+						theme;
+
+					for(; i < len; i++) {
+						theme = list[i];
+						if ( theme["default"] === "true" ) {
+							return {
+								src: path.join(buildCss, device, theme.name),
+								dest: path.join( buildCss, device, "default" )
+							};
+						}
+					}
 				},
 
 				licenseFiles: [],
@@ -226,11 +247,11 @@ module.exports = function(grunt) {
 			},
 
 			copy: {
-				wimages: {
+				wearableImages: {
 					files: files.image.getImageFiles( "wearable" )
 				},
 
-				mimages: {
+				mobileImages: {
 					files: files.image.getImageFiles( "mobile" )
 				},
 
@@ -252,6 +273,16 @@ module.exports = function(grunt) {
 						{expand: true, cwd: "build/grunt/doc/tasks/templates/files", src: "**/*", dest: "docs/sdk/wearable/html/widgets"}
 					]
 				}
+			},
+
+			symlink: {
+				options: {
+					overwrite: false
+				},
+
+				wearableTheme: files.css.getDefault( "wearable" ),
+
+				mobileTheme: files.css.getDefault( "mobile" )
 			},
 
 			"string-replace": {
@@ -337,12 +368,12 @@ module.exports = function(grunt) {
 					tasks : [ "requirejs" ]
 				},
 
-				wcss: {
+				wearableCss: {
 					files : [ "src/css/profile/wearable/**/*.less" ],
 					tasks : [ "less:wearable" ]
 				},
 
-				mcss: {
+				mobileCss: {
 					files : [ "src/css/profile/mobile/**/*.less" ],
 					tasks : [ "less:mobile" ]
 				},
@@ -495,15 +526,16 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks( "grunt-contrib-cssmin" );
 	grunt.loadNpmTasks( "grunt-contrib-watch" );
 	grunt.loadNpmTasks( "grunt-string-replace" );
+	grunt.loadNpmTasks( "grunt-contrib-symlink" );
 
 	// Load framework custom tasks
 	grunt.loadTasks('tools/grunt/tasks');
 
 	grunt.registerTask( "lint", [ /* "jshint", @TODO fix all errors and revert*/ ] );
 	grunt.registerTask( "jsmin", [ "findFiles:js.setMinifiedFiles", "uglify" ] );
-	grunt.registerTask( "image", [ "copy:wimages", "copy:mimages" ] );
+	grunt.registerTask( "image", [ "copy:wearableImages", "copy:mobileImages" ] );
 
-	grunt.registerTask("css", [ "clean:css", "less", "cssmin", "image" ]);
+	grunt.registerTask("css", [ "clean:css", "less", "cssmin", "image", "symlink" ]);
 	grunt.registerTask("js", [ "clean:js", "requirejs", "jsmin", "themesjs", "copy:globalize" ]);
 	grunt.registerTask("license", [ "findFiles:js.setLicenseFiles", "findFiles:css.setLicenseFiles", "concat", "copy:license" ]);
 
