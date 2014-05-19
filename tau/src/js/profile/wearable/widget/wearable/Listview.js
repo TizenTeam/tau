@@ -5,7 +5,7 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../../../core/wearable",
+			"../../../../profile/wearable/widget/wearable",
 			"../../../../core/widget/BaseWidget"
 		],
 		function () {
@@ -14,7 +14,7 @@
 				engine = ns.engine,
 				/**
 				* Listview widget
-				* @class ns.widget.Listview
+				* @class ns.widget.wearable.Listview
 				* @extends ns.widget.BaseWidget
 				*/
 				Listview = function () {
@@ -30,7 +30,7 @@
 			* @private
 			* @param {HTMLElement} element
 			* @return {HTMLElement}
-			* @member ns.widget.Listview
+			* @member ns.widget.wearable.Listview
 			*/
 			prototype._build = function (element) {
 				return element;
@@ -48,7 +48,7 @@
 			* refresh structure
 			* @method _refresh
 			* @new
-			* @member ns.widget.Listview
+			* @member ns.widget.wearable.Listview
 			*/
 			prototype._refresh = function () {
 				return null;
@@ -57,7 +57,7 @@
 			/**
 			* @method _destroy
 			* @private
-			* @member ns.widget.Listview
+			* @member ns.widget.wearable.Listview
 			*/
 			prototype._destroy = function () {
 				return null;
