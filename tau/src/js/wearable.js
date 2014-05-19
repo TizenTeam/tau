@@ -25,12 +25,11 @@
 			"./profile/wearable/router/Router",
 			"./profile/wearable/router/route/page",
 			"./profile/wearable/router/route/popup",
-			"./profile/wearable/router/history"
+			"./profile/wearable/router/history",
+			"./core/init"
 		],
 		function (require) {
-			require(["./core/init"], function () {
-				return true;
-			});
+			return;
 		}
 	);
 }());

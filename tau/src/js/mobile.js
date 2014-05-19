@@ -82,12 +82,11 @@
 			"./profile/mobile/widget/mobile/TizenSlider",
 			"./profile/mobile/widget/mobile/SplitView",
 			"./profile/mobile/widget/mobile/ScrollHandler",
-			"../css/profile/mobile/theme-black/theme"
+			"../css/profile/mobile/theme-black/theme",
+			"./core/init"
 		],
 		function (require) {
-			require(["./core/init"], function () {
-				return true;
-			});
+			return;
 		}
 	);
 }());
