@@ -40,7 +40,7 @@
 					}
 				},
 
-				THEMES_DIRECTORY = 'themes',
+				THEMES_DIRECTORY = '../theme',
 				THEME_JS_FILE_NAME = 'theme.js',
 				THEME_CSS_FILE_NAME = 'tau',
 
