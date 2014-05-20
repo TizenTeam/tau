@@ -190,7 +190,7 @@
 				dataUrl = path.convertUrlToDataUrl(absUrl, dialogHashKey, documentBase, documentUrl);
 
 				// Make sure we have a pageContainer to work with.
-				//settings.pageContainer = settings.pageContainer || ns.getConfig('pageContainer');
+				settings.pageContainer = settings.pageContainer || ns.getConfig('pageContainer', document.body);
 
 				// Check to see if the page already exists in the DOM.
 				// NOTE do _not_ use the :jqmData psuedo selector because parenthesis
