@@ -247,6 +247,34 @@ module.exports = function(grunt) {
 			}
 		},
 
+		"string-replace": {
+			jsduck: {
+				files: {
+					'tmp/jsduck/' : 'dist/**/*.js'
+				},
+				options: {
+					replacements: [
+						{
+							pattern: /([ \t]*)@memberOf([ \t]*)/gi,
+							replacement: '$1@member$2'
+						},
+						{
+							pattern: /.*\@namespace.*/gi,
+							replacement: ''
+						},
+						{
+							pattern: /.*\@instance.*/ig,
+							replacement: ''
+						},
+						{
+							pattern: /.*\@expose.*/ig,
+							replacement: ''
+						}
+					]
+				}
+			}
+		},
+
 		concat: {
 			licenseJs: {
 				files: files.js.licenseFiles
@@ -258,7 +286,15 @@ module.exports = function(grunt) {
 
 		clean: {
 			js: [ buildJs ],
-			css: [ buildCss ]
+			css: [ buildCss ],
+			docs: {
+				expand: true,
+				src: ['docs']
+			},
+			tmp: {
+				expand: true,
+				src: ['tmp']
+			}
 		},
 
 		qunit: {
@@ -309,6 +345,48 @@ module.exports = function(grunt) {
 		obj();
 	});
 
+	grunt.registerTask('jsduck', ['clean:tmp', 'clean:docs', 'string-replace:jsduck', 'jsduckDocumentation']);
+
+	grunt.registerTask('jsduckDocumentation', 'Compile JSDuck documentation', function () {
+			var cmd = 'jsduck',
+					src = [path.join('tmp', 'jsduck')],
+					dest = path.join('docs', 'jsduck'),
+					args,
+					done = this.async(),
+					environmentClasses = ['DocumentFragment', 'CustomEvent', 'HTMLUListElement', 'HTMLOListElement', 'HTMLCollection', 'HTMLBaseElement', 'HTMLImageElement', 'WebGLRenderingContext', 'WebGLProgram', 'jQuery', 'DOMTokenList'],
+					jsduck;
+
+			if (!grunt.file.exists("docs")) {
+					grunt.file.mkdir("docs");
+			}
+
+			args = src.concat([
+					'--eg-iframe=./tools/jsduck-preview.html',
+					'--external=' + environmentClasses.join(','),
+					'--output', dest
+			]);
+
+			grunt.verbose.writeflags(args, "Arguments");
+
+			jsduck = grunt.util.spawn({
+					cmd: cmd,
+					args: args
+			}, function (error, result, code) {
+					grunt.file.delete(path.join('tmp' ,'jsduck'), {force: true});
+					if (code === 127) {   // 'command not found'
+							return grunt.warn(
+									'You need to have Ruby and JSDuck installed and in your PATH for ' +
+											'this task to work. ' +
+											'See https://github.com/dpashkevich/grunt-jsduck for details.'
+							);
+					}
+					done(error);
+			});
+
+			jsduck.stdout.pipe(process.stdout);
+			jsduck.stderr.pipe(process.stderr);
+	});
+
 	grunt.loadNpmTasks( "grunt-contrib-clean" );
 	grunt.loadNpmTasks( "grunt-contrib-copy" );
 	grunt.loadNpmTasks( "grunt-contrib-concat" );
@@ -318,6 +396,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks( "grunt-contrib-less" );
 	grunt.loadNpmTasks( "grunt-contrib-cssmin" );
 	grunt.loadNpmTasks( "grunt-contrib-watch" );
+	grunt.loadNpmTasks( "grunt-string-replace" );
 
 	// Load framework custom tasks
 	grunt.loadTasks('tools/grunt/tasks');
