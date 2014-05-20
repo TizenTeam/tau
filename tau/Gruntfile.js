@@ -128,231 +128,232 @@ module.exports = function(grunt) {
 				grunt.config('qunit.main', testModules);
 			}
 			done();
-        },
-
-	initConfig = {
-		version: version,
-
-		jshint: {
-			js: {
-				options: {
-					jshintrc: path.join(srcJs, ".jshintrc")
-				},
-				files: {
-					src: [ path.join(srcJs, "**/*.js") ]
-				}
-			}
 		},
 
-		requirejs: {
-			wearable: {
-				options: {
-					baseUrl: srcJs,
-					optimize: "none",
-					findNestedDependencies: true,
-					skipModuleInsertion: true,
-					name: "wearable",
-					out: path.join( buildWearableJs, name ) + ".js",
-					pragmasOnSave: {
-						tauBuildExclude: true,
-						tauDebug: true
+		initConfig = {
+			version: version,
+
+			jshint: {
+				js: {
+					options: {
+						jshintrc: path.join(srcJs, ".jshintrc")
 					},
-					wrap: {
-						start: wrapStart,
-						end: wrapEnd
-					},
-					done: qunitPrepare
+					files: {
+						src: [ path.join(srcJs, "**/*.js") ]
+					}
 				}
 			},
 
-			mobile: {
-				options: {
-					baseUrl: srcJs,
-					optimize: "none",
-					findNestedDependencies: true,
-					skipModuleInsertion: true,
-					name: "mobile",
-					out: path.join( buildMobileJs, name ) + ".js",
-					pragmasOnSave: {
-						tauBuildExclude: true,
-						tauDebug: true
-					},
-					wrap: {
-						start: wrapStart,
-						end: wrapEnd
-					},
-					done: qunitPrepare
-				}
-			}
-		},
-
-		less : {
-			wearable : {
-				files : files.css.getCssFiles("wearable")
-			},
-
-			mobile: {
-				files : files.css.getCssFiles("mobile")
-			}
-		},
-
-		uglify: {
-			options: {
-				beautify: {
-					ascii_only: true
-				},
-				compress: {
-					drop_console: true
-				}
-			},
-
-			all: {
-				files: files.js.minifiedFiles
-			}
-		},
-
-		cssmin: {
-			options: {
-				keepSpecialComments: 0
-			},
-
-			all: {
-				expand: true,
-				cwd: buildCss,
-				src: ["**/*.css", "!**/*.min.css"],
-				dest: buildCss,
-				ext: ".min.css"
-			}
-		},
-
-		copy: {
-			wimages: {
-				files: files.image.getImageFiles( "wearable" )
-			},
-
-			mimages: {
-				files: files.image.getImageFiles( "mobile" )
-			},
-
-			license: {
-				src: "LICENSE.Flora",
-				dest: path.join( dist, "LICENSE" ) + ".Flora"
-			},
-
-			globalize: {
-				expand: true,
-				cwd: "libs/globalize/lib/",
-				src: "cultures/**/*",
-				dest: buildMobileJs
-			},
-
-            "sdk-docs": {
-                files: [
-                    {expand: true, cwd: "build/grunt/doc/tasks/templates/files", src: "**/*", dest: "docs/sdk/mobile/html/widgets"},
-                    {expand: true, cwd: "build/grunt/doc/tasks/templates/files", src: "**/*", dest: "docs/sdk/wearable/html/widgets"}
-                ]
-            }
-		},
-
-		"string-replace": {
-			jsduck: {
-				files: {
-					'tmp/jsduck/' : 'dist/**/*.js'
-				},
-				options: {
-					replacements: [
-						{
-							pattern: /([ \t]*)@memberOf([ \t]*)/gi,
-							replacement: '$1@member$2'
+			requirejs: {
+				wearable: {
+					options: {
+						baseUrl: srcJs,
+						optimize: "none",
+						findNestedDependencies: true,
+						skipModuleInsertion: true,
+						name: "wearable",
+						out: path.join( buildWearableJs, name ) + ".js",
+						pragmasOnSave: {
+							tauBuildExclude: true,
+							tauDebug: true
 						},
-						{
-							pattern: /.*\@namespace.*/gi,
-							replacement: ''
+						wrap: {
+							start: wrapStart,
+							end: wrapEnd
 						},
-						{
-							pattern: /.*\@instance.*/ig,
-							replacement: ''
+						done: qunitPrepare
+					}
+				},
+
+				mobile: {
+					options: {
+						baseUrl: srcJs,
+						optimize: "none",
+						findNestedDependencies: true,
+						skipModuleInsertion: true,
+						name: "mobile",
+						out: path.join( buildMobileJs, name ) + ".js",
+						pragmasOnSave: {
+							tauBuildExclude: true,
+							tauDebug: true
 						},
-						{
-							pattern: /.*\@expose.*/ig,
-							replacement: ''
-						}
+						wrap: {
+							start: wrapStart,
+							end: wrapEnd
+						},
+						done: qunitPrepare
+					}
+				}
+			},
+
+			less : {
+				wearable : {
+					files : files.css.getCssFiles("wearable")
+				},
+
+				mobile: {
+					files : files.css.getCssFiles("mobile")
+				}
+			},
+
+			uglify: {
+				options: {
+					beautify: {
+						ascii_only: true
+					},
+					compress: {
+						drop_console: true
+					}
+				},
+
+				all: {
+					files: files.js.minifiedFiles
+				}
+			},
+
+			cssmin: {
+				options: {
+					keepSpecialComments: 0
+				},
+
+				all: {
+					expand: true,
+					cwd: buildCss,
+					src: ["**/*.css", "!**/*.min.css"],
+					dest: buildCss,
+					ext: ".min.css"
+				}
+			},
+
+			copy: {
+				wimages: {
+					files: files.image.getImageFiles( "wearable" )
+				},
+
+				mimages: {
+					files: files.image.getImageFiles( "mobile" )
+				},
+
+				license: {
+					src: "LICENSE.Flora",
+					dest: path.join( dist, "LICENSE" ) + ".Flora"
+				},
+
+				globalize: {
+					expand: true,
+					cwd: "libs/globalize/lib/",
+					src: "cultures/**/*",
+					dest: buildMobileJs
+				},
+
+				"sdk-docs": {
+					files: [
+						{expand: true, cwd: "build/grunt/doc/tasks/templates/files", src: "**/*", dest: "docs/sdk/mobile/html/widgets"},
+						{expand: true, cwd: "build/grunt/doc/tasks/templates/files", src: "**/*", dest: "docs/sdk/wearable/html/widgets"}
 					]
 				}
+			},
+
+			"string-replace": {
+				jsduck: {
+					files: {
+						'tmp/jsduck/' : 'dist/**/*.js'
+					},
+					options: {
+						replacements: [
+							{
+								pattern: /([ \t]*)@memberOf([ \t]*)/gi,
+								replacement: '$1@member$2'
+							},
+							{
+								pattern: /.*\@namespace.*/gi,
+								replacement: ''
+							},
+							{
+								pattern: /.*\@instance.*/ig,
+								replacement: ''
+							},
+							{
+								pattern: /.*\@expose.*/ig,
+								replacement: ''
+							}
+						]
+					}
+				}
+			},
+
+			concat: {
+				licenseJs: {
+					files: files.js.licenseFiles
+				},
+				licenseCss: {
+					files: files.css.licenseFiles
+				}
+			},
+
+			clean: {
+				js: [ buildJs ],
+				css: [ buildCss ],
+				docs: {
+					expand: true,
+					src: ['docs']
+				},
+				tmp: {
+					expand: true,
+					src: ['tmp']
+				}
+			},
+
+			qunit: {
+				options: {
+					'--web-security': 'no'
+				}
+			},
+
+			"sdk-docs-html": {
+				mobile: {
+					profile: "mobile",
+					files: {
+						src: ['dist/js/mobile/tau.js']
+					}
+				},
+				wearable: {
+					profile: "wearable",
+					files: {
+						src: ['dist/js/wearable/tau.js']
+					}
+				}
+			},
+
+			watch: {
+				options: {
+					// Start a live reload server on the default port 35729
+					livereload: true,
+					interrupt: true
+				},
+
+				js: {
+					files : [ "src/js/**/*.js" ],
+					tasks : [ "requirejs" ]
+				},
+
+				wcss: {
+					files : [ "src/css/profile/wearable/**/*.less" ],
+					tasks : [ "less:wearable" ]
+				},
+
+				mcss: {
+					files : [ "src/css/profile/mobile/**/*.less" ],
+					tasks : [ "less:mobile" ]
+				},
+
+				image: {
+					files : [ "src/css/**/*.png" ],
+					tasks : [ "image" ]
+				}
 			}
-		},
+		};
 
-		concat: {
-			licenseJs: {
-				files: files.js.licenseFiles
-			},
-			licenseCss: {
-				files: files.css.licenseFiles
-			}
-		},
-
-		clean: {
-			js: [ buildJs ],
-			css: [ buildCss ],
-			docs: {
-				expand: true,
-				src: ['docs']
-			},
-			tmp: {
-				expand: true,
-				src: ['tmp']
-			}
-		},
-
-		qunit: {
-			options: {
-				'--web-security': 'no'
-			}
-		},
-
-        "sdk-docs-html": {
-            mobile: {
-                profile: "mobile",
-                files: {
-                    src: ['dist/js/mobile/tau.js']
-                }
-            },
-            wearable: {
-                profile: "wearable",
-                files: {
-                    src: ['dist/js/wearable/tau.js']
-                }
-            }
-        },
-
-		watch: {
-			options: {
-				// Start a live reload server on the default port 35729
-				livereload: true,
-				interrupt: true
-			},
-
-			js: {
-				files : [ "src/js/**/*.js" ],
-				tasks : [ "requirejs" ]
-			},
-
-			wcss: {
-				files : [ "src/css/profile/wearable/**/*.less" ],
-				tasks : [ "less:wearable" ]
-			},
-
-			mcss: {
-				files : [ "src/css/profile/mobile/**/*.less" ],
-				tasks : [ "less:mobile" ]
-			},
-
-			image: {
-				files : [ "src/css/**/*.png" ],
-				tasks : [ "image" ]
-			}
-		}
-	};
 
     grunt.loadTasks('build/grunt/doc/tasks');
 
@@ -413,6 +414,77 @@ module.exports = function(grunt) {
 			jsduck.stderr.pipe(process.stderr);
 	});
 
+	function findDefaultTheme(profileName) {
+		return themes['device'][profileName].filter(function (theme) {
+			return theme['default'] === 'true';
+		}).shift();
+	}
+
+	// add requirejs tasks to build themes.
+	(function() {
+		var requirejs = initConfig.requirejs,
+			profileName,
+			source;
+
+		for (profileName in themes['device']) {
+			themes['device'][profileName].forEach(function (theme) {
+				source = path.join("..", "css", "profile", profileName, "theme-" + theme.name, 'theme');
+				if (grunt.file.exists(path.join(srcJs, source + '.js'))) {
+					requirejs["themejs_" + profileName + '_' + theme.name] = {
+						options: {
+							baseUrl: srcJs,
+							optimize: "none",
+							skipModuleInsertion: true,
+							exclude: [ profileName ],
+							name: path.join("..", "css", "profile", profileName, "theme-" + theme.name, 'theme'),
+							out: path.join( dist, "theme", profileName, theme.name, 'theme' ) + '.js',
+							pragmasOnSave: {
+								tauBuildExclude: true,
+								tauDebug: true
+							},
+							wrap: {
+								start: '(function (ns) {',
+								end: '}(tau._export));'
+							}
+						}
+					};
+				}
+			});
+		}
+	})();
+
+	// append default theme to profile
+	(function() {
+		var requirejs = initConfig.requirejs,
+			defaultTheme,
+			profileName,
+			include;
+
+		for (profileName in themes['device']) {
+			defaultTheme = findDefaultTheme(profileName);
+			if (defaultTheme !== undefined &&
+					requirejs["themejs_" + profileName + '_' + defaultTheme.name]) {
+				include = requirejs[profileName].options.include || [];
+				include.push(
+					path.join("..", "css", "profile", profileName, "theme-" + defaultTheme.name, 'theme')
+				);
+				requirejs[profileName].options.include = include;
+			}
+		}
+	}());
+
+	grunt.initConfig(initConfig);
+
+	// Generate separate themes files
+	grunt.registerTask("themesjs", "Generate themes files using requirejs", function() {
+		var task;
+		for (task in initConfig.requirejs) {
+			if (initConfig.requirejs.hasOwnProperty(task) && task.indexOf('themejs_') !== -1) {
+				grunt.task.run("requirejs:" + task);
+			}
+		}
+	});
+
 	grunt.loadNpmTasks( "grunt-contrib-clean" );
 	grunt.loadNpmTasks( "grunt-contrib-copy" );
 	grunt.loadNpmTasks( "grunt-contrib-concat" );
@@ -432,7 +504,7 @@ module.exports = function(grunt) {
 	grunt.registerTask( "image", [ "copy:wimages", "copy:mimages" ] );
 
 	grunt.registerTask("css", [ "clean:css", "less", "cssmin", "image" ]);
-	grunt.registerTask("js", [ "clean:js", "requirejs", "jsmin", "copy:globalize" ]);
+	grunt.registerTask("js", [ "clean:js", "requirejs", "jsmin", "themesjs", "copy:globalize" ]);
 	grunt.registerTask("license", [ "findFiles:js.setLicenseFiles", "findFiles:css.setLicenseFiles", "concat", "copy:license" ]);
 
 	grunt.registerTask("release", [ "clean", "lint", "css", "js", "license", "version" ]);
