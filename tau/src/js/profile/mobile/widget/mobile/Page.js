@@ -303,7 +303,7 @@
 									moreButton = selectors.getChildrenBySelector(section, "[data-icon='naviframe-more']");
 									if(moreButton.length){
 										footerWidth -= utilsDOM.getElementWidth(moreButton[0]);
-									}origin/devel/webappfw/tau
+									}
 									footerButtonWidth = footerWidth/footerButtons.length;
 									footerButtons.forEach(function (button) {
 										var buttonStyle = button.style;
