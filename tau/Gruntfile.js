@@ -165,6 +165,8 @@ module.exports = function(grunt) {
 				}
 			},
 
+			// Test module (tools/grunt/tasks/tests.js) add callback for [profileName].options.done
+			// If here is something changed, please verify it in tests module also.
 			requirejs: {
 				wearable: {
 					options: {
@@ -181,8 +183,7 @@ module.exports = function(grunt) {
 						wrap: {
 							start: wrapStart,
 							end: wrapEnd
-						},
-						done: qunitPrepare
+						}
 					}
 				},
 
@@ -273,6 +274,14 @@ module.exports = function(grunt) {
 						{expand: true, cwd: "build/grunt/doc/tasks/templates/files", src: "**/*", dest: "docs/sdk/wearable/html/widgets"}
 					]
 				}
+			},
+
+			licenseCss: {
+				files: files.css.licenseFiles
+			},
+
+			"ej-namespace": {
+				//the task added in tests.js used for tests
 			},
 
 			symlink: {
@@ -504,43 +513,43 @@ module.exports = function(grunt) {
 		}
 	}());
 
-	grunt.initConfig(initConfig);
-
-	// Generate separate themes files
-	grunt.registerTask("themesjs", "Generate themes files using requirejs", function() {
+	function themesjs() {
 		var task;
 		for (task in initConfig.requirejs) {
 			if (initConfig.requirejs.hasOwnProperty(task) && task.indexOf('themejs_') !== -1) {
 				grunt.task.run("requirejs:" + task);
 			}
 		}
-	});
+	}
 
-	grunt.loadNpmTasks( "grunt-contrib-clean" );
-	grunt.loadNpmTasks( "grunt-contrib-copy" );
-	grunt.loadNpmTasks( "grunt-contrib-concat" );
-	grunt.loadNpmTasks( "grunt-contrib-requirejs" );
-	grunt.loadNpmTasks( "grunt-contrib-jshint" );
-	grunt.loadNpmTasks( "grunt-contrib-uglify" );
-	grunt.loadNpmTasks( "grunt-contrib-less" );
-	grunt.loadNpmTasks( "grunt-contrib-cssmin" );
-	grunt.loadNpmTasks( "grunt-contrib-watch" );
-	grunt.loadNpmTasks( "grunt-string-replace" );
-	grunt.loadNpmTasks( "grunt-contrib-symlink" );
+	grunt.initConfig(initConfig);
+
+	// npm tasks
+	grunt.loadNpmTasks("grunt-contrib-clean");
+	grunt.loadNpmTasks("grunt-contrib-copy");
+	grunt.loadNpmTasks("grunt-contrib-concat");
+	grunt.loadNpmTasks("grunt-contrib-requirejs");
+	grunt.loadNpmTasks("grunt-contrib-jshint");
+	grunt.loadNpmTasks("grunt-contrib-uglify");
+	grunt.loadNpmTasks("grunt-contrib-less");
+	grunt.loadNpmTasks("grunt-contrib-cssmin");
+	grunt.loadNpmTasks("grunt-contrib-watch");
+	grunt.loadNpmTasks("grunt-string-replace");
+	grunt.loadNpmTasks("grunt-contrib-symlink");
 
 	// Load framework custom tasks
 	grunt.loadTasks('tools/grunt/tasks');
 
-	grunt.registerTask( "lint", [ /* "jshint", @TODO fix all errors and revert*/ ] );
-	grunt.registerTask( "jsmin", [ "findFiles:js.setMinifiedFiles", "uglify" ] );
-	grunt.registerTask( "image", [ "copy:wearableImages", "copy:mobileImages" ] );
-
+	// Task list
+	grunt.registerTask("themesjs", "Generate themes files using requirejs", themesjs);  // Generate separate themes files
+	grunt.registerTask("lint", [ /* "jshint", @TODO fix all errors and revert*/ ] );
+	grunt.registerTask("jsmin", [ "findFiles:js.setMinifiedFiles", "uglify" ]);
+	grunt.registerTask("image", [ "copy:wearableImages", "copy:mobileImages" ]);
 	grunt.registerTask("css", [ "clean:css", "less", "cssmin", "image", "symlink" ]);
 	grunt.registerTask("js", [ "clean:js", "requirejs", "jsmin", "themesjs", "copy:globalize" ]);
-	grunt.registerTask("license", [ "findFiles:js.setLicenseFiles", "findFiles:css.setLicenseFiles", "concat", "copy:license" ]);
-
+	grunt.registerTask("license", [ "findFiles:js.setLicenseFiles", "findFiles:css.setLicenseFiles", "concat:licenseJs", "concat:licenseCss", "copy:license" ]);
 	grunt.registerTask("release", [ "clean", "lint", "css", "js", "license", "version" ]);
+    grunt.registerTask("sdk-docs", [ "sdk-docs-html:mobile", "sdk-docs-html:wearable", "copy:sdk-docs" ]);
 
 	grunt.registerTask("default", [ "release" ]);
-    grunt.registerTask("sdk-docs", [ "sdk-docs-html:mobile", "sdk-docs-html:wearable", "copy:sdk-docs" ]);
 };
