@@ -320,7 +320,7 @@
 					i;
 
 				//Set widget wrapper
-				uiElements.wrapper = element.firstChild;
+				uiElements.wrapper = element.firstElementChild;
 				wrapper = uiElements.wrapper;
 
 				//Set theme
