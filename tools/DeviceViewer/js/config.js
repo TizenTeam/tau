@@ -44,28 +44,28 @@ var properties = {
 	appList: [
 		{
 			name: "WearableWidgetSample",
-			path: "../../standalone/demos/WearableWidgetSample/"
-		},
-		{
-			name: "WatchOnWeb",
-			path: "../../standalone/demos/WatchOnWeb/index.html"
-		},
-		{
-			name: "WeatherDemo",
-			path: "../../standalone/demos/WeatherDemo/index.html",
+			path: "../../tau/demos/WearableWidgetSample/",
 			selected: true
 		},
 		{
+			name: "WatchOnWeb",
+			path: "../../tau/demos/WatchOnWeb/index.html"
+		},
+		{
+			name: "WeatherDemo",
+			path: "../../tau/demos/WeatherDemo/index.html"
+		},
+		{
 			name: "Fallback",
-			path: "../../standalone/demos/Fallback/index.html"
+			path: "../../tau/demos/Fallback/index.html"
 		},
 		{
 			name: "TemplateBasic",
-			path: "../../standalone/demos/TemplateBasic/index.html"
+			path: "../../tau/demos/TemplateBasic/index.html"
 		},
 		{
 			name: "TemplateList",
-			path: "../../standalone/demos/TemplateList/index.html"
+			path: "../../tau/demos/TemplateList/index.html"
 		}
 	],
 	/**
