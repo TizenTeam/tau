@@ -45,18 +45,27 @@
 			protoThemeCommon.storeAllWidgetOptions = function () {
 				var self = this,
 					i,
-					widgets = ns.engine.getDefinitions();
+					widgets = ns.engine.getDefinitions(),
+					widgetClass;
 				for (i in widgets) {
-					self.backup.widgetOptions[i] = utilsObject.copy(widgets[i].widgetClass.prototype.options);
+					if (widgets.hasOwnProperty(i)) {
+						widgetClass = widgets[i].widgetClass;
+						if (widgetClass) {
+							self.backup.widgetOptions[i] = utilsObject.copy(widgetClass.prototype.options);
+						}
+					}
 				}
 			};
 
 			protoThemeCommon.restoreAllWidgetOptions = function () {
 				var self = this,
 					i,
-					widgets = ns.engine.getDefinitions();
-				for (i in self.backup.widgetOptions) {
-					widgets[i].widgetClass.prototype.options = utilsObject.copy(self.backup.widgetOptions[i]);
+					widgets = ns.engine.getDefinitions(),
+					backup = self.backup.widgetOptions;
+				for (i in backup) {
+					if (backup.hasOwnProperty(i)) {
+						widgets[i].widgetClass.prototype.options = utilsObject.copy(backup[i]);
+					}
 				}
 			};
 			ThemeCommon.prototype = protoThemeCommon;
