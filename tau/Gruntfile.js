@@ -73,7 +73,7 @@ module.exports = function(grunt) {
 					for(; i < len; i++) {
 						theme = list[i];
 						rtn.push({
-							src: path.join(srcCss, theme.src),
+							src: path.join(srcCss, theme.path, theme.src),
 							dest: path.join( buildCss, device, theme.name, name ) + ".css"
 						});
 					}
@@ -121,9 +121,9 @@ module.exports = function(grunt) {
 						theme = list[i];
 						rtn.push({
 							expand: true,
-							cwd: path.join( srcCss, theme.images ),
+							cwd: path.join( srcCss, theme.path, theme.images ),
 							src: "**",
-							dest: path.join( buildCss, device, theme.name, theme.images.split("/").pop() )
+							dest: path.join( buildCss, device, theme.name, theme.images )
 						});
 					}
 					return rtn;
@@ -367,7 +367,7 @@ module.exports = function(grunt) {
 				},
 
 				image: {
-					files : [ "src/css/**/*.png" ],
+					files : [ "src/css/profile/**/*.png" ],
 					tasks : [ "image" ]
 				}
 			}

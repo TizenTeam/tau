@@ -13,3 +13,4 @@ tau/tests/libs/dist
 tau/dist
 tau/node_modules
 .idea
+node_modules
