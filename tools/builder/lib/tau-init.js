@@ -4,7 +4,7 @@
 	var config = require("./builder/config.js"),
 		builder = require("./builder/tau-builder.js"),
 		common = require("./builder/common.js"),
-		args = common.parseArguments(commandLineArguments),
+		args = common.parseArguments(environment['sun.java.command']), // hack for spaces in param values bug
 		os = common.getOS(),
 		profiles = args.profile ? [args.profile.split(",")] : ['wearable', 'mobile'],
 		rootNamespace = args['root-namespace'] || "tau",

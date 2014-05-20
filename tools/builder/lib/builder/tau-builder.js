@@ -6,13 +6,14 @@
 	JavaImporter(
 		java.io.File,
 		org.apache.commons.io.filefilter.FileFilterUtils
+
 	);
 
 	function printHelp() {
 		print("");
 		print("TAU framework builder");
 		print("---------------------");
-		print("")
+		print("");
 		print("Available options:");
 		print("--profile=NAME       Profile of framework (NAME = wearable|mobile|custom)");
 		print("--custom-file=PATH   Path for entry file (it only works with option --profile=custom)");
@@ -46,13 +47,16 @@
 			outputMin,
 			profileCfg = profileConfig[profile],
 			themes = profileCfg && profileCfg.themes,
+			themeKeys,
+			theme,
 			themeBase,
 			themeOutBase,
 			themeIn,
 			themeOut,
 			themeOutMin,
 			lessInput,
-			i;
+			i,
+			l;
 
 		if (profile == "custom") {
 			customProfileFile = config.get("custom-file");
@@ -74,8 +78,8 @@
 		}
 
 		filename = entry.getName();
-		profileDestination = config.get("destination") + sep + profile;
-		output = new File(profileDestination + sep + rootNamespace + ".js");
+		profileDestination = config.get("destination");
+		output = new File(profileDestination + sep + "js" + sep + profile + sep + rootNamespace + ".js");
 		outputMin = rootNamespace + ".min.js";
 
 		if (!entry.exists() || !entry.canRead() || !themes) {
@@ -93,39 +97,43 @@
 		}
 
 		try {
-			compiler.compile(output.getPath(), profileDestination + sep + outputMin);
+			compiler.compile(output.getPath(), profileDestination + sep + "js" + sep + profile + sep + outputMin);
 		} catch (e) {
 			logger.error(e.message);
 			return false;
 		}
 
-		i = themes.length;
-		while(--i >= 0) {
+
+		themeKeys = Object.keys(themes);
+		i = 0;
+		l = themeKeys.length;
+		for (i = 0, l = themeKeys.length; i < l; ++i) {
+			theme = themeKeys[i];
 			themeBase = currentDir +
 				sep +
 				"src" +
 				sep +
 				"css" +
 				sep +
-				"themes" +
+				"profile" +
 				sep +
-				"tizen" +
-				sep +
-				themes[i];
-			themeIn = themeBase + ".less";
+				themes[theme];
+			themeIn = themeBase + sep + "style.less";
 			themeOutBase = profileDestination +
 				sep +
-				"themes" +
+				"theme" +
 				sep +
-				themes[i];
+				profile +
+				sep +
+				theme;
 			themeOut = themeOutBase +
 				sep +
-				"theme.css";
+				"tau.css";
 			themeOutMin = themeOutBase +
 				sep +
-				"theme.min.css";
-			common.mkdir(profileDestination + sep + "themes" + sep + themes[i]);
+				"tau.min.css";
 			try {
+				common.mkdir(profileDestination + sep + "theme" + sep + profile + sep + theme);
 				logger.info("compiling less files");
 				lessCompiler.compile(themeIn, themeOut);
 				lessCompiler.compile(themeIn, themeOutMin, true);
@@ -141,11 +149,13 @@
 		// copy globalize
 		try {
 			logger.info("copy globalize");
-			common.copyContents(currentDir + sep + "libs" + sep + "globalize" + sep + "lib", profileDestination);
+			common.copyContents(currentDir + sep + "libs" + sep + "globalize" + sep + "lib", profileDestination + sep + "js" + sep + profile);
 		} catch (e) {
 			logger.error(e);
 			// return false; // dont stop
 		}
+
+		common.copyFile(currentDir + sep + "LICENSE.Flora", profileDestination + sep + "LICENSE.Flora");
 
 		return true;
 	};

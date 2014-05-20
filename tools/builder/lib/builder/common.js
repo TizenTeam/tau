@@ -33,6 +33,19 @@
 		return false;
 	}
 
+	function copyFile(source, destination) {
+		var src = new File(source),
+			dst = new File(destination);
+		logger.info("copy " + src.getPath());
+		try {
+			FileUtils.copyFile(src, dst);
+		} catch (e) {
+			logger.error("failed to copy", e);
+			return false;
+		}
+		return true;
+	}
+
 	function copyContents(sourcePath, destinationPath, filterFiles) {
 		var filter = filterFiles || FileFilterUtils.trueFileFilter(),
 			source = new File(sourcePath),
@@ -69,32 +82,41 @@
 		}
 	}
 
-	function parseArguments(args) {
-		var parsed = {},
-			arg,
-			prop,
-			cleanprop,
-			spl;
+	function trim(str) {
+		return str.trim();
+	}
 
-		for (prop in args) {
-			if (args.hasOwnProperty(prop)) {
-				arg = args[prop];
-				if (arg.indexOf("--") > -1) {
-					cleanprop = arg.replace(/--/i, "");
-					if (cleanprop.indexOf("=") > -1) {
-						spl = cleanprop.split("=");
-						parsed[spl[0].trim()] = spl[1].trim();
-					} else {
-						parsed[cleanprop] = true;
-					}
+	function removeEmpty(str) {
+		return str && str.length > 0;
+	}
+
+	function parseArguments(argumentString) {
+		var firstParamIndex,
+			paramPrefix = "--",
+			paramInfix = "=",
+			result = {},
+			paramsSplitedByPrefix,
+			paramSplitedByInfix,
+			argumentStringSub,
+			i,
+			l;
+
+		if (argumentString && (firstParamIndex = argumentString.indexOf(paramPrefix)) > -1) {
+			argumentStringSub = argumentString.substr(firstParamIndex);
+			if (argumentStringSub.length > 0) {
+				paramsSplitedByPrefix = argumentStringSub.split(paramPrefix).map(trim).filter(removeEmpty);
+				for (i = 0, l = paramsSplitedByPrefix.length; i < l; ++i) {
+					paramSplitedByInfix = paramsSplitedByPrefix[i].split(paramInfix).map(trim).filter(removeEmpty);
+					result[paramSplitedByInfix[0]] = paramSplitedByInfix[1] !== undefined ?
+							paramSplitedByInfix[1] : true;
 				}
 			}
 		}
-
-		return parsed;
+		return result;
 	}
 
 	exports.copyContents = copyContents;
+	exports.copyFile = copyFile;
 	exports.mkdir = mkdir;
 	exports.parseArguments = parseArguments;
 	exports.getArchitecture = function () {

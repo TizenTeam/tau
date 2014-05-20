@@ -1,13 +1,24 @@
+/*global exports */
 (function (exports) {
+	"use strict";
 	exports.config = {
 		wearable: {
-			themes: ["tizen-micro"]
+			themes: {
+				"black": "wearable/theme-black"
+			}
 		},
 		mobile: {
-			themes: ["tizen-black", "tizen-jqm", "tizen-white"]
+			themes: {
+				"black": "mobile/theme-black",
+				"white": "mobile/theme-white"
+			}
 		},
 		custom: {
-			themes: ["tizen-micro", "tizen-black", "tizen-jqm", "tizen-white"]
+			themes: {
+				"wearable-black": "wearable/theme-black",
+				"mobile-black": "mobile/theme-black",
+				"mobile-white": "mobile/theme-white"
+			}
 		}
 	};
 }(exports));
