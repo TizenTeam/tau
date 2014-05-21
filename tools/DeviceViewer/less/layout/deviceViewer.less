@@ -46,6 +46,7 @@ html, body {
 .panel-container {
 	display: block;
 	flex: 0 0 @panel-default-width;
+	width: @panel-default-width;
 
 	.panel-box {
 		background-color: @panel-background;
@@ -124,10 +125,7 @@ html, body {
 			.border-radius(3px);
 			height: 20px;
 		}
-
-
 	}
-
 }
 
 
@@ -157,6 +155,16 @@ html, body {
 
 		&.global-settings-checkbox {
 			margin-top: 10px;
+		}
+
+		&.custom-badge-size {
+			line-height: 1.1em;
+			width: 40px;
+			background-color: transparent;
+			color: @panel-top-color;
+			border-width: 0;
+			text-align: center;
+			margin-top: 0;
 		}
 	}
 
@@ -228,17 +236,20 @@ li:hover > .panel-submenu {
 	flex: 1 1 auto;
 }
 
-#leftPanel, #rightPanel, #centerPanel {
-	padding-top: @top-panel-height + 20;
+#mainPanel {
+	position: absolute;
+	display: block;
+	top: @top-panel-height;
+	min-width: 100%;
 }
 
 #topPanel {
 	width: 100%;
 	display: block;
-	position: absolute;
+	position: fixed;
 	padding: 0 10px;
 	line-height: @top-panel-height;
-	height: @top-panel-height;
+	min-height: @top-panel-height;
 	background-color: @panel-top-background;
 
 	color: @panel-top-color;
@@ -301,7 +312,6 @@ li:hover > .panel-submenu {
 	z-index: 0;
 
 	.box-sizing(border-box);
-
 
 	.theme-badge {
 		position: relative;

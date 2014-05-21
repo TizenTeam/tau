@@ -57,6 +57,15 @@
 			this.contentWindow = null;
 
 			/**
+			 *
+			 * @type {Array}
+			 */
+			this.history = [];
+			this.historyLock = false;
+			this.currentHistoryIndex = -1;
+
+
+			/**
 			 * @param {?Object} historyBackBound Binding for history back click event
 			 */
 			this.historyBackBound = null;
@@ -76,13 +85,13 @@
 	 */
 	function badgeClickHandler(badgePreview, event) {
 		var badgeList = badgePreview.badgeList,
-			currentBadge = event.currentTarget,
+			currentBadge = event.currentTarget || event.target.ownerDocument,
 			index = 0,
 			i;
 
 		// Find current badge
 		for (i = badgeList.length - 1; i >= 0; i -= 1) {
-			if (badgeList[i].element === currentBadge) {
+			if (badgeList[i].element === currentBadge || badgeList[i].contentWindow === currentBadge) {
 				index = i;
 				i = 0;
 			}
@@ -90,25 +99,76 @@
 		badgePreview.setActive(index);
 	}
 
+	/**
+	 * Pushes new badge history
+	 * @param {Badge} self
+	 * @param {string} type
+	 */
+	function pushBadgeHistory (self, type) {
+		var contentWindow = self.iframeElement.contentWindow;
+
+		if (!self.historyLock) {
+			//Remove further history if exists
+			self.history.splice(self.currentHistoryIndex + 1);
+
+			self.history.push({
+				href: contentWindow.location.href,
+				state: contentWindow.history.state,
+				type: type
+			});
+			self.currentHistoryIndex += 1;
+		}
+	}
 
 	/**
-	 * @TODO Remove common history - make history badge unique
 	 * @method historyTraverse
-	 * Traverse badge history. Please note, that in current version history traversing is global, not badge specified.
+	 * Traverse badge history. History is built on following events: load, hashChange and pageChange.
 	 * @param {Badge} self Badge instance
 	 * @param {string} direction History traverse direction (back or forward)
 	 */
 	function historyTraverse (self, direction) {
-		var history = self.contentWindow.history;
+		var badgeHistory = self.history,
+			contentWindow = self.contentWindow,
+			currentHistoryIndex = self.currentHistoryIndex,
+			contentWindowHistory = contentWindow.history,
+			targetHistoryState;
 
-		switch (direction) {
-			case 'back':
-				self.contentWindow.tau.back();
-				break;
-			case 'forward':
-				history.forward();
-				break;
+		// Prevent adding new badge history entry
+		self.historyLock = true;
+
+		// Calculate current history index
+		currentHistoryIndex += direction === 'forward' ? 1 : -1;
+
+		// Check if badge history index is not out of range
+		if (currentHistoryIndex >= 0 && currentHistoryIndex < badgeHistory.length) {
+
+			// Assign history state, that we want to achieve
+			targetHistoryState = badgeHistory[currentHistoryIndex];
+
+			// Check type of history state
+			switch (targetHistoryState.type) {
+				case 'loadEvent':
+					// Jump to target location
+					contentWindow.location.href = targetHistoryState.href;
+					break;
+				case 'hashChangeEvent':
+				case 'pageChangeEvent':
+					// Push new state to contentWindow history object. This state is a target state.
+					contentWindowHistory.pushState(targetHistoryState.state, '', targetHistoryState.href);
+
+					// Add a "fake" state. This state is only added to force browser to popState behaviour by "history jump" method.
+					contentWindowHistory.pushState(null, '', '');
+
+					// Do history jump
+					contentWindowHistory.go(-1);
+					break;
+			}
+		} else {
+			// Correct history index
+			currentHistoryIndex = currentHistoryIndex >= 0 ? badgeHistory.length - 1 : 0;
 		}
+		// Save badge history index
+		self.currentHistoryIndex = currentHistoryIndex;
 	}
 
 	/**
@@ -162,6 +222,7 @@
 		var iframe = event.srcElement,
 			styleTag,
 			frameDocument = iframe.contentDocument,
+			frameWindow = iframe.contentWindow,
 			frameDocumentHead = frameDocument.head,
 			frameStyleSheets = frameDocument.styleSheets,
 			sheet,
@@ -186,8 +247,35 @@
 		sheet.insertRule('::-webkit-scrollbar-thumb{ border-radius: 2px; background: #777777; }', 0);
 		sheet.insertRule('::-webkit-scrollbar-track-piece { height: 30px; }', 0);
 
+		// Add new badge history entry
+		pushBadgeHistory(self, 'loadEvent');
+
+		// Helper for badge focus change
+		frameWindow.addEventListener('click', badgeClickHandler.bind(null, self.badgePreview), true);
+
+		// Track change hash event
+		frameWindow.addEventListener('hashchange', function() {
+			// Add new badge history entry
+			pushBadgeHistory(self, 'hashChangeEvent');
+
+			// Unlock history
+			self.historyLock = false;
+		}, true);
+
+		// Track pageChange event for frameworks based on this event
+		frameWindow.document.addEventListener('pagechange', function() {
+			// Add new badge history entry
+			pushBadgeHistory(self, 'pageChangeEvent');
+
+			// Unlock history
+			self.historyLock = false;
+		}, true);
+
 		// Cache contentWindow
-		self.contentWindow = iframe.contentWindow;
+		self.contentWindow = frameWindow;
+
+		// Unlock history
+		self.historyLock = false;
 	}
 
 	/**
@@ -240,11 +328,13 @@
 
 		if (widthValue) {
 			properties.width = parseInt(widthValue, 10) || 0;
+			properties.displayWidth = Math.round(properties.width * properties.pixelRatio);
 			elementStyle.width = properties.width + 'px';
 		}
 
 		if (heightValue) {
 			properties.height = parseInt(heightValue, 10) || 0;
+			properties.displayHeight = Math.round(properties.height * properties.pixelRatio);
 			elementStyle.height = properties.height + 'px';
 		}
 		this.badgePreview.updateDevicePropertiesPanel(this);
@@ -334,6 +424,16 @@
 		// Replace current iframe...
 		iframe.setAttribute('src', url);
 		iframe.onload = badgeLoad.bind('', this);
+
+		// Clear history and ...
+		this.history = [];
+
+		// ... reset current index and ...
+		this.currentHistoryIndex = -1;
+
+		// ... unlock
+		this.historyLock = false;
+
 	};
 
 	Badge.prototype.destroy = function () {

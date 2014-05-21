@@ -43,29 +43,9 @@ var properties = {
 	 */
 	appList: [
 		{
-			name: "WearableWidgetSample",
-			path: "../../tau/demos/WearableWidgetSample/",
+			name: "Clock",
+			path: "demos/clock/index.html",
 			selected: true
-		},
-		{
-			name: "WatchOnWeb",
-			path: "../../tau/demos/WatchOnWeb/index.html"
-		},
-		{
-			name: "WeatherDemo",
-			path: "../../tau/demos/WeatherDemo/index.html"
-		},
-		{
-			name: "Fallback",
-			path: "../../tau/demos/Fallback/index.html"
-		},
-		{
-			name: "TemplateBasic",
-			path: "../../tau/demos/TemplateBasic/index.html"
-		},
-		{
-			name: "TemplateList",
-			path: "../../tau/demos/TemplateList/index.html"
 		}
 	],
 	/**
@@ -83,12 +63,6 @@ var properties = {
 			name: "Gear 2",
 			displayWidth: 320,
 			displayHeight: 320,
-			pixelRatio: 1
-		},
-		{
-			name: "Gear 3",
-			displayWidth: 360,
-			displayHeight: 480,
 			pixelRatio: 1
 		},
 		{
@@ -142,12 +116,6 @@ var properties = {
 				displayWidth: 320,
 				displayHeight: 320,
 				pixelRatio: 1
-			},
-			{
-				name: 'Gear 3',
-				displayWidth: 360,
-				displayHeight: 480,
-				pixelRatio: 1
 			}
 		],
 		/**
@@ -155,9 +123,9 @@ var properties = {
 		 * Default settings of badge
 		 */
 		defaultBadge: {
-			name: 'Gear 3',
-			displayWidth: 360,
-			displayHeight: 480,
+			name: 'Gear 2',
+			displayWidth: 320,
+			displayHeight: 320,
 			pixelRatio: 1
 		}
 	}

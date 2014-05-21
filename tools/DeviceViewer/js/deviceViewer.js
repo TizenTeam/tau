@@ -24,18 +24,31 @@
 				/**
 				 * root {string} Root path of Device Viewer
 				 */
-				root: ''
+				root: '',
+				/**
+				 * topPanel {HTMLElement} top panel with icon tools
+				 */
+				topPanel: null,
+				/**
+				 * mainPanel {HTMLElement} main panel, contains workspace and columns
+				 */
+				mainPanel: null
 			};
 
 			// Imports
 			this.badgePreview = {}; //deviceViewer.badgePreview.js
 			return this;
-	},
-	/**
-	 * @type {?HTMLElement} globalBadgeSize
-	 * Reference to HTML Element wit global badge size flag
-	 */
-	globalBadgeSize = null;
+		},
+		/**
+		 * @param {?HTMLElement} globalBadgeSize
+		 * Reference to HTML Element wit global badge size flag
+		 */
+		globalBadgeSize = null,
+		/**
+		 * @param {?Object} fixUIBound
+		 * Bounding to fix ui method
+		 */
+		fixUIBound = null;
 
 	/**
 	 * @method setBadgeProperties
@@ -68,6 +81,25 @@
 		badgePreview.resizeViewport(width, height, undefined, globalChange);
 	}
 
+	/**
+	 * @method fixUI
+	 * UI Fix. Keep badges and column always visible.
+	 * Checks if topPanel doesn't cover it.
+	 * @param {Event} event Resize event
+	 */
+	DeviceViewer.prototype.fixUI = function (event) {
+		var self = this,
+			config = self.config,
+			mainPanelStyle = config.mainPanel.style,
+			maxBadgeWidth = self.badgePreview.getMaxBadgeWidth(),
+			currentZoom = self.badgePreview.getViewportZoom(),
+			innerWidth = (event && event.target.window.innerWidth) || window.innerWidth,
+			offset = 100;
+
+		mainPanelStyle.top = config.topPanel.clientHeight + 'px';
+		mainPanelStyle.width = innerWidth + 'px';
+		mainPanelStyle.minWidth = (Math.round((maxBadgeWidth + offset) * currentZoom)) + 'px';
+	}
 
 	/**
 	 * @method resolvePath
@@ -211,6 +243,11 @@
 			}
 			appSelect.appendChild(tmpElement);
 		}
+
+		if (appListLength === 1) {
+			appSelect.disabled = true;
+		}
+
 		return appSelect;
 	};
 
@@ -228,6 +265,12 @@
 		// Set workspace defined by properties or get default workspace
 		config.workspace = document.getElementById(properties.workspaceElementId || "workspace");
 
+		// Set topPanel defined by properties or get default top panel
+		config.topPanel = document.getElementById(properties.topPanelElementId || "topPanel");
+
+		// Set mainPanel defined by properties or get default main panel
+		config.mainPanel = document.getElementById(properties.mainPanelElementId || "mainPanel");
+
 		// Fill select options with app names, that are ready to preview. Assign reference to select with app list.
 		config.appSelect = this.buildAppSelect(properties.appList);
 
@@ -238,6 +281,13 @@
 
 		// Ready to go, let's init Badge Preview!
 		this.badgePreview.init(properties.previewProperties);
+
+		// Fix UI
+		this.fixUI();
+
+		// Add ui fixing after window resize
+		fixUIBound = this.fixUI.bind(this);
+		window.addEventListener('resize', fixUIBound, false);
 
 	};
 

@@ -22,6 +22,16 @@
 			navBar: 'theme-badge-navbar'
 		},
 		/**
+		 * @param {number} maxBadgeWidth
+		 * Maximum width of badge in pixels
+		 */
+		maxBadgeWidth = 0,
+		/**
+		 * @param {number} viewportZoom
+		 * Current zoom set for viewport
+		 */
+		viewportZoom = 1,
+		/**
 		 * @constructor Badge preview constructor
 		 */
 		BadgePreview = function () {
@@ -56,19 +66,73 @@
 
 		};
 
+
+
+	/**
+	 * Returns current zoom.
+	 * @returns {number} Current zoom
+	 */
+	BadgePreview.prototype.getViewportZoom = function () {
+		return viewportZoom;
+	}
+
+	/**
+	 * Returns the widest badge
+	 * @returns {number} Maximum badge width in pixels
+	 */
+	BadgePreview.prototype.getMaxBadgeWidth = function () {
+		return maxBadgeWidth;
+	}
+
+	/**
+	 * @method updateMaxBadgeWidth
+	 * Updates info about the widest badge
+	 * @returns {number} Maximum badge width in pixels
+	 */
+	BadgePreview.prototype.updateMaxBadgeWidth = function () {
+		var badgeList,
+			i;
+
+		// Reset max badge width
+		maxBadgeWidth = 0;
+
+		// Cache badge list
+		badgeList = this.badgeList;
+
+		for (i = badgeList.length - 1; i >= 0; --i) {
+			// Get maximum width
+			if (badgeList[i].properties.width > maxBadgeWidth) {
+				maxBadgeWidth = badgeList[i].properties.width;
+			}
+		}
+
+		return maxBadgeWidth;
+	}
+
 	/**
 	 * @method updateDevicePropertiesPanel
 	 * Updates device properties box with selected badge properties
 	 * @param {Badge} badge Selected badge
 	 */
 	BadgePreview.prototype.updateDevicePropertiesPanel = function (badge) {
-		var badgeProperties = badge.properties;
+		var badgeProperties = badge.properties,
+			element;
+
+		this.updateMaxBadgeWidth();
 
 		document.getElementById('badge-name').innerHTML = badgeProperties.name;
 		document.getElementById('badge-width').innerHTML = badgeProperties.width;
 		document.getElementById('badge-height').innerHTML = badgeProperties.height;
 		document.getElementById('badge-resolution').innerHTML = badgeProperties.displayWidth + ' x ' + badgeProperties.displayHeight;
 		document.getElementById('badge-pixel-ratio').innerHTML = badgeProperties.pixelRatio;
+
+		element = document.getElementById('badgeWidthSlider');
+		element.value = badgeProperties.width;
+		element.parentNode.querySelector('.current-value').value = element.value;
+
+		element = document.getElementById('badgeHeightSlider');
+		element.value = badgeProperties.height;
+		element.parentNode.querySelector('.current-value').value = element.value;
 	};
 
 	/**
@@ -93,6 +157,7 @@
 
 		// Update badge size and device properties box
 		badge.setSize(tmpHeight, tmpWidth);
+		deviceViewer.fixUI();
 	};
 
 	/**
@@ -104,12 +169,15 @@
 		var workspaceStyle = this.workspaceContainer.style;
 
 		// make sure that zoom value is integer
-		zoomValue = parseInt(zoomValue, 10) / 100 || 0;
+		viewportZoom = parseInt(zoomValue, 10) / 100 || 0;
 
-		workspaceStyle.webkitTransform = 'scale(' + zoomValue + ')';
+		workspaceStyle.webkitTransform = 'scale(' + viewportZoom + ')';
 		workspaceStyle.webkitTransformOrigin = '0 0';
-		workspaceStyle.width = (100 / zoomValue) + '%';
-		workspaceStyle.height = (100 / zoomValue) + '%';
+		workspaceStyle.width = (100 / viewportZoom) + '%';
+		workspaceStyle.height = (100 / viewportZoom) + '%';
+
+		// Fix device viewer UI
+		deviceViewer.fixUI();
 	};
 
 	/**
@@ -165,7 +233,8 @@
 			}
 
 			if (zoomValue) {
-				ruleTxt += '-webkit-transform: scale(' + (parseInt(zoomValue, 10) / 100 || 0) + ') ;';
+				viewportZoom = parseInt(zoomValue, 10);
+				ruleTxt += '-webkit-transform: scale(' + (viewportZoom / 100 || 0) + ') ;';
 			} else {
 				ruleTxt += lastStyle.webkitTransform ? '-webkit-transform: ' + lastStyle.webkitTransform + ';' : '';
 			}
@@ -176,6 +245,8 @@
 			badge.setSize(widthValue, heightValue);
 		}
 
+		// Fix device viewer UI
+		deviceViewer.fixUI();
 	};
 
 	/**

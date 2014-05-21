@@ -21,20 +21,17 @@
 			<li>App to preview:
 				<select id="appSelect" onchange="deviceViewer.badgePreview.changePreview(this.value)"></select>
 			</li>
-			<li><a href="javascript:void(0)" onclick="deviceViewer.badgePreview.add()" title="Add new theme badge" class="new-badge-icon"></a></li>
-			<li><a href="javascript:void(0)" onclick="deviceViewer.badgePreview.remove()" title="Remove current theme badge" class="remove-badge-icon"></a></li>
+			<li><a href="javascript:void(0)" onclick="deviceViewer.badgePreview.add()" title="Add new badge" class="new-badge-icon"></a></li>
+			<li><a href="javascript:void(0)" onclick="deviceViewer.badgePreview.remove()" title="Remove current badge" class="remove-badge-icon"></a></li>
 			<li>
-				<a href="javascript:void(0)" title="Set height of badge" class="width-badge-icon"></a>
+				<a href="javascript:void(0)" title="Set width of badge" class="width-badge-icon"></a>
 				<div class="panel-submenu">
 					<div class="row">
 						<div class="range-max">1920</div><br>
 						<input type="range" min="160" max="1920" value="320" name="rangeViewportWidth" class="vertical-slider" id="badgeWidthSlider"><br>
 						<div class="range-min">160</div><br>
 						<hr>
-						<span class="current-value">320px</span>
-						<br>
-						<input type="checkbox" id="globalBadgeWidth" class="global-settings-checkbox"><br>
-						<label for="globalBadgeWidth"><small>global</small></label>
+						<input type="input" id="customBadgeWidth" class="custom-badge-size current-value" maxlength="4"><br>
 					</div>
 				</div>
 			</li>
@@ -46,10 +43,7 @@
 						<input type="range" min="160" max="1920" value="320" class="vertical-slider" id="badgeHeightSlider"><br>
 						<div class="range-min">160</div><br>
 						<hr>
-						<span class="current-value">320px</span>
-						<br>
-						<input type="checkbox" id="globalBadgeHeight" class="global-settings-checkbox"><br>
-						<label for="globalBadgeHeight"><small>global</small></label>
+						<input type="input" id="customBadgeHeight" class="custom-badge-size current-value" maxlength="4"><br>
 					</div>
 				</div>
 			</li>
@@ -73,25 +67,27 @@
 			</li>
 		</ul>
 	</div>
-	<div class="flex-row">
-		<div id="centerPanel">
-			<div id="workspace"><!-- container for workspace --></div>
-		</div>
-		<div id="rightPanel" class="panel-container">
-			<div class="panel-box">
-				<div class="panel-window">
-					<h3>Device properties (<span id="badge-name"></span>)</h3>
-					<div>
-						<div>
-							CSS resolution: <b><span id="badge-width"></span> x <span id="badge-height"></span> px</b><br>
-							Device resolution: <b><span id="badge-resolution"></span> px</b><br>
-							Pixel ratio: <span id="badge-pixel-ratio"></span><br>
-						</div>
-						<input type="button" value="Change orientation" onclick="deviceViewer.badgePreview.swapDimensions()">
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div id="mainPanel">
+        <div class="flex-row">
+            <div id="centerPanel">
+                <div id="workspace"><!-- container for workspace --></div>
+            </div>
+            <div id="rightPanel" class="panel-container">
+                <div class="panel-box">
+                    <div class="panel-window">
+                        <h3>Device properties (<span id="badge-name"></span>)</h3>
+                        <div>
+                            <div>
+                                CSS resolution: <b><span id="badge-width"></span> x <span id="badge-height"></span> px</b><br>
+                                Device resolution: <b><span id="badge-resolution"></span> px</b><br>
+                                Pixel ratio: <span id="badge-pixel-ratio"></span><br>
+                            </div>
+                            <input type="button" value="Change orientation" onclick="deviceViewer.badgePreview.swapDimensions()">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
