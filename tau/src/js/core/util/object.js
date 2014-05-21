@@ -7,7 +7,7 @@
  * #Object utilities
  * Namespace with helpers function connected with objects.
  *
- * @class ns.utils.object
+ * @class ns.util.object
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Piotr Karny <p.karny@samsung.com>
  */
@@ -16,7 +16,7 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../utils" // fetch namespace
+			"../util" // fetch namespace
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -28,7 +28,7 @@
 				* @param {Object} orgObject
 				* @return {Object}
 				* @static
-				* @member ns.utils.object
+				* @member ns.util.object
 				*/
 				copy: function (orgObject) {
 					return object.merge({}, orgObject);
@@ -41,7 +41,7 @@
 				* @param {Object} orgObject
 				* @return {Object}
 				* @static
-				* @member ns.utils.object
+				* @member ns.util.object
 				*/
 				fastMerge: function (newObject, orgObject) {
 					var key;
@@ -61,7 +61,7 @@
 				* @param {?boolean} [override=true]
 				* @return {Object}
 				* @static
-				* @member ns.utils.object
+				* @member ns.util.object
 				*/
 				merge: function ( /* newObject, orgObject, override */ ) {
 					var newObject, orgObject, override,
@@ -96,7 +96,7 @@
 				 * @param {Function} Base
 				 * @param {Object} prototype
 				 * @static
-				 * @member ns.utils.object
+				 * @member ns.util.object
 				 */
 				/* jshint -W083 */
 				inherit: function( Constructor, Base, prototype ) {
@@ -135,7 +135,7 @@
 					Constructor.prototype.constructor = Constructor;
 				}
 			};
-			ns.utils.object = object;
+			ns.util.object = object;
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
 	);

@@ -33,9 +33,9 @@
 	define(
 		[
 			"../../../../core/engine",
-			"../../../../core/utils/DOM/attributes",
-			"../../../../core/utils/DOM/css",
-			"../../../../core/utils/selectors",
+			"../../../../core/util/DOM/attributes",
+			"../../../../core/util/DOM/css",
+			"../../../../core/util/selectors",
 			"../../../../core/event",
 			"../../../../core/event/vmouse",
 			"../mobile",
@@ -58,7 +58,7 @@
 				},
 				BaseWidget = ns.widget.mobile.BaseWidgetMobile,
 				engine = ns.engine,
-				DOM = ns.utils.DOM,
+				DOM = ns.util.DOM,
 				Button = ns.widget.mobile.Button,
 				Page = ns.widget.mobile.Page,
 				classes = {
@@ -93,7 +93,7 @@
 					uiLiHeading: "ui-li-heading"
 				},
 				buttonClasses = Button.classes,
-				selectors = ns.utils.selectors,
+				selectors = ns.util.selectors,
 				eventUtils = ns.event,
 				/**
 				 * Alias to Array.slice

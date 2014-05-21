@@ -25,7 +25,7 @@
 			"require",
 			"./core",
 			"./event",
-			"./utils/selectors"
+			"./util/selectors"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -43,7 +43,7 @@
 				 * @member ns.engine
 				 */
 				eventUtils = ns.event,
-				selectors = ns.utils.selectors,
+				selectors = ns.util.selectors,
 				/**
 				 * @property {Object} widgetDefs Object with widgets definitions
 				 * @private

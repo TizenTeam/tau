@@ -5,7 +5,7 @@
  */
 /**
  * Utility enable highlight links.
- * @class ns.utils.anchorHighlight
+ * @class ns.util.anchorHighlight
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Damian Osipiuk <d.osipiuk@samsung.com>
  */
@@ -30,42 +30,42 @@
 
 			/**
 			 * @property {number} startX Touch start x
-			 * @member ns.utils.anchorHighlight
+			 * @member ns.util.anchorHighlight
 			 * @private
 			 * @static
 			 */
 			var startX,
 				/**
 				 * @property {number} startY Touch start y
-				 * @member ns.utils.anchorHighlight
+				 * @member ns.util.anchorHighlight
 				 * @private
 				 * @static
 				 */
 				startY,
 				/**
 				 * @property {boolean} didScroll Did page scrolled
-				 * @member ns.utils.anchorHighlight
+				 * @member ns.util.anchorHighlight
 				 * @private
 				 * @static
 				 */
 				didScroll,
 				/**
 				 * @property {HTMLElement} target Touch target element
-				 * @member ns.utils.anchorHighlight
+				 * @member ns.util.anchorHighlight
 				 * @private
 				 * @static
 				 */
 				target,
 				/**
 				 * @property {number} touchLength Length of touch
-				 * @member ns.utils.anchorHighlight
+				 * @member ns.util.anchorHighlight
 				 * @private
 				 * @static
 				 */
 				touchLength,
 				/**
 				 * @property {number} addActiveClassTimerID Timer id of adding activeClass delay
-				 * @member ns.utils.anchorHighlight
+				 * @member ns.util.anchorHighlight
 				 * @private
 				 * @static
 				 */
@@ -75,7 +75,7 @@
 				 * @property {number} [options.scrollThreshold=5] Treshold after which didScroll will be set
 				 * @property {number} [options.addActiveClassDelay=10] Time to wait before adding activeClass
 				 * @property {number} [options.keepActiveClassDelay=100] Time to stay activeClass after touch end
-				 * @member ns.utils.anchorHighlight
+				 * @member ns.util.anchorHighlight
 				 * @private
 				 * @static
 				 */
@@ -86,7 +86,7 @@
 				},
 				/**
 				 * @property {string} [activeClassLI='ui-li-active'] Class used to mark element as active
-				 * @member ns.utils.anchorHighlight
+				 * @member ns.util.anchorHighlight
 				 * @private
 				 * @static
 				 */
@@ -94,18 +94,18 @@
 				/**
 				 * Function invoked after touch move ends
 				 * @method removeTouchMove
-				 * @member ns.utils.anchorHighlight
+				 * @member ns.util.anchorHighlight
 				 * @private
 				 * @static
 				 */
 				removeTouchMove,
 				/**
-				 * @property {Object} selectors Alias for class {@link ns.utils.selectors}
-				 * @member ns.utils.anchorHighlight
+				 * @property {Object} selectors Alias for class {@link ns.util.selectors}
+				 * @member ns.util.anchorHighlight
 				 * @private
 				 * @static
 				 */
-				selectors = ns.utils.selectors;
+				selectors = ns.util.selectors;
 
 
 			/**
@@ -113,7 +113,7 @@
 			 * @method detectHighlightTarget
 			 * @param {HTMLElement} target
 			 * @return {HTMLElement}
-			 * @member ns.utils.anchorHighlight
+			 * @member ns.util.anchorHighlight
 			 * @private
 			 * @static
 			 */
@@ -127,7 +127,7 @@
 			 * @method detectLiElement
 			 * @param {HTMLElement} target
 			 * @return {HTMLElement}
-			 * @member ns.utils.anchorHighlight
+			 * @member ns.util.anchorHighlight
 			 * @private
 			 * @static
 			 */
@@ -139,7 +139,7 @@
 			/**
 			 * Add active class to touched element
 			 * @method addActiveClass
-			 * @member ns.utils.anchorHighlight
+			 * @member ns.util.anchorHighlight
 			 * @private
 			 * @static
 			 */
@@ -158,7 +158,7 @@
 			 * Get all active elements
 			 * @method getActiveElements
 			 * @return {Array}
-			 * @member ns.utils.anchorHighlight
+			 * @member ns.util.anchorHighlight
 			 * @private
 			 * @static
 			 */
@@ -169,7 +169,7 @@
 			/**
 			 * Remove active class from active elements
 			 * @method removeActiveClass
-			 * @member ns.utils.anchorHighlight
+			 * @member ns.util.anchorHighlight
 			 * @private
 			 * @static
 			 */
@@ -186,7 +186,7 @@
 			 * Function invoked during touch move
 			 * @method touchmoveHandler
 			 * @param {Event} event
-			 * @member ns.utils.anchorHighlight
+			 * @member ns.util.anchorHighlight
 			 * @private
 			 * @static
 			 */
@@ -205,7 +205,7 @@
 			 * Function invoked after touch start
 			 * @method touchstartHandler
 			 * @param {Event} event
-			 * @member ns.utils.anchorHighlight
+			 * @member ns.util.anchorHighlight
 			 * @private
 			 * @static
 			 */
@@ -233,7 +233,7 @@
 			/**
 			 * Function invoked after touch
 			 * @method touchendHandler
-			 * @member ns.utils.anchorHighlight
+			 * @member ns.util.anchorHighlight
 			 * @private
 			 * @static
 			 */
@@ -251,7 +251,7 @@
 			/**
 			 * Bind events to document
 			 * @method eventBinding
-			 * @member ns.utils.anchorHighlight
+			 * @member ns.util.anchorHighlight
 			 * @private
 			 * @static
 			 */

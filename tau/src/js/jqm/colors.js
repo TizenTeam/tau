@@ -12,7 +12,7 @@
 		[
 			"./jqm",
 			"../core/engine",
-			"../core/utils/colors"
+			"../core/util/colors"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -25,7 +25,7 @@
 				*/
 				init: function () {
 					if ($) {
-						$.mobile.tizen.clrlib = ns.utils.colors;
+						$.mobile.tizen.clrlib = ns.util.colors;
 					}
 				}
 			};

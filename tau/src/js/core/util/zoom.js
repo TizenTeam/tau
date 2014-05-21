@@ -3,7 +3,7 @@
  * #Zoom utilities
  * Namespace with helpers function connected with zoom.
  *
- * @class ns.utils.zoom
+ * @class ns.util.zoom
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
 (function (window, document, ns) {
@@ -11,7 +11,7 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../utils"
+			"../util"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -50,9 +50,9 @@
 						}
 					}
 				};
-			ns.utils.zoom = zoom;
+			ns.util.zoom = zoom;
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ns.utils.zoom;
+			return ns.util.zoom;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

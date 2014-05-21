@@ -31,7 +31,8 @@
 		[
 			"../../../../../core/engine",
 			"../../../../../core/event",
-			"../../../../../core/utils/DOM/css",
+			"../../../../../core/util/object",
+			"../../../../../core/util/DOM/css",
 			"../indexscrollbar",
 			"./IndexBar",
 			"./IndexIndicator",
@@ -72,15 +73,15 @@
 			 */
 				events = ns.event,
 			/**
-			 * @property {Object} doms Alias for class {@link ns.utils.DOM}
+			 * @property {Object} doms Alias for class {@link ns.util.DOM}
 			 * @member ns.widget.wearable.IndexScrollbar
 			 * @private
 			 * @static
 			 */
-				doms = ns.utils.DOM,
+				doms = ns.util.DOM,
 				EventType = {},
 				prototype = new BaseWidget(),
-				utilsObject = ns.utils.object,
+				utilsObject = ns.util.object,
 				IndexBar = ns.widget.wearable.indexscrollbar.IndexBar,
 				IndexIndicator = ns.widget.wearable.indexscrollbar.IndexIndicator;
 

@@ -31,7 +31,7 @@
  *     var context = document.getElementById("second"),
  *         element = document.createElement("span");
  *     element.innerHTML = "Test";
- *     ns.utils.DOM.appendNodes(context, element);
+ *     ns.util.DOM.appendNodes(context, element);
  *
  * #### HTML code after manipulation
  *
@@ -66,7 +66,7 @@
  *     var context = document.getElementById("second"),
  *         element = document.createElement("span");
  *     element.innerHTML = "Test";
- *     ns.utils.DOM.replaceWithNodes(context, element);
+ *     ns.util.DOM.replaceWithNodes(context, element);
  *
  * #### HTML code after manipulation
  *
@@ -99,7 +99,7 @@
  *     var context = document.getElementById("second"),
  *         element = document.createElement("span");
  *     element.innerHTML = "Test";
- *     ns.utils.DOM.insertNodesBefore(context, element);
+ *     ns.util.DOM.insertNodesBefore(context, element);
  *
  * #### HTML code after manipulation
  *
@@ -131,7 +131,7 @@
  *
  *     @example
  *     var element = document.getElementById("second");
- *     ns.utils.DOM.wrapInHTML(element, "<span class="new"></span>");
+ *     ns.util.DOM.wrapInHTML(element, "<span class="new"></span>");
  *
  * #### HTML code after manipulation
  *
@@ -144,7 +144,7 @@
  *         <div id="third">Goodbye</div>
  *     </div>
  *
- * @class ns.utils.DOM
+ * @class ns.util.DOM
  * @author Jadwiga Sosnowska <j.sosnowska@partner.samsung.com>
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>
  * @author Maciej Moczulski <m.moczulski@samsung.com>
@@ -155,13 +155,13 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../utils"
+			"../util"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			ns.utils.DOM = ns.utils.DOM || {};
+			ns.util.DOM = ns.util.DOM || {};
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ns.utils.DOM;
+			return ns.util.DOM;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

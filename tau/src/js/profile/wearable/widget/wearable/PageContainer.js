@@ -34,7 +34,7 @@
 	define(
 		[
 			"../../../../core/engine",
-			"../../../../core/utils/DOM/attributes",
+			"../../../../core/util/DOM/attributes",
 			"../../../../core/widget/BaseWidget",
 			"../wearable",
 			"./Page"
@@ -43,8 +43,8 @@
 			//>>excludeEnd("tauBuildExclude");
 			var BaseWidget = ns.widget.BaseWidget,
 				Page = ns.widget.wearable.Page,
-				utils = ns.utils,
-				DOM = utils.DOM,
+				util = ns.util,
+				DOM = util.DOM,
 				engine = ns.engine,
 				classes = {
 					uiViewportTransitioning: "ui-viewport-transitioning",

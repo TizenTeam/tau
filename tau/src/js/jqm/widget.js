@@ -13,7 +13,7 @@
 			"./jqm",
 			"../core/engine",
 			"../core/widget/BaseWidget",
-			"../core/utils/object"
+			"../core/util/object"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -40,7 +40,7 @@
 				* @static
 				*/
 				engine = ns.engine,
-				object = ns.utils.object,
+				object = ns.util.object,
 				jqmWidget = {
 					/**
 					* bind widget to jqm

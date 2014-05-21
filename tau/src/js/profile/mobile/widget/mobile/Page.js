@@ -28,10 +28,10 @@
 	define(
 		[
 			"../../../../core/engine",
-			"../../../../core/utils/selectors",
-			"../../../../core/utils/DOM/attributes",
-			"../../../../core/utils/DOM/css",
-			"../../../../core/utils/object",
+			"../../../../core/util/selectors",
+			"../../../../core/util/DOM/attributes",
+			"../../../../core/util/DOM/css",
+			"../../../../core/util/object",
 			"../../../../core/event/orientationchange",
 			"../mobile",
 			"../../../../core/theme",
@@ -55,26 +55,26 @@
 				 */
 				engine = ns.engine,
 				/**
-				 * @property {Object} selectors Alias for {@link ns.utils.selectors}
+				 * @property {Object} selectors Alias for {@link ns.util.selectors}
 				 * @member ns.widget.mobile.Page
 				 * @private
 				 * @static
 				 */
-				selectors = ns.utils.selectors,
+				selectors = ns.util.selectors,
 				/**
-				 * @property {Object} object Alias for {@link ns.utils.object}
+				 * @property {Object} object Alias for {@link ns.util.object}
 				 * @member ns.widget.mobile.Page
 				 * @private
 				 * @static
 				 */
-				object = ns.utils.object,
+				object = ns.util.object,
 				/**
-				 * @property {Object} utilsDOM Alias for {@link ns.utils.DOM}
+				 * @property {Object} utilsDOM Alias for {@link ns.util.DOM}
 				 * @member ns.widget.mobile.Page
 				 * @private
 				 * @static
 				 */
-				utilsDOM = ns.utils.DOM,
+				utilsDOM = ns.util.DOM,
 				/**
 				 * @method slice Alias for array slice method
 				 * @member ns.widget.mobile.Page

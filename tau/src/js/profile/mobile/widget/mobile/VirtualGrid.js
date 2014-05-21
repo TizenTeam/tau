@@ -29,7 +29,8 @@
 	define(
 		[
 			"../../../../core/engine",
-			"../../../../core/utils/DOM/css",
+			"../../../../core/util/object",
+			"../../../../core/util/DOM/css",
 			// ScrollHandler and ScrollView are required before because widget those must
 			// be created before VirtualGrid
 			"./Scrollview",
@@ -41,14 +42,14 @@
 			var VirtualList = ns.widget.mobile.VirtualListview,
 				parentPrototype = VirtualList.prototype,
 				engine = ns.engine,
-				domUtils = ns.utils.DOM,
+				domUtils = ns.util.DOM,
 				/**
 				 * @property {Function} utilsObjectMerge
 				 * @private
 				 * @member ns.widget.VirtualGrid
 				 * @static
 				 */
-				utilsObjectMerge = ns.utils.object.merge,
+				utilsObjectMerge = ns.util.object.merge,
 				// @TODO HORIZONTAL is currently not used, it will be used when horizontal scrolling is ready
 				/**
 				 * @property {string} HORIZONTAL="x" constans for horizontal virtual grid

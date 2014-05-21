@@ -29,9 +29,9 @@
 		[
 			"../../../../core/engine",
 			"../../../../core/event",
-			"../../../../core/utils/DOM/attributes",
-			"../../../../core/utils/DOM/manipulation",
-			"../../../../core/utils/selectors",
+			"../../../../core/util/DOM/attributes",
+			"../../../../core/util/DOM/manipulation",
+			"../../../../core/util/selectors",
 			"../mobile",
 			"./Listview",
 			"./Searchbar"
@@ -57,22 +57,22 @@
 				engine = ns.engine,
 
 				/**
-				* Local alias for ns.utils.DOM
-				* @property {Object} DOM Alias for {@link ns.utils.DOM}
+				* Local alias for ns.util.DOM
+				* @property {Object} DOM Alias for {@link ns.util.DOM}
 				* @member ns.widget.mobile.Listview.Filter
 				* @static
 				* @private
 				*/
-				DOM = ns.utils.DOM,
+				DOM = ns.util.DOM,
 
 				/**
-				* Local alias for ns.utils.selectors
-				* @property {Object} selectors Alias for {@link ns.utils.selectors}
+				* Local alias for ns.util.selectors
+				* @property {Object} selectors Alias for {@link ns.util.selectors}
 				* @member ns.widget.mobile.Listview.Filter
 				* @static
 				* @private
 				*/
-				selectors = ns.utils.selectors,
+				selectors = ns.util.selectors,
 
 				/**
 				* @method defaultFilterCallback

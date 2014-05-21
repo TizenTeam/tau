@@ -11,9 +11,9 @@ var testElement1 = document.getElementById("test1"),
 	testElement9 = document.getElementById("test9"),
 	testElement10 = document.getElementById("test10"),
 	testElement11 = document.getElementById("test11"),
-	dom = ej.utils.DOM;
+	dom = ej.util.DOM;
 
-test("utils.DOM.css", function () {
+test("util.DOM.css", function () {
 	// basic props check
 	var props = {
 		"width": 0,

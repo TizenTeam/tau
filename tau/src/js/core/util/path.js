@@ -6,8 +6,8 @@
 /*
 /**
  * #Path
- * Utils path namespace
- * @class ns.utils.path
+ * Util path namespace
+ * @class ns.util.path
  * @static
  * @author Tomasz Lukawski <t.lukawski@samsung.com>
  * @author Maciej Urbanski <m.urbanski@samsung.com>
@@ -18,7 +18,7 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../utils",
+			"../util",
 			"./object",
 			"./selectors",
 			"./DOM/attributes",
@@ -29,38 +29,38 @@
 				/**
 				* Local alias for ns.engine
 				* @property {Object} engine Alias for {@link ns.engine}
-				* @member ns.utils.path
+				* @member ns.util.path
 				* @static
 				* @private
 				*/
 			var engine = ns.engine,
 				/**
-				* Local alias for ns.utils.object
-				* @property {Object} utilsObject Alias for {@link ns.utils.object}
-				* @member ns.utils.path
+				* Local alias for ns.util.object
+				* @property {Object} utilsObject Alias for {@link ns.util.object}
+				* @member ns.util.path
 				* @static
 				* @private
 				*/
-				utilsObject = ns.utils.object,
+				utilsObject = ns.util.object,
 				/**
-				* Local alias for ns.utils.selectors
-				* @property {Object} utilsSelectors Alias for {@link ns.utils.selectors}
-				* @member ns.utils.path
+				* Local alias for ns.util.selectors
+				* @property {Object} utilsSelectors Alias for {@link ns.util.selectors}
+				* @member ns.util.path
 				* @static
 				* @private
 				*/
-				utilsSelectors = ns.utils.selectors,
+				utilsSelectors = ns.util.selectors,
 				/**
-				* Local alias for ns.utils.DOM
-				* @property {Object} utilsDOM Alias for {@link ns.utils.DOM}
-				* @member ns.utils.path
+				* Local alias for ns.util.DOM
+				* @property {Object} utilsDOM Alias for {@link ns.util.DOM}
+				* @member ns.util.path
 				* @static
 				* @private
 				*/
-				utilsDOM = ns.utils.DOM,
+				utilsDOM = ns.util.DOM,
 				/**
 				* Cache for document base element
-				* @member ns.utils.path
+				* @member ns.util.path
 				* @property {HTMLBaseElement} base
 				* @static
 				* @private
@@ -71,7 +71,7 @@
 				 * @property {Object} location
 				 * @static
 				 * @private
-				 * @member ns.utils.path
+				 * @member ns.util.path
 				 */
 				location = {},
 				path = {
@@ -79,7 +79,7 @@
 					 * href part for mark state
 					 * @property {string} [uiStateKey="&ui-state"]
 					 * @static
-					 * @member ns.utils.path
+					 * @member ns.util.path
 					 */
 					uiStateKey: "&ui-state",
 
@@ -110,7 +110,7 @@
 					//
 					/**
 					* @property {RegExp} urlParseRE Regular expression for parse URL
-					* @member ns.utils.path
+					* @member ns.util.path
 					* @static
 					*/
 					urlParseRE: /^(((([^:\/#\?]+:)?(?:(\/\/)((?:(([^:@\/#\?]+)(?:\:([^:@\/#\?]+))?)@)?(([^:\/#\?\]\[]+|\[[^\/\]@#?]+\])(?:\:([0-9]+))?))?)?)?((\/?(?:[^\/\?#]+\/+)*)([^\?#]*)))?(\?[^#]+)?)(#.*)?/,
@@ -122,7 +122,7 @@
 					* @method getLocation
 					* @param {string|Object} url
 					* @return {string}
-					* @member ns.utils.path
+					* @member ns.util.path
 					*/
 					getLocation: function (url) {
 						var uri = this.parseUrl(url || window.location.href),
@@ -139,7 +139,7 @@
 					/**
 					* Return the original document url
 					* @method getDocumentUrl
-					* @member ns.utils.path
+					* @member ns.util.path
 					* @param {boolean} [asParsedObject=false]
 					* @return {string|Object}
 					* @static
@@ -152,7 +152,7 @@
 					* Parse a location into a structure
 					* @method parseLocation
 					* @return {Object}
-					* @member ns.utils.path
+					* @member ns.util.path
 					*/
 					parseLocation: function () {
 						return this.parseUrl(this.getLocation());
@@ -164,7 +164,7 @@
 					* If we're passed an object, we'll assume that it is
 					* a parsed url object and just return it back to the caller.
 					* @method parseUrl
-					* @member ns.utils.path
+					* @member ns.util.path
 					* @param {string|Object} url
 					* @return {Object} uri record
 					* @return {string} return.href
@@ -224,7 +224,7 @@
 					* an optional absolute path which describes what
 					* relPath is relative to.
 					* @method makePathAbsolute
-					* @member ns.utils.path
+					* @member ns.util.path
 					* @param {string} relPath
 					* @param {string} [absPath=""]
 					* @return {string}
@@ -265,7 +265,7 @@
 					/**
 					* Returns true if both urls have the same domain.
 					* @method isSameDomain
-					* @member ns.utils.path
+					* @member ns.util.path
 					* @param {string|Object} absUrl1
 					* @param {string|Object} absUrl2
 					* @return {boolean}
@@ -278,7 +278,7 @@
 					/**
 					* Returns true for any relative variant.
 					* @method isRelativeUrl
-					* @member ns.utils.path
+					* @member ns.util.path
 					* @param {string|Object} url
 					* @return {boolean}
 					* @static
@@ -290,7 +290,7 @@
 
 					/**
 					* Returns true for an absolute url.
-					* @member ns.utils.path
+					* @member ns.util.path
 					* @param {string} url
 					* @return {boolean}
 					* @static
@@ -303,7 +303,7 @@
 					* Turn the specified realtive URL into an absolute one. This function
 					* can handle all relative variants (protocol, site, document, query, fragment).
 					* @method makeUrlAbsolute
-					* @member ns.utils.path
+					* @member ns.util.path
 					* @param {string} relUrl
 					* @param {string} absUrl
 					* @return {string}
@@ -330,7 +330,7 @@
 					/**
 					* Add search (aka query) params to the specified url.
 					* @method addSearchParams
-					* @member ns.utils.path
+					* @member ns.util.path
 					* @param {string|Object} url
 					* @param {Object|string} params
 					* @return {string}
@@ -344,7 +344,7 @@
 
 					/**
 					 * Add search params to the specified url with hash
-					 * @member ns.utils.path
+					 * @member ns.util.path
 					 * @param {string|Object} url
 					 * @param {Object|string} params
 					 * @returns {string}
@@ -363,7 +363,7 @@
 					* - for the same domain as document base remove domain
 					* otherwise returns decoded absolute Url
 					* @method convertUrlToDataUrl
-					* @member ns.utils.path
+					* @member ns.util.path
 					* @param {string} absUrl
 					* @param {string} dialogHashKey
 					* @param {Object} documentBase uri structure
@@ -389,7 +389,7 @@
 					/**
 					* Get path from current hash, or from a file path
 					* @method get
-					* @member ns.utils.path
+					* @member ns.util.path
 					* @param {string} newPath
 					* @return {string}
 					*/
@@ -404,7 +404,7 @@
 					* Test if a given url (string) is a path
 					* NOTE might be exceptionally naive
 					* @method isPath
-					* @member ns.utils.path
+					* @member ns.util.path
 					* @param {string} url
 					* @return {boolean}
 					* @static
@@ -416,7 +416,7 @@
 					/**
 					* Return a url path with the window's location protocol/hostname/pathname removed
 					* @method clean
-					* @member ns.utils.path
+					* @member ns.util.path
 					* @param {string} url
 					* @param {Object} documentBase  uri structure
 					* @return {string}
@@ -429,7 +429,7 @@
 					/**
 					* Just return the url without an initial #
 					* @method stripHash
-					* @member ns.utils.path
+					* @member ns.util.path
 					* @param {string} url
 					* @return {string}
 					* @static
@@ -441,7 +441,7 @@
 					/**
 					* Return the url without an query params
 					* @method stripQueryParams
-					* @member ns.utils.path
+					* @member ns.util.path
 					* @param {string} url
 					* @return {string}
 					* @static
@@ -453,7 +453,7 @@
 					/**
 					* Validation proper hash
 					* @method isHashValid
-					* @member ns.utils.path
+					* @member ns.util.path
 					* @param {string} hash
 					* @static
 					*/
@@ -465,7 +465,7 @@
 					* Check whether a url is referencing the same domain, or an external domain or different protocol
 					* could be mailto, etc
 					* @method isExternal
-					* @member ns.utils.path
+					* @member ns.util.path
 					* @param {string|Object} url
 					* @param {Object} documentUrl uri object
 					* @return {boolean}
@@ -479,7 +479,7 @@
 					/**
 					* Check if the url has protocol
 					* @method hasProtocol
-					* @member ns.utils.path
+					* @member ns.util.path
 					* @param {string} url
 					* @return {boolean}
 					* @static
@@ -491,7 +491,7 @@
 					/**
 					 * Check if the url refers to embedded content
 					 * @method isEmbedded
-					 * @member ns.utils.path
+					 * @member ns.util.path
 					 * @param {string} url
 					 * @returns {boolean}
 					 * @static
@@ -508,7 +508,7 @@
 					/**
 					* Get the url as it would look squashed on to the current resolution url
 					* @method squash
-					* @member ns.utils.path
+					* @member ns.util.path
 					* @param {string} url
 					* @param {string} [resolutionUrl=undefined]
 					* @return {string}
@@ -582,7 +582,7 @@
 					/**
 					* Check if the hash is preservable
 					* @method isPreservableHash
-					* @member ns.utils.path
+					* @member ns.util.path
 					* @param {string} hash
 					* @return {boolean}
 					*/
@@ -593,7 +593,7 @@
 					/**
 					* Escape weird characters in the hash if it is to be used as a selector
 					* @method hashToSelector
-					* @member ns.utils.path
+					* @member ns.util.path
 					* @param {string} hash
 					* @return {string}
 					* @static
@@ -609,7 +609,7 @@
 					/**
 					* Check if the specified url refers to the first page in the main application document.
 					* @method isFirstPageUrl
-					* @member ns.utils.path
+					* @member ns.util.path
 					* @param {string} url
 					* @param {Object} documentBase uri structure
 					* @param {boolean} documentBaseDiffers
@@ -655,7 +655,7 @@
 					* allowCrossDomainPages option is true, we will allow cross-domain http/https
 					* requests to go through our page loading logic.
 					* @method isPermittedCrossDomainRequest
-					* @member ns.utils.path
+					* @member ns.util.path
 					* @param {Object} docUrl
 					* @param {string} reqUrl
 					* @return {boolean}
@@ -670,7 +670,7 @@
 					/**
 					* Convert a object data to URI parameters
 					* @method getAsURIParameters
-					* @member ns.utils.path
+					* @member ns.util.path
 					* @param {Object} data
 					* @return {string}
 					* @static
@@ -688,14 +688,14 @@
 
 					/**
 					* Document Url
-					* @member ns.utils.path
+					* @member ns.util.path
 					* @property {string|null} documentUrl
 					*/
 					documentUrl: null,
 
 					/**
 					* The document base differs
-					* @member ns.utils.path
+					* @member ns.util.path
 					* @property {boolean} documentBaseDiffers
 					*/
 					documentBaseDiffers: false,
@@ -703,7 +703,7 @@
 					/**
 					* Set location hash to path
 					* @method set
-					* @member ns.utils.path
+					* @member ns.util.path
 					* @param {string} path
 					* @static
 					*/
@@ -715,7 +715,7 @@
 					* Return the substring of a filepath before the sub-page key,
 					* for making a server request
 					* @method getFilePath
-					* @member ns.utils.path
+					* @member ns.util.path
 					* @param {string} path
 					* @param {string} dialogHashKey
 					* @return {string}
@@ -729,7 +729,7 @@
 					/**
 					* Remove the preceding hash, any query params, and dialog notations
 					* @method cleanHash
-					* @member ns.utils.path
+					* @member ns.util.path
 					* @param {string} hash
 					* @param {string} dialogHashKey
 					* @return {string}
@@ -742,7 +742,7 @@
 					/**
 					* Check if url refers to the embedded page
 					* @method isEmbeddedPage
-					* @member ns.utils.path
+					* @member ns.util.path
 					* @param {string} url
 					* @param {boolean} allowEmbeddedOnlyBaseDoc
 					* @return {boolean}
@@ -774,7 +774,7 @@
 			* The document base URL for the purposes of resolving relative URLs,
 			* and the name of the default browsing context for the purposes of
 			* following hyperlinks
-			* @member ns.utils.path
+			* @member ns.util.path
 			* @property {Object} documentBase uri structure
 			* @static
 			*/
@@ -785,7 +785,7 @@
 			/**
 			* Get document base
 			* @method getDocumentBase
-			* @member ns.utils.path
+			* @member ns.util.path
 			* @param {boolean} [asParsedObject=false]
 			* @return {string|Object}
 			* @static
@@ -797,7 +797,7 @@
 			/**
 			* Find the closest page and extract out its url
 			* @method getClosestBaseUrl
-			* @member ns.utils.path
+			* @member ns.util.path
 			* @param {HTMLElement} element
 			* @param {string} selector
 			* @return {string}
@@ -815,7 +815,7 @@
 				return path.makeUrlAbsolute(url, baseUrl);
 			};
 
-			ns.utils.path = path;
+			ns.util.path = path;
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return path;
 		}

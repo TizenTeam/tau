@@ -38,7 +38,7 @@
  *			 [
  *				 "../ns.core", always necessary
  *				 "../widget", // fetch namespace, always necessary
- *				 "../utils/selectors" // all other necessary modules
+ *				 "../util/selectors" // all other necessary modules
  *			 ],
  *			 function () {
  *				 //>>excludeEnd("tauBuildExclude");
@@ -128,8 +128,8 @@
 		[
 			"../engine",
 			"../event",
-			"../utils/object",
-			"../utils/DOM/attributes",
+			"../util/object",
+			"../util/DOM/attributes",
 			"../widget"
 		],
 		function () {
@@ -150,7 +150,7 @@
 				*/
 				engine = ns.engine,
 				engineDataTau = engine.dataTau,
-				utils = ns.utils,
+				util = ns.util,
 				/**
 				* @property {Object} eventUtils Alias to {@link ns.event}
 				* @member ns.widget.BaseWidget
@@ -159,17 +159,17 @@
 				*/
 				eventUtils = ns.event,
 				/**
-				* @property {Object} domUtils Alias to {@link ns.utils.DOM}
+				* @property {Object} domUtils Alias to {@link ns.util.DOM}
 				* @private
 				* @static
 				*/
-				domUtils = utils.DOM,
+				domUtils = util.DOM,
 				/**
-				 * @property {Object} objectUtils Alias to {@link ns.utils.object}
+				 * @property {Object} objectUtils Alias to {@link ns.util.object}
 				 * @private
 				 * @static
 				 */
-				objectUtils = utils.object,
+				objectUtils = util.object,
 				BaseWidget = function () {
 					return this;
 				},

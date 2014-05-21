@@ -4,12 +4,12 @@
 	"use strict";
 	define(
 		[
-			'../utils/object',
+			'../util/object',
 			'../theme' // fetch namespace
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var utilsObject = ns.utils.object,
+			var utilsObject = ns.util.object,
 				nsTheme = ns.theme,
 				ThemeCommon = function () {
 					var self = this;

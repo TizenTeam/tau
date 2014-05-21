@@ -26,8 +26,7 @@
 	define(
 		[
 			"../../../../../core/engine",
-			"../../../../../core/utils/selectors",
-			"../../../../../core/utils/object",
+			"../../../../../core/util/object",
 			"../../../../../core/event",
 			"../../../../../core/event/gesture",
 			"./effect/Bouncing",
@@ -39,7 +38,7 @@
 			var BaseWidget = ns.widget.BaseWidget,
 				Gesture = ns.event.gesture,
 				engine = ns.engine,
-				utilsObject = ns.utils.object,
+				utilsObject = ns.util.object,
 				utilsEvents = ns.event,
 				eventTrigger = utilsEvents.trigger,
 				prototype = new BaseWidget(),

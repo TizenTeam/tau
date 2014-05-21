@@ -42,8 +42,8 @@
 	define(
 		[
 			"../../../../core/engine",
-			"../../../../core/utils/selectors",
-			"../../../../core/utils/DOM/manipulation",
+			"../../../../core/util/selectors",
+			"../../../../core/util/DOM/manipulation",
 			"../mobile", // fetch namespace
 			"./BaseWidgetMobile"
 		],
@@ -124,18 +124,18 @@
 				*/
 				engine = ns.engine,
 				/**
-				* @property {Object} dom Alias for class ns.utils.DOM
+				* @property {Object} dom Alias for class ns.util.DOM
 				* @member ns.widget.mobile.Controlgroup
 				* @private
 				* @static
 				*/
-				dom = ns.utils.DOM,
+				dom = ns.util.DOM,
 				/**
-				* @property {Object} selectors Alias for class ns.utils.selectors
+				* @property {Object} selectors Alias for class ns.util.selectors
 				* @private
 				* @static
 				*/
-				selectors = ns.utils.selectors,
+				selectors = ns.util.selectors,
 				/**
 				* @property {Function} slice Alias for function Array.slice
 				* @private

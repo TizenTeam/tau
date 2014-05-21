@@ -30,7 +30,7 @@
 		[
 			"../../../../core/engine",
 			"../../../../core/event",
-			"../../../../core/utils/selectors",
+			"../../../../core/util/selectors",
 			"../mobile", // fetch namespace
 			"./BaseWidgetMobile",
 			"./Button",
@@ -53,12 +53,12 @@
 				*/
 				engine = ns.engine,
 				/**
-				* @property {Object} selectors Alias to {@link ns.utils.selectors}
+				* @property {Object} selectors Alias to {@link ns.util.selectors}
 				* @member ns.widget.Dialog
 				* @private
 				* @static
 				*/
-				selectors = ns.utils.selectors,
+				selectors = ns.util.selectors,
 				/**
 				 * @property {Object} events alias variable
 				 * @private

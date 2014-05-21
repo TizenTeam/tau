@@ -28,12 +28,12 @@
 			"../type",
 			"./interface",
 			"../../Scroller",
-			"../../../../../../../core/utils/object"
+			"../../../../../../../core/util/object"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			// scroller.start event trigger when user try to move scroller
-			var utilsObject = ns.utils.object,
+			var utilsObject = ns.util.object,
 				type = ns.widget.wearable.scroller.scrollbar.type,
 				typeInterface = type.interface,
 				Scroller = ns.widget.wearable.scroller.Scroller;

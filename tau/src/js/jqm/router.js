@@ -11,7 +11,7 @@
 	define(
 		[
 			"../core/engine",
-			"../core/utils/path",
+			"../core/util/path",
 			"../profile/mobile/router/urlHistory",
 			"./jqm"
 		],
@@ -86,8 +86,8 @@
 							$.mobile.urlHistory = ns.router.urlHistory;
 							$.mobile.dialogHashKey = "&ui-state=dialog";
 							$.mobile.allowCrossDomainPages = false;
-							$.mobile.getDocumentUrl = ns.utils.path.getDocumentUrl;
-							$.mobile.getDocumentBase = ns.utils.path.getDocumentBase;
+							$.mobile.getDocumentUrl = ns.util.path.getDocumentUrl;
+							$.mobile.getDocumentBase = ns.util.path.getDocumentBase;
 							$.mobile._bindPageRemove = null;
 							$.mobile.loadPage = router.loadPage === undefined ? ns.error.bind(null, 'router PageExternal is not loaded') : router.loadPage.bind(router);
 							$.mobile.navreadyDeferred = router.navreadyDeferred;

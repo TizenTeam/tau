@@ -62,7 +62,7 @@ module("callbacks", {});
 				"object": objectFlags
 			}, function (flagsTypes, flags) {
 
-				test("ej.utils.callbacks(" + showFlags(flags) + ") - " + filterLabel, function () {
+				test("ej.util.callbacks(" + showFlags(flags) + ") - " + filterLabel, function () {
 
 					expect(20);
 
@@ -75,7 +75,7 @@ module("callbacks", {});
 
 					// Basic binding and firing
 					output = "X";
-					cblist = ej.utils.callbacks(flags);
+					cblist = ej.util.callbacks(flags);
 					cblist.add(function (str) {
 						output += str;
 					});
@@ -92,7 +92,7 @@ module("callbacks", {});
 					strictEqual(output, "X", "Firing after disabling");
 
 					// #13517 - Emptying while firing
-					cblist = ej.utils.callbacks(flags);
+					cblist = ej.util.callbacks(flags);
 					cblist.add(cblist.empty);
 					cblist.add(function () {
 						ok(false, "not emptied");
@@ -100,7 +100,7 @@ module("callbacks", {});
 					cblist.fire();
 
 					// Disabling while firing
-					cblist = ej.utils.callbacks(flags);
+					cblist = ej.util.callbacks(flags);
 					cblist.add(cblist.disable);
 					cblist.add(function () {
 						ok(false, "not disabled");
@@ -109,7 +109,7 @@ module("callbacks", {});
 
 					// Basic binding and firing (context, arguments)
 					output = "X";
-					cblist = ej.utils.callbacks(flags);
+					cblist = ej.util.callbacks(flags);
 					cblist.add(function () {
 						equal(this, window, "Basic binding and firing (context)");
 						output += Array.prototype.join.call(arguments, "");
@@ -119,7 +119,7 @@ module("callbacks", {});
 
 					// fireWith with no arguments
 					output = "";
-					cblist = ej.utils.callbacks(flags);
+					cblist = ej.util.callbacks(flags);
 					cblist.add(function () {
 						strictEqual(arguments.length, 0, "fireWith with no arguments (no arguments)");
 					});
@@ -127,7 +127,7 @@ module("callbacks", {});
 
 					// Basic binding, removing and firing
 					output = "X";
-					cblist = ej.utils.callbacks(flags);
+					cblist = ej.util.callbacks(flags);
 					cblist.add(outputA, outputB, outputC);
 					cblist.remove(outputB, outputC);
 					cblist.fire();
@@ -135,7 +135,7 @@ module("callbacks", {});
 
 					// Empty
 					output = "X";
-					cblist = ej.utils.callbacks(flags);
+					cblist = ej.util.callbacks(flags);
 					cblist.add(outputA);
 					cblist.add(outputB);
 					cblist.add(outputC);
@@ -145,7 +145,7 @@ module("callbacks", {});
 
 					// Locking
 					output = "X";
-					cblist = ej.utils.callbacks(flags);
+					cblist = ej.util.callbacks(flags);
 					cblist.add(function (str) {
 						output += str;
 					});
@@ -161,7 +161,7 @@ module("callbacks", {});
 
 					// Ordering
 					output = "X";
-					cblist = ej.utils.callbacks(flags);
+					cblist = ej.util.callbacks(flags);
 					cblist.add(function () {
 						cblist.add(outputC);
 						outputA();
@@ -183,7 +183,7 @@ module("callbacks", {});
 
 					// Multiple fire
 					output = "X";
-					cblist = ej.utils.callbacks(flags);
+					cblist = ej.util.callbacks(flags);
 					cblist.add(function (str) {
 						output += str;
 					});
@@ -205,7 +205,7 @@ module("callbacks", {});
 
 					// Return false
 					output = "X";
-					cblist = ej.utils.callbacks(flags);
+					cblist = ej.util.callbacks(flags);
 					cblist.add(outputA, function () { return false; }, outputB);
 					cblist.add(outputA);
 					cblist.fire();
@@ -224,7 +224,7 @@ module("callbacks", {});
 					handler.method = function () {
 						output += "!";
 					};
-					cblist = ej.utils.callbacks(flags);
+					cblist = ej.util.callbacks(flags);
 					cblist.add(handler);
 					cblist.add(handler);
 					cblist.fire();
@@ -235,14 +235,14 @@ module("callbacks", {});
 	});
 }());
 
-test("ej.utils.callbacks(options) - options are copied", function () {
+test("ej.util.callbacks(options) - options are copied", function () {
 	'use strict';
 	expect(1);
 
 	var options = {
 			unique: true
 		},
-		cb = ej.utils.callbacks(options),
+		cb = ej.util.callbacks(options),
 		count = 0,
 		fn = function () {
 			ok(!(count++), "called once");
@@ -252,11 +252,11 @@ test("ej.utils.callbacks(options) - options are copied", function () {
 	cb.fire();
 });
 
-test("ej.utils.callbacks.remove - should remove all instances", function () {
+test("ej.util.callbacks.remove - should remove all instances", function () {
 	'use strict';
 	expect(1);
 
-	var cb = ej.utils.callbacks();
+	var cb = ej.util.callbacks();
 
 	function fn() {
 		ok(false, "function wasn't removed");
@@ -267,11 +267,11 @@ test("ej.utils.callbacks.remove - should remove all instances", function () {
 	}).remove(fn).fire();
 });
 
-test("ej.utils.callbacks.has", function () {
+test("ej.util.callbacks.has", function () {
 	'use strict';
 	expect(13);
 
-	var cb = ej.utils.callbacks();
+	var cb = ej.util.callbacks();
 	function getA() {
 		return "A";
 	}
@@ -304,7 +304,7 @@ test("ej.utils.callbacks.has", function () {
 	strictEqual(cb.has(), false, "disabled() list has no callback functions (returns false)");
 	strictEqual(cb.has(getA), false, "Check for a specific function in a disabled() list");
 
-	cb = ej.utils.callbacks("unique");
+	cb = ej.util.callbacks("unique");
 	cb.add(getA);
 	cb.add(getA);
 	strictEqual(cb.has(), true, "Check if unique list has callback function (s) attached");
@@ -314,16 +314,16 @@ test("ej.utils.callbacks.has", function () {
 
 });
 
-test("ej.utils.callbacks() - adding a string doesn't cause a stack overflow", function () {
+test("ej.util.callbacks() - adding a string doesn't cause a stack overflow", function () {
 	'use strict';
 	expect(1);
 
-	ej.utils.callbacks().add("hello world");
+	ej.util.callbacks().add("hello world");
 
 	ok(true, "no stack overflow");
 });
 
-test("ej.utils.callbacks - check function add", function () {
+test("ej.util.callbacks - check function add", function () {
 	var fn = function () {
 			equal(arguments.length, 0, "fireWith with no arguments (no arguments), callback was added with success");
 		},
@@ -332,7 +332,7 @@ test("ej.utils.callbacks - check function add", function () {
 		},
 		count = 0;
 
-	callbacks = ej.utils.callbacks();
+	callbacks = ej.util.callbacks();
 	callbacks.add(fn);
 	callbacks.fire();
 
@@ -341,13 +341,13 @@ test("ej.utils.callbacks - check function add", function () {
 	callbacks.fireWith(window, ["A", "B"]);
 });
 
-test("ej.utils.callbacks - check function remove", function () {
+test("ej.util.callbacks - check function remove", function () {
 	var output,
 		fn = function () {
 			output = "callback called";
 		};
 
-	callbacks = ej.utils.callbacks();
+	callbacks = ej.util.callbacks();
 	callbacks.add(fn);
 	callbacks.remove(fn);
 	callbacks.fire();
@@ -355,34 +355,34 @@ test("ej.utils.callbacks - check function remove", function () {
 	equal(output, undefined, "Callback was removed");
 });
 
-test("ej.utils.callbacks - check function has", function () {
+test("ej.util.callbacks - check function has", function () {
 	var fn = function () { };
 
-	callbacks = ej.utils.callbacks();
+	callbacks = ej.util.callbacks();
 	callbacks.add(fn);
 	callbacks.has(fn);
 
 	equal(callbacks.has(fn), true, "Callback is assigned");
 });
 
-test("ej.utils.callbacks - check function empty", function () {
+test("ej.util.callbacks - check function empty", function () {
 	var fn = function () { },
 		fn1 = function () { };
 
-	callbacks = ej.utils.callbacks();
+	callbacks = ej.util.callbacks();
 	callbacks.add(fn,fn1);
 	callbacks.empty();
 
 	equal(callbacks.has(fn) && callbacks.has(fn), false, "Callbacks are removed");
 });
 
-test("ej.utils.callbacks - check function disable", function () {
+test("ej.util.callbacks - check function disable", function () {
 	var output = "X",
 		fn = function (str) { 
 			output += str;
 		};
 
-	callbacks = ej.utils.callbacks();
+	callbacks = ej.util.callbacks();
 	callbacks.disable();
 	callbacks.add(fn);
 
@@ -391,20 +391,20 @@ test("ej.utils.callbacks - check function disable", function () {
 	equal(output, "X", "Firing after disabling");
 });
 
-test("ej.utils.callbacks - check function disabled", function () {
-	callbacks = ej.utils.callbacks();
+test("ej.util.callbacks - check function disabled", function () {
+	callbacks = ej.util.callbacks();
 	callbacks.disable();
 
 	equal(callbacks.disabled(), true, "Adding a callback after disabling");
 });
 
-test("ej.utils.callbacks - check function lock", function () {
+test("ej.util.callbacks - check function lock", function () {
 	var output = "X",
 		fn = function (str) { 
 			output += str;
 		};
 
-	callbacks = ej.utils.callbacks();
+	callbacks = ej.util.callbacks();
 	callbacks.add(fn);
 	callbacks.lock();
 	callbacks.add(fn);
@@ -413,7 +413,7 @@ test("ej.utils.callbacks - check function lock", function () {
 	strictEqual(output, "X", "Lock early");
 });
 
-test("ej.utils.callbacks - check function locked", function () {
+test("ej.util.callbacks - check function locked", function () {
 	var fn = function () { };
 	
 	callbacks.lock();
@@ -423,26 +423,26 @@ test("ej.utils.callbacks - check function locked", function () {
 	strictEqual(callbacks.locked(), true, "Lock success");
 });
 
-test("ej.utils.callbacks - check function fireWith", function () {
+test("ej.util.callbacks - check function fireWith", function () {
 	var output = "X",
 		fn = function () {
 			equal(this, window, "Basic binding and firing (context)");
 			output += Array.prototype.join.call(arguments, "");
 		};
 
-	callbacks = ej.utils.callbacks();
+	callbacks = ej.util.callbacks();
 	callbacks.add(fn);
 	callbacks.fireWith(window, ["A", "B"]);
 	equal(output, "XAB", "Basic binding and firing (arguments)");
 });
 
-test("ej.utils.callbacks - check function fire", function () {
+test("ej.util.callbacks - check function fire", function () {
 	var output = "X",
 		fn = function (str) {
 			output += str;
 		};
 
-	callbacks = ej.utils.callbacks();
+	callbacks = ej.util.callbacks();
 	callbacks.add(fn);
 	callbacks.fire("A");
 	strictEqual(output, "XA", "Basic binding and firing");

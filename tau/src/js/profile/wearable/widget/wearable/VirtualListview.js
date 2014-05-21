@@ -487,7 +487,7 @@
 				 * @static
 				 */
 				function _computeElementSize(element, orientation) {
-					// @TODO change to utils method if it will work perfectly
+					// @TODO change to util method if it will work perfectly
 					return parseInt(orientation === VERTICAL ? element.clientHeight : element.clientWidth, 10) + 1;
 				}
 

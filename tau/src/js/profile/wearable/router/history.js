@@ -26,12 +26,12 @@
 	define(
 		[
 			"../../../core/router",
-			"../../../core/utils/object"
+			"../../../core/util/object"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var historyVolatileMode,
-				object = ns.utils.object,
+				object = ns.util.object,
 				historyUid = 0,
 				historyActiveIndex = 0,
 				windowHistory = window.history,

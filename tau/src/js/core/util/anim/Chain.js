@@ -9,7 +9,7 @@
  * @example
  *
  *		var element = document.getElementById("test");
- *		var chain = new ns.utils.anim.Chain(
+ *		var chain = new ns.util.anim.Chain(
  *			{
  *				concurrent: false,
  *				onPlay: function () {
@@ -57,7 +57,7 @@
  *			);
  *		chain.play();
  *
- * @class ns.utils.anim.Chain
+ * @class ns.util.anim.Chain
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>
  */
 (function (ns) {
@@ -72,9 +72,9 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var Animation = ns.utils.anim.Animation,
-				objectUtils = ns.utils.object,
-				dateUtils = ns.utils.date,
+			var Animation = ns.util.anim.Animation,
+				objectUtils = ns.util.object,
+				dateUtils = ns.util.date,
 				// paused state flag
 				PAUSED = 0,
 				// playing state flag
@@ -100,9 +100,9 @@
 						/**
 						 * @property {Object} options
 						 * @property {boolean} [options.concurent='false'] Sets the type of the chain
-						 * @property {function(ns.utils.anim.Chain)} [options.onPlay=null] a callback for play start
-						 * @property {function(ns.utils.anim.Chain)} [options.onPause=null] a callback for play pause
-						 * @property {function(ns.utils.anim.Chain)} [options.onEnd=null] a callback for play end
+						 * @property {function(ns.util.anim.Chain)} [options.onPlay=null] a callback for play start
+						 * @property {function(ns.util.anim.Chain)} [options.onPause=null] a callback for play pause
+						 * @property {function(ns.util.anim.Chain)} [options.onEnd=null] a callback for play end
 						 */
 					var opts = objectUtils.merge({
 							conocurrent: true,
@@ -117,7 +117,7 @@
 					 */
 					self.current = null;
 					/**
-					 * @property {Array.<ns.utils.anim.Animation>} animations The animations holder
+					 * @property {Array.<ns.util.anim.Animation>} animations The animations holder
 					 * @readonly
 					 */
 					self.animations = new Array(0);
@@ -140,8 +140,8 @@
 				proto = {
 					/**
 					 * Adds animation to chain
-					 * @param {ns.utils.anim.Animation} animation
-					 * @return {ns.utils.anim.Chain}
+					 * @param {ns.util.anim.Animation} animation
+					 * @return {ns.util.anim.Chain}
 					 * @chainable
 					 * @method
 					 * @instance
@@ -179,8 +179,8 @@
 
 					/**
 					 * Adds multiple animations to chain
-					 * @param {Array.<ns.utils.anim.Animation>} animations
-					 * @return {ns.utils.anim.Chain}
+					 * @param {Array.<ns.util.anim.Animation>} animations
+					 * @return {ns.util.anim.Chain}
 					 * @method
 					 * @chainable
 					 * @instance
@@ -264,7 +264,7 @@
 				"FINISHED": FINISHED
 			};
 			Chain.prototype = proto;
-			ns.utils.anim.Chain = Chain;
+			ns.util.anim.Chain = Chain;
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
 	);

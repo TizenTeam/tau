@@ -158,7 +158,7 @@
 
 		equal(window.getComputedStyle(indicator).display, "block", "Indicatior is displayed");
 
-		lastElementOffset = ej.utils.DOM.getElementOffset(list[list.length -1]);
+		lastElementOffset = ej.util.DOM.getElementOffset(list[list.length -1]);
 
 		fireEvent(elem1, "touchmove", {touches: [{clientX: lastElementOffset.left, clientY: lastElementOffset.top}]});
 		ok(indicator.textContent !== value, "Indicator has different text");
@@ -188,7 +188,7 @@
 		widget = ej.engine.instanceWidget(elem1, "IndexScrollbar");
 		toucheventHandler = touchevent.bind(null, elem1, widget);
 		elemA = elem1.children[0].children[0];
-		elemOffset = ej.utils.DOM.getElementOffset(elemA);
+		elemOffset = ej.util.DOM.getElementOffset(elemA);
 
 		document.addEventListener("touchstart", toucheventHandler);
 

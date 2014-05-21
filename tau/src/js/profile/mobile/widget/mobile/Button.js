@@ -144,8 +144,9 @@
 	define(
 		[
 			"../../../../core/engine",
-			"../../../../core/utils/selectors",
-			"../../../../core/utils/DOM/manipulation",
+			"../../../../core/util/selectors",
+			"../../../../core/util/object",
+			"../../../../core/util/DOM/manipulation",
 			"../../../../core/event/vmouse",
 			"../../../../core/theme",
 			"../mobile", // fetch namespace
@@ -155,7 +156,7 @@
 			//>>excludeEnd("tauBuildExclude");
 			var BaseWidget = ns.widget.mobile.BaseWidgetMobile,
 				engine = ns.engine,
-				selectorsUtils = ns.utils.selectors,
+				selectorsUtils = ns.util.selectors,
 				themes = ns.theme,
 				Button = function () {
 					var self = this;
@@ -460,7 +461,7 @@
 				 * @property {"span"|"div"} [options.wrapperEls="span"] wrapper tag name of button
 				 * @member ns.widget.mobile.Button
 				 */
-				ns.utils.object.merge(this.options, {
+				ns.util.object.merge(this.options, {
 					theme: null,
 					icon: null,
 					iconpos: null,
@@ -695,7 +696,7 @@
 				}
 
 				if (elementTagName === "button" || elementTagName === "input") {
-					ns.utils.DOM.replaceWithNodes(element, container);
+					ns.util.DOM.replaceWithNodes(element, container);
 					container.appendChild(buttonInner);
 					container.appendChild(element);
 					if (buttonInnerHTML) {

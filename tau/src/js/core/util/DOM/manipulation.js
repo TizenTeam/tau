@@ -22,7 +22,7 @@
 
 			/**
 			 * @property {DocumentFragment} fragment
-			 * @member ns.utils.DOM
+			 * @member ns.util.DOM
 			 * @private
 			 * @static
 			 */
@@ -32,7 +32,7 @@
 			var fragment = document.createDocumentFragment(),
 				/**
 				 * @property {DocumentFragment} fragment2
-				 * @member ns.utils.DOM
+				 * @member ns.util.DOM
 				 * @private
 				 * @static
 				 */
@@ -42,7 +42,7 @@
 				fragment2 = document.createDocumentFragment(),
 				/**
 				 * @property {number} [containerCounter=0]
-				 * @member ns.utils.DOM
+				 * @member ns.util.DOM
 				 * @private
 				 * @static
 				 */
@@ -53,18 +53,18 @@
 				/**
 				 * Alias to Array.slice method
 				 * @method slice
-				 * @member ns.utils.DOM
+				 * @member ns.util.DOM
 				 * @private
 				 * @static
 				 */
 				slice = [].slice,
-				DOM = ns.utils.DOM;
+				DOM = ns.util.DOM;
 
 			/**
 			 * Appends node or array-like node list array
 			 * to context
 			 * @method appendNodes
-			 * @member ns.utils.DOM
+			 * @member ns.util.DOM
 			 * @param {HTMLElement} context
 			 * @param {HTMLElement|HTMLCollection|NodeList|Array} elements
 			 * @return {HTMLElement|Array|null}
@@ -92,7 +92,7 @@
 			 * Replaces context with node or array-like node
 			 * list
 			 * @method replaceWithNodes
-			 * @member ns.utils.DOM
+			 * @member ns.util.DOM
 			 * @param {HTMLElement} context
 			 * @param {HTMLElement|HTMLCollection|NodeList|Array} elements
 			 * @return {HTMLElement|Array|null}
@@ -111,7 +111,7 @@
 			/**
 			 * Remove all children
 			 * @method removeAllChildren
-			 * @member ns.utils.DOM
+			 * @member ns.util.DOM
 			 * @param {HTMLElement} context
 			 * @static
 			 */
@@ -123,7 +123,7 @@
 			* Inserts node or array-like node list before
 			* context
 			* @method insertNodesBefore
-			* @member ns.utils.DOM
+			* @member ns.util.DOM
 			* @param {HTMLElement} context
 			* @param {HTMLElement|HTMLCollection|NodeList|Array} elements
 			* @return {HTMLElement|Array|null}
@@ -153,7 +153,7 @@
 			/**
 			* Inserts node after context
 			* @method insertNodeAfter
-			* @member ns.utils.DOM
+			* @member ns.util.DOM
 			* @param {HTMLElement} context
 			* @param {HTMLElement} element
 			* @return {HTMLElement}
@@ -174,7 +174,7 @@
 			 * @param {HTMLElement|NodeList|HTMLCollection|Array} elements
 			 * @param {string} html
 			 * @return {HTMLElement|NodeList|Array} wrapped element
-			 * @member ns.utils.DOM
+			 * @member ns.util.DOM
 			 * @static
 			 */
 			DOM.wrapInHTML = function (elements, html) {
@@ -226,7 +226,7 @@
 				return elements;
 			};
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ns.utils.DOM;
+			return ns.util.DOM;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

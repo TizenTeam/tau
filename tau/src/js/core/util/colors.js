@@ -1,6 +1,6 @@
 /*global window, define */
 /**
- * @class ns.utils.colors
+ * @class ns.util.colors
  */
 
 (function (window, document, ns) {
@@ -8,11 +8,11 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../utils"
+			"../util"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			ns.utils.colors = {
+			ns.util.colors = {
 				nearestInt: function (val) {
 					var theFloor = Math.floor(val);
 					return (((val - theFloor) > 0.5) ? (theFloor + 1) : theFloor);
@@ -228,7 +228,7 @@
 				}
 			};
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ns.utils.colors;
+			return ns.util.colors;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

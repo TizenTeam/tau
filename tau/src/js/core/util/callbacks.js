@@ -4,7 +4,7 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../utils",
+			"../util",
 			"./object"
 		],
 		function () {
@@ -32,9 +32,9 @@
 			*	stopOnFalse:	interrupt callings when a callback returns false
 			*
 			*/
-			ns.utils.callbacks = function (orgOptions) {
+			ns.util.callbacks = function (orgOptions) {
 
-				var object = ns.utils.object,
+				var object = ns.util.object,
 					options = object.copy(orgOptions),
 					slice = [].slice,
 					// Last fire value (for non-forgettable lists)
@@ -198,7 +198,7 @@
 			};
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ns.utils.callbacks;
+			return ns.util.callbacks;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

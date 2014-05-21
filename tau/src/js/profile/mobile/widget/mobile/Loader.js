@@ -63,7 +63,7 @@
 		[
 			'../../../../core/engine',
 			'../mobile',
-			'../../../../core/utils/object',
+			'../../../../core/util/object',
 			'./BaseWidgetMobile'
 		],
 		function () {
@@ -81,7 +81,7 @@
 				 * @private
 				 */
 				engine = ns.engine,
-				object = ns.utils.object,
+				object = ns.util.object,
 				/**
 				 * Alias for class ns.widget.mobile.Loader
 				 * @method Loader

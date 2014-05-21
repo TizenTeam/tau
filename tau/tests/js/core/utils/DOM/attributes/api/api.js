@@ -1,8 +1,8 @@
-var dom = ej.utils.DOM;
+var dom = ej.util.DOM;
 
-test("utils.DOM.attributes - check the existence of objects/functions", function () {
+test("util.DOM.attributes - check the existence of objects/functions", function () {
 	equal(typeof ej, "object", "ej exists");
-	equal(typeof ej.utils, "object", "ej.utils exists");
+	equal(typeof ej.util, "object", "ej.util exists");
 	equal(typeof dom.inheritAttr, "function", "function inheritAttr");
 	equal(typeof dom.getNumberFromAttribute, "function", "function getNumberFromAttribute");
 	equal(typeof dom.setNSData, "function", "function setNSData");

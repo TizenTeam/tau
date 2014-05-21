@@ -22,15 +22,15 @@
 			//>>excludeEnd("tauBuildExclude");
 
 
-			var selectors = ns.utils.selectors,
-				DOM = ns.utils.DOM,
+			var selectors = ns.util.selectors,
+				DOM = ns.util.DOM,
 				namespace = "namespace";
 
 			/**
 			 * Returns given attribute from element or the closest parent,
 			 * which matches the selector.
 			 * @method inheritAttr
-			 * @member ns.utils.DOM
+			 * @member ns.util.DOM
 			 * @param {HTMLElement} element
 			 * @param {string} attr
 			 * @param {string} selector
@@ -52,7 +52,7 @@
 			/**
 			 * Returns Number from properties described in html tag
 			 * @method getNumberFromAttribute
-			 * @member ns.utils.DOM
+			 * @member ns.util.DOM
 			 * @param {HTMLElement} element
 			 * @param {string} attribute
 			 * @param {string=} [type] auto type casting
@@ -92,7 +92,7 @@
 			 * @param {HTMLElement} element Base element
 			 * @param {string} name Name of attribute
 			 * @param {string|number|boolean} value New value
-			 * @member ns.utils.DOM
+			 * @member ns.util.DOM
 			 * @static
 			 */
 			DOM.setNSData = function (element, name, value) {
@@ -106,7 +106,7 @@
 			 * @method getNSData
 			 * @param {HTMLElement} element Base element
 			 * @param {string} name Name of attribute
-			 * @member ns.utils.DOM
+			 * @member ns.util.DOM
 			 * @return {?string|boolean}
 			 * @static
 			 */
@@ -130,7 +130,7 @@
 			 * @method hasNSData
 			 * @param {HTMLElement} element Base element
 			 * @param {string} name Name of attribute
-			 * @member ns.utils.DOM
+			 * @member ns.util.DOM
 			 * @return {boolean}
 			 * @static
 			 */
@@ -145,7 +145,7 @@
 			 * @param {string} name
 			 * @param {?Mixed} [value]
 			 * @static
-			 * @member ns.utils.DOM
+			 * @member ns.util.DOM
 			 */
 			DOM.nsData = function (element, name, value) {
 				// @TODO add support for object in value
@@ -162,7 +162,7 @@
 			 * @method removeNSData
 			 * @param {HTMLElement} element Base element
 			 * @param {string} name Name of attribute
-			 * @member ns.utils.DOM
+			 * @member ns.util.DOM
 			 * @static
 			 */
 			DOM.removeNSData = function (element, name) {
@@ -173,7 +173,7 @@
 			 * Returns object with all data-* attributes of element
 			 * @method getData
 			 * @param {HTMLElement} element Base element
-			 * @member ns.utils.DOM
+			 * @member ns.util.DOM
 			 * @return {Object}
 			 * @static
 			 */
@@ -202,7 +202,7 @@
 			 * @method removeAttribute
 			 * @param {HTMLElement} element
 			 * @param {string} name
-			 * @member ns.utils.DOM
+			 * @member ns.util.DOM
 			 * @static
 			 */
 			DOM.removeAttribute = function (element, name) {
@@ -216,7 +216,7 @@
 			 * @param {HTMLElement} element
 			 * @param {string} name
 			 * @param {Mixed} value
-			 * @member ns.utils.DOM
+			 * @member ns.util.DOM
 			 * @static
 			 */
 			DOM.setAttribute = function (element, name, value) {
@@ -224,7 +224,7 @@
 				element.setAttribute(name, value);
 			};
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ns.utils.DOM;
+			return ns.util.DOM;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

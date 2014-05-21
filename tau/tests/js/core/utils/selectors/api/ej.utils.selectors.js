@@ -1,9 +1,9 @@
-var selectors = ej.utils.selectors;
+var selectors = ej.util.selectors;
 
-test("ej.utils.selectors - check the existence of objects/functions", function () {
+test("ej.util.selectors - check the existence of objects/functions", function () {
 	equal(typeof ej, "object", "ej exists");
-	equal(typeof ej.utils, "object", "ej.utils exists");
-	equal(typeof ej.utils.selectors, "object", "ej.utils.selectors exists");
+	equal(typeof ej.util, "object", "ej.util exists");
+	equal(typeof ej.util.selectors, "object", "ej.util.selectors exists");
 	equal(typeof selectors.matchesSelector, "function", "function set");
 	equal(typeof selectors.getChildrenBySelector, "function", "function set");
 	equal(typeof selectors.getChildrenByClass, "function", "function get");
@@ -25,7 +25,7 @@ test("ej.utils.selectors - check the existence of objects/functions", function (
 	
 });
 
-test("ej.utils.selectors - check function matchesSelector", function () {
+test("ej.util.selectors - check function matchesSelector", function () {
 	var elem1 = document.getElementById("selectors1-parent"),
 		elem2 = document.getElementById("selectors1-child");
 
@@ -34,7 +34,7 @@ test("ej.utils.selectors - check function matchesSelector", function () {
 	equal(selectors.matchesSelector(elem2, "[data-type='selector']"), false, "function matchesSelector returns false value");
 });
 
-test("ej.utils.selectors - check functions with 'children'", function () {
+test("ej.util.selectors - check functions with 'children'", function () {
 	var elem1 = document.getElementById("selectors1-parent"),
 		child1 = document.getElementById("selectors1-child");
 
@@ -52,7 +52,7 @@ test("ej.utils.selectors - check functions with 'children'", function () {
 	equal(selectors.getChildrenByTag(elem1, "a").length, 0, "function getChildrenByTag doesn't find element with a tag");
 });
 
-test("ej.utils.selectors - check functions with 'parent'", function () {
+test("ej.util.selectors - check functions with 'parent'", function () {
 	var elem1 = document.getElementById("selectors1-parent"),
 		child1 = document.getElementById("selectors1-child"),
 		child2 = document.getElementById("selectors1-child-second");
@@ -77,7 +77,7 @@ test("ej.utils.selectors - check functions with 'parent'", function () {
 	equal(selectors.getParentsByTag(child2, "form").length, 0, "function getParentsByTag returns right value");
 });
 
-test("ej.utils.selectors - check functions with 'closest'", function () {
+test("ej.util.selectors - check functions with 'closest'", function () {
 	var elem1 = document.getElementById("selectors1-parent"),
 		child1 = document.getElementById("selectors1-child"),
 		child2 = document.getElementById("selectors1-child-second");

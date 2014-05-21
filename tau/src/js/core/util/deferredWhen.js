@@ -4,7 +4,7 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../utils",
+			"../util",
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -19,7 +19,7 @@
 					remaining = length !== 1 || (subordinate && (typeof subordinate.promise === "function")) ? length : 0,
 
 					// the master Deferred. If resolveValues consist of only a single Deferred, just use that.
-					deferred = remaining === 1 ? subordinate : new ns.utils.deferred(),
+					deferred = remaining === 1 ? subordinate : new ns.util.deferred(),
 
 					// Update function for both resolve and progress values
 					updateFunc = function( i, contexts, values ) {
@@ -64,10 +64,10 @@
 				return deferred.promise();
 			};
 
-			ns.utils.deferredWhen = when;
+			ns.util.deferredWhen = when;
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ns.utils.deferredWhen;
+			return ns.util.deferredWhen;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

@@ -62,7 +62,7 @@
 	define(
 		[
 			"../../../../core/engine",
-			"../../../../core/utils/DOM/manipulation",
+			"../../../../core/util/DOM/manipulation",
 			"../mobile",
 			"./BaseWidgetMobile",
 			"./Button",
@@ -72,7 +72,7 @@
 			//>>excludeEnd("tauBuildExclude");
 			var BaseWidget = ns.widget.mobile.BaseWidgetMobile,
 				engine = ns.engine,
-				dom = ns.utils.DOM,
+				dom = ns.util.DOM,
 				Button = ns.widget.mobile.Button,
 				Listdivider = function () {
 					return this;

@@ -30,9 +30,9 @@
 			"../../../../core/engine",
 			"../../../../core/event",
 			"../../../../core/event/vmouse",
-			"../../../../core/utils/easing",
-			"../../../../core/utils/DOM/css",
-			"../../../../core/utils/selectors",
+			"../../../../core/util/easing",
+			"../../../../core/util/DOM/css",
+			"../../../../core/util/selectors",
 			"../mobile", // fetch namespace
 			"./BaseWidgetMobile"
 		],
@@ -72,12 +72,12 @@
 				},
 				slice = [].slice,
 				BaseWidget = ns.widget.mobile.BaseWidgetMobile,
-				domutils = ns.utils.DOM,
-				selectors = ns.utils.selectors,
-				utils = ns.utils,
+				domutils = ns.util.DOM,
+				selectors = ns.util.selectors,
+				util = ns.util,
 				eventUtils = ns.event,
 				engine = ns.engine,
-				easingUtils = ns.utils.easing,
+				easingUtils = ns.util.easing,
 				dragEvents = {
 					"mouse": {
 						"start": "mousedown",
@@ -166,7 +166,7 @@
 				} else if (newPositionX !== endX && isNaN(newPositionX) === false && transformation !== null) { // used isNaN to prevent jslint error, hope that closure will change this to val === val for speedup
 					circularview._positionX = isCentring ? newPositionX : circularview._positionX + newPositionX;
 					updateView(circularview);
-					utils.requestAnimationFrame.call(window, transformation);
+					util.requestAnimationFrame.call(window, transformation);
 				} else {
 					circularview._positionX = isCentring ? newPositionX : circularview._positionX + newPositionX;
 					updateView(circularview);
@@ -214,7 +214,7 @@
 					stepX = mouseX - circularview._lastMouseX;
 					if (stepX !== 0) {
 						circularview._positionX += stepX;
-						utils.requestAnimationFrame.call(window, updateView.bind(null, circularview));
+						util.requestAnimationFrame.call(window, updateView.bind(null, circularview));
 					}
 					circularview._lastMouseX = mouseX;
 					circularview._lastStepX = stepX;
@@ -239,7 +239,7 @@
 						position.x + momentum,
 						circularview.options.scrollDuration
 					);
-					utils.requestAnimationFrame.call(window, circularview._transformation);
+					util.requestAnimationFrame.call(window, circularview._transformation);
 				} else {
 					circularview._transformation = null;
 					eventUtils.trigger(circularview.element, circularview.options.stopEventName);
@@ -351,7 +351,7 @@
 					stepX,
 					duration
 				);
-				utils.requestAnimationFrame.call(window, self._transformation);
+				util.requestAnimationFrame.call(window, self._transformation);
 			};
 
 			CircularView.prototype.centerTo = function (selector, duration) {

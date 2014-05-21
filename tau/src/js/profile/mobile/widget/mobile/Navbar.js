@@ -54,8 +54,8 @@
 	define(
 		[
 			"../../../../core/engine",
-			"../../../../core/utils/grid",
-			"../../../../core/utils/selectors",
+			"../../../../core/util/grid",
+			"../../../../core/util/selectors",
 			"../../../../core/event/vmouse",
 			"../mobile",
 			"./Button",
@@ -64,8 +64,8 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var engine = ns.engine,
-				grid = ns.utils.grid,
-				selectors = ns.utils.selectors,
+				grid = ns.util.grid,
+				selectors = ns.util.selectors,
 				buttonActiveClass = ns.widget.mobile.Button.classes.uiBtnActive,
 				slice = [].slice,
 				// basic options set for navbar buttons

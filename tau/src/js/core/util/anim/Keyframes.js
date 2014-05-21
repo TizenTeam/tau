@@ -9,9 +9,9 @@
  
  *		var frames = [{ "background-color": "red" }];
  *		frames[100] = {"background-color": "blue"};
- *		var keyframes = new ns.utils.anim.Keyframes(frames);
+ *		var keyframes = new ns.util.anim.Keyframes(frames);
  *
- * @class ns.utils.anim.Keyframes
+ * @class ns.util.anim.Keyframes
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>
  */
 (function (document, ns) {
@@ -90,7 +90,7 @@
 			/**
 			 * Destroys keyframes and removes css references from stylesheet
 			 * @method destroy
-			 * @member ns.utils.anim.Keyframes
+			 * @member ns.util.anim.Keyframes
 			 */
 			Keyframes.prototype.destroy = function () {
 				var keyframes = this.keyframes,
@@ -110,7 +110,7 @@
 				}
 			};
 
-			ns.utils.anim.Keyframes = Keyframes;
+			ns.util.anim.Keyframes = Keyframes;
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
 	);

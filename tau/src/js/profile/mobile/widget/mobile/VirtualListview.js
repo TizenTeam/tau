@@ -102,8 +102,7 @@
 	define(
 		[
 			"../../../../core/engine",
-			"../../../../core/utils/selectors",
-			"../../../../core/utils/DOM/css",
+			"../../../../core/util/selectors",
 			"../../../../core/event",
 			"../../../../core/theme",
 			"../mobile", // fetch namespace
@@ -126,11 +125,11 @@
 				 */
 				engine = ns.engine,
 				/**
-				 * @property {ns.utils.selectors} utilsSelectors alias variable
+				 * @property {ns.util.selectors} utilsSelectors alias variable
 				 * @private
 				 * @static
 				 */
-				utilsSelectors = ns.utils.selectors,
+				utilsSelectors = ns.util.selectors,
 				/**
 				 * @property {ns.theme} themes alias variable
 				 * @private

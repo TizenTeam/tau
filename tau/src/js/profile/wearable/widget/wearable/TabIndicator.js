@@ -26,15 +26,14 @@
 	define(
 		[
 			"../../../../core/engine",
-			"../../../../core/utils/selectors",
-			"../../../../core/utils/object",
+			"../../../../core/util/object",
 			"../../../../core/widget/BaseWidget",
 			"../wearable"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var engine = ns.engine,
-				object = ns.utils.object,
+				object = ns.util.object,
 				TabIndicator = function() {
 				this.tabSize = 0;
 				this.activeIndex = 0;

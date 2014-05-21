@@ -13,7 +13,7 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../utils" // fetch namespace
+			"../util" // fetch namespace
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -30,7 +30,7 @@
 					 * @param {string} string
 					 * @return {number}
 					 * @static
-					 * @member ns.utils.date
+					 * @member ns.util.date
 					 */
 					convertToMiliseconds: function (string) {
 						var parsed = string.match(timeRegex),
@@ -50,7 +50,7 @@
 						return miliseconds;
 					}
 				};
-			ns.utils.date = date;
+			ns.util.date = date;
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
 	);

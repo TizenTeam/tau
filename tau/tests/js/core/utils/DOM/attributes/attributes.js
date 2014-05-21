@@ -1,7 +1,7 @@
-var dom = ej.utils.DOM,
+var dom = ej.util.DOM,
 	div = document.getElementById("test1");
 
-test("utils.DOM.attributes - check function inheritAttr", function () {
+test("util.DOM.attributes - check function inheritAttr", function () {
 	var elem1 = document.getElementById("dom5"),
 		elem2 = document.getElementById("dom6"),
 		elem3 = document.getElementById("dom6-child"),
@@ -18,7 +18,7 @@ test("utils.DOM.attributes - check function inheritAttr", function () {
 	equal(dom.inheritAttr(elem5, "child", "form"), "child", "function inheritAttr returns own attribute");
 });
 
-test("utils.DOM.attributes - check function getNumberFromAttribute", function () {
+test("util.DOM.attributes - check function getNumberFromAttribute", function () {
 	var elem1 = document.getElementById("dom1");
 
 	equal(typeof dom.getNumberFromAttribute(elem1, "nothing"), "undefined", "function getNumberFromAttribute returns nothing if element doesn't have such attribute.");
@@ -30,7 +30,7 @@ test("utils.DOM.attributes - check function getNumberFromAttribute", function ()
 	equal(typeof dom.getNumberFromAttribute(elem1, "float", "float"), "number", "function getNumberFromAttribute returns float");
 });
 
-test("utils.DOM.attributes - check functions: setNSData, getNSData, hasNSData, removeNSData", function () {
+test("util.DOM.attributes - check functions: setNSData, getNSData, hasNSData, removeNSData", function () {
 	var elem1 = document.getElementById("dom2");
 
 	equal(dom.hasNSData(elem1, "ns-attr"), false, "function hasNSData returns false if element doesn't have such attribute.");
@@ -42,7 +42,7 @@ test("utils.DOM.attributes - check functions: setNSData, getNSData, hasNSData, r
 	equal(dom.hasNSData(elem1, "ns-attr"), false, "function hasNSData returns false after removing attribute.");
 });
 
-test("utils.DOM.attributes - check function setNSData", function () {
+test("util.DOM.attributes - check function setNSData", function () {
 	dom.setNSData(div, "id", 5);
 	dom.setNSData(div, "build", true);
 	equal(typeof dom.setNSData(div, "text", "test"), "undefined", "setNSData returns nothing");
@@ -51,7 +51,7 @@ test("utils.DOM.attributes - check function setNSData", function () {
 	equal(div.dataset.text, "test", "setNSData(div, 'text', 'test')");
 });
 
-test("utils.DOM.attributes - check function getNSData", function () {
+test("util.DOM.attributes - check function getNSData", function () {
 	div.dataset.id = 5;
 	div.dataset.build = true;
 	div.dataset.text = "test";
@@ -63,7 +63,7 @@ test("utils.DOM.attributes - check function getNSData", function () {
 	equal(dom.getNSData(div, "text"), "test", "getNSData(div, 'text')");
 });
 
-test("utils.DOM.attributes - check function hasNSData", function () {
+test("util.DOM.attributes - check function hasNSData", function () {
 	div.dataset.id = 5;
 	div.dataset.build = true;
 	div.dataset.text = "text";
@@ -74,7 +74,7 @@ test("utils.DOM.attributes - check function hasNSData", function () {
 	equal(dom.hasNSData(div, "text"), false, "hasNSData(div, 'text')");
 });
 
-test("utils.DOM.attributes - check function removeNSData", function () {
+test("util.DOM.attributes - check function removeNSData", function () {
 	div.dataset.id = 5;
 	div.dataset.build = true;
 	div.dataset.text = "test";
@@ -86,7 +86,7 @@ test("utils.DOM.attributes - check function removeNSData", function () {
 	equal(div.dataset.text, undefined, "removeNSData(div, 'text')");
 });
 
-test("utils.DOM.attributes - check function getData", function () {
+test("util.DOM.attributes - check function getData", function () {
 	var elem1 = document.getElementById("dom3"),
 		elem2 =  document.getElementById("dom4"),
 		elem3 = document.getElementById("dom5"),
@@ -116,7 +116,7 @@ test("utils.DOM.attributes - check function getData", function () {
 	equal(numberOfElements(attributes), 2, "function getData returns all attributes with data- prefix");
 });
 
-test("utils.DOM.attributes - check function removeAttribute", function () {
+test("util.DOM.attributes - check function removeAttribute", function () {
 	var elem1 = document.getElementById("dom7");
 
 	equal(elem1.hasAttribute("data-attr"), true, "element has such attribute before calling removeAttribute");
@@ -124,7 +124,7 @@ test("utils.DOM.attributes - check function removeAttribute", function () {
 	equal(elem1.hasAttribute("data-attr"), false, "element doesnt't have such attribute after calling removeAttribute");
 });
 
-test("utils.DOM.attributes - check function setAttribute", function () {
+test("util.DOM.attributes - check function setAttribute", function () {
 	var elem1 = document.getElementById("dom7");
 
 	equal(elem1.hasAttribute("attr2"), false, "element doesnt't have such attribute before calling setAttribute");

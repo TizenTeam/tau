@@ -28,13 +28,13 @@
 	define(
 		[
 			"../indexscrollbar",
-			"../../../../../core/utils/object",
-			"../../../../../core/utils/DOM/css"
+			"../../../../../core/util/object",
+			"../../../../../core/util/DOM/css"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var utilsObject = ns.utils.object,
-				utilsDOM = ns.utils.DOM;
+			var utilsObject = ns.util.object,
+				utilsDOM = ns.util.DOM;
 
 			function IndexBar(element, options) {
 				this.element = element;

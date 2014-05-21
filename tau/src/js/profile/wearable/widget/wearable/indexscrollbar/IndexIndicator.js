@@ -28,11 +28,11 @@
 	define(
 		[
 			"../indexscrollbar",
-			"../../../../../core/utils/object"
+			"../../../../../core/util/object"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var utilsObject = ns.utils.object;
+			var utilsObject = ns.util.object;
 
 			function IndexIndicator(element, options) {
 				this.element = element;

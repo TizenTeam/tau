@@ -1,15 +1,15 @@
-var data = ej.utils.data;
+var data = ej.util.data;
 
-test("ej.utils.data - check the existence of objects/functions", function () {
+test("ej.util.data - check the existence of objects/functions", function () {
 	equal(typeof ej, "object", "ej exists");
-	equal(typeof ej.utils, "object", "ej.utils exists");
-	equal(typeof ej.utils.data, "object", "ej.utils.data exists");
+	equal(typeof ej.util, "object", "ej.util exists");
+	equal(typeof ej.util.data, "object", "ej.util.data exists");
 	equal(typeof data.set, "function", "function set");
 	equal(typeof data.get, "function", "function get");
 	equal(typeof data.remove, "function", "function remove");
 });
 
-test("ej.utils.data - check function set", function () {
+test("ej.util.data - check function set", function () {
 	var elem1 = document.getElementById("data1");
 
 	equal(typeof data.set(elem1, "newstring", "newvalue"), "string", "function set returns string value");
@@ -20,7 +20,7 @@ test("ej.utils.data - check function set", function () {
 	equal(data.set(elem1, "newnumber", 1), 1, "function set returns value");
 });
 
-test("ej.utils.data - check function get", function () {
+test("ej.util.data - check function get", function () {
 	var elem1 = document.getElementById("data1");
 	data.set(elem1, "newstring", "newvalue");
 	data.set(elem1, "newboolean", true);
@@ -34,7 +34,7 @@ test("ej.utils.data - check function get", function () {
 	equal(data.get(elem1, "newnumber"), 1, "function get returns value");
 });
 
-test("ej.utils.data - check function remove", function () {
+test("ej.util.data - check function remove", function () {
 	var elem1 = document.getElementById("data1");
 	data.set(elem1, "newnumber", 1);
 

@@ -4,7 +4,7 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../utils",
+			"../util",
 			"./callbacks",
 			"./object"
 		],
@@ -12,8 +12,8 @@
 			//>>excludeEnd("tauBuildExclude");
 
 			var Deferred = function (callback) {
-				var callbacks = ns.utils.callbacks,
-					object = ns.utils.object,
+				var callbacks = ns.util.callbacks,
+					object = ns.util.object,
 					tuples = [
 						// action, add listener, listener list, final state
 						["resolve", "done", callbacks({once: true, memory: true}), "resolved"],
@@ -102,9 +102,9 @@
 				// All done!
 				return deferred;
 			};
-			ns.utils.deferred = Deferred;
+			ns.util.deferred = Deferred;
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ns.utils.deferred;
+			return ns.util.deferred;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

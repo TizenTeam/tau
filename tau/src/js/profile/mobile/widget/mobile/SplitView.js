@@ -29,9 +29,9 @@
 	define(
 		[
 			"../../../../core/engine",
-			"../../../../core/utils/DOM",
+			"../../../../core/util/DOM",
 			"../../../../core/theme",
-			"../../../../core/utils/selectors",
+			"../../../../core/util/selectors",
 			"../../../../core/event",
 			"../mobile", // fetch namespace
 			"./BaseWidgetMobile",
@@ -41,8 +41,8 @@
 			//>>excludeEnd('tauBuildExclude');
 			var BaseWidgetMobile = ns.widget.mobile.BaseWidgetMobile,
 				engine = ns.engine,
-				selectors = ns.utils.selectors,
-				DOM = ns.utils.DOM,
+				selectors = ns.util.selectors,
+				DOM = ns.util.DOM,
 				events = ns.event,
 				classes,
 

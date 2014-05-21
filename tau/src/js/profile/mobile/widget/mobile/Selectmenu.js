@@ -61,7 +61,8 @@
 			"../../../../core/engine",
 			"../../../../core/theme",
 			"../../../../core/event",
-			"../../../../core/utils/selectors",
+			"../../../../core/util/selectors",
+			"../../../../core/util/zoom",
 			"../mobile",
 			"./BaseWidgetMobile",
 			"./Button"
@@ -91,7 +92,7 @@
 				* @private
 				* @static
 				*/
-				selectors = ns.utils.selectors,
+				selectors = ns.util.selectors,
 				/**
 				* @property {Object} themes alias variable
 				* @private
@@ -103,7 +104,7 @@
 				* @private
 				* @static
 				*/
-				zoom = ns.utils.zoom,
+				zoom = ns.util.zoom,
 				Selectmenu = function () {
 					this.options = {
 						theme: 's',

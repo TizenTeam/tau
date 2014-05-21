@@ -50,7 +50,7 @@
 	define(
 		[
 			"../../../../core/engine",
-			"../../../../core/utils/selectors",
+			"../../../../core/util/selectors",
 			"../mobile",
 			"./Listview",
 			"./Listdivider"
@@ -58,13 +58,13 @@
 		function () {
 			//>>excludeEnd('tauBuildExclude');
 			/**
-			* Local alias for ns.utils.selectors
-			* @property {Object} selectors Alias for {@link ns.utils.selectors}
+			* Local alias for ns.util.selectors
+			* @property {Object} selectors Alias for {@link ns.util.selectors}
 			* @member ns.widget.mobile.Listview.Autodividers
 			* @static
 			* @private
 			*/
-			var selectors = ns.utils.selectors,
+			var selectors = ns.util.selectors,
 
 				/**
 				* Local alias for ns.engine

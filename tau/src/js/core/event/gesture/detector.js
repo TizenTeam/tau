@@ -11,12 +11,12 @@
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define([ "./core",
-		"../../utils/object"
+		"../../util/object"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var Gesture = ns.event.gesture,
-				objectMerge = ns.utils.object.merge,
+				objectMerge = ns.util.object.merge,
 				Detector = function( strategy, sender ) {
 					this.sender = sender;
 					this.strategy = strategy.create();

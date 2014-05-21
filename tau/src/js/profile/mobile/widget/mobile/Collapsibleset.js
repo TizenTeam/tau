@@ -33,8 +33,8 @@
 			"../mobile",
 			"../../../../core/theme",
 			"../../../../core/event",
-			"../../../../core/utils/DOM/attributes",
-			"../../../../core/utils/selectors",
+			"../../../../core/util/DOM/attributes",
+			"../../../../core/util/selectors",
 			"./BaseWidgetMobile",
 			"./Collapsible"
 		],
@@ -60,17 +60,17 @@
 				*/
 				events = ns.event,
 				/**
-				* @property {ns.utils.selectors} selectors alias variable
+				* @property {ns.util.selectors} selectors alias variable
 				* @private
 				* @static
 				*/
-				selectors = ns.utils.selectors,
+				selectors = ns.util.selectors,
 				/**
-				* @property {ns.utils.DOM} domUtils alias variable
+				* @property {ns.util.DOM} domUtils alias variable
 				* @private
 				* @static
 				*/
-				domUtils = ns.utils.DOM,
+				domUtils = ns.util.DOM,
 				/**
 				* @property {Object} BaseWidget alias variable
 				* @private

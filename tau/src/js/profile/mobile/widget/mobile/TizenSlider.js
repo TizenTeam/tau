@@ -31,7 +31,8 @@
 		[
 			"../../../../core/engine",
 			"../../../../core/event",
-			"../../../../core/utils/DOM/css",
+			"../../../../core/util/object",
+			"../../../../core/util/DOM/css",
 			"../mobile",
 			"./Slider",
 			"./Button",
@@ -43,8 +44,8 @@
 				Button = ns.widget.mobile.Button,
 				engine = ns.engine,
 				events = ns.event,
-				objectUtils = ns.utils.object,
-				DOM = ns.utils.DOM,
+				objectUtils = ns.util.object,
+				DOM = ns.util.DOM,
 				POPUP_WIDTH = {
 					'SMALL': '2.3rem',
 					'MEDIUM': '2.8rem',

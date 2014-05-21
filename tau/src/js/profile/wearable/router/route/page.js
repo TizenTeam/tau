@@ -27,20 +27,20 @@
 			"../../../../core/engine",
 			"../../selectors",
 			"../route",
-			"../../../../core/utils/DOM/attributes",
-			"../../../../core/utils/path",
-			"../../../../core/utils/selectors",
-			"../../../../core/utils/object",
+			"../../../../core/util/DOM/attributes",
+			"../../../../core/util/path",
+			"../../../../core/util/selectors",
+			"../../../../core/util/object",
 			"../history",
 			"../../widget/wearable/Page"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var utils = ns.utils,
-				path = utils.path,
-				DOM = utils.DOM,
-				object = utils.object,
-				utilSelector = utils.selectors,
+			var util = ns.util,
+				path = util.path,
+				DOM = util.DOM,
+				object = util.object,
+				utilSelector = util.selectors,
 				history = ns.router.history,
 				engine = ns.engine,
 				baseElement,
@@ -243,7 +243,7 @@
 
 					// Check if parsed page contains scripts
 					scripts = page.querySelectorAll('script');
-					slice.call(scripts).forEach(utils.runScript.bind(null, dataUrl));
+					slice.call(scripts).forEach(util.runScript.bind(null, dataUrl));
 				}
 				return page;
 			};

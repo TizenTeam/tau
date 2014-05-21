@@ -8,8 +8,8 @@ module("Object");
 	}
 	SimpleObject.prototype.protProp1 = "prototyp";
 
-	test("ns.utils.object.copy - checking copy function", function () {
-		var data = ns.utils.object,
+	test("ns.util.object.copy - checking copy function", function () {
+		var data = ns.util.object,
 			orgObject = {},
 			newObject;
 
@@ -26,8 +26,8 @@ module("Object");
 		notEqual(newObject.protProp1, orgObject.prop1, "The prototype property wasn't copied");
 	});
 
-	test("ns.utils.object.merge - checking merge function", function () {
-		var data = ns.utils.object,
+	test("ns.util.object.merge - checking merge function", function () {
+		var data = ns.util.object,
 			newObject,
 			orgObject;
 
@@ -46,8 +46,8 @@ module("Object");
 		equal(newObject.prop3, orgObject.prop3, "Both objects point to this same array, its not a deep copy");
 	});
 
-	test("ns.utils.object.merge - checking merge function", function () {
-		var data = ns.utils.object,
+	test("ns.util.object.merge - checking merge function", function () {
+		var data = ns.util.object,
 			newObject,
 			orgObject1,
 			orgObject2;

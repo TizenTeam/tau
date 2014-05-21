@@ -27,22 +27,22 @@
 			"./Page",
 			"../widget/mobile/Page",
 			"../widget/mobile/Loader",
-			"../../../core/utils",
+			"../../../core/util",
 			"../../../core/event",
-			"../../../core/utils/DOM/attributes",
-			"../../../core/utils/selectors",
-			"../../../core/utils/deferred",
-			"../../../core/utils/path",
-			"../../../core/utils/object"
+			"../../../core/util/DOM/attributes",
+			"../../../core/util/selectors",
+			"../../../core/util/deferred",
+			"../../../core/util/path",
+			"../../../core/util/object"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var HIDE_PAGE_LOADING_TIMEOUT = 1500,
-				DOM = ns.utils.DOM,
+				DOM = ns.util.DOM,
 				engine = ns.engine,
-				utils = ns.utils,
-				object = utils.object,
-				selectors = utils.selectors,
+				util = ns.util,
+				object = util.object,
+				selectors = util.selectors,
 				Page = ns.widget.mobile.Page,
 				body = document.body,
 				firstPage = null,
@@ -56,8 +56,8 @@
 					pageContainer: container,
 					loadMsgDelay: 50 // This delay allows loads that pull from browser cache to occur without showing the loading message.
 				},
-				path = utils.path,
-				UtilsDeferred = ns.utils.deferred,
+				path = util.path,
+				UtilsDeferred = ns.util.deferred,
 				events = ns.event,
 				//existing base tag?
 				base = document.getElementsByTagName('base')[0],
@@ -389,7 +389,7 @@
 								DOM.setNSData(page, 'url', dataUrl);
 								DOM.setNSData(page, 'external-page', true);
 								scripts = page.querySelectorAll('script');
-								scriptRunner = utils.runScript.bind(null, dataUrl);
+								scriptRunner = util.runScript.bind(null, dataUrl);
 								slice.call(scripts).forEach(scriptRunner);
 								settings.pageContainer.appendChild(page);
 

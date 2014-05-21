@@ -25,11 +25,11 @@
 		[
 			"../../core/conflict",
 			"../../core/engine",
-			"../../core/utils/path",
-			"../../core/utils/DOM/attributes",
-			"../../core/utils/DOM/css",
-			"../../core/utils/object",
-			"../../core/utils/selectors",
+			"../../core/util/path",
+			"../../core/util/DOM/attributes",
+			"../../core/util/DOM/css",
+			"../../core/util/object",
+			"../../core/util/selectors",
 			"../../core/event",
 			"../../core/event/gesture"
 		],
@@ -37,37 +37,37 @@
 			//>>excludeEnd("tauBuildExclude");
 
 			document.addEventListener(frameworkNamespace.engine.eventType.INIT, function () {
-				var utils = frameworkNamespace.utils,
+				var util = frameworkNamespace.util,
 					events = frameworkNamespace.event,
-					utilsDOM = utils.DOM,
-					utilsObject = utils.object;
+					utilsDOM = util.DOM,
+					utilsObject = util.object;
 				/**
 				 * @class tau.path
-				 * @inheritdoc ns.utils.path
-				 * @extends ns.utils.path
+				 * @inheritdoc ns.util.path
+				 * @extends ns.util.path
 				 */
-				ns.path = utils.path;
+				ns.path = util.path;
 				/**
 				 * @method fireEvent
-				 * @inheritdoc ns.utils.events#trigger
+				 * @inheritdoc ns.util.events#trigger
 				 * @member tau
 				 */
 				ns.fireEvent = events.trigger.bind(events);
 				/**
 				 * @method getData
-				 * @inheritdoc ns.utils.DOM#getData
+				 * @inheritdoc ns.util.DOM#getData
 				 * @member tau
 				 */
 				ns.getData = utilsDOM.getData.bind(utilsDOM);
 				/**
 				 * @method extendObject
-				 * @inheritdoc ns.utils.object#merge
+				 * @inheritdoc ns.util.object#merge
 				 * @member tau
 				 */
 				ns.extendObject = utilsObject.merge.bind(utilsObject);
 				/**
 				 * @method inherit
-				 * @inheritdoc ns.utils.object#inherit
+				 * @inheritdoc ns.util.object#inherit
 				 * @member tau
 				 */
 				ns.inherit = utilsObject.inherit.bind(utilsObject);
@@ -78,32 +78,31 @@
 				ns.dom = {
 					/**
 					 * @method getElementOffset
-					 * @inheritdoc ns.utils.DOM#getElementOffset
+					 * @inheritdoc ns.util.DOM#getElementOffset
 					 * @static
 					 * @member tau.dom
 					 */
 					getOffset: utilsDOM.getElementOffset.bind(utilsDOM),
 					/**
 					 * @method triggerCustomEvent
-					 * @inheritdoc ns.utils.events#trigger
+					 * @inheritdoc ns.util.events#trigger
 					 * @member tau.dom
 					 */
 					triggerCustomEvent: events.trigger.bind(events),
 					/**
 					 * @method data
-					 * @inheritdoc ns.utils.DOM#nsData
+					 * @inheritdoc ns.util.DOM#nsData
 					 * @static
 					 * @member tau.dom
 					 */
 					data: utilsDOM.nsData.bind(utilsDOM)
 				};
 
-				ns.utils = {
+				ns.util = {
 					DOM: utilsDOM,
-					event: utils.events,
-					object: utils.object,
-					path: utils.path,
-					selector: utils.selectors
+					object: util.object,
+					path: util.path,
+					selector: util.selectors
 				};
 
 				/**

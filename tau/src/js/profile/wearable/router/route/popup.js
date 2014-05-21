@@ -26,9 +26,9 @@
 	define(
 		[
 			"../../../../core/engine",
-			"../../../../core/utils/path",
-			"../../../../core/utils/DOM/attributes",
-			"../../../../core/utils/selectors",
+			"../../../../core/util/path",
+			"../../../../core/util/DOM/attributes",
+			"../../../../core/util/selectors",
 			"../../selectors",
 			"../history",
 			"../route",
@@ -80,19 +80,19 @@
 				 */
 				engine = ns.engine,
 				/**
-				 * @property {Object} path Alias for {@link ns.utils.path}
+				 * @property {Object} path Alias for {@link ns.util.path}
 				 * @member ns.router.route.popup
 				 * @private
 				 * @static
 				 */
-				path = ns.utils.path,
+				path = ns.util.path,
 				/**
-				 * @property {Object} utilSelector Alias for {@link ns.utils.selectors}
+				 * @property {Object} utilSelector Alias for {@link ns.util.selectors}
 				 * @member ns.router.route.popup
 				 * @private
 				 * @static
 				 */
-				utilSelector = ns.utils.selectors,
+				utilSelector = ns.util.selectors,
 				/**
 				 * @property {Object} history Alias for {@link ns.router.history}
 				 * @member ns.router.route.popup
@@ -101,19 +101,19 @@
 				 */
 				history = ns.router.history,
 				/**
-				 * @property {Object} pathUtils Alias for {@link ns.utils.path}
+				 * @property {Object} pathUtils Alias for {@link ns.util.path}
 				 * @member ns.router.route.popup
 				 * @private
 				 * @static
 				 */
-				pathUtils = ns.utils.path,
+				pathUtils = ns.util.path,
 				/**
-				 * @property {Object} DOM Alias for {@link ns.utils.DOM}
+				 * @property {Object} DOM Alias for {@link ns.util.DOM}
 				 * @member ns.router.route.popup
 				 * @private
 				 * @static
 				 */
-				DOM = ns.utils.DOM,
+				DOM = ns.util.DOM,
 				/**
 				 * @method slice Alias for array slice method
 				 * @member ns.router.route.popup
@@ -312,7 +312,7 @@
 					dataUrl = self._createDataUrl( absUrl ),
 					scripts,
 					all = document.createElement('div'),
-					scriptRunner = ns.utils.runScript.bind(null, dataUrl);
+					scriptRunner = ns.util.runScript.bind(null, dataUrl);
 
 				//workaround to allow scripts to execute when included in popup divs
 				all.innerHTML = html;

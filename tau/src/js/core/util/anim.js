@@ -7,11 +7,11 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../utils"
+			"../util"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			ns.utils.anim = ns.utils.anim || {};
+			ns.util.anim = ns.util.anim || {};
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.widget;
 		}

@@ -56,12 +56,12 @@
 			"../../../../core/engine",
 			"../../../../core/theme",
 			"../../../../core/event",
-			"../../../../core/utils/selectors",
-			"../../../../core/utils/DOM/attributes",
-			"../../../../core/utils/DOM/manipulation",
-			"../../../../core/utils/DOM/css",
-			"../../../../core/utils/deferred",
-			"../../../../core/utils/deferredWhen",
+			"../../../../core/util/selectors",
+			"../../../../core/util/DOM/attributes",
+			"../../../../core/util/DOM/manipulation",
+			"../../../../core/util/DOM/css",
+			"../../../../core/util/deferred",
+			"../../../../core/util/deferredWhen",
 			"../mobile",
 			"./BaseWidgetMobile"
 		],
@@ -179,13 +179,13 @@
 				* @member ns.widget.mobile.Popup
 				* @private
 				*/
-				selectors = ns.utils.selectors,
+				selectors = ns.util.selectors,
 				/**
-				* @property {Object} doms Alias for class ns.utils.DOM
+				* @property {Object} doms Alias for class ns.util.DOM
 				* @member ns.widget.mobile.Popup
 				* @private
 				*/
-				doms = ns.utils.DOM,
+				doms = ns.util.DOM,
 				/**
 				* @property {Object} themes Alias for class ns.theme
 				* @member ns.widget.mobile.Popup
@@ -201,11 +201,11 @@
 				scrollviewClipClass = ns.widget.mobile.Scrollview.classes.clip,
 				pageActiveClass = ns.widget.mobile.Page.classes.uiPageActive,
 				/**
-				* @property {ns.utils.deferred} UtilsDeferred Alias for class ns.utils.deferred
+				* @property {ns.util.deferred} UtilsDeferred Alias for class ns.util.deferred
 				* @member ns.widget.mobile.Popup
 				* @private
 				*/
-				UtilsDeferred = ns.utils.deferred;
+				UtilsDeferred = ns.util.deferred;
 
 			/**
 			* Return window coordinates
@@ -1068,7 +1068,7 @@
 					}
 				});
 
-				ns.utils.deferredWhen(prereqs.screen, prereqs.container).done(function() {
+				ns.util.deferredWhen(prereqs.screen, prereqs.container).done(function() {
 					if ( prereqs === self._prereqs ) {
 						self._prereqs = null;
 						whenDone();

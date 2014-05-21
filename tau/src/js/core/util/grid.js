@@ -4,12 +4,12 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../utils", // fetch namespace
+			"../util", // fetch namespace
 			"./selectors"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var selectors = ns.utils.selectors,
+			var selectors = ns.util.selectors,
 				slice = [].slice,
 				gridTypes = [
 					null,
@@ -29,16 +29,16 @@
 			}
 			/**
 			* Class with functions to create css grids
-			* @class ns.utils.grid
+			* @class ns.util.grid
 			*/
-			ns.utils.grid = {
+			ns.util.grid = {
 				/**
 				* make css grid
 				* @method makeGrid
 				* @param {HTMLElement} element
 				* @param {string=} [gridType="a"]
 				* @static
-				* @member ns.utils.grid
+				* @member ns.util.grid
 				*/
 				makeGrid: function (element, gridType) {
 					var gridClassList = element.classList,
@@ -78,7 +78,7 @@
 				}
 			};
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ns.utils.grid;
+			return ns.util.grid;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

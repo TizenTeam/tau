@@ -1,7 +1,7 @@
-var utils = ej.utils;
+var util = ej.util;
 
-test("ej.utils - check the existence of objects/functions", function () {
+test("ej.util - check the existence of objects/functions", function () {
 	equal(typeof ej, "object", "ej exists");
-	equal(typeof ej.utils, "object", "ej.utils exists");
-	equal(typeof utils.requestAnimationFrame, "function", "function hashObject");
+	equal(typeof ej.util, "object", "ej.util exists");
+	equal(typeof util.requestAnimationFrame, "function", "function hashObject");
 });

@@ -27,9 +27,9 @@
 	define(
 		[
 			"../../../../core/engine",
-			"../../../../core/utils/selectors",
-			"../../../../core/utils/grid",
-			"../../../../core/utils/DOM/attributes",
+			"../../../../core/util/selectors",
+			"../../../../core/util/grid",
+			"../../../../core/util/DOM/attributes",
 			"../../../../core/event/vmouse",
 			"../mobile",  // fetch namespace
 			"./BaseWidgetMobile",
@@ -40,9 +40,9 @@
 			var ButtonClasses = ns.widget.mobile.Button.classes,
 				BaseWidget = ns.widget.mobile.BaseWidgetMobile,
 				engine = ns.engine,
-				selectors = ns.utils.selectors,
-				grid = ns.utils.grid,
-				DOM = ns.utils.DOM,
+				selectors = ns.util.selectors,
+				grid = ns.util.grid,
+				DOM = ns.util.DOM,
 				slice = [].slice,
 				Tabbar = function () {
 					this.vclickCallback = null;

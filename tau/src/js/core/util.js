@@ -5,9 +5,9 @@
 * License : MIT License V2
 */
 /**
- * #Utils
- * Namespace for all utils class
- * @class ns.utils
+ * #Util
+ * Namespace for all util class
+ * @class ns.util
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>
  */
@@ -26,7 +26,7 @@
 				 * @method requestAnimationFrame
 				 * @return {Function}
 				 * @static
-				 * @member ns.utils
+				 * @member ns.util
 				*/
 				requestAnimationFrame = (window.requestAnimationFrame ||
 					window.webkitRequestAnimationFrame ||
@@ -36,22 +36,22 @@
 						currentFrame = window.setTimeout(callback.bind(callback, +new Date()), 1000 / 60);
 					}).bind(window),
 				/**
-				* Class with utils functions
-				* @class ns.utils
+				* Class with util functions
+				* @class ns.util
 				*/
-				/** @namespace ns.utils */
-				utils = ns.utils || {};
+				/** @namespace ns.util */
+				util = ns.util || {};
 
-			utils.requestAnimationFrame = requestAnimationFrame;
+			util.requestAnimationFrame = requestAnimationFrame;
 
 			/**
 			* cancelAnimationFrame function
 			* @method cancelAnimationFrame
 			* @return {Function}
-			* @member ns.utils
+			* @member ns.util
 			* @static
 			*/
-			utils.cancelAnimationFrame = (window.cancelAnimationFrame ||
+			util.cancelAnimationFrame = (window.cancelAnimationFrame ||
 					window.webkitCancelAnimationFrame ||
 					window.mozCancelAnimationFrame ||
 					window.oCancelAnimationFrame ||
@@ -65,30 +65,30 @@
 			 * Method make asynchronous call of function
 			 * @method async
 			 * @inheritdoc #requestAnimationFrame
-			 * @member ns.utils
+			 * @member ns.util
 			 * @static
 			 */
-			utils.async = requestAnimationFrame;
+			util.async = requestAnimationFrame;
 
 			/**
 			* Checks if specified string is a number or not
 			* @method isNumber
 			* @return {boolean}
-			* @member ns.utils
+			* @member ns.util
 			* @static
 			*/
-			utils.isNumber = function (query) {
+			util.isNumber = function (query) {
 				var parsed = parseFloat(query);
 				return !isNaN(parsed) && isFinite(parsed);
 			};
 
-			utils.runScript = function (baseUrl, script) {
+			util.runScript = function (baseUrl, script) {
 				var newscript = document.createElement('script'),
 					i,
 					scriptAttributes = script.attributes,
 					count = script.childNodes.length,
 					src = script.getAttribute("src"),
-					path = utils.path,
+					path = util.path,
 					xhrObj,
 					attribute,
 					status;
@@ -135,9 +135,9 @@
 				script.parentNode.replaceChild(newscript, script);
 			};
 
-			ns.utils = utils;
+			ns.util = util;
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ns.utils;
+			return ns.util;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

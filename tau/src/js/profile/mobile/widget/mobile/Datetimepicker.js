@@ -35,10 +35,10 @@
 			"./Circularview",
 			"../../../../core/event",
 			"../../../../core/event/vmouse",
-			"../../../../core/utils/DOM/attributes",
-			"../../../../core/utils/DOM/manipulation",
-			"../../../../core/utils/array",
-			"../../../../core/utils/globalize"
+			"../../../../core/util/DOM/attributes",
+			"../../../../core/util/DOM/manipulation",
+			"../../../../core/util/array",
+			"../../../../core/util/globalize"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -51,10 +51,10 @@
 				},
 				BaseWidget = ns.widget.mobile.BaseWidgetMobile,
 				engine = ns.engine,
-				dom = ns.utils.DOM,
-				globalize = ns.utils.globalize,
+				dom = ns.util.DOM,
+				globalize = ns.util.globalize,
 				eventUtils = ns.event,
-				range = ns.utils.array.range,
+				range = ns.util.array.range,
 				daysInMonth = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ],
 				parsePatternRegexp = /\/|\s|dd|d|MMMM|MMM|MM|M|yyyy|yy|y|hh|h|HH|H|mm|m|ss|s|tt|t|f|gg|g|'[\w\W]*'$|[\w\W]/g,
 				fieldRegexp = /ui-datefield-([\w]*)/;

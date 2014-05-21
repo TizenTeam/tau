@@ -81,7 +81,7 @@
 	define(
 		[
 			"../../../../core/engine",
-			"../../../../core/utils/selectors",
+			"../../../../core/util/selectors",
 			"../../../../core/theme",
 			"../mobile", // fetch namespace
 			"./BaseWidgetMobile",
@@ -112,7 +112,7 @@
 				* @member ns.widget.Notification
 				* @private
 				*/
-				selectors = ns.utils.selectors,
+				selectors = ns.util.selectors,
 				/**
 				* @property {Object} themes Alias for class ns.theme
 				* @member ns.widget.Notification

@@ -12,13 +12,14 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(["./core",
 			"./instance",
-			"./detector"
+			"./detector",
+			"../../util/object"
 		],
 		function() {
 			//>>excludeEnd("tauBuildExclude");
 
 			var Gesture = ns.event.gesture,
-				objectMerge = ns.utils.object.merge,
+				objectMerge = ns.util.object.merge,
 				TOUCH_DEVICE = "ontouchstart" in window;
 
 			Gesture.Manager = (function() {
@@ -326,7 +327,7 @@
 								y: ev.pointer.clientY - lastEvent.pointer.clientY
 							},
 							velocity = this.velocity,
-							timeDifference = Gesture.defaults.estimatedPointerTimeDifference, /* pause time threshold.. tune the number to up if it is slow */
+							timeDifference = Gesture.defaults.estimatedPointerTimeDifference, /* pause time threshold.util. tune the number to up if it is slow */
 							estimated;
 
 						// reset start event for multi touch

@@ -228,10 +228,11 @@
 	define(
 		[
 			"../../../../core/engine",
-			"../../../../core/utils/DOM/css",
-			"../../../../core/utils/object",
-			"../../../../core/utils/easing",
-			"../../../../core/utils/bezierCurve",
+			"../../../../core/util",
+			"../../../../core/util/DOM/css",
+			"../../../../core/util/object",
+			"../../../../core/util/easing",
+			"../../../../core/util/bezierCurve",
 			"../../../../jqm/support",
 			"../mobile", // fetch namespace
 			"./BaseWidgetMobile",
@@ -555,41 +556,41 @@
 				*/
 				support = ns.jqm.support,
 				/**
-				* @property {Object} utilsDOM Alias for class {@link ns.utils.DOM}
+				* @property {Object} utilsDOM Alias for class {@link ns.util.DOM}
 				* @member ns.widget.mobile.Gallery3d
 				* @private
 				*/
-				utilsDOM = ns.utils.DOM,
+				utilsDOM = ns.util.DOM,
 				/**
-				* @property {Object} utilsObject Alias for class {@link ns.utils.object}
+				* @property {Object} utilsObject Alias for class {@link ns.util.object}
 				* @member ns.widget.mobile.Gallery3d
 				* @private
 				*/
-				utilsObject = ns.utils.object,
+				utilsObject = ns.util.object,
 				/**
-				* @property {Object} easing Alias for class {@link ns.utils.easing}
+				* @property {Object} easing Alias for class {@link ns.util.easing}
 				* @member ns.widget.mobile.Gallery3d
 				* @private
 				*/
-				easing = ns.utils.easing,
+				easing = ns.util.easing,
 				/**
-				* @property {Object} bezierCurve Alias for class {@link ns.utils.bezierCurve}
+				* @property {Object} bezierCurve Alias for class {@link ns.util.bezierCurve}
 				* @member ns.widget.mobile.Gallery3d
 				* @private
 				*/
-				bezier = ns.utils.bezierCurve,
+				bezier = ns.util.bezierCurve,
 				/**
-				* @property {Function} requestAnimationFrame Alias for function ns.utils.requestAnimationFrame
+				* @property {Function} requestAnimationFrame Alias for function ns.util.requestAnimationFrame
 				* @member ns.widget.mobile.Gallery3d
 				* @private
 				*/
-				requestAnimationFrame = ns.utils.requestAnimationFrame,
+				requestAnimationFrame = ns.util.requestAnimationFrame,
 				/**
-				* @property {Function} cancelAnimationFrame Alias for function ns.utils.cancelAnimationFrame
+				* @property {Function} cancelAnimationFrame Alias for function ns.util.cancelAnimationFrame
 				* @member ns.widget.mobile.Gallery3d
 				* @private
 				*/
-				cancelAnimationFrame = ns.utils.cancelAnimationFrame,
+				cancelAnimationFrame = ns.util.cancelAnimationFrame,
 
 				touchStartEvt = (support.touch ? "touchstart" : "mousedown"),
 				touchMoveEvt = (support.touch ? "touchmove" : "mousemove"),

@@ -2,10 +2,10 @@
  module: false, test:false, equal: false*/
 document.addEventListener('DOMContentLoaded', function () {
 	'use strict';
-	var path = ej.utils.path,
+	var path = ej.util.path,
         pageSelector = '.ui-page';
 
-	module('ej.utils.path');
+	module('ej.util.path');
 	test('getDocumentUrl', function () {
         var urlObject = {
 
@@ -72,8 +72,8 @@ document.addEventListener('DOMContentLoaded', function () {
 	});
 
 	test('clean', function () {
-		equal(path.clean("http://localhost/index.html", ej.utils.path.parseUrl("http://localhost/index.html")), "/index.html", 'clean for "http://localhost/index.html"');
-		equal(path.clean("http://localhost/test/index.html", ej.utils.path.parseUrl("http://localhost/index.html")), "/test/index.html", 'clean for "http://localhost/test/index.html"');
+		equal(path.clean("http://localhost/index.html", ej.util.path.parseUrl("http://localhost/index.html")), "/index.html", 'clean for "http://localhost/index.html"');
+		equal(path.clean("http://localhost/test/index.html", ej.util.path.parseUrl("http://localhost/index.html")), "/test/index.html", 'clean for "http://localhost/test/index.html"');
 	});
 
 	test('cleanHash', function () {
@@ -96,8 +96,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	test('isExternal', function () {
 		equal(path.isExternal(), false, 'isExternal for {}');
-		equal(path.isExternal('http://localhost/index.html#hash', ej.utils.path.parseUrl("http://localhost2/index.html")), true, 'isExternal for {a: "b", c:"d"}');
-		equal(path.isExternal('#hash', ej.utils.path.parseUrl("http://localhost/index.html")), false, 'isExternal for {a: "b", c:"d"}');
+		equal(path.isExternal('http://localhost/index.html#hash', ej.util.path.parseUrl("http://localhost2/index.html")), true, 'isExternal for {a: "b", c:"d"}');
+		equal(path.isExternal('#hash', ej.util.path.parseUrl("http://localhost/index.html")), false, 'isExternal for {a: "b", c:"d"}');
 	});
 
 	test('hasProtocol', function () {
@@ -108,21 +108,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	test('isFirstPageUrl', function () {
 		equal(path.isFirstPageUrl('index.html#hash',
-				ej.utils.path.parseUrl("http://localhost/index.html"),
+				ej.util.path.parseUrl("http://localhost/index.html"),
 				null,
-				ej.utils.path.parseUrl("http://localhost/index.html")), false, 'isFirstPageUrl for {a: "b", c:"d"}');
+				ej.util.path.parseUrl("http://localhost/index.html")), false, 'isFirstPageUrl for {a: "b", c:"d"}');
 		equal(path.isFirstPageUrl('index.html#test1',
-				ej.utils.path.parseUrl("http://localhost/index.html"),
+				ej.util.path.parseUrl("http://localhost/index.html"),
 				null,
-				ej.utils.path.parseUrl("http://localhost/index.html")), true, 'isFirstPageUrl for {a: "b", c:"d"}');
+				ej.util.path.parseUrl("http://localhost/index.html")), true, 'isFirstPageUrl for {a: "b", c:"d"}');
 	});
 
 	test('isPermittedCrossDomainRequest', function () {
-		equal(path.isPermittedCrossDomainRequest(ej.utils.path.parseUrl('http://localhost/aaa.html'), 'http://localhost/bbb.html'), false, 'isPermittedCrossDomainRequest');
-		equal(path.isPermittedCrossDomainRequest(ej.utils.path.parseUrl('file://localhost/aaa.html'), 'http://localhost2/bbb.html'), false, 'isPermittedCrossDomainRequest');
+		equal(path.isPermittedCrossDomainRequest(ej.util.path.parseUrl('http://localhost/aaa.html'), 'http://localhost/bbb.html'), false, 'isPermittedCrossDomainRequest');
+		equal(path.isPermittedCrossDomainRequest(ej.util.path.parseUrl('file://localhost/aaa.html'), 'http://localhost2/bbb.html'), false, 'isPermittedCrossDomainRequest');
 		ej.set('allowCrossDomainPages', true);
-		equal(path.isPermittedCrossDomainRequest(ej.utils.path.parseUrl('http://localhost/aaa.html'), 'http://localhost/bbb.html'), false, 'isPermittedCrossDomainRequest');
-		equal(path.isPermittedCrossDomainRequest(ej.utils.path.parseUrl('file://localhost/aaa.html'), 'http://localhost2/bbb.html'), true, 'isPermittedCrossDomainRequest');
+		equal(path.isPermittedCrossDomainRequest(ej.util.path.parseUrl('http://localhost/aaa.html'), 'http://localhost/bbb.html'), false, 'isPermittedCrossDomainRequest');
+		equal(path.isPermittedCrossDomainRequest(ej.util.path.parseUrl('file://localhost/aaa.html'), 'http://localhost2/bbb.html'), true, 'isPermittedCrossDomainRequest');
 	});
 
 	test('isEmbedded', function () {

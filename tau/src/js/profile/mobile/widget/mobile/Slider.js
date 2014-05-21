@@ -30,10 +30,10 @@
 		[
 			"../../../../core/engine",
 			"../../../../core/theme",
-			"../../../../core/utils/DOM/attributes",
-			"../../../../core/utils/DOM/css",
+			"../../../../core/util/DOM/attributes",
+			"../../../../core/util/DOM/css",
 			"../../../../core/event",
-			"../../../../core/utils/selectors",
+			"../../../../core/util/selectors",
 			"../../../../core/event/vmouse",
 			"../mobile", // fetch namespace
 			"./BaseWidgetMobile",
@@ -68,8 +68,8 @@
 				engine = ns.engine,
 				events = ns.event,
 				themes = ns.theme,
-				selectors = ns.utils.selectors,
-				DOMutils = ns.utils.DOM,
+				selectors = ns.util.selectors,
+				DOMutils = ns.util.DOM,
 				classes = {
 					theme: 'ui-body-',
 					mini: 'ui-mini',

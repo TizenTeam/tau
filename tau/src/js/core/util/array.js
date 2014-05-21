@@ -1,14 +1,14 @@
 /*global window, define */
 /**
  * #Array utilities
- * @class ns.utils.array
+ * @class ns.util.array
  */
 (function (window, document, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../utils" // fetch namespace
+			"../util" // fetch namespace
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -68,7 +68,7 @@
 				return matrix;
 			}
 
-			ns.utils.array = {
+			ns.util.array = {
 				/**
 				* Create an array containing the range of integers or characters
 				* from low to high (inclusive)
@@ -81,7 +81,7 @@
 				range: _range
 			};
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ns.utils.array;
+			return ns.util.array;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

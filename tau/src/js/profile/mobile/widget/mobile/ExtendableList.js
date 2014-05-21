@@ -29,8 +29,8 @@
 	define(
 		[
 			"../../../../core/engine",
-			"../../../../core/utils",
-			"../../../../core/utils/DOM",
+			"../../../../core/util",
+			"../../../../core/util/DOM",
 			"../../../../core/theme",
 			"../mobile", // fetch namespace
 			"./Listview",
@@ -60,8 +60,8 @@
 				 * @member ns.widget.ExtendableList
 				 */
 					engine = ns.engine,
-				utils = ns.utils,
-				DOM = ns.utils.DOM,
+				util = ns.util,
+				DOM = ns.util.DOM,
 				/**
 				 * Local constructor function
 				 * @method ExtendableList
@@ -253,11 +253,11 @@
 			prototype._configureNormal = function (config) {
 				var options = this.options;
 
-				if (utils.isNumber(config.dataLength)) {
+				if (util.isNumber(config.dataLength)) {
 					options.dataLength = config.dataLength;
 				}
 
-				if (utils.isNumber(config.bufferSize)) {
+				if (util.isNumber(config.bufferSize)) {
 					options.bufferSize = config.bufferSize;
 				}
 

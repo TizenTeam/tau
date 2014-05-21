@@ -1,11 +1,11 @@
 module("callbacks", {});
 
-var callbacks = ej.utils.callbacks();
+var callbacks = ej.util.callbacks();
 
-test("ej.utils.callbacks - check the existence of objects/functions", function () {
+test("ej.util.callbacks - check the existence of objects/functions", function () {
 	equal(typeof ej, "object", "ej exists");
-	equal(typeof ej.utils, "object", "ej.utils exists");
-	equal(typeof ej.utils.callbacks(), "object", "ej.utils.callbacks exists");
+	equal(typeof ej.util, "object", "ej.util exists");
+	equal(typeof ej.util.callbacks(), "object", "ej.util.callbacks exists");
 	equal(typeof callbacks.add, "function", "function add");
 	equal(typeof callbacks.remove, "function", "function remove");
 	equal(typeof callbacks.has, "function", "function has");

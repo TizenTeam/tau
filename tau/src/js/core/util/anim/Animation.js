@@ -3,11 +3,11 @@
 /**
  * Animation class for easy animations of elements. There can be
  * multiple animations on one element but in such case the usage
- * of ns.utils.anim.Chain is preferred.
+ * of ns.util.anim.Chain is preferred.
  *
  * @example
  *
- *		var a = new ns.utils.anim.Animation({
+ *		var a = new ns.util.anim.Animation({
  *			element: document.getElementById("test"),
  *			fillMode: "both",
  *			delay: "2s",
@@ -24,7 +24,7 @@
  *		});
  *
  *
- * @class ns.utils.anim.Animation
+ * @class ns.util.anim.Animation
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>
  */
 (function (document, ns) {
@@ -57,10 +57,10 @@
 				return props.indexOf(name);
 			}
 
-			var objectUtils = ns.utils.object,
-				Keyframes = ns.utils.anim.Keyframes,
-				CSSUtils = ns.utils.DOM,
-				dateUtils = ns.utils.date,
+			var objectUtils = ns.util.object,
+				Keyframes = ns.util.anim.Keyframes,
+				CSSUtils = ns.util.DOM,
+				dateUtils = ns.util.date,
 				cssPropertyPrefix = ns.support.cssAnimationPrefix,
 				eventPrefix = cssPropertyPrefix.replace(/\-/gi, ""),
 				endEventName = eventPrefix.length > 0 ? eventPrefix + "AnimationEnd" : "animationEnd",
@@ -73,7 +73,7 @@
 				// alias for function string for typeof conditionals
 				TYPE_FUNCTION = "function",
 				// animation end handler
-				// @param {ns.utils.anim.Animation} self
+				// @param {ns.util.anim.Animation} self
 				// @param {Event} event
 				handleEnd = function (self, event) {
 					var options = self.options,
@@ -97,7 +97,7 @@
 					}
 				},
 				// helper for playing/pausing
-				// @param {ns.utils.anim.Animation}
+				// @param {ns.util.anim.Animation}
 				// @param {string} state
 				changeState = function (self, state) {
 					if (!self._applied) { // this needs to be before keyframe fetch
@@ -136,7 +136,7 @@
 						 * @property {Array.<Object>} [options.steps=Array(0)] Animation steps, when advanced keying is required, the array must have 100 elements, which are percentages of the timeline (anmation duration)
 						 * @property {string} [options.duration="0"] The duration of the animation
 						 * @property {string} [options.direction="normal"] The direction of the animation
-						 * @property {string} [options.delay="0"] The delay of the animation. Please remember when using ns.utils.anim.Chain with concurrent option to false, the of subsequent animations will be modified
+						 * @property {string} [options.delay="0"] The delay of the animation. Please remember when using ns.util.anim.Chain with concurrent option to false, the of subsequent animations will be modified
 						 * @property {string} [options.fillMode="none"] The fill mode of the animations						
 						 * @property {boolean} [options.preserve=false] Indicates if the last key frame props should be kept after animation is destroyed (not implemented!)
 						 * @property {string} [options.timingFunction="ease"] Chooses the timing function for the css animation
@@ -192,7 +192,7 @@
 					// indicates if the css props were applied
 					self._applied = false;
 					/**
-					 * @property {ns.utils.anim.Keyframes|null} keyframes Keyframes reference
+					 * @property {ns.util.anim.Keyframes|null} keyframes Keyframes reference
 					 * @readonly
 					 */
 					self.keyframes = null;
@@ -243,7 +243,7 @@
 			 * Note: this will reset the whole animation, so do it only in paused state
 			 * @param {number} timePoint A keyframe number between from 0 to 100
 			 * @param {Object} stepOptions Css props to change in the keyframe
-			 * @return {ns.utils.anim.Animation}
+			 * @return {ns.util.anim.Animation}
 			 * @method
 			 * @chainable
 			 */
@@ -256,7 +256,7 @@
 
 			/**
 			 * Resets the animation			
-			 * @return {ns.utils.anim.Animation}
+			 * @return {ns.util.anim.Animation}
 			 * @method
 			 * @chainable
 			 */
@@ -284,7 +284,7 @@
 
 			/**
 			 * Starts playback
-			 * @return {ns.utils.anim.Animation}
+			 * @return {ns.util.anim.Animation}
 			 * @method
 			 * @chainable
 			 */
@@ -294,7 +294,7 @@
 
 			/**
 			 * Pauses playback
-			 * @return {ns.utils.anim.Animation}
+			 * @return {ns.util.anim.Animation}
 			 * @method
 			 * @chainable
 			 */
@@ -305,7 +305,7 @@
 			/**
 			 * Destroys the animation
 			 * Note: Please use "preserve" options to keep applied last animation props
-			 * @return {ns.utils.anim.Animation}
+			 * @return {ns.util.anim.Animation}
 			 * @method
 			 */
 			proto.destroy = function () {
@@ -346,7 +346,7 @@
 				"FINISHED": FINISHED
 			};
 			Animation.prototype = proto;
-			ns.utils.anim.Animation = Animation;
+			ns.util.anim.Animation = Animation;
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
 	);

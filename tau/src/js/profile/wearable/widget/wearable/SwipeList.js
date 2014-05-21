@@ -28,7 +28,7 @@
 			"../../../../core/engine",
 			"../../../../core/event",
 			"../../../../core/event/gesture",
-			"../../../../core/utils/selectors",
+			"../../../../core/util/selectors",
 			"../../../../core/widget/BaseWidget",
 			"../wearable"
 		],
@@ -37,7 +37,7 @@
 			var Gesture = ns.event.gesture,
 				utilsEvents = ns.event,
 				engine = ns.engine,
-				selectors = ns.utils.selectors,
+				selectors = ns.util.selectors,
 
 				eventType = {
 					LEFT: "swipelist.left",

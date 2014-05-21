@@ -49,8 +49,8 @@
 		[
 			"../../selectors",
 			"../../../../core/engine",
-			"../../../../core/utils/object",
-			"../../../../core/utils/DOM/css",
+			"../../../../core/util/object",
+			"../../../../core/util/DOM/css",
 			"../../../../core/widget/BaseWidget",
 			"../wearable"
 		],
@@ -113,13 +113,13 @@
 				*/
 				engine = ns.engine,
 				/**
-				* @property {Object} utilsObject Alias for class ns.utils.events
+				* @property {Object} utilsObject Alias for class ns.util.events
 				* @member ns.widget.wearable.Popup
 				* @private
 				*/
-				utilsObject = ns.utils.object,
+				utilsObject = ns.util.object,
 				/**
-				* @property {ns.utils.selectors} selectors Alias for class ns.selectors
+				* @property {ns.util.selectors} selectors Alias for class ns.selectors
 				* @member ns.widget.wearable.Popup
 				* @private
 				*/
@@ -307,7 +307,7 @@
 					contentHeight = 0,
 					contentWidth,
 					isToast = element.classList.contains(classes.toast),
-					dom = ns.utils.DOM,
+					dom = ns.util.DOM,
 					originalDisplay = '',
 					originalVisibility = '',
 					isDisplayNone;

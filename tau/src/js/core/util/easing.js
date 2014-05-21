@@ -5,19 +5,19 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../utils"
+			"../util"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			/**
 			* easing
-			* @class ns.utils.easing
+			* @class ns.util.easing
 			*/
-			ns.utils.easing = {
+			ns.util.easing = {
 				/**
 				* Performs cubit out easing calcuclations based on time
 				* @method cubicOut
-				* @member ns.utils.easing
+				* @member ns.util.easing
 				* @param {number} currentTime
 				* @param {number} startValue
 				* @param {number} changeInValue
@@ -34,7 +34,7 @@
 				/**
 				 * Performs quad easing out calcuclations based on time
 				 * @method cubicOut
-				 * @member ns.utils.easing
+				 * @member ns.util.easing
 				 * @param {number} currentTime
 				 * @param {number} startValue
 				 * @param {number} changeInValue
@@ -49,7 +49,7 @@
 				/**
 				* Performs out expo easing calcuclations based on time
 				* @method easeOutExpo
-				* @member ns.utils.easing
+				* @member ns.util.easing
 				* @param {number} currentTime
 				* @param {number} startValue
 				* @param {number} changeInValue
@@ -66,7 +66,7 @@
 				/**
 				* Performs out linear calcuclations based on time
 				* @method linear
-				* @member ns.utils.easing
+				* @member ns.util.easing
 				* @param {number} currentTime
 				* @param {number} startValue
 				* @param {number} changeInValue
@@ -79,7 +79,7 @@
 				}
 			};
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ns.utils.easing;
+			return ns.util.easing;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

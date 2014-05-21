@@ -26,7 +26,7 @@
 			"./defaults",
 			"./selectors",
 			"./navigator",
-			"./utils",
+			"./util",
 			"./support",
 			"./widget"
 		],

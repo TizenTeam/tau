@@ -32,10 +32,10 @@
 			"./route", // fetch namespace
 			"./history",
 			"../../../core/event",
-			"../../../core/utils/DOM/attributes",
-			"../../../core/utils/selectors",
-			"../../../core/utils/path",
-			"../../../core/utils/object",
+			"../../../core/util/DOM/attributes",
+			"../../../core/util/selectors",
+			"../../../core/util/path",
+			"../../../core/util/object",
 			"../widget/wearable/Page",
 			"../widget/wearable/PageContainer",
 			"../selectors"
@@ -43,13 +43,13 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 				/**
-				* Local alias for ns.utils
-				* @property {Object} utils Alias for {@link ns.utils}
+				* Local alias for ns.util
+				* @property {Object} util Alias for {@link ns.util}
 				* @member ns.router.wearable.Router
 				* @static
 				* @private
 				*/
-			var utils = ns.utils,
+			var util = ns.util,
 				/**
 				* Local alias for ns.event
 				* @property {Object} eventUtils Alias for {@link ns.event}
@@ -59,36 +59,36 @@
 				*/
 				eventUtils = ns.event,
 				/**
-				* @property {Object} DOM Alias for {@link ns.utils.DOM}
+				* @property {Object} DOM Alias for {@link ns.util.DOM}
 				* @member ns.router.wearable.Router
 				* @static
 				* @private
 				*/
-				DOM = utils.DOM,
+				DOM = util.DOM,
 				/**
-				* Local alias for ns.utils.path
-				* @property {Object} path Alias for {@link ns.utils.path}
+				* Local alias for ns.util.path
+				* @property {Object} path Alias for {@link ns.util.path}
 				* @member ns.router.wearable.Router
 				* @static
 				* @private
 				*/
-				path = utils.path,
+				path = util.path,
 				/**
-				* Local alias for ns.utils.selectors
-				* @property {Object} selectors Alias for {@link ns.utils.selectors}
+				* Local alias for ns.util.selectors
+				* @property {Object} selectors Alias for {@link ns.util.selectors}
 				* @member ns.router.wearable.Router
 				* @static
 				* @private
 				*/
-				selectors = utils.selectors,
+				selectors = util.selectors,
 				/**
-				* Local alias for ns.utils.object
-				* @property {Object} object Alias for {@link ns.utils.object}
+				* Local alias for ns.util.object
+				* @property {Object} object Alias for {@link ns.util.object}
 				* @member ns.router.wearable.Router
 				* @static
 				* @private
 				*/
-				object = utils.object,
+				object = util.object,
 				/**
 				* Local alias for ns.engine
 				* @property {Object} engine Alias for {@link ns.engine}

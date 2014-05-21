@@ -32,11 +32,11 @@
 			'../../../../core/widget',
 			'../../../../core/theme',
 			'../../../../core/support',
-			'../../../../core/utils/DOM/manipulation',
-			'../../../../core/utils/DOM/css',
-			'../../../../core/utils/DOM/attributes',
-			'../../../../core/utils/selectors',
-			'../../../../core/utils/object',
+			'../../../../core/util/DOM/manipulation',
+			'../../../../core/util/DOM/css',
+			'../../../../core/util/DOM/attributes',
+			'../../../../core/util/selectors',
+			'../../../../core/util/object',
 			'../../../../core/event',
 			'./BaseWidgetMobile',
 			"./Button",
@@ -72,13 +72,13 @@
 				*/
 				events = ns.event,
 				/**
-				* Local alias for ns.utils
-				* @property {Object} engine Alias for {@link ns.utils}
+				* Local alias for ns.util
+				* @property {Object} engine Alias for {@link ns.util}
 				* @member ns.widget.MultimediaView
 				* @static
 				* @private
 				*/
-				utils = ns.utils,
+				util = ns.util,
 				/**
 				* Local alias for ns.utilsTheme
 				* @property {Object} engine Alias for {@link ns.theme}
@@ -88,29 +88,29 @@
 				*/
 				utilsTheme = ns.theme,
 				/**
-				* Local alias for ns.utils.object
-				* @property {Object} utilsDOM Alias for {@link ns.utils.object}
+				* Local alias for ns.util.object
+				* @property {Object} utilsDOM Alias for {@link ns.util.object}
 				* @member ns.widget.MultimediaView
 				* @static
 				* @private
 				*/
-				utilsObject = ns.utils.object,
+				utilsObject = ns.util.object,
 				/**
-				* Local alias for ns.utils.DOM.manipulation & ns.utils.DOM.css & ns.utils.DOM.attributes
-				* @property {Object} utilsDOM Alias for {@link ns.utils.DOM.*}
+				* Local alias for ns.util.DOM.manipulation & ns.util.DOM.css & ns.util.DOM.attributes
+				* @property {Object} utilsDOM Alias for {@link ns.util.DOM.*}
 				* @member ns.widget.MultimediaView
 				* @static
 				* @private
 				*/
-				utilsDOM = ns.utils.DOM,
+				utilsDOM = ns.util.DOM,
 				/**
-				* Local alias for ns.utils.selectors
-				* @property {Object} utilsSelectors Alias for {@link ns.utils.selectors}
+				* Local alias for ns.util.selectors
+				* @property {Object} utilsSelectors Alias for {@link ns.util.selectors}
 				* @member ns.widget.MultimediaView
 				* @static
 				* @private
 				*/
-				utilsSelectors = ns.utils.selectors,
+				utilsSelectors = ns.util.selectors,
 				/**
 				 * Local alias for classes of Page widget
 				 * @property {Object} Page Alias for {@link ns.widget.mobile.Page}
@@ -685,7 +685,7 @@
 			* @static
 			 */
 			function convertTimeFormat(systime) {
-				if (!utils.isNumber(systime)) {
+				if (!util.isNumber(systime)) {
 					return "Playback Error";
 				}
 

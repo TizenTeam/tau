@@ -81,7 +81,7 @@ test ( "ej.widget.SplitView" , function () {
 	ok(widget.splitterTouchElement.classList.contains(classes.uiSplitter));
 	ok(widget.splitterBar.classList.contains(classes.uiSplitterBar));
 	ok(widget.splitterHandle.classList.contains(classes.uiSplitterHandle));
-	ok(ej.utils.DOM.getNSData(element, "ej-built"));
+	ok(ej.util.DOM.getNSData(element, "ej-built"));
 });
 
 test ( "ej.widget.SplitView" , function () {

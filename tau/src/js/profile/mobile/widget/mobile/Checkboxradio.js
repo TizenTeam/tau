@@ -40,9 +40,9 @@
 		[
 			"../../../../core/engine",
 			"../../../../core/event",
-			"../../../../core/utils/selectors",
-			"../../../../core/utils/DOM/attributes",
-			"../../../../core/utils/DOM/manipulation",
+			"../../../../core/util/selectors",
+			"../../../../core/util/DOM/attributes",
+			"../../../../core/util/DOM/manipulation",
 			"./Button",
 			"../mobile", // fetch namespace
 			"./BaseWidgetMobile"
@@ -94,21 +94,21 @@
 				*/
 				engine = ns.engine,
 				/**
-				* @property {Object} selectors Alias for class ns.utils.selectors
+				* @property {Object} selectors Alias for class ns.util.selectors
 				* @member ns.widget.Checkboxradio
 				* @private
 				* @static
 				*/
-				selectors = ns.utils.selectors,
+				selectors = ns.util.selectors,
 				/**
-				* @property {Object} dom Alias for class ns.utils.DOM
+				* @property {Object} dom Alias for class ns.util.DOM
 				* @member ns.widget.Checkboxradio
 				* @private
 				* @static
 				*/
-				dom = ns.utils.DOM,
+				dom = ns.util.DOM,
 				/**
-				* @property {Object} events Alias for class ns.utils.events
+				* @property {Object} events Alias for class ns.event
 				* @member ns.widget.Checkboxradio
 				* @private
 				* @static

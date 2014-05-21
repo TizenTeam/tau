@@ -48,8 +48,7 @@
 		[
 			"../../selectors",
 			"../../../../core/engine",
-			"../../../../core/utils/selectors",
-			"../../../../core/utils/DOM/css",
+			"../../../../core/util/DOM/css",
 			"../wearable",
 			"../../../../core/widget/BaseWidget"
 		],
@@ -70,19 +69,19 @@
 				 */
 				selectors = ns.wearable.selectors,
 				/**
-				 * @property {Object} utils Alias for {@link ns.utils}
+				 * @property {Object} util Alias for {@link ns.util}
 				 * @member ns.widget.wearable.Page
 				 * @private
 				 * @static
 				 */
-				utils = ns.utils,
+				util = ns.util,
 				/**
-				 * @property {Object} doms Alias for {@link ns.utils.DOM}
+				 * @property {Object} doms Alias for {@link ns.util.DOM}
 				 * @member ns.widget.wearable.Page
 				 * @private
 				 * @static
 				 */
-				doms = utils.DOM,
+				doms = util.DOM,
 				/**
 				 * @property {Object} engine Alias for {@link ns.engine}
 				 * @member ns.widget.wearable.Page

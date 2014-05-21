@@ -24,17 +24,17 @@
 		[
 			"../../../core/engine",
 			"../../../core/router", // fetch namespace
-			"../../../core/utils",
-			"../../../core/utils/selectors",
-			"../../../core/utils/DOM/attributes",
-			"../../../core/utils/deferred",
+			"../../../core/util",
+			"../../../core/util/selectors",
+			"../../../core/util/DOM/attributes",
+			"../../../core/util/deferred",
 			"./Page"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var MAX_SCROLL_FOR_TRANSITION_FACTOR = 3,
-				utils = ns.utils,
-				selectors = utils.selectors,
+				util = ns.util,
+				selectors = util.selectors,
 				isPageTransitioning = false,
 				pageTransitionQueue = [],
 				RouterPage = ns.router.Page,
@@ -43,8 +43,8 @@
 				//tuck away the original document URL minus any fragment.
 				activeClickedLink,
 				transitions = {},
-				DOM = utils.DOM,
-				UtilsDeferred = utils.deferred,
+				DOM = util.DOM,
+				UtilsDeferred = util.deferred,
 				engine = ns.engine,
 				maxTransitionWidth = false,
 				getMaxScrollForTransition = function () {
@@ -274,7 +274,7 @@
 				//call the handler immediately to kick-off the transition.
 
 				promise.done(function () {
-					utils.requestAnimationFrame(function () {
+					util.requestAnimationFrame(function () {
 						removeEventBlocker();
 					});
 				});

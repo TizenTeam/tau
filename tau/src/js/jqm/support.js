@@ -12,12 +12,12 @@
 		[
 			"./jqm",
 			"../core/engine",
-			"../core/utils/object"
+			"../core/util/object"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var support = ns.support,
-				object = ns.utils.object;
+				object = ns.util.object;
 
 			ns.jqm.support = {
 				/**

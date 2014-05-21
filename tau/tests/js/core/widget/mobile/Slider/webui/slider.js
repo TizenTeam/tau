@@ -79,7 +79,7 @@ $( document ).ready( function ( ) {
 			createEvent = true ;
 		}} ) ;
 		handle = $('#toggleswitch2').find(":jqmData(role=content)" );
-		ej.utils.events.trigger(handle[0], 'create');
+		ej.event.trigger(handle[0], 'create');
 		equal( createEvent, true, "Create Event");
 		unit_toggleswitch( $("#dynamicslider"));
 	} );

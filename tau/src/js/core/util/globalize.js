@@ -1,13 +1,13 @@
 /*global window, define */
 /**
- * @class ns.utils.globalize
+ * @class ns.util.globalize
  */
 (function (window, document, ns, Globalize) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../utils",
+			"../util",
 			"../../../../libs/globalize/lib/globalize"
 		],
 		function () {
@@ -101,7 +101,7 @@
 				}
 			}
 
-			ns.utils.globalize = {
+			ns.util.globalize = {
 				/**
 				* Load Globalize culture file, and set default culture.
 				* @method loadGlobalizeCulture
@@ -109,7 +109,7 @@
 				*						If language is not given, read language from html 'lang' attribute,
 				*						or from system setting.
 				* @param [cultureDictionary] Dictionary having language code->
-				* @member ns.utils.globalize
+				* @member ns.util.globalize
 				* @return {string}
 				*/
 				loadGlobalizeCulture: function (language, cultureDictionary) {
@@ -131,7 +131,7 @@
 				},
 				/**
 				 * @method setGlobalize/
-				 * @member ns.utils.globalize
+				 * @member ns.util.globalize
 				 * @return {?string}
 				 */
 				setGlobalize: function () {
@@ -160,7 +160,7 @@
 				* Find current system language, and load appropriate culture file from given colture file list.
 				* @method loadCustomGlobalizeCulture
 				* @param cultureDictionary	collection of 'language':'culture file path' key-val pair.
-				* @member ns.utils.globalize
+				* @member ns.util.globalize
 				* @example
 				* var myCultures = {
 				*	"en"	: "culture/en.js",
@@ -188,7 +188,7 @@
 				* @method culture
 				* @return {Object}
 				* @static
-				* @member ns.utils.globalize
+				* @member ns.util.globalize
 				*/
 				culture: function () {
 					this.setGlobalize();
@@ -197,12 +197,12 @@
 			};
 
 			document.addEventListener("DOMContentLoaded", function () {
-				var globalize = ns.utils.globalize;
+				var globalize = ns.util.globalize;
 				globalize.setGlobalize();
 			}, false);
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ns.utils.globalize;
+			return ns.util.globalize;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

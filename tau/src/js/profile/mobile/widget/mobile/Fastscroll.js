@@ -57,24 +57,24 @@
 			"../../../../core/engine",
 			"../../../../core/theme",
 			"../../../../core/widget",
-			"../../../../core/utils/DOM/attributes",
-			"../../../../core/utils/DOM/manipulation",
-			"../../../../core/utils/DOM/css",
+			"../../../../core/util/DOM/attributes",
+			"../../../../core/util/DOM/manipulation",
+			"../../../../core/util/DOM/css",
 			"./Tabbar",
 			"./Page",
 			'./Listview',
 			"../../../../core/event",
-			"../../../../core/utils/selectors"
+			"../../../../core/util/selectors"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			/**
-			* @property {Object} selectors Alias to ns.utils.selectors
+			* @property {Object} selectors Alias to ns.util.selectors
 			* @member ns.widget.mobile.Listview.Fastscroll
 			* @private
 			* @static
 			*/
-			var selectors = ns.utils.selectors,
+			var selectors = ns.util.selectors,
 
 				/**
 				*
@@ -120,12 +120,12 @@
 				*/
 				Page = ns.widget.mobile.Page,
 				/**
-				* @property {Object} DOMUtils Alias to ns.utils.DOM
+				* @property {Object} DOMUtils Alias to ns.util.DOM
 				* @private
 				* @member ns.widget.mobile.Scrollview
 				* @static
 				*/
-				DOMUtils = ns.utils.DOM,
+				DOMUtils = ns.util.DOM,
 				/**
 				* @property {Function} Listview Alias for class ns.widget.mobile.Listview
 				* @member ns.widget.mobile.Listview.Fastscroll

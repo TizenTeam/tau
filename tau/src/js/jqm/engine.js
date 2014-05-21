@@ -11,12 +11,12 @@
 		[
 			"./jqm",
 			"../core/engine",
-			"../core/utils/selectors",
-			"../core/utils/globalize",
-			"../core/utils/object",
+			"../core/util/selectors",
+			"../core/util/globalize",
+			"../core/util/object",
 			"../core/event",
-			"../core/utils/zoom",
-			"../core/utils/load"
+			"../core/util/zoom",
+			"../core/util/load"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -35,11 +35,11 @@
 				* @static
 				*/
 				nsNormalizeDict = {},
-				utils = ns.utils,
-				zoom = utils.zoom,
+				util = ns.util,
+				zoom = util.zoom,
 				events = ns.event,
-				load = utils.load,
-				utilsObject = utils.object,
+				load = util.load,
+				utilsObject = util.object,
 				engine = ns.engine;
 
 			function widgetFunction(parentarguments, mapItem, engine, name) {
@@ -121,7 +121,7 @@
 												value === null ? undefined :
 														value;
 							},
-							path: ns.utils.path,
+							path: ns.util.path,
 							back : window.history.back.bind(window.history),
 							silentScroll: function ( ypos ) {
 								if ( ypos === undefined ) {
@@ -145,7 +145,7 @@
 							nsNormalizeDict: nsNormalizeDict,
 							getInheritedTheme : ns.theme.getInheritedTheme,
 							closestPageData: function (target) {
-								var page = ns.utils.selectors.getClosestBySelector($(target)[0],
+								var page = ns.util.selectors.getClosestBySelector($(target)[0],
 												"[data-" + ($.mobile.ns || "") + "role='page'], [data-" + ($.mobile.ns || "") + "role='dialog']");
 								return ns.engine.instanceWidget(page, 'Page');
 							},
@@ -248,7 +248,7 @@
 						};
 						$.tizen = $.tizen || {};
 						tizen = $.tizen;
-						tizen.loadCustomGlobalizeCulture = ns.utils.globalize.loadCustomGlobalizeCulture.bind(ns.utils.globalize);
+						tizen.loadCustomGlobalizeCulture = ns.util.globalize.loadCustomGlobalizeCulture.bind(ns.util.globalize);
 						$.mobile.tizen = utilsObject.merge($.mobile.tizen, {
 							_widgetPrototypes: {},
 							disableSelection : function (elements) {
@@ -438,8 +438,8 @@
 							load: load.css.bind(load)
 						};
 						tizen.loadTheme = ns.theme.loadTheme.bind(ns.theme);
-						tizen.loadGlobalizeCulture = ns.utils.globalize.loadGlobalizeCulture.bind(ns.utils.globalize);
-						tizen.setGlobalize = utils.globalize.setGlobalize.bind(ns.utils.globalize);
+						tizen.loadGlobalizeCulture = ns.util.globalize.loadGlobalizeCulture.bind(ns.util.globalize);
+						tizen.setGlobalize = util.globalize.setGlobalize.bind(ns.util.globalize);
 						tizen.setViewport = ns.theme.setViewport.bind(ns.theme);
 						tizen.scaleBaseFontSize = ns.theme.scaleBaseFontSize.bind(ns.theme);
 						tizen.setScaling = ns.theme.setScaling.bind(ns.theme);

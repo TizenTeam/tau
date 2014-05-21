@@ -31,7 +31,7 @@
 	define(
 		[
 			"../../../../core/engine",
-			"../../../../core/utils/DOM/css",
+			"../../../../core/util/DOM/css",
 			"../wearable",
 			"./VirtualListview"
 		],
@@ -52,12 +52,12 @@
 				 */
 				engine = ns.engine,
 				/**
-				 * @property {Object} DOM Alias for class {@link ns.utils.DOM}
+				 * @property {Object} DOM Alias for class {@link ns.util.DOM}
 				 * @member ns.widget.wearable.VirtualGrid
 				 * @private
 				 * @static
 				 */
-				DOM = ns.utils.DOM,
+				DOM = ns.util.DOM,
 				/**
 				 * @property {string} HORIZONTAL="x" constans for horizontal virtual grid
 				 * @private

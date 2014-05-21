@@ -28,7 +28,6 @@
 	define(
 		[
 			"../../../../core/engine",
-			"../../../../core/utils/selectors",
 			"../../../../core/event/gesture",
 			"../../../../core/widget/BaseWidget",
 			"./scroller/Scroller",
@@ -40,7 +39,7 @@
 			var Scroller = ns.widget.wearable.scroller.Scroller,
 				Gesture = ns.event.gesture,
 				engine = ns.engine,
-				utilsObject = ns.utils.object,
+				utilsObject = ns.util.object,
 				utilsEvents = ns.event,
 				eventType = {
 					CHANGE: "sectionchange"

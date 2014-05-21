@@ -26,8 +26,7 @@
 	define(
 		[
 			"../../../../../../core/engine",
-			"../../../../../../core/utils/selectors",
-			"../../../../../../core/utils/object",
+			"../../../../../../core/util/object",
 			"../effect",
 			"../../../../../../core/widget/BaseWidget"
 		],
@@ -37,7 +36,7 @@
 			var BaseWidget = ns.widget.BaseWidget,
 				engine = ns.engine,
 				prototype = new BaseWidget(),
-				utilsObject = ns.utils.object,
+				utilsObject = ns.util.object,
 				Bouncing = function (scrollerElement, options) {
 
 					this.orientation = null;

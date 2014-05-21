@@ -1,13 +1,13 @@
 /*global window, define, XMLHttpRequest */
 /**
- * @class ns.utils.load
+ * @class ns.util.load
  */
 (function (document, ns) {
 	'use strict';
 	//>>excludeStart('tauBuildExclude', pragmas.tauBuildExclude);
 	define(
 		[
-			'../utils'
+			'../util'
 		],
 		function () {
 			//>>excludeEnd('tauBuildExclude');
@@ -21,7 +21,7 @@
 			/**
 			 * @method load
 			 */
-			ns.utils.load = {
+			ns.util.load = {
 				/**
 				 * Add script to document
 				 * (synchronous loading)
@@ -30,7 +30,7 @@
 				 * @param {?Function} successCB
 				 * @param {?Function} errorCB
 				 * @static
-				 * @member ns.utils.load
+				 * @member ns.util.load
 				 */
 				scriptSync: function (scriptPath, successCB, errorCB) {
 					var script,
@@ -57,7 +57,7 @@
 
 				/**
 				 * @property {string} cacheBust
-				 * @member ns.utils.load
+				 * @member ns.util.load
 				 */
 				cacheBust: (document.location.href.match(/debug=true/)) ? '?cacheBust=' + (new Date()).getTime() : '',
 
@@ -66,7 +66,7 @@
 				 * @method addElementToHead
 				 * @param {HTMLElement} element
 				 * @param {boolean} [asFirstChildElement=false]
-				 * @member ns.utils.load
+				 * @member ns.util.load
 				 */
 				addElementToHead: function (element, asFirstChildElement) {
 					var firstElement;
@@ -87,7 +87,7 @@
 				 * @method makeLink
 				 * @param {string} href
 				 * @returns {HTMLLinkElement}
-				 * @member ns.utils.load
+				 * @member ns.util.load
 				 */
 				makeLink: function (href) {
 					var cssLink = document.createElement('link');
@@ -101,7 +101,7 @@
 				 * Add css link element to head if not exists
 				 * @method css
 				 * @param {string} path
-				 * @member ns.utils.load
+				 * @member ns.util.load
 				 */
 				css: function (path) {
 					var cssLinks = head.getElementsByTagName('link'),
@@ -131,7 +131,7 @@
 			};
 
 			//>>excludeStart('tauBuildExclude', pragmas.tauBuildExclude);
-			return ns.utils.load;
+			return ns.util.load;
 		}
 	);
 	//>>excludeEnd('tauBuildExclude');

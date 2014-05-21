@@ -1,12 +1,12 @@
 /*global window: false, define: false, Math: false */
 /** 
- * @class ns.utils.bezierCurve
+ * @class ns.util.bezierCurve
  */
 (function (ns) {
 	'use strict';
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define([
-		"../utils" // fetch namespace
+		"../util" // fetch namespace
 	], function () {
 		//>>excludeEnd("tauBuildExclude");
 		var HALF_PI = Math.PI / 2,
@@ -110,10 +110,10 @@
 				return Math.atan2(tx, ty) - HALF_PI;
 			}
 		};
-		ns.utils.bezierCurve =  new BezierCurve();
+		ns.util.bezierCurve =  new BezierCurve();
 
 		//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-		return ns.utils.bezierCurve;
+		return ns.util.bezierCurve;
 	});
 	//>>excludeEnd("tauBuildExclude");
 }(ns));

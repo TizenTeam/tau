@@ -11,7 +11,7 @@
 			"./core/export",
 			"./core/engine",
 			// widget list
-			"./core/utils/anchorHighlight",
+			"./core/util/anchorHighlight",
 			"./profile/wearable/widget/wearable/Page",
 			"./profile/wearable/widget/wearable/Popup",
 			"./profile/wearable/widget/wearable/PageContainer",

@@ -28,10 +28,10 @@
 	define(
 		[
 			"../../../../core/engine",
-			"../../../../core/utils/selectors",
-			"../../../../core/utils/DOM/attributes",
-			"../../../../core/utils/DOM/css",
-			"../../../../core/utils/DOM/manipulation",
+			"../../../../core/util/selectors",
+			"../../../../core/util/DOM/attributes",
+			"../../../../core/util/DOM/css",
+			"../../../../core/util/DOM/manipulation",
 			"../mobile", // fetch namespace
 			"./BaseWidgetMobile"
 		],
@@ -50,17 +50,17 @@
 				*/
 				engine = ns.engine,
 				/**
-				* @property {Object} selectors Alias for class {@link ns.utils.selectors}
+				* @property {Object} selectors Alias for class {@link ns.util.selectors}
 				* @member ns.widget.mobile.Gallery
 				* @private
 				*/
-				selectors = ns.utils.selectors,
+				selectors = ns.util.selectors,
 				/**
-				* @property {Object} doms Alias for class ns.utils.DOM
+				* @property {Object} doms Alias for class ns.util.DOM
 				* @member ns.widget.mobile.Gallery
 				* @private
 				*/
-				doms = ns.utils.DOM,
+				doms = ns.util.DOM,
 				/**
 				* Alias for class ns.widget.mobile.Gallery
 				* @method Gallery

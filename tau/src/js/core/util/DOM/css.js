@@ -21,7 +21,7 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 
-			var DOM = ns.utils.DOM;
+			var DOM = ns.util.DOM;
 
 			/**
 			 * Returns css property for element
@@ -30,7 +30,7 @@
 			 * @param {string=} [def] default returned value
 			 * @param {string=} [type] auto type casting
 			 * @return {string|number|null}
-			 * @member ns.utils.DOM
+			 * @member ns.util.DOM
 			 * @static
 			 */
 			function getCSSProperty(element, property, def, type) {
@@ -70,14 +70,14 @@
 			 * @param {Object} properties
 			 * @param {string=} [pseudoSelector]
 			 * @param {boolean=} [noConversion]
-			 * @member ns.utils.DOM
+			 * @member ns.util.DOM
 			 * @static
 			 */
 			function extractCSSProperties (element, properties, pseudoSelector, noConversion) {
 				var style = window.getComputedStyle(element, pseudoSelector),
 					property,
 					value = null,
-					utils = ns.utils;
+					utils = ns.util;
 
 				// @TODO extractCSSProperties should rather return raw values (with units)
 				for (property in properties) {
@@ -105,7 +105,7 @@
 			 * @param {string=} [pseudoSelector]
 			 * @param {boolean=} [force] check even if element is hidden
 			 * @return {number}
-			 * @member ns.utils.DOM
+			 * @member ns.util.DOM
 			 * @static
 			 */
 			function getElementHeight(element, type, includeOffset, includeMargin, pseudoSelector, force) {
@@ -191,7 +191,7 @@
 			 * @param {string=} [pseudoSelector]
 			 * @param {boolean=} [force] check even if element is hidden
 			 * @return {number}
-			 * @member ns.utils.DOM
+			 * @member ns.util.DOM
 			 * @static
 			 */
 			function getElementWidth(element, type, includeOffset, includeMargin, pseudoSelector, force) {
@@ -271,7 +271,7 @@
 			 * @method getElementOffset
 			 * @param {HTMLElement} element
 			 * @return {Object}
-			 * @member ns.utils.DOM
+			 * @member ns.util.DOM
 			 * @static
 			 */
 			function getElementOffset(element) {
@@ -294,7 +294,7 @@
 			 * @method isOccupiedPlace
 			 * @param {HTMLElement} element
 			 * @return {boolean}
-			 * @member ns.utils.DOM
+			 * @member ns.util.DOM
 			 * @static
 			 */
 			function isOccupiedPlace(element) {
@@ -310,7 +310,7 @@
 			DOM.isOccupiedPlace = isOccupiedPlace;
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ns.utils.DOM;
+			return ns.util.DOM;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

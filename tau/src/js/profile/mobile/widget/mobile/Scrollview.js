@@ -27,10 +27,11 @@
 		[
 			"../../../../core/engine",
 			"../../../../core/event",
-			"../../../../core/utils/easing",
-			"../../../../core/utils/DOM/css",
-			"../../../../core/utils/DOM/attributes",
-			"../../../../core/utils/selectors",
+			"../../../../core/util",
+			"../../../../core/util/easing",
+			"../../../../core/util/DOM/css",
+			"../../../../core/util/DOM/attributes",
+			"../../../../core/util/selectors",
 			"../../../../core/event/orientationchange",
 			"../../../../core/event/vmouse",
 			"../mobile", // fetch namespace
@@ -53,17 +54,17 @@
 				 */
 					engine = ns.engine,
 				/**
-				 * @property {Object} utils Alias to ns.utils
+				 * @property {Object} util Alias to ns.util
 				 * @private
 				 * @member ns.widget.mobile.Scrollview
 				 */
-					utils = ns.utils,
+					util = ns.util,
 				/**
-				 * @property {Object} easingUtils Alias to ns.utils.easing
+				 * @property {Object} easingUtils Alias to ns.util.easing
 				 * @private
 				 * @member ns.widget.mobile.Scrollview
 				 */
-					easingUtils = ns.utils.easing,
+					easingUtils = ns.util.easing,
 				/**
 				 * @property {Object} eventUtils Alias to ns.event
 				 * @private
@@ -71,17 +72,17 @@
 				 */
 					eventUtils = ns.event,
 				/**
-				 * @property {Object} DOMUtils Alias to ns.utils.DOM
+				 * @property {Object} DOMUtils Alias to ns.util.DOM
 				 * @private
 				 * @member ns.widget.mobile.Scrollview
 				 */
-					DOMUtils = ns.utils.DOM,
+					DOMUtils = ns.util.DOM,
 				/**
-				 * @property {Object} selectors Alias to ns.utils.selectors
+				 * @property {Object} selectors Alias to ns.util.selectors
 				 * @private
 				 * @member ns.widget.mobile.Scrollview
 				 */
-					selectors = ns.utils.selectors,
+					selectors = ns.util.selectors,
 				/**
 				 * @method currentTransition
 				 * @private
@@ -185,7 +186,7 @@
 				if ((newX !== endX || newY !== endY) &&
 					(newX >= 0 && newY >= 0) &&
 					state.currentTransition) {
-					utils.requestAnimationFrame(state.currentTransition);
+					util.requestAnimationFrame(state.currentTransition);
 				} else {
 					state.currentTransition = null;
 				}
@@ -218,7 +219,7 @@
 						element.scrollTop + y,
 						duration
 					);
-					utils.requestAnimationFrame(state.currentTransition);
+					util.requestAnimationFrame(state.currentTransition);
 				} else {
 					if (x) {
 						element.scrollLeft = element.scrollLeft + x;

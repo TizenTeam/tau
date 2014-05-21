@@ -4,10 +4,10 @@ jQuery.each(["", " - new operator"], function (_, withNew) {
 	'use strict';
 
 	function createDeferred(fn) {
-		return withNew ? new ej.utils.deferred(fn) : ej.utils.deferred(fn);
+		return withNew ? new ej.util.deferred(fn) : ej.util.deferred(fn);
 	}
 
-	test("ej.utils.deferred" + withNew, function () {
+	test("ej.util.deferred" + withNew, function () {
 
 		expect(23);
 
@@ -79,10 +79,10 @@ jQuery.each(["", " - new operator"], function (_, withNew) {
 });
 
 
-test("ej.utils.deferred - chainability", function () {
+test("ej.util.deferred - chainability", function () {
 	'use strict';
 
-	var defer = ej.utils.deferred();
+	var defer = ej.util.deferred();
 
 	expect(10);
 
@@ -95,13 +95,13 @@ test("ej.utils.deferred - chainability", function () {
 	});
 });
 
-test("ej.utils.deferred.then - filtering (done)", function () {
+test("ej.util.deferred.then - filtering (done)", function () {
 	'use strict';
 
 	expect(4);
 
 	var value1, value2, value3,
-		defer = ej.utils.deferred(),
+		defer = ej.util.deferred(),
 		piped = defer.then(function (a, b) {
 			return a * b;
 		});
@@ -121,22 +121,22 @@ test("ej.utils.deferred.then - filtering (done)", function () {
 	strictEqual(value2, 3, "second resolve value ok");
 	strictEqual(value3, 6, "result of filter ok");
 
-	ej.utils.deferred().reject().then(function () {
+	ej.util.deferred().reject().then(function () {
 		ok(false, "then should not be called on reject");
 	});
 
-	ej.utils.deferred().resolve().then(jQuery.noop).done(function (value) {
+	ej.util.deferred().resolve().then(jQuery.noop).done(function (value) {
 		strictEqual(value, undefined, "then done callback can return undefined/null");
 	});
 });
 
-test("ej.utils.deferred.then - filtering (fail)", function () {
+test("ej.util.deferred.then - filtering (fail)", function () {
 	'use strict';
 
 	expect(4);
 
 	var value1, value2, value3,
-		defer = ej.utils.deferred(),
+		defer = ej.util.deferred(),
 		piped = defer.then(null, function (a, b) {
 			return a * b;
 		});
@@ -156,22 +156,22 @@ test("ej.utils.deferred.then - filtering (fail)", function () {
 	strictEqual(value2, 3, "second reject value ok");
 	strictEqual(value3, 6, "result of filter ok");
 
-	ej.utils.deferred().resolve().then(null, function () {
+	ej.util.deferred().resolve().then(null, function () {
 		ok(false, "then should not be called on resolve");
 	});
 
-	ej.utils.deferred().reject().then(null, jQuery.noop).fail(function (value) {
+	ej.util.deferred().reject().then(null, jQuery.noop).fail(function (value) {
 		strictEqual(value, undefined, "then fail callback can return undefined/null");
 	});
 });
 
-test("ej.utils.deferred.then - filtering (progress)", function () {
+test("ej.util.deferred.then - filtering (progress)", function () {
 	'use strict';
 
 	expect(3);
 
 	var value1, value2, value3,
-		defer = ej.utils.deferred(),
+		defer = ej.util.deferred(),
 		piped = defer.then(null, null, function (a, b) {
 			return a * b;
 		});
@@ -192,15 +192,15 @@ test("ej.utils.deferred.then - filtering (progress)", function () {
 	strictEqual(value3, 6, "result of filter ok");
 });
 
-test("ej.utils.deferred.then - deferred (done)", function () {
+test("ej.util.deferred.then - deferred (done)", function () {
 	'use strict';
 
 	expect(3);
 
 	var value1, value2, value3,
-		defer = ej.utils.deferred(),
+		defer = ej.util.deferred(),
 		piped = defer.then(function (a, b) {
-			return ej.utils.deferred(function (defer) {
+			return ej.util.deferred(function (defer) {
 				defer.reject(a * b);
 			});
 		});
@@ -221,15 +221,15 @@ test("ej.utils.deferred.then - deferred (done)", function () {
 	strictEqual(value3, 6, "result of filter ok");
 });
 
-test("ej.utils.deferred.then - deferred (fail)", function () {
+test("ej.util.deferred.then - deferred (fail)", function () {
 	'use strict';
 
 	expect(3);
 
 	var value1, value2, value3,
-		defer = ej.utils.deferred(),
+		defer = ej.util.deferred(),
 		piped = defer.then(null, function (a, b) {
-			return ej.utils.deferred(function (defer) {
+			return ej.util.deferred(function (defer) {
 				defer.resolve(a * b);
 			});
 		});
@@ -250,15 +250,15 @@ test("ej.utils.deferred.then - deferred (fail)", function () {
 	strictEqual(value3, 6, "result of filter ok");
 });
 
-test("ej.utils.deferred.then - deferred (progress)", function () {
+test("ej.util.deferred.then - deferred (progress)", function () {
 	'use strict';
 
 	expect(3);
 
 	var value1, value2, value3,
-		defer = ej.utils.deferred(),
+		defer = ej.util.deferred(),
 		piped = defer.then(null, null, function (a, b) {
-			return ej.utils.deferred(function (defer) {
+			return ej.util.deferred(function (defer) {
 				defer.resolve(a * b);
 			});
 		});
@@ -279,7 +279,7 @@ test("ej.utils.deferred.then - deferred (progress)", function () {
 	strictEqual(value3, 6, "result of filter ok");
 });
 
-test("ej.utils.deferred.then - context", function () {
+test("ej.util.deferred.then - context", function () {
 	'use strict';
 
 	expect(7);
@@ -287,20 +287,20 @@ test("ej.utils.deferred.then - context", function () {
 	var defer, piped, defer2, piped2,
 		context = {};
 
-	ej.utils.deferred().resolveWith(context, [2]).then(function (value) {
+	ej.util.deferred().resolveWith(context, [2]).then(function (value) {
 		return value * 3;
 	}).done(function (value) {
 		strictEqual(this, context, "custom context correctly propagated");
 		strictEqual(value, 6, "proper value received");
 	});
 
-	ej.utils.deferred().resolve().then(function () {
-		return ej.utils.deferred().resolveWith(context);
+	ej.util.deferred().resolve().then(function () {
+		return ej.util.deferred().resolveWith(context);
 	}).done(function () {
 		strictEqual(this, context, "custom context of returned deferred correctly propagated");
 	});
 
-	defer = ej.utils.deferred();
+	defer = ej.util.deferred();
 	piped = defer.then(function (value) {
 		return value * 3;
 	});
@@ -312,7 +312,7 @@ test("ej.utils.deferred.then - context", function () {
 		strictEqual(value, 6, "proper value received");
 	});
 
-	defer2 = ej.utils.deferred();
+	defer2 = ej.util.deferred();
 	piped2 = defer2.then();
 
 	defer2.resolve(2);

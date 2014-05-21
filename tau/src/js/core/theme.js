@@ -10,8 +10,8 @@
 	define(
 		[
 			"./core",
-			"./utils/DOM/attributes",
-			"./utils/load"
+			"./util/DOM/attributes",
+			"./util/load"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -23,9 +23,9 @@
 			var head = document.head,
 				documentElement = document.documentElement,
 				frameworkData = ns.frameworkData,
-				utils = ns.utils,
-				DOM = utils.DOM,
-				load = utils.load,
+				util = ns.util,
+				DOM = util.DOM,
+				load = util.load,
 				support = ns.support,
 
 				stopEvent = function (event) {

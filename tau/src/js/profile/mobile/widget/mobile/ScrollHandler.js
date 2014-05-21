@@ -54,8 +54,8 @@
 	define(
 		[
 			"../../../../core/engine",
-			"../../../../core/utils/DOM/css",
-			"../../../../core/utils/selectors",
+			"../../../../core/util/DOM/css",
+			"../../../../core/util/selectors",
 			"../mobile",
 			"./Scrollview",
 			"./Page"
@@ -224,19 +224,19 @@
 				 */
 				engine = ns.engine,
 				/**
-				 * @property {Object} CSSUtils alias for {@link ns.utils.DOM}
+				 * @property {Object} CSSUtils alias for {@link ns.util.DOM}
 				 * @member ns.widget.ScrollHandler
 				 * @private
 				 * @static
 				 */
-				CSSUtils = ns.utils.DOM,
+				CSSUtils = ns.util.DOM,
 				/**
-				 * @property {Object} selectors alias for {@link ns.utils.selectors}
+				 * @property {Object} selectors alias for {@link ns.util.selectors}
 				 * @member ns.widget.selectors
 				 * @private
 				 * @static
 				 */
-				selectors = ns.utils.selectors,
+				selectors = ns.util.selectors,
 				/**
 				 * @property {Object} Page classes alias for {@link ns.widget.mobile.Page}
 				 * @member ns.widget.ScrollHandler

@@ -4,7 +4,7 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../utils", // fetch namespace
+			"../util", // fetch namespace
 			"../event"
 		],
 		function () {
@@ -35,7 +35,7 @@
 				* @method hashObject
 				* @param {*} value
 				* @return {string}
-				* @member ns.utils
+				* @member ns.util
 				* @static
 				*/
 				hashObject = function (value) {
@@ -61,7 +61,7 @@
 					return h;
 				};
 
-			ns.utils.data = {
+			ns.util.data = {
 
 				set: function (element, key, value) {
 					var hash = hashObject(element);
@@ -131,7 +131,7 @@
 				}
 			};
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ns.utils.data;
+			return ns.util.data;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

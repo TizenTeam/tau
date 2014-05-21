@@ -14,7 +14,7 @@
 			"./manager",
 			"./detector",
 			"../../event",
-			"../../utils/object"
+			"../../util/object"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -24,7 +24,7 @@
 
 				Manager = ns.event.gesture.Manager,
 				events = ns.event,
-				merge = ns.utils.object.merge;
+				merge = ns.util.object.merge;
 
 			Gesture.Instance = function( element, options ) {
 

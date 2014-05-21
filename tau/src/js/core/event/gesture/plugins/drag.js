@@ -12,14 +12,15 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define([
 			"../core",
-			"../detector"
+			"../detector",
+			"../../../util/object"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 
 			var Gesture = ns.event.gesture,
 				Detector = ns.event.gesture.Detector,
-				merge = ns.utils.object.merge;
+				merge = ns.util.object.merge;
 
 			ns.event.gesture.Drag = Detector.plugin.create({
 

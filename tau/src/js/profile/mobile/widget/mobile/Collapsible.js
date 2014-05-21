@@ -31,9 +31,9 @@
 			"../../../../core/engine",
 			"../../../../core/theme",
 			"../../../../core/event",
-			"../../../../core/utils/selectors",
-			"../../../../core/utils/DOM/attributes",
-			"../../../../core/utils/DOM/manipulation",
+			"../../../../core/util/selectors",
+			"../../../../core/util/DOM/attributes",
+			"../../../../core/util/DOM/manipulation",
 			"../mobile",
 			"./BaseWidgetMobile",
 			"./Button"
@@ -63,7 +63,7 @@
 				* @private
 				* @static
 				*/
-				selectors = ns.utils.selectors,
+				selectors = ns.util.selectors,
 				/**
 				* @property {Object} events alias variable
 				* @private
@@ -82,7 +82,7 @@
 				* @private
 				* @static
 				*/
-				domUtils = ns.utils.DOM,
+				domUtils = ns.util.DOM,
 				/**
 				* @property {Object} themes alias variable
 				* @private
