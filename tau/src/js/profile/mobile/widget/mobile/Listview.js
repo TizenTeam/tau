@@ -325,9 +325,11 @@
 			Listview.prototype._init = function (element) {
 				var ui = this.ui,
 					page = ui.page,
-					popup = selectors.getClosestBySelector(element, "[data-role=popup]");
-				//@todo check if this is ol list
-				if (!popup) {
+					popup = selectors.getClosestBySelector(element, "[data-role=popup]"),
+					elementType = element.tagName.toLowerCase();
+
+				//for everything what is not a list based on ul set the following width
+				if (!popup && elementType !== "ul") {
 					element.style.width = window.innerWidth + 'px';
 				}
 
