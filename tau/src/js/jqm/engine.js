@@ -435,7 +435,7 @@
 							cacheBust: load.cacheBust,
 							addElementToHead : load.addElementToHead.bind(load),
 							makeLink : load.makeLink.bind(load),
-							load: load.css.bind(load)
+							load: load.themeCSS
 						};
 						tizen.loadTheme = ns.theme.loadTheme.bind(ns.theme);
 						tizen.loadGlobalizeCulture = ns.util.globalize.loadGlobalizeCulture.bind(ns.util.globalize);

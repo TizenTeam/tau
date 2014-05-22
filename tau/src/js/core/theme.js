@@ -149,7 +149,7 @@
 						theme = frameworkData.theme;
 					}
 
-					themePath = frameworkData.rootDir +
+					themePath = '/' + frameworkData.rootDir +
 							'/' + frameworkData.version +
 							'/' + THEMES_DIRECTORY +
 							'/' + theme;
@@ -160,7 +160,7 @@
 					} else {
 						cssPath = themePath + '/' + THEME_CSS_FILE_NAME + '.css';
 					}
-					load.css(cssPath);
+					load.themeCSS(cssPath, theme);
 					load.scriptSync(jsPath);
 
 					if (support.gradeA()) {

@@ -84,6 +84,10 @@
 				slice = [].slice,
 
 				Page = function () {
+					/**
+					 * @property {boolean} [pageSetHeight=false] The flag is indicates that height of the page  was set by framework
+					 * @member ns.widget.mobile.Page
+					 */
 					this.pageSetHeight = false;
 					this.contentFillCallback = null;
 					this.contentFillAfterResizeCallback = null;
@@ -592,7 +596,7 @@
 				*/
 				window.addEventListener("throttledresize", self.contentFillAfterResizeCallback, false);
 				element.addEventListener("updatelayout", self.contentFillAfterResizeCallback, false);
-				element.addEventListener("pageshow", self.contentFillCallback, false);
+				element.addEventListener("pageshow", self.contentFillCallback, true);
 				self.on("pageremove", self.destroyCallback);
 			};
 
@@ -621,7 +625,7 @@
 				window.removeEventListener("throttledresize", this.contentFillAfterResizeCallback, false);
 				this.off("pageremove", this.destroyCallback);
 				if (element) {
-					element.removeEventListener("pageshow", this.contentFillCallback, false);
+					element.removeEventListener("pageshow", this.contentFillCallback, true);
 				}
 			};
 
