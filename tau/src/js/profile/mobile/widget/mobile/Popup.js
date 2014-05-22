@@ -770,6 +770,7 @@
 					uiContainer = this._ui.container,
 					uiContainerHeight = uiContainer.clientHeight,
 					uiContainerWidth = uiContainer.clientWidth,
+					popupMargin,
 					arrow = this._ui.arrow,
 					arrowClasses = arrow.classList,
 					arrowStyle = arrow.style,
@@ -791,25 +792,27 @@
 
 				switch (type) {
 				case "bottom":
+					popupMargin = parseInt(doms.getCSSProperty(this.element, "margin-top"), 10) || 0;
 					arrowClasses.add(classes.bottom);
 					arrowStyle.left = left - containerLeft + "px";
-					arrowStyle.top = -arrowBorderWidth * 2 + "px";
+					arrowStyle.top = -arrowBorderWidth * 2 + popupMargin + "px";
 					arrowStyle.borderBottomColor = color;
-					correctionValue = [0, positionToElementHeight + positionToElementOffset.top - containerTop + arrowBorderWidth];
+					correctionValue = [0, positionToElementHeight + positionToElementOffset.top - containerTop];
 					break;
 				case "right":
 					// @todo
 					arrowStyle.left = -arrowBorderWidth * 2 + 1 + "px";
 					arrowStyle.top = uiContainerHeight / 2 - arrowBorderWidth + "px";
 					arrowStyle.borderRightColor = color;
-					correctionValue = [positionToElementWidth + positionToElementOffset.left, 0];
+					correctionValue = [positionToElementWidth + positionToElementOffset.left - arrowBorderWidth, 0];
 					break;
 				case "top":
+					popupMargin = parseInt(doms.getCSSProperty(this.element, "margin-bottom"), 10) || 0;
 					arrowClasses.add(classes.top);
 					arrowStyle.left = left - containerLeft + "px";
-					arrowStyle.top = uiContainerHeight + "px";
+					arrowStyle.top = uiContainerHeight - popupMargin + "px";
 					arrowStyle.borderTopColor = color;
-					correctionValue = [0, -(containerTop + containerHeight - positionToElementOffset.top + arrowBorderWidth)];
+					correctionValue = [0, -(containerTop + containerHeight - positionToElementOffset.top)];
 					break;
 				case "left":
 					// @todo
