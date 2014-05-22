@@ -923,10 +923,11 @@
 			 */
 
 			// definition
+			//@todo bring back ui-btn selector and refactor _build method to make it more inteligent for checking if structure is build
 			ns.widget.mobile.Button = Button;
 			engine.defineWidget(
 				"Button",
-				"[data-role='button'], button, [type='button'], [type='submit'], [type='reset'], .ui-btn",
+				"[data-role='button'], button, [type='button'], [type='submit'], [type='reset']",
 				[],
 				Button,
 				'mobile'
