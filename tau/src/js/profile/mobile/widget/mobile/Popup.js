@@ -31,6 +31,7 @@
  * @author Jadwiga Sosnowska <j.sosnowska@samsung.com>
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Piotr Karny <p.karny@samsung.com>
+ * @author Michał Szepielak <m.szepielak@samsung.com>
  */
 (function (window, document, ns) {
 	"use strict";
@@ -120,6 +121,12 @@
 					* @instance
 					*/
 					self._isOpen = false;
+					/**
+					 * @property {boolean} _isPreClose Status of popup before animation (popup starts to close)
+					 * @member ns.widget.mobile.Popup
+					 * @instance
+					 */
+					self._isPreClose = false;
 					/**
 					 * animations
 					 */
@@ -571,6 +578,7 @@
 				this._ui = ui;
 				this._isPreOpen = false;
 				this._isOpen = false;
+				this._isPreClose = false;
 			};
 
 			/**
@@ -1284,6 +1292,8 @@
 				//self.element.undelegate( opts.closeLinkSelector, opts.closeLinkEvents );
 
 				ns.activePopup = null;
+				// Popup's closing phase is finished
+				this._isPreClose = false;
 				events.trigger(document, "activePopup", null);
 				events.trigger(this.element, "popupafterclose");		// this event must be triggered after setting mobile.popup.active
 			};
@@ -1308,6 +1318,8 @@
 
 				this._isOpen = false;
 				this._isPreOpen = false;
+				// Popup is starting to close
+				this._isPreClose = true;
 
 				inputs.forEach(function(input){
 					input.blur();
@@ -1349,11 +1361,15 @@
 
 				if (activePopup === this) {
 					return;
-				} else if (activePopup) {
+				}
+				// If there is an active popup, wait until active popup will close
+				if (activePopup) {
 					events.one(activePopup.element, "popupafterclose", startOpeningCallback);
 					if (activePopup._isOpen) {
 						activePopup.close();
-					} else {
+					} else if (!activePopup._isPreClose) {
+						// If popup is opening or is promised to be opened
+						// close it just after opening
 						closePopup = activePopup.close.bind(activePopup);
 						events.one(activePopup.element, "popupafteropen", closePopup);
 					}
