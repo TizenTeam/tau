@@ -1,29 +1,28 @@
 /*
  * toggle switch
  */
-
-
+.ui-switch-activation, .ui-switch-handler {
+	display: block;
+	background: url('images/Controller_icon/tw_btn_toggle_dark.png') no-repeat;
+}
 
 .ui-switch {
-	width: inherit;
-	height: inherit;
-	position: fixed;
+	width: 100%;
 	color: @color_switch_text;
 }
 
+.ui-toggleswitch {
+	display: block;
+	width: @fixed_toggleswitch_width;
+	margin: 0 auto;
+}
 .ui-switch-text {
-	margin: 70 auto 34;
+	margin-top: @fixed_toggleswitch_text_margin_top;
+	margin-bottom: @fixed_toggleswitch_text_margin_bottom;
 	padding: 0 30;
-	font-size: 34 * @unit_base;
+	font-size: @fixed_toggleswitch_text_font_size;
 	text-align: center;
 }
-
-.ui-toggleswitch {
-	width: 120 * @unit_base;
-	height: 60 * @unit_base;
-	border-radius: 30 * @unit_base;
-}
-
 .ui-switch-input {
 	display: none;
 }
@@ -34,56 +33,49 @@
 }
 
 .ui-switch-activation {
-	display: inline-block;
-	width: 120 * @unit_base;
-	height: 60 * @unit_base;
-	border-radius: 30 * @unit_base;
-	background-color: @color_switch_activation_bg;
+	width: @fixed_toggleswitch_width;
+	height: @fixed_toggleswitch_height;
+	background-position: -2px -72px;
 	margin: 0 auto;
+	margin-top: @fixed_toggleswitch_act_margin_top;
 
 	.ui-switch-handler {
 		position: relative;
-		width: 60 * @unit_base;
-		height: 60 * @unit_base;
-		border-radius: 30 * @unit_base;
-		border: 2 * @unit_base solid @color_switch_activation_bg;
-		background-color: @color_switch_handler_bg;
+		width: @fixed_toggleswitch_handler_width;
+		height: @fixed_toggleswitch_handler_height;
+		background-position: -2px -288px;
 		left: 0%;
 	}
 }
 
 .ui-switch-activation:active {
-	width: 120 * @unit_base;
-	height: 60 * @unit_base;
-	border-radius: 30 * @unit_base;
-	background-color: @color_swtich_activation_active_bg;
+	width: @fixed_toggleswitch_width;
+	height: @fixed_toggleswitch_height;
+	background-position: -2px -144px;
 	margin: 0 auto;
+	margin-top: @fixed_toggleswitch_act_margin_top;
 
 	.ui-switch-handler:active {
 		position: relative;
-		width: 60 * @unit_base;
-		height: 60 * @unit_base;
-		border-radius: 30 * @unit_base;
-		border: 2 * @unit_base solid @color_swtich_activation_active_bg;
-		background-color: @color_switch_handler_bg;
+		width: @fixed_toggleswitch_handler_width;
+		height: @fixed_toggleswitch_handler_height;
+		background-position: -2px -360px;
 		left: 0%
 	}
 }
 
 .ui-switch-activation:disable {
-	width: 120 * @unit_base;
-	height: 60 * @unit_base;
-	border-radius: 30 * @unit_base;
-	background-color: @color_switch_activation_disable_bg;
+	width: @fixed_toggleswitch_width;
+	height: @fixed_toggleswitch_height;
+	background-position: -2px -0px;
 	margin: 0 auto;
+	margin-top: @fixed_toggleswitch_act_margin_top;
 
 	.ui-switch-handler:disable {
 		position: relative;
-		width: 60 * @unit_base;
-		height: 60 * @unit_base;
-		border-radius: 30 * @unit_base;
-		border: 2 * @unit_base solid @color_switch_activation_disable_bg;
-		background-color: @color_switch_handler_bg;
+		width: @fixed_toggleswitch_handler_width;
+		height: @fixed_toggleswitch_handler_height;
+		background-position: -2px -216px;
 		left: 0%;
 	}
 }
@@ -92,54 +84,48 @@
 	display: none;
 
 	.ui-switch-activation {
-		width: 120 * @unit_base;
-		height: 60 * @unit_base;
-		border-radius: 30 * @unit_base;
-		background-color: @color_switch_activation_checked_bg;
+		width: @fixed_toggleswitch_width;
+		height: @fixed_toggleswitch_height;
+		background-position: -2px -72px;
 		margin: 0 auto;
+		margin-top: @fixed_toggleswitch_act_margin_top;
 
 		.ui-switch-handler {
 			position: relative;
-			width: 60 * @unit_base;
-			height: 60 * @unit_base;
-			border-radius: 30 * @unit_base;
-			border: 2 * @unit_base solid @color_switch_activation_checked_bg;
-			background-color: @color_switch_handler_bg;
-			left: 100%;
+			width: @fixed_toggleswitch_handler_width;
+			height: @fixed_toggleswitch_handler_height;
+			background-position: -2px -504px;
+			left: 72%;
 		}
 	}
 	.ui-switch-activation:active {
-		width: 120 * @unit_base;
-		height: 60 * @unit_base;
-		border-radius: 30 * @unit_base;
-		background-color: @color_switch_activation_active_checked_bg;
+		width: @fixed_toggleswitch_width;
+		height: @fixed_toggleswitch_height;
+		background-position: -2px -144px;
 		margin: 0 auto;
+		margin-top: @fixed_toggleswitch_act_margin_top;
 
 		.ui-switch-handler:active {
 			position: relative;
-			width: 60 * @unit_base;
-			height: 60 * @unit_base;
-			border-radius: 30 * @unit_base;
-			border: 2 * @unit_base solid @color_switch_activation_active_checked_bg;
-			background-color: @color_switch_handler_bg;
-			left: 100%;
+			width: @fixed_toggleswitch_handler_width;
+			height: @fixed_toggleswitch_handler_height;
+			background-position: -2px -576px;
+			left: 72%;
 		}
 	}
 	.ui-switch-activation:disable {
-		width: 120 * @unit_base;
-		height: 60 * @unit_base;
-		border-radius: 30 * @unit_base;
-		background-color: @color_switch_activation_disable_checked_bg;
+		width: @fixed_toggleswitch_width;
+		height: @fixed_toggleswitch_height;
+		background-position: -2px -0px;
 		margin: 0 auto;
+		margin-top: @fixed_toggleswitch_act_margin_top;
 
 		.ui-switch-handler:disable {
 			position: relative;
-			width: 60 * @unit_base;
-			height: 60 * @unit_base;
-			border-radius: 30 * @unit_base;
-			border: 2 * @unit_base solid @color_switch_activation_disable_checked_bg;
-			background-color: @color_switch_handler_bg;
-			left: 100%;
+			width: @fixed_toggleswitch_handler_width;
+			height: @fixed_toggleswitch_handler_height;
+			background-position: -2px -432px;
+			left: 72%;
 		}
 	}
 }

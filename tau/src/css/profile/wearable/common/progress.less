@@ -3,9 +3,8 @@
  */
 
 @-webkit-keyframes indeterminate {
-	0% {background-image: url('./images/Progress/tw_progressbar_indeterminate1_holo_dark.png');}
-	50% {background-image: url('./images/Progress/tw_progressbar_indeterminate2_holo_dark.png');}
-	100% {background-image: url('./images/Progress/tw_progressbar_indeterminate1_holo_dark.png');}
+	from {background-image: url('./images/Progress/tw_progressbar_indeterminate1_holo_dark.png');}
+	to {background-image: url('./images/Progress/tw_progressbar_indeterminate2_holo_dark.png');}
 }
 
 progress {
@@ -35,13 +34,15 @@ progress::-webkit-progress-value {
 	overflow: hidden;
 }
 progress.ui-progress-indeterminate::-webkit-progress-value {
-	-webkit-animation: indeterminate 1s infinite;
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	-webkit-animation: indeterminate 150ms infinite;
 }
 
 .ui-progress-proportion {
 	display: inline-block;
 	float: left;
-	font-size: 20 * @unit_base;
+	font-size: @fixed_progress_proportion_font_size;
 	padding-left: 16 * @unit_base;
 	padding-right: 16 * @unit_base;
 	margin-top: -10 * @unit_base;
@@ -50,7 +51,7 @@ progress.ui-progress-indeterminate::-webkit-progress-value {
 .ui-progress-ratio {
 	display: inline-block;
 	float: right;
-	font-size: 20 * @unit_base;
+	font-size: @fixed_progress_ratio_font_size;
 	padding-left: 16 * @unit_base;
 	padding-right: 16 * @unit_base;
 	margin-top: -10 * @unit_base;

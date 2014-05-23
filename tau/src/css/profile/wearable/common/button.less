@@ -1,12 +1,12 @@
 .ui-btn {
 	display: block;
-	padding-top: 24 * @unit_base;
-	padding-right: 10 * @unit_base;
-	padding-bottom: 24 * @unit_base;
-	padding-left: 10 * @unit_base;
+	padding-top: @fixed_button_padding_top;
+	padding-right: @fixed_button_padding_right;
+	padding-bottom: @fixed_button_padding_bottom;
+	padding-left: @fixed_button_padding_left;
 	margin: 0px;
-	font-size: 31 * @unit_base;
-	line-height: 28 * @unit_base;
+	font-size: @fixed_button_font_size;
+	line-height: @fixed_button_line_height;
 	text-align: center;
 	white-space: nowrap;
 	cursor:pointer;
@@ -17,8 +17,8 @@
 	.ui-default;
 
 	&.ui-multiline {
-		padding-top: 10 * @unit_base;
-		padding-bottom: 10 * @unit_base;
+		padding-top: @fixed_button_multiline_padding_top;
+		padding-bottom: @fixed_button_multiline_padding_bottom;
 	}
 
 	&.ui-inline {
@@ -27,11 +27,11 @@
 
 	&.ui-btn-icon {
 		background-position: center center;
-		height: 76 * @unit_base;
+		height: @fixed_button_icon_height;
 		text-indent: -1000em;
 		overflow: hidden;
 		background-repeat: no-repeat;
-		background-size: 60 * @unit_base 60 * @unit_base;
+		background-size: @fixed_button_icon_bg_size @fixed_button_icon_bg_size;
 	}
 }
 
@@ -134,9 +134,9 @@ button.ui-btn, input.ui-btn {
 	.ui-grid-col-btn((@counter - 1));
 
 	.ui-grid-col-@{counter} > .ui-btn {
-		border-right:solid 1px @color_bg;
-		&:last-child {
-			border-right:0px none;
+		border-left:solid 1px @color_bg;
+		&:first-child {
+			border-left:0px none;
 		}
 	}
 }
