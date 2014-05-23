@@ -47,7 +47,7 @@
 
 					_bindStartEvents: function( instance ) {
 						var element = instance.getElement();
-						if ( this.touchDevice ) {
+						if ( TOUCH_DEVICE ) {
 							element.addEventListener( "touchstart", this);
 						}
 
@@ -55,7 +55,7 @@
 					},
 
 					_bindEvents: function( ) {
-						if ( this.touchDevice ) {
+						if ( TOUCH_DEVICE ) {
 							document.addEventListener( "touchmove", this);
 							document.addEventListener( "touchend", this);
 							document.addEventListener( "touchcancel", this);
@@ -67,7 +67,7 @@
 
 					_unbindStartEvents: function( instance ) {
 						var element = instance.getElement();
-						if ( this.touchDevice ) {
+						if ( TOUCH_DEVICE ) {
 							element.removeEventListener( "touchstart", this);
 						}
 
@@ -75,7 +75,7 @@
 					},
 
 					_unbindEvents: function() {
-						if ( this.touchDevice ) {
+						if ( TOUCH_DEVICE ) {
 							document.removeEventListener( "touchmove", this);
 							document.removeEventListener( "touchend", this);
 							document.removeEventListener( "touchcancel", this);
