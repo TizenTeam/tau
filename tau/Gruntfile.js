@@ -134,23 +134,6 @@ module.exports = function(grunt) {
 			}
 		},
 
-		qunitPrepare = function (done, output) {
-			var result = require('rjs-build-analysis').parse(output),
-				slice = [].slice,
-				testModules = [],
-				jsAddTests = ['api'];
-			if (result && result.bundles.length > 0) {
-				slice.call(result.bundles[0].children).forEach(function (modulePath) {
-					testModules.push(path.join('tests', path.relative('src/', modulePath).replace(/(\.js)+/gi, ''), '*.html'));
-					jsAddTests.forEach(function (oneDirectory) {
-						testModules.push(path.join('tests', path.relative('src/', modulePath).replace(/(\.js)+/gi, ''), '/' + oneDirectory + '/*.html'));
-					});
-				});
-				grunt.config('qunit.main', testModules);
-			}
-			done();
-		},
-
 		initConfig = {
 			version: version,
 
@@ -202,8 +185,7 @@ module.exports = function(grunt) {
 						wrap: {
 							start: wrapStart,
 							end: wrapEnd
-						},
-						done: qunitPrepare
+						}
 					}
 				}
 			},

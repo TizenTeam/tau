@@ -18,7 +18,7 @@ module.exports = function (grunt) {
 			var result = require('rjs-build-analysis').parse(output),
 				slice = [].slice,
 				testModules = [],
-				jsAddTests = ['api'];
+				jsAddTests = grunt.option('js_add_test') ? grunt.option('js_add_test').split(",") : [];
 
 			if (result && result.bundles.length > 0) {
 				slice.call(result.bundles[0].children).forEach(function (modulePath) {
