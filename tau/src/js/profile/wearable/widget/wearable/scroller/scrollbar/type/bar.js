@@ -15,11 +15,6 @@
 * limitations under the License.
 */
 /*jslint nomen: true, plusplus: true */
-/**
- * section Changer widget
- * @class ns.widget.SectionChanger
- * @extends ns.widget.BaseWidget
- */
 (function (document, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);

@@ -20,7 +20,7 @@
  *
  *
  * @author Marcin Jakuszko <m.jakuszko@samsung.com>
- * @class ns.widget.Collapsibleset
+ * @class ns.widget.mobile.Collapsibleset
  * @extends ns.widget.BaseWidget
  */
 
@@ -83,7 +83,7 @@
 				* Local constructor function
 				* @method Collapsibleset
 				* @private
-				* @member ns.widget.Collapsibleset
+				* @member ns.widget.mobile.Collapsibleset
 				*/
 				Collapsibleset = function () {
 					/**
@@ -95,7 +95,7 @@
 					* @property {boolean} [options.collapsed=true] Determines if content should be collapsed on load
 					* @property {?string} [options.collapsedIcon=null] Icon for collapsed widget
 					* @property {?string} [options.expandedIcon=null] Icon for expanded widget
-					* @member ns.widget.Collapsible
+					* @member ns.widget.mobile.Collapsibleset
 					*/
 					this.options = {
 						theme: null,
@@ -114,7 +114,7 @@
 			/**
 			* @property {Object} classes Dictionary object containing commonly used wiget classes
 			* @static
-			* @member ns.widget.Collapsibleset
+			* @member ns.widget.mobile.Collapsibleset
 			*/
 			Collapsibleset.classes = {
 				uiCollapsible: 'ui-collapsible',
@@ -130,7 +130,7 @@
 			/**
 			* @property {Object} attributes Dictionary object containing commonly used wiget attributes
 			* @static
-			* @member ns.widget.Collapsibleset
+			* @member ns.widget.mobile.Collapsibleset
 			*/
 			Collapsibleset.attributes = {
 				last: 'collapsible-last'
@@ -142,7 +142,7 @@
 			* @param {HTMLElement} element
 			* @return {HTMLElement}
 			* @protected
-			* @member ns.widget.Collapsibleset
+			* @member ns.widget.mobile.Collapsibleset
 			*/
 			prototype._build = function (element) {
 				element.classList.add(Collapsibleset.classes.uiCollapsibleSet);
@@ -154,7 +154,7 @@
 			* @method roundCollapsibleSetBoundaries
 			* @param {Array} collapsiblesInSet
 			* @private
-			* @member ns.widget.Collapsibleset
+			* @member ns.widget.mobile.Collapsibleset
 			*/
 			function roundCollapsibleSetBoundaries(collapsiblesInSet) {
 				if(collapsiblesInSet.length > 0) {
@@ -203,7 +203,7 @@
 			* @param {Object} options
 			* @param {Event} event
 			* @private
-			* @member ns.widget.Collapsibleset
+			* @member ns.widget.mobile.Collapsibleset
 			*/
 			function expandCollapseHandler(element, options, event) {
 				var collapsible = event.target,
@@ -246,7 +246,7 @@
 			* @method _bindEvents
 			* @param {HTMLElement} element
 			* @protected
-			* @member ns.widget.Collapsibleset
+			* @member ns.widget.mobile.Collapsibleset
 			*/
 			prototype._bindEvents = function (element) {
 				var eventHandler = this._eventHandlers.expandCollapseHandler = expandCollapseHandler.bind(null, element, this.options);
@@ -262,7 +262,7 @@
 			* @method _init
 			* @param {HTMLElement} element
 			* @protected
-			* @member ns.widget.Collapsibleset
+			* @member ns.widget.mobile.Collapsibleset
 			*/
 			prototype._init = function (element) {
 				var expanded = selectors.getChildrenBySelector(element, "[data-collapsed='false']"),
@@ -281,7 +281,7 @@
 			* Refresh structure
 			* @method _refresh
 			* @protected
-			* @member ns.widget.Collapsibleset
+			* @member ns.widget.mobile.Collapsibleset
 			*/
 			prototype._refresh = function () {
 				var element = this.element,
@@ -303,7 +303,7 @@
 			* Destroy widget
 			* @method _destroy
 			* @protected
-			* @member ns.widget.Collapsibleset
+			* @member ns.widget.mobile.Collapsibleset
 			*/
 			prototype._destroy = function () {
 				var element = this.element,
@@ -313,20 +313,20 @@
 				element.removeEventListener('collapse', eventHandler, true);
 			};
 
-            Collapsibleset.prototype = prototype;
+			Collapsibleset.prototype = prototype;
 
-            // definition
-            widget.mobile.Collapsibleset = Collapsibleset;
-            engine.defineWidget(
-                "Collapsibleset",
-                "[data-role='collapsible-set'],.ui-collapsible-set",
-                [],
-                Collapsibleset,
-                'mobile'
-            );
-            //>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-            return Collapsibleset;
-        }
-    );
-    //>>excludeEnd("tauBuildExclude");
+			// definition
+			widget.mobile.Collapsibleset = Collapsibleset;
+			engine.defineWidget(
+				"Collapsibleset",
+				"[data-role='collapsible-set'],.ui-collapsible-set",
+				[],
+				Collapsibleset,
+				'mobile'
+			);
+			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+			return Collapsibleset;
+		}
+	);
+	//>>excludeEnd("tauBuildExclude");
 }(window.document, ns));

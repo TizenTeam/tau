@@ -19,9 +19,12 @@
  * #Autodividers extension for ListView Widget
  * The Autodividers widget extension automatically creates dividers for a ListView Widget.
  *
+ * ## Default selectors
  * A list can be configured to automatically generate dividers for its items. This is done by adding the **data-autodividers="true"** attribute to the ListView element. This is similar to jQueryMobile version 1.2.0.
  *
- * To add an autodividers widget to the application, use the following code:
+ * ###HTML Examples
+ *
+  * To add an autodividers widget to the application, use the following code:
  *
  *      @example
  *      <ul data-role="listview" data-autodividers="true" id="listview-with-autodividers">
@@ -30,7 +33,7 @@
  *          <li><a href="#">Barry</a></li>
  *      </ul>
  *
- * Autodividers is not  independent widget, this is extension for [ListView widget](ns_widget_mobile_Listview.htm).
+ * Autodividers is not independent widget, this is extension for [ListView widget](ns_widget_mobile_Listview.htm).
  *
  * ##Methods
  *

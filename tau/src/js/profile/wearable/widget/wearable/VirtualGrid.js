@@ -20,6 +20,7 @@
  *
  *
  * @class ns.widget.wearable.VirtualGrid
+ * @since 2.3
  * @extends ns.widget.wearable.VirtualListview
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>

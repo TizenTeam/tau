@@ -19,7 +19,7 @@
  * #Circular View Widget
  * The circular view widget shows a special scroll box which can be scroll in circle.
  *
- * @class ns.widget.Circularview
+ * @class ns.widget.mobile.Circularview
  * @extend ns.widget.mobile.BaseWidgetMobile
  */
 (function (document, ns) {

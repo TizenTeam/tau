@@ -16,7 +16,8 @@
 */
 /*jslint nomen: true, white: true, plusplus: true*/
 /**
- *#VirtualListView Widget
+ *#Virtual ListView Widget
+ * Shows a list view for large amounts of data.
  *
  * In the Web environment, it is challenging to display a large amount of data in a list, such as
  * displaying a contact list of over 1000 list items. It takes time to display the entire list in
@@ -118,6 +119,7 @@
 		});
  *
  * @class ns.widget.wearable.VirtualListview
+ * @since 2.2
  * @extend ns.widget.BaseWidget
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Piotr Karny <p.karny@samsung.com>

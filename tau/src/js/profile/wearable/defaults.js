@@ -51,6 +51,11 @@
 				 * @extend ns.wearable.selectors
 				 */
 				ns.selectors = selectors;
+				/**
+				 * @inheritdoc ns.router.Router
+				 * @class tau.navigator
+				 * @extend ns.router.Router
+				 */
 				navigator = ns.navigator || {};
 				/**
 				 * @property {Object} defaults Default values for router

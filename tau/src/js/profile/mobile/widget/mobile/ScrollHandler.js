@@ -43,7 +43,7 @@
  *		<ul>example</ul>
  *		<ul>example</ul>
  * </div>
- * @class ns.widget.wearable.ScrollHandler
+ * @class ns.widget.mobile.ScrollHandler
  * @inheritdoc ns.widget.mobile.Scrollview
  * @extends ns.widget.mobile.Scrollview
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>

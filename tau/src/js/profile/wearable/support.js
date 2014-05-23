@@ -1,4 +1,5 @@
 /*global window, define, ns */
+/*jslint plusplus: true, nomen: true */
 /*
 * Copyright (c) 2013 - 2014 Samsung Electronics Co., Ltd
 *
@@ -34,6 +35,7 @@
 			 * Browser properties
 			 * @property {Object} browser
 			 * @property {boolean} browser.tizen
+			 * @member ns
 			 */
 			frameworkNamespace.browser = {
 				tizen: !!window.navigator.userAgent.match(/tizen/i)

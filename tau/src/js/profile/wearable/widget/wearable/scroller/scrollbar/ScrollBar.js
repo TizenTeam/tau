@@ -16,8 +16,8 @@
 */
 /*jslint nomen: true, plusplus: true */
 /**
- * section Changer widget
- * @class ns.widget.SectionChanger
+ * Scroll Bar Widget
+ * @class ns.widget.wearable.ScrollerScrollBar
  * @extends ns.widget.BaseWidget
  */
 (function (document, ns) {
@@ -66,6 +66,13 @@
 			};
 
 			prototype._configure = function () {
+				/**
+				 * @property {Object} options Options for widget
+				 * @property {boolean} [options.type=false]
+				 * @property {number} [options.displayDelay=700]
+				 * @property {"vertical"|"horizontal"} [options.orientation="vertical"]
+				 * @member ns.widget.wearable.ScrollerScrollBar
+				 */
 				this.options = utilsObject.merge({}, this.options, {
 					type: false,
 					displayDelay: 700,
@@ -115,6 +122,12 @@
 				this.init();
 			};
 
+			/**
+			 * @method translate
+			 * @param offset
+			 * @param duration
+			 * @member ns.widget.wearable.ScrollerScrollBar
+			 */
 			prototype.translate = function (offset, duration) {
 				var orientation = this.options.orientation,
 					translate, transition, barStyle, endDelay;
@@ -186,7 +199,7 @@
 			engine.defineWidget(
 				"ScrollBar",
 				"",
-				[],
+				["translate"],
 				ScrollerScrollBar
 			);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);

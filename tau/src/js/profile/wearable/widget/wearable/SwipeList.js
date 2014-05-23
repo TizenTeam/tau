@@ -16,9 +16,60 @@
 */
 /*jslint nomen: true, plusplus: true */
 /**
- * section Changer widget
- * @class ns.widget.SectionChanger
- * @extends ej.widget.BaseWidget
+ * # Swipe List
+ * Shows a list where you can swipe horizontally through a list item to perform a specific task.
+ *
+ * The swipe list widget shows on the screen a list where you can swipe horizontally through a list item to activate a specific feature or perform a specific task. For example, you can swipe a contact in a contact list to call them or to open a message editor in order to write them a message.
+ *
+ * The following table describes the supported swipe list options.
+ *
+ *      @example
+ *         <div class="ui-content">
+ *             <!--List items that can be swiped-->
+ *             <ul class="ui-listview ui-swipelist-list">
+ *                 <li>Andrew</li>
+ *                 <li>Bill</li>
+ *                 <li>Christina</li>
+ *                 <li>Daniel</li>
+ *                 <li>Edward</li>
+ *                 <li>Peter</li>
+ *                 <li>Sam</li>
+ *                 <li>Tom</li>
+ *             </ul>
+ *             <!--Swipe actions-->
+ *             <div class="ui-swipelist">
+ *                 <div class="ui-swipelist-left">
+ *                     <div class="ui-swipelist-icon"></div>
+ *                     <div class="ui-swipelist-text">Calling</div>
+ *                 </div>
+ *                 <div class="ui-swipelist-right">
+ *                     <div class="ui-swipelist-icon"></div>
+ *                     <div class="ui-swipelist-text">Message</div>
+ *                 </div>
+ *             </div>
+ *         </div>
+ *         <script>
+ *             (function () {
+ *                 var page = document.getElementById("swipelist"),
+ *                         listElement = page.getElementsByClassName("ui-swipelist-list", "ul")[0],
+ *                         swipeList;
+ *                 page.addEventListener("pageshow", function () {
+ *                     // Make swipe list object
+ *                     var options = {
+ *                         left: true,
+ *                         right: true
+ *                     };
+ *                     swipeList = new tau.widget.SwipeList(listElement, options);
+ *                 });
+ *                 page.addEventListener("pagehide", function () {
+ *                     // Release object
+ *                     swipeList.destroy();
+ *                 });
+ *             })();
+ *         </script>
+ * @class ns.widget.wearable.SwipeList
+ * @since 2.2
+ * @extends ns.widget.BaseWidget
  */
 (function (document, ns) {
 	"use strict";
@@ -40,7 +91,17 @@
 				selectors = ns.util.selectors,
 
 				eventType = {
+					/**
+					 * Triggered when a left-to-right swipe is completed.
+					 * @event swipelist.left
+					 * @member ns.widget.wearable.SwipeList
+					 */
 					LEFT: "swipelist.left",
+					/**
+					 * Triggered when a right-to-left swipe is completed.
+					 * @event swipelist.right
+					 * @member ns.widget.wearable.SwipeList
+					 */
 					RIGHT: "swipelist.right"
 				},
 
@@ -75,6 +136,25 @@
 
 			prototype._configure = function () {
 
+				/**
+				 * @property {Object} options Options for widget
+				 * @property {boolean} [options.left=false] Set to true to allow swiping from left to right.
+				 * @property {boolean} [options.right=false] Set to true to allow swiping from right to left.
+				 * @property {number} [options.threshold=10] Define the threshold (in pixels) for the minimum swipe movement which allows the swipe action to appear.
+				 * @property {number} [options.animationThreshold=150] Define the threshold (in pixels) for the minimum swipe movement that allows a swipe animation (with a color change) to be shown. The animation threshold is usually the threshold for the next operation after the swipe.
+				 * @property {number} [options.animationDuration=200] Define the swipe list animation duration. Do not change the default value, since it has been defined to show a complete color change.
+				 * @property {number} [options.animationInterval=8] Define the swipe list animation interval. The animation is called with the requestAnimationFrame() method once every 1/60 seconds. The interval determines how many coordinates the animation proceeds between each call. The animation ends when the coordinates reach the value defined as animationDuration. This option basically allows you to control the speed of the animation.
+				 * @property {string} [options.ltrStartColor="#62a917"] Define the start color for the left-to-right swipe.
+				 * @property {string} [options.ltrEndColor="#58493a"] Define the end color for the left-to-right swipe.
+				 * @property {string} [options.rtlStartColor="#eaa317"] Define the start color for the right-to-left swipe.
+				 * @property {string} [options.rtlEndColor="#58493a"] Define the end color for the right-to-left swipe.
+				 * @property {?HTMLElement} [options.container=null] Define the end color for the right-to-left swipe.
+				 * @property {string} [options.swipeTarget="li"] Selector for swipe list
+				 * @property {string} [options.swipeElement=".ui-swipelist"] Selector for swipe list container
+				 * @property {string} [options.swipeLeftElement=".ui-swipelist-left"] Selector for swipe left container
+				 * @property {string} [options.swipeRightElement=".ui-swipelist-right"] Selector for swipe right container
+				 * @member ns.widget.wearable.SwipeList
+				 */
 				this.options = {
 					threshold: 10,
 					animationThreshold: 150,

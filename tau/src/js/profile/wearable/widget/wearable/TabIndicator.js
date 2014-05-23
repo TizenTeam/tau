@@ -16,8 +16,9 @@
 */
 /*jslint nomen: true, plusplus: true */
 /**
- * section Changer widget
- * @class ns.widget.SectionChanger
+ * TabIndicator Widget
+ * @class ns.widget.wearable.TabIndicator
+ * @since 2.3
  * @extends ej.widget.BaseWidget
  */
 (function (document, ns) {
@@ -38,10 +39,14 @@
 				this.tabSize = 0;
 				this.activeIndex = 0;
 				this.width = 0;
-
 			};
 
 			TabIndicator.EventType = {
+				/**
+				 * Triggered when tab is changing
+				 * @event tabchange
+				 * @member ns.widget.wearable.TabIndicator
+				 */
 				change: "tabchange"
 			};
 
@@ -56,6 +61,15 @@
 				},
 
 				_configure: function( ) {
+					/**
+					 * @property {Object} options Options for widget
+					 * @property {number} [options.margin=2]
+					 * @property {boolean} [options.triggerEvent=false]
+					 * @property {string} [options.wrapperClass="ui-tab-indicator]
+					 * @property {string} [options.itemClass="ui-tab-item"]
+					 * @property {string} [options.activeClass="ui-tab-active"]
+					 * @member ns.widget.wearable.TabIndicator
+					 */
 					this.options = {
 						margin: 2,
 						triggerEvent: false,
@@ -115,6 +129,11 @@
 					this._createIndicator();
 				},
 
+				/**
+				 * @method setActive
+				 * @param position
+				 * @member ns.widget.wearable.TabIndicator
+				 */
 				setActive: function ( position ) {
 					var o = this.options,
 						nodes = this.element.children;
@@ -136,6 +155,11 @@
 					}
 				},
 
+				/**
+				 * @method setSize
+				 * @param size
+				 * @member ns.widget.wearable.TabIndicator
+				 */
 				setSize: function( size ) {
 					var needRefresh = this.tabSize !== size;
 
@@ -159,7 +183,7 @@
 			engine.defineWidget(
 				"TabIndicator",
 				".ui-tab",
-				[],
+				["setActive", "setSize"],
 				TabIndicator
 			);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);

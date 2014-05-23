@@ -53,7 +53,7 @@
  *		<li><a href="#">Normal lists</a></li>
  *	</ul>
  *
- * @class ns.widget.Listdivider
+ * @class ns.widget.mobile.Listdivider
  * @extends ns.widget.BaseWidget
  */
 (function (ns) {
@@ -86,7 +86,7 @@
 
 			/**
 			* @property {Object} classes Dictionary for listdivider related css class names
-			* @member ns.widget.Listdivider
+			* @member ns.widget.mobile.Listdivider
 			* @static
 			*/
 			Listdivider.classes = {
@@ -98,35 +98,35 @@
 				var options = this.options || {};
 				/**
 				* @property {Object} options Object with default options
-				* @member ns.widget.Listdivider
+				* @member ns.widget.mobile.Listdivider
 				* @instance
 				*/
 				this.options = options;
 				/**
 				* theme of widget
 				* @property {String} [options.theme='s']
-				* @member ns.widget.Listdivider
+				* @member ns.widget.mobile.Listdivider
 				* @instance
 				*/
 				/** @expose */
 				options.theme = 's';
 				/**
 				* @property {String} [options.style='normal']
-				* @member ns.widget.Listdivider
+				* @member ns.widget.mobile.Listdivider
 				* @instance
 				*/
 				/** @expose */
 				options.style = 'normal';
 				/**
 				* @property {String} [options.folded=false]
-				* @member ns.widget.Listdivider
+				* @member ns.widget.mobile.Listdivider
 				* @instance
 				*/
 				/** @expose */
 				options.folded = false;
 				/**
 				* @property {boolean} [options.list=true]
-				* @member ns.widget.Listdivider
+				* @member ns.widget.mobile.Listdivider
 				* @instance
 				*/
 				/** @expose */
@@ -137,7 +137,7 @@
 			* @method _build
 			* @param {HTMLElement} element
 			* @return {HTMLElement}
-			* @member ns.widget.Listdivider
+			* @member ns.widget.mobile.Listdivider
 			*/
 			Listdivider.prototype._build = function (element) {
 				var options = this.options,

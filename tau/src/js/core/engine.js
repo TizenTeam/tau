@@ -322,6 +322,7 @@
 			 * @param {HTMLElement|string} element
 			 * @return {object?}
 			 * @static
+			 * @member ns.engine
 			 */
 			function getAllBindings(element) {
 				var id = !element || typeof element === TYPE_STRING ? element : element.id;
@@ -586,6 +587,7 @@
 			 * @param {string} type
 			 * @private
 			 * @static
+			 * @member ns.engine
 			 */
 			function destroyWidget(element, type) {
 				var widgetInstance;

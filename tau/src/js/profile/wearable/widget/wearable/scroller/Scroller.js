@@ -16,8 +16,9 @@
 */
 /*jslint nomen: true, plusplus: true */
 /**
- * section Changer widget
- * @class ns.widget.SectionChanger
+ * # Scroller Widget
+ * @class ns.widget.wearable.Scroller
+ * @since 2.3
  * @extends ns.widget.BaseWidget
  */
 (function (document, ns) {
@@ -44,13 +45,25 @@
 				prototype = new BaseWidget(),
 				EffectBouncing = ns.widget.wearable.scroller.effect.Bouncing,
 				eventType = {
-					// scroller.move event trigger when scroller start
+					/**
+					 * event trigger when scroller start
+					 * @event scrollstart
+					 */
 					START: "scrollstart",
-					// scroller.move event trigger when scroller move
-					//MOVE: "scroller.move",
-					// scroller.move event trigger when scroller end
+					/**
+					 * event trigger when scroller move
+					 * @event scrollmove
+					 */
+					MOVE: "scrollmove",
+					/**
+					 * event trigger when scroller end
+					 * @event scrollend
+					 */
 					END: "scrollend",
-					// scroller.move event trigger when scroller canceled
+					/**
+					 * event trigger when scroll is cancel
+					 * @event scrollcancel
+					 */
 					CANCEL: "scrollcancel"
 				},
 
@@ -98,6 +111,15 @@
 			};
 
 			prototype._configure = function () {
+				/**
+				 * @property {Object} options Options for widget
+				 * @property {number} [options.scrollDelay=0]
+				 * @property {number} [options.threshold=10]
+				 * @property {boolean} [options.scrollbar=false]
+				 * @property {boolean} [options.useBouncingEffect=false]
+				 * @property {"vertical"|"horizontal"} [options.orientation="vertical"]
+				 * @member ns.widget.wearable.Scroller
+				 */
 				this.options = utilsObject.merge({}, this.options, {
 					scrollDelay: 0,
 					threshold: 10,
@@ -255,6 +277,13 @@
 				this._init();
 			};
 
+			/**
+			 * @method scrollTo
+			 * @param x
+			 * @param y
+			 * @param duration
+			 * @member ns.widget.wearable.Scroller
+			 */
 			prototype.scrollTo = function (x, y, duration) {
 				this._translate(x, y, duration);
 				this._translateScrollbar(x, y, duration);
@@ -358,6 +387,10 @@
 				this.scrolled = false;
 			};
 
+			/**
+			 * @method cancel
+			 * @member ns.widget.wearable.Scroller
+			 */
 			prototype.cancel = function () {
 				this.scrollCanceled = true;
 
@@ -420,7 +453,7 @@
 			engine.defineWidget(
 				"Scroller",
 				".scroller",
-				[],
+				["scrollTo", "cancel"],
 				Scroller
 			);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);

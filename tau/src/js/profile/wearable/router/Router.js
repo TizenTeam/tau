@@ -45,7 +45,7 @@
 				/**
 				* Local alias for ns.util
 				* @property {Object} util Alias for {@link ns.util}
-				* @member ns.router.wearable.Router
+				* @member ns.router.Router
 				* @static
 				* @private
 				*/
@@ -53,14 +53,14 @@
 				/**
 				* Local alias for ns.event
 				* @property {Object} eventUtils Alias for {@link ns.event}
-				* @member ns.router.wearable.Router
+				* @member ns.router.Router
 				* @static
 				* @private
 				*/
 				eventUtils = ns.event,
 				/**
 				* @property {Object} DOM Alias for {@link ns.util.DOM}
-				* @member ns.router.wearable.Router
+				* @member ns.router.Router
 				* @static
 				* @private
 				*/
@@ -68,7 +68,7 @@
 				/**
 				* Local alias for ns.util.path
 				* @property {Object} path Alias for {@link ns.util.path}
-				* @member ns.router.wearable.Router
+				* @member ns.router.Router
 				* @static
 				* @private
 				*/
@@ -76,7 +76,7 @@
 				/**
 				* Local alias for ns.util.selectors
 				* @property {Object} selectors Alias for {@link ns.util.selectors}
-				* @member ns.router.wearable.Router
+				* @member ns.router.Router
 				* @static
 				* @private
 				*/
@@ -84,7 +84,7 @@
 				/**
 				* Local alias for ns.util.object
 				* @property {Object} object Alias for {@link ns.util.object}
-				* @member ns.router.wearable.Router
+				* @member ns.router.Router
 				* @static
 				* @private
 				*/
@@ -92,7 +92,7 @@
 				/**
 				* Local alias for ns.engine
 				* @property {Object} engine Alias for {@link ns.engine}
-				* @member ns.router.wearable.Router
+				* @member ns.router.Router
 				* @static
 				* @private
 				*/
@@ -100,7 +100,7 @@
 				/**
 				* Local alias for ns.router.wearable
 				* @property {Object} routerMicro Alias for namespace ns.router.wearable
-				* @member ns.router.wearable.Router
+				* @member ns.router.Router
 				* @static
 				* @private
 				*/
@@ -108,7 +108,7 @@
 				/**
 				* Local alias for ns.wearable.selectors
 				* @property {Object} microSelectors Alias for {@link ns.wearable.selectors}
-				* @member ns.router.wearable.Router
+				* @member ns.router.Router
 				* @static
 				* @private
 				*/
@@ -116,7 +116,7 @@
 				/**
 				* Local alias for ns.router.wearable.history
 				* @property {Object} history Alias for {@link ns.router.wearable.history}
-				* @member ns.router.wearable.Router
+				* @member ns.router.Router
 				* @static
 				* @private
 				*/
@@ -124,7 +124,7 @@
 				/**
 				* Local alias for ns.router.wearable.route
 				* @property {Object} route Alias for namespace ns.router.wearable.route
-				* @member ns.router.wearable.Router
+				* @member ns.router.Router
 				* @static
 				* @private
 				*/
@@ -132,7 +132,7 @@
 				/**
 				* Local alias for document body element
 				* @property {HTMLElement} body
-				* @member ns.router.wearable.Router
+				* @member ns.router.Router
 				* @static
 				* @private
 				*/
@@ -140,7 +140,7 @@
 				/**
 				 * Alias to Array.slice method
 				 * @method slice
-				 * @member ns.router.wearable.Router
+				 * @member ns.router.Router
 				 * @private
 				 * @static
 				 */
@@ -152,25 +152,25 @@
 					/**
 					 * @property {?HTMLElement} [firstPage] First page lement
 					 * @instance
-					 * @member ns.router.wearable.Router
+					 * @member ns.router.Router
 					 */
 					self.firstPage = null;
 					/**
 					 * @property {?ns.widget.wearable.PageContainer} [container] Container widget
 					 * @instance
-					 * @member ns.router.wearable.Router
+					 * @member ns.router.Router
 					 */
 					self.container = null;
 					/**
 					 * @property {Object} [settings] Settings for last open method
 					 * @instance
-					 * @member ns.router.wearable.Router
+					 * @member ns.router.Router
 					 */
 					self.settings = {};
 					/**
 					 * @property {Object} [rule] rulses for widget navigation
 					 * @instance
-					 * @member ns.router.wearable.Router
+					 * @member ns.router.Router
 					 */
 					self.rule = {};
 				};
@@ -183,7 +183,7 @@
 			* @property {number} [defaults.loadMsgDelay = 0]
 			* @property {boolean} [defaults.volatileRecord = false]
 			* @instance
-			* @member ns.router.wearable.Router
+			* @member ns.router.Router
 			*/
 			Router.prototype.defaults = {
 				fromHashChange: false,
@@ -200,7 +200,7 @@
 			 * @return {HTMLElement}
 			 * @private
 			 * @static
-			 * @member ns.router.wearable.Router
+			 * @member ns.router.Router
 			 */
 			function findClosestLink(element) {
 				while (element) {
@@ -215,11 +215,11 @@
 			/**
 			 * Handle event link click
 			 * @method linkClickHandler
-			 * @param {ns.router.wearable.Router} router
+			 * @param {ns.router.Router} router
 			 * @param {Event} event
 			 * @private
 			 * @static
-			 * @member ns.router.wearable.Router
+			 * @member ns.router.Router
 			 */
 			function linkClickHandler(router, event) {
 				var link = findClosestLink(event.target),
@@ -241,11 +241,11 @@
 			/**
 			 * Handle event for pop state
 			 * @method popStateHandler
-			 * @param {ns.router.wearable.Router} router
+			 * @param {ns.router.Router} router
 			 * @param {Event} event
 			 * @private
 			 * @static
-			 * @member ns.router.wearable.Router
+			 * @member ns.router.Router
 			 */
 			function popStateHandler(router, event) {
 				var state = event.state,

@@ -20,7 +20,7 @@
  * #Dialog Widget
  * Display div as a model dialog page with inset appearance.
  *
- * @class ns.widget.Dialog
+ * @class ns.widget.mobile.Dialog
  * @extends ns.widget.BaseWidget
  */
 (function (document, ns) {
@@ -40,21 +40,21 @@
 			//>>excludeEnd("tauBuildExclude");
 			/**
 			* @property {Object} Widget Alias for {@link ns.widget.BaseWidget}
-			* @member ns.widget.Dialog
+			* @member ns.widget.mobile.Dialog
 			* @private
 			* @static
 			*/
 			var BaseWidget = ns.widget.mobile.BaseWidgetMobile,
 				/**
 				* @property {Object} engine Alias for class {@link ns.engine}
-				* @member ns.widget.Dialog
+				* @member ns.widget.mobile.Dialog
 				* @private
 				* @static
 				*/
 				engine = ns.engine,
 				/**
 				* @property {Object} selectors Alias to {@link ns.util.selectors}
-				* @member ns.widget.Dialog
+				* @member ns.widget.mobile.Dialog
 				* @private
 				* @static
 				*/
@@ -67,7 +67,7 @@
 				events = ns.event,
 				/**
 				* @property {Object} buttonClasses Alias to {@link ns.widget.mobile.Button.classes}
-				* @member ns.widget.Dialog
+				* @member ns.widget.mobile.Dialog
 				* @private
 				* @static
 				*/
@@ -83,7 +83,7 @@
 					* @property {string} [options.closeBtnText='Close'] Customize text of the close button, by default close button is displayed as an icon-only so the text isn't visible, but is read by screen readers
 					* @property {string} [options.overlayTheme='a'] Backgroudn under dialog content color
 					* @property {boolean} [options.corners=true] Sets if dialog should be drawn with rounded corners
-					* @member ns.widget.Dialog
+					* @member ns.widget.mobile.Dialog
 					* @instance
 					*/
 					this.options = {
@@ -98,74 +98,74 @@
 
 			/**
 			* @property {Object} classes Dictionary for dialog related css class names
-			* @member ns.widget.Dialog
+			* @member ns.widget.mobile.Dialog
 			* @protected
 			* @static
 			*/
 			Dialog.classes = {
 				/**
 				* @property {string} uiDialog
-				* @member ns.widget.Dialog.classes
+				* @member ns.widget.mobile.Dialog.classes
 				* @static
 				*/
 				uiDialog: "ui-dialog",
 				/**
 				* @property {string} uiDialogContain
-				* @member ns.widget.Dialog.classes
+				* @member ns.widget.mobile.Dialog.classes
 				* @static
 				*/
 				uiDialogContain: "ui-dialog-contain",
 				/**
 				* @property {string} uiOverlayShadow
-				* @member ns.widget.Dialog.classes
+				* @member ns.widget.mobile.Dialog.classes
 				* @static
 				*/
 				uiOverlayShadow: "ui-overlay-shadow",
 				/**
 				* @property {string} uiOverlayPrefix
-				* @member ns.widget.Dialog.classes
+				* @member ns.widget.mobile.Dialog.classes
 				* @static
 				*/
 				uiOverlayPrefix: "ui-overlay-",
 				/**
 				* @property {string} uiCornerAll
-				* @member ns.widget.Dialog.classes
+				* @member ns.widget.mobile.Dialog.classes
 				* @static
 				*/
 				uiCornerAll: "ui-corner-all",
 				/**
 				* @property {string} uiHeader
-				* @member ns.widget.Dialog.classes
+				* @member ns.widget.mobile.Dialog.classes
 				* @static
 				*/
 				uiHeader: "ui-header",
 				/**
 				* @property {string} uiContent
-				* @member ns.widget.Dialog.classes
+				* @member ns.widget.mobile.Dialog.classes
 				* @static
 				*/
 				uiContent: "ui-content",
 				/**
 				 * @property {string} uiFooter
-				 * @member ns.widget.Dialog.classes
+				 * @member ns.widget.mobile.Dialog.classes
 				 * @static
 				 */
 				uiFooter: "ui-footer",
 				/**
 				* @property {string} uiBarPrefix
-				* @member ns.widget.Dialog.classes
+				* @member ns.widget.mobile.Dialog.classes
 				* @static
 				*/
 				uiBarPrefix: "ui-bar-",
 				/**
 				 * @property {string} uiBodyPrefix
-				 * @member ns.widget.Dialog.classes
+				 * @member ns.widget.mobile.Dialog.classes
 				 * @static
 				 */
 				uiBodyPrefix: "ui-body-",
 				/**
 				 * @property {string} uiDialogHidden
-				 * @member ns.widget.Dialog.classes
+				 * @member ns.widget.mobile.Dialog.classes
 				 * @static
 				 */
 				uiDialogHidden: "ui-dialog-hidden"
@@ -178,7 +178,7 @@
 			* @method setActive
 			* @param {boolean} value
 			* @instance
-			* @member ns.widget.Dialog
+			* @member ns.widget.mobile.Dialog
 			*/
 			Dialog.prototype.setActive = function (value) {
 				var elementClassList = this.element.classList,
@@ -204,7 +204,7 @@
 			* @returns {HTMLElement}
 			* @protected
 			* @instance
-			* @member ns.widget.Dialog
+			* @member ns.widget.mobile.Dialog
 			*/
 			Dialog.prototype._build = function (element) {
 				var container = document.createElement('div'),
@@ -275,7 +275,7 @@
 			* @returns {boolean} false
 			* @protected
 			* @instance
-			* @member ns.widget.Dialog
+			* @member ns.widget.mobile.Dialog
 			*/
 			Dialog.prototype._close = function (event) {
 				event.preventDefault();
@@ -290,7 +290,7 @@
 			* @param {string} text
 			* @protected
 			* @instance
-			* @member ns.widget.Dialog
+			* @member ns.widget.mobile.Dialog
 			*/
 			Dialog.prototype._setCloseButton = function (location, text) {
 				var headerCloseButton = this._headerCloseButton,
@@ -336,7 +336,7 @@
 			* Close dialog
 			* @method close
 			* @instance
-			* @member ns.widget.Dialog
+			* @member ns.widget.mobile.Dialog
 			*/
 			Dialog.prototype.close = function () {
 				window.history.back();
@@ -357,7 +357,7 @@
 			 * @method _bindEvents
 			 * @protected
 			 * @param {HTMLElement} element
-			 * @member ns.widget.Dialog
+			 * @member ns.widget.mobile.Dialog
 			 */
 			Dialog.prototype._bindEvents = function (element) {
 				var options = this.options,

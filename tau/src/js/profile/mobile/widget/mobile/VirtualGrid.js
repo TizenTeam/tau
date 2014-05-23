@@ -18,8 +18,8 @@
 /**
  * #Virtual Grid Widget
  *
- * @class ns.widget.VirtualGrid
- * @extends ns.widget.VirtualList
+ * @class ns.widget.mobile.VirtualGrid
+ * @extends ns.widget.mobile.VirtualList
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Piotr Karny <p.karny@samsung.com>
  */
@@ -46,7 +46,7 @@
 				/**
 				 * @property {Function} utilsObjectMerge
 				 * @private
-				 * @member ns.widget.VirtualGrid
+				 * @member ns.widget.mobile.VirtualGrid
 				 * @static
 				 */
 				utilsObjectMerge = ns.util.object.merge,
@@ -54,14 +54,14 @@
 				/**
 				 * @property {string} HORIZONTAL="x" constans for horizontal virtual grid
 				 * @private
-				 * @member ns.widget.VirtualGrid
+				 * @member ns.widget.mobile.VirtualGrid
 				 * @static
 				 */
 				HORIZONTAL = "x",
 				/**
 				 * @property {string} VERTICAL="y" constans for vertical virtual grid
 				 * @private
-				 * @member ns.widget.VirtualGrid
+				 * @member ns.widget.mobile.VirtualGrid
 				 * @static
 				 */
 				VERTICAL = "y",
@@ -103,13 +103,13 @@
 
 				/**
 				 * @property {Object} ui Holds UI elements of the widget
-				 * @member ns.widget.VirtualGrid
+				 * @member ns.widget.mobile.VirtualGrid
 				 */
 				self.ui = utilsObjectMerge({}, self.ui);
 
 				/**
 				 * @property {number} _currentIndex Current zero-based index of data set.
-				 * @member ns.widget.VirtualGrid
+				 * @member ns.widget.mobile.VirtualGrid
 				 */
 				self._currentIndex = 0;
 

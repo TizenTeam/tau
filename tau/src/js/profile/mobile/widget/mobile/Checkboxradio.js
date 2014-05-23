@@ -30,7 +30,7 @@
  *	<input type="checkbox" name="checkbox-yes" id="checkbox-yes" />
  *	<label for="checkbox-yes">Yes</label>
  *
- * @class ns.widget.Checkboxradio
+ * @class ns.widget.mobile.Checkboxradio
  * @extends ns.widget.BaseWidget
  */
 (function (document, ns) {
@@ -49,30 +49,14 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			/**
-			* Alias for class ns.widget.Checkboxradio
-			* @method Check
-			* @member ns.widget.Checkboxradio
-			* @private
-			* @static
-			*/
 			var Checkboxradio = function () {
 					/**
 					* @property {Object} options Object with default options
-					* @member ns.widget.Checkboxradio
+					* @property {string} [options.theme='s'] Widget's theme
+					* @member ns.widget.mobile.Checkboxradio
 					* @instance
 					*/
 					this.options = {
-						/**
-						* Widget's theme
-						* @property {string} [options.theme='s']
-						* @member ns.widget.Checkboxradio
-						* @instance
-						*/
-						/**
-						* Widget's theme
-						* @cfg {string} [data-theme='s']
-						*/
 						theme: 's'
 					};
 
@@ -81,42 +65,42 @@
 				},
 				/**
 				* @property {Object} Widget Alias for {@link ns.widget.BaseWidget}
-				* @member ns.widget.Checkboxradio
+				* @member ns.widget.mobile.Checkboxradio
 				* @private
 				* @static
 				*/
 				BaseWidget = ns.widget.mobile.BaseWidgetMobile,
 				/**
 				* @property {Object} engine Alias for class ns.engine
-				* @member ns.widget.Checkboxradio
+				* @member ns.widget.mobile.Checkboxradio
 				* @private
 				* @static
 				*/
 				engine = ns.engine,
 				/**
 				* @property {Object} selectors Alias for class ns.util.selectors
-				* @member ns.widget.Checkboxradio
+				* @member ns.widget.mobile.Checkboxradio
 				* @private
 				* @static
 				*/
 				selectors = ns.util.selectors,
 				/**
 				* @property {Object} dom Alias for class ns.util.DOM
-				* @member ns.widget.Checkboxradio
+				* @member ns.widget.mobile.Checkboxradio
 				* @private
 				* @static
 				*/
 				dom = ns.util.DOM,
 				/**
 				* @property {Object} events Alias for class ns.event
-				* @member ns.widget.Checkboxradio
+				* @member ns.widget.mobile.Checkboxradio
 				* @private
 				* @static
 				*/
 				events = ns.event,
 				/**
 				* @property {Function} slice Alias for function Array.slice
-				* @member ns.widget.Checkboxradio
+				* @member ns.widget.mobile.Checkboxradio
 				* @private
 				* @static
 				*/
@@ -134,7 +118,7 @@
 			* @return {HTMLElement}
 			* @private
 			* @static
-			* @member ns.widget.Checkboxradio
+			* @member ns.widget.mobile.Checkboxradio
 			*/
 			function getLabel(input) {
 				var parent = selectors.getClosestByTag(input, "label"),
@@ -168,7 +152,7 @@
 			 * @param {Event} event
 			 * @private
 			 * @static
-			 * @member ns.widget.Checkboxradio
+			 * @member ns.widget.mobile.Checkboxradio
 			 */
 			function onLabelClick(self, event) {
 				var element = self.element;
@@ -204,7 +188,7 @@
 			 * @param {Event} event
 			 * @private
 			 * @static
-			 * @member ns.widget.Checkboxradio
+			 * @member ns.widget.mobile.Checkboxradio
 			 */
 			function onInputClick(self, event) {
 				var element = self.element;
@@ -232,7 +216,7 @@
 			* @method checkElement
 			* @param {ns.widget.mobile.Checkboxradio} instance
 			* @private
-			* @member ns.widget.Checkboxradio
+			* @member ns.widget.mobile.Checkboxradio
 			* @new
 			*/
 			function checkElement(instance) {
@@ -256,7 +240,7 @@
 			* @method uncheckElement
 			* @param {ns.widget.mobile.Checkboxradio} instance
 			* @private
-			* @member ns.widget.Checkboxradio
+			* @member ns.widget.mobile.Checkboxradio
 			* @new
 			*/
 			function uncheckElement(instance) {
@@ -281,7 +265,7 @@
 			* @param {HTMLInputElement} element
 			* @return {HTMLInputElement}
 			* @protected
-			* @member ns.widget.Checkboxradio
+			* @member ns.widget.mobile.Checkboxradio
 			* @instance
 			*/
 			Checkboxradio.prototype._build = function (element) {
@@ -404,7 +388,7 @@
 			* @method _init
 			* @param {HTMLElement} element
 			* @protected
-			* @member ns.widget.Checkboxradio
+			* @member ns.widget.mobile.Checkboxradio
 			* @instance
 			*/
 			Checkboxradio.prototype._init = function (element) {
@@ -423,7 +407,7 @@
 			* Binds events to widget
 			* @method _bindEvents
 			* @protected
-			* @member ns.widget.Checkboxradio
+			* @member ns.widget.mobile.Checkboxradio
 			* @instance
 			*/
 			Checkboxradio.prototype._bindEvents = function () {
@@ -438,7 +422,7 @@
 			* @method getInputSet
 			* @return {Array}
 			* @protected
-			* @member ns.widget.Checkboxradio
+			* @member ns.widget.mobile.Checkboxradio
 			* @instance
 			*/
 			Checkboxradio.prototype._getInputSet = function () {
@@ -464,7 +448,7 @@
 			* Updates all others checkboxradio widgets with the same name attribute (only radios)
 			* @method _updateAll
 			* @protected
-			* @member ns.widget.Checkboxradio
+			* @member ns.widget.mobile.Checkboxradio
 			* @instance
 			*/
 			Checkboxradio.prototype._updateAll = function () {
@@ -483,7 +467,7 @@
 			/**
 			* Refreshes widget
 			* @method refresh
-			* @member ns.widget.Checkboxradio
+			* @member ns.widget.mobile.Checkboxradio
 			* @instance
 			*/
 
@@ -506,7 +490,7 @@
 			/**
 			* Enables widget
 			* @method _enable
-			* @member ns.widget.Checkboxradio
+			* @member ns.widget.mobile.Checkboxradio
 			* @protected
 			* @instance
 			*/
@@ -519,7 +503,7 @@
 			* Disables widget
 			* @method _disable
 			* @protected
-			* @member ns.widget.Checkboxradio
+			* @member ns.widget.mobile.Checkboxradio
 			* @instance
 			*/
 			Checkboxradio.prototype._disable = function () {
@@ -531,7 +515,7 @@
 			* Cleans widget's resources
 			* @method _destroy
 			* @protected
-			* @member ns.widget.Checkboxradio
+			* @member ns.widget.mobile.Checkboxradio
 			* @instance
 			*/
 			Checkboxradio.prototype._destroy = function () {
@@ -543,7 +527,7 @@
 			* Return checked checkboxradio element
 			* @method getCheckedElement
 			* @return {?HTMLElement}
-			* @member ns.widget.Checkboxradio
+			* @member ns.widget.mobile.Checkboxradio
 			* @new
 			*/
 			Checkboxradio.prototype.getCheckedElement = function () {
@@ -561,7 +545,7 @@
 			/**
 			* Returns value of checkbox if it is checked or value of radios with the same name
 			* @method _getValue
-			* @member ns.widget.Checkboxradio
+			* @member ns.widget.mobile.Checkboxradio
 			* @return {?string}
 			 * @protected
 			* @instance
@@ -581,7 +565,7 @@
 			* Check element with value
 			* @method _setValue
 			* @param {string} value
-			* @member ns.widget.Checkboxradio
+			* @member ns.widget.mobile.Checkboxradio
 			* @chainable
 			* @instance
 			 * @protected

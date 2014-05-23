@@ -16,10 +16,71 @@
 */
 /*jslint nomen: true, plusplus: true */
 /**
- * #SectionChanger Widget
+ * # SectionChanger Widget
+ * Shows a control that you can use to scroll through multiple <section> elements.
  *
+ * The section changer widget provides an application architecture, which has multiple sections on a page and enables scrolling through the <section> elements.
  *
- * @class ns.widget.SectionChanger
+ * ## Manual constructor
+ *
+ *      @example
+ *         <div id="hasSectionchangerPage" class="ui-page">
+ *             <header class="ui-header">
+ *                 <h2 class="ui-title">SectionChanger</h2>
+ *             </header>
+ *             <div id="sectionchanger" class="ui-content">
+ *                 <!--Section changer has only one child-->
+ *                 <div>
+ *                     <section>
+ *                         <h3>LEFT1 PAGE</h3>
+ *                     </section>
+ *                     <section class="section-active">
+ *                         <h3>MAIN PAGE</h3>
+ *                     </section>
+ *                     <section>
+ *                         <h3>RIGHT1 PAGE</h3>
+ *                     </section>
+ *                 </div>
+ *             </div>
+ *         </div>
+ *         <script>
+ *             (function () {
+ *                 var page = document.getElementById("hasSectionchangerPage"),
+ *                     element = document.getElementById("sectionchanger"),
+ *                     sectionChanger;
+ *
+ *                 page.addEventListener("pageshow", function () {
+ *                     // Create the SectionChanger object
+ *                     sectionChanger = new tau.SectionChanger(element, {
+ *                         circular: true,
+ *                         orientation: "horizontal",
+ *                         useBouncingEffect: true
+ *                     });
+ *                 });
+ *
+ *                 page.addEventListener("pagehide", function () {
+ *                     // Release the object
+ *                     sectionChanger.destroy();
+ *                 });
+ *             })();
+ *         </script>
+ *
+ * ## Handling Events
+ *
+ * To handle section changer events, use the following code:
+ *
+ *      @example
+ *         <script>
+ *             (function () {
+ *                 var changer = document.getElementById("sectionchanger");
+ *                 changer.addEventListener("sectionchange", function (event) {
+ *                     console.debug(event.detail.active + " section is active.");
+ *                 });
+ *             })();
+ *         </script>
+ *
+ * @class ns.widget.wearable.SectionChanger
+ * @since 2.2
  * @extends ns.widget.BaseWidget
  */
 (function (document, ns) {
@@ -42,6 +103,11 @@
 				utilsObject = ns.util.object,
 				utilsEvents = ns.event,
 				eventType = {
+					/**
+					 * Triggered when the section is changed.
+					 * @event sectionchange
+					 * @member ns.widget.wearable.SectionChanger
+					 */
 					CHANGE: "sectionchange"
 				};
 
@@ -67,6 +133,16 @@
 
 				_configure : function( ) {
 					this._super();
+					/**
+					 * @property {Object} options Options for widget
+					 * @property {"horizontal"|"vertical"} [options.orientation="horizontal"] Sets the section changer orientation:
+					 * @property {boolean} [options.circular=false] Presents the sections in a circular scroll fashion.
+					 * @property {boolean} [options.useBouncingEffect=false] Shows a scroll end effect on the scroll edge.
+					 * @property {string} [options.items="section"] Defines the section element selector.
+					 * @property {string} [options.activeClass="section-active"] Specifies the CSS classes which define the active section element. Add the specified class (section-active) to a <section> element to indicate which section must be shown first. By default, the first section is shown first.
+					 * @member ns.widget.wearable.SectionChanger
+					 * @instance
+					 */
 					var options = this.options;
 					options.items = "section";
 					options.activeClass = "section-active";
@@ -325,6 +401,13 @@
 					});
 				},
 
+				/**
+				 * Changes the currently active section element.
+				 * @method setActiveSection
+				 * @param {number} index
+				 * @param {number} duration For smooth scrolling, the duration parameter must be in milliseconds.
+				 * @member ns.widget.wearable.SectionChanger
+				 */
 				setActiveSection: function( index, duration ) {
 					var position = this.sectionPositions[ index ],
 						scrollbarDuration = duration,
@@ -352,6 +435,12 @@
 					}
 				},
 
+				/**
+				 * Gets the currently active section element's index.
+				 * @method getActiveSectionIndex
+				 * @returns {number}
+				 * @member ns.widget.wearable.SectionChanger
+				 */
 				getActiveSectionIndex: function() {
 					return this.activeIndex;
 				},
@@ -500,7 +589,7 @@
 			engine.defineWidget(
 				"SectionChanger",
 				".scroller",
-				[],
+				["getActiveSectionIndex", "setActiveSection"],
 				SectionChanger
 			);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);

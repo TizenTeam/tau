@@ -16,8 +16,7 @@
 */
 /*jslint nomen: true, plusplus: true */
 /**
- * #PageContainer Widget
- *
+ * # PageContainer Widget
  * PageContainer is a widget, which is supposed to have multiple child pages but display only one at a time.
  *
  * It allows for adding new pages, switching between them and displaying progress bars indicating loading process.
@@ -57,6 +56,11 @@
 					return this;
 				},
 				EventType = {
+					/**
+					 * Triggered after the changePage() request has finished loading the page into the DOM and all page transition animations have completed.
+					 * @event pagechange
+					 * @member ns.widget.wearable.PageContainer
+					 */
 					PAGE_CHANGE: "pagechange"
 				},
 				animationend = "animationend",

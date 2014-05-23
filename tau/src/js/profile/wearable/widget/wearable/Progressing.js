@@ -15,6 +15,29 @@
 * limitations under the License.
 */
 /*jslint nomen: true */
+/**
+ * # Processing Widget
+ * Shows that an operation is in progress.
+ *
+ * The processing widget shows that an operation is in progress.
+ *
+ * ## Default selectors
+ *
+ * To add a processing widget to the application, use the following code:
+ *
+ *      @example
+ *      <div class="ui-processing"></div>
+ *      <div class="ui-processing-text">
+ *          Description about progress
+ *      </div>
+ *
+ * ## JavaScript API
+ *
+ * Processing widget hasn't JavaScript API.
+ *
+ * @class ns.widget.wearable.Progressing
+ * @extends ns.widget.BaseWidget
+ */
 (function (document, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
@@ -27,11 +50,6 @@
 			//>>excludeEnd("tauBuildExclude");
 			var BaseWidget = ns.widget.BaseWidget,
 				engine = ns.engine,
-				/**
-				* Progressing widget
-				* @class ns.widget.Progressing
-				* @extends ns.widget.BaseWidget
-				*/
 				Progressing = function () {
 					return this;
 				},

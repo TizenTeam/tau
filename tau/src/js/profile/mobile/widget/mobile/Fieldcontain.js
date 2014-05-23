@@ -71,7 +71,7 @@
  *		</fieldset>
  *	</div>
  *
- * @class ns.widget.Fieldcontain
+ * @class ns.widget.mobile.Fieldcontain
  * @extends ns.widget.BaseWidget
  */
 (function (document, ns) {
@@ -86,9 +86,9 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			/**
-			* Alias for class ns.widget.Fieldcontain
+			* Alias for class ns.widget.mobile.Fieldcontain
 			* @method Fieldcontain
-			* @member ns.widget.Fieldcontain
+			* @member ns.widget.mobile.Fieldcontain
 			* @private
 			* @static
 			*/
@@ -97,14 +97,14 @@
 				},
 				/**
 				* @property {Object} Widget Alias for {@link ns.widget.BaseWidget}
-				* @member ns.widget.Fieldcontain
+				* @member ns.widget.mobile.Fieldcontain
 				* @private
 				* @static
 				*/
 				BaseWidget = ns.widget.mobile.BaseWidgetMobile,
 				/**
 				* @property {Object} engine Alias for class ns.engine
-				* @member ns.widget.Fieldcontain
+				* @member ns.widget.mobile.Fieldcontain
 				* @private
 				* @static
 				*/
@@ -124,7 +124,7 @@
 			* @param {HTMLElement} element
 			* @return {HTMLElement}
 			* @protected
-			* @member ns.widget.Fieldcontain
+			* @member ns.widget.mobile.Fieldcontain
 			* @instance
 			*/
 			Fieldcontain.prototype._build = function (element) {

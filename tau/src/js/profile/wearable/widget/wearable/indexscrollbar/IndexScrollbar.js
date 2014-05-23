@@ -17,7 +17,251 @@
 /*jslint nomen: true, plusplus: true */
 /**
  * #IndexScrollbar Widget
+ * Shows an index scroll bar with indices, usually for the list.
  *
+ * The index scroll bar widget shows on the screen a scrollbar with indices, and fires a select event when the index characters are clicked. The following table describes the supported index scroll bar APIs.
+ *
+ * ## Manual constructor
+ * For manual creation of widget you can use constructor of widget from **tau** namespace:
+ *
+ *		@example
+ *		var indexscrollbarElement = document.getElementById('indexscrollbar'),
+ *			indexscrollbar = tau.widget.IndexScrollbar(IndexScrollbar, {index: "A,B,C"});
+ *
+ * Constructor has one require parameter **element** which are base **HTMLElement** to create widget. We recommend get this element by method *document.getElementById*. Second parameter is **options** and it is a object with options for widget.
+ *
+ * To add an IndexScrollbar widget to the application, use the following code:
+ *
+ *      @example
+ *      <div id="foo" class="ui-indexscrollbar" data-index="A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z"></div>
+ *      <script>
+ *          (function() {
+ *              var elem = document.getElementById("foo");
+ *              tau.widget.IndexScrollbar(elem);
+ *              elem.addEventListener("select", function( event ) {
+ *                  var index = event.detail.index;
+ *                  console.log(index);
+ *              });
+ *          }());
+ *      </script>
+ *
+ * The index value can be retrieved by accessing event.detail.index property.
+ *
+ * In the following example, the list scrolls to the position of the list item defined using the li-divider class, selected by the index scroll bar:
+ *
+ *      @example
+ *         <div id="pageIndexScrollbar" class="ui-page">
+ *             <header class="ui-header">
+ *                 <h2 class="ui-title">IndexScrollbar</h2>
+ *             </header>
+ *             <section class="ui-content">
+ *                 <div style="overflow-y:scroll;">
+ *                     <div id="indexscrollbar1"
+ *                          class="ui-indexscrollbar"
+ *                          data-index="A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z">
+ *                     </div>
+ *                     <ul class="ui-listview" id="list1">
+ *                         <li class="li-divider">A</li>
+ *                         <li>Anton</li>
+ *                         <li>Arabella</li>
+ *                         <li>Art</li>
+ *                         <li class="li-divider">B</li>
+ *                         <li>Barry</li>
+ *                         <li>Bibi</li>
+ *                         <li>Billy</li>
+ *                         <li>Bob</li>
+ *                         <li class="li-divider">D</li>
+ *                         <li>Daisy</li>
+ *                         <li>Derek</li>
+ *                         <li>Desmond</li>
+ *                     </ul>
+ *                 </div>
+ *             </section>
+ *             <script>
+ *                 (function () {
+ *                     var page = document.getElementById("pageIndexScrollbar");
+ *                     page.addEventListener("pagecreate", function () {
+ *                         var elem = document.getElementById("indexscrollbar1"), // Index scroll bar element
+ *                                 elList = document.getElementById("list1"), // List element
+ *                                 elDividers = elList.getElementsByClassName("li-divider"), // List items (dividers)
+ *                                 elScroller = elList.parentElement, // List's parent item (overflow-y:scroll)
+ *                                 dividers = {}, // Collection of list dividers
+ *                                 indices = [], // List of index
+ *                                 elDivider,
+ *                                 i, idx;
+ *
+ *                         // For all list dividers
+ *                         for (i = 0; i < elDividers.length; i++) {
+ *                             // Add the list divider elements to the collection
+ *                             elDivider = elDividers[i];
+ *                             // li element having the li-divider class
+ *                             idx = elDivider.innerText;
+ *                             // Get a text (index value)
+ *                             dividers[idx] = elDivider;
+ *                             // Remember the element
+ *
+ *                             // Add the index to the index list
+ *                             indices.push(idx);
+ *                         }
+ *
+ *                         // Change the data-index attribute to the indexscrollbar element
+ *                         // before initializing IndexScrollbar widget
+ *                         elem.setAttribute("data-index", indices.join(","));
+ *
+ *                         // Create index scroll bar
+ *                         tau.IndexScrollbar(elem);
+ *
+ *                         // Bind the select callback
+ *                         elem.addEventListener("select", function (ev) {
+ *                             var elDivider,
+ *                                     idx = ev.detail.index;
+ *                             elDivider = dividers[idx];
+ *                             if (elDivider) {
+ *                                 // Scroll to the li-divider element
+ *                                 elScroller.scrollTop = elDivider.offsetTop - elScroller.offsetTop;
+ *                             }
+ *                         });
+ *                     });
+ *                 }());
+ *             </script>
+ *         </div>
+ *
+ * The following example uses the supplementScroll argument, which shows a level 2 index scroll bar. The application code must contain a level 2 index array for each level 1 index character. The example shows a way to analyze list items and create a dictionary (secondIndex) for level 1 indices for the index scroll bar, and a dictionary (keyItem) for moving list items at runtime:
+ *
+ *      @example
+ *         <div id="indexscrollbar2" class="ui-indexscrollbar"
+ *              data-index="A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z">
+ *         </div>
+ *         <ul class="ui-listview" id="ibar2_list2">
+ *             <li>Anton</li>
+ *             <li>Arabella</li>
+ *             <li>Art</li>
+ *             <li>Barry</li>
+ *             <li>Bibi</li>
+ *             <li>Billy</li>
+ *             <li>Bob</li>
+ *             <li>Carry</li>
+ *             <li>Cibi</li>
+ *             <li>Daisy</li>
+ *             <li>Derek</li>
+ *             <li>Desmond</li>
+ *         </ul>
+ *
+ *         <script>
+ *             (function () {
+ *                 var page = document.getElementById("pageIndexScrollbar2"),
+ *                         isb,
+ *                         index = [],
+ *                         supIndex = {},
+ *                         elIndex = {};
+ *                 page.addEventListener("pageshow", function () {
+ *                     var elisb = document.getElementById("indexscrollbar2"),
+ *                             elList = document.getElementById("ibar2_list2"), // List element
+ *                             elItems = elList.children,
+ *                             elScroller = elList.parentElement, // Scroller (overflow-y:hidden)
+ *                             indexData = getIndexData(
+ *                                     {
+ *                                         array: elItems,
+ *                                         getTextValue: function (array, i) {
+ *                                             return array[i].innerText;
+ *                                         }
+ *                                     });
+ *
+ *                     function getIndexData(options) {
+ *                         var array = options.array,
+ *                                 getTextValue = options.getTextValue,
+ *                                 item,
+ *                                 text,
+ *                                 firstIndex = [],
+ *                                 secondIndex = {},
+ *                                 keyItem = {},
+ *                                 c1 = null,
+ *                                 c2 = null,
+ *                                 i;
+ *
+ *                         for (i = 0; i < array.length; i++) {
+ *                             item = array[i];
+ *                             text = getTextValue(array, i);
+ *                             if (text.length > 0) {
+ *                                 if (!c1 || c1 !== text[0]) {
+ *                                     // New c1
+ *                                     c1 = text[0];
+ *                                     firstIndex.push(c1);
+ *                                     keyItem[c1] = item;
+ *                                     secondIndex[c1] = [];
+ *                                     c2 = text[1];
+ *                                     if (c2) {
+ *                                         secondIndex[c1].push(c2);
+ *                                     }
+ *                                     else {
+ *                                         c2 = '';
+ *                                     }
+ *                                     keyItem[c1 + c2] = item;
+ *                                 }
+ *                                 else {
+ *                                     // Existing c1
+ *                                     if (c2 !== text[1]) {
+ *                                         c2 = text[1];
+ *                                         secondIndex[c1].push(c2);
+ *                                         keyItem[c1 + c2] = item;
+ *                                     }
+ *                                 }
+ *                             }
+ *                         }
+ *                         return {
+ *                             firstIndex: firstIndex,
+ *                             secondIndex: secondIndex,
+ *                             keyItem: keyItem
+ *                         };
+ *                     }
+ *
+ *                     // Update the data-index attribute to the indexscrollbar element, with the index list above
+ *                     elisb.setAttribute("data-index", indexData.firstIndex);
+ *                     // Create IndexScrollbar
+ *                     isb = new tau.IndexScrollbar(elisb, {
+ *                         index: indexData.firstIndex,
+ *                         supplementaryIndex: function (firstIndex) {
+ *                             return indexData.secondIndex[firstIndex];
+ *                         }
+ *                     });
+ *                     // Bind the select callback
+ *                     elisb.addEventListener("select", function (ev) {
+ *                         var el,
+ *                             index = ev.detail.index;
+ *                         el = indexData.keyItem[index];
+ *                         if (el) {
+ *                             // Scroll to the li-divider element
+ *                             elScroller.scrollTop = el.offsetTop - elScroller.offsetTop;
+ *                         }
+ *                     });
+ *                 });
+ *                 page.addEventListener("pagehide", function () {
+ *                     console.log('isb2:destroy');
+ *                     isb.destroy();
+ *                     index.length = 0;
+ *                     supIndex = {};
+ *                     elIndex = {};
+ *                 });
+ *             }());
+ *         </script>
+ *
+ * ##Options for widget
+ *
+ * Options for widget can be defined as _data-..._ attributes or give as parameter in constructor.
+ *
+ * You can change option for widget using method **option**.
+ *
+ * ##Methods
+ *
+ * To call method on widget you can use tau API:
+ *
+ * First API is from tau namespace:
+ *
+ *		@example
+ *		var indexscrollbarElement = document.getElementById('indexscrollbar'),
+ *			indexscrollbar = tau.widget.IndexScrollbar(indexscrollbarElement);
+ *
+ *		indexscrollbar.methodName(methodArgument1, methodArgument2, ...);
  *
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Jadwiga Sosnowska <j.sosnowska@samsung.com>
@@ -83,28 +327,50 @@
 				prototype = new BaseWidget(),
 				utilsObject = ns.util.object,
 				IndexBar = ns.widget.wearable.indexscrollbar.IndexBar,
-				IndexIndicator = ns.widget.wearable.indexscrollbar.IndexIndicator;
+				IndexIndicator = ns.widget.wearable.indexscrollbar.IndexIndicator,
+				EventType = {
+					/**
+					 * Event triggered after select index by user
+					 * @event select
+					 * @member ns.widget.wearable.IndexScrollbar
+					 */
+					SELECT: "select"
+				};
 
 			utilsObject.inherit(IndexScrollbar, BaseWidget, {
 				widgetName: "IndexScrollbar",
 				widgetClass: "ui-indexscrollbar",
 
 				_configure: function () {
+					/**
+					 * @property {Object} options All possible widget options
+					 * @property {string} [options.moreChar="*"] more character
+					 * @property {string} [options.selectedClass="ui-state-selected"] disabled class name
+					 * @property {string} [options.delimiter=","] delimiter in index
+					 * @property {string|Array} [options.index="A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,1"] string with list of letters separate be delimiter or array of letters
+					 * @property {boolean} [options.maxIndexLen=0]
+					 * @property {boolean} [options.indexHeight=36]
+					 * @property {boolean} [options.keepSelectEventDelay=50]
+					 * @property {?boolean} [options.container=null]
+					 * @property {?boolean} [options.supplementaryIndex=null]
+					 * @property {integer} [options.supplementaryIndexMargin=1]
+					 * @member ns.widget.wearable.IndexScrollbar
+					 */
 					this.options = {
 						moreChar: "*",
-							selectedClass: "ui-state-selected",
-							delimeter: ",",
-							index: [
+						selectedClass: "ui-state-selected",
+						delimiter: ",",
+						index: [
 							"A", "B", "C", "D", "E", "F", "G", "H",
 							"I", "J", "K", "L", "M", "N", "O", "P", "Q",
 							"R", "S", "T", "U", "V", "W", "X", "Y", "Z", "1"
 						],
-							maxIndexLen: 0,
-							indexHeight: 36,
-							keepSelectEventDelay: 50,
-							container: null,
-							supplementaryIndex: null,
-							supplementaryIndexMargin: 1
+						maxIndexLen: 0,
+						indexHeight: 36,
+						keepSelectEventDelay: 50,
+						container: null,
+						supplementaryIndex: null,
+						supplementaryIndexMargin: 1
 					};
 				},
 
@@ -147,18 +413,10 @@
 				},
 
 				/**
-				 * Protected method be a interface for method options to set option index
-				 * If you want set index option please call widgetInstane.option('index', 'A,B,C');
-				 * This method automaticly convert string to array and set this to this.option.index
-				 * @param {HTMLElement} element
-				 * @param {string} value
+				 * Create indexBar1 and indicator in the indexScrollbar
+				 * @method _createSubObjects
 				 * @protected
-				 */
-				_setIndex: function (element, value) {
-					this.options.index = this._getIndex();
-				},
-
-				/* Create indexBar1 and indicator in the indexScrollbar
+				 * @member ns.widget.wearable.IndexScrollbar
 				 */
 				_createSubObjects: function() {
 					// indexBar1
@@ -208,7 +466,11 @@
 					}
 				},
 
-				/* Set initial layout
+				/**
+				 * Set initial layout
+				 * @method _setInitialLayout
+				 * @protected
+				 * @member ns.widget.wearable.IndexScrollbar
 				 */
 				_setInitialLayout: function () {
 					var indexScrollbar = this.element,
@@ -222,7 +484,11 @@
 					}
 				},
 
-				/* Calculate maximum index length
+				/**
+				 * Calculate maximum index length
+				 * @method _setMaxIndexLen
+				 * @protected
+				 * @member ns.widget.wearable.IndexScrollbar
 				 */
 				_setMaxIndexLen: function() {
 					var maxIndexLen = this.options.maxIndexLen,
@@ -244,8 +510,11 @@
 					this.touchAreaOffsetLeft = this.element.offsetLeft - 10;
 				},
 
-				/**	Draw additinoal sub-elements
-				 *	@param {array} indices	List of index string
+				/**
+				 * Draw additinoal sub-elements
+				 * @method _draw
+				 * @protected
+				 * @member ns.widget.wearable.IndexScrollbar
 				 */
 				_draw: function () {
 					this.indexBar1.show();
@@ -285,7 +554,7 @@
 						window.clearTimeout(this.selectEventTriggerTimeoutId);
 					}
 					this.selectEventTriggerTimeoutId = window.setTimeout(function() {
-						this._trigger(this.element, "select", {index: val});
+						this.trigger(EventType.SELECT, {index: val});
 						this.selectEventTriggerTimeoutId = null;
 					}.bind(this), this.options.keepSelectEventDelay);
 				},
@@ -408,33 +677,6 @@
 					document.removeEventListener("touchcancel", this.eventHandlers.touchEnd);
 				},
 
-				/**
-				 * Trgger a custom event to the give element
-				 * @param {obj}		elem	element
-				 * @param {string}	eventName	event name
-				 * @param {obj}		detail	detail data of the custom event
-				 */
-				_trigger: function(elem, eventName, detail) {
-					var ev;
-					if(!elem || !elem.nodeType || elem.nodeType !== 1) {	// DOM element check
-						throw "Given element is not a valid DOM element";
-					}
-					if("string" !== typeof eventName || eventName.length <= 0) {
-						throw "Given eventName is not a valid string";
-					}
-					ev = new CustomEvent(
-						eventName,
-						{
-							detail: detail,
-							bubbles: true,
-							cancelable: true
-						}
-					);
-					elem.dispatchEvent(ev);
-
-					return true;
-				},
-
 				_data: function (key, val) {
 					var el = this.element,
 						d = el.__data,
@@ -471,14 +713,12 @@
 					return this;
 				},
 
-				_getIndex: function () {
+				_getIndex: function (value) {
 					var el = this.element,
 						options = this.options,
-						indices = el.getAttribute("data-index");
-					if(indices) {
-						indices = indices.split(options.delimeter);	// Delimeter
-					} else {
-						indices = options.indices;
+						indices = value || options.index;
+					if (indices) {
+						indices = indices.split(options.delimiter);	// delimiter
 					}
 					return indices;
 				},

@@ -16,13 +16,13 @@
 */
 /*jslint nomen: true, white: true, plusplus: true*/
 /**
-* #Extendable List Widget
-* The extendable list is used to display a list of data elements that can be extended.
-*
-* @class ns.widget.ExtendableList
-* @extend ns.widget.BaseWidget
-* @author Michał Szepielak <m.szepielak@samsung.com>
-*/
+ * #Extendable List Widget
+ * The extendable list is used to display a list of data elements that can be extended.
+ *
+ * @class ns.widget.mobile.ExtendableList
+ * @extend ns.widget.BaseWidget
+ * @author Michał Szepielak <m.szepielak@samsung.com>
+ */
 (function(document, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
@@ -50,14 +50,14 @@
 				 * method from {@link ns.widget.mobile.Listview.prototype}
 				 * @private
 				 * @static
-				 * @member ns.widget.ExtendableList
+				 * @member ns.widget.mobile.ExtendableList
 				 */
 					parent_build = Listview.prototype._build,
 				/**
 				 * @property {Object} engine Alias for class {@link ns.engine}
 				 * @private
 				 * @static
-				 * @member ns.widget.ExtendableList
+				 * @member ns.widget.mobile.ExtendableList
 				 */
 					engine = ns.engine,
 				util = ns.util,
@@ -66,14 +66,14 @@
 				 * Local constructor function
 				 * @method ExtendableList
 				 * @private
-				 * @member ns.widget.ExtendableList
+				 * @member ns.widget.mobile.ExtendableList
 				 */
 					ExtendableList = function() {
 					var self = this;
 
 					/**
 					 * @property {number} _currentIndex Current zero-based index of data set.
-					 * @member ns.widget.ExtendableList
+					 * @member ns.widget.mobile.ExtendableList
 					 * @protected
 					 * @instance
 					 */
@@ -90,11 +90,11 @@
 					 * @property {string} [options.orientation='y'] Scrolling orientation. Default vertical scrolling enabled.
 					 * @property {Object} options.listItemUpdater Holds reference to method which modifies list item, depended
 					 * at specified index from database. **Method should be overridden by developer using
-					 * {@link ns.widget.ExtendableList#setListItemUpdater} method.** or defined as a config
+					 * {@link ns.widget.mobile.ExtendableList#setListItemUpdater} method.** or defined as a config
 					 * object. Method takes two parameters:
 					 *  -  element {HTMLElement} List item to be modified
 					 *  -  index {number} Index of data set
-					 * @member ns.widget.ExtendableList
+					 * @member ns.widget.mobile.ExtendableList
 					 */
 					self.options = {
 						bufferSize: 50,
@@ -109,8 +109,8 @@
 					self.$tmpl = {};
 
 					/**
-					 * @property {Object} _listItemLoaderBound Binding for loader item to fire method {ns.widget.ExtendableList._buildList}.
-					 * @member ns.widget.ExtendableList
+					 * @property {Object} _listItemLoaderBound Binding for loader item to fire method {ns.widget.mobile.ExtendableList._buildList}.
+					 * @member ns.widget.mobile.ExtendableList
 					 * @protected
 					 * @instance
 					 */
@@ -145,7 +145,7 @@
 			 * @method _updateListItem
 			 * @param {HTMLElement} element List element to update
 			 * @param {number} index Data row index
-			 * @member ns.widget.ExtendableList
+			 * @member ns.widget.mobile.ExtendableList
 			 * @protected
 			 * @instance
 			 */
@@ -168,7 +168,7 @@
 			 * @param {string} template
 			 * @param {HTMLElement} element Widget's element
 			 * @return {HTMLElement} Element on which built is widget
-			 * @member ns.widget.ExtendableList
+			 * @member ns.widget.mobile.ExtendableList
 			 * @protected
 			 * @instance
 			 */
@@ -186,7 +186,7 @@
 			/**
 			 * Builds Virtual List structure
 			 * @method _buildList
-			 * @member ns.widget.ExtendableList
+			 * @member ns.widget.mobile.ExtendableList
 			 * @protected
 			 * @instance
 			 */
@@ -330,7 +330,7 @@
 			 * Initialize widget on an element.
 			 * @method _init
 			 * @param {HTMLElement} element Widget's element
-			 * @member ns.widget.ExtendableList
+			 * @member ns.widget.mobile.ExtendableList
 			 * @protected
 			 * @instance
 			 */
@@ -350,7 +350,7 @@
 			/**
 			 * Refresh list
 			 * @method _refresh
-			 * @member ns.widget.ExtendableList
+			 * @member ns.widget.mobile.ExtendableList
 			 * @protected
 			 * @instance
 			 */
@@ -363,7 +363,7 @@
 			/**
 			 * Binds ExtendableList events
 			 * @method _bindEvents
-			 * @member ns.widget.ExtendableList
+			 * @member ns.widget.mobile.ExtendableList
 			 * @protected
 			 * @instance
 			 */
@@ -376,7 +376,7 @@
 			/**
 			 * Cleans widget's resources
 			 * @method _destroy
-			 * @member ns.widget.ExtendableList
+			 * @member ns.widget.mobile.ExtendableList
 			 * @protected
 			 * @instance
 			 */
@@ -398,7 +398,7 @@
 			/**
 			 * Builds widget
 			 * @method create
-			 * @member ns.widget.ExtendableList
+			 * @member ns.widget.mobile.ExtendableList
 			 */
 			prototype.create = function(config) {
 				var self = this,
@@ -418,7 +418,7 @@
 			/**
 			 * Recreates widget. Removes loaded data and loads only first part of data.
 			 * @method create
-			 * @member ns.widget.ExtendableList
+			 * @member ns.widget.mobile.ExtendableList
 			 */
 			prototype.recreate = function(newArray){
 				var element = this.element;
@@ -439,7 +439,7 @@
 			 * visit Virtual List User Guide
 			 * @method setListItemUpdater
 			 * @param {Object} updateFunction Function reference.
-			 * @member ns.widget.ExtendableList
+			 * @member ns.widget.mobile.ExtendableList
 			 */
 			prototype.setListItemUpdater = function(updateFunction) {
 				this.options.listItemUpdater = updateFunction;
@@ -450,7 +450,7 @@
 			 * visit Virtual List User Guide
 			 * @method setListItemUpdater
 			 * @param {Object} updateFunction Function reference.
-			 * @member ns.widget.ExtendableList
+			 * @member ns.widget.mobile.ExtendableList
 			 */
 			prototype.setListItemLoader = function(loadFunction) {
 				this.options.listItemLoader = loadFunction;
@@ -459,7 +459,7 @@
 			/**
 			 * Returns widget options.
 			 * @method option
-			 * @member ns.widget.ExtendableList
+			 * @member ns.widget.mobile.ExtendableList
 			 * @deprecated Web UI compability method.
 			 */
 			prototype.option = function() {
@@ -480,7 +480,7 @@
 			/**
 			 * @property {Object} classes Dictionary object containing commonly used widget classes
 			 * @static
-			 * @member ns.widget.ExtendableList
+			 * @member ns.widget.mobile.ExtendableList
 			 */
 			ExtendableList.classes = classes;
 
