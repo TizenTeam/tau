@@ -162,6 +162,7 @@
 
 					self.action = "";
 					self.label = null;
+					self.ui = {};
 				},
 				classes = {
 					uiDisabled: 'ui-disabled',
@@ -472,9 +473,6 @@
 					style: null,
 					wrapperEls: 'span'
 				});
-
-				// Object for storing ui elements
-				this.ui = {};
 			};
 
 			/**

@@ -367,6 +367,32 @@
 							return $.find(expr, null, null, [ node ]).length > 0;
 						};
 
+						/* @TODO
+						 * find a better way of initializing constructos
+						 * this is for jquery style extending (not jqm
+						 * widget extending altough it should work to
+						 * when we import $.extend function) by replacing
+						 * old methods and using them inline
+						 */
+						document.addEventListener(ns.engine.eventType.WIDGET_BOUND, function (event) {
+							var originalEvent = event.originalEvent || event,
+								widget = originalEvent.detail;
+							if (widget && widget.element && widget.widgetName) {
+								try {
+									//>>excludeStart("tauDebug", pragmas.tauDebug);
+									ns.log("Running jqm constructor for " + widget.wigdetName);
+									//>>excludeEnd("tauDebug");
+									$(widget.element)[widget.widgetName]();
+								} catch(e) {
+									// suppress errors in not debug mode
+									//>>excludeStart("tauDebug", pragmas.tauDebug);
+									ns.warning("could not call jqm constructor for " + widget.widgetName, widget, e);
+									//>>excludeEnd("tauDebug");
+								}
+
+							}
+						}, true);
+
 						/* support for global object $.mobile
 						* @TODO this is temporary fix, we have to think about this function
 						*/
