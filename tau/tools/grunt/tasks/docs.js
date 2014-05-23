@@ -14,12 +14,11 @@ module.exports = function (grunt) {
 		dox = require('dox'),
 		async = require('async');
 	mu.root = __dirname + '/templates';
-	grunt.log.ok(mu.root);
 
 	grunt.registerMultiTask('sdk-docs-html', '', function () {
 		var done = this.async(),
 			docsStructure = {},
-            profile = this.data.profile,
+			profile = this.data.profile,
 			files = [],
 			serie = [],
 			next;
@@ -54,24 +53,35 @@ module.exports = function (grunt) {
 				}
 				return p1 + "<a id='" + name + "'></a>" + p3 + p4;
 			});
-			toc.push({
-				href: "options-list",
-				name: "Options list",
-				toc: []
-			});
-			toc.push({
-				href: "methods-list",
-				name: "Methods list",
-				hasTOC: true,
-				toc: docsStructure.methods.filter(function(method) {
-					return method.isPublic;
-				}).map(function(method) {
-					return {
-						href: "method-" + method.name,
-						name: method.name
-					};
-				})
-			});
+			if (docsStructure.options.length) {
+				toc.push({
+					href: "options-list",
+					name: "Options list",
+					toc: []
+				});
+			}
+			if (docsStructure.events.length) {
+				toc.push({
+					href: "events-list",
+					name: "Events list",
+					toc: []
+				});
+			}
+			if (docsStructure.methods.length) {
+				toc.push({
+					href: "methods-list",
+					name: "Methods list",
+					hasTOC: true,
+					toc: docsStructure.methods.filter(function (method) {
+						return method.isPublic;
+					}).map(function (method) {
+						return {
+							href: "method-" + method.name,
+							name: method.name
+						};
+					})
+				});
+			}
 			mu.compileAndRender('widget.mustache', {
 				title: name,
 				brief: docsStructure.brief,
@@ -79,7 +89,11 @@ module.exports = function (grunt) {
 				toc: toc,
 				seeMore: docsStructure.seeMore,
 				options: docsStructure.options,
+				showOptions: docsStructure.options.length,
+				events: docsStructure.events,
+				showEvents: docsStructure.events.length,
 				methods: docsStructure.methods,
+				showMethods: docsStructure.methods.length,
 				since: docsStructure.since
 			}).on('data', function (data) {
 				string += data.toString();
@@ -124,7 +138,6 @@ module.exports = function (grunt) {
 				string = '',
 				jsContent;
 
-			grunt.log.ok(file);
 			jsContent = grunt.file.read(file);
 			docs = dox.parseComments(jsContent);
 			grunt.file.write(doxFile, JSON.stringify(docs));
@@ -197,10 +210,12 @@ module.exports = function (grunt) {
 					})[0];
 					classObj.code = block.code;
 					classObj.properties = [];
+					classObj.events = [];
 					classObj.options = [];
 					classObj.methods = [];
 					if (classObj.extends && docsStructure[classObj.extends]) {
 						classObj.methods = docsStructure[classObj.extends].methods.slice(0);
+						classObj.events = docsStructure[classObj.extends].events.slice(0);
 					}
 					if (classObj.override && docsStructure[classObj.override]) {
 						classObj.methods = docsStructure[classObj.override].methods.slice(0);
@@ -262,6 +277,36 @@ module.exports = function (grunt) {
 						}
 					} else {
 						grunt.log.error('no memberOf for property ', tag.string);
+					}
+				});
+				block.tags.filter(function (tag) {
+					return tag.type === 'event';
+				}).forEach(function (tag) {
+					var classObj,
+						event,
+						name,
+						description,
+						eventArray,
+						memberOf = block.tags.filter(function (tag) {
+							return tag.type === 'member';
+						}).map(function (tag) {
+							return tag.string
+						})[0];
+					classObj = docsStructure[memberOf];
+					if (classObj) {
+						eventArray = tag.string.split(" ");
+						name = eventArray.shift();
+						description = eventArray.join(" ");
+						if (name) {
+							event = {}
+							event.name = name;
+							event.tags = block.tags;
+							event.description = description || block.description.full;
+							event.code = block.code;
+							classObj.events.push(event);
+						}
+					} else {
+						grunt.log.error('no memberOf for event ', tag.string);
 					}
 				});
 				block.tags.filter(function (tag) {
@@ -373,7 +418,6 @@ module.exports = function (grunt) {
 				serie.push(done);
 
 				grunt.file.write(structureFile, JSON.stringify(modules));
-				grunt.log.ok("rows", rows.length);
 				async.series(serie);
 
 
@@ -382,9 +426,7 @@ module.exports = function (grunt) {
 		}
 
 		this.files.forEach(function (f) {
-			grunt.log.ok(f.src);
 			f.src.forEach(function (file) {
-				grunt.log.ok(file);
 				files.push(file);
 			});
 		});

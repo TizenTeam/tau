@@ -8,7 +8,7 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-h1, h2, h3, h4, h5, h6, p, table, td, caption, th,  ol, dl,  dd, dt, footer {
+h1, h2, h3, h4, h5, h6, p, table, td, caption, th, ol, dl, dd, dt, footer {
     font-family: Arial, Verdana, Helvetica, sans-serif
 }
 
@@ -17,21 +17,44 @@ table, div, p, dl, td, caption, th, ul, ol, li, dd, dt, pre, code {
     font-size: 9pt;
 }
 
+td.option {
+    white-space: nowrap;
+}
+
 pre {
     font-family: "Courier New", Courier, monospace;
-    margin: 6px 1.5px;
+    margin: 6px 1px;
     padding: 1em;
     font-weight: normal;
     font-style: normal;
     background-color: #D5F1FD;
-    word-wrap:break-word;
+    word-wrap: break-word;
 }
 
-h1 {font-size: 24pt; color: #0E437D;}
-h2 {font-size: 18pt; color: #0E437D;}
-h3 {font-size: 14pt; color: #1C1C1C;}
-h4 {font-size: 12pt; color: #1C1C1C;}
-h5 {font-size: 10pt; color: #1C1C1C;}
+h1 {
+    font-size: 24pt;
+    color: #0E437D;
+}
+
+h2 {
+    font-size: 18pt;
+    color: #0E437D;
+}
+
+h3 {
+    font-size: 14pt;
+    color: #1C1C1C;
+}
+
+h4 {
+    font-size: 12pt;
+    color: #1C1C1C;
+}
+
+h5 {
+    font-size: 10pt;
+    color: #1C1C1C;
+}
 
 h1, h2, h3, h4, h5 {
     font-weight: bold;
@@ -46,14 +69,14 @@ caption, p.caption {
     font-weight: bold;
     text-align: left;
     margin-top: 20px;
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 
-ol  {
+ol {
     margin-bottom: 20px;
 }
 
-ul ul , ol ul, ul ol, ol ol{
+ul ul, ol ul, ul ol, ol ol {
     margin-top: 10px;
 }
 
@@ -71,7 +94,7 @@ ol.tutorstep li {
     font-size: 12pt;
 }
 
-ol.tutorstep li p{
+ol.tutorstep li p {
     font-size: 9pt;
     font-weight: normal;
     margin-top: 10px;
@@ -80,7 +103,7 @@ ol.tutorstep li p{
 ol.tutorstep ol li, ol.tutorstep li ol li, ol.tutorstep li ul li {
     font-size: 9pt;
     list-style-position: outside;
-    margin-left: 0px;
+    margin-left: 0;
     font-weight: normal;
 }
 
@@ -97,7 +120,7 @@ ol li p, ul li p {
     margin-top: 2px;
 }
 
-ol ol , ol.tutorstep ol{
+ol ol, ol.tutorstep ol {
     font-size: 9pt;
     font-weight: normal;
     list-style-type: lower-alpha;
@@ -123,12 +146,11 @@ ul {
     color: #1C1C1C;
 }
 
-
 /*	End of font face declarations	*/
 
 /*	Set table borders and heading row background	*/
-table	{
-    border: 0px;
+table {
+    border: 0;
     border-collapse: collapse;
     margin-top: 2em;
     margin-bottom: 2em;
@@ -148,15 +170,15 @@ th {
 
 td {
     border: 1px solid #c6d9f1;
-    vertical-align:top;
+    vertical-align: top;
     padding: 3px 20px 5px 20px;
 }
 
 /*	Notes stand out using a light top & bottom borders with yellow background	*/
 table.note {
     border-top: 2px solid #719cc7;
-    border-left: 0px;
-    border-right: 0px;
+    border-left: 0;
+    border-right: 0;
     width: 100%;
 }
 
@@ -168,7 +190,7 @@ th.note {
     text-align: left;
     background-color: #ddd9c3;
     border-top: 2px solid #719cc7;
-    border-bottom:1px solid #719cc7;
+    border-bottom: 1px solid #719cc7;
     border-right: none;
 
 }
@@ -177,19 +199,19 @@ td.note, p.note {
     background-color: #eeece1;
     color: #1C1C1C;
     padding: 5px;
-    margin-top:12px;
-    margin-bottom:12px;
+    margin-top: 12px;
+    margin-bottom: 12px;
     border: none;
 }
 
 /*	Figure titles are centered and bolded	*/
-p.figure , ol.tutorstep li p.figure, ol.tutorstep ol li p.figure, ol.tutorstep ul li p.figure {
+p.figure, ol.tutorstep li p.figure, ol.tutorstep ol li p.figure, ol.tutorstep ul li p.figure {
     text-align: center;
     font-weight: bold;
 }
 
 /*	Red background and white text for things that need fixing before release	*/
-.fix	{
+.fix {
     background-color: red;
     font-weight: bold;
     color: white;
@@ -198,8 +220,8 @@ p.figure , ol.tutorstep li p.figure, ol.tutorstep ol li p.figure, ol.tutorstep u
 /*	Footer includes space and a gray line above		*/
 #footer {
     font-size: 9pt;
-    padding-top:10px;
-    margin-top:20px;
+    padding-top: 10px;
+    margin-top: 20px;
     text-align: center;
     /*	border-top:1px solid #EEEEEE; */
 }
@@ -213,7 +235,7 @@ caption {
     margin-bottom: 0;
 }
 
-div.qindex, div.navpath, div.navtab{
+div.qindex, div.navpath, div.navtab {
     background-color: #e8eef2;
     border: 1px solid #84b0c7;
     text-align: center;
@@ -283,7 +305,7 @@ a.qindexHL:hover {
 }
 
 div.banner {
-    padding: 8px 4px 0px 4px;
+    padding: 8px 4px 0 4px;
     /* top right bottom left */
     border: 1px solid #7f7f7f;
     width: 100%;
@@ -295,8 +317,8 @@ div.banner {
 
 div.footer {
     font-size: 9pt;
-    padding-top:10px;
-    margin-top:20px;
+    padding-top: 10px;
+    margin-top: 20px;
     text-align: center;
 }
 
@@ -305,7 +327,7 @@ dl.el {
 }
 
 .fragment {
-    font-family: monospace, fixed;
+    font-family: fixed, monospace;
     font-size: 105%;
 }
 
@@ -364,7 +386,7 @@ td.indexkey {
     background-color: #eeeeff;
     font-weight: bold;
     border: 1px solid #CCCCCC;
-    margin: 2px 0px 2px 0;
+    margin: 2px 0 2px 0;
     padding: 2px 10px;
 }
 
@@ -372,7 +394,7 @@ td.indexvalue {
     background-color: #eeeeff;
     border: 1px solid #CCCCCC;
     padding: 2px 10px;
-    margin: 2px 0px;
+    margin: 2px 0;
 }
 
 tr.memlist {
@@ -392,17 +414,49 @@ img.formulaInl {
 
 /* @group Code Colorization */
 
-span.keyword       { color: #008000 }
-span.keywordtype   { color: #604020 }
-span.keywordflow   { color: #e08000 }
-span.comment       { color: #800000 }
-span.preprocessor  { color: #806020 }
-span.stringliteral { color: #002080 }
-span.charliteral   { color: #008080 }
-span.vhdldigit     { color: #ff00ff }
-span.vhdlchar      { color: #000000 }
-span.vhdlkeyword   { color: #700070 }
-span.vhdllogic     { color: #ff0000 }
+span.keyword {
+    color: #008000
+}
+
+span.keywordtype {
+    color: #604020
+}
+
+span.keywordflow {
+    color: #e08000
+}
+
+span.comment {
+    color: #800000
+}
+
+span.preprocessor {
+    color: #806020
+}
+
+span.stringliteral {
+    color: #002080
+}
+
+span.charliteral {
+    color: #008080
+}
+
+span.vhdldigit {
+    color: #ff00ff
+}
+
+span.vhdlchar {
+    color: #000000
+}
+
+span.vhdlkeyword {
+    color: #700070
+}
+
+span.vhdllogic {
+    color: #ff0000
+}
 
 .mdTable {
     border: 1px solid #868686;
@@ -425,7 +479,7 @@ span.vhdllogic     { color: #ff0000 }
 }
 
 .mdescLeft, .mdescRight {
-    padding: 0px 8px 4px 8px;
+    padding: 0 8px 4px 8px;
     color: #555;
 }
 
@@ -454,8 +508,7 @@ span.vhdllogic     { color: #ff0000 }
     background-color: #eeeeff;
     border: 1px solid #84b0c7;
     text-align: center;
-    margin: 2px;
-    margin-right: 15px;
+    margin: 2px 15px 2px 2px;
     padding: 2px;
 }
 
@@ -508,22 +561,25 @@ span.vhdllogic     { color: #ff0000 }
     color: #853E0E;
     white-space: nowrap;
 }
+
 .paramname em {
     font-style: normal;
 }
 
 /* @end */
 
-.search     { color: #003399;
+.search {
+    color: #003399;
     font-weight: bold;
 }
 
 form.search {
-    margin-bottom: 0px;
-    margin-top: 0px;
+    margin-bottom: 0;
+    margin-top: 0;
 }
 
-input.search { font-size: 75%;
+input.search {
+    font-size: 75%;
     color: #000080;
     font-weight: normal;
     background-color: #eeeeff;
@@ -534,93 +590,334 @@ td.tiny {
 }
 
 .highlight {
-    background-color:#E2E2FF;
+    background-color: #E2E2FF;
 }
 
 /*---------- ide-eclipse Styles ---------*/
-.sh_ide-eclipse{font-family: "Courier New", Courier, monospace;
-    margin: 0px 0px;
-    padding: -30px -30px -30px -30px;
+.sh_ide-eclipse {
+    font-family: "Courier New", Courier, monospace;
+    margin: 0 0;
     font-weight: normal;
-    font-style: normal;}
-.sh_ide-eclipse .sh_sourceCode{background-color:#fff;color:#000;font-weight:normal;font-style:normal;}
-.sh_ide-eclipse .sh_sourceCode .sh_keyword{color:#7f0055;font-weight:bold;font-style:normal;}
-.sh_ide-eclipse .sh_sourceCode .sh_type{color:#7f0055;font-weight:bold;font-style:normal;}
-/*.sh_ide-eclipse .sh_sourceCode .sh_string{color:#00f;font-weight:normal;font-style:normal;}*/
-.sh_ide-eclipse .sh_sourceCode .sh_string{color:#2A00FF;font-weight:normal;font-style:normal;}
+    font-style: normal;
+}
 
-.sh_ide-eclipse .sh_sourceCode .sh_regexp{color:#00f;font-weight:normal;font-style:normal;}
-.sh_ide-eclipse .sh_sourceCode .sh_specialchar{color:#00f;font-weight:normal;font-style:normal;}
-.sh_ide-eclipse .sh_sourceCode .sh_comment{color:#238E23;font-weight:normal;font-style:normal;}
-.sh_ide-eclipse .sh_sourceCode .sh_number{color:#000;font-weight:normal;font-style:normal;}
-.sh_ide-eclipse .sh_sourceCode .sh_preproc{color:#3f5fbf;font-weight:normal;font-style:normal;}
-.sh_ide-eclipse .sh_sourceCode .sh_function{color:#000;font-weight:normal;font-style:normal;}
-.sh_ide-eclipse .sh_sourceCode .sh_url{color:#00f;font-weight:normal;font-style:normal;}
-.sh_ide-eclipse .sh_sourceCode .sh_date{color:#7f0055;font-weight:bold;font-style:normal;}
-.sh_ide-eclipse .sh_sourceCode .sh_time{color:#7f0055;font-weight:bold;font-style:normal;}
-.sh_ide-eclipse .sh_sourceCode .sh_file{color:#7f0055;font-weight:bold;font-style:normal;}
-.sh_ide-eclipse .sh_sourceCode .sh_ip{color:#00f;font-weight:normal;font-style:normal;}
-.sh_ide-eclipse .sh_sourceCode .sh_name{color:#00f;font-weight:normal;font-style:normal;}
-.sh_ide-eclipse .sh_sourceCode .sh_variable{color:#7f0055;font-weight:bold;font-style:normal;}
-.sh_ide-eclipse .sh_sourceCode .sh_oldfile{color:#00f;font-weight:normal;font-style:normal;}
-.sh_ide-eclipse .sh_sourceCode .sh_newfile{color:#00f;font-weight:normal;font-style:normal;}
-.sh_ide-eclipse .sh_sourceCode .sh_difflines{color:#7f0055;font-weight:bold;font-style:normal;}
-.sh_ide-eclipse .sh_sourceCode .sh_selector{color:#7f0055;font-weight:bold;font-style:normal;}
-.sh_ide-eclipse .sh_sourceCode .sh_property{color:#7f0055;font-weight:bold;font-style:normal;}
-.sh_ide-eclipse .sh_sourceCode .sh_value{color:#00f;font-weight:normal;font-style:normal;}
-.sh_ide-eclipse .sh_sourceCode .sh_unknown{font-family: "Courier New", Courier, monospace;}
+.sh_ide-eclipse .sh_sourceCode {
+    background-color: #fff;
+    color: #000;
+    font-weight: normal;
+    font-style: normal;
+}
+
+.sh_ide-eclipse .sh_sourceCode .sh_keyword {
+    color: #7f0055;
+    font-weight: bold;
+    font-style: normal;
+}
+
+.sh_ide-eclipse .sh_sourceCode .sh_type {
+    color: #7f0055;
+    font-weight: bold;
+    font-style: normal;
+}
+
+/*.sh_ide-eclipse .sh_sourceCode .sh_string{color:#00f;font-weight:normal;font-style:normal;}*/
+.sh_ide-eclipse .sh_sourceCode .sh_string {
+    color: #2A00FF;
+    font-weight: normal;
+    font-style: normal;
+}
+
+.sh_ide-eclipse .sh_sourceCode .sh_regexp {
+    color: #00f;
+    font-weight: normal;
+    font-style: normal;
+}
+
+.sh_ide-eclipse .sh_sourceCode .sh_specialchar {
+    color: #00f;
+    font-weight: normal;
+    font-style: normal;
+}
+
+.sh_ide-eclipse .sh_sourceCode .sh_comment {
+    color: #238E23;
+    font-weight: normal;
+    font-style: normal;
+}
+
+.sh_ide-eclipse .sh_sourceCode .sh_number {
+    color: #000;
+    font-weight: normal;
+    font-style: normal;
+}
+
+.sh_ide-eclipse .sh_sourceCode .sh_preproc {
+    color: #3f5fbf;
+    font-weight: normal;
+    font-style: normal;
+}
+
+.sh_ide-eclipse .sh_sourceCode .sh_function {
+    color: #000;
+    font-weight: normal;
+    font-style: normal;
+}
+
+.sh_ide-eclipse .sh_sourceCode .sh_url {
+    color: #00f;
+    font-weight: normal;
+    font-style: normal;
+}
+
+.sh_ide-eclipse .sh_sourceCode .sh_date {
+    color: #7f0055;
+    font-weight: bold;
+    font-style: normal;
+}
+
+.sh_ide-eclipse .sh_sourceCode .sh_time {
+    color: #7f0055;
+    font-weight: bold;
+    font-style: normal;
+}
+
+.sh_ide-eclipse .sh_sourceCode .sh_file {
+    color: #7f0055;
+    font-weight: bold;
+    font-style: normal;
+}
+
+.sh_ide-eclipse .sh_sourceCode .sh_ip {
+    color: #00f;
+    font-weight: normal;
+    font-style: normal;
+}
+
+.sh_ide-eclipse .sh_sourceCode .sh_name {
+    color: #00f;
+    font-weight: normal;
+    font-style: normal;
+}
+
+.sh_ide-eclipse .sh_sourceCode .sh_variable {
+    color: #7f0055;
+    font-weight: bold;
+    font-style: normal;
+}
+
+.sh_ide-eclipse .sh_sourceCode .sh_oldfile {
+    color: #00f;
+    font-weight: normal;
+    font-style: normal;
+}
+
+.sh_ide-eclipse .sh_sourceCode .sh_newfile {
+    color: #00f;
+    font-weight: normal;
+    font-style: normal;
+}
+
+.sh_ide-eclipse .sh_sourceCode .sh_difflines {
+    color: #7f0055;
+    font-weight: bold;
+    font-style: normal;
+}
+
+.sh_ide-eclipse .sh_sourceCode .sh_selector {
+    color: #7f0055;
+    font-weight: bold;
+    font-style: normal;
+}
+
+.sh_ide-eclipse .sh_sourceCode .sh_property {
+    color: #7f0055;
+    font-weight: bold;
+    font-style: normal;
+}
+
+.sh_ide-eclipse .sh_sourceCode .sh_value {
+    color: #00f;
+    font-weight: normal;
+    font-style: normal;
+}
+
+.sh_ide-eclipse .sh_sourceCode .sh_unknown {
+    font-family: "Courier New", Courier, monospace;
+}
 
 /*------------- STYLE FOR NAMES FROM XML FILE -------------*/
-.sh_styleFromXML{color:#800000;font-weight:bold;}
+.sh_styleFromXML {
+    color: #800000;
+    font-weight: bold;
+}
+
 /*-------------------------------------------------------*/
 
 /*-------- Snippet Base Styles ----------*/
-.snippet-wrap {position:relative;}
-*:first-child+html .snippet-wrap {display:inline-block;}
-* html .snippet-wrap {display:inline-block;}
-.snippet-reveal{text-decoration:underline;}
-.snippet-wrap .snippet-menu, .snippet-wrap .snippet-hide {position:absolute; top:-99999px; right:15px; font-size:.9em;z-index:1;background-color:transparent;}
-.snippet-wrap .snippet-hide {top:auto; bottom:1px;}
-*:first-child+html .snippet-wrap .snippet-hide {bottom:1px;}
-* html .snippet-wrap .snippet-hide {bottom:1px;}
-.snippet-wrap .snippet-menu pre, .snippet-wrap .snippet-hide pre {background-color:transparent; margin:1; padding:0;}
-.snippet-wrap .snippet-menu a, .snippet-wrap .snippet-hide a {padding:1px; text-decoration:underline;}
-.snippet-wrap pre.sh_sourceCode{padding:1px;line-height:120%;overflow:auto;position:relative;
-    -moz-border-radius:0px;
-    -webkit-border-radius:0px;
-    border-radius:0px;
+.snippet-wrap {
+    position: relative;
+}
+
+*:first-child + html .snippet-wrap {
+    display: inline-block;
+}
+
+* html .snippet-wrap {
+    display: inline-block;
+}
+
+.snippet-reveal {
+    text-decoration: underline;
+}
+
+.snippet-wrap .snippet-menu, .snippet-wrap .snippet-hide {
+    position: absolute;
+    top: -99999px;
+    right: 15px;
+    font-size: .9em;
+    z-index: 1;
+    background-color: transparent;
+}
+
+.snippet-wrap .snippet-hide {
+    top: auto;
+    bottom: 1px;
+}
+
+*:first-child + html .snippet-wrap .snippet-hide {
+    bottom: 1px;
+}
+
+* html .snippet-wrap .snippet-hide {
+    bottom: 1px;
+}
+
+.snippet-wrap .snippet-menu pre, .snippet-wrap .snippet-hide pre {
+    background-color: transparent;
+    margin: 1px;
+    padding: 0;
+}
+
+.snippet-wrap .snippet-menu a, .snippet-wrap .snippet-hide a {
+    padding: 1px;
+    text-decoration: underline;
+}
+
+.snippet-wrap pre.sh_sourceCode {
+    padding: 1px;
+    line-height: 120%;
+    overflow: auto;
+    position: relative;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
     box-shadow: 1px 1px #000;
     -moz-box-shadow: 2px 2px 1px #000;
-    -webkit-box-shadow: 1px 1px 1px #000;}
-.snippet-wrap pre.snippet-textonly {padding:1em;}
-*:first-child+html .snippet-wrap pre.snippet-formatted {padding:0.5em 0.5em;}
-* html .snippet-wrap pre.snippet-formatted {padding:0em 0.3em;}
-.snippet-reveal pre.sh_sourceCode {padding:0em 0em; text-align:right;}
-.snippet-wrap .snippet-num li{padding-left:2px;}
-.snippet-wrap .snippet-no-num{list-style:none; padding:0em 0em; margin:0;}
-.snippet-wrap .snippet-no-num li {list-style:none; padding-left:0;}
-.snippet-wrap .snippet-num {margin:1em 0 1em 1em; padding-left:2px;}
-.snippet-wrap .snippet-num li {list-style:decimal-leading-zero outside none;}
-.snippet-wrap .snippet-no-num li.box {padding:0 6px; margin-left:-6px;}
-.snippet-wrap .snippet-num li.box {border:1px solid; list-style-position:inside; margin-left:0px; padding-left:2px;}
-*:first-child+html .snippet-wrap .snippet-num li.box {margin-left:-2px;}
-* html .snippet-wrap .snippet-num li.box {margin-left:-2px;}
-.snippet-wrap li.box-top {border-width:0px 0px 0 !important;}
-.snippet-wrap li.box-bot {border-width:0 0px 0px !important;}
-.snippet-wrap li.box-mid {border-width:0 0px !important;}
-.snippet-wrap .snippet-num li .box-sp {width:10px; display:inline-block;}
-*:first-child+html .snippet-wrap .snippet-num li .box-sp {width:20px;}
-* html .snippet-wrap .snippet-num li .box-sp {width:2px;}
-.snippet-wrap .snippet-no-num li.box {border:1px solid;}
-.snippet-wrap .snippet-no-num li .box-sp {display:none;}
-
-.attribute
-{
-    padding-bottom:15px;
+    -webkit-box-shadow: 1px 1px 1px #000;
 }
-#content pre
-{
-    /*text-align: left;            -webkit-border-radius: 8px;     -khtml-border-radius: 8px;     -moz-border-radius: 8px;     border-radius: 8px;     border: 1px solid rgba(255, 255, 255, 0.2);     display:block;     color:#2c3123;     margin:15px 0px 15px -8px;     padding:12px 20px 12px 35px;     font-size: 14px;     /*overflow:hidden;*/ /*word-wrap:break-word;*/ /*white-space: normal;*/
+
+.snippet-wrap pre.snippet-textonly {
+    padding: 1em;
+}
+
+*:first-child + html .snippet-wrap pre.snippet-formatted {
+    padding: 0.5em 0.5em;
+}
+
+* html .snippet-wrap pre.snippet-formatted {
+    padding: 0 0.3em;
+}
+
+.snippet-reveal pre.sh_sourceCode {
+    padding: 0;
+    text-align: right;
+}
+
+.snippet-wrap .snippet-num li {
+    padding-left: 2px;
+}
+
+.snippet-wrap .snippet-no-num {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.snippet-wrap .snippet-no-num li {
+    list-style: none;
+    padding-left: 0;
+}
+
+.snippet-wrap .snippet-num {
+    margin: 1em 0 1em 1em;
+    padding-left: 2px;
+}
+
+.snippet-wrap .snippet-num li {
+    list-style: decimal-leading-zero outside none;
+}
+
+.snippet-wrap .snippet-no-num li.box {
+    padding: 0 6px;
+    margin-left: -6px;
+}
+
+.snippet-wrap .snippet-num li.box {
+    border: 1px solid;
+    list-style-position: inside;
+    margin-left: 0;
+    padding-left: 2px;
+}
+
+*:first-child + html .snippet-wrap .snippet-num li.box {
+    margin-left: -2px;
+}
+
+* html .snippet-wrap .snippet-num li.box {
+    margin-left: -2px;
+}
+
+.snippet-wrap li.box-top {
+    border-width: 0 0 0 !important;
+}
+
+.snippet-wrap li.box-bot {
+    border-width: 0 0 0 !important;
+}
+
+.snippet-wrap li.box-mid {
+    border-width: 0 0 !important;
+}
+
+.snippet-wrap .snippet-num li .box-sp {
+    width: 10px;
+    display: inline-block;
+}
+
+*:first-child + html .snippet-wrap .snippet-num li .box-sp {
+    width: 20px;
+}
+
+* html .snippet-wrap .snippet-num li .box-sp {
+    width: 2px;
+}
+
+.snippet-wrap .snippet-no-num li.box {
+    border: 1px solid;
+}
+
+.snippet-wrap .snippet-no-num li .box-sp {
+    display: none;
+}
+
+.attribute {
+    padding-bottom: 15px;
+}
+
+#content pre {
+    /*text-align: left;            -webkit-border-radius: 8px;     -khtml-border-radius: 8px;     -moz-border-radius: 8px;     border-radius: 8px;     border: 1px solid rgba(255, 255, 255, 0.2);     display:block;     color:#2c3123;     margin:15px 0px 15px -8px;     padding:12px 20px 12px 35px;     font-size: 14px;     /*overflow:hidden;*/
+    /*word-wrap:break-word;*/
+    /*white-space: normal;*/
     color: #1C1C1C;
     margin-right: 20px;
     margin-left: 20px;
@@ -628,132 +925,111 @@ td.tiny {
     font-weight: normal;
     font-family: Arial, Helvetica, sans-serif;
 }
-#content pre code
-{
+
+#content pre code {
     font-size: 1em;
     margin: 0;
     padding: 2px;
     border: 1px solid #888;
 }
 
-#content .prettyprint
-{
+#content .prettyprint {
 }
 
-
-#content .signature
-{
+#content .signature {
     background-color: #FCE6B9;
-    word-wrap:break-word;
+    word-wrap: break-word;
 }
 
-#content .webidl
-{
+#content .webidl {
     background-color: #D9F0C4;
-    word-wrap:break-word;
+    word-wrap: break-word;
 }
 
-#content .prettyprint b
-{
+#content .prettyprint b {
     font-weight: normal;
     color: #c61800; /*letter-spacing: -1px;*/
 }
 
-
-#content pre select
-{
+#content pre select {
     border: 1px solid #c61800;
 }
 
-#content input
-{
+#content input {
     font-size: 16px;
     margin-right: 10px;
-    font-family: Helvetica;
+    font-family: Helvetica,serif;
     padding: 3px;
 }
-#content input[type="range"]
-{
+
+#content input[type="range"] {
     width: 100%;
 }
 
-#content button
-{
+#content button {
     margin: 20px 10px 0 0;
-    font-family: Verdana;
+    font-family: Verdana,serif;
 }
 
-#content button.large
-{
+#content button.large {
     font-size: 32px;
 }
 
-#content pre b
-{
+#content pre b {
     font-weight: normal;
     color: #c61800; /*letter-spacing: -1px;*/
 }
-#content pre em
-{
+
+#content pre em {
     font-weight: normal;
     font-style: normal;
     color: #18a600;
 }
-#content pre input[type="range"]
-{
+
+#content pre input[type="range"] {
     height: 6px;
     cursor: pointer;
     width: auto;
 }
 
-
-
-
-#content .product, #content .product-ua, #content .product-cc
-{
+#content .product, #content .product-ua, #content .product-cc {
 }
 
-#content dfn.external
-{
+#content dfn.external {
     font-weight: normal;
     font-style: italic;
 }
 
-#content pre.idl
-{
+#content pre.idl {
     border: solid thin;
     background: #eee;
     color: #000;
     padding: 0.5em;
 }
 
-#content pre.idl :link, #content pre.idl :visited
-{
+#content pre.idl :link, #content pre.idl :visited {
     color: inherit;
     background: transparent;
 }
 
-#content dfn
-{
+#content dfn {
     font-style: normal;
     font-weight: bolder;
 }
-#content em.ct, #content em.ct-samp
-{
+
+#content em.ct, #content em.ct-samp {
     text-transform: uppercase;
     font-style: normal;
     font-weight: normal;
 }
 
-#content .issue
-{
+#content .issue {
     padding: 1em;
     border: 1px solid #f00;
     background: #ffc;
 }
 
-#content .issue::before
-{
+#content .issue::before {
     content: "Issue";
     display: block;
     width: 150px;
@@ -764,15 +1040,13 @@ td.tiny {
     padding: 3px 1em;
 }
 
-#content .comment
-{
+#content .comment {
     padding: 1em;
     border: 1px solid #f00;
     background: #fff;
 }
 
-#content .comment::before
-{
+#content .comment::before {
     content: "Comment";
     display: block;
     width: 150px;
@@ -783,15 +1057,13 @@ td.tiny {
     padding: 3px 1em;
 }
 
-#content .ws3
-{
+#content .ws3 {
     padding: 1em;
     border: 1px solid #f00;
     background: lightblue;
 }
 
-#content .ws3::before
-{
+#content .ws3::before {
     content: "For WS3 Review";
     display: block;
     width: 150px;
@@ -802,15 +1074,13 @@ td.tiny {
     padding: 3px 1em;
 }
 
-#content .ws4
-{
+#content .ws4 {
     padding: 1em;
     border: 1px solid #f00;
     background: lightblue;
 }
 
-#content .ws4::before
-{
+#content .ws4::before {
     content: "Under discussion";
     display: block;
     width: 150px;
@@ -821,42 +1091,34 @@ td.tiny {
     padding: 3px 1em;
 }
 
-#content .note
-{
+#content .note {
     margin-left: 0;
     border: 2px solid #E2FFF0;
     color: #444;
     background-color: #E2FFF0;
 }
 
-#content dd > dl
-{
-    margin: 0px;
-    padding: 0px;
-    margin-bottom: 15px;
+#content dd > dl {
+    padding: 0;
+    margin: 0 0 15px;
 }
 
-#content code
-{
+#content code {
     font-size: 1.1em;
     text-decoration: none;
     color: #002108;
 }
 
-
-#content .dir_listing li
-{
+#content .dir_listing li {
     list-style-type: none;
     font-family: Tahoma, Arial, Helvetica, sans-serif;
 }
 
-#content span span
-{
+#content span span {
     /*background-color: yellow;*/
 }
 
-#content .authorguide
-{
+#content .authorguide {
     border: 1px solid #67BBB5;
     background: #E8EBFC;
     padding: 1em;
@@ -864,8 +1126,7 @@ td.tiny {
     color: #003;
 }
 
-#content .authorguide strong
-{
+#content .authorguide strong {
     padding: .2em;
     color: #003;
     border: none;
@@ -878,8 +1139,7 @@ td.tiny {
     text-align: center;
 }
 
-#content span.notetitle
-{
+#content span.notetitle {
     padding: .2em;
     color: #066;
     border: none;
@@ -889,44 +1149,36 @@ td.tiny {
     left: -1.5em;
     top: -.7em;
     background: #F2FFF1;
-    padding-left: .2em;
     text-align: center;
 }
 
-#content var
-{
-    font-family: "Lucida Console" , Monaco, monospace;
+#content var {
+    font-family: "Lucida Console", Monaco, monospace;
 }
 
-#content li.folder li
-{
+#content li.folder li {
     list-style-image: none;
 }
 
-#content .dir_listing .comment
-{
+#content .dir_listing .comment {
     border: none;
-    font-family: "Courier New" , Courier, monospace;
+    font-family: "Courier New", Courier, monospace;
     color: #669933;
 }
 
-#content .dir_listing img
-{
+#content .dir_listing img {
     vertical-align: middle;
 }
 
-#content .redNote
-{
+#content .redNote {
     color: red;
 }
 
-#content dl.procedure dt
-{
+#content dl.procedure dt {
     font-weight: normal;
 }
 
-#content .editorialNote
-{
+#content .editorialNote {
     padding: 5px;
     background-color: #F3B9B7;
     border: 3px dashed #FFEEB8;
@@ -934,61 +1186,47 @@ td.tiny {
     font-size: 0.8em;
 }
 
-#content p[id]:after
-{
+#content p[id]:after {
     font-size: .8em;
 }
 
-#content table.wac
-{
-    border-width: 1px;
+#content table.wac {
     border-spacing: 2px;
-    border-style: outset;
-    border-color: #808080;
+    border: 1px outset #808080;
     border-collapse: collapse;
     background-color: #ffffff;
 }
 
-#content table.wac th
-{
-    border-width: 1px;
+#content table.wac th {
     padding: 1px;
-    border-style: inset;
-    border-color: #808080;
+    border: 1px inset #808080;
     background-color: #ffffff;
 }
 
-#content table.wac td
-{
+#content table.wac td {
     vertical-align: top;
-    border-width: 1px;
     padding: 1px;
-    border-style: inset;
-    border-color: #808080;
+    border: 1px inset #808080;
     background-color: #ffffff;
 }
 
-#content .wacreqid
-{
+#content .wacreqid {
     font-weight: bold;
 }
 
-#content .wacreqid_ext
-{
+#content .wacreqid_ext {
     font-weight: bold;
 }
 
 /* Table styles */
-#content table
-{
+#content table {
     border-spacing: 0;
     border-collapse: collapse;
     border-bottom: 3px solid #005a9c;
     margin-bottom: 1em;
 }
 
-#content th
-{
+#content th {
     border-top: 2px solid #719cc7;
     border-right: 1px solid #c6d9f1;
     border-left: 1px solid #c6d9f1;
@@ -999,19 +1237,18 @@ td.tiny {
     font-weight: bold;
 }
 
-#content th[scope="row"]
-{
+#content th[scope="row"] {
     background: inherit;
     color: inherit;
     border-top: 1px solid #ddd;
 }
 
-#content td
-{
+#content td {
     padding: 0.5em 4em 0.5em 1em;
     border-top: 1px solid #ddd;
     border-right: 1px solid #ddd;
 }
+
 /*
 #content th:last-of-type, td:last-of-type
 {
@@ -1023,20 +1260,17 @@ td.tiny {
     background: #f0f6ff;
 }
 */
-#content .attrName
-{
+#content .attrName {
     font-size: 10pt;
     font-weight: bold;
 }
 
-#content .methodName
-{
+#content .methodName {
     font-size: 13pt;
     font-weight: bold;
 }
 
-#content
-{
+#content {
     background: white;
     color: #1C1C1C;
     margin-right: 20px;
@@ -1046,148 +1280,137 @@ td.tiny {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-#content :link
-{
+#content :link {
     text-decoration: underline;
     color: #719CC7;
     font-weight: bold;
 }
-#content :visited
-{
+
+#content :visited {
     text-decoration: underline;
     color: #719CC7;
     font-weight: bold;
 }
-#content a:active
-{
+
+#content a:active {
     color: #C00;
     background: transparent;
 }
 
-#content a:link img, #content a:visited img
-{
+#content a:link img, #content a:visited img {
     border-style: none;
 }
+
 /* no border on img links */
 
-#content a img
-{
+#content a img {
     color: white;
 }
+
 /* trick to hide the border in Netscape 4 */
-@media all
-{
+@media all {
     /* hide the next rule from Netscape 4 */
-    #content a img
-    {
+    #content a img {
         color: inherit;
     }
+
     /* undo the color change above */
 }
 
-#content th, #content td
-{
-    /* ns 4 */ /*font-family: sans-serif;*/
+#content th, #content td {
+    /* ns 4 */
+    /*font-family: sans-serif;*/
     font-size: 10pt;
 }
 
-#content h1, #content h2, #content h3, #content h4, #content h5, #content h6
-{
+#content h1, #content h2, #content h3, #content h4, #content h5, #content h6 {
     text-align: left;
     font-family: Arial, Verdana, Helvetica, sans-serif;
 }
+
 /* background should be transparent, but WebTV has a bug */
-#content h1, #content h2, #content h3, #content h4
-{
+#content h1, #content h2, #content h3, #content h4 {
     color: #005A9C;
     background: white;
     padding-top: 0.2em;
 }
-#content h1
-{
+
+#content h1 {
     font-size: 24pt;
     color: #0E437D;
 }
-#content h2
-{
+
+#content h2 {
     font-size: 18pt;
     color: #0E437D;
 }
-#content h3
-{
+
+#content h3 {
     font-size: 14pt;
     color: #1C1C1C;
 }
-#content h4
-{
+
+#content h4 {
     font-size: 12pt;
     color: #1C1C1C;
     font-weight: bold;
 }
-#content h5
-{
+
+#content h5 {
     font-size: 10pt;
     color: #1C1C1C;
     font-style: italic;
     font-weight: bold;
 }
-#content h6
-{
+
+#content h6 {
     font-size: 10pt;
     color: #1C1C1C;
     font-weight: bold;
     font-variant: small-caps;
 }
 
-
-#content .hide
-{
+#content .hide {
     display: none;
 }
 
-#content div.head
-{
+#content div.head {
     margin-bottom: 1em;
 }
-#content div.head h1
-{
+
+#content div.head h1 {
     margin-top: 2em;
     clear: both;
 }
-#content div.head table
-{
+
+#content div.head table {
     margin-left: 2em;
     margin-top: 2em;
 }
 
-#content p.copyright
-{
-    font-size: small;
-}
-#content p.copyright small
-{
+#content p.copyright {
     font-size: small;
 }
 
+#content p.copyright small {
+    font-size: small;
+}
 
-#content a[href] img:hover
-{
+#content a[href] img:hover {
     background: white;
 }
 
-@media screen
-{
+@media screen {
     /* hide from IE3 */
-    #content a[href]:hover
-    {
+    #content a[href]:hover {
         background: #ffa;
     }
 }
 
-#content pre
-{
+#content pre {
     margin-left: 2em;
 }
+
 /*
 	#content  p {
 	  margin-top: 0.6em;
@@ -1196,110 +1419,89 @@ td.tiny {
 	*/
 
 /* opera 3.50 */
-#content dt, #content dd
-{
+#content dt, #content dd {
     margin-top: 0;
     margin-bottom: 15px;
 }
-#content pre, #content code
-{
+
+#content pre, #content code {
     font-family: monospace;
 }
+
 /* navigator 4 requires this */
 
-
-#content ul.xmlconfig
-{
+#content ul.xmlconfig {
     display: inline-block;
     padding-right: 3%;
-    border-style: dotted;
-    border-width: 1px;
+    border: 1px dotted;
 }
 
-@media aural
-{
-    #content h1, #content h2, #content h3
-    {
+@media aural {
+    #content h1, #content h2, #content h3 {
         stress: 20;
         richness: 90;
     }
-    #content .hide
-    {
+
+    #content .hide {
         speak: none;
     }
-    #content p.copyright
-    {
+
+    #content p.copyright {
         volume: x-soft;
         speech-rate: x-fast;
     }
-    #content dt
-    {
-        pause-before: 20%;
-    }
-    #content pre
-    {
+
+    #content pre {
         speak-punctuation: code;
     }
 }
 
-
-#content div.exampleInner pre
-{
+#content div.exampleInner pre {
     margin-left: 1em;
-    margin-top: 0em;
-    margin-bottom: 0em;
+    margin-top: 0;
+    margin-bottom: 0;
 }
-#content div.exampleOuter
-{
+
+#content div.exampleOuter {
     border: 4px double gray;
-    margin: 0em;
-    padding: 0em;
+    margin: 0;
+    padding: 0;
 }
-#content div.exampleInner
-{
+
+#content div.exampleInner {
     background-color: #d5dee3;
-    border-top-width: 4px;
-    border-top-style: double;
-    border-top-color: #d3d3d3;
-    border-bottom-width: 4px;
-    border-bottom-style: double;
-    border-bottom-color: #d3d3d3;
+    border-top: 4px double #d3d3d3;
+    border-bottom: 4px double #d3d3d3;
     padding: 4px;
-    margin: 0em;
+    margin: 0;
 }
-#content div.exampleWrapper
-{
+
+#content div.exampleWrapper {
     margin: 4px;
 }
-#content div.exampleHeader
-{
+
+#content div.exampleHeader {
     font-weight: bold;
     margin: 4px;
 }
 
-
-
-#content .def-api-feature dt, #content dt .def-device-cap, #content dt.const code
-{
+#content .def-api-feature dt, #content dt .def-device-cap, #content dt.const code {
     font: bold 100% sans-serif;
 }
-#content dt.attribute code, #content dt.method code
-{
+
+#content dt.attribute code, #content dt.method code {
     font: italic 100% sans-serif;
 }
 
-#content .def-device-caps dd
-{
+#content .def-device-caps dd {
     margin-bottom: 2em;
 }
 
-#content dt.method
-{
+#content dt.method {
     margin-top: 2em;
 }
 
-#content .summary td
-{
+#content .summary td {
     text-align: left;
     background-color: white;
     color: inherit;
@@ -1307,147 +1509,145 @@ td.tiny {
     white-space: pre;
     padding: .3em 1em .3em 1em;
 }
+
 /* Pretty printing styles. Used with prettify.js. */
 
-#content .str
-{
+#content .str {
     color: #080;
 }
-#content .kwd
-{
+
+#content .kwd {
     color: #008;
 }
-#content .com
-{
+
+#content .com {
     color: #800;
 }
-#content .typ
-{
+
+#content .typ {
     color: #606;
 }
-#content .lit
-{
+
+#content .lit {
     color: #066;
 }
-#content .pun
-{
+
+#content .pun {
     color: #660;
 }
-#content .pln
-{
+
+#content .pln {
     color: #000;
 }
-#content .tag
-{
+
+#content .tag {
     color: #008;
 }
-#content .atn
-{
+
+#content .atn {
     color: #606;
 }
-#content .atv
-{
+
+#content .atv {
     color: #080;
 }
-#content .dec
-{
+
+#content .dec {
     color: #606;
 }
-#content .readonly
-{
+
+#content .readonly {
     color: red;
 }
-#content .type
-{
+
+#content .type {
     color: #F0ACF0;
 }
-#content .optional,
+
+#content .optional
 {
     font-style: italic;
 }
 
-
 /* Specify class=linenums on a pre to get line numbering */
-#content ol.linenums
-{
+#content ol.linenums {
     margin-top: 0;
     margin-bottom: 0;
 }
 
 /* IE indents via margin-left */
-#content li.L0, #content li.L1, #content li.L2, #content li.L3, #content li.L5, #content li.L6, #content li.L7, #content li.L8
-{
+#content li.L0, #content li.L1, #content li.L2, #content li.L3, #content li.L5, #content li.L6, #content li.L7, #content li.L8 {
     list-style-type: none;
 }
+
 /* Alternate shading for lines */
-#content li.L1, #content li.L3, #content li.L5, #content li.L7, #content li.L9
-{
+#content li.L1, #content li.L3, #content li.L5, #content li.L7, #content li.L9 {
     background: #eee;
 }
+
 /*@media print {*/
-#content .str
-{
+#content .str {
     color: #060;
 }
-#content .kwd
-{
+
+#content .kwd {
     color: #006;
     font-weight: bold;
 }
-#content .com
-{
+
+#content .com {
     color: #600;
     font-style: italic;
 }
-#content .typ
-{
+
+#content .typ {
     color: #404;
     font-weight: bold;
 }
-#content .lit
-{
+
+#content .lit {
     color: #044;
 }
-#content .pun
-{
+
+#content .pun {
     color: #440;
 }
-#content .pln
-{
+
+#content .pln {
     color: #000;
 }
-#content .tag
-{
+
+#content .tag {
     color: #006;
     font-weight: bold;
 }
-#content .atn
-{
+
+#content .atn {
     color: #404;
 }
-#content .atv
-{
+
+#content .atv {
     color: #060;
 }
+
 /*}*/
 
 /* div.status Styles */
-#content a[href].status:link{
+#content a[href].status:link {
     color: #ffffff;
     text-decoration: none;
 }
 
-#content a[href].status:visited{
+#content a[href].status:visited {
     color: #ffffff;
 }
 
-#content a[href].status:hover{
+#content a[href].status:hover {
     color: #3D9EC9;
 }
 
 /* Footer Styles */
-#footer
-{
+#footer {
     background-color: #DDDDDD;
     margin-top: 20px;
     font-size: .8em;
@@ -1455,45 +1655,40 @@ td.tiny {
     color: #666;
 }
 
-#footer .sponsor
-{
+#footer .sponsor {
     padding: 0 10px 10px 10px;
     margin-top: 10px;
     text-align: right;
     float: right;
 }
 
-#footer .trademark
-{
+#footer .trademark {
     padding: 0 10px 10px 10px;
     margin-top: 10px;
     text-align: right;
     clear: both;
 }
 
-
-#footer ul
-{
+#footer ul {
     list-style: none;
     margin: 0;
     padding: 0;
 }
-#footer li
-{
+
+#footer li {
     margin-bottom: 2px;
 }
-.version, span.param, .except, .example, .return, .privilege, .remark, .privilegelevel
-{
-    font-weight: bold;
-}
-span.name
-{
+
+.version, span.param, .except, .example, .return, .privilege, .remark, .privilegelevel {
     font-weight: bold;
 }
 
-li.feature
-{
-    margin-left:30px;
+span.name {
+    font-weight: bold;
+}
+
+li.feature {
+    margin-left: 30px;
     font-weight: bold;
 }
 

@@ -12,9 +12,6 @@ module.exports = function(grunt) {
 		dist = "dist",
 		src = "src",
 
-		// Path to directory with tests
-		testsPath = "tests" + path.sep,
-
 		// Path to framework JS sources
 		srcJs = path.join( src, "js" ),
 		srcCss = themes.path,
@@ -252,8 +249,8 @@ module.exports = function(grunt) {
 
 				"sdk-docs": {
 					files: [
-						{expand: true, cwd: "build/grunt/doc/tasks/templates/files", src: "**/*", dest: "docs/sdk/mobile/html/widgets"},
-						{expand: true, cwd: "build/grunt/doc/tasks/templates/files", src: "**/*", dest: "docs/sdk/wearable/html/widgets"}
+						{expand: true, cwd: "tools/grunt/tasks/templates/files", src: "**/*", dest: "docs/sdk/mobile/html/widgets"},
+						{expand: true, cwd: "tools/grunt/tasks/templates/files", src: "**/*", dest: "docs/sdk/wearable/html/widgets"}
 					]
 				}
 			},
@@ -279,14 +276,10 @@ module.exports = function(grunt) {
 			"string-replace": {
 				jsduck: {
 					files: {
-						'tmp/jsduck/' : 'dist/**/*.js'
+						'tmp/jsduck/' : 'dist/**/tau.js'
 					},
 					options: {
 						replacements: [
-							{
-								pattern: /([ \t]*)@memberOf([ \t]*)/gi,
-								replacement: '$1@member$2'
-							},
 							{
 								pattern: /.*\@namespace.*/gi,
 								replacement: ''
@@ -297,6 +290,10 @@ module.exports = function(grunt) {
 							},
 							{
 								pattern: /.*\@expose.*/ig,
+								replacement: ''
+							},
+							{
+								pattern: /.*\@internal.*/ig,
 								replacement: ''
 							}
 						]
@@ -377,11 +374,9 @@ module.exports = function(grunt) {
 		};
 
 
-    grunt.loadTasks('build/grunt/doc/tasks');
-
 	grunt.initConfig(initConfig);
 
-	grunt.registerTask("version", "create version files.", function( name ) {
+	grunt.registerTask("version", "create version files.", function( ) {
 		grunt.file.write(path.join( dist, "VERSION" ), pkg.version + "\n");
 	});
 
@@ -396,44 +391,59 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('jsduck', ['clean:tmp', 'clean:docs', 'string-replace:jsduck', 'jsduckDocumentation']);
 
-	grunt.registerTask('jsduckDocumentation', 'Compile JSDuck documentation', function () {
-			var cmd = 'jsduck',
-					src = [path.join('tmp', 'jsduck')],
-					dest = path.join('docs', 'jsduck'),
-					args,
-					done = this.async(),
-					environmentClasses = ['DocumentFragment', 'CustomEvent', 'HTMLUListElement', 'HTMLOListElement', 'HTMLCollection', 'HTMLBaseElement', 'HTMLImageElement', 'WebGLRenderingContext', 'WebGLProgram', 'jQuery', 'DOMTokenList'],
-					jsduck;
+	function runJSDuck(profile, callback) {
+		var cmd = 'jsduck',
+			src = [path.join('tmp', 'jsduck', "dist", "js", profile)],
+			dest = path.join('docs', 'jsduck', profile),
+			args,
+			environmentClasses = ['DocumentFragment', 'CustomEvent', 'HTMLUListElement', 'HTMLOListElement', 'HTMLCollection', 'HTMLBaseElement', 'HTMLImageElement', 'WebGLRenderingContext', 'WebGLProgram', 'jQuery', 'DOMTokenList'],
+			jsduck;
 
-			if (!grunt.file.exists("docs")) {
-					grunt.file.mkdir("docs");
+		if (!grunt.file.exists("docs")) {
+			grunt.file.mkdir("docs");
+		}
+		if (!grunt.file.exists(path.join('docs', 'jsduck'))) {
+			grunt.file.mkdir(path.join('docs', 'jsduck'));
+		}
+		if (!grunt.file.exists(path.join('docs', 'jsduck', profile))) {
+			grunt.file.mkdir(path.join('docs', 'jsduck', profile));
+		}
+
+		args = src.concat([
+			'--eg-iframe=./tools/jsduck-preview.html',
+				'--external=' + environmentClasses.join(','),
+			'--output', dest
+		]);
+
+		grunt.verbose.writeflags(args, "Arguments");
+
+		jsduck = grunt.util.spawn({
+			cmd: cmd,
+			args: args
+		}, function (error, result, code) {
+			grunt.file.delete(path.join('tmp', 'jsduck', "dist", "js", profile), {force: true});
+			if (code === 127) {   // 'command not found'
+				return grunt.warn(
+						'You need to have Ruby and JSDuck installed and in your PATH for ' +
+						'this task to work. ' +
+						'See https://github.com/dpashkevich/grunt-jsduck for details.'
+				);
 			}
+			callback(error);
+		});
 
-			args = src.concat([
-					'--eg-iframe=./tools/jsduck-preview.html',
-					'--external=' + environmentClasses.join(','),
-					'--output', dest
-			]);
+		jsduck.stdout.pipe(process.stdout);
+		jsduck.stderr.pipe(process.stderr);
+	}
 
-			grunt.verbose.writeflags(args, "Arguments");
+	grunt.registerTask('jsduckDocumentation', 'Compile JSDuck documentation', function () {
+		var async = require("async"),
+			done = this.async();
 
-			jsduck = grunt.util.spawn({
-					cmd: cmd,
-					args: args
-			}, function (error, result, code) {
-					grunt.file.delete(path.join('tmp' ,'jsduck'), {force: true});
-					if (code === 127) {   // 'command not found'
-							return grunt.warn(
-									'You need to have Ruby and JSDuck installed and in your PATH for ' +
-											'this task to work. ' +
-											'See https://github.com/dpashkevich/grunt-jsduck for details.'
-							);
-					}
-					done(error);
-			});
-
-			jsduck.stdout.pipe(process.stdout);
-			jsduck.stderr.pipe(process.stderr);
+		async.series([
+			runJSDuck.bind(null, "mobile"),
+			runJSDuck.bind(null, "wearable")
+		], done);
 	});
 
 	function findDefaultTheme(profileName) {
@@ -534,4 +544,5 @@ module.exports = function(grunt) {
     grunt.registerTask("sdk-docs", [ "sdk-docs-html:mobile", "sdk-docs-html:wearable", "copy:sdk-docs" ]);
 
 	grunt.registerTask("default", [ "release" ]);
+	grunt.registerTask("sdk-docs", [ "sdk-docs-html:mobile", "sdk-docs-html:wearable", "copy:sdk-docs" ]);
 };
