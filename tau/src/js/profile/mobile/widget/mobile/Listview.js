@@ -41,7 +41,6 @@
 			"../mobile",
 			"./BaseWidgetMobile",
 			"./Button",
-			"./Scrollview",
 			"./Page"
 		],
 		function () {
@@ -54,19 +53,13 @@
 						inset: false
 					};
 					self.ui = {
-						scrollview: null,
 						page: null
 					};
-					self._callbacks = {
-						pageshow: null
-					};
-					self.scrollviewSetWidth = false;
 				},
 				BaseWidget = ns.widget.mobile.BaseWidgetMobile,
 				engine = ns.engine,
 				DOM = ns.utils.DOM,
 				Button = ns.widget.mobile.Button,
-				Scrollview = ns.widget.mobile.Scrollview,
 				Page = ns.widget.mobile.Page,
 				classes = {
 					uiListview : 'ui-listview',
@@ -99,7 +92,6 @@
 					uiLiStatic: 'ui-li-static',
 					uiLiHeading: "ui-li-heading"
 				},
-				floor = Math.floor,
 				buttonClasses = Button.classes,
 				selectors = ns.utils.selectors,
 				eventUtils = ns.utils.events,
@@ -118,8 +110,7 @@
 			Listview.prototype._configure = function () {
 				var self = this,
 					options = self.options || {}, // redeclaration for extendibles :(
-					ui = self.ui || {}, // redeclaration for extendibles :/
-					callbacks = self._callbacks || {};
+					ui = self.ui || {}; // redeclaration for extendibles :/
 				/**
 				 * theme of widget
 				 * @property {?String} [options.theme=null]
@@ -145,10 +136,7 @@
 				/** @expose */
 				options.inset = false;
 
-				ui.scrollview = null;
 				ui.page = null;
-				callbacks.pageshow = null;
-				self.scrollviewSetWidth = false;
 			};
 
 			/**
@@ -315,68 +303,6 @@
 			}
 
 			/**
-			 * Function fires on pageshown event and throttledresize event
-			 * @method contentFill
-			 * @param self
-			 * @private
-			 * @static
-			 * @member ns.widget.mobile.Listview
-			 */
-			function contentFill(self) {
-				var ui = self.ui,
-					scrollview = ui.scrollview,
-					view,
-					viewStyle,
-					width = 0,
-					node,
-					scroll,
-					isHorizontal,
-					page = ui.page,
-					props = {
-						"margin-left": 0,
-						"margin-right": 0,
-						"padding-right": 0,
-						"padding-left": 0,
-						"border-right": 0,
-						"border-left": 0,
-						"width": 0
-					};
-
-				if (scrollview) {
-					view = scrollview.ui.view;
-					viewStyle = view.style;
-					node = view.firstElementChild;
-					scroll = scrollview.options.scroll;
-					isHorizontal = scroll.indexOf("x") > -1;
-					if (view && !self.scrollviewSetWidth && page && page.classList.contains(Page.classes.uiPageActive)) {
-						DOM.extractCSSProperties(view, props);
-						if (scroll === 'xy') {
-							/*jshint -W069 */
-							width = props['width'];
-							/*jshint +W069 */
-						} else {
-							while (node) {
-								if (!isHorizontal) {
-									width += DOM.getElementWidth(node, 'outer', true, true);
-								}
-								node = node.nextElementSibling;
-							}
-						}
-						if (!isHorizontal) {
-							width += props['padding-left'] +
-								props['padding-right'] +
-								props['margin-left'] +
-								props['margin-right'] +
-								props['border-left'] +
-								props['border-right'];
-							viewStyle.width = floor(width) + "px";
-						}
-						self.scrollviewSetWidth = true;
-					}
-				}
-			}
-
-			/**
 			 * @method _build
 			 * @param {HTMLElement} element
 			 * @return {HTMLElement}
@@ -398,26 +324,17 @@
 
 			Listview.prototype._init = function (element) {
 				var ui = this.ui,
-					scrollview = ui.scrollview,
 					page = ui.page,
 					popup = selectors.getClosestBySelector(element, "[data-role=popup]");
 				//@todo check if this is ol list
 				if (!popup) {
 					element.style.width = window.innerWidth + 'px';
 				}
-				if (!scrollview) {
-					scrollview = selectors.getClosestByClass(element, Scrollview.classes.clip);
-					if (scrollview) {
-						scrollview = engine.getBinding(selectors.getClosestByClass(element, Scrollview.classes.clip)); // clip is the data-role=content
-						ui.scrollview = scrollview;
-					}
-				}
 
 				if (!page) {
 					page = selectors.getClosestByClass(element, Page.classes.uiPage);
 					if (page && page.classList.contains(Page.classes.uiPageActive) === true) {
 						ui.page = page;
-						contentFill(this);
 					}
 				}
 
@@ -434,15 +351,13 @@
 			 * @instance
 			 */
 			Listview.prototype._bindEvents = function (element) {
-				var self = this,
-					pageShowCallback = contentFill.bind(null, self),
-					page = self.ui.page;
+				var self = this;
 
 				element.addEventListener("vclick", function (event) {
 					var target,
 						checkboxRadio,
 						i;
-					if (selectors.matchesSelector(this, "li." + classes.uiLiHasCheckbox + ",li." + classes.uiLiHasRadio) === true) {
+					if (selectors.matchesSelector(self, "li." + classes.uiLiHasCheckbox + ",li." + classes.uiLiHasRadio) === true) {
 						target = event.target;
 						checkboxRadio = slice.call(target.querySelectorAll(".ui-checkbox label"));
 						if (!checkboxRadio.length) {
@@ -454,10 +369,6 @@
 						}
 					}
 				}, false);
-				if (page) {
-					page.addEventListener("pageshow", pageShowCallback, false);
-					self._callbacks.pageshow = pageShowCallback;
-				}
 			};
 
 			function removeCorners(element, which) {
@@ -679,21 +590,6 @@
 				}
 
 				this.refresh();
-			};
-
-			/**
-			 * Destoys widget (unbinds events)
-			 * @method _destroy
-			 * @param {HTMLElement} ul
-			 * @protected
-			 * @member ns.widget.mobile.Listview
-			 */
-			Listview.prototype._destroy = function () {
-				var page = this.ui.pagei,
-					pageShowCallback = this._callbacks.pageshow;
-				if (page && pageShowCallback) {
-					page.removeEventListener("pageshow", pageShowCallback, false);
-				}
 			};
 
 			/**
