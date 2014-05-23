@@ -21,21 +21,44 @@ Tizen Web UI Framework library and theme packages
 %setup -q
 
 %build
-echo %{buildroot}
 make all
 
 %install
 make DESTDIR=%{buildroot} install
-#mkdir -p %{buildroot}/usr/share/license
-#cp COPYING %{buildroot}/usr/share/license/%{name}
 
 %post
 
 %files
 %manifest web-ui-fw.manifest
-/usr/share/tizen-web-ui-fw/dist
-#/usr/share/tizen-web-ui-fw/*/js/cultures
-#/usr/share/tizen-web-ui-fw/latest
-#/usr/share/tizen-web-ui-fw/VERSION
-#/usr/share/license/%{name}
+/usr/share/tau/*.Flora
+/usr/share/tau/VERSION
+/usr/share/tau/js/mobile
+/usr/share/tizen-web-ui-fw/*.Flora
+/usr/share/tizen-web-ui-fw/VERSION
+/usr/share/tizen-web-ui-fw/*/js
+/usr/share/tizen-web-ui-fw/latest
 
+###############################
+%package -n web-ui-fw-theme-tizen-white
+BuildArch:  noarch
+Summary:    Tizen Web UI Framework Theme : tizen-white
+%Description -n web-ui-fw-theme-tizen-white
+	Tizen Web UI Framework Theme : tizen-white
+%files -n web-ui-fw-theme-tizen-white
+%manifest web-ui-fw-theme-tizen-white.manifest
+/usr/share/tau/theme/mobile/white
+/usr/share/tizen-web-ui-fw/*/themes/tizen-white
+/usr/share/tizen-web-ui-fw/latest
+
+###############################
+%package -n web-ui-fw-theme-tizen-black
+BuildArch:  noarch
+Summary:    Tizen Web UI Framework Theme : tizen-black
+%Description -n web-ui-fw-theme-tizen-black
+	Tizen Web UI Framework Theme : tizen-black
+%files -n web-ui-fw-theme-tizen-black
+%manifest web-ui-fw-theme-tizen-black.manifest
+/usr/share/tau/theme/mobile/black
+/usr/share/tizen-web-ui-fw/*/themes/tizen-black
+/usr/share/tizen-web-ui-fw/*/themes/tizen-tizen
+/usr/share/tizen-web-ui-fw/latest

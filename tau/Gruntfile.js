@@ -235,6 +235,19 @@ module.exports = function(grunt) {
 					files: files.image.getImageFiles( "mobile" )
 				},
 
+				mobileJquery: {
+					files: [
+						{
+							src: "libs/jquery.js",
+							dest: path.join(buildMobileJs, "jquery.js")
+						},
+						{
+							src: "libs/jquery.min.js",
+							dest: path.join(buildMobileJs, "jquery.min.js")
+						}
+					]
+				},
+
 				license: {
 					src: "LICENSE.Flora",
 					dest: path.join( dist, "LICENSE" ) + ".Flora"
@@ -538,7 +551,7 @@ module.exports = function(grunt) {
 	grunt.registerTask("jsmin", [ "findFiles:js.setMinifiedFiles", "uglify" ]);
 	grunt.registerTask("image", [ "copy:wearableImages", "copy:mobileImages" ]);
 	grunt.registerTask("css", [ "clean:css", "less", "cssmin", "image", "symlink" ]);
-	grunt.registerTask("js", [ "clean:js", "requirejs", "jsmin", "themesjs", "copy:globalize" ]);
+	grunt.registerTask("js", [ "clean:js", "requirejs", "jsmin", "themesjs", "copy:globalize", "copy:mobileJquery" ]);
 	grunt.registerTask("license", [ "findFiles:js.setLicenseFiles", "findFiles:css.setLicenseFiles", "concat:licenseJs", "concat:licenseCss", "copy:license" ]);
 	grunt.registerTask("release", [ "clean", "lint", "css", "js", "license", "version" ]);
     grunt.registerTask("sdk-docs", [ "sdk-docs-html:mobile", "sdk-docs-html:wearable", "copy:sdk-docs" ]);
