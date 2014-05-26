@@ -480,10 +480,13 @@
 					},
 					ui = self._ui,
 					shortcutsList = ui._shortcutsList,
+					shortcutsContainer = ui._shortcutsContainer,
 					shortcutsListOffset = {
 						left: shortcutsList.offsetLeft,
 						top: shortcutsList.offsetTop
 					},
+					shortcutsContainerTop = shortcutsContainer.offsetTop,
+					shortcutsContainerLeft = shortcutsContainer.offsetLeft,
 					target = event.target,
 					shortcutsListItems,
 					shortcutsListItemsLength,
@@ -501,12 +504,12 @@
 					omitSetLength,
 					tagName = target.tagName.toLowerCase();
 
-				ui._shortcutsContainer.classList.add(listviewClasses.uiFastscrollHover);
+				shortcutsContainer.classList.add(listviewClasses.uiFastscrollHover);
 
 				// If the element is a list item, get coordinates relative to the shortcuts list
 				if (tagName === "li") {
-					coords.x += target.offsetLeft - shortcutsListOffset.left;
-					coords.y += target.offsetTop  - shortcutsListOffset.top;
+					coords.x += shortcutsListOffset.left - shortcutsContainerLeft;
+					coords.y += shortcutsListOffset.top - shortcutsContainerTop;
 				}
 
 				if (tagName === "span") {
@@ -521,8 +524,8 @@
 					listItem.classList.remove(listviewClasses.uiFastscrollHover);
 					listItem.classList.remove(listviewClasses.uiFastscrollHoverDown);
 
-					left = listItem.offsetLeft - shortcutsListOffset.left;
-					top = listItem.offsetTop  - shortcutsListOffset.top;
+					left = listItem.offsetLeft;
+					top = listItem.offsetTop;
 					right = left + Math.abs(listItem.offsetWidth);
 					bottom = top + Math.abs(listItem.offsetHeight);
 
@@ -736,9 +739,9 @@
 					ui._shortcutsContainer.style.top = shortcutsTop + "px";
 
 					popup.innerText = "M";
-					popup.style.width = popup.offsetHeight + "px";
-					popup.style.marginLeft = -(popup.offsetWidth / 2);
-					popup.style.marginTop = -(popup.offsetHeight / 2);
+					popup.style.width = popup.offsetHeight + 'px';
+					popup.style.marginLeft = -parseInt(popup.offsetWidth / 2) + 'px';
+					popup.style.marginTop = -parseInt(popup.offsetHeight / 2) + 'px';
 				}
 			}
 
@@ -1201,12 +1204,12 @@
 
 				popup.innerText = text;
 				popupStyles.display = "block";
-				popupStyles.width = popup.offsetHeight + "px";
-				popupStyles.marginLeft = -(popup.offsetWidth / 2);
-				popupStyles.marginTop = -(popup.offsetHeight / 2);
+				popupStyles.width = popup.offsetHeight + 'px';
+				popupStyles.marginLeft = -parseInt(popup.offsetWidth / 2) + 'px';
+				popupStyles.marginTop = -parseInt(popup.offsetHeight / 2) + 'px';
 
 				listItemClassList.add(listviewClasses.uiFastscrollHover);
-				if (listItem.previousElementSibling) {
+				if (!listItem.previousElementSibling) {
 					listItemClassList.add(listviewClasses.uiFastscrollHoverFirstItem);
 				}
 				if (nextElement) {
