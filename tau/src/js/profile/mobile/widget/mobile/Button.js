@@ -691,7 +691,7 @@
 				}
 
 				if (!buttonText.innerHTML.length && buttonIcon && elementTagName !== "label") {
-					this._setValue(options.icon.replace("naviframe-", ""), element);
+					this._setValue(element, options.icon.replace("naviframe-", ""));
 				}
 
 				if (elementTagName === "button" || elementTagName === "input") {
@@ -806,12 +806,12 @@
 			/**
 			 * Set value of button
 			 * @method _setValue
-			 * @param {string} value
 			 * @param {HTMLElement} element
+			 * @param {string} value
 			 * @protected
 			 * @member ns.widget.mobile.Button
 			 */
-			prototype._setValue = function (value, element) {
+			prototype._setValue = function (element, value) {
 				var elementTagName;
 				element = element || this.element;
 				elementTagName = element.tagName.toLowerCase();
