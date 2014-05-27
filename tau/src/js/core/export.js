@@ -24,7 +24,7 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"./conflict"
+			"./exposeApi"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

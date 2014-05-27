@@ -22,37 +22,32 @@
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
 //  * @TODO add support of $.mobile.buttonMarkup.hoverDelay
-(function (document, frameworkNamespace, ns) {
+(function (document, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../core/conflict",
 			"../../core/core",
 			"../../core/engine",
 			"./router/route",
-			"./router/history"
+			"./router/history",
+			"./widget/wearable/Page"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 
-			document.addEventListener("beforerouterinit", function (evt) {
-				var tau = ns.getOrginalNamespace();
-				if (tau && tau.autoInitializePage !== undefined) {
-					ns.autoInitializePage = tau.autoInitializePage;
-				} else {
-					ns.autoInitializePage = true;
-				}
-				frameworkNamespace.setConfig('autoInitializePage', ns.autoInitializePage);
+			document.addEventListener("beforerouterinit", function () {
+				ns.setConfig('autoInitializePage', ns.autoInitializePage);
 			}, false);
 
 			document.addEventListener("routerinit", function (evt) {
 				var router = evt.detail,
-					history = frameworkNamespace.router.history,
+					history = ns.router.history,
 					navigator,
 					back = history.back.bind(router),
-					changePage = router.open.bind(router),
-					rule = frameworkNamespace.router.route;
+					rule = ns.router.route,
+					classes = ns.widget.wearable.Page.classes,
+					pageActiveClass = classes.uiPageActive;
 				/**
 				 * @method changePage
 				 * @inheritdoc ns.router.Router#open
@@ -65,7 +60,7 @@
 					 * @property {HTMLElement} activePage
 					 * @member tau
 					 */
-					ns.activePage = document.querySelector('.' + frameworkNamespace.widget.wearable.Page.classes.uiPageActive);
+					ns.activePage = document.querySelector('.' + pageActiveClass);
 				});
 				/**
 				 * First page element
@@ -127,6 +122,7 @@
 				 * @member tau
 				 */
 				navigator = router;
+
 				/**
 				 * @property {Object} rule object contains rules for navigator
 				 * @extends ns.router.rule
@@ -134,12 +130,14 @@
 				 * @member tau.navigator
 				 */
 				navigator.rule = rule;
+
 				/**
 				 * @method back
 				 * @inheritdoc ns.router.history#back
 				 * @member tau.navigator
 				 */
 				navigator.back = back;
+
 				/**
 				 * Object to change history of browsing pages or popups
 				 * @property {Object} history
@@ -147,6 +145,22 @@
 				 * @member tau.navigator
 				 */
 				navigator.history = history;
+
+				/**
+				 * @property {Object} defaults Default values for router
+				 * @property {boolean} [defaults.fromHashChange = false]
+				 * @property {boolean} [defaults.reverse = false]
+				 * @property {boolean} [defaults.showLoadMsg = true]
+				 * @property {number} [defaults.loadMsgDelay = 0]
+				 * @member tau.navigator
+				 */
+				navigator.defaults = {
+					fromHashChange: false,
+					reverse: false,
+					showLoadMsg: true,
+					loadMsgDelay: 0
+				};
+
 				ns.navigator = navigator;
 			}, false);
 
@@ -154,4 +168,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window.document, ns, window.tau));
+}(window.document, ns));

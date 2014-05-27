@@ -18,12 +18,11 @@
 /*
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
-(function (document, frameworkNamespace, ns) {
+(function (document, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../core/conflict",
 			"../../core/engine",
 			"../../core/util/path",
 			"../../core/util/DOM/attributes",
@@ -36,9 +35,9 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 
-			document.addEventListener(frameworkNamespace.engine.eventType.INIT, function () {
-				var util = frameworkNamespace.util,
-					events = frameworkNamespace.event,
+			document.addEventListener(ns.engine.eventType.INIT, function () {
+				var util = ns.util,
+					events = ns.event,
 					utilsDOM = util.DOM,
 					utilsObject = util.object;
 				/**
@@ -98,23 +97,10 @@
 					data: utilsDOM.nsData.bind(utilsDOM)
 				};
 
-				ns.util = {
-					DOM: utilsDOM,
-					object: util.object,
-					path: util.path,
-					selector: util.selectors
-				};
-
-				/**
-				 * Namespace with Gesture utilities.
-				 * @class tau.gesture
-				 */
-				ns.gesture = frameworkNamespace.event.gesture;
-
 			}, false);
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window.document, ns, window.tau));
+}(window.document, ns));

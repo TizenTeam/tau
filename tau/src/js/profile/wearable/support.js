@@ -20,7 +20,7 @@
 /*
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
-(function (document, frameworkNamespace, ns) {
+(function (ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -37,12 +37,12 @@
 			 * @property {boolean} browser.tizen
 			 * @member ns
 			 */
-			frameworkNamespace.browser = {
+			ns.browser = {
 				tizen: !!window.navigator.userAgent.match(/tizen/i)
-			}
+			};
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(document, ns, window.tau));
+}(ns));

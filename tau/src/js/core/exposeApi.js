@@ -50,19 +50,15 @@
 					 */
 					getOrginalNamespace: function () {
 						return orgTau;
-					},
-					/**
-					 * Create new window.gear object;
-					 * @method createNewNamespace
-					 * @member tau
-					 */
-					createNewNamespace: function() {
-						orgTau = orgTau || window.tau;
-						window.tau = tau;
 					}
+
 				};
-				tau.createNewNamespace();
-				document.addEventListener(ns.engine.eventType.INIT, tau.createNewNamespace, false);
+
+			orgTau = window.tau;
+			window.tau = tau;
+
+			tau.widget = ns.widget;
+
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return tau;
 		}

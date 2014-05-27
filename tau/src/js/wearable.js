@@ -8,7 +8,6 @@
 			"./core/core",
 			"./core/config",
 			"./profile/wearable/profile",
-			"./core/export",
 			"./core/engine",
 			// widget list
 			"./core/util/anchorHighlight",
@@ -33,9 +32,12 @@
 			"./profile/wearable/router/route/page",
 			"./profile/wearable/router/route/popup",
 			"./profile/wearable/router/history",
+			// Modules to be loaded after
+			"./profile/wearable/exposeApi",
+			"./core/export",
 			"./core/init"
 		],
-		function (require) {
+		function ( ) {
 			return;
 		}
 	);

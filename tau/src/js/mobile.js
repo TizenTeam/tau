@@ -10,7 +10,6 @@
 			"./profile/mobile/config",
 			"./core/support",
 			"./jqm/all",
-			"./core/export",
 			"./core/engine",
 			"./core/frameworkData",
 			"./core/theme",
@@ -80,9 +79,12 @@
 			"./profile/mobile/widget/mobile/TizenSlider",
 			"./profile/mobile/widget/mobile/SplitView",
 			"./profile/mobile/widget/mobile/ScrollHandler",
+			// Modules to be loaded after
+			"./profile/mobile/exposeApi",
+			"./core/export",
 			"./core/init"
 		],
-		function (require) {
+		function () {
 			return;
 		}
 	);

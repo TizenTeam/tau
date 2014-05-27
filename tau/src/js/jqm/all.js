@@ -4,7 +4,6 @@
 	"use strict";
 	define(
 		[
-			"",
 			"./defaults",
 			"./widget",
 			"./engine",
@@ -12,8 +11,7 @@
 			"./loader",
 			"./router",
 			"./support",
-			"./colors",
-            "./export"
+			"./colors"
 		],
 		function () {
 			return true;

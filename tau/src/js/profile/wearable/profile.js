@@ -27,8 +27,7 @@
 			"./selectors",
 			"./navigator",
 			"./util",
-			"./support",
-			"./widget"
+			"./support"
 		],
 		function () {
 			return true;
