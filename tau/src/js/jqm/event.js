@@ -21,7 +21,7 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 
-			var utilsEvent = ns.event,
+			var eventUtils = ns.event,
 				orginalTrigger,
 				orginalDispatch,
 				eventType = {
@@ -75,7 +75,7 @@
 					}
 
 					for (i = 0; i < elementsLength; i++) {
-						utilsEvent.trigger($elements.get(i), type);
+						eventUtils.trigger($elements.get(i), type);
 					}
 
 					return this;
@@ -127,10 +127,9 @@
 				* @static
 				*/
 				init: function () {
-					var events = ns.event,
-						removeEvents = function (event) {
-							event.stopPropagation();
-							event.preventDefault();
+						removeEvents = function (eventUtils) {
+							eventUtils.stopPropagation();
+							eventUtils.preventDefault();
 							return false;
 						},
 						blockedEvents = [eventType.TOUCHSTART, eventType.TOUCHEND, eventType.VCLICK, eventType.MOUSEDOWN, eventType.MOUSEUP, eventType.CLICK],
@@ -149,8 +148,8 @@
 							}
 						});
 
-						this.copyEventProperties(window, 'orientationchange', event.orientationchange.properties);
-						this.proxyEventTriggerMethod('orientationchange', event.orientationchange.trigger);
+						this.copyEventProperties(window, 'orientationchange', eventUtils.orientationchange.properties);
+						this.proxyEventTriggerMethod('orientationchange', eventUtils.orientationchange.trigger);
 
 						// Proxied jQuery's trigger method to fire swipe event
 						if (orginalTrigger === undefined) {
@@ -164,7 +163,7 @@
 						}
 
 						$.mobile = $.mobile || {};
-						$.mobile.pinch = ns.event.pinch || {};
+						$.mobile.pinch = eventUtils.pinch || {};
 						$.mobile.tizen = $.mobile.tizen || {};
 						$.mobile.tizen.documentRelativeCoordsFromEvent = null;
 						$.mobile.tizen.targetRelativeCoordsFromEvent = null;
@@ -182,8 +181,8 @@
 								html.removeEventListener(blockedEvents[i], removeEvents, true);
 							}
 						};
-						$.mobile.tizen.documentRelativeCoordsFromEvent = utilsEvent.documentRelativeCoordsFromEvent.bind(utilsEvent);
-						$.mobile.tizen.targetRelativeCoordsFromEvent = utilsEvent.targetRelativeCoordsFromEvent.bind(utilsEvent);
+						$.mobile.tizen.documentRelativeCoordsFromEvent = eventUtils.documentRelativeCoordsFromEvent.bind(eventUtils);
+						$.mobile.tizen.targetRelativeCoordsFromEvent = eventUtils.targetRelativeCoordsFromEvent.bind(eventUtils);
 					}
 				}
 			};
