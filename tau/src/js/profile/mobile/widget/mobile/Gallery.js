@@ -61,17 +61,11 @@
 				* @private
 				*/
 				doms = ns.util.DOM,
-				/**
-				* Alias for class ns.widget.mobile.Gallery
-				* @method Gallery
-				* @member ns.widget.mobile.Gallery
-				* @private
-				*/
+
 				Gallery = function () {
 					/**
 					* @property {Object} options Object with default options
 					* @member ns.widget.mobile.Gallery
-					* @instance
 					*/
 					this.options = {};
 
@@ -229,27 +223,21 @@
 			* @method _configure
 			* @protected
 			* @member ns.widget.mobile.Gallery
-			* @instance
 			*/
 			Gallery.prototype._configure = function () {
 				var options = this.options;
 				/**
-				* flicking
-				* @property {boolean} [options.flicking=false]
-				* @member ns.widget.mobile.Gallery
-				* @instance
-				*/
-				/** @expose */
+				 * @property {Object} options All possible widget options
+				 * @property {boolean} [options.flicking=false] This property enables swinging of the first and the last images.
+				 * @property {number} [options.duration=500] This property determines how long the animation of switching images will run.
+				 * @property {"top"|"middle"|"bottom"} [options.verticalAlign="top"] This property sets the vertical alignment of a widget. The alignment options are top, middle, and bottom.
+				 * @property {number} [options.index=0] This property defines the index number of the first image in the gallery.
+				 * @member ns.widget.mobile.Gallery
+				 */
 				options.flicking = false;
-				/**
-				* duration
-				* @property {number} [options.duration=500]
-				* @member ns.widget.mobile.Gallery
-				* @instance
-				*/
-				/** @expose */
 				options.duration = 500;
 				options.verticalAlign = "top";
+				options.index = 0;
 			};
 
 			Gallery.prototype._detachAll = function (images) {
@@ -279,7 +267,6 @@
 			* @return {HTMLElement}
 			* @protected
 			* @member ns.widget.mobile.Gallery
-			* @instance
 			*/
 			Gallery.prototype._build = function (element) {
 				var classes = Gallery.classes,
@@ -300,7 +287,7 @@
 				} else {
 					element.innerHTML = "<div class='" + classes.uiGallery + "'></div>";
 				}
-				index = parseInt(doms.getNSData(element, "index"), 10);
+				index = parseInt(options.index, 10);
 				if (!index) {
 					index = 0;
 				}
@@ -312,7 +299,6 @@
 				}
 
 				this.index = index;
-				options.verticalAlign = doms.getNSData(element, "vertical-align");
 
 				return element;
 			};
@@ -323,7 +309,6 @@
 			* @param {HTMLElement} element
 			* @protected
 			* @member ns.widget.mobile.Gallery
-			* @instance
 			*/
 			Gallery.prototype._init = function (element) {
 				var images = element.getElementsByTagName("img"),
@@ -348,7 +333,6 @@
 			* @param {HTMLElement} element
 			* @protected
 			* @member ns.widget.mobile.Gallery
-			* @instance
 			*/
 			Gallery.prototype._bindEvents = function (element) {
 				//todo
@@ -411,7 +395,22 @@
 				}
 			};
 
-
+			/**
+			 * The show method is used to display the gallery.
+			 * This method is called on event 'pageshow' and during refreshing.
+			 *
+			 *      @example
+			 *      var galleryWidget = tau.widget.Gallery(document.getElementById("gallery"));
+			 *
+			 *      galleryWidget.show();
+			 *
+			 *      // or
+			 *
+			 *      $( "#gallery" ).gallery( "show" );
+			 *
+			 * @method show
+			 * @member ns.widget.mobile.Gallery
+			 */
 			Gallery.prototype.show = function () {
 				var classes = Gallery.classes,
 					index = this.index,
@@ -568,7 +567,13 @@
 				container.removeEventListener("vmouseout", this.vmouseoutHandler, false);
 			};
 
-			Gallery.prototype.unbind = function () {
+			/**
+			 * The _unbind method is used to disable showing gallery on 'pageshow' event and refreshing gallery on 'throttledresize' event.
+			 * @method _unbind
+			 * @member ns.widget.mobile.Gallery
+			 * @protected
+			 */
+			Gallery.prototype._unbind = function () {
 				var page = selectors.getClosestBySelectorNS(this.element, "role=page");
 
 				window.removeEventListener("throttledresize", this.throttledresizeHandler, false);
@@ -576,27 +581,76 @@
 			};
 
 			/**
+			 * Removes the gallery functionality completely.
+			 *
+			 * This will return the element back to its pre-init state.
+			 *
+			 *      @example
+			 *      var galleryWidget = tau.widget.Gallery(document.getElementById("gallery"));
+			 *      galleryWidget.destroy();
+			 *
+			 *      // or
+			 *
+			 *      $( "#gallery" ).gallery( "destroy" );
+			 *
+			 * @method destroy
+			 * @member ns.widget.mobile.Gallery
+			 */
+
+			/**
 			* Destroy gallery
 			* @method _destroy
 			* @protected
 			* @member ns.widget.mobile.Gallery
-			* @instance
 			*/
 			Gallery.prototype._destroy = function () {
-				this.unbind();
+				this._unbind();
 				this._deleteEvents();
+				//@todo adding returning element back
 			};
 
-			/*
-			* add the image (parameter: url of iamge)
-			*/
+			/**
+			 * The add method is used to add an image to the gallery. As a parameter, the file URL of image should be passed.
+			 *
+			 * The refresh method must be call after adding. Otherwise, the file will be added, but not displayed.
+			 *
+			 *      @example
+			 *      var galleryWidget = tau.widget.Gallery(document.getElementById("gallery"));
+			 *
+			 *      galleryWidget.add( "./images/01.jpg" ); // image with attribute src='./images/01.jpg' will be added
+			 *      galleryWidget.refresh( );
+			 *
+			 *      // or
+			 *
+			 *      $( "#gallery" ).gallery( "add", "./images/01.jpg" );
+			 *      $( "#gallery" ).gallery( "add", "./images/02.jpg" );
+			 *      $( "#gallery" ).gallery( "refresh" ); // to see changes, method 'refresh' must be called
+			 *
+			 * @method add
+			 * @param {string} file the image's file URL
+			 * @member ns.widget.mobile.Gallery
+			 */
 			Gallery.prototype.add = function (file) {
 				this.imagesHold.push(file);
 			};
 
-			/*
-			* remove the image (parameter: index of image)
-			*/
+			/**
+			 * The remove method is used to delete an image from the gallery.
+			 * If parameter is defined, the selected image is deleted. Otherwise, the current image is deleted.
+			 *
+			 *      @example
+			 *      var galleryWidget = tau.widget.Gallery(document.getElementById("gallery"));
+			 *
+			 *      galleryWidget.remove( 0 ); // the first image will be removed
+			 *
+			 *      // or
+			 *
+			 *      $( "#gallery" ).gallery( "remove", 0 );
+			 *
+			 * @method remove
+			 * @param {number} [index] index of image, which should be deleted
+			 * @member ns.widget.mobile.Gallery
+			 */
 			Gallery.prototype.remove = function (index) {
 				var classes = Gallery.classes,
 					images = this.images,
@@ -671,6 +725,21 @@
 				this._detach(index + 1, this.nextImage);
 			};
 
+			/**
+			 * The hide method is used to hide the gallery. It makes all images invisible and also unbinds all touch events.
+			 *
+			 *       @example
+			 *      var galleryWidget = tau.widget.Gallery(document.getElementById("gallery"));
+			 *
+			 *      galleryWidget.hide( ); // gallery will be hidden
+			 *
+			 *      // or
+			 *
+			 *      $( "#gallery" ).gallery( "hide" );
+			 *
+			 * @method hide
+			 * @member ns.widget.mobile.Gallery
+			 */
 			Gallery.prototype.hide = function () {
 				this._hide();
 				this._deleteEvents();
@@ -699,10 +768,33 @@
 				}
 			};
 
-			/*
-			* refresh the widget, should be called after add or remove. (parameter: start index)
-			*/
-			Gallery.prototype.refresh = function (startIndex) {
+			/**
+			 * The refresh method is used to refresh the gallery.
+			 *
+			 * This method must be called after adding images to the gallery.
+			 *
+			 * This method is called automatically after changing any option of widget and calling method value with not empty parameter.
+			 *
+			 *      @example
+			 *      var galleryWidget = tau.widget.Gallery(document.getElementById("gallery"));
+			 *      galleryWidget.refresh();
+			 *
+			 *      // or
+			 *
+			 *      $( "#gallery" ).gallery( "refresh" );
+			 *
+			 *      // also will be called automatically in during changing option (method 'option') or setting value (method 'value')
+			 *
+			 *      galleryWidget.option("flicking", true);
+			 *      galleryWidget.value(0);
+			 *
+			 *
+			 * @method refresh
+			 * @param {number} [startIndex] index of the first image
+			 * @return {?number} index of the first image, which will be displayed
+			 * @member ns.widget.mobile.Gallery
+			 */
+			Gallery.prototype._refresh = function (startIndex) {
 				this._update();
 
 				this._hide();
@@ -728,33 +820,202 @@
 
 			};
 
-			/*
-			* remove all of images from the gallery
-			*/
+			/**
+			 * The empty method is used to remove all of images from the gallery.
+			 *
+			 *      @example
+			 *      var galleryWidget = tau.widget.Gallery(document.getElementById("gallery"));
+			 *
+			 *      galleryWidget.empty( ); // all images will be deleted
+			 *
+			 *      // or
+			 *
+			 *      $( "#gallery" ).gallery( "empty" );
+			 *
+			 * @method empty
+			 * @member ns.widget.mobile.Gallery
+			 */
 			Gallery.prototype.empty = function () {
 				this.container.innerHTML = "";
 				this.images.length = 0;
 			};
 
-			/*
-			* get length of images
-			*/
+			/**
+			 * The length method is used to get the number of images.
+			 *
+			 *      @example
+			 *      var galleryWidget = tau.widget.Gallery(document.getElementById("gallery")),
+			 *          imagesItems;
+			 *
+			 *      imagesLength = galleryWidget.length( ); // number of images
+			 *
+			 *      // or
+			 *
+			 *      imagesLength = $( "#gallery" ).gallery( "length" );
+			 *
+			 * @method length
+			 * @return {number}
+			 * @member ns.widget.mobile.Gallery
+			 */
 			Gallery.prototype.length = function () {
 				return this.images.length;
 			};
 
 			/**
-			 * get or set current index of gallery (parameter: index of image)
-			 * @param index
-			 * @returns {?number}
+			 * The value method is used to get or set current index of gallery.
+			 * If parameter is not defined, the current index is return. Otherwise, the index of the image is set and proper image is displayed. The index of images is counted from 0. If new index is less than 0 or greater than or equal length of images, then the index will not be changed.
+			 *
+			 *      @example
+			 *      var galleryWidget = tau.widget.Gallery(document.getElementById("gallery")),
+			 *          value = galleryWidget.value(); // value contains the index of current image
+			 *
+			 *      galleryWidget.value( 0 ); // the first image will be displayed
+			 *
+			 *      // or
+			 *
+			 *      value = $( "#gallery" ).gallery( "value" ); // value contains the index of current image
+			 *
+			 *      $( "#gallery" ).gallery( "value",  0 ); // the first image will be displayed
+			 *
+			 * @method value
+			 * @param {?number} index of image, which should be displayed now
+			 * @return {?number}
+			 * @member ns.widget.mobile.Gallery
 			 */
-			Gallery.prototype.value = function (index) {
-				if (index === undefined) {
-					return this.index;
-				}
+
+			Gallery.prototype._setValue = function (index) {
 				this.refresh(index);
 				return null;
 			};
+
+			Gallery.prototype._getValue = function () {
+				return this.index;
+			};
+
+			/**
+			* This method changes state of gallery on enabled and removes CSS classes connected with state.
+			*
+			*      @example
+			*      var galleryWidget = tau.widget.Gallery(document.getElementById("gallery"));
+			*
+			*      galleryWidget.enable();
+			*
+			*      // or
+			*
+			*      $( "#gallery" ).gallery( "enable" );
+			*
+			* @method enable
+			* @chainable
+			* @member ns.widget.mobile.Gallery
+			*/
+
+			/**
+			* This method changes state of gallery on disabled and adds CSS classes connected with state.
+			*
+			*      @example
+			*      var galleryWidget = tau.widget.Gallery(document.getElementById("gallery"));
+			*
+			*      galleryWidget.disable();
+			*
+			*      // or
+			*
+			*      $( "#gallery" ).gallery( "disable" );
+			*
+			* @method disable
+			* @chainable
+			* @member ns.widget.mobile.Gallery
+			*/
+
+			/**
+			 * Get/Set options of the widget.
+			 *
+			 * This method can work in many context.
+			 *
+			 * If first argument is type of object them, method set values for options given in object. Keys of object are names of options and values from object are values to set.
+			 *
+			 * If you give only one string argument then method return value for given option.
+			 *
+			 * If you give two arguments and first argument will be a string then second argument will be intemperate as value to set.
+			 *
+			 * @method option
+			 * @param {string|Object} [name] name of option
+			 * @param {*} value value to set
+			 * @member ns.widget.mobile.Gallery
+			 * @return {*} return value of option or undefined if method is called in setter context
+			 */
+
+			/**
+			 * Trigger an event on widget's element.
+			 *
+			 *      @example
+			 *      var galleryWidget = tau.widget.Gallery(document.getElementById("gallery"));
+			 *      galleryWidget.trigger("eventName");
+			 *
+			 *      // or
+			 *
+			 *      $("#gallery").gallery("trigger", "eventName");
+			 *
+			 * @method trigger
+			 * @param {string} eventName the name of event to trigger
+			 * @param {?*} [data] additional object to be carried with the event
+			 * @param {boolean} [bubbles=true] indicating whether the event bubbles up through the DOM or not
+			 * @param {boolean} [cancelable=true] indicating whether the event is cancelable
+			 * @return {boolean} false, if any callback invoked preventDefault on event object
+			 * @member ns.widget.mobile.Gallery
+			*/
+
+			/**
+			 * Add event listener to widget's element.
+			 *
+			 *      @example
+			 *      var galleryWidget = tau.widget.Gallery(document.getElementById("gallery")),
+			 *          callback = function () {
+			 *              console.log("event fires");
+			 *          });
+			 *
+			 *      galleryWidget.on("eventName", callback);
+			 *
+			 *      // or
+			 *
+			 *      $("#gallery").gallery("on", callback);
+			 *
+			 * @method on
+			 * @param {string} eventName the name of event
+			 * @param {Function} listener function call after event will be trigger
+			 * @param {boolean} [useCapture=false] useCapture param to addEventListener
+			 * @member ns.widget.mobile.Gallery
+			 */
+
+			/**
+			 * Remove event listener to widget's element.
+			 *
+			 *      @example
+			 *      var galleryWidget = tau.widget.Gallery(document.getElementById("gallery")),
+			 *          callback = function () {
+			 *              console.log("event fires");
+			 *          });
+			 *
+			 *      // add callback on event "eventName"
+			 *      galleryWidget.on("eventName", callback);
+			 *      // ...
+			 *      // remove callback on event "eventName"
+			 *      galleryWidget.off("eventName", callback);
+			 *
+			 *      // or
+			 *
+			 *      // add callback on event "eventName"
+			 *      $("#gallery").gallery("on", callback);
+			 *      // ...
+			 *      // remove callback on event "eventName"
+			 *      $("#gallery").gallery("off", "eventName", callback);
+			 *
+			 *
+			 * @method off
+			 * @param {string} eventName the name of event
+			 * @param {Function} listener function call after event will be trigger
+			 * @param {boolean} [useCapture=false] useCapture param to addEventListener
+			 * @member ns.widget.mobile.Gallery
+			 */
 
 			// definition
 			ns.widget.mobile.Gallery = Gallery;
@@ -764,10 +1025,8 @@
 				[
 					"add",
 					"remove",
-					"refresh",
 					"empty",
 					"length",
-					"value",
 					"hide",
 					"show"
 				],

@@ -544,7 +544,7 @@
 			prototype.refresh = function () {
 				var self = this;
 				if (typeof self._refresh === TYPE_FUNCTION) {
-					self._refresh();
+					self._refresh.apply(self, arguments);
 				}
 				return self;
 			};
