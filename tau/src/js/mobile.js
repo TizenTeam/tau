@@ -72,7 +72,7 @@
 			"./profile/mobile/widget/mobile/VirtualListview",
 			"./profile/mobile/widget/mobile/VirtualGrid",
 			"./profile/mobile/widget/mobile/Loader",
-			"./profile/mobile/widget/mobile/Gallery3d",
+			"./profile/mobile/widget/mobile/Gallery3D",
 			"./profile/mobile/widget/mobile/TizenSlider",
 			"./profile/mobile/widget/mobile/SplitView",
 			"./profile/mobile/widget/mobile/ScrollHandler",
