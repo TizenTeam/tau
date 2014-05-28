@@ -422,7 +422,7 @@ module.exports = function(grunt) {
 				theme: [ buildDir.mobile.theme, buildDir.wearable.theme ],
 				docs: {
 					expand: true,
-					src: ['docs']
+					src: ['docs/sdk', 'docs/js']
 				},
 				tmp: {
 					expand: true,
@@ -672,9 +672,9 @@ module.exports = function(grunt) {
 	grunt.registerTask("css", [ "clean:theme", "less", "cssmin", "image", "image-changeable", "symlink" ]);
 	grunt.registerTask("js", [ "clean:js", "requirejs", "jsmin", "themesjs", "copy:globalize", "copy:mobileJquery" ]);
 	grunt.registerTask("license", [ "concat:licenseJs", "concat:licenseDefaultCss", "concat:licenseChangeableCss", "copy:license" ]);
-	grunt.registerTask("release", [ "clean", "lint", "css", "js", "license", "version" ]);
 	grunt.registerTask("sdk-docs", [ "sdk-docs-html:mobile", "sdk-docs-html:wearable", "copy:sdk-docs" ]);
 
+	grunt.registerTask("build", ["clean", "lint", "css", "js", "license", "version"]);
+	grunt.registerTask("release", [ "build", "test", "sdk-docs" ]);
 	grunt.registerTask("default", [ "release" ]);
-	grunt.registerTask("sdk-docs", [ "sdk-docs-html:mobile", "sdk-docs-html:wearable", "copy:sdk-docs" ]);
 };
