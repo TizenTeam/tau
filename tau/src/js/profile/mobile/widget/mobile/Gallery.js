@@ -799,11 +799,12 @@
 
 				this._hide();
 
-				if (startIndex === undefined) {
+				// if startIndex is undefined or it is not possible to convert value to integer, the old index is used
+				startIndex = parseInt(startIndex, 10);
+
+				if (isNaN(startIndex)){
 					startIndex = this.index;
 				}
-
-				startIndex = parseInt(startIndex, 10);
 
 				if (startIndex < 0) {
 					startIndex = 0;
