@@ -152,9 +152,9 @@ $(document).ready(function () {
 		}()), "should be able to check leap year" );
 
 		ok( ( function () {
-			var beforeNoon = objTime.options.date.getHours() < 12;
+			var beforeNoon = objTime.option("date").getHours() < 12;
 			objTime._switchAmPm();
-			return beforeNoon != objTime.options.date.getHours() < 12;
+			return beforeNoon != objTime.option("date").getHours() < 12;
 		}()), "should change AM/PM by AMPM button" );
 
 		objDatetime.options.date = new Date( "May 2 18:30:00 2012" );
@@ -236,9 +236,9 @@ $(document).ready(function () {
 		}()), "should be able to check leap year" );
 
 		ok( ( function () {
-			var beforeNoon = objTime2.options.date.getHours() < 12;
+			var beforeNoon = objTime2.option("date").getHours() < 12;
 			objTime2._switchAmPm();
-			return beforeNoon != objTime2.options.date.getHours() < 12;
+			return beforeNoon != objTime2.option("date").getHours() < 12;
 		}()), "should change AM/PM by AMPM button" );
 
 		objDatetime2.options.date = new Date( "May 2 18:30:00 2012" );

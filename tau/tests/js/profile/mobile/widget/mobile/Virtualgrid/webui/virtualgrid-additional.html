@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<script src="../../../build/tizen-web-ui-fw/latest/js/jquery.js"></script>
-		<script src="../../../build/tizen-web-ui-fw/latest/js/tizen-web-ui-fw-libs.js"></script>
-		<script src="../../../build/tizen-web-ui-fw/latest/js/tizen-web-ui-fw.js"
-			data-framework-theme="tizen-white"
-			data-framework-viewport-scale=false>
-		</script>
-		<link rel="stylesheet" href="../../../libs/js/jquery-mobile-1.2.0/external/qunit.css" />
-		<script src="../../../libs/js/jquery-mobile-1.2.0/external/qunit.js"></script>
+		<link rel="stylesheet"
+			  href="../../../../../../../libs/dist/theme/default/tau.css" />
+		<link rel="stylesheet" href="../../../../../../../libs/qunit-1.11.0.css">
+		<script src="../../../../../../../libs/jquery.js"></script>
+		<script src="../../../../../../../libs/qunit-1.11.0.js"
+				type="text/javascript"></script>
+		<script src="../../../../../../../libs/support.js"></script>
 		<script src="virtualgrid-tests.js"></script>
+		<script src="../../VirtualListview/virtuallist-db-demo.js"></script>
 		<title>Virtualgrid</title>
 	</head>
 
@@ -46,6 +46,13 @@
 					</script>
 				</div>
 			</div>
+			<script type="text/javascript">
+				var tauConfig = {
+					"autorun": false
+				};
+			</script>
+			<script type="text/javascript"
+					src="../../../../../../../libs/dist/js/tau.js"></script>
 		</div>
 	</body>
 </html>

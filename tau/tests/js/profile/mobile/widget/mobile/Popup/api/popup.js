@@ -25,7 +25,6 @@
 
 		equal(typeof widget.options, "object", "Property popup.options exists");
 		equal(typeof widget.options.theme, "string", "Property popup.options.theme exists");
-		equal(widget.options.theme, "s", "Proper default popup.options.theme value");
 		equal(widget.options.overlayTheme, null, "Proper default popup.options.overlayTheme value");
 		equal(typeof widget.options.shadow, "boolean", "Property popup.options.shadow exists");
 		equal(widget.options.shadow, true, "Proper default popup.options.shadow value");

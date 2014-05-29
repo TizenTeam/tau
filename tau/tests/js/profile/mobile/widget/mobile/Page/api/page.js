@@ -41,9 +41,7 @@
 		equal(typeof widget.backBtnTheme, 'object', 'Property page.backBtnTheme exists');
 
 		equal(typeof widget._build, 'function', 'Method page._build exists');
-		equal(typeof widget._buildSections, 'function', 'Method page._buildSections exists');
 		equal(typeof widget._bindEvents, 'function', 'Method page._bindEvents exists');
-		equal(typeof widget._destroy, 'function', 'Method page._destroy exists');
 		equal(typeof widget._destroy, 'function', 'Method page._destroy exists');
 	});
 }(ej));

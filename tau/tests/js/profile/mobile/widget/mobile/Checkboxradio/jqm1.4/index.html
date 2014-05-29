@@ -4,34 +4,14 @@
 	<meta charset="UTF-8" />
 	<title>jQuery Mobile Checkboxradio Test Suite</title>
 
-	<script src="../../../external/requirejs/require.js"></script>
-	<script src="../../../js/requirejs.config.js"></script>
-	<script src="../../../js/jquery.tag.inserter.js"></script>
-	<script src="../../jquery.setNameSpace.js"></script>
-	<script src="../../../tests/jquery.testHelper.js"></script>
-	<script src="../../../external/qunit/qunit.js"></script>
-	<script>
-		$.testHelper.asyncLoad([
-			[ "widgets/page" ],
-			[
-				"widgets/controlgroup",
-			],
-			[
-				"widgets/forms/checkboxradio",
-				"widgets/page" // Needed by the test suite
-			],
-			[
-				"checkboxradio_core.js"
-			],
-			[ "init" ]
-		]);
-	</script>
-
-	<link rel="stylesheet"  href="../../../css/themes/default/jquery.mobile.css"/>
-	<link rel="stylesheet" href="../../../external/qunit/qunit.css"/>
-	<link rel="stylesheet" href="../../jqm-tests.css"/>
-
-	<script src="../../swarminject.js"></script>
+	<link rel="stylesheet" href="../../../../../../../libs/qunit-1.11.0.css">
+	<script src="../../../../../../../libs/jquery.js"></script>
+	<script src="../../../../../../../libs/qunit-1.11.0.js"
+			type="text/javascript"></script>
+	<script src="../../../../../../../libs/support.js"></script>
+	<script src="../../../../../../../libs/jquery.testHelper.js"></script>
+	<script src="../../../../../../../libs/dist/js/tau.js"></script>
+	<script src="buttonMarkup_core.js"></script>
 </head>
 <body>
 
@@ -173,7 +153,7 @@
 			</fieldset>
 		</div>
 
-		<form id="radio-form" method="get" action="form-result.html">
+		<form id="radio-form" method="get" action="helper/form-result.html">
 			<fieldset data-role="controlgroup" data-type="horizontal">
 				<legend>Check one:</legend>
 				<input type="radio" id="radio1" name="radio1" value="1" />
@@ -181,7 +161,7 @@
 			</fieldset>
 		</form>
 
-		<form id="check-form" method="get" action="form-result.html">
+		<form id="check-form" method="get" action="helper/form-result.html">
 			<div data-role="fieldcontain">
 				<fieldset data-role="controlgroup" data-type="horizontal">
 					<legend>Font styling:</legend>
@@ -222,5 +202,6 @@
 		</label>
 		</form>
 	</div>
+
 </body>
 </html>

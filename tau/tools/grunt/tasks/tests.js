@@ -19,7 +19,11 @@ module.exports = function (grunt) {
 			var result = require('rjs-build-analysis').parse(output),
 				slice = [].slice,
 				testModules = [],
-				jsAddTests = grunt.option('js_add_test') ? grunt.option('js_add_test').split(",") : [];
+				jsAddTests = grunt.option('js_add_test') ? grunt.option('js_add_test').split(",") : ["api", profileName];
+
+			if (profileName === "mobile") {
+				jsAddTests.push("jquery");
+			}
 
 			if (result && result.bundles.length > 0) {
 				slice.call(result.bundles[0].children).forEach(function (modulePath) {
@@ -27,9 +31,9 @@ module.exports = function (grunt) {
 						mainTestPattern = path.join('tests', testDirectory, '*.html'),
 						files = grunt.file.expand(mainTestPattern);
 					if (files.length) {
-						grunt.log.ok(testDirectory);
+						grunt.log.ok("tests exist for module ", testDirectory);
 					} else {
-						grunt.log.warn(testDirectory);
+						grunt.log.warn("tests don't exist for module ", testDirectory);
 					}
 					testModules.push(mainTestPattern);
 					jsAddTests.forEach(function (oneDirectory) {
@@ -43,13 +47,32 @@ module.exports = function (grunt) {
 
 	testConfig = {
 		wearable: {
-			"qunit-main": true
+			"qunit-main": true,
+			default: true
 		},
 		mobile: {
-			"qunit-main": true
+			"qunit-main": true,
+			default: true
 		},
 		jqm: {
-			"qunit-main": false
+			"qunit-main": false,
+			default: true
+		},
+		jqm13: {
+			"qunit-main": false,
+			default: false
+		},
+		jqm14: {
+			"qunit-main": false,
+			default: false
+		},
+		jqm14ok: {
+			"qunit-main": false,
+			default: true
+		},
+		webui: {
+			"qunit-main": false,
+			default: false
 		}
 	};
 	grunt.config("test", testConfig);
@@ -65,6 +88,10 @@ module.exports = function (grunt) {
 		{expand: true, cwd: path.join(buildFrameworkPath, "mobile", "theme/"), src: "**", dest: path.join("tests", "libs", "dist", "theme")}
 	]};
 	configProperty["test-libs-jqm"] = configProperty["test-libs-mobile"];
+	configProperty["test-libs-jqm13"] = configProperty["test-libs-mobile"];
+	configProperty["test-libs-jqm14"] = configProperty["test-libs-mobile"];
+	configProperty["test-libs-webui"] = configProperty["test-libs-mobile"];
+	configProperty["test-libs-jqm14ok"] = configProperty["test-libs-mobile"];
 	grunt.config.set("copy", configProperty);
 
 	// Update config for task; concat
@@ -85,17 +112,11 @@ module.exports = function (grunt) {
 	// Update config for task; qunit
 	configProperty = grunt.config.get("qunit");
 	configProperty["jqm"] = [ "tests/js/**/jqm/*.html" ];
+	configProperty["jqm13"] = [ "tests/js/**/jqm1.3/*.html" ];
+	configProperty["jqm14"] = [ "tests/js/**/jqm1.4/*.html" ];
+	configProperty["jqm14ok"] = [ "tests/js/**/jqm1.4ok/*.html" ];
+	configProperty["webui"] = [ "tests/js/**/webui/*.html" ];
 	grunt.config.set("qunit", configProperty);
-
-	// Inject require done callback
-	configProperty = grunt.config.get("requirejs");
-
-	for (profileName in testConfig) {
-		if (testConfig.hasOwnProperty(profileName) && testConfig[profileName]["qunit-main"]) {
-			configProperty[profileName].options.done = prepareTestsList.bind(null, profileName);
-		}
-	}
-	grunt.config.set("requirejs", configProperty);
 
 	grunt.loadNpmTasks( "grunt-contrib-qunit" );
 
@@ -138,7 +159,17 @@ module.exports = function (grunt) {
 	}
 
 	grunt.registerTask("test", function (profile) {
-		var tmpProfile;
+		var profileName;
+
+		// Inject require done callback
+		configProperty = grunt.config.get("requirejs");
+
+		for (profileName in testConfig) {
+			if (testConfig.hasOwnProperty(profileName) && testConfig[profileName]["qunit-main"]) {
+				configProperty[profileName].options.done = prepareTestsList.bind(null, profileName);
+			}
+		}
+		grunt.config.set("requirejs", configProperty);
 
 		//would be better to maintain separate build for tests purposes
 		grunt.task.run("release");
@@ -146,9 +177,9 @@ module.exports = function (grunt) {
 		if (profile) {
 			testProfile(profile, prepareForRunner);
 		} else {
-			for (tmpProfile in testConfig) {
-				if (testConfig.hasOwnProperty(tmpProfile)) {
-					testProfile(tmpProfile, prepareForRunner);
+			for (profileName in testConfig) {
+				if (testConfig.hasOwnProperty(profileName) && testConfig[profileName].default) {
+					testProfile(profileName);
 				}
 			}
 		}

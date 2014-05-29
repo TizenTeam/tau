@@ -5,36 +5,24 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>jQuery Mobile Popup Test Suite</title>
 
-	<script src="../../../../../../../libs/jquery.js"></script>
-	<script src="../../../../../../../libs/qunit-1.11.0.js" type="text/javascript"></script>
-	<script src="../../../../../../support.js"></script>
-	<script src="../../../../../jquery.testHelper.js"></script>
-	<script src="popup_core.js"></script>
-
 	<link rel="stylesheet" href="../../../../../../../libs/qunit-1.11.0.css">
-	<link rel="stylesheet" href="../../../../../../builds/themes/tizen-white/theme.css">
-	<script>
-		( function( $, undefined ) {
-			// Set the default transition to "fade" if specified in the query
-			if ( !!~location.search.indexOf( "setFadeTransition" ) ) {
-				$( document ).one( "mobileinit", function() {
-					$.mobile.popup.prototype.options.transition = "fade";
-				});
-			}
-		})( jQuery );
-	</script>
-	
-	<script src="../../swarminject.js"></script>
+	<script src="../../../../../../../libs/jquery.js"></script>
+	<script src="../../../../../../../libs/qunit-1.11.0.js"
+			type="text/javascript"></script>
+	<script src="../../../../../../../libs/support.js"></script>
+	<script src="../../../../../../../libs/jquery.testHelper.1.4.js"></script>
+	<script src="../../../../../../../libs/dist/js/tau.js"></script>
+	<script src="popup_core.js"></script>
 </head>
 <body>
 	<div id="qunit"></div>
 
-	<div data-nstest-role="page" id="start-page">
-		<div data-nstest-role="content" id="page-content">
-			<div data-nstest-role="popup" id="test-popup">
+	<div data-role="page" id="start-page">
+		<div data-role="content" id="page-content">
+			<div data-role="popup" id="test-popup">
 				<p>This is the test popup</p>
 			</div>
-			<div data-nstest-role="popup" id="tolerance-test">
+			<div data-role="popup" id="tolerance-test">
 				<p>Tolerance test popup</p>
 			</div>
 		</div>

@@ -68,9 +68,9 @@ $(document).ready(function () {
 		}()), "should be able to check leap year" );
 
 		ok( ( function () {
-			var beforeNoon = objTime.options.date.getHours() < 12;
+			var beforeNoon = objTime.option("date").getHours() < 12;
 			objTime._switchAmPm();
-			return beforeNoon != objTime.options.date.getHours() < 12;
+			return beforeNoon != objTime.option("date").getHours() < 12;
 		}()), "should change AM/PM by AMPM button" );
 
 		start();

@@ -5,37 +5,24 @@
 	<meta charset="UTF-8" />
 	<title>jQuery Mobile Controlgroup Test Suite</title>
 
-	<script src="../../../external/requirejs/require.js"></script>
-	<script src="../../../js/requirejs.config.js"></script>
-	<script src="../../../js/jquery.tag.inserter.js"></script>
-	<script src="../../jquery.setNameSpace.js"></script>
-	<script src="../../../tests/jquery.testHelper.js"></script>
-	<script src="../../../external/qunit/qunit.js"></script>
-	<script>
-		$.testHelper.asyncLoad([
-			[
-				"widgets/forms/select.custom"
-			],
-			[ "init" ],
-			[ "select_core.js" ]
-		]);
-	</script>
-
-	<link rel="stylesheet"  href="../../../css/themes/default/jquery.mobile.css"/>
-	<link rel="stylesheet" href="../../../external/qunit/qunit.css"/>
-	<link rel="stylesheet" href="../../jqm-tests.css"/>
-
-	<script src="../../swarminject.js"></script>
+	<link rel="stylesheet" href="../../../../../../../libs/qunit-1.11.0.css">
+	<script src="../../../../../../../libs/jquery.js"></script>
+	<script src="../../../../../../../libs/qunit-1.11.0.js"
+			type="text/javascript"></script>
+	<script src="../../../../../../../libs/support.js"></script>
+	<script src="../../../../../../../libs/jquery.testHelper.1.4.js"></script>
+	<script src="../../../../../../../libs/dist/js/tau.js"></script>
+	<script src="select_core.js"></script>
 </head>
 <body>
 
 	<div id="qunit"></div>
 
-	<div data-nstest-role="page">
-		<div data-nstest-role="content">
+	<div datarole="page">
+		<div datarole="content">
 		<div data-role="fieldcontain">
 			<label for="enhance-test">Multiple:</label>
-			<select name="enhance-test" id="enhance-test" multiple="multiple" data-nstest-native-menu="false" data-nstest-overlay-theme="b" data-nstest-theme="x">
+			<select name="enhance-test" id="enhance-test" multiple="multiple" datanative-menu="false" dataoverlay-theme="b" datatheme="x">
 			<option>Choose options</option>
 			<option value="1">The 1st Option</option>
 			<option value="2" selected="selected">The 2nd Option</option>

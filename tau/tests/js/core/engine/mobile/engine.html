@@ -6,7 +6,7 @@
 		<link rel="stylesheet" href="../../../../libs/qunit-1.11.0.css">
 		<script src="../../../../libs/jquery.js"></script>
 		<script src="../../../../libs/qunit-1.11.0.js" type="text/javascript"></script>
-		<script src="../../../libs/support.js"></script>
+		<script src="../../../../libs/support.js"></script>
 	</head>
 	<body>
 		<div id="qunit"></div>
@@ -38,7 +38,7 @@
 					// @NOTE: ACTUAL TESTS HERE!
 					document.removeEventListener("bound", test1);
 					var engine = ej.engine,
-						eventUtils = ej.utils.events,
+						eventUtils = ej.event,
 						el1 = document.getElementById("test1-test-widget"),
 						el3 = document.body.querySelector(".test-widget-built"),
 						b1 = engine.getBinding(el1),
@@ -83,7 +83,7 @@
 		<script src="../../../../libs/dist/js/tau.js" type="text/javascript"></script>
 		<script src="../ej.test.widget1.js"></script>
 		<script src="../ej.test.widget2.js"></script>
-		<script type="text/javascript" src="engine-methods.js"></script>
+		<script type="text/javascript" src="../engine-methods.js"></script>
 	</body>
 </html>
 

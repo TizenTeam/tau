@@ -5,42 +5,24 @@
 	<meta charset="UTF-8" />
 	<title>jQuery Mobile Controlgroup Test Suite</title>
 
-	<script src="../../../external/requirejs/require.js"></script>
-	<script src="../../../js/requirejs.config.js"></script>
-	<script src="../../../js/jquery.tag.inserter.js"></script>
-	<script src="../../jquery.setNameSpace.js"></script>
-	<script src="../../../tests/jquery.testHelper.js"></script>
-	<script src="../../../external/qunit/qunit.js"></script>
-	<script>
-		$.testHelper.asyncLoad([
-			['widgets/page'],
-			[
-				"widgets/controlgroup",
-				"buttonMarkup"
-
-			],
-			["widgets/forms/checkboxradio"],
-
-			[ "init" ],
-			[ "controlgroup_core.js" ]
-		]);
-	</script>
-
-	<link rel="stylesheet"  href="../../../css/themes/default/jquery.mobile.css"/>
-	<link rel="stylesheet" href="../../../external/qunit/qunit.css"/>
-	<link rel="stylesheet" href="../../jqm-tests.css"/>
-
-	<script src="../../swarminject.js"></script>
+	<link rel="stylesheet" href="../../../../../../../libs/qunit-1.11.0.css">
+	<script src="../../../../../../../libs/jquery.js"></script>
+	<script src="../../../../../../../libs/qunit-1.11.0.js"
+			type="text/javascript"></script>
+	<script src="../../../../../../../libs/support.js"></script>
+	<script src="../../../../../../../libs/jquery.testHelper.1.4.js"></script>
+	<script src="../../../../../../../libs/dist/js/tau.js"></script>
+	<script src="controlgroup_core.js"></script>
 </head>
 <body>
 
 	<div id="qunit"></div>
 
-	<div data-nstest-role="page">
-		<div data-nstest-role="content">
+	<div data-role="page">
+		<div data-role="content">
 
-			<div data-nstest-role="fieldcontain" id="radio-active-btn-test">
-				<fieldset data-nstest-role="controlgroup" id="vertical-controlgroup">
+			<div data-role="fieldcontain" id="radio-active-btn-test">
+				<fieldset data-role="controlgroup" id="vertical-controlgroup">
 					<legend>Choose a pet:</legend>
 					<input type="radio" name="radio-pet-active-btn" id="radio-pet-1" value="choice-1" checked="checked"  />
 					<label for="radio-pet-1">Cat</label>
@@ -56,8 +38,8 @@
 				</fieldset>
 			</div>
 
-			<div data-nstest-role="fieldcontain">
-				<fieldset data-nstest-role="controlgroup" data-nstest-type="horizontal" id="horizontal-controlgroup">
+			<div data-role="fieldcontain">
+				<fieldset data-role="controlgroup" data-type="horizontal" id="horizontal-controlgroup">
 					<legend>Font styling:</legend>
 					<input type="checkbox" name="checkbox-6" id="checkbox-6" class="custom" />
 					<label for="checkbox-6">b</label>
@@ -73,28 +55,28 @@
 				</fieldset>
 			</div>
 
-			<div id="pre-rendered" data-nstest-role="controlgroup" data-nstest-shadow="true" data-nstest-enhanced="true" class="ui-controlgroup ui-controlgroup-vertical ui-corner-all">
+			<div id="pre-rendered" data-role="controlgroup" data-shadow="true" data-enhanced="true" class="ui-controlgroup ui-controlgroup-vertical ui-corner-all">
 				<div role="heading" class="ui-controlgroup-label">
 					<legend>Pre-rendered</legend>
 				</div>
 				<div class="ui-controlgroup-controls ui-shadow">
-					<a href="#" data-nstest-role="button">Button 1</a>
-					<a href="#" data-nstest-role="button">Button 2</a>
+					<a href="#" data-role="button">Button 1</a>
+					<a href="#" data-role="button">Button 2</a>
 				</div>
 			</div>
 
-			<div data-nstest-role="fieldcontain">
-				<fieldset data-nstest-role="controlgroup" id="test-reinstantiate">
+			<div data-role="fieldcontain">
+				<fieldset data-role="controlgroup" id="test-reinstantiate">
 					<legend>Options</legend>
-					<a href="#" data-nstest-role="button">Option 1</a>
-					<a href="#" data-nstest-role="button">Option 2</a>
+					<a href="#" data-role="button">Option 1</a>
+					<a href="#" data-role="button">Option 2</a>
 				</fieldset>
 			</div>
 		</div>
 	</div>
 
-	<div data-nstest-enhance="false" data-nstest-role="fieldcontain" id="unenhanced-fieldcontain">
-		<fieldset data-nstest-type="horizontal" id="unenhanced-fieldset" data-nstest-role="controlgroup">
+	<div data-enhance="false" data-role="fieldcontain" id="unenhanced-fieldcontain">
+		<fieldset data-type="horizontal" id="unenhanced-fieldset" data-role="controlgroup">
 			<input type="checkbox" name="checkbox-10" id="checkbox-10" class="custom" />
 			<label for="checkbox-10">b</label>
 
@@ -103,8 +85,8 @@
 		</fieldset>
 	</div>
 
-	<div data-nstest-role="fieldcontain" id="enhanced-fieldcontain">
-		<fieldset data-nstest-type="horizontal" id="enhanced-fieldset" data-nstest-role="controlgroup">
+	<div data-role="fieldcontain" id="enhanced-fieldcontain">
+		<fieldset data-type="horizontal" id="enhanced-fieldset" data-role="controlgroup">
 			<input type="checkbox" name="checkbox-12" id="checkbox-12" class="custom" />
 			<label for="checkbox-12">b</label>
 
@@ -115,12 +97,12 @@
 
 	<div id="destroy-test">
 		<legend>Destroy test</legend>
-		<a href="#" data-nstest-role="button">Button 1</a>
-		<a href="#" data-nstest-role="button">Button 2</a>
+		<a href="#" data-role="button">Button 1</a>
+		<a href="#" data-role="button">Button 2</a>
 	</div>
 
-	<div data-nstest-role="fieldcontain" id="enhancetest">
-		<fieldset data-nstest-role="controlgroup">
+	<div data-role="fieldcontain" id="enhancetest">
+		<fieldset data-role="controlgroup">
 		</fieldset>
 	</div>
 </body>

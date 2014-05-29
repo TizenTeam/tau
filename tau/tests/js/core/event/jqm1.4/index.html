@@ -5,29 +5,18 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>jQuery Mobile Event Test Suite</title>
 
-	<script src="../../../js/jquery.tag.inserter.js"></script>
-	<script src="../../jquery.setNameSpace.js"></script>
-	<script src="../../../tests/jquery.testHelper.js"></script>
+	<link rel="stylesheet" href="../../../../libs/qunit-1.11.0.css">
+	<script src="../../../../libs/jquery.js"></script>
+	<script src="../../../../libs/qunit-1.11.0.js" type="text/javascript"></script>
+	<script src="../../../../libs/support.js"></script>
+	<script src="../../../../libs/jquery.testHelper.js"></script>
 	<script type="text/javascript">
 		$.testHelper.setPushState();
 	</script>
-
-	<script src="../../../js/jquery.mobile.define.js"></script>
-	<script src="../../../js/ns.js"></script>
-	<script src="../../../js/support/touch.js"></script>
-	<script src="../../../js/events.js"></script>
-	<script src="../../../js/vmouse.js"></script>
-	<script src="../../../js/events/touch.js"></script>
-	<script src="../../../js/events/throttledresize.js"></script>
-	<script src="../../../js/events/orientationchange.js"></script>
-
-	<link rel="stylesheet" href="../../../external/qunit/qunit.css"/>
-	<link rel="stylesheet" href="../../jqm-tests.css"/>
-	<script src="../../../external/qunit/qunit.js"></script>
+	<script type="text/javascript" src="event_core.js"></script>
+	<script src="../../../../libs/dist/js/tau.js"></script>
 
 	<script src="event_core.js"></script>
-
-	<script src="../../swarminject.js"></script>
 </head>
 <body>
 
@@ -35,8 +24,8 @@
 
 	<div id="qunit-fixture"></div>
 
-	<div id="foo" data-nstest-role="page">
-		<a href="#bar" data-nstest-transition="flip"></a>
+	<div id="foo" data-role="page">
+		<a href="#bar" data-transition="flip"></a>
 	</div>
 
 </body>

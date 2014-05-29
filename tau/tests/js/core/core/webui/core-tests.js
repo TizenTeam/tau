@@ -18,11 +18,11 @@ $( document ).ready( function ( ) {
 		$.mobile.tizen.disableSelection( $( "#corepage" ) );
 
 		haveDisabled.each( function () {
-			strictEqual( $(this).css( "user-select" ), "none", 'Test proper slection for none');
+			strictEqual( $(this).css( "-webkit-user-select" ), "none", 'Test proper slection for none');
 		} );
 
 		haveEnabled.each( function () {
-			strictEqual( $(this).css( "user-select" ), "text", 'Test proper slection for text' );
+			strictEqual( $(this).css( "-webkit-user-select" ), "text", 'Test proper slection for text' );
 		} );
 	} );
 } );

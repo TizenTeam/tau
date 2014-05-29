@@ -61,7 +61,7 @@
 		equal(typeof Button.classes.uiIcon, 'string', 'Property button.classes.uiIcon exists');
 		equal(typeof Button.classes.uiIconPositionPrefix, 'string', 'Property button.classes.uiIconPositionPrefix exists');
 		equal(typeof Button.classes.uiIconShadow, 'string', 'Property button.classes.uiIconShadow exists');
-		equal(typeof Button.classes.uiBtnIconPostionPrefix, 'string', 'Property button.classes.uiBtnIconPostionPrefix exists');
+		equal(typeof Button.classes.uiBtnIconPositionPrefix, 'string', 'Property button.classes.uiBtnIconPostionPrefix exists');
 		equal(typeof Button.classes.uiLink, 'string', 'Property button.classes.uiLink exists');
 		equal(typeof Button.classes.uiBtnInner, 'string', 'Property button.classes.uiBtnInner exists');
 		equal(typeof Button.classes.uiBtnText, 'string', 'Property button.classes.uiBtnText exists');
