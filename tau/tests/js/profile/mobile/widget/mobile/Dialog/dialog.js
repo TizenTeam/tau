@@ -1,8 +1,6 @@
 /*global module, test, $, equal, ej, ok, start, stop, MouseEvent */
 (function (ns) {
-document.addEventListener('DOMContentLoaded', function(){
 	"use strict";
-	document.removeEventListener('DOMContentLoaded');
 
 	module('Dialog', {
 		setup: function () {
@@ -63,8 +61,9 @@ document.addEventListener('DOMContentLoaded', function(){
 			ns.engine.instanceWidget(document.getElementById('dialogContent2'), 'Dialog');
 			document.body.addEventListener('pagechange', onDialogOpen);
 		});
-		document.getElementById('open2').click();
+
+		window.setTimeout(function(){document.getElementById('open2').click();}, 100);
 	});
 
-});
-}(ej));
+
+} (window.ej));
