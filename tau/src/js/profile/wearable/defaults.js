@@ -29,8 +29,6 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 
-			var selectors = ns.wearable.selectors;
-
 			ns.defaults = {
 				autoInitializePage: true,
 				pageTransition: 'none',
@@ -43,13 +41,6 @@
 			 * @member tau
 			 */
 			ns.dynamicBaseEnabled = true;
-
-			/**
-			 * @inheritdoc ns.wearable.selectors
-			 * @class tau.selectors
-			 * @extend ns.wearable.selectors
-			 */
-			ns.selectors = selectors;
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}

@@ -7,7 +7,9 @@
 			"require",
 			"./core/core",
 			"./core/config",
-			"./profile/wearable/profile",
+			"./profile/wearable/config",
+			"./profile/wearable/defaults",
+			"./profile/wearable/selectors",
 			"./core/engine",
 			// widget list
 			"./core/util/anchorHighlight",
@@ -32,9 +34,8 @@
 			"./profile/wearable/router/route/page",
 			"./profile/wearable/router/route/popup",
 			"./profile/wearable/router/history",
+			"./profile/wearable/expose",
 			// Modules to be loaded after
-			"./profile/wearable/exposeApi",
-			"./core/export",
 			"./core/init"
 		],
 		function ( ) {

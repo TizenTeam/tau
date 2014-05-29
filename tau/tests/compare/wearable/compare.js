@@ -2,7 +2,7 @@
 /*jslint forin: true*/
 module("compare");
 
-(function (ns) {
+(function () {
 	"use strict";
 	var exclude = ['tau.$window', 'tau.$document', 'tau.$firstPage'],
 		ejPageContainer = document.getElementById('ej-page-container'),
@@ -108,8 +108,8 @@ module("compare");
 
     function onPageShow() {
         var key,
-            newGear = window.tau.noConflict(),
-            tau = window.tau;
+            newGear = window.tau,
+            tau = oldTau;
 
         document.getElementById('ej-test').removeEventListener('pageshow', onPageShow, false);
         for (key in tau) {
@@ -123,5 +123,5 @@ module("compare");
 
 	document.getElementById('ej-test').addEventListener('pageshow', onPageShow, false);
 
-	ns.engine.run();
-}(tau._export));
+	tau.engine.run();
+}());

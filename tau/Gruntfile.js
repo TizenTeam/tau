@@ -28,14 +28,13 @@ module.exports = function(grunt) {
 			}
 		},
 
-		rootNamespace = "ns",
-		exportNamespace = name,
-		config = exportNamespace + "Config",
+		rootNamespace = name,
+		config = rootNamespace + "Config",
 		fileName = name,
 
 		wrapStart = "(function(window, document, undefined) {\n" +
 			"'use strict';\n" +
-			"var ns = {},\n" +
+			"var ns = window."+ rootNamespace +" = {},\n" +
 			"nsConfig = window." + config + " = window." + config + " || {};\n" +
 			"nsConfig.rootNamespace = '" + rootNamespace + "';\n" +
 			"nsConfig.fileName = '" + fileName + "';\n",
@@ -499,7 +498,7 @@ module.exports = function(grunt) {
 							},
 							wrap: {
 								start: '(function (ns) {',
-								end: '}(tau._export));'
+								end: '}(tau));'
 							}
 						}
 					};

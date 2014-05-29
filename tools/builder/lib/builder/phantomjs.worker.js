@@ -90,7 +90,7 @@
 				} else {
 					window.callPhantom({message: "TAU framework exists"});
 
-					if (window.tau._export.getConfig('autoBuildOnPageChange') === false) {
+					if (window.tau.getConfig('autoBuildOnPageChange') === false) {
 						window.callPhantom({
 							message: "PhanomJS: Aborting because TAU config.autoBuildOnPageChange is set to false"
 						});

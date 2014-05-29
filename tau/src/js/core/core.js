@@ -24,7 +24,7 @@
  * @author Piotr Karny <p.karny@samsung.com>
  * @author Tomasz Lukawski <t.lukawski@samsung.com>
  */
-(function (window, document, ns, nsConfig) {
+(function (document, ns, nsConfig) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(function () {
@@ -68,7 +68,7 @@
 		* @param {...*} argument
 		* @member ns
 		*/
-		ns.log = function (argument) {
+		ns.log = function () {
 			var args = slice.call(arguments);
 			infoForLog(args);
 			if (console) {
@@ -83,7 +83,7 @@
 		* @param {...*} argument
 		* @member ns
 		*/
-		ns.warn = function (argument) {
+		ns.warn = function () {
 			var args = slice.call(arguments);
 			infoForLog(args);
 			if (console) {
@@ -98,7 +98,7 @@
 		* @param {...*} argument
 		* @member ns
 		*/
-		ns.error = function (argument) {
+		ns.error = function () {
 			var args = slice.call(arguments);
 			infoForLog(args);
 			if (console) {
@@ -162,4 +162,4 @@
 		return ns;
 	});
 	//>>excludeEnd("tauBuildExclude");
-}(window, window.document, ns, nsConfig));
+}(window.document, ns, nsConfig));

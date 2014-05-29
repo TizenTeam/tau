@@ -89,12 +89,6 @@
 				 */
 				ns.pageContainer = router.container;
 				/**
-				 * @property {Object} rule
-				 * @extends ns.router.route
-				 * @member tau
-				 */
-				ns.rule = rule;
-				/**
 				 * @method openPopup
 				 * @inheritdoc ns.router.Router#openPopup
 				 * @member tau
@@ -115,53 +109,6 @@
 				 */
 				ns.closePopup = router.closePopup.bind(router);
 
-				/**
-				 * @property {Object} navigator
-				 * @extends ns.router.router
-				 * @instance
-				 * @member tau
-				 */
-				navigator = router;
-
-				/**
-				 * @property {Object} rule object contains rules for navigator
-				 * @extends ns.router.rule
-				 * @instance
-				 * @member tau.navigator
-				 */
-				navigator.rule = rule;
-
-				/**
-				 * @method back
-				 * @inheritdoc ns.router.history#back
-				 * @member tau.navigator
-				 */
-				navigator.back = back;
-
-				/**
-				 * Object to change history of browsing pages or popups
-				 * @property {Object} history
-				 * @extends ns.router.history
-				 * @member tau.navigator
-				 */
-				navigator.history = history;
-
-				/**
-				 * @property {Object} defaults Default values for router
-				 * @property {boolean} [defaults.fromHashChange = false]
-				 * @property {boolean} [defaults.reverse = false]
-				 * @property {boolean} [defaults.showLoadMsg = true]
-				 * @property {number} [defaults.loadMsgDelay = 0]
-				 * @member tau.navigator
-				 */
-				navigator.defaults = {
-					fromHashChange: false,
-					reverse: false,
-					showLoadMsg: true,
-					loadMsgDelay: 0
-				};
-
-				ns.navigator = navigator;
 			}, false);
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);

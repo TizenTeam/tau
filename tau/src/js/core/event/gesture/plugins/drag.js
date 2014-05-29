@@ -31,7 +31,9 @@
 
 			var Gesture = ns.event.gesture,
 				Detector = ns.event.gesture.Detector,
-				merge = ns.util.object.merge;
+				merge = ns.util.object.merge,
+				// TODO UA test will move to support.
+				tizenBrowser = !!window.navigator.userAgent.match(/tizen/i);
 
 			ns.event.gesture.Drag = Detector.plugin.create({
 
@@ -63,8 +65,7 @@
 							cancel: this.types[3]
 						},
 						direction = ge.direction,
-						angle = Math.abs(ge.angle),
-						tizenBrowser = true;
+						angle = Math.abs(ge.angle);
 
 					if ( !this.triggerd && ge.eventType === Gesture.Event.MOVE ) {
 						if ( Math.abs(ge.deltaX) < threshold && Math.abs(ge.deltaY) < threshold ) {

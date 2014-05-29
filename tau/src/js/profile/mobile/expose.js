@@ -1,6 +1,6 @@
 /*global window, define, ns */
 /*jslint plusplus: true, nomen: true */
-(function (document, ns, tau) {
+(function (document, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -10,8 +10,7 @@
 			"./widget/mobile/Loader",
 			"./router/Page",
 			"./router/PageExternal",
-			"./router/PageTransition",
-			"../../core/exposeApi"
+			"./router/PageTransition"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -23,9 +22,9 @@
 			/**
 			 * @method changePage
 			 * @inheritdoc ns.router.Page#open
-			 * @member tau
+			 * @member ns
 			 */
-			tau.changePage = function (toPage, options) {
+			ns.changePage = function (toPage, options) {
 				if (router) {
 					router.open(toPage, options);
 				}
@@ -35,18 +34,18 @@
 			 * Back in history.
 			 * @method back
 			 * @static
-			 * @member tau
+			 * @member ns
 			 */
-			tau.back = function () {
+			ns.back = function () {
 				window.history.back();
 			};
 
 			/**
 			 * @method openPopup
 			 * @inheritdoc ns.router.Page#open
-			 * @member tau
+			 * @member ns
 			 */
-			tau.openPopup = function (to, options) {
+			ns.openPopup = function (to, options) {
 				if (router) {
 					router.open(to, object.merge({}, options, {
 						rel : "popup"
@@ -58,9 +57,9 @@
 			 * Close popup
 			 * @method closePopup
 			 * @static
-			 * @member tau
+			 * @member ns
 			 */
-			tau.closePopup = function () {
+			ns.closePopup = function () {
 				var activePopup = ns.activePopup;
 				if(activePopup) {
 					activePopup.close();
@@ -75,4 +74,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(document, ns, window.tau));
+}(document, ns));

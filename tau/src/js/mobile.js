@@ -72,16 +72,12 @@
 			"./profile/mobile/widget/mobile/VirtualListview",
 			"./profile/mobile/widget/mobile/VirtualGrid",
 			"./profile/mobile/widget/mobile/Loader",
-			"./profile/mobile/router/Page",
-			"./profile/mobile/router/PageExternal",
-			"./profile/mobile/router/PageTransition",
 			"./profile/mobile/widget/mobile/Gallery3d",
 			"./profile/mobile/widget/mobile/TizenSlider",
 			"./profile/mobile/widget/mobile/SplitView",
 			"./profile/mobile/widget/mobile/ScrollHandler",
+			"./profile/mobile/expose",
 			// Modules to be loaded after
-			"./profile/mobile/exposeApi",
-			"./core/export",
 			"./core/init"
 		],
 		function () {
