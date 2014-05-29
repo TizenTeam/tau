@@ -17,29 +17,447 @@
 /*jslint nomen: true, plusplus: true */
 /**
  * #Popup Widget
+ * Widget handles creating and managing popup windows.
  *
  * ##Default selectors
- * In default all elements with _data-role=popup_ are changed to Tizen WebUI popups.
- *
- * ##Manual constructor
- * For manual creation of popup widget you can use constructor of widget:
- *
- *	@example
- *	var popup = ns.engine.instanceWidget(document.getElementById('popup'), 'Popup');
- *
- * If jQuery library is loaded, its method can be used:
- *
- *	@example
- *	var popup = $('#popup').popup();
+ * In default all elements with _data-role=popup_ or CSS class _.ui-popup_ are changed to Tizen WebUI popups.
  *
  * ##HTML Examples
  *
  * ###Create simple popup from div
  *
- *	@example
- *	<div id="popup" data-role="popup">
- *		<p>This is a completely basic popup, no options set.</p>
- *	</div>
+ *		@example
+ *		<div id="popup" data-role="popup">
+ *			<p>This is a completely basic popup, no options set.</p>
+ *		</div>
+ *		<!-- link related with popup-->
+ *		<a href="#popup">Click to open popup</a>
+ *
+ * ###Create simple popup positioned to window
+ *
+ * Popup inherits value of option _positionTo_ from property _data-position-to_ set in link.
+ *
+ *		@example
+ *		<!--definition of link, which opens popup and sets its position-->
+ *		<a href="#center_info" data-position-to="window">Click to open popup</a>
+ *		<!--definition of popup, which inherites property position from link-->
+ *		<div id="center_info" data-role="popup" class="center_info">
+ *			<div class="ui-popup-text">
+ *				<p>Pop-up dialog box, a child window that blocks user interaction to the parent windows</p>
+ *			</div>
+ *		</div>
+ *
+ * ###Create popup with title and button
+ *
+ *		@example
+ *		<a href="#center_title_1btn">Click to open popup</a>
+ *		<!--definition of popup with a title and button-->
+ *		<div id="center_title_1btn" data-role="popup" class="center_title_1btn">
+ *			<div class="ui-popup-title">
+ *				<h1>Popup title</h1>
+ *			</div>
+ *			<div class="ui-popup-text">
+ *				Pop-up dialog box, a child window that blocks user interaction to the parent windows
+ *			</div>
+ *			<div class="ui-popup-button-bg">
+ *				<a data-role="button" data-rel="back" data-inline="true">Button</a>
+ *			</div>
+ *		</div>
+ *
+ * ###Create popup with menu
+ *
+ * A menu can be created by placing listview inside a popup.
+ *
+ *		@example
+ *		<a href="#center_liststyle_1btn">Click to open popup</a>
+ *		<div id="center_liststyle_1btn" data-role="popup" class="center_liststyle_1btn">
+ *			<div class="ui-popup-title">
+ *				<h1>Popup title</h1>
+ *			</div>
+ *			<div class="ui-popup-scroller-bg" data-scroll="y">
+ *				<ul data-role="listview" data-icon="1line-textonly">
+ *					<li><a href="#">List item 1</a></li>
+ *					<li><a href="#">List item 2</a></li>
+ *				</ul>
+ *			</div>
+ *			<div class="ui-popup-button-bg">
+ *				<a data-role="button" data-rel="back" data-inline="true">Cancel</a>
+ *			</div>
+ *		</div>
+ *
+ * ###Create popup with nested menu
+ *
+ * A nested menu can be created by placing collapsible-set widget with listview elements.
+ *
+ *		@example
+ *		<a href="#popupNested">Click to open popup</a>
+ *		<div id="popupNested" data-role="popup">
+ *			<div data-role="collapsible-set" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d">
+ *				<div data-role="collapsible">
+ *					<h2>First menu</h2>
+ *					<ul data-role="listview">
+ *						<li><a href="#" >Item 1</a></li>
+ *						<li><a href="#" >Item 2</a></li>
+ *					</ul>
+ *				</div>
+ *				<div data-role="collapsible">
+ *					<h2>Second menu</h2>
+ *					<ul data-role="listview">
+ *						<li><a href="#" >Item 1</a></li>
+ *						<li><a href="#" >Item 2</a></li>
+ *					</ul>
+ *				</div>
+ *			</div>
+ *		</div>
+ *
+ * ###Create popup with form
+ *
+ * A form can be created by placing inputs elements inside popup.
+ *
+ *		@example
+ *		<a href="#textbox_popup">Click to open popup</a>
+ *		<div id="textbox_popup" data-role="popup" class="center_title_2btn">
+ *			<div class="ui-popup-title">
+ *				<h1>PopupTest<h1>
+ *			</div>
+ *			<div class="ui-popup-text">
+ *				<input type="text" size="20" />
+ *				<input type="text" size="20" />
+ *			</div>
+ *			<div class="ui-popup-button-bg">
+ *				<a data-role="button" id="btn_textbox_popup_cancel" data-inline="true">Cancel</a>
+ *				<a data-role="button" data-rel="back" data-inline="true">OK</a>
+ *			</div>
+ *		</div>
+ *
+ * ##Manual constructor
+ * For manual creation of popup widget you can use constructor of widget:
+ *
+ *		@example
+ *		<div id="popup">
+ *			<p>This is a completely basic popup, no options set.</p>
+ *		</div>
+ *
+ *		<script>
+ *			var popupElement = document.getElementById("popup"),
+ *				popup = tau.widget.Popup(popupElement);
+ *			popup.open();
+ *		</script>
+ *
+ * If jQuery library is loaded, its method can be used:
+ *
+ *		@example
+ *		<div id="popup">
+ *			<p>This is a completely basic popup, no options set.</p>
+ *		</div>
+ *
+ *		<script>
+ *			var popup = $("#popup").popup();
+ *			popup.popup("open");
+ *		</script>
+ *
+ * ##Context popup with arrow
+ *
+ * If property _id_ is set in link and option _positionTo="origin"_ in popup, the context popup will be opened after clicking.
+ *
+ *		@example
+ *		<!-- definition of link, which opens popup with id popup in context style with arrow -->
+ *		<a href="#popup" id="linkId" data-position-to="origin" data-role="button" data-inline="true">Click to open context popup</a>
+ *		<div id="popup" data-role="popup">
+ *			<p>This is a completely basic context popup, no options set.</p>
+ *		</div>
+ *
+ * Be award that option _positionTo_ has value "origin" in popup by default. However, the property _positionTo_ is inherited from related link and this inherited value has higher priority during opening process and overwrites the previous value. So, if we do not change it in popup and do not set value of _data-position-to_ other than "origin" in link, popup connected with link will be always opened in context style.
+ *
+ * To be sure that popup will be opened in context style with arrow, we can set properties _data-position-to="origin"_ as well as _id_ in the related with popup link as in the example above.
+ *
+ * Moreover, the same resulte can be achieve by setting only _id_ and not setting _positionTo_ in link because popup has value "origin" for option _positionTo_ by default.
+ *
+ *		@example
+ *		<!-- in link id is set -->
+ *		<a href="#popup" id="linkId" data-role="button" data-inline="true">Click to open context popup</a>
+ *		<div id="popup" data-role="popup">
+ *			<p>This is a completely basic popup, no options set.</p>
+ *		</div>
+ *
+ *
+ * After building, the value of option _positionTo_ can be changed by using method _option_.
+ *
+ *		@example
+ *		<a href="#popup" id="linkId" data-role="button" data-inline="true">Click to open context popup</a>
+ *		<div id="popup" data-role="popup">
+ *			<p>This is a completely basic popup, no options set.</p>
+ *		</div>
+ *
+ *		<script>
+ *			// changing value of option positionTo by method option
+ *			var popupWidget = tau.widget.Popup(document.getElementById("popup"));
+ *			popupWidget.option("positionTo", "origin");
+ *		</script>
+ *
+ * If jQuery is loaded:
+ *
+ *		@example
+ *		<a href="#popup" id="linkId" data-role="button" data-inline="true">Click to open context popup</a>
+ *		<div id="popup" data-role="popup">
+ *			<p>This is a completely basic popup, no options set.</p>
+ *		</div>
+ *
+ *		<script>
+ *			// changing value of option positionTo by method option
+ *			$("#popup").popup("option", "positionTo", "origin");
+ *		</script>
+ *
+ *
+ * Context popup can be created also manually for elements different than link by pushing options such as _positionTo_ and _link to method _open_.
+ *
+ *		@example
+ *		<!-- element with no properties - popup will be opened next to it in context style manually -->
+ *		<div id="linkId">Click to open context popup</div>
+ *		<div id="popup" data-role="popup">
+ *			<p>This is a completely basic popup, no options set.</p>
+ *		</div>
+ *
+ *		<script>
+ *			// set opening popup on click event
+ *			document.getElementById("linkId").addEventListener("click", function () {
+ *				// open context popup
+ *				var popupWidget = tau.widget.Popup(document.getElementById("popup"));
+ *				// opening with options
+ *				popupWidget.open({link: "linkId", positionTo: "origin"});
+ *			});
+ *		</script>
+ *
+ * If jQuery is loaded:
+ *
+ *		@example
+ *		<!-- element with no properties - popup will be opened next to it in context style manually -->
+ *		<div id="linkId">Click to open context popup</div>
+ *		<div id="popup" data-role="popup">
+ *			<p>This is a completely basic popup, no options set.</p>
+ *		</div>
+ *
+ *		<script>
+ *			// set opening popup on click event
+ *			$("#linkId").on("click", function () {
+ *				// opening with options
+ *				$("#popup").popup("open", {link: "linkId", positionTo: "origin"});
+ *			});
+ *		</script>
+ *
+ * These options can be also set globally and then method _open_ can be called without options. However, this solution can be used only for TAU API.
+ *
+ *		@example
+ *		<!-- element with no properties - popup will be opened next to it in context style manually -->
+ *		<div id="linkId">Link for popup</div>
+ *		<div id="popup" data-role="popup">
+ *			<p>This is a completely basic popup, no options set.</p>
+ *		</div>
+ *
+ *		<script>
+ *			// set options
+ *			var popupWidget = tau.widget.Popup(document.getElementById("popup"));
+ *			popupWidget.option({positionTo: "origin", link: "linkId"}); // here we set positionTo and id of link, which sets placement of popup
+ *
+ *			// set opening popup on click event
+ *			document.getElementById("linkId").addEventListener("click", function () {
+ *				//if options are set, we can call method open without options
+ *				popupWidget.open();
+ *			});
+ *		</script>
+ *
+ * For jQuery API, id of link has to be always added as a option:
+ *
+ *		@example
+ *		<!-- element with no properties - popup will be opened next to it in context style manually -->
+ *		<div id="linkId">Link for popup</div>
+ *		<div id="popup" data-role="popup">
+ *			<p>This is a completely basic popup, no options set.</p>
+ *		</div>
+ *
+ *		<script>
+ *			// set option positionTo
+ *			$("#popup").popup("option", "positionTo", "origin");
+ *
+ *			// set opening popup on click event
+ *			$("#linkId").on("click", function () {
+ *				// for jQuery API, link has to be added as a option
+ *				$("#popup").popup("open", {link: "linkId"});
+ *			});
+ *		</script>
+ *
+ *
+ * ##Special classes
+ *
+ * There are some special CSS classes, which changes the style of popup:
+ *
+ *  - _center_info_ - basic pop-up message<br>
+ *  - _center_title_ - pop-up message with a title<br>
+ *  - _center_basic_1btn_ - pop-up message with 1 button<br>
+ *  - _center_basic_2btn_ - pop-up message with 2 horizontal buttons<br>
+ *  - _center_title_1btn_ - pop-up message with a title and 1 button<br>
+ *  - _center_title_2btn_ - pop-up message with a title and 2 horizontal buttons<br>
+ *  - _center_title_3btn_ - pop-up message with a title and 3 horizontal buttons<br>
+ *  - _center_button_vertical_ - pop-up message with vertical buttons<br>
+ *  - _center_checkbox_ - pop-up message with a check box<br>
+ *  - _center_liststyle_1btn_ - pop-up message with a list and 1 button<br>
+ *  - _center_liststyle_2btn_ - pop-up message with a list and 2 horizontal buttons<br>
+ *  - _center_liststyle_3btn_ - pop-up message with a list and 3 horizontal buttons<br>
+ *
+ * ##Methods
+ *
+ * To call method on widget you can use one of existing API:
+ *
+ * First API is from tau namespace:
+ *
+ *		@example
+ *		var popupElement = document.getElementById("popup"),
+ *			popup = tau.widget.Popup(popupElement);
+ *
+ *		popup.methodName(methodArgument1, methodArgument2, ...);
+ *
+ * Second API is jQuery Mobile API and for call _methodName_ you can use:
+ *
+ *		@example
+ *		$(".selector").popup("methodName", methodArgument1, methodArgument2, ...);
+ *
+ * ##Opening popup
+ * There are two ways to open popup.
+ *
+ * ###Opening by clicking on link
+ *
+ * If link has _id_ of popup set as value of property _href_, then this popup will be opened after clicking on it.
+ *
+ *		@example
+ *		<!--definition of link, which opens popup with id popup-->
+ *		<a href="#popup">Click to open popup</a>
+ *		<div id="popup" data-role="popup">
+ *			<p>This is a completely basic popup, no options set.</p>
+ *		</div>
+ *
+ * Be award that context popup with arrow will be opened if link has _id_ property set and _data-position-to="origin"_  as in this example:
+ *
+ *		@example
+ *		<!--definition of link, which opens context popup with id popup-->
+ *		<a href="#popup" id="linkId" data-position-to="origin" data-role="button" data-inline="true">Click to open context popup</a>
+ *		<div id="popup" data-role="popup">
+ *			<p>This is a completely basic popup, no options set.</p>
+ *		</div>
+ *
+ * To open window popup, property _data-position-to="window"_ must be set in link or popup.
+ *
+ *		@example
+ *		<!--definition of link, which opens window popup with id popup-->
+ *		<a href="#popup" id="linkId" data-position-to="window">Click to open popup</a>
+ *		<div id="popup" data-role="popup">
+ *			<p>This is a completely basic popup, no options set.</p>
+ *		</div>
+ *
+ * ###Opening manually
+ *
+ * To open popup with _id_ "popup", tau namespace can be used:
+ *
+ *		@example
+ *		<div id="popup">
+ *			<p>This is a completely basic popup, no options set.</p>
+ *		</div>
+ *
+ *		<script>
+ *			var popupElement = document.getElementById("popup"),
+ *				popup = tau.widget.Popup(popupElement);
+ *			popup.open();
+ *		</script>
+ *
+ * If jQuery library is loaded, this method can be used:
+ *
+ *		@example
+ *		<div id="popup" data-role="popup">
+ *			<p>This is a completely basic popup, no options set.</p>
+ *		</div>
+ *
+ *		<script>
+ *			var popup = $("#popup").popup();
+ *			popup.popup("open");
+ *		</script>
+ *
+ *
+ * ## Closing popup
+ *
+ * ###Closing by clicking on button inside
+ *
+ * If link inside popup has property _data-rel="back"_, then popup will be closed after clicking on it as in this example:
+ *
+ *		@example
+ *		<a href="#center_title_1btn" data-position-to="window">Click to open popup</a>
+ *		<!--definition of popup with a title and button-->
+ *		<div id="center_title_1btn" data-role="popup" class="center_title_1btn">
+ *			<div class="ui-popup-title">
+ *				<h1>Popup title</h1>
+ *			</div>
+ *			<div class="ui-popup-text">
+ *				Pop-up dialog box, a child window that blocks user interaction to the parent windows
+ *			</div>
+ *			<div class="ui-popup-button-bg">
+ *				<a data-role="button" data-rel="back" data-inline="true">Button</a>
+ *			</div>
+ *		</div>
+ *
+ *
+ * The selector, which causes closing on click, can be changed by setting option _closeLinkSelector_ in popup.
+ *
+ * ###Closing manually
+ *
+ * To close popup with _id_ "popup", tau namespace can be used:
+ *
+ *		@example
+ *		<a href="#popup" data-position-to="window">Click to open popup</a>
+ *		<div id="popup" data-role="popup">
+ *			<p>This is a completely basic popup, no options set.</p>
+ *		</div>
+ *
+ *		<script>
+ *			var popupElement = document.getElementById("popup"),
+ *				popup = tau.widget.Popup(popupElement);
+ *			// close popup after opening
+ *			popupElement.addEventListener("popupafteropen", function () {
+ *				popup.close();
+ *			});
+ *		</script>
+ *
+ * If jQuery library is loaded, this method can be used:
+ *
+ *		@example
+ *		<a href="#popup" data-position-to="window">Click to open popup</a>
+ *		<div id="popup" data-role="popup">
+ *			<p>This is a completely basic popup, no options set.</p>
+ *		</div>
+ *
+ *		<script>
+ *			$("#popup").on("popupafteropen", function () {
+ *				$("#popup").popup("close");
+ *			});
+ *		</script>
+ *
+ * ## Handling Popup Events
+ *
+ * To use popup events, use the following code:
+ *
+ *		@example
+ *		<!-- Popup html code -->
+ *		<div id="popup" data-role="popup">
+ *			<p>This is a completely basic popup, no options set.</p>
+ *		</div>
+ *
+ *		<script>
+ *			// Use popup events
+ *			var popup = document.getElementById("popup");
+ *			popup.addEventListener("popupafteropen", function() {
+ *				// Implement code for popupafteropen event
+ *			});
+ *		</script>
+ *
+ * Full list of available events is in [events list section](#events-list).
+
  *
  * @class ns.widget.mobile.Popup
  * @extends ns.widget.BaseWidget
@@ -47,6 +465,27 @@
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Piotr Karny <p.karny@samsung.com>
  * @author Michał Szepielak <m.szepielak@samsung.com>
+ */
+
+/**
+ * Triggered when process of opening popup is completed.
+ * The "popupafteropen" event is triggered when the popup has completely appeared on the screen and all associated animations have completed.
+ * @event popupafteropen
+ * @member ns.widget.mobile.Popup
+ */
+
+/**
+ * Triggered before a popup computes the coordinates where it will appear.
+ * The "beforeposition" event is triggered before the popup starts the opening animations and calculates the coordinates where it will appear on the screen. Handling this event gives an opportunity to modify the content of the popup before it appears on the screen.
+ * @event beforeposition
+ * @member ns.widget.mobile.Popup
+ */
+
+/**
+ * Triggered when the process of closing popup is completed.
+ * The "popupafterclose" event is triggered when the popup has completely disappeared from the screen and all associated animations have completed.
+ * @event popupafterclose
+ * @member ns.widget.mobile.Popup
  */
 (function (window, document, ns) {
 	"use strict";
@@ -71,21 +510,22 @@
 				var self = this;
 					/**
 					* @property {Object} options Object with default options
-					* @property {string} [options.theme='s'] theme of widget
-					* @property {string} [options.overlayTheme=''] color scheme (swatch) for the popup background
-					* @property {boolean} [options.shadow=true] Shadow of popup
-					* @property {boolean} [options.corners=true]
-					* @property {boolean} [options.noScreen=false] Set screen to be always hidden
-					* @property {string} [options.transition='none']
-					* @property {string} [options.positionTo='origin'] Selector for element relative to which popup is positioned
-					* @property {Object} [options.tolerance]
-					* @property {Array} [options.directionPriority] Array containing directions sorted in by priority.
-					* First one has the highest priority, last the lowest. Default to: bottom, top, right, left.
-					* @property {string} [options.closeLinkSelector] Selector for buttons in popup
-					* @property {string} [options.link=null] Id of element used as reference for relative popup placement
-					* @property {boolean} [options.isHardwarePopup=false]
+					* @property {string} [options.theme="s"] Sets the color scheme (swatch) for the popup contents.
+					* @property {?string} [options.overlayTheme=""] Sets the color scheme (swatch) for the popup background, which covers the entire window.
+					* @property {boolean} [options.shadow=true] Sets whether to draw a shadow around the popup.
+					* @property {boolean} [options.corners=true] Sets whether to draw the popup with rounded corners.
+					* @property {boolean} [options.noScreen=false] Set screen to be always hidden.
+					* @property {string} [options.transition="none"] Sets the default transition for the popup.
+					* @property {string} [options.positionTo="origin"] Sets the element relative to which the popup will be centered.
+					* @property {Object} [options.tolerance={t: 10, r: 10, b: 10, l: 10}] Sets the minimum distance from the edge of the window for the corresponding edge of the popup.
+					* @property {Array} [options.directionPriority=["bottom", "top", "right", "left"]] Sets directions of popup's placement by priority. First one has the highest priority, last the lowest.
+					* @property {string} [options.closeLinkSelector="a[data-rel="back"]"] Sets selector for buttons in popup
+					* @property {?string} [options.link=null] Sets id of element used as reference for relative popup placement
+					* @property {boolean} [options.isHardwarePopup=false] Sets whether the popup is hardware one.
+					* @property {?number} [options.positionX=null] Sets desired horizontal coordinate of the center point in popup in pixels.
+					* @property {?number} [options.positionY=null] Sets desired vertical coordinate of the center point in popup in pixels.
+					* @property {boolean} [options.history=false] Sets whether to alter the url when a popup is open to support the back button.
 					* @member ns.widget.mobile.Popup
-					* @instance
 					*/
 					self.options = {
 						theme: null,
@@ -107,59 +547,37 @@
 					self.defaultOptions = {
 						theme: "s"
 					};
-					/**
-					* @property {Object} _ui Object with html elements connected with popup
-					* @member ns.widget.mobile.Popup
-					* @instance
-					*/
+					// @property {Object} _ui Object with html elements connected with popup
+					// @member ns.widget.mobile.Popup
 					self._ui = {
 						screen: null,
 						placeholder: null,
 						container: null,
 						arrow: null
 					};
-					/**
-					* @property {HTMLElement} _page Page element
-					* @member ns.widget.mobile.Popup
-					* @instance
-					*/
+					// @property {HTMLElement} _page Page element
+					// @member ns.widget.mobile.Popup
 					self._page = null;
-					/**
-					* @property {boolean} _isPreOpen Status of popup before animation
-					* @member ns.widget.mobile.Popup
-					* @instance
-					*/
+					// @property {boolean} _isPreOpen Status of popup before animation
+					// @member ns.widget.mobile.Popup
 					self._isPreOpen = false;
-					/**
-					* @property {boolean} _isOpen Status of popup after animation
-					* @member ns.widget.mobile.Popup
-					* @instance
-					*/
+					// @property {boolean} _isOpen Status of popup after animation
+					// @member ns.widget.mobile.Popup
 					self._isOpen = false;
-					/**
-					 * @property {boolean} _isPreClose Status of popup before animation (popup starts to close)
-					 * @member ns.widget.mobile.Popup
-					 * @instance
-					 */
+					// @property {boolean} _isPreClose Status of popup before animation (popup starts to close)
+					// @member ns.widget.mobile.Popup
 					self._isPreClose = false;
-					/**
-					 * animations
-					 */
+					// animations
 					self._prereqs = null;
 					self._fallbackTransition = "";
 					self._currentTransition = "none";
-					/**
-					* callbacks
-					*/
+					// callbacks
 					self._onClickBound = null;
 					self._onResizeBound = null;
 					self._onButtonClickBound = null;
-					/**
-					 * @property {Function} _callback Callback for 'resize' event, which sets position of widget.
-					 * This callback must return object with properties 'x' and 'y'.
-					 * @member ns.widget.mobile.Popup
-					 * @instance
-					 */
+					// @property {Function} _callback Callback for "resize" event, which sets position of widget.
+					// This callback must return object with properties "x" and "y".
+					// @member ns.widget.mobile.Popup
 					self._callback = null;
 				},
 				/**
@@ -207,13 +625,12 @@
 				*/
 				UtilsDeferred = ns.util.deferred;
 
-			/**
-			* Return window coordinates
-			* @method windowCoords
-			* @return {Object}
-			* @private
-			* @member ns.widget.mobile.Popup
-			*/
+			// Return window coordinates
+			// @method windowCoords
+			// @return {Object}
+			// @private
+			// @static
+			// @member ns.widget.mobile.Popup
 			function windowCoords() {
 				var body = window.body;
 
@@ -225,17 +642,16 @@
 				};
 			}
 
-			/**
-			* Return size of segment
-			* @method fitSegmentInsideSegment
-			* @param {Number} winSize
-			* @param {Number} segSize
-			* @param {Number} offset
-			* @param {Number} desired
-			* @return {Number}
-			* @private
-			* @member ns.widget.mobile.Popup
-			*/
+			// Return size of segment
+			// @method fitSegmentInsideSegment
+			// @param {Number} winSize
+			// @param {Number} segSize
+			// @param {Number} offset
+			// @param {Number} desired
+			// @return {Number}
+			// @private
+			// @static
+			// @member ns.widget.mobile.Popup
 			function fitSegmentInsideSegment(winSize, segSize, offset, desired) {
 				var ret = desired;
 
@@ -250,14 +666,14 @@
 				return ret;
 			}
 
-			/**
-			* Return element relative to which popup must be positioned
-			* @method findPositionToElement
-			* @param {string} elementSelector
-			* @return {HTMLElement}
-			* @private
-			* @member ns.widget.mobile.Popup
-			*/
+
+			// Return element relative to which popup must be positioned
+			// @method findPositionToElement
+			// @param {string} elementSelector
+			// @return {HTMLElement}
+			// @private
+			// @static
+			// @member ns.widget.mobile.Popup
 			function findPositionToElement(elementSelector) {
 				var positionToElement = null;
 
@@ -276,15 +692,14 @@
 				return positionToElement;
 			}
 
-			/**
-			* Return offset of element
-			* @method getOffsetOfElement
-			* @param {HTMLElement} element
-			* @param {?string} link
-			* @return {Object}
-			* @private
-			* @member ns.widget.mobile.Popup
-			*/
+			// Return offset of element
+			// @method getOffsetOfElement
+			// @param {HTMLElement} element
+			// @param {?string} link
+			// @return {Object}
+			// @private
+			// @static
+			// @member ns.widget.mobile.Popup
 			function getOffsetOfElement(element, link) {
 				var top = element.offsetTop,
 					left = element.offsetLeft,
@@ -306,12 +721,11 @@
 				return {top: top, left: left};
 			}
 
-			/**
-			* Function fires on window resizing
-			* @method onResize
-			* @private
-			* @member ns.widget.mobile.Popup
-			*/
+			// Function fires on window resizing
+			// @method onResize
+			// @private
+			// @static
+			// @member ns.widget.mobile.Popup
 			function onResize(self) {
 				var callback,
 					options;
@@ -327,12 +741,11 @@
 				}
 			}
 
-			/**
-			* Function fires on click
-			* @method _eatEventAndClose
-			* @private
-			* @member ns.widget.mobile.Popup
-			*/
+			// Function fires on click
+			// @method _eatEventAndClose
+			// @private
+			// @static
+			// @member ns.widget.mobile.Popup
 			function _eatEventAndClose(self, event) {
 				event.preventDefault();
 				events.stopPropagation(event);
@@ -414,15 +827,14 @@
 				}
 			}
 
-			/**
-			 * @method chooseDirectionByPriority
-			 * @param {Array} directionPriority
-			 * @param {Object} positionOffsets
-			 * @param {Object} elementDimensions
-			 * @param {Object} arrowBorderWidths
-			 * @private
-			 * @return {string}
-			 */
+			 // @method chooseDirectionByPriority
+			 // @param {Array} directionPriority
+			 // @param {Object} positionOffsets
+			 // @param {Object} elementDimensions
+			 // @param {Object} arrowBorderWidths
+			 // @private
+			 // @static
+			 // @return {string}
 			function chooseDirectionByPriority(directionPriority, positionOffsets, elementDimensions, arrowBorderWidths) {
 				var direction,
 					bestMatchingDirection,
@@ -454,29 +866,27 @@
 				return bestMatchingDirection || "bottom";
 			}
 
-			/**
-			* Set events connected with animation
-			* @method animationComplete
-			* @param {HTMLElement} element
-			* @param {Function} callback
-			* @private
-			* @member ns.widget.mobile.Popup
-			*/
+			// Set events connected with animation
+			// @method animationComplete
+			// @param {HTMLElement} element
+			// @param {Function} callback
+			// @private
+			// @static
+			// @member ns.widget.mobile.Popup
 			function animationComplete(element, callback) {
 				events.one(element, "webkitAnimationEnd", callback);
 				events.one(element, "animationend", callback);
 			}
 
-			/**
-			* This function starts opening popup by seting global property 'activePopup'
-			* and calling '_open' method
-			* @method startOpeningPopup
-			* @param {ns.widget.Popup} instance
-			* @param {Object} options opening options
-			* @param {Event} event
-			* @private
-			* @memberOf ns.widget.Popup
-			*/
+			// This function starts opening popup by seting global property "activePopup"
+			// and calling "_open" method
+			// @method startOpeningPopup
+			// @param {ns.widget.mobile.Popup} instance
+			// @param {Object} options opening options
+			// @param {Event} event
+			// @private
+			// @static
+			// @memberOf ns.widget.Popup
 			function startOpeningPopup(instance, options, event) {
 				ns.activePopup = instance;
 				events.trigger(document, "activePopup", instance);
@@ -523,7 +933,6 @@
 			* @return {HTMLElement}
 			* @protected
 			* @member ns.widget.mobile.Popup
-			* @instance
 			*/
 			Popup.prototype._build = function (element) {
 				var classes = Popup.classes,
@@ -762,7 +1171,6 @@
 			 * @param {Object} positionToElementOffset contains toElement offsets
 			 * @return {Object}
 			 * @protected
-			 * @instance
 			 * @member ns.widget.mobile.Popup
 			 */
 			Popup.prototype._setArrowPosition = function (type, positionToElement, containerLeft, containerTop, positionToElementOffset) {
@@ -830,21 +1238,81 @@
 			};
 
 			/**
-			* Set callback, which fires on 'resize' event.
-			* @method setPositionCB
-			* @member ns.widget.mobile.Popup
-			* @deprecated
-			*/
+			 * Set callback, which is called on "resize" event. This callback should return desired position of popup after resizing.
+			 *
+			 * This function is deprecated and function setPositionCallback should be used to set this callback.
+			 *
+			 *      @example
+			 *      <div id="popup" data-role="popup">
+			 *          <p>This is a completely basic popup, no options set.</p>
+			 *      </div>
+			 *
+			 *      <script>
+			 *          var popupWidget = tau.widget.Popup(document.getElementById("popup"));
+			 *
+			 *          popupWidget.setPositionCB(function() {
+			 *                return {x: 10, y: 20};
+			 *          });
+			 *      </script>
+			 *
+			 * If jQuery is loaded:
+			 *
+			 *      @example
+			 *      <div id="popup" data-role="popup">
+			 *          <p>This is a completely basic popup, no options set.</p>
+			 *      </div>
+			 *
+			 *      <script>
+			 *          $("#popup").popup("setPositionCB", function() {
+			 *                return {x: 10, y: 20};
+			 *          });
+			 *      </script>
+			 *
+			 * @method setPositionCB
+			 * @param {Function} callback Function called on resizing. It should return desired position of popup as object with "x" and "y" properties.
+			 * @member ns.widget.mobile.Popup
+			 * @deprecated 2.3
+			 */
 			Popup.prototype.setPositionCB = function (callback) {
 				this.setPositionCallback(callback);
 			};
 
 			/**
-			* Set callback, which fires on 'resize' event.
-			* @method setPositionCallback
-			* @member ns.widget.mobile.Popup
-			* @new
-			*/
+			 * Set callback, which is called on "resize" event. This callback should return desired position of popup after resizing.
+			 *
+			 * This function should be used instead of "setPositionCB".
+			 *
+			 *      @example
+			 *      <div id="popup" data-role="popup">
+			 *          <p>This is a completely basic popup, no options set.</p>
+			 *      </div>
+			 *
+			 *      <script>
+			 *          var popupWidget = tau.widget.Popup(document.getElementById("popup"));
+			 *
+			 *          popupWidget.setPositionCallback(function() {
+			 *                return {x: 10, y: 20};
+			 *         });
+			 *      </script>
+			 *
+			 * If jQuery is loaded:
+			 *
+			 *      @example
+			 *      <div id="popup" data-role="popup">
+			 *          <p>This is a completely basic popup, no options set.</p>
+			 *      </div>
+			 *
+			 *      <script>
+			 *          $("#popup").popup("setPositionCallback", function() {
+			 *                return {x: 10, y: 20};
+			 *          });
+			 *      </script>
+			 *
+			 * @method setPositionCallback
+			 * @param {Function} callback Function called on resizing. It should return desired position of popup as object with "x" and "y" properties.
+			 * @member ns.widget.mobile.Popup
+			 * @new 2.3
+			 */
 			Popup.prototype.setPositionCallback = function (callback) {
 				this._callback = callback;
 			};
@@ -852,12 +1320,12 @@
 			/**
 			* Set position of popup
 			* @method _setPosition
-			* @param {number} [top]
 			* @param {number} [left]
+			* @param {number} [top]
 			* @protected
 			* @member ns.widget.mobile.Popup
 			*/
-			Popup.prototype._setPosition = function (top, left) {
+			Popup.prototype._setPosition = function (left, top) {
 				var ui = this._ui,
 					uiArrow = ui.arrow,
 					uiContainer = ui.container,
@@ -897,7 +1365,11 @@
 					left = desired.left;
 				} else if (positionToOption === "origin") {
 					// popup with arrow
-					positionToElement = findPositionToElement("#" + options.link);
+					if (options.link) {
+						positionToElement = findPositionToElement("#" + options.link);
+					} else {
+						positionToElement = null;
+					}
 					desired = this._placementCoords(desired || this._desiredCoords(positionToElement));
 					top = desired.top;
 					left = desired.left;
@@ -915,16 +1387,17 @@
 							height: uiContainerHeight
 						};
 						arrowDimensions = {
-							// For proper results arrow width and height are assumed to be '0'
+							// For proper results arrow width and height are assumed to be "0"
 							"top": arrowBorders["border-top-width"],
 							"right": arrowBorders["border-right-width"],
 							"bottom": arrowBorders["border-bottom-width"],
 							"left": arrowBorders["border-left-width"]
 						};
 						arrowType = chooseDirectionByPriority(options.directionPriority, positionOffsets, elementDimensions, arrowDimensions);
-					}
-					if (uiArrow.style.display !== "none") {
-						correctionValue = this._setArrowPosition(arrowType, positionToElement, left, top, positionToElementOffset);
+
+						if (uiArrow.style.display !== "none") {
+							correctionValue = this._setArrowPosition(arrowType, positionToElement, left, top, positionToElementOffset);
+						}
 					}
 				} else {
 					// position to element which matches to options.positionTo selector
@@ -999,7 +1472,6 @@
 			* Set type of corners
 			* @method _setCorners
 			* @param {boolean} value
-			* @return {void}
 			* @protected
 			* @member ns.widget.mobile.Popup
 			*/
@@ -1176,7 +1648,6 @@
 			* Set popup, which will be opened
 			* @method _open
 			* @param {Object} options
-			* @return {void}
 			* @protected
 			* @member ns.widget.mobile.Popup
 			*/
@@ -1365,16 +1836,49 @@
 			};
 
 			/**
-			* Open popup
-			* @method open
-			* @param {Object} options
-			* @return {void}
-			* @protected
-			* @member ns.widget.mobile.Popup
-			*/
-			Popup.prototype.open = function (options, event) {
+			 * This method opens popup.
+			 *
+			 *      @example
+			 *      <div id="popup" data-role="popup">
+			 *          <p>This is a completely basic popup, no options set.</p>
+			 *      </div>
+			 *
+			 *      <script>
+			 *          var popupWidget = tau.widget.Popup(document.getElementById("popup"));
+			 *
+			 *          popupWidget.open();
+			 *      </script>
+			 *
+			 * If jQuery is loaded:
+			 *
+			 *     @example
+			 *      <div id="popup" data-role="popup">
+			 *          <p>This is a completely basic popup, no options set.</p>
+			 *      </div>
+			 *
+			 *     <script>
+			 *       $("#popup").open("open", {"noScreen" : true, "positionX" : 10});
+			 *     </script>
+			 *
+			 * @method open
+			 * @param {Object} [options]
+			 * @param {boolean} [options.corners] Sets whether to draw the popup with rounded corners.
+			 * @param {string} [options.positionTo="origin"] Sets the element relative to which the popup will be centered.
+			 * @param {?string} [options.link=null] Sets id of element used as reference for relative popup placement.
+			 * @param {Object} [options.tolerance] Sets the minimum distance from the edge of the window for the corresponding edge of the popup.
+			 * @param {boolean} [options.noScreen] Set screen to be always hidden
+			 * @param {string} [options.transition] Sets the default transition for the popup.
+			 * @param {boolean} [options.popupwindow] Sets whether the popup has context style.
+			 * @param {boolean} [options.isHardwarePopup] Sets whether the popup is hardware one.
+			 * @param {?number} [options.positionX] Sets desired horizontal coordinate of the center point in popup in pixels.
+			 * @param {?number} [options.positionY] Sets desired vertical coordinate of the center point in popup in pixels.
+			 * @protected
+			 * @member ns.widget.mobile.Popup
+			 */
+			Popup.prototype.open = function (options) {
 				var activePopup = ns.activePopup,
 					closePopup,
+					event = arguments[1],
 					startOpeningCallback = startOpeningPopup.bind(null, this, options, event);
 
 				if (activePopup === this) {
@@ -1398,12 +1902,35 @@
 			};
 
 			/**
-			* Close popup
-			* @method close
-			* @return {void}
-			* @protected
-			* @member ns.widget.mobile.Popup
-			*/
+			 * Close popup
+			 *
+			 *      @example
+			 *      <div id="popup" data-role="popup">
+			 *          <p>This is a completely basic popup, no options set.</p>
+			 *      </div>
+			 *
+			 *      <script>
+			 *          var popupWidget = tau.widget.Popup(document.getElementById("popup"));
+			 *
+			 *          popupWidget.close(true); // popup will be closed without animation
+			 *      </script>
+			 *
+			 * If jQuery is loaded:
+			 *
+			 *      @example
+			 *      <div id="popup" data-role="popup">
+			 *          <p>This is a completely basic popup, no options set.</p>
+			 *      </div>
+			 *
+			 *      <script>
+			 *          $("#popup").popup("close");
+			 *      </script>
+			 *
+			 * @method close
+			 * @param {boolean} [immediate=false] defined if popup should be closed without animation
+			 * @protected
+			 * @member ns.widget.mobile.Popup
+			 */
 			Popup.prototype.close = function (immediate) {
 				// @todo define mutex $.mobile.popup.active
 				if (!ns.activePopup || !this._isOpen) {
@@ -1418,7 +1945,6 @@
 			* @method _bindEvents
 			* @protected
 			* @member ns.widget.mobile.Popup
-			* @instance
 			*/
 			Popup.prototype._bindEvents = function () {
 				var self = this,
@@ -1446,11 +1972,40 @@
 			};
 
 			/**
+			 * Removes the popup functionality completely.
+			 *
+			 * This will return the element back to its pre-init state.
+			 *
+			 *      @example
+			 *      <div id="popup" data-role="popup">
+			 *          <p>This is a completely basic popup, no options set.</p>
+			 *      </div>
+			 *
+			 *      <script>
+			 *          var popupWidget = tau.widget.Popup(document.getElementById("popup"));
+			 *          popupWidget.destroy();
+			 *      <script>
+			 *
+			 * If jQuery is loaded:
+			 *
+			 *      @example
+			 *      <div id="popup" data-role="popup">
+			 *          <p>This is a completely basic popup, no options set.</p>
+			 *      </div>
+			 *
+			 *      <script>
+			 *          $("#popup").popup("destroy");
+			 *      </script>
+			 *
+			 * @method destroy
+			 * @member ns.widget.mobile.Popup
+			 */
+
+			/**
 			* Destroy popup
 			* @method _destroy
 			* @protected
 			* @member ns.widget.mobile.Popup
-			* @instance
 			*/
 			Popup.prototype._destroy = function () {
 				var self = this,
@@ -1490,11 +2045,269 @@
 			};
 
 			/**
-			 * @method setPosition
-			 * @public
-			 * @inheritdoc ns.widget.mobile.Popup#_setPosition
+			 * This method refreshes position of opened popup.
+			 *
+			 *      @example
+			 *      <div id="popup" data-role="popup">
+			 *          <p>This is a completely basic popup, no options set.</p>
+			 *      </div>
+			 *
+			 *      <script>
+			 *          var popupWidget = tau.widget.Popup(document.getElementById("popup"));
+			 *
+			 *          popupWidget.refresh(); // only refresh original position
+			 *      </script>
+			 *
+			 * If jQuery is loaded:
+			 *
+			 *      @example
+			 *      <div id="popup" data-role="popup">
+			 *          <p>This is a completely basic popup, no options set.</p>
+			 *      </div>
+			 *
+			 *      <script>
+			 *          $("#popup").popup("refresh", {top: 10, left: 10}); // try to set new position for the center point of popup
+			 *      </script>
+			 *
+			 * @method refresh
+			 * @param {Object} [options] options
+			 * @param {number} [options.positionX] desired horizontal coordinate of the center point in popup in pixels (it only works if both coordinates are set - top and left)
+			 * @param {number} [options.positionY] desired vertical coordinate of the center point in popup in pixels (it only works if both coordinates are set - top and left)
+			 * @chainable
+			 * @member ns.widget.mobile.Popup
 			 */
-			Popup.prototype.setPosition = Popup.prototype._setPosition;
+
+			/**
+			* Refresh popup
+			* @method _refresh
+			* @protected
+			* @member ns.widget.mobile.Popup
+			*/
+			Popup.prototype._refresh = function (options) {
+				// @todo - add argument with options (positionTo should be changed, because there is problem with arrow)
+				options = options || {};
+				this._setPosition(options.positionX, options.positionY);
+			};
+
+			/**
+			 * This method changes state of popup on enabled and removes CSS classes connected with state.
+			 *
+			 *      @example
+			 *      <div id="popup" data-role="popup">
+			 *          <p>This is a completely basic popup, no options set.</p>
+			 *      </div>
+			 *
+			 *      <script>
+			 *          var popupWidget = tau.widget.Popup(document.getElementById("popup"));
+			 *          popupWidget.enable();
+			 *      </script>
+			 *
+			 * If jQuery is loaded:
+			 *
+			 *      @example
+			 *      <div id="popup" data-role="popup">
+			 *          <p>This is a completely basic popup, no options set.</p>
+			 *      </div>
+			 *
+			 *      <script>
+			 *          $("#popup").popup("enable");
+			 *      </script>
+			 *
+			 * @method enable
+			 * @chainable
+			 * @member ns.widget.mobile.Popup
+			 */
+
+			/**
+			 * This method changes state of popup on disabled and adds CSS classes connected with state.
+			 *
+			 *      @example
+			 *      <div id="popup" data-role="popup">
+			 *          <p>This is a completely basic popup, no options set.</p>
+			 *      </div>
+			 *
+			 *      <script>
+			 *          var popupWidget = tau.widget.Popup(document.getElementById("popup"));
+			 *          popupWidget.disable();
+			 *      </script>
+			 *
+			 * If jQuery is loaded:
+			 *
+			 *      @example
+			 *      <div id="popup" data-role="popup">
+			 *          <p>This is a completely basic popup, no options set.</p>
+			 *      </div>
+			 *
+			 *      <script>
+			 *          $("#popup").popup("disable");
+			 *      </script>
+			 *
+			 * @method disable
+			 * @chainable
+			 * @member ns.widget.mobile.Popup
+			 */
+
+			/**
+			 * The function "value" is not supported in this widget.
+			 *
+			 * @method value
+			 * @chainable
+			 * @member ns.widget.mobile.Popup
+			 */
+
+			/**
+			 * Get/Set options of the widget.
+			 *
+			 * This method can work in many context.
+			 *
+			 * If first argument is type of object them, method set values for options given in object. Keys of object are names of options and values from object are values to set.
+			 *
+			 * If you give only one string argument then method return value for given option.
+			 *
+			 * If you give two arguments and first argument will be a string then second argument will be intemperate as value to set.
+			 *
+			 *      @example
+			 *      <div id="popup" data-role="popup">
+			 *          <p>This is a completely basic popup, no options set.</p>
+			 *      </div>
+			 *
+			 *      <script>
+			 *          var popupWidget = tau.widget.Popup(document.getElementById("popup")),
+			 *              optionValue;
+			 *
+			 *          optionValue = popupWidget.option("positionTo"); // read value of option positionTo
+			 *          popupWidget.option("positionTo", "window") // set value
+			 *      </script>
+			 *
+			 * If jQuery is loaded:
+			 *
+			 *      @example
+			 *      <div id="popup" data-role="popup">
+			 *          <p>This is a completely basic popup, no options set.</p>
+			 *      </div>
+			 *
+			 *      <script>
+			 *          optionValue = $("#popup").popup("option", "positionTo");
+			 *          $("#popup").popup("option", "positionTo", "window");
+			 *      </script>
+			 *
+			 * @method option
+			 * @param {string|Object} [name] name of option
+			 * @param {*} value value to set
+			 * @member ns.widget.mobile.Popup
+			 * @return {*} return value of option or undefined if method is called in setter context
+			 */
+
+			/**
+			 * Trigger an event on widget's element.
+			 *
+			 *      @example
+			 *      <div id="popup" data-role="popup">
+			 *          <p>This is a completely basic popup, no options set.</p>
+			 *      </div>
+			 *
+			 *      <script>
+			 *          var popupWidget = tau.widget.Popup(document.getElementById("popup"));
+			 *          popupWidget.trigger("eventName");
+			 *      </script>
+			 *
+			 * If jQuery is loaded:
+			 *
+			 *      @example
+			 *      <div id="popup" data-role="popup">
+			 *          <p>This is a completely basic popup, no options set.</p>
+			 *      </div>
+			 *
+			 *      <script>
+			 *          $("#popup").popup("trigger", "eventName");
+			 *      </script>
+			 *
+			 * @method trigger
+			 * @param {string} eventName the name of event to trigger
+			 * @param {?*} [data] additional object to be carried with the event
+			 * @param {boolean} [bubbles=true] indicating whether the event bubbles up through the DOM or not
+			 * @param {boolean} [cancelable=true] indicating whether the event is cancelable
+			 * @return {boolean} false, if any callback invoked preventDefault on event object
+			 * @member ns.widget.mobile.Popup
+			*/
+
+			/**
+			 * Add event listener to widget's element.
+			 *
+			 *      @example
+			 *      <div id="popup" data-role="popup">
+			 *          <p>This is a completely basic popup, no options set.</p>
+			 *      </div>
+			 *
+			 *      <script>
+			 *          var popupWidget = tau.widget.Popup(document.getElementById("popup")),
+			 *              callback = function () {
+			 *                  console.log("event fires");
+			 *              });
+			 *
+			 *          popupWidget.on("eventName", callback);
+			 *      </script>
+			 *
+			 * If jQuery is loaded:
+			 *
+			 *      @example
+			 *      <div id="popup" data-role="popup">
+			 *          <p>This is a completely basic popup, no options set.</p>
+			 *      </div>
+			 *
+			 *      <script>
+			 *          $("#popup").popup("on", callback);
+			 *      </script>
+			 *
+			 * @method on
+			 * @param {string} eventName the name of event
+			 * @param {Function} listener function call after event will be trigger
+			 * @param {boolean} [useCapture=false] useCapture param to addEventListener
+			 * @member ns.widget.mobile.Popup
+			 */
+
+			/**
+			 * Remove event listener to widget's element.
+			 *
+			 *      @example
+			 *      <div id="popup" data-role="popup">
+			 *          <p>This is a completely basic popup, no options set.</p>
+			 *      </div>
+			 *
+			 *      <script>
+			 *          var popupWidget = tau.widget.Popup(document.getElementById("popup")),
+			 *              callback = function () {
+			 *                  console.log("event fires");
+			 *              });
+			 *
+			 *          // add callback on event "eventName"
+			 *          popupWidget.on("eventName", callback);
+			 *          // ...
+			 *          // remove callback on event "eventName"
+			 *          popupWidget.off("eventName", callback);
+			 *      </script>
+			 *
+			 * If jQuery is loaded:
+			 *
+			 *      @example
+			 *      <div id="popup" data-role="popup">
+			 *          <p>This is a completely basic popup, no options set.</p>
+			 *      </div>
+			 *
+			 *      <script>
+			 *          // add callback on event "eventName"
+			 *          $("#popup").popup("on", callback);
+			 *          // ...
+			 *          // remove callback on event "eventName"
+			 *          $("#popup").popup("off", "eventName", callback);
+			 *      </script>
+			 *
+			 * @method off
+			 * @param {string} eventName the name of event
+			 * @param {Function} listener function call after event will be trigger
+			 * @param {boolean} [useCapture=false] useCapture param to addEventListener
+			 * @member ns.widget.mobile.Popup
+			 */
 
 			ns.widget.mobile.Popup = Popup;
 			engine.defineWidget(
@@ -1503,7 +2316,6 @@
 				[
 					"open",
 					"close",
-					"setPosition",
 					"setPositionCallback",
 					"setPositionCB"
 				],

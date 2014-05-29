@@ -246,7 +246,7 @@
 					// If text doesn't change reposition only popup
 					// no need to run full refresh
 					if (self.popup) {
-						self.popup.setPosition();
+						self.popup.refresh();
 					}
 				}
 			};
@@ -492,7 +492,7 @@
 				// Call parent refresh method with all passed arguments
 				slider_refresh.apply(self, arguments);
 				if (popup && self.popupVisible) {
-					popup.setPosition();
+					popup.refresh();
 				}
 			};
 
