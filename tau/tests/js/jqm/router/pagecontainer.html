@@ -1,17 +1,11 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>JQM tests - contextMenu</title>
+		<title>JQM tests - page container</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<link rel="stylesheet" href="../../../libs/qunit-1.11.0.css">
 		<script src="../../../libs/jquery.js"></script>
 		<script src="../../../libs/qunit-1.11.0.js" type="text/javascript"></script>
-		<script type="text/javascript">
-			$(document).bind('mobileinit', function() {
-				$.mobile.pageContainer = $('#pageContainer1');
-			});
-		</script>
-		<script src="pagecontainer.js"></script>
 		<script src="../../../libs/support.js"></script>
 	</head>
 	<body>
@@ -50,6 +44,12 @@
 				</div>
 			</div>
 		</div>
-		<script src="../../../libs/dist/js/tau.js"></script>
+		<script type="text/javascript">
+			$(document).bind('mobileinit', function() {
+				$.mobile.pageContainer = $('#pageContainer1');
+			});
+		</script>
+		<script src="../../../libs/dist/js/tau.js" type="text/javascript"></script>
+		<script src="pagecontainer.js"></script>
 	</body>
 </html>
