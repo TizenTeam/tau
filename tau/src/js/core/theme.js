@@ -71,9 +71,7 @@
 						containerClassList.add("ui-mobile-viewport");
 					}
 
-					if (defaultTheme !== frameworkData.theme) {
-						self.loadTheme(frameworkData.theme);
-					}
+					self.loadTheme(frameworkData.theme);
 				},
 
 				/***
@@ -141,26 +139,21 @@
 
 				loadTheme: function(theme) {
 					var self = this,
-						themePath,
-						cssPath,
-						jsPath;
+						themePath = frameworkData.themePath,
+						themeName = "tau",
+						isMinified = frameworkData.isMinified,
+						themeName;
 
-					if (!theme) {
-						theme = frameworkData.theme;
+					if (frameworkData.frameworkName !== "tau") {
+						themeName = "tizen-web-ui-fw-theme";
 					}
-
-					themePath = '/' + frameworkData.rootDir +
-							'/' + frameworkData.version +
-							'/' + THEMES_DIRECTORY +
-							'/' + theme;
-					jsPath = themePath + '/' + THEME_JS_FILE_NAME;
-
-					if (ns.frameworkData.minified) {
-						cssPath = themePath + '/'+ THEME_CSS_FILE_NAME + '.min' + '.css';
+					if (isMinified) {
+						cssPath = themePath + "/" + themeName + ".min.css";
 					} else {
-						cssPath = themePath + '/' + THEME_CSS_FILE_NAME + '.css';
+						cssPath = themePath + "/" + themeName + ".css";
 					}
 					load.themeCSS(cssPath, theme);
+					jsPath = themePath + "/theme.js";
 					load.scriptSync(jsPath);
 
 					if (support.gradeA()) {

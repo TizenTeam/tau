@@ -15,6 +15,8 @@
 			//>>excludeEnd("tauBuildExclude");
 
 			var frameworkData = {
+					frameworkName: "tizen-web-ui-fw",
+					isMinified: false,
 					rootDir: '/usr/share/tizen-web-ui-fw',
 					version: 'latest',
 					theme: "tizen-black",
@@ -40,33 +42,55 @@
 			frameworkData.getParams = function() {
 				var self = this,
 					dataPrefix = self.dataPrefix,
-					scriptElement = slice.call(document.querySelectorAll('script['+ dataPrefix +'theme]'), 0).pop(),
-					src = (scriptElement) ? scriptElement.getAttribute('src') : null,
-					tokens,
-					version_idx = -3;
+					scriptElement = document.getElementsByTagName("script"),
+					libFileName = "(tau(.min)?.js|tizen-web-ui-fw(.custom|.full)?(.min)?.js)",
+					frameworkName = "tau",
+					themePath,
+					jsPath,
+					theme,
+					src,
+					idx,
+					elem;
 
-				if (src) {
-					// Set framework data, only when they are given.
-					tokens = src.split(TOKENS_REGEXP);
-					self.rootDir = (scriptElement.getAttribute(dataPrefix + 'root') ||
-						tokens.slice(0, tokens.length + version_idx).join('/') ||
-						self.rootDir).replace(FILE_REGEXP, '');
-					self.version = scriptElement.getAttribute(dataPrefix + 'version') ||
-						tokens[ tokens.length + version_idx ] ||
-						self.version;
-					self.theme = scriptElement.getAttribute(dataPrefix + 'theme') ||
-						self.theme;
-					self.viewportWidth = scriptElement.getAttribute(dataPrefix + 'viewport-width') ||
-						self.viewportWidth;
-					self.viewportScale = "true" === scriptElement.getAttribute(dataPrefix + 'viewport-scale') ? true : self.viewportScale;
-					self.minified = src.search(MINIFIED_REGEXP) > -1;
-					self.debug = "true" === scriptElement.getAttribute(dataPrefix + 'debug') ? true : self.debug;
-					return true;
+				for (idx in scriptElement) {
+					if (scriptElement.hasOwnProperty(idx)) {
+						elem = scriptElement[idx];
+						src = elem.src ? elem.getAttribute("src") : undefined;
+
+						if (src && src.match(libFileName)) {
+							theme = elem.getAttribute("data-framework-theme") ? elem.getAttribute("data-framework-theme") : self.theme;
+							isMinified = src.search(/\.min\.js$/) > -1 ? true : false;
+
+							if (src.search("tau") > -1 ) {
+								// TAU framework
+								themePath = "/theme/mobile/" + theme.match("black|white")[0];
+								jsPath = "/js/mobile";
+							} else {
+								// tizen-web-ui framework
+								frameworkName = "tizen-web-ui-fw";
+								themePath = "/latest/themes/" + theme;
+								jsPath = "/latest/js"
+							}
+
+							self.rootDir = elem.getAttribute(dataPrefix + "root") ||
+								src.substring(0, src.search(frameworkName) + frameworkName.length) ||
+								self.rootDir;
+							self.themePath = self.rootDir + themePath;
+							self.jsPath = self.rootDir + jsPath;
+							self.version = elem.getAttribute(dataPrefix + "version") || self.version;
+							self.theme = theme;
+							self.frameworkName = frameworkName;
+							self.isMinified = isMinified;
+						}
+					}
 				}
+
 				return false;
 			};
 
 			ns.frameworkData = frameworkData;
+			// self init
+			ns.frameworkData.getParams();
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
 	);

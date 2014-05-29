@@ -45,14 +45,15 @@
 			}
 
 			function getCultureFilePath(lang, cultureDictionary) {
-				var path = null;
+				var path = null,
+					frameworkData = ns.frameworkData;
 				if (typeof lang === "string") {
 					if (cultureDictionary && cultureDictionary[lang]) {
 						path = cultureDictionary[lang];
 					} else {
 						// Default Globalize culture file path
 						path = [
-							ns.getConfig('rootDir'),
+							frameworkData.jsPath,
 							//ns.getConfig('version'),
 							'cultures',
 							['globalize', 'culture', lang, 'js'].join('.')
