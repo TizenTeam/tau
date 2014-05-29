@@ -168,7 +168,11 @@
 				} else {
 					// @TODO create proper styles for horizontal scrolling
 					size = tempElement.offsetHeight;
-					containerSize = self.ui.scrollview.element.offsetHeight;
+					if (options.standalone) {
+						containerSize = self.ui.scrollview.element.offsetHeight;
+					} else {
+						containerSize = list.offsetHeight;
+					}
 					// .lineSize is required to set the real height or width of a line
 					options.lineSize = tempFirstChild.offsetWidth;
 				}
@@ -217,7 +221,9 @@
 				self._buildList();
 
 				//Update scroll info: scroll position etc...
-				self._updateScrollInfo();
+				if (options.standalone) {
+					self._updateScrollInfo();
+				}
 			};
 
 			/**

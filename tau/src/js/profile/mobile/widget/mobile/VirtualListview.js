@@ -204,7 +204,69 @@
 				 * @member ns.widget.mobile.VirtualListview
 				 */
 				VirtualListview = function () {
-					return this;
+					var self = this;
+
+					/**
+					* @property {Object} ui VirtualListview widget's properties associated with
+					* User Interface
+					* @property {?HTMLElement} [ui.scrollview=null] Reference to associated
+					* {@link ns.widget.mobile.Scrollview Scrollview widget}
+					* @property {number} [ui.itemSize=0] Size of list element in piksels. If scrolling is
+					* vertically it's item width in other case it's height of item element
+					* @member ns.widget.mobile.VirtualListview
+					*/
+					self.ui = {
+						scrollview: null,
+						itemSize: 0
+					};
+
+					/**
+					* @property {Object} _scroll Holds information about scrolling state
+					* @property {Array} [_scroll.direction=[0,0,0,0]] Holds current direction of scrolling.
+					* Indexes suit to following order: [up, left, down, right]
+					* @property {number} [_scroll.lastPositionX=0] Last scroll position from top in pixels.
+					* @property {number} [_scroll.lastPositionY=0] Last scroll position from left in pixels.
+					* @property {number} [_scroll.lastJumpX=0] Difference between last and current
+					* position of horizontal scroll.
+					* @property {number} [_scroll.lastJumpY=0] Difference between last and current
+					* position of vertical scroll.
+					* @property {number} [_scroll.clipWidth=0] Width of clip - visible area for user.
+					* @property {number} [_scroll.clipHeight=0] Height of clip - visible area for user.
+					* @member ns.widget.mobile.VirtualListview
+					*/
+					self._scroll = {
+						direction: [0, 0, 0, 0],
+						lastPositionX: 0,
+						lastPositionY: 0,
+						lastJumpX: 0,
+						lastJumpY: 0,
+						//@TODO: what if there is another element in scroll view? what size of clip should be?
+						clipWidth: 0,
+						clipHeight: 0
+					};
+
+					/**
+					* @property {number} _currentIndex Current zero-based index of data set.
+					* @member ns.widget.mobile.VirtualListview
+					*/
+					self._currentIndex = 0;
+
+					/**
+					* Method which returns list item value at specified index from database.
+					* **Method should overrided by developer using {@link ns.widget.mobile.VirtualListview#create .create} method.**
+					* @method
+					* @param {number} idx Index of data set.
+					* @return {Object}
+					* @member ns.widget.mobile.VirtualListview
+					*/
+					self.itemData = function () {
+						return null;
+					};
+
+					//Event function handler
+					self._scrollEventBound = null;
+
+					return self;
 				},
 				prototype = new Listview(),
 				classes = {
@@ -222,67 +284,11 @@
 			VirtualListview.classes = classes;
 
 			prototype._configure = function () {
-				var self = this;
+				var self = this,
+					options = self.options;
 
 				// Call parent _configure
 				parentPrototype._configure.apply(self, arguments);
-
-				/**
-				 * @property {Object} ui VirtualListview widget's properties associated with
-				 * User Interface
-				 * @property {?HTMLElement} [ui.scrollview=null] Reference to associated
-				 * {@link ns.widget.mobile.Scrollview Scrollview widget}
-				 * @property {number} [ui.itemSize=0] Size of list element in piksels. If scrolling is
-				 * vertically it's item width in other case it's height of item element
-				 * @member ns.widget.mobile.VirtualListview
-				 */
-				self.ui = {
-					scrollview: null,
-					itemSize: 0
-				};
-
-				/**
-				 * @property {Object} _scroll Holds information about scrolling state
-				 * @property {Array} [_scroll.direction=[0,0,0,0]] Holds current direction of scrolling.
-				 * Indexes suit to following order: [up, left, down, right]
-				 * @property {number} [_scroll.lastPositionX=0] Last scroll position from top in pixels.
-				 * @property {number} [_scroll.lastPositionY=0] Last scroll position from left in pixels.
-				 * @property {number} [_scroll.lastJumpX=0] Difference between last and current
-				 * position of horizontal scroll.
-				 * @property {number} [_scroll.lastJumpY=0] Difference between last and current
-				 * position of vertical scroll.
-				 * @property {number} [_scroll.clipWidth=0] Width of clip - visible area for user.
-				 * @property {number} [_scroll.clipHeight=0] Height of clip - visible area for user.
-				 * @member ns.widget.mobile.VirtualListview
-				 */
-				self._scroll = {
-					direction: [0, 0, 0, 0],
-					lastPositionX: 0,
-					lastPositionY: 0,
-					lastJumpX: 0,
-					lastJumpY: 0,
-					//@TODO: what if there is another element in scroll view? what size of clip should be?
-					clipWidth: 0,
-					clipHeight: 0
-				};
-
-				/**
-				 * @property {number} _currentIndex Current zero-based index of data set.
-				 * @member ns.widget.mobile.VirtualListview
-				 */
-				self._currentIndex = 0;
-
-				/**
-				 * Method which returns list item value at specified index from database.
-				 * **Method should overrided by developer using {@link ns.widget.mobile.VirtualListview#create .create} method.**
-				 * @method
-				 * @param {number} idx Index of data set.
-				 * @return {Object}
-				 * @member ns.widget.mobile.VirtualListview
-				 */
-				self.itemData = function () {
-					return null;
-				};
 
 				/**
 				 * @property {Object} options VirtualListview widget options.
@@ -296,17 +302,12 @@
 				 * @property {number} [options.numItemData=0] Total number of items.
 				 * @property {boolean} [options.standalone=false] If true scrollview instance will be created inside of the widget
 				 */
-				self.options = {
-					template: null,
-					theme: null,
-					direction: VERTICAL,
-					row: 50,
-					numItemData: 0,
-					standalone: false
-				};
-
-				//Event function handler
-				self._scrollEventBound = null;
+				options.template = null;
+				options.theme = null;
+				options.direction = VERTICAL;
+				options.row = 50;
+				options.numItemData = 0;
+				options.standalone = false;
 			};
 
 			//@TODO: Maybe this information should by provided by Scrollview
@@ -631,8 +632,10 @@
 
 				self._buildList();
 
-				//Update scroll info: scroll position etc...
-				self._updateScrollInfo();
+				//Update scroll info: scroll position etc... if options.standalone = true
+				if (options.standalone) {
+					self._updateScrollInfo();
+				}
 			};
 
 			/**
@@ -688,11 +691,12 @@
 				var self = this,
 					ui = self.ui,
 					options = self.options,
+					standalone = options.standalone,
 					direction,
 					scrollviewInstance;
 
 				// scrollview may be set while widget is created with standalone option
-				if (!ui.scrollview) {
+				if (standalone && !ui.scrollview) {
 					//Get Scrollview widget instance
 					// @TODO make this asynchrous, it's currently possible that a child widget will be built before scrollview (for example VirtualGrid)
 					// @TODO this will fail also if data-scroll is set to none on target scrollable element
@@ -712,7 +716,7 @@
 				options.direction = direction;
 
 				// Prepare view
-				if (options.direction === HORIZONTAL) {
+				if (standalone && options.direction === HORIZONTAL) {
 					scrollviewInstance.ui.view.style.height = "100%";
 				}
 			};
@@ -799,12 +803,15 @@
 					scrollviewInstance = self.ui.scrollview,
 					// Get scrollview view element (child)
 					// @TODO remove fetching first child after createing ui.view property inside Scrollview widget
-					scrollviewView = (scrollviewInstance.ui && scrollviewInstance.ui.view) || scrollviewInstance.element.firstElementChild;
+					scrollviewView;
 
-				if (options.direction === VERTICAL) {
-					scrollviewView.style.height = newViewSize + "px";
-				} else {
-					scrollviewView.style.width = newViewSize + "px";
+				if (scrollviewInstance) {
+					scrollviewView = (scrollviewInstance.ui && scrollviewInstance.ui.view) || scrollviewInstance.element.firstElementChild;
+					if (options.direction === VERTICAL) {
+						scrollviewView.style.height = newViewSize + "px";
+					} else {
+						scrollviewView.style.width = newViewSize + "px";
+					}
 				}
 			};
 
@@ -834,15 +841,16 @@
 			prototype._destroy = function () {
 				var self = this,
 					scrollview = self.ui.scrollview,
-					scrollviewClip = scrollview.element,
-					scrollviewParent = scrollviewClip.parentElement,
+					scrollviewClip = scrollview && scrollview.element,
+					scrollviewParent = scrollviewClip && scrollviewClip.parentElement,
 					element = self.element,
 					elementStyle = element.style,
+					options = self.options,
 					listItem;
 
 				// Restore start position
 				elementStyle.position = "static";
-				if (self.options.direction === VERTICAL) {
+				if (options.direction === VERTICAL) {
 					elementStyle.top = "";
 				} else {
 					elementStyle.left = "";
@@ -854,7 +862,7 @@
 
 				// In case we have a standalone version move element to parent of scrollview
 				// call destroy and remove it from DOM
-				if (self.options.standalone) {
+				if (options.standalone) {
 					scrollviewParent.appendChild(self.element);
 					scrollview.destroy();
 
