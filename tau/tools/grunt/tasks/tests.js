@@ -22,9 +22,17 @@ module.exports = function (grunt) {
 
 			if (result && result.bundles.length > 0) {
 				slice.call(result.bundles[0].children).forEach(function (modulePath) {
-					testModules.push(path.join('tests', path.relative('src/', modulePath).replace(/(\.js)+/gi, ''), '*.html'));
+					var testDirectory = path.relative('src/', modulePath).replace(/(\.js)+/gi, ''),
+						mainTestPattern = path.join('tests', testDirectory, '*.html'),
+						files = grunt.file.expand(mainTestPattern);
+					if (files.length) {
+						grunt.log.ok(testDirectory);
+					} else {
+						grunt.log.warn(testDirectory);
+					}
+					testModules.push(mainTestPattern);
 					jsAddTests.forEach(function (oneDirectory) {
-						testModules.push(path.join('tests', path.relative('src/', modulePath).replace(/(\.js)+/gi, ''), '/' + oneDirectory + '/*.html'));
+						testModules.push(path.join('tests', testDirectory, '/' + oneDirectory + '/*.html'));
 					});
 				});
 				grunt.config('qunit.main-'+ profileName, testModules);

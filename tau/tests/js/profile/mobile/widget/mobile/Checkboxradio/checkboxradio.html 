@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Checkboxradio tests</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<link rel="stylesheet" href="../../../../../../libs/qunit-1.11.0.css">
+	</head>
+	<body>
+		<div id="qunit"></div>
+		<div id="qunit-fixture">
+			<div data-role="page" id="page1">
+				<form>
+					<input id="test1" type="radio" class="favorite" />
+					<label for="test1">test</label>
+
+					<input id="test2" type="checkbox" />
+
+					<input id="test3a" type="checkbox" checked="checked" />
+					<label for="test3a">Test</label>
+					<input id="test3b" type="checkbox" />
+					<label for="test3b">Test</label>
+
+					<input id="test4a" name="test4" type="radio" checked="checked" />
+					<label for="test4a">Test</label>
+					<input id="test4b"  name="test4" type="radio" />
+					<label for="test4b">Test</label>
+
+					<input id="test5a" type="radio" disabled="disabled" />
+					<input id="test5b" type="radio" />
+
+					<div data-type="horizontal">
+						<input id="test6a" type="checkbox" checked="checked" />
+						<label for="test6a">Test</label>
+						<input id="test6b" type="checkbox" />
+						<label for="test6b">Test</label>
+					</div>
+
+					<input id="test7a" type="checkbox" />
+					<label for="test7a">Label</label>
+					<input id="test7b" type="checkbox" disabled="disabled" />
+					<label for="test7b">Label</label>
+
+					<input id="test8a" name="test8" type="radio" />
+					<label for="test8a">Label</label>
+					<input id="test8b" name="test8" type="radio" disabled="disabled" />
+					<label for="test8b">Label</label>
+
+					<input id="test9a" name="test9a" type="radio" disabled="disabled"/>
+					<label for="test9a">Label</label>
+					<input id="test9b" name="test9b" type="radio" />
+					<label for="test9b">Label</label>
+
+					<input id="test10a" name="test10" type="radio" />
+					<label for="test10a">Label</label>
+					<input id="test10b" name="test10" type="radio" />
+					<label for="test10b">Label</label>
+				</form>
+			</div>
+		</div>
+		<script src="../../../../../../libs/jquery.js"></script>
+		<script src="../../../../../../libs/qunit-1.11.0.js" type="text/javascript"></script>
+		<script src="../../../../../../libs/support.js"></script>
+		<script>
+			module('Checkboxradio', {
+				teardown: function () {
+					ej.engine._clearBindings();
+				}
+			});
+
+			test('Default checkboxradio', function () {
+				var check = document.getElementById('test1'),
+					eventsCalled = {};
+
+				$(document).on("checkboxradiobeforecreate checkboxradiocreate", function(e) {
+					eventsCalled[e.type] = true;
+				});
+				$(check).checkboxradio();
+				equal(check.getAttribute('data-tau-bound'), "true", "Check widget is created");
+				equal($(check).closest("div[role='radio'].ui-radio.favorite").length, 1, "Wrapped");
+				ok(eventsCalled.checkboxradiobeforecreate , 'checkboxradiobeforecreate called');
+				ok(eventsCalled.checkboxradiocreate, 'checkboxradiocreate called');
+				$(document).off("checkboxradiobeforecreate checkboxradiocreate");
+			});
+
+			test('Checkboxradio without label', function () {
+				var check = document.getElementById('test2');
+				$(check).checkboxradio();
+				equal(check.getAttribute('data-tau-bound'), "true", "Check widget is created");
+				ok(document.querySelector("label[for='test2']"), "Empty label is created");
+				equal($(check).closest("div[role='checkbox'].ui-checkbox").length, 1, "Wrapped");
+			});
+
+			test('Checkbox state', function () {
+				var check1 = document.getElementById('test3a'),
+					label1 = document.querySelector('label[for="test3a"]'),
+					check2 = document.getElementById('test3b'),
+					label2 = document.querySelector('label[for="test3b"]');
+				$(check1).checkboxradio();
+				$(check2).checkboxradio();
+				equal(check1.parentNode.getAttribute('aria-checked'), "true", "Check widget is checked");
+				ok(label1.classList.contains('ui-checkbox-on'), 'Label properly checked');
+				equal(label1.getElementsByClassName('ui-icon-checkbox-on').length, 1, "There is a proper icon");
+				equal(check2.parentNode.getAttribute('aria-checked'), "false", "Check widget is not checked");
+				ok(label2.classList.contains('ui-checkbox-off'), 'Label properly checked');
+				equal(label2.getElementsByClassName('ui-icon-checkbox-off').length, 1, "There is a proper icon");
+			});
+
+			test('Radio state', function () {
+				var check1 = document.getElementById('test4a'),
+					label1 = document.querySelector('label[for="test4a"]'),
+					check2 = document.getElementById('test4b'),
+					label2 = document.querySelector('label[for="test4b"]');
+				$(check1).checkboxradio();
+				$(check2).checkboxradio();
+				equal(check1.parentNode.getAttribute('aria-selected'), "true", "Check widget is checked");
+				ok(label1.classList.contains('ui-radio-on'), 'Label properly checked');
+				equal(label1.getElementsByClassName('ui-icon-radio-on').length, 1, "There is a proper icon");
+				equal(check2.parentNode.getAttribute('aria-selected'), "false", "Check widget is not checked");
+				ok(label2.classList.contains('ui-radio-off'), 'Label properly checked');
+				equal(label2.getElementsByClassName('ui-icon-radio-off').length, 1, "There is a proper icon");
+			});
+
+			test('Disabled state', function () {
+				var check1 = document.getElementById('test5a'),
+					check2 = document.getElementById('test5b'),
+					wrapper1,
+					wrapper2;
+				$(check1).checkboxradio();
+				wrapper1 = check1.parentNode;
+				$(check2).checkboxradio();
+				$(check2).checkboxradio();//called againt to check if disabled option is not set incorrectly
+				wrapper2 = check2.parentNode;
+				equal(check1.getAttribute('disabled'), "true", "Disabled");
+				ok(wrapper1.classList.contains('ui-disabled'), 'Wrapper has proper class');
+				ok(!check2.getAttribute('disabled'), "Disabled");
+				ok(!wrapper2.classList.contains('ui-disabled'), 'Wrapper has proper class');
+			});
+
+			test('Horizontal checkbox', function () {
+				var check1 = document.getElementById('test6a'),
+					label1 = document.querySelector('label[for="test6a"]'),
+					check2 = document.getElementById('test6b'),
+					label2 = document.querySelector('label[for="test6b"]');
+				$(check1).checkboxradio();
+				$(check2).checkboxradio();
+				ok(label1.classList.contains('ui-btn-active'), 'Checked checkbox has label with proper class');
+				ok(!label2.classList.contains('ui-btn-active'), 'Unchecked checkbox has label with proper class');
+			});
+
+			test('Checkbox label events', function () {
+				var check1 = document.getElementById('test7a'),
+					check2 = document.getElementById('test7b'),
+					labelEnabled = document.querySelector("label[for='test7a']"),
+					labelDisabled = document.querySelector("label[for='test7b']");
+				$(check1).checkboxradio();
+				$(check2).checkboxradio();
+
+				ej.utils.events.trigger(labelEnabled, "vclick");
+				ok(check1.checked, "Checkbox was checked");
+				ok(labelEnabled.classList.contains('ui-checkbox-on'), 'Label properly checked: has ui-checkbox-on');
+				ok(!labelEnabled.classList.contains('ui-checkbox-off'), 'Label properly checked: no ui-checkbox-off');
+				equal(check1.parentNode.getAttribute('aria-checked'), "true", "Check widget is checked");
+				equal(labelEnabled.getElementsByClassName('ui-icon-checkbox-on').length, 1, "There is a proper icon");
+				equal(labelEnabled.getElementsByClassName('ui-icon-checkbox-off').length, 0, "There is a proper icon");
+
+				ej.utils.events.trigger(labelDisabled, "vclick");
+				ok(!check2.checked, "Checkbox wasn't checked - it is disabled");
+				ok(!labelDisabled.classList.contains('ui-checkbox-on'), 'Label properly checked: no ui-checkbox-on');
+				ok(labelDisabled.classList.contains('ui-checkbox-off'), 'Label properly checked: has ui-checkbox-off');
+				equal(check2.parentNode.getAttribute('aria-checked'), "false", "Check widget is checked");
+				equal(labelDisabled.getElementsByClassName('ui-icon-checkbox-off').length, 1, "There is a proper icon");
+				equal(labelDisabled.getElementsByClassName('ui-icon-checkbox-on').length, 0, "There is a proper icon");
+			});
+
+			test('Radio label events', function () {
+				var check1 = document.getElementById('test8a'),
+					check2 = document.getElementById('test8b'),
+					labelEnabled = document.querySelector("label[for='test8a']"),
+					labelDisabled = document.querySelector("label[for='test8b']");
+				$(check1).checkboxradio();
+				$(check2).checkboxradio();
+
+				ej.utils.events.trigger(labelEnabled, "vclick");
+				ok(check1.checked, "Radio was checked");
+				ok(labelEnabled.classList.contains('ui-radio-on'), 'Label properly checked: has ui-radio-on');
+				ok(!labelEnabled.classList.contains('ui-radio-off'), 'Label properly checked: no ui-radio-off');
+				equal(check1.parentNode.getAttribute('aria-selected'), "true", "Check widget is checked");
+				equal(labelEnabled.getElementsByClassName('ui-icon-radio-on').length, 1, "There is a proper icon");
+				equal(labelEnabled.getElementsByClassName('ui-icon-radio-off').length, 0, "There is a proper icon");
+
+				ej.utils.events.trigger(labelDisabled, "vclick");
+				ok(!check2.checked, "Radio wasn't checked - it is disabled");
+				ok(!labelDisabled.classList.contains('ui-radio-on'), 'Label properly checked: no ui-radio-on');
+				ok(labelDisabled.classList.contains('ui-radio-off'), 'Label properly checked: has ui-radio-off');
+				equal(check2.parentNode.getAttribute('aria-selected'), "false", "Check widget is checked");
+				equal(labelDisabled.getElementsByClassName('ui-icon-radio-off').length, 1, "There is a proper icon");
+				equal(labelDisabled.getElementsByClassName('ui-icon-radio-on').length, 0, "There is a proper icon");
+			});
+
+			test('Enable/disable checkboxradio', function() {
+				var check1 = document.getElementById('test9a'),
+					check2 = document.getElementById('test9b');
+
+				$(check1).checkboxradio();
+				$(check2).checkboxradio();
+
+				$(check1).checkboxradio('enable');
+				equal($(check1).prop('disabled'), false, 'Input must have disabled property set to false when enabled');
+				ok(!$(check1).parent().hasClass('ui-disabled'), 'Input wrapper must hot have ui-disabled class when enabled');
+				$(check1).checkboxradio('disable');
+				equal($(check1).prop('disabled'), true, 'Input must have disabled property set to true when disabled');
+				ok($(check1).parent().hasClass('ui-disabled'), 'Input wrapper must have ui-disabled class when enabled');
+
+				$(check2).checkboxradio('disable');
+				equal($(check2).prop('disabled'), true, 'Input must have disabled property set to true when disabled');
+				ok($(check2).parent().hasClass('ui-disabled'), 'Input wrapper must have ui-disabled class when enabled');
+				$(check2).checkboxradio('enable');
+				equal($(check2).prop('disabled'), false, 'Input must have disabled property set to false when enabled');
+				ok(!$(check2).parent().hasClass('ui-disabled'), 'Input wrapper must hot have ui-disabled class when enabled');
+			});
+
+			asyncTest('Checkboxradio events', 2, function() {
+				var checkA = document.getElementById('test10a'),
+					checkB = document.getElementById('test10b'),
+					labelA = document.querySelector("label[for='test10a']"),
+					labelB = document.querySelector("label[for='test10b']"),
+					events = ej.utils.events;
+
+				$(checkA).checkboxradio();
+				$(checkB).checkboxradio();
+
+				checkA.addEventListener('change', function () {
+					ok(true, 'Click on checkboxradio A label should trigger change event on input element');
+				});
+
+				checkB.addEventListener('change', function () {
+					ok(true, 'Click on checkboxradio B label should trigger change event on input element');
+				});
+
+				start();
+				events.trigger(labelA, 'click');
+				events.trigger(labelB, 'click');
+			});
+
+			var tauConfig = {
+				"autorun": false
+			};
+		</script>
+		<script type="text/javascript">
+			var tauConfig = {
+				"autorun": false
+			};
+		</script>
+		<script type="text/javascript" src="../../../../../../libs/dist/js/tau.js"></script>
+	</body>
+</html>

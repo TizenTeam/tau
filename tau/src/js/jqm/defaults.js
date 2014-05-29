@@ -9,7 +9,7 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"./jqm",
+			"./namespace",
 			"../core/engine"
 		],
 		function () {

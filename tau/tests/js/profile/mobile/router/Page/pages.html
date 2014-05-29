@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Engine tests</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<link rel="stylesheet" href="../../../../../libs/qunit-1.11.0.css">
+	</head>
+	<body>
+		<div id="qunit"></div>
+		<div id="qunit-fixture">
+			<div data-role="page" id="first">
+				<div data-role="mock" id="mock1">Mock</div>
+			</div>
+			<div data-role="page" id="second">
+				<div data-role="mock" id="mock2">Mock</div>
+			</div>
+		</div>
+		<script src="../../../../../libs/qunit-1.11.0.js" type="text/javascript"></script>
+		<script src="../../../../../libs/support.js"></script>
+		<script>
+			module('Page');
+
+			asyncTest('Enhance only first page', function () {
+				function checkFirstPageEnhanced () {
+					var first = document.getElementById('first'),
+						second = document.getElementById('second'),
+						mock1 = document.getElementById('mock1'),
+						mock2 = document.getElementById('mock2');
+					equal(first.getAttribute('data-tau-bound'), "Page", "First page widget is created");
+					equal(mock1.getAttribute('data-tau-bound'), "Mock", "First mock widget is created");
+					ok(!second.getAttribute('data-tau-bound'), "Second page widget wasn't created");
+					ok(!mock2.getAttribute('data-tau-bound'), "Second mock widget wasn't created");
+					document.removeEventListener('bound', checkFirstPageEnhanced);
+					start();
+				}
+				document.addEventListener('bound', checkFirstPageEnhanced);
+				ej.engine.run();
+			});
+
+			asyncTest('Create page', function () {
+				function checkPageCreated () {
+					document.removeEventListener('bound', checkPageCreated);
+					equal(document.querySelectorAll("[data-role='page']").length, 1,
+                            'Page was created and body contents wrapped.');
+					equal(document.body.children.length, 2,
+                            'All body elements are moved to page div and loader widget');
+					start();
+				}
+				document.getElementById('qunit-fixture').innerHTML = ''; //remove all pages, leave only mock widget
+				document.addEventListener('bound', checkPageCreated);
+				ej.engine.run();
+			});
+		</script>
+		<script type="text/javascript">
+			var tauConfig = {
+				"autorun": false
+			};
+		</script>
+		<script src="../../../../../libs/dist/js/tau.js" type="text/javascript"></script>
+
+		<script type="text/javascript">
+			(function (window, ej) {
+				"use strict";
+				ej.test = {};
+				ej.test.mock = (function (){
+					var Mock = function () {};
+					ej.engine.defineWidget(
+						"Mock",
+						"[data-role='mock']",
+						[],
+						Mock
+					);
+					Mock.prototype = new ej.widget.BaseWidget();
+					Mock.prototype._build = function (element) {
+						element.className = "mock_built";
+						return element;
+					};
+					return Mock;
+				}());
+			}(window, window.ej));
+		</script>
+	</body>
+</html>

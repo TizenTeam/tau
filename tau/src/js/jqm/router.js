@@ -13,7 +13,7 @@
 			"../core/engine",
 			"../core/util/path",
 			"../profile/mobile/router/urlHistory",
-			"./jqm"
+			"./namespace"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

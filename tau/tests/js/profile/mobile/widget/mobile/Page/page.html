@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Page tests</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<link rel="stylesheet" href="../../../../libs/qunit-1.11.0.css">
+	</head>
+	<body>
+		<div id="qunit"></div>
+		<div id="qunit-fixture">
+			<div id="page1" data-role="page" class="test">
+				<div data-role="header" id="header1">
+					<h1 id="h1">Header</h1>
+				</div>
+				<div data-role="content" id="content1">Content</div>
+				<div data-role="footer" id="footer1">
+					<h1 id="h2">Footer</h1>
+				</div>
+			</div>
+
+			<div id="page2" data-role="page">
+				<div data-role="header" id="header2" data-theme="c">Header</div>
+				<div data-role="content" id="content2" data-theme="c">Content</div>
+				<div data-role="footer" id="footer2" data-theme="c">Footer</div>
+			</div>
+
+			<div id="page2-1" data-role="page" data-theme="p">
+				<div data-role="header" id="header2-1">Header</div>
+				<div data-role="content" id="content2-1">Content</div>
+				<div data-role="footer" id="footer2-1">Footer</div>
+			</div>
+
+			<div id="page2-2" data-role="page" data-theme="p">
+				<div data-role="header" id="header2-2" data-theme="h">Header</div>
+				<div data-role="content" id="content2-2" data-theme="c">Content</div>
+				<div data-role="footer" id="footer2-2" data-theme="f">Footer</div>
+			</div>
+
+			<div id="page2-3" data-role="page" data-theme="p" data-header-theme="h" data-content-theme="c" data-footer-theme="f">
+				<div data-role="header" id="header2-3">Header</div>
+				<div data-role="content" id="content2-3">Content</div>
+				<div data-role="footer" id="footer2-3">Footer</div>
+			</div>
+
+			<div id="page2-4" data-role="page" data-theme="p" data-header-theme="h" data-content-theme="c" data-footer-theme="f">
+				<div data-role="header" id="header2-4" data-theme="h2">Header</div>
+				<div data-role="content" id="content2-4" data-theme="c2">Content</div>
+				<div data-role="footer" id="footer2-4" data-theme="f2">Footer</div>
+			</div>
+
+			<div id="page5" data-role="page" data-fullscreen="true">
+				<div data-role="header" id="header5">Header</div>
+				<div data-role="content">Content</div>
+				<div data-role="footer" id="footer5">Footer</div>
+			</div>
+
+			<div id="page6" data-role="page">
+				<div data-role="header" id="header6">Header</div>
+				<div data-role="content" id="content6">Content</div>
+				<div data-role="footer" id="footer6">Footer</div>
+			</div>
+
+			<div id="page7" data-role="page">
+				<div data-role="header" id="header7" data-transition="easein">Header</div>
+				<div data-role="content" id="content7" data-transition="none">Content</div>
+				<div data-role="footer" id="footer7" data-transition="easeout">Footer</div>
+			</div>
+
+			<div id="page8" data-role="page">
+				<div data-role="header"></div>
+				<div data-role="content"></div>
+			</div>
+
+			<div id="page8-a" data-role="page" data-theme="a">
+				<div data-role="header"></div>
+				<div data-role="content"></div>
+			</div>
+
+			<div id="page8-b" data-role="page" data-theme="b">
+				<div data-role="header"></div>
+				<div data-role="content"></div>
+			</div>
+
+			<div id="page8-c" data-role="page" data-theme="c">
+				<div data-role="header"></div>
+				<div data-role="content"></div>
+			</div>
+
+			<div id="page9" data-role="page" data-theme="c">
+				<div data-role="header">
+					<a href="#">link 1</a>
+					<a href="#">link 2</a>
+				</div>
+				<div data-role="content"></div>
+			</div>
+		</div>
+		<script src="../../../../../../libs/jquery.js"></script>
+		<script src="../../../../../../libs/qunit-1.11.0.js" type="text/javascript"></script>
+		<script src="../../../../../../libs/support.js"></script>
+		<script>
+			module('Page', {
+				teardown: function () {
+					ej.engine._clearBindings();
+				}
+			});
+
+			test('Page DOM created', function () {
+				var page = document.getElementById('page1'),
+					header = document.getElementById('header1'),
+					content = document.getElementById('content1'),
+					footer = document.getElementById('footer1'),
+					eventsCalled = {};
+				$(document).on("pagebeforecreate pagecreate", function(e) {
+					eventsCalled[e.type] = true;
+				});
+				$('#page1').page();
+				equal(page.getAttribute('data-tau-bound'), "Page", "Page widget is created");
+				ok(page.classList.contains('ui-page'), 'Page has ui-page class');
+				ok(page.classList.contains('ui-body-s'), 'Page has ui-body-s');
+				ok(page.classList.contains('test'), "Previous class wasn't removed");
+				ok(eventsCalled.pagebeforecreate , 'pagebeforecreate called');
+				ok(eventsCalled.pagecreate, 'pagecreate called');
+				$(document).off("pagebeforecreate pagecreate");
+
+				ok(header.classList.contains('ui-header'), 'Header enhanced');
+				ok(header.classList.contains('ui-bar-s'), 'Header theme default: s');
+				equal(header.getAttribute('role'), 'banner', 'Header has role=banner');
+
+				ok(content.classList.contains('ui-content'), 'Content enhanced');
+				equal(content.getAttribute('role'), 'main', 'Content has role=main');
+
+				ok(footer.classList.contains('ui-footer'), 'Footer enhanced');
+				ok(footer.classList.contains('ui-bar-s'), 'Footer theme default: s');
+				equal(footer.getAttribute('role'), 'contentinfo', 'Footer has role=contentinfo');
+			});
+
+			test('Page sections change theme', function () {
+				var header = document.getElementById('header2'),
+					content = document.getElementById('content2'),
+					footer = document.getElementById('footer2'),
+
+					header21 = document.getElementById('header2-1'),
+					content21 = document.getElementById('content2-1'),
+					footer21 = document.getElementById('footer2-1'),
+					page22 = document.getElementById('page2-2'),
+
+					header22 = document.getElementById('header2-2'),
+					content22 = document.getElementById('content2-2'),
+					footer22 = document.getElementById('footer2-2'),
+
+					page23 = document.getElementById('page2-3'),
+					header23 = document.getElementById('header2-3'),
+					content23 = document.getElementById('content2-3'),
+					footer23 = document.getElementById('footer2-3'),
+
+					page24 = document.getElementById('page2-4'),
+					header24 = document.getElementById('header2-4'),
+					content24 = document.getElementById('content2-4'),
+					footer24 = document.getElementById('footer2-4');
+
+				$('#page2').page();
+				ok(header.classList.contains('ui-bar-c'), 'Header has theme c');
+				ok(footer.classList.contains('ui-bar-c'), 'Footer has theme c');
+				ok(content.classList.contains('ui-body-c'), 'Content has theme c');
+
+				$("#page2-1").page();
+				ok(header21.classList.contains('ui-bar-s'), 'Header has ui-bar-s (default theme class)');
+				ok(footer21.classList.contains('ui-bar-s'), 'Footer has ui-bar-s (default theme class)');
+				ok(!content21.classList.contains('ui-body-s'), 'Content has no ui-body-s class (default)');
+
+				$("#page2-2").page();
+				ok(page22.classList.contains('ui-body-p'), 'Page has ui-body-p class (based on data-theme on page)');
+				ok(header22.classList.contains('ui-bar-h'), 'Header has ui-bar-h class (based on data-theme on header)');
+				ok(footer22.classList.contains('ui-bar-f'), 'Footer has ui-bar-f class (based on data-theme on footer)');
+				ok(content22.classList.contains('ui-body-c'), 'Content has ui-body-c class (based on data-theme on content)');
+
+				$("#page2-3").page();
+				ok(page23.classList.contains('ui-body-p'), 'Page has ui-body-p class (based on data-theme)');
+				ok(header23.classList.contains('ui-bar-h'), 'Header has ui-bar-h class (based on data-headerTheme)');
+				ok(footer23.classList.contains('ui-bar-f'), 'Footer has ui-bar-f class (based on data-footerTheme)');
+				ok(content23.classList.contains('ui-body-c'), 'Content has ui-body-c class (based on data-contentTheme)');
+
+				$("#page2-4").page();
+				ok(page24.classList.contains('ui-body-p'), 'Page has ui-body-p class (based on data-theme)');
+				ok(!header24.classList.contains('ui-bar-h'), 'Header has no ui-bar-h class');
+				ok(!footer24.classList.contains('ui-bar-f'), 'Footer has no ui-bar-f class');
+				ok(!content24.classList.contains('ui-body-c'), 'Content has no ui-body-c class');
+				ok(header24.classList.contains('ui-bar-h2'), 'Header has ui-bar-h2 class (based on data-theme on header)');
+				ok(footer24.classList.contains('ui-bar-f2'), 'Footer has ui-bar-f2 class (based on data-theme on footer)');
+				ok(content24.classList.contains('ui-body-c2'), 'Content has ui-body-c2 class (based on data-theme on content)');
+			});
+
+			test('Page titles', function () {
+				var h1 = document.getElementById('h1'),
+					h2 = document.getElementById('h2');
+				$('#page1').page();
+				ok(h1.classList.contains('ui-title'), 'Title has been enhanced');
+				equal(h1.getAttribute('role'), 'heading');
+				equal(h1.getAttribute('aria-level'), '1');
+				equal(h1.getAttribute('aria-label'), 'title');
+				ok(h2.classList.contains('ui-title'), 'Title has been enhanced');
+				equal(h2.getAttribute('role'), 'heading');
+				equal(h2.getAttribute('aria-level'), '1');
+				equal(h2.getAttribute('aria-label'), 'title');
+			});
+
+			test('Default invocation sets no fullscreen classes', function() {
+				var page = document.getElementById('page1'),
+					header = document.getElementById('header1'),
+					footer = document.getElementById('footer1');
+
+				$("#page1").page();
+
+				ok(!page.classList.contains('ui-page-header-fullscreen'), 'Page has no .ui-page-header-fullscreen class');
+				ok(!page.classList.contains('ui-page-footer-fullscreen'), 'Page has no .ui-page-footer-fullscreen class');
+				ok(!header.classList.contains('ui-header-fullscreen'), 'Header has no .ui-header-fullscreen class');
+				ok(!footer.classList.contains('ui-footer-fullscreen'), 'Footer has no .ui-footer-fullscreen class');
+			});
+
+			test('Default invocation sets .ui-page-header-fixed, .ui-page-footer-fixed classes', function() {
+				var page = document.getElementById('page1'),
+					header = document.getElementById('header1'),
+					footer = document.getElementById('footer1');
+
+				$("#page1").page();
+
+				ok(page.classList.contains('ui-page-header-fixed'), 'Page has .ui-page-header-fixed class');
+				ok(page.classList.contains('ui-page-footer-fixed'), 'Page has .ui-page-footer-fixed class');
+
+			});
+
+			test('data-fullscreen=true sets proper css classes', function() {
+				var page = document.getElementById('page5'),
+					header = document.getElementById('header5'),
+					footer = document.getElementById('footer5');
+				$('#page5').page();
+				ok(page.classList.contains('ui-page-header-fullscreen'), 'Page has class: ui-page-header-fullscreen');
+				ok(page.classList.contains('ui-page-footer-fullscreen'), 'Page has class: ui-page-footer-fullscreen');
+				ok(header.classList.contains('ui-header-fullscreen'), 'Header has ui-header-fullscreen');
+				ok(footer.classList.contains('ui-footer-fullscreen'), 'Footer has ui-footer-fullscreen');
+			});
+
+			test('Sets -fixed classes to header and footer', function(){
+				var header = document.getElementById('header6'),
+					footer = document.getElementById('footer6');
+
+				$('#page6').page();
+
+				ok(header.classList.contains('ui-header-fixed'), 'Header has ui-header-fixed');
+				ok(footer.classList.contains('ui-footer-fixed'), 'Footer has ui-footer-fixed');
+			});
+
+			test('Sets default transition classes when data-transition does not exist', function(){
+				var header = document.getElementById('header6'),
+					footer = document.getElementById('footer6'),
+					content = document.getElementById('content6');
+
+				$('#page6').page();
+
+				ok(!header.classList.contains('slide'), 'Header has no .slide class');
+				ok(!footer.classList.contains('slide'), 'Footer has no .slide class');
+				ok(!content.classList.contains('slide'), 'Content has no .slide class');
+
+				ok(!header.classList.contains('slide'), 'Header has no .slide class');
+				ok(!header.classList.contains('slideup'), 'Header has no .slideup class');
+				ok(!header.classList.contains('slidedown'), 'Header has .slidedown class');
+
+				ok(!footer.classList.contains('slide'), 'Footer has no .slide class');
+				ok(!footer.classList.contains('slidedown'), 'Footer has no .slidedown class');
+				ok(!footer.classList.contains('slideup'), 'Footer has .slideup class');
+
+				ok(!content.classList.contains('slideup'), 'Content has .slideup class');
+			});
+
+			test('Sets proper transition classes when data-transition exists ', function(){
+				var header = document.getElementById('header7'),
+					footer = document.getElementById('footer7'),
+					content = document.getElementById('content7');
+
+				$('#page7').page();
+
+				ok(!content.classList.contains('slide'), 'Content has no .slide class');
+				ok(!content.classList.contains('slideup'), 'Content has no .slideup class');
+				ok(!content.classList.contains('slidedown'), 'Content has no .slidedown class');
+				ok(!content.classList.contains('none'), 'Content has no .none class');
+				ok(!content.classList.contains('easein'), 'Content has no .easein class');
+				ok(!content.classList.contains('easeout'), 'Content has no .easeout class');
+
+				ok(header.classList.contains('easein'), 'Header has .easein class');
+				ok(footer.classList.contains('easeout'), 'Footer has .easeout class');
+			});
+
+			test('Changing active page causes ui-overlay- class change (on body)', function(){
+				var bodyClassList = document.body.classList,
+					page8 = ej.engine.getBinding($("#page1").page()[0]),
+					pageA = ej.engine.getBinding($("#page8-a").page()[0]),
+					pageB = ej.engine.getBinding($("#page8-b").page()[0]),
+					pageC = ej.engine.getBinding($("#page8-c").page()[0]),
+					pageContainer;
+					ej.engine.run();
+					pageContainer = ej.engine.getRouter().getContainer();
+
+					ok(bodyClassList.contains('ui-overlay-s'), 'Body doesn\'t contain default ui-overlay-s class');
+
+					pageA.setActive(true, pageContainer);
+					ok(bodyClassList.contains('ui-overlay-a'), 'Body has first page class ui-overlay-a');
+					pageA.setActive(false, pageContainer);
+					ok(!bodyClassList.contains('ui-overlay-a'), 'Body doesn\'t have first page class ui-overlay-a');
+
+					page8.setActive(true, pageContainer);
+					ok(bodyClassList.contains('ui-overlay-s'), 'Body has default theme class ui-overlay-s');
+					page8.setActive(false, pageContainer);
+					ok(!bodyClassList.contains('ui-overlay-s'), 'Body doesn\'t have default theme class ui-overlay-s');
+
+					pageC.setActive(true, pageContainer);
+					ok(bodyClassList.contains('ui-overlay-c'), 'Body has third page class ui-overlay-c');
+					pageC.setActive(false, pageContainer);
+					ok(!bodyClassList.contains('ui-overlay-c'), 'Body doesn\'t have third page class ui-overlay-c');
+
+					pageB.setActive(true, pageContainer);
+					ok(bodyClassList.contains('ui-overlay-b'), 'Body has second page class ui-overlay-b');
+					pageB.setActive(false, pageContainer);
+					ok(!bodyClassList.contains('ui-overlay-b'), 'Body doesn\'t have second page class ui-overlay-b');
+			});
+
+		var tauConfig = {
+			"autorun": false
+		};
+		</script>
+		<script type="text/javascript" src="../../../../../../libs/dist/js/tau.js"></script>
+
+	</body>
+</html>

@@ -10,7 +10,7 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"./jqm",
+			"./namespace",
 			"../core/engine",
 			"../core/widget/BaseWidget",
 			"../core/util/object"
