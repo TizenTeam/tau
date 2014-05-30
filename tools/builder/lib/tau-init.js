@@ -1,5 +1,5 @@
 /*global print, Java, java, JavaImporter, System, environment, require, quit */
-(function (commandLineArguments) {
+(function () {
 	"use strict";
 	var config = require("./builder/config.js"),
 		builder = require("./builder/tau-builder.js"),
@@ -7,7 +7,7 @@
 		args = common.parseArguments(environment['sun.java.command']), // hack for spaces in param values bug
 		os = common.getOS(),
 		profiles = args.profile ? [args.profile.split(",")] : ['wearable', 'mobile'],
-		rootNamespace = args['root-namespace'] || "tau",
+		rootNamespace = args['root-namespace'],
 		customFile = (args["custom-file"] || "").replace(/^~/i, environment["user.home"]);
 
 	profiles.map(function (p) {

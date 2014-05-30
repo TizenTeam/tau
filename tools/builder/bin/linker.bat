@@ -2,6 +2,6 @@
 SET bindir=%~dp0
 SET appdir=%bindir%\..
 SET libdir=%appdir%\lib
-start java -cp "%libdir%/*" org.mozilla.javascript.tools.shell.Main -opt -1 %libdir%\requirejs.linker.js --builder-app-dir="%appdir%" %*
+java -cp "%libdir%/*" org.mozilla.javascript.tools.shell.Main -opt -1 %libdir%\requirejs.linker.js --builder-app-dir="%appdir%" %*
 @echo on
 @exit /B %errorlevel%

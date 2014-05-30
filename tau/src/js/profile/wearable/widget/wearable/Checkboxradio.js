@@ -60,3 +60,12 @@
  * Checkboxradio widget hasn't JavaScript API.
  * @class ns.widget.wearable.Checkboxradio
  */
+
+// empty to ensure requirejs does not add anything own
+//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+define(function () {
+	"use strict";
+	return;
+});
+//>>excludeEnd("tauBuildExclude");
+

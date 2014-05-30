@@ -26,11 +26,7 @@
 
 	function mkdir(path) {
 		var dir = new File(path);
-		if (!dir.exists()) {
-			logger.info("creating directory: " + dir.getCanonicalPath());
-			return dir.mkdirs();
-		}
-		return false;
+		FileUtils.forceMkdir(dir);
 	}
 
 	function copyFile(source, destination) {
@@ -75,9 +71,17 @@
 			entity = contentIterator.next();
 			logger.info("copy " + entity.getPath());
 			if (entity.isDirectory()) {
-				FileUtils.copyDirectory(entity, destination, filter, true);
+				try {
+					FileUtils.copyDirectory(entity, destination, filter, true);
+				} catch (e) {
+					logger.error("copy operation failed", e);
+				}
 			} else if (filter.accept(entity)) {
-				FileUtils.copyFileToDirectory(entity, destination, true);
+				try {
+					FileUtils.copyFileToDirectory(entity, destination, true);
+				} catch (copyException) {
+					logger.error("copy operation failed", copyException);
+				}
 			}
 		}
 	}
@@ -115,10 +119,41 @@
 		return result;
 	}
 
+	function readJSON(path) {
+		var file = new File(path),
+			data;
+		if (file.exists() && file.canRead()) {
+			try {
+				data = FileUtils.readFileToString(file);
+			} catch (readException) {
+				// pass
+			}
+			if (data) {
+				return JSON.parse(data);
+			}
+		}
+		return {};
+	}
+
+	function writeFile(data, path) {
+		var file = new File(path);
+
+		try {
+			FileUtils.writeStringToFile(file, data + "\n", false);
+			logger.info("File written: " + file.getPath());
+		} catch (fileWriteException) {
+			return false;
+		}
+
+		return true;
+	}
+
 	exports.copyContents = copyContents;
 	exports.copyFile = copyFile;
 	exports.mkdir = mkdir;
 	exports.parseArguments = parseArguments;
+	exports.readJSON = readJSON;
+	exports.writeFile = writeFile;
 	exports.getArchitecture = function () {
 		return arch;
 	};

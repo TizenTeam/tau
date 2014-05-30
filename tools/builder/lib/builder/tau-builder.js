@@ -1,5 +1,5 @@
 /*global print, exports, require, java, JavaImporter, org */
-/*jslint nomen: true */
+/*jslint nomen: true, plusplus: true */
 (function (exports) {
 	"use strict";
 
@@ -47,6 +47,8 @@
 			outputMin,
 			profileCfg = profileConfig[profile],
 			themes = profileCfg && profileCfg.themes,
+			defaultTheme = profileCfg && profileCfg.defaultTheme,
+			useGlobalize = profileCfg && profileCfg.useGlobalize,
 			themeKeys,
 			theme,
 			themeBase,
@@ -55,10 +57,15 @@
 			themeOut,
 			themeOutMin,
 			lessInput,
+			packageConfig = common.readJSON(currentDir + sep + "package.json"),
+			packageName = packageConfig && packageConfig.name,
+			version = (packageConfig && packageConfig.version) || "unknown",
 			i,
 			l;
 
-		if (profile == "custom") {
+		rootNamespace = rootNamespace || packageName || "tau";
+
+		if (profile === "custom") {
 			customProfileFile = config.get("custom-file");
 
 			logger.info("Building profile: " + profile + " defined in file [" + customProfileFile + "]");
@@ -79,7 +86,7 @@
 
 		filename = entry.getName();
 		profileDestination = config.get("destination");
-		output = new File(profileDestination + sep + "js" + sep + profile + sep + rootNamespace + ".js");
+		output = new File(profileDestination + sep + profile + sep + "js" + sep + rootNamespace + ".js");
 		outputMin = rootNamespace + ".min.js";
 
 		if (!entry.exists() || !entry.canRead() || !themes) {
@@ -87,23 +94,25 @@
 			return false;
 		}
 
-		common.mkdir(profileDestination);
+		common.mkdir(profileDestination + sep + profile + sep + "js");
 
 		try {
 			linker.link(entry.getPath(), output.getPath(), rootNamespace);
-		} catch (e) {
-			logger.error(e.message);
+		} catch (linkException) {
+			logger.error(linkException.message);
 			return false;
 		}
 
 		try {
-			compiler.compile(output.getPath(), profileDestination + sep + "js" + sep + profile + sep + outputMin);
-		} catch (e) {
-			logger.error(e.message);
+			compiler.compile(output.getPath(), profileDestination + sep + profile + sep + "js" + sep + outputMin);
+		} catch (compileException) {
+			logger.error(compileException.message);
 			return false;
 		}
 
-
+		if (defaultTheme) {
+			themes["default"] = themes[defaultTheme];
+		}
 		themeKeys = Object.keys(themes);
 		i = 0;
 		l = themeKeys.length;
@@ -121,9 +130,9 @@
 			themeIn = themeBase + sep + "style.less";
 			themeOutBase = profileDestination +
 				sep +
-				"theme" +
-				sep +
 				profile +
+				sep +
+				"theme" +
 				sep +
 				theme;
 			themeOut = themeOutBase +
@@ -133,7 +142,7 @@
 				sep +
 				"tau.min.css";
 			try {
-				common.mkdir(profileDestination + sep + "theme" + sep + profile + sep + theme);
+				common.mkdir(themeOutBase);
 				logger.info("compiling less files");
 				lessCompiler.compile(themeIn, themeOut);
 				lessCompiler.compile(themeIn, themeOutMin, true);
@@ -146,17 +155,19 @@
 			}
 		}
 
-		// copy globalize
-		try {
-			logger.info("copy globalize");
-			common.copyContents(currentDir + sep + "libs" + sep + "globalize" + sep + "lib", profileDestination + sep + "js" + sep + profile);
-		} catch (e) {
-			logger.error(e);
-			// return false; // dont stop
+		if (useGlobalize) {
+			// copy globalize
+			try {
+				logger.info("copy globalize");
+				common.copyContents(currentDir + sep + "libs" + sep + "globalize" + sep + "lib", profileDestination + sep + profile + sep + "js");
+			} catch (copyException) {
+				logger.error(copyException);
+				// return false; // dont stop
+			}
 		}
 
 		common.copyFile(currentDir + sep + "LICENSE.Flora", profileDestination + sep + "LICENSE.Flora");
-
+		common.writeFile(version, profileDestination + sep + "VERSION");
 		return true;
 	};
 

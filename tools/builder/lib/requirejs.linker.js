@@ -16,34 +16,44 @@ function showHelp() {
 	print("");
 }
 
-function parseArguments(args) {
+function trim(str) {
 	"use strict";
-	var parsed = {},
-		arg,
-		prop,
-		cleanprop,
-		spl;
+	return str.trim();
+}
 
-	for (prop in args) {
-		if (args.hasOwnProperty(prop)) {
-			arg = args[prop];
-			if (arg.indexOf("--") > -1) {
-				cleanprop = arg.replace(/--/i, "");
-				if (cleanprop.indexOf("=") > -1) {
-					spl = cleanprop.split("=");
-					parsed[spl[0].trim()] = spl[1].trim();
-				} else {
-					parsed[cleanprop] = true;
-				}
+function removeEmpty(str) {
+	"use strict";
+	return str && str.length > 0;
+}
+
+function parseArguments(argumentString) {
+	"use strict";
+	var firstParamIndex,
+		paramPrefix = "--",
+		paramInfix = "=",
+		result = {},
+		paramsSplitedByPrefix,
+		paramSplitedByInfix,
+		argumentStringSub,
+		i,
+		l;
+
+	if (argumentString && (firstParamIndex = argumentString.indexOf(paramPrefix)) > -1) {
+		argumentStringSub = argumentString.substr(firstParamIndex);
+		if (argumentStringSub.length > 0) {
+			paramsSplitedByPrefix = argumentStringSub.split(paramPrefix).map(trim).filter(removeEmpty);
+			for (i = 0, l = paramsSplitedByPrefix.length; i < l; ++i) {
+				paramSplitedByInfix = paramsSplitedByPrefix[i].split(paramInfix).map(trim).filter(removeEmpty);
+				result[paramSplitedByInfix[0]] = paramSplitedByInfix[1] !== undefined ?
+						paramSplitedByInfix[1] : true;
 			}
 		}
 	}
-
-	return parsed;
+	return result;
 }
 
 var requirejsAsLib = true,
-	args = parseArguments(arguments),
+	args = parseArguments(environment["sun.java.command"]),
 	appDir = args["builder-app-dir"],
 	inFile = (args["inputFile"] || "").replace(/"+/g, ''),
 	outFile = (args["outputFile"]).replace(/"+/g, ''),
@@ -79,6 +89,7 @@ requirejs.onError = function (err) {
 	print("ERROR: " + err);
 	quit(1);
 };
+
 try {
 	requirejs.optimize({
 		baseUrl: base,
@@ -102,7 +113,7 @@ try {
 		wrap: {
 			start: '(function(window, document) {\n' +
 					'"use strict";\n' +
-					'var ns = window.' + rootNS + ' || {},\n' +
+					'var ns = window.' + rootNS + ' = window.$' + rootNS + ' = {},\n' +
 					'nsConfig = window.' + rootNS + 'Config || {};\n' +
 					'nsConfig.rootNamespace = "' + rootNS + '";\n' +
 					'nsConfig.fileName= "' + rootNS + '";\n',
@@ -121,3 +132,4 @@ try {
 }
 
 quit(1);
+

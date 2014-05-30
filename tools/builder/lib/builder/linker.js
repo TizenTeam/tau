@@ -21,9 +21,9 @@
 				"linker" + (config.get("os") === 'win' ? '.bat' : '.sh'),
 			pb = new ProcessBuilder(
 				linkerExecutable,
-				'--inputFile="' + inFile + '"',
-				'--outputFile="' + outFile + '"',
-				'--root-ns="' + (rootNS || "tau") + '"'
+				'--inputFile=' + inFile,
+				'--outputFile=' + outFile,
+				'--root-ns=' + (rootNS || "tau")
 			).inheritIO(),
 			p;
 		pb.redirectErrorStream(true);

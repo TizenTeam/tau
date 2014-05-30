@@ -22,7 +22,7 @@
 				separator +
 				"phantomjs" +
 				separator +
-				config.get("os") + (config.get("arch") === "64" ? "64" : "") +
+				config.get("os") + (config.get("arch") === "64" && config.get("os") === "lin" ? "64" : "") +
 				separator +
 				"phantomjs" + config.get("binary-suffix"),
 			jsFile = config.get("builder-path") +
@@ -50,7 +50,7 @@
 			).inheritIO(),
 			p;
 		logger.info("initializing PhantomJS, path: " + phantomPath);
-		pb.directory(new File(config.get("destination")));
+		pb.directory(src.getParentFile());
 		pb.redirectErrorStream(true);
 		p = pb.start();
 		logger.info("running PhantomJS");
