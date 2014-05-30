@@ -9,6 +9,7 @@
 (function ($) {
 
 	module("swipe");
+
 	var unit_swipe = function (swipe, type) {
 		var covers,
 			cover,
@@ -17,23 +18,23 @@
 			secondSwipe,
 			slideLeftDone = function () {
 				ok(true, "Animation Complete - sliding left");
-				cover.unbind("animationend");
+				cover.unbind("swipeanimationend");
 				equal(cover.position().left, coverStart, "Position - Cover");
 				start();
 			},
 			slideRightDone = function () {
 				ok(true, "Animation Complete - sliding right");
 				setTimeout(function () {
-					cover.unbind("animationend");
-					cover.bind("animationend", slideLeftDone);
+					cover.unbind("swipeanimationend");
+					cover.bind("swipeanimationend", slideLeftDone);
 					item.trigger("swipeleft");
 				}, 0);
 			};
 
-		if (type == 'swipe') {
-			$("#swipepage").page();
-		} else if (type == 'swipedynamic') {
-			$("#swipedynamicpage").page();
+		if (type == "swipe") {
+			window.location.hash = "#swipelistpage";
+		} else if (type == "swipedynamic") {
+			window.location.hash = "#swipedynamicpage";
 		}
 
 		swipe.swipe();
@@ -46,14 +47,13 @@
 		item = swipe.find("div.ui-swipe-item").first();
 
 		/*API : open , close*/
-		cover.unbind("animationend");
-		swipe.swipe('open');
-		equal(swipe.swipe('opened'), true, "API : open");
+		swipe.swipe("open");
+		equal(swipe.swipe("opened"), true, "API : open");
 
-		swipe.swipe('close');
+		swipe.swipe("close");
 		equal(swipe.swipe('opened'), false, "API : close");
 
-		cover.bind("animationend", slideRightDone);
+		cover.bind("swipeanimationend", slideRightDone);//one
 		cover.trigger("swiperight");
 		stop();
 
@@ -65,40 +65,38 @@
 		/*Check other swipe items are closed*/
 		secondSwipe = swipe.next();
 		secondSwipe.swipe();
-		if (secondSwipe) {
-			secondSwipe.swipe('open');
-			swipe.swipe('open');
-			equal(secondSwipe.swipe('opened'), false, "When one open other swipe elements close.");
-		}
 
+		if (secondSwipe) {
+			swipe.swipe("open");
+			secondSwipe.swipe("open");
+			equal(swipe.swipe("opened"), false, "When one open other swipe elements close.");
+		}
 		start();
 	},
 
-		unit_swipe_destroy = function (swipe, type) {
-			var covers,
-				new_page = $("#swipedestorypage");
+	unit_swipe_destroy = function (swipe, type) {
+		var covers,
+			new_page = $("#swipedestorypage");
 
-			new_page.page();
-			swipe.swipe();
-			ok(swipe.hasClass("ui-swipe"), "Create - Swipe");
-			covers = swipe.find("div.ui-swipe-item-cover");
-			equal(swipe.find("div.ui-swipe-item").length , 1, "Count - Swipeable ui-swipe-item");
+		new_page.page();
+		swipe.swipe();
+		ok(swipe.hasClass("ui-swipe"), "Create - Swipe");
+		covers = swipe.find("div.ui-swipe-item-cover");
+		equal(swipe.find("div.ui-swipe-item").length , 1, "Count - Swipeable ui-swipe-item");
 
-			equal(covers.length , 1, "Count - cover");
+		equal(covers.length , 1, "Count - cover");
 
-			swipe.swipe("destroy");
-			equal(swipe.has('.ui-swipe').length, 0, "Destroy - swipe");
-			equal(swipe.has('.ui-swipe-item').length, 0 , "Destroy - item");
-			equal(swipe.has('.ui-swipe-item-cover').length, 0, "Destroy - cover");
-
-			start();
-		};
+		swipe.swipe("destroy");
+		equal(swipe.has(".ui-swipe").length, 0, "Destroy - swipe");
+		equal(swipe.has(".ui-swipe-item").length, 0 , "Destroy - item");
+		equal(swipe.has(".ui-swipe-item-cover").length, 0, "Destroy - cover");
+		start();
+	};
 
 	asyncTest(" swipe", function () {
 		expect(10);
 		unit_swipe($("#swipewidget"), "swipe");
 	});
-
 
 	asyncTest(" swipe - destory", function () {
 		expect(6);
@@ -130,7 +128,9 @@
 									'</div>' +
 								'</li>';
 		$("#swipedynamiclist").append(listContentHTML).trigger("create");
+
 		unit_swipe($("#swipewidgetdynamic"), "swipedynamic");
+
 	});
 
 } (jQuery));

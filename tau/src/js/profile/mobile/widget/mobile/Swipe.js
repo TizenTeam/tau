@@ -42,6 +42,8 @@
 						theme: null
 					};
 					self._isOpen = false;
+					self.moveAnimation = null;
+					self.opacityAnimation = null;
 				},
 				/**
 				* @property {Object} Widget Alias for {@link ns.widget.BaseWidget}
@@ -157,6 +159,14 @@
 
 				self._isOpen = leftPercentage === 110;
 
+				//To pass tests the animation can be triggered only once.
+				//Then I need to have a reference to previous animations,
+				//in order to destroy it when new animations appear
+				if(self.moveAnimation){
+					self.moveAnimation.destroy();
+					self.opacityAnimation.destroy();
+				}
+
 				//animations change the left value to uncover/ cover item element
 				moveAnimation = new Animation({
 					element: cover,
@@ -169,6 +179,7 @@
 					},
 					onEnd: handleAnimationEnd
 				});
+				self.moveAnimation = moveAnimation;
 				moveAnimation.play();
 
 				//animations change item opacity in order to show items under cover
@@ -183,6 +194,7 @@
 					},
 					onEnd: handleAnimationEnd
 				});
+				self.opacityAnimation = opacityAnimation;
 				opacityAnimation.play();
 			}
 
