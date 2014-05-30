@@ -38,7 +38,6 @@
 			"./core/event/orientationchange",
 			"./core/event/touch",
 			"./core/event/pinch",
-			"./core/event/hwkey",
 			// widget list
 			"./profile/mobile/widget/mobile/Page",
 			"./profile/mobile/widget/mobile/Scrollview",
