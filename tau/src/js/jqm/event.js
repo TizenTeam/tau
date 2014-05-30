@@ -35,7 +35,7 @@
 					MOUSEUP: "mouseup",
 					BEFOREROUTERINIT: "beforerouterinit"
 				},
-				registerEventNames = ["touchstart", "touchmove", "touchend", "tap", "taphold", "swipe", "swipeleft", "swiperight", "scrollstart", "scrollstop"];
+				registerEventNames = ["touchstart", "touchmove", "touchend", "tap", "taphold", "swipeleft", "swiperight", "scrollstart", "scrollstop"];
 
 			ns.jqm.event = {
 				/**

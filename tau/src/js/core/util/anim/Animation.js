@@ -233,7 +233,7 @@
 				self.keyframes = new Keyframes(self.steps);
 				id = self.keyframes.id;
 				if (element) {
-					propsArray.push(id + " " + opts.duration + " " + opts.timingFunction + " " + opts.delay + " " + opts.iterationCount + " " + opts.direction + " " + opts.fillMode + " paused");
+					propsArray.push(id + " " + opts.duration + " " + opts.timingFunction + " " + opts.delay + " " + opts.iterationCount + " " + opts.direction + " " + opts.fillMode);
 					element.style.setProperty(cssPropertyPrefix + "animation", propsArray.join(","));
 					self._applied = true;
 				}
@@ -326,8 +326,10 @@
 					if (self._applied && keyframes) {
 						style = element.style;
 						prop = style.getPropertyValue(cssPropertyPrefix + "animation");
-						propRegexp = new RegExp(",? ?" + keyframes.id + "[^,%]*,? ?", "i");
-						style.removeProperty(cssPropertyPrefix + "animation", prop.replace(propRegexp, ""));
+						if (prop){
+							propRegexp = new RegExp(",? ?" + keyframes.id + "[^,%]*,? ?", "i");
+							style.removeProperty(cssPropertyPrefix + "animation", prop.replace(propRegexp, ""));
+						}
 						keyframes.destroy();
 						self._applied = false;
 					}

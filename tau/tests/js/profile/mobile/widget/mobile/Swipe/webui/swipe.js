@@ -20,15 +20,15 @@ $(document).ready(function () {
 			item,
 			slideLeftDone = function () {
 				ok(true, "Animation end - sliding left");
-				cover.unbind("animationend");
+				cover.unbind("swipeanimationend");
 				equal(cover.position().left, coverStart, "Position - Cover");
 				start();
 			},
 			slideRightDone = function () {
 				ok(true, "Animation end - sliding right");
 				setTimeout(function () {
-					cover.unbind("animationend");
-					cover.bind("animationend", slideLeftDone);
+					cover.unbind("swipeanimationend");
+					cover.bind("swipeanimationend", slideLeftDone);
 					item.trigger("swipeleft");
 				}, 0);
 			};
@@ -43,7 +43,7 @@ $(document).ready(function () {
 		coverStart = cover.position().left;
 		item = swipe.find("div.ui-swipe-item").first();
 
-		cover.bind("animationend", slideRightDone);
+		cover.bind("swipeanimationend", slideRightDone);
 		cover.trigger("swiperight");
 
 		equal(swipe.find("div.ui-swipe-item").length , 1, "Count - Swipeable li");
@@ -67,11 +67,9 @@ $(document).ready(function () {
 		equal(covers.length , 1, "Count - cover");
 
 		swipe.swipe("destroy");
-
 		equal(swipe.has('.ui-swipe').length, 0, "Destroy - swipe");
 		equal(swipe.has('.ui-swipe-item').length, 0 , "Destroy - item");
 		equal(swipe.has('.ui-swipe-item-cover').length, 0, "Destroy - cover");
-
 		start();
 	};
 
@@ -79,7 +77,6 @@ $(document).ready(function () {
 		expect(7);
 		unit_swipe($("#swipewidget"), "swipe");
 	});
-
 	asyncTest(" swipe - destroy", function() {
 		expect(6);
 		unit_swipe_destroy($("#swipedestroy"), "swipedestroy");

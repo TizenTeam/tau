@@ -29,6 +29,7 @@
 			"../../../../core/engine",
 			"../../../../core/event",
 			"../../../../core/event/touch",
+			"../../../../core/util/anim/Animation",
 			"../mobile", //namespace
 			"./BaseWidgetMobile"
 		],
@@ -57,6 +58,7 @@
 				*/
 				engine = ns.engine,
 				events = ns.event,
+				Animation = ns.util.anim.Animation,
 				slice = [].slice,
 				swipePrototype,
 				classPrefix = 'ui-swipe',
@@ -74,6 +76,7 @@
 				swipeLeftEvent = 'swipeleft',
 				swipeRightEvent = 'swiperight',
 				webkitTransitionEndEvent = 'webkitTransitionEnd';
+
 
 			Swipe.prototype = new BaseWidget();
 			swipePrototype = Swipe.prototype;
@@ -113,19 +116,40 @@
 				}
 			}
 
-			function triggerAnimationEnd(event) {
-				var eventTarget = event.target;
+			/**
+			 * callback for the animation which is triggered when cover is moved or opacity is changed
+			 * @method moveAnimationEnd
+			 * @param {ns.util.anim.Animation} animation
+			 * @param {HTMLElement} element
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.Swipe
+			 */
+			function handleAnimationEnd(animation, element) {
+				var to = animation.options.to;
 
-				eventTarget.removeEventListener(webkitTransitionEndEvent, triggerAnimationEnd, false);
-				events.trigger(eventTarget, 'animationend');
+				if (to.opacity !== undefined) {
+					//@TODO implement "preserve" option in ns.util.anim.Animation
+					element.style.opacity = animation.options.to.opacity;
+					animation.destroy();
+				}
+				if (to.left !== undefined) {
+					//@TODO implement "preserve" option in ns.util.anim.Animation
+					element.style.left = animation.options.to.left;
+					animation.destroy();
+					events.trigger(element, "swipeanimationend");
+				}
 			}
 
 			function animateCover(self, cover, leftPercentage, item) {
 				var coverStyle = cover.style,
-					itemStyle = item.style;
+					itemStyle = item.style,
+					moveAnimation,
+					opacityAnimation,
+					swipeWidget;
 
 				slice.call(self.element.parentNode.querySelectorAll(selectorRoleSwipe)).forEach(function (swipe) {
-					var swipeWidget = engine.instanceWidget(swipe, 'Swipe');
+					swipeWidget = engine.instanceWidget(swipe, 'Swipe');
 					if (self !== swipeWidget && swipeWidget.opened()) {
 						swipeWidget.close();
 					}
@@ -133,26 +157,33 @@
 
 				self._isOpen = leftPercentage === 110;
 
-				// `webkitTransitionEnd` is probably not the best option to determine when animation has finished
-				// as it won't fire when element or any parent elements will be hidden, removed or affected property
-				// will be changed to different value during transition
-				cover.addEventListener(webkitTransitionEndEvent, triggerAnimationEnd, false);
+				//animations change the left value to uncover/ cover item element
+				moveAnimation = new Animation({
+					element: cover,
+					duration: "400ms",
+					from: {
+						"left": coverStyle.left
+					},
+					to: {
+						"left": leftPercentage + '%'
+					},
+					onEnd: handleAnimationEnd
+				});
+				moveAnimation.play();
 
-				events.trigger(cover, 'animationstart');
-
-				coverStyle.transition = 'left linear 0.4s';
-				coverStyle.webkitTransition = 'left linear 0.4s';
-
-				coverStyle.left = leftPercentage + '%';
-
-				itemStyle.transition = 'opacity linear 0.6s';
-				itemStyle.webkitTransition = 'opacity linear 0.6s';
-
-				if (leftPercentage === 0) {
-					itemStyle.opacity = 0;
-				} else {
-					itemStyle.opacity = 1;
-				}
+				//animations change item opacity in order to show items under cover
+				opacityAnimation = new Animation({
+					element: item,
+					duration: "600ms",
+					from: {
+						"opacity": itemStyle.opacity
+					},
+					to: {
+						"opacity": (itemStyle.opacity === 0) ? "0" : "1"
+					},
+					onEnd: handleAnimationEnd
+				});
+				opacityAnimation.play();
 			}
 
 			function refresh(self, element) {
