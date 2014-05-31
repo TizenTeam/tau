@@ -16,11 +16,17 @@ module.exports = function(grunt) {
 		srcJs = path.join( src, "js" ),
 		srcCss = themes.path,
 
-		buildJs = path.join(dist, "js"),
-		buildMobileJs = path.join(buildJs, "mobile"),
-		buildWearableJs = path.join(buildJs, "wearable"),
-
-		buildCss = path.join(dist, "theme"),
+		buildRoot = path.join(dist),
+		buildDir = {
+			mobile: {
+				js: path.join(buildRoot, "mobile", "js"),
+				theme: path.join(buildRoot, "mobile", "theme")
+			},
+			wearable: {
+				js: path.join(buildRoot, "wearable", "js"),
+				theme: path.join(buildRoot, "wearable", "theme")
+			}
+		},
 
 		rootNamespace = "ns",
 		exportNamespace = name,
@@ -41,18 +47,21 @@ module.exports = function(grunt) {
 				licenseFiles: [],
 				setLicenseFiles: function() {
 					files.js.licenseFiles.length = 0;
-					grunt.file.recurse(buildJs, function(abspath/*, rootdir, subdir, filename */) {
-						files.js.licenseFiles.push({
-							src: [path.join( "license", "Flora" ) + ".txt", abspath],
-							dest: abspath
-						});
+					grunt.file.recurse(buildRoot, function(abspath/*, rootdir, subdir, filename */) {
+						if( /.*tau(.min)?.js$/.test(abspath) ) {
+							files.js.licenseFiles.push({
+								src: [path.join( "license", "Flora" ) + ".txt", abspath],
+								dest: abspath
+							});
+						}
 					});
+					console.log(files.js.licenseFiles);
 				},
 				minifiedFiles: [],
 				setMinifiedFiles: function() {
 					files.js.minifiedFiles.length = 0;
-					grunt.file.recurse(buildJs, function(abspath/*, rootdir, subdir, filename */) {
-						if ( !/.min.js/.test( abspath ) ) {
+					grunt.file.recurse(buildRoot, function(abspath/*, rootdir, subdir, filename */) {
+						if ( /.js$/.test(abspath) && !/.min.js$/.test( abspath ) ) {
 							files.js.minifiedFiles.push({
 								src: abspath,
 								dest: abspath.replace(".js", ".min.js")
@@ -74,7 +83,7 @@ module.exports = function(grunt) {
 						theme = list[i];
 						rtn.push({
 							src: path.join(srcCss, theme.path, theme.src),
-							dest: path.join( buildCss, device, theme.name, name ) + ".css"
+							dest: path.join(buildRoot, device, "theme",  theme.name, name) + ".css"
 						});
 					}
 
@@ -91,8 +100,8 @@ module.exports = function(grunt) {
 						theme = list[i];
 						if ( theme["default"] === "true" ) {
 							return {
-								src: path.join(buildCss, device, theme.name),
-								dest: path.join( buildCss, device, "default" )
+								src: path.join(buildRoot, device, "theme", theme.name),
+								dest: path.join(buildRoot, device, "theme", "default" )
 							};
 						}
 					}
@@ -101,14 +110,15 @@ module.exports = function(grunt) {
 				licenseFiles: [],
 				setLicenseFiles: function() {
 					files.css.licenseFiles.length = 0;
-					grunt.file.recurse(buildCss, function(abspath, rootdir, subdir, filename) {
-						if ( /.css$/.test(filename) ) {
+					grunt.file.recurse(buildRoot, function(abspath, rootdir, subdir, filename) {
+						if ( /(.min)?.css$/.test(filename) ) {
 							files.css.licenseFiles.push({
 								src: [path.join( "license", "Flora" ) + ".txt", abspath],
 								dest: abspath
 							});
 						}
 					});
+					console.log(files.css.licenseFiles);
 				}
 			},
 
@@ -123,7 +133,7 @@ module.exports = function(grunt) {
 							expand: true,
 							cwd: path.join( srcCss, theme.path, theme.images ),
 							src: "**",
-							dest: path.join( buildCss, device, theme.name, theme.images )
+							dest: path.join( buildRoot, device, "theme", theme.name, theme.images )
 						});
 					}
 					return rtn;
@@ -155,7 +165,7 @@ module.exports = function(grunt) {
 						findNestedDependencies: true,
 						skipModuleInsertion: true,
 						name: "wearable",
-						out: path.join( buildWearableJs, name ) + ".js",
+						out: path.join( buildDir.wearable.js, name ) + ".js",
 						pragmasOnSave: {
 							tauBuildExclude: true,
 							tauDebug: true
@@ -174,7 +184,7 @@ module.exports = function(grunt) {
 						findNestedDependencies: true,
 						skipModuleInsertion: true,
 						name: "mobile",
-						out: path.join( buildMobileJs, name ) + ".js",
+						out: path.join( buildDir.mobile.js, name ) + ".js",
 						pragmasOnSave: {
 							tauBuildExclude: true,
 							tauDebug: true
@@ -219,9 +229,9 @@ module.exports = function(grunt) {
 
 				all: {
 					expand: true,
-					cwd: buildCss,
+					cwd: buildRoot,
 					src: ["**/*.css", "!**/*.min.css"],
-					dest: buildCss,
+					dest: buildRoot,
 					ext: ".min.css"
 				}
 			},
@@ -239,11 +249,11 @@ module.exports = function(grunt) {
 					files: [
 						{
 							src: "libs/jquery.js",
-							dest: path.join(buildMobileJs, "jquery.js")
+							dest: path.join(buildDir.mobile.js, "jquery.js")
 						},
 						{
 							src: "libs/jquery.min.js",
-							dest: path.join(buildMobileJs, "jquery.min.js")
+							dest: path.join(buildDir.mobile.js, "jquery.min.js")
 						}
 					]
 				},
@@ -257,7 +267,7 @@ module.exports = function(grunt) {
 					expand: true,
 					cwd: "libs/globalize/lib/",
 					src: "cultures/**/*",
-					dest: buildMobileJs
+					dest: buildDir.mobile.js
 				},
 
 				"sdk-docs": {
@@ -324,8 +334,8 @@ module.exports = function(grunt) {
 			},
 
 			clean: {
-				js: [ buildJs ],
-				css: [ buildCss ],
+				js: [ buildDir.mobile.js, buildDir.wearable.js ],
+				theme: [ buildDir.mobile.theme, buildDir.wearable.theme ],
 				docs: {
 					expand: true,
 					src: ['docs']
@@ -333,7 +343,7 @@ module.exports = function(grunt) {
 				tmp: {
 					expand: true,
 					src: ['tmp']
-				}
+				},
 			},
 
 			qunit: {
@@ -482,7 +492,7 @@ module.exports = function(grunt) {
 							skipModuleInsertion: true,
 							exclude: [ profileName ],
 							name: path.join("..", "css", "profile", profileName, "theme-" + theme.name, 'theme'),
-							out: path.join( dist, "theme", profileName, theme.name, 'theme' ) + '.js',
+							out: path.join( buildDir[profileName].theme, theme.name, 'theme' ) + '.js',
 							pragmasOnSave: {
 								tauBuildExclude: true,
 								tauDebug: true
@@ -505,6 +515,7 @@ module.exports = function(grunt) {
 			profileName,
 			include;
 
+		// Add a dependency to the theme.js module
 		for (profileName in themes['device']) {
 			defaultTheme = findDefaultTheme(profileName);
 			if (defaultTheme !== undefined &&
@@ -550,7 +561,7 @@ module.exports = function(grunt) {
 	grunt.registerTask("lint", [ /* "jshint", @TODO fix all errors and revert*/ ] );
 	grunt.registerTask("jsmin", [ "findFiles:js.setMinifiedFiles", "uglify" ]);
 	grunt.registerTask("image", [ "copy:wearableImages", "copy:mobileImages" ]);
-	grunt.registerTask("css", [ "clean:css", "less", "cssmin", "image", "symlink" ]);
+	grunt.registerTask("css", [ "clean:theme", "less", "cssmin", "image", "symlink" ]);
 	grunt.registerTask("js", [ "clean:js", "requirejs", "jsmin", "themesjs", "copy:globalize", "copy:mobileJquery" ]);
 	grunt.registerTask("license", [ "findFiles:js.setLicenseFiles", "findFiles:css.setLicenseFiles", "concat:licenseJs", "concat:licenseCss", "copy:license" ]);
 	grunt.registerTask("release", [ "clean", "lint", "css", "js", "license", "version" ]);
