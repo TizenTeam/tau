@@ -56,12 +56,12 @@ module.exports = function (grunt) {
 	// Update config for task; copy
 	configProperty = grunt.config.get("copy");
 	configProperty["test-libs-wearable"] = { files: [
-		{expand: true, cwd: path.join(buildFrameworkPath, "js", "wearable/"), src: "**", dest: path.join("tests", "libs", "dist", "js")},
-		{expand: true, cwd: path.join(buildFrameworkPath, "theme", "wearable/"), src: "**", dest: path.join("tests", "libs", "dist", "theme")}
+		{expand: true, cwd: path.join(buildFrameworkPath, "wearable", "js/"), src: "**", dest: path.join("tests", "libs", "dist", "js")},
+		{expand: true, cwd: path.join(buildFrameworkPath, "wearable", "theme/"), src: "**", dest: path.join("tests", "libs", "dist", "theme")}
 	]};
 	configProperty["test-libs-mobile"] = { files: [
-		{expand: true, cwd: path.join(buildFrameworkPath, "js", "mobile/"), src: "**", dest: path.join("tests", "libs", "dist", "js")},
-		{expand: true, cwd: path.join(buildFrameworkPath, "theme", "mobile/"), src: "**", dest: path.join("tests", "libs", "dist", "theme")}
+		{expand: true, cwd: path.join(buildFrameworkPath, "mobile", "js/"), src: "**", dest: path.join("tests", "libs", "dist", "js")},
+		{expand: true, cwd: path.join(buildFrameworkPath, "mobile", "theme/"), src: "**", dest: path.join("tests", "libs", "dist", "theme")}
 	]};
 	configProperty["test-libs-jqm"] = configProperty["test-libs-mobile"];
 	grunt.config.set("copy", configProperty);

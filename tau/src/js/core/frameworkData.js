@@ -17,8 +17,8 @@
 			var frameworkData = {
 					frameworkName: "tizen-web-ui-fw",
 					isMinified: false,
-					rootDir: '/usr/share/tizen-web-ui-fw',
-					version: 'latest',
+					rootDir: "/usr/share/tizen-web-ui-fw",
+					version: "latest",
 					theme: "tizen-black",
 					defaultViewportWidth: 360,
 					viewportWidth: "device-width",
@@ -28,12 +28,10 @@
 					deviceCapa: { inputKeyBack: true, inputKeyMenu: true },
 					debug: false,
 					pkgVersion: "0.2.83",
-					dataPrefix: 'data-framework-'
+					dataPrefix: "data-framework-",
+					profile: ""
 				},
-				slice = [].slice,
 
-				FILE_REGEXP = /^file:(\/\/)?/,
-				TOKENS_REGEXP = /[\/\\]/,
 				MINIFIED_REGEXP = /\.min\.js$/;
 
 			/* Get data-* params from <script> tag, and set tizen.frameworkData.* values
@@ -45,6 +43,8 @@
 					scriptElement = document.getElementsByTagName("script"),
 					libFileName = "(tau(.min)?.js|tizen-web-ui-fw(.custom|.full)?(.min)?.js)",
 					frameworkName = "tau",
+					profileName = "",
+					isMinified,
 					themePath,
 					jsPath,
 					theme,
@@ -58,22 +58,27 @@
 						src = elem.src ? elem.getAttribute("src") : undefined;
 
 						if (src && src.match(libFileName)) {
-							theme = elem.getAttribute("data-framework-theme") ? elem.getAttribute("data-framework-theme") : self.theme;
-							isMinified = src.search(/\.min\.js$/) > -1 ? true : false;
+							theme = elem.getAttribute("data-framework-theme") || self.theme;
+							isMinified = src.search(MINIFIED_REGEXP) > -1 ? true : false;
 
-							if (src.search("tau") > -1 ) {
+							if (src.indexOf("tau") > -1 ) {
+								// Get profile name. It can be assumed, that profile name is second up directory name
+								// e.g. pathToLib/profileName/js/tau.js
+								profileName = src.split('/').slice(-3)[0];
+
 								// TAU framework
-								themePath = "/theme/mobile/" + theme.match("black|white")[0];
-								jsPath = "/js/mobile";
+								themePath = "/" + profileName + "/theme/" + theme.match("black|white")[0];
+								jsPath = "/" + profileName + "/js";
 							} else {
 								// tizen-web-ui framework
 								frameworkName = "tizen-web-ui-fw";
 								themePath = "/latest/themes/" + theme;
-								jsPath = "/latest/js"
+								jsPath = "/latest/js";
 							}
 
 							self.rootDir = elem.getAttribute(dataPrefix + "root") ||
-								src.substring(0, src.search(frameworkName) + frameworkName.length) ||
+								// remove from src path jsPath and "/" sign
+								src.substring(0, src.lastIndexOf(frameworkName) - jsPath.length - 1) ||
 								self.rootDir;
 							self.themePath = self.rootDir + themePath;
 							self.jsPath = self.rootDir + jsPath;
@@ -81,6 +86,7 @@
 							self.theme = theme;
 							self.frameworkName = frameworkName;
 							self.isMinified = isMinified;
+							self.profile = profileName;
 						}
 					}
 				}
