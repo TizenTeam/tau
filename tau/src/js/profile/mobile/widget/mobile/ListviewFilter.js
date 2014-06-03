@@ -16,15 +16,153 @@
 */
 /*jslint nomen: true, plusplus: true */
 /**
- * #Filter Extension For ListView Widget
+ * # ListView Filter Widget
+ * Filter Extension For ListView Widget
  *
-* @author Maciej Urbanski <m.urbanski@samsung.com>
-* @class ns.widget.mobile.Listview.Filter
-* @override ns.widget.mobile.Listview
+ * ## Default selectors
+ * In default all ListView elements with _data-filter=true_ are changed to Tizen Web UI Listview Filter.
+ *
+ *		@example
+ *		<ul data-role="listview" data-filter="true">
+ *			<li>Anton</li>
+ *			<li>Arabella</li>
+ *			<li>Barry</li>
+ *			<li>Bily</li>
+ *		</ul>
+ *
+ * #### Create Listview widget with filter using tau method:
+ *
+ *		@example
+ *		<ul id="contacts" data-role="listview" data-filter="true">
+ *			<li>Anton</li>
+ *			<li>Arabella</li>
+ *			<li>Barry</li>
+ *			<li>Bily</li>
+*		</ul>
+ *		<script>
+ *			var listview = tau.widget.Listview(document.getElementById("contacts"), {filter: true});
+ *		</script>
+ *
+ * ## Options
+ *
+ * ### Filter
+ * _data-filter_ option set to true, creates a listview filter the HTML unordered list (&lt;ul&gt;) element.
+ *
+ *		@example
+ *		<ul id="contacts" data-role="listview" data-filter="true">
+ *			<li>Anton</li>
+ *			<li>Arabella</li>
+ *			<li>Barry</li>
+ *			<li>Bily</li>
+ *		</ul>
+ *
+ * ### Filter Placeholder
+ * _data-filter-placeholder_ option sets the placeholder for filter input field.
+ *
+ *		@example
+ *		<ul id="contacts" data-role="listview" data-filter="true" data-placeholder="First name">
+ *			<li>Anton</li>
+ *			<li>Arabella</li>
+ *			<li>Barry</li>
+ *			<li>Bily</li>
+ *		</ul>
+ *
+ * ### Filter Theme
+ * _data-filter-theme_ option sets the search box theme
+ *
+ *		@example
+ *		<ul id="contacts" data-role="listview" data-filter="true" data-filter-theme="s">
+ *			<li>Anton</li>
+ *			<li>Arabella</li>
+ *			<li>Barry</li>
+ *			<li>Bily</li>
+ *		</ul>
+ *
+ * ### Filter Callback
+ * This option allow to change the way in which list items are filtered
+ *
+ *		@example
+ *		<ul id="contacts" data-role="listview">
+ *			<li>Anton</li>
+ *			<li>Arabella</li>
+ *			<li>Barry</li>
+ *			<li>Bily</li>
+ *		</ul>
+ *		<script>
+ *			var listview = tau.widget.Listview(document.getElementById("contacts"), {filter: true});
+ *			function yourFilterFunction(text, searchValue, item) {
+ *				return text.toString().toLowerCase().indexOf(searchValue) === -1;
+ *			}
+ *			listview.option("filterCallback", yourFilterFunction);
+ *		</script>
+ *
+ * ### Filter text
+ * _data-filtertext_ To filter list items by values other than the text,
+ * add a _data-filtertext_ attribute to the list item.
+ * The value of this attribute will be passed as the first argument to the filterCallback function instead of the text.
+ * Alternately you can use an attribute of your choosing as defined on the list item itself.
+ *
+ *		@example
+ *		<ul id="contacts" data-role="listview" data-filter="true">
+ *			<li data-filtertext="Anton">Person</li>
+ *			<li data-filtertext="Arabella">Person</li>
+ *			<li>Barry</li>
+ *			<li data-filtertext="Bily">Person</li>
+ *		</ul>
+ *
+ * ## Events
+ *
+ * ### beforefilter
+ * Triggered before the listview will be filtered.
+ *
+ *		@example
+ *		<ul id="contacts" data-role="listview" data-filter="true">
+ *			<li>Anton</li>
+ *			<li>Arabella</li>
+ *			<li>Barry</li>
+ *			<li>Bily</li>
+ *		</ul>
+ *		<script>
+ *			var element = document.getElementById("contacts"),
+ *				list = tau.widget.Listview(element);
+ *
+ *			// add the event handler
+ *			list.on("beforefilter", function (event) {
+ *				// handle event
+ *			});
+ *		</script>
+ *
+ * Full list of available events is in [events list section](#events-list).
+ *
+ * ## Methods
+ *
+ * To call method on widget you can use tau API:
+ *
+ *		@example
+ *		<ul id="contacts" data-role="listview" data-filter="true">
+ *			<li>Anton</li>
+ *			<li>Arabella</li>
+ *			<li>Barry</li>
+ *			<li>Bily</li>
+ *		</ul>
+ *		<script>
+ *			var element = document.getElementById("contacts"),
+ *				contacts = tau.widget.Listview(element);
+ *
+ *			contacts.methodName(methodArgument1, methodArgument2, ...);
+ *
+ *			// or JQueryMobile notation:
+ *			$(element).contacts("methodName", methodArgument1, methodArgument2, ...);
+ *		</script>
+ *
+ * @author Maciej Urbanski <m.urbanski@samsung.com>
+ * @author Tomasz Lukawski <t.lukawski@samsung.com>
+ * @class ns.widget.mobile.Listview.Filter
+ * @override ns.widget.mobile.Listview
  */
 (function (document, ns) {
-	'use strict';
-	//>>excludeStart('tauBuildExclude', pragmas.tauBuildExclude);
+	"use strict";
+	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
 			"../../../../core/engine",
@@ -37,7 +175,7 @@
 			"./Searchbar"
 		],
 		function () {
-			//>>excludeEnd('tauBuildExclude');
+			//>>excludeEnd("tauBuildExclude");
 			/**
 			* Local alias for ns.event
 			* @property {Object} events Alias for {@link ns.event}
@@ -133,47 +271,87 @@
 				* @member ns.widget.mobile.Listview.Filter
 				* @private
 				*/
-				parent_destroy = Listview.prototype._destroy;
+				parent_destroy = Listview.prototype._destroy,
+
+				/**
+				 * @property {Object} listviewClasses Alias for object ns.widget.mobile.Listview.classes
+				 * @member ns.widget.mobile.Listview.Filter
+				 * @static
+				 * @private
+				 * @property {string} uiListviewFilter Main class of listview filter
+				 * @property {string} uiBarPrefix Class of bar prefix
+				 * @property {string} uiListviewFilterInset Class of listview filter as inset
+				 * @property {string} uiFilterHidequeue The working class for prepare items queue to hiding
+				 */
+				ListviewClasses = Listview.classes || {},
+
+				/**
+				 * @property {Object} eventType Listview event types
+				 * @property {string} [eventType.DESTROYED="destroyed"] Event is triggering after _destroy method call.
+				 * @static
+				 * @readonly
+				 * @member ns.widget.mobile.Listview.Filter
+				 */
+				eventType = Listview.eventType || {},
+
+				/**
+				 * @property {string} [TYPE_FUNCTION="function"] local cache of function type name
+				 * @private
+				 * @static
+				 * @member ns.widget.mobile.Listview.Filter
+				 */
+				TYPE_FUNCTION = "function";
 
 			/**
-			* @method _configure
-			* @member ns.widget.mobile.Listview.Filter
-			* @instance
-			* @protected
-			*/
+			 * Prepare default configuration of listview widget
+			 * @method _configure
+			 * @member ns.widget.mobile.Listview.Filter
+			 * @protected
+			 */
 			Listview.prototype._configure = function Listview_configure() {
 				var options;
-				if (typeof parent_configure === 'function') {
+				if (typeof parent_configure === TYPE_FUNCTION) {
 					parent_configure.call(this);
 				}
 
+				/**
+				 * @property {Object} options Object with default options
+				 * @property {boolean} [options.filter=false] Sets if filter should be enabled.
+				 * @property {string} [options.filterPlaceholder=""] Sets a place holder.
+				 * @property {string} [options.filterTheme="c"] Sets a theme for listview filter.
+				 * @property {Function} [options.filterCallback] Sets a custom filter method
+				 * @member ns.widget.mobile.Listview.Filter
+				 */
 				this.options = this.options || {};
 				options = this.options;
 
-				/** @expose */
 				options.filter = false;
-				/** @expose */
-				options.filterPlaceholder = '';
-				/** @expose */
-				options.filterTheme = 'c';
-				/** @expose */
+				options.filterPlaceholder = "";
+				options.filterTheme = "c";
 				options.filterCallback = defaultFilterCallback;
 			};
 
-			Listview.classes = Listview.classes || {};
-			Listview.classes.uiListviewFilter = 'ui-listview-filter';
-			Listview.classes.uiBarPrefix = 'ui-bar-';
-			Listview.classes.uiListviewFilterInset = 'ui-listview-filter-inset';
-			Listview.classes.uiFilterHidequeue = "ui-filter-hidequeue";
+			// the extension of Listview events dictionary
+			/*
+			 * Event is triggering after _destroy method call
+			 * @event beforefilter
+			 * @member ns.widget.mobile.Listview.Filter
+			 */
+			eventType.BEFORE_FILTER = "beforefilter";
+
+			// the extension of Listview classes
+			ListviewClasses.uiListviewFilter = "ui-listview-filter";
+			ListviewClasses.uiBarPrefix = "ui-bar-";
+			ListviewClasses.uiListviewFilterInset = "ui-listview-filter-inset";
+			ListviewClasses.uiFilterHidequeue = "ui-filter-hidequeue";
 
 			/**
-			* Initialize autodividers features on Listview
-			* Override method '_build' from Listview & call the protected '_build'
+			* Initialize filter features on Listview
+			* Override method "_build" from Listview & call the protected "_build"
 			* @method _build
 			* @member ns.widget.mobile.Listview.Filter
 			* @param {HTMLUListElement|HTMLOListElement} element bound UList or OList HTMLElement.
 			* @return {HTMLUListElement|HTMLOListElement}
-			* @instance
 			* @protected
 			*/
 			Listview.prototype._build = function Listview_build(element) {
@@ -187,27 +365,35 @@
 				parent_build.call(this, element);
 
 				if (options.filter) {
-					wrapper = document.createElement('form');
+					wrapper = document.createElement("form");
 					wrapperClass = wrapper.classList;
 					wrapperClass.add(classes.uiListviewFilter);
 					wrapperClass.add(classes.uiBarPrefix + options.filterTheme);
-					wrapper.setAttribute('role', 'search');
-					wrapper.setAttribute('id', id + '-form');
-					search = document.createElement('input');
-					search.setAttribute('placeholder', options.filterPlaceholder);
-					search.setAttribute('type', 'search');
-					DOM.getNSData(search, 'lastval', '');
-					search.setAttribute('id', id + '-search');
+					wrapper.setAttribute("role", "search");
+					wrapper.setAttribute("id", id + "-form");
+					search = document.createElement("input");
+					search.setAttribute("placeholder", options.filterPlaceholder);
+					search.setAttribute("type", "search");
+					DOM.getNSData(search, "lastval", "");
+					search.setAttribute("id", id + "-search");
 					wrapper.appendChild(search);
 					if (options.inset) {
 						wrapperClass.add(options.uiListviewFilterInset);
 					}
 					DOM.insertNodesBefore(element, wrapper);
-					engine.instanceWidget(search, 'Searchbar');
+					engine.instanceWidget(search, "Searchbar");
 				}
 				return element;
 			};
 
+			/**
+			 * Handle method event for change of the filter input field
+			 * @param {ns.widget.mobile.Listview} self instance of listview widget
+			 * @param {Event} event triggered event
+			 * @member ns.widget.mobile.Listview.Filter
+			 * @static
+			 * @private
+			 */
 			function inputChangeHandler(self, event) {
 				var search = event.target,
 					val = search.value.toLowerCase(),
@@ -223,7 +409,7 @@
 					i,
 					slice = [].slice;
 
-				events.trigger(list, "beforefilter", { input: search });
+				events.trigger(list, eventType.BEFORE_FILTER, { input: search });
 
 				// Change val as lastval for next execution
 				DOM.setNSData(search, "lastval", val);
@@ -242,7 +428,7 @@
 
 						itemtext =  DOM.getNSData(item, "filtertext") || item.innerText;
 
-						if (DOM.getNSData(item, "role") === 'list-divider') {
+						if (DOM.getNSData(item, "role") === "list-divider") {
 							if (childItems) {
 								item.classList.remove(classes.uiFilterHidequeue);
 							} else {
@@ -274,13 +460,28 @@
 					});
 				}
 				// @todo self._refreshCorners(); this trigger should move to refreshCorners
-				events.trigger(self.element, 'updatelayout');
+				events.trigger(self.element, "updatelayout");
 			}
 
+			/**
+			 * @param {Event} event
+			 * @method preventDefault
+			 * @private
+			 * @static
+			 */
 			function preventDefault(event) {
 				event.preventDefault();
 			}
 
+			/**
+			 * Initialize properties of widget
+			 * Override method "_init" from Listview & call the protected "_init"
+			 * @method _init
+			 * @param {HTMLUListElement|HTMLOListElement} element bound UList or OList HTMLElement.
+			 * @return {HTMLUListElement|HTMLOListElement}
+			 * @member ns.widget.mobile.Listview.Filter
+			 * @protected
+			 */
 			Listview.prototype._init = function Listview_init(element) {
 				var id = element.id;
 
@@ -288,13 +489,22 @@
 				this._ui.form = document.getElementById(id + "-form");
 				this._ui.search = document.getElementById(id + "-search");
 
-				if (typeof parent_init === 'function') {
+				if (typeof parent_init === TYPE_FUNCTION) {
 					parent_init.call(this, element);
 				}
 
 				return element;
 			};
 
+			/**
+			 * Bind events to HTML elements
+			 * Override method "_bindEvents" from Listview & call the protected "_bindEvents"
+			 * @method _bindEvents
+			 * @param {HTMLUListElement|HTMLOListElement} element bound UList or OList HTMLElement.
+			 * @return {HTMLUListElement|HTMLOListElement}
+			 * @member ns.widget.mobile.Listview.Filter
+			 * @protected
+			 */
 			Listview.prototype._bindEvents = function Listview_bindEvents(element) {
 				var search = this._ui.search;
 				parent_bindEvents.call(this, element);
@@ -308,13 +518,12 @@
 			};
 
 			/**
-			* Removing and cleaning autodividers extension
-			* Override method '_destroy' from Listview & call the protected '_destroy'
-			* @method _destroy
-			* @member ns.widget.mobile.Listview.Filter
-			* @instance
-			* @protected
-			*/
+			 * Removing and cleaning filter extension
+			 * Override method "_destroy" from Listview & call the protected "_destroy"
+			 * @method _destroy
+			 * @member ns.widget.mobile.Listview.Filter
+			 * @protected
+			 */
 			Listview.prototype._destroy = function Listview_destroy() {
 				var search = this._ui.search;
 				if (search) {
@@ -323,13 +532,13 @@
 					search.removeEventListener("submit", preventDefault, false);
 				}
 				// call protected method from Listview;
-				if (typeof parent_destroy === 'function') {
+				if (typeof parent_destroy === TYPE_FUNCTION) {
 					parent_destroy.call(this);
 				}
 			};
-			//>>excludeStart('tauBuildExclude', pragmas.tauBuildExclude);
+			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return false;
 		}
 	);
-	//>>excludeEnd('tauBuildExclude');
+	//>>excludeEnd("tauBuildExclude");
 }(window.document, ns));
