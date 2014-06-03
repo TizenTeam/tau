@@ -43,19 +43,6 @@ module.exports = function(grunt) {
 
 		files = {
 			js: {
-				licenseFiles: [],
-				setLicenseFiles: function() {
-					files.js.licenseFiles.length = 0;
-					grunt.file.recurse(buildRoot, function(abspath/*, rootdir, subdir, filename */) {
-						if( /.*tau(.min)?.js$/.test(abspath) ) {
-							files.js.licenseFiles.push({
-								src: [path.join( "license", "Flora" ) + ".txt", abspath],
-								dest: abspath
-							});
-						}
-					});
-					console.log(files.js.licenseFiles);
-				},
 				minifiedFiles: [],
 				setMinifiedFiles: function() {
 					files.js.minifiedFiles.length = 0;
@@ -67,6 +54,27 @@ module.exports = function(grunt) {
 							});
 						}
 					});
+				},
+
+				getLicenseFiles: function() {
+					var exts = [".min.js", ".js"],
+						licenseFiles = [],
+						device,
+						src;
+
+					for(device in buildDir) {
+						if( buildDir.hasOwnProperty(device) ) {
+							exts.forEach(function( ext ) {
+								src = path.join( buildDir[device].js, name ) + ext;
+								licenseFiles.push({
+									src: [path.join( "license", "Flora" ) + ".txt", src],
+									dest: src
+								});
+							});
+						}
+					}
+
+					return licenseFiles;
 				}
 			},
 
@@ -106,18 +114,29 @@ module.exports = function(grunt) {
 					}
 				},
 
-				licenseFiles: [],
-				setLicenseFiles: function() {
-					files.css.licenseFiles.length = 0;
-					grunt.file.recurse(buildRoot, function(abspath, rootdir, subdir, filename) {
-						if ( /(.min)?.css$/.test(filename) ) {
-							files.css.licenseFiles.push({
-								src: [path.join( "license", "Flora" ) + ".txt", abspath],
-								dest: abspath
+				getLicenseFiles: function() {
+					var exts = [".css", ".min.css"],
+						licenseFiles = [],
+						device,
+						list,
+						src;
+
+					for(device in buildDir) {
+						if( buildDir.hasOwnProperty(device) ) {
+							list = themes.device[device];
+							list.forEach(function( theme ) {
+								exts.forEach(function( ext ) {
+									src = path.join( buildDir[device].theme, theme.name, name ) + ext;
+									licenseFiles.push({
+										src: [path.join( "license", "Flora" ) + ".txt", src],
+										dest: src
+									});
+								});
 							});
 						}
-					});
-					console.log(files.css.licenseFiles);
+					}
+
+					return licenseFiles;
 				}
 			},
 
@@ -278,7 +297,7 @@ module.exports = function(grunt) {
 			},
 
 			licenseCss: {
-				files: files.css.licenseFiles
+				files: files.css.getLicenseFiles()
 			},
 
 			"ej-namespace": {
@@ -325,10 +344,10 @@ module.exports = function(grunt) {
 
 			concat: {
 				licenseJs: {
-					files: files.js.licenseFiles
+					files: files.js.getLicenseFiles()
 				},
 				licenseCss: {
-					files: files.css.licenseFiles
+					files: files.css.getLicenseFiles()
 				}
 			},
 
@@ -567,9 +586,9 @@ module.exports = function(grunt) {
 	grunt.registerTask("image", [ "copy:wearableImages", "copy:mobileImages" ]);
 	grunt.registerTask("css", [ "clean:theme", "less", "cssmin", "image", "symlink" ]);
 	grunt.registerTask("js", [ "clean:js", "requirejs", "jsmin", "themesjs", "copy:globalize", "copy:mobileJquery" ]);
-	grunt.registerTask("license", [ "findFiles:js.setLicenseFiles", "findFiles:css.setLicenseFiles", "concat:licenseJs", "concat:licenseCss", "copy:license" ]);
+	grunt.registerTask("license", [ "concat:licenseJs", "concat:licenseCss", "copy:license" ]);
 	grunt.registerTask("release", [ "clean", "lint", "css", "js", "license", "version" ]);
-    grunt.registerTask("sdk-docs", [ "sdk-docs-html:mobile", "sdk-docs-html:wearable", "copy:sdk-docs" ]);
+	grunt.registerTask("sdk-docs", [ "sdk-docs-html:mobile", "sdk-docs-html:wearable", "copy:sdk-docs" ]);
 
 	grunt.registerTask("default", [ "release" ]);
 	grunt.registerTask("sdk-docs", [ "sdk-docs-html:mobile", "sdk-docs-html:wearable", "copy:sdk-docs" ]);
