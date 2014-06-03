@@ -1175,6 +1175,8 @@
 			 */
 			Popup.prototype._setArrowPosition = function (type, positionToElement, containerLeft, containerTop, positionToElementOffset) {
 				var classes = Popup.classes,
+					options = this.options,
+					tolerance = options.tolerance,
 					uiContainer = this._ui.container,
 					uiContainerHeight = uiContainer.clientHeight,
 					uiContainerWidth = uiContainer.clientWidth,
@@ -1183,13 +1185,15 @@
 					arrowClasses = arrow.classList,
 					arrowStyle = arrow.style,
 					// @TODO this will fail when not all arrow borders are the same
-					arrowBorderWidth = parseInt(doms.getCSSProperty(arrow, "border-" + type + "-width"), 10) || 0,
-					left = positionToElement ? getOffsetOfElement(positionToElement, this.options.link).left + positionToElement.clientWidth / 2 - arrowBorderWidth : 0,
+					arrowBorderWidth = parseFloat(doms.getCSSProperty(arrow, "border-" + type + "-width")) || 0,
+					left = positionToElement ? getOffsetOfElement(positionToElement, options.link).left + positionToElement.clientWidth / 2 - arrowBorderWidth : 0,
 					positionToElementHeight = positionToElement ? positionToElement.clientHeight : 0,
 					positionToElementWidth = positionToElement ? positionToElement.clientWidth : 0,
-					correctionValue,
+					correctionValue = [0, 0],
 					containerHeight = uiContainer.clientHeight,
-					color = doms.getCSSProperty(uiContainer.firstChild, "background-color");
+					color = doms.getCSSProperty(uiContainer.firstChild, "background-color"),
+					usedTolerance,
+					arrowLeft;
 
 				arrow.removeAttribute("class");
 				arrowClasses.add(classes.uiArrow);
@@ -1198,14 +1202,28 @@
 
 				arrowStyle.borderColor = "transparent";
 
+				arrowLeft = left - containerLeft;
+
 				switch (type) {
 				case "bottom":
 					popupMargin = parseInt(doms.getCSSProperty(this.element, "margin-top"), 10) || 0;
 					arrowClasses.add(classes.bottom);
-					arrowStyle.left = left - containerLeft + "px";
 					arrowStyle.top = -arrowBorderWidth * 2 + popupMargin + "px";
 					arrowStyle.borderBottomColor = color;
-					correctionValue = [0, positionToElementHeight + positionToElementOffset.top - containerTop];
+					if (arrowLeft < 0) {
+						// popup container is set too far to the right
+						usedTolerance = tolerance.l;
+						arrowStyle.left = usedTolerance + "px";
+						correctionValue[0] = arrowLeft - usedTolerance;
+					} else if (arrowLeft > uiContainerWidth) {
+						// popup container is set too far to the left
+						usedTolerance = tolerance.r;
+						arrowStyle.left = uiContainerWidth - usedTolerance - arrowBorderWidth * 2 + "px";
+						correctionValue[0] = arrowLeft - uiContainerWidth + usedTolerance + arrowBorderWidth * 2;
+					} else {
+						arrowStyle.left = arrowLeft + "px";
+					}
+					correctionValue[1] = positionToElementHeight + positionToElementOffset.top - containerTop;
 					break;
 				case "right":
 					// @todo
@@ -1217,10 +1235,22 @@
 				case "top":
 					popupMargin = parseInt(doms.getCSSProperty(this.element, "margin-bottom"), 10) || 0;
 					arrowClasses.add(classes.top);
-					arrowStyle.left = left - containerLeft + "px";
 					arrowStyle.top = uiContainerHeight - popupMargin + "px";
 					arrowStyle.borderTopColor = color;
-					correctionValue = [0, -(containerTop + containerHeight - positionToElementOffset.top)];
+					if (arrowLeft < 0) {
+						// popup container is set too far to the right
+						usedTolerance = tolerance.l;
+						arrowStyle.left = usedTolerance + "px";
+						correctionValue[0] = arrowLeft - usedTolerance;
+					} else if (arrowLeft > uiContainerWidth) {
+						// popup container is set too far to the left
+						usedTolerance = tolerance.r;
+						arrowStyle.left = uiContainerWidth - usedTolerance - arrowBorderWidth * 2 + "px";
+						correctionValue[0] = arrowLeft - uiContainerWidth + usedTolerance + arrowBorderWidth * 2;
+					} else {
+						arrowStyle.left = arrowLeft + "px";
+					}
+					correctionValue[1] = -(containerTop + containerHeight - positionToElementOffset.top);
 					break;
 				case "left":
 					// @todo
@@ -1767,13 +1797,13 @@
 			* @member ns.widget.mobile.Popup
 			*/
 			Popup.prototype._closePrereqsDone = function() {
-				var self = this,
-					opts = self.options;
+				var self = this;
 
 				self._ui.container.removeAttribute("tabindex");
 
 				// @todo?
 				// remove nav bindings if they are still present
+				// var opts = self.options;
 				//opts.container.unbind( opts.closeEvents );
 
 				// @todo?
@@ -2047,6 +2077,9 @@
 			/**
 			 * This method refreshes position of opened popup.
 			 *
+			 * In case of context popup, position of arrow is not changed after calling this method.
+			 * If the new position of popup's content causes disconnection from the arrow, the position of popup will be corrected automatically. Content of popup is always set so that the arrow is placed between left and right side of the popup's container with proper margin set in option.tolerance.
+			 *
 			 *      @example
 			 *      <div id="popup" data-role="popup">
 			 *          <p>This is a completely basic popup, no options set.</p>
@@ -2084,7 +2117,6 @@
 			* @member ns.widget.mobile.Popup
 			*/
 			Popup.prototype._refresh = function (options) {
-				// @todo - add argument with options (positionTo should be changed, because there is problem with arrow)
 				options = options || {};
 				this._setPosition(options.positionX, options.positionY);
 			};
