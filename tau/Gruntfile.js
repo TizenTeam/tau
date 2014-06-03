@@ -355,13 +355,13 @@ module.exports = function(grunt) {
 				mobile: {
 					profile: "mobile",
 					files: {
-						src: ['dist/js/mobile/tau.js']
+						src: ['dist/mobile/js/tau.js']
 					}
 				},
 				wearable: {
 					profile: "wearable",
 					files: {
-						src: ['dist/js/wearable/tau.js']
+						src: ['dist/wearable/js/tau.js']
 					}
 				}
 			},
@@ -415,10 +415,15 @@ module.exports = function(grunt) {
 
 	function runJSDuck(profile, callback) {
 		var cmd = 'jsduck',
-			src = [path.join('tmp', 'jsduck', "dist", "js", profile)],
+			src = [path.join('tmp', 'jsduck', "dist", profile, "js")],
 			dest = path.join('docs', 'jsduck', profile),
 			args,
-			environmentClasses = ['DocumentFragment', 'CustomEvent', 'HTMLUListElement', 'HTMLOListElement', 'HTMLCollection', 'HTMLBaseElement', 'HTMLImageElement', 'WebGLRenderingContext', 'WebGLProgram', 'jQuery', 'DOMTokenList'],
+			environmentClasses = ['DocumentFragment', 'CustomEvent',
+				'HTMLUListElement', 'HTMLOListElement', 'HTMLCollection',
+				'HTMLBaseElement', 'HTMLImageElement', 'WebGLRenderingContext',
+				"HTMLSelectElement", "HTMLInputElement",
+				'WebGLProgram', 'jQuery', 'DOMTokenList',
+				"mat2", "mat3","mat4", "vec2", "vec3", "vec4", "quat4"],
 			jsduck;
 
 		if (!grunt.file.exists("docs")) {
@@ -432,7 +437,7 @@ module.exports = function(grunt) {
 		}
 
 		args = src.concat([
-			'--eg-iframe=./tools/jsduck-preview.html',
+			'--eg-iframe=./tools/jsduck/'+ profile +'-preview.html',
 				'--external=' + environmentClasses.join(','),
 			'--output', dest
 		]);
@@ -443,7 +448,7 @@ module.exports = function(grunt) {
 			cmd: cmd,
 			args: args
 		}, function (error, result, code) {
-			grunt.file.delete(path.join('tmp', 'jsduck', "dist", "js", profile), {force: true});
+			grunt.file.delete(path.join('tmp', 'jsduck', "dist", profile, "js"), {force: true});
 			if (code === 127) {   // 'command not found'
 				return grunt.warn(
 						'You need to have Ruby and JSDuck installed and in your PATH for ' +

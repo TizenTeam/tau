@@ -186,12 +186,14 @@
 							No Return Value
 						{{/return}}
 					</div>
-					{{#example}}
+					{{#examples}}
 						<div class="example">
-							<span class="example"><p>Code example:</p></span>
-							<pre name="code" class="examplecode prettyprint">{{example}}</pre>
+							<span class="example"><p>Code
+								example:</p><p>{{name}}</p></span>
+							<pre name="code" class="examplecode
+							prettyprint">{{{code}}}</pre>
 						</div>
-					{{/example}}
+					{{/examples}}
 				</dd>
 			{{/isPublic}}
 		{{/methods}}

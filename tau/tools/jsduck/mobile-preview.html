@@ -4,12 +4,17 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<meta http-equiv="X-UA-Compatible" content="chrome=1">
 		<title>Example</title>
+		<script>
+			tauConfig = { autorun: false };
+		</script>
 		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-		<script type="text/javascript" src="../../dist/tau.min.js"></script>
-		<link rel="stylesheet" href="../../dist/themes/tizen-white/theme.min.css">
+		<script type="text/javascript"
+				src="../../../dist/mobile/js/tau.min.js"></script>
+		<link rel="stylesheet"
+			  href="../../../dist/mobile/theme/default/tau.min.css">
 	</head>
 	<body>
-		<div data-role="page" id="testPage">
+		<div id="testPage">
 		</div>
 		<script type="text/javascript">
 			var page = document.getElementById("testPage");
@@ -18,17 +23,23 @@
 				i,
 				l;
 				try {
-					code = code.replace(/<script[^>]*[^]+<\/script>/gi, function (matched) {
-							scripts.push(matched.replace(/<\/?script[^>]*>/gi, ""));
-							return ""; // remove from html
+					code = code.replace(/<script[^>]*[^]+<\/script>/gi,
+							function (matched) {
+								scripts.push(matched.replace(/<\/?script[^>]*>/gi, ""));
+								return ""; // remove from html
 					});
 					page.innerHTML = code;
+					for (i=0; i<page.childNodes.length; i++) {
+						page.parentElement.insertBefore(page.childNodes[i],
+								page);
+					}
 					for (i = 0, l = scripts.length; i < l; ++i) {
 						eval(scripts[i]);
 					}
+					tau.engine.run();
 					callback && callback(true);
 				} catch (e) {
-					document.body.innerHTML = e;
+					document.body.innerHTML += e;
 					callback && callback(false, e);
 				}
 			}

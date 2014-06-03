@@ -127,10 +127,20 @@ module.exports = function (grunt) {
 			});
 		}
 
+		function prepareNote(string) {
+			return string.replace(/!!!(.*)!!!/gm, function(match, p1) {
+				return "<div class='note'>" + p1 + "</div>";
+			});
+		}
+
+		function deleteBR(string) {
+			return string.replace(/<br \/>/gm, " ");
+		}
+
 		function parseDox(file) {
 			var docs,
 				doxFile = file.replace('dist', 'tmp/dox'),
-				structureFile = 'docs/dox.json',
+				structureFile = 'docs/js/' + profile + "/tau.js",
 				newFile = 'docs/sdk/' + profile + '/',
 				modules = [],
 				i,
@@ -197,7 +207,7 @@ module.exports = function (grunt) {
 					descriptionArray = (block.description.summary || "").split("\n");
 					classObj.title = descriptionArray[0].replace(/\<.*?\>/g, "");
 					classObj.brief = descriptionArray[2] && descriptionArray[2].replace(/\<.*?\>/g, "") || "";
-					classObj.description = block.description.body;
+					classObj.description = prepareNote(deleteBR(block.description.body));
 
 					classObj.isPrivate = block.isPrivate;
 					classObj.isInternal = !!(block.tags.filter(function (tag) {
@@ -364,12 +374,12 @@ module.exports = function (grunt) {
 					})[0];
 					method.name = tag.string;
 					method.tags = block.tags;
-					method.example = "";
+					method.examples = [];
 					method.brief = block.description.summary;
-					method.description = block.description.body.replace(/@example/gm, "").replace(/<pre><code>(.|\n)*?<\/code><\/pre>/m, function (match, p1) {
-						method.example = match.replace(/\n* *<\/?(pre|code)> *\n*/gm, "");
+					method.description = deleteBR(prepareNote(block.description.body.replace(/@example/g, "").replace(/(<h[0-9]>(.*?)<\/h[0-9]>(\t|\r| |\n)*?)?<pre><code>((.|\n)*?)<\/code><\/pre>/mg, function (match, p1, p2, p3, p4) {
+						method.examples.push({name: p2 || "" , code: p4.replace(/\n*[ \t]*\n*<\/?(pre|code)>\n*[\t ]*\n*/gm, "")});
 						return "";
-					});
+					})));
 					method.isPrivate = !!(block.tags.filter(function (tag) {
 						return tag.type === 'private';
 					})[0]);
@@ -417,7 +427,7 @@ module.exports = function (grunt) {
 				serie.push(createWidgetIndex.bind(null, newFile, docsStructure, rows));
 				serie.push(done);
 
-				grunt.file.write(structureFile, JSON.stringify(modules));
+				grunt.file.write(structureFile, "window.tauDocumentation = " + JSON.stringify(modules) + ";");
 				async.series(serie);
 
 

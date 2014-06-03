@@ -195,7 +195,7 @@ th.note {
 
 }
 
-td.note, p.note {
+td.note, p.note, div.note {
     background-color: #eeece1;
     color: #1C1C1C;
     padding: 5px;
