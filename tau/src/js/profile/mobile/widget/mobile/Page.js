@@ -681,7 +681,7 @@
 			 * Set page active / unactive
 			 * Sets ui-overlay-... class on `body` depending on current theme
 			 *
-			 * **This method is only available through TAU API**
+			 * !!!This method is only available through TAU API!!!
 			 *
 			 *		@example
 			 *		<div id="myPage"></div>
@@ -717,7 +717,7 @@
 			/**
 			 * GUI Builder only : redesign page when user drag&drop header, footer
 			 *
-			 * **This method is only available through TAU API**
+			 * !!!This method is only available through TAU API!!!
 			 *
 			 *		@example
 			 *		<div id="myPage"></div>
@@ -840,7 +840,7 @@
 			/**
 			 * This will set the content element's top or bottom padding equal to the toolbar's height
 			 *
-			 * **This method is only available through TAU API**
+			 * !!!This method is only available through TAU API!!!
 			 *
 			 *		@example
 			 *		<div id="myPage"></div>
@@ -859,7 +859,7 @@
 			/**
 			 * Calculate and update content height
 			 *
-			 * **This method is only available through TAU API**
+			 * !!!This method is only available through TAU API!!!
 			 *
 			 *		@example
 			 *		<div id="myPage"></div>
@@ -879,7 +879,7 @@
 			/**
 			 * Sets the focus to page
 			 *
-			 * **This method is only available through TAU API**
+			 * !!!This method is only available through TAU API!!
 			 *
 			 *		@example
 			 *		<div id="myPage"></div>
@@ -902,7 +902,7 @@
 			/**
 			 * Removes focus from page and all descendants
 			 *
-			 * **This method is only available through TAU API**
+			 * !!!This method is only available through TAU API!!!
 			 *
 			 *		@example
 			 *		<div id="myPage"></div>
