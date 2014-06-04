@@ -187,7 +187,7 @@
 							divider.appendChild(document.createTextNode(dividerText));
 							divider.setAttribute('data-role', 'list-divider');
 							li.parentNode.insertBefore(divider, li);
-							engine.instanceWidget(divider, 'Listdivider');
+							engine.instanceWidget(divider, 'ListDivider');
 						}
 						lastDividerText = dividerText;
 					}

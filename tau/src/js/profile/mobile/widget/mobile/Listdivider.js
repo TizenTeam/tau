@@ -1,59 +1,126 @@
 /*global window, define */
 /*
-* Copyright (c) 2013 - 2014 Samsung Electronics Co., Ltd
-*
-* Licensed under the Flora License, Version 1.1 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*     http://floralicense.org/license/
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * Copyright (c) 2013 - 2014 Samsung Electronics Co., Ltd
+ *
+ * Licensed under the Flora License, Version 1.1 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://floralicense.org/license/
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 /*jslint nomen: true */
 /**
- * #Listdivider widget
- * Listdivider widget creates a list separator, which can be used for building grouping lists using {@link ns.widget.mobile.Listview Listview widget}.
+ * # List Divider Widget
+ * List divider widget creates a list separator, which can be used for building grouping lists using.
  *
- * ##Default selectors
- * In all elements with _data-role=listdivider_.
  *
- * ##Manual constructor
+ * ## Default selectors
+ * In all elements with _data-role=listdivider_ are changed to Tizen Web UI ListDivider.
+ *
+ * In addition all elements with class _ui-listdivider_ are changed to Tizen Web UI ListDivider.
+ *
+ *		@example
+ *		<ul data-role="listview">
+ *			<li data-role="list-divider">Item styles</li>
+ *			<li><a href="#">Normal lists</a></li>
+ *			<li><a href="#">Normal lists</a></li>
+ *			<li><a href="#">Normal lists</a></li>
+ *		</ul>
+ *
+ * ## Manual constructor
  * For manual creation of listdivider widget you can use constructor of widget:
  *
- *	@example
- *	var listdivider = ns.engine.instanceWidget(document.getElementById('listdivider'), 'Listdivider');
+ *		@example
+ *		<ul data-role="listview">
+ *			<li>Item</li>
+ *			<li id="listdivider">Divider</li>
+ *			<li>Item</li>
+ *			<li>Item</li>
+ *		</ul>
+ *		<script>
+ *			var listdivider = tau.widget.ListDivider(document.getElementById("listdivider"));
+ *		</script>
  *
  * If jQuery library is loaded, its method can be used:
  *
- *	@example
- *	var listdivider = $('#listdivider').listdivider();
+ *		@example
+ *		<ul data-role="listview">
+ *			<li>Item</li>
+ *			<li id="listdivider">Divider</li>
+ *			<li>Item</li>
+ *			<li>Item</li>
+ *		</ul>
+ *		<script>
+ *			$("#listdivider").listdivider();
+ *		</script>
  *
- * ##HTML Examples
+ * ## Options
  *
- * ###Create divider
+ * ### Style
+ * _data-style_ string ["normal" | "checkbox" | "dialogue"] Option sets the style of the list divider.
  *
- *	@example
- *	<ul data-role="listview">
- *		<li data-role="list-divider">Item styles</li>
- *		<li><a href="#">Normal lists</a></li>
- *		<li><a href="#">Normal lists</a></li>
- *		<li><a href="#">Normal lists</a></li>
- *		<li data-role="list-divider">Item styles</li>
- *		<li><a href="#">Normal lists</a></li>
- *		<li><a href="#">Normal lists</a></li>
- *		<li><a href="#">Normal lists</a></li>
- *		<li data-role="list-divider">Item styles</li>
- *		<li><a href="#">Normal lists</a></li>
- *		<li><a href="#">Normal lists</a></li>
- *		<li><a href="#">Normal lists</a></li>
- *	</ul>
+ * #### Checkbox
  *
- * @class ns.widget.mobile.Listdivider
+ *		@example
+ *		<ul data-role="listview">
+ *			<li data-role="list-divider" data-style="checkbox">
+ *				<form><input type="checkbox">Select All</form>
+ *			</li>
+ *			<li><form><input type="checkbox">Item</form></li>
+ *			<li><form><input type="checkbox">Item</form></li>
+ *			<li><form><input type="checkbox">Item</form></li>
+ *		</ul>
+ *
+ * #### Dialogue
+ *
+ *		@example
+ *		<ul data-role="listview">
+ *			<li data-role="list-divider" data-style="dialogue">Items</li>
+ *			<li>Item</li>
+ *			<li>Item</li>
+ *			<li>Item</li>
+ *		</ul>
+ *
+ * ### Theme
+ * _data-theme_ string Theme for list divider
+ *
+ *		@example
+ *		<ul data-role="listview">
+ *			<li data-role="list-divider" data-theme="c">Item styles</li>
+ *			<li>Item</li>
+ *			<li>Item</li>
+ *			<li>Item</li>
+ *		</ul>
+ *
+ * ### Folded
+ * _data-folded_ string ["true" | "false"] Decide to show divider press effect or not
+ *
+ *		@example
+ *		<ul data-role="listview">
+ *			<li data-role="list-divider" data-folded="true">Item styles</li>
+ *			<li>Item</li>
+ *			<li>Item</li>
+ *			<li>Item</li>
+ *		</ul>
+ *
+ * ### Line
+ * _data-line_ string ["true" | "false"] Decide to draw divider line or not
+ *
+ *		@example
+ *		<ul data-role="listview">
+ *			<li data-role="list-divider" data-line="false">Item styles</li>
+ *			<li>Item</li>
+ *			<li>Item</li>
+ *			<li>Item</li>
+ *		</ul>
+ *
+ * @class ns.widget.mobile.ListDivider
  * @extends ns.widget.BaseWidget
  */
 (function (ns) {
@@ -71,84 +138,95 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var BaseWidget = ns.widget.mobile.BaseWidgetMobile,
+				/**
+				 * Alias for class {@link ns.engine}
+				 * @property {Object} engine
+				 * @member ns.widget.mobile.ListDivider
+				 * @private
+				 * @static
+				 */
 				engine = ns.engine,
+				/**
+				 * Alias to ns.util.DOM
+				 * @property {Object} dom
+				 * @private
+				 * @member ns.widget.mobile.ListDivider
+				 * @static
+				 */
 				dom = ns.util.DOM,
+				/**
+				 * Alias for class ns.widget.mobile.Button
+				 * @property {Function} Button
+				 * @member ns.widget.mobile.ListDivider
+				 * @static
+				 * @private
+				 */
 				Button = ns.widget.mobile.Button,
-				Listdivider = function () {
+
+				ListDivider = function () {
 					return this;
 				};
 
-			Listdivider.prototype = new BaseWidget();
+			ListDivider.prototype = new BaseWidget();
 
-			Listdivider.classes = {
-				uiLiDivider: 'ui-li-divider'
+			/**
+			 * Dictionary for listdivider related css class names
+			 * @property {Object} classes
+			 * @member ns.widget.mobile.ListDivider
+			 * @property {string} uiLiDivider Main calss of divider
+			 * @property {string} uiBarThemePrefix Calss prefix of divider bar
+			 * @property {string} uiDividerNormalLine Class of divider normal line
+			 * @static
+			 * @readonly
+			 */
+			ListDivider.classes = {
+				uiBarThemePrefix: "ui-bar-",
+				uiLiDivider: "ui-li-divider",
+				uiDividerNormalLine: "ui-divider-normal-line"
 			};
 
 			/**
-			* @property {Object} classes Dictionary for listdivider related css class names
-			* @member ns.widget.mobile.Listdivider
-			* @static
-			*/
-			Listdivider.classes = {
-				uiBarThemePrefix: 'ui-bar-',
-				uiLiDivider: 'ui-li-divider',
-				uiDividerNormalLine: 'ui-divider-normal-line'
-			};
-			Listdivider.prototype._configure = function () {
+			 * Configure widget options
+			 * @method _configure
+			 * @member ns.widget.mobile.ListDivider
+			 * @protected
+			 */
+			ListDivider.prototype._configure = function () {
 				var options = this.options || {};
 				/**
-				* @property {Object} options Object with default options
-				* @member ns.widget.mobile.Listdivider
-				* @instance
-				*/
+				 * Object with default options
+				 * @property {Object} options
+				 * @property {string} [options.theme="s"] Theme for list divider
+				 * @property {"normal"|"checkbox"|"dialogue"} [options.style="normal"] Option sets the style of the list divider
+				 * @property {boolean} [options.folded=false] Decide to show divider press effect or not
+				 * @property {boolean} [options.line=true] Decide to draw divider line or not
+				 * @member ns.widget.mobile.ListDivider
+				 */
 				this.options = options;
-				/**
-				* theme of widget
-				* @property {String} [options.theme='s']
-				* @member ns.widget.mobile.Listdivider
-				* @instance
-				*/
-				/** @expose */
-				options.theme = 's';
-				/**
-				* @property {String} [options.style='normal']
-				* @member ns.widget.mobile.Listdivider
-				* @instance
-				*/
-				/** @expose */
-				options.style = 'normal';
-				/**
-				* @property {String} [options.folded=false]
-				* @member ns.widget.mobile.Listdivider
-				* @instance
-				*/
-				/** @expose */
+				options.theme = "s";
+				options.style = "normal";
 				options.folded = false;
-				/**
-				* @property {boolean} [options.list=true]
-				* @member ns.widget.mobile.Listdivider
-				* @instance
-				*/
-				/** @expose */
-				options.list = true;
+				options.line = true;
 			};
+
 			/**
-			* Build widget
-			* @method _build
-			* @param {HTMLElement} element
-			* @return {HTMLElement}
-			* @member ns.widget.mobile.Listdivider
-			*/
-			Listdivider.prototype._build = function (element) {
+			 * Build widget
+			 * @method _build
+			 * @param {HTMLElement} element
+			 * @return {HTMLElement}
+			 * @member ns.widget.mobile.ListDivider
+			 * @protected
+			 */
+			ListDivider.prototype._build = function (element) {
 				var options = this.options,
-					classes = Listdivider.classes,
+					classes = ListDivider.classes,
 					classList = element.classList,
 					buttonClasses = Button.classes;
 
 				classList.add(classes.uiBarThemePrefix + options.theme);
 				classList.add(classes.uiLiDivider);
-				element.setAttribute('role', 'heading');
-				element.setAttribute('tabindex', '0');
+				element.setAttribute("role", "heading");
+				element.setAttribute("tabindex", "0");
 				//@todo check if ol tag and reset counter
 
 				if (!options.style || options.style === "normal" || options.style === "check") {
@@ -159,30 +237,30 @@
 						);
 					}/* else buttonMarkup on element */
 
-					if (options.list === true) {
+					if (options.line === true) {
 						if (options.folded === false) {
 							element.insertAdjacentHTML(
-								'beforeend',
+								"beforeend",
 								'<span class="' + classes.uiDividerNormalLine + '"></span>'
 							);
-						} /*else append to element.childrenBySelector('ui-btn-inner')*/
+						} /*else append to element.childrenBySelector("ui-btn-inner")*/
 					}
 				}
 				return element;
 			};
 
 			// definition
-			ns.widget.mobile.Listdivider = Listdivider;
+			ns.widget.mobile.ListDivider = ListDivider;
 			engine.defineWidget(
-				"Listdivider",
+				"ListDivider",
 				"[data-role='list-divider'], .ui-list-divider",
 				[],
-				Listdivider,
-				'tizen'
+				ListDivider,
+				"tizen"
 			);
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ns.widget.mobile.Listdivider;
+			return ns.widget.mobile.ListDivider;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

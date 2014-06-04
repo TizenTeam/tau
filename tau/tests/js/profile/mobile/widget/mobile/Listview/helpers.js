@@ -21,7 +21,7 @@ function dividerTests(divider) {
 	ok(divider.classList.contains('ui-bar-s'), 'divider item has ui-bar-s class');
 	equal(divider.getAttribute('tabindex'), '0', 'Divider item has tabindex=0');
 	equal(divider.getAttribute('role'), 'heading', 'Divider item has role=heading');
-	equal(divider.getAttribute('data-tau-bound'), "Listdivider", "Divider ej widget is created");
+	equal(divider.getAttribute('data-tau-bound'), "ListDivider", "Divider ej widget is created");
 }
 
 function dividerBuildTests(divider) {

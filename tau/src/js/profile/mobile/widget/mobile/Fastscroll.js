@@ -422,7 +422,7 @@
 					headers,
 					shortcutsContainer,
 					headersLength,
-					dividerClass = ns.widget.mobile.Listdivider.classes.uiLiDivider,
+					dividerClass = ns.widget.mobile.ListDivider.classes.uiLiDivider,
 					itemHeight,
 					maxHeight,
 					primaryCharacterSetLength;
@@ -867,7 +867,7 @@
 				var primaryCharacterSet = null,
 					secondCharacterSet = null,
 					numberSet = "0123456789",
-					dividers = this.element.getElementsByClassName(ns.widget.mobile.Listdivider.classes.uiLiDivider),
+					dividers = this.element.getElementsByClassName(ns.widget.mobile.ListDivider.classes.uiLiDivider),
 					map = {},
 					indexChar,
 					i,

@@ -24,6 +24,9 @@ $().ready(function() {
 	'use strict';
 
 	module('ListviewFilter', {
+		setup: function () {
+			ej.engine.run();
+		},
 		teardown: function () {
 			ej.engine._clearBindings();
 		}
@@ -32,6 +35,9 @@ $().ready(function() {
 	test('Default listview', function () {
 		var list = document.querySelector('#listview1'),
 			divider;
+
+		// Open page
+		ej.engine.getRouter().open(document.getElementById('page1'));
 
 		equal(list.getAttribute('data-tau-bound'), "Listview", "List widget is created");
 		ok(list.classList.contains('ui-listview'), 'List has ui-listview class');
@@ -50,6 +56,10 @@ $().ready(function() {
 	test('List divider constructor', function () {
 		// listDivider widget, build test
 		var li = document.getElementById('li_divider');
+
+		// Open page
+		ej.engine.getRouter().open(document.getElementById('page1'));
+
 		$(li).listdivider();
 		dividerBuildTests(li);
 	});
@@ -67,6 +77,9 @@ $().ready(function() {
 		$(document).on("listviewbeforecreate listviewcreate", function (e) {
 			eventsCalled[e.type] = true;
 		});
+
+		// Open page
+		ej.engine.getRouter().open(document.getElementById('page2'));
 
 		// append new li element and refresh list;
 		$li3 = $('<li id="li3">added li 3</li>');
@@ -98,7 +111,7 @@ $().ready(function() {
 		dividerTests(divider);
 		dividerBuildTests(divider);
 
-		// Listdivider as last element
+		// ListDivider as last element
 		ok(divider.classList.contains('ui-li-last'), 'divider, Last item has ui-li-last class');
 
 		equal(document.getElementById('ref2'), ref, "Earlier created reference not lost");
@@ -111,6 +124,9 @@ $().ready(function() {
 		var $li3,
 			list = document.querySelector('#listview1');
 
+		// Open page
+		ej.engine.getRouter().open(document.getElementById('page1'));
+
 		$(list).listview();
 		$(list).on('listviewafterrefresh', function () {
 			ok(true, "listviewafterrefresh event triggered");
@@ -122,8 +138,11 @@ $().ready(function() {
 	});
 
 	test("Create filter form", 1, function () {
-		var list = document.getElementById('listview1'),
-			input = document.getElementById('listview1-search');
+		var list = document.getElementById('listview1');
+
+		// Open page
+		ej.engine.getRouter().open(document.getElementById('page1'));
+
 		$(list).listview();
 		equal($('.ui-listview-filter').length, 1, 'Form exists');
 	});

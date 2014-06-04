@@ -28,7 +28,7 @@ $( document ).ready( function ( ) {
 		equal( widget.find('li.ui-li').length, 25, "Markup check") ;
 	} ;
 
-	test("Listdividers", function ( ) {
+	test("ListDividers", function ( ) {
 		// trigger pagecreate
 		$("#listdividers-unit-test").page( );
 		/* Initialize */
@@ -37,7 +37,7 @@ $( document ).ready( function ( ) {
 
 	} );
 
-	test("Listdividers- dynamic", function ( ) {
+	test("ListDividers- dynamic", function ( ) {
 		var createEvent = false,
 			listHTMML = '<ul data-role= "listview"id= "listdividerssample1">' +
 											'<li data-role= "list-divider">A</li>' +

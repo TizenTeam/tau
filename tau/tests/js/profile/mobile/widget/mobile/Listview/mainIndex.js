@@ -80,7 +80,7 @@
 		dividerTests(divider);
 		dividerBuildTests(divider);
 
-		// Listdivider as last element
+		// ListDivider as last element
 		ok(divider.classList.contains('ui-li-last'), 'divider, Last item has ui-li-last class');
 
 		equal(document.getElementById('ref2'), ref, "Earlier created reference not lost");

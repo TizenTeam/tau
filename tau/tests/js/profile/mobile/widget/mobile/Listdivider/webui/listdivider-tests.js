@@ -5,7 +5,7 @@
  */
 
 $( document ).ready( function ( ) {
-	module("Listdivider", {
+	module("ListDivider", {
 		teardown: function () {
 			ej.engine._clearBindings();
 		}
@@ -33,7 +33,7 @@ $( document ).ready( function ( ) {
 		equal(  widget.find('li.ui-li-has-checkbox').length, widget.find('li.ui-li-divider').length - 1, "List checkbox divider count check");
 	};
 
-	test( "Listdivider", function () {
+	test( "ListDivider", function () {
 		$("#listview1").listview();
 		unit_listdivider( $("#listview1") );
 	});

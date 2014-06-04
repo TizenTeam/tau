@@ -524,7 +524,7 @@
 
 						if (isDivider) {
 							DOM.setNSData(item, 'theme', dividerTheme);
-							engine.instanceWidget(item, "Listdivider");
+							engine.instanceWidget(item, "ListDivider");
 						} else {
 							if (links.length) {
 								changeLinksToButton(item, links, itemTheme);
