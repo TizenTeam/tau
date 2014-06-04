@@ -258,7 +258,7 @@
 				// existing page as a duplicated.
 				if (page) {
 					if (!settings.reloadPage) {
-						DOM.setNSData(page, "url", absUrl);
+						DOM.setNSData(page, "url", dataUrl);
 						parentOpen.call(this, page, settings);
 						deferred.resolve(absUrl, settings, page);
 						//if we are reloading the page make sure we update the base if its not a prefetch
