@@ -66,6 +66,9 @@ $().ready(function() {
 		ok(eventsCalled.listviewcreate, 'listviewcreate called');
 		$(document).off("listviewbeforecreate listviewcreate");
 
+		// Open page, to set listview size
+		ej.engine.getRouter().open(document.getElementById('page2'));
+
 		// append new divider li element and refresh list;
 		$divider = $('<li id="li_divider2" data-role="list-divider"><span id="ref2">Divider</span></li>');
 		$(list).append($divider);
