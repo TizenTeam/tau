@@ -16,37 +16,276 @@
 */
 /*jslint nomen: true */
 /**
- * #Scroll Handler Extension for Scroll View Widget
+ * # Scroll Handler
  *
- * ##Default selectors
- * All scrollview selectors with added data-scroll none or data-hander=[DIRECTION] will become this widget
+ * Extension for Scroll View Widget, adds scroll button
  *
- * ##Manual constructor
- * To create the widget manually you can use the instanceWidget method
+ * ## Default selectors
+ * All scrollview selectors with have a class _.ui-scrollhandler_
+ * or _data-handler=[DIRECTION]_ will become be enhanced
  *
- * @example
- * var Scrollview = ns.engine.instanceWidget(document.getElementById('list'), 'ScrollHandler');
- * //or
- * var scrollview = $('#list').scrollhandler();
- * 
- * #HTML Examples
+ * ### HTML examples
  *
- * ###Simple popup
- * <div id="list" data-handler="y" data-role="content">
- *		<ul>example</ul>
- *		<ul>example</ul>
- *		<ul>example</ul>
- *		<ul>example</ul>
- *		<ul>example</ul>
- *		<ul>example</ul>
- *		<ul>example</ul>
- *		<ul>example</ul>
- *		<ul>example</ul>
- * </div>
+ * #### Enhanced scrollview using data-handler attribute
+ *
+ *		@example
+ *		<div data-role="page">
+ *			<div data-role="content" data-handler="true">
+ *				page content
+ *			</div>
+ *		</div>
+ *
+ * #### Enhanced scrollview using css .ui-scrollhandler class
+ *
+ *		@example
+ *		<div data-role="page">
+ *			<div data-role="content" class="ui-scrollhandler">
+ *				page content
+ *			</div>
+ *		</div>
+ *
+ * ## Manual constructor
+ * To create the widget manually you can use 2 different APIs, the TAU
+ * API or jQuery API
+ *
+ * ### Enhanced scrollview by using TAU API
+ *
+ *		@example
+ *		<div data-role="page" id="myPage">
+ *			<div data-role="content">
+ *				pagecontent
+ *			<div>
+ *		</div>
+ *		<script>
+ *			var handlerElement = document.getElementById("myPage")
+ *						.querySelector("[data-role=content]");
+ *			tau.widget.ScrollHandler(handlerElement);
+ *		</script>
+ *
+ * ### Enhanced scrollview by using jQuery API
+ *
+ *		@example
+ *		<div data-role="page" id="myPage">
+ *			<div data-role="content">
+ *				pagecontent
+ *			<div>
+ *		</div>
+ *		<script>
+ *			$("#myPage > div[data-role=content]").scrollhandler();
+ *		</script>
+ *
+ * ## Options for ScrollHandler
+ *
+ * Options can be set by using data-* attributes or by passing them to
+ * the constructor.
+ *
+ * There is also a method **option** for changing them after widget
+ * creation
+ *
+ * jQuery mobile API is also supported.
+ *
+ * ### Enable handler
+ *
+ * This option sets the handler status. The default value is true.
+ *
+ * You can change this option by all available methods for options
+ * changing
+ *
+ * #### By data-handler attribute
+ *
+ *		@example
+ *		<div data-role="page" id="myPage">
+ *			<div data-role="content" data-handler="true">
+ *				pagecontent
+ *			<div>
+ *		</div>
+ *
+ * #### By passing object to constructor
+ *
+ *		@example
+ *		<div data-role="page" id="myPage">
+ *			<div data-role="content">
+ *				pagecontent
+ *			<div>
+ *		</div>
+ *		<script>
+ *			var handlerElement = document.getElementById("myPage")
+ *						.querySelector("[data-role=content]");
+ *			tau.widget.ScrollHandler(handlerElement, {
+ *				"handler": true
+ *			});
+ *		</script>
+ *
+ * #### By using jQuery API
+ *
+ *		@example
+ *		<div data-role="page" id="myPage">
+ *			<div data-role="content">
+ *				pagecontent
+ *			<div>
+ *		</div>
+ *		<script>
+ *			$("#myPage > div[data-role=content]").scrollhandler({
+ *				"handler": "true"
+ *			});
+ *		</script>
+ *
+ * ### handlerTheme
+ *
+ * This option sets the handler theme. The default value is inherited
+ * or "s" if none found.
+ *
+ * You can change this option by all available methods for options
+ * changing
+ *
+ * #### By data-handler-theme attribute
+ *
+ *		@example
+ *		<div data-role="page" id="myPage">
+ *			<div data-role="content" data-handler-theme="s" handler="true">
+ *				pagecontent
+ *			<div>
+ *		</div>
+ *
+ *
+ * #### By passing object to constructor
+ *
+ *		@example
+ *		<div data-role="page" id="myPage">
+ *			<div data-role="content">
+ *				pagecontent
+ *			<div>
+ *		</div>
+ *		<script>
+ *			var handlerElement = document.getElementById("myPage")
+ *						.querySelector("[data-role=content]");
+ *			tau.widget.ScrollHandler(handlerElement, {
+ *				"handlerTheme": "s"
+ *			});
+ *		</script>
+ *
+ * #### By using jQuery API
+ *
+ *		@example
+ *		<div data-role="page" id="myPage">
+ *			<div data-role="content">
+ *				pagecontent
+ *			<div>
+ *		</div>
+ *		<script>
+ *			$("#myPage > div[data-role=content]").scrollhandler({
+ *				"handlerTheme": "s"
+ *			});
+ *		</script>
+ *
+ * ### direction
+ *
+ * This option sets the the direction of which the handler is presented.
+ * The default value is "y" meaning vertical scroll button.
+ *
+ * You can change this option by all available methods for options
+ * changing
+ *
+ * #### By data-handler-direction attribute
+ *
+ *		@example
+ *		<div data-role="page" id="myPage">
+ *			<div data-role="content" data-direction="y" handler="true">
+ *				pagecontent
+ *			<div>
+ *		</div>
+ *
+ * #### By passing object to constructor
+ *
+ *		@example
+ *		<div data-role="page" id="myPage">
+ *			<div data-role="content">
+ *				pagecontent
+ *			<div>
+ *		</div>
+ *		<script>
+ *			var handlerElement = document.getElementById("myPage")
+ *						.querySelector("[data-role=content]"),
+ *			tau.widget.ScrollHandler(handlerElement, {
+ *				"scroll": "y"
+ *			});
+ *		</script>
+ *
+ * #### By using jQuery API
+ *
+ *		@example
+ *		<div data-role="page" id="myPage">
+ *			<div data-role="content">
+ *				pagecontent
+ *			<div>
+ *		</div>
+ *		<script>
+ *			$("#myPage > div[data-role=content]").scrollhandler({
+ *				"scroll": "y"
+ *			});
+ *		</script>
+ *
+ * ### scroll
+ *
+ * This option sets the the direction of which the handler is scrolling.
+ * The default value is "y" which means vertical.
+ *
+ * You can change this option by all available methods for options
+ * changing
+ *
+ * #### By data-handler-scroll attribute
+ *
+ *		@example
+ *		<div data-role="page" id="myPage">
+ *			<div data-role="content" data-scroll="x" handler="true">
+ *				pagecontent
+ *			<div>
+ *		</div>
+ *
+ * #### By passing object to constructor
+ *
+ *		@example
+ *		<div data-role="page" id="myPage">
+ *			<div data-role="content">
+ *				pagecontent
+ *			<div>
+ *		</div>
+ *		<script>
+ *			var handlerElement = document.getElementById("myPage")
+ *						.querySelector("[data-role=content]"),
+ *			tau.widget.ScrollHandler(handlerElement, {
+ *				"scroll": "x"
+ *			});
+ *		</script>
+ *
+ * #### By using jQuery API
+ *
+ *		@example
+ *		<div data-role="page" id="myPage">
+ *			<div data-role="content">
+ *				pagecontent
+ *			<div>
+ *		</div>
+ *		<script>
+ *			$("#myPage > div[data-role=content]").scrollhandler({
+ *				"scroll": "x"
+ *			});
+ *		</script>
+ *
+ * ## Methods
+ *
+ * ScrollHandler methods can be called through 2 APIs: TAU API and jQuery
+ * API (jQuery Mobile-like API). Since this widget extends Scrollview,
+ * all the Scrollview methods can be called also.
+ *
  * @class ns.widget.mobile.ScrollHandler
- * @inheritdoc ns.widget.mobile.Scrollview
  * @extends ns.widget.mobile.Scrollview
+ *
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>
+ * @author Piotr Karny <p.karny@samsung.com>
+ * @author Hyunkook Cho <hk0713.cho@samsung.com>
+ * @author Junhyeon Lee <juneh.lee@samsung.com>
+ * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
 (function (window, document, ns) {
 	"use strict";
@@ -65,39 +304,24 @@
 			var ScrollHandler = function () {
 					var self = this;
 					/**
-					 * @property {Object} options Widget options
-					 * @member ns.widget.ScrollHandler
-					 * @instance
+					 * Widget options
+					 * @property {Object} options
+					 * @property {boolean} [options.handler=true] Enabled flag
+					 * @property {string} [options.handlerTheme="s"] Handler theme
+					 * @property {"x"|"y"} [options.direction="y"] The direction of the handler
+					 * @property {"x"|"y"|"xy"} [options.scroll="y"] The direction of scrolling
+					 * @member ns.widget.mobile.ScrollHandler
 					 */
 					self.options = {
-						/**
-						 * @property {boolean} [options.handler=true] Enabled flag
-						 * @member ns.widget.ScrollHandler
-						 * @instance
-						 */
 						handler: true,
-						/**
-						 * @property {string} [options.handlerTheme=s] Handler theme
-						 * @member ns.widget.ScrollHandler
-						 * @instance
-						 */
 						handlerTheme: "s",
-						/**
-						 * @property {string} [options.direction=y] The direction of the handler
-						 * @member ns.widget.ScrollHandler
-						 * @instance
-						 */
 						direction: "y",
-						/**
-						 * @property {string} [options.scroll=y] The direction of scrolling
-						 * @member ns.widget.ScrollHandler
-						 * @instance
-						 */
 						scroll: "y"
 					};
 					/**
-					 * @property {Object} ui A collection of handler UI elements
-					 * @member ns.widget.ScrollHandler
+					 * A collection of handler UI elements
+					 * @property {Object} ui
+					 * @member ns.widget.mobile.ScrollHandler
 					 * @instance
 					 */
 					self.ui = {
@@ -108,68 +332,39 @@
 						page: null
 					};
 					/**
-					 * A collection of callbacks
+					 * Event listeners for various events
 					 * @property {Object} _callbacks
-					 * @member ns.widget.ScrollHandler
+					 * @property {Function} _callbacks.scrollstart Start handler
+					 * @property {Function} _callbacks.scrollupdate Scrolling handler
+					 * @property {Function} _callbacks.scrollend Scroll end handler
+					 * @property {Function} _callbacks.touchstart Start handler
+					 * @property {Function} _callbacks.touchmove Touch move  handler
+					 * @property {Function} _callbacks.touchend Touch end handler
+					 * @property {Function} _callbacks.resize Window resize handler
+					 * @member ns.widget.mobile.ScrollHandler
 					 * @protected
-					 * @instance
 					 */
 					self._callbacks = {
-						/**
-						 * @property {Function} scrollstart Start handler
-						 * @member ns.widget.ScrollHandler
-						 * @instance
-						 */
 						scrolstart: null,
-						/**
-						 * @property {Function} scrollupdate Scrolling handler
-						 * @member ns.widget.ScrollHandler
-						 * @instance
-						 */
 						scrollupdate: null,
-						/**
-						 * @property {Function} scrollend Scroll end handler
-						 * @member ns.widget.ScrollHandler
-						 * @instance
-						 */
 						scrollend: null,
-						/**
-						 * @property {Function} touchstart Start handler
-						 * @member ns.widget.ScrollHandler
-						 * @instance
-						 */
 						touchstart: null,
-						/**
-						 * @property {Function} touchmove Touch move  handler
-						 * @member ns.widget.ScrollHandler
-						 * @instance
-						 */
 						touchmove: null,
-						/**
-						 * @property {Function} touchend Touch end handler
-						 * @member ns.widget.ScrollHandler
-						 * @instance
-						 */
 						touchend: null,
-						/**
-						 * @property {Function} resize Window resize handler
-						 * @member ns.widget.ScrollHandler
-						 * @instance
-						 */
 						resize: null
 					};
 					/**
-					 * @property {boolean} [_dragging=false] A drag indicator flag
-					 * @member ns.widget.ScrollHandler
+					 * A drag indicator flag
+					 * @property {boolean} [_dragging=false]
+					 * @member ns.widget.mobile.ScrollHandler
 					 * @protected
-					 * @instance
 					 */
 					self._dragging = false;
 					/**
-					 * @property {Object} Collection of scroll bounds params
-					 * @member ns.widget.ScrollHandler
+					 * Collection of scroll bounds params
+					 * @property {Object} _offsets
+					 * @member ns.widget.mobile.ScrollHandler
 					 * @protected
-					 * @instance
 					 */
 					self._offsets = {
 						x: 0,
@@ -178,139 +373,70 @@
 						maxY: 0
 					};
 					/**
-					 * @property {string} [_lastPointerEvents=''] Holds original pointer events state
-					 * @member ns.widget.ScrollHandler
+					 * Holds original pointer events state
+					 * @property {string} [_lastPointerEvents=""]
+					 * @member ns.widget.mobile.ScrollHandler
 					 * @protected
-					 * @instance
 					 */
-					self._lastPointerEvents = '';
+					self._lastPointerEvents = "";
 					/**
-					 * @property {number} [_availableOffsetX=0] Holds information about scrollviews available offset
-					 * @member ns.widget.ScrollHandler
+					 * Holds information about scrollviews available offset
+					 * @property {number} [_availableOffsetX=0]
+					 * @member ns.widget.mobile.ScrollHandler
 					 * @protected
-					 * @instance
 					 */
 					self._availableOffsetX = 0;
 					/**
-					 * @property {number} [_availableOffsetX=0] Holds information about scrollviews available offset
-					 * @member ns.widget.ScrollHandler
+					 * Holds information about scrollviews available offset
+					 * @property {number} [_availableOffsetX=0]
+					 * @member ns.widget.mobile.ScrollHandler
 					 * @protected
-					 * @instance
 					 */
 					self._availableOffsetY = 0;
 					/**
-					 * @property {?number} [_hideTimer=null] Holds timer ID
-					 * @member ns.widget.ScrollHandler
+					 * @property {?number} [_hideTimer=null]
+					 * Holds timer ID
+					 * @member ns.widget.mobile.ScrollHandler
 					 * @protected
-					 * @instance
 					 */
 					self._hideTimer = null;
 					/**
-					 * @property {Object} _lastMouse Holds last mouse position
-					 * @member ns.widget.ScrollHandler
+					 * Holds last mouse position
+					 * @property {Object} _lastMouse
+					 * @member ns.widget.mobile.ScrollHandler
 					 * @protected
-					 * @instance
 					 */
 					self._lastMouse = {
 						x: 0,
 						y: 0
 					};
 				},
-				/**
-				 * @property {Object} engine  alias for {@link ns.engine}
-				 * @member ns.widget.ScrollHandler
-				 * @private
-				 * @static
-				 */
 				engine = ns.engine,
-				/**
-				 * @property {Object} CSSUtils alias for {@link ns.util.DOM}
-				 * @member ns.widget.ScrollHandler
-				 * @private
-				 * @static
-				 */
 				CSSUtils = ns.util.DOM,
-				/**
-				 * @property {Object} selectors alias for {@link ns.util.selectors}
-				 * @member ns.widget.selectors
-				 * @private
-				 * @static
-				 */
 				selectors = ns.util.selectors,
-				/**
-				 * @property {Object} Page classes alias for {@link ns.widget.mobile.Page}
-				 * @member ns.widget.ScrollHandler
-				 * @private
-				 * @static
-				 */
 				PageClasses = ns.widget.mobile.Page.classes,
-				/**
-				 * @property {Object} Scrollview alias for {@link ns.widget.mobile.Scrollview}
-				 * @member ns.widget.ScrollHandler
-				 * @private
-				 * @static
-				 */
 				Scrollview = ns.widget.mobile.Scrollview,
-				/**
-				 * @property {Object} ScrollviewPrototype Original scrollview prototype
-				 * @member ns.widget.ScrollHandler
-				 * @private
-				 * @static
-				 */
 				ScrollviewPrototype = Scrollview.prototype,
-				/**
-				 * @property {Function} ScrollviewBuild Original scrollview build method
-				 * @member ns.widget.ScrollHandler
-				 * @private
-				 * @static
-				 */
 				ScrollviewBuild = ScrollviewPrototype._build,
-				/**
-				 * @property {Function} ScrollviewInit Original scrollview init method
-				 * @member ns.widget.ScrollHandler
-				 * @private
-				 * @static
-				 */
 				ScrollviewInit = ScrollviewPrototype._init,
-				/**
-				 * @property {Function} ScrollviewBindEvents Original scrollview bind events method
-				 * @member ns.widget.ScrollHandler
-				 * @private
-				 * @static
-				 */
 				ScrollviewBindEvents = ScrollviewPrototype._bindEvents,
-				/**
-				 * @property {Function} ScrollviewDestroy Original scrollview destroy method
-				 * @member ns.widget.ScrollHandler
-				 * @private
-				 * @static
-				 */
 				ScrollviewDestroy = ScrollviewPrototype._destroy,
-				/**
-				 * @property {Function} max Alias for Math.max
-				 * @member ns.widget.ScrollHandler
-				 * @private
-				 * @static
-				 */
 				max = Math.max,
-				/**
-				 * @property {Function} min Alias for Math.min
-				 * @member ns.widget.ScrollHandler
-				 * @private
-				 * @static
-				 */
 				min = Math.min,
-				/**
-				 * @property {Function} floor alias ofr Math.floor
-				 * @member ns.widget.ScrollHandler
-				 * @private
-				 * @static
-				 */
 				floor = Math.floor,
 				/**
-				 * @property {Object} classes A collection of ScrollHandlers classes
-				 * @member ns.widget.ScrollHandler
+				 * A collection of ScrollHandlers classes
+				 * @property {Object} classes
+				 * @property {string} [classes.handler="ui-handler"] Handler main class
+				 * @property {string} [classes.directionPrefix="ui-handler-direction"] Direction class prefix
+				 * @property {string} [classes.track="ui-handler-track"] Handler track class
+				 * @property {string} [classes.thumb="ui-handler-thumb"] Handler thumb button prefix
+				 * @property {string} [classes.themePrefix="ui-handller-"] Handler theme class prefix
+				 * @property {string} [classes.scrollbarDisabled="scrollbar-disabled"] Scrollview scrollbar disabled class
+				 * @property {string} [classes.disabled="disabled"] Disabled class
+				 * @member ns.widget.mobile.ScrollHandler
 				 * @static
+				 * @readonly
 				 */
 				classes = {
 					handler: "ui-handler",
@@ -323,30 +449,25 @@
 					scrollbarDisabled: "scrollbar-disabled",
 					disabled: "disabled"
 				},
-				/**
-				 * @property {Object} ScrollviewPrototype Original scrollview prototype
-				 * @member ns.widget.ScrollHandler
-				 * @private
-				 * @static
-				 */
 				prototype = new Scrollview();
 
 			ScrollHandler.classes = classes;
 
 			/**
 			 * Translates objects position to a new position
-			 * @private
-			 * @static
-			 * @param {ns.widget.ScrollHandler} self
+			 * @param {ns.widget.mobile.ScrollHandler} self
 			 * @param {number} xOffset
 			 * @param {number} yOffset
+			 * @member ns.widget.mobile.ScrollHandler
+			 * @private
+			 * @static
 			 */
 			function translate(self, xOffset, yOffset) {
 				var style = null,
 					translateString = null;
 				if (self.options.handler) {
 					style = self.ui.handle.style;
-					translateString = 'translate3d(' + (xOffset || 0) + 'px, ' + (yOffset || 0) + 'px, 0px)';
+					translateString = "translate3d(" + (xOffset || 0) + "px, " + (yOffset || 0) + "px, 0px)";
 
 					style.webkitTransform = translateString;
 					style.mozTransform = translateString;
@@ -356,9 +477,10 @@
 
 			/**
 			 * Sets handler position according to scrollviews position
+			 * @param {ns.widget.mobile.ScrollHandler} self
+			 * @member ns.widget.mobile.ScrollHandler
 			 * @private
 			 * @static
-			 * @param {ns.widget.ScrollHandler} self
 			 */
 			function syncHandleWithScroll(self) {
 				var position = self.getScrollPosition(),
@@ -382,9 +504,10 @@
 
 			/**
 			 * Handles scroll start event
+			 * @param {ns.widget.mobile.ScrollHandler} self
+			 * @member ns.widget.mobile.ScrollHandler
 			 * @private
 			 * @static
-			 * @param {ns.widget.ScrollHandler} self
 			 */
 			function handleScrollstart(self) {
 				if (self._dragging === false) {
@@ -398,9 +521,10 @@
 
 			/**
 			 * Handles scroll update event
+			 * @param {ns.widget.mobile.ScrollHandler}
+			 * @member ns.widget.mobile.ScrollHandler
 			 * @private
 			 * @static
-			 * @param {ns.widget.ScrollHandler}
 			 */
 			function handleScrollupdate(self) {
 				if (self._dragging === false) {
@@ -413,9 +537,10 @@
 
 			/**
 			 * Handles scroll stop event
+			 * @param {ns.widget.mobile.ScrollHandler}
+			 * @member ns.widget.mobile.ScrollHandler
 			 * @private
 			 * @static
-			 * @param {ns.widget.ScrollHandler}
 			 */
 			function handleScrollstop(self) {
 				if (self._dragging === false) {
@@ -431,11 +556,12 @@
 
 			/**
 			 * Handles dragging
-			 * @private
-			 * @static
-			 * @param {ns.widget.ScrollHandler} self
+			 * @param {ns.widget.mobile.ScrollHandler} self
 			 * @param {number} x
 			 * @param {number} y
+			 * @member ns.widget.mobile.ScrollHandler
+			 * @private
+			 * @static
 			 */
 			function handleDragging(self, x, y) {
 				var lastMouse = self._lastMouse,
@@ -459,13 +585,13 @@
 
 				translate(
 					self,
-					direction === 'y' ? 0 : offsets.x,
-					direction === 'x' ? 0 : offsets.y
+					direction === "y" ? 0 : offsets.x,
+					direction === "x" ? 0 : offsets.y
 				);
 
 				self.scrollTo(
-					direction === 'y' ? 0 : offsets.x / offsets.maxX * self._availableOffsetX,
-					direction === 'x' ? 0 : offsets.y / offsets.maxY * self._availableOffsetY
+					direction === "y" ? 0 : offsets.x / offsets.maxX * self._availableOffsetX,
+					direction === "x" ? 0 : offsets.y / offsets.maxY * self._availableOffsetY
 				);
 
 				if (self._hideTimer) {
@@ -475,10 +601,11 @@
 
 			/**
 			 * Handles touch start event
+			 * @param {ns.widget.mobile.ScrollHandler} self
+			 * @param {MouseEvent|TouchEvent} event
+			 * @member ns.widget.mobile.ScrollHandler
 			 * @private
 			 * @static
-			 * @param {ns.widget.ScrollHandler} self 
-			 * @param {MouseEvent|TouchEvent} event
 			 */
 			function handleTouchstart(self, event) {
 				var lastMouse = self._lastMouse,
@@ -486,10 +613,10 @@
 					touch = touches && touches[0],
 					parent = self.element.parentNode;
 				self._dragging = true;
-				self._lastPointerEvents = CSSUtils.getCSSProperty(parent, 'pointer-events');
+				self._lastPointerEvents = CSSUtils.getCSSProperty(parent, "pointer-events");
 				// this is just for scroll speedup purposes
 				// through method since we are using important flag
-				parent.style.setProperty('pointer-events', 'none', 'important');
+				parent.style.setProperty("pointer-events", "none", "important");
 				lastMouse.x = touch ? touch.clientX : event.clientX;
 				lastMouse.y = touch ? touch.clientY : event.clientY;
 
@@ -499,17 +626,18 @@
 
 			/**
 			 * Handles touch move events
+			 * @param {ns.widget.mobile.ScrollHandler} self
+			 * @param {MouseEvent|TouchEvent} event
+			 * @member ns.widget.mobile.ScrollHandler
 			 * @private
 			 * @static
-			 * @param {ns.widget.ScrollHandler} self
-			 * @param {MouseEvent|TouchEvent} event
 			 */
 			function handleTouchmove(self, event) {
 				var touches = event.touches,
 					touch = touches && touches[0],
 					x = 0,
 					y = 0;
-				// check for exactly 1 touch event 
+				// check for exactly 1 touch event
 				// or a mouse event
 				if (self._dragging && (touches === undefined || touches.length <= 1)) {
 					event.stopImmediatePropagation();
@@ -523,24 +651,25 @@
 
 			/**
 			 * Handles touch end event
+			 * @param {ns.widget.mobile.ScrollHandler}
+			 * @param {MouseEvent|TouchEvent}
+			 * @member ns.widget.mobile.ScrollHandler
 			 * @private
 			 * @static
-			 * @param {ns.widget.ScrollHandler}
-			 * @param {MouseEvent|TouchEvent}
 			 */
 			function handleTouchend(self, event) {
 				var lastPointerEvents = self._lastPointerEvents,
 					parentStyle = self.element.parentNode.style;
 				if (self._dragging) {
-					parentStyle.removeProperty('pointer-events');
-					if (lastPointerEvents !== 'auto') {
-						parentStyle.setProperty('pointer-events', lastPointerEvents);
+					parentStyle.removeProperty("pointer-events");
+					if (lastPointerEvents !== "auto") {
+						parentStyle.setProperty("pointer-events", lastPointerEvents);
 					}
 					self._dragging = false;
 
 					event.stopImmediatePropagation();
 					event.preventDefault();
-					
+
 					if (self._hideTimer) {
 						window.clearTimeout(self._hideTimer);
 					}
@@ -552,29 +681,28 @@
 
 			/**
 			 * Build the scrollhander and scrollview DOM
-			 * @method _build
-			 * @protected
-			 * @instance
 			 * @param {HTMLElement} element
 			 * @return {HTMLElement}
-			 * @member ns.widget.ScrollHandler
+			 * @method _build
+			 * @member ns.widget.mobile.ScrollHandler
+			 * @protected
 			 */
 			prototype._build = function (element) {
 				var node = ScrollviewBuild.call(this, element),
-					handler = document.createElement('div'),
-					handle = document.createElement('div'),
-					track = document.createElement('div'),
-					thumb = document.createElement('div'),
+					handler = document.createElement("div"),
+					handle = document.createElement("div"),
+					track = document.createElement("div"),
+					thumb = document.createElement("div"),
 					options = this.options,
 					ui = this.ui;
 
-				handler.className = classes.handler + ' ' + classes.themePrefix + options.handlerTheme + ' ' + classes.directionPrefix + options.direction;
+				handler.className = classes.handler + " " + classes.themePrefix + options.handlerTheme + " " + classes.directionPrefix + options.direction;
 				handle.className = classes.handle;
 				thumb.className = classes.thumb;
 				track.className = classes.track;
 
-				handle.setAttribute('tabindex', 0);
-				handle.setAttribute('aria-label', (options.direction === 'y' ? 'Vertical' : 'Horizontal') + ' handler, double tap and move to scroll');
+				handle.setAttribute("tabindex", 0);
+				handle.setAttribute("aria-label", (options.direction === "y" ? "Vertical" : "Horizontal") + " handler, double tap and move to scroll");
 
 				handle.appendChild(thumb);
 				track.appendChild(handle);
@@ -592,11 +720,10 @@
 
 			/**
 			 * Init the scrollhander and scrollview
+			 * @param {HTMLElement} element
 			 * @method _init
 			 * @protected
-			 * @instance
-			 * @param {HTMLElement} element
-			 * @member ns.widget.ScrollHandler
+			 * @member ns.widget.mobile.ScrollHandler
 			 */
 			prototype._init = function (element) {
 				var self = this,
@@ -606,19 +733,19 @@
 				ScrollviewInit.call(self, element);
 
 				if (ui.handler === null) {
-					ui.handler = element.querySelector('.' + classes.handler);
+					ui.handler = element.querySelector("." + classes.handler);
 				}
 
 				if (ui.track  === null) {
-					ui.track = element.querySelector('.' + classes.track);
+					ui.track = element.querySelector("." + classes.track);
 				}
 
 				if (ui.handle === null) {
-					ui.handle = element.querySelector('.' + classes.handle);
+					ui.handle = element.querySelector("." + classes.handle);
 				}
 
 				if (ui.thumb  === null) {
-					ui.thumb = element.querySelector('.' + classes.thumb);
+					ui.thumb = element.querySelector("." + classes.thumb);
 				}
 
 				if (page === null) {
@@ -637,8 +764,7 @@
 			 * Refreshes the scrollhander bounds and dimensions
 			 * @method _refresh
 			 * @protected
-			 * @instance
-			 * @member ns.widget.ScrollHandler
+			 * @member ns.widget.mobile.ScrollHandler
 			 */
 			prototype._refresh = function () {
 				var self = this,
@@ -649,8 +775,8 @@
 					parent = element.parentNode,
 					childrenWidth = 0,
 					childrenHeight = 0,
-					clipHeight = CSSUtils.getElementHeight(element, 'inner', true),
-					clipWidth = CSSUtils.getElementWidth(element, 'inner', true),
+					clipHeight = CSSUtils.getElementHeight(element, "inner", true),
+					clipWidth = CSSUtils.getElementWidth(element, "inner", true),
 					view = element.querySelector("." + Scrollview.classes.view),
 					marginTop = null,
 					child = parent.firstElementChild;
@@ -658,8 +784,8 @@
 				while (child) {
 					// filter out current scrollview
 					if (child !== element) {
-						childrenWidth += CSSUtils.getElementWidth(child, 'inner', true);
-						childrenHeight += CSSUtils.getElementHeight(child, 'inner', true);
+						childrenWidth += CSSUtils.getElementWidth(child, "inner", true);
+						childrenHeight += CSSUtils.getElementHeight(child, "inner", true);
 					} else if (marginTop === null) {
 						marginTop = childrenHeight;
 					}
@@ -668,20 +794,19 @@
 
 				marginTop = marginTop || 0;
 
-				offsets.maxX = floor(max(0, clipWidth - childrenWidth - (CSSUtils.getElementWidth(handle, 'inner', true) / 2)));
-				offsets.maxY = floor(max(0, clipHeight - childrenHeight - (CSSUtils.getElementHeight(handle, 'inner', true) / 2)));
-				self._availableOffsetX = max(0, CSSUtils.getElementWidth(view, 'inner', true) - clipWidth);
-				self._availableOffsetY = max(0, CSSUtils.getElementHeight(view, 'inner', true) - clipHeight);
-				ui.handler.style.marginTop = marginTop + 'px';
+				offsets.maxX = floor(max(0, clipWidth - childrenWidth - (CSSUtils.getElementWidth(handle, "inner", true) / 2)));
+				offsets.maxY = floor(max(0, clipHeight - childrenHeight - (CSSUtils.getElementHeight(handle, "inner", true) / 2)));
+				self._availableOffsetX = max(0, CSSUtils.getElementWidth(view, "inner", true) - clipWidth);
+				self._availableOffsetY = max(0, CSSUtils.getElementHeight(view, "inner", true) - clipHeight);
+				ui.handler.style.marginTop = marginTop + "px";
 			};
 
 			/**
 			 * Buinds the scrollhander and scrollview events
+			 * @param {HTMLElement} element
 			 * @method _bindEvents
 			 * @protected
-			 * @instance
-			 * @param {HTMLElement} element
-			 * @member ns.widget.ScrollHandler
+			 * @member ns.widget.mobile.ScrollHandler
 			 */
 			prototype._bindEvents = function (element) {
 				var self = this,
@@ -710,13 +835,40 @@
 
 			/**
 			 * Enables/disables handler
-			 * @method enableHandler
-			 * @instance
-			 * @param {boolean} template
+			 *
+			 * #### TAU API
+			 *
+			 *		@example
+			 *		<div data-role="page" id="myPage">
+			 *			<div data-role="content">
+			 *				pagecontent
+			 *			<div>
+			 *		</div>
+			 *		<script>
+			 *			var handlerElement = document.getElementById("myPage")
+			 *						.querySelector("[data-role=content]"),
+			 *				scrollhandler = tau.widget.ScrollHandler(handlerElement);
+			 *			scrollhandler.enableHandler(true);
+			 *		</script>
+			 *
+			 * #### jQuery API
+			 *
+			 *		@example
+			 *		<div data-role="page" id="myPage">
+			 *			<div data-role="content">
+			 *				pagecontent
+			 *			<div>
+			 *		</div>
+			 *		<script>
+			 *			#("#myPage > div[data-role=content]).scrollhandler("enableHandler", true);
+			 *		</script>
+			 *
+			 * @param {boolean} enable
 			 * @return {boolean}
-			 * @member ns.widget.ScrollHandler
+			 * @method enableHandler
+			 * @member ns.widget.mobile.ScrollHandler
 			 */
-			prototype.enableHandler = function (enabled) {
+			prototype.enableHandler = function (enable) {
 				var self = this,
 					scrollBarDisabledClass = classes.scrollbarDisabled,
 					disabledClass = classes.disabled,
@@ -724,9 +876,9 @@
 					parentClassList = element.parentNode.classList,
 					elementClassList = element.classList;
 
-				if (enabled !== undefined) {
-					self.options.handler = enabled;
-					if (enabled) {
+				if (enable !== undefined) {
+					self.options.handler = enable;
+					if (enable) {
 						parentClassList.add(scrollBarDisabledClass);
 						elementClassList.remove(disabledClass);
 						self._refresh();
@@ -741,11 +893,10 @@
 
 			/**
 			 * Sets the handlers theme
+			 * @param {string} theme
 			 * @method _setHandlerTheme
 			 * @protected
-			 * @instance
-			 * @param {string} theme
-			 * @member ns.widget.ScrollHandler
+			 * @member ns.widget.mobile.ScrollHandler
 			 */
 			prototype._setHandlerTheme = function (theme) {
 				var elementClassList = this.element.classList,
@@ -761,8 +912,7 @@
 			 * Destroys the scrollhander and scrollview DOM
 			 * @method _destroy
 			 * @protected
-			 * @instance
-			 * @member ns.widget.ScrollHandler
+			 * @member ns.widget.mobile.ScrollHandler
 			 */
 			prototype._destroy = function () {
 				var self = this,
@@ -783,7 +933,7 @@
 			};
 
 			ScrollHandler.prototype = prototype;
-			
+
 			ns.widget.mobile.ScrollHandler = ScrollHandler;
 			engine.defineWidget(
 				"ScrollHandler",
