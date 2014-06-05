@@ -14,7 +14,7 @@
 
 	config = {
 		itemData: function ( idx ) { return JSON_DATA[idx]; },
-		numItemData: JSON_DATA.length
+		numitemdata: JSON_DATA.length
 	};
 
 	test("ns.widget.Extendablelist jTmpl markup and options checking",  function () {
@@ -28,16 +28,6 @@
 		widget.create(config);
 
 		children = widget.element.children;
-		options = widget.option();
-
-		equal(options.id, '#extendable_list_main', 'WebUI options.id correct');
-		equal(options.childSelector, 'li', 'WebUI options.childSelector correct');
-		equal(options.extenditems, 50, 'WebUI options.extenditems correct');
-		equal(options.template, 'tmp-1line', 'WebUI options.template correct');
-		equal(options.loadmore, 'tmp_load_more', 'WebUI options.loadmore correct');
-		equal(options.numitemdata, 1047, 'WebUI options.numitemdata correct');
-		equal(options.scrollview, true, 'WebUI options.scrollview correct');
-
 
 		equal(children.length, 51, 'Widget created 51 li elements');
 		equal(children[0].innerHTML, '<span class="ui-li-text-main">Abdelnaby, Alaa</span>', 'First element of list has proper value');
@@ -50,7 +40,6 @@
 
 	test("ns.widget.Extendablelist loading data checking",  function () {
 		var children,
-			loader,
 			button,
 			trigger,
 			i,
@@ -62,36 +51,37 @@
 		widget.create(config);
 
 		children = widget.element.children;
-		loader = element.lastElementChild;
 		button = document.getElementById('load_more_message').firstElementChild.firstElementChild;
 		trigger = ns.event.trigger;
 
 		equal(children.length, 51, 'Initial number of elements is correct');
-		trigger(loader, 'click');
+		trigger(element.lastElementChild, 'click');
 		button = document.getElementById('load_more_message').firstElementChild.firstElementChild;
+
 		equal(children.length, 101, 'Number of elements after 1st load elements is correct');
 		equal(button.innerHTML, 'Load 50 more items', 'Text value is ok, after 1st load');
-		trigger(loader, 'click');
+		trigger(element.lastElementChild, 'click');
+
 		button = document.getElementById('load_more_message').firstElementChild.firstElementChild;
 		equal(children.length, 151, 'Number of elements after 2nd load elements is correct');
 		equal(button.innerHTML, 'Load 50 more items', 'Text value is ok, after 2nd load');
 
 		for (i = 10; i > 0; i -= 1) {
-			trigger(loader, 'click');
+			trigger(element.lastElementChild, 'click');
 		}
 		button = document.getElementById('load_more_message').firstElementChild.firstElementChild;
 		equal(children.length, 651, 'Number of elements after 12th load elements is correct');
 		equal(button.innerHTML, 'Load 50 more items', 'Text value is ok, after 12th load');
 
 		for (i = 6; i > 0; i -= 1) {
-			trigger(loader, 'click');
+			trigger(element.lastElementChild, 'click');
 		}
 		button = document.getElementById('load_more_message').firstElementChild.firstElementChild;
 
 		equal(children.length, 951, 'Number of elements after 18th load elements is correct');
 		equal(button.innerHTML, 'Load 50 more items', 'Text value is ok, after 18th load');
 
-		trigger(loader, 'click');
+		trigger(element.lastElementChild, 'click');
 		button = document.getElementById('load_more_message').firstElementChild.firstElementChild;
 
 		equal(children.length, 1001, 'Number of elements after 19th load elements is correct');
@@ -149,7 +139,7 @@
 
 		// Instance widget
 		widget = ns.engine.instanceWidget(element, 'ExtendableList', config);
-		widget.create(config);
+		widget.create();
 
 		children = widget.element.children;
 		loader = element.lastElementChild;

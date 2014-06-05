@@ -17,7 +17,7 @@
 		dataLength: JSON_DATA.length,
 		//Set buffer size
 		bufferSize: 50,
-		listItemUpdater: function (elListItem, newIndex) {
+		listItemUpdater: function (newIndex, elListItem) {
 			var data =  JSON_DATA[newIndex];
 			elListItem.innerHTML = '<span class="ui-li-text-main">' + data.NAME + '</span>';
 		},
@@ -40,7 +40,7 @@
 			options,
 			widget,
 			element = document.getElementById("extendable_list_main"),
-			newUpdater = function (elListItem, newIndex) {
+			newUpdater = function (newIndex, elListItem) {
 				var data =  JSON_DATA[newIndex];
 				elListItem.innerHTML = '<span class="ui-li-text-main">' + newIndex + '. ' + data.NAME + '</span>';
 			},
@@ -66,10 +66,10 @@
 		equal(children[50], document.getElementById('load_more_message').parentNode, 'Last element of list contains button element');
 		ok(ns.engine.getBinding(document.getElementById('load_more_message'), 'Button') instanceof ns.widget.mobile.Button, 'Load more button was bound');
 
-		widget.setListItemUpdater(newUpdater);
+		widget.option("listItemUpdater", newUpdater);
 		equal(options.listItemUpdater, newUpdater, 'Updater function after setListItemUpdater() is correct');
 
-		widget.setListItemLoader(newLoader);
+		widget.option("listItemLoader", newLoader);
 		equal(options.listItemLoader, newLoader, 'Loader function after setListItemLoader() is correct');
 
 
@@ -87,6 +87,7 @@
 
 		// Instance widget
 		widget = ns.engine.instanceWidget(element, 'ExtendableList', config);
+		widget.create();
 
 		children = widget.element.children;
 		loader = element.lastElementChild;
