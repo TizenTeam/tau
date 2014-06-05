@@ -1,4 +1,5 @@
 /*global window, define, ns*/
+/*jslint nomen: true */
 /*
 * Copyright (c) 2013 - 2014 Samsung Electronics Co., Ltd
 *
@@ -15,10 +16,195 @@
 * limitations under the License.
 */
 /**
- * #Scroll View Widget
+ * # ScrollView Widget
+ *
+ * The allows for creating scrollable panes, lists, etc.
+ *
+ * ## Default selectors
+ * All elements with _data-role=content attribute or _.ui-scrollview
+ * css class will be changed to ScrollView widgets, unless they specify
+ * _data-scroll=none attribute.
+ *
+ * ### HTML Examples
+ *
+ * #### Data attribute
+ *
+ *		@example
+ *		<div data-role="page">
+ *			<div data-role="content"><!-- this will become scrollview //-->
+ *				content data
+ *			</div>
+ *		</div>
+ *
+ * #### CSS Class
+ *
+ *		@example
+ *		<div data-role="page">
+ *			<div class="ui-content"><!-- this will become scrollview //-->
+ *				content data
+ *			</div>
+ *		</div>
+ *
+ * ## Manual constructor
+ *
+ * To create the widget manually you can use 2 different APIs, the TAU
+ * API or jQuery API.
+ *
+ * ### Create scrollview by TAU API
+ *
+ *		@example
+ *		<div data-role="page" id="myPage">
+ *			<div data-role="content">
+ *				page content
+ *			</div>
+ *		</div>
+ *		<script>
+ *			var page = tau.widget.Page(document.getElementById("myPage")),
+ *				scrollview = tau.widget.Scrollview(page.ui.content);
+ *		</script>
+ *
+ * ### Create scrollview using jQuery API
+ *
+ *		@example
+ *		<div data-role="page" id="myPage">
+ *			<div data-role="content">
+ *				page content
+ *			</div>
+ *		</div>
+ *		<script>
+ *			$("#myPage > div[data-role='content']").scrollview();
+ *		</script>
+ *
+ * ## Options for Scrollview widget
+ *
+ * Options can be set using data-* attributes or by passing them to
+ * the constructor.
+ *
+ * There is also a method **option** for changing them after widget
+ * creation.
+ *
+ * jQuery mobile format is also supported.
+ *
+ * ## Scroll
+ *
+ * This options specifies of a content element should become Scrollview
+ * widget.
+ *
+ * You can change this by all available methods for changing options.
+ *
+ * ### By data-scroll attribute
+ *
+ *		@example
+ *		<div data-role="page">
+ *			<div data-role="content" data-scroll="none">
+ *				content
+ *			</div>
+ *		</div>
+ *
+ * ### By config passed to constructor
+ *
+ *		@example
+ *		<div class="myPageClass" data-role="page">
+ *			<div data-role="content">
+ *				content
+ *			</div>
+ *		</div>
+ *		<script>
+ *			var contentElement = document.querySelector(".myPageClass > div[data-role=content]");
+ *			tau.widget.Scrollview(contentElement, {
+ *				"scroll": false
+ *			});
+ *		</script>
+ *
+ * ### By using jQuery API
+ *
+ *		@example
+ *		<div class="myPageClass" data-role="page">
+ *			<div data-role="content">
+ *				content
+ *			</div>
+ *		</div>
+ *		<script>
+ *			$(".myPageClass > div[data-role='content']").scrollview({
+ *				"scroll": false
+ *			});
+ *		</script>
+ *
+ * ## ScrollJumps
+ *
+ * Scroll jumps are small buttons which allow the user to quickly
+ * scroll to top or left
+ *
+ * You can change this by all available methods for changing options.
+ *
+ * ### By data-scroll-jump
+ *
+ *		@example
+ *		<div data-role="page">
+ *			<div data-role="content" data-scroll-jump="true">
+ *				content
+ *			</div>
+ *		</div>
+ *
+ * ### By config passed to constructor
+ *
+ *		@example
+ *		<div class="myPageClass" data-role="page">
+ *			<div data-role="content">
+ *				content
+ *			</div>
+ *		</div>
+ *		<script>
+ *			var contentElement = document.querySelector(".myPageClass > div[data-role=content]");
+ *			tau.widget.Scrollview(contentElement, {
+ *				"scrollJump": true
+ *			});
+ *		</script>
+ *
+ * ### By using jQuery API
+ *
+ *		@example
+ *		<div class="myPageClass" data-role="page">
+ *			<div data-role="content">
+ *				content
+ *			</div>
+ *		</div>
+ *		<script>
+ *			$(".myPageClass > div[data-role='content']").scrollview({
+ *				"scrollJump": true
+ *			});
+ *		</script>
+ *
+ * ## Methods
+ *
+ * Page methods can be called trough 2 APIs: TAU API and jQuery API
+ * (jQuery mobile-like API)
  *
  * @class ns.widget.mobile.Scrollview
  * @extends ns.widget.BaseWidget
+ *
+ * @author Krzysztof Antoszek <k.antoszek@samsung.com>
+ * @author Maciej Urbanski <m.urbanski@samsung.com>
+ * @author Grzegorz Osimowicz <g.osimowicz@samsung.com>
+ * @author Jadwiga Sosnowska <j.sosnowska@samsung.com>
+ * @author Maciej Moczulski <m.moczulski@samsung.com>
+ * @author Hyunkook Cho <hk0713.cho@samsung.com>
+ * @author Junhyeon Lee <juneh.lee@samsung.com>
+ */
+/**
+ * Triggered when scrolling operation starts
+ * @event scrollstart
+ * @member ns.widget.mobile.Scrollview
+ */
+/**
+ * Triggered when scroll is being updated
+ * @event scrollupdate
+ * @member ns.widget.mobile.Scrollview
+ */
+/**
+ * Triggered when scrolling stops
+ * @event scrollstop
+ * @member ns.widget.mobile.Scrollview
  */
 (function (window, document, ns) {
 	"use strict";
@@ -41,99 +227,82 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			/**
-			 * @property {Object} Widget Alias for {@link ns.widget.BaseWidget}
-			 * @private
-			 * @member ns.widget.mobile.Scrollview
-			 */
 			var BaseWidget = ns.widget.mobile.BaseWidgetMobile,
-				/**
-				 * @property {ns.engine} engine Alias to ns.engine
-				 * @private
-				 * @member ns.widget.mobile.Scrollview
-				 */
-					engine = ns.engine,
-				/**
-				 * @property {Object} util Alias to ns.util
-				 * @private
-				 * @member ns.widget.mobile.Scrollview
-				 */
-					util = ns.util,
-				/**
-				 * @property {Object} easingUtils Alias to ns.util.easing
-				 * @private
-				 * @member ns.widget.mobile.Scrollview
-				 */
-					easingUtils = ns.util.easing,
-				/**
-				 * @property {Object} eventUtils Alias to ns.event
-				 * @private
-				 * @member ns.widget.mobile.Scrollview
-				 */
-					eventUtils = ns.event,
-				/**
-				 * @property {Object} DOMUtils Alias to ns.util.DOM
-				 * @private
-				 * @member ns.widget.mobile.Scrollview
-				 */
-					DOMUtils = ns.util.DOM,
-				/**
-				 * @property {Object} selectors Alias to ns.util.selectors
-				 * @private
-				 * @member ns.widget.mobile.Scrollview
-				 */
-					selectors = ns.util.selectors,
-				/**
-				 * @method currentTransition
-				 * @private
-				 * @member ns.widget.mobile.Scrollview
-				 */
-					currentTransition = null,
-				/**
-				* @property {Object} Page Alias to ns.widget.mobile.Page
-				* @private
-				* @member ns.widget.mobile.Scrollview
-				*/
+				engine = ns.engine,
+				util = ns.util,
+				easingUtils = ns.util.easing,
+				eventUtils = ns.event,
+				DOMUtils = ns.util.DOM,
+				selectors = ns.util.selectors,
+				currentTransition = null,
 				Page = ns.widget.mobile.Page,
-				/**
-				* @property {string} pageClass Alias to ns.widget.mobile.Page.classes.uiPage
-				* @private
-				* @member ns.widget.mobile.Scrollview
-				*/
 				pageClass = Page.classes.uiPage,
-				/**
-				* @property {string} pageActiveClass Alias to ns.widget.mobile.Page.classes.uiPageActive
-				* @private
-				* @member ns.widget.mobile.Scrollview
-				*/
 				pageActiveClass = Page.classes.uiPageActive,
-				/**
-				* @property {Object} Scrollview
-				* @private
-				* @member ns.widget.mobile.Scrollview
-				*/
 				Scrollview = function () {
 					var self = this;
+					/**
+					 * @property {Object} state Scrollview internal state object
+					 * @property {Function} state.currentTransition Instance transition function
+					 * @readonly
+					 */
 					self.state = {
 						currentTransition: null
 					};
+					/**
+					 * @property {number} scrollDuration The time length of the scroll animation
+					 * @member ns.widget.mobile.Scrollview
+					 */
 					self.scrollDuration = 300;
 					self.scrollviewSetHeight = false;
+					/**
+					 * @property {Object} options Scrollview options
+					 * @property {string} [options.scroll='y'] Scroll direction
+					 * @property {boolean} [options.scrollJump=false] Scroll jump buttons flag
+					 * @member ns.widget.mobile.Scrollview
+					 */
 					self.options = {
 						scroll: "y",
 						scrollJump: false
 					};
+					/**
+					 * @property {Object} ui Dictionary for holding internal DOM elements
+					 * @property {HTMLElement} ui.view The main view element
+					 * @property {HTMLElement} ui.page The main page element
+					 * @property {HTMLElement} ui.jumpHorizontalButton Jump left button
+					 * @property {HTMLElement} ui.jumpVerticalButton Jump top button
+					 * @member ns.widget.mobile.Scrollview
+					 * @readonly
+					 */
 					self.ui = self.ui || {};
 					self.ui.view = null;
 					self.ui.page = null;
 					self.ui.jumpHorizontalButton = null;
 					self.ui.jumpVerticalButton = null;
+					/**
+					 * @property {Object} _callbacks Dictionary for holding internal listeners
+					 * @property {Function} _callbacks.repositionJumps Refresh jumps listener
+					 * @property {Function} _callbacks.jumpTop Top jump button click callback
+					 * @property {Function} _callbacks.jumpLeft Left jump button click callback
+					 * @member ns.widget.mobile.Scrollview
+					 * @protected
+					 * @readonly
+					 */
 					self._callbacks = {
 						repositionJumps: null,
 						jumpTop: null,
 						jumpBottom: null
 					};
 				},
+				/**
+				 * @property {Object} classes Dictionary for scrollview css classes
+				 * @property {string} [classes.view='ui-scrollview-view'] View main class
+				 * @property {string} [classes.clip='ui-scrollview-clip'] Clip main class
+				 * @property {string} [classes.jumpTop='ui-scroll-jump-top-bg'] Jump top button background
+				 * @property {string} [classes.jumpLeft='ui-scroll-jump-left-bg'] Jump bottom button background
+				 * @member ns.widget.mobile.Scrollview
+				 * @static
+				 * @readonly
+				 */
 				classes =  {
 					view: "ui-scrollview-view",
 					clip: "ui-scrollview-clip",
@@ -141,13 +310,8 @@
 					jumpLeft: "ui-scroll-jump-left-bg"
 				};
 
-			/*
-			 * Changes static position to relative
-			 * @method makePositioned
-			 * @param {HTMLElement} view
-			 * @private
-			 * @member ns.widget.mobile.Scrollview
-			 */
+			// Changes static position to relative
+			// @param {HTMLElement} view
 			function makePositioned(view) {
 				if (DOMUtils.getCSSProperty(view, "position") === "static") {
 					view.style.position = "relative";
@@ -156,22 +320,17 @@
 				}
 			}
 
-			/**
-			 * Translation animation loop
-			 * @method translateTransition
-			 * @param {Object} state Scrollview instance state
-			 * @param {HTMLElement} element
-			 * @param {number} startTime
-			 * @param {number} startX
-			 * @param {number} startY
-			 * @param {number} translateX
-			 * @param {number} translateY
-			 * @param {number} endX
-			 * @param {number} endY
-			 * @param {number} duration
-			 * @private
-			 * @member ns.widget.mobile.Scrollview
-			 */
+			// Translation animation loop
+			// @param {Object} state Scrollview instance state
+			// @param {HTMLElement} element
+			// @param {number} startTime
+			// @param {number} startX
+			// @param {number} startY
+			// @param {number} translateX
+			// @param {number} translateY
+			// @param {number} endX
+			// @param {number} endY
+			// @param {number} duration
 			function translateTransition(state, element, startTime, startX, startY, translateX, translateY, endX, endY, duration) {
 				var timestamp = (new Date()).getTime() - startTime,
 					newX = parseInt(easingUtils.cubicOut(timestamp, startX, translateX, duration), 10),
@@ -184,26 +343,21 @@
 				}
 
 				if ((newX !== endX || newY !== endY) &&
-					(newX >= 0 && newY >= 0) &&
-					state.currentTransition) {
+						(newX >= 0 && newY >= 0) &&
+						state.currentTransition) {
 					util.requestAnimationFrame(state.currentTransition);
 				} else {
 					state.currentTransition = null;
 				}
 			}
 
-			/**
-			 * Translates scroll posotion directly or with an animation
-			 * if duration is specified
-			 * @method translate
-			 * @param {Object} state Scrollview instance state
-			 * @param {HTMLElement} element
-			 * @param {number} x
-			 * @param {number} y
-			 * @param {number=} [duration]
-			 * @private
-			 * @member ns.widget.mobile.Scrollview
-			 */
+			// Translates scroll posotion directly or with an animation
+			// if duration is specified
+			// @param {Object} state Scrollview instance state
+			// @param {HTMLElement} element
+			// @param {number} x
+			// @param {number} y
+			// @param {number=} [duration]
 			function translate(state, element, x, y, duration) {
 				if (duration) {
 					state.currentTransition = translateTransition.bind(
@@ -230,6 +384,8 @@
 				}
 			}
 
+			// Refresh jumpTop jumpLeft buttons
+			// @param {ns.widget.mobile.Scrollview} self
 			function repositionJumps(self) {
 				var ui = self.ui,
 					horizontalJumpButton = ui.jumpHorizontalButton,
@@ -251,18 +407,17 @@
 
 			/**
 			 * Builds the widget
+			 * @param {HTMLElement} element
+			 * @return {HTMLElement}
 			 * @method _build
 			 * @protected
 			 * @member ns.widget.mobile.Scrollview
-			 * @param {HTMLElement} element
-			 * @return {HTMLElement}
-			 * @instance
 			 */
 			Scrollview.prototype._build = function (element) {
 				//@TODO wrap element's content with external function
 				var self = this,
 					ui = self.ui,
-					view = selectors.getChildrenByClass(element, classes.view)[0] || document.createElement('div'),
+					view = selectors.getChildrenByClass(element, classes.view)[0] || document.createElement("div"),
 					clipStyle = element.style,
 					node = null,
 					child = element.firstChild,
@@ -303,9 +458,9 @@
 
 				if (options.scrollJump) {
 					if (direction.indexOf("x") > -1) {
-						jumpBackground = document.createElement('div');
+						jumpBackground = document.createElement("div");
 						jumpBackground.className = classes.jumpLeft;
-						jumpButton = document.createElement('div');
+						jumpButton = document.createElement("div");
 
 						jumpBackground.appendChild(jumpButton);
 						element.appendChild(jumpBackground);
@@ -321,9 +476,9 @@
 					}
 
 					if (direction.indexOf("y") > -1) {
-						jumpBackground = document.createElement('div');
+						jumpBackground = document.createElement("div");
 						jumpBackground.className = classes.jumpTop;
-						jumpButton = document.createElement('div');
+						jumpButton = document.createElement("div");
 
 						jumpBackground.appendChild(jumpButton);
 						element.appendChild(jumpBackground);
@@ -351,7 +506,6 @@
 			 * @param {HTMLElement} element
 			 * @protected
 			 * @member ns.widget.mobile.Scrollview
-			 * @instance
 			 */
 			Scrollview.prototype._init = function (element) {
 				var ui = this.ui,
@@ -374,28 +528,54 @@
 
 			/**
 			 * Adds overflow indicators
+			 * @param {HTMLElement} clip
 			 * @method _addOverflowIndicator
 			 * @protected
 			 * @member ns.widget.mobile.Scrollview
-			 * @param {HTMLElement} clip
-			 * @instance
 			 */
 			Scrollview.prototype._addOverflowIndicator = function (clip) {
-				if ((clip.getAttribute('data-overflow-enable') || 'true') === 'false') {
+				if ((clip.getAttribute("data-overflow-enable") || "true") === "false") {
 					return;
 				}
-				clip.insertAdjacentHTML('beforeend', '<div class="ui-overflow-indicator-top"></div><div class="ui-overflow-indicator-bottom"></div>');
+				clip.insertAdjacentHTML("beforeend", '<div class="ui-overflow-indicator-top"></div><div class="ui-overflow-indicator-bottom"></div>');
 			};
 
 			/**
 			 * Scrolls to specified position
-			 * @method scrollTo
-			 * @protected
-			 * @member ns.widget.mobile.Scrollview
+			 *
+			 * ### Example usage with TAU API
+			 *
+			 *		@example
+			 *		<div class="myPageClass" data-role="page">
+			 *			<div data-role="content" data-scroll="y">
+			 *				content
+			 *			</div>
+			 *		</div>
+			 *		<script>
+			 *			var scrollview = tau.widget.Scrollview(document.querySelector(".myPageClass > div[data-role=content]"));
+			 *			scrollview.scrollTo(0, 200, 1000); // scroll to 200px vertical with 1s animation
+			 *		</script>
+			 *
+			 * ### Example usage with jQuery API
+			 *
+			 *		@example
+			 *		<div class="myPageClass" data-role="page">
+			 *			<div data-role="content" data-scroll="y">
+			 *				content
+			 *			</div>
+			 *		</div>
+			 *		<script>
+			 *			var element = $(".myPageClass > div[data-role=content]"));
+			 *			element.scrollview();
+			 *			element.scrollview("scrollTo", 0, 200, 1000); // scroll to 200px vertical with 1s animation
+			 *		</script>
+			 *
 			 * @param {number} x
 			 * @param {number} y
 			 * @param {number=} [duration]
-			 * @instance
+			 * @method scrollTo
+			 * @protected
+			 * @member ns.widget.mobile.Scrollview
 			 */
 			Scrollview.prototype.scrollTo = function (x, y, duration) {
 				var element = this.element;
@@ -404,12 +584,39 @@
 
 			/**
 			 * Translates the scroll to specified position
-			 * @method translateTo
-			 * @member ns.widget.mobile.Scrollview
+			 *
+			 * ### Example usage with TAU API
+			 *
+			 *		@example
+			 *		<div class="myPageClass" data-role="page">
+			 *			<div data-role="content" data-scroll="y">
+			 *				content
+			 *			</div>
+			 *		</div>
+			 *		<script>
+			 *			var scrollview = tau.widget.Scrollview(document.querySelector(".myPageClass > div[data-role=content]"));
+			 *			scrollview.translateTo(0, 200, 1000); // scroll forward 200px in vertical direction with 1s animation
+			 *		</script>
+			 *
+			 * ### Example usage with jQuery API
+			 *
+			 *		@example
+			 *		<div class="myPageClass" data-role="page">
+			 *			<div data-role="content" data-scroll="y">
+			 *				content
+			 *			</div>
+			 *		</div>
+			 *		<script>
+			 *			var element = $(".myPageClass > div[data-role=content]"));
+			 *			element.scrollview();
+			 *			element.scrollview("translateTo", 0, 200, 1000); // scroll forward 200px in vertical direction with 1s animation
+			 *		</script>
+			 *
 			 * @param {number} x
 			 * @param {number} y
 			 * @param {number=} [duration]
-			 * @instance
+			 * @method translateTo
+			 * @member ns.widget.mobile.Scrollview
 			 */
 			Scrollview.prototype.translateTo = function (x, y, duration) {
 				translate(this.state, this.element, x, y, duration);
@@ -418,10 +625,41 @@
 			/**
 			 * Ensures that specified element is visible in the
 			 * clip area
+			 *
+			 * ### Example usage with TAU API
+			 *
+			 *		@example
+			 *		<div class="myPageClass" data-role="page">
+			 *			<div data-role="content" data-scroll="y">
+			 *				content
+			 *				<div class="testElementClass">somedata</div>
+			 *			</div>
+			 *		</div>
+			 *		<script>
+			 *			var scrollview = tau.widget.Scrollview(document.querySelector(".myPageClass > div[data-role=content]")),
+			 *				testElement = document.querySelector(".testElementClass");
+			 *			scrollview.ensureElementIsVisible(testelement);
+			 *		</script>
+			 *
+			 * ### Example usage with jQuery API
+			 *
+			 *		@example
+			 *		<div class="myPageClass" data-role="page">
+			 *			<div data-role="content" data-scroll="y">
+			 *				content
+			 *				<div class="testElementClass">somedata</div>
+			 *			</div>
+			 *		</div>
+			 *		<script>
+			 *			var element = $(".myPageClass > div[data-role=content]")),
+			 *				testElement = $(".testElementClass");
+			 *			element.scrollview();
+			 *			element.scrollview("ensureElementIsVisible", testElement);
+			 *		</script>
+			 *
+			 * @param {HTMLElement} element
 			 * @method ensureElementIsVisible
 			 * @member ns.widget.mobile.Scrollview
-			 * @param {HTMLElement} element
-			 * @instance
 			 */
 			Scrollview.prototype.ensureElementIsVisible = function (element) {
 				var clip = this.element,
@@ -490,10 +728,41 @@
 
 			/**
 			 * Centers specified element in the clip area
+			 *
+			 * ### Example usage with TAU API
+			 *
+			 *		@example
+			 *		<div class="myPageClass" data-role="page">
+			 *			<div data-role="content" data-scroll="y">
+			 *				content
+			 *				<div class="testElementClass">somedata</div>
+			 *			</div>
+			 *		</div>
+			 *		<script>
+			 *			var scrollview = tau.widget.Scrollview(document.querySelector(".myPageClass > div[data-role=content]")),
+			 *				testElement = document.querySelector(".testElementClass");
+			 *			scrollview.centerToElement(testelement);
+			 *		</script>
+			 *
+			 * ### Example usage with jQuery API
+			 *
+			 *		@example
+			 *		<div class="myPageClass" data-role="page">
+			 *			<div data-role="content" data-scroll="y">
+			 *				content
+			 *				<div class="testElementClass">somedata</div>
+			 *			</div>
+			 *		</div>
+			 *		<script>
+			 *			var element = $(".myPageClass > div[data-role=content]")),
+			 *				testElement = $(".testElementClass");
+			 *			element.scrollview();
+			 *			element.scrollview("centerToElement", testElement);
+			 *		</script>
+			 *
+			 * @param {HTMLElement} element
 			 * @method centerToElement
 			 * @member ns.widget.mobile.Scrollview
-			 * @param {HTMLElement} element
-			 * @instance
 			 */
 			Scrollview.prototype.centerToElement = function (element) {
 				var clip = this.element,
@@ -515,21 +784,46 @@
 			 * This is just for compatibility
 			 * @method skipDragging
 			 * @member ns.widget.mobile.Scrollview
-			 * @deprecated
-			 * @instance
+			 * @deprecated 2.3
 			 */
 			Scrollview.prototype.skipDragging = function () {
-				if (window.console) {
-					window.console.warn("ns.widget.mobile.Scrollview: skipDragging is deprecated");
+				if (ns.warn) {
+					ns.warn("ns.widget.mobile.Scrollview: skipDragging is deprecated");
 				}
 			}; // just for TWEBUIFW compat
 
 			/**
 			 * Returns scroll current position
+			 *
+			 *		@example
+			 *		<div class="myPageClass" data-role="page">
+			 *			<div data-role="content" data-scroll="y">
+			 *				content
+			 *			</div>
+			 *		</div>
+			 *		<script>
+			 *			var scrollview = tau.widget.Scrollview(document.querySelector(".myPageClass > div[data-role=content]")),
+			 *				currentPosition = scrollview.getScrollPosition();
+			 *		</script>
+			 *
+			 * ### Example usage with jQuery API
+			 *
+			 *		@example
+			 *		<div class="myPageClass" data-role="page">
+			 *			<div data-role="content" data-scroll="y">
+			 *				content
+			 *			</div>
+			 *		</div>
+			 *		<script>
+			 *			var element = $(".myPageClass > div[data-role=content]")),
+			 *				position;
+			 *			element.scrollview();
+			 *			position = element.scrollview("getScrollPosition");
+			 *		</script>
+			 *
+			 * @return {Object}
 			 * @method getScrollPosition
 			 * @member ns.widget.mobile.Scrollview
-			 * @return {Object}
-			 * @instance
 			 */
 			Scrollview.prototype.getScrollPosition = function () {
 				var element = this.element;
@@ -545,7 +839,6 @@
 			 * @param {HTMLElement} element
 			 * @protected
 			 * @member ns.widget.mobile.Scrollview
-			 * @instance
 			 */
 			Scrollview.prototype._bindEvents = function (element) {
 				var scrollTimer = null,
@@ -667,10 +960,10 @@
 					"translateTo"
 				],
 				Scrollview,
-				'tizen'
+				"tizen"
 			);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ns.widget.mobile.Scrollview;
+			return Scrollview;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
