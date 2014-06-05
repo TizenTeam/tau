@@ -731,7 +731,7 @@
 			 * @instance
 			 */
 			prototype.on = function (eventName, listener, useCapture) {
-				eventUtils.fastOn(this.element, eventName, listener, useCapture);
+				eventUtils.on(this.element, eventName, listener, useCapture);
 			};
 
 			/**
@@ -744,7 +744,7 @@
 			 * @instance
 			 */
 			prototype.off = function (eventName, listener, useCapture) {
-				eventUtils.fastOff(this.element, eventName, listener, useCapture);
+				eventUtils.off(this.element, eventName, listener, useCapture);
 			};
 
 			BaseWidget.prototype = prototype;

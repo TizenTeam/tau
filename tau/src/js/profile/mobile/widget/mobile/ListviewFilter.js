@@ -172,7 +172,7 @@
 			"../../../../core/util/selectors",
 			"../mobile",
 			"./Listview",
-			"./Searchbar"
+			"./SearchBar"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

@@ -61,7 +61,7 @@
 			"./profile/mobile/widget/mobile/Slider",
 			"./profile/mobile/widget/mobile/Swipe",
 			"./profile/mobile/widget/mobile/Selectmenu",
-			"./profile/mobile/widget/mobile/Searchbar",
+			"./profile/mobile/widget/mobile/SearchBar",
 			"./profile/mobile/widget/mobile/Progress",
 			"./profile/mobile/widget/mobile/Navbar",
 			"./profile/mobile/widget/mobile/MultimediaView",
