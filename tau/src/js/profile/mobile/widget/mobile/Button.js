@@ -52,15 +52,21 @@
  * For manual creation of button widget you can use constructor of widget from **tau** namespace:
  *
  *		@example
- *		var buttonElement = document.getElementById("button"),
- *			button = tau.widget.button(buttonElement, {mini: true});
+ *		<div id="button"></div>
+ *		<script>
+ *			var buttonElement = document.getElementById('button'),
+ *				button = tau.widget.Button(buttonElement, {mini: true});
+ *		</script>
  *
- * Constructor has one require parameter **element** which are base **HTMLElement** to create widget. We recommend get this element by method *document.getElementById*. Second parameter is **options** and it is a object with options for widget.
+ * Constructor has one require parameter **element** which are base **HTMLElement** to create widget. We recommend to get this element by method *document.getElementById*. Second parameter is **options** and it is a object with options for widget.
  *
  * If jQuery library is loaded, its method can be used:
  *
  *		@example
- *		var button = $("#button").button({mini: true});
+ *		<div id="button"></div>
+ *		<script>
+ *			$('#button').button({mini: true});
+ *		</script>
  *
  * jQuery Mobile constructor has one optional parameter is **options** and it is a object with options for widget.
  *
@@ -114,15 +120,25 @@
  * First API is from tau namespace:
  *
  *		@example
- *		var buttonElement = document.getElementById("button"),
- *			button = tau.widget.button(buttonElement, "Button");
+ *		<div id="button" data-role="button"></div>
+ *		<script>
+ *			var buttonElement = document.getElementById('button'),
+ *				button = tau.widget.Button(buttonElement);
  *
- *		button.methodName(methodArgument1, methodArgument2, ...);
+ *			// button.methodName(methodArgument1, methodArgument2, ...);
+ *			// for example:
+ *
+ *			button.value("text");
+ *		</script>
  *
  * Second API is jQuery Mobile API and for call _methodName_ you can use:
  *
  *		@example
- *		$(".selector").button("methodName", methodArgument1, methodArgument2, ...);
+ *	    <div id="button"></div>
+ *		<script>
+ *			// $("#button").button('methodName', argument1, argument2, ...);
+ *			// for example:
+ *		</script>
  *
  * @class ns.widget.mobile.Button
  * @extends ns.widget.BaseWidget
@@ -887,13 +903,20 @@
 			 *
 			 * Method removes disabled attribute on button and changes look of button to enabled state.
 			 *
-			 *      @example
-			 *      var buttonWidget = tau.widget.Button(document.getElementById("button"));
-			 *      buttonWidget.enable();
+			 *	@example
+			 *	<div data-role="button" id="button"></div>
+			 *	<script>
+			 *		var element = document.getElementById("button"),
+			 *			buttonWidget = tau.widget.Button(element);
+			 *		buttonWidget.enable();
 			 *
-			 *      // or
+			 *	</script>
 			 *
-			 *      $( "#button" ).button( "enable" );
+			 *	@example
+			 *	<div data-role="button" id="button"></div>
+			 *	<script>
+			 *		$( "#button" ).button( "enable" );
+			 *	</script>
 			 *
 			 * @method enable
 			 * @chainable
@@ -918,17 +941,26 @@
 			 *
 			 * Return inner text of button or set text on button
 			 *
-			 *      @example
-			 *      var buttonWidget = tau.widget.Button(document.getElementById("button")),
-			 *          value = buttonWidget.value(); // value contains inner text of button
+			 *	@example
+			 *	<div data-role="button" id="button"></div>
+			 *	<script>
+			 *		var element = document.getElementById("button"),
+			 *			buttonWidget = tau.widget.Button(element),
+			 *			// value contains inner text of button
+			 *			value = buttonWidget.value();
 			 *
-			 *      buttonWidget.value( "New text" ); // "New text" will be text of button
+			 *		buttonWidget.value( "New text" ); // "New text" will be text of button
+			 *	</script>
 			 *
-			 *      // or
+			 *	@example
+			 *	<div data-role="button" id="button"></div>
+			 *	<script>
+			 *		// value contains inner text of button
+			 *		$( "#button" ).button( "value" );
 			 *
-			 *      $( "#button" ).button( "value" ); // value contains inner text of button
-			 *
-			 *      $( "#button" ).button( "value", "New text" ); // "New text" will be text of button
+			 * 		// "New text" will be text of button
+			 *		$( "#button" ).button( "value", "New text" );
+			 *	</script>
 			 *
 			 * @method value
 			 * @param {string} [value] Value to set on button
@@ -973,13 +1005,20 @@
 			 *
 			 * Method sets disabled attribute on button and changes look of button to disabled state.
 			 *
-			 *      @example
-			 *      var buttonWidget = tau.widget.Button(document.getElementById("button"));
-			 *      buttonWidget.disable();
+			 *	@example
+			 *	<div data-role="button" id="button"></div>
+			 *	<script>
+			 *		var element = document.getElementById("button"),
+			 *			buttonWidget = tau.widget.Button(element);
+			 *		buttonWidget.disable();
 			 *
-			 *      // or
+			 *	</script>
 			 *
-			 *      $( "#button" ).button( "disable" );
+			 *	@example
+			 *	<div data-role="button" id="button"></div>
+			 *	<script>
+			 *		$( "#button" ).button( "disable" );
+			 *	</script>
 			 *
 			 * @method disable
 			 * @chainable
@@ -1008,17 +1047,23 @@
 			 *
 			 * This method is called automatically after change any option of widget.
 			 *
-			 *      @example
-			 *      var buttonWidget = tau.widget.Button(document.getElementById("button"));
-			 *      buttonWidget.refresh();
+			 *	@example
+			 *	<div data-role="button" id="button"></div>
+			 *	<script>
+			 *		var element = document.getElementById("button"),
+			 *			buttonWidget = tau.widget.Button(element);
+			 *		buttonWidget.refresh();
 			 *
-			 *      // or
+			 *		// also will be called after
 			 *
-			 *      $( "#button" ).button( "refresh" );
+			 *		buttonWidget.option("mini", true);
+			 *	</script>
 			 *
-			 *      // also will be called after
-			 *
-			 *      buttonWidget.option("mini", true);
+			 *	@example
+			 *	<div data-role="button" id="button"></div>
+			 *	<script>
+			 *		$( "#button" ).button( "refresh" );
+			 *	</script>
 			 *
 			 * @method refresh
 			 * @chainable
@@ -1061,13 +1106,16 @@
 			 *
 			 * This will return the element back to its pre-init state.
 			 *
-			 *      @example
-			 *      var buttonWidget = tau.widget.Button(document.getElementById("button"));
-			 *      buttonWidget.destroy();
+			 *	@example
+			 *	<script>
+			 *		var buttonWidget = tau.widget.Button(document.getElementById("button"));
+			 *		buttonWidget.destroy();
+			 *	</script>
 			 *
-			 *      // or
-			 *
-			 *      $( "#button" ).button( "destroy" );
+			 *	@example
+			 *	<script>
+			 *		$( "#button" ).button( "destroy" );
+			 *	</script>
 			 *
 			 * @method destroy
 			 * @member ns.widget.mobile.Button
