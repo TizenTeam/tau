@@ -141,7 +141,7 @@
 			"../../../../core/util/DOM/attributes",
 			"../../../../core/util/DOM/manipulation",
 			"../../../../core/util/DOM/css",
-			"./Tabbar",
+			"./TabBar",
 			"./Page",
 			"./Listview",
 			"../../../../core/event",
@@ -163,7 +163,7 @@
 				 * @static
 				 * @private
 				 */
-				Tabbar = ns.widget.mobile.Tabbar,
+				Tabbar = ns.widget.mobile.TabBar,
 				/**
 				 * @property {Object} engine Alias for class {@link ns.engine}
 				 * @member ns.widget.mobile.Listview.FastScroll
@@ -728,7 +728,7 @@
 						}
 					}
 
-					headers = shortcutsContainer.parentNode.getElementsByClassName(ns.widget.mobile.Tabbar.classes.uiHeader);
+					headers = shortcutsContainer.parentNode.getElementsByClassName(Tabbar.classes.uiHeader);
 
 					for (i = 0, headersLength = headers.length; i < headersLength; i++) {
 						shortcutsTop += headers[i].offsetHeight;

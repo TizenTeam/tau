@@ -17,8 +17,152 @@
 /*jslint nomen: true, plusplus: true */
 /**
  * #Tab Bar Widget
+ * The tabbar widget shows an unordered list of buttons on the screen wrapped
+ * together in a single group.
  *
- * @class ns.widget.Tabbar
+ * This widget can be placed in the header or footer of page.
+ *
+ * ## Default selectors
+ * In default elements matches to :
+ *
+ *  - HTML elements with data-role="tabbar"
+ *  - HTML elements with class ui-tabbar
+ *
+ * ###HTML Examples
+ *
+ * ####Create simple tab bar in header
+ *
+ *		@example
+ *		<div data-role="page">
+ *			<div data-role="header">
+ *				<div data-role="tabbar">
+ *					<ul>
+ *						<li><a data-icon="naviframe-edit">Tabbar1</a></li>
+ *						<li><a data-icon="naviframe-cancel">Tabbar2</a></li>
+ *						<li><a data-icon="naviframe-call">Tabbar3</a></li>
+ *					</ul>
+ *				</div>
+ *			</div>
+ *			<div data-role="content">
+ *			 	Content
+ *			</div>
+ *		</div>
+ *
+ * ####Create simple tab bar in footer
+ *
+ *		@example
+ *		<div data-role="page">
+ *			<div data-role="content">
+ *			 	Content
+ *			</div>
+ *			<div data-role="footer">
+ *				<div data-role="tabbar">
+ *					<ul>
+ *						<li><a data-icon="naviframe-edit">Tabbar1</a></li>
+ *						<li><a data-icon="naviframe-cancel">Tabbar2</a></li>
+ *						<li><a data-icon="naviframe-call">Tabbar3</a></li>
+ *					</ul>
+ *				</div>
+ *			</div>
+ *		</div>
+ *
+ * ## Manual constructor
+ * For manual creation of search bar widget you can use constructor of widget from
+ * **tau** namespace:
+ *
+ *		@example
+ *		<div data-role="page" id="tab-bar-page">
+ *			<div data-role="header">
+ *				<div id="ready-for-tab-bar">
+ *					<ul>
+ *						<li><a data-icon="naviframe-edit">Tabbar1</a></li>
+ *						<li><a data-icon="naviframe-cancel">Tabbar2</a></li>
+ *						<li><a data-icon="naviframe-call">Tabbar3</a></li>
+ *					</ul>
+ *				</div>
+ *			</div>
+ *			<div data-role="content">
+ *			 	Content
+ *			</div>
+ *		</div>
+ *		<script>
+ *			(function (document) {
+ *				var pageElement = document.getElementById("tab-bar-page"),
+ *					tabBarElement = document.getElementById("ready-for-tab-bar"),
+ *					tabBar;
+ *
+ *				function createPageHandle() {
+ *					tabBar = tau.widget.TabBar(tabBarElement);
+ *				}
+ *
+ *				pageElement.addEventListener("pagecreate", createPageHandle);
+ *			}(document));
+ *		</script>
+ *
+ * Constructor has one require parameter **element** which are base
+ * **HTMLElement** to create widget. We recommend get this element by method
+ * *document.getElementById*. Second parameter is **options** and it is a object
+ * with options for widget.
+ *
+ * If jQuery library is loaded, its method can be used:
+ *
+ *		@example
+ *		<div data-role="page" id="tab-bar-page">
+ *			<div data-role="header">
+ *				<div id="ready-for-tab-bar">
+ *					<ul>
+ *						<li><a data-icon="naviframe-edit">Tabbar1</a></li>
+ *						<li><a data-icon="naviframe-cancel">Tabbar2</a></li>
+ *						<li><a data-icon="naviframe-call">Tabbar3</a></li>
+ *					</ul>
+ *				</div>
+ *			</div>
+ *			<div data-role="content">
+ *			 	Content
+ *			</div>
+ *		</div>
+ *		<script>
+ *			(function (document) {
+ *				function createPageHandle() {
+ *					$("#ready-for-tab-bar").tabbar();
+ *				}
+ *
+ *				$("#tab-bar-page").on("pagecreate", createPageHandle);
+ *			}(document));
+ *		</script>
+ *
+ * jQuery Mobile constructor has one optional parameter is **options** and it is
+ * a object with options for widget.
+ *
+ * ##Options for tab bar widget
+ *
+ * Options for widget can be defined as _data-..._ attributes or give as
+ * parameter in constructor.
+ *
+ * You can change option for widget using method **option**.
+ *
+ * ##Methods
+ *
+ * To call method on widget you can use one of existing API:
+ *
+ * First API is from tau namespace:
+ *
+ *		@example
+ *		<script>
+ *		var tabBarElement = document.getElementById('tab-bar'),
+ *			tabBar = tau.widget.TabBar(TabBarElement);
+ *
+ *		tabBar.methodName(methodArgument1, methodArgument2, ...);
+ *		</script>
+ *
+ * Second API is jQuery Mobile API and for call _methodName_ you can use:
+ *
+ *		@example
+ *		<script>
+ *		$(".selector").tabbar('methodName', methodArgument1, methodArgument2, ...);
+ *		</script>
+ *
+ * @class ns.widget.mobile.TabBar
  * @extends ns.widget.BaseWidget
  */
 (function (document, ns) {
@@ -45,52 +189,65 @@
 				grid = ns.util.grid,
 				DOM = ns.util.DOM,
 				slice = [].slice,
-				Tabbar = function () {
+				TabBar = function () {
 					this.vclickCallback = null;
 					this._ui = {};
+				},
+				classes = {
+					tabbarScrollUl: "tabbar-scroll-ul",
+					tabbarScrollLi: "tabbar-scroll-li",
+					uiTabbarActive: "ui-tabbar-active",
+					uiStatePersist: "ui-state-persist",
+					uiHeader: "ui-header",
+					uiScrollviewView: "ui-scrollview-view",
+					uiScrollviewClip: "ui-scrollview-clip",
+					uiNavbar: "ui-navbar",
+					uiFooter: "ui-footer",
+					uiTabBtnStyle: "ui-tab-btn-style",
+					uiTitle: "ui-title",
+					uiTitleTabbar: "ui-title-tabbar",
+					uiTabbarNoicons: "ui-tabbar-noicons",
+					uiTabbarNotext: "ui-tabbar-notext",
+					uiTitleTabbarMultiline: "ui-title-tabbar-multiline",
+					uiTabbarPersist: "ui-tabbar-persist",
+					uiTabbar: "ui-tabbar",
+					uiPortraitTabbar: "ui-portrait-tabbar",
+					uiLandscapeTabbar: "ui-landscape-tabbar"
 				};
 
-			Tabbar.prototype = new BaseWidget();
+			TabBar.prototype = new BaseWidget();
 
 			/*
 			* @todo move to options object
 			*/
 
-			Tabbar.prototype.iconpos = 'top';
-			Tabbar.prototype.grid = null;
+			TabBar.prototype.iconpos = 'top';
+			TabBar.prototype.grid = null;
 
-			Tabbar.classes = {
-				tabbarScrollUl: "tabbar-scroll-ul",
-				tabbarScrollLi: "tabbar-scroll-li",
-				uiTabbarActive: "ui-tabbar-active",
-				uiStatePersist: "ui-state-persist",
-				uiHeader: "ui-header",
-				uiScrollviewView: "ui-scrollview-view",
-				uiScrollviewClip: "ui-scrollview-clip",
-				uiNavbar: "ui-navbar",
-				uiFooter: "ui-footer",
-				uiTabBtnStyle: "ui-tab-btn-style",
-				uiTitle: "ui-title",
-				uiTitleTabbar: "ui-title-tabbar",
-				uiTabbarNoicons: "ui-tabbar-noicons",
-				uiTabbarNotext: "ui-tabbar-notext",
-				uiTitleTabbarMultiline: "ui-title-tabbar-multiline",
-				uiTabbarPersist: "ui-tabbar-persist",
-				uiTabbar: "ui-tabbar",
-				uiPortraitTabbar: "ui-portrait-tabbar",
-				uiLandscapeTabbar: "ui-landscape-tabbar"
-			};
+			TabBar.classes = classes;
 
 			/**
-			* Returns true if one of elements has data-icon set to true
-			* @param {Array} elements
-			*/
+			 * Returns true if one of elements has data-icon set to true
+			 * @method hasIcon
+			 * @param {Array} elements
+			 * @member ns.widget.mobile.TabBar
+			 * @static
+			 * @private
+			 * @return {boolean}
+			 */
 			function hasIcon(elements) {
 				return !elements.every(function (element) {
 					return !element.getAttribute('data-icon');
 				});
 			}
 
+			/**
+			 * @method vclickEvent
+			 * @param {ns.widget.mobile.TabBar} self
+			 * @member ns.widget.mobile.TabBar
+			 * @static
+			 * @private
+			 */
 			function vclickEvent(self) {
 				/*
 					$tabbar.delegate( "a", "vclick", function ( event ) {
@@ -111,8 +268,8 @@
 					max,
 					hasClass = false,
 					buttonClasses,
-					btnActiveClass = ns.widget.mobile.Button.classes.uiBtnActive,
-					classes = Tabbar.classes,
+					btnActiveClass = ButtonClasses.uiBtnActive,
+					classes = TabBar.classes,
 					activatedButton = selectors.getClosestByTag(event.target, "a");
 
 				while (!hasClass && ul) {
@@ -153,11 +310,13 @@
 			/**
 			 * Sets tabbar elements disabled and aria-disabled attributes according
 			 * to specified value
-			 * @method setDisable
+			 * @method setDisabled
 			 * @private
+			 * @static
 			 * @param {HTMLElement} element
-			 * @param {string} value
+			 * @param {boolean} value
 			 * @param {number} index the element index
+			 * @member ns.widget.mobile.TabBar
 			 */
 			function setDisabled(element, value, index) {
 				var liItems = selectors.getChildrenByTag(element.children[0], 'li')[index];
@@ -172,14 +331,15 @@
 			}
 
 			/**
-			* Build method
-			* @method _build
-			* @param {HTMLElement} element
-			* @return {HTMLElement}
-			* @member ns.widget.Tabbar
-			*/
-			Tabbar.prototype._build = function (element) {
-				var classes = Tabbar.classes,
+			 * Build method
+			 * @method _build
+			 * @param {HTMLElement} element
+			 * @return {HTMLElement}
+			 * @protected
+			 * @member ns.widget.mobile.TabBar
+			 */
+			TabBar.prototype._build = function (element) {
+				var classes = TabBar.classes,
 					tabbarClassList = element.classList,
 					links = slice.call(element.getElementsByTagName('a')),
 					headers = selectors.getParentsByClass(element, classes.uiHeader),
@@ -197,7 +357,7 @@
 					};
 
 				if (links.length) {
-					iconpos = hasIcon(links) ? this.iconpos : undefined;
+					iconpos = hasIcon(links) ? this.iconpos : false;
 					textpos = links[0].innerHTML.length ? true : false;
 				}
 
@@ -217,7 +377,7 @@
 					});
 
 					/* add shadow divider */
-					selectors.getParentsByClass(classes.uiScrollviewClip).forEach(function (item) {
+					selectors.getParentsByClass(element, classes.uiScrollviewClip).forEach(function (item) {
 						item.insertAdjacentHTML('beforeend', '<div class="ui-tabbar-divider ui-tabbar-divider-left" style="display:none"></div><div class="ui-tabbar-divider ui-tabbar-divider-right" style="display:none"></div>');
 					});
 
@@ -240,7 +400,7 @@
 				}
 
 				/* title tabbar */
-				if (selectors.getChildrenByClass(element.parentNode, classes.uiTitle).length) {
+				if (selectors.getChildrenByClass(element.parentElement, classes.uiTitle).length) {
 					headers.forEach(function (header) {
 						header.classList.add(classes.uiTitleTabbar);
 					});
@@ -288,19 +448,18 @@
 
 				tabbarClassList.add(classes.uiTabbar);
 
-				this._init(element);
 				return element;
 			};
 
 			/**
-			* Init method
-			* @method _init
-			* @param {HTMLElement} element
-			* @member ns.widget.Tabbar
-			*/
-			Tabbar.prototype._init = function (element) {
-				var classes = Tabbar.classes,
-					tabbarClassList = element.classList,
+			 * Init method
+			 * @method _init
+			 * @param {HTMLElement} element
+			 * @member ns.widget.mobile.TabBar
+			 * @protected
+			 */
+			TabBar.prototype._init = function (element) {
+				var tabbarClassList = element.classList,
 					isLandscape = window.innerWidth > window.innerHeight;
 
 				if (isLandscape) {
@@ -312,10 +471,13 @@
 				}
 			};
 
-			/*
-			* @TODO events
-			*/
-			Tabbar.prototype._bindEvents = function () {
+			/**
+			 * Bind events for widget
+			 * @method _bindEvents
+			 * @protected
+			 * @member ns.widget.mobile.TabBar
+			 */
+			TabBar.prototype._bindEvents = function () {
 				this.vclickCallback = vclickEvent.bind(null, this);
 				this.element.addEventListener("vclick", this.vclickCallback, false);
 				if (this._ui.scrollviewClip) {
@@ -323,7 +485,32 @@
 				}
 			};
 
-			Tabbar.prototype._destroy = function () {
+			/**
+			 * Destroy the tab bar
+			 *
+			 *		@example
+			 *		<script>
+			 *		var element = document.getElementById("tabbar"),
+			 *			tabBarWidget = tau.widget.TabBar(element);
+			 *		tabBarWidget.destroy();
+			 *
+			 *		// or
+			 *
+			 *		$( "#tabbar" ).tabbar( "destroy" );
+			 *		</script>
+			 *
+			 * @method destroy
+			 * @chainable
+			 * @member ns.widget.mobile.TabBar
+			 */
+
+			/**
+			 * Destroy widget
+			 * @method _destroy
+			 * @protected
+			 * @member ns.widget.mobile.TabBar
+			 */
+			TabBar.prototype._destroy = function () {
 				this.element.removeEventListener("vclick", this.vclickCallback, false);
 				if (this._ui.scrollviewClip) {
 					this._ui.scrollviewClip.removeEventListener("scrollstop", roundTabBarPositionX);
@@ -333,13 +520,13 @@
 			/**
 			 * Set width method
 			 * @method _setWidth
-			 * @param {HTMLElement} elements
+			 * @param {Array} elements
 			 * @param {number} width
-			 * @member ns.widget.Tabbar
+			 * @member ns.widget.mobile.TabBar
 			 * @protected
 			 */
-			Tabbar.prototype._setWidth = function (elements, width) {
-				var i = 0,
+			TabBar.prototype._setWidth = function (elements, width) {
+				var i,
 					length = elements.length,
 					element,
 					linkElement,
@@ -361,9 +548,9 @@
 			 * @param {Event} event
 			 * @private
 			 * @static
-			 * @member ns.widget.Tabbar
+			 * @member ns.widget.mobile.TabBar
 			 */
-			function roundTabBarPositionX (event) {
+			function roundTabBarPositionX(event) {
 				var element = event.target,
 					lastX = element.scrollLeft,
 					liWidth = parseInt(element.getElementsByTagName("li")[0].style.width),
@@ -381,19 +568,62 @@
 			}
 
 			/**
+			 * Disables the tab bar
+			 *
+			 * Method add disabled attribute on tab bar and changes look
+			 * of search bar to enabled state.
+			 *
+			 *		@example
+			 *		<script>
+			 *		var element = document.getElementById("tabbar"),
+			 *			tabBarWidget = tau.widget.TabBar(element);
+			 *		tabBarWidget.disable();
+			 *
+			 *		// or
+			 *
+			 *		$( "#tabbar" ).tabbar( "disable" );
+			 *		</script>
+			 *
+			 * @method disable
+			 * @chainable
+			 * @member ns.widget.mobile.TabBar
+			 */
+
+			/**
 			 * Disables specified element in tabbar
 			 * @method _disable
 			 * @param {HTMLElement} element
 			 * @param {number} index the element index
 			 * @protected
-			 * @member ns.widget.mobile.Slider
-			 * @instance
+			 * @member ns.widget.mobile.TabBar
 			 */
-			Tabbar.prototype._disable = function (element, index) {
+			TabBar.prototype._disable = function (element, index) {
 				if (index !== undefined) {
 					setDisabled(element, true, index);
 				}
 			};
+
+			/**
+			 * Enable the tab bar
+			 *
+			 * Method removes disabled attribute on tab bar and changes look
+			 * of tab bar to enabled state.
+			 *
+			 *		@example
+			 *		<script>
+			 *		var element = document.getElementById("tabbar"),
+			 *			tabBarWidget = tau.widget.TabBar(element);
+			 *		tabBarWidget.enable();
+			 *
+			 *		// or
+			 *
+			 *		$( "#tabbar" ).tabbar( "enable" );
+			 *		</script>
+			 *
+			 * @method enable
+			 * @chainable
+			 * @member ns.widget.mobile.TabBar
+			 */
 
 			/**
 			 * Enables specified element in tabbar
@@ -401,25 +631,40 @@
 			 * @param {HTMLElement} element
 			 * @param {number} index the element index
 			 * @protected
-			 * @member ns.widget.mobile.Slider
-			 * @instance
+			 * @member ns.widget.mobile.TabBar
 			 */
-			Tabbar.prototype._enable = function (element, index) {
+			TabBar.prototype._enable = function (element, index) {
 				if (index !== undefined) {
 					setDisabled(element, false, index);
 				}
 			};
 
-			ns.widget.mobile.Tabbar = Tabbar;
+			/**
+			 * Refresh method is not supported in this widget.
+			 *
+			 * @method refresh
+			 * @chainable
+			 * @member ns.widget.mobile.TabBar
+			 */
+
+			/**
+			 * Value method is not supported in this widget.
+			 *
+			 * @method value
+			 * @chainable
+			 * @member ns.widget.mobile.TabBar
+			 */
+
+			ns.widget.mobile.TabBar = TabBar;
 			engine.defineWidget(
-				"Tabbar",
+				"TabBar",
 				"[data-role='tabbar'], .ui-tabbar",
 				[],
-				Tabbar,
+				TabBar,
 				'tizen'
 			);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ns.widget.mobile.Tabbar;
+			return ns.widget.mobile.TabBar;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
