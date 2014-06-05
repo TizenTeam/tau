@@ -3,7 +3,7 @@
 //  * @TODO add support of $.mobile.buttonMarkup.hoverDelay
 /**
  * #jQuery Mobile mapping class
- * @class ns.jqm
+ * @class ns.jqm.event
  */
 (function (window, document, ns, $) {
 	"use strict";
@@ -43,7 +43,7 @@
 				* @method proxyEventTriggerMethod
 				* @param {string} name Name of event and new method
 				* @param {Function} trigger Function called after invoke method
-				* @member ns.jqmn
+				* @member ns.jqm.event
 				* @static
 				*/
 				proxyEventTriggerMethod: function (name, trigger) {
@@ -59,12 +59,13 @@
 				},
 
 				/**
-				* Adds proxy to jquery.trigger method
-				* @method proxyTrigger
-				* @param {string} type event type
-				* @param {Mixed} data event data
-				* @return {jQuery}
-				*/
+				 * Adds proxy to jquery.trigger method
+				 * @method proxyTrigger
+				 * @param {string} type event type
+				 * @param {Mixed} data event data
+				 * @return {jQuery}
+				 * @member ns.jqm.event
+				 */
 				proxyTrigger: function (type, data) {
 					var $elements = this,
 						elementsLength = $elements.length,
@@ -82,11 +83,12 @@
 				},
 
 				/**
-				* Method read additional data from event.detail and move these data as additional argument to jQuery.event.dispatch
-				* @method proxyDispatch
-				* @param {jQuery.Event} event event type
-				* @return {jQuery}
-				*/
+				 * Method read additional data from event.detail and move these data as additional argument to jQuery.event.dispatch
+				 * @method proxyDispatch
+				 * @param {jQuery.Event} event event type
+				 * @return {jQuery}
+				 * @member ns.jqm.event
+				 */
 				proxyDispatch: function (event) {
 					var data = (event.originalEvent && event.originalEvent.detail) || event.detail,
 						args;
@@ -98,14 +100,14 @@
 				},
 
 				/**
-				* Copy properties from originalEvent.detail.* to event Object.
-				* @method copyEventProperties
-				* @param {HTMLElement} root root element to catch all events window/document
-				* @param {string} name Name of event
-				* @param {Array.<string>} properties Array of properties to copy from originalEvent to jQuery Event
-				* @member ns.jqm
-				* @static
-				*/
+				 * Copy properties from originalEvent.detail.* to event Object.
+				 * @method copyEventProperties
+				 * @param {HTMLElement} root root element to catch all events window/document
+				 * @param {string} name Name of event
+				 * @param {Array.<string>} properties Array of properties to copy from originalEvent to jQuery Event
+				 * @member ns.jqm.event
+				 * @static
+				 */
 				copyEventProperties: function (root, name, properties) {
 					$(root).on(name, function (event) {
 						var i,
@@ -120,14 +122,14 @@
 				},
 
 				/**
-				* Proxy events from ns namespace to jQM namespace
-				* @method init
-				* @param {Object} events Alias to {@link ns.event}
-				* @member ns.jqm
-				* @static
-				*/
+				 * Proxy events from ns namespace to jQM namespace
+				 * @method init
+				 * @param {Object} events Alias to {@link ns.event}
+				 * @member ns.jqm.event
+				 * @static
+				 */
 				init: function () {
-						removeEvents = function (eventUtils) {
+						var removeEvents = function (eventUtils) {
 							eventUtils.stopPropagation();
 							eventUtils.preventDefault();
 							return false;

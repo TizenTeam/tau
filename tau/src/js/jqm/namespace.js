@@ -9,7 +9,10 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			/** @namespace ns.jqm */
+			/**
+			 * #JQuery Mobile mapping namespace
+			 * @class ns.jqm
+			 */
 			ns.jqm = {
 				jQuery: ns.getConfig('jQuery') || window.jQuery
 			};

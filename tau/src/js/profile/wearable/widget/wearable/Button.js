@@ -187,7 +187,7 @@
 			* @private
 			* @param {HTMLElement} element
 			* @return {HTMLElement}
-			* @member ns.widget.Button
+			* @member ns.widget.wearable.Button
 			*/
 			prototype._build = function (element) {
 				return element;
@@ -205,7 +205,7 @@
 			* refresh structure
 			* @method _refresh
 			* @new
-			* @member ns.widget.Button
+			* @member ns.widget.wearable.Button
 			*/
 			prototype._refresh = function () {
 				return null;
@@ -214,7 +214,7 @@
 			/**
 			* @method _destroy
 			* @private
-			* @member ns.widget.Button
+			* @member ns.widget.wearable.Button
 			*/
 			prototype._destroy = function () {
 				return null;

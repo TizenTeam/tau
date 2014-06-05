@@ -16,6 +16,7 @@
 */
 /*jslint nomen: true*/
 /**
+ * #Event Pinch Support
  * @class ns.event.pinch
  */
 (function (window, document, ns) {

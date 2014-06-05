@@ -3,7 +3,7 @@
 //  * @TODO add support of $.mobile.buttonMarkup.hoverDelay
 /**
  * #jQuery Mobile mapping class
- * @class ns.jqm.widgets
+ * @class ns.jqm.widget
  */
 (function (window, document, ns, $) {
 	"use strict";
@@ -20,7 +20,7 @@
 			/**
 			* Alias to Array.slice function
 			* @method slice
-			* @member ns.jqm
+			* @member ns.jqm.widget
 			* @private
 			* @static
 			*/
@@ -47,7 +47,7 @@
 					* @method init
 					* @param {Object} engine ns.engine class
 					* @param {Object} definition widget definition
-					* @member ns.jqm
+					* @member ns.jqm.widget
 					* @static
 					*/
 					init: function (engine, definition) {
@@ -78,7 +78,7 @@
 					* @method processDefinition
 					* @param {Object} definition widget definition
 					* @param {Object} engine ns.engine class
-					* @member ns.jqm
+					* @member ns.jqm.widget
 					* @static
 					*/
 					processDefinition: function (definition, engine) {

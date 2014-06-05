@@ -16,6 +16,7 @@
 * limitations under the License.
 */
 /**
+ * # Support Object
  * @class ns.support
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Piotr Karny <p.karny@samsung.com>

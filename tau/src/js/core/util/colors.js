@@ -1,5 +1,6 @@
 /*global window, define */
 /**
+ * #Colors utils
  * @class ns.util.colors
  */
 

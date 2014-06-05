@@ -63,7 +63,7 @@
 			* @private
 			* @param {HTMLElement} element
 			* @return {HTMLElement}
-			* @member ns.widget.Progressing
+			* @member ns.widget.wearable.Progressing
 			*/
 			prototype._build = function (element) {
 				return element;
@@ -81,7 +81,7 @@
 			* refresh structure
 			* @method _refresh
 			* @new
-			* @member ns.widget.Progressing
+			* @member ns.widget.wearable.Progressing
 			*/
 			prototype._refresh = function () {
 				return null;
@@ -90,7 +90,7 @@
 			/**
 			* @method _destroy
 			* @private
-			* @member ns.widget.Progressing
+			* @member ns.widget.wearable.Progressing
 			*/
 			prototype._destroy = function () {
 				return null;

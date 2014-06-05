@@ -2,7 +2,7 @@
 /*jslint plusplus: true, nomen: true */
 /**
  * #jQuery Mobile mapping class
- * @class ns.jqm
+ * @class ns.jqm.engine
  */
 (function (window, document, ns, $) {
 	"use strict";
@@ -23,14 +23,14 @@
 			/**
 			* Alias to Array.slice function
 			* @method slice
-			* @member ns.jqm
+			* @member ns.jqm.engine
 			* @private
 			* @static
 			*/
 			var slice = [].slice,
 				/**
 				* @property {Object} nsNormalizeDict directory of data-* attributes normalized name
-				* @member ns.jqm
+				* @member ns.jqm.engine
 				* @private
 				* @static
 				*/
@@ -52,7 +52,7 @@
 				* append ns functions to jQuery Mobile namespace
 				* @method init
 				* @param {Object} engine ns.engine class
-				* @member ns.jqm
+				* @member ns.jqm.engine
 				* @static
 				*/
 				init: function () {

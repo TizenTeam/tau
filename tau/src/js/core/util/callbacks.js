@@ -30,7 +30,7 @@
 			*	unique:			will ensure a callback can only be added once (no duplicate in the list)
 			*
 			*	stopOnFalse:	interrupt callings when a callback returns false
-			*
+			* @class ns.util.callbacks
 			*/
 			ns.util.callbacks = function (orgOptions) {
 

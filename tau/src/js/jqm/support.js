@@ -21,14 +21,13 @@
 
 			ns.jqm.support = {
 				/**
-				* @performance test http://jsperf.com/check-document-property;
+				* performance test http://jsperf.com/check-document-property;
 				*/
 				touch: document.ontouchend !== undefined,
 				/**
 				* bind router to jqm
 				* @method init
-				* @param {ns.router.Page} router
-				* @member ns.jqm
+				* @member ns.jqm.support
 				*/
 				init: function () {
 					var router = ns.engine.getRouter();

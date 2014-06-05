@@ -79,14 +79,15 @@
 
 			ns.util.array = {
 				/**
-				* Create an array containing the range of integers or characters
-				* from low to high (inclusive)
-				* @param {number|string} low
-				* @param {number|string} high
-				* @param {number} step
-				* @static
-				* @return {Array} array containing continous elements
-				*/
+				 * Create an array containing the range of integers or characters
+				 * from low to high (inclusive)
+				 * @param {number|string} low
+				 * @param {number|string} high
+				 * @param {number} step
+				 * @static
+				 * @return {Array} array containing continous elements
+				 * @member ns.util.array
+				 */
 				range: _range
 			};
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);

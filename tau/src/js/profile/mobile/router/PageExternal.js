@@ -15,6 +15,7 @@
 * limitations under the License.
 */
 /**
+ * #Router Support Loading External Pages For Mobile Profile
  * @class ns.router.PageExternal
  */
 (function (window, document, ns) {

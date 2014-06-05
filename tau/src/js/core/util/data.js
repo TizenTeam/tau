@@ -1,4 +1,8 @@
 /*global window, define, Object, Element */
+/**
+ * #Data attributes utils
+ * @class ns.util.data
+ */
 (function (window, document, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
@@ -31,13 +35,14 @@
 					}
 				},
 				/**
-				* Return hash for object
-				* @method hashObject
-				* @param {*} value
-				* @return {string}
-				* @member ns.util
-				* @static
-				*/
+				 * Return hash for object
+				 * @method hashObject
+				 * @param {*} value
+				 * @return {string}
+				 * @member ns.util.data
+				 * @static
+				 * @private
+				 */
 				hashObject = function (value) {
 					if (value === undefined ||
 							value === null ||

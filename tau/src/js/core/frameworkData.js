@@ -1,9 +1,9 @@
 /*global window, define*/
 /*jslint bitwise: true */
 /**
-* @class ns.theme
-* Class with functions to set theme of application.
-*/
+ * #Framework Data Object
+ * @class ns.frameworkData
+ */
 (function (document, ns) {
 	"use strict";
 //>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
@@ -34,8 +34,12 @@
 
 				MINIFIED_REGEXP = /\.min\.js$/;
 
-			/* Get data-* params from <script> tag, and set tizen.frameworkData.* values
+			/**
+			 * Get data-* params from <script> tag, and set tizen.frameworkData.* values
 			 * Returns true if proper <script> tag is found, or false if not.
+			 * @method getParams
+			 * @member ns.frameworkData
+			 * @static
 			 */
 			frameworkData.getParams = function() {
 				var self = this,

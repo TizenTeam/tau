@@ -8,8 +8,11 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			
-			// Deferred helper
+
+			/**
+			 * Deferred helper
+			 * @class ns.util.deferredWhen
+ 			 */
 			var when = function( subordinate /* , ..., subordinateN */ ) {
 				var i = 0,
 					resolveValues = [].slice.call( arguments ),

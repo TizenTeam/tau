@@ -36,6 +36,7 @@
 
 			/**
 			 * Returns css property for element
+			 * @method getCSSProperty
 			 * @param {HTMLElement} element
 			 * @param {string} property
 			 * @param {string=} [def] default returned value
@@ -77,6 +78,7 @@
 			 * Extracts css properties from computed css for an element.
 			 * The properties values are applied to the specified
 			 * properties list (dictionary)
+			 * @method extractCSSProperties
 			 * @param {HTMLElement} element
 			 * @param {Object} properties
 			 * @param {string=} [pseudoSelector]
@@ -109,6 +111,7 @@
 
 			/**
 			 * Returns elements height from computed style
+			 * @method getElementHeight
 			 * @param {HTMLElement} element
 			 * @param {string=} [type] outer|inner
 			 * @param {boolean=} [includeOffset]
@@ -195,6 +198,7 @@
 
 			/**
 			 * Returns elements width from computed style
+			 * @method getElementWidth
 			 * @param {HTMLElement} element
 			 * @param {string=} [type] outer|inner
 			 * @param {boolean=} [includeOffset]

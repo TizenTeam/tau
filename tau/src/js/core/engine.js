@@ -70,7 +70,8 @@
 				widgetBindingMap = {},
 				location = window.location,
 				/**
-				 * @property {boolean} justBuild engine mode, if true then engine only builds widgets
+				 * engine mode, if true then engine only builds widgets
+				 * @property {boolean} justBuild
 				 * @private
 				 * @static
 				 * @member ns.engine
@@ -503,6 +504,8 @@
 			}
 
 			/**
+			 *
+			 * @method removeAllBindings
 			 * @param {HTMLElement|string} element
 			 * @return {boolean}
 			 * @static
@@ -626,7 +629,7 @@
 			/**
 			 * Calls destroy on widget (or widgets) connected with given HTMLElement
 			 * Removes child widgets as well.
-			 * @method destroyWidget
+			 * @method destroyAllWidgets
 			 * @param {HTMLElement|string} element
 			 * @param {boolean} [childOnly=false] destroy only widgets on children elements
 			 * @static

@@ -11,6 +11,11 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 
+			/**
+			 *
+			 * @param callback
+			 * @class ns.util.deferred
+			 */
 			var Deferred = function (callback) {
 				var callbacks = ns.util.callbacks,
 					object = ns.util.object,

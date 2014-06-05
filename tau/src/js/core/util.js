@@ -35,7 +35,6 @@
 				/**
 				 * requestAnimationFrame function
 				 * @method requestAnimationFrame
-				 * @return {Function}
 				 * @static
 				 * @member ns.util
 				*/

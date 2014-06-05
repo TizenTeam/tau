@@ -92,11 +92,11 @@
 			ns.event = {
 
 				/**
-				* @method trigger
 				* Triggers custom event fastOn element
 				* The return value is false, if at least one of the event
 				* handlers which handled this event, called preventDefault.
 				* Otherwise it returns true.
+				* @method trigger
 				* @param {HTMLElement} element
 				* @param {string} type
 				* @param {?*} [data=null]

@@ -300,12 +300,13 @@
 					},
 
 					/**
-					* Returns true for an absolute url.
-					* @member ns.util.path
-					* @param {string} url
-					* @return {boolean}
-					* @static
-					*/
+					 * Returns true for an absolute url.
+					 * @method isAbsoluteUrl
+					 * @member ns.util.path
+					 * @param {string} url
+					 * @return {boolean}
+					 * @static
+					 */
 					isAbsoluteUrl: function (url) {
 						return path.parseUrl(url).protocol !== "";
 					},
@@ -355,6 +356,7 @@
 
 					/**
 					 * Add search params to the specified url with hash
+					 * @method addHashSearchParams
 					 * @member ns.util.path
 					 * @param {string|Object} url
 					 * @param {Object|string} params

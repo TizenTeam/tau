@@ -26,7 +26,10 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			/** @namespace ns.widget.wearable */
+			/**
+			 * #Wearable scroller namespace
+			 * @class ns.widget.wearable.scroller
+			 */
 			ns.widget.wearable.scroller = ns.widget.wearable.scroller || {};
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.widget.wearable.scroller;

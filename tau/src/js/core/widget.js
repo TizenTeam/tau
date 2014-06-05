@@ -15,7 +15,9 @@
 * limitations under the License.
 */
 /*
+ * #Namespace For Widgets
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>
+ * @class ns.widget
  */
 (function (document, ns) {
 	"use strict";

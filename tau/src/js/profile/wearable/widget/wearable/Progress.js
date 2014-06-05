@@ -82,7 +82,7 @@
 			* @private
 			* @param {HTMLElement} element
 			* @return {HTMLElement}
-			* @member ns.widget.Progress
+			* @member ns.widget.wearable.Progress
 			*/
 			prototype._build = function (element) {
 				return element;
@@ -100,7 +100,7 @@
 			* refresh structure
 			* @method _refresh
 			* @new
-			* @member ns.widget.Progress
+			* @member ns.widget.wearable.Progress
 			*/
 			prototype._refresh = function () {
 				return null;
@@ -109,7 +109,7 @@
 			/**
 			* @method _destroy
 			* @private
-			* @member ns.widget.Progress
+			* @member ns.widget.wearable.Progress
 			*/
 			prototype._destroy = function () {
 				return null;

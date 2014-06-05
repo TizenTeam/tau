@@ -3,7 +3,7 @@
 //  * @TODO add support of $.mobile.buttonMarkup.hoverDelay
 /**
  * #jQuery Mobile mapping class
- * @class ns.jqm
+ * @class ns.jqm.router
  */
 (function (window, document, ns, $) {
 	"use strict";
@@ -22,9 +22,8 @@
 			ns.jqm.router = {
 				/**
 				* bind router to jqm
-				* @method init
-				* @param {ns.router.Page} router
-				* @member ns.jqm
+				* @method beforeinit
+				* @member ns.jqm.router
 				*/
 				beforeinit: function () {
 					var container,

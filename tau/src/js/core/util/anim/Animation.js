@@ -217,8 +217,9 @@
 
 			/**
 			 * Applies css properties for the element
-			 * @method
+			 * @method _apply
 			 * @protected
+			 * @member ns.util.anim.Animation
 			 */
 			proto._apply = function () {
 				var self = this,
@@ -244,8 +245,9 @@
 			 * @param {number} timePoint A keyframe number between from 0 to 100
 			 * @param {Object} stepOptions Css props to change in the keyframe
 			 * @return {ns.util.anim.Animation}
-			 * @method
+			 * @method step
 			 * @chainable
+			 * @member ns.util.anim.Animation
 			 */
 			proto.step = function (timePoint, stepOptions) {
 				var self = this;
@@ -257,8 +259,9 @@
 			/**
 			 * Resets the animation			
 			 * @return {ns.util.anim.Animation}
-			 * @method
+			 * @method reset
 			 * @chainable
+			 * @member ns.util.anim.Animation
 			 */
 			proto.reset = function () {
 				var self = this,
@@ -285,8 +288,9 @@
 			/**
 			 * Starts playback
 			 * @return {ns.util.anim.Animation}
-			 * @method
+			 * @method play
 			 * @chainable
+			 * @member ns.util.anim.Animation
 			 */
 			proto.play = function () {
 				return changeState(this, "running");
@@ -295,8 +299,9 @@
 			/**
 			 * Pauses playback
 			 * @return {ns.util.anim.Animation}
-			 * @method
+			 * @method pause
 			 * @chainable
+			 * @member ns.util.anim.Animation
 			 */
 			proto.pause = function () {
 				return changeState(this, "paused");
@@ -306,7 +311,8 @@
 			 * Destroys the animation
 			 * Note: Please use "preserve" options to keep applied last animation props
 			 * @return {ns.util.anim.Animation}
-			 * @method
+			 * @method destroy
+			 * @member ns.util.anim.Animation
 			 */
 			proto.destroy = function () {
 				var self = this,
@@ -339,6 +345,7 @@
 			 * @property {number} [states.FINISHED=2] finished state
 			 * @static
 			 * @readonly
+			 * @member ns.util.anim.Animation
 			 */
 			Animation.states = {
 				"PAUSED": PAUSED,

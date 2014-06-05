@@ -2,7 +2,7 @@
 /*jslint plusplus: true, nomen: true */
 /**
  * #jQuery Mobile mapping class
- * @class ns.jqm
+ * @class ns.jqm.defaults
  */
 (function (window, document, ns, $) {
 	"use strict";
@@ -18,7 +18,7 @@
 				/**
 				* Proxy colors library from ns namespace to jQM namespace
 				* @method init
-				* @member ns.jqm
+				* @member ns.jqm.defaults
 				* @static
 				*/
 				init: function () {
@@ -102,7 +102,7 @@
 			}, false);
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ns.jqm.colors;
+			return ns.jqm.defaults;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

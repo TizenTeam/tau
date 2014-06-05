@@ -2,8 +2,8 @@
 /*jslint plusplus: true, nomen: true */
 //  * @TODO add support of $.mobile.buttonMarkup.hoverDelay
 /**
- * #jQuery Mobile mapping class
- * @class ns.jqm
+ * #jQuery Mobile mapping object for color support
+ * @class ns.jqm.colors
  */
 (function (window, document, ns, $) {
 	"use strict";

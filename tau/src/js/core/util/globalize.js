@@ -1,5 +1,6 @@
 /*global window, define */
 /**
+ * #Globalize utils
  * @class ns.util.globalize
  */
 (function (window, document, ns, Globalize) {
@@ -131,7 +132,8 @@
 					return lang;
 				},
 				/**
-				 * @method setGlobalize/
+				 * Set globalize object for default language.
+				 * @method setGlobalize
 				 * @member ns.util.globalize
 				 * @return {?string}
 				 */

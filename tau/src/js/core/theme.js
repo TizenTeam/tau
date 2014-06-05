@@ -1,9 +1,9 @@
 /*global window, define, Math*/
 /*jslint bitwise: true */
 /**
-* @class ns.theme
-* Class with functions to set theme of application.
-*/
+ * Class with functions to set theme of application.
+ * @class ns.theme
+ */
 (function (window, document, ns) {
 	"use strict";
 //>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
@@ -19,6 +19,7 @@
 			 * @property {HTMLHeadElement} head local alias for document HEAD element
 			 * @static
 			 * @private
+			 * @member ns.theme
 			 */
 			var head = document.head,
 				documentElement = document.documentElement,
@@ -48,17 +49,19 @@
 				deviceWidthRegex = /.*width=(device-width|\d+)\s*,?.*$/gi;
 
 			ns.theme = {
-				/***
-				* @property theme=s
-				*/
+				/**
+				 * @property theme=s
+				 * @member ns.theme
+				 */
 				theme : 's',
 
 				_activeTheme: null,
 
 				/***
-				* @method init
-				* init theme
-				*/
+				 * init theme
+				 * @method init
+				 * @member ns.theme
+				 */
 				init: function (container) {
 					var self = this,
 						containerClassList = container.classList,
@@ -75,11 +78,12 @@
 				},
 
 				/***
-				* Scale font size
-				* @method scaleBaseFontSize
-				* @param {number} themeDefaultFontSize
-				* @param {number} ratio
-				*/
+				 * Scale font size
+				 * @method scaleBaseFontSize
+				 * @param {number} themeDefaultFontSize
+				 * @param {number} ratio
+				 * @member ns.theme
+				 */
 				scaleBaseFontSize : function (themeDefaultFontSize, ratio) {
 					var scaledFontSize = Math.max(themeDefaultFontSize * ratio | 0, 4);
 					documentElement.style.fontSize = scaledFontSize + "px";
@@ -142,7 +146,7 @@
 						themePath = frameworkData.themePath,
 						themeName = "tau",
 						isMinified = frameworkData.isMinified,
-						themeName;
+						jsPath;
 
 					if (frameworkData.frameworkName !== "tau") {
 						themeName = "tizen-web-ui-fw-theme";

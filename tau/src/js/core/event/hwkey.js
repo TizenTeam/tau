@@ -39,6 +39,10 @@
 						}
 					}
 				},
+				/**
+				 * Namespace to support tizenhwkey event
+				 * @class ns.event.hwkey
+				 */
 				hwkey = {
 					bind: function () {
 						document.addEventListener("tizenhwkey", popupClose, true);
@@ -49,15 +53,6 @@
 					}
 				};
 
-			/**
-			* Namespace to support tizenhwkey event
-			* @class ns.event.hwkey
-			*/
-			/**
-			* Event tizenhwkey
-			* @event tizenhwkey
-			* @member ns.event.hwkey
-			*/
 			ns.event.hwkey = hwkey;
 
 			document.addEventListener(ns.engine.eventType.INIT, function() {

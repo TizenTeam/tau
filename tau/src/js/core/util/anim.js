@@ -1,6 +1,8 @@
 /*global window, define, ns */
 /**
+ * #Animation Utilities
  * @author Krzysztof Antoszek <k.antoszek@samsung.com
+ * @class ns.util.anim
  */
 (function (ns) {
 	"use strict";

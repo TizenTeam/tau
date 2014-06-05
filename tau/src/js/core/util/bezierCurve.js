@@ -1,5 +1,6 @@
 /*global window: false, define: false, Math: false */
-/** 
+/**
+ * #Bezier Curves utilities
  * @class ns.util.bezierCurve
  */
 (function (ns) {

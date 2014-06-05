@@ -15,6 +15,7 @@
 * limitations under the License.
 */
 /**
+ * URL History Support For Router
  * @class ns.router.urlHistory
  */
 (function (window, document, ns) {

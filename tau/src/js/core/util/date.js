@@ -18,6 +18,7 @@
  * #Date utilities
  * Namespace with helper function for date modification/parsing
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>
+ * @class ns.util.date
  */
 (function (ns) {
 	"use strict";

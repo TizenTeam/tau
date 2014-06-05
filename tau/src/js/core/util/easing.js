@@ -10,7 +10,7 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			/**
-			* easing
+			* #Easing Utilities
 			* @class ns.util.easing
 			*/
 			ns.util.easing = {
@@ -33,7 +33,7 @@
 
 				/**
 				 * Performs quad easing out calcuclations based on time
-				 * @method cubicOut
+				 * @method easeOutQuad
 				 * @member ns.util.easing
 				 * @param {number} currentTime
 				 * @param {number} startValue

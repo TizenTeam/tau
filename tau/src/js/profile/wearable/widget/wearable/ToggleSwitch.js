@@ -83,7 +83,7 @@
 			* @protected
 			* @param {HTMLElement} element
 			* @return {HTMLElement}
-			* @member ns.widget.ToggleSwitch
+			* @member ns.widget.wearable.ToggleSwitch
 			*/
 			prototype._build = function (element) {
 				var options = this.options,

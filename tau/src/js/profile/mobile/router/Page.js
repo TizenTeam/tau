@@ -15,6 +15,7 @@
 * limitations under the License.
 */
 /**
+ * #Router for Mobile Profile
  * @class ns.router.Page
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Grzegorz Osimowicz <g.osimowicz@samsung.com>

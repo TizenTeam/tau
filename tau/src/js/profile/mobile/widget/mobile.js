@@ -35,7 +35,9 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			/** @namespace ns.widget.mobile */
+			/**
+			 * @class ns.widget.mobile
+			 */
 			ns.widget.mobile = ns.widget.mobile || {};
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.widget.mobile;

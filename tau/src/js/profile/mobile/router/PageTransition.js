@@ -15,6 +15,7 @@
 * limitations under the License.
 */
 /**
+ * #Router Support Transitions For Mobile Profile
  * @class ns.router.PageTransition
  */
 (function (window, document, ns) {

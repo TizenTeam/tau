@@ -1,5 +1,6 @@
 /*global window, define, XMLHttpRequest */
 /**
+ * #Load utils
  * @class ns.util.load
  */
 (function (document, ns) {
@@ -16,6 +17,7 @@
 			 * @property {HTMLHeadElement} head local alias for document HEAD element
 			 * @static
 			 * @private
+			 * @member ns.util.load
 			 */
 			var head = document.head,
 				styleSheets = document.styleSheets,
@@ -34,6 +36,7 @@
 			 * @param {?Function} successCB
 			 * @param {?Function} errorCB
 			 * @static
+			 * @private
 			 * @member ns.util.load
 			 */
 			 function loadFileSync(scriptPath, successCB, errorCB) {
@@ -56,9 +59,13 @@
 
 			/**
 			 * Callback function on javascript load success
+			 * @method scriptSyncSuccess
+			 * @private
+			 * @static
 			 * @param {?Function} successCB
 			 * @param {?Function} xhrObj
 			 * @param {?string} status
+			 * @member ns.util.load
 			 */
 			function scriptSyncSuccess(successCB, xhrObj, status) {
 				var script = document.createElement('script');
@@ -87,9 +94,11 @@
 
 			/**
 			 * Callback function on css load success
+			 * @method cssSyncSuccess
 			 * @param {string} cssPath
 			 * @param {?Function} successCB
 			 * @param {?Function} xhrObj
+			 * @member ns.util.load
 			 */
 			function cssSyncSuccess(cssPath, successCB, xhrObj) {
 				var css = document.createElement('style');
@@ -192,6 +201,7 @@
 			}
 
 			/**
+			 *
 			 * @property {string} cacheBust
 			 * @member ns.util.load
 			 */
