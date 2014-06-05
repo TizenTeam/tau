@@ -16,11 +16,12 @@
 */
 /*jslint nomen: true, plusplus: true */
 /**
- * # ListView Filter Widget
- * Filter Extension For ListView Widget
+ * #Filter Extension For ListView Widget
+ * The filter widget extension adds possibility to filter elements on list.
  *
  * ## Default selectors
- * In default all ListView elements with _data-filter=true_ are changed to Tizen Web UI Listview Filter.
+ * In default all ListView elements with _data-filter=true_ are changed to Tizen
+ * Web UI Listview Filter.
  *
  *		@example
  *		<ul data-role="listview" data-filter="true">
@@ -38,15 +39,18 @@
  *			<li>Arabella</li>
  *			<li>Barry</li>
  *			<li>Bily</li>
-*		</ul>
+ *		</ul>
  *		<script>
- *			var listview = tau.widget.Listview(document.getElementById("contacts"), {filter: true});
+ *			tau.widget.Listview(document.getElementById("contacts"), {
+ *				filter: true
+ *			});
  *		</script>
  *
  * ## Options
  *
  * ### Filter
- * _data-filter_ option set to true, creates a listview filter the HTML unordered list (&lt;ul&gt;) element.
+ * _data-filter_ option set to true, creates a listview filter the HTML
+ * unordered list (&lt;ul&gt;) element.
  *
  *		@example
  *		<ul id="contacts" data-role="listview" data-filter="true">
@@ -60,7 +64,8 @@
  * _data-filter-placeholder_ option sets the placeholder for filter input field.
  *
  *		@example
- *		<ul id="contacts" data-role="listview" data-filter="true" data-placeholder="First name">
+ *		<ul id="contacts" data-role="listview" data-filter="true"
+ *		data-placeholder="First name">
  *			<li>Anton</li>
  *			<li>Arabella</li>
  *			<li>Barry</li>
@@ -71,7 +76,8 @@
  * _data-filter-theme_ option sets the search box theme
  *
  *		@example
- *		<ul id="contacts" data-role="listview" data-filter="true" data-filter-theme="s">
+ *		<ul id="contacts" data-role="listview" data-filter="true"
+ *		data-filter-theme="s">
  *			<li>Anton</li>
  *			<li>Arabella</li>
  *			<li>Barry</li>
@@ -89,18 +95,22 @@
  *			<li>Bily</li>
  *		</ul>
  *		<script>
- *			var listview = tau.widget.Listview(document.getElementById("contacts"), {filter: true});
+ *			var element = document.getElementById("contacts"),
+ *		  		listview = tau.widget.Listview(element, {filter: true});
+ *
  *			function yourFilterFunction(text, searchValue, item) {
  *				return text.toString().toLowerCase().indexOf(searchValue) === -1;
  *			}
+ *
  *			listview.option("filterCallback", yourFilterFunction);
  *		</script>
  *
  * ### Filter text
  * _data-filtertext_ To filter list items by values other than the text,
  * add a _data-filtertext_ attribute to the list item.
- * The value of this attribute will be passed as the first argument to the filterCallback function instead of the text.
- * Alternately you can use an attribute of your choosing as defined on the list item itself.
+ * The value of this attribute will be passed as the first argument to the
+ * filterCallback function instead of the text. Alternately you can use an
+ * attribute of your choosing as defined on the list item itself.
  *
  *		@example
  *		<ul id="contacts" data-role="listview" data-filter="true">
@@ -149,10 +159,16 @@
  *			var element = document.getElementById("contacts"),
  *				contacts = tau.widget.Listview(element);
  *
- *			contacts.methodName(methodArgument1, methodArgument2, ...);
+ *			// contacts.methodName(argument1, argument2, ...);
+ *			// for example:
+ *
+ *			contacts.refresh();
  *
  *			// or JQueryMobile notation:
- *			$(element).contacts("methodName", methodArgument1, methodArgument2, ...);
+ *			// $(element).listview("methodName", argument1, argument2, ...);
+ *			// for example:
+ *
+ *			$(element).listview("refresh");
  *		</script>
  *
  * @author Maciej Urbanski <m.urbanski@samsung.com>
@@ -226,7 +242,7 @@
 				},
 
 				/**
-				* @property {Function} Listview Alias for class ns.widget.mobile.Listview
+				* @property {Function} Listview Alias for class {@link ns.widget.mobile.Listview}
 				* @member ns.widget.mobile.Listview.Filter
 				* @static
 				* @private
@@ -381,7 +397,7 @@
 						wrapperClass.add(options.uiListviewFilterInset);
 					}
 					DOM.insertNodesBefore(element, wrapper);
-					engine.instanceWidget(search, "Searchbar");
+					engine.instanceWidget(search, "SearchBar");
 				}
 				return element;
 			};
