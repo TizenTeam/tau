@@ -1,17 +1,55 @@
-/*jslint browser: true, white: true */
-/*global deviceViewer, properties*/
-
+/*jslint browser: true, white: true, plusplus: true */
+/*global deviceViewer, properties, alert*/
 
 window.onload = function () {
 	'use strict';
 
-	var locationHash = location.hash.substr(1);
+	/**
+	 * Changes badge size or viewport zoom.
+	 * @param {HTMLElement} element An input element which holds dimension value
+	 * @param {String} dimensionType Type of dimension to set, can be one of: width, height, zoom.
+	 */
+	function badgeResize(element, dimensionType) {
+		var badgePreview = deviceViewer.badgePreview,
+			value;
+
+		switch (dimensionType) {
+			case 'width':
+				value = parseInt(element.value, 10) || 160;
+				value = value > 1920 ? 1920 : value < 160 ? 160 : value;
+				element.value = value;
+
+				badgePreview.resizeViewport(value, undefined, undefined, false);
+				break;
+
+			case 'height':
+				value = parseInt(element.value, 10) || 160;
+				value = value > 1920 ? 1920 : value < 160 ? 160 : value;
+				element.value = value;
+
+				badgePreview.resizeViewport(undefined, element.value, undefined, false);
+				break;
+
+			case 'zoom':
+				badgePreview.zoomViewport(element.value, undefined, undefined, true);
+				element.parentNode.querySelector('.current-value').innerHTML = element.value + '%';
+				break;
+		}
+
+	}
+
+	var locationHash = location.hash.substr(1),
+		badgeHeightSlider = document.getElementById('badgeHeightSlider'),
+		badgeWidthSlider = document.getElementById('badgeWidthSlider'),
+		customBadgeWidth = document.getElementById('customBadgeWidth'),
+		customBadgeHeight = document.getElementById('customBadgeHeight'),
+		zoomSlider = document.getElementById('zoomSlider');
 	/*
 	 * Check if viewed application was provided by url
 	 * Passed JSON example
 	 * {"name":"PathNameToDisplay", "path": "file:///path/to/my/App/"}
 	 */
-	if (locationHash != '') {
+	if (locationHash !== '') {
 		try {
 			locationHash = JSON.parse(locationHash);
 			properties.appList = [{
@@ -32,63 +70,46 @@ window.onload = function () {
 	/*
 	 * Change app preview if hash changed
 	 */
-	window.addEventListener('hashchange', function (e) {
-		var locationHash = location.hash.substr(1),
+	window.addEventListener('hashchange', function () {
+		var newLocationHash = location.hash.substr(1),
 			badgeList,
 			option,
 			i;
-		if (locationHash !== '') {
+		if (newLocationHash !== '') {
 			try {
-				locationHash = JSON.parse(locationHash);
+				newLocationHash = JSON.parse(newLocationHash);
 			} catch (e) {
-				alert('There is something wrong in JSON passed as URL', locationHash);
+				alert('There is something wrong in JSON passed as URL', newLocationHash);
 			}
 
 			badgeList = deviceViewer.badgePreview.badgeList;
 
 			i = badgeList.length;
 			while (--i >= 0) {
-				badgeList[i].changeUrl(locationHash.path);
+				badgeList[i].changeUrl(newLocationHash.path);
 			}
 
 			option = deviceViewer.config.appSelect.selectedOptions[0];
-			option.value = locationHash.path;
-			option.text = locationHash.name;
+			option.value = newLocationHash.path;
+			option.text = newLocationHash.name;
 		}
 	}, false);
 
-	document.getElementById('badgeHeightSlider').onchange = function (e) {
-		var element = e.srcElement || e.target;
+	// Change height of badge using range slider
+	badgeHeightSlider.addEventListener('change', badgeResize.bind(null, badgeHeightSlider, 'height') , false);
+	badgeHeightSlider.addEventListener('input', badgeResize.bind(null, badgeHeightSlider, 'height') , false);
 
-		deviceViewer.badgePreview.resizeViewport(undefined, element.value, undefined, false);
-	};
+	// Change width of badge using range slider
+	badgeWidthSlider.addEventListener('change', badgeResize.bind(null, badgeWidthSlider, 'width') , false);
+	badgeWidthSlider.addEventListener('input', badgeResize.bind(null, badgeWidthSlider, 'width') , false);
 
-	document.getElementById('badgeWidthSlider').onchange = function (e) {
-		var element = e.srcElement || e.target;
+	// Change width of badge using input text
+	customBadgeWidth.addEventListener('change', badgeResize.bind(null, customBadgeWidth, 'width') , false);
 
-		deviceViewer.badgePreview.resizeViewport(element.value, undefined, undefined, false);
-	};
+	// Change height of badge using input text
+	customBadgeHeight.addEventListener('change', badgeResize.bind(null, customBadgeHeight, 'width') , false);
 
-	document.getElementById('customBadgeWidth').onchange = function (e) {
-		var element = e.srcElement || e.target,
-			value = parseInt(element.value, 10) || 160;
-
-		value = value > 1920 ? 1920 : value < 160 ? 160 : value;
-		deviceViewer.badgePreview.resizeViewport(value, undefined, undefined, false);
-	};
-
-	document.getElementById('customBadgeHeight').onchange = function (e) {
-		var element = e.srcElement || e.target,
-			value = parseInt(element.value, 10) || 160;
-
-		value = value > 1920 ? 1920 : value < 160 ? 160 : value;
-		deviceViewer.badgePreview.resizeViewport(undefined, value, undefined, false);
-	};
-
-	document.getElementById('zoomSlider').onchange = function (e) {
-		var element = e.srcElement || e.target;
-
-		deviceViewer.badgePreview.zoomViewport(element.value, undefined, undefined, true);
-		element.parentNode.querySelector('.current-value').innerHTML = element.value + '%';
-	};
+	// Change viewport zoom using range slider
+	zoomSlider.addEventListener('input', badgeResize.bind(null, zoomSlider, 'zoom') , false);
+	zoomSlider.addEventListener('change', badgeResize.bind(null, zoomSlider, 'zoom') , false);
 };
