@@ -18,78 +18,78 @@
 
 /**
  * #Progress Bar Widget
+ * The progress bar widget shows a control that indicates the progress
+ * percentage of an on-going operation.
  *
- * ##Manual constructor
- * ###For manual creation of progressbar widget you can use constructor of widget:
+ * ## Default selectors
+ * In default elements matches to :
  *
- *	@example
- *	var progressbar = ns.engine.instanceWidget(document.getElementById('foo'), 'progressbar');
+ *  - HTML elements with data-role equal "progressbar"
+ *  - HTML elements with class ui-progressbar-container
  *
- * If jQuery library is loaded, its method can be used:
+ * ###HTML Examples
  *
- *	@example
- *	var progressbar = $('#foo').progressbar();
+ * ####Create simple text input on INPUT element
  *
- * ##HTML Examples
- * ###Create simple progressbar from div using data-role:
+ *		@example
+ *		<div id="progress-bar" data-role="progressbar"></div>
  *
- *	@example
- *	<div data-role="progressbar"></div>
+ * ## Manual constructor
+ * For manual creation of button widget you can use constructor of widget from
+ * **tau** namespace:
  *
- * ##Using in javascript
- * ###Set value of the progressbar
+ *		@example
+ *		<div id="progress-bar"></div>
+ *		<script>
+ *			var element = document.getElementById("progress-bar"),
+ *				progressBar = tau.widget.ProgressBar(element);
+ *		</script>
  *
- *	@example
- *	ns.engine.instanceWidget(document.getElementById("foo")).value(50);
- *
- * If jQuery library is loaded, its method can be used:
- *
- *	@example
- *	$('#foo').progressbar('value', 50);
- *
- * ###Get value of the progressbar
- *
- *	@example
- *	ns.engine.instanceWidget(document.getElementById("foo")).value();
+ * Constructor has one required parameter **element** which is base
+ * **HTMLElement** to create widget. We recommend fetching this element by
+ * method *document.getElementById*. Second parameter is **options** and it is a
+ * object with options for widget.
  *
  * If jQuery library is loaded, its method can be used:
  *
- *	@example
- *	$('#foo').progressbar('value');
+ *		@example
+ *		<div id="progress-bar"></div>
+ *		<script>
+ *			$("#progress-bar").progressbar();
+ *		</script>
  *
- * ## Using events
- * ###Change event use
- * This event is called when, progressbar value was changed.
+ * jQuery Mobile constructor has one optional parameter **options** and it is
+ * a object with options for widget.
  *
- *	@example
- *	document.getElementById("foo").addEventListener("change", function () {
- *		console.log("change");
- *	});
+ * ##Options for widget
  *
- * If jQuery library is loaded, its method can be used:
+ * Options for widget can be defined as _data-..._ attributes or give as
+ * parameter in constructor.
  *
- *	@example
- *	$("#foo").bind("change", function () {
- *		console.log("change");
- *	});
+ * You can change option for widget using method **option**.
  *
- * ###Complete event use
- * This event is called when, progressbar value was changed to 100%.
+ * ##Methods
  *
- *	@example
- *	document.getElementById("foo").addEventListener("complete", function () {
- *		console.log("complete");
- *	});
+ * To call method on widget you can use one of existing API:
  *
- * If jQuery library is loaded, its method can be used:
+ * First API is from tau namespace:
  *
- *	@example
- *	$("#foo").bind("complete", function () {
- *		console.log("complete");
- *	});
+ *		@example
+ *		<script>
+ *			var element = document.getElementById("probress-bar"),
+ *				progressBar = tau.widget.ProgressBar(element);
+ *
+ *		 	progressBar.methodName(argument1, argument2, ...);
+ *		</script>
+ *
+ *
+ * Second API is jQuery Mobile API and for call _methodName_ you can use:
+ *
+ *		@example
+ *		$(".selector").progressbar("methodName", argument1, argument2, ...);
  *
  * @extends ns.widget.BaseWidget
- * @class ns.widget.mobile.Progressbar
+ * @class ns.widget.mobile.ProgressBar
  */
 
 (function (window, ns) {
@@ -113,20 +113,25 @@
 
 				events = ns.event,
 				/**
-				* @property {ns.engine} engine Alias for class ns.engine
-				* @member ns.widget.mobile.Progressbar
-				* @private
-				*/
+				 * @property {ns.engine} engine Alias for class ns.engine
+				 * @member ns.widget.mobile.ProgressBar
+				 * @private
+				 */
 				engine = ns.engine,
 
-				Progressbar = function () {
+				ProgressBar = function () {
 
 					/**
-					* Object with default options
-					* @type {{value : number, max : number, min : number}}
-					* @member ns.widget.mobile.Progressbar
-					* @instance
-					*/
+					 * Object with default options
+					 * @property {Object} options
+					 * @property {number} [options.value=0] value of progress
+					 * bar
+					 * @property {number} [options.min=0] minimal value of
+					 * progress bar
+					 * @property {number} [options.max=100] maximal value of
+					 * progress bar
+					 * @member ns.widget.mobile.ProgressBar
+					 */
 					this.options = {
 						value: 0,
 						max: 100,
@@ -134,136 +139,204 @@
 					};
 				};
 
-			Progressbar.prototype = new BaseWidget();
+			/**
+			 * Event is triggered when value of widget is changing.
+			 * @event change
+			 * @member ns.widget.mobile.ProgressBar
+			 */
 
 			/**
-			* Dictionary for progress related css class names
-			* @type {{uiProgressbar: string, uiProgressbarBg: string, uiProgressbarValue: string}}
-			* @static
-			* @member ns.widget.mobile.Progressbar
-			*/
-			Progressbar.classes = {
+			 * Event is triggered when value of widget riches maximal value.
+			 * @event complete
+			 * @member ns.widget.mobile.ProgressBar
+			 */
+
+			ProgressBar.prototype = new BaseWidget();
+
+			/**
+			 * Dictionary for progress related css class names
+			 * @property {Object} classes
+			 * @static
+			 * @member ns.widget.mobile.ProgressBar
+			 * @readonly
+			 */
+			ProgressBar.classes = {
 				uiProgressbar: "ui-progressbar",
 				uiProgressbarBg: "ui-progressbar-bg",
 				uiProgressbarValue: "ui-progressbar-value"
 			};
 
 			/**
-			* Build structure of progress widget
-			* @method _build
-			* @param {HTMLElement} element
-			* @return {HTMLElement}
-			* @protected
-			* @member ns.widget.mobile.Progressbar
-			* @instance
-			*/
-			Progressbar.prototype._build = function (element) {
-				/* cached Progressbar.classes object
+			 * Build structure of progress widget
+			 * @method _build
+			 * @param {HTMLElement} element
+			 * @return {HTMLElement}
+			 * @protected
+			 * @member ns.widget.mobile.ProgressBar
+			 */
+			ProgressBar.prototype._build = function (element) {
+				/* cached ProgressBar.classes object
 				* type Object
 				*/
-				var classes = Progressbar.classes,
+				var classes = ProgressBar.classes,
 					self = this,
 					options = self.options,
-					progressbarBgElement,
-					progressbarValueElement;
+					progressBarBgElement,
+					progressBarValueElement;
 
-				progressbarBgElement = document.createElement("div");
-				progressbarValueElement = document.createElement("div");
+				progressBarBgElement = document.createElement("div");
+				progressBarValueElement = document.createElement("div");
 
 				element.classList.add(classes.uiProgressbar);
-				progressbarBgElement.classList.add(classes.uiProgressbarBg);
-				progressbarValueElement.classList.add(classes.uiProgressbarValue);
+				progressBarBgElement.classList.add(classes.uiProgressbarBg);
+				progressBarValueElement.classList.add(
+					classes.uiProgressbarValue);
 
-				progressbarValueElement.style.width = options.value + '%';
+				progressBarValueElement.style.width = options.value + "%";
 
-				progressbarValueElement.style.display = "none";
+				progressBarValueElement.style.display = "none";
 
-				element.setAttribute("role", "progressbar");
+				element.setAttribute("role", "ProgressBar");
 				element.setAttribute("aria-valuemin", options.min);
 				element.setAttribute("aria-valuenow", options.value);
 				element.setAttribute("aria-valuemax", options.max);
 
-				progressbarBgElement.appendChild(progressbarValueElement);
-				element.appendChild(progressbarBgElement);
+				progressBarBgElement.appendChild(progressBarValueElement);
+				element.appendChild(progressBarBgElement);
 
 				// fix for compare tests
 				self.min = options.min;
-				self.valueDiv = progressbarValueElement;
+				self.valueDiv = progressBarValueElement;
 				self.oldValue = options.value;
 
 				return element;
 			};
 
+			/**
+			 * Get or set value
+			 *
+			 * Return inner text of button or set text on button
+			 *
+			 *	@example
+			 *	<div id="progress-bar"></div>
+			 *	<script>
+			 *		var element = document.getElementById("progress-bar"),
+			 *			progressBarWidget = tau.widget.ProgressBar(element),
+			 *			// returns current value
+			 *			value = progressBarWidget.value();
+			 *
+			 *		progressBarWidget.value( 30 ); // sets new value to 30
+			 *	</script>
+			 *
+			 *	@example
+			 *	<div id="progress-bar"></div>
+			 *	<script>
+			 *		// returns current value
+			 *		$( "#progress-bar" ).progressbar( "value" );
+			 *
+			 *		// set new value to 30
+			 *		$( "#progress-bar" ).progressbar( "value", 30 );
+			 *	</script>
+			 * @method value
+			 * @param {number} [value] Value to set on progress bar
+			 * @return {number} In get mode returns current value of progress
+			 * bar
+			 * @since 2.3
+			 * @member ns.widget.mobile.ProgressBar
+			 */
 
 			/**
-			 * Set progressbar value, return value. Alias method to Progressbar.value()
+			 * Method sets ProgressBar value.
 			 * @method _setValue
 			 * @param {number} value
-			 * @returns {boolean}
+			 * @return {boolean}
 			 * @protected
-			 * @member ns.widget.mobile.Progressbar
-			 * @instance
+			 * @member ns.widget.mobile.ProgressBar
 			 */
-			Progressbar.prototype._setValue = function (value) {
-				var self = this,
-					options = self.options,
-					element = self.element,
-					corretValue = Math.min(options.max, Math.max(options.min, value));
-				if (corretValue === value) {
+			ProgressBar.prototype._setValue = function (value) {
+				var options = this.options;
+				if (typeof value === "number") {
+					value = Math.min(options.max, Math.max(options.min, value));
 					if (value !== options.value) {
-						events.trigger(element, "change");
+						events.trigger(this.element, "change");
 						options.value = value;
-						self._refresh();
 					}
 					if (value === options.max) {
-						events.trigger(element, "complete");
+						events.trigger(this.element, "complete");
 					}
+					this.refresh();
 					return true;
 				}
 				return false;
 			};
 
 			/**
-			* Set progressbar value, return value
-			* @method _getValue
-			* @param {number} value
-			* @returns {number}
-			* @member ns.widget.mobile.Progressbar
-			* @instance
-			*/
-			Progressbar.prototype._getValue = function () {
+			 * Method gets ProgressBar value.
+			 * @method _getValue
+			 * @return {number}
+			 * @protected
+			 * @member ns.widget.mobile.ProgressBar
+			 */
+			ProgressBar.prototype._getValue = function () {
 				return this.options.value;
 			};
 
 			/**
-			* Refresh progressbar
-			* @method _refresh
-			* @member ns.widget.mobile.Progressbar
-			* @protected
-			* @instance
-			*/
-			Progressbar.prototype._refresh = function () {
+			 * Refresh a progres bar.
+			 *
+			 * This method will rebuild while DOM structure of widget. Method
+			 * should be called after are manually change in HTML attributes of
+			 * widget DOM structure. Refresh is called automatically after
+			 * change any option of widget.
+			 *
+			 *	@example
+			 *	<div id="progress-bar"></div>
+			 *	<script>
+			 *		var element = document.getElementById("progress-bar"),
+			 *			progressBarWidget = tau.widget.ProgressBar(element),
+			 *
+			 *		progressBarWidget.refresh();
+			 *	</script>
+			 *
+			 *	@example
+			 *	<div id="progress-bar"></div>
+			 *	<script>
+			 *		$( "#progress-bar" ).progressbar( "refresh" );
+			 *	</script>
+			 *
+			 * @method refresh
+			 * @chainable
+			 * @member ns.widget.mobile.ProgressBar
+			 */
+
+			/**
+			 * Method refreshes ProgressBar.
+			 * @method _refresh
+			 * @member ns.widget.mobile.ProgressBar
+			 * @protected
+			 */
+			ProgressBar.prototype._refresh = function () {
 				var element = this.element,
 					options = this.options,
 					elementChild = element.firstElementChild.firstElementChild;
 
 				element.setAttribute("aria-valuenow", options.value);
-				elementChild.style.display = '';
+				elementChild.style.display = "";
 				elementChild.style.width = options.value + "%";
 			};
 
 			// definition
-			ns.widget.mobile.Progressbar = Progressbar;
+			ns.widget.mobile.ProgressBar = ProgressBar;
 			engine.defineWidget(
-				"Progressbar",
-				"[data-role='progressbar'], .ui-progressbar-container",
+				"ProgressBar",
+				"[data-role='ProgressBar'], .ui-progressbar-container",
 				["value"],
-				Progressbar,
+				ProgressBar,
 				"tizen"
 			);
 
 //>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ns.widget.mobile.Progressbar;
+			return ns.widget.mobile.ProgressBar;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

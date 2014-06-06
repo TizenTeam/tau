@@ -130,7 +130,7 @@
 				 * Local alias for classes of Progressbar widget
 				 * @property {Object} Progressbar Alias for {@link ns.widget.mobile.Progressbar}
 				 */
-				progressbarClasses = ns.widget.mobile.Progressbar.classes,
+				progressbarClasses = ns.widget.mobile.ProgressBar.classes,
 				/**
 				 * Local alias for classes of Progressbar widget
 				 * @property {Object} Progressbar Alias for {@link ns.widget.mobile.Progressbar}
@@ -521,7 +521,7 @@
 				self.ui.wrap = wrap;
 
 				engine.instanceWidget(self.ui.volumeBar, 'Slider');
-				engine.instanceWidget(self.ui.durationBar, 'Progressbar');
+				engine.instanceWidget(self.ui.durationBar, 'ProgressBar');
 
 				// customizing
 				// progressBar
