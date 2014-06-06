@@ -586,7 +586,7 @@
 				} else if (typeof firstArgument === "object") {
 					for (key in firstArgument) {
 						if (firstArgument.hasOwnProperty(key)) {
-							partResult = partResult || self._oneOption(key, firstArgument[key]);
+							partResult = self._oneOption(key, firstArgument[key]);
 							if (key !== undefined && firstArgument[key] !== undefined) {
 								refresh = refresh || partResult;
 							}
