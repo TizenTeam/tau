@@ -18,72 +18,84 @@
 
 /**
  * #Progress Widget
+ * The progress widget shows that an operation is in progress.
  *
- * ##Manual constructor
- * For manual creation of progress widget you can use constructor of widget:
+ * ## Default selectors
+ * In default elements matches to :
  *
- *	@example
- *	var progress = ns.engine.instanceWidget(document.getElementById('foo'), 'progress');
+ *  - HTML elements with data-role equal "progress"
+ *  - HTML elements with class ui-progress
  *
- * If jQuery library is loaded, its method can be used:
+ * ###HTML Examples
  *
- *	@example
- *	var progress = $('#foo').progress();
+ * ####Create simple text input on INPUT element
  *
- * ##HTML Examples
- * ###Create simple progress pending from div using data-role:
+ *		@example
+ *		<div id="progress" data-role="progress"></div>
  *
- *	@example
- *	<div data-role="progress" data-style="pending"></div>
+ * ## Manual constructor
+ * For manual creation of button widget you can use constructor of widget from
+ * **tau** namespace:
  *
- * ###Create simple progress circle from div using data-role:
+ *		@example
+ *		<div id="progress"></div>
+ *		<script>
+ *			var element = document.getElementById("progress"),
+ *				progress = tau.widget.Progress(element);
+ *		</script>
  *
- *	@example
- *	<div data-role="progress" data-style="circle"></div>
- *
- * ##Using in javascript
- * ###Show the progress
- *
- *	@example
- *	ns.engine.instanceWidget(document.getElementById("foo")).show();
- *
- * If jQuery library is loaded, its method can be used:
- *
- *	@example
- *	$('#foo').progress('show');
- *
- * ###Hide the progress
- *
- *	@example
- *	ns.engine.instanceWidget(document.getElementById("foo")).hide();
+ * Constructor has one required parameter **element** which is base
+ * **HTMLElement** to create widget. We recommend get this element by method
+ * *document.getElementById*. Second parameter **options** and it is a object
+ * with options for widget.
  *
  * If jQuery library is loaded, its method can be used:
  *
- *	@example
- *	$('#foo').progress('hide');
+ *		@example
+ *		<div id="progress"></div>
+ *		<script>
+ *			$("#progress").progress();
+ *		</script>
  *
- * ###Run the progress
+ * jQuery Mobile constructor has one optional parameter **options** and it is
+ * a object with options for widget.
  *
- *	@example
- *	ns.engine.instanceWidget(document.getElementById("foo")).running(true);
+ * ##Options for widget
  *
- * If jQuery library is loaded, its method can be used:
+ * Options for widget can be defined as _data-..._ attributes or supplied as
+ * parameter in constructor.
  *
- *	@example
- *	$('#foo').progress('running', true);
+ * You can change option for widget using method **option**.
  *
- * ###Stop the progress
+ * ##Methods
  *
- *	@example
- *	ns.engine.instanceWidget(document.getElementById("foo")).running(true);
+ * To call method on widget you can use one of existing API:
  *
- * If jQuery library is loaded, its method can be used:
+ * First API is from tau namespace:
  *
- *	@example
- *	$('#foo').progress('running', false);
+ *		@example
+ *		<div id="progress"></div>
+ *		<script>
+ *			var element = document.getElementById("progress"),
+ *				progress = tau.widget.Progress(element);
+ *
+ *		 	// progress.methodName(argument1, argument2, ...);
+ *			// for example
+ *			progress.value(2);
+ *		</script>
+ *
+ * Second API is jQuery Mobile API and for call _methodName_ you can use:
+ *
+ *		@example
+ *		<div id="progress"></div>
+ *		<script>
+ *			// $(".selector").progress("methodName", argument1, argument2, ...);
+ *			// for example
+ *			$("#progress").progress("value", 2);
+ *		</script>
  *
  * @extends ns.widget.BaseWidget
- * @class ns.widget.Progress
+ * @class ns.widget.mobile.Progress
  */
 
 (function (window, ns) {
@@ -102,16 +114,17 @@
 			//>>excludeEnd("tauBuildExclude");
 
 			/**
-			* {Object} Widget Alias for {@link ns.widget.BaseWidget}
-			* @member ns.widget.Progress
-			* @private
-			*/
+			 * {Object} Widget Alias for {@link ns.widget.BaseWidget}
+			 * @member ns.widget.mobile.Progress
+			 * @private
+			 */
 			var BaseWidget = ns.widget.mobile.BaseWidgetMobile,
 				/**
-				* @property {ns.engine} engine Alias for class ns.engine
-				* @member ns.widget.Progress
-				* @private
-				*/
+				 * @property {ns.engine} engine Alias for class ns.engine
+				 * @member ns.widget.mobile.Progress
+				 * @private
+				 * @static
+				 */
 				engine = ns.engine,
 				classes = {
 					uiProgressContainerCircle: "ui-progress-container-circle",
@@ -123,109 +136,97 @@
 					uiProgressPendingRunning: "ui-progress-pending-running",
 					uiProgressPrefix: ".ui-progress-"
 				},
-				/**
-				* Alias for class ns.widget.Progress
-				* @method Progress
-				* @member ns.widget.Progress
-				* @private
-				*/
+
 				Progress = function () {
 					this.action = "";
 					this.label = null;
 					/**
-					* @property {Object} options Object with default options
-					* @member ns.widget.Progress
-					* @instance
-					*/
+					 * Object with default options
+					 * @property {Object} options
+					 * @property {"circle"|"pending"} [options.style="pending"]
+					 * style of progress
+					 * @property {boolean} [options.running=true] start running
+					 * or not
+					 * @member ns.widget.mobile.Progress
+					 */
 					this.options = {
-						/**
-						* style of button ("circle" or "pending")
-						* @property {string} [options.style=null]
-						* @member ns.widget.Progress
-						* @instance
-						*/
-						/**
-						* style of button ("circle" or "pending")
-						* @cfg {string} [data-style='']
-						*/
-						style: null,
-
+						style: "pending",
 						running: true
 					};
 					/**
-					* @property {string} runningClass witch information about css style animation element
-					* @private
-					*/
-					this.runningClass = null;
-					/**
-					* @property {HTMLElement} _uiProgress nn
-					* @protected
-					*/
-					this._uiProgress = null;
-
-					// for compare tests pass
+					 * witch information about css style animation element
+					 * @property {string} runningClass
+					 * @member ns.widget.mobile.Progress
+					 */
 					this.runningClass = classes.uiProgressCircleRunning;
+					/**
+					 * @property {HTMLElement} _uiProgress nn
+					 * @protected
+					 * @member ns.widget.mobile.Progress
+					 */
+					this._uiProgress = null;
 				};
 
 			Progress.prototype = new BaseWidget();
 
 			/**
-			* @property {Object} classes Dictionary for progress related css class names
-			* @member ns.widget.Progress
-			* @static
-			*/
+			 * Dictionary for progress related css class names
+			 * @property {Object} classes
+			 * @member ns.widget.mobile.Progress
+			 * @static
+			 */
 			Progress.classes = classes;
 
 			/**
-			* Build structure of progress widget
-			* @method _build
-			* @param {HTMLElement} element
-			* @return {HTMLElement}
-			* @protected
-			* @member ns.widget.Progress
-			* @instance
-			*/
+			 * Build structure of progress widget
+			 * @method _build
+			 * @param {HTMLElement} element
+			 * @return {HTMLElement}
+			 * @protected
+			 * @member ns.widget.mobile.Progress
+			 */
 			Progress.prototype._build = function (element) {
 				/* cached Progress.classes object
-				* type Object
-				*/
+				 * type Object
+				 */
 				var classes = Progress.classes,
 				/* cached options object
-				* type Object
-				*/
+				 * type Object
+				 */
 					options = this.options,
 				/*
-				* created HTML element of progress container
-				* type HTMLElement
-				*/
-					progressElement = document.createElement('div'),
+				 * created HTML element of progress container
+				 * type HTMLElement
+				 */
+					progressElement = document.createElement("div"),
 				/*
-				* created HTML element of progress container
-				* type HTMLElement
-				*/
+				 * created HTML element of progress container
+				 * type HTMLElement
+				 */
 					progressPendingElement,
 				/*
-				* cached classList of element
-				* type DOMTokenList
-				*/
+				 * cached classList of element
+				 * type DOMTokenList
+				 */
 					elementClasses = element.classList;
 
 				/*
-				* Create structure for progress with style circle
-				*/
+				 * Create structure for progress with style circle
+				 */
 				if (options.style === "circle") {
 					elementClasses.add(classes.uiProgressContainerCircle);
 					progressElement.classList.add(classes.uiProgressCircle);
 					this.runningClass = classes.uiProgressCircleRunning;
 
 					/*
-					* Create structure for progress with style pending
-					*/
+					 * Create structure for progress with style pending
+					 */
 				} else if (options.style === "pending") {
 					elementClasses.add(classes.uiProgressbar);
 					progressElement.classList.add(classes.uiProgressbarBg);
-					progressPendingElement = document.createElement('div');
-					progressPendingElement.classList.add(classes.uiProgressPending);
+					progressPendingElement = document.createElement("div");
+					progressPendingElement.classList.add(
+						classes.uiProgressPending);
 					progressElement.appendChild(progressPendingElement);
 					this.runningClass = classes.uiProgressPendingRunning;
 				}
@@ -235,27 +236,58 @@
 			};
 
 			/**
-			* Init widget
-			* @method _init
-			* @param {HTMLElement} element
-			* @protected
-			* @member ns.widget.Progress
-			*/
+			 * Init widget
+			 * @method _init
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.mobile.Progress
+			 */
 			Progress.prototype._init = function (element) {
-				if (this._uiProgress === null) {
-					this._uiProgress = element.querySelector(Progress.classes.uiProgressPrefix + this.options.style);
+				var self = this,
+					options = self.options;
+				if (self._uiProgress === null) {
+					self._uiProgress = element.querySelector(
+							classes.uiProgressPrefix + options.style);
 				}
+				self._setRunning(options.running);
 			};
 
 
 			/**
-			* Running the progress
-			* @method running
-			* @param {boolean} flag
-			* @member ns.widget.Progress
-			* @returns {boolean}
-			* @instance
-			*/
+			 * Method starts or stops running the progress.
+			 *
+			 *	@example
+			 *	<div id="progress"></div>
+			 *	<script>
+			 *		var element = document.getElementById("progress"),
+			 *			progressWidget = tau.widget.Progress(element),
+			 *			// return current state of running
+			 *			value = progressWidget.running();
+			 *
+			 *		progressWidget.running( true ); // starts running
+			 *
+			 *		progressWidget.running( fasle ); // stops running
+			 *	</script>
+			 *
+			 *	@example
+			 *	<div id="progress"></div>
+			 *	<script>
+			 *		// return current state of running
+			 *		$( "#progress" ).progress( "running" );
+			 *
+			 *		// starts running
+			 *		$( "#progress" ).progress( "running", true );
+			 *
+			 *		// stops running
+			 *		$( "#progress" ).progress( "running", fasle );
+			 *	</script>
+			 *
+			 * @method running
+			 * @param {boolean} flag if thrue then set mode to running if false
+			 * the stop running mode
+			 * @member ns.widget.mobile.Progress
+			 * @returns {boolean}
+			 */
 			Progress.prototype.running = function (flag) {
 				if (typeof flag === "boolean") {
 					this._setRunning(flag);
@@ -264,10 +296,12 @@
 			};
 
 			/**
-			* Set running flag and refresh progress
-			* @param {boolean} flag
-			* @protected
-			*/
+			 * Set running flag and refresh progress
+			 * @method _setRunning
+			 * @param {boolean} flag
+			 * @protected
+			 * @member ns.widget.mobile.Progress
+			 */
 			Progress.prototype._setRunning = function (flag) {
 				if (typeof flag === "boolean") {
 					this.options.running = flag;
@@ -277,49 +311,112 @@
 
 
 			/**
-			* Start progress
-			* @protected
-			*/
+			 * Start progress
+			 * @method _start
+			 * @protected
+			 * @member ns.widget.mobile.Progress
+			 */
 			Progress.prototype._start = function () {
 				this.show();
 				this._uiProgress.classList.add(this.runningClass);
 			};
 
 			/**
-			* Stop progress
-			* @protected
-			*/
+			 * Stop progress
+			 * @method _stop
+			 * @protected
+			 * @member ns.widget.mobile.Progress
+			 */
 			Progress.prototype._stop = function () {
 				this._uiProgress.classList.remove(this.runningClass);
 			};
 
 			/**
-			* Show progress
-			* @method Show
-			* @member ns.widget.Progress
-			* @instance
-			*/
+			 * Method shows progress.
+			 *
+			 *	@example
+			 *	<div id="progress"></div>
+			 *	<script>
+			 *		var element = document.getElementById("progress"),
+			 *			progressWidget = tau.widget.Progress(element);
+			 *
+			 *		progressWidget.show();
+			 *	</script>
+			 *
+			 *	@example
+			 *	<div id="progress"></div>
+			 *	<script>
+			 *		$( "#progress" ).progress( "show" );
+			 *	</script>
+			 *
+			 * @method show
+			 * @member ns.widget.mobile.Progress
+			 */
 			Progress.prototype.show = function () {
 				this.element.style.display = "";
 			};
 
 			/**
-			* Hide progress
-			* @method hide
-			* @member ns.widget.Progress
-			* @instance
-			*/
+			 * Method hides progress
+			 *
+			 *	@example
+			 *	<div id="progress"></div>
+			 *	<script>
+			 *		var element = document.getElementById("progress"),
+			 *			progressWidget = tau.widget.Progress(element);
+			 *		progressWidget.hide();
+			 *	</script>
+			 *
+			 *	@example
+			 *	<div id="progress"></div>
+			 *	<script>
+			 *		$( "#progress" ).progress( "hide" );
+			 *	</script>
+			 *
+			 * @method hide
+			 * @member ns.widget.mobile.Progress
+			 */
 			Progress.prototype.hide = function () {
 				this.element.style.display = "none";
 			};
 
 			/**
-			* Refresh progress
-			* @method _refresh
-			* @member ns.widget.Progress
-			* @protected
-			* @instance
-			*/
+			 * Method refreshes a progress.
+			 *
+			 * This method will rebuild while DOM structure of widget. Method
+			 * should be called after all manually change in HTML attributes
+			 * of widget DOM structure. Refresh is called automatically after
+			 * change any option of widget.
+			 *
+			 *	@example
+			 *	<div id="progress"></div>
+			 *	<script>
+			 *		var element = document.getElementById("progress"),
+			 *			progressWidget = tau.widget.Progress(element);
+			 *
+			 *		progressWidget.refresh();
+			 *
+			 *		// also will be called after
+			 *		progressWidget.option("running", true);
+			 *	</script>
+			 *
+			 *	@example
+			 *	<div id="progress"></div>
+			 *	<script>
+			 *		$( "#progress" ).progress( "refresh" );
+			 *	</script>
+			 *
+			 * @method refresh
+			 * @chainable
+			 * @member ns.widget.mobile.Progress
+			 */
+
+			/**
+			 * Refresh progress
+			 * @method _refresh
+			 * @member ns.widget.mobile.Progress
+			 * @protected
+			 */
 			Progress.prototype._refresh = function () {
 				if (this.options.running) {
 					this._start();
@@ -334,12 +431,12 @@
 				"Progress",
 				"[data-role='progress'], .ui-progress",
 				[
-					'running',
-					'show',
-					'hide'
+					"running",
+					"show",
+					"hide"
 				],
 				Progress,
-				'tizen'
+				"tizen"
 			);
 
 //>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
