@@ -201,6 +201,7 @@
 					self.mouseMoved = false;
 				},
 				BaseWidget = ns.widget.mobile.BaseWidgetMobile,
+				TextInput = ns.widget.mobile.TextInput,
 				Button = ns.widget.mobile.Button,
 				engine = ns.engine,
 				events = ns.event,
@@ -764,8 +765,7 @@
 					sliderContainer.appendChild(domSlider);
 					sliderContainer.id = elementId + "-container";
 					elementClassList = element.classList;
-					elementClassList.add(
-							ns.widget.mobile.Textinput.classes.uiInputText);
+					elementClassList.add(TextInput.classes.uiInputText);
 					elementClassList.add(classes.theme + theme);
 					elementClassList.add(classes.sliderInput);
 					element.style.display = "none";

@@ -19,8 +19,120 @@
  * #Text Input Widget
  * Decorator for inputs elements.
  *
- * @class ns.widget.Textinput
+ * ## Default selectors
+ * In default elements matches to :
+ *
+ *  - INPUT with type "text" or "number" or "password" or "email" or "url" or
+ *    "tel" or "month" or "week" or "datetime-local" or "color" or without any
+ *    type
+ *  - TEXTAREA
+ *  - HTML elements with class ui-TextInput
+ *
+ * ###HTML Examples
+ *
+ * ####Create simple text input on INPUT element
+ *
+ *		@example
+ *		<form>
+ *			<label for="text-1">Text input:</label>
+ *			<input type="text" name="text-1" id="text-1" value="">
+ *		</form>
+ *
+ * ####Create simple text input on TEXTAREA element
+ *
+ *		@example
+ *		<form>
+ *			<label for="text-1">Text input:</label>
+ *			<textarea name="text-1" id="text-1"></textarea>
+ *		</form>
+ *
+ * ####Create simple text input on INPUT element with class ui-textinput
+ *
+ *		@example
+ *		<form>
+ *			<label for="text-1">Text input:</label>
+ *			<input name="text-1" id="text-1" class="ui-textinput">
+ *		</form>
+ *
+ * ## Manual constructor
+ * For manual creation of TextInput widget you can use constructor of widget
+ * from **tau** namespace:
+ *
+ *		@example
+ *		<form>
+ *			<label for="text-1">Text input:</label>
+ *			<input type="search" name="text-1" id="text-1" value="">
+ *		</form>
+ *		<script>
+ *			var inputElement = document.getElementById("text-1"),
+ *				textInput = tau.widget.TextInput(inputElement);
+ *		</script>
+ *
+ * Constructor has one require parameter **element** which are base
+ * **HTMLElement** to create widget. We recommend get this element by method
+ * *document.getElementById*. Second parameter is **options** and it is a object
+ * with options for widget.
+ *
+ * If jQuery library is loaded, its method can be used:
+ *
+ *		@example
+ *		<form>
+ *			<label for="text-1">Text input:</label>
+ *			<input type="text" name="text-1" id="text-1" value="">
+ *		</form>
+ *		<script>
+ *			$("#text-1").textinput();
+ *		</script>
+ *
+ * jQuery Mobile constructor has one optional parameter is **options** and it is
+ * a object with options for widget.
+ *
+ * ##Options for widget
+ *
+ * Options for widget can be defined as _data-..._ attributes or give as
+ * parameter in constructor.
+ *
+ * You can change option for widget using method **option**.
+ *
+ * ##Methods
+ *
+ * To call method on widget you can use one of existing API:
+ *
+ * First API is from tau namespace:
+ *
+ *		@example
+ *		<input id="text-1" />
+ *		<script>
+ *			var inputElement = document.getElementById('text-1'),
+ *				textInput = tau.widget.TextInput(inputElement);
+ *
+ *		 	// textInput.methodName(argument1, argument2, ...);
+ *			// for example:
+ *			textInput.value("text");
+ *		</script>
+ *
+ *
+ * Second API is jQuery Mobile API and for call _methodName_ you can use:
+ *
+ *		@example
+ *		<input id="text-1" />
+ *		<script>
+ *			// $("#text-1").textinput('methodName', argument1, argument2, ...);
+ *			// for example
+ *
+ *			$("#text-1").value("text");
+ *		</script>
+ *
+ * @class ns.widget.mobile.TextInput
  * @extends ns.widget.BaseWidget
+ * @author Maciej Urbanski <m.urbanski@samsung.com>
+ * @author Jadwiga Sosnowska <j.sosnowska@samsung.com>
+ * @author Piotr Karny <p.karny@samsung.com>
+ * @author Piotr Kusztal <p.kusztal@samsung.com>
+ * @author Maciej Moczulski <m.moczulski@samsung.com>
+ * @author Krzysztof Antoszek <k.antoszek@samsung.com>
+ * @author Hyunkook Cho <hk0713.cho@samsung.com>
+ * @author Junhyeon Lee <juneh.lee@samsung.com>
  */
 (function (document, ns) {
 	"use strict";
@@ -35,7 +147,7 @@
 		],
 		function () {
 //>>excludeEnd("tauBuildExclude");
-			var Textinput = function () {
+			var TextInput = function () {
 					/**
 					 * Object with default options
 					 * @property {Object} options
@@ -44,8 +156,7 @@
 					 * @property {?boolean} [options.mini=null] set mini version
 					 * @property {string} [options.theme='s'] theme of widget
 					 * @property {string} [options.clearBtn=false] option indicates that the clear button will be shown
-					 * @member ns.widget.Textinput
-					 * @instance
+					 * @member ns.widget.mobile.TextInput
 					 */
 					this.options = {
 						clearSearchButtonText: "clear text",
@@ -58,7 +169,7 @@
 				/**
 				 * Alias for {ns.widget.BaseWidget}
 				 * @property {Object} BaseWidget
-				 * @member ns.widget.Textinput
+				 * @member ns.widget.mobile.TextInput
 				 * @static
 				 * @private
 				 */
@@ -66,7 +177,7 @@
 				/**
 				 * Alias for {ns.engine}
 				 * @property {Object} engine
-				 * @member ns.widget.Textinput
+				 * @member ns.widget.mobile.TextInput
 				 * @static
 				 * @private
 				 */
@@ -74,7 +185,7 @@
 				/**
 				 * Alias for {ns.theme}
 				 * @property {Object} theme
-				 * @member ns.widget.Textinput
+				 * @member ns.widget.mobile.TextInput
 				 * @static
 				 * @private
 				 */
@@ -84,13 +195,14 @@
 				 * @property {boolean} eventsAdded
 				 * @private
 				 * @static
+				 * @member ns.widget.mobile.TextInput
 				 */
 				eventsAdded = false,
 
 				/**
 				 * Dictionary for textinput related css class names
 				 * @property {Object} classes
-				 * @member ns.widget.Textinput
+				 * @member ns.widget.mobile.TextInput
 				 * @static
 				 */
 				classes = {
@@ -104,25 +216,50 @@
 				/**
 				 * Alias for {ns.widget.mobile.Button.classes.uiDisabled}
 				 * @property {Object} CLASS_DISABLED
-				 * @member ns.widget.Textinput
+				 * @member ns.widget.mobile.TextInput
 				 * @static
 				 * @private
 				 * @readonly
 				 */
 				CLASS_DISABLED = ns.widget.mobile.Button.classes.uiDisabled;
 
-			Textinput.prototype = new BaseWidget();
+			TextInput.prototype = new BaseWidget();
 
-			Textinput.classes = classes;
+			TextInput.classes = classes;
 
 			/**
-			* Enable textinput
-			* @method _enable
-			* @member ns.widget.Textinput
-			* @protected
-			* @instance
-			*/
-			Textinput.prototype._enable = function () {
+			 * Enables the textinput
+			 *
+			 * Method removes disabled attribute on input and changes look of
+			 * input to enabled state.
+			 *
+			 *	@example
+			 *	<input id="input" />
+			 *	<script>
+			 *		var inputElement = document.getElementById("input"),
+			 *			textInputWidget = tau.widget.TextInput();
+			 *
+			 *		textInputWidget.enable();
+			 *	</script>
+			 *
+			 *	@example
+			 *	<input id="input" />
+			 *	<script>
+			 *		$( "#input" ).textinput( "enable" );
+			 *	</script>
+			 *
+			 * @method enable
+			 * @chainable
+			 * @member ns.widget.mobile.TextInput
+			 */
+
+			/**
+			 * Method enables TextInput.
+			 * @method _enable
+			 * @member ns.widget.mobile.TextInput
+			 * @protected
+			 */
+			TextInput.prototype._enable = function () {
 				var element = this.element;
 				if (element) {
 					element.classList.remove(CLASS_DISABLED);
@@ -130,13 +267,38 @@
 			};
 
 			/**
-			* Disable textinput
-			* @method _disable
-			* @member ns.widget.Textinput
-			* @protected
-			* @instance
-			*/
-			Textinput.prototype._disable = function () {
+			 * Disables the textinput
+			 *
+			 * Method adds disabled attribute on input and changes look of
+			 * input to disable state.
+			 *
+			 *	@example
+			 *	<input id="input" />
+			 *	<script>
+			 *		var inputElement = document.getElementById("input"),
+			 *			textInputWidget = tau.widget.TextInput();
+			 *
+			 *		textInputWidget.disable();
+			 *	</script>
+			 *
+			 *	@example
+			 *	<input id="input" />
+			 *	<script>
+			 *		$( "#input" ).textinput( "disable" );
+			 *	</script>
+			 *
+			 * @method disable
+			 * @chainable
+			 * @member ns.widget.mobile.TextInput
+			 */
+
+			/**
+			 * Method disables TextInput
+			 * @method _disable
+			 * @member ns.widget.mobile.TextInput
+			 * @protected
+			 */
+			TextInput.prototype._disable = function () {
 				var element = this.element;
 				if (element) {
 					element.classList.add(CLASS_DISABLED);
@@ -148,7 +310,7 @@
 			 * @method toggleClearButton
 			 * @param {HTMLElement} clearbtn
 			 * @param {HTMLElement} element
-			 * @member ns.widget.Textinput
+			 * @member ns.widget.mobile.TextInput
 			 * @static
 			 * @private
 			 */
@@ -163,28 +325,29 @@
 			}
 
 			/**
-			* Find label tag for element
-			* @method findLabel
-			* @param {HTMLElement} element
-			* @member ns.widget.Textinput
-			* @return {HTMLElement}
-			* @static
-			* @private
-			*/
+			 * Method finds label tag for element.
+			 * @method findLabel
+			 * @param {HTMLElement} element
+			 * @member ns.widget.mobile.TextInput
+			 * @return {HTMLElement}
+			 * @static
+			 * @private
+			 */
 			function findLabel(element) {
 				var elemParent = element.parentNode;
 				return elemParent.querySelector('label[for="' + element.id + '"]');
 			}
 
 			/**
-			* return not disabled textinput element which is the closest to element
-			* @method isEnabledTextInput
-			* @param {HTMLElement} element
-			* @return {?HTMLElement}
-			* @private
-			* @static
-			* @member ns.widget.Textinput
-			*/
+			 * Method returns not disabled TextInput element which is the closest
+			 * to element.
+			 * @method isEnabledTextInput
+			 * @param {EventTarget|HTMLElement} element
+			 * @return {?HTMLElement}
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.TextInput
+			 */
 			function isEnabledTextInput(element) {
 				if (element.classList.contains(classes.uiInputText) &&
 						!element.classList.contains(CLASS_DISABLED)) {
@@ -196,11 +359,11 @@
 			/**
 			* The check whether the element is the enable "clear" button
 			* @method isEnabledClearButton
-			* @param {HTMLElement} element
+			* @param {HTMLElement|EventTarget} element
 			* @return {boolean}
 			* @private
 			* @static
-			* @member ns.widget.Textinput
+			* @member ns.widget.mobile.TextInput
 			*/
 			function isEnabledClearButton(element) {
 				var input,
@@ -217,13 +380,13 @@
 			}
 
 			/**
-			* add class ui-focus to target element of event
-			* @method onFocus
-			* @param {Event} event
-			* @private
-			* @static
-			* @member ns.widget.Textinput
-			*/
+			 * Method adds class ui-focus to target element of event.
+			 * @method onFocus
+			 * @param {Event} event
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.TextInput
+			 */
 			function onFocus(event) {
 				var elem = isEnabledTextInput(event.target);
 				if (elem) {
@@ -232,18 +395,18 @@
 			}
 
 			/**
-			 * add event for resize textarea
-			 * @method onKeyup
+			 * Method adds event for resize textarea.
+			 * @method onKeyUp
 			 * @param {Event} event
 			 * @private
 			 * @static
-			 * @member ns.widget.Textinput
+			 * @member ns.widget.mobile.TextInput
 			 */
 			function onKeyup(event) {
 				var element = isEnabledTextInput(event.target),
 					self;
 				if (element) {
-					self = engine.getBinding(element, "Textinput");
+					self = engine.getBinding(element, "TextInput");
 					if (self) {
 						toggleClearButton(self._ui.clearButton, element);
 					}
@@ -251,31 +414,31 @@
 				}
 			}
 			/**
-			* remove class ui-focus from target element of event
-			* @method onBlur
-			* @param {Event} event
-			* @private
-			* @static
-			* @member ns.widget.Textinput
-			*/
+			 * Method removes class ui-focus from target element of event.
+			 * @method onBlur
+			 * @param {Event} event
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.TextInput
+			 */
 			function onBlur(event) {
 				var element = isEnabledTextInput(event.target),
 					self;
 				if (element) {
 					element.classList.remove('ui-focus');
-					self = engine.getBinding(element, "Textinput");
+					self = engine.getBinding(element, "TextInput");
 					if (self) {
 						toggleClearButton(self._ui.clearButton, element);
 					}
 				}
 			}
 			/**
-			*
+			* Handler for vclick events in clearButton
 			* @method onCancel
 			* @param {Event} event
 			* @private
 			* @static
-			* @member ns.widget.Textinput
+			* @member ns.widget.mobile.TextInput
 			*/
 			function onCancel(event) {
 				var clearButton = event.target,
@@ -289,12 +452,12 @@
 			}
 
 			/**
-			* add events to all textinputs
-			* @method addGlobalEvents
-			* @private
-			* @static
-			* @member ns.widget.Textinput
-			*/
+			 * add events to all TextInputs
+			 * @method addGlobalEvents
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.TextInput
+			 */
 			function addGlobalEvents() {
 				if (!eventsAdded) {
 					document.addEventListener('focus', onFocus, true);
@@ -308,8 +471,7 @@
 			 * @method _resize
 			 * @private
 			 * @param {HTMLElement} element
-			 * @member ns.widget.Textinput
-			 * @param element
+			 * @member ns.widget.mobile.TextInput
 			 */
 			function _resize(element){
 				if (element.nodeName.toLowerCase() === "textarea") {
@@ -320,20 +482,19 @@
 			}
 
 			/**
-			* build Textinput Widget
+			* build TextInput Widget
 			* @method _build
 			* @param {HTMLElement} element
-			* @member ns.widget.Textinput
+			* @member ns.widget.mobile.TextInput
 			* @return {HTMLElement}
 			* @protected
-			* @instance
 			*/
-			Textinput.prototype._build = function (element) {
+			TextInput.prototype._build = function (element) {
 				var self= this,
 					elementClassList = element.classList,
-					classes = Textinput.classes,
+					classes = TextInput.classes,
 					options = self.options,
-					themeclass,
+					themeClass,
 					labelFor = findLabel(element),
 					clearButton,
 					ui;
@@ -342,14 +503,14 @@
 				ui = self._ui;
 
 				options.theme = themes.getInheritedTheme(element) || options.theme;
-				themeclass  = classes.uiBodyTheme + options.theme;
+				themeClass = classes.uiBodyTheme + options.theme;
 
 				if (labelFor) {
 					labelFor.classList.add(classes.uiInputText);
 				}
 
 				elementClassList.add(classes.uiInputText);
-				elementClassList.add(themeclass);
+				elementClassList.add(themeClass);
 
 				switch (element.type) {
 				case "text":
@@ -384,14 +545,14 @@
 			};
 
 			/**
-			* Init Textinput Widget
+			* Init TextInput Widget
 			* @method _init
 			* @param {HTMLElement} element
-			* @member ns.widget.Textinput
+			* @member ns.widget.mobile.TextInput
 			* @return {HTMLElement}
 			* @protected
 			*/
-			Textinput.prototype._init = function (element) {
+			TextInput.prototype._init = function (element) {
 				if (this._ui.clearButton) {
 					toggleClearButton(this._ui.clearButton, element);
 				}
@@ -404,9 +565,9 @@
 			* @method _bindEvents
 			* @param {HTMLElement} element
 			* @protected
-			* @member ns.widget.Textinput
+			* @member ns.widget.mobile.TextInput
 			*/
-			Textinput.prototype._bindEvents = function (element) {
+			TextInput.prototype._bindEvents = function (element) {
 				var clearButton = this._ui.clearButton;
 				element.addEventListener('keyup', onKeyup , false);
 				if (clearButton) {
@@ -415,16 +576,16 @@
 				addGlobalEvents();
 			};
 
-			ns.widget.mobile.Textinput = Textinput;
+			ns.widget.mobile.TextInput = TextInput;
 			engine.defineWidget(
-				"Textinput",
-				"input[type='text'], input[type='number'], input[type='password'], input[type='email'], input[type='url'], input[type='tel'], textarea, input[type='month'], input[type='week'], input[type='datetime-local'], input[type='date'], input[type='time'], input[type='datetime'], input[type='color'], input:not([type]), .ui-textinput",
+				"TextInput",
+				"input[type='text'], input[type='number'], input[type='password'], input[type='email'], input[type='url'], input[type='tel'], textarea, input[type='month'], input[type='week'], input[type='datetime-local'], input[type='color'], input:not([type]), .ui-textinput",
 				[],
-				Textinput,
+				TextInput,
 				"mobile"
 			);
 //>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ns.widget.mobile.Textinput;
+			return ns.widget.mobile.TextInput;
 		}
 	);
 //>>excludeEnd("tauBuildExclude");
