@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, define, ns */
 /*
 * Copyright (c) 2013 - 2014 Samsung Electronics Co., Ltd
 *
@@ -20,50 +20,137 @@
  * The Notification widget shows a popup on the screen to provide notifications.
  *
  * ##Default selectors
- * In all elements with _data-role=notification_. Use _p_ tag for messages and _img_ tag for icon.
+ * In all elements with _data-role=notification_ or with _ui-notification_ CSS class. Use _p_ tag for messages and _img_ tag for icon.
  *
  * ##Manual constructor
  * For manual creation of notification widget you can use constructor of widget:
  *
  *	@example
- *	var notification = ns.engine.instanceWidget(document.getElementById('notification'), 'Notification');
+ *	<!-- Widget structure -->
+ *	<div data-role="notification" id="notification" data-type="smallpoup">
+ *		<p>Line of message</p>
+ *	</div>
  *
- * If jQuery library is loaded, its method can be used:
+ *	<script>
+ *		var notification = tau.widget.Notification(document.getElementById("notification"));
+ *	</script>
+ *
+ * If jQuery library is loaded, this method can be used:
  *
  *	@example
- *	var notification = $('#notification').notification();
+ *	<!-- Widget structure -->
+ *	<div data-role="notification" id="notification" data-type="smallpoup">
+ *		<p>Line of message</p>
+ *	</div>
+ *
+ *	<script>
+ *		var notification = $("#notification").notification();
+ *	</script>
  *
  * ##HTML Examples
  *
  * ###Create notification smallpoup
  * Smallpoup has only one line of message and is positioned to the bottom of the active page. It's default type of notification widget.
  *
+ * Running example in pure JavaScript:
+ *
  *	@example
+ *	<!-- Widget structure -->
  *	<div data-role="notification" id="notification" data-type="smallpoup">
  *		<p>Line of message</p>
  *	</div>
  *
+ *	<script>
+ *		// Get widget instance or create new instance if widget not exists.
+ *		var notification = tau.widget.Notification(document.getElementById("notification"));
+ *
+ *		// Open notification
+ *		notification.open();
+ *	</script>
+ *
+ * If jQuery library is loaded, this method can be used:
+ *
+ *	@example
+ *	<!-- Widget structure -->
+ *	<div data-role="notification" id="notification" data-type="smallpoup">
+ *		<p>Line of message</p>
+ *	</div>
+ *
+ *	<script>
+ *		// Open widget using jQuery notation
+ *		$( "#notification" ).notification( "open" )
+ *	</script>
+ *
  * ###Create notification ticker
- * Notification ticker has maximum two lines of message, other messages will be hidden. Additionaly you can set an icon. Notification ticker is default positioned to the top of the page.
+ * Notification ticker has maximum two lines of message, other messages will be hidden. Additionally you can set an icon. Notification ticker is default positioned to the top of the page.
+ *
+ * Running example in pure JavaScript:
  *
  *	@example
  *	<div data-role="notification" id="notification" data-type="ticker">
  *		<p>First line of message</p>
  *		<p>Second line of message</p>
  *	</div>
+ *
+ *	<script>
+ *		// Get widget instance or create new instance if widget not exists.
+ *		var notification = tau.widget.Notification(document.getElementById("notification"));
+ *
+ *		// Open notification
+ *		notification.open();
+ *	</script>
+ *
+ * If jQuery library is loaded, this method can be used:
+ *
+ *	@example
+ *	<div data-role="notification" id="notification" data-type="ticker">
+ *		<p>First line of message</p>
+ *		<p>Second line of message</p>
+ *	</div>
+ *
+ *	<script>
+ *		// Open widget using jQuery notation
+ *		$( "#notification" ).notification( "open" )
+ *	</script>
  *
  * ###Create notification wih interval
  * Interval defines time to showing notification widget, after this it will close automatically. Values of _data-interval_ is a positive **number of miliseconds**, e.g. _data-interval="2000"_ (sets to close widget after 2 seconds). Otherwise widget will show infinietely.
  *
+ * Running example in pure JavaScript:
+ *
  *	@example
  *	<div data-role="notification" id="notification" data-type="ticker" data-interval="4000">
  *		<img src="icon.png">
- *		<p>First line of message</p>
- *		<p>Second line of message</p>
+ *		<p>I will close in 4* seconds!</p>
+ *		<p>* starts counting from widget opening</p>
  *	</div>
  *
+ *	<script>
+ *		// Get widget instance or create new instance if widget not exists.
+ *		var notification = tau.widget.Notification(document.getElementById("notification"));
+ *
+ *		// Open notification
+ *		notification.open();
+ *	</script>
+ *
+ * If jQuery library is loaded, this method can be used:
+ *
+ *	@example
+ *	<div data-role="notification" id="notification" data-type="ticker" data-interval="4000">
+ *		<img src="icon.png">
+ *		<p>I will close in 4* seconds!</p>
+ *		<p>* starts counting from widget opening</p>
+ *	</div>
+ *
+ *	<script>
+ *		// Open widget using jQuery notation
+ *		$( "#notification" ).notification( "open" )
+ *	</script>
+ *
  * ###Create notification ticker with icon
- * Icon is only supported with notification ticker.
+ * !!!Icon is only supported with notification ticker.!!!
+ *
+ * Running example in pure JavaScript:
  *
  *	@example
  *	<div data-role="notification" id="notification" data-type="ticker">
@@ -72,8 +159,27 @@
  *		<p>Second line of message</p>
  *	</div>
  *
- * @class ns.widget.Notification
- * @extends ns.widget.BaseWidget
+ *	<script>
+ *		// Open notification
+ *		notification.open();
+ *	</script>
+ *
+ * If jQuery library is loaded, this method can be used:
+ *
+ *	@example
+ *	<div data-role="notification" id="notification" data-type="ticker">
+ *		<img src="icon.png">
+ *		<p>First line of message</p>
+ *		<p>Second line of message</p>
+ *	</div>
+ *
+ *	<script>
+ *		// Open widget using jQuery notation
+ *		$( "#notification" ).notification( "open" )
+ *	</script>
+ *
+ * @class ns.widget.mobile.Notification
+ * @extends ns.widget.mobile.BaseWidget
  */
 (function (document, ns) {
 	"use strict";
@@ -90,137 +196,137 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			/**
-			* {Object} Widget Alias for {@link ns.widget.BaseWidget}
-			* @member ns.widget.Notification
-			* @private
-			*/
+			 * {Object} Widget Alias for {@link ns.widget.mobile.BaseWidget}
+			 * @member ns.widget.mobile.Notification
+			 * @private
+			 */
 			var BaseWidget = ns.widget.mobile.BaseWidgetMobile,
 				/**
-				* {Object} Widget Alias for {@link ns.widget.mobile.Page}
-				* @member ns.widget.Notification
-				* @private
-				*/
+				 * {Object} Widget Alias for {@link ns.widget.mobile.Page}
+				 * @member ns.widget.Notification
+				 * @private
+				 */
 				Page = ns.widget.mobile.Page,
 				/**
-				* @property {Object} engine Alias for class ns.engine
-				* @member ns.widget.Notification
-				* @private
-				*/
+				 * @property {Object} engine Alias for class ns.engine
+				 * @member ns.widget.mobile.Notification
+				 * @private
+				 */
 				engine = ns.engine,
 				/**
-				* @property {Object} selectors Alias for class ns.selectors
-				* @member ns.widget.Notification
-				* @private
-				*/
+				 * @property {Object} selectors Alias for class ns.selectors
+				 * @member ns.widget.mobile.Notification
+				 * @private
+				 */
 				selectors = ns.util.selectors,
 				/**
-				* @property {Object} themes Alias for class ns.theme
-				* @member ns.widget.Notification
-				* @private
-				*/
+				 * @property {Object} themes Alias for class ns.theme
+				 * @member ns.widget.mobile.Notification
+				 * @private
+				 */
 				themes = ns.theme,
 
 				/**
-				* Alias for class ns.widget.Notification
-				* @method Notification
-				* @member ns.widget.Notification
-				* @private
-				*/
+				 * Alias for class ns.widget.mobile.Notification
+				 * @method Notification
+				 * @member ns.widget.mobile.Notification
+				 * @private
+				 */
 				Notification = function () {
 
 					/**
-					* @property {boolean} _eventsAdded Flag that the widget was binded with events
-					* @member ns.widget.Notification
-					* @private
-					*/
+					 * @property {boolean} _eventsAdded Flag that the widget was binded with events
+					 * @member ns.widget.mobile.Notification
+					 * @private
+					 */
 					this._eventsAdded = false;
 
 					/**
-					* @property {Object} _ui Holds all needed UI HTMLElements
-					* @member ns.widget.Notification
-					* @protected
-					*/
+					 * @property {Object} _ui Holds all needed UI HTMLElements
+					 * @member ns.widget.mobile.Notification
+					 * @protected
+					 */
 					this._ui = {
 						/**
-						* @property {HTMLElement} _ui.wrapper Widgets content wrapper
-						* @member ns.widget.Notification
-						* @protected
-						*/
+						 * @property {HTMLElement} _ui.wrapper Widgets content wrapper
+						 * @member ns.widget.mobile.Notification
+						 * @protected
+						 */
 						wrapper: null,
 
 						/**
-						* @property {NodeList} _ui.iconImg Widgets icons
-						* @member ns.widget.Notification
-						* @protected
-						*/
+						 * @property {NodeList} _ui.iconImg Widgets icons
+						 * @member ns.widget.mobile.Notification
+						 * @protected
+						 */
 						iconImg: null,
 
 						/**
-						* @property {NodeList} _ui.texts Widgets texts
-						* @member ns.widget.Notification
-						* @protected
-						*/
+						 * @property {NodeList} _ui.texts Widgets texts
+						 * @member ns.widget.mobile.Notification
+						 * @protected
+						 */
 						texts: []
 					};
 
 					/**
-					* @property {number} interval Widgets interval
-					* @member ns.widget.Notification
-					* @protected
-					*/
+					 * @property {number} interval Widgets interval
+					 * @member ns.widget.mobile.Notification
+					 * @protected
+					 */
 					this.interval = null;
 
 					/**
-					* @property {boolean} running Widget running status
-					* @member ns.widget.Notification
-					* @protected
-					*/
+					 * @property {boolean} running Widget running status
+					 * @member ns.widget.mobile.Notification
+					 * @protected
+					 */
 					this.running = false;
 
 					/**
-					* @property {Object} options Widget options
-					* @property {string} [options.theme='s'] theme of widget
-					* @property {string} [options.type='smallpopup'] type of widget
-					* @property {string} [interval='0'] interval value in milliseconds of widget. 0 - show widget infinitely
-					* @member ns.widget.Notification
-					* @protected
-					*/
+					 * @property {Object} options Widget options
+					 * @property {string} [options.theme="s"] theme Theme of widget
+					 * @property {"smallpopup"|"ticker"} [options.type="smallpopup"] type of widget. Allowed types: <b>smallpopup</b> or <b>ticker</b>.
+					 * @property {number} [interval=0] interval value in milliseconds of widget. 0 - show widget infinitely
+					 * @member ns.widget.mobile.Notification
+					 * @protected
+					 */
 					this.options = {
-						theme: 's',
-						type: 'smallpopup',
-						interval: '0'
+						theme: "s",
+						type: "smallpopup",
+						interval: 0
 					};
 				};
 
 			Notification.prototype = new BaseWidget();
 
 			/**
-			* @property {Object} classes Dictionary for notification related css class names
-			* @member ns.widget.Notification
-			* @static
-			*/
+			 * Dictionary for notification related css class names
+			 * @property {Object} classes
+			 * @member ns.widget.mobile.Notification
+			 * @static
+			 */
 			Notification.classes = {
-				uiTicker : 'ui-ticker',
-				uiTickerText1Bg : 'ui-ticker-text1-bg',
-				uiTickerText2Bg : 'ui-ticker-text2-bg',
-				uiTickerIcon : 'ui-ticker-icon',
-				uiSmallpopup : 'ui-smallpopup',
-				uiSmallpopupTextBg : 'ui-smallpopup-text-bg',
-				uiTickerBtn : 'ui-ticker-btn',
-				uiNotificationFix: 'fix',
-				uiNotificationShow: 'show',
-				uiNotificationHide: 'hide'
+				uiTicker : "ui-ticker",
+				uiTickerText1Bg : "ui-ticker-text1-bg",
+				uiTickerText2Bg : "ui-ticker-text2-bg",
+				uiTickerIcon : "ui-ticker-icon",
+				uiSmallpopup : "ui-smallpopup",
+				uiSmallpopupTextBg : "ui-smallpopup-text-bg",
+				uiTickerBtn : "ui-ticker-btn",
+				uiNotificationFix: "fix",
+				uiNotificationShow: "show",
+				uiNotificationHide: "hide"
 			};
 
 			/**
-			* Build structure of notification widget
-			* @method _build
-			* @param {HTMLElement} element
-			* @return {HTMLElement}
-			* @private
-			* @member ns.widget.Notification
-			* @instance
-			*/
+			 * Build structure of notification widget
+			 * @method _build
+			 * @param {HTMLElement} element
+			 * @return {HTMLElement}
+			 * @protected
+			 * @member ns.widget.mobile.Notification
+			 */
 			Notification.prototype._build = function (element) {
 				var wrapperTag = "div",
 					textTag = "p",
@@ -259,10 +365,10 @@
 				//Hide not visible elements
 				l = texts.length; //Update length
 				for (i = 2; i < l; i++) {
-					texts[i].style.display = 'none';
+					texts[i].style.display = "none";
 				}
 
-				if (options.type === 'ticker') {
+				if (options.type === "ticker") {
 					//Create elements
 					notifyBtnWrapper = document.createElement(wrapperTag);
 					closeButton = document.createElement(wrapperTag);
@@ -276,7 +382,7 @@
 					notifyBtnWrapper.className = classes.uiTickerBtn;
 
 					//Instance Button widget
-					closeButton.innerText = 'Close';
+					closeButton.textContent = "Close";
 					engine.instanceWidget(closeButton, "Button", {
 						theme: options.theme,
 						inline: true
@@ -290,11 +396,11 @@
 					//Add classes
 					notifyWrapper.className = classes.uiSmallpopup;
 
-					//Add clases to element and hide second element
+					//Add classes to element and hide second element
 					texts[0].classList.add(classes.uiSmallpopupTextBg);
-					texts[1].style.display = 'none';
+					texts[1].style.display = "none";
 
-					this._setPosition();
+					this._positionWidget();
 				}
 				element.appendChild(notifyWrapper);
 				uiElements.texts = texts;
@@ -302,14 +408,12 @@
 			};
 
 			/**
-			* Init widget
-			* @method _init
-			* @param {HTMLElement} element
-			* @protected
-			* @member ns.widget.Notification
-			* @instance
-			*/
-
+			 * Init widget
+			 * @method _init
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.mobile.Notification
+			 */
 			Notification.prototype._init = function (element) {
 				var options = this.options,
 					classes = Notification.classes,
@@ -331,13 +435,13 @@
 				uiElements.texts[1] = wrapper.getElementsByClassName(classes.uiTickerText2Bg)[0];
 
 				//Get icons
-				iconImg = element.getElementsByTagName('img');
+				iconImg = element.getElementsByTagName("img");
 				iconImgLength = iconImg.length;
 				for (i = 0; i < iconImgLength; i++) {
 					iconImg[i].classList.add(classes.uiTickerIcon);
 					//Hide unused icons
 					if (i > 1) {
-						iconImg[i].style.display = 'none';
+						iconImg[i].style.display = "none";
 					}
 				}
 				uiElements.iconImg = iconImg;
@@ -347,49 +451,146 @@
 			};
 
 			/**
-			* Bind events to widget
-			* @method _bindEvents
-			* @param {HTMLElement} element
-			* @protected
-			* @member ns.widget.Notification
-			* @instance
-			*/
+			 * Bind events to widget
+			 * @method _bindEvents
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.mobile.Notification
+			 */
 			Notification.prototype._bindEvents = function (element) {
 				if (!this._eventsAdded) {
 					// Is it needed, that closeButton should has click event binded with self.close() too?
-					element.addEventListener('vmouseup', this.close.bind(this), true);
+					element.addEventListener("vmouseup", this.close.bind(this), true);
 					this._eventsAdded = true;
 				}
 			};
 
 			/**
-			* Enable notification
-			* @method _enable
-			* @protected
-			* @member ns.widget.Notification
-			* @instance
-			*/
+			 * Enable to show notification on screen. This method removes __display: none__ style from notification element.
+			 *
+			 * #####Running example in pure JavaScript:
+			 *
+			 *	@example
+			 *	<!-- Widget structure -->
+			 *	<div data-role="notification" id="notification" data-type="smallpoup">
+			 *		<p>Line of message</p>
+			 *	</div>
+			 *
+			 *	<script>
+			 *		// Get widget instance or create new instance if widget not exists.
+			 *		var notification = tau.widget.Notification(document.getElementById("notification"));
+			 *
+			 *		// Make it enabled
+			 *		notification.enable();
+			 *	</script>
+			 *
+			 * #####If jQuery library is loaded, this method can be used:
+			 *
+			 *	@example
+			 *	<!-- Widget structure -->
+			 *	<div data-role="notification" id="notification" data-type="smallpoup">
+			 *		<p>Line of message</p>
+			 *	</div>
+			 *
+			 *	<script>
+			 *		// Make it enabled
+			 *		$( "#notification" ).notification( "enable" );
+			 *	</script>
+			 *
+			 * @method enable
+			 * @member ns.widget.mobile.Notification
+			 */
+
+			/**
+			 * @method _enable
+			 * @protected
+			 * @member ns.widget.mobile.Notification
+			 */
 			Notification.prototype._enable = function () {
-				this._ui.wrapper.style.display = '';
+				this._ui.wrapper.style.display = "";
 			};
 
 			/**
-			* Disable notification
-			* @method _disable
-			* @protected
-			* @member ns.widget.Notification
-			* @instance
-			*/
+			 * Disable notification. This method adds display:none style to notification element.
+			 *
+			 * #####Running example in pure JavaScript:
+			 *
+			 *	@example
+			 *	<!-- Widget structure -->
+			 *	<div data-role="notification" id="notification" data-type="smallpoup">
+			 *		<p>Line of message</p>
+			 *	</div>
+			 *
+			 *	<script>
+			 *		// Get widget instance or create new instance if widget not exists.
+			 *		var notification = tau.widget.Notification(document.getElementById("notification"));
+			 *
+			 *		// Make it disabled
+			 *		notification.disable();
+			 *	</script>
+			 *
+			 *
+			 * #####If jQuery library is loaded, this method can be used:
+			 *
+			 *	@example
+			 *	<!-- Widget structure -->
+			 *	<div data-role="notification" id="notification" data-type="smallpoup">
+			 *		<p>Line of message</p>
+			 *	</div>
+			 *
+			 *	<script>
+			 *		// Make it disabled
+			 *		$( "#notification" ).notification( "disable" );
+			 *	</script>
+			 *
+			 * @method disable
+			 * @member ns.widget.mobile.Notification
+			 *
+			 */
+
+			/**
+			 * @method _disable
+			 * @protected
+			 * @member ns.widget.mobile.Notification
+			 */
 			Notification.prototype._disable = function () {
-				this._ui.wrapper.style.display = 'none';
+				this._ui.wrapper.style.display = "none";
 			};
 
 			/**
-			* Refresh notification
-			* @method _refresh
-			* @member ns.widget.Notification
-			* @instance
-			*/
+			 * Refresh a notification widget and resets interval if it was set before.
+			 *
+			 * #####Running example in pure JavaScript:
+			 *
+			 *	@example
+			 *	<div data-role="notification" id="notificationSelector" data-type="smallpoup">
+			 *		<p>Line of message</p>
+			 *	</div>
+			 *	<script>
+			 *		var notification = tau.widget.Notification(document.getElementById("notificationSelector"));
+			 *		notification.refresh();
+			 *	</script>
+			 *
+			 * #####If jQuery library is loaded, this method can be used:
+			 *
+			 *	@example
+			 *	<div data-role="notification" id="notificationSelector" data-type="smallpoup">
+			 *		<p>Line of message</p>
+			 *	</div>
+			 *	<script>
+			 *		$("#notificationSelector").notification("refresh");
+			 *	</script>
+			 *
+			 * @method refresh
+			 * @chainable
+			 * @member ns.widget.mobile.Notification
+			 */
+
+			/**
+			 * Refresh notification
+			 * @method _refresh
+			 * @member ns.widget.mobile.Notification
+			 */
 			Notification.prototype._refresh = function () {
 				var wrapperClassList = this._ui.wrapper.classList,
 					classes = Notification.classes;
@@ -400,31 +601,53 @@
 			};
 
 			/**
-			* Set widget position.
-			* @method _setPosition
-			* @protected
-			* @member ns.widget.Notification
-			*/
-			Notification.prototype._setPosition = function () {
+			 * Set widget position.
+			 * @method _positionWidget
+			 * @protected
+			 * @member ns.widget.mobile.Notification
+			 */
+			Notification.prototype._positionWidget = function () {
 				var pages = document.body.getElementsByClassName(Page.classes.uiPageActive),
 					footers,
 					footerHeight = 0,
 					wrapper = this._ui.wrapper;
 
-				if (typeof pages[0] === 'object') {
-					footers = selectors.getChildrenByClass(pages[0], 'ui-footer');
-					if (typeof footers[0] === 'object') {
+				if (typeof pages[0] === "object") {
+					footers = selectors.getChildrenByClass(pages[0], "ui-footer");
+					if (typeof footers[0] === "object") {
 						footerHeight = footers[0].offsetHeight;
 					}
 				}
-				wrapper.style.bottom = footerHeight + (footerHeight > 0 ? 'px' : '');
+				wrapper.style.bottom = footerHeight + (footerHeight > 0 ? "px" : "");
 			};
 
 			/**
-			* Open widget
-			* @method open
-			* @member ns.widget.Notification
-			*/
+			 * Open widget to show notification.
+			 *
+			 * #####Running example in pure JavaScript:
+			 *
+			 *	@example
+			 *	<div data-role="notification" id="notificationSelector" data-type="smallpoup">
+			 *		<p>Line of message</p>
+			 *	</div>
+			 *	<script>
+			 *		var notification = tau.widget.Notification(document.getElementById("notificationSelector"));
+			 *		notification.open();
+			 *	</script>
+			 *
+			 * #####If jQuery library is loaded, this method can be used:
+			 *
+			 *	@example
+			 *	<div data-role="notification" id="notificationSelector" data-type="smallpoup">
+			 *		<p>Line of message</p>
+			 *	</div>
+			 *	<script>
+			 *		$("#notificationSelector").notification("open");
+			 *	</script>
+			 *
+			 * @method open
+			 * @member ns.widget.mobile.Notification
+			 */
 			Notification.prototype.open = function () {
 				var wrapperClassList = this._ui.wrapper.classList,
 					classes = Notification.classes;
@@ -434,8 +657,8 @@
 					return;
 				}
 
-				if (this.options.type !== 'ticker') {
-					this._setPosition();
+				if (this.options.type !== "ticker") {
+					this._positionWidget();
 				}
 
 				wrapperClassList.add(classes.uiNotificationShow);
@@ -446,10 +669,33 @@
 			};
 
 			/**
-			* Close widget
-			* @method close
-			* @member ns.widget.Notification
-			*/
+			 * Close opened widget to hide notification.
+			 *
+			 * #####Running example in pure JavaScript:
+			 *
+			 *	@example
+			 *	<div data-role="notification" id="notificationSelector" data-type="ticker">
+			 *		<p>Line of message</p>
+			 *	</div>
+			 *	<script>
+			 *		var notification = tau.widget.Notification(document.getElementById("notificationSelector"));
+			 *		notification.close();
+			 *	</script>
+			 *
+			 * #####If jQuery library is loaded, this method can be used:
+			 *
+			 *	@example
+			 *	<div data-role="notification" id="notificationSelector" data-type="ticker">
+			 *		<p>Line of message</p>
+			 *	</div>
+			 *	<script>
+			 *		// or using jQuery
+			 *		$("#notificationSelector").notification("close");
+			 *	</script>
+			 *
+			 * @method close
+			 * @member ns.widget.mobile.Notification
+			 */
 			Notification.prototype.close = function () {
 				var wrapperClassList = this._ui.wrapper.classList,
 					classes = Notification.classes;
@@ -466,11 +712,36 @@
 			};
 
 			/**
-			* Sets icon
-			* @method icon
-			* @param {string} src icon source URL
-			* @member ns.widget.Notification
-			*/
+			 * Creates icon or changes existing icon to new one. This method resets CSS classes on image element.
+			 *
+			 * #####Running example in pure JavaScript:
+			 *
+			 *	@example
+			 *	<div data-role="notification" id="notificationSelector" data-type="smallpoup">
+			 *		<p>Line of message</p>
+			 *	</div>
+			 *	<script>
+			 *		var notification = tau.widget.Notification(document.getElementById("notificationSelector"));
+			 *		notification.icon("some-image.png");
+			 *
+			 *		// or using jQuery
+			 *		$( "#notificationSelector" ).notification( "icon", "some-image.png" );
+			 *	</script>
+			 *
+			 * #####If jQuery library is loaded, this method can be used:
+			 *
+			 *	@example
+			 *	<div data-role="notification" id="notificationSelector" data-type="smallpoup">
+			 *		<p>Line of message</p>
+			 *	</div>
+			 *	<script>
+			 *		$( "#notificationSelector" ).notification( "icon", "some-image.png" );
+			 *	</script>
+			 *
+			 * @method icon
+			 * @param {string} src icon source URL
+			 * @member ns.widget.mobile.Notification
+			 */
 			Notification.prototype.icon = function (src) {
 				var uiElements = this._ui,
 					iconImg = uiElements.iconImg,
@@ -482,9 +753,9 @@
 						iconImg[0].remove();
 					}
 
-					iconImg[0] = document.createElement('img');
+					iconImg[0] = document.createElement("img");
 					iconImg[0].className = classes.uiTickerIcon;
-					iconImg[0].setAttribute('src', src);
+					iconImg[0].setAttribute("src", src);
 
 					//Append icon
 					uiElements.wrapper.appendChild(iconImg[0]);
@@ -493,13 +764,74 @@
 			};
 
 			/**
-			* Set widget texts
-			* @method text
-			* @param {string} text0 first line of text
-			* @param {string} text1 second line of text
-			* @member ns.widget.Notification
-			* @return {?Array} widget text if no param given
-			*/
+			 * Set widget texts. If no text is given, method returns notification text as an array.
+			 *
+			 * Getting current text of notification
+			 *
+			 * #####Running example in pure JavaScript:
+			 *
+			 *	@example
+			 *	<div data-role="notification" id="notificationSelector" data-type="ticker">
+			 *		<p>Line of message</p>
+			 *		<p>Second line of message</p>
+			 *	</div>
+			 *	<script>
+			 *		var notification = tau.widget.Notification(document.getElementById("notificationSelector")),
+			 *			widgetText;
+			 *		widgetText = notification.text();
+			 *
+			 *		alert(widgetText);
+			 *		// will alert "Line of message,Second line of message"
+			 *	</script>
+			 *
+			 * #####If jQuery library is loaded, this method can be used:
+			 *
+			 *	@example
+			 *	<div data-role="notification" id="notificationSelector" data-type="ticker">
+			 *		<p>Line of message</p>
+			 *		<p>Second line of message</p>
+			 *	</div>
+			 *	<script>
+			 *		var widgetText;
+			 *
+			 *		// or using jQuery
+			 *		widgetText = $("#notificationSelector").notification("text");
+			 *
+			 *		alert(widgetText);
+			 *		// will alert "Line of message,Second line of message"
+			 *	</script>
+			 *
+			 * Setting text of notification.
+			 *
+			 * #####Running example in pure JavaScript:
+			 *
+			 *	@example
+			 *	<div data-role="notification" id="notificationSelector" data-type="ticker">
+			 *		<p>Line of message</p>
+			 *		<p>Second line of message</p>
+			 *	</div>
+			 *	<script>
+			 *		var notification = tau.widget.Notification(document.getElementById("notificationSelector"));
+			 *
+			 *		notification.text("This is a new Notification!", "This is an example");
+			 *	</script>
+			 *
+			 * #####If jQuery library is loaded, this method can be used:
+			 *
+			 *	@example
+			 *	<div data-role="notification" id="notificationSelector" data-type="ticker">
+			 *		<p>Line of message</p>
+			 *	</div>
+			 *	<script>
+			 *		$( "#notificationSelector" ).notification( "text", "This is new Notification!", "This is an example" );
+			 *	</script>
+			 *
+			 * @method text
+			 * @param {string} text0 first line of text
+			 * @param {string} text1 second line of text
+			 * @member ns.widget.mobile.Notification
+			 * @return {?Array} widget text if no param given
+			 */
 			Notification.prototype.text = function (text0, text1) {
 
 				if (text0 === undefined && text1 === undefined) {
@@ -511,13 +843,13 @@
 			};
 
 			/**
-			* Set widgets texts
-			* @method _setText
-			* @param {string} text0 first line of text
-			* @param {string} text1 second line of text
-			* @private
-			* @member ns.widget.Notification
-			*/
+			 * Set widgets texts
+			 * @method _setText
+			 * @param {string} text0 first line of text
+			 * @param {string} text1 second line of text
+			 * @private
+			 * @member ns.widget.mobile.Notification
+			 */
 			Notification.prototype._setText = function (text0, text1) {
 				if (text0 !== undefined) {
 					this._ui.texts[0].textContent = text0;
@@ -528,17 +860,17 @@
 			};
 
 			/**
-			* Get widget texts
-			* @method _getText
-			* @protected
-			* @member ns.widget.Notification
-			* @return {Array} widget texts
-			*/
+			 * Get widget texts
+			 * @method _getText
+			 * @protected
+			 * @member ns.widget.mobile.Notification
+			 * @return {Array} widget texts
+			 */
 			Notification.prototype._getText = function () {
 				var ui = this._ui,
 					texts = [null, null];
 
-				if (this.options.type === 'ticker') {
+				if (this.options.type === "ticker") {
 					texts[0] = ui.texts[0] && ui.texts[0].textContent;
 					texts[1] = ui.texts[1] && ui.texts[1].textContent;
 				} else {
@@ -549,11 +881,11 @@
 			};
 
 			/**
-			* Sets interval
-			* @method _setCloseInterval
-			* @protected
-			* @member ns.widget.Notification
-			*/
+			 * Sets interval
+			 * @method _setCloseInterval
+			 * @protected
+			 * @member ns.widget.mobile.Notification
+			 */
 			Notification.prototype._setCloseInterval = function () {
 				//Clear current interval
 				clearInterval(this.interval);
@@ -565,12 +897,35 @@
 			};
 
 			/**
-			* Destroy widget
-			* @method _destroy
-			* @param {?HTMLElement} element base element for destroy widget
-			* @protected
-			* @member ns.widget.Notification
-			*/
+			 * Removes notification.
+			 * This will return the element back to its pre-init state.
+			 *
+			 * #####Running example in pure JavaScript:
+			 *
+			 *	@example
+			 *	<script>
+			 *		var notification = tau.widget.Notification(document.getElementById("notificationSelector")),
+			 *		notification.destroy();
+			 *	</script>
+			 *
+			 * #####If jQuery library is loaded, this method can be used:
+			 *
+			 *	@example
+			 *	<script>
+			 *		$( "#notificationSelector" ).notification( "destroy" );
+			 *	</script>
+			 *
+			 * @method destroy
+			 * @member ns.widget.mobile.Notification
+			 */
+
+			/**
+			 * Destroy widget
+			 * @method _destroy
+			 * @param {?HTMLElement} element Base element for destroy widget
+			 * @protected
+			 * @member ns.widget.mobile.Notification
+			 */
 			Notification.prototype._destroy = function (element) {
 				var wrapper = this._ui.wrapper,
 					nodeList;
@@ -593,7 +948,7 @@
 				"[data-role='notification'], .ui-notification",
 				["open", "close", "icon", "text"],
 				Notification,
-				'tizen'
+				"tizen"
 			);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.widget.mobile.Notification;
