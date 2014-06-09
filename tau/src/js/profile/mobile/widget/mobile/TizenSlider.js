@@ -16,12 +16,93 @@
 */
 /*jslint nomen: true */
 /**
- * #Tizen Slider Widget
+ * # Slider Widget
+ * Slider widget changes browser input with type range to sliders
+ *
+ * ## Default selectors
+ * In default all **INPUT** tags with type equals _range_ are changed
+ * to Tizen WebUI sliders.
+ * In addition all elements with _data-role=range_ and _data-role=slider_
+ * and class _ui-tizenslider_ are changed to Tizen Web UI sliders.
+ *
+ * ###HTML Examples
+ *
+ * ####Create slider input
+ *
+ *		@example
+ *		<input type="range" name="slider-1" id="slider" value="60" min="0" max="100">
+ *
+ * ## Manual constructor
+ * For manual creation of slider widget you can use constructor of widget
+ * from **tau** namespace:
+ *
+ *		@example
+ *		<input id="slider" type="range" name="slider-1"
+ *		 value="60" min="0" max="100">
+ *		<script>
+ *			var sliderElement = document.getElementById("slider"),
+ *				slider = tau.widget.TizenSlider(sliderElement);
+ *		</script>
+ *
+ * Constructor has one required parameter **element** which
+ * is base **HTMLElement** to create widget. We recommend get this element
+ * by method *document.getElementById*. Second parameter is **options**
+ * and it is a object with options for widget.
+ *
+ *		@example
+ *		<input id="slider" type="range" name="slider-1"
+ *		 value="60" min="0" max="100">
+ *		<script>
+ *			var sliderElement = document.getElementById("slider"),
+ *				slider = tau.widget.TizenSlider(sliderElement, {mini: true});
+ *		</script>
+ *
+ * If jQuery library is loaded, its method can be used:
+ *
+ *		@example
+ *		<input id="slider" type="range" name="slider-1"
+ *		 value="60" min="0" max="100">
+ *		<script>
+ *			$("#slider").tizenslider({mini: true});
+ *		</script>
+ * jQuery Mobile constructor has one optional parameter **options**
+ * and it is a object with options for widget.
+ *
+ * ##Methods
+ *
+ * To call method on widget you can use one of existing API:
+ *
+ * First API is from tau namespace:
+ *
+ *		@example
+ *		<input id="slider" type="range" name="slider"
+ *		 value="60" min="0" max="100">
+ *		<script>
+ *		var slider = document.getElementById("slider"),
+ *			slider = tau.widget.TizenSlider(slider);
+ *
+ *		// slider.methodName(methodArgument1, methodArgument2, ...);
+ *		// for example
+ *		var value = slider.value("5");
+ *		</script>
+ *
+ * Second API is jQuery Mobile API and for call _methodName_ you can use:
+ *
+ *		@example
+ *		<input id="slider" type="range" name="slider"
+ *		 value="60" min="0" max="100">
+ *		<script>
+ *		//$("#slider").tizenslider("methodName", argument1, argument2, ...);
+ *		//for example
+ *		$("#slider").tizenslider("value", "5");
+ *		</script>
  *
  * @class ns.widget.TizenSlider
  * @extends ns.widget.mobile.Slider
- * @author Maciej Urbanski <m.urbanski@samsung.com>
+ * @author Jadwiga Sosnowska <j.sosnowska@samsung.com>
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>
+ * @author Maciej Moczulski <m.moczulski@samsung.com>
+ * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Piotr Karny <p.karny@samsung.com>
  */
 (function (window, document, ns) {
@@ -47,27 +128,27 @@
 				objectUtils = ns.util.object,
 				DOM = ns.util.DOM,
 				POPUP_WIDTH = {
-					'SMALL': '2.3rem',
-					'MEDIUM': '2.8rem',
-					'LARGE': '3.0rem'
+					"SMALL": "2.3rem",
+					"MEDIUM": "2.8rem",
+					"LARGE": "3.0rem"
 				},
 				FONT_SIZE = {
-					'SMALL': '0.95rem',
-					'MEDIUM': '0.85rem',
-					'LARGE': '0.65rem',
-					'DEFAULT': '0.45rem'
+					"SMALL": "0.95rem",
+					"MEDIUM": "0.85rem",
+					"LARGE": "0.65rem",
+					"DEFAULT": "0.45rem"
 				},
 				FONT_TOP = {
-					'SMALL': '0',
-					'MEDIUM': '-0.01rem',
-					'LARGE': '-0.1rem',
-					'DEFAULT': '-0.15rem'
+					"SMALL": "0",
+					"MEDIUM": "-0.01rem",
+					"LARGE": "-0.1rem",
+					"DEFAULT": "-0.15rem"
 				},
 				/**
-				* TizenSlider widget
-				* @class ns.widget.TizenSlider
-				* @extends ns.widget.BaseWidget
-				*/
+				 * TizenSlider widget
+				 * @class ns.widget.TizenSlider
+				 * @extends ns.widget.BaseWidget
+				 */
 				TizenSlider = function () {
 					// Some properties for example .popup must be defined once per slider
 					// we need to make a copy of base options, because simple assigment
@@ -85,6 +166,13 @@
 				sliderBindEvents,
 				slider_refresh;
 
+			/**
+			 * Dictionary for TizenSlider related css class names
+			 * @property {Object} classes
+			 * @member ns.widget.mobile.TizenSlider
+			 * @static
+			 * @readonly
+			 */
 			TizenSlider.classes = {
 				uiSliderPopup: "ui-slider-popup",
 				uiSliderPopupContainer: "ui-slider-popup-container",
@@ -101,12 +189,30 @@
 			sliderBuild = TizenSlider.prototype._build;
 			sliderInit = TizenSlider.prototype._init;
 			sliderBindEvents = TizenSlider.prototype._bindEvents;
-			slider_refresh = TizenSlider.prototype._refresh;
+			slider_refresh = TizenSlider.prototype._refresh,
+			slider_setValue = TizenSlider.prototype._setValue
+			slider_getValue = TizenSlider.prototype._getValue;
 
+			/**
+			 * Configure TizenSlider widget
+			 * @method _configure
+			 * @protected
+			 * @member ns.widget.mobile.TizenSlider
+			 */
 			TizenSlider.prototype._configure = function () {
+				/**
+				 * All possible widget options
+				 * @property {Object} options
+				 * @property {boolean} [options.popup=true] enables popup
+				 * @property {boolean} [options.center=false] creates additional markup to pointing center of the slider
+				 * @property {string} [options.icon=""] icon type
+				 * @property {string} [options.textLeft=""] text attached to left
+				 * @property {string} [options.textRight=""] text attached to right
+				 * @member ns.widget.mobile.TizenSlider
+				 */
 				var options = this.options;
 
-				if (typeof sliderConfigure === 'function') {
+				if (typeof sliderConfigure === "function") {
 					sliderConfigure.call(this);
 				}
 				options.popup = true;
@@ -116,17 +222,26 @@
 				options.textRight = "";
 			};
 
+			/**
+			 * Check if value is not empty
+			 * @method getValueLength
+			 * @param {number} value
+			 * @return {number}
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.TizenSlider
+			 */
 			function getValueLength(value) {
-				return (String(value)).length;
+				return (new String(value)).length;
 			}
 
 			/**
 			 * Creates popup element and appends it container passed as argument
 			 * @method _createPopup
 			 * @param {HTMLElement} container
-			 * @protected
 			 * @return {ns.widget.Popup} reference to new widget instance
-			 * @member ns.widget.TizenSlider
+			 * @protected
+			 * @member ns.widget.mobile.TizenSlider
 			 */
 			TizenSlider.prototype._createPopup = function (container) {
 				var classes = TizenSlider.classes,
@@ -134,17 +249,17 @@
 					popupInstance;
 
 				// Create element and append it to slider
-				popup = document.createElement('div');
+				popup = document.createElement("div");
 				container.appendChild(popup);
 				// Create widget instance out of popup element
-				popupInstance = engine.instanceWidget(popup, 'Popup', {
+				popupInstance = engine.instanceWidget(popup, "Popup", {
 					positionTo: "origin", // popup with arrow
 					link: this.handle.id, // positioned to slider's element
 					transition: "none",
 					noScreen: true,
 					directionPriority: [
-						'top',
-						'bottom'
+						"top",
+						"bottom"
 					],
 					specialContainerClass: classes.uiSliderPopupContainer
 				});
@@ -153,13 +268,27 @@
 				return popupInstance;
 			};
 
+			/**
+			 * Creates slider with the marked center element
+			 * @method _createCenter
+			 * @param {HTMLElement} slider
+			 * @return {HTMLElement} returns the inserted element
+			 * @protected
+			 * @member ns.widget.mobile.TizenSlider
+			 */
 			TizenSlider.prototype._createCenter = function (slider) {
-				var centerElement = document.createElement('div');
+				var centerElement = document.createElement("div");
 				centerElement.className = TizenSlider.classes.uiSliderCenter;
 
 				return slider.insertBefore(centerElement, slider.childNodes[0]);
 			};
 
+			/**
+			 * Updates popup state
+			 * @method _updateSlider
+			 * @member ns.widget.mobile.TizenSlider
+			 * @protected
+			 */
 			TizenSlider.prototype._updateSlider = function () {
 				var self = this,
 					font_size,
@@ -183,7 +312,7 @@
 					popupStyle = popupElement.style;
 				}
 
-				self.handle.removeAttribute('title');
+				self.handle.removeAttribute("title");
 
 				newValue = parseInt(element.value, 10);
 
@@ -231,7 +360,7 @@
 					if (font_size !== self.handleText.style.fontSize) {
 						handleTextStyle.fontSize = font_size;
 						handleTextStyle.top = font_top;
-						handleTextStyle.position = 'relative';
+						handleTextStyle.position = "relative";
 					}
 
 					self.currentValue = newValue;
@@ -254,6 +383,12 @@
 				}
 			};
 
+			/**
+			 * Show popup for tizenslider
+			 * @method _showPopup
+			 * @member ns.widget.mobile.TizenSlider
+			 * @protected
+			 */
 			TizenSlider.prototype._showPopup = function () {
 				var self = this;
 
@@ -263,6 +398,12 @@
 				}
 			};
 
+			/**
+			 * Hide popup for tizenslider
+			 * @method _hidePopup
+			 * @member ns.widget.mobile.TizenSlider
+			 * @protected
+			 */
 			TizenSlider.prototype._hidePopup = function () {
 				var self = this;
 
@@ -272,6 +413,14 @@
 				}
 			};
 
+			/**
+			 * Set options for popup in tizenslider
+			 * @method _setOption
+			 * @param {string} key
+			 * @param {number} value
+			 * @member ns.widget.mobile.TizenSlider
+			 * @protected
+			 */
 			TizenSlider.prototype._setOption = function (key, value) {
 				var needToChange = (value !== this.options[key]);
 
@@ -291,18 +440,24 @@
 				}
 			};
 
+			/**
+			 * Close popup by triggering vmouseup event
+			 * @method _closePopup
+			 * @member ns.widget.mobile.TizenSlider
+			 * @protected
+			 */
 			TizenSlider.prototype._closePopup = function () {
-				events.trigger(this.slider, "vmouseup");
+				this._hidePopup();
 			};
 
 			/**
-			* Build TizenSlider
-			* @method _build
-			* @private
-			* @param {HTMLElement} element
-			* @return {HTMLElement}
-			* @member ns.widget.TizenSlider
-			*/
+			 * Build TizenSlider
+			 * @method _build
+			 * @private
+			 * @param {HTMLElement} element
+			 * @return {HTMLElement}
+			 * @member ns.widget.TizenSlider
+			 */
 			TizenSlider.prototype._build = function (element) {
 				var self = this,
 					options = self.options,
@@ -358,29 +513,29 @@
 				slider.querySelector('.' + btnClasses.uiBtnInner).classList.remove(btnClasses.uiBtnCornerAll);
 
 				switch (icon) {
-				case 'bright':
-				case 'volume':
-					elemLeft = document.createElement('div');
+				case "bright":
+				case "volume":
+					elemLeft = document.createElement("div");
 					elemLeft.classList.add(classes.uiSliderLeftPrefix + icon);
 
-					elemRight = document.createElement('div');
+					elemRight = document.createElement("div");
 					elemRight.classList.add(classes.uiSliderRightPrefix + icon);
 
 					slider.parentNode.insertBefore(elemLeft, slider);
 					slider.parentNode.appendChild(elemRight);
 
-					marginLeft = (DOM.getElementWidth(elemLeft) + 16) + 'px';
-					marginRight = (DOM.getElementWidth(elemRight) + 16) + 'px';
+					marginLeft = (DOM.getElementWidth(elemLeft) + 16) + "px";
+					marginRight = (DOM.getElementWidth(elemRight) + 16) + "px";
 					break;
 
-				case 'text':
-					textLeft = (textLeft && textLeft.substring(0, 3)) || '';
-					textRight = (textRight && textRight.substring(0, 3)) || '';
+				case "text":
+					textLeft = (textLeft && textLeft.substring(0, 3)) || "";
+					textRight = (textRight && textRight.substring(0, 3)) || "";
 
-					elemLeft = document.createElement('div');
+					elemLeft = document.createElement("div");
 					elemLeft.classList.add(classes.uiSliderLeftText);
 
-					elemRight = document.createElement('div');
+					elemRight = document.createElement("div");
 					elemRight.classList.add(classes.uiSliderRightText);
 
 					textLength = Math.max(textLeft.length, textRight.length) + 1;
@@ -395,9 +550,9 @@
 					elemRight.style.right = "-" + marginRight;
 					elemRight.style.width = marginRight;
 
-					inner = document.createElement('span');
-					inner.style.position = 'relative';
-					inner.style.top = '0.4em';
+					inner = document.createElement("span");
+					inner.style.position = "relative";
+					inner.style.top = "0.4em";
 					inner.innerHTML = textLeft;
 
 					// Second element is same as first one
@@ -418,7 +573,7 @@
 					sliderContainerStyle.marginRight = marginRight;
 				}
 
-				self.handleText = slider.querySelector('.' + btnClasses.uiBtnText);
+				self.handleText = slider.querySelector("." + btnClasses.uiBtnText);
 
 				self.element = element;
 				self._updateSlider(element);
@@ -426,11 +581,19 @@
 				return element;
 			};
 
+			/**
+			 * Callback responsible for opening popup, fires on change event
+			 * @method onChangeHandler
+			 * @param {ns.widget.mobile.TizenSlider} self
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.TizenSlider
+			 */
 			function onChangeHandler(self) {
 				if (self.popupVisible) {
 					self._updateSlider();
 					self._showPopup();
-					document.addEventListener('vmouseup', self.onVmouseUpHandleHandler, false);
+					document.addEventListener("vmouseup", self.onVmouseUpHandleHandler, false);
 				} else {
 					self.popupVisible = true;
 					self._updateSlider();
@@ -438,33 +601,74 @@
 				}
 			}
 
+			/**
+			 * Callback responsible for refreshing the slider and showing the popup
+			 * @method onSlideStartHandler
+			 * @param {ns.widget.mobile.TizenSlider} self
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.TizenSlider
+			 */
 			function onSlideStartHandler(self) {
 				self._updateSlider();
 				self._showPopup();
-				document.addEventListener('vmouseup', self.onVmouseUpHandleHandler, false);
+				document.addEventListener("vmouseup", self.onVmouseUpHandleHandler, false);
 			}
 
+			/**
+			 * Callback shows popup and assign another callback, fires on mouse down event
+			 * @method onVmouseDownHandler
+			 * @param {ns.widget.mobile.TizenSlider} self
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.TizenSlider
+			 */
 			function onVmouseDownHandler(self) {
 				self.handle.classList.add(TizenSlider.classes.uiSliderHandlePress);
 				self._showPopup();
-				document.addEventListener('vmouseup', self.onVmouseUpHandleHandler, false);
+				document.addEventListener("vmouseup", self.onVmouseUpHandleHandler, false);
 			}
 
+			/**
+			 * Callback responsible for refreshing the slider and showing popup.
+			 * @method onVmouseDownHandleHandler
+			 * @param {ns.widget.mobile.TizenSlider} self
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.TizenSlider
+			 */
 			function onVmouseDownHandleHandler(self) {
 				self._updateSlider();
 				self.handle.classList.add(TizenSlider.classes.uiSliderHandlePress);
 				self._showPopup();
-				document.addEventListener('vmouseup', self.onVmouseUpHandleHandler, false);
+				document.addEventListener("vmouseup", self.onVmouseUpHandleHandler, false);
 			}
 
+			/**
+			 * Callback hides popup and stops the event
+			 * @method onVmouseUpHandleHandler
+			 * @param {ns.widget.mobile.TizenSlider} self
+			 * @param {Event} event
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.TizenSlider
+			 */
 			function onVmouseUpHandleHandler(self, event) {
 				event.preventDefault();
 				event.stopPropagation();
 				self._hidePopup();
 				self.handle.classList.remove(TizenSlider.classes.uiSliderHandlePress);
-				document.removeEventListener('vmouseup', self.onVmouseUpHandleHandler, false);
+				document.removeEventListener("vmouseup", self.onVmouseUpHandleHandler, false);
 			}
 
+			/**
+			 * Bind events to widget
+			 * @method _bindEvents
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.mobile.TizenSlider
+			 * @return {HTMLElement}
+			 */
 			TizenSlider.prototype._bindEvents = function (element) {
 				sliderBindEvents.call(this, element);
 				this.onChangeHandler = onChangeHandler.bind(null, this);
@@ -474,11 +678,11 @@
 				this.onVmouseUpHandleHandler = onVmouseUpHandleHandler.bind(null, this);
 				this.onOrientationChangeHandler = this._closePopup.bind(this);
 
-				element.addEventListener('change', this.onChangeHandler, false);
-				element.addEventListener('slidestart', this.onSlideStartHandler, false);
-				element.addEventListener('vmousedown', this.onVmouseDownHandler, false);
-				this.handle.addEventListener('vmousedown', this.onVmouseDownHandleHandler, false);
-				window.addEventListener('orientationchange', this.onOrientationChangeHandler, false);
+				element.addEventListener("change", this.onChangeHandler, false);
+				element.addEventListener("slidestart", this.onSlideStartHandler, false);
+				element.addEventListener("vmousedown", this.onVmouseDownHandler, false);
+				this.handle.addEventListener("vmousedown", this.onVmouseDownHandleHandler, false);
+				window.addEventListener("orientationchange", this.onOrientationChangeHandler, false);
 
 				return element;
 			};
