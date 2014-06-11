@@ -623,10 +623,6 @@
 				},
 
 				_onTouchEndHandler: function( ev ) {
-					if (ev.touches.length > 0) {
-						return;
-					}
-
 					this.indicator.hide();
 					this.indexBar1.clearSelected();
 					if(this.indexBar2) {
