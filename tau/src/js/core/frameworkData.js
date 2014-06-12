@@ -45,16 +45,35 @@
 				var self = this,
 					dataPrefix = self.dataPrefix,
 					scriptElement = document.getElementsByTagName("script"),
+					cssElement = document.getElementsByTagName("link"),
 					libFileName = "(tau(.min)?.js|tizen-web-ui-fw(.custom|.full)?(.min)?.js)",
+					cssFileName = "(tau(.min)?.css|tizen-web-ui-fw(.custom|.full)?(.min)?.css)",
 					frameworkName = "tau",
 					profileName = "",
 					isMinified,
 					themePath,
+					themeVersion,
 					jsPath,
 					theme,
 					src,
+					href,
 					idx,
 					elem;
+
+				// Get tau theme version
+				for (idx in cssElement) {
+					if (cssElement.hasOwnProperty(idx)) {
+						elem = cssElement[idx];
+						href = elem.href ? elem.getAttribute("href") : undefined;
+						if (href && href.match(cssFileName)) {
+							if (href.search("default") > -1) {
+								themeVersion = "default";
+							} else {
+								themeVersion = "changeable";
+							}
+						}
+					}
+				}
 
 				for (idx in scriptElement) {
 					if (scriptElement.hasOwnProperty(idx)) {
@@ -63,6 +82,9 @@
 
 						if (src && src.match(libFileName)) {
 							theme = elem.getAttribute("data-framework-theme") || self.theme;
+							if (themeVersion === "changeable")
+								theme = "changeable";
+
 							isMinified = src.search(MINIFIED_REGEXP) > -1 ? true : false;
 
 							if (src.indexOf("tau") > -1 ) {
@@ -71,7 +93,7 @@
 								profileName = src.split('/').slice(-3)[0];
 
 								// TAU framework
-								themePath = "/" + profileName + "/theme/" + theme.match("black|white")[0];
+								themePath = "/" + profileName + "/theme/" + theme.match("black|white|changeable|default")[0];
 								jsPath = "/" + profileName + "/js";
 							} else {
 								// tizen-web-ui framework

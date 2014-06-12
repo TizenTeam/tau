@@ -1,0 +1,45 @@
+
+
+@unit_base_progressbar : @unit_base * 0.5;
+
+@bar-height: 27 * @unit_base_progressbar;
+@bar-margin: 36 * @unit_base_progressbar;
+
+@-webkit-keyframes ui-scale-animation {
+	from {
+		-webkit-transform: scaleX(0);
+	} to {
+		-webkit-transform: scaleX(1);
+	}
+}
+
+.ui-progressbar-value {
+	min-width: 18 * @unit_base_progressbar;
+	height: 100%;
+
+	.LESSborder-radius-all( 10 * @unit_base_progressbar );
+	box-shadow: 0px 1px 1px @color_progress_value_shadow0 inset, 0px 1px 1px @color_progress_value_shadow1;
+	background-color: @color_progress_value;
+}
+
+.ui-progressbar-bg {
+	position: relative;
+	overflow: hidden;
+
+	top: 7 * @unit_base_progressbar;
+	min-width: 24 * @unit_base_progressbar;
+	height: 13 * @unit_base_progressbar;
+	margin-left: 6 * @unit_base_progressbar;
+	margin-right: 6 * @unit_base_progressbar;
+
+	.LESSborder-radius-all( 10 * @unit_base_progressbar );
+	box-shadow: 0px 1px 1px @color_progress_shadow0 inset, 0px 1px 1px @color_progress_shadow1;
+	background-color: @color_progress_bar;
+}
+
+.ui-progressbar {
+	position: relative;
+	margin-left: @bar-margin;
+	margin-right: @bar-margin;
+	height: @bar-height;
+}

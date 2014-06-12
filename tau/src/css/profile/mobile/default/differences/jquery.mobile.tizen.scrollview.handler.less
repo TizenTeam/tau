@@ -1,0 +1,21 @@
+.ui-handler {
+	position : fixed;
+	-webkit-transition: opacity 400ms ease-out;
+	-moz-transition: opacity 400ms ease-out;
+	transition: opacity 400ms ease-out;
+	height: 100%;
+	top: 0;
+	right: 0;
+}
+
+.ui-handler.disabled {
+	display: none;
+}
+
+.scrollbar-disabled {
+	overflow: hidden !important;
+
+	.ui-scrollview-clip {
+		width: 105%;
+	}
+}
