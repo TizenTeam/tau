@@ -21,7 +21,6 @@
 		equal(typeof widget.option, "function", "Method popup.option exists");
 		equal(typeof widget.open, "function", "Method popup.open exists");
 		equal(typeof widget.close, "function", "Method popup.close exists");
-		equal(typeof widget.setPosition, "function", "Method popup.setPosition exists");
 
 		equal(typeof widget.options, "object", "Property popup.options exists");
 		equal(typeof widget.options.theme, "string", "Property popup.options.theme exists");

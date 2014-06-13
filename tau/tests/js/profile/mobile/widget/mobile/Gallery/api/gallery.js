@@ -32,7 +32,7 @@
 		equal(typeof widget.options, 'object', 'Property gallery.options exists');
 		equal(typeof widget.options.flicking, 'boolean', 'Property gallery.options.flicking exists');
 		equal(typeof widget.options.duration, 'number', 'Property gallery.options.duration exists');
-		equal(typeof widget.options.verticalAlign, 'object', 'Property gallery.options.verticalAlign exists');
+		equal(typeof widget.options.verticalAlign, 'string', 'Property gallery.options.verticalAlign exists');
 
 		equal(typeof Gallery.classes, 'object', 'Property gallery.classes exists');
 		equal(typeof Gallery.classes.uiGallery, 'string', 'Property gallery.classes.uiGallery exists');
