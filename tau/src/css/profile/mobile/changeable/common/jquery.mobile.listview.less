@@ -70,10 +70,12 @@
 .ui-listview .ui-li-has-right-btn,
 .ui-listview .ui-li-has-right-circle-btn {
 	[data-role="button"] {
-		position: absolute;
-		top: 7 * @unit_base;
-		right: 13 * @unit_base;
-		margin: 0;
+		&:not(.ui-slider-handle) {
+			position: absolute;
+			top: 7 * @unit_base;
+			right: 13 * @unit_base;
+			margin: 0;
+			}
 	}
 	.ui-toggle-switch {
 		position: absolute;
@@ -90,8 +92,8 @@
 	.ui-li-thumb {
 		position: absolute;
 		left: 13 * @unit_base;
-		top: 5 * @unit_base;
-
+		top: 50%;
+		margin-top : -20.25 * @unit_base;
 		width: 40.5 * @unit_base;
 		height: 40.5 * @unit_base;
 	}
@@ -215,10 +217,12 @@
 	&.ui-li-static.ui-li-has-right-btn,
 	&.ui-li-static.ui-li-has-right-circle-btn {
 		[data-role="button"] {
-			position: absolute;
-			top: 17 * @unit_base;
-			right: 13 * @unit_base;
-			margin: 0;
+			&:not(.ui-slider-handle) {
+				position: absolute;
+				top: 17 * @unit_base;
+				right: 13 * @unit_base;
+				margin: 0;
+			}
 		}
 		.ui-toggle-switch {
 			position: absolute;
@@ -234,7 +238,7 @@
 	&.ui-li-static.ui-li-has-thumb {
 		.ui-li-text-sub { left: 61.5 * @unit_base; }
 
-		.ui-li-thumb { top: 14 * @unit_base; }
+		.ui-li-thumb { top: 50%}
 	}
 
 	/* multiline list has checkbox/radio */
