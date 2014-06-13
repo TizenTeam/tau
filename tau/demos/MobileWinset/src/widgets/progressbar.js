@@ -62,7 +62,7 @@ $(document).one( "pagecreate", "#progressbar-demo", function () {
 			$("#progressing").progress( "running", !running );
 
 			if ( running ) {
-				$("#progressing").progress( "hide" );
+				$("#progressing").progress( "running", false );
 			}
 		});
 	});

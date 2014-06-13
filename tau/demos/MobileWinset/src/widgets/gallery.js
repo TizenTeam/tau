@@ -10,25 +10,26 @@ $( document ).one("pagecreate", "#gallery-demo", function () {
 		$('#gallery').gallery('add', './test/08.jpg');
 		$('#gallery').gallery('add', './test/09.jpg');
 		$('#gallery').gallery('refresh', 3);
+
+		$('#gallery-add').on('vmouseup', function ( e ) {
+			$('#gallery').gallery('add', './test/10.jpg');
+			$('#gallery').gallery('add', './test/11.jpg');
+			if( 0 == ($('#gallery').gallery('length')) ) {
+					$(".ui-page-active .ui-tabbar").tabbar("enable", 1);
+			}
+			$('#gallery').gallery('refresh');
+		});
+
+		$('#gallery-del').on('vmouseup', function ( e ) {
+			$('#gallery').gallery('remove');
+			if( 0 == ($('#gallery').gallery('length')) ) {
+				$(".ui-page-active .ui-tabbar").tabbar("disable", 1);
+			}
+		});
 	});
 
 	$('#gallery-demo').on('pagebeforehide', function () {
 		$('#gallery').gallery('empty');
 	});
 
-	$('#gallery-add').on('vmouseup', function ( e ) {
-		$('#gallery').gallery('add', './test/10.jpg');
-		$('#gallery').gallery('add', './test/11.jpg');
-		if( 0 == ($('#gallery').gallery('length')) ) {
-			$(".ui-page-active .ui-tabbar").tabbar("enable", 1);
-		}
-		$('#gallery').gallery('refresh');
-	});
-
-	$('#gallery-del').on('vmouseup', function ( e ) {
-		$('#gallery').gallery('remove');
-		if( 0 == ($('#gallery').gallery('length')) ) {
-			$(".ui-page-active .ui-tabbar").tabbar("disable", 1);
-		}
-	});
 });
