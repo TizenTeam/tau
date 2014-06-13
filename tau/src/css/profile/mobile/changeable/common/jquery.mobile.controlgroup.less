@@ -1,5 +1,3 @@
-
-
 .ui-controlgroup,
 fieldset.ui-controlgroup {
 	padding: 0;
@@ -22,35 +20,17 @@ fieldset.ui-controlgroup {
 		[data-role="button"] {
 
 			&.ui-btn {
-				background : @color_button_normal;
+				background : @color_button_bg;
 				border-radius : 0;
-				border-color : @color_button_inner_border;
-				&:first-child {
-					border-top-left-radius : 7 * @unit_base;
-					border-top-right-radius : 7 * @unit_base;
-				}
-				&:last-child {
-					border-bottom-left-radius : 7 * @unit_base;
-					border-bottom-right-radius : 7 * @unit_base;
-				}
 			}
 			&.ui-btn-hover-s {
 				border-radius: 0 !important;
-				&:first-child {
-					border-top-left-radius : 7 * @unit_base !important;
-					border-top-right-radius : 7 * @unit_base !important;
-				}
-				&:last-child {
-					border-bottom-left-radius : 7 * @unit_base !important;
-					border-bottom-right-radius : 7 * @unit_base !important;
-				}
 			}
 
 			&.ui-btn-box-s {
 				border-radius: 0;
 				box-shadow : 0;
 				.ui-btn-inner{
-					background : @color_button_normal;
 					display : inline-block;
 					border: none;
 					border-radius: 0;
@@ -76,6 +56,7 @@ fieldset.ui-controlgroup {
 	.ui-checkbox label,	.ui-radio {
 		label {
 			font-size: 1em;
+			margin-top: 10 * @unit_base;
 		}
 	}
 	.ui-radio {
@@ -131,14 +112,6 @@ fieldset.ui-controlgroup {
 		display: inline-block;
 		margin-left : -4 * @unit_base;
 		margin-right : -3 * @unit_base;
-		&:first-child {
-			border-top-left-radius : 7 * @unit_base;
-			border-bottom-left-radius : 7 * @unit_base;
-		}
-		&:last-child {
-			border-top-right-radius : 7 * @unit_base;
-			border-bottom-right-radius : 7 * @unit_base;
-		}
 	}
 	.ui-checkbox, .ui-radio {
 		float: left;
@@ -166,17 +139,6 @@ fieldset.ui-controlgroup {
 			padding-bottom : 0px;
 			padding-left : 10 * @unit_base;
 			padding-right : 10 * @unit_base;
-		}
-		&.ui-btn-hover-s {
-			border-radius: 0 !important;
-			&:first-child {
-				border-top-left-radius : 7 * @unit_base !important;
-				border-bottom-left-radius : 7 * @unit_base !important;
-			}
-			&:last-child {
-				border-top-right-radius : 7 * @unit_base !important;
-				border-bottom-right-radius : 7 * @unit_base !important;
-			}
 		}
 	}
 

@@ -1,5 +1,3 @@
-
-
 @unit_base_datetimepicker : @unit_base * 0.5;
 
 @-webkit-keyframes ui-datetime-in {
@@ -43,11 +41,11 @@
 		height: 42 * @unit_base_datetimepicker;
 
 		&.ui-divider-1st {
-			border-right:1px solid @color_timepicker_divider_color1;
+			border-right:1px solid red;
 		}
 
 		&.ui-divider-2nd {
-			border-left:1px solid @color_timepicker_divider_color2;
+			border-left:1px solid red;
 		}
 	}
 
@@ -120,7 +118,6 @@
 
 .ui-datetime-text-sub {
 	top: 5 * @unit_base ! important;
-	color: @color_list_divider_text ! important;
 	background: transparent ! important;
 	font-size: @font_size_datetime_sub_text ! important;
 }
@@ -143,17 +140,14 @@
 
 			a.ui-link {
 				text-decoration: none;
-				color: @color_ctxpopup_timepicker_text;
 			}
 
 			a.ui-link:hover {
-				color: @color_ctxpopup_timepicker_text; 
 			}
 		}
 
 		li.current {
 			a.ui-link {
-				color: @color_ctxpopup_timepicker_text_focus;
 			}
 		}
 	}
@@ -172,7 +166,6 @@
 	}
 
 	.ui-popupwindow-padding {
-		background: @color_timepicker_selector_color !important;
 		border-radius: 0 !important;
 		-ms-border-radius: 0 !important;
 		-o-border-radius: 0 !important;

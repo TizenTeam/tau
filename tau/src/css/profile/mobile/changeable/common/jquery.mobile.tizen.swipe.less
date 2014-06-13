@@ -1,5 +1,3 @@
-
-
 @list-li-padding-horizontal: 16 * @unit_base;
 
 .ui-swipe {
@@ -8,15 +6,17 @@
 }
 
 .ui-swipe-item {
-	min-height: 38 * @unit_base;
 	-ms-user-select: none;
 	-o-user-select: none;
 	-moz-user-select: none;
 	-webkit-user-select: none;
 	-user-select: none;
+
+	min-height: 38 * @unit_base;
 	opacity: 0;
 	text-align : center;
-	background-color: @color_list_swipe_bg;
+	background-color: @color_list_swipe_left_bg;
+	color: @color_list_swipe_text;
 	margin-left : -13 * @unit_base;
 	margin-right : -13 * @unit_base;
 	padding-bottom: 9 * @unit_base;
@@ -33,9 +33,9 @@
 }
 
 .ui-listview li .ui-swipe-item [data-role="button"]:last-child {
-		position: relative;
-		right: auto;
-	}
+	position: relative;
+	right: auto;
+}
 
 .ui-swipe-item-cover {
 	position: absolute;

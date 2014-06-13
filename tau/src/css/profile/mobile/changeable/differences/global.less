@@ -171,7 +171,7 @@ input::-webkit-input-placeholder {
 	}
 	.ui-radio .ui-btn-down-s .ui-btn-inner {
 		color : #fafafa;
-		background : @color_tabbar_btn_tab_press;
+		background : @color_bar_toolbar_press;
 	}
 }
 
@@ -343,14 +343,14 @@ input::-webkit-input-placeholder {
 .ui-header.ui-bar-s {
 	.ui-tabbar {
 		a.ui-btn.ui-btn-down-s {
-			border-bottom-color : @color_tabbar_btn_pressed;
+			border-bottom-color : @color_tabbar_btn_press;
 		}
 	}
 
 	.ui-tabbar:not(.ui-tabbar-persist) {
 		a.ui-btn {
 			&.ui-btn-active {
-				border-bottom-color : @color_tabbar_btn_pressed;
+				border-bottom-color : @color_tabbar_btn_press;
 			}
 		}
 	}
@@ -358,7 +358,7 @@ input::-webkit-input-placeholder {
 	.ui-tabbar.ui-tabbar-persist {
 		a.ui-btn {
 			&.ui-btn-active.ui-state-persist {
-				border-bottom-color : @color_tabbar_btn_pressed;
+				border-bottom-color : @color_tabbar_btn_press;
 			}
 		}
 	}
@@ -439,23 +439,6 @@ span.ui-tokentextarea-invisible {
 .ui-tokentextarea .ui-tokentextarea-desclabel {
 	padding: .6em 0em;
 }
-
-
-/****************************
- tizen.multimediaview
-****************************/
-:-webkit-full-screen {
-	height: 100%;
-}
-:-webkit-full-screen video{
-	height: 100%;
-}
-.ui-multimediaview-wrap .fade-out {
-	transition-property: bottom;
-	transition-timing-function: ease-out;
-	transition-duration: 0.5s;
-}
-
 .ui-selectmenu {
   position: initial;
 }

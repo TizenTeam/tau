@@ -1,4 +1,3 @@
-
 @unit_base_textinput: @unit_base * 0.5;
 @search-bar-padding: 16 * @unit_base_textinput;
 
@@ -10,34 +9,40 @@ label.ui-input-text {
 	margin: 0 0 .3em;
 }
 input.ui-input-text:not(.ui-tokentextarea-input) {
-	background: @color_list_editfield;
 	background-image: none;
-	padding: .4em;
+	padding-top: 4 * @unit_base;
+	padding-bottom: 4 * @unit_base;
+	padding-right: 4 * @unit_base;
+	padding-left: 4 * @unit_base;
+	margin-right: 0;
+	margin-left: 0;
+
+	border: 1px solid @color_list_editfield_outline;
+	width: 100%;
+	box-sizing : border-box;
+
 	line-height: 1.4;
 	font-size: 16 * @unit_base;
 	display: block;
-	-ms-border-radius : .1em;
-	-o-border-radius : .1em;
-	-webkit-border-radius : .1em;
-	-moz-border-radius : .1em;
-	border-radius : .1em;
+	background-color: @color_list_editfield_bg;
 }
 
 input.ui-tokentextarea-input {
 	font-size : 20 * @unit_base;
+	background-color: @color_list_editfield_bg;
 }
 
 
 input.ui-input-text.ui-focus, textarea.ui-input-text.ui-focus {
-	border : 1px solid @color_editfield_focus_border;
+	border : 1px solid @color_list_editfield_selected_outline;
 }
 
 input.ui-input-text.ui-focus, textarea.ui-input-text.ui-focus {
 	&[type="month"],
 	&[type="week"],
 	&[type="datetime-local"] {
-		border : 1px solid @color_bar_body_border;
-		outline-color : @color_bar_body_border;
+		border : 1px solid @color_list_editfield_selected_outline;
+		outline-color : @color_list_editfield_selected_outline;
 	}
 }
 
@@ -65,8 +70,9 @@ textarea.ui-input-text {
 	input.ui-input-text {
 		width : 100%;
 		border: none;
-		background: transparent none;
+		background: @color_searchbar_bg;
 		outline: 0 !important;
+		color: @color_searchbar_typing_text;
 	}
 
 	.ui-btn-down-s, .ui-btn-up-s, .ui-btn-hover-s {
@@ -101,10 +107,6 @@ textarea.ui-input-text {
 	/*.ui-input-clear-hidden { display: none; }*/
 }
 
-.ui-input-search.ui-focus {
-	border:1px solid @color_searchbar_border_focus;
-}
-
 /* search bar */
 .ui-body-s > div > .ui-field-contain > .input-search-bar,
 .ui-body-s > .ui-field-contain > .input-search-bar {
@@ -117,16 +119,13 @@ textarea.ui-input-text {
 	background-color: @color_searchbar_bg;
 	padding: @search-bar-padding;
 	vertical-align: middle;
-	.ui-corner-all {
-		.LESSborder-radius-all(.3em);
-	}
 
 	.ui-input-search {
 		font-size : 16 * @unit_base;
 		display : block;
 		position: relative;
 
-		background-color: @color_searchbar_input_field_bg;
+		background-color: @color_searchbar_bg;
 		.ui-input-text {
 			height: 64 * @unit_base_textinput;
 			padding : 0px;
@@ -134,8 +133,12 @@ textarea.ui-input-text {
 			margin-right : 38 * @unit_base;
 
 			&::-webkit-input-placeholder {
-				color : @color_searchbar_default_text;
+				color : @color_searchbar_text;
 			}
+		}
+
+		.ui-focus {
+			background-color: @color_list_bg;
 		}
 
 		.ui-image-search {
@@ -170,7 +173,6 @@ textarea.ui-input-text {
 		right : 0 * @unit_base;
 		height : 66 * @unit_base_textinput;
 		margin-right : 16 * @unit_base_textinput;
-		box-shadow: 0px 1px 1px @color_searchbar_button_shadow0 inset, 0px 1px 1px @color_searchbar_button_shadow1;
 
 		vertical-align: middle;
 		padding : 0px;
@@ -210,7 +212,6 @@ textarea.ui-input-text {
 		height : 72 * @unit_base_textinput;
 		padding : 0;
 		.LESSborder-radius-allimportant( 38 * @unit_base_textinput );
-		box-shadow: 0px 1px 1px @color_searchbar_button_shadow0 inset, 0px 1px 1px @color_searchbar_button_shadow1;
 		>.ui-btn-inner.ui-btn-icon-only {
 			width : 45 * @unit_base_textinput;
 			height : 45 * @unit_base_textinput;
@@ -229,27 +230,35 @@ textarea.ui-input-text {
 			}
 		}
 	}
+
+	.ui-focus {
+		border: 1px solid @color_searchbar_border_focus;
+		background-color: @color_list_bg;
+	}
 }
 
 .ui-header .input-search-bar {
-	border-top : 1 * @unit_base_textinput solid @color_searchbar_divider;
 	padding-top : 16 * @unit_base_textinput;
 	padding-bottom : 16 * @unit_base_textinput;
 }
 
 .ui-image-search {
-	background-image: url(images/controls/00_search_icon.png);
 	background-repeat: no-repeat;
 	background-size : 45 * @unit_base_textinput 45 * @unit_base_textinput;
+	background-color: @color_searchbar_search_icon;
+	-webkit-mask-image: url(images/controls/00_search_icon.png);
+	-webkit-mask-size: 45 * @unit_base_textinput 45 * @unit_base_textinput;
 }
 
 .ui-icon-deleteSearch {
-	background-image: url(images/controls/00_field_btn_clear.png);
 	background-repeat: no-repeat;
 	background-size : 45 * @unit_base_textinput 45 * @unit_base_textinput;
+	background-color: @color_searchbar_clear_icon;
+	-webkit-mask-image: url(images/controls/00_field_btn_clear.png);
+	-webkit-mask-size: 45 * @unit_base_textinput 45 * @unit_base_textinput;
 
 	&:active {
-		background-image: url(images/controls/00_field_btn_clear_press.png);
+		background-color: @color_searchbar_clear_icon_press;
 	}
 }
 

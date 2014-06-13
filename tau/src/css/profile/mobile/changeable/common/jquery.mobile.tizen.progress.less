@@ -1,5 +1,3 @@
-
-
 @unit_base_progress : @unit_base * 0.5;
 
 /* Progress - circle style */
@@ -41,8 +39,9 @@
 @bar-height: 13 * @unit_base_progress;
 @bar-margin: 36 * @unit_base_progress;
 
-@-webkit-keyframes animate-stripes {
-	0% {background-position: 0 0;} 100% {background-position: @bar-height * 8 0;}
+@-webkit-keyframes indeterminate {
+	from {-webkit-mask-image: url('./images/00_progress_pending_bg_01.png');}
+	to {-webkit-mask-image: url('./images/00_progress_pending_bg_02.png');}
 }
 
 .ui-progress-pending {
@@ -52,23 +51,14 @@
 	height: 100%;
 	padding-top: 0;
 	padding-bottom: 0;
-	background: -webkit-gradient(linear,
-				left top,
-				right bottom,
-				color-stop(0%,  rgba(0,0,0,0)),
-				color-stop(25%, rgba(0,0,0,0)),
-				color-stop(25%, @color_progress_value),
-				color-stop(50%, @color_progress_value),
-				color-stop(50%, rgba(0,0,0,0)),
-				color-stop(75%, rgba(0,0,0,0)),
-				color-stop(75%, @color_progress_value));
-	box-shadow: 0 1px 0 @color_progress_value_shadow0 inset;
-	background-color: @color_progress_bar;
-
+	background-color: @color_progress_value;
+	-webkit-mask-image: url('./images/00_progress_pending_bg_01.png');
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
 	.LESSborder-radius-all( 10 * @unit_base_progress );
-	.LESSbackground-size( @bar-height * 2, @bar-height * 2 );
+	-webkit-mask-size: 100% 100%;
 }
 
 .ui-progress-pending-running {
-	-webkit-animation: animate-stripes 1s linear infinite;
+	-webkit-animation: indeterminate 300ms infinite;
 }

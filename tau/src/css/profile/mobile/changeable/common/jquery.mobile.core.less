@@ -1,19 +1,8 @@
 /*
-* Copyright (c) 2013 - 2014 Samsung Electronics Co., Ltd
-*
-* Licensed under the Flora License, Version 1.1 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*     http://floralicense.org/license/
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
+* jQuery Mobile Framework
+* Copyright (c) jQuery Project
+* Dual licensed under the MIT (MIT-LICENSE.txt) and GPL (GPL-LICENSE.txt) licenses.
 */
-
 
 /* some unsets - more probably needed */
 .ui-mobile, .ui-mobile body { height: 100%; font-size: @font_size_default; }
@@ -63,19 +52,9 @@
 .ui-loading .ui-mobile-viewport { overflow: hidden !important; }
 .ui-loading .ui-loader { display: block; }
 .ui-loading .ui-page { overflow: hidden;  }
-.ui-loader { display: none; position: fixed; opacity: .85; z-index: @z_base_loader; left: 50%; top: 50%; width: 200px; margin-left: -130px; margin-top: -35px; padding: 10px 30px; }
+.ui-loader { display: none; position: absolute; opacity: .85; z-index: @z_base_loader; left: 50%; width: 200px; margin-left: -130px; margin-top: -35px; padding: 10px 30px; }
 .ui-loader h1 { font-size: 32 * @unit_base; text-align: center; }
 .ui-loader .ui-icon { position: static; display: block; opacity: .9; margin: 0 auto; width: 35px; height: 35px; background-color: transparent; }
-
-.ui-loader-default { background: none; opacity: .18; width: 46px; height: 46px; margin-left: -23px; margin-top: -23px; }
-.ui-loader-verbose { width: 200px; opacity: .88; box-shadow: 0 1px 1px -1px #fff; height: auto; margin-left: -110px; margin-top: -43px; padding: 10px; }
-.ui-loader-default h1 { font-size: 0; width: 0; height: 0; overflow: hidden; }
-.ui-loader-verbose h1 { font-size: 16px; margin: 0; text-align: center; }
-.ui-loader-verbose .ui-icon { margin: 0 auto 10px; opacity: .75; }
-.ui-loader-textonly { padding: 15px; margin-left: -115px; }
-.ui-loader-textonly .ui-icon { display: none; }
-.ui-loader-fakefix { position: absolute; }
-.ui-icon-loading { background: url(images/ajax-loader.png); }
 
 .ui-blocker { width:100%; height:100%; z-index:@z_base_maximum; }
 

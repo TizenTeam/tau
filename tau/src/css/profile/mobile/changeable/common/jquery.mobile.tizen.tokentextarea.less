@@ -1,5 +1,3 @@
-
-
 .ui-tokentextarea {
 	display : table;
 	outline : none;
@@ -18,8 +16,8 @@
 	display : inline-block;
 	text-align : center;
 	position : relative;
-	margin-left : .3em;
-	margin-right : .3em;
+	margin-left : 13 * @unit_base;
+	margin-right : 6 * @unit_base;
 	padding : .6em 0em;
 	color : @color_tokentextarea_label_text;
 	font-weight : bold;
@@ -52,30 +50,20 @@
 	text-align : center;
 	cursor : pointer;
 	position : relative;
-	margin : .3em;
 	padding : .2em .5em;
 	font-size : 1em;
-	text-shadow : 0 2px rgba(0,0,0,.75);
-	-ms-border-radius : .2em;
-	-o-border-radius : .2em;
-	-webkit-border-radius : .2em;
-	-moz-border-radius : .2em;
-	border-radius : .2em;
-	.LESSbox-shadow(0, .1em, .1em, rgba(0,0,0,.2));
 	color : @color_tokentextarea_block_text;
-	overflow : hidden;
 	text-overflow : ellipsis;
 	white-space : nowrap;
+	margin: 8*@unit_base 2*@unit_base;
 }
 
 div.ui-tokentextarea-block {
 	background-color : @color_tokentextarea_block_bg;
-	border : 1px solid @color_tokentextarea_block_border;
 }
 
 div.ui-tokentextarea-sblock {
 	background-color : @color_tokentextarea_press_bg;
-	border : 1px solid @color_tokentextarea_press_border;
 }
 
 .ui-tokentextarea .ui-tokentextarea-desclabel {
@@ -86,6 +74,7 @@ div.ui-tokentextarea-sblock {
 	color : @color_tokentextarea_label_text;
 	text-align : left;
 	font-size : 1em;
+	margin-left: 3 * @unit_base;
 }
 
 .ui-tokentextarea-link-base {

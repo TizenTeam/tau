@@ -1,39 +1,61 @@
-
-
-
 div.ui-slider.ui-toggle-switch {
 	position: relative;
-	width: 68 * @unit_base;
-	height: 32 * @unit_base;
-	background-image: url(images/00_button_on_off_bg.png);
+
+	width: 67 * @unit_base;
+	height: 31 * @unit_base;
+
+	box-sizing: border-box;
+	border: 2 * @unit_base @color_toggle_outline solid;
+	border-radius: 15 * @unit_base;
+	-webkit-border-radius: 15 * @unit_base;
+
 	background-size: 100% 100%;
+	background-color: @color_toggle_bg;
 
 	.ui-slider-label {
 		position: absolute;
 		background-size : 100% 100%;
 		background-repeat : no-repeat;
 		background-color : transparent;
-
 	}
 	.ui-slider-inneroffset {
+		width: 25 * @unit_base;
 		position: relative;
-		margin-left:18 * @unit_base;
-		margin-right:23 * @unit_base;
+		margin-left: 18 * @unit_base;
+		margin-right: 23 * @unit_base;
 	}
 	a.ui-slider-handle {
 		position: absolute;
-		width : 41 * @unit_base;
-		height : 32 * @unit_base;
-		-webkit-background-size: 100% 100%;
-		margin-top: 0 * @unit_base;
-		max-width : none;
+		width: 42 * @unit_base;
+		height: 31 * @unit_base;
+		margin-top: -2 * @unit_base;
+		padding-right: 0;
+		max-width: none;
+
+		background-size: 100% 100%;
+		background-image: url(images/controls/00_on_off_handler_bg_ef.png);
+		-webkit-mask-image: url(images/controls/00_on_off_handler_bg_ef.png), url(images/controls/00_on_off_handler_bg.png);
+		-webkit-mask-size: 100% 100%;
+
+		.ui-btn-inner {
+			height: 31 * @unit_base;
+			-webkit-mask-size: 100% 100%;
+		}
 		&.ui-toggle-on {
-			background-image: url(images/00_button_on_handler.png);
-			padding-right : 0;
+			background-color: @color_toggle_handle_on_bg;
+			.ui-btn-inner {
+				background-color: @color_toggle_handle_on_icon;
+				background-image: url(images/controls/00_on_off_handler_icon_on_ef.png);
+				-webkit-mask-image: url(images/controls/00_on_off_handler_icon_on_ef.png), url(images/controls/00_on_off_handler_icon_on.png);
+			}
 		}
 		&.ui-toggle-off {
-			background-image: url(images/00_button_off_handler.png);
-			padding-right : 0;
+			background-color: @color_toggle_handle_off_bg;
+			.ui-btn-inner {
+				background-color: @color_toggle_handle_off_icon;
+				background-image: url(images/controls/00_on_off_handler_icon_off_ef.png);
+				-webkit-mask-image: url(images/controls/00_on_off_handler_icon_off_ef.png), url(images/controls/00_on_off_handler_icon_off.png);
+			}
 		}
 	}
 	a.ui-slider-handle-snapping {
@@ -66,7 +88,6 @@ div.ui-slider.ui-slider-switch:not(.ui-toggle-switch) {
 		position : absolute;
 		background : rgba(255, 255, 255, 1);
 		background-image : -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 50, from(rgb(249, 249, 249)), to(rgb(50, 50, 50)));
-		-webkit-box-shadow : 0 1px 2px rgba(0, 0, 0, .2);
 		top : 50%;
 		margin : 1px 0 0 -15 * @unit_base;
 		border-radius : 15 * @unit_base;
@@ -99,7 +120,7 @@ div.ui-slider.ui-slider-switch:not(.ui-toggle-switch) {
 		}
 		&.ui-slider-label-b {
 			right : 0px;
-			color : @color_slider_label_text;
+			color : @color_slider_right_text;
 			z-index : 0;
 			text-indent : 1.5em;
 		}
