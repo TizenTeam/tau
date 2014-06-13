@@ -5,10 +5,10 @@
 		equal(typeof ns, "object", "ns exists");
 		equal(typeof ns.widget, "object", "ns.widget exists");
 		equal(typeof ns.widget.mobile, "object", "ns.widget.mobile exists");
-		equal(typeof ns.widget.mobile.Fieldcontain, "function", "ns.widget.mobile.Fieldcontain exists");
+		equal(typeof ns.widget.mobile.FieldContain, "function", "ns.widget.mobile.Fieldcontain exists");
 
-		field = new ns.widget.mobile.Fieldcontain();
-		Fieldcontain = ns.widget.mobile.Fieldcontain;
+		field = new ns.widget.mobile.FieldContain();
+		Fieldcontain = ns.widget.mobile.FieldContain;
 
 		equal(typeof field._build, "function", "function _build");
 		equal(typeof field.build, "function", "function build");

@@ -52,7 +52,7 @@
 		test( "Field container contains appropriate css styles.", function(){
 			var elem = document.getElementById('test-fieldcontain');
 			ok( !elem.classList.contains('ui-field-contain'), 'A fieldcontain element does not contain styles ui-field-contain before building.' );
-			ej.engine.instanceWidget(elem, 'Fieldcontain');
+			ej.engine.instanceWidget(elem, 'FieldContain');
 			cssStyles( elem.classList );
 		});
 
@@ -60,12 +60,12 @@
 			var elem = document.getElementById('without-text'),
 				elemtext = document.getElementById('with-text');
 			equal( elem.childNodes.length, 5, 'Before building the empty text nodes should exist.' );
-			ej.engine.instanceWidget(elem, 'Fieldcontain');
+			ej.engine.instanceWidget(elem, 'FieldContain');
 			cssStyles( elem.classList );
 			equal(elem.childNodes.length, 2, 'Afret building field container the empty text nodes should be delated.' );
 
 			equal(elemtext.childNodes.length, 5, 'Before building the empty text nodes should exist.' );
-			ej.engine.instanceWidget(elemtext, 'Fieldcontain');
+			ej.engine.instanceWidget(elemtext, 'FieldContain');
 			cssStyles(elemtext.classList );
 			equal(elemtext.childNodes.length, 3, 'Afret building field container only empty text nodes should be delated.' );
 		});
