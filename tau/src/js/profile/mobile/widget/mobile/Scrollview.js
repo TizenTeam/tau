@@ -889,7 +889,7 @@
 						} else {
 							eventUtils.trigger(element, "scrollstart");
 						}
-						scrollTimer = window.setTimeout(notifyScrolled, 50);
+						scrollTimer = window.setTimeout(notifyScrolled, 100);
 						eventUtils.trigger(element, "scrollupdate");
 					}, false);
 

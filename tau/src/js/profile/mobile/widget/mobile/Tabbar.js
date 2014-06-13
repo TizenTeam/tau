@@ -33,7 +33,8 @@
 			"../../../../core/event/vmouse",
 			"../mobile",  // fetch namespace
 			"./BaseWidgetMobile",
-			"./Button"
+			"./Button",
+			"./Scrollview"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -198,6 +199,13 @@
 					textpos = links[0].innerHTML.length ? true : false;
 				}
 
+				if (li.length > 4) {
+					// tabbar elements should be showed maximum forth elements.
+					this._setWidth(li, window.innerWidth / 4);
+				} else {
+					this._setWidth(li, window.innerWidth / li.length);
+				}
+
 				if (headers.length && scrollview.length) {
 					li.forEach(function (item) {
 						item.classList.add(classes.tabbarScrollLi);
@@ -211,12 +219,6 @@
 						item.insertAdjacentHTML('beforeend', '<div class="ui-tabbar-divider ui-tabbar-divider-left" style="display:none"></div><div class="ui-tabbar-divider ui-tabbar-divider-right" style="display:none"></div>');
 					});
 
-					//@todo how read something from jquery.data?
-		//			/* add width calculation*/
-		//			if ( $tabscrollview.data("default-list") ) {
-		//				this.options.defaultList = $tabscrollview.data( "default-list" );
-		//			}
-		//			$tabli.css( "width", window.innerWidth / this.options.defaultList + "px" );
 				} else {
 					if (li.length) {
 						tabbarClassList.add(classes.uiNavbar);
@@ -240,6 +242,20 @@
 					headers.forEach(function (header) {
 						header.classList.add(classes.uiTitleTabbar);
 					});
+				}
+				/* scrollable tabbar */
+				if (element.parentNode.classList.contains(classes.uiScrollviewView)){
+					headers.forEach(function (header) {
+						header.classList.add(classes.uiTitleTabbar);
+					});
+
+					if (li.length > 4) {
+						// scroller was needed when li element has more than forth.
+						scrollview[0].style.width = parseInt(li[0].style.width, 10) * li.length + "px";
+						this._scrollview = scrollview[0];
+						this._scrollviewClip = selectors.getParentsByClass(element, classes.uiScrollviewClip)[0];
+					}
+
 				}
 
 				if (!iconpos) {
@@ -299,10 +315,48 @@
 			Tabbar.prototype._bindEvents = function () {
 				this.vclickCallback = vclickEvent.bind(null, this);
 				this.element.addEventListener("vclick", this.vclickCallback, false);
+				this._scrollviewClip.addEventListener("scrollstop", this._setTabbarPositionX);
 			};
 
 			Tabbar.prototype._destroy = function () {
 				this.element.removeEventListener("vclick", this.vclickCallback, false);
+				this._scrollviewClip.removeEventListener("scrollstop", this._setTabbarPositionX);
+			};
+
+			/**
+			* Set width method
+			* @method _setWidth
+			* @param {HTMLElement} element, {number} element width value
+			* @member ns.widget.Tabbar
+			*/
+			Tabbar.prototype._setWidth = function (element, width) {
+				element.forEach(function (item) {
+					item.style.width = width + "px";
+					selectors.getChildrenByTag(item, "a")[0].style.width = width - 1 + "px";
+				});
+			};
+
+			/**
+			* Set width method
+			* @method _setWidth
+			* @param {HTMLElement} element, {number} element width value
+			* @member ns.widget.Tabbar
+			*/
+			Tabbar.prototype._setTabbarPositionX = function () {
+				var lastX = this.scrollLeft,
+					liWidth = parseInt(this.getElementsByTagName("li")[0].style.width),
+					interval = lastX % liWidth,
+					middle = liWidth / 2;
+
+				if (interval === 0) {
+					return;
+				}
+
+				if (interval <= middle) {
+					ns.widget.Scrollview(this).scrollTo(lastX - interval, 0, 500);
+				} else {
+					ns.widget.Scrollview(this).scrollTo(lastX + (liWidth - interval), 0, 500 );
+				}
 			};
 
 			/**
