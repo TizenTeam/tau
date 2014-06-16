@@ -73,6 +73,7 @@ textarea.ui-input-text {
 		background: @color_searchbar_bg;
 		outline: 0 !important;
 		color: @color_searchbar_typing_text;
+		font-size: @font_size_searchbar_typing_text;
 	}
 
 	.ui-btn-down-s, .ui-btn-up-s, .ui-btn-hover-s {
@@ -121,7 +122,7 @@ textarea.ui-input-text {
 	vertical-align: middle;
 
 	.ui-input-search {
-		font-size : 16 * @unit_base;
+		font-size : @font_size_searchbar_text;
 		display : block;
 		position: relative;
 
@@ -186,9 +187,6 @@ textarea.ui-input-text {
 		.ui-btn-inner {
 			padding-top : 6 * @unit_base;
 			padding-bottom : 6 * @unit_base;
-			.ui-btn-text{
-				font-size : 15 * @unit_base;
-			}
 		}
 
 		&.ui-btn-cancel-hide {
