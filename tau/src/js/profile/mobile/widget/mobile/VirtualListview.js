@@ -696,7 +696,7 @@
 					scrollviewInstance;
 
 				// scrollview may be set while widget is created with standalone option
-				if (standalone && !ui.scrollview) {
+				if (standalone && !ui.scrollview || !standalone) {
 					//Get Scrollview widget instance
 					// @TODO make this asynchrous, it's currently possible that a child widget will be built before scrollview (for example VirtualGrid)
 					// @TODO this will fail also if data-scroll is set to none on target scrollable element
