@@ -24,13 +24,14 @@
 	}
 }
 .ui-btn.ui-btn-box-s {
-		margin-top: 6 * @unit_base;
-		margin-bottom: 6 * @unit_base;
-		color: @color_button_text_normal;
+	margin-top: 6 * @unit_base;
+	margin-bottom: 6 * @unit_base;
+	color: @color_button_text_normal;
+	font-size: @font_size_button_text;
 }
 
 .ui-btn:focus, .ui-btn:active { outline: none; }
-.ui-header .ui-btn, .ui-bar .ui-btn { display: inline-block; font-size: 13 * @unit_base; margin: 0; }
+.ui-header .ui-btn, .ui-bar .ui-btn { display: inline-block; margin: 0; }
 .ui-btn-inline { display: inline-block; }
 .ui-btn-inner {
 	padding: 5 * @unit_base;
@@ -95,7 +96,6 @@
 
 .ui-btn .ui-btn-inner.ui-btn-hastxt span.ui-btn-text
 {
-	font-size: 18 * @unit_base;
 	line-height: 26 * @unit_base;
 }
 
@@ -414,14 +414,15 @@
 .ui-btn.ui-btn-icon-nobg, .ui-btn .ui-btn-icon-nobg
 {
 	background: transparent;
-	background-color: transparent;	
+	background-color: transparent;
 	border: none;
 }
 
 /* Contact Edit Style */
-.ui-btn.ui-btn-edit .ui-btn-text 
+.ui-btn.ui-btn-edit .ui-btn-text
 {
 	color: @color_button_EditText;
+	font-size: @font_size_button_EditText;
 }
 .ui-btn.ui-btn-edit .ui-btn-inner
 {
