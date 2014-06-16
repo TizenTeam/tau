@@ -1,13 +1,3 @@
-/* Resource color mapping table
-
-@color_popup_title_bg:	popup_title_bg.png
-@color_popup_bg:	popup_bg.png
-@color_popup_button_bg:	popup_button_bg.png
-@color_popup_font:		Popup title & default
-@color_popup_text_font:	Popup text
-
-*/
-
 @popupwindow-text-padding-vert: 22 * @unit_base;
 @popupwindow-text-padding-hori: 16 * @unit_base;
 
@@ -27,7 +17,8 @@
 
 	position: absolute;
 	z-index: (@z_base_popup + 1) !important;
-	color: @color_popup_font;
+	color: @color_popup_text;
+	font-size: @font_size_popup_text;
 
 	//FIXME : remove background & padding if there is no padding.
 	background:		@color_popup_bg;
@@ -36,7 +27,7 @@
 	.popup-title {
 		width: 100%;
 		height: 100%;
-		font-size: @font_size_popup_basic_style_title;
+		font-size: @font_size_popup_title_text;
 		background: @color_popup_title_bg;
 		p {
 			margin: 0*@unit_base 0*@unit_base;
@@ -46,8 +37,8 @@
 
 	.popup-text {
 		width: 100%;
-		color: @color_popup_text_font;
-		font-size: @font_size_popup_info_style;
+		color: @color_popup_text;
+		font-size: @font_size_popup_text;
 		background: @color_popup_bg;
 		p {
 			text-align: center;
@@ -340,21 +331,22 @@
 			}
 		}
 	}
-	.center_liststyle_1btn {
-
+	.center_liststyle_1btn,
+	.center_liststyle_2btn,
+	.center_liststyle_3btn {
 		.LESSdisplaybox();
 		.LESSbox-orient(vertical);
 		.LESSbox-align(center);
 		.LESSbox-pack(center);
 
+		color: @color_popup_list_style_text;
+		font-size: @font_size_popup_list_style_text;
 	    	text-align: center;
-
-		// .popup-title
 
 		.popup-scroller-bg {
 			width: 100%;
 			overflow: hidden;
-			height: 512*@unit_base;
+			height: 512 * @unit_base;
 		}
 		.popup-button-bg {
 			font-size: @font_size_popup_button_text;
@@ -363,85 +355,37 @@
 			padding-top: 11*@unit_base;
 			padding-bottom: 11*@unit_base;
 			vertical-align: middle;
-
-			.ui-btn {
-				width: 402*@unit_base;
-				height: 74*@unit_base;
-				margin:auto;
-
-			}
 		}
 	}
-	.center_liststyle_2btn {
 
-		.LESSdisplaybox();
-		.LESSbox-orient(vertical);
-		.LESSbox-align(center);
-		.LESSbox-pack(center);
-
-	    	text-align: center;
-
-		// .popup-title
-
-		.popup-scroller-bg {
-			width: 100%;
-			overflow: hidden;
-			height: 512*@unit_base;
+	.center_liststyle_1btn {
+		.popup-button-bg .ui-btn {
+			width: 402 * @unit_base;
+			height: 74 * @unit_base;
+			margin:auto;
 		}
-		.popup-button-bg {
-			font-size: @font_size_popup_button_text;
-			background: @color_popup_button_bg;
-			width: 100%;
-			padding-top: 11*@unit_base;
-			padding-bottom: 11*@unit_base;
-			vertical-align: middle;
+	}
 
-			.ui-btn {
-				width: 274*@unit_base;
-				height: 74*@unit_base;
-				margin-top: 0*@unit_base;
-				margin-bottom: 0*@unit_base;
-				margin-left: 5*@unit_base;
-				margin-right: 5*@unit_base;
-
-				display: inline-block;
-			}
+	.center_liststyle_2btn {
+		.popup-button-bg .ui-btn {
+			width: 274 * @unit_base;
+			height: 74 * @unit_base;
+			margin-top: 0;
+			margin-bottom: 0;
+			margin-left: 5 * @unit_base;
+			margin-right: 5 * @unit_base;
+			display: inline-block;
 		}
 	}
 	.center_liststyle_3btn {
-
-		.LESSdisplaybox();
-		.LESSbox-orient(vertical);
-		.LESSbox-align(center);
-		.LESSbox-pack(center);
-
-	    	text-align: center;
-
-		// .popup-title
-
-		.popup-scroller-bg {
-			width: 100%;
-			overflow: hidden;
-			height: 512*@unit_base;
-		}
-		.popup-button-bg {
-			font-size: @font_size_popup_button_text;
-			background: @color_popup_button_bg;
-			width: 100%;
-			padding-top: 11*@unit_base;
-			padding-bottom: 11*@unit_base;
-			vertical-align: middle;
-
-			.ui-btn {
-				width: 186*@unit_base;
-				height: 74*@unit_base;
-				margin-top: 0*@unit_base;
-				margin-bottom: 0*@unit_base;
-				margin-left: 5*@unit_base;
-				margin-right: 5*@unit_base;
-
-				display: inline-block;
-			}
+		.popup-button-bg .ui-btn {
+			width: 186 * @unit_base;
+			height: 74 * @unit_base;
+			margin-top: 0;
+			margin-bottom: 0;
+			margin-left: 5 * @unit_base;
+			margin-right: 5 * @unit_base;
+			display: inline-block;
 		}
 	}
 
