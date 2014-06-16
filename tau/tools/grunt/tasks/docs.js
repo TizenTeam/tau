@@ -507,7 +507,16 @@ module.exports = function (grunt) {
 							return tag.string
 						})[0] || "";
 					classObj = docsStructure[memberOf];
-					method = {};
+					method = block.tags.filter(function (tag) {
+						return tag.type === 'inheritdoc';
+					}).map(function(tag) {
+						var original = tag.string,
+							originalArray = original.split("#");
+						console.log("inherit from ", original);
+						return docsStructure[originalArray[0]] && (docsStructure[originalArray[0]].methods.filter(function(_method) {
+							return _method === originalArray[1];
+						})[0]);
+					})[0] || {};
 					method.params = block.tags.filter(function (tag) {
 						return tag.type === 'param';
 					}).map(function(tag) {

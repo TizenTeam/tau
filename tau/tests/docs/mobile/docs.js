@@ -13,14 +13,28 @@ module("compare");
 	}
 
 	function findProperty(name, key) {
-		var objectDocumentation = findDocumentationObject(name);
-		return objectDocumentation && objectDocumentation.properties && (objectDocumentation.properties.filter(function(methodObject) {
+		var objectDocumentation = findDocumentationObject(name),
+			objectNameArray = name.split("."),
+			parentObjectKey = objectNameArray.pop() + "." + key,
+			parentObjectName =  objectNameArray.join("."),
+			parentObjectDocumentation = findDocumentationObject(parentObjectName);
+		return ((key.substring(0, 7) === "options" ? (objectDocumentation && objectDocumentation.options && (objectDocumentation.options.filter(function(methodObject) {
+			return  methodObject.name === "data-" + key.replace("options.", "").replace(/[A-Z]/g, function (c) {
+				return "-" + c.toLowerCase();
+			});
+		})[0])) : (objectDocumentation && objectDocumentation.properties && (objectDocumentation.properties.filter(function(methodObject) {
 			return  methodObject.name === key;
-		})[0]);
+		})[0])) || (parentObjectDocumentation && parentObjectDocumentation.properties && (parentObjectDocumentation.properties.filter(function(methodObject) {
+			return  methodObject.name === key;
+		})[0]))));
 	}
 
 	function checkProperty(key, name) {
-		ok(findProperty(name, key), "property " + name + '.' + key + ' exists');
+		var topLevelProperty = findProperty(name, key),
+			objectNameArray = name.split("."),
+			parentObjectKey = objectNameArray.pop() + "." + key,
+			parentObjectName =  objectNameArray.join(".");
+		ok(topLevelProperty || findProperty(parentObjectName, parentObjectKey), "property " + name + '.' + key + ' exists');
 	}
 
 	function isClass(object) {
@@ -35,7 +49,7 @@ module("compare");
 	function checkAll(object, name) {
 		var key;
 		for (key in object) {
-			if (object.hasOwnProperty(key) && (showProtected || key[0] !== "_") && (key !== "constructor")) {
+			if (object.hasOwnProperty(key) && (showProtected || key[0] !== "_") && (key !== "constructor") && key !== "options") {
 				if (typeof object[key] === "object" && !(object[key] instanceof HTMLElement)) {
 					if (findProperty(name, key)) {
 						checkProperty(key, name);
