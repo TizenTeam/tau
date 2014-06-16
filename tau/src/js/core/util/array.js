@@ -13,21 +13,32 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			/*
-			 * Copyright (c) 2013 - 2014 Samsung Electronics Co., Ltd
-			 *
-			 * Licensed under the Flora License, Version 1.1 (the "License");
-			 * you may not use this file except in compliance with the License.
-			 * You may obtain a copy of the License at
-			 *
-			 * http://floralicense.org/license/
-			 *
-			 * Unless required by applicable law or agreed to in writing, software
-			 * distributed under the License is distributed on an "AS IS" BASIS,
-			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-			 * See the License for the specific language governing permissions and
-			 * limitations under the License.
+			* Copyright (c) 2013 - 2014 Samsung Electronics Co., Ltd
+			*
+			* Licensed under the Flora License, Version 1.1 (the "License");
+			* you may not use this file except in compliance with the License.
+			* You may obtain a copy of the License at
+			*
+			*     http://floralicense.org/license/
+			*
+			* Unless required by applicable law or agreed to in writing, software
+			* distributed under the License is distributed on an "AS IS" BASIS,
+			* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			* See the License for the specific language governing permissions and
+			* limitations under the License.
+			*/
+			/**
+			 * Create an array containing the range of integers or characters
+			 * from low to high (inclusive)
+			 * @method range
+			 * @param {number|string} low
+			 * @param {number|string} high
+			 * @param {number} step
+			 * @static
+			 * @return {Array} array containing continous elements
+			 * @member ns.util.array
 			 */
-			function _range(low, high, step) {
+			function range(low, high, step) {
 				// Create an array containing the range of integers or characters
 				// from low to high (inclusive)
 				//
@@ -78,7 +89,8 @@
 			}
 
 			/**
-			 * Check object is arraylike (arraylike include array and collection)
+			 * Check object is arraylike (arraylike include array and
+			 * collection)
 			 * @method isArrayLike
 			 * @param {Object} object
 			 * @return {boolean} Whether arraylike object or not
@@ -107,18 +119,7 @@
 			}
 
 			ns.util.array = {
-				/**
-				 * Create an array containing the range of integers or
-				 * characters from low to high (inclusive)
-				 * @method range
-				 * @param {number|string} low
-				 * @param {number|string} high
-				 * @param {number} step
-				 * @static
-				 * @return {Array} array containing continous elements
-				 * @member ns.util.array
-				 */
-				range: _range,
+				range: range,
 				isArrayLike: isArrayLike
 			};
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);

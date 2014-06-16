@@ -17,9 +17,11 @@
 /*jslint nomen: true, plusplus: true */
 /**
  * # SectionChanger Widget
- * Shows a control that you can use to scroll through multiple <section> elements.
+ * Shows a control that you can use to scroll through multiple *section*
+ * elements.
  *
- * The section changer widget provides an application architecture, which has multiple sections on a page and enables scrolling through the <section> elements.
+ * The section changer widget provides an application architecture, which has
+ * multiple sections on a page and enables scrolling through the *section* elements.
  *
  * ## Manual constructor
  *
@@ -140,7 +142,7 @@
 					 * @property {boolean} [options.circular=false] Presents the sections in a circular scroll fashion.
 					 * @property {boolean} [options.useBouncingEffect=false] Shows a scroll end effect on the scroll edge.
 					 * @property {string} [options.items="section"] Defines the section element selector.
-					 * @property {string} [options.activeClass="section-active"] Specifies the CSS classes which define the active section element. Add the specified class (section-active) to a <section> element to indicate which section must be shown first. By default, the first section is shown first.
+					 * @property {string} [options.activeClass="section-active"] Specifies the CSS classes which define the active section element. Add the specified class (section-active) to a *section* element to indicate which section must be shown first. By default, the first section is shown first.
 					 * @member ns.widget.wearable.SectionChanger
 					 */
 					var options = this.options;

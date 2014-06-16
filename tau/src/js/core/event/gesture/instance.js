@@ -16,7 +16,7 @@
 * limitations under the License.
 */
 /**
- * Gesture.Instance class
+ * #Gesture.Instance class
  * @class ns.event.gesture.Instance
  */
 ( function ( ns, window, undefined ) {

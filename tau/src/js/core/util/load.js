@@ -198,7 +198,7 @@
 
 			/**
 			 * Add css link element to head if not exists
-			 * @method css
+			 * @method themeCSS
 			 * @param {string} path
 			 * @param {string} themeName
 			 * @member ns.util.load
@@ -233,9 +233,10 @@
 			}
 
 			/**
-			 * String conataining the path to cacheBust
+			 * In debug mode add time to url to disable cache
 			 * @property {string} cacheBust
 			 * @member ns.util.load
+			 * @static
 			 */
 			load.cacheBust = (document.location.href.match(/debug=true/)) ? '?cacheBust=' + (new Date()).getTime() : '';
 			// the binding a local methods with the namespace

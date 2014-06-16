@@ -16,7 +16,7 @@
 * limitations under the License.
 */
 /**
- * Gesture.Manager class
+ * #Gesture.Manager class
  * @class ns.event.gesture.Manager
  */
 ( function ( ns, window, document) {

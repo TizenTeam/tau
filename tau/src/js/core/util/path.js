@@ -14,10 +14,8 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-/*
 /**
- * #Path
- * Util path namespace
+ * # Path Utilities
  * @class ns.util.path
  * @static
  * @author Tomasz Lukawski <t.lukawski@samsung.com>

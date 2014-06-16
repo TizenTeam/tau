@@ -16,7 +16,7 @@
 * limitations under the License.
 */
 /**
- * Gesture Utils
+ * #Gesture Utils
  * @class ns.event.gesture.utils
  */
 ( function ( ns, Math, undefined ) {

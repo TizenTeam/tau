@@ -192,10 +192,11 @@
 				 */
 				PREFIX = 'ui-multimediaview',
 				/**
-				 * Local alias for MultimediaView.classes
-				 * @property {Object} classes {@link ns.widget.MultimediaView.classes}
+				 * Directory with classes
+				 * @property {Object} classes
 				 * @static
-				 * @private
+				 * @readonly
+				 * @member ns.widget.mobile.MultimediaView
 				 */
 				classes = {
 					VIEW: PREFIX,
@@ -236,7 +237,7 @@
 				},
 				/**
 				 * Selectors using in MultimediaView widget
-				 * @property {Object} classes {@link ns.widget.MultimediaView.classes}
+				 * @property {Object} classes {@link ns.widget.mobile.MultimediaView#classes}
 				 * @static
 				 * @private
 				 */

@@ -58,54 +58,18 @@
 			*/
 			var Controlgroup = function () {
 					/**
-					* @property {Object} options Object with default options
-					* @member ns.widget.mobile.Controlgroup
-					* @instance
-					*/
+					 * Object with default options
+					 * @property {Object} options
+					 * @property {"vertical"|"horizontal"} [options.type="vertical"] Direction of widget
+					 * @property {boolean} [options.shadow=false] Shadow of Controlgroup
+					 * @property {boolean} [options.excludeInvisible=false] Flag specifying exclusion of invisible elements
+					 * @property {boolean} [options.mini=false] Size of Controlgroup
+					 * @member ns.widget.mobile.Controlgroup
+					 */
 					this.options = {
-						/**
-						* Direction of widget (vertical|horizontal)
-						* @property {String} [options.type='vertical']
-						* @member ns.widget.mobile.Controlgroup
-						* @instance
-						*/
-						/**
-						* Direction of widget
-						* @cfg {String} [data-type='vertical']
-						*/
 						type: 'vertical',
-						/**
-						* Shadow of Controlgroup
-						* @property {Boolean} [options.shadow=false]
-						* @member ns.widget.mobile.Controlgroup
-						* @instance
-						*/
-						/**
-						* Shadow of Controlgroup
-						* @cfg {String} [data-shadow='']
-						*/
 						shadow: false,
-						/**
-						* Flag specifying exclusion of invisible elements
-						* @property {Boolean} [options.excludeInvisible=false]
-						* @member ns.widget.mobile.Controlgroup
-						* @instance
-						*/
-						/**
-						* Flag specifying exclusion of invisible elements
-						* @cfg {String} [data-exclude-invisible='']
-						*/
 						excludeInvisible: false,
-						/**
-						* Size of Controlgroup
-						* @property {Boolean} [options.mini=false]
-						* @member ns.widget.mobile.Controlgroup
-						* @instance
-						*/
-						/**
-						* Size of Controlgroup
-						* @cfg {String} [data-mini='']
-						*/
 						mini: false
 					};
 				},

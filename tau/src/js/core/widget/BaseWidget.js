@@ -569,7 +569,7 @@
 			 *
 			 * @method option
 			 * @param {string|Object} [name] name of option
-			 * @param {*} value value to set
+			 * @param {*} [value] value to set
 			 * @member ns.widget.BaseWidget
 			 * @return {*} return value of option or undefined if method is called in setter context
 			 */

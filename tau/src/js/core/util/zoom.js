@@ -21,8 +21,26 @@
 				enabledZoom = initialContent + ",maximum-scale=10, user-scalable=yes",
 				disabledInitially = /(user-scalable[\s]*=[\s]*no)|(maximum-scale[\s]*=[\s]*1)[$,\s]/.test(initialContent),
 				zoom = {
+					/**
+					 * Status of zoom
+					 * @property {boolean} enabled
+					 * @static
+					 * @member ns.util.zoom
+					 */
 					enabled: !disabledInitially,
+					/**
+					 * @property {boolean} [locked=false]
+					 * @static
+					 * @member ns.util.zoom
+					 */
 					locked: false,
+					/**
+					 * Disable zoom
+					 * @method disable
+					 * @param {boolean} lock
+					 * @static
+					 * @member ns.util.zoom
+					 */
 					disable: function (lock) {
 						if (!disabledInitially && !zoom.locked) {
 							if (meta) {
@@ -32,6 +50,13 @@
 							zoom.locked = lock || false;
 						}
 					},
+					/**
+					 * Enable zoom
+					 * @method enable
+					 * @param {boolean} unlock
+					 * @static
+					 * @member ns.util.zoom
+					 */
 					enable: function (unlock) {
 						if (!disabledInitially && (!zoom.locked || unlock === true)) {
 							if (meta) {
@@ -41,6 +66,12 @@
 							zoom.locked = false;
 						}
 					},
+					/**
+					 * Restore zoom
+					 * @method restore
+					 * @static
+					 * @member ns.util.zoom
+					 */
 					restore: function () {
 						if (!disabledInitially) {
 							if (meta) {

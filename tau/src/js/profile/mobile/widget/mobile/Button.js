@@ -238,7 +238,8 @@
 				Button.prototype = prototype;
 
 			/**
-			 * @property {Object} classes Dictionary for button related css class names
+			 * Dictionary for button related css class names
+			 * @property {Object} classes
 			 * @member ns.widget.mobile.Button
 			 * @static
 			 * @readonly
@@ -246,7 +247,8 @@
 			Button.classes = classes;
 
 			/**
-			 * @property {number} hoverDelay=0
+			 * Delay of highlight on hover
+			 * @property {number} [hoverDelay=0]
 			 * @member ns.widget.mobile.Button
 			 * @static
 			 */
@@ -478,7 +480,8 @@
 				var prototypeOptions = prototype.options,
 					options;
 				/**
-				 * @property {object} options All possible widget options
+				 * All possible widget options
+				 * @property {Object} options
 				 * @property {?string} [options.theme=null] theme of widget
 				 * @property {?string} [options.icon=null] icon type
 				 * @property {"left"|"right"|"top"|"bottom"|null} [options.iconpos=null] position of icon

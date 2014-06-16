@@ -16,7 +16,7 @@
 * limitations under the License.
 */
 /**
- * Gesture class with events functions
+ * #Gesture class with events functions
  * @class ns.event.gesture
  */
 (function ( ns, window, undefined ) {

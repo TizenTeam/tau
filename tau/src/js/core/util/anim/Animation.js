@@ -341,7 +341,8 @@
 			};
 
 			/**
-			 * @property {Object} statea animation state definitions
+			 * Animation state definitions
+			 * @property {Object} states
 			 * @property {number} [states.PAUSED=0] paused state
 			 * @property {number} [states.PLAYING=1] playing state
 			 * @property {number} [states.FINISHED=2] finished state

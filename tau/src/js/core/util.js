@@ -45,11 +45,6 @@
 					function (callback) {
 						currentFrame = window.setTimeout(callback.bind(callback, +new Date()), 1000 / 60);
 					}).bind(window),
-				/**
-				* Class with util functions
-				* @class ns.util
-				*/
-				/** @namespace ns.util */
 				util = ns.util || {};
 
 			util.requestAnimationFrame = requestAnimationFrame;
@@ -92,8 +87,15 @@
 				return !isNaN(parsed) && isFinite(parsed);
 			};
 
+			/**
+			 * Reappend script tags to DOM structure to correct run script
+			 * @method runScript
+			 * @param {string} baseUrl
+			 * @param {HTMLScriptElement} script
+			 * @member ns.util
+			 */
 			util.runScript = function (baseUrl, script) {
-				var newscript = document.createElement('script'),
+				var newScript = document.createElement('script'),
 					i,
 					scriptAttributes = script.attributes,
 					count = script.childNodes.length,
@@ -112,7 +114,7 @@
 				for (i = scriptAttributes.length - 1; i >= 0; i -= 1) {
 					attribute = scriptAttributes[i];
 					if (attribute.name !== 'src') {
-						newscript.setAttribute(attribute.name, attribute.value);
+						newScript.setAttribute(attribute.name, attribute.value);
 					}
 				}
 
@@ -127,8 +129,8 @@
 						status = xhrObj.status;
 						if (status === 200 || status === 0) {
 							// add the returned content to a newly created script tag
-							newscript.type = "text/javascript";
-							newscript.text = xhrObj.responseText;
+							newScript.type = "text/javascript";
+							newScript.text = xhrObj.responseText;
 						}
 						//>>excludeStart("tauDebug", pragmas.tauDebug);
 						if (xhrObj.status !== 200) {
@@ -139,10 +141,10 @@
 					}
 				} else {
 					for (i = 0; i < count; i++) {
-						newscript.appendChild(script.childNodes[i]);
+						newScript.appendChild(script.childNodes[i]);
 					}
 				}
-				script.parentNode.replaceChild(newscript, script);
+				script.parentNode.replaceChild(newScript, script);
 			};
 
 			ns.util = util;

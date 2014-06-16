@@ -263,11 +263,11 @@
 					var onBeforeRefreshListItems = beforeRefreshListItems.bind(null, self, element);
 					beforeRefreshListItemsHandlers[self.id] = onBeforeRefreshListItems;
 					/**
-					* This option enables creating autodividers on ListView
-					* @property {boolean} [options.autodividers=false]
-					* @member ns.widget.mobile.Listview.Autodividers
-					* @instance
-					*/
+					 * Options object
+					 * @property {Object} options
+					 * @property {boolean} [options.autodividers=false] This option enables creating autodividers on ListView
+					 * @member ns.widget.mobile.Listview.Autodividers
+					 */
 					self.options.autodividers = false;
 					self._getCreateOptions(element);
 					element.addEventListener('beforerefreshitems',

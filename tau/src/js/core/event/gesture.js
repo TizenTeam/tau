@@ -16,7 +16,8 @@
 * limitations under the License.
 */
 /**
- * Gesture namespace
+ * # Gesture namespace
+ * @class ns.event.gesture
  */
 (function (ns) {
 	"use strict";

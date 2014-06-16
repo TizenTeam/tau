@@ -36,7 +36,7 @@
 			examples:
 				$.mobile.media('screen') // tests for screen media type
 				$.mobile.media('screen and (min-width: 480px)') // tests for screen media type with window width > 480px
-				$.mobile.media('@media screen and (-webkit-min-device-pixel-ratio: 2)') // tests for webkit 2x pixel ratio (iPhone 4)
+				$.mobile.media('\@media screen and (-webkit-min-device-pixel-ratio: 2)') // tests for webkit 2x pixel ratio (iPhone 4)
 		*/
 			// TODO: use window.matchMedia once at least one UA implements it
 			var cacheMedia = {},
@@ -55,6 +55,14 @@
 			testDiv.id = 'jquery-mediatest';
 			fakeBody.appendChild(testDiv);
 
+			/**
+			 * Method checks \@media "query" support
+			 * @method media
+			 * @param {string} query
+			 * @return {boolean}
+			 * @static
+			 * @member ns.support
+			 */
 			function media(query) {
 				var styleBlock = document.createElement("style"),
 					cssrule = "@media " + query + " { #jquery-mediatest { position:absolute; } }";
@@ -210,20 +218,99 @@
 
 			ns.support = {
 				media: media,
+				/**
+				 * Informs browser support transition
+				 * @property {boolean} cssTransitions
+				 * @member ns.support
+				 * @static
+				 */
 				cssTransitions: (window.WebKitTransitionEvent !== undefined || validStyle('transition', 'height 100ms linear')) && !opera,
+				/**
+				 * Informs browser support history.pushStare method
+				 * @property {boolean} pushState
+				 * @member ns.support
+				 * @static
+				 */
 				pushState: window.history.pushState && window.history.replaceState && true,
+				/**
+				 * Informs browser support media query "only all"
+				 * @property {boolean} mediaquery
+				 * @member ns.support
+				 * @static
+				 */
 				mediaquery: media("only all"),
+				/**
+				 * Informs browser support content property on element
+				 * @property {boolean} cssPseudoElement
+				 * @member ns.support
+				 * @static
+				 */
 				cssPseudoElement: !!propExists("content"),
+				/**
+				 * Informs browser support overflowScrolling property on element
+				 * @property {boolean} touchOverflow
+				 * @member ns.support
+				 * @static
+				 */
 				touchOverflow: !!propExists("overflowScrolling"),
+				/**
+				 * Informs browser support CSS 3D transiotions
+				 * @property {boolean} cssTransform3d
+				 * @member ns.support
+				 * @static
+				 */
 				cssTransform3d: transform3dTest(),
+				/**
+				 * Informs browser support boxShadow property on element
+				 * @property {boolean} boxShadow
+				 * @member ns.support
+				 * @static
+				 */
 				boxShadow: !!propExists("boxShadow") && !blackBerry,
+				/**
+				 * Informs browser support scrollTop property
+				 * @property {boolean} scrollTop
+				 * @member ns.support
+				 * @static
+				 */
 				scrollTop: ((window.pageXOffset || document.documentElement.scrollTop || fakeBody.scrollTop) !== undefined && !webos && !operamini) ? true : false,
+				/**
+				 * Informs browser support dynamic change base tag
+				 * @property {boolean} dynamicBaseTag
+				 * @member ns.support
+				 * @static
+				 */
 				dynamicBaseTag: baseTagTest(),
+				/**
+				 * Informs browser support CSS pointer events
+				 * @property {boolean} cssPointerEvents
+				 * @member ns.support
+				 * @static
+				 */
 				cssPointerEvents: cssPointerEventsTest(),
+				/**
+				 * Prefix for animations
+				 * @property ("-webkit-"|"-moz-"|"-o-"|""} cssAnimationPrefix
+				 * @member ns.support
+				 * @static
+				 */
 				cssAnimationPrefix: testDivStyle.hasOwnProperty("webkitAnimation") ? "-webkit-" :
 						testDivStyle.hasOwnProperty("mozAnimation") ? "-moz-" :
 								testDivStyle.hasOwnProperty("oAnimation") ? "-o-" : "",
+				/**
+				 * Informs browser support getBoundingClientRect
+				 * @property {boolean} boundingRect
+				 * @member ns.support
+				 * @static
+				 */
 				boundingRect: boundingRect(),
+				/**
+				 * Object with browser informations
+				 * @property (Object} browser
+				 * @property {boolean} browser.ie detects Internet Explorer
+				 * @member ns.support
+				 * @static
+				 */
 				browser: {
 					ie: (function () {
 						var v = 3,
@@ -235,11 +322,30 @@
 						return v > 4 ? v : !v;
 					}())
 				},
+				/**
+				 * Informs that browser pass all tests for run framework
+				 * @method gradeA
+				 * @member ns.support
+				 * @static
+				 * @return {boolean}
+				 */
 				gradeA: function () {
 					return ((this.mediaquery || (this.browser.ie && this.browser.ie >= 7)) &&
 						(this.boundingRect || ((window.jQuery && window.jQuery.fn && window.jQuery.fn.jquery.match(/1\.[0-7+]\.[0-9+]?/)) !== null)));
 				},
+				/**
+				 * Informs browser support touch events
+				 * @property {boolean} touch
+				 * @member ns.support
+				 * @static
+				 */
 				touch: document.ontouchend !== undefined,
+				/**
+				 * Informs browser support orientation property
+				 * @property {boolean} orientation
+				 * @member ns.support
+				 * @static
+				 */
 				orientation: window.orientation !== undefined && window.onorientationchange !== undefined
 			};
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);

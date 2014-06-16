@@ -622,7 +622,6 @@
 			 *		</script>
 			 *
 			 * @method destroy
-			 * @public
 			 * @member ns.widget.mobile.Gallery3D
 			 */
 			/**

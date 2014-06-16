@@ -16,8 +16,8 @@
 * limitations under the License.
 */
 /**
- * Gesture Plugin: swipe
- * @class ns.event.gesture.Drag
+ * #Gesture Plugin: swipe
+ * @class ns.event.gesture.Swipe
  */
 ( function ( ns, window, undefined ) {
 	"use strict";

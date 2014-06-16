@@ -14,6 +14,11 @@
 			 * @class ns.jqm
 			 */
 			ns.jqm = {
+				/**
+				 * jQuery object
+				 * @property {Object} jQuery
+				 * @member ns.jqm
+				 */
 				jQuery: ns.getConfig('jQuery') || window.jQuery
 			};
 			document.addEventListener(ns.engine.eventType.INIT, function () {

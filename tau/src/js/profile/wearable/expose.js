@@ -17,8 +17,6 @@
 /*jslint plusplus: true, nomen: true */
 /**
  * @class tau.navigator
- * @inheritdoc ns.router.Router
- * @extends ns.router.router
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
 //  * @TODO add support of $.mobile.buttonMarkup.hoverDelay

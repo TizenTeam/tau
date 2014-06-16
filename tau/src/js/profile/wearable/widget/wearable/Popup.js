@@ -54,6 +54,7 @@
  *		            <button id="cancel" class="ui-btn">Cancel</button>
  *		        </div>
  *		    </div>
+ *		</div>
  *
  * #### Popup with 2 buttons in the footer
  *
@@ -106,6 +107,7 @@
  *                 <button id="listBoxPopup-close" class="ui-btn">Close</button>
  *             </div>
  *         </div>
+ *     </div>
  *
  * #### Popup with no header and footer
  *
@@ -152,7 +154,6 @@
  *               <button id="cancel" class="ui-btn">Cancel</button>
  *           </div>
  *       </div>
- *   </div>
  *
  *  To open the popup widget from JavaScript use method *tau.openPopup(to)*
  *

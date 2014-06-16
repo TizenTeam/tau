@@ -19,7 +19,7 @@
  * TabIndicator Widget
  * @class ns.widget.wearable.TabIndicator
  * @since 2.3
- * @extends ej.widget.BaseWidget
+ * @extends ns.widget.BaseWidget
  */
 (function (document, ns) {
 	"use strict";

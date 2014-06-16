@@ -16,7 +16,7 @@
 * limitations under the License.
 */
 /**
- * Gesture.Detector class
+ * #Gesture.Detector class
  * @class ns.event.gesture.Detector
  */
 ( function ( ns, window, undefined ) {

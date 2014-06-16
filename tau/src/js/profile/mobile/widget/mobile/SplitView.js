@@ -20,7 +20,7 @@
  *
  * SplitView is a widget, which displays two children separated with a movable divider.
  * It allows to change the size ratio of its children and supports two orientations.
- * @class ns.widget.SplitView
+ * @class ns.widget.mobile.SplitView
  * @extends ns.widget.mobile.BaseWidgetMobile
  */
 (function (document, ns) {
@@ -49,13 +49,12 @@
 				SplitView = function () {
 					var self = this;
 					/**
-					 *
+					 * Object with all options of widget.
 					 * @property {Object} options
 					 * @property {boolean} [options.fixed=false] if true, the divider can't be manipulated
 					 * @property {boolean} [options.dividerVertical=false] specifies divider orientation
 					 * @property {Array} [options.ratio=[0.5, 0.5]] width/height distribution between panes
-					 * @member ns.widget.SplitView
-					 * @instance
+					 * @member ns.widget.mobile.SplitView
 					 */
 					/** @expose */
 					self.options = {
@@ -64,12 +63,12 @@
 						ratio : [0.5, 0.5]
 					};
 					/**
-					 * @property {Object} movementData helper object for movement events
+					 * Helper object for movement events
+					 * @property {Object} movementData
 					 * @property {number} [movementData.lastX=0] last X movement
 					 * @property {number} [movementData.lastY=0] last Y movement
 					 * @property {boolean} [movementData.hadMovement=false] indicates whether there was a down event
-					 * @member ns.widget.SplitView
-					 * @instance
+					 * @member ns.widget.mobile.SplitView
 					 */
 					self.movementData = {
 						lastX : 0,
@@ -77,6 +76,7 @@
 						hadDownEvent : false
 					};
 					/**
+					 * Object with all used dimensions.
 					 * @property {Object} dimensions
 					 * @property {number} [dimensions.containerWidth=0] the width available for split view
 					 * @property {number} [dimensions.containerHeight=0] the height available for split view
@@ -86,8 +86,7 @@
 					 * @property {Array} [dimensions.originalRatio] original ratio set for this split view
 					 * @property {number} [dimensions.minPaneSize=20] minimum size of a pane
 					 * @property {number} [dimensions.maxPaneSize=0] maximum size of a pane
-					 * @member ns.widget.SplitView
-					 * @instance
+					 * @member ns.widget.mobile.SplitView
 					 */
 					self.dimensions = {
 						containerWidth : 0,
@@ -100,33 +99,33 @@
 						maxPaneSize : 0
 					};
 					/**
-					 * @property {Array} panes split view panes
-					 * @member ns.widget.SplitView
-					 * @instance
+					 * split view panes
+					 * @property {Array} panes
+					 * @member ns.widget.mobile.SplitView
 					 */
 					self.panes = null;
 					/**
-					 * @property {HTMLElement} splitterTouchElement splitter touch element
-					 * @member ns.widget.SplitView
-					 * @instance
+					 * splitter touch element
+					 * @property {HTMLElement} splitterTouchElement
+					 * @member ns.widget.mobile.SplitView
 					 */
 					self.splitterTouchElement = null;
 					/**
-					 * @property {HTMLElement} splitterBar splitter element displaying a bar
-					 * @member ns.widget.SplitView
-					 * @instance
+					 * splitter element displaying a bar
+					 * @property {HTMLElement} splitterBar
+					 * @member ns.widget.mobile.SplitView
 					 */
 					self.splitterBar = null;
 					/**
-					 * @property {HTMLElement} splitterHandle splitter handle element
-					 * @member ns.widget.SplitView
-					 * @instance
+					 * splitter handle element
+					 * @property {HTMLElement} splitterHandle
+					 * @member ns.widget.mobile.SplitView
 					 */
 					self.splitterHandle = null;
 					/**
-					 * @property {Object} eventHandlers an object containing event handlers
-					 * @member ns.widget.SplitView
-					 * @instance
+					 * an object containing event handlers
+					 * @property {Object} eventHandlers
+					 * @member ns.widget.mobile.SplitView
 					 */
 					self.eventHandlers = {};
 				},
@@ -151,9 +150,8 @@
 			 * @method _build
 			 * @param {HTMLElement} element
 			 * @return {HTMLElement}
-			 * @member ns.widget.SplitView
+			 * @member ns.widget.mobile.SplitView
 			 * @protected
-			 * @instance
 			 */
 			prototype._build = function (element) {
 				var panes = null,
@@ -212,9 +210,8 @@
 			 * @method _init
 			 * @param {HTMLElement} element
 			 * @return {HTMLElement}
-			 * @member ns.widget.SplitView
+			 * @member ns.widget.mobile.SplitView
 			 * @protected
-			 * @instance
 			 */
 			prototype._init = function (element) {
 				var self = this,
@@ -235,8 +232,7 @@
 			 * @param {HTMLElement} element
 			 * @protected
 			 * @return {HTMLElement}
-			 * @member ns.widget.SplitView
-			 * @instance
+			 * @member ns.widget.mobile.SplitView
 			 */
 			prototype._bindEvents = function (element) {
 				var eventHandlers = this.eventHandlers,
@@ -255,8 +251,7 @@
 			 * Destroys the widget and unregisters event listeners
 			 * @method _destroy
 			 * @protected
-			 * @member ns.widget.SplitView
-			 * @instance
+			 * @member ns.widget.mobile.SplitView
 			 */
 			prototype._destroy = function () {
 				var eventHandlers = this.eventHandlers,
@@ -272,7 +267,7 @@
 			 * @private
 			 * @static
 			 * @return {HTMLElement} element's ancestor bounded to a {@link ns.widget.mobile.Page}
-			 * @member ns.widget.SplitView
+			 * @member ns.widget.mobile.SplitView
 			 */
 			function findParentPage(element) {
 				return selectors.getClosestByClass(element, ns.widget.mobile.Page.classes.uiPage);
@@ -281,10 +276,10 @@
 			/**
 			 * Called when the page is shown
 			 * @method onPageShow
-			 * @param {SplitView} self
+			 * @param {ns.widget.mobile.SplitView} self
 			 * @private
 			 * @static
-			 * @member ns.widget.SplitView
+			 * @member ns.widget.mobile.SplitView
 			 */
 			function onPageShow(self) {
 				self._refresh();
@@ -294,11 +289,11 @@
 			 * Called when a touch or mouse event occured on the splitter. After receiving down event it sets
 			 * itself as a callback for further events like "move" and "up".
 			 * @method onTouchEvent
-			 * @param {SplitView} self
+			 * @param {ns.widget.mobile.SplitView} self
 			 * @param {TouchEvent} event
 			 * @private
 			 * @static
-			 * @member ns.widget.SplitView
+			 * @member ns.widget.mobile.SplitView
 			 */
 			function onTouchEvent(self, event) {
 				var splitView = self.widget(),
@@ -355,8 +350,7 @@
 			 * Measures and layouts the children.
 			 * @method _refresh
 			 * @protected
-			 * @member ns.widget.SplitView
-			 * @instance
+			 * @member ns.widget.mobile.SplitView
 			 */
 			prototype._refresh = function () {
 				var self = this,
@@ -374,9 +368,8 @@
 			 * @method _getContainerSize
 			 * @param {HTMLElement} element the element of SplitView widget
 			 * @protected
-			 * @instance
 			 * @return {boolean} true if container has its dimensions available
-			 * @member ns.widget.SplitView
+			 * @member ns.widget.mobile.SplitView
 			 */
 			prototype._getContainerSize = function (element) {
 				var dimensions = this.dimensions,
@@ -398,7 +391,7 @@
 			 * @private
 			 * @static
 			 * @return {Array} parsed ratio
-			 * @member ns.widget.SplitView
+			 * @member ns.widget.mobile.SplitView
 			 */
 			function convertRatio(ratio) {
 				var ratioArray = [],
@@ -420,8 +413,7 @@
 			 * @method _layout
 			 * @param {boolean} ignoreMinMax if set to true, minimum and maximum pane sizes will be ignored
 			 * @protected
-			 * @instance
-			 * @member ns.widget.SplitView
+			 * @member ns.widget.mobile.SplitView
 			 */
 			prototype._layout = function(ignoreMinMax) {
 				var self = this,
@@ -478,8 +470,7 @@
 			 * Calls refresh() on each child SplitView.
 			 * @method _refreshChildren
 			 * @protected
-			 * @instance
-			 * @member ns.widget.SplitView
+			 * @member ns.widget.mobile.SplitView
 			 */
 			prototype._refreshChildren = function() {
 				this.panes.forEach(function(pane) {
@@ -495,8 +486,7 @@
 			 * @param {HTMLElement} element
 			 * @param {boolean} dividerVertical if true, the divider will be placed vertically
 			 * @protected
-			 * @instance
-			 * @member ns.widget.SplitView
+			 * @member ns.widget.mobile.SplitView
 			 */
 			prototype._setDividerVertical = function(element, dividerVertical) {
 				var self = this,
@@ -513,8 +503,7 @@
 			 * @param {HTMLElement} element
 			 * @param {boolean} fixed if true, the splitter is locked in its current position
 			 * @protected
-			 * @instance
-			 * @member ns.widget.SplitView
+			 * @member ns.widget.mobile.SplitView
 			 */
 			prototype._setFixed = function(element, fixed) {
 				var self = this,
@@ -534,8 +523,7 @@
 			 * @param {HTMLElement} element
 			 * @param {Array} ratio the new ratio to set
 			 * @protected
-			 * @instance
-			 * @member ns.widget.SplitView
+			 * @member ns.widget.mobile.SplitView
 			 */
 			prototype._setRatio = function(element, ratio) {
 				var self = this,
@@ -548,8 +536,7 @@
 			 * Measures dimensions of the splitter.
 			 * @method _measureSplitter
 			 * @protected
-			 * @instance
-			 * @member ns.widget.SplitView
+			 * @member ns.widget.mobile.SplitView
 			 */
 			prototype._measureSplitter = function() {
 				var self = this,
@@ -569,8 +556,7 @@
 			 * Maximizes a pane with specified id by setting its ratio to 1.
 			 * @method maximize
 			 * @param {string} id the id of a pane to maximize
-			 * @instance
-			 * @member ns.widget.SplitView
+			 * @member ns.widget.mobile.SplitView
 			 */
 			prototype.maximize = function(id) {
 				var self = this,
@@ -592,8 +578,7 @@
 			/**
 			 * Restores to original ratio set through HTML document or option setter.
 			 * @method restore
-			 * @instance
-			 * @member ns.widget.SplitView
+			 * @member ns.widget.mobile.SplitView
 			 */
 			prototype.restore = function () {
 				var self = this;
@@ -606,9 +591,8 @@
 			 * @method pane
 			 * @param {string} id the id of a pane to get the content from
 			 * @param {HTMLElement} element the new element to be inserted
-			 * @instance
 			 * @return {HTMLCollection} a collection of pane's child elements
-			 * @member ns.widget.SplitView
+			 * @member ns.widget.mobile.SplitView
 			 */
 			prototype.pane = function(id, element) {
 				var self = this,
@@ -655,7 +639,7 @@
 			 * @private
 			 * @static
 			 * @return {boolean} true if given element contains the class
-			 * @member ns.widget.SplitView
+			 * @member ns.widget.mobile.SplitView
 			 */
 			function hasClass(element, cls) {
 				return element && element.classList.contains(cls);

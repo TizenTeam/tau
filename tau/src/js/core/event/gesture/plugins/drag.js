@@ -16,7 +16,7 @@
 * limitations under the License.
 */
 /**
- * Gesture Plugin: drag
+ * # Gesture Plugin: drag
  * @class ns.event.gesture.Drag
  */
 ( function ( ns, window, undefined ) {

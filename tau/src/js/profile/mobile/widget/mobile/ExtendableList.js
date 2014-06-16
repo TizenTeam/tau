@@ -211,7 +211,7 @@
 
 				/**
 				 * @property {Object} parent_build Shortcut for parent's {@link ns.widget.mobile.Listview#_build}
-				 * method from {@link ns.widget.mobile.Listview.prototype}
+				 * method from prototype of {@link ns.widget.mobile.Listview}
 				 * @private
 				 * @static
 				 * @member ns.widget.mobile.ExtendableList

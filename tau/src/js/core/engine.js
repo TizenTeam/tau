@@ -156,7 +156,8 @@
 				},
 
 				/**
-				 * @property {Object} eventType Engine event types
+				 * Engine event types
+				 * @property {Object} eventType
 				 * @property {string} eventType.INIT="tauinit" INIT of framework init event
 				 * @property {string} eventType.WIDGET_BOUND="widgetbound" WIDGET_BOUND of widget bound event
 				 * @property {string} eventType.WIDGET_DEFINED="widgetdefined" WIDGET_DEFINED of widget built event
@@ -299,7 +300,7 @@
 			/**
 			 * Set binding of widget
 			 * @method setBinding
-			 * @param {definition.widgetClass} widgetInstance
+			 * @param {ns.widget.BaseWidget} widgetInstance
 			 * @static
 			 * @member ns.engine
 			 */
@@ -331,7 +332,7 @@
 			 * Returns all bindings for element or id gives as parameter
 			 * @method getAllBindings
 			 * @param {HTMLElement|string} element
-			 * @return {object?}
+			 * @return {?Object}
 			 * @static
 			 * @member ns.engine
 			 */
@@ -406,8 +407,9 @@
 			}
 
 			/**
-			 *
-			 * @param {object} bindingGroup
+			 * Method removes binding for single widget.
+			 * @method _removeSingleBinding
+			 * @param {Object} bindingGroup
 			 * @param {string} type
 			 * @return {boolean}
 			 * @private
@@ -504,11 +506,12 @@
 			}
 
 			/**
-			 *
+			 * Removes all bindings of widgets.
 			 * @method removeAllBindings
 			 * @param {HTMLElement|string} element
 			 * @return {boolean}
 			 * @static
+			 * @member ns.engine
 			 */
 			function removeAllBindings(element) {
 				// @TODO this should be coded in the other way around, removeAll should loop through all bindings and inside call removeBinding
@@ -533,7 +536,7 @@
 					createFunction = widgetOptions.create,
 					Widget = definition.widgetClass,
 					/**
-					 * @type {ns.widget.BaseWidget}
+					 * @type {ns.widget.BaseWidget} widgetInstance
 					 */
 					widgetInstance = Widget ? new Widget(element) : false,
 					buildAttribute,
@@ -595,10 +598,9 @@
 			/**
 			 * Destroys widget of given 'type' for given HTMLElement.
 			 * [NOTICE] This method won't destroy any children widgets.
-			 * @method _destroyWidget
+			 * @method destroyWidget
 			 * @param {HTMLElement|string} element
 			 * @param {string} type
-			 * @private
 			 * @static
 			 * @member ns.engine
 			 */
@@ -702,8 +704,8 @@
 
 			/**
 			 * Compare function for nodes on build queue
-			 * @param {object} nodeA
-			 * @param {object} nodeB
+			 * @param {Object} nodeA
+			 * @param {Object} nodeB
 			 * @return {number}
 			 * @private
 			 * @static
@@ -719,8 +721,10 @@
 			}
 
 			/**
-			 * Processes one build queue item. Runs processHollowWidget underneath
-			 * @param {object|HTMLElement} queueItem
+			 * Processes one build queue item. Runs processHollowWidget
+			 * underneath
+			 * @method processBuildQueueItem
+			 * @param {Object|HTMLElement} queueItem
 			 * @private
 			 * @static
 			 */
@@ -878,7 +882,8 @@
 			engine = {
 				justBuild: location.hash === "#build",
 				/**
-				 * @property {Object} dataTau object with names of engine attributes
+				 * object with names of engine attributes
+				 * @property {Object} dataTau
 				 * @property {string} [dataTau.built="data-tau-built"] attribute inform that widget id build
 				 * @property {string} [dataTau.name="data-tau-name"] attribute contains widget name
 				 * @property {string} [dataTau.bound="data-tau-bound"] attribute inform that widget id bound
@@ -906,6 +911,14 @@
 				getDefinitions: function () {
 					return widgetDefs;
 				},
+				/**
+				 * Returns definition of widget
+				 * @method getWidgetDefinition
+				 * @param {string} name
+				 * @static
+				 * @member ns.engine
+				 * @returns {Object}
+				 */
 				getWidgetDefinition: function (name) {
 					return widgetDefs[name];
 				},

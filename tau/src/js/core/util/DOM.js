@@ -20,7 +20,7 @@
  * Utilities object with function to manipulation DOM
  *
  * # How to replace jQuery methods  by ns methods
- * ## append vs {@link #appendNodes}
+ * ## append vs appendNodes
  *
  * #### HTML code before manipulation
  *
@@ -55,7 +55,7 @@
  *        <div id="third">Goodbye</div>
  *     </div>
  *
- * ## replaceWith vs {@link #replaceWithNodes}
+ * ## replaceWith vs replaceWithNodes
  *
  * #### HTML code before manipulation
  *
@@ -88,7 +88,7 @@
  *         <div id="third">Goodbye</div>
  *     </div>
  *
- * ## before vs {@link #insertNodesBefore}
+ * ## before vs insertNodesBefore
  *
  * #### HTML code before manipulation
  *
@@ -122,7 +122,7 @@
  *         <div id="third">Goodbye</div>
  *     </div>
  *
- * ## wrapInner vs {@link #wrapInHTML}
+ * ## wrapInner vs wrapInHTML
  *
  * #### HTML code before manipulation
  *

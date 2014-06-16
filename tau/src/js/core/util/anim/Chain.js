@@ -114,22 +114,26 @@
 					/**
 					 * @property {number} current Marks current animation
 					 * @readonly
+					 * @member ns.util.anim.Chain
 					 */
 					self.current = null;
 					/**
 					 * @property {Array.<ns.util.anim.Animation>} animations The animations holder
 					 * @readonly
+					 * @member ns.util.anim.Chain
 					 */
 					self.animations = new Array(0);
 					/**
 					 * @property {number} totalTime
 					 * @readonly
+					 * @member ns.util.anim.Chain
 					 */
 					self.totalTime = 0;
 					self.options = opts;
 					/**
 					 * @property {number} state=0
 					 * @readonly
+					 * @member ns.util.anim.Chain
 					 */
 					self.state = PAUSED;
 
@@ -183,7 +187,7 @@
 					 * @return {ns.util.anim.Chain}
 					 * @method
 					 * @chainable
-					 * @instance
+					 * @member ns.util.anim.Chain
 					 */
 					addMultiple: function (animations) {
 						var i,

@@ -152,28 +152,28 @@
 
 				// Constants definition
 				/**
-				 * @property {number} SCROLL_UP defines index of scroll `{@link ns.widget.mobile.VirtualListview._scroll#direction}.direction`
+				 * @property {number} SCROLL_UP defines index of scroll \_scroll.direction
 				 * to retrive if user is scrolling up
 				 * @private
 				 * @static
 				 */
 				SCROLL_UP = 0,
 				/**
-				 * @property {number} SCROLL_RIGHT defines index of scroll {@link ns.widget.mobile.VirtualListview._scroll#direction _scroll.direction}.direction
+				 * @property {number} SCROLL_RIGHT defines index of scroll \_scroll.direction
 				 * to retrive if user is scrolling right
 				 * @private
 				 * @static
 				 */
 				SCROLL_RIGHT = 1,
 				/**
-				 * @property {number} SCROLL_DOWN defines index of scroll {@link ns.widget.mobile.VirtualListview._scroll#direction _scroll.direction}
+				 * @property {number} SCROLL_DOWN defines index of scroll \_scroll.direction
 				 * to retrive if user is scrolling down
 				 * @private
 				 * @static
 				 */
 				SCROLL_DOWN = 2,
 				/**
-				 * @property {number} SCROLL_LEFT defines index of scroll {@link ns.widget.mobile.VirtualListview._scroll#direction _scroll.direction}
+				 * @property {number} SCROLL_LEFT defines index of scroll \_scroll.direction
 				 * to retrive if user is scrolling left
 				 * @private
 				 * @static

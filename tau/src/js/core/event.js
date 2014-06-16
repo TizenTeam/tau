@@ -60,7 +60,7 @@
 
 			/**
 			 * Split string to array
-			 * @method trim
+			 * @method getEventsListeners
 			 * @param {string|Array|Object} names string with one name of event, many names of events divided by spaces, array with names of widgets or object in which keys are names of events and values are callbacks
 			 * @param {Function} globalListener
 			 * @return {Array}

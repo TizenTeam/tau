@@ -255,7 +255,8 @@
 					self.scrollDuration = 300;
 					self.scrollviewSetHeight = false;
 					/**
-					 * @property {Object} options Scrollview options
+					 * Scrollview options
+					 * @property {Object} options
 					 * @property {string} [options.scroll='y'] Scroll direction
 					 * @property {boolean} [options.scrollJump=false] Scroll jump buttons flag
 					 * @member ns.widget.mobile.Scrollview
@@ -265,7 +266,8 @@
 						scrollJump: false
 					};
 					/**
-					 * @property {Object} ui Dictionary for holding internal DOM elements
+					 * Dictionary for holding internal DOM elements
+					 * @property {Object} ui
 					 * @property {HTMLElement} ui.view The main view element
 					 * @property {HTMLElement} ui.page The main page element
 					 * @property {HTMLElement} ui.jumpHorizontalButton Jump left button
@@ -279,7 +281,8 @@
 					self.ui.jumpHorizontalButton = null;
 					self.ui.jumpVerticalButton = null;
 					/**
-					 * @property {Object} _callbacks Dictionary for holding internal listeners
+					 * Dictionary for holding internal listeners
+					 * @property {Object} _callbacks
 					 * @property {Function} _callbacks.repositionJumps Refresh jumps listener
 					 * @property {Function} _callbacks.jumpTop Top jump button click callback
 					 * @property {Function} _callbacks.jumpLeft Left jump button click callback
@@ -294,7 +297,8 @@
 					};
 				},
 				/**
-				 * @property {Object} classes Dictionary for scrollview css classes
+				 * Dictionary for scrollview css classes
+				 * @property {Object} classes
 				 * @property {string} [classes.view='ui-scrollview-view'] View main class
 				 * @property {string} [classes.clip='ui-scrollview-clip'] Clip main class
 				 * @property {string} [classes.jumpTop='ui-scroll-jump-top-bg'] Jump top button background

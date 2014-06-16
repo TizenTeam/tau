@@ -14,11 +14,11 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-/*
- * #Namespace For Router
+/**
+ * #Namespace for router
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>
- * @member ns.router
+ * @class ns.router
  */
 (function (ns) {
 	"use strict";
@@ -29,9 +29,6 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			/**
-			 * @class ns.router
-			 */
 			ns.router = ns.router || {};
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.router;

@@ -541,10 +541,11 @@
 			}
 
 			/**
+			 * Method shows data selector.
 			 * @method showDataSelector
 			 * @param self
 			 * @param target
-			 * @returns {ns.widget.Notification._ui|*|ns.widget.mobile.VirtualListview._ui|ns.widget.Popup._ui|Object|HTMLElement}
+			 * @return {?Object}
 			 */
 			function showDataSelector(self, target) {
 				var className = target.className,
@@ -569,10 +570,10 @@
 					classes = Datetimepicker.classes;
 
 				if (!field) {
-					return;
+					return null;
 				}
 				if (self._popup_open) {
-					return;
+					return null;
 				}
 
 				self._target = target;

@@ -97,7 +97,7 @@
  *		$("#slider").tizenslider("value", "5");
  *		</script>
  *
- * @class ns.widget.TizenSlider
+ * @class ns.widget.mobile.TizenSlider
  * @extends ns.widget.mobile.Slider
  * @author Jadwiga Sosnowska <j.sosnowska@samsung.com>
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>

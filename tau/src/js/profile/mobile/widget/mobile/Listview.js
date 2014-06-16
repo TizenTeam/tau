@@ -22,8 +22,8 @@
  *
  * !!!When implementing the list widget:!!!
  *
- *	- A button widget (data-role="button") placed in the <a> tag is
- *	 not supported in the list widget. The button must be placed in a <div> tag.
+ *	- A button widget (data-role="button") placed in the *a* tag is
+ *	 not supported in the list widget. The button must be placed in a *div* tag.
  *	- If you implement the list widget differently than described in
  *	 the examples shown below, application customization (set element
  *	 positioning) is required.

@@ -196,7 +196,7 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			/**
-			 * {Object} Widget Alias for {@link ns.widget.mobile.BaseWidget}
+			 * {Object} Widget Alias for {@link ns.widget.mobile.BaseWidgetMobile}
 			 * @member ns.widget.mobile.Notification
 			 * @private
 			 */
@@ -284,7 +284,8 @@
 					this.running = false;
 
 					/**
-					 * @property {Object} options Widget options
+					 * Widget options
+					 * @property {Object} options
 					 * @property {string} [options.theme="s"] theme Theme of widget
 					 * @property {"smallpopup"|"ticker"} [options.type="smallpopup"] type of widget. Allowed types: <b>smallpopup</b> or <b>ticker</b>.
 					 * @property {number} [interval=0] interval value in milliseconds of widget. 0 - show widget infinitely

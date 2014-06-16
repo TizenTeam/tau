@@ -314,7 +314,8 @@
 				};
 
 			/**
-			 * @property {Object} classes Dictionary for page related css class names
+			 * Dictionary for page related css class names
+			 * @property {Object} classes
 			 * @property {string} [classes.uiPrefix='ui-'] Main ui prefix
 			 * @property {string} [classes.uiBarPrefix='ui-bar-'] Ui bar prefix
 			 * @property {string} [classes.uiBodyPrefix='ui-body-'] Ui body prefix
@@ -366,7 +367,8 @@
 			Page.prototype = new BaseWidget();
 
 			/**
-			 * @property {Object} options Object with default options
+			 * Object with default options
+			 * @property {Object} options
 			 * @property {boolean} [options.fullscreen=false] Fullscreen page flag
 			 * @property {string} [options.theme='a'] Page theme
 			 * @property {boolean} [options.domCache=false] Use DOM cache

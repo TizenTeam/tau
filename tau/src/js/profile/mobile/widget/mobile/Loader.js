@@ -169,7 +169,7 @@
 			//>>excludeEnd("tauBuildExclude");
 
 			/**
-			 * {Object} Widget Alias for {@link ns.widget.mobile.BaseWidget}
+			 * {Object} Widget Alias for {@link ns.widget.mobile.BaseWidgetMobile}
 			 * @member ns.widget.mobile.Loader
 			 * @private
 			 */
@@ -222,7 +222,8 @@
 			Loader.properties = properties;
 
 			/**
-			 * @property {Object} options Object with default options
+			 * Object with default options
+			 * @property {Object} options
 			 * @property {string} [options.theme="a"] the theme for the loading
 			 * messages
 			 * @property {boolean} [options.textVisible=false] whether the text
@@ -303,7 +304,6 @@
 			 *
 			 * @method resetHtml
 			 * @param {HTMLElement} element
-			 * @public
 			 * @member ns.widget.mobile.Loader
 			 */
 			prototype.resetHtml = function (element) {
@@ -341,7 +341,6 @@
 			 * @param {string} theme
 			 * @param {string} msgText
 			 * @param {boolean} textonly
-			 * @public
 			 * @member ns.widget.mobile.Loader
 			 */
 			prototype.show = function (theme, msgText, textonly) {
@@ -426,7 +425,6 @@
 			 *			</script>
 			 *
 			 * @method hide
-			 * @public
 			 * @member ns.widget.mobile.Loader
 			 */
 			prototype.hide = function () {

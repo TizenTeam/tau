@@ -353,7 +353,7 @@
 					 * @property {boolean} [options.keepSelectEventDelay=50]
 					 * @property {?boolean} [options.container=null]
 					 * @property {?boolean} [options.supplementaryIndex=null]
-					 * @property {integer} [options.supplementaryIndexMargin=1]
+					 * @property {number} [options.supplementaryIndexMargin=1]
 					 * @member ns.widget.wearable.IndexScrollbar
 					 */
 					this.options = {

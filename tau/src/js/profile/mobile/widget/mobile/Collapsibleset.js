@@ -151,7 +151,8 @@
 
 				CollapsibleSet = function () {
 					/**
-					 * @property {Object} options CollapsibleSet widget options
+					 * CollapsibleSet widget options
+					 * @property {Object} options
 					 * @property {?string} [options.theme=null] Sets the color scheme (swatch) for the collapsible set.
 					 * @property {?string} [options.contentTheme=null] Sets the color scheme (swatch) for the content of collapsible set.
 					 * @property {boolean} [options.inset=true] Determines if widget should be shown as inset.

@@ -5,6 +5,7 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
+			"../../core/core",
 		 	"../../core/engine",
 		 	"../../core/util/object",
 			"./widget/mobile/Loader",
@@ -20,6 +21,7 @@
 				router = null;
 
 			/**
+			 * Look to ns.router.Page#open
 			 * @method changePage
 			 * @inheritdoc ns.router.Page#open
 			 * @member ns
@@ -41,6 +43,7 @@
 			};
 
 			/**
+			 * Look to ns.router.Page#open
 			 * @method openPopup
 			 * @inheritdoc ns.router.Page#open
 			 * @member ns
@@ -54,7 +57,7 @@
 			};
 
 			/**
-			 * Close popup
+			 * Close active popup
 			 * @method closePopup
 			 * @static
 			 * @member ns

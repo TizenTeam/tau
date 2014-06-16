@@ -267,7 +267,7 @@
 				 */
 				events = ns.event,
 				/**
-				 * Alias to {@link ns.widget.mobile.Button.classes}
+				 * Alias to {@link ns.widget.mobile.Button#classes}
 				 * @property {Object} buttonClasses
 				 * @member ns.widget.mobile.Dialog
 				 * @private
@@ -277,10 +277,8 @@
 
 				/**
 				 * Dictionary for dialog related css class names
-				 * {@link ns.widget.mobile.Dialog.classes}
 				 * @property {Object} classes
 				 * @member ns.widget.mobile.Dialog
-				 * @private
 				 * @static
 				 * @readonly
 				 * @property {string} classes.uiDialog Main Dialog class name
@@ -310,7 +308,7 @@
 					uiBarPrefix: "ui-bar-",
 					uiBodyPrefix: "ui-body-",
 					uiDialogHidden: "ui-dialog-hidden"
-				};
+				},
 
 				Dialog = function () {
 					var self = this;
@@ -320,7 +318,8 @@
 					 * @property {Object} options
 					 * @property {"left"|"right"|"none"} [options.closeBtn="left"] Position of the dialog close button in the header, accepts: left, right and none
 					 * @property {string} [options.closeBtnText="Close"] Customize text of the close button, by default close button is displayed as an icon-only so the text isn't visible, but is read by screen readers
-					 * @property {string} [options.overlayTheme="a"] Backgroudn under dialog content color
+					 * @property {string} [options.closeLinkSelector="a[data-rel='back']"] Selector for buttons used to closing dialog
+					 * @property {string} [options.overlayTheme="c"] Backgroudn under dialog content color
 					 * @property {boolean} [options.corners=true] Sets if dialog should be drawn with rounded corners
 					 * @property {string} [options.page=""] Sets if of related page
 					 * @member ns.widget.mobile.Dialog
