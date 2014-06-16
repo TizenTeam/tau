@@ -7,15 +7,11 @@
 	border: none;
 	background : @color_bar_naviframe_bg; /* Header Background */
 	color: @color_bar_title_text;
-	font-family: @font_family;
-	font-weight: bold;
-	font-size : 28 * @unit_base;
 
 	.ui-link-inherit {
 		color: @color_bar_title_text;
 	}
-	
-	
+
 	> .ui-btn.ui-btn-back,
 	> .ui-btn.ui-btn-footer-down {
 		background : transparent;
@@ -41,10 +37,11 @@
 	min-height : 48 * @unit_base;
 
 	.ui-title {
-		color : @color_bar_title_text;
 		min-height : 25 * @unit_base;
 		max-height : 31 * @unit_base; /* temporary UX strange */
-		font-size  : 25 * @unit_base;
+
+		color: @color_bar_title_text;
+		font-size  : @font_size_bar_title_text;
 		font-weight : 500; /* tizen font weight tuning */
 		text-overflow: ellipsis;
 		overflow: hidden;
@@ -97,7 +94,7 @@
 			margin-top : 11 * @unit_base;
 			margin-bottom : 11 * @unit_base;
 			.ui-btn-text {
-				font-size : 16 * @unit_base;
+				font-size : @font_size_bar_title_button_text;
 			}
 		}
 		&.ui-btn-down-s {
@@ -123,20 +120,20 @@
 	.ui-title-text-sub {
 		position : absolute;
 		top : 29 * @unit_base;
-		left : 13 * @unit_base;	
+		left : 13 * @unit_base;
 
-		font-size : 16 * @unit_base;
+		color: @color_bar_title_sub_text;
+		font-size : @font_size_bar_title_sub_text;
 		font-weight : 500;
 		text-overflow : ellipsis;
 		white-space : nowrap;
 		overflow : hidden;
 	}
 
-	> .ui-btn, 
+	> .ui-btn,
 	> .naviframe-button.ui-btn {
 		position : absolute;
 		top : 9 * @unit_base;
-		font-size : 18 * @unit_base;
 		margin-top : 0;
 
 		height : 34 * @unit_base;
@@ -146,7 +143,8 @@
 		padding-right : 13 * @unit_base;
 
 		background: transparent;
-		color	: @color_bar_title_button_text;
+		color: @color_bar_title_button_text;
+        font-size: @font_size_bar_title_button_text;
 	}
 	&.ui-title-tabbar >.ui-btn {
 		// NOTE: there is an issue that when tabbar and button are
@@ -184,9 +182,9 @@
 		right : 62 * @unit_base;
 	}
 
-        > img + h1 {
-                padding-left : 30 * @unit_base;
-        }
+	> img + h1 {
+		padding-left : 30 * @unit_base;
+	}
 
 	> img + h1 + .ui-btn:not(.ui-btn-icon_only):nth-child(5),
 	> img + h1 + .naviframe-button.ui-btn:not(.ui-btn-icon_only):nth-child(5) {
@@ -212,7 +210,7 @@
 		background : @color_bar_naviframe_press;
 		color : @color_bar_title_button_text_press;
 	}
-	
+
 	&.ui-title-multiline {
 		img {
 			margin-top : 15 * @unit_base; /* tuning */
@@ -221,7 +219,8 @@
 		.ui-title {
 			min-height : 24 * @unit_base;
 			max-height : 24 * @unit_base; /* temporary UX strange */
-			font-size  : 22 * @unit_base;
+			color: @color_bar_title_multiline_text;
+			font-size: @font_size_bar_title_multiline_text;
 
 			margin: 4*@unit_base 13*@unit_base 22*@unit_base 13*@unit_base;
 		}
@@ -267,8 +266,7 @@
 	}
 
 	>[data-role="button"] {
-		font-size : 20 * @unit_base;
-		font-weight : bold;
+		font-size : @font_size_bar_toolbar_button_text;
 		color : @color_bar_toolbar_button_text;
 		background-image : none;
 		border-width : 0;
@@ -300,7 +298,6 @@
 
 			border-radius : 0 !important;
 
-
 			padding-top : 0;
 			padding-bottom : 0;
 			padding-right : 0;
@@ -327,8 +324,8 @@
 				padding: 0;
 			}
 			.ui-btn-text {
-				font-size : 19 * @unit_base;
-				color : @color_bar_toolbar_button_text;
+				font-size: @font_size_bar_toolbar_button_text;
+				color: @color_bar_toolbar_button_text;
 			}
 
 			&.ui-corner-right {
@@ -620,9 +617,11 @@ a.ui-link-inherit {
 	min-height : 45 * @unit_base;
 
 	.ui-title {
-		min-height : 25 * @unit_base;
-		max-height : 29 * @unit_base; /* tuning UX guide(title height too large)*/
-		font-size  : 25 * @unit_base;
+		min-height: 25 * @unit_base;
+		max-height: 29 * @unit_base; /* tuning UX guide(title height too large)*/
+
+		color: @color_bar_title_text;
+		font-size: @font_size_bar_title_text;
 
 		margin: 12*@unit_base 13*@unit_base 4*@unit_base 13*@unit_base;/* tuning UX guide(title height too large)*/
 	}
@@ -661,7 +660,9 @@ a.ui-link-inherit {
 		.ui-title {
 			min-height : 21 * @unit_base;
 			max-height : 21 * @unit_base; /* temporary UX strange */
-			font-size  : 19 * @unit_base;
+
+			color: @color_bar_title_landscape_multiline_text;
+			font-size  : @font_size_bar_title_landscape_multiline_text;
 			margin: 5*@unit_base 13*@unit_base 19*@unit_base 13*@unit_base;
 
 			display : block;
@@ -670,7 +671,8 @@ a.ui-link-inherit {
 		.ui-title-text-sub {
 			top : 26 * @unit_base;
 
-			font-size : 14 * @unit_base;
+			color: @color_bar_title_landscape_sub_text;
+			font-size : @font_size_bar_title_landscape_sub_text;
 		}
 	}
 }

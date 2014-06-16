@@ -23,6 +23,7 @@
 		height: 62 * @unit_base;
 		background : @color_tabbar_btn_bg_normal;
 		color : @color_tabbar_text_normal;
+		font-size: @font_size_tabbar_text;
 
 		&.ui-btn-block {
 			border-bottom: 1px solid @color_tabbar_bg_line;
@@ -52,8 +53,7 @@
 				padding-top: 22 * @unit_base;
 				padding-bottom: 19 * @unit_base;
 				display: block;
-				font-size: 17 * @unit_base;
-				line-height: 17 * @unit_base;
+				line-height: @font_size_tabbar_text;
 			}
 		}
 
@@ -83,8 +83,7 @@
 	}
 
 	.ui-btn-inner {
-		font-size : 15 * @unit_base;
-		font-weight : bold;
+		font-size: @font_size_tabbar_text;
 
 		.ui-icon {
 			top : 7 * @unit_base;
@@ -94,6 +93,10 @@
 	}
 
 	&.ui-tabbar-notext {
+		a.ui-btn {
+			padding-top : 9 * @unit_base;
+			padding-bottom : 4 * @unit_base;
+		}
 		.ui-btn-inner {
 			height : 58 * @unit_base;
 			.ui-icon {
@@ -105,7 +108,6 @@
 
 .ui-header.ui-bar-s.ui-title-tabbar {
 	height : 83 * @unit_base;
-	font-size : 25 * @unit_base;
 
 	.ui-title {
 		height: 45 * @unit_base;
@@ -118,6 +120,7 @@
 			height: 38 * @unit_base;
 			padding: 0;
 			background : @color_tabbar_title_bg;
+			font-size: @font_size_tabbar_text;
 
 			.ui-btn-inner {
 				height: 35 * @unit_base;
@@ -125,8 +128,7 @@
 				&:not(.ui-btn-icon-only) .ui-btn-text {
 					padding: 0;
 					display: block;
-					font-size: 17 * @unit_base;
-					line-height: 38 * @unit_base;
+					line-height: @font_size_tabbar_text;
 				}
 				.ui-icon {
 					top: 0;
