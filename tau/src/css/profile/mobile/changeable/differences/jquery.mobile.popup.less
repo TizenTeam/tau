@@ -1,0 +1,77 @@
+/****************************
+ ctxpopup
+****************************/
+.ui-ctxpopup-container {
+	display: inline-block;
+}
+
+
+
+/****************************
+ tizen.notification
+****************************/
+.ui-smallpopup-text-bg {
+	margin-top: 4 * @unit_base;
+	margin-bottom: 4 * @unit_base;
+}
+
+
+
+/****************************
+ tizen.popup
+****************************/
+.ui-popup-scroller-bg {
+	max-height : 256 * @unit_base;
+}
+
+.ui-popup-container {
+	.ui-popup-text {
+		input[type="checkbox"], input[type="radio"] {
+			display : none;
+		}
+	}
+
+	.ui-popup-button-bg {
+		> .ui-btn {
+			min-width : 30%;
+		}
+	}
+
+	.center_checkbox {
+		.ui-popup-check-bg {
+			display: inline-block;
+
+			.ui-checkbox {
+				.ui-btn {
+					text-align: center;
+					border: 0*@unit_base;
+
+					.ui-btn-inner {
+						border: 0*@unit_base;
+					}
+				}
+			}
+
+			.ui-icon {
+				border: 2px solid #3a5881;
+
+				&.ui-icon-checkbox-off {
+					background-color: transparent;
+				}
+			}
+		}
+		.ui-popup-button-bg {
+			> .ui-btn {
+				border-right : 1px solid @color_popup_button_divider;
+			}
+			:last-child {
+				border-right: 0;
+			}
+		}
+	}
+
+	.ui-listview {
+		margin: 0;
+	}
+}
+

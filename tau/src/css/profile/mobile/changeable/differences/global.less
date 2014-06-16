@@ -77,61 +77,6 @@ input::-webkit-input-placeholder {
 	overflow : hidden !important;
 }
 
-
-
-/****************************
- listview
-****************************/
-.ui-listview {
-	.ui-li-last {
-		> .ui-btn-inner {
-			border-bottom-color: @color_bg;
-		}
-	}
-
-	li.ui-btn-down-s {
-		> .ui-btn-inner {
-			border-bottom-color : @color_list_press;
-		}
-	}
-}
-
-.ui-listview li.ui-divider-btn {
-	&:active {
-		background-color: @color_list_divider_bg_press;
-
-		.ui-divider-normal-line {
-			background: @color_list_divider_text_press;
-		}
-
-		a {
-			color: @color_list_divider_text_press;
-		}
-	}
-
-	.ui-link-inherit {
-		color: @color_list_divider_text;
-		font-weight: bold;
-	}
-
-	&[data-style="check"] {
-		&:active label .ui-btn-inner{
-			background-color: @color_list_divider_bg_press;
-		}
-	}
-}
-
-.ui-listview {
-	li.ui-li-dialogue {
-		&.ui-collapsible-heading {
-			padding-left: 0px;
-			padding-right: 0px;
-		}
-	}
-}
-
-
-
 /****************************
  segmentctrl
 ****************************/
@@ -173,14 +118,6 @@ input::-webkit-input-placeholder {
 		color : #fafafa;
 		background : @color_bar_toolbar_press;
 	}
-}
-
-/****************************
- tizen.notification
-****************************/
-.ui-smallpopup-text-bg {
-	margin-top: 4 * @unit_base;
-	margin-bottom: 4 * @unit_base;
 }
 
 
