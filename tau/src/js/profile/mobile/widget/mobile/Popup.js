@@ -1191,9 +1191,9 @@
 					positionToElementWidth = positionToElement ? positionToElement.clientWidth : 0,
 					correctionValue = [0, 0],
 					containerHeight = uiContainer.clientHeight,
-					color = doms.getCSSProperty(uiContainer.firstChild, "background-color"),
 					usedTolerance,
 					arrowLeft;
+					color = doms.getCSSProperty(uiContainer.firstChild, "border-color");
 
 				arrow.removeAttribute("class");
 				arrowClasses.add(classes.uiArrow);
@@ -1209,7 +1209,6 @@
 					popupMargin = parseInt(doms.getCSSProperty(this.element, "margin-top"), 10) || 0;
 					arrowClasses.add(classes.bottom);
 					arrowStyle.top = -arrowBorderWidth * 2 + popupMargin + "px";
-					arrowStyle.borderBottomColor = color;
 					if (arrowLeft < 0) {
 						// popup container is set too far to the right
 						usedTolerance = tolerance.l;
@@ -1223,7 +1222,9 @@
 					} else {
 						arrowStyle.left = arrowLeft + "px";
 					}
-					correctionValue[1] = positionToElementHeight + positionToElementOffset.top - containerTop;
+					arrowStyle.borderTopColor = color;
+					arrowStyle.borderLeftColor = color;
+					correctionValue = [0, positionToElementHeight + positionToElementOffset.top - containerTop];
 					break;
 				case "right":
 					// @todo
@@ -1236,7 +1237,6 @@
 					popupMargin = parseInt(doms.getCSSProperty(this.element, "margin-bottom"), 10) || 0;
 					arrowClasses.add(classes.top);
 					arrowStyle.top = uiContainerHeight - popupMargin + "px";
-					arrowStyle.borderTopColor = color;
 					if (arrowLeft < 0) {
 						// popup container is set too far to the right
 						usedTolerance = tolerance.l;
@@ -1250,7 +1250,9 @@
 					} else {
 						arrowStyle.left = arrowLeft + "px";
 					}
-					correctionValue[1] = -(containerTop + containerHeight - positionToElementOffset.top);
+					arrowStyle.borderBottomColor = color;
+					arrowStyle.borderRightColor = color;
+					correctionValue = [0, -(containerTop + containerHeight - positionToElementOffset.top)];
 					break;
 				case "left":
 					// @todo

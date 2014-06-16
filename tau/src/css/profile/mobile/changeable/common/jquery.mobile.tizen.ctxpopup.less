@@ -179,7 +179,7 @@
 	z-index: -1;
 	&.top {
 		//border-color: transparent transparent @color_ctxpopup_background transparent;
-		margin: -6px;
+		margin: -8px;
 	}
 	&.left {
 		//border-color: transparent transparent transparent @color_ctxpopup_background;
@@ -191,7 +191,7 @@
 	}
 	&.bottom {
 		//border-color: @color_ctxpopup_background transparent transparent transparent;
-		margin: -8px;
+		margin: -6px;
 	}
 }
 
@@ -211,6 +211,9 @@
 		background: @color_ctxpopup_background;
 		padding : 0 8 * @unit_base 0;
 		position: relative;
+		&.ui-selectmenu{
+			padding: 0;
+		}
 	}
 	.ui-listview .ui-li .ui-btn-inner {
 		border-width: 0px;
