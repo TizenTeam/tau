@@ -15,7 +15,6 @@
 	padding-bottom: 1px;
 	list-style: none;
 	counter-reset: listnumbering;
-	font-size: 22 * @unit_base;
 
 	.ui-li {
 		position: relative;
@@ -24,6 +23,7 @@
 		margin: 0;
 		overflow: visible;
 		text-align: left;
+		font-size: @font_size_list_main_text;
 
 		box-shadow: none;
 		.LESSborder-radius-all(0);
@@ -45,7 +45,6 @@
 		.ui-btn-text >.ui-link-inherit {
 			display: block;
 			padding: 15.5*@unit_base 13*@unit_base 16.5*@unit_base 13*@unit_base;
-			font-size: 22 * @unit_base;
 			line-height: 23.5 * @unit_base;
 			text-overflow: ellipsis;
 			white-space: nowrap;
@@ -105,7 +104,7 @@
 .ui-listview .ui-li.ui-li-static.ui-li-has-checkbox,
 .ui-listview .ui-li.ui-li-static.ui-li-has-radio {
 	padding-left: 52.5 * @unit_base;
-	
+
 	.ui-checkbox:first-child,
 	.ui-radio:first-child {
 		position: absolute;
@@ -137,7 +136,7 @@
 	float: right;
 
 	text-align: right;
-	font-size: 16 * @unit_base;
+	font-size: @font_size_list_sub_text;
 	color: @color_list_sub_text_normal;
 
 	.LESStext-ellipsis();
@@ -172,7 +171,7 @@
 		right : 13 * @unit_base;
 		float: right;
 		text-align: right;
-		font-size: 16 * @unit_base;
+		font-size: @font_size_list_sub_text;
 		color: @color_list_sub_text_normal;
 		.LESStext-ellipsis();
 	}
@@ -183,7 +182,7 @@
 		right: 13 * @unit_base;
 		float: right;
 		text-align: right;
-		font-size: 16 * @unit_base;
+		font-size: @font_size_list_sub_text;
 		color: @color_list_sub_text_normal;
 		.LESStext-ellipsis();
 	}
@@ -297,7 +296,17 @@
 			width: 100%;
 			height: 45 * @unit_base;
 			margin: auto;
-			font-size: 22 * @unit_base;
+
+			color: @color_list_editfield_text;
+			font-size: @font_size_list_editfield_text;
+		}
+
+		input::-webkit-input-placeholder {
+			color: @color_list_editfield_placeholder_text;
+		}
+
+		.ui-disabled::-webkit-input-placeholder {
+			color: @color_list_editfield_disabled_text;
 		}
 
 		.ui-li-delete {
@@ -366,15 +375,13 @@
 	.ui-li-bubble-right,
 	.ui-li-bubble-sos {
 		position: relative;
-		min-height: 39 * @unit_base;
 		max-width: 290 * @unit_base;
 		margin-top: 10 * @unit_base;
 		margin-bottom: 10 * @unit_base;
-		font-size: 16 * @unit_base;
+		font-size: @font_size_list_bubble_receive_text;
 		word-wrap: break-word;
-		p, span { 
+		p, span {
 			margin: 0;
-			font-size: 16 * @unit_base;
 		}
 		img {
 			position: relative;
@@ -392,6 +399,8 @@
 		padding: 10 * @unit_base;
 		background-color: @color_list_bubble_receive_bg;
 		color: @color_list_bubble_receive_text;
+		font-size: @font_size_list_bubble_receive_text;
+
 		>.ui-li-bubble-tail {
 			position: absolute;
 			left: 0;
@@ -410,9 +419,9 @@
 			display: inline-block;
 			width: 50 * @unit_base;
 			margin-left: 7 * @unit_base;
-			font-size: 11 * @unit_base;
 			text-align: left;
 			color: @color_list_bubble_time_receive_text;
+			font-size: @font_size_list_bubble_time_receive_text;
 		}
 	}
 
@@ -423,6 +432,8 @@
 		padding: 10 * @unit_base;
 		background-color: @color_list_bubble_sent_bg;
 		color: @color_list_bubble_sent_text;
+		font-size: @font_size_list_bubble_sent_text;
+
 		>.ui-li-bubble-tail {
 			position: absolute;
 			right: 0;
@@ -441,9 +452,9 @@
 			display: inline-block;
 			width: 50 * @unit_base;
 			margin-right: 7 * @unit_base;
-			font-size: 11 * @unit_base;
 			text-align: right;
 			color: @color_list_bubble_time_sent_text;
+			font-size: @font_size_list_bubble_time_sent_text;
 		}
 	}
 
@@ -464,7 +475,7 @@
 
 	.ui-li-static.ui-li-bubble-date {
 		color: @color_list_bubble_date_text;
-		font-size: 12 * @unit_base;
+		font-size: @font_size_list_bubble_date_text;
 		height: 12 * @unit_base;
 		border-bottom: 2px solid @color_list_bubble_date_text;
 		padding: 0;
@@ -480,8 +491,6 @@
 			margin-top: 6 * @unit_base;
 		}
 	}
-
-
 }
 /****************************************************************/
 /*                   Divider  - TO BE FIXED                     */
@@ -491,7 +500,7 @@
 	box-sizing: border-box;
 	height: 38 * @unit_base;
 	padding-top: 9 * @unit_base;
-	font-size: 16 * @unit_base;
+	font-size: @font_size_list_divider_text;
 	background-color: @color_list_bg;
 	color: @color_list_divider_text;
 	border: 0;
@@ -519,14 +528,14 @@
 				top: 5 * @unit_base;
 				height: 18 * @unit_base;
 				padding-right: 10 * @unit_base;
-				font-size: 16 * @unit_base;
+				font-size: @font_size_list_divider_text;
 			}
 		}
 
 		.ui-link-inherit {
 			color: @color_list_divider_text;
 			font-weight: bold;
-			font-size: 16 * @unit_base;
+			font-size: @font_size_list_divider_text;
 			line-height: 23 * unit_base;
 		}
 	}
