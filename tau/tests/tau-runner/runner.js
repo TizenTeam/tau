@@ -8,7 +8,7 @@ $(document).ready(function () {
 		$.extend(self, {
 			frame: window.frames.testFrame,
 
-			testTimeout: 10 * 1000,
+			testTimeout: 3 * 60 * 1000,
 
 			$frameElem: $("#testFrame"),
 
@@ -17,7 +17,7 @@ $(document).ready(function () {
 			onTimeout: QUnit.start,
 
 			onFrameLoad: function (event) {
-                event.target.removeEventListener("load", self.onFrameLoad);
+				event.target.removeEventListener("load", self.onFrameLoad);
 				// establish a timeout for a given suite in case of async tests hanging
 				self.testTimer = setTimeout(self.onTimeout, self.testTimeout);
 
@@ -51,7 +51,7 @@ $(document).ready(function () {
 				// to the suite level test
 				self.hideAssertionResults();
 
-				// continue fastOn to the next suite
+				// continue on to the next suite
 				QUnit.start();
 			},
 
@@ -77,6 +77,15 @@ $(document).ready(function () {
 				});
 			}
 		});
+	};
+
+	QUnit.done = function (details) {
+		// set results in cookies
+		cookieHelper.set("TizenP", details.passed);
+		cookieHelper.set("TizenF", details.failed);
+		cookieHelper.set("TizenR", details.runtime);
+		cookieHelper.set("TizenT", details.total);
+		location.href = "./result.php";
 	};
 
 	// get the test directories
