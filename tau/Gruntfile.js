@@ -93,6 +93,10 @@ module.exports = function(grunt) {
 						rtn.push({
 							src: path.join(srcCss, theme[versionPath], theme.src),
 							dest: path.join(buildRoot, device, "theme", version, name) + ".css"
+						},
+						{
+							src: path.join(srcCss, theme[versionPath], theme.src.replace(".less", ".changeable.less")),
+							dest: path.join(buildRoot, device, "theme", version, "changeable.template")
 						});
 					} else {
 						for(; i < len; i++) {
