@@ -90,7 +90,7 @@
 					document.addEventListener('vmouseup', clearTapTimer, false);
 					document.addEventListener("vmousecancel", clearTapHandlers, false);
 
-					timer = window.setTimeout(tiemoutFunction, Touch.tapholdThreshold);
+					timer = window.setTimeout(tiemoutFunction, Touch.tap.tapholdThreshold);
 				}
 			}
 

@@ -61,7 +61,8 @@ $().ready(function () {
 				"pageX": 50,
 				"pageY": 50
 			});
-		}, 100);
+			// timeout must be greater than taphold
+		}, 800);
 	});
 
 	function swipeTest(event) {
