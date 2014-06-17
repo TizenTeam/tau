@@ -3,8 +3,54 @@
 ****************************/
 .ui-ctxpopup-container {
 	display: inline-block;
-}
 
+	&.ui-slider-popup-container {
+		border: 0;
+		margin-top: -10px;
+	}
+
+	.ui-popup {
+		&.ui-selectmenu {
+			padding: 0px;
+		}
+		&.ui-slider-popup + .ui-arrow {
+			&.top {
+				margin-top: 6px;
+				border-color: @color_slider_popup_bg transparent transparent;
+			}
+			&.bottom {
+				margin-top: 6px;
+				border-color: transparent transparent @color_slider_popup_bg transparent;
+			}
+			&.right {
+				border-color: transparent @color_slider_popup_bg transparent transparent;
+			}
+			&.left {
+				border-color: transparent transparent transparent @color_slider_popup_bg;
+			}
+		}
+	}
+
+	.ui-arrow {
+		border-color: inherit;
+		&.top {
+			margin: -7px;
+		}
+		&.bottom {
+			margin: -7px;
+		}
+	}
+
+	.ui-listview .ui-li.ui-li-static {
+		text-align: center;
+	}
+
+	.ui-checkbox {
+		.ui-btn-down-s {
+			background: transparent;
+		}
+	}
+}
 
 
 /****************************
