@@ -414,9 +414,13 @@
 					contentStyle,
 					element = self.element,
 					header,
+					headerDivider,
+					headerBtn,
 					footer,
 					top = 0,
-					bottom = 0;
+					bottom = 0,
+					i = 0,
+					len;
 
 				if (element && !self.pageSetHeight && element.classList.contains(Page.classes.uiPageActive)) {
 					content = element.querySelector("[data-role=content]");
@@ -426,6 +430,16 @@
 						//>>excludeEnd("tauDebug");
 						contentStyle = content.style;
 						header = element.querySelector("[data-role=header]");
+
+						headerDivider = header.getElementsByClassName("ui-header-divider");
+						len = headerDivider.length;
+						if (len) {
+							headerBtn = header.getElementsByClassName("ui-btn");
+							// Header divider exist
+							for(i; i < len; i++){
+								headerDivider[i].style.right = headerBtn[0].offsetWidth * (i + 1) + "px";
+							}
+						}
 						top = utilsDOM.getElementHeight(header);
 
 						footer = element.querySelector("[data-role=footer]");
@@ -467,7 +481,9 @@
 							sectionClassList = section.classList,
 							transition,
 							headerButtons,
+							headerButtonsWidth = 0,
 							headerAnchors,
+							headerDivider,
 							footerButtons,
 							footerWidth,
 							footerButtonWidth,
@@ -529,14 +545,23 @@
 									element.classList.add(pageClasses.uiBtnRightPrefix + index);
 								});
 
-								headerButtons = selectors.getChildrenByTag(section, "a");
+								headerButtons = selectors.getChildrenBySelector(section, "a,[data-role='button']");
 								if (headerButtons.length) {
+									// Header button click area height same to header height
+									// But, divider, it is located between buttons height, has different height for a button.
+									// So, we need to add divider div element between button elements.
+									// NOTE. Header has buttons maximum 2 elements.
 									headerButtons.forEach(function (button) {
 										engine.instanceWidget(button, "Button", {
 											corners: false,
 											bar: true,
 											role: "button"
 										});
+										// @TODO move this calculation after page show
+										headerButtonsWidth += 90;//utilsDOM.getElementWidth(button, true) + 2;
+
+										// Add header button divider element
+										button.insertAdjacentHTML("beforebegin", "<div class='ui-header-divider'></div>");
 									});
 								}
 								if (section.querySelector("." + pageClasses.uiTitleTextSub)) {
@@ -565,9 +590,7 @@
 							}
 
 							selectors.getChildrenBySelector(section, "h1, h2, h3, h4, h5, h6").forEach(function (title) {
-								var headerBtnsWidth = 0,
-									headerBtnNum = 0,
-									headerImgsWidth = 0,
+								var headerImgsWidth = 0,
 									headerSrcNum = 0,
 									width,
 									titleStyle = title.style;
@@ -576,7 +599,8 @@
 								title.setAttribute("role", "heading");
 								title.setAttribute("aria-level", 1);
 								title.setAttribute("aria-label", "title");
-								width = window.innerWidth - parseInt((titleStyle && titleStyle.marginLeft) || "8", 10) * 2 - headerBtnsWidth * headerBtnNum - headerBtnsWidth / 4 - headerImgsWidth * headerSrcNum * 4;
+								width = window.innerWidth - utilsDOM.getCSSProperty(title, "margin-left", 0, "integer") * 2 - headerButtonsWidth - headerImgsWidth * headerSrcNum * 4;
+
 								titleStyle.width = width + "px";
 							});
 						}

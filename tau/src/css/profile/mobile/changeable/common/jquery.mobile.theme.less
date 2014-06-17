@@ -39,12 +39,13 @@
 	.ui-title {
 		min-height : 25 * @unit_base;
 		max-height : 31 * @unit_base; /* temporary UX strange */
-
+		max-width: 360 * @unit_base;
 		color: @color_bar_title_text;
 		font-size  : @font_size_bar_title_text;
 		font-weight : 500; /* tizen font weight tuning */
 		text-overflow: ellipsis;
 		overflow: hidden;
+		float: left;
 		white-space: nowrap;
 		outline: 0 !important;
 
@@ -53,23 +54,18 @@
 		/* text align center tuning */
 	}
 
+
+
 	/* header button position : need to press area more... */
 	>.ui-btn,
 	>.naviframe-button.ui-btn {
 		.ui-btn-inner.ui-btn-icon-only {
 			.LESSbox-boxsizing( border-box );
-			height : 100%;
-			padding : 0;
-			.ui-icon {
-				top : 5px;
-				left : 0;
-			}
-		}
-	}
 
-	>.naviframe-button.ui-btn {
-		.ui-btn-inner .ui-icon {
-			margin-top : 0;
+			.ui-icon {
+				left : 0;
+				margin-top: -16px;
+			}
 		}
 	}
 
@@ -80,21 +76,45 @@
 		}
 	}
 
-	>.ui-btn:not(.ui-btn-icon_only),
-	>.naviframe-button.ui-btn:not(.ui-btn-icon_only) {
-		width : 62 * @unit_base;
-		height : 48 * @unit_base;
+	>.ui-btn,
+	>.naviframe-button {
+		height : 32 * @unit_base;
 		padding : 0;
-		top : 0;
+		position: relative;
+		float: right;
+		top: 0;
 
+		margin : 0;
+		padding : 8 * @unit_base 13 * @unit_base;
+
+		background: transparent;
+		color: @color_bar_title_button_text;
+		font-size: @font_size_bar_title_button_text;
 		.LESSborder-radius-all(0);
+
+		&:not(.ui-btn-icon_only) {
+			width: auto;
+			min-width: 47 * @unit_base;
+			max-width: 100 * @unit_base;
+		}
+
+		&.ui-btn-icon_only {
+			width: 32 * @unit_base;
+		}
 
 		.ui-btn-inner {
 			padding : 0;
-			margin-top : 11 * @unit_base;
-			margin-bottom : 11 * @unit_base;
+			margin : 0;
+			width: auto;
+			height: 100%;
 			.ui-btn-text {
+				width: auto;
 				font-size : @font_size_bar_title_button_text;
+			}
+
+			&.ui-btn-icon-only {
+				margin: 0;
+				width: 32 * @unit_base;
 			}
 		}
 		&.ui-btn-down-s {
@@ -102,6 +122,13 @@
 		}
 	}
 
+	> .ui-header-divider {
+		height: 32 * @unit_base;
+		top: 9 * @unit_base;
+		position: absolute;
+		width: 1 * @unit_base;
+		background: @color_bar_divider_line;
+	}
 
 	> .ui-btn.ui-btn-back,
 	> .ui-btn.ui-btn-footer-down {
@@ -130,22 +157,6 @@
 		overflow : hidden;
 	}
 
-	> .ui-btn,
-	> .naviframe-button.ui-btn {
-		position : absolute;
-		top : 9 * @unit_base;
-		margin-top : 0;
-
-		height : 34 * @unit_base;
-		width : 34 * @unit_base;
-
-		padding-left : 13 * @unit_base;
-		padding-right : 13 * @unit_base;
-
-		background: transparent;
-		color: @color_bar_title_button_text;
-        font-size: @font_size_bar_title_button_text;
-	}
 	&.ui-title-tabbar >.ui-btn {
 		// NOTE: there is an issue that when tabbar and button are
 		// used together in the header, the lower part of buttons is
@@ -153,33 +164,6 @@
 		// for this case is found in the GUI guide, this one is added
 		// to resolve this issue.
 		top: 8 * @unit_base;
-	}
-
-	> .ui-btn.ui-btn-icon_only,
-	> .naviframe-button.ui-btn.ui-btn-icon_only {
-		top : 0;
-		width : 32 * @unit_base;
-		height : 32 * @unit_base;
-		border-radius: 0;
-		height: 100%;
-	}
-
-	.ui-btn-right-0 {
-		right : 0 * @unit_base;
-	}
-
-	.ui-btn-right-1 {
-		right : 58 * @unit_base;
-	}
-
-	> .ui-btn:not(.ui-btn-icon_only):nth-child(3),
-	> .naviframe-button.ui-btn:not(.ui-btn-icon_only):nth-child(3) {
-		right : 0 * @unit_base;
-	}
-
-	> .ui-btn:not(.ui-btn-icon_only):nth-child(5),
-	> .naviframe-button.ui-btn:not(.ui-btn-icon_only):nth-child(5) {
-		right : 62 * @unit_base;
 	}
 
 	> img + h1 {
@@ -227,12 +211,6 @@
 		img + .ui-title + .ui-title-text-sub {
 			left : 42 * @unit_base;
 		}
-	}
-
-	.ui-header-divider {
-		position: absolute;
-		width: 1px;
-		background: @color_bar_divider_line;
 	}
 }
 
