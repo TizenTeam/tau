@@ -13,6 +13,7 @@
 .ui-select .ui-btn-icon-right .ui-btn-inner { padding-right: 45px; } 
 .ui-select .ui-btn-icon-right .ui-icon { right: 15px;  }
 
+
 /* labels */
 label.ui-select { font-size: 16px; line-height: 1.4;  font-weight: normal; margin: 0 0 .3em; display: block; }
 
@@ -36,4 +37,18 @@ label.ui-select { font-size: 16px; line-height: 1.4;  font-weight: normal; margi
 }
 
 /* when no placeholder is defined in a multiple select, the header height doesn't even extend past the close button.  this shim's content in there */
-.ui-selectmenu .ui-header h1:after { content: '.'; visibility: hidden; }
+.ui-selectmenu .ui-header {
+	h1:after {
+		content: '.';
+		visibility: hidden;
+	}
+	.ui-btn-icon_only {
+		.ui-btn-text {
+			position: absolute;
+			left: -9999px;
+		}
+		.ui-icon {
+			margin: auto;
+		}
+	}
+}

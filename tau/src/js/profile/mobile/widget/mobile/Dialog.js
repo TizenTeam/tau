@@ -219,6 +219,7 @@
 			"../../../../core/engine",
 			"../../../../core/event",
 			"../../../../core/util/selectors",
+			"../../../../core/util/DOM/attributes",
 			"../mobile", // fetch namespace
 			"./BaseWidgetMobile",
 			"./Button",
@@ -249,7 +250,15 @@
 				 * @private
 				 * @static
 				 */
-				getChildrenBySelector = ns.util.selectors.getChildrenBySelector,
+				selectors = ns.util.selectors,
+				/**
+				 * Alias to {@link ns.util.DOM}
+				 * @property {Object} dom
+				 * @member ns.widget.mobile.Dialog
+				 * @private
+				 * @static
+				 */
+				doms = ns.util.DOM,
 				/**
 				 * Alias to {@link ns.event}
 				 * @property {Object} events
@@ -306,22 +315,30 @@
 				Dialog = function () {
 					var self = this;
 					/**
+
 					 * Object with default options
 					 * @property {Object} options
 					 * @property {"left"|"right"|"none"} [options.closeBtn="left"] Position of the dialog close button in the header, accepts: left, right and none
 					 * @property {string} [options.closeBtnText="Close"] Customize text of the close button, by default close button is displayed as an icon-only so the text isn't visible, but is read by screen readers
 					 * @property {string} [options.overlayTheme="a"] Backgroudn under dialog content color
 					 * @property {boolean} [options.corners=true] Sets if dialog should be drawn with rounded corners
+					 * @property {string} [options.page=""] Sets if of related page
 					 * @member ns.widget.mobile.Dialog
 					 */
 					self.options = {
 						closeBtn : "left",
 						closeBtnText : "Close",
+						closeLinkSelector: "a[data-rel='back']",
 						overlayTheme : "c",
-						corners : true
+						corners : true,
+						page: ""
 					};
-					self._headerCloseButton = null;
+
 					self._eventHandlers = {};
+					self._ui = {
+						page: null // page related with this dialog
+					};
+
 				};
 
 			/**
@@ -332,6 +349,46 @@
 			Dialog.classes = classes;
 
 			Dialog.prototype = new BaseWidget();
+
+
+			/**
+			* Create close button.
+			* @method createCloseButton
+			* @param {HTMLElement} element
+			* @param {"none"|"left"|"right"} location="none"
+			* @param {string} text
+			* @private
+			* @static
+			* @member ns.widget.mobile.Dialog
+			*/
+			function createCloseButton (element, location, text) {
+				var button,
+					header;
+
+				if (location !== "left" && location !== "right") {
+					location = "none";
+				}
+
+				// if location of closing button is set, button is created
+				if (location !== "none") {
+					button = document.createElement("a");
+					button.setAttribute("data-rel", "back");
+					button.className = buttonClasses.uiBtn + "-" + location;
+					button.textContent = text || "";
+
+					header = element.getElementsByClassName(classes.uiHeader)[0];
+					if (header) {
+						header.insertBefore(button, header.firstChild);
+					}
+
+					engine.instanceWidget(button, "Button", {
+						iconpos: "notext",
+						icon: "delete",
+						inline: true,
+						corners: true
+					});
+				}
+			};
 
 			/**
 			 * Set page active / unactive
@@ -372,9 +429,8 @@
 			Dialog.prototype._build = function (element) {
 				var self = this,
 					container = document.createElement("div"),
-					i,
-					l,
 					childrenLength = element.children.length,
+					getChildrenBySelector = selectors.getChildrenBySelector,
 					headers = getChildrenBySelector(element, "[data-role='header']"),
 					content = getChildrenBySelector(element, "[data-role='content']"),
 					footers = getChildrenBySelector(element, "[data-role='footer']"),
@@ -384,9 +440,18 @@
 					headersClassList,
 					dataTheme,
 					elementTheme,
-					contentTheme;
+					contentTheme,
+					page,
+					pageId,
+					i,
+					l;
 
-				self.element = element;
+
+				page = selectors.getClosestBySelector(element, "[data-role='page']");
+				pageId = page ? page.id : "";
+				doms.setNSData(element, "page", pageId);
+				options.page = pageId;
+
 
 				dataTheme = element.getAttribute("data-theme");
 				elementTheme = dataTheme ? dataTheme : options.overlayTheme;
@@ -430,9 +495,24 @@
 				element.parentNode.removeChild(element);
 				document.body.appendChild(element);
 
-				self._setCloseButton(options.closeBtn, options.closeBtnText);
+				createCloseButton(element, options.closeBtn, options.closeBtnText);
 
 				return element;
+			};
+
+			/**
+			 * This method inits Dialog widget.
+			 * @method _init
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.mobile.Dialog
+			 */
+			Dialog.prototype._init = function (element) {
+				var pageId = this.options.page;
+
+				if (pageId) {
+					this._ui.page = document.getElementById(pageId);
+				}
 			};
 
 			/**
@@ -443,59 +523,13 @@
 			 * @protected
 			 * @member ns.widget.mobile.Dialog
 			 */
+
 			Dialog.prototype._close = function (event) {
 				event.preventDefault();
 				this.close();
 				return false;
 			};
 
-			/**
-			 * If needed add close button.
-			 * @method _setCloseButton
-			 * @param {string} location
-			 * @param {string} text
-			 * @protected
-			 * @member ns.widget.mobile.Dialog
-			 */
-			Dialog.prototype._setCloseButton = function (location, text) {
-				var headerCloseButton = this._headerCloseButton,
-					headerCloseButtonClassList,
-					button,
-					header;
-				if (location !== "left" && location !== "right") {
-					location = "none";
-				}
-				if (location === "none") {
-					if (headerCloseButton) {
-						headerCloseButton.parentNode.removeChild(headerCloseButton);
-					}
-				} else if (headerCloseButton) {
-					headerCloseButtonClassList = headerCloseButton.classList;
-					headerCloseButtonClassList.remove(buttonClasses.uiBtnLeft);
-					headerCloseButtonClassList.remove(buttonClasses.uiBtnRight);
-					headerCloseButtonClassList.add(buttonClasses.uiBtn +
-							"-" + location);
-				} else {
-					button = document.createElement("a");
-
-					//TODO When button will accept notext and
-					button.className = buttonClasses.uiBtn + "-" + location;
-					button.innerText = text || this.options.closeBtnText || "";
-
-					button.addEventListener("vclick", this._close.bind(this), true);
-					header = this.element.getElementsByClassName(classes.uiHeader)[0];
-					if (header) {
-						header.appendChild(button);
-					}
-
-					engine.instanceWidget(button, "Button", {
-						iconpos: "left",
-						icon: "delete",
-						inline: true,
-						corners: true
-					});
-				}
-			};
 
 			/**
 			 * Close dialog
@@ -545,11 +579,28 @@
 			 * @param {HTMLElement} element
 			 * @param {Object} options
 			 * @param {Object} classes
+			 * @static
 			 * @private
 			 */
 			function pageBeforeShowHandler(element, options, classes) {
 				document.body.classList.add(classes.uiOverlayPrefix +
 						options.overlayTheme);
+			}
+
+			/**
+			 * Handler function to close the dialog on click.
+			 * @method closeOnClick
+			 * @param {ns.widget.mobile.Dialog} self
+			 * @param {Event} event
+			 * @static
+			 * @private
+			 */
+			function closeOnClick(self, event) {
+				var element = event.target;
+
+				if (selectors.getClosestBySelector(element, self.options.closeLinkSelector)) {
+					self.close();
+				}
 			}
 
 			/**
@@ -560,12 +611,20 @@
 			 * @member ns.widget.mobile.Dialog
 			 */
 			Dialog.prototype._bindEvents = function (element) {
-				var options = this.options,
-					eventHandlers = this._eventHandlers;
+				var self = this,
+					options = self.options,
+					eventHandlers = self._eventHandlers;
 
 				eventHandlers.pageBeforeShow = pageBeforeShowHandler.bind(null, element, options, classes);
+				eventHandlers.destroyOnEvent = self.destroy.bind(self, element);
+				eventHandlers.closeOnClick = closeOnClick.bind(null, self);
 
 				element.addEventListener("pagebeforeshow", eventHandlers.pageBeforeShow, true);
+				element.addEventListener("vclick", eventHandlers.closeOnClick, true);
+
+				if (self._ui.page) {
+					self._ui.page.addEventListener("pagedestroy", eventHandlers.destroyOnEvent, true);
+				}
 			};
 
 			/**
@@ -612,16 +671,23 @@
 			 * @protected
 			 */
 			Dialog.prototype._destroy = function () {
-				var element = this.element,
+				var self = this,
+					element = self.element,
 					parentNode = element.parentNode,
-					eventHandlers = this._eventHandlers;
+					eventHandlers = self._eventHandlers;
 
 				element.removeEventListener("pagebeforeshow", eventHandlers.pageBeforeShow, true);
+				element.removeEventListener("vclick", eventHandlers.closeOnClick, true);
+
+				if (self._ui.page) {
+					self._ui.page.removeEventListener("pagedestroy", eventHandlers.destroyOnEvent, true);
+				}
 
 				events.trigger(document, "destroyed", {
 					widget: "Dialog",
 					parent: parentNode
 				});
+				parentNode.removeChild(element);
 			};
 
 			// definition
