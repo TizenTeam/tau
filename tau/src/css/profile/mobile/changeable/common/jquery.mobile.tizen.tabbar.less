@@ -46,12 +46,12 @@
 			padding-bottom : 0;
 
 			&:not(.ui-btn-icon-only) .ui-btn-text-padding-top.ui-btn-text {
-				padding-top: 36 * @unit_base;
-				padding-bottom: 5 * @unit_base;
+				padding-top: 37 * @unit_base;
+				padding-bottom: 6 * @unit_base;
 			}
 			&:not(.ui-btn-icon-only) .ui-btn-text {
-				padding-top: 22 * @unit_base;
-				padding-bottom: 19 * @unit_base;
+				padding-top: 23 * @unit_base;
+				padding-bottom: 20 * @unit_base;
 				display: block;
 				line-height: @font_size_tabbar_text;
 			}
@@ -94,8 +94,8 @@
 
 	&.ui-tabbar-notext {
 		a.ui-btn {
-			padding-top : 9 * @unit_base;
-			padding-bottom : 4 * @unit_base;
+			padding-top : 0;
+			padding-bottom : 0;
 		}
 		.ui-btn-inner {
 			height : 58 * @unit_base;
@@ -117,16 +117,15 @@
 	.ui-tabbar {
 		height : 38 * @unit_base;
 		a.ui-btn {
-			height: 38 * @unit_base;
+			height: 37 * @unit_base;
 			padding: 0;
 			background : @color_tabbar_title_bg;
 			font-size: @font_size_tabbar_text;
 
 			.ui-btn-inner {
-				height: 35 * @unit_base;
-				padding: 0;
 				&:not(.ui-btn-icon-only) .ui-btn-text {
-					padding: 0;
+					padding-top: 9 * @unit_base;
+					padding-bottom: 9 * @unit_base;
 					display: block;
 					line-height: @font_size_tabbar_text;
 				}
@@ -144,6 +143,20 @@
 				color : @color_tabbar_text_selected;
 				.ui-icon {
 					background : @color_tabbar_btn_selected;
+				}
+			}
+		}
+		&.ui-tabbar-notext {
+			a.ui-btn {
+				padding-top : 0;
+				padding-bottom : 0;
+			}
+			.ui-btn-inner {
+				height : 34 * @unit_base;
+				.ui-icon {
+					top : 13 * @unit_base;
+					padding-top: 2* @unit_base;
+					padding-bottom: 2* @unit_base;
 				}
 			}
 		}
@@ -185,4 +198,28 @@
 			padding-top: 16 * @unit_base;
 			padding-botton: 16 * @unit_base;
 		}
+}
+
+.ui-header.ui-bar-s {
+	.ui-tabbar {
+		a.ui-btn.ui-btn-down-s {
+			border-bottom-color : @color_tabbar_btn_press;
+		}
+	}
+
+	.ui-tabbar:not(.ui-tabbar-persist) {
+		a.ui-btn {
+			&.ui-btn-active {
+				border-bottom-color : @color_tabbar_bg_line;
+			}
+		}
+	}
+
+	.ui-tabbar.ui-tabbar-persist {
+		a.ui-btn {
+			&.ui-btn-active.ui-state-persist {
+				border-bottom-color : @color_tabbar_bg_line;
+			}
+		}
+	}
 }
