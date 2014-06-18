@@ -64,7 +64,6 @@
 
 			.ui-icon {
 				left : 0;
-				margin-top: -16px;
 			}
 		}
 	}
@@ -85,7 +84,6 @@
 		top: 0;
 
 		margin : 0;
-		padding : 8 * @unit_base 13 * @unit_base;
 
 		background: transparent;
 		color: @color_bar_title_button_text;
@@ -93,12 +91,14 @@
 		.LESSborder-radius-all(0);
 
 		&:not(.ui-btn-icon_only) {
+			padding : 8 * @unit_base 6 * @unit_base;
 			width: auto;
 			min-width: 47 * @unit_base;
 			max-width: 100 * @unit_base;
 		}
 
 		&.ui-btn-icon_only {
+			padding : 8 * @unit_base 13 * @unit_base;
 			width: 32 * @unit_base;
 		}
 
@@ -110,6 +110,7 @@
 			.ui-btn-text {
 				width: auto;
 				font-size : @font_size_bar_title_button_text;
+				line-height: 32 * @unit_base;
 			}
 
 			&.ui-btn-icon-only {

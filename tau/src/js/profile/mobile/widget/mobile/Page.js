@@ -416,10 +416,11 @@
 					header,
 					headerDivider,
 					headerBtn,
-					footer,
+					headerBtnWidth = 0,
 					top = 0,
 					bottom = 0,
 					i = 0,
+					footer,
 					len;
 
 				if (element && !self.pageSetHeight && element.classList.contains(Page.classes.uiPageActive)) {
@@ -431,16 +432,19 @@
 						contentStyle = content.style;
 						header = element.querySelector("[data-role=header]");
 
-						headerDivider = header.getElementsByClassName("ui-header-divider");
-						len = headerDivider.length;
-						if (len) {
-							headerBtn = header.getElementsByClassName("ui-btn");
-							// Header divider exist
-							for(i; i < len; i++){
-								headerDivider[i].style.right = headerBtn[0].offsetWidth * (i + 1) + "px";
+						if (header) {
+							headerDivider = header.getElementsByClassName("ui-header-divider");
+							len = headerDivider.length;
+							if (len) {
+								headerBtn = header.getElementsByClassName("ui-btn");
+								// Header divider exist
+								for(i; i < len; i++){
+									headerBtnWidth += headerBtn[i].offsetWidth;
+									headerDivider[i].style.right = headerBtnWidth + "px";
+								}
 							}
+							top = utilsDOM.getElementHeight(header);
 						}
-						top = utilsDOM.getElementHeight(header);
 
 						footer = element.querySelector("[data-role=footer]");
 						bottom = utilsDOM.getElementHeight(footer);
