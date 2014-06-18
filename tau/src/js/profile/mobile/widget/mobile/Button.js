@@ -199,7 +199,8 @@
 					uiBtnRight: "ui-btn-right",
 					uiSubmit: "ui-submit",
 					uiBtnActive: "ui-btn-active",
-					uiBtnIconNotext: "ui-btn-icon-notext"
+					uiBtnIconNotext: "ui-btn-icon-notext",
+					uiBtnIconRight: 'ui-btn-icon-right'
 				},
 				eventsAdded = false,
 				prototype = new BaseWidget();
