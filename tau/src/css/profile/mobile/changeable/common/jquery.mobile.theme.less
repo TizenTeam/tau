@@ -271,6 +271,10 @@
 		background-image : none;
 		border-width : 0;
 
+		&.ui-btn-down-s {
+			background-color: @color_bar_toolbar_press;
+		}
+
 		top : 0;
 		padding : 12 * @unit_base 0;
 
@@ -278,6 +282,10 @@
 			padding-top : 0;
 			padding-bottom : 0;
 		}
+	}
+	>[data-role="button"]:not(:first-child) {
+		border-left : 1px solid @color_bar_toolbar_divider;
+		box-sizing: border-box;
 	}
 
 	[data-role="controlgroup"] {
