@@ -757,7 +757,7 @@
 				}
 
 				container.setAttribute("tabindex", 0);
-				if ((element.getAttribute("data-role") === "button" && !options.bar) || (elementTagName !== "a")) {
+				if (element.getAttribute("data-role") === "button" && !options.bar) {
 					buttonClassArray.push(classes.uiBtnBoxThemePrefix + options.theme);
 				}
 
