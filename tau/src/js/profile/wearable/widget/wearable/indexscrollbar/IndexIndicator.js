@@ -16,7 +16,7 @@
 */
 /*jslint nomen: true, plusplus: true */
 /**
- * IndexScrollbar widget
+ * IndexScrollbar widgets.element
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Jadwiga Sosnowska <j.sosnowska@samsung.com>
  * @class ns.widget.wearable.IndexScrollbar
@@ -28,11 +28,21 @@
 	define(
 		[
 			"../indexscrollbar",
-			"../../../../../core/util/object"
+			"../../../../../core/util/object",
+			"../../../../../core/event"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var utilsObject = ns.util.object;
+			var utilsObject = ns.util.object,
+				events = ns.event;
+
+			/**
+			 * @brief block 'unexpected bouncing effect' on indexscroller indicator.
+			 */
+			function blockEvent (event) {
+				event.preventDefault();
+				event.stopPropagation();
+			}
 
 			function IndexIndicator(element, options) {
 				this.element = element;
@@ -43,6 +53,7 @@
 
 				return this;
 			}
+
 			IndexIndicator.prototype = {
 				_options: {
 					className: "ui-indexscrollbar-indicator",
@@ -53,6 +64,8 @@
 					var element = this.element;
 					element.className = this.options.className;
 					element.innerHTML = "<span></span>";
+					events.on(element, ["touchstart", "touchmove"], blockEvent, false);
+
 
 					// Add to DOM tree
 					this.options.container.appendChild(element);
@@ -91,10 +104,14 @@
 					this.element.style.display="none";
 				},
 				destroy: function() {
-					while(this.element.firstChild) {
-						this.element.removeChild(this.element.firstChild);
+					var element = this.element;
+
+					while(element.firstChild) {
+						element.removeChild(element.firstChild);
 					}
+					events.off(element, ["touchstart", "touchmove"], blockEvent, false);
 					this.element = null;	// unreference element
+
 				}
 			};
 			ns.widget.wearable.indexscrollbar.IndexIndicator = IndexIndicator;
