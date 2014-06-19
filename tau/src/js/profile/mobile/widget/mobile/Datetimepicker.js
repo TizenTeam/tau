@@ -926,7 +926,10 @@
 			ns.widget.mobile.Datetimepicker = Datetimepicker;
 			engine.defineWidget(
 				"Datetimepicker",
-				"input[type='date'], input[type='datetime'], input[type='time'], [date-role='datetimepicker'], .ui-datetimepicker",
+				// Datetimepicker UI changed in changeable UX.
+				// New UX need to UX whole change so we decide datetimepicker reimplement lately
+				//"input[type='date'], input[type='datetime'], input[type='time'], [date-role='datetimepicker'], .ui-datetimepicker",
+				"[data-role='datetimepicker']",
 				[],
 				Datetimepicker,
 				'tizen'

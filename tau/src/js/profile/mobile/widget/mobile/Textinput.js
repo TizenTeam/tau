@@ -297,7 +297,7 @@
 			ns.widget.mobile.Textinput = Textinput;
 			engine.defineWidget(
 				"Textinput",
-				"input[type='text'], input[type='number'], input[type='password'], input[type='email'], input[type='url'], input[type='tel'], textarea, input[type='month'], input[type='week'], input[type='datetime-local'], input[type='color'], input:not([type]), .ui-textinput",
+				"input[type='text'], input[type='number'], input[type='password'], input[type='email'], input[type='url'], input[type='tel'], textarea, input[type='month'], input[type='week'], input[type='datetime-local'], input[type='date'], input[type='time'], input[type='datetime'], input[type='color'], input:not([type]), .ui-textinput",
 				[],
 				Textinput,
 				"mobile"
