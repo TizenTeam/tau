@@ -58,6 +58,12 @@ textarea.ui-input-text {
 	transition: height 200ms linear;
 	white-space: normal;
 }
+.ui-header.ui-bar-s.ui-header-searchbar {
+	.ui-title {
+		max-width: none;
+		float: none;
+	}
+}
 
 .ui-input-search {
 	position: relative;
@@ -70,7 +76,7 @@ textarea.ui-input-text {
 	input.ui-input-text {
 		width : 100%;
 		border: none;
-		background: @color_searchbar_bg;
+		background: transparent;
 		outline: 0 !important;
 		color: @color_searchbar_typing_text;
 		font-size: @font_size_searchbar_typing_text;
@@ -93,7 +99,7 @@ textarea.ui-input-text {
 	}
 	.ui-btn-inner {
 		.ui-icon-deleteSearch {
-			margin: 0;
+			margin: -2 * @unit_base;
 			width: 45 * @unit_base_textinput;
 			height: 45 * @unit_base_textinput;
 		}
@@ -170,7 +176,7 @@ textarea.ui-input-text {
 		display: inline-block;
 		position: absolute;
 
-		top	: @search-bar-padding;
+		top	: 4 * @unit_base;
 		right : 0 * @unit_base;
 		height : 66 * @unit_base_textinput;
 		margin-right : 16 * @unit_base_textinput;
@@ -205,7 +211,7 @@ textarea.ui-input-text {
 
 	.ui-btn.ui-btn-search-front-icon {
 		position : absolute;
-		top : 13 * @unit_base_textinput;
+		top : 3 * @unit_base_textinput;
 		width : 72 * @unit_base_textinput;
 		height : 72 * @unit_base_textinput;
 		padding : 0;
@@ -232,19 +238,21 @@ textarea.ui-input-text {
 	.ui-focus {
 		border: 1px solid @color_searchbar_border_focus;
 		background-color: @color_list_bg;
+		box-sizing: border-box;
 	}
 }
 
 .ui-header .input-search-bar {
-	padding-top : 16 * @unit_base_textinput;
-	padding-bottom : 16 * @unit_base_textinput;
+	padding-top : 8 * @unit_base_textinput;
+	padding-bottom : 8 * @unit_base_textinput;
+	background-color: @color_searchbar_bg;
 }
 
 .ui-image-search {
 	background-repeat: no-repeat;
 	background-size : 45 * @unit_base_textinput 45 * @unit_base_textinput;
 	background-color: @color_searchbar_search_icon;
-	-webkit-mask-image: url(images/controls/00_search_icon.png);
+	-webkit-mask-image: url(images/controls/00_icon_search.png);
 	-webkit-mask-size: 45 * @unit_base_textinput 45 * @unit_base_textinput;
 }
 

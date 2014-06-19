@@ -289,7 +289,8 @@
 				uiInputSearchWide: "ui-input-search-wide",
 				uiBtnCancelHide: "ui-btn-cancel-hide",
 				uiBtnCancelShow: "ui-btn-cancel-show",
-				uiFocus: 'ui-focus'
+				uiFocus: 'ui-focus',
+				uiHeaderSearchBar: "ui-header-searchbar"
 			};
 
 			SearchBar.prototype._configure = function () {
@@ -421,6 +422,11 @@
 
 				if (label) {
 					label.classList.add(classes.uiInputText);
+				}
+
+				if (element.parentNode.classList.contains("ui-header")) {
+					// searchbar located header area
+					element.parentNode.classList.add(classes.uiHeaderSearchBar);
 				}
 
 				if (element.autocorrect !== undefined) { // @todo && !$.support.touchOverflow ) {
