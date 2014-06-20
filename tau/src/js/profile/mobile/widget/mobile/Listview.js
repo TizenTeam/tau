@@ -1128,6 +1128,21 @@
 			};
 
 			/**
+			 * Change Checkbox/Radio state when list clicked
+			 * @method _clickCheckboxRadio
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.mobile.Listview
+			 */
+			Listview.prototype._clickCheckboxRadio = function (element) {
+				var checkboxRadio = slice.call(element.querySelectorAll(".ui-checkbox label, .ui-radio label")),
+					i = checkboxRadio.length;
+				while (--i >= 0) {
+					eventUtils.trigger(checkboxRadio[i], "vclick");
+				}
+			}
+
+			/**
 			 * Registers widget's event listeners
 			 * @method _bindEvents
 			 * @param {HTMLElement} element
@@ -1138,19 +1153,15 @@
 				var self = this;
 
 				element.addEventListener("vclick", function (event) {
-					var target,
+					var target = event.target,
+						parentTarget = target.parentNode,
 						checkboxRadio,
 						i;
-					if (selectors.matchesSelector(self, "li." + classes.uiLiHasCheckbox + ",li." + classes.uiLiHasRadio) === true) {
-						target = event.target;
-						checkboxRadio = slice.call(target.querySelectorAll(".ui-checkbox label"));
-						if (!checkboxRadio.length) {
-							checkboxRadio = slice.call(target.querySelectorAll(".ui-radio label"));
-						}
-						i = checkboxRadio.length;
-						while (--i >= 0) {
-							eventUtils.trigger(checkboxRadio[i], "vclick");
-						}
+
+					if (target.classList.contains(classes.uiLiHasCheckbox) || target.classList.contains(classes.uiLiHasRadio)) {
+						self._clickCheckboxRadio(target);
+					} else if (parentTarget.classList.contains(classes.uiLiHasCheckbox) || parentTarget.classList.contains(classes.uiLiHasRadio)) {
+						self._clickCheckboxRadio(parentTarget);
 					}
 				}, false);
 			};
