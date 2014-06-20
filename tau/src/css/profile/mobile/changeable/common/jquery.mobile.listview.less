@@ -569,16 +569,15 @@
 		height: 41 * @unit_base;
 		padding-top: 0;
 		background-color: @color_searchbar_bg;
+		font-size: @font_size_list_check_divider_text;
 		.ui-divider-normal-line { display: none; }
 
 		.ui-btn-text {
 			padding: 0;
 			height: 0;
-			.ui-link-inherit {
-				display: block;
-				padding-left: 52.5 * @unit_base;
-				padding-top: 8 * @unit_base;
-				font-size: 22 * @unit_base;
+			a {
+				padding-top: 7 * @unit_base;
+				padding-bottom: 7 * @unit_base;
 			}
 		}
 		.ui-checkbox:first-child {
