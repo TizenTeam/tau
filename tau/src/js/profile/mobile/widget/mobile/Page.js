@@ -564,8 +564,10 @@
 										// @TODO move this calculation after page show
 										headerButtonsWidth += 90;//utilsDOM.getElementWidth(button, true) + 2;
 
-										// Add header button divider element
-										button.insertAdjacentHTML("beforebegin", "<div class='ui-header-divider'></div>");
+										// Drawer Button does not need to divider
+										if(!button.classList.contains("ui-drawer-button")) {
+											button.insertAdjacentHTML("beforebegin", "<div class='ui-header-divider'></div>");
+										}
 									});
 								}
 								if (section.querySelector("." + pageClasses.uiTitleTextSub)) {

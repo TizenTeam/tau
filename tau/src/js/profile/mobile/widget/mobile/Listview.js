@@ -1109,10 +1109,11 @@
 				var ui = this.ui,
 					page = ui.page,
 					popup = selectors.getClosestBySelector(element, "[data-role=popup]"),
+					drawer = selectors.getClosestBySelector(element, "[data-role=drawer]"),
 					elementType = element.tagName.toLowerCase();
 
 				//for everything what is not a list based on ul set the following width
-				if (!popup && elementType !== "ul") {
+				if (!popup && elementType !== "ul" && !drawer) {
 					element.style.width = window.innerWidth + "px";
 				}
 

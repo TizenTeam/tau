@@ -76,6 +76,7 @@
 			"./profile/mobile/widget/mobile/TizenSlider",
 			"./profile/mobile/widget/mobile/SplitView",
 			"./profile/mobile/widget/mobile/ScrollHandler",
+			"./profile/mobile/widget/mobile/Drawer",
 			"./profile/mobile/expose",
 			// Modules to be loaded after
 			"./core/init"

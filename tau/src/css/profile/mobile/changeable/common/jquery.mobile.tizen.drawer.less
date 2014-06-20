@@ -1,0 +1,67 @@
+.ui-drawer {
+	position : absolute;
+	background-color : @color_drawer_bg;
+	z-index : 1201;
+	&.ui-drawer-left {
+		border-right : 1px solid @color_list_border_bottom;
+		/* drawer right border color same to list border bottom color */
+	}
+	&.ui-drawer-right {
+		border-left : 1px solid @color_list_border_bottom;
+	}
+	.ui-listview {
+		margin : 0;
+		.ui-li.ui-btn-up-s {
+			background-color : @color_drawer_bg;
+		}
+		.ui-li.ui-btn-hover-s {
+			background-color : @color_drawer_bg;
+		}
+		.ui-li.ui-btn-down-s {
+			background-color : @color_drawer_list_press;
+		}
+		.ui-li.ui-li-last > .ui-btn-inner {
+			/* This less code should removed after fixing list widget less code */
+			border-bottom-color : @color_list_border_bottom;
+		}
+		.ui-drawer-sub-list > .ui-btn-inner .ui-btn-text {
+			.ui-link-inherit {
+				padding-left : 26 * @unit_base;
+			}
+		}
+	}
+}
+
+.ui-drawer-overlay {
+	position : absolute;
+	background-color : @color_drawer_overlay_bg;
+	z-index : 1200;
+}
+
+.ui-header.ui-bar-s {
+	&.ui-drawer-header {
+		.ui-title {
+			margin-left : 40 * @unit_base;
+		}
+		.ui-btn.ui-drawer-button.ui-btn-icon_only {
+			position: absolute;
+			top: 0;
+			left: 0;
+			padding-left : 7 * @unit_base;
+			padding-right : 8 * @unit_base;
+			width : 27 * @unit_base;
+			height : 48 * @unit_base;
+
+			&.ui-btn-down-s {
+				background-color : @color_bar_naviframe_press;
+			}
+
+			.ui-btn-inner.ui-btn-icon-only .ui-icon {
+				top: 2 * @unit_base;
+				width : 27 * @unit_base;
+				height : 27 * @unit_base;
+				background-color: @color_bar_btn_normal;
+			}
+		}
+	}
+}

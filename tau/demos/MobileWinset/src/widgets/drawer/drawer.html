@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<body>
+<div data-role="page" id="drawer-demo">
+
+	<div data-role="header" data-position="fixed">
+		<h1>Drawer</h1>
+	</div>
+	<div data-role="content">
+		<ul data-role="listview">
+			<li><a href="drawer-left.html">Drawer - left</a></li>
+			<li><a href="drawer-right.html">Drawer - right</a></li>
+		</ul>
+	</div>
+	<script>
+		$( "#drawer-demo" ).on( "pageshow" , function() {
+			//bind callbacks to the H/W keys
+			$( window ).on( "tizenhwkey" , function( e ) {
+				if( e.originalEvent.keyName === "back" ) {
+					window.history.back();
+				}
+			});
+		});
+		$( "#drawer-demo" ).on( "pagebeforehide" , function() {
+			//unbind callbacks to the H/W keys
+			$( window ).off( "tizenhwkey" );
+		});
+	</script>
+</div>
+</body>
+</html>
