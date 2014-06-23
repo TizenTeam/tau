@@ -1,0 +1,200 @@
+@font_size_default: 22px;	// Default unit font size. DO NOT USE THIS VALUE IN WIDGET CSS!
+@rem_base: (1rem/@font_size_default);
+
+@em_base: 1em/@font_size_default;	// WARNING: Don't use em unit!	This value is to be removed.
+@px_base: 1px;
+
+@unit_base: @rem_base;
+
+@font_family: Tizen, Helvetica;
+
+/******************************
+  z-index order collection
+ ******************************/
+@z_base_maximum: 2147483647;
+@z_base_loader: 100;
+@z_base_header_footer: 1000;
+@z_base_smallpopup: @z_base_header_footer + 100;
+@z_base_popup: @z_base_smallpopup + 100;
+@z_base_tickernoti: @z_base_maximum - 100;
+@z_base_slider_popup: @z_base_popup + 10;	//DCM-1735 issue fix
+
+
+/******************************
+  Global LESS mixin collection
+ ******************************/
+
+// Mixin : background ************************
+.LESSbackground-img-with-gradient(@from: top, @startcolor: #3c3c3c, @endcolor: #111) {
+	background-image: -webkit-gradient(linear, left top, left bottom, from(@startcolor), to(@endcolor)); /* Saf4+, Chrome */
+	background-image: -webkit-linear-gradient(@from, @startcolor, @endcolor);
+	background-image:    -moz-linear-gradient(@from, @startcolor, @endcolor);
+	background-image:     -ms-linear-gradient(@from, @startcolor, @endcolor);
+	background-image:      -o-linear-gradient(@from, @startcolor, @endcolor);
+	background-image:         linear-gradient(@from, @startcolor, @endcolor);
+}
+
+.LESSbackground-with-gradient(@from: top, @startcolor: #3c3c3c, @endcolor: #5c5c5c) {
+	background: @startcolor;
+	background: -webkit-linear-gradient(@from, @startcolor 0%, @endcolor 100%);
+	background: -moz-linear-gradient(@from, @startcolor 0%, @endcolor 100%);
+	background: -ms-linear-gradient(@from, @startcolor 0%, @endcolor 100%);
+	background: -o-linear-gradient(@from, @startcolor 0%, @endcolor 100%);
+	background: linear-gradient(@from, @startcolor 0%, @endcolor 100%);
+}
+
+.LESSbackground-size(@width, @height) {
+	-ms-background-size: @width @height;
+	-moz-background-size: @width @height;
+	-o-background-size: @width @height;
+	-webkit-background-size: @width @height;
+	background-size: @width @height;
+}
+
+// Mixin : border ***************************
+.LESSborder-image(@url:url, @width:width, @height:height, @repeat:repeat) {
+	-moz-border-image:  url(@url) @width @height @repeat;
+	-webkit-border-image: url(@url) @width @height @repeat;
+	-o-border-image: url(@url) @width @height @repeat;
+	-ms-border-image: url(@url) @width @height @repeat;
+	border-image: url(@url) @width @height @repeat;
+}
+.LESSborder-radius-topleft(@radius) {
+	-moz-border-radius-topleft: 		@radius; 
+	-webkit-border-top-left-radius: 	@radius;
+	border-top-left-radius: 			@radius;
+}
+.LESSborder-radius-topright(@radius) {
+	-moz-border-radius-topright: 		@radius; 
+	-webkit-border-top-right-radius: 	@radius;
+	border-top-right-radius: 			@radius;
+}
+.LESSborder-radius-bottomleft(@radius) {
+	-moz-border-radius-bottomleft: 		@radius; 
+	-webkit-border-bottom-left-radius: 	@radius;
+	border-bottom-left-radius: 			@radius;
+}
+.LESSborder-radius-bottomright(@radius) {
+	-moz-border-radius-bottomright: 		@radius; 
+	-webkit-border-bottom-right-radius: 	@radius;
+	border-bottom-right-radius: 			@radius;
+}
+.LESSborder-radius-all(@radius) {
+	-o-border-radius:	@radius;
+	-ms-border-radius:	@radius;
+	-moz-border-radius: 	@radius; 
+	-webkit-border-radius: 	@radius;
+	border-radius: 		@radius;
+}
+.LESSborder-radius-allimportant(@radius) {
+	-o-border-radius:	@radius ! important;
+	-ms-border-radius:	@radius ! important;
+	-moz-border-radius: 	@radius ! important;
+	-webkit-border-radius: 	@radius ! important;
+	border-radius: 		@radius ! important;
+}
+// Mixin : box ***************************
+.LESSbox-shadow(@hshadow, @vshadow, @blur, @color) {
+	-o-box-shadow: @hshadow @vshadow @blur @color;
+	-ms-box-shadow: @hshadow @vshadow @blur @color;
+	-moz-box-shadow: @hshadow @vshadow @blur @color;
+	-webkit-box-shadow: @hshadow @vshadow @blur @color;
+	box-shadow: @hshadow @vshadow @blur @color;
+}
+
+.LESSbox-shadow-line( @value ) {
+	-o-box-shadow: @value;
+        -ms-box-shadow: @value;
+        -moz-box-shadow: @value;
+        -webkit-box-shadow: @value;
+        box-shadow: @value;
+}
+
+.LESSbox-boxsizing( @value ) {
+	-o-box-sizing: @value;
+        -ms-box-sizing: @value;
+        -moz-box-sizing: @value;
+        -webkit-box-sizing: @value;
+        box-sizing: @value;
+}
+
+.LESSdisplaybox() {
+	display:-moz-box;
+	display:-webkit-box;
+	display:box;
+}
+//position: vertical, horizental
+.LESSbox-orient(@position) {
+	-ms-box-orient: @position;
+	-moz-box-orient: @position;
+	-o-box-orient: @position;
+	-webkit-box-orient: @position;
+	box-orient: @position;
+}
+
+//position: start, center, end
+.LESSbox-pack(@position) {
+	-ms-box-pack: @position;
+	-moz-box-pack: @position;
+	-o-box-pack: @position;
+	-webkit-box-pack: @position;
+	box-pack: @position;
+}
+
+//position: start, center, end
+.LESSbox-align(@position) {
+	-ms-box-align: @position;
+	-moz-box-align: @position;
+	-o-box-align: @position;
+	-webkit-box-align: @position;
+	box-align: @position;
+}	
+
+// Mixin : Utility ************************************
+//CAUTION!!! - you MUST call this function inside of your winset structure. 
+//DO NOT CALL GLOBALLY!!
+.LESSclear-btn-basic-setting() {
+	.ui-btn-corner-all {
+		.LESSborder-radius-all(0);
+	}
+	.ui-btn-inner {
+		border-top: 0;
+	}
+	.ui-btn-up-s {
+		border: 0;
+		background: transparent;
+		font-weight: normal;
+	}
+	.ui-btn-hover-s {
+		border: 0;
+		background: transparent;
+		font-weight: normal;
+	}
+	.ui-btn-down-s {
+		border: 0;
+		background: transparent;
+		font-weight: normal;
+	}
+}
+
+// Mixin : transform
+.LESStransform(@method) {
+    transform: @method;
+    -ms-transform: @method;
+    -moz-transform: @method;
+    -webkit-transform: @method;
+    -o-transform: @method;
+}
+
+// Mixin : text ellipsis
+.LESStext-ellipsis() {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	-o-text-overflow: ellipsis;
+	overflow: hidden !important;
+}
+
+.LESStext-no-ellipsis() {
+	white-space: normal;
+	overflow: visible !important;
+}

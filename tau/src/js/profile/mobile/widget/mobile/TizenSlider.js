@@ -87,6 +87,7 @@
 
 			TizenSlider.classes = {
 				uiSliderPopup: "ui-slider-popup",
+				uiSliderPopupContainer: "ui-slider-popup-container",
 				uiSliderLeftPrefix: "ui-slider-left-",
 				uiSliderRightPrefix: "ui-slider-right-",
 				uiSliderLeftText: "ui-slider-left-text",
@@ -128,7 +129,8 @@
 			 * @member ns.widget.TizenSlider
 			 */
 			TizenSlider.prototype._createPopup = function (container) {
-				var popup,
+				var classes = TizenSlider.classes,
+					popup,
 					popupInstance;
 
 				// Create element and append it to slider
@@ -143,9 +145,10 @@
 					directionPriority: [
 						'top',
 						'bottom'
-					]
+					],
+					specialContainerClass: classes.uiSliderPopupContainer
 				});
-				popup.classList.add(TizenSlider.classes.uiSliderPopup);
+				popup.classList.add(classes.uiSliderPopup);
 
 				return popupInstance;
 			};

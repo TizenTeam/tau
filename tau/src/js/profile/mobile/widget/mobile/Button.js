@@ -1,4 +1,4 @@
-/*global window, define, ns, DOMTokenList */
+/*global window, define, ns, setTimeout, clearTimeout */
 /*
 * Copyright (c) 2013 - 2014 Samsung Electronics Co., Ltd
 *
@@ -52,15 +52,21 @@
  * For manual creation of button widget you can use constructor of widget from **tau** namespace:
  *
  *		@example
- *		var buttonElement = document.getElementById('button'),
- *			button = tau.widget.button(buttonElement, {mini: true});
+ *		<div id="button"></div>
+ *		<script>
+ *			var buttonElement = document.getElementById('button'),
+ *				button = tau.widget.Button(buttonElement, {mini: true});
+ *		</script>
  *
- * Constructor has one require parameter **element** which are base **HTMLElement** to create widget. We recommend get this element by method *document.getElementById*. Second parameter is **options** and it is a object with options for widget.
+ * Constructor has one require parameter **element** which are base **HTMLElement** to create widget. We recommend to get this element by method *document.getElementById*. Second parameter is **options** and it is a object with options for widget.
  *
  * If jQuery library is loaded, its method can be used:
  *
  *		@example
- *		var button = $('#button').button({mini: true});
+ *		<div id="button"></div>
+ *		<script>
+ *			$('#button').button({mini: true});
+ *		</script>
  *
  * jQuery Mobile constructor has one optional parameter is **options** and it is a object with options for widget.
  *
@@ -114,15 +120,25 @@
  * First API is from tau namespace:
  *
  *		@example
- *		var buttonElement = document.getElementById('button'),
- *			button = tau.widget.button(buttonElement, 'Button');
+ *		<div id="button" data-role="button"></div>
+ *		<script>
+ *			var buttonElement = document.getElementById('button'),
+ *				button = tau.widget.Button(buttonElement);
  *
- *		button.methodName(methodArgument1, methodArgument2, ...);
+ *			// button.methodName(methodArgument1, methodArgument2, ...);
+ *			// for example:
+ *
+ *			button.value("text");
+ *		</script>
  *
  * Second API is jQuery Mobile API and for call _methodName_ you can use:
  *
  *		@example
- *		$(".selector").button('methodName', methodArgument1, methodArgument2, ...);
+ *	    <div id="button"></div>
+ *		<script>
+ *			// $("#button").button('methodName', argument1, argument2, ...);
+ *			// for example:
+ *		</script>
  *
  * @class ns.widget.mobile.Button
  * @extends ns.widget.BaseWidget
@@ -138,7 +154,7 @@
  * @author Sergiusz Struminski <s.struminski@samsung.com>
  * @author Tomasz Lukawski <t.lukawski@samsung.com>
  */
-(function (document, ns) {
+(function(document, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -152,62 +168,74 @@
 			"../mobile", // fetch namespace
 			"./BaseWidgetMobile"
 		],
-		function () {
+		function() {
 			//>>excludeEnd("tauBuildExclude");
 			var BaseWidget = ns.widget.mobile.BaseWidgetMobile,
 				engine = ns.engine,
 				selectorsUtils = ns.util.selectors,
 				themes = ns.theme,
-				Button = function () {
+				Button = function Button() {
 					var self = this;
 
 					self.action = "";
 					self.label = null;
+					self.options = {};
 					self.ui = {};
 				},
 				classes = {
-					uiDisabled: 'ui-disabled',
-					uiBtn: 'ui-btn',
-					uiBtnUpThemePrefix: 'ui-btn-up-',
-					uiBtnHoverThemePrefix: 'ui-btn-hover-',
-					uiBtnDownThemePrefix: 'ui-btn-down-',
-					uiShadow: 'ui-shadow',
-					uiBtnCornerAll: 'ui-btn-corner-all',
-					uiBtnHidden: 'ui-btn-hidden',
-					uiBtnBoxThemePrefix: 'ui-btn-box-',
-					uiBtnTextPaddingTop: 'ui-btn-text-padding-top',
-					uiBtnTextPaddingLeft: 'ui-btn-text-padding-left',
-					uiBtnTextPaddingRight: 'ui-btn-text-padding-right',
-					uiBtnTextPaddingBottom: 'ui-btn-text-padding-bottom',
-					uiBtnCornerCircle: 'ui-btn-corner-circle',
-					uiBtnHastxt: 'ui-btn-hastxt',
-					uiBtnIconNobg: 'ui-btn-icon-nobg',
-					uiBtnIconOnly: 'ui-btn-icon_only',
-					uiBtnIconOnlyInner: 'ui-btn-icon-only',
-					uiBtnIconRight: 'ui-btn-icon-right',
-					uiBtnRound: 'ui-btn-round',
-					uiMini: 'ui-mini',
-					uiBtnInline: 'ui-btn-inline',
-					uiBtnBlock: 'ui-btn-block',
-					uiIcon: 'ui-icon',
-					uiIconPositionPrefix: 'ui-icon-',
-					uiIconShadow: 'ui-icon-shadow',
-					uiBtnIconPositionPrefix: 'ui-btn-icon-',
-					uiLink: 'ui-link',
-					uiBtnInner: 'ui-btn-inner',
-					uiBtnText: 'ui-btn-text',
-					uiFocus: 'ui-focus',
-					uiBtnEdit: 'ui-btn-edit',
-					uiBtnLeft: 'ui-btn-left',
-					uiBtnRight: 'ui-btn-right',
-					uiSubmit: 'ui-submit',
-					uiBtnActive: 'ui-btn-active',
-					uiBtnIconNotext: 'ui-btn-icon-notext'
+					uiDisabled: "ui-disabled",
+					uiBtn: "ui-btn",
+					uiBtnUpThemePrefix: "ui-btn-up-",
+					uiBtnHoverThemePrefix: "ui-btn-hover-",
+					uiBtnDownThemePrefix: "ui-btn-down-",
+					uiShadow: "ui-shadow",
+					uiBtnCornerAll: "ui-btn-corner-all",
+					uiBtnHidden: "ui-btn-hidden",
+					uiBtnBoxThemePrefix: "ui-btn-box-",
+					uiBtnTextPaddingPrefix: "ui-btn-text-padding-",
+					uiBtnCornerCircle: "ui-btn-corner-circle",
+					uiBtnHastxt: "ui-btn-hastxt",
+					uiBtnIconNobg: "ui-btn-icon-nobg",
+					uiBtnIconOnly: "ui-btn-icon_only",
+					uiBtnIconOnlyInner: "ui-btn-icon-only",
+					uiBtnRound: "ui-btn-round",
+					uiMini: "ui-mini",
+					uiBtnInline: "ui-btn-inline",
+					uiBtnBlock: "ui-btn-block",
+					uiIcon: "ui-icon",
+					uiIconPrefix: "ui-icon-",
+					uiIconShadow: "ui-icon-shadow",
+					uiBtnIconPositionPrefix: "ui-btn-icon-",
+					uiLink: "ui-link",
+					uiBtnInner: "ui-btn-inner",
+					uiBtnText: "ui-btn-text",
+					uiFocus: "ui-focus",
+					uiBtnEdit: "ui-btn-edit",
+					uiBtnLeft: "ui-btn-left",
+					uiBtnRight: "ui-btn-right",
+					uiSubmit: "ui-submit",
+					uiBtnActive: "ui-btn-active",
+					uiBtnIconNotext: "ui-btn-icon-notext",
+					uiBtnIconRight: 'ui-btn-icon-right'
 				},
 				eventsAdded = false,
 				prototype = new BaseWidget();
 
-			Button.prototype = prototype;
+			prototype.options = {
+				theme: null,
+				icon: null,
+				iconpos: null,
+				inline: null,
+				shadow: true,
+				iconshadow: true,
+				corners: false,
+				mini: null,
+				bar: false,
+				style: null,
+				wrapperEls: "span"
+			};
+
+				Button.prototype = prototype;
 
 			/**
 			 * @property {Object} classes Dictionary for button related css class names
@@ -232,12 +260,12 @@
 			// @static
 			// @member ns.widget.mobile.Button
 			function closestEnabledButtonInDiv(element) {
-				var div = selectorsUtils.getClosestBySelector(element, '.' + classes.uiBtn + ':not(.' + classes.uiDisabled + ')'),
+				var div = selectorsUtils.getClosestBySelector(element, "." + classes.uiBtn + ":not(." + classes.uiDisabled + ")"),
 					button;
 				if (div) {
 					button = selectorsUtils.getChildrenByClass(div, classes.uiBtnHidden);
 					if (button.length) {
-						return button[0];
+						div = button[0];
 					}
 				}
 				return div;
@@ -251,7 +279,7 @@
 			// @static
 			// @member ns.widget.mobile.Button
 			function closestEnabledButton(element) {
-				return selectorsUtils.getClosestBySelector(element, '.' + classes.uiBtn + ':not(.' + classes.uiDisabled + ')');
+				return selectorsUtils.getClosestBySelector(element, "." + classes.uiBtn + ":not(." + classes.uiDisabled + ")");
 			}
 
 			// Add class ui-focus to target element of event
@@ -390,21 +418,21 @@
 			// @member ns.widget.mobile.Button
 			function addGlobalEvents() {
 				if (!eventsAdded) {
-					document.addEventListener('focus', onFocus, true);
-					document.addEventListener('focusin', onFocus, true);
-					document.addEventListener('blur', onBlur, true);
-					document.addEventListener('focusout', onBlur, true);
-					document.addEventListener('vmousedown', onMouseDown, true);
-					document.addEventListener('vmouseup', onMouseUp, true);
-					document.addEventListener('vmousecancel', onMouseUp, true);
-					document.addEventListener('vmouseup', onMouseUp, true);
-					document.addEventListener('touchend', onMouseUp, true);
-					document.addEventListener('touchcancel', onMouseUp, true);
-					document.addEventListener('vmouseover', onMouseOver, true);
-					document.addEventListener('focus', onMouseOver, true);
-					document.addEventListener('vmouseout', onMouseOut, true);
-					document.addEventListener('blur', onMouseOut, true);
-					document.addEventListener('scrollstart', onMouseOut, true);
+					document.addEventListener("focus", onFocus, true);
+					document.addEventListener("focusin", onFocus, true);
+					document.addEventListener("blur", onBlur, true);
+					document.addEventListener("focusout", onBlur, true);
+					document.addEventListener("vmousedown", onMouseDown, true);
+					document.addEventListener("vmouseup", onMouseUp, true);
+					document.addEventListener("vmousecancel", onMouseUp, true);
+					document.addEventListener("vmouseup", onMouseUp, true);
+					document.addEventListener("touchend", onMouseUp, true);
+					document.addEventListener("touchcancel", onMouseUp, true);
+					document.addEventListener("vmouseover", onMouseOver, true);
+					document.addEventListener("focus", onMouseOver, true);
+					document.addEventListener("vmouseout", onMouseOut, true);
+					document.addEventListener("blur", onMouseOut, true);
+					document.addEventListener("scrollstart", onMouseOut, true);
 					eventsAdded = true;
 				}
 			}
@@ -440,12 +468,15 @@
 			}
 
 			/**
-			* Configure button widget
-			* @method _configure
-			* @protected
-			* @member ns.widget.mobile.Button
-			*/
-			prototype._configure = function () {
+			 * Configure button widget
+			 * @method _configure
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.mobile.Button
+			 */
+			prototype._configure = function (element) {
+				var prototypeOptions = prototype.options,
+					options;
 				/**
 				 * @property {object} options All possible widget options
 				 * @property {?string} [options.theme=null] theme of widget
@@ -461,19 +492,200 @@
 				 * @property {"span"|"div"} [options.wrapperEls="span"] wrapper tag name of button
 				 * @member ns.widget.mobile.Button
 				 */
-				ns.util.object.merge(this.options, {
-					theme: null,
-					icon: null,
-					iconpos: null,
-					inline: null,
-					shadow: true,
-					iconshadow: true,
-					corners: false,
-					mini: null,
-					bar: false,
-					style: null,
-					wrapperEls: 'span'
-				});
+				ns.util.object.merge(this.options, prototypeOptions);
+
+				options = this.options;
+
+				// Set theme
+				options.theme = themes.getInheritedTheme(element, (prototypeOptions && prototypeOptions.theme) || "s");
+
+			};
+
+			/**
+			 * Remove all classes started from given prefix
+			 * @method removePrefixesClasses
+			 * @param {DOMTokenList} classList
+			 * @param {string} prefix
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.Button
+			 */
+			function removePrefixesClasses(classList, prefix) {
+				var classListLength = classList.length,
+					className;
+				while (classListLength-- > 0) {
+					className = classList.item(classListLength);
+					if (className.indexOf(prefix) === 0) {
+						classList.remove(className);
+					}
+				}
+			}
+
+			/**
+			 * Method clear all classes depends from options before set new options
+			 * @method _clearClasses
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.mobile.Button
+			 */
+			prototype._clearClasses = function (element) {
+				var ui = this.ui,
+					textClassList = ui.buttonText.classList,
+					innerClassList = ui.inner.classList,
+					elementClassList = element.classList;
+
+				removePrefixesClasses(textClassList, classes.uiBtnTextPaddingPrefix);
+
+				innerClassList.remove(classes.uiBtnIconOnlyInner);
+
+				elementClassList.remove(classes.uiBtnIconOnly);
+				removePrefixesClasses(elementClassList, classes.uiIconPositionPrefix);
+			};
+
+			/**
+			 * Method to reset icon from button
+			 * @method _resetIcon
+			 * @protected
+			 * @member ns.widget.mobile.Button
+			 */
+			prototype._resetIcon = function () {
+				var ui = this.ui,
+					iconElement = ui.icon;
+				if (iconElement) {
+					iconElement.parentElement.removeChild(iconElement);
+					ui.icon = null;
+				}
+			};
+
+			/**
+			 * Set icon shadow classes
+			 * @method _setIconShadow
+			 * @protected
+			 * @member ns.widget.mobile.Button
+			 */
+			prototype._setIconShadow = function () {
+				if (this.options.iconshadow) {
+					this.ui.icon.classList.add(classes.uiIconShadow);
+				}
+			};
+
+			/**
+			 * Set icon position classes
+			 * @method _setIconPos
+			 * @param {HTMLElement|HTMLInputElement|HTMLButtonElement} element
+			 * @protected
+			 * @member ns.widget.mobile.Button
+			 */
+			prototype._setIconPos = function (element) {
+				var self = this,
+					ui = self.ui,
+					optionIconpos = self.options.iconpos || "left",
+					innerText = element.value || element.textContent,
+					innerTextLength = innerText.length;
+
+				element.classList.add(classes.uiBtnIconPositionPrefix + optionIconpos);
+
+				if (innerTextLength > 0) {
+					ui.buttonText.classList.add(classes.uiBtnTextPaddingPrefix + optionIconpos);
+				}
+			};
+
+			/**
+			 * Set title for button without showing text
+			 * @method _setTitleForIcon
+			 * @param {HTMLElement|HTMLInputElement|HTMLButtonElement} element
+			 * @protected
+			 * @member ns.widget.mobile.Button
+			 */
+			prototype._setTitleForIcon = function (element) {
+				var self = this,
+					elementTagName = element.tagName.toLowerCase(),
+					options = self.options,
+					buttonText = self.ui.buttonText;
+				// Add title to element if button not has text.
+				if (options.iconpos === "notext" && !element.getAttribute("title")) {
+					element.setAttribute("title", element.textContent);
+				}
+				if (!buttonText.innerHTML.length && elementTagName !== "label") {
+					self._setValue(element, options.icon.replace("naviframe-", ""));
+				}
+			};
+
+			/**
+			 * Create icon element and set correct classes
+			 * @method _createIcon
+			 * @protected
+			 * @member ns.widget.mobile.Button
+			 */
+			prototype._createIcon = function mobileButtonCreateIcon() {
+				var iconElement = document.createElement("span"),
+					iconElementClassList = iconElement.classList,
+					ui = this.ui;
+
+				iconElement.innerHTML = "&#160;";
+
+				// Set icon classes
+				iconElementClassList.add(classes.uiIcon);
+				iconElementClassList.add(classes.uiIconPrefix + this.options.icon);
+
+				// Add icon element to DOM
+				ui.inner.appendChild(iconElement);
+				ui.icon = iconElement;
+			};
+
+			/**
+			 * Set text classes connected with icon
+			 * @method _setIconTextOnly
+			 * @param {HTMLElement|HTMLInputElement|HTMLButtonElement} element
+			 * @protected
+			 * @member ns.widget.mobile.Button
+			 */
+			prototype._setIconTextOnly = function (element) {
+				var innerText = element.value || element.textContent,
+					innerTextLength = innerText.length,
+					elementClassList = element.classList,
+					innerClassList = this.ui.inner.classList;
+
+				if (!innerTextLength) {
+					elementClassList.add(classes.uiBtnIconOnly);
+					innerClassList.add(classes.uiBtnIconOnlyInner);
+				}
+			};
+
+			/**
+			 * Set class has text if is any text to show in button
+			 * @method _setHasText
+			 * @param {HTMLElement|HTMLInputElement|HTMLButtonElement} element
+			 * @protected
+			 * @member ns.widget.mobile.Button
+			 */
+			prototype._setHasText = function (element) {
+				var innerText = element.value || element.textContent,
+					innerTextLength = innerText.length,
+					innerClassList = this.ui.inner.classList;
+				if (innerTextLength > 0) {
+					innerClassList.add(classes.uiBtnHastxt);
+				}
+			};
+
+			/**
+			 * Method to create/rebuild icon element in button
+			 * @method _buildIcon
+			 * @param {HTMLElement|HTMLInputElement|HTMLButtonElement} element
+			 * @protected
+			 * @member ns.widget.mobile.Button
+			 */
+			prototype._buildIcon = function (element) {
+				var self = this;
+
+				//Set icon options
+				if (self.options.icon) {
+					self._setIconPos(element);
+					self._setIconTextOnly(element);
+					self._createIcon();
+					self._setIconShadow();
+					self._setTitleForIcon(element);
+				}
 			};
 
 			/**
@@ -485,10 +697,11 @@
 			* @member ns.widget.mobile.Button
 			*/
 			prototype._build = function (element) {
-				var attributes = {
+				var self = this,
+					ui = self.ui,
+					attributes = {
 						"disabled": element.getAttribute("disabled")
 					},
-					iconClass,
 					buttonInner,
 					buttonText,
 					buttonIcon,
@@ -507,11 +720,9 @@
 					prototypeOptions = prototype.options,
 					i;
 
-				// Set theme
-				options.theme = options.theme || themes.getInheritedTheme(element, (prototypeOptions && prototypeOptions.theme) || 's');
-
 				// Create default structure of button
 				buttonInner = document.createElement(options.wrapperEls);
+				buttonInner.id = element.id + "-div-inner";
 				buttonText = document.createElement(options.wrapperEls);
 				buttonText.id = element.id + "-div-text";
 
@@ -523,12 +734,11 @@
 				if (elementTagName === "input" && element.type === "button") {
 					options.corners = true;
 				}
-				buttonIcon = options.icon ? document.createElement("span") : null;
 				buttonClassArray.push(classes.uiBtn, classes.uiBtnUpThemePrefix + options.theme);
-				if (options.shadow){
+				if (options.shadow) {
 					buttonClassArray.push(classes.uiShadow);
 				}
-				if (options.corners){
+				if (options.corners) {
 					buttonClassArray.push(classes.uiBtnCornerAll);
 				}
 
@@ -539,9 +749,6 @@
 
 				if (elementTagName === "a") {
 					container = element;
-					if (buttonClassList.contains(classes.uiBtn)) {
-						return element;
-					}
 				} else {
 					if (elementTagName === "button" || elementTagName === "input") {
 						buttonClassList.add(classes.uiBtnHidden);
@@ -567,7 +774,7 @@
 				}
 
 				container.setAttribute("tabindex", 0);
-				if ((element.getAttribute("data-role") === "button" && !options.bar) || elementTagName === "button" || elementTagName === "div" || elementTagName === "input") {
+				if (element.getAttribute("data-role") === "button" && !options.bar) {
 					buttonClassArray.push(classes.uiBtnBoxThemePrefix + options.theme);
 				}
 
@@ -600,35 +807,7 @@
 				case "round":
 					buttonClassArray.push(classes.uiBtnRound);
 					break;
-				}
-
-				// Set icon
-				if (options.icon) {
-					if (innerTextLength > 0) {
-						switch (options.iconpos) {
-						case "right":
-							textClass += " " + classes.uiBtnTextPaddingRight;
-							break;
-						case "left":
-							textClass += " " + classes.uiBtnTextPaddingLeft;
-							break;
-						case "top":
-							textClass += " " + classes.uiBtnTextPaddingTop;
-							break;
-						case "bottom":
-							textClass += " " + classes.uiBtnTextPaddingBottom;
-							break;
-						default:
-							textClass += " " + classes.uiBtnTextPaddingLeft;
-							break;
-						}
-						innerClass += " " + classes.uiBtnHastxt;
-					} else {
-						buttonClassArray.push(classes.uiBtnIconOnly);
-						innerClass += " " + classes.uiBtnIconOnlyInner;
-					}
-				} else if (innerTextLength > 0) {
-					innerClass += " " + classes.uiBtnHastxt;
+					default:
 				}
 
 				// Used to control styling in headers/footers, where buttons default to `mini` style.
@@ -639,22 +818,6 @@
 				// Used to control styling in headers/footers, where buttons default to `inline` style.
 				if (options.inline !== null) {
 					buttonClassArray.push(options.inline ? classes.uiBtnInline : classes.uiBtnBlock);
-				}
-
-				if (options.icon) {
-					options.iconpos = options.iconpos || "left";
-					iconClass = classes.uiIcon + " " + classes.uiIconPositionPrefix + options.icon;
-
-					// Set icon shadow
-					if (options.iconshadow) {
-						iconClass += " " + classes.uiIconShadow;
-					}
-
-					// Set iconpos
-					buttonClassArray.push(classes.uiBtnIconPositionPrefix + options.iconpos);
-					if (options.iconpos === "notext" && !element.getAttribute("title")) {
-						element.setAttribute("title", element.textContent);
-					}
 				}
 
 				// Default disable element
@@ -680,19 +843,9 @@
 				buttonText.className = textClass;
 				buttonInner.appendChild(buttonText);
 
-				if (buttonIcon) {
-					buttonIcon.className = iconClass;
-					buttonIcon.innerHTML = "&#160;";
-					buttonInner.appendChild(buttonIcon);
-				}
-
 				// copy inner structure of button to new tag
 				while (element.firstChild) {
 					buttonText.appendChild(element.firstChild);
-				}
-
-				if (!buttonText.innerHTML.length && buttonIcon && elementTagName !== "label") {
-					this._setValue(element, options.icon.replace("naviframe-", ""));
 				}
 
 				if (elementTagName === "button" || elementTagName === "input") {
@@ -709,6 +862,11 @@
 				} else {
 					element.appendChild(buttonInner);
 				}
+
+				ui.inner = buttonInner;
+
+				self._setHasText(element);
+				self._buildIcon(element);
 
 				return element;
 			};
@@ -727,6 +885,7 @@
 				}
 				this.ui.container = container;
 				this.ui.buttonText = document.getElementById(element.id + "-div-text");
+				this.ui.inner = document.getElementById(element.id + "-div-inner");
 			};
 
 			/**
@@ -744,13 +903,20 @@
 			 *
 			 * Method removes disabled attribute on button and changes look of button to enabled state.
 			 *
-			 *      @example
-			 *      var buttonWidget = tau.widget.Button(document.getElementById("button"));
-			 *      buttonWidget.enable();
+			 *	@example
+			 *	<div data-role="button" id="button"></div>
+			 *	<script>
+			 *		var element = document.getElementById("button"),
+			 *			buttonWidget = tau.widget.Button(element);
+			 *		buttonWidget.enable();
 			 *
-			 *      // or
+			 *	</script>
 			 *
-			 *      $( "#button" ).button( "enable" );
+			 *	@example
+			 *	<div data-role="button" id="button"></div>
+			 *	<script>
+			 *		$( "#button" ).button( "enable" );
+			 *	</script>
 			 *
 			 * @method enable
 			 * @chainable
@@ -775,17 +941,26 @@
 			 *
 			 * Return inner text of button or set text on button
 			 *
-			 *      @example
-			 *      var buttonWidget = tau.widget.Button(document.getElementById("button")),
-			 *          value = buttonWidget.value(); // value contains inner text of button
+			 *	@example
+			 *	<div data-role="button" id="button"></div>
+			 *	<script>
+			 *		var element = document.getElementById("button"),
+			 *			buttonWidget = tau.widget.Button(element),
+			 *			// value contains inner text of button
+			 *			value = buttonWidget.value();
 			 *
-			 *      buttonWidget.value( "New text" ); // "New text" will be text of button
+			 *		buttonWidget.value( "New text" ); // "New text" will be text of button
+			 *	</script>
 			 *
-			 *      // or
+			 *	@example
+			 *	<div data-role="button" id="button"></div>
+			 *	<script>
+			 *		// value contains inner text of button
+			 *		$( "#button" ).button( "value" );
 			 *
-			 *      $( "#button" ).button( "value" ); // value contains inner text of button
-			 *
-			 *      $( "#button" ).button( "value", "New text" ); // "New text" will be text of button
+			 * 		// "New text" will be text of button
+			 *		$( "#button" ).button( "value", "New text" );
+			 *	</script>
 			 *
 			 * @method value
 			 * @param {string} [value] Value to set on button
@@ -830,13 +1005,20 @@
 			 *
 			 * Method sets disabled attribute on button and changes look of button to disabled state.
 			 *
-			 *      @example
-			 *      var buttonWidget = tau.widget.Button(document.getElementById("button"));
-			 *      buttonWidget.disable();
+			 *	@example
+			 *	<div data-role="button" id="button"></div>
+			 *	<script>
+			 *		var element = document.getElementById("button"),
+			 *			buttonWidget = tau.widget.Button(element);
+			 *		buttonWidget.disable();
 			 *
-			 *      // or
+			 *	</script>
 			 *
-			 *      $( "#button" ).button( "disable" );
+			 *	@example
+			 *	<div data-role="button" id="button"></div>
+			 *	<script>
+			 *		$( "#button" ).button( "disable" );
+			 *	</script>
 			 *
 			 * @method disable
 			 * @chainable
@@ -865,17 +1047,23 @@
 			 *
 			 * This method is called automatically after change any option of widget.
 			 *
-			 *      @example
-			 *      var buttonWidget = tau.widget.Button(document.getElementById("button"));
-			 *      buttonWidget.refresh();
+			 *	@example
+			 *	<div data-role="button" id="button"></div>
+			 *	<script>
+			 *		var element = document.getElementById("button"),
+			 *			buttonWidget = tau.widget.Button(element);
+			 *		buttonWidget.refresh();
 			 *
-			 *      // or
+			 *		// also will be called after
 			 *
-			 *      $( "#button" ).button( "refresh" );
+			 *		buttonWidget.option("mini", true);
+			 *	</script>
 			 *
-			 *      // also will be called after
-			 *
-			 *      buttonWidget.option("mini", true);
+			 *	@example
+			 *	<div data-role="button" id="button"></div>
+			 *	<script>
+			 *		$( "#button" ).button( "refresh" );
+			 *	</script>
 			 *
 			 * @method refresh
 			 * @chainable
@@ -889,19 +1077,27 @@
 			* @member ns.widget.mobile.Button
 			*/
 			prototype._refresh = function () {
-				var element = this.element,
-					container = this.ui.container;
+				var self = this,
+					element = self.element,
+					container = self.ui.container,
+					tagName = element.tagName.toLowerCase();
 				if (element) {
 					if (element.getAttribute("disabled")) {
-						this.disable(element);
+						self.disable(element);
 					} else {
-						this.enable(element);
+						self.enable(element);
 					}
-					if (element.innerHTML) {
-						container.firstChild.firstChild.innerHTML = element.innerHTML;
-					} else {
-						container.firstChild.firstChild.textContent = element.value;
+					if (tagName === "button" || tagName === "input") {
+						if (element.innerHTML) {
+							container.firstChild.firstChild.innerHTML = element.innerHTML;
+						} else {
+							container.firstChild.firstChild.textContent = element.value;
+						}
 					}
+					self._clearClasses(element);
+					self._resetIcon();
+					self._setHasText(element);
+					self._buildIcon(element);
 				}
 			};
 
@@ -910,27 +1106,30 @@
 			 *
 			 * This will return the element back to its pre-init state.
 			 *
-			 *      @example
-			 *      var buttonWidget = tau.widget.Button(document.getElementById("button"));
-			 *      buttonWidget.destroy();
+			 *	@example
+			 *	<script>
+			 *		var buttonWidget = tau.widget.Button(document.getElementById("button"));
+			 *		buttonWidget.destroy();
+			 *	</script>
 			 *
-			 *      // or
-			 *
-			 *      $( "#button" ).button( "destroy" );
+			 *	@example
+			 *	<script>
+			 *		$( "#button" ).button( "destroy" );
+			 *	</script>
 			 *
 			 * @method destroy
 			 * @member ns.widget.mobile.Button
 			 */
 
 			// definition
-			//@todo bring back ui-btn selector and refactor _build method to make it more inteligent for checking if structure is build
+			//@todo bring back ui-btn selector and refactor _build method to make it more intelligent for checking if structure is build
 			ns.widget.mobile.Button = Button;
 			engine.defineWidget(
 				"Button",
 				"[data-role='button'], button, [type='button'], [type='submit'], [type='reset']",
 				[],
 				Button,
-				'mobile'
+				"mobile"
 			);
 			// ButtonMarkup is alias for Button widget
 			// required for backward compatibility with jQM
@@ -939,7 +1138,7 @@
 				"",
 				[],
 				Button,
-				'mobile',
+				"mobile",
 				false, // redefine: false
 				false // change name of widget to lowercase: false
 			);

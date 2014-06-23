@@ -198,42 +198,41 @@
 			/**
 			 * Set progressbar value, return value. Alias method to Progressbar.value()
 			 * @method _setValue
-			 * @param {HTMLElement} element
 			 * @param {number} value
-			 * @returns {boolean|number}
+			 * @returns {boolean}
 			 * @protected
 			 * @member ns.widget.mobile.Progressbar
 			 * @instance
 			 */
-			Progressbar.prototype._setValue = function (element, value) {
-				var self = this;
-				self.options.value = self.value();
-				return self.value(value);
+			Progressbar.prototype._setValue = function (value) {
+				var self = this,
+					options = self.options,
+					element = self.element,
+					corretValue = Math.min(options.max, Math.max(options.min, value));
+				if (corretValue === value) {
+					if (value !== options.value) {
+						events.trigger(element, "change");
+						options.value = value;
+						self._refresh();
+					}
+					if (value === options.max) {
+						events.trigger(element, "complete");
+					}
+					return true;
+				}
+				return false;
 			};
 
 			/**
 			* Set progressbar value, return value
-			* @method value
+			* @method _getValue
 			* @param {number} value
-			* @returns {boolean|number}
+			* @returns {number}
 			* @member ns.widget.mobile.Progressbar
 			* @instance
 			*/
-			Progressbar.prototype.value = function (value) {
-				var options = this.options;
-				if (typeof value === 'number') {
-					value = Math.min(options.max, Math.max(options.min, value));
-					if (value !== options.value) {
-						events.trigger(this.element, "change");
-						options.value = value;
-						this._refresh();
-					}
-					if (value === options.max) {
-						events.trigger(this.element, "complete");
-					}
-					return true;
-				}
-				return options.value;
+			Progressbar.prototype._getValue = function () {
+				return this.options.value;
 			};
 
 			/**

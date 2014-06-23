@@ -37,7 +37,7 @@ $(document).one( "pagecreate", "#progressbar-demo", function () {
 					return;
 				}
 
-				$("#progressbar").progressbar( "option", "value", i++ );
+				$("#progressbar").progressbar( "value", i++ );
 
 				request = window.requestAnimFrame( animloop );
 
@@ -62,7 +62,7 @@ $(document).one( "pagecreate", "#progressbar-demo", function () {
 			$("#progressing").progress( "running", !running );
 
 			if ( running ) {
-				$("#progressing").progress( "hide" );
+				$("#progressing").progress( "running", false );
 			}
 		});
 	});

@@ -172,7 +172,7 @@ module.exports = function (grunt) {
 		grunt.config.set("requirejs", configProperty);
 
 		//would be better to maintain separate build for tests purposes
-		grunt.task.run("release");
+		grunt.task.run("build");
 
 		if (profile) {
 			testProfile(profile, prepareForRunner);

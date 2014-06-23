@@ -45,10 +45,6 @@
 		equal(typeof Button.classes.uiBtnCornerAll, 'string', 'Property button.classes.uiBtnCornerAll exists');
 		equal(typeof Button.classes.uiBtnHidden, 'string', 'Property button.classes.uiBtnHidden exists');
 		equal(typeof Button.classes.uiBtnBoxThemePrefix, 'string', 'Property button.classes.uiBtnBoxThemePrefix exists');
-		equal(typeof Button.classes.uiBtnTextPaddingLeft, 'string', 'Property button.classes.uiBtnTextPaddingLeft exists');
-		equal(typeof Button.classes.uiBtnTextPaddingRight, 'string', 'Property button.classes.uiBtnTextPaddingRight exists');
-		equal(typeof Button.classes.uiBtnTextPaddingBottom, 'string', 'Property button.classes.uiBtnTextPaddingBottom exists');
-		equal(typeof Button.classes.uiBtnTextPaddingTop, 'string', 'Property button.classes.uiBtnTextPaddingTop exists');
 		equal(typeof Button.classes.uiBtnCornerCircle, 'string', 'Property button.classes.uiBtnCornerCircle exists');
 		equal(typeof Button.classes.uiBtnHastxt, 'string', 'Property button.classes.uiBtnHastxt exists');
 		equal(typeof Button.classes.uiBtnIconNobg, 'string', 'Property button.classes.uiBtnIconNobg exists');
@@ -59,7 +55,6 @@
 		equal(typeof Button.classes.uiBtnInline, 'string', 'Property button.classes.uiBtnInline exists');
 		equal(typeof Button.classes.uiBtnBlock, 'string', 'Property button.classes.uiBtnBlock exists');
 		equal(typeof Button.classes.uiIcon, 'string', 'Property button.classes.uiIcon exists');
-		equal(typeof Button.classes.uiIconPositionPrefix, 'string', 'Property button.classes.uiIconPositionPrefix exists');
 		equal(typeof Button.classes.uiIconShadow, 'string', 'Property button.classes.uiIconShadow exists');
 		equal(typeof Button.classes.uiBtnIconPositionPrefix, 'string', 'Property button.classes.uiBtnIconPostionPrefix exists');
 		equal(typeof Button.classes.uiLink, 'string', 'Property button.classes.uiLink exists');

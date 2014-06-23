@@ -1,0 +1,592 @@
+/*
+* jQuery Mobile Framework
+* Copyright (c) jQuery Project
+* Dual licensed under the MIT (MIT-LICENSE.txt) or GPL (GPL-LICENSE.txt) licenses.
+*/
+/*
+* Listview Style - divide single / multiline style for specific
+* If you want to see any style, search them using class name.
+*/
+
+/******************** listview common style *********************/
+.ui-listview {
+	margin: 0 -8*@unit_base 0 -8*@unit_base;
+	padding: 0;
+	padding-bottom: 1px;
+	list-style: none;
+	counter-reset: listnumbering;
+
+	.ui-li {
+		position: relative;
+		box-sizing: content-box;
+		display: block;
+		margin: 0;
+		overflow: visible;
+		text-align: left;
+		font-size: @font_size_list_main_text;
+
+		box-shadow: none;
+		.LESSborder-radius-all(0);
+	}
+}
+
+/***************** Anchor listview common style ****************/
+.ui-listview {
+	/* anchor listview background style */
+	.ui-li.ui-btn-up-s,
+	.ui-li.ui-btn-hover-s { background-color: @color_list_bg; }
+	.ui-li.ui-btn-down-s { background-color: @color_list_press; }
+
+	/* ui-btn-inner style for list with anchor - normal single */
+	.ui-li.ui-btn >.ui-btn-inner {
+		padding: 0;
+		border-bottom: 1px solid @color_list_border_bottom;
+
+		.ui-btn-text >.ui-link-inherit {
+			display: block;
+			padding: 15.5*@unit_base 13*@unit_base 16.5*@unit_base 13*@unit_base;
+			line-height: 23.5 * @unit_base;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
+		}
+	}
+
+	/* for last list item, change border color same as bg-color */
+	.ui-li.ui-li-last >.ui-btn-inner { border-bottom-color: @color_bg; }
+}
+
+/*************** No Anchor listview common style ****************/
+.ui-listview .ui-li-static {
+	padding: 14.5*@unit_base 13*@unit_base 14.5*@unit_base 13*@unit_base;
+	border-bottom: 1px solid @color_list_border_bottom;
+	background-color: @color_bg;
+}
+
+/********************* list have right button **********************/
+.ui-listview .ui-li-has-right-btn>.ui-btn-inner>.ui-btn-text>.ui-link-inherit,
+.ui-listview .ui-li-has-right-circle-btn>.ui-btn-inner>.ui-btn-text>.ui-link-inherit,
+.ui-listview .ui-li-has-right-btn,
+.ui-listview .ui-li-has-right-circle-btn {
+	[data-role="button"] {
+		&:not(.ui-slider-handle) {
+			position: absolute;
+			top: 7 * @unit_base;
+			right: 13 * @unit_base;
+			margin: 0;
+			}
+	}
+	.ui-toggle-switch {
+		position: absolute;
+		top: 10 * @unit_base;
+		right: 13 * @unit_base;
+	}
+}
+/******************* list have left thumbnail image ********************/
+.ui-listview .ui-li.ui-li-has-thumb>.ui-btn-inner>.ui-btn-text>.ui-link-inherit,
+.ui-listview .ui-li.ui-li-dialogue.ui-li-has-thumb>.ui-btn-inner>.ui-btn-text>.ui-link-inherit,
+.ui-listview .ui-li.ui-li-static.ui-li-has-thumb {
+	padding-left: 61.5 * @unit_base;
+
+	.ui-li-thumb {
+		position: absolute;
+		left: 13 * @unit_base;
+		top: 50%;
+		margin-top : -20.25 * @unit_base;
+		width: 40.5 * @unit_base;
+		height: 40.5 * @unit_base;
+	}
+}
+
+/***************** list has checkbox/radio ***********************/
+.ui-listview .ui-li.ui-btn.ui-li-has-checkbox>.ui-btn-inner>.ui-btn-text>.ui-link-inherit,
+.ui-listview .ui-li.ui-btn.ui-li-has-radio>.ui-btn-inner>.ui-btn-text>.ui-link-inherit,
+.ui-listview .ui-li.ui-li-static.ui-li-has-checkbox,
+.ui-listview .ui-li.ui-li-static.ui-li-has-radio {
+	padding-left: 52.5 * @unit_base;
+
+	.ui-checkbox:first-child,
+	.ui-radio:first-child {
+		position: absolute;
+		top: 12 * @unit_base;
+		left: 13 * @unit_base;
+		width: 31.5 * @unit_base;
+		height: 31.5 * @unit_base;
+	}
+}
+
+/**************** list has checkbox/radio and thumbnail ************/
+.ui-listview .ui-li.ui-btn.ui-li-has-checkbox.ui-li-has-thumb>.ui-btn-inner>.ui-btn-text>.ui-link-inherit,
+.ui-listview .ui-li.ui-btn.ui-li-has-radio.ui-li-has-thumb>.ui-btn-inner>.ui-btn-text>.ui-link-inherit,
+.ui-listview .ui-li.ui-li-static.ui-li-has-checkbox.ui-li-has-thumb,
+.ui-listview .ui-li.ui-li-static.ui-li-has-radio.ui-li-has-thumb {
+	padding-left: 101 * @unit_base;
+
+	.ui-li-thumb {
+		position: absolute;
+		left: 52.5 * @unit_base;
+	}
+}
+
+/******************** list sub text style **************************/
+.ui-li-text-sub {
+	position: absolute;
+	top: 15 * @unit_base;
+	right: 13 * @unit_base;
+	float: right;
+
+	text-align: right;
+	font-size: @font_size_list_sub_text;
+	color: @color_list_sub_text_normal;
+
+	.LESStext-ellipsis();
+}
+
+/****************************************************************/
+/*              Multiline List Style                            */
+/****************************************************************/
+.ui-listview .ui-li.ui-li-has-multiline {
+	&.ui-btn>.ui-btn-inner>.ui-btn-text>.ui-link-inherit,
+	&.ui-li-static { padding-bottom: 31.5 * @unit_base; }
+
+	.ui-li-text-sub,
+	.ui-li-text-sub:first-child {
+		top: 40 * @unit_base;
+		left: 13 * @unit_base;
+		float: left;
+		text-align: left;
+
+		.ui-li-icon-sub,
+		img {
+			position: relative;
+			width: 22.5 * @unit_base;
+			height: 22.5 * @unit_base;
+			margin-right: 1 * @unit_base;
+			margin-bottom: -3 * @unit_base;
+		}
+	}
+	.ui-li-text-sub2 {
+		position: absolute;
+		top: 15 * @unit_base;
+		right : 13 * @unit_base;
+		float: right;
+		text-align: right;
+		font-size: @font_size_list_sub_text;
+		color: @color_list_sub_text_normal;
+		.LESStext-ellipsis();
+	}
+
+	.ui-li-text-sub-right {
+		position: absolute;
+		top: 40 * @unit_base;
+		right: 13 * @unit_base;
+		float: right;
+		text-align: right;
+		font-size: @font_size_list_sub_text;
+		color: @color_list_sub_text_normal;
+		.LESStext-ellipsis();
+	}
+
+	.ui-li-icon-sub-right {
+		position: absolute;
+		top: 13 * @unit_base;
+		right: 13 * @unit_base;
+		width: 22.5 * @unit_base;
+		height: 22.5 * @unit_base;
+	}
+
+	.ui-li-color-bar {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 3.5 * @unit_base;
+		height: 90%;
+
+	}
+
+	.ui-progressbar {
+		margin-left: 8 * @unit_base;
+		margin-top: 14 * @unit_base;
+		margin-bottom: -4 * @unit_base;
+	}
+
+	/* multiline list has right button */
+	&.ui-li-has-right-btn>.ui-btn-inner>.ui-btn-text>.ui-link-inherit,
+	&.ui-li-has-right-circle-btn>.ui-btn-inner>.ui-btn-text>.ui-link-inherit,
+	&.ui-li-static.ui-li-has-right-btn,
+	&.ui-li-static.ui-li-has-right-circle-btn {
+		[data-role="button"] {
+			&:not(.ui-slider-handle) {
+				position: absolute;
+				top: 17 * @unit_base;
+				right: 13 * @unit_base;
+				margin: 0;
+			}
+		}
+		.ui-toggle-switch {
+			position: absolute;
+			top: 20 * @unit_base;
+			right: 13 * @unit_base;
+		}
+
+		.ui-progressbar { width: 80%; }
+	}
+
+	/* multiline list has left thumbnail */
+	&.ui-li-has-thumb>.ui-btn-inner>.ui-btn-text>.ui-link-inherit,
+	&.ui-li-static.ui-li-has-thumb {
+		.ui-li-text-sub { left: 61.5 * @unit_base; }
+
+		.ui-li-thumb { top: 50%}
+	}
+
+	/* multiline list has checkbox/radio */
+	&.ui-li-has-checkbox>.ui-btn-inner>.ui-btn-text>.ui-link-inherit,
+	&.ui-li-has-radio>.ui-btn-inner>.ui-btn-text>.ui-link-inherit,
+	&.ui-li-static.ui-li-has-checkbox,
+	&.ui-li-static.ui-li-has-radio {
+		.ui-checkbox:first-child,
+		.ui-radio:first-child {
+			top: 20 * @unit_base;
+		}
+
+		.ui-li-text-sub { left: 52.5 * @unit_base; }
+	}
+
+	/* multiline list has thumbnail and checkbox/radio */
+	&.ui-li-has-thumb.ui-li-has-checkbox>.ui-btn-inner>.ui-btn-text>.ui-link-inherit,
+	&.ui-li-has-thumb.ui-li-has-radio>.ui-btn-inner>.ui-btn-text>.ui-link-inherit,
+	&.ui-li-static.ui-li-has-thumb.ui-li-has-checkbox,
+	&.ui-li-static.ui-li-has-thumb.ui-li-has-radio {
+		.ui-li-text-sub { left: 101 * @unit_base; }
+	}
+
+	/* multiline list has thumbnail right */
+	&.ui-li-has-thumb.ui-li-thumbnail-right>.ui-btn-inner>.ui-btn-text>.ui-link-inherit,
+	&.ui-li-static.ui-li-has-thumb.ui-li-thumbnail-right {
+		padding-left: 13 * @unit_base;
+
+		.ui-li-thumb {
+			float: right;
+			left: auto;
+			right: 13 * @unit_base;
+		}
+
+		.ui-li-text-sub { left: 13 * @unit_base; }
+	}
+}
+
+/****************************************************************/
+/*                   List with Edit field                       */
+/****************************************************************/
+.ui-listview {
+	.ui-li-editfield {
+		padding-left: 5 * @unit_base;
+		padding-right: 5 * @unit_base;
+		padding-top: 5 * @unit_base;
+		padding-bottom: 5 * @unit_base;
+		border-bottom: 0;
+
+		input {
+			box-sizing: border-box;
+			padding-top: 5 * @unit_base;
+			padding-bottom: 5 * @unit_base;
+			padding-left: 2 * @unit_base;
+			padding-right: 35 * @unit_base;
+			width: 100%;
+			height: 45 * @unit_base;
+			margin: auto;
+
+			color: @color_list_editfield_text;
+			font-size: @font_size_list_editfield_text;
+		}
+
+		input::-webkit-input-placeholder {
+			color: @color_list_editfield_placeholder_text;
+		}
+
+		.ui-disabled::-webkit-input-placeholder {
+			color: @color_list_editfield_disabled_text;
+		}
+
+		.ui-li-delete {
+			background: url(images/controls/00_field_btn_clear.png);
+			background-repeat: no-repeat;
+			background-size: 22.5*@unit_base 22.5*@unit_base;
+			position: absolute;
+			top: 15 * @unit_base;
+			right: 15 * @unit_base;
+			width: 23 * @unit_base;
+			height: 23 * @unit_base;
+		}
+	}
+}
+
+/****************************************************************/
+/*                  Dialogue list                               */
+/****************************************************************/
+.ui-listview {
+	.ui-li.ui-li-dialogue,
+	.ui-li.ui-li-btn.ui-li-dialogue,
+	.ui-collapsible .ui-li-dialogue {
+		margin-left: 8 * @unit_base;
+		margin-right: 8 * @unit_base;
+		background-color: @color_list_dialogue_bg;
+		&.ui-btn-down-s { background-color: @color_list_press; }
+		border: 1px solid @color_dialogue_border;
+		border-top-width: 0;
+
+		>.ui-btn-inner {
+			padding-left: 10 * @unit_base;
+			padding-right: 10 * @unit_base;
+			border-bottom: 0;
+			>.ui-btn-text >.ui-link-inherit {
+				padding-left: 0;
+				padding-right: 0;
+			}
+		}
+		>.ui-edit-title {
+			padding-left: 5 * @unit_base;
+		}
+		/* dialogue list with thumb and checkbox/radio */
+		&.ui-li-has-thumb >.ui-btn-inner >.ui-btn-text >.ui-link-inherit { padding-left: 48.5 * @unit_base; }
+		&.ui-li-has-checkbox >.ui-btn-inner >.ui-btn-text >.ui-link-inherit,
+		&.ui-li-has-radio >.ui-btn-inner >.ui-btn-text >.ui-link-inherit { padding-left: 39.5 * @unit_base; }
+	}
+	.ui-li-divider + .ui-li-dialogue,
+	.ui-li.ui-li-dialogue:first-child {
+		border-top-width: 1px;
+	}
+	.ui-li.ui-li-dialogue.ui-li-dialogue-edit{
+		padding-top: 3 * @unit_base;
+		padding-bottom: 5 * @unit_base;
+		padding-right: 4 * @unit_base;
+		padding-left: 4 * @unit_base;
+	}
+}
+
+/****************************************************************/
+/*                   Bubble List                                */
+/****************************************************************/
+.ui-listview {
+	.ui-li-bubble-receive,
+	.ui-li-bubble-sent,
+	.ui-li-bubble-left,
+	.ui-li-bubble-right,
+	.ui-li-bubble-sos {
+		position: relative;
+		max-width: 290 * @unit_base;
+		margin-top: 10 * @unit_base;
+		margin-bottom: 10 * @unit_base;
+		font-size: @font_size_list_bubble_receive_text;
+		word-wrap: break-word;
+		p, span {
+			margin: 0;
+		}
+		img {
+			position: relative;
+			min-width: 160 * @unit_base;
+			min-height: 160 * @unit_base;
+		}
+		&:first-child { margin-top: 15 * @unit_base; }
+	}
+
+	.ui-li-static.ui-li-bubble-receive,
+	.ui-li-static.ui-li-bubble-left {
+		clear: left;
+		margin-left: 18 * @unit_base;
+		margin-right: auto;
+		padding: 10 * @unit_base;
+		background-color: @color_list_bubble_receive_bg;
+		color: @color_list_bubble_receive_text;
+		font-size: @font_size_list_bubble_receive_text;
+
+		>.ui-li-bubble-tail {
+			position: absolute;
+			left: 0;
+			top: 30%;
+			margin-left: -18 * @unit_base;
+			width: 0;
+			height: 0;
+			border-top: 20*@unit_base solid @color_list_bubble_receive_bg;
+			border-left: 18*@unit_base solid transparent;
+			border-right: 8*@unit_base solid @color_list_bubble_receive_bg;
+		}
+		>.ui-li-bubble-time {
+			position: absolute;
+			left: 100%;
+			bottom: 12 * @unit_base;
+			display: inline-block;
+			width: 50 * @unit_base;
+			margin-left: 7 * @unit_base;
+			text-align: left;
+			color: @color_list_bubble_time_receive_text;
+			font-size: @font_size_list_bubble_time_receive_text;
+		}
+	}
+
+	.ui-li-static.ui-li-bubble-sent,
+	.ui-li-static.ui-li-bubble-right {
+		margin-left: auto;
+		margin-right: 18 * @unit_base;
+		padding: 10 * @unit_base;
+		background-color: @color_list_bubble_sent_bg;
+		color: @color_list_bubble_sent_text;
+		font-size: @font_size_list_bubble_sent_text;
+
+		>.ui-li-bubble-tail {
+			position: absolute;
+			right: 0;
+			top: 30%;
+			margin-right: -18 * @unit_base;
+			width: 0;
+			height: 0;
+			border-top: 20*@unit_base solid @color_list_bubble_sent_bg;
+			border-left: 8*@unit_base solid @color_list_bubble_sent_bg;
+			border-right: 18*@unit_base solid transparent;
+		}
+		>.ui-li-bubble-time {
+			position: absolute;
+			right: 100%;
+			bottom: 12 * @unit_base;
+			display: inline-block;
+			width: 50 * @unit_base;
+			margin-right: 7 * @unit_base;
+			text-align: right;
+			color: @color_list_bubble_time_sent_text;
+			font-size: @font_size_list_bubble_time_sent_text;
+		}
+	}
+
+	.ui-li-static.ui-li.ui-li-bubble-sent.ui-li-has-thumb,
+	.ui-li-static.ui-li.ui-li-bubble-right.ui-li-has-thumb,
+	.ui-li-static.ui-li.ui-li-bubble-receive.ui-li-has-thumb,
+	.ui-li-static.ui-li.ui-li-bubble-left.ui-li-has-thumb {
+		img { position: relative; }
+		padding-left: 10 * @unit_base;
+	}
+
+	.ui-li-static.ui-li-bubble-sos {
+		color: @color_list_bubble_sos_text;
+		> .ui-li-bubble-time {
+			color: @color_list_bubble_sos_text;
+		}
+	}
+
+	.ui-li-static.ui-li-bubble-date {
+		color: @color_list_bubble_date_text;
+		font-size: @font_size_list_bubble_date_text;
+		height: 12 * @unit_base;
+		border-bottom: 2px solid @color_list_bubble_date_text;
+		padding: 0;
+		margin-left: 11 * @unit_base;
+		margin-right: 11 * @unit_base;
+		margin-bottom: 20 * @unit_base;
+		text-align: center;
+		& * {
+			display: inline-block;
+			background-color: @color_bg;
+			padding-left: 5 * @unit_base;
+			padding-right: 5 * @unit_base;
+			margin-top: 6 * @unit_base;
+		}
+	}
+}
+/****************************************************************/
+/*                   Divider  - TO BE FIXED                     */
+/****************************************************************/
+.ui-listview .ui-li-divider,
+.ui-listview .ui-li-divider-btn {
+	box-sizing: border-box;
+	height: 38 * @unit_base;
+	padding-top: 9 * @unit_base;
+	font-size: @font_size_list_divider_text;
+	background-color: @color_list_bg;
+	color: @color_list_divider_text;
+	border: 0;
+
+	.ui-divider-normal-line {
+		position: absolute;
+		bottom: 0;
+		display: block;
+		width: 100%;
+		height: 2 * @unit_base;
+		background-color: @color_list_divider_line;
+	}
+
+	//for buttonMarkuped divider
+	&.ui-btn {
+		top: 0;
+		margin-top: 0;
+		border-radius: 0;
+
+		.ui-btn-inner.ui-btn-hastxt {
+			height: 100%;
+			padding-left: 0;
+			.ui-btn-text {
+				position: absolute;
+				top: 5 * @unit_base;
+				height: 18 * @unit_base;
+				padding-right: 10 * @unit_base;
+				font-size: @font_size_list_divider_text;
+			}
+		}
+
+		.ui-link-inherit {
+			color: @color_list_divider_text;
+			font-weight: bold;
+			font-size: @font_size_list_divider_text;
+			line-height: 23 * unit_base;
+		}
+	}
+
+	&.ui-btn-down-s {
+		background-color: @color_list_divider_bg_press;
+		color: @color_list_bg;
+
+		.ui-divider-normal-line { background: @color_list_divider_text_press; }
+		a { color: @color_list_divider_text_press; }
+	}
+
+	&>.ui-btn-text {
+		box-sizing: border-box;
+		padding-left: 13 * @unit_base;
+		padding-right: 13 * @unit_base;
+		padding-bottom: 4 * @unit_base;
+		height: 23 * @unit_base;
+		vertical-align: middle;
+	}
+
+	&[data-style="dialogue"] {
+		height: 42 * @unit_base;
+		padding-top: 16 * @unit_base;
+		padding-bottom: 3 * @unit_base;
+		padding-right: 18 * @unit_base;
+		padding-left: 18 * @unit_base;
+	}
+
+	&[data-style="check"] {
+		height: 41 * @unit_base;
+		padding-top: 0;
+		background-color: @color_searchbar_bg;
+		font-size: @font_size_list_check_divider_text;
+		.ui-divider-normal-line { display: none; }
+
+		.ui-btn-text {
+			padding: 0;
+			height: 0;
+			a {
+				padding-top: 7 * @unit_base;
+				padding-bottom: 7 * @unit_base;
+			}
+		}
+		.ui-checkbox:first-child {
+			position: absolute;
+			top: 7 * @unit_base;
+			left: 13 * @unit_base;
+			width: 31.5 * @unit_base;
+			height: 31.5 * @unit_base;
+		}
+	}
+
+}

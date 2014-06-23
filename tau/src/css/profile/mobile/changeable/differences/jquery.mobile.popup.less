@@ -1,0 +1,123 @@
+/****************************
+ ctxpopup
+****************************/
+.ui-ctxpopup-container {
+	display: inline-block;
+
+	&.ui-slider-popup-container {
+		border: 0;
+		margin-top: -10px;
+	}
+
+	.ui-popup {
+		&.ui-selectmenu {
+			padding: 0px;
+		}
+		&.ui-slider-popup + .ui-arrow {
+			&.top {
+				margin-top: 6px;
+				border-color: @color_slider_popup_bg transparent transparent;
+			}
+			&.bottom {
+				margin-top: 6px;
+				border-color: transparent transparent @color_slider_popup_bg transparent;
+			}
+			&.right {
+				border-color: transparent @color_slider_popup_bg transparent transparent;
+			}
+			&.left {
+				border-color: transparent transparent transparent @color_slider_popup_bg;
+			}
+		}
+	}
+
+	.ui-arrow {
+		border-color: inherit;
+		&.top {
+			margin: -7px;
+		}
+		&.bottom {
+			margin: -7px;
+		}
+	}
+
+	.ui-listview .ui-li.ui-li-static {
+		text-align: center;
+	}
+
+	.ui-checkbox {
+		.ui-btn-down-s {
+			background: transparent;
+		}
+	}
+}
+
+
+/****************************
+ tizen.notification
+****************************/
+.ui-smallpopup-text-bg {
+	margin-top: 4 * @unit_base;
+	margin-bottom: 4 * @unit_base;
+}
+
+
+
+/****************************
+ tizen.popup
+****************************/
+.ui-popup-scroller-bg {
+	max-height : 256 * @unit_base;
+}
+
+.ui-popup-container {
+	.ui-popup-text {
+		input[type="checkbox"], input[type="radio"] {
+			display : none;
+		}
+	}
+
+	.ui-popup-button-bg {
+		> .ui-btn {
+			min-width : 30%;
+		}
+	}
+
+	.center_checkbox {
+		.ui-popup-check-bg {
+			display: inline-block;
+
+			.ui-checkbox {
+				.ui-btn {
+					text-align: center;
+					border: 0*@unit_base;
+
+					.ui-btn-inner {
+						border: 0*@unit_base;
+					}
+				}
+			}
+
+			.ui-icon {
+				border: 2px solid #3a5881;
+
+				&.ui-icon-checkbox-off {
+					background-color: transparent;
+				}
+			}
+		}
+		.ui-popup-button-bg {
+			> .ui-btn {
+				border-right : 1px solid @color_popup_button_divider;
+			}
+			:last-child {
+				border-right: 0;
+			}
+		}
+	}
+
+	.ui-listview {
+		margin: 0;
+	}
+}
+

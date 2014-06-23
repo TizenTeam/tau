@@ -1,0 +1,82 @@
+@unit_base_fastscroll : @unit_base * 0.5;
+
+.ui-fastscroll {
+	position: absolute;
+	right: 0;
+	width: 47 * @unit_base_fastscroll;
+	-ms-user-select: none;
+	-o-user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	user-select:none;
+	margin:0;
+	padding-left: 1px;
+	padding-right: 2 * @unit_base_fastscroll;
+	opacity: 1;
+	ul {
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+	}
+	li {
+		cursor: pointer;
+		color: @color_fastscroll_rollover_text;
+		background: @color_fastscroll_rollover_bg;
+		text-align: center;
+		vertical-align: middle;
+		font-size: @font_size_fastscroll_rollover_text;
+		font-weight: bold;
+		height: 26 * @unit_base_fastscroll;
+		border: 3 * @unit_base_fastscroll solid transparent;
+		margin-bottom: 1px;
+	}
+
+	background: -webkit-linear-gradient(left,
+			transparent 1px,
+			rgba(33, 36, 40, 1) 1px,
+			rgba(33, 36, 40, 1) 6 * @unit_base_fastscroll,
+			rgba(64, 64, 64, 1) 6 * @unit_base_fastscroll,
+			rgba(64, 64, 64, 1) 48 * @unit_base_fastscroll,
+			rgba(33, 36, 40, 1) 48 * @unit_base_fastscroll,
+			rgba(33, 36, 40, 1));
+	background-color: @color_fastscroll_rollover_left_border;
+
+	&.ui-fastscroll-hover {
+		background-color: @color_fastscroll_rollover_down_border;
+	}
+}
+
+li.ui-fastscroll-hover {
+	position:relative;
+	left: -1px;
+	margin-top: -1px;
+	margin-bottom: 0;
+	padding-top: 1px;
+	padding-bottom: 1px;
+	width: 44 * @unit_base_fastscroll;
+	color : @color_fastscroll_rollover_text_press;
+	border-color: @color_fastscroll_rollover_down_border;
+	border-left-width: 0;
+	padding-left: 1px;
+}
+
+li.ui-fastscroll-hover-first-item {
+	margin-top: 0;
+	padding-top: 0;
+}
+
+.ui-fastscroll-popup {
+	position: absolute;
+	background: @color_fastscroll_popup_bg;
+	color: @color_fastscroll_popup_text;
+	padding: 10*@unit_base;
+	border: 1px solid @color_fastscroll_popup_border;
+	border-radius: 2px;
+	text-align: center;
+	font-size: @font_size_fastscroll_popup_text;
+	font-weight: bold;
+	display:none;
+	box-sizing:border-box;
+	left: 50%;
+	top: 50%;
+}

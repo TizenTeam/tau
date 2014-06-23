@@ -33,7 +33,8 @@
 			"../../../../core/event/vmouse",
 			"../mobile",  // fetch namespace
 			"./BaseWidgetMobile",
-			"./Button"
+			"./Button",
+			"./Scrollview"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -46,6 +47,7 @@
 				slice = [].slice,
 				Tabbar = function () {
 					this.vclickCallback = null;
+					this._ui = {};
 				};
 
 			Tabbar.prototype = new BaseWidget();
@@ -181,9 +183,10 @@
 					tabbarClassList = element.classList,
 					links = slice.call(element.getElementsByTagName('a')),
 					headers = selectors.getParentsByClass(element, classes.uiHeader),
-					scrollview = selectors.getParentsByClass(element, classes.uiScrollviewView),
+					scrollview = selectors.getParentsByClass(element, classes.uiScrollviewView)[0],
 					li = slice.call(element.getElementsByTagName("li")),
 					iconpos,
+					i,
 					textpos,
 					instanceButtonOptions = {
 						shadow: false,
@@ -198,7 +201,14 @@
 					textpos = links[0].innerHTML.length ? true : false;
 				}
 
-				if (headers.length && scrollview.length) {
+				if (li.length > 4) {
+					// tabbar elements should be showed maximum forth elements.
+					this._setWidth(li, window.innerWidth / 4);
+				} else {
+					this._setWidth(li, window.innerWidth / li.length);
+				}
+
+				if (headers.length && scrollview) {
 					li.forEach(function (item) {
 						item.classList.add(classes.tabbarScrollLi);
 					});
@@ -211,12 +221,6 @@
 						item.insertAdjacentHTML('beforeend', '<div class="ui-tabbar-divider ui-tabbar-divider-left" style="display:none"></div><div class="ui-tabbar-divider ui-tabbar-divider-right" style="display:none"></div>');
 					});
 
-					//@todo how read something from jquery.data?
-		//			/* add width calculation*/
-		//			if ( $tabscrollview.data("default-list") ) {
-		//				this.options.defaultList = $tabscrollview.data( "default-list" );
-		//			}
-		//			$tabli.css( "width", window.innerWidth / this.options.defaultList + "px" );
 				} else {
 					if (li.length) {
 						tabbarClassList.add(classes.uiNavbar);
@@ -240,6 +244,21 @@
 					headers.forEach(function (header) {
 						header.classList.add(classes.uiTitleTabbar);
 					});
+				}
+				/* scrollable tabbar */
+				if (element.parentNode.classList.contains(classes.uiScrollviewView)){
+					if (li.length > 4) {
+						i = headers.length;
+						while (i--) {
+							headers[i].classList.add(classes.uiTitleTabbar);
+						}
+
+						// scroller was needed when li element has more than forth.
+						scrollview.style.width = parseInt(li[0].style.width, 10) * li.length + "px";
+						this._ui.scrollview = scrollview;
+						this._ui.scrollviewClip = selectors.getParentsByClass(element, classes.uiScrollviewClip)[0];
+					}
+
 				}
 
 				if (!iconpos) {
@@ -299,11 +318,67 @@
 			Tabbar.prototype._bindEvents = function () {
 				this.vclickCallback = vclickEvent.bind(null, this);
 				this.element.addEventListener("vclick", this.vclickCallback, false);
+				if (this._ui.scrollviewClip) {
+					this._ui.scrollviewClip.addEventListener("scrollstop", roundTabBarPositionX);
+				}
 			};
 
 			Tabbar.prototype._destroy = function () {
 				this.element.removeEventListener("vclick", this.vclickCallback, false);
+				if (this._ui.scrollviewClip) {
+					this._ui.scrollviewClip.removeEventListener("scrollstop", roundTabBarPositionX);
+				}
 			};
+
+			/**
+			 * Set width method
+			 * @method _setWidth
+			 * @param {HTMLElement} elements
+			 * @param {number} width
+			 * @member ns.widget.Tabbar
+			 * @protected
+			 */
+			Tabbar.prototype._setWidth = function (elements, width) {
+				var i = 0,
+					length = elements.length,
+					element,
+					linkElement,
+					elementWidth = width + "px",
+					linkWidth = width - 1 + "px";
+				for (i = 0; i < length; i++) {
+					element = elements[i];
+					element.style.width = elementWidth;
+					linkElement = selectors.getChildrenByTag(element, "a")[0];
+					if (linkElement) {
+						linkElement.style.width = linkWidth;
+					}
+				}
+			};
+
+			/**
+			 * Move scroll to position from left border of li element
+			 * @method roundTabBarPositionX
+			 * @param {Event} event
+			 * @private
+			 * @static
+			 * @member ns.widget.Tabbar
+			 */
+			function roundTabBarPositionX (event) {
+				var element = event.target,
+					lastX = element.scrollLeft,
+					liWidth = parseInt(element.getElementsByTagName("li")[0].style.width),
+					interval = lastX % liWidth,
+					middle = liWidth / 2,
+					scrollViewWidget = engine.instanceWidget(element, "Scrollview");
+
+				if (interval !== 0) {
+					if (interval <= middle) {
+						scrollViewWidget.scrollTo(lastX - interval, 0, 500);
+					} else {
+						scrollViewWidget.scrollTo(lastX + (liWidth - interval), 0, 500);
+					}
+				}
+			}
 
 			/**
 			 * Disables specified element in tabbar

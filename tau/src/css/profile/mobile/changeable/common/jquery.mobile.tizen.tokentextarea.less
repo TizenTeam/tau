@@ -1,0 +1,85 @@
+.ui-tokentextarea {
+	display : table;
+	outline : none;
+	position : relative;
+	background-color : @color_tokentextarea_bg;
+	margin-left : -15 * @unit_base;
+	margin-right : -15 * @unit_base;
+}
+
+.ui-scrollview-view > .ui-tokentextarea {
+	margin-left : -8 * @unit_base;
+	margin-right : -8 * @unit_base;
+}
+
+.ui-tokentextarea .ui-tokentextarea-label {
+	display : inline-block;
+	text-align : center;
+	position : relative;
+	margin-left : 13 * @unit_base;
+	margin-right : 6 * @unit_base;
+	padding : .6em 0em;
+	color : @color_tokentextarea_label_text;
+	font-weight : bold;
+	text-align : center;
+	font-size : 1em;
+}
+
+.ui-tokentextarea-input {
+	outline : none;
+	position : relative;
+	border : 0 !important;
+	padding : 0 !important;
+	margin : .5em;
+	color : @color_tokentextarea_input_text;
+	background-color : @color_tokentextarea_bg !important;
+	text-align : left;
+	font-size : 1em;
+}
+
+.ui-tokentextarea-input-visible {
+	display : inline-block !important;
+}
+
+.ui-tokentextarea-input-invisible {
+	display : none !important;
+}
+
+.ui-tokentextarea div {
+	display : inline-block;
+	text-align : center;
+	cursor : pointer;
+	position : relative;
+	padding : .2em .5em;
+	font-size : 1em;
+	color : @color_tokentextarea_block_text;
+	text-overflow : ellipsis;
+	white-space : nowrap;
+	margin: 8*@unit_base 2*@unit_base;
+}
+
+div.ui-tokentextarea-block {
+	background-color : @color_tokentextarea_block_bg;
+}
+
+div.ui-tokentextarea-sblock {
+	background-color : @color_tokentextarea_press_bg;
+}
+
+.ui-tokentextarea .ui-tokentextarea-desclabel {
+	display : inline-block;
+	outline : none;
+	position : relative;
+	border : 0;
+	color : @color_tokentextarea_label_text;
+	text-align : left;
+	font-size : 1em;
+	margin-left: 3 * @unit_base;
+}
+
+.ui-tokentextarea-link-base {
+	position : absolute;
+	right : 0em;
+	bottom : 2px;
+	margin-right : 9 * @unit_base;
+}

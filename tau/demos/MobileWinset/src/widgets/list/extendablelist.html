@@ -1,27 +1,23 @@
-<div data-role="page" id="extendablelist">
-		<div data-role="header" data-position="fixed">
-			<h1>Extendable list</h1>
-		</div>
-		<div data-role="content">
-			<ul data-role="listview">
-				<li data-role="list-divider">Extendable list</li>
-				<li><a href="extendablelist-normal.html">Extendable list</a></li>
-				<li><a href="extendablelist-jquery-tmpl.html">Extendable list with jQuery template</a></li>
-			</ul>
-		</div>
-		<script>
-		$( "#extendablelist" ).on( "pageshow" , function() {
-			$( window ).on( "tizenhwkey", function ( ev ) {
-				if ( ev.originalEvent.keyName === "back" ) {
-					//bind callbacks to the H/W keys
-					window.history.back();
-				}
-			});
-		});
-		$( "#extendablelist" ).on( "pagebeforehide" , function() {
-			//unbind callbacks to the H/W keys
-			$( window ).off( "tizenhwkey" );
-		});
-		</script>
+<div data-role="page" id="genlist_extendable_normal_page">
+	<div data-role="header" data-position="fixed">
+		<h1>Extendable list</h1>
 	</div>
+	<div data-role="content">
+		<ul id = "extendable_list_main" data-role="extendablelist" data-extenditems="50"></ul>
+	</div>
+	<script>
+	$( "#genlist_extendable_normal_page" ).on( "pageshow" , function() {
+		$( window ).on( "tizenhwkey", function ( ev ) {
+			if ( ev.originalEvent.keyName === "back" ) {
+				//bind callbacks to the H/W keys
+				window.history.back();
+			}
+		});
+	});
+	$( "#genlist_extendable_normal_page" ).on( "pagebeforehide" , function() {
+		//unbind callbacks to the H/W keys
+		$( window ).off( "tizenhwkey" );
+	});
+	</script>
+	<script type="text/javascript" src="extendablelist-normal.js"></script>
 </div>

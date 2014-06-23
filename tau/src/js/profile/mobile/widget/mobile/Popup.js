@@ -525,6 +525,7 @@
 					* @property {?number} [options.positionX=null] Sets desired horizontal coordinate of the center point in popup in pixels.
 					* @property {?number} [options.positionY=null] Sets desired vertical coordinate of the center point in popup in pixels.
 					* @property {boolean} [options.history=false] Sets whether to alter the url when a popup is open to support the back button.
+					* @property {string} [options.specialContainerClass=""] Sets CSS class which is added for popup's container.
 					* @member ns.widget.mobile.Popup
 					*/
 					self.options = {
@@ -542,7 +543,8 @@
 						isHardwarePopup: false,
 						positionX: null,
 						positionY: null,
-						history: false
+						history: false,
+						specialContainerClass: ""
 					};
 					self.defaultOptions = {
 						theme: "s"
@@ -936,6 +938,7 @@
 			*/
 			Popup.prototype._build = function (element) {
 				var classes = Popup.classes,
+					options = this.options,
 					page = selectors.getParentsByClass(element, "ui-page")[0] || document.body,
 					uiScreen = document.createElement("div"),
 					uiScreenClasses = uiScreen.classList,
@@ -952,6 +955,13 @@
 				uiPlaceholder.style.display = "none";
 				uiContainerClasses.add(classes.uiPopupContainer);
 				uiContainerClasses.add(classes.uiSelectmenuHidden);
+
+				// this option specifies what CSS class is added for container of popup
+				// it is used by Tizen Slider widget to distinguish popup related with
+				// slider, because it has to have different style than a normal popup
+				if (options.specialContainerClass) {
+					uiContainerClasses.add(options.specialContainerClass);
+				}
 				uiArrow.classList.add(classes.uiArrow);
 
 				// define the container for navigation event bindings
@@ -1190,17 +1200,12 @@
 					positionToElementHeight = positionToElement ? positionToElement.clientHeight : 0,
 					positionToElementWidth = positionToElement ? positionToElement.clientWidth : 0,
 					correctionValue = [0, 0],
-					containerHeight = uiContainer.clientHeight,
-					color = doms.getCSSProperty(uiContainer.firstChild, "background-color"),
 					usedTolerance,
 					arrowLeft;
 
 				arrow.removeAttribute("class");
 				arrowClasses.add(classes.uiArrow);
-
 				arrowClasses.add(classes[type]);
-
-				arrowStyle.borderColor = "transparent";
 
 				arrowLeft = left - containerLeft;
 
@@ -1208,35 +1213,41 @@
 				case "bottom":
 					popupMargin = parseInt(doms.getCSSProperty(this.element, "margin-top"), 10) || 0;
 					arrowClasses.add(classes.bottom);
-					arrowStyle.top = -arrowBorderWidth * 2 + popupMargin + "px";
-					arrowStyle.borderBottomColor = color;
+					arrowStyle.top = -arrowBorderWidth + popupMargin + "px";
+					// Developer can try to change position of popup using method *refresh*.
+					// However, in case of context popup, arrow should be always placed
+					// in the middle of element related with popup.
+					// So we have to check if arrow is still in range of popup's container
+					// and correct value of left position of popup if it is necessary.
 					if (arrowLeft < 0) {
-						// popup container is set too far to the right
+						// popup container is positioned too far to the right
 						usedTolerance = tolerance.l;
 						arrowStyle.left = usedTolerance + "px";
 						correctionValue[0] = arrowLeft - usedTolerance;
 					} else if (arrowLeft > uiContainerWidth) {
-						// popup container is set too far to the left
+						// popup container is positioned too far to the left
 						usedTolerance = tolerance.r;
 						arrowStyle.left = uiContainerWidth - usedTolerance - arrowBorderWidth * 2 + "px";
 						correctionValue[0] = arrowLeft - uiContainerWidth + usedTolerance + arrowBorderWidth * 2;
 					} else {
+						// popup container is positioned properly,
+						// so correction value of left position remains zero
 						arrowStyle.left = arrowLeft + "px";
 					}
+					// correction value of top position is always the same
 					correctionValue[1] = positionToElementHeight + positionToElementOffset.top - containerTop;
 					break;
 				case "right":
 					// @todo
 					arrowStyle.left = -arrowBorderWidth * 2 + 1 + "px";
 					arrowStyle.top = uiContainerHeight / 2 - arrowBorderWidth + "px";
-					arrowStyle.borderRightColor = color;
 					correctionValue = [positionToElementWidth + positionToElementOffset.left - arrowBorderWidth, 0];
 					break;
 				case "top":
 					popupMargin = parseInt(doms.getCSSProperty(this.element, "margin-bottom"), 10) || 0;
 					arrowClasses.add(classes.top);
-					arrowStyle.top = uiContainerHeight - popupMargin + "px";
-					arrowStyle.borderTopColor = color;
+					arrowStyle.top = uiContainerHeight - popupMargin - arrowBorderWidth + "px";
+					// @todo make one correction for *top* and *bottom* arrows
 					if (arrowLeft < 0) {
 						// popup container is set too far to the right
 						usedTolerance = tolerance.l;
@@ -1250,13 +1261,12 @@
 					} else {
 						arrowStyle.left = arrowLeft + "px";
 					}
-					correctionValue[1] = -(containerTop + containerHeight - positionToElementOffset.top);
+					correctionValue[1] = -(containerTop + uiContainerHeight - positionToElementOffset.top);
 					break;
 				case "left":
 					// @todo
 					arrowStyle.left = uiContainer.clientWidth + 3 + "px";
 					arrowStyle.top = uiContainerHeight / 2 - arrowBorderWidth + "px";
-					arrowStyle.borderLeftColor = color;
 					correctionValue = [positionToElementOffset.left - uiContainerWidth, 0];
 					break;
 				}

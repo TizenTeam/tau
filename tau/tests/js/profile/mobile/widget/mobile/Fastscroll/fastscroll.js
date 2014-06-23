@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function(){
 		afterDestroy = function (event) {
 			start();
 			ok(true, '"destroyed" event was triggered on document');
-			equal(event.detail.widget, 'Fastscroll', 'destroyed event has detail.widget == "Fastscroll"');
+			equal(event.detail.widget, 'FastScroll', 'destroyed event has detail.widget == "Fastscroll"');
 			ok(event.detail.parent !== undefined, 'destroyed event sends parent node as detail.parent');
 		};
 

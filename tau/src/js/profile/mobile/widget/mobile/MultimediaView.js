@@ -1094,7 +1094,9 @@
 			ns.widget.mobile.MultimediaView = MultimediaView;
 			engine.defineWidget(
 				'MultimediaView',
-				'video, audio, .ui-multimediaview',
+				// Multimediaview UX used native multimedia UX
+				//'video, audio, .ui-multimediaview',
+				'ui-multimediaview',
 				['width', 'height', 'fullScreen'],
 				MultimediaView,
 				'tizen'

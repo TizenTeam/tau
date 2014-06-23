@@ -1,0 +1,227 @@
+/***************************************************************************
+                    Tabbar
+***************************************************************************/
+
+.ui-header.ui-title-tabbar-multiline {
+	height : 63 * @unit_base;
+}
+.ui-header.ui-tabbar-one {
+	height : 83 * @unit_base;
+}
+.ui-tabbar {
+	z-index : 1000;
+	height : 63 * @unit_base;
+
+	background : @color_tabbar_bg;
+
+	.ui-tabbar-li {
+		display: inline-block;
+		float: left;
+	}
+
+	a.ui-btn {
+		height: 62 * @unit_base;
+		background : @color_tabbar_btn_bg_normal;
+		color : @color_tabbar_text_normal;
+		font-size: @font_size_tabbar_text;
+
+		&.ui-btn-block {
+			border-bottom: 1px solid @color_tabbar_bg_line;
+			border-right: 1px solid @color_tabbar_divider;
+		}
+
+		&.ui-btn-active {
+			color : @color_tabbar_text_selected;
+			.ui-btn-inner {
+				border-bottom : 3px solid;
+				border-bottom-color : @color_tabbar_select_bar;
+				.ui-icon {
+					background : @color_tabbar_btn_selected;
+				}
+			}
+		}
+
+		.ui-btn-inner {
+			padding-top : 0;
+			padding-bottom : 0;
+
+			&:not(.ui-btn-icon-only) .ui-btn-text-padding-top.ui-btn-text {
+				padding-top: 37 * @unit_base;
+				padding-bottom: 6 * @unit_base;
+			}
+			&:not(.ui-btn-icon-only) .ui-btn-text {
+				padding-top: 23 * @unit_base;
+				padding-bottom: 20 * @unit_base;
+				display: block;
+				line-height: @font_size_tabbar_text;
+			}
+		}
+
+		.ui-icon {
+			width: 30 * @unit_base;
+			height: 30 * @unit_base;
+
+			background-repeat: no-repeat;
+			background-size: 100% 100%;
+		}
+	}
+
+	a.ui-btn.ui-btn-down-s {
+		background : @color_tabbar_btn_bg_press;
+		.ui-btn-text {
+			background : @color_tabbar_btn_bg_press;
+		}
+		.ui-icon {
+			background : @color_tabbar_btn_press;
+		}
+	}
+
+	a.ui-btn.ui-btn-up-s, a.ui-btn.ui-btn-hover-s {
+		.ui-icon {
+			background : @color_tabbar_btn_normal;
+		}
+	}
+
+	.ui-btn-inner {
+		font-size: @font_size_tabbar_text;
+
+		.ui-icon {
+			top : 7 * @unit_base;
+			left : 50%;
+			margin-left : -16 * @unit_base;
+		}
+	}
+
+	&.ui-tabbar-notext {
+		a.ui-btn {
+			padding-top : 0;
+			padding-bottom : 0;
+		}
+		.ui-btn-inner {
+			height : 58 * @unit_base;
+			.ui-icon {
+				top : 13 * @unit_base;;
+			}
+		}
+	}
+}
+
+.ui-header.ui-bar-s.ui-title-tabbar {
+	height : 83 * @unit_base;
+
+	.ui-title {
+		height: 45 * @unit_base;
+		margin-top: 7 * @unit_base;
+		margin-bottom: 7 * @unit_base;
+		max-width: none;
+		float: none;
+	}
+	.ui-tabbar {
+		height : 38 * @unit_base;
+		a.ui-btn {
+			height: 37 * @unit_base;
+			padding: 0;
+			background : @color_tabbar_title_bg;
+			font-size: @font_size_tabbar_text;
+
+			.ui-btn-inner {
+				&:not(.ui-btn-icon-only) .ui-btn-text {
+					padding-top: 9 * @unit_base;
+					padding-bottom: 9 * @unit_base;
+					display: block;
+					line-height: @font_size_tabbar_text;
+				}
+				.ui-icon {
+					top: 0;
+				}
+			}
+			&.ui-btn-down-s {
+				background : @color_tabbar_title_bg_press;
+				.ui-btn-text {
+					background : @color_tabbar_title_bg_press;
+				}
+			}
+			&.ui-btn-active {
+				color : @color_tabbar_text_selected;
+				.ui-icon {
+					background : @color_tabbar_btn_selected;
+				}
+			}
+		}
+		&.ui-tabbar-notext {
+			a.ui-btn {
+				padding-top : 0;
+				padding-bottom : 0;
+			}
+			.ui-btn-inner {
+				height : 34 * @unit_base;
+				.ui-icon {
+					top : 13 * @unit_base;
+					padding-top: 2* @unit_base;
+					padding-bottom: 2* @unit_base;
+				}
+			}
+		}
+	}
+
+	.ui-scrollview-clip::-webkit-scrollbar {
+		display: none;
+	}
+
+	.ui-scrollview-view {
+		width: 100%;
+		.tabbar-scroll-ul {
+			margin: 0;
+			padding: 0;
+		}
+		.tabbar-scroll-li  {
+			display: inline-block;
+			.ui-tabbar-active {
+				.ui-btn-inner {
+					border-bottom: 3px solid @color_tabbar_select_bar;
+				}
+			}
+		}
+		.tabbar-scroll-li:not(:first-child) {
+			/*
+			* (-7 * @unit_base) value has decimal point.
+			* That was occured various element position in various browser in which include tizen webkit browser.
+			* So, margin-left value should be fixed integer px unit.
+			*/
+			margin-left: -6 * @unit_base;
+		}
+	}
+}
+.ui-footer .ui-tabbar {
+	&.ui-tabbar-notext .ui-btn-inner .ui-icon {
+		top: 9 * @unit_base;
+		}
+		a.ui-btn .ui-btn-inner .ui-btn-text{
+			padding-top: 16 * @unit_base;
+			padding-botton: 16 * @unit_base;
+		}
+}
+
+.ui-header.ui-bar-s {
+	.ui-tabbar {
+		a.ui-btn.ui-btn-down-s {
+			border-bottom-color : @color_tabbar_btn_press;
+		}
+	}
+
+	.ui-tabbar:not(.ui-tabbar-persist) {
+		a.ui-btn {
+			&.ui-btn-active {
+				border-bottom-color : @color_tabbar_bg_line;
+			}
+		}
+	}
+
+	.ui-tabbar.ui-tabbar-persist {
+		a.ui-btn {
+			&.ui-btn-active.ui-state-persist {
+				border-bottom-color : @color_tabbar_bg_line;
+			}
+		}
+	}
+}

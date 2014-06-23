@@ -2,23 +2,23 @@
   setTimeout: false, clearTimeout: false, Date: false,
   console: false */
 /*
-* Copyright (c) 2013 - 2014 Samsung Electronics Co., Ltd
-*
-* Licensed under the Flora License, Version 1.1 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*     http://floralicense.org/license/
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * Copyright (c) 2013 - 2014 Samsung Electronics Co., Ltd
+ *
+ * Licensed under the Flora License, Version 1.1 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://floralicense.org/license/
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 /*jslint nomen: true, plusplus: true, bitwise: true */
 /**
- * # Gallery3D widget
+ * # Gallery 3D widget
  * The gallery 3D widget enables 3-dimensional arranging and handling of images.
  *
  * The Gallery3D widget displays images along a curved path on a 3-dimensional coordinate system.
@@ -26,12 +26,15 @@
  * ## Default selectors
  * In default all elements with _data-role=gallery3d_ are changed to Tizen Web UI Gallery3D
  *
+ *		@example
+ *		<div id="gallery3d" data-role="gallery3d"></div>
+ *
  * ## Manual constructor
  *
  * #### Create Gallery3D widget using tau method:
  *
  *		@example
- *		<div id="gallery3d" data-role="gallery3d"></div>
+ *		<div id="gallery3d"></div>
  *		<script>
  *			var gallery3d = tau.widget.Gallery3D(document.getElementById("gallery3d"));
  *		</script>
@@ -39,9 +42,9 @@
  * #### Create Gallery3D widget using jQueryMobile notation:
  *
  *		@example
- *		<div id="gallery3d" data-role="gallery3d"></div>
+ *		<div id="gallery3d"></div>
  *		<script>
- *			var gallery3d = $('#gallery3d').gallery3d();
+ *			var gallery3d = $("#gallery3d").gallery3d();
  *		</script>
  *
  * ## Options
@@ -63,37 +66,52 @@
  * Triggered when an image is selected.
  *
  *		@example
- *		<div id="gallery3d" data-role="gallery3d"></div>
+ *		<div id="gallery3d"></div>
  *		<script>
  *			var element = document.getElementById("gallery3d"),
  *				gallery3d = tau.widget.Gallery3D(element);
  *
- *			gallery3d.add({src: "1.jpg"});
- *			gallery3d.add({src: "2.jpg"});
- *			gallery3d.add({src: "3.jpg"});
+ *			gallery3d.add("1.jpg")
+ *				.add("2.jpg")
+ *				.add("3.jpg");
  *
  *			// add the event handler by the method of built-in widget
- *			gallery3d.on("select", function (event, data, index) {
+ *			gallery3d.on("select", function (event) {
  *				// Handle the select event
- *				var urlOfImage = data.src, indexOfImage = index;
+ *				var urlOfImage = event.detail.src;
  *			});
+ *		</script>
  *
+ * ##### or using standard JavaScript method
  *
- *			// or using standard JavaScript method
- *			element.addEventListener("select", function (event, data, index) {
+ *		@example
+ *		<div id="gallery3d"></div>
+ *		<script>
+ *			var element = document.getElementById("gallery3d"),
+ *				gallery3d = tau.widget.Gallery3D(element);
+ *
+ *			gallery3d.add("1.jpg")
+ *				.add("2.jpg")
+ *				.add("3.jpg");
+
+ *			element.addEventListener("select", function (event) {
  *				// Handle the select event
- *				var urlOfImage = data.src, indexOfImage = index;
+ *				var urlOfImage = event.detail.src;
  *			}, false);
+ *		</script>
  *
+ * ##### or JQueryMobile notation:
  *
- *			// or JQueryMobile notation with chaining:
+ *		@example
+ *		<div id="gallery3d"></div>
+ *		<script>
  *			$("#gallery3d").gallery3d()
- *				.gallery3d("add", {src: "1.jpg" })
- *				.gallery3d("add", {src: "2.jpg" })
- *				.gallery3d("add", {src: "3.jpg" })
- *				.on("select", function (event, data, index) {
+ *				.gallery3d("add", "1.jpg")
+ *				.gallery3d("add", "2.jpg")
+ *				.gallery3d("add", "3.jpg")
+ *				.on("select", function (event) {
  *					// Handle the select event
- *					var urlOfImage = data.src, indexOfImage = index;
+ *					var urlOfImage = event.detail.src;
  *				});
  *		</script>
  *
@@ -104,7 +122,7 @@
  * To call method on widget you can use tau API:
  *
  *		@example
- *		<div id="gallery3d" data-role="gallery3d"></div>
+ *		<div id="gallery3d"></div>
  *		<script>
  *			var element = document.getElementById("gallery3d"),
  *				gallery3d = tau.widget.Gallery3D(element);
@@ -112,7 +130,7 @@
  *			gallery3d.methodName(methodArgument1, methodArgument2, ...);
  *
  *			// or JQueryMobile notation with chaining:
- *			$(element).gallery3d(methodName, methodArgument1, methodArgument2, ...);
+ *			$(element).gallery3d("methodName", methodArgument1, methodArgument2, ...);
  *		</script>
  *
  * @class ns.widget.mobile.Gallery3D
@@ -218,7 +236,7 @@
 					return degree * Math.PI / 180;
 				},
 				getContext3D = function (canvas) {
-					var gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+					var gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
 					if (gl === null) {
 						// @issue phantomjs doesn't support webgl
 						throw "Unfortunately, there's a WebGL compatibility problem.\nYou may want to check your system settings.";
@@ -252,7 +270,7 @@
 
 							if (isFile) {
 								//@todo loading shaders from file
-								console.warn('laod shader from file is not supported');
+								console.warn("laod shader from file is not supported");
 							} else {
 								vertexShaderSource.source = vs;
 								fragmentShaderSource.source = fs;
@@ -306,30 +324,30 @@
 				},
 
 				//------------- IMAGE LOADER ------
-				_canvas = document.createElement('canvas'),
-				_context = _canvas.getContext('2d'),
+				_canvas = document.createElement("canvas"),
+				_context = _canvas.getContext("2d"),
 
 				fileSystemErrorMessage = function (e) {
 					var FileError = window.FileError,
-						msg = '';
+						msg = "";
 					switch (e.code) {
 					case FileError.QUOTA_EXCEEDED_ERR:
-						msg = 'QUOTA_EXCEEDED_ERR';
+						msg = "QUOTA_EXCEEDED_ERR";
 						break;
 					case FileError.NOT_FOUND_ERR:
-						msg = 'NOT_FOUND_ERR';
+						msg = "NOT_FOUND_ERR";
 						break;
 					case FileError.SECURITY_ERR:
-						msg = 'SECURITY_ERR';
+						msg = "SECURITY_ERR";
 						break;
 					case FileError.INVALID_MODIFICATION_ERR:
-						msg = 'INVALID_MODIFICATION_ERR';
+						msg = "INVALID_MODIFICATION_ERR";
 						break;
 					case FileError.INVALID_STATE_ERR:
-						msg = 'INVALID_STATE_ERR';
+						msg = "INVALID_STATE_ERR";
 						break;
 					default:
-						msg = 'Unknown Error';
+						msg = "Unknown Error";
 						break;
 					}
 					return msg;
@@ -382,11 +400,11 @@
 							canvasDataURI;
 						try {
 							canvasDataURI = localStorage.getItem(internalURL);
-							if (typeof callback === 'function') {
+							if (typeof callback === TYPE_FUNCTION) {
 								callback((canvasDataURI === null) ? "NOT_FOUND_ERR" : canvasDataURI);
 							}
 						} catch (e) {
-							if (typeof callback === 'function') {
+							if (typeof callback === TYPE_FUNCTION) {
 								callback((e.type === "non_object_property_load") ? "NOT_FOUND_ERR" : null);
 							}
 						}
@@ -398,7 +416,7 @@
 							canvasDataURI,
 							onError = function (e) {
 								var msg = fileSystemErrorMessage(e);
-								if (typeof callback === 'function') {
+								if (typeof callback === TYPE_FUNCTION) {
 									callback((msg === "NOT_FOUND_ERR") ? msg : null);
 								}
 							},
@@ -407,11 +425,11 @@
 								canvasDataURI = getThumbnail(this, thumbWidth, thumbHeight, fit);
 								try {
 									localStorage.setItem(internalURL, canvasDataURI);
-									if (typeof callback === 'function') {
+									if (typeof callback === TYPE_FUNCTION) {
 										callback(canvasDataURI);
 									}
 								} catch (e) {
-									if (typeof callback === 'function') {
+									if (typeof callback === TYPE_FUNCTION) {
 										callback((e.type === "non_object_property_load") ? "NOT_FOUND_ERR" : null);
 									}
 								}
@@ -421,8 +439,8 @@
 						thumbHeight = thumbHeight || 128;
 						fit = fit || true;
 
-						image.addEventListener('load', onLoad, false);
-						image.addEventListener('error', onError, false);
+						image.addEventListener("load", onLoad, false);
+						image.addEventListener("error", onError, false);
 
 						image.src = url;
 					},
@@ -439,69 +457,94 @@
 				},
 
 				/**
-				 * @property {Object} eventType Gallery3D event types
+				 * Gallery3D event types
+				 * @property {Object} eventType
 				 * @static
 				 * @readonly
 				 * @member ns.widget.mobile.Gallery3D
-				*/
+				 */
 				eventType = {
 					/**
 					 * Triggered when an image is selected.
 					 * @event select
 					 * @member ns.widget.mobile.Gallery3D
 					 */
-					SELECT: 'select'
+					SELECT: "select"
 				},
 
 				BaseWidget = ns.widget.mobile.BaseWidgetMobile,
 				/**
-				* @property {Object} engine Alias for class {@link ns.engine}
-				* @member ns.widget.mobile.Gallery3D
-				* @private
-				*/
+				 * Alias for class {@link ns.engine}
+				 * @property {Object} engine
+				 * @member ns.widget.mobile.Gallery3D
+				 * @private
+				 * @static
+				 */
 				engine = ns.engine,
 				/**
-				* @property {Object} support Alias for class {@link ns.jqm.support}
-				* @member ns.widget.mobile.Gallery3D
-				* @private
-				*/
+				 * Alias for class {@link ns.jqm.support}
+				 * @property {Object} support
+				 * @member ns.widget.mobile.Gallery3D
+				 * @private
+				 * @static
+				 */
 				support = ns.jqm.support,
 				/**
-				* @property {Object} utilsDOM Alias for class {@link ns.util.DOM}
-				* @member ns.widget.mobile.Gallery3D
-				* @private
-				*/
+				 * Alias for class {@link ns.util.DOM}
+				 * @property {Object} utilsDOM
+				 * @member ns.widget.mobile.Gallery3D
+				 * @private
+				 * @static
+				 */
 				utilsDOM = ns.util.DOM,
 				/**
-				* @property {Object} utilsObject Alias for class {@link ns.util.object}
-				* @member ns.widget.mobile.Gallery3D
-				* @private
-				*/
+				 * Alias for class {@link ns.util.object}
+				 * @property {Object} utilsObject
+				 * @member ns.widget.mobile.Gallery3D
+				 * @private
+				 * @static
+				 */
 				utilsObject = ns.util.object,
 				/**
-				* @property {Object} easing Alias for class {@link ns.util.easing}
-				* @member ns.widget.mobile.Gallery3D
-				* @private
-				*/
+				 * Alias for class {@link ns.util.easing}
+				 * @property {Object} easing
+				 * @member ns.widget.mobile.Gallery3D
+				 * @private
+				 * @static
+				 */
 				easing = ns.util.easing,
 				/**
-				* @property {Object} bezierCurve Alias for class {@link ns.util.bezierCurve}
-				* @member ns.widget.mobile.Gallery3D
-				* @private
-				*/
+				 * Alias for class {@link ns.util.bezierCurve}
+				 * @property {Object} bezierCurve
+				 * @member ns.widget.mobile.Gallery3D
+				 * @private
+				 * @static
+				 */
 				bezier = ns.util.bezierCurve,
 				/**
-				* @property {Function} requestAnimationFrame Alias for function ns.util.requestAnimationFrame
-				* @member ns.widget.mobile.Gallery3D
-				* @private
-				*/
+				 * Alias for function ns.util.requestAnimationFrame
+				 * @property {Function} requestAnimationFrame
+				 * @member ns.widget.mobile.Gallery3D
+				 * @private
+				 * @static
+				 */
 				requestAnimationFrame = ns.util.requestAnimationFrame,
 				/**
-				* @property {Function} cancelAnimationFrame Alias for function ns.util.cancelAnimationFrame
-				* @member ns.widget.mobile.Gallery3D
-				* @private
-				*/
+				 * Alias for function ns.util.cancelAnimationFrame
+				 * @property {Function} cancelAnimationFrame
+				 * @member ns.widget.mobile.Gallery3D
+				 * @private
+				 * @static
+				 */
 				cancelAnimationFrame = ns.util.cancelAnimationFrame,
+				/**
+				 * Local cache of function type name
+				 * @property {string} [TYPE_FUNCTION="function"]
+				 * @private
+				 * @static
+				 * @member ns.widget.mobile.Listview.FastScroll
+				 */
+				TYPE_FUNCTION = "function",
 
 				touchStartEvt = (support.touch ? "touchstart" : "mousedown"),
 				touchMoveEvt = (support.touch ? "touchmove" : "mousemove"),
@@ -510,16 +553,24 @@
 				touchEndEvtGallery = touchEndEvt + ".gallery3d",
 
 				/**
-				* Alias for class ns.widget.mobile.Gallery3D
-				* @method Gallery3D
-				* @member ns.widget.mobile.Gallery3D
-				* @private
-				*/
+				 * Alias for object ns.widget.mobile.Gallery3D.classes
+				 * @property {Object} classes
+				 * @member ns.widget.mobile.Gallery3D
+				 * @static
+				 * @private
+				 * @property {string} uiGallery3D Main class of gallery 3D
+				 * @property {string} uiGallery3DCanvas Class of gallery 3D view
+				 */
+				classes = {
+					uiGallery3D: "ui-gallery3d",
+					uiGallery3DCanvas: "ui-gallery3d-canvas"
+				},
+
 				Gallery3D = function () {
 					/**
-					* @property {Object} options Object with default options
-					* @member ns.widget.mobile.Gallery3D
-					*/
+					 * @property {Object} options Object with default options
+					 * @member ns.widget.mobile.Gallery3D
+					 */
 					this.options = {};
 				};
 
@@ -527,21 +578,73 @@
 
 			Gallery3D.prototype = new BaseWidget();
 
-			Gallery3D.classes = {
-				uiGallery3D: 'ui-gallery3d',
-				uiGallery3DCanvas: 'ui-gallery3d-canvas'
-			};
+			Gallery3D.classes = classes;
 
+			/**
+			 * Prepare default configuration of galery 3D widget
+			 * @method _configure
+			 * @protected
+			 * @member ns.widget.mobile.Gallery3D
+			 */
 			Gallery3D.prototype._configure = function () {
 				this.options.thumbnailCache = false;
 			};
 
+			/**
+			 * Destroy gallery 3D widget
+			 *
+			 *		@example
+			 *		<div id="gallery3d"></div>
+			 *		<script>
+			 *			var element = document.getElementById("gallery3d"),
+			 *				gallery3d = tau.widget.Gallery3D(element);
+			 *
+			 *			gallery3d.add("1.jpg")
+			 *				.add("2.jpg")
+			 *				.add("3.jpg")
+			 *				.on("gallery3dinit", function () {
+			 *					gallery3d.destroy();
+			 *				});
+			 *		</script>
+			 *
+			 * or jQueryMobile notation:
+			 *
+			 *		@example
+			 *		<div id="gallery3d"></div>
+			 *		<script>
+			 *			$("#gallery3d").gallery3d()
+			 *				.gallery3d("add", "1.jpg")
+			 *				.gallery3d("add", "2.jpg")
+			 *				.gallery3d("add", "3.jpg");
+			 *				.on("gallery3dinit", function () {
+			 *					$("#gallery3d").gallery3d("destroy");
+			 *				});
+			 *		</script>
+			 *
+			 * @method destroy
+			 * @public
+			 * @member ns.widget.mobile.Gallery3D
+			 */
+			/**
+			 * Destroy gallery 3D widget
+			 * @method _destroy
+			 * @protected
+			 * @member ns.widget.mobile.Gallery3D
+			 */
 			Gallery3D.prototype._destroy = function () {
-				this._imageList.length = 0;
-				this._path.length = 0;
-				this._final();
+				var self = this;
+				self._imageList.length = 0;
+				self._path.length = 0;
+				self._final();
 			};
 
+			/**
+			 * Initialize Gallery 3D widget
+			 * @method _init
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.mobile.Gallery3D
+			 */
 			Gallery3D.prototype._init = function (element) {
 				var self = this,
 					canvas = self._canvas;
@@ -549,7 +652,7 @@
 					self.element = element;
 				}
 				if (!canvas) {
-					self._canvas = canvas = element.querySelector('canvas');
+					self._canvas = canvas = element.querySelector("canvas");
 				}
 				self._gl = null;
 				self._shaderProgram = null;
@@ -579,19 +682,18 @@
 			};
 
 			/**
-			* Build structure of gallery
-			* @method _build
-			* @param {HTMLElement} element
-			* @return {HTMLElement}
-			* @protected
-			* @member ns.widget.mobile.Gallery3D
-			*/
+			 * Build structure of gallery
+			 * @method _build
+			 * @param {HTMLElement} element
+			 * @return {HTMLElement}
+			 * @protected
+			 * @member ns.widget.mobile.Gallery3D
+			 */
 			Gallery3D.prototype._build = function (element) {
 				var self = this,
-					canvas,
-					classes = Gallery3D.classes;
+					canvas;
 
-				canvas = document.createElement('canvas');
+				canvas = document.createElement("canvas");
 				canvas.className = classes.uiGallery3DCanvas;
 				self.element = element;
 				self._canvas = canvas;
@@ -602,14 +704,14 @@
 			};
 
 			/**
-			* Initialize Gallery:
-			* - take GL context,
-			* - init: shaders, textures,
-			* @method _initGallery
-			* @param {HTMLElement} canvas
-			* @protected
-			* @member ns.widget.mobile.Gallery3D
-			*/
+			 * Initialize Gallery:
+			 * - take GL context,
+			 * - init: shaders, textures,
+			 * @method _initGallery
+			 * @param {HTMLElement} canvas
+			 * @protected
+			 * @member ns.widget.mobile.Gallery3D
+			 */
 			Gallery3D.prototype._initGallery = function (canvas) {
 				var self = this,
 					pathPoints = [
@@ -667,14 +769,14 @@
 			};
 
 			/**
-			* Clear widget
-			* - removing textures,
-			* - clearing buffers,
-			* - release GL context
-			* @method _final
-			* @protected
-			* @member ns.widget.mobile.Gallery3D
-			*/
+			 * Clear widget
+			 * - removing textures,
+			 * - clearing buffers,
+			 * - release GL context
+			 * @method _final
+			 * @protected
+			 * @member ns.widget.mobile.Gallery3D
+			 */
 			Gallery3D.prototype._final = function () {
 				var self = this,
 					gl = self._gl;
@@ -713,12 +815,12 @@
 			};
 
 			/**
-			* Adding the touch handlers to gallery
-			* - scrolling gallery left/right on touch/mouse move
-			* @method _addTouchHandlers
-			* @protected
-			* @member ns.widget.mobile.Gallery3D
-			*/
+			 * Adding the touch handlers to gallery
+			 * - scrolling gallery left/right on touch/mouse move
+			 * @method _addTouchHandlers
+			 * @protected
+			 * @member ns.widget.mobile.Gallery3D
+			 */
 			Gallery3D.prototype._addTouchHandlers = function () {
 				var self = this,
 					view = self.element,
@@ -874,13 +976,13 @@
 			};
 
 			/**
-			* Initializing GL context
-			* @method _initGL
-			* @param {HTMLCanvasElement} canvas
-			* @return {?WebGLRenderingContext}
-			* @protected
-			* @member ns.widget.mobile.Gallery3D
-			*/
+			 * Initializing GL context
+			 * @method _initGL
+			 * @param {HTMLCanvasElement} canvas
+			 * @return {?WebGLRenderingContext}
+			 * @protected
+			 * @member ns.widget.mobile.Gallery3D
+			 */
 			Gallery3D.prototype._initGL = function (canvas) {
 				var self = this,
 					mat4 = glMatrix.mat4,
@@ -917,14 +1019,14 @@
 			};
 
 			/**
-			* Initializing shader program
-			* - enabling atributes
-			* @method _initShader
-			* @param {WebGLRenderingContext} gl
-			* @return {WebGLProgram}
-			* @protected
-			* @member ns.widget.mobile.Gallery3D
-			*/
+			 * Initializing shader program
+			 * - enabling atributes
+			 * @method _initShader
+			 * @param {WebGLRenderingContext} gl
+			 * @return {WebGLProgram}
+			 * @protected
+			 * @member ns.widget.mobile.Gallery3D
+			 */
 			Gallery3D.prototype._initShader = function (gl) {
 				var self = this,
 					shaderProgram;
@@ -957,18 +1059,18 @@
 			};
 
 			/**
-			* Initializing GL buffers
-			* Buffers of:
-			* - vertex positions,
-			* - textur positions,
-			* - normal vectors
-			* @method _initBuffers
-			* @param {WebGLRenderingContext} gl
-			* @param {WebGLProgram} shaderProgram
-			* @return {Object[]} Array of object cloned from nodePattern
-			* @protected
-			* @member ns.widget.mobile.Gallery3D
-			*/
+			 * Initializing GL buffers
+			 * Buffers of:
+			 * - vertex positions,
+			 * - textur positions,
+			 * - normal vectors
+			 * @method _initBuffers
+			 * @param {WebGLRenderingContext} gl
+			 * @param {WebGLProgram} shaderProgram
+			 * @return {Object[]} Array of object cloned from nodePattern
+			 * @protected
+			 * @member ns.widget.mobile.Gallery3D
+			 */
 			Gallery3D.prototype._initBuffers = function (gl, shaderProgram) {
 				var self = this,
 					i,
@@ -1008,20 +1110,20 @@
 
 				// Ambient light
 				gl.uniform3f(shaderProgram.ambientColorU, 0.1, 0.1, 0.1);
-				// Direcntion light
+				// Direction light
 				gl.uniform3f(shaderProgram.directionColorU, 1.0, 1.0, 1.0);
 
 				return nodes;
 			};
 
 			/**
-			* Loading and initilizing textures with loop
-			* @method _initTextures
-			* @param {WebGLRenderingContext} gl
-			* @param {Object[]} nodes
-			* @protected
-			* @member ns.widget.mobile.Gallery3D
-			*/
+			 * Loading and initilizing textures with loop
+			 * @method _initTextures
+			 * @param {WebGLRenderingContext} gl
+			 * @param {Object[]} nodes
+			 * @protected
+			 * @member ns.widget.mobile.Gallery3D
+			 */
 			Gallery3D.prototype._initTextures = function (gl, nodes) {
 				var self = this,
 					count = 0;
@@ -1043,16 +1145,16 @@
 			};
 
 			/**
-			* Load image and bind to node as texture
-			* @method _loadImage
-			* @param {string} url
-			* @param {number} i node's index
-			* @param {string} imageID
-			* @param {WebGLRenderingContext} gl
-			* @param {Object[]} nodes
-			* @protected
-			* @member ns.widget.mobile.Gallery3D
-			*/
+			 * Load image and bind to node as texture
+			 * @method _loadImage
+			 * @param {string} url
+			 * @param {number} i node's index
+			 * @param {string} imageID
+			 * @param {WebGLRenderingContext} gl
+			 * @param {Object[]} nodes
+			 * @protected
+			 * @member ns.widget.mobile.Gallery3D
+			 */
 			Gallery3D.prototype._loadImage = function (url, i, imageID, gl, nodes) {
 				var self = this,
 					isMipmap = false,
@@ -1072,7 +1174,7 @@
 					if (!self._animationID) {
 						self._setPosition(0, 0);
 					}
-					e.target.removeEventListener('load', onLoad, false);
+					e.target.removeEventListener("load", onLoad, false);
 				};
 
 				node.image.addEventListener("load", onLoad, false);
@@ -1101,15 +1203,15 @@
 			};
 
 			/**
-			* Load image and bind to node as texture
-			* @method _bindTexture
-			* @param {WebGLRenderingContext} gl
-			* @param {Object} node
-			* @param {HTMLImageElement} image
-			* @param {boolean} isMipmap
-			* @protected
-			* @member ns.widget.mobile.Gallery3D
-			*/
+			 * Load image and bind to node as texture
+			 * @method _bindTexture
+			 * @param {WebGLRenderingContext} gl
+			 * @param {Object} node
+			 * @param {HTMLImageElement} image
+			 * @param {boolean} isMipmap
+			 * @protected
+			 * @member ns.widget.mobile.Gallery3D
+			 */
 			Gallery3D.prototype._bindTexture = function (gl, node, image, isMipmap) {
 				if (!node || !node.texture) {
 					return;
@@ -1139,13 +1241,13 @@
 			};
 
 			/**
-			* Setup of image position at gallery view
-			* @method _setPosition
-			* @param {number} progress
-			* @param {number} direction
-			* @protected
-			* @member ns.widget.mobile.Gallery3D
-			*/
+			 * Setup of image position at gallery view
+			 * @method _setPosition
+			 * @param {number} progress
+			 * @param {number} direction
+			 * @protected
+			 * @member ns.widget.mobile.Gallery3D
+			 */
 			Gallery3D.prototype._setPosition = function (progress, direction) {
 				var self = this,
 					mat4 = glMatrix.mat4,
@@ -1243,11 +1345,11 @@
 			};
 
 			/**
-			* Draw scene
-			* @method _drawScene
-			* @protected
-			* @member ns.widget.mobile.Gallery3D
-			*/
+			 * Draw scene
+			 * @method _drawScene
+			 * @protected
+			 * @member ns.widget.mobile.Gallery3D
+			 */
 			Gallery3D.prototype._drawScene = function () {
 				if (!this._gl || !this._shaderProgram) {
 					return;
@@ -1280,13 +1382,13 @@
 			};
 
 			/**
-			* Draw element (one image)
-			* @method _drawElement
-			* @param {number[]} perspectiveMatrix
-			* @param {Object} targetNode
-			* @protected
-			* @member ns.widget.mobile.Gallery3D
-			*/
+			 * Draw element (one image)
+			 * @method _drawElement
+			 * @param {number[]} perspectiveMatrix
+			 * @param {Object} targetNode
+			 * @protected
+			 * @member ns.widget.mobile.Gallery3D
+			 */
 			Gallery3D.prototype._drawElement = function (perspectiveMatrix, targetNode) {
 				var self = this,
 					gl = self._gl,
@@ -1338,17 +1440,17 @@
 			};
 
 			/**
-			* Animation step
-			* @method _animate
-			* @param {string} easingType
-			* @param {number} duration
-			* @param {number} direction
-			* @param {number} repeatCount
-			* @param {number} startValue
-			* @param {number} _removeCount
-			* @protected
-			* @member ns.widget.mobile.Gallery3D
-			*/
+			 * Animation step
+			 * @method _animate
+			 * @param {string} easingType
+			 * @param {number} duration
+			 * @param {number} direction
+			 * @param {number} repeatCount
+			 * @param {number} startValue
+			 * @param {number} _removeCount
+			 * @protected
+			 * @member ns.widget.mobile.Gallery3D
+			 */
 			Gallery3D.prototype._animate = function (easingType, duration, direction, repeatCount, startValue, _removeCount) {
 				var self = this,
 					timeNow = Date.now(),
@@ -1393,14 +1495,14 @@
 			};
 
 			/**
-			* Animation start
-			* @method _run
-			* @param {number} direction
-			* @param {number} repeatCount
-			* @param {number} startValue
-			* @protected
-			* @member ns.widget.mobile.Gallery3D
-			*/
+			 * Animation start
+			 * @method _run
+			 * @param {number} direction
+			 * @param {number} repeatCount
+			 * @param {number} startValue
+			 * @protected
+			 * @member ns.widget.mobile.Gallery3D
+			 */
 			Gallery3D.prototype._run = function (direction, repeatCount, startValue) {
 				var self = this,
 					repeat = repeatCount || 0,
@@ -1427,34 +1529,39 @@
 			};
 
 			/**
-			* Reset widget state
-			* @method _reset
-			* @protected
-			* @member ns.widget.mobile.Gallery3D
-			*/
+			 * Reset widget state
+			 * @method _reset
+			 * @protected
+			 * @member ns.widget.mobile.Gallery3D
+			 * @chainable
+			 */
 			Gallery3D.prototype._reset = function () {
-				if (!this._canvas || !this._gl) {
-					return;
+				var self = this;
+				if (!self._canvas || !self._gl) {
+					return self;
 				}
 
-				this._final();
-				this._initGallery();
-				this.refresh();
+				self._final();
+				self._initGallery();
+				self.refresh();
+				return self;
 			};
 
 			/**
-			* Animation stop
-			* @method _stop
-			* @protected
-			* @member ns.widget.mobile.Gallery3D
-			*/
+			 * Animation stop
+			 * @method _stop
+			 * @protected
+			 * @member ns.widget.mobile.Gallery3D
+			 */
 			Gallery3D.prototype._stop = function () {
-				if (this._animationID !== 0) {
-					cancelAnimationFrame(this._animationID);
+				var self = this;
+				if (self._animationID !== 0) {
+					cancelAnimationFrame(self._animationID);
 				}
-				this._animationID = 0;
-				this._startTime = 0;
-				this._sumTime = 0;
+				self._animationID = 0;
+				self._startTime = 0;
+				self._sumTime = 0;
+				return self;
 			};
 
 			/**
@@ -1463,28 +1570,37 @@
 			 * This method moves each image forward.
 			 *
 			 *		@example
-			 *		var element = document.getElementById("gallery3d"),
-			 *			gallery3d = tau.widget.Gallery3D(element);
+			 *		<div id="gallery3d"></div>
+			 *		<script>
+			 *			var element = document.getElementById("gallery3d"),
+			 *				gallery3d = tau.widget.Gallery3D(element);
 			 *
-			 *		gallery3d.add({src: "1.jpg"});
-			 *		gallery3d.add({src: "2.jpg"});
-			 *		gallery3d.add({src: "3.jpg"});
+			 *			gallery3d.add("1.jpg")
+			 *				.add("2.jpg")
+			 *				.add("3.jpg")
+			 *				.next();
+			 *		</script>
 			 *
-			 *		gallery3d.next();
+			 * or jQueryMobile notation:
 			 *
-			 *
-			 *		// or jQueryMobile
-			 *		$("#gallery3d").gallery3d()
-			 *			.gallery3d("add", {src: "1.jpg" })
-			 *			.gallery3d("add", {src: "2.jpg" })
-			 *			.gallery3d("add", {src: "3.jpg" })
-			 *			.gallery3d("next");
+			 *		@example
+			 *		<div id="gallery3d"></div>
+			 *		<script>
+			 *			$("#gallery3d").gallery3d()
+			 *				.gallery3d("add", "1.jpg")
+			 *				.gallery3d("add", "2.jpg")
+			 *				.gallery3d("add", "3.jpg")
+			 *				.gallery3d("next");
+			 *		</script>
 			 *
 			 * @method next
 			 * @member ns.widget.mobile.Gallery3D
+			 * @chainable
 			 */
 			Gallery3D.prototype.next = function () {
-				this._run(DIRECTION_LEFT, 0);
+				var self = this;
+				self._run(DIRECTION_LEFT, 0);
+				return self;
 			};
 
 			/**
@@ -1493,29 +1609,38 @@
 			 * This method moves each image backward.
 			 *
 			 *		@example
-			 *		var element = document.getElementById("gallery3d"),
-			 *			gallery3d = tau.widget.Gallery3D(element);
+			 *		<div id="gallery3d"></div>
+			 *		<script>
+			 *			var element = document.getElementById("gallery3d"),
+			 *				gallery3d = tau.widget.Gallery3D(element);
 			 *
-			 *		gallery3d.add({src: "1.jpg"});
-			 *		gallery3d.add({src: "2.jpg"});
-			 *		gallery3d.add({src: "3.jpg"});
+			 *			gallery3d.add("1.jpg")
+			 *				.add("2.jpg")
+			 *				.add("3.jpg")
+			 *				.prev();
+			 *		</script>
 			 *
-			 *		gallery3d.prev();
+			 * or jQueryMobile notation:
 			 *
-			 *
-			 *		// or jQueryMobile
-			 *		$("#gallery3d").gallery3d()
-			 *			.gallery3d("add", {src: "1.jpg"})
-			 *			.gallery3d("add", {src: "2.jpg"})
-			 *			.gallery3d("add", {src: "3.jpg"})
-			 *			.gallery3d("prev");
-			 *		});
+			 *		@example
+			 *		<div id="gallery3d"></div>
+			 *		<script>
+			 *			$("#gallery3d").gallery3d()
+			 *				.gallery3d("add", "1.jpg")
+			 *				.gallery3d("add", "2.jpg")
+			 *				.gallery3d("add", "3.jpg")
+			 *				.gallery3d("prev");
+			 *			});
+			 *		</script>
 			 *
 			 * @method prev
 			 * @member ns.widget.mobile.Gallery3D
+			 * @chainable
 			 */
 			Gallery3D.prototype.prev = function () {
-				this._run(DIRECTION_RIGHT, 0);
+				var self = this;
+				self._run(DIRECTION_RIGHT, 0);
+				return self;
 			};
 
 			/**
@@ -1524,47 +1649,56 @@
 			 * This method updates and redraws current widget.
 			 *
 			 *		@example
-			 *		var element = document.getElementById("gallery3d"),
-			 *			gallery3d = tau.widget.Gallery3D(element);
+			 *		<div id="gallery3d"></div>
+			 *		<script>
+			 *			var element = document.getElementById("gallery3d"),
+			 *				gallery3d = tau.widget.Gallery3D(element);
 			 *
-			 *		gallery3d.add({src: "1.jpg"});
-			 *		gallery3d.add({src: "2.jpg"});
-			 *		gallery3d.add({src: "3.jpg"});
+			 *			gallery3d.add("1.jpg")
+			 *				.add("2.jpg")
+			 *				.add("3.jpg")
+			 *				.on("gallery3dinit", function () {
+			 *					gallery3d.refresh();
+			 *				});
+			 *		</script>
 			 *
-			 *		gallery3d.on("gallery3dinit", function () {
-			 *			gallery3d.refresh();
-			 *		});
+			 * or jQueryMobile notation:
 			 *
-			 *		// or jQueryMobile
-			 *		$("#gallery3d").gallery3d()
-			 *			.gallery3d("add", {src: "1.jpg" })
-			 *			.gallery3d("add", {src: "2.jpg" })
-			 *			.gallery3d("add", {src: "3.jpg" });
-			 *			.on("gallery3dinit", function () {
-			 *				$("#gallery3d").gallery3d("refresh");
-			 *			});
+			 *		@example
+			 *		<div id="gallery3d"></div>
+			 *		<script>
+			 *			$("#gallery3d").gallery3d()
+			 *				.gallery3d("add", "1.jpg")
+			 *				.gallery3d("add", "2.jpg")
+			 *				.gallery3d("add", "3.jpg");
+			 *				.on("gallery3dinit", function () {
+			 *					$("#gallery3d").gallery3d("refresh");
+			 *				});
+			 *		</script>
 			 *
 			 * @method refresh
 			 * @member ns.widget.mobile.Gallery3D
 			 */
 
 			/**
-			* Refreshing of gallery
-			* @method _refresh
-			* @protected
-			* @member ns.widget.mobile.Gallery3D
-			*/
+			 * Refreshing of gallery
+			 * @method _refresh
+			 * @protected
+			 * @member ns.widget.mobile.Gallery3D
+			 */
 			Gallery3D.prototype._refresh = function () {
-				var view = this.element,
+				var self = this,
+					view = self.element,
 					canvas = view.querySelector("canvas.ui-gallery3d-canvas");
 
 				if (utilsDOM.getElementWidth(canvas) !== utilsDOM.getElementWidth(view)) {
 					canvas.style.width = utilsDOM.getElementWidth(view);
 				}
 
-				if (this._gl && !this._animationID) {
-					this._setPosition(0, 0);
+				if (self._gl && !self._animationID) {
+					self._setPosition(0, 0);
 				}
+				return self;
 			};
 
 			/**
@@ -1574,26 +1708,32 @@
 			 * If the method is called with no argument, it returns the selected image's object.
 			 *
 			 *		@example
-			 *		var element = document.getElementById("gallery3d"),
-			 *			gallery3d = tau.widget.Gallery3D(element);
+			 *		<div id="gallery3d"></div>
+			 *		<script>
+			 *			var element = document.getElementById("gallery3d"),
+			 *				gallery3d = tau.widget.Gallery3D(element);
 			 *
-			 *		gallery3d.add({src: "1.jpg"});
-			 *		gallery3d.add({src: "2.jpg"});
-			 *		gallery3d.add({src: "3.jpg"});
+			 *			gallery3d.add("1.jpg")
+			 *				.add("2.jpg")
+			 *				.add("3.jpg")
+			 *				.on("gallery3dinit", function () {
+			 *					gallery3d.select();
+			 *				});
+			 *		</script>
 			 *
-			 *		gallery3d.on("gallery3dinit", function () {
-			 *			gallery3d.select();
-			 *		});
+			 * or jQueryMobile notation:
 			 *
-			 *
-			 *		// or jQueryMobile
-			 *		$("#gallery3d").gallery3d()
-			 *			.gallery3d("add", {src: "1.jpg"})
-			 *			.gallery3d("add", {src: "2.jpg"})
-			 *			.gallery3d("add", {src: "3.jpg"});
-			 *			.on("gallery3dinit", function () {
-			 *				$("#gallery3d").gallery3d("select");
-			 *			});
+			 *		@example
+			 *		<div id="gallery3d"></div>
+			 *		<script>
+			 *			$("#gallery3d").gallery3d()
+			 *				.gallery3d("add", "1.jpg")
+			 *				.gallery3d("add", "2.jpg")
+			 *				.gallery3d("add", "3.jpg");
+			 *				.on("gallery3dinit", function () {
+			 *					$("#gallery3d").gallery3d("select");
+			 *				});
+			 *		</script>
 			 *
 			 * @method select
 			 * @param {number} [index=undefined] Index of image which will be selected
@@ -1601,20 +1741,21 @@
 			 * @member ns.widget.mobile.Gallery3D
 			 */
 			Gallery3D.prototype.select = function (index) {
-				var nodes = this._nodes,
+				var self = this,
+					nodes = self._nodes,
 					i,
 					imageID,
 					object = null,
 					target,
 					direction;
 
-				if (index && this._animationID !== 0) {
-					this._stop();
+				if (index && self._animationID !== 0) {
+					self._stop();
 				}
 
 				for (i in nodes) {
 					if (nodes.hasOwnProperty(i) && nodes[i].level === 1) {
-						object = this._imageList[nodes[i].imageID];
+						object = self._imageList[nodes[i].imageID];
 						imageID = nodes[i].imageID;
 						break;
 					}
@@ -1624,7 +1765,7 @@
 					return object;
 				}
 
-				if (index < 0 && index >= this._imageList.length) {
+				if (index < 0 && index >= self._imageList.length) {
 					return null;
 				}
 
@@ -1632,7 +1773,7 @@
 				direction = (target > 0) ? DIRECTION_LEFT
 					: ((target < 0) ? DIRECTION_RIGHT : 0);
 				if (direction) {
-					this._run(direction, Math.abs(target) - 1);
+					self._run(direction, Math.abs(target) - 1);
 				}
 				return null;
 			};
@@ -1643,27 +1784,36 @@
 			 * If the second argument is not defined, the image is added at the 0 position.
 			 *
 			 *		@example
-			 *		var element = document.getElementById("gallery3d"),
-			 *			gallery3d = tau.widget.Gallery3D(element);
+			 *		<div id="gallery3d"></div>
+			 *		<script>
+			 *			var element = document.getElementById("gallery3d"),
+			 *				gallery3d = tau.widget.Gallery3D(element);
 			 *
-			 *		gallery3d.add({src: "1.jpg"});
-			 *		gallery3d.add("2.jpg", 1);
+			 *			gallery3d.add({src: "1.jpg"})
+			 *				.add("2.jpg")
+			 *		</script>
 			 *
+			 * or jQueryMobile notation:
 			 *
-			 *		// or jQueryMobile
-			 *		$("#gallery3d").gallery3d()
-			 *			.gallery3d("add", {src: "1.jpg"});
-			 *			.gallery3d("add", "2.jpg", 1);
+			 *		@example
+			 *		<div id="gallery3d"></div>
+			 *		<script>
+			 *			$("#gallery3d").gallery3d()
+			 *				.gallery3d("add", {src: "1.jpg"});
+			 *				.gallery3d("add", "2.jpg", 1);
+			 *		</script>
 			 *
 			 * @method add
 			 * @param {Object|string} item url to image source
 			 * @param {string} item.src url to image source
 			 * @param {number} [index=this._imageList.length]
 			 * @member ns.widget.mobile.Gallery3D
+			 * @chainable
 			 */
 			Gallery3D.prototype.add = function (item, index) {
+				var self = this;
 				if (!item) {
-					return;
+					return self;
 				}
 
 				if (typeof item === "string") {
@@ -1672,14 +1822,15 @@
 
 				index = index || 0;
 				if (typeof index !== "number" && index < 0 &&
-						index >= this._imageList.length) {
-					return;
+						index >= self._imageList.length) {
+					return self;
 				}
 
-				this._imageList.splice(index, 0, item);
-				if (this._gl) {
-					this._reset();
+				self._imageList.splice(index, 0, item);
+				if (self._gl) {
+					self._reset();
 				}
+				return self;
 			};
 
 			/**
@@ -1689,41 +1840,51 @@
 			 * If an argument isn't inputted, it removes current image.
 			 *
 			 *		@example
-			 *		var element = document.getElementById("gallery3d"),
-			 *			gallery3d = tau.widget.Gallery3D(element);
+			 *		<div id="gallery3d"></div>
+			 *		<script>
+			 *			var element = document.getElementById("gallery3d"),
+			 *				gallery3d = tau.widget.Gallery3D(element);
 			 *
-			 *		gallery3d.add({src: "1.jpg"});
-			 *		gallery3d.add({src: "2.jpg"});
-			 *		gallery3d.add({src: "3.jpg"});
+			 *			gallery3d.add("1.jpg")
+			 *				.add("2.jpg")
+			 *				.add("3.jpg");
 			 *
-			 *		gallery3d.remove();
-			 *		gallery3d.remove(1);
+			 *			gallery3d.remove()
+			 *				.remove(1);
+			 *		</script>
 			 *
+			 * or jQueryMobile notation:
 			 *
-			 *		// or jQueryMobile
-			 *		$("#gallery3d").gallery3d()
-			 *			.gallery3d("add", {src: "1.jpg" })
-			 *			.gallery3d("add", {src: "2.jpg" })
-			 *			.gallery3d("add", {src: "3.jpg" });
+			 *		@example
+			 *		<div id="gallery3d"></div>
+			 *		<script>
+			 *			$("#gallery3d").gallery3d()
+			 *				.gallery3d("add", "1.jpg")
+			 *				.gallery3d("add", "2.jpg")
+			 *				.gallery3d("add", "3.jpg");
 			 *
-			 *			$("#gallery3d").gallery3d("remove");
-			 *			$("#gallery3d").gallery3d("remove", 1);
+			 *				$("#gallery3d").gallery3d("remove");
+			 *				$("#gallery3d").gallery3d("remove", 1);
+			 *		</script>
 			 *
 			 * @method remove
 			 * @param {number} [index=0] Index of item to remove
 			 * @member ns.widget.mobile.Gallery3D
+			 * @chainable
 			 */
 			Gallery3D.prototype.remove = function (index) {
+				var self = this;
 				index = index || 0;
 				if (typeof index !== "number" && index < 0 &&
-						index >= this._imageList.length) {
-					return;
+						index >= self._imageList.length) {
+					return self;
 				}
 
-				this._imageList.splice(index, 1);
-				if (this._gl) {
-					this._reset();
+				self._imageList.splice(index, 1);
+				if (self._gl) {
+					self._reset();
 				}
+				return self;
 			};
 
 			/**
@@ -1733,37 +1894,46 @@
 			 * when the thumbnailCache option is set to true.
 			 *
 			 *		@example
-			 *		var element = document.getElementById("gallery3d"),
-			 *			gallery3d = tau.widget.Gallery3D(element);
+			 *		<div id="gallery3d"></div>
+			 *		<script>
+			 *			var element = document.getElementById("gallery3d"),
+			 *				gallery3d = tau.widget.Gallery3D(element);
 			 *
-			 *		gallery3d.add({src: "1.jpg"});
-			 *		gallery3d.add({src: "2.jpg"});
-			 *		gallery3d.add({src: "3.jpg"});
+			 *			gallery3d.add("1.jpg")
+			 *				.add("2.jpg")
+			 *				.add("3.jpg")
+			 *				.clearThumbnailCache();
+			 *		</script>
 			 *
-			 *		gallery3d.clearThumbnailCache();
+			 * or jQueryMobile notation:
 			 *
-			 *
-			 *		// or jQueryMobile
-			 *		$("#gallery3d").gallery3d()
-			 *			.gallery3d("add", {src: "1.jpg"})
-			 *			.gallery3d("add", {src: "2.jpg"})
-			 *			.gallery3d("add", {src: "3.jpg"});
+			 *		@example
+			 *		<div id="gallery3d"></div>
+			 *		<script>
+			 *			$("#gallery3d").gallery3d()
+			 *				.gallery3d("add", "1.jpg")
+			 *				.gallery3d("add", "2.jpg")
+			 *				.gallery3d("add", "3.jpg");
 			 *
 			 *			$("#gallery3d").gallery3d("clearThumbnailCache");
+			 *		</script>
 			 *
 			 * @method clearThumbnailCache
 			 * @member ns.widget.mobile.Gallery3D
+			 * @chainable
 			 */
 			Gallery3D.prototype.clearThumbnailCache = function () {
-				if (!this._nodes || (this._nodes.length <= 0)) {
-					return;
+				var self = this;
+				if (!self._nodes || (self._nodes.length <= 0)) {
+					return self;
 				}
 
 				var i, url;
-				for (i = 0; i < this._imageList.length; i += 1) {
-					url = this._imageList[i].src;
+				for (i = 0; i < self._imageList.length; i += 1) {
+					url = self._imageList[i].src;
 					imageloader.removeThumbnail(url);
 				}
+				return self;
 			};
 
 			/**
@@ -1772,56 +1942,72 @@
 			 * The method removes all of images from the gallery 3D widget.
 			 *
 			 *		@example
-			 *		var element = document.getElementById("gallery3d"),
-			 *			gallery3d = tau.widget.Gallery3D(element);
+			 *		<div id="gallery3d"></div>
+			 *		<script>
+			 *			var element = document.getElementById("gallery3d"),
+			 *				gallery3d = tau.widget.Gallery3D(element);
 			 *
-			 *			gallery3d.add({src: "1.jpg"});
-			 *			gallery3d.add({src: "2.jpg"});
-			 *			gallery3d.add({src: "3.jpg"});
+			 *			gallery3d.add("1.jpg")
+			 *				.add("2.jpg")
+			 *				.add("3.jpg")
+			 *				.empty();
+			 *		</script>
 			 *
-			 *			gallery3d.empty();
+			 * or jQueryMobile notation:
 			 *
-			 *
-			 *		// or jQueryMobile
-			 *		$("#gallery3d").gallery3d()
-			 *			.gallery3d("add", {src: "1.jpg"})
-			 *			.gallery3d("add", {src: "2.jpg"})
-			 *			.gallery3d("add", {src: "3.jpg"});
+			 *		@example
+			 *		<div id="gallery3d"></div>
+			 *		<script>
+			 *			$("#gallery3d").gallery3d()
+			 *				.gallery3d("add", "1.jpg")
+			 *				.gallery3d("add", "2.jpg")
+			 *				.gallery3d("add", "3.jpg");
 			 *
 			 *			$("#gallery3d").gallery3d("empty");
 			 *		});
+			 *		</script>
 			 *
 			 * @method empty
 			 * @member ns.widget.mobile.Gallery3D
+			 * @chainable
 			 */
 			Gallery3D.prototype.empty = function () {
-				this._imageList = [];
-				this._reset();
+				var self = this;
+				self._imageList = [];
+				self._reset();
+				return self;
 			};
 
 			/**
 			 * Return the count of images in gallery
 			 *
 			 *		@example
-			 *		var element = document.getElementById("gallery3d"),
-			 *			gallery3d = tau.widget.Gallery3D(element);
+			 *		<div id="gallery3d"></div>
+			 *		<script>
+			 *			var element = document.getElementById("gallery3d"),
+			 *				gallery3d = tau.widget.Gallery3D(element);
 			 *
-			 *			gallery3d.add({src: "1.jpg"});
-			 *			gallery3d.add({src: "2.jpg"});
-			 *			gallery3d.add({src: "3.jpg"});
+			 *			gallery3d.add("1.jpg")
+			 *				.add("2.jpg")
+			 *				.add("3.jpg");
 			 *
-			 *		var imagesLength = gallery3d.length();
-			 *		// imagesLength = 3;
+			 *			var imagesLength = gallery3d.length();
+			 *			// imagesLength = 3;
+			 *		</script>
 			 *
+			 * or jQueryMobile notation:
 			 *
-			 *		// or jQueryMobile
-			 *		$("#gallery3d").gallery3d()
-			 *			.gallery3d("add", {src: "1.jpg"})
-			 *			.gallery3d("add", {src: "2.jpg"})
-			 *			.gallery3d("add", {src: "3.jpg"});
+			 *		@example
+			 *		<div id="gallery3d"></div>
+			 *		<script>
+			 *			$("#gallery3d").gallery3d()
+			 *				.gallery3d("add", "1.jpg")
+			 *				.gallery3d("add", "2.jpg")
+			 *				.gallery3d("add", "3.jpg");
 			 *
-			 *		var imagesLength = $("#gallery3d").gallery3d("length");
-			 *		// imagesLength = 3;
+			 *			var imagesLength = $("#gallery3d").gallery3d("length");
+			 *			// imagesLength = 3;
+			 *		</script>
 			 *
 			 * @method length
 			 * @return {number} the count of images in gallery
@@ -1832,11 +2018,12 @@
 			};
 
 			/**
-			* Binding events to the widget elements
-			* @method _bindEvents
-			* @protected
-			* @member ns.widget.mobile.Gallery3D
-			*/
+			 * Binding events to the widget elements
+			 * @method _bindEvents
+			 * @protected
+			 * @member ns.widget.mobile.Gallery3D
+			 * @chainable
+			 */
 			Gallery3D.prototype._bindEvents = function () {
 				var self = this,
 					canvas = self._canvas,
@@ -1857,7 +2044,7 @@
 				self._addTouchHandlers();
 
 				document.addEventListener("pagechange", function (e) {
-					var widget = ns.engine.getBinding(e.target.querySelector(Gallery3D.classes.uiGallery3D));
+					var widget = ns.engine.getBinding(e.target.querySelector(classes.uiGallery3D));
 					if (widget) {
 						widget.refresh();
 					}
@@ -1865,6 +2052,7 @@
 				window.addEventListener("orientationchange", onWindowChange, false);
 				window.addEventListener("resize", onWindowChange, false);
 
+				return self;
 			};
 
 			// definition
@@ -1872,11 +2060,11 @@
 			engine.defineWidget(
 				"Gallery3D",
 				"[data-role='gallery3d']",
-				['add', 'remove', 'next', 'prev',
-					'select', 'clearThumbnailCache',
-					'empty', 'length'],
+				["add", "remove", "next", "prev",
+					"select", "clearThumbnailCache",
+					"empty", "length"],
 				Gallery3D,
-				'tizen'
+				"tizen"
 			);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.widget.mobile.Gallery3D;

@@ -1,0 +1,29 @@
+/****************************
+ theme
+****************************/
+.ui-footer.ui-bar-s {
+    [data-role="controlgroup"] {
+        [data-role="button"] {
+            border-left-width : 0px;
+
+            &.ui-btn-up-s {
+/*              .LESSborder-radius-all(0);*/
+            }
+            &.ui-btn-down-s, .ui-btn-active-s {
+/*              .LESSborder-radius-all(0);*/
+                .ui-btn-inner {
+/*                  background : @color_bar_toolbar_bg;*/
+                    .ui-btn-text {
+                        color : @color_bar_title_text;
+                    }
+                }
+            }
+
+            .ui-btn-text {
+                font-size : 19 * @unit_base;
+                color : @color_bar_toolbar_button_text;
+            }
+        }
+    }
+}
+
