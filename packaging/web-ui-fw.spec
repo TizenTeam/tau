@@ -42,7 +42,6 @@ Summary:    Tizen Web UI Framework Theme : tizen-white
 	Tizen Web UI Framework Theme : tizen-white
 %files -n web-ui-fw-theme-tizen-white
 %manifest web-ui-fw-theme-tizen-white.manifest
-/usr/share/tau/theme/mobile/white
 /usr/share/tizen-web-ui-fw/*/themes/tizen-white
 /usr/share/tizen-web-ui-fw/latest
 
@@ -54,7 +53,6 @@ Summary:    Tizen Web UI Framework Theme : tizen-black
 	Tizen Web UI Framework Theme : tizen-black
 %files -n web-ui-fw-theme-tizen-black
 %manifest web-ui-fw-theme-tizen-black.manifest
-/usr/share/tau/theme/mobile/black
 /usr/share/tizen-web-ui-fw/*/themes/tizen-black
 /usr/share/tizen-web-ui-fw/*/themes/tizen-tizen
 /usr/share/tizen-web-ui-fw/latest
