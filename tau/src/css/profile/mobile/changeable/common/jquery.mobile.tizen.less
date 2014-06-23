@@ -4,7 +4,9 @@
 @em_base: 1em/@font_size_default;	// WARNING: Don't use em unit!	This value is to be removed.
 @px_base: 1px;
 
-@unit_base: @rem_base;
+/* for Accessibility: so many winset elements have fixed size regardless of changing font-size.
+So, we set @px_base for unit_base. and some elements will have @rem_base in less file. */
+@unit_base: @px_base;
 
 @font_family: Tizen, Helvetica;
 
