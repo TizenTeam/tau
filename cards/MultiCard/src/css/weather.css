@@ -1,0 +1,351 @@
+/* FIXME : developer can control ratio of main content and sub content.
+		   Currently, It is fixed with 7:3.
+*/
+
+html, body {	margin: 0;	padding: 0;	}
+body {
+	background-color: black;
+	text-align: center;
+	color: white;
+	overflow: hidden;
+}
+h1, h2, h3, h4, h5, h6, p { margin: 0; font-family: Sans-Serif; }
+fieldset,img { border: 0; }
+
+.container, .header, .content, .main, .sub {	height:100%;	width: 100%;	}
+
+.header {	height: 10%;	}
+.header + .content {	height: 90%;	}
+
+.main {
+	height: 70%;
+	border-bottom: 1px solid gray;
+}
+.sub {
+	height: 30%;
+}
+.current-weather {
+	width: 30%;
+	float: left;
+	margin-left: 18%;
+	margin-top: 12%;
+}
+.current-degree {
+	font-size: 3em;
+	width: 18%;
+	float: left;
+	margin-top: 18%;
+}
+.current-temp {
+	width: 13%;
+	float: left;
+	margin-top: 16%;
+}
+.differ {
+	position: absolute;
+	font-size: 1.5em;
+	top: 55%;
+	right: 16%;
+}
+.subWeather1 {
+	width: 33%;
+	height: 81%;
+	float: left;
+	border-right: 1px solid gray;
+	margin-top: 4%;
+}
+.subWeather2 {
+	width: 33%;
+	height: 81%;
+	float: left;
+	margin-top: 4%;
+}
+.subWeather3 {
+	width: 33%;
+	height: 81%;
+	float: left;
+	border-left: 1px solid gray;
+	margin-top: 4%;
+}
+.date,
+.short_date {
+	margin-bottom: 5px;
+}
+.high_temp,
+.low_temp {
+	padding-left: 12px;
+	margin-left: 5px;
+}
+.humid {
+}
+
+.date,
+.short_date {
+	text-transform: capitalize;
+}
+
+.short_date {
+	display: none;
+}
+
+.header {
+	text-transform: capitalize;
+}
+
+/**** icons ***/
+.subWeather1 > *,
+.subWeather2 > *,
+.subWeather3 > * {
+	margin-left: auto;
+	margin-right: auto;
+	width:95px;
+}
+
+.todayT > * {
+	float: left;
+}
+
+.todayT:after {
+	content: ".";
+	width: 0;
+	height: 0;
+	visibility: hidden;
+	clear: left;
+}
+
+.arrow,
+.humid {
+	position: relative;
+	margin-top: 8px;
+}
+
+.arrow:before,
+.humid:before{
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 0;
+    width: 15px;
+	height: 15px;
+	background-color: transparent;
+	background-image: url('../images/icons_128.png');
+	background-repeat: no-repeat;
+	background-size: 46px 15px;
+	background-position: 0 0;
+}
+
+.arrow.high_temp:before {
+	background-position: -34px -1px;
+}
+
+.arrow.low_temp:before {
+	background-position: -19px 1px;
+}
+
+.humid:before {
+	background-position: -3px -1px;
+}
+
+.high_temp {
+	color: #e46c0a;
+}
+
+.low_temp {
+	color: #558ed5;
+}
+
+.humid {
+	margin-top: 30px;
+	width: 60px;
+	margin-left: auto;
+	margin-right: auto;
+}
+/*** /icons ***/
+
+
+/* landscape : 320 x 160 */
+@media all and (device-width: 320px) and (device-height: 160px)
+/* @media all and (orientation: landscape)*/
+{
+	.header + .content {
+		height: 79%;
+	}
+
+	.header {
+		margin-bottom: 5%;
+	}
+	.main {
+		float: right;
+		width: 69%;
+		height: 95%%;
+		display: inline-block;
+		border-bottom: 0;
+		border-left: 1px solid gray;
+	}
+	.sub {
+		float: left;
+		width: 30%;
+		height: 81%;
+		display: inline-block;
+	}
+	.current-weather {
+		width: 40%;
+		float: left;
+		margin-left: 10%;
+		margin-top: 3%;
+	}
+	.current-degree {
+		width: 23%;
+		margin-top: 10%;
+	}
+	.current-temp {
+		width: 17%;
+		margin-top: 8%;
+	}
+	.subWeather1 {
+		width: 97%;
+		height: 80%;
+		border: 0;
+		float: left;
+		margin-top: 10%;
+	}
+	.differ {
+		font-size: 1.3em;
+		top: 78%;
+		right: 2%;
+	}
+	.date {
+		margin-bottom: 10px;
+	}
+	.todayT,
+	.todayH {
+		margin-bottom: 5px;
+	}
+	.subWeather2 {
+		display: none;
+	}
+	.subWeather3 {
+		display: none;
+	}
+}
+
+/* portrait : 160 x 320 */
+@media all and (device-width: 160px) and (device-height:320px)
+/*@media all and (orientation: portrait) */
+{
+	.main {
+		height: 43%;
+	}
+	.sub {
+		height: 53%;
+	}
+	.current-weather {
+		margin-left: 0;
+		width: 50%;
+		margin-top: 5%;
+	}
+	.current-degree {
+		width: 25%;
+		margin-top: 15%;
+		margin-left: -6%;
+	}
+	.current-temp {
+		width: 19%;
+		margin-top: 18%;
+		margin-left: 6%;
+	}
+	.differ {
+		font-size: 1em;
+		top: 36%;
+		right: auto;
+		left: 10px;
+	}
+	.date {
+		display: none;
+	}
+
+	.short_date {
+		display: block;
+		font-size: 1.2em;
+		margin-top: 5%;
+		margin-bottom: 5%;	
+	}
+
+	.subWeather1,
+	.subWeather2,
+	.subWeather3 {
+		width: 52px;
+		margin-left: auto;
+		margin-right: auto;
+		float: left;
+		height: 100%;
+	}
+
+	.subWeather1 > *,
+	.subWeather2 > *,
+	.subWeather3 > * {
+		width: auto;
+	}
+
+	.todayT > * {
+		float: none;
+	}
+	
+	.todayT:after {
+		display: none;
+	}
+
+	.high_temp,
+	.low_temp {
+		width: 55%;
+		margin-top: 15px;
+	}
+
+	.humid {
+		width: auto;
+		margin-left: 2px;
+		margin-right: auto;
+		margin-top: 15px;
+		padding-left: 10px;
+	}	
+}
+
+@media all and (device-width: 320px) and (device-height: 320px) {
+	.current-degree {
+		font-size: 50pt;
+		margin-top: 6%;
+	}
+
+	.current-weather {
+		width: 40%;
+		margin-left: 8%;
+		margin-top: 4%;
+	}	
+
+	.current-temp {
+		margin-top: 9%;
+	}
+
+	.main {
+		height: 55%;
+	}
+
+	.sub {
+		height: 44%;
+	}
+
+	.differ {
+		left: 43%;
+		right: auto;
+		top: 40%;
+	}
+
+	.high_temp, 
+	.low_temp {
+		padding-left: 9px;
+	}
+
+	.todayT {
+		height: 27px;
+	}
+}

@@ -1,0 +1,111 @@
+
+
+
+div.ui-slider.ui-toggle-switch {
+	position: relative;
+	width: 68 * @unit_base;
+	height: 32 * @unit_base;
+	background-image: url(images/00_button_on_off_bg.png);
+	background-size: 100% 100%;
+
+	.ui-slider-label {
+		position: absolute;
+		background-size : 100% 100%;
+		background-repeat : no-repeat;
+		background-color : transparent;
+
+	}
+	.ui-slider-inneroffset {
+		position: relative;
+		margin-left:18 * @unit_base;
+		margin-right:23 * @unit_base;
+	}
+	a.ui-slider-handle {
+		position: absolute;
+		width : 41 * @unit_base;
+		height : 32 * @unit_base;
+		-webkit-background-size: 100% 100%;
+		margin-top: 0 * @unit_base;
+		max-width : none;
+		&.ui-toggle-on {
+			background-image: url(images/00_button_on_handler.png);
+			padding-right : 0;
+		}
+		&.ui-toggle-off {
+			background-image: url(images/00_button_off_handler.png);
+			padding-right : 0;
+		}
+	}
+	a.ui-slider-handle-snapping {
+		-webkit-transition: left 70ms linear;
+	}
+}
+
+.ui-slider-switch:not(.ui-toggle-switch) {
+	width : 92 * @unit_base;
+}
+
+div.ui-slider.ui-slider-switch:not(.ui-toggle-switch) {
+	position : relative;
+
+	margin-top : 5 * @unit_base;
+	margin-bottom : 5 * @unit_base;
+
+	height : 32 * @unit_base;
+	top: 0;
+	margin: 5 * @unit_base;
+	border-radius : 15 * @unit_base;
+
+	.ui-slider-inneroffset {
+		position : relative;
+		margin : -1px 16 * @unit_base;
+		z-index : 1;
+	}
+
+	a.ui-slider-handle {
+		position : absolute;
+		background : rgba(255, 255, 255, 1);
+		background-image : -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 50, from(rgb(249, 249, 249)), to(rgb(50, 50, 50)));
+		-webkit-box-shadow : 0 1px 2px rgba(0, 0, 0, .2);
+		top : 50%;
+		margin : 1px 0 0 -15 * @unit_base;
+		border-radius : 15 * @unit_base;
+		border : 2px solid gray;
+
+		width : 28 * @unit_base;
+		height : 28 * @unit_base;
+	}
+
+	a.ui-slider-handle-snapping {
+		-webkit-transition : left 70ms linear;
+	}
+
+	span {
+		position : absolute;
+		overflow : hidden;
+		text-align : center;
+		height :  32 * @unit_base;
+		font-weight : bold;
+		font-size : 16 * @unit_base;
+		border-radius : 15 * @unit_base;
+		white-space : nowrap;
+		line-height : 2;
+
+		&.ui-slider-label-a {
+			left : 0px;
+			color : white;
+			z-index : 1;
+			text-indent : -1.5em;
+		}
+		&.ui-slider-label-b {
+			right : 0px;
+			color : @color_slider_label_text;
+			z-index : 0;
+			text-indent : 1.5em;
+		}
+	}
+}
+
+.ui-slider-switch .ui-slider-handle .ui-btn-inner {
+	padding : 0;
+}

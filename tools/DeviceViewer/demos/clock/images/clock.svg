@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg viewBox="0 0 202 202" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://web.resource.org/cc/">
+	<style type="text/css" >
+	<![CDATA[
+		circle {
+			fill: rgb(25,25,25);
+			stroke: rgb(20, 50, 120);
+		}
+
+		#clock-seconds {
+			fill: none;
+			stroke: rgb(200, 50, 30);
+			stroke-width: 10;
+		}
+
+		#clock-minutes {
+			fill: none;
+			stroke: rgb(20, 40, 150);
+			stroke-width: 10;
+		}
+
+		#clock-hours {
+			fill: none;
+			stroke: rgb(0, 170, 50);
+			stroke-width: 10;
+		}
+
+		#clock-time {
+			font-size: 20pt;
+			font-weight: bold;
+			font-family: arial;
+			fill: rgb(120,120,120);
+		}
+	]]></style>
+	<circle cx="100" cy="100" r="100" />
+	<path id="clock-seconds" d="M100,10 A90,90 0 0,1 100,10"></path>
+	<path id="clock-minutes" d="M100,30 A70,70 0 0,1 100,30"></path>
+	<path id="clock-hours" d="M100,50 A50,50 0 0,1 100,50"></path>
+	<text id="clock-time" x="65" y="110"></text>
+	<script type="text/ecmascript"><![CDATA[
+		/*global window*/
+		(function (window, document) {
+			"use strict";
+
+			var seconds = null,
+				minutes = null,
+				hours = null,
+				timeText = null,
+				iid = null;
+
+			function getPos(x, y, r, a) {
+				return [
+					r * Math.cos(a) + x,
+					r * Math.sin(a) + y
+				];
+			}
+
+			function getRadians(time) {
+				return (time * 6 - 90) * (Math.PI / 180);
+			}
+
+			function pad(number) {
+				return number <= 9 ? '0' + number : number;
+			}
+
+			function update() {
+				var now = new Date(),
+					pos = getPos(100, 100, 90, getRadians(now.getSeconds()));
+
+				seconds = seconds || document.getElementById('clock-seconds');
+				minutes = minutes || document.getElementById('clock-minutes');
+				hours = hours || document.getElementById('clock-hours');
+				timeText = timeText || document.getElementById('clock-time');
+
+				seconds.setAttribute('d', 'M100,10 A90,90 0 ' + (pos[0] > 100 ? 0 : 1) + ',1 ' + pos[0] + ',' + pos[1]);
+
+				pos = getPos(100, 100, 70, getRadians(now.getMinutes()));
+				minutes.setAttribute('d', 'M100,30 A70,70 0 ' + (pos[0] > 100 ? 0 : 1) + ',1 ' + pos[0] + ',' + pos[1]);
+
+				pos = getPos(100, 100, 50, getRadians((now.getHours() % 12) / 12 * 60));
+				hours.setAttribute('d', 'M100,50 A50,50 0 ' + (pos[0] > 100 ? 0 : 1) + ',1 ' + pos[0] + ',' + pos[1]);
+
+				timeText.textContent = pad(now.getHours()) + ':' + pad(now.getMinutes());
+			}
+
+			window.setInterval(update, 1000);
+			update();
+
+			window.addEventListener('unload', function () {
+				window.clearInterval(iid);
+			}, false);
+		}(window, window.document));
+	]]></script>
+</svg>

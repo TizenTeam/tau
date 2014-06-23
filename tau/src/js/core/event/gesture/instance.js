@@ -1,0 +1,129 @@
+/*global ns, window, define */
+/*jslint nomen: true */
+/*
+* Copyright (c) 2013 - 2014 Samsung Electronics Co., Ltd
+*
+* Licensed under the Flora License, Version 1.1 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*     http://floralicense.org/license/
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+/**
+ * Gesture.Instance class
+ */
+( function ( ns, window, undefined ) {
+	"use strict";
+	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+	define([ "./core",
+			"./manager",
+			"./detector",
+			"../../event",
+			"../../util/object"
+		],
+		function () {
+			//>>excludeEnd("tauBuildExclude");
+			var Gesture = ns.event.gesture,
+
+				Detector = ns.event.gesture.Detector,
+
+				Manager = ns.event.gesture.Manager,
+				events = ns.event,
+				merge = ns.util.object.merge;
+
+			Gesture.Instance = function( element, options ) {
+
+				this.element = element;
+				this.eventDetectors = [];
+
+				this.options = merge({}, Gesture.defaults, options);
+				this.gestureManager = null;
+
+				this._init();
+			};
+
+			Gesture.Instance.prototype = {
+
+				_init: function() {
+					this.gestureManager = Manager.getInstance();
+					this.eventSender = merge({}, Detector.Sender, {
+						sendEvent: this.trigger.bind(this)
+					});
+				},
+
+				_findGestureDetector: function( gesture ) {
+					var detectors = Detector.plugin,
+						detector, name;
+					for ( name in detectors ) {
+						if ( detectors.hasOwnProperty( name ) ) {
+							detector = detectors[ name ];
+							if ( detector.prototype.types.indexOf( gesture ) > -1 ) {
+								return detector;
+							}
+						}
+					}
+				},
+
+				setOptions: function( options ) {
+					merge(this.options, options);
+					return this;
+				},
+
+				addDetector: function( detectorStrategy ) {
+					var detector = new Detector( detectorStrategy, this.eventSender ),
+						alreadyHasDetector = !!this.eventDetectors.length;
+
+					this.eventDetectors.push(detector);
+
+					if ( !!this.eventDetectors.length && !alreadyHasDetector ) {
+						this.gestureManager.register(this);
+					}
+
+					return this;
+				},
+
+				removeDetector: function( detectorStrategy ) {
+					var idx = this.eventDetectors.indexOf( detectorStrategy );
+
+					if ( idx > -1 ) {
+						this.eventDetectors.splice(idx, 1);
+					}
+
+					if ( !this.eventDetectors.length ) {
+						this.gestureManager.unregister(this);
+					}
+
+					return this;
+				},
+
+				trigger: function( gesture, eventInfo ) {
+					events.trigger(this.element, gesture, eventInfo);
+				},
+
+				getElement: function() {
+					return this.element;
+				},
+
+				getGestureDetectors: function() {
+					return this.eventDetectors;
+				},
+
+				destroy: function( ) {
+					this.element = null;
+					this.eventHandlers = {};
+					this.gestureManager = null;
+					this.eventSender = null;
+					this.eventDetectors.length = 0;
+				}
+			};
+			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+		}
+	);
+	//>>excludeEnd("tauBuildExclude");
+} ( ns, window ) );

@@ -1,0 +1,43 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>jQuery Mobile Controlgroup Test Suite</title>
+
+	<link rel="stylesheet" href="../../../../../../../libs/qunit-1.11.0.css">
+	<script src="../../../../../../../libs/jquery.js"></script>
+	<script src="../../../../../../../libs/qunit-1.11.0.js"
+			type="text/javascript"></script>
+	<script src="../../../../../../../libs/support.js"></script>
+	<script src="../../../../../../../libs/jquery.testHelper.1.4.js"></script>
+	<script src="../../../../../../../libs/dist/js/tau.js"></script>
+	<script src="select_core.js"></script>
+</head>
+<body>
+
+	<div id="qunit"></div>
+
+	<div datarole="page">
+		<div datarole="content">
+		<div data-role="fieldcontain">
+			<label for="enhance-test">Multiple:</label>
+			<select name="enhance-test" id="enhance-test" multiple="multiple" datanative-menu="false" dataoverlay-theme="b" datatheme="x">
+			<option>Choose options</option>
+			<option value="1">The 1st Option</option>
+			<option value="2" selected="selected">The 2nd Option</option>
+			<option value="3" selected="selected">The 3rd Option</option>
+			<option value="4">The 4th Option</option>
+			</select>
+		</div>
+		<select class="no-id-test">
+			<option>Choose options</option>
+			<option value="1">The 1st Option</option>
+			<option value="2">The 2nd Option</option>
+			<option value="3">The 3rd Option</option>
+			<option value="4">The 4th Option</option>
+		</select>
+		</div>
+	</div>
+</body>
+</html>

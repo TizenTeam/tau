@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Tabbar tests</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<link rel="stylesheet" href="../../../../../../libs/qunit-1.11.0.css">
+	</head>
+	<body>
+		<div id="qunit"></div>
+		<div id="qunit-fixture">
+			<div data-role="page" id="page1">
+				<ul data-role="listview">
+
+					<li data-role="list-divider">Normal slider</li>
+					<li><input id="mySlider1" name="mySlider1" data-popup='false' type="range" value="5" min="0" max="10" /></li>
+					<li data-role="list-divider">Popup slider</li>
+					<li><input id="mySlider2" name="mySlider2" type="range" value="50" min="0" max="100" /></li>
+					<li data-role="list-divider">Icon slider</li>
+					<li><input id="mySlider3" name="mySlider3" data-popup='false' type="range" value="5" min="0" max="10" data-icon='bright'/></li>
+					<li><input id="mySlider4" name="mySlider4" data-popup='false' type="range" value="5" min="0" max="10" data-icon='volume'/></li>
+					<li data-role="list-divider">Text slider</li>
+					<li><input id="mySlider5" name="mySlider5" data-popup='false' type="range" value="50" min="0" max="99" data-icon='text' data-text-left='0' data-text-right='99'/></li>
+					<li><input id="mySlider6" name="mySlider6" data-popup='false' type="range" value="5" min="0" max="10" data-icon='text' data-text-left='Min' data-text-right='Max'/></li>
+					<li data-role="list-divider">data-highlight="false"</li>
+					<li><input id="mySlider7" name="mySlider7" data-popup='false' type="range" value="5" min="0" max="10" data-highlight="false" /></li>
+					<li><input id="mySlider8" name="mySlider8" data-popup='false' type="range" value="5" min="0" max="10" data-inline="true" /></li>
+					<li>
+						<label for="mySlider9">Input slider:</label>
+						<input type="range" name="mySlider9" id="mySlider9" value="25" min="0" max="100" data-highlight="true" data-mini="true" />
+					</li>
+					<li>
+						<label for="mySlider10">Input slider:</label>
+						<input type="range" name="mySlider10" id="mySlider10" value="25" min="0" max="100" data-highlight="true" />
+					</li>
+					<li>
+						<select name="mySlider11" id="mySlider11" data-role="slider">
+							<option value="off"></option>
+							<option value="on"></option>
+						</select>
+					</li>
+					<li>
+						<select name="mySlider12" id="mySlider12" data-role="slider">
+							<option value="off"></option>
+							<option value="on"></option>
+						</select>
+					</li>
+				</ul>
+
+
+			</div>
+		</div>
+		<script src="../../../../../../libs/jquery.js"></script>
+		<script src="../../../../../../libs/qunit-1.11.0.js" type="text/javascript"></script>
+		<script src="../../../../../../libs/support.js"></script>
+		<script>
+			module('Slider', {
+				teardown: function () {
+					ej.engine._clearBindings();
+				}
+			});
+			test('Default slider', function () {
+				var slider = document.getElementById('mySlider1');
+				$(slider).slider();
+
+				equal(slider.getAttribute('data-tau-bound'), "Slider", "Slider widget is created");
+				ok(slider.classList.contains('ui-slider-input'), 'Slider has ui-slider-input class');
+				ok($(slider).parent().find("div[role='application']").hasClass('ui-slider'), 'Slider has uislider class and container for div was built successfully');
+			});
+			test('highlight slider', function () {
+				var slider = document.getElementById('mySlider10');
+				$(slider).slider();
+
+				equal(slider.getAttribute('data-tau-bound'), "Slider", "Slider widget is created");
+				ok(slider.classList.contains('ui-slider-input'), 'Slider has ui-slider-input class');
+				ok($(slider).parent().find("div[role='application']").hasClass('ui-slider'), 'Slider has uislider class and container for div was built successfully');
+			});
+			test('Select slider', function () {
+				var slider = document.getElementById('mySlider11');
+				$(slider).slider();
+
+				equal(slider.getAttribute('data-tau-bound'), "Slider", "Slider widget is created");
+				ok(slider.classList.contains('ui-slider-switch'), 'Slider has ui-slider-switch class');
+				ok($(slider).parent().find("div[role='application']").hasClass('ui-slider'), 'Slider has uislider class and container for div was built successfully');
+			});
+			test('Select slider', function () {
+				var slider = document.getElementById('mySlider12');
+				$(slider).slider();
+
+				equal(slider.getAttribute('data-tau-bound'), "Slider", "Slider widget is created");
+				ok(slider.classList.contains('ui-slider-switch'), 'Slider has ui-slider-switch class');
+				ok($(slider).parent().find("div[role='application']").hasClass('ui-slider'), 'Slider has uislider class and container for div was built successfully');
+
+			});
+
+			asyncTest('slider events', 1, function () {
+				var slider = document.getElementById('mySlider10'),
+					handle;
+				$(slider).slider();
+				handle = $(slider).parent().find('.ui-slider-handle').get(0);
+				document.addEventListener('change', function() {
+				ok(1);
+				start();
+				});
+
+				ej.event.trigger(handle, 'vmousedown');
+				ej.event.trigger(handle, 'vmouseup');
+			});
+
+		var tauConfig = {
+			"autorun": false
+		};
+		</script>
+		<script type="text/javascript" src="../../../../../../libs/dist/js/tau.js"></script>
+
+	</body>
+</html>

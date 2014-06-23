@@ -1,0 +1,32 @@
+{
+	"path": "src/css/profile",
+	"device": {
+
+		"mobile": [
+			{
+				"name": "black",
+				"path": "mobile/theme-black/",
+				"images": "images/",
+				"src": "style.less",
+				"default": "true"
+			},
+			{
+				"name": "white",
+				"path": "mobile/theme-white/",
+				"images": "images/",
+				"src": "style.less",
+				"default": "false"
+			}
+		],
+
+		"wearable": [
+			{
+				"name": "black",
+				"path": "wearable/theme-black/",
+				"images": "images/",
+				"src": "style.less",
+				"default": "true"
+			}
+		]
+	}
+}

@@ -9,4 +9,8 @@ compiled
 *.patch
 *~
 pkged-demo-apps
-tests/style/node_modules/*
+tau/tests/libs/dist
+tau/dist
+tau/node_modules
+.idea
+node_modules

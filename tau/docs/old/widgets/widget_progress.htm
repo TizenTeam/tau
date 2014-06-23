@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head><script type="text/javascript" src="../snippet.js"></script>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link href="../styles.css" rel="StyleSheet" type="text/css">
+<link href="../snippet.css" rel="StyleSheet" type="text/css">
+  <title>Progress</title>
+</head>
+
+<body onload="prettyPrint()">
+
+<h1>Progress</h1>
+
+<p>The progress  widget shows a control that indicates the progress percentage of an on-going operation. This widget can be scaled to fit inside a parent container.</p>
+<p>This widget provide three style progress.</p>
+<ul>
+<li>If you implement class( ui-progress-indeterminate ), you can show image looks like infinite move</li>
+<li>If you don't implement any class, you can show default progress style</li>
+<li>If you implement div tag that can choose two classes( ui-progress-proportion or ui-progress-ratio ) at progress tag same level, you can show two information( proportion information is located left below and ratio information is located right below )</li>
+</ul>
+<p>To add a progress widget to the application, use the following code:</p>
+
+<pre class="prettyprint">
+1)&lt;progress class=&quot;ui-progress-indeterminate&quot; max=&quot;100&quot; value=&quot;100&quot;&gt;&lt;/progress&gt;
+2)&lt;progress max=&quot;100&quot; value=&quot;90&quot;&gt;&lt;/progress&gt;
+
+3)&lt;progress max=&quot;100&quot; value=&quot;50&quot;&gt;&lt;/progress&gt;
+  &lt;div class=&quot;ui-progress-proportion&quot;&gt;00/20&lt;/div&gt;
+  &lt;div class=&quot;ui-progress-ratio&quot;&gt;50%&lt;/div&gt;
+</pre>
+
+<h2>Where to Go Next</h2>
+<ul>
+ <li><a href="widget_reference.htm">Widget Reference</a></li>
+
+</ul>
+
+<div id="footer">
+<hr size="1" /><font size="1">Except as noted, this content is licensed under <a href="http://creativecommons.org/licenses/by/3.0/legalcode" target="_blank">Creative Commons Attribution 3.0</a>.</font> </div>
+
+</body>
+</html>

@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>jQuery Mobile Listview Integration Test</title>
+		<link rel="stylesheet"
+			  href="../../../../../../../libs/dist/theme/default/tau.css" >
+		<link rel="stylesheet"
+			  href="../../../../../../../libs/qunit-1.11.0.css">
+		<script src="../../../../../../../libs/jquery.js"></script>
+		<script src="../../../../../../../libs/qunit-1.11.0.js"
+				type="text/javascript"></script>
+		<script src="../../../../../../../libs/support.js"></script>
+		<script src="../../../../../../../libs/jquery.testHelper.js"></script>
+		<script src="../../../../../../../libs/dist/js/tau.js"></script>
+		<script src="listview_core.js"></script>
+		<script src="listview_nested.js"></script>
+		<style>
+			.ui-screen-hidden, .ui-selectmenu-list .ui-li .ui-icon {
+				display: none !important;
+			}
+			[data-role="page"] {
+				position: absolute;
+				top: -10000px !important;
+			}
+		</style>
+	</head>
+<body>
+<h1 id="qunit-header">jQuery Mobile Listview Integration Test</h1>
+<h2 id="qunit-banner"></h2>
+<h2 id="qunit-userAgent"></h2>
+<ol id="qunit-tests">
+</ol>
+<!-- Basic Linked view test -->
+<div data-role="page" id='basic-linked-test'>
+	<div data-role="header" data-position="inline">
+		<h1>Basic List View</h1>
+	</div>
+	<div data-role="content">
+		<ul data-role="listview">
+			<li><a href="#basic-link-results">Home</a></li>
+			<li><a href="#basic-link-results">Back</a></li>
+			<li><a href="#basic-link-results">Return</a></li>
+			<li><a href="#nested-list-test" id="nested-list-test-anchor">Nested List Test</a></li>
+		</ul>
+	</div>
+  <a href="cache-tests/nested.html" id="cached-tests"></a>
+</div>
+
+<div data-role='page' id='basic-link-results'>
+	<div data-role="header" data-position="inline">
+		<h1>Results</h1>
+	</div>
+</div>
+
+<!-- Nested List -->
+<div data-role="page" id='nested-list-test'>
+	<div data-role="header" data-position="inline">
+		<h1>Basic List View</h1>
+	</div>
+	<div data-role="content">
+		<ul data-role="listview">
+			<li>Groups of animals
+				<ul>
+					<li>pod of whales</li>
+					<li>quiver of cobras</li>
+					<li>troop of baboons</li>
+				</ul>
+			</li>
+			<li class="linebreaknode">
+
+			More animals
+
+
+				<ul>
+					<li>Shoal of Bass</li>
+					<li>Rhumba of rattlesnakes</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+</div>
+
+
+<div data-role="page" id='nested-lists-test'>
+	<div data-role="header" data-position="inline">
+		<h1>Basic multiple lists view</h1>
+	</div>
+	<div data-role="content">
+		<ul data-role="listview" data-inset="true">
+			<li>Item 1</li>
+			<li>Item 2</li>
+			<li>Item 3
+				<ul data-role="listview">
+					<li>Item A-3-0</li>
+					<li>Item A-3-1</li>
+					<li>Item A-3-2</li>
+				</ul>
+			</li>
+		</ul>
+		<ul data-role="listview" data-inset="true">
+			<li>Item 1</li>
+			<li>Item 2</li>
+			<li>Item 3
+				<ul data-role="listview">
+					<li>Item B-3-0
+						<ul data-role="listview">
+							<li>Item B-3-0-0</li>
+							<li>Item B-3-0-1
+								<ul data-role="listview">
+									<li>Item B-3-0-1-0</li>
+									<li>Item B-3-0-1-1</li>
+									<li>Item B-3-0-1-2</li>
+								</ul>
+							</li>
+							<li>Item B-3-0-2</li>
+						</ul>
+					</li>
+					<li>Item B-3-1
+						<ul data-role="listview">
+							<li>Item B-3-1-0</li>
+							<li>Item B-3-1-1</li>
+							<li>Item B-3-1-2</li>
+						</ul>
+					</li>
+					<li>Item B-3-2</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+</div>
+
+<!-- Numbered List -->
+<div data-role="page" id='numbered-list-test'>
+	<div data-role="header" data-position="inline">
+		<h1>Basic List View</h1>
+	</div>
+	<div data-role="content">
+			<ol data-role="listview">
+				<li><a href="#numbered-list-results">Number 1</a></li>
+				<li><a href="#numbered-list-results">Number 2</a></li>
+				<li><a href="#numbered-list-results">Number 3</a></li>
+			</ol>
+	</div>
+</div>
+
+<div data-role='page' id='numbered-list-results'>
+	<div data-role="header" data-position="inline">
+		<h1>Numbered List</h1>
+	</div>
+</div>
+
+<!-- Read only List -->
+<div data-role="page" id='read-only-list-test'>
+	<div data-role="header" data-position="inline">
+		<h1>Basic List View</h1>
+	</div>
+	<div data-role="content">
+		<ul data-role="listview">
+			<li>Read</li>
+			<li>Only</li>
+			<li>List</li>
+			<li>View</li>
+		</ul>
+	</div>
+</div>
+
+<!-- Split listview -->
+<div data-role="page" id='split-list-test'>
+	<div data-role="header" data-position="inline">
+		<h1>Split List View</h1>
+	</div>
+	<div data-role="content">
+		<ul data-role="listview">
+			<li>
+				<a href="#split-list-link1">link one</a>
+				<a href="#split-list-link2">link second</a>
+			</li>
+			<li>
+				<a href="#split-list-link1">link one</a>
+				<a href="#split-list-link2">link second</a>
+			</li>
+			<li>
+				<a href="#split-list-link1">link one</a>
+				<a href="#split-list-link2">link second</a>
+			</li>
+		</ul>
+	</div>
+</div>
+
+<div data-role="page" id='split-list-link1'>
+	<div data-role="header" data-position="inline">
+		<h1>Split List view 1</h1>
+	</div>
+</div>
+
+<div data-role="page" id='split-list-link2'>
+	<div data-role="header" data-position="inline">
+		<h1>Split List view 2</h1>
+	</div>
+</div>
+
+<!-- List divider -->
+<div data-role="page" id='list-divider-test'>
+	<div data-role="header" data-position="inline">
+		<h1>List Divider Test</h1>
+	</div>
+	<div data-role="content">
+		<ul data-role="listview">
+			<li>a is for aquaman</li>
+			<li>b is for batman</li>
+			<li data-role="list-divider">This is a list divider</li>
+			<li>c is for catwoman</li>
+			<li data-role="list-divider">This is another list divider</li>
+			<li>d is for darkwing</li>
+		</ul>
+	</div>
+</div>
+
+<!-- Autodivider -->
+<div data-role="page" id="autodividers-test">
+	<div data-role="header" data-position="inline">
+		<h1>Autodivider Test</h1>
+	</div>
+	<div data-role="content">
+		<ul data-role="listview" data-autodividers="true">
+			<li data-role="list-divider">SHOULD REMOVE</li>
+			<li>a is for aquaman</li>
+			<li>b is for batman</li>
+			<li>c is for catwoman</li>
+			<li>d is for darkwing</li>
+		</ul>
+	</div>
+</div>
+
+<div data-role="page" id="autodividers-selector-test">
+	<div data-role="header" data-position="inline">
+		<h1>Autodivider Selector Test</h1>
+	</div>
+	<div data-role="content">
+		<ul id="autodividers-selector-test-list1" data-role="listview" data-autodividers="true">
+			<li><a href="#">a is for aquaman</a></li>
+			<li>b is for batman</li>
+			<li><img><a href="">c is for catwoman</a><a href="">split</a></li>
+			<li><a href="#"><h2>d is for darkwing</h2><p>Some text</p></a></li>
+		</ul>
+
+		<ul id="autodividers-selector-test-list2" data-role="listview" data-autodividers="true">
+			<li><div><span class="autodividers-selector-test-selectme">eddie</span> is for aquaman</div></li>
+			<li><div><span class="autodividers-selector-test-selectme">frankie</span> is for batman</div></li>
+			<li><div><span class="autodividers-selector-test-selectme">georgie</span> is for catwoman</div></li>
+			<li><div><span class="autodividers-selector-test-selectme">henry</span> is for darkwing</div></li>
+		</ul>
+	</div>
+</div>
+
+<!-- Search bar filter -->
+<div data-role="page" id='search-filter-test'>
+	<div data-role="header" data-position="inline">
+		<h1>Split List View</h1>
+	</div>
+	<div data-role="content">
+		<ul data-role="listview" data-filter="true">
+			<li>a is for aquaman</li>
+			<li>b is for batman</li>
+			<li>c is for catwoman</li>
+			<li>d is for darkwing</li>
+		</ul>
+	</div>
+</div>
+
+<!-- Search bar filter -->
+<div data-role="page" id='search-customfilter-test'>
+	<div data-role="header" data-position="inline">
+		<h1>Filtered List View</h1>
+	</div>
+	<div data-role="content">
+		<ul data-role="listview" data-filter="true">
+			<li>a is for aquaman</li>
+			<li>b is for batman</li>
+			<li>c is for catwoman</li>
+			<li>d is for darkwing</li>
+		</ul>
+	</div>
+</div>
+
+<!-- Search bar filter with list-dividers -->
+<div data-role="page" id='search-filter-with-dividers-test'>
+	<div data-role="header" data-position="inline">
+		<h1>Split List View</h1>
+	</div>
+	<div data-role="content">
+		<ul data-role="listview" data-filter="true">
+			<li data-role="list-divider">a</li>
+			<li>a is for aquaman</li>
+			<li data-role="list-divider">b</li>
+			<li>b is for batman</li>
+			<li data-role="list-divider">c</li>
+			<li>c is for catwoman</li>
+			<li data-role="list-divider">d</li>
+			<li>d is for darkwing</li>
+		</ul>
+	</div>
+</div>
+
+<!-- Search bar filter inset -->
+<div data-role="page" id='search-filter-inset-test'>
+	<div data-role="header" data-position="inline">
+		<h1>Inset Filter List View</h1>
+	</div>
+	<div data-role="content">
+		<ul data-role="listview" data-filter="true" data-inset="true">
+			<li>a is for aquaman</li>
+			<li>b is for batman</li>
+			<li>c is for catwoman</li>
+			<li>d is for darkwing</li>
+		</ul>
+	</div>
+</div>
+
+<!-- Programmatically generated list items !-->
+<div data-role="page" id="programmatically-generated-list">
+	<ul data-role="listview" data-inset="true" id="programmatically-generated-list-items"></ul>
+</div>
+
+<!-- Removing items from list -->
+<div data-role="page" id='removing-items-from-list-test'>
+	<div data-role="header" data-position="inline">
+		<h1>Basic List View</h1>
+	</div>
+	<div data-role="content">
+		<ul data-role="listview" data-inset="true">
+			<li>Item 1</li>
+			<li>Item 2</li>
+			<li>Item 3</li>
+			<li>Item 4</li>
+		</ul>
+	</div>
+</div>
+
+<!-- Rounded corners inset list with variable items -->
+<div data-role="page" id='corner-rounded-test'>
+	<div data-role="header" data-position="inline">
+		<h1>Basic List View</h1>
+	</div>
+	<div data-role="content">
+		<ul data-role="listview" data-inset="true">
+		</ul>
+	</div>
+</div>
+
+<div data-role="page" id="enhancetest">
+	<ul data-role="listview">
+		<li><a href="#basic-link-results">Home</a></li>
+		<li><a href="#basic-link-results">Back</a></li>
+		<li><a href="#basic-link-results">Return</a></li>
+	</ul>
+</div>
+
+<div id="list-theme-inherit" data-theme="b">
+  <ul data-role="listview">
+	<li>foo</li>
+  </ul>
+</div>
+
+<div data-role="page" id="ui-li-has-test">
+  <div data-role="content">
+	<p>Right padding on item 1 is OK (75px).</p>
+	<p>Right padding on items 2 &amp; 3 should probably be around 30 or 35 (not 25).</p>
+	<p>Right padding on item 4 should be 15px to match the left side.</p>
+	<ol data-role="listview" data-inset="true">
+	<li><a href="#">Link LI with counter --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------<span class="ui-li-count">123</span></a></li>
+	<li><a href="#">Link LI without counter -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</a></li>
+	<li><a href="#page1">Page1 Link LI without counter -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</a><a href="#page2"></a></li>
+	<li>Static LI with counter ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------<span class="ui-li-count">123</span></li>
+	<li>Static LI without counter ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</li>
+	</ol>
+  </div>
+</div>
+
+
+<div id="list-inset-filter-prototype" data-theme="b">
+	<ul data-role="listview" data-filter="true">
+		<li>foo</li>
+		<li>bar</li>
+	</ul>
+</div>
+
+<div id="list-inset-filter-data-attr" data-theme="b">
+	<ul data-role="listview" data-filter="true" data-inset="true">
+		<li>foo</li>
+		<li>bar</li>
+	</ul>
+</div>
+
+<div data-role="page" id="split-list-icon">
+	<div data-role="content">
+		<ul data-role="listview" data-split-icon="delete">
+			<li data-icon="star"><a href="#">Star</a><a href="#">Star</a></li>
+			<li data-icon="plug"><a href="#">Plus</a><a href="#">Plus</a></li>
+			<li><a href="#">Default</a><a href="#">Default</a></li>
+	<!-- respect the child element icon -->
+			<li data-icon="star"><a href="#">Default</a><a data-icon="plug" href="#">Default</a></li>
+		</ul>
+	</div>
+</div>
+
+<div data-role="page" id="list-divider-ignore-link">
+  <div data-role="content">
+	<ul data-role="listview">
+	<li data-role="list-divider">A</li>
+	<li><a href="listview.html">Adam Kinkaid</a></li>
+	<li><a href="listview.html">Alex Wickerham</a></li>
+	<li><a href="listview.html">Avery Johnson</a></li>
+	<li data-role="list-divider" id="ignored-link">B has a <a href="#">link</a></li>
+	<li><a href="listview.html">Bob Cabot</a></li>
+	<li data-role="list-divider">C</li>
+	<li><a href="listview.html">Caleb Booth</a></li>
+	<li><a href="listview.html">Christopher Adams</a></li>
+	</ul>
+  </div><!-- /content -->
+</div>
+
+<div data-role="page" id="list-last-visible-item-border">
+	<div data-role="content">
+		<ul data-role="listview">
+			<li class="listitem"><a href="listview.html">Adam Kinkaid</a></li>
+			<li class="listitem"><a href="listview.html">Alex Wickerham</a></li>
+			<li class="listitem ui-screen-hidden"><a href="listview.html">Bob Cabot</a></li>
+			<li id="lastitem"><a href="listview.html">Caleb Booth</a></li>
+			<li class="listitem ui-screen-hidden"><a href="listview.html">Christopher Adams</a></li>
+		</ul>
+	</div><!-- /content -->
+</div>
+
+<div data-role="page" id="list-inside-collapsible-content">
+	<div data-role="content">
+		<div data-role="collapsible" data-content-theme="c">
+			<h1>Heading</h1>
+			<ul data-role="listview">
+				<li><a href="listview.html">Adam Kinkaid</a></li>
+				<li><a href="listview.html">Alex Wickerham</a></li>
+				<li id="noninsetlastli"><a href="listview.html">Caleb Booth</a></li>
+			</ul>
+		</div>
+		<div data-role="collapsible" data-content-theme="c">
+			<h1>Heading</h1>
+			<ul data-role="listview" data-inset="true">
+				<li><a href="listview.html">Adam Kinkaid</a></li>
+				<li><a href="listview.html">Alex Wickerham</a></li>
+				<li id="insetlastli"><a href="listview.html">Caleb Booth</a></li>
+			</ul>
+		</div>
+  </div><!-- /content -->
+</div>
+</body>
+</html>

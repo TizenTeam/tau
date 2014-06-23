@@ -1,0 +1,92 @@
+html {
+	font-size: 15px;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	height: 100%;
+	font-size: 2rem;
+	background-color: #000000;
+}
+
+.Basic_text_s_default_FONT {
+	font-size: 30px;
+	color: rgb(255,255,255);
+}
+
+.contentLabel {
+	margin: 16px;
+}
+.ui-content {
+	overflow: auto;
+	height: calc( 100% - 52px );
+}
+ul {
+	margin: 0;
+	padding: 0;
+}
+
+.ui-listview > .ui-btn {
+	border-bottom: 1px solid black;
+}
+.ui-listview > .ui-btn {
+ 	background-color: #4b4237; 
+}
+
+.ui-btn {
+	text-align: center;
+	font-size: 31px;
+	color: rgb(255,255,255);
+	display: block;
+	padding-top: 1.6rem;
+	padding-right: 0.6666666666666666rem;
+	padding-bottom: 1.6rem;
+	padding-left: 0.6666666666666666rem;
+	margin: 0px;
+	line-height: 1.8666666666666667rem;
+	white-space: nowrap;
+	cursor: pointer;
+	vertical-align: middle;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+.ui-header .ui-title {
+	pointer-events: none;
+	color: #ffffff;
+	font-size: 2rem;
+	white-space: nowrap;
+	margin: 0px;
+	padding-left: 1.0666666666666667rem;
+	padding-right: 1.0666666666666667rem;
+}
+
+.ui-header {
+	position: relative;
+	width: 100%;
+	height: 3.466666666666667rem;
+	line-height: 3.466666666666667rem;
+	background-color: #4b4237;
+	border-bottom: 1px solid #6b563d;
+}
+.ui-page.ui-page-active {
+	display: block;
+}
+.ui-page {
+	background: none;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.ui-header .ui-more {
+	background-color: transparent;
+}

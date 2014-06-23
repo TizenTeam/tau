@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Scrollview tests</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<link rel="stylesheet" href="../../../../../../libs/qunit-1.11.0.css">
+	</head>
+	<body>
+		<div id="page1" data-role="page" data-add-back-btn="true">
+			<div data-role="header" id="header1"></div>
+			<div data-role="content" id="content1">
+				<h1>Title</h1>
+				<p>Content</p>
+			</div>
+			<div data-role="content" id="content2" data-scroll="none">Content</div>
+			<div data-role="content" id="content3" style="position:absolute;" data-scroll-jump="true">
+				Position should not be overwritten
+			</div>
+			<div data-role="content" id="content4" data-direction="y">
+				Data direction
+			</div>
+			<div data-role="content" id="content5">
+				<p id="ref">Should not lost reference</p>
+			</div>
+			<div data-role="footer" id="footer1"></div>
+		</div>
+		<div id="qunit"></div>
+		<div id="qunit-fixture"></div>
+		<script src="../../../../../../libs/jquery.js"></script>
+		<script src="../../../../../../libs/qunit-1.11.0.js" type="text/javascript"></script>
+		<script src="../../../../../../libs/support.js"></script>
+		<script>
+			var ref = document.getElementById('ref');
+
+			document.addEventListener('bound', function () {
+				module('Scrollview');
+
+				test('Scrollview created', function () {
+					var content = document.getElementById('content1'),
+						clipStyle = window.getComputedStyle(content),
+						view = content.children[0],
+						viewStyle = window.getComputedStyle(view);
+
+					equal(content.getAttribute('data-tau-bound'), 'true', 'Scrollview added');
+					ok(content.classList.contains("ui-scrollview-clip"), 'Scrollview created');
+					equal(clipStyle.getPropertyValue("overflow"), 'auto', 'Overflow auto');
+					equal(content.childNodes.length, 1, 'Content body wrapped in ui-scrollview-view');
+					view = content.children[0];
+					ok(view.classList.contains('ui-scrollview-view'), 'Content body wrapped in ui-scrollview-view');
+
+					equal(content.getElementsByClassName('ui-scroll-jump-top-bg').length, 0, 'No scroll jump by default');
+					equal(content.getElementsByClassName('ui-scroll-jump-left-bg').length, 0, 'No scroll jump by default');
+				});
+
+				test('Scrollview not created', function () {
+					var content = document.getElementById('content2'),
+						widget = ej.engine.getBinding(content) || {widgetName: null};
+					notEqual(widget.widgetName, 'scrollview', 'Scrollview not created');
+				});
+
+				test('Scrollview with data-direction=y', function () {
+					var content = document.getElementById('content4'),
+						clipStyle = window.getComputedStyle(content);
+					equal(clipStyle.getPropertyValue("overflow-y"), "scroll", 'Added vertical scroll');
+					equal(clipStyle.getPropertyValue("overflow-x"), "auto", 'No horizontal scroll');
+					equal(clipStyle.getPropertyValue("overflow"), "auto", 'Main scroll not changed');
+				});
+
+				test('getScrolPosition', function () {
+					var scrollview = ej.engine.getBinding(document.getElementById('content4')),
+						position = scrollview.getScrollPosition();
+					equal(position.x, 0, 'x position');
+					equal(position.y, 0, 'y position');
+				});
+
+				test("Appending html in scrollview doesn't destroy references in html", function () {
+					equal(document.getElementById('ref'), ref, "Earlier created reference not lost");
+				});
+
+				test("JQM exposed methods", function () {
+					ok($("#content1").scrollview, "Api is exposed");
+					$("#content1").scrollview("ensureElementIsVisible", $("#content1 p").get(0));
+					$("#content1").scrollview("centerToElement", $("#content1 p").get(0));
+					$("#content1").scrollview("scrollTo", 0, 50);
+				});
+			});
+		</script>
+		<script type="text/javascript" src="../../../../../../libs/dist/js/tau.js"></script>
+	</body>
+</html>

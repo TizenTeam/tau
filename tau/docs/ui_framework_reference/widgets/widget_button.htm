@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+ <head> 
+  <script type="text/javascript" src="../../snippet.js"></script> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <link href="../../styles.css" rel="StyleSheet" type="text/css" /> 
+  <link href="../../snippet.css" rel="StyleSheet" type="text/css" /> 
+  <title>Button</title> 
+ </head> 
+ <body onload="prettyPrint()"> 
+
+<h1>Button</h1>
+
+<p>The button widget shows a control on the screen that you can use to generate an action event when it is pressed and released. This widget is coded with standard HTML anchor and input elements</p>
+
+<p>To add a button widget to the application, use the following code:</p>
+
+<pre class="prettyprint">
+&lt;button type=&quot;button&quot; class=&quot;ui-btn&quot;&gt;Button&lt;/button&gt;
+&lt;a href=&quot;#&quot; class=&quot;ui-btn&quot;&gt;Button&lt;/a&gt;
+&lt;input type=&quot;button&quot; class=&quot;ui-btn&quot; value=&quot;Button&quot; /&gt;
+
+/* inline button */
+&lt;input type=&quot;button&quot; class=&quot;ui-btn ui-inline&quot; value=&quot;Button&quot; /&gt;
+
+/* Multiline text button */
+&lt;a href=&quot;#&quot; class=&quot;ui-btn ui-multiline ui-inline&quot;&gt;A Button&lt;br /&gt;Icon&lt;/a&gt;
+</pre>
+
+<p>The following table describes the button styles</p>
+
+<table>
+<tbody>
+	<tr>
+		<th>Option</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">ui-icon-*</span></td>
+		<td>Defines an icon for a button.
+		<p>Samsung Gear Web UI Framework supports 3 icon css styles: <span style="font-family: Courier New,Courier,monospace">ui-icon-detail</span>, <span style="font-family: Courier New,Courier,monospace">ui-icon-overflow</span>, <span style="font-family: Courier New,Courier,monospace">ui-icon-selectall</span></p></td>
+	</tr>
+	<tr>
+		<td>disabled</td>
+		<td>disabled="disabled"<br><br>If you want to make disabled button, add this attribute in button tag </td>
+	</tr>
+	<tr>
+		<td>inline button</td>
+		<td>ui-inline<br><br>If you want to make disabled button, add this css style</td>
+	</tr>
+	<tr>
+		<td>Multiline text button</td>
+		<td>ui-multiline<br><br>If you want to make multiline text button, add this css style</td>
+	</tr>
+ </tbody>
+</table>
+
+<h1>Color theme</h1>
+<p>To optimize color support for the Samsung Gear, the following styles below are supported</p>
+<table>
+<tbody>
+	<tr>
+		<th style="width:40%;">Option</th>
+		<th>Default</th>
+		<th>Press</th>
+		<th>Disable</th>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">ui-color-red</span></td>
+		<td>#ce2302</td>
+		<td>#dd654e</td>
+		<td>#3d0a0a</td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">ui-color-orange</span></td>
+		<td>#ed8600</td>
+		<td>#f0aa56</td>
+		<td>#462805</td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">ui-color-green</span></td>
+		<td>#64a323</td>
+		<td>#92be5e</td>
+		<td>#1e3108</td>
+	</tr>
+</tbody>
+</table>
+
+<p>
+<h1>Button Group</h1>
+<p>
+</p>
+
+<table>
+<tbody>
+	<tr>
+		<th style="width:40%;">Option</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">ui-grid-col-1</span></td>
+		<td>width : 100%</td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">ui-grid-col-2</span></td>
+		<td>width : 50%</td>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">ui-grid-col-3</span></td>
+		<td>width : 33%</td>
+	</tr>
+</tbody>
+</table>
+<pre class="prettyprint">
+&lt;div class=&quot;ui-grid-col-3&quot; style=&quot;height:76px&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;ui-btn&quot;&gt;Button Circle&lt;/button&gt;
+  &lt;a href=&quot;#&quot; class=&quot;ui-btn ui-color-red&quot; &gt;A Button Circle&lt;/a&gt;
+  &lt;input type=&quot;button&quot; class=&quot;ui-btn ui-color-orange&quot; value=&quot;Input Button Circle&quot; /&gt;
+&lt;/div&gt;
+</pre>
+
+<table>
+<tbody>
+	<tr>
+		<th style="width:40%;">Option</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td><span style="font-family: Courier New,Courier,monospace">ui-grid-row</span></td>
+		<td>to make display:block and give margin top 1px all children except first child.</td>
+	</tr>
+</tbody>
+</table>
+<pre class="prettyprint">
+&lt;div class=&quot;ui-grid-row&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;ui-btn&quot;&gt;Button Circle&lt;/button&gt;
+  &lt;a href=&quot;#&quot; class=&quot;ui-btn ui-color-red&quot; &gt;A Button Circle&lt;/a&gt;
+  &lt;input type=&quot;button&quot; class=&quot;ui-btn ui-color-orange&quot; value=&quot;Input Button Circle&quot; /&gt;
+&lt;/div&gt;
+</pre>
+
+<h2>Where to Go Next</h2>
+<ul>
+ <li><a href="widget_reference.htm">Widget Reference</a></li>
+
+</ul>
+
+ <div id="footer"> 
+   <hr size="1" /> 
+   <font size="1">Except as noted, this content - excluding the Code Examples - is licensed under <a href="http://creativecommons.org/licenses/by/3.0/legalcode" target="_blank">Creative Commons Attribution 3.0</a>.</font> 
+  </div> 
+  <!--start--> 
+  <script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-25976949-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script> 
+  <!--end-->  
+ </body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Selector tests</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="../../../../libs/qunit-1.11.0.css">
+</head>
+<body>
+<div id="qunit"></div>
+<div id="qunit-fixture">
+	<div data-role='page' id="page1">
+		<div class="test1a">
+			<div class="test1b">
+				<div class="test1a">
+					<span id="test1"><span data-role="button"></span></span>
+				</div>
+			</div>
+		</div>
+		<div id="test2">
+			<p class="test2a">
+				<span class="test2a">Nested</span>
+			</p>
+
+			<p class="test2a"></p>
+
+			<p class="test2a"></p>
+
+			<h1 class="test2a"></h1>
+
+			<h1 class="test2b"></h1>
+		</div>
+	</div>
+</div>
+<script src="../../../../libs/jquery.js"></script>
+<script src="../../../../libs/qunit-1.11.0.js" type="text/javascript"></script>
+<script src="../../../../libs/support.js"></script>
+<script type="text/javascript">
+	var tauConfig = {
+		"autorun": false
+	};
+</script>
+<script type="text/javascript" src="../../../../libs/dist/js/tau.js"></script>
+<script src="selectors.js"></script>
+</body>
+</html>

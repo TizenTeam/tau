@@ -1,0 +1,1004 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+    <script type="text/javascript" src="snippet.js"></script>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <link href="styles.css" rel="StyleSheet" type="text/css">
+    <link href="snippet.css" rel="StyleSheet" type="text/css">
+    <title>Progress widget</title>
+</head>
+<body onload="prettyPrint()" id="content">
+<div><a href="/dev-guide/2.2.1/org.tizen.web.appprogramming/html/cover_page.htm">Tizen Web App Programming</a> &gt; <a
+        href="/dev-guide/2.2.1/org.tizen.web.appprogramming/html/api_reference/api_reference.htm">API References</a>
+    &gt;
+    <a href="web_ui_framework.htm">UI
+        Framework Reference</a>
+    &gt;
+    <a href="widget_reference.htm">Widget Reference</a>
+
+</div>
+
+<h1>Progress widget</h1>
+
+
+
+<h2>Table of Contents</h2>
+<ol class="toc">
+    
+    <li><a href="#manual-constructor0.3245132458396256">Manual constructor</a>
+        
+    </li>
+    
+    <li><a href="#html-examples0.5115406704135239">HTML Examples</a>
+        
+        <ol class="toc">
+        
+            <li><a href="#create-simple progress pending from div using data-role:0.32370573095977306">Create simple progress pending from div using data-role:</a>
+            </li>
+        
+            <li><a href="#create-simple progress circle from div using data-role:0.09508616803213954">Create simple progress circle from div using data-role:</a>
+            </li>
+        
+        </ol>
+        
+    </li>
+    
+    <li><a href="#using-in javascript0.09316674876026809">Using in javascript</a>
+        
+        <ol class="toc">
+        
+            <li><a href="#show-the progress0.9673308152705431">Show the progress</a>
+            </li>
+        
+            <li><a href="#hide-the progress0.7564678995404392">Hide the progress</a>
+            </li>
+        
+            <li><a href="#run-the progress0.9333770754747093">Run the progress</a>
+            </li>
+        
+            <li><a href="#stop-the progress0.76749725965783">Stop the progress</a>
+            </li>
+        
+        </ol>
+        
+    </li>
+    
+    <li><a href="#options-list">Options list</a>
+        
+    </li>
+    
+    <li><a href="#methods-list">Methods list</a>
+        
+        <ol class="toc">
+        
+            <li><a href="#method-Show">Show</a>
+            </li>
+        
+            <li><a href="#method-destroy">destroy</a>
+            </li>
+        
+            <li><a href="#method-disable">disable</a>
+            </li>
+        
+            <li><a href="#method-enable">enable</a>
+            </li>
+        
+            <li><a href="#method-hide">hide</a>
+            </li>
+        
+            <li><a href="#method-off">off</a>
+            </li>
+        
+            <li><a href="#method-on">on</a>
+            </li>
+        
+            <li><a href="#method-option">option</a>
+            </li>
+        
+            <li><a href="#method-refresh">refresh</a>
+            </li>
+        
+            <li><a href="#method-running">running</a>
+            </li>
+        
+            <li><a href="#method-trigger">trigger</a>
+            </li>
+        
+            <li><a href="#method-value">value</a>
+            </li>
+        
+        </ol>
+        
+    </li>
+    
+</ol>
+
+<h2><a id='manual-constructor0.3245132458396256'></a>Manual constructor</h2>
+
+<p>For manual creation of progress widget you can use constructor of widget:</p>
+
+<pre class="prettyprint">var progress = ns.engine.instanceWidget(document.getElementById('foo'), 'progress');
+</pre>
+
+<p>If jQuery library is loaded, its method can be used:</p>
+
+<pre class="prettyprint">var progress = $('#foo').progress();
+</pre>
+
+<h2><a id='html-examples0.5115406704135239'></a>HTML Examples</h2>
+
+<h3><a id='create-simple progress pending from div using data-role:0.32370573095977306'></a>Create simple progress pending from div using data-role:</h3>
+
+<pre class="prettyprint">&lt;div data-role="progress" data-style="pending"&gt;&lt;/div&gt;
+</pre>
+
+<h3><a id='create-simple progress circle from div using data-role:0.09508616803213954'></a>Create simple progress circle from div using data-role:</h3>
+
+<pre class="prettyprint">&lt;div data-role="progress" data-style="circle"&gt;&lt;/div&gt;
+</pre>
+
+<h2><a id='using-in javascript0.09316674876026809'></a>Using in javascript</h2>
+
+<h3><a id='show-the progress0.9673308152705431'></a>Show the progress</h3>
+
+<pre class="prettyprint">ns.engine.instanceWidget(document.getElementById("foo")).show();
+</pre>
+
+<p>If jQuery library is loaded, its method can be used:</p>
+
+<pre class="prettyprint">$('#foo').progress('show');
+</pre>
+
+<h3><a id='hide-the progress0.7564678995404392'></a>Hide the progress</h3>
+
+<pre class="prettyprint">ns.engine.instanceWidget(document.getElementById("foo")).hide();
+</pre>
+
+<p>If jQuery library is loaded, its method can be used:</p>
+
+<pre class="prettyprint">$('#foo').progress('hide');
+</pre>
+
+<h3><a id='run-the progress0.9333770754747093'></a>Run the progress</h3>
+
+<pre class="prettyprint">ns.engine.instanceWidget(document.getElementById("foo")).running(true);
+</pre>
+
+<p>If jQuery library is loaded, its method can be used:</p>
+
+<pre class="prettyprint">$('#foo').progress('running', true);
+</pre>
+
+<h3><a id='stop-the progress0.76749725965783'></a>Stop the progress</h3>
+
+<pre class="prettyprint">ns.engine.instanceWidget(document.getElementById("foo")).running(true);
+</pre>
+
+<p>If jQuery library is loaded, its method can be used:</p>
+
+<pre class="prettyprint">$('#foo').progress('running', false);
+</pre>
+
+
+<h2><a id="options-list"></a>Options list</h2>
+
+<table><tbody>
+<tr>
+    <th>Option</th>
+    <th>Input type</th>
+    <th>Default value</th>
+    <th>Description</th>
+</tr>
+    
+        <tr>
+            <td><span style="font-family: Courier New,Courier,monospace">data-style</span></td>
+            <td>string</td>
+            <td>null</td>
+            <td><p>style of button ("circle" or "pending")</p></td>
+        </tr>
+    
+    </tbody>
+</table>
+
+<h2><a id="methods-list"></a>Methods list</h2>
+<h3>Summary</h3>
+<table class="informaltable">
+    <thead><tr>
+        <th>Method</th>
+        <th>Description</th>
+    </tr></thead>
+    <tbody>
+
+    
+
+    
+    <tr>
+        <td><pre class="intable prettyprint"><a href="#method-Show">Show</a> (  ) </pre></td>
+        <td><p>Show progress</p></td>
+    </tr>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <tr>
+        <td><pre class="intable prettyprint"><a href="#method-destroy">destroy</a> (  ) </pre></td>
+        <td><p>Destroy widget, call #_destroy</p></td>
+    </tr>
+    
+
+    
+    <tr>
+        <td><pre class="intable prettyprint">ns.widget.BaseWidget <a href="#method-disable">disable</a> (  ) </pre></td>
+        <td><p>Disable widget</p></td>
+    </tr>
+    
+
+    
+    <tr>
+        <td><pre class="intable prettyprint">ns.widget.BaseWidget <a href="#method-enable">enable</a> (  ) </pre></td>
+        <td><p>Enable widget, call: #_enable</p></td>
+    </tr>
+    
+
+    
+    <tr>
+        <td><pre class="intable prettyprint"><a href="#method-hide">hide</a> (  ) </pre></td>
+        <td><p>Hide progress</p></td>
+    </tr>
+    
+
+    
+
+    
+
+    
+
+    
+    <tr>
+        <td><pre class="intable prettyprint"><a href="#method-off">off</a> ( string eventName, Function listener, boolean? useCapture = false ) </pre></td>
+        <td><p>Remove event listener to this.element.</p></td>
+    </tr>
+    
+
+    
+    <tr>
+        <td><pre class="intable prettyprint"><a href="#method-on">on</a> ( string eventName, Function listener, boolean? useCapture = false ) </pre></td>
+        <td><p>Add event listener to this.element.</p></td>
+    </tr>
+    
+
+    
+    <tr>
+        <td><pre class="intable prettyprint">* <a href="#method-option">option</a> ( string | Object? name, * value ) </pre></td>
+        <td><p>Get/Set options of the widget.</p></td>
+    </tr>
+    
+
+    
+    <tr>
+        <td><pre class="intable prettyprint">ns.widget.BaseWidget <a href="#method-refresh">refresh</a> (  ) </pre></td>
+        <td><p>Refresh widget, call: #_refresh</p></td>
+    </tr>
+    
+
+    
+    <tr>
+        <td><pre class="intable prettyprint"><a href="#method-running">running</a> ( boolean flag ) </pre></td>
+        <td><p>Running the progress</p></td>
+    </tr>
+    
+
+    
+
+    
+    <tr>
+        <td><pre class="intable prettyprint">boolean <a href="#method-trigger">trigger</a> ( string eventName, *? data, boolean? bubbles = true, boolean? cancelable = true ) </pre></td>
+        <td><p>Trigger an event on widget's element.</p></td>
+    </tr>
+    
+
+    
+    <tr>
+        <td><pre class="intable prettyprint">* <a href="#method-value">value</a> ( *? value ) </pre></td>
+        <td><p>Get/Set value of the widget</p></td>
+    </tr>
+    
+
+    </tbody>
+</table>
+<dl>
+
+    
+
+    
+        <dt class="method" id="addidp28072"><code><b><span class="methodName" id="method-Show">Show</span></b></code></dt>
+        <dd>
+            <div class="brief">
+                <p>Show progress</p>
+            </div>
+            <div class="synopsis"><pre class="signature prettyprint">Show ( ) </pre></div>
+            
+            <div class="description">
+                <p>
+                    
+                </p>
+            </div>
+                
+                
+                
+            <div class="returntype">
+                <p><span class="return">Return value:</span></p>
+        
+        
+            No Return Value
+        
+            </div>
+            
+        </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <dt class="method" id="addidp28072"><code><b><span class="methodName" id="method-destroy">destroy</span></b></code></dt>
+        <dd>
+            <div class="brief">
+                <p>Destroy widget, call #_destroy</p>
+            </div>
+            <div class="synopsis"><pre class="signature prettyprint">destroy ( ) </pre></div>
+            
+            <div class="description">
+                <p>
+                    
+                </p>
+            </div>
+                
+                
+                
+            <div class="returntype">
+                <p><span class="return">Return value:</span></p>
+        
+        
+            No Return Value
+        
+            </div>
+            
+        </dd>
+    
+
+    
+        <dt class="method" id="addidp28072"><code><b><span class="methodName" id="method-disable">disable</span></b></code></dt>
+        <dd>
+            <div class="brief">
+                <p>Disable widget</p>
+            </div>
+            <div class="synopsis"><pre class="signature prettyprint">ns.widget.BaseWidget disable ( ) </pre></div>
+            
+            <div class="description">
+                <p>
+                    
+                </p>
+            </div>
+                
+                
+                
+            <div class="returntype">
+                <p><span class="return">Return value:</span></p>
+        
+    <table><tbody>
+    <tr>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>ns.widget.BaseWidget</td>
+        <td>return this</td>
+    </tr>
+    </tbody></table>
+        
+        
+            </div>
+            
+        </dd>
+    
+
+    
+        <dt class="method" id="addidp28072"><code><b><span class="methodName" id="method-enable">enable</span></b></code></dt>
+        <dd>
+            <div class="brief">
+                <p>Enable widget, call: #_enable</p>
+            </div>
+            <div class="synopsis"><pre class="signature prettyprint">ns.widget.BaseWidget enable ( ) </pre></div>
+            
+            <div class="description">
+                <p>
+                    
+                </p>
+            </div>
+                
+                
+                
+            <div class="returntype">
+                <p><span class="return">Return value:</span></p>
+        
+    <table><tbody>
+    <tr>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>ns.widget.BaseWidget</td>
+        <td>return this</td>
+    </tr>
+    </tbody></table>
+        
+        
+            </div>
+            
+        </dd>
+    
+
+    
+        <dt class="method" id="addidp28072"><code><b><span class="methodName" id="method-hide">hide</span></b></code></dt>
+        <dd>
+            <div class="brief">
+                <p>Hide progress</p>
+            </div>
+            <div class="synopsis"><pre class="signature prettyprint">hide ( ) </pre></div>
+            
+            <div class="description">
+                <p>
+                    
+                </p>
+            </div>
+                
+                
+                
+            <div class="returntype">
+                <p><span class="return">Return value:</span></p>
+        
+        
+            No Return Value
+        
+            </div>
+            
+        </dd>
+    
+
+    
+
+    
+
+    
+
+    
+        <dt class="method" id="addidp28072"><code><b><span class="methodName" id="method-off">off</span></b></code></dt>
+        <dd>
+            <div class="brief">
+                <p>Remove event listener to this.element.</p>
+            </div>
+            <div class="synopsis"><pre class="signature prettyprint">off ( string eventName, Function listener, boolean? useCapture = false) </pre></div>
+            
+            <div class="description">
+                <p>
+                    
+                </p>
+            </div>
+                
+                <div class="parameters">
+                    <p><span class="param">Parameters:</span></p>
+                <table><tbody>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Required / optional</th>
+                    <th>Default value</th>
+                    <th>Description</th>
+                </tr>
+                
+                
+                <tr>
+                    <td><span style="font-family: Courier New,Courier,monospace">eventName</span></td>
+                    <td>string</td>
+                    <td>required</td>
+                    <td></td>
+                    <td>the name of event</td>
+                </tr>
+                
+                <tr>
+                    <td><span style="font-family: Courier New,Courier,monospace">listener</span></td>
+                    <td>Function</td>
+                    <td>required</td>
+                    <td></td>
+                    <td>function call after event will be trigger</td>
+                </tr>
+                
+                <tr>
+                    <td><span style="font-family: Courier New,Courier,monospace">useCapture</span></td>
+                    <td>boolean</td>
+                    <td>optional</td>
+                    <td>false</td>
+                    <td>useCapture param tu addEventListener</td>
+                </tr>
+                
+                
+                </tbody>
+                </table>
+                </div>
+                
+            <div class="returntype">
+                <p><span class="return">Return value:</span></p>
+        
+        
+            No Return Value
+        
+            </div>
+            
+        </dd>
+    
+
+    
+        <dt class="method" id="addidp28072"><code><b><span class="methodName" id="method-on">on</span></b></code></dt>
+        <dd>
+            <div class="brief">
+                <p>Add event listener to this.element.</p>
+            </div>
+            <div class="synopsis"><pre class="signature prettyprint">on ( string eventName, Function listener, boolean? useCapture = false) </pre></div>
+            
+            <div class="description">
+                <p>
+                    
+                </p>
+            </div>
+                
+                <div class="parameters">
+                    <p><span class="param">Parameters:</span></p>
+                <table><tbody>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Required / optional</th>
+                    <th>Default value</th>
+                    <th>Description</th>
+                </tr>
+                
+                
+                <tr>
+                    <td><span style="font-family: Courier New,Courier,monospace">eventName</span></td>
+                    <td>string</td>
+                    <td>required</td>
+                    <td></td>
+                    <td>the name of event</td>
+                </tr>
+                
+                <tr>
+                    <td><span style="font-family: Courier New,Courier,monospace">listener</span></td>
+                    <td>Function</td>
+                    <td>required</td>
+                    <td></td>
+                    <td>function call after event will be trigger</td>
+                </tr>
+                
+                <tr>
+                    <td><span style="font-family: Courier New,Courier,monospace">useCapture</span></td>
+                    <td>boolean</td>
+                    <td>optional</td>
+                    <td>false</td>
+                    <td>useCapture param tu addEventListener</td>
+                </tr>
+                
+                
+                </tbody>
+                </table>
+                </div>
+                
+            <div class="returntype">
+                <p><span class="return">Return value:</span></p>
+        
+        
+            No Return Value
+        
+            </div>
+            
+        </dd>
+    
+
+    
+        <dt class="method" id="addidp28072"><code><b><span class="methodName" id="method-option">option</span></b></code></dt>
+        <dd>
+            <div class="brief">
+                <p>Get/Set options of the widget.</p>
+            </div>
+            <div class="synopsis"><pre class="signature prettyprint">* option ( string | Object? name, * value) </pre></div>
+            
+            <div class="description">
+                <p>
+                    <p>This method can work in many context.</p>
+
+<p>If first argument is type of object them, methos set values for options given in object. Keys of object are names of options and values from object are values to set.</p>
+
+<p>If you give only one string argument then method return value for given option.</p>
+
+<p>If you give two arguments and first argument will be a string then second argument will be interpetete as valu to set.</p>
+                </p>
+            </div>
+                
+                <div class="parameters">
+                    <p><span class="param">Parameters:</span></p>
+                <table><tbody>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Required / optional</th>
+                    <th>Default value</th>
+                    <th>Description</th>
+                </tr>
+                
+                
+                <tr>
+                    <td><span style="font-family: Courier New,Courier,monospace">name</span></td>
+                    <td>string | Object</td>
+                    <td>optional</td>
+                    <td></td>
+                    <td>name of option</td>
+                </tr>
+                
+                <tr>
+                    <td><span style="font-family: Courier New,Courier,monospace">value</span></td>
+                    <td>*</td>
+                    <td>required</td>
+                    <td></td>
+                    <td>value to set</td>
+                </tr>
+                
+                
+                </tbody>
+                </table>
+                </div>
+                
+            <div class="returntype">
+                <p><span class="return">Return value:</span></p>
+        
+    <table><tbody>
+    <tr>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>*</td>
+        <td>return value of option or undefined if method is called in setter context</td>
+    </tr>
+    </tbody></table>
+        
+        
+            </div>
+            
+        </dd>
+    
+
+    
+        <dt class="method" id="addidp28072"><code><b><span class="methodName" id="method-refresh">refresh</span></b></code></dt>
+        <dd>
+            <div class="brief">
+                <p>Refresh widget, call: #_refresh</p>
+            </div>
+            <div class="synopsis"><pre class="signature prettyprint">ns.widget.BaseWidget refresh ( ) </pre></div>
+            
+            <div class="description">
+                <p>
+                    
+                </p>
+            </div>
+                
+                
+                
+            <div class="returntype">
+                <p><span class="return">Return value:</span></p>
+        
+    <table><tbody>
+    <tr>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>ns.widget.BaseWidget</td>
+        <td>return this</td>
+    </tr>
+    </tbody></table>
+        
+        
+            </div>
+            
+        </dd>
+    
+
+    
+        <dt class="method" id="addidp28072"><code><b><span class="methodName" id="method-running">running</span></b></code></dt>
+        <dd>
+            <div class="brief">
+                <p>Running the progress</p>
+            </div>
+            <div class="synopsis"><pre class="signature prettyprint">running ( boolean flag) </pre></div>
+            
+            <div class="description">
+                <p>
+                    
+                </p>
+            </div>
+                
+                <div class="parameters">
+                    <p><span class="param">Parameters:</span></p>
+                <table><tbody>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Required / optional</th>
+                    <th>Default value</th>
+                    <th>Description</th>
+                </tr>
+                
+                
+                <tr>
+                    <td><span style="font-family: Courier New,Courier,monospace">flag</span></td>
+                    <td>boolean</td>
+                    <td>required</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                
+                
+                </tbody>
+                </table>
+                </div>
+                
+            <div class="returntype">
+                <p><span class="return">Return value:</span></p>
+        
+    <table><tbody>
+    <tr>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+    </tr>
+    </tbody></table>
+        
+        
+            </div>
+            
+        </dd>
+    
+
+    
+
+    
+        <dt class="method" id="addidp28072"><code><b><span class="methodName" id="method-trigger">trigger</span></b></code></dt>
+        <dd>
+            <div class="brief">
+                <p>Trigger an event on widget's element.</p>
+            </div>
+            <div class="synopsis"><pre class="signature prettyprint">boolean trigger ( string eventName, *? data, boolean? bubbles = true, boolean? cancelable = true) </pre></div>
+            
+            <div class="description">
+                <p>
+                    
+                </p>
+            </div>
+                
+                <div class="parameters">
+                    <p><span class="param">Parameters:</span></p>
+                <table><tbody>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Required / optional</th>
+                    <th>Default value</th>
+                    <th>Description</th>
+                </tr>
+                
+                
+                <tr>
+                    <td><span style="font-family: Courier New,Courier,monospace">eventName</span></td>
+                    <td>string</td>
+                    <td>required</td>
+                    <td></td>
+                    <td>the name of event to trigger</td>
+                </tr>
+                
+                <tr>
+                    <td><span style="font-family: Courier New,Courier,monospace">data</span></td>
+                    <td>*</td>
+                    <td>optional</td>
+                    <td></td>
+                    <td>additional object to be carried with the event</td>
+                </tr>
+                
+                <tr>
+                    <td><span style="font-family: Courier New,Courier,monospace">bubbles</span></td>
+                    <td>boolean</td>
+                    <td>optional</td>
+                    <td>true</td>
+                    <td>indicating whether the event bubbles up through the DOM or not</td>
+                </tr>
+                
+                <tr>
+                    <td><span style="font-family: Courier New,Courier,monospace">cancelable</span></td>
+                    <td>boolean</td>
+                    <td>optional</td>
+                    <td>true</td>
+                    <td>indicating whether the event is cancelable</td>
+                </tr>
+                
+                
+                </tbody>
+                </table>
+                </div>
+                
+            <div class="returntype">
+                <p><span class="return">Return value:</span></p>
+        
+    <table><tbody>
+    <tr>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>boolean</td>
+        <td>false, if any callback invoked preventDefault on event object</td>
+    </tr>
+    </tbody></table>
+        
+        
+            </div>
+            
+        </dd>
+    
+
+    
+        <dt class="method" id="addidp28072"><code><b><span class="methodName" id="method-value">value</span></b></code></dt>
+        <dd>
+            <div class="brief">
+                <p>Get/Set value of the widget</p>
+            </div>
+            <div class="synopsis"><pre class="signature prettyprint">* value ( *? value) </pre></div>
+            
+            <div class="description">
+                <p>
+                    
+                </p>
+            </div>
+                
+                <div class="parameters">
+                    <p><span class="param">Parameters:</span></p>
+                <table><tbody>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Required / optional</th>
+                    <th>Default value</th>
+                    <th>Description</th>
+                </tr>
+                
+                
+                <tr>
+                    <td><span style="font-family: Courier New,Courier,monospace">value</span></td>
+                    <td>*</td>
+                    <td>optional</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                
+                
+                </tbody>
+                </table>
+                </div>
+                
+            <div class="returntype">
+                <p><span class="return">Return value:</span></p>
+        
+    <table><tbody>
+    <tr>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>*</td>
+        <td></td>
+    </tr>
+    </tbody></table>
+        
+        
+            </div>
+            
+        </dd>
+    
+
+</dl>
+<h2>Where to Go Next</h2>
+<ul>
+    
+</ul>
+<div id="footer">
+    <hr size="1">
+    <font size="1">Except as noted, this content - excluding the Code Examples - is licensed under <a
+            href="http://creativecommons.org/licenses/by/3.0/legalcode" target="_blank">Creative Commons Attribution
+        3.0</a> and all of the Code Examples contained herein are licensed under <a
+            href="https://www.tizen.org/bsd-3-clause-license" target="_blank">BSD-3-Clause</a>.<br>For details, see the
+        <a href="https://www.tizen.org/content-license" target="_blank">Content License</a>.</font>
+    <!--start-->
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-25976949-1']);
+        _gaq.push(['_trackPageview']);
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!--end-->
+</div>
+</body>
+</html>

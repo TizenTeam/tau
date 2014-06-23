@@ -1,0 +1,514 @@
+
+/************************************************
+****************** Remote View ******************
+************************************************/
+
+#remotePage .labelBox{
+	position: absolute;
+	pointer-events: none;
+}
+#remotePage .labelBox .verticalLabel {
+	height: 256px;
+	width: 68px;
+	max-width: 68px;
+	word-wrap: break-word;
+	left: 26px;
+	position: relative;
+	top: inherit;
+	display: table-cell;
+}
+#remotePage .labelBox .dividerH {
+	width: 88px;
+	height: 256px;
+	background-repeat: no-repeat;
+	background-size: 88px 12px;
+	background-position: 16px 122px;
+	background-image: url('../images/watch_ic_remote_btn_line.png');
+	position: relative;
+	top: inherit;
+	display: table-cell;
+}
+
+#remotePage .mainRemocon {
+	float: left;
+}
+#remotePage #powerSelBtn {
+	display: block;
+}
+
+#remotePage #powerSelectorBack {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 2;
+	opacity: .0;
+	pointer-events: none;
+	-webkit-transition: opacity 500ms;
+}
+#remotePage #addBtn,
+#remotePage #muteBtn {
+	opacity: 1;
+	-webkit-transition: opacity 500ms;
+
+}
+
+#remotePage.openPowerSelector #addBtn,
+#remotePage.openPowerSelector #muteBtn {
+	opacity: 0;
+	pointer-events: none;
+}
+#remotePage.openPowerSelector #powerSelectorBack {
+	opacity: 1;
+/* 	pointer-events: none; */
+}
+#remotePage.openPowerSelector #powerSelBtn {
+ 	background-image: url('../images/watch_ic_remote_btn_on_press.png'); 
+}
+#remotePage #centerBack {
+	position: absolute;
+	height: 160px;
+	width: 80px;
+	left: 120px;
+	top: 86px;
+}
+#remotePage #centerBack > * {
+	width: 100%;
+	height: 80px;
+	pointer-events: none;
+}
+#remotePage.openPowerSelector #centerBack > * {
+	pointer-events: all;
+}
+
+#remotePage section {
+	width: 320px;
+	height: calc( 100% - 58px );
+	position: absolute;
+}
+#remotePage #left {
+	width: 120px;
+	height: 100%;
+	float: left;
+}
+#remotePage #center {
+	width: 80px;
+	height: 100%;
+	float: left;
+}
+#remotePage #right {
+	width: 120px;
+	height: 100%;
+	float: left;
+}
+#remotePage .hidden {
+	opacity: 0;
+}
+
+#remotePage .remoteBgImg {
+	background-image: url('../images/watch_ic_remote_btn_bg.png');
+	background-size: 88px 236px;
+	background-position: 16px 10px; 
+	background-repeat: no-repeat;
+}
+#remotePage .remoteBtn {
+	width: 100%;
+	height: 128px;
+	background-repeat: no-repeat;
+}
+#remotePage .remoteBtn.remoteUpBtnBgImg {
+	background-size: 68px 68px;
+	background-position: 26px 16px;
+}
+#remotePage .remoteBtn.remoteDownBtnBgImg {
+	background-size: 68px 68px;
+	background-position: 26px 44px;
+}
+#remotePage .remoteBtn.remoteUpBtnBgImg.hover {
+	background-image: url('../images/watch_ic_remote_btn_press_01.png');
+}
+#remotePage .remoteBtn.remoteDownBtnBgImg.hover {
+	background-image: url('../images/watch_ic_remote_btn_press_01.png');
+}
+
+#remotePage .remoteBtn.remoteBtnAcUpBgImg {
+	background-size: 88px 117px;
+	background-position: 16px 10px;
+}
+#remotePage .remoteBtn.remoteBtnAcDownBgImg {
+	background-size: 88px 117px;
+	background-position: 16px 2px;
+}
+#remotePage .remoteBtn.remoteBtnAcUpBgImg.hover {
+	background-image: url('../images/watch_ic_remote_btn_press_aircon_01.png');
+}
+#remotePage .remoteBtn.remoteBtnAcDownBgImg.hover {
+	background-image: url('../images/watch_ic_remote_btn_press_aircon_02.png');
+}
+
+#remotePage .on {
+	width: 100%;
+	height: 86px;
+	background-repeat: no-repeat;
+	background-size: 72px 72px;
+	background-position: 4px 12px;
+	background-image: url('../images/watch_ic_remote_btn_on.png');
+}
+#remotePage .on.hover {
+	background-image: url('../images/watch_ic_remote_btn_on_press.png');
+}
+
+#remotePage .onAc {
+	width: 100%;
+	height: 80px;
+	margin-top: 88px;
+	background-repeat: no-repeat;
+	background-size: 72px 72px;
+	background-position: 4px 4px;
+	background-image: url('../images/watch_ic_remote_btn_on.png');
+}
+#remotePage .onAc.hover {
+	background-image: url('../images/watch_ic_remote_btn_on_press.png');
+}
+
+#remotePage #addBtn,
+#remotePage #tvPowerBtn {
+	width: 100%;
+	height: 80px;
+}
+#remotePage #muteBtn,
+#remotePage #stbPowerBtn {
+	width: 100%;
+	height: 96px;
+}
+#remotePage .remoteBtn2 {
+	width: 100%;
+	height: 80px;
+	background-repeat: no-repeat;
+	background-size: 80px 80px;
+}
+#remotePage .remoteBtn2.remoteBtn2BgImg {
+	background-image: url('../images/watch_ic_remote_btn_bg_01.png');	
+}
+
+#remotePage .remoteBtn2.remoteBtn2PressImg {
+	background-size: 80px 80px;
+	pointer-events: none;
+}
+#remotePage #addBtn.hover .remoteBtn2.remoteBtn2PressImg,
+#remotePage #muteBtn.hover .remoteBtn2.remoteBtn2PressImg,
+#remotePage #tvPowerBtn.hover .remoteBtn2.remoteBtn2PressImg,
+#remotePage #stbPowerBtn.hover .remoteBtn2.remoteBtn2PressImg {
+	background-image: url('../images/watch_ic_remote_btn_press_01.png');
+}
+
+#remotePage #AIR {
+	height: 100%;
+	padding-top: 6px;
+}
+
+#remotePage .remoteBtn2.add {
+	pointer-events: none;
+	background-image: url('../images/watch_ic_remote_btn_add.png');
+}
+#remotePage .remoteBtn2.mute {
+	pointer-events: none;
+	background-image: url('../images/watch_ic_remote_btn_mute.png');
+}
+#remotePage .remoteBtn.volUp {
+	pointer-events: none;
+	background-position: 26px 16px;
+	background-image: url('../images/watch_ic_remote_btn_plus.png');
+}
+#remotePage .remoteBtn.volDown { 
+	pointer-events: none;
+	background-position: 26px 44px;
+	background-image: url('../images/watch_ic_remote_btn_minus.png');
+}
+#remotePage .remoteBtn.chUp { 
+	pointer-events: none;
+	background-position: 26px 16px;
+	background-image: url('../images/watch_ic_remote_btn_up.png');
+}
+#remotePage .remoteBtn.chDown { 
+	pointer-events: none;
+	background-position: 26px 44px;
+	background-image: url('../images/watch_ic_remote_btn_down.png');
+}
+#remotePage .remoteBtn2.powerStb { 
+	pointer-events: none;
+	background-image: url('../images/watch_ic_remote_btn_stb.png');
+}
+#remotePage .remoteBtn2.powerTV { 
+	pointer-events: none;
+	background-image: url('../images/watch_ic_remote_btn_tv.png');
+}
+#remotePage .remoteBtn.fan { 
+	pointer-events: none;
+	background-size: 80px 80px;
+	background-position: 20px 29px;
+	background-image: url('../images/watch_ic_remote_btn_fan.png');
+}
+#remotePage .remoteBtn.mode { 
+	pointer-events: none;
+	background-size: 80px 80px;
+	background-position: 20px 19px;
+	background-image: url('../images/watch_ic_remote_btn_mode.png');
+}
+#remotePage .disable {
+
+	pointer-events: none;
+}
+
+
+#remotePage .disable > *{
+	opacity: 0.2;
+}
+
+#remotePage #chKeypad {
+	float: left;
+}
+#remotePage #TV,
+#remotePage #STB {
+	height: calc(100% - 58px);
+}
+
+#remotePage #chKeypadLeft {
+	width: 106px;
+	height: 100%;
+	/* position: absolute; */
+	/* left : 0px; */
+	float: left;
+}
+#remotePage .chBtn {
+	width: 106px;
+	height: 65px;
+	margin: 1px 0px 0px 0px; 
+}
+#remotePage .chBtn.bottom {
+	height: 64px;
+}
+#remotePage .chBtn.chPreBtn {
+	background-repeat: no-repeat;
+	background-position-x: 33px;
+	background-position-y: 12px;
+	background-image: url('../images/watch_ic_remote_btn_pre_ch.png');
+
+}
+#remotePage .chBtn.hover {
+ 	background-color: rgb( 38,38,38 );
+}
+/*
+#remotePage .chBtn:hover {
+ 	background-color: rgb( 38,38,38 );
+}
+*/
+#remotePage #chKeypadCenter {
+	width: 106px;
+	/* height: 100%; */
+	/* position: absolute; */
+	left : 107px;
+	float: left;
+	margin-left: 1px;
+}
+#remotePage #chKeypadRight {
+	width: 106px;
+	height: 100%;
+	/* position: absolute; */
+	float: left;
+	margin-left: 1px;
+}
+
+/*
+#remotePage .chBtn:hover {
+ 	background: #635d59;
+}
+*/
+#remotePage .chBtn:first-child {
+	margin: 0px 0px 0px 0px; 
+}
+#remotePage .chBtn {
+	font-size: 30px;
+	line-height: 30px;
+}
+
+/**************************************************
+**************** keypad  ****************
+**************************************************/
+
+#chKeypad {
+	overflow: visible;
+	background-image: url('../images/sip_dialer/watch_dialer_line.png');
+	background-position-y: -58px;
+	background-repeat: no-repeat;
+}
+
+#chKeypad .popImg.top {
+	top: calc(0px - 58px);
+}
+#chKeypad .popImg.topMiddle {
+	top: calc(28px - 58px);
+}
+#chKeypad .popImg.bottomMiddle {
+	top: calc(94px - 58px);
+}
+#chKeypad .popImg.bottom {
+	top: calc(160px - 58px);
+}
+#chKeypad .popImg {
+	display: none;
+	height: 104px;
+	position: absolute;
+	pointer-events: none;
+}
+#chKeypad #chKeypadLeft .popImg {
+	width: 108px;
+}
+#chKeypad #chKeypadCenter .popImg {
+	width: 110px;
+	left: calc(0px + 108px - 3px);
+}
+#chKeypad #chKeypadRight .popImg {
+	width: 108px;
+	right: 0px;
+}
+#chKeypad .label {
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+}
+#chKeypad .chBtn.hover .popImg {
+ 	display: block; 
+/* 	display: none; */
+}
+#chKeypad .chBtn.hover .label {
+
+}
+#chKeypad #ch1Btn .popImg {
+	background-image: url('../images/sip_dialer/watch_sip_dialer_popup_01.png');
+}
+#chKeypad #ch2Btn .popImg {
+	background-image: url('../images/sip_dialer/watch_sip_dialer_popup_02.png');
+}
+#chKeypad #ch3Btn .popImg {
+	background-image: url('../images/sip_dialer/watch_sip_dialer_popup_03.png');
+}
+#chKeypad #ch4Btn .popImg {
+	background-image: url('../images/sip_dialer/watch_sip_dialer_popup_04.png');
+}
+#chKeypad #ch5Btn .popImg {
+	background-image: url('../images/sip_dialer/watch_sip_dialer_popup_05.png');
+}
+#chKeypad #ch6Btn .popImg {
+	background-image: url('../images/sip_dialer/watch_sip_dialer_popup_06.png');
+}
+#chKeypad #ch7Btn .popImg {
+	background-image: url('../images/sip_dialer/watch_sip_dialer_popup_07.png');
+}
+#chKeypad #ch8Btn .popImg {
+	background-image: url('../images/sip_dialer/watch_sip_dialer_popup_08.png');
+}
+#chKeypad #ch9Btn .popImg {
+	background-image: url('../images/sip_dialer/watch_sip_dialer_popup_09.png');
+}
+#chKeypad #ch0Btn .popImg {
+	background-image: url('../images/sip_dialer/watch_sip_dialer_popup_00.png');
+}
+#chKeypad #ch-Btn .popImg {
+	background-image: url('../images/sip_dialer/watch_sip_dialer_popup_line.png');
+}
+#chKeypad #chPreBtn .popImg {
+	background-image: url('../images/sip_dialer/watch_sip_dialer_popup_pre.png');
+}
+#chKeypad #ch1Btn .label {
+	background-image: url('../images/sip_dialer/watch_sip_dialer_01.png');
+}
+#chKeypad #ch2Btn .label {
+	background-image: url('../images/sip_dialer/watch_sip_dialer_02.png');
+}
+#chKeypad #ch3Btn .label {
+	background-image: url('../images/sip_dialer/watch_sip_dialer_03.png');
+}
+#chKeypad #ch4Btn .label {
+	background-image: url('../images/sip_dialer/watch_sip_dialer_04.png');
+}
+#chKeypad #ch5Btn .label {
+	background-image: url('../images/sip_dialer/watch_sip_dialer_05.png');
+}
+#chKeypad #ch6Btn .label {
+	background-image: url('../images/sip_dialer/watch_sip_dialer_06.png');
+}
+#chKeypad #ch7Btn .label {
+	background-image: url('../images/sip_dialer/watch_sip_dialer_07.png');
+}
+#chKeypad #ch8Btn .label {
+	background-image: url('../images/sip_dialer/watch_sip_dialer_08.png');
+}
+#chKeypad #ch9Btn .label {
+	background-image: url('../images/sip_dialer/watch_sip_dialer_09.png');
+}
+#chKeypad #ch0Btn .label {
+	background-image: url('../images/sip_dialer/watch_sip_dialer_00.png');
+}
+#chKeypad #ch-Btn .label {
+	background-image: url('../images/sip_dialer/watch_sip_dialer_line.png');
+}
+#chKeypad #chPreBtn .label {
+	background-image: url('../images/sip_dialer/watch_sip_dialer_pre.png');
+}
+
+#chKeypad #ch1Btn.hover .label {
+	background-image: url('../images/sip_dialer/watch_sip_dialer_01_press.png');
+}
+#chKeypad #ch2Btn.hover .label {
+	background-image: url('../images/sip_dialer/watch_sip_dialer_02_press.png');
+}
+#chKeypad #ch3Btn.hover .label {
+	background-image: url('../images/sip_dialer/watch_sip_dialer_03_press.png');
+}
+#chKeypad #ch4Btn.hover .label {
+	background-image: url('../images/sip_dialer/watch_sip_dialer_04_press.png');
+}
+#chKeypad #ch5Btn.hover .label {
+	background-image: url('../images/sip_dialer/watch_sip_dialer_05_press.png');
+}
+#chKeypad #ch6Btn.hover .label {
+	background-image: url('../images/sip_dialer/watch_sip_dialer_06_press.png');
+}
+#chKeypad #ch7Btn.hover .label {
+	background-image: url('../images/sip_dialer/watch_sip_dialer_07_press.png');
+}
+#chKeypad #ch8Btn.hover .label {
+	background-image: url('../images/sip_dialer/watch_sip_dialer_08_press.png');
+}
+#chKeypad #ch9Btn.hover .label {
+	background-image: url('../images/sip_dialer/watch_sip_dialer_09_press.png');
+}
+#chKeypad #ch0Btn.hover .label {
+	background-image: url('../images/sip_dialer/watch_sip_dialer_00_press.png');
+}
+#chKeypad #ch-Btn.hover .label {
+	background-image: url('../images/sip_dialer/watch_sip_dialer_line_press.png');
+}
+#chKeypad #chPreBtn.hover .label {
+	background-image: url('../images/sip_dialer/watch_sip_dialer_pre_press.png');
+}
+
+.Remote_control_FONT {
+	text-align: center;
+	font-size: 30px;
+	color: rgb(255,255,255);
+	line-height: 34px;
+}
+.Remote_control_01_FONT {
+	text-align: center;
+	vertical-align: middle;
+	font-size: 22px;
+	color: rgba(255, 255, 255, 0.5);
+/*	color: rgb(151, 143, 204);*/
+}
+.Remote_control_02_FONT {
+	text-align: center;
+	font-size: 22px;
+	color: rgb(255, 255, 255);
+	line-height: 80px;
+}

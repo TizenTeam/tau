@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>jQuery Mobile Core Test Suite</title>
+		<link rel="stylesheet" href="../../../libs/qunit-1.11.0.css">
+		<script src="../../../libs/jquery.js"></script>
+		<script src="../../../libs/qunit-1.11.0.js" type="text/javascript"></script>
+		<script src="../../../libs/support.js"></script>
+		<script src="../../../libs/jquery.testHelper.js"></script>
+	</head>
+	<body>
+		<h1 id="qunit-header">jQuery Mobile Core Test Suite</h1>
+		<h2 id="qunit-banner"></h2>
+		<h2 id="qunit-userAgent"></h2>
+		<ol id="qunit-tests"></ol>
+		<div id="qunit-fixtures">
+			<div data-role="page">
+			</div>
+			<div id="parent"></div>
+			<div id="dependent"></div>
+			<div id="encoded">foo&gt;</div>
+			<div id="unencoded"><script>var foo;</script></div>
+			<div id="parent-page" data-role="page">
+				<div id="page-child"></div>
+			</div>
+			<div id="parent-dialog" data-role="dialog">
+				<div id="dialog-child"></div>
+			</div>
+			<div id="hijackable">
+				<a href="#" id="hijacked-link"></a>
+				<a href="#" id="unhijacked-link-by-attr" data-ajax="false"></a>
+			</div>
+			<div id="not-hijackable" data-ajax="false">
+				<a href="#" id="unhijacked-link-by-parent"></a>
+			</div>
+		</div>
+		<script src="../../../libs/dist/js/tau.js" type="text/javascript"></script>
+		<script src="core.js"></script>
+		<script src="core_scroll.js"></script>
+	</body>
+</html>

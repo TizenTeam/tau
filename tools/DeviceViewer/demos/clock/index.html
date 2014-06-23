@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Clock&Calendar</title>
+		<meta name="viewport" content="width=device-width, user-scalable=no">
+		<link rel="stylesheet" type="text/css" href="css/clock.css">
+		<link rel="stylesheet" type="text/css" href="css/calendar.css">
+		<style type="text/css">
+			body {
+				background: rgb(15,15,15);
+				margin: 0;
+				padding: 0;
+				overflow: hidden;
+				width: 100%;
+				height: 100%;
+			}
+
+			.page {
+				padding: 10vw;
+				z-index: 1;
+				width: 80vw;
+				height: 80vh;
+			}
+
+			#navigation {
+				display: block;
+				position: fixed;
+				height: 100vh;
+				width: 5vw;
+				right: 0;
+				top: 0;
+				margin: 0;
+				padding: 0;
+				list-style-type: none;
+				z-indRx: 5;
+			}
+
+			li {
+				margin: 0;
+				padding: 0;
+				position: relative;
+				width: 100%;
+				height: 25vw;
+			}
+
+			li > a,
+			li > a:link,
+			li > a:visited {
+				display: block;
+				border: 1px solid rgb(70, 70, 70);
+				background: rgb(30, 30, 30);
+				width: 100%;
+				height: 100%;
+			}
+
+			li > a:active,
+			li > a:hover {
+				background: rgb(134, 193, 222);
+			}
+
+			@media handheld and (orientation: landscape), screen and (orientation: landscape) {
+				#navigation {
+					right: auto;
+					left: 0;
+					width: 100vw;
+					height: 5vh;
+					margin: 0 auto;
+				}
+
+				#navigation > li {
+					float: left;
+					width: 33vw;
+					height: 100%;
+				}
+
+				#navigation > li.clock {
+					display: none;
+				}
+
+				.page {
+					width: 50%;
+					margin-left: 50%;
+					padding-top: 12vh;
+					height: 80vh;
+					padding-left: 0;
+				}
+
+				#clock {
+					position: fixed;
+					left: 0;
+					top: 12vh;
+					margin: 0;
+					padding: 0;
+				}
+			}
+
+			@media handheld and (orientation: portrait), screen and (orientation: portrait) {
+				#navigation {
+					right: auto;
+					left: 0;
+					width: 100vw;
+					height: 5vh;
+					margin: 0 auto;
+				}
+
+				#navigation > li {
+					float: left;
+					width: 33vw;
+					height: 100%;
+				}
+
+				#navigation > li.clock {
+					display: none;
+				}
+
+				.page {
+					height: 50vh;
+					padding: 50vh 10vw 10vh 10vw;
+				}
+
+				#clock {
+					position: fixed;
+					top: 5vh;
+					padding: 0 10vw;
+					left: 0;
+					margin: 0;
+				}
+			}
+
+			@media tv {
+				body {
+					padding-top: 10vh;
+					padding-left: 10vw;
+				}
+				.page,
+				#clock {
+					height: 40vh;
+					width: 40vw;
+					margin: 0;
+					float: left;
+					padding: 0;
+					position: relative;
+					top: auto;
+					left: auto;
+				}
+
+				#navigation {
+					display: none;
+				}
+			}
+
+		</style>
+	</head>
+	<body>
+		<ul id="navigation">
+			<li class="clock">
+				<a href="#clock"></a>
+			</li>
+			<li class="calendar">
+				<a href="#calendar"></a>
+			</li>
+			<li class="calendar_1month">
+				<a href="#calendar_1month"></a>
+			</li>
+			<li class="calendar_2month">
+				<a href="#calendar_2month"></a>
+			</li>
+		</ul>
+		<div id="clock" class="page">
+			<div class="clock-widget"></div>
+		</div>
+		<div id="calendar" class="page">
+			<div class="calendar-widget"></div>
+		</div>
+		<div id="calendar_1month" class="page">
+			<div class="calendar-widget" data-monthOffset="1"></div>
+		</div>
+		<div id="calendar_2month" class="page">
+			<div class="calendar-widget" data-monthOffset="2"></div>
+		</div>
+		<script type="text/javascript" src="js/clock.js"></script>
+		<script type="text/javascript" src="js/calendar.js"></script>
+	</body>
+</html>

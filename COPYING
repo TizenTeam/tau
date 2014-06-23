@@ -1,35 +1,101 @@
-This software is licensed under the MIT license (as defined
-by the OSI at http://www.opensource.org/licenses/mit-license.php), except for
-following files:
-    * src/js/jquery.mobile.tizen.pinch.js.
-    * src/js/widgets/jquery.mobile.tizen.gallery3d.js
-
+This software is licensed under the Flora license( as defined
+by the OSI http://floralicense.org/license/).
 ****************************************************************************
-Copyright (c) 2000 - 2013 Samsung Electronics Co., Ltd.
-Copyright (C) 2011 by Intel Corporation Ltd.
+The following files are licensed under Flora license:
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-****************************************************************************
-
-The following files are licensed under Flora license.
-    * src/js/jquery.mobile.tizen.pinch.js.
-    * src/js/widgets/jquery.mobile.tizen.gallery3d.js
+	*demos/MobileWinset/src/tips/pinch-event/pinch.js
+	*src/js/core/event/pinch.js
+	*src/js/profile/mobile/widget/mobile.js
+	*src/js/profile/mobile/config.js
+	*src/js/profile/mobile/router/Page.js
+	*src/js/profile/mobile/router/PageExternal.js
+	*src/js/profile/mobile/router/PageTransition.js
+	*src/js/profile/mobile/router/urlHistory.js
+	*src/js/profile/mobile/widget/mobile/BaseWidgetMobile.js
+	*src/js/profile/mobile/widget/mobile/Button.js
+	*src/js/profile/mobile/widget/mobile/Checkboxradio.js
+	*src/js/profile/mobile/widget/mobile/Circularview.js
+	*src/js/profile/mobile/widget/mobile/Collapsible.js
+	*src/js/profile/mobile/widget/mobile/Collapsibleset.js
+	*src/js/profile/mobile/widget/mobile/Controlgroup.js
+	*src/js/profile/mobile/widget/mobile/Datetimepicker.js
+	*src/js/profile/mobile/widget/mobile/Dialog.js
+	*src/js/profile/mobile/widget/mobile/ExtendableList.js
+	*src/js/profile/mobile/widget/mobile/Fastscroll.js
+	*src/js/profile/mobile/widget/mobile/Fieldcontain.js
+	*src/js/profile/mobile/widget/mobile/Gallery.js
+	*src/js/profile/mobile/widget/mobile/Gallery3d.js
+	*src/js/profile/mobile/widget/mobile/Listdivider.js
+	*src/js/profile/mobile/widget/mobile/Listview.js
+	*src/js/profile/mobile/widget/mobile/ListviewAutodivider.js
+	*src/js/profile/mobile/widget/mobile/ListviewFilter.js
+	*src/js/profile/mobile/widget/mobile/Loader.js
+	*src/js/profile/mobile/widget/mobile/MultimediaView.js
+	*src/js/profile/mobile/widget/mobile/Navbar.js
+	*src/js/profile/mobile/widget/mobile/Notification.js
+	*src/js/profile/mobile/widget/mobile/Page.js
+	*src/js/profile/mobile/widget/mobile/Popup.js
+	*src/js/profile/mobile/widget/mobile/Progress.js
+	*src/js/profile/mobile/widget/mobile/Progressbar.js
+	*src/js/profile/mobile/widget/mobile/ScrollHandler.js
+	*src/js/profile/mobile/widget/mobile/Scrollview.js
+	*src/js/profile/mobile/widget/mobile/Searchbar.js
+	*src/js/profile/mobile/widget/mobile/Selectmenu.js
+	*src/js/profile/mobile/widget/mobile/Slider.js
+	*src/js/profile/mobile/widget/mobile/SplitView.js
+	*src/js/profile/mobile/widget/mobile/Swipe.js
+	*src/js/profile/mobile/widget/mobile/Tabbar.js
+	*src/js/profile/mobile/widget/mobile/Textinput.js
+	*src/js/profile/mobile/widget/mobile/TizenSlider.js
+	*src/js/profile/mobile/widget/mobile/Tokentextarea.js
+	*src/js/profile/mobile/widget/mobile/VirtualGrid.js
+	*src/js/profile/mobile/widget/mobile/VirtualListview.js
+	*src/js/profile/wearable/widget/wearable.js
+	*src/js/profile/wearable/config.js
+	*src/js/profile/wearable/defaults.js
+	*src/js/profile/wearable/navigator.js
+	*src/js/profile/wearable/profile.js
+	*src/js/profile/wearable/router/Router.js
+	*src/js/profile/wearable/router/history.js
+	*src/js/profile/wearable/router/route.js
+	*src/js/profile/wearable/router/route/page.js
+	*src/js/profile/wearable/router/route/popup.js
+	*src/js/profile/wearable/selectors.js
+	*src/js/profile/wearable/support.js
+	*src/js/profile/wearable/utils.js
+	*src/js/profile/wearable/widget.js
+	*src/js/profile/wearable/widget/wearable/Button.js
+	*src/js/profile/wearable/widget/wearable/Datetimepicker.js
+	*src/js/profile/wearable/widget/wearable/Label.js
+	*src/js/profile/wearable/widget/wearable/Listview.js
+	*src/js/profile/wearable/widget/wearable/Page.js
+	*src/js/profile/wearable/widget/wearable/PageContainer.js
+	*src/js/profile/wearable/widget/wearable/Popup.js
+	*src/js/profile/wearable/widget/wearable/Progress.js
+	*src/js/profile/wearable/widget/wearable/Progressing.js
+	*src/js/profile/wearable/widget/wearable/SectionChanger.js
+	*src/js/profile/wearable/widget/wearable/Swipe.js
+	*src/js/profile/wearable/widget/wearable/SwipeList.js
+	*src/js/profile/wearable/widget/wearable/TabIndicator.js
+	*src/js/profile/wearable/widget/wearable/ToogleSwitch.js
+	*src/js/profile/wearable/widget/wearable/VirtualGrid.js
+	*src/js/profile/wearable/widget/wearable/VirtualListview.js
+	*src/js/profile/wearable/widget/wearable/Weather.js
+	*src/js/profile/wearable/widget/wearable/indexscrollbar.js
+	*src/js/profile/wearable/widget/wearable/indexscrollbar/IndexBar.js
+	*src/js/profile/wearable/widget/wearable/indexscrollbar/IndexIndicator.js
+	*src/js/profile/wearable/widget/wearable/indexscrollbar/IndexScrollbar.js
+	*src/js/profile/wearable/widget/wearable/scroller.js
+	*src/js/profile/wearable/widget/wearable/scroller/Scroller.js
+	*src/js/profile/wearable/widget/wearable/scroller/effect.js
+	*src/js/profile/wearable/widget/wearable/scroller/effect/Bouncing.js
+	*src/js/profile/wearable/widget/wearable/scroller/scrollbar.js
+	*src/js/profile/wearable/widget/wearable/scroller/scrollbar/ScrollBar.js
+	*src/js/profile/wearable/widget/wearable/scroller/scrollbar/Scrollbar.js
+	*src/js/profile/wearable/widget/wearable/scroller/scrollbar/type.js
+	*src/js/profile/wearable/widget/wearable/scroller/scrollbar/type/bar.js
+	*src/js/profile/wearable/widget/wearable/scroller/scrollbar/type/interface.js
+	*src/js/profile/wearable/widget/wearable/scroller/scrollbar/type/tab.js
 
 ****************************************************************************
 Flora License
@@ -224,7 +290,7 @@ file or class name and description of purpose be included on the
 same "printed page" as the copyright notice for easier
 identification within third-party archives.
 
-   Copyright [2013] [Samsung Electronics Co., Ltd.]
+   Copyright 2013 - 2014 Samsung Electronics Co., Ltd.
 
    Licensed under the Flora License, Version 1.1 (the "License");
    you may not use this file except in compliance with the License.
@@ -249,11 +315,6 @@ widgets/jquery.mobile.groupindex/
 	git clone https://github.com/jquery/jquery-mobile.git
 	commit a197e17500ed9f4994f532ab384b0b45b414a1ea
 	including theme files (removed php files which required some changes), demo html, js, and also the
-	jquery.mobile.scrollview.{js/css} in the common directories (already copied as part of datetimepicker).
-
-jQuery UI (http://jqueryui.com/) [MIT license]
-
-jQuery Mobile (http://jquerymobile.com/) [MIT license]
 
 jQuery (http://jquery.com/) [MIT license]
 

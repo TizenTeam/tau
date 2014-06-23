@@ -1,0 +1,1082 @@
+/*
+* Copyright (c) 2013 - 2014 Samsung Electronics Co., Ltd
+*
+* Licensed under the Flora License, Version 1.1 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*     http://floralicense.org/license/
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+
+/*** less definitions ***/
+
+
+
+@unit_base_listview : @unit_base * 0.5;
+
+// Bubble
+@list-li-bubble-font-size: 19 * @unit_base;
+@list-li-bubble-time-font-size: 11 * @unit_base;
+@list-li-bubble-date-font-size: 16 * @unit_base;
+
+@list-li-sub-left-width: 187 * @unit_base;
+@list-li-main-right-padding: 187 * @unit_base;
+
+//Email
+@list-li-email-top-padding: 8 * @unit_base;
+@list-li-email-subline-top-padding: 4 * @unit_base;
+@list-li-email-sub-line-height: 40 * @unit_base;
+@list-email-icon-width: 56 * @unit_base;
+@list-email-icon-height: 60 * @unit_base;
+
+@list-email-icon-top-padding: 16 * @unit_base;
+@list-email-attach-icon-width: 40 * @unit_base;
+@list-email-attach-icon-height: 40 * @unit_base;
+@list-email-warning-icon-width: 30 * @unit_base;
+@list-email-warning-icon-height: 30 * @unit_base;
+@list-email-text-padding-left: 60 * @unit_base;
+
+/************************/
+
+.ui-listview {
+	margin: 0;
+	counter-reset: listnumbering;
+
+	border-top-color: @color_list_border_bottom;
+
+	li.ui-btn > .ui-btn-hastxt > .ui-btn-text.ui-btn-text-padding-right {
+		padding-right: 0 * @unit_base;	// Clear default button padding-right
+	}
+
+	.ui-li {
+		border-left-width : 0px;
+		border-right-width : 0px;
+
+		border-top-width: 0px;
+
+		> .ui-btn-inner {
+			border-bottom-width: 1px;
+			border-bottom-style: solid;
+			border-bottom-color: @color_list_border_bottom;
+			margin-left : 13 * @unit_base;
+			margin-right : 13 * @unit_base;
+		}
+	}
+
+	.ui-li-last {
+		> .ui-btn-inner {
+			border-bottom-color: @color_bg;
+		}
+	}
+
+	.ui-li-static {
+		background-color: @color_bg;
+
+		border-bottom-width: 1px;
+		border-bottom-style: solid;
+		border-bottom-color: @color_list_border_bottom;
+		margin-left : 13 * @unit_base;
+		margin-right : 13 * @unit_base;
+	}
+
+	.ui-li:not(.ui-li-divider) {
+		&:not(.ui-li-static) {
+			min-height : 55 * @unit_base;
+		}
+	}
+
+	.ui-li.ui-li-has-multiline:not(.ui-li-divider) {
+		&:not(.ui-li-static) {
+			min-height : 62 * @unit_base;
+		}
+	}
+
+	li.ui-btn-up-s, li.ui-btn-hover-s {
+		background: none;
+		background-color: @color_list_bg;
+		color:		@color_list_main_text_unfocus;
+		box-shadow: none;
+		.LESSborder-radius-all(0);
+	}
+	li.ui-btn-down-s {
+		background: none;
+		background-color: @color_list_press;
+		color:		@color_list_main_text_focus;
+		box-shadow: none;
+		.LESSborder-radius-all(0);
+		> .ui-btn-inner {
+			border-bottom-color : @color_list_press;
+		}
+	}
+	/* listview: fonts for li with a link */
+	li.ui-btn-up-s > .ui-li > .ui-btn-text > a.ui-link-inherit,
+	li.ui-btn-hover-s > .ui-li > .ui-btn-text > a.ui-link-inherit {
+		color:		@color_list_main_text_unfocus;
+	}
+
+	li.ui-btn-down-s > .ui-li > .ui-btn-text > a.ui-link-inherit {
+		color:		@color_list_main_text_focus;
+	}
+}
+
+.ui-content {
+	.ui-listview {
+		margin-left: -8 * @unit_base;
+		margin-right: -8 * @unit_base;
+		padding-bottom: 1px;
+
+		.ui-listview {
+			margin: 0;
+		}
+	}
+	.ui-listview-inset {
+		margin: 1em 0;
+	}
+}
+.ui-listview,
+.ui-li,
+.ui-collapsible-heading {
+	list-style:none;
+	padding:0;
+
+	font-size : @list-font-size-main;
+}
+.ui-li,
+.ui-collapsible-heading,
+.ui-li.ui-field-contain {
+	display: block;
+	margin:0;
+	position: relative;
+	overflow: visible;
+	text-align: left;
+}
+.ui-li {
+	.ui-btn {	// NOTE: For vertical aligning buttons. It breaks collapsible size. Refactor it!
+		top: 50%;
+		margin-top: -0.8em;
+		max-width: 100%;
+	}
+}
+.ui-li,
+.ui-collapsible-heading,
+.ui-collapsible > .ui-collapsible-content,
+.ui-listview li {
+	h3 {
+		margin-top	: 0px;
+		margin-bottom : 0px;
+
+		font-size : @list-font-size-main;
+		font-weight : normal;
+	}
+	form {
+		display : inline-block;
+	}
+	.ui-btn-text {
+		position: relative;
+		a.ui-link-inherit {
+			.LESStext-ellipsis();
+		}
+	}
+	&:last-child,
+	&.ui-field-contain:last-child {
+		border-bottom-width: 1px;
+	}
+	&>.ui-btn-inner,
+	&.ui-collapsible-heading>.ui-collapsible-heading-toggle {
+		display: block;
+		position: relative;
+		padding: 0;
+		border-width:0;
+	}
+
+	&>.ui-btn-inner.ui-btn-hastxt {
+		padding: 0px 0px;
+	}
+
+	.ui-btn-inner a.ui-link-inherit,
+	.ui-collapsible-heading-toggle > .ui-btn-inner,
+	&>li,
+	&.ui-li-static, {
+		padding-top : 15 * @unit_base;
+		padding-bottom : 15 * @unit_base;
+		display: block;
+
+		white-space: normal;	// default: 1line
+
+		border-left-width	: 0px;
+		border-right-width : 0px;
+	}
+
+	.ui-collapsible-heading-toggle {
+		.LESStext-no-ellipsis();
+	}
+
+	.ui-btn-inner a.ui-link-inherit {
+		.LESStext-ellipsis();
+	}
+
+	.ui-toggle-switch {
+		&:last-child {
+			top : 50%;
+			margin-top : -17 * @unit_base;
+
+			display : inline-block;
+			position : absolute;
+
+			right : -1px;
+		}
+	}
+
+	[data-role="button"] {
+		&:last-child {
+			position : absolute;
+			right : 0px;
+		}
+	}
+
+	.ui-radio,
+	.ui-checkbox {
+		&:first-child{
+			position : absolute;
+			top	 : 50%;
+			margin-top : -15 * @unit_base;
+
+			left : -5 * @unit_base;
+
+			width : 30 * @unit_base;
+			height : 30 * @unit_base;
+
+			.ui-btn-inner {
+				line-height : 20 * @unit_base;
+
+				color : transparent;
+
+			}
+
+			label.ui-btn-icon_only {
+				top : 0px;
+				margin-top : 0px;
+			}
+		}
+	}
+
+	img.ui-li-bigicon {
+		position : absolute;
+
+		width : 36 * @unit_base;
+		height : 36 * @unit_base;
+
+		top : 50%;
+		margin-top : -18 * @unit_base;
+
+		&:first-child {
+			left : 0px;
+		}
+
+		&:nth-child(2) {
+			left : 38 * @unit_base;
+		}
+
+		&:last-child {
+			right : 16 * @unit_base;
+		}
+	}
+
+	.ui-li-color-bar + img.ui-li-bigicon:nth-child(2) {
+		left : 0px;
+	}
+
+	.ui-li-color-bar {
+		position : absolute;
+		width  : 3 * @unit_base;
+		height : 100%;
+
+		top : 0 * @unit_base;
+		left : -13 * @unit_base;
+
+		background-color : rgba(0, 0, 0, 1);
+	}
+}
+
+li.ui-li-thumbnail-right {
+	img.ui-li-bigicon.ui-li-thumb {
+		left : auto;
+		right : 0px;
+
+		width : 50 * @unit_base;
+		height : 50 * @unit_base;
+
+		margin-top : -25 * @unit_base;
+	}
+}
+
+.ui-li.ui-li-has-multiline {
+	.ui-btn-inner a.ui-link-inherit,
+	&.ui-li-static {
+		padding-top : 7 * @unit_base;
+		padding-bottom : 28 * @unit_base;
+	}
+
+	a {
+		.LESStext-no-ellipsis();
+		padding-right : 16 * @unit_base; /* ellipsis for normal text */
+	}
+}
+
+/********************************************/
+/************  Add ellipsis *****************/
+/********************************************/
+.ui-li.ui-li-text-ellipsis {
+	.ui-btn-inner a.ui-link-inherit {
+		.LESStext-ellipsis();
+	}
+
+	a {
+		.LESStext-ellipsis();
+	}
+
+	&.ui-li-static {
+		.LESStext-ellipsis();
+	}
+}
+
+/********************************************/
+/*************** Edit Field *****************/
+/********************************************/
+.ui-li {
+	> input {
+		border-style : none;
+		border-width : 0px;
+
+		outline-color : @color_list_bg;
+		font-size : 23 * @unit_base;
+		line-height : 1;
+
+		padding-top : 0px;
+		padding-bottom : 0px;
+		color : @color_list_editfield;
+	}
+}
+
+/********************************************/
+/*************** Divider ********************/
+/********************************************/
+
+.ui-listview li.ui-li-divider {
+	background: @color_list_divider_bg;
+	color:		@color_list_divider_text;
+
+	border-bottom-width : 0px;
+	border-top-width : 0px;
+
+	cursor: default;
+
+	counter-reset: listnumbering;
+	font-weight: bold;
+
+	height: 56 * @unit_base_listview;
+
+	font-size : @list-font-size-divider;
+	&>.ui-btn-inner>.ui-btn-text {	// For buttonMarkup-ed dividers
+		font-size : @list-font-size-divider;
+	}
+
+	&.ui-btn {
+		top : 0px;
+		margin-top: 0 * @unit_base;
+		border-radius : 0px;
+
+		font-size : @list-font-size-divider;
+		.ui-btn-inner.ui-btn-hastxt {
+			height : 100%;
+			padding-left : 0px;
+			.ui-btn-text {
+				position : absolute;
+
+				top : 5 * @unit_base;
+				height : 18 * @unit_base;
+				padding-right : 10 * @unit_base;
+			}
+		}
+	}
+
+	&:not(.ui-btn) {
+		padding-top : 20 * @unit_base_listview;
+	}
+
+	&:focus {
+		outline:none;
+	}
+
+	&>.ui-btn-text {
+		position : absolute;
+		top : 20 * @unit_base_listview;
+		height : 38 * @unit_base_listview;
+		padding-left : 26 * @unit_base_listview;
+		padding-right : 26 * @unit_base_listview;
+	}
+
+	&[data-style="dialogue"] {
+		background-color: @color_dialogue_divider_bg;
+		height: 23 * @unit_base;
+		padding : 0px;
+
+		padding-top : 16 * @unit_base;
+		padding-bottom : 0 * @unit_base;
+		padding-left : 10 * @unit_base;
+	
+		margin-left : 4 * @unit_base;
+		margin-right : 4 * @unit_base;
+
+
+		font-size : 16 * @unit_base;
+		font-weight : bold;
+		color : @color_dialogue_main_text;
+	}
+
+	&[data-style="check"] {
+		height: 38 * @unit_base;
+		padding-top : 0px;
+		padding-bottom : 0px;
+
+		padding-left : 0px;
+
+		label {
+			top : 0px;
+			margin : 0;
+			
+			.ui-btn-inner {
+				z-index : 5;
+				position : absolute;
+				width : 32 * @unit_base;
+				height : 32 * @unit_base;
+				background : @color_checklist_btn_bg;
+				padding : 0;
+			}
+		}
+		.ui-btn-text {
+			padding-left : 37 * @unit_base;
+		}
+	}
+
+	.ui-divider-normal-line {
+		display : inline-block;
+		position : absolute;
+		top : 58 * @unit_base_listview;
+		width : 100%;
+		height : 4 * @unit_base_listview;
+
+		background : @color_list_divider_line;
+	}
+
+	&.ui-btn-down-s {
+		background : @color_list_divider_text;
+		color : @color_list_bg;
+
+		.ui-divider-normal-line {
+			background : @color_list_bg;
+		}
+
+		label {
+			> .ui-btn-inner {
+			background : @color_list_divider_text;
+			}
+		}
+	}
+
+	+ li.ui-li-dialogue {
+		border-top-left-radius : 3px;
+		border-top-right-radius : 3px;
+	}
+}
+
+.ui-listview li.ui-divider-btn {
+	&:active {
+		background-color: @color_list_divider_bg_press;
+
+		.ui-divider-normal-line {
+			background: @color_list_divider_text_press;
+		}
+
+		a {
+			color: @color_list_divider_text_press;
+		}
+	}
+
+	.ui-link-inherit {
+		color: @color_list_divider_text;
+		font-weight: bold;
+	}
+
+	&[data-style="check"] {
+		&:active label .ui-btn-inner{
+			background-color: @color_list_divider_bg_press;
+		}
+	}
+}
+
+.ui-divider-expand-div {
+	position : absolute;
+
+	width : 98 * @unit_base;
+	height : 42 * @unit_base;
+	top : 10 * @unit_base;
+	right : 0px;
+
+	border-left-width : 1px;
+	border-left-style : solid;
+	border-left-color : @color_list_divider_expand_div;
+}
+
+.ui-li-has-thumb:not(.ui-li-thumbnail-right) {
+	.ui-btn-inner a.ui-link-inherit,
+	&.ui-li-static  {
+		padding-left: 50 * @unit_base;
+	}
+	.ui-li-text-sub {
+		padding-left: 45 * @unit_base;
+		padding-right: 0px; /* ellipsis for sub text */
+	}
+}
+
+.ui-li-has-checkbox,
+.ui-li-has-radio{
+	.ui-btn-inner a.ui-link-inherit,
+	&.ui-li-static  {
+		padding-left: 38 * @unit_base;
+	}
+	.ui-li-text-sub {
+		padding-left: 38 * @unit_base;
+	}
+}
+
+.ui-li-has-thumb.ui-li-has-checkbox,
+.ui-li-has-thumb.ui-li-has-radio {
+	.ui-btn-inner a.ui-link-inherit,
+	&.ui-li-static  {
+		padding-left: 82 * @unit_base;
+	}
+
+	.ui-li-text-sub {
+		padding-left: 82 * @unit_base;
+	}
+}
+
+.ui-li.ui-li-has-right-circle-btn {
+	.ui-btn-inner a {
+		padding-right : 48 * @unit_base;
+	}
+}
+
+.ui-li.ui-li-has-right-btn:not(.ui-swipe) {
+	.ui-btn-inner a {
+		padding-right : 79 * @unit_base;
+	}
+}
+
+.ui-li.ui-li-thumbnail-right {
+	.ui-btn-inner a {
+		padding-right : 52 * @unit_base;
+	}
+}
+.ui-li.ui-li-static.ui-li-has-right-circle-btn {
+	padding-right : 48 * @unit_base;
+}
+
+.ui-li.ui-li-static.ui-li-has-right-btn:not(.ui-swipe) {
+	padding-right : 79 * @unit_base;
+}
+
+.ui-li.ui-li-static.ui-li-thumbnail-right {
+	padding-right : 52 * @unit_base;
+}
+
+.ui-li-has-icon {
+	.ui-btn-inner a.ui-link-inherit,
+	&.ui-li-static {
+		min-height: 20px;
+		padding-left: 40px;
+	}
+	.ui-li-text-sub {
+		padding-left: 40px;
+	}
+}
+
+.ui-li-heading {
+	font-size: 16px;
+	font-weight: bold;
+	display: block;
+	margin: .6em 0;
+	.LESStext-ellipsis();
+}
+
+.ui-li-thumb,
+.ui-li-icon {
+	position: absolute;
+	left: 1px;
+	top: 0;
+	max-height: @list-bigicon-size2;
+	max-width: @list-bigicon-size2;
+}
+
+.ui-listview * .ui-btn-inner > .ui-btn > .ui-btn-inner {
+	border-top: 0px;
+}
+
+.ui-li-sub,
+.ui-li-sub-setting {
+	float: right;
+	text-align: right;
+	font-size: 16 * @unit_base;
+	margin: .3em 0;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* ~~~~~~~~~~~~~~              NEW   LIST   STYLE                   ~~~~~~~~~ */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+.ui-li-text-sub {
+	float: right;
+	text-align: right;
+	font-size: 16 * @unit_base;
+	font-weight: bold;
+	color: @color_list_sub_text_default;
+
+	position : absolute;
+	right : 0px;
+	top : 20 * @unit_base;
+
+	width	: 95%;
+	.LESStext-ellipsis();
+
+	> img {
+		position : relative;
+		width: @list-smallicon-size;
+		height: @list-smallicon-size;
+		margin: 0 @list-li-padding-horizontal 0 @list-li-padding-horizontal;
+		vertical-align: bottom;
+	}
+}
+
+.ui-li-text-sub2 {
+	float: right;
+	text-align: right;
+	font-size: 12 * @unit_base;
+	font-weight: bold;
+	color: @color_list_sub_text_default;
+
+	position : absolute;
+	right : 0px;
+	top : 12 * @unit_base;
+
+	width : 60%;
+	.LESStext-ellipsis();
+
+	> img {
+		width: @list-smallicon-size;
+		height: @list-smallicon-size;
+		margin: 0 0 0 @list-li-padding-horizontal;
+	}
+}
+/*
+li:not(.ui-li-has-multiline) .ui-li-text-sub {
+	position : absolute;
+	right : 16 * @unit_base;
+	top: 22 * @unit_base;
+	margin-top: 0px;
+}*/
+
+.ui-li-has-multiline .ui-li-text-sub {
+	position : absolute;
+
+	text-align: left;
+	right : auto;
+	left : 0px;
+	top: 35 * @unit_base;
+	margin-top: 0px;
+
+	width : 90%;
+	.LESStext-ellipsis();
+}
+
+.ui-li-has-multiline.ui-li-has-right-btn {
+	.ui-btn-inner a {
+		.ui-li-text-sub {
+			width : 74%;
+		}
+	}
+}
+
+.ui-li-has-multiline.ui-li-has-right-btn.ui-li-has-thumb {
+	.ui-btn-inner a {
+		.ui-li-text-sub {
+			width : 64%;
+		}
+	}
+}
+
+.ui-li-has-multiline.ui-li-static.ui-li-has-right-btn {
+	.ui-li-text-sub {
+		width : 74%;
+	}
+}
+
+.ui-li-has-multiline.ui-li-static.ui-li-has-right-btn.ui-li-has-thumb {
+	.ui-li-text-sub {
+		width : 64%;
+	}
+}
+
+.ui-li-icon-sub-right,
+.ui-li-icon-sub {
+	position: absolute;
+	left: auto;
+	width: @list-smallicon-size;
+	height: @list-smallicon-size;
+	margin: 0 0;
+	margin-left: 8px;
+}
+.ui-li-icon-sub-right {
+	right : 8 * @unit_base;
+}
+
+
+
+// =========
+// Dialogue
+// =========
+.ui-listview {
+	li.ui-li-dialogue {
+		background : @color_list_dialogue_bg;
+		margin-left: 8 * @unit_base;
+		margin-right : 8 * @unit_base;
+		padding-left : 10 * @unit_base;
+		padding-right : 10 * @unit_base;
+
+		border-style : solid;
+		border-color : @color_dialogue_border_right;
+		border-width : 1px;
+		border-top-width : 0px;
+
+		> .ui-btn-inner {
+			margin-left : 0px;
+			margin-right : 0px;
+			border-bottom-width : 0px;
+		}
+
+		&:first-child {
+			border-top-width : 1px;
+			border-top-left-radius : 3px;
+			border-top-right-radius : 3px;
+		}
+		&:last-child {
+			border-bottom-left-radius : 3px;
+			border-bottom-right-radius : 3px;
+		}
+		
+		> img {
+			margin-left : 6 * @unit_base;
+		}
+		
+		[data-role="button"]:last-child {
+			margin-right : 10 * @unit_base;
+		}
+
+		.ui-link-inherit {
+			>.ui-btn {
+				margin-right : 0px;
+			}
+		}
+
+		&.ui-li-static {
+			.ui-li-text-sub, .ui-toggle-switch {
+				right : 10 * @unit_base;
+			}
+			&.ui-li-has-checkbox,
+			&.ui-li-has-radio {
+				padding-left : 44 * @unit_base;
+			}
+			.ui-checkbox, .ui-radio {
+				left : 0px;
+			}
+		}
+		&.ui-li-has-multiline.ui-li-static {
+			.ui-li-text-sub {
+				padding-left : 10 * @unit_base;
+			}
+			.ui-li-text-sub2 {
+				padding-right : 10 * @unit_base;
+			}
+			&.ui-li-has-checkbox,
+			&.ui-li-has-radio {
+				.ui-li-text-sub {
+					padding-left : 42 * @unit_base;
+				}
+			}
+		}
+		&.ui-collapsible-heading {
+			padding-left: 0px;
+			padding-right: 0px;
+		}
+	}
+
+	li.ui-li-divider + .ui-li-dialogue {
+		border-top-width : 1px;
+	}
+
+	&> li.ui-li-dialogue.ui-btn-hover-up-s:not(.ui-btn-down-s),
+	&> li.ui-li-dialogue.ui-btn-up-s {
+		&:not(.ui-li-expanded){
+			background : @color_list_dialogue_bg;
+		}
+	}
+
+	&> li.ui-li-dialogue.ui-btn-down-s {
+		&:not(.ui-li-expanded){
+			background : @color_list_press;
+		}
+	}
+
+	&> li.ui-li-dialogue.ui-li-expanded {
+		padding-left : 26 * @unit_base;
+		background : @color_list_expanded_bg;
+	}
+
+	&> li.ui-li-dialogue.ui-li-divider {
+		height: 32 * @unit_base;
+		padding : 0px;
+	}
+
+	&> li.ui-li-group-title {
+		padding-top : 32 * @unit_base;
+	}
+
+	&> li.ui-li-group-title span {
+		padding-left : 16 * @unit_base;
+	}
+
+	&> li.ui-li-dialogue-divider {
+		padding-top : 20 * @unit_base;
+		padding-bottom : 0 * @unit_base;
+		padding-left : 10 * @unit_base;
+	
+		margin-left : 4 * @unit_base;
+		margin-right : 4 * @unit_base;
+	
+		background : @color_list_dialogue_bg;
+		font-size : 16 * @unit_base;
+		font-weight : bold;
+		color : @color_dialogue_main_text;
+	}
+}
+
+// Edit list mode
+.ui-listview {
+	li.ui-li-dialogue-edit{
+		padding-left : 116 * @unit_base;
+		padding-top : 12 * @unit_base;
+		padding-bottom : 12 * @unit_base;
+
+		.ui-edit-title {
+			position : absolute;
+			left : 10 * @unit_base;
+			width : 91 * @unit_base;
+			padding-right : 8 * @unit_base;
+			display : inline-block;
+			top : 50%;
+			margin-top : -13 * @unit_base;
+
+			border-right-color : rgba(185, 184, 178, 1);
+			border-right-width : 1px;
+			border-right-style : solid;
+		}
+
+		input {
+			font-size : 22 * @unit_base;
+			background : transparent;
+			outline-color : transparent;
+			width : 100%;
+			padding-left : 0px;
+			padding-right : 0px;
+			border : none;
+			color : @color_text;
+		}
+	}
+
+	> .ui-li.ui-li-dialogue-edit.ui-li-has-right-btn {
+		padding-right : 110 * @unit_base;
+	}
+}
+
+// =========
+// bubble li
+// =========
+.ui-listview {
+	// Common
+        .ui-li-bubble-receive,
+        .ui-li-bubble-left,
+        .ui-li-bubble-sent,
+        .ui-li-bubble-right,
+        .ui-li-bubble-sos {
+                display: inline-block;
+                background-clip: padding-box;
+                max-width: 100%;
+                word-wrap: break-word;
+                font-size: @list-li-bubble-font-size;
+                p, span {
+                        font-size: @list-li-bubble-font-size;
+                }
+                img {
+                        position: relative;
+                        min-width: 160 * @unit_base;
+                        min-height: 160 * @unit_base;
+                }
+			&:first-child {
+				margin-top: 15 * @unit_base;
+			}
+        }
+
+	.ui-li-static {
+		&.ui-li-bubble-receive,
+		&.ui-li-bubble-left {
+			margin-left: 0px;
+                	margin-right: 100 * @unit_base;
+                	border-image-source: url(images/00_messagebubble_bg_receive.9.png);
+                	border-image-slice: 60 22 19 57 fill;
+                	border-image-width: auto;
+                	padding: 9px 14px 21px 48px;
+                        color: @color_list_bubble_receive_text;
+
+			> .ui-li-bubble-time {
+					margin-left: 7 * @unit_base;
+                        	position: absolute;
+                        	display: inline-block;
+					bottom: 12 * @unit_base;
+                        	left: 100%;
+                        	font-size: @list-li-bubble-time-font-size;
+                                text-align: left;
+                                color: @color_list_bubble_time_receive_text;
+                	}
+		}
+		&.ui-li-bubble-sent,
+		&.ui-li-bubble-right {
+			margin-left: 100 * @unit_base;
+			margin-right: 0px;
+			border-image-source: url(images/00_messagebubble_bg_sent.9.png);
+			border-image-slice: 55 47 20 13 fill;
+			border-image-width: auto;
+			padding: 9px 47px 20px 13px;
+			color: @color_list_bubble_sent_text;
+
+                	> .ui-li-bubble-time {
+				margin-right: 7 * @unit_base;
+				text-align: right;
+                                color: @color_list_bubble_time_sent_text;
+                        	position: absolute;
+                        	display: inline-block;
+					bottom: 12 * @unit_base;
+                        	right: 100%;
+                        	font-size: @list-li-bubble-time-font-size;
+                	}
+		}
+		&.ui-li-bubble-sos {
+			color: @color_list_bubble_sos_text;
+			> .ui-li-bubble-time {
+				color: @color_list_bubble_time_sos_text;
+			}
+		}
+		&.ui-li-bubble-date {
+			color: @color_list_bubble_date_text;
+			font-style: italic;
+			width: auto;
+			height: 24 * @unit_base;
+			background-image: url(images/00_messagebubble_date_bg.png);
+			background-repeat: repeat-x;
+			background-position: center center;
+			font-size: @list-li-bubble-date-font-size;
+			margin: 20 * @unit_base 6 * @unit_base;
+			border: 0px none red;
+			padding: 0 0;
+			padding-top: 0.5em;     // vertical text alignment to center
+			margin-left: 23px;
+			margin-right: 23px;
+			text-align: center;
+			& * {
+				display: inline-block;
+				background-color: @color_bg;
+				padding-left: 0.5em;
+				padding-right: 0.5em;
+			}
+		}
+	}
+
+	span.ui-li-bubble-time {
+		font-weight: bold;
+		width: 70 * @unit_base;
+	}
+}
+
+@-webkit-keyframes addliitem {
+	from {
+		-webkit-transform:	scale(0.5);
+		-moz-transform:	scale(0.5);
+		opacity:	0;
+	}
+	to {
+		-webkit-transform:	scale(1);
+		-moz-transform:	scale(1);
+		opacity:	1;
+	}
+}
+.addli
+{
+	-webkit-animation-name:	addliitem;
+	-moz-animation-name: addliitem;
+	-webkit-animation-duration:	0.5s;
+	-moz-animation-duration: 0.5s;
+	-webkit-transition-timing-function:	linear;
+	-moz-transition-timing-function:	linear;
+}
+
+@-webkit-keyframes removeliitem {
+	from {
+		-webkit-transform: scale(1);
+		-moz-transform: scale(1);
+		opacity : 1;
+	}
+	to {
+		-webkit-transform: scale(0.5);
+		-moz-transform: scale(0.5);
+		opacity : 0;
+	}
+}
+.removeli
+{
+	-webkit-animation-name:	removeliitem;
+	-moz-animation-name: removeliitem;
+	-webkit-animation-duration:	0.5s;
+	-moz-animation-duration:	0.5s;
+	-webkit-transition-timing-function:	linear;
+	-moz-transition-timing-function:	linear;
+}
+.ui-listview-inset .ui-corner-top {
+  -moz-border-radius-topleft: 0em;
+  -webkit-border-top-left-radius: 0em;
+  border-top-left-radius: 0em;
+  -moz-border-radius-topright: 0em;
+  -webkit-border-top-right-radius: 0em;
+  border-top-right-radius: 0em;
+}
+.ui-listview-inset .ui-corner-bottom {
+  -moz-border-radius-bottomleft: 0em;
+  -webkit-border-bottom-left-radius: 0em;
+  border-bottom-left-radius: 0em;
+  -moz-border-radius-bottomright: 0em;
+  -webkit-border-bottom-right-radius: 0em;
+  border-bottom-right-radius: 0em;
+}

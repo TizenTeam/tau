@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>jQuery Mobile Button Markup Test Suite</title>
+	<!-- meta viewport left out on purpose for test append -->
+	<link rel="stylesheet" href="../../../../../../../libs/qunit-1.11.0.css">
+	<script src="../../../../../../../libs/jquery.js"></script>
+	<script src="../../../../../../../libs/qunit-1.11.0.js"
+			type="text/javascript"></script>
+	<script src="../../../../../../../libs/support.js"></script>
+	<script src="../../../../../../../libs/jquery.testHelper.js"></script>
+	<script src="../../../../../../../libs/dist/js/tau.js"></script>
+	<script src="buttonMarkup_core.js"></script>
+</head>
+<body>
+
+	<div id="qunit"></div>
+
+	<div data-role="page" id="default">
+		<div data-role="content" id="control-group-content">
+		<input type="submit" data-role="button" value="Double Enhanced?" id="double-enhanced" />
+		<a href="index.html" data-role="button" data-shadow="false">No shadow</a>
+		<a href="index.html" data-role="button" data-corners="false">No corners</a>
+		<a href="index.html" data-role="button" data-shadow="false" data-corners="false">No shadow or corners</a>
+		<a href="index.html" data-role="button" data-icon="delete" data-iconshadow="false">No iconshadow</a>
+		<button data-shadow="false" data-corners="false" data-icon="delete" data-iconshadow="false">None of the above</button>
+		<svg id="embedded-svg" width="120" height="120" viewPort="0 0 120 120" version="1.1" xmlns="http://www.w3.org/2000/svg">
+			<rect x="10" y="10" width="100" height="100"/>
+		</svg>
+
+			<a href="docs-bars.html" data-role="button" id="full">Fullsize</a>
+			<a href="docs-bars.html" data-role="button" data-mini="true" id="mini">Mini</a>
+
+			<div data-role="controlgroup" data-mini="true" id="mini-control">
+				<a href="index.html" data-role="button">Yes</a>
+			</div>
+
+			<a id="iconpos1" data-role="button" href="index.html" data-icon="check">Default iconpos</a>
+			<a id="iconpos2" data-role="button" href="index.html" data-icon="check" data-iconpos="left">Left iconpos</a>
+			<a id="iconpos3" data-role="button" href="index.html" data-icon="check" data-iconpos="right">Right iconpos</a>
+			<a id="hover-delay" data-role="button" href="index.html"></a>
+			<a id="role-test" data-role="button" href="index.html">Blah</a>
+			<a id="role-test-unenhanced" href="index.html">Blah</a>
+		</div>
+	</div>
+</body>
+</html>

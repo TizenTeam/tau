@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="../../../../../../libs/dist/themes/default/tau.css" >
+
+	<title>Gallery3d Sample App</title>
+	<script>
+		var tauConfig = {
+			"autorun": false
+		};
+	</script>
+</head>
+<body>
+	<div data-role="page">
+		<div data-role="header" data-position="fixed">
+			<h1>Gallery3d</h1>
+		</div>
+		<div data-role="content">
+			<div id="gallery3d" data-role="gallery3d" data-thumbnail-cache="false" style="width: 100%;"></div>
+			<div style="width:100%; white-space:nowrap; text-overflow:ellipsis;" id="filename">&nbsp;</div>
+		</div>
+	</div>
+	<script src="../../../../../../libs/dist/js/tau.js"></script>
+	<script src="gallery3d.app.js"></script>
+</body>
+</html>

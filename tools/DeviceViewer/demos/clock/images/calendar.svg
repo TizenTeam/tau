@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg viewBox="0 0 202 202" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://web.resource.org/cc/">
+	<style type="text/css" >
+		<![CDATA[
+
+		.past > rect {
+			fill: rgb(62, 36, 130);
+		}
+
+		.today > rect {
+			fill: rgb(104, 130, 36);
+		}
+
+		.future > rect {
+			fill: rgb(36, 121, 130);
+		}
+
+		.sunday {
+			stroke: rgb(190, 190, 190);;
+		}
+
+		text {
+			text-align: center;
+			font-family: serif;
+			font-size: 12pt;
+			font-weight: bold;
+			fill: rgb(190, 190, 190);
+			stroke: none !important;
+		}
+
+		#header > text {
+			fill: rgb(134, 134, 222);
+		}
+	]]></style>
+	<text id="month" x="70" y="12"></text>
+	<g id="header">
+		<text x="0" y="30">Sn</text>
+		<text x="30" y="30">M</text>
+		<text x="60" y="30">T</text>
+		<text x="90" y="30">W</text>
+		<text x="120" y="30">Th</text>
+		<text x="150" y="30">F</text>
+		<text x="180" y="30">S</text>
+	</g>
+	<g id="calendar"/>
+
+	<script type="text/ecmascript"><![CDATA[
+		/*global window*/
+		(function (window, document) {
+			"use strict";
+			var calendarGroup = document.getElementById('calendar'),
+				options = {
+					'monthOffset': 0
+				},
+				params = document && document.defaultView && document.defaultView.frameElement && document.defaultView.frameElement && document.defaultView.frameElement.getElementsByTagName("param") || [],
+				max = 31,
+				i = 0,
+				now = new Date(),
+				start = null,
+				space = 30,
+				currentH = 0,
+				currentV = 35,
+				day,
+				group,
+				text,
+				param,
+				months = [
+					'January', 'February', 'March', 'April', 'May', 'June', 'July',
+					'August', 'September', 'October', 'November', 'December'
+				];
+
+			for (i = 0; i < params.length; i++) {
+				param = params[i];
+				options[param.getAttribute('name')] = parseInt(param.getAttribute('value'), 10);
+			}
+
+			start = new Date(now.getFullYear(), now.getMonth() + options['monthOffset'], 1);
+			currentH = start.getDay() * space;
+			max = (new Date(start.getFullYear(), start.getMonth() + 1, 0)).getDate();
+
+			document.getElementById('month').textContent = months[start.getMonth()];
+
+			for (i = 0; i < max; i++) {
+
+				day = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+				day.setAttribute("x", currentH);
+				day.setAttribute("y", currentV);
+				day.setAttribute("width", 20);
+				day.setAttribute("height", 20);
+
+				group = document.createElementNS("http://www.w3.org/2000/svg", "g");
+				if (i < now.getDate()) {
+					group.setAttribute("class", "past");
+				} else if (i === now.getDate()) {
+					group.setAttribute("class", "today");
+				} else {
+					group.setAttribute("class", "future");
+				}
+
+				text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+				text.setAttribute("x", currentH + 2);
+				text.setAttribute("y", currentV + 15);
+				text.textContent = (i + 1);
+				if ((i + start.getDay() + 1) % 7 === 1) {
+					group.classList.add("sunday");
+					currentV += space;
+					currentH = 0;
+				} else {
+					currentH += space;
+				}
+
+				group.appendChild(day);
+				group.appendChild(text);
+				calendarGroup.appendChild(group);
+			}
+		}(window, window.document));
+	]]></script>
+</svg>

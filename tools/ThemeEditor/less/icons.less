@@ -1,0 +1,48 @@
+@icon-set-image: url('../images/iconset.png');
+
+.icon {
+	background-image: @icon-set-image;
+	background-repeat: no-repeat;
+	display: inline-block;
+	width: 31px;
+	height: 31px;
+	background-position-y: -5px;
+	vertical-align: middle;
+	margin-bottom: 5px;
+
+	&:hover, li:hover & {
+		background-position-y: -48px;
+	}
+}
+
+.new-badge-icon {
+	.icon;
+	background-position-x: -6px;
+}
+
+.remove-badge-icon {
+	.icon;
+	background-position-x: -64px;
+}
+
+.height-badge-icon {
+	.icon;
+	background-position-x: -124px;
+}
+
+.width-badge-icon {
+	.icon;
+	background-position-x: -184px;
+}
+
+.zoom-badge-icon {
+	.icon;
+	background-position-x: -240px;
+	width: 38px;
+}
+
+.save-css-icon {
+	.icon;
+	background-position-x: -293px;
+	width: 38px;
+}
