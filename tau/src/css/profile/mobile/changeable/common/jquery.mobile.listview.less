@@ -197,7 +197,7 @@
 
 	.ui-li-color-bar {
 		position: absolute;
-		top: 0;
+		top: 5 * @unit_base;
 		left: 0;
 		width: 3.5 * @unit_base;
 		height: 90%;
@@ -276,6 +276,90 @@
 	}
 }
 
+/****************************************************************/
+/*                   Genlist_3line                              */
+/****************************************************************/
+.ui-listview .ui-li.ui-li-has-3line {
+	&.ui-btn>.ui-btn-inner>.ui-btn-text>.ui-link-inherit {
+		padding-top: 4.5 * @unit_base;
+		padding-left: 50 * @unit_base;
+		padding-bottom: 46 * @unit_base;
+		line-height: 28 * @unit_base;
+		font-size: @font_size_list_3line_main_text;
+		color: @color_list_3line_main_text;
+	}
+	&.ui-li-read.ui-li.ui-btn-up-s,
+	&.ui-li-read.ui-li.ui-btn-hover-s {
+		background-color: @color_list_3line_read_bg;
+	}
+	&.ui-li-read.ui-li.ui-btn-down-s {
+		background-color: @color_list_press;
+	}
+	&.ui-li-read.ui-btn>.ui-btn-inner>.ui-btn-text>.ui-link-inherit {
+		color: @color_list_3line_main_text_read;
+	}
+
+	.ui-li-text-sub,
+		.ui-li-text-sub:first-child {
+		top: 30 * @unit_base;
+		left: 50 * @unit_base;
+		float: left;
+		text-align: left;
+		font-size: @font_size_list_3line_sub_text;
+		color: @color_list_3line_sub_text;
+
+		.ui-li-icon-sub,
+		img {
+			position: relative;
+			width: 22.5 * @unit_base;
+			height: 22.5 * @unit_base;
+			margin-right: 1 * @unit_base;
+			margin-bottom: -5 * @unit_base;
+		}
+	}
+	.ui-li-text-sub-right {
+		position: absolute;
+		top: 30 * @unit_base;
+		right: 13 * @unit_base;
+		float: right;
+		text-align: right;
+		font-size: @font_size_list_3line_sub_text;
+		color: @color_list_3line_sub_text;
+		.LESStext-ellipsis();
+	}
+
+	.ui-li-text-sub3 {
+		position: absolute;
+		top: 50 * @unit_base;
+		left: 50 * @unit_base;
+		text-align: left;
+		font-size: @font_size_list_3line_sub_text;
+		color: @color_list_3line_sub3_text;
+		.LESStext-ellipsis();
+	}
+
+	.ui-li-icon-sub-right {
+		position: absolute;
+		top: 4.5 * @unit_base;
+		right: 13 * @unit_base;
+		width: 22.5 * @unit_base;
+		height: 22.5 * @unit_base;
+	}
+
+	.ui-li-color-bar {
+		position: absolute;
+		top: 5 * @unit_base;
+		left: 0;
+		width: 3.5 * @unit_base;
+		height: 90%;
+	}
+
+	&.ui-li-has-checkbox>.ui-btn-inner>.ui-btn-text>.ui-link-inherit {
+		.ui-checkbox:first-child {
+			top: 35%;
+		}
+	}
+}
 /****************************************************************/
 /*                   List with Edit field                       */
 /****************************************************************/

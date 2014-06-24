@@ -1,0 +1,56 @@
+<div data-role="page" id="genlist-3line">
+	<div data-role="header" data-position="fixed">
+		<h1>Lists with 3line text</h1>
+	</div>
+	<div class="content" data-role="content" data-scroll="y">
+		<form>
+		<ul data-role="listview">
+			<li class="ui-li-has-3line ui-li-has-checkbox">
+				<a href="#">
+					<input type="checkbox"  name="c1line-check3" />
+					<span class="ui-li-color-bar" style="background-color:rgb(236, 240, 53);"></span>
+					Re:Re: This mail is for...
+					<span><img class="ui-li-icon-sub-right" src="00_winset_icon_favorite_on.png" alt="favorite"></span>
+					<span class="ui-li-text-sub"><img class="ui-li-icon-sub" src="00_button_right.png">Google</span>
+					<span class="ui-li-text-sub-right">5:12 PM</span>
+					<span class="ui-li-text-sub3">With checkbox</span>
+				</a>
+			</li>
+			<li class="ui-li-has-3line">
+				<a href="#">
+					<span class="ui-li-color-bar" style="background-color:rgb(236, 240, 53);"></span>
+					Re:Re: This mail is for...
+					<span><img class="ui-li-icon-sub-right" src="00_winset_icon_favorite_on.png" alt="favorite"></span>
+					<span class="ui-li-text-sub"><img class="ui-li-icon-sub" src="00_button_right.png">Google</span>
+					<span class="ui-li-text-sub-right">5:12 PM</span>
+					<span class="ui-li-text-sub3">Without checkbox</span>
+				</a>
+			</li>
+			<li class="ui-li-has-3line ui-li-read">
+				<a href="#">
+					<span class="ui-li-color-bar" style="background-color:rgb(236, 240, 53);"></span>
+					Re:Re: This mail is for...
+					<span><img class="ui-li-icon-sub-right" src="00_winset_icon_favorite_on.png" alt="favorite"></span>
+					<span class="ui-li-text-sub"><img class="ui-li-icon-sub" src="00_button_right.png">Google</span>
+					<span class="ui-li-text-sub-right">5:12 PM</span>
+					<span class="ui-li-text-sub3">Read style</span>
+				</a>
+			</li>
+		</ul>
+		<form>
+	</div>
+	<script>
+	$( "#genlist-3line" ).on( "pageshow" , function() {
+		$( window ).on( "tizenhwkey", function ( ev ) {
+			if ( ev.originalEvent.keyName === "back" ) {
+				//bind callbacks to the H/W keys
+				window.history.back();
+			}
+		});
+	}).on( "pagebeforehide" , function() {
+		//unbind callbacks to the H/W keys
+		$( window ).off( "tizenhwkey" );
+	});
+	</script>
+</div>
+
