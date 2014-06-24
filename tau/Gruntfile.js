@@ -481,6 +481,12 @@ module.exports = function(grunt) {
 					files : [ "src/css/profile/**/*.png" ],
 					tasks : [ "image" ]
 				}
+			},
+
+			debug: {
+				options: {
+					open: true
+				}
 			}
 		};
 
@@ -663,6 +669,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-contrib-watch");
 	grunt.loadNpmTasks("grunt-string-replace");
 	grunt.loadNpmTasks("grunt-contrib-symlink");
+	grunt.loadNpmTasks("grunt-debug-task");
 
 	// Load framework custom tasks
 	grunt.loadTasks('tools/grunt/tasks');
