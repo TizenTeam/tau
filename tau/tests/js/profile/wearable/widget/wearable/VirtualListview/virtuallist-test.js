@@ -226,4 +226,4 @@
 	fixture.style.height = '10000px';
 	fixture.style.width = '10000px';
 
-}(window.ej));
+}(window.tau));

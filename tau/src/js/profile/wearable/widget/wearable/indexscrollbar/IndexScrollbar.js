@@ -265,6 +265,7 @@
  *
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Jadwiga Sosnowska <j.sosnowska@samsung.com>
+ * @author Tomasz Lukawski <t.lukawski@samsung.com>
  * @class ns.widget.wearable.IndexScrollbar
  * @extends ns.widget.BaseWidget
  */
@@ -275,6 +276,7 @@
 		[
 			"../../../../../core/engine",
 			"../../../../../core/event",
+			"../../../../../core/event/vmouse",
 			"../../../../../core/util/object",
 			"../../../../../core/util/DOM/css",
 			"../indexscrollbar",
@@ -310,21 +312,11 @@
 			 */
 				engine = ns.engine,
 			/**
-			 * @property {Object} events Alias for class {@link ns.event}
-			 * @member ns.widget.wearable.IndexScrollbar
-			 * @private
-			 * @static
-			 */
-				events = ns.event,
-			/**
 			 * @property {Object} doms Alias for class {@link ns.util.DOM}
 			 * @member ns.widget.wearable.IndexScrollbar
 			 * @private
 			 * @static
 			 */
-				doms = ns.util.DOM,
-				EventType = {},
-				prototype = new BaseWidget(),
 				utilsObject = ns.util.object,
 				IndexBar = ns.widget.wearable.indexscrollbar.IndexBar,
 				IndexIndicator = ns.widget.wearable.indexscrollbar.IndexIndicator,
@@ -335,7 +327,13 @@
 					 * @member ns.widget.wearable.IndexScrollbar
 					 */
 					SELECT: "select"
-				};
+				},
+
+				POINTER_START = 'vmousedown',
+				POINTER_MOVE = 'vmousemove',
+				POINTER_END = 'vmouseup',
+
+				pointerIsPressed = false;
 
 			utilsObject.inherit(IndexScrollbar, BaseWidget, {
 				widgetName: "IndexScrollbar",
@@ -343,7 +341,8 @@
 
 				_configure: function () {
 					/**
-					 * @property {Object} options All possible widget options
+					 * All possible widget options
+					 * @property {Object} options
 					 * @property {string} [options.moreChar="*"] more character
 					 * @property {string} [options.selectedClass="ui-state-selected"] disabled class name
 					 * @property {string} [options.delimiter=","] delimiter in index
@@ -559,13 +558,21 @@
 					}.bind(this), this.options.keepSelectEventDelay);
 				},
 
-				_onTouchStartHandler: function( ev ) {
-					if (ev.touches.length > 1) {
-						ev.preventDefault();
-						ev.stopPropagation();
+				/**
+				 * Handle pointer start event
+				 * @method _onTouchStartHandler
+				 * @param {Event} event
+				 * @protected
+				 * @member ns.widget.wearable.IndexScrollbar
+				 */
+				_onTouchStartHandler: function( event ) {
+					pointerIsPressed = true;
+					if (event.touches && (event.touches.length > 1)) {
+						event.preventDefault();
+						event.stopPropagation();
 						return;
 					}
-					var pos = this._getPositionFromEvent( ev ),
+					var pos = this._getPositionFromEvent( event ),
 					// At touchstart, only indexbar1 is shown.
 						iBar1 = this.indexBar1,
 						idx = iBar1.getIndexByPosition( pos.y ),
@@ -576,14 +583,21 @@
 					this._updateIndicatorAndTriggerEvent( val );
 				},
 
-				_onTouchMoveHandler: function( ev ) {
-					if (ev.touches.length > 1) {
-						ev.preventDefault();
-						ev.stopPropagation();
+				/**
+				 * Handle pointer move event
+				 * @method _onTouchMoveHandler
+				 * @param {Event} event
+				 * @protected
+				 * @member ns.widget.wearable.IndexScrollbar
+				 */
+				_onTouchMoveHandler: function( event ) {
+					if (event.touches && event.touches.length > 1 || !pointerIsPressed) {
+						event.preventDefault();
+						event.stopPropagation();
 						return;
 					}
 
-					var pos = this._getPositionFromEvent( ev ),
+					var pos = this._getPositionFromEvent( event ),
 						iBar1 = this.indexBar1,
 						iBar2 = this.indexBar2,
 						idx,
@@ -618,16 +632,29 @@
 					// update indicator
 					this._updateIndicatorAndTriggerEvent( val );
 
-					ev.preventDefault();
-					ev.stopPropagation();
+					event.preventDefault();
+					event.stopPropagation();
 				},
 
-				_onTouchEndHandler: function( ev ) {
-					this.indicator.hide();
-					this.indexBar1.clearSelected();
-					if(this.indexBar2) {
-						this.indexBar2.clearSelected();
-						this.indexBar2.hide();
+				/**
+				 * Handle pointer end event
+				 * @method _onTouchEndHandler
+				 * @param {Event} event
+				 * @protected
+				 * @member ns.widget.wearable.IndexScrollbar
+				 */
+				_onTouchEndHandler: function( event ) {
+					var self = this;
+
+					if (event.touches && (event.touches.length === 0) ||
+							!event.touches) {
+						pointerIsPressed = false;
+					}
+					self.indicator.hide();
+					self.indexBar1.clearSelected();
+					if(self.indexBar2) {
+						self.indexBar2.clearSelected();
+						self.indexBar2.hide();
 					}
 				},
 
@@ -656,21 +683,23 @@
 				},
 
 				_bindEventToTriggerSelectEvent: function() {
-					this.eventHandlers.touchStart = this._onTouchStartHandler.bind(this);
-					this.eventHandlers.touchEnd = this._onTouchEndHandler.bind(this);
-					this.eventHandlers.touchMove = this._onTouchMoveHandler.bind(this);
+					var self = this;
+					self.eventHandlers.touchStart = self._onTouchStartHandler.bind(self);
+					self.eventHandlers.touchEnd = self._onTouchEndHandler.bind(self);
+					self.eventHandlers.touchMove = self._onTouchMoveHandler.bind(self);
 
-					this.element.addEventListener("touchstart", this.eventHandlers.touchStart);
-					this.element.addEventListener("touchmove", this.eventHandlers.touchMove);
-					document.addEventListener("touchend", this.eventHandlers.touchEnd);
-					document.addEventListener("touchcancel", this.eventHandlers.touchEnd);
+					self.element.addEventListener(POINTER_START, self.eventHandlers.touchStart);
+					document.addEventListener(POINTER_MOVE, self.eventHandlers.touchMove);
+					document.addEventListener(POINTER_END, self.eventHandlers.touchEnd);
+					document.addEventListener("touchcancel", self.eventHandlers.touchEnd);
 				},
 
 				_unbindEventToTriggerSelectEvent: function() {
-					this.element.removeEventListener("touchstart", this.eventHandlers.touchStart);
-					this.element.removeEventListener("touchmove", this.eventHandlers.touchMove);
-					document.removeEventListener("touchend", this.eventHandlers.touchEnd);
-					document.removeEventListener("touchcancel", this.eventHandlers.touchEnd);
+					var self = this;
+					self.element.removeEventListener(POINTER_START, self.eventHandlers.touchStart);
+					document.removeEventListener(POINTER_MOVE, self.eventHandlers.touchMove);
+					document.removeEventListener(POINTER_END, self.eventHandlers.touchEnd);
+					document.removeEventListener("touchcancel", self.eventHandlers.touchEnd);
 				},
 
 				_data: function (key, val) {
@@ -710,8 +739,7 @@
 				},
 
 				_getIndex: function (value) {
-					var el = this.element,
-						options = this.options,
+					var options = this.options,
 						indices = value || options.index;
 					if (indices) {
 						indices = indices.split(options.delimiter);	// delimiter

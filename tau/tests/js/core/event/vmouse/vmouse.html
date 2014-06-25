@@ -9,6 +9,7 @@
 		<div id="qunit"></div>
 		<div id="qunit-fixture">
 			<div data-role="page" id="first">
+				<div data-role="content"></div>
 				<div data-role="mock" id="mock1">Mock</div>
 			</div>
 		</div>
@@ -17,5 +18,8 @@
 		<script src="../../../../libs/support.js"></script>
 		<script src="vmouse.js"></script>
 		<script type="text/javascript" src="../../../../libs/dist/js/tau.js"></script>
+		<script>
+			tau.engine.run();
+		</script>
 	</body>
 </html>

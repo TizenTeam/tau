@@ -1,10 +1,11 @@
 QUnit.config.testTimeout = 5000;
-			function fireEvent(el, type, props, touches) {
-				var evt = new CustomEvent(type, {
-						"bubbles": true,
+function fireEvent(el, type, props, touches) {
+	var evt = new CustomEvent(type, {
+			"bubbles": true,
 			"cancelable": true
 		}),
 		prop;
+
 	for (prop in props) {
 		evt[prop] = props[prop];
 	}
@@ -21,9 +22,9 @@ QUnit.config.testTimeout = 5000;
 var el = document.getElementById("mock1"),
 	body = document.body;
 
-document.addEventListener('bound', function () {
+document.addEventListener('tauinit', function () {
 	// something is wrong when using many asyncTests and UI events
-	// @TODO add tests for mous events
+	// @TODO add tests for mouse events
 	var tests = [
 
 		function () {

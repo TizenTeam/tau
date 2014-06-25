@@ -124,6 +124,7 @@
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Piotr Karny <p.karny@samsung.com>
  * @author Michał Szepielak <m.szepielak@samsung.com>
+ * @author Tomasz Lukawski <t.lukawski@samsung.com>
  */
 (function(document, ns) {
 	"use strict";
@@ -132,6 +133,7 @@
 			[
 				"../../../../core/engine",
 				"../../../../core/event",
+				"../../../../core/event/vmouse",
 				"../../../../core/widget/BaseWidget",
 				"../wearable" // fetch namespace
 			],
@@ -146,7 +148,6 @@
 						 * @member ns.widget.wearable.VirtualListview
 						 */
 						engine = ns.engine,
-						events = ns.event,
 						// Constants definition
 						/**
 						 * Defines index of scroll `{@link ns.widget.wearable.VirtualListview#_scroll}.direction`
@@ -348,6 +349,10 @@
 
 							return self;
 						},
+						POINTER_START = 'vmousedown',
+						POINTER_MOVE = 'vmousemove',
+						POINTER_END = 'vmouseup',
+
 						// Cached prototype for better minification
 						prototype = new BaseWidget();
 
@@ -389,9 +394,14 @@
 				 * @static
 				 */
 				function _tapHandler (self, event) {
-					var eventTouch = event.changedTouches[0];
+					var changedTouches = event.changedTouches ||
+							(event._originalEvent &&
+								event._originalEvent.changedTouches),
+						eventTouch = (changedTouches && changedTouches.length) ?
+							changedTouches[0] :
+								event;
 
-					if (event.type === "touchmove") {
+					if (event.type === POINTER_MOVE) {
 						if (Math.abs(lastTouchPos.clientX - eventTouch.clientX) > 10 && Math.abs(lastTouchPos.clientY - eventTouch.clientY) > 10) {
 							_removeHighlight(self);
 							window.clearTimeout(timeoutHandler);
@@ -416,8 +426,8 @@
 
 					liElement = origTarget.tagName === "LI" ? origTarget : origTarget.parentNode;
 
-					origTarget.removeEventListener("touchmove", tapHandlerBound, false);
-					origTarget.removeEventListener("touchend", tapHandlerBound, false);
+					origTarget.removeEventListener(POINTER_MOVE, tapHandlerBound, false);
+					origTarget.removeEventListener(POINTER_END, tapHandlerBound, false);
 					tapHandlerBound = null;
 
 					_removeHighlight(self);
@@ -434,21 +444,24 @@
 				 * @static
 				 */
 				function _touchStartHandler (self, event) {
+					var eventData;
+
 					origTarget = event.target;
 
 					// Clean up
 					window.clearTimeout(timeoutHandler);
-					origTarget.removeEventListener("touchmove", tapHandlerBound, false);
-					origTarget.removeEventListener("touchend", tapHandlerBound, false);
+					origTarget.removeEventListener(POINTER_MOVE, tapHandlerBound, false);
+					origTarget.removeEventListener(POINTER_END, tapHandlerBound, false);
 
 					timeoutHandler = window.setTimeout(tapholdListener.bind(null, self), tapholdThreshold);
-					lastTouchPos.clientX = event.touches[0].clientX;
-					lastTouchPos.clientY = event.touches[0].clientY;
+					eventData = (event.touches && event.touches.length) ? event.touches[0] : event;
+					lastTouchPos.clientX = eventData.clientX;
+					lastTouchPos.clientY = eventData.clientY;
 
 					//Add touch listeners
 					tapHandlerBound = _tapHandler.bind(null, self);
-					origTarget.addEventListener("touchmove", tapHandlerBound, false);
-					origTarget.addEventListener("touchend", tapHandlerBound, false);
+					origTarget.addEventListener(POINTER_MOVE, tapHandlerBound, false);
+					origTarget.addEventListener(POINTER_END, tapHandlerBound, false);
 
 				}
 
@@ -893,7 +906,7 @@
 
 						this._updateListItem(listItem, i);
 						documentFragment.appendChild(listItem);
-						listItem.addEventListener("touchstart", touchStartEventBound, false);
+						listItem.addEventListener(POINTER_START, touchStartEventBound, false);
 					}
 
 					list.appendChild(documentFragment);
@@ -1008,7 +1021,7 @@
 					//Remove li elements.
 					while (element.firstElementChild) {
 						listItem = element.firstElementChild;
-						listItem.removeEventListener("touchstart", self._touchStartEventBound, false);
+						listItem.removeEventListener(POINTER_START, self._touchStartEventBound, false);
 						element.removeChild(listItem);
 					}
 
