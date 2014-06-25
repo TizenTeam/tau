@@ -22,7 +22,8 @@
     "dox": "*",
     "async": "*",
     "grunt-cli": "~0.1.13",
-    "grunt-debug-task": "~0.1.4"
+    "grunt-debug-task": "~0.1.4",
+    "xml2js": "~0.4.4"
   },
   "main": "Gruntfile.js"
 }

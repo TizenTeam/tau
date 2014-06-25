@@ -266,7 +266,6 @@ module.exports = function(grunt) {
 				wearableDefault : {
 					files : files.css.getCssFiles("wearable", "default")
 				},
-
 				wearableChangeable : {
 					files : files.css.getCssFiles("wearable", "changeable")
 				},
@@ -276,6 +275,26 @@ module.exports = function(grunt) {
 				},
 				mobileChangeable: {
 					files : files.css.getCssFiles("mobile", "changeable")
+				}
+			},
+
+			themeConverter : {
+				mobile: {
+					themeIndex: "0",
+					themeStyle: "Dark",
+					device: "mobile"
+				},
+
+				wearable: {
+					themeIndex: "0",
+					themeStyle: "Dark",
+					device: "wearable"
+				},
+
+				all: {
+					themeIndex: "0",
+					themeStyle: "Dark",
+					device: "all"
 				}
 			},
 
@@ -498,7 +517,6 @@ module.exports = function(grunt) {
 			}
 		};
 
-
 	grunt.initConfig(initConfig);
 
 	grunt.registerTask("version", "create version files.", function( ) {
@@ -584,6 +602,7 @@ module.exports = function(grunt) {
 
 	// add requirejs tasks to build themes.
 	(function() {
+
 		var requirejs = initConfig.requirejs,
 			profileName,
 			source,
@@ -688,7 +707,7 @@ module.exports = function(grunt) {
 	grunt.registerTask("jsmin", [ "findFiles:js.setMinifiedFiles", "uglify" ]);
 	grunt.registerTask("image", [ "copy:wearableDefaultImages", "copy:mobileDefaultImages" ]);
 	grunt.registerTask("image-changeable", [ "copy:wearableChangeableImages", "copy:mobileChangeableImages" ]);
-	grunt.registerTask("css", [ "clean:theme", "less", "cssmin", "cssmin:changeable", "image", "image-changeable", "symlink" ]);
+	grunt.registerTask("css", [ "clean:theme", "less", "themeConverter:all", "cssmin", "image", "image-changeable", "symlink" ]);
 	grunt.registerTask("js", [ "clean:js", "requirejs", "jsmin", "themesjs", "copy:globalize", "copy:mobileJquery" ]);
 	grunt.registerTask("license", [ "concat:licenseJs", "concat:licenseDefaultCss", "concat:licenseChangeableCss", "copy:license" ]);
 	grunt.registerTask("sdk-docs", [ "sdk-docs-html:mobile", "sdk-docs-html:wearable", "copy:sdk-docs" ]);
