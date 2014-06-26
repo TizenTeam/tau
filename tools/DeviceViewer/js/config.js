@@ -43,8 +43,8 @@ var properties = {
 	 */
 	appList: [
 		{
-			name: "Clock",
-			path: "demos/clock/index.html",
+			name: "Test",
+			path: "test/TestApp/index.html",
 			selected: true
 		}
 	],
@@ -54,45 +54,15 @@ var properties = {
 	 */
 	devList: [
 		{
-			name: "Gear Fit",
-			displayWidth: 432,
-			displayHeight: 128,
-			pixelRatio: 1
-		},
-		{
-			name: "Gear 2",
+			name: "1:1",
 			displayWidth: 320,
 			displayHeight: 320,
 			pixelRatio: 1
 		},
 		{
-			name: "Galaxy S2",
-			displayWidth: 480,
-			displayHeight: 800,
-			pixelRatio: 1.5
-		},
-		{
-			name: "Galaxy S3",
-			displayWidth: 720,
-			displayHeight: 1280,
-			pixelRatio: 2
-		},
-		{
-			name: "Galaxy S4",
-			displayWidth: 1920,
-			displayHeight: 1080,
-			pixelRatio: 3
-		},
-		{
-			name: "HD",
-			displayWidth: 1280,
-			displayHeight: 720,
-			pixelRatio: 1
-		},
-		{
-			name: "Full HD",
-			displayWidth: 1920,
-			displayHeight: 1080,
+			name: "3:4",
+			displayWidth: 320,
+			displayHeight: 426,
 			pixelRatio: 1
 		}
 	],
@@ -112,7 +82,7 @@ var properties = {
 		 */
 		badges: [
 			{
-				name: 'Gear 2',
+				name: '1:1',
 				displayWidth: 320,
 				displayHeight: 320,
 				pixelRatio: 1
@@ -123,7 +93,7 @@ var properties = {
 		 * Default settings of badge
 		 */
 		defaultBadge: {
-			name: 'Gear 2',
+			name: '1:1',
 			displayWidth: 320,
 			displayHeight: 320,
 			pixelRatio: 1
