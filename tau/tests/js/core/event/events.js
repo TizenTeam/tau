@@ -1,29 +1,11 @@
 /*global module, ok, equal, test, ej*/
 (function(document){
 	'use strict';
-	var handles = [];
+	var handles = [],
+		on = tau.event.on,
+		off = tau.event.off,
+		one = tau.event.one;
 	//module('ej.event');
-
-	/**
-	 *
-	 * @param {HTMLElement} element
-	 * @param {string} event
-	 * @param {Function} callback
-	 * @param {boolean} useCapture
-	 */
-	function one(element, event, callback, useCapture) {
-		var handle = function(event) {
-				element.removeEventListener(event, handle, useCapture);
-				callback(event);
-			};
-		element.addEventListener(event, handle, useCapture);
-		handles.push({
-			element: element,
-			event: event,
-			callback: handle,
-			useCapture: useCapture
-		});
-	}
 
 	function clearListeners() {
 		var i,
@@ -81,17 +63,17 @@
 			};
 
 		ej.engine.run();
-		one(element, 'click', callback, true);
+		on(element, 'click', callback, true);
 
 		events.trigger(element, "click");
-		one(element, 'click', callback, false);
+		on(element, 'click', callback, false);
 	});
 
 	test( "asynchronous tests for vclick event", 1, function() {
 		var element = document.getElementById("events1"),
 			events = ej.event;
 
-		one(element, 'vclick', function(){
+		on(element, 'vclick', function(){
 			ok(true, "vclick event");
 		}, true);
 
@@ -102,21 +84,21 @@
 		var element = document.getElementById("events1"),
 			events = ej.event;
 
-		one(element, "test-event", function(){
+		on(element, "test-event", function(){
 			ok(true, "test-event event");
 		}, true);
 
 		events.trigger(element, "test-event");
-	});	
+	});
 
 	test('stop propagation on the same event', 1, function() {
 		var element = document.getElementById('test1');
 
-		one(element, 'click', function (event) {
+		on(element, 'click', function (event) {
 			ej.event.stopPropagation(event);
 			ok('First event');
 		}, true);
-		one(document.body, 'click', function (event) {
+		on(document.body, 'click', function (event) {
 			ok('Second event');
 		}, false);
 
@@ -127,11 +109,11 @@
 		var element = document.getElementById('test2'),
 			testEvent;
 
-		one(element, "testEvent", function (event) {
+		on(element, "testEvent", function (event) {
 			ej.event.stopPropagation(event);
 			ok('First event');
 		}, true);
-		one(document.body, "testEvent", function (event) {
+		on(document.body, "testEvent", function (event) {
 			ok('Second event');
 		}, false);
 
@@ -142,14 +124,14 @@
 		var element = document.getElementById('test3'),
 			events = ej.event;
 
-		one(element, "testEvent2", function (event) {
+		on(element, "testEvent2", function (event) {
 			ok('First event');
 			events.stopPropagation(event);
 		}, false);
-		one(document, "testEvent1", function (event) {
+		on(document, "testEvent1", function (event) {
 			createEvent("testEvent2", event);
 		}, true);
-		one(document, "testEvent1", function (event) {
+		on(document, "testEvent1", function (event) {
 			ok('Second event');
 		}, false);
 
@@ -159,14 +141,14 @@
 	test('stop Immediate propagation', 2, function() {
 		var element = document.getElementById('test4');
 
-		one(element, "click", function () {
+		on(element, "click", function () {
 			ok('First callback');
 		}, true);
-		one(element, "click", function (event) {
+		on(element, "click", function (event) {
 			ej.event.stopImmediatePropagation(event);
 			ok('Second callback');
 		}, true);
-		one(element, "click", function () {
+		on(element, "click", function () {
 			ok('Third callback');
 		}, true);
 
@@ -176,14 +158,14 @@
 	test('stop Immediate propagation', 2, function() {
 		var element = document.getElementById('test4');
 
-		one(element, "click", function () {
+		on(element, "click", function () {
 			ok('First first callback');
 		}, true);
-		one(element, "click", function (event) {
+		on(element, "click", function (event) {
 			ej.event.stopImmediatePropagation(event);
 			ok('First second callback');
 		}, true);
-		one(element, "click", function () {
+		on(element, "click", function () {
 			ok('First third callback');
 		}, false);
 
@@ -193,14 +175,14 @@
 		var element = document.getElementById('test3'),
 			events = ej.event;
 
-		one(element, "testEvent2", function (event) {
+		on(element, "testEvent2", function (event) {
 			ok('First event');
 			ej.event.stopImmediatePropagation(event);
 		}, false);
-		one(document, "testEvent1", function (event) {
+		on(document, "testEvent1", function (event) {
 			createEvent("testEvent2", event);
 		}, true);
-		one(document, "testEvent1", function (event) {
+		on(document, "testEvent1", function (event) {
 			ok('Second event');
 		}, false);
 
@@ -211,14 +193,14 @@
 		var element = document.getElementById('test3'),
 			events = ej.event;
 
-		one(element, "testEvent2", function (event) {
+		on(element, "testEvent2", function (event) {
 			ok('First event');
 			events.stopImmediatePropagation(event);
 		}, false);
-		one(document, "testEvent1", function (event) {
+		on(document, "testEvent1", function (event) {
 			createEvent("testEvent2", event);
 		}, false);
-		one(document, "testEvent1", function (event) {
+		on(document, "testEvent1", function (event) {
 			ok('Second event');
 		}, false);
 

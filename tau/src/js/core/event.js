@@ -24,7 +24,8 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"./core"
+			"./core",
+			"./util/array"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -38,6 +39,7 @@
 			* @static
 			*/
 		var isArray = Array.isArray,
+			isArrayLike = ns.util.array.isArrayLike,
 			/**
 			 * @property {RegExp} SPLIT_BY_SPACES_REGEXP
 			 */
@@ -273,10 +275,10 @@
 				},
 
 				/**
-				 * Add event listener to element
+				 * Add event listener to element that can be added addEventListner
 				 * @method on
-	             * @param {HTMLElement|HTMLCollection} element
-	             * @param {string|Array|Object} type
+				 * @param {HTMLElement|HTMLDocument|Window} element
+				 * @param {string|Array|Object} type
 				 * @param {Function} listener
 				 * @param {boolean} [useCapture=false]
 				 * @member ns.event
@@ -290,17 +292,19 @@
 						elements,
 						listeners;
 
-					if (element instanceof HTMLElement) {
-						elements = [element];
-					} else {
+					if (isArrayLike(element)) {
 						elements = element;
+					} else {
+						elements = [element];
 					}
 					elementsLength = elements.length;
 					listeners = getEventsListeners(type, listener);
 					typesLength = listeners.length;
 					for (i = 0; i < elementsLength; i++) {
-						for (j = 0; j < typesLength; j++) {
-							ns.event.fastOn(elements[i], listeners[j].type, listeners[j].callback, useCapture);
+						if (elements[i] instanceof EventTarget) {
+							for (j = 0; j < typesLength; j++) {
+								ns.event.fastOn(elements[i], listeners[j].type, listeners[j].callback, useCapture);
+							}
 						}
 					}
 				},
@@ -308,7 +312,7 @@
 				/**
 				 * Remove event listener to element
 				 * @method off
-				 * @param {HTMLElement|HTMLCollection} element
+				 * @param {HTMLElement|HTMLDocument|Window} element
 				 * @param {string|Array|Object} type
 				 * @param {Function} listener
 				 * @param {boolean} [useCapture=false]
@@ -322,17 +326,19 @@
 						typesLength,
 						elements,
 						listeners;
-					if (element instanceof HTMLElement) {
-						elements = [element];
-					} else {
+					if (isArrayLike(element)) {
 						elements = element;
+					} else {
+						elements = [element];
 					}
 					elementsLength = elements.length;
 					listeners = getEventsListeners(type, listener);
 					typesLength = listeners.length;
 					for (i = 0; i < elementsLength; i++) {
-						for (j = 0; j < typesLength; j++) {
-							ns.event.fastOff(elements[i], listeners[j].type, listeners[j].callback, useCapture);
+						if (typeof elements[i].addEventListener === "function") {
+							for (j = 0; j < typesLength; j++) {
+								ns.event.fastOff(elements[i], listeners[j].type, listeners[j].callback, useCapture);
+							}
 						}
 					}
 				},
@@ -340,7 +346,7 @@
 				/**
 				 * Add event listener to element only for one trigger
 				 * @method one
-				 * @param {HTMLElement|HTMLCollection} element
+				 * @param {HTMLElement|HTMLDocument|window} element
 				 * @param {string|Array|Object} type
 				 * @param {Function} listener
 				 * @param {boolean} [useCapture=false]
@@ -356,21 +362,23 @@
 						types,
 						listeners,
 						callback;
-					if (element instanceof HTMLElement) {
-						elements = [element];
-					} else {
+					if (isArrayLike(element)) {
 						elements = element;
+					} else {
+						elements = [element];
 					}
 					elementsLength = elements.length;
 					listeners = getEventsListeners(type, listener);
 					typesLength = listeners.length;
 					for (i = 0; i < elementsLength; i++) {
-						for (j = 0; j < typesLength; j++) {
-							callback = (function(i, j) {
-								ns.event.fastOff(elements[i], listeners[j].type, callback, useCapture);
-								listeners[j].callback.apply(this, arguments);
-							}).bind(null, i, j);
-							ns.event.fastOn(elements[i], listeners[j].type, callback, useCapture);
+						if (typeof elements[i].addEventListener === "function") {
+							for (j = 0; j < typesLength; j++) {
+								callback = (function(i, j) {
+									ns.event.fastOff(elements[i], listeners[j].type, callback, useCapture);
+									listeners[j].callback.apply(this, arguments);
+								}).bind(null, i, j);
+								ns.event.fastOn(elements[i], listeners[j].type, callback, useCapture);
+							}
 						}
 					}
 				}

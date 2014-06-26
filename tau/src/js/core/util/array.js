@@ -77,6 +77,35 @@
 				return matrix;
 			}
 
+			/**
+			 * Check object is arraylike (arraylike include array and collection)
+			 * @method isArrayLike
+			 * @param {Object} object
+			 * @return {boolean} Whether arraylike object or not
+			 * @member ns.util.array
+			 * @static
+			 */
+			function isArrayLike(object) {
+				var type = typeof object,
+					length = object.length;
+
+				if (object != null && object === object.window) {
+					return false;
+				}
+
+				if (object.nodeType === 1 && length) {
+					// nodeType 1 is ELEMENT_NODE
+					// Note that docuement nodeType is 9
+					return true;
+				}
+
+				// If length value is not number, object is not array and collection.
+				// Collection type is not array but has length value.
+				// e.g) Array.isArray(document.childNodes) ==> false
+				return Array.isArray(object) || type !== "function" &&
+					(length === 0 || typeof length === "number" && length > 0 && (length -1) in object);
+			}
+
 			ns.util.array = {
 				/**
 				 * Create an array containing the range of integers or characters
@@ -88,7 +117,8 @@
 				 * @return {Array} array containing continous elements
 				 * @member ns.util.array
 				 */
-				range: _range
+				range: _range,
+				isArrayLike: isArrayLike
 			};
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.util.array;
