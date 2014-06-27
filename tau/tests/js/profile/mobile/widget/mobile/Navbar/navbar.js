@@ -1,8 +1,8 @@
 /*
- * Unit Test: Navbar
+ * Unit Test: NavBar
  */
 
-module("Navbar", {
+module("NavBar", {
 	teardown: function () {
 		ej.engine._clearBindings();
 	}
@@ -36,7 +36,7 @@ module("Navbar", {
 		iconCheckNavbarHTML.push(document.getElementById(iconCheckIdPrefix + iconpos[i]));
 	}
 
-	test("Navbar - Widget main container class names are added.", function () {
+	test("NavBar - Widget main container class names are added.", function () {
 
 		var contains;
 
@@ -53,7 +53,7 @@ module("Navbar", {
 
 	});
 
-	test("Navbar - Grids apply to the unordered list.", function () {
+	test("NavBar - Grids apply to the unordered list.", function () {
 
 		var gridCheck = function (element) {
 
@@ -75,12 +75,12 @@ module("Navbar", {
 		};
 
 		for (i = 0, len = gridCheckNavbarHTML.length; i < len; i++) {
-			equal(gridCheck(gridCheckNavbarHTML[i]), true, 'API - Navbar ' + (i + 1) + ' items - a grid has been properly applied');
+			equal(gridCheck(gridCheckNavbarHTML[i]), true, 'API - NavBar ' + (i + 1) + ' items - a grid has been properly applied');
 		}
 
 	});
 
-	test("Navbar - Button widgets are created", function () {
+	test("NavBar - Button widgets are created", function () {
 
 		var cases = 0,
 			isButton,
@@ -101,7 +101,7 @@ module("Navbar", {
 
 	});
 
-	test("Navbar - Icons are properly set.", function () {
+	test("NavBar - Icons are properly set.", function () {
 
 		var btn,
 			containsIconAttrLen,
@@ -157,12 +157,12 @@ module("Navbar", {
 
 		}
 
-		test("Navbar - click.", function () {
+		test("NavBar - click.", function () {
 
 			var navbar = document.getElementById('navbar-2item'),
 				btn = navbar.getElementsByTagName('a')[0],
 				btn1 = navbar.getElementsByTagName('a')[1],
-				widget = ej.engine.instanceWidget(navbar, 'Navbar');
+				widget = ej.engine.instanceWidget(navbar, 'NavBar');
 
 			ej.event.trigger(btn, 'vclick');
 			ok (btn.classList.contains(ej.widget.mobile.Button.classes.uiBtnActive), 'Button has active class');
