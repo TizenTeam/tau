@@ -372,8 +372,8 @@ module.exports = function(grunt) {
 
 				"sdk-docs": {
 					files: [
-						{expand: true, cwd: "tools/grunt/tasks/templates/files", src: "**/*", dest: "docs/sdk/mobile/html/widgets"},
-						{expand: true, cwd: "tools/grunt/tasks/templates/files", src: "**/*", dest: "docs/sdk/wearable/html/widgets"}
+						{expand: true, cwd: "tools/grunt/tasks/templates/files", src: "**/*", dest: "docs/sdk/mobile/html"},
+						{expand: true, cwd: "tools/grunt/tasks/templates/files", src: "**/*", dest: "docs/sdk/wearable/html"}
 					]
 				}
 			},
@@ -398,7 +398,7 @@ module.exports = function(grunt) {
 
 				wearableDefaultTheme: files.css.getDefault( "wearable", "default" ),
 
-				mobileDefaultTheme: files.css.getDefault( "mobile", "default" ),
+				mobileDefaultTheme: files.css.getDefault( "mobile", "default" )
 			},
 
 			"string-replace": {
@@ -422,6 +422,22 @@ module.exports = function(grunt) {
 							},
 							{
 								pattern: /.*\@internal.*/ig,
+								replacement: ''
+							},
+							{
+								pattern: /.*\@example.*/ig,
+								replacement: ''
+							},
+							{
+								pattern: /.*\@page.*/ig,
+								replacement: ''
+							},
+							{
+								pattern: /.*\@title.*/ig,
+								replacement: ''
+							},
+							{
+								pattern: /.*\@seeMore.*/ig,
 								replacement: ''
 							}
 						]
@@ -451,7 +467,7 @@ module.exports = function(grunt) {
 				tmp: {
 					expand: true,
 					src: ['tmp']
-				},
+				}
 			},
 
 			qunit: {
@@ -460,15 +476,31 @@ module.exports = function(grunt) {
 				}
 			},
 
-			"sdk-docs-html": {
+			"docs-html": {
 				mobile: {
 					profile: "mobile",
+					template: "sdk",
 					files: {
 						src: ['dist/mobile/js/tau.js']
 					}
 				},
 				wearable: {
 					profile: "wearable",
+					template: "sdk",
+					files: {
+						src: ['dist/wearable/js/tau.js']
+					}
+				},
+				"mobile-dld": {
+					profile: "mobile",
+					template: "dld",
+					files: {
+						src: ['dist/mobile/js/tau.js']
+					}
+				},
+				"wearable-dld": {
+					profile: "wearable",
+					template: "dld",
 					files: {
 						src: ['dist/wearable/js/tau.js']
 					}
@@ -535,8 +567,11 @@ module.exports = function(grunt) {
 			environmentClasses = ['DocumentFragment', 'CustomEvent',
 				'HTMLUListElement', 'HTMLOListElement', 'HTMLCollection',
 				'HTMLBaseElement', 'HTMLImageElement', 'WebGLRenderingContext',
-				"HTMLSelectElement", "HTMLInputElement",
-				'WebGLProgram', 'jQuery', 'DOMTokenList',
+				"HTMLSelectElement", "HTMLInputElement", "CSSRule",
+				'WebGLProgram', 'jQuery', 'DOMTokenList', "HTMLLinkElement",
+				"HTMLScriptElement", "HTMLCanvasElement", "MouseEvent", "TouchEvent",
+				"HTMLHeadElement", "HTMLInputElement", "HTMLButtonElement",
+				"jQuery.Event",
 				"mat2", "mat3","mat4", "vec2", "vec3", "vec4", "quat4"],
 			jsduck;
 
@@ -703,7 +738,8 @@ module.exports = function(grunt) {
 	grunt.registerTask("css", [ "clean:theme", "less", "themeConverter:all", "cssmin", "image", "image-changeable", "symlink" ]);
 	grunt.registerTask("js", [ "clean:js", "requirejs", "jsmin", "themesjs", "copy:globalize", "copy:mobileJquery" ]);
 	grunt.registerTask("license", [ "concat:licenseJs", "concat:licenseDefaultCss", "concat:licenseChangeableCss", "copy:license" ]);
-	grunt.registerTask("sdk-docs", [ "sdk-docs-html:mobile", "sdk-docs-html:wearable", "copy:sdk-docs" ]);
+	grunt.registerTask("sdk-docs", [ "docs-html:mobile", "docs-html:wearable", "copy:sdk-docs" ]);
+	grunt.registerTask("dld-docs", [ "docs-html:mobile-dld", "docs-html:wearable-dld"]);
 
 	grunt.registerTask("build", ["clean", "lint", "css", "js", "license", "version"]);
 	grunt.registerTask("release", [ "build", "test", "sdk-docs" ]);
