@@ -241,11 +241,8 @@
 		frameDocumentHead.appendChild(styleTag);
 		sheet = styleTag.sheet;
 
-		// @TODO: remove when scrollbar will be styled in tau less files
-		sheet.insertRule('::-webkit-scrollbar{ width: 5px; border-radius:3px; }', 0);
-		sheet.insertRule('::-webkit-scrollbar-track{ border-radius:3px; background: transparent; }', 0);
-		sheet.insertRule('::-webkit-scrollbar-thumb{ border-radius: 2px; background: #777777; }', 0);
-		sheet.insertRule('::-webkit-scrollbar-track-piece { height: 30px; }', 0);
+		// Hide scrollbar
+		sheet.insertRule('::-webkit-scrollbar{ display: none; }', 0);
 
 		// Add new badge history entry
 		pushBadgeHistory(self, 'loadEvent');
