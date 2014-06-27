@@ -9,23 +9,23 @@ Normal Popup
 	top: -10000em;
 	left: -10000em;
 	margin: 0;
-	padding: 3 * @unit_base;
 	background-color: rgb(0, 0, 0);
-	border: 3px solid @color_popup_border;
+	border-top: 1px solid @color_popup_border;
+	border-bottom: 1px solid @color_popup_border;
 	visibility: hidden;
+	z-index: 1000;
 
 	.ui-popup-header {
 		width: 100%;
 		min-height: @fixed_popup_header_height;
 		font-size: @fixed_popup_header_font_size;
 		text-align: left;
-		background-color: @color_popup_bg;
+		background-color: @color_popup_header_bg;
 		color: @color_popup_title_text;
 		padding-top: @fixed_popup_header_padding_top;
 		padding-right: @fixed_popup_header_padding_right;
 		padding-bottom: @fixed_popup_header_padding_bottom;
 		padding-left: @fixed_popup_header_padding_left;
-		border-bottom: 1px solid @color_popup_header_border;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
@@ -60,11 +60,20 @@ Normal Popup
 
 	&.ui-popup-active {
 		visibility: visible;
-		top: 0px;
+		top: auto;
 		left: 0px;
+		bottom: 0;
 	}
 }
 
+.ui-popup-overlay {
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 100;
+	background-color: @color_popup_overlay;
+}
 /****************************************
 Popup Toast
 ****************************************/

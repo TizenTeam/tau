@@ -282,12 +282,14 @@
 					 * @property {Object} options Options for widget
 					 * @property {string|boolean} [options.header=false] Header content
 					 * @property {string|boolean} [options.footer=false] Footer content
+					 * @property {number} [options.maxHeightRatio=0.79] Height ratio
 					 * @member ns.widget.wearable.Popup
 					 * @instance
 					 */
 					self.options = {
 						header: false,
-						footer: false
+						footer: false,
+						maxHeightRatio: 0.79
 					};
 
 					/**
@@ -354,7 +356,8 @@
 					footer: "ui-popup-footer",
 					content: "ui-popup-content",
 					background: "ui-popup-background",
-					toast: "ui-popup-toast"
+					toast: "ui-popup-toast",
+					overlay: "ui-popup-overlay"
 				};
 			/**
 			 * Triggered on the popup being initialized, before most plugin auto-initialization occurs.
@@ -530,10 +533,11 @@
 			* @member ns.widget.wearable.Popup
 			*/
 			prototype._refresh = function () {
-				var ui = this.ui,
+				var self = this,
+					ui = self.ui,
 					header = ui.header,
 					footer = ui.footer,
-					element = this.element,
+					element = self.element,
 					content = ui.content,
 					props = {
 						"margin-top": 0,
@@ -584,9 +588,10 @@
 					}
 
 					contentHeight = window.innerHeight - (parseInt(props["margin-top"], 10) + parseInt(props["margin-bottom"], 10));
+					// Latest Wearable UI's Popup max height has set window height * 0.79 pixel.
 
-					elementStyle.height = contentHeight + "px";
-					contentStyle.height = (contentHeight - headerHeight - footerHeight - borderWidth * 2 - (parseFloat(props["padding-top"]) + parseFloat(props["padding-bottom"]))) + "px";
+					elementStyle.height = contentHeight * self.options.maxHeightRatio + "px";
+					contentStyle.height = (parseFloat(elementStyle.height) - headerHeight - footerHeight - borderWidth * 2 - (parseFloat(props["padding-top"]) + parseFloat(props["padding-bottom"]))) + "px";
 					contentStyle.overflowY = "scroll";
 				}
 
@@ -617,7 +622,7 @@
 			};
 
 			/**
-			* Open the popup 
+			* Open the popup
 			* @method open
 			* @param {Object=} [options]
 			* @param {string=} [options.transition] options.transition
@@ -630,15 +635,18 @@
 					events = Popup.events,
 					self = this,
 					element = self.element,
-					container = document.createElement("div");
+					container = document.createElement("div"),
+					overlay = document.createElement("div");
 
 				container.classList.add(classes.background);
-				container.appendChild(element.parentElement.replaceChild(container, element));
+				overlay.classList.add(classes.overlay);
 
-				if (element.classList.contains(classes.toast)) {
-					container.addEventListener("click", self.closeFunction, false);
-				}
+				container.appendChild(element.parentElement.replaceChild(container, element));
+				container.appendChild(overlay);
+
+				overlay.addEventListener("click", self.closeFunction, false);
 				self.background = container;
+				self.overlay = overlay;
 
 				self.trigger(events.before_show);
 				self._transition(transitionOptions, function () {
@@ -648,11 +656,11 @@
 			};
 
 			/**
-			* Close the popup 
+			* Close the popup
 			* @method close
 			* @param {Object=} [options]
 			* @param {string=} [options.transition]
-			* @param {string=} [options.ext= in ui-pre-in] options.ext 
+			* @param {string=} [options.ext= in ui-pre-in] options.ext
 			* @instance
 			* @member ns.widget.wearable.Popup
 			*/
@@ -662,11 +670,10 @@
 					self = this,
 					element = self.element,
 					container = self.background,
+					overlay = self.overlay,
 					parent = container.parentElement;
 
-				if (element.classList.contains(classes.toast)) {
-					container.removeEventListener("click", self.closeFunction, false);
-				}
+				overlay.removeEventListener("click", self.closeFunction, false);
 
 				if ( parent ) {
 					parent.appendChild(element);
