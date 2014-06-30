@@ -86,6 +86,10 @@
 
 				options = options || {};
 
+				if ( fromPageWidget && fromPageWidget.element === toPage ) {
+					return;
+				}
+
 				if (toPage.parentNode !== self.element) {
 					self._include(toPage);
 				}
