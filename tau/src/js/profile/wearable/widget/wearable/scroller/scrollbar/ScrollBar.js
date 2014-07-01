@@ -27,6 +27,7 @@
 		[
 			"../../../../../../core/engine",
 			"../../../../../../core/util/object",
+			"../../../../../../core/util/selectors",
 			"../scrollbar",
 			"./type/bar",
 			"../../../../../../core/widget/BaseWidget",
@@ -39,6 +40,7 @@
 				engine = ns.engine,
 				prototype = new BaseWidget(),
 				utilsObject = ns.util.object,
+				selectors = ns.util.selectors,
 				scrollbarType = ns.widget.wearable.scroller.scrollbar.type,
 
 				Scroller = ns.widget.wearable.scroller.Scroller,
@@ -57,6 +59,7 @@
 					this.started = false;
 					this.displayDelayTimeoutId = null;
 
+					this.lastScrollPosition = 0;
 				};
 
 			prototype._build = function (scrollElement) {
@@ -89,6 +92,10 @@
 				this._createScrollbar();
 			};
 
+			prototype._bindEvents = function() {
+				document.addEventListener("visibilitychange", this);
+			};
+
 			prototype._createScrollbar = function () {
 				var orientation = this.options.orientation,
 					wrapper = document.createElement("DIV"),
@@ -109,17 +116,23 @@
 			};
 
 			prototype._removeScrollbar = function () {
-				if ( this.wrapper ) {
-					this.wrapper.parentNode.removeChild(this.wrapper);
-				}
+				this.type.remove({
+					orientation: this.options.orientation,
+					wrapper: this.wrapper,
+					bar: this.barElement,
+					container: this.container,
+					clip: this.clip
+				});
 
 				this.wrapper = null;
 				this.barElement = null;
 			};
 
 			prototype._refresh = function () {
-				this.clear();
-				this.init();
+				var self = this;
+				self._clear();
+				self._init();
+				self.translate(self.lastScrollPosition);
 			};
 
 			/**
@@ -130,11 +143,16 @@
 			 */
 			prototype.translate = function (offset, duration) {
 				var orientation = this.options.orientation,
-					translate, transition, barStyle, endDelay;
+					translate,
+					transition,
+					barStyle,
+					endDelay;
 
 				if ( !this.wrapper || !this.type ) {
 					return;
 				}
+
+				this.lastScrollPosition = offset;
 
 				offset = this.type.offset( orientation, offset );
 
@@ -175,6 +193,19 @@
 				}
 			};
 
+			prototype.handleEvent = function(event) {
+				var page;
+
+				switch(event.type) {
+				case "visibilitychange":
+					page = selectors.getClosestBySelector(this.container, ns.wearable.selectors.page);
+					if (document.visibilityState === "visible" && page === ns.activePage) {
+						this.refresh();
+					}
+					break;
+				}
+			};
+
 			prototype._clear = function () {
 				this._removeScrollbar();
 
@@ -186,6 +217,7 @@
 
 			prototype._destroy = function () {
 				this._clear();
+				document.removeEventListener("visibilitychange", this);
 
 				this.options = null;
 				this.container = null;

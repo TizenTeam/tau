@@ -73,6 +73,15 @@
 					container.appendChild(scrollbarElement);
 				},
 
+				remove: function (data) {
+					var scrollbarElement = data.wrapper,
+						container = data.container;
+
+					if ( container && scrollbarElement) {
+						container.removeChild(scrollbarElement);
+					}
+				},
+
 				offset: function( orientation, offset ) {
 					var x, y;
 

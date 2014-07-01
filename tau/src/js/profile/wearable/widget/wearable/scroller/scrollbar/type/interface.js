@@ -29,6 +29,8 @@
 			ns.widget.wearable.scroller.scrollbar.type.interface = {
 				insertAndDecorate: function (/* options */) {
 				},
+				remove: function (/* options */) {
+				},
 				start: function (/* scrollbarElement, barElement */) {
 				},
 				end: function (/* scrollbarElement, barElement */) {
