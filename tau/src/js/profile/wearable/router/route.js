@@ -17,7 +17,7 @@
 /**
  * #route
  * Object contains rules for router.
- * @class ns.router.wearable.route
+ * @class ns.router.route
  */
 /*
  * @author Maciej Urbanski <m.urbanski@samsung.com>

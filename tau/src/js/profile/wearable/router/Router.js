@@ -16,7 +16,8 @@
 */
 /**
  * #Router
- * Main class to navigate between pages and popups.
+ * Main class to navigate between pages and popups in profile Wearable.
+ *
  * @class ns.router.Router
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Piotr Karny <p.karny@samsung.com>
@@ -43,99 +44,100 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 				/**
-				* Local alias for ns.util
-				* @property {Object} util Alias for {@link ns.util}
-				* @member ns.router.Router
-				* @static
-				* @private
-				*/
+				 * Local alias for ns.util
+				 * @property {Object} util Alias for {@link ns.util}
+				 * @member ns.router.Router
+				 * @static
+				 * @private
+				 */
 			var util = ns.util,
 				/**
-				* Local alias for ns.event
-				* @property {Object} eventUtils Alias for {@link ns.event}
-				* @member ns.router.Router
-				* @static
-				* @private
-				*/
+				 * Local alias for ns.event
+				 * @property {Object} eventUtils Alias for {@link ns.event}
+				 * @member ns.router.Router
+				 * @static
+				 * @private
+				 */
 				eventUtils = ns.event,
 				/**
-				* @property {Object} DOM Alias for {@link ns.util.DOM}
-				* @member ns.router.Router
-				* @static
-				* @private
-				*/
+				 * Alias for {@link ns.util.DOM}
+				 * @property {Object} DOM
+				 * @member ns.router.Router
+				 * @static
+				 * @private
+				 */
 				DOM = util.DOM,
 				/**
-				* Local alias for ns.util.path
-				* @property {Object} path Alias for {@link ns.util.path}
-				* @member ns.router.Router
-				* @static
-				* @private
-				*/
+				 * Local alias for ns.util.path
+				 * @property {Object} path Alias for {@link ns.util.path}
+				 * @member ns.router.Router
+				 * @static
+				 * @private
+				 */
 				path = util.path,
 				/**
-				* Local alias for ns.util.selectors
-				* @property {Object} selectors Alias for {@link ns.util.selectors}
-				* @member ns.router.Router
-				* @static
-				* @private
-				*/
+				 * Local alias for ns.util.selectors
+				 * @property {Object} selectors Alias for {@link ns.util.selectors}
+				 * @member ns.router.Router
+				 * @static
+				 * @private
+				 */
 				selectors = util.selectors,
 				/**
-				* Local alias for ns.util.object
-				* @property {Object} object Alias for {@link ns.util.object}
-				* @member ns.router.Router
-				* @static
-				* @private
-				*/
+				 * Local alias for ns.util.object
+				 * @property {Object} object Alias for {@link ns.util.object}
+				 * @member ns.router.Router
+				 * @static
+				 * @private
+				 */
 				object = util.object,
 				/**
-				* Local alias for ns.engine
-				* @property {Object} engine Alias for {@link ns.engine}
-				* @member ns.router.Router
-				* @static
-				* @private
-				*/
+				 * Local alias for ns.engine
+				 * @property {Object} engine Alias for {@link ns.engine}
+				 * @member ns.router.Router
+				 * @static
+				 * @private
+				 */
 				engine = ns.engine,
 				/**
-				* Local alias for ns.router.wearable
-				* @property {Object} routerMicro Alias for namespace ns.router.wearable
-				* @member ns.router.Router
-				* @static
-				* @private
-				*/
+				 * Local alias for ns.router.wearable
+				 * @property {Object} routerMicro Alias for namespace ns.router.wearable
+				 * @member ns.router.Router
+				 * @static
+				 * @private
+				 */
 				routerMicro = ns.router,
 				/**
-				* Local alias for ns.wearable.selectors
-				* @property {Object} microSelectors Alias for {@link ns.wearable.selectors}
-				* @member ns.router.Router
-				* @static
-				* @private
-				*/
+				 * Local alias for ns.wearable.selectors
+				 * @property {Object} microSelectors Alias for {@link ns.wearable.selectors}
+				 * @member ns.router.Router
+				 * @static
+				 * @private
+				 */
 				microSelectors = ns.wearable.selectors,
 				/**
-				* Local alias for ns.router.wearable.history
-				* @property {Object} history Alias for {@link ns.router.wearable.history}
-				* @member ns.router.Router
-				* @static
-				* @private
-				*/
+				 * Local alias for ns.router.wearable.history
+				 * @property {Object} history Alias for {@link ns.router.wearable.history}
+				 * @member ns.router.Router
+				 * @static
+				 * @private
+				 */
 				history = routerMicro.history,
 				/**
-				* Local alias for ns.router.wearable.route
-				* @property {Object} route Alias for namespace ns.router.wearable.route
-				* @member ns.router.Router
-				* @static
-				* @private
-				*/
+				 * Local alias for ns.router.wearable.route
+				 * @property {Object} route Alias for namespace ns.router.wearable.route
+				 * @member ns.router.Router
+				 * @static
+				 * @private
+				 */
 				route = routerMicro.route,
 				/**
-				* Local alias for document body element
-				* @property {HTMLElement} body
-				* @member ns.router.Router
-				* @static
-				* @private
-				*/
+				 * Local alias for document body element
+				 * @property {HTMLElement} body
+				 * @member ns.router.Router
+				 * @static
+				 * @private
+				 */
 				body = document.body,
 				/**
 				 * Alias to Array.slice method
@@ -148,43 +150,43 @@
 
 				Router = function () {
 					var self = this;
-					self.activePage = null;
+
 					/**
-					 * @property {?HTMLElement} [firstPage] First page lement
-					 * @instance
+					 * Element of the page opened as first.
+					 * @property {?HTMLElement} [firstPage]
 					 * @member ns.router.Router
 					 */
 					self.firstPage = null;
 					/**
-					 * @property {?ns.widget.wearable.PageContainer} [container] Container widget
-					 * @instance
+					 * The container of widget.
+					 * @property {?ns.widget.wearable.PageContainer} [container]
 					 * @member ns.router.Router
 					 */
 					self.container = null;
 					/**
-					 * @property {Object} [settings] Settings for last open method
-					 * @instance
+					 * Settings for last open method
+					 * @property {Object} [settings]
 					 * @member ns.router.Router
 					 */
 					self.settings = {};
 					/**
-					 * @property {Object} [rule] rulses for widget navigation
-					 * @instance
+					 * Rules for widget navigation
+					 * @property {Object} [rule]
 					 * @member ns.router.Router
 					 */
 					self.rule = {};
 				};
 
 			/**
-			* @property {Object} defaults Default values for router
-			* @property {boolean} [defaults.fromHashChange = false]
-			* @property {boolean} [defaults.reverse = false]
-			* @property {boolean} [defaults.showLoadMsg = true]
-			* @property {number} [defaults.loadMsgDelay = 0]
-			* @property {boolean} [defaults.volatileRecord = false]
-			* @instance
-			* @member ns.router.Router
-			*/
+			 * Default values for router
+			 * @property {Object} defaults
+			 * @property {boolean} [defaults.fromHashChange = false] Sets if will be changed after hashchange.
+			 * @property {boolean} [defaults.reverse = false] Sets the direction of change.
+			 * @property {boolean} [defaults.showLoadMsg = true] Sets if message will be shown during loading.
+			 * @property {number} [defaults.loadMsgDelay = 0] Sets delay time for the show message during loading.
+			 * @property {boolean} [defaults.volatileRecord = false] Sets if the current history entry will be modified or a new one will be created.
+			 * @member ns.router.Router
+			 */
 			Router.prototype.defaults = {
 				fromHashChange: false,
 				reverse: false,
@@ -229,7 +231,7 @@
 
 				if (link && event.which === 1) {
 					href = link.getAttribute("href");
-					useDefaultUrlHandling = (link.getAttribute('rel') === 'external') || link.hasAttribute('target');
+					useDefaultUrlHandling = (link.getAttribute("rel") === "external") || link.hasAttribute("target");
 					if (!useDefaultUrlHandling) {
 						options = DOM.getData(link);
 						router.open(href, options);
@@ -286,22 +288,21 @@
 			}
 
 			/**
-			* Change page to page given in parameter to.
-			* @method open
-			* @param {string|HTMLElement} to Id of page or file url or HTMLElement of page
-			* @param {Object} [options]
-			* @param {string} [options.rel = 'page'] represents kind of link as 'page' or 'popup' or 'external' for linking to another domain
-			* @param {string} [options.transition = 'none'] the animation used during change of page
-			* @param {boolean} [options.reverse = false] the direction of change
-			* @param {boolean} [options.fromHashChange = false] the change route after hashchange
-			* @param {boolean} [options.showLoadMsg = true] show message during loading
-			* @param {number} [options.loadMsgDelay = 0] delay time for the show message during loading
-			* @param {boolean} [options.volatileRecord = false]
-			* @param {boolean} [options.dataUrl] page has url attribute
-			* @param {string} [options.container = null] uses in RoutePopup as container selector
-			 * @instance
-			* @member ns.router.Router
-			*/
+			 * Change page to page given in parameter "to".
+			 * @method open
+			 * @param {string|HTMLElement} to Id of page or file url or HTMLElement of page
+			 * @param {Object} [options]
+			 * @param {"page"|"popup"|"external"} [options.rel = "page"] Represents kind of link as "page" or "popup" or "external" for linking to another domain.
+			 * @param {string} [options.transition = "none"] Sets the animation used during change of page.
+			 * @param {boolean} [options.reverse = false] Sets the direction of change.
+			 * @param {boolean} [options.fromHashChange = false] Sets if will be changed after hashchange.
+			 * @param {boolean} [options.showLoadMsg = true] Sets if message will be shown during loading.
+			 * @param {number} [options.loadMsgDelay = 0] Sets delay time for the show message during loading.
+			 * @param {boolean} [options.volatileRecord = false] Sets if the current history entry will be modified or a new one will be created.
+			 * @param {boolean} [options.dataUrl] Sets if page has url attribute.
+			 * @param {?string} [options.container = null] It is used in RoutePopup as selector for container.
+			 * @member ns.router.Router
+			 */
 			Router.prototype.open = function (to, options) {
 				var rel = ((options && options.rel) || "page"),
 					rule = route[rel],
@@ -342,12 +343,11 @@
 			};
 
 			/**
-			* Method initialize page container and build first page is is set flag autoInitializePage
-			* @method init
-			* @param {boolean} justBuild
-			* @instance
-			* @member ns.router.Router
-			*/
+			 * Method initializes page container and builds the first page if flag autoInitializePage is set.
+			 * @method init
+			 * @param {boolean} justBuild
+			 * @member ns.router.Router
+			 */
 			Router.prototype.init = function (justBuild) {
 				var page,
 					containerElement,
@@ -359,11 +359,11 @@
 					self = this;
 
 				body = document.body;
-				containerElement = ns.getConfig('pageContainer') || body;
+				containerElement = ns.getConfig("pageContainer") || body;
 				pages = slice.call(containerElement.querySelectorAll(microSelectors.page));
 				self.justBuild = justBuild;
 
-				if (ns.getConfig('autoInitializePage', true)) {
+				if (ns.getConfig("autoInitializePage", true)) {
 					firstPage = containerElement.querySelector(microSelectors.activePage);
 					if (!firstPage) {
 						firstPage = pages[0];
@@ -379,10 +379,10 @@
 
 					if (justBuild) {
 						//>>excludeStart("tauDebug", pragmas.tauDebug);
-						ns.log('routerMicro.Router just build');
+						ns.log("routerMicro.Router just build");
 						//>>excludeEnd("tauDebug");
 						//engine.createWidgets(containerElement, true);
-						container = engine.instanceWidget(containerElement, 'pagecontainer');
+						container = engine.instanceWidget(containerElement, "pagecontainer");
 						if (firstPage) {
 							self.register(container, firstPage);
 						}
@@ -391,7 +391,7 @@
 
 					if (location.hash) {
 						//simple check to determine if we should show firstPage or other
-						page = document.getElementById(location.hash.replace('#', ''));
+						page = document.getElementById(location.hash.replace("#", ""));
 						if (page && selectors.matchesSelector(page, microSelectors.page)) {
 							firstPage = page;
 						}
@@ -399,71 +399,66 @@
 				}
 
 				pages.forEach(function(page) {
-					if (!DOM.getNSData(page, 'url')) {
-						DOM.setNSData(page, 'url', page.id || location.pathname + location.search);
+					if (!DOM.getNSData(page, "url")) {
+						DOM.setNSData(page, "url", page.id || location.pathname + location.search);
 					}
 				});
 
-				container = engine.instanceWidget(containerElement, 'pagecontainer');
+				container = engine.instanceWidget(containerElement, "pagecontainer");
 				self.register(container, firstPage);
 			};
 
 			/**
-			* Remove all events listners set by router
-			* @method destroy
-			* @instance
-			* @member ns.router.Router
-			*/
+			 * Method removes all events listners set by router.
+			 * @method destroy
+			 * @member ns.router.Router
+			 */
 			Router.prototype.destroy = function () {
 				var self = this;
-				window.removeEventListener('popstate', self.popStateHandler, false);
+				window.removeEventListener("popstate", self.popStateHandler, false);
 				if (body) {
-					body.removeEventListener('pagebeforechange', this.pagebeforechangeHandler, false);
-					body.removeEventListener('click', self.linkClickHandler, false);
+					body.removeEventListener("pagebeforechange", this.pagebeforechangeHandler, false);
+					body.removeEventListener("click", self.linkClickHandler, false);
 				}
 			};
 
 			/**
-			* Set container
-			* @method setContainer
-			* @param {ns.widget.PageContainer} container
-			* @instance
-			* @member ns.router.Router
-			*/
+			 * Method sets container.
+			 * @method setContainer
+			 * @param {ns.widget.wearable.PageContainer} container
+			 * @member ns.router.Router
+			 */
 			Router.prototype.setContainer = function (container) {
 				this.container = container;
 			};
 
 			/**
-			* Get container
-			* @method getContainer
-			* @return {ns.widget.PageContainer} container
-			* @instance
-			* @member ns.router.Router
-			*/
+			 * Method returns container.
+			 * @method getContainer
+			 * @return {ns.widget.wearable.PageContainer} container of widget
+			 * @member ns.router.Router
+			 */
 			Router.prototype.getContainer = function () {
 				return this.container;
 			};
 
 			/**
-			* Get first page
-			* @method getFirstPage
-			* @return {HTMLElement} page
-			* @instance
-			* @member ns.router.Router
-			*/
+			 * Method returns ths first page.
+			 * @method getFirstPage
+			 * @return {HTMLElement} the first page
+			 * @member ns.router.Router
+			 */
 			Router.prototype.getFirstPage = function () {
 				return this.firstPage;
 			};
 
 			/**
-			* Register page container and first page
-			* @method register
-			* @param {ns.widget.PageContainer} container
-			* @param {HTMLElement} firstPage
-			* @instance
-			* @member ns.router.Router
-			*/
+			 * Method registers page container and the first page.
+			 * @method register
+			 * @param {ns.widget.wearable.PageContainer} container
+			 * @param {HTMLElement} firstPage
+			 * @member ns.router.Router
+			 */
 			Router.prototype.register = function (container, firstPage) {
 				var self = this;
 				self.container = container;
@@ -472,30 +467,28 @@
 				self.linkClickHandler = linkClickHandler.bind(null, self);
 				self.popStateHandler = popStateHandler.bind(null, self);
 
-				document.addEventListener('click', self.linkClickHandler, false);
-				window.addEventListener('popstate', self.popStateHandler, false);
+				document.addEventListener("click", self.linkClickHandler, false);
+				window.addEventListener("popstate", self.popStateHandler, false);
 
 				history.enableVolatileRecord();
 				if (firstPage) {
-					self.open(firstPage, { transition: 'none' });
+					self.open(firstPage, { transition: "none" });
 				}
 			};
 
 			/**
-			 * Open popup
+			 * Method opens popup.
 			 * @method openPopup
-			 * @param {HTMLElement|string} to
+			 * @param {HTMLElement|string} to Id or HTMLElement of popup.
 			 * @param {Object} [options]
-			 * @param {string} [options.rel = 'page'] represents kind of link as 'page' or 'popup' or 'external' for linking to another domain
-			 * @param {string} [options.transition = 'none'] the animation used during change of page
-			 * @param {boolean} [options.reverse = false] the direction of change
-			 * @param {boolean} [options.fromHashChange = false] the change route after hashchange
-			 * @param {boolean} [options.showLoadMsg = true] show message during loading
-			 * @param {number} [options.loadMsgDelay = 0] delay time for the show message during loading
-			 * @param {boolean} [options.volatileRecord = false]
-			 * @param {boolean} [options.dataUrl] page has url attribute
-			 * @param {string} [options.container = null] uses in RoutePopup as container selector
-			 * @instance
+			 * @param {string} [options.transition = "none"] Sets the animation used during change of page.
+			 * @param {boolean} [options.reverse = false] Sets the direction of change.
+			 * @param {boolean} [options.fromHashChange = false] Sets if will be changed after hashchange.
+			 * @param {boolean} [options.showLoadMsg = true] Sets if message will be shown during loading.
+			 * @param {number} [options.loadMsgDelay = 0] Sets delay time for the show message during loading.
+			 * @param {boolean} [options.volatileRecord = false] Sets if the current history entry will be modified or a new one will be created.
+			 * @param {boolean} [options.dataUrl] Sets if page has url attribute.
+			 * @param {?string} [options.container = null] It is used in RoutePopup as selector for container.
 			 * @member ns.router.Router
 			 */
 			Router.prototype.openPopup = function (to, options) {
@@ -503,9 +496,8 @@
 			};
 
 			/**
-			 * Close popup
+			 * Method closes popup.
 			 * @method closePopup
-			 * @instance
 			 * @member ns.router.Router
 			 */
 			Router.prototype.closePopup = function () {
@@ -518,21 +510,20 @@
 			 * @method _loadUrl
 			 * @param {string} url
 			 * @param {Object} options
-			 * @param {string} [options.rel = 'page'] represents kind of link as 'page' or 'popup' or 'external' for linking to another domain
-			 * @param {string} [options.transition = 'none'] the animation used during change of page
-			 * @param {boolean} [options.reverse = false] the direction of change
-			 * @param {boolean} [options.fromHashChange = false] the change route after hashchange
-			 * @param {boolean} [options.showLoadMsg = true] show message during loading
-			 * @param {number} [options.loadMsgDelay = 0] delay time for the show message during loading
-			 * @param {boolean} [options.volatileRecord = false]
-			 * @param {boolean} [options.dataUrl] page has url attribute
-			 * @param {string} [options.container = null] uses in RoutePopup as container selector
-			 * @param {string} [options.absUrl] absolute Url for content used by deferred object
+			 * @param {"page"|"popup"|"external"} [options.rel = "page"] Represents kind of link as "page" or "popup" or "external" for linking to another domain.
+			 * @param {string} [options.transition = "none"] Sets the animation used during change of page.
+			 * @param {boolean} [options.reverse = false] Sets the direction of change.
+			 * @param {boolean} [options.fromHashChange = false] Sets if will be changed after hashchange.
+			 * @param {boolean} [options.showLoadMsg = true] Sets if message will be shown during loading.
+			 * @param {number} [options.loadMsgDelay = 0] Sets delay time for the show message during loading.
+			 * @param {boolean} [options.volatileRecord = false] Sets if the current history entry will be modified or a new one will be created.
+			 * @param {boolean} [options.dataUrl] Sets if page has url attribute.
+			 * @param {?string} [options.container = null] It is used in RoutePopup as selector for container.
+			 * @param {string} [options.absUrl] Absolute Url for content used by deferred object.
 			 * @param {Object} rule
 			 * @param {Object} deferred
 			 * @param {Function} deferred.reject
 			 * @param {Function} deferred.resolve
-			 * @instance
 			 * @member ns.router.Router
 			 * @protected
 			 */
@@ -566,9 +557,9 @@
 				// Load the new content.
 				try {
 					request = new XMLHttpRequest();
-					request.open('GET', absUrl, false);
+					request.open("GET", absUrl, false);
 					request.onerror = self._loadError.bind(self, absUrl, options, deferred);
-					request.send('');
+					request.send("");
 					if (request.readyState === 4) {
 						if (request.status === 200 || (request.status === 0 && request.responseText)) {
 							self._loadSuccess(absUrl, options, rule, deferred, request.responseText);
@@ -586,19 +577,18 @@
 			 * @method _loadError
 			 * @param {string} absUrl
 			 * @param {Object} options
-			 * @param {string} [options.rel = 'page'] represents kind of link as 'page' or 'popup' or 'external' for linking to another domain
-			 * @param {string} [options.transition = 'none'] the animation used during change of page
-			 * @param {boolean} [options.reverse = false] the direction of change
-			 * @param {boolean} [options.fromHashChange = false] the change route after hashchange
-			 * @param {boolean} [options.showLoadMsg = true] show message during loading
-			 * @param {number} [options.loadMsgDelay = 0] delay time for the show message during loading
-			 * @param {boolean} [options.volatileRecord = false]
-			 * @param {boolean} [options.dataUrl] page has url attribute
-			 * @param {string} [options.container = null] uses in RoutePopup as container selector
-			 * @param {string} [options.absUrl] absolute Url for content used by deferred object
+			 * @param {"page"|"popup"|"external"} [options.rel = "page"] Represents kind of link as "page" or "popup" or "external" for linking to another domain.
+			 * @param {string} [options.transition = "none"] Sets the animation used during change of page.
+			 * @param {boolean} [options.reverse = false] Sets the direction of change.
+			 * @param {boolean} [options.fromHashChange = false] Sets if will be changed after hashchange.
+			 * @param {boolean} [options.showLoadMsg = true] Sets if message will be shown during loading.
+			 * @param {number} [options.loadMsgDelay = 0] Sets delay time for the show message during loading.
+			 * @param {boolean} [options.volatileRecord = false] Sets if the current history entry will be modified or a new one will be created.
+			 * @param {boolean} [options.dataUrl] Sets if page has url attribute.
+			 * @param {?string} [options.container = null] It is used in RoutePopup as selector for container.
+			 * @param {string} [options.absUrl] Absolute Url for content used by deferred object.
 			 * @param {Object} deferred
 			 * @param {Function} deferred.reject
-			 * @instance
 			 * @member ns.router.Router
 			 * @protected
 			 */
@@ -622,22 +612,21 @@
 			 * @method _loadSuccess
 			 * @param {string} absUrl
 			 * @param {Object} options
-			 * @param {string} [options.rel = 'page'] represents kind of link as 'page' or 'popup' or 'external' for linking to another domain
-			 * @param {string} [options.transition = 'none'] the animation used during change of page
-			 * @param {boolean} [options.reverse = false] the direction of change
-			 * @param {boolean} [options.fromHashChange = false] the change route after hashchange
-			 * @param {boolean} [options.showLoadMsg = true] show message during loading
-			 * @param {number} [options.loadMsgDelay = 0] delay time for the show message during loading
-			 * @param {boolean} [options.volatileRecord = false]
-			 * @param {boolean} [options.dataUrl] page has url attribute
-			 * @param {string} [options.container = null] uses in RoutePopup as container selector
-			 * @param {string} [options.absUrl] absolute Url for content used by deferred object
+			 * @param {"page"|"popup"|"external"} [options.rel = "page"] Represents kind of link as "page" or "popup" or "external" for linking to another domain.
+			 * @param {string} [options.transition = "none"] Sets the animation used during change of page.
+			 * @param {boolean} [options.reverse = false] Sets the direction of change.
+			 * @param {boolean} [options.fromHashChange = false] Sets if will be changed after hashchange.
+			 * @param {boolean} [options.showLoadMsg = true] Sets if message will be shown during loading.
+			 * @param {number} [options.loadMsgDelay = 0] Sets delay time for the show message during loading.
+			 * @param {boolean} [options.volatileRecord = false] Sets if the current history entry will be modified or a new one will be created.
+			 * @param {boolean} [options.dataUrl] Sets if page has url attribute.
+			 * @param {?string} [options.container = null] It is used in RoutePopup as selector for container.
+			 * @param {string} [options.absUrl] Absolute Url for content used by deferred object.
 			 * @param {Object} rule
 			 * @param {Object} deferred
 			 * @param {Function} deferred.reject
 			 * @param {Function} deferred.resolve
 			 * @param {string} html
-			 * @instance
 			 * @member ns.router.Router
 			 * @protected
 			 */
@@ -662,9 +651,8 @@
 			/**
 			 * Get initial content
 			 * @method _getInitialContent
-			 * @instance
 			 * @member ns.router.Router
-			 * @return {HTMLElement} first page
+			 * @return {HTMLElement} the first page
 			 * @protected
 			 */
 			Router.prototype._getInitialContent = function () {
@@ -675,7 +663,6 @@
 			 * Show the loading indicator
 			 * @method _showLoading
 			 * @param {number} delay
-			 * @instance
 			 * @member ns.router.Router
 			 * @protected
 			 */
@@ -687,7 +674,6 @@
 			 * Report an error loading
 			 * @method _showError
 			 * @param {string} absUrl
-			 * @instance
 			 * @member ns.router.Router
 			 * @protected
 			 */
@@ -698,7 +684,6 @@
 			/**
 			 * Hide the loading indicator
 			 * @method _hideLoading
-			 * @instance
 			 * @member ns.router.Router
 			 * @protected
 			 */
@@ -707,10 +692,9 @@
 			};
 
 			/**
-			 * Return true if popup is active
+			 * Returns true if popup is active.
 			 * @method hasActivePopup
 			 * @return {boolean}
-			 * @instance
 			 * @member ns.router.Router
 			 */
 			Router.prototype.hasActivePopup = function () {

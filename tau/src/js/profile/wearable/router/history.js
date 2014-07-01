@@ -17,6 +17,7 @@
 /**
  * #History
  * Object controls history changes.
+ *
  * @class ns.router.history
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
@@ -45,26 +46,26 @@
 					activeState : null,
 
 					/**
-					 * Replace or push to history.
+					 * This method replaces or pushes state to history.
 					 * @method replace
-					 * @param {Object} state
-					 * @param {string} pageTitle
-					 * @param {string} url
+					 * @param {Object} state The state object
+					 * @param {string} stateTitle The title of state
+					 * @param {string} url The new history entry's URL
 					 * @static
 					 * @member ns.router.history
 					 */
-					replace: function (state, pageTitle, url) {
+					replace: function (state, stateTitle, url) {
 						var newState = object.merge({},
 								state,
 								{
 							uid: historyVolatileMode ? historyActiveIndex : ++historyUid
 						});
-						windowHistory[historyVolatileMode ? "replaceState" : "pushState"](newState, pageTitle, url);
+						windowHistory[historyVolatileMode ? "replaceState" : "pushState"](newState, stateTitle, url);
 						history.setActive(newState);
 					},
 
 					/**
-					 * Back in history.
+					 * This method moves backward through history.
 					 * @method back
 					 * @static
 					 * @member ns.router.history
@@ -74,9 +75,9 @@
 					},
 
 					/**
-					 * Set active state.
+					 * This method sets active state.
 					 * @method setActive
-					 * @param {Object} state
+					 * @param {Object} state Activated state
 					 * @static
 					 * @member ns.router.history
 					 */
@@ -95,10 +96,10 @@
 					},
 
 					/**
-					 * Return "back" if state is in history or "forward" if it is new state.
+					 * This method returns "back" if state is in history or "forward" if it is new state.
 					 * @method getDirection
-					 * @param {Object} state
-					 * @return {string}
+					 * @param {Object} state Checked state
+					 * @return {"back"|"forward"}
 					 * @static
 					 * @member ns.router.history
 					 */
@@ -110,7 +111,7 @@
 					},
 
 					/**
-					 * Set volatile mode to true.
+					 * This method sets volatile mode to true.
 					 * @method enableVolatileRecord
 					 * @static
 					 * @member ns.router.history
@@ -120,7 +121,7 @@
 					},
 
 					/**
-					 * Set volatile mode to true.
+					 * This method sets volatile mode to false.
 					 * @method disableVolatileMode
 					 * @static
 					 * @member ns.router.history

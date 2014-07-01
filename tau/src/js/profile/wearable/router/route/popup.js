@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 /**
- * Support class for router to control change pupups.
+ * Support class for router to control changing pupups in profile Wearable.
  * @class ns.router.route.popup
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Damian Osipiuk <d.osipiuk@samsung.com>
@@ -38,10 +38,11 @@
 			//>>excludeEnd("tauBuildExclude");
 			var routePopup = {
 					/**
-					 * @property {Object} defaults Object with default options
-					 * @property {string} [defaults.transition='none']
-					 * @property {?HTMLElement} [defaults.container=null]
-					 * @property {boolean} [defaults.volatileRecord=true]
+					 * Object with default options
+					 * @property {Object} defaults
+					 * @property {string} [defaults.transition='none'] Sets the animation used during change of popup.
+					 * @property {?HTMLElement} [defaults.container=null] Sets container of element.
+					 * @property {boolean} [defaults.volatileRecord=true] Sets if the current history entry will be modified or a new one will be created.
 					 * @member ns.router.route.popup
 					 * @static
 					 */
@@ -51,19 +52,22 @@
 						volatileRecord: true
 					},
 					/**
-					 * @property {string} filter Alias for {@link ns.wearable.selectors#popup}
+					 * Alias for {@link ns.wearable.selectors#popup}
+					 * @property {string} filter
 					 * @member ns.router.route.popup
 					 * @static
 					 */
 					filter: ns.wearable.selectors.popup,
 					/**
-					 * @property {?HTMLElement} activePopup Storage variable for active popup
+					 * Storage variable for active popup
+					 * @property {?HTMLElement} activePopup
 					 * @member ns.router.route.popup
 					 * @static
 					 */
 					activePopup: null,
 					/**
-					 * @property {Object} events Dictionary for popup related event types
+					 * Dictionary for popup related event types
+					 * @property {Object} events
 					 * @property {string} [events.POPUP_HIDE='popuphide']
 					 * @member ns.router.route.popup
 					 * @static
@@ -73,55 +77,63 @@
 					}
 				},
 				/**
-				 * @property {Object} engine Alias for {@link ns.engine}
+				 * Alias for {@link ns.engine}
+				 * @property {Object} engine
 				 * @member ns.router.route.popup
 				 * @private
 				 * @static
 				 */
 				engine = ns.engine,
 				/**
-				 * @property {Object} path Alias for {@link ns.util.path}
+				 * Alias for {@link ns.util.path}
+				 * @property {Object} path
 				 * @member ns.router.route.popup
 				 * @private
 				 * @static
 				 */
 				path = ns.util.path,
 				/**
-				 * @property {Object} utilSelector Alias for {@link ns.util.selectors}
+				 * Alias for {@link ns.util.selectors}
+				 * @property {Object} utilSelector
 				 * @member ns.router.route.popup
 				 * @private
 				 * @static
 				 */
 				utilSelector = ns.util.selectors,
 				/**
-				 * @property {Object} history Alias for {@link ns.router.history}
+				 * Alias for {@link ns.router.history}
+				 * @property {Object} history
 				 * @member ns.router.route.popup
 				 * @private
 				 * @static
 				 */
 				history = ns.router.history,
 				/**
-				 * @property {Object} pathUtils Alias for {@link ns.util.path}
+				 * Alias for {@link ns.util.path}
+				 * @property {Object} pathUtils
 				 * @member ns.router.route.popup
 				 * @private
 				 * @static
 				 */
 				pathUtils = ns.util.path,
 				/**
-				 * @property {Object} DOM Alias for {@link ns.util.DOM}
+				 * Alias for {@link ns.util.DOM}
+				 * @property {Object} DOM
 				 * @member ns.router.route.popup
 				 * @private
 				 * @static
 				 */
 				DOM = ns.util.DOM,
 				/**
-				 * @method slice Alias for array slice method
+				 * Alias for array slice method
+				 * @method slice
 				 * @member ns.router.route.popup
 				 * @private
 				 * @static
 				 */
 				slice = [].slice,
 				/**
+				 * Popup's hash added to url
 				 * @property {string} popupHashKey
 				 * @member ns.router.route.popup
 				 * @private
@@ -129,6 +141,7 @@
 				 */
 				popupHashKey = "popup=true",
 				/**
+				 * Regexp for popup's hash
 				 * @property {RegExp} popupHashKeyReg
 				 * @member ns.router.route.popup
 				 * @private
@@ -138,7 +151,7 @@
 
 			/**
 			 * Tries to find a popup element matching id and filter (selector).
-			 * Adds data url attribute to found page, sets page = null when nothing found
+			 * Adds data url attribute to found page, sets page = null when nothing found.
 			 * @method findPopupAndSetDataUrl
 			 * @param {string} id
 			 * @param {string} filter
@@ -164,7 +177,7 @@
 			}
 
 			/**
-			 * Returns default options
+			 * This method returns default options for popup router.
 			 * @method option
 			 * @return {Object}
 			 * @member ns.router.route.popup
@@ -175,10 +188,21 @@
 			};
 
 			/**
-			 * Change page
+			 * This method opens popup if no other popup is opened.
+			 * It also changes history to show that popup is opened.
+			 * If there is already active popup, it will be closed.
 			 * @method open
 			 * @param {HTMLElement|string} toPopup
 			 * @param {Object} options
+			 * @param {"page"|"popup"|"external"} [options.rel = 'popup'] Represents kind of link as 'page' or 'popup' or 'external' for linking to another domain.
+			 * @param {string} [options.transition = 'none'] Sets the animation used during change of popup.
+			 * @param {boolean} [options.reverse = false] Sets the direction of change.
+			 * @param {boolean} [options.fromHashChange = false] Sets if will be changed after hashchange.
+			 * @param {boolean} [options.showLoadMsg = true] Sets if message will be shown during loading.
+			 * @param {number} [options.loadMsgDelay = 0] Sets delay time for the show message during loading.
+			 * @param {boolean} [options.volatileRecord = false] Sets if the current history entry will be modified or a new one will be created.
+			 * @param {boolean} [options.dataUrl] Sets if page has url attribute.
+			 * @param {string} [options.container = null] Selector for container.
 			 * @member ns.router.route.popup
 			 * @static
 			 */
@@ -224,7 +248,7 @@
 			};
 
 			/**
-			 * Close active popup
+			 * This method closes active popup.
 			 * @method _closeActivePopup
 			 * @param {HTMLElement} activePopup
 			 * @member ns.router.route.popup
@@ -242,13 +266,14 @@
 			};
 
 			/**
-			 * Close active popup
+			 * This method handles hash change.
+			 * It closes active popup.
 			 * @method onHashChange
 			 * @return {boolean}
 			 * @member ns.router.route.popup
 			 * @static
 			 */
-			routePopup.onHashChange = function () {
+			routePopup.onHashChange = function (/* url, options */) {
 				var activePopup = routePopup.activePopup;
 
 				if (activePopup) {
@@ -269,27 +294,26 @@
 			 * @return {null}
 			 * @static
 			 */
-			routePopup.onOpenFailed = function(/* options */) {
+			routePopup.onOpenFailed = function (/* options */) {
 				return null;
 			};
 
 			/**
-			 * Find popup by data-url
+			 * This method finds popup by data-url.
 			 * @method find
-			 * @param {string} absUrl
-			 * @return {HTMLElement}
+			 * @param {string} absUrl Absolute path to opened popup
+			 * @return {HTMLElement} Element of popup
 			 * @member ns.router.route.popup
-			 * @static
 			 */
-			routePopup.find = function( absUrl ) {
+			routePopup.find = function (absUrl) {
 				var self = this,
-					dataUrl = self._createDataUrl( absUrl ),
+					dataUrl = self._createDataUrl(absUrl),
 					activePage = engine.getRouter().getContainer().getActivePage(),
 					popup;
 
 				popup = activePage.element.querySelector("[data-url='" + dataUrl + "']" + self.filter);
 
-				if ( !popup && dataUrl && !path.isPath( dataUrl ) ) {
+				if (!popup && dataUrl && !path.isPath(dataUrl)) {
 					popup = findPopupAndSetDataUrl(dataUrl, self.filter);
 				}
 
@@ -297,19 +321,18 @@
 			};
 
 			/**
-			 * Parses HTML and runs scripts from parsed code.
+			 * This method parses HTML and runs scripts from parsed code.
 			 * Fetched external scripts if required.
 			 * @method parse
-			 * @param {string} html
-			 * @param {string} absUrl
+			 * @param {string} html HTML code to parse
+			 * @param {string} absUrl Absolute url for parsed popup
 			 * @return {HTMLElement}
 			 * @member ns.router.route.popup
-			 * @static
 			 */
-			routePopup.parse = function( html, absUrl ) {
+			routePopup.parse = function (html, absUrl) {
 				var self = this,
 					popup,
-					dataUrl = self._createDataUrl( absUrl ),
+					dataUrl = self._createDataUrl(absUrl),
 					scripts,
 					all = document.createElement('div'),
 					scriptRunner = ns.util.runScript.bind(null, dataUrl);
@@ -340,8 +363,8 @@
 			 * @protected
 			 * @static
 			 */
-			routePopup._createDataUrl = function( absoluteUrl ) {
-				return path.convertUrlToDataUrl( absoluteUrl );
+			routePopup._createDataUrl = function (absoluteUrl) {
+				return path.convertUrlToDataUrl(absoluteUrl);
 			};
 
 			/**
