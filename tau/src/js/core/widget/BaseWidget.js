@@ -21,6 +21,7 @@
 /**
  * #BaseWidget
  * Prototype class of widget
+ *
  * ## How to invoke creation of widget from JavaScript
  *
  * To build and initialize widget in JavaScript you have to use method {@link ns.engine#instanceWidget} . First argument for method
@@ -31,97 +32,97 @@
  * ### Examples
  * #### Build widget from JavaScript
  *
- *	 @example
- *	 var element = document.getElementById('id'),
- *		 ns.engine.instanceWidget(element, 'Button');
+ *		@example
+ *		var element = document.getElementById("id"),
+ *			ns.engine.instanceWidget(element, "Button");
  *
  * #### Build widget from jQuery
  *
- *	 @example
- *	 var element = $('#id').button();
+ *		@example
+ *		var element = $("#id").button();
  *
  * ## How to create new widget
  *
- *	 @example
- *	 (function (ns) {
- *		 "use strict";
- *		 //>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
- *		 define(
- *			 [
- *				 "../ns.core", always necessary
- *				 "../widget", // fetch namespace, always necessary
- *				 "../util/selectors" // all other necessary modules
- *			 ],
- *			 function () {
- *				 //>>excludeEnd("tauBuildExclude");
- *				 var BaseWidget = ns.widget.BaseWidget, // create alias to main objects
- *					 ...
- *					 arrayOfElements, // example of private property, common for all instances of widget
- *					 Button = function () { // create local object with widget
- *						 ...
- *					 },
- *					 prototype = new BaseWidget(); // add ns.widget.BaseWidget as prototype to widget's object, for better minification this should be assign to local variable and next variable should be assign to prototype of object
+ *		@example
+ *		(function (ns) {
+ *			"use strict";
+ *			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+ *			define(
+ *				[
+ *					"../ns.core", always necessary
+ *					"../widget", // fetch namespace, always necessary
+ *					"../util/selectors" // all other necessary modules
+ *					],
+ *				function () {
+ *					//>>excludeEnd("tauBuildExclude");
+ *					var BaseWidget = ns.widget.BaseWidget, // create alias to main objects
+ *						...
+ *						arrayOfElements, // example of private property, common for all instances of widget
+ *						Button = function () { // create local object with widget
+ *							...
+ *						},
+ *						prototype = new BaseWidget(); // add ns.widget.BaseWidget as prototype to widget's object, for better minification this should be assign to local variable and next variable should be assign to prototype of object
  *
- *				 function closestEnabledButton(element) { // example of private method
- *					 ...
- *				 }
- *				 ...
+ *					function closestEnabledButton(element) { // example of private method
+ *						...
+ *					}
+ *					...
  *
- *				 prototype.options = { //add default options to be read from data- attributes
- *					 theme: 's',
- *					 ...
- *				 };
+ *					prototype.options = { //add default options to be read from data- attributes
+ *						theme: "s",
+ *						...
+ *					};
  *
- *				 prototype._build = function (template, element) { // method called when the widget is being built, should contain all HTML manipulation actions
- *					 ...
- *					 return element;
- *				 };
+ *					prototype._build = function (template, element) { // method called when the widget is being built, should contain all HTML manipulation actions
+ *						...
+ *						return element;
+ *					};
  *
- *				 prototype._init = function (element) { // method called during initialization of widget, should contain all actions necessary fastOn application start
- *					 ...
- *					 return element;
- *				 };
+ *					prototype._init = function (element) { // method called during initialization of widget, should contain all actions necessary fastOn application start
+ *						...
+ *						return element;
+ *					};
  *
- *				 prototype._bindEvents = function (element) { // method to bind all events, should contain all event bindings
- *					 ...
- *				 };
+ *					prototype._bindEvents = function (element) { // method to bind all events, should contain all event bindings
+ *						...
+ *					};
  *
- *				 prototype._enable = function (element) { // method called during invocation of enable() method
- *					 ...
- *				 };
+ *					prototype._enable = function (element) { // method called during invocation of enable() method
+ *						...
+ *					};
  *
- *				 prototype._disable = function (element) { // method called during invocation of disable() method
- *					 ...
- *				 };
+ *					prototype._disable = function (element) { // method called during invocation of disable() method
+ *						...
+ *					};
  *
- *				 prototype.refresh = function (element) { // example of public method
- *					 ...
- *				 };
+ *					prototype.refresh = function (element) { // example of public method
+ *						...
+ *					};
  *
- *				 prototype._refresh = function () { // example of protected method
- *					 ...
- *				 };
+ *					prototype._refresh = function () { // example of protected method
+ *						...
+ *					};
  *
- *				 Button.prototype = prototype;
+ *					Button.prototype = prototype;
  *
- *				 engine.defineWidget( // define widget
- *					 "Button", //name of widget
- *					 "[data-role='button'],button,[type='button'],[type='submit'],[type='reset']",  //widget's selector
- *					 [ // public methods, here should be list all public method, without that method will not be available
- *						 "enable",
- *						 "disable",
- *						 "refresh"
- *					 ],
- *					 Button, // widget's object
- *					 "mobile" // widget's namespace
- *				 );
- *				 ns.widget.Button = Button;
- *				 //>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
- *				 return ns.widget.Button;
- *			 }
- *		 );
- *		 //>>excludeEnd("tauBuildExclude");
- *	 }(ns));
+ *					engine.defineWidget( // define widget
+ *						"Button", //name of widget
+ *						"[data-role='button'],button,[type='button'],[type='submit'],[type='reset']",  //widget's selector
+ *						[ // public methods, here should be list all public method, without that method will not be available
+ *							"enable",
+ *							"disable",
+ *							"refresh"
+ *						],
+ *						Button, // widget's object
+ *						"mobile" // widget's namespace
+ *					);
+ *					ns.widget.Button = Button;
+ *					//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+ *					return ns.widget.Button;
+ *				}
+ *			);
+ *			//>>excludeEnd("tauBuildExclude");
+ *		}(ns));
  * @author Jadwiga Sosnowska <j.sosnowska@samsung.com>
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>
  * @author Tomasz Lukawski <t.lukawski@samsung.com>
@@ -147,37 +148,41 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			/**
-			* Alias to Array.slice function
-			* @method slice
-			* @member ns.widget.BaseWidget
-			* @private
-			* @static
-			*/
+			 * Alias to Array.slice function
+			 * @method slice
+			 * @member ns.widget.BaseWidget
+			 * @private
+			 * @static
+			 */
 			var slice = [].slice,
 				/**
-				* @property {ns.engine} engine Alias to ns.engine
-				* @member ns.widget.BaseWidget
-				* @private
-				* @static
-				*/
+				 * Alias to ns.engine
+				 * @property {ns.engine} engine
+				 * @member ns.widget.BaseWidget
+				 * @private
+				 * @static
+				 */
 				engine = ns.engine,
 				engineDataTau = engine.dataTau,
 				util = ns.util,
 				/**
-				* @property {Object} eventUtils Alias to {@link ns.event}
-				* @member ns.widget.BaseWidget
-				* @private
-				* @static
-				*/
+				 * Alias to {@link ns.event}
+				 * @property {Object} eventUtils
+				 * @member ns.widget.BaseWidget
+				 * @private
+				 * @static
+				 */
 				eventUtils = ns.event,
 				/**
-				* @property {Object} domUtils Alias to {@link ns.util.DOM}
-				* @private
-				* @static
-				*/
+				 * Alias to {@link ns.util.DOM}
+				 * @property {Object} domUtils
+				 * @private
+				 * @static
+				 */
 				domUtils = util.DOM,
 				/**
-				 * @property {Object} objectUtils Alias to {@link ns.util.object}
+				 * Alias to {@link ns.util.object}
+				 * @property {Object} objectUtils
 				 * @private
 				 * @static
 				 */
@@ -187,7 +192,9 @@
 				},
 				prototype = {},
 				/**
-				 * @property {string} [TYPE_FUNCTION="function"] property with string represent function type (for better minification)
+				 * Property with string represent function type 
+				 * (for better minification)
+				 * @property {string} [TYPE_FUNCTION="function"]
 				 * @private
 				 * @static
 				 * @readonly
@@ -195,25 +202,24 @@
 				TYPE_FUNCTION = "function";
 
 			/**
-			 * Configure widget object from definition
-			 * @method configure
-			 * @param {Object} definition
-			 * @param {string} definition.name Name of the widget
-			 * @param {string} definition.selector Selector of the widget
-			 * @param {HTMLElement} element
-			 * @param {Object} options Configure options
-			 * @member ns.widget.BaseWidget
-			 * @chainable
-			 * @instance
-			 * @internal
-			 */
-			/**
 			 * Protected method configuring the widget
 			 * @method _configure
 			 * @member ns.widget.BaseWidget
 			 * @protected
 			 * @template
-			 * @instance
+			 * @internal
+			 */
+			/**
+			 * This method configures widget object from definition.
+			 * It calls such methods as #\_getCreateOptions and #\_configure.
+			 * @method configure
+			 * @param {Object} definition
+			 * @param {string} definition.name Name of the widget
+			 * @param {string} definition.selector Selector of the widget
+			 * @param {HTMLElement} element Element of widget
+			 * @param {Object} options Configure options
+			 * @member ns.widget.BaseWidget
+			 * @chainable
 			 * @internal
 			 */
 			prototype.configure = function (definition, element, options) {
@@ -221,66 +227,66 @@
 					definitionName,
 					definitionNamespace;
 				/**
-				 * @property {Object} [options={}] Object with options for widget
+				 * Object with options for widget
+				 * @property {Object} [options={}]
 				 * @member ns.widget.BaseWidget
-				 * @instance
 				 */
 				self.options = self.options || {};
 				/**
-				 * @property {?HTMLElement} [element=null] Base element of widget
+				 * Base element of widget
+				 * @property {?HTMLElement} [element=null]
 				 * @member ns.widget.BaseWidget
-				 * @instance
 				 */
 				self.element = self.element || null;
 				if (definition) {
 					definitionName = definition.name;
 					definitionNamespace = definition.namespace;
 					/**
-					* @property {string} name Name of the widget
-					* @member ns.widget.BaseWidget
-					* @instance
-					*/
+					 * Name of the widget
+					 * @property {string} name
+					 * @member ns.widget.BaseWidget
+					 */
 					self.name = definitionName;
 
 					/**
-					* @property {string} widgetName Name of the widget (in lower case)
-					* @member ns.widget.BaseWidget
-					* @instance
-					*/
+					 * Name of the widget (in lower case)
+					 * @property {string} widgetName
+					 * @member ns.widget.BaseWidget
+					 */
 					self.widgetName = definitionName;
 
 					/**
-					* @property {string} widgetEventPrefix Namespace of widget events
-					* @member ns.widget.BaseWidget
-					* @instance
-					*/
+					 * Namespace of widget events
+					 * @property {string} widgetEventPrefix
+					 * @member ns.widget.BaseWidget
+					 */
 					self.widgetEventPrefix = definitionName.toLowerCase();
 
 					/**
-					* @property {string} namespace Namespace of the widget
-					* @member ns.widget.BaseWidget
-					* @instance
-					*/
+					 * Namespace of the widget
+					 * @property {string} namespace 
+					 * @member ns.widget.BaseWidget
+					 */
 					self.namespace = definitionNamespace;
 
 					/**
-					* @property {string} widgetFullName Full name of the widget
-					* @member ns.widget.BaseWidget
-					* @instance
-					*/
-					self.widgetFullName = ((definitionNamespace ? definitionNamespace + '-' : "") + definitionName).toLowerCase();
+					 * Full name of the widget
+					 * @property {string} widgetFullName
+					 * @member ns.widget.BaseWidget
+					 */
+					self.widgetFullName = ((definitionNamespace ? definitionNamespace + "-" : "") + definitionName).toLowerCase();
 					/**
-					* @property {string} id Id of widget instance
-					* @member ns.widget.BaseWidget
-					* @instance
-					*/
+					 * Id of widget instance
+					 * @property {string} id
+					 * @member ns.widget.BaseWidget
+					 */
 					self.id = ns.getUniqueId();
 
 					/**
-					* @property {string} selector widget's selector
-					* @member ns.widget.BaseWidget
-					* @instance
-					*/
+					 * Widget's selector
+					 * @property {string} selector
+					 * @member ns.widget.BaseWidget
+					 */
 					self.selector = definition.selector;
 				}
 
@@ -294,14 +300,13 @@
 			};
 
 			/**
-			* Read data-* attributes and save to #options object
-			* @method _getCreateOptions
-			* @param {HTMLElement} element Base element of the widget
-			* @return {Object}
-			* @member ns.widget.BaseWidget
-			* @protected
-			* @instance
-			*/
+			 * Read data-* attributes and save to #options object
+			 * @method _getCreateOptions
+			 * @param {HTMLElement} element Base element of the widget
+			 * @return {Object}
+			 * @member ns.widget.BaseWidget
+			 * @protected
+			 */
 			prototype._getCreateOptions = function (element) {
 				var options = this.options,
 					bigRegexp = new RegExp(/[A-Z]/g);
@@ -321,24 +326,25 @@
 				return options;
 			};
 			/**
-			* Protected method building the widget
-			* @method _build
-			* @param {HTMLElement} element
-			* @return {HTMLElement} widget's element
-			* @member ns.widget.BaseWidget
-			* @protected
-			* @template
-			* @instance
-			*/
+			 * Protected method building the widget
+			 * @method _build
+			 * @param {HTMLElement} element
+			 * @return {HTMLElement} widget's element
+			 * @member ns.widget.BaseWidget
+			 * @protected
+			 * @template
+			 */
 			/**
-			* Build widget. Call #\_getCreateOptions, #\_build
-			* @method build
-			* @param {HTMLElement} element
-			* @return {HTMLElement} widget's element
-			* @member ns.widget.BaseWidget
-			* @instance
+			 * This method builds widget.
+			 * It calls method #\_build.
+			 * Before starting building process, the event beforecreate with
+			 * proper prefix defined in variable widgetEventPrefix is triggered.
+			 * @method build
+			 * @param {HTMLElement} element Element of widget before building process
+			 * @return {HTMLElement} Element of widget after building process
+			 * @member ns.widget.BaseWidget
 			 * @internal
-			*/
+			 */
 			prototype.build = function (element) {
 				var self = this,
 					id,
@@ -371,23 +377,22 @@
 			};
 
 			/**
-			* Protected method initializing the widget
-			* @method _init
-			* @param {HTMLElement} element
-			* @member ns.widget.BaseWidget
-			* @template
-			* @protected
-			* @instance
-			*/
+			 * Protected method initializing the widget
+			 * @method _init
+			 * @param {HTMLElement} element
+			 * @member ns.widget.BaseWidget
+			 * @template
+			 * @protected
+			 */
 			/**
-			* Init widget, call: #\_getCreateOptions, #\_init
-			* @method init
-			* @param {HTMLElement} element
-			* @member ns.widget.BaseWidget
-			* @chainable
-			* @instance
+			 * This method inits widget.
+			 * It calls method #\_init.
+			 * @method init
+			 * @param {HTMLElement} element Element of widget before initialization
+			 * @member ns.widget.BaseWidget
+			 * @chainable
 			 * @internal
-			*/
+			 */
 			prototype.init = function (element) {
 				var self = this;
 				self.id = element.id;
@@ -406,24 +411,25 @@
 			};
 
 			/**
-			* Bind widget events attached in init mode
-			* @method _bindEvents
-			* @param {HTMLElement} element Base element of widget
-			* @member ns.widget.BaseWidget
-			* @template
-			* @protected
-			* @instance
-			*/
+			 * Bind widget events attached in init mode
+			 * @method _bindEvents
+			 * @param {HTMLElement} element Base element of widget
+			 * @member ns.widget.BaseWidget
+			 * @template
+			 * @protected
+			 */
 			/**
-			* Bind widget events, call: #\_buildBindEvents, #\_bindEvents
-			* @method bindEvents
-			* @param {HTMLElement} element Base element of the widget
-			* @param {boolean} onlyBuild Inform about the type of bindings: build/init
-			* @member ns.widget.BaseWidget
-			* @chainable
-			* @instance
+			 * This method binds widget events.
+			 * It calls such methods as #\_buildBindEvents and #\_bindEvents.
+			 * At the end of binding process, the event "create" with proper
+			 * prefix defined in variable widgetEventPrefix is triggered.
+			 * @method bindEvents
+			 * @param {HTMLElement} element Base element of the widget
+			 * @param {boolean} onlyBuild Inform about the type of bindings: build/init
+			 * @member ns.widget.BaseWidget
+			 * @chainable
 			 * @internal
-			*/
+			 */
 			prototype.bindEvents = function (element, onlyBuild) {
 				var self = this,
 					dataBound = element.getAttribute(engineDataTau.bound);
@@ -445,19 +451,22 @@
 			};
 
 			/**
-			* Protected method destroying the widget
-			* @method _destroy
-			* @template
-			* @protected
-			* @member ns.widget.BaseWidget
-			* @instance
-			*/
+			 * Protected method destroying the widget
+			 * @method _destroy
+			 * @template
+			 * @protected
+			 * @member ns.widget.BaseWidget
+			 */
 			/**
-			* Destroy widget, call #\_destroy
-			* @method destroy
-			* @member ns.widget.BaseWidget
-			* @instance
-			*/
+			 * This method destroys widget.
+			 * It calls method #\_destroy.
+			 * At the end of destroying process, the event "destroy" with proper
+			 * prefix defined in variable widgetEventPrefix is triggered and
+			 * the binding set in engine is removed.
+			 * @method destroy
+			 * @param {HTMLElement} element Base element of the widget
+			 * @member ns.widget.BaseWidget
+			 */
 			prototype.destroy = function (element) {
 				var self = this;
 				element = element || self.element;
@@ -473,20 +482,19 @@
 			};
 
 			/**
-			* Protected method disabling the widget
-			* @method _disable
-			* @protected
-			* @member ns.widget.BaseWidget
-			* @template
-			* @instance
-			*/
+			 * Protected method disabling the widget
+			 * @method _disable
+			 * @protected
+			 * @member ns.widget.BaseWidget
+			 * @template
+			 */
 			/**
-			* Disable widget
-			* @method disable
-			* @member ns.widget.BaseWidget
-			* @chainable
-			* @instance
-			*/
+			 * This method disables widget.
+			 * It calls method #\_destroy.
+			 * @method disable
+			 * @member ns.widget.BaseWidget
+			 * @chainable
+			 */
 			prototype.disable = function () {
 				var self = this,
 					element = self.element,
@@ -500,20 +508,19 @@
 			};
 
 			/**
-			* Protected method enabling the widget
-			* @method _enable
-			* @protected
-			* @member ns.widget.BaseWidget
-			* @template
-			* @instance
-			*/
+			 * Protected method enabling the widget
+			 * @method _enable
+			 * @protected
+			 * @member ns.widget.BaseWidget
+			 * @template
+			 */
 			/**
-			* Enable widget, call: #\_enable
-			* @method enable
-			* @member ns.widget.BaseWidget
-			* @chainable
-			* @instance
-			*/
+			 * This method enables widget.
+			 * It calls method #\_enable.
+			 * @method enable
+			 * @member ns.widget.BaseWidget
+			 * @chainable
+			 */
 			prototype.enable = function () {
 				var self = this,
 					element = self.element,
@@ -527,20 +534,19 @@
 			};
 
 			/**
-			* Protected method causing the widget to refresh
-			* @method _refresh
-			* @protected
-			* @member ns.widget.BaseWidget
-			* @template
-			* @instance
-			*/
+			 * Protected method causing the widget to refresh
+			 * @method _refresh
+			 * @protected
+			 * @member ns.widget.BaseWidget
+			 * @template
+			 */
 			/**
-			* Refresh widget, call: #\_refresh
-			* @method refresh
-			* @member ns.widget.BaseWidget
-			* @chainable
-			* @instance
-			*/
+			 * This method refreshes widget.
+			 * It calls method #\_refresh
+			 * @method refresh
+			 * @member ns.widget.BaseWidget
+			 * @chainable
+			 */
 			prototype.refresh = function () {
 				var self = this;
 				if (typeof self._refresh === TYPE_FUNCTION) {
@@ -566,9 +572,8 @@
 			 * @param {*} value value to set
 			 * @member ns.widget.BaseWidget
 			 * @return {*} return value of option or undefined if method is called in setter context
-			 * @instance
 			 */
-			prototype.option = function () {
+			prototype.option = function (/*name, value*/) {
 				var self = this,
 					args = slice.call(arguments),
 					firstArgument = args.shift(),
@@ -606,7 +611,6 @@
 			 * @param {*} value
 			 * @member ns.widget.BaseWidget
 			 * @return {*}
-			 * @instance
 			 * @protected
 			 */
 			prototype._oneOption = function (field, value) {
@@ -614,19 +618,19 @@
 					methodName,
 					refresh = false;
 				if (value === undefined) {
-					methodName = '_get' + (field[0].toUpperCase() + field.slice(1));
+					methodName = "_get" + (field[0].toUpperCase() + field.slice(1));
 					if (typeof self[methodName] === TYPE_FUNCTION) {
 						return self[methodName]();
 					}
 					return self.options[field];
 				}
-				methodName = '_set' + (field[0].toUpperCase() + field.slice(1));
+				methodName = "_set" + (field[0].toUpperCase() + field.slice(1));
 				if (typeof self[methodName] === TYPE_FUNCTION) {
 					self[methodName](self.element, value);
 				} else {
 					self.options[field] = value;
 					if (self.element) {
-						self.element.setAttribute('data-' + (field.replace(/[A-Z]/g, function (c) {
+						self.element.setAttribute("data-" + (field.replace(/[A-Z]/g, function (c) {
 							return "-" + c.toLowerCase();
 						})), value);
 						refresh = true;
@@ -636,11 +640,11 @@
 			};
 
 			/**
-			 * Checks if the widget has bounded events through the {@link ns.widget.BaseWidget#bindEvents} method.
+			 * This methods enables to check if the widget has bounded 
+			 * events through the {@link ns.widget.BaseWidget#bindEvents} method.
 			 * @method isBound
-			 * @param {string} [type]
+			 * @param {string} [type] Type of widget
 			 * @member ns.widget.BaseWidget
-			 * @instance
 			 * @internal
 			 * @return {boolean} true if events are bounded
 			 */
@@ -651,11 +655,11 @@
 			};
 
 			/**
-			 * Checks if the widget was built through the {@link ns.widget.BaseWidget#build} method.
+			 * This methods enables to check if the widget was built 
+			 * through the {@link ns.widget.BaseWidget#build} method.
 			 * @method isBuilt
-			 * @param {string} [type]
+			 * @param {string} [type] Type of widget
 			 * @member ns.widget.BaseWidget
-			 * @instance
 			 * @internal
 			 * @return {boolean} true if the widget was built
 			 */
@@ -666,32 +670,29 @@
 			};
 
 			/**
-			* Protected method getting the value of widget
-			* @method _getValue
-			* @return {*}
-			* @member ns.widget.BaseWidget
-			* @template
-			* @protected
-			* @instance
-			*/
+			 * Protected method getting the value of widget
+			 * @method _getValue
+			 * @return {*}
+			 * @member ns.widget.BaseWidget
+			 * @template
+			 * @protected
+			 */
 			/**
-			* Protected method setting the value of widget
-			* @method _setValue
-			* @param {*} value
-			* @return {*}
-			* @member ns.widget.BaseWidget
-			* @template
-			* @protected
-			* @instance
-			*/
+			 * Protected method setting the value of widget
+			 * @method _setValue
+			 * @param {*} value
+			 * @return {*}
+			 * @member ns.widget.BaseWidget
+			 * @template
+			 * @protected
+			 */
 			/**
-			* Get/Set value of the widget
-			* @method value
-			* @param {*} [value]
-			* @member ns.widget.BaseWidget
-			* @return {*}
-			* @instance
-			*/
+			 * This methods enables to get or set value of the widget.
+			 * @method value
+			 * @param {*} [value] New value of widget
+			 * @member ns.widget.BaseWidget
+			 * @return {*}
+			 */
 			prototype.value = function (value) {
 				var self = this;
 				if (value !== undefined) {
@@ -707,41 +708,40 @@
 			};
 
 			/**
-			 * Trigger an event on widget's element.
+			 * This method triggers an event on widget's element.
 			 * @method trigger
-			 * @param {string} eventName the name of event to trigger
-			 * @param {?*} [data] additional object to be carried with the event
-			 * @param {boolean} [bubbles=true] indicating whether the event bubbles up through the DOM or not
-			 * @param {boolean} [cancelable=true] indicating whether the event is cancelable
+			 * @param {string} eventName The name of event to trigger
+			 * @param {?*} [data] additional Object to be carried with the event
+			 * @param {boolean} [bubbles=true] Indicating whether the event
+			 * bubbles up through the DOM or not
+			 * @param {boolean} [cancelable=true] Indicating whether
+			 * the event is cancelable
 			 * @member ns.widget.BaseWidget
-			 * @return {boolean} false, if any callback invoked preventDefault on event object
-			 * @instance
-			*/
+			 * @return {boolean} False, if any callback invoked preventDefault on event object
+			 */
 			prototype.trigger = function (eventName, data, bubbles, cancelable) {
 				return eventUtils.trigger(this.element, eventName, data, bubbles, cancelable);
 			};
 
 			/**
-			 * Add event listener to this.element.
+			 * This method adds event listener to this.element.
 			 * @method on
-			 * @param {string} eventName the name of event
-			 * @param {Function} listener function call after event will be trigger
-			 * @param {boolean} [useCapture=false] useCapture param tu addEventListener
+			 * @param {string} eventName The name of event
+			 * @param {Function} listener Function called after event will be trigger
+			 * @param {boolean} [useCapture=false] useCapture Parameter of addEventListener
 			 * @member ns.widget.BaseWidget
-			 * @instance
 			 */
 			prototype.on = function (eventName, listener, useCapture) {
 				eventUtils.on(this.element, eventName, listener, useCapture);
 			};
 
 			/**
-			 * Remove event listener to this.element.
+			 * This method removes event listener from this.element.
 			 * @method off
-			 * @param {string} eventName the name of event
-			 * @param {Function} listener function call after event will be trigger
-			 * @param {boolean} [useCapture=false] useCapture param tu addEventListener
+			 * @param {string} eventName The name of event
+			 * @param {Function} listener Function call after event will be trigger
+			 * @param {boolean} [useCapture=false] useCapture Parameter of addEventListener
 			 * @member ns.widget.BaseWidget
-			 * @instance
 			 */
 			prototype.off = function (eventName, listener, useCapture) {
 				eventUtils.off(this.element, eventName, listener, useCapture);

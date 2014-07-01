@@ -102,7 +102,7 @@
  * For manual creation of page widget you can use constructor of widget from **tau** namespace:
  *
  *		@example
- *		var pageElement = document.getElementById('page'),
+ *		var pageElement = document.getElementById("page"),
  *			page = tau.widget.page(buttonElement);
  *
  * Constructor has one require parameter **element** which are base **HTMLElement** to create widget. We recommend get this element by method *document.getElementById*.
@@ -137,7 +137,7 @@
  * To change page use method *tau.changePage*
  *
  *      @example
- *      tau.changePage('page-two');
+ *      tau.changePage("page-two");
  *
  * ### Back in JavaScript
  * To back to previous page use method *tau.back*
@@ -191,7 +191,7 @@
  *
  *      @example
  *         <script>
- *             window.addEventListener('tizenhwkey', function (event) {
+ *             window.addEventListener("tizenhwkey", function (event) {
  *                 if (event.keyName == "back") {
  *                     // Call window.history.back() to go to previous browser window
  *                     // Call tizen.application.getCurrentApplication().exit() to exit application
@@ -209,7 +209,7 @@
  * To call method on widget you can use tau API:
  *
  *		@example
- *		var pageElement = document.getElementById('page'),
+ *		var pageElement = document.getElementById("page"),
  *			page = tau.widget.page(buttonElement);
  *
  *		page.methodName(methodArgument1, methodArgument2, ...);
@@ -234,35 +234,40 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			/**
-			 * @property {Object} BaseWidget Alias for {@link ns.widget.BaseWidget}
+			 * Alias for {@link ns.widget.BaseWidget}
+			 * @property {Object} BaseWidget
 			 * @member ns.widget.wearable.Page
 			 * @private
 			 * @static
 			 */
 			var BaseWidget = ns.widget.BaseWidget,
 				/**
-				 * @property {Object} selectors Alias for {@link ns.wearable.selectors}
+				 * Alias for {@link ns.wearable.selectors}
+				 * @property {Object} selectors
 				 * @member ns.widget.wearable.Page
 				 * @private
 				 * @static
 				 */
 				selectors = ns.wearable.selectors,
 				/**
-				 * @property {Object} util Alias for {@link ns.util}
+				 * Alias for {@link ns.util}
+				 * @property {Object} util
 				 * @member ns.widget.wearable.Page
 				 * @private
 				 * @static
 				 */
 				util = ns.util,
 				/**
-				 * @property {Object} doms Alias for {@link ns.util.DOM}
+				 * Alias for {@link ns.util.DOM}
+				 * @property {Object} doms
 				 * @member ns.widget.wearable.Page
 				 * @private
 				 * @static
 				 */
 				doms = util.DOM,
 				/**
-				 * @property {Object} engine Alias for {@link ns.engine}
+				 * Alias for {@link ns.engine}
+				 * @property {Object} engine
 				 * @member ns.widget.wearable.Page
 				 * @private
 				 * @static
@@ -271,58 +276,85 @@
 
 				Page = function () {
 					var self = this;
-					self.pageSetHeight = false;
+					/**
+					 * Callback on pageshow
+					 * @property {?Function} contentFillCallback
+					 * @private
+					 * @member ns.widget.wearable.Page
+					 */
 					self.contentFillCallback = null;
+					/**
+					 * Callback on resize
+					 * @property {?Function} contentFillAfterResizeCallback
+					 * @private
+					 * @member ns.widget.wearable.Page
+					 */
 					self.contentFillAfterResizeCallback = null;
+					/**
+					 * Options for widget.
+					 * It is empty object, because widget Page does not have any options.
+					 * @property {Object} options
+					 * @member ns.widget.wearable.Page
+					 */
 					self.options = {};
 				},
 				/**
-				 * @property {Object} EventType Dictionary for page related event types
+				 * Dictionary for page related event types
+				 * @property {Object} EventType
 				 * @member ns.widget.wearable.Page
 				 * @static
 				 */
 				EventType = {
 					/**
-					 * Triggered on the page we are transitioning to, after the transition animation has completed.
+					 * Triggered on the page we are transitioning to,
+					 * after the transition animation has completed.
 					 * @event pageshow
 					 * @member ns.widget.wearable.Page
 					 */
 					SHOW: "pageshow",
 					/**
-					 * Triggered on the page we are transitioning away from, after the transition animation has completed.
+					 * Triggered on the page we are transitioning away from,
+					 * after the transition animation has completed.
 					 * @event pagehide
 					 * @member ns.widget.wearable.Page
 					 */
 					HIDE: "pagehide",
 					/**
-					 * Triggered when the page has been created in the DOM (for example, through Ajax) but before all widgets have had an opportunity to enhance the contained markup.
+					 * Triggered when the page has been created in the DOM
+					 * (for example, through Ajax) but before all widgets
+					 * have had an opportunity to enhance the contained markup.
 					 * @event pagecreate
 					 * @member ns.widget.wearable.Page
 					 */
 					CREATE: "pagecreate",
 					/**
-					 * Triggered when the page is being initialized, before most plugin auto-initialization occurs.
+					 * Triggered when the page is being initialized,
+					 * before most plugin auto-initialization occurs.
 					 * @event pagebeforecreate
 					 * @member ns.widget.wearable.Page
 					 */
 					BEFORE_CREATE: "pagebeforecreate",
 					/**
-					 * Triggered on the page we are transitioning to, before the actual transition animation is kicked off.
+					 * Triggered on the page we are transitioning to,
+					 * before the actual transition animation is kicked off.
 					 * @event pagebeforeshow
 					 * @member ns.widget.wearable.Page
 					 */
 					BEFORE_SHOW: "pagebeforeshow",
 					/**
-					 * Triggered on the page we are transitioning away from, before the actual transition animation is kicked off.
+					 * Triggered on the page we are transitioning away from,
+					 * before the actual transition animation is kicked off.
 					 * @event pagebeforehide
 					 * @member ns.widget.wearable.Page
 					 */
 					BEFORE_HIDE: "pagebeforehide"
 				},
 				/**
-				 * @property {Object} classes Dictionary for page related css class names
+				 * Dictionary for page related css class names
+				 * @property {Object} classes
 				 * @member ns.widget.wearable.Page
 				 * @static
+				 * @readonly
 				 */
 				classes = {
 					uiPage: "ui-page",
@@ -339,37 +371,44 @@
 			Page.events = EventType;
 
 			/**
-			 * @property {string} [page=".ui-page"] Selector for page element
+			 * Selector for page element
+			 * @property {string} [page=".ui-page"]
 			 * @member ns.wearable.selectors
 			 */
 			selectors.page = "." + classes.uiPage;
 			/**
-			 * @property {string} [activePage=".ui-page-active"] Selector for active page element
+			 * Selector for active page element
+			 * @property {string} [activePage=".ui-page-active"]
 			 * @member ns.wearable.selectors
 			 */
 			selectors.activePage = "." + classes.uiPageActive;
 			/**
-			 * @property {string} [section=".ui-section"] Selector for section element
+			 * Selector for section element
+			 * @property {string} [section=".ui-section"]
 			 * @member ns.wearable.selectors
 			 */
 			selectors.section = "." + classes.uiSection;
 			/**
-			 * @property {string} [header=".ui-header"] Selector for header element
+			 * Selector for header element
+			 * @property {string} [header=".ui-header"]
 			 * @member ns.wearable.selectors
 			 */
 			selectors.header = "." + classes.uiHeader;
 			/**
-			 * @property {string} [footer=".ui-footer"] Selector for footer element
+			 * Selector for footer element
+			 * @property {string} [footer=".ui-footer"]
 			 * @member ns.wearable.selectors
 			 */
 			selectors.footer = "." + classes.uiFooter;
 			/**
-			 * @property {string} [content=".ui-content"] Selector for content element
+			 * Selector for content element
+			 * @property {string} [content=".ui-content"]
 			 * @member ns.wearable.selectors
 			 */
 			selectors.content = "." + classes.uiContent;
 			/**
-			 * @property {string} [pageScroll=".ui-page-scroll"] selector for page scroll element
+			 * Selector for page scroll element
+			 * @property {string} [pageScroll=".ui-page-scroll"]
 			 * @member ns.wearable.selectors
 			 */
 			selectors.pageScroll = "." + classes.uiPageScroll;
@@ -431,7 +470,6 @@
 			 * @return {HTMLElement}
 			 * @protected
 			 * @member ns.widget.wearable.Page
-			 * @instance
 			 */
 			prototype._build = function (element) {
 				element.classList.add(classes.uiPage);
@@ -439,16 +477,16 @@
 			};
 
 			/**
-			 * Set page active / unactive
-			 * Sets ui-overlay-... class on `body` depending on current theme
+			 * This method sets page active or inactive.
+			 * It sets ui-overlay-... class on `body` depending on current theme.
 			 * @method setActive
-			 * @param {boolean} value if true then page will be active if false page will be unactive
+			 * @param {boolean} value If true, then page will be active.
+			 * Otherwise, page will be inactive.
 			 * @member ns.widget.wearable.Page
-			 * @instance
 			 */
 			prototype.setActive = function (value) {
 				var elementClassList = this.element.classList;
-				if ( value ) {
+				if (value) {
 					elementClassList.add(classes.uiPageActive);
 				} else {
 					elementClassList.remove(classes.uiPageActive);
@@ -461,13 +499,11 @@
 			 * @param {HTMLElement} element
 			 * @protected
 			 * @member ns.widget.wearable.Page
-			 * @instance
 			 */
 			prototype._bindEvents = function (element) {
 				var self = this;
 				self.contentFillCallback = contentFill.bind(null, self);
 				self.contentFillAfterResizeCallback = function () {
-					self.pageSetHeight = false;
 					contentFill(self);
 				};
 				window.addEventListener("resize", self.contentFillAfterResizeCallback, false);
@@ -479,7 +515,6 @@
 			 * @method _refresh
 			 * @protected
 			 * @member ns.widget.wearable.Page
-			 * @instance
 			 */
 			prototype._refresh = function () {
 				contentFill(this);
@@ -491,7 +526,6 @@
 			 * @param {HTMLElement} element
 			 * @protected
 			 * @member ns.widget.wearable.Page
-			 * @instance
 			 */
 			prototype._init = function (element) {
 				this.element = element;
@@ -499,40 +533,36 @@
 			};
 
 			/**
-			 * Triggers BEFORE_SHOW event
+			 * This method triggers BEFORE_SHOW event.
 			 * @method onBeforeShow
 			 * @member ns.widget.wearable.Page
-			 * @instance
 			 */
 			prototype.onBeforeShow = function () {
 				this.trigger(EventType.BEFORE_SHOW);
 			};
 
 			/**
-			 * Triggers SHOW event
+			 * This method triggers SHOW event.
 			 * @method onShow
 			 * @member ns.widget.wearable.Page
-			 * @instance
 			 */
 			prototype.onShow = function () {
 				this.trigger(EventType.SHOW);
 			};
 
 			/**
-			 * Triggers BEFORE_HIDE event
+			 * This method triggers BEFORE_HIDE event.
 			 * @method onBeforeHide
 			 * @member ns.widget.wearable.Page
-			 * @instance
 			 */
 			prototype.onBeforeHide = function () {
 				this.trigger(EventType.BEFORE_HIDE);
 			};
 
 			/**
-			 * Triggers HIDE event
+			 * This method triggers HIDE event.
 			 * @method onHide
 			 * @member ns.widget.wearable.Page
-			 * @instance
 			 */
 			prototype.onHide = function () {
 				this.trigger(EventType.HIDE);
@@ -543,7 +573,6 @@
 			 * @method _destroy
 			 * @protected
 			 * @member ns.widget.wearable.Page
-			 * @instance
 			 */
 			prototype._destroy = function () {
 				var self = this,

@@ -58,13 +58,13 @@
 			Progressing.events = {};
 
 			/**
-			* build Progressing
-			* @method _build
-			* @private
-			* @param {HTMLElement} element
-			* @return {HTMLElement}
-			* @member ns.widget.wearable.Progressing
-			*/
+			 * Build Progressing
+			 * @method _build
+			 * @param {HTMLElement} element
+			 * @return {HTMLElement}
+			 * @protected
+			 * @member ns.widget.wearable.Progressing
+			 */
 			prototype._build = function (element) {
 				return element;
 			};
@@ -78,20 +78,21 @@
 			};
 
 			/**
-			* refresh structure
-			* @method _refresh
-			* @new
-			* @member ns.widget.wearable.Progressing
-			*/
+			 * Refresh structure
+			 * @method _refresh
+			 * @protected
+			 * @member ns.widget.wearable.Progressing
+			 */
 			prototype._refresh = function () {
 				return null;
 			};
 
 			/**
-			* @method _destroy
-			* @private
-			* @member ns.widget.wearable.Progressing
-			*/
+			 * Destroy widget
+			 * @method _destroy
+			 * @protected
+			 * @member ns.widget.wearable.Progressing
+			 */
 			prototype._destroy = function () {
 				return null;
 			};

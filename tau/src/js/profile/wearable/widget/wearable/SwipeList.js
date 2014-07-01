@@ -105,23 +105,70 @@
 					RIGHT: "swipelist.right"
 				},
 
-				SwipeList = function (elem, options) {
-
-					this.element = elem;
-
+				SwipeList = function () {
+					/**
+					 * SwipeList's container.
+					 * @property {?HTMLElement} [container=null]
+					 * @member ns.widget.wearable.SwipeList
+					 */
 					this.container = null;
 
+					/**
+					 * SwipeList's element.
+					 * @property {?HTMLElement} [swipeElement=null]
+					 * @member ns.widget.wearable.SwipeList
+					 */
 					this.swipeElement = null;
+					/**
+					 * Left element of widget.
+					 * @property {?HTMLElement} [swipeLeftElement=null]
+					 * @member ns.widget.wearable.SwipeList
+					 */
 					this.swipeLeftElement = null;
+					/**
+					 * Right element of widget.
+					 * @property {?HTMLElement} [swipeRightElement=null]
+					 * @member ns.widget.wearable.SwipeList
+					 */
 					this.swipeRightElement = null;
 
+					/**
+					 * Style of SwipeList's element.
+					 * @property {?Object} [swipeElementStyle=null]
+					 * @member ns.widget.wearable.SwipeList
+					 */
 					this.swipeElementStyle = null;
+					/**
+					 * Style of left element of widget.
+					 * @property {?Object} [swipeLeftElementStyle=null]
+					 * @member ns.widget.wearable.SwipeList
+					 */
 					this.swipeLeftElementStyle = null;
+					/**
+					 * Style of right element of widget.
+					 * @property {?Object} [swipeRightElementStyle=null]
+					 * @member ns.widget.wearable.SwipeList
+					 */
 					this.swipeRightElementStyle = null;
 
+					/**
+					 * Active element of widget.
+					 * @property {?HTMLElement} [activeElement=null]
+					 * @member ns.widget.wearable.SwipeList
+					 */
 					this.activeElement = null;
+					/**
+					 * Target of swipe event.
+					 * @property {?HTMLElement} [activeTarget=null]
+					 * @member ns.widget.wearable.SwipeList
+					 */
 					this.activeTarget = null;
 
+					/**
+					 * Function calls on destroying.
+					 * @property {?Function} [resetLayoutCallback=null]
+					 * @member ns.widget.wearable.SwipeList
+					 */
 					this.resetLayoutCallback = null;
 					this.options = {};
 
@@ -137,7 +184,8 @@
 			prototype._configure = function () {
 
 				/**
-				 * @property {Object} options Options for widget
+				 * Options for widget
+				 * @property {Object} options
 				 * @property {boolean} [options.left=false] Set to true to allow swiping from left to right.
 				 * @property {boolean} [options.right=false] Set to true to allow swiping from right to left.
 				 * @property {number} [options.threshold=10] Define the threshold (in pixels) for the minimum swipe movement which allows the swipe action to appear.
@@ -148,7 +196,7 @@
 				 * @property {string} [options.ltrEndColor="#58493a"] Define the end color for the left-to-right swipe.
 				 * @property {string} [options.rtlStartColor="#eaa317"] Define the start color for the right-to-left swipe.
 				 * @property {string} [options.rtlEndColor="#58493a"] Define the end color for the right-to-left swipe.
-				 * @property {?HTMLElement} [options.container=null] Define the end color for the right-to-left swipe.
+				 * @property {?HTMLElement} [options.container=null] Define container of widget.
 				 * @property {string} [options.swipeTarget="li"] Selector for swipe list
 				 * @property {string} [options.swipeElement=".ui-swipelist"] Selector for swipe list container
 				 * @property {string} [options.swipeLeftElement=".ui-swipelist-left"] Selector for swipe left container
@@ -316,7 +364,7 @@
 					deltaX = Math.abs(deltaX);
 				}
 
-				( function animate() {
+				(function animate() {
 					activeElementStyle.background = "-webkit-linear-gradient(" + prefix + ", " + fromColor + " 0%, " + toColor + " " + deltaX + "%)";
 					if (anim && deltaX < self.options.animationDuration) {
 						self._animating = true;
@@ -330,7 +378,7 @@
 			};
 
 			prototype._findScrollableElement = function (elem) {
-				while (( elem.scrollHeight <= elem.offsetHeight ) && ( elem.scrollWidth <= elem.offsetWidth )) {
+				while ((elem.scrollHeight <= elem.offsetHeight) && (elem.scrollWidth <= elem.offsetWidth)) {
 					elem = elem.parentNode;
 				}
 				return elem;
@@ -392,14 +440,14 @@
 					return;
 				}
 
-				if (this.swipeLeftElement && ( gesture.direction === Gesture.Direction.RIGHT )) {
+				if (this.swipeLeftElement && (gesture.direction === Gesture.Direction.RIGHT)) {
 					if (this.swipeRightElementStyle) {
 						this.swipeRightElementStyle.display = "none";
 					}
 					this.activeElement = this.swipeLeftElement;
 					activeElementStyle = this.swipeLeftElementStyle;
 
-				} else if (this.swipeRightElement && ( gesture.direction === Gesture.Direction.LEFT )) {
+				} else if (this.swipeRightElement && (gesture.direction === Gesture.Direction.LEFT)) {
 					if (this.swipeLeftElementStyle) {
 						this.swipeLeftElementStyle.display = "none";
 					}
@@ -424,9 +472,9 @@
 					return;
 				}
 
-				if (this.swipeLeftElement && ( gesture.estimatedDeltaX > this.options.animationThreshold )) {
+				if (this.swipeLeftElement && (gesture.estimatedDeltaX > this.options.animationThreshold)) {
 					this._fire(eventType.LEFT, e);
-				} else if (this.swipeRightElement && ( gesture.estimatedDeltaX < -this.options.animationThreshold )) {
+				} else if (this.swipeRightElement && (gesture.estimatedDeltaX < -this.options.animationThreshold)) {
 					this._fire(eventType.RIGHT, e);
 				} else {
 					this._hide();
@@ -442,9 +490,9 @@
 					return;
 				}
 
-				if (this.swipeLeftElement && ( gesture.direction === Gesture.Direction.RIGHT )) {
+				if (this.swipeLeftElement && (gesture.direction === Gesture.Direction.RIGHT)) {
 					this._fire(eventType.LEFT, e);
-				} else if (this.swipeRightElement && ( gesture.direction === Gesture.Direction.LEFT )) {
+				} else if (this.swipeRightElement && (gesture.direction === Gesture.Direction.LEFT)) {
 					this._fire(eventType.RIGHT, e);
 				} else {
 					this._hide();

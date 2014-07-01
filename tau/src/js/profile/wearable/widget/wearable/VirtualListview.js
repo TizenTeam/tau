@@ -139,7 +139,8 @@
 				//>>excludeEnd("tauBuildExclude");
 				var BaseWidget = ns.widget.BaseWidget,
 						/**
-						 * @property {Object} engine Alias for class {@link ns.engine}
+						 * Alias for class {@link ns.engine}
+						 * @property {Object} engine
 						 * @private
 						 * @static
 						 * @member ns.widget.wearable.VirtualListview
@@ -148,7 +149,8 @@
 						events = ns.event,
 						// Constants definition
 						/**
-						 * @property {number} SCROLL_UP Defines index of scroll `{@link ns.widget.wearable.VirtualListview#_scroll}.direction`
+						 * Defines index of scroll `{@link ns.widget.wearable.VirtualListview#_scroll}.direction`
+						 * @property {number} SCROLL_UP
 						 * to retrive if user is scrolling up
 						 * @private
 						 * @static
@@ -156,7 +158,8 @@
 						 */
 						SCROLL_UP = 0,
 						/**
-						 * @property {number} SCROLL_RIGHT Defines index of scroll `{@link ns.widget.wearable.VirtualListview#_scroll}.direction`
+						 * Defines index of scroll `{@link ns.widget.wearable.VirtualListview#_scroll}.direction`
+						 * @property {number} SCROLL_RIGHT
 						 * to retrive if user is scrolling right
 						 * @private
 						 * @static
@@ -164,7 +167,8 @@
 						 */
 						SCROLL_RIGHT = 1,
 						/**
-						 * @property {number} SCROLL_DOWN Defines index of scroll {@link ns.widget.wearable.VirtualListview#_scroll}
+						 * Defines index of scroll {@link ns.widget.wearable.VirtualListview#_scroll}
+						 * @property {number} SCROLL_DOWN
 						 * to retrive if user is scrolling down
 						 * @private
 						 * @static
@@ -172,7 +176,8 @@
 						 */
 						SCROLL_DOWN = 2,
 						/**
-						 * @property {number} SCROLL_LEFT Defines index of scroll {@link ns.widget.wearable.VirtualListview#_scroll}
+						 * Defines index of scroll {@link ns.widget.wearable.VirtualListview#_scroll}
+						 * @property {number} SCROLL_LEFT
 						 * to retrive if user is scrolling left
 						 * @private
 						 * @static
@@ -180,49 +185,57 @@
 						 */
 						SCROLL_LEFT = 3,
 						/**
-						 * @property {string} VERTICAL Defines vertical scrolling orientation. It's default orientation.
+						 * Defines vertical scrolling orientation. It's default orientation.
+						 * @property {string} VERTICAL
 						 * @private
 						 * @static
 						 */
-						VERTICAL = 'y',
+						VERTICAL = "y",
 						/**
-						 * @property {string} HORIZONTAL Defines horizontal scrolling orientation.
+						 * Defines horizontal scrolling orientation.
+						 * @property {string} HORIZONTAL
 						 * @private
 						 * @static
 						 */
-						HORIZONTAL = 'x',
+						HORIZONTAL = "x",
 						/**
-						 * @property {boolean} blockEvent Determines that scroll event should not be taken into account if scroll event accurs.
+						 * Determines that scroll event should not be taken into account if scroll event accurs.
+						 * @property {boolean} blockEvent
 						 * @private
 						 * @static
 						 */
 						blockEvent = false,
 						/**
-						 * @property {number} timeoutHandler Handle window timeout ID.
+						 * Handle window timeout ID.
+						 * @property {number} timeoutHandler
 						 * @private
 						 * @static
 						 */
 						timeoutHandler,
 						/**
-						 * @property {Object} origTarget Reference to original target object from touch event.
+						 * Reference to original target object from touch event.
+						 * @property {Object} origTarget
 						 * @private
 						 * @static
 						 */
 						origTarget,
 						/**
-						 * @property {number} tapholdThreshold Number of miliseconds to determine if tap event occured.
+						 * Number of miliseconds to determine if tap event occured.
+						 * @property {number} tapholdThreshold
 						 * @private
 						 * @static
 						 */
 						tapholdThreshold = 250,
 						/**
-						 * @property {Object} tapHandlerBound Handler for touch event listener to examine tap occurance.
+						 * Handler for touch event listener to examine tap occurance.
+						 * @property {Object} tapHandlerBound
 						 * @private
 						 * @static
 						 */
 						tapHandlerBound = null,
 						/**
-						 * @property {Object} lastTouchPos Stores last touch position to examine tap occurance.
+						 * Stores last touch position to examine tap occurance.
+						 * @property {Object} lastTouchPos
 						 * @private
 						 * @static
 						 */
@@ -237,10 +250,12 @@
 						VirtualListview = function() {
 							var self = this;
 							/**
-							 * @property {Object} ui VirtualListview widget's properties associated with
+							 * VirtualListview widget's properties associated with
+							 * @property {Object} ui
 							 * User Interface
 							 * @property {?HTMLElement} [ui.scrollview=null] Scroll element
-							 * @property {number} [ui.itemSize=0] Size of list element in piksels. If scrolling is
+							 * @property {?HTMLElement} [ui.spacer=null] HTML element which makes scrollbar proper size
+							 * @property {number} [ui.itemSize=0] Size of list element in pixels. If scrolling is
 							 * vertically it's item width in other case it"s height of item element
 							 * @member ns.widget.wearable.VirtualListview
 							 */
@@ -251,7 +266,8 @@
 							};
 
 							/**
-							 * @property {Object} _scroll Holds information about scrolling state
+							 * Holds information about scrolling state
+							 * @property {Object} _scroll
 							 * @property {Array} [_scroll.direction=[0,0,0,0]] Holds current direction of scrolling.
 							 * Indexes suit to following order: [up, left, down, right]
 							 * @property {number} [_scroll.lastPositionX=0] Last scroll position from top in pixels.
@@ -274,25 +290,32 @@
 								clipHeight: 0
 							};
 
+							/**
+							 * Name of widget
+							 * @property {string} name
+							 * @member ns.widget.wearable.VirtualListview
+							 * @static
+							 */
 							self.name = "VirtualListview";
 
 							/**
-							 * @property {number} _currentIndex Current zero-based index of data set.
+							 * Current zero-based index of data set.
+							 * @property {number} _currentIndex
 							 * @member ns.widget.wearable.VirtualListview
 							 * @protected
-							 * @instance
 							 */
 							self._currentIndex = 0;
 
 							/**
-							 * @property {Object} options VirtualListview widget options.
+							 * VirtualListview widget options.
+							 * @property {Object} options
 							 * @property {number} [options.bufferSize=100] Number of items of result set. The default value is 100.
 							 * As the value gets higher, the loading time increases while the system performance
 							 * improves. So you need to pick a value that provides the best performance
 							 * without excessive loading time. It's recomended to set bufferSize at least 3 times bigger than number
 							 * of visible elements.
 							 * @property {number} [options.dataLength=0] Total number of items.
-							 * @property {string} [options.orientation='y'] Scrolling orientation. Default vertical scrolling enabled.
+							 * @property {string} [options.orientation="y"] Scrolling orientation. Default vertical scrolling enabled.
 							 * @property {Object} options.listItemUpdater Holds reference to method which modifies list item, depended
 							 * at specified index from database. **Method should be overridden by developer using
 							 * {@link ns.widget.wearable.VirtualListview#setListItemUpdater} method.** or defined as a config
@@ -309,18 +332,18 @@
 							};
 
 							/**
-							* @method _scrollEventBound Binding for scroll event listener.
-							* @member ns.widget.wearable.VirtualListview
-							* @protected
-							* @instance
-							*/
+							 * Binding for scroll event listener.
+							 * @method _scrollEventBound
+							 * @member ns.widget.wearable.VirtualListview
+							 * @protected
+							 */
 							self._scrollEventBound = null;
 							/**
-							* @method _touchStartEventBound Binding for touch start event listener.
-							* @member ns.widget.wearable.VirtualListview
-							* @protected
-							* @instance
-							*/
+							 * Binding for touch start event listener.
+							 * @method _touchStartEventBound
+							 * @member ns.widget.wearable.VirtualListview
+							 * @protected
+							 */
 							self._touchStartEventBound = null;
 
 							return self;
@@ -329,8 +352,10 @@
 						prototype = new BaseWidget();
 
 				/**
-				 * @property {Object} classes Dictionary object containing commonly used wiget classes
+				 * Dictionary object containing commonly used wiget classes
+				 * @property {Object} classes
 				 * @static
+				 * @readonly
 				 * @member ns.widget.wearable.VirtualListview
 				 */
 				VirtualListview.classes = {
@@ -341,7 +366,7 @@
 				/**
 				 * Remove highlight from items.
 				 * @method _removeHighlight
-				 * @param {Object} self Reference to VirtualListview object.
+				 * @param {ns.widget.wearable.VirtualListview} self Reference to VirtualListview object.
 				 * @member ns.widget.wearable.VirtualListview
 				 * @private
 				 * @static
@@ -357,7 +382,7 @@
 				/**
 				 * Checks if tap meet the condition.
 				 * @method _tapHandler
-				 * @param {Object} self Reference to VirtualListview object.
+				 * @param {ns.widget.wearable.VirtualListview} self Reference to VirtualListview object.
 				 * @param {Event} event Received Touch event
 				 * @member ns.widget.wearable.VirtualListview
 				 * @private
@@ -366,7 +391,7 @@
 				function _tapHandler (self, event) {
 					var eventTouch = event.changedTouches[0];
 
-					if (event.type === 'touchmove') {
+					if (event.type === "touchmove") {
 						if (Math.abs(lastTouchPos.clientX - eventTouch.clientX) > 10 && Math.abs(lastTouchPos.clientY - eventTouch.clientY) > 10) {
 							_removeHighlight(self);
 							window.clearTimeout(timeoutHandler);
@@ -381,7 +406,7 @@
 				/**
 				 * Adds highlight
 				 * @method tapholdListener
-				 * @param {Object} self Reference to VirtualListview object.
+				 * @param {ns.widget.wearable.VirtualListview} self Reference to VirtualListview object.
 				 * @member ns.widget.wearable.VirtualListview
 				 * @private
 				 * @static
@@ -389,10 +414,10 @@
 				function tapholdListener(self) {
 					var liElement;
 
-					liElement = origTarget.tagName === 'LI' ? origTarget : origTarget.parentNode;
+					liElement = origTarget.tagName === "LI" ? origTarget : origTarget.parentNode;
 
-					origTarget.removeEventListener('touchmove', tapHandlerBound, false);
-					origTarget.removeEventListener('touchend', tapHandlerBound, false);
+					origTarget.removeEventListener("touchmove", tapHandlerBound, false);
+					origTarget.removeEventListener("touchend", tapHandlerBound, false);
 					tapHandlerBound = null;
 
 					_removeHighlight(self);
@@ -403,7 +428,7 @@
 				/**
 				 * Binds touching events to examine tap event.
 				 * @method _touchStartHandler
-				 * @param {Object} self Reference to VirtualListview object.
+				 * @param {ns.widget.wearable.VirtualListview} self Reference to VirtualListview object.
 				 * @member ns.widget.wearable.VirtualListview
 				 * @private
 				 * @static
@@ -413,8 +438,8 @@
 
 					// Clean up
 					window.clearTimeout(timeoutHandler);
-					origTarget.removeEventListener('touchmove', tapHandlerBound, false);
-					origTarget.removeEventListener('touchend', tapHandlerBound, false);
+					origTarget.removeEventListener("touchmove", tapHandlerBound, false);
+					origTarget.removeEventListener("touchend", tapHandlerBound, false);
 
 					timeoutHandler = window.setTimeout(tapholdListener.bind(null, self), tapholdThreshold);
 					lastTouchPos.clientX = event.touches[0].clientX;
@@ -422,8 +447,8 @@
 
 					//Add touch listeners
 					tapHandlerBound = _tapHandler.bind(null, self);
-					origTarget.addEventListener('touchmove', tapHandlerBound, false);
-					origTarget.addEventListener('touchend', tapHandlerBound, false);
+					origTarget.addEventListener("touchmove", tapHandlerBound, false);
+					origTarget.addEventListener("touchend", tapHandlerBound, false);
 
 				}
 
@@ -746,7 +771,6 @@
 				 * @param {number} index Data row index
 				 * @member ns.widget.wearable.VirtualListview
 				 * @protected
-				 * @instance
 				 */
 				prototype._updateListItem = function (element, index) {
 					this.options.listItemUpdater(element, index);
@@ -759,7 +783,6 @@
 				 * @return {HTMLElement} Element on which built is widget
 				 * @member ns.widget.wearable.VirtualListview
 				 * @protected
-				 * @instance
 				 */
 				prototype._build = function(element) {
 					var classes = VirtualListview.classes;
@@ -775,7 +798,6 @@
 				 * @param {HTMLElement} element Widget's element
 				 * @member ns.widget.wearable.VirtualListview
 				 * @protected
-				 * @instance
 				 */
 				prototype._init = function(element) {
 					var self = this,
@@ -806,7 +828,7 @@
 
 					if (orientation === HORIZONTAL) {
 						// @TODO check if whiteSpace: nowrap is better for vertical listes
-						spacerStyle.float = 'left';
+						spacerStyle.float = "left";
 						scrollviewStyle.overflowX = "scroll";
 						scrollviewStyle.overflowY = "hidden";
 					} else {
@@ -834,7 +856,6 @@
 				 * @method _buildList
 				 * @member ns.widget.wearable.VirtualListview
 				 * @protected
-				 * @instance
 				 */
 				prototype._buildList = function() {
 					var listItem,
@@ -851,12 +872,12 @@
 						if (orientation === HORIZONTAL) {
 							// TODO: check if whiteSpace: nowrap is better for vertical listes
 							// NOTE: after rebuild this condition check possible duplication from _init method
-							listItem.style.float = 'left';
+							listItem.style.float = "left";
 						}
 
 						this._updateListItem(listItem, i);
 						documentFragment.appendChild(listItem);
-						listItem.addEventListener('touchstart', touchStartEventBound, false);
+						listItem.addEventListener("touchstart", touchStartEventBound, false);
 					}
 
 					list.appendChild(documentFragment);
@@ -869,7 +890,6 @@
 				 * @method _refresh
 				 * @member ns.widget.wearable.VirtualListview
 				 * @protected
-				 * @instance
 				 */
 				prototype._refresh = function() {
 					//Set default value of variable create
@@ -882,7 +902,6 @@
 				 * @param {number} index Index of first row
 				 * @member ns.widget.wearable.VirtualListview
 				 * @protected
-				 * @instance
 				 */
 				prototype._loadData = function(index) {
 					var self = this,
@@ -903,7 +922,6 @@
 				 * @method _refreshScrollbar
 				 * @member ns.widget.wearable.VirtualListview
 				 * @protected
-				 * @instance
 				 */
 				prototype._refreshScrollbar = function() {
 					var self = this,
@@ -929,7 +947,6 @@
 				 * @method _bindEvents
 				 * @member ns.widget.wearable.VirtualListview
 				 * @protected
-				 * @instance
 				 */
 				prototype._bindEvents = function() {
 					var scrollEventBound = _updateList.bind(null, this),
@@ -946,7 +963,6 @@
 				 * @method _destroy
 				 * @member ns.widget.wearable.VirtualListview
 				 * @protected
-				 * @instance
 				 */
 				prototype._destroy = function() {
 					var self = this,
@@ -976,14 +992,14 @@
 					//Remove li elements.
 					while (element.firstElementChild) {
 						listItem = element.firstElementChild;
-						listItem.removeEventListener('touchstart', self._touchStartEventBound, false);
+						listItem.removeEventListener("touchstart", self._touchStartEventBound, false);
 						element.removeChild(listItem);
 					}
 
 				};
 
 				/**
-				 * Scrolls list to defined position in pixels.
+				 * This method scrolls list to defined position in pixels.
 				 * @method scrollTo
 				 * @param {number} position Scroll position expressed in pixels.
 				 * @member ns.widget.wearable.VirtualListview
@@ -993,7 +1009,7 @@
 				};
 
 				/**
-				 * Scrolls list to defined index.
+				 * This method scrolls list to defined index.
 				 * @method scrollToIndex
 				 * @param {number} index Scroll Destination index.
 				 * @member ns.widget.wearable.VirtualListview
@@ -1010,18 +1026,19 @@
 				};
 
 				/**
-				 * Builds widget
+				 * This method builds widget and trigger event "draw".
 				 * @method draw
 				 * @member ns.widget.wearable.VirtualListview
 				 */
 				prototype.draw = function() {
 					this._buildList();
-					this.trigger('draw');
+					this.trigger("draw");
 				};
 
 				/**
-				 * Sets list item updater function. To learn how to create list item updater function please
-				 * visit Virtual List User Guide
+				 * This method sets list item updater function. 
+				 * To learn how to create list item updater function please
+				 * visit Virtual List User Guide.
 				 * @method setListItemUpdater
 				 * @param {Object} updateFunction Function reference.
 				 * @member ns.widget.wearable.VirtualListview
@@ -1039,7 +1056,7 @@
 				engine.defineWidget(
 						"VirtualListview",
 						"",
-						["draw", "setListItemUpdater", "getTopByIndex", "scrollTo", "scrollToIndex"],
+						["draw", "setListItemUpdater", "scrollTo", "scrollToIndex"],
 						VirtualListview,
 						"wearable"
 						);

@@ -111,12 +111,12 @@
 					CHANGE: "sectionchange"
 				};
 
-			function SectionChanger( ) {
+			function SectionChanger() {
 				this.options = {};
 			}
 
 			utilsObject.inherit(SectionChanger, Scroller, {
-				_build: function( element ) {
+				_build: function (element) {
 
 					this.tabIndicatorElement = null;
 					this.tabIndicator = null;
@@ -127,21 +127,21 @@
 					this.activeIndex = 0;
 					this.beforeIndex = 0;
 
-					this._super( element );
+					this._super(element);
 					return element;
 				},
 
-				_configure : function( ) {
+				_configure : function () {
 					this._super();
 					/**
-					 * @property {Object} options Options for widget
+					 * Options for widget
+					 * @property {Object} options
 					 * @property {"horizontal"|"vertical"} [options.orientation="horizontal"] Sets the section changer orientation:
 					 * @property {boolean} [options.circular=false] Presents the sections in a circular scroll fashion.
 					 * @property {boolean} [options.useBouncingEffect=false] Shows a scroll end effect on the scroll edge.
 					 * @property {string} [options.items="section"] Defines the section element selector.
 					 * @property {string} [options.activeClass="section-active"] Specifies the CSS classes which define the active section element. Add the specified class (section-active) to a <section> element to indicate which section must be shown first. By default, the first section is shown first.
 					 * @member ns.widget.wearable.SectionChanger
-					 * @instance
 					 */
 					var options = this.options;
 					options.items = "section";
@@ -154,53 +154,53 @@
 					options.useTab = false;
 				},
 
-				_init: function(element) {
+				_init: function (element) {
 					var o = this.options,
 						sectionLength, i, className;
 
-					if ( o.scrollbar === "tab" ) {
+					if (o.scrollbar === "tab") {
 						o.scrollbar = false;
 						o.useTab = true;
 					}
 
 					this.sections = typeof o.items === "string" ?
-						this.scroller.querySelectorAll( o.items ) :
+						this.scroller.querySelectorAll(o.items) :
 						o.items;
 
 					sectionLength = this.sections.length;
 
-					if ( o.circular && sectionLength < 3 ) {
+					if (o.circular && sectionLength < 3) {
 						throw "if you use circular option, you must have at least three sections.";
 					}
 
-					if ( this.activeIndex >= sectionLength ) {
+					if (this.activeIndex >= sectionLength) {
 						this.activeIndex = sectionLength - 1;
 					}
 
-					for( i = 0; i < sectionLength; i++ ) {
+					for (i = 0; i < sectionLength; i++) {
 						className = this.sections[i].className;
-						if ( className && className.indexOf( o.activeClass ) > -1 ) {
+						if (className && className.indexOf(o.activeClass) > -1) {
 							this.activeIndex = i;
 						}
 
 						this.sectionPositions[i] = i;
 					}
 
-					this.setActiveSection( this.activeIndex );
+					this.setActiveSection(this.activeIndex);
 
 					this._prepareLayout();
 					this._super();
-					this._repositionSections( true );
+					this._repositionSections(true);
 
 // set corret options values.
-					if ( !o.animate ) {
+					if (!o.animate) {
 						o.animateDuration = 0;
 					}
-					if ( o.changeThreshold < 0 ) {
+					if (o.changeThreshold < 0) {
 						o.changeThreshold = this.width / 2;
 					}
 
-					if ( sectionLength > 1 ) {
+					if (sectionLength > 1) {
 						this.enable();
 					} else {
 						this.disable();
@@ -208,7 +208,7 @@
 					return element;
 				},
 
-				_prepareLayout: function() {
+				_prepareLayout: function () {
 					var o = this.options,
 						sectionLength = this.sections.length,
 						width = this.element.offsetWidth,
@@ -217,14 +217,14 @@
 						scrollerStyle = this.scroller.style,
 						tabHeight;
 
-					if ( o.useTab ) {
+					if (o.useTab) {
 						this._initTabIndicator();
 						tabHeight = this.tabIndicatorElement.offsetHeight;
 						this.element.style.height = (height - tabHeight) + "px";
 						height -= tabHeight;
 					}
 
-					if ( orientation === Scroller.Orientation.HORIZONTAL ) {
+					if (orientation === Scroller.Orientation.HORIZONTAL) {
 						scrollerStyle.width = width * sectionLength + "px"; //set Scroller width
 						scrollerStyle.height = height + "px"; //set Scroller width
 					} else {
@@ -233,21 +233,21 @@
 					}
 				},
 
-				_initLayout: function() {
+				_initLayout: function () {
 					var sectionStyle = this.sections.style,
 						width = this.width,
 						height = this.height,
 						i, sectionLength, top, left;
 
 //section element has absolute position
-					for( i = 0, sectionLength = this.sections.length; i < sectionLength; i++ ){
+					for (i = 0, sectionLength = this.sections.length; i < sectionLength; i++) {
 //Each section set initialize left position
 						sectionStyle = this.sections[i].style;
 
 						sectionStyle.position = "absolute";
 						sectionStyle.width = width + "px";
 						sectionStyle.height = height + "px";
-						if ( this.orientation === Scroller.Orientation.HORIZONTAL ) {
+						if (this.orientation === Scroller.Orientation.HORIZONTAL) {
 							top = 0;
 							left = width * i;
 						} else {
@@ -262,59 +262,59 @@
 					this._super();
 				},
 
-				_initBouncingEffect: function() {
+				_initBouncingEffect: function () {
 					var o = this.options;
-					if ( !o.circular ) {
+					if (!o.circular) {
 						this._super();
 					}
 				},
 
-				_translateScrollbar: function( x, y, duration ) {
+				_translateScrollbar: function (x, y, duration) {
 					var standard = this.orientation === Scroller.Orientation.HORIZONTAL ? this.width : this.height,
 						preOffset = this.sectionPositions[this.activeIndex] * standard,
 						offset = this.activeIndex * standard,
 						fixedOffset = offset - preOffset;
 
-					if ( !this.scrollbar ) {
+					if (!this.scrollbar) {
 						return;
 					}
 
-					if ( this.orientation === Scroller.Orientation.HORIZONTAL ) {
+					if (this.orientation === Scroller.Orientation.HORIZONTAL) {
 						offset = -x + fixedOffset;
 					} else {
 						offset = -y + fixedOffset;
 					}
 
-					this.scrollbar.translate( offset, duration );
+					this.scrollbar.translate(offset, duration);
 				},
 
-				_translateScrollbarWithPageIndex: function(pageIndex, duration) {
+				_translateScrollbarWithPageIndex: function (pageIndex, duration) {
 					var standard = this.orientation === Scroller.Orientation.HORIZONTAL ? this.width : this.height,
 						offset = pageIndex * standard;
 
-					if ( !this.scrollbar ) {
+					if (!this.scrollbar) {
 						return;
 					}
 
-					this.scrollbar.translate( offset, duration );
+					this.scrollbar.translate(offset, duration);
 				},
 
-				_initTabIndicator: function() {
+				_initTabIndicator: function () {
 					var elem = this.tabIndicatorElement = document.createElement("div");
 					this.element.parentNode.insertBefore(elem, this.element);
 
 					this.tabIndicator = new engine.instanceWidget(elem, "TabIndicator");
-					this.tabIndicator.setSize( this.sections.length );
-					this.tabIndicator.setActive( this.activeIndex );
-					this.tabIndicatorHandler = function( e ){
-						this.tabIndicator.setActive( e.detail.active );
+					this.tabIndicator.setSize(this.sections.length);
+					this.tabIndicator.setActive(this.activeIndex);
+					this.tabIndicatorHandler = function (e) {
+						this.tabIndicator.setActive(e.detail.active);
 					}.bind(this);
 					this.element.addEventListener(eventType.CHANGE, this.tabIndicatorHandler, false);
 				},
 
-				_clearTabIndicator: function() {
-					if ( this.tabIndicator ) {
-						this.element.parentNode.removeChild( this.tabIndicatorElement );
+				_clearTabIndicator: function () {
+					if (this.tabIndicator) {
+						this.element.parentNode.removeChild(this.tabIndicatorElement);
 						this.element.removeEventListener(eventType.CHANGE, this.tabIndicatorHandler, false);
 						this.tabIndicator.destroy();
 						this.tabIndicator = null;
@@ -323,7 +323,7 @@
 					}
 				},
 
-				_resetLayout: function() {
+				_resetLayout: function () {
 					var //scrollerStyle = this.scroller.style,
 						sectionStyle = this.sections.style,
 						i, sectionLength;
@@ -332,7 +332,7 @@
 					//scrollerStyle.height = "";
 					//this.scroller || this.scroller._resetLayout();
 
-					for( i = 0, sectionLength = this.sections.length; i < sectionLength; i++ ){
+					for (i = 0, sectionLength = this.sections.length; i < sectionLength; i++) {
 						sectionStyle = this.sections[i].style;
 
 						sectionStyle.position = "";
@@ -345,7 +345,7 @@
 					this._super();
 				},
 
-				_bindEvents: function() {
+				_bindEvents: function () {
 					this._super();
 
 					ns.event.enableGesture(
@@ -358,24 +358,30 @@
 						})
 					);
 
-					utilsEvents.on( this.scroller, "swipe webkitTransitionEnd", this);
+					utilsEvents.on(this.scroller, "swipe webkitTransitionEnd", this);
 				},
 
-				_unbindEvents: function() {
+				_unbindEvents: function () {
 					this._super();
 
 					if (this.scroller) {
-						ns.event.disableGesture( this.scroller );
-						utilsEvents.off( this.scroller, "swipe webkitTransitionEnd", this);
+						ns.event.disableGesture(this.scroller);
+						utilsEvents.off(this.scroller, "swipe webkitTransitionEnd", this);
 					}
 				},
 
-				handleEvent: function( event ) {
-					this._super( event );
+				/**
+				 * This method manages events.
+				 * @method handleEvent
+				 * @returns {Event} event
+				 * @member ns.widget.wearable.SectionChanger
+				 */
+				handleEvent: function (event) {
+					this._super(event);
 
 					switch (event.type) {
 						case "swipe":
-							this._swipe( event );
+							this._swipe(event);
 							break;
 						case "webkitTransitionEnd":
 							this._endScroll();
@@ -383,12 +389,12 @@
 					}
 				},
 
-				_notifyChanagedSection: function( index ) {
+				_notifyChanagedSection: function (index) {
 					var activeClass = this.options.activeClass,
 						sectionLength = this.sections.length,
 						i=0, section;
 
-					for ( i=0; i < sectionLength; i++) {
+					for (i=0; i < sectionLength; i++) {
 						section = this.sections[i];
 						section.classList.remove(activeClass);
 						if (i === this.activeIndex) {
@@ -396,7 +402,7 @@
 						}
 					}
 
-					this._fireEvent( eventType.CHANGE, {
+					this._fireEvent(eventType.CHANGE, {
 						active: index
 					});
 				},
@@ -405,31 +411,32 @@
 				 * Changes the currently active section element.
 				 * @method setActiveSection
 				 * @param {number} index
-				 * @param {number} duration For smooth scrolling, the duration parameter must be in milliseconds.
+				 * @param {number} duration For smooth scrolling,
+				 * the duration parameter must be in milliseconds.
 				 * @member ns.widget.wearable.SectionChanger
 				 */
-				setActiveSection: function( index, duration ) {
+				setActiveSection: function (index, duration) {
 					var position = this.sectionPositions[ index ],
 						scrollbarDuration = duration,
 						newX=0,
 						newY=0;
 
-					if ( this.orientation === Scroller.Orientation.HORIZONTAL ) {
+					if (this.orientation === Scroller.Orientation.HORIZONTAL) {
 						newX = -this.width * position;
 					} else {
 						newY = -this.height * position;
 					}
 
-					if ( this.beforeIndex - index > 1 || this.beforeIndex - index < -1 ) {
+					if (this.beforeIndex - index > 1 || this.beforeIndex - index < -1) {
 						scrollbarDuration = 0;
 					}
 
 					this.activeIndex = index;
 					this.beforeIndex = this.activeIndex;
 
-					if ( newX !== this.scrollerOffsetX || newY !== this.scrollerOffsetY ) {
-						this._translate( newX, newY, duration);
-						this._translateScrollbarWithPageIndex( index, scrollbarDuration);
+					if (newX !== this.scrollerOffsetX || newY !== this.scrollerOffsetY) {
+						this._translate(newX, newY, duration);
+						this._translateScrollbarWithPageIndex(index, scrollbarDuration);
 					} else {
 						this._endScroll();
 					}
@@ -441,79 +448,79 @@
 				 * @returns {number}
 				 * @member ns.widget.wearable.SectionChanger
 				 */
-				getActiveSectionIndex: function() {
+				getActiveSectionIndex: function () {
 					return this.activeIndex;
 				},
 
-				_start: function( e ) {
-					this._super( e );
+				_start: function (e) {
+					this._super(e);
 
 					this.beforeIndex = this.activeIndex;
 				},
 
-				_move: function(e) {
+				_move: function (e) {
 					var changeThreshold = this.options.changeThreshold,
 						delta = this.orientation === Scroller.Orientation.HORIZONTAL ? e.detail.deltaX : e.detail.deltaY,
 						oldActiveIndex = this.activeIndex;
 
-					this._super( e );
+					this._super(e);
 
-					if ( !this.scrolled ) {
+					if (!this.scrolled) {
 						return;
 					}
 
-					if ( delta > changeThreshold ) {
+					if (delta > changeThreshold) {
 						this.activeIndex = this._calculateIndex(this.beforeIndex - 1);
-					} else if ( delta < -changeThreshold ) {
+					} else if (delta < -changeThreshold) {
 						this.activeIndex = this._calculateIndex(this.beforeIndex + 1);
 					} else {
 						this.activeIndex = this.beforeIndex;
 					}
 
 // notify changed section.
-					if ( this.activeIndex !== oldActiveIndex ) {
-						this._notifyChanagedSection( this.activeIndex );
+					if (this.activeIndex !== oldActiveIndex) {
+						this._notifyChanagedSection(this.activeIndex);
 					}
 				},
 
-				_end: function(/* e */) {
-					if ( this.scrollCanceled || !this.dragging ) {
+				_end: function (/* e */) {
+					if (this.scrollCanceled || !this.dragging) {
 						return;
 					}
 
 // bouncing effect
-					if ( this.bouncingEffect ) {
+					if (this.bouncingEffect) {
 						this.bouncingEffect.dragEnd();
 					}
 
-					this.setActiveSection( this.activeIndex, this.options.animateDuration );
+					this.setActiveSection(this.activeIndex, this.options.animateDuration);
 					this.dragging = false;
 				},
 
-				_swipe: function( e ) {
+				_swipe: function (e) {
 					var offset = e.detail.direction === Gesture.Direction.UP || e.detail.direction === Gesture.Direction.LEFT ? 1 : -1,
 						newIndex = this._calculateIndex(this.beforeIndex + offset);
 
-					if ( this.scrollCanceled || !this.dragging) {
+					if (this.scrollCanceled || !this.dragging) {
 						return;
 					}
 
 // bouncing effect
-					if ( this.bouncingEffect ) {
+					if (this.bouncingEffect) {
 						this.bouncingEffect.dragEnd();
 					}
 
-					if ( this.activeIndex !== newIndex ) {
+					if (this.activeIndex !== newIndex) {
 						this.activeIndex = newIndex;
-						this._notifyChanagedSection( newIndex );
+						this._notifyChanagedSection(newIndex);
 					}
 
-					this.setActiveSection( newIndex, this.options.animateDuration );
+					this.setActiveSection(newIndex, this.options.animateDuration);
 					this.dragging = false;
 				},
 
-				_endScroll: function() {
-					if ( !this.scrolled || this.scrollCanceled ) {
+				_endScroll: function () {
+					if (!this.scrolled || this.scrollCanceled) {
 						return;
 					}
 
@@ -521,7 +528,7 @@
 					this._super();
 				},
 
-				_repositionSections: function( init ) {
+				_repositionSections: function (init) {
 // if developer set circular option is true, this method used when webkitTransitionEnd event fired
 					var sectionLength = this.sections.length,
 						curPosition = this.sectionPositions[this.activeIndex],
@@ -529,28 +536,28 @@
 						circular = this.options.circular,
 						i, sectionStyle, sIdx, top, left, newX, newY;
 
-					if ( this.orientation === Scroller.Orientation.HORIZONTAL ) {
-						newX = -(this.width * ( circular ? centerPosition : this.activeIndex) );
+					if (this.orientation === Scroller.Orientation.HORIZONTAL) {
+						newX = -(this.width * (circular ? centerPosition : this.activeIndex));
 						newY = 0;
 					} else {
 						newX = 0;
-						newY = -(this.height * ( circular ? centerPosition : this.activeIndex) );
+						newY = -(this.height * (circular ? centerPosition : this.activeIndex));
 					}
 
 					this._translateScrollbarWithPageIndex(this.activeIndex);
 
-					if ( init || ( curPosition === 0 || curPosition === sectionLength - 1) ) {
+					if (init || (curPosition === 0 || curPosition === sectionLength - 1)) {
 
-						this._translate( newX, newY );
+						this._translate(newX, newY);
 
-						if ( circular ) {
-							for ( i = 0; i < sectionLength; i++ ) {
-								sIdx = ( sectionLength + this.activeIndex - centerPosition + i ) % sectionLength;
+						if (circular) {
+							for (i = 0; i < sectionLength; i++) {
+								sIdx = (sectionLength + this.activeIndex - centerPosition + i) % sectionLength;
 								sectionStyle = this.sections[ sIdx ].style;
 
 								this.sectionPositions[sIdx] = i;
 
-								if ( this.orientation === Scroller.Orientation.HORIZONTAL ) {
+								if (this.orientation === Scroller.Orientation.HORIZONTAL) {
 									top = 0;
 									left = this.width * i;
 								} else {
@@ -565,7 +572,7 @@
 					}
 				},
 
-				_calculateIndex: function( newIndex ) {
+				_calculateIndex: function (newIndex) {
 					var sectionLength = this.sections.length;
 
 					if (this.options.circular) {
@@ -577,7 +584,7 @@
 					return newIndex;
 				},
 
-				_clear: function() {
+				_clear: function () {
 					this._clearTabIndicator();
 					this._super();
 					this.sectionPositions.length = 0;

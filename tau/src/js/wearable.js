@@ -20,7 +20,6 @@
 			"./profile/wearable/widget/wearable/Popup",
 			"./profile/wearable/widget/wearable/PageContainer",
 			"./profile/wearable/widget/wearable/indexscrollbar/IndexScrollbar",
-			"./profile/wearable/widget/wearable/Listview",
 			"./profile/wearable/widget/wearable/Progress",
 			"./profile/wearable/widget/wearable/Progressing",
 			"./profile/wearable/widget/wearable/ToggleSwitch",

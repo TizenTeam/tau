@@ -39,35 +39,40 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			/**
-			 * @property {Object} VirtualList Alias for {@link ns.widget.wearable.VirtualListview}
+			 * Alias for {@link ns.widget.wearable.VirtualListview}
+			 * @property {Object} VirtualList
 			 * @member ns.widget.wearable.VirtualGrid
 			 * @private
 			 * @static
 			 */
 			var VirtualList = ns.widget.wearable.VirtualListview,
 				/**
-				 * @property {Object} engine Alias for class {@link ns.engine}
+				 * Alias for class {@link ns.engine}
+				 * @property {Object} engine
 				 * @member ns.widget.wearable.VirtualGrid
 				 * @private
 				 * @static
 				 */
 				engine = ns.engine,
 				/**
-				 * @property {Object} DOM Alias for class {@link ns.util.DOM}
+				 * Alias for class {@link ns.util.DOM}
+				 * @property {Object} DOM
 				 * @member ns.widget.wearable.VirtualGrid
 				 * @private
 				 * @static
 				 */
 				DOM = ns.util.DOM,
 				/**
-				 * @property {string} HORIZONTAL="x" constans for horizontal virtual grid
+				 * Constans for horizontal virtual grid
+				 * @property {string} HORIZONTAL="x"
 				 * @private
 				 * @member ns.widget.wearable.VirtualGrid
 				 * @static
 				 */
 				HORIZONTAL = "x",
 				/**
-				 * @property {string} VERTICAL="y" constans for vertical virtual grid
+				 * Constans for vertical virtual grid
+				 * @property {string} VERTICAL="y"
 				 * @private
 				 * @member ns.widget.wearable.VirtualGrid
 				 * @static
@@ -82,12 +87,12 @@
 				 */
 				VirtualGrid = function () {
 					/**
-					 * @property {Object} options Object with default options
+					 * Object with default options
+					 * @property {Object} options
 					 * @property {number} [options.bufferSize=100] Element count in buffer
 					 * @property {number} [options.dataLength=0] Element count in list
-					 * @property {number} [options.orientation='y'] Orientation : horizontal ('x'), vertical ('y')
+					 * @property {"x"|"y"} [options.orientation="y"] Orientation : horizontal ("x"), vertical ("y")
 					 * @member ns.widget.wearable.VirtualGrid
-					 * @instance
 					 */
 					this.options = {
 						bufferSize: 100,
@@ -95,7 +100,7 @@
 						orientation: VERTICAL,
 						/**
 						 * Method which modifies list item, depended at specified index from database.
-						 * @method listItemUpdater
+						 * @method options.listItemUpdater
 						 * @param {HTMLElement} element List item to be modified.
 						 * @param {number} index Index of data set.
 						 * @member ns.widget.wearable.VirtualGrid
@@ -109,21 +114,24 @@
 
 				prototype = new VirtualList(),
 				/**
-				 * @property {Object} VirtualListPrototype Alias for VirtualList prototype
+				 * Alias for VirtualList prototype
+				 * @property {Object} VirtualListPrototype
 				 * @member ns.widget.wearable.VirtualGrid
 				 * @private
 				 * @static
 				 */
 				VirtualListPrototype = VirtualList.prototype,
 				/**
-				 * @method parent_draw alias for {@link ns.widget.wearable.VirtualListview#draw VirtualList.draw}
+				 * Alias for {@link ns.widget.wearable.VirtualListview#draw VirtualList.draw}
+				 * @method parent_draw
 				 * @member ns.widget.wearable.VirtualGrid
 				 * @private
 				 * @static
 				 */
 				parent_draw = VirtualListPrototype.draw,
 				/**
-				 * @method parent_refreshScrollbar alias for {@link ns.widget.wearable.VirtualListview#_refreshScrollbar VirtualList.\_refreshScrollbar}
+				 * Alias for {@link ns.widget.wearable.VirtualListview#_refreshScrollbar VirtualList.\_refreshScrollbar}
+				 * @method parent_refreshScrollbar
 				 * @member ns.widget.wearable.VirtualGrid
 				 * @private
 				 * @static
@@ -131,9 +139,8 @@
 				parent_refreshScrollbar = VirtualListPrototype._refreshScrollbar;
 
 			/**
-			 * Draw item
+			 * This method draws item.
 			 * @method draw
-			 * @instance
 			 * @member ns.widget.wearable.VirtualGrid
 			 */
 			prototype.draw = function () {
@@ -144,13 +151,13 @@
 					newDivStyle = null;
 
 				if (self.options.orientation === HORIZONTAL) {
-					newDiv = document.createElement('div');
+					newDiv = document.createElement("div");
 					newDivStyle = newDiv.style;
 					element.parentNode.appendChild(newDiv);
 					newDiv.appendChild(element);
 					newDiv.appendChild(ui.spacer);
-					newDivStyle.width = '10000px';
-					newDivStyle.height = '100%';
+					newDivStyle.width = "10000px";
+					newDivStyle.height = "100%";
 					ui.container = newDiv;
 				}
 				self._initListItem();
@@ -162,7 +169,6 @@
 			 * @method _refreshScrollbar
 			 * @protected
 			 * @member ns.widget.wearable.VirtualGrid
-			 * @instance
 			 */
 			prototype._refreshScrollbar = function () {
 				var width = 0,
@@ -170,7 +176,7 @@
 				parent_refreshScrollbar.call(this);
 				if (ui.container) {
 					width = this.element.clientWidth + ui.spacer.clientWidth;
-					ui.container.style.width = width + 'px';
+					ui.container.style.width = width + "px";
 				}
 			};
 
@@ -179,38 +185,37 @@
 			 * @method _initListItem
 			 * @protected
 			 * @member ns.widget.wearable.VirtualGrid
-			 * @instance
 			 */
 			prototype._initListItem = function () {
 				var self = this,
 					thisElement = self.element,
-					element = document.createElement('div'),
-					rowElement = document.createElement('div'),
+					element = document.createElement("div"),
+					rowElement = document.createElement("div"),
 					elementStyle = element.style,
 					orientation = self.options.orientation,
 					thisElementStyle = thisElement.style,
 					rowElementStyle = rowElement.style;
 
-				elementStyle.overflow = 'hidden';
-				rowElement.style.overflow = 'hidden';
+				elementStyle.overflow = "hidden";
+				rowElement.style.overflow = "hidden";
 				thisElement.appendChild(rowElement);
 				rowElement.appendChild(element);
 				self.options.listItemUpdater(element, 0);
 
 				if (orientation === VERTICAL) {
-					thisElementStyle.overflowY = 'auto';
-					thisElementStyle.overflowX = 'hidden';
-					rowElementStyle.overflow = 'hidden';
-					element.style.float = 'left';
+					thisElementStyle.overflowY = "auto";
+					thisElementStyle.overflowX = "hidden";
+					rowElementStyle.overflow = "hidden";
+					element.style.float = "left";
 					self._cellSize = DOM.getElementWidth(element);
 					self._columnsCount = Math.floor(DOM.getElementWidth(thisElement) / self._cellSize);
 				} else {
-					thisElementStyle.overflowX = 'auto';
-					thisElementStyle.overflowY = 'hidden';
-					rowElementStyle.overflow = 'hidden';
-					rowElementStyle.float = 'left';
-					thisElementStyle.height = '100%';
-					rowElementStyle.height = '100%';
+					thisElementStyle.overflowX = "auto";
+					thisElementStyle.overflowY = "hidden";
+					rowElementStyle.overflow = "hidden";
+					rowElementStyle.float = "left";
+					thisElementStyle.height = "100%";
+					rowElementStyle.height = "100%";
 					self._cellSize = DOM.getElementHeight(element);
 					self._columnsCount = Math.floor(DOM.getElementHeight(thisElement) / self._cellSize);
 				}
@@ -225,7 +230,6 @@
 			 * @param {HTMLElement} element List element to update
 			 * @param {number} index Data row index
 			 * @protected
-			 * @instance
 			 * @member ns.widget.wearable.VirtualGrid
 			 */
 			prototype._updateListItem = function (element, index) {
@@ -236,24 +240,24 @@
 					options = this.options,
 					elementIStyle,
 					size;
-				element.innerHTML = '';
-				elementStyle.overflow = 'hidden';
-				elementStyle.position = 'relative';
+				element.innerHTML = "";
+				elementStyle.overflow = "hidden";
+				elementStyle.position = "relative";
 				if (options.orientation === HORIZONTAL) {
 					elementStyle.height = "100%";
 				}
 				count = this._columnsCount;
 				size = (100 / count);
 				for (i = 0; i < count; i++) {
-					elementI = document.createElement('div');
+					elementI = document.createElement("div");
 					elementIStyle = elementI.style;
-					elementIStyle.overflow = 'hidden';
+					elementIStyle.overflow = "hidden";
 
 					if (options.orientation === VERTICAL) {
-						elementI.style.float = 'left';
-						elementI.style.width = size + '%';
+						elementI.style.float = "left";
+						elementI.style.width = size + "%";
 					} else {
-						elementI.style.height = size + '%';
+						elementI.style.height = size + "%";
 					}
 
 					if (count * index + i < options.originalDataLength) {

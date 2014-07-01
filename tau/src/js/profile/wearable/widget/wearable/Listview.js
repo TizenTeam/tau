@@ -83,20 +83,26 @@
 			var BaseWidget = ns.widget.BaseWidget,
 				engine = ns.engine,
 				Listview = function () {
-					return this;
 				},
 				prototype = new BaseWidget();
 
+			/**
+			 * Dictionary for listview related events.
+			 * For listview, it is an empty object.
+			 * @property {Object} events
+			 * @member ns.widget.wearable.Listview
+			 * @static
+			 */
 			Listview.events = {};
 
 			/**
-			* build Listview
-			* @method _build
-			* @private
-			* @param {HTMLElement} element
-			* @return {HTMLElement}
-			* @member ns.widget.wearable.Listview
-			*/
+			 * Build Listview
+			 * @method _build
+			 * @param {HTMLElement} element
+			 * @return {HTMLElement}
+			 * @protected
+			 * @member ns.widget.wearable.Listview
+			 */
 			prototype._build = function (element) {
 				return element;
 			};
@@ -110,20 +116,21 @@
 			};
 
 			/**
-			* refresh structure
-			* @method _refresh
-			* @new
-			* @member ns.widget.wearable.Listview
-			*/
+			 * Refresh structure
+			 * @method _refresh
+			 * @protected
+			 * @member ns.widget.wearable.Listview
+			 */
 			prototype._refresh = function () {
 				return null;
 			};
 
 			/**
-			* @method _destroy
-			* @private
-			* @member ns.widget.wearable.Listview
-			*/
+			 * Destroy widget
+			 * @method _destroy
+			 * @protected
+			 * @member ns.widget.wearable.Listview
+			 */
 			prototype._destroy = function () {
 				return null;
 			};

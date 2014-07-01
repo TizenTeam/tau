@@ -53,7 +53,7 @@
  *
  * Progress widget hasn't JavaScript API.
  *
- * @class ns.widget.wearable Progress
+ * @class ns.widget.wearable.Progress
  * @extends ns.widget.BaseWidget
  */
 (function (document, ns) {
@@ -77,13 +77,13 @@
 			Progress.events = {};
 
 			/**
-			* build Progress
-			* @method _build
-			* @private
-			* @param {HTMLElement} element
-			* @return {HTMLElement}
-			* @member ns.widget.wearable.Progress
-			*/
+			 * Build Progress
+			 * @method _build
+			 * @param {HTMLElement} element
+			 * @return {HTMLElement}
+			 * @protected
+			 * @member ns.widget.wearable.Progress
+			 */
 			prototype._build = function (element) {
 				return element;
 			};
@@ -97,20 +97,21 @@
 			};
 
 			/**
-			* refresh structure
-			* @method _refresh
-			* @new
-			* @member ns.widget.wearable.Progress
-			*/
+			 * Refresh structure
+			 * @method _refresh
+			 * @protected
+			 * @member ns.widget.wearable.Progress
+			 */
 			prototype._refresh = function () {
 				return null;
 			};
 
 			/**
-			* @method _destroy
-			* @private
-			* @member ns.widget.wearable.Progress
-			*/
+			 * Destroy widget
+			 * @method _destroy
+			 * @protected
+			 * @member ns.widget.wearable.Progress
+			 */
 			prototype._destroy = function () {
 				return null;
 			};

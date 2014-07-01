@@ -157,12 +157,12 @@
  *  To open the popup widget from JavaScript use method *tau.openPopup(to)*
  *
  *          @example
- *          tau.openPopup('popup)
+ *          tau.openPopup("popup")
  *
  *  To close the popup widget from JavaScript use method *tau.openPopup(to)*
  *
  *          @example
- *          tau.closePopup('popup)
+ *          tau.closePopup("popup")
  *
  * To find the currently active popup, use the ui-popup-active class.
  *
@@ -186,7 +186,7 @@
  *             });
  *
  *             // Popup closes with Cancel button click
- *             document.getElementById('1btnPopup-cancel').addEventListener('click', function() {
+ *             document.getElementById("1btnPopup-cancel").addEventListener("click", function() {
  *                 tau.closePopup();
  *             });
  *         </script>
@@ -195,7 +195,7 @@
  * For manual creation of popup widget you can use constructor of widget from **tau** namespace:
  *
  *		@example
- *		var popupElement = document.getElementById('popup'),
+ *		var popupElement = document.getElementById("popup"),
  *			popup = tau.widget.popup(buttonElement);
  *
  * Constructor has one require parameter **element** which are base **HTMLElement** to create widget. We recommend get this element by method *document.getElementById*.
@@ -211,7 +211,7 @@
  * To call method on widget you can use tau API:
  *
  *		@example
- *		var popupElement = document.getElementById('popup'),
+ *		var popupElement = document.getElementById("popup"),
  *			popup = tau.widget.popup(buttonElement);
  *
  *		popup.methodName(methodArgument1, methodArgument2, ...);
@@ -279,12 +279,12 @@
 						ui = {};
 
 					/**
-					 * @property {Object} options Options for widget
+					 * Options for widget
+					 * @property {Object} options
 					 * @property {string|boolean} [options.header=false] Header content
 					 * @property {string|boolean} [options.footer=false] Footer content
 					 * @property {number} [options.maxHeightRatio=0.79] Height ratio
 					 * @member ns.widget.wearable.Popup
-					 * @instance
 					 */
 					self.options = {
 						header: false,
@@ -293,20 +293,20 @@
 					};
 
 					/**
-					 * @private
-					 * @property {?DOMTokenList} [_elementClassList=null] Popup element classList 
+					 * Popup element classList
+					 * @property {?DOMTokenList} [_elementClassList=null]
 					 * @member ns.widget.wearable.Popup
-					 * @instance
+					 * @private
 					 */
 					self._elementClassList = null;
 
 					/**
-					 * @property {Object} ui A collection of UI elements
+					 * A collection of UI elements
+					 * @property {Object} ui
 					 * @property {?HTMLElement} [ui.header=null] Header element
 					 * @property {?HTMLElement} [ui.footer=null] Footer element
 					 * @property {?HTMLElement} [ui.content=null] Content element
 					 * @member ns.widget.wearable.Popup
-					 * @instance
 					 */
 					self.ui = ui;
 					ui.header = null;
@@ -314,42 +314,48 @@
 					ui.content = null;
 
 					/**
-					 * @property {boolean} [active=false] Popup state flag
+					 * Popup state flag
+					 * @property {boolean} [active=false]
 					 * @member ns.widget.wearable.Popup
-					 * @instance
 					 */
 					self.active = false;
 				},
 				/**
-				* @property {Function} BaseWidget Alias for {@link ns.widget.BaseWidget}
-				* @member ns.widget.wearable.Popup
-				* @private
-				*/
+				 * Alias for {@link ns.widget.BaseWidget}
+				 * @property {Function} BaseWidget
+				 * @member ns.widget.wearable.Popup
+				 * @private
+				 */
 				BaseWidget = ns.widget.BaseWidget,
 				/**
-				* @property {ns.engine} engine Alias for class ns.engine
-				* @member ns.widget.wearable.Popup
-				* @private
-				*/
+				 * Alias for class ns.engine
+				 * @property {ns.engine} engine
+				 * @member ns.widget.wearable.Popup
+				 * @private
+				 */
 				engine = ns.engine,
 				/**
-				* @property {Object} utilsObject Alias for class ns.util.events
-				* @member ns.widget.wearable.Popup
-				* @private
-				*/
+				 * Alias for class ns.util.object
+				 * @property {Object} utilsObject
+				 * @member ns.widget.wearable.Popup
+				 * @private
+				 */
 				utilsObject = ns.util.object,
 				/**
-				* @property {ns.util.selectors} selectors Alias for class ns.selectors
-				* @member ns.widget.wearable.Popup
-				* @private
-				*/
+				 * Alias for class ns.wearable.selectors
+				 * @property {ns.wearable.selectors} selectors
+				 * @member ns.widget.wearable.Popup
+				 * @private
+				 */
 				selectors = ns.wearable.selectors,
 				prototype = new BaseWidget(),
 				/**
-				* @property {Object} classes Dictionary for popup related css class names
-				* @member ns.widget.wearable.Popup
-				* @static
-				*/
+				 * Dictionary for popup related css class names
+				 * @property {Object} classes
+				 * @member ns.widget.wearable.Popup
+				 * @static
+				 * @readonly
+				 */
 				classes = {
 					active: "ui-popup-active",
 					header: "ui-popup-header",
@@ -360,62 +366,72 @@
 					overlay: "ui-popup-overlay"
 				};
 			/**
-			 * Triggered on the popup being initialized, before most plugin auto-initialization occurs.
+			 * Triggered on the popup being initialized,
+			 * before most plugin auto-initialization occurs.
 			 * @event popupbeforecreate
 			 * @member ns.widget.wearable.Popup
 			 */
 			/**
-			 * Triggered when the popup has been created in the DOM (via ajax or other) but before all widgets have had an opportunity to enhance the contained markup.
+			 * Triggered when the popup has been created in the DOM
+			 * (via ajax or other) but before all widgets have had
+			 * an opportunity to enhance the contained markup.
 			 * @event popupcreate
 			 * @member ns.widget.wearable.Popup
 			 */
 			/**
-			* @property {Object} events Dictionary for popup related events
-			* @member ns.widget.wearable.Popup
-			* @static
-			*/
+			 * Dictionary for popup related events
+			 * @property {Object} events
+			 * @member ns.widget.wearable.Popup
+			 * @static
+			 */
 			Popup.events = {
 				/**
-				 * @event popupshow Triggered when the popup has been created in the DOM (via ajax or other) but before all widgets have had an opportunity to enhance the contained markup.
+				 * Triggered when the popup has been created in the DOM
+				 * and it is displayed on the screen.
+				 * @event popupshow
 				 * @member ns.widget.wearable.Popup
 				 */
 				show: "popupshow",
 				/**
-				 * Triggered on the popup after the transition animation has completed.
+				 * Triggered on the popup after the transition
+				 * animation has completed.
 				 * @event popuphide
 				 * @member ns.widget.wearable.Popup
 				 */
 				hide: "popuphide",
 				/**
-				 * Triggered on the popup we are transitioning to, before the actual transition animation is kicked off.
+				 * Triggered on the popup we are transitioning to,
+				 * before the actual transition animation is kicked off.
 				 * @event popupbeforeshow
 				 * @member ns.widget.wearable.Popup
 				 */
 				before_show: "popupbeforeshow",
 				/**
-				 * Triggered on the popup we are transitioning away from, before the actual transition animation is kicked off.
+				 * Triggered on the popup we are transitioning away from,
+				 * before the actual transition animation is kicked off.
 				 * @event popupbeforehide
 				 * @member ns.widget.wearable.Popup
 				 */
 				before_hide: "popupbeforehide"
 			};
+
 			Popup.classes = classes;
 
 			/**
-			 * @property {string} [popup=".ui-popup"] Selector for popup element
+			 * Selector for popup element
+			 * @property {string} [popup=".ui-popup"]
 			 * @member ns.wearable.selectors
 			 */
 			selectors.popup = ".ui-popup";
 
 			/**
-			* Build the popup DOM tree
-			* @method _build
-			* @protected
-			* @instance
-			* @param {HTMLElement} element
-			* @return {HTMLElement}
-			* @member ns.widget.wearable.Popup
-			*/
+			 * Build the popup DOM tree
+			 * @method _build
+			 * @protected
+			 * @param {HTMLElement} element
+			 * @return {HTMLElement}
+			 * @member ns.widget.wearable.Popup
+			 */
 			prototype._build = function ( element) {
 				var ui = this.ui,
 					options = this.options,
@@ -466,13 +482,12 @@
 			};
 
 			/**
-			* Initialize popup
-			* @method _init
-			* @protected
-			* @instance
-			* @param {HTMLElement} element
-			* @member ns.widget.wearable.Popup
-			*/
+			 * Initialize popup
+			 * @method _init
+			 * @protected
+			 * @param {HTMLElement} element
+			 * @member ns.widget.wearable.Popup
+			 */
 			prototype._init = function (element) {
 				var self = this,
 					ui = self.ui;
@@ -493,12 +508,11 @@
 			};
 
 			/**
-			* Bind events
-			* @method _bindEvents
-			* @protected
-			* @instance
-			* @member ns.widget.wearable.Popup
-			*/
+			 * Bind events
+			 * @method _bindEvents
+			 * @protected
+			 * @member ns.widget.wearable.Popup
+			 */
 			prototype._bindEvents = function () {
 				var self = this;
 				self.closeFunction = function () {
@@ -514,24 +528,22 @@
 			};
 
 			/**
-			* Destroy the popup
-			* @method _destroy
-			* @protected
-			* @instance
-			* @member ns.widget.wearable.Popup
-			*/
+			 * Destroy the popup
+			 * @method _destroy
+			 * @protected
+			 * @member ns.widget.wearable.Popup
+			 */
 			prototype._destroy = function () {
 				window.removeEventListener("resize", this.onResize, false);
 				document.removeEventListener("pagebeforehide", this.closeFunction, false);
 			};
 
 			/**
-			* Refresh the popup 
-			* @method _refresh
-			* @protected
-			* @instance
-			* @member ns.widget.wearable.Popup
-			*/
+			 * Refresh the popup
+			 * @method _refresh
+			 * @protected
+			 * @member ns.widget.wearable.Popup
+			 */
 			prototype._refresh = function () {
 				var self = this,
 					ui = self.ui,
@@ -558,8 +570,8 @@
 					contentWidth,
 					isToast = element.classList.contains(classes.toast),
 					dom = ns.util.DOM,
-					originalDisplay = '',
-					originalVisibility = '',
+					originalDisplay = "",
+					originalVisibility = "",
 					isDisplayNone,
 					minScreenHeight = 320;
 
@@ -607,13 +619,12 @@
 			};
 
 			/**
-			* Set the state of the popup
-			* @method _setActive
-			* @param {boolean} active
-			* @protected
-			* @instance
-			* @member ns.widget.wearable.Popup
-			*/
+			 * Set the state of the popup
+			 * @method _setActive
+			 * @param {boolean} active
+			 * @protected
+			 * @member ns.widget.wearable.Popup
+			 */
 			prototype._setActive = function (active) {
 				var activeClass = classes.active,
 					elementCls = this._elementClassList;
@@ -627,14 +638,15 @@
 			};
 
 			/**
-			* Open the popup
-			* @method open
-			* @param {Object=} [options]
-			* @param {string=} [options.transition] options.transition
-			* @param {string=} [options.ext= in ui-pre-in] options.ext
-			* @instance
-			* @member ns.widget.wearable.Popup
-			*/
+			 * This method opens the popup.
+			 * After putting popup element in the DOM and adding proper classes,
+			 * but before opening animation is kicked off, the event "popupbeforeshow" is triggered.
+			 * @method open
+			 * @param {Object} [options]
+			 * @param {string} [options.transition] Sets the animation used during change of page
+			 * @param {string} [options.ext=" in ui-pre-in"] Sets classes related with transition
+			 * @member ns.widget.wearable.Popup
+			 */
 			prototype.open = function (options) {
 				var transitionOptions = utilsObject.merge({}, options, {ext: " in ui-pre-in "}),
 					events = Popup.events,
@@ -661,14 +673,15 @@
 			};
 
 			/**
-			* Close the popup
-			* @method close
-			* @param {Object=} [options]
-			* @param {string=} [options.transition]
-			* @param {string=} [options.ext= in ui-pre-in] options.ext
-			* @instance
-			* @member ns.widget.wearable.Popup
-			*/
+			 * This method closes the popup.
+			 * After removing popup element from the DOM, but before closing animation
+			 * is kicked off, the event "popupbeforehide" is triggered.
+			 * @method close
+			 * @param {Object} [options]
+			 * @param {string} [options.transition] Sets the animation used during change of page
+			 * @param {string} [options.ext= in ui-pre-in] Sets classes related with transition
+			 * @member ns.widget.wearable.Popup
+			 */
 			prototype.close = function (options) {
 				var transitionOptions = utilsObject.merge({}, options, {ext: " in ui-pre-in "}),
 					events = Popup.events,
@@ -680,7 +693,7 @@
 
 				overlay.removeEventListener("click", self.closeFunction, false);
 
-				if ( parent ) {
+				if (parent) {
 					parent.appendChild(element);
 					parent.removeChild(container);
 				}
@@ -696,18 +709,17 @@
 			/**
 			* Animate popup opening/closing
 			* @method _transition
-			* @protected
-			* @instance
 			* @param {Object} [options]
-			* @param {string=} [options.transition]
-			* @param {string=} [options.ext]
-			* @param {?Function} [resolve]
+			* @param {string} [options.transition] Sets the animation used during change of page
+			* @param {string} [options.ext] Sets classes related with transition
+			* @param {?Function} [resolve] Function called on the end of animation
+			* @protected
 			* @member ns.widget.wearable.Popup
 			*/
 
 			prototype._transition = function (options, resolve) {
 				var self = this,
-					transition = options.transition || self.options.transition || '',
+					transition = options.transition || self.options.transition || "",
 					transitionClass = transition + options.ext,
 					element = self.element,
 					elementClassList = element.classList,

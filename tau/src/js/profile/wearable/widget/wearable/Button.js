@@ -160,7 +160,9 @@
  *          <a href="#" class="ui-btn ui-color-red" >A Button Circle</a>
  *          <input type="button" class="ui-btn ui-color-orange" value="Input Button Circle" />
  *      </div>
+ *
  * @class ns.widget.wearable.Button
+ * @extends ns.widget.BaseWidget
  */
 (function (document, ns) {
 	"use strict";
@@ -175,20 +177,26 @@
 			var BaseWidget = ns.widget.BaseWidget,
 				engine = ns.engine,
 				Button = function () {
-					return this;
 				},
 				prototype = new BaseWidget();
 
+			/**
+			 * Dictionary for button related events.
+			 * For button, it is an empty object.
+			 * @property {Object} events
+			 * @member ns.widget.wearable.Button
+			 * @static
+			 */
 			Button.events = {};
 
 			/**
-			* build Button
-			* @method _build
-			* @private
-			* @param {HTMLElement} element
-			* @return {HTMLElement}
-			* @member ns.widget.wearable.Button
-			*/
+			 * Build Button
+			 * @method _build
+			 * @param {HTMLElement} element
+			 * @return {HTMLElement}
+			 * @protected
+			 * @member ns.widget.wearable.Button
+			 */
 			prototype._build = function (element) {
 				return element;
 			};
@@ -202,20 +210,21 @@
 			};
 
 			/**
-			* refresh structure
-			* @method _refresh
-			* @new
-			* @member ns.widget.wearable.Button
-			*/
+			 * Refresh structure
+			 * @method _refresh
+			 * @protected
+			 * @member ns.widget.wearable.Button
+			 */
 			prototype._refresh = function () {
 				return null;
 			};
 
 			/**
-			* @method _destroy
-			* @private
-			* @member ns.widget.wearable.Button
-			*/
+			 * Destroy widget
+			 * @method _destroy
+			 * @protected
+			 * @member ns.widget.wearable.Button
+			 */
 			prototype._destroy = function () {
 				return null;
 			};
