@@ -72,14 +72,14 @@
 				DOM = ns.util.DOM;
 
 			/**
-			 * Appends node or array-like node list array
-			 * to context
+			 * Appends node or array-like node list array to context
 			 * @method appendNodes
 			 * @member ns.util.DOM
 			 * @param {HTMLElement} context
 			 * @param {HTMLElement|HTMLCollection|NodeList|Array} elements
 			 * @return {HTMLElement|Array|null}
 			 * @static
+			 * @throws {string}
 			 */
 			DOM.appendNodes = function (context, elements) {
 				var i,
@@ -100,8 +100,7 @@
 			};
 
 			/**
-			 * Replaces context with node or array-like node
-			 * list
+			 * Replaces context with node or array-like node list
 			 * @method replaceWithNodes
 			 * @member ns.util.DOM
 			 * @param {HTMLElement} context
@@ -131,15 +130,15 @@
 			};
 
 			/**
-			* Inserts node or array-like node list before
-			* context
-			* @method insertNodesBefore
-			* @member ns.util.DOM
-			* @param {HTMLElement} context
-			* @param {HTMLElement|HTMLCollection|NodeList|Array} elements
-			* @return {HTMLElement|Array|null}
-			* @static
-			*/
+			 * Inserts node or array-like node list before context
+			 * @method insertNodesBefore
+			 * @member ns.util.DOM
+			 * @param {HTMLElement} context
+			 * @param {HTMLElement|HTMLCollection|NodeList|Array} elements
+			 * @return {HTMLElement|Array|null}
+			 * @static
+			 * @throws {string}
+			 */
 			DOM.insertNodesBefore = function (context, elements) {
 				var i,
 					len,
@@ -162,14 +161,15 @@
 			};
 
 			/**
-			* Inserts node after context
-			* @method insertNodeAfter
-			* @member ns.util.DOM
-			* @param {HTMLElement} context
-			* @param {HTMLElement} element
-			* @return {HTMLElement}
-			* @static
-			*/
+			 * Inserts node after context
+			 * @method insertNodeAfter
+			 * @member ns.util.DOM
+			 * @param {HTMLElement} context
+			 * @param {HTMLElement} element
+			 * @return {HTMLElement}
+			 * @static
+			 * @throws {string}
+			 */
 			DOM.insertNodeAfter = function (context, element) {
 				if (context) {
 					context.parentNode.insertBefore(element, context.nextSibling);
@@ -179,8 +179,7 @@
 			};
 
 			/**
-			 * Wraps element or array-like node list in html
-			 * markup
+			 * Wraps element or array-like node list in html markup
 			 * @method wrapInHTML
 			 * @param {HTMLElement|NodeList|HTMLCollection|Array} elements
 			 * @param {string} html

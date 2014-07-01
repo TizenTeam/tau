@@ -39,8 +39,8 @@
 			 * @method getCSSProperty
 			 * @param {HTMLElement} element
 			 * @param {string} property
-			 * @param {string=} [def] default returned value
-			 * @param {string=} [type] auto type casting
+			 * @param {string|number|null} [def=null] default returned value
+			 * @param {"integer"|"float"|null} [type=null] auto type casting
 			 * @return {string|number|null}
 			 * @member ns.util.DOM
 			 * @static
@@ -81,8 +81,8 @@
 			 * @method extractCSSProperties
 			 * @param {HTMLElement} element
 			 * @param {Object} properties
-			 * @param {string=} [pseudoSelector]
-			 * @param {boolean=} [noConversion]
+			 * @param {?string} [pseudoSelector=null]
+			 * @param {boolean} [noConversion=false]
 			 * @member ns.util.DOM
 			 * @static
 			 */
@@ -113,11 +113,12 @@
 			 * Returns elements height from computed style
 			 * @method getElementHeight
 			 * @param {HTMLElement} element
-			 * @param {string=} [type] outer|inner
-			 * @param {boolean=} [includeOffset]
-			 * @param {boolean=} [includeMargin]
-			 * @param {string=} [pseudoSelector]
-			 * @param {boolean=} [force] check even if element is hidden
+			 * if null then the "inner" value is assigned
+			 * @param {"outer"|null} [type=null]
+			 * @param {boolean} [includeOffset=false]
+			 * @param {boolean} [includeMargin=false]
+			 * @param {?string} [pseudoSelector=null]
+			 * @param {boolean} [force=false] check even if element is hidden
 			 * @return {number}
 			 * @member ns.util.DOM
 			 * @static
@@ -200,11 +201,12 @@
 			 * Returns elements width from computed style
 			 * @method getElementWidth
 			 * @param {HTMLElement} element
-			 * @param {string=} [type] outer|inner
-			 * @param {boolean=} [includeOffset]
-			 * @param {boolean=} [includeMargin]
-			 * @param {string=} [pseudoSelector]
-			 * @param {boolean=} [force] check even if element is hidden
+			 * if null then the "inner" value is assigned
+			 * @param {"outer"|null} [type=null]
+			 * @param {boolean} [includeOffset=false]
+			 * @param {boolean} [includeMargin=false]
+			 * @param {?string} [pseudoSelector=null]
+			 * @param {boolean} [force=false] check even if element is hidden
 			 * @return {number}
 			 * @member ns.util.DOM
 			 * @static
