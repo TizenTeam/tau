@@ -108,7 +108,6 @@ el.addEventListener("select", function( ev ) {
 
 		// Create IndexScrollbar
 		isb = new tau.widget.IndexScrollbar(elisb, {
-			index: indexData.firstIndex,
 			supplementaryIndex: function(firstIndex) {
 				return indexData.secondIndex[firstIndex];
 			}
