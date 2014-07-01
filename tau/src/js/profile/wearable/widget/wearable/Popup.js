@@ -560,7 +560,8 @@
 					dom = ns.util.DOM,
 					originalDisplay = '',
 					originalVisibility = '',
-					isDisplayNone;
+					isDisplayNone,
+					minScreenHeight = 320;
 
 				dom.extractCSSProperties(element, props);
 
@@ -588,9 +589,13 @@
 					}
 
 					contentHeight = window.innerHeight - (parseInt(props["margin-top"], 10) + parseInt(props["margin-bottom"], 10));
-					// Latest Wearable UI's Popup max height has set window height * 0.79 pixel.
 
-					elementStyle.height = contentHeight * self.options.maxHeightRatio + "px";
+					if (contentHeight > minScreenHeight) {
+						elementStyle.height = contentHeight * self.options.maxHeightRatio + "px";
+					} else { // Latest Wearable UI's Popup max height has set window height * 0.79 pixel. (when screen height > 320)
+						elementStyle.height = contentHeight + "px";
+					}
+
 					contentStyle.height = (parseFloat(elementStyle.height) - headerHeight - footerHeight - borderWidth * 2 - (parseFloat(props["padding-top"]) + parseFloat(props["padding-bottom"]))) + "px";
 					contentStyle.overflowY = "scroll";
 				}
