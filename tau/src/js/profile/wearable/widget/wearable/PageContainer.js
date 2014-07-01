@@ -107,39 +107,37 @@
 
 				options = options || {};
 
-				if ( fromPageWidget && fromPageWidget.element === toPage ) {
-					return;
-				}
-
-				if (toPage.parentNode !== self.element) {
-					self._include(toPage);
-				}
-
-				toPageWidget = engine.instanceWidget(toPage, "page");
-
-				if (ns.getConfig("autoBuildOnPageChange", false)) {
-					engine.createWidgets(toPage);
-				}
-
+				// The change should be made only if no active page exists
+				// or active page is changed to another one.
 				if (!fromPageWidget || (fromPageWidget.element !== toPage)) {
-					self._include(toPage);
+					if (toPage.parentNode !== self.element) {
+						self._include(toPage);
+					}
+
+					toPageWidget = engine.instanceWidget(toPage, "page");
+
+					if (ns.getConfig("autoBuildOnPageChange", false)) {
+						engine.createWidgets(toPage);
+					}
+
 					if (fromPageWidget) {
 						fromPageWidget.onBeforeHide();
 					}
 					toPageWidget.onBeforeShow();
-				}
 
-				options.deferred = {
-					resolve: function () {
-						if (fromPageWidget) {
-							fromPageWidget.onHide();
-							self._removeExternalPage(fromPageWidget, options);
+
+					options.deferred = {
+						resolve: function () {
+							if (fromPageWidget) {
+								fromPageWidget.onHide();
+								self._removeExternalPage(fromPageWidget, options);
+							}
+							toPageWidget.onShow();
+							self.trigger(EventType.PAGE_CHANGE);
 						}
-						toPageWidget.onShow();
-						self.trigger(EventType.PAGE_CHANGE);
-					}
-				};
-				self._transition(toPageWidget, fromPageWidget, options);
+					};
+					self._transition(toPageWidget, fromPageWidget, options);
+				}
 			};
 
 			/**
