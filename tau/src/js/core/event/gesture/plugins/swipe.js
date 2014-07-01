@@ -17,6 +17,7 @@
 */
 /**
  * Gesture Plugin: swipe
+ * @class ns.event.gesture.Drag
  */
 ( function ( ns, window, undefined ) {
 	"use strict";
@@ -28,21 +29,61 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 
+				/**
+				 * Local alias for {@link ns.event.gesture}
+				 * @property {Object}
+				 * @member ns.event.gesture.Swipe
+				 * @private
+				 * @static
+				 */
 			var Gesture = ns.event.gesture,
+				/**
+				 * Local alias for {@link ns.event.gesture.Detector}
+				 * @property {Object}
+				 * @member ns.event.gesture.Swipe
+				 * @private
+				 * @static
+				 */
 				Detector = ns.event.gesture.Detector;
 
 			ns.event.gesture.Swipe = Detector.plugin.create({
-
+				/**
+				 * Gesture name
+				 * @property {string} [name="swipe"]
+				 * @member ns.event.gesture.Swipe
+				 */
 				name: "swipe",
 
+				/**
+				 * Gesture Index
+				 * @property {number} [index=400]
+				 * @member ns.event.gesture.Swipe
+				 */
 				index: 400,
 
+				/**
+				 * Default values for swipe gesture
+				 * @property {Object} defaults
+				 * @property {number} [defaults.timeThreshold=400]
+				 * @property {number} [defaults.velocity=0.6]
+				 * @property {ns.event.gesture.HORIZONTAL|ns.event.gesture.VERTICAL} [defaults.orientation=ns.event.gesture.HORIZONTAL]
+				 * @member ns.event.gesture.Swipe
+				 */
 				defaults: {
 					timeThreshold: 400,
 					velocity: 0.6,
 					orientation: Gesture.Orientation.HORIZONTAL
 				},
 
+				/**
+				 * Handler for swipe gesture
+				 * @method handler
+				 * @param {Event} gestureEvent gesture event
+				 * @param {Object} sender event's sender
+				 * @param {Object} options options
+				 * @return {ns.event.gesture.Result.PENDING|ns.event.gesture.Result.END|ns.event.gesture.Result.FINISHED|ns.event.gesture.Result.BLOCK}
+				 * @member ns.event.gesture.Swipe
+				 */
 				handler: function( gestureEvent, sender, options ) {
 					var ge = gestureEvent,
 						result = Gesture.Result.PENDING;

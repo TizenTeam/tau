@@ -31,11 +31,18 @@
 				"./gesture/plugins/swipe"],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var GESTURE_ElEMENT_DATA_KEY = "gestureElementDataKey",
-				instances = [],
-				gesture = ns.event.gesture || {},
-				Gesture = gesture.Gesture;
+			var instances = [],
+				gesture = ns.event.gesture || {};
 
+			/**
+			 * Find instance by element
+			 * @method findInstance
+			 * @param {HTMLElement} element
+			 * @return {ns.event.gesture.Instance}
+			 * @member ns.event
+			 * @static
+			 * @private
+			 */
 			function findInstance(element) {
 				var instance;
 				instances.forEach(function(item) {
@@ -46,8 +53,15 @@
 				return instance;
 			}
 
+			/**
+			 * Remove instance from instances by element
+			 * @method removeInstance
+			 * @param {HTMLElement} element
+			 * @member ns.event
+			 * @static
+			 * @private
+			 */
 			function removeInstance(element) {
-				var instance;
 				instances.forEach(function(item, key) {
 					if (item.element === element) {
 						instances.splice(key, 1);
@@ -55,7 +69,14 @@
 				});
 			}
 
-			ns.event.enableGesture = function(/* element, gesture object ... */) {
+			/**
+			 * Enable gesture handlingo on given HTML element or object
+			 * @method enableGesture
+			 * @param {HTMLElement} element
+			 * @param {...Object} [gesture] Gesture object {@link ns.event.gesture}
+			 * @member ns.event
+			 */
+			ns.event.enableGesture = function() {
 				var element = arguments[0],
 					gestureInstance = findInstance( element ),
 					length = arguments.length,
@@ -71,7 +92,14 @@
 				}
 			};
 
-			ns.event.disableGesture = function(/* element, gesture object ... */) {
+			/**
+			 * Disable gesture handling from given HTML element or object
+			 * @method disableGesture
+			 * @param {HTMLElement} element
+			 * @param {...Object} [gesture] Gesture object {@link ns.event.gesture}
+			 * @member ns.event
+			 */
+			ns.event.disableGesture = function() {
 				var element = arguments[0],
 					gestureInstance = findInstance( element ),
 					length = arguments.length,

@@ -17,6 +17,7 @@
 */
 /**
  * Gesture.Detector class
+ * @class ns.event.gesture.Detector
  */
 ( function ( ns, window, undefined ) {
 	"use strict";
@@ -26,8 +27,23 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
+				/**
+				 * Local alias for {@link ns.event.gesture}
+				 * @property {Object}
+				 * @member ns.event.gesture.Manager
+				 * @private
+				 * @static
+				 */
 			var Gesture = ns.event.gesture,
+				/**
+				 * Alias for method {@link ns.util.object.merge}
+				 * @property {Function} objectMerge
+				 * @member ns.event.gesture.Detector
+				 * @private
+				 * @static
+				 */
 				objectMerge = ns.util.object.merge,
+
 				Detector = function( strategy, sender ) {
 					this.sender = sender;
 					this.strategy = strategy.create();
@@ -36,6 +52,13 @@
 					this.options = this.strategy.options || {};
 				};
 
+			/**
+			 * Start of gesture detection of given type
+			 * @method detect
+			 * @param {string} gestureEvent
+			 * @return {Object}
+			 * @member ns.event.gesture.Detector
+			 */
 			Detector.prototype.detect = function( gestureEvent ) {
 				return this.strategy.handler( gestureEvent, this.sender, this.strategy.options );
 			};
@@ -44,8 +67,20 @@
 				sendEvent: function(/* eventName, detail */) {}
 			};
 
-//define plugin namespace.
+			/**
+			 * Create plugin namespace.
+			 * @property {Object} plugin
+			 * @member ns.event.gesture.Detector
+			 */
 			Detector.plugin = {};
+
+			/**
+			 * Methods creates plugin
+			 * @method create
+			 * @param {Object} gestureHandler
+			 * @return {ns.event.gesture.Detector} gestureHandler
+			 * @member ns.event.gesture.Detector.plugin
+			 */
 			Detector.plugin.create = function( gestureHandler ) {
 
 				if ( !gestureHandler.types ) {
@@ -64,6 +99,8 @@
 
 				return detector;
 			};
+
+			// definition
 			Gesture.Detector = Detector;
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);

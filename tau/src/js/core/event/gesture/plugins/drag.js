@@ -17,6 +17,7 @@
 */
 /**
  * Gesture Plugin: drag
+ * @class ns.event.gesture.Drag
  */
 ( function ( ns, window, undefined ) {
 	"use strict";
@@ -29,20 +30,67 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 
+				/**
+				 * Local alias for {@link ns.event.gesture}
+				 * @property {Object}
+				 * @member ns.event.gesture.Drag
+				 * @private
+				 * @static
+				 */
 			var Gesture = ns.event.gesture,
+				/**
+				 * Local alias for {@link ns.event.gesture.Detector}
+				 * @property {Object}
+				 * @member ns.event.gesture.Drag
+				 * @private
+				 * @static
+				 */
 				Detector = ns.event.gesture.Detector,
+				/**
+				 * Alias for method {@link ns.util.object.merge}
+				 * @property {Function} merge
+				 * @member ns.event.gesture.Drag
+				 * @private
+				 * @static
+				 */
 				merge = ns.util.object.merge,
+
 				// TODO UA test will move to support.
 				tizenBrowser = !!window.navigator.userAgent.match(/tizen/i);
 
 			ns.event.gesture.Drag = Detector.plugin.create({
 
+				/**
+				 * Gesture name
+				 * @property {string} [name="drag"]
+				 * @member ns.event.gesture.Drag
+				 */
 				name: "drag",
 
+				/**
+				 * Gesture Index
+				 * @property {number} [index=400]
+				 * @member ns.event.gesture.Drag
+				 */
 				index: 500,
 
+				/**
+				 * Array of posible drag events
+				 * @property {string[]} types
+				 * @member ns.event.gesture.Drag
+				 */
 				types: ["drag", "dragstart", "dragend", "dragcancel"],
 
+				/**
+				 * Default values for drag gesture
+				 * @property {Object} defaults
+				 * @property {boolean} [defaults.blockHorizontal=false]
+				 * @property {boolean} [defaults.blockVertical=false]
+				 * @property {number} [defaults.threshold=10]
+				 * @property {number} [defaults.angleThreshold=20]
+				 * @property {number} [defaults.delay=0]
+				 * @member ns.event.gesture.Drag
+				 */
 				defaults: {
 					blockHorizontal: false,
 					blockVertical: false,
@@ -51,8 +99,22 @@
 					delay: 0
 				},
 
+				/**
+				 * Triggered
+				 * @property {boolean} [triggerd=false]
+				 * @member ns.event.gesture.Drag
+				 */
 				triggerd: false,
 
+				/**
+				 * Handler for drag gesture
+				 * @method handler
+				 * @param {Event} gestureEvent gesture event
+				 * @param {Object} sender event's sender
+				 * @param {Object} options options
+				 * @return {ns.event.gesture.Result.PENDING|ns.event.gesture.Result.END|ns.event.gesture.Result.FINISHED|ns.event.gesture.Result.BLOCK}
+				 * @member ns.event.gesture.Drag
+				 */
 				handler: function( gestureEvent, sender, options ) {
 					var ge = gestureEvent,
 						threshold = options.threshold,

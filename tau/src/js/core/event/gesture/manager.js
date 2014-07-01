@@ -17,8 +17,9 @@
 */
 /**
  * Gesture.Manager class
+ * @class ns.event.gesture.Manager
  */
-( function ( ns, window, undefined ) {
+( function ( ns, window, document) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(["./core",
@@ -29,19 +30,40 @@
 		function() {
 			//>>excludeEnd("tauBuildExclude");
 
+				/**
+				 * Local alias for {@link ns.event.gesture}
+				 * @property {Object}
+				 * @member ns.event.gesture.Manager
+				 * @private
+				 * @static
+				 */
 			var Gesture = ns.event.gesture,
+
+				/**
+				 * Alias for method {@link ns.util.object.merge}
+				 * @property {Function} objectMerge
+				 * @member ns.event.gesture.Manager
+				 * @private
+				 * @static
+				 */
 				objectMerge = ns.util.object.merge,
+
+				/**
+				 * Device has touchable interface
+				 * @property {boolean} TOUCH_DEVICE
+				 * @member ns.event.gesture.Manager
+				 * @private
+				 * @static
+				 */
 				TOUCH_DEVICE = "ontouchstart" in window;
 
 			Gesture.Manager = (function() {
 				var instance = null,
 
-
 				isReadyDetecting = false,
 				blockMouseEvent = false,
 
 				Manager = function() {
-
 
 					this.instances = [];
 					this.gestureDetectors = [];
@@ -52,11 +74,16 @@
 
 					this.gestureEvents = null;
 					this.velocity = null;
-
 				};
 
 				Manager.prototype = {
-
+					/**
+					 * Bind start events
+					 * @method _bindStartEvents
+					 * @param {ns.event.gesture.Instance} instance gesture instance
+					 * @member ns.event.gesture.Manager
+					 * @protected
+					 */
 					_bindStartEvents: function( instance ) {
 						var element = instance.getElement();
 						if ( TOUCH_DEVICE ) {
@@ -66,6 +93,12 @@
 						element.addEventListener( "mousedown", this);
 					},
 
+					/**
+					 * Bind move, end and cancel events
+					 * @method _bindEvents
+					 * @member ns.event.gesture.Manager
+					 * @protected
+					 */
 					_bindEvents: function( ) {
 						if ( TOUCH_DEVICE ) {
 							document.addEventListener( "touchmove", this);
@@ -77,6 +110,13 @@
 						document.addEventListener( "mouseup", this);
 					},
 
+					/**
+					 * Unbind start events
+					 * @method _unbindStartEvents
+					 * @param {ns.event.gesture.Instance} instance gesture instance
+					 * @member ns.event.gesture.Manager
+					 * @protected
+					 */
 					_unbindStartEvents: function( instance ) {
 						var element = instance.getElement();
 						if ( TOUCH_DEVICE ) {
@@ -86,6 +126,12 @@
 						element.removeEventListener( "mousedown", this);
 					},
 
+					/**
+					 * Unbind move, end and cancel events
+					 * @method _bindEvents
+					 * @member ns.event.gesture.Manager
+					 * @protected
+					 */
 					_unbindEvents: function() {
 						if ( TOUCH_DEVICE ) {
 							document.removeEventListener( "touchmove", this);
@@ -97,6 +143,13 @@
 						document.removeEventListener( "mouseup", this);
 					},
 
+					/**
+					 * Handle event
+					 * @method handleEvent
+					 * @param {Event} event
+					 * @member ns.event.gesture.Manager
+					 * @protected
+					 */
 					/* jshint -W086 */
 					handleEvent: function( event ) {
 						var eventType = event.type.toLowerCase();
@@ -129,6 +182,13 @@
 						}
 					},
 
+					/**
+					 * Handler for gesture start
+					 * @method _start
+					 * @param {Event} event
+					 * @member ns.event.gesture.Manager
+					 * @protected
+					 */
 					_start: function( event ) {
 						var elem = event.currentTarget,
 							startEvent, detectors = [];
@@ -175,6 +235,13 @@
 						this._detect(detectors, startEvent);
 					},
 
+					/**
+					 * Handler for gesture move
+					 * @method _move
+					 * @param {Event} event
+					 * @member ns.event.gesture.Manager
+					 * @protected
+					 */
 					_move: function( event ) {
 						if ( !isReadyDetecting ) {
 							return;
@@ -186,6 +253,13 @@
 						this.gestureEvents.last = event;
 					},
 
+					/**
+					 * Handler for gesture end
+					 * @method _end
+					 * @param {Event} event
+					 * @member ns.event.gesture.Manager
+					 * @protected
+					 */
 					_end: function( event ) {
 
 						event = objectMerge(
@@ -208,6 +282,13 @@
 						blockMouseEvent = false;
 					},
 
+					/**
+					 * Handler for gesture cancel
+					 * @method _cancel
+					 * @param {Event} event
+					 * @member ns.event.gesture.Manager
+					 * @protected
+					 */
 					_cancel: function( event ) {
 
 						event = objectMerge(
@@ -226,6 +307,13 @@
 						blockMouseEvent = false;
 					},
 
+					/**
+					 * Detect gesture
+					 * @method _detect
+					 * @param {Event} event
+					 * @member ns.event.gesture.Manager
+					 * @protected
+					 */
 					_detect: function( detectors, event ) {
 						var finishedDetectors = [];
 
@@ -287,6 +375,12 @@
 						}
 					},
 
+					/**
+					 * Reset of gesture manager detector
+					 * @method _resetDetecting
+					 * @member ns.event.gesture.Manager
+					 * @protected
+					 */
 					_resetDetecting: function() {
 						isReadyDetecting = false;
 
@@ -300,6 +394,22 @@
 						this._unbindEvents();
 					},
 
+					/**
+					 * Create default event data
+					 * @method _createDefaultEventData
+					 * @param {string} type event type
+					 * @param {Event} event source event
+					 * @return {Object} default event data
+					 * @return {string} return.eventType
+					 * @return {number} return.timeStamp
+					 * @return {Touch} return.pointer
+					 * @return {TouchList} return.pointers
+					 * @return {Event} return.srcEvent
+					 * @return {Function} return.preventDefault
+					 * @return {Function} return.stopPropagation
+					 * @member ns.event.gesture.Manager
+					 * @protected
+					 */
 					_createDefaultEventData: function( type, event ) {
 						var pointers = event.touches ?
 								event.touches :
@@ -323,6 +433,31 @@
 						};
 					},
 
+					/**
+					 * Create gesture event
+					 * @method _createGestureEvent
+					 * @param {string} type event type
+					 * @param {Event} event source event
+					 * @return {Object} gesture event consist from Event class and additional properties
+					 * @return {number} return.deltaTime
+					 * @return {number} return.deltaX
+					 * @return {number} return.deltaY
+					 * @return {number} return.velocityX
+					 * @return {number} return.velocityY
+					 * @return {number} return.estimatedX
+					 * @return {number} return.estimatedY
+					 * @return {number} return.estimatedDeltaX
+					 * @return {number} return.estimatedDeltaY
+					 * @return {number} return.distance
+					 * @return {number} return.angle
+					 * @return {ns.event.gesture.Direction.LEFT|ns.event.gesture.Direction.RIGHT|ns.event.gesture.Direction.UP|ns.event.gesture.Direction.DOWN} return.direction
+					 * @return {number} return.scale
+					 * @return {number} return.rotation (deg)
+					 * @return {Event} return.startEvent
+					 * @return {Event} return.lastEvent
+					 * @member ns.event.gesture.Manager
+					 * @protected
+					 */
 					_createGestureEvent: function( type, event ) {
 						var ev = this._createDefaultEventData( type, event ),
 							startEvent = this.gestureEvents.start,
@@ -406,6 +541,12 @@
 						return ev;
 					},
 
+					/**
+					 * Register instance of gesture
+					 * @method register
+					 * @param {ns.event.gesture.Instance} instance gesture instance
+					 * @member ns.event.gesture.Manager
+					 */
 					register: function( instance ) {
 						var idx = this.instances.indexOf( instance );
 						if ( idx < 0 ) {
@@ -414,6 +555,12 @@
 						}
 					},
 
+					/**
+					 * Unregister instance of gesture
+					 * @method unregister
+					 * @param {ns.event.gesture.Instance} instance gesture instance
+					 * @member ns.event.gesture.Manager
+					 */
 					unregister: function( instance ) {
 						var idx;
 
@@ -433,6 +580,12 @@
 						}
 					},
 
+					/**
+					 * Destroy instance of Manager
+					 * @method _destroy
+					 * @member ns.event.gesture.Manager
+					 * @protected
+					 */
 					_destroy: function() {
 						this._resetDetecting();
 
@@ -455,4 +608,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-} ( ns, window ) );
+} ( ns, window, window.document ) );
