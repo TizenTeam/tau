@@ -36,27 +36,80 @@
 
 				var object = ns.util.object,
 					options = object.copy(orgOptions),
+					/**
+					 * Alias to Array.slice function
+					 * @method slice
+					 * @member ns.util.callbacks
+					 * @private
+					 */
 					slice = [].slice,
-					// Last fire value (for non-forgettable lists)
+					/**
+					 * Last fire value (for non-forgettable lists)
+					 * @property {Object} memory
+					 * @member ns.util.callbacks
+					 * @private
+					 */
 					memory,
-					// Flag to know if list was already fired
+					/**
+					 * Flag to know if list was already fired
+					 * @property {boolean} fired
+					 * @member ns.util.callbacks
+					 * @private
+					 */
 					fired,
-					// Flag to know if list is currently firing
+					/**
+					 * Flag to know if list is currently firing
+					 * @property {boolean} firing
+					 * @member ns.util.callbacks
+					 * @private
+					 */
 					firing,
-					// First callback to fire (used internally by add and fireWith)
+					/**
+					 * First callback to fire (used internally by add and fireWith)
+					 * @property {number} [firingStart=0]
+					 * @member ns.util.callbacks
+					 * @private
+					 */
 					firingStart,
-					// End of the loop when firing
+					/**
+					 * End of the loop when firing
+					 * @property {number} firingLength
+					 * @member ns.util.callbacks
+					 * @private
+					 */
 					firingLength,
-					// Index of currently firing callback (modified by remove if needed)
+					/**
+					 * Index of currently firing callback (modified by remove if needed)
+					 * @property {number} firingIndex
+					 * @member ns.util.callbacks
+					 * @private
+					 */
 					firingIndex,
-					// Actual callback list
+					/**
+					 * Actual callback list
+					 * @property {Array} list
+					 * @member ns.util.callbacks
+					 * @private
+					 */
 					list = [],
-					// Stack of fire calls for repeatable lists
+					/**
+					 * Stack of fire calls for repeatable lists
+					 * @property {Array} stack
+					 * @member ns.util.callbacks
+					 * @private
+					 */
 					stack = !options.once && [],
 					fire,
 					add,
 					self = {
-						// Add a callback or a collection of callbacks to the list
+						/**
+						 * Add a callback or a collection of callbacks to the list
+						 * @method add
+						 * @param {..Function} list
+						 * @return {ns.util.callbacks} self
+						 * @chainable
+						 * @member ns.util.callbacks
+						 */
 						add: function () {
 							if (list) {
 								// First, we save the current length
@@ -75,7 +128,14 @@
 							}
 							return this;
 						},
-						// Remove a callback from the list
+						/**
+						 * Remove a callback from the list
+						 * @method remove
+						 * @param {..Function} list
+						 * @return {ns.util.callbacks} self
+						 * @chainable
+						 * @member ns.util.callbacks
+						 */
 						remove: function () {
 							if (list) {
 								slice.call(arguments).forEach(function (arg) {
@@ -97,27 +157,57 @@
 							}
 							return this;
 						},
-						// Check if a given callback is in the list.
-						// If no argument is given, return whether or not list has callbacks attached.
+						/**
+						 * Check if a given callback is in the list. 
+						 * If no argument is given,
+						 * return whether or not list has callbacks attached.
+						 * @method has
+						 * @param {Funciton} fn
+						 * @return {boolean}
+						 * @member ns.util.callbacks
+						 */
 						has: function (fn) {
 							return fn ? !!list && list.indexOf(fn) > -1 : !!(list && list.length);
 						},
-						// Remove all callbacks from the list
+						/**
+						 * Remove all callbacks from the list
+						 * @method empty
+						 * @return {ns.util.callbacks} self
+						 * @chainable
+						 * @member ns.util.callbacks
+						 */
 						empty: function () {
 							list = [];
 							firingLength = 0;
 							return this;
 						},
-						// Have the list do nothing anymore
+						/**
+						 * Have the list do nothing anymore
+						 * @method disable
+						 * @return {ns.util.callbacks} self
+						 * @chainable
+						 * @member ns.util.callbacks
+						 */
 						disable: function () {
 							list = stack = memory = undefined;
 							return this;
 						},
-						// Is it disabled?
+						/**
+						 * Is it disabled?
+						 * @method disabled
+						 * @return {boolean}
+						 * @member ns.util.callbacks
+						 */
 						disabled: function () {
 							return !list;
 						},
-						// Lock the list in its current state
+						/**
+						 * Lock the list in its current state
+						 * @method lock
+						 * @return {ns.util.callbacks} self
+						 * @chainable
+						 * @member ns.util.callbacks
+						 */
 						lock: function () {
 							stack = undefined;
 							if (!memory) {
@@ -125,11 +215,25 @@
 							}
 							return this;
 						},
-						// Is it locked?
+						/**
+						 * Is it locked?
+						 * @method locked
+						 * @return {boolean} stack
+						 * @member ns.util.callbacks
+						 */
 						locked: function () {
 							return !stack;
 						},
-						// Call all callbacks with the given context and arguments
+						/**
+						 * Call all callbacks with the given context and
+						 * arguments
+						 * @method fireWith
+						 * @param {Object} context
+						 * @param {Array} args
+						 * @return {ns.util.callbacks} self
+						 * @chainable
+						 * @member ns.util.callbacks
+						 */
 						fireWith: function (context, args) {
 							if (list && (!fired || stack)) {
 								args = args || [];
@@ -142,16 +246,37 @@
 							}
 							return this;
 						},
-						// Call all the callbacks with the given arguments
+						/**
+						 * Call all the callbacks with the given arguments
+						 * @method fire
+						 * @param {...*} argument
+						 * @return {ns.util.callbacks} self
+						 * @chainable
+						 * @member ns.util.callbacks
+						 */
 						fire: function () {
 							self.fireWith(this, arguments);
 							return this;
 						},
-						// To know if the callbacks have already been called at least once
+						/**
+						 * To know if the callbacks have already been called at
+						 * least once
+						 * @method fired
+						 * @return {booblean}
+						 * @chainable
+						 * @member ns.util.callbacks
+						 */
 						fired: function () {
 							return !!fired;
 						}
 					};
+				/**
+				 * Adds functions to the callback list
+				 * @method add
+				 * @param {...*} argument
+				 * @member ns.util.bezierCurve
+				 * @private
+				 */
 				add = function (args) {
 					slice.call(args).forEach(function (arg) {
 						var type = typeof arg;
@@ -165,7 +290,13 @@
 						}
 					});
 				};
-				// Fire callbacks
+				/**
+				 * Fire callbacks
+				 * @method fire
+				 * @param {Array} data
+				 * @member ns.util.bezierCurve
+				 * @private
+				 */
 				fire = function (data) {
 					memory = options.memory && data;
 					fired = true;

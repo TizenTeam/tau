@@ -10,9 +10,33 @@
 		"../util" // fetch namespace
 	], function () {
 		//>>excludeEnd("tauBuildExclude");
+		/**
+		 * Store constant value for half PI
+		 * @property {number} HALF_PI
+		 * @member ns.util.bezierCurve
+		 * @private
+		 * @static
+		 */
 		var HALF_PI = Math.PI / 2,
+			/**
+			 * Store constant value for DEFAULT_STEP
+			 * @property {number} DEFAULT_STEP
+			 * @member ns.util.bezierCurve
+			 * @private
+			 * @static
+			 */
 			DEFAULT_STEP = 0.001,
 			BezierCurve,
+			/**
+			 * Calculates the arc length
+			 * @method arcLength3d
+			 * @param {Array} p0
+			 * @param {Array} p1
+			 * @return {number}
+			 * @member ns.util.bezierCurve
+			 * @private
+			 * @static
+			 */
 			arcLength3d = function (p0, p1) {
 				var d = [ p1[0] - p0[0], p1[1] - p0[1], p1[2] - p0[2] ];
 				return Math.sqrt(d[0] * d[0] + d[1] * d[1] + d[2] * d[2]);
@@ -25,6 +49,14 @@
 			step: DEFAULT_STEP,
 			length: 0,
 			levels: [],
+			/**
+			 * Init BezierCurve
+			 * @method init
+			 * @param {Object} data
+			 * @return {ns.util.BezierCurve} self
+			 * @chainable
+			 * @member ns.util.bezierCurve
+			 */
 			init: function (data) {
 				this.points = data.points;
 				this.step = data.step || DEFAULT_STEP;
@@ -32,7 +64,13 @@
 				this.levels = this.calculateLevel(data.maxLevel) || [];
 				return this;
 			},
-
+			/**
+			 * Calculate levels
+			 * @method calculateLevel
+			 * @param {?number} [maxLevel=null]
+			 * @return {?Array} levels
+			 * @member ns.util.bezierCurve
+			 */
 			calculateLevel: function (maxLevel) {
 				var totalLength = this.length,
 					interval = totalLength / maxLevel,
@@ -49,7 +87,12 @@
 
 				return levels;
 			},
-
+			/**
+			 * Calculate total length
+			 * @method calculateTotalLength
+			 * @return {number}
+			 * @member ns.util.bezierCurve
+			 */
 			calculateTotalLength: function () {
 				var step = this.step,
 					current = this.getPosition(0),
@@ -63,7 +106,13 @@
 				}
 				return length;
 			},
-
+			/**
+			 * Get position
+			 * @method getPosition
+			 * @param {number} percent
+			 * @return {Array}
+			 * @member ns.util.bezierCurve
+			 */
 			getPosition: function (percent) {
 				var points = this.points,
 					getValue = function (p1, c1, c2, p2, t) {
@@ -78,7 +127,14 @@
 					];
 				return [ result[0], 0, result[1] ];
 			},
-
+			/**
+			 * Get percent
+			 * @method getPercent
+			 * @param {number} [start=0]
+			 * @param {?number} interval
+			 * @return {number}
+			 * @member ns.util.bezierCurve
+			 */
 			getPercent: function (start, interval) {
 				var step = this.step,
 					current,
@@ -100,7 +156,13 @@
 				}
 				return 1;
 			},
-
+			/**
+			 * Get angle
+			 * @method getAngle
+			 * @param {number} percent
+			 * @return {number}
+			 * @member ns.util.bezierCurve
+			 */
 			getAngle: function (percent) {
 				var points = this.points,
 					getTangent = function (p1, c1, c2, p2, t) {

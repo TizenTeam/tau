@@ -40,52 +40,62 @@
 			*/
 
 			/**
-			 * @property {number} startX Touch start x
+			 * Touch start x
+			 * @property {number} startX
 			 * @member ns.util.anchorHighlight
 			 * @private
 			 * @static
 			 */
 			var startX,
 				/**
-				 * @property {number} startY Touch start y
+				 * Touch start y
+				 * @property {number} startY
 				 * @member ns.util.anchorHighlight
 				 * @private
 				 * @static
 				 */
 				startY,
 				/**
-				 * @property {boolean} didScroll Did page scrolled
+				 * Did page scrolled
+				 * @property {boolean} didScroll
 				 * @member ns.util.anchorHighlight
 				 * @private
 				 * @static
 				 */
 				didScroll,
 				/**
-				 * @property {HTMLElement} target Touch target element
+				 * Touch target element
+				 * @property {HTMLElement} target
 				 * @member ns.util.anchorHighlight
 				 * @private
 				 * @static
 				 */
 				target,
 				/**
-				 * @property {number} touchLength Length of touch
+				 * Length of touch
+				 * @property {number} touchLength
 				 * @member ns.util.anchorHighlight
 				 * @private
 				 * @static
 				 */
 				touchLength,
 				/**
-				 * @property {number} addActiveClassTimerID Timer id of adding activeClass delay
+				 * Timer id of adding activeClass delay
+				 * @property {number} addActiveClassTimerID
 				 * @member ns.util.anchorHighlight
 				 * @private
 				 * @static
 				 */
 				addActiveClassTimerID,
 				/**
-				 * @property {Object} options Object with default options
-				 * @property {number} [options.scrollThreshold=5] Treshold after which didScroll will be set
-				 * @property {number} [options.addActiveClassDelay=10] Time to wait before adding activeClass
-				 * @property {number} [options.keepActiveClassDelay=100] Time to stay activeClass after touch end
+				 * Object with default options
+				 * @property {Object} options
+				 * Treshold after which didScroll will be set
+				 * @property {number} [options.scrollThreshold=5]
+				 * Time to wait before adding activeClass
+				 * @property {number} [options.addActiveClassDelay=10]
+				 * Time to stay activeClass after touch end
+				 * @property {number} [options.keepActiveClassDelay=100]
 				 * @member ns.util.anchorHighlight
 				 * @private
 				 * @static
@@ -96,7 +106,8 @@
 					keepActiveClassDelay: 100
 				},
 				/**
-				 * @property {string} [activeClassLI='ui-li-active'] Class used to mark element as active
+				 * Class used to mark element as active
+				 * @property {string} [activeClassLI="ui-li-active"] activeClassLI
 				 * @member ns.util.anchorHighlight
 				 * @private
 				 * @static
@@ -111,7 +122,8 @@
 				 */
 				removeTouchMove,
 				/**
-				 * @property {Object} selectors Alias for class {@link ns.util.selectors}
+				 * Alias for class {@link ns.util.selectors}
+				 * @property {Object} selectors
 				 * @member ns.util.anchorHighlight
 				 * @private
 				 * @static
