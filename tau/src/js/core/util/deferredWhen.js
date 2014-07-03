@@ -18,13 +18,34 @@
 					resolveValues = [].slice.call( arguments ),
 					length = resolveValues.length,
 
-					// the count of uncompleted subordinates
+					/**
+					 * The count of uncompleted subordinates
+					 * @property {number} remaining
+					 * @member ns.util.deferredWhen
+					 * @private
+					 */
 					remaining = length !== 1 || (subordinate && (typeof subordinate.promise === "function")) ? length : 0,
 
-					// the master Deferred. If resolveValues consist of only a single Deferred, just use that.
+					/**
+					 * The master Deferred. If resolveValues consist of only
+					 * a single Deferred, just use that.
+					 * @property {ns.util.deferred} deferred
+					 * @member ns.util.deferredWhen
+					 * @private
+					 */
 					deferred = remaining === 1 ? subordinate : new ns.util.deferred(),
 
-					// Update function for both resolve and progress values
+					/**
+					 * Update function for both resolve and progress values
+					 * @method updateFunc
+					 * @param {number} i
+					 * @param {Array} contexts
+					 * @param {Array} values
+					 * @return {Function} representing the current state
+					 * "pending" | "resolved" | "rejected"
+					 * @member ns.util.deferredWhen
+					 * @private
+					 */
 					updateFunc = function( i, contexts, values ) {
 						return function( value ) {
 							contexts[ i ] = this;

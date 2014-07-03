@@ -15,6 +15,15 @@
 			//>>excludeEnd("tauBuildExclude");
 			var loadedCultures = {};
 
+			/**
+			 * Get Language code
+			 * @method getLang
+			 * @param {?string} language
+			 * @return {string}
+			 * @private
+			 * @member ns.util.globalize
+			 * @static
+			 */
 			function getLang(language) {
 				var lang = language ||
 						document.getElementsByTagName('html')[0].getAttribute('lang') ||
@@ -36,6 +45,15 @@
 				return lang;
 			}
 
+			/**
+			 * Get neutral language
+			 * @method getNeutralLang
+			 * @param {string} lang
+			 * @return {string}
+			 * @private
+			 * @member ns.util.globalize
+			 * @static
+			 */
 			function getNeutralLang(lang) {
 				var neutralLangIdx = lang.lastIndexOf('-'),
 					neutralLang;
@@ -45,6 +63,16 @@
 				return neutralLang;
 			}
 
+			/**
+			 * Get path to the culture file
+			 * @method getCultureFilePath
+			 * @param {string} lang
+			 * @param {Array} cultureDictionary
+			 * @return {string}
+			 * @private
+			 * @member ns.util.globalize
+			 * @static
+			 */
 			function getCultureFilePath(lang, cultureDictionary) {
 				var path = null,
 					frameworkData = ns.frameworkData;
@@ -64,12 +92,29 @@
 				return path;
 			}
 
+			/**
+			 * Throw error when the file cannot be loaded
+			 * @method printLoadError
+			 * @param {string} path
+			 * @private
+			 * @member ns.util.globalize
+			 * @static
+			 */
 			function printLoadError(path) {
 				//>>excludeStart("tauDebug", pragmas.tauDebug);
 				ns.error("Error loading culture file (" + path + ") is failed to load.");
 				//>>excludeEnd("tauDebug");
 			}
 
+			/**
+			 * Error handler
+			 * @method _errCB
+			 * @param {string} path
+			 * @param {?Function} errCB
+			 * @private
+			 * @member ns.util.globalize
+			 * @static
+			 */
 			function _errCB(path, errCB) {
 				if (typeof errCB === 'function') {
 					errCB(path);
@@ -78,6 +123,14 @@
 				}
 			}
 
+			/**
+			 * Loads culture file
+			 * @method loadCultureFile
+			 * @param {string} path
+			 * @private
+			 * @member ns.util.globalize
+			 * @static
+			 */
 			function loadCultureFile(path) {
 				var script,
 					xhrObj;
@@ -107,10 +160,12 @@
 				/**
 				* Load Globalize culture file, and set default culture.
 				* @method loadGlobalizeCulture
-				* @param [language] Language code. ex) en-US, en, ko-KR, ko
-				*						If language is not given, read language from html 'lang' attribute,
-				*						or from system setting.
-				* @param [cultureDictionary] Dictionary having language code->
+				* Language code. ex) en-US, en, ko-KR, ko, If language is not
+				* given, read language from html 'lang' attribute,
+				* or from system setting.
+				* @param {string} language
+				* Dictionary having language code->
+				* @param {string[]} cultureDictionary
 				* @member ns.util.globalize
 				* @return {string}
 				*/
@@ -160,9 +215,11 @@
 				},
 				/**
 				* Load custom globalize culture file
-				* Find current system language, and load appropriate culture file from given colture file list.
+				* Find current system language, and load appropriate culture
+				* file from given culture file list.
 				* @method loadCustomGlobalizeCulture
-				* @param cultureDictionary	collection of 'language':'culture file path' key-val pair.
+				* collection of 'language':'culture file path' key-val pair.
+				* @param {string[]} cultureDictionary
 				* @member ns.util.globalize
 				* @example
 				* var myCultures = {
@@ -190,7 +247,6 @@
 				* return culture object from Globalize library
 				* @method culture
 				* @return {Object}
-				* @static
 				* @member ns.util.globalize
 				*/
 				culture: function () {

@@ -19,6 +19,12 @@
 			var Deferred = function (callback) {
 				var callbacks = ns.util.callbacks,
 					object = ns.util.object,
+					/**
+					 * Register additional action for deferred object
+					 * @property {Array} tuples
+					 * @member ns.util.deferred
+					 * @private
+					 */
 					tuples = [
 						// action, add listener, listener list, final state
 						["resolve", "done", callbacks({once: true, memory: true}), "resolved"],
@@ -28,13 +34,37 @@
 					state = "pending",
 					deferred = {},
 					promise = {
+						/**
+						 * Determine the current state of a Deferred object.
+						 * @method state
+						 * @return {"pending" | "resolved" | "rejected"} representing the current state
+						 * @member ns.util.deferred
+						 */
 						state: function () {
 							return state;
 						},
+						/**
+						 * Add handlers to be called when the Deferred object
+						 * is either resolved or rejected.
+						 * @method always
+						 * @param {...Function}
+						 * @return {ns.util.deferred} self
+						 * @member ns.util.deferred
+						 */
 						always: function () {
 							deferred.done(arguments).fail(arguments);
 							return this;
 						},
+						/**
+						 * Add handlers to be called when the Deferred object
+						 * is resolved, rejected, or still in progress.
+						 * @method then
+						 * @param {?Function} callback assign when done
+						 * @param {?Function} callback assign when fail
+						 * @param {?Function} callback assign when progress
+						 * @return {Object} returns a new promise
+						 * @member ns.util.deferred
+						 */
 						then: function () {/* fnDone, fnFail, fnProgress */
 							var functions = arguments;
 							return new Deferred(function (newDefer) {
@@ -56,8 +86,14 @@
 								functions = null;
 							}).promise();
 						},
-						// Get a promise for this deferred
-						// If obj is provided, the promise aspect is added to the object
+						/**
+						 * Get a promise for this deferred. If obj is provided,
+						 * the promise aspect is added to the object
+						 * @method promise
+						 * @param {Object} obj
+						 * @return {Object} return a Promise object
+						 * @member ns.util.deferred
+						 */
 						promise: function (obj) {
 							if (obj) {
 								return object.merge(obj, promise);
@@ -66,7 +102,11 @@
 						}
 					};
 
-				// Keep pipe for back-compat
+				/**
+				 * alias for promise.then, Keep pipe for back-compat
+				 * @method pipe
+				 * @member ns.util.deferred
+				 */
 				promise.pipe = promise.then;
 
 				// Add list-specific methods

@@ -9,8 +9,29 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
+			/**
+			 * Local alias for ns.util.selectors
+			 * @property {Object} selectors Alias for {@link ns.util.selectors}
+			 * @member ns.util.grid
+			 * @static
+			 * @private
+			 */
 			var selectors = ns.util.selectors,
+				/**
+				 * Alias to Array.slice method
+				 * @method slice
+				 * @member ns.util.grid
+				 * @private
+				 * @static
+				 */
 				slice = [].slice,
+				/**
+				 * grid types
+				 * @property {Array} gridTypes
+				 * @member ns.util.grid
+				 * @static
+				 * @private
+				*/
 				gridTypes = [
 					null,
 					"solo", //1
@@ -20,6 +41,16 @@
 					"d"	//5
 				];
 
+			/**
+			 * Add classes on the matched elements
+			 * @method setClassOnMatches
+			 * @param {HTMLElementCollection} elements
+			 * @param {string} selector
+			 * @param {string} className
+			 * @private
+			 * @member ns.util.grid
+			 * @static
+			 */
 			function setClassOnMatches(elements, selector, className) {
 				elements.forEach(function (item) {
 					if (selectors.matchesSelector(item, selector)) {
@@ -36,7 +67,7 @@
 				* make css grid
 				* @method makeGrid
 				* @param {HTMLElement} element
-				* @param {string=} [gridType="a"]
+				* @param {?string} [gridType="a"]
 				* @static
 				* @member ns.util.grid
 				*/

@@ -16,6 +16,16 @@
 			var hashMap = {},
 				eventUtils = ns.event,
 				body = document.body,
+				/**
+				 * Return hash for object
+				 * @method fetchDom
+				 * @param {HTMLElement} element
+				 * @param {string} key
+				 * @return {?Object}
+				 * @member ns.util.data
+				 * @static
+				 * @private
+				 */
 				fetchDom = function (element, key) {
 					var dataKey = 'data-' + key,
 						data,
@@ -28,6 +38,15 @@
 					}
 					return result;
 				},
+				/**
+				 * Remove attribute from element
+				 * @method removeDom
+				 * @param {HTMLElement} element
+				 * @param {string} key
+				 * @member ns.util.data
+				 * @static
+				 * @private
+				 */
 				removeDom = function (element, key) {
 					var dataKey = 'data-' + key;
 					if (element.hasAttribute(dataKey)) {
@@ -67,7 +86,16 @@
 				};
 
 			ns.util.data = {
-
+				/**
+				 * Set value for element
+				 * @method set
+				 * @param {HTMLElement} element
+				 * @param {string} key
+				 * @param {*} value
+				 * @return {*}
+				 * @member ns.util.data
+				 * @static
+				 */
 				set: function (element, key, value) {
 					var hash = hashObject(element);
 					if (!hash) {
@@ -88,6 +116,16 @@
 					return value;
 				},
 
+				/**
+				 * Get value for element
+				 * @method get
+				 * @param {HTMLElement} element
+				 * @param {string} key
+				 * @param {?*} defaultValue
+				 * @return {Mixed}
+				 * @member ns.util.data
+				 * @static
+				 */
 				get: function (element, key, defaultValue) {
 					var hash = hashObject(element),
 						value;
@@ -113,6 +151,15 @@
 					return defaultValue;
 				},
 
+				/**
+				 * remove value for element
+				 * @method remove
+				 * @param {HTMLElement} element
+				 * @param {string} key
+				 * @return {boolean}
+				 * @member ns.util.data
+				 * @static
+				 */
 				remove: function (element, key) {
 					var hash = hashObject(element),
 						value;

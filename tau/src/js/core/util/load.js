@@ -14,18 +14,47 @@
 			//>>excludeEnd('tauBuildExclude');
 
 			/**
-			 * @property {HTMLHeadElement} head local alias for document HEAD element
+			 * Local alias for document HEAD element
+			 * @property {HTMLHeadElement} head
 			 * @static
 			 * @private
 			 * @member ns.util.load
 			 */
 			var head = document.head,
+				/**
+				 * Local alias for document styleSheets element
+				 * @property {HTMLStyleElement} styleSheets
+				 * @static
+				 * @private
+				 * @member ns.util.load
+				 */
 				styleSheets = document.styleSheets,
+				/**
+				 * Local alias for ns.util.DOM
+				 * @property {Object} utilsDOM Alias for {@link ns.util.DOM}
+				 * @member ns.util.load
+				 * @static
+				 * @private
+				 */
 				utilDOM = ns.util.DOM,
 				getNSData = utilDOM.getNSData,
 				setNSData = utilDOM.setNSData,
 				load = ns.util.load || {},
+				/**
+				 * Regular expression for extracting path to the image
+				 * @property {RegExp} IMAGE_PATH_REGEXP
+				 * @static
+				 * @private
+				 * @member ns.util.load
+				 */
 				IMAGE_PATH_REGEXP = /url\((\.\/)?images/gm,
+				/**
+				 * Regular expression for extracting path to the css
+				 * @property {RegExp} CSS_FILE_REGEXP
+				 * @static
+				 * @private
+				 * @member ns.util.load
+				 */
 				CSS_FILE_REGEXP = /[^/]+\.css$/;
 
 			/**
@@ -99,6 +128,8 @@
 			 * @param {?Function} successCB
 			 * @param {?Function} xhrObj
 			 * @member ns.util.load
+			 * @static
+			 * @private
 			 */
 			function cssSyncSuccess(cssPath, successCB, xhrObj) {
 				var css = document.createElement('style');
@@ -120,6 +151,7 @@
 			 * @param {?Function} successCB
 			 * @param {?Function} errorCB
 			 * @static
+			 * @private
 			 * @member ns.util.load
 			 */
 			function cssSync(cssPath, successCB, errorCB) {
@@ -201,7 +233,7 @@
 			}
 
 			/**
-			 *
+			 * String conataining the path to cacheBust
 			 * @property {string} cacheBust
 			 * @member ns.util.load
 			 */
