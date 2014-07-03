@@ -1,19 +1,19 @@
 /*global window, define */
 /*
-* Copyright (c) 2013 - 2014 Samsung Electronics Co., Ltd
-*
-* Licensed under the Flora License, Version 1.1 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*     http://floralicense.org/license/
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * Copyright (c) 2013 - 2014 Samsung Electronics Co., Ltd
+ *
+ * Licensed under the Flora License, Version 1.1 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://floralicense.org/license/
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 /*jslint nomen: true, plusplus: true */
 
 /* Added to classes:
@@ -27,7 +27,7 @@
  *
  * Changed classes:
  *   + ui-tokentextarea div to ui-tokentextarea-span-block
- * Added class for hiddeing element:
+ * Added class for hiding element:
  *   + span.ui-tokentextarea-invisible
  *
  * All was made for better responsivity and locations tokens.
@@ -35,149 +35,154 @@
  */
 
 /**
- * #Token Textarea Widget
+ * #TokenTextArea widget
+ * The TokenTextArea widget changes a text item to a button. It can be
+ * comprised of a number of button widgets. When a user types text and the text
+ * gets a specific event to change from a text to a button, the input text is
+ * changed to a TokenTextArea widget. A user can add the TokenTextArea widget
+ * to a contact list, email list, or another list.
  *
- *
- *  ##Manual constuctor
- * ###For manual creation of progressbar widget you can use constructor of widget:
- *
- *	@example
- *	var tokentextarea = ns.engine.instanceWidget(document.getElementById('foo'), 'Tokentextarea');
- *
- * If jQuery library is loaded, its method can be used:
- *
- *	@example
- *	var tokentextarea = $('#foo').tokentextarea();
+ * The typical use of this
+ * widget is composing a number of contacts or phone numbers in a specific area
+ * of the screen. The TokenTextArea widget enables the user to enter text and
+ * convert it to a button. Each button that is created from entered text as a
+ * result of a change event forms a token text area widget. This widget is
+ * useful in composing an e-mail or SMS message to a group of addresses,
+ * each of which is a clickable item for more actions, such as copying,
+ * editing, or removing the address.
  *
  * ##HTML Examples
  * ###Create simple Tokentextarea from div using data-role:
  *
- *	@example
- *	<div data-role="tokentextarea"></div>
+ *		@example
+ *			<div data-role="tokentextarea"></div>
+
+ * ###Create simple Tokentextarea from div using class:
  *
- * ###HTML attributes
+ *		@example
+ *			<div class="ui-tokentextarea"></div>
+ *
+ * ##Manual constructor
+ * ###For manual creation of progressbar widget you can use constructor
+ * of widget:
+ *
+ *		@example
+ *			<div id="ns-tokentextarea"><div>
+ *			 <script>
+ *				var token = tau.widget.Tokentextarea(
+ *					document.getElementById('ns-tokentextarea')
+ *				);
+ *			</script>
+ *
+ * If jQuery library is loaded, it's method can be used:
+ *
+ *		@example
+ *			<div id="ns-tokentextarea"><div>
+ *			 <script>
+ *				$("#ns-tokentextarea").tokentextarea();
+ *			</script>
+ *
+ *	##Options for Tokentextarea Widget
+ *
+ *	Options for widget can be defined as _data-..._ attributes or give as
+ *	parameter in constructor.
+ *
+ * You can change option for widget using method **option**.
+ *
+ * ###data-label
+ * Label for a user guide
+ * Provide custom label for the user guide, for example, while composing
+ * an sms message "Send to: " label is a user guide to enter phone number
+ * or choose recipient from address book.
+ *
+ *		@example
+ *			<div data-role="tokentextarea" data-label="Send to: "></div>
+ *
  * ####data-link
  * Represents the id of the page or the URL of other HTML file.
  * The page contains data for the user, for example, an address book.
  * If the value is null, anchor button doesn't work. (Default : null)
  *
- *	@example
- *	<div data-role="tokentextarea" data-link="bar.html"></div>
+ *		@example
+ *			<div data-role="tokentextarea" data-link="bar.html"></div>
  *
- * ####data-label
- * Provide a label for a user-guide. (Default : 'To : ')
- *
- *	@example
- *	<div data-role="tokentextarea" data-label="Send to: "></div>
- *
- * ####data-description
+ * ###data-description
  * This attribute is managing message format.
- * This message is displayed when widget status was changed to 'focusout'. (Default : '+ {0}')
+ * This message is displayed when widget status was changed to 'focusout'.
+ * (Default : '+ {0}')
  *
- *	@example
- *	<div data-role="tokentextarea" data-description="bar + {0}"></div>
+ *		@example
+ *			<div data-role="tokentextarea" data-description="bar + {0}"></div>
  *
  *
+ * ##Options for Tokentextarea Widget
  *
- * ###Javascript API
- * ####inputText ( [string ] )
- * If artument is not exist, will get a string from inputbox.
- * If argument is exist, will set a string in inputbox.
+ * Options for widget can be get/set .
  *
- *	@example
- *	ns.engine.instanceWidget(document.getElementById("foo")).inputText("bar");
+ * ###You can change option for widget using method **option**.
+ * Initialize the widget
  *
- * If jQuery library is loaded, its method can be used:
+ *		@example
+ *			<script>
+ *				var elementToken = document.getElementById("ns-tokentextarea"),
+ *				Tokentextarea = tau.widget.Tokentextarea(elementToken);
+ *			</script>
  *
- *	@example
- *	$("#foo").inputText("bar");
+ * ### Custom Label
+ * Get or set the label option, after initialization
  *
- * ####select ( [number] )
- * If argument is not exist, will get a string from the selected block, if any block isn't selected, will get 'null' value.
- * If argument is exist, will select the block which is matched with the argument.
+ *		@example
+ *			<script>
+ *				//getter
+ *				Tokentextarea.option( "label" );
  *
- *	@example
- *	ns.engine.instanceWidget(document.getElementById("foo")).select(1);
+ *				//setter
+ *				Tokentextarea.option( "label", "e-mail To:" );
+ *			</script>
  *
- * If jQuery library is loaded, its method can be used:
+ * ### Custom Link
+ * Get or set the link option, after initialization
  *
- *	@example
- *	$("#foo").select(1);
+ *		@example
+ *			<script>
+ *				//getter
+ *				Tokentextarea.option( "link" );
  *
- * ####add ( text, [number] )
- * If secound argument is not exsit, will insert to a new block at last position.
- * If secound arbument is exist, will insert to a new block at indexed position.
+ *				//setter
+ *				Tokentextarea.option( "link", "favorites.html");
+ *			</script>
  *
- *	@example
- *	ns.engine.instanceWidget(document.getElementById("foo")).add("bar", 2);
+ * ### Custom description
+ * Get or set the link option, after initialization
  *
- * If jQuery library is loaded, its method can be used:
+ *		@example
+ *			<script>
+ *				//getter
+ *				Tokentextarea.option( "description" );
  *
- *	@example
- *	$("#foo").add("bar", 2);
+ *				//setter
+ *				Tokentextarea.option( "description", "bar + {0}");
+ *			</script>
  *
- * ####remove ( [number] )
- * If argument is not exist, will delete all blocks.
- * If argument is exist, will delete block at indexed position.
+ * ##Methods
  *
- *	@example
- *	ns.engine.instanceWidget(document.getElementById("foo")).remove(1);
+ * To call method on widget you can use one of existing API:
  *
- * If jQuery library is loaded, its method can be used:
+ * First API is from tau namespace:
  *
- *	@example
- *	$("#foo").remove(1);
+ *		@example
+ *		var elementToken = document.getElementById("ns-tokentext"),
+ *			tokentextarea = tau.widget.Tokentextarea(elementToken);
  *
- * ####length ( void )
- * Get a number of widget.
+ *		tokentextarea.methodName(methodArgument1, methodArgument2, ...);
  *
- *	@example
- *	ns.engine.instanceWidget(document.getElementById("foo")).length;
+ * Second API is jQuery Mobile API and for call _methodName_ you can use:
  *
- * If jQuery library is loaded, its method can be used:
- *
- *	@example
- *	$("#foo").length();
- *
- * ####focusIn ( void )
- * This method change status to 'focus in'.
- * This status is able to manege a widget.
- *
- *	@example
- *	ns.engine.instanceWidget(document.getElementById("foo")).focusIn();
- *
- * If jQuery library is loaded, its method can be used:
- *
- *	@example
- *	$("#foo").focusIn();
- *
- * ####focusOut ( void )
- * This method change status to 'focus out'.
- * This status is unable to menage a widget.
- * All block that contained id the widget are hidden and summarized message is displayed
- *
- *	@example
- *	ns.engine.instanceWidget(document.getElementById("foo")).focusOut();
- *
- * If jQuery library is loaded, its method can be used:
- *
- *	@example
- *	$("#foo").focusOut();
- *
- * ####destroy ( void )
- * Remove all of the DOM elements for the widget.
- *
- *	@example
- *	ns.engine.instanceWidget(document.getElementById("foo")).destroy();
- *
- * If jQuery library is loaded, its method can be used:
- *
- *	@example
- *	$("#foo").destroy();
- *
+ *		@example
+ *		$(".selector").tokentextarea("methodName", methodArgument1, ...);
  *
  * @author Kamil Stepczuk <k.stepczuk@samsung.com>
- * @class ns.widget.Tokentextarea
+ * @class ns.widget.mobile.Tokentextarea
  * @extends ns.widget.BaseWidget
  */
 
@@ -194,87 +199,104 @@
 			//>>excludeEnd("tauBuildExclude");
 
 			/**
-			* @property {Object} BaseWidget alias variable
-			* @private
-			* @static
-			*/
+			 * BaseWidget alias variable
+			 * @property {Object} BaseWidget alias variable
+			 * @private
+			 * @static
+			 */
 			var BaseWidget = ns.widget.mobile.BaseWidgetMobile,
 
 				/**
-				* @property {ns.engine} engine alias variable
-				* @private
-				* @static
-				*/
+				 * Engine alias variable
+				 * @property {ns.engine} engine alias variable
+				 * @private
+				 * @static
+				 */
 				engine = ns.engine,
 
 				/**
-				* Local constructor function
-				* @method Tokentextarea
-				* @private
-				* @member ns.widget.Tokentextarea
-				*/
+				 * Dictionary object containing commonly used widget classes
+				 * @property {Object} classes
+				 * @static
+				 * @private
+				 * @readonly
+				 * @member ns.widget.mobile.Tokentextarea
+				 */
+				classes = {
+					uiTokentextarea: "ui-tokentextarea",
+					uiTokentextareaLabel: "ui-tokentextarea-label",
+					uiTokentextareaInput: "ui-tokentextarea-input",
+					uiTokentextareaInputVisible:
+						"ui-tokentextarea-input-visible",
+					uiTokentextareaInputInvisible:
+						"ui-tokentextarea-input-invisible",
+					uiinputText: "ui-input-text",
+					uiBodyS: "ui-body-s",
+					uiTokentextareaLinkBase: "ui-tokentextarea-link-base",
+					uiBtnBoxS: "ui-btn-box-s",
+					uiTokentextareaSblock: "ui-tokentextarea-sblock",
+					uiTokentextareaBlock: "ui-tokentextarea-block",
+					uiTokentextareaFocusout: "ui-tokentextarea-focusout",
+					uiTokentextareaFocusin: "ui-tokentextarea-focusin",
+					uiTokentextareaSpanBlock: "ui-tokentextarea-span-block",
+					uiTokentextareaInputArea: "ui-tokentextarea-input-area",
+					uiTokentextareaDesclabel: "ui-tokentextarea-desclabel",
+					uiTokentextareaInvisible: "ui-tokentextarea-invisible"
+				},
+				/**
+				 * Local constructor function
+				 * @method Tokentextarea
+				 * @private
+				 * @member ns.widget.mobile.Tokentextarea
+				 */
 				Tokentextarea = function () {
 					/**
-					*
-					* @property {boolean} [_focusStatus=true]
-					* @private
-					* @member ns.widget.Tokentextarea
-					*/
+					 * Focus state
+					 * @property {boolean} [_focusStatus=true]
+					 * @member ns.widget.mobile.Tokentextarea
+					 */
 					this._focusStatus = true;
 					/**
-					*
-					* @property {Object} options Tokentextarea widget options
-					* @property {string} [options.label='To : ']
-					* @property {string} [link='']
-					* @property {string} [description='+ {0}']
-					* @member ns.widget.Tokentextarea
-					*/
+					 * Object with default options
+					 * @property {Object} options
+					 * @property {string} [options.label="To : "] Sets a label
+					 * as a guide for the user
+					 * @property {string} [link=""] Sets the ID of the page or
+					 * the URL of other HTML file
+					 * @property {string} [options.description="+ {0}"] Manages
+					 * the message format
+					 * @member ns.widget.mobile.Tokentextarea
+					 */
 					this.options = {
 						label: "To : ",
 						link: "",
 						description: "+ {0}"
 					};
 					/**
-					*
-					* @property {Function|null} [inputKeyUp=null]
-					* @private
-					* @member ns.widget.Tokentextarea
-					*/
+					 *
+					 * @property {?Function|null} [inputKeyUp=null]
+					 * @private
+					 * @member ns.widget.mobile.Tokentextarea
+					 */
 					this.inputKeyUp = null;
 				};
 
 			Tokentextarea.prototype = new BaseWidget();
 
-			/**
-			* @property {Object} classes object containing commonly used wiget classes
-			* @static
-			* @member ns.widget.Tokentextarea
-			*/
-			Tokentextarea.classes = {
-				uiTokentextarea: "ui-tokentextarea",
-				uiTokentextareaLabel: "ui-tokentextarea-label",
-				uiTokentextareaInput: "ui-tokentextarea-input",
-				uiTokentextareaInputVisible: "ui-tokentextarea-input-visible",
-				uiTokentextareaInputInvisible: "ui-tokentextarea-input-invisible",
-				uiinputText: "ui-input-text",
-				uiBodyS: "ui-body-s",
-				uiTokentextareaLinkBase: "ui-tokentextarea-link-base",
-				uiBtnBoxS: "ui-btn-box-s",
-				uiTokentextareaSblock: "ui-tokentextarea-sblock",
-				uiTokentextareaBlock: "ui-tokentextarea-block",
-				uiTokentextareaFocusout: "ui-tokentextarea-focusout",
-				uiTokentextareaFocusin: "ui-tokentextarea-focusin",
-				uiTokentextareaSpanBlock: "ui-tokentextarea-span-block",
-				uiTokentextareaInputArea: "ui-tokentextarea-input-area",
-				uiTokentextareaDesclabel: "ui-tokentextarea-desclabel",
-				uiTokentextareaInvisible: "ui-tokentextarea-invisible"
-			};
+			Tokentextarea.classes = classes;
 
 			/**
-			* @property {Object} strings object containing commonly used wiget strings
-			* @static
-			* @member ns.widget.Tokentextarea
-			*/
+			 * Strings object containing commonly used widget strings
+			 * @property {Object}
+			 * @property {string} options.doubleTapToEdit Is used to set aria
+			 * label for token text area button
+			 * @property {string} options.moreDoubleTapToEdit Is used to set
+			 * aria label for grouped hidden tokens
+			 * @property {string} options.addRecipient Is used to add text to
+			 * the button linked to external page or URL
+			 * @static
+			 * @member ns.widget.mobile.Tokentextarea
+			 */
 			Tokentextarea.strings = {
 				doubleTapToEdit: "double tap to edit",
 				moreDoubleTapToEdit: "more, double tap to edit",
@@ -282,35 +304,43 @@
 			};
 
 			/**
-			* Function for select block
-			* @param {HTMLElement} block
-			* @private
-			*/
+			 * Function for select block
+			 * @method _selectBlock
+			 * @param {HTMLElement} block
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.Tokentextarea
+			 */
 			function _selectBlock(block) {
-				var classes = Tokentextarea.classes,
-					blockClasses = block.classList;
+				var blockClasses = block.classList;
 				blockClasses.add(classes.uiTokentextareaSblock);
 				blockClasses.remove(classes.uiTokentextareaBlock);
 			}
 
 			/**
-			* Function for unselect block
-			* @param {HTMLElement} block
-			* @private
-			*/
+			 * Function for unselect block
+			 * @method _unselectBlock
+			 * @param {HTMLElement} block
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.Tokentextarea
+			 */
 			function _unselectBlock(block) {
-				var classes = Tokentextarea.classes,
-					blockClasses = block.classList;
+				var blockClasses = block.classList;
 				blockClasses.remove(classes.uiTokentextareaSblock);
 				blockClasses.add(classes.uiTokentextareaBlock);
 			}
 
 			/**
-			* Function set max width for block element
-			* Function will be deleted when 'overflow: hidden' and 'text-overflow: ellipsis' will work with percent value max width.
-			* @param {HTMLElement} element
-			* @private
-			*/
+			 * Function set max width for block element
+			 * Function will be deleted when 'overflow: hidden' and
+			 * 'text-overflow: ellipsis' will work with percent value max width.
+			 * @method _setMaxSizeBlock
+			 * @param {HTMLElement} element
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.Tokentextarea
+			 */
 			function _setMaxSizeBlock(element) {
 				var parent = element.parentNode,
 					maxWidth;
@@ -319,21 +349,25 @@
 			}
 
 			/**
-			* Function remove text block form widget
-			* @param {HTMLElement} element
-			* @param {number} blockIndex
-			* @private
-			*/
+			 * Function remove text block from widget
+			 * @method _removeTextBlock
+			 * @param {HTMLElement} element
+			 * @param {number} blockIndex
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.Tokentextarea
+			 */
 			function _removeTextBlock(element, blockIndex) {
-				var classes = Tokentextarea.classes,
-					blockParent,
+				var blockParent,
 					block,
 					blockLength,
 					i;
 				if (arguments.length === 1) {
 					element.parentNode.removeChild(element);
 				} else {
-					block = element.getElementsByClassName(classes.uiTokentextareaSpanBlock);
+					block = element.getElementsByClassName(
+						classes.uiTokentextareaSpanBlock
+					);
 					blockLength = block.length;
 					if (blockLength === 0) {
 						return;
@@ -350,21 +384,26 @@
 			}
 
 			/**
-			* Handler function for click to block
-			* @private
-			*/
+			 * Handler function for click to block
+			 * @method blockClick
+			 * @param {Event} event
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.Tokentextarea
+			 */
 			function blockClick(event) {
 				var element = event.target,
-					classes = Tokentextarea.classes,
 					parent = element.parentNode,
 					widget = ns.engine.instanceWidget(parent),
 					lockBlock;
 
 				if (widget._focusStatus) {
-					if (element.classList.contains(classes.uiTokentextareaSblock)) {
+					if (element.classList.contains(
+						classes.uiTokentextareaSblock)) {
 						_removeTextBlock(element);
 					} else {
-						lockBlock = parent.getElementsByClassName(classes.uiTokentextareaSblock)[0];
+						lockBlock = parent.getElementsByClassName(
+							classes.uiTokentextareaSblock)[0];
 						if (lockBlock !== undefined) {
 							_unselectBlock(lockBlock);
 						}
@@ -376,30 +415,37 @@
 			}
 
 			/**
-			* Function bind event vclick for block
-			* @param {HTMLElement} block
-			* @private
-			*/
+			 * Function bind event vclick for block
+			 * @method _bindBlockEvents
+			 * @param {HTMLElement} block
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.Tokentextarea
+			 */
 			function _bindBlockEvents(block) {
 				block.addEventListener("vclick", blockClick, false);
 			}
 
 			/**
-			* Function add block into widget
-			* @param {HTMLElement} element
-			* @param {string} messages
-			* @param {number} blockIndex
-			* @private
-			*/
+			 * Function add block into widget
+			 * @method _addTextBlock
+			 * @param {HTMLElement} element
+			 * @param {string} messages
+			 * @param {number} blockIndex
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.Tokentextarea
+			 */
 			function _addTextBlock(element, messages, blockIndex) {
-				var classes = Tokentextarea.classes,
-					strings = Tokentextarea.strings,
+				var strings = Tokentextarea.strings,
 					textBlock,
 					textBlockClasses,
 					input,
 					blocks;
 
-				blocks = element.getElementsByClassName(classes.uiTokentextareaSpanBlock);
+				blocks = element.getElementsByClassName(
+					classes.uiTokentextareaSpanBlock
+				);
 				textBlock = document.createElement("div");
 				textBlock.textContent = messages;
 				textBlockClasses = textBlock.classList;
@@ -413,24 +459,30 @@
 					input = element.childNodes[element.childNodes.length - 1];
 					element.insertBefore(textBlock, input);
 				}
-				window.addEventListener("pageshow", _setMaxSizeBlock.bind(null, textBlock), false);
+				window.addEventListener(
+					"pageshow", _setMaxSizeBlock.bind(null, textBlock), false
+				);
 				_setMaxSizeBlock(textBlock);
 				_bindBlockEvents(textBlock);
 			}
 
 			/**
-			* Function validate last block
-			* @param {HTMLElement} container
-			* @private
-			*/
+			 * Function validate last block
+			 * @method _validateTargetBlock
+			 * @param {HTMLElement} container
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.Tokentextarea
+			 */
 			function _validateTargetBlock(container) {
-				var classes = Tokentextarea.classes,
-					block,
+				var block,
 					lastBlock,
 					lastBlockClasses;
 
 
-				block = container.getElementsByClassName(classes.uiTokentextareaSpanBlock);
+				block = container.getElementsByClassName(
+					classes.uiTokentextareaSpanBlock
+				);
 				lastBlock = block[block.length - 1];
 				lastBlockClasses  = lastBlock.classList;
 
@@ -442,23 +494,29 @@
 			}
 
 			/**
-			* Function unselect block in widget
-			* @param {HTMLElement} element
-			* @private
-			*/
+			 * Function unselect block in widget
+			 * @method _unlockTextBlock
+			 * @param {HTMLElement} element
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.Tokentextarea
+			 */
 			function _unlockTextBlock(element) {
-				var classes = Tokentextarea.classes,
-					selectedBlock = element.getElementsByClassName(classes.uiTokentextareaSblock)[0];
+				var selectedBlock = element.getElementsByClassName(
+						classes.uiTokentextareaSblock)[0];
 				if (selectedBlock !== undefined) {
 					_unselectBlock(selectedBlock);
 				}
 			}
 
 			/**
-			 * Handler function for event kayUp
+			 * Handler function for event keyUp
+			 * @method inputKeyUp
 			 * @param {HTMLElement} element
 			 * @param {Event} event
 			 * @private
+			 * @static
+			 * @member ns.widget.mobile.Tokentextarea
 			 */
 			function inputKeyUp (element, event) {
 				var keyValue = event.keyCode,
@@ -469,17 +527,19 @@
 					i;
 
 				/*
-				* 8 = backspace
-				* 13 = enter
-				* 186 = semi-colon
-				* 188 = comma
-				*/
+				 * 8 = backspace
+				 * 13 = enter
+				 * 186 = semi-colon
+				 * 188 = comma
+				 */
 
 				if (keyValue === 8) {
 					if (inputValue.length === 0) {
 						_validateTargetBlock(element);
 					}
-				} else if (keyValue === 13 || keyValue === 186 || keyValue === 188) {
+				} else if (keyValue === 13 ||
+					keyValue === 186 ||
+					keyValue === 188) {
 					if (inputValue.length !== 0) {
 						messages = inputValue.split(/[,;]/);
 						messagesLength = messages.length;
@@ -497,16 +557,15 @@
 			}
 
 			/**
-			* Build widget structure
-			* @method _build
-			* @protected
-			* @param {HTMLElement} element
-			* @return {HTMLElement}
-			* @member ns.widget.Tokentextarea
-			*/
+			 * Build widget structure
+			 * @method _build
+			 * @protected
+			 * @param {HTMLElement} element
+			 * @return {HTMLElement}
+			 * @member ns.widget.mobile.Tokentextarea
+			 */
 			Tokentextarea.prototype._build = function (element) {
-				var classes = Tokentextarea.classes,
-					strings = Tokentextarea.strings,
+				var strings = Tokentextarea.strings,
 					option = this.options,
 					moreBlockClasses,
 					inputBox,
@@ -553,19 +612,38 @@
 				moreBlock.tabIndex = 0;
 				moreBlockClasses.add(classes.uiTokentextareaLinkBase);
 				moreBlockClasses.add(classes.uiBtnBoxS);
-				moreBlock.firstChild.firstChild.textContent = strings.addRecipient;
+				moreBlock.firstChild.firstChild.textContent =
+					strings.addRecipient;
 				inputArea.appendChild(moreBlock);
 				element.appendChild(inputArea);
 				return element;
 			};
 
 			/**
-			* Function add block
-			* @method add
-			* @param {string} messages
-			* @param {number} blockIndex
-			* @member ns.widget.Tokentextarea
-			*/
+			 * Method add block
+			 *
+			 * Method adds new token text widget button with specified text
+			 * in place of the index. If index isn't set the token will
+			 * be inserted at the end.
+			 *
+			 *		@example
+			 *			<div data-role="tokentextarea" id="ns-tokentext"></div>
+			 *			<script>
+			 *				var tokenWidget = tau.widget.Tokentextarea(
+			 *						document.getElementById("ns-tokentext")
+			 *				);
+			 *				tokenWidget.add("foobar");
+			 *
+			 *				//or
+			 *
+			 *				$( "#ns-tokentext" ).tokentextarea("add", "foobar");
+			 *			</script>
+			 *
+			 * @method add
+			 * @param {string} messages
+			 * @param {number} blockIndex
+			 * @member ns.widget.mobile.Tokentextarea
+			 */
 			Tokentextarea.prototype.add = function (messages, blockIndex) {
 				var focusStatus = this._focusStatus,
 					element = this.element;
@@ -575,11 +653,32 @@
 			};
 
 			/**
-			* Function delete element; delete all elements with out parameter
-			* @method remove
-			* @param {number} blockIndex
-			* @member ns.widget.Tokentextarea
-			*/
+			 * Method delete token; delete all tokens without parameter
+			 *
+			 * The remove method is used to remove a token text area widget
+			 * button at the specified index position. If the parameter
+			 * is not defined, all the widget buttons are removed.
+			 *
+			 *		@example
+			 *			<div 	data-role="tokentextarea"
+			 *					data-label="Send to: "
+			 *					id="ns-tokentext">
+			 *			</div>
+			 *			<script>
+			 *				var tokenWidget = tau.widget.Tokentextarea(
+			 *						document.getElementById("ns-tokentext")
+			 *				);
+			 *				tokenWidget.remove(1);
+			 *
+			 *				//or
+			 *
+			 *				$( "#ns-tokentext" ).tokentextarea("remove", "1" );
+			 *			</script>
+			 *
+			 * @method remove
+			 * @param {number} blockIndex
+			 * @member ns.widget.mobile.Tokentextarea
+			 */
 			Tokentextarea.prototype.remove = function (blockIndex) {
 				var focusStatus = this._focusStatus,
 					element = this.element;
@@ -589,23 +688,73 @@
 			};
 
 			/**
-			* Function return blocks count
-			* @method length
-			* @return {number}
-			* @member ns.widget.Tokentextarea
-			*/
+			 * Function return blocks count
+			 *
+			 * The length method is used to retrieve the number of buttons
+			 * in the token text area widget:
+			 *
+			 *		@example
+			 *			<div data-role="tokentextarea" id="ns-tokentext"></div>
+			 *			<script>
+			 *				var tokenWidget = tau.widget.Tokentextarea(
+			 *						document.getElementById("ns-tokentext")
+			 *				);
+			 *				tokenWidget.lenght();
+			 *
+			 *				//if jQuery is loaded
+			 *
+			 *				$( "#ns-tokentext" ).tokentextarea( "length" );
+			 *			</script>
+			 *
+			 * @method length
+			 * @return {number}
+			 * @member ns.widget.mobile.Tokentextarea
+			 */
 			Tokentextarea.prototype.length = function () {
-				var element = this.element,
-					classes = Tokentextarea.classes;
-				return element.getElementsByClassName(classes.uiTokentextareaSpanBlock).length;
+				var element = this.element;
+				return element.getElementsByClassName(
+					classes.uiTokentextareaSpanBlock).length;
 			};
 
 			/**
-			* Function return input text with out parameter.
-			* Function with parameter set input text value.
-			* @param {string} text
-			* @return {string}
-			*/
+			 * Method is used to manage the widget input box text.
+			 *
+			 * If no parameter is set, the method gets the input box text.
+			 * If a parameter is set, the parameter text is set in
+			 * the input box.
+			 *
+			 *		@example
+			 *			<div data-role="tokentextarea" id="ns-tokentext"></div>
+			 *			<script>
+			 *				// !!!set text in the input box text!!!
+			 *
+			 *				var tokenWidget = tau.widget.Tokentextarea(
+			 *						document.getElementById("ns-tokentext")
+			 *				);
+			 *				tokenWidget.inputText("foobar");
+			 *
+			 *				//if jQuery is loaded
+			 *
+			 *				$( "#ns-tokentext" ).tokentextarea(
+			 *					"inputText" , "foobar");
+			 *
+			 *				// !!!get the input box text!!!
+			 *
+			 *				var tokenWidget = tau.widget.Tokentextarea(
+			 *						document.getElementById("ns-tokentext")
+			 *				);
+			 *				tokenWidget.inputText();
+			 *
+			 *				//if jQuery is loaded
+			 *
+			 *				$( "#ns-tokentext" ).tokentextarea( "inputText" );
+			 *			</script>
+			 *
+			 * @method inputText
+			 * @param {string} text
+			 * @return {string}
+			 * @member ns.widget.mobile.Tokentextarea
+			 */
 			Tokentextarea.prototype.inputText = function (text) {
 				var element = this.element,
 					input = element.getElementsByTagName("input")[0];
@@ -617,22 +766,56 @@
 			};
 
 			/**
-			* Function select element; return selected element with out parameter
-			* @method select
-			* @param {number} blockIndex
-			* @return {?string}
-			* @member ns.widget.Tokentextarea
-			*/
+			 * The select method is used to select token text area button on its
+			 * index value
+			 * If a parameter is set, token text area button will be select
+			 * the block which is matched with the argument.
+			 * If some token text area button is selected and parameter isn't
+			 * set method returns string of the selected button.
+			 * If none is selected return null
+			 *
+			 *		@example
+			 *			<div data-role="tokentextarea" id="ns-tokentext"></div>
+			 *			<script>
+			 *				// !!!select first block!!!
+			 *
+			 *				var tokenWidget = tau.widget.Tokentextarea(
+			 *						document.getElementById("ns-tokentext")
+			 *				);
+			 *				tokenWidget.add("text 1");
+			 *				tokenWidget.add("text 2");
+			 *				tokenWidget.select(0);
+			 *
+			 *				//if jQuery is loaded
+			 *
+			 *				$( "#ns-tokentext" ).tokentextarea("select" , "0");
+			 *
+			 *				// !!!gets string from selected block!!!
+			 *
+			 *				tokenWidget.select();
+			 *
+			 *				//if jQuery is loaded
+			 *
+			 *				$( "#ns-tokentext" ).tokentextarea( "select" );
+			 *			</script>
+			 *
+			 * @method select
+			 * @param {number} blockIndex
+			 * @return {?string}
+			 * @public
+			 * @member ns.widget.mobile.Tokentextarea
+			 */
 			Tokentextarea.prototype.select = function (blockIndex) {
 				var focusStatus = this._focusStatus,
 					element = this.element,
-					classes = Tokentextarea.classes,
 					block,
 					sBlock;
 
 				if (focusStatus) {
-					block = element.getElementsByClassName(classes.uiTokentextareaSpanBlock);
-					sBlock = element.getElementsByClassName(classes.uiTokentextareaSblock);
+					block = element.getElementsByClassName(
+						classes.uiTokentextareaSpanBlock);
+					sBlock = element.getElementsByClassName(
+						classes.uiTokentextareaSblock);
 
 					if (blockIndex !== undefined && blockIndex < block.length) {
 						if (sBlock.length === 1) {
@@ -649,13 +832,30 @@
 			};
 
 			/**
-			* Function ungroup elements and set focus to input
-			* @method focusIn
-			* @member ns.widget.Tokentextarea
-			*/
+			 * Function ungroup elements and set focus to input
+			 *
+			 *		@example
+			 *			<div 	data-role="tokentextarea"
+			 *					data-label="Send to: "
+			 *					id="ns-tokentext">
+			 *			</div>
+			 *			<script>
+			 *				var tokenWidget = tau.widget.Tokentextarea(
+			 *						document.getElementById("ns-tokentext")
+			 *				);
+			 *				tokenWidget.focusIn(0);
+			 *
+			 *				//if jQuery is loaded
+			 *
+			 *				$( "#ns-tokentext" ).tokentextarea( "focusIn" );
+			 *			</script>
+			 *
+			 * @method focusIn
+			 * @public
+			 * @member ns.widget.mobile.Tokentextarea
+			 */
 			Tokentextarea.prototype.focusIn = function () {
 				var element = this.element,
-					classes = Tokentextarea.classes,
 					elementClasses,
 					label,
 					sBlock,
@@ -672,14 +872,18 @@
 					return;
 				}
 
-				label = element.getElementsByClassName(classes.uiTokentextareaLabel)[0];
-				hiddenBlocksCount = element.getElementsByClassName(classes.uiTokentextareaDesclabel)[0];
+				label = element.getElementsByClassName(
+					classes.uiTokentextareaLabel)[0];
+				hiddenBlocksCount = element.getElementsByClassName(
+					classes.uiTokentextareaDesclabel)[0];
 				if (hiddenBlocksCount) {
 					element.removeChild(hiddenBlocksCount);
-					hiddenBlocks = element.getElementsByClassName(classes.uiTokentextareaInvisible);
+					hiddenBlocks = element.getElementsByClassName(
+						classes.uiTokentextareaInvisible);
 					hiddenBlocksLength = hiddenBlocks.length;
 					for (i = hiddenBlocksLength - 1; i >= 0; i--) {
-						hiddenBlocks[i].classList.remove(classes.uiTokentextareaInvisible);
+						hiddenBlocks[i].classList
+							.remove(classes.uiTokentextareaInvisible);
 					}
 				}
 
@@ -692,7 +896,8 @@
 				label.style.display = "";
 
 
-				sBlock = element.getElementsByClassName(classes.uiTokentextareaSblock)[0];
+				sBlock = element
+					.getElementsByClassName(classes.uiTokentextareaSblock)[0];
 				if (sBlock !== undefined) {
 					sBlockClasses = sBlock.classList;
 					sBlockClasses.remove(classes.uiTokentextareaSblock);
@@ -713,27 +918,49 @@
 			};
 
 			/**
-			* function get width of element with margins
-			* @param {HTMLElement} element
-			* @return {number}
-			* @private
-			*/
+			 * function get width of element with margins
+			 * @method _getElementWidth
+			 * @param {HTMLElement} element
+			 * @return {number}
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.Tokentextarea
+			 */
 			function _getElementWidth(element) {
 				var elementView;
-				elementView =  document.defaultView.getComputedStyle(element);
-				return parseInt(elementView.getPropertyValue("margin-left"), 10) +
+				elementView =  document.defaultView
+					.getComputedStyle(element);
+				return parseInt(
+					elementView.getPropertyValue("margin-left"), 10) +
 					parseInt(elementView.getPropertyValue("margin-right"), 10) +
 					element.offsetWidth;
 			}
 
 			/**
-			* Function group elements and hide input
-			* @method focusOut
-			* @member ns.widget.Tokentextarea
-			*/
+			 * Function group elements and hide input
+			 *
+			 *		@example
+			 *			<div 	data-role="tokentextarea"
+			 *					data-label="Send to: "
+			 *					id="ns-tokentext">
+			 *			</div>
+			 *			<script>
+			 *				var tokenWidget = tau.widget.Tokentextarea(
+			 *						document.getElementById("ns-tokentext")
+			 *				);
+			 *				tokenWidget.focusOut(0);
+			 *
+			 *				//if jQuery is loaded
+			 *
+			 *				$( "#ns-tokentext" ).tokentextarea( "focusOut" );
+			 *			</script>
+			 *
+			 * @method focusOut
+			 * @public
+			 * @member ns.widget.mobile.Tokentextarea
+			 */
 			Tokentextarea.prototype.focusOut = function () {
 				var element = this.element,
-					classes = Tokentextarea.classes,
 					strings = Tokentextarea.strings,
 					description = this.options.description,
 					elementClasses,
@@ -755,9 +982,12 @@
 					return;
 				}
 
-				blocks = element.getElementsByClassName(classes.uiTokentextareaSpanBlock);
+				blocks = element.getElementsByClassName(
+					classes.uiTokentextareaSpanBlock
+				);
 				blocksLenght =  blocks.length;
-				label = element.getElementsByClassName(classes.uiTokentextareaLabel)[0];
+				label = element
+					.getElementsByClassName(classes.uiTokentextareaLabel)[0];
 				input = element.getElementsByTagName("input")[0];
 				inputClasses = input.classList;
 				button = element.getElementsByTagName("a")[0];
@@ -775,7 +1005,8 @@
 					blockWidthSum += _getElementWidth(blocks[i]);
 					if (blockWidthSum >= elementWidth) {
 						hiddenBlocksCount++;
-						blocks[i].classList.add(classes.uiTokentextareaInvisible);
+						blocks[i].classList
+							.add(classes.uiTokentextareaInvisible);
 					}
 				}
 
@@ -791,11 +1022,13 @@
 					descLabel2ndChild = document.createElement("div");
 
 					descLabel.classList.add(classes.uiTokentextareaDesclabel);
-					descLabel.setAttribute("aria-label", strings.moreDoubleTapToEdit);
+					descLabel.setAttribute("aria-label",
+						strings.moreDoubleTapToEdit);
 					descLabel.tabIndex = -1;
 
 					descLabel1stChild.setAttribute("aria-hidden", "true");
-					descLabel1stChild.textContent = description.replace("{0}", hiddenBlocksCount);
+					descLabel1stChild.textContent = description
+						.replace("{0}", hiddenBlocksCount);
 
 					descLabel2ndChild.setAttribute("aria-label", "and");
 					descLabel2ndChild.style.visibility = "hidden";
@@ -808,26 +1041,26 @@
 			};
 
 			/**
-			* Bind widget events
-			* @method _bindEvents
-			* @param {HTMLElement} element
-			* @protected
-			* @member ns.widget.Tokentextarea
-			*/
+			 * Bind widget events
+			 * @method _bindEvents
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.mobile.Tokentextarea
+			 */
 			Tokentextarea.prototype._bindEvents = function (element) {
 				this.inputKeyUp = inputKeyUp.bind(null, element);
-				element.getElementsByTagName("input")[0].addEventListener("keyup", this.inputKeyUp, false);
+				element.getElementsByTagName("input")[0]
+					.addEventListener("keyup", this.inputKeyUp, false);
 			};
 
 			/**
-			* Destroy widget
-			* @method _destroy
-			* @protected
-			* @member ns.widget.Tokentextarea
-			*/
+			 * Destroy widget
+			 * @method _destroy
+			 * @protected
+			 * @member ns.widget.mobile.Tokentextarea
+			 */
 			Tokentextarea.prototype._destroy = function () {
 				var element = this.element,
-					classes = Tokentextarea.classes,
 					elementCilds,
 					elementCildsLength,
 					input,
@@ -836,7 +1069,9 @@
 					i;
 
 				input = element.getElementsByTagName("input")[0];
-				block = element.getElementsByClassName(classes.uiTokentextareaSpanBlock);
+				block = element.getElementsByClassName(
+					classes.uiTokentextareaSpanBlock
+				);
 				blockLength = block.length;
 				for (i = blockLength - 1; i >= 0; i--) {
 					block[i].removeEventListener("vclick", blockClick, false);
@@ -857,6 +1092,244 @@
 				return;
 			};
 
+			/**
+			 * The function "value" is not supported in this widget.
+			 *
+			 * @method value
+			 * @chainable
+			 * @member ns.widget.mobile.Tokentextarea
+			 */
+
+			/**
+			 * Disable the Tokentextarea
+			 *
+			 * Method adds disabled attribute on Tokentextarea widget and
+			 * changes look to disabled state.
+			 *
+			 *		@example
+			 *		<div data-role="tokentexarea" id="ns-tokentex"></div>
+			 *
+			 *		<script>
+			 *			var elementToken = tau.widget.Tokentextarea(
+			 *					document.getElementById("ns-tokentext")
+			 *				);
+			 *			elementToken.disable();
+			 *		</script>
+			 *
+			 * If jQuery is loaded:
+			 *
+			 *		@example
+			 *		<div data-role="tokentextarea" id="ns-tokentext"></div>
+			 *
+			 *		<script>
+			 *			$("#ns-tokentext").tokentextarea("disable");
+			 *		</script>
+			 *
+			 * @method disable
+			 * @chainable
+			 * @member ns.widget.mobile.Tokentextarea
+			 */
+
+			/**
+			 * Enable the Tokentextarea
+			 *
+			 * Method removes disabled attribute on Tokentextarea widget and
+			 * changes look to enabled state.
+			 *
+			 *		@example
+			 *		<div data-role="tokentextarea" id="ns-tokentext"></div>
+			 *
+			 *		<script>
+			 *			var elementToken = tau.widget.Tokentextarea(
+			 *					document.getElementById("ns-tokentext")
+			 *				);
+			 *			elementToken.enable();
+			 *		</script>
+			 *
+			 * If jQuery is loaded:
+			 *
+			 *		@example
+			 *		<div data-role="tokentextarea" id="ns-tokentext"></div>
+			 *
+			 *		<script>
+			 *			$("#ns-tokentext").tokentextarea("enable");
+			 *		</script>
+			 *
+			 * @method enable
+			 * @chainable
+			 * @member ns.widget.mobile.Tokentextarea
+			 */
+
+			/**
+			 * Trigger an event on widget's element.
+			 *
+			 *		@example
+			 *		<div data-role="tokentextarea" id="ns-tokentext"></div>
+			 *
+			 *		<script>
+			 *			var elementToken = tau.widget.Tokentextarea(
+			 *					document.getElementById("ns-tokentext")
+			 *				);
+			 *			elementToken.trigger("eventName");
+			 *		</script>
+			 *
+			 * If jQuery is loaded:
+			 *
+			 *		@example
+			 *		<div data-role="tokentextarea" id="ns-tokentext"></div>
+			 *
+			 *		<script>
+			 *			$("#ns-tokentext").tokentextarea("trigger", "eventName");
+			 *		</script>
+			 *
+			 * @method trigger
+			 * @param {string} eventName the name of event to trigger
+			 * @param {?*} [data] additional object to be carried with the event
+			 * @param {boolean} [bubbles=true] indicating whether the event
+			 * bubbles up through the DOM or not
+			 * @param {boolean} [cancelable=true] indicating whether the event
+			 * is cancelable
+			 * @return {boolean} false, if any callback invoked preventDefault
+			 * on event object
+			 * @member ns.widget.mobile.Tokentextarea
+			 */
+
+			/**
+			 * Add event listener to widget's element.
+			 *
+			 *		@example
+			 *		<div data-role="tokentextarea" id="ns-tokentext"></div>
+			 *
+			 *		<script>
+			 *			var elementToken = tau.widget.Tokentextarea(
+			 *					document.getElementById("ns-tokentext")
+			 *				);
+			 *			elementToken.on("eventName", function () {
+			 *				console.log("Event fires");
+			 *			});
+			 *		</script>
+			 *
+			 * If jQuery is loaded:
+			 *
+			 *		@example
+			 *		<div data-role="tokentextarea" id="ns-tokentext"></div>
+			 *
+			 *		<script>
+			 *			$("#ns-tokentext").tokentextarea("on", "eventName",
+			 *				function () { console.log("Event fires");
+			 *			});
+			 *		</script>
+			 *
+			 * @method on
+			 * @param {string} eventName the name of event
+			 * @param {Function} listener function call after event will be
+			 * trigger
+			 * @param {boolean} [useCapture=false] useCapture param tu
+			 * addEventListener
+			 * @member ns.widget.mobile.Tokentextarea
+			 */
+
+			/**
+			 * Remove event listener to widget's element.
+			 *
+			 *		@example
+			 *		<div data-role="tokentextarea" id="ns-tokentext"></div>
+			 *
+			 *		<script>
+			 *			var elementToken = tau.widget.Tokentextarea(
+			 *					document.getElementById("ns-tokentext")
+			 *				),
+			 *				callback = function () {
+			 *					console.log("Event fires");
+			 *				};
+			 *			// add callback on event "eventName"
+			 *			elementToken.on("eventName", callback);
+			 *			// ...
+			 *			// remove callback on event "eventName"
+			 *			elementToken.off("eventName", callback);
+			 *		</script>
+			 *
+			 * If jQuery is loaded:
+			 *
+			 *		@example
+			 *		<div data-role="tokentextarea" id="ns-tokentext"></div>
+			 *
+			 *		<script>
+			 *			var callback = function () {
+			 *					console.log("Event fires");
+			 *				};
+			 *			// add callback on event "eventName"
+			 *			$("#ns-tokentext").tokentextarea(
+			 *				"on", "eventName", callback);
+			 *			// ...
+			 *			// remove callback on event "eventName"
+			 *			$("#ns-tokentext").tokentextarea(
+			 *				"off", "eventName", callback);
+			 *		</script>
+			 *
+			 * @method off
+			 * @param {string} eventName the name of event
+			 * @param {Function} listener function call after event will be
+			 * trigger
+			 * @param {boolean} [useCapture=false] useCapture param to
+			 * addEventListener
+			 * @member ns.widget.mobile.Tokentextarea
+			 */
+
+			/**
+			 * Get/Set options of the widget.
+			 *
+			 * This method can work in many context.
+			 *
+			 * If first argument is type of object them, method set values for
+			 * options given in object. Keys of object are names of options and
+			 * values from object are values to set.
+			 *
+			 * If you give only one string argument then method return value
+			 * for given option.
+			 *
+			 * If you give two arguments and first argument will be a string
+			 * then second argument will be intemperate as value to set.
+			 *
+			 *		@example
+			 *		<div data-role="tokentextarea" id="ns-tokentext"></div>
+			 *
+			 * 			<script>
+			 *				var tokenWidet = tau.widget.Tokentextarea(
+			 *				document.getElementById("ns-tokentext")),
+			 *					tokenValue;
+			 *
+			 * 				 //getter
+			 *				tokentValue = tokenWidget.option("label");
+			 *
+			 *				//setter
+			 *				tokenWidget.option("label","e-mail to: ");
+			 *			</script>
+			 *
+			 * If jQuery is loaded:
+			 *
+			 *		@example
+			 *			<div data-role="tokentextarea" id="ns-tokentext"></div>
+			 *			<script>
+			 *				var tokenValue;
+			 *
+			 * 				// get value
+			 *				tokentValue = $("#ns-tokentext").tokentextarea(
+			 *					"option", "label");
+			 *
+			 *				// set value
+			 *				$("#ns-tokentext").tokentextarea(
+			 *					"option", "label", "e-mail to: "
+			 *				);
+			 *			</script>
+			 *
+			 * @method option
+			 * @param {string|Object} [name] name of option
+			 * @param {*} value value to set
+			 * @member ns.widget.mobile.Tokentextarea
+			 * @return {*} return value of option or undefined if method is
+			 * called in setter context
+			 */
 			// definition
 			ns.widget.mobile.Tokentextarea = Tokentextarea;
 			engine.defineWidget(
@@ -872,7 +1345,7 @@
 					"focusOut"
 				],
 				Tokentextarea,
-				'tizen'
+				"tizen"
 			);
 
 //>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
