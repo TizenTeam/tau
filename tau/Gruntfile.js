@@ -305,6 +305,14 @@ module.exports = function(grunt) {
 					src: ["**/*.css", "!**/*.min.css"],
 					dest: buildRoot,
 					ext: ".min.css"
+				},
+
+				changeable: {
+					expand: true,
+					cwd: buildRoot,
+					src: ["**/*.template"],
+					dest: buildRoot,
+					ext: ".min.template"
 				}
 			},
 
@@ -680,7 +688,7 @@ module.exports = function(grunt) {
 	grunt.registerTask("jsmin", [ "findFiles:js.setMinifiedFiles", "uglify" ]);
 	grunt.registerTask("image", [ "copy:wearableDefaultImages", "copy:mobileDefaultImages" ]);
 	grunt.registerTask("image-changeable", [ "copy:wearableChangeableImages", "copy:mobileChangeableImages" ]);
-	grunt.registerTask("css", [ "clean:theme", "less", "cssmin", "image", "image-changeable", "symlink" ]);
+	grunt.registerTask("css", [ "clean:theme", "less", "cssmin", "cssmin:changeable", "image", "image-changeable", "symlink" ]);
 	grunt.registerTask("js", [ "clean:js", "requirejs", "jsmin", "themesjs", "copy:globalize", "copy:mobileJquery" ]);
 	grunt.registerTask("license", [ "concat:licenseJs", "concat:licenseDefaultCss", "concat:licenseChangeableCss", "copy:license" ]);
 	grunt.registerTask("sdk-docs", [ "sdk-docs-html:mobile", "sdk-docs-html:wearable", "copy:sdk-docs" ]);
