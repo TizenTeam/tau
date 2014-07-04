@@ -1,8 +1,8 @@
 /*global CustomEvent, define, window, ns */
 /*jslint plusplus: true, nomen: true, bitwise: true */
 /* Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
-* License : MIT License V2
-*/
+ * License : MIT License V2
+ */
 /**
  * #Virtual Mouse Events
  * Reimplementation of jQuery Mobile virtual mouse events.
@@ -56,13 +56,13 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-				/**
-				 * Object with default options
-				 * @property {Object} vmouse
-				 * @member ns.event.vmouse
-				 * @static
-				 * @private
-				 **/
+			/**
+			 * Object with default options
+			 * @property {Object} vmouse
+			 * @member ns.event.vmouse
+			 * @static
+			 * @private
+			 **/
 			var vmouse,
 				/**
 				 * @property {Object} eventProps Contains the properties which are copied from the original event to custom v-events
@@ -85,6 +85,11 @@
 				 * @private
 				 **/
 				didScroll,
+				/** @property {HTMLElement} lastOver holds reference to last element that touch was over
+				 * @member ns.event.vmouse
+				 * @private
+				 */
+				lastOver = null,
 				/**
 				 * @property {Number} [startX=0] Initial data for touchstart event
 				 * @member ns.event.vmouse
@@ -97,7 +102,7 @@
 				 * @member ns.event.vmouse
 				 * @private
 				 * @static
-				**/
+				 **/
 				startY = 0,
 				touchEventProps = ["clientX", "clientY", "pageX", "pageY", "screenX", "screenY"],
 				KEY_CODES = {
@@ -185,7 +190,7 @@
 			 * @method fireEvent
 			 * @param {string} eventName event name
 			 * @param {Event} evt original event
-			 * @param {Object} properties Sets the special properties for position
+			 * @param {Object} [properties] Sets the special properties for position
 			 * @return {boolean}
 			 * @private
 			 * @static
@@ -324,14 +329,22 @@
 			 */
 			function handleTouchStart(evt) {
 				var touches = evt.touches,
-					firstTouch;
+					firstTouch,
+					over;
 				//if touches are registered and we have only one touch
 				if (touches && touches.length === 1) {
 					didScroll = false;
 					firstTouch = touches[0];
 					startX = firstTouch.pageX;
 					startY = firstTouch.pageY;
-					fireEvent("vmouseover", evt);
+
+					// Check if we have touched something on our page
+					// @TODO refactor for multi touch
+					over = document.elementFromPoint(startX, startY);
+					if (over) {
+						lastOver = over;
+						fireEvent("vmouseover", evt);
+					}
 					fireEvent("vmousedown", evt);
 				}
 
@@ -350,6 +363,8 @@
 				if (touches && touches.length === 0) {
 					fireEvent("vmouseup", evt);
 					fireEvent("vmouseout", evt);
+					// Reset flag for last over element
+					lastOver = null;
 				}
 			}
 
@@ -365,7 +380,7 @@
 				var over,
 					firstTouch = evt.touches && evt.touches[0],
 					didCancel = didScroll,
-					//sets the threshold, based on which we consider if it was the touch-move event
+				//sets the threshold, based on which we consider if it was the touch-move event
 					moveThreshold = vmouse.eventDistanceThreshold;
 
 				/**
@@ -382,20 +397,23 @@
 				}
 
 				didScroll = didScroll ||
-				//check in both axes X,Y if the touch-move event occur
+					//check in both axes X,Y if the touch-move event occur
 					(Math.abs(firstTouch.pageX - startX) > moveThreshold ||
-					Math.abs(firstTouch.pageY - startY) > moveThreshold);
+						Math.abs(firstTouch.pageY - startY) > moveThreshold);
 
 				// detect over event
 				// for compatibility with mouseover because "touchenter" fires only once
-				over = document.elementFromPoint(evt.pageX, evt.pageY);
-				if (over) {
-					fireEvent("_touchover", evt);
+				// @TODO Handle many touches
+				over = document.elementFromPoint(firstTouch.pageX, firstTouch.pageY);
+				if (over && lastOver !== over) {
+					lastOver = over;
+					fireEvent("vmouseover", evt);
 				}
 
 				//if didscroll occur and wasn't canceled then trigger touchend otherwise just touchmove
 				if (didScroll && !didCancel) {
 					fireEvent("vmousecancel", evt);
+					lastOver = null;
 				}
 				fireEvent("vmousemove", evt);
 			}
@@ -425,18 +443,7 @@
 			 */
 			function handleTouchCancel(evt) {
 				fireEvent("vmousecancel", evt);
-			}
-
-			/**
-			 * Handle touch cancel
-			 * @method handleTouchOver
-			 * @private
-			 * @static
-			 * @member ns.event.vmouse
-			 */
-			function handleTouchOver() {
-				return false;
-				// @TODO add callback with handleTouchOver,
+				lastOver = null;
 			}
 
 			/**
@@ -503,7 +510,7 @@
 				document.addEventListener("keydown", handleKeyDown, true);
 				document.addEventListener("scroll", handleScroll, true);
 				document.addEventListener("click", handleClick, true);
-			}
+			};
 
 			// @TODO delete touchSupport flag and attach touch and mouse listeners,
 			// @TODO check if v-events are not duplicated if so then called only once
@@ -518,12 +525,11 @@
 				document.addEventListener("touchstart", handleTouchStart, true);
 				document.addEventListener("touchend", handleTouchEnd, true);
 				document.addEventListener("touchmove", handleTouchMove, true);
+				document.addEventListener("touchcancel", handleTouchCancel, true);
 
-				// @TODO add callback with handleTouchOver,
-				document.addEventListener("touchenter", handleTouchOver, true);
-				// for compatibility with mouseover because "touchenter" fires only once
-				// @TODO add callback with handleTouchOver,
-				document.addEventListener("_touchover", handleTouchOver, true);
+				// touchenter and touchleave are removed from W3C spec
+				// No need to listen to touchover as it has never exited
+				// document.addEventListener("touchenter", handleTouchOver, true);
 				// document.addEventListener("touchleave", callbacks.out, true);
 				document.addEventListener("touchcancel", handleTouchCancel, true);
 			};
