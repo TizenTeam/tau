@@ -244,7 +244,9 @@
 					self;
 				if (element) {
 					self = engine.getBinding(element, "Textinput");
-					toggleClearButton(self._ui.clearButton, element);
+					if (self) {
+						toggleClearButton(self._ui.clearButton, element);
+					}
 					_resize(element);
 				}
 			}
@@ -262,7 +264,9 @@
 				if (element) {
 					element.classList.remove('ui-focus');
 					self = engine.getBinding(element, "Textinput");
-					toggleClearButton(self._ui.clearButton, element);
+					if (self) {
+						toggleClearButton(self._ui.clearButton, element);
+					}
 				}
 			}
 			/**
