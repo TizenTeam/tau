@@ -13,12 +13,14 @@ Listview
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	position: relative;
+	color: @color_listview_text;
 
 	> * {
 		white-space: nowrap;
 		text-overflow: ellipsis;
 		overflow: hidden;
 		-webkit-user-select: none;
+		color: @color_listview_text;
 	}
 }
 .ui-listview li > a {
@@ -32,4 +34,5 @@ Listview
 
 .ui-listview li.ui-li-active {
 	background-color: @color_list_press_bg;
+	color: @color_listview_text_press;
 }
