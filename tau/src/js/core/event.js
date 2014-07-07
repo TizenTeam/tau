@@ -301,7 +301,7 @@
 					listeners = getEventsListeners(type, listener);
 					typesLength = listeners.length;
 					for (i = 0; i < elementsLength; i++) {
-						if (elements[i] instanceof EventTarget) {
+						if (typeof elements[i].addEventListener === "function") {
 							for (j = 0; j < typesLength; j++) {
 								ns.event.fastOn(elements[i], listeners[j].type, listeners[j].callback, useCapture);
 							}
