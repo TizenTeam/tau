@@ -239,7 +239,8 @@
 				pageClass = Page.classes.uiPage,
 				pageActiveClass = Page.classes.uiPageActive,
 				Scrollview = function () {
-					var self = this;
+					var self = this,
+						ui;
 					/**
 					 * @property {Object} state Scrollview internal state object
 					 * @property {Function} state.currentTransition Instance transition function
@@ -275,11 +276,12 @@
 					 * @member ns.widget.mobile.Scrollview
 					 * @readonly
 					 */
-					self.ui = self.ui || {};
-					self.ui.view = null;
-					self.ui.page = null;
-					self.ui.jumpHorizontalButton = null;
-					self.ui.jumpVerticalButton = null;
+					ui = self._ui || {};
+					ui.view = null;
+					ui.page = null;
+					ui.jumpHorizontalButton = null;
+					ui.jumpVerticalButton = null;
+					self._ui = ui;
 					/**
 					 * Dictionary for holding internal listeners
 					 * @property {Object} _callbacks
@@ -391,7 +393,7 @@
 			// Refresh jumpTop jumpLeft buttons
 			// @param {ns.widget.mobile.Scrollview} self
 			function repositionJumps(self) {
-				var ui = self.ui,
+				var ui = self._ui,
 					horizontalJumpButton = ui.jumpHorizontalButton,
 					verticalJumpButton = ui.jumpVerticalButton,
 					offsets = horizontalJumpButton || verticalJumpButton ? DOMUtils.getElementOffset(self.element) : null; // dont calc when not used
@@ -420,7 +422,7 @@
 			Scrollview.prototype._build = function (element) {
 				//@TODO wrap element's content with external function
 				var self = this,
-					ui = self.ui,
+					ui = self._ui,
 					view = selectors.getChildrenByClass(element, classes.view)[0] || document.createElement("div"),
 					clipStyle = element.style,
 					node = null,
@@ -512,7 +514,7 @@
 			 * @member ns.widget.mobile.Scrollview
 			 */
 			Scrollview.prototype._init = function (element) {
-				var ui = this.ui,
+				var ui = this._ui,
 					page = ui.page;
 
 				if (!ui.view) {
@@ -856,7 +858,7 @@
 					},
 					self = this,
 					//FIXME there should be some other way to get parent container
-					ui = self.ui,
+					ui = self._ui,
 					page = ui.page,
 					jumpTop = ui.jumpVerticalButton,
 					jumpLeft = ui.jumpHorizontalButton,
@@ -927,7 +929,7 @@
 			};
 
 			Scrollview.prototype._destroy = function () {
-				var ui = this.ui,
+				var ui = this._ui,
 					page = ui.page,
 					scrollJump = this.options.scrollJump,
 					jumpTop = ui.jumpVerticalButton,

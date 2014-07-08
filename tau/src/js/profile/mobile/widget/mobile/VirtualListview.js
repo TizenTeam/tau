@@ -215,7 +215,7 @@
 					* vertically it's item width in other case it's height of item element
 					* @member ns.widget.mobile.VirtualListview
 					*/
-					self.ui = {
+					self._ui = {
 						scrollview: null,
 						itemSize: 0
 					};
@@ -322,7 +322,7 @@
 				var self = this,
 					scrollInfo = self._scroll,
 					scrollDirection,
-					scrollViewElement = self.ui.scrollview.element,
+					scrollViewElement = self._ui.scrollview.element,
 					scrollLastPositionX = scrollInfo.lastPositionX,
 					scrollLastPositionY = scrollInfo.lastPositionY,
 					// Fetch current scroll position
@@ -593,7 +593,7 @@
 			prototype._updateListItem = function (element, index) {
 				var self = this,
 					itemData = self.itemData,
-					$jqTmpl = self.ui.$jqTmpl,
+					$jqTmpl = self._ui.$jqTmpl,
 					templateElement;
 
 				if(typeof self.options.listItemUpdater === "function") {
@@ -653,12 +653,12 @@
 					element.parentElement.appendChild(standaloneContainer);
 
 					// Create a widget instance of it
-					self.ui.scrollview = engine.instanceWidget(standaloneContainer, "Scrollview", {
+					self._ui.scrollview = engine.instanceWidget(standaloneContainer, "Scrollview", {
 						scroll: options.direction
 					});
 
 					// After creating scrollview widget apeend list as a child
-					self.ui.scrollview.ui.view.appendChild(element);
+					self._ui.scrollview._ui.view.appendChild(element);
 				}
 
 				//Call parent's method
@@ -776,7 +776,7 @@
 			 */
 			prototype._init = function (element) {
 				var self = this,
-					ui = self.ui,
+					ui = self._ui,
 					options = self.options,
 					standalone = options.standalone,
 					direction,
@@ -804,7 +804,7 @@
 
 				// Prepare view
 				if (standalone && options.direction === HORIZONTAL) {
-					scrollviewInstance.ui.view.style.height = "100%";
+					scrollviewInstance._ui.view.style.height = "100%";
 				}
 			};
 
@@ -887,7 +887,7 @@
 				var self = this,
 					options = self.options,
 					newViewSize = self._computeAvgSize() * options.numItemData,
-					scrollviewInstance = self.ui.scrollview,
+					scrollviewInstance = self._ui.scrollview,
 					// Get scrollview view element (child)
 					// @TODO remove fetching first child after createing ui.view property inside Scrollview widget
 					scrollviewView;
@@ -911,7 +911,7 @@
 			prototype._bindEvents = function () {
 				var self = this,
 					scrollEventBound = _updateList.bind(null, self),
-					scrollviewClip = self.ui.scrollview && self.ui.scrollview.element;
+					scrollviewClip = self._ui.scrollview && self._ui.scrollview.element;
 
 				if (scrollviewClip) {
 					scrollviewClip.addEventListener("scroll", scrollEventBound, false);
@@ -927,7 +927,7 @@
 			 */
 			prototype._destroy = function () {
 				var self = this,
-					scrollview = self.ui.scrollview,
+					scrollview = self._ui.scrollview,
 					scrollviewClip = scrollview && scrollview.element,
 					scrollviewParent = scrollviewClip && scrollviewClip.parentElement,
 					element = self.element,
@@ -955,7 +955,7 @@
 
 					scrollviewParent.removeChild(scrollviewClip);
 
-					self.ui.scrollview = null;
+					self._ui.scrollview = null;
 				}
 
 				//Remove li elements.

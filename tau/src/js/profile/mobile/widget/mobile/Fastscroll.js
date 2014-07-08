@@ -126,7 +126,7 @@
  *			$(element).contacts("methodName", methodArgument1, methodArgument2, ...);
  *		</script>
  *
- * @class ns.widget.mobile.Listview.FastScroll
+ * @class ns.widget.mobile.FastScroll
  * @extends ns.widget.mobile.Listview
  * @since 2.0
  */
@@ -151,7 +151,7 @@
 			//>>excludeEnd("tauBuildExclude");
 			/**
 			 * @property {Object} selectors Alias to ns.util.selectors
-			 * @member ns.widget.mobile.Listview.FastScroll
+			 * @member ns.widget.mobile.FastScroll
 			 * @private
 			 * @static
 			 */
@@ -159,28 +159,28 @@
 
 				/**
 				 * @property {Function} Tabbar Alias for class ns.widget.mobile.Tabbar
-				 * @member ns.widget.mobile.Listview.FastScroll
+				 * @member ns.widget.mobile.FastScroll
 				 * @static
 				 * @private
 				 */
 				Tabbar = ns.widget.mobile.TabBar,
 				/**
 				 * @property {Object} engine Alias for class {@link ns.engine}
-				 * @member ns.widget.mobile.Listview.FastScroll
+				 * @member ns.widget.mobile.FastScroll
 				 * @private
 				 * @static
 				 */
 				engine = ns.engine,
 				/**
 				 * @property {Object} events alias variable
-				 * @member ns.widget.mobile.Listview.FastScroll
+				 * @member ns.widget.mobile.FastScroll
 				 * @static
 				 * @private
 				 */
 				events = ns.event,
 				/**
 				 * @property {Function} Page Alias for class ns.widget.mobile.Page
-				 * @member ns.widget.mobile.Listview.FastScroll
+				 * @member ns.widget.mobile.FastScroll
 				 * @static
 				 * @private
 				 */
@@ -188,13 +188,13 @@
 				/**
 				 * @property {Object} DOMUtils Alias to ns.util.DOM
 				 * @private
-				 * @member ns.widget.mobile.Listview.FastScroll
+				 * @member ns.widget.mobile.FastScroll
 				 * @static
 				 */
 				DOMUtils = ns.util.DOM,
 				/**
 				 * @property {Function} Listview Alias for class ns.widget.mobile.Listview
-				 * @member ns.widget.mobile.Listview.FastScroll
+				 * @member ns.widget.mobile.FastScroll
 				 * @static
 				 * @private
 				 */
@@ -203,7 +203,7 @@
 				/**
 				 * Backup of _build methods for replacing it
 				 * @method parent_build
-				 * @member ns.widget.mobile.Listview.FastScroll
+				 * @member ns.widget.mobile.FastScroll
 				 * @private
 				 */
 				parent_build = Listview.prototype._build,
@@ -211,7 +211,7 @@
 				/**
 				 * Backup of _configure methods for replacing it
 				 * @method parent_configure
-				 * @member ns.widget.mobile.Listview.FastScroll
+				 * @member ns.widget.mobile.FastScroll
 				 * @private
 				 */
 				parent_configure = Listview.prototype._configure,
@@ -219,7 +219,7 @@
 				/**
 				 * Backup of _init methods for replacing it
 				 * @method parent_init
-				 * @member ns.widget.mobile.Listview.FastScroll
+				 * @member ns.widget.mobile.FastScroll
 				 * @private
 				 */
 				parent_init = Listview.prototype._init,
@@ -227,7 +227,7 @@
 				/**
 				 * Backup of _bindEvents methods for replacing it
 				 * @method parent_bindEvents
-				 * @member ns.widget.mobile.Listview.FastScroll
+				 * @member ns.widget.mobile.FastScroll
 				 * @private
 				 */
 				parent_bindEvents = Listview.prototype._bindEvents,
@@ -235,7 +235,7 @@
 				/**
 				 * Backup of _destroy methods for replacing it
 				 * @method parent_destroy
-				 * @member ns.widget.mobile.Listview.FastScroll
+				 * @member ns.widget.mobile.FastScroll
 				 * @private
 				 */
 				parent_destroy = Listview.prototype._destroy,
@@ -287,23 +287,22 @@
 				 *		</script>
 				 *
 				 * @method refresh
-				 * @member ns.widget.mobile.Listview.FastScroll
+				 * @member ns.widget.mobile.FastScroll
 				 */
 
 				/**
 				 * Backup of _refresh methods for replacing it
 				 * @method parent_refresh
-				 * @member ns.widget.mobile.Listview.FastScroll
+				 * @member ns.widget.mobile.FastScroll
 				 * @private
 				 */
 				parent_refresh = Listview.prototype._refresh,
 
 				/**
 				 * Alias for object ns.widget.mobile.Listview.classes
-				 * @property {Object} listviewClasses
-				 * @member ns.widget.mobile.Listview.FastScroll
+				 * @property {Object} classes
+				 * @member ns.widget.mobile.FastScroll
 				 * @static
-				 * @private
 				 * @property {string} listviewClasses.uiFastscroll
 				 * Main calss of fascscroll view
 				 * @property {string} listviewClasses.uiFastscrollTarget
@@ -328,7 +327,7 @@
 				 * Event is triggering after _destroy method call.
 				 * @static
 				 * @readonly
-				 * @member ns.widget.mobile.Listview.FastScroll
+				 * @member ns.widget.mobile.FastScroll
 				 */
 				eventType = Listview.eventType || {},
 
@@ -337,7 +336,7 @@
 				 * @property {string} [TYPE_FUNCTION="function"]
 				 * @private
 				 * @static
-				 * @member ns.widget.mobile.Listview.FastScroll
+				 * @member ns.widget.mobile.FastScroll
 				 */
 				TYPE_FUNCTION = "function";
 
@@ -345,7 +344,7 @@
 			/*
 			 * Event is triggering after _destroy method call
 			 * @event destroyed
-			 * @member ns.widget.mobile.Listview.FastScroll
+			 * @member ns.widget.mobile.FastScroll
 			 */
 			eventType.DESTROYED = "destroyed";
 
@@ -361,14 +360,14 @@
 			/**
 			 * Count what is max height of short cut on fastscroll list
 			 * @method getMaxFastscrollItemHeight
-			 * @param {ns.widget.mobile.Listview.FastScroll} self
+			 * @param {ns.widget.mobile.FastScroll} self
 			 * @param {HTMLElement} item
 			 * @param {number} itemsCount
 			 * @param {number} containerHeight
 			 * @return {number}
 			 * @private
 			 * @static
-			 * @member ns.widget.mobile.Listview.FastScroll
+			 * @member ns.widget.mobile.FastScroll
 			 */
 			function getMaxFastscrollItemHeight(self, item, itemsCount, containerHeight) {
 				var style = window.getComputedStyle(item, null),
@@ -391,7 +390,7 @@
 			 * @param {Array} map
 			 * @private
 			 * @static
-			 * @member ns.widget.mobile.Listview.FastScroll
+			 * @member ns.widget.mobile.FastScroll
 			 */
 			function matchToDivider(divider, indexChar, map) {
 				if (indexChar === divider.innerText) {
@@ -407,7 +406,7 @@
 			 * @return {string}
 			 * @private
 			 * @static
-			 * @member ns.widget.mobile.Listview.FastScroll
+			 * @member ns.widget.mobile.FastScroll
 			 */
 			function makeCharacterSet(divider, primaryCharacterSet) {
 				return primaryCharacterSet + divider.innerText;
@@ -416,11 +415,11 @@
 			/**
 			 * Function called whane pageshow event on fastscroll parent is called
 			 * @method onPageshow
-			 * @param {ns.widget.mobile.Listview.FastScroll} self
+			 * @param {ns.widget.mobile.FastScroll} self
 			 * @param {Event} event
 			 * @private
 			 * @static
-			 * @member ns.widget.mobile.Listview.FastScroll
+			 * @member ns.widget.mobile.FastScroll
 			 */
 			function onPageshow(self, event) {
 				event.target.removeEventListener("pageshow", self._onPageshowBound);
@@ -430,10 +429,10 @@
 			/**
 			 * Function called on focus out on fast scroll item
 			 * @method onShortcutsListMouseOut
-			 * @param {ns.widget.mobile.Listview.FastScroll} self
+			 * @param {ns.widget.mobile.FastScroll} self
 			 * @private
 			 * @static
-			 * @member ns.widget.mobile.Listview.FastScroll
+			 * @member ns.widget.mobile.FastScroll
 			 */
 			function onShortcutsListMouseOut(self) {
 				var items,
@@ -467,11 +466,11 @@
 			/**
 			 * Function called on focus in on fast scroll item
 			 * @method onShortcutsListMouseOver
-			 * @param {ns.widget.mobile.Listview.FastScroll} self
+			 * @param {ns.widget.mobile.FastScroll} self
 			 * @param {Event} event
 			 * @private
 			 * @static
-			 * @member ns.widget.mobile.Listview.FastScroll
+			 * @member ns.widget.mobile.FastScroll
 			 */
 			function onShortcutsListMouseOver(self, event) {
 				var coords = {
@@ -558,10 +557,10 @@
 			 * refresh short cuts list.
 			 *
 			 * @method fastscrollRefresh
-			 * @param {ns.widget.mobile.Listview.FastScroll} self
+			 * @param {ns.widget.mobile.FastScroll} self
 			 * @private
 			 * @static
-			 * @member ns.widget.mobile.Listview.FastScroll
+			 * @member ns.widget.mobile.FastScroll
 			 */
 			function fastscrollRefresh(self) {
 				var element = self.element,
@@ -748,11 +747,11 @@
 			/**
 			 * Function called on mouse down on short cut
 			 * @method onListItemVMouseDown
-			 * @param {ns.widget.mobile.Listview.FastScroll} self
+			 * @param {ns.widget.mobile.FastScroll} self
 			 * @param {Event} event
 			 * @private
 			 * @static
-			 * @member ns.widget.mobile.Listview.FastScroll
+			 * @member ns.widget.mobile.FastScroll
 			 */
 			function onListItemVMouseDown(self, event) {
 				self._ui._shortcutsList.setAttribute("aria-hidden", false);
@@ -762,10 +761,10 @@
 			/**
 			 * Function called on mouse up on short cut
 			 * @method onListItemVMouseUp
-			 * @param {ns.widget.mobile.Listview.FastScroll} self
+			 * @param {ns.widget.mobile.FastScroll} self
 			 * @private
 			 * @static
-			 * @member ns.widget.mobile.Listview.FastScroll
+			 * @member ns.widget.mobile.FastScroll
 			 */
 			function onListItemVMouseUp(self) {
 				var i,
@@ -799,7 +798,7 @@
 			 * Prepare default configuration of fastscroll widget
 			 * @method _configure
 			 * @protected
-			 * @member ns.widget.mobile.Listview.FastScroll
+			 * @member ns.widget.mobile.FastScroll
 			 */
 			Listview.prototype._configure = function () {
 				if (typeof parent_configure === TYPE_FUNCTION) {
@@ -810,7 +809,7 @@
 				 * Object with default options
 				 * @property {Object} options
 				 * @property {boolean} [options.fastscroll=false] Sets if fastscroll should be enabled.
-				 * @member ns.widget.mobile.Listview.FastScroll
+				 * @member ns.widget.mobile.FastScroll
 				 */
 				this.options = this.options || {};
 				this.options.fastscroll = false;
@@ -822,7 +821,7 @@
 			 * @param {HTMLElement} element HTML element with fasctscroll enabled
 			 * @return {HTMLElement}
 			 * @protected
-			 * @member ns.widget.mobile.Listview.FastScroll
+			 * @member ns.widget.mobile.FastScroll
 			 */
 			Listview.prototype._build = function (element) {
 				var scrollView,
@@ -896,7 +895,7 @@
 			 * @method _init
 			 * @param {HTMLElement} element
 			 * @protected
-			 * @member ns.widget.mobile.Listview.FastScroll
+			 * @member ns.widget.mobile.FastScroll
 			 */
 			Listview.prototype._init = function (element) {
 				var ui,
@@ -932,7 +931,7 @@
 			 * @method _bindEvents
 			 * @param {HTMLElement} element
 			 * @protected
-			 * @member ns.widget.mobile.Listview.FastScroll
+			 * @member ns.widget.mobile.FastScroll
 			 */
 			Listview.prototype._bindEvents = function (element) {
 				var pageParent = selectors.getParentsByClass(element, Page.classes.uiPage)[0],
@@ -1015,14 +1014,14 @@
 			 *		</script>
 			 *
 			 * @method destroy
-			 * @member ns.widget.mobile.Listview.FastScroll
+			 * @member ns.widget.mobile.FastScroll
 			 */
 
 			/**
 			 * Unbinds fastscroll widget events
 			 * @method _destroy
 			 * @protected
-			 * @member ns.widget.mobile.Listview.FastScroll
+			 * @member ns.widget.mobile.FastScroll
 			 */
 			Listview.prototype._destroy = function () {
 				var element = this.element,
@@ -1071,7 +1070,7 @@
 			 * Creates map of deviders
 			 * @method _createDividerMap
 			 * @protected
-			 * @member ns.widget.mobile.Listview.FastScroll
+			 * @member ns.widget.mobile.FastScroll
 			 */
 			Listview.prototype._createDividerMap = function () {
 				var primaryCharacterSet = null,
@@ -1124,7 +1123,7 @@
 			 * @method _findClosestDivider
 			 * @param {string} targetChar
 			 * @protected
-			 * @member ns.widget.mobile.Listview.FastScroll
+			 * @member ns.widget.mobile.FastScroll
 			 */
 			Listview.prototype._findClosestDivider = function (targetChar) {
 				var i,
@@ -1158,7 +1157,7 @@
 			 * @method _jumpToDivider
 			 * @param {HTMLElement} divider
 			 * @protected
-			 * @member ns.widget.mobile.Listview.FastScroll
+			 * @member ns.widget.mobile.FastScroll
 			 */
 			Listview.prototype._jumpToDivider = function (divider) {
 				var dividerY = divider.offsetTop,
@@ -1181,7 +1180,7 @@
 			 * @method _hitItem
 			 * @param {HTMLElement} listItem
 			 * @protected
-			 * @member ns.widget.mobile.Listview.FastScroll
+			 * @member ns.widget.mobile.FastScroll
 			 */
 			Listview.prototype._hitItem = function (listItem) {
 				var popup = this._ui._popup,
@@ -1222,7 +1221,7 @@
 			 * @method _focusItem
 			 * @param {HTMLElement} listItem
 			 * @protected
-			 * @member ns.widget.mobile.Listview.FastScroll
+			 * @member ns.widget.mobile.FastScroll
 			 */
 			Listview.prototype._focusItem = function (listItem) {
 				this._onListItemVMouseDownBound = this._onListItemVMouseDownBound || onListItemVMouseDown.bind(null, this);
@@ -1238,7 +1237,7 @@
 			 * @param {number} maxNumOfItems
 			 * @return {?Array}
 			 * @protected
-			 * @member ns.widget.mobile.Listview.FastScroll
+			 * @member ns.widget.mobile.FastScroll
 			 */
 			Listview.prototype._omit = function (numOfItems, maxNumOfItems) {
 				var maxGroupNum = parseInt((maxNumOfItems - 1) / 2, 10),
@@ -1289,7 +1288,7 @@
 			 * @param {string} primaryCharacterSet
 			 * @return {string}
 			 * @protected
-			 * @member ns.widget.mobile.Listview.FastScroll
+			 * @member ns.widget.mobile.FastScroll
 			 */
 			Listview.prototype._makeOmitSet = function (index, length, primaryCharacterSet) {
 				var count,
@@ -1306,7 +1305,7 @@
 			 * Refresh Fast Scroll widget
 			 * @method _refresh
 			 * @protected
-			 * @member ns.widget.mobile.Listview.FastScroll
+			 * @member ns.widget.mobile.FastScroll
 			 */
 			Listview.prototype._refresh = function () {
 				this._onRefreshBound = this._onRefreshBound || fastscrollRefresh.bind(this);
@@ -1362,7 +1361,7 @@
 			 *
 			 * @method indexString
 			 * @param {string} [indexAlphabet] values to be used in shortcut items
-			 * @member ns.widget.mobile.Listview.FastScroll
+			 * @member ns.widget.mobile.FastScroll
 			 * @since 2.1
 			 * @return {?string} Primary and secondary language
 			 */

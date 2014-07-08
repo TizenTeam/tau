@@ -81,7 +81,7 @@ var unit_virtuallistview = function (element, templateName) {
 	virtuallistview = ej.engine.getBinding(element);
 	ok(virtuallistview.name === 'VirtualListview', "Create VirtualListview object");
 
-	scrollViewStyle = virtuallistview.ui.scrollview.element.style;
+	scrollViewStyle = virtuallistview._ui.scrollview.element.style;
 
 	/* Check widget structure */
 	checkWidgetStructure(virtuallistview, element, templateName);
@@ -101,7 +101,7 @@ var unit_virtuallistview = function (element, templateName) {
 	 */
 
 		//clipHeight = virtuallistview.ui.scrollview.element.clientHeight;
-	itemSize = virtuallistview.ui.itemSize;
+	itemSize = virtuallistview._ui.itemSize;
 	resultsetHeight = itemSize * 100;
 
 	/*

@@ -743,7 +743,7 @@
 			//>>excludeEnd("tauBuildExclude");
 			var Listview = function () {
 					var self = this;
-					self.ui = {
+					self._ui = {
 						page: null
 					};
 				},
@@ -886,7 +886,7 @@
 
 			Listview.prototype._configure = function () {
 				var self = this,
-					ui = self.ui || {},
+					ui = self._ui || {},
 					/**
 					 * Object with default options
 					 * @property {Object} options
@@ -1106,7 +1106,7 @@
 			 * @member ns.widget.mobile.Listview
 			 */
 			Listview.prototype._init = function (element) {
-				var ui = this.ui,
+				var ui = this._ui,
 					page = ui.page,
 					popup = selectors.getClosestBySelector(element, "[data-role=popup]"),
 					drawer = selectors.getClosestBySelector(element, "[data-role=drawer]"),
@@ -1394,6 +1394,7 @@
 			 * @param {HTMLElement} listItem new LI item
 			 * @param {number} position position on list
 			 * @protected
+			 * @member ns.widget.mobile.Listview
 			 */
 			Listview.prototype.addItem = function (listItem, position) {
 				var element = this.element,
@@ -1424,6 +1425,7 @@
 			 * Remove item from listview and refresh widget
 			 * @method removeItem
 			 * @param {number} position position on list
+			 * @member ns.widget.mobile.Listview
 			 * @protected
 			 */
 			Listview.prototype.removeItem = function (position) {
