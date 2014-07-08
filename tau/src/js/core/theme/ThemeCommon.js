@@ -1,5 +1,10 @@
 /*global define, ns */
 //>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+/**
+ * #Class with functions which help changing themes.
+ *
+ * @class ns.theme.ThemeCommon
+ */
 (function (ns) {
 	"use strict";
 	define(
@@ -42,6 +47,13 @@
 				self.enabled = false;
 			};
 
+			/**
+			 * This function stores the options of widgets.
+			 * It is used by scripts of a custom themes on its activation to remember
+			 * the default options of widgets and be able to restore them later.
+			 * @method storeAllWidgetOptions
+			 * @member ns.theme.ThemeCommon
+			 */
 			protoThemeCommon.storeAllWidgetOptions = function () {
 				var self = this,
 					i,
@@ -57,6 +69,13 @@
 				}
 			};
 
+			/**
+			 * This function restores the options of widgets.
+			 * It is used by scripts of a custom themes on its deactivation
+			 * to restore default options of widgets
+			 * @method restoreAllWidgetOptions
+			 * @member ns.theme.ThemeCommon
+			 */
 			protoThemeCommon.restoreAllWidgetOptions = function () {
 				var self = this,
 					i,

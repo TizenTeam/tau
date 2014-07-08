@@ -1,7 +1,8 @@
 /*global window, define, Math*/
 /*jslint bitwise: true */
 /**
- * Class with functions to set theme of application.
+ * #Class with functions to set theme of application.
+ *
  * @class ns.theme
  */
 (function (window, document, ns) {
@@ -16,7 +17,8 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			/**
-			 * @property {HTMLHeadElement} head local alias for document HEAD element
+			 * Local alias for document HEAD element
+			 * @property {HTMLHeadElement} head
 			 * @static
 			 * @private
 			 * @member ns.theme
@@ -41,25 +43,27 @@
 					}
 				},
 
-				THEMES_DIRECTORY = '../theme',
-				THEME_JS_FILE_NAME = 'theme.js',
-				THEME_CSS_FILE_NAME = 'tau',
+				THEMES_DIRECTORY = "../theme",
+				THEME_JS_FILE_NAME = "theme.js",
+				THEME_CSS_FILE_NAME = "tau",
 
 				themeRegex =  /ui-(bar|body|overlay)-([a-z])\b/,
 				deviceWidthRegex = /.*width=(device-width|\d+)\s*,?.*$/gi;
 
 			ns.theme = {
 				/**
-				 * @property theme=s
+				 * Standard theme
+				 * @property {string} theme="s"
 				 * @member ns.theme
 				 */
-				theme : 's',
+				theme : "s",
 
 				_activeTheme: null,
 
-				/***
-				 * init theme
+				/**
+				 * This function inits theme.
 				 * @method init
+				 * @param {HTMLElement} contianer
 				 * @member ns.theme
 				 */
 				init: function (container) {
@@ -77,11 +81,11 @@
 					self.loadTheme(frameworkData.theme);
 				},
 
-				/***
-				 * Scale font size
+				/**
+				 * This function scales font size.
 				 * @method scaleBaseFontSize
-				 * @param {number} themeDefaultFontSize
-				 * @param {number} ratio
+				 * @param {number} themeDefaultFontSize Default font size
+				 * @param {number} ratio Scaling ration
 				 * @member ns.theme
 				 */
 				scaleBaseFontSize : function (themeDefaultFontSize, ratio) {
@@ -90,12 +94,22 @@
 					document.body.style.fontSize = scaledFontSize + "px";
 				},
 
+				/**
+				 * This function searches theme, which is inherited
+				 * from parents by element.
+				 * @method getInheritedTheme
+				 * @param {HTMLElement} element Element for which theme is looking for.
+				 * @param {string} defaultTheme Default theme.
+				 * It is used if no theme, which can be inherited, is found.
+				 * @return {string} Inherited theme
+				 * @member ns.theme
+				 */
 				getInheritedTheme : function (element, defaultTheme) {
 					var theme,
 						parentElement = element.parentNode,
 						parentClasses,
 						parentTheme;
-					theme = DOM.getNSData(element, 'theme');
+					theme = DOM.getNSData(element, "theme");
 					if (!theme) {
 						while (parentElement) {
 							parentClasses = parentElement.className || "";
@@ -110,16 +124,24 @@
 					return theme || defaultTheme;
 				},
 
+				/**
+				 * This function sets selection behavior for the element.
+				 * @method enableSelection
+				 * @param {element} element Element for which selection behavior is set.
+				 * @param {"text"|"auto"|"none"} value="auto" Selection behavior.
+				 * @return {HTMLElement} Element with set styles.
+				 * @member ns.theme
+				 */
 				enableSelection : function (element, value) {
 					var val;
 					switch (value) {
-					case 'text':
-					case 'auto':
-					case 'none':
+					case "text":
+					case "auto":
+					case "none":
 						val = value;
 						break;
 					default:
-						val = 'auto';
+						val = "auto";
 						break;
 					}
 
@@ -133,14 +155,34 @@
 					return element;
 				},
 
+				/**
+				 * This function disables event "contextmenu".
+				 * @method disableContextMenu
+				 * @param {element} element Element for which event "contextmenu"
+				 * is disabled.
+				 * @member ns.theme
+				 */
 				disableContextMenu: function (element) {
 					element.addEventListener("contextmenu", stopEvent, true);
 				},
 
+				/**
+				 * This function enables event "contextmenu".
+				 * @method enableContextMenu
+				 * @param {element} element Element for which event "contextmenu"
+				 * is enabled.
+				 * @member ns.theme
+				 */
 				enableContextMenu: function (element) {
 					element.removeEventListener("contextmenu", stopEvent, true);
 				},
 
+				/**
+				 * This function loads files with proper theme.
+				 * @method loadTheme
+				 * @param {string} theme Choosen theme.
+				 * @member ns.theme
+				 */
 				loadTheme: function(theme) {
 					var self = this,
 						themePath = frameworkData.themePath,
@@ -165,6 +207,17 @@
 					}
 				},
 
+				/**
+				 * This function sets viewport.
+				 * If custom viewport is found, its width will be returned.
+				 * Otherwise, the new viewport will be created.
+				 * @method setViewport
+				 * @param {number} viewportWidth Width of the new viewport.
+				 * If no viewport is found, the new viewport with this
+				 * width is created.
+				 * @return {number} Width of custom viewport.
+				 * @member ns.theme
+				 */
 				setViewport: function(viewportWidth) {
 					var metaVieport = document.querySelector("meta[name=viewport]"),
 						content;
@@ -184,10 +237,23 @@
 					return viewportWidth;
 				},
 
+				/**
+				 * This function checks if application is run
+				 * in the mobile browser.
+				 * @method isMobileBrowser
+				 * @return {boolean} Returns true, if application
+				 * is run in mobile browser. Otherwise, false is returned.
+				 * @member ns.theme
+				 */
 				isMobileBrowser: function() {
 					return window.navigator.appVersion.indexOf("Mobile") > -1;
 				},
 
+				/**
+				 * This function sets scaling of viewport.
+				 * @method setScaling
+				 * @member ns.theme
+				 */
 				setScaling: function () {
 					var self = this,
 						viewportWidth = frameworkData.viewportWidth,
@@ -195,7 +261,7 @@
 						ratio = 1;
 
 					// Keep original font size
-					document.querySelector('body').setAttribute('data-tizen-theme-default-font-size', themeDefaultFontSize);
+					document.querySelector("body").setAttribute("data-tizen-theme-default-font-size", themeDefaultFontSize);
 
 					if (ns.theme.isMobileBrowser()) {
 						// Legacy support: tizen.frameworkData.viewportScale
@@ -228,7 +294,7 @@
 
 			document.addEventListener("themeinit", function (evt) {
 				var router = evt.detail;
-				if (router && ns.getConfig('autoInitializePage', true)) {
+				if (router && ns.getConfig("autoInitializePage", true)) {
 					ns.theme.init(router.getContainer());
 				}
 			}, false);
