@@ -1,4 +1,13 @@
 /*global window, define */
+/**
+ * Namespace to support orientationchange event
+ * @class ns.event.orientationchange
+ */
+/**
+ * Event orientation change
+ * @event orientationchange
+ * @member ns.event.orientationchange
+ */
 (function (window, document, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
@@ -8,26 +17,42 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			/**
-			* Namespace to support orientationchange event
-			* @class ns.event.orientationchange
-			*/
-			/**
-			* Event orientation change
-			* @event orientationchange
-			* @member ns.event.orientationchange
-			*/
 			var body = document.body,
 				orientation = null,
 				eventUtils = ns.event,
 				orientationchange = {
+					/**
+					 * Informs about support orientation change event.
+					 * @property {boolean} supported
+					 * @member ns.event.orientationchange
+					 */
 					supported: (window.orientation !== undefined) && (window.onorientationchange !== undefined),
+					/**
+					 * Returns current orientation.
+					 * @method getOrientation
+					 * @return {"landscape"|"portrait"}
+					 * @member ns.event.orientationchange
+					 * @static
+					 */
 					getOrientation: function () {
 						return orientation;
 					},
+					/**
+					 * Triggers event orientationchange on element
+					 * @method trigger
+					 * @param {HTMLElement} element
+					 * @member ns.event.orientationchange
+					 * @static
+					 */
 					trigger: function (element) {
 						eventUtils.trigger(element, "orientationchange", {'orientation': orientation});
 					},
+					/**
+					 * List of properties copied to event details object
+					 * @property {Array} properties
+					 * @member ns.event.orientationchange
+					 * @static
+					 */
 					properties: ['orientation']
 				},
 				detectOrientationByDimensions = function (omitCustomEvent) {

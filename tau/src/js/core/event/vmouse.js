@@ -55,59 +55,60 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 				/**
-				* Object with default options
-				* @property {Object} vmouse
-				* @member ns.event.vmouse
-				* @static
-				* @private
-				**/
+				 * Object with default options
+				 * @property {Object} vmouse
+				 * @member ns.event.vmouse
+				 * @static
+				 * @private
+				 **/
 			var vmouse,
 				/**
-				* @property {Object} eventProps Contains the properties which are copied from the original event to custom v-events
-				* @member ns.event.vmouse
-				* @static
-				* @private
-				**/
+				 * @property {Object} eventProps Contains the properties which are copied from the original event to custom v-events
+				 * @member ns.event.vmouse
+				 * @static
+				 * @private
+				 **/
 				eventProps,
 				/**
-				* @property {boolean} touchSupport Indicates if the browser support touch events
-				* @member ns.event.vmouse
-				* @static
-				**/
+				 * Indicates if the browser support touch events
+				 * @property {boolean} touchSupport
+				 * @member ns.event.vmouse
+				 * @static
+				 **/
 				touchSupport = window.hasOwnProperty("ontouchstart"),
 				/**
-				* @property {boolean} didScroll The flag tell us if the scroll event was triggered
-				* @member ns.event.vmouse
-				* @static
-				* @private
-				**/
+				 * @property {boolean} didScroll The flag tell us if the scroll event was triggered
+				 * @member ns.event.vmouse
+				 * @static
+				 * @private
+				 **/
 				didScroll,
 				/**
-				* @property {Number} [startX=false] Initial data for touchstart event
-				* @member ns.event.vmouse
-				* @static
-				* @private
-				**/
+				 * @property {Number} [startX=0] Initial data for touchstart event
+				 * @member ns.event.vmouse
+				 * @static
+				 * @private
+				 **/
 				startX = 0,
 				/**
-				* @property {Number} [startY=false] Initial data for touchstart event
-				* @member ns.event.vmouse
-				* @private
-				* @static
+				 * @property {Number} [startY=0] Initial data for touchstart event
+				 * @member ns.event.vmouse
+				 * @private
+				 * @static
 				**/
 				startY = 0,
 				touchEventProps = ["clientX", "clientY", "pageX", "pageY", "screenX", "screenY"];
 
 			/**
-			* Extends objects with other objects
-			* @method copyProps
-			* @param {Object} from Sets the original event
-			* @param {Object} to Sets the new event
-			* @param {Object} props Describe parameters which will be copied from Original to To event
-			* @private
-			* @static
-			* @member ns.event.vmouse
-			*/
+			 * Extends objects with other objects
+			 * @method copyProps
+			 * @param {Object} from Sets the original event
+			 * @param {Object} to Sets the new event
+			 * @param {Object} props Describe parameters which will be copied from Original to To event
+			 * @private
+			 * @static
+			 * @member ns.event.vmouse
+			 */
 			function copyProps(from, to, props) {
 				var i,
 					len,
@@ -124,15 +125,15 @@
 			}
 
 			/**
-			* Create custom event
-			* @method createEvent
-			* @param {string} newType gives a name for the new Type of event
-			* @param {Event} original Event which trigger the new event
-			* @return {Event}
-			* @private
-			* @static
-			* @member ns.event.vmouse
-			*/
+			 * Create custom event
+			 * @method createEvent
+			 * @param {string} newType gives a name for the new Type of event
+			 * @param {Event} original Event which trigger the new event
+			 * @return {Event}
+			 * @private
+			 * @static
+			 * @member ns.event.vmouse
+			 */
 			function createEvent(newType, original) {
 				var evt = new CustomEvent(newType, {
 					"bubbles": original.bubbles,
@@ -171,15 +172,15 @@
 			}
 
 			/**
-			* Dispatch Events
-			* @method fireEvent
-			* @param {string} eventName event name
-			* @param {Event} evt original event
-			* @return {boolean}
-			* @private
-			* @static
-			* @member ns.event.vmouse
-			*/
+			 * Dispatch Events
+			 * @method fireEvent
+			 * @param {string} eventName event name
+			 * @param {Event} evt original event
+			 * @return {boolean}
+			 * @private
+			 * @static
+			 * @member ns.event.vmouse
+			 */
 			function fireEvent(eventName, evt) {
 				return evt.target.dispatchEvent(createEvent(eventName, evt));
 			}
@@ -202,98 +203,96 @@
 
 			vmouse = {
 				/**
-				* Sets the distance of pixels after which the scroll event will be successful
-				* @property {number} [eventDistanceThreshold=10]
-				* @member ns.event.vmouse
-				* @private
-				* @static
-				* @instance
-				*/
+				 * Sets the distance of pixels after which the scroll event will be successful
+				 * @property {number} [eventDistanceThreshold=10]
+				 * @member ns.event.vmouse
+				 * @static
+				 */
 				eventDistanceThreshold: 10,
 
 				touchSupport: touchSupport
 			};
 
 			/**
-			* Handle click down
-			* @method handleDown
-			* @param {Event} evt
-			* @private
-			* @static
-			* @member ns.event.vmouse
-			*/
+			 * Handle click down
+			 * @method handleDown
+			 * @param {Event} evt
+			 * @private
+			 * @static
+			 * @member ns.event.vmouse
+			 */
 			function handleDown(evt) {
 				fireEvent("vmousedown", evt);
 			}
 
 			/**
-			* Handle click
-			* @method handleClick
-			* @param {Event} evt
-			* @private
-			* @static
-			* @member ns.event.vmouse
-			*/
+			 * Handle click
+			 * @method handleClick
+			 * @param {Event} evt
+			 * @private
+			 * @static
+			 * @member ns.event.vmouse
+			 */
 			function handleClick(evt) {
 				fireEvent("vclick", evt);
 			}
 
 			/**
-			* Handle click up
-			* @method handleUp
-			* @param {Event} evt
-			* @private
-			* @static
-			* @member ns.event.vmouse
-			*/
+			 * Handle click up
+			 * @method handleUp
+			 * @param {Event} evt
+			 * @private
+			 * @static
+			 * @member ns.event.vmouse
+			 */
 			function handleUp(evt) {
 				fireEvent("vmouseup", evt);
 			}
 
 			/**
-			* Handle click move
-			* @method handleMove
-			* @param {Event} evt
-			* @private
-			* @static
-			* @member ns.event.vmouse
-			*/
+			 * Handle click move
+			 * @method handleMove
+			 * @param {Event} evt
+			 * @private
+			 * @static
+			 * @member ns.event.vmouse
+			 */
 			function handleMove(evt) {
 				fireEvent("vmousemove", evt);
 			}
 
 			/**
-			* Handle click over
-			* @method handleOver
-			* @param {Event} evt
-			* @private
-			* @static
-			* @member ns.event.vmouse
-			*/
+			 * Handle click over
+			 * @method handleOver
+			 * @param {Event} evt
+			 * @private
+			 * @static
+			 * @member ns.event.vmouse
+			 */
 			function handleOver(evt) {
 				fireEvent("vmouseover", evt);
 			}
 
 			/**
-			* Handle click out
-			* @method handleOut
-			* @param {Event} evt
-			* @private
-			* @static
-			* @member ns.event.vmouse
-			*/
+			 * Handle click out
+			 * @method handleOut
+			 * @param {Event} evt
+			 * @private
+			 * @static
+			 * @member ns.event.vmouse
+			 */
 			function handleOut(evt) {
 				fireEvent("vmouseout", evt);
 			}
 
 			/**
-			* Handle touch start
-			* @method handleTouchStart
-			* @param {Event} evt
-			* @private
-			* @static
-			* @member ns.event.vmouse
-			*/
+			 * Handle touch start
+			 * @method handleTouchStart
+			 * @param {Event} evt
+			 * @private
+			 * @static
+			 * @member ns.event.vmouse
+			 */
 			function handleTouchStart(evt) {
 				var touches = evt.touches,
 					firstTouch;
@@ -310,26 +309,26 @@
 			}
 
 			/**
-			* Handle touch end
-			* @method handleTouchEnd
-			* @param {Event} evt
-			* @private
-			* @static
-			* @member ns.event.vmouse
-			*/
+			 * Handle touch end
+			 * @method handleTouchEnd
+			 * @param {Event} evt
+			 * @private
+			 * @static
+			 * @member ns.event.vmouse
+			 */
 			function handleTouchEnd(evt) {
 				fireEvent("vmouseup", evt);
 				fireEvent("vmouseout", evt);
 			}
 
 			/**
-			* Handle touch move
-			* @method handleTouchMove
-			* @param {Event} evt
-			* @private
-			* @static
-			* @member ns.event.vmouse
-			*/
+			 * Handle touch move
+			 * @method handleTouchMove
+			 * @param {Event} evt
+			 * @private
+			 * @static
+			 * @member ns.event.vmouse
+			 */
 			function handleTouchMove(evt) {
 				var over,
 					firstTouch = evt.touches && evt.touches[0],
@@ -357,13 +356,13 @@
 			}
 
 			/**
-			* Handle Scroll
-			* @method handleScroll
-			* @param {Event} evt
-			* @private
-			* @static
-			* @member ns.event.vmouse
-			*/
+			 * Handle Scroll
+			 * @method handleScroll
+			 * @param {Event} evt
+			 * @private
+			 * @static
+			 * @member ns.event.vmouse
+			 */
 			function handleScroll(evt) {
 				if (!didScroll) {
 					fireEvent("vmousecancel", evt);
@@ -372,37 +371,37 @@
 			}
 
 			/**
-			* Handle touch cancel
-			* @method handleTouchCancel
-			* @param {Event} evt
-			* @private
-			* @static
-			* @member ns.event.vmouse
-			*/
+			 * Handle touch cancel
+			 * @method handleTouchCancel
+			 * @param {Event} evt
+			 * @private
+			 * @static
+			 * @member ns.event.vmouse
+			 */
 			function handleTouchCancel(evt) {
 				fireEvent("vmousecancel", evt);
 			}
 
 			/**
-			* Handle touch cancel
-			* @method handleTouchOver
-			* @private
-			* @static
-			* @member ns.event.vmouse
-			*/
+			 * Handle touch cancel
+			 * @method handleTouchOver
+			 * @private
+			 * @static
+			 * @member ns.event.vmouse
+			 */
 			function handleTouchOver() {
 				return false;
 				// @TODO add callback with handleTouchOver,
 			}
 
 			/**
-			* Handle key up
-			* @method handleKeyUp
-			* @param {Event} event
-			* @private
-			* @static
-			* @member ns.event.vmouse
-			*/
+			 * Handle key up
+			 * @method handleKeyUp
+			 * @param {Event} event
+			 * @private
+			 * @static
+			 * @member ns.event.vmouse
+			 */
 			function handleKeyUp(event) {
 				if (event.keyCode === 13) {
 					fireEvent("vmouseup", event);
@@ -411,13 +410,13 @@
 			}
 
 			/**
-			* Handle key down
-			* @method handleKeyDown
-			* @param {Event} event
-			* @private
-			* @static
-			* @member ns.event.vmouse
-			*/
+			 * Handle key down
+			 * @method handleKeyDown
+			 * @param {Event} event
+			 * @private
+			 * @static
+			 * @member ns.event.vmouse
+			 */
 			function handleKeyDown(event) {
 				if (event.keyCode === 13) {
 					fireEvent("vmousedown", event);
@@ -427,6 +426,12 @@
 			// @TODO delete touchSupport flag and attach touch and mouse listeners,
 			// @TODO check if v-events are not duplicated if so then called only once
 
+			/**
+			 * Binds touch events to support virtual mouse.
+			 * @method bindTouch
+			 * @static
+			 * @member ns.event.vmouse
+			 */
 			vmouse.bindTouch = function () {
 				document.addEventListener("touchstart", handleTouchStart, true);
 				document.addEventListener("touchend", handleTouchEnd, true);
@@ -443,6 +448,12 @@
 				document.addEventListener("click", handleClick, true);
 			};
 
+			/**
+			 * Binds mouse events to support virtual mouse.
+			 * @method bindMouse
+			 * @static
+			 * @member ns.event.vmouse
+			 */
 			vmouse.bindMouse = function () {
 				document.addEventListener("mousedown", handleDown, true);
 

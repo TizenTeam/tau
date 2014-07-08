@@ -1,4 +1,19 @@
 /*global window, define */
+/**
+ * #Touch events
+ * Reimplementation of jQuery Mobile virtual mouse events.
+ * @class ns.event.touch
+ */
+/**
+ * Short tap event
+ * @event tap
+ * @member ns.event.touch
+ */
+/**
+ * Long tap event
+ * @event taphold
+ * @member ns.event.touch
+ */
 (function (window, document, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
@@ -9,9 +24,26 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var Touch = {
+					/**
+					 * tap support configuration
+					 * @property {Object} tap
+					 * @property {number} [tap.tapholdThreshold=750]
+					 * @member ns.event.touch
+					 * @static
+					 */
 					tap: {
 						tapholdThreshold: 750
 					},
+					/**
+					 * swipe support configuration
+					 * @property {Object} swipe
+					 * @property {number} [swipe.scrollSupressionThreshold=30]
+					 * @property {number} [swipe.durationThreshold=1000]
+					 * @property {number} [swipe.horizontalDistanceThreshold=30]
+					 * @property {number} [swipe.verticalDistanceThreshold=75]
+					 * @member ns.event.touch
+					 * @static
+					 */
 					swipe : {
 						scrollSupressionThreshold: 30, // More than this horizontal displacement, and we will suppress scrolling.
 						durationThreshold: 1000, // More time than this, and it isn't a swipe.
@@ -101,21 +133,6 @@
 			document.addEventListener("vmousedown", handleTap, true);
 			document.addEventListener("vmousedown", handleSwipe, true);
 
-			/**
-			* #Touch events
-			* Reimplementation of jQuery Mobile virtual mouse events.
-			* @class ns.event.touch
-			*/
-			/**
-			* Short tap event
-			* @event tap
-			* @member ns.event.touch
-			*/
-			/**
-			* Long tap event
-			* @event taphold
-			* @member ns.event.touch
-			*/
 			ns.event.touch = Touch;
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.event.touch;

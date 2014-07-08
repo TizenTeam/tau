@@ -30,11 +30,40 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var pinch = {
+					/**
+					 * Minimal move delta to trigger event
+					 * @property {number} [min=0.1]
+					 * @static
+					 * @member ns.event.pinch
+					 */
 					min : 0.1,
+					/**
+					 * Maximum move delta to trigger event
+					 * @property {number} [max=3]
+					 * @static
+					 * @member ns.event.pinch
+					 */
 					max : 3,
+					/**
+					 * Threshold of event.
+					 * @property {number} [threshold=0.01]
+					 * @static
+					 * @member ns.event.pinch
+					 */
 					threshold : 0.01,
-					factor : 4,
+					/**
+					 * Interval of triggering event
+					 * @property {number} [interval=50]
+					 * @static
+					 * @member ns.event.pinch
+					 */
 					interval : 50,
+					/**
+					 * State of event
+					 * @property {boolean} [enabled=true]
+					 * @static
+					 * @member ns.event.pinch
+					 */
 					enabled : true
 				},
 				pinchDetails = {
@@ -51,11 +80,13 @@
 
 
 			/**
-			* Computes distance between two touch points
-			* @param {Object} points
-			* @returns {number}
-			* @member ns.event.pinch
-			*/
+			 * Computes distance between two touch points
+			 * @param {Object} points
+			 * @return {number}
+			 * @private
+			 * @static
+			 * @member ns.event.pinch
+			 */
 			function getDistance(points) {
 				var x = points[0].x - points[1].x,
 					y = points[0].y - points[1].y;
@@ -64,10 +95,12 @@
 			}
 
 			/**
-			* Handle touch move event. Triggers pinch event if occurs
-			* @param {TouchEvent} event
-			* @member ns.event.pinch
-			*/
+			 * Handle touch move event. Triggers pinch event if occurs
+			 * @param {Event} event
+			 * @private
+			 * @static
+			 * @member ns.event.pinch
+			 */
 			function handleTouchMove(event) {
 				var touchList = event.touches,
 					ratio = pinchDetails.ratio,
@@ -100,10 +133,12 @@
 
 
 			/**
-			* Handle touch end, clean up
-			* @param {Event} event
-			* @member ns.event.pinch
-			*/
+			 * Handle touch end, clean up
+			 * @param {Event} event
+			 * @member ns.event.pinch
+			 * @private
+			 * @static
+			 */
 			function handleTouchEnd(event) {
 				utilsEvents.trigger(event.target, 'pinchend', pinchDetails);
 
@@ -117,10 +152,12 @@
 			}
 
 			/**
-			* Handle touch start, set up pinch tracking
-			* @param {Event} event
-			* @member ns.event.pinch
-			*/
+			 * Handle touch start, set up pinch tracking
+			 * @param {Event} event
+			 * @member ns.event.pinch
+			 * @private
+			 * @static
+			 */
 			function handleTouchStart(event) {
 				var touchList = event.touches;
 

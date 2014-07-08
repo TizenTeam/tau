@@ -1,4 +1,8 @@
 /*global window, define */
+/**
+ * Namespace to support tizenhwkey event
+ * @class ns.event.hwkey
+ */
 (function (window, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
@@ -39,15 +43,23 @@
 						}
 					}
 				},
-				/**
-				 * Namespace to support tizenhwkey event
-				 * @class ns.event.hwkey
-				 */
 				hwkey = {
+					/**
+					 * Bind event tizenhwkey to support hardware keys.
+					 * @method bind
+					 * @static
+					 * @member ns.event.hwkey
+					 */
 					bind: function () {
 						document.addEventListener("tizenhwkey", popupClose, true);
 					},
 
+					/**
+					 * Unbind event tizenhwkey to support hardware keys.
+					 * @method unbind
+					 * @static
+					 * @member ns.event.hwkey
+					 */
 					unbind: function () {
 						document.removeEventListener("tizenhwkey", popupClose, true);
 					}

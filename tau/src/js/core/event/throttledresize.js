@@ -1,4 +1,13 @@
 /*global window, define */
+/**
+ * Namespace to support throttledresize event
+ * @class ns.event.throttledresize
+ */
+/**
+ * Event throttledresize
+ * @event throttledresize
+ * @member ns.event.throttledresize
+ */
 (function (window, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
@@ -8,9 +17,21 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var throttledresize = { // referenced throttledresize
-					"enabled": ns.getConfig("enableThrottleResize", true),
-					"ttl": 250
+			var throttledresize = {
+					/**
+					 * State of event support
+					 * @property {boolean} [enabled=true]
+					 * @static
+					 * @member ns.event.throttledresize
+					 */
+					enabled: ns.getConfig("enableThrottleResize", true),
+					/**
+					 * Timeout of triggering event.
+					 * @property {number} [ttl=250]
+					 * @static
+					 * @member ns.event.throttledresize
+					 */
+					ttl: 250
 				},
 				timerID,
 				eventUtils = ns.event,
@@ -22,6 +43,12 @@
 						eventUtils.trigger(window, "throttledresize");
 					}, throttledresize.ttl);
 				},
+				/**
+				 * Enables event support
+				 * @method enable
+				 * @static
+				 * @member ns.event.throttledresize
+				 */
 				enable = function () {
 					if (!throttledresize.enabled) {
 						throttledresize.enabled = true;
@@ -35,15 +62,6 @@
 
 			throttledresize.enable = enable;
 
-			/**
-			* Namespace to support throttledresize event
-			* @class ns.event.throttledresize
-			*/
-			/**
-			* Event throttledresize
-			* @event throttledresize
-			* @member ns.event.throttledresize
-			*/
 			ns.event.throttledresize = throttledresize;
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
