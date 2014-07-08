@@ -362,6 +362,7 @@
 					if ( this.bouncingEffect ) {
 						this.bouncingEffect.drag( newX, newY );
 					}
+					this._translateScrollbar( newX, newY );
 				}
 			};
 
