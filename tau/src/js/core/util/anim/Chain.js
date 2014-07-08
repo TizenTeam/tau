@@ -1,62 +1,71 @@
 /*global window, define, ns */
 /*jslint plusplus: true, nomen: true */
 /**
- * #Animation Chain Utility
- * Chain class for easy multiple animations managment. The chain can be
- * executed as is (animations are concurrent) or in order
+ * # Chain
+ *
+ * Chain class for easy multiple animations managment. The chain
+ * can be executed as is (animations are concurrent) or in order
  * of adding in which animations are delayed so that the execute
  * in turn
  *
+ * ## Usage example
+ *
  * @example
  *
- *		var element = document.getElementById("test");
- *		var chain = new ns.util.anim.Chain(
- *			{
- *				concurrent: false,
- *				onPlay: function () {
- *					console.log("chain started to play");
- *				},
- *				onPause: function () {
- *					console.log("chain paused");
- *				},
- *				onEnd: function () {
- *					console.log("chain finished");
- *				}
- *			},
- *			[
- *				{
- *					element: element,
- *					from: { "background-color": "red" }, 
- *					to: { "background-color": "blue"},
- *					duration: "3s",
- *					onPlay: function () {
- *						console.log("animation 1 started to play");
+ *		<div id="test"
+ *				style="width: 10px; height: 10px; background: red; position: absolute;">
+ *		</div>
+ *
+ *		<script>
+ *			var element = document.getElementById("test"),
+ *				chain = new tau.util.anim.Chain(
+ *					{
+ *						concurrent: false,
+ *						onPlay: function () {
+ *							console.log("chain started to play");
+ *						},
+ *						onPause: function () {
+ *							console.log("chain paused");
+ *						},
+ *						onEnd: function () {
+ *							console.log("chain finished");
+ *						}
  *					},
- *					onPause: function () {
- *						console.log("animation 1 paused");
- *					},
- *					onEnd: function () {
- *						console.log("animation 1 finished");
- *					}
- *				},
- *				{
- *					element: element,
- *					from: { "-webkit-transform": "translate3d(0,0,0)" }, 
- *					to: { "-webkit-transform": "translate3d(100px, 100px, 0)"},
- *					duration: "3s",
- *					onPlay: function () {
- *						console.log("animation 2 started to play");
- *					},
- *					onPause: function () {
- *						console.log("animation 2 paused");
- *					},
- *					onEnd: function () {
- *						console.log("animation 2 finished");
- *					}
- *				}
- *			]
- *			);
- *		chain.play();
+ *					[
+ *						{
+ *							element: element,
+ *							from: { "background-color": "red" },
+ *							to: { "background-color": "blue"},
+ *							duration: "3s",
+ *							onPlay: function () {
+ *								console.log("animation 1 started to play");
+ *							},
+ *							onPause: function () {
+ *								console.log("animation 1 paused");
+ *							},
+ *							onEnd: function () {
+ *								console.log("animation 1 finished");
+ *							}
+ *						},
+ *						{
+ *							element: element,
+ *						from: { "-webkit-transform": "translate3d(0,0,0)" },
+ *							to: { "-webkit-transform": "translate3d(100px, 100px, 0)"},
+ *							duration: "3s",
+ *							onPlay: function () {
+ *								console.log("animation 2 started to play");
+ *							},
+ *							onPause: function () {
+ *								console.log("animation 2 paused");
+ *							},
+ *							onEnd: function () {
+ *								console.log("animation 2 finished");
+ *							}
+ *						}
+ *					]
+ *				);
+ *			chain.play();
+ *		</script>
  *
  * @class ns.util.anim.Chain
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>
@@ -84,7 +93,15 @@
 				FINISHED = 2,
 				// function type for typeof comparisions
 				TYPE_FUNCTION = "function",
-				// animation end handler
+				/**
+				 * Animation end handler
+				 * @param {ns.util.anim.Chain} self
+				 * @param {ns.util.anim.Animation} animation
+				 * @method handleEnd
+				 * @member ns.util.anim.Chain
+				 * @private
+				 * @static
+				 */
 				handleEnd = function (self, animation) {
 					var onEnd = self.options.onEnd,
 						animations = self.animations,
@@ -115,26 +132,22 @@
 					/**
 					 * @property {number} current Marks current animation
 					 * @readonly
-					 * @member ns.util.anim.Chain
 					 */
 					self.current = null;
 					/**
 					 * @property {Array.<ns.util.anim.Animation>} animations The animations holder
 					 * @readonly
-					 * @member ns.util.anim.Chain
 					 */
 					self.animations = new Array(0);
 					/**
 					 * @property {number} totalTime
 					 * @readonly
-					 * @member ns.util.anim.Chain
 					 */
 					self.totalTime = 0;
 					self.options = opts;
 					/**
-					 * @property {number} state=0
+					 * @property {number} state=0 (ns.util.anim.Chain.states.*)
 					 * @readonly
-					 * @member ns.util.anim.Chain
 					 */
 					self.state = PAUSED;
 
@@ -148,8 +161,8 @@
 					 * @param {ns.util.anim.Animation} animation
 					 * @return {ns.util.anim.Chain}
 					 * @chainable
-					 * @method
-					 * @instance
+					 * @method add
+					 * @member ns.util.anim.Chain
 					 */
 					add: function (animation) {
 						var animationInstance = animation instanceof Animation ?
@@ -186,7 +199,7 @@
 					 * Adds multiple animations to chain
 					 * @param {Array.<ns.util.anim.Animation>} animations
 					 * @return {ns.util.anim.Chain}
-					 * @method
+					 * @method addMultiple
 					 * @chainable
 					 * @member ns.util.anim.Chain
 					 */
@@ -201,9 +214,9 @@
 
 					/**
 					 * Starts playing animation chain
-					 * @method
+					 * @method play
 					 * @chainable
-					 * @instance
+					 * @member ns.util.anim.Chain
 					 */
 					play: function () {
 						var i,
@@ -222,9 +235,9 @@
 
 					/**
 					 * Pauses playback
-					 * @method
+					 * @method pause
 					 * @chainable
-					 * @instance
+					 * @member ns.util.anim.Chain
 					 */
 					pause: function () {
 						var i,
@@ -243,8 +256,8 @@
 					
 					/**
 					 * Destroys chain and animations
-					 * @method
-					 * @instance
+					 * @method destroy
+					 * @member ns.util.anim.Chain
 					 */
 					destroy: function () {
 						var i,
@@ -256,12 +269,14 @@
 				};
 
 			/**
+			 * Animation chain states
 			 * @property {Object} states
 			 * @property {number} [states.PAUSED = 0]
 			 * @property {number} [states.PLAYING = 1]
 			 * @property {number} [states.FINISHED = 2]
 			 * @readonly
 			 * @static
+			 * @member ns.util.anim.Chain
 			 */
 			Chain.states = {
 				"PAUSED": PAUSED,

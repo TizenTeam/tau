@@ -1,16 +1,35 @@
 /*global window, define, ns */
 /*jslint nomen: true, plusplus: true */
 /**
- * #Animation Keyframes Utility
+ * # Keyframes
+ *
  * Keyframes class for easy keyframe css syntax creation and
  * managing. Each frame is specified as an element of an array 
  * with size 100.
  *
  * @example
  
- *		var frames = [{ "background-color": "red" }];
+ *		<div id="test"
+ *				style="width: 10px; height: 10px; background: red;"></div>
+ *
+ *		<script>
+ *		var frames = [{ "background-color": "red" }],
+ *			anim,
+ *			keys;
+ *
  *		frames[100] = {"background-color": "blue"};
- *		var keyframes = new ns.util.anim.Keyframes(frames);
+ *		keys = new tau.util.anim.Keyframes(frames);
+ *		anim = new tau.util.anim.Animation({
+ *				element: document.getElementById("test"),
+ *				fillMode: "both",
+ *				delay: "2s",
+ *				duration: "5s",
+ *				steps: keys,
+ *				onEnd: function () {
+ *					console.log("Yay, finished!");
+ *				}
+ *			});
+ *		</script>
  *
  * @class ns.util.anim.Keyframes
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>
@@ -25,16 +44,22 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			// Helper function for generating css string from
-			// @TODO the steps array could be propably be more
-			// optimized (most usages will use maybe up to 3-5
-			// array elements, when it has 100) but thats not
-			// important for the moment
-			// frames array
-			// @param {string} prefix
-			// @param {string} name
-			// @param {Array} steps
-			// @return {string}
+			/**
+			 * Helper function for generating css string from
+			 * @TODO the steps array could be propably be more
+			 * optimized (most usages will use maybe up to 3-5
+			 * array elements, when it has 100) but thats not
+			 * important for the moment
+			 * frames array
+			 * @param {string} prefix
+			 * @param {string} name
+			 * @param {Array} steps
+			 * @return {string}
+			 * @private
+			 * @static
+			 * @method keyframesToString
+			 * @member ns.utils.anim.Keyframes
+			 */
 			function keyframesToString(prefix, name, steps) {
 				var buff = "@" + prefix + "keyframes " + name + " {",
 					i,
@@ -73,7 +98,8 @@
 						document.head.appendChild(element);
 						styleContainer = element.sheet;
 					}
-					styleContainer.insertRule(keyframesToString(cssPropertyPrefix, id, steps), 0);
+					styleContainer.insertRule(keyframesToString(cssPropertyPrefix, id, steps),
+							0);
 					/**
 					 * Keyframes rule reference
 					 * @property {CSSRule} keyframes

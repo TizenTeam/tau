@@ -1,29 +1,36 @@
 /*global window, define, ns */
 /*jslint nomen: true, plusplus: true */
 /**
- * #Animation Utility
+ * # Animation
+ *
  * Animation class for easy animations of elements. There can be
  * multiple animations on one element but in such case the usage
- * of ns.util.anim.Chain is preferred.
+ * of tau.util.anim.Chain is preferred.
+ *
+ * ## Usage example
  *
  * @example
  *
- *		var a = new ns.util.anim.Animation({
- *			element: document.getElementById("test"),
- *			fillMode: "both",
- *			delay: "2s",
- *			duration: "5s",
- *			from: {
- *				"background-color": "red"
- *			},
- *			to: {
- *				"background-color": "blue"
- *			},
- *			onEnd: function () {
- *				console.log("Yay, finished!");
- *			}
- *		});
+ *		<div id="test"
+ *				style="width: 10px; height: 10px; background: red;"></div>
  *
+ *		<script>
+ *			var a = new tau.util.anim.Animation({
+ *				element: document.getElementById("test"),
+ *				fillMode: "both",
+ *				delay: "2s",
+ *				duration: "5s",
+ *				from: {
+ *					"background-color": "red"
+ *				},
+ *				to: {
+ *					"background-color": "blue"
+ *				},
+ *				onEnd: function () {
+ *					console.log("Yay, finished!");
+ *				}
+ *			});
+ *		</script>
  *
  * @class ns.util.anim.Animation
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>
@@ -41,16 +48,29 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			// simple helper for using trim in Array.map() function
-			// @param {string} string
+
+			/**
+			 * Simple helper for using trim in Array.map() function
+			 * @param {string} string
+			 * @return {string}
+			 * @private
+			 * @static
+			 * @method trim
+			 * @member ns.util.anim.Animation
+			 */
 			function trim(string) {
 				return string.trim();
 			}
 
-			// helper for fetching animation index in animation list
-			// @param {string|Array.<string>} props
-			// @param {string} name
-			// @return {string}
+			/**
+			 * Helper for fetching animation index in animation list
+			 * @param {string|string[]} props
+			 * @param {string} name
+			 * @return {string}
+			 * @private
+			 * @static
+			 * @member ns.util.anim.Animation
+			 */
 			function getAnimationIndex(props, name) {
 				if (typeof props === "string") {
 					props = props.split(",").map(trim);
@@ -64,7 +84,8 @@
 				dateUtils = ns.util.date,
 				cssPropertyPrefix = ns.support.cssAnimationPrefix,
 				eventPrefix = cssPropertyPrefix.replace(/\-/gi, ""),
-				endEventName = eventPrefix.length > 0 ? eventPrefix + "AnimationEnd" : "animationEnd",
+				endEventName = eventPrefix.length > 0 ? eventPrefix +
+						"AnimationEnd" : "animationEnd",
 				// paused state flag
 				PAUSED = 0,
 				// playing state flag
@@ -73,9 +94,14 @@
 				FINISHED = 2,
 				// alias for function string for typeof conditionals
 				TYPE_FUNCTION = "function",
-				// animation end handler
-				// @param {ns.util.anim.Animation} self
-				// @param {Event} event
+				/**
+				 * Animation end handler
+				 * @param {ns.util.anim.Animation} self
+				 * @param {Event} event
+				 * @private
+				 * @static
+				 * @member ns.util.anim.Animation
+				 */
 				handleEnd = function (self, event) {
 					var options = self.options,
 						element = options.element,
@@ -97,11 +123,17 @@
 						}
 					}
 				},
-				// helper for playing/pausing
-				// @param {ns.util.anim.Animation}
-				// @param {string} state
+				/**
+				 * Helper for playing/pausing
+				 * @param {ns.util.anim.Animation} self
+				 * @param {string} state
+				 * @return {ns.util.anim.Animation}
+				 * @private
+				 * @static
+				 * @member ns.util.anim.Animation
+				 */
 				changeState = function (self, state) {
-					if (!self._applied) { // this needs to be before keyframe fetch
+					if (!self._applied) { // !set before keyframe fetch
 						self._apply();
 					}
 
@@ -110,13 +142,20 @@
 						onPlay = options.onPlay,
 						style = element.style,
 						keyframes = self.keyframes,
-						propString = style.getPropertyValue(cssPropertyPrefix + "animation-play-state"),
-						propsArray = (propString && propString.split(",").map(trim)) || [],
-						index = keyframes ? getAnimationIndex(style.getPropertyValue(cssPropertyPrefix + "animation-name"), keyframes.id) : -1;
+						propString = style.getPropertyValue(cssPropertyPrefix +
+								"animation-play-state"),
+						propsArray = (propString && propString.split(",")
+								.map(trim)) || [],
+						index = keyframes ? getAnimationIndex(
+							style.getPropertyValue(cssPropertyPrefix +
+										"animation-name"),
+							keyframes.id
+						) : -1;
 
 					if (index > -1) {
 						propsArray[index] = state || "running";
-						style.setProperty(cssPropertyPrefix + "animation-play-state", propsArray.join(","));
+						style.setProperty(cssPropertyPrefix +
+								"animation-play-state", propsArray.join(","));
 						self.state = PLAYING;
 						if (typeof onPlay === TYPE_FUNCTION) {
 							window.clearTimeout(self.playTimer);
@@ -132,16 +171,29 @@
 						/**
 						 * @property {Object} options
 						 * @property {HTMLElement} options.element The animated element
-						 * @property {Object|null} [options.from=null] The starting step, this can be defined later
-						 * @property {Object|null} [options.to=null]  The finishing step, this can also be defined later
-						 * @property {Array.<Object>} [options.steps=Array(0)] Animation steps, when advanced keying is required, the array must have 100 elements, which are percentages of the timeline (anmation duration)
+						 * @property {Object|null} [options.from=null] The starting step, this
+						 * 		can be defined later
+						 * @property {Object|null} [options.to=null]  The finishing step, this
+						 * 		can also be defined later
+						 * @property {Object[]} [options.steps=Array(0)] Animation steps,
+						 * 		when advanced keying is required, the array must have 100 elements,
+						 * 		which are percentages of the timeline (anmation duration)
 						 * @property {string} [options.duration="0"] The duration of the animation
-						 * @property {string} [options.direction="normal"] The direction of the animation
-						 * @property {string} [options.delay="0"] The delay of the animation. Please remember when using ns.util.anim.Chain with concurrent option to false, the of subsequent animations will be modified
-						 * @property {string} [options.fillMode="none"] The fill mode of the animations						
-						 * @property {boolean} [options.preserve=false] Indicates if the last key frame props should be kept after animation is destroyed (not implemented!)
-						 * @property {string} [options.timingFunction="ease"] Chooses the timing function for the css animation
-						 * @property {boolean} [options.autoPlay=false] Defines if the animation will start after definition
+						 * @property {string} [options.direction="normal"] The direction of the
+						 * 		animation (for possible values, refer to CSS Animation spec)
+						 * @property {string} [options.delay="0"] The delay of the animation.
+						 * 		Please remember when using ns.util.anim.Chain with concurrent
+						 * 		option to false, the of subsequent animations will be modified
+						 * @property {string} [options.fillMode="none"] The fill mode of the
+						 * 		animations (for possible values, refer to CSS Animation spec)
+						 * @property {boolean} [options.preserve=false] Indicates if the last
+						 * 		key frame props should be kept after animation is destroyed
+						 * 		(not implemented!)
+						 * @property {string} [options.timingFunction="ease"] Chooses the timing
+						 * 		function for the css animation (for possible values, refer to CSS
+						 * 		Animation spec)
+						 * @property {boolean} [options.autoPlay=false] Defines if the animation
+						 * 		will start after definition
 						 */
 						opts = objectUtils.merge({
 							element: null,
@@ -199,6 +251,7 @@
 					self.keyframes = null;
 					/**
 					 * @property {number} [state=0] Animation state
+					 *		(ns.util.anim.Animation.states.*)
 					 * @readonly
 					 */
 					self.state = PAUSED;
@@ -234,8 +287,11 @@
 				self.keyframes = new Keyframes(self.steps);
 				id = self.keyframes.id;
 				if (element) {
-					propsArray.push(id + " " + opts.duration + " " + opts.timingFunction + " " + opts.delay + " " + opts.iterationCount + " " + opts.direction + " " + opts.fillMode);
-					element.style.setProperty(cssPropertyPrefix + "animation", propsArray.join(","));
+					propsArray.push(id + " " + opts.duration + " " + opts.timingFunction +
+							" " + opts.delay + " " + opts.iterationCount + " " + opts.direction +
+							" " + opts.fillMode);
+					element.style.setProperty(cssPropertyPrefix + "animation",
+							propsArray.join(","));
 					self._applied = true;
 				}
 			};
@@ -280,7 +336,8 @@
 				if (index > -1) {
 					propsArray[index] = keyframes.id;
 					self.keyframes = keyframes;
-					style.setProperty(cssPropertyPrefix + "animation-name", propsArray.join(","));
+					style.setProperty(cssPropertyPrefix + "animation-name",
+							propsArray.join(","));
 				}
 
 				return self;
@@ -327,9 +384,10 @@
 					if (self._applied && keyframes) {
 						style = element.style;
 						prop = style.getPropertyValue(cssPropertyPrefix + "animation");
-						if (prop){
+						if (prop) {
 							propRegexp = new RegExp(",? ?" + keyframes.id + "[^,%]*,? ?", "i");
-							style.removeProperty(cssPropertyPrefix + "animation", prop.replace(propRegexp, ""));
+							style.removeProperty(cssPropertyPrefix + "animation",
+									prop.replace(propRegexp, ""));
 						}
 						keyframes.destroy();
 						self._applied = false;
@@ -342,8 +400,7 @@
 			};
 
 			/**
-			 * Animation state definitions
-			 * @property {Object} states
+			 * @property {Object} statea animation state definitions
 			 * @property {number} [states.PAUSED=0] paused state
 			 * @property {number} [states.PLAYING=1] playing state
 			 * @property {number} [states.FINISHED=2] finished state
