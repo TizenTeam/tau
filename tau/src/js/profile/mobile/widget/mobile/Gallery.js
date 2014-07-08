@@ -38,63 +38,93 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			/**
-			* {Object} Widget Alias for {@link ns.widget.BaseWidget}
-			* @member ns.widget.mobile.Gallery
-			* @private
-			*/
+			 * Alias for {@link ns.widget.BaseWidget}
+			 * @property {Function} BaseWidget
+			 * @member ns.widget.mobile.Gallery
+			 * @private
+			 */
 			var BaseWidget = ns.widget.mobile.BaseWidgetMobile,
 				/**
-				* @property {Object} engine Alias for class {@link ns.engine}
-				* @member ns.widget.mobile.Gallery
-				* @private
-				*/
+				 * Alias for class {@link ns.engine}
+				 * @property {Object} engine
+				 * @member ns.widget.mobile.Gallery
+				 * @private
+				 */
 				engine = ns.engine,
 				/**
-				* @property {Object} selectors Alias for class {@link ns.util.selectors}
-				* @member ns.widget.mobile.Gallery
-				* @private
-				*/
+				 * Alias for class {@link ns.util.selectors}
+				 * @property {Object} selectors
+				 * @member ns.widget.mobile.Gallery
+				 * @private
+				 */
 				selectors = ns.util.selectors,
 				/**
-				* @property {Object} doms Alias for class ns.util.DOM
-				* @member ns.widget.mobile.Gallery
-				* @private
-				*/
+				 * Alias for class {@link ns.util.DOM}
+				 * @property {Object} doms
+				 * @member ns.widget.mobile.Gallery
+				 * @private
+				 */
 				doms = ns.util.DOM,
 
 				Gallery = function () {
-					/**
-					* @property {Object} options Object with default options
-					* @member ns.widget.mobile.Gallery
-					*/
-					this.options = {};
+					var self = this;
 
-					this.dragging = false;
-					this.moving = false;
-					this.maxImageWidth = 0;
-					this.maxImageHeight = 0;
-					this.orgX = 0;
-					this.orgTime = null;
-					this.currentImage = null;
-					this.previousImage = null;
-					this.nextImage = null;
-					this.images = [];
-					this.imagesHold = [];
-					this.direction = 1;
-					this.container = null;
+					/**
+					 * Object with default options
+					 * @property {Object} options All possible widget options
+					 * @property {boolean} [options.flicking=false] This property
+					 * enables swinging of the first and the last images.
+					 * @property {number} [options.duration=500] This property
+					 * determines how long the animation of switching images will run.
+					 * @property {"top"|"middle"|"bottom"} [options.verticalAlign="top"]
+					 * This property sets the vertical alignment of a widget.
+					 * The alignment options are top, middle, and bottom.
+					 * @property {number} [options.index=0] This property defines
+					 * the index number of the first image in the gallery.
+					 * @member ns.widget.mobile.Gallery
+					 */
+					self.options = {
+						flicking: false,
+						duration: 500,
+						verticalAlign: "top",
+						index: 0
+					};
+
+					self.dragging = false;
+					self.moving = false;
+					self.maxImageWidth = 0;
+					self.maxImageHeight = 0;
+					self.orgX = 0;
+					self.orgTime = null;
+					self.currentImage = null;
+					self.previousImage = null;
+					self.nextImage = null;
+					self.images = [];
+					self.imagesHold = [];
+					self.direction = 1;
+					self.container = null;
 
 					// events' handlers
-					this.pageShowHandler = null;
-					this.throttledresizeHandler = null;
-					this.vmousemoveHandler = null;
-					this.vmousedownHandler = null;
-					this.vmouseupHandler = null;
-					this.vmouseoutHandler = null;
-					this.orientationEventFire = false;
+					self.pageShowHandler = null;
+					self.throttledresizeHandler = null;
+					self.vmousemoveHandler = null;
+					self.vmousedownHandler = null;
+					self.vmouseupHandler = null;
+					self.vmouseoutHandler = null;
+					self.orientationEventFire = false;
 				};
 
 			Gallery.prototype = new BaseWidget();
 
+			/**
+			 * This method returns the height of element.
+			 * @method getHeight
+			 * @param {HTMLElement} element Element of widget
+			 * @return {number} Height of element
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.Gallery
+			 */
 			function getHeight(element) {
 				var page = selectors.getClosestBySelectorNS(element, "role=page"),
 					content = selectors.getAllByDataNS(element, "role=content"),
@@ -108,6 +138,16 @@
 				return contentHeight;
 			}
 
+			/**
+			 * This method resizes the image.
+			 * @method resizeImage
+			 * @param {HTMLElement} image Element of image
+			 * @param {number} maxHeight Maximum value of height
+			 * @param {number} maxWidth Maximum value of width
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.Gallery
+			 */
 			function resizeImage(image, maxHeight, maxWidth) {
 				var width = image.clientWidth,
 					height = image.clientHeight,
@@ -135,6 +175,15 @@
 				}
 			}
 
+			/**
+			 * This method resizes the image and its container.
+			 * @method setTranslatePosition
+			 * @param {HTMLElement} imageContainer Container of image
+			 * @param {number} value The abscissa of the translating vector
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.Gallery
+			 */
 			function setTranslatePosition(imageContainer, value) {
 				var translate = "translate3d(" + value + ", 0px, 0px)",
 					style = imageContainer.style;
@@ -147,6 +196,15 @@
 				return imageContainer;
 			}
 
+			/**
+			 * This method is used as the listener for event "vmousemove".
+			 * @method vmousemoveEvent
+			 * @param {ns.widget.mobile.Gallery} self Widget
+			 * @param {Event} event Event
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.Gallery
+			 */
 			function vmousemoveEvent(self, event) {
 				event.preventDefault();
 				if (self.moving || !self.dragging) {
@@ -156,6 +214,15 @@
 				self._drag(event.pageX);
 			}
 
+			/**
+			 * This method is used as the listener for event "vmousedown".
+			 * @method vmousedownEvent
+			 * @param {ns.widget.mobile.Gallery} self Widget
+			 * @param {Event} event Event
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.Gallery
+			 */
 			function vmousedownEvent(self, event) {
 				event.preventDefault();
 				if (self.moving) {
@@ -167,6 +234,15 @@
 				self.orgTime = Date.now();
 			}
 
+			/**
+			 * This method is used as the listener for event "vmouseup".
+			 * @method vmouseupEvent
+			 * @param {ns.widget.mobile.Gallery} self Widget
+			 * @param {Event} event Event
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.Gallery
+			 */
 			function vmouseupEvent(self, event) {
 				if (self.moving) {
 					event.stopPropagation();
@@ -176,6 +252,15 @@
 				self._move(event.pageX);
 			}
 
+			/**
+			 * This method is used as the listener for event "vmouseout".
+			 * @method vmouseoutEvent
+			 * @param {ns.widget.mobile.Gallery} self Widget
+			 * @param {Event} event Event
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.Gallery
+			 */
 			function vmouseoutEvent(self, event) {
 				if (self.moving || !self.dragging) {
 					return;
@@ -186,6 +271,16 @@
 				}
 			}
 
+			/**
+			 * This method resizes the image and its container.
+			 * @method loading
+			 * @param {ns.widget.mobile.Gallery} self Widget
+			 * @param {number} index Index of shown image
+			 * @param {HTMLElement} container Container of image
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.Gallery
+			 */
 			function loading(self, index, container) {
 				var loadFunction = loading.bind(null, self, index, container);
 				if (self.images[index] === undefined) {
@@ -206,10 +301,12 @@
 			//}
 
 			/**
-			* @property {Object} classes Dictionary for gallery related css class names
-			* @member ns.widget.mobile.Gallery
-			* @static
-			*/
+			 * Dictionary for gallery related css class names
+			 * @property {Object} classes
+			 * @member ns.widget.mobile.Gallery
+			 * @static
+			 * @readonly
+			 */
 			Gallery.classes = {
 				uiGallery: "ui-gallery",
 				uiGalleryBg: "ui-gallery-bg",
@@ -226,20 +323,20 @@
 			*/
 			Gallery.prototype._configure = function () {
 				var options = this.options;
-				/**
-				 * @property {Object} options All possible widget options
-				 * @property {boolean} [options.flicking=false] This property enables swinging of the first and the last images.
-				 * @property {number} [options.duration=500] This property determines how long the animation of switching images will run.
-				 * @property {"top"|"middle"|"bottom"} [options.verticalAlign="top"] This property sets the vertical alignment of a widget. The alignment options are top, middle, and bottom.
-				 * @property {number} [options.index=0] This property defines the index number of the first image in the gallery.
-				 * @member ns.widget.mobile.Gallery
-				 */
+
 				options.flicking = false;
 				options.duration = 500;
 				options.verticalAlign = "top";
 				options.index = 0;
 			};
 
+			/**
+			 * This method detaches all images from the containers.
+			 * @method _detachAll
+			 * @param {NodeList} images Images hold by widget
+			 * @protected
+			 * @member ns.widget.mobile.Gallery
+			 */
 			Gallery.prototype._detachAll = function (images) {
 				var i = 0,
 					length = images.length,
@@ -251,6 +348,14 @@
 				}
 			};
 
+			/**
+			 * This method detaches the image from the container.
+			 * @method _detach
+			 * @param {number} index Index of widget
+			 * @param {HTMLElement} container Container of image
+			 * @protected
+			 * @member ns.widget.mobile.Gallery
+			 */
 			Gallery.prototype._detach = function (index, container) {
 				var images = this.images,
 					image = images[index];
@@ -316,7 +421,7 @@
 				this.container = selectors.getChildrenByClass(element, classes.uiGallery)[0];
 				this._detachAll(images);
 
-				// for 'compare' test
+				// for "compare" test
 				this.max_width = this.maxImageWidth;
 				this.max_height = this.maxImageHeight;
 				this.org_x = this.orgX;
@@ -357,6 +462,14 @@
 				container.addEventListener("vmouseout", this.vmouseoutHandler, false);
 			};
 
+			/**
+			 * This method sets the value of CSS "top" property for container.
+			 * @method _align
+			 * @param {number} index Index of widget
+			 * @param {HTMLElement} container Container of image
+			 * @protected
+			 * @member ns.widget.mobile.Gallery
+			 */
 			Gallery.prototype._align = function (index, container) {
 				var image = this.images[index],
 					imageTop = 0,
@@ -374,6 +487,16 @@
 				}
 			};
 
+			/**
+			 * This method sets the transformation of widget.
+			 * @method _moveLeft
+			 * @param {HTMLElement} imageContainer Container of image
+			 * @param {string} value The abscissa of the translating vector
+			 * @param {number} duration Duration of the animation
+			 * @return {HTMLElement} Container of image
+			 * @protected
+			 * @member ns.widget.mobile.Gallery
+			 */
 			Gallery.prototype._moveLeft = function (imageContainer, value, duration) {
 				var transition = "";
 
@@ -387,6 +510,14 @@
 				return imageContainer;
 			};
 
+			/**
+			 * This method attaches image to container.
+			 * @method _attach
+			 * @param {number} index Index of shown image
+			 * @param {HTMLElement} container Container of image
+			 * @protected
+			 * @member ns.widget.mobile.Gallery
+			 */
 			Gallery.prototype._attach = function (index, container) {
 				if (container && index >= 0 && this.images.length && index < this.images.length) {
 					container.style.display = "block";
@@ -397,7 +528,7 @@
 
 			/**
 			 * The show method is used to display the gallery.
-			 * This method is called on event 'pageshow' and during refreshing.
+			 * This method is called on event "pageshow" and during refreshing.
 			 *
 			 *      @example
 			 *      var galleryWidget = tau.widget.Gallery(document.getElementById("gallery"));
@@ -445,6 +576,14 @@
 				}
 			};
 
+			/**
+			 * This method calculates the new position of gallery during moving.
+			 * It is called on event vmousemove.
+			 * @method _drag
+			 * @param {number} x Position relative to the left edge of the document
+			 * @protected
+			 * @member ns.widget.mobile.Gallery
+			 */
 			Gallery.prototype._drag = function (x) {
 				var delta,
 					coordX,
@@ -478,6 +617,14 @@
 				}
 			};
 
+			/**
+			 * This method calculates the new position of gallery during moving.
+			 * It is called on event vmouseup.
+			 * @method _move
+			 * @param {number} x Position relative to the left edge of the document
+			 * @protected
+			 * @member ns.widget.mobile.Gallery
+			 */
 			Gallery.prototype._move = function (x) {
 				var delta = this.orgX - x,
 					flip = 0,
@@ -558,6 +705,13 @@
 				}
 			};
 
+			/**
+			 * This method deletes all "vmouse" events' handlers.
+			 * It is called by method "destroy".
+			 * @method _deleteEvents
+			 * @protected
+			 * @member ns.widget.mobile.Gallery
+			 */
 			Gallery.prototype._deleteEvents = function () {
 				var container = this.container;
 
@@ -568,7 +722,8 @@
 			};
 
 			/**
-			 * The _unbind method is used to disable showing gallery on 'pageshow' event and refreshing gallery on 'throttledresize' event.
+			 * The _unbind method is used to disable showing gallery on "pageshow" event
+			 * and refreshing gallery on "throttledresize" event.
 			 * @method _unbind
 			 * @member ns.widget.mobile.Gallery
 			 * @protected
@@ -598,11 +753,11 @@
 			 */
 
 			/**
-			* Destroy gallery
-			* @method _destroy
-			* @protected
-			* @member ns.widget.mobile.Gallery
-			*/
+			 * This method destroys gallery.
+			 * @method _destroy
+			 * @protected
+			 * @member ns.widget.mobile.Gallery
+			 */
 			Gallery.prototype._destroy = function () {
 				this._unbind();
 				this._deleteEvents();
@@ -617,14 +772,14 @@
 			 *      @example
 			 *      var galleryWidget = tau.widget.Gallery(document.getElementById("gallery"));
 			 *
-			 *      galleryWidget.add( "./images/01.jpg" ); // image with attribute src='./images/01.jpg' will be added
+			 *      galleryWidget.add( "./images/01.jpg" ); // image with attribute src="./images/01.jpg" will be added
 			 *      galleryWidget.refresh( );
 			 *
 			 *      // or
 			 *
 			 *      $( "#gallery" ).gallery( "add", "./images/01.jpg" );
 			 *      $( "#gallery" ).gallery( "add", "./images/02.jpg" );
-			 *      $( "#gallery" ).gallery( "refresh" ); // to see changes, method 'refresh' must be called
+			 *      $( "#gallery" ).gallery( "refresh" ); // to see changes, method "refresh" must be called
 			 *
 			 * @method add
 			 * @param {string} file the image's file URL
@@ -717,6 +872,13 @@
 				return;
 			};
 
+			/**
+			 * This method hides images.
+			 * It is called by method "hide".
+			 * @method _hide
+			 * @protected
+			 * @member ns.widget.mobile.Gallery
+			 */
 			Gallery.prototype._hide = function () {
 				var index = this.index;
 
@@ -745,6 +907,13 @@
 				this._deleteEvents();
 			};
 
+			/**
+			 * This method updates the images hold by wigdet.
+			 * It is called by method "refesh".
+			 * @method _update
+			 * @protected
+			 * @member ns.widget.mobile.Gallery
+			 */
 			Gallery.prototype._update = function () {
 				var self = this,
 					galleryBgClass = Gallery.classes.uiGalleryBg,
@@ -783,7 +952,7 @@
 			 *
 			 *      $( "#gallery" ).gallery( "refresh" );
 			 *
-			 *      // also will be called automatically in during changing option (method 'option') or setting value (method 'value')
+			 *      // also will be called automatically in during changing option (method "option") or setting value (method "value")
 			 *
 			 *      galleryWidget.option("flicking", true);
 			 *      galleryWidget.value(0);
@@ -792,6 +961,14 @@
 			 * @method refresh
 			 * @param {number} [startIndex] index of the first image
 			 * @return {?number} index of the first image, which will be displayed
+			 * @member ns.widget.mobile.Gallery
+			 */
+			/**
+			 * This method refreshes wigdet.
+			 * It is called by method "refesh".
+			 * @method _refresh
+			 * @param {?number} startIndex
+			 * @protected
 			 * @member ns.widget.mobile.Gallery
 			 */
 			Gallery.prototype._refresh = function (startIndex) {
@@ -884,11 +1061,26 @@
 			 * @member ns.widget.mobile.Gallery
 			 */
 
+			/**
+			 * This method sets value of index.
+			 * It is called by method "value".
+			 * @method _setValue
+			 * @param {number} index New value of index
+			 * @protected
+			 * @member ns.widget.mobile.Gallery
+			 */
 			Gallery.prototype._setValue = function (index) {
 				this.refresh(index);
 				return null;
 			};
 
+			/**
+			 * This method returns the value of index.
+			 * It is called by method "value".
+			 * @method _getValue
+			 * @protected
+			 * @member ns.widget.mobile.Gallery
+			 */
 			Gallery.prototype._getValue = function () {
 				return this.index;
 			};
