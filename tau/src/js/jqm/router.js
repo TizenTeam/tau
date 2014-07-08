@@ -21,10 +21,10 @@
 			var engine = ns.engine;
 			ns.jqm.router = {
 				/**
-				* bind router to jqm
-				* @method beforeinit
-				* @member ns.jqm.router
-				*/
+				 * Enables support jQM before router init.
+				 * @method beforeinit
+				 * @member ns.jqm.router
+				 */
 				beforeinit: function () {
 					var container,
 						router = engine.getRouter();
@@ -97,6 +97,11 @@
 						}
 					}
 				},
+				/**
+				 * Enables support jQM after router init.
+				 * @method init
+				 * @member ns.jqm.router
+				 */
 				init: function () {
 					var transitions,
 						name,

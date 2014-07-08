@@ -20,7 +20,7 @@
 				/**
 				* Proxy colors library from ns namespace to jQM namespace
 				* @method init
-				* @member ns.jqm
+				* @member ns.jqm.colors
 				* @static
 				*/
 				init: function () {

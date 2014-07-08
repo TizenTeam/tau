@@ -21,14 +21,16 @@
 
 			ns.jqm.support = {
 				/**
-				* performance test http://jsperf.com/check-document-property;
-				*/
+				 * Touch support flag
+				 * @property {boolean} touch
+				 * @member ns.jqm.support
+				 */
 				touch: document.ontouchend !== undefined,
 				/**
-				* bind router to jqm
-				* @method init
-				* @member ns.jqm.support
-				*/
+				 * Enables support in jQM after TAU init
+				 * @method init
+				 * @member ns.jqm.support
+				 */
 				init: function () {
 					var router = ns.engine.getRouter();
 					if ($) {
