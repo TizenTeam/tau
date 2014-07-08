@@ -277,9 +277,11 @@
 			VirtualListview.prototype = prototype;
 
 			/**
-			 * @property {Object} classes Dictionary object containing commonly used wiget classes
+			 * Dictionary object containing commonly used widget classes
+			 * @property {Object} classes
 			 * @static
 			 * @member ns.widget.mobile.VirtualListview
+			 * @readonly
 			 */
 			VirtualListview.classes = classes;
 

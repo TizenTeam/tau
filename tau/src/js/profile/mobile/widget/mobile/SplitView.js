@@ -131,6 +131,13 @@
 				},
 				prototype = new BaseWidgetMobile();
 
+			/**
+			 * Dictionary object containing commonly used widget classes
+			 * @property {Object} classes
+			 * @static
+			 * @readonly
+			 * @member ns.widget.mobile.SplitView
+			 */
 			SplitView.classes = {
 				uiPane :'ui-pane',
 				uiSplitView : 'ui-splitview',

@@ -114,6 +114,12 @@
 					self._onResizeBound = null;
 					self._onPageshowBound = null;
 				},
+				/**
+				 * Dictionary object containing commonly used widget classes
+				 * @property {Object} classes
+				 * @static
+				 * @member ns.widget.mobile.Drawer
+				 */
 				classes = {
 					drawer : "ui-drawer",
 					header : "ui-drawer-header",
@@ -132,6 +138,8 @@
 			 * Click event handler
 			 * @method onClick
 			 * @private
+			 * @static
+			 * @param {ns.widget.mobile.Drawer} self
 			 * @member ns.widget.mobile.Drawer
 			 */
 			function onClick(self) {
@@ -145,6 +153,8 @@
 			 * webkitTransitionEnd event handler
 			 * @method onTransitionEnd
 			 * @private
+			 * @static
+			 * @param {ns.widget.mobile.Drawer} self
 			 * @member ns.widget.mobile.Drawer
 			 */
 			function onTransitionEnd(self) {
@@ -163,6 +173,8 @@
 			 * Resize event handler
 			 * @method onResize
 			 * @private
+			 * @static
+			 * @param {ns.widget.mobile.Drawer} self
 			 * @member ns.widget.mobile.Drawer
 			 */
 			function onResize(self) {
@@ -174,6 +186,8 @@
 			 * Pageshow event handler
 			 * @method onPageshow
 			 * @private
+			 * @static
+			 * @param {ns.widget.mobile.Drawer} self
 			 * @member ns.widget.mobile.Drawer
 			 */
 			function onPageshow(self) {
@@ -184,6 +198,10 @@
 			 * Drawer translate function
 			 * @method translate
 			 * @private
+			 * @static
+			 * @param {HTMLElement} element
+			 * @param {number} x
+			 * @param {number} duration
 			 * @member ns.widget.mobile.Drawer
 			 */
 			function translate(element, x, duration) {

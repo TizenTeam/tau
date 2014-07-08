@@ -110,10 +110,11 @@
 			Controlgroup.prototype = new BaseWidget();
 
 			/**
-			* @property {Object} classes Dictionary for Controlgroup related css class names
-			* @member ns.widget.mobile.Controlgroup
-			* @static
-			*/
+			 * Dictionary for Controlgroup related css class names
+			 * @property {Object} classes
+			 * @member ns.widget.mobile.Controlgroup
+			 * @static
+			 */
 			Controlgroup.classes = {
 				cornerAll: 'ui-btn-corner-all',
 				cornerTop: 'ui-corner-top',

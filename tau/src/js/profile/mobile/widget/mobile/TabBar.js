@@ -193,6 +193,13 @@
 					this.vclickCallback = null;
 					this._ui = {};
 				},
+				/**
+				 * Object with class dictionary
+				 * @property {Object} classes
+				 * @static
+				 * @member ns.widget.mobile.TabBar
+				 * @readonly
+				 */
 				classes = {
 					tabbarScrollUl: "tabbar-scroll-ul",
 					tabbarScrollLi: "tabbar-scroll-li",
@@ -221,7 +228,17 @@
 			* @todo move to options object
 			*/
 
+			/**
+			 * Position of icon
+			 * @property {string} [iconpos="top"]
+			 * @member ns.widget.mobile.TabBar
+			 */
 			TabBar.prototype.iconpos = 'top';
+			/**
+			 * Grid type
+			 * @property {string} [grid=null]
+			 * @member ns.widget.mobile.TabBar
+			 */
 			TabBar.prototype.grid = null;
 
 			TabBar.classes = classes;

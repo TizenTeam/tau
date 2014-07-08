@@ -243,22 +243,21 @@
 			Slider.prototype = new BaseWidget();
 
 			/**
-			 * Classes Dictionary for slider related css
-			 * @property {Object}
-			 * class names
-			 * @member ns.widget.mobile.Slider
-			 * @static
-			 * @readonly
-			 */
+			* Dictionary for slider related css class names
+			* @property {Object} classes
+			* @member ns.widget.mobile.Slider
+			* @static
+			* @readonly
+			*/
 			Slider.classes = classes;
 
 			/**
-			 * KeyCode Dictionary for keyboard codes
-			 * @property {Object}
-			 * @member ns.widget.mobile.Slider
-			 * @static
-			 * @readonly
-			 */
+			* Dictionary for keyboard codes
+			* @property {Object} keyCode
+			* @member ns.widget.mobile.Slider
+			* @static
+			* @readonly
+			*/
 			Slider.keyCode = keyCode;
 
 			/**

@@ -206,16 +206,17 @@
 				prototype = new BaseWidget();
 
 			/**
-			 * @property {Object} classes Dictionary for loader related css
-			 * class names
+			 * Dictionary for loader related css
+			 * @property {Object} classes
 			 * @member ns.widget.mobile.Loader
 			 * @static
 			 */
 			Loader.classes = classes;
 
 			/**
-			 * @property {Object} properties Dictionary for loader related
-			 * properties such as messages and themes
+			 * Dictionary for loader related properties such as messages and
+			 * themes
+			 * @property {Object} properties
 			 * @member ns.widget.mobile.Loader
 			 * @static
 			 */

@@ -898,10 +898,11 @@
 			Popup.prototype = new BaseWidget();
 
 			/**
-			* @property {Object} classes Dictionary for popup related css class names
-			* @member ns.widget.mobile.Popup
-			* @static
-			*/
+			 * Dictionary for popup related css class names
+			 * @property {Object} classes
+			 * @member ns.widget.mobile.Popup
+			 * @static
+			 */
 			Popup.classes = {
 				IN: "in",
 				OUT: "out",

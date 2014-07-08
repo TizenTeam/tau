@@ -286,13 +286,13 @@
 			Tokentextarea.classes = classes;
 
 			/**
-			 * Strings object containing commonly used widget strings
-			 * @property {Object}
-			 * @property {string} options.doubleTapToEdit Is used to set aria
+			 * Object containing commonly used widget strings
+			 * @property {Object} strings
+			 * @property {string} strings.doubleTapToEdit Is used to set aria
 			 * label for token text area button
-			 * @property {string} options.moreDoubleTapToEdit Is used to set
+			 * @property {string} strings.moreDoubleTapToEdit Is used to set
 			 * aria label for grouped hidden tokens
-			 * @property {string} options.addRecipient Is used to add text to
+			 * @property {string} strings.addRecipient Is used to add text to
 			 * the button linked to external page or URL
 			 * @static
 			 * @member ns.widget.mobile.Tokentextarea

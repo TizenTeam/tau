@@ -144,11 +144,6 @@
 					"LARGE": "-0.1rem",
 					"DEFAULT": "-0.15rem"
 				},
-				/**
-				 * TizenSlider widget
-				 * @class ns.widget.TizenSlider
-				 * @extends ns.widget.BaseWidget
-				 */
 				TizenSlider = function () {
 					// Some properties for example .popup must be defined once per slider
 					// we need to make a copy of base options, because simple assigment
