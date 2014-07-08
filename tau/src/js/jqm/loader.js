@@ -1,6 +1,5 @@
 /*global window, define */
 /*jslint plusplus: true, nomen: true */
-//  * @TODO add support of $.mobile.buttonMarkup.hoverDelay
 (function (window, document, ns, $) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);

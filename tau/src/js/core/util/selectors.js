@@ -15,8 +15,8 @@
 * limitations under the License.
 */
 /**
- * #Selectors
- * Util class with selectors functions
+ * #Selectors Utility
+ * Object contains functions to get HTML elements by different selectors.
  * @class ns.util.selectors
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>

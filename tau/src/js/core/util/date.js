@@ -15,8 +15,8 @@
 * limitations under the License.
 */
 /**
- * #Date utilities
- * Namespace with helper function for date modification/parsing
+ * #Date Utility
+ * Object supports work with date and time
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>
  * @class ns.util.date
  */

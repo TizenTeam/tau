@@ -1,6 +1,7 @@
 /*global window, define, ns */
 /*jslint nomen: true, plusplus: true */
 /**
+ * #Animation Utility
  * Animation class for easy animations of elements. There can be
  * multiple animations on one element but in such case the usage
  * of ns.util.anim.Chain is preferred.

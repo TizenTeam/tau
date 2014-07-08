@@ -1,6 +1,7 @@
 /*global window, define */
 /**
- * #Globalize utils
+ * #Globalize Utility
+ * Object supports globalize options.
  * @class ns.util.globalize
  */
 (function (window, document, ns, Globalize) {

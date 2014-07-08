@@ -1,8 +1,8 @@
 /*global window, define, Math*/
 /*jslint bitwise: true */
 /**
- * #Class with functions to set theme of application.
- *
+ * #Theme object
+ * Class with functions to set theme of application.
  * @class ns.theme
  */
 (function (window, document, ns) {

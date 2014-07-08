@@ -16,6 +16,7 @@
 */
 /*jslint nomen: true */
 /**
+ * #BaseWidgetMobile
  * Extenstion of class BaseWidget for mobile profile.
  * This class has compability properties and methods with jQuery Mobile Widget.
  * @class ns.widget.mobile.BaseWidgetMobile

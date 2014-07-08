@@ -15,7 +15,8 @@
 * limitations under the License.
 */
 /**
- * URL History Support For Router
+ * #URL History Support For Router
+ * Class manages history of changing pages in application.
  * @class ns.router.urlHistory
  */
 (function (window, document, ns) {

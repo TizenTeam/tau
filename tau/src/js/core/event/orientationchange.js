@@ -1,10 +1,11 @@
 /*global window, define */
 /**
+ * #Event orientationchange
  * Namespace to support orientationchange event
  * @class ns.event.orientationchange
  */
 /**
- * Event orientation change
+ * Event orientationchange
  * @event orientationchange
  * @member ns.event.orientationchange
  */

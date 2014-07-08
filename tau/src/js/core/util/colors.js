@@ -1,6 +1,7 @@
 /*global window, define */
 /**
- * #Colors utils
+ * #Colors Utility
+ * Class supports converting between color formats
  * @class ns.util.colors
  */
 

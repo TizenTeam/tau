@@ -1,8 +1,8 @@
 /*global window, define */
 /*jslint plusplus: true, nomen: true */
-//  * @TODO add support of $.mobile.buttonMarkup.hoverDelay
 /**
- * #jQuery Mobile mapping class
+ * #jQuery Mobile mapping support
+ * Object maps support object from TAU namespace to jQuery Mobile namespace.
  * @class ns.jqm.support
  */
 (function (window, document, ns, $) {

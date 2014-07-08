@@ -15,7 +15,8 @@
 * limitations under the License.
 */
 /**
- * #Namespace for router
+ * #Router
+ * Namespace for routers
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>
  * @class ns.router

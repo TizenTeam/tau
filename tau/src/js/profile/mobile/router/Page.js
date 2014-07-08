@@ -15,7 +15,8 @@
 * limitations under the License.
 */
 /**
- * #Router for Mobile Profile
+ * #Mobile Router
+ * Class is responsible for change pages in applications.
  * @class ns.router.Page
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Grzegorz Osimowicz <g.osimowicz@samsung.com>

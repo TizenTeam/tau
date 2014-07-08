@@ -15,9 +15,10 @@
  * limitations under the License.
  */
 /**
- * # Deferred Utilities
+ * #Deferred Utility
+ * Class creates object which can call registered callback depend from
+ * state of object..
  * @class ns.util.deferred
- * @static
  * @author Tomasz Lukawski <t.lukawski@samsung.com>
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Piotr Karny <p.karny@samsung.com>

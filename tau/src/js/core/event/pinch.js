@@ -16,7 +16,8 @@
 */
 /*jslint nomen: true*/
 /**
- * #Event Pinch Support
+ * #Event pinch
+ * Object supports pinch event.
  * @class ns.event.pinch
  */
 (function (window, document, ns) {

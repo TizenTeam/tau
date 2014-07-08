@@ -1,8 +1,7 @@
 /*global window, define */
 /**
- * #Zoom utilities
- * Namespace with helpers function connected with zoom.
- *
+ * #Zoom Utility
+ * Object supports enabling and disabling zoom.
  * @class ns.util.zoom
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */

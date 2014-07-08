@@ -15,9 +15,8 @@
 * limitations under the License.
 */
 /**
- * #Object utilities
- * Namespace with helpers function connected with objects.
- *
+ * #Object Utility
+ * Object contains functions help work with objects.
  * @class ns.util.object
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Piotr Karny <p.karny@samsung.com>

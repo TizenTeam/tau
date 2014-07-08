@@ -16,7 +16,9 @@
 * limitations under the License.
 */
 /**
- * Main class with engine of library
+ * #Engine
+ * Main class with engine of library which control communication
+ * between parts of framework.
  * @class ns.engine
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>

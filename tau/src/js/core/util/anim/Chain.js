@@ -1,8 +1,9 @@
 /*global window, define, ns */
 /*jslint plusplus: true, nomen: true */
 /**
- * Chain class for easy multiple animations managment. The chain
- * can be executed as is (animations are concurrent) or in order
+ * #Animation Chain Utility
+ * Chain class for easy multiple animations managment. The chain can be
+ * executed as is (animations are concurrent) or in order
  * of adding in which animations are delayed so that the execute
  * in turn
  *

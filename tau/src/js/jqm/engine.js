@@ -1,7 +1,8 @@
 /*global window, define, console */
 /*jslint plusplus: true, nomen: true */
 /**
- * #jQuery Mobile mapping class
+ * #jQuery Mobile mapping engine
+ * Object maps engine object from TAU namespace to jQuery Mobile namespace.
  * @class ns.jqm.engine
  */
 (function (window, document, ns, $) {

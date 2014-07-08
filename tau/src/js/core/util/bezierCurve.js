@@ -1,6 +1,7 @@
 /*global window: false, define: false, Math: false */
 /**
- * #Bezier Curves utilities
+ * #Bezier Curves Utility
+ * Class supports calculating Bezier Curves.
  * @class ns.util.bezierCurve
  */
 (function (ns) {

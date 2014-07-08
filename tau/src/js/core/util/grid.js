@@ -1,4 +1,9 @@
 /*global window, define */
+/**
+ * #Grid Utility
+ * Object helps creating grids.
+ * @class ns.util.grid
+ */
 (function (ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
@@ -58,10 +63,6 @@
 					}
 				});
 			}
-			/**
-			* Class with functions to create css grids
-			* @class ns.util.grid
-			*/
 			ns.util.grid = {
 				/**
 				* make css grid

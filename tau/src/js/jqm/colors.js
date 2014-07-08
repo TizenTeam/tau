@@ -1,8 +1,9 @@
 /*global window, define */
 /*jslint plusplus: true, nomen: true */
-//  * @TODO add support of $.mobile.buttonMarkup.hoverDelay
 /**
- * #jQuery Mobile mapping object for color support
+ * #jQuery Mobile mapping colors
+ * Object maps color support object from TAU namespace to
+ * jQuery Mobile namespace.
  * @class ns.jqm.colors
  */
 (function (window, document, ns, $) {

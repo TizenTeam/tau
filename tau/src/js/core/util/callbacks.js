@@ -1,4 +1,28 @@
 /*global window, define */
+/**
+ * #Callback Utility
+ * Class creates a callback list
+ *
+ * Create a callback list using the following parameters:
+ *  options: an optional list of space-separated options that will change how
+ *			the callback list behaves or a more traditional option object
+ *
+ * By default a callback list will act like an event callback list and can be
+ * "fired" multiple times.
+ *
+ * Possible options:
+ *
+ *	once:			will ensure the callback list can only be fired once (like a Deferred)
+ *
+ *	memory:			will keep track of previous values and will call any callback added
+ *					after the list has been fired right away with the latest "memorized"
+ *					values (like a Deferred)
+ *
+ *	unique:			will ensure a callback can only be added once (no duplicate in the list)
+ *
+ *	stopOnFalse:	interrupt callings when a callback returns false
+ * @class ns.util.callbacks
+ */
 (function (window, document, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
@@ -9,29 +33,6 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-
-			/**
-			 * Create a callback list using the following parameters:
-			 *
-			 *	options: an optional list of space-separated options that will change how
-			 *			the callback list behaves or a more traditional option object
-			 *
-			 * By default a callback list will act like an event callback list and can be
-			 * "fired" multiple times.
-			 *
-			 * Possible options:
-			 *
-			 *	once:			will ensure the callback list can only be fired once (like a Deferred)
-			 *
-			 *	memory:			will keep track of previous values and will call any callback added
-			 *					after the list has been fired right away with the latest "memorized"
-			 *					values (like a Deferred)
-			 *
-			 *	unique:			will ensure a callback can only be added once (no duplicate in the list)
-			 *
-			 *	stopOnFalse:	interrupt callings when a callback returns false
-			 * @class ns.util.callbacks
-			 */
 			ns.util.callbacks = function (orgOptions) {
 
 				var object = ns.util.object,

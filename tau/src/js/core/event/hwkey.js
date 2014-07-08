@@ -1,5 +1,6 @@
 /*global window, define */
 /**
+ * #Event hwkey
  * Namespace to support tizenhwkey event
  * @class ns.event.hwkey
  */

@@ -15,7 +15,8 @@
 * limitations under the License.
 */
 /**
- * # Path Utilities
+ * #Path Utility
+ * Object helps work with paths.
  * @class ns.util.path
  * @static
  * @author Tomasz Lukawski <t.lukawski@samsung.com>

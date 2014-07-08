@@ -16,8 +16,9 @@
 * limitations under the License.
 */
 /**
- * # DOM Object
- * Utilities object with function to manipulation DOM
+ * #Utility DOM
+ * Utility object with function to DOM manipulation, CSS properties support
+ * and DOM attributes support.
  *
  * # How to replace jQuery methods  by ns methods
  * ## append vs appendNodes

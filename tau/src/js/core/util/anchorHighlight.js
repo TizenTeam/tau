@@ -15,7 +15,8 @@
 * limitations under the License.
 */
 /**
- * Utility enable highlight links.
+ * #Anchor Highlight Utility
+ * Utility enables highlight links.
  * @class ns.util.anchorHighlight
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Damian Osipiuk <d.osipiuk@samsung.com>

@@ -1,6 +1,7 @@
 /*global window, define, ns */
 /**
- * #Animation Utilities
+ * #Animation namespace
+ * Namespace for animation utilities
  * @author Krzysztof Antoszek <k.antoszek@samsung.com
  * @class ns.util.anim
  */

@@ -16,7 +16,8 @@
 * limitations under the License.
 */
 /**
- * # Support Object
+ * #Support
+ * Namespace with helpers function connected with browser properties
  * @class ns.support
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Piotr Karny <p.karny@samsung.com>

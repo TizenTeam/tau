@@ -1,7 +1,8 @@
 /*global window, define */
 /*jslint plusplus: true, nomen: true */
 /**
- * #jQuery Mobile mapping class
+ * #jQuery Mobile mapping defaults
+ * Object maps default values from TAU namespace to jQuery Mobile namespace.
  * @class ns.jqm.defaults
  */
 (function (window, document, ns, $) {

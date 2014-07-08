@@ -2,7 +2,7 @@
 /*jslint bitwise: true */
 /**
  * #Framework Data Object
- *
+ * Object contains properties describing run time environment.
  * @class ns.frameworkData
  */
 (function (document, ns) {

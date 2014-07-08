@@ -15,7 +15,9 @@
 * limitations under the License.
 */
 /**
- * #Router Support Transitions For Mobile Profile
+ * #Mobile Router with Transition
+ * Class is responsible for change pages in applications when
+ * transition is enable.
  * @class ns.router.PageTransition
  */
 (function (window, document, ns) {

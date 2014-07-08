@@ -1,6 +1,7 @@
 /*global window, define, XMLHttpRequest */
 /**
- * #Load utils
+ * #Load Utility
+ * Object contains function to load external resources.
  * @class ns.util.load
  */
 (function (document, ns) {

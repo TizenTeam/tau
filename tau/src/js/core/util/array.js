@@ -1,6 +1,7 @@
 /*global window, define */
 /**
- * #Array utilities
+ * #Array Utility
+ * Utility helps work with arrays.
  * @class ns.util.array
  */
 (function (window, document, ns) {

@@ -1,6 +1,7 @@
 /*global window, define, ns */
 /*jslint nomen: true, plusplus: true */
 /**
+ * #Animation Keyframes Utility
  * Keyframes class for easy keyframe css syntax creation and
  * managing. Each frame is specified as an element of an array 
  * with size 100.

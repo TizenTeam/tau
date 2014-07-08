@@ -1,6 +1,7 @@
 /*global window, define */
 /**
- * Namespace to support throttledresize event
+ * #Event throttledresize
+ * Object supports throttledresize event.
  * @class ns.event.throttledresize
  */
 /**

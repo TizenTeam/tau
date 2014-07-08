@@ -1,5 +1,11 @@
 /*global window, define */
 /*jslint nomen: true, plusplus: true */
+/**
+ * #Easing Utility
+ * Utility calculates time function for animations.
+ * @class ns.util.easing
+ */
+
 (function (ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
@@ -9,10 +15,6 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			/**
-			* #Easing Utilities
-			* @class ns.util.easing
-			*/
 			ns.util.easing = {
 				/**
 				* Performs cubit out easing calcuclations based on time

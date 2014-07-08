@@ -17,6 +17,7 @@
 */
 /**
  * #Gesture.Detector class
+ * Base class for create detectors in gestures.
  * @class ns.event.gesture.Detector
  */
 ( function ( ns, window, undefined ) {

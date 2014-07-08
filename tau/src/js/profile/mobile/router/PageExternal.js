@@ -15,7 +15,9 @@
 * limitations under the License.
 */
 /**
- * #Router Support Loading External Pages For Mobile Profile
+ * #Mobile Router for External
+ * Class is responsible for change pages in applications when pages
+ * are in external files.
  * @class ns.router.PageExternal
  */
 (function (window, document, ns) {

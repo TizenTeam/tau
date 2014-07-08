@@ -16,7 +16,8 @@
  * limitations under the License.
  */
 /**
- * # Event namespace
+ * #Event namespace
+ * Namespace contains all object connected with events support.
  * @class ns.event
  */
 (function (window, ns) {

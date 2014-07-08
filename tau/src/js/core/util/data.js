@@ -1,6 +1,7 @@
 /*global window, define, Object, Element */
 /**
- * #Data attributes utils
+ * #Data Attributes Utility
+ * Object menages data attributes
  * @class ns.util.data
  */
 (function (window, document, ns) {
