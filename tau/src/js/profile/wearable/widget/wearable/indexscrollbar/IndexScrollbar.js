@@ -19,7 +19,9 @@
  * #IndexScrollbar Widget
  * Shows an index scroll bar with indices, usually for the list.
  *
- * The index scroll bar widget shows on the screen a scrollbar with indices, and fires a select event when the index characters are clicked. The following table describes the supported index scroll bar APIs.
+ * The index scroll bar widget shows on the screen a scrollbar with indices,
+ * and fires a select event when the index characters are clicked.
+ * The following table describes the supported index scroll bar APIs.
  *
  * ## Manual constructor
  * For manual creation of widget you can use constructor of widget from **tau** namespace:
@@ -28,7 +30,9 @@
  *		var indexscrollbarElement = document.getElementById('indexscrollbar'),
  *			indexscrollbar = tau.widget.IndexScrollbar(IndexScrollbar, {index: "A,B,C"});
  *
- * Constructor has one require parameter **element** which are base **HTMLElement** to create widget. We recommend get this element by method *document.getElementById*. Second parameter is **options** and it is a object with options for widget.
+ * Constructor has one require parameter **element** which are base **HTMLElement** to create widget.
+ * We recommend get this element by method *document.getElementById*. Second parameter is **options**
+ * and it is a object with options for widget.
  *
  * To add an IndexScrollbar widget to the application, use the following code:
  *
@@ -47,7 +51,8 @@
  *
  * The index value can be retrieved by accessing event.detail.index property.
  *
- * In the following example, the list scrolls to the position of the list item defined using the li-divider class, selected by the index scroll bar:
+ * In the following example, the list scrolls to the position of the list item defined using
+ * the li-divider class, selected by the index scroll bar:
  *
  *      @example
  *         <div id="pageIndexScrollbar" class="ui-page">
@@ -126,7 +131,10 @@
  *             </script>
  *         </div>
  *
- * The following example uses the supplementScroll argument, which shows a level 2 index scroll bar. The application code must contain a level 2 index array for each level 1 index character. The example shows a way to analyze list items and create a dictionary (secondIndex) for level 1 indices for the index scroll bar, and a dictionary (keyItem) for moving list items at runtime:
+ * The following example uses the supplementScroll argument, which shows a level 2 index scroll bar.
+ * The application code must contain a level 2 index array for each level 1 index character.
+ * The example shows a way to analyze list items and create a dictionary (secondIndex) for level 1
+ * indices for the index scroll bar, and a dictionary (keyItem) for moving list items at runtime:
  *
  *      @example
  *         <div id="indexscrollbar2" class="ui-indexscrollbar"
@@ -305,7 +313,8 @@
 			},
 			BaseWidget = ns.widget.BaseWidget,
 			/**
-			 * @property {Object} engine Alias for class {@link ns.engine}
+			 * Alias for class {@link ns.engine}
+			 * @property {Object} engine
 			 * @member ns.widget.wearable.IndexScrollbar
 			 * @private
 			 * @static
@@ -320,7 +329,16 @@
 			 */
 				ev = ns.event,
 			/**
-			 * @property {Object} doms Alias for class {@link ns.util.DOM}
+			 * Alias for class {@link ns.event}
+			 * @property {Object} events
+			 * @member ns.widget.wearable.IndexScrollbar
+			 * @private
+			 * @static
+			 */
+				events = ns.event,
+			/**
+			 * Alias for class {@link ns.util.object}
+			 * @property {Object} utilsObject
 			 * @member ns.widget.wearable.IndexScrollbar
 			 * @private
 			 * @static
@@ -354,7 +372,9 @@
 					 * @property {string} [options.moreChar="*"] more character
 					 * @property {string} [options.selectedClass="ui-state-selected"] disabled class name
 					 * @property {string} [options.delimiter=","] delimiter in index
-					 * @property {string|Array} [options.index="A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,1"] string with list of letters separate be delimiter or array of letters
+					 * @property {string|Array} [options.index=["A","B","C","D","E","F","G","H","I",
+					 * "J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","1"]]
+					 * String with list of letters separate be delimiter or array of letters
 					 * @property {boolean} [options.maxIndexLen=0]
 					 * @property {boolean} [options.indexHeight=36]
 					 * @property {boolean} [options.keepSelectEventDelay=50]
@@ -381,10 +401,26 @@
 					};
 				},
 
+				/**
+				 * This method builds widget.
+				 * @method _build
+				 * @protected
+				 * @param {HTMLElement} element
+				 * @return {HTMLElement}
+				 * @member ns.widget.wearable.IndexScrollbar
+				 */
 				_build: function (element) {
 					return element;
 				},
 
+				/**
+				 * This method inits widget.
+				 * @method _init
+				 * @protected
+				 * @param {HTMLElement} element
+				 * @return {HTMLElement}
+				 * @member ns.widget.wearable.IndexScrollbar
+				 */
 				_init: function () {
 					this.options.index = this._getIndex();
 					this._setInitialLayout();	// This is needed for creating sub objects
@@ -396,6 +432,13 @@
 					this._extended(true);
 				},
 
+				/**
+				 * This method refreshes widget.
+				 * @method _refresh
+				 * @protected
+				 * @return {HTMLElement}
+				 * @member ns.widget.wearable.IndexScrollbar
+				 */
 				_refresh: function () {
 					if( this._isExtended() ) {
 						this._unbindEvent();
@@ -407,6 +450,14 @@
 					this._extended( true );
 				},
 
+				/**
+				 * This method destroys widget.
+				 * @method _destroy
+				 * @protected
+				 * @param {HTMLElement} element
+				 * @return {HTMLElement}
+				 * @member ns.widget.wearable.IndexScrollbar
+				 */
 				_destroy: function() {
 					var self = this;
 					if (self.isBound()) {
@@ -420,7 +471,7 @@
 				},
 
 				/**
-				 * Create indexBar1 and indicator in the indexScrollbar
+				 * This method creates indexBar1 and indicator in the indexScrollbar
 				 * @method _createSubObjects
 				 * @protected
 				 * @member ns.widget.wearable.IndexScrollbar
@@ -454,6 +505,12 @@
 
 				},
 
+				/**
+				 * This method destroys sub-elements: index bars and indicator.
+				 * @method _destroySubObjects
+				 * @protected
+				 * @member ns.widget.wearable.IndexScrollbar
+				 */
 				_destroySubObjects: function() {
 					var subObjs = {
 							iBar1: this.indexBar1,
@@ -474,7 +531,7 @@
 				},
 
 				/**
-				 * Set initial layout
+				 * This method sets initial layout.
 				 * @method _setInitialLayout
 				 * @protected
 				 * @member ns.widget.wearable.IndexScrollbar
@@ -492,7 +549,7 @@
 				},
 
 				/**
-				 * Calculate maximum index length
+				 * This method calculates maximum index length.
 				 * @method _setMaxIndexLen
 				 * @protected
 				 * @member ns.widget.wearable.IndexScrollbar
@@ -510,6 +567,12 @@
 					this.options.maxIndexLen = maxIndexLen;
 				},
 
+				/**
+				 * This method updates layout.
+				 * @method _updateLayout
+				 * @protected
+				 * @member ns.widget.wearable.IndexScrollbar
+				 */
 				_updateLayout: function() {
 					this._setInitialLayout();
 					this._draw();
@@ -518,7 +581,7 @@
 				},
 
 				/**
-				 * Draw additinoal sub-elements
+				 * This method draws additional sub-elements
 				 * @method _draw
 				 * @protected
 				 * @member ns.widget.wearable.IndexScrollbar
@@ -528,6 +591,12 @@
 					return this;
 				},
 
+				/**
+				 * This method removes indicator.
+				 * @method _removeIndicator
+				 * @protected
+				 * @member ns.widget.wearable.IndexScrollbar
+				 */
 				_removeIndicator: function() {
 					var indicator = this.indicator,
 						parentElem = indicator.element.parentNode;
@@ -537,7 +606,15 @@
 					this.indicator = null;
 				},
 
-				_getEventReceiverByPosition: function( posX ) {
+				/**
+				 * This method returns the receiver of event by position.
+				 * @method _getEventReceiverByPosition
+				 * @param {number} posX The position relative to the left edge of the document.
+				 * @return {?ns.widget.wearable.indexscrollbar.IndexBar} Receiver of event
+				 * @protected
+				 * @member ns.widget.wearable.IndexScrollbar
+				 */
+				_getEventReceiverByPosition: function(posX) {
 					var windowWidth = window.innerWidth,
 						elementWidth = this.element.clientWidth,
 						receiver;
@@ -554,7 +631,15 @@
 					return receiver;
 				},
 
-				_updateIndicatorAndTriggerEvent: function( val ) {
+				/**
+				 * This method updates indicator.
+				 * It sets new value of indicator and triggers event "select".
+				 * @method _updateIndicatorAndTriggerEvent
+				 * @param {number} val The value of indicator
+				 * @protected
+				 * @member ns.widget.wearable.IndexScrollbar
+				 */
+				_updateIndicatorAndTriggerEvent: function(val) {
 					this.indicator.setValue( val );
 					this.indicator.show();
 					if(this.selectEventTriggerTimeoutId) {
@@ -567,20 +652,20 @@
 				},
 
 				/**
-				 * Handle pointer start event
+				 * This method is executed on event "touchstart"
 				 * @method _onTouchStartHandler
-				 * @param {Event} event
+				 * @param {Event} event Event
 				 * @protected
 				 * @member ns.widget.wearable.IndexScrollbar
 				 */
-				_onTouchStartHandler: function( event ) {
+				_onTouchStartHandler: function(event) {
 					pointerIsPressed = true;
 					if (event.touches && (event.touches.length > 1)) {
 						event.preventDefault();
 						event.stopPropagation();
 						return;
 					}
-					var pos = this._getPositionFromEvent( event ),
+					var pos = this._getPositionFromEvent(event),
 					// At touchstart, only indexbar1 is shown.
 						iBar1 = this.indexBar1,
 						idx = iBar1.getIndexByPosition( pos.y ),
@@ -592,13 +677,13 @@
 				},
 
 				/**
-				 * Handle pointer move event
+				 * This method is executed on event "touchmove"
 				 * @method _onTouchMoveHandler
-				 * @param {Event} event
+				 * @param {Event} event Event
 				 * @protected
 				 * @member ns.widget.wearable.IndexScrollbar
 				 */
-				_onTouchMoveHandler: function( event ) {
+				_onTouchMoveHandler: function(event) {
 					if (event.touches && event.touches.length > 1 || !pointerIsPressed) {
 						event.preventDefault();
 						event.stopPropagation();
@@ -645,9 +730,9 @@
 				},
 
 				/**
-				 * Handle pointer end event
+				 * This method is executed on event "touchend"
 				 * @method _onTouchEndHandler
-				 * @param {Event} event
+				 * @param {Event} ev Event
 				 * @protected
 				 * @member ns.widget.wearable.IndexScrollbar
 				 */
@@ -666,16 +751,34 @@
 					}
 				},
 
+				/**
+				 * This method binds events to widget.
+				 * @method _bindEvents
+				 * @protected
+				 * @member ns.widget.wearable.IndexScrollbar
+				 */
 				_bindEvents: function() {
 					this._bindResizeEvent();
 					this._bindEventToTriggerSelectEvent();
 				},
 
+				/**
+				 * This method unbinds events to widget.
+				 * @method _unbindEvent
+				 * @protected
+				 * @member ns.widget.wearable.IndexScrollbar
+				 */
 				_unbindEvent: function() {
 					this._unbindResizeEvent();
 					this._unbindEventToTriggerSelectEvent();
 				},
 
+				/**
+				 * This method binds event "resize".
+				 * @method _bindResizeEvent
+				 * @protected
+				 * @member ns.widget.wearable.IndexScrollbar
+				 */
 				_bindResizeEvent: function() {
 					this.eventHandlers.onresize = function(/* ev */) {
 						this.refresh();
@@ -684,12 +787,24 @@
 					window.addEventListener( "resize", this.eventHandlers.onresize );
 				},
 
+				/**
+				 * This method unbinds event "resize".
+				 * @method _bindResizeEvent
+				 * @protected
+				 * @member ns.widget.wearable.IndexScrollbar
+				 */
 				_unbindResizeEvent: function() {
 					if ( this.eventHandlers.onresize ) {
 						window.removeEventListener( "resize", this.eventHandlers.onresize );
 					}
 				},
 
+				/**
+				 * This method binds touch events.
+				 * @method _bindEventToTriggerSelectEvent
+				 * @protected
+				 * @member ns.widget.wearable.IndexScrollbar
+				 */
 				_bindEventToTriggerSelectEvent: function() {
 					var self = this;
 					self.eventHandlers.touchStart = self._onTouchStartHandler.bind(self);
@@ -702,6 +817,12 @@
 					document.addEventListener("touchcancel", self.eventHandlers.touchEnd);
 				},
 
+				/**
+				 * This method unbinds touch events.
+				 * @method _unbindEventToTriggerSelectEvent
+				 * @protected
+				 * @member ns.widget.wearable.IndexScrollbar
+				 */
 				_unbindEventToTriggerSelectEvent: function() {
 					var self = this;
 					self.element.removeEventListener(POINTER_START, self.eventHandlers.touchStart);
@@ -710,6 +831,15 @@
 					document.removeEventListener("touchcancel", self.eventHandlers.touchEnd);
 				},
 
+				/**
+				 * This method sets or gets data from widget.
+				 * @method _data
+				 * @param {string|Object} key
+				 * @param {*} val
+				 * @return {*} Return value of data or widget's object
+				 * @protected
+				 * @member ns.widget.wearable.IndexScrollbar
+				 */
 				_data: function (key, val) {
 					var el = this.element,
 						d = el.__data,
@@ -733,19 +863,50 @@
 					}
 				},
 
+				/**
+				 * This method checks if element is valid element of widget IndexScrollbar.
+				 * @method _isValidElement
+				 * @param {HTMLElement} el
+				 * @return {boolean} True, if element is valid.
+				 * @protected
+				 * @member ns.widget.wearable.IndexScrollbar
+				 */
 				_isValidElement: function (el) {
 					return el.classList.contains(this.widgetClass);
 				},
 
+				/**
+				 * This method checks if widget is extended.
+				 * @method _isExtended
+				 * @return {boolean} True, if element is extended.
+				 * @protected
+				 * @member ns.widget.wearable.IndexScrollbar
+				 */
 				_isExtended: function () {
 					return !!this._data("extended");
 				},
 
+				/**
+				 * This method sets value of "extended" to widget.
+				 * @method _extended
+				 * @param {boolean} flag Value for extended
+				 * @protected
+				 * @member ns.widget.wearable.IndexScrollbar
+				 */
 				_extended: function (flag) {
 					this._data("extended", flag);
 					return this;
 				},
 
+				/**
+				 * This method gets indices prepared from parameter
+				 * or index of widget.
+				 * @method _getIndex
+				 * @param {string} [value] Indices to prepared
+				 * @return {Array} Indices
+				 * @protected
+				 * @member ns.widget.wearable.IndexScrollbar
+				 */
 				_getIndex: function (value) {
 					var options = this.options,
 						indices = value || options.index;
@@ -755,6 +916,14 @@
 					return indices;
 				},
 
+				/**
+				 * This method gets offset of element.
+				 * @method _getOffset
+				 * @param {HTMLElement} el Element
+				 * @return {Object} Offset with "top" and "left" properties
+				 * @protected
+				 * @member ns.widget.wearable.IndexScrollbar
+				 */
 				_getOffset: function( el ) {
 					var left=0, top=0 ;
 					do {
@@ -769,20 +938,48 @@
 					};
 				},
 
+				/**
+				 * This method returns container of widget.
+				 * @method _getContainer
+				 * @return {HTMLElement} Container
+				 * @protected
+				 * @member ns.widget.wearable.IndexScrollbar
+				 */
 				_getContainer: function() {
 					return this.options.container || this.element.parentNode;
 				},
 
+				/**
+				 * This method returns position of event.
+				 * @method _getPositionFromEvent
+				 * @return {Object} Position of event with properties "x" and "y"
+				 * @protected
+				 * @member ns.widget.wearable.IndexScrollbar
+				 */
 				_getPositionFromEvent: function( ev ) {
 					return ev.type.search(/^touch/) !== -1 ?
 					{x: ev.touches[0].clientX, y: ev.touches[0].clientY} :
 					{x: ev.clientX, y: ev.clientY};
 				},
 
+				/**
+				 * This method adds event listener to element of widget.
+				 * @method addEventListener
+				 * @param {string} type Name of event
+				 * @param {Function} listener Function to be executed
+				 * @member ns.widget.wearable.IndexScrollbar
+				 */
 				addEventListener: function (type, listener) {
 					this.element.addEventListener(type, listener);
 				},
 
+				/**
+				 * This method removes event listener from element of widget.
+				 * @method removeEventListener
+				 * @param {string} type Name of event
+				 * @param {Function} listener Function to be removed
+				 * @member ns.widget.wearable.IndexScrollbar
+				 */
 				removeEventListener: function (type, listener) {
 					this.element.removeEventListener(type, listener);
 				}
