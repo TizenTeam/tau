@@ -28,6 +28,7 @@
 					 */
 					enabled: !disabledInitially,
 					/**
+					 * Flag shows actual locked/unlocked status
 					 * @property {boolean} [locked=false]
 					 * @static
 					 * @member ns.util.zoom
