@@ -34,7 +34,7 @@
  *			</div>
  *		</div>
  *
- * #### Create page widget using data-role attribute wth header and footer
+ * #### Create page widget using data-role attribute with header and footer
  *
  *		@example
  *		<div data-role="page">

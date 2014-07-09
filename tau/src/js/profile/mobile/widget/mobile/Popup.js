@@ -2298,7 +2298,7 @@
 			 *      </div>
 			 *
 			 *      <script>
-			 *          $("#popup").popup("on", callback);
+			 *          $("#popup").popup("on", "eventName", callback);
 			 *      </script>
 			 *
 			 * @method on
@@ -2338,7 +2338,7 @@
 			 *
 			 *      <script>
 			 *          // add callback on event "eventName"
-			 *          $("#popup").popup("on", callback);
+			 *          $("#popup").popup("on", "eventName", callback);
 			 *          // ...
 			 *          // remove callback on event "eventName"
 			 *          $("#popup").popup("off", "eventName", callback);
