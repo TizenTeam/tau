@@ -1,4 +1,12 @@
 %changelog
+* Thu Jul 10 2014 Junyoung Park <jy-.park@samsung.com> 0.9.7
+	- Wearable popup: set border for popup (sync UX guide) 
+	- Tokentextarea: documentation
+	- [jira] Show scrollbar when application float front side from background. (GSDK_SE-2510)
+	- [jira] Show scrollbar while drag and hold the page (GSDK_SE-2558)
+	- ThemeConverter : add themeConverter nodejs version
+	- Wearable : modify text color
+
 * Mon Jul 07 2014 Hyeoncheol Choi <hc7.choi@samsung.com> 0.9.6
 	- TAU Framework 0.9.6 release
 
