@@ -1,4 +1,5 @@
-/*global window, define, HTMLElement */
+/*global window, define, HTMLElement, ns, setTimeout */
+/*jslint nomen: true */
 /*
 * Copyright (c) 2013 - 2014 Samsung Electronics Co., Ltd
 *
@@ -19,6 +20,10 @@
  * Class is responsible for change pages in applications when
  * transition is enable.
  * @class ns.router.PageTransition
+ * @author Maciej Urbanski <m.urbanski@samsung.com>
+ * @author Piotr Karny <p.karny@samsung.com>>
+ * @author Hyunkook Cho <hk0713.cho@samsung.com>
+ * @author Junhyeon Lee <juneh.lee@samsung.com>
  */
 (function (window, document, ns) {
 	"use strict";
@@ -50,19 +55,35 @@
 				UtilsDeferred = util.deferred,
 				engine = ns.engine,
 				maxTransitionWidth = false,
+				/**
+				 * Returns max scroll amount
+				 * @return {number}
+				 * @method getMaxScrollForTransition
+				 * @private
+				 * @static
+				 * @member ns.router.PageTransition
+				 */
 				getMaxScrollForTransition = function () {
 					return window.offsetHeight * MAX_SCROLL_FOR_TRANSITION_FACTOR;
 				},
 				defaultHomeScroll = 0,
 				classes = {
 					uiPagePreIn: "ui-page-pre-in",
-					uiMobileViewportTransitioning: 'ui-mobile-viewport-transitioning',
-					viewportPrefix: 'viewport-',
+					uiMobileViewportTransitioning: "ui-mobile-viewport-transitioning",
+					viewportPrefix: "viewport-",
 					reverse: "reverse",
-					out: 'out',
-					inClass: 'in',
+					out: "out",
+					inClass: "in",
 					uiBlocker: "ui-blocker"
 				},
+				/**
+				 * Transition handler
+				 * @param {boolean} sequential
+				 * @method transitionHandler
+				 * @private
+				 * @static
+				 * @member ns.router.PageTransition
+				 */
 				transitionHandler = function (sequential) {
 
 					// Default to sequential
@@ -79,8 +100,10 @@
 							reverseClass = reverse ? classes.reverse : "",
 							toScroll = 0,//active.lastScroll || defaultHomeScroll,
 							screenHeight = window.offsetHeight,
-							maxTransitionOverride = maxTransitionWidth !== false && window.offsetWidth > maxTransitionWidth,
-							none = maxTransitionOverride || !name || name === "none" || Math.max(window.scrollY, toScroll) > getMaxScrollForTransition(),
+							maxTransitionOverride = maxTransitionWidth !== false
+									&& window.offsetWidth > maxTransitionWidth,
+							none = maxTransitionOverride || !name || name === "none" ||
+									Math.max(window.scrollY, toScroll) > getMaxScrollForTransition(),
 							toPreClass = classes.uiPagePreIn,
 							toggleViewportClass = function () {
 								var containerClassList = container.classList;
@@ -95,24 +118,27 @@
 							fromStyle = from && from.style,
 							scrollPage = function () {
 								// Prevent blinking on page scrolling in Tizen/Android devices.
-								// Don't scoll window, when current scroll top(scrollY) is already at toScroll,
-								// or when current scroll top is 0 and toScroll is same to defaultHomeScroll
-								// (which means the top position of page). In these case, page scrolling is not needed.
+								// Don't scoll window, when current scroll top(scrollY) is already at
+								// toScroll, or when current scroll top is 0 and toScroll is same to
+								// defaultHomeScroll (which means the top position of page). In these
+								// case, page scrolling is not needed.
 								var st = window.scrollY;
-								if (st === toScroll || (defaultHomeScroll === toScroll && st === 0)) {
+								if (st === toScroll || (defaultHomeScroll === toScroll
+										&& st === 0)) {
 									return;
 								}
 
-								// By using scrollTo instead of silentScroll, we can keep things better in order
-								// Just to be precautios, disable scrollstart listening like silentScroll would
-								ns.setConfig('event.special.scrollstart.enabled', false);
+								// By using scrollTo instead of silentScroll, we can keep things
+								// better in order Just to be precautios, disable scrollstart
+								// listening like silentScroll would
+								ns.setConfig("event.special.scrollstart.enabled", false);
 
 								window.scrollTo(0, toScroll);
 
 								// reenable scrollstart listening like silentScroll would
 								// 150ms timeout ensures that the scrolling will be complete
 								setTimeout(function () {
-									ns.setConfig('event.special.scrollstart.enabled', true);
+									ns.setConfig("event.special.scrollstart.enabled", true);
 								}, 150);
 							},
 							cleanFrom = function () {
@@ -124,7 +150,7 @@
 								fromClassList.remove(classes.inClass);
 								fromClassList.remove(classes.reverse);
 								fromClassList.remove(name);
-								fromStyle.height = '';
+								fromStyle.height = "";
 							},
 							doneIn = function () {
 								to.removeEventListener("animationend", doneIn, false);
@@ -139,12 +165,13 @@
 								toClassList.remove(classes.inClass);
 								toClassList.remove(classes.reverse);
 								toClassList.remove(name);
-								toStyle.height = '';
+								toStyle.height = "";
 
 								toggleViewportClass();
 
-								// In some browsers (iOS5), 3D transitions block the ability to scroll to the desired location during transition
-								// This ensures we jump to that spot after the fact, if we aren't there already.
+								// In some browsers (iOS5), 3D transitions block the ability to
+								// scroll to the desired location during transition This ensures we
+								// jump to that spot after the fact, if we aren't there already.
 								if (window.scrollY !== toScroll) {
 									scrollPage();
 								}
@@ -152,10 +179,12 @@
 								deferred.resolve(name, reverse, to, from, true);
 							},
 							startIn = function () {
-								// Prevent flickering in phonegap container: see comments at #4024 regarding iOS
+								// Prevent flickering in phonegap container: see comments at #4024
+								// regarding iOS
 								toStyle.zIndex = -10;
 
-								toWidget = engine.instanceWidget(to, DOM.getNSData(to, 'role') === 'page' ? 'Page' : 'Dialog');
+								toWidget = engine.instanceWidget(to, DOM.getNSData(to, "role") ===
+										"page" ? "Page" : "Dialog");
 								toWidget.setActive(true, router.getContainer());
 
 								toClassList.add(toPreClass);
@@ -168,8 +197,9 @@
 
 								scrollPage();
 
-								// Restores visibility of the new page: added together with $to.css("z-index", -10);
-								toStyle.zIndex = '';
+								// Restores visibility of the new page: added together with
+								// $to.css("z-index", -10);
+								toStyle.zIndex = "";
 
 								if (!none) {
 									to.addEventListener("animationend", doneIn, false);
@@ -197,7 +227,8 @@
 								startIn();
 							},
 							startOut = function () {
-								// if it's not sequential, call the doneOut transition to start the TO page animating in simultaneously
+								// if it's not sequential, call the doneOut transition to start the
+								// TO page animating in simultaneously
 								if (sequential) {
 									from.addEventListener("animationend", doneOut, false);
 									from.addEventListener("webkitAnimationEnd", doneOut, false);
@@ -206,7 +237,8 @@
 								}
 
 								// Set the from page's height and start it transitioning out
-								// Note: setting an explicit height helps eliminate tiling in the transitions
+								// Note: setting an explicit height helps eliminate tiling in the
+								// transitions
 								fromStyle.height = screenHeight + window.scrollY;
 								fromClassList.add(name);
 								fromClassList.add(classes.out);
@@ -226,6 +258,7 @@
 						return deferred.promise();
 					};
 				};
+
 			/**
 			 * @method _maybeDegradeTransition
 			 * @param {string} transition
@@ -235,12 +268,14 @@
 			 * @return {string} transition
 			 */
 			function _maybeDegradeTransition(transition) {
-				if (transition && !ns.support.cssTransform3d && transitions[transition] && transitions[transition].fallback) {
+				if (transition && !ns.support.cssTransform3d && transitions[transition]
+						&& transitions[transition].fallback) {
 					transition = transitions[transition].fallback;
 				}
 
 				return transition;
 			}
+
 			/**
 			 * @method removeEventBlocker
 			 * @member ns.router.PageTransition
@@ -248,10 +283,11 @@
 			 * @static
 			 */
 			function removeEventBlocker() {
-				var html = document.querySelector('html');
+				var html = document.querySelector("html");
 				html.classList.remove(classes.uiBlocker);
 				//$html.unbind( "touchstart touchend vclick mousedown mouseup click" );
 			}
+
 			/**
 			 * @method transitionPages
 			 * @param {HTMLElement} toPage
@@ -264,7 +300,9 @@
 			 * @return {Object} promise
 			 */
 			function transitionPages(toPage, fromPage, transition, reverse) {
-				var handler = (transitions[transition || "default"] && transitions[transition || "default"].handler) || transitions["default"].handler,
+				var handler = (transitions[transition || "default"]
+								&& transitions[transition || "default"].handler) ||
+										transitions["default"].handler,
 					promise = handler(transition, reverse, toPage, fromPage);
 
 				//clear page loader
@@ -284,6 +322,7 @@
 
 				return promise;
 			}
+
 			/**
 			 * @method removeActiveLinkClass
 			 * @param {boolean} forceRemoval
@@ -292,11 +331,13 @@
 			 * @static
 			 */
 			function removeActiveLinkClass(forceRemoval) {
-				if (!!activeClickedLink && (!selectors.getClosestByClass(activeClickedLink, ns.getConfig('activePageClass')).length || forceRemoval)) {
-					activeClickedLink.classList.remove(ns.getConfig('activeBtnClass'));
+				if (!!activeClickedLink && (!selectors.getClosestByClass(activeClickedLink,
+						ns.getConfig("activePageClass")).length || forceRemoval)) {
+					activeClickedLink.classList.remove(ns.getConfig("activeBtnClass"));
 				}
 				activeClickedLink = null;
 			}
+
 			/**
 			 * @method releasePageTransitionLock
 			 * @param {ns.router.Page} router
@@ -310,6 +351,7 @@
 					router.open(pageTransitionQueue.pop());
 				}
 			}
+
 			/**
 			 * @method changePage
 			 * @param {Object} settings
@@ -336,7 +378,8 @@
 						var duplicateCachedPage = settings.duplicateCachedPage;
 						removeActiveLinkClass();
 
-						//if there's a duplicateCachedPage, remove it from the DOM now that it's hidden
+						//if there's a duplicateCachedPage, remove it from the DOM now that it's
+						//hidden
 						if (duplicateCachedPage instanceof HTMLElement) {
 							duplicateCachedPage.parentNode.removeChild(duplicateCachedPage);
 						}
@@ -346,6 +389,7 @@
 						isPageTransitioning = false;
 					});
 			};
+
 			/**
 			 * @method registerTransition
 			 * @param {string} name
@@ -360,6 +404,7 @@
 					fallback: fallback
 				};
 			};
+
 			/**
 			 * @method getTransitions
 			 * @member ns.router.PageTransition
@@ -369,6 +414,7 @@
 			RouterPage.prototype.getTransitions = function () {
 				return transitions;
 			};
+
 			/**
 			 * @method getTransition
 			 * @param {string} name
@@ -383,6 +429,7 @@
 			RouterPage.prototype._maybeDegradeTransition = _maybeDegradeTransition;
 
 			RouterPage.prototype.getMaxScrollForTransition = getMaxScrollForTransition;
+
 			/**
 			 * @method init
 			 * @param {boolean} justBuild
@@ -391,18 +438,20 @@
 			 */
 			RouterPage.prototype.init = function (justBuild) {
 				var self = this;
-				self.registerTransition('sequential', transitionHandler());
-				self.registerTransition('simultaneous', transitionHandler(false));
-				self.registerTransition('default', self.getTransition('sequential').handler);
-				self.registerTransition('flip', null, "fade");
-				self.registerTransition('depth', self.getTransition('simultaneous').handler, "fade");
-				self.registerTransition('flow', null, "fade");
-				self.registerTransition('pop', null, "fade");
-				self.registerTransition('slide', self.getTransition('simultaneous').handler, "fade");
-				self.registerTransition('slidedown', null, "fade");
-				self.registerTransition('slideup', null, "fade");
-				self.registerTransition('slidefade', null, "fade");
-				self.registerTransition('turn', null, "fade");
+				self.registerTransition("sequential", transitionHandler());
+				self.registerTransition("simultaneous", transitionHandler(false));
+				self.registerTransition("default", self.getTransition("sequential").handler);
+				self.registerTransition("flip", null, "fade");
+				self.registerTransition("depth", self.getTransition("simultaneous").handler,
+						"fade");
+				self.registerTransition("flow", null, "fade");
+				self.registerTransition("pop", null, "fade");
+				self.registerTransition("slide", self.getTransition("simultaneous").handler,
+						"fade");
+				self.registerTransition("slidedown", null, "fade");
+				self.registerTransition("slideup", null, "fade");
+				self.registerTransition("slidefade", null, "fade");
+				self.registerTransition("turn", null, "fade");
 				parentInit.call(self, justBuild);
 			};
 

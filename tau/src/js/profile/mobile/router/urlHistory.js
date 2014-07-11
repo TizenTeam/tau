@@ -1,4 +1,4 @@
-/*global window, define */
+/*global define, ns */
 /*
 * Copyright (c) 2013 - 2014 Samsung Electronics Co., Ltd
 *
@@ -18,30 +18,73 @@
  * #URL History Support For Router
  * Class manages history of changing pages in application.
  * @class ns.router.urlHistory
+ * @singleton
+ * @author Maciej Urbanski <m.urbanski@samsung.com>
+ * @author Hyunkook Cho <hk0713.cho@samsung.com>
+ * @author Junhyeon Lee <juneh.lee@samsung.com>
  */
-(function (window, document, ns) {
+(function (ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../../core/router", // fetch namespace
+			"../../../core/router" // fetch namespace
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var urlHistory = {
+				/**
+				 * History stack
+				 * @property {Array.<object>} stack
+				 * @readonly
+				 * @member ns.router.urlHistory
+				 */
 				stack: [],
+				/**
+				 * Current active index in the history stack
+				 * @property {number} [activeIndex=0]
+				 * @readonly
+				 * @member ns.router.urlHistory
+				 */
 				activeIndex: 0,
-				getActive: function() {
+				/**
+				 * Returns current active history element
+				 * @return {object}
+				 * @method getActive
+				 * @member ns.router.urlHistory
+				 */
+				getActive: function () {
 					return urlHistory.stack[urlHistory.activeIndex];
 				},
-				getPrev: function() {
+				/**
+				 * Returns previous history element
+				 * @return {object}
+				 * @method getPrev
+				 * @member ns.router.urlHistory
+				 */
+				getPrev: function () {
 					return urlHistory.stack[urlHistory.activeIndex - 1];
 				},
-				getNext: function() {
+				/**
+				 * Returns next history element
+				 * @return {object}
+				 * @method getNext
+				 * @member ns.router.urlHistory
+				 */
+				getNext: function () {
 					return urlHistory.stack[urlHistory.activeIndex + 1];
 				},
-				// addNew is used whenever a new page is added
-				addNew: function( url, transition, title, pageUrl, role ) {
+				/**
+				 * Add new history element to stack
+				 * @param {string} url
+				 * @param {string} transition
+				 * @param {string} title
+				 * @param {string} pageUrl
+				 * @param {string} role
+				 * @method addNew
+				 * @member ns.router.urlHistory
+				 */
+				addNew: function (url, transition, title, pageUrl, role) {
 					//if there's forward history, wipe it
 					if (urlHistory.getNext()) {
 						urlHistory.clearForward();
@@ -57,17 +100,26 @@
 
 					urlHistory.activeIndex = urlHistory.stack.length - 1;
 				},
-				//wipe urls ahead of active index
-				clearForward: function() {
+				/**
+				 * Wipe all history elements ahead of active element
+				 * @method clearForward
+				 * @member ns.router.urlHistory
+				 */
+				clearForward: function () {
 					urlHistory.stack = urlHistory.stack.slice(0, urlHistory.activeIndex + 1);
 				},
-				directHashChange: function( options ) {
+				/**
+				 * @param {object} options
+				 * @method directHashChange
+				 * @member ns.router.urlHistory
+				 */
+				directHashChange: function (options) {
 					var back,
 						forward,
 						newActiveIndex;
 
 					// check if url is in history and if it's ahead or behind current page
-					urlHistory.stack.forEach(function(historyEntry, index) {
+					urlHistory.stack.forEach(function (historyEntry, index) {
 						//if the url is in the stack, it's a forward or a back
 						if (decodeURIComponent(options.currentUrl) === decodeURIComponent(historyEntry.url)) {
 							//define back and forward by whether url is older or newer than current page
@@ -98,4 +150,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window, window.document, ns));
+}(ns));

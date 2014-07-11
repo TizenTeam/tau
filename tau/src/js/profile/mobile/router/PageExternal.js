@@ -1,4 +1,5 @@
-/*global window, define */
+/*global window, define, setTimeout, ns, clearTimeout, XMLHttpRequest, location */
+/*jslint nomen: true */
 /*
 * Copyright (c) 2013 - 2014 Samsung Electronics Co., Ltd
 *
@@ -19,8 +20,14 @@
  * Class is responsible for change pages in applications when pages
  * are in external files.
  * @class ns.router.PageExternal
+ * @override ns.router.Page
+ * @author Maciej Urbanski <m.urbanski@samsung.com>
+ * @author Piotr Karny <p.karny@samsung.com>>
+ * @author Piotr Kusztal <p.kusztal@samsung.com>
+ * @author Hyunkook Cho <hk0713.cho@samsung.com>
+ * @author Junhyeon Lee <juneh.lee@samsung.com>
  */
-(function (window, document, ns) {
+(function (document, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -49,7 +56,7 @@
 				Page = ns.widget.mobile.Page,
 				body = document.body,
 				firstPage = null,
-				container = ns.getConfig('container') || body,
+				container = ns.getConfig("container") || body,
 				loadPageDefaults = {
 					type: "get",
 					data: undefined,
@@ -63,11 +70,9 @@
 				UtilsDeferred = ns.util.deferred,
 				events = ns.event,
 				//existing base tag?
-				base = document.getElementsByTagName('base')[0],
-
+				base = document.getElementsByTagName("base")[0],
 				//tuck away the original document URL minus any fragment.
 				documentUrl = path.parseLocation(),
-
 				//if the document has an embedded base tag, documentBase is set to its
 				//initial value. If a base tag does not exist, then we default to the documentUrl.
 				documentBase = base ? path.parseUrl(path.makeUrlAbsolute(base.getAttribute("href"), documentUrl.href)) : documentUrl,
@@ -88,11 +93,12 @@
 			 * @static
 			 */
 			function removeActiveLinkClass(forceRemoval) {
-				if (!!activeClickedLink && (!selectors.getClosestByClass(activeClickedLink, ns.getConfig('activePageClass')).length || forceRemoval)) {
-					activeClickedLink.classList.remove(ns.getConfig('activeBtnClass'));
+				if (!!activeClickedLink && (!selectors.getClosestByClass(activeClickedLink, ns.getConfig("activePageClass")).length || forceRemoval)) {
+					activeClickedLink.classList.remove(ns.getConfig("activeBtnClass"));
 				}
 				activeClickedLink = null;
 			}
+
 			/**
 			 * @method findBaseWithDefault
 			 * @param {ns.router.PageExternal} router
@@ -102,9 +108,10 @@
 			 * @return {boolean}
 			 */
 			function findBaseWithDefault(router) {
-				var closestBase = (router.activePage && path.getClosestBaseUrl(router.activePage, '.' + Page.classes.uiPage));
+				var closestBase = (router.activePage && path.getClosestBaseUrl(router.activePage, "." + Page.classes.uiPage));
 				return closestBase || documentBase.hrefNoHash;
 			}
+
 			/**
 			 * @method remove
 			 * @param {Event} event
@@ -121,18 +128,18 @@
 					}
 				}
 			}
+
 			/**
 			 * When dom caching is not enabled or the page is embedded bind to remove the page on hide
 			 * @method _bindPageRemove
 			 * @param {HTMLElement} page
 			 * @member ns.router.PageExternal
 			 * @protected
-			 * @instance
 			 */
-			prototype._bindPageRemove = function(page) {
+			prototype._bindPageRemove = function (page) {
 				var pageWidget = engine.getBinding(page);
 
-				if (!pageWidget.options.domCache && DOM.getNSData(page, 'external-page')) {
+				if (!pageWidget.options.domCache && DOM.getNSData(page, "external-page")) {
 					page.addEventListener(pageEvents.PAGE_HIDE, remove, false);
 				}
 			};
@@ -148,7 +155,6 @@
 			 * @param {number} [options.loadMsgDelay] loading message delay in milliseconds
 			 * @param {boolean} [options.prefetch] if true, this loading will be only a prefetch
 			 * @member ns.router.PageExternal
-			 * @instance
 			 */
 			prototype.loadPage = function (url, options) {
 				var settings = {},
@@ -208,7 +214,7 @@
 				dataUrl = path.convertUrlToDataUrl(absUrl, dialogHashKey, documentBase, documentUrl);
 
 				// Make sure we have a pageContainer to work with.
-				settings.pageContainer = settings.pageContainer || ns.getConfig('pageContainer', document.body);
+				settings.pageContainer = settings.pageContainer || ns.getConfig("pageContainer", document.body);
 
 				// Check to see if the page already exists in the DOM.
 				// NOTE do _not_ use the :jqmData psuedo selector because parenthesis
@@ -226,9 +232,9 @@
 						// target page, so we are checking if the page uri matches desired location.
 						// Added for JQM Router/Page tests.
 						if (page.baseURI !== absUrl.split("#")[0]) {
-							DOM.setNSData(page, 'url', absUrl);
+							DOM.setNSData(page, "url", absUrl);
 						} else {
-							DOM.setNSData(page, 'url', dataUrl);
+							DOM.setNSData(page, "url", dataUrl);
 						}
 					}
 				}
@@ -305,14 +311,14 @@
 					this.resetBase();
 				}
 
-				if ((ns.getConfig('allowCrossDomainPages') || path.isSameDomain(documentUrl, absUrl))) {
+				if ((ns.getConfig("allowCrossDomainPages") || path.isSameDomain(documentUrl, absUrl))) {
 					// Load the new page.
 					request = new XMLHttpRequest();
 					request.onreadystatechange = function () {
-						var all = document.createElement('div'),
+						var all = document.createElement("div"),
 							html = request.responseText,
-							namespace = ns.getConfig('namespace') ? ns.getConfig('namespace') + '-' : '',
-							pageTmpContainer = document.createElement('div'),
+							namespace = ns.getConfig("namespace") ? ns.getConfig("namespace") + "-" : "",
+							pageTmpContainer = document.createElement("div"),
 							newPageTitle,
 							pageElemRegex = new RegExp("(<[^>]+\\bdata-" + namespace + "role=[\"']?page[\"']?[^>]*>)"),
 							dataUrlRegex = new RegExp("\\bdata-" + namespace + "url=[\"']?([^\"'>]*)[\"']?"),
@@ -347,15 +353,15 @@
 
 						//workaround to allow scripts to execute when included in page divs
 								all.innerHTML = html;
-								page = selectors.getChildrenByDataNS(all, 'role=page');
+								page = selectors.getChildrenByDataNS(all, "role=page");
 								if (!page.length) {
-									page = selectors.getChildrenByDataNS(all, 'role=dialog');
+									page = selectors.getChildrenByDataNS(all, "role=dialog");
 								}
 								if (page.length) {
 									page = page[0];
 								} else {
-									page = document.createElement('div');
-									DOM.setNSData(page, 'role', 'page');
+									page = document.createElement("div");
+									DOM.setNSData(page, "role", "page");
 									page.innerHTML = html.split(/<\/?body[^>]*>/gmi)[1];
 								}
 
@@ -368,15 +374,15 @@
 								}
 
 								//rewrite src and href attrs to use a base url
-								if (!ns.getConfig('supportDynamicBaseTag')) {
+								if (!ns.getConfig("supportDynamicBaseTag")) {
 									newPath = path.get(fileUrl);
 									elements = selectors.getChildrenByDataNS(page, "ajax='false'");
 									elements.concat(selectors.getChildrenBySelector(page, "[src], link[href], a[rel='external'], a[target]"));
 									elements.forEach(function (element) {
-										var thisAttr = element.href === undefined ? 'href' : (element.src === undefined ? 'action' : 'src'),
+										var thisAttr = element.href === undefined ? "href" : (element.src === undefined ? "action" : "src"),
 											thisUrl = element.getAttribute(thisAttr);
 
-										thisUrl = thisUrl.replace(location.protocol + '//' + location.host + location.pathname, '');
+										thisUrl = thisUrl.replace(location.protocol + "//" + location.host + location.pathname, "");
 
 										if (!/^(\w+:|#|\/)/.test(thisUrl)) {
 											element.setAttribute(thisAttr, newPath + thisUrl);
@@ -389,9 +395,9 @@
 								//	by the various page handling code is bad. Having page handling code in many
 								//	places is bad. Solutions post 1.0
 								dataUrl = path.convertUrlToDataUrl(fileUrl, dialogHashKey, documentBase);
-								DOM.setNSData(page, 'url', dataUrl);
-								DOM.setNSData(page, 'external-page', true);
-								scripts = page.querySelectorAll('script');
+								DOM.setNSData(page, "url", dataUrl);
+								DOM.setNSData(page, "external-page", true);
+								scripts = page.querySelectorAll("script");
 								scriptRunner = util.runScript.bind(null, dataUrl);
 								slice.call(scripts).forEach(scriptRunner);
 								settings.pageContainer.appendChild(page);
@@ -400,7 +406,7 @@
 								onPageCreate = function () {
 									page.removeEventListener(pageEvents.PAGE_CREATE, onPageCreate, false);
 									// in jqm interface function _bindPageRemove have in this current page, in new interface page is call as first argument
-									ns.getConfig('_bindPageRemove', self._bindPageRemove).call(page, page);
+									ns.getConfig("_bindPageRemove", self._bindPageRemove).call(page, page);
 								};
 
 								page.addEventListener(pageEvents.PAGE_CREATE, onPageCreate, false);
@@ -408,7 +414,7 @@
 								// Enhancing the page may result in new dialogs/sub pages being inserted
 								// into the DOM. If the original absUrl refers to a sub-page, that is the
 								// real page we are interested in.
-								if (absUrl.indexOf("&" + ns.getConfig('subPageUrlKey')) > -1) {
+								if (absUrl.indexOf("&" + ns.getConfig("subPageUrlKey")) > -1) {
 									page = selectors.getChildrenByDataNS("url='" + dataUrl)[0];
 								}
 
@@ -463,7 +469,7 @@
 							}
 						}
 					};
-					request.open(settings.type || 'GET', fileUrl, true);
+					request.open(settings.type || "GET", fileUrl, true);
 					request.send(settings.data);
 				} else {
 					deferred.reject(absUrl, settings);
@@ -483,7 +489,6 @@
 			 * @param {boolean} [options.showLoadMsg=false] whether to show loading message
 			 * @param {number} [options.loadMsgDelay] loading message delay in milliseconds
 			 * @member ns.router.PageExternal
-			 * @instance
 			 */
 			prototype.open = function (toPage, options) {
 				var self = this;
@@ -491,7 +496,7 @@
 					self.loadPage(toPage, options)
 						.done(function (url, newOptions, newPage, dupCachedPage) {
 							newOptions.duplicateCachedPage = dupCachedPage;
-							setTimeout(function() {
+							setTimeout(function () {
 								parentOpen.call(self, newPage, newOptions);
 							}, 10);
 						})
@@ -508,15 +513,14 @@
 			/**
 			 * @method getBaseElement
 			 * @member ns.router.PageExternal
-			 * @instance
 			 * @return {HTMLElement} base element
 			 */
 			prototype.getBaseElement = function () {
 				if (!base && !this.justBuild) {
 					//>>excludeStart("tauDebug", pragmas.tauDebug);
-					ns.log('adding base tag');
+					ns.log("adding base tag");
 					//>>excludeEnd("tauDebug");
-					base = document.createElement('base');
+					base = document.createElement("base");
 					document.head.appendChild(base);
 				}
 				return base;
@@ -526,7 +530,6 @@
 			 * @method setBase
 			 * @param {string} href
 			 * @member ns.router.PageExternal
-			 * @instance
 			 * @return {HTMLElement} base element
 			 */
 			prototype.setBase = function (href) {
@@ -541,14 +544,13 @@
 			 * Resets href url on base element
 			 * @method resetBase
 			 * @member ns.router.PageExternal
-			 * @instance
 			 * @return {HTMLElement} base element
 			 */
 			prototype.resetBase = function () {
 				var baseElement = this.getBaseElement();
 
 				// Change nothing when just building
-				if (!engine.getJustBuild() && baseElement){
+				if (!engine.getJustBuild() && baseElement) {
 					baseElement.setAttribute("href", documentBase.hrefNoHash);
 				}
 
@@ -560,4 +562,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window, window.document, ns));
+}(window.document, ns));
