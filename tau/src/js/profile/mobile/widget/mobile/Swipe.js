@@ -17,7 +17,7 @@
 /*jslint nomen: true, plusplus: true */
 /**
  * # Swipe Widget
- * Swipe Widget
+ * Widget adds swiped covers to element.
  *
  * ## Default selectors
  * All elements which have a class _.ui-swipe_ or an attribute _data-role=swipe_

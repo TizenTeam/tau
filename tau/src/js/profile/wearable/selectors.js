@@ -16,9 +16,10 @@
 */
 /*jslint bitwise: true */
 /**
+ * #Selectors
  * Object contains selectors used in widgets.
- * @class ns.wearable.selectors */
-/*
+ *
+ * @class ns.wearable.selectors
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
 (function (ns) {

@@ -18,6 +18,7 @@
 
 /**
  * #Virtual List Widget
+ * Widget creates special list which can contain big number of items.
  *
  * In the Web environment, it is challenging to display a large amount of data in a list, such as
  * displaying a contact list of over 1000 list items. It takes time to display the entire list in
@@ -252,13 +253,14 @@
 					self._currentIndex = 0;
 
 					/**
-					* Method which returns list item value at specified index from database.
-					* **Method should overrided by developer using {@link ns.widget.mobile.VirtualListview#create .create} method.**
-					* @method
-					* @param {number} idx Index of data set.
-					* @return {Object}
-					* @member ns.widget.mobile.VirtualListview
-					*/
+					 * Returns list item value at specified index from database.
+					 *
+					 * **Method should overrided by developer using {@link ns.widget.mobile.VirtualListview#create .create} method.**
+					 * @method itemData
+					 * @param {number} index Index of data set.
+					 * @return {Object}
+					 * @member ns.widget.mobile.VirtualListview
+					 */
 					self.itemData = function () {
 						return null;
 					};

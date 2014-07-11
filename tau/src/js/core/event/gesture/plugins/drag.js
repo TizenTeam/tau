@@ -17,6 +17,8 @@
 */
 /**
  * # Gesture Plugin: drag
+ * Plugin enables drag event.
+ *
  * @class ns.event.gesture.Drag
  */
 ( function ( ns, window, undefined ) {

@@ -1,4 +1,9 @@
 /*global window, define */
+/**
+ * #jQuery Mobile mapping namespace
+ * Object maps all methods enabling jQuery Mobile API.
+ * @class ns.jqm
+ */
 (function (ns, window) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
@@ -9,10 +14,6 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			/**
-			 * #JQuery Mobile mapping namespace
-			 * @class ns.jqm
-			 */
 			ns.jqm = {
 				/**
 				 * jQuery object

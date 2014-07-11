@@ -17,7 +17,8 @@
 /*jslint nomen: true, plusplus: true */
 /**
  * # Scroller Widget
- * @class ns.widget.wearable.Scroller
+ * Widget creates scroller on content.
+ * @class ns.widget.wearable.scroller.Scroller
  * @since 2.3
  * @extends ns.widget.BaseWidget
  */
@@ -263,6 +264,12 @@
 				}
 			};
 
+			/**
+			 * Set options for widget.
+			 * @method setOptions
+			 * @param {Object} options
+			 * @member ns.widget.wearable.scroller.Scroller
+			 */
 			prototype.setOptions = function (options) {
 				var name;
 				for ( name in options ) {
@@ -280,11 +287,12 @@
 			};
 
 			/**
+			 * Scrolls to new position.
 			 * @method scrollTo
 			 * @param x
 			 * @param y
 			 * @param duration
-			 * @member ns.widget.wearable.Scroller
+			 * @member ns.widget.wearable.scroller.Scroller
 			 */
 			prototype.scrollTo = function (x, y, duration) {
 				this._translate(x, y, duration);
@@ -395,8 +403,9 @@
 			};
 
 			/**
+			 * Cancels scroll.
 			 * @method cancel
-			 * @member ns.widget.wearable.Scroller
+			 * @member ns.widget.wearable.scroller.Scroller
 			 */
 			prototype.cancel = function () {
 				this.scrollCanceled = true;

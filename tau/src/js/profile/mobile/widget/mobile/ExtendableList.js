@@ -184,7 +184,7 @@
  *
  *
  * @class ns.widget.mobile.ExtendableList
- * @extend ns.widget.mobile.Listview
+ * @extends ns.widget.mobile.Listview
  * @author Michał Szepielak <m.szepielak@samsung.com>
 */
 (function(document, ns) {

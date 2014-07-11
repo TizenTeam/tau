@@ -17,9 +17,10 @@
 /*jslint nomen: true, plusplus: true, white: true, browser: true */
 /**
  * #Virtual Grid Widget
+ * Widget creates special grid which can contain big number of items.
  *
  * @class ns.widget.mobile.VirtualGrid
- * @extends ns.widget.mobile.VirtualList
+ * @extends ns.widget.mobile.VirtualListview
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Piotr Karny <p.karny@samsung.com>
  */

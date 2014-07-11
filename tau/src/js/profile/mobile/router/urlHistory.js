@@ -38,6 +38,7 @@
 				 * @property {Array.<object>} stack
 				 * @readonly
 				 * @member ns.router.urlHistory
+				 * @member ns.router.urlHistorydirect
 				 */
 				stack: [],
 				/**
@@ -109,7 +110,8 @@
 					urlHistory.stack = urlHistory.stack.slice(0, urlHistory.activeIndex + 1);
 				},
 				/**
-				 * @param {object} options
+				 * Changes hash in history.
+				 * @param {Object} options
 				 * @method directHashChange
 				 * @member ns.router.urlHistory
 				 */
@@ -129,7 +131,7 @@
 						}
 					});
 
-					// save new page index, null check to prevent falsey 0 result
+					// save new page index, null check to prevent false or 0 result
 					this.activeIndex = newActiveIndex || this.activeIndex;
 
 					if (back) {

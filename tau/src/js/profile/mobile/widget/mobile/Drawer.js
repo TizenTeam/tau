@@ -80,6 +80,7 @@
  *
 
  * @class ns.widget.mobile.Drawer
+ * @extends ns.widget.mobile.BaseWidgetMobile
  * @author Hyeoncheol Choi <hc7.choi@samsung.com>
  */
 (function (document, ns) {
@@ -346,7 +347,6 @@
 			/**
 			 * check drawer status
 			 * @method isOpen
-			 * @public
 			 * @member ns.widget.mobile.Drawer
 			 */
 			prototype.isOpen = function() {
@@ -356,7 +356,6 @@
 			/**
 			 * Open drawer widget
 			 * @method open
-			 * @public
 			 * @member ns.widget.mobile.Drawer
 			 */
 			prototype.open = function() {
@@ -377,7 +376,6 @@
 			/**
 			 * Close drawer widget
 			 * @method close
-			 * @public
 			 * @member ns.widget.mobile.Drawer
 			 */
 			prototype.close = function() {

@@ -950,7 +950,7 @@
 				},
 
 				/**
-				 * This method returns position of event.
+				 * Returns position of event.
 				 * @method _getPositionFromEvent
 				 * @return {Object} Position of event with properties "x" and "y"
 				 * @protected
@@ -963,7 +963,7 @@
 				},
 
 				/**
-				 * This method adds event listener to element of widget.
+				 * Adds event listener to element of widget.
 				 * @method addEventListener
 				 * @param {string} type Name of event
 				 * @param {Function} listener Function to be executed
@@ -974,7 +974,7 @@
 				},
 
 				/**
-				 * This method removes event listener from element of widget.
+				 * Removes event listener from element of widget.
 				 * @method removeEventListener
 				 * @param {string} type Name of event
 				 * @param {Function} listener Function to be removed

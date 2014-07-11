@@ -17,7 +17,7 @@
 */
 /**
  * #VirtualGrid Widget
- *
+ * Widget creates special grid which can contain big number of items.
  *
  * @class ns.widget.wearable.VirtualGrid
  * @since 2.3

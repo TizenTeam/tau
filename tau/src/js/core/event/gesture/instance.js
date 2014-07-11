@@ -17,6 +17,7 @@
 */
 /**
  * #Gesture.Instance class
+ * Creates instance of gesture manager on element.
  * @class ns.event.gesture.Instance
  */
 ( function ( ns, window, undefined ) {

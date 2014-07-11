@@ -179,7 +179,7 @@
  *	</script>
  *
  * @class ns.widget.mobile.Notification
- * @extends ns.widget.mobile.BaseWidget
+ * @extends ns.widget.mobile.BaseWidgetMobile
  */
 (function (document, ns) {
 	"use strict";
@@ -590,6 +590,7 @@
 			/**
 			 * Refresh notification
 			 * @method _refresh
+			 * @protected
 			 * @member ns.widget.mobile.Notification
 			 */
 			Notification.prototype._refresh = function () {

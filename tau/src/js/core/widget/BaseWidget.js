@@ -210,7 +210,8 @@
 			 * @internal
 			 */
 			/**
-			 * This method configures widget object from definition.
+			 * Configures widget object from definition.
+			 *
 			 * It calls such methods as #\_getCreateOptions and #\_configure.
 			 * @method configure
 			 * @param {Object} definition
@@ -300,7 +301,7 @@
 			};
 
 			/**
-			 * Read data-* attributes and save to #options object
+			 * Reads data-* attributes and save to options object.
 			 * @method _getCreateOptions
 			 * @param {HTMLElement} element Base element of the widget
 			 * @return {Object}
@@ -335,8 +336,10 @@
 			 * @template
 			 */
 			/**
-			 * This method builds widget.
+			 * Builds widget.
+			 *
 			 * It calls method #\_build.
+			 *
 			 * Before starting building process, the event beforecreate with
 			 * proper prefix defined in variable widgetEventPrefix is triggered.
 			 * @method build
@@ -385,7 +388,8 @@
 			 * @protected
 			 */
 			/**
-			 * This method inits widget.
+			 * Initializes widget.
+			 *
 			 * It calls method #\_init.
 			 * @method init
 			 * @param {HTMLElement} element Element of widget before initialization
@@ -419,7 +423,8 @@
 			 * @protected
 			 */
 			/**
-			 * This method binds widget events.
+			 * Binds widget events.
+			 *
 			 * It calls such methods as #\_buildBindEvents and #\_bindEvents.
 			 * At the end of binding process, the event "create" with proper
 			 * prefix defined in variable widgetEventPrefix is triggered.
@@ -458,8 +463,10 @@
 			 * @member ns.widget.BaseWidget
 			 */
 			/**
-			 * This method destroys widget.
+			 * Destroys widget.
+			 *
 			 * It calls method #\_destroy.
+			 *
 			 * At the end of destroying process, the event "destroy" with proper
 			 * prefix defined in variable widgetEventPrefix is triggered and
 			 * the binding set in engine is removed.
@@ -489,8 +496,9 @@
 			 * @template
 			 */
 			/**
-			 * This method disables widget.
-			 * It calls method #\_destroy.
+			 * Disables widget.
+			 *
+			 * It calls method #\_disable.
 			 * @method disable
 			 * @member ns.widget.BaseWidget
 			 * @chainable
@@ -515,7 +523,8 @@
 			 * @template
 			 */
 			/**
-			 * This method enables widget.
+			 * Enables widget.
+			 *
 			 * It calls method #\_enable.
 			 * @method enable
 			 * @member ns.widget.BaseWidget
@@ -541,8 +550,9 @@
 			 * @template
 			 */
 			/**
-			 * This method refreshes widget.
-			 * It calls method #\_refresh
+			 * Refreshes widget.
+			 *
+			 * It calls method #\_refresh.
 			 * @method refresh
 			 * @member ns.widget.BaseWidget
 			 * @chainable
@@ -557,7 +567,7 @@
 
 
 			/**
-			 * Get/Set options of the widget.
+			 * Gets or sets options of the widget.
 			 *
 			 * This method can work in many context.
 			 *
@@ -605,7 +615,8 @@
 			};
 
 			/**
-			 * Get/Set option of the widget
+			 * Gets or sets one option of the widget.
+			 *
 			 * @method _oneOption
 			 * @param {string} field
 			 * @param {*} value
@@ -640,6 +651,8 @@
 			};
 
 			/**
+			 * Returns true if widget has bounded events.
+			 *
 			 * This methods enables to check if the widget has bounded 
 			 * events through the {@link ns.widget.BaseWidget#bindEvents} method.
 			 * @method isBound
@@ -655,6 +668,8 @@
 			};
 
 			/**
+			 * Returns true if widget is built.
+			 *
 			 * This methods enables to check if the widget was built 
 			 * through the {@link ns.widget.BaseWidget#build} method.
 			 * @method isBuilt
@@ -687,7 +702,8 @@
 			 * @protected
 			 */
 			/**
-			 * This methods enables to get or set value of the widget.
+			 * Gets or sets value of the widget.
+			 *
 			 * @method value
 			 * @param {*} [value] New value of widget
 			 * @member ns.widget.BaseWidget
@@ -708,7 +724,8 @@
 			};
 
 			/**
-			 * This method triggers an event on widget's element.
+			 * Triggers an event on widget's element.
+			 *
 			 * @method trigger
 			 * @param {string} eventName The name of event to trigger
 			 * @param {?*} [data] additional Object to be carried with the event
@@ -724,7 +741,7 @@
 			};
 
 			/**
-			 * This method adds event listener to this.element.
+			 * Adds event listener to widget's element.
 			 * @method on
 			 * @param {string} eventName The name of event
 			 * @param {Function} listener Function called after event will be trigger
@@ -736,7 +753,7 @@
 			};
 
 			/**
-			 * This method removes event listener from this.element.
+			 * Removes event listener from  widget's element.
 			 * @method off
 			 * @param {string} eventName The name of event
 			 * @param {Function} listener Function call after event will be trigger

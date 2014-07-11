@@ -15,6 +15,7 @@
 * limitations under the License.
 */
 /**
+ * #Route Popup
  * Support class for router to control changing pupups in profile Wearable.
  * @class ns.router.route.popup
  * @author Maciej Urbanski <m.urbanski@samsung.com>

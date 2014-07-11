@@ -416,14 +416,12 @@
 			/**
 			 * Sets top-bottom css attributes for content element
 			 * to allow it to fill the page dynamically
-			 * @method contentFill
-			 * @param {ns.widget.wearable.Page} self
+			 * @method _contentFill
 			 * @member ns.widget.wearable.Page
-			 * @private
-			 * @static
 			 */
-			function contentFill(self) {
-				var element = self.element,
+			prototype._contentFill = function () {
+				var self = this,
+					element = self.element,
 					screenWidth = window.innerWidth,
 					screenHeight = window.innerHeight,
 					contentSelector = classes.uiContent,
@@ -461,7 +459,7 @@
 						nodeStyle.width = screenWidth + "px";
 					}
 				}
-			}
+			};
 
 			/**
 			 * Build page
@@ -494,6 +492,16 @@
 			};
 
 			/**
+			 * Return current status of page.
+			 * @method isActive
+			 * @member ns.widget.wearable.Page
+			 * @instance
+			 */
+			prototype.isActive = function () {
+				return this.element.classList.contains(classes.uiPageActive);
+			};
+
+			/**
 			 * Bind events to widget
 			 * @method _bindEvents
 			 * @param {HTMLElement} element
@@ -501,10 +509,12 @@
 			 * @member ns.widget.wearable.Page
 			 */
 			prototype._bindEvents = function (element) {
-				var self = this;
-				self.contentFillCallback = contentFill.bind(null, self);
+				var self = this,
+					element = self.element;
+				self.contentFillCallback = self._contentFill.bind(self);
 				self.contentFillAfterResizeCallback = function () {
-					contentFill(self);
+					self.pageSetHeight = false;
+					self._contentFill();
 				};
 				window.addEventListener("resize", self.contentFillAfterResizeCallback, false);
 				element.addEventListener("pageshow", self.contentFillCallback, false);
@@ -517,7 +527,7 @@
 			 * @member ns.widget.wearable.Page
 			 */
 			prototype._refresh = function () {
-				contentFill(this);
+				this._contentFill();
 			};
 
 			/**
@@ -529,7 +539,7 @@
 			 */
 			prototype._init = function (element) {
 				this.element = element;
-				contentFill(this);
+				this._contentFill();
 			};
 
 			/**

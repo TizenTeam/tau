@@ -17,8 +17,8 @@
 /*jslint nomen: true, plusplus: true */
 /**
  * #Split View Widget
- *
  * SplitView is a widget, which displays two children separated with a movable divider.
+ *
  * It allows to change the size ratio of its children and supports two orientations.
  * @class ns.widget.mobile.SplitView
  * @extends ns.widget.mobile.BaseWidgetMobile

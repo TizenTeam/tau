@@ -16,8 +16,9 @@
 */
 /*jslint nomen: true, plusplus: true */
 /**
- * Scroll Bar Widget
- * @class ns.widget.wearable.ScrollerScrollBar
+ * #Scroll Bar Widget
+ * Widget creates scroll bar.
+ * @class ns.widget.wearable.scroller.scrollbar.ScrollBar
  * @extends ns.widget.BaseWidget
  */
 (function (document, ns) {
@@ -74,7 +75,7 @@
 				 * @property {boolean} [options.type=false]
 				 * @property {number} [options.displayDelay=700]
 				 * @property {"vertical"|"horizontal"} [options.orientation="vertical"]
-				 * @member ns.widget.wearable.ScrollerScrollBar
+				 * @member ns.widget.wearable.scroller.scrollbar.ScrollBar
 				 */
 				this.options = utilsObject.merge({}, this.options, {
 					type: false,
@@ -136,10 +137,11 @@
 			};
 
 			/**
+			 * Translates widget.
 			 * @method translate
 			 * @param offset
 			 * @param duration
-			 * @member ns.widget.wearable.ScrollerScrollBar
+			 * @member ns.widget.wearable.scroller.scrollbar.ScrollBar
 			 */
 			prototype.translate = function (offset, duration, autoHidden) {
 				var orientation = this.options.orientation,
@@ -205,6 +207,12 @@
 				}
 			};
 
+			/**
+			 * Supports events.
+			 * @method handleEvent
+			 * @param event
+			 * @member ns.widget.wearable.scroller.scrollbar.ScrollBar
+			 */
 			prototype.handleEvent = function(event) {
 				var page;
 
@@ -238,7 +246,7 @@
 
 			ScrollerScrollBar.prototype = prototype;
 
-			ns.widget.wearable.ScrollerScrollBar = ScrollerScrollBar;
+			ns.widget.wearable.scroller.scrollbar.ScrollBar = ScrollerScrollBar;
 
 			engine.defineWidget(
 				"ScrollBar",

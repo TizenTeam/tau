@@ -17,8 +17,7 @@
 /*jslint nomen: true */
 /**
  * # Scroll Handler
- *
- * Extension for Scroll View Widget, adds scroll button
+ * Extension for Scroll View Widget, adds scroll handler.
  *
  * ## Default selectors
  * All scrollview selectors with have a class _.ui-scrollhandler_

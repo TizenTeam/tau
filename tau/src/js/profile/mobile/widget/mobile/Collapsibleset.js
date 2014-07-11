@@ -17,6 +17,7 @@
 /*jslint nomen: true */
 /**
  * #Collapsible Set Widget
+ * Collapsible Set Widget groups many Collapsible Widgets in one container.
  *
  * ##Default selectors
  * In default all elements with _data-role="collapsible-set"_ or clas _.ui-collapsible-set_ are changed to collapsibleset widget.

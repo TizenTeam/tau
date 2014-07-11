@@ -20,11 +20,11 @@ module.exports = function (grunt) {
 			docsStructure = {},
 			profile = this.data.profile,
 			files = [],
-			series = [],
-			templateDir = this.data.template + "/",
+			template = this.data.template,
+			templateDir = template + "/",
 			next;
 
-		function createWidgetDoc(newFile, file, name,  docsStructure, callback) {
+		function createWidgetDoc(newFile, file, name, docsStructure, callback) {
 			var string = "",
 				toc = [],
 				parentToc = {
@@ -38,12 +38,14 @@ module.exports = function (grunt) {
 				}),
 				inheritedMethods = docsStructure.methods.filter(function (method) {
 					return method.isPublic && method.inherited;
-				});
+				}),
+				publicMethodsCount = 0,
+				shortName;
 			grunt.log.ok("Start generating file for widget ", file);
-			docsStructure.methods.sort(function(a, b) {
+			docsStructure.methods.sort(function (a, b) {
 				return a.name > b.name ? 1 : -1;
 			});
-			docsStructure.options.sort(function(a, b) {
+			docsStructure.options.sort(function (a, b) {
 				return a.name > b.name ? 1 : -1;
 			});
 			description = docsStructure.description.replace(/(<h([2-4])>)(.*?)(<\/h[2-4]>)/ig, function (match, p1, p2, p3, p4) {
@@ -54,7 +56,7 @@ module.exports = function (grunt) {
 					name: p3,
 					toc: []
 				};
-				if (parentToc[level-1]) {
+				if (parentToc[level - 1]) {
 					parentToc[level - 1].hasTOC = true;
 					parentToc[level - 1].toc.push(parentToc[level]);
 				}
@@ -80,6 +82,8 @@ module.exports = function (grunt) {
 					name: "Methods list",
 					hasTOC: true,
 					toc: methods.map(function (method) {
+						method.first = (publicMethodsCount === 0);
+						publicMethodsCount++;
 						return {
 							href: "method-" + method.name,
 							name: method.name
@@ -87,12 +91,15 @@ module.exports = function (grunt) {
 					})
 				});
 			}
+			shortName = docsStructure.name.split(".").pop();
 			if (inheritedMethods.length) {
 				toc.push({
 					href: "inherited-methods-list",
 					name: "Inherited methods list",
 					hasTOC: true,
 					toc: inheritedMethods.map(function (method) {
+						method.first = (publicMethodsCount === 0);
+						publicMethodsCount++;
 						return {
 							href: "method-" + method.name,
 							name: method.name
@@ -102,6 +109,8 @@ module.exports = function (grunt) {
 			}
 			mu.compileAndRender(templateDir + 'widget.mustache', {
 				title: name,
+				namespace: docsStructure.name,
+				namespaceShort: shortName,
 				brief: docsStructure.brief,
 				description: description.replace(/@example/g, "").replace(/\<pre\>\<code\>\s*\n/g, "<pre class=\"prettyprint\">").replace(/\<\/code\>/g, ""),
 				toc: toc,
@@ -124,7 +133,7 @@ module.exports = function (grunt) {
 			});
 		}
 
-		function createClassDoc(newFile, file, name,  docsStructure, callback) {
+		function createClassDoc(newFile, file, name, docsStructure, callback) {
 			var string = "",
 				toc = [],
 				parentToc = {
@@ -133,6 +142,8 @@ module.exports = function (grunt) {
 					}
 				},
 				description,
+				shortName,
+				publicMethodsCount = 0,
 				methods = docsStructure.methods.filter(function (method) {
 					return method.isPublic && !method.inherited;
 				}),
@@ -154,7 +165,7 @@ module.exports = function (grunt) {
 					name: p3,
 					toc: []
 				};
-				if (parentToc[level-1]) {
+				if (parentToc[level - 1]) {
 					parentToc[level - 1].hasTOC = true;
 					parentToc[level - 1].toc.push(parentToc[level]);
 				}
@@ -175,6 +186,8 @@ module.exports = function (grunt) {
 					toc: methods.filter(function (method) {
 						return method.isPublic;
 					}).map(function (method) {
+						method.first = (publicMethodsCount === 0);
+						publicMethodsCount++;
 						return {
 							href: "method-" + method.name,
 							name: method.name
@@ -210,8 +223,11 @@ module.exports = function (grunt) {
 					})
 				});
 			}
+			shortName = docsStructure.name.split(".").pop();
 			mu.compileAndRender(templateDir + 'class.mustache', {
 				title: name,
+				namespace: docsStructure.name,
+				namespaceShort: shortName,
 				brief: docsStructure.brief,
 				description: description.replace(/@example/g, "").replace(/\<pre\>\<code\>\s*\n/g, "<pre class=\"prettyprint\">").replace(/\<\/code\>/g, ""),
 				toc: toc,
@@ -238,8 +254,8 @@ module.exports = function (grunt) {
 
 		function createWidgetIndex(newFile, docsStructure, rows, callback) {
 			var string = "";
-			rows.sort(function(a, b) {
-			   return a.name > b.name ? 1 : -1;
+			rows.sort(function (a, b) {
+				return a.namespace > b.namespace ? 1 : -1;
 			});
 			var widgetsDoc = docsStructure["ns.widget.mobile"] || docsStructure["ns.widget.wearable"] || docsStructure["ns.widget.tv"];
 			grunt.log.ok("Started generating index for widgets.");
@@ -253,9 +269,9 @@ module.exports = function (grunt) {
 					rows: rows
 				},
 				breadcrumb: [
-					{href:"/dev-guide/2.2.1/org.tizen.web.appprogramming/html/cover_page.htm", title: "Tizen Web App Programming"},
-					{href:"/dev-guide/2.2.1/org.tizen.web.appprogramming/html/api_reference/api_reference.htm", title: "API References"},
-					{href:"../index.htm", title: "UI Framework Reference"}
+					{href: "/dev-guide/2.2.1/org.tizen.web.appprogramming/html/cover_page.htm", title: "Tizen Web App Programming"},
+					{href: "/dev-guide/2.2.1/org.tizen.web.appprogramming/html/api_reference/api_reference.htm", title: "API References"},
+					{href: "../index.htm", title: "UI Framework Reference"}
 				],
 				basedir: ".."
 			}).on('data', function (data) {
@@ -273,11 +289,12 @@ module.exports = function (grunt) {
 				classDoc = docsStructure;
 
 			grunt.log.ok("Started generating index for classes.");
-			rows.sort(function(a, b) {
-				return a.name > b.name ? 1 : -1;
+			rows.sort(function (a, b) {
+				return a.namespace > b.namespace ? 1 : -1;
 			});
 			mu.compileAndRender(templateDir + 'index.mustache', {
 				title: classDoc.title,
+				namespace: classDoc.name,
 				description: classDoc.description && classDoc.description.full,
 				seeMore: classDoc.seeMore,
 				table: {
@@ -286,9 +303,9 @@ module.exports = function (grunt) {
 					rows: rows
 				},
 				breadcrumb: [
-					{href:"/dev-guide/2.2.1/org.tizen.web.appprogramming/html/cover_page.htm", title: "Tizen Web App Programming"},
-					{href:"/dev-guide/2.2.1/org.tizen.web.appprogramming/html/api_reference/api_reference.htm", title: "API References"},
-					{href:"../index.htm", title: "UI Framework Reference"}
+					{href: "/dev-guide/2.2.1/org.tizen.web.appprogramming/html/cover_page.htm", title: "Tizen Web App Programming"},
+					{href: "/dev-guide/2.2.1/org.tizen.web.appprogramming/html/api_reference/api_reference.htm", title: "API References"},
+					{href: "../index.htm", title: "UI Framework Reference"}
 				],
 				basedir: ".."
 			}).on('data', function (data) {
@@ -306,7 +323,7 @@ module.exports = function (grunt) {
 				classDoc = docsStructure;
 
 			grunt.log.ok("Started generating index.");
-			rows.sort(function(a, b) {
+			rows.sort(function (a, b) {
 				return a.name > b.name ? 1 : -1;
 			});
 
@@ -320,8 +337,8 @@ module.exports = function (grunt) {
 					rows: rows
 				},
 				breadcrumb: [
-					{href:"/dev-guide/2.2.1/org.tizen.web.appprogramming/html/cover_page.htm", title: "Tizen Web App Programming"},
-					{href:"/dev-guide/2.2.1/org.tizen.web.appprogramming/html/api_reference/api_reference.htm", title: "API References"}
+					{href: "/dev-guide/2.2.1/org.tizen.web.appprogramming/html/cover_page.htm", title: "Tizen Web App Programming"},
+					{href: "/dev-guide/2.2.1/org.tizen.web.appprogramming/html/api_reference/api_reference.htm", title: "API References"}
 				],
 				basedir: "."
 			}).on('data', function (data) {
@@ -332,8 +349,9 @@ module.exports = function (grunt) {
 				callback();
 			});
 		}
+
 		function prepareNote(string) {
-			return string.replace(/!!!(.*)!!!/gm, function(match, p1) {
+			return string.replace(/!!!(.*)!!!/gm, function (match, p1) {
 				return "<div class='note'>" + p1 + "</div>";
 			});
 		}
@@ -369,6 +387,9 @@ module.exports = function (grunt) {
 				jsContent,
 				rowsWidgets = [],
 				rowsClasses = [],
+				namespaceArray,
+				series = [],
+				filename,
 				name,
 				description;
 
@@ -448,18 +469,18 @@ module.exports = function (grunt) {
 					classObj.options = [];
 					classObj.methods = [];
 					if (classObj.extends && docsStructure[classObj.extends]) {
-						classObj.methods = docsStructure[classObj.extends].methods.map(function(method) {
+						classObj.methods = docsStructure[classObj.extends].methods.map(function (method) {
 							var newMethod = copyObject(method);
 							newMethod.inherited = classObj.extends;
 							return newMethod;
 						});
-						classObj.events = docsStructure[classObj.extends].events.map(function(event) {
+						classObj.events = docsStructure[classObj.extends].events.map(function (event) {
 							event.inherited = classObj.extends;
 							return event;
 						});
 					}
 					if (classObj.override && docsStructure[classObj.override]) {
-						classObj.methods = docsStructure[classObj.override].methods.map(function(method) {
+						classObj.methods = docsStructure[classObj.override].methods.map(function (method) {
 							method.inherited = classObj.extends;
 							return method;
 						});
@@ -484,7 +505,7 @@ module.exports = function (grunt) {
 					classObj = docsStructure[memberOf];
 					if (classObj) {
 						propertiesArray = tag.string.split(" ");
-						type = propertiesArray.shift().replace(/[{}]/g, '').replace(/\|/g, " | ").replace(/^\?/, function replacer(){
+						type = propertiesArray.shift().replace(/[{}]/g, '').replace(/\|/g, " | ").replace(/^\?/, function replacer() {
 							canBeNull = true;
 							return "";
 						});
@@ -515,7 +536,7 @@ module.exports = function (grunt) {
 							property.isProtected = !!(block.tags.filter(function (tag) {
 								return tag.type === 'protected';
 							})[0]);
-							property.isPublic = !(property.isPrivate || property.isProtected || property.isInternal);
+							property.isPublic = !(property.isPrivate || property.isProtected || (property.isInternal && (template !== 'dld')));
 							property.code = block.code;
 							if (name.match(/^options/)) {
 								name = name.substring(8);
@@ -577,11 +598,11 @@ module.exports = function (grunt) {
 					classObj = docsStructure[memberOf];
 					inherited = block.tags.filter(function (tag) {
 						return tag.type === 'inherited';
-					}).map(function(tag) {
+					}).map(function (tag) {
 						return tag.string || true;
 					})[0];
 					if (inherited) {
-						method = classObj.methods.filter(function(_method) {
+						method = classObj.methods.filter(function (_method) {
 							return _method.name !== name;
 						})[0] || {};
 					} else {
@@ -589,20 +610,20 @@ module.exports = function (grunt) {
 					}
 					method.params = block.tags.filter(function (tag) {
 						return tag.type === 'param';
-					}).map(function(tag) {
+					}).map(function (tag) {
 						var type = tag.types.join("|"),
 							name = tag.name,
 							canBeNull = false,
 							isOptional = false,
 							nameArray;
-						tag.types = type.replace(/\|/g, " | ").replace(/^\?/, function replacer(){
+						tag.types = type.replace(/\|/g, " | ").replace(/^\?/, function replacer() {
 							canBeNull = true;
 							return "";
-						}).replace(/\=$/, function replacer(){
+						}).replace(/\=$/, function replacer() {
 							isOptional = true;
 							return "";
 						});
-						tag.name = name.replace(/[\[\]]/g, function replacer(){
+						tag.name = name.replace(/[\[\]]/g, function replacer() {
 							isOptional = true;
 							return "";
 						});
@@ -618,14 +639,19 @@ module.exports = function (grunt) {
 					method.hasParams = !!method.params.length;
 					method.return = block.tags.filter(function (tag) {
 						return tag.type === 'chainable';
-					}).map(function() {
+					}).map(function () {
 						return {types: [memberOf.replace("ns.widget.mobile.", "")], description: "return this"}
 					}).concat(block.tags.filter(function (tag) {
 						return tag.type === 'return' || tag.type === 'returns';
 					}))[0];
 					method.since = block.tags.filter(function (tag) {
 						return tag.type === 'since';
-					}).map(function(tag) {
+					}).map(function (tag) {
+						return tag.string;
+					})[0];
+					method.deprecated = block.tags.filter(function (tag) {
+						return tag.type === 'deprecated';
+					}).map(function (tag) {
 						return tag.string;
 					})[0];
 					method.name = name;
@@ -633,7 +659,7 @@ module.exports = function (grunt) {
 					method.examples = [];
 					method.brief = block.description.summary;
 					method.description = deleteBR(prepareNote(block.description.body.replace(/@example/g, "").replace(/(<h[0-9]>(.*?)<\/h[0-9]>(\t|\r| |\n)*?)?<pre><code>((.|\n)*?)<\/code><\/pre>/mg, function (match, p1, p2, p3, p4) {
-						method.examples.push({name: p2 || "" , code: p4.replace(/\n*[ \t]*\n*<\/?(pre|code)>\n*[\t ]*\n*/gm, "")});
+						method.examples.push({name: p2 || "", code: p4.replace(/\n*[ \t]*\n*<\/?(pre|code)>\n*[\t ]*\n*/gm, "")});
 						return "";
 					})));
 					method.isPrivate = !!(block.tags.filter(function (tag) {
@@ -645,10 +671,10 @@ module.exports = function (grunt) {
 					method.isProtected = !!(block.tags.filter(function (tag) {
 						return tag.type === 'protected';
 					})[0]);
-					method.isPublic = !(method.isPrivate || method.isProtected || method.isInternal);
+					method.isPublic = !(method.isPrivate || method.isProtected || (method.isInternal && (template !== 'dld')) || (method.deprecated && (template === 'dld')));
 					method.code = block.code;
 					if (classObj) {
-						classObj.methods = classObj.methods.filter(function(_method) {
+						classObj.methods = classObj.methods.filter(function (_method) {
 							return _method.name !== method.name;
 						});
 						classObj.methods.push(method);
@@ -665,23 +691,30 @@ module.exports = function (grunt) {
 				for (i in docsStructure) {
 					if (docsStructure.hasOwnProperty(i)) {
 						modules.push(docsStructure[i]);
-						if (docsStructure[i].name.match(/^ns\.widget/) && !docsStructure[i].isInternal && docsStructure[i].type !== "page") {
+						namespaceArray = docsStructure[i].name.split(".").slice(1);
+						namespaceArray.unshift("tau");
+						docsStructure[i].name = namespaceArray.join(".");
+						if (docsStructure[i].name.match(/^ns\.widget/) && !(docsStructure[i].isInternal && (template !== 'dld')) && docsStructure[i].type !== "page") {
 							file = docsStructure[i].name.replace(/\./g, "_") + ".htm";
+							filename = docsStructure[i].name.replace(/\./g, "/") + ".js";
 							name = docsStructure[i].title;
 							description = docsStructure[i].brief || "";
 							rowsWidgets.push({file: file,
 									namespace: docsStructure[i].name,
 									name: name,
+									filename: filename,
 									description: description}
 							);
 							series.push(createWidgetDoc.bind(null, newFile, file, name, docsStructure[i]));
 						} else if (docsStructure[i].type !== "page") {
 							file = docsStructure[i].name.replace(/\./g, "_") + ".htm";
+							filename = docsStructure[i].name.replace(/\./g, "/") + ".js";
 							name = docsStructure[i].title;
 							description = docsStructure[i].brief || "";
 							rowsClasses.push({file: file,
 									name: name,
 									namespace: docsStructure[i].name,
+									filename: filename,
 									description: description}
 							);
 							series.push(createClassDoc.bind(null, newFile, file, name, docsStructure[i]));

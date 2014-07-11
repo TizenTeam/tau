@@ -145,7 +145,7 @@
  *			</script>
  *
  *
- * @extend ns.widget.mobile.BaseWidget
+ * @extends ns.widget.mobile.BaseWidgetMobile
  * @class ns.widget.mobile.Loader
  * @author Maciej Moczulski <m.moczulski@samsung.com>
  * @author Maciej Urbanski <m.urbanski@samsung.com>

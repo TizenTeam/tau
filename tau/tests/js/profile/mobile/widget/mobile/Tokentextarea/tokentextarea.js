@@ -10,7 +10,7 @@ module("Tokentextarea");
 var createTest = function (element) {
     var input;
 
-    ej.engine.instanceWidget(element, 'Tokentextarea');
+    ej.engine.instanceWidget(element, 'TokenTextarea');
     ok(element.classList.contains("ui-tokentextarea"), "Widget created");
     equal(ej.engine.instanceWidget(element).length(), 0, "Widget 0 length");
     ok(ej.engine.instanceWidget(element).inputText("bar"), "Widget input set");
@@ -53,9 +53,9 @@ var createTest = function (element) {
 var blockEventTests = function (element) {
     var elementQux,
         elementCorge;
-    ej.engine.instanceWidget(element, 'Tokentextarea');
+    ej.engine.instanceWidget(element, 'TokenTextarea');
 
-    ej.engine.instanceWidget(element, 'Tokentextarea');
+    ej.engine.instanceWidget(element, 'TokenTextarea');
     ej.engine.instanceWidget(element).add("qux");
     ej.engine.instanceWidget(element).add("corge");
 
@@ -101,7 +101,7 @@ var cssTests = function (element) {
         button;
 
     //prepare to test
-    ej.engine.instanceWidget(element, 'Tokentextarea');
+    ej.engine.instanceWidget(element, 'TokenTextarea');
     ej.engine.instanceWidget(element).add("foo");
     ej.engine.instanceWidget(element).add("bar");
     ej.engine.instanceWidget(element).select(0);

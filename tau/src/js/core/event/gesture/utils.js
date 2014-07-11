@@ -16,7 +16,8 @@
 * limitations under the License.
 */
 /**
- * #Gesture Utils
+ * #Gesture Utilities
+ * Contains helper function to gesture support.
  * @class ns.event.gesture.utils
  */
 ( function ( ns, Math, undefined ) {

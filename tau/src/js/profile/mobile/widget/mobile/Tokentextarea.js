@@ -182,7 +182,7 @@
  *		$(".selector").tokentextarea("methodName", methodArgument1, ...);
  *
  * @author Kamil Stepczuk <k.stepczuk@samsung.com>
- * @class ns.widget.mobile.Tokentextarea
+ * @class ns.widget.mobile.TokenTextarea
  * @extends ns.widget.BaseWidget
  */
 
@@ -232,7 +232,7 @@
 				 * @static
 				 * @private
 				 * @readonly
-				 * @member ns.widget.mobile.Tokentextarea
+				 * @member ns.widget.mobile.TokenTextarea
 				 */
 				classes = {
 					uiTokentextarea: "ui-tokentextarea",
@@ -269,13 +269,13 @@
 				 * Local constructor function
 				 * @method Tokentextarea
 				 * @private
-				 * @member ns.widget.mobile.Tokentextarea
+				 * @member ns.widget.mobile.TokenTextarea
 				 */
 				Tokentextarea = function () {
 					/**
 					 * Focus state
 					 * @property {boolean} [_focusStatus=true]
-					 * @member ns.widget.mobile.Tokentextarea
+					 * @member ns.widget.mobile.TokenTextarea
 					 */
 					this._focusStatus = true;
 					/**
@@ -287,7 +287,7 @@
 					 * the URL of other HTML file
 					 * @property {string} [options.description="+ {0}"] Manages
 					 * the message format
-					 * @member ns.widget.mobile.Tokentextarea
+					 * @member ns.widget.mobile.TokenTextarea
 					 */
 					this.options = {
 						label: "To : ",
@@ -298,7 +298,7 @@
 					 *
 					 * @property {?Function|null} [inputKeyUp=null]
 					 * @private
-					 * @member ns.widget.mobile.Tokentextarea
+					 * @member ns.widget.mobile.TokenTextarea
 					 */
 					this.inputKeyUp = null;
 				};
@@ -317,7 +317,7 @@
 			 * @property {string} strings.addRecipient Is used to add text to
 			 * the button linked to external page or URL
 			 * @static
-			 * @member ns.widget.mobile.Tokentextarea
+			 * @member ns.widget.mobile.TokenTextarea
 			 */
 			Tokentextarea.strings = {
 				doubleTapToEdit: "double tap to edit",
@@ -331,7 +331,7 @@
 			 * @param {HTMLElement} block
 			 * @private
 			 * @static
-			 * @member ns.widget.mobile.Tokentextarea
+			 * @member ns.widget.mobile.TokenTextarea
 			 */
 			function _selectBlock(block) {
 				var blockClasses = block.classList;
@@ -345,7 +345,7 @@
 			 * @param {HTMLElement} block
 			 * @private
 			 * @static
-			 * @member ns.widget.mobile.Tokentextarea
+			 * @member ns.widget.mobile.TokenTextarea
 			 */
 			function _unselectBlock(block) {
 				var blockClasses = block.classList;
@@ -361,7 +361,7 @@
 			 * @param {HTMLElement} element
 			 * @private
 			 * @static
-			 * @member ns.widget.mobile.Tokentextarea
+			 * @member ns.widget.mobile.TokenTextarea
 			 */
 			function setMaxSizeBlock(element) {
 				var parent = element.parentNode,
@@ -377,7 +377,7 @@
 			 * @param {number} blockIndex
 			 * @private
 			 * @static
-			 * @member ns.widget.mobile.Tokentextarea
+			 * @member ns.widget.mobile.TokenTextarea
 			 */
 			function _removeTextBlock(element, blockIndex) {
 				var blockParent,
@@ -411,7 +411,7 @@
 			 * @param {Event} event
 			 * @private
 			 * @static
-			 * @member ns.widget.mobile.Tokentextarea
+			 * @member ns.widget.mobile.TokenTextarea
 			 */
 			function blockClick(event) {
 				var element = event.target,
@@ -442,7 +442,7 @@
 			 * @param {HTMLElement} block
 			 * @private
 			 * @static
-			 * @member ns.widget.mobile.Tokentextarea
+			 * @member ns.widget.mobile.TokenTextarea
 			 */
 			function _bindBlockEvents(block) {
 				block.addEventListener("vclick", blockClick, false);
@@ -456,7 +456,7 @@
 			 * @param {number} blockIndex
 			 * @private
 			 * @static
-			 * @member ns.widget.mobile.Tokentextarea
+			 * @member ns.widget.mobile.TokenTextarea
 			 */
 			function _addTextBlock(element, messages, blockIndex) {
 				var strings = Tokentextarea.strings,
@@ -511,7 +511,7 @@
 			 * @param {HTMLElement} container
 			 * @private
 			 * @static
-			 * @member ns.widget.mobile.Tokentextarea
+			 * @member ns.widget.mobile.TokenTextarea
 			 */
 			function _validateTargetBlock(container) {
 				var block,
@@ -538,7 +538,7 @@
 			 * @param {HTMLElement} element
 			 * @private
 			 * @static
-			 * @member ns.widget.mobile.Tokentextarea
+			 * @member ns.widget.mobile.TokenTextarea
 			 */
 			function _unlockTextBlock(element) {
 				var selectedBlock = element.getElementsByClassName(
@@ -555,7 +555,7 @@
 			 * @param {Event} event
 			 * @private
 			 * @static
-			 * @member ns.widget.mobile.Tokentextarea
+			 * @member ns.widget.mobile.TokenTextarea
 			 */
 			function inputKeyUp (element, event) {
 				var keyValue = event.keyCode,
@@ -601,7 +601,7 @@
 			 * @protected
 			 * @param {HTMLElement} element
 			 * @return {HTMLElement}
-			 * @member ns.widget.mobile.Tokentextarea
+			 * @member ns.widget.mobile.TokenTextarea
 			 */
 			Tokentextarea.prototype._build = function (element) {
 				var strings = Tokentextarea.strings,
@@ -681,7 +681,7 @@
 			 * @method add
 			 * @param {string} messages
 			 * @param {number} blockIndex
-			 * @member ns.widget.mobile.Tokentextarea
+			 * @member ns.widget.mobile.TokenTextarea
 			 */
 			Tokentextarea.prototype.add = function (messages, blockIndex) {
 				var focusStatus = this._focusStatus,
@@ -716,7 +716,7 @@
 			 *
 			 * @method remove
 			 * @param {number} blockIndex
-			 * @member ns.widget.mobile.Tokentextarea
+			 * @member ns.widget.mobile.TokenTextarea
 			 */
 			Tokentextarea.prototype.remove = function (blockIndex) {
 				var focusStatus = this._focusStatus,
@@ -747,7 +747,7 @@
 			 *
 			 * @method length
 			 * @return {number}
-			 * @member ns.widget.mobile.Tokentextarea
+			 * @member ns.widget.mobile.TokenTextarea
 			 */
 			Tokentextarea.prototype.length = function () {
 				var element = this.element;
@@ -792,7 +792,7 @@
 			 * @method inputText
 			 * @param {string} text
 			 * @return {string}
-			 * @member ns.widget.mobile.Tokentextarea
+			 * @member ns.widget.mobile.TokenTextarea
 			 */
 			Tokentextarea.prototype.inputText = function (text) {
 				var element = this.element,
@@ -842,7 +842,7 @@
 			 * @param {number} blockIndex
 			 * @return {?string}
 			 * @public
-			 * @member ns.widget.mobile.Tokentextarea
+			 * @member ns.widget.mobile.TokenTextarea
 			 */
 			Tokentextarea.prototype.select = function (blockIndex) {
 				var focusStatus = this._focusStatus,
@@ -891,7 +891,7 @@
 			 *
 			 * @method focusIn
 			 * @public
-			 * @member ns.widget.mobile.Tokentextarea
+			 * @member ns.widget.mobile.TokenTextarea
 			 */
 			Tokentextarea.prototype.focusIn = function () {
 				var element = this.element,
@@ -963,7 +963,7 @@
 			 * @return {number}
 			 * @private
 			 * @static
-			 * @member ns.widget.mobile.Tokentextarea
+			 * @member ns.widget.mobile.TokenTextarea
 			 */
 			function _getElementWidth(element) {
 				var elementView;
@@ -996,7 +996,7 @@
 			 *
 			 * @method focusOut
 			 * @public
-			 * @member ns.widget.mobile.Tokentextarea
+			 * @member ns.widget.mobile.TokenTextarea
 			 */
 			Tokentextarea.prototype.focusOut = function () {
 				var element = this.element,
@@ -1084,7 +1084,7 @@
 			 * @method _bindEvents
 			 * @param {HTMLElement} element
 			 * @protected
-			 * @member ns.widget.mobile.Tokentextarea
+			 * @member ns.widget.mobile.TokenTextarea
 			 */
 			Tokentextarea.prototype._bindEvents = function (element) {
 				var self = this,
@@ -1104,7 +1104,7 @@
 			 * Destroy widget
 			 * @method _destroy
 			 * @protected
-			 * @member ns.widget.mobile.Tokentextarea
+			 * @member ns.widget.mobile.TokenTextarea
 			 */
 			Tokentextarea.prototype._destroy = function () {
 				var element = this.element,
@@ -1148,7 +1148,7 @@
 			 *
 			 * @method value
 			 * @chainable
-			 * @member ns.widget.mobile.Tokentextarea
+			 * @member ns.widget.mobile.TokenTextarea
 			 */
 
 			/**
@@ -1178,7 +1178,7 @@
 			 *
 			 * @method disable
 			 * @chainable
-			 * @member ns.widget.mobile.Tokentextarea
+			 * @member ns.widget.mobile.TokenTextarea
 			 */
 
 			/**
@@ -1208,7 +1208,7 @@
 			 *
 			 * @method enable
 			 * @chainable
-			 * @member ns.widget.mobile.Tokentextarea
+			 * @member ns.widget.mobile.TokenTextarea
 			 */
 
 			/**
@@ -1242,7 +1242,7 @@
 			 * is cancelable
 			 * @return {boolean} false, if any callback invoked preventDefault
 			 * on event object
-			 * @member ns.widget.mobile.Tokentextarea
+			 * @member ns.widget.mobile.TokenTextarea
 			 */
 
 			/**
@@ -1277,7 +1277,7 @@
 			 * trigger
 			 * @param {boolean} [useCapture=false] useCapture param tu
 			 * addEventListener
-			 * @member ns.widget.mobile.Tokentextarea
+			 * @member ns.widget.mobile.TokenTextarea
 			 */
 
 			/**
@@ -1324,7 +1324,7 @@
 			 * trigger
 			 * @param {boolean} [useCapture=false] useCapture param to
 			 * addEventListener
-			 * @member ns.widget.mobile.Tokentextarea
+			 * @member ns.widget.mobile.TokenTextarea
 			 */
 
 			/**
@@ -1377,14 +1377,14 @@
 			 * @method option
 			 * @param {string|Object} [name] name of option
 			 * @param {*} value value to set
-			 * @member ns.widget.mobile.Tokentextarea
+			 * @member ns.widget.mobile.TokenTextarea
 			 * @return {*} return value of option or undefined if method is
 			 * called in setter context
 			 */
 			// definition
-			ns.widget.mobile.Tokentextarea = Tokentextarea;
+			ns.widget.mobile.TokenTextarea = Tokentextarea;
 			engine.defineWidget(
-				"Tokentextarea",
+				"TokenTextarea",
 				"[data-role='tokentextarea'], .ui-tokentextarea",
 				[
 					"add",
@@ -1400,7 +1400,7 @@
 			);
 
 //>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ns.widget.mobile.Tokentextarea;
+			return ns.widget.mobile.TokenTextarea;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

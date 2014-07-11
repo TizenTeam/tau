@@ -15,6 +15,12 @@
 * limitations under the License.
 */
 /*jslint nomen: true, plusplus: true */
+/**
+ * #Tab Type
+ * Tab type support for scroll bar widget.
+ * @class ns.widget.wearable.scroller.scrollbar.type.tab
+ * @extends ns.widget.wearable.scroller.scrollbar.type.interface
+ */
 (function (document, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
@@ -39,7 +45,13 @@
 					barClass: "ui-scrollbar-indicator",
 					margin: 1
 				},
-
+				/**
+				 * ...
+				 * @method insertAndDecorate
+				 * @param data
+				 * @static
+				 * @member ns.widget.wearable.scroller.scrollbar.type.tab
+				 */
 				insertAndDecorate: function (data) {
 					var scrollbarElement = data.wrapper,
 						barElement = data.bar,
@@ -81,6 +93,13 @@
 					}
 				},
 
+				/**
+				 * ...
+				 * @method remove
+				 * @param data
+				 * @static
+				 * @member ns.widget.wearable.scroller.scrollbar.type.tab
+				 */
 				remove: function (data) {
 					var scrollbarElement = data.wrapper,
 						container = data.container;
@@ -90,6 +109,14 @@
 					}
 				},
 
+				/**
+				 * ...
+				 * @method offset
+				 * @param orientation
+				 * @param offset
+				 * @static
+				 * @member ns.widget.wearable.scroller.scrollbar.type.tab
+				 */
 				offset: function (orientation, offset) {
 					return {
 						x: offset === 0 ? -1 :

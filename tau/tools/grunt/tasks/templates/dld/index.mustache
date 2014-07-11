@@ -17,19 +17,31 @@
 
 {{{description}}}
 
-<table border="1">
+<table cellspacing="0" cellpadding="5" style="width: 100%; border-top: solid 1px rgb(191, 191,
+191); border-left: solid 1px rgb(191, 191, 191)">
 	<caption>{{table.caption}}</caption>
 	<tbody>
 	<tr>
-		<th>Namespace</th>
-		<th>{{table.module}}</th>
-		<th>Description</th>
+		<th style="background: rgb(242, 242, 242); border-bottom: solid 1px rgb(191, 191,
+		191);border-right: solid 1px rgb(191, 191, 191)">Component</th>
+		<th style="background: rgb(242, 242, 242); border-bottom: solid 1px rgb(191, 191,
+		191);border-right: solid 1px rgb(191, 191, 191)">Module</th>
+		<th style="background: rgb(242, 242, 242); border-bottom: solid 1px rgb(191, 191,
+		191);border-right: solid 1px rgb(191, 191, 191)">New Development /Modification / Reuse</th>
+		<th style="background: rgb(242, 242, 242); border-bottom: solid 1px rgb(191, 191,
+		191);border-right: solid 1px rgb(191, 191, 191)">Description</th>
 	</tr>
 	{{#table.rows}}
 		<tr>
-			<td><a href="{{file}}">{{namespace}}</a></td>
-			<td><a href="{{file}}">{{name}}</a></td>
-			<td>{{description}}</td>
+			<td style="border-bottom: solid 1px rgb(191, 191,
+		191);border-right: solid 1px rgb(191, 191,
+		191)"><a href="{{file}}">go</a></td>
+			<td style="border-bottom: solid 1px rgb(191, 191,
+		191);border-right: solid 1px rgb(191, 191, 191)">{{namespace}}</td>
+			<td style="border-bottom: solid 1px rgb(191, 191,
+		191);border-right: solid 1px rgb(191, 191, 191)">{{filename}}</td>
+			<td style="border-bottom: solid 1px rgb(191, 191,
+		191);border-right: solid 1px rgb(191, 191, 191)">{{description}}</td>
 		</tr>
 	{{/table.rows}}
 	</tbody>

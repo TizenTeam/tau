@@ -17,8 +17,7 @@
 */
 /**
  * # ScrollView Widget
- *
- * The allows for creating scrollable panes, lists, etc.
+ * Widgets allows for creating scrollable panes, lists, etc.
  *
  * ## Default selectors
  * All elements with _data-role=content attribute or _.ui-scrollview

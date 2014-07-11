@@ -15,7 +15,10 @@
 * limitations under the License.
 */
 /*
+ * #type namespace
+ * Namespace with types of scroll bars..
  * @author Maciej Urbanski <m.urbanski@samsung.com>
+ * @class ns.widget.wearable.scroller.scrollbar.type
  */
 (function (window, ns) {
 	"use strict";

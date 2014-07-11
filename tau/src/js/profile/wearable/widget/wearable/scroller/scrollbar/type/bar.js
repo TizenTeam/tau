@@ -15,6 +15,12 @@
 * limitations under the License.
 */
 /*jslint nomen: true, plusplus: true */
+/**
+ * #Bar Type
+ * Bar type support for scroll bar widget.
+ * @class ns.widget.wearable.scroller.scrollbar.type.bar
+ * @extends ns.widget.wearable.scroller.scrollbar.type.interface
+ */
 (function (document, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
@@ -42,6 +48,13 @@
 					animationDuration: 500
 				},
 
+				/**
+				 *
+				 * @method insertAndDecorate
+				 * @param data
+				 * @static
+				 * @member ns.widget.wearable.scroller.scrollbar.type.bar
+				 */
 				insertAndDecorate: function( data ) {
 					var scrollbarElement = data.wrapper,
 						barElement = data.bar,
@@ -73,6 +86,12 @@
 					container.appendChild(scrollbarElement);
 				},
 
+				/**
+				 * @method insertAndDecorate
+				 * @param data
+				 * @static
+				 * @member ns.widget.wearable.scroller.scrollbar.type.bar
+				 */
 				remove: function (data) {
 					var scrollbarElement = data.wrapper,
 						container = data.container;
@@ -82,6 +101,13 @@
 					}
 				},
 
+				/**
+				 * @method offset
+				 * @param orientation
+				 * @param offset
+				 * @static
+				 * @member ns.widget.wearable.scroller.scrollbar.type.bar
+				 */
 				offset: function( orientation, offset ) {
 					var x, y;
 
@@ -103,6 +129,12 @@
 					};
 				},
 
+				/**
+				 * @method start
+				 * @param scrollbarElement
+				 * @static
+				 * @member ns.widget.wearable.scroller.scrollbar.type.bar
+				 */
 				start: function( scrollbarElement/*, barElement */) {
 					var style = scrollbarElement.style,
 						duration = this.options.animationDuration;
@@ -110,6 +142,12 @@
 					style.opacity = 1;
 				},
 
+				/**
+				 * @method end
+				 * @param scrollbarElement
+				 * @static
+				 * @member ns.widget.wearable.scroller.scrollbar.type.bar
+				 */
 				end: function( scrollbarElement/*, barElement */) {
 					var style = scrollbarElement.style,
 						duration = this.options.animationDuration;

@@ -15,6 +15,7 @@
 * limitations under the License.
 */
 /**
+ * #Route Page
  * Support class for router to control changing pages in profile Wearable.
  * @class ns.router.route.page
  * @author Maciej Urbanski <m.urbanski@samsung.com>

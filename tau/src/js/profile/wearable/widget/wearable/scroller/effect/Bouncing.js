@@ -15,6 +15,12 @@
 * limitations under the License.
 */
 /*jslint nomen: true, plusplus: true */
+/**
+ * # Bouncing effect
+ * Bouncing effect for scroller widget.
+ * @class ns.widget.wearable.scroller.effect.Bouncing
+ * @since 2.3
+ */
 (function (document, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
@@ -85,11 +91,23 @@
 					maxElement.addEventListener("webkitAnimationEnd", this);
 				},
 
+				/**
+				 * ...
+				 * @method drag
+				 * @param x
+				 * @param y
+				 * @member ns.widget.wearable.scroller.effect.Bouncing
+				 */
 				drag: function( x, y ) {
 					this.isDrag = true;
 					this._checkAndShow( x, y );
 				},
 
+				/**
+				 * ...
+				 * @method dragEnd
+				 * @member ns.widget.wearable.scroller.effect.Bouncing
+				 */
 				dragEnd: function() {
 					if ( this.isShow && !this.isShowAnimating && !this.isHideAnimating ) {
 						this._beginHide();
@@ -98,10 +116,22 @@
 					this.isDrag = false;
 				},
 
+				/**
+				 * ...
+				 * @method end
+				 * @param x
+				 * @param y
+				 * @member ns.widget.wearable.scroller.effect.Bouncing
+				 */
 				end: function(x, y) {
 					this._checkAndShow( x, y );
 				},
 
+				/**
+				 * Shows effect.
+				 * @method show
+				 * @member ns.widget.wearable.scroller.effect.Bouncing
+				 */
 				show: function() {
 					if ( this.targetElement ) {
 						this.isShow = true;
@@ -109,6 +139,11 @@
 					}
 				},
 
+				/**
+				 * Hides effect.
+				 * @method hide
+				 * @member ns.widget.wearable.scroller.effect.Bouncing
+				 */
 				hide: function() {
 					if ( this.isShow ) {
 						this.minEffectElement.style.display = "none";
@@ -184,6 +219,11 @@
 					this._checkAndShow();
 				},
 
+				/**
+				 * Supports events.
+				 * @method handleEvent
+				 * @member ns.widget.wearable.scroller.effect.Bouncing
+				 */
 				handleEvent: function( event ) {
 					switch (event.type) {
 						case "webkitAnimationEnd":
@@ -196,6 +236,11 @@
 					}
 				},
 
+				/**
+				 * Destroys effect.
+				 * @method destroy
+				 * @member ns.widget.wearable.scroller.effect.Bouncing
+				 */
 				destroy: function() {
 					this.minEffectElement.removeEventListener("webkitAnimationEnd", this);
 					this.maxEffectElement.removeEventListener("webkitAnimationEnd", this);

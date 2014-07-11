@@ -15,8 +15,9 @@
 * limitations under the License.
 */
 /**
- * #route
+ * #Route Namespace
  * Object contains rules for router.
+ *
  * @class ns.router.route
  */
 /*

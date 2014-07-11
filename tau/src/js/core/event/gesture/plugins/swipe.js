@@ -17,6 +17,8 @@
 */
 /**
  * #Gesture Plugin: swipe
+ * Plugin enables swipe event.
+ *
  * @class ns.event.gesture.Swipe
  */
 ( function ( ns, window, undefined ) {

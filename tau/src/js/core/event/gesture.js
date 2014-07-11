@@ -15,10 +15,6 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-/**
- * # Gesture namespace
- * @class ns.event.gesture
- */
 (function (ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);

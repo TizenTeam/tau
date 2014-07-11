@@ -134,7 +134,7 @@
  *			</div>
  *
  * @class ns.widget.mobile.NavBar
- * @extends ns.widget.mobile.BaseWidget
+ * @extends ns.widget.mobile.BaseWidgetMobile
  * @author Maciej Moczulski <m.moczulski@samsung.com>
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Piotr Karny <p.karny@samsung.com>
@@ -225,8 +225,7 @@
 			 * Dictionary for NavBar css classes
 			 * @property {Object} classes
 			 * @property {string} [classes.uiNavbar="ui-navbar"] NavBar core
-			 * class
-			 * @property {string} [classes.uiMini="ui-mini"] NavBar mini class
+			 * @property {string} [classes.uiMini="ui-mini"] NavBar mini
 			 * @member ns.widget.mobile.NavBar
 			 * @static
 			 * @readonly
@@ -290,8 +289,7 @@
 			/**
 			 * Destroy widget. Removes event listeners from the Navbar buttons.
 			 * @method _destroy
-			 * @member ns.widget.NavBar
-			 * @instance
+			 * @member ns.widget.mobile.NavBar
 			 * @protected
 			 */
 			proto._destroy = function () {

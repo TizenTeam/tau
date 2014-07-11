@@ -716,7 +716,7 @@
  *		</ul>
  *
  * @class ns.widget.mobile.Listview
- * @extends ns.widget.BaseWidget
+ * @extends ns.widget.mobile.BaseWidgetMobile
  */
 /**
  * Triggered when the listview is before refresh items.
@@ -1141,7 +1141,7 @@
 				while (--i >= 0) {
 					eventUtils.trigger(checkboxRadio[i], "vclick");
 				}
-			}
+			};
 
 			/**
 			 * Registers widget's event listeners
@@ -1195,7 +1195,7 @@
 			/**
 			 * Removes corners
 			 * @method _removeCorners
-			 * @param {HTMLElement} element HTML LI element
+			 * @param {HTMLElement} li HTML LI element
 			 * @param {string} which which corners will be removed
 			 * @protected
 			 * @member ns.widget.mobile.Listview
@@ -1266,7 +1266,7 @@
 			/**
 			 * Refresh corners
 			 * @method _refreshCorners
-			 * @param {HTMLElement} element HTML UL element
+			 * @param {HTMLElement} ul HTML UL element
 			 * @param {boolean} create if set "true" then the "updatelayout" event will be triggered
 			 * @protected
 			 * @member ns.widget.mobile.Listview
@@ -1389,11 +1389,10 @@
 			};
 
 			/**
-			 * Add item to listview and refresh widget
+			 * Adds item to widget and refreshes layout.
 			 * @method addItem
 			 * @param {HTMLElement} listItem new LI item
 			 * @param {number} position position on list
-			 * @protected
 			 * @member ns.widget.mobile.Listview
 			 */
 			Listview.prototype.addItem = function (listItem, position) {
@@ -1422,11 +1421,10 @@
 			};
 
 			/**
-			 * Remove item from listview and refresh widget
+			 * Removes item from widget and refreshes layout.
 			 * @method removeItem
 			 * @param {number} position position on list
 			 * @member ns.widget.mobile.Listview
-			 * @protected
 			 */
 			Listview.prototype.removeItem = function (position) {
 				var element = this.element,

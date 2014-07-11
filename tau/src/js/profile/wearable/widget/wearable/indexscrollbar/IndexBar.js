@@ -16,11 +16,11 @@
 */
 /*jslint nomen: true, plusplus: true */
 /**
- * IndexScrollbar widget
+ * #IndexBar widget
+ * Widget creates bar with index.
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Jadwiga Sosnowska <j.sosnowska@samsung.com>
- * @class ns.widget.wearable.IndexScrollbar
- * @extends ns.widget.BaseWidget
+ * @class ns.widget.wearable.indexscrollbar.IndexBar
  */
 (function (document, ns) {
 	"use strict";
@@ -89,19 +89,39 @@
 					this.selectedIndex = -1;
 				},
 
+				/**
+				 * Refreshes widget.
+				 * @method refresh
+				 * @member ns.widget.wearable.indexscrollbar.IndexBar
+				 */
 				refresh: function() {
 					this._clear();
 					this._init();
 				},
 
+				/**
+				 * Destroys widget.
+				 * @method destroy
+				 * @member ns.widget.wearable.indexscrollbar.IndexBar
+				 */
 				destroy: function() {
 					this._clear();
 				},
 
+				/**
+				 * Shows widget.
+				 * @method show
+				 * @member ns.widget.wearable.indexscrollbar.IndexBar
+				 */
 				show: function() {
 					this.element.style.visibility="visible";
 				},
 
+				/**
+				 * Hides widget.
+				 * @method hide
+				 * @member ns.widget.wearable.indexscrollbar.IndexBar
+				 */
 				hide: function() {
 					this.element.style.visibility="hidden";
 				},
@@ -186,6 +206,12 @@
 					this.element.style.left = this.options.offsetLeft + "px";
 				},
 
+				/**
+				 * Sets padding top for element.
+				 * @method setPaddingTop
+				 * @param {number} paddingTop
+				 * @member ns.widget.wearable.indexscrollbar.IndexBar
+				 */
 				setPaddingTop: function(paddingTop) {
 					var height = this.element.clientHeight,
 						oldPaddingTop = this.element.style.paddingTop,
@@ -213,7 +239,13 @@
 					this._setIndexCellInfo();	// update index cell info
 				},
 
-				// Return index DOM element's offsetTop of given index
+				/**
+				 * Returns element's offsetTop of given index.
+				 * @method getOffsetTopByIndex
+				 * @param {number} index
+				 * @return {number}
+				 * @member ns.widget.wearable.indexscrollbar.IndexBar
+				 */
 				getOffsetTopByIndex: function(index) {
 					var cellIndex = this.indexLookupTable[index].cellIndex,
 						el = this.indexElements[cellIndex],
@@ -249,6 +281,13 @@
 					this.indexElements = element.children;
 				},
 
+				/**
+				 * Returns index for given position.
+				 * @method getIndexByPosition
+				 * @param {number} posY
+				 * @return {number}
+				 * @member ns.widget.wearable.indexscrollbar.IndexBar
+				 */
 				getIndexByPosition: function(posY) {
 					var table = this.indexLookupTable,
 						info,
@@ -277,11 +316,24 @@
 					return 0;
 				},
 
+				/**
+				 * Returns value for given index.
+				 * @method getValueByIndex
+				 * @param {number} idx
+				 * @return {number}
+				 * @member ns.widget.wearable.indexscrollbar.IndexBar
+				 */
 				getValueByIndex: function(idx) {
 					if(idx < 0) { idx = 0; }
 					return this.indices.original[idx];
 				},
 
+				/**
+				 * Select given index
+				 * @method select
+				 * @param {number} idx
+				 * @member ns.widget.wearable.indexscrollbar.IndexBar
+				 */
 				select: function(idx) {
 					var cellIndex,
 						eCell;
@@ -298,7 +350,10 @@
 					eCell.classList.add(this.options.selectedClass);
 				},
 
-				/* Clear selected class
+				/**
+				 * Clears selected class.
+				 * @method clearSelected
+				 * @member ns.widget.wearable.indexscrollbar.IndexBar
 				 */
 				clearSelected: function() {
 					var el = this.element,

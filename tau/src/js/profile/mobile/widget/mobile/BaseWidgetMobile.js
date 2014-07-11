@@ -20,9 +20,8 @@
  * Extenstion of class BaseWidget for mobile profile.
  * This class has compability properties and methods with jQuery Mobile Widget.
  * @class ns.widget.mobile.BaseWidgetMobile
- * @alias BaseWidgetMobile
  * @internal
- * @extend ns.widget.BaseWidget
+ * @extends ns.widget.BaseWidget
  */
 (function (document, ns) {
 	"use strict";
@@ -53,7 +52,7 @@
 			};
 
 			/**
-			 * configure widget object from definition
+			 * Configures widget object from definition.
 			 * @method configure
 			 * @param {Object} definition
 			 * @param {string} definition.name Name of widget
@@ -111,15 +110,7 @@
 			};
 
 			/**
-			* Protected method to enable widget
-			* @method _disable
-			* @protected
-			* @member ns.widget.mobile.BaseWidgetMobile
-			* @template
-			* @instance
-			*/
-			/**
-			* Disable widget, call: #\_disable
+			* Disables widget.
 			* @method disable
 			* @member ns.widget.mobile.BaseWidgetMobile
 			* @instance
@@ -140,15 +131,7 @@
 			};
 
 			/**
-			* Protected method to enable widget
-			* @method _enable
-			* @protected
-			* @member ns.widget.mobile.BaseWidgetMobile
-			* @template
-			* @instance
-			*/
-			/**
-			* Enable widget, call: #\_enable
+			* Enables widget.
 			* @method enable
 			* @member ns.widget.mobile.BaseWidgetMobile
 			* @instance
@@ -169,7 +152,7 @@
 			};
 
 			/**
-			* Throw exception
+			* Throws exception.
 			* @method raise
 			* @param {?string} msg Message of throw
 			* @member ns.widget.mobile.BaseWidgetMobile
@@ -180,20 +163,22 @@
 			};
 
 			/**
-			 * Enhance all the children of all elements in the set of matched elements.
+			 * Enhances all the children of all elements in the set of matched elements.
 			 * @method enhanceWithin
 			 * @member ns.widget.mobile.BaseWidgetMobile
 			 * @instance
+			 * @removed 2.3
 			 */
 			prototype.enhanceWithin = function () {
 				ns.log('method enhanceWithin is deprecated');
 			};
 
 			/**
-			 * Enhance all the children of all elements in the set of matched elements.
+			 * Enhances all the children of all elements in the set of matched elements.
 			 * @method enhance
 			 * @member ns.widget.mobile.BaseWidgetMobile
 			 * @instance
+			 * @removed 2.3
 			 */
 			prototype.enhance = function () {
 				ns.log('method enhance is deprecated');
@@ -201,7 +186,7 @@
 			
 
 			/**
-			* Return element of widget
+			* Returns element of widget.
 			* @method widget
 			* @member ns.widget.mobile.BaseWidgetMobile
 			* @return {HTMLElement}

@@ -287,19 +287,35 @@
 
 			/**
 			 * Bind events to document
-			 * @method eventBinding
+			 * @method enable
 			 * @member ns.util.anchorHighlight
-			 * @private
 			 * @static
 			 */
-			function eventBinding() {
+			function enable() {
 				document.addEventListener("touchstart", touchstartHandler, false);
 				document.addEventListener("touchend", touchendHandler, false);
 				document.addEventListener("visibilitychange", checkPageVisibility, false);
 				window.addEventListener("pagehide", removeActiveClass, false);
 			}
 
-			eventBinding();
+			/**
+			 * Unbinds events from document.
+			 * @method disable
+			 * @member ns.util.anchorHighlight
+			 * @static
+			 */
+			function disable() {
+				document.removeEventListener("touchstart", touchstartHandler, false);
+				document.removeEventListener("touchend", touchendHandler, false);
+				window.removeEventListener("pagehide", removeActiveClass, false);
+			}
+
+			enable();
+
+			ns.util.anchorHighlight = {
+				enable: enable,
+				disable: disable
+			};
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}

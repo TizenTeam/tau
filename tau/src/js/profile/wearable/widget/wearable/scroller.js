@@ -14,7 +14,10 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-/*
+/**
+ * #Scroller namespace
+ * Namespace contains classes and objects connected with scroller widget.
+ * @class ns.widget.wearable.scroller
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
 (function (window, ns) {
@@ -26,10 +29,6 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			/**
-			 * #Wearable scroller namespace
-			 * @class ns.widget.wearable.scroller
-			 */
 			ns.widget.wearable.scroller = ns.widget.wearable.scroller || {};
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.widget.wearable.scroller;

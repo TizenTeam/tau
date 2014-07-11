@@ -16,7 +16,9 @@
 * limitations under the License.
 */
 /**
- * #Gesture class with events functions
+ * #Gesture Namespace
+ * Core object enables multi gesture support.
+ *
  * @class ns.event.gesture
  */
 (function ( ns, window, undefined ) {
@@ -101,10 +103,10 @@
 			/**
 			 * Dictionary of gesture events flags
 			 * @property {Object} Result
-			 * @property {1} Result.PENDING is pending
-			 * @property {2} Result.RUNNING is running
-			 * @property {4} Result.FINISHED is finished
-			 * @property {8} Result.BLOCK is blocked
+			 * @property {number} [Result.PENDING=1] is pending
+			 * @property {number} [Result.RUNNING=2] is running
+			 * @property {number} [Result.FINISHED=4] is finished
+			 * @property {number} [Result.BLOCK=8] is blocked
 			 * @member ns.event.gesture
 			 * @static
 			 */
@@ -127,13 +129,11 @@
 			 * Create object of Detector
 			 * @method createDetector
 			 * @param {string} gesture
-			 * @param {HTMLElement} element
+			 * @param {HTMLElement} eventSender
 			 * @param {Object} options
 			 * @return {ns.event.gesture.Gesture}
 			 * @member ns.event.gesture
 			 * @static
-			 * @throws {string}
-			 * The methods throws exception when given gesture is not supported
 			 */
 			Gesture.createDetector = function( gesture, eventSender, options ) {
 				if ( !Gesture.plugin[gesture] ) {

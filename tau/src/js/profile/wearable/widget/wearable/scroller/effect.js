@@ -15,7 +15,10 @@
 * limitations under the License.
 */
 /*
+ * #Effect namespace
+ * Namespace with effects for scroller widget.
  * @author Maciej Urbanski <m.urbanski@samsung.com>
+ * @class ns.widget.wearable.scroller.effect
  */
 (function (window, ns) {
 	"use strict";
@@ -26,7 +29,6 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			/** @namespace ns.widget.wearable */
 			ns.widget.wearable.scroller.effect = ns.widget.wearable.scroller.effect || {};
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.widget.wearable.scroller.effect;

@@ -18,7 +18,7 @@
 /**
 * #Multimedia View widget
  * The multimedia view widget displays the audio and video player.
-* @class ns.widget.MultimediaView
+* @class ns.widget.mobile.MultimediaView
 * @extends ns.widget.mobile.BaseWidgetMobile
 * @author Maciej Urbanski <m.urbanski@samsung.com>
 * @author Tomasz Lukawski <t.lukawski@samsung.com>
@@ -50,7 +50,7 @@
 				/**
 				* Local alias for ns.widget.mobile.BaseWidgetMobile
 				* @property {Function} BaseWidgetMobile Alias for {@link ns.widget.mobile.BaseWidgetMobile}
-				* @member ns.widget.MultimediaView
+				* @member ns.widget.mobile.MultimediaView
 				* @static
 				* @private
 				*/
@@ -58,7 +58,7 @@
 				/**
 				* Local alias for ns.engine
 				* @property {Object} engine Alias for {@link ns.engine}
-				* @member ns.widget.MultimediaView
+				* @member ns.widget.mobile.MultimediaView
 				* @static
 				* @private
 				*/
@@ -66,7 +66,7 @@
 				/**
 				* Local alias for ns.event
 				* @property {Object} engine Alias for {@link ns.event}
-				* @member ns.widget.MultimediaView
+				* @member ns.widget.mobile.MultimediaView
 				* @static
 				* @private
 				*/
@@ -74,7 +74,7 @@
 				/**
 				* Local alias for ns.util
 				* @property {Object} engine Alias for {@link ns.util}
-				* @member ns.widget.MultimediaView
+				* @member ns.widget.mobile.MultimediaView
 				* @static
 				* @private
 				*/
@@ -82,7 +82,7 @@
 				/**
 				* Local alias for ns.utilsTheme
 				* @property {Object} engine Alias for {@link ns.theme}
-				* @member ns.widget.MultimediaView
+				* @member ns.widget.mobile.MultimediaView
 				* @static
 				* @private
 				*/
@@ -90,7 +90,7 @@
 				/**
 				* Local alias for ns.util.object
 				* @property {Object} utilsDOM Alias for {@link ns.util.object}
-				* @member ns.widget.MultimediaView
+				* @member ns.widget.mobile.MultimediaView
 				* @static
 				* @private
 				*/
@@ -98,7 +98,7 @@
 				/**
 				* Local alias for ns.util.DOM.manipulation & ns.util.DOM.css & ns.util.DOM.attributes
 				* @property {Object} utilsDOM Alias for {@link ns.util.DOM.*}
-				* @member ns.widget.MultimediaView
+				* @member ns.widget.mobile.MultimediaView
 				* @static
 				* @private
 				*/
@@ -106,7 +106,7 @@
 				/**
 				* Local alias for ns.util.selectors
 				* @property {Object} utilsSelectors Alias for {@link ns.util.selectors}
-				* @member ns.widget.MultimediaView
+				* @member ns.widget.mobile.MultimediaView
 				* @static
 				* @private
 				*/
@@ -139,7 +139,7 @@
 				/**
 				* Alias to Array.slice
 				* @method slice
-				* @member ns.widget.MultimediaView
+				* @member ns.widget.mobile.MultimediaView
 				* @static
 				* @private
 				*/
@@ -178,7 +178,7 @@
 				/**
 				 * Local variable for MultimediaView prototype object
 				 * @property {ns.widget.mobile.BaseWidgetMobile} MultimediaViewPrototype
-				 * @member ns.widget.MultimediaView
+				 * @member ns.widget.mobile.MultimediaView
 				 * @private
 				 * @static
 				 */
@@ -186,7 +186,7 @@
 				/**
 				 * Prefix of classes
 				 * @property PREFIX
-				 * @member ns.widget.MultimediaView
+				 * @member ns.widget.mobile.MultimediaView
 				 * @private
 				 * @static
 				 */
@@ -265,7 +265,7 @@
 
 			/**
 			* @property {Object} classes
-			* @member ns.widget.MultimediaView
+			* @member ns.widget.mobile.MultimediaView
 			* @static
 			*/
 			MultimediaView.classes = classes;
@@ -274,7 +274,7 @@
 			* The method builds HTML structure of control panel
 			* @method _createControl
 			* @return {HTMLElement}
-			* @member ns.widget.MultimediaView
+			* @member ns.widget.mobile.MultimediaView
 			* @protected
 			* @instance
 			*/
@@ -362,7 +362,7 @@
 			* @method width
 			* @param {number} [value=undefined]
 			* @return {number|null} width Width value or null if fullScreen option is enabled
-			* @member ns.widget.MultimediaView
+			* @member ns.widget.mobile.MultimediaView
 			* @protected
 			* @instance
 			*/
@@ -396,7 +396,7 @@
 			* @method height
 			* @param {number} [value=undefined]
 			* @return {number|null} height Height value or null if fullScreen option is enabled or element is not video
-			* @member ns.widget.MultimediaView
+			* @member ns.widget.mobile.MultimediaView
 			* @protected
 			* @instance
 			*/
@@ -424,7 +424,7 @@
 			* @method fullScreen
 			* @param {boolean} value
 			* @return {boolean}
-			* @member ns.widget.MultimediaView
+			* @member ns.widget.mobile.MultimediaView
 			* @instance
 			*/
 			MultimediaViewPrototype.fullScreen = function (value) {
@@ -467,7 +467,7 @@
 			* Resize view
 			* @method fullScreen
 			* @return {boolean}
-			* @member ns.widget.MultimediaView
+			* @member ns.widget.mobile.MultimediaView
 			* @instance
 			* @protected
 			*/
@@ -481,7 +481,7 @@
 			* @method _build
 			* @param {HTMLElement} element
 			* @return {HTMLElement}
-			* @member ns.widget.MultimediaView
+			* @member ns.widget.mobile.MultimediaView
 			* @protected
 			* @instance
 			*/
@@ -546,7 +546,7 @@
 			/**
 			* The method initializing widget properties
 			* @method _initControl
-			* @member ns.widget.MultimediaView
+			* @member ns.widget.mobile.MultimediaView
 			* @protected
 			* @instance
 			*/
@@ -573,7 +573,7 @@
 			* @method _init
 			* @param {HTMLElement} element
 			* @return {HTMLElement}
-			* @member ns.widget.MultimediaView
+			* @member ns.widget.mobile.MultimediaView
 			* @protected
 			* @instance
 			*/
@@ -596,7 +596,7 @@
 			* @method _configure
 			* @param {HTMLElement} element
 			* @return {HTMLElement}
-			* @member ns.widget.MultimediaView
+			* @member ns.widget.mobile.MultimediaView
 			* @protected
 			* @instance
 			*/
@@ -608,7 +608,7 @@
 			/**
 			* The method destroy widget and unbinds event listeners
 			* @method _destroy
-			* @member ns.widget.MultimediaView
+			* @member ns.widget.mobile.MultimediaView
 			* @protected
 			* @instance
 			*/
@@ -620,7 +620,7 @@
 			/**
 			* Resizing of controlBar
 			* @method _resizeControl
-			* @member ns.widget.MultimediaView
+			* @member ns.widget.mobile.MultimediaView
 			* @protected
 			* @instance
 			 */
@@ -679,7 +679,7 @@
 			/**
 			* Convert time format, from timestamp [s] to string
 			* @method convertTimeFormat
-			* @member ns.widget.MultimediaView
+			* @member ns.widget.mobile.MultimediaView
 			* @param {number} systime
 			* @return {string} time time as format HH:mm:ss
 			* @private
@@ -703,7 +703,7 @@
 			/**
 			* Update the position of progress Bar
 			* @method _updateSeekBar
-			* @member ns.widget.MultimediaView
+			* @member ns.widget.mobile.MultimediaView
 			* @protected
 			* @instance
 			 */
@@ -724,7 +724,7 @@
 			/**
 			* Update the position of Volume Bar eg. after volume change on VIDEO element
 			* @method _updateVolumeBarState
-			* @member ns.widget.MultimediaView
+			* @member ns.widget.mobile.MultimediaView
 			* @protected
 			* @instance
 			 */
@@ -755,7 +755,7 @@
 
 			/**
 			 * Called when metadata was loaded
-			 * @param {ns.widget.MultimediaView} self
+			 * @param {ns.widget.mobile.MultimediaView} self
 			 * @static
 			 * @private
 			 */
@@ -1014,7 +1014,7 @@
 			* The method binding event handlers to widget
 			* @method _bindEvents
 			* @param {HTMLElement} element
-			* @member ns.widget.MultimediaView
+			* @member ns.widget.mobile.MultimediaView
 			* @protected
 			* @instance
 			*/
@@ -1054,7 +1054,7 @@
 			/**
 			* The method unbinds event listeners
 			* @method _unbindEvents
-			* @member ns.widget.MultimediaView
+			* @member ns.widget.mobile.MultimediaView
 			* @protected
 			* @instance
 			*/

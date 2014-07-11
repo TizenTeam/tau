@@ -17,6 +17,7 @@
 */
 /**
  * #Core namespace
+ * Object contains main framework methods.
  * @class ns
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>

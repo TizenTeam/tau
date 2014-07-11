@@ -20,6 +20,7 @@
  * Class is responsible for change pages in applications when
  * transition is enable.
  * @class ns.router.PageTransition
+ * @override ns.router.Page
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Piotr Karny <p.karny@samsung.com>>
  * @author Hyunkook Cho <hk0713.cho@samsung.com>
@@ -353,6 +354,7 @@
 			}
 
 			/**
+			 * Changes page.
 			 * @method changePage
 			 * @param {Object} settings
 			 * @param {Object} [settings.fromPage]
@@ -361,7 +363,6 @@
 			 * @param {boolean} [settings.reverse=false]
 			 * @param {boolean} [settings.duplicateCachedPage]
 			 * @member ns.router.PageTransition
-			 * @instance
 			 */
 			RouterPage.prototype.changePage = function (settings) {
 				var fromPage = settings.fromPage,
@@ -391,12 +392,12 @@
 			};
 
 			/**
+			 * Registers transition.
 			 * @method registerTransition
 			 * @param {string} name
 			 * @param {Object} handler
 			 * @param {Object} fallback
 			 * @member ns.router.PageTransition
-			 * @instance
 			 */
 			RouterPage.prototype.registerTransition = function (name, handler, fallback) {
 				transitions[name] = {
@@ -406,21 +407,21 @@
 			};
 
 			/**
+			 * Returns list of transitions.
 			 * @method getTransitions
 			 * @member ns.router.PageTransition
 			 * @return {Array} transitions
-			 * @instance
 			 */
 			RouterPage.prototype.getTransitions = function () {
 				return transitions;
 			};
 
 			/**
+			 * Returns transition.
 			 * @method getTransition
 			 * @param {string} name
 			 * @member ns.router.PageTransition
 			 * @return {Object} transition
-			 * @instance
 			 */
 			RouterPage.prototype.getTransition = function (name) {
 				return transitions[name];
@@ -431,10 +432,10 @@
 			RouterPage.prototype.getMaxScrollForTransition = getMaxScrollForTransition;
 
 			/**
+			 * Initializes router.
 			 * @method init
 			 * @param {boolean} justBuild
 			 * @member ns.router.PageTransition
-			 * @instance
 			 */
 			RouterPage.prototype.init = function (justBuild) {
 				var self = this;

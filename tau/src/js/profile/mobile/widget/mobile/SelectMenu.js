@@ -17,6 +17,7 @@
 /*jslint nomen: true */
 /**
  * #Select Menu Widget
+ * Widget extends UI of standard select element.
  *
  * ##Default selectors
  * In default all elements with _data-role=select_ or with calss .ui-select-menu
@@ -152,7 +153,7 @@
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Piotr Karny <p.karny@samsung.com>
  * @class ns.widget.mobile.SelectMenu
- * @extends ns.widget.mobile.BaseWidget
+ * @extends ns.widget.mobile.BaseWidgetMobile
  */
 (function (document, ns) {
 	"use strict";

@@ -16,7 +16,8 @@
 */
 /*jslint nomen: true, plusplus: true */
 /**
- * TabIndicator Widget
+ * #TabIndicator Widget
+ * Widget create tabs indicator.
  * @class ns.widget.wearable.TabIndicator
  * @since 2.3
  * @extends ns.widget.BaseWidget

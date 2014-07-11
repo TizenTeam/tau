@@ -452,7 +452,7 @@
 			 * @private
 			 * @param {HTMLElement} element
 			 * @return {HTMLElement}
-			 * @member ns.widget.TizenSlider
+			 * @member ns.widget.mobile.TizenSlider
 			 */
 			TizenSlider.prototype._build = function (element) {
 				var self = this,
@@ -687,7 +687,7 @@
 			 * @method _refresh
 			 * @inheritdoc ns.widget.mobile.Slider#_refresh
 			 * @protected
-			 * @member ns.widget.TizenSlider
+			 * @member ns.widget.mobile.TizenSlider
 			 */
 			TizenSlider.prototype._refresh = function () {
 				var self = this,

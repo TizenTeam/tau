@@ -16,11 +16,11 @@
 */
 /*jslint nomen: true, plusplus: true */
 /**
- * IndexScrollbar widgets.element
+ * #IndexIndicator widget
+ * Class creates index indicator.
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Jadwiga Sosnowska <j.sosnowska@samsung.com>
- * @class ns.widget.wearable.IndexScrollbar
- * @extends ns.widget.BaseWidget
+ * @class ns.widget.wearable.indexscrollbar.IndexIndicator
  */
 (function (document, ns) {
 	"use strict";
@@ -72,6 +72,11 @@
 					this.fitToContainer();
 				},
 
+				/**
+				 * Fits size to container.
+				 * @method fitToContainer
+				 * @member ns.widget.wearable.indexscrollbar.IndexIndicator
+				 */
 				fitToContainer: function() {
 					var element = this.element,
 						container = this.options.container,
@@ -86,6 +91,12 @@
 					}
 				},
 
+				/**
+				 * Sets value of widget.
+				 * @method setValue
+				 * @param {string} value
+				 * @member ns.widget.wearable.indexscrollbar.IndexIndicator
+				 */
 				setValue: function( value ) {
 					this.value = value;	// remember value
 					value = value.toUpperCase();
@@ -96,13 +107,30 @@
 					this.element.firstChild.innerHTML = inner;	// Set indicator text
 				},
 
+				/**
+				 * Shows widget.
+				 * @method show
+				 * @member ns.widget.wearable.indexscrollbar.IndexIndicator
+				 */
 				show: function() {
 					//this.element.style.visibility="visible";
 					this.element.style.display="block";
 				},
+
+				/**
+				 * Hides widget.
+				 * @method hide
+				 * @member ns.widget.wearable.indexscrollbar.IndexIndicator
+				 */
 				hide: function() {
 					this.element.style.display="none";
 				},
+
+				/**
+				 * Destroys widget.
+				 * @method destroy
+				 * @member ns.widget.wearable.indexscrollbar.IndexIndicator
+				 */
 				destroy: function() {
 					var element = this.element;
 

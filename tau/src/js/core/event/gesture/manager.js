@@ -17,6 +17,7 @@
 */
 /**
  * #Gesture.Manager class
+ * Main class controls all gestures.
  * @class ns.event.gesture.Manager
  */
 ( function ( ns, window, document) {
