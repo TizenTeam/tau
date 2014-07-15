@@ -256,6 +256,7 @@
 						"top",
 						"bottom"
 					],
+					tolerance: "10,0,10,0",
 					specialContainerClass: classes.uiSliderPopupContainer
 				});
 				popup.classList.add(classes.uiSliderPopup);

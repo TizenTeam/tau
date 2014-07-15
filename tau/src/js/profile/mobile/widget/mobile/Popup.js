@@ -1000,6 +1000,7 @@
 
 				// set options
 				options.theme = options.theme || themes.getInheritedTheme(element, this.defaultOptions.theme);
+				this._setTolerance(element, options.tolerance);
 
 				// @todo define instance variables
 				ui = {
@@ -1026,12 +1027,10 @@
 			*/
 			Popup.prototype._setTolerance = function (element, value) {
 				var options = this.options,
-					tolerance = options.tolerance;
+					tolerance = {};
 
-				if (value) {
-					if (typeof value === "string") {
-						value = value.split(",");
-					}
+				if (value && typeof value === "string") {
+					value = value.split(",");
 					value.forEach(function(val, index){
 						value[index] = parseInt(val, 10);
 					});
@@ -1072,8 +1071,8 @@
 						default:
 							break;
 					}
+					options.tolerance = tolerance;
 				}
-				options.tolerance = tolerance;
 			};
 
 			/**
