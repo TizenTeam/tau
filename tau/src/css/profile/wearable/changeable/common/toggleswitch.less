@@ -1,9 +1,10 @@
 /*
  * toggle switch
  */
-.ui-switch-activation, .ui-switch-handler {
+.ui-switch-activation, .ui-switch-inneroffset, .ui-switch-handler {
 	display: block;
-	background: url('images/Controller_icon/tw_btn_toggle_dark.png') no-repeat;
+	-webkit-mask-image: url(images/Controller_icon/toggle_changeable.png);
+	-webkit-mask-repeat: no-repeat;
 }
 
 .ui-switch {
@@ -16,6 +17,7 @@
 	width: @fixed_toggleswitch_width;
 	margin: 0 auto;
 }
+
 .ui-switch-text {
 	margin-top: @fixed_toggleswitch_text_margin_top;
 	margin-bottom: @fixed_toggleswitch_text_margin_bottom;
@@ -28,22 +30,40 @@
 }
 
 .ui-switch-inneroffset {
-	width: 50%;
-	height: 100%;
+	width: 110px;
+	height: 88px;
+	position: absolute;
+}
+
+.ui-switch-inneroffset:active {
+	background-color: @color_toggle_off_handler_press;
 }
 
 .ui-switch-activation {
 	width: @fixed_toggleswitch_width;
 	height: @fixed_toggleswitch_height;
-	background-position: -2px -72px;
+	-webkit-mask-position: 0 0;
+	background-color: @color_toggle_off_bg;
 	margin: 0 auto;
 	margin-top: @fixed_toggleswitch_act_margin_top;
+
+	.ui-switch-inneroffset {
+		-webkit-mask-position: 0 -120px;
+		background-color: @color_toggle_off_handler;
+		margin-left: 9px;
+		margin-top: 11px;
+	}
+
+	.ui-switch-inneroffset:active {
+		background-color: @color_toggle_off_handler_press;
+	}
 
 	.ui-switch-handler {
 		position: relative;
 		width: @fixed_toggleswitch_handler_width;
 		height: @fixed_toggleswitch_handler_height;
-		background-position: -2px -288px;
+		-webkit-mask-position: 0 -218px;
+		background-color: @color_toggle_off_handler_off;
 		left: 0%;
 	}
 }
@@ -51,15 +71,15 @@
 .ui-switch-activation:active {
 	width: @fixed_toggleswitch_width;
 	height: @fixed_toggleswitch_height;
-	background-position: -2px -144px;
-	margin: 0 auto;
+	background-color: @color_toggle_off_bg_press;
+	margin: z0 auto;
 	margin-top: @fixed_toggleswitch_act_margin_top;
 
 	.ui-switch-handler:active {
 		position: relative;
 		width: @fixed_toggleswitch_handler_width;
 		height: @fixed_toggleswitch_handler_height;
-		background-position: -2px -360px;
+		background-color: @color_toggle_off_handler_off_press;
 		left: 0%
 	}
 }
@@ -67,7 +87,7 @@
 .ui-switch-activation:disable {
 	width: @fixed_toggleswitch_width;
 	height: @fixed_toggleswitch_height;
-	background-position: -2px -0px;
+	background-color: @color_toggle_off_bg_dim;
 	margin: 0 auto;
 	margin-top: @fixed_toggleswitch_act_margin_top;
 
@@ -75,7 +95,7 @@
 		position: relative;
 		width: @fixed_toggleswitch_handler_width;
 		height: @fixed_toggleswitch_handler_height;
-		background-position: -2px -216px;
+		background-color: @color_toggle_off_handler_off_dim;
 		left: 0%;
 	}
 }
@@ -86,47 +106,59 @@
 	.ui-switch-activation {
 		width: @fixed_toggleswitch_width;
 		height: @fixed_toggleswitch_height;
-		background-position: -2px -72px;
+		-webkit-mask-position: 0 0;
+		background-color: @color_toggle_on_bg;
 		margin: 0 auto;
 		margin-top: @fixed_toggleswitch_act_margin_top;
+
+		.ui-switch-inneroffset {
+			-webkit-mask-position: 0 -120px;
+			background-color: @color_toggle_on_handler;
+			margin-left: 89px;
+			margin-top: 11px;
+		}
+
+		.ui-switch-inneroffset:active {
+			background-color: @color_toggle_on_handler_press;
+		}
 
 		.ui-switch-handler {
 			position: relative;
 			width: @fixed_toggleswitch_handler_width;
 			height: @fixed_toggleswitch_handler_height;
-			background-position: -2px -504px;
-			left: 72%;
+			-webkit-mask-position: 0 -316px;
+			background-color: @color_toggle_on_handler_on;
+			left: 0;
 		}
 	}
 	.ui-switch-activation:active {
 		width: @fixed_toggleswitch_width;
 		height: @fixed_toggleswitch_height;
-		background-position: -2px -144px;
 		margin: 0 auto;
 		margin-top: @fixed_toggleswitch_act_margin_top;
+		background-color: @color_toggle_on_bg_press;
 
 		.ui-switch-handler:active {
 			position: relative;
 			width: @fixed_toggleswitch_handler_width;
 			height: @fixed_toggleswitch_handler_height;
-			background-position: -2px -576px;
-			left: 72%;
+			background-color: @color_toggle_on_handler_on_press;
+			left: 0;
 		}
 	}
 	.ui-switch-activation:disable {
 		width: @fixed_toggleswitch_width;
 		height: @fixed_toggleswitch_height;
-		background-position: -2px -0px;
 		margin: 0 auto;
 		margin-top: @fixed_toggleswitch_act_margin_top;
+		background-color: @color_toggle_on_bg_dim;
 
 		.ui-switch-handler:disable {
 			position: relative;
 			width: @fixed_toggleswitch_handler_width;
 			height: @fixed_toggleswitch_handler_height;
-			background-position: -2px -432px;
-			left: 72%;
+			background-color: @color_toggle_on_handler_on_dim;
+			left: 0;
 		}
 	}
 }
-
