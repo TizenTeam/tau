@@ -38,17 +38,19 @@
 	.ui-li.ui-btn-down-s { background-color: @color_list_press; }
 
 	/* ui-btn-inner style for list with anchor - normal single */
-	.ui-li.ui-btn >.ui-btn-inner {
-		padding: 0;
-		border-bottom: 1px solid @color_list_border_bottom;
+	.ui-li.ui-btn {
+		>.ui-btn-inner {
+			padding: 0;
+			border-bottom: 1px solid @color_list_border_bottom;
 
-		.ui-btn-text >.ui-link-inherit {
-			display: block;
-			padding: 15.5*@unit_base 13*@unit_base 16.5*@unit_base 13*@unit_base;
-			line-height: 23.5 * @unit_base;
-			text-overflow: ellipsis;
-			white-space: nowrap;
-			overflow: hidden;
+			.ui-btn-text >.ui-link-inherit {
+				display: block;
+				padding: 15.5*@unit_base 13*@unit_base 16.5*@unit_base 13*@unit_base;
+				line-height: 23.5 * @unit_base;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				overflow: hidden;
+			}
 		}
 	}
 
@@ -593,15 +595,18 @@
 		top: 0;
 		margin-top: 0;
 		border-radius: 0;
+		border-bottom: 0;
 
 		.ui-btn-inner.ui-btn-hastxt {
 			height: 100%;
 			padding-left: 0;
 			.ui-btn-text {
 				position: absolute;
-				top: 5 * @unit_base;
-				height: 18 * @unit_base;
-				padding-right: 10 * @unit_base;
+				top: 0;
+				height: 23 * @unit_base;
+				padding-right: 13 * @unit_base;
+				padding-left: 13 * @unit_base;
+				padding-bottom: 4 * @unit_base;
 				font-size: @font_size_list_divider_text;
 			}
 		}
@@ -618,8 +623,19 @@
 		background-color: @color_list_divider_bg_press;
 		color: @color_list_bg;
 
-		.ui-divider-normal-line { background: @color_list_divider_text_press; }
-		a { color: @color_list_divider_text_press; }
+		.ui-divider-normal-line {
+			background: @color_list_divider_text_press;
+		}
+
+		a {
+			color: @color_list_divider_text_press;
+		}
+
+		.ui-btn-inner.ui-btn-hastxt {
+			.ui-btn-text {
+				color: @color_list_divider_text_press;
+			}
+		}
 	}
 
 	&>.ui-btn-text {

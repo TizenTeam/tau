@@ -40,7 +40,7 @@
  * Listview with autodividers has interface to call methods the same as ListView widget. To call method use:
  *
  *      @example
- *      $("#listview-with-autodividers").listview('methodname', methodArgument1, methodArgument2, ...);
+ *      $("#listview-with-autodividers").listview("methodname", methodArgument1, methodArgument2, ...);
  *
  * @author Tomasz Lukawski <t.lukawski@samsung.com>
  * @class ns.widget.mobile.Listview.Autodividers
@@ -48,12 +48,13 @@
  * @override ns.widget.mobile.Listview
  */
 (function (document, ns) {
-	'use strict';
+	"use strict";
 	//>>excludeStart('tauBuildExclude', pragmas.tauBuildExclude);
 	define(
 		[
 			"../../../../core/engine",
 			"../../../../core/util/selectors",
+			"../../../../core/util/DOM/attributes",
 			"../mobile",
 			"./Listview",
 			"./Listdivider"
@@ -77,6 +78,15 @@
 				* @private
 				*/
 				engine = ns.engine,
+
+				/**
+				* Local alias for ns.util.DOM
+				* @property {Object} doms Alias for {@link ns.util.DOM}
+				* @member ns.widget.mobile.Listview.Autodividers
+				* @static
+				* @private
+				*/
+				doms = ns.util.DOM,
 
 				/**
 				* Object contains handlers for listeners of "beforeRefreshListItems" event,
@@ -108,7 +118,7 @@
 				* @method findFirstLetter
 				* @member ns.widget.mobile.Listview.Autodividers
 				* @param {HTMLUListElement|HTMLOListElement} listElement bound UList or OList HTMLElement
-				* @return {null|string} return 'null' if doesn't text found
+				* @return {null|string} return "null" if doesn't text found
 				* @static
 				* @private
 				*/
@@ -132,7 +142,7 @@
 				* @private
 				*/
 				removeDividers = function removeDividers(list) {
-					var liCollection = selectors.getChildrenBySelector(list, 'li[data-role="list-divider"]'),
+					var liCollection = selectors.getChildrenBySelector(list, "li[data-role='list-divider']"),
 						i,
 						len = liCollection.length;
 					for (i = 0; i < len; i++) {
@@ -153,7 +163,7 @@
 						/*
 						* @property {NodeList} liCollection collection of HTMLLIElements
 						*/
-					var liCollection = selectors.getChildrenByTag(list, 'li'),
+					var liCollection = selectors.getChildrenByTag(list, "li"),
 						/*
 						* @property {HTMLLIElement} li HTMLLIElement
 						*/
@@ -177,17 +187,18 @@
 						/*
 						* @property {Number} len Length of collection of HTMLLIElements
 						*/
-						len;
+						len,
+						optionFolded = doms.getNSData(list, "folded");
 
 					for (i = 0, len = liCollection.length; i < len; i++) {
 						li = liCollection[i];
 						dividerText = self.options.autodividersSelector(li);
 						if (dividerText && lastDividerText !== dividerText) {
-							divider = document.createElement('li');
+							divider = document.createElement("li");
 							divider.appendChild(document.createTextNode(dividerText));
-							divider.setAttribute('data-role', 'list-divider');
+							divider.setAttribute("data-role", "list-divider");
 							li.parentNode.insertBefore(divider, li);
-							engine.instanceWidget(divider, 'ListDivider');
+							engine.instanceWidget(divider, "ListDivider", {"folded": optionFolded});
 						}
 						lastDividerText = dividerText;
 					}
@@ -270,7 +281,7 @@
 					 */
 					self.options.autodividers = false;
 					self._getCreateOptions(element);
-					element.addEventListener('beforerefreshitems',
+					element.addEventListener("beforerefreshitems",
 						onBeforeRefreshListItems);
 				};
 
@@ -301,13 +312,13 @@
 				if (options.autodividers === enabled) {
 					return false;
 				}
-				// If autodividers option is changing from 'true' to 'false'
+				// If autodividers option is changing from "true" to "false"
 				// we need remove older dividers;
 				if (options.autodividers && !enabled) {
 					removeDividers(element);
 				}
 				options.autodividers = enabled;
-				element.setAttribute('data-autodividers', enabled);
+				element.setAttribute("data-autodividers", enabled);
 				if (enabled) {
 					this.refresh();
 				}
@@ -322,7 +333,7 @@
 			*/
 			Listview.prototype._configure = function Listview_configure() {
 				var options;
-				if (typeof parent_configure === 'function') {
+				if (typeof parent_configure === "function") {
 					parent_configure.call(this);
 				}
 
@@ -336,7 +347,7 @@
 
 			/**
 			* Initialize autodividers features on Listview
-			* Override method '_build' from Listview & call the protected '_build'
+			* Override method "_build" from Listview & call the protected "_build"
 			* @method _build
 			* @member ns.widget.mobile.Listview.Autodividers
 			* @param {HTMLUListElement|HTMLOListElement} element bound UList or OList HTMLElement.
@@ -351,7 +362,7 @@
 
 			/**
 			* Initialize autodividers features on Listview
-			* Override method '_init' from Listview & call the protected '_init' or 'init'
+			* Override method "_init" from Listview & call the protected "_init" or "init"
 			* @method _init
 			* @member ns.widget.mobile.Listview.Autodividers
 			* @param {HTMLUListElement|HTMLOListElement} element bound UList or OList HTMLElement.
@@ -365,14 +376,14 @@
 				if (autodividers === undefined || autodividers === null) {
 					initializeAutodividers(this, element);
 				}
-				return (typeof parent_init === 'function') ?
+				return (typeof parent_init === "function") ?
 						parent_init.call(this, element) :
 						element;
 			};
 
 			/**
 			* Removing and cleaning autodividers extension
-			* Override method '_destroy' from Listview & call the protected '_destroy'
+			* Override method "_destroy" from Listview & call the protected "_destroy"
 			* @method _destroy
 			* @member ns.widget.mobile.Listview.Autodividers
 			* @instance
@@ -380,17 +391,17 @@
 			*/
 			Listview.prototype._destroy = function _destroy() {
 				var element = this.element;
-				element.removeEventListener('beforerefreshitems',
+				element.removeEventListener("beforerefreshitems",
 					beforeRefreshListItemsHandlers[this.id]);
 				this.options.autodividers = null;
 				// delete attribute
-				element.removeAttribute('data-autodividers');
+				element.removeAttribute("data-autodividers");
 				// recovery previous version of protected methods;
 				this._build = parent_build;
 				this._init = parent_init;
 				this._destroy = parent_destroy;
 				// call protected method from Listview;
-				if (typeof parent_destroy === 'function') {
+				if (typeof parent_destroy === "function") {
 					parent_destroy.call(this);
 				}
 			};

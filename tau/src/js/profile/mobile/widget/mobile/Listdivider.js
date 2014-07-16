@@ -130,6 +130,7 @@
 		[
 			"../../../../core/engine",
 			"../../../../core/util/DOM/manipulation",
+			"../../../../core/util/selectors",
 			"../mobile",
 			"./BaseWidgetMobile",
 			"./Button",
@@ -154,6 +155,14 @@
 				 * @static
 				 */
 				dom = ns.util.DOM,
+				/**
+				 * Alias to ns.util.selectors
+				 * @property {Object} selectors
+				 * @member ns.widget.mobile.ListDivider
+				 * @private
+				 * @static
+				 */
+				selectors = ns.util.selectors,
 				/**
 				 * Alias for class ns.widget.mobile.Button
 				 * @property {Function} Button
@@ -221,7 +230,8 @@
 				var options = this.options,
 					classes = ListDivider.classes,
 					classList = element.classList,
-					buttonClasses = Button.classes;
+					buttonClasses = Button.classes,
+					elementWithLine;
 
 				classList.add(classes.uiBarThemePrefix + options.theme);
 				classList.add(classes.uiLiDivider);
@@ -230,20 +240,30 @@
 				//@todo check if ol tag and reset counter
 
 				if (!options.style || options.style === "normal" || options.style === "check") {
-					if (options.folded === false) {
+					if (options.folded === true) {
+						/* buttonMarkup on element */
+						engine.instanceWidget(element, "Button");
+					} else {
 						dom.wrapInHTML(
 							element.childNodes,
-							'<span class="' + buttonClasses.uiBtnText + '"></span>'
+							"<span class='" + buttonClasses.uiBtnText + "'></span>"
 						);
-					}/* else buttonMarkup on element */
+					}
 
 					if (options.line === true) {
-						if (options.folded === false) {
-							element.insertAdjacentHTML(
+						if (options.folded === true) {
+							/*append to element.childrenBySelector("ui-btn-inner")*/
+							elementWithLine = selectors.getChildrenByClass(element,
+								buttonClasses.uiBtnInner)[0];
+						} else {
+							elementWithLine = element;
+						}
+						if (elementWithLine) {
+							elementWithLine.insertAdjacentHTML(
 								"beforeend",
-								'<span class="' + classes.uiDividerNormalLine + '"></span>'
+								"<span class='" + classes.uiDividerNormalLine + "'></span>"
 							);
-						} /*else append to element.childrenBySelector("ui-btn-inner")*/
+						}
 					}
 				}
 				return element;
