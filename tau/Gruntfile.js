@@ -84,7 +84,7 @@ module.exports = function(grunt) {
 					var rtn = [],
 						list = themes.device[device],
 						versionPath = version ? version + "-path" : "default-path",
-						i=0,
+						i=1,
 						len=list.length,
 						theme,
 						versionName;
@@ -92,10 +92,6 @@ module.exports = function(grunt) {
 						theme = list[0];
 						rtn.push({
 							src: path.join(srcCss, theme[versionPath], theme.src),
-							dest: path.join(buildRoot, device, "theme", version, name) + ".css"
-						},
-						{
-							src: path.join(srcCss, theme[versionPath], theme.src.replace(".less", ".changeable.less")),
 							dest: path.join(buildRoot, device, "theme", version, "changeable.template")
 						});
 					} else {
@@ -117,9 +113,6 @@ module.exports = function(grunt) {
 						len=list.length,
 						theme;
 
-					if (version === "changeable")
-						return;
-
 					for(; i < len; i++) {
 						theme = list[i];
 						if ( theme["default"] === "true" ) {
@@ -134,7 +127,7 @@ module.exports = function(grunt) {
 				getLicenseFiles: function( version ) {
 					var exts = [".css", ".min.css"],
 						licenseFiles = [],
-						i = 0,
+						i = 1,
 						device,
 						list,
 						len,
@@ -179,7 +172,7 @@ module.exports = function(grunt) {
 					var rtn = [],
 						list = themes.device[device],
 						versionPath = version ? version + "-path" : "default-path",
-						i=0, len=list.length, theme;
+						i=1, len=list.length, theme;
 
 					if (version === "changeable") {
 						theme = list[0];

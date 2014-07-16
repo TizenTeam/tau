@@ -4,12 +4,18 @@
 
 		"mobile": [
 			{
+				"name": "changeable",
+				"images": "images/",
+				"src": "style.changeable.less",
+				"default": "true",
+				"changeable-path": "mobile/changeable/theme-changeable/"
+			},
+			{
 				"name": "black",
 				"images": "images/",
 				"src": "style.less",
-				"default": "true",
-				"default-path": "mobile/default/theme-black/",
-				"changeable-path": "mobile/changeable/theme-black/"
+				"default": "false",
+				"default-path": "mobile/default/theme-black/"
 			},
 			{
 				"name": "white",
@@ -22,12 +28,18 @@
 
 		"wearable": [
 			{
+				"name": "changeable",
+				"images": "images/",
+				"src": "style.changeable.less",
+				"default": "true",
+				"changeable-path": "wearable/changeable/theme-changeable/"
+			},
+			{
 				"name": "black",
 				"images": "images/",
 				"src": "style.less",
-				"default": "true",
-				"default-path": "wearable/default/theme-black/",
-				"changeable-path": "wearable/changeable/theme-black/"
+				"default": "false",
+				"default-path": "wearable/default/theme-black/"
 			}
 		]
 	}
