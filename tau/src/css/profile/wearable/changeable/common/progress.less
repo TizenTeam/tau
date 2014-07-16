@@ -3,8 +3,32 @@
  */
 
 @-webkit-keyframes indeterminate {
-	from {background-image: url('./images/Progress/tw_progressbar_indeterminate1_holo_dark.png');}
-	to {background-image: url('./images/Progress/tw_progressbar_indeterminate2_holo_dark.png');}
+	0% {
+		-webkit-mask-image: url(./images/Progress/tw_progressbar_indeterminate1_holo_dark.png);
+		-webkit-mask-repeat: no-repeat;
+		background-color: @color_progressbar_indeterminate;
+	}
+	25% {
+		-webkit-mask-image: url(./images/Progress/tw_progressbar_indeterminate2_holo_dark.png);
+		-webkit-mask-repeat: no-repeat;
+		background-color: @color_progressbar_indeterminate;
+	}
+	50% {
+		-webkit-mask-image: url(./images/Progress/tw_progressbar_indeterminate3_holo_dark.png);
+		-webkit-mask-repeat: no-repeat;
+		background-color: @color_progressbar_indeterminate;
+	}
+	75% {
+		-webkit-mask-image: url(./images/Progress/tw_progressbar_indeterminate4_holo_dark.png);
+		-webkit-mask-repeat: no-repeat;
+		background-color: @color_progressbar_indeterminate;
+	}
+	100% {
+		-webkit-mask-image: url(./images/Progress/tw_progressbar_indeterminate5_holo_dark.png);
+		-webkit-mask-repeat: no-repeat;
+		background-color: @color_progressbar_indeterminate;
+	}
+
 }
 
 progress {
@@ -33,8 +57,11 @@ progress::-webkit-progress-value {
 	border-radius: 2 * @unit_base;
 	overflow: hidden;
 }
+
+progress.ui-progress-indeterminate::-webkit-progress-bar {
+	background-color: @color_progressbar_value_bg;
+}
 progress.ui-progress-indeterminate::-webkit-progress-value {
-	background-repeat: no-repeat;
 	background-size: 100% 100%;
 	-webkit-animation: indeterminate 150ms infinite;
 }
