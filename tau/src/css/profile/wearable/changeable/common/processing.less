@@ -3,10 +3,12 @@
 	to { -webkit-transform: rotate(360deg); }
 }
 .ui-processing {
-	background-image: url("./images/Progress/tw_widget_popup_activity.png");
-	background-repeat: no-repeat;
-	background-size: 100% 100%;
+	background-color: @color_processing_activity_01;
+	-webkit-mask-image: url("./images/Progress/tw_widget_activity_01.png");
+	-webkit-mask-size: 100% 100%;
+	-webkit-repeat: no-repeat;
 	-webkit-animation: rotating 1s linear infinite;
+
 	width:80 * @unit_base;
 	height:80 * @unit_base;
 	margin: 0 auto;
