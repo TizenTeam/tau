@@ -192,8 +192,10 @@
 	define(
 		[
 			"../../../../core/engine",
+			"../../../../core/util/selectors",
 			"../mobile",
-			"./BaseWidgetMobile"
+			"./BaseWidgetMobile",
+			"./Page"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -211,8 +213,18 @@
 				 * @property {ns.engine} engine alias variable
 				 * @private
 				 * @static
+				 * @member ns.widget.mobile.Tokentextarea
 				 */
 				engine = ns.engine,
+
+				/**
+				 * Alias for class ns.selectors
+				 * @property {Object} selectors
+				 * @private
+				 * @static
+				 * @member ns.widget.mobile.Tokentextarea
+				 */
+				selectors = ns.util.selectors,
 
 				/**
 				 * Dictionary object containing commonly used widget classes
@@ -243,6 +255,16 @@
 					uiTokentextareaDesclabel: "ui-tokentextarea-desclabel",
 					uiTokentextareaInvisible: "ui-tokentextarea-invisible"
 				},
+
+				/**
+				 * Alias to Page.selector from widget definition
+				 * @private
+				 * @static
+				 * @readonly
+				 * @member ns.widget.mobile.Tokentextarea
+				 */
+				pageSelector = engine.getWidgetDefinition("Page").selector,
+
 				/**
 				 * Local constructor function
 				 * @method Tokentextarea
@@ -335,13 +357,13 @@
 			 * Function set max width for block element
 			 * Function will be deleted when 'overflow: hidden' and
 			 * 'text-overflow: ellipsis' will work with percent value max width.
-			 * @method _setMaxSizeBlock
+			 * @method setMaxSizeBlock
 			 * @param {HTMLElement} element
 			 * @private
 			 * @static
 			 * @member ns.widget.mobile.Tokentextarea
 			 */
-			function _setMaxSizeBlock(element) {
+			function setMaxSizeBlock(element) {
 				var parent = element.parentNode,
 					maxWidth;
 				maxWidth = parent.offsetWidth / 2;
@@ -459,11 +481,28 @@
 					input = element.childNodes[element.childNodes.length - 1];
 					element.insertBefore(textBlock, input);
 				}
-				window.addEventListener(
-					"pageshow", _setMaxSizeBlock.bind(null, textBlock), false
-				);
-				_setMaxSizeBlock(textBlock);
+				setMaxSizeBlock(textBlock);
 				_bindBlockEvents(textBlock);
+			}
+
+			/**
+			 * Changes maximum size each token text block
+			 * @method setMaxSizeForAllBlocks
+			 * @param {HTMLElement} element
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.Tokentextarea
+			 */
+			function setMaxSizeForAllBlocks(element) {
+				var blocks = element.getElementsByClassName(
+					classes.uiTokentextareaSpanBlock
+				),
+				blocksLength = blocks.length,
+				i;
+
+				for (i = 0; i < blocksLength; i++) {
+					setMaxSizeBlock(blocks[i]);
+				}
 			}
 
 			/**
@@ -1048,9 +1087,17 @@
 			 * @member ns.widget.mobile.Tokentextarea
 			 */
 			Tokentextarea.prototype._bindEvents = function (element) {
-				this.inputKeyUp = inputKeyUp.bind(null, element);
+				var self = this,
+					parentPage = selectors.getClosestBySelector(
+						element, pageSelector);
+
+				self.inputKeyUp = inputKeyUp.bind(null, element);
 				element.getElementsByTagName("input")[0]
-					.addEventListener("keyup", this.inputKeyUp, false);
+					.addEventListener("keyup", self.inputKeyUp, false);
+				self._setMaxSizeForAllBlocksBound =
+					setMaxSizeForAllBlocks.bind(null, element);
+				parentPage.addEventListener(
+					"pageshow", self._setMaxSizeForAllBlocksBound , false);
 			};
 
 			/**
@@ -1066,6 +1113,8 @@
 					input,
 					block,
 					blockLength,
+					parentPage = selectors.getClosestBySelector(
+						element, pageSelector),
 					i;
 
 				input = element.getElementsByTagName("input")[0];
@@ -1077,6 +1126,8 @@
 					block[i].removeEventListener("vclick", blockClick, false);
 				}
 				input.removeEventListener("keyup", this.inputKeyUp, false);
+				parentPage.removeEventListener("pageshow",
+					this._setMaxSizeForAllBlocksBound, false);
 				elementCilds = element.childNodes;
 				elementCildsLength = elementCilds.length;
 				for (i =  elementCildsLength - 1; i >= 0; i--) {
