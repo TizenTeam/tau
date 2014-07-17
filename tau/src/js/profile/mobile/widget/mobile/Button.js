@@ -625,8 +625,11 @@
 					iconElementClassList = iconElement.classList,
 					ui = this.ui;
 
-				iconElement.innerHTML = "&#160;";
-
+				// Due to visibility non-breaking space on button cancel
+				// in SearchBar widget
+				if (this.options.icon !== "cancel") {
+					iconElement.innerHTML = "&#160;";
+				}
 				// Set icon classes
 				iconElementClassList.add(classes.uiIcon);
 				iconElementClassList.add(classes.uiIconPrefix + this.options.icon);
