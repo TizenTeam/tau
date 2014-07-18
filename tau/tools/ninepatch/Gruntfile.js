@@ -20,28 +20,24 @@ module.exports = function(grunt) {
 				theme,
 				i,
 				len;
-	
+
 			for ( deviceName in devices ) {
 				if ( devices.hasOwnProperty( deviceName ) ) {
 					device = devices[ deviceName ];
-	
-					for ( i=0, len=device.length; i < len; i++ ) {
-						theme = device[i];
-	
-						rtn[ deviceName + "-" + theme.name ] = {
-							options: {
-								out: path.join( themePath, theme.path, ninePatchLess )
-							},
-							files: [{
-									src: [path.join( themePath, theme.path, srcNinepatchImage, "**/*.9.png" )],
-									dest: path.join( themePath, theme.path, theme.images, distNinepatchImage )
-							}]
-						};
-					}
-					
+
+					theme = device[0];
+
+					rtn[ deviceName + "-" + theme.name ] = {
+						options: {
+							out: path.join( themePath, deviceName, "changeable", "theme-black", ninePatchLess )
+						},
+						files: [{
+							src: [path.join( themePath, deviceName, "changeable", "theme-black", srcNinepatchImage, "**/*.9.png" )],
+							dest: path.join( themePath, deviceName, "changeable", "theme-black", theme.images, distNinepatchImage )
+						}]
+					};
 				}
 			}
-	
 			return rtn;
 		}()),
 
