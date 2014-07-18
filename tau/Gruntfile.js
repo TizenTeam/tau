@@ -26,6 +26,10 @@ module.exports = function(grunt) {
 			wearable: {
 				js: path.join(buildRoot, "wearable", "js"),
 				theme: path.join(buildRoot, "wearable", "theme")
+			},
+			tv: {
+				js: path.join(buildRoot, "tv", "js"),
+				theme: path.join(buildRoot, "tv", "theme")
 			}
 		},
 
@@ -252,7 +256,27 @@ module.exports = function(grunt) {
 							end: wrapEnd
 						}
 					}
+				},
+
+				tv: {
+					options: {
+						baseUrl: srcJs,
+						optimize: "none",
+						findNestedDependencies: true,
+						skipModuleInsertion: true,
+						name: "tv",
+						out: path.join( buildDir.tv.js, name ) + ".js",
+						pragmasOnSave: {
+							tauBuildExclude: true,
+							tauDebug: true
+						},
+						wrap: {
+							start: wrapStart,
+							end: wrapEnd
+						}
+					}
 				}
+
 			},
 
 			less : {
@@ -268,6 +292,9 @@ module.exports = function(grunt) {
 				},
 				mobileChangeable: {
 					files : files.css.getCssFiles("mobile", "changeable")
+				},
+				tvChangeable: {
+					files : files.css.getCssFiles("tv", "changeable")
 				}
 			},
 
@@ -282,6 +309,12 @@ module.exports = function(grunt) {
 					themeIndex: "0",
 					themeStyle: "Light",
 					device: "wearable"
+				},
+
+				tv: {
+					themeIndex: "0",
+					themeStyle: "Dark",
+					device: "tv"
 				},
 
 				all: {
@@ -343,6 +376,10 @@ module.exports = function(grunt) {
 
 				mobileChangeableImages: {
 					files: files.image.getImageFiles( "mobile", "changeable" )
+				},
+
+				tvChangeableImages: {
+					files: files.image.getImageFiles( "tv", "changeable" )
 				},
 
 				mobileJquery: {
@@ -734,7 +771,7 @@ module.exports = function(grunt) {
 	grunt.registerTask("lint", [ /* "jshint", @TODO fix all errors and revert*/ ] );
 	grunt.registerTask("jsmin", [ "findFiles:js.setMinifiedFiles", "uglify" ]);
 	grunt.registerTask("image", [ "copy:wearableDefaultImages", "copy:mobileDefaultImages" ]);
-	grunt.registerTask("image-changeable", [ "copy:wearableChangeableImages", "copy:mobileChangeableImages" ]);
+	grunt.registerTask("image-changeable", [ "copy:wearableChangeableImages", "copy:mobileChangeableImages", "copy:tvChangeableImages" ]);
 	grunt.registerTask("css", [ "clean:theme", "less", "themeConverter:all", "cssmin", "image", "image-changeable", "symlink" ]);
 	grunt.registerTask("js", [ "clean:js", "requirejs", "jsmin", "themesjs", "copy:globalize", "copy:mobileJquery" ]);
 	grunt.registerTask("license", [ "concat:licenseJs", "concat:licenseDefaultCss", "concat:licenseChangeableCss", "copy:license" ]);

@@ -203,6 +203,7 @@
 					uiBtnInline: "ui-btn-inline",
 					uiBtnBlock: "ui-btn-block",
 					uiIcon: "ui-icon",
+					uiBtnIconPrefix: "ui-btn-icon-",
 					uiIconPrefix: "ui-icon-",
 					uiIconShadow: "ui-icon-shadow",
 					uiBtnIconPositionPrefix: "ui-btn-icon-",
@@ -616,7 +617,7 @@
 			 * @protected
 			 * @member ns.widget.mobile.Button
 			 */
-			prototype._createIcon = function mobileButtonCreateIcon() {
+			prototype._createIcon = function mobileButtonCreateIcon(element) {
 				var iconElement = document.createElement("span"),
 					iconElementClassList = iconElement.classList,
 					ui = this.ui;
@@ -629,6 +630,11 @@
 				// Set icon classes
 				iconElementClassList.add(classes.uiIcon);
 				iconElementClassList.add(classes.uiIconPrefix + this.options.icon);
+
+				//set icon information on container
+				if (element) {
+					element.classList.add(classes.uiBtnIconPrefix + this.options.icon);
+				}
 
 				// Add icon element to DOM
 				ui.inner.appendChild(iconElement);
@@ -684,7 +690,7 @@
 				if (self.options.icon) {
 					self._setIconPos(element);
 					self._setIconTextOnly(element);
-					self._createIcon();
+					self._createIcon(element);
 					self._setIconShadow();
 					self._setTitleForIcon(element);
 				}
@@ -869,6 +875,8 @@
 
 				self._setHasText(element);
 				self._buildIcon(element);
+
+				element.setAttribute("tabindex", 0);
 
 				return element;
 			};

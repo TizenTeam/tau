@@ -1,0 +1,37 @@
+/*global define */
+//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+(function () {
+	"use strict";
+	define(
+		[
+			"require",
+			"./core/core",
+			"./core/config",
+			"./profile/wearable/config",
+			"./profile/wearable/defaults",
+			"./profile/wearable/selectors",
+			"./core/engine",
+			// widget list
+			"./core/util/anchorHighlight",
+			"./profile/mobile/widget/mobile/Button",
+			"./profile/tv/widget/Listview",
+			"./profile/tv/widget/Page",
+			"./profile/wearable/widget/wearable/Popup",
+			"./profile/wearable/widget/wearable/VirtualGrid",
+			"./profile/tv/widget/PageContainer",
+			"./profile/tv/widget/Drawer",
+			"./profile/wearable/router/Router",
+			"./profile/wearable/router/route/page",
+			"./profile/wearable/router/route/popup",
+			"./profile/tv/router/route/dynamic",
+			"./profile/wearable/router/history",
+			"./profile/wearable/expose",
+			// Modules to be loaded after
+			"./core/init"
+		],
+		function ( ) {
+			return;
+		}
+	);
+}());
+//>>excludeEnd("tauBuildExclude");

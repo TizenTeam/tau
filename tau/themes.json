@@ -41,6 +41,17 @@
 				"default": "false",
 				"default-path": "wearable/default/theme-black/"
 			}
+		],
+
+		"tv": [
+			{
+				"name": "changable",
+				"images": "images/",
+				"src": "style.less",
+				"default": "true",
+				"default-path": "tv/default/theme-black/",
+				"changeable-path": "tv/changeable/theme-black/"
+			}
 		]
 	}
 }

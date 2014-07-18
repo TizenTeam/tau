@@ -1,0 +1,195 @@
+/*global window, define */
+/*
+* Copyright (c) 2013 - 2014 Samsung Electronics Co., Ltd
+*
+* Licensed under the Flora License, Version 1.1 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*     http://floralicense.org/license/
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+/**
+ * #Keyboard Support for TV Widgets
+ * @class ns.widget.tv.BaseKeyboardSupport
+ * @author Maciej Urbanski <m.urbanski@samsung.com>
+ */
+(function (document, ns) {
+	"use strict";
+	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+	define(
+		[
+			"../../../core/util/object",
+			"../../../core/util/DOM/css"
+		],
+
+		function () {
+			//>>excludeEnd("tauBuildExclude");
+			var DOM = ns.util.DOM,
+				object = ns.util.object,
+				BaseKeyboardSupport = function () {
+					object.merge(this, prototype);
+				},
+				prototype = {
+					_supportKeyboard: false
+				},
+				KEY_CODES =	{
+					left: 37,
+					up: 38,
+					right: 39,
+					down: 40
+				};
+
+			prototype._getFocusesLink = function() {
+				return document.querySelector(":focus");
+			};
+
+			prototype._getActiveLinks = function() {
+				return [].slice.call(this.element.querySelectorAll("a")).filter(function(element){
+					return element.offsetWidth;
+				});
+			};
+
+			/**
+			 * Extract element from offsetObject
+			 * @method mapToElement
+			 * @param {Object} linkOffset
+			 * @param {HTMLElement} linkOffset.element
+			 * @returns {HTMLElement}
+			 */
+			function mapToElement(linkOffset) {
+				return linkOffset.element
+			}
+
+			prototype._getNeighborhoodLinks = function() {
+				var self = this,
+					offset = DOM.getElementOffset,
+					links = self._getActiveLinks(),
+					currentLink = self._getFocusesLink(),
+					currentLinkOffset,
+					left,
+					top,
+					right,
+					bottom,
+					linksOffset = [],
+					result;
+
+				if (currentLink) {
+					currentLinkOffset = offset(currentLink);
+					linksOffset = links.map(function (link) {
+						var linkOffset = offset(link);
+						return {
+							offset: linkOffset,
+							element: link,
+							differentX: Math.abs(currentLinkOffset.left - linkOffset.left),
+							differentY: Math.abs(currentLinkOffset.top - linkOffset.top),
+							width: link.offsetWidth,
+							height: link.offsetHeight
+						};
+					});
+					top = linksOffset.filter(function (linkOffset) {
+						// filter only element upper in compre with current element
+						return linkOffset.offset.top + linkOffset.height <= currentLinkOffset.top;
+					}).sort(function (linkOffset1, linkOffset2) {
+						// sort elements
+						return linkOffset1.offset.top === linkOffset2.offset.top ?
+							// if elements have the same top position then on a
+							// top of list will be element with
+							(linkOffset1.differentX <= linkOffset2.differentX ? -1 : 1)
+							// sort elements, elements with shortest distance are on top of list
+							: (linkOffset1.offset.top > linkOffset2.offset.top ? -1 : 1);
+					}).map(mapToElement)[0];
+					bottom = linksOffset.filter(function (linkOffset) {
+						return linkOffset.offset.top >= currentLinkOffset.top + currentLink.offsetHeight;
+					}).sort(function (linkOffset1, linkOffset2) {
+						return linkOffset1.offset.top === linkOffset2.offset.top ?
+							(linkOffset1.differentX <= linkOffset2.differentX ? -1 : 1)
+							: (linkOffset1.offset.top < linkOffset2.offset.top ? -1 : 1);
+					}).map(mapToElement)[0];
+					left = linksOffset.filter(function (linkOffset) {
+						return linkOffset.offset.left + linkOffset.width <= currentLinkOffset.left;
+					}).sort(function (linkOffset1, linkOffset2) {
+						return linkOffset1.offset.left === linkOffset2.offset.left ?
+							(linkOffset1.differentY <= linkOffset2.differentY ? -1 : 1)
+							: (linkOffset1.offset.left > linkOffset2.offset.left ? -1 : 1);
+					}).map(mapToElement)[0];
+					right = linksOffset.filter(function (linkOffset) {
+						return linkOffset.offset.left >= currentLinkOffset.left + currentLink.offsetWidth;
+					}).sort(function (linkOffset1, linkOffset2) {
+						return linkOffset1.offset.left === linkOffset2.offset.left ?
+							(linkOffset1.differentY <= linkOffset2.differentY ? -1 : 1)
+							: (linkOffset1.offset.left < linkOffset2.offset.left ? -1 : 1);
+					}).map(mapToElement)[0];
+				} else {
+					top = left = right = bottom = links[0];
+				}
+				result = {
+					top: top,
+					left: left,
+					bottom: bottom,
+					right: right
+				};
+				return result;
+			};
+
+			prototype._onKeyup = function(event) {
+				var self = this,
+					keyCode = event.keyCode,
+					neighborhoodLinks,
+					nextElement;
+
+				if (self._supportKeyboard) {
+					neighborhoodLinks = self._getNeighborhoodLinks();
+					switch (keyCode) {
+						case KEY_CODES.left:
+							nextElement = neighborhoodLinks.left;
+							break;
+						case KEY_CODES.up:
+							nextElement = neighborhoodLinks.top;
+							break;
+						case KEY_CODES.right:
+							nextElement = neighborhoodLinks.right;
+							break;
+						case KEY_CODES.down:
+							nextElement = neighborhoodLinks.bottom;
+							break;
+					}
+					if (nextElement) {
+						nextElement.focus();
+						if (self._openActiveElement) {
+							self._openActiveElement(nextElement);
+						}
+					}
+				}
+			};
+
+			prototype._bindEventKey = function() {
+				var self = this;
+				self._onKeyupHandler = self._onKeyup.bind(self);
+				document.addEventListener("keyup", self._onKeyupHandler, false);
+			};
+
+			prototype._destroyEventKey = function() {
+				document.removeEventListener("keyup", this._onKeyupHandler, false);
+			};
+
+			prototype.blur = function() {
+				var focusedElement = this._getFocusesLink();
+				if (focusedElement) {
+					focusedElement.blur();
+				}
+			};
+
+			ns.widget.tv.BaseKeyboardSupport = BaseKeyboardSupport;
+
+			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+			return ns.widget.tv.Drawer;
+		}
+	);
+	//>>excludeEnd("tauBuildExclude");
+}(window.document, ns));

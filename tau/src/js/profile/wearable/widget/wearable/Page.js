@@ -509,8 +509,7 @@
 			 * @member ns.widget.wearable.Page
 			 */
 			prototype._bindEvents = function (element) {
-				var self = this,
-					element = self.element;
+				var self = this;
 				self.contentFillCallback = self._contentFill.bind(self);
 				self.contentFillAfterResizeCallback = function () {
 					self.pageSetHeight = false;

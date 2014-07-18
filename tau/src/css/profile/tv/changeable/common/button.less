@@ -1,0 +1,282 @@
+.ui-btn {
+	display: block;
+	font-size: @fixed_button_font_size;
+	line-height: @fixed_button_line_height;
+	text-align: center;
+	white-space: nowrap;
+	cursor:pointer;
+	vertical-align: middle;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	border:0 none;
+	.ui-default;
+
+	&.ui-multiline {
+		padding-top: @fixed_button_multiline_padding_top;
+		padding-bottom: @fixed_button_multiline_padding_bottom;
+	}
+
+	&.ui-btn-inline {
+		display: inline-block;
+	}
+
+	&.ui-btn-icon {
+		background-position: center center;
+		height: @fixed_button_icon_height;
+		text-indent: -1000em;
+		overflow: hidden;
+		background-repeat: no-repeat;
+		background-size: @fixed_button_icon_bg_size @fixed_button_icon_bg_size;
+	}
+
+	.ui-btn-inner {
+		display: block;
+		position: relative;
+		zoom: 1;
+		line-height: 26 * @unit_base;
+		margin: 30px 20px 25px 20px;
+
+		.LESStext-ellipsis();
+	}
+	/*hiding native button,inputs */
+	.ui-btn-hidden { position: absolute; top: 0; left: 0; width: 100%; height: 100%; -webkit-appearance: button; opacity: .1; cursor: pointer; background: transparent; font-size: 1 * @unit_base; border: none; line-height: 999 * @unit_base; }
+
+	&.ui-focus {
+		background-color: rgb(69, 143, 255);
+	}
+}
+
+.ui-default {
+	color: @color_button_default_text;
+
+	a&.ui-state-disabled, &:disabled {
+		color: @color_button_default_text_disable;
+		cursor: default;
+	}
+}
+
+.ui-color-red {
+	color: @color_button_red_text;
+	background-color: @color_button_red_normal_bg;
+
+	a&:active:hover, &:enabled:active:hover {
+		background-color: @color_button_red_press_bg;
+	}
+
+	&:enabled:focus {
+		background-color: @color_button_red_focus_bg;
+	}
+
+	a&.ui-state-disabled, &:disabled {
+		color: @color_button_red_text_disable;
+		background-color: @color_button_red_disable_bg;
+		cursor: default;
+	}
+}
+
+.ui-color-orange {
+	color: @color_button_orange_text;
+	background-color: @color_button_orange_normal_bg;
+
+	a&:active:hover, &:enabled:active:hover {
+		background-color: @color_button_orange_press_bg;
+	}
+
+	&:enabled:focus {
+		background-color: @color_button_orange_focus_bg;
+	}
+
+	a&.ui-state-disabled, &:disabled {
+		color: @color_button_orange_text_disable;
+		background-color: @color_button_orange_disable_bg;
+		cursor: default;
+	}
+}
+
+.ui-color-green {
+	color: @color_button_green_text;
+	background-color: @color_button_green_normal_bg;
+
+	a&:active:hover, &:enabled:active:hover {
+		background-color: @color_button_green_press_bg;
+	}
+
+	&:enabled:focus {
+		background-color: @color_button_green_focus_bg;
+	}
+
+	a&.ui-state-disabled, &:disabled {
+		color: @color_button_green_text_disable;
+		background-color: @color_button_green_disable_bg;
+		cursor: default;
+	}
+}
+
+.ui-btn:focus, .ui-btn:active { outline: none; }
+
+a.ui-btn {
+	text-decoration: none;
+	box-sizing: border-box;
+}
+
+button.ui-btn, input.ui-btn {
+	box-sizing: border-box;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	width: 100%;
+
+	&.ui-inline {
+		display: inline-block;
+		width:auto;
+	}
+}
+
+.ui-grid-col-btn (@counter) when (@counter > 0) {
+	.ui-grid-col-btn((@counter - 1));
+
+	.ui-grid-col-@{counter} > .ui-btn {
+		border-left:solid 1px @color_bg;
+		&:first-child {
+			border-left:0px none;
+		}
+	}
+}
+
+.ui-grid-col-btn(3);
+
+.ui-grid-row > .ui-btn {
+	margin-top: 1px;
+
+	&:first-child {
+		margin-top: 0px;
+	}
+}
+
+
+.ui-btn-icon-notext { width: 36 * @unit_base; height: 36 * @unit_base; }
+.ui-btn-icon-notext .ui-btn-inner { padding: 2 * @unit_base 1 * @unit_base 2 * @unit_base 3 * @unit_base; }
+.ui-btn-icon-notext .ui-btn-inner .ui-icon { margin-left: -16 * @unit_base; margin-top: -16 * @unit_base; }
+.ui-btn-icon-notext .ui-btn-text { position: absolute; left: -999 * @unit_base; }
+.ui-header .ui-btn-icon-left .ui-btn-inner,
+.ui-footer .ui-btn-icon-left .ui-btn-inner,
+.ui-bar .ui-btn-icon-left .ui-btn-inner { padding-left: 27 * @unit_base; }
+.ui-header .ui-btn-icon-right .ui-btn-inner,
+.ui-footer .ui-btn-icon-right .ui-btn-inner,
+.ui-bar .ui-btn-icon-right .ui-btn-inner { padding-right: 27 * @unit_base; }
+.ui-btn-icon-top .ui-btn-inner { padding-top: 27 * @unit_base; }
+.ui-header .ui-btn-icon-top .ui-btn-inner,
+.ui-footer .ui-btn-icon-top .ui-btn-inner,
+.ui-bar .ui-btn-icon-top .ui-btn-inner { padding-top: 27 * @unit_base; }
+.ui-btn-icon-bottom .ui-btn-inner { padding-bottom: 33 * @unit_base; }
+.ui-header .ui-btn-icon-bottom .ui-btn-inner,
+.ui-footer .ui-btn-icon-bottom .ui-btn-inner,
+.ui-bar .ui-btn-icon-bottom .ui-btn-inner { padding-bottom: 27 * @unit_base; }
+
+/*btn icon positioning*/
+.ui-btn-icon-notext .ui-icon { display: block; }
+.ui-btn-icon-left .ui-icon, .ui-btn-icon-right .ui-icon, .ui-btn-icon-circle .ui-icon { position: absolute; /*top: 50%; margin-top: -9px;*/ } /* wongi_1018 : do not use. No more use 18px default icons. */
+
+
+.ui-btn-icon-top .ui-icon, .ui-btn-icon-bottom .ui-icon { position: absolute; left: 50%;  margin-left:  -40 * @unit_base; }
+.ui-btn-icon-left .ui-icon { left: 7 * @unit_base; }
+.ui-btn-icon-circle .ui-icon {left: 0 * @unit_base; } /* wongi_1018 : for circle icon center positioning. */
+.ui-btn-icon-right .ui-icon { right: 4 * @unit_base; }
+.ui-btn-icon-top .ui-icon { top: 0 * @unit_base; margin-top: 0; }
+.ui-btn-icon-bottom .ui-icon { bottom: 0 * @unit_base; }
+.ui-header .ui-btn-icon-right .ui-icon,
+.ui-footer .ui-btn-icon-right .ui-icon,
+.ui-bar .ui-btn-icon-right .ui-icon { right: 4 * @unit_base; }
+.ui-header .ui-btn-icon-top .ui-icon,
+.ui-footer .ui-btn-icon-top .ui-icon,
+.ui-bar .ui-btn-icon-top .ui-icon { top: 4 * @unit_base; }
+.ui-header .ui-btn-icon-bottom .ui-icon,
+.ui-footer .ui-btn-icon-bottom .ui-icon,
+.ui-bar .ui-btn-icon-bottom .ui-icon { bottom: 4 * @unit_base; }
+
+.ui-btn-icon-top .ui-btn-inner.ui-btn-hastxt, .ui-li .ui-btn-icon-top .ui-btn-inner.ui-btn-hastxt
+{
+	padding-top: 88 * @unit_base;
+}
+.ui-btn-icon-bottom .ui-btn-inner.ui-btn-hastxt, .ui-li .ui-btn-icon-bottom .ui-btn-inner.ui-btn-hastxt
+{
+	padding-bottom: 88 * @unit_base;
+}
+
+/* wongi_1017 : Icons */
+/* icons sizing */
+.ui-btn .ui-icon {	width: 80 * @unit_base;
+	height: 80 * @unit_base;
+}
+
+/* Padding for Icon with text */
+.ui-btn .ui-btn-text.ui-btn-text-padding-left { padding-left: 26 * @unit_base; }
+.ui-btn .ui-btn-text.ui-btn-text-padding-right { padding-right: 26 * @unit_base; }
+.ui-btn .ui-btn-text.ui-btn-text-padding-top {padding-top: 32 * @unit_base;}
+.ui-icon
+{
+	background-repeat: no-repeat;
+	vertical-align: middle;
+	background-position: 0% 0%;
+	background-size: 100%;
+}
+
+.ui-icon {
+	-webkit-mask-image: url(images/icons/bg_ico_76_shadow.png), url(images/icons/app_ico_bg.png);
+	-webkit-mask-size: 80 * @unit_base 80 * @unit_base;
+	z-index:0;
+}
+
+.ui-icon-live {
+	background: rgb(69, 143, 255)  url(images/icons/ico_live_foc.png);
+}
+
+.ui-btn-icon-live.ui-focus {
+	background-color: rgb(69, 143, 255);
+	.ui-icon {
+		background-color: white;
+	}
+}
+
+.ui-icon-tv-show {
+	background: rgb(255, 168, 0)  url(images/icons/ico_tv_show_foc.png);
+}
+
+.ui-btn-icon-tv-show.ui-focus {
+	background-color: rgb(255, 168, 0);
+	.ui-icon {
+		background-color: white;
+	}
+}
+
+.ui-icon-movie {
+	background: rgb(255,99,86)  url(images/icons/ico_moive_foc.png);
+}
+
+.ui-btn-icon-movie.ui-focus {
+	background-color: rgb(255,99,86);
+	.ui-icon {
+		background-color: white;
+	}
+}
+
+.ui-icon-source {
+	background: rgb(155, 122, 255)  url(images/icons/ico_source_foc.png);
+}
+
+.ui-btn-icon-source.ui-focus {
+	background-color: rgb(155, 122, 255);
+	.ui-icon {
+		background-color: white;
+	}
+}
+
+.ui-icon-app {
+	background: rgb(71, 210, 188)  url(images/icons/ico_app_foc.png);
+}
+
+.ui-btn-icon-app.ui-focus {
+	background-color: rgb(71, 210, 188);
+	.ui-icon {
+		background-color: white;
+	}
+}

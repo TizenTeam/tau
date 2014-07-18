@@ -290,6 +290,8 @@
 					self.options = {
 						header: false,
 						footer: false,
+						maxHeightRatio: 0.79,
+						minScreenHeigth: 320
 					};
 
 					/**
@@ -545,60 +547,27 @@
 				document.removeEventListener("pagebeforehide", this.closeFunction, false);
 			};
 
-			/**
-			 * Refresh the popup
-			 * @method _refresh
-			 * @protected
-			 * @member ns.widget.wearable.Popup
-			 */
-			prototype._refresh = function () {
+			prototype._setContentSize = function (props) {
 				var self = this,
 					ui = self.ui,
+					element = self.element,
 					header = ui.header,
 					footer = ui.footer,
-					element = self.element,
 					content = ui.content,
-					props = {
-						"margin-top": 0,
-						"margin-bottom": 0,
-						"margin-left": 0,
-						"margin-right": 0,
-						"padding-top": 0,
-						"padding-bottom": 0,
-						"border-width": 0,
-						"display": null
-					},
-					elementStyle = element.style,
-					contentStyle = content.style,
-					borderWidth,
 					headerHeight = 0,
 					footerHeight = 0,
-					screenHeight = 0,
-					contentWidth,
-					elementHeight = 0,
+					minScreenHeight = self.options.minScreenHeight,
+					borderWidth,
+					contentHeight = 0,
+					contentStyle = content.style,
 					isToast = element.classList.contains(classes.toast),
-					dom = ns.util.DOM,
-					originalDisplay = "",
-					originalVisibility = "",
-					isDisplayNone,
-					extraElementHeight,
-					minScreenHeight = 320;
+					elementStyle = element.style,
+					contentWidth = window.innerWidth - (parseInt(props["margin-left"], 10) + parseInt(props["margin-right"], 10));
 
-				dom.extractCSSProperties(element, props);
+				elementStyle.width = contentWidth + "px";
 
 				borderWidth = parseFloat(props["border-width"]) || 0;
 
-				isDisplayNone = props.display === "none";
-
-				if (isDisplayNone) {
-					originalDisplay = elementStyle.display;
-					originalVisibility = elementStyle.visibility;
-					elementStyle.visibility = "hidden";
-					elementStyle.display = "block";
-				}
-
-				contentWidth = window.innerWidth - (parseInt(props["margin-left"], 10) + parseInt(props["margin-right"], 10));
-				elementStyle.width = contentWidth + "px";
 
 				if (!isToast) {
 					if (header) {
@@ -609,19 +578,59 @@
 						footerHeight = footer.offsetHeight;
 					}
 
-					extraElementHeight = headerHeight + footerHeight + borderWidth * 2 + parseFloat(props["padding-top"]) + parseFloat(props["padding-bottom"]);
-					screenHeight = window.innerHeight - (parseInt(props["margin-top"], 10) + parseInt(props["margin-bottom"], 10));
-					elementHeight = content.offsetHeight + extraElementHeight;
-					if (screenHeight > minScreenHeight && screenHeight > elementHeight) {
-						// If window height > 320, the height of popup varies by contents
-						elementStyle.height = elementHeight + "px";
-					} else {
-						elementStyle.height = screenHeight + "px";
-						contentStyle.height = screenHeight - extraElementHeight + "px";
+					contentHeight = window.innerHeight - (parseInt(props["margin-top"], 10) + parseInt(props["margin-bottom"], 10));
+
+					if (minScreenHeight) {
+						if (contentHeight > minScreenHeight) {
+							elementStyle.height = contentHeight * self.options.maxHeightRatio + "px";
+						} else { // Latest Wearable UI's Popup max height has set window height * 0.79 pixel. (when screen height > 320)
+							elementStyle.height = contentHeight + "px";
+						}
 					}
 
+					contentStyle.height = (parseFloat(elementStyle.height) - headerHeight - footerHeight - borderWidth * 2 - (parseFloat(props["padding-top"]) + parseFloat(props["padding-bottom"]))) + "px";
 					contentStyle.overflowY = "scroll";
 				}
+			};
+
+			/**
+			 * Refresh the popup
+			 * @method _refresh
+			 * @protected
+			 * @member ns.widget.wearable.Popup
+			 */
+			prototype._refresh = function () {
+				var self = this,
+					props = {
+						"margin-top": 0,
+						"margin-bottom": 0,
+						"margin-left": 0,
+						"margin-right": 0,
+						"padding-top": 0,
+						"padding-bottom": 0,
+						"border-width": 0,
+						"display": null
+					},
+					element = self.element,
+					elementStyle = element.style,
+					dom = ns.util.DOM,
+					originalDisplay = "",
+					originalVisibility = "",
+					isDisplayNone;
+
+				dom.extractCSSProperties(element, props);
+
+				isDisplayNone = props.display === "none";
+
+				if (isDisplayNone) {
+					originalDisplay = elementStyle.display;
+					originalVisibility = elementStyle.visibility;
+					elementStyle.visibility = "hidden";
+					elementStyle.display = "block";
+				}
+
+
+				this._setContentSize(props);
 
 				if (isDisplayNone) {
 					elementStyle.display = originalDisplay;

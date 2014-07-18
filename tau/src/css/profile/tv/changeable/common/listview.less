@@ -1,0 +1,65 @@
+@font_size_list_item: 30px;
+/************************
+Listview
+*************************/
+.ui-listview li {
+	font-size: @font_size_list_item;
+	width: 100%;
+	border-bottom: 1px solid @color_listview_border;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	position: relative;
+	color: @color_listview_text;
+
+	> * {
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		-webkit-user-select: none;
+		color: @color_listview_text;
+	}
+}
+.ui-listview li > a {
+	display: block;
+	text-align: left;
+	.ui-btn-inner {
+		margin: 23*@unit_base 8*@unit_base 23*@unit_base 70*@unit_base;
+	}
+	.LESSbox-boxsizing( content-box );	// Change size calculation criteria
+}
+
+.ui-virtualgrid {
+
+	margin: 20px 0 0 20px;
+
+	.grid-thumbnail-1-line {
+		width: 200px;
+		margin: 0 20px 20px 0;
+		display: block;
+		overflow: hidden;
+
+		.grid-thumbnail-pic {
+			width: 200px;
+			height: 200px;
+			img {
+				width: 200px;
+			}
+		}
+
+		.grid-thumbnail-contents {
+			background: rgb(33, 36, 13);
+			padding: 20px;
+			font-size: 26px;
+			color: rgb(211, 211, 211);
+			overflow: hidden;
+			text-overflow: ellipsis;
+			.grid-thumbnail-content {
+				overflow: hidden;
+				text-overflow: ellipsis;
+				height: 31px;
+				display: block;
+			}
+		}
+	}
+}
