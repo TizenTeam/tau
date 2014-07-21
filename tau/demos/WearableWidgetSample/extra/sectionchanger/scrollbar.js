@@ -9,7 +9,8 @@ page.addEventListener( "pageshow", function() {
 	sectionChanger = new tau.widget.SectionChanger(changer, {
 		circular: false,
 		orientation: "horizontal",
-		scrollbar: "bar"
+		scrollbar: "bar",
+		useBouncingEffect: true
 	});
 });
 

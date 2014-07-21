@@ -8,7 +8,8 @@ page.addEventListener( "pageshow", function() {
 	// make SectionChanger object
 	sectionChanger = new tau.widget.SectionChanger(changer, {
 		circular: false,
-		orientation: "horizontal"
+		orientation: "horizontal",
+		useBouncingEffect: true
 	});
 });
 
