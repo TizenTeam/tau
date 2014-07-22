@@ -1,6 +1,22 @@
 %changelog
+* Tue Jul 22 2014 Heeju Joo <heeju.joo@samsung.com> 0.9.8
+	- Wearable : Fixed unexpected bouncing effect
+	- dialog: fix problems with closing and destroying dialog
+	- DeviceViewer: sync less file with css
+	- [jira] enable bounce effect on SectionChanger. (GSDK_SE-2530)
+	- ninepatch: modify Gruntfile for ninepatch
+	- BubbleList: nine-patch image bubble list
+	- TAU : init changeable UI development enviroment and apply latest wearable changeable xml files
+	- fastscroll: fixed missing hover color
+	- Toggle: apply latest wearable UX
+	- change icon style : background to mask
+	- progressbar : apply webkit-mask-image to progressbar
+	- Processing image to mask
+	- list: Add text of list item for information ( GSDK_SE-2302 )
+	- [TAU Wearable] modify wearable release helper file
+
 * Thu Jul 10 2014 Junyoung Park <jy-.park@samsung.com> 0.9.7
-	- Wearable popup: set border for popup (sync UX guide) 
+	- Wearable popup: set border for popup (sync UX guide)
 	- Tokentextarea: documentation
 	- [jira] Show scrollbar when application float front side from background. (GSDK_SE-2510)
 	- [jira] Show scrollbar while drag and hold the page (GSDK_SE-2558)
