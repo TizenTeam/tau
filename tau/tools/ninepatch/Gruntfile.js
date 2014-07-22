@@ -29,11 +29,11 @@ module.exports = function(grunt) {
 
 					rtn[ deviceName + "-" + theme.name ] = {
 						options: {
-							out: path.join( themePath, deviceName, "changeable", "theme-black", ninePatchLess )
+							out: path.join( themePath, deviceName, "changeable", "theme-changeable", ninePatchLess )
 						},
 						files: [{
-							src: [path.join( themePath, deviceName, "changeable", "theme-black", srcNinepatchImage, "**/*.9.png" )],
-							dest: path.join( themePath, deviceName, "changeable", "theme-black", theme.images, distNinepatchImage )
+							src: [path.join( themePath, deviceName, "changeable", "theme-changeable", srcNinepatchImage, "**/*.9.png" )],
+							dest: path.join( themePath, deviceName, "changeable", "theme-changeable", theme.images, distNinepatchImage )
 						}]
 					};
 				}
