@@ -21,9 +21,11 @@ $( document ).one( "pageshow", ":jqmData(role='page')", function ( ev ) {
 
 	$( ".ui-btn-search-front-icon" ).on( "vclick", function () {
 	//JIRA - bug fix N_SE-47442
-		setTimeout( function () {
+		setTimeout( function (self) {
+			$(self).removeClass('ui-focus');
+			self.blur();
 			window.alert( "front button in searchbar pressed!" );
-		}, 300 );
+		}, 300 ,this);
 	});
 });
 

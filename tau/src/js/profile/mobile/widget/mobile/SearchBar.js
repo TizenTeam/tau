@@ -636,7 +636,7 @@
 				var inputedText = self._ui.input.value,
 					classes = SearchBar.classes,
 					ui = self._ui;
-				ui.searchBox.classList.add(classes.uiFocus);
+				ui.searchBox.classList.remove(classes.uiFocus);
 				if (ui.labelDiv) {
 					if (inputedText.length > 0) {
 						ui.labelDiv.classList.add(classes.uiInputDefaultHidden);
