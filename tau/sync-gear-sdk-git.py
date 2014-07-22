@@ -37,7 +37,7 @@ class Job:
 # Git info
 class webuifw(Git):
 	addr="165.213.149.219:29418/magnolia/framework/web/web-ui-fw"
-	branch="devel/webappfw/tizenw"
+	branch="devel/webappfw/tau"
 
 class webapp(Git):
 	addr="slp-info.sec.samsung.net:29418/tizenw/sdk-web-apps"
@@ -54,37 +54,37 @@ jobs = {
 		webuifw,
 		sdk,
 		[
-			SrcDest("standalone/demos/TemplateBasic", "samples/web/Template/Tizen/Gear\ UI/Basic/project"),
-			SrcDest("standalone/demos/TemplateList", "samples/web/Template/Tizen/Gear\ UI/List/project"),
-			SrcDest("standalone/demos/WearableWidgetSample", "samples/web/Sample/Tizen/Web\ App/WearableWidgetSample/project")
+			SrcDest("tau/demos/TemplateBasic", "samples/web/Template/Tizen/Wearable\ UI/Basic/project"),
+			SrcDest("tau/demos/TemplateList", "samples/web/Template/Tizen/Wearable\ UI/List/project"),
+			SrcDest("tau/demos/WearableWidgetSample", "samples/web/Sample/Tizen/Web\ App/WearableWidgets/project")
 		], None),
 	"2_gearui_sdk": Job(
 		webuifw,
 		sdk,
 		[
-			SrcDest("standalone/dist", "samples/web/Template/Tizen/Gear\ UI/Basic/project/lib/tau"),
-			SrcDest("standalone/dist", "samples/web/Template/Tizen/Gear\ UI/List/project/lib/tau"),
-			SrcDest("standalone/dist", "samples/web/Sample/Tizen/Web\ App/WearableWidgetSample/project/lib/tau")
-		], ["cd web-ui-fw/standalone", "npm install", "git checkout node_modules", "grunt"]),
+			SrcDest("tau/dist/wearable", "samples/web/Template/Tizen/Wearable\ UI/Basic/project/lib/tau/wearable"),
+			SrcDest("tau/dist/wearable", "samples/web/Template/Tizen/Wearable\ UI/List/project/lib/tau/wearable"),
+			SrcDest("tau/dist/wearable", "samples/web/Sample/Tizen/Web\ App/WearableWidgets/project/lib/tau/wearable")
+		], ["cd web-ui-fw/tau", "grunt build"]),
 	"3_gearui_webapp": Job(
 		webuifw,
 		webapp,
 		[
-			SrcDest("standalone/dist", "Calendar/lib/tau"),
-			SrcDest("standalone/dist", "Camera/lib/tau"),
-			SrcDest("standalone/dist", "DigitalAlarmLED/lib/tau"),
-			SrcDest("standalone/dist", "MediaControl/lib/tau"),
-			SrcDest("standalone/dist", "Evernote/lib/tau"),
-			SrcDest("standalone/dist", "QRCodeReader/lib/tau"),
-			SrcDest("standalone/dist", "ScanAndPlay/lib/tau"),
-			SrcDest("standalone/dist", "ShoppingList/lib/tau"),
-			SrcDest("standalone/dist", "TouchPaint/lib/tau"),
-			SrcDest("standalone/dist", "WatchOnWeb/lib/tau"),
-			SrcDest("standalone/dist", "Weather/lib/tau"),
-			SrcDest("standalone/dist", "Pedometer/lib/tau"),
-			SrcDest("standalone/dist", "Camera/lib/tau"),
-			SrcDest("standalone/dist", "StopWatch/lib/tau"),
-		], ["cd web-ui-fw/standalone", "npm install", "git checkout node_modules", "grunt"])
+			SrcDest("tau/dist/wearable", "Altimeter/lib/tau/wearable"),
+			SrcDest("tau/dist/wearable", "Calendar/lib/tau/wearable"),
+			SrcDest("tau/dist/wearable", "Camera/lib/tau/wearable"),
+			SrcDest("tau/dist/wearable", "DigitalAlarmLED/lib/tau/wearable"),
+			SrcDest("tau/dist/wearable", "MediaControl/lib/tau/wearable"),
+			SrcDest("tau/dist/wearable", "Evernote/lib/tau/wearable"),
+			SrcDest("tau/dist/wearable", "QRCodeReader/lib/tau/wearable"),
+			SrcDest("tau/dist/wearable", "ScanAndPlay/lib/tau/wearable"),
+			SrcDest("tau/dist/wearable", "ShoppingList/lib/tau/wearable"),
+			SrcDest("tau/dist/wearable", "SunburnMonitor/lib/tau/wearable"),
+			SrcDest("tau/dist/wearable", "TouchPaint/lib/tau/wearable"),
+			SrcDest("tau/dist/wearable", "Weather/lib/tau/wearable"),
+			SrcDest("tau/dist/wearable", "Pedometer/lib/tau/wearable"),
+			SrcDest("tau/dist/wearable", "StopWatch/lib/tau/wearable"),
+		], ["cd web-ui-fw/tau", "grunt build"])
 
 }
 
@@ -146,6 +146,9 @@ def main():
 				shutil.rmtree(destdir.replace("\\", ""))
 			elif os.path.islink( destdir.replace("\\", "")):
 				os.remove( destdir.replace("\\", "") )
+			else:
+				desttemp = os.path.abspath(os.path.join(os.path.abspath(destdir), '..'))
+				os.remove( desttemp.replace("\\", "") )
 			shutil.copytree( srcdir.replace("\\", ""), destdir.replace("\\", ""), symlinks=True)
 
 
