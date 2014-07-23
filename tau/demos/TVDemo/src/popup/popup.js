@@ -2,7 +2,7 @@
 	var page = document.getElementById("popupPage");
 
 	page.addEventListener("pageshow", function(ev) {
-		var closePopup = tau.closePopup.bind(tau);
+		var closePopup = tau.closePopup.bind(tau, null);
 
 		document.getElementById('1btnPopup-cancel').addEventListener('click', closePopup, false);
 		document.getElementById('2btnPopup-cancel').addEventListener('click', closePopup, false);
