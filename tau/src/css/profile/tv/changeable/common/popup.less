@@ -1,5 +1,7 @@
 @font_size_popup_toast: 24 * @unit_base;
 @font_size_popup_body: 34 * @unit_base;
+@popup_color_text_content: rgb(61, 61, 61);
+
 
 /***********************
 Normal Popup
@@ -42,6 +44,10 @@ Normal Popup
 			margin: -9*@unit_base -16*@unit_base -9*@unit_base -16*@unit_base;
 			li {
 				font-size: @font_size_popup_body;
+				color: @popup_color_text_content;
+				> *, .ui-btn-text {
+					color: @popup_color_text_content;
+				}
 			}
 		}
 	}
@@ -55,6 +61,16 @@ Normal Popup
 			padding-top: @fixed_popup_footer_btn_padding_top;
 			padding-bottom: @fixed_popup_footer_btn_padding_bottom;
 			font-size: @fixed_popup_footer_btn_font_size;
+
+			&.ui-btn-up-s, &.ui-btn-hover-s {
+				background-color: @basic_btn_color_normal;
+				color: @basic_btn_txt_color_normal;
+			}
+
+			&.ui-btn-down-s{
+				background-color: @basic_btn_color_focus;
+				color: @basic_btn_txt_color_focus;
+			}
 		}
 	}
 
@@ -78,24 +94,25 @@ Normal Popup
 Popup Toast
 ****************************************/
 .ui-popup-toast {
-	margin-left: 0;
-	margin-right: 0;
-	margin-bottom: 0;
+	margin-left: 41 * @unit_base;
+	margin-right: 41 * @unit_base;
+	margin-bottom: 38 * @unit_base;
 	font-size: @font_size_popup_toast;
 	border: 3px solid @color_popup_border;
 	position: absolute;
 	bottom: 0;
 	top: auto;
 	height: auto;
-}
 
-.ui-popup-toast.ui-popup-active {
-	top: auto;
-}
+	&.ui-popup-active {
+		top: auto;
+	}
 
-.ui-popup-toast .ui-popup-content {
-	padding: 10*@unit_base 16*@unit_base 10*@unit_base 16*@unit_base;
-	background-color: @color_popup_bg;
+	.ui-popup-content {
+		padding: 10*@unit_base 16*@unit_base 10*@unit_base 16*@unit_base;
+		background-color: @color_popup_bg;
+		text-align: center;
+	}
 }
 
 .ui-popup-background {
