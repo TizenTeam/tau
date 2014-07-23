@@ -268,6 +268,7 @@
 		[
 			"../../selectors",
 			"../../../../core/engine",
+			"../../../../core/event",
 			"../../../../core/util/object",
 			"../../../../core/util/DOM/css",
 			"../../../../core/widget/BaseWidget",
@@ -333,6 +334,13 @@
 				 * @private
 				 */
 				engine = ns.engine,
+				/**
+				 * Alias for class ns.event
+				 * @property {ns.event} eventUtil
+				 * @member ns.widget.wearable.Popup
+				 * @private
+				 */
+				eventUtils = ns.event,
 				/**
 				 * Alias for class ns.util.object
 				 * @property {Object} utilsObject
@@ -628,12 +636,19 @@
 			 * @protected
 			 * @member ns.widget.wearable.Popup
 			 */
-			prototype._setActive = function (active) {
+			prototype._setActive = function (active, options) {
 				var activeClass = classes.active,
-					elementCls = this._elementClassList;
+					elementCls = this._elementClassList,
+					route = ns.engine.getRouter().getRoute("popup");
 				if (active) {
+					// set global variable
+					route.setActive(this, options);
+					// add proper class
 					elementCls.add(activeClass);
 				} else {
+					// no popup is opened, so set global variable on "null"
+					route.setActive(null, options);
+					// remove proper class
 					elementCls.remove(activeClass);
 				}
 
@@ -651,28 +666,37 @@
 			 * @member ns.widget.wearable.Popup
 			 */
 			prototype.open = function (options) {
-				var transitionOptions = utilsObject.merge({}, options, {ext: " in ui-pre-in "}),
+				var route = ns.engine.getRouter().getRoute("popup"),
+					transitionOptions = utilsObject.merge({}, options, {ext: " in ui-pre-in "}),
 					events = Popup.events,
 					self = this,
 					element = self.element,
 					container = document.createElement("div"),
 					overlay = document.createElement("div");
 
-				container.classList.add(classes.background);
-				overlay.classList.add(classes.overlay);
+				// if popup is not opened yet, we start opening process
+				if (!self.active) {
+					// if any other popup is opened, we close it immediately
+					// and open this one
+					// @todo make parameter "immediately"
+					route.close(null, {transition: "none"});
 
-				container.appendChild(element.parentElement.replaceChild(container, element));
-				container.appendChild(overlay);
+					container.classList.add(classes.background);
+					overlay.classList.add(classes.overlay);
 
-				overlay.addEventListener("click", self.closeFunction, false);
-				self.background = container;
-				self.overlay = overlay;
+					container.appendChild(element.parentElement.replaceChild(container, element));
+					container.appendChild(overlay);
 
-				self.trigger(events.before_show);
-				self._transition(transitionOptions, function () {
-					self._setActive(true);
-					self.trigger(events.show);
-				});
+					overlay.addEventListener("click", self.closeFunction, false);
+					self.background = container;
+					self.overlay = overlay;
+
+					self.trigger(events.before_show);
+					self._transition(transitionOptions, function () {
+						self._setActive(true, options || {});
+						self.trigger(events.show);
+					});
+				}
 			};
 
 			/**
@@ -692,21 +716,24 @@
 					element = self.element,
 					container = self.background,
 					overlay = self.overlay,
-					parent = container.parentElement;
+					parent = container && container.parentElement;
 
-				overlay.removeEventListener("click", self.closeFunction, false);
+				if (self.active) {
+					overlay.removeEventListener("click", self.closeFunction, false);
 
-				if (parent) {
-					parent.appendChild(element);
-					parent.removeChild(container);
+					self.trigger(events.before_hide);
+
+					self._transition(transitionOptions, function () {
+						// remove active style of popup
+						self._setActive(false, options || {});
+						// remove background
+						if (parent) {
+							parent.appendChild(element);
+							parent.removeChild(container);
+						}
+						self.trigger(events.hide);
+					});
 				}
-				container = null;
-
-				self.trigger(events.before_hide);
-				self._transition(transitionOptions, function () {
-					self._setActive(false);
-					self.trigger(events.hide);
-				});
 			};
 
 			/**
@@ -722,7 +749,7 @@
 
 			prototype._transition = function (options, resolve) {
 				var self = this,
-					transition = options.transition || self.options.transition || "",
+					transition = options.transition || self.options.transition || "none",
 					transitionClass = transition + options.ext,
 					element = self.element,
 					elementClassList = element.classList,
@@ -764,7 +791,7 @@
 			engine.defineWidget(
 				"popup",
 				".ui-popup",
-				["setActive", "show", "hide", "open", "close"],
+				["open", "close"],
 				Popup,
 				"wearable"
 			);

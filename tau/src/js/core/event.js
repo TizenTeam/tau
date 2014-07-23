@@ -355,7 +355,8 @@
 				 * @static
 				 */
 				one: function(element, type, listener, useCapture) {
-					var i,
+					var arraySlice = [].slice,
+						i,
 						j,
 						elementsLength,
 						typesLength,
@@ -375,8 +376,11 @@
 						if (typeof elements[i].addEventListener === "function") {
 							for (j = 0; j < typesLength; j++) {
 								callback = (function(i, j) {
+									var args = arraySlice.call(arguments);
 									ns.event.fastOff(elements[i], listeners[j].type, callback, useCapture);
-									listeners[j].callback.apply(this, arguments);
+									args.shift(); // remove the first argument of binding function
+									args.shift(); // remove the second argument of binding function
+									listeners[j].callback.apply(this, args);
 								}).bind(null, i, j);
 								ns.event.fastOn(elements[i], listeners[j].type, callback, useCapture);
 							}

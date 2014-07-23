@@ -498,11 +498,17 @@
 			/**
 			 * Method closes popup.
 			 * @method closePopup
+			 * @param {Object} options
+			 * @param {string=} [options.transition]
+			 * @param {string=} [options.ext= in ui-pre-in] options.ext
 			 * @member ns.router.Router
 			 */
-			Router.prototype.closePopup = function () {
-				// @TODO add checking is popup active
-				history.back();
+			Router.prototype.closePopup = function (options) {
+				var popupRoute = this.getRoute("popup");
+
+				if (popupRoute) {
+					popupRoute.close(null, options);
+				}
 			};
 
 			/**
@@ -699,7 +705,18 @@
 			 */
 			Router.prototype.hasActivePopup = function () {
 				var popup = this.rule.popup;
-				return popup && popup._hasActivePopup();
+				return popup && popup.hasActive();
+			};
+
+			/**
+			 * This function returns proper route.
+			 * @method getRoute
+			 * @param {string} Type of route
+			 * @return {?ns.router.route.interface}
+			 * @member ns.router.Router
+			 */
+			Router.prototype.getRoute = function (type) {
+				return route[type];
 			};
 
 			routerMicro.Router = Router;

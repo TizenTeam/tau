@@ -73,7 +73,7 @@
 					 * @static
 					 */
 					events: {
-						POPUP_HIDE: 'popuphide'
+						POPUP_HIDE: "popuphide"
 					}
 				},
 				/**
@@ -188,6 +188,31 @@
 			};
 
 			/**
+			 * This method sets active popup and manages history.
+			 * @method setActive
+			 * @param {?ns.widget.wearable.popup} activePopup
+			 * @param {Object} options
+			 * @member ns.router.route.popup
+			 * @static
+			 */
+			routePopup.setActive = function (activePopup, options) {
+				var url,
+					documentUrl = path.getLocation().replace(popupHashKeyReg, "");
+
+				this.activePopup = activePopup;
+
+				if (activePopup) {
+					if (options && !options.fromHashChange) {
+						url = path.addHashSearchParams(documentUrl, popupHashKey);
+						history.replace(options, "", url);
+					}
+				} else {
+					// if popup is closed, the url is replaced
+					history.back();
+				}
+			};
+
+			/**
 			 * This method opens popup if no other popup is opened.
 			 * It also changes history to show that popup is opened.
 			 * If there is already active popup, it will be closed.
@@ -208,30 +233,23 @@
 			 */
 			routePopup.open = function (toPopup, options) {
 				var popup,
-					popupKey,
 					router = engine.getRouter(),
 					url = pathUtils.getLocation(),
+					events = routePopup.events,
 					removePopup = function () {
-						document.removeEventListener(routePopup.events.POPUP_HIDE, removePopup, false);
+						document.removeEventListener(events.POPUP_HIDE, removePopup, false);
 						toPopup.parentNode.removeChild(toPopup);
 						routePopup.activePopup = null;
 					},
 					openPopup = function () {
-						document.removeEventListener(routePopup.events.POPUP_HIDE, openPopup, false);
+						document.removeEventListener(events.POPUP_HIDE, openPopup, false);
 						popup = engine.instanceWidget(toPopup, 'popup', options);
-						popup.open();
+						popup.open(options);
 						routePopup.activePopup = popup;
 					},
 					documentUrl = path.getLocation().replace(popupHashKeyReg, ""),
 					activePage = router.container.getActivePage(),
 					container;
-
-				popupKey = popupHashKey;
-
-				if (!options.fromHashChange) {
-					url = path.addHashSearchParams(documentUrl, popupKey);
-					history.replace(options, "", url);
-				}
 
 				if (DOM.getNSData(toPopup, "external") === true) {
 					container = options.container ? activePage.element.querySelector(options.container) : activePage.element;
@@ -239,9 +257,9 @@
 					document.addEventListener(routePopup.events.POPUP_HIDE, removePopup, false);
 				}
 
-				if (routePopup._hasActivePopup()) {
+				if (routePopup.hasActive()) {
 					document.addEventListener(routePopup.events.POPUP_HIDE, openPopup, false);
-					routePopup._closeActivePopup();
+					routePopup.close();
 				} else {
 					openPopup();
 				}
@@ -249,19 +267,21 @@
 
 			/**
 			 * This method closes active popup.
-			 * @method _closeActivePopup
-			 * @param {HTMLElement} activePopup
+			 * @method close
+			 * @param {ns.widget.wearable.Popup} [activePopup]
+			 * @param {string=} [options.transition]
+			 * @param {string=} [options.ext= in ui-pre-in] options.ext
+			 * @param {Object} options
 			 * @member ns.router.route.popup
 			 * @protected
 			 * @static
 			 */
-			routePopup._closeActivePopup = function (activePopup) {
-				activePopup = activePopup || routePopup.activePopup;
+			routePopup.close = function (activePopup, options) {
+				activePopup = activePopup || this.activePopup;
 
 				if (activePopup) {
 					// Close and clean up
-					activePopup.close();
-					routePopup.activePopup = null;
+					activePopup.close(options || {});
 				}
 			};
 
@@ -269,15 +289,17 @@
 			 * This method handles hash change.
 			 * It closes active popup.
 			 * @method onHashChange
+			 * @param {string} url
+			 * @param {object} options
 			 * @return {boolean}
 			 * @member ns.router.route.popup
 			 * @static
 			 */
-			routePopup.onHashChange = function (/* url, options */) {
-				var activePopup = routePopup.activePopup;
+			routePopup.onHashChange = function (url, options) {
+				var activePopup = this.activePopup;
 
 				if (activePopup) {
-					routePopup._closeActivePopup(activePopup);
+					routePopup.close(activePopup, options);
 					// Default routing setting cause to rewrite further window history
 					// even if popup has been closed
 					// To prevent this onHashChange after closing popup we need to change
@@ -369,16 +391,24 @@
 
 			/**
 			 * Return true if active popup exists.
-			 * @method _hasActivePopup
+			 * @method hasActive
 			 * @return {boolean}
 			 * @member ns.router.route.popup
-			 * @protected
 			 * @static
 			 */
-			routePopup._hasActivePopup = function () {
-				var popup = document.querySelector('.' + ns.widget.wearable.Popup.classes.active);
-				routePopup.activePopup = popup && engine.instanceWidget(popup, 'popup');
-				return !!routePopup.activePopup;
+			routePopup.hasActive = function () {
+				return !!this.activePopup;
+			};
+
+			/**
+			 * Returns active popup.
+			 * @method getActive
+			 * @return {?ns.widget.wearable.Popup}
+			 * @member ns.router.route.popup
+			 * @static
+			 */
+			routePopup.getActive = function () {
+				return this.activePopup;
 			};
 
 			ns.router.route.popup = routePopup;
