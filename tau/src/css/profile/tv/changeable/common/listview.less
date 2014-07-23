@@ -39,6 +39,10 @@ Listview
 		display: block;
 		overflow: hidden;
 
+		&.ui-btn .ui-btn-inner {
+			margin: 0;
+		}
+
 		.grid-thumbnail-pic {
 			width: 200px;
 			height: 200px;
@@ -60,6 +64,10 @@ Listview
 				height: 31px;
 				display: block;
 			}
+		}
+
+		&.ui-btn.ui-focus .grid-thumbnail-contents {
+			background: @color_listview_focus;
 		}
 	}
 }
