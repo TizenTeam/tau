@@ -16,7 +16,7 @@
 			"./profile/mobile/widget/mobile/Button",
 			"./profile/tv/widget/Listview",
 			"./profile/tv/widget/Page",
-			"./profile/wearable/widget/wearable/Popup",
+			"./profile/tv/widget/Popup",
 			"./profile/wearable/widget/wearable/VirtualGrid",
 			"./profile/tv/widget/PageContainer",
 			"./profile/tv/widget/Drawer",

@@ -172,7 +172,9 @@
 					drawer = tau.widget.Drawer(drawerElement);
 
 			mainPage.addEventListener("pageshow", function () {
-				drawer.open();
+				setTimeout(function() {
+					drawer.open();
+				}, 1000);
 			});
 			mainPage.addEventListener("click", function () {
 				if (!drawer.isOpen()) {

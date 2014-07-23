@@ -45,10 +45,24 @@
 					down: 40
 				};
 
+			/**
+			 * Get fucused element.
+			 * @method _getFocusesLink
+			 * @returns {HTMLElement}
+			 * @protected
+			 * @member ns.widget.tv.BaseKeyboardSupport
+			 */
 			prototype._getFocusesLink = function() {
 				return document.querySelector(":focus");
 			};
 
+			/**
+			 * Finds all visible links.
+			 * @method _getActiveLinks
+			 * @returns {Array}
+			 * @protected
+			 * @member ns.widget.tv.BaseKeyboardSupport
+			 */
 			prototype._getActiveLinks = function() {
 				return [].slice.call(this.element.querySelectorAll("a")).filter(function(element){
 					return element.offsetWidth;
@@ -56,16 +70,26 @@
 			};
 
 			/**
-			 * Extract element from offsetObject
+			 * Extracts element from offsetObject.
 			 * @method mapToElement
 			 * @param {Object} linkOffset
 			 * @param {HTMLElement} linkOffset.element
 			 * @returns {HTMLElement}
+			 * @private
+			 * @static
+			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
 			function mapToElement(linkOffset) {
-				return linkOffset.element
+				return linkOffset.element;
 			}
 
+			/**
+			 * Calculates neighborhood links.
+			 * @method _getNeighborhoodLinks
+			 * @returns {Object}
+			 * @protected
+			 * @member ns.widget.tv.BaseKeyboardSupport
+			 */
 			prototype._getNeighborhoodLinks = function() {
 				var self = this,
 					offset = DOM.getElementOffset,
@@ -137,6 +161,13 @@
 				return result;
 			};
 
+			/**
+			 * Supports keyboard event.
+			 * @method _onKeyup
+			 * @param {Event} event
+			 * @protected
+			 * @member ns.widget.tv.BaseKeyboardSupport
+			 */
 			prototype._onKeyup = function(event) {
 				var self = this,
 					keyCode = event.keyCode,
@@ -168,21 +199,61 @@
 				}
 			};
 
+			/**
+			 * Add Supports keyboard event.
+			 *
+			 * This method should be called in _bindEvent method in widget.
+			 * @method _bindEventKey
+			 * @protected
+			 * @member ns.widget.tv.BaseKeyboardSupport
+			 */
 			prototype._bindEventKey = function() {
 				var self = this;
 				self._onKeyupHandler = self._onKeyup.bind(self);
 				document.addEventListener("keyup", self._onKeyupHandler, false);
 			};
 
+			/**
+			 * Supports keyboard event.
+			 *
+			 * This method should be called in _destroy method in widget.
+			 * @method _destroyEventKey
+			 * @param {Event} event
+			 * @protected
+			 * @member ns.widget.tv.BaseKeyboardSupport
+			 */
 			prototype._destroyEventKey = function() {
 				document.removeEventListener("keyup", this._onKeyupHandler, false);
 			};
 
+			/**
+			 * Blurs from focused element.
+			 * @method blur
+			 * @member ns.widget.tv.BaseKeyboardSupport
+			 */
 			prototype.blur = function() {
 				var focusedElement = this._getFocusesLink();
 				if (focusedElement) {
 					focusedElement.blur();
 				}
+			};
+
+			/**
+			 * Enables keyboard support on widget.
+			 * @method disableKeyboardSupport
+			 * @member ns.widget.tv.BaseKeyboardSupport
+			 */
+			prototype.enableKeyboardSupport = function() {
+				this._supportKeyboard = true;
+			};
+
+			/**
+			 * Disables keyboard support on widget.
+			 * @method disableKeyboardSupport
+			 * @member ns.widget.tv.BaseKeyboardSupport
+			 */
+			prototype.disableKeyboardSupport = function() {
+				this._supportKeyboard = true;
 			};
 
 			ns.widget.tv.BaseKeyboardSupport = BaseKeyboardSupport;

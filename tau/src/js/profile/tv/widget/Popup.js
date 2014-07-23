@@ -39,13 +39,18 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var WearablePopup = ns.widget.wearable.Popup,
+				WearablePopupPrototype = WearablePopup.prototype,
+				BaseKeyboardSupport = ns.widget.tv.BaseKeyboardSupport,
 				classes = WearablePopup.classes,
 				util = ns.util,
 				DOM = util.DOM,
 				Popup = function () {
+					WearablePopup.call(this);
+					BaseKeyboardSupport.call(this);
 				},
 				engine = ns.engine,
-				prototype = new WearablePopup();
+				prototype = new WearablePopup(),
+				FUNCTION_TYPE = "function";
 
 			Popup.events = WearablePopup.events;
 			Popup.classes = WearablePopup.classes;
@@ -55,7 +60,44 @@
 			prototype._configure = function() {
 				var options = this.options;
 				options.minScreenHeigth = null;
-			}
+			};
+
+			prototype._init = function(element) {
+				if (typeof WearablePopupPrototype._init === FUNCTION_TYPE) {
+					WearablePopupPrototype._init.call(this, element);
+				}
+				this._pageWidget = engine.instanceWidget(element.parentElement, "page");
+			};
+
+			prototype.open = function() {
+				if (typeof WearablePopupPrototype.open === FUNCTION_TYPE) {
+					WearablePopupPrototype.open.apply(this, arguments);
+				}
+				this.enableKeyboardSupport();
+				this._pageWidget.disableKeyboardSupport();
+			};
+
+			prototype.close = function() {
+				if (typeof WearablePopupPrototype.close === FUNCTION_TYPE) {
+					WearablePopupPrototype.close.apply(this, arguments);
+				}
+				this.disableKeyboardSupport();
+				this._pageWidget.enableKeyboardSupport();
+			};
+
+			prototype._bindEvents = function() {
+				if (typeof WearablePopupPrototype._bindEvents === FUNCTION_TYPE) {
+					WearablePopupPrototype._bindEvents.call(this);
+				}
+				this._bindEventKey();
+			};
+
+			prototype._destroy = function() {
+				this._destroyEventKey();
+				if (typeof WearablePopupPrototype._destroy === FUNCTION_TYPE) {
+					WearablePopupPrototype._destroy.call(this);
+				}
+			};
 
 			// definition
 			ns.widget.tv.Page = Popup;
