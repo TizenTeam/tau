@@ -1,4 +1,4 @@
-/*jslint browser: true, white: true */
+/*jslint browser: true, white: true, regexp: true */
 /*global window */
 
 (function(window) {
@@ -99,7 +99,7 @@
 		mainPanelStyle.top = config.topPanel.clientHeight + 'px';
 		mainPanelStyle.width = innerWidth + 'px';
 		mainPanelStyle.minWidth = (Math.round((maxBadgeWidth + offset) * currentZoom)) + 'px';
-	}
+	};
 
 	/**
 	 * @method resolvePath

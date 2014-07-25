@@ -1,0 +1,21 @@
+{
+    "name": "deviceviewer",
+    "title": "Device Viewer",
+    "description": "Easy preview of app with vary screen resoution. Test your app for different screen resolution at the same time.",
+    "version": "0.1.0",
+    "author": "Michał Szepielak <m.szepielak@samsung.com>",
+    "contributors": [
+        "Heeju Joo <heeju.joo@samsung.com>"
+    ],
+    "devDependencies": {
+        "grunt-jslint": "~1.1.12",
+        "grunt-contrib-less": "~0.7.0",
+        "grunt-contrib-clean": "0.5.0",
+        "grunt-contrib-copy": "0.5.0",
+        "grunt-contrib-concat": "0.5.0",
+        "grunt-contrib-uglify": "0.3.2",
+        "grunt-contrib-cssmin": "0.6.1",
+        "grunt-string-replace": "~0.2.7"
+    },
+    "main": "Gruntfile.js"
+}

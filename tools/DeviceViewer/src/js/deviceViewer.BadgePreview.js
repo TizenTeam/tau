@@ -74,7 +74,7 @@
 	 */
 	BadgePreview.prototype.getViewportZoom = function () {
 		return viewportZoom;
-	}
+	};
 
 	/**
 	 * Returns the widest badge
@@ -82,7 +82,7 @@
 	 */
 	BadgePreview.prototype.getMaxBadgeWidth = function () {
 		return maxBadgeWidth;
-	}
+	};
 
 	/**
 	 * @method updateMaxBadgeWidth
@@ -107,7 +107,7 @@
 		}
 
 		return maxBadgeWidth;
-	}
+	};
 
 	/**
 	 * @method updateDevicePropertiesPanel
