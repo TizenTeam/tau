@@ -20,7 +20,7 @@ module.exports = function (grunt) {
 			docsStructure = {},
 			profile = this.data.profile,
 			files = [],
-			serie = [],
+			series = [],
 			templateDir = this.data.template + "/",
 			next;
 
@@ -32,7 +32,13 @@ module.exports = function (grunt) {
 						toc: toc
 					}
 				},
-				description;
+				description,
+				methods = docsStructure.methods.filter(function (method) {
+					return method.isPublic && !method.inherited;
+				}),
+				inheritedMethods = docsStructure.methods.filter(function (method) {
+					return method.isPublic && method.inherited;
+				});
 			grunt.log.ok("Start generating file for widget ", file);
 			docsStructure.methods.sort(function(a, b) {
 				return a.name > b.name ? 1 : -1;
@@ -68,14 +74,25 @@ module.exports = function (grunt) {
 					toc: []
 				});
 			}
-			if (docsStructure.methods.length) {
+			if (methods.length) {
 				toc.push({
 					href: "methods-list",
 					name: "Methods list",
 					hasTOC: true,
-					toc: docsStructure.methods.filter(function (method) {
-						return method.isPublic;
-					}).map(function (method) {
+					toc: methods.map(function (method) {
+						return {
+							href: "method-" + method.name,
+							name: method.name
+						};
+					})
+				});
+			}
+			if (inheritedMethods.length) {
+				toc.push({
+					href: "inherited-methods-list",
+					name: "Inherited methods list",
+					hasTOC: true,
+					toc: inheritedMethods.map(function (method) {
 						return {
 							href: "method-" + method.name,
 							name: method.name
@@ -93,8 +110,10 @@ module.exports = function (grunt) {
 				showOptions: docsStructure.options.length,
 				events: docsStructure.events,
 				showEvents: docsStructure.events.length,
-				methods: docsStructure.methods,
-				showMethods: docsStructure.methods.length,
+				methods: methods,
+				inheritedMethods: inheritedMethods,
+				showMethods: methods.length,
+				showInheritedMethods: inheritedMethods.length,
 				since: docsStructure.since
 			}).on('data', function (data) {
 				string += data.toString();
@@ -113,7 +132,13 @@ module.exports = function (grunt) {
 						toc: toc
 					}
 				},
-				description;
+				description,
+				methods = docsStructure.methods.filter(function (method) {
+					return method.isPublic && !method.inherited;
+				}),
+				inheritedMethods = docsStructure.methods.filter(function (method) {
+					return method.isPublic && method.inherited;
+				});
 			grunt.log.ok("Start generating file for class ", file);
 			docsStructure.methods.sort(function (a, b) {
 				return a.name > b.name ? 1 : -1;
@@ -142,14 +167,27 @@ module.exports = function (grunt) {
 					toc: []
 				});
 			}
-			if (docsStructure.methods.length) {
+			if (methods.length) {
 				toc.push({
 					href: "methods-list",
 					name: "Methods list",
 					hasTOC: true,
-					toc: docsStructure.methods.filter(function (method) {
+					toc: methods.filter(function (method) {
 						return method.isPublic;
 					}).map(function (method) {
+						return {
+							href: "method-" + method.name,
+							name: method.name
+						};
+					})
+				});
+			}
+			if (inheritedMethods.length) {
+				toc.push({
+					href: "inherited-methods-list",
+					name: "Inherited methods list",
+					hasTOC: true,
+					toc: inheritedMethods.map(function (method) {
 						return {
 							href: "method-" + method.name,
 							name: method.name
@@ -182,8 +220,10 @@ module.exports = function (grunt) {
 				showOptions: docsStructure.options.length,
 				events: docsStructure.events,
 				showEvents: docsStructure.events.length,
-				methods: docsStructure.methods,
-				showMethods: docsStructure.methods.length,
+				methods: methods,
+				showMethods: methods.length,
+				inheritedMethods: inheritedMethods,
+				showInheritedMethods: inheritedMethods.length,
 				properties: docsStructure.properties,
 				showProperties: docsStructure.properties.length,
 				since: docsStructure.since
@@ -302,6 +342,22 @@ module.exports = function (grunt) {
 			return string.replace(/<br \/>/gm, " ");
 		}
 
+		function copyObject(object) {
+			var newObject,
+				value,
+				i;
+			if (object instanceof Array) {
+				newObject = [];
+			} else {
+				newObject = {};
+			}
+			for (i in object) {
+				value = object[i];
+				newObject[i] = (typeof value === "object") ? copyObject(value) : value;
+			}
+			return newObject;
+		}
+
 		function parseDox(file) {
 			var docs,
 				doxFile = file.replace('dist', 'tmp/dox'),
@@ -392,11 +448,21 @@ module.exports = function (grunt) {
 					classObj.options = [];
 					classObj.methods = [];
 					if (classObj.extends && docsStructure[classObj.extends]) {
-						classObj.methods = docsStructure[classObj.extends].methods.slice(0);
-						classObj.events = docsStructure[classObj.extends].events.slice(0);
+						classObj.methods = docsStructure[classObj.extends].methods.map(function(method) {
+							var newMethod = copyObject(method);
+							newMethod.inherited = classObj.extends;
+							return newMethod;
+						});
+						classObj.events = docsStructure[classObj.extends].events.map(function(event) {
+							event.inherited = classObj.extends;
+							return event;
+						});
 					}
 					if (classObj.override && docsStructure[classObj.override]) {
-						classObj.methods = docsStructure[classObj.override].methods.slice(0);
+						classObj.methods = docsStructure[classObj.override].methods.map(function(method) {
+							method.inherited = classObj.extends;
+							return method;
+						});
 					}
 
 				});
@@ -501,22 +567,26 @@ module.exports = function (grunt) {
 				}).forEach(function (tag) {
 					var classObj,
 						method,
+						inherited,
+						name = tag.string,
 						memberOf = block.tags.filter(function (tag) {
 							return tag.type === 'member';
 						}).map(function (tag) {
 							return tag.string
 						})[0] || "";
 					classObj = docsStructure[memberOf];
-					method = block.tags.filter(function (tag) {
-						return tag.type === 'inheritdoc';
+					inherited = block.tags.filter(function (tag) {
+						return tag.type === 'inherited';
 					}).map(function(tag) {
-						var original = tag.string,
-							originalArray = original.split("#");
-						console.log("inherit from ", original);
-						return docsStructure[originalArray[0]] && (docsStructure[originalArray[0]].methods.filter(function(_method) {
-							return _method === originalArray[1];
-						})[0]);
-					})[0] || {};
+						return tag.string || true;
+					})[0];
+					if (inherited) {
+						method = classObj.methods.filter(function(_method) {
+							return _method.name !== name;
+						})[0] || {};
+					} else {
+						method = {};
+					}
 					method.params = block.tags.filter(function (tag) {
 						return tag.type === 'param';
 					}).map(function(tag) {
@@ -558,7 +628,7 @@ module.exports = function (grunt) {
 					}).map(function(tag) {
 						return tag.string;
 					})[0];
-					method.name = tag.string;
+					method.name = name;
 					method.tags = block.tags;
 					method.examples = [];
 					method.brief = block.description.summary;
@@ -604,7 +674,7 @@ module.exports = function (grunt) {
 									name: name,
 									description: description}
 							);
-							serie.push(createWidgetDoc.bind(null, newFile, file, name, docsStructure[i]));
+							series.push(createWidgetDoc.bind(null, newFile, file, name, docsStructure[i]));
 						} else if (docsStructure[i].type !== "page") {
 							file = docsStructure[i].name.replace(/\./g, "_") + ".htm";
 							name = docsStructure[i].title;
@@ -614,14 +684,14 @@ module.exports = function (grunt) {
 									namespace: docsStructure[i].name,
 									description: description}
 							);
-							serie.push(createClassDoc.bind(null, newFile, file, name, docsStructure[i]));
+							series.push(createClassDoc.bind(null, newFile, file, name, docsStructure[i]));
 						}
 					}
 				}
 
-				serie.push(createWidgetIndex.bind(null, newFile, docsStructure, rowsWidgets));
-				serie.push(createClassIndex.bind(null, newFile, docsStructure, rowsClasses));
-				serie.push(createIndex.bind(null, newFile, {
+				series.push(createWidgetIndex.bind(null, newFile, docsStructure, rowsWidgets));
+				series.push(createClassIndex.bind(null, newFile, docsStructure, rowsClasses));
+				series.push(createIndex.bind(null, newFile, {
 					title: "Tizen Advanced UI Framework",
 					description: "The Web UI framework provides tools, such as widgets, events, effects, and animations, for Web application development. You can leverage these tools by just selecting the required screen elements and creating applications."
 				}, [
@@ -638,10 +708,10 @@ module.exports = function (grunt) {
 						description: "Full list of classes"
 					}
 				]));
-				serie.push(done);
+				series.push(done);
 
 				grunt.file.write(structureFile, "window.tauDocumentation = " + JSON.stringify(modules) + ";");
-				async.series(serie);
+				async.series(series);
 
 
 			}

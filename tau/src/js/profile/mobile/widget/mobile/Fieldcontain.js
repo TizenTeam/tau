@@ -217,6 +217,7 @@
 			 *      </script>
 			 *
 			 * @method destroy
+			 * @inherited
 			 * @member ns.widget.mobile.FieldContain
 			 */
 			/**
@@ -239,6 +240,7 @@
 			 * The function "value" is not supported in this widget.
 			 *
 			 * @method value
+			 * @inherited
 			 * @chainable
 			 * @member ns.widget.mobile.FieldContain
 			 */
@@ -272,6 +274,7 @@
 			 *      </script>
 			 *
 			 * @method disable
+			 * @inherited
 			 * @chainable
 			 * @member ns.widget.mobile.FieldContain
 			 */
@@ -305,6 +308,7 @@
 			 *      </script>
 			 *
 			 * @method enable
+			 * @inherited
 			 * @chainable
 			 * @member ns.widget.mobile.FieldContain
 			 */
@@ -313,6 +317,7 @@
 			 * The function "refresh" is not supported in this widget.
 			 *
 			 * @method refresh
+			 * @inherited
 			 * @chainable
 			 * @member ns.widget.mobile.FieldContain
 			 */
@@ -322,6 +327,7 @@
 			 * This widget does not have any options.
 			 *
 			 * @method option
+			 * @inherited
 			 * @member ns.widget.mobile.FieldContain
 			 */
 
@@ -352,6 +358,7 @@
 			 *      </script>
 			 *
 			 * @method trigger
+			 * @inherited
 			 * @param {string} eventName the name of event to trigger
 			 * @param {?*} [data] additional object to be carried with the event
 			 * @param {boolean} [bubbles=true] indicating whether the event bubbles up through the DOM or not
@@ -392,6 +399,7 @@
 			 *      </script>
 			 *
 			 * @method on
+			 * @inherited
 			 * @param {string} eventName the name of event
 			 * @param {Function} listener function call after event will be trigger
 			 * @param {boolean} [useCapture=false] useCapture param tu addEventListener
@@ -437,6 +445,7 @@
 			 *      </script>
 			 *
 			 * @method off
+			 * @inherited
 			 * @param {string} eventName the name of event
 			 * @param {Function} listener function call after event will be trigger
 			 * @param {boolean} [useCapture=false] useCapture param tu addEventListener

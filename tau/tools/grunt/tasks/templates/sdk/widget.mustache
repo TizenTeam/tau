@@ -120,7 +120,7 @@
 	<dl>
 		{{#methods}}
 			{{#isPublic}}
-				<dt class="method" id="addidp28072"><code><b><span class="methodName"
+				<dt class="method"><code><b><span class="methodName"
 																   id="method-{{name}}">{{name}}</span></b></code></dt>
 				<dd>
 					<div class="brief">
@@ -134,6 +134,11 @@
 							{{since}}
 						</p>
 					{{/since}}
+					{{#inherited}}
+						<p><span class="version">Inherited from: </span>
+							{{inherited}}
+						</p>
+					{{/inherited}}
 					<div class="description">
 						<p>
 							{{{description}}}
@@ -197,8 +202,119 @@
 				</dd>
 			{{/isPublic}}
 		{{/methods}}
+		</dl>
+	{{/showMethods}}
+		{{#showInheritedMethods}}
+			<h2><a id="inherited-methods-list"></a>Inherited methods list</h2>
+
+			<h3>Summary</h3>
+			<table class="informaltable">
+				<thead>
+				<tr>
+					<th>Method</th>
+					<th>Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				{{#inheritedMethods}}
+					{{#isPublic}}
+						<tr>
+							<td>
+								<pre class="intable prettyprint">{{#return.types}}{{return.types}} {{/return.types}}<a href="#method-{{name}}">{{name}}</a> ( {{#params}}{{types}}{{#isOptional}}?{{/isOptional}} {{name}}{{#defaultValue}} = {{defaultValue}}{{/defaultValue}}{{^isLast}}, {{/isLast}}{{/params}} ) </pre>
+							</td>
+							<td>{{{brief}}}</td>
+						</tr>
+					{{/isPublic}}
+				{{/inheritedMethods}}
+				</tbody>
+			</table>
+			<dl>
+		{{#inheritedMethods}}
+			{{#isPublic}}
+				<dt class="method"><code><b><span class="methodName"
+																   id="method-{{name}}">{{name}}</span></b></code></dt>
+				<dd>
+					<div class="brief">
+						{{{brief}}}
+					</div>
+					<div class="synopsis">
+						<pre class="signature prettyprint">{{#return.types}}{{return.types}} {{/return.types}}{{name}} ( {{#params}}{{types}}{{#isOptional}}?{{/isOptional}} {{name}}{{#defaultValue}} = {{defaultValue}}{{/defaultValue}}{{^isLast}}, {{/isLast}}{{/params}}) </pre>
+					</div>
+					{{#since}}
+						<p><span class="version">Since: </span>
+							{{since}}
+						</p>
+					{{/since}}
+					{{#inherited}}
+						<p><span class="version">Inherited from: </span>
+							{{inherited}}
+						</p>
+					{{/inherited}}
+					<div class="description">
+						<p>
+							{{{description}}}
+						</p>
+					</div>
+					{{#hasParams}}
+					<div class="parameters">
+						<p><span class="param">Parameters:</span></p>
+					<table>
+					<tbody>
+					<tr>
+						<th>Parameter</th>
+						<th>Type</th>
+						<th>Required / optional</th>
+						<th>Default value</th>
+						<th>Description</th>
+					</tr>
+					{{/hasParams}}
+					{{#params}}
+					<tr>
+						<td><span style="font-family: Courier New,Courier,monospace">{{name}}</span></td>
+						<td>{{types}}</td>
+						<td>{{#isOptional}}optional{{/isOptional}}{{^isOptional}}required{{/isOptional}}</td>
+						<td>{{defaultValue}}</td>
+						<td>{{{description}}}</td>
+					</tr>
+					{{/params}}
+					{{#hasParams}}
+					</tbody>
+					</table>
+					</div>
+					{{/hasParams}}
+					<div class="returntype">
+						<p><span class="return">Return value:</span></p>
+						{{#return}}
+							<table>
+								<tbody>
+								<tr>
+									<th>Type</th>
+									<th>Description</th>
+								</tr>
+								<tr>
+									<td>{{types}}</td>
+									<td>{{{description}}}</td>
+								</tr>
+								</tbody>
+							</table>
+						{{/return}}
+						{{^return}}
+							No Return Value
+						{{/return}}
+					</div>
+					{{#examples}}
+						<div class="example">
+							<span class="example"><p>Code
+								example:</p><p>{{name}}</p></span>
+							<pre name="code" class="examplecode
+							prettyprint">{{{code}}}</pre>
+						</div>
+					{{/examples}}
+				</dd>
+			{{/isPublic}}
+		{{/inheritedMethods}}
 	</dl>
-{{/showMethods}}
+{{/showInheritedMethods}}
 <h2>Where to Go Next</h2>
 <ul>
 	{{#seeMore}}
