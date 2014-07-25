@@ -473,7 +473,14 @@
  * @event popupafteropen
  * @member ns.widget.mobile.Popup
  */
-
+/**
+ * Triggered when process of opening popup is completed.
+ * The "popupshow" event is triggered when the popup has completely appeared on
+ * the screen and all associated animations have completed. This event is
+ * triggered in the same time as event "popupafteropen".
+ * @event popupshow
+ * @member ns.widget.mobile.Popup
+ */
 /**
  * Triggered before a popup computes the coordinates where it will appear.
  * The "beforeposition" event is triggered before the popup starts the opening animations and calculates the coordinates where it will appear on the screen. Handling this event gives an opportunity to modify the content of the popup before it appears on the screen.
@@ -485,6 +492,14 @@
  * Triggered when the process of closing popup is completed.
  * The "popupafterclose" event is triggered when the popup has completely disappeared from the screen and all associated animations have completed.
  * @event popupafterclose
+ * @member ns.widget.mobile.Popup
+ */
+/**
+ * Triggered when the process of closing popup is completed.
+ * The "popuphide" event is triggered when the popup has completely disappeared
+ * from the screen and all associated animations have completed. This event is
+ * triggered at the same time as event "popupafterclose".
+ * @event popuphide
  * @member ns.widget.mobile.Popup
  */
 (function (window, document, ns) {
@@ -1681,6 +1696,7 @@
 					container.setAttribute("tabindex", "0");
 					container.focus();
 					events.trigger(self.element, "popupafteropen");
+					events.trigger(self.element, "popupshow");
 				});
 			};
 
@@ -1825,6 +1841,7 @@
 				this._isPreClose = false;
 				events.trigger(document, "activePopup", null);
 				events.trigger(this.element, "popupafterclose");		// this event must be triggered after setting mobile.popup.active
+				events.trigger(this.element, "popuphide");
 			};
 
 			/**
