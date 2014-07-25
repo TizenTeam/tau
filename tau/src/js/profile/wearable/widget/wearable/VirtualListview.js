@@ -542,7 +542,8 @@
 						bufferSize = options.bufferSize,
 						i,
 						offset = 0,
-						index;
+						index,
+						isLastBuffer = false;
 
 					//Get size of scroll clip depended on scroll direction
 					scrollClipSize = options.orientation === VERTICAL ? scrollInfo.clipHeight : scrollInfo.clipWidth;
@@ -562,6 +563,7 @@
 
 					if (index + bufferSize >= dataLength) {
 						index = dataLength - bufferSize;
+						isLastBuffer = true;
 					}
 					indexCorrection = toIndex - index;
 
@@ -569,8 +571,14 @@
 					blockEvent = true;
 					offset = index * avgListItemSize;
 					if (options.orientation === VERTICAL) {
+						if (isLastBuffer) {
+							offset = self.ui.spacer.clientHeight;
+						}
 						element.style.top = offset + "px";
 					} else {
+						if (isLastBuffer) {
+							offset = self.ui.spacer.clientWidth;
+						}
 						element.style.left = offset + "px";
 					}
 
@@ -579,7 +587,7 @@
 					}
 
 					if (options.orientation === VERTICAL) {
-					self.ui.scrollview.scrollTop = offset;
+						self.ui.scrollview.scrollTop = offset;
 					} else {
 						self.ui.scrollview.scrollLeft = offset;
 					}
@@ -724,6 +732,10 @@
 								currentIndex = 0;
 							}
 
+							if (currentIndex >= (dataLength - 1)) {
+								newPosition = self.ui.spacer.clientHeight;
+							}
+
 							elementStyle.top = newPosition + "px";
 						}
 
@@ -732,6 +744,10 @@
 
 							if (newPosition < 0 || currentIndex <= 0) {
 								newPosition = 0;
+							}
+
+							if (currentIndex >= (dataLength - 1)) {
+								newPosition = self.ui.spacer.clientWidth;
 							}
 
 							elementStyle.left = newPosition + "px";
@@ -934,7 +950,7 @@
 					if (options.orientation === VERTICAL) {
 						//Note: element.clientHeight is variable
 						bufferSizePx = parseFloat(element.clientHeight) || 0;
-						spacerStyle.height = (bufferSizePx / options.bufferSize * (options.dataLength - 1) - 4 / 3 * bufferSizePx) + "px";
+						spacerStyle.height = (bufferSizePx / options.bufferSize * options.dataLength - bufferSizePx) + "px";
 					} else {
 						//Note: element.clientWidth is variable
 						bufferSizePx = parseFloat(element.clientWidth) || 0;
