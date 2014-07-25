@@ -79,8 +79,8 @@
  *
  *
 
- * @class ns.widget.mobile.Drawer
- * @author Hyeoncheol Choi <hc7.choi@samsung.com>
+ * @class ns.widget.tv.Drawer
+ * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
 (function (document, ns) {
 	"use strict";
@@ -106,10 +106,16 @@
 					BaseKeyboardSupport.call(self);
 					self._pageSelector = Page.classes.uiPage;
 				},
-				prototype = new CoreDrawer();
+				prototype = new CoreDrawer(),
+				classes = CoreDrawer.classes,
+				WIDE_SIZE = 937,
+				NARROW_SIZE = 301;
 
+			//fill classes
+			classes.uiBlock = "ui-block";
+			classes.uiDynamicBoxActive = "ui-dynamic-box-active";
 			Drawer.prototype = prototype;
-			Drawer.classes = CoreDrawer.classes;
+			Drawer.classes = classes;
 
 			prototype.open = function() {
 				var self = this;
@@ -130,15 +136,17 @@
 					id = element.href,
 					ui = self._ui,
 					dynamicListElement = document.getElementById(id.split("#")[1]);
-				if (ui.currentDynamic) {
-					ui.currentDynamic.classList.remove("ui-dynamic-box-active");
-				}
-				if (dynamicListElement) {
-					self.option('width', 937);
-					ui.currentDynamic = dynamicListElement;
-					dynamicListElement.classList.add("ui-dynamic-box-active");
-				} else {
-					self.option('width', 301);
+				if (element.parentElement.classList.contains(classes.uiBlock)) {
+					if (ui.currentDynamic) {
+						ui.currentDynamic.classList.remove(classes.uiDynamicBoxActive);
+					}
+					if (dynamicListElement) {
+						self.option('width', WIDE_SIZE);
+						ui.currentDynamic = dynamicListElement;
+						dynamicListElement.classList.add(classes.uiDynamicBoxActive);
+					} else {
+						self.option('width', NARROW_SIZE);
+					}
 				}
 			};
 

@@ -312,7 +312,7 @@
 						// drawer opened
 						translate(self.element, window.innerWidth - options.width, 0);
 					} else {
-						// drawer cloased
+						// drawer closed
 						translate(self.element, window.innerWidth, 0);
 					}
 				}

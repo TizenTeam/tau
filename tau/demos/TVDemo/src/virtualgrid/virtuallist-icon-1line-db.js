@@ -1,8 +1,8 @@
 /* Sample Data in JSON : NBA Player list more than 1,000. */
 var JSON_DATA = [
-{ICON:"../test/ico_file_70.png", TITLE:"FILE", SUBTITLE:"fast forword"},
-{ICON:"../test/ico_history_70.png", TITLE:"HISTORY", SUBTITLE:"next"},
-{ICON:"../test/ico_music_70.png", TITLE:"MUSIC", SUBTITLE:"pause"},
+{ICON:"tv-show", TITLE:"FILE", SUBTITLE:"fast forword"},
+{ICON:"movie", TITLE:"HISTORY", SUBTITLE:"next"},
+{ICON:"app", TITLE:"MUSIC", SUBTITLE:"pause"},
 {ICON:"../test/ico_noti_70.png", TITLE:"NOTI", SUBTITLE:"next"},
 {ICON:"../test/ico_photo_70.png", TITLE:"PHOTO", SUBTITLE:"pause"},
 {ICON:"../test/ico_setting_70.png", TITLE:"SETTINGS", SUBTITLE:"play"},

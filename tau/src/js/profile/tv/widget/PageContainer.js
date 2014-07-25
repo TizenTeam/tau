@@ -24,8 +24,6 @@
  * @class ns.widget.wearable.PageContainer
  * @extends ns.widget.BaseWidget
  * @author Maciej Urbanski <m.urbanski@samsung.com>
- * @author Piotr Karny <p.karny@samsung.com>
- * @author Krzysztof Głodowski <k.glodowski@samsung.com>
  */
 (function (document, ns) {
 	"use strict";
@@ -47,12 +45,14 @@
 			PageContainer.events = WearablePageContainer.events;
 
 			prototype._build = function ( element ) {
+				var optionsBackground = this.options.background;
 				if (WearablePageContainerPrototype._build) {
 					element = WearablePageContainerPrototype._build(element);
 				}
 
-
-				element.style.background = "url(" + this.options.background + ") no-repeat center center";
+				if (optionsBackground) {
+					element.style.background = "url(" + optionsBackground + ") no-repeat center center";
+				}
 
 				return element;
 			};

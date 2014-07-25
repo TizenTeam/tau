@@ -5,15 +5,17 @@
 	page.addEventListener("pageshow", function() {
 		var elList = document.getElementById("vlist1");
 
-		vlist = tau.widget.VirtualGrid(elList, {
-				dataLength: JSON_DATA.length,
-				bufferSize: 40
+		vlist = tau.widget.VirtualGrid(elList);
+		vlist.option({
+			dataLength: JSON_DATA.length,
+			bufferSize: 40
 		});
 
 		// Update listitem
 		vlist.setListItemUpdater(function(elListItem, newIndex) {
 			var data =  JSON_DATA[newIndex];
-			elListItem.innerHTML = 	'<div class="grid-thumbnail-icon-1line"> <div class="grid-thumbnail-icon-1line-pic"><img class="grid-thumbnail-icon-1line-pic-img" src="'+data.ICON+'"  /></div><div class="grid-thumbnail-icon-1line-contents"><span class="grid-thumbnail-icon-1line-content">'+data.TITLE+'</span></div></div>'
+			elListItem.innerHTML = 	'<a class="grid-icon" data-icon="'+data.ICON+'" data-iconpos="top" data-role="button">'+data.TITLE+'</a>';
+			tau.widget.Button(elListItem.firstElementChild);
 		});
 		// Draw child elements
 		vlist.draw();

@@ -24,8 +24,7 @@
  * @class ns.widget.wearable.PageContainer
  * @extends ns.widget.BaseWidget
  * @author Maciej Urbanski <m.urbanski@samsung.com>
- * @author Piotr Karny <p.karny@samsung.com>
- * @author Krzysztof Głodowski <k.glodowski@samsung.com>
+ * @author Jadwiga Sosnowska <j.sosnowska@samsung.com>
  */
 (function (document, ns) {
 	"use strict";
@@ -33,8 +32,7 @@
 	define(
 		[
 			"../../../profile/wearable/widget/wearable/Popup",
-			"../../../core/engine",
-			"../../../core/util/DOM/css"
+			"../../../core/engine"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -42,8 +40,6 @@
 				WearablePopupPrototype = WearablePopup.prototype,
 				BaseKeyboardSupport = ns.widget.tv.BaseKeyboardSupport,
 				classes = WearablePopup.classes,
-				util = ns.util,
-				DOM = util.DOM,
 				Popup = function () {
 					WearablePopup.call(this);
 					BaseKeyboardSupport.call(this);
@@ -53,7 +49,7 @@
 				FUNCTION_TYPE = "function";
 
 			Popup.events = WearablePopup.events;
-			Popup.classes = WearablePopup.classes;
+			Popup.classes = classes;
 
 			Popup.prototype = prototype;
 

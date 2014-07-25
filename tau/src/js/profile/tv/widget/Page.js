@@ -21,11 +21,9 @@
  *
  * It allows for adding new pages, switching between them and displaying progress bars indicating loading process.
  *
- * @class ns.widget.wearable.PageContainer
+ * @class ns.widget.tv.PageContainer
  * @extends ns.widget.BaseWidget
  * @author Maciej Urbanski <m.urbanski@samsung.com>
- * @author Piotr Karny <p.karny@samsung.com>
- * @author Krzysztof Głodowski <k.glodowski@samsung.com>
  */
 (function (document, ns) {
 	"use strict";

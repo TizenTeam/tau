@@ -5,16 +5,20 @@
 	page.addEventListener("pageshow", function() {
 		var elList = document.getElementById("vlist1");
 
-		vlist = tau.widget.VirtualGrid(elList, {
-				dataLength: JSON_DATA.length,
-				bufferSize: 40
+		vlist = tau.widget.VirtualGrid(elList);
+		vlist.option({
+			dataLength: JSON_DATA.length,
+			bufferSize: 40
 		});
 
 		// Update listitem
 		vlist.setListItemUpdater(function(elListItem, newIndex) {
 			//TODO: Update listitem here
 			var data =  JSON_DATA[newIndex];
-			elListItem.innerHTML = 	'<div class="grid-thumbnail-1-line"> <div class="grid-thumbnail-pic"><img class="grid-thumbnail-pic-img" src="'+data.TEAM_LOGO+'"  /><div class="grid-thumbnail-video"><div class="grid-thumbnail-video-time">'+ data.TIME+'</div><input type="button" class="grid-thumbnail-video-btn" /></div></div><div class="grid-thumbnail-contents"><span class="grid-thumbnail-content">'+data.NAME+'</span></div></div>'
+			elListItem.innerHTML = 	'<a class="grid-thumbnail" data-role="button"><div class="grid-thumbnail-info">' + data.TIME +
+				'</div><div class="grid-thumbnail-pic-full"><img class="grid-thumbnail-pic-img" src="' + data.TEAM_LOGO +
+				'" /></div><div class="grid-thumbnail-contents"><span class="grid-thumbnail-content">' + data.NAME + '</span></div></a>'
+			tau.widget.Button(elListItem.firstElementChild);
 		});
 		// Draw child elements
 		vlist.draw();

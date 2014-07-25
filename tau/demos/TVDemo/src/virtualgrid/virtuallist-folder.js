@@ -5,16 +5,18 @@
 	page.addEventListener("pageshow", function() {
 		var elList = document.getElementById("vlist1");
 
-		vlist = tau.widget.VirtualGrid(elList, {
-				dataLength: JSON_DATA.length,
-				bufferSize: 40
+		vlist = tau.widget.VirtualGrid(elList);
+		vlist.option({
+			dataLength: JSON_DATA.length,
+			bufferSize: 40
 		});
 
 		// Update listitem
 		vlist.setListItemUpdater(function(elListItem, newIndex) {
 			//TODO: Update listitem here
 			var data =  JSON_DATA[newIndex];
-			elListItem.innerHTML = 	'<div class="grid-thumbnail-folder"> <div class="grid-thumbnail-folder-pic"><img class="grid-thumbnail-folder-pic-img" src="'+data.FOLDER+'"  /></div><div class="grid-thumbnail-folder-contents"><span class="grid-thumbnail-folder-1-line">'+data.TITLE+'</span><span class="grid-thumbnail-folder-2-line">'+data.FILE_NB+'</span></div></div>'
+			elListItem.innerHTML = 	'<a class="grid-thumbnail"> <div class="grid-thumbnail-pic"><img class="grid-thumbnail-pic-img" src="'+data.FOLDER+'"  /></div><div class="grid-thumbnail-contents"><span class="grid-thumbnail-content">'+data.TITLE+'</span><span class="grid-thumbnail-subtext">'+data.FILE_NB+'</span></div></a>'
+			tau.widget.Button(elListItem.firstElementChild);
 		});
 		// Draw child elements
 		vlist.draw();

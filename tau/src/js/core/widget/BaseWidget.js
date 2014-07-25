@@ -310,7 +310,7 @@
 			 */
 			prototype._getCreateOptions = function (element) {
 				var options = this.options,
-					bigRegexp = new RegExp(/[A-Z]/g);
+					bigRegexp = /[A-Z]/g;
 				if (options !== undefined) {
 					Object.keys(options).forEach(function (option) {
 						// Get value from data-{namespace}-{name} element's attribute

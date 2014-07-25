@@ -24,7 +24,6 @@
  * The following table displays the widgets provided by the Tizen Web UI service.
  * @page ns.widget.wearable
  * @title Widget Reference
- * @seeMore https://developer.tizen.org/dev-guide/2.2.1/org.tizen.web.uiwidget.apireference/html/web_ui_framework.htm "Web UI Framework Reference"
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
 (function (window, ns) {

@@ -15,7 +15,7 @@
 		vlist.setListItemUpdater(function(elListItem, newIndex) {
 			//TODO: Update listitem here
 			var data =  JSON_DATA[newIndex];
-			elListItem.innerHTML = 	'<a class="grid-thumbnail-1-line" data-role="button"> <div class="grid-thumbnail-pic"><img class="grid-thumbnail-pic-img" src="'+data.TEAM_LOGO+'"  /></div><div class="grid-thumbnail-contents"><span class="grid-thumbnail-content">'+data.NAME+'</span></div></a>'
+			elListItem.innerHTML = 	'<a class="grid-thumbnail ' + (newIndex === 2 ? "ui-selected" : "") + '"> <div class="grid-thumbnail-pic-full"><img class="grid-thumbnail-pic-img" src="'+data.TEAM_LOGO+'"  /></div><div class="grid-thumbnail-contents"><span class="grid-thumbnail-content">'+data.NAME+'</span></div></a>'
 			tau.widget.Button(elListItem.firstElementChild);
 		});
 		// Draw child elements
