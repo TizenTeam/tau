@@ -8,7 +8,7 @@ $( document ).one( "pageshow", ":jqmData(role='page')", function ( ev ) {
 
 		regEx = new RegExp(".*" + $( sbar ).val().toLowerCase());
 
-		$( content ).find( "p" ).each( function () {
+		$( content ).find( "li" ).each( function () {
 			if ( $( this ).text().toLowerCase().match(regEx) ) {
 				$( this ).show();
 			} else {

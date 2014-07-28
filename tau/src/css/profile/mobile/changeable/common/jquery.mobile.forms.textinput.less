@@ -237,11 +237,12 @@ textarea.ui-input-text {
 		}
 	}
 
-	.ui-focus {
+	.ui-focus:not(.ui-btn-icon-cancel):not(.ui-btn-icon-notext) {
 		border: 1px solid @color_searchbar_border_focus;
 		height: 72 * @unit_base_textinput;
 		background-color: @color_list_bg;
 		box-sizing: border-box;
+
 	}
 }
 
