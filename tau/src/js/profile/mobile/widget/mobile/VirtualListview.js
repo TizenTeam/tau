@@ -363,6 +363,91 @@
 			};
 
 			/**
+			 * Computes list element size according to scrolling orientation
+			 * @method _computeElementSize
+			 * @param {HTMLElement} element Element whose size should be computed
+			 * @param {string} orientation Scrolling orientation
+			 * @return {number} Size of element in pixels
+			 * @member ns.widget.wearable.VirtualListview
+			 * @private
+			 * @static
+			 */
+			function _computeElementSize(element, orientation) {
+				// @TODO change to util method if it will work perfectly
+				return parseInt(orientation === VERTICAL ? element.clientHeight : element.clientWidth, 10) + 1;
+			}
+
+			/**
+			 * Scrolls and manipulates DOM element to destination index. Element at destination
+			 * index is the first visible element on the screen. Destination index can
+			 * be different from Virtual List's current index, because current index points
+			 * to first element in the buffer.
+			 * @member ns.widget.mobile.VirtualListview
+			 * @param {ns.widget.mobile.VirtualListview} self VirtualListview widget reference
+			 * @param {number} toIndex Destination index.
+			 * @method _orderElementsByIndex
+			 * @private
+			 * @static
+			 */
+			function _orderElementsByIndex(self, toIndex) {
+				var element = self.element,
+					options = self.options,
+					scrollInfo = self._scroll,
+					resultsetSize = 0,
+					dataLength = options.numItemData,
+					indexCorrection = 0,
+					bufferedElements = 0,
+					avgListItemSize = 0,
+					bufferSize = options.row,
+					i,
+					offset = 0,
+					index;
+
+				//Get size of scroll clip depended on scroll direction
+				resultsetSize = options.direction === VERTICAL ? scrollInfo.clipHeight : scrollInfo.clipWidth;
+
+				//resultsetSize = self._computeResultsetSize();
+				//Compute average list item size
+				avgListItemSize = self._computeAvgSize();
+
+				//Compute average number of elements in each buffer (before and after clip)
+				bufferedElements = Math.floor((bufferSize - Math.floor(resultsetSize / avgListItemSize)) / 2);
+
+				if (toIndex - bufferedElements <= 0) {
+					index = 0;
+					indexCorrection = 0;
+				} else {
+					index = toIndex - bufferedElements;
+				}
+
+				if (index + bufferSize >= dataLength) {
+					index = dataLength - bufferSize;
+				}
+				indexCorrection = toIndex - index;
+
+				self._loadData(index);
+				blockEvent = true;
+				offset = index * avgListItemSize;
+				if (options.direction === VERTICAL) {
+					element.style.top = offset + "px";
+				} else {
+					element.style.left = offset + "px";
+				}
+
+				for (i = 0; i < indexCorrection; i += 1) {
+					offset += _computeElementSize(element.children[i], options.direction);
+				}
+
+				if (options.direction === VERTICAL) {
+					self.ui.scrollview.element.scrollTop = offset;
+				} else {
+					self.ui.scrollview.element.scrollLeft = offset;
+				}
+				blockEvent = false;
+				self._currentIndex = index;
+			}
+
+			/**
 			 * Orders elements. Controls resultset visibility and does DOM manipulation.
 			 * @method _orderElements
 			 * @param {ns.widget.mobile.VirtualListview} self VirtualListview widget reference
@@ -882,6 +967,23 @@
 			};
 
 			/**
+			 * Scrolls list to defined index.
+			 * @method scrollToIndex
+			 * @param {number} index Scroll Destination index.
+			 * @member ns.widget.mobile.VirtualListview
+			 */
+			prototype.scrollToIndex = function(index) {
+				if (index < 0) {
+					index = 0;
+				}
+				if (index >= this.options.numItemData) {
+					index = this.options.numItemData - 1;
+				}
+				this._updateScrollInfo();
+				_orderElementsByIndex(this, index);
+			};
+
+			/**
 			 * Sets iterator function and total number of data based on users arguments.
 			 * @method create
 			 * @protected
@@ -897,7 +999,7 @@
 			engine.defineWidget(
 				"VirtualListview",
 				"[data-role='virtuallistview'],[data-role='virtuallist'], .ui-virtuallistview",
-				["create"],
+				["create", "scrollToIndex"],
 				VirtualListview,
 				'tizen'
 			);
