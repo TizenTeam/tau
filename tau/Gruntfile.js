@@ -88,10 +88,9 @@ module.exports = function(grunt) {
 					var rtn = [],
 						list = themes.device[device],
 						versionPath = version ? version + "-path" : "default-path",
-						i=1,
+						i=0,
 						len=list.length,
-						theme,
-						versionName;
+						theme;
 					if (version === "changeable") {
 						theme = list[0];
 						rtn.push({
@@ -101,10 +100,12 @@ module.exports = function(grunt) {
 					} else {
 						for(; i < len; i++) {
 							theme = list[i];
-							rtn.push({
-								src: path.join(srcCss, theme[versionPath], theme.src),
-								dest: path.join(buildRoot, device, "theme", theme.name, name) + ".css"
-							});
+							if (theme.name !== "changeable") {
+								rtn.push({
+									src: path.join(srcCss, theme[versionPath], theme.src),
+									dest: path.join(buildRoot, device, "theme", theme.name, name) + ".css"
+								});
+							}
 						}
 					}
 
@@ -176,7 +177,7 @@ module.exports = function(grunt) {
 					var rtn = [],
 						list = themes.device[device],
 						versionPath = version ? version + "-path" : "default-path",
-						i=1, len=list.length, theme;
+						i=0, len=list.length, theme;
 
 					if (version === "changeable") {
 						theme = list[0];
@@ -189,12 +190,14 @@ module.exports = function(grunt) {
 					} else {
 						for(; i < len; i++) {
 							theme = list[i];
-							rtn.push({
-								expand: true,
-								cwd: path.join( srcCss, theme[versionPath], theme.images ),
-								src: "**",
-								dest: path.join( buildRoot, device, "theme", theme.name, theme.images )
-							});
+							if (theme.name !== "changeable") {
+								rtn.push({
+									expand: true,
+									cwd: path.join(srcCss, theme[versionPath], theme.images),
+									src: "**",
+									dest: path.join(buildRoot, device, "theme", theme.name, theme.images)
+								});
+							}
 						}
 					}
 
@@ -293,8 +296,8 @@ module.exports = function(grunt) {
 				mobileChangeable: {
 					files : files.css.getCssFiles("mobile", "changeable")
 				},
-				tvChangeable: {
-					files : files.css.getCssFiles("tv", "changeable")
+				tvDefault: {
+					files : files.css.getCssFiles("tv", "default")
 				}
 			},
 
@@ -309,12 +312,6 @@ module.exports = function(grunt) {
 					themeIndex: "0",
 					themeStyle: "Light",
 					device: "wearable"
-				},
-
-				tv: {
-					themeIndex: "0",
-					themeStyle: "Dark",
-					device: "tv"
 				},
 
 				all: {
@@ -378,8 +375,8 @@ module.exports = function(grunt) {
 					files: files.image.getImageFiles( "mobile", "changeable" )
 				},
 
-				tvChangeableImages: {
-					files: files.image.getImageFiles( "tv", "changeable" )
+				tvDefaultImages: {
+					files: files.image.getImageFiles( "tv", "default" )
 				},
 
 				mobileJquery: {
@@ -435,7 +432,9 @@ module.exports = function(grunt) {
 
 				wearableDefaultTheme: files.css.getDefault( "wearable", "default" ),
 
-				mobileDefaultTheme: files.css.getDefault( "mobile", "default" )
+				mobileDefaultTheme: files.css.getDefault( "mobile", "default" ),
+
+				tvDefaultTheme: files.css.getDefault( "tv", "default" )
 			},
 
 			"string-replace": {
@@ -495,8 +494,8 @@ module.exports = function(grunt) {
 			},
 
 			clean: {
-				js: [ buildDir.mobile.js, buildDir.wearable.js ],
-				theme: [ buildDir.mobile.theme, buildDir.wearable.theme ],
+				js: [ buildDir.mobile.js, buildDir.wearable.js, buildDir.tv.js ],
+				theme: [ buildDir.mobile.theme, buildDir.wearable.theme, buildDir.tv.theme ],
 				docs: {
 					expand: true,
 					src: ['docs/sdk', 'docs/js']
@@ -731,7 +730,7 @@ module.exports = function(grunt) {
 						include.push(
 							path.join("..", "css", "profile", profileName, themeVersion[ver], "theme-" + defaultTheme.name, 'theme')
 						);
-				requirejs[profileName].options.include = include;
+					requirejs[profileName].options.include = include;
 					}
 				}
 			}
@@ -770,8 +769,8 @@ module.exports = function(grunt) {
 	grunt.registerTask("themesjs", "Generate themes files using requirejs", themesjs);  // Generate separate themes files
 	grunt.registerTask("lint", [ /* "jshint", @TODO fix all errors and revert*/ ] );
 	grunt.registerTask("jsmin", [ "findFiles:js.setMinifiedFiles", "uglify" ]);
-	grunt.registerTask("image", [ "copy:wearableDefaultImages", "copy:mobileDefaultImages" ]);
-	grunt.registerTask("image-changeable", [ "copy:wearableChangeableImages", "copy:mobileChangeableImages", "copy:tvChangeableImages" ]);
+	grunt.registerTask("image", [ "copy:wearableDefaultImages", "copy:mobileDefaultImages", "copy:tvDefaultImages" ]);
+	grunt.registerTask("image-changeable", [ "copy:wearableChangeableImages", "copy:mobileChangeableImages" ]);
 	grunt.registerTask("css", [ "clean:theme", "less", "themeConverter:all", "cssmin", "image", "image-changeable", "symlink" ]);
 	grunt.registerTask("js", [ "clean:js", "requirejs", "jsmin", "themesjs", "copy:globalize", "copy:mobileJquery" ]);
 	grunt.registerTask("license", [ "concat:licenseJs", "concat:licenseDefaultCss", "concat:licenseChangeableCss", "copy:license" ]);

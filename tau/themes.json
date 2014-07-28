@@ -45,12 +45,11 @@
 
 		"tv": [
 			{
-				"name": "changable",
+				"name": "black",
 				"images": "images/",
 				"src": "style.less",
 				"default": "true",
-				"default-path": "tv/default/theme-black/",
-				"changeable-path": "tv/changeable/theme-black/"
+				"default-path": "tv/default/theme-black/"
 			}
 		]
 	}

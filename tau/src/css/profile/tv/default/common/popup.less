@@ -10,10 +10,12 @@ Normal Popup
 	position: absolute;
 	top: -10000em;
 	left: -10000em;
-	margin: 455px 625px;
+	margin: auto 625px;
 	background-color: @color_popup_bg;
 	visibility: hidden;
 	z-index: 1000;
+	max-height: 80%;
+	overflow: hidden;
 
 	.ui-popup-header {
 		width: 100%;
@@ -30,6 +32,7 @@ Normal Popup
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
+		position: absolute;
 	}
 
 	.ui-popup-content {
@@ -39,6 +42,9 @@ Normal Popup
 		color: @color_popup_text;
 		background-color: @color_popup_bg;
 		padding: 80px 64px;
+		top: 80px;
+		bottom: 0;
+		position: absolute;
 
 		.ui-listview {
 			margin: -9*@unit_base -16*@unit_base -9*@unit_base -16*@unit_base;
@@ -76,8 +82,8 @@ Normal Popup
 
 	&.ui-popup-active {
 		visibility: visible;
-		top: auto;
-		left: 0px;
+		top: 0;
+		left: 0;
 		bottom: 0;
 	}
 }

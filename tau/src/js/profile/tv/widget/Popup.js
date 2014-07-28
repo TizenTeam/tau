@@ -66,11 +66,14 @@
 			};
 
 			prototype.open = function() {
+				var self = this,
+					page = self._pageWidget;
 				if (typeof WearablePopupPrototype.open === FUNCTION_TYPE) {
-					WearablePopupPrototype.open.apply(this, arguments);
+					WearablePopupPrototype.open.apply(self, arguments);
 				}
-				this.enableKeyboardSupport();
-				this._pageWidget.disableKeyboardSupport();
+				self.enableKeyboardSupport();
+				page.blur();
+				page.disableKeyboardSupport();
 			};
 
 			prototype.close = function() {
