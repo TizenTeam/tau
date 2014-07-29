@@ -462,6 +462,7 @@
 				if (!element.value) {
 					clearButton.classList.add(classes.uiInputClearHidden);
 				}
+				clearButton.setAttribute('id', this.id + '-clear-button');
 				searchBox.appendChild(clearButton);
 				engine.instanceWidget(clearButton, 'Button', {
 					icon: "deleteSearch",
@@ -501,13 +502,9 @@
 					cancelButton.classList.add(classes.uiInputCancel);
 					cancelButton.setAttribute('title', 'clear text');
 					cancelButton.innerText = 'Cancel';
+					cancelButton.setAttribute('id', this.id + '-cancel-button');
+					engine.instanceWidget(cancelButton, 'Button');
 					inputSearchBar.appendChild(cancelButton);
-					engine.instanceWidget(cancelButton, 'Button', {
-						icon: "cancel",
-						iconpos: "cancel",
-						corners: true,
-						shadow: true
-					});
 				}
 
 				// Default Text
@@ -528,10 +525,8 @@
 				ui = this._ui;
 				ui.input = element;
 				ui.clearButton = clearButton;
-				clearButton.setAttribute('id', this.id + '-clear-button');
 				if (cancelButton) {
 					ui.cancelButton = cancelButton;
-					cancelButton.setAttribute('id', this.id + '-cancel-button');
 				}
 				if (labelDiv) {
 					ui.labelDiv = labelDiv;

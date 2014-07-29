@@ -164,20 +164,18 @@ textarea.ui-input-text {
 	}
 
 	.ui-input-search-default {
-		margin-right : 146 * @unit_base_textinput;
-		-webkit-transition: all 400ms linear;
-		transition: all 400ms linear;
+		margin-right : 148 * @unit_base_textinput;
 	}
 
 	.ui-input-search-wide {
-		margin-right : 0 * @unit_base;
-		-webkit-transition: all 400ms linear;
-		transition: all 400ms linear;
+		margin-right : 0;
 	}
 
-	.ui-btn-icon-cancel.ui-input-cancel {
+	.ui-input-cancel {
 		display: inline-block;
 		position: absolute;
+
+		background-color : @color_searchbar_button_bg;
 
 		top	: 4 * @unit_base;
 		right : 0 * @unit_base;
@@ -185,13 +183,13 @@ textarea.ui-input-text {
 		margin-right : 16 * @unit_base_textinput;
 
 		vertical-align: middle;
-		padding : 0px;
-		border: 1px solid none;
+		padding : 0;
 
-	  width : 136 * @unit_base_textinput;
-		-webkit-transition: all 400ms linear;
-		transition: all 400ms linear;
+	  	width : 136 * @unit_base_textinput;
 
+		&.ui-btn-down-s {
+			background-color : @color_searchbar_button_bg_press;
+		}
 		.ui-btn-inner {
 			padding-top : 6 * @unit_base;
 			padding-bottom : 6 * @unit_base;
@@ -213,7 +211,7 @@ textarea.ui-input-text {
 
 	.ui-btn.ui-btn-search-front-icon {
 		position : absolute;
-		top : 3 * @unit_base_textinput;
+		top : 8 * @unit_base_textinput;
 		width : 72 * @unit_base_textinput;
 		height : 72 * @unit_base_textinput;
 		padding : 0;
@@ -237,7 +235,7 @@ textarea.ui-input-text {
 		}
 	}
 
-	.ui-focus:not(.ui-btn-icon-cancel):not(.ui-btn-icon-notext) {
+	.ui-focus:not(.ui-input-cancel):not(.ui-btn-icon-notext) {
 		border: 1px solid @color_searchbar_border_focus;
 		height: 72 * @unit_base_textinput;
 		background-color: @color_list_bg;
