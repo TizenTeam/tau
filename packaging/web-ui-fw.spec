@@ -78,7 +78,6 @@ Summary:    TAU-mobile-theme : black
 %files -n tau-mobile-theme-black
 %manifest tau-mobile-theme-black.manifest
 /usr/share/tau/mobile/theme/black
-/usr/share/tau/mobile/theme/default
 
 ##############################
 %package -n tau-mobile-theme-white
@@ -99,3 +98,4 @@ Summary:    TAU-mobile-theme : changeable
 %files -n tau-mobile-theme-changeable
 %manifest tau-mobile-theme-changeable.manifest
 /usr/share/tau/mobile/theme/changeable
+/usr/share/tau/mobile/theme/default
