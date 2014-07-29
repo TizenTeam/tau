@@ -284,6 +284,41 @@
 				return selectorsUtils.getClosestBySelector(element, "." + classes.uiBtn + ":not(." + classes.uiDisabled + ")");
 			}
 
+			/**
+			 * Return instance of Button widget
+			 * @method getInstance
+			 * @param {Event} event
+			 * @return {?ns.widget.mobile.Button}
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.Button
+			 */
+			function getInstance(event) {
+				var button = closestEnabledButtonInDiv(event.target),
+					instance;
+				if (button) {
+					instance = engine.getBinding(button, "Button") || engine.getBinding(button, "buttonMarkup");
+				}
+				return instance;
+			}
+
+			/**
+			 * Function removes button up theme class and adds button up
+			 * @method changeClasses
+			 * @param {ns.widget.mobile.Button} instance
+			 * @param {string} addedClassPrefix
+			 * @param {string} removedClassPrefix
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.Button
+			 */
+			function changeClasses(instance, addedClassPrefix, removedClassPrefix) {
+				var theme = instance.options.theme,
+					buttonClassList = instance.ui.container.classList;
+				buttonClassList.remove(removedClassPrefix + theme);
+				buttonClassList.add(addedClassPrefix + theme);
+			}
+
 			// Add class ui-focus to target element of event
 			// @method onFocus
 			// @param {Event} event
@@ -310,18 +345,6 @@
 				}
 			}
 
-			// Function removes button up theme class and adds button up
-			// @method addDownClass
-			// @param {ns.widget.mobile.Button}
-			// @private
-			// @static
-			function addDownClass(instance) {
-				var theme = instance.options.theme,
-					buttonClassList = instance.ui.container.classList;
-				buttonClassList.remove(classes.uiBtnUpThemePrefix + theme);
-				buttonClassList.add(classes.uiBtnDownThemePrefix + theme);
-			}
-
 			// Function fires on mouse down event
 			// @method onMouseDown
 			// @param {Event} event
@@ -329,17 +352,14 @@
 			// @static
 			// @member ns.widget.mobile.Button
 			function onMouseDown(event) {
-				var button = closestEnabledButtonInDiv(event.target),
-					instance;
+				var instance = getInstance(event);
 
-				if (button) {
-					instance = engine.getBinding(button, "Button");
-					if (instance) {
-						if (Button.hoverDelay) {
-							instance.timeout = setTimeout(addDownClass.bind(null, instance), Button.hoverDelay);
-						} else {
-							addDownClass(instance);
-						}
+				if (instance) {
+					if (Button.hoverDelay) {
+						instance.timeout = setTimeout(changeClasses.bind(null, instance,
+							classes.uiBtnDownThemePrefix, classes.uiBtnUpThemePrefix), Button.hoverDelay);
+					} else {
+						changeClasses(instance, classes.uiBtnDownThemePrefix, classes.uiBtnUpThemePrefix);
 					}
 				}
 			}
@@ -351,21 +371,13 @@
 			// @static
 			// @member ns.widget.mobile.Button
 			function onMouseUp(event) {
-				var button = closestEnabledButtonInDiv(event.target),
-					instance,
-					buttonClassList,
-					theme;
-				if (button) {
-					instance = engine.getBinding(button, "Button");
-					if (instance) {
-						if (instance.timeout) {
-							clearTimeout(instance.timeout);
-						}
-						theme = instance.options.theme;
-						buttonClassList = instance.ui.container.classList;
-						buttonClassList.add(classes.uiBtnUpThemePrefix + theme);
-						buttonClassList.remove(classes.uiBtnDownThemePrefix + theme);
+				var instance = getInstance(event);
+
+				if (instance) {
+					if (instance.timeout) {
+						clearTimeout(instance.timeout);
 					}
+					changeClasses(instance, classes.uiBtnUpThemePrefix, classes.uiBtnDownThemePrefix);
 				}
 			}
 
@@ -376,18 +388,10 @@
 			// @static
 			// @member ns.widget.mobile.Button
 			function onMouseOver(event) {
-				var button = closestEnabledButtonInDiv(event.target),
-					instance,
-					buttonClassList,
-					theme;
-				if (button) {
-					instance = engine.getBinding(button, "Button");
-					if (instance) {
-						theme = instance.options.theme;
-						buttonClassList = instance.ui.container.classList;
-						buttonClassList.add(classes.uiBtnHoverThemePrefix + theme);
-						buttonClassList.remove(classes.uiBtnUpThemePrefix + theme);
-					}
+				var instance = getInstance(event);
+
+				if (instance) {
+					changeClasses(instance, classes.uiBtnHoverThemePrefix, classes.uiBtnUpThemePrefix);
 				}
 			}
 
@@ -398,18 +402,10 @@
 			// @static
 			// @member ns.widget.mobile.Button
 			function onMouseOut(event) {
-				var button = closestEnabledButtonInDiv(event.target),
-					instance,
-					buttonClassList,
-					theme;
-				if (button) {
-					instance = engine.getBinding(button, "Button");
-					if (instance) {
-						theme = instance.options.theme;
-						buttonClassList = instance.ui.container.classList;
-						buttonClassList.add(classes.uiBtnUpThemePrefix + theme);
-						buttonClassList.remove(classes.uiBtnHoverThemePrefix + theme);
-					}
+				var instance = getInstance(event);
+
+				if (instance) {
+					changeClasses(instance, classes.uiBtnUpThemePrefix, classes.uiBtnHoverThemePrefix);
 				}
 			}
 
