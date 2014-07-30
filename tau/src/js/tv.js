@@ -7,7 +7,7 @@
 			"require",
 			"./core/core",
 			"./core/config",
-			"./profile/wearable/config",
+			"./profile/tv/config",
 			"./profile/wearable/defaults",
 			"./profile/wearable/selectors",
 			"./core/engine",
