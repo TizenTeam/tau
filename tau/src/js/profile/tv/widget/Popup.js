@@ -65,15 +65,19 @@
 				this._pageWidget = engine.instanceWidget(element.parentElement, "page");
 			};
 
-			prototype.open = function() {
+			prototype.open = function(options) {
 				var self = this,
-					page = self._pageWidget;
+					page = self._pageWidget,
+					autoFocus = options.autofocus;
 				if (typeof WearablePopupPrototype.open === FUNCTION_TYPE) {
 					WearablePopupPrototype.open.apply(self, arguments);
 				}
 				self.enableKeyboardSupport();
 				page.blur();
 				page.disableKeyboardSupport();
+				if (autoFocus || autoFocus===0) {
+					self.focus(autoFocus);
+				}
 			};
 
 			prototype.close = function() {

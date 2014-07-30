@@ -239,6 +239,33 @@
 			};
 
 			/**
+			 * Focuses on element.
+			 * @method focus
+			 * @param {?HTMLElement|number|boolean} [element]
+			 * @member ns.widget.tv.BaseKeyboardSupport
+			 */
+			prototype.focus = function(element) {
+				var links = this._getActiveLinks(),
+					linksLength = links.length,
+					i;
+				if (element instanceof HTMLElement) {
+					for (i = 0; i < linksLength; i++) {
+						if (links[i] === element) {
+							element.focus();
+						}
+					}
+				} else if (typeof element === "number") {
+					if (links[element]) {
+						links[element].focus();
+					}
+				} else {
+					if (links[0]) {
+						links[0].focus();
+					}
+				}
+			};
+
+			/**
 			 * Enables keyboard support on widget.
 			 * @method disableKeyboardSupport
 			 * @member ns.widget.tv.BaseKeyboardSupport
