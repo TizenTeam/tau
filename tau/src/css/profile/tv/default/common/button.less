@@ -3,9 +3,22 @@
 @basic_btn_txt_color_normal: rgb(89, 89, 89);
 @basic_btn_txt_color_focus: rgb(255, 255, 255);
 
+/**********************************************************************/
+/*                        Button(FIXED)                               */
+/**********************************************************************/
+@fixed_button_padding_top: 21 * @virtual_px;
+@fixed_button_padding_bottom: 21 * @virtual_px;
+@fixed_button_padding_left: 20 * @virtual_px;
+@fixed_button_padding_right: 20 * @virtual_px;
+@fixed_button_minimum_width: 216 * @virtual_px;
+@fixed_button_minimum_height: 70 * @virtual_px;
+
 .ui-btn {
 	display: block;
-	font-size: @fixed_button_font_size;
+	padding-left: @fixed_button_padding_left;
+	padding-right: @fixed_button_padding_right;
+	font-size: 28 * @virtual_px;
+	font-weight: bolder;
 	line-height: @fixed_button_line_height;
 	text-align: center;
 	white-space: nowrap;
@@ -14,6 +27,10 @@
 	text-overflow: ellipsis;
 	overflow: hidden;
 	border: 0 none;
+	min-height: @fixed_button_minimum_height;
+	min-width: @fixed_button_minimum_width;
+	border-radius: 4 * @virtual_px;
+	background-color: @basic_btn_color_normal;
 	.ui-default;
 
 	&.ui-multiline {
@@ -70,12 +87,28 @@
 	}
 
 	&.ui-focus {
-		background-color: rgb(69, 143, 255);
+		background-color: @color_default;
+		color: @basic_btn_txt_color_focus;
+	}
+
+	a&.ui-state-disabled, &:disabled {
+		background-color: rgba(red(@basic_btn_color_normal), green(@basic_btn_color_normal), blue(@basic_btn_color_normal), 0.4);
 	}
 }
 
+.ui-btn[data-icon], .ui-drawer-close, li a.ui-btn{
+	padding-left: inherit;
+	padding-right: inherit;
+	font-size: inherit;
+	font-weight: inherit;
+	min-height: inherit;
+	min-width: inherit;
+	border-radius: inherit;
+	background-color: inherit;
+}
+
 .ui-default {
-	color: @color_button_default_text;
+	color: @basic_btn_txt_color_normal;
 
 	a&.ui-state-disabled, &:disabled {
 		color: @color_button_default_text_disable;
@@ -142,6 +175,8 @@
 
 .ui-btn:focus, .ui-btn:active {
 	outline: none;
+	background-color: @color_default;
+	color: @basic_btn_txt_color_focus;
 }
 
 a.ui-btn {

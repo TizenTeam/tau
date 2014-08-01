@@ -13,7 +13,7 @@
 			"./core/engine",
 			// widget list
 			"./core/util/anchorHighlight",
-			"./profile/mobile/widget/mobile/Button",
+			"./profile/tv/widget/Button",
 			"./profile/tv/widget/Listview",
 			"./profile/tv/widget/Page",
 			"./profile/tv/widget/Popup",
