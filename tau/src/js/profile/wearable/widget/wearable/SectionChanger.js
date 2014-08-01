@@ -202,7 +202,7 @@
 						o.changeThreshold = this.width / 2;
 					}
 
-					if (sectionLength > 1) {
+					if (this.enabled && sectionLength > 1) {
 						this.enable();
 					} else {
 						this.disable();
@@ -486,7 +486,7 @@
 				},
 
 				_end: function (/* e */) {
-					if (this.scrollCanceled || !this.dragging) {
+					if (!this.enabled || this.scrollCanceled || !this.dragging) {
 						return;
 					}
 
@@ -503,7 +503,7 @@
 					var offset = e.detail.direction === Gesture.Direction.UP || e.detail.direction === Gesture.Direction.LEFT ? 1 : -1,
 						newIndex = this._calculateIndex(this.beforeIndex + offset);
 
-					if (this.scrollCanceled || !this.dragging) {
+					if (!this.enabled || this.scrollCanceled || !this.dragging) {
 						return;
 					}
 
@@ -522,7 +522,7 @@
 				},
 
 				_endScroll: function () {
-					if (!this.scrolled || this.scrollCanceled) {
+					if (!this.enabled || !this.scrolled || this.scrollCanceled) {
 						return;
 					}
 
