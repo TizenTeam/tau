@@ -266,6 +266,21 @@
 				pageSelector = engine.getWidgetDefinition("Page").selector,
 
 				/**
+				 * Dictionary for keyboard codes
+				 * @property {Object} keyCode
+				 * @private
+				 * @readonly
+				 * @static
+				 * @member ns.widget.mobile.Tokentextarea
+				 */
+				keyCode = {
+					BACKSPACE: 8,
+					ENTER: 13,
+					SEMICOLON: 186,
+					COMMA: 188
+				},
+
+				/**
 				 * Local constructor function
 				 * @method Tokentextarea
 				 * @private
@@ -306,6 +321,8 @@
 			Tokentextarea.prototype = new BaseWidget();
 
 			Tokentextarea.classes = classes;
+
+			Tokentextarea.keyCode = keyCode;
 
 			/**
 			 * Object containing commonly used widget strings
@@ -565,20 +582,13 @@
 					messagesLength,
 					i;
 
-				/*
-				 * 8 = backspace
-				 * 13 = enter
-				 * 186 = semi-colon
-				 * 188 = comma
-				 */
-
-				if (keyValue === 8) {
+				if (keyValue === keyCode.BACKSPACE) {
 					if (inputValue.length === 0) {
 						_validateTargetBlock(element);
 					}
-				} else if (keyValue === 13 ||
-					keyValue === 186 ||
-					keyValue === 188) {
+				} else if (keyValue === keyCode.ENTER ||
+					keyValue === keyCode.SEMICOLON ||
+					keyValue === keyCode.COMMA) {
 					if (inputValue.length !== 0) {
 						messages = inputValue.split(/[,;]/);
 						messagesLength = messages.length;
@@ -1140,7 +1150,6 @@
 				element.removeAttribute("data-ns-selector");
 				element.removeAttribute("aria-disabled");
 				element.removeAttribute("data-ns-bound");
-				return;
 			};
 
 			/**
