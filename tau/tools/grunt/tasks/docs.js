@@ -36,11 +36,16 @@ module.exports = function (grunt) {
 				methods = docsStructure.methods.filter(function (method) {
 					return method.isPublic && !method.inherited;
 				}),
-				inheritedMethods = docsStructure.methods.filter(function (method) {
-					return method.isPublic && method.inherited;
-				}),
 				publicMethodsCount = 0,
-				shortName;
+				shortName,
+				extendsClass = docsStructure.extends,
+				extendsArray;
+
+			if (extendsClass) {
+				extendsArray = extendsClass.split(".").slice(1);
+				extendsArray.unshift("tau");
+				extendsClass = extendsArray.join(".");
+			}
 			grunt.log.ok("Start generating file for widget ", file);
 			docsStructure.methods.sort(function (a, b) {
 				return a.name > b.name ? 1 : -1;
@@ -92,21 +97,6 @@ module.exports = function (grunt) {
 				});
 			}
 			shortName = docsStructure.name.split(".").pop();
-			if (inheritedMethods.length) {
-				toc.push({
-					href: "inherited-methods-list",
-					name: "Inherited methods list",
-					hasTOC: true,
-					toc: inheritedMethods.map(function (method) {
-						method.first = (publicMethodsCount === 0);
-						publicMethodsCount++;
-						return {
-							href: "method-" + method.name,
-							name: method.name
-						};
-					})
-				});
-			}
 			mu.compileAndRender(templateDir + 'widget.mustache', {
 				title: name,
 				namespace: docsStructure.name,
@@ -120,14 +110,14 @@ module.exports = function (grunt) {
 				events: docsStructure.events,
 				showEvents: docsStructure.events.length,
 				methods: methods,
-				inheritedMethods: inheritedMethods,
 				showMethods: methods.length,
-				showInheritedMethods: inheritedMethods.length,
-				since: docsStructure.since
+				since: docsStructure.since,
+				extends: extendsClass,
+				extendsFile: extendsClass && extendsClass.replace(/\./g, "_") + ".htm"
 			}).on('data', function (data) {
 				string += data.toString();
 			}).on('end', function () {
-				grunt.file.write(newFile + "html/widgets/" + file, string);
+				grunt.file.write(newFile + "html/widget/" + file, string);
 				grunt.log.ok("Finished generating file for widget ", file);
 				callback();
 			});
@@ -252,20 +242,20 @@ module.exports = function (grunt) {
 			});
 		}
 
-		function createWidgetIndex(newFile, docsStructure, rows, callback) {
+		function createBlockIndex(newFile, docsStructure, type, rows, callback) {
 			var string = "";
 			rows.sort(function (a, b) {
 				return a.namespace > b.namespace ? 1 : -1;
 			});
-			var widgetsDoc = docsStructure["ns.widget.mobile"] || docsStructure["ns.widget.wearable"] || docsStructure["ns.widget.tv"];
-			grunt.log.ok("Started generating index for widgets.");
+			var widgetsDoc = docsStructure["ns." + type] || docsStructure["ns." + type + ".mobile"] || docsStructure["ns." + type + ".wearable"] || docsStructure["ns." + type + ".tv"];
+			grunt.log.ok("Started generating index for " + type + ".");
 			mu.compileAndRender(templateDir + 'index.mustache', {
 				title: widgetsDoc.title,
 				description: widgetsDoc.description.full,
 				seeMore: widgetsDoc.seeMore,
 				table: {
-					caption: "Table: Tizen Widgets",
-					module: "Widget",
+					caption: "Table: Tizen " + type,
+					module: type,
 					rows: rows
 				},
 				breadcrumb: [
@@ -277,8 +267,8 @@ module.exports = function (grunt) {
 			}).on('data', function (data) {
 				string += data.toString();
 			}).on('end', function () {
-				grunt.file.write(newFile + "html/widgets/widget_reference.htm", string);
-				grunt.log.ok("Finished generating index for widgets.");
+				grunt.file.write(newFile + "html/" + type + "/" + type + "_reference.htm", string);
+				grunt.log.ok("Finished generating index for " + type +".");
 				callback();
 			});
 		}
@@ -387,6 +377,8 @@ module.exports = function (grunt) {
 				jsContent,
 				rowsWidgets = [],
 				rowsClasses = [],
+				rowsEvents = [],
+				rowsUtil = [],
 				namespaceArray,
 				series = [],
 				filename,
@@ -694,7 +686,8 @@ module.exports = function (grunt) {
 						namespaceArray = docsStructure[i].name.split(".").slice(1);
 						namespaceArray.unshift("tau");
 						docsStructure[i].name = namespaceArray.join(".");
-						if (docsStructure[i].name.match(/^ns\.widget/) && !(docsStructure[i].isInternal && (template !== 'dld')) && docsStructure[i].type !== "page") {
+						grunt.log.ok(docsStructure[i].name);
+						if (docsStructure[i].name.match(/^tau\.widget/) && !(docsStructure[i].isInternal && (template !== 'dld')) && docsStructure[i].type !== "page") {
 							file = docsStructure[i].name.replace(/\./g, "_") + ".htm";
 							filename = docsStructure[i].name.replace(/\./g, "/") + ".js";
 							name = docsStructure[i].title;
@@ -706,6 +699,30 @@ module.exports = function (grunt) {
 									description: description}
 							);
 							series.push(createWidgetDoc.bind(null, newFile, file, name, docsStructure[i]));
+						} else if (docsStructure[i].name.match(/^tau\.event/) && !(docsStructure[i].isInternal && (template !== 'dld')) && docsStructure[i].type !== "page") {
+							file = docsStructure[i].name.replace(/\./g, "_") + ".htm";
+							filename = docsStructure[i].name.replace(/\./g, "/") + ".js";
+							name = docsStructure[i].title;
+							description = docsStructure[i].brief || "";
+							rowsEvents.push({file: file,
+									namespace: docsStructure[i].name,
+									name: name,
+									filename: filename,
+									description: description}
+							);
+							series.push(createClassDoc.bind(null, newFile, file, name, docsStructure[i]));
+						} else if (docsStructure[i].name.match(/^tau\.util/) && !(docsStructure[i].isInternal && (template !== 'dld')) && docsStructure[i].type !== "page") {
+							file = docsStructure[i].name.replace(/\./g, "_") + ".htm";
+							filename = docsStructure[i].name.replace(/\./g, "/") + ".js";
+							name = docsStructure[i].title;
+							description = docsStructure[i].brief || "";
+							rowsUtil.push({file: file,
+									namespace: docsStructure[i].name,
+									name: name,
+									filename: filename,
+									description: description}
+							);
+							series.push(createClassDoc.bind(null, newFile, file, name, docsStructure[i]));
 						} else if (docsStructure[i].type !== "page") {
 							file = docsStructure[i].name.replace(/\./g, "_") + ".htm";
 							filename = docsStructure[i].name.replace(/\./g, "/") + ".js";
@@ -722,17 +739,31 @@ module.exports = function (grunt) {
 					}
 				}
 
-				series.push(createWidgetIndex.bind(null, newFile, docsStructure, rowsWidgets));
+				series.push(createBlockIndex.bind(null, newFile, docsStructure, "widget", rowsWidgets));
+				series.push(createBlockIndex.bind(null, newFile, docsStructure, "event", rowsEvents));
+				series.push(createBlockIndex.bind(null, newFile, docsStructure, "util", rowsUtil));
 				series.push(createClassIndex.bind(null, newFile, docsStructure, rowsClasses));
 				series.push(createIndex.bind(null, newFile, {
 					title: "Tizen Advanced UI Framework",
 					description: "The Web UI framework provides tools, such as widgets, events, effects, and animations, for Web application development. You can leverage these tools by just selecting the required screen elements and creating applications."
 				}, [
 					{
-						file: "widgets/widget_reference.htm",
+						file: "widget/widget_reference.htm",
 						name: "Widgets reference",
 						namespace: "widgets",
 						description: "Full list of widgets"
+					},
+					{
+						file: "event/event_reference.htm",
+						name: "Events reference",
+						namespace: "event",
+						description: "Full list of event"
+					},
+					{
+						file: "util/util_reference.htm",
+						name: "Utilities reference",
+						namespace: "util",
+						description: "Full list of utilities"
 					},
 					{
 						file: "class/class_reference.htm",

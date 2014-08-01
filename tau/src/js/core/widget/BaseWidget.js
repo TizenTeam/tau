@@ -131,8 +131,6 @@
  * @author Piotr Karny <p.karny@samsung.com>
  * @author Michał Szepielak <m.szepielak@samsung.com>
  * @class ns.widget.BaseWidget
- * @alias BaseWidget
- * @internal
  */
 (function (document, ns, undefined) {
 	"use strict";
