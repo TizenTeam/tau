@@ -65,7 +65,7 @@
 			 */
 			prototype._getActiveLinks = function() {
 				return [].slice.call(this.element.querySelectorAll("a")).filter(function(element){
-					return element.offsetWidth;
+					return element.offsetWidth && element.style.visibility !== "hidden";
 				});
 			};
 
@@ -280,7 +280,7 @@
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
 			prototype.disableKeyboardSupport = function() {
-				this._supportKeyboard = true;
+				this._supportKeyboard = false;
 			};
 
 			ns.widget.tv.BaseKeyboardSupport = BaseKeyboardSupport;
