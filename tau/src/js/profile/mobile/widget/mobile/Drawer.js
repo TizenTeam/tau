@@ -228,7 +228,7 @@
 					headerElement;
 				element.classList.add(classes.drawer);
 				self._drawerPage = selectors.getClosestByClass(element, Page.classes.uiPage);
-				self._drawerPage.style.overflowX = "hidden";
+				self._drawerPage.style.overflow = "hidden";
 
 				headerElement = element.nextElementSibling;
 				while (headerElement) {
