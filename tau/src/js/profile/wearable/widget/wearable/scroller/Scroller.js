@@ -274,7 +274,9 @@
 
 			prototype._refresh = function () {
 				this._clear();
+				this._unbindEvents();
 				this._init();
+				this._bindEvents();
 			};
 
 			/**
