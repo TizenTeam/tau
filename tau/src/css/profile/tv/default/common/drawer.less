@@ -1,20 +1,21 @@
 .ui-drawer {
 	position : absolute;
+	margin: 0;
 	background-color : @color_drawer_bg;
 	z-index : 1201;
 	height: 100vh;
 	&.ui-drawer-left {
-		border-right : 1px solid @color_list_border_bottom;
+		border-right : 1 * @virtual_px solid @color_list_border_bottom;
 		/* drawer right border color same to list border bottom color */
 	}
 	&.ui-drawer-right {
-		border-left : 1px solid @color_list_border_bottom;
+		border-left : 1 * @virtual_px solid @color_list_border_bottom;
 	}
 	.ui-listview {
 		margin : 0;
 		height: 100vh;
 		float: left;
-		width: 270px;
+		width: 270 * @virtual_px;
 
 
 		.ui-li.ui-btn-up-s {
@@ -38,8 +39,8 @@
 				height: auto;
 				text-align: center;
 				.ui-btn-inner {
-					margin: 25px 30px 14px 30px;
-					font-size: 21pt;
+					margin: 25 * @virtual_px 30 * @virtual_px 14 * @virtual_px 30 * @virtual_px;
+					font-size: 21 * @virtual_px;
 					color: rgb(255, 255, 255);
 
 					.ui-btn-text {
@@ -59,13 +60,13 @@
 			background-color : @color_drawer_bg;
 		}
 		.ui-home-block {
-			padding: 40px;
+			padding: 40 * @virtual_px;
 		}
 	}
 	.ui-drawer-close {
 		float:left;
 		height: 100vh;
-		width: 30px;
+		width: 30 * @virtual_px;
 		background: url(@drawer_back_background) no-repeat center center;
 	}
 }
@@ -84,19 +85,19 @@
 			position: absolute;
 			top: 0;
 			left: 0;
-			padding-left : 7 * @unit_base;
-			padding-right : 8 * @unit_base;
-			width : 27 * @unit_base;
-			height : 48 * @unit_base;
+			padding-left : 7 * @virtual_px;
+			padding-right : 8 * @virtual_px;
+			width : 27 * @virtual_px;
+			height : 48 * @virtual_px;
 
 			&.ui-btn-down-s {
 				background-color : @color_bar_naviframe_press;
 			}
 
 			.ui-btn-inner.ui-btn-icon-only .ui-icon {
-				top: 2 * @unit_base;
-				width : 27 * @unit_base;
-				height : 27 * @unit_base;
+				top: 2 * @virtual_px;
+				width : 27 * @virtual_px;
+				height : 27 * @virtual_px;
 				background-color: @color_bar_btn_normal;
 			}
 		}
@@ -107,26 +108,26 @@
 .ui-dynamic-box {
 	display: none;
 	float: left;
-	width: 636px;
+	width: 636 * @virtual_px;
 	height: 100vh;
 
 	.ui-listview {
 		width: 100%;
-		padding: 17px 20px;
+		padding: 17 * @virtual_px 20 * @virtual_px;
 		li {
 			text-align: left;
 		}
 
 		.ui-list-divider{
-			padding: 0 14px;
-			font-size: 27px;
+			padding: 0 14 * @virtual_px;
+			font-size: 27 * @virtual_px;
 			color: rgb(211, 211, 211);
 			min-height: 0;
 		 }
 
 		.ui-li-dynamic {
 			text-transform: none;
-			margin-bottom: 20px;
+			margin-bottom: 20 * @virtual_px;
 			a .ui-btn-inner {
 				margin: 0;
 				.ui-btn-text {
@@ -143,25 +144,25 @@
 						z-index: 2;
 
 						img {
-							width: 40px;
-							height: 40px;
-							margin: auto 20px;
+							width: 40 * @virtual_px;
+							height: 40 * @virtual_px;
+							margin: auto 20 * @virtual_px;
 							float: right;
 						}
 						h2 {
-							font-size: 24px;
+							font-size: 24 * @virtual_px;
 							color: rgb(211, 211, 211);
 							font-weight: nornal;
-							margin: 0 0 0 26px;
+							margin: 0 0 0 26 * @virtual_px;
 							display: inline-block;
 							overflow: hidden;
 							text-overflow: ellipsis;
 						}
 						h3 {
-							font-size: 20px;
+							font-size: 20 * @virtual_px;
 							color: rgb(211, 211, 211);
 							font-weight: nornal;
-							margin: 0 0 0 25px;
+							margin: 0 0 0 25 * @virtual_px;
 							display: inline-block;
 						}
 						div {
@@ -173,18 +174,18 @@
 		}
 
 		.ul-li-poster {
-			width: 185px;
+			width: 185 * @virtual_px;
 			float: left;
 			footer {
 				h2 {
-					margin: 0 25px;
-					width: 135px;
+					margin: 0 25 * @virtual_px;
+					width: 135 * @virtual_px;
 				}
 			}
 		}
 
 		.ul-li-poster:nth-child(3n+2), .ul-li-poster:nth-child(3n) {
-			margin-right: 20px;
+			margin-right: 20 * @virtual_px;
 		}
 	}
 }

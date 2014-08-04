@@ -5,18 +5,18 @@
 
 .ui-datetime {
     text-align: center;
-    padding-top: 56px;
+    padding-top: 56 * @virtual_px;
 }
 .ui-time-picker .ui-datetime {
-    padding-top: 53px;
+    padding-top: 53 * @virtual_px;
 }
 
 .ui-datetime:only-child {
-    padding-top: 92px;
+    padding-top: 92 * @virtual_px;
 }
 
 .ui-time-picker .ui-datetime:only-child {
-    padding-top: 89px;
+    padding-top: 89 * @virtual_px;
 }
 
 .ui-datetime input[type='date'],
@@ -26,19 +26,19 @@
 }
 
 .ui-datefield {
-    height: 52px;
+    height: 52 * @virtual_px;
     display: inline-block;
     vertical-align: top;
 }
 
 .ui-datefield > .ui-btn {
     float: left;
-    height: 52px;
+    height: 52 * @virtual_px;
     padding: 0;
-    line-height: 52px;
-    font-size: 42px;
+    line-height: 52 * @virtual_px;
+    font-size: 42 * @virtual_px;
     font-weight: 600;
-    border-radius:2px;
+    border-radius:2 * @virtual_px;
     background-color: rgba(255, 255, 255, 0.15);
 }
 
@@ -46,7 +46,7 @@
     display: block;
     height: 100%;
     float: left;
-    width: 18px;
+    width: 18 * @virtual_px;
     background: transparent url('./images/Datetimepicker/tw_timepicker_num_dot.png');
 }
 
@@ -68,65 +68,65 @@
 
 /* -- for datepicker -- */
 .ui-date-picker .ui-datefield > .ui-btn:first-child {
-    margin-right: 2px;
+    margin-right: 2 * @virtual_px;
 }
 
 .ui-date-picker .ui-datefield > .ui-btn:last-child {
-    margin-left: 2px;
+    margin-left: 2 * @virtual_px;
 }
 
 .ui-date-picker .ui-datefield-year {
-    width: 114px;
+    width: 114 * @virtual_px;
 }
 
 .ui-date-picker .ui-datefield-month {
-    width: 102px;
+    width: 102 * @virtual_px;
 }
 
 .ui-date-picker .ui-datefield-day {
-    width: 68px;
+    width: 68 * @virtual_px;
 }
 /* -- end (for datepicker) -- */
 /* -- for timepicker -- */
 .ui-time-picker .ui-datefield-hour {
-    width: 74px;
+    width: 74 * @virtual_px;
 }
 
 .ui-time-picker .ui-datefield-min {
-    width: 74px;
+    width: 74 * @virtual_px;
 }
 
 .ui-time-picker .ui-datefield-period {
-    width: 84px;
-    margin-left: 10px;
+    width: 84 * @virtual_px;
+    margin-left: 10 * @virtual_px;
 }
 .ui-time-picker .ui-datefield {
-    height: 58px;
+    height: 58 * @virtual_px;
 }
 .ui-time-picker .ui-datefield > .ui-btn {
-    height: 58px;
-    line-height: 58px;
-    font-size: 50px;
+    height: 58 * @virtual_px;
+    line-height: 58 * @virtual_px;
+    font-size: 50 * @virtual_px;
 }
 
 .ui-time-picker .ui-datefield > .ui-btn.ui-datefield-period {
-    font-size: 48px;
+    font-size: 48 * @virtual_px;
 }
 /* -- (end) for timepicker -- */
 
 .ui-datetime-wheel {
-    height: 68px;
-    margin: 0 10px;
-    margin-top: 30px;
+    height: 68 * @virtual_px;
+    margin: 0 10 * @virtual_px;
+    margin-top: 30 * @virtual_px;
 }
 
 .ui-time-picker .ui-datetime-wheel {
-    margin-top: 27px;
+    margin-top: 27 * @virtual_px;
 }
 
 .ui-datetime-wheel .ui-btn {
-    width: 68px;
-    height: 68px;
+    width: 68 * @virtual_px;
+    height: 68 * @virtual_px;
     float: left;
 }
 
@@ -167,10 +167,10 @@
 
 .ui-datetime-wheel .ui-wheel {
     display:block;
-    margin-left: 68px;
-    margin-right: 68px;
-    height: 68px;
-    padding: 10px 0;
+    margin-left: 68 * @virtual_px;
+    margin-right: 68 * @virtual_px;
+    height: 68 * @virtual_px;
+    padding: 10 * @virtual_px 0;
     background: url('./images/Datetimepicker/tw_timepicker_wheel_01.png') center center no-repeat;
 }
 
@@ -178,19 +178,19 @@
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 76px;
-    border-top: 2px solid #262626;
+    height: 76 * @virtual_px;
+    border-top: 2 * @virtual_px solid #262626;
 }
 
 /* Button separator */
 .ui-datetime-btns::before {
     content: "";
-    height: 34px;
-    width: 1px;
+    height: 34 * @virtual_px;
+    width: 1 * @virtual_px;
     background-color: #262626;
     position: absolute;
-    left: 160px;
-    top: 20px;
+    left: 160 * @virtual_px;
+    top: 20 * @virtual_px;
 }
 
 .ui-datetime-btns .ui-btn {
@@ -206,13 +206,13 @@
 }
 
 .ui-datetime-btns .ui-btn-left {
-    width: 160px;
+    width: 160 * @virtual_px;
     float: left;
     background: url('./images/Datetimepicker/tw_timepicker_left_softbtn.png') center center no-repeat;
 }
 
 .ui-datetime-btns .ui-btn-right {
-    width: 159px;
+    width: 159 * @virtual_px;
     float: right;
     background: url('./images/Datetimepicker/tw_timepicker_right_softbtn.png') center center no-repeat;
 }
@@ -225,8 +225,8 @@
 /* ---------------- */
 
 .ui-datetime-periods {
-    height: 102px;
-    margin-top: 7px;
+    height: 102 * @virtual_px;
+    margin-top: 7 * @virtual_px;
     display: inline-block;
 }
 
@@ -239,9 +239,9 @@
 }
 
 .ui-datetime-periods .ui-btn {
-    width: 102px;
-    font-size: 34px;
-    line-height: 102px;
+    width: 102 * @virtual_px;
+    font-size: 34 * @virtual_px;
+    line-height: 102 * @virtual_px;
 }
 
 .ui-datetime-periods .ui-btn:enabled:focus {
@@ -264,7 +264,7 @@
 }
 
 .ui-datetime-periods .ui-datetime-periods-separator {
-    width: 24px;
+    width: 24 * @virtual_px;
     background: url('./images/Datetimepicker/tw_timepicker_num_dot_01.png') center center no-repeat;
 }
 

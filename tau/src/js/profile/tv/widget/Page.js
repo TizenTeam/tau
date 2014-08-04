@@ -33,6 +33,8 @@
 			"../../../profile/wearable/widget/wearable/Page",
 			"../../../core/engine",
 			"../../../core/util/DOM/css",
+			"../../../core/util/DOM/manipulation",
+			"../../../core/util/selectors",
 			"./BaseKeyboardSupport"
 		],
 		function () {
@@ -43,14 +45,19 @@
 				classes = WearablePage.classes,
 				util = ns.util,
 				DOM = util.DOM,
+				selectors = util.selectors,
 				Page = function () {
 					BaseKeyboardSupport.call(this);
 				},
 				engine = ns.engine,
+				FUNCTION_TYPE = "function",
 				prototype = new WearablePage();
 
+			classes.uiHeaderEmpty = "ui-header-empty";
+			classes.uiFooterEmpty = "ui-footer-empty";
+
 			Page.events = WearablePage.events;
-			Page.classes = WearablePage.classes;
+			Page.classes = classes;
 
 			prototype.onShow = function() {
 				WearablePagePrototype.onShow.call(this);
@@ -60,6 +67,27 @@
 			prototype.onHide = function() {
 				WearablePagePrototype.onHide.call(this);
 				this._supportKeyboard = false;
+			};
+
+			prototype._build = function(element) {
+				var self = this,
+					header = selectors.getChildrenByClass(element, classes.uiHeader),
+					footer = selectors.getChildrenByClass(element, classes.uiFooter),
+					newElement;
+
+				if (typeof WearablePagePrototype._build === FUNCTION_TYPE) {
+					WearablePagePrototype._build.call(this, element);
+				}
+
+				// add class if header does not exist
+				if (!header.length) {
+					element.classList.add(classes.uiHeaderEmpty);
+				}
+				// add class if footer does not exist
+				if (!footer.length) {
+					element.classList.add(classes.uiFooterEmpty);
+				}
+				return element;
 			};
 
 			/**
@@ -82,9 +110,12 @@
 					elementStyle = element.style,
 					i,
 					node,
+					nodeClasses,
 					contentStyle,
 					marginTop,
 					marginBottom,
+					marginLeft,
+					marginRight,
 					nodeStyle;
 
 				elementStyle.width = screenWidth + "px";
@@ -92,9 +123,10 @@
 
 				for (i = 0; i < childrenLength; i++) {
 					node = children[i];
-					if (node.classList.contains(headerSelector) ||
-						node.classList.contains(footerSelector)) {
-						extraHeight += DOM.getElementHeight(node);
+					nodeClasses = node.classList;
+					if (nodeClasses.contains(headerSelector) ||
+						nodeClasses.contains(footerSelector)) {
+						extraHeight += DOM.getElementHeight(node, "outer", false, true);
 					}
 				}
 				for (i = 0; i < childrenLength; i++) {
@@ -104,8 +136,11 @@
 						contentStyle = window.getComputedStyle(node);
 						marginTop = parseFloat(contentStyle.marginTop);
 						marginBottom = parseFloat(contentStyle.marginBottom);
-						nodeStyle.height = (screenHeight - extraHeight - marginTop - marginBottom - 118) + "px";
-						nodeStyle.width = (screenWidth - 282) + "px";
+						marginLeft = parseFloat(contentStyle.marginLeft);
+						marginRight = parseFloat(contentStyle.marginRight);
+						// @todo always create (if it does not exist) footer and header
+						nodeStyle.height = (screenHeight - extraHeight - marginTop - marginBottom) + "px";
+						nodeStyle.width = (screenWidth - marginLeft - marginRight) + "px";
 					}
 				}
 			};

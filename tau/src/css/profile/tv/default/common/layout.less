@@ -6,6 +6,8 @@ body {
 	font-size: 34 * @unit_base;
 	font-family: @font_family;
 	background: @color_bg;
+	background-size: 100% !important;
+	background-repeat: no-repeat;
 	color : @color_text;
 }
 
@@ -21,6 +23,18 @@ body {
 		display: block;
 	}
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);	/* overrides webkit link color */
+
+	&.ui-header-empty {
+		.ui-content {
+			margin-top: 59 * @virtual_px;
+		}
+	}
+
+	&.ui-footer-empty {
+		.ui-content {
+			margin-bottom: 59 * @virtual_px;
+		}
+	}
 }
 
 .scrolling-mode-touch {
@@ -32,7 +46,7 @@ body {
 }
 
 .ui-content {
-	margin: 0 141px;
+	margin: 0 141 * @virtual_px;
 	overflow: auto;
 	background-color: @color_content_bg;
 	.scrolling-mode-touch;
@@ -41,7 +55,7 @@ body {
 .ui-header {
 	position: relative;
 	text-transform: uppercase;
-	margin: 59px 141px 0 141px;
+	margin: 59 * @virtual_px 141 * @virtual_px 0 141 * @virtual_px;
 	height: @fixed_header_height;
 	line-height: @fixed_header_line_height;
 	background-color: @color_actionbar_title_bg;
@@ -50,7 +64,7 @@ body {
 		color: @color_actionbar_title_text;
 		font-size: @fixed_header_title_font_size;
 		white-space: nowrap;
-		margin: 0px;
+		margin: 0 * @virtual_px;
 		padding-left: @fixed_header_title_padding;
 		padding-right: @fixed_header_title_padding;
 
@@ -88,8 +102,8 @@ body {
 	.ui-more {
 		display: block;
 		position: absolute;
-		top: 0px;
-		right: 0px;
+		top: 0 * @virtual_px;
+		right: 0 * @virtual_px;
 		width: @fixed_header_more_width;
 		height: 100%;
 		overflow: hidden;
@@ -138,6 +152,7 @@ body {
 .ui-footer {
 	width: 100%;
 	height: @fixed_footer_height;
+	margin: 0 141 * @virtual_px 59 * @virtual_px 141 * @virtual_px;
 	position: absolute;
 	bottom: 0;
 	left: 0;

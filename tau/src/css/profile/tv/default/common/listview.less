@@ -1,12 +1,11 @@
-@font_size_list_item: 30px;
-@unit_ux: 1px;
+@font_size_list_item: 30 * @virtual_px;
 /************************
 Listview
 *************************/
 .ui-listview li {
 	font-size: @font_size_list_item;
 	width: 100%;
-	border-bottom: 1px solid @color_listview_border;
+	border-bottom: 1 * @virtual_px solid @color_listview_border;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
@@ -24,10 +23,10 @@ Listview
 		display: block;
 		text-align: left;
 		.ui-btn-inner {
-			margin: 21 * @unit_ux 32 * @unit_ux 26 * @unit_ux 38 * @unit_ux;
+			margin: 21 * @virtual_px 32 * @virtual_px 26 * @virtual_px 38 * @virtual_px;
 			color: rgb(164, 167, 174);
 			.ui-btn-text {
-				margin: 11 * @unit_ux 0;
+				margin: 11 * @virtual_px 0;
 				display: block;
 			}
 			.ui-icon {
@@ -39,32 +38,32 @@ Listview
 }
 .ui-virtualgrid {
 
-	margin: 20 * @unit_ux 0 0 20 * @unit_ux;
+	margin: 20 * @virtual_px 0 0 20 * @virtual_px;
 
 	.grid-icon {
-		width: 210 * @unit_ux;
-		margin: 0 20 * @unit_ux 20 * @unit_ux 0;
+		width: 210 * @virtual_px;
+		margin: 0 20 * @virtual_px 20 * @virtual_px 0;
 		display: block;
 		overflow: hidden;
 
 		&.ui-btn-icon-top .ui-btn-inner.ui-btn-hastxt {
-			padding-top: 126 * @unit_ux;
+			padding-top: 126 * @virtual_px;
 		}
 
 		&.ui-btn .ui-icon {
-			width: 106px;
-			height: 106px;
-			-webkit-mask-size: 106px 106px;
-			margin-left: -53px;
-			background-size: 106px 106px;
+			width: 106 * @virtual_px;
+			height: 106 * @virtual_px;
+			-webkit-mask-size: 106 * @virtual_px 106 * @virtual_px;
+			margin-left: -53 * @virtual_px;
+			background-size: 106 * @virtual_px 106 * @virtual_px;
 		}
 		&:not(.ui-focus) {
 			background-color: rgb(27, 64, 61);
 		}
 	}
 	.grid-thumbnail {
-		width: 303 * @unit_ux;
-		margin: 0 20 * @unit_ux 20 * @unit_ux 0;
+		width: 303 * @virtual_px;
+		margin: 0 20 * @virtual_px 20 * @virtual_px 0;
 		display: block;
 		overflow: hidden;
 
@@ -73,55 +72,55 @@ Listview
 		}
 
 		.grid-thumbnail-info {
-			left: 21 * @unit_ux;
-			right: 21 * @unit_ux;
-			top: 8 * @unit_ux;
+			left: 21 * @virtual_px;
+			right: 21 * @virtual_px;
+			top: 8 * @virtual_px;
 			position: absolute;
 			color: rgb(200, 200, 200);
-			font-size: 22 * @unit_ux;
+			font-size: 22 * @virtual_px;
 			text-align: right;
 			z-index: 3;
 		}
 
 		.grid-thumbnail-pic {
 			z-index: 2;
-			width: 303 * @unit_ux;
-			height: 303 * @unit_ux;
+			width: 303 * @virtual_px;
+			height: 303 * @virtual_px;
 			overflow: hidden;
 			background-color: rgb(26,70,95);
 			position: relative;
 			img {
-				min-width: 200 * @unit_ux;
-				min-height: 200 * @unit_ux;
-				max-width: 200 * @unit_ux;
-				max-height: 200 * @unit_ux;
+				min-width: 200 * @virtual_px;
+				min-height: 200 * @virtual_px;
+				max-width: 200 * @virtual_px;
+				max-height: 200 * @virtual_px;
 				position: absolute;
-				top: 152 * @unit_ux;
-				left: 152 * @unit_ux;
-				margin: -100 * @unit_ux;
+				top: 152 * @virtual_px;
+				left: 152 * @virtual_px;
+				margin: -100 * @virtual_px;
 			}
 		}
 
 		.grid-thumbnail-pic-full {
-			width: 303 * @unit_ux;
-			height: 303 * @unit_ux;
+			width: 303 * @virtual_px;
+			height: 303 * @virtual_px;
 			overflow: hidden;
 			position: relative;
 			z-index: 2;
 			img {
-				min-width: 303 * @unit_ux;
-				min-height: 303 * @unit_ux;
+				min-width: 303 * @virtual_px;
+				min-height: 303 * @virtual_px;
 				position: absolute;
-				top: 152 * @unit_ux;
-				left: 152 * @unit_ux;
-				margin: -152 * @unit_ux;
+				top: 152 * @virtual_px;
+				left: 152 * @virtual_px;
+				margin: -152 * @virtual_px;
 			}
 		}
 
 		.grid-thumbnail-contents {
 			background: rgb(33, 36, 13);
-			padding: 15 * @unit_ux 20 * @unit_ux;
-			font-size: 26px;
+			padding: 15 * @virtual_px 20 * @virtual_px;
+			font-size: 26 * @virtual_px;
 			overflow: hidden;
 			text-overflow: ellipsis;
 			color: rgb(211, 211, 211);
@@ -129,15 +128,15 @@ Listview
 			.grid-thumbnail-content {
 				overflow: hidden;
 				text-overflow: ellipsis;
-				height: 31 * @unit_ux;
+				height: 31 * @virtual_px;
 				display: block;
 			}
 			.grid-thumbnail-subtext {
 				overflow: hidden;
 				text-overflow: ellipsis;
 				color: rgb(128,128,128);
-				font-size: 22 * @unit_ux;
-				margin-top: -6 * @unit_ux;
+				font-size: 22 * @virtual_px;
+				margin-top: -6 * @virtual_px;
 				display: block;
 			}
 		}
@@ -145,25 +144,25 @@ Listview
 		&.ui-btn.ui-focus {
 			.grid-thumbnail-pic {
 				border: solid  @color_listview_focus;
-				border-top-width: 8 * @unit_ux;
-				border-left-width: 8 * @unit_ux;
-				border-right-width: 8 * @unit_ux;
+				border-top-width: 8 * @virtual_px;
+				border-left-width: 8 * @virtual_px;
+				border-right-width: 8 * @virtual_px;
 				img {
-					top: 144 * @unit_ux;
-					left: 144 * @unit_ux;
-					margin: -100 * @unit_ux;
+					top: 144 * @virtual_px;
+					left: 144 * @virtual_px;
+					margin: -100 * @virtual_px;
 				}
 			}
 
 			.grid-thumbnail-pic-full {
 				border: solid  @color_listview_focus;
-				border-top-width: 8 * @unit_ux;
-				border-left-width: 8 * @unit_ux;
-				border-right-width: 8 * @unit_ux;
+				border-top-width: 8 * @virtual_px;
+				border-left-width: 8 * @virtual_px;
+				border-right-width: 8 * @virtual_px;
 				img {
-					top: 144 * @unit_ux;
-					left: 144 * @unit_ux;
-					margin: -152 * @unit_ux;
+					top: 144 * @virtual_px;
+					left: 144 * @virtual_px;
+					margin: -152 * @virtual_px;
 				}
 			}
 
@@ -177,10 +176,10 @@ Listview
 
 		&.ui-btn.ui-selected {
 			.ui-btn-inner {
-				border: solid rgb(255, 169, 85) 10 * @unit_ux;
+				border: solid rgb(255, 169, 85) 10 * @virtual_px;
 			}
 			.ui-btn-text{
-				margin: -10  * @unit_ux;
+				margin: -10  * @virtual_px;
 			}
 		}
 	}

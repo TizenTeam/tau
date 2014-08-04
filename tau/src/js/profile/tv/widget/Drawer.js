@@ -109,7 +109,8 @@
 				prototype = new CoreDrawer(),
 				classes = CoreDrawer.classes,
 				WIDE_SIZE = 937,
-				NARROW_SIZE = 301;
+				NARROW_SIZE = 301,
+				MAX_WIDTH = 1920;
 
 			//fill classes
 			classes.uiBlock = "ui-block";
@@ -146,6 +147,45 @@
 						dynamicListElement.classList.add(classes.uiDynamicBoxActive);
 					} else {
 						self.option('width', NARROW_SIZE);
+					}
+				}
+			};
+
+			/**
+			 * Refresh of Drawer widget
+			 * @method _refresh
+			 * @protected
+			 * @member ns.widget.core.Drawer
+			 */
+			prototype._refresh = function() {
+				// Drawer layout has been set by parent element layout
+				var self = this,
+					options = self.options,
+					windowWidth = window.innerWidth;
+					drawerElementParent = self.element.parentNode,
+					headerHeight = self._headerElement && self._headerElement.offsetHeight,
+					drawerHeight = drawerElementParent.clientHeight - headerHeight,
+					drawerStyle = self.element.style,
+					overlayStyle = self._drawerOverlay && self._drawerOverlay.style;
+
+				drawerStyle.width = options.width * windowWidth/MAX_WIDTH + "px";
+				drawerStyle.height = drawerHeight + "px";
+				drawerStyle.top = headerHeight || 0 + "px";
+
+				if (overlayStyle) {
+					overlayStyle.width = windowWidth + "px";
+					overlayStyle.height = drawerHeight + "px";
+					overlayStyle.top = headerHeight + "px";
+				}
+
+				if (options.position === "right") {
+					// If drawer position is right, drawer should be moved right side
+					if (self._isOpen) {
+						// drawer opened
+						translate(self.element, windowWidth - options.width, 0);
+					} else {
+						// drawer closed
+						translate(self.element, windowWidth, 0);
 					}
 				}
 			};

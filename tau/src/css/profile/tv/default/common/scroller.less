@@ -6,31 +6,31 @@
 }
 
 .ui-scrollbar-bar-type.ui-scrollbar-horizontal {
-	left: 0px;
-	bottom: 0px;
+	left: 0;
+	bottom: 0;
 	width: 100%;
-	height: 8px;
+	height: 8* @virtual_px;
 }
 
 .ui-scrollbar-bar-type.ui-scrollbar-vertical {
-	right: 0px;
-	top: 0px;
-	width: 8px;
+	right: 0;
+	top: 0;
+	width: 8* @virtual_px;
 	height: 100%;
 }
 
 .ui-scrollbar-bar-type .ui-scrollbar-indicator {
 	position: absolute;
-	margin: 2px;
+	margin: 2* @virtual_px;
 	background-color: @color_scroller_scrollbar_color;
 }
 
 .ui-scrollbar-bar-type.ui-scrollbar-horizontal .ui-scrollbar-indicator {
-	height: 4px;
+	height: 4* @virtual_px;
 }
 
 .ui-scrollbar-bar-type.ui-scrollbar-vertical .ui-scrollbar-indicator {
-	width: 4px;
+	width: 4* @virtual_px;
 }
 
 /***************************************************************************
@@ -47,177 +47,177 @@
 
 .ui-scrollbar-bouncing-effect.ui-top {
 	width: 100%;
-	height: 56px;
-	top:0px;
-	left:0px;
+	height: 56* @virtual_px;
+	top:0;
+	left:0;
 	background-image: url(@bg_scroller_bouncing_effect_top);
 }
 
 .ui-scrollbar-bouncing-effect.ui-bottom {
 	width: 100%;
-	height: 56px;
-	bottom:0px;
-	left:0px;
+	height: 56* @virtual_px;
+	bottom:0;
+	left:0;
 	background-image: url(@bg_scroller_bouncing_effect_bottom);
 }
 
 .ui-scrollbar-bouncing-effect.ui-left {
-	width: 56px;
+	width: 56* @virtual_px;
 	height: 100%;
-	top:0px;
-	left:0px;
+	top:0;
+	left:0;
 	background-image: url(@bg_scroller_bouncing_effect_left);
 }
 
 .ui-scrollbar-bouncing-effect.ui-right {
-	width: 56px;
+	width: 56* @virtual_px;
 	height: 100%;
-	top:0px;
-	right:0px;
+	top:0;
+	right:0;
 	background-image: url(@bg_scroller_bouncing_effect_right);
 }
 
 @-webkit-keyframes ui-vertical-show {
 	0% {
-		background-position: center -0px;
+		background-position: center -0* @virtual_px;
 	}
 	10% {
-		background-position: center -60px;
+		background-position: center -60* @virtual_px;
 	}
 	20% {
-		background-position: center -120px;
+		background-position: center -120* @virtual_px;
 	}
 	30% {
-		background-position: center -180px;
+		background-position: center -180* @virtual_px;
 	}
 	40% {
-		background-position: center -240px;
+		background-position: center -240* @virtual_px;
 	}
 	50% {
-		background-position: center -300px;
+		background-position: center -300* @virtual_px;
 	}
 	60% {
-		background-position: center -360px;
+		background-position: center -360* @virtual_px;
 	}
 	70% {
-		background-position: center -420px;
+		background-position: center -420* @virtual_px;
 	}
 	80% {
-		background-position: center -480px;
+		background-position: center -480* @virtual_px;
 	}
 	90% {
-		background-position: center -540px;
+		background-position: center -540* @virtual_px;
 	}
 	100% {
-		background-position: center -540px;
+		background-position: center -540* @virtual_px;
 	}
 }
 
 @-webkit-keyframes ui-vertical-hide {
 	0% {
-		background-position: center -600px;
+		background-position: center -600* @virtual_px;
 	}
 	10% {
-		background-position: center -660px;
+		background-position: center -660* @virtual_px;
 	}
 	20% {
-		background-position: center -720px;
+		background-position: center -720* @virtual_px;
 	}
 	30% {
-		background-position: center -780px;
+		background-position: center -780* @virtual_px;
 	}
 	40% {
-		background-position: center -840px;
+		background-position: center -840* @virtual_px;
 	}
 	50% {
-		background-position: center -900px;
+		background-position: center -900* @virtual_px;
 	}
 	60% {
-		background-position: center -960px;
+		background-position: center -960* @virtual_px;
 	}
 	70% {
-		background-position: center -1020px;
+		background-position: center -1020* @virtual_px;
 	}
 	80% {
-		background-position: center -1080px;
+		background-position: center -1080* @virtual_px;
 	}
 	90% {
-		background-position: center -1140px;
+		background-position: center -1140* @virtual_px;
 	}
 	100% {
-		background-position: center -1140px;
+		background-position: center -1140* @virtual_px;
 	}
 }
 
 @-webkit-keyframes ui-horizontal-show {
 	0% {
-		background-position: -0px center;
+		background-position: -0* @virtual_px center;
 	}
 	10% {
-		background-position: -60px center;
+		background-position: -60* @virtual_px center;
 	}
 	20% {
-		background-position: -120px center;
+		background-position: -120* @virtual_px center;
 	}
 	30% {
-		background-position: -180px center;
+		background-position: -180* @virtual_px center;
 	}
 	40% {
-		background-position: -240px center;
+		background-position: -240* @virtual_px center;
 	}
 	50% {
-		background-position: -300px center;
+		background-position: -300* @virtual_px center;
 	}
 	60% {
-		background-position: -360px center;
+		background-position: -360* @virtual_px center;
 	}
 	70% {
-		background-position: -420px center;
+		background-position: -420* @virtual_px center;
 	}
 	80% {
-		background-position: -480px center;
+		background-position: -480* @virtual_px center;
 	}
 	90% {
-		background-position: -540px center;
+		background-position: -540* @virtual_px center;
 	}
 	100% {
-		background-position: -540px center;
+		background-position: -540* @virtual_px center;
 	}
 }
 
 @-webkit-keyframes ui-horizontal-hide {
 	0% {
-		background-position: -600px center;
+		background-position: -600* @virtual_px center;
 	}
 	10% {
-		background-position: -660px center;
+		background-position: -660* @virtual_px center;
 	}
 	20% {
-		background-position: -720px center;
+		background-position: -720* @virtual_px center;
 	}
 	30% {
-		background-position: -780px center;
+		background-position: -780* @virtual_px center;
 	}
 	40% {
-		background-position: -840px center;
+		background-position: -840* @virtual_px center;
 	}
 	50% {
-		background-position: -900px center;
+		background-position: -900* @virtual_px center;
 	}
 	60% {
-		background-position: -960px center;
+		background-position: -960* @virtual_px center;
 	}
 	70% {
-		background-position: -1020px center;
+		background-position: -1020* @virtual_px center;
 	}
 	80% {
-		background-position: -1080px center;
+		background-position: -1080* @virtual_px center;
 	}
 	90% {
-		background-position: -1140px center;
+		background-position: -1140* @virtual_px center;
 	}
 	100% {
-		background-position: -1140px center;
+		background-position: -1140* @virtual_px center;
 	}
 }
 
