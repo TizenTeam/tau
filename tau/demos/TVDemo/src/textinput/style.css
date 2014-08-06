@@ -1,0 +1,17 @@
+.fieldcontain {
+	padding-bottom: 1.25em;
+}
+
+.fieldcontain label {
+	display: block;
+	font-size: 100%;
+	padding-top: .1em;
+	padding-right: .25em;
+	text-align: right;
+	float: left;
+}
+
+.fieldcontain input,.fieldcontain textarea {
+	display: block;
+	font-size: 100%;
+}

@@ -12,5 +12,14 @@ pkged-demo-apps
 tau/tests/libs/dist
 tau/dist
 tau/node_modules
+tau/.buildpath
+tau/.*project
+tau/demos/TVDemo/.project
+tau/demos/TVDemo/TVDemo.wgt
+tau/demos/TVDemo/.rds_delta
+tau/demos/TVDemo/.sdk_delta.info
+tau/demos/TVDemo/.build/
+tau/demos/TVDemo/.buildpath
+tau/demos/TVDemo/.settings/
 .idea
 node_modules

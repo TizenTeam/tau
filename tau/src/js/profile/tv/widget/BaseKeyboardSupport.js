@@ -64,7 +64,7 @@
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
 			prototype._getActiveLinks = function() {
-				return [].slice.call(this.element.querySelectorAll("a")).filter(function(element){
+				return [].slice.call(this.element.querySelectorAll("a, [tabindex], input, button")).filter(function(element){
 					return element.offsetWidth && element.style.visibility !== "hidden";
 				});
 			};

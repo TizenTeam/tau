@@ -1,0 +1,55 @@
+input[type]:not([type=number]) {
+  background-color: @color_input_bg;
+  color: @color_input_text;
+  text-align: left;
+  vertical-align: middle;
+  font-size: 42 * @virtual_px;
+  font: bold;
+}
+
+input[type]:not([type=number]).small {
+  font-size: 24pt;
+}
+
+input[type=password].pin {
+  background-color: @color_input_bg;
+  color: @color_input_text;
+  text-align: left;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 45 * @virtual_px;
+  font: bold;
+  width: 58 * @virtual_px;
+  height: 58 * @virtual_px;
+}
+
+input[type]:not([type=number]):focus {
+  color: @color_input_text_focus;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+input[type=number] {
+
+  color: @color_input_number_text;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 29 * @virtual_px;
+  font: bold;
+  background: url(images/input/spin_button.png) no-repeat center center;
+  border: @virtual_px solid @color_input_text;
+  padding: 15 * @virtual_px;
+  background-color: @color_input_bg;
+}
+input[type=number]:focus {
+  background-color: @color_input_number_bg_focus;
+  color: @color_input_number_text_focus;
+  border: @virtual_px solid @color_input_number_bg_focus;
+}
+
+.ui-number-input {
+  padding-top: 15 * @virtual_px;
+  padding-bottom: 22 * @virtual_px;
+}

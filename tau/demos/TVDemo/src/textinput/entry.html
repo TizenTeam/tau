@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+		<script build-remove="false">
+			var tauConfig = {
+				autoBuildOnPageChange: true
+			};
+		</script>
+		<title>TV UI</title>
+		<script type="text/javascript" src="../../lib/tau/tv/js/tau.js"
+				data-build-remove="false"></script>
+		<link rel="stylesheet"
+				href="../../lib/tau/tv/theme/default/tau.css">
+		<link rel="stylesheet" href="style.css">
+
+</head>
+<body class="ui-pagecontainer">
+<div class="ui-page"  id="entry-demo" data-role="page">
+		<header class="ui-header">
+			<h2 class="ui-title">Inputs</h2>
+		</header>
+		<div class="ui-content" data-role="content">
+			<div style="padding: 30px;">
+				<div class="fieldcontain">
+					<label for="name">Text Input:</label>
+					<input type="text" name="name" id="name" value=""  />
+				</div>
+				<div class="fieldcontain">
+					<label for="sname">Small Text Input:</label>
+					<input type="text" name="sname" id="name" value="" class="small" />
+				</div>
+				<div class="fieldcontain">
+					<label for="textarea">Textarea:</label>
+					<textarea cols="40" rows="8" name="textarea" id="textarea"></textarea>
+				</div>
+				<div class="fieldcontain">
+					<label for="password">Password:</label>
+					<input type="password" name="password" id="password" value="" />
+				</div>
+				<div class="fieldcontain">
+					<label for="pin">PIN:</label>
+					<input type="password" name="password" id="pin" value="" class="pin" maxlength="1"/>
+				</div>
+				<div class="fieldcontain">
+					<label for="email">Email:</label>
+					<input type="email" name="email" id="email" value="" />
+				</div>
+				<div class="fieldcontain">
+					<label for="url">Url:</label>
+					<input type="url" name="url" id="url" value="" />
+				</div>
+				<div class="fieldcontain">
+					<label for="tel">Tel:</label>
+					<input type="tel" name="tel" id="tel" value="" />
+				</div>
+				<div class="fieldcontain">
+					<label for="number">Number:</label>
+					<input type="number" placeholder="number here" name="number" id="number" value="" min="0" max="100"/>
+				</div>
+			</div>
+		</div><!-- /content -->
+</div><!-- /page -->
+</body>
+</html>
+
