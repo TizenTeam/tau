@@ -495,7 +495,8 @@
 							footerButtonWidth,
 							moreButton,
 							leftButton,
-							rightButton;
+							rightButton,
+							previousElementOfHeaderButton;
 
 						sectionClassList.add(pageClasses.uiPrefix + role);
 
@@ -563,11 +564,14 @@
 											bar: true,
 											role: "button"
 										});
+										previousElementOfHeaderButton = button.previousElementSibling;
 										// @TODO move this calculation after page show
 										headerButtonsWidth += 90;//utilsDOM.getElementWidth(button, true) + 2;
 
 										// Drawer Button does not need to divider
-										if(!button.classList.contains("ui-drawer-button")) {
+										if(!button.classList.contains("ui-drawer-button") &&
+												previousElementOfHeaderButton &&
+												!previousElementOfHeaderButton.classList.contains("ui-header-divider")) {
 											button.insertAdjacentHTML("beforebegin", "<div class='ui-header-divider'></div>");
 										}
 									});
