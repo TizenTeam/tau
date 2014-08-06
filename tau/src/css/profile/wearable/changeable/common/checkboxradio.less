@@ -1,0 +1,65 @@
+input[type="checkbox"],
+input[type="radio"] {
+	box-sizing: border-box;
+	padding: 0;
+	height: 56px;
+	width: 56px;
+	font-size: 32px;
+	-webkit-appearance: none;
+}
+
+input[type="radio"] {
+	background-color: @color_checkboxradio_radiobox;
+	-webkit-mask-image: url(images/Controller_icon/tw_btn_radiobox_holo_dark.png);
+	-webkit-mask-repeat: no-repeat;
+}
+
+input[type="radio"]:checked::before {
+	content: url(images/Controller_icon/tw_btn_radiobox_focus_line.png);
+	padding-top: 29 * @unit_base;
+	background-color: @color_checkboxradio_radio;
+	-webkit-mask-image: url(images/Controller_icon/tw_btn_radio_holo_dark.png);
+	-webkit-mask-repeat: no-repeat;
+}
+input[type="radio"]:active {
+	-webkit-appearance: none;
+	background-color : @color_checkboxradio_radiobox_press;
+	-webkit-mask-image: url(images/Controller_icon/tw_btn_radiobox_holo_dark.png);
+	-webkit-mask-repeat: no-repeat;
+}
+input[type="radio"]:active::before {
+	content: url(images/Controller_icon/tw_btn_radiobox_focus_line.png);
+	padding-top: 29 * @unit_base;
+	background-color: @color_checkboxradio_radio_press;
+	-webkit-mask-image: url(images/Controller_icon/tw_btn_radio_holo_dark.png);
+	-webkit-mask-repeat: no-repeat;
+}
+
+input[type="checkbox"] {
+        -webkit-mask-image: url(images/Controller_icon/tw_btn_checkbox_holo_dark.png);
+        -webkit-mask-repeat: no-repeat;
+        background-color: @color_checkboxradio_checkbox;
+}
+
+input[type="checkbox"]:checked::before {
+        content: url(images/Controller_icon/tw_btn_checkbox_focus_line.png);
+        -webkit-mask-image: url(images/Controller_icon/tw_btn_check_holo_dark.png);
+        -webkit-mask-repeat: no-repeat;
+        padding-top: 29 * @unit_base;
+        background-color: @color_checkboxradio_check;
+}
+
+input[type="checkbox"]:active {
+        -webkit-mask-image: url(images/Controller_icon/tw_btn_checkbox_holo_dark.png);
+        -webkit-mask-repeat: no-repeat;
+        background-color: @color_checkboxradio_checkbox_press;
+}
+
+input[type="checkbox"]:active:checked::before {
+        content: url(images/Controller_icon/tw_btn_checkbox_focus_line.png);
+        -webkit-mask-image: url(images/Controller_icon/tw_btn_check_holo_dark.png);
+        -webkit-mask-repeat: no-repeat;
+        padding-top: 29 * @unit_base;
+        background-color: @color_checkboxradio_check_press;
+}
+
