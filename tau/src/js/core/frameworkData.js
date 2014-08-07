@@ -1,4 +1,4 @@
-/*global window, define*/
+/*global window, define, ns*/
 /*jslint bitwise: true */
 /**
  * #Framework Data Object
@@ -15,28 +15,29 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 
-			var frameworkData = {
+			var slice = Array.prototype.slice,
+				FRAMEWORK_WEBUI = "tizen-web-ui-fw",
+				FRAMEWORK_TAU = "tau",
+				IS_TAU_REGEXP = /(^|[\\\/])(tau(\.min)?\.js)$/,
+				LIB_FILENAME_REGEXP = /(^|[\\\/])((tau(\.min)?\.js)|(tizen-web-ui-fw)(\.custom|\.full)?(\.min)?\.js)$/,
+				CSS_FILENAME_REGEXP = /(^|[\\\/])((tau(\.min)?\.css)|(tizen-web-ui-fw)(\.custom|\.full)?(\.min)?\.css)$/,
+				TIZEN_THEMES_REGEXP = /^(white|black|default)$/i,
+				MINIFIED_REGEXP = /\.min\.js$/,
+				frameworkData = {
 					/**
 					 * The name of framework
 					 * @property {string} frameworkName="tizen-web-ui-fw"
 					 * @member ns.frameworkData
 					 * @static
 					 */
-					frameworkName: "tizen-web-ui-fw",
+					frameworkName: FRAMEWORK_WEBUI,
 					/**
-					 * Determines whether the framework is minified
-					 * @property {boolean} isMinified=false
-					 * @member ns.frameworkData
-					 * @static
-					 */
-					isMinified: false,
-					/**
-					 * The root directory of framework
+					 * The root directory of framework on current device
 					 * @property {string} rootDir="/usr/share/tizen-web-ui-fw"
 					 * @member ns.frameworkData
 					 * @static
 					 */
-					rootDir: "/usr/share/tizen-web-ui-fw",
+					rootDir: "/usr/share/" + FRAMEWORK_WEBUI,
 					/**
 					 * The version of framework
 					 * @property {string} version="latest"
@@ -125,9 +126,7 @@
 					 * @static
 					 */
 					profile: ""
-				},
-
-				MINIFIED_REGEXP = /\.min\.js$/;
+				};
 
 			/**
 			 * Get data-* params from <script> tag, and set tizen.frameworkData.* values
@@ -140,80 +139,114 @@
 			frameworkData.getParams = function() {
 				var self = this,
 					dataPrefix = self.dataPrefix,
-					scriptElement = document.getElementsByTagName("script"),
-					cssElement = document.getElementsByTagName("link"),
-					libFileName = /[\\\/](tau(\.min)?\.js)$|[\\\/](tizen-web-ui-fw)(\.custom|\.full)?(\.min)?\.js$/,
-					cssFileName = /[\\\/](tau(\.min)?\.css)$|[\\\/](tizen-web-ui-fw)(\.custom|\.full)?(\.min)?\.css$/,
-					frameworkName = "tau",
-					profileName = "",
-					isMinified,
-					themePath,
-					themeVersion,
-					jsPath,
-					theme,
-					src,
-					href,
-					idx,
-					elem;
+					scriptElements = slice.call(document.querySelectorAll("script[src]")),
+					cssElements = slice.call(document.styleSheets),
+					theme;
 
-				// Get tau theme version
-				for (idx in cssElement) {
-					if (cssElement.hasOwnProperty(idx)) {
-						elem = cssElement[idx];
-						href = elem.href ? elem.getAttribute("href") : undefined;
-						if (href && cssFileName.test(href)) {
-							if (href.search("default") > -1) {
-								themeVersion = "default";
-							} else {
-								themeVersion = "changeable";
+				/**
+				 * Following cases should be covered here (by recognizing on-page css files).
+				 * The final theme and themePath values are determined after going through all script elements
+				 *
+				 * none                                       -> theme: null
+				 * <link href="theme.css" />                  -> theme: null
+				 * <link href="default/theme.css" />          -> theme: null
+				 * <link href="tau.css" />                    -> theme: null
+				 * <link href="white/tau.min.css" />          -> theme: "white"
+				 * <link href="other/path/black/tau.css" />   -> theme: "black"
+				 * <link href="other/path/black/tau.css" />   -> theme: "black"
+				 * <link href="other/path/black/other.css" /> -> theme: null
+				 * <link href="other/path/black/other.css" data-theme-name="white" />     -> theme: "white"
+				 * @method findThemeInLinks
+				 * @param {CSSStyleSheet} styleSheet
+				 */
+				function findThemeInLinks(styleSheet) {
+					var cssElement = styleSheet.ownerNode,
+						dataThemeName = cssElement.getAttribute("data-theme-name"),
+						// Attribute value is taken because href property gives different output
+						href = cssElement.getAttribute("href"),
+						hrefFragments  = href && href.split('/'),
+						hrefDirPart;
+
+					// If we have the theme name defined we can use it right away
+					// without thinking about the naming convention
+					if (dataThemeName) {
+						theme = dataThemeName;
+					} else if (href && CSS_FILENAME_REGEXP.test(href)) {
+						// We try to find file matching library theme CSS
+						// If we have the theme name defined we can use it right away
+						if (dataThemeName && TIZEN_THEMES_REGEXP.test(dataThemeName)) {
+							theme = dataThemeName;
+						} else {
+							// We can only determine the current theme using path based approach when the .css file
+							// is located in at least one directory
+							if (hrefFragments.length >= 2) {
+								// When the second to last element matches known themes set the theme to that name
+								hrefDirPart = hrefFragments.slice(-2)[0].match(TIZEN_THEMES_REGEXP);
+								theme = hrefDirPart && hrefDirPart[0];
 							}
 						}
 					}
 				}
 
-				for (idx in scriptElement) {
-					if (scriptElement.hasOwnProperty(idx)) {
-						elem = scriptElement[idx];
-						src = elem.src ? elem.getAttribute("src") : undefined;
-						if (src && libFileName.test(src)) {
-							theme = elem.getAttribute("data-framework-theme") || self.theme;
-							if (themeVersion === "changeable")
-								theme = "changeable";
+				/**
+				 * Sets framework data based on found framework library
+				 * @param {HTMLElement} scriptElement
+				 */
+				function findFrameworkDataInScripts(scriptElement) {
+					var src = scriptElement.getAttribute("src"),
+						profileName = "",
+						frameworkName = FRAMEWORK_TAU,
+						themePath,
+						jsPath;
 
-							isMinified = src.search(MINIFIED_REGEXP) > -1 ? true : false;
+					// Check if checked file is a known framework
+					// no need to check if src exists because of the query selector
+					if (LIB_FILENAME_REGEXP.test(src)) {
 
-							if (src.indexOf("tau") > -1 ) {
-								// Get profile name. It can be assumed, that profile name is second up directory name
-								// e.g. pathToLib/profileName/js/tau.js
-								profileName = src.split('/').slice(-3)[0];
+						// Priority:
+						// 1. theme loaded with css
+						// 2. theme from attribute
+						// 3. default theme
+						theme = theme || scriptElement.getAttribute(dataPrefix + "theme") || self.theme;
 
-								// TAU framework
-								themePath = "/" + profileName + "/theme/" + theme.match("black|white|changeable|default")[0];
-								jsPath = "/" + profileName + "/js";
-							} else {
-								// tizen-web-ui framework
-								frameworkName = "tizen-web-ui-fw";
-								themePath = "/latest/themes/" + theme;
-								jsPath = "/latest/js";
-							}
+						theme = theme.toLowerCase();
 
-							self.rootDir = elem.getAttribute(dataPrefix + "root") ||
+						if (IS_TAU_REGEXP.test(src)) {
+							frameworkName = FRAMEWORK_TAU;
+							// Get profile name.
+							// Profile may be defined from framework script or
+							// it can be assumed, that profile name is second up directory name
+							// e.g. pathToLib/profileName/js/tau.js
+							profileName = scriptElement.getAttribute(dataPrefix + "profile") || src.split('/').slice(-3)[0];
+							themePath = "/" + profileName + "/theme/" + theme;
+
+							// TAU framework library link
+							jsPath = "/" + profileName + "/js";
+						} else {
+							// tizen-web-ui framework
+							frameworkName = FRAMEWORK_WEBUI;
+							themePath = "/latest/themes/" + theme;
+							jsPath = "/latest/js";
+						}
+
+						self.rootDir = scriptElement.getAttribute(dataPrefix + "root") ||
 							// remove from src path jsPath and "/" sign
 							src.substring(0, src.lastIndexOf(frameworkName) - jsPath.length - 1) ||
-								self.rootDir;
-							self.themePath = self.rootDir + themePath;
-							self.jsPath = self.rootDir + jsPath;
-							self.version = elem.getAttribute(dataPrefix + "version") || self.version;
-							self.theme = theme;
-							self.frameworkName = frameworkName;
-							self.isMinified = isMinified;
-							self.profile = profileName;
-							return true;
-						}
+							self.rootDir;
+
+						self.themePath = self.rootDir + themePath;
+						self.jsPath = self.rootDir + jsPath;
+						self.version = scriptElement.getAttribute(dataPrefix + "version") || self.version;
+						self.theme = theme;
+						self.frameworkName = frameworkName;
+						self.minified = src.search(MINIFIED_REGEXP) > -1;
+						self.profile = profileName;
 					}
 				}
 
-				return false;
+				cssElements.forEach(findThemeInLinks);
+
+				scriptElements.forEach(findFrameworkDataInScripts);
 			};
 
 			ns.frameworkData = frameworkData;

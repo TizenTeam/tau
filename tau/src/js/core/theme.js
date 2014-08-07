@@ -187,7 +187,7 @@
 					var self = this,
 						themePath = frameworkData.themePath,
 						themeName = "tau",
-						isMinified = frameworkData.isMinified,
+						isMinified = frameworkData.minified,
 						jsPath;
 
 					if (frameworkData.frameworkName !== "tau") {
