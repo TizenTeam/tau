@@ -164,17 +164,14 @@
 					windowWidth = window.innerWidth;
 					drawerElementParent = self.element.parentNode,
 					headerHeight = self._headerElement && self._headerElement.offsetHeight,
-					drawerHeight = drawerElementParent.clientHeight - headerHeight,
 					drawerStyle = self.element.style,
 					overlayStyle = self._drawerOverlay && self._drawerOverlay.style;
 
 				drawerStyle.width = options.width * windowWidth/MAX_WIDTH + "px";
-				drawerStyle.height = drawerHeight + "px";
 				drawerStyle.top = headerHeight || 0 + "px";
 
 				if (overlayStyle) {
 					overlayStyle.width = windowWidth + "px";
-					overlayStyle.height = drawerHeight + "px";
 					overlayStyle.top = headerHeight + "px";
 				}
 

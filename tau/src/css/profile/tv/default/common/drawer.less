@@ -3,7 +3,6 @@
 	margin: 0;
 	background-color : @color_drawer_bg;
 	z-index : 1201;
-	height: 100vh;
 	&.ui-drawer-left {
 		border-right : 1 * @virtual_px solid @color_list_border_bottom;
 		/* drawer right border color same to list border bottom color */
@@ -13,9 +12,10 @@
 	}
 	.ui-listview {
 		margin : 0;
-		height: 100vh;
 		float: left;
+		height: 100vh;
 		width: 270 * @virtual_px;
+		overflow-y: scroll;
 
 
 		.ui-li.ui-btn-up-s {
