@@ -371,20 +371,27 @@
 
 				if (options.filter) {
 					wrapper = document.createElement("form");
+
+					wrapper.setAttribute("role", "search");
+					wrapper.setAttribute("id", id + "-form");
+
 					wrapperClass = wrapper.classList;
 					wrapperClass.add(classes.uiListviewFilter);
 					wrapperClass.add(classes.uiBarPrefix + options.filterTheme);
-					wrapper.setAttribute("role", "search");
-					wrapper.setAttribute("id", id + "-form");
+
+					if (options.inset) {
+						wrapperClass.add(classes.uiListviewFilterInset);
+					}
+
 					search = document.createElement("input");
 					search.setAttribute("placeholder", options.filterPlaceholder);
 					search.setAttribute("type", "search");
-					DOM.getNSData(search, "lastval", "");
 					search.setAttribute("id", id + "-search");
+
+					DOM.setNSData(search, "lastval", "");
+
 					wrapper.appendChild(search);
-					if (options.inset) {
-						wrapperClass.add(options.uiListviewFilterInset);
-					}
+
 					DOM.insertNodesBefore(element, wrapper);
 					engine.instanceWidget(search, "SearchBar");
 				}
