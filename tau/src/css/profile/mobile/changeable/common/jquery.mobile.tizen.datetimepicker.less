@@ -165,7 +165,12 @@
 		margin-top: -10 * @unit_base_datetimepicker;
 	}
 
+	&.ui-popup-window {
+		background: @color_timepicker_selector_color;
+	}
+
 	.ui-popupwindow-padding {
+		background: inherit !important;
 		border-radius: 0 !important;
 		-ms-border-radius: 0 !important;
 		-o-border-radius: 0 !important;
@@ -178,6 +183,11 @@
 		div {
 			height: 53 * @unit_base;
 		}
+	}
+
+	.ui-arrow {
+		border: 0;
+		z-index: 1;
 	}
 }
 
