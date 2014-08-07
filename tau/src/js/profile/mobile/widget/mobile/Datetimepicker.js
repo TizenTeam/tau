@@ -626,7 +626,7 @@
 					divCircularviewContainer.appendChild(divCircularview);
 					divCircularviewContainer.style.overflow = 'hidden';
 					// @TODO quich fix, change to proper width
-					divCircularviewContainer.style.width = '360px';
+					divCircularviewContainer.style.width = window.innerWidth +"px";
 					ctxElement = ctx.element;
 					ctxElement.parentNode.classList.add(classes.uiDatetimepicker);
 					divCircularview.setAttribute('data-list', ">li");
