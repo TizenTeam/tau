@@ -71,6 +71,7 @@ jobs = {
 		webapp,
 		[
 			SrcDest("tau/dist/wearable", "Altimeter/lib/tau/wearable"),
+			SrcDest("tau/dist/wearable", "AppController/lib/tau/wearable"),
 			SrcDest("tau/dist/wearable", "Calendar/lib/tau/wearable"),
 			SrcDest("tau/dist/wearable", "Camera/lib/tau/wearable"),
 			SrcDest("tau/dist/wearable", "DigitalAlarmLED/lib/tau/wearable"),
@@ -84,6 +85,8 @@ jobs = {
 			SrcDest("tau/dist/wearable", "Weather/lib/tau/wearable"),
 			SrcDest("tau/dist/wearable", "Pedometer/lib/tau/wearable"),
 			SrcDest("tau/dist/wearable", "StopWatch/lib/tau/wearable"),
+			SrcDest("tau/dist/wearable", "WatchOnWeb/lib/tau/wearable"),
+			SrcDest("tau/dist/wearable", "VoiceRecorder/lib/tau/wearable"),
 		], ["cd web-ui-fw/tau", "grunt build"])
 
 }
