@@ -142,8 +142,8 @@
 					dataPrefix = self.dataPrefix,
 					scriptElement = document.getElementsByTagName("script"),
 					cssElement = document.getElementsByTagName("link"),
-					libFileName = "(tau(.min)?.js|tizen-web-ui-fw(.custom|.full)?(.min)?.js)",
-					cssFileName = "(tau(.min)?.css|tizen-web-ui-fw(.custom|.full)?(.min)?.css)",
+					libFileName = /[\\\/](tau(\.min)?\.js)$|[\\\/](tizen-web-ui-fw)(\.custom|\.full)?(\.min)?\.js$/,
+					cssFileName = /[\\\/](tau(\.min)?\.css)$|[\\\/](tizen-web-ui-fw)(\.custom|\.full)?(\.min)?\.css$/,
 					frameworkName = "tau",
 					profileName = "",
 					isMinified,
@@ -161,7 +161,7 @@
 					if (cssElement.hasOwnProperty(idx)) {
 						elem = cssElement[idx];
 						href = elem.href ? elem.getAttribute("href") : undefined;
-						if (href && href.match(cssFileName)) {
+						if (href && cssFileName.test(href)) {
 							if (href.search("default") > -1) {
 								themeVersion = "default";
 							} else {
@@ -175,8 +175,7 @@
 					if (scriptElement.hasOwnProperty(idx)) {
 						elem = scriptElement[idx];
 						src = elem.src ? elem.getAttribute("src") : undefined;
-
-						if (src && src.match(libFileName)) {
+						if (src && libFileName.test(src)) {
 							theme = elem.getAttribute("data-framework-theme") || self.theme;
 							if (themeVersion === "changeable")
 								theme = "changeable";
