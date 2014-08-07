@@ -46,11 +46,11 @@
 					version: "latest",
 					/**
 					 * The theme of framework
-					 * @property {string} theme="tizen-black"
+					 * @property {string} theme="default"
 					 * @member ns.frameworkData
 					 * @static
 					 */
-					theme: "tizen-black",
+					theme: "default",
 					/**
 					 * The default width of viewport in framework.
 					 * @property {number} defaultViewportWidth=360
