@@ -23,6 +23,10 @@
         padding-bottom: 5px;
         min-height: 90px;
 }
+.ui-listview li.li-has-radio.disabled,
+.ui-listview li.li-has-radio.disabled > *,
+.ui-listview li.li-has-checkbox.disabled,
+.ui-listview li.li-has-checkbox.disabled > *,
 .ui-listview li.li-has-multiline.disabled,
 .ui-listview li.li-has-multiline.disabled > *,
 .ui-listview li.li-has-multiline-sup.disabled,
