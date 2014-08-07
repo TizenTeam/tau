@@ -1,4 +1,80 @@
 %changelog
+* Tue Aug 07 2014 Hyeoncheol Choi <hc7.choi@samsung.com> 0.9.9
+	- Popup: adds events popupshow/popuphide in mobile profile
+	- modify release sync script
+	- Button: fix problem with events for buttonMarkup
+	- Wearable: modification for popup and router
+	- VirtualList: the issue with jump to the last position of list
+	- Drawer : fixed Drawer-right overflow issue in some browser
+	- [BUG] SectionChanger refresh is not work correctly.
+	- [BUG] SectionChanger enable/disable function is not work correctly.
+	- [SectionChanger] fixed bouncing effect on 360 device.
+	- Wearable Popup: apply latest UX of popup widget
+	- MobileWinset: hwkey event handler and list-select-check javascript code
+	- Wearable: Add image for checkboxradio
+	- Swipe: documentation
+	- page, popup: fix simple errors in documentation
+	- Searchbar : fixed searchbar button layout, operation bugs
+	- Revert "[TAU KIRAN] sync listview style for UX guide"
+	- [BUG] list vi: fix problem with bottom border
+	- [TAU KIRAN] sync listview style for UX guide
+	- util: documentation for zoom
+	- package : default theme change black to changeable
+	- ProgressBar: change name of widget in data-role
+	- Mobile Widgets: fixes in documentation and move object ui to protected visibility
+	- docs generator: divide methods for class methods and inherited methods
+	- images : delete unneccessary images (bouncing effect)
+	- [BUG] tokentextarea: fix problem with button in popup in tokentextarea
+	- [BUG] Fix Tokentextarea bugs:
+	- [BUG] toggle switch: fix problem with widget on list
+	- [BUG] context popup: fix problem with bottom border
+	- [BUG] popup: fix problem with position of popup in TizenSlider
+	- [BUG-LINUXTWUI-1257] : "all the contents are placing a bit downward."
+	- [BUG-LINUXTWUI-1241] : header's button has bottom space when clicked.
+	- [BUG] context popup: fix problem with popup positioned to orgin
+	- Revert "[TAU KIRAN] add xml files for Changeable Theme"
+	- documentation tests: fix check object properties
+	- Docs generator: new features
+	- Page: add notices tags in documentation
+	- ListView: issue fix - sub text is not center
+	- Drawer: fix problem with background color
+	- Changeable UI: modify Winset->Searchbar for changeable
+	- [TAU KIRAN] add xml files for Changeable Theme
+	- [BUG] listdivider: fix problem with changing color on pressing
+	- VirtualListview: added scrollToIndex method
+	- Tokentextarea: fix settings width tokens after remove
+	- [BUG] SearchFilterBar fix bugs : Cancel button has wired stuff on the edge.
+	- DeviceViewer: added grunt build mechanism
+	- Many modules: fix class descriptions
+	- many modules: fix simple errors in documentation
+	- documentation: fixes in many modules
+	- [BUG-LINUXTWUI-1243] : footer button - two buttons are overlapped.
+	- nine-patch: modify directory for nine-patch
+	- util: data, deffered, deferredWhen, globalize, grid, load documentation
+	- theme, frameworkData: documentation
+	- wearable.router: documentation
+	- [WEARABLE] PageContainer: fix for method 'change'
+	- Tabbar : modify tabbar sample code
+	- util: anchorHighlight, array, bezierCurve, callbacks, color documentation
+	- scrollhandler: documentation
+	- gallery: documentation for protected and private methods
+	- core.event.gesture: fill inline documentation (LINUXTWUI-1227)
+	- jQM: fix errors in documentation
+	- event namespace: fill documentation for public methods and properties
+	- TextInput: documentation, change name of widget from Textinput to TextInput
+	- TabBar: documentation, change name of widget from Tabbar to TabBar
+	- Wearable: resize checkbox-radio
+	- ProgressBar: documentation, change name of widget from Progressbar to ProgressBar
+	- util.DOM documentation
+	- [WEARABLE] widgets: documentation
+	- SelectMenu: documentation, change name of widget from Selectmenu to SelectMenu
+	- [BUG] SearchFilterBar fix bugs:
+	- [BUG-LINUXTWUI-1240] : 1px margin exists when toggle on.
+	- Progress: documentation
+	- slider: documentation
+	- tizenslider: documentation
+	- NavBar: documentation, change name of widget from Navbar to NavBar
+
 * Tue Jul 22 2014 Heeju Joo <heeju.joo@samsung.com> 0.9.8
 	- Wearable : Fixed unexpected bouncing effect
 	- dialog: fix problems with closing and destroying dialog
