@@ -388,7 +388,7 @@
 						if (path.isEmbeddedPage(urlObject, dialogHashKey)) {
 							// For embedded pages, remove the dialog hash key as in getFilePath(),
 							// otherwise the Data Url won't match the id of the embedded Page.
-							return urlObject.hash.replace(/^#|\?.*$/g, "");
+							return path.getFilePath(urlObject.hash, dialogHashKey);
 						}
 						documentBase = documentBase || path.documentBase;
 						if (path.isSameDomain(urlObject, documentBase)) {

@@ -220,7 +220,7 @@
 				// injected by a developer, in which case it would be lacking a data-url
 				// attribute and in need of enhancement.
 				if (!page && (dataUrl && !path.isPath(dataUrl))) {
-					page = document.getElementById(dataUrl);
+					page = document.getElementById(dataUrl.replace(/^#/, ""));
 					if (page) {
 						// The page can be in our DOM, but its current url can be different than
 						// target page, so we are checking if the page uri matches desired location.

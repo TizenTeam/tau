@@ -327,7 +327,7 @@
 						eventUtils.trigger(self.container.element, "changefailed", options);
 					};
 					if (typeof to === "string") {
-						if (to.replace(/[#|\s]/g, "")) {
+						if (to.replace(/[\s]/g, "")) {
 							this._loadUrl(to, options, rule, deferred);
 						}
 					} else {

@@ -368,8 +368,8 @@
 					if (continuation) {
 						pageUrl = DOM.getNSData(toPage, "url");
 						if (!pageUrl) {
-							DOM.setNSData(toPage, "url", toPage.id);
-							pageUrl = toPage.id;
+							pageUrl = "#" + toPage.id;
+							DOM.setNSData(toPage, "url", pageUrl);
 						}
 
 						pageUrl = DOM.getNSData(toPage, "url");
