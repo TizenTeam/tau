@@ -554,10 +554,6 @@
 
 								headerButtons = selectors.getChildrenBySelector(section, "a,[data-role='button']");
 								if (headerButtons.length) {
-									// Header button click area height same to header height
-									// But, divider, it is located between buttons height, has different height for a button.
-									// So, we need to add divider div element between button elements.
-									// NOTE. Header has buttons maximum 2 elements.
 									headerButtons.forEach(function (button) {
 										engine.instanceWidget(button, "Button", {
 											corners: false,
@@ -568,12 +564,6 @@
 										// @TODO move this calculation after page show
 										headerButtonsWidth += 90;//utilsDOM.getElementWidth(button, true) + 2;
 
-										// Drawer Button does not need to divider
-										if(!button.classList.contains("ui-drawer-button") &&
-												previousElementOfHeaderButton &&
-												!previousElementOfHeaderButton.classList.contains("ui-header-divider")) {
-											button.insertAdjacentHTML("beforebegin", "<div class='ui-header-divider'></div>");
-										}
 									});
 								}
 								if (section.querySelector("." + pageClasses.uiTitleTextSub)) {
