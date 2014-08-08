@@ -378,13 +378,6 @@
 					textpos = links[0].innerHTML.length ? true : false;
 				}
 
-				if (li.length > 4) {
-					// tabbar elements should be showed maximum forth elements.
-					this._setWidth(li, window.innerWidth / 4);
-				} else {
-					this._setWidth(li, window.innerWidth / li.length);
-				}
-
 				if (headers.length && scrollview) {
 					li.forEach(function (item) {
 						item.classList.add(classes.tabbarScrollLi);
@@ -477,7 +470,17 @@
 			 */
 			TabBar.prototype._init = function (element) {
 				var tabbarClassList = element.classList,
-					isLandscape = window.innerWidth > window.innerHeight;
+					li = slice.call(element.getElementsByTagName("li")),
+					innerWidth = window.innerWidth,
+					innerHeight = window.innerHeight,
+					isLandscape = innerWidth > innerHeight;
+
+				if (li.length > 4) {
+					// tabbar elements should be showed maximum forth elements.
+					this._setWidth(li, innerWidth / 4);
+				} else {
+					this._setWidth(li, innerWidth / li.length);
+				}
 
 				if (isLandscape) {
 					tabbarClassList.remove(classes.uiPortraitTabbar);
