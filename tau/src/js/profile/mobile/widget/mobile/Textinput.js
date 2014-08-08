@@ -214,8 +214,17 @@
 					clearHidden: "ui-input-clear-hidden"
 				},
 				/**
+				 * Selector for clear button appended to textinput
+				 * @property {string} CLEAR_BUTTON_SELECTOR
+				 * @member ns.widget.mobile.TextInput
+				 * @static
+				 * @private
+				 * @readonly
+				 */
+				CLEAR_BUTTON_SELECTOR = '.' + classes.clear,
+				/**
 				 * Alias for {ns.widget.mobile.Button.classes.uiDisabled}
-				 * @property {Object} CLASS_DISABLED
+				 * @property {string} CLASS_DISABLED
 				 * @member ns.widget.mobile.TextInput
 				 * @static
 				 * @private
@@ -482,6 +491,18 @@
 			}
 
 			/**
+			* Configure TextInput Widget
+			* @method _configure
+			* @member ns.widget.mobile.TextInput
+			* @protected
+			*/
+			TextInput.prototype._configure = function () {
+				var self= this;
+
+				self._ui = self._ui || {};
+			}
+
+			/**
 			* build TextInput Widget
 			* @method _build
 			* @param {HTMLElement} element
@@ -499,7 +520,6 @@
 					clearButton,
 					ui;
 
-				self._ui = self._ui || {};
 				ui = self._ui;
 
 				options.theme = themes.getInheritedTheme(element) || options.theme;
@@ -553,8 +573,13 @@
 			* @protected
 			*/
 			TextInput.prototype._init = function (element) {
-				if (this._ui.clearButton) {
-					toggleClearButton(this._ui.clearButton, element);
+				var self = this,
+					options = self.options;
+				if (options.clearBtn) {
+					self._ui.clearButton = element.parentNode.querySelector(CLEAR_BUTTON_SELECTOR);
+					if (self._ui.clearButton) {
+						toggleClearButton(self._ui.clearButton, element);
+					}
 				}
 				return element;
 			};
