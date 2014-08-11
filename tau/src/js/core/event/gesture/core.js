@@ -58,8 +58,8 @@
 			 * @static
 			 */
 			Gesture.Orientation = {
-				VERTICAL: 1,
-				HORIZONTAL: 2
+				VERTICAL: "vertical",
+				HORIZONTAL: "horizontal"
 			};
 
 			/**
@@ -73,10 +73,10 @@
 			 * @static
 			 */
 			Gesture.Direction = {
-				UP: 1,
-				DOWN: 2,
-				LEFT: 3,
-				RIGHT: 4
+				UP: "up",
+				DOWN: "down",
+				LEFT: "left",
+				RIGHT: "right"
 			};
 
 			/**

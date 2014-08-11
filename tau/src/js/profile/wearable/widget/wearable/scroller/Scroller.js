@@ -71,8 +71,8 @@
 				};
 
 			Scroller.Orientation = {
-				VERTICAL: 1,
-				HORIZONTAL: 2
+				VERTICAL: "vertical",
+				HORIZONTAL: "horizontal"
 			};
 
 			prototype._build = function (element) {
