@@ -932,6 +932,7 @@
 				uiPopupContainer: "ui-popup-container",
 				uiPopupWindow: "ui-popup-window",
 				uiPopupWindowPadding: "ui-popupwindow-padding",
+				uiCtxpopupScreen: "ui-ctxpopup-screen",
 				uiCtxpopupContainer: "ui-ctxpopup-container",
 				uiSelectmenuHidden: "ui-selectmenu-hidden",
 				uiArrow: "ui-arrow",
@@ -1460,6 +1461,8 @@
 						if (uiArrow.style.display !== "none") {
 							correctionValue = this._setArrowPosition(arrowType, positionToElement, left, top, positionToElementOffset);
 						}
+					} else {
+						top = null;
 					}
 				} else {
 					// position to element which matches to options.positionTo selector
@@ -1469,8 +1472,12 @@
 					left = desired.left;
 				}
 
-				uiContainerStyle.left = left + correctionValue[0] + "px";
-				uiContainerStyle.top = top + correctionValue[1] + "px";
+				if ( top ) {
+					uiContainerStyle.left = left + correctionValue[0] + "px";
+					uiContainerStyle.top = top + correctionValue[1] + "px";
+				} else {
+					uiContainerStyle.bottom = "0";
+				}
 			};
 
 			/**
@@ -1499,6 +1506,7 @@
 					}
 					if (position === "origin") {
 						ui.arrow.style.display = "initial";
+						ui.screen.classList.add(classes.uiCtxpopupScreen);
 					} else {
 						ui.arrow.style.display = "none";
 					}

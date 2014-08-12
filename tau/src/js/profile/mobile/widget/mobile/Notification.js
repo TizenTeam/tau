@@ -188,6 +188,7 @@
 		[
 			"../../../../core/engine",
 			"../../../../core/util/selectors",
+			"../../../../core/util/DOM",
 			"../../../../core/theme",
 			"../mobile", // fetch namespace
 			"./BaseWidgetMobile",
@@ -219,6 +220,7 @@
 				 * @private
 				 */
 				selectors = ns.util.selectors,
+				doms = ns.util.DOM,
 				/**
 				 * @property {Object} themes Alias for class ns.theme
 				 * @member ns.widget.mobile.Notification
@@ -400,8 +402,6 @@
 					//Add classes to element and hide second element
 					texts[0].classList.add(classes.uiSmallpopupTextBg);
 					texts[1].style.display = "none";
-
-					this._positionWidget();
 				}
 				element.appendChild(notifyWrapper);
 				uiElements.texts = texts;
@@ -612,15 +612,21 @@
 				var pages = document.body.getElementsByClassName(Page.classes.uiPageActive),
 					footers,
 					footerHeight = 0,
-					wrapper = this._ui.wrapper;
+					pageWidth = 0,
+					wrapper = this._ui.wrapper,
+					wrapperStyle = wrapper.style,
+					wrapperWidth = 0;
 
 				if (typeof pages[0] === "object") {
 					footers = selectors.getChildrenByClass(pages[0], "ui-footer");
+					pageWidth = pages[0].offsetWidth;
 					if (typeof footers[0] === "object") {
 						footerHeight = footers[0].offsetHeight;
 					}
 				}
-				wrapper.style.bottom = footerHeight + (footerHeight > 0 ? "px" : "");
+				wrapperWidth = doms.getCSSProperty(wrapper, "width", 0, "float") + doms.getCSSProperty(wrapper, "padding-left", 0, "float") + doms.getCSSProperty(wrapper, "padding-right", 0, "float");
+				wrapperStyle.left = (pageWidth - wrapperWidth)/2 + "px";
+				wrapperStyle.bottom = footerHeight + (footerHeight > 0 ? "px" : "");
 			};
 
 			/**
@@ -658,14 +664,14 @@
 					this.refresh();
 					return;
 				}
+				wrapperClassList.add(classes.uiNotificationShow);
+				wrapperClassList.remove(classes.uiNotificationHide);
+				wrapperClassList.remove(classes.uiNotificationFix);
 
 				if (this.options.type !== "ticker") {
 					this._positionWidget();
 				}
 
-				wrapperClassList.add(classes.uiNotificationShow);
-				wrapperClassList.remove(classes.uiNotificationHide);
-				wrapperClassList.remove(classes.uiNotificationFix);
 				this._setCloseInterval();
 				this.running = true;
 			};
