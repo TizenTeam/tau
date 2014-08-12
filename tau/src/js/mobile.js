@@ -106,6 +106,7 @@
 			"./profile/mobile/widget/mobile/ScrollHandler",
 			"./profile/mobile/widget/mobile/Drawer",
 			"./profile/mobile/widget/mobile/ToggleSwitch",
+			"./profile/mobile/widget/mobile/Navigation",
 			"./profile/mobile/expose",
 			// default theme
 			"../css/profile/mobile/changeable/theme-changeable/theme",
