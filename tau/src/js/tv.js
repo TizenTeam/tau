@@ -30,6 +30,7 @@
 			"./profile/tv/widget/TextInput",
 			"./profile/tv/widget/Listdivider",
 			"./profile/tv/widget/Checkboxradio",
+			"./profile/tv/widget/Progress",
 			// Modules to be loaded after
 			"./core/init"
 		],

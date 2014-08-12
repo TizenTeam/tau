@@ -6,16 +6,20 @@
 	from {background-image: url('./images/Progress/tw_progressbar_indeterminate1_holo_dark.png');}
 	to {background-image: url('./images/Progress/tw_progressbar_indeterminate2_holo_dark.png');}
 }
+@-webkit-keyframes rotating {
+	from { -webkit-transform: rotate(0deg); }
+	to { -webkit-transform: rotate(360deg); }
+}
 
 progress {
 	position: relative;
-	padding-left: 16 * @unit_base;
-	padding-right:16 * @unit_base;
-	margin-top: 14 * @unit_base;
-	margin-bottom: 14 * @unit_base;
+	padding-left: 16 * @virtual_px;
+	padding-right:16 * @virtual_px;
+	margin-top: 14 * @virtual_px;
+	margin-bottom: 14 * @virtual_px;
 	color: @color_progressbar_text;
 	width: 100%;
-	height: 6 * @unit_base;
+	height: 6 * @virtual_px;
 	-webkit-appearance: none;
 	border: none;
 }
@@ -23,14 +27,14 @@ progress {
 progress::-webkit-progress-bar {
 	position: relative;
 	background-color: @color_progressbar_normal_bg;
-	border-radius: 2 * @unit_base;
+	border-radius: 2 * @virtual_px;
 	overflow: hidden;
 }
 
 progress::-webkit-progress-value {
 	background-color: @color_progressbar_value_bg;
-	height:6 * @unit_base;
-	border-radius: 2 * @unit_base;
+	height:6 * @virtual_px;
+	border-radius: 2 * @virtual_px;
 	overflow: hidden;
 }
 progress.ui-progress-indeterminate::-webkit-progress-value {
@@ -43,16 +47,34 @@ progress.ui-progress-indeterminate::-webkit-progress-value {
 	display: inline-block;
 	float: left;
 	font-size: @fixed_progress_proportion_font_size;
-	padding-left: 16 * @unit_base;
-	padding-right: 16 * @unit_base;
-	margin-top: -10 * @unit_base;
+	padding-left: 16 * @virtual_px;
+	padding-right: 16 * @virtual_px;
+	margin-top: -10 * @virtual_px;
 }
 
 .ui-progress-ratio {
 	display: inline-block;
 	float: right;
 	font-size: @fixed_progress_ratio_font_size;
-	padding-left: 16 * @unit_base;
-	padding-right: 16 * @unit_base;
-	margin-top: -10 * @unit_base;
+	padding-left: 16 * @virtual_px;
+	padding-right: 16 * @virtual_px;
+	margin-top: -10 * @virtual_px;
+}
+
+.ui-progress-processing {
+	background-image: url("./images/Progress/tw_widget_popup_activity.png");
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	-webkit-animation: rotating 1s linear infinite;
+	width:80 * @virtual_px;
+	height:80 * @virtual_px;
+	margin: 0 auto;
+	margin-top: 34 * @virtual_px;
+	margin-bottom: 14 * @virtual_px;
+}
+.ui-processing-text {
+	margin: 0 auto;
+	text-align: center;
+	width: 168 * @virtual_px;
+	font-size: 24 * @virtual_px;
 }
