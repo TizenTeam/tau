@@ -82,8 +82,8 @@
 	[data-role="button"] {
 		&:not(.ui-slider-handle) {
 			position: absolute;
-			top: 7 * @unit_base;
-			right: 13 * @unit_base;
+			top: 20 * @unit_base;
+			right: 15 * @unit_base;
 			margin: 0;
 			}
 	}
@@ -91,6 +91,41 @@
 		position: absolute;
 		top: 10 * @unit_base;
 		right: 13 * @unit_base;
+	}
+	.ui-btn-icon_only {
+		&.ui-btn-up-s,&.ui-btn-hover-s,&.ui-btn-down-s {
+			.ui-btn-inner.ui-btn-icon-only {
+				padding: 0;
+				width: 45 * @unit_base;
+				height: 45 * @unit_base;
+				top: 0;
+				.ui-icon {
+					width: 45 * @unit_base;
+					height: 45 * @unit_base;
+					margin-top: 0;
+					top: 0;
+					left: 0;
+				}
+			}
+		}
+		&.ui-btn-up-s,&.ui-btn-hover-s {
+			.ui-btn-inner.ui-btn-icon-only {
+				&:not(.ui-btn-corner-circle) {
+					.ui-icon {
+						background-color: @color_button_icon_nobg;
+					}
+				}
+			}
+		}
+		&.ui-btn-down-s {
+			.ui-btn-inner.ui-btn-icon-only {
+				&:not(.ui-btn-corner-circle) {
+					.ui-icon {
+						background-color: @color_button_icon_nobg_press;
+					}
+				}
+			}
+		}
 	}
 }
 /******************* list have left thumbnail image ********************/

@@ -10,10 +10,10 @@
 @width_buttonEdit:	@height_buttonEdit;
 
 .ui-btn {
-		display: block; 
-		text-align: center; 
+		display: block;
+		text-align: center;
 		cursor:pointer;
-		position: relative; 
+		position: relative;
 		vertical-align: middle;
 } /* wongi_1018 : For button align. */
 
@@ -38,7 +38,7 @@
 	display: block;
 	position: relative;
 	zoom: 1;
-	line-height: 26 * @unit_base;
+	line-height: 38 * @unit_base;
 
 	.LESStext-ellipsis();
 }
@@ -101,7 +101,7 @@
 
 .ui-btn .ui-btn-inner.ui-btn-hastxt span.ui-btn-text
 {
-	line-height: 26 * @unit_base;
+	line-height: 38 * @unit_base;
 }
 
 .ui-li .ui-btn.ui-btn-icon_only
@@ -112,7 +112,7 @@
 
 .ui-li .ui-btn .ui-btn-inner.ui-btn-hastxt
 {
-	padding: 5 * @unit_base 10 * @unit_base;
+	padding: 4 * @unit_base 10 * @unit_base;
 }
 .ui-btn-icon-nobg.ui-btn-down-s .ui-btn-inner
 {
@@ -120,7 +120,13 @@
 }
 .ui-btn-box-s.ui-btn-up-s,
 .ui-btn-box-s.ui-btn-hover-s {
-	.LESSbutton_up_style();
+
+
+
+	&:not(.ui-btn-icon_only) {
+		.core_button_bg();
+		background-color: @color_button_bg;
+	}
 
 	&:not([data-style="nobg"]) .ui-icon {
 		background-color: @color_button_icon;
@@ -137,21 +143,26 @@
 	}
 }
 .ui-btn-box-s.ui-btn-down-s {
-	background: @color_button_bg_press;
+
 	text-shadow: none;
 
+	&:not(.ui-btn-icon_only) {
+		.core_button_bg_pressed();
+		background-color: @color_button_bg_press;
+	}
+
 	&:not([data-style="nobg"]) .ui-icon {
-		background-color: @color_button_icon_press;
+		background-color: @color_button_icon;
 	}
 	&[data-style="nobg"] .ui-icon {
-		background-color: @color_button_icon_nobg_press;
+		background-color: @color_button_icon_nobg;
 	}
 	&[data-icon="plus"] .ui-icon {
-		background-color: @color_button_add_press;
+		background-color: @color_button_add;
 	}
 	&[data-icon="alert"] .ui-icon,
 	&[data-icon="minus"] .ui-icon {
-		background-color: @color_button_warning_press;
+		background-color: @color_button_warning;
 		text-shadow: none;
 	}
 }
@@ -216,8 +227,8 @@
 .tizen-icon-common
 {
 	/* Overlap original property */
-	width: 22 * @unit_base;
-	height: 22 * @unit_base;
+	width: 46 * @unit_base;
+	height: 46 * @unit_base;
 }
 .tizen-smallicon-common
 {
@@ -239,69 +250,56 @@
 
 .ui-icon-bg {
 	.tizen-icon-common;
-	background-image: url(images/00_circle_button_ef.png);
-	-webkit-mask-image: url(images/00_circle_button_ef.png), url(images/00_circle_button_bg.png);
+	-webkit-mask-image: url(images/00_circle_button_bg.png);
 	z-index:0;
 }
 .ui-icon-arrow-l {
 	.tizen-icon-common;
-	background-image: url(images/controls/button/00_button_left_ef.png);
-	-webkit-mask-image: url(images/controls/button/00_button_left_ef.png), url(images/controls/button/00_button_left.png);
+	-webkit-mask-image: url(images/controls/button/00_button_left.png);
 }
 .ui-icon-arrow-r {
 	.tizen-icon-common;
-	background-image: url(images/controls/button/00_button_right_ef.png);
-	-webkit-mask-image: url(images/controls/button/00_button_right_ef.png), url(images/controls/button/00_button_right.png);
+	-webkit-mask-image: url(images/controls/button/00_button_right.png);
 }
 .ui-icon-arrow-u {
 	.tizen-icon-common;
-	background-image: url(images/controls/button/00_button_expand_opened_ef.png);
-	-webkit-mask-image: url(images/controls/button/00_button_expand_opened_ef.png), url(images/controls/button/00_button_expand_opened.png);
+	-webkit-mask-image: url(images/controls/button/00_button_expand_opened.png);
 }
 .ui-icon-arrow-d {
 	.tizen-icon-common;
-	background-image: url(images/controls/button/00_button_expand_closed_ef.png);
-	-webkit-mask-image: url(images/controls/button/00_button_expand_closed_ef.png), url(images/controls/button/00_button_expand_closed.png);
+	-webkit-mask-image: url(images/controls/button/00_button_expand_closed.png);
 }
 .ui-icon-delete {
 	.tizen-icon-common;
-	background-image: url(images/controls/button/00_button_expand_cancel_ef.png);
-	-webkit-mask-image: url(images/controls/button/00_button_expand_cancel_ef.png), url(images/controls/button/00_button_expand_cancel.png);
+	-webkit-mask-image: url(images/controls/button/00_button_expand_cancel.png);
 }
 .ui-icon-plus {
 	.tizen-icon-common;
-	background-image: url(images/controls/button/00_button_add_ef.png);
-	-webkit-mask-image: url(images/controls/button/00_button_add_ef.png), url(images/controls/button/00_button_add.png);
+	-webkit-mask-image: url(images/controls/button/00_button_add.png);
 }
 .ui-icon-minus {
 	.tizen-icon-common;
-	background-image: url(images/controls/button/00_button_delete_ef.png);
-	-webkit-mask-image: url(images/controls/button/00_button_delete_ef.png), url(images/controls/button/00_button_delete.png);
+	-webkit-mask-image: url(images/controls/button/00_button_delete.png);
 }
 .ui-icon-forward {
 	.tizen-icon-common;
-	background-image: url(images/controls/button/00_button_expand_send_ef.png);
-	-webkit-mask-image: url(images/controls/button/00_button_expand_send_ef.png), url(images/controls/button/00_button_expand_send.png);
+	-webkit-mask-image: url(images/controls/button/00_button_expand_send.png);
 }
 .ui-icon-alert {
 	.tizen-icon-common;
-	background-image: url(images/controls/button/00_button_warning_ef.png);
-	-webkit-mask-image: url(images/controls/button/00_button_warning_ef.png), url(images/controls/button/00_button_warning.png);
+	-webkit-mask-image: url(images/controls/button/00_button_warning.png);
 }
 .ui-icon-info {
 	.tizen-icon-common;
-	background-image: url(images/controls/button/00_button_info_ef.png);
-	-webkit-mask-image: url(images/controls/button/00_button_info_ef.png), url(images/controls/button/00_button_info.png);
+	-webkit-mask-image: url(images/controls/button/00_button_info.png);
 }
 .ui-icon-call {
 	.tizen-icon-common;
-	background-image: url(images/controls/button/00_button_call_ef.png);
-	-webkit-mask-image: url(images/controls/button/00_button_call_ef.png), url(images/controls/button/00_button_call.png);
+	-webkit-mask-image: url(images/controls/button/00_button_call.png);
 }
 .ui-icon-rename {
 	.tizen-icon-common;
-	background-image: url(images/controls/button/00_button_rename_ef.png);
-	-webkit-mask-image: url(images/controls/button/00_button_rename_ef.png), url(images/controls/button/00_button_rename.png);
+	-webkit-mask-image: url(images/controls/button/00_button_rename.png);
 }
 .ui-icon-star {
 	.tizen-icon-common;
@@ -322,32 +320,26 @@
 
 .ui-icon-check {
 	.tizen-icon-common;
-	background-image: url(images/controls/button/00_button_check.png);
 	-webkit-mask-image: url(images/controls/button/00_button_check.png);
 }
 .ui-icon-gear {
 	.tizen-icon-common;
-	background-image: url(images/controls/button/00_button_gear.png);
 	-webkit-mask-image: url(images/controls/button/00_button_gear.png);
 }
 .ui-icon-refresh {
 	.tizen-icon-common;
-	background-image: url(images/controls/button/00_button_refresh.png);
 	-webkit-mask-image: url(images/controls/button/00_button_refresh.png);
 }
 .ui-icon-back {
 	.tizen-icon-common;
-	background-image: url(images/controls/button/00_button_back.png);
 	-webkit-mask-image: url(images/controls/button/00_button_back.png);
 }
 .ui-icon-grid {
 	.tizen-icon-common;
-	background-image: url(images/controls/button/00_button_grid.png);
 	-webkit-mask-image: url(images/controls/button/00_button_grid.png);
 }
 .ui-icon-home {
 	.tizen-icon-common;
-	background-image: url(images/controls/button/00_button_home.png);
 	-webkit-mask-image: url(images/controls/button/00_button_home.png);
 }
 
@@ -403,17 +395,25 @@
 	box-shadow: none;
 }
 
-.ui-btn-corner-circle
+.ui-btn.ui-btn-corner-circle
 {
-	.LESSborder-radius-allimportant( 1em );
+	.core_button_bg();
+	background-color: @color_button_bg;
+	&.ui-btn-down-s {
+		.core_button_bg_pressed();
+		background-color: @color_button_bg_press;
+	}
+	.ui-icon, .ui-icon.ui-icon-plus {
+		background-color: @color_button_icon;
+	}
 }
-.ui-btn-round
+.ui-btn.ui-btn-round
 {
-	.LESSborder-radius-allimportant( 1.2em );
-}
-.ui-btn-round .ui-btn-inner
-{
-	.LESSborder-radius-allimportant( 1.2em );
+	.core_button_bg();
+	background-color: @color_button_bg;
+	.ui-icon, .ui-icon.ui-icon-plus {
+		background-color: @color_button_icon;
+	}
 }
 .ui-btn.ui-btn-icon-nobg, .ui-btn .ui-btn-icon-nobg
 {
