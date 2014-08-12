@@ -141,7 +141,7 @@
 			 * @param duration
 			 * @member ns.widget.wearable.ScrollerScrollBar
 			 */
-			prototype.translate = function (offset, duration) {
+			prototype.translate = function (offset, duration, autoHidden) {
 				var orientation = this.options.orientation,
 					translate,
 					transition,
@@ -151,6 +151,8 @@
 				if ( !this.wrapper || !this.type ) {
 					return;
 				}
+
+				autoHidden = autoHidden !== false;
 
 				this.lastScrollPosition = offset;
 
@@ -172,11 +174,21 @@
 					this._start();
 				}
 
-				endDelay = ( duration || 0 ) + this.options.displayDelay;
 				if ( this.displayDelayTimeoutId !== null ) {
 					window.clearTimeout( this.displayDelayTimeoutId );
+					this.displayDelayTimeoutId = null;
 				}
-				this.displayDelayTimeoutId = window.setTimeout(this._end.bind(this), endDelay);
+
+				if ( autoHidden ) {
+					endDelay = ( duration || 0 ) + this.options.displayDelay;
+					this.displayDelayTimeoutId = window.setTimeout(this._end.bind(this), endDelay);
+				}
+			};
+
+			prototype.end = function () {
+				if ( !this.displayDelayTimeoutId ) {
+					this.displayDelayTimeoutId = window.setTimeout(this._end.bind(this), this.options.displayDelay);
+				}
 			};
 
 			prototype._start = function () {

@@ -194,7 +194,7 @@
 					this._super();
 					this._repositionSections(true);
 
-// set corret options values.
+					// set corret options values.
 					if (!o.animate) {
 						o.animateDuration = 0;
 					}
@@ -241,9 +241,9 @@
 						height = this.height,
 						i, sectionLength, top, left;
 
-//section element has absolute position
+					//section element has absolute position
 					for (i = 0, sectionLength = this.sections.length; i < sectionLength; i++) {
-//Each section set initialize left position
+						//Each section set initialize left position
 						sectionStyle = this.sections[i].style;
 
 						sectionStyle.position = "absolute";
@@ -271,7 +271,7 @@
 					}
 				},
 
-				_translateScrollbar: function (x, y, duration) {
+				_translateScrollbar: function (x, y, duration, autoHidden) {
 					var standard = this.orientation === Scroller.Orientation.HORIZONTAL ? this.width : this.height,
 						preOffset = this.sectionPositions[this.activeIndex] * standard,
 						offset = this.activeIndex * standard,
@@ -287,7 +287,7 @@
 						offset = -y + fixedOffset;
 					}
 
-					this.scrollbar.translate(offset, duration);
+					this.scrollbar.translate(offset, duration, autoHidden);
 				},
 
 				_translateScrollbarWithPageIndex: function (pageIndex, duration) {
@@ -479,18 +479,22 @@
 						this.activeIndex = this.beforeIndex;
 					}
 
-// notify changed section.
+					// notify changed section.
 					if (this.activeIndex !== oldActiveIndex) {
 						this._notifyChanagedSection(this.activeIndex);
 					}
 				},
 
 				_end: function (/* e */) {
+					if ( this.scrollbar ) {
+						this.scrollbar.end();
+					}
+
 					if (!this.enabled || this.scrollCanceled || !this.dragging) {
 						return;
 					}
 
-// bouncing effect
+					// bouncing effect
 					if (this.bouncingEffect) {
 						this.bouncingEffect.dragEnd();
 					}
@@ -507,7 +511,7 @@
 						return;
 					}
 
-// bouncing effect
+					// bouncing effect
 					if (this.bouncingEffect) {
 						this.bouncingEffect.dragEnd();
 					}
@@ -531,7 +535,7 @@
 				},
 
 				_repositionSections: function (init) {
-// if developer set circular option is true, this method used when webkitTransitionEnd event fired
+					// if developer set circular option is true, this method used when webkitTransitionEnd event fired
 					var sectionLength = this.sections.length,
 						curPosition = this.sectionPositions[this.activeIndex],
 						centerPosition = window.parseInt(sectionLength/2, 10),

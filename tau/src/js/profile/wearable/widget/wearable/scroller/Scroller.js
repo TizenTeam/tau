@@ -310,12 +310,12 @@
 				this.scrollerOffsetY = window.parseInt(y, 10);
 			};
 
-			prototype._translateScrollbar = function (x, y, duration) {
+			prototype._translateScrollbar = function (x, y, duration, autoHidden) {
 				if (!this.scrollbar) {
 					return;
 				}
 
-				this.scrollbar.translate(this.orientation === Scroller.Orientation.HORIZONTAL ? -x : -y, duration);
+				this.scrollbar.translate(this.orientation === Scroller.Orientation.HORIZONTAL ? -x : -y, duration, autoHidden);
 			};
 
 			prototype._start = function(/* e */) {
@@ -353,8 +353,8 @@
 					this.scrolled = true;
 
 					this._translate( newX, newY );
-					this._translateScrollbar( newX, newY );
-// TODO to dispatch move event is too expansive. it is better to use callback.
+					this._translateScrollbar( newX, newY, 0, false );
+					// TODO to dispatch move event is too expansive. it is better to use callback.
 					this._fireEvent( eventType.MOVE );
 
 					if ( this.bouncingEffect ) {
@@ -364,7 +364,7 @@
 					if ( this.bouncingEffect ) {
 						this.bouncingEffect.drag( newX, newY );
 					}
-					this._translateScrollbar( newX, newY );
+					this._translateScrollbar( newX, newY, 0, false );
 				}
 			};
 
@@ -373,9 +373,13 @@
 					return;
 				}
 
-// bouncing effect
+				// bouncing effect
 				if ( this.bouncingEffect ) {
 					this.bouncingEffect.dragEnd();
+				}
+
+				if ( this.scrollbar ) {
+					this.scrollbar.end();
 				}
 
 				this._endScroll();
@@ -401,6 +405,10 @@
 					this._translate( this.startScrollerOffsetX, this.startScrollerOffsetY );
 					this._translateScrollbar( this.startScrollerOffsetX, this.startScrollerOffsetY );
 					this._fireEvent( eventType.CANCEL );
+				}
+
+				if ( this.scrollbar ) {
+					this.scrollbar.end();
 				}
 
 				this.scrolled = false;
