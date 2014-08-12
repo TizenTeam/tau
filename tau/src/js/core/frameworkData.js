@@ -53,6 +53,13 @@
 					 */
 					theme: "default",
 					/**
+					 * Tells if the theme that is set was already loaded
+					 * @property {boolean} themeLoaded=false
+					 * @member ns.frameworkData
+					 * @static
+					 */
+					themeLoaded: false,
+					/**
 					 * The default width of viewport in framework.
 					 * @property {number} defaultViewportWidth=360
 					 * @member ns.frameworkData
@@ -141,11 +148,14 @@
 					dataPrefix = self.dataPrefix,
 					scriptElements = slice.call(document.querySelectorAll("script[src]")),
 					cssElements = slice.call(document.styleSheets),
+					themeLoaded = false,
 					theme;
 
 				/**
 				 * Following cases should be covered here (by recognizing on-page css files).
 				 * The final theme and themePath values are determined after going through all script elements
+				 *
+				 * @TODO write unit tests for covering those cases
 				 *
 				 * none                                       -> theme: null
 				 * <link href="theme.css" />                  -> theme: null
@@ -186,10 +196,14 @@
 							}
 						}
 					}
+
+					// In case a theme was found (here or in a previous stylesheet) this will be true
+					themeLoaded = themeLoaded || !!theme;
 				}
 
 				/**
 				 * Sets framework data based on found framework library
+				 * @TODO write unit cases
 				 * @param {HTMLElement} scriptElement
 				 */
 				function findFrameworkDataInScripts(scriptElement) {
@@ -238,6 +252,7 @@
 						self.jsPath = self.rootDir + jsPath;
 						self.version = scriptElement.getAttribute(dataPrefix + "version") || self.version;
 						self.theme = theme;
+						self.themeLoaded = themeLoaded;
 						self.frameworkName = frameworkName;
 						self.minified = src.search(MINIFIED_REGEXP) > -1;
 						self.profile = profileName;

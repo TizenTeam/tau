@@ -198,39 +198,65 @@
 			}
 
 			/**
+			 * Adds the given node to document head or replaces given 'replaceElement'.
+			 * Additionally adds 'name' and 'theme-name' attribute
+			 * @param {HTMLElement} node Element to be placed as theme link
+			 * @param {string} themeName Theme name passed to the element
+			 * @param {HTMLElement} [replaceElement=null] If replaceElement is given it gets replaced by node
+			 */
+			function addNodeAsTheme(node, themeName, replaceElement) {
+				setNSData(node, 'name', 'tizen-theme');
+				setNSData(node, 'theme-name', themeName);
+
+				if (replaceElement) {
+					replaceElement.parentNode.replaceChild(node, replaceElement);
+				} else {
+					addElementToHead(node, true);
+				}
+			}
+
+			/**
 			 * Add css link element to head if not exists
 			 * @method themeCSS
 			 * @param {string} path
 			 * @param {string} themeName
+			 * @param {boolean} [embed=false] Embeds the CSS content to the document
 			 * @member ns.util.load
 			 * @static
 			 */
-			function themeCSS(path, themeName) {
+			function themeCSS(path, themeName, embed) {
 				var i,
 					styleSheetsLength = styleSheets.length,
 					ownerNode,
-					previousElement = null;
+					previousElement = null,
+					linkElement;
 				// Find css link or style elements
 				for (i = 0; i < styleSheetsLength; i++) {
 					ownerNode = styleSheets[i].ownerNode;
-					if (getNSData(ownerNode, 'name') === 'tizen-theme') {
+
+					// We try to find a style / link node that matches current style or is linked to
+					// the proper theme. We cannot use ownerNode.href because this returns the absolute path
+					if (getNSData(ownerNode, 'name') === 'tizen-theme' || ownerNode.getAttribute("href") === path) {
 						if (getNSData(ownerNode, 'theme-name') === themeName) {
+							// Nothing to change
 							return;
 						}
 						previousElement = ownerNode;
 						break;
 					}
 				}
-				// Load and replace old styles or append new styles
-				cssSync(path, function onSuccess(style) {
-					setNSData(style, 'name', 'tizen-theme');
-					setNSData(style, 'theme-name', themeName);
-					if (previousElement) {
-						previousElement.parentNode.replaceChild(style, previousElement);
-					} else {
-						addElementToHead(style, true);
-					}
-				});
+
+				if (embed){
+					// Load and replace old styles or append new styles
+					cssSync(path, function onSuccess(styleElement) {
+						addNodeAsTheme(styleElement, themeName, previousElement);
+					}, function onFailure(xhrObj, xhrStatus, errorObj) {
+						ns.warn("There was a problem when loading '" + themeName + "', status: " + xhrStatus);
+					});
+				} else {
+					linkElement = makeLink(path);
+					addNodeAsTheme(linkElement, themeName, previousElement);
+				}
 			}
 
 			/**

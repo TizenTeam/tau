@@ -38,10 +38,21 @@
 			};
 
 			protoThemeCommon._disable = function () {
-				var self = this;
+				var self = this,
+					prop,
+					backupFrameworkData;
 				self.restoreAllWidgetOptions();
-				if (self.backup.frameworkData) {
-					ns.frameworkData = self.backup.frameworkData;
+
+				backupFrameworkData = self.backup.frameworkData;
+
+				if (backupFrameworkData) {
+					for(prop in backupFrameworkData) {
+						if (backupFrameworkData.hasOwnProperty(prop)) {
+							ns.frameworkData[prop] = backupFrameworkData[prop];
+						}
+					}
+
+					self.backup.frameworkData = null;
 				}
 				nsTheme._activeTheme = null;
 				self.enabled = false;

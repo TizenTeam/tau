@@ -1,5 +1,5 @@
 $().ready(function() {
-module("ej.jqm.router", {});
+module("jqm.router", {});
 	$(document).one('pagechange', function() {
 		asyncTest("$.mobile.changePage", 1, function () {
 			var page2 = $('#test2');

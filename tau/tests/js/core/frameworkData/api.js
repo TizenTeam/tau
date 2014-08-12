@@ -9,6 +9,7 @@
 			equal(typeof frameworkData.rootDir, "string", "Framework device root directory property exists");
 			equal(typeof frameworkData.version, "string", "Framework version is string");
 			equal(typeof frameworkData.theme, "string", "Framework theme is string value");
+			equal(typeof frameworkData.themeLoaded, "boolean", "Framework themeLoaded is boolean");
 			equal(typeof frameworkData.defaultViewportWidth, "number", "Framework default viewport width is number");
 			equal(typeof frameworkData.viewportWidth, "string", "Framework default viewport width is number");
 			equal(typeof frameworkData.viewportScale, "boolean", "Framework default viewport scale is boolean");
@@ -24,7 +25,7 @@
 		});
 
 		test("API tau.frameworkData length", function () {
-			equal(Object.keys(frameworkData).length, 17, "tau.frameworkData has right amount of props");
+			equal(Object.keys(frameworkData).length, 18, "tau.frameworkData has right amount of props");
 		});
 	}) (tau.frameworkData);
 }(window.tau));

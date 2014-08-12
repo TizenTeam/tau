@@ -1,4 +1,4 @@
-/*global window, define, Math*/
+/*global window, define, Math, ns*/
 /*jslint bitwise: true */
 /**
  * #Theme object
@@ -43,7 +43,6 @@
 					}
 				},
 
-				THEMES_DIRECTORY = "../theme",
 				THEME_JS_FILE_NAME = "theme.js",
 				THEME_CSS_FILE_NAME = "tau",
 
@@ -56,20 +55,19 @@
 				 * @property {string} theme="s"
 				 * @member ns.theme
 				 */
-				theme : "s",
+				theme: "s",
 
 				_activeTheme: null,
 
 				/**
 				 * This function inits theme.
 				 * @method init
-				 * @param {HTMLElement} contianer
+				 * @param {HTMLElement} container
 				 * @member ns.theme
 				 */
 				init: function (container) {
 					var self = this,
-						containerClassList = container.classList,
-						defaultTheme = frameworkData.theme;
+						containerClassList = container.classList;
 
 					frameworkData.getParams();
 
@@ -104,12 +102,14 @@
 				 * @return {string} Inherited theme
 				 * @member ns.theme
 				 */
-				getInheritedTheme : function (element, defaultTheme) {
+				getInheritedTheme: function (element, defaultTheme) {
 					var theme,
 						parentElement = element.parentNode,
 						parentClasses,
 						parentTheme;
+
 					theme = DOM.getNSData(element, "theme");
+
 					if (!theme) {
 						while (parentElement) {
 							parentClasses = parentElement.className || "";
@@ -127,13 +127,15 @@
 				/**
 				 * This function sets selection behavior for the element.
 				 * @method enableSelection
-				 * @param {element} element Element for which selection behavior is set.
+				 * @param {HTMLElement} element Element for which selection behavior is set.
 				 * @param {"text"|"auto"|"none"} value="auto" Selection behavior.
 				 * @return {HTMLElement} Element with set styles.
 				 * @member ns.theme
 				 */
-				enableSelection : function (element, value) {
-					var val;
+				enableSelection: function (element, value) {
+					var val,
+						elementStyle;
+
 					switch (value) {
 					case "text":
 					case "auto":
@@ -148,9 +150,9 @@
 					if (element === document) {
 						element = document.body;
 					}
-					element.style.MozUserSelect = val;
-					element.style.webkitUserSelect = val;
-					element.style.userSelect = val;
+
+					elementStyle = element.style;
+					elementStyle.MozUserSelect = elementStyle.webkitUserSelect = elementStyle.userSelect = val;
 
 					return element;
 				},
@@ -158,7 +160,7 @@
 				/**
 				 * This function disables event "contextmenu".
 				 * @method disableContextMenu
-				 * @param {element} element Element for which event "contextmenu"
+				 * @param {HTMLElement} element Element for which event "contextmenu"
 				 * is disabled.
 				 * @member ns.theme
 				 */
@@ -169,7 +171,7 @@
 				/**
 				 * This function enables event "contextmenu".
 				 * @method enableContextMenu
-				 * @param {element} element Element for which event "contextmenu"
+				 * @param {HTMLElement} element Element for which event "contextmenu"
 				 * is enabled.
 				 * @member ns.theme
 				 */
@@ -186,10 +188,19 @@
 				loadTheme: function(theme) {
 					var self = this,
 						themePath = frameworkData.themePath,
-						themeName = "tau",
+						themeName = THEME_CSS_FILE_NAME,
+						cssPath,
 						isMinified = frameworkData.minified,
 						jsPath,
 						cssPath;
+
+					// If the theme has been loaded do not repeat that process
+					if (frameworkData.themeLoaded) {
+						//>>excludeStart("tauDebug", pragmas.tauDebug);
+						ns.log("Theme already loaded, aborting loadTheme(" + theme + ")");
+						//>>excludeEnd("tauDebug");
+						return;
+					}
 
 					if (frameworkData.frameworkName !== "tau") {
 						themeName = "tizen-web-ui-fw-theme";
@@ -199,13 +210,23 @@
 					} else {
 						cssPath = themePath + "/" + themeName + ".css";
 					}
+
+					//>>excludeStart("tauDebug", pragmas.tauDebug);
+					ns.log("Loading theme: " + theme);
+					//>>excludeEnd("tauDebug");
+
 					load.themeCSS(cssPath, theme);
-					jsPath = themePath + "/theme.js";
+					jsPath = themePath + "/" + THEME_JS_FILE_NAME;
+					//>>excludeStart("tauDebug", pragmas.tauDebug);
+					ns.log("Loading theme.js file for theme: " + theme);
+					//>>excludeEnd("tauDebug");
 					load.scriptSync(jsPath);
 
 					if (support.gradeA()) {
 						self.setScaling();
 					}
+
+					frameworkData.themeLoaded = true;
 				},
 
 				/**
@@ -213,27 +234,27 @@
 				 * If custom viewport is found, its width will be returned.
 				 * Otherwise, the new viewport will be created.
 				 * @method setViewport
-				 * @param {number} viewportWidth Width of the new viewport.
+				 * @param {number|string} viewportWidth Width of the new viewport.
 				 * If no viewport is found, the new viewport with this
 				 * width is created.
-				 * @return {number} Width of custom viewport.
+				 * @return {string} Width of custom viewport.
 				 * @member ns.theme
 				 */
 				setViewport: function(viewportWidth) {
-					var metaVieport = document.querySelector("meta[name=viewport]"),
+					var metaViewport = document.querySelector("meta[name=viewport]"),
 						content;
 
-					if (metaVieport) {
+					if (metaViewport) {
 						// Found custom viewport!
-						content = metaVieport.getAttribute("content");
+						content = metaViewport.getAttribute("content");
 						viewportWidth = content.replace(deviceWidthRegex, "$1");
 					} else {
 						// Create a meta tag
-						metaVieport = document.createElement("meta");
-						metaVieport.name = "viewport";
+						metaViewport = document.createElement("meta");
+						metaViewport.name = "viewport";
 						content = "width=" + viewportWidth + ", user-scalable=no";
-						metaVieport.content = content;
-						head.insertBefore(metaVieport, head.firstChild);
+						metaViewport.content = content;
+						head.insertBefore(metaViewport, head.firstChild);
 					}
 					return viewportWidth;
 				},
@@ -262,7 +283,7 @@
 						ratio = 1;
 
 					// Keep original font size
-					document.querySelector("body").setAttribute("data-tizen-theme-default-font-size", themeDefaultFontSize);
+					document.body.setAttribute("data-tizen-theme-default-font-size", themeDefaultFontSize);
 
 					if (ns.theme.isMobileBrowser()) {
 						// Legacy support: tizen.frameworkData.viewportScale
