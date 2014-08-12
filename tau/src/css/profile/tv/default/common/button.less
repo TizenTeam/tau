@@ -2,6 +2,7 @@
 @basic_btn_color_focus: rgb(69, 143, 255);
 @basic_btn_txt_color_normal: rgb(89, 89, 89);
 @basic_btn_txt_color_focus: rgb(255, 255, 255);
+@list_btn_color_focus: rgb(69, 143, 255);
 
 /**********************************************************************/
 /*                        Button(FIXED)                               */
@@ -93,6 +94,12 @@
 
 	a&.ui-state-disabled, &:disabled {
 		background-color: rgba(red(@basic_btn_color_normal), green(@basic_btn_color_normal), blue(@basic_btn_color_normal), 0.4);
+	}
+}
+
+.ui-listview {
+	.ui-btn {
+		background-color: inherit;
 	}
 }
 
@@ -416,7 +423,7 @@ button.ui-btn, input.ui-btn {
 
 .ui-listview li a.ui-btn.ui-btn-icon-source.ui-focus,
 .ui-btn-icon-source.ui-focus {
-	background-color: rgb(155, 122, 255);
+	background-color: @list_btn_color_focus;
 	.ui-btn-inner .ui-icon.ui-icon-source,
 	.ui-icon {
 		background-color: white;
@@ -430,7 +437,7 @@ button.ui-btn, input.ui-btn {
 
 .ui-listview li a.ui-btn.ui-btn-icon-app.ui-focus,
 .ui-btn-icon-app.ui-focus {
-	background-color: rgb(71, 210, 188);
+	background-color: @list_btn_color_focus;
 	.ui-btn-inner .ui-icon.ui-icon-app,
 	.ui-icon {
 		background-color: white;

@@ -4,10 +4,13 @@
 @list_bg_color_white: rgb(255, 255, 255);
 @list_sub_txt_color: rgb(189, 167, 146);
 @list_radio_checkbox_label_color: rgb(89, 89, 89);
-
 /************************
 Listview
 *************************/
+.ui-listview.white {
+	background-color: @list_bg_color_white;
+
+}
 .ui-listview li {
 	font-size: @font_size_list_item;
 	width: 100%;
@@ -41,7 +44,88 @@ Listview
 		}
 		.LESSbox-boxsizing(content-box); // Change size calculation criteria
 	}
+	a.ui-btn.ui-focus {
+		.ui-btn-inner {
+			color: @list_btn_txt_color_focus;
+		}
+	}
+	label.ui-popup-radio-label,
+	label.ui-popup-checkbox-label {
+		width: 70%;
+		padding: 0;
+		float: left;
+	}
+	input[type="checkbox"],
+	input[type="radio"] {
+		position: absolute;
+		right: 8 * @virtual_px;
+		top: 0 * @virtual_px;
+		margin-top: 19 * @virtual_px;
+		float: right;
+		 & + label {
+				display: inline-block;
+				float: right;
+		 }
+	}
+	.li-text-sub {
+		display: block;
+		color: @list_sub_txt_color;
+		font-size: 24 * @virtual_px;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		line-height: 30 * @virtual_px;
+	}
+	.li-has-multiline {
+		padding-top: 6 * @virtual_px;
+		padding-bottom: 5 * @virtual_px;
+		min-height: 90 * @virtual_px;
+		.disabled,
+		.disabled > * {
+			color: rgb(51, 51, 51);
+		}
+		.li-has-radio.disabled,
+		.li-has-radio.disabled .li-text-sub,
+		.li-has-checkbox.disabled,
+		.li-has-checkbox.disabled .li-text-sub {
+			color: @list_txt_color_disabled;
+		}
+	}
+	.li-has-multiline > a {
+		margin-top: -6 * @virtual_px;
+		margin-bottom: -6 * @virtual_px;
+		padding-top: 6 * @virtual_px;
+		padding-bottom: 6 * @virtual_px;
+	}
+	.li-has-multiline-sup {
+		padding-top: 6 * @virtual_px;
+		padding-bottom: 5 * @virtual_px;
+		min-height: 90 * @virtual_px;
+		.disabled,
+		.disabled > * {
+			color: rgb(51, 51, 51);
+		}
+	}
+	.li-has-multiline-sup > a {
+		margin-top: -36 * @virtual_px;
+		margin-bottom: -5 * @virtual_px;
+		padding-top: 36 * @virtual_px;
+		padding-bottom: 5 * @virtual_px;
+	}
+	&.li-has-checkbox label,
+	&.li-has-radio label{
+		display: block;
+		padding-bottom: 21 * @virtual_px;
+		padding-left: 16 * @virtual_px;
+		padding-right: 64 * @virtual_px;
+		padding-top: 21 * @virtual_px;
+		margin-top: -11 * @virtual_px;
+		margin-bottom: 10 * @virtual_px;
+		margin-left: -16 * @virtual_px;
+		margin-right: -16 * @virtual_px;
+		color: @list_radio_checkbox_label_color;
+	}
 }
+
 .ui-virtualgrid {
 
 	margin: 20 * @virtual_px 0 0 20 * @virtual_px;
