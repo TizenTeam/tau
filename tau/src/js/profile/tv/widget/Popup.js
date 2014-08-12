@@ -45,11 +45,23 @@
 					BaseKeyboardSupport.call(this);
 				},
 				engine = ns.engine,
+				selectors = {
+					header: "header",
+					content: "div",
+					footer: "footer"
+				},
 				prototype = new WearablePopup(),
 				FUNCTION_TYPE = "function";
 
 			Popup.events = WearablePopup.events;
+
+			classes.popup = "ui-popup";
+			classes.headerEmpty = "ui-header-empty";
+			classes.footerEmpty = "ui-footer-empty";
+
 			Popup.classes = classes;
+
+			Popup.selectors = selectors;
 
 			Popup.prototype = prototype;
 
@@ -58,11 +70,80 @@
 				options.minScreenHeigth = null;
 			};
 
+			/**
+			 * Build the popup DOM tree
+			 * @method _build
+			 * @protected
+			 * @param {HTMLElement} element
+			 * @return {HTMLElement}
+			 * @member ns.widget.tv.Popup
+			 */
+			prototype._build = function (element) {
+				var ui = this.ui,
+					options = this.options,
+					header = element.querySelector(selectors.header),
+					content = element.querySelector(selectors.content),
+					footer = element.querySelector(selectors.footer),
+					elementChildren = element.children,
+					length = elementChildren.length,
+					i,
+					node;
+
+				element.classList.add(classes.popup);
+
+				if (!content) {
+					//if content does not exist, it is created
+					content = document.createElement(selectors.content);
+					for (i = 0; i < length; ++i) {
+						node = elementChildren[i];
+						if (node !== footer && node !== header) {
+							content.appendChild(elementChildren[i]);
+						}
+					}
+					element.appendChild(content);
+				}
+				content.classList.add(classes.content);
+
+				if (header || (options.header && typeof options.header !== "boolean")) {
+					if (!header) {
+						//if header does not exist, it is created
+						header = document.createElement(selectors.header);
+						header.innerHTML = options.header;
+						element.insertBefore(header, content);
+					}
+					header.classList.add(classes.header);
+				} else {
+					element.classList.add(classes.headerEmpty);
+				}
+
+				if (footer || (options.footer && typeof options.footer !== "boolean")) {
+					if (!footer) {
+						//if footer does not exist, it is created
+						footer = document.createElement(selectors.footer);
+						footer.innerHTML = options.footer;
+						element.appendChild(footer);
+					}
+					footer.classList.add(classes.footer);
+				} else {
+					element.classList.add(classes.footerEmpty);
+				}
+
+				ui.header = header;
+				ui.content = content;
+				ui.footer = footer;
+
+				return element;
+			};
+
 			prototype._init = function(element) {
+				var ui = this.ui;
 				if (typeof WearablePopupPrototype._init === FUNCTION_TYPE) {
 					WearablePopupPrototype._init.call(this, element);
 				}
 				this._pageWidget = engine.instanceWidget(element.parentElement, "page");
+				ui.header = element.querySelector(selectors.header);
+				ui.content = element.querySelector(selectors.content);
+				ui.footer = element.querySelector(selectors.footer);
 			};
 
 			prototype.open = function(options) {
@@ -107,7 +188,7 @@
 
 			engine.defineWidget(
 				"popup",
-				".ui-popup",
+				"[data-role='popup'], .ui-popup",
 				["setActive", "show", "hide", "open", "close"],
 				Popup,
 				"tv",

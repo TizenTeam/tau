@@ -24,6 +24,12 @@ Normal Popup
 	-moz-border-radius: @popup_border_radius;
 	border-radius: @popup_border_radius;
 
+	&.ui-header-empty {
+		border-top-color: @color_popup_header_bg;
+		border-top-width: 20 * @virtual_px;
+		border-top-style: solid;
+	}
+
 	&.ui-popup-listview {
 		width: 944 * @virtual_px;
 		height: 603 * @virtual_px;
@@ -155,26 +161,32 @@ Normal Popup
 /****************************************
 Popup Toast
 ****************************************/
-.ui-popup-toast {
-	width: calc(~"100% - " (82 * @virtual_px));
-	margin-left: 41 * @virtual_px;
-	margin-right: 41 * @virtual_px;
-	margin-bottom: 38 * @virtual_px;
-	font-size: @font_size_popup_toast;
-	border: 3 * @virtual_px solid @color_popup_border;
-	position: absolute;
-	bottom: 0;
-	top: auto;
-	height: auto;
-
-	&.ui-popup-active {
+.ui-popup {
+	&.ui-popup-toast {
+		width: calc(~"100% - " (82 * @virtual_px));
+		margin-left: 41 * @virtual_px;
+		margin-right: 41 * @virtual_px;
+		margin-bottom: 38 * @virtual_px;
+		font-size: @font_size_popup_toast;
+		border: 3 * @virtual_px solid @color_popup_border;
+		position: absolute;
+		bottom: 0;
 		top: auto;
-	}
+		height: auto;
 
-	.ui-popup-content {
-		padding: 10*@virtual_px 16*@virtual_px 10*@virtual_px 16*@virtual_px;
-		background-color: @color_popup_bg;
-		text-align: center;
+		&.ui-header-empty {
+			border: 0;
+		}
+
+		&.ui-popup-active {
+			top: auto;
+		}
+
+		.ui-popup-content {
+			padding: 10*@virtual_px 16*@virtual_px 10*@virtual_px 16*@virtual_px;
+			background-color: @color_popup_bg;
+			text-align: center;
+		}
 	}
 }
 
