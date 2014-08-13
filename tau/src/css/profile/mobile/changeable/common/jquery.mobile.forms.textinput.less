@@ -51,12 +51,20 @@ input.ui-input-text {
 	-webkit-appearance: none;
 }
 textarea.ui-input-text {
+	padding: 4 * @unit_base;
+	margin-right: 0;
+	margin-left: 0;
 	height: 50*@unit_base;
 	width : 95%;
 	resize: none;
 	-webkit-transition: height 200ms linear;
 	transition: height 200ms linear;
 	white-space: normal;
+
+	border: 1px solid @color_list_editfield_outline;
+	box-sizing: border-box;
+	font-size: @font_size_list_editfield_text;
+	background-color: @color_list_editfield_bg;
 }
 .ui-header.ui-bar-s.ui-header-searchbar {
 	.ui-title {
