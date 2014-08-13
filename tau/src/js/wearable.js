@@ -34,6 +34,7 @@
 			"./profile/wearable/router/route/popup",
 			"./profile/wearable/router/history",
 			"./profile/wearable/expose",
+			"./profile/wearable/backward",
 			// Modules to be loaded after
 			"./core/init"
 		],
