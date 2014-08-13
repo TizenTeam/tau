@@ -151,6 +151,22 @@
 				 */
 				parent_build = parentPrototype._build,
 
+				/**
+				 * @property {Object} parent_init Shortcut for parent's {@link ns.widget.mobile.Listview#_build}
+				 * method from prototype of {@link ns.widget.mobile.Listview}
+				 * @private
+				 * @static
+				 * @member ns.widget.mobile.ExtendableList
+				 */
+				parent_init = Listview.prototype._init,
+				/**
+				 * @property {Object} parent_bindEvent Shortcut for parent's {@link ns.widget.mobile.Listview#_build}
+				 * method from prototype of {@link ns.widget.mobile.Listview}
+				 * @private
+				 * @static
+				 * @member ns.widget.mobile.ExtendableList
+				 */
+				parent_bindEvents = Listview.prototype._bindEvents,
 				// Constants definition
 				/**
 				 * @property {number} SCROLL_UP defines index of scroll \_scroll.direction
@@ -784,6 +800,7 @@
 					direction,
 					scrollviewInstance;
 
+
 				// scrollview may be set while widget is created with standalone option
 				if (standalone && !ui.scrollview || !standalone) {
 					//Get Scrollview widget instance
@@ -808,6 +825,8 @@
 				if (standalone && options.direction === HORIZONTAL) {
 					scrollviewInstance._ui.view.style.height = "100%";
 				}
+
+				parent_init.call(self, element);
 			};
 
 			/**
@@ -919,6 +938,8 @@
 					scrollviewClip.addEventListener("scroll", scrollEventBound, false);
 					self._scrollEventBound = scrollEventBound;
 				}
+
+				parent_bindEvents.call(self, self.element);
 			};
 
 			/**

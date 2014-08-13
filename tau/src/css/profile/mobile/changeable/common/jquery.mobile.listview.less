@@ -27,6 +27,9 @@
 
 		box-shadow: none;
 		.LESSborder-radius-all(0);
+		.ui-link-inherit {
+			color: @color_list_main_text_normal;
+		}
 	}
 }
 
@@ -34,19 +37,18 @@
 .ui-listview {
 	/* anchor listview background style */
 	.ui-li.ui-btn-up-s,
-	.ui-li.ui-btn-hover-s { background-color: @color_list_bg; }
+	.ui-li.ui-btn-hover-s { background-color: transparent; }
 	.ui-li.ui-btn-down-s { background-color: @color_list_press; }
 
 	/* ui-btn-inner style for list with anchor - normal single */
 	.ui-li.ui-btn {
 		>.ui-btn-inner {
 			padding: 0;
-			border-bottom: 1px solid @color_list_border_bottom;
 
 			.ui-btn-text >.ui-link-inherit {
 				display: block;
-				padding: 15.5*@unit_base 13*@unit_base 16.5*@unit_base 13*@unit_base;
-				line-height: 23.5 * @unit_base;
+				padding: 30 * @unit_base 15 * @unit_base;
+				line-height: 38 * @unit_base;
 				text-overflow: ellipsis;
 				white-space: nowrap;
 				overflow: hidden;
@@ -55,11 +57,21 @@
 	}
 }
 
+.ui-listview.ui-listview-default {
+	.ui-li.ui-btn {
+		>.ui-btn-inner {
+			border-bottom: 1px solid @color_list_border_bottom;
+		}
+	}
+	.ui-li-static {
+		border-bottom: 1px solid @color_list_border_bottom;
+	}
+}
 /*************** No Anchor listview common style ****************/
 .ui-listview .ui-li-static {
-	padding: 14.5*@unit_base 13*@unit_base 14.5*@unit_base 13*@unit_base;
-	border-bottom: 1px solid @color_list_border_bottom;
-	background-color: @color_bg;
+	padding: 30 * @unit_base 15 * @unit_base;
+	background-color: transparent;
+
 }
 
 /********************* list have right button **********************/
@@ -107,10 +119,10 @@
 	.ui-checkbox:first-child,
 	.ui-radio:first-child {
 		position: absolute;
-		top: 12 * @unit_base;
-		left: 13 * @unit_base;
-		width: 31.5 * @unit_base;
-		height: 31.5 * @unit_base;
+		top: 29 * @unit_base;
+		left: 15 * @unit_base;
+		width: 32 * @unit_base;
+		height: 32 * @unit_base;
 	}
 }
 
@@ -146,12 +158,16 @@
 /****************************************************************/
 .ui-listview .ui-li.ui-li-has-multiline {
 	&.ui-btn>.ui-btn-inner>.ui-btn-text>.ui-link-inherit,
-	&.ui-li-static { padding-bottom: 31.5 * @unit_base; }
+	&.ui-li-static {
+		padding-top: 13 * @unit_base;
+		padding-bottom: 45 * @unit_base;
+	}
 
 	.ui-li-text-sub,
 	.ui-li-text-sub:first-child {
-		top: 40 * @unit_base;
-		left: 13 * @unit_base;
+		top: 51 * @unit_base;
+		left: 15 * @unit_base;
+		line-height: 32 * @unit_base;
 		float: left;
 		text-align: left;
 
@@ -161,15 +177,16 @@
 			width: 22.5 * @unit_base;
 			height: 22.5 * @unit_base;
 			margin-right: 1 * @unit_base;
-			margin-bottom: -3 * @unit_base;
+			margin-bottom: 0;
 		}
 	}
 	.ui-li-text-sub2 {
 		position: absolute;
-		top: 15 * @unit_base;
-		right : 13 * @unit_base;
+		top: 13 * @unit_base;
+		right : 15 * @unit_base;
 		float: right;
 		text-align: right;
+		line-height: 38 * @unit_base;
 		font-size: @font_size_list_sub_text;
 		color: @color_list_sub_text_normal;
 		.LESStext-ellipsis();
@@ -177,8 +194,9 @@
 
 	.ui-li-text-sub-right {
 		position: absolute;
-		top: 40 * @unit_base;
-		right: 13 * @unit_base;
+		top: 51 * @unit_base;
+		right: 15 * @unit_base;
+		line-height: 32 * @unit_base;
 		float: right;
 		text-align: right;
 		font-size: @font_size_list_sub_text;
@@ -571,13 +589,16 @@
 .ui-listview .ui-li-divider,
 .ui-listview .ui-li-divider-btn {
 	box-sizing: border-box;
-	height: 38 * @unit_base;
-	padding-top: 9 * @unit_base;
+	height: 52 * @unit_base;
 	font-size: @font_size_list_divider_text;
-	background-color: @color_list_bg;
+	background-color: @color_list_divider_bg;
 	color: @color_list_divider_text;
+	line-height: 52 * @unit_base;
 	border: 0;
 
+	&.ui-li.ui-btn-up-s, &.ui-li.ui-btn-hover-s {
+		background-color: @color_list_divider_bg;
+	}
 	.ui-divider-normal-line {
 		position: absolute;
 		bottom: 0;
@@ -599,11 +620,9 @@
 			padding-left: 0;
 			.ui-btn-text {
 				position: absolute;
-				top: 0;
-				height: 23 * @unit_base;
-				padding-right: 13 * @unit_base;
-				padding-left: 13 * @unit_base;
-				padding-bottom: 4 * @unit_base;
+				top: 7.5 * @unit_base;
+				left: 15 * @unit_base;
+				height: 36 * @unit_base;
 				font-size: @font_size_list_divider_text;
 			}
 		}
@@ -613,25 +632,6 @@
 			font-weight: bold;
 			font-size: @font_size_list_divider_text;
 			line-height: 23 * unit_base;
-		}
-	}
-
-	&.ui-btn-down-s {
-		background-color: @color_list_divider_bg_press;
-		color: @color_list_bg;
-
-		.ui-divider-normal-line {
-			background: @color_list_divider_text_press;
-		}
-
-		a {
-			color: @color_list_divider_text_press;
-		}
-
-		.ui-btn-inner.ui-btn-hastxt {
-			.ui-btn-text {
-				color: @color_list_divider_text_press;
-			}
 		}
 	}
 
@@ -675,5 +675,11 @@
 			height: 31.5 * @unit_base;
 		}
 	}
+}
 
+/****************************************************************/
+/*                   Dummy                                      */
+/****************************************************************/
+.ui-listview-dummy {
+	position: absolute;
 }

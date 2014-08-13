@@ -13,6 +13,9 @@
 	}
 	.ui-listview {
 		margin : 0;
+		position: absolute;
+		z-index: 2000;
+		width: 100%;
 		.ui-li.ui-btn-up-s {
 			background-color : @color_drawer_bg;
 		}
@@ -29,6 +32,14 @@
 		.ui-drawer-sub-list > .ui-btn-inner .ui-btn-text {
 			.ui-link-inherit {
 				padding-left : 26 * @unit_base;
+			}
+		}
+		&.ui-listview-colored {
+			.ui-li.ui-btn-up-s, .ui-li.ui-btn-hover-s {
+				background-color : transparent;
+			}
+			.ui-li.ui-btn-down-s {
+				background-color : @color_drawer_list_press;
 			}
 		}
 	}

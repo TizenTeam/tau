@@ -734,6 +734,7 @@
 			"../../../../core/util/selectors",
 			"../../../../core/event",
 			"../../../../core/event/vmouse",
+			"../../../../core/util/colors",
 			"../mobile",
 			"./BaseWidgetMobile",
 			"./Button",
@@ -746,6 +747,8 @@
 					self._ui = {
 						page: null
 					};
+					self._coloredListHandler = null;
+					self._scrolledElement = null;
 				},
 				BaseWidget = ns.widget.mobile.BaseWidgetMobile,
 				/**
@@ -780,6 +783,14 @@
 				 * @private
 				 */
 				Page = ns.widget.mobile.Page,
+				/**
+				 * Alias for class {@link ns.util.color}
+				 * @property {Function} Page
+				 * @member ns.widget.mobile.Listview
+				 * @static
+				 * @private
+				 */
+				colorUtils = ns.util.colors,
 				/**
 				 * Alias for object ns.widget.mobile.Listview.classes
 				 * @property {Object} classes
@@ -820,6 +831,7 @@
 				classes = {
 					uiListview : "ui-listview",
 					uiListviewInset: "ui-listview-inset",
+					uiListviewColored: "ui-listview-colored",
 					uiCornerAll: "ui-corner-all",
 					uiShadow: "ui-shadow",
 					uiLi: "ui-li",
@@ -900,6 +912,8 @@
 				options.theme = null;
 				options.dividerTheme = "s";
 				options.inset = false;
+				options.coloredListNumber = 12;
+				options.diffLightness = 3;
 
 				self.options = options;
 				ui.page = null;
@@ -1119,15 +1133,189 @@
 
 				if (!page) {
 					page = selectors.getClosestByClass(element, Page.classes.uiPage);
-					if (page && page.classList.contains(Page.classes.uiPageActive) === true) {
-						ui.page = page;
+					if (page) {
+						this._ui.page = page;
 					}
 				}
 
-				this.trigger("create");
+				this._liElementOffsetTop = [];
+				this._liElementOffsetHeight = [];
+				this._dummyElement = document.createElement("div");
+				this._liElements = element.getElementsByTagName("li");
+				this._color = {
+						hue: 0,
+						saturation: 0,
+						lightness: 0
+				};
+				this._scrollTop = 0;
+				this._coloredListTop = 0;
 				return element;
 			};
 
+			/**
+			 * Make colored list widget
+			 * @method _makecoloredList
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.mobile.Listview
+			 */
+			Listview.prototype._makeColoredList = function (element) {
+				var self = this,
+					page = selectors.getClosestByClass(element, Page.classes.uiPage),
+					pageStyle = window.getComputedStyle(page),
+					pageColor = pageStyle.getPropertyCSSValue("background-color").getRGBColorValue(),
+					color = self._color,
+					dummyElement = self._dummyElement,
+					len,
+					parentElement,
+					i;
+
+				// Init color
+				pageColor = colorUtils.RGBToHSL([parseInt(pageColor.red.cssText, 10) / 255, parseInt(pageColor.green.cssText, 10) / 255, parseInt(pageColor.blue.cssText, 10) / 255]);
+				color.hue = parseInt(pageColor[0], 10);
+				color.saturation = parseInt(pageColor[1] * 100, 10);
+				color.lightness = parseInt(pageColor[2] * 100, 10);
+
+				len = self._liElements.length;
+				for (i = 0; i < len; i++){
+					self._liElementOffsetTop[i] = self._liElements[i].offsetTop;
+					self._liElementOffsetHeight[i] = self._liElements[i].offsetHeight;
+				}
+
+				dummyElement.classList.add("ui-listview-dummy");
+				parentElement = selectors.getClosestByClass(element, "ui-scrollview-clip");
+				self._scrolledElement = parentElement;
+				self._coloredListHandler = self._scrollHandler.bind(self); // This variable will be used when event handler remove.
+				if (parentElement){
+					// List in scrollview
+					parentElement.parentNode.appendChild(dummyElement);
+					parentElement.addEventListener("scroll", self._coloredListHandler);
+					if (self._scrollTop) {
+						// It was scrolled before that means listview element made before and don't need to init more.
+						return;
+					}
+
+					dummyElement.style.top = parentElement.offsetTop + "px";
+				} else {
+					parentElement = element.parentNode;
+					parentElement.appendChild(dummyElement);
+					parentElement.addEventListener("scroll", self._coloredListHandler);
+					dummyElement.style.top = "0";
+				}
+				self._changeColoredPosition(0); // Init linear-gradient
+
+				parentElement.style.backgroundColor = "transparent";
+
+				dummyElement.style.width = element.offsetWidth + "px";
+				dummyElement.style.height = parentElement.offsetHeight + "px";
+
+			};
+
+			Listview.prototype._scrollHandler = function (event) {
+				var self = this,
+					scrollTop = event.target.scrollTop,
+					liElementOffsetTop = self._liElementOffsetTop,
+					coloredListTop = self._coloredListTop,
+					liElementOffsetHeight = self._liElementOffsetHeight;
+				self._scrollTop = scrollTop;
+
+				if (scrollTop > liElementOffsetTop[coloredListTop + 1]) {
+					if (scrollTop > liElementOffsetTop[coloredListTop + 1] + liElementOffsetHeight[coloredListTop + 1]) {
+						// scroll was moved by scrollTo.
+						while(scrollTop > liElementOffsetTop[coloredListTop + 1] + liElementOffsetHeight[coloredListTop + 1]) {
+							coloredListTop++;
+						}
+					}
+					coloredListTop++;
+				} else if (scrollTop < liElementOffsetTop[coloredListTop]) {
+					if (scrollTop < liElementOffsetTop[coloredListTop - 1]) {
+						// scroll was moved by scrollTo
+						while(scrollTop < liElementOffsetTop[coloredListTop - 1]) {
+							coloredListTop--;
+						}
+					}
+					coloredListTop--;
+				}
+
+				self._coloredListTop = coloredListTop;
+				if (scrollTop > liElementOffsetTop[coloredListTop]) {
+					// move down
+					self._changeColoredPosition(1);
+				} else if (scrollTop > liElementOffsetTop[coloredListTop][1] && scrollTop < liElementOffsetTop[self._coloredListTop]) {
+					self._changeColoredPosition(0);
+				} else if (scrollTop === 0) {
+					self._changeColoredPosition(0);
+				}
+			};
+
+			Listview.prototype._changeColoredPosition = function (direction) {
+				var self = this,
+					listTopOffsetHeight = self._liElementOffsetHeight[self._coloredListTop],
+					colorRatio = 4 / listTopOffsetHeight, // Each list has difference to lightness 4%
+					hue = self._color.hue,
+					saturation = self._color.saturation,
+					lightness = self._color.lightness,
+					top = self._coloredListTop,
+					liElementOffsetTop = self._liElementOffsetTop,
+					scrollTop = self._scrollTop,
+					diffLightness = self.options.diffLightness,
+					changedRed = 0,
+					changedGreen = 0,
+					changedBlue = 0,
+					changedInterval = liElementOffsetTop[top] - scrollTop,
+					adjustedColorValue = 0,
+					adjustedTopValue = 0,
+					changedColor = 0,
+					validTop = top,
+					liElementsLength = liElementOffsetTop.length - 1,
+					validLength,
+					colorHsl,
+					nextColorHsl,
+					validLightness,
+					gradientValue,
+					gradient;
+
+				if (!direction) {
+					// move up
+					colorRatio = -colorRatio; // redRatio = -4 / listTopOffsetHeight
+				}
+
+				if (self._liElements[top].classList.contains("ui-li-divider")) {
+					validTop = top + 1;
+				} else {
+					changedColor = colorRatio * -changedInterval;
+				}
+
+				validLength = validTop + self.options.coloredListNumber;
+				for (top = validTop; top < validLength && top < liElementsLength ; top++) {
+					adjustedColorValue = top - validTop;
+					adjustedTopValue = liElementOffsetTop[top + 1] - scrollTop + 2; // Number 2 makes boundary between each element located more correctly.
+					validLightness = lightness - (diffLightness * adjustedColorValue) + changedColor;
+					colorHsl = "hsl( " + hue + ", " + saturation + "%, " + validLightness + "%)";
+					nextColorHsl = "hsl( " + hue + ", " + saturation + "%, " + (validLightness - diffLightness) + "%)";
+					if (adjustedColorValue === 0) {
+						// First gradient value
+						gradientValue = colorHsl + " " + (liElementOffsetTop[validTop] - scrollTop + 2) + "px";
+					}
+					gradientValue += ", " + colorHsl + " " + adjustedTopValue + "px";
+					gradientValue += ", "  + nextColorHsl + " " + adjustedTopValue + "px";
+
+				}
+
+				gradientValue += ", "  + nextColorHsl + " " + (adjustedTopValue + self._liElementOffsetHeight[top]) + "px";
+				gradient = "-webkit-linear-gradient(top," + gradientValue + ")";
+				self._dummyElement.style["background"] = gradient;
+			};
+
+			Listview.prototype._destroyColoredList = function (element) {
+				var self = this;
+				if (self._dummyElement.parentNode){
+					self._dummyElement.remove();
+				}
+				if (self._scrolledElement) {
+					self._scrolledElement.removeEventListener("scroll",self._coloredListHandler);
+				}
+			};
 			/**
 			 * Change Checkbox/Radio state when list clicked
 			 * @method _clickCheckboxRadio
@@ -1151,13 +1339,12 @@
 			 * @member ns.widget.mobile.Listview
 			 */
 			Listview.prototype._bindEvents = function (element) {
-				var self = this;
+				var self = this,
+					page = selectors.getClosestByClass(element, Page.classes.uiPage);
 
 				element.addEventListener("vclick", function (event) {
 					var target = event.target,
-						parentTarget = target.parentNode,
-						checkboxRadio,
-						i;
+						parentTarget = target.parentNode;
 
 					if (target.classList.contains(classes.uiLiHasCheckbox) || target.classList.contains(classes.uiLiHasRadio)) {
 						self._clickCheckboxRadio(target);
@@ -1165,6 +1352,18 @@
 						self._clickCheckboxRadio(parentTarget);
 					}
 				}, false);
+
+				if (element.getAttribute("data-type") !== "colored") {
+					element.classList.add("ui-listview-default");
+					return;
+				} else {
+					if (!element.classList.contains(classes.uiListviewColored)) {
+						element.classList.add(classes.uiListviewColored);
+					}
+					eventUtils.on(page, "pageshow updatelayout", self._makeColoredList.bind(this, element));
+					page.addEventListener("pagebeforehide", self._destroyColoredList.bind(this, element));
+				}
+
 			};
 
 			/**
