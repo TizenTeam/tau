@@ -1,4 +1,18 @@
 %changelog
+* Wed Aug 13 2014 Hyeoncheol Choi <hc7.choi@samsung.com> 0.9.10
+	- MobileWinset: modify style for Textarea bg and border
+	- MobileWinset: rearranged list of widget pages
+	- WearableWidgets: add style for disabled radio list(GSDK_SE-2718)
+	- Datepicker: Fix bug circularview width
+	- [BUG] TabBar: fixed size after building
+	- TextInput: fix for clear button
+	- Event Manager: change style for popup in datetimepicker
+	- Support Backward Compatibility for widget namespace.
+	- [jira] fixed the issue that scrollbar is hidden during touching screen. (GSDK_SE-2558)
+	- [SectionChanger] change constant value from integer to string.
+	- Wearable : apply new changeable xmls and change default style
+	- IndexScrollbar and VirtualList: Change touch events on vmouse events
+
 * Tue Aug 07 2014 Hyeoncheol Choi <hc7.choi@samsung.com> 0.9.9
 	- Popup: adds events popupshow/popuphide in mobile profile
 	- modify release sync script
