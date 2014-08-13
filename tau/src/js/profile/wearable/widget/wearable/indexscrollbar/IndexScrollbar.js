@@ -710,9 +710,9 @@
 					if(iBar === iBar2) {
 						// Update val
 						val = iBar1.getValueByIndex(iBar1.selectedIndex) + val;
-
+					} else {
 						// Set iBar2's paddingTop
-						iBar2.setPaddingTop( iBar1.getOffsetTopByIndex(iBar1.selectedIndex) );
+						iBar2.setPaddingTop(iBar1.getOffsetTopByIndex(iBar1.selectedIndex));
 					}
 
 					// update ibars
