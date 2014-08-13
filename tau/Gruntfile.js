@@ -280,7 +280,7 @@ module.exports = function(grunt) {
 
 				wearable: {
 					themeIndex: "0",
-					themeStyle: "Dark",
+					themeStyle: "Light",
 					device: "wearable"
 				},
 
