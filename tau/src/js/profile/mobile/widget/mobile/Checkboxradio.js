@@ -98,6 +98,9 @@
 				* @static
 				*/
 				events = ns.event,
+				classes = {
+					checkboxradioIconWrapper: "ui-icon-wrapper"
+				},
 				/**
 				* @property {Function} slice Alias for function Array.slice
 				* @member ns.widget.mobile.Checkboxradio
@@ -107,6 +110,15 @@
 				slice = [].slice;
 
 			Checkboxradio.prototype = new BaseWidget();
+
+			/**
+			 * Dictionary for slider related css class names
+			 * @property {Object} classes
+			 * @member ns.widget.mobile.Checkboxradio
+			 * @static
+			 * @readonly
+			 */
+			Checkboxradio.classes = classes;
 
 			/**
 			* Finds best matched label for given input: <br>
@@ -286,7 +298,9 @@
 					iconSpan,
 					iconClassList,
 					iconpos,
-					mini;
+					mini,
+					iconSpanParent,
+					iconWrapper;
 
 				//if created dynamically on wrong element, just return from here
 				if (inputtype !== "checkbox" && inputtype !== "radio") {
@@ -325,8 +339,14 @@
 				label.setAttribute('data-bar', true);
 				engine.instanceWidget(label, "Button");
 				iconSpan = label.getElementsByClassName('ui-icon')[0];
+				iconSpanParent = iconSpan.parentElement;
+				iconWrapper = document.createElement("span");
+
 				if (iconSpan) {
 					iconClassList = iconSpan.classList;
+					iconWrapper.classList.add(classes.checkboxradioIconWrapper);
+					iconWrapper.appendChild(iconSpan);
+					iconSpanParent.appendChild(iconWrapper);
 				}
 
 				// Wrap the input + label in a div

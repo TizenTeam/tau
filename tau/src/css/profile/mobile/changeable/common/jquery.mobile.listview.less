@@ -149,7 +149,7 @@
 .ui-listview .ui-li.ui-btn.ui-li-has-radio>.ui-btn-inner>.ui-btn-text>.ui-link-inherit,
 .ui-listview .ui-li.ui-li-static.ui-li-has-checkbox,
 .ui-listview .ui-li.ui-li-static.ui-li-has-radio {
-	padding-left: 52.5 * @unit_base;
+	padding-left: 61.5 * @unit_base;
 
 	.ui-checkbox:first-child,
 	.ui-radio:first-child {
@@ -158,6 +158,27 @@
 		left: 15 * @unit_base;
 		width: 32 * @unit_base;
 		height: 32 * @unit_base;
+
+		.ui-btn>.ui-btn-inner {
+			width: 40 * @unit_base;
+			height: 40 * @unit_base;
+			padding: 0;
+
+			.ui-icon {
+				width: 30 * @unit_base;
+				height: 30 * @unit_base;
+				margin: 5 * @unit_base;
+				background-color: transparent;
+
+				&.ui-icon-checkbox-on {
+					background-color: @color_checkboxradio_checkbox_bg_icon;
+				}
+
+				&.ui-icon-radio-on {
+					background-color: @color_checkboxradio_radio_bg_icon;
+				}
+			}
+		}
 	}
 }
 
@@ -166,11 +187,11 @@
 .ui-listview .ui-li.ui-btn.ui-li-has-radio.ui-li-has-thumb>.ui-btn-inner>.ui-btn-text>.ui-link-inherit,
 .ui-listview .ui-li.ui-li-static.ui-li-has-checkbox.ui-li-has-thumb,
 .ui-listview .ui-li.ui-li-static.ui-li-has-radio.ui-li-has-thumb {
-	padding-left: 101 * @unit_base;
+	padding-left: 110 * @unit_base;
 
 	.ui-li-thumb {
 		position: absolute;
-		left: 52.5 * @unit_base;
+		left: 61.5 * @unit_base;
 	}
 }
 
