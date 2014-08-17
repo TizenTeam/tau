@@ -118,7 +118,14 @@
 						for (i = 0; i < properties.length; i++) {
 							property = properties[i];
 							if (!event[property]) {
-								event[property] = event.originalEvent.detail[property];
+								if (root instanceof window.screen.constructor) {
+									// In case of orientation change event the properties are set to window.screen object
+									// that's why we check if root is Screen in the first place
+									event[property] = event.originalEvent.detail && event.originalEvent.detail[property]
+										|| event.target[property];
+								} else {
+									event[property] = event.originalEvent.detail && event.originalEvent.detail[property];
+								}
 							}
 						}
 					});
@@ -153,7 +160,7 @@
 							}
 						});
 
-						this.copyEventProperties(window, 'orientationchange', eventUtils.orientationchange.properties);
+						this.copyEventProperties(window.screen, 'orientationchange', eventUtils.orientationchange.properties);
 						this.proxyEventTriggerMethod('orientationchange', eventUtils.orientationchange.trigger);
 
 						// Proxied jQuery's trigger method to fire swipe event
