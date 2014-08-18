@@ -401,7 +401,7 @@
 					self._init(element);
 				}
 
-				if (element.getAttribute("disabled")) {
+				if (element.getAttribute("disabled") || self.options.disabled === true) {
 					self.disable();
 				} else {
 					self.enable();
