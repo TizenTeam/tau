@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, define, ns */
 /*
 * Copyright (c) 2013 - 2014 Samsung Electronics Co., Ltd
 *
@@ -79,7 +79,7 @@
  *			var element = document.getElementById("progress"),
  *				progress = tau.widget.Progress(element);
  *
- *		 	// progress.methodName(argument1, argument2, ...);
+ *			// progress.methodName(argument1, argument2, ...);
  *			// for example
  *			progress.value(2);
  *		</script>
@@ -98,7 +98,7 @@
  * @class ns.widget.mobile.Progress
  */
 
-(function (window, ns) {
+(function (document, ns) {
 	"use strict";
 
 //>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
@@ -130,6 +130,8 @@
 					uiProgressContainerCircle: "ui-progress-container-circle",
 					uiProgressCircleRunning: "ui-progress-circle-running",
 					uiProgressCircle: "ui-progress-circle",
+					uiProgressCircleSmall: "ui-progress-circle-small",
+					uiProgressCircleLarge: "ui-progress-circle-large",
 					uiProgressbar: "ui-progressbar",
 					uiProgressbarBg: "ui-progressbar-bg",
 					uiProgressPending: "ui-progress-pending",
@@ -147,11 +149,14 @@
 					 * style of progress
 					 * @property {boolean} [options.running=true] start running
 					 * or not
+					 * @property {"small"|"medium"|"large"} [options.size="medium"] The size
+					 * for the circle style progress
 					 * @member ns.widget.mobile.Progress
 					 */
 					this.options = {
 						style: "pending",
-						running: true
+						running: true,
+						size: "medium"
 					};
 					/**
 					 * witch information about css style animation element
@@ -186,36 +191,41 @@
 			 * @member ns.widget.mobile.Progress
 			 */
 			Progress.prototype._build = function (element) {
-				/* cached Progress.classes object
-				 * type Object
-				 */
-				var classes = Progress.classes,
-				/* cached options object
-				 * type Object
-				 */
-					options = this.options,
-				/*
-				 * created HTML element of progress container
-				 * type HTMLElement
-				 */
+					/* cached options object
+					* type Object
+					*/
+				var options = this.options,
+					/*
+					* created HTML element of progress container
+					* type HTMLElement
+					*/
 					progressElement = document.createElement("div"),
-				/*
-				 * created HTML element of progress container
-				 * type HTMLElement
-				 */
+					/*
+					* created HTML element of progress container
+					* type HTMLElement
+					*/
 					progressPendingElement,
-				/*
-				 * cached classList of element
-				 * type DOMTokenList
-				 */
-					elementClasses = element.classList;
+					/*
+					* cached classList of element
+					* type DOMTokenList
+					*/
+					elementClasses = element.classList,
+					progressClasses = progressElement.classList;
 
 				/*
 				 * Create structure for progress with style circle
 				 */
 				if (options.style === "circle") {
 					elementClasses.add(classes.uiProgressContainerCircle);
-					progressElement.classList.add(classes.uiProgressCircle);
+					progressClasses.add(classes.uiProgressCircle);
+					switch (options.size) {
+					case "small":
+						progressClasses.add(classes.uiProgressCircleSmall);
+						break;
+					case "large":
+						progressClasses.add(classes.uiProgressCircleLarge);
+						break;
+					}
 					this.runningClass = classes.uiProgressCircleRunning;
 
 					/*
@@ -225,8 +235,7 @@
 					elementClasses.add(classes.uiProgressbar);
 					progressElement.classList.add(classes.uiProgressbarBg);
 					progressPendingElement = document.createElement("div");
-					progressPendingElement.classList.add(
-						classes.uiProgressPending);
+					progressPendingElement.classList.add(classes.uiProgressPending);
 					progressElement.appendChild(progressPendingElement);
 					this.runningClass = classes.uiProgressPendingRunning;
 				}
@@ -246,8 +255,8 @@
 				var self = this,
 					options = self.options;
 				if (self._uiProgress === null) {
-					self._uiProgress = element.querySelector(
-							classes.uiProgressPrefix + options.style);
+					self._uiProgress = element.querySelector(classes.uiProgressPrefix +
+							options.style);
 				}
 				self._setRunning(options.running);
 			};

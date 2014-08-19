@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, define, ns */
 /*
 * Copyright (c) 2013 - 2014 Samsung Electronics Co., Ltd
 *
@@ -79,7 +79,7 @@
  *			var element = document.getElementById("probress-bar"),
  *				progressBar = tau.widget.ProgressBar(element);
  *
- *		 	progressBar.methodName(argument1, argument2, ...);
+ *			progressBar.methodName(argument1, argument2, ...);
  *		</script>
  *
  *
@@ -92,7 +92,7 @@
  * @class ns.widget.mobile.ProgressBar
  */
 
-(function (window, ns) {
+(function (document, ns) {
 	"use strict";
 
 //>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
@@ -189,8 +189,7 @@
 
 				element.classList.add(classes.uiProgressbar);
 				progressBarBgElement.classList.add(classes.uiProgressbarBg);
-				progressBarValueElement.classList.add(
-					classes.uiProgressbarValue);
+				progressBarValueElement.classList.add(classes.uiProgressbarValue);
 
 				progressBarValueElement.style.width = options.value + "%";
 
