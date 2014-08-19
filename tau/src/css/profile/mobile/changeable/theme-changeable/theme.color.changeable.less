@@ -69,6 +69,29 @@
 @color_tabbar_text_selected : T1117S;
 
 /***************************************************************************
+	Textinput Clear Button
+***************************************************************************/
+@color_editfield_bg: B0215;
+
+@color_editfield_outline: F059;
+@color_editfield_selected_bg: F056;
+@color_editfield_selected_outline: F057;
+@color_editfield_disabled_bg: F058;
+@color_editfield_disabled_outline : F059;
+
+@color_editfield_text: T1013;
+@color_editfield_selected_text: T1013;
+@color_editfield_placeholder_text: T1012;
+@color_editfield_placeholder_selected_text: T1012;
+@color_editfield_disabled_text: T1011D;
+
+@color_editfield: F054;
+
+@color_editfield_clear_icon: F053;
+@color_editfield_clear_icon_press: F053P;
+@color_editfield_clear_icon_disabled: F053D;
+
+/***************************************************************************
                    List
 ***************************************************************************/
 @color_list_bg: B041;
@@ -102,16 +125,18 @@
 @color_list_swipe_left_bg: B0232;
 @color_list_swipe_right_bg: B0233;
 
-@color_list_editfield_bg : F054;
-@color_list_editfield_outline : F055;
-@color_list_editfield_selected_bg : F056;
-@color_list_editfield_selected_outline : F057;
-@color_list_editfield_disabled_bg : F058;
-@color_list_editfield_disabled_outline : F059;
-@color_list_editfield_text : T1011;
-@color_list_editfield_placeholder_text: T1012;
-@color_list_editfield_disabled_text: T1013;
-@color_list_editfield : F054;
+@color_list_editfield_bg: @color_editfield_bg;
+@color_list_editfield_outline: @color_editfield_outline;
+@color_list_editfield_selected_bg: @color_editfield_selected_bg;
+@color_list_editfield_selected_outline: @color_editfield_selected_outline;
+@color_list_editfield_disabled_bg:  @color_editfield_disabled_bg;
+@color_list_editfield_disabled_outline: @color_editfield_disabled_outline;
+@color_list_editfield_text: @color_editfield_text;
+@color_list_editfield_selected_text: @color_editfield_selected_text;
+@color_list_editfield_placeholder_text: @color_editfield_placeholder_text;
+@color_list_editfield_disabled_text: @color_editfield_disabled_text;
+@color_list_editfield: @color_editfield;
+
 @color_list_dialogue_bg : B011;
 @color_dialogue_border : B0223;
 @color_dialogue_main_text_press: T023P;
@@ -135,6 +160,7 @@
 @list-li-padding-horizontal: 8 * @unit_base;
 
 @list-bigicon-size2: 72 * @unit_base;
+
 
 /***************************************************************************
                    Fast Scroll

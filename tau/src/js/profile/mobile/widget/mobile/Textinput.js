@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, define, ns */
 /*
 * Copyright (c) 2013 - 2014 Samsung Electronics Co., Ltd
 *
@@ -141,7 +141,8 @@
 		[
 			"../../../../core/engine",
 			"../../../../core/theme",
-			"../mobile",  // fetch namespace
+			"../mobile",
+			"../../../../core/util/DOM/manipulation",
 			"./BaseWidgetMobile",
 			"./Button"
 		],
@@ -165,6 +166,9 @@
 						theme: 's',
 						clearBtn: false
 					};
+
+					this._ui = {};
+					this._handlers = {};
 				},
 				/**
 				 * Alias for {ns.widget.BaseWidget}
@@ -199,6 +203,8 @@
 				 */
 				eventsAdded = false,
 
+				domUtils = ns.util.DOM,
+
 				/**
 				 * Dictionary for textinput related css class names
 				 * @property {Object} classes
@@ -209,9 +215,11 @@
 					uiBodyTheme: "ui-body-",
 					uiMini: "ui-mini",
 					uiInputText: "ui-input-text",
-					//clear: "ui-input-clear",
-					clear: "ui-li-delete",
-					clearHidden: "ui-input-clear-hidden"
+					clear: "ui-input-clear",
+					clearHidden: "ui-input-clear-hidden",
+					clearActive: "ui-input-clear-active",
+					textLine: "ui-text-line",
+					focus: "ui-focus"
 				},
 				/**
 				 * Selector for clear button appended to textinput
@@ -315,20 +323,38 @@
 			};
 
 			/**
+			 * Resize textarea, called after text input
+			 * @method _resize
+			 * @private
+			 * @param {HTMLElement} element
+			 * @member ns.widget.mobile.TextInput
+			 */
+			function _resize(element){
+				if (element.nodeName.toLowerCase() === "textarea") {
+					if(element.clientHeight < element.scrollHeight){
+						element.style.height = element.scrollHeight + "px";
+					}
+				}
+			}
+
+			/**
 			 * Toggle visibility of the clear button
 			 * @method toggleClearButton
-			 * @param {HTMLElement} clearbtn
-			 * @param {HTMLElement} element
+			 * @param {HTMLElement} clearBtn
+			 * @param {HTMLInputElement} inputElement
 			 * @member ns.widget.mobile.TextInput
 			 * @static
 			 * @private
 			 */
-			function toggleClearButton(clearbtn, element) {
-				if (clearbtn) {
-					if (element.value === "") {
-						clearbtn.classList.add(classes.clearHidden);
+			function toggleClearButton(clearBtn, inputElement) {
+				if (clearBtn) {
+					// @TODO change to two-parameter toggle after it's implemenation is fixed on the platform
+					if (inputElement.value === "") {
+						clearBtn.classList.add(classes.clearHidden);
+						inputElement.classList.remove(classes.clearActive);
 					} else {
-						clearbtn.classList.remove(classes.clearHidden);
+						clearBtn.classList.remove(classes.clearHidden);
+						inputElement.classList.add(classes.clearActive);
 					}
 				}
 			}
@@ -343,47 +369,41 @@
 			 * @private
 			 */
 			function findLabel(element) {
-				var elemParent = element.parentNode;
-				return elemParent.querySelector('label[for="' + element.id + '"]');
+				return element.parentNode.querySelector('label[for="' + element.id + '"]');
 			}
 
 			/**
 			 * Method returns not disabled TextInput element which is the closest
 			 * to element.
 			 * @method isEnabledTextInput
-			 * @param {EventTarget|HTMLElement} element
-			 * @return {?HTMLElement}
+			 * @param {HTMLInputElement} element
+			 * @return {boolean}
 			 * @private
 			 * @static
 			 * @member ns.widget.mobile.TextInput
 			 */
 			function isEnabledTextInput(element) {
-				if (element.classList.contains(classes.uiInputText) &&
-						!element.classList.contains(CLASS_DISABLED)) {
-					return element;
-				}
-				return null;
+				return element && element.classList.contains(classes.uiInputText) &&
+					!element.classList.contains(CLASS_DISABLED) && !element.disabled;
 			}
 
 			/**
 			* The check whether the element is the enable "clear" button
 			* @method isEnabledClearButton
-			* @param {HTMLElement|EventTarget} element
+			* @param {HTMLElement} buttonElement
 			* @return {boolean}
 			* @private
 			* @static
 			* @member ns.widget.mobile.TextInput
 			*/
-			function isEnabledClearButton(element) {
-				var input,
-					inputClassList;
-				if (element && element.classList.contains(classes.clear)) {
-					input = element.previousElementSibling;
-					inputClassList = input.classList;
-					if (inputClassList.contains(classes.uiInputText) &&
-							!inputClassList.contains(CLASS_DISABLED)) {
-						return true;
-					}
+			function isEnabledClearButton(buttonElement) {
+				var input;
+
+				if (buttonElement && buttonElement.classList.contains(classes.clear)) {
+					//input = element.previousElementSibling;
+					input = buttonElement.parentElement.querySelector("." + classes.uiInputText);
+
+					return isEnabledTextInput(input);
 				}
 				return false;
 			}
@@ -397,24 +417,24 @@
 			 * @member ns.widget.mobile.TextInput
 			 */
 			function onFocus(event) {
-				var elem = isEnabledTextInput(event.target);
-				if (elem) {
-					elem.classList.add('ui-focus');
+				var element = event.target;
+				if (isEnabledTextInput(element)) {
+					element.classList.add(classes.focus);
 				}
 			}
 
 			/**
-			 * Method adds event for resize textarea.
-			 * @method onKeyUp
+			 * Method adds event for showing clear button and optional resizing textarea.
+			 * @method onInput
 			 * @param {Event} event
 			 * @private
 			 * @static
 			 * @member ns.widget.mobile.TextInput
 			 */
-			function onKeyup(event) {
-				var element = isEnabledTextInput(event.target),
+			function onInput(event) {
+				var element = event.target,
 					self;
-				if (element) {
+				if (isEnabledTextInput(element)) {
 					self = engine.getBinding(element, "TextInput");
 					if (self) {
 						toggleClearButton(self._ui.clearButton, element);
@@ -431,10 +451,10 @@
 			 * @member ns.widget.mobile.TextInput
 			 */
 			function onBlur(event) {
-				var element = isEnabledTextInput(event.target),
+				var element = event.target,
 					self;
-				if (element) {
-					element.classList.remove('ui-focus');
+				if (isEnabledTextInput(element)) {
+					element.classList.remove(classes.focus);
 					self = engine.getBinding(element, "TextInput");
 					if (self) {
 						toggleClearButton(self._ui.clearButton, element);
@@ -451,12 +471,13 @@
 			*/
 			function onCancel(event) {
 				var clearButton = event.target,
-					element;
+					input;
+
 				if (isEnabledClearButton(clearButton)) {
-					element = clearButton.previousElementSibling;
-					element.value = "";
-					toggleClearButton(clearButton, element);
-					element.focus();
+					input = clearButton.parentElement.querySelector("." + classes.uiInputText);
+					input.value = "";
+					toggleClearButton(clearButton, input);
+					input.focus();
 				}
 			}
 
@@ -475,19 +496,19 @@
 					eventsAdded = true;
 				}
 			}
+
 			/**
-			 * resize textarea
-			 * @method _resize
+			 * Removes global events related to checkboxes
+			 * @method removeGlobalEvents
 			 * @private
-			 * @param {HTMLElement} element
+			 * @static
 			 * @member ns.widget.mobile.TextInput
 			 */
-			function _resize(element){
-				if (element.nodeName.toLowerCase() === "textarea") {
-					if(element.clientHeight < element.scrollHeight){
-						element.style.height = element.scrollHeight +" px";
-					}
-				}
+			function removeGlobalEvents() {
+				document.removeEventListener('focus', onFocus, true);
+				document.removeEventListener('blur', onBlur, true);
+				document.removeEventListener('vclick', onCancel, true);
+				eventsAdded = false;
 			}
 
 			/**
@@ -497,9 +518,28 @@
 			* @protected
 			*/
 			TextInput.prototype._configure = function () {
-				var self= this;
+				var self = this;
 
 				self._ui = self._ui || {};
+			};
+
+			function setAria(element) {
+				element.setAttribute("role", "textbox");
+				element.setAttribute("aria-label", "Keyboard opened");
+			}
+
+			function createDecorationLine(element) {
+				var decorationLine = element.nextElementSibling;
+
+				if (!decorationLine || (decorationLine && !decorationLine.classList.contains(classes.textLine))) {
+
+					decorationLine = document.createElement("span");
+					decorationLine.classList.add(classes.textLine);
+
+					domUtils.insertNodeAfter(element, decorationLine);
+				}
+
+				return decorationLine;
 			}
 
 			/**
@@ -513,11 +553,11 @@
 			TextInput.prototype._build = function (element) {
 				var self= this,
 					elementClassList = element.classList,
-					classes = TextInput.classes,
 					options = self.options,
 					themeClass,
 					labelFor = findLabel(element),
 					clearButton,
+					type = element.type,
 					ui;
 
 				ui = self._ui;
@@ -532,29 +572,35 @@
 				elementClassList.add(classes.uiInputText);
 				elementClassList.add(themeClass);
 
-				switch (element.type) {
+				switch (type) {
 				case "text":
 				case "password":
 				case "number":
 				case "email":
 				case "url":
 				case "tel":
-					element.setAttribute("role", "textbox");
-					element.setAttribute("aria-label", "Keyboard opened");
+					setAria(element);
+					// Adds decoration line for textbox-like elements and textarea
+					// this is required only to match the UX Guides, no other
+					// functionality is related to that element
+					ui.textLine = createDecorationLine(element);
 					break;
 				default:
 					if (element.tagName.toLowerCase() === "textarea") {
-						element.setAttribute("role", "textbox");
-						element.setAttribute("aria-label", "Keyboard opened");
+						setAria(element);
+						ui.textLine = createDecorationLine(element);
 					}
 				}
 
-				element.setAttribute("tabindex", 0);
+				element.tabindex = 0;
 
 				if (options.clearBtn) {
 					clearButton = document.createElement("span");
 					clearButton.classList.add(classes.clear);
+					clearButton.tabindex = 0;
+
 					element.parentNode.appendChild(clearButton);
+
 					ui.clearButton = clearButton;
 				}
 
@@ -574,13 +620,27 @@
 			*/
 			TextInput.prototype._init = function (element) {
 				var self = this,
+					ui = self._ui,
 					options = self.options;
 				if (options.clearBtn) {
-					self._ui.clearButton = element.parentNode.querySelector(CLEAR_BUTTON_SELECTOR);
-					if (self._ui.clearButton) {
-						toggleClearButton(self._ui.clearButton, element);
+					ui.clearButton = element.parentNode.querySelector(CLEAR_BUTTON_SELECTOR);
+
+					if (ui.clearButton) {
+						toggleClearButton(ui.clearButton, element);
 					}
 				}
+
+				switch (element.type) {
+					case "text":
+					case "password":
+					case "number":
+					case "email":
+					case "url":
+					case "tel":
+						ui.textLine = element.nextElementSibling;
+						break;
+				}
+
 				return element;
 			};
 
@@ -593,18 +653,55 @@
 			* @member ns.widget.mobile.TextInput
 			*/
 			TextInput.prototype._bindEvents = function (element) {
-				var clearButton = this._ui.clearButton;
-				element.addEventListener('keyup', onKeyup , false);
-				if (clearButton) {
-					clearButton.addEventListener("vclick", onCancel.bind(null, this), false);
-				}
+				element.addEventListener('input', onInput , false);
 				addGlobalEvents();
+				// One time resize after page show
+				document.addEventListener("pageshow", function _resizeWidgetsOnPageLoad() {
+					document.removeEventListener("pageshow", _resizeWidgetsOnPageLoad);
+
+					_resize(element);
+				});
+			};
+
+			/**
+			 * Destroys additional elements created by the widget,
+			 * removes classes and event listeners
+			 * @method _destroy
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.mobile.TextInput
+			 */
+			TextInput.prototype._destroy = function (element) {
+				var ui = this._ui,
+					textLine = ui.textLine,
+					clearButton = ui.clearButton,
+					elementClassList = element.classList;
+
+				if (textLine) {
+					textLine.parentElement.removeChild(ui.textLine);
+				}
+
+				if (clearButton) {
+					clearButton.parentElement.removeChild(ui.clearButton);
+				}
+
+				// Remove events
+				element.removeEventListener('input', onInput , false);
+
+				removeGlobalEvents();
+
+				// Remove classes
+				elementClassList.remove(classes.clearActive);
+				elementClassList.remove(classes.uiInputText);
+				elementClassList.remove(classes.uiBodyTheme + this.options.theme);
 			};
 
 			ns.widget.mobile.TextInput = TextInput;
 			engine.defineWidget(
 				"TextInput",
-				"input[type='text'], input[type='number'], input[type='password'], input[type='email'], input[type='url'], input[type='tel'], textarea, input[type='month'], input[type='week'], input[type='datetime-local'], input[type='color'], input:not([type]), .ui-textinput",
+				"input[type='text'], input[type='number'], input[type='password'], input[type='email']," +
+					"input[type='url'], input[type='tel'], textarea, input[type='month'], input[type='week']," +
+					"input[type='datetime-local'], input[type='color'], input:not([type]), .ui-textinput",
 				[],
 				TextInput,
 				"mobile"

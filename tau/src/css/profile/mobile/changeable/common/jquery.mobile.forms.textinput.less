@@ -1,71 +1,148 @@
-@unit_base_textinput: @unit_base * 0.5;
-@search-bar-padding: 16 * @unit_base_textinput;
+@search_bar_padding: 16 * @unit_base;
 
-label.ui-input-text {
-	font-size: @font_size_list_editfield_text;
-	line-height: 1.2;
-	display: block;
-	font-weight: normal;
-	margin: 0 0 .3em;
-}
-input.ui-input-text:not(.ui-tokentextarea-input) {
-	background-image: none;
-	padding-top: 4 * @unit_base;
-	padding-bottom: 4 * @unit_base;
-	padding-right: 4 * @unit_base;
-	padding-left: 4 * @unit_base;
-	margin-right: 0;
-	margin-left: 0;
-
-	border: 1px solid @color_list_editfield_outline;
-	width: 100%;
-	box-sizing : border-box;
-
-	line-height: 1.4;
-	font-size: @font_size_list_editfield_text;
-	display: block;
-	background-color: @color_list_editfield_bg;
+input::-webkit-input-placeholder {
+	max-width: 100% !important;
+	text-overflow: ellipsis !important;
+	white-space: nowrap !important;
+	overflow: hidden !important;
+	color: @color_editfield_placeholder_text;
 }
 
-input.ui-tokentextarea-input {
-	font-size : @font_size_tokentextarea_input_text;
-	background-color: @color_list_editfield_bg;
+textarea::-webkit-input-placeholder {
+	color: @color_editfield_placeholder_text;
 }
 
+.ui-input-text {
+	border: 0;
 
-input.ui-input-text.ui-focus, textarea.ui-input-text.ui-focus {
-	border : 1px solid @color_list_editfield_selected_outline;
-}
+	label& {
+		font-size: @font_size_list_editfield_text;
+	}
 
-input.ui-input-text.ui-focus, textarea.ui-input-text.ui-focus {
-	&[type="month"],
-	&[type="week"],
-	&[type="datetime-local"] {
-		border : 1px solid @color_list_editfield_selected_outline;
-		outline-color : @color_list_editfield_selected_outline;
+	input&,
+	textarea& {
+		appearance: none;
+		-webkit-appearance: none;
+		background-color: @color_editfield_bg;
+		box-sizing: border-box;
+		color: @color_editfield_text;
+		display: block;
+		font-size: @font_size_list_editfield_text;
+		height: 96 * @unit_base;
+		line-height: 38 * @unit_base;
+		width: 100%;
+		margin: 0;
+
+		&:disabled,
+		&.ui-disabled {
+			color: @color_editfield_disabled_text;
+		}
+
+		&:focus,
+		&.ui-focus {
+			color: @color_editfield_selected_text;
+
+			&::-webkit-input-placeholder {
+				color: @color_editfield_placeholder_selected_text;
+			}
+		}
+
+		// Decoration underline ---------------------------------
+		& + .ui-text-line {
+			background: @color_editfield_outline;
+			display: block;
+			box-sizing: border-box;
+			height: 2 * @unit_base;
+			position: relative;
+			top: -10 * @unit_base;
+			margin: 0 * @unit_base 15 * @unit_base -2 * @unit_base;
+		}
+
+		&:disabled + .ui-text-line,
+		&.ui-disabled + .ui-text-line {
+			background: @color_editfield_disabled_outline;
+		}
+
+		&:focus + .ui-text-line,
+		&.ui-focus + .ui-text-line {
+			background: @color_editfield_selected_outline;
+		}
+		// Decoration underline ---------------------------- end
+
+		// Clear button ----------------------------------------
+		&.ui-input-clear-active {
+			padding-right: 66 * @unit_base;
+		}
+
+		& ~ .ui-input-clear {
+			display: block;
+			width: 36 * @unit_base;
+			height: 36 * @unit_base;
+			margin-right: 15 * @unit_base;
+			float: right;
+			// Move to top by - input's padding-bottom + clear height
+			margin-top: -(36 + 29) * @unit_base;
+			background: @color_editfield_clear_icon;
+			-webkit-mask-size: contain;
+			-webkit-mask-image: url(images/controls/00_core_button_icon_clear.png);
+
+			&:active,
+			&:hover {
+				background-color: @color_editfield_clear_icon_press;
+			}
+		}
+
+		& ~ .ui-input-clear-hidden {
+			display: none;
+		}
+
+		&.ui-disabled ~ .ui-input-clear,
+		&:disabled ~ .ui-input-clear {
+			background-color: @color_editfield_clear_icon_disabled;
+
+			&:active,
+			&:hover {
+				background-color: @color_editfield_clear_icon_disabled;
+			}
+		}
+		// Clear button ------------------------------------- end
+	}
+
+	input& {
+		padding: 29 * @unit_base 15 * @unit_base;
+
+		&:not(.ui-tokentextarea-input) {
+			display: block;
+			width: 100%;
+		}
+	}
+
+	textarea& {
+		min-height: 96 * @unit_base;
+		padding: 10 * @unit_base 15 * @unit_base 14 * @unit_base;
+		resize: none;
+		white-space: normal;
+
+		-webkit-transition: height 200ms linear;
+		transition: height 200ms linear;
 	}
 }
 
-input.ui-input-text {
-	appearance: none;
-	-webkit-appearance: none;
+input.ui-tokentextarea-input {
+	font-size: @font_size_tokentextarea_input_text;
+	background-color: @color_editfield_bg;
 }
-textarea.ui-input-text {
-	padding: 4 * @unit_base;
-	margin-right: 0;
-	margin-left: 0;
-	height: 50*@unit_base;
-	width : 95%;
-	resize: none;
-	-webkit-transition: height 200ms linear;
-	transition: height 200ms linear;
-	white-space: normal;
 
-	border: 1px solid @color_list_editfield_outline;
-	box-sizing: border-box;
-	font-size: @font_size_list_editfield_text;
-	background-color: @color_list_editfield_bg;
+input.ui-input-text.ui-focus,
+textarea.ui-input-text.ui-focus {
+	&[type="month"],
+	&[type="week"],
+	&[type="datetime-local"] {
+		border: 1px solid @color_editfield_selected_outline;
+		outline-color: @color_editfield_selected_outline;
+	}
 }
+
 .ui-header.ui-bar-s.ui-header-searchbar {
 	.ui-title {
 		max-width: none;
@@ -76,13 +153,13 @@ textarea.ui-input-text {
 .ui-input-search {
 	position: relative;
 
-	padding-right : 76 * @unit_base_textinput;
-	padding-left : 76 * @unit_base_textinput;
+	padding-right: 76 * @unit_base;
+	padding-left: 76 * @unit_base;
 
-	border:1px solid @color_searchbar_border;
+	border: 1px solid @color_searchbar_border;
 
 	input.ui-input-text {
-		width : 100%;
+		width: 100%;
 		border: none;
 		background: transparent;
 		outline: 0 !important;
@@ -98,18 +175,18 @@ textarea.ui-input-text {
 		width: 36 * @unit_base;
 		height: 34 * @unit_base;
 		.ui-btn-inner {
-			padding: 14 * @unit_base_textinput
-					16 * @unit_base_textinput
-					9 * @unit_base_textinput
-					16 * @unit_base_textinput;
+			padding: 14 * @unit_base
+				16 * @unit_base
+				9 * @unit_base
+				16 * @unit_base;
 		}
 		display: inline-block;
 	}
 	.ui-btn-inner {
 		.ui-icon-deleteSearch {
 			margin: -2 * @unit_base;
-			width: 45 * @unit_base_textinput;
-			height: 45 * @unit_base_textinput;
+			width: 45 * @unit_base;
+			height: 45 * @unit_base;
 		}
 	}
 	.ui-input-clear {
@@ -121,36 +198,37 @@ textarea.ui-input-text {
 	/* temporarily delete 06.28 Heeju Joo*/
 	/*.ui-input-clear-hidden { display: none; }*/
 }
-.ui-input-clear-hidden { display: none; }
 
 /* search bar */
 .ui-body-s > div > .ui-field-contain > .input-search-bar,
 .ui-body-s > .ui-field-contain > .input-search-bar {
-	margin : -48*@unit_base -15*@unit_base -32*@unit_base -15*@unit_base;
-} /* Need to confirm exact concept */
+	margin: -48*@unit_base -15*@unit_base -32*@unit_base -15*@unit_base;
+}
+
+/* Need to confirm exact concept */
 
 .input-search-bar {
-	position : relative;
+	position: relative;
 
 	background-color: @color_searchbar_bg;
-	padding: @search-bar-padding;
+	padding: @search_bar_padding;
 	vertical-align: middle;
 
 	.ui-input-search {
-		font-size : @font_size_searchbar_text;
-		display : block;
+		font-size: @font_size_searchbar_text;
+		display: block;
 		position: relative;
 
 		background-color: @color_searchbar_bg;
 		border: 1px solid @color_searchbar_bg;
 		.ui-input-text {
-			height: 68 * @unit_base_textinput;
-			padding : 0px;
+			height: 68 * @unit_base;
+			padding: 0px;
 
-			margin-right : 38 * @unit_base;
+			margin-right: 38 * @unit_base;
 
 			&::-webkit-input-placeholder {
-				color : @color_searchbar_text;
+				color: @color_searchbar_text;
 			}
 		}
 
@@ -163,89 +241,89 @@ textarea.ui-input-text {
 			position: absolute;
 			top: 0px;
 			left: 0px;
-			width : 45 * @unit_base_textinput;
-			height : 45 * @unit_base_textinput;
-			margin-top: 9 * @unit_base_textinput;
-			margin-left: 16 * @unit_base_textinput;
-			margin-right: 16 * @unit_base_textinput;
+			width: 45 * @unit_base;
+			height: 45 * @unit_base;
+			margin-top: 9 * @unit_base;
+			margin-left: 16 * @unit_base;
+			margin-right: 16 * @unit_base;
 		}
 	}
 
 	.ui-input-search-default {
-		margin-right : 148 * @unit_base_textinput;
+		margin-right: 148 * @unit_base;
 	}
 
 	.ui-input-search-wide {
-		margin-right : 0;
+		margin-right: 0;
 	}
 
 	.ui-input-cancel {
 		display: inline-block;
 		position: absolute;
 
-		background-color : @color_searchbar_button_bg;
+		background-color: @color_searchbar_button_bg;
 
-		top	: 4 * @unit_base;
-		right : 0 * @unit_base;
-		height : 72 * @unit_base_textinput;
-		margin-right : 16 * @unit_base_textinput;
+		top: 4 * @unit_base;
+		right: 0 * @unit_base;
+		height: 72 * @unit_base;
+		margin-right: 16 * @unit_base;
 
 		vertical-align: middle;
-		padding : 0;
+		padding: 0;
 
-	  	width : 136 * @unit_base_textinput;
+		width: 136 * @unit_base;
 
 		&.ui-btn-down-s {
-			background-color : @color_searchbar_button_bg_press;
+			background-color: @color_searchbar_button_bg_press;
 		}
 		.ui-btn-inner {
-			padding-top : 6 * @unit_base;
-			padding-bottom : 6 * @unit_base;
+			padding-top: 6 * @unit_base;
+			padding-bottom: 6 * @unit_base;
 		}
 
 		&.ui-btn-cancel-hide {
-			right : -75 * @unit_base;
+			right: -75 * @unit_base;
 			visibility: hidden;
 		}
 		&.ui-btn-cancel-show {
-			right : 0px;
+			right: 0px;
 			visibility: visible;
 		}
 	}
 
 	.ui-search-bar-icon {
-		margin-left : 82 * @unit_base_textinput;
+		margin-left: 82 * @unit_base;
 	}
 
 	.ui-btn.ui-btn-search-front-icon {
-		position : absolute;
-		top : 8 * @unit_base_textinput;
-		width : 72 * @unit_base_textinput;
-		height : 72 * @unit_base_textinput;
-		padding : 0;
-		.LESSborder-radius-allimportant( 38 * @unit_base_textinput );
-		>.ui-btn-inner.ui-btn-icon-only {
-			width : 45 * @unit_base_textinput;
-			height : 45 * @unit_base_textinput;
-			padding : 13 * @unit_base_textinput
-					14 * @unit_base_textinput
-					14 * @unit_base_textinput
-					13 * @unit_base_textinput;
-			.LESSborder-radius-allimportant( 38 * @unit_base_textinput );
+		position: absolute;
+		top: 8 * @unit_base;
+		width: 72 * @unit_base;
+		height: 72 * @unit_base;
+		padding: 0;
+		.LESSborder-radius-allimportant(38 * @unit_base);
+		> .ui-btn-inner.ui-btn-icon-only {
+			width: 45 * @unit_base;
+			height: 45 * @unit_base;
+			padding: 13 * @unit_base
+				14 * @unit_base
+				14 * @unit_base
+				13 * @unit_base;
+			.LESSborder-radius-allimportant(38 * @unit_base);
 
 			.ui-icon {
-				width : 45 * @unit_base_textinput;
-				height : 45 * @unit_base_textinput;
-				margin : 0;
+				width: 45 * @unit_base;
+				height: 45 * @unit_base;
+				margin: 0;
 				background-position: 0 0;
-				background-size: 45 * @unit_base_textinput 45 * @unit_base_textinput;
+				background-size: 45 * @unit_base 45 * @unit_base;
 			}
 		}
 	}
 
 	.ui-focus:not(.ui-input-cancel):not(.ui-btn-icon-notext) {
 		border: 1px solid @color_searchbar_border_focus;
-		height: 72 * @unit_base_textinput;
+		height: 72 * @unit_base;
 		background-color: @color_list_bg;
 		box-sizing: border-box;
 
@@ -253,34 +331,31 @@ textarea.ui-input-text {
 }
 
 .ui-header .input-search-bar {
-	padding-top : 8 * @unit_base_textinput;
-	padding-bottom : 8 * @unit_base_textinput;
+	padding-top: 8 * @unit_base;
+	padding-bottom: 8 * @unit_base;
 	background-color: @color_searchbar_bg;
 }
 
 .ui-image-search {
 	background-repeat: no-repeat;
-	background-size : 45 * @unit_base_textinput 45 * @unit_base_textinput;
+	background-size: 45 * @unit_base 45 * @unit_base;
 	background-color: @color_searchbar_search_icon;
 	-webkit-mask-image: url(images/controls/00_icon_search.png);
-	-webkit-mask-size: 45 * @unit_base_textinput 45 * @unit_base_textinput;
+	-webkit-mask-size: 45 * @unit_base 45 * @unit_base;
 }
 
 .ui-icon-deleteSearch {
 	background-repeat: no-repeat;
-	background-size : 45 * @unit_base_textinput 45 * @unit_base_textinput;
+	background-size: 45 * @unit_base 45 * @unit_base;
 	background-color: @color_searchbar_clear_icon;
 	-webkit-mask-image: url(images/controls/00_field_btn_clear.png);
-	-webkit-mask-size: 45 * @unit_base_textinput 45 * @unit_base_textinput;
+	-webkit-mask-size: 45 * @unit_base 45 * @unit_base;
 
 	&:active {
 		background-color: @color_searchbar_clear_icon_press;
 	}
 }
 
-input::-webkit-input-placeholder {
-	max-width : 100% !important;
-	text-overflow : ellipsis !important;
-	white-space : nowrap !important;
-	overflow : hidden !important;
+.ui-input-clear-hidden {
+	display: none;
 }
