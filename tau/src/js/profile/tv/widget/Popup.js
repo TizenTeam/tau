@@ -31,44 +31,47 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../../profile/wearable/widget/wearable/Popup",
-			"../../../core/engine"
+			"../../../profile/mobile/widget/mobile/Popup",
+			"../../../core/engine",
+			"../../../core/event"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var WearablePopup = ns.widget.wearable.Popup,
-				WearablePopupPrototype = WearablePopup.prototype,
+			var MobilePopup = ns.widget.mobile.Popup,
+				MobilePopupPrototype = MobilePopup.prototype,
 				BaseKeyboardSupport = ns.widget.tv.BaseKeyboardSupport,
-				classes = WearablePopup.classes,
+				classes = MobilePopup.classes,
 				Popup = function () {
-					WearablePopup.call(this);
+					MobilePopup.call(this);
 					BaseKeyboardSupport.call(this);
 				},
 				engine = ns.engine,
+				/**
+				* @property {Object} events Alias for class ns.event
+				* @member ns.widget.tv.Popup
+				* @private
+				*/
+				events = ns.event,
 				selectors = {
 					header: "header",
 					content: "div",
 					footer: "footer"
 				},
-				prototype = new WearablePopup(),
+				prototype = new MobilePopup(),
 				FUNCTION_TYPE = "function";
 
-			Popup.events = WearablePopup.events;
+			Popup.events = MobilePopup.events;
 
-			classes.popup = "ui-popup";
+			classes.toast = "ui-popup-toast";
 			classes.headerEmpty = "ui-header-empty";
 			classes.footerEmpty = "ui-footer-empty";
+			classes.content = "ui-popup-content";
 
 			Popup.classes = classes;
 
 			Popup.selectors = selectors;
 
 			Popup.prototype = prototype;
-
-			prototype._configure = function() {
-				var options = this.options;
-				options.minScreenHeigth = null;
-			};
 
 			/**
 			 * Build the popup DOM tree
@@ -78,9 +81,8 @@
 			 * @return {HTMLElement}
 			 * @member ns.widget.tv.Popup
 			 */
-			prototype._build = function (element) {
-				var ui = this.ui,
-					options = this.options,
+			prototype._build = function ( element) {
+				var options = this.options,
 					header = element.querySelector(selectors.header),
 					content = element.querySelector(selectors.content),
 					footer = element.querySelector(selectors.footer),
@@ -89,7 +91,7 @@
 					i,
 					node;
 
-				element.classList.add(classes.popup);
+				element.classList.add(classes.uiPopup);
 
 				if (!content) {
 					//if content does not exist, it is created
@@ -111,7 +113,6 @@
 						header.innerHTML = options.header;
 						element.insertBefore(header, content);
 					}
-					header.classList.add(classes.header);
 				} else {
 					element.classList.add(classes.headerEmpty);
 				}
@@ -123,63 +124,134 @@
 						footer.innerHTML = options.footer;
 						element.appendChild(footer);
 					}
-					footer.classList.add(classes.footer);
 				} else {
 					element.classList.add(classes.footerEmpty);
 				}
 
-				ui.header = header;
-				ui.content = content;
-				ui.footer = footer;
+				if (typeof MobilePopupPrototype._build === FUNCTION_TYPE) {
+					MobilePopupPrototype._build.apply(this, arguments);
+				}
 
 				return element;
 			};
 
-			prototype._init = function(element) {
-				var ui = this.ui;
-				if (typeof WearablePopupPrototype._init === FUNCTION_TYPE) {
-					WearablePopupPrototype._init.call(this, element);
+			/**
+			 * Set the state of the popup
+			 * @method _setActive
+			 * @param {boolean} active
+			 * @protected
+			 * @member ns.widget.wearable.Popup
+			 */
+			prototype._setActive = function (active, options) {
+				var activeClass = classes.uiPopupActive,
+					elementCls = this.element.classList,
+					route = ns.engine.getRouter().getRoute("popup");
+				if (active) {
+					// set global variable
+					route.setActive(this, options);
+					// add proper class
+					elementCls.add(activeClass);
+				} else {
+					// no popup is opened, so set global variable on "null"
+					route.setActive(null, options);
+					// remove proper class
+					elementCls.remove(activeClass);
 				}
-				this._pageWidget = engine.instanceWidget(element.parentElement, "page");
-				ui.header = element.querySelector(selectors.header);
-				ui.content = element.querySelector(selectors.content);
-				ui.footer = element.querySelector(selectors.footer);
+
+				this.active = elementCls.contains(activeClass);
+			};
+
+			prototype._init = function(element) {
+				if (typeof MobilePopupPrototype._init === FUNCTION_TYPE) {
+					MobilePopupPrototype._init.call(this, element);
+				}
+				if (element.classList.contains(classes.toast)) {
+					this._ui.container.classList.add(classes.toast);
+				}
+				this._pageWidget = engine.instanceWidget(element.parentElement.parentElement, "page");
+			};
+
+			function checkLink(options) {
+				var link = options && options.link,
+					linkElement = options && document.getElementById(link);
+
+				if (linkElement && linkElement.getAttribute("data-role") !== "button") {
+					options.link = null;
+				}
+			}
+
+			/**
+			* Animation's callback on completed opening
+			* @method _openPrereqsComplete
+			* @protected
+			* @member ns.widget.mobile.Popup
+			*/
+			prototype._openPrereqsComplete = function() {
+				var self = this,
+					container = self._ui.container;
+
+				container.classList.add(Popup.classes.uiPopupActive);
+				self._isOpen = true;
+				self._isPreOpen = false;
+
+				// Android appears to trigger the animation complete before the popup
+				// is visible. Allowing the stack to unwind before applying focus prevents
+				// the "blue flash" of element focus in android 4.0
+				setTimeout(function(){
+					container.setAttribute("tabindex", "0");
+					events.trigger(self.element, "popupafteropen");
+				});
 			};
 
 			prototype.open = function(options) {
 				var self = this,
 					page = self._pageWidget,
-					autoFocus = options.autofocus;
-				if (typeof WearablePopupPrototype.open === FUNCTION_TYPE) {
-					WearablePopupPrototype.open.apply(self, arguments);
-				}
-				self.enableKeyboardSupport();
-				page.blur();
-				page.disableKeyboardSupport();
-				if (autoFocus || autoFocus===0) {
-					self.focus(autoFocus);
+					autoFocus = options && options.autofocus;
+
+				if (!self._isOpen) {
+					checkLink(options);
+					if (typeof MobilePopupPrototype.open === FUNCTION_TYPE) {
+						MobilePopupPrototype.open.apply(self, arguments);
+					}
+
+					//TODO after transition
+					self._setActive(true, options || {});
+
+					self.enableKeyboardSupport();
+					page.blur();
+					page.disableKeyboardSupport();
+
+					if (autoFocus || autoFocus === 0) {
+						self.focus(autoFocus);
+					}
 				}
 			};
 
-			prototype.close = function() {
-				if (typeof WearablePopupPrototype.close === FUNCTION_TYPE) {
-					WearablePopupPrototype.close.apply(this, arguments);
+			prototype.close = function(options) {
+				if (this._isOpen) {
+					if (typeof MobilePopupPrototype.close === FUNCTION_TYPE) {
+						MobilePopupPrototype.close.apply(this, arguments);
+					}
+
+					//TODO after transition
+					this._setActive(false, options || {});
+
+					this.disableKeyboardSupport();
+					this._pageWidget.enableKeyboardSupport();
 				}
-				this.disableKeyboardSupport();
-				this._pageWidget.enableKeyboardSupport();
 			};
 
 			prototype._bindEvents = function() {
-				if (typeof WearablePopupPrototype._bindEvents === FUNCTION_TYPE) {
-					WearablePopupPrototype._bindEvents.call(this);
+				if (typeof MobilePopupPrototype._bindEvents === FUNCTION_TYPE) {
+					MobilePopupPrototype._bindEvents.call(this);
 				}
 				this._bindEventKey();
 			};
 
 			prototype._destroy = function() {
 				this._destroyEventKey();
-				if (typeof WearablePopupPrototype._destroy === FUNCTION_TYPE) {
-					WearablePopupPrototype._destroy.call(this);
+				if (typeof MobilePopupPrototype._destroy === FUNCTION_TYPE) {
+					MobilePopupPrototype._destroy.call(this);
 				}
 			};
 
@@ -187,7 +259,7 @@
 			ns.widget.tv.Page = Popup;
 
 			engine.defineWidget(
-				"popup",
+				"Popup",
 				"[data-role='popup'], .ui-popup",
 				["setActive", "show", "hide", "open", "close"],
 				Popup,

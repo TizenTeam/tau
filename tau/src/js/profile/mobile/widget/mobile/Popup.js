@@ -516,6 +516,7 @@
 			"../../../../core/util/DOM/css",
 			"../../../../core/util/deferred",
 			"../../../../core/util/deferredWhen",
+			"./Scrollview",
 			"../mobile",
 			"./BaseWidgetMobile"
 		],
@@ -856,9 +857,13 @@
 				var direction,
 					bestMatchingDirection,
 					spaceOccupied,
-					// Copy array to queue
-					priorityQueue = directionPriority.slice();
+					priorityQueue;
 
+				if (typeof directionPriority === "string") {
+					directionPriority = directionPriority.split(",");
+				}
+				// Copy array to queue
+				priorityQueue = directionPriority.slice();
 				do {
 					// Get get first element
 					direction = priorityQueue.shift();
@@ -1224,6 +1229,8 @@
 
 				arrowLeft = left - containerLeft;
 
+				uiContainer.classList.add(classes[type]);
+
 				switch (type) {
 				case "bottom":
 					popupMargin = parseInt(doms.getCSSProperty(this.element, "margin-top"), 10) || 0;
@@ -1250,7 +1257,7 @@
 						arrowStyle.left = arrowLeft + "px";
 					}
 					// correction value of top position is always the same
-					correctionValue[1] = positionToElementHeight + positionToElementOffset.top - containerTop;
+					correctionValue[1] = positionToElementHeight + positionToElementOffset.top - containerTop
 					break;
 				case "right":
 					// @todo
