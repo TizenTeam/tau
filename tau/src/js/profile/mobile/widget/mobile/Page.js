@@ -349,6 +349,7 @@
 				uiTitle: "ui-title",
 				uiTitleTextSub: "ui-title-text-sub",
 				uiTitleMultiline: "ui-title-multiline",
+				uiFooterBtn: "ui-footer-btn-",
 				uiPage: "ui-page",
 				uiPageActive: "ui-page-active",
 				uiPageHeaderFullscreen: "ui-page-header-fullscreen",
@@ -492,7 +493,6 @@
 							headerDivider,
 							footerButtons,
 							footerWidth,
-							footerButtonWidth,
 							moreButton,
 							leftButton,
 							rightButton,
@@ -578,16 +578,13 @@
 									if (moreButton.length) {
 										footerWidth -= utilsDOM.getElementWidth(moreButton[0]);
 									}
-									footerButtonWidth = footerWidth / footerButtons.length;
 									footerButtons.forEach(function (button) {
 										var buttonStyle = button.style;
 										engine.instanceWidget(button, "Button", {
-											corners: false,
-											bar: true,
 											role: "button"
 										});
-										buttonStyle.width = footerButtonWidth + "px";
 									});
+									section.classList.add(pageClasses.uiFooterBtn + footerButtons.length);
 								}
 							}
 

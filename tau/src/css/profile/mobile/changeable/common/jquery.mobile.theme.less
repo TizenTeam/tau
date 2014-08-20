@@ -2,6 +2,8 @@
                     Header / Footer
                     NavigationBar
 ***************************************************************************/
+@footer_btn_margin: 15 * @unit_base;
+@footer_btn_middle_margin: 6 * @unit_base;
 
 .ui-bar-s {
 	border: none;
@@ -211,119 +213,78 @@
 }
 
 .ui-footer.ui-bar-s {
-	height : 72 * @unit_base;
+	height : 108 * @unit_base;
 	text-align : center;
 	bottom : 0;
 	background : @color_bar_toolbar_bg;
-
-	>.ui-btn.ui-btn-back,
-	>.ui-btn.ui-btn-footer-down {
-		background : transparent;
-
-		>.ui-btn-icon-only {
-			width : 56 * @unit_base;
-			height : 49 * @unit_base;
-			padding : 0;
-		}
-	}
-
-	>.ui-btn.ui-btn-back,
-	>.ui-btn.ui-btn-footer-down {
-		top : 0;
-	}
-
-	>.ui-btn.ui-btn-footer-down {
-		.ui-icon {
-			left : auto;
-			right : 13 * @unit_base;
-		}
-	}
-
-	>[data-role="button"] {
-		font-size : @font_size_bar_toolbar_button_text;
-		color : @color_bar_toolbar_button_text;
-		background-image : none;
-		border-width : 0;
-
-		&.ui-btn-down-s {
-			background-color: @color_bar_toolbar_press;
-		}
-
-		top : 0;
-		padding : 12 * @unit_base 0;
-
-		>.ui-btn-inner {
-			padding-top : 0;
-			padding-bottom : 0;
-		}
-	}
-	>[data-role="button"]:not(:first-child) {
-		border-left : 1px solid @color_bar_toolbar_divider;
+	.ui-btn.ui-btn-box-s {
 		box-sizing: border-box;
+		height: 74 * @unit_base;
+		margin-top: 17 * @unit_base;
+		width: 100%;
+		.ui-btn-inner {
+			line-height: 49 * @unit_base;
+		}
 	}
-
-	[data-role="controlgroup"] {
-		height: 100%;
+	&.ui-footer-btn-1 {
+		display: -webkit-flex;
+		-webkit-flex-direction: row;
+		.ui-btn.ui-btn-box-s {
+			margin-left: @footer_btn_margin;
+			margin-right: @footer_btn_margin;
+		}
+	}
+	&.ui-footer-btn-2 {
+		display: -webkit-flex;
+		-webkit-flex-direction: row;
+		.ui-btn.ui-btn-box-s:nth-child(1) {
+			margin-left: @footer_btn_margin;
+			margin-right: @footer_btn_middle_margin;
+		}
+		.ui-btn.ui-btn-box-s:nth-child(2) {
+			margin-left: @footer_btn_middle_margin;
+			margin-right: @footer_btn_margin;
+		}
+	}
+	&.ui-footer-btn-3 {
+		display: -webkit-flex;
+		-webkit-flex-direction: row;
+		.ui-btn.ui-btn-box-s:nth-child(1) {
+			margin-left: @footer_btn_margin;
+			margin-right: @footer_btn_middle_margin;
+		}
+		.ui-btn.ui-btn-box-s:nth-child(2) {
+			margin-left: @footer_btn_middle_margin;
+			margin-right: @footer_btn_middle_margin;
+		}
+		.ui-btn.ui-btn-box-s:nth-child(3) {
+			margin-left: @footer_btn_middle_margin;
+			margin-right: @footer_btn_margin;
+		}
+	}
+	.ui-controlgroup {
 		margin: 0;
-		&.ui-tabbar-notext .ui-btn-inner .ui-icon {
-			top: 9 * @unit_base;
-		}
-		a.ui-btn {
-			&.ui-btn-up-s, &.ui-btn-hover-s {
-				.ui-icon {
-					background: @color_tabbar_btn_normal;
-				}
-			}
-			&.ui-btn-down-s {
-				background : @color_tabbar_press;
+		.ui-controlgroup-controls {
+			width: 100%;
+			display: -webkit-flex;
+			-webkit-flex-direction: row;
+			.ui-btn.ui-btn-box-s {
+				margin-left: @footer_btn_middle_margin;
+				margin-right: @footer_btn_middle_margin;
 				.ui-btn-text {
-					background : @color_tabbar_press;
+					font-size: @font_size_button_text;
+					line-height: 54 * @unit_base;
+					color: @color_button_text_normal;
 				}
 			}
-			&.ui-btn-active {
-				color : @color_tabbar_text_selected;
-				.ui-icon {
-					background : @color_tabbar_btn_selected;
-				}
-				.ui-btn-inner.ui-btn-hastxt .ui-btn-text{
-					color: @color_tabbar_text_selected;
-				}
-			}
-		}
-		a.ui-btn .ui-btn-inner.ui-btn-hastxt {
-			padding: 0;
-			.ui-btn-text{
-				color: @color_tabbar_text_normal;
-				font-size: @font_size_tabbar_text;
-				line-height: 72 * @unit_base;
-			}
-
 		}
 	}
-
 	> p {
 		margin-top : 8 * @unit_base;
 		margin-bottom : 8 * @unit_base;
 	}
 	> h1, h2, h3, h4, h5, h6 {
 		display: inline-block;
-	}
-
-	>.ui-btn.ui-btn-box-s {
-	        bottom: 0;
-		.LESSborder-radius-allimportant( 0em );
-		.ui-btn-inner {
-			.LESSborder-radius-allimportant( 0em );
-		}
-	}
-
-	>.ui-btn.ui-btn-down-s.ui-btn-box-s {
-	}
-
-	>.ui-footer-btn-border {
-		>.ui-btn-inner {
-			border-left : 2px solid @color_bar_toolbar_divider;
-		}
 	}
 }
 

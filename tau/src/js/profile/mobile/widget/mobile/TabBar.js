@@ -551,7 +551,7 @@
 					element,
 					linkElement,
 					elementWidth = width + "px",
-					linkWidth = width - 1 + "px";
+					linkWidth = width + "px";
 				for (i = 0; i < length; i++) {
 					element = elements[i];
 					element.style.width = elementWidth;

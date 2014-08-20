@@ -184,10 +184,15 @@
 .ui-footer .ui-tabbar.ui-navbar {
 	height: 100%;
 	&.ui-tabbar-notext .ui-btn-inner .ui-icon {
-		top: 9 * @unit_base;
+		top: 26 * @unit_base;
 	}
 	a.ui-btn {
+		height: 100%;
+		.ui-btn-inner {
+			padding: 54 * @unit_base;
+		}
 		&.ui-btn-up-s, &.ui-btn-hover-s {
+			background-color: @color_tabbar_bg;
 			.ui-icon {
 				background: @color_tabbar_btn_normal;
 			}
@@ -209,10 +214,10 @@
 		}
 	}
 	a.ui-btn .ui-btn-inner.ui-btn-hastxt {
-		padding: 0;
+		padding: 20 * @unit_base;
 		.ui-btn-text{
 			color: @color_tabbar_text_normal;
-			font-size: @font_size_tabbar_text;
+			font-size: @font_size_tabbar_text_only;
 			line-height: 72 * @unit_base;
 		}
 	}
