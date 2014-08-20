@@ -203,20 +203,14 @@
 				});
 			};
 
-			prototype.open = function(options) {
+			prototype._setKeyboardSupport = function (options) {
 				var self = this,
-					page = self._pageWidget,
-					autoFocus = options && options.autofocus;
+					autoFocus = options.autofocus,
+					page = self._pageWidget;
 
-				if (!self._isOpen) {
-					checkLink(options);
-					if (typeof MobilePopupPrototype.open === FUNCTION_TYPE) {
-						MobilePopupPrototype.open.apply(self, arguments);
-					}
-
-					//TODO after transition
-					self._setActive(true, options || {});
-
+				if (self._getActiveLinks().length) {
+					// if there are links inside popup, we enable keyboard support on page
+					// and enable in popup
 					self.enableKeyboardSupport();
 					page.blur();
 					page.disableKeyboardSupport();
@@ -224,6 +218,24 @@
 					if (autoFocus || autoFocus === 0) {
 						self.focus(autoFocus);
 					}
+				}
+			};
+
+			prototype.open = function(options) {
+				var self = this;
+
+				if (!self._isOpen) {
+					checkLink(options);
+					if (typeof MobilePopupPrototype.open === FUNCTION_TYPE) {
+						MobilePopupPrototype.open.apply(self, arguments);
+					}
+
+					options = options || {};
+
+					//TODO after transition
+					self._setActive(true, options);
+
+					self._setKeyboardSupport(options);
 				}
 			};
 

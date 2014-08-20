@@ -1788,8 +1788,12 @@
 					prereqs: this._prereqs
 				});
 
-				// This fix problem with host keyboard
-				removeProperties();
+				// FIX: for tv profile
+				if (typeof this._supportKeyboard !== "boolean") {
+					// This fix problem with host keyboard
+					// @todo keyboard support for mobile
+					removeProperties();
+				}
 			};
 
 			/**
@@ -1896,7 +1900,11 @@
 					prereqs: this._prereqs
 				});
 
-				restoreProperties();
+				// FIX: for tv profile
+				if (typeof this._supportKeyboard !== "boolean") {
+					// @todo keyboard support for mobile
+					restoreProperties();
+				}
 			};
 
 			/**
