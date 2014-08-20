@@ -311,6 +311,14 @@
 			 * @static
 			 */
 				engine = ns.engine,
+
+			/**
+			 * @property {Object} event Alias for class {@link ns.event}
+			 * @member ns.widget.wearable.IndexScrollbar
+			 * @private
+			 * @static
+			 */
+				ev = ns.event,
 			/**
 			 * @property {Object} doms Alias for class {@link ns.util.DOM}
 			 * @member ns.widget.wearable.IndexScrollbar
@@ -632,8 +640,8 @@
 					// update indicator
 					this._updateIndicatorAndTriggerEvent( val );
 
-					event.preventDefault();
-					event.stopPropagation();
+					ev.preventDefault(event);
+					ev.stopPropagation(event);
 				},
 
 				/**
