@@ -158,7 +158,8 @@
 			"../../../../core/event/vmouse",
 			"../mobile", // fetch namespace
 			"./BaseWidgetMobile",
-			"./Button"
+			"./Button",
+			"./Textinput"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

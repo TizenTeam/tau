@@ -82,6 +82,8 @@ select.ui-slider-switch {
 
 	text-align: center;
 	color: @color_slider_left_text;
+
+	margin-top: -10 * @virtual_px;
 }
 
 .ui-slider-right-text {
@@ -92,6 +94,8 @@ select.ui-slider-switch {
 
 	text-align: center;
 	color: @color_slider_right_text;
+
+	margin-top: -10 * @virtual_px;
 }
 
 div.ui-slider:not(.ui-toggle-switch) {
@@ -107,6 +111,9 @@ div.ui-slider:not(.ui-toggle-switch) {
 	background-color: @color_progress_bar;
 
 	.ui-btn {
+		&.ui-focus {
+			background-color: transparent;
+		}
 		top: -0.75rem;
 		margin-top: 0;
 	}

@@ -20,16 +20,30 @@
 </head>
 
 <body class="ui-pagecontainer">
-	<div class="ui-page ui-page-activ" data-role="page">
-	<div class="ui-content" data-role="content">
-		<select name="flip-11" id="flip-11" data-role="slider">
-			<option value="off"></option>
-			<option value="on"></option>
-		</select>
-		<select name="flip-12" id="flip-12" data-role="slider">
-			<option value="off"></option>
-			<option value="on"></option>
-		</select>
+	<div class="ui-page" data-role="page">
+		<header class="ui-header">
+		<h2 class="ui-title">Slider</h2>
+	</header>
+		<div class="ui-content" data-role="content">
+			<label style="display: block; margin: 30px 0 30px 30px">Normal slider
+				<input id="mySlider1" name="mySlider1" data-popup='false' type="range" value="5" min="0" max="10" />
+			</label>
+			<label style="display: block; margin: 30px 0 30px 30px">Popup slider
+				<input id="mySlider2" name="mySlider2" type="range" value="50" min="0" max="100"
+					data-icon='text' data-text-left='0' data-text-right='100'/>
+			</label>
+
+			<label style="display: block; margin: 30px 0 30px 30px">Icon slider
+				<input id="mySlider3" name="mySlider3" data-popup='false' type="range" value="5"
+					min="0" max="10" data-icon='bright'/>
+				<input id="mySlider4" name="mySlider4" data-popup='false' type="range" value="5"
+				min="0" max="10" data-icon='volume'/>
+			</label>
+
+			<label style="display: block; margin: 30px 0 30px 30px">data-highlight="false"
+				<input id="mySlider9" name="mySlider9" data-popup='false' type="range" value="5" min="0"
+					max="10" data-highlight="false" />
+			</label>
 		</div>
 	</div>
 </body>
