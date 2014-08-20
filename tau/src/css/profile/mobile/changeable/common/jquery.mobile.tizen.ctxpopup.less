@@ -75,12 +75,18 @@
 			padding-right: 10 * @unit_base;
 		}
 		&.ui-btn {
-			border-bottom: 0;
+			&:not(:last-child){
+			border-bottom: 1px solid @color_ctxpopup_divider;
+			}
+		}
+		&.ui-btn-down-s {
+			background-color: @color_ctxpopup_btn_press;
 		}
 	}
 
 	.ui-listview li.ui-btn-up-s > .ui-li > .ui-btn-text > a.ui-link-inherit, .ui-listview li.ui-btn-hover-s > .ui-li > .ui-btn-text > a.ui-link-inherit, .ui-listview li.ui-btn-down-s > .ui-li > .ui-btn-text > a.ui-link-inherit {
-	  color: @color_ctxpopup_text;
+	color: @color_ctxpopup_text;
+	font-size: @font_size_ctxpopup_text;
 	}
 
 	.horizontal {
@@ -159,7 +165,7 @@
 		}
 
 		li:active, td:active {
-			background: @color_ctxbutton_press;
+			background: @color_ctxpopup_btn_press;
 		}
 	}
 
@@ -176,9 +182,7 @@
 
 :not(.ui-slider-popup-container) {
 	.ui-arrow {
-		//border-style: solid;
-		//border-width: 10 * @unit_base;
-		border: 1 * @unit_base solid;
+		border: 4 * @unit_base solid @color_ctxpopup_background_border;
 		width: 14.14 * @unit_base;
 		height: 14.14 * @unit_base;
 		background: inherit !important;
@@ -218,6 +222,7 @@
 	{
 		border: none;
 		border-color: inherit;
+		border-radius: 10 * @unit_base;
 		background: @color_ctxpopup_background;
 		padding : 0 8 * @unit_base 0;
 		position: relative;
