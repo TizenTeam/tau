@@ -197,17 +197,23 @@
 			 */
 			routePopup.setActive = function (activePopup, options) {
 				var url,
-					documentUrl = path.getLocation().replace(popupHashKeyReg, "");
+					pathLocation = path.getLocation(),
+					documentUrl = pathLocation.replace(popupHashKeyReg, "");
 
 				this.activePopup = activePopup;
 
 				if (activePopup) {
+					// If popup is being opened, the new state is added to history.
 					if (options && !options.fromHashChange) {
 						url = path.addHashSearchParams(documentUrl, popupHashKey);
 						history.replace(options, "", url);
 					}
-				} else {
-					// if popup is closed, the url is replaced
+				} else if (pathLocation !== documentUrl) {
+					// If popup is being closed, the history.back() is called
+					// but only if url has special hash.
+					// Url is changed after opening animation and in some cases,
+					// the popup is closed before this animation and then the history.back
+					// could cause undesirable change of page.
 					history.back();
 				}
 			};
