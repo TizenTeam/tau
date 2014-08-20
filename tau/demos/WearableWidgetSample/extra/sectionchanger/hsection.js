@@ -4,7 +4,7 @@ var page = document.getElementById( "hsectionchangerPage" ),
 	changer = document.getElementById( "hsectionchanger" ),
 	sectionChanger, idx=1;
 
-page.addEventListener( "pageshow", function() {
+page.addEventListener( "pagebeforeshow", function() {
 	// make SectionChanger object
 	sectionChanger = new tau.widget.SectionChanger(changer, {
 		circular: false,
@@ -17,4 +17,5 @@ page.addEventListener( "pagehide", function() {
 	// release object
 	sectionChanger.destroy();
 });
+
 })();

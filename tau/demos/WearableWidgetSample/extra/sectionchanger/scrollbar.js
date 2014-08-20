@@ -4,7 +4,7 @@ var page = document.getElementById( "barsectionchangerPage" ),
 	changer = document.getElementById( "barsectionchanger" ),
 	sectionChanger, idx=1;
 
-page.addEventListener( "pageshow", function() {
+page.addEventListener( "pagebeforeshow", function() {
 	// make SectionChanger object
 	sectionChanger = new tau.widget.SectionChanger(changer, {
 		circular: false,

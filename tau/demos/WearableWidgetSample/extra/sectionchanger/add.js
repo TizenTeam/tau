@@ -24,7 +24,7 @@ function removeSection() {
 	sectionChanger.refresh();
 }
 
-page.addEventListener( "pageshow", function() {
+page.addEventListener( "pagebeforeshow", function() {
 	// make SectionChanger object
 	sectionChanger = new tau.SectionChanger(changer, {
 		circular: false,

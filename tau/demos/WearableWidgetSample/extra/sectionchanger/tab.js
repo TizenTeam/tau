@@ -4,7 +4,7 @@ var page = document.getElementById( "tabsectionchangerPage" ),
 	changer = document.getElementById( "tabsectionchanger" ),
 	sectionChanger;
 
-page.addEventListener( "pageshow", function() {
+page.addEventListener( "pagebeforeshow", function() {
 	// make SectionChanger object
 	sectionChanger = new tau.widget.SectionChanger(changer, {
 		circular: true,

@@ -49,7 +49,8 @@
 					uiViewportTransitioning: "ui-viewport-transitioning",
 					out: "out",
 					in: "in",
-					uiPreIn: "ui-pre-in"
+					uiPreIn: "ui-pre-in",
+					uiBuild: "ui-page-build"
 				},
 				PageContainer = function () {
 					/**
@@ -114,6 +115,8 @@
 						self._include(toPage);
 					}
 
+					toPage.classList.add(classes.uiBuild);
+
 					toPageWidget = engine.instanceWidget(toPage, "page");
 
 					if (ns.getConfig("autoBuildOnPageChange", false)) {
@@ -125,6 +128,7 @@
 					}
 					toPageWidget.onBeforeShow();
 
+					toPage.classList.remove(classes.uiBuild);
 
 					options.deferred = {
 						resolve: function () {
