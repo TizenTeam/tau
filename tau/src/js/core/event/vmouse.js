@@ -317,8 +317,11 @@
 			 * @member ns.event.vmouse
 			 */
 			function handleTouchEnd(evt) {
-				fireEvent("vmouseup", evt);
-				fireEvent("vmouseout", evt);
+				var touches = evt.touches;
+				if (touches && touches.length === 0) {
+					fireEvent("vmouseup", evt);
+					fireEvent("vmouseout", evt);
+				}
 			}
 
 			/**
