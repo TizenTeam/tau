@@ -167,7 +167,7 @@
 					}
 
 					// We are extracting raw values to be able to check the units
-					if(props["height"].indexOf("px") === -1){
+					if(typeof props["height"] === "string" && props["height"].indexOf("px") === -1){
 						//ignore non px values such as auto or %
 						props["height"] = 0;
 					}
