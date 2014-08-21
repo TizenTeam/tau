@@ -201,6 +201,7 @@
 				 * @property {boolean} [options.popup=true] enables popup
 				 * @property {boolean} [options.center=false] creates additional markup to pointing center of the slider
 				 * @property {string} [options.icon=""] icon type
+				 * @property {string} [options.innerLabel=false] Displays the value inside the handler
 				 * @property {string} [options.textLeft=""] text attached to left
 				 * @property {string} [options.textRight=""] text attached to right
 				 * @member ns.widget.mobile.TizenSlider
@@ -210,8 +211,9 @@
 				if (typeof sliderConfigure === "function") {
 					sliderConfigure.call(this);
 				}
-				options.popup = true;
+				options.popup = false;
 				options.center = false;
+				options.innerLabel = false;
 				options.icon = "";
 				options.textLeft = "";
 				options.textRight = "";
@@ -292,6 +294,7 @@
 					font_top,
 					popup_width,
 					newValue,
+					options = self.options,
 					element = self.element,
 					handleTextStyle = self.handleText.style,
 					popupElement,
@@ -360,7 +363,9 @@
 					}
 
 					self.currentValue = newValue;
-					self.handleText.innerText = newValue;
+					if (options.innerLabel) {
+						self.handleText.innerText = newValue;
+					}
 
 					// Set same value for popup element if it exists
 					if (popupElement) {
