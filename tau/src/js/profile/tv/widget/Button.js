@@ -174,20 +174,25 @@
 			"../../../core/engine",
 			"../../../core/util/selectors",
 			"../../../core/theme",
-			"../tv"
+			"../tv",
+			"./BaseKeyboardSupport"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var BaseButton = ns.widget.mobile.Button,
+				BaseButtonPrototype = BaseButton.prototype,
+				BaseKeyboardSupport = ns.widget.tv.BaseKeyboardSupport,
+				FUNCTION_TYPE = "function",
 				Button = function () {
-				var self = this;
-				self.action = "";
-				self.label = null;
-				self.options = {};
-				self.ui = {};
-			},
-			engine = ns.engine,
-			prototype = new BaseButton();
+					var self = this;
+					self.action = "";
+					self.label = null;
+					self.options = {};
+					self.ui = {};
+					BaseKeyboardSupport.call(self);
+				},
+				engine = ns.engine,
+				prototype = new BaseButton();
 
 			Button.events = BaseButton.events;
 			Button.classes = BaseButton.classes;
@@ -196,6 +201,21 @@
 			Button.hoverDelay = 0;
 			// definition
 			ns.widget.tv.Button = Button;
+
+			/**
+			 * Initializes widget
+			 * @method _init
+			 * @protected
+			 * @member ns.widget.wearable.Button
+			 */
+			prototype._init = function (element) {
+				var self = this;
+				if (typeof BaseButtonPrototype._init === FUNCTION_TYPE) {
+					BaseButtonPrototype._init.call(self, element);
+				}
+				self.registerActiveSelector("button");
+				return element;
+			};
 
 			engine.defineWidget(
 				"Button",

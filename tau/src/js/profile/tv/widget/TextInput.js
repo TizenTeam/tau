@@ -135,16 +135,19 @@
 			"../widget",
 			"../../../profile/mobile/widget/mobile/Textinput",
 			"../../../profile/mobile/widget/mobile/Button",
-			"../../../core/engine"
+			"../../../core/engine",
+			"./BaseKeyboardSupport"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var MobileTextInput = ns.widget.mobile.TextInput,
 				MobileTextInputPrototype = MobileTextInput.prototype,
+				BaseKeyboardSupport = ns.widget.tv.BaseKeyboardSupport,
 				engine = ns.engine,
 				FUNCTION_TYPE = "function",
 				TextInput = function () {
 					MobileTextInput.call(this);
+					BaseKeyboardSupport.call(this);
 				},
 				classes = {
 					uiDisabled: ns.widget.mobile.Button.classes.uiDisabled,
@@ -161,7 +164,6 @@
 			TextInput.classes = MobileTextInput.classes;
 			TextInput.prototype = prototype;
 
-
 			prototype._init = function(element) {
 				if (typeof MobileTextInputPrototype._init === FUNCTION_TYPE) {
 					MobileTextInputPrototype._init.call(this, element);
@@ -172,6 +174,8 @@
 					wrapInputNumber(element);
 					break;
 				}
+
+				this.registerActiveSelector("input");
 			};
 
 			prototype._bindEvents = function(element) {

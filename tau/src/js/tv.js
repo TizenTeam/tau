@@ -29,6 +29,7 @@
 			"./profile/wearable/expose",
 			"./profile/tv/widget/TextInput",
 			"./profile/tv/widget/Listdivider",
+			"./profile/tv/widget/Checkboxradio",
 			// Modules to be loaded after
 			"./core/init"
 		],

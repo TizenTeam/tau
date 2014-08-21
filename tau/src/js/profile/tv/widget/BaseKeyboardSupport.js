@@ -43,7 +43,14 @@
 					up: 38,
 					right: 39,
 					down: 40
-				};
+				},
+				SELECTORS = ["a", "[tabindex]"],
+				/**
+				* @property {Array} Array containing number of registrations of each selector
+				* @member ns.widget.tv.BaseKeyboardSupport
+				* @private
+				*/
+				REF_COUNTERS = [1, 1];
 
 			/**
 			 * Get fucused element.
@@ -64,7 +71,7 @@
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
 			prototype._getActiveLinks = function() {
-				return [].slice.call(this.element.querySelectorAll("a, [tabindex], input, button")).filter(function(element){
+				return [].slice.call(this.element.querySelectorAll(SELECTORS.toString())).filter(function(element){
 					return element.offsetWidth && element.style.visibility !== "hidden";
 				});
 			};
@@ -282,6 +289,44 @@
 			prototype.disableKeyboardSupport = function() {
 				this._supportKeyboard = false;
 			};
+
+			/**
+			 * Registers an active selector.
+			 * @param Selector
+			 * @method registerActiveSelector
+			 * @member ns.widget.tv.BaseKeyboardSupport
+			 */
+			prototype.registerActiveSelector = function (selector) {
+				var index = SELECTORS.indexOf(selector);
+				// check if not registered yet
+				if (index == -1) {
+					SELECTORS.push(selector);
+					// new selector - create reference counter for it
+					REF_COUNTERS.push(1);
+				} else {
+					// such a selector exist - increment reference counter
+					++REF_COUNTERS[index];
+				}
+			}
+
+			/**
+			 * Unregisters an active selector.
+			 * @param Selector
+			 * @method unregisterActiveSelector
+			 * @member ns.widget.tv.BaseKeyboardSupport
+			 */
+			prototype.unregisterActiveSelector = function (selector) {
+				var index = SELECTORS.indexOf(selector);
+				if (index != -1) {
+					--REF_COUNTERS[index];
+					// check reference counter
+					if (REF_COUNTERS[index] == 0) {
+						// remove selector
+						SELECTORS.splice(index, 1);
+						REF_COUNTERS.splice(index, 1);
+					}
+				}
+			}
 
 			ns.widget.tv.BaseKeyboardSupport = BaseKeyboardSupport;
 
