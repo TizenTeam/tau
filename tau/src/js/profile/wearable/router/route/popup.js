@@ -29,126 +29,133 @@
 			"../../../../core/engine",
 			"../../../../core/util/path",
 			"../../../../core/util/DOM/attributes",
-			"../../../../core/util/selectors",
-			"../../selectors",
 			"../history",
 			"../route",
-			"../../widget/wearable/Popup"
+			"../../../../core/widget/BasePopup"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var routePopup = {
-					/**
-					 * Object with default options
-					 * @property {Object} defaults
-					 * @property {string} [defaults.transition='none'] Sets the animation used during change of popup.
-					 * @property {?HTMLElement} [defaults.container=null] Sets container of element.
-					 * @property {boolean} [defaults.volatileRecord=true] Sets if the current history entry will be modified or a new one will be created.
-					 * @member ns.router.route.popup
-					 * @static
-					 */
-					defaults: {
-						transition: 'none',
-						container: null,
-						volatileRecord: true
-					},
-					/**
-					 * Alias for {@link ns.wearable.selectors#popup}
-					 * @property {string} filter
-					 * @member ns.router.route.popup
-					 * @static
-					 */
-					filter: ns.wearable.selectors.popup,
-					/**
-					 * Storage variable for active popup
-					 * @property {?HTMLElement} activePopup
-					 * @member ns.router.route.popup
-					 * @static
-					 */
-					activePopup: null,
-					/**
-					 * Dictionary for popup related event types
-					 * @property {Object} events
-					 * @property {string} [events.POPUP_HIDE='popuphide']
-					 * @member ns.router.route.popup
-					 * @static
-					 */
-					events: {
-						POPUP_HIDE: "popuphide"
-					}
+			var
+			/**
+			 * @property {Object} Popup Alias for {@link ns.widget.Popup}
+			 * @member ns.router.route.popup
+			 * @private
+			 * @static
+			 */
+			BasePopup = ns.widget.BasePopup,
+
+			routePopup = {
+				/**
+				 * Object with default options
+				 * @property {Object} defaults
+				 * @property {string} [defaults.transition='none'] Sets the animation used during change of popup.
+				 * @property {?HTMLElement} [defaults.container=null] Sets container of element.
+				 * @property {boolean} [defaults.volatileRecord=true] Sets if the current history entry will be modified or a new one will be created.
+				 * @member ns.router.route.popup
+				 * @static
+				 */
+				defaults: {
+					transition: 'none',
+					container: null,
+					volatileRecord: true
 				},
 				/**
-				 * Alias for {@link ns.engine}
-				 * @property {Object} engine
+				 * Popup Element Selector
+				 * @property {string} filter
 				 * @member ns.router.route.popup
-				 * @private
 				 * @static
 				 */
-				engine = ns.engine,
+				filter: "." + BasePopup.classes.popup,
 				/**
-				 * Alias for {@link ns.util.path}
-				 * @property {Object} path
+				 * Storage variable for active popup
+				 * @property {?HTMLElement} activePopup
 				 * @member ns.router.route.popup
-				 * @private
 				 * @static
 				 */
-				path = ns.util.path,
+				activePopup: null,
 				/**
-				 * Alias for {@link ns.util.selectors}
-				 * @property {Object} utilSelector
+				 * Dictionary for popup related event types
+				 * @property {Object} events
+				 * @property {string} [events.POPUP_HIDE='popuphide']
 				 * @member ns.router.route.popup
-				 * @private
 				 * @static
 				 */
-				utilSelector = ns.util.selectors,
-				/**
-				 * Alias for {@link ns.router.history}
-				 * @property {Object} history
-				 * @member ns.router.route.popup
-				 * @private
-				 * @static
-				 */
-				history = ns.router.history,
-				/**
-				 * Alias for {@link ns.util.path}
-				 * @property {Object} pathUtils
-				 * @member ns.router.route.popup
-				 * @private
-				 * @static
-				 */
-				pathUtils = ns.util.path,
-				/**
-				 * Alias for {@link ns.util.DOM}
-				 * @property {Object} DOM
-				 * @member ns.router.route.popup
-				 * @private
-				 * @static
-				 */
-				DOM = ns.util.DOM,
-				/**
-				 * Alias for array slice method
-				 * @method slice
-				 * @member ns.router.route.popup
-				 * @private
-				 * @static
-				 */
-				slice = [].slice,
-				/**
-				 * Popup's hash added to url
-				 * @property {string} popupHashKey
-				 * @member ns.router.route.popup
-				 * @private
-				 * @static
-				 */
-				popupHashKey = "popup=true",
-				/**
-				 * Regexp for popup's hash
-				 * @property {RegExp} popupHashKeyReg
-				 * @member ns.router.route.popup
-				 * @private
-				 * @static
-				 */
-				popupHashKeyReg = /([&|\?]popup=true)/;
+				events: {
+					POPUP_HIDE: "popuphide"
+				}
+			},
+			/**
+			 * Alias for {@link ns.engine}
+			 * @property {Object} engine
+			 * @member ns.router.route.popup
+			 * @private
+			 * @static
+			 */
+			engine = ns.engine,
+			/**
+			 * Alias for {@link ns.util.path}
+			 * @property {Object} path
+			 * @member ns.router.route.popup
+			 * @private
+			 * @static
+			 */
+			path = ns.util.path,
+			/**
+			 * Alias for {@link ns.util.selectors}
+			 * @property {Object} utilSelector
+			 * @member ns.router.route.popup
+			 * @private
+			 * @static
+			 */
+			utilSelector = ns.util.selectors,
+			/**
+			 * Alias for {@link ns.router.history}
+			 * @property {Object} history
+			 * @member ns.router.route.popup
+			 * @private
+			 * @static
+			 */
+			history = ns.router.history,
+			/**
+			 * Alias for {@link ns.util.path}
+			 * @property {Object} pathUtils
+			 * @member ns.router.route.popup
+			 * @private
+			 * @static
+			 */
+			pathUtils = ns.util.path,
+			/**
+			 * Alias for {@link ns.util.DOM}
+			 * @property {Object} DOM
+			 * @member ns.router.route.popup
+			 * @private
+			 * @static
+			 */
+			DOM = ns.util.DOM,
+			/**
+			 * Alias for array slice method
+			 * @method slice
+			 * @member ns.router.route.popup
+			 * @private
+			 * @static
+			 */
+			slice = [].slice,
+			/**
+			 * Popup's hash added to url
+			 * @property {string} popupHashKey
+			 * @member ns.router.route.popup
+			 * @private
+			 * @static
+			 */
+			popupHashKey = "popup=true",
+			/**
+			 * Regexp for popup's hash
+			 * @property {RegExp} popupHashKeyReg
+			 * @member ns.router.route.popup
+			 * @private
+			 * @static
+			 */
+			popupHashKeyReg = /([&|\?]popup=true)/;
 
 			/**
 			 * Tries to find a popup element matching id and filter (selector).
@@ -185,7 +192,9 @@
 			 * @static
 			 */
 			routePopup.option = function () {
-				return routePopup.defaults;
+				var defaults = routePopup.defaults;
+				defaults.transition = ns.getConfig('popupTransition', defaults.transition);
+				return defaults;
 			};
 
 			/**
@@ -205,7 +214,7 @@
 
 				if (activePopup) {
 					// If popup is being opened, the new state is added to history.
-					if (options && !options.fromHashChange) {
+					if (options && !options.fromHashChange && options.history) {
 						url = path.addHashSearchParams(documentUrl, popupHashKey);
 						history.replace(options, "", url);
 					}
@@ -232,13 +241,13 @@
 			 * @param {boolean} [options.fromHashChange = false] Sets if will be changed after hashchange.
 			 * @param {boolean} [options.showLoadMsg = true] Sets if message will be shown during loading.
 			 * @param {number} [options.loadMsgDelay = 0] Sets delay time for the show message during loading.
-			 * @param {boolean} [options.volatileRecord = false] Sets if the current history entry will be modified or a new one will be created.
 			 * @param {boolean} [options.dataUrl] Sets if page has url attribute.
 			 * @param {string} [options.container = null] Selector for container.
+			 * @param {boolean} [options.volatileRecord=true] Sets if the current history entry will be modified or a new one will be created.
 			 * @member ns.router.route.popup
 			 * @static
 			 */
-			routePopup.open = function (toPopup, options) {
+			routePopup.open = function (toPopup, options, event) {
 				var popup,
 					router = engine.getRouter(),
 					url = pathUtils.getLocation(),
@@ -249,8 +258,17 @@
 						routePopup.activePopup = null;
 					},
 					openPopup = function () {
+						options.positionTo = options["position-to"];
+						if (event && event.touches) {
+							options.x = event.touches[0].clientX;
+							options.y = event.touches[0].clientY;
+						} else if (event){
+							options.x = event.clientX;
+							options.y = event.clientY;
+						}
+
 						document.removeEventListener(events.POPUP_HIDE, openPopup, false);
-						popup = engine.instanceWidget(toPopup, 'popup', options);
+						popup = engine.instanceWidget(toPopup, 'Popup', options);
 						popup.open(options);
 						routePopup.activePopup = popup;
 					},

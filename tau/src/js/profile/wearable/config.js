@@ -30,6 +30,7 @@
 
 			// Default configuration properties for wearable
 			ns.setConfig('autoBuildOnPageChange', false, true);
+			ns.setConfig('popupTransition', 'slideup');
 			// .. other possible options
 			// ns.setConfig('autoInitializePage', true);
 			// ns.setConfig('pageContainer', document.body); // defining application container for wearable

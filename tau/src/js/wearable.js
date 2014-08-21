@@ -13,11 +13,12 @@
 			"./core/engine",
 			// widget list
 			"./core/util/anchorHighlight",
+			"./core/widget/BasePopup",
+			"./core/widget/Popup",
 			"./profile/wearable/widget/wearable/Button",
 			"./profile/wearable/widget/wearable/Checkboxradio",
 			"./profile/wearable/widget/wearable/Listview",
 			"./profile/wearable/widget/wearable/Page",
-			"./profile/wearable/widget/wearable/Popup",
 			"./profile/wearable/widget/wearable/PageContainer",
 			"./profile/wearable/widget/wearable/indexscrollbar/IndexScrollbar",
 			"./profile/wearable/widget/wearable/Progress",

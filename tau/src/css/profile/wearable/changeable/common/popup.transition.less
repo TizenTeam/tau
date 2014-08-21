@@ -1,0 +1,135 @@
+/****************************************
+Popup Transition
+****************************************/
+.ui-popup {
+	&.slideup.in {
+		-webkit-animation-name: popupslideinfrombottom;
+		-webkit-animation-duration: 250ms;
+		-webkit-transition-timing-function: ease-in-out;
+		animation-name: popupslideinfrombottom;
+		animation-duration: 250ms;
+		transition-timing-function: ease-in-out;
+	}
+	&.slideup.out {
+		-webkit-animation-name: popupslideouttobottom;
+		-webkit-animation-duration: 250ms;
+		-webkit-transition-timing-function: ease-in-out;
+		animation-name: popupslideouttobottom;
+		animation-duration: 250ms;
+		transition-timing-function: ease-in-out;
+	}
+}
+
+@-webkit-keyframes popupslideinfrombottom {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0%); }
+}
+@keyframes popupslideinfrombottom {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0%); }
+}
+
+@-webkit-keyframes popupslideouttobottom {
+    from { transform: translateY(0%); }
+    to { transform: translateY(100%); }
+}
+@keyframes popupslideouttobottom {
+    from { transform: translateY(0%); }
+    to { transform: translateY(100%); }
+}
+
+/****************************************
+Popup Overlay Transition
+****************************************/
+.ui-popup-overlay {
+	&.slideup.in {
+		-webkit-animation-name: fadein;
+		-webkit-animation-duration: 250ms;
+		animation-name: fadein;
+		animation-duration: 250ms;
+	}
+	&.slideup.out {
+		-webkit-animation-name: fadeout;
+		-webkit-animation-duration: 250ms;
+		animation-name: fadeout;
+		animation-duration: 250ms;
+	}
+}
+
+/****************************************
+Option Popup Transition
+****************************************/
+.ui-popup.ui-popup-arrow-t,
+.ui-popup.ui-popup-arrow-l,
+.ui-popup.ui-popup-arrow-r {
+	&.slideup.in {
+		-webkit-animation-name: ctxpopupslideinfrombottom;
+		-webkit-animation-duration: 250ms;
+		-webkit-transition-timing-function: ease-in-out;
+		animation-name: ctxpopupslideinfrombottom;
+		animation-duration: 250ms;
+		transition-timing-function: ease-in-out;
+	}
+	&.slideup.out {
+		-webkit-animation-name: ctxpopupslideouttobottom;
+		-webkit-animation-duration: 250ms;
+		-webkit-transition-timing-function: ease-in-out;
+		animation-name: ctxpopupslideouttobottom;
+		animation-duration: 250ms;
+		transition-timing-function: ease-in-out;
+	}
+}
+.ui-popup.ui-popup-arrow-b {
+	&.slideup.in {
+		-webkit-animation-name: ctxpopupslideinfromtop;
+		-webkit-animation-duration: 250ms;
+		-webkit-transition-timing-function: ease-in-out;
+		animation-name: ctxpopupslideinfromtop;
+		animation-duration: 250ms;
+		transition-timing-function: ease-in-out;
+	}
+	&.slideup.out {
+		-webkit-animation-name: ctxpopupslideouttotop;
+		-webkit-animation-duration: 250ms;
+		-webkit-transition-timing-function: ease-in-out;
+		animation-name: ctxpopupslideouttotop;
+		animation-duration: 250ms;
+		transition-timing-function: ease-in-out;
+	}
+}
+
+@-webkit-keyframes ctxpopupslideinfrombottom {
+	from { transform: translateY(20%); opacity: 0.0;}
+	to { transform: translateY(0%); opacity: 1.0; }
+}
+@keyframes ctxpopupslideinfrombottom {
+	from { transform: translateY(20%); opacity: 0.0;}
+	to { transform: translateY(0%); opacity: 1.0;}
+}
+
+@-webkit-keyframes ctxpopupslideouttobottom {
+	from { transform: translateY(0%); opacity: 1.0;}
+	to { transform: translateY(20%); opacity: 0.0;}
+}
+@keyframes ctxpopupslideouttobottom {
+	from { transform: translateY(0%); opacity: 1.0;}
+	to { transform: translateY(20%); opacity: 0.0;}
+}
+
+@-webkit-keyframes ctxpopupslideinfromtop {
+	from { transform: translateY(-20%); opacity: 0.0;}
+	to { transform: translateY(0%); opacity: 1.0; }
+}
+@keyframes ctxpopupslideinfromtop {
+	from { transform: translateY(-20%); opacity: 0.0;}
+	to { transform: translateY(0%); opacity: 1.0;}
+}
+
+@-webkit-keyframes ctxpopupslideouttotop {
+	from { transform: translateY(0%); opacity: 1.0;}
+	to { transform: translateY(-20%); opacity: 0.0;}
+}
+@keyframes ctxpopupslideouttotop {
+	from { transform: translateY(0%); opacity: 1.0;}
+	to { transform: translateY(-20%); opacity: 0.0;}
+}

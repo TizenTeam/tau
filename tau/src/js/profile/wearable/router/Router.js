@@ -235,7 +235,7 @@
 					if (!useDefaultUrlHandling) {
 						options = DOM.getData(link);
 						options.link = link.id;
-						router.open(href, options);
+						router.open(href, options, event);
 						event.preventDefault();
 					}
 				}
@@ -304,7 +304,7 @@
 			 * @param {?string} [options.container = null] It is used in RoutePopup as selector for container.
 			 * @member ns.router.Router
 			 */
-			Router.prototype.open = function (to, options) {
+			Router.prototype.open = function (to, options, event) {
 				var rel = ((options && options.rel) || "page"),
 					rule = route[rel],
 					deferred = {},
@@ -322,7 +322,7 @@
 					);
 					filter = rule.filter;
 					deferred.resolve = function (options, content) {
-						rule.open(content, options);
+						rule.open(content, options, event);
 					};
 					deferred.reject = function (options) {
 						eventUtils.trigger(self.container.element, "changefailed", options);
