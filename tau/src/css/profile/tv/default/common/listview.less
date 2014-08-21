@@ -1,4 +1,10 @@
 @font_size_list_item: 30 * @virtual_px;
+@list_btn_txt_color_focus: rgb(255, 255, 255);
+@list_txt_color_disabled: rgb(51, 51, 51);
+@list_bg_color_white: rgb(255, 255, 255);
+@list_sub_txt_color: rgb(189, 167, 146);
+@list_radio_checkbox_label_color: rgb(89, 89, 89);
+
 /************************
 Listview
 *************************/
@@ -184,3 +190,33 @@ Listview
 		}
 	}
 }
+
+
+.ui-listview .ui-li-divider,
+.ui-listview .ui-li-divider-btn {
+	box-sizing: border-box;
+	height: 50 * @virtual_px;
+	padding-top: 18 * @virtual_px;
+	padding-bottom: 36 * @virtual_px;
+	font-size: @font_size_list_divider_text;
+	background-color: @list_bg_color_white;
+	color: @color_listview_text;
+	border: 0;
+
+	.ui-divider-normal-line {
+		position: absolute;
+		bottom: 0;
+		display: block;
+		width: 100%;
+		height: 2 * @virtual_px;
+		background-color: @color_list_divider_line_bg;
+	}
+
+	&>.ui-btn-text {
+		box-sizing: border-box;
+		padding-left: 36 * @virtual_px;
+		padding-right: 36 * @virtual_px;
+		color: @color_list_divider_text;
+	}
+}
+
