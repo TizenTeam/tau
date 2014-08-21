@@ -1,4 +1,7 @@
 %changelog
+* Thu Aug 21 2014 Junhyeon Lee <juneh.lee@samsung.com> 0.9.12
+	- [BUG][Wearable] router: fix problem with changing page on popup's closing
+
 * Thu Aug 21 2014 Junhyeon Lee <juneh.lee@samsung.com> 0.9.11
 	- Wearable: GSDK_SE-2781,2785 list highlight remains when visibility changed.
 	- Wearable: modify checkbox/radio (new GUI sync)
