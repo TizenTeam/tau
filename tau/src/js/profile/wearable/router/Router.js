@@ -311,6 +311,11 @@
 					filter,
 					self = this;
 
+				if (rel === "back") {
+					history.back();
+					return;
+				}
+
 				if (rule) {
 					options = object.merge(
 						{
