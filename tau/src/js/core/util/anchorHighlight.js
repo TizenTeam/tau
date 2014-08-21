@@ -273,6 +273,19 @@
 			}
 
 			/**
+			 * Function invoked after visibilitychange event
+			 * @method checkPageVisibility
+			 * @member ns.util.anchorHighlight
+			 * @private
+			 * @static
+			 */
+			function checkPageVisibility() {
+				if (document.visibilityState === "hidden") {
+					removeActiveClass();
+				}
+			}
+
+			/**
 			 * Bind events to document
 			 * @method eventBinding
 			 * @member ns.util.anchorHighlight
@@ -282,6 +295,7 @@
 			function eventBinding() {
 				document.addEventListener("touchstart", touchstartHandler, false);
 				document.addEventListener("touchend", touchendHandler, false);
+				document.addEventListener("visibilitychange", checkPageVisibility, false);
 				window.addEventListener("pagehide", removeActiveClass, false);
 			}
 
