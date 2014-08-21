@@ -1,4 +1,16 @@
 %changelog
+* Thu Aug 21 2014 Junhyeon Lee <juneh.lee@samsung.com> 0.9.11
+	- Wearable: GSDK_SE-2781,2785 list highlight remains when visibility changed.
+	- Wearable: modify checkbox/radio (new GUI sync)
+	- Wearable: change new xml files for changeable
+	- Vmouse: add if statement at handleTouchEnd method
+	- IndexScrollbar: GSDK_SE-2775 block bouncing effect when vmousemove in IndexScrollbar
+	- [jira] change widget creation time (GSDK_SE-2582)
+	- [BUG] Path issue after change page
+	- Mobile: Default theme changed to "default"
+	- [BUG] Improved regular expressions for frameworkData
+	- BaseWidget: modify widget disabled check logic in init method
+
 * Wed Aug 13 2014 Hyeoncheol Choi <hc7.choi@samsung.com> 0.9.10
 	- MobileWinset: modify style for Textarea bg and border
 	- MobileWinset: rearranged list of widget pages
