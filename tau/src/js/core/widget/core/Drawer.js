@@ -292,18 +292,16 @@
 					options = self.options,
 					drawerElementParent = self.element.parentNode,
 					headerHeight = self._headerElement && self._headerElement.offsetHeight,
-					drawerHeight = drawerElementParent.clientHeight - headerHeight,
+					drawerHeight = drawerElementParent.clientHeight,
 					drawerStyle = self.element.style,
 					overlayStyle = self._drawerOverlay && self._drawerOverlay.style;
 
 				drawerStyle.width = options.width + "px";
 				drawerStyle.height = drawerHeight + "px";
-				drawerStyle.top = headerHeight + "px";
 
 				if (overlayStyle) {
 					overlayStyle.width = window.innerWidth + "px";
 					overlayStyle.height = drawerHeight + "px";
-					overlayStyle.top = headerHeight + "px";
 				}
 
 				if (options.position === "right") {
@@ -347,7 +345,7 @@
 				self._onResizeBound = onResize.bind(null, self);
 				self._onPageshowBound = onPageshow.bind(null, self);
 
-				if (self.options.overlay && self.options.closeOnClik) {
+				if (self.options.overlay && self.options.closeOnClick) {
 					self._drawerOverlay.addEventListener("vclick", self._onClickBound, false);
 				}
 				self.element.addEventListener("webkitTransitionEnd", self._onTransitionEndBound, false);
