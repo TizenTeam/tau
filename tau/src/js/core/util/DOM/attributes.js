@@ -194,6 +194,7 @@
 					attrs = element.attributes,
 					attr,
 					nodeName,
+					value,
 					i,
 					length = attrs.length;
 
@@ -201,7 +202,8 @@
 					attr = attrs.item(i);
 					nodeName = attr.nodeName;
 					if (nodeName.indexOf(dataPrefix) > -1) {
-						data[nodeName.replace(dataPrefix, "")] = attr.nodeValue;
+						value = attr.value;
+						data[nodeName.replace(dataPrefix, "")] = value.toLowerCase() === "true" ? true : value.toLowerCase() === "false" ? false : value;
 					}
 				}
 

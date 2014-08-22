@@ -214,6 +214,9 @@
 			prototype.open = function (options) {
 				var newOptions = objectUtils.merge(this.options, options);
 				if (!this.active) {
+					if (!newOptions.dismissible) {
+						engine.getRouter().lock();
+					}
 					this._show(newOptions);
 				}
 			};
@@ -227,8 +230,11 @@
 			* @member ns.widget.BasePopup
 			*/
 			prototype.close = function (options) {
-				var newOptions = objectUtils.merge({}, options);
+				var newOptions = objectUtils.merge(this.options, options);
 				if (this.active) {
+					if (!newOptions.dismissible) {
+						engine.getRouter().unlock();
+					}
 					this._hide(newOptions);
 				}
 			};
@@ -295,9 +301,12 @@
 			};
 
 			prototype._onClickOverlay = function(event) {
+				var options = this.options;
+
 				event.preventDefault();
 				event.stopPropagation();
-				if (this.options.dismissible) {
+
+				if (options.dismissible) {
 					this.close();
 				}
 			};

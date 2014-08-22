@@ -55,11 +55,11 @@
 					 * @member ns.router.history
 					 */
 					replace: function (state, stateTitle, url) {
-						var newState = object.merge({},
-								state,
-								{
-							uid: historyVolatileMode ? historyActiveIndex : ++historyUid
-						});
+						var newState = object.merge({}, state, {
+								uid: historyVolatileMode ? historyActiveIndex : ++historyUid,
+								stateUrl: url,
+								stateTitle: stateTitle
+							});
 						windowHistory[historyVolatileMode ? "replaceState" : "pushState"](newState, stateTitle, url);
 						history.setActive(newState);
 					},

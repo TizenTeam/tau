@@ -33,6 +33,12 @@
 			<a href="#listNoTitleNoBtnPopup" class="ui-btn" data-rel="popup">List popup4</a>
 		</div>
 
+
+		<h3>Dismissible</h3>
+		<div class="ui-grid-row">
+			<a href="#popupDismissible" class="ui-btn" data-rel="popup" data-dismissible="true">dismissible = true</a>
+			<a href="#popupDismissible" class="ui-btn" data-rel="popup" data-dismissible="false">dismissible = false</a>
+		</div>
 	</div>
 
 	<div id="1btnPopup" class="ui-popup">
@@ -215,6 +221,27 @@
 			</ul>
 		</div>
 	</div>
+
+	<div id="popupDismissible" class="ui-popup">
+		<div class="ui-popup-header">Power saving mode</div>
+		<div class="ui-popup-content">
+			Turning on Power
+			saving mode will
+			limit the maximum
+			power.
+		</div>
+		<div class="ui-popup-footer">
+			<button id="popupDismissible-cancel" href="#" class="ui-btn">Ok</button>
+		</div>
+	</div>
+	<script type="text/javascript">
+	(function() {
+		var cancel = document.getElementById("popupDismissible-cancel");
+		cancel.addEventListener("click", function() {
+			tau.closePopup();
+		}, false);
+	}());
+	</script>
 </div>
 <script type="text/javascript" src="../../lib/tau/wearable/js/tau.js"></script>
 </body>

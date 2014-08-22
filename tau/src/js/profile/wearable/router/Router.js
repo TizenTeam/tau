@@ -148,6 +148,14 @@
 				 */
 				slice = [].slice,
 
+				/**
+				 * Router locking flag
+				 * @property {boolean} [_isLock]
+				 * @member ns.router.Router
+				 * @private
+				 */
+				_isLock = false,
+
 				Router = function () {
 					var self = this;
 
@@ -262,6 +270,12 @@
 					reverse,
 					transition;
 
+				if (_isLock) {
+					history.disableVolatileMode();
+					history.replace(prevState, prevState.stateTitle, prevState.stateUrl);
+					return;
+				}
+
 				if (state) {
 					to = state.url;
 					reverse = history.getDirection(state) === "back";
@@ -310,6 +324,10 @@
 					deferred = {},
 					filter,
 					self = this;
+
+				if (_isLock) {
+					return;
+				}
 
 				if (rel === "back") {
 					history.back();
@@ -515,6 +533,14 @@
 				if (popupRoute) {
 					popupRoute.close(null, options);
 				}
+			};
+
+			Router.prototype.lock = function () {
+				_isLock = true;
+			};
+
+			Router.prototype.unlock = function () {
+				_isLock = false;
 			};
 
 			/**
