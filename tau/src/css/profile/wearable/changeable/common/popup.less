@@ -41,7 +41,8 @@ Normal Popup
 		overflow:auto;
 		.scrolling-mode-touch;
 
-		.ui-listview {
+		.ui-listview,
+		.ui-inline-listview {
 			margin: -9*@unit_base -16*@unit_base -9*@unit_base -16*@unit_base;
 			li {
 				font-size: @font_size_popup_body;
@@ -108,9 +109,95 @@ Option Popup
 					background-color: @color_option_popup_list_bg_pressed;
 				}
 			}
+
+			&:last-child {
+				border:none;
+			}
 		}
-		.ui-listview li:last-child {
-			border:none;
+
+		.ui-listview .ui-list-icon {
+			position:relative;
+			padding-left:68*@unit_base;
+
+			a {
+				margin-left:-68*@unit_base;
+				padding-left:68*@unit_base;
+			}
+
+			&::before {
+				content: "";
+				position:absolute;
+				top: 50%;
+				left: 6*@unit_base;
+				width: 56*@unit_base;
+				height: 56*@unit_base;
+				margin-top: -28*@unit_base;
+				background-color: @color_option_popup_list_icon_bg;
+				-webkit-mask-size: 56*@unit_base 56*@unit_base;
+				-webkit-mask-repeat: no-repeat;
+				mask-repeat: no-repeat;
+				mask-size: 56*@unit_base 56*@unit_base;
+			}
+		}
+		.ui-listview a.ui-list-icon:active::before {
+			background-color: @color_option_popup_list_icon_bg_pressed;
+		}
+
+		.ui-inline-listview {
+			height: 69*@unit_base;
+			overflow:hidden;
+
+			li {
+				float:left;
+				height: 67*@unit_base;
+				line-height: 67*@unit_base;
+				border-right: 1px solid @color_option_popup_inline_list_border;
+
+				&:last-child {
+					border:none;
+				}
+
+				a {
+					display:block;
+					width:100%;
+					height:100%;
+					padding: 0*@unit_base 8*@unit_base;
+					color: @color_option_popup_list_text;
+					&:active {
+						color: @color_option_popup_list_text_pressed;
+						background-color: @color_option_popup_list_bg_pressed;
+					}
+				}
+			}
+
+			.ui-list-icon-notext {
+				width:59*@unit_base;
+				height: 67*@unit_base;
+				text-indent: -1000em;
+				overflow: hidden;
+				position:relative;
+
+				&::before {
+					content: "";
+					position:absolute;
+					top: 50%;
+					left: 50%;
+					width: 43*@unit_base;
+					height: 43*@unit_base;
+					margin-top: -21.5*@unit_base;
+					margin-left: -21.5*@unit_base;
+					background-color: @color_option_popup_inline_list_icon_bg;
+					-webkit-mask-size: 43*@unit_base 43*@unit_base;
+					-webkit-mask-repeat: no-repeat;
+					mask-size: 43*@unit_base 43*@unit_base;
+					mask-repeat: no-repeat;
+				}
+			}
+
+			a.ui-list-icon-notext:active::before {
+				background-color: @color_option_popup_inline_list_icon_bg_pressed;
+			}
+
 		}
 	}
 
