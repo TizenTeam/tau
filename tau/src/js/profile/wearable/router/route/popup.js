@@ -162,10 +162,10 @@
 			 * @static
 			 */
 			function findPopupAndSetDataUrl(id, filter) {
-				var popup = document.getElementById(id.replace(/^#/,''));
+				var popup = document.getElementById(path.hashToSelector(id));
 
 				if (popup && utilSelector.matchesSelector(popup, filter)) {
-					DOM.setNSData(popup, 'url', '#' + id);
+					DOM.setNSData(popup, 'url', id);
 				} else {
 					// if we matched any element, but it doesn't match our filter
 					// reset page to null
