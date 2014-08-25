@@ -204,23 +204,23 @@
 			/**
 			 * Drawer translate function
 			 * @method translate
-			 * @private
-			 * @static
-			 * @param {HTMLElement} element
+			 * @protected
 			 * @param {number} x
 			 * @param {number} duration
 			 * @member ns.widget.core.Drawer
 			 */
-			function translate(element, x, duration) {
-				var transition = "none";
+			prototype._translate = function (x, duration) {
+				var element = this.element,
+					elementStyle = element.style,
+					transition = "none";
 
 				if (duration) {
 					transition =  "-webkit-transform " + duration / 1000 + "s ease-out";
 				}
 
-				element.style.webkitTransform = "translate3d(" + x + "px, 0px, 0px)";
-				element.style.webkitTransition = transition;
-			}
+				elementStyle.webkitTransform = "translate3d(" + x + "px, 0px, 0px)";
+				elementStyle.webkitTransition = transition;
+			};
 
 			/**
 			 * Build structure of Drawer widget
@@ -272,11 +272,32 @@
 
 				if (options.position === "right") {
 					element.classList.add(classes.right);
-					translate(element, window.innerWidth, 0);
+					self._translate(window.innerWidth, 0);
 				} else {
 					// left or default
 					element.classList.add(classes.left);
-					translate(element, -options.width, 0);
+					self._translate(-options.width, 0);
+				}
+			};
+
+			/**
+			 * Do translete if position is set to right
+			 * @method _translateRight
+			 * @protected
+			 * @member ns.widget.core.Drawer
+			 */
+			prototype._translateRight = function() {
+				var self = this,
+					options = self.options;
+				if (options.position === "right") {
+					// If drawer position is right, drawer should be moved right side
+					if (self._isOpen) {
+						// drawer opened
+						self._translate(window.innerWidth - options.width, 0);
+					} else {
+						// drawer closed
+						self._translate(window.innerWidth, 0);
+					}
 				}
 			};
 
@@ -304,16 +325,7 @@
 					overlayStyle.height = drawerHeight + "px";
 				}
 
-				if (options.position === "right") {
-					// If drawer position is right, drawer should be moved right side
-					if (self._isOpen) {
-						// drawer opened
-						translate(self.element, window.innerWidth - options.width, 0);
-					} else {
-						// drawer closed
-						translate(self.element, window.innerWidth, 0);
-					}
-				}
+				self._translateRight();
 			};
 
 			/**
@@ -371,7 +383,6 @@
 			prototype.open = function() {
 				var self = this,
 					options = self.options,
-					drawer = self.element,
 					drawerClassList = self.element.classList;
 				if (self._drawerOverlay) {
 					self._drawerOverlay.style.visibility = "visible";
@@ -379,9 +390,9 @@
 				drawerClassList.remove(classes.close);
 				drawerClassList.add(classes.open);
 				if (options.position === "left") {
-					translate(drawer, 0, options.duration);
+					self._translate(0, options.duration);
 				} else {
-					translate(drawer, window.innerWidth - options.width, options.duration);
+					self._translate(window.innerWidth - options.width, options.duration);
 				}
 			};
 
@@ -393,14 +404,13 @@
 			prototype.close = function() {
 				var self = this,
 					options = self.options,
-					drawer = self.element,
 					drawerClassList = self.element.classList;
 				drawerClassList.remove(classes.open);
 				drawerClassList.add(classes.close);
 				if (options.position === "left") {
-					translate(drawer, -options.width, options.duration);
+					self._translate(-options.width, options.duration);
 				} else {
-					translate(drawer, window.innerWidth, options.duration);
+					self._translate(window.innerWidth, options.duration);
 				}
 			};
 

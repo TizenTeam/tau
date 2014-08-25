@@ -161,8 +161,7 @@
 				// Drawer layout has been set by parent element layout
 				var self = this,
 					options = self.options,
-					windowWidth = window.innerWidth;
-					drawerElementParent = self.element.parentNode,
+					windowWidth = window.innerWidth,
 					headerHeight = self._headerElement && self._headerElement.offsetHeight,
 					drawerStyle = self.element.style,
 					overlayStyle = self._drawerOverlay && self._drawerOverlay.style;
@@ -175,16 +174,7 @@
 					overlayStyle.top = headerHeight + "px";
 				}
 
-				if (options.position === "right") {
-					// If drawer position is right, drawer should be moved right side
-					if (self._isOpen) {
-						// drawer opened
-						translate(self.element, windowWidth - options.width, 0);
-					} else {
-						// drawer closed
-						translate(self.element, windowWidth, 0);
-					}
-				}
+				self._translateRight();
 			};
 
 			prototype._init = function(element) {
