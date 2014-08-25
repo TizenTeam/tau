@@ -1181,7 +1181,7 @@
 			ns.widget.mobile.Slider = Slider;
 			engine.defineWidget(
 				"Slider",
-				"select[data-role='slider'],select[data-type='range']",
+				"select[data-type='range']",
 				[],
 				Slider,
 				"mobile"

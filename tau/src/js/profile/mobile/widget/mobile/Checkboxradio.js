@@ -614,7 +614,7 @@
 			ns.widget.mobile.Checkboxradio = Checkboxradio;
 			engine.defineWidget(
 				"Checkboxradio",
-				"input[type='checkbox'], input[type='radio'], .ui-checkbox",
+				"input[type='checkbox']:not(.ui-slider-switch-input), input[type='radio'], .ui-checkbox",
 				[
 					"enable",
 					"disable",

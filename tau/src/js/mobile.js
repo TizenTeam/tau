@@ -77,6 +77,7 @@
 			"./profile/mobile/widget/mobile/SplitView",
 			"./profile/mobile/widget/mobile/ScrollHandler",
 			"./profile/mobile/widget/mobile/Drawer",
+			"./profile/mobile/widget/mobile/ToggleSwitch",
 			"./profile/mobile/expose",
 			// Modules to be loaded after
 			"./core/init"
