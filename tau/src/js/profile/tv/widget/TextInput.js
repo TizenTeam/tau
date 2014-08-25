@@ -148,16 +148,15 @@
 				TextInput = function () {
 					MobileTextInput.call(this);
 					BaseKeyboardSupport.call(this);
+
+					this._callbacks = {};
+					this._lastEventLineNumber = 0;
 				},
 				classes = {
 					uiDisabled: ns.widget.mobile.Button.classes.uiDisabled,
 					uiNumberInput: "ui-number-input"
 				},
-				KEY_CODES = {
-					up: 38,
-					down: 40,
-					enter: 13
-				},
+				KEY_CODES = BaseKeyboardSupport.KEY_CODES,
 				prototype = new MobileTextInput();
 
 			TextInput.events = MobileTextInput.events;
@@ -179,32 +178,77 @@
 			};
 
 			prototype._bindEvents = function(element) {
+				var callbacks = this._callbacks;
 
 				if (typeof MobileTextInputPrototype._bindEvents === FUNCTION_TYPE) {
 					MobileTextInputPrototype._bindEvents.call(this, element);
 				}
-				document.addEventListener("keyup", this, false);
+
+				this._bindEventKey();
+
+				callbacks.onKeyupTextarea = onKeyupTextarea.bind(null, this);
 
 				switch (element.type) {
-				case "number":
-					element.addEventListener("keyup", onKeydownInput, false);
-					break;
+					case "number":
+						element.addEventListener("keyup", onKeydownInput, false);
+						break;
+					case "textarea":
+						element.addEventListener("keyup", callbacks.onKeyupTextarea, false);
 				}
 			};
 
 			prototype._destroy = function(element) {
+				var callbacks = this._callbacks;
+
+				switch (element.type) {
+					case "number":
+						element.removeEventListener("keyup", onKeydownInput, false);
+						break;
+					case "textarea":
+						element.removeEventListener("keyup", callbacks.onKeyupTextarea, false);
+				}
+
+				this._destroyEventKey();
 
 				if (typeof MobileTextInputPrototype._destroy === FUNCTION_TYPE) {
 					MobileTextInputPrototype._destroy.call(this, element);
 				}
-
-				switch (element.type) {
-				case "number":
-					element.removeEventListener("keyup", onKeydownInput, false);
-					break;
-				}
-				document.removeEventListener("keyup", this, false);
 			};
+
+			function onKeyupTextarea(self, event) {
+				var textarea = self.element,
+					value = textarea.value,
+					linesNumber = value.split("\n").length,
+					currentLineNumber = value.substr(0, textarea.selectionStart).split("\n").length;
+
+				switch (event.keyCode) {
+					case KEY_CODES.up:
+						// if cursor is not at the first line
+						// or the previous event was not in the first line
+						if (currentLineNumber > 1 || self._lastEventLineNumber !== 1) {
+							// we do not jump to other element
+							event.preventDefault();
+							event.stopPropagation();
+						}
+						break;
+					case KEY_CODES.down:
+						// if cursor is not at the last line
+						// or the previous event was not in the last line
+						if (currentLineNumber < linesNumber || self._lastEventLineNumber !== linesNumber) {
+							// we do not jump to other element
+							event.preventDefault();
+							event.stopPropagation();
+						}
+						break;
+					case KEY_CODES.left:
+					case KEY_CODES.right:
+							// we do not jump to other element
+							event.preventDefault();
+							event.stopPropagation();
+						break;
+				}
+				self._lastEventLineNumber = currentLineNumber;
+			}
 
 			/**
 			 * Method adds span to input.

@@ -42,7 +42,8 @@
 					left: 37,
 					up: 38,
 					right: 39,
-					down: 40
+					down: 40,
+					enter: 13
 				},
 				SELECTORS = ["a", "[tabindex]"],
 				/**
@@ -52,6 +53,7 @@
 				*/
 				REF_COUNTERS = [1, 1];
 
+			BaseKeyboardSupport.KEY_CODES = KEY_CODES;
 			/**
 			 * Get fucused element.
 			 * @method _getFocusesLink
