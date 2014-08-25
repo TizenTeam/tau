@@ -28,3 +28,4 @@ install:
 	cp -av ${LEGACY_ROOT} ${LEGACY}
 	# delete wearable resource
 	rm -rf ${TAU}/wearable
+	rm -rf ${TAU}/tv
