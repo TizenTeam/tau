@@ -27,7 +27,6 @@
 		[
 			"../../../profile/mobile/widget/mobile/TizenSlider",
 			"../../../core/engine",
-			"../../../core/event",
 			"../../../core/theme",
 			"../../../core/util/selectors",
 			"./BaseKeyboardSupport",
@@ -45,9 +44,7 @@
 					self._pageWidget = null;
 					self._callbacks = {};
 				},
-				classes = BaseSlider.classes,
 				selectors = ns.util.selectors,
-				events = ns.event,
 				engine = ns.engine,
 				FUNCTION_TYPE = "function",
 				prototype = new BaseSlider(),
@@ -58,7 +55,7 @@
 					down: 40
 				};
 
-			Slider.classes = classes;
+			Slider.classes = BaseSlider.classes;
 			Slider.prototype = prototype;
 
 			function showPopup(self) {

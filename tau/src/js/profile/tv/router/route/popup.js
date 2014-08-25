@@ -26,7 +26,6 @@
 	define(
 		[
 			"../../../../core/engine",
-			"../../../../core/util/path",
 			"../../../../profile/wearable/router/route",
 			"../../../../profile/wearable/router/route/popup",
 			"../../../../profile/mobile/widget/mobile/Popup"
@@ -43,37 +42,13 @@
 				 */
 				engine = ns.engine,
 				/**
-				 * Alias for {@link ns.util.path}
-				 * @property {Object} path
-				 * @member ns.router.route.popup
-				 * @private
-				 * @static
-				 */
-				path = ns.util.path,
-				/**
-				 * Alias for {@link ns.util.path}
-				 * @property {Object} pathUtils
-				 * @member ns.router.route.popup
-				 * @private
-				 * @static
-				 */
-				pathUtils = ns.util.path,
-				/**
 				 * Alias for {@link ns.util.DOM}
 				 * @property {Object} DOM
 				 * @member ns.router.route.popup
 				 * @private
 				 * @static
 				 */
-				DOM = ns.util.DOM,
-				/**
-				 * Regexp for popup's hash
-				 * @property {RegExp} popupHashKeyReg
-				 * @member ns.router.route.popup
-				 * @private
-				 * @static
-				 */
-				popupHashKeyReg = /([&|\?]popup=true)/;
+				DOM = ns.util.DOM;
 
 
 			/**
@@ -98,7 +73,6 @@
 			routePopup.open = function (toPopup, options) {
 				var popup,
 					router = engine.getRouter(),
-					url = pathUtils.getLocation(),
 					events = routePopup.events,
 					removePopup = function () {
 						document.removeEventListener(events.POPUP_HIDE, removePopup, false);
@@ -111,7 +85,6 @@
 						popup.open(options);
 						routePopup.activePopup = popup;
 					},
-					documentUrl = path.getLocation().replace(popupHashKeyReg, ""),
 					activePage = router.container.getActivePage(),
 					container;
 

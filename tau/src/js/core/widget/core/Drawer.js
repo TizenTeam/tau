@@ -281,7 +281,7 @@
 			};
 
 			/**
-			 * Do translete if position is set to right
+			 * Do translate if position is set to right
 			 * @method _translateRight
 			 * @protected
 			 * @member ns.widget.core.Drawer

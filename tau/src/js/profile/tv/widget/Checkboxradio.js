@@ -132,7 +132,7 @@
 			* Returns label connected to input by htmlFor tag
 			* @param {HTMLElement} parent Input`s parent
 			* @param {string} id Input`s id
-			* @return {HTMLElement?} Label or null if not found
+			* @return {?HTMLElement} Label or null if not found
 			*/
 			function getLabelForInput(parent, id) {
 				var labels = parent.getElementsByTagName("label"),
@@ -155,17 +155,17 @@
 					parent = element.parentNode,
 					label = getLabelForInput(parent, element.id);
 
+				parent.replaceChild(container, element);
+				container.appendChild(element);
+
 				if (label) {
 					label.style.display = "inline-block";
 					if (element.disabled) {
 						// make label not focusable (remove button class)
 						label.className = "";
 					}
+					container.appendChild(label);
 				}
-
-				parent.replaceChild(container, element);
-				container.appendChild(element);
-				container.appendChild(label);
 
 				if ((element.type === "radio") && (!element.disabled)) {
 					container.setAttribute("tabindex", 0);

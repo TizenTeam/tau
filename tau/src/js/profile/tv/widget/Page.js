@@ -70,10 +70,8 @@
 			};
 
 			prototype._build = function(element) {
-				var self = this,
-					header = selectors.getChildrenByClass(element, classes.uiHeader),
-					footer = selectors.getChildrenByClass(element, classes.uiFooter),
-					newElement;
+				var header = selectors.getChildrenByClass(element, classes.uiHeader),
+					footer = selectors.getChildrenByClass(element, classes.uiFooter);
 
 				if (typeof WearablePagePrototype._build === FUNCTION_TYPE) {
 					WearablePagePrototype._build.call(this, element);

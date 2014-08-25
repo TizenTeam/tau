@@ -139,6 +139,7 @@
 			 * Set the state of the popup
 			 * @method _setActive
 			 * @param {boolean} active
+			 * @param {Object} options
 			 * @protected
 			 * @member ns.widget.wearable.Popup
 			 */

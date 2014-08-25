@@ -75,7 +75,7 @@
  *
  * - position: drawer appeared position. Type is <String> and default is "left".
  * - width: drawer width. Type is <Integer> and default is 290.
- * - duration: drawer appreared duration. <Integer> and default is 100.
+ * - duration: drawer appeared duration. <Integer> and default is 100.
  *
  *
 

@@ -55,7 +55,7 @@
 
 			BaseKeyboardSupport.KEY_CODES = KEY_CODES;
 			/**
-			 * Get fucused element.
+			 * Get focussed element.
 			 * @method _getFocusesLink
 			 * @returns {HTMLElement}
 			 * @protected
@@ -126,7 +126,7 @@
 						};
 					});
 					top = linksOffset.filter(function (linkOffset) {
-						// filter only element upper in compre with current element
+						// filter only element upper in compare with current element
 						return linkOffset.offset.top + linkOffset.height <= currentLinkOffset.top;
 					}).sort(function (linkOffset1, linkOffset2) {
 						// sort elements
@@ -227,7 +227,6 @@
 			 *
 			 * This method should be called in _destroy method in widget.
 			 * @method _destroyEventKey
-			 * @param {Event} event
 			 * @protected
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
@@ -294,7 +293,7 @@
 
 			/**
 			 * Registers an active selector.
-			 * @param Selector
+			 * @param {string} selector
 			 * @method registerActiveSelector
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
@@ -309,11 +308,11 @@
 					// such a selector exist - increment reference counter
 					++REF_COUNTERS[index];
 				}
-			}
+			};
 
 			/**
 			 * Unregisters an active selector.
-			 * @param Selector
+			 * @param {string} selector
 			 * @method unregisterActiveSelector
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
@@ -328,7 +327,7 @@
 						REF_COUNTERS.splice(index, 1);
 					}
 				}
-			}
+			};
 
 			ns.widget.tv.BaseKeyboardSupport = BaseKeyboardSupport;
 
