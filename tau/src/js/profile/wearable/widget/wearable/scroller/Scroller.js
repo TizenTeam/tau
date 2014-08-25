@@ -329,6 +329,7 @@
 			prototype._start = function(/* e */) {
 				this.scrolled = false;
 				this.dragging = true;
+				this.scrollCanceled = false;
 				this.startScrollerOffsetX = this.scrollerOffsetX;
 				this.startScrollerOffsetY = this.scrollerOffsetY;
 			};
